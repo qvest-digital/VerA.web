@@ -278,8 +278,9 @@ cal.setDisabledHandler(function(date) {
   // verify date and return true if it has to be disabled
   if (date.getFullYear() == 2004) {
     // disable all dates from 2004
-    return false;
+    return true;
   }
+  return false;
 });
 \end{verbatim}
 
