@@ -12,7 +12,7 @@
  * Read the entire license text here: http://www.gnu.org/licenses/lgpl.html
  */
 
-// $Id: calendar.js,v 1.45 2005/03/05 11:36:35 mishoo Exp $
+// $Id: calendar.js,v 1.46 2005/03/05 14:11:15 mishoo Exp $
 
 /** The Calendar object constructor. */
 Calendar = function (firstDayOfWeek, dateStr, onSelected, onClose) {
@@ -154,7 +154,10 @@ Calendar.addClass = function(el, className) {
 
 Calendar.getElement = function(ev) {
 	if (Calendar.is_ie) {
-		return window.event.srcElement;
+		var fuck = window.event.srcElement;
+		if (fuck.tagName == "DIV")
+			fuck = fuck.parentNode;
+		return fuck;
 	} else {
 		return ev.currentTarget;
 	}
@@ -761,7 +764,7 @@ Calendar.prototype.create = function (_par) {
 		Calendar._add_evs(cell);
 		cell.calendar = cal;
 		cell.navtype = navtype;
-		cell.innerHTML = text;
+		cell.innerHTML = "<div unselectable='on'>" + text + "</div>";
 		return cell;
 	};
 
@@ -1520,6 +1523,8 @@ Calendar.prototype.parseDate = function (str, fmt) {
 };
 
 Calendar.prototype.hideShowCovered = function () {
+	if (!Calendar.is_ie && !Calendar.is_opera)
+		return;
 	var self = this;
 	Calendar.continuation_for_the_fucking_khtml_browser = function() {
 		function getVisib(obj){
