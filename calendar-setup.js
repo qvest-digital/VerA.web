@@ -19,7 +19,7 @@
  * than modifying calendar.js itself).
  */
 
-// $Id: calendar-setup.js,v 1.21 2004/06/13 09:29:55 mishoo Exp $
+// $Id: calendar-setup.js,v 1.22 2004/06/24 16:41:27 mishoo Exp $
 
 /**
  *  This function "patches" an input field (or other element) to use a calendar
@@ -71,6 +71,7 @@ Calendar.setup = function (params) {
 	param_default("singleClick",    true);
 	param_default("disableFunc",    null);
 	param_default("dateStatusFunc", params["disableFunc"]);	// takes precedence if both are defined
+	param_default("dateText",       null);
 	param_default("firstDay",       null);
 	param_default("align",          "Br");
 	param_default("range",          [1900, 2999]);
@@ -139,6 +140,7 @@ Calendar.setup = function (params) {
 		cal.weekNumbers = params.weekNumbers;
 		cal.setRange(params.range[0], params.range[1]);
 		cal.setDateStatusHandler(params.dateStatusFunc);
+		cal.getDateText = params.dateText;
 		if (params.ifFormat) {
 			cal.setDateFormat(params.ifFormat);
 		}
@@ -183,6 +185,7 @@ Calendar.setup = function (params) {
 		cal.setRange(params.range[0], params.range[1]);
 		cal.params = params;
 		cal.setDateStatusHandler(params.dateStatusFunc);
+		cal.getDateText = dateText;
 		cal.setDateFormat(dateFmt);
 		if (mustCreate)
 			cal.create();

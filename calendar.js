@@ -10,7 +10,7 @@
  * Read the entire license text here: http://www.gnu.org/licenses/lgpl.html
  */
 
-// $Id: calendar.js,v 1.39 2004/06/23 11:12:24 mishoo Exp $
+// $Id: calendar.js,v 1.40 2004/06/24 16:41:27 mishoo Exp $
 
 /** The Calendar object constructor. */
 Calendar = function (firstDayOfWeek, dateStr, onSelected, onClose) {
@@ -19,6 +19,7 @@ Calendar = function (firstDayOfWeek, dateStr, onSelected, onClose) {
 	this.currentDateEl = null;
 	this.getDateStatus = null;
 	this.getDateToolTip = null;
+	this.getDateText = null;
 	this.timeout = null;
 	this.onSelected = onSelected || null;
 	this.onClose = onClose || null;
@@ -1086,6 +1087,8 @@ Calendar.prototype._init = function (firstDayOfWeek, date) {
 	var ar_days = new Array();
 	var weekend = Calendar._TT["WEEKEND"];
 	var dates = this.datesCells = {};
+	if (typeof this.getDateText != "function")
+		this.getDateText = function(date, d) { return d; };
 	for (var i = 0; i < 6; ++i, row = row.nextSibling) {
 		var cell = row.firstChild;
 		if (this.weekNumbers) {
@@ -1115,16 +1118,16 @@ Calendar.prototype._init = function (firstDayOfWeek, date) {
 				hasdays = true;
 			}
 			cell.disabled = false;
-			cell.firstChild.data = iday;
+			cell.innerHTML = this.getDateText(date, iday);
 			dates[date.print("%Y%m%d")] = cell;
 			if (typeof this.getDateStatus == "function") {
 				var status = this.getDateStatus(date, year, month, iday);
-			if (typeof this.getDateToolTip == "function") {
-				var toolTip = this.getDateToolTip(date, year, month, iday);
-				if (toolTip) {
-					cell.title = toolTip;
+				if (typeof this.getDateToolTip == "function") {
+					var toolTip = this.getDateToolTip(date, year, month, iday);
+					if (toolTip) {
+						cell.title = toolTip;
+					}
 				}
-			}
 				if (status === true) {
 					cell.className += " disabled";
 					cell.disabled = true;
@@ -1138,9 +1141,9 @@ Calendar.prototype._init = function (firstDayOfWeek, date) {
 				ar_days[ar_days.length] = cell;
 				cell.caldate = new Date(date);
 				cell.ttip = "_";
-				if (!this.multiple && current_month 
+				if (!this.multiple && current_month
 					&& iday == mday && this.hiliteToday) {
-					
+
 					cell.className += " selected";
 					this.currentDateEl = cell;
 				}
