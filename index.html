@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-<!-- $Id: index.html,v 1.13 2004/06/24 16:43:16 mishoo Exp $ -->
+<!-- $Id: index.html,v 1.14 2005/03/05 11:36:35 mishoo Exp $ -->
 
 <head>
 <meta http-equiv="content-type" content="text/xml; charset=utf-8" />
@@ -60,7 +60,7 @@ function selected(cal, date) {
 function closeHandler(cal) {
   cal.hide();                        // hide the calendar
 //  cal.destroy();
-  calendar = null;
+  _dynarch_popupCalendar = null;
 }
 
 // This function shows the calendar under the element having the given id.
@@ -68,9 +68,9 @@ function closeHandler(cal) {
 // calendar if the click was outside.
 function showCalendar(id, format, showsTime, showsOtherMonths) {
   var el = document.getElementById(id);
-  if (calendar != null) {
+  if (_dynarch_popupCalendar != null) {
     // we already have some calendar created
-    calendar.hide();                 // so we hide it first.
+    _dynarch_popupCalendar.hide();                 // so we hide it first.
   } else {
     // first-time call, create the calendar.
     var cal = new Calendar(1, null, selected, closeHandler);
@@ -83,18 +83,18 @@ function showCalendar(id, format, showsTime, showsOtherMonths) {
     if (showsOtherMonths) {
       cal.showsOtherMonths = true;
     }
-    calendar = cal;                  // remember it in the global var
+    _dynarch_popupCalendar = cal;                  // remember it in the global var
     cal.setRange(1900, 2070);        // min/max year allowed.
     cal.create();
   }
-  calendar.setDateFormat(format);    // set the specified date format
-  calendar.parseDate(el.value);      // try to parse the text in field
-  calendar.sel = el;                 // inform it what input field we use
+  _dynarch_popupCalendar.setDateFormat(format);    // set the specified date format
+  _dynarch_popupCalendar.parseDate(el.value);      // try to parse the text in field
+  _dynarch_popupCalendar.sel = el;                 // inform it what input field we use
 
   // the reference element that we pass to showAtElement is the button that
   // triggers the calendar.  In this example we align the calendar bottom-right
   // to the button.
-  calendar.showAtElement(el.nextSibling, "Br");        // show the calendar
+  _dynarch_popupCalendar.showAtElement(el.nextSibling, "Br");        // show the calendar
 
   return false;
 }
@@ -163,9 +163,9 @@ padding: 0px 5px; cursor: default; font-size: 80%; }
 </head>
 <body onload="showFlatCalendar()">
 
-<h2><a href="http://dynarch.com/mishoo/calendar.epl"
-title="Visit the project website">jscalendar</a>-0.9.6
-"Keep cool but don't freeze"</h2>
+<h2><a href="http://www.dynarch.com/projects/calendar/"
+title="Visit the project website">jscalendar</a>-1.0
+"It is happening again"</h2>
 
 <p>
 <div style="float: right; border: 1px solid #b87; padding: 2px; font-size: 90%; background: #ffb;">
@@ -198,13 +198,13 @@ Set it up in minutes:
   <a href="simple-2.html">flat calendar</a>.
 Other samples:
   <a href="simple-3.html">special days</a>,
-  <a href="dayinfo.html">day info</a>
+  <a href="dayinfo.html">day info</a>,
+  <a href="multiple-dates.html">multiple dates selection</a>
 <br />
 Documentation:
   <a href="doc/html/reference.html">HTML</a>,
   <a href="doc/reference.pdf">PDF</a>.
 <br />
-<b style="color: red">Donate!  Keep me on it!  Details on <a href="http://dynarch.com/mishoo/calendar.epl">the Calendar website</a>.</b>
 </p>
 
 <div style="padding-left:20px; font-size: 90%; font-style: italic;">
@@ -262,18 +262,9 @@ double click
 
 </form>
 
-<p>This is release <b>0.9.6</b>.  Works on MSIE/Win 5.0 or better (really),
-Opera 7, Mozilla, Netscape 6.x, 7.0 and all other Gecko-s, Konqueror and
-Safari.</p>
-
-<p class="help">You can click on "Mo"/"Su" (first day name displayed) to
-change the first day of week (Sunday/Monday) (since 0.8 this is also mapped
-on the "-" button in the top-left corner).  Use the navigation buttons
-("&lt;&lt;", "&lt;", "Today", "&gt;", "&gt;&gt;") to move to the prev/next
-year/month.  Keep the mouse button pressed for a short time over one of
-these buttons to get a menu for faster selection.  You can drag the "status
-bar" (that's where the tooltips appear) or title bar (that's where the
-currently selected month/year shows up) to move the whole calendar.</p>
+<p>This is release <b>1.0</b>.  Works on MSIE/Win 5.0 or better (really),
+Opera 7+, Mozilla, Firefox, Netscape 6.x, 7.0 and all other Gecko-s,
+Konqueror and Safari.</p>
 
 <h4>Keyboard navigation</h4>
 
@@ -324,13 +315,13 @@ dates (only for popup calendars; does <em>not</em> work with Opera
       </table>
 
 <hr /><address>
-&copy; <a href="http://dynarch.com">dynarch.com</a> 2002-2003 <br />
-Author: <a href="http://dynarch.com/mishoo/">Mihai
+&copy; <a href="http://www.dynarch.com/">dynarch.com</a> 2002-2005 <br />
+Author: <a href="http://www.bazon.net/mishoo/">Mihai
 Bazon</a><br /> Distributed under the <a
 href="http://www.gnu.org/licenses/lgpl.html">GNU LGPL</a>.</address>
 
-<p style="font-size: smaller">If you use this script on a public page it
-would be nice if you would <a href="mailto:mihai_bazon@yahoo.com">let me
+<p style="font-size: smaller">If you use this script on a public page we
+would love it if you would <a href="http://www.dynarch.com/contact.html">let us
 know</a>.</p>
 
 </body></html>

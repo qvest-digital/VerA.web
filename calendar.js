@@ -12,7 +12,7 @@
  * Read the entire license text here: http://www.gnu.org/licenses/lgpl.html
  */
 
-// $Id: calendar.js,v 1.44 2005/03/05 11:22:40 mishoo Exp $
+// $Id: calendar.js,v 1.45 2005/03/05 11:36:35 mishoo Exp $
 
 /** The Calendar object constructor. */
 Calendar = function (firstDayOfWeek, dateStr, onSelected, onClose) {
@@ -962,11 +962,11 @@ Calendar.prototype.create = function (_par) {
 
 /** keyboard navigation, only for popup calendars */
 Calendar._keyEvent = function(ev) {
-	if (!window.calendar) {
+	if (!window._dynarch_popupCalendar) {
 		return false;
 	}
 	(Calendar.is_ie) && (ev = window.event);
-	var cal = window.calendar;
+	var cal = window._dynarch_popupCalendar;
 	var act = (Calendar.is_ie || ev.type == "keypress");
 	if (ev.ctrlKey) {
 		switch (ev.keyCode) {
@@ -1261,7 +1261,7 @@ Calendar.prototype.destroy = function () {
 	var el = this.element.parentNode;
 	el.removeChild(this.element);
 	Calendar._C = null;
-	window.calendar = null;
+	window._dynarch_popupCalendar = null;
 };
 
 /**
@@ -1278,14 +1278,15 @@ Calendar.prototype.reparent = function (new_parent) {
 // document, if the calendar is shown.  If the click was outside the open
 // calendar this function closes it.
 Calendar._checkCalendar = function(ev) {
-	if (!window.calendar) {
+	var calendar = window._dynarch_popupCalendar;
+	if (!calendar) {
 		return false;
 	}
 	var el = Calendar.is_ie ? Calendar.getElement(ev) : Calendar.getTargetElement(ev);
 	for (; el != null && el != calendar.element; el = el.parentNode);
 	if (el == null) {
 		// calls closeHandler which should hide the calendar.
-		window.calendar.callCloseHandler();
+		window._dynarch_popupCalendar.callCloseHandler();
 		return Calendar.stopEvent(ev);
 	}
 };
@@ -1306,7 +1307,7 @@ Calendar.prototype.show = function () {
 	this.element.style.display = "block";
 	this.hidden = false;
 	if (this.isPopup) {
-		window.calendar = this;
+		window._dynarch_popupCalendar = this;
 		Calendar.addEvent(document, "keydown", Calendar._keyEvent);
 		Calendar.addEvent(document, "keypress", Calendar._keyEvent);
 		Calendar.addEvent(document, "mousedown", Calendar._checkCalendar);
@@ -1775,4 +1776,4 @@ Date.prototype.setFullYear = function(y) {
 
 
 // global object that remembers the calendar
-window.calendar = null;
+window._dynarch_popupCalendar = null;
