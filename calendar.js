@@ -10,7 +10,7 @@
  * Read the entire license text here: http://www.gnu.org/licenses/lgpl.html
  */
 
-// $Id: calendar.js,v 1.37 2004/06/02 20:10:12 mishoo Exp $
+// $Id: calendar.js,v 1.38 2004/06/06 19:36:18 mishoo Exp $
 
 /** The Calendar object constructor. */
 Calendar = function (firstDayOfWeek, dateStr, onSelected, onClose) {
@@ -30,7 +30,7 @@ Calendar = function (firstDayOfWeek, dateStr, onSelected, onClose) {
 	this.ttDateFormat = Calendar._TT["TT_DATE_FORMAT"];
 	this.isPopup = true;
 	this.weekNumbers = true;
-	this.firstDayOfWeek = firstDayOfWeek; // 0 for Sunday, 1 for Monday, etc.
+	this.firstDayOfWeek = typeof firstDayOfWeek == "number" ? firstDayOfWeek : Calendar._FD; // 0 for Sunday, 1 for Monday, etc.
 	this.showsOtherMonths = false;
 	this.dateStr = dateStr;
 	this.ar_days = null;
