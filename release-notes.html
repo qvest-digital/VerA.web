@@ -26,7 +26,19 @@ print $today_time;
     <ul>
 
       <li>Supports time selection.  Yes. ;-) This work has been largely
-        sponsored by <strong>Himanshukumar Shah</strong> (thank you!).</li>
+        sponsored by <strong>Himanshukumar Shah</strong> (thank you!).  See
+        the docs and example files for details on how to setup.</li>
+
+      <li>Easy to link 2 or more fields by using the new
+        <code>onUpdate</code> parameter of <code>Calendar.setup</code>.  This
+        is useful, say, to automatically set a value in a second field based
+        on the value selected in the first field.  See the documentation and
+        first sample in <a href="simple-1.html">simple-1.html</a>.</li>
+
+      <li>Other <code>Calendar.setup</code> low-level parameters, for those
+        wanting to have the complete control: <code>onSelect</code> and
+        <code>onClose</code>.  The handlers are called when something is
+        selected in the calendar or when the calendar is closed.</li>
 
       <li>The translation files can optionally include the short day names
         and the short month names.  That's because in some languages, like
@@ -40,12 +52,15 @@ print $today_time;
         was replaced with the more general <code>setDateStatusHandler</code>
         method (the old one is still available for backwards compatibility but
         <em>will</em> be removed).  More details about this in the
-        documentation.</li>
+        documentation.  Also see <a href="simple-3.html">simple-3.html</a>
+        for a live sample.</li>
 
       <li>Date parsing and formatting engine is now rewritten and supports a
-        subset of the <code>strftime</code> function from ANSI C.  This makes
-        it possible to use dates like "YYYYMMDD" (the corresponding format for
-        this would be "%Y%m%d").  Details in the documentation.</li>
+        subset of <code>strftime</code> format specifiers from ANSI C.  This
+        makes it possible to use dates like "YYYYMMDD" (the corresponding
+        format for this would be "%Y%m%d").  Details in the documentation.
+        <b>Please note that the new engine is not compatibile with older
+          calendar releases!</b></li>
 
       <li>Along with the new date parser I workarounded an unpleasant crash
         that occurred in IE when certain accented characters appeared in the
@@ -96,6 +111,12 @@ print $today_time;
       according to the main calendar-en.js file, then please consider
       translating calendar-en.js and send the translation back to me so that
       I include it in the official distribution.</p>
+
+    <h3>Bug status</h3>
+
+    <p>Check <a
+        href="http://sourceforge.net/tracker/?atid=544285&group_id=75569&func=browse">SourceForge</a>,
+      I didn't keep track.  However, there were a lot of bugfixes.</p>
 
     <h2>0.9.3</h2>    
 
@@ -153,7 +174,7 @@ print $today_time;
     <address><a href="http://dynarch.com/mishoo/">Mihai Bazon</a></address>
 <!-- Created: Tue Jul  8 17:29:37 EEST 2003 -->
 <!-- hhmts start -->
-Last modified on Wed Oct 29 01:47:08 2003
+Last modified on Wed Oct 29 02:37:07 2003
 <!-- hhmts end -->
 <!-- doc-lang: English -->
   </body>

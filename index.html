@@ -4,7 +4,7 @@
      PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 -->
-<!-- $Id: index.html,v 1.1 2003/10/28 23:50:47 mishoo Exp $ -->
+<!-- $Id: index.html,v 1.2 2003/10/29 00:47:35 mishoo Exp $ -->
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ro" lang="ro">
 
 <head>
@@ -82,7 +82,7 @@ function showCalendar(id, format, showsTime) {
     calendar.hide();                 // so we hide it first.
   } else {
     // first-time call, create the calendar.
-    var cal = new Calendar(false, null, selected, closeHandler);
+    var cal = new Calendar(true, null, selected, closeHandler);
     // uncomment the following line to hide the week numbers
     // cal.weekNumbers = false;
     if (typeof showsTime == "string") {
@@ -134,7 +134,7 @@ function showFlatCalendar() {
   var parent = document.getElementById("display");
 
   // construct a calendar giving only the "selected" handler.
-  var cal = new Calendar(false, null, flatSelected);
+  var cal = new Calendar(true, null, flatSelected);
 
   // hide week numbers
   cal.weekNumbers = false;
@@ -168,10 +168,11 @@ padding: 0px 5px; cursor: default; font-size: 80%; }
 </head>
 <body onload="showFlatCalendar()">
 
-<h2><a href="http://dynarch.com/mishoo/calendar.epl" title="Visit the project website">The coolest DHTML calendar</a>, v. 0.9.4 "Your favorite time"</h2>
+<h2><a href="http://dynarch.com/mishoo/calendar.epl" title="Visit the project website">The Coolest DHTML Calendar</a>, v. 0.9.4 "Your favorite time"</h2>
 
-<p>Theme
-[
+<p>
+<div style="float: right; border: 1px solid #b87; padding: 2px; font-size: 90%; background: #ffb;">
+Theme:
 <a href="#" onclick="return setActiveStyleSheet(this, 'winter');">winter</a>
 |
 <a href="#" onclick="return setActiveStyleSheet(this, 'summer');">summer</a>
@@ -190,69 +191,30 @@ padding: 0px 5px; cursor: default; font-size: 80%; }
 <script type="text/javascript">
 setActiveStyleSheet(document.getElementById("defaultTheme"), "win2k-1");
 </script>
-]
+</div>
+<a href="release-notes.html">Release notes</a>.
 <br />
-<a href="release-notes.html">Release notes</a>
-<br />
-Setup a calendar in minutes:
+Set it up in minutes:
   <a href="simple-1.html">popup calendar</a>,
   <a href="simple-2.html">flat calendar</a>.
 <br />
 Documentation:
   <a href="doc/html/reference.html">HTML</a>,
-  <a href="doc/reference.pdf">PDF</a>
+  <a href="doc/reference.pdf">PDF</a>.
+<br />
+<b style="color: red">Donate!  Keep me on it!  Details on <a href="http://dynarch.com/mishoo/calendar.epl">the Calendar website</a>.</b>
 </p>
-
-<div style="
-float: right;
-padding: 5px;
-margin: 5px;
-border: 1px solid #984;
-background: #ed9;
-">
-
-<div style="background: #984; color: #fea;
-font-weight: bold; padding: 2px; text-align: center">
-Flat calendar
-</div>
-
-<p style="width: 12em"><small>A non-popup version will appear below as soon
-as the page is loaded.  Note that it doesn't show the week number.</small></p>
-
-<!-- the calendar will be inserted here -->
-<div id="display"></div>
-<div id="preview" style="font-size: 80%; text-align: center; padding: 2px"></div>
-
-<p style="width: 12em"><small>
-The example above uses the <code>setDisabledHandler()</code> member function
-to setup a handler that would only enable days withing a range of 10 days,
-forward or backward, from the current date.
-</small></p>
-
-</div>
 
 <div style="padding-left:20px; font-size: 90%; font-style: italic;">
 
-<p><span style="color: red">Easy I18N</span>: all messages are separate JS
-files (see <a href="lang/calendar-en.js">calendar-en.js</a> for an example).
-Check the lang directory in your distribution archive to see what languages
-are available. You just need to include the right one from the HTML
-page.</p>
-
-<p><span style="color: red">NOTE:</span> I made the English and Romanian
-versions only.  The other lang files were submitted by people.  I thank them
-very much, and you should too! :) Unfortunately, I lost track of these files
-and the persons who sent them, so if you send me a translation file please
-include a small comment with your name and email address, as you are the
-author.  Also, a statement that the file is distributed under the GNU LGPL
-would be welcome :)</p>
-
 </div>
 
+<table style="width: 100%">
+<tr valign="top">
+<td style="background: #ffa; padding: 5px; border: 1px solid #995;">
+
 <form action="#">
-<div style="background: #ffa; padding: 5px; border: 1px solid #995;">
-<div style="background: #995; color: #ffa;
-font-weight: bold; padding: 2px;">
+<div style="background: #995; color: #ffa; font-weight: bold; padding: 2px;">
 Popup examples
 </div>
 
@@ -260,12 +222,12 @@ Popup examples
 
 <b>Date #1:</b> <input type="text" name="date1" id="sel1" size="30"
 ><input type="reset" value=" ... "
-onclick="return showCalendar('sel1', '%Y-%m-%d [%W] %H:%M', '24');"> [<b>%Y-%m-%d [%W] %H:%M</b>] -- single
+onclick="return showCalendar('sel1', '%Y-%m-%d [%W] %H:%M', '24');"> %Y-%m-%d [%W] %H:%M -- single
 click<br />
 
 <b>Date #2:</b> <input type="text" name="date2" id="sel2" size="30"
 ><input type="reset" value=" ... "
-onclick="return showCalendar('sel2', '%a, %b %e, %Y [%I:%M%p]', '12');"> [<b>%a, %b %e, %Y [%I:%M%p]</b>]
+onclick="return showCalendar('sel2', '%a, %b %e, %Y [%I:%M%p]', '12');"> %a, %b %e, %Y [%I:%M%p]
 -- double click
 
 <br /><br />
@@ -287,16 +249,15 @@ this select should hide when the calendar is above it.
 
 <b>Date #3:</b> <input type="text" name="date3" id="sel3" size="30"
 ><input type="reset" value=" ... "
-onclick="return showCalendar('sel3', '%d/%m/%Y');"> [<b>%d/%m/%Y</b>]
+onclick="return showCalendar('sel3', '%d/%m/%Y');"> %d/%m/%Y
 -- single click
 <br />
 
 <b>Date #4:</b> <input type="text" name="date4" id="sel4" size="30"
 ><input type="reset" value=" ... "
-onclick="return showCalendar('sel4', '%A, %B %e, %Y');"> [<b>%A, %B %e, %Y</b>] --
+onclick="return showCalendar('sel4', '%A, %B %e, %Y');"> %A, %B %e, %Y --
 double click
 
-</div>
 </form>
 
 <p>This is release <b>0.9.4</b>.  Works on MSIE/Win 5.0 or better, Opera 7,
@@ -331,8 +292,38 @@ dates (only for popup calendars; does <em>not</em> work with Opera
 
 </ul>
 
-<hr /><address> Author: <a href="http://dynarch.com/mishoo/">Mihai
-Bazon</a> &copy; 2002-2003<br /> Feel free to use / redistribute under the <a
+          </td>
+
+          <td style="padding: 5px; margin: 5px; border: 1px solid #984; background: #ed9; width: 15em;">
+
+            <div style="background: #984; color: #fea; font-weight: bold; padding: 2px; text-align: center">
+              Flat calendar
+            </div>
+
+            <p style="width: 12em"><small>A non-popup version will appear below as soon
+              as the page is loaded.  Note that it doesn't show the week number.</small></p>
+
+            <!-- the calendar will be inserted here -->
+            <div id="display" style="float: right; clear: both;"></div>
+            <div id="preview" style="font-size: 80%; text-align: center; padding: 2px"></div>
+
+            <p style="width: 12em"><small>
+              The example above uses the <code>setDisabledHandler()</code> member function
+              to setup a handler that would only enable days withing a range of 10 days,
+              forward or backward, from the current date.
+            </small></p>
+
+          </div>
+
+          </td>
+
+        </tr>
+      </table>
+
+<hr /><address>
+&copy; <a href="http://dynarch.com">dynarch.com</a> 2002-2003 <br />
+Author: <a href="http://dynarch.com/mishoo/">Mihai
+Bazon</a><br /> Distributed under the <a
 href="http://www.gnu.org/licenses/lgpl.html">GNU LGPL</a>.</address>
 
 <p style="font-size: smaller">If you use this script on a public page it
