@@ -19,7 +19,7 @@
  * than modifying calendar.js itself).
  */
 
-// $Id: calendar-setup.js,v 1.23 2004/07/21 06:50:14 mishoo Exp $
+// $Id: calendar-setup.js,v 1.24 2005/03/05 15:35:29 mishoo Exp $
 
 /**
  *  This function "patches" an input field (or other element) to use a calendar
@@ -105,13 +105,6 @@ Calendar.setup = function (params) {
 	function onSelect(cal) {
 		var p = cal.params;
 		var update = (cal.dateClicked || p.electric);
-		if (update && p.flat) {
-			if (typeof p.flatCallback == "function")
-				p.flatCallback(cal);
-			else
-				alert("No flatCallback given -- doing nothing.");
-			return false;
-		}
 		if (update && p.inputField) {
 			p.inputField.value = cal.date.print(p.ifFormat);
 			if (typeof p.inputField.onchange == "function")
@@ -119,10 +112,14 @@ Calendar.setup = function (params) {
 		}
 		if (update && p.displayArea)
 			p.displayArea.innerHTML = cal.date.print(p.daFormat);
-		if (update && p.singleClick && cal.dateClicked)
-			cal.callCloseHandler();
 		if (update && typeof p.onUpdate == "function")
 			p.onUpdate(cal);
+		if (update && p.flat) {
+			if (typeof p.flatCallback == "function")
+				p.flatCallback(cal);
+		}
+		if (update && p.singleClick && cal.dateClicked)
+			cal.callCloseHandler();
 	};
 
 	if (params.flat != null) {
