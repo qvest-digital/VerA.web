@@ -1,5 +1,5 @@
 #! /usr/bin/perl -w
-# $Id: make-release.pl,v 1.2 2004/02/06 18:55:20 mishoo Exp $
+# $Id: make-release.pl,v 1.3 2004/02/06 19:39:19 mishoo Exp $
 
 # This script creates a release of the calendar, as a ZIP file.  You _have_ to
 # specify a release version number, such as 0.9.3, in which case the file
@@ -58,7 +58,7 @@ system("cp -v doc/html/*.{html,css,gif,png,jpg,js} $docdir/html");
 
 # copy main calendar files
 print "\033[1;31mCopying the main program files and examples\033[0m\n";
-system("cp -v *.{js,html,gif} README ChangeLog $basedir");
+system("cp -v *.{js,html,gif,php} README ChangeLog $basedir");
 
 # creating "-stripped.js" files (compress JavaScript)
 my $cwd = `pwd`;
