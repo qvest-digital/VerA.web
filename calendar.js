@@ -9,7 +9,7 @@
  * This script is distributed under the GNU General Public License.
  */
 
-// $Id: calendar.js,v 1.17 2003/10/29 00:06:07 mishoo Exp $
+// $Id: calendar.js,v 1.18 2003/10/29 00:31:09 mishoo Exp $
 
 /** The Calendar object constructor. */
 Calendar = function (mondayFirst, dateStr, onSelected, onClose) {
@@ -1606,7 +1606,7 @@ Date.prototype.print = function (str) {
 	s["%P"] = pm ? "pm" : "am";
 	// FIXME: %r : the time in am/pm notation %I:%M:%S %p
 	// FIXME: %R : the time in 24-hour notation %H:%M
-	// FIXME: %s : the number of seconds since epoch
+	s["%s"] = Math.floor(this.getTime() / 1000);
 	s["%S"] = (sec < 10) ? ("0" + sec) : sec; // seconds, range 00 to 59
 	s["%t"] = "\t";		// a tab character
 	// FIXME: %T : the time in 24-hour notation (%H:%M:%S)
