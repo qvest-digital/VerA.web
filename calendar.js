@@ -9,7 +9,7 @@
  * This script is distributed under the GNU General Public License.
  */
 
-// $Id: calendar.js,v 1.18 2003/10/29 00:31:09 mishoo Exp $
+// $Id: calendar.js,v 1.19 2003/11/03 03:52:32 mishoo Exp $
 
 /** The Calendar object constructor. */
 Calendar = function (mondayFirst, dateStr, onSelected, onClose) {
@@ -88,7 +88,13 @@ Calendar.is_khtml = /Konqueror|Safari|KHTML/i.test(navigator.userAgent);
 //        library, at some point.
 
 Calendar.getAbsolutePos = function(el) {
-	var r = { x: el.offsetLeft, y: el.offsetTop };
+	var SL = 0, ST = 0;
+	var is_div = /^div$/i.test(el.tagName);
+	if (is_div && el.scrollLeft) 
+		SL = el.scrollLeft;
+	if (is_div && el.scrollTop) 
+		ST = el.scrollTop;
+	var r = { x: el.offsetLeft - SL, y: el.offsetTop - ST };
 	if (el.offsetParent) {
 		var tmp = Calendar.getAbsolutePos(el.offsetParent);
 		r.x += tmp.x;
