@@ -1,3 +1,8 @@
+/* Distributed as part of The Coolest DHTML Calendar
+   Author: Mihai Bazon, www.bazon.net/mishoo
+   Copyright Dynarch.com 2005, www.dynarch.com
+*/
+
 /* The main calendar widget.  DIV containing a table. */
 
 div.calendar { position: relative; }
