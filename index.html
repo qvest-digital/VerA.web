@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-<!-- $Id: index.html,v 1.8 2004/01/14 15:24:55 mishoo Exp $ -->
+<!-- $Id: index.html,v 1.9 2004/02/04 08:10:38 mishoo Exp $ -->
 
 <head>
 <meta http-equiv="content-type" content="text/xml; charset=utf-8" />
@@ -66,7 +66,7 @@ function closeHandler(cal) {
 // This function shows the calendar under the element having the given id.
 // It takes care of catching "mousedown" signals on document and hiding the
 // calendar if the click was outside.
-function showCalendar(id, format, showsTime) {
+function showCalendar(id, format, showsTime, showsOtherMonths) {
   var el = document.getElementById(id);
   if (calendar != null) {
     // we already have some calendar created
@@ -79,6 +79,9 @@ function showCalendar(id, format, showsTime) {
     if (typeof showsTime == "string") {
       cal.showsTime = true;
       cal.time24 = (showsTime == "24");
+    }
+    if (showsOtherMonths) {
+      cal.showsOtherMonths = true;
     }
     calendar = cal;                  // remember it in the global var
     cal.setRange(1900, 2070);        // min/max year allowed.
@@ -218,7 +221,7 @@ Popup examples
 
 <b>Date #1:</b> <input type="text" name="date1" id="sel1" size="30"
 ><input type="reset" value=" ... "
-onclick="return showCalendar('sel1', '%Y-%m-%d [%W] %H:%M', '24');"> %Y-%m-%d [%W] %H:%M -- single
+onclick="return showCalendar('sel1', '%Y-%m-%d [%W] %H:%M', '24', true);"> %Y-%m-%d [%W] %H:%M -- single
 click<br />
 
 <b>Date #2:</b> <input type="text" name="date2" id="sel2" size="30"
