@@ -1,7 +1,7 @@
-// ** I18N
+ï»¿// ** I18N
 
-// Calendar EN language
-// Author: Mihai Bazon, <mihai_bazon@yahoo.com>
+// Calendar pt-BR language
+// Author: Fernando Dourado, <fernando.dourado@ig.com.br>
 // Encoding: any
 // Distributed under the same terms as the calendar itself.
 
@@ -13,11 +13,11 @@
 Calendar._DN = new Array
 ("Domingo",
  "Segunda",
- "Terça",
+ "TerÃ§a",
  "Quarta",
  "Quinta",
  "Sexta",
- "Sábado",
+ "SabÃ¡do",
  "Domingo");
 
 // Please note that the following array of short day names (and the same goes
@@ -33,21 +33,13 @@ Calendar._DN = new Array
 // this feature.
 
 // short day names
-Calendar._SDN = new Array
-("Dom",
- "Seg",
- "Ter",
- "Qua",
- "Qui",
- "Sex",
- "Sáb",
- "Dom");
+// [No changes using default values]
 
 // full month names
 Calendar._MN = new Array
 ("Janeiro",
  "Fevereiro",
- "Março",
+ "MarÃ§o",
  "Abril",
  "Maio",
  "Junho",
@@ -59,23 +51,11 @@ Calendar._MN = new Array
  "Dezembro");
 
 // short month names
-Calendar._SMN = new Array
-("Jan",
- "Fev",
- "Mar",
- "Abr",
- "Mai",
- "Jun",
- "Jul",
- "Ago",
- "Set",
- "Out",
- "Nov",
- "Dez");
+// [No changes using default values]
 
 // tooltips
 Calendar._TT = {};
-Calendar._TT["INFO"] = "Sobre o calendário";
+Calendar._TT["INFO"] = "Sobre o calendÃ¡rio";
 
 Calendar._TT["ABOUT"] =
 "DHTML Date/Time Selector\n" +
@@ -83,23 +63,27 @@ Calendar._TT["ABOUT"] =
 "For latest version visit: http://dynarch.com/mishoo/calendar.epl\n" +
 "Distributed under GNU LGPL.  See http://gnu.org/licenses/lgpl.html for details." +
 "\n\n" +
-"Date selection:\n" +
-"- Use the \xab, \xbb buttons to select year\n" +
-"- Use the " + String.fromCharCode(0x2039) + ", " + String.fromCharCode(0x203a) + " buttons to select month\n" +
-"- Hold mouse button on any of the above buttons for faster selection.";
-Calendar._TT["ABOUT_TIME"] = "\n\n" +
-"Seleção de hora:\n" +
-"- Clique em qualquer dos campos de tempo para incrementar os valores\n" +
-"- ou clique e pressione shift para decrementar\n" +
-"- ou clique e arraste para seleção rápida.";
+"Translate to portuguese Brazil (pt-BR) by Fernando Dourado (fernando.dourado@ig.com.br)\n" +
+"TraduÃ§Ã£o para o portuguÃªs Brasil (pt-BR) por Fernando Dourado (fernando.dourado@ig.com.br)" +
+"\n\n" +
+"Selecionar data:\n" +
+"- Use as teclas \xab, \xbb para selecionar o ano\n" +
+"- Use as teclas " + String.fromCharCode(0x2039) + ", " + String.fromCharCode(0x203a) + " para selecionar o mÃªs\n" +
+"- Clique e segure com o mouse em qualquer botÃ£o para selecionar rapidamente.";
 
-Calendar._TT["PREV_YEAR"] = "Ano anterior (mantenha para ver menu)";
-Calendar._TT["PREV_MONTH"] = "Mês anterior (mantenha para ver menu)";
-Calendar._TT["GO_TODAY"] = "Hoje";
-Calendar._TT["NEXT_MONTH"] = "Próximo mês (mantenha para ver menu)";
-Calendar._TT["NEXT_YEAR"] = "Próximo ano (mantenha para ver menu)";
-Calendar._TT["SEL_DATE"] = "Selecione a data";
-Calendar._TT["DRAG_TO_MOVE"] = "Arraste para mover";
+Calendar._TT["ABOUT_TIME"] = "\n\n" +
+"Selecionar hora:\n" +
+"- Clique em qualquer uma das partes da hora para aumentar\n" +
+"- ou Shift-clique para diminuir\n" +
+"- ou clique e arraste para selecionar rapidamente.";
+
+Calendar._TT["PREV_YEAR"] = "Ano anterior (clique e segure para menu)";
+Calendar._TT["PREV_MONTH"] = "MÃªs anterior (clique e segure para menu)";
+Calendar._TT["GO_TODAY"] = "Ir para a data atual";
+Calendar._TT["NEXT_MONTH"] = "PrÃ³ximo mÃªs (clique e segure para menu)";
+Calendar._TT["NEXT_YEAR"] = "PrÃ³ximo ano (clique e segure para menu)";
+Calendar._TT["SEL_DATE"] = "Selecione uma data";
+Calendar._TT["DRAG_TO_MOVE"] = "Clique e segure para mover";
 Calendar._TT["PART_TODAY"] = " (hoje)";
 
 // the following is to inform that "%s" is to be the first day of week
@@ -113,11 +97,12 @@ Calendar._TT["WEEKEND"] = "0,6";
 
 Calendar._TT["CLOSE"] = "Fechar";
 Calendar._TT["TODAY"] = "Hoje";
-Calendar._TT["TIME_PART"] = "Clique ou arraste para alterar o valor";
+Calendar._TT["TIME_PART"] = "(Shift-)Clique ou arraste para mudar o valor";
 
 // date formats
 Calendar._TT["DEF_DATE_FORMAT"] = "%d/%m/%Y";
-Calendar._TT["TT_DATE_FORMAT"] = "%a, %b %e";
+Calendar._TT["TT_DATE_FORMAT"] = "%d de %B de %Y";
 
-Calendar._TT["WK"] = "Sem";
+Calendar._TT["WK"] = "sem";
 Calendar._TT["TIME"] = "Hora:";
+
