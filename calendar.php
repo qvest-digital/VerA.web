@@ -71,19 +71,24 @@ class DHTML_Calendar {
         return $code;
     }
 
-    function make_input_field($cal_options = array(), $field_attributes = array()) {
+    function make_input_field($cal_options = array(), $field_attributes = array(), $output = true) {
+        $result = "";
         $id = $this->_gen_id();
         $attrstr = $this->_make_html_attr(array_merge($field_attributes,
                                                       array('id'   => $this->_field_id($id),
                                                             'type' => 'text')));
-        echo '<input ' . $attrstr .'/>';
-        echo '<a href="#" id="'. $this->_trigger_id($id) . '">' .
+        $result.= '<input ' . $attrstr .'/>';
+        $result.= '<a href="#" id="'. $this->_trigger_id($id) . '">' .
             '<img align="middle" border="0" src="' . $this->calendar_lib_path . 'img.gif" alt="" /></a>';
 
         $options = array_merge($cal_options,
                                array('inputField' => $this->_field_id($id),
                                      'button'     => $this->_trigger_id($id)));
-        echo $this->_make_calendar($options);
+        $result.= $this->_make_calendar($options);
+
+        if ($output)
+            echo $output;
+        return $output;
     }
 
     /// PRIVATE SECTION
