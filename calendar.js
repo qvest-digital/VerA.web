@@ -12,7 +12,7 @@
  * Read the entire license text here: http://www.gnu.org/licenses/lgpl.html
  */
 
-// $Id: calendar.js,v 1.42 2005/03/04 12:12:48 mishoo Exp $
+// $Id: calendar.js,v 1.43 2005/03/05 11:13:23 mishoo Exp $
 
 /** The Calendar object constructor. */
 Calendar = function (firstDayOfWeek, dateStr, onSelected, onClose) {
@@ -301,7 +301,7 @@ Calendar.showYearsCombo = function (fwd) {
 	var show = false;
 	for (var i = 12; i > 0; --i) {
 		if (Y >= cal.minYear && Y <= cal.maxYear) {
-			yr.firstChild.data = Y;
+			yr.innerHTML = Y;
 			yr.year = Y;
 			yr.style.display = "block";
 			show = true;
@@ -422,7 +422,7 @@ Calendar.tableMouseOver = function (ev) {
 			} else if ( ++i >= range.length )
 				i = 0;
 		var newval = range[i];
-		el.firstChild.data = newval;
+		el.innerHTML = newval;
 
 		cal.onUpdateTime();
 	}
@@ -510,7 +510,7 @@ Calendar.dayMouseDown = function(ev) {
 	Calendar._C = cal;
 	if (el.navtype != 300) with (Calendar) {
 		if (el.navtype == 50) {
-			el._current = el.firstChild.data;
+			el._current = el.innerHTML;
 			addEvent(document, "mousemove", tableMouseOver);
 		} else
 			addEvent(document, Calendar.is_ie5 ? "mousemove" : "mouseover", tableMouseOver);
@@ -547,7 +547,7 @@ Calendar.dayMouseOver = function(ev) {
 		if (el.ttip.substr(0, 1) == "_") {
 			el.ttip = el.caldate.print(el.calendar.ttDateFormat) + el.ttip.substr(1);
 		}
-		el.calendar.tooltips.firstChild.data = el.ttip;
+		el.calendar.tooltips.innerHTML = el.ttip;
 	}
 	if (el.navtype != 300) {
 		Calendar.addClass(el, "hilite");
@@ -567,7 +567,7 @@ Calendar.dayMouseOut = function(ev) {
 		if (el.caldate)
 			removeClass(el.parentNode, "rowhilite");
 		if (el.calendar)
-			el.calendar.tooltips.firstChild.data = _TT["SEL_DATE"];
+			el.calendar.tooltips.innerHTML = _TT["SEL_DATE"];
 		return stopEvent(ev);
 	}
 };
@@ -672,7 +672,7 @@ Calendar.cellClick = function(el, ev) {
 			return;
 		    case 50:
 			var range = el._range;
-			var current = el.firstChild.data;
+			var current = el.innerHTML;
 			for (var i = range.length; --i >= 0;)
 				if (range[i] == current)
 					break;
@@ -682,7 +682,7 @@ Calendar.cellClick = function(el, ev) {
 			} else if ( ++i >= range.length )
 				i = 0;
 			var newval = range[i];
-			el.firstChild.data = newval;
+			el.innerHTML = newval;
 			cal.onUpdateTime();
 			return;
 		    case 0:
@@ -761,13 +761,7 @@ Calendar.prototype.create = function (_par) {
 		Calendar._add_evs(cell);
 		cell.calendar = cal;
 		cell.navtype = navtype;
-		if (text.substr(0, 1) != "&") {
-			cell.appendChild(document.createTextNode(text));
-		}
-		else {
-			// FIXME: dirty hack for entities
-			cell.innerHTML = text;
-		}
+		cell.innerHTML = text;
 		return cell;
 	};
 
@@ -809,11 +803,10 @@ Calendar.prototype.create = function (_par) {
 	if (this.weekNumbers) {
 		cell = Calendar.createElement("td", row);
 		cell.className = "name wn";
-		cell.appendChild(document.createTextNode(Calendar._TT["WK"]));
+		cell.innerHTML = Calendar._TT["WK"];
 	}
 	for (var i = 7; i > 0; --i) {
 		cell = Calendar.createElement("td", row);
-		cell.appendChild(document.createTextNode(""));
 		if (!i) {
 			cell.navtype = 100;
 			cell.calendar = this;
@@ -830,11 +823,9 @@ Calendar.prototype.create = function (_par) {
 		row = Calendar.createElement("tr", tbody);
 		if (this.weekNumbers) {
 			cell = Calendar.createElement("td", row);
-			cell.appendChild(document.createTextNode(""));
 		}
 		for (var j = 7; j > 0; --j) {
 			cell = Calendar.createElement("td", row);
-			cell.appendChild(document.createTextNode(""));
 			cell.calendar = this;
 			Calendar._add_evs(cell);
 		}
@@ -857,7 +848,7 @@ Calendar.prototype.create = function (_par) {
 			function makeTimePart(className, init, range_start, range_end) {
 				var part = Calendar.createElement("span", cell);
 				part.className = className;
-				part.appendChild(document.createTextNode(init));
+				part.innerHTML = init;
 				part.calendar = cal;
 				part.ttip = Calendar._TT["TIME_PART"];
 				part.navtype = 50;
@@ -882,7 +873,7 @@ Calendar.prototype.create = function (_par) {
 			if (t12 && pm) hrs -= 12;
 			var H = makeTimePart("hour", hrs, t12 ? 1 : 0, t12 ? 12 : 23);
 			var span = Calendar.createElement("span", cell);
-			span.appendChild(document.createTextNode(":"));
+			span.innerHTML = ":";
 			span.className = "colon";
 			var M = makeTimePart("minute", mins, 0, 59);
 			var AP = null;
@@ -899,26 +890,26 @@ Calendar.prototype.create = function (_par) {
 				var mins = this.date.getMinutes();
 				var pm = (hrs > 12);
 				if (pm && t12) hrs -= 12;
-				H.firstChild.data = (hrs < 10) ? ("0" + hrs) : hrs;
-				M.firstChild.data = (mins < 10) ? ("0" + mins) : mins;
+				H.innerHTML = (hrs < 10) ? ("0" + hrs) : hrs;
+				M.innerHTML = (mins < 10) ? ("0" + mins) : mins;
 				if (t12)
-					AP.firstChild.data = pm ? "pm" : "am";
+					AP.innerHTML = pm ? "pm" : "am";
 			};
 
 			cal.onUpdateTime = function() {
 				var date = this.date;
-				var h = parseInt(H.firstChild.data, 10);
+				var h = parseInt(H.innerHTML, 10);
 				if (t12) {
-					if (/pm/i.test(AP.firstChild.data) && h < 12)
+					if (/pm/i.test(AP.innerHTML) && h < 12)
 						h += 12;
-					else if (/am/i.test(AP.firstChild.data) && h == 12)
+					else if (/am/i.test(AP.innerHTML) && h == 12)
 						h = 0;
 				}
 				var d = date.getDate();
 				var m = date.getMonth();
 				var y = date.getFullYear();
 				date.setHours(h);
-				date.setMinutes(parseInt(M.firstChild.data, 10));
+				date.setMinutes(parseInt(M.innerHTML, 10));
 				date.setFullYear(y);
 				date.setMonth(m);
 				date.setDate(d);
@@ -950,7 +941,7 @@ Calendar.prototype.create = function (_par) {
 		var mn = Calendar.createElement("div");
 		mn.className = Calendar.is_ie ? "label-IEfix" : "label";
 		mn.month = i;
-		mn.appendChild(document.createTextNode(Calendar._SMN[i]));
+		mn.innerHTML = Calendar._SMN[i];
 		div.appendChild(mn);
 	}
 
@@ -960,7 +951,6 @@ Calendar.prototype.create = function (_par) {
 	for (i = 12; i > 0; --i) {
 		var yr = Calendar.createElement("div");
 		yr.className = Calendar.is_ie ? "label-IEfix" : "label";
-		yr.appendChild(document.createTextNode(""));
 		div.appendChild(yr);
 	}
 
@@ -1095,7 +1085,7 @@ Calendar.prototype._init = function (firstDayOfWeek, date) {
 		var cell = row.firstChild;
 		if (this.weekNumbers) {
 			cell.className = "day wn";
-			cell.firstChild.data = date.getWeekNumber();
+			cell.innerHTML = date.getWeekNumber();
 			cell = cell.nextSibling;
 		}
 		row.className = "daysrow";
@@ -1165,12 +1155,12 @@ Calendar.prototype._init = function (firstDayOfWeek, date) {
 			row.className = "emptyrow";
 	}
 	this.ar_days = ar_days;
-	this.title.firstChild.data = Calendar._MN[month] + ", " + year;
+	this.title.innerHTML = Calendar._MN[month] + ", " + year;
 	this.onSetTime();
 	this.table.style.visibility = "visible";
 	this._initMultipleDates();
 	// PROFILE
-	// this.tooltips.firstChild.data = "Generated in " + ((new Date()) - today) + " ms";
+	// this.tooltips.innerHTML = "Generated in " + ((new Date()) - today) + " ms";
 };
 
 Calendar.prototype._initMultipleDates = function() {
@@ -1604,7 +1594,7 @@ Calendar.prototype._displayWeekdays = function () {
 		if (weekend.indexOf(realday.toString()) != -1) {
 			Calendar.addClass(cell, "weekend");
 		}
-		cell.firstChild.data = Calendar._SDN[(i + fdow) % 7];
+		cell.innerHTML = Calendar._SDN[(i + fdow) % 7];
 		cell = cell.nextSibling;
 	}
 };
