@@ -1,5 +1,5 @@
 // Author: Hartwig Weinkauf h_weinkauf@gmx.de
-// Feel free to use / redistribute under the GNU GPL.
+// Feel free to use / redistribute under the GNU LGPL.
 // ** I18N
 
 // full day names

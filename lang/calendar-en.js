@@ -81,7 +81,7 @@ Calendar._TT["ABOUT"] =
 "DHTML Date/Time Selector\n" +
 "(c) dynarch.com 2002-2003\n" + // don't translate this this ;-)
 "For latest version visit: http://dynarch.com/mishoo/calendar.epl\n" +
-"Distributed under GNU GPL.  See http://gnu.org/licenses/gpl.html for details." +
+"Distributed under GNU LGPL.  See http://gnu.org/licenses/lgpl.html for details." +
 "\n\n" +
 "Date selection:\n" +
 "- Use the \xab, \xbb buttons to select year\n" +
