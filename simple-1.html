@@ -50,17 +50,13 @@
 activates the calendar.  Default date format is "y/mm/dd".  The calendar
 defaults to "single-click mode".</p>
 
-<p><span style="color:red">Note:</span> for some reason this example works
-only with Mozilla.  It seems that IE and Opera can't set the onclick handler
-correctly for the input field.</p>
-
 <form action="#" method="get">
 <input type="text" name="date" id="f_date_a" />
 </form>
 
 <script type="text/javascript">
     Calendar.setup({
-        inputField     :    "f_date_a",   // id of the input field
+        inputField     :    "f_date_a"   // id of the input field
     });
 </script>
 
