@@ -10,7 +10,7 @@
  * Read the entire license text here: http://www.gnu.org/licenses/lgpl.html
  */
 
-// $Id: calendar.js,v 1.28 2004/02/04 08:08:00 mishoo Exp $
+// $Id: calendar.js,v 1.29 2004/02/06 10:07:43 mishoo Exp $
 
 /** The Calendar object constructor. */
 Calendar = function (firstDayOfWeek, dateStr, onSelected, onClose) {
@@ -1134,7 +1134,7 @@ Calendar.prototype._init = function (firstDayOfWeek, date) {
 					cell.ttip += Calendar._TT["PART_TODAY"];
 				}
 				if (weekend.indexOf(wday.toString()) != -1) {
-					cell.className += " weekend";
+					cell.className += cell.otherMonth ? " oweekend" : " weekend";
 				}
 			}
 		}

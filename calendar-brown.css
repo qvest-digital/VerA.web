@@ -73,7 +73,7 @@ div.calendar { position: relative; }
   font-size: 80%;
   color: #bbb;
 }
-.calendar tbody .day.othermonth.weekend {
+.calendar tbody .day.othermonth.oweekend {
   color: #fbb;
 }
 

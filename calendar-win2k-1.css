@@ -96,7 +96,7 @@
   font-size: 80%;
   color: #aaa;
 }
-.calendar tbody .day.othermonth.weekend {
+.calendar tbody .day.othermonth.oweekend {
   color: #faa;
 }
 
