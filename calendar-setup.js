@@ -19,7 +19,7 @@
  * than modifying calendar.js itself).
  */
 
-// $Id: calendar-setup.js,v 1.17 2004/04/28 08:42:55 mishoo Exp $
+// $Id: calendar-setup.js,v 1.18 2004/05/01 07:52:53 mishoo Exp $
 
 /**
  *  This function "patches" an input field (or other element) to use a calendar
@@ -194,4 +194,6 @@ Calendar.setup = function (params) {
 			cal.showAt(params.position[0], params.position[1]);
 		return false;
 	};
+
+	return cal;
 };
