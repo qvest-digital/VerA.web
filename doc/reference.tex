@@ -25,15 +25,12 @@ document version: 0.1
 \maketitle
 
 {\begin{small}\begin{quote}
+{\begin{flushright}
 \noindent
-This document is the API reference to the version 0.9.3 of the DHTML Calendar
-widget.  For full source code and latest versions please visit
-{\href{http://students.infoiasi.ro/~mishoo/site/calendar.epl}{the calendar
-project page}}.  I think most developers that want to use the calendar will do
-fine by just reading section \ref{sec:quick-start}.  Sections
-\ref{sec:Calendar_overview} and \ref{sec:Calendar_reference} describe in detail
-the API reference and are intended for advanced JavaScript developers that want
-to mess with the calendar code, maybe improving, fixing bugs, etc ;-)
+``Though a program be but three lines of code, someday it will have to be
+maintained.''\\
+--- \emph{The Tao of Programming}
+\end{flushright}}
 \end{quote}\end{small}}
 \tableofcontents
 
@@ -58,15 +55,22 @@ other pages that require the calendar to be always present.
 The calendar is compatible with most popular browsers nowadays.  While it's
 created using web standards and it should generally work with any compliant
 browser, the following browsers were found to work: Mozilla (the main
-development platform), Netscape 6.0 or better, all Gecko-based browsers, Internet Explorer
-5.0 or better \emph{for Windows}\footnote{people report that the calendar does
+development platform), Netscape~6.0 or better, all other Gecko-based browsers,
+Internet Explorer~5.0 or better \emph{for Windows}\footnote{people report that the calendar does
 not work with IE5/Mac.  I don't have access to a Macintosh,
-therefore---sorry---I can't fix it.}, Opera 7\footnote
+therefore---sorry---I can't fix it.}, Opera~7\footnote
         { under Opera 7 the calendar still lacks some functionality, such as
         keyboard navigation; also Opera doesn't seem to allow disabling text
         selection when one drags the mouse on the page; despite all that, the
         calendar is still highly functional under Opera 7 and looks as good as
         in other supported browsers. }.
+
+You can find the latest info and version at the calendar homepage:
+
+\begin{center}
+{\href{http://students.infoiasi.ro/~mishoo/site/calendar.epl}
+{\texttt{http://students.infoiasi.ro/\~{}mishoo/site/calendar.epl}}}
+\end{center}
 
 \subsection{How does this thing work?}
 
@@ -77,14 +81,16 @@ other words, DOM allows dynamic modification of an HTML page through a program.
 JavaScript is our programming language, since that's what browsers like.  CSS
 is a way to make it look good ;-).
 
-The program dynamically creates a \texttt{<table>} element that contains a
-calendar for the given date.  Then it shows this table at a specified position.
-Usually the position is related to some element in which the date needs to be
-displayed/entered.  By assigning a certain CSS class to the table we can
-control the look of the calendar through an external CSS file; therefore, in
-order to change the colors, backgrounds, rollover effects and other stuff, you
-can only change a CSS file---modification of the program itself is not
-necessary.
+Using DOM calls, the program dynamically creates a \texttt{<table>} element
+that contains a calendar for the given date and then inserts it in the document
+body.  Then it shows this table at a specified position.  Usually the position
+is related to some element in which the date needs to be displayed/entered,
+such as an input field.
+
+By assigning a certain CSS class to the table we can control the look of the
+calendar through an external CSS file; therefore, in order to change the
+colors, backgrounds, rollover effects and other stuff, you can only change a
+CSS file---modification of the program itself is not necessary.
 
 \subsection{Project files}
 
@@ -113,7 +119,7 @@ version 0.9.3 this is the recommended way to setup a calendar.
 
 \begin{center}
 \noindent \copyright\ Mihai Bazon, 2002 -- 2003, \texttt{<mishoo@infoiasi.ro>}\\
-\href{http://students.infoiasi.ro/~mishoo/site/calendar.epl}{\texttt{http://students.infoiasi.ro/\~{}mishoo/site/calendar.epl}}\\
+\href{http://students.infoiasi.ro/~mishoo}{\texttt{http://students.infoiasi.ro/\~{}mishoo}}\\
 \end{center}
 
 The calendar is released under the
@@ -232,8 +238,9 @@ Then there is the JavaScript code that sets up the calendar into the
 Following there is the complete list of properties interpreted by
 Calendar.setup.  All of them have default values, so you can pass only those
 which you would like to customize.  Anyway, you \emph{must} pass at least one
-of \texttt{inputField}, \texttt{displayArea} or \texttt{button}.  Otherwise you
-will get a warning message saying that there's nothing to setup.
+of \texttt{inputField}, \texttt{displayArea} or \texttt{button}, for a popup
+calendar, or \texttt{flat} for a flat calendar.  Otherwise you will get a
+warning message saying that there's nothing to setup.
 
 \begin{small}
 \ifx\shipout\undefined
@@ -259,7 +266,7 @@ All (well, almost all) functions and variables are embedded in the JavaScript
 object ``Calendar''.
 
 You can instantiate a \texttt{Calendar} object by calling the constructor, like
-this: \texttt{var cal = new Calendar( ... )}.  We will discuss the parameters
+this: \texttt{var cal = new Calendar(\ldots)}.  We will discuss the parameters
 later.  After creating the object, the variable \texttt{cal} will contain a
 reference to it.  You can use this reference to access further options of the
 calendar, for instance:
@@ -276,10 +283,11 @@ cal.setDisabledHandler(function(date) {
 });
 \end{verbatim}
 
-\noindent etc.  The \texttt{Calendar.setup} function, documented in section
-\ref{sec:quick-start}, does all these things (and even more) in order to setup
-the calendar, based on the parameters that you provided.  Prior to version
-0.9.3 this was the only way to configure it.
+\noindent etc.  Prior to version
+0.9.3 this was the only way to configure it.  The \texttt{Calendar.setup}
+function, documented in section \ref{sec:quick-start}, basically does the same
+things (actually more) in order to setup the calendar, based on the parameters
+that you provided.
 
 \subsection{Creating a calendar}
 
@@ -290,14 +298,14 @@ same):
 \begin{enumerate}
 
 \item \emph{Instantiate} a \texttt{Calendar} object.  Details about this in
-section \ref{sec:Calendar.constructor}
+section \ref{sec:Calendar.constructor}.
 
 \item [optional] Set the \texttt{weekNumbers} property to \texttt{false} if you don't want
 the calendar to display week numbers.  This step must take place \emph{before}
 calling \texttt{Calendar.create}.
 
-\item [optional] Set the range of years available for selection.  The default
-range is [1970..2050].
+\item [optional] Set the range of years available for selection (see section
+\ref{sec:Calendar.setRange}).  The default range is [1970..2050].
 
 \item [optional] Set the \texttt{disabledHandler} property.  You should pass
 here a function that receives a JavaScript \texttt{Date} object and returns
@@ -325,7 +333,7 @@ the input field.
 As you could see in the previous section, there are more steps to be followed
 in order to setup the calendar.  This happens because there are two different
 things that need to be accomplished: first there is the JavaScript object, that
-is created with \texttt{new Calendar(...)}.  Secondly there are the HTML
+is created with \texttt{new Calendar(\ldots)}.  Secondly there are the HTML
 elements that actually lets you see and manipulate the calendar.
 
 {\begin{small}
@@ -349,8 +357,9 @@ otherwise they wouldn't have any effect.  Such a property is
 want the calendar to display the week numbers you have to set it to false.  If,
 however, you do that \emph{after} calling \texttt{Calendar.create} the calendar
 would still display the week numbers, because the HTML elements are already
-created (including the TR in the TABLE element that should contain the week
-numbers).  For this reason the order of the steps above is important.
+created (including the \texttt{<td>}-s in the \texttt{<table>} element that
+should contain the week numbers).  For this reason the order of the steps above
+is important.
 
 Another example is when you want to show the calendar.  The ``create'' function
 does create the HTML elements, but they are initially hidden (have the style
@@ -385,17 +394,12 @@ Calendar object.  When the end-user closes the calendar, our code will only
 call ``\texttt{hide}'' on it, therefore keeping the JavaScript object and the
 HTML elements in place.
 
-This also has some drawbacks, but I can't see a situation where they would be
-really bothering.  For instance, it means that you can't have 2 popup calendars
-shown in the same time.  On the other hand, it would be pointless, since
-clicking outside the calendar closes it, so why having 2? ;-)
-
 \subsection{Callback functions}
 
 You might rightfully wonder how is the calendar related to the input field?
-Where does it know from that is has to update \emph{that} input field when a
-date is selected, or that it has to jump to \emph{that} address when a date is
-clicked in flat mode?
+Who tells it that it has to update \emph{that} input field when a date is
+selected, or that it has to jump to \emph{that} URL when a date is clicked in
+flat mode?
 
 All this magic is done through callback functions.  The calendar doesn't know
 anything about the existence of an input field, nor does it know where to
@@ -409,32 +413,18 @@ The calendar supports the following user callbacks:
 \begin{itemize}
 
 \item [onSelect] --- this gets called when the end-user changes the date in the
-calendar.  It should have the following prototype:
-
-\begin{verbatim}
-function onSelect(calendar, date);
-\end{verbatim}
-
-\noindent \texttt{calendar} is a reference to the calendar object, and
-\texttt{date} is a string with the current date in a certain format that can be
-configurable.
+calendar.  Documented in section \ref{sec:Calendar.onSelect}.
 
 \item [onClose] --- this gets called when the calendar should close.  It's
-user's responsibility to close the calendar.  Following one of the two
-approaches presented in the previous section, it would call
-``calendar.destroy()'' or ``calendar.hide()''.  It receives the variable
-\texttt{calendar} as parameter.
+user's responsibility to close the calendar.  Details in section
+\ref{sec:Calendar.onClose}.
 
 \item [disabledHandler] --- this function gets called for any day in a month,
 just before displaying the month.  It is called with a JavaScript \texttt{Date}
 object and should return \texttt{true} if that date should be disabled
-(not selectable) or false otherwise.
+or false otherwise.  Details in section \ref{sec:Calendar.setDisabledHandler}.
 
 \end{itemize}
-
-The first two are specified when calling the constructor, and the third can be
-set by calling \texttt{setDisabledHandler} (see section
-\ref{sec:Calendar.setDisabledHandler} for details).
 
 
 
@@ -445,7 +435,7 @@ set by calling \texttt{setDisabledHandler} (see section
 
 \subsection{\texttt{Calendar} constructor}\label{sec:Calendar.constructor}
 
-Synopsis:
+\noindent Synopsis:
 
 \begin{verbatim}
 var calendar = Calendar(mondayFirst, date, onSelect, onClose);
@@ -468,7 +458,7 @@ initialize on the given date.
 
 \end{itemize}
 
-\subsubsection{The \texttt{onSelect} event}
+\subsubsection*{The \texttt{onSelect} event}\label{sec:Calendar.onSelect}
 
 Here is a typical implementation of this function:
 
@@ -490,7 +480,7 @@ function onSelect(calendar, date) {
   var input_field = document.getElementById("date");
   input_field.value = date;
   if (calendar.dateClicked) {
-    calendar.callCloseHandler(); // this calls ``onClose'' (see above)
+    calendar.callCloseHandler(); // this calls "onClose" (see above)
   }
 };
 \end{verbatim}
@@ -501,7 +491,7 @@ means that no date was actually selected, but the user only changed the
 month/year using the navigation buttons or the menus.  We don't want to hide
 the calendar in that case.
 
-\subsubsection{The \texttt{onClose} event}
+\subsubsection*{The \texttt{onClose} event}\label{sec:Calendar.onClose}
 
 This event is triggered when the calendar should close.  It should hide or
 destroy the calendar object---the calendar itself just triggers the event, but
@@ -516,7 +506,43 @@ function onClose(calendar) {
 };
 \end{verbatim}
 
-\subsection{\texttt{Calendar.create}}\label{sec:Calendar.create}
+\subsection{Useful member variables (properties)}\label{sec:Calendar.props}
+
+After creating the Calendar object you can access the following properties:
+
+\begin{itemize}
+
+\item \texttt{date} --- is a JavaScript \texttt{Date} object.  It will always
+reflect the date shown in the calendar (yes, even if the calendar is hidden).
+
+\item \texttt{isPopup} --- if this is true then the current Calendar object is
+a popup calendar.  Otherwise (false) we have a flat calendar.  This variable is
+set from \texttt{Calendar.create} and has no meaning before this function was
+called.
+
+\item \texttt{dateClicked} --- particularly useful in the \texttt{onSelect}
+handler, this variable tells us if a date was really clicked.  That's because
+the \texttt{onSelect} handler is called even if the end-user only changed the
+month/year but did not select a date.  We don't want to close the calendar in
+that case.
+
+\item \texttt{weekNumbers} --- if \texttt{true} (default) then the calendar
+displays week numbers.  If you don't want week numbers you have to set this
+variable to \texttt{false} \emph{before} calling \texttt{Calendar.create}.
+
+\item \texttt{mondayFirst} --- if \texttt{true} then the calendar uses Monday
+as first day of week, otherwise Sunday.  This variable is set from constructor,
+but you still have a chance to modify it \emph{before} calling
+\texttt{Calendar.create}.
+
+\end{itemize}
+
+There are lots of other member variables, but one should access them only
+through member functions so I won't document them here.
+
+\subsection{Public methods}
+
+\subsubsection{\texttt{Calendar.create}}\label{sec:Calendar.create}
 
 This function creates the afferent HTML elements that are needed to display the
 calendar.  You should call it after setting the calendar properties.  Synopsis:
@@ -542,7 +568,25 @@ if (calendar.isPopup) {
 }
 \end{verbatim}
 
-\subsection{\texttt{Calendar.setDateFormat}}\label{sec:Calendar.setDateFormat}
+\subsubsection{\texttt{Calendar.callHandler}}\label{sec:Calendar.callHandler}
+
+This function calls the first user callback (the
+\texttt{onSelect} handler) with the required parameters.
+
+\subsubsection{\texttt{Calendar.callCloseHandler}}\label{sec:Calendar.callCloseHandler}
+
+This function calls the second user callback (the
+\texttt{onClose} handler).  It's useful when you want to have a
+``single-click'' calendar---just call this in your \texttt{onSelect} handler,
+if a date was clicked.
+
+\subsubsection{\texttt{Calendar.hide}}\label{sec:Calendar.hide}
+
+Call this function to hide the calendar.  The calendar object and HTML elements
+will not be destroyed, thus you can later call one of the \texttt{show}
+functions on the same element.
+
+\subsubsection{\texttt{Calendar.setDateFormat}}\label{sec:Calendar.setDateFormat}
 
 This function configures the format in which the calendar reports the date to
 your ``onSelect'' handler.  Call it like this:
@@ -578,7 +622,13 @@ format will probably use a ``\%'' prefix, like in \texttt{strftime} from
 ANSI-C, so the format above will be possible to write like this:
 ``\%y\%mm\%dd''.
 
-\subsection{\texttt{Calendar.setDisabledHandler}}\label{sec:Calendar.setDisabledHandler}
+\subsubsection{\texttt{Calendar.setTtDateFormat}}\label{sec:Calendar.setTtDateFormat}
+
+Has the same prototype as \texttt{Calendar.setDateFormat}, but refers to the
+format of the date displayed in the ``status bar'' when the mouse is over some
+date.
+
+\subsubsection{\texttt{Calendar.setDisabledHandler}}\label{sec:Calendar.setDisabledHandler}
 
 This function allows you to specify a callback function that checks if a
 certain date must be disabled by the calendar.  You are responsible to write
@@ -601,15 +651,23 @@ calendar.setDisabledHandler(disallowDate);
 If you change this function in ``real-time'', meaning, without creating a new
 calendar, then you have to call \texttt{calendar.refresh()} to make it
 redisplay the month and take into account the new disabledHandler.
+\texttt{Calendar.setup} does this, so you have no such trouble with it.
 
-\subsection{\texttt{Calendar.show}}\label{sec:Calendar.show}
+Note that \texttt{disallowDate} should be very fast, as it is called for each
+date in the month.  Thus, it gets called, say, 30 times before displaying the
+calendar, and 30 times when the month is changed.  Tests I've done so far show
+that it's still good, but in the future I might switch it to a different design
+(for instance, to call it once per month and to return an array of dates that
+must be disabled).
+
+\subsubsection{\texttt{Calendar.show}}\label{sec:Calendar.show}
 
 Call this function do show the calendar.  It basically sets the CSS ``display''
 property to ``block''.  It doesn't modify the calendar position.
 
 This function only makes sense when the calendar is in popup mode.
 
-\subsection{\texttt{Calendar.showAt}}\label{sec:Calendar.showAt}
+\subsubsection{\texttt{Calendar.showAt}}\label{sec:Calendar.showAt}
 
 Call this to show the calendar at a certain (x, y) position.  Prototype:
 
@@ -624,7 +682,7 @@ coordinates.
 After setting the given coordinates it calls Calendar.show.  This function only
 makes sense when the calendar is in popup mode.
 
-\subsection{\texttt{Calendar.showAtElement}}\label{sec:Calendar.showAtElement}
+\subsubsection{\texttt{Calendar.showAtElement}}\label{sec:Calendar.showAtElement}
 
 This function is useful if you want to display the calendar near some element.
 You call it like this:
@@ -647,10 +705,9 @@ be at the same horizontal position as the left margin of the element).
 
 The characters given for the align parameters are case sensitive.  This
 function only makes sense when the calendar is in popup mode.  After computing
-the position it uses Calendar.showAt to display the calendar there.
+the position it uses \texttt{Calendar.showAt} to display the calendar there.
 
-\subsubsection{Vertical alignment}
-
+\paragraph{Vertical alignment}
 The first character in ``\texttt{align}'' can take one of the following values:
 
 \begin{itemize}
@@ -672,8 +729,7 @@ aligned to the bottom margin of the element).
 
 \end{itemize}
 
-\subsubsection{Horizontal alignment}
-
+\paragraph{Horizontal alignment}
 The second character in ``\texttt{align}'' can take one of the following values:
 
 \begin{itemize}
@@ -695,25 +751,49 @@ calendar aligned to the right margin of the element).
 
 \end{itemize}
 
-\subsubsection{Default values}
-
+\paragraph{Default values}
 If the ``\texttt{align}'' parameter is missing the calendar will choose
 ``\texttt{Bl}''.  This resembles the behavior of older versions (prior to
 0.9.3) which did not support custom alignment.
 
-\subsection{\texttt{Calendar.parseDate}}\label{sec:Calendar.parseDate}
+\subsubsection{\texttt{Calendar.setDate}}\label{sec:Calendar.setDate}
+
+Receives a JavaScript \texttt{Date} object.  Sets the given date in the
+calendar.  If the calendar is visible the new date is displayed immediately.
+
+\begin{verbatim}
+calendar.setDate(new Date()); // go today
+\end{verbatim}
+
+\subsubsection{\texttt{Calendar.setMondayFirst}}\label{sec:Calendar.setMondayFirst}
+
+Changes the first day of week.  If the parameter is \texttt{true} then Monday
+will be the first day of week, otherwise Sunday.
+
+\begin{verbatim}
+calendar.setMondayFirst(false); // use Sunday
+\end{verbatim}
+
+\subsubsection{\texttt{Calendar.parseDate}}\label{sec:Calendar.parseDate}
 
 Use this function to parse a date given as string and to move the calendar to
 that date.
 
 The algorithm tries to parse the date according to the format that was
 previously set with \texttt{Calendar.setDateFormat}; if that fails, it still
-tries to get some valid date out of it, but beware that this might be buggy.
+tries to get some valid date out of it (it doesn't read your thoughts, though).
 
 \begin{verbatim}
 calendar.parseDate("2003/07/06");
 \end{verbatim}
 
+\subsubsection{\texttt{Calendar.setRange}}\label{sec:Calendar.setRange}
+
+Sets the range of years that are allowed in the calendar.  Synopsis:
+
+\begin{verbatim}
+calendar.setRange(1970, 2050);
+\end{verbatim}
 
 
 
@@ -773,19 +853,19 @@ specified in section \ref{sec:Calendar.setDateFormat}.
 
 
 
-\section{Sponsoring, donating, thank you}
+\section{Sponsors}
 
 The following people either sponsored, donated money to the project or bought
-developer licenses (listed in chronological order).  Your name could be here
+developer licenses (listed in reverse chronological order).  Your name could be here
 too!  If you wish to sponsor the project (for instance request a feature and
 pay me for implementing it) or donate some money please
 \emph{please} contact me at \texttt{\href{mailto:mishoo@infoiasi.ro}{mishoo@infoiasi.ro}}.
 
 \begin{itemize}
 
-\item Jon Stokkeland ({\href{http://www.sauen.com}{http://www.sauen.com}})
-
 \item Seyhan Ersoy ({\href{http://www.oocgi.com}{http://www.oocgi.com}})
+
+\item Jon Stokkeland ({\href{http://www.sauen.com}{http://www.sauen.com}})
 
 \end{itemize}
 
