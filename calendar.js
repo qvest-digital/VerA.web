@@ -12,7 +12,7 @@
  * Read the entire license text here: http://www.gnu.org/licenses/lgpl.html
  */
 
-// $Id: calendar.js,v 1.46 2005/03/05 14:11:15 mishoo Exp $
+// $Id: calendar.js,v 1.47 2005/03/05 15:03:16 mishoo Exp $
 
 /** The Calendar object constructor. */
 Calendar = function (firstDayOfWeek, dateStr, onSelected, onClose) {
@@ -1430,6 +1430,7 @@ Calendar.prototype.setTtDateFormat = function (str) {
  *  calls this.setDate which moves the calendar to the given date.
  */
 Calendar.prototype.parseDate = function (str, fmt) {
+	var today = new Date();
 	var y = 0;
 	var m = -1;
 	var d = 0;
@@ -1487,6 +1488,11 @@ Calendar.prototype.parseDate = function (str, fmt) {
 			break;
 		}
 	}
+	if (isNaN(y)) y = today.getFullYear();
+	if (isNaN(m)) m = today.getMonth();
+	if (isNaN(d)) d = today.getDate();
+	if (isNaN(hr)) hr = today.getHours();
+	if (isNaN(min)) min = today.getMinutes();
 	if (y != 0 && m != -1 && d != 0) {
 		this.setDate(new Date(y, m, d, hr, min, 0));
 		return;
@@ -1513,10 +1519,8 @@ Calendar.prototype.parseDate = function (str, fmt) {
 			d = a[i];
 		}
 	}
-	if (y == 0) {
-		var today = new Date();
+	if (y == 0)
 		y = today.getFullYear();
-	}
 	if (m != -1 && d != 0) {
 		this.setDate(new Date(y, m, d, hr, min, 0));
 	}
