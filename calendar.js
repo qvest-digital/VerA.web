@@ -1,16 +1,18 @@
-/*  Copyright Mihai Bazon, 2002, 2003  |  http://dynarch.com/mishoo/
- * ------------------------------------------------------------------
+/*  Copyright Mihai Bazon, 2002-2005  |  www.bazon.net/mishoo
+ * -----------------------------------------------------------
  *
- * The DHTML Calendar, version 0.9.6 "Keep cool but don't freeze"
+ * The DHTML Calendar, version 1.0 "It is happening again"
  *
  * Details and latest version at:
- * http://dynarch.com/mishoo/calendar.epl
+ * www.dynarch.com/projects/calendar
+ *
+ * This script is developed by Dynarch.com.  Visit us at www.dynarch.com.
  *
  * This script is distributed under the GNU Lesser General Public License.
  * Read the entire license text here: http://www.gnu.org/licenses/lgpl.html
  */
 
-// $Id: calendar.js,v 1.41 2004/06/25 09:29:48 mishoo Exp $
+// $Id: calendar.js,v 1.42 2005/03/04 12:12:48 mishoo Exp $
 
 /** The Calendar object constructor. */
 Calendar = function (firstDayOfWeek, dateStr, onSelected, onClose) {
@@ -588,7 +590,7 @@ Calendar.cellClick = function(el, ev) {
 				cal.currentDateEl = el;
 			}
 		}
-		cal.date = new Date(el.caldate);
+		cal.date.setDateOnly(el.caldate);
 		date = cal.date;
 		var other_month = !(cal.dateClicked = !el.otherMonth);
 		if (!other_month && !cal.currentDateEl)
@@ -604,7 +606,9 @@ Calendar.cellClick = function(el, ev) {
 			cal.callCloseHandler();
 			return;
 		}
-		date = (el.navtype == 0) ? new Date() : new Date(cal.date);
+		date = new Date(cal.date);
+		if (el.navtype == 0)
+			date.setDateOnly(new Date()); // TODAY
 		// unless "today" was clicked, we assume no date was clicked so
 		// the selected handler will know not to close the calenar when
 		// in single-click mode.
@@ -683,10 +687,8 @@ Calendar.cellClick = function(el, ev) {
 			return;
 		    case 0:
 			// TODAY will bring us here
-			if ((typeof cal.getDateStatus == "function") && cal.getDateStatus(date, date.getFullYear(), date.getMonth(), date.getDate())) {
-				// remember, "date" was previously set to new
-				// Date() if TODAY was clicked; thus, it
-				// contains today date.
+			if ((typeof cal.getDateStatus == "function") &&
+			    cal.getDateStatus(date, date.getFullYear(), date.getMonth(), date.getDate())) {
 				return false;
 			}
 			break;
@@ -694,7 +696,8 @@ Calendar.cellClick = function(el, ev) {
 		if (!date.equalsTo(cal.date)) {
 			cal.setDate(date);
 			newdate = true;
-		}
+		} else if (el.navtype == 0)
+			newdate = closing = true;
 	}
 	if (newdate) {
 		cal.callHandler();
@@ -1085,7 +1088,7 @@ Calendar.prototype._init = function (firstDayOfWeek, date) {
 	var MN = Calendar._SMN[month];
 	var ar_days = new Array();
 	var weekend = Calendar._TT["WEEKEND"];
-	var dates = this.datesCells = {};
+	var dates = this.multiple ? (this.datesCells = {}) : null;
 	if (typeof this.getDateText != "function")
 		this.getDateText = function(date, d) { return d; };
 	for (var i = 0; i < 6; ++i, row = row.nextSibling) {
@@ -1118,8 +1121,9 @@ Calendar.prototype._init = function (firstDayOfWeek, date) {
 			}
 			cell.disabled = false;
 			cell.innerHTML = this.getDateText(date, iday);
-			dates[date.print("%Y%m%d")] = cell;
-			if (typeof this.getDateStatus == "function") {
+			if (dates)
+				dates[date.print("%Y%m%d")] = cell;
+			if (this.getDateStatus) {
 				var status = this.getDateStatus(date, year, month, iday);
 				if (typeof this.getDateToolTip == "function") {
 					var toolTip = this.getDateToolTip(date, year, month, iday);
@@ -1195,12 +1199,12 @@ Calendar.prototype._toggleMultipleDate = function(date) {
 				Calendar.removeClass(cell, "selected");
 				delete this.multiple[ds];
 			}
-Calendar.prototype.setDateToolTipHandler = function (unaryFunction) {
-	this.getDateToolTip = unaryFunction;
-};
-
 		}
 	}
+};
+
+Calendar.prototype.setDateToolTipHandler = function (unaryFunction) {
+	this.getDateToolTip = unaryFunction;
 };
 
 /**
@@ -1400,8 +1404,8 @@ Calendar.prototype.showAtElement = function (el, opts) {
 		    case "L": p.x -= w; break;
 		    case "R": p.x += el.offsetWidth; break;
 		    case "C": p.x += (el.offsetWidth - w) / 2; break;
-		    case "r": p.x += el.offsetWidth - w; break;
-		    case "l": break; // already there
+		    case "l": p.x += el.offsetWidth - w; break;
+		    case "r": break; // already there
 		}
 		p.width = w;
 		p.height = h + 40;
@@ -1679,13 +1683,22 @@ Date.prototype.getWeekNumber = function() {
 	return Math.round((ms - d.valueOf()) / (7 * 864e5)) + 1;
 };
 
-/** Checks dates equality (ignores time) */
+/** Checks date and time equality */
 Date.prototype.equalsTo = function(date) {
 	return ((this.getFullYear() == date.getFullYear()) &&
 		(this.getMonth() == date.getMonth()) &&
 		(this.getDate() == date.getDate()) &&
 		(this.getHours() == date.getHours()) &&
 		(this.getMinutes() == date.getMinutes()));
+};
+
+/** Set only the year, month, date parts (keep existing time) */
+Date.prototype.setDateOnly = function(date) {
+	var tmp = new Date(date);
+	this.setDate(1);
+	this.setFullYear(tmp.getFullYear());
+	this.setMonth(tmp.getMonth());
+	this.setDate(tmp.getDate());
 };
 
 /** Prints the date in a string according to the given format. */
