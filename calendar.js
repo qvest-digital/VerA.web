@@ -10,7 +10,7 @@
  * Public License, as long as you do not remove or alter this notice.
  */
 
-// $Id: calendar.js,v 1.3 2003/06/22 15:01:21 mishoo Exp $
+// $Id: calendar.js,v 1.4 2003/06/22 16:15:15 mishoo Exp $
 
 /** The Calendar object constructor. */
 Calendar = function (mondayFirst, dateStr, onSelected, onClose) {
@@ -564,6 +564,15 @@ Calendar.cellClick = function(el) {
 		    case 100:
 			cal.setMondayFirst(!cal.mondayFirst);
 			return;
+		    case 0:
+			// TODAY will bring us here
+			if ((typeof cal.checkDisabled == "function") && cal.checkDisabled(date)) {
+				// remember, "date" was previously set to new
+				// Date() if TODAY was clicked; thus, it
+				// contains today date.
+				return false;
+			}
+			break;
 		}
 		if (!date.equalsTo(cal.date)) {
 			cal.setDate(date);
