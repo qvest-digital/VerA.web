@@ -19,7 +19,7 @@
  * than modifying calendar.js itself).
  */
 
-// $Id: calendar-setup.js,v 1.9 2003/11/10 07:52:32 mishoo Exp $
+// $Id: calendar-setup.js,v 1.10 2004/01/14 15:23:49 mishoo Exp $
 
 /**
  *  This function "patches" an input field (or other element) to use a calendar
@@ -151,6 +151,8 @@ Calendar.setup = function (params) {
 			cal.weekNumbers = params.weekNumbers;
 			mustCreate = true;
 		} else {
+			if (params.date)
+				cal.setDate(params.date);
 			cal.hide();
 		}
 		cal.setRange(params.range[0], params.range[1]);
