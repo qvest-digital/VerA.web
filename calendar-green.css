@@ -71,6 +71,12 @@ div.calendar { position: relative; }
   text-align: right;
   padding: 2px 4px 2px 2px;
 }
+.calendar tbody .day.othermonth {
+  color: #bbb;
+}
+.calendar tbody .day.othermonth.weekend {
+  color: #fbb;
+}
 
 .calendar table .wn {
   padding: 2px 3px 2px 2px;

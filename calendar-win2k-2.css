@@ -92,6 +92,12 @@
   text-align: right;
   padding: 2px 4px 2px 2px;
 }
+.calendar tbody .day.othermonth {
+  color: #aaa;
+}
+.calendar tbody .day.othermonth.weekend {
+  color: #faa;
+}
 
 .calendar table .wn {
   padding: 2px 3px 2px 2px;
