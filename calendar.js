@@ -10,7 +10,7 @@
  * Read the entire license text here: http://www.gnu.org/licenses/lgpl.html
  */
 
-// $Id: calendar.js,v 1.36 2004/04/20 17:48:28 mishoo Exp $
+// $Id: calendar.js,v 1.37 2004/06/02 20:10:12 mishoo Exp $
 
 /** The Calendar object constructor. */
 Calendar = function (firstDayOfWeek, dateStr, onSelected, onClose) {
@@ -18,6 +18,7 @@ Calendar = function (firstDayOfWeek, dateStr, onSelected, onClose) {
 	this.activeDiv = null;
 	this.currentDateEl = null;
 	this.getDateStatus = null;
+	this.getDateToolTip = null;
 	this.timeout = null;
 	this.onSelected = onSelected || null;
 	this.onClose = onClose || null;
@@ -36,6 +37,7 @@ Calendar = function (firstDayOfWeek, dateStr, onSelected, onClose) {
 	this.showsTime = false;
 	this.time24 = true;
 	this.yearStep = 2;
+	this.hiliteToday = true;
 	this.multiple = null;
 	// HTML elements
 	this.table = null;
@@ -1117,6 +1119,12 @@ Calendar.prototype._init = function (firstDayOfWeek, date) {
 			dates[date.print("%Y%m%d")] = cell;
 			if (typeof this.getDateStatus == "function") {
 				var status = this.getDateStatus(date, year, month, iday);
+			if (typeof this.getDateToolTip == "function") {
+				var toolTip = this.getDateToolTip(date, year, month, iday);
+				if (toolTip) {
+					cell.title = toolTip;
+				}
+			}
 				if (status === true) {
 					cell.className += " disabled";
 					cell.disabled = true;
@@ -1130,7 +1138,9 @@ Calendar.prototype._init = function (firstDayOfWeek, date) {
 				ar_days[ar_days.length] = cell;
 				cell.caldate = new Date(date);
 				cell.ttip = "_";
-				if (!this.multiple && current_month && iday == mday) {
+				if (!this.multiple && current_month 
+					&& iday == mday && this.hiliteToday) {
+					
 					cell.className += " selected";
 					this.currentDateEl = cell;
 				}
@@ -1183,6 +1193,10 @@ Calendar.prototype._toggleMultipleDate = function(date) {
 				Calendar.removeClass(cell, "selected");
 				delete this.multiple[ds];
 			}
+Calendar.prototype.setDateToolTipHandler = function (unaryFunction) {
+	this.getDateToolTip = unaryFunction;
+};
+
 		}
 	}
 };
