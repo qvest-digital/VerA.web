@@ -6,10 +6,11 @@
  * Details and latest version at:
  * http://dynarch.com/mishoo/calendar.epl
  *
- * This script is distributed under the GNU General Public License.
+ * This script is distributed under the GNU Lesser General Public License.
+ * Read the entire license text here: http://www.gnu.org/licenses/lgpl.html
  */
 
-// $Id: calendar.js,v 1.19 2003/11/03 03:52:32 mishoo Exp $
+// $Id: calendar.js,v 1.20 2003/11/03 04:03:19 mishoo Exp $
 
 /** The Calendar object constructor. */
 Calendar = function (mondayFirst, dateStr, onSelected, onClose) {
