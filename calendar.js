@@ -1,7 +1,7 @@
 /*  Copyright Mihai Bazon, 2002, 2003  |  http://dynarch.com/mishoo/
  * ------------------------------------------------------------------
  *
- * The DHTML Calendar, version 0.9.5 "Your favorite time, bis"
+ * The DHTML Calendar, version 0.9.6 "Keep cool but don't freeze"
  *
  * Details and latest version at:
  * http://dynarch.com/mishoo/calendar.epl
@@ -10,7 +10,7 @@
  * Read the entire license text here: http://www.gnu.org/licenses/lgpl.html
  */
 
-// $Id: calendar.js,v 1.33 2004/02/06 12:11:14 mishoo Exp $
+// $Id: calendar.js,v 1.34 2004/02/06 18:53:11 mishoo Exp $
 
 /** The Calendar object constructor. */
 Calendar = function (firstDayOfWeek, dateStr, onSelected, onClose) {
