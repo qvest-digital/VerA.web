@@ -170,7 +170,7 @@
 
 /* Combo boxes (menus that display months/years for direct selection) */
 
-.combo {
+.calendar .combo {
   position: absolute;
   display: none;
   width: 4em;
@@ -181,26 +181,26 @@
   border-color: ButtonHighlight ButtonShadow ButtonShadow ButtonHighlight;
   background: Menu;
   color: MenuText;
-  font-size: smaller;
+  font-size: 90%;
   padding: 1px;
 }
 
-.combo .label,
-.combo .label-IEfix {
+.calendar .combo .label,
+.calendar .combo .label-IEfix {
   text-align: center;
   padding: 1px;
 }
 
-.combo .label-IEfix {
+.calendar .combo .label-IEfix {
   width: 4em;
 }
 
-.combo .active {
+.calendar .combo .active {
   padding: 0px;
   border: 1px solid #000;
 }
 
-.combo .hilite {
+.calendar .combo .hilite {
   background: Highlight;
   color: HighlightText;
 }
