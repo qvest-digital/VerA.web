@@ -10,7 +10,7 @@
  * Public License, as long as you do not remove or alter this notice.
  */
 
-// $Id: calendar.js,v 1.9 2003/07/02 14:29:27 mishoo Exp $
+// $Id: calendar.js,v 1.10 2003/07/02 16:40:41 mishoo Exp $
 
 /** The Calendar object constructor. */
 Calendar = function (mondayFirst, dateStr, onSelected, onClose) {
@@ -1198,11 +1198,13 @@ Calendar.prototype.hideShowCovered = function () {
 	function getStyleProp(obj, style){
 		var value = obj.style[style];
 		if (!value) {
-			if (document.defaultView) { // Gecko, W3C
+			if (document.defaultView && typeof (document.defaultView.getComputedStyle) == "function") { // Gecko, W3C
 				value = document.defaultView.
 					getComputedStyle(obj, "").getPropertyValue(style);
 			} else if (obj.currentStyle) { // IE
 				value = obj.currentStyle[style];
+			} else {
+				value = obj.style[style];
 			}
 		}
 		return value;
