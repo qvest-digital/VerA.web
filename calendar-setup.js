@@ -19,7 +19,7 @@
  * than modifying calendar.js itself).
  */
 
-// $Id: calendar-setup.js,v 1.11 2004/01/15 06:02:51 mishoo Exp $
+// $Id: calendar-setup.js,v 1.12 2004/01/15 06:11:53 mishoo Exp $
 
 /**
  *  This function "patches" an input field (or other element) to use a calendar
@@ -51,6 +51,7 @@
  *   timeFormat    | the time format; can be "12" or "24", default is "12"
  *   electric      | if true (default) then given fields/date areas are updated for each move; otherwise they're updated only on close
  *   step          | configures the step of the years in drop-down boxes; default: 2
+ *   position      | configures the calendar absolute position; default: null
  *
  *  None of them is required, they all have default values.  However, if you
  *  pass none of "inputField", "displayArea" or "button" you'll get a warning
@@ -82,6 +83,7 @@ Calendar.setup = function (params) {
 	param_default("timeFormat",     "24");
 	param_default("electric",       true);
 	param_default("step",           2);
+	param_default("position",       null);
 
 	var tmp = ["inputField", "displayArea", "button"];
 	for (var i in tmp) {
@@ -166,7 +168,10 @@ Calendar.setup = function (params) {
 			cal.create();
 		cal.parseDate(dateEl.value || dateEl.innerHTML);
 		cal.refresh();
-		cal.showAtElement(params.button || params.displayArea || params.inputField, params.align);
+		if (!params.position)
+			cal.showAtElement(params.button || params.displayArea || params.inputField, params.align);
+		else
+			cal.showAt(params.position[0], params.position[1]);
 		return false;
 	};
 };
