@@ -56,7 +56,7 @@ id="calendar-container"></div>
     8 : [ 21, 11 ]		// special days in September
   };
 
-  function dateIsSpecial(date, year, month, day) {
+  function dateIsSpecial(year, month, day) {
     var m = SPECIAL_DAYS[month];
     if (!m) return false;
     for (var i in m) if (m[i] == day) return true;
@@ -82,7 +82,7 @@ id="calendar-container"></div>
       flat         : "calendar-container", // ID of the parent element
       flatCallback : dateChanged,          // our callback function
       dateStatusFunc : function(date, y, m, d) {
-                         if (dateIsSpecial(date,y,m,d)) return "special";
+                         if (dateIsSpecial(y, m, d)) return "special";
                          else return false; // other dates are disabled
                        }
     }
