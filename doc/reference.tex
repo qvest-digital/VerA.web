@@ -15,19 +15,17 @@
 \title{DHTML Calendar Widget}
 \author{Mihai Bazon, \texttt{<mishoo@infoiasi.ro>}}
 \date{\today\\\vspace{0.2ex}
-{\small
-calendar version: 0.9.4
-}
+{\small calendar version: 0.9.4 ``Your favorite time''}
 }
 
 \begin{document}
-\maketitle
-{\small\verb|$Id: reference.tex,v 1.8 2003/10/15 20:35:39 mishoo Exp $|}
 
+\maketitle
+
+{\small\verb|$Id: reference.tex,v 1.9 2003/10/26 01:07:47 mishoo Exp $|}
 {\begin{small}\begin{quote}
 {\begin{flushright}
 \noindent
-``Select your favorite time''
 \end{flushright}}
 \end{quote}\end{small}}
 \tableofcontents
@@ -123,10 +121,9 @@ version 0.9.3 this is the recommended way to setup a calendar.
 \end{center}
 
 The calendar is released under the
-{\href{http://www.gnu.org/licenses/gpl.html}{GNU Lesser General Public
-License}}.  This basically means that you are allowed to use it for anything you
-like, except selling it for profit or claiming it's authorship.  You can read
-the entire license text {\href{http://www.gnu.org/licenses/gpl.html}{here}}.
+{\href{http://www.gnu.org/licenses/gpl.html}{GNU General Public License}}.  You
+can {\href{http://www.gnu.org/licenses/gpl.html}{read the entire license text
+here}}.
 
 
 
@@ -135,7 +132,7 @@ the entire license text {\href{http://www.gnu.org/licenses/gpl.html}{here}}.
 
 Installing the calendar used to be quite a task until version 0.9.3.  Starting
 with 0.9.3 I have included the file \texttt{calendar-setup.js} whose goal is to
-assist you to setup a popup or flat calendar within minutes.  You are
+assist you to setup a popup or flat calendar in minutes.  You are
 encouraged to modify this file and \emph{not} calendar.js if you need
 extra customization, but you're on your own.
 
@@ -258,7 +255,7 @@ warning message saying that there's nothing to setup.
 \section{The Calendar object overview}\label{sec:Calendar_overview}
 
 Basically you should be able to setup the calendar with the function presented
-in the last section.  However, if for some reason \texttt{Calendar.setup}
+in the previous section.  However, if for some reason \texttt{Calendar.setup}
 doesn't provide all the functionality that you need and you want to tweak into
 the process of creating and configuring the calendar ``by hand'', then this
 section is the way to go.
@@ -276,10 +273,13 @@ calendar, for instance:
 \begin{verbatim}
 cal.weekNumbers = false; // do not display week numbers
 cal.showsTime = true;    // include a time selector
-cal.setDateFormat("%Y.%m.%d"); // set this format: 2003.12.31
-cal.setDisabledHandler(function(date) {
+cal.setDateFormat("%Y.%m.%d %H:%M"); // set this format: 2003.12.31 23:59
+cal.setDisabledHandler(function(date, year, month, day) {
   // verify date and return true if it has to be disabled
-  if (date.getFullYear() == 2004) {
+  // ``date'' is a JS Date object, but if you only need the
+  // year, month and/or day you can get them separately as
+  // next 3 parameters, as you can see in the declaration
+  if (year == 2004) {
     // disable all dates from 2004
     return true;
   }
@@ -297,34 +297,34 @@ that you provided.
 
 The calendar is created by following some steps (even the function
 \texttt{Calendar.setup}, described in section \ref{sec:quick-start}, does the
-same).  While you can skip optional steps if you're happy with the defaults,
-please respect the order below.
+same).  While you can skip optional (marked ``opt'') steps if you're happy with
+the defaults, please respect the order below.
 
 \begin{enumerate}
 
 \item \emph{Instantiate} a \texttt{Calendar} object.  Details about this in
 section \ref{sec:Calendar.constructor}.
 
-\item [optional] Set the \texttt{weekNumbers} property to \texttt{false} if you don't want
+\item [opt] Set the \texttt{weekNumbers} property to \texttt{false} if you don't want
 the calendar to display week numbers.
 
-\item [optional] Set the \texttt{showsTime} property to \texttt{true} if you
+\item [opt] Set the \texttt{showsTime} property to \texttt{true} if you
 want the calendar to also provide a time selector.
 
-\item [optional] Set the \texttt{time24} property to \texttt{false} if you want
+\item [opt] Set the \texttt{time24} property to \texttt{false} if you want
 the time selector to be in 12-hour format.  Default is 24-hour format.  This
 property only has effect if you also set \texttt{showsTime} to
 \texttt{true}.
 
-\item [optional] Set the range of years available for selection (see section
+\item [opt] Set the range of years available for selection (see section
 \ref{sec:Calendar.setRange}).  The default range is [1970..2050].
 
-\item [optional] Set the \texttt{disabledHandler} property.  You should pass
+\item [opt] Set the \texttt{getDateStatus} property.  You should pass
 here a function that receives a JavaScript \texttt{Date} object and returns
 \texttt{true} if the given date should be disabled, false otherwise (details in
 section \ref{sec:Calendar.setDisabledHandler}).
 
-\item [optional] Set a date format.  Your handler function, passed to the
+\item [opt] Set a date format.  Your handler function, passed to the
 calendar constructor, will be called when a date is selected with a reference
 to the calendar and a date string in this format.
 
@@ -333,7 +333,7 @@ practically puts the calendar in your HTML page.  You simply call
 \texttt{Calendar.create()}.  You can give an optional parameter if you wanna
 create a flat calendar (details in section \ref{sec:Calendar.create}).
 
-\item [optional] Initialize the calendar to a certain date, for instance from
+\item [opt] Initialize the calendar to a certain date, for instance from
 the input field.
 
 \item Show the calendar (details in section \ref{sec:Calendar.show}).
@@ -438,10 +438,14 @@ calendar.  Documented in section \ref{sec:Calendar.onSelect}.
 user's responsibility to close the calendar.  Details in section
 \ref{sec:Calendar.onClose}.
 
-\item [disabledHandler] --- this function gets called for any day in a month,
+\item [getDateStatus] --- this function gets called for any day in a month,
 just before displaying the month.  It is called with a JavaScript \texttt{Date}
-object and should return \texttt{true} if that date should be disabled
-or false otherwise.  Details in section \ref{sec:Calendar.setDisabledHandler}.
+object and should return \texttt{true} if that date should be disabled, false
+if it's an ordinary date and no action should be taken, or it can return a
+string in which case the returned value will be appended to the element's CSS
+class (this way it provides a powerful way to make some dates ``special'',
+i.e. highlight them differently).  Details in section
+\ref{sec:Calendar.setDateStatusHandler}.
 
 \end{itemize}
 
@@ -548,6 +552,12 @@ that case.
 \item \texttt{weekNumbers} --- if \texttt{true} (default) then the calendar
 displays week numbers.  If you don't want week numbers you have to set this
 variable to \texttt{false} \emph{before} calling \texttt{Calendar.create}.
+
+\item \texttt{showsTime} -- if you set this to \texttt{true} (it is
+\texttt{false} by default) then the calendar will also include a time selector.
+
+\item \texttt{time24} -- if you set this to \texttt{false} then the time
+selector will be in 12-hour format.  It is in 24-hour format by default.
 
 \item \texttt{mondayFirst} --- if \texttt{true} then the calendar uses Monday
 as first day of week, otherwise Sunday.  This variable is set from constructor,
@@ -687,6 +697,69 @@ calendar, and 30 times when the month is changed.  Tests I've done so far show
 that it's still good, but in the future I might switch it to a different design
 (for instance, to call it once per month and to return an array of dates that
 must be disabled).
+
+This function should be considered deprecated in the favor of
+\texttt{Calendar.setDateStatusHandler}, described below.
+
+\subsubsection{\texttt{Calendar.setDateStatusHandler}}\label{sec:Calendar.setDateStatusHandler}
+
+This function obsoletes \texttt{Calendar.setDisabledHandler}.  You call it with
+a function parameter, but this function can return a boolean
+\emph{or a string}.  If the return value is a boolean (\texttt{true} or
+\texttt{false}) then it behaves just like \texttt{setDisabledHandler},
+therefore disabling the date if the return value is \texttt{true}.
+
+If the returned value is a string then the given date will gain an additional
+CSS class, namely the returned value.  You can use this to highlight some dates
+in some way.  Note that you are responsible for defining the CSS class that you
+return.  If you return the string ``disabled'' then that date will be disabled,
+just as if you returned \texttt{true}.
+
+Here is a simple scenario that shows what you can do with this function.  The
+following should be present in some of your styles, or in the document head in
+a STYLE tag (but put it \emph{after} the place where the calendar styles were
+loaded):
+
+\begin{verbatim}
+.special { background-color: #000; color: #fff; }
+\end{verbatim}
+
+And you would use the following code before calling \texttt{Calendar.create()}:
+
+\begin{verbatim}
+// this table holds your special days, so that we can automatize
+// things a bit:
+var SPECIAL_DAYS = {
+    0 : [ 13, 24 ],             // special days in January
+    2 : [ 1, 6, 8, 12, 18 ],    // special days in March
+    8 : [ 21, 11 ],             // special days in September
+   11 : [ 25, 28 ]              // special days in December
+};
+
+// this function returns true if the passed date is special
+function dateIsSpecial(year, month, day) {
+    var m = SPECIAL_DAYS[month];
+    if (!m) return false;
+    for (var i in m) if (m[i] == day) return true;
+    return false;
+}
+
+// this is the actual date status handler.  Note that it receives the
+// date object as well as separate values of year, month and date, for
+// your confort.
+function dateStatusHandler(date, y, m, d) {
+    if (dateIsSpecial(y, m, d)) return ``special'';
+    else return false;
+    // return true above if you want to disable other dates
+}
+
+// configure it to the calendar
+calendar.setDateStatusHandler(dateStatusHandler);
+\end{verbatim}
+
+The above code adds the ``special'' class name to some dates that are defined
+in the SPECIAL\_DAYS table.  Other dates will simply be displayed as default,
+enabled.
 
 \subsubsection{\texttt{Calendar.show}}\label{sec:Calendar.show}
 

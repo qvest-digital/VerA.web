@@ -18,7 +18,7 @@
   <script type="text/javascript" src="calendar-setup.js"></script>
 
     <style type="text/css">
-      .special { font-weight: bold; }
+      .special { background-color: #000; color: #fff; }
     </style>
 
 </head>
@@ -83,7 +83,8 @@ id="calendar-container"></div>
       flatCallback : dateChanged,          // our callback function
       dateStatusFunc : function(date, y, m, d) {
                          if (dateIsSpecial(y, m, d)) return "special";
-                         else return false; // other dates are disabled
+                         else return false; // other dates are enabled
+                         // return true if you want to disable other dates
                        }
     }
   );

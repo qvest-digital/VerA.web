@@ -1,7 +1,8 @@
 // Author: Hartwig Weinkauf h_weinkauf@gmx.de
-// Feel free to use / redistribute under the GNU LGPL.
+// Feel free to use / redistribute under the GNU GPL.
 // ** I18N
 
+// full day names
 Calendar._DN = new Array
 ("Sonntag",
  "Montag",
@@ -11,6 +12,11 @@ Calendar._DN = new Array
  "Freitag",
  "Samstag",
  "Sonntag");
+
+// short day names only use 2 letters instead of 3
+Calendar._SDN_len = 2;
+
+// full month names
 Calendar._MN = new Array
 ("Januar",
  "Februar",

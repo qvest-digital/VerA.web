@@ -6,15 +6,19 @@
  * Details and latest version at:
  * http://dynarch.com/mishoo/calendar.epl
  *
- * Feel free to use this script under the terms of the GNU Lesser General
- * Public License, as long as you do not remove or alter this notice.
+ * This script is distributed under the GNU General Public License.
  *
  * This file defines helper functions for setting up the calendar.  They are
  * intended to help non-programmers get a working calendar on their site
- * quickly.
+ * quickly.  This script should not be seen as part of the calendar.  It just
+ * shows you what one can do with the calendar, while in the same time
+ * providing a quick and simple method for setting it up.  If you need
+ * exhaustive customization of the calendar creation process feel free to
+ * modify this code to suit your needs (this is recommended and much better
+ * than modifying calendar.js itself).
  */
 
-// $Id: calendar-setup.js,v 1.5 2003/10/07 13:30:31 mishoo Exp $
+// $Id: calendar-setup.js,v 1.6 2003/10/26 01:07:46 mishoo Exp $
 
 /**
  *  This function "patches" an input field (or other element) to use a calendar
@@ -31,7 +35,7 @@
  *   ifFormat      | date format that will be stored in the input field
  *   daFormat      | the date format that will be used to display the date in displayArea
  *   singleClick   | (true/false) wether the calendar is in single click mode or not (default: true)
- *   mondayFirst   | (true/false) if true Monday is the first day of week, Sunday otherwise (default: false)
+ *   mondayFirst   | (true/false) if true Monday is the first day of week, Sunday otherwise (default: true)
  *   align         | alignment (default: "Bl"); if you don't know what's this see the calendar documentation
  *   range         | array with 2 elements.  Default: [1900, 2999] -- the range of years available
  *   weekNumbers   | (true/false) if it's true (default) the calendar will display week numbers
@@ -40,7 +44,10 @@
  *   disableFunc   | function that receives a JS Date object and should return true if that date has to be disabled in the calendar
  *   onSelect      | function that gets called when a date is selected.  You don't _have_ to supply this (the default is generally okay)
  *   onClose       | function that gets called when the calendar is closed.  [default]
+ *   onUpdate      | function that gets called after the date is updated in the input field.  Receives a reference to the calendar.
  *   date          | the date that the calendar will be initially displayed to
+ *   showsTime     | default: false; if true the calendar will include a time selector
+ *   timeFormat    | the time format; can be "12" or "24", default is "12"
  *
  *  None of them is required, they all have default values.  However, if you
  *  pass none of "inputField", "displayArea" or "button" you'll get a warning
@@ -53,12 +60,12 @@ Calendar.setup = function (params) {
 	param_default("displayArea",    null);
 	param_default("button",         null);
 	param_default("eventName",      "click");
-	param_default("ifFormat",       "y/mm/dd");
-	param_default("daFormat",       "y/mm/dd");
+	param_default("ifFormat",       "%Y/%m/%d");
+	param_default("daFormat",       "%Y/%m/%d");
 	param_default("singleClick",    true);
 	param_default("disableFunc",    null);
 	param_default("dateStatusFunc", params["disableFunc"]);	// takes precedence if both are defined
-	param_default("mondayFirst",    false);
+	param_default("mondayFirst",    true);
 	param_default("align",          "Bl");
 	param_default("range",          [1900, 2999]);
 	param_default("weekNumbers",    true);
@@ -66,7 +73,10 @@ Calendar.setup = function (params) {
 	param_default("flatCallback",   null);
 	param_default("onSelect",       null);
 	param_default("onClose",        null);
+	param_default("onUpdate",       null);
 	param_default("date",           null);
+	param_default("showsTime",      false);
+	param_default("timeFormat",     "24");
 
 	var tmp = ["inputField", "displayArea", "button"];
 	for (var i in tmp) {
@@ -97,6 +107,9 @@ Calendar.setup = function (params) {
 		if (cal.params.singleClick && cal.dateClicked) {
 			cal.callCloseHandler();
 		}
+		if (typeof cal.params.onUpdate == "function") {
+			cal.params.onUpdate(cal);
+		}
 	};
 
 	if (params.flat != null) {
@@ -106,6 +119,8 @@ Calendar.setup = function (params) {
 			return false;
 		}
 		var cal = new Calendar(params.mondayFirst, params.date, params.onSelect || onSelect);
+		cal.showsTime = params.showsTime;
+		cal.time24 = (params.timeFormat == "24");
 		cal.params = params;
 		cal.weekNumbers = params.weekNumbers;
 		cal.setRange(params.range[0], params.range[1]);
@@ -120,26 +135,28 @@ Calendar.setup = function (params) {
 		var dateEl = params.inputField || params.displayArea;
 		var dateFmt = params.inputField ? params.ifFormat : params.daFormat;
 		var mustCreate = false;
+		var cal = window.calendar;
 		if (!window.calendar) {
-			window.calendar = new Calendar(params.mondayFirst,
-						       params.date,
-						       params.onSelect || onSelect,
-						       params.onClose || function(cal) { cal.hide(); });
-			window.calendar.weekNumbers = params.weekNumbers;
+			window.calendar = cal = new Calendar(params.mondayFirst,
+							     params.date,
+							     params.onSelect || onSelect,
+							     params.onClose || function(cal) { cal.hide(); });
+			cal.showsTime = params.showsTime;
+			cal.time24 = (params.timeFormat == "24");
+			cal.weekNumbers = params.weekNumbers;
 			mustCreate = true;
 		} else {
-			window.calendar.hide();
+			cal.hide();
 		}
-		window.calendar.setRange(params.range[0], params.range[1]);
-		window.calendar.params = params;
-		window.calendar.setDateStatusHandler(params.dateStatusFunc);
-		window.calendar.setDateFormat(dateFmt);
-		if (mustCreate) {
-			window.calendar.create();
-		}
-		window.calendar.parseDate(dateEl.value || dateEl.innerHTML);
-		window.calendar.refresh();
-		window.calendar.showAtElement(params.displayArea || params.inputField, params.align);
+		cal.setRange(params.range[0], params.range[1]);
+		cal.params = params;
+		cal.setDateStatusHandler(params.dateStatusFunc);
+		cal.setDateFormat(dateFmt);
+		if (mustCreate)
+			cal.create();
+		cal.parseDate(dateEl.value || dateEl.innerHTML);
+		cal.refresh();
+		cal.showAtElement(params.displayArea || params.inputField, params.align);
 		return false;
 	};
 };

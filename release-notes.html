@@ -1,17 +1,109 @@
 <!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 3.2//EN">
 <html>
   <head>
-    <title>jscalendar-0.9.3 release notes</title>
+    <title>jscalendar release notes</title>
+
+    <style type="text/css">
+      h1 { border-bottom: 1px solid #000; }
+      h2 { border-bottom: 1px solid #444; }
+      ul li { margin-top: 0.5em; margin-bottom: 0.5em; }
+    </style>
   </head>
 
   <body>
-    <h1>jscalendar-0.9.3 release notes</h1>
+    <h1>jscalendar release notes</h1>
 
     <p>This release compiled at <%perl>
 use POSIX qw(strftime);
 my $today_time = strftime "%A, %e %b %Y (%H:%M)", localtime;
 print $today_time;
 </%perl>.</p>
+
+    <h2>0.9.4</h2>
+
+    <h3>New stuff</h3>
+
+    <ul>
+
+      <li><strong>This release is covered by GNU GPL.</strong> Yes, that's
+        it.  No more LGPL.  And yes, I removed the "please keep this notice
+        intact" requirement, which is actually covered by GPL itself so I
+        don't see why it wasn't LGPL-compatible but anyway.. lots of people
+        complained about it.</li>
+
+      <li>Supports time selection.  Yes. ;-) This work has been largely
+        sponsored by <strong>Himanshukumar Shah</strong> (thank you!).</li>
+
+      <li>The translation files can optionally include the short day names
+        and the short month names.  That's because in some languages, like
+        German, the short form is not the first 3 letters of the entire name
+        but only the first 2.  Also in other languages short names can't be
+        as easily derived from the full name by just calling substr, so this
+        patch solves the problem.</li>
+
+      <li>Implemented a nice way to make some dates "special" (look
+        different).  Specifically, the <code>setDisabledHandler</code> method
+        was replaced with the more general <code>setDateStatusHandler</code>
+        method (the old one is still available for backwards compatibility but
+        <em>will</em> be removed).  More details about this in the
+        documentation.</li>
+
+      <li>Date parsing and formatting engine is now rewritten and supports a
+        subset of the <code>strftime</code> function from ANSI C.  This makes
+        it possible to use dates like "YYYYMMDD" (the corresponding format for
+        this would be "%Y%m%d").  Details in the documentation.</li>
+
+      <li>Along with the new date parser I workarounded an unpleasant crash
+        that occurred in IE when certain accented characters appeared in the
+        texts.  I think German was one of the language with such problems, and
+        the workaround was to use the letter without an accent.  Well, now you
+        can translate to whatever you want.</li>
+
+      <li>"Fixes" (I mean, "horrible workarounds") for Konqueror (and
+        hopefully Safari).  Unfortunately, this otherwise excellent browser
+        still has some bugs that keep the calendar from working
+        <em>exactly</em> as it should..  But they're going to be fixed,
+        right? ;-)</li>
+
+      <li>CSS themes got pretty much modified too so if you wrote your theme
+        you need to update it.  Aside for the time selector support, the CSS
+        themes contain a simple hack that makes the navigation buttons show
+        a little arrow in the lower-right corner which indicates that if one
+        holds the mouse a menu will appear.</li>
+
+    </ul>
+
+    <h3>Translation files</h3>
+
+    <p>The translation files need to be updated in order for the calendar to
+      work properly.  Currently the only updated files are calendar-en.js
+      (main file) and calendar-ro.js (well, yes, I am a Romanian ;-).</p>
+
+    <p>Specifically, they need the following:</p>
+
+    <ul>
+
+      <li>Correct date format, according with the new format specifiers
+        introduced in 0.9.4.  Details about the available format specifiers
+        in the documentation</li>
+
+      <li>Short day or month names, <em>if required</em>.  If they can be
+        derived by taking the first N letters of the full name then a simple
+        Calendar._SDN_len = N or Calendar._SMN_len = N will suffice.  If N
+        is 3 then nothing needs to be done as we take it for granted if no
+        other option is offered ;-)</li>
+
+      <li>We have some new texts that shows short usage information as well
+        as copyright information.</li>
+
+    </ul>
+
+    <p>If your favorite language is not there yet, or it is but not updated
+      according to the main calendar-en.js file, then please consider
+      translating calendar-en.js and send the translation back to me so that
+      I include it in the official distribution.</p>
+
+    <h2>0.9.3</h2>    
 
     <h3>New stuff</h3>
 
@@ -67,7 +159,7 @@ print $today_time;
     <address><a href="http://dynarch.com/mishoo/">Mihai Bazon</a></address>
 <!-- Created: Tue Jul  8 17:29:37 EEST 2003 -->
 <!-- hhmts start -->
-Last modified on Mon Oct  6 23:04:14 2003
+Last modified on Thu Oct 16 03:25:28 2003
 <!-- hhmts end -->
 <!-- doc-lang: English -->
   </body>

@@ -19,11 +19,11 @@
 \\\hline
 \texttt{ifFormat}
 & string & The format string that will be used to enter the date in the input field. This format will be honored even if the input field is hidden.
-& ``y/mm/dd''
+& ``\%Y/\%m/\%d''
 \\\hline
 \texttt{daFormat}
 & string & Format of the date displayed in the displayArea (if specified).
-& ``y/mm/dd''
+& ``\%Y/\%m/\%d''
 \\\hline
 \texttt{singleClick}
 & boolean & Wether the calendar is in ``single-click mode'' or ``double-click mode''. If true (the default) the calendar will be created in single-click mode.
@@ -32,11 +32,28 @@
 \texttt{disableFunc}
 & function & A function that receives a JS Date object.  It should return
 \texttt{true} if that date has to be disabled, \texttt{false} otherwise.
+{\color{red} DEPRECATED (see below).}
+& null
+\\\hline
+\texttt{dateStatusFunc}
+& function & A function that receives a JS Date object and returns a boolean
+or a string.  This function allows one to set a certain CSS class to some
+date, therefore making it look different.  If it returns \texttt{true} then
+the date will be disabled.  If it returns \texttt{false} nothing special
+happens with the given date.  If it returns a string then that will be taken
+as a CSS class and appended to the date element.  If this string is
+``disabled'' then the date is also disabled (therefore is like returning
+\texttt{true}).  For more information please also refer to section
+\ref{sec:Calendar.setDateStatusHandler}.
 & null
 \\\hline
 \texttt{mondayFirst}
-& boolean & If ``true'' then the calendar will display with Monday being the first day of week.
-& false
+& boolean & If \texttt{true} (default) then the calendar will display with
+Monday being the first day of week.  If \texttt{false} then Sunday will be
+the first day of week.  This has changed from default \texttt{false} to
+default \texttt{true} because the ISO 8601 defines week as starting Monday
+and this definition is used for computing the week number.
+& true
 \\\hline
 \texttt{weekNumbers}
 & boolean & If ``true'' then the calendar will display week numbers.
@@ -66,3 +83,31 @@ will be called when the date in the calendar is changed with a reference to
 the calendar object.  See section \ref{sec:quick-start-flat} for an example
 of how to setup a flat calendar.
 & null
+\\\hline
+\texttt{onSelect}
+& function & If you provide a function handler here then you have to manage
+the ``click-on-date'' event by yourself.  Look in the calendar-setup.js and
+take as an example the onSelect handler that you can see there.
+& null
+\\\hline
+\texttt{onClose}
+& function & This handler will be called when the calendar needs to close.
+You don't need to provide one, but if you do it's your responsibility to
+hide/destroy the calendar.  You're on your own.  Check the calendar-setup.js
+file for an example.
+& null
+\\\hline
+\texttt{date}
+& date & This allows you to setup an initial date where the calendar will be
+positioned to.  If absent then the calendar will open to the today date.
+& null
+\\\hline
+\texttt{showsTime}
+& boolean & If this is set to \texttt{true} then the calendar will also
+allow time selection.
+& false
+\\\hline
+\texttt{timeFormat}
+& string & Set this to ``12'' or ``24'' to configure the way that the
+calendar will display time.
+& ``24''
