@@ -40,7 +40,7 @@ Calendar._TT["ABOUT"] =
 "- Tineþi butonul mouse-ului apãsat pentru selecþie mai rapidã.";
 Calendar._TT["ABOUT_TIME"] = "\n\n" +
 "Selecþia orei:\n" +
-"- Chick pe ora sau minut pentru a mãri valoarea cu 1\n" +
+"- Click pe ora sau minut pentru a mãri valoarea cu 1\n" +
 "- Sau Shift-Click pentru a micºora valoarea cu 1\n" +
 "- Sau Click ºi drag pentru a selecta mai repede.";
 
