@@ -10,7 +10,7 @@
  * Public License, as long as you do not remove or alter this notice.
  */
 
-// $Id: calendar.js,v 1.10 2003/07/02 16:40:41 mishoo Exp $
+// $Id: calendar.js,v 1.11 2003/07/08 18:51:41 mishoo Exp $
 
 /** The Calendar object constructor. */
 Calendar = function (mondayFirst, dateStr, onSelected, onClose) {
@@ -681,7 +681,7 @@ Calendar.prototype.create = function (_par) {
 	this._nav_nm.ttip = Calendar._TT["NEXT_MONTH"];
 
 	this._nav_ny = hh("&#x00bb;", 1, 2);
-	this._nav_ny.ttip = Calendar._TT["NEXT_YEAR"]
+	this._nav_ny.ttip = Calendar._TT["NEXT_YEAR"];
 
 	// day names
 	row = Calendar.createElement("tr", thead);
