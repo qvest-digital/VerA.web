@@ -10,7 +10,7 @@
  * Read the entire license text here: http://www.gnu.org/licenses/lgpl.html
  */
 
-// $Id: calendar.js,v 1.26 2004/01/15 06:02:34 mishoo Exp $
+// $Id: calendar.js,v 1.27 2004/01/27 22:31:21 mishoo Exp $
 
 /** The Calendar object constructor. */
 Calendar = function (mondayFirst, dateStr, onSelected, onClose) {
@@ -400,9 +400,9 @@ Calendar.tableMouseOver = function (ev) {
 				break;
 		while (count-- > 0)
 			if (decrease) {
-				if (!range.contains(--i))
+				if (--i < 0)
 					i = range.length - 1;
-			} else if (!range.contains(++i))
+			} else if ( ++i >= range.length )
 				i = 0;
 		var newval = range[i];
 		el.firstChild.data = newval;
@@ -656,9 +656,9 @@ Calendar.cellClick = function(el, ev) {
 				if (range[i] == current)
 					break;
 			if (ev && ev.shiftKey) {
-				if (!range.contains(--i))
+				if (--i < 0)
 					i = range.length - 1;
-			} else if (!range.contains(++i))
+			} else if ( ++i >= range.length )
 				i = 0;
 			var newval = range[i];
 			el.firstChild.data = newval;
@@ -1371,20 +1371,7 @@ Calendar.prototype.parseDate = function (str, fmt) {
 	if (!fmt) {
 		fmt = this.dateFormat;
 	}
-	var b = [];
-	if (!Calendar.is_ie5)
-		fmt.replace(/(%.)/g, function(str, par) {
-			return b[b.length] = par;
-		});
-	else (function() {	// protect variables
-		// OK, once more: IE5 SUCKS!
-		var i = 50;	// make sure we don't go in endless loop here
-		var a;
-		while ((a = /(%.)/.exec(fmt)) && --i > 0) {
-			b[b.length] = a[0];
-			fmt = fmt.substr(0, a.index) + fmt.substr(a.index + a[0].length);
-		}
-	})();
+	var b = fmt.match(/%./g);
 	var i = 0, j = 0;
 	var hr = 0;
 	var min = 0;
@@ -1684,44 +1671,25 @@ Date.prototype.print = function (str) {
 	s["%y"] = ('' + y).substr(2, 2); // year without the century (range 00 to 99)
 	s["%Y"] = y;		// year with the century
 	s["%%"] = "%";		// a literal '%' character
-	var re = Date._msh_formatRegexp;
-	if (typeof re == "undefined") {
-		var tmp = "";
-		for (var i in s)
-			tmp += tmp ? ("|" + i) : i;
-		Date._msh_formatRegexp = re = new RegExp("(" + tmp + ")", 'g');
-	}
+
+	var re = /%./g;
 	if (!Calendar.is_ie5)
-		return str.replace(re, function(match, par) { return s[par]; });
-	else {
-		// do I have to tell you one more time that IE5 sucks?  no, but
-		// it seems that I can't help it.. ;-)
-		var i = 50;	// make sure we don't go in endless loop here
-		var a;
-		while ((a = re.exec(str)) && --i > 0)
-			// str = RegExp.leftContext + RegExp.$1 + RegExp.rightContext;
-			str = str.substr(0, a.index) + s[a[0]] + str.substr(a.index + a[0].length);
-		return str;
+		return str.replace(re, function (par) { return s[par] || par; });
+
+	var a = str.match(re);
+	for (var i = 0; i < a.length; i++) {
+		var tmp = s[a[i]];
+		if (tmp) {
+			re = new RegExp(a[i], 'g');
+			str = str.replace(re, tmp);
+		}
 	}
+
+	return str;
 };
 
 // END: DATE OBJECT PATCHES
 
-// BEGIN: ARRAY OBJECT PATCHES (mainly for IE5)
-
-Array.prototype.contains = function(element) {
-	try {
-		return eval("element in this");
-	} catch (e) {
-		// the sucking IE5 here
-		for (var i = this.length; --i >= 0;)
-			if (i == element)
-				return true;
-		return false;
-	}
-};
-
-// END: ARRAY OBJECT PATCHES
 
 // global object that remembers the calendar
 window.calendar = null;
