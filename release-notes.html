@@ -11,6 +11,10 @@
   </head>
 
   <body>
+    <div style="float: right; border: 1px solid #000; background: #fff; padding: 10px; ">
+      <a href="http://www.dynarch.com/projects/calendar/">The Coolest DHTML Calendar</a><br />
+      © <a href="http://www.dynarch.com/">Dynarch.com</a> 2002 and later.
+    </div>
     <h1>jscalendar release notes</h1>
 
     <p>This release compiled at <%perl>
@@ -67,6 +71,16 @@ print $today_time;
       <li>
         <b>Bug fixes.</b>
         <ul>
+          <li>
+            Keyboard operation now functions normally when the
+            calendar is displaying days from adjacent months; it might
+            even work correctly for months containing disabled dates
+            :).  This fix was originally developed under contract for
+            <a
+            href="http://www.zapatec.com/website/main/products/prod1/">The
+            Zapatec Calendar</a>.  Zapatec kindly allowed us to
+            include the bugfixes back in the open source calendar.
+          </li>
           <li>
             Fixed the time selection bug: the previous version would
             reset the time to current time when a new date was
