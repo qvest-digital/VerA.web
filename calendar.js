@@ -10,7 +10,7 @@
  * Public License, as long as you do not remove or alter this notice.
  */
 
-// $Id: calendar.js,v 1.4 2003/06/22 16:15:15 mishoo Exp $
+// $Id: calendar.js,v 1.5 2003/06/24 08:22:04 mishoo Exp $
 
 /** The Calendar object constructor. */
 Calendar = function (mondayFirst, dateStr, onSelected, onClose) {
@@ -826,6 +826,7 @@ Calendar._keyEvent = function(ev) {
 			Calendar.removeClass(el, "selected");
 			Calendar.addClass(ne, "selected");
 			cal.date.setDate(ne.caldate);
+			cal.callHandler();
 			cal.currentDateEl = ne;
 		}
 		break;
@@ -988,7 +989,6 @@ Calendar.prototype.destroy = function () {
 	var el = this.element.parentNode;
 	el.removeChild(this.element);
 	Calendar._C = null;
-	delete el;
 };
 
 /**
