@@ -19,7 +19,7 @@
  * than modifying calendar.js itself).
  */
 
-// $Id: calendar-setup.js,v 1.12 2004/01/15 06:11:53 mishoo Exp $
+// $Id: calendar-setup.js,v 1.13 2004/01/15 10:46:51 mishoo Exp $
 
 /**
  *  This function "patches" an input field (or other element) to use a calendar
@@ -97,27 +97,26 @@ Calendar.setup = function (params) {
 	}
 
 	function onSelect(cal) {
-		var update = (cal.dateClicked || params.electric);
-		if (update && cal.params.flat) {
-			if (typeof cal.params.flatCallback == "function") {
-				cal.params.flatCallback(cal);
-			} else {
+		var p = cal.params;
+		var update = (cal.dateClicked || p.electric);
+		if (update && p.flat) {
+			if (typeof p.flatCallback == "function")
+				p.flatCallback(cal);
+			else
 				alert("No flatCallback given -- doing nothing.");
-			}
 			return false;
 		}
-		if (update && cal.params.inputField) {
-			cal.params.inputField.value = cal.date.print(cal.params.ifFormat);
+		if (update && p.inputField) {
+			p.inputField.value = cal.date.print(p.ifFormat);
+			if (typeof p.inputField.onchange == "function")
+				p.inputField.onchange();
 		}
-		if (update && cal.params.displayArea) {
-			cal.params.displayArea.innerHTML = cal.date.print(cal.params.daFormat);
-		}
-		if (update && cal.params.singleClick && cal.dateClicked) {
+		if (update && p.displayArea)
+			p.displayArea.innerHTML = cal.date.print(p.daFormat);
+		if (update && p.singleClick && cal.dateClicked)
 			cal.callCloseHandler();
-		}
-		if (update && typeof cal.params.onUpdate == "function") {
-			cal.params.onUpdate(cal);
-		}
+		if (update && typeof p.onUpdate == "function")
+			p.onUpdate(cal);
 	};
 
 	if (params.flat != null) {
