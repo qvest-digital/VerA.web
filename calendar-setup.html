@@ -1,0 +1,160 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 3.2//EN">
+<html>
+  <head>
+    <title>calendar-setup.js documentation</title>
+  </head>
+
+  <body>
+    <h1><tt>calendar-setup.js</tt></h1>
+
+    <blockquote>
+      <p>
+        This file provides an easy way to setup the calendar.  It defines a
+        helper function that does all the needed stuff, including creating
+        <em>select</em> and <em>close</em> handlers and patching the input
+        field or the button to open a popup calendar when clicked.  It can
+        create a single-click or double-click popup calendar.  It can work
+        with a hidden field, in which case you are advised ;-) to display
+        the current date in another element (also supported through this
+        function).
+      </p>
+      <p>
+        Note that this file is only useful for creating popup calendars.
+        For creating a flat calendar you still need to go with the "classic"
+        method, presented in <a href="cal.html">the main demo</a> file.
+      </p>
+    </blockquote>
+
+    <h3>Function prototype</h3>
+
+    <pre
+>Calendar.setup( parameters );
+</pre>
+
+    <p>Here is an example of how could you call it.  For more demos visit <a
+    href="simple-1.html">simple-1.html</a> and check its source.</p>
+
+    <blockquote>
+    <pre
+>&lt;input type="text" id="data" name="data" /&gt;&lt;button id="trigger"&gt;...&lt;/button&gt;
+
+&lt;script type="text/javascript"&gt;
+  Calendar.setup(
+    {
+      inputField  : "data",    // ID of the input field
+      ifFormat    : "M d, y",  // the date format
+      button      : "trigger"  // ID of the button that triggers the calendar
+    }
+  );
+&lt;/script&gt;
+</pre>
+    </blockquote>
+
+    <p>Following there is the complete list of properties.  Note that they
+    are not directly parameters to the function.  Instead, the function
+    receives only one parameter&mdash;a JavaScript object.  The properties
+    are then members of this object.  I used this because it looks much
+    better than simply passing comma-separated parameters that have no name.
+    As you might notice ;-) the idea comes from Perl.</p>
+
+    <table style="border-collapse: collapse; margin: 0px 5em" cellspacing="0" cellpadding="6"
+      border="0">
+      <thead>
+        <tr align="left" style="border-bottom: 1px solid #333">
+          <th>property</th>
+          <th>description</th>
+          <th style="width:8em">default value</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="border-bottom: 1px solid #aaa">
+          <td><tt>inputField</tt></td>
+          <td>[ string ] The ID of your input field.</td>
+          <td>null</td>
+        </tr>
+        <tr style="border-bottom: 1px solid #aaa">
+          <td><tt>displayArea</tt></td>
+          <td>[ string ] This is the ID of a &lt;span&gt;, &lt;div&gt;, or any other
+            element that you would like to use to display the current date.
+            This is generally useful only if the input field is hidden, as an
+            area to display the date.</td>
+          <td>null</td>
+        </tr>
+        <tr style="border-bottom: 1px solid #aaa">
+          <td><tt>button</tt></td>
+          <td>[ string ] The ID of the calendar "trigger".  This is an element
+            (ordinarily a button or an image) that will dispatch a certain
+            event (usually "click") to the function that creates and displays
+            the calendar.</td>
+          <td>null</td>
+        </tr>
+        <tr style="border-bottom: 1px solid #aaa">
+          <td><tt>eventName</tt></td>
+          <td>[ string ] The name of the event that will trigger the calendar.  The name
+            should be without the "on" prefix, such as "click" instead of
+            "onclick".  Virtually all users will want to let this have the
+            default value ("click").  Anyway, it could be useful if, say,
+            you want the calendar to appear when the input field is focused
+            and have no trigger button (in this case use "focus" as the
+            event name).</td>
+          <td>"click"</td>
+        </tr>
+        <tr style="border-bottom: 1px solid #aaa">
+          <td><tt>ifFormat</tt></td>
+          <td>[ string ] The format string that will be used to enter the date in the
+            input field.  This format will be honored even if the input
+            field is hidden.</td>
+          <td>"y/mm/dd"</td>
+        </tr>
+        <tr style="border-bottom: 1px solid #aaa">
+          <td><tt>daFormat</tt></td>
+          <td>[ string ] Format of the date displayed in the displayArea (if
+            specified).</td>
+          <td>"y/mm/dd"</td>
+        </tr>
+        <tr style="border-bottom: 1px solid #aaa">
+          <td><tt>singleClick</tt></td>
+          <td>[ boolean ] Wether the calendar is in "single-click mode" or
+            "double-click mode".  If true (the default) the calendar will be
+            created in single-click mode.</td>
+          <td>true</td>
+        </tr>
+        <tr style="border-bottom: 1px solid #aaa">
+          <td><tt>mondayFirst</tt></td>
+          <td>[ boolean ] If "true" then the calendar will display with
+            Monday being the first day of week.</td>
+          <td>false</td>
+        </tr>
+        <tr style="border-bottom: 1px solid #aaa">
+          <td><tt>align</tt></td>
+          <td>[ string ] Alignment of the calendar, relative to the reference element.
+            The reference element is dynamically chosen like this: if a
+            displayArea is specified then it will be the reference element.
+            Otherwise, the input field is the reference element.<br />
+            For the meaning of the alignment characters please see the
+            calendar documentation.
+          </td>
+          <td>"Bl"</td>
+        </tr>
+        <tr>
+          <td><tt>range</tt></td>
+          <td>[ array ] An array having exactly 2 elements, integers. (!)
+            The first [0] element is the minimum year that is available, and the
+            second [1] element is the maximum year that the calendar will
+            allow.</td>
+          <td>[1900, 2999]</td>
+        </tr>
+      </tbody>
+    </table>
+
+    
+
+    <hr />
+    <address><a href="http://students.infoiasi.ro/~mishoo/">Mihai Bazon</a></address>
+<!-- Created: Thu Jul  3 19:21:47 EEST 2003 -->
+<!-- hhmts start -->
+Last modified on Thu Jul  3 21:07:15 2003
+<!-- hhmts end -->
+<!-- doc-lang: English -->
+  </body>
+</html>
