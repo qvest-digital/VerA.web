@@ -10,7 +10,7 @@
  * Read the entire license text here: http://www.gnu.org/licenses/lgpl.html
  */
 
-// $Id: calendar.js,v 1.22 2003/11/05 17:30:12 mishoo Exp $
+// $Id: calendar.js,v 1.23 2004/01/13 21:52:44 mishoo Exp $
 
 /** The Calendar object constructor. */
 Calendar = function (mondayFirst, dateStr, onSelected, onClose) {
@@ -97,7 +97,7 @@ Calendar.getAbsolutePos = function(el) {
 		ST = el.scrollTop;
 	var r = { x: el.offsetLeft - SL, y: el.offsetTop - ST };
 	if (el.offsetParent) {
-		var tmp = Calendar.getAbsolutePos(el.offsetParent);
+		var tmp = this.getAbsolutePos(el.offsetParent);
 		r.x += tmp.x;
 		r.y += tmp.y;
 	}
@@ -474,7 +474,7 @@ Calendar.calDragEnd = function (ev) {
 	cal.dragging = false;
 	with (Calendar) {
 		removeEvent(document, "mousemove", calDragIt);
-		removeEvent(document, "mouseover", stopEvent);
+		// removeEvent(document, "mouseover", stopEvent);
 		removeEvent(document, "mouseup", calDragEnd);
 		tableMouseUp(ev);
 	}
@@ -490,11 +490,12 @@ Calendar.dayMouseDown = function(ev) {
 	cal.activeDiv = el;
 	Calendar._C = cal;
 	if (el.navtype != 300) with (Calendar) {
-		if (el.navtype == 50)
+		if (el.navtype == 50) {
 			el._current = el.firstChild.data;
+			addEvent(document, "mousemove", tableMouseOver);
+		} else
+			addEvent(document, "mouseover", tableMouseOver);
 		addClass(el, "hilite active");
-		addEvent(document, "mouseover", tableMouseOver);
-		addEvent(document, "mousemove", tableMouseOver);
 		addEvent(document, "mouseup", tableMouseUp);
 	} else if (cal.isPopup) {
 		cal._dragStart(ev);
@@ -1517,7 +1518,7 @@ Calendar.prototype._dragStart = function (ev) {
 	this.yOffs = posY - parseInt(st.top);
 	with (Calendar) {
 		addEvent(document, "mousemove", calDragIt);
-		addEvent(document, "mouseover", stopEvent);
+		// addEvent(document, "mouseover", stopEvent);
 		addEvent(document, "mouseup", calDragEnd);
 	}
 };
