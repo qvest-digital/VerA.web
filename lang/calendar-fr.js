@@ -9,6 +9,8 @@
 // Unicode is the answer to a real internationalized world.  Also please
 // include your contact information in the header, as can be seen above.
 
+// Translator: David Duret, <pilgrim@mala-template.net> from previous french version
+
 // full day names
 Calendar._DN = new Array
 ("Dimanche",
@@ -34,11 +36,11 @@ Calendar._DN = new Array
 
 // short day names
 Calendar._SDN = new Array
-("Dim",
- "Lun",
+("Lun",
  "Mar",
  "Mer",
  "Jeu",
+ "Thu",
  "Ven",
  "Sam",
  "Dim");
@@ -46,60 +48,60 @@ Calendar._SDN = new Array
 // full month names
 Calendar._MN = new Array
 ("Janvier",
- "F\xE9vrier",
+ "Février",
  "Mars",
  "Avril",
  "Mai",
  "Juin",
  "Juillet",
- "Ao\xFBt",
+ "Août",
  "Septembre",
  "Octobre",
  "Novembre",
- "D\xE9cembre");
+ "Décembre");
 
 // short month names
 Calendar._SMN = new Array
 ("Jan",
- "F\xE9v",
+ "Fev",
  "Mar",
  "Avr",
  "Mai",
  "Juin",
  "Juil",
- "Ao\xFB",
+ "Aout",
  "Sep",
  "Oct",
  "Nov",
- "D\xE9c");
+ "Dec");
 
 // tooltips
 Calendar._TT = {};
 Calendar._TT["INFO"] = "A propos du calendrier";
 
 Calendar._TT["ABOUT"] =
-"DHTML Date/Time Selector\n" +
+"DHTML Date/Heure Selecteur\n" +
 "(c) dynarch.com 2002-2003\n" + // don't translate this this ;-)
-"Pour la derni\xE8re version visitez: http://dynarch.com/mishoo/calendar.epl\n" +
-"Distribu\xE9 sous licence GNU LGPL.  Voir http://gnu.org/licenses/lgpl.html pour les d\xE9tails." +
+"Pour la derniere version visitez : http://dynarch.com/mishoo/calendar.epl\n" +
+"Distribué par GNU LGPL.  Voir http://gnu.org/licenses/lgpl.html pour les details." +
 "\n\n" +
-"S\xE9lection de la date:\n" +
-"- Utilisez les boutons \xab, \xbb pour s\xE9lectionner l\' ann\xE9e\n" +
-"- Utilisez les boutons " + String.fromCharCode(0x2039) + ", " + String.fromCharCode(0x203a) + " pour s\xE9lectionner le mois\n" +
-"- Gardez la souris enfonc\xE9e sur n'importe quel bouton pour une s\xE9lection plus rapide";
+"Selection de la date :\n" +
+"- Utiliser les bouttons \xab, \xbb  pour selectionner l\'annee\n" +
+"- Utiliser les bouttons " + String.fromCharCode(0x2039) + ", " + String.fromCharCode(0x203a) + " pour selectionner les mois\n" +
+"- Garder la souris sur n'importe quels boutons pour une selection plus rapide";
 Calendar._TT["ABOUT_TIME"] = "\n\n" +
-"S\xE9lection de l'heure:\n" +
-"- Cliquez sur heure ou minute pour incr\xE9menter\n" +
-"- Gardez Maj enfonc\xE9 pour d\xE9cr\xE9menter\n" +
-"- ou clic et glisser d\xE9placer pour une s\xE9lection plus rapide.";
+"Selection de l\'heure :\n" +
+"- Cliquer sur heures ou minutes pour incrementer\n" +
+"- ou Maj-clic pour decrementer\n" +
+"- ou clic et glisser deplacer pour une selection plus rapide";
 
-Calendar._TT["PREV_YEAR"] = "Ann\xE9e pr\xE9c. (maintenir pour menu)";
-Calendar._TT["PREV_MONTH"] = "Mois pr\xE9c. (maintenir pour menu)";
-Calendar._TT["GO_TODAY"] = "Atteindre aujourd'hui";
+Calendar._TT["PREV_YEAR"] = "Année préc. (maintenir pour menu)";
+Calendar._TT["PREV_MONTH"] = "Mois préc. (maintenir pour menu)";
+Calendar._TT["GO_TODAY"] = "Atteindre la date du jour";
 Calendar._TT["NEXT_MONTH"] = "Mois suiv. (maintenir pour menu)";
-Calendar._TT["NEXT_YEAR"] = "Ann\xE9e suiv. (maintenir pour menu)";
-Calendar._TT["SEL_DATE"] = "S\xE9lectionnez une date";
-Calendar._TT["DRAG_TO_MOVE"] = "D\xE9placer";
+Calendar._TT["NEXT_YEAR"] = "Année suiv. (maintenir pour menu)";
+Calendar._TT["SEL_DATE"] = "Sélectionner une date";
+Calendar._TT["DRAG_TO_MOVE"] = "Déplacer";
 Calendar._TT["PART_TODAY"] = " (Aujourd'hui)";
 
 // the following is to inform that "%s" is to be the first day of week
@@ -113,11 +115,11 @@ Calendar._TT["WEEKEND"] = "0,6";
 
 Calendar._TT["CLOSE"] = "Fermer";
 Calendar._TT["TODAY"] = "Aujourd'hui";
-Calendar._TT["TIME_PART"] = "(Maj-)Clic ou glisser-d\xE9placer pour changer la valeur";
+Calendar._TT["TIME_PART"] = "(Shift-)Click ou glisser pour modifier la valeur";
 
 // date formats
-Calendar._TT["DEF_DATE_FORMAT"] = "%Y-%m-%d";
-Calendar._TT["TT_DATE_FORMAT"] = "%A %e %B %Y";
+Calendar._TT["DEF_DATE_FORMAT"] = "%d/%m/%Y";
+Calendar._TT["TT_DATE_FORMAT"] = "%a, %b %e";
 
-Calendar._TT["WK"] = "sem.";
-Calendar._TT["TIME"] = "Heure:";
+Calendar._TT["WK"] = "Sem.";
+Calendar._TT["TIME"] = "Heure :";
