@@ -1,0 +1,28 @@
+html { margin: 0px 8% 3em 8%; background-color: #fff; color: #444; font-family: georgia,serif; }
+
+a:link, a:visited { text-decoration: none; color: #00f; }
+a:hover { color: #f00; text-decoration: underline; }
+a:active { color: #f84; }
+
+h1, h2, h3, h4, h5, h6 { font-family: tahoma,verdana,sans-serif; }
+
+h2, h3 { font-weight: normal; }
+
+h1 a:hover, h2 a:hover, h3 a:hover, h4 a:hover, h5 a:hover, h6 a:hover { text-decoration: none; }
+
+h1 { font-size: 170%; border-bottom: 1px solid #999; letter-spacing: 2px; color: #000; }
+h2 { font-size: 140%; color: #222; }
+h3 { font-size: 120%; color: #444; }
+
+h1.title { font-size: 300%; font-family: georgia,serif; font-weight: normal; color: #c46; letter-spacing: -1px; }
+
+.colophon { padding-top: 2em; color: #999; font-size: 90%; font-family: georgia,"times new roman",serif; }
+.colophon a:link, .colophon a:visited { color: #755; }
+.colophon a:hover { color: #422; text-decoration: underline; }
+
+.footnote { font-size: 90%; font-style: italic; font-family: georgia,"times new roman",serif; margin: 0px 3em; }
+.footnote sup { font-size: 120%; padding: 0px 0.3em; position: relative; top: -0.2em; }
+
+.small { font-size: 90%; }
+
+.verbatim { background-color: #eee; padding: 0.2em 1em; }

@@ -1,0 +1,68 @@
+\textbf{property} & \textbf{type} & \textbf{description} & \textbf{default}
+\\\hline\hline
+\endhead
+\texttt{inputField}
+& string & The ID of your input field.
+& null
+\\\hline
+\texttt{displayArea}
+& string & This is the ID of a $<$span$>$, $<$div$>$, or any other element that you would like to use to display the current date. This is generally useful only if the input field is hidden, as an area to display the date.
+& null
+\\\hline
+\texttt{button}
+& string & The ID of the calendar ``trigger''. This is an element (ordinarily a button or an image) that will dispatch a certain event (usually ``click'') to the function that creates and displays the calendar.
+& null
+\\\hline
+\texttt{eventName}
+& string & The name of the event that will trigger the calendar. The name should be without the ``on'' prefix, such as ``click'' instead of ``onclick''. Virtually all users will want to let this have the default value (``click''). Anyway, it could be useful if, say, you want the calendar to appear when the input field is focused and have no trigger button (in this case use ``focus'' as the event name).
+& ``click''
+\\\hline
+\texttt{ifFormat}
+& string & The format string that will be used to enter the date in the input field. This format will be honored even if the input field is hidden.
+& ``y/mm/dd''
+\\\hline
+\texttt{daFormat}
+& string & Format of the date displayed in the displayArea (if specified).
+& ``y/mm/dd''
+\\\hline
+\texttt{singleClick}
+& boolean & Wether the calendar is in ``single-click mode'' or ``double-click mode''. If true (the default) the calendar will be created in single-click mode.
+& true
+\\\hline
+\texttt{disableFunc}
+& function & A function that receives a JS Date object.  It should return
+\texttt{true} if that date has to be disabled, \texttt{false} otherwise.
+& null
+\\\hline
+\texttt{mondayFirst}
+& boolean & If ``true'' then the calendar will display with Monday being the first day of week.
+& false
+\\\hline
+\texttt{weekNumbers}
+& boolean & If ``true'' then the calendar will display week numbers.
+& true
+\\\hline
+\texttt{align}
+& string & Alignment of the calendar, relative to the reference element. The
+reference element is dynamically chosen like this: if a displayArea is
+specified then it will be the reference element. Otherwise, the input field
+is the reference element.  For the meaning of the alignment characters
+please section \ref{sec:Calendar.showAtElement}.
+& ``Bl''
+\\\hline
+\texttt{range}
+& array & An array having exactly 2 elements, integers. (!) The first [0] element is the minimum year that is available, and the second [1] element is the maximum year that the calendar will allow.
+& [1900, 2999]
+\\\hline
+\texttt{flat}
+& string & If you want a flat calendar, pass the ID of the parent object in
+this property.  If not, pass \texttt{null} here (or nothing at all as
+\texttt{null} is the default value.
+& null
+\\\hline
+\texttt{flatCallback}
+& function & You should provide this function if the calendar is flat.  It
+will be called when the date in the calendar is changed with a reference to
+the calendar object.  See section \ref{sec:quick-start-flat} for an example
+of how to setup a flat calendar.
+& null

@@ -1,0 +1,339 @@
+\documentclass[a4paper,10pt]{article}
+
+% enlarge the page a bit..
+\addtolength{\hoffset}{-1cm}
+\addtolength{\textwidth}{2cm}
+\addtolength{\voffset}{-1.5cm}
+\addtolength{\textheight}{3cm}
+
+\usepackage{latexsym}
+\usepackage{amssymb}
+%\usepackage{tabularx}
+\usepackage{ltxtable}
+\usepackage{hyperref}
+
+\title{DHTML Calendar Widget}
+\author{Mihai Bazon, \texttt{<mishoo@infoiasi.ro>}}
+\date{\today}
+
+\begin{document}
+\maketitle
+\noindent
+This document is the API reference to the version 0.9.3 of the DHTML
+Calendar widget.  For full source code and latest versions please visit
+{\href{http://students.infoiasi.ro/~mishoo/site/calendar.epl}{the calendar
+project page}}.
+
+\tableofcontents
+
+% \setlength{\parindent}{0pt}
+% \setlength{\parskip}{1.3ex}
+
+\section{Overview}
+
+The DHTML Calendar widget\footnote
+        {
+        by the term ``widget'' I understand a single element of user interface.
+        But that's in Linux world.  For those that did lots of Windows
+        programming the term ``control'' might be more familiar
+        }
+is an (HTML) user interface element that gives end-users a friendly way to
+input dates.  It works in a web browser.  The first versions only provided
+support for popup calendars, while starting with version 0.9 it also supports
+``flat'' display.  A ``flat'' calendar is a calendar that stays visible in the
+page all the time.  In this mode it could be very useful for ``blog'' pages and
+other pages that require the calendar to be always present.
+
+The calendar is compatible with most popular browsers nowadays.  While it's
+created using web standards and it should generally work with any compliant
+browser, the following browsers were found to work: Mozilla (the main
+development platform), Netscape 6.0 or better, all Gecko-based browsers, Internet Explorer
+5.0 or better \emph{for Windows}\footnote{people report that the calendar does
+not work with IE5/Mac.  I don't have access to a Macintosh, therefore -- sorry
+-- I can't fix it.}, Opera 7\footnote
+        { under Opera 7 the calendar still lacks some functionality, such as
+        keyboard navigation; also Opera doesn't seem to allow disabling text
+        selection when one drags the mouse on the page; despite all that, the
+        calendar is still highly functional under Opera 7 and looks as good as
+        in other supported browsers. }.
+
+\subsection{How does this thing work?}
+
+DHTML is not ``another kind of HTML''.  It's merely a naming convention.  DHTML
+refers to the combination of HTML, CSS, JavaScript and DOM.  DOM (Document
+Object Model) is a set of interfaces that glues the other three together.  In
+other words, DOM allows dynamic modification of an HTML page through a program.
+JavaScript is our programming language, since that's what browsers like.  CSS
+is a way to make it look good ;-).
+
+The program dynamically creates a \texttt{<table>} element that contains a
+calendar for the given date.  Then it shows this table at a specified position.
+Usually the position is related to some element in which the date needs to be
+displayed/entered.  By assigning a certain CSS class to the table we can
+control the look of the calendar through an external CSS file; therefore, in
+order to change the colors, backgrounds, rollover effects and other stuff, you
+can only change a CSS file --- modification of the program itself is not
+necessary.
+
+\subsection{Project files}
+
+Here's a description of the project files, excluding documentation and example
+files.
+
+\begin{itemize}
+
+\item the main program file (\texttt{calendar.js}).  This defines all the logic
+behind the calendar widget.
+
+\item the CSS files (\texttt{calendar-*.css}).  Loading one of them is
+necessary in order to see the calendar as intended.
+
+\item the language definition files (\texttt{lang/calendar-*.js}).  They are
+plain JavaScript files that contain all texts that are displayed by the
+calendar.  Loading one of them is necessary.
+
+\item helper functions for quick setup of the calendar
+(\texttt{calendar-setup.js}).  You can do fine without it, but starting with
+version 0.9.3 this is the recommended way to setup a calendar.
+
+\end{itemize}
+
+\subsection{License}
+
+\begin{center}
+\noindent \copyright\ Mihai Bazon, 2002--2003, \texttt{<mishoo@infoiasi.ro>}\\
+\href{http://students.infoiasi.ro/~mishoo/site/calendar.epl}{\texttt{http://students.infoiasi.ro/\~{}mishoo/site/calendar.epl}}\\
+\end{center}
+
+The calendar is released under the
+{\href{http://www.gnu.org/licenses/lgpl.html}{GNU Lesser General Public
+License}}.  This basically means that you are allowed to use it for anything you
+like, except selling it for profit or claiming it's authorship.  You can read
+the entire license text {\href{http://www.gnu.org/licenses/lgpl.html}{here}}.
+
+
+
+
+\section{Quick startup}
+
+Installing the calendar used to be quite a task until version 0.9.3.  Starting
+with 0.9.3 I have included the file \texttt{calendar-setup.js} whose goal is to
+assist you to setup a popup or flat calendar within minutes.
+
+First you have to include the needed scripts and stylesheet.  Make sure you do
+this in your document's \texttt{<head>} section, also make sure you put the
+correct paths to the scripts.
+
+\begin{verbatim}
+<style type="text/css">@import url(calendar-win2k-1.css)</style>
+<script type="text/javascript" src="calendar.js"></script>
+<script type="text/javascript" src="lang/calendar-en.js"></script>
+<script type="text/javascript" src="calendar-setup.js"></script>
+\end{verbatim}
+
+\subsection{Installing a popup calendar}\label{sec:quick-start-popup}
+
+\noindent Now suppose you have the following HTML:
+
+\begin{verbatim}
+<form ...>
+  <input type="text" id="data" name="data" />
+  <button id="trigger">...</button>
+</form>
+\end{verbatim}
+
+\noindent You want the button to popup a calendar widget when clicked?  Just
+insert the following code immediately \emph{after} the HTML form:
+
+\begin{verbatim}
+<script type="text/javascript">
+  Calendar.setup(
+    {
+      inputField  : "data",      // ID of the input field
+      ifFormat    : "M d, y",    // the date format
+      button      : "trigger"    // ID of the button
+    }
+  );
+</script>
+\end{verbatim}
+
+The \texttt{Calendar.setup} function, defined in \texttt{calendar-setup.js}
+takes care of ``patching'' the button to display a calendar when clicked.  The
+calendar is by default in single-click mode and linked with the given input
+field, so that when the end-user selects a date it will update the input field
+with the date in the given format and close the calendar.  If you are a
+long-term user of the calendar you probably remember that for doing this you
+needed to write a couple functions and add an ``onclick'' handler for the
+button by hand.
+
+By looking at the example above we can see that the function
+\texttt{Calendar.setup} receives only one parameter: a JavaScript object.
+Further, that object can have lots of properties that tell to the setup
+function how would we like to have the calendar.  For instance, if we would
+like a calendar that closes at double-click instead of single-click we would
+also include the following: \texttt{singleClick:false}.
+
+For a list of all supported parameters please see the section
+\ref{sec:Calendar.setup}.
+
+\subsection{Installing a flat calendar}\label{sec:quick-start-flat}
+
+Here's how to configure a flat calendar, using the same \texttt{Calendar.setup}
+function.  First, you should have an empty element with an ID.  This element
+will act as a container for the calendar.  It can be any block-level element,
+such as DIV, TABLE, etc.  We will use a DIV in this example.
+
+\begin{verbatim}
+<div id="calendar-container"></div>
+\end{verbatim}
+
+Then there is the JavaScript code that sets up the calendar into the
+``calendar-container'' DIV.  The code can occur anywhere in HTML
+\emph{after} the DIV element.
+
+\begin{verbatim}
+<script type="text/javascript">
+  function dateChanged(calendar) {
+    // Beware that this function is called even if the end-user only
+    // changed the month/year.  In order to determine if a date was
+    // clicked you can use the dateClicked property of the calendar:
+    if (calendar.dateClicked) {
+      // OK, a date was clicked, redirect to /yyyy/mm/dd/index.php
+      var y = calendar.date.getFullYear();
+      var m = calendar.date.getMonth();     // integer, 0..11
+      var d = calendar.date.getDate();      // integer, 1..31
+      // redirect...
+      window.location = "/" + y + "/" + m + "/" + d + "/index.php";
+    }
+  };
+
+  Calendar.setup(
+    {
+      flat         : "calendar-container", // ID of the parent element
+      flatCallback : dateChanged           // our callback function
+    }
+  );
+</script>
+\end{verbatim}
+
+\subsection{\texttt{Calendar.setup} in detail}\label{sec:Calendar.setup}
+
+Folloing there is the complete list of properties interpreted by
+Calendar.setup.  All of them have default values, so you can pass only those
+which you would like to customize.  Anyway, you \emph{must} pass at least one
+of \texttt{inputField}, \texttt{displayArea} or \texttt{button}.  Otherwise you
+will get a warning message saying that there's nothing to setup.
+
+\begin{small}
+\ifx\shipout\undefined
+\input{Calendar.setup.html.tex}
+\else
+\LTXtable{\textwidth}{Calendar.setup.pdf.tex}
+\fi
+\end{small}
+
+
+
+
+\section{The Calendar object}
+
+The file \texttt{calendar.js} implements the functionality of the calendar.
+All (well, almost all) functions and variables are embedded in the JavaScript
+object ``Calendar''.
+
+``TO BE WRITTEN'' [FIXME].
+
+\subsection{\texttt{Calendar.showAtElement}}\label{sec:Calendar.showAtElement}
+
+This function is useful if you want to display the calendar near some element.
+You call it like this:
+
+\begin{verbatim}
+calendar.showAtElement(element, align);
+\end{verbatim}
+
+\noindent where element is a reference to your element (for instance it can be the input
+field that displays the date) and align is an optional parameter, of type string,
+containing one or two characters.  For instance, if you pass \texttt{"Br"} as
+align, the calendar will appear \emph{below} the element and with its right
+margin continuing the element's right margin.
+
+As stated above, align may contain one or two characters.  The first character
+dictates the vertical alignment, relative to the element, and the second
+character dictates the horizontal alignment.  If the second character is
+missing it will be assumed \texttt{"l"} (the left margin of the calendar will
+be at the same horizontal position as the left margin of the element).
+
+The characters given for the align parameters are case sensitive.
+
+\subsubsection{Vertical alignment}
+
+The first character in ``\texttt{align}'' can take one of the following values:
+
+\begin{itemize}
+
+\item \texttt{T} -- completely above the reference element (bottom margin of
+the calendar aligned to the top margin of the element).
+
+\item \texttt{t} -- above the element but may overlap it (bottom margin of the calendar aligned to
+the bottom margin of the element).
+
+\item \texttt{c} -- the calendar displays vertically centered to the reference
+element.  It might overlap it (that depends on the horizontal alignment).
+
+\item \texttt{b} -- below the element but may overlap it (top margin of the calendar aligned to
+the top margin of the element).
+
+\item \texttt{B} -- completely below the element (top margin of the calendar
+aligned to the bottom margin of the element).
+
+\end{itemize}
+
+\subsubsection{Horizontal alignment}
+
+The second character in ``\texttt{align}'' can take one of the following values:
+
+\begin{itemize}
+
+\item \texttt{L} -- completely to the left of the reference element (right
+margin of the calendar aligned to the left margin of the element).
+
+\item \texttt{l} -- to the left of the element but may overlap it (left margin
+of the calendar aligned to the left margin of the element).
+
+\item \texttt{c} -- horizontally centered to the element.  Might overlap it,
+depending on the vertical alignment.
+
+\item \texttt{r} -- to the right of the element but may overlap it (right
+margin of the calendar aligned to the right margin of the element).
+
+\item \texttt{R} -- completely to the right of the element (left margin of the
+calendar aligned to the right margin of the element).
+
+\end{itemize}
+
+\subsubsection{Default values}
+
+If the ``\texttt{align}'' parameter is missing the calendar will choose
+``\texttt{Bl}''.  This resembles the behavior of older versions (prior to
+0.9.3) which did not support custom alignment.
+
+
+
+
+\section{Thank you}
+
+A final word, I wish to thank to people that submitted bug reports, feature
+requests, suggestions, language definition files, etc.
+
+\begin{quote}
+Special thanks to Jon Stokkeland ({\href{http://sauen.com}{Sauen.com}}) for
+buying a commercial development license.  I actually see this as a donation ;-)
+\end{quote}
+
+Donations can greatly increase my interest in continuing the development.  I
+like doing free programs, but as I came to notice, they bring no money but more
+work ;-).  If you wish to donate some money, regardless the amount, please
+contact me at \texttt{<mishoo@infoiasi.ro>}.
+
+\end{document}
