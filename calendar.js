@@ -10,7 +10,7 @@
  * Read the entire license text here: http://www.gnu.org/licenses/lgpl.html
  */
 
-// $Id: calendar.js,v 1.40 2004/06/24 16:41:27 mishoo Exp $
+// $Id: calendar.js,v 1.41 2004/06/25 09:29:48 mishoo Exp $
 
 /** The Calendar object constructor. */
 Calendar = function (firstDayOfWeek, dateStr, onSelected, onClose) {
@@ -559,14 +559,13 @@ Calendar.dayMouseOver = function(ev) {
 Calendar.dayMouseOut = function(ev) {
 	with (Calendar) {
 		var el = getElement(ev);
-		if (isRelated(el, ev) || _C || el.disabled) {
+		if (isRelated(el, ev) || _C || el.disabled)
 			return false;
-		}
 		removeClass(el, "hilite");
-		if (el.caldate) {
+		if (el.caldate)
 			removeClass(el.parentNode, "rowhilite");
-		}
-		el.calendar.tooltips.firstChild.data = _TT["SEL_DATE"];
+		if (el.calendar)
+			el.calendar.tooltips.firstChild.data = _TT["SEL_DATE"];
 		return stopEvent(ev);
 	}
 };
