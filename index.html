@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-<!-- $Id: index.html,v 1.7 2004/01/13 21:54:45 mishoo Exp $ -->
+<!-- $Id: index.html,v 1.8 2004/01/14 15:24:55 mishoo Exp $ -->
 
 <head>
 <meta http-equiv="content-type" content="text/xml; charset=utf-8" />
@@ -59,7 +59,7 @@ function selected(cal, date) {
 // destroying it.
 function closeHandler(cal) {
   cal.hide();                        // hide the calendar
-  cal.destroy();
+//  cal.destroy();
   calendar = null;
 }
 
@@ -223,7 +223,7 @@ click<br />
 
 <b>Date #2:</b> <input type="text" name="date2" id="sel2" size="30"
 ><input type="reset" value=" ... "
-onclick="return showCalendar('sel2', '%a, %b %e, %Y [%I:%M%p]', '12');"> %a, %b %e, %Y [%I:%M%p]
+onclick="return showCalendar('sel2', '%a, %b %e, %Y [%I:%M %p]', '12');"> %a, %b %e, %Y [%I:%M %p]
 -- double click
 
 <br /><br />
