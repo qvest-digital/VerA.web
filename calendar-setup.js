@@ -1,10 +1,10 @@
-/*  Copyright Mihai Bazon, 2002, 2003  |  http://students.infoiasi.ro/~mishoo
+/*  Copyright Mihai Bazon, 2002, 2003  |  http://dynarch.com/mishoo/
  * ---------------------------------------------------------------------------
  *
  * The DHTML Calendar
  *
  * Details and latest version at:
- * http://students.infoiasi.ro/~mishoo/site/calendar.epl
+ * http://dynarch.com/mishoo/calendar.epl
  *
  * Feel free to use this script under the terms of the GNU Lesser General
  * Public License, as long as you do not remove or alter this notice.
@@ -14,7 +14,7 @@
  * quickly.
  */
 
-// $Id: calendar-setup.js,v 1.4 2003/10/06 16:14:46 mishoo Exp $
+// $Id: calendar-setup.js,v 1.5 2003/10/07 13:30:31 mishoo Exp $
 
 /**
  *  This function "patches" an input field (or other element) to use a calendar

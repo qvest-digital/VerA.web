@@ -1,16 +1,16 @@
-/*  Copyright Mihai Bazon, 2002, 2003  |  http://students.infoiasi.ro/~mishoo
+/*  Copyright Mihai Bazon, 2002, 2003  |  http://dynarch.com/mishoo/
  * ---------------------------------------------------------------------------
  *
  * The DHTML Calendar, version 0.9.3 "It's still alive & keeps rocking"
  *
  * Details and latest version at:
- * http://students.infoiasi.ro/~mishoo/site/calendar.epl
+ * http://dynarch.com/mishoo/calendar.epl
  *
  * Feel free to use this script under the terms of the GNU Lesser General
  * Public License, as long as you do not remove or alter this notice.
  */
 
-// $Id: calendar.js,v 1.13 2003/09/24 14:27:52 fsoft Exp $
+// $Id: calendar.js,v 1.14 2003/10/07 13:30:32 mishoo Exp $
 
 /** The Calendar object constructor. */
 Calendar = function (mondayFirst, dateStr, onSelected, onClose) {
