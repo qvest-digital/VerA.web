@@ -10,7 +10,7 @@
  * Read the entire license text here: http://www.gnu.org/licenses/lgpl.html
  */
 
-// $Id: calendar.js,v 1.24 2004/01/14 15:23:10 mishoo Exp $
+// $Id: calendar.js,v 1.25 2004/01/15 05:56:33 mishoo Exp $
 
 /** The Calendar object constructor. */
 Calendar = function (mondayFirst, dateStr, onSelected, onClose) {
@@ -1388,6 +1388,8 @@ Calendar.prototype.parseDate = function (str, fmt) {
 	var hr = 0;
 	var min = 0;
 	for (i = 0; i < a.length; ++i) {
+		if (!a[i])
+			continue;
 		switch (b[i]) {
 		    case "%d":
 		    case "%e":
