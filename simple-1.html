@@ -2,7 +2,7 @@
 
 <head>
 
-<title>Simple calendar setups</title>
+<title>Simple calendar setups [popup calendar]</title>
 
   <!-- calendar stylesheet -->
   <link rel="stylesheet" type="text/css" media="all" href="calendar-win2k-cold-1.css" title="win2k-cold-1" />
@@ -25,18 +25,20 @@
 
       <blockquote>
         <p>
-          This page lists some common setups for the calendar.  In order to
-          see how to do any of them please see the source of this page.  For
-          each example it's structured like this: there's the &lt;form&gt;
-          that contains the input field, and following there is the
-          JavaScript snippet that setups that form.  It's easy, isn't it? 
-          ;-] Don't forget to include the scripts and the stylesheet.
+          This page lists some common setups for the popup calendar.  In
+          order to see how to do any of them please see the source of this
+          page.  For each example it's structured like this: there's the
+          &lt;form&gt; that contains the input field, and following there is
+          the JavaScript snippet that setups that form.  An example of
+          <em>flat</em> calendar is available in <a
+            href="simple-2.html">another page</a>.
         </p>
         <p>
           The code in this page uses a helper function defined in
-          "calendar-setup.js".  With it you can setup the calendar in 2
-          lines of code.  You can <a href="calendar-setup.html">read its
-          documentation</a> if you're not <em>that</em> impatient ;-)
+          "calendar-setup.js".  With it you can setup the calendar in
+          minutes.  If you're not <em>that</em> impatient, ;-) <a
+          href="doc/html/reference.html">complete documenation</a> is
+          available.
         </p>
       </blockquote>
 
@@ -47,6 +49,10 @@
 <p><b>Basic setup: one input field only.</b> Clicking in the input field
 activates the calendar.  Default date format is "y/mm/dd".  The calendar
 defaults to "single-click mode".</p>
+
+<p><span style="color:red">Note:</span> for some reason this example works
+only with Mozilla.  It seems that IE and Opera can't set the onclick handler
+correctly for the input field.</p>
 
 <form action="#" method="get">
 <input type="text" name="date" id="f_date_a" />
@@ -172,6 +178,35 @@ onmouseout="this.style.background=''" />.</p>
 
 
 <hr />
+
+<p><b>Hidden field, display area.</b> Very much like the previous examples,
+but we now disable some dates (all weekends, that is, Saturdays and
+Sundays).</p>
+
+<form action="#" method="get" style="visibility: hidden">
+<input type="hidden" name="date" id="f_date_f" />
+</form>
+
+<p>Your birthday:
+   <span style="background-color: #ff8; cursor: default;"
+         onmouseover="this.style.backgroundColor='#ff0';"
+         onmouseout="this.style.backgroundColor='#ff8';"
+         id="show_f"
+   >Click to open date selector</span>.</p>
+
+<script type="text/javascript">
+    Calendar.setup({
+        inputField     :    "f_date_f",     // id of the input field
+        ifFormat       :    "y/dd/mm",      // format of the input field (even if hidden, this format will be honored)
+        displayArea    :    "show_f",       // ID of the span where the date is to be shown
+        daFormat       :    "DD, MM d, y",  // format of the displayed date
+        align          :    "Tl",           // alignment (defaults to "Bl")
+        disableFunc    :    function (date) { // disable weekend days (Saturdays == 6 and Subdays == 0)
+                              return (date.getDay() == 6 || date.getDay() == 0);
+                            }
+    });
+</script>
+
 
 </body>
 </html>
