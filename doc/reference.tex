@@ -22,7 +22,7 @@
 
 \maketitle
 
-{\small\verb|$Id: reference.tex,v 1.18 2004/02/06 11:06:14 mishoo Exp $|}
+{\small\verb|$Id: reference.tex,v 1.19 2004/02/06 18:45:22 mishoo Exp $|}
 {\begin{small}\begin{quote}
 {\begin{flushright}
 \noindent
@@ -166,7 +166,7 @@ insert the following code immediately \emph{after} the HTML form:
   Calendar.setup(
     {
       inputField  : "data",         // ID of the input field
-      ifFormat    : "\%m \%d, \%Y",    // the date format
+      ifFormat    : "%m %d, %Y",    // the date format
       button      : "trigger"       // ID of the button
     }
   );
@@ -461,15 +461,16 @@ i.e. highlight them differently).  Details in section
 \noindent Synopsis:
 
 \begin{verbatim}
-var calendar = Calendar(mondayFirst, date, onSelect, onClose);
+var calendar = Calendar(firstDayOfWeek, date, onSelect, onClose);
 \end{verbatim}
 
 Parameters are as follows:
 
 \begin{itemize}
 
-\item [mondayFirst] --- boolean, if it's \texttt{true} the calendar will have
-Monday as first day of week, if false weeks start on Sunday.
+\item [firstDayOfWeek] --- specifies which day is to be displayed as the first
+  day of week.  Possible values are 0 to 6; 0 means Sunday, 1 means Monday,
+  ..., 6 means Saturday.
 
 \item [date] --- a JavaScript Date object or \texttt{null}.  If \texttt{null}
 is passed then the calendar will default to today date.  Otherwise it will
@@ -559,10 +560,10 @@ variable to \texttt{false} \emph{before} calling \texttt{Calendar.create}.
 \item \texttt{time24} -- if you set this to \texttt{false} then the time
 selector will be in 12-hour format.  It is in 24-hour format by default.
 
-\item \texttt{mondayFirst} --- if \texttt{true} then the calendar uses Monday
-as first day of week, otherwise Sunday.  This variable is set from constructor,
-but you still have a chance to modify it \emph{before} calling
-\texttt{Calendar.create}.
+\item \texttt{firstDayOfWeek} --- specifies the first day of week (0 to 6, pass
+  0 for Sunday, 1 for Monday, ..., 6 for Saturday).  This variable is set from
+  constructor, but you still have a chance to modify it \emph{before} calling
+  \texttt{Calendar.create}.
 
 \end{itemize}
 
@@ -661,7 +662,7 @@ characters are the following:
 three specifiers currently implement the same one, as defined by ISO 8601:
 ``the week 01 is the week that has the Thursday in the current year, which is
 equivalent to the week that contains the fourth day of January.  Weeks start on
-Monday.}
+Monday.''}
 
 \subsubsection{\texttt{Calendar.setTtDateFormat}}\label{sec:Calendar.setTtDateFormat}
 
@@ -868,13 +869,13 @@ calendar.  If the calendar is visible the new date is displayed immediately.
 calendar.setDate(new Date()); // go today
 \end{verbatim}
 
-\subsubsection{\texttt{Calendar.setMondayFirst}}\label{sec:Calendar.setMondayFirst}
+\subsubsection{\texttt{Calendar.setFirstDayOfWeek}}\label{sec:Calendar.setFirstDayOfWeek}
 
-Changes the first day of week.  If the parameter is \texttt{true} then Monday
-will be the first day of week, otherwise Sunday.
+Changes the first day of week.  The parameter has to be a numeric value ranging
+from 0 to 6.  Pass 0 for Sunday, 1 for Monday, ..., 6 for Saturday.
 
 \begin{verbatim}
-calendar.setMondayFirst(false); // use Sunday
+calendar.setFirstDayOfWeek(5); // start weeks on Friday
 \end{verbatim}
 
 \subsubsection{\texttt{Calendar.parseDate}}\label{sec:Calendar.parseDate}
