@@ -10,7 +10,7 @@
  * Read the entire license text here: http://www.gnu.org/licenses/lgpl.html
  */
 
-// $Id: calendar.js,v 1.30 2004/02/06 11:23:55 mishoo Exp $
+// $Id: calendar.js,v 1.31 2004/02/06 11:44:08 mishoo Exp $
 
 /** The Calendar object constructor. */
 Calendar = function (firstDayOfWeek, dateStr, onSelected, onClose) {
@@ -1607,7 +1607,7 @@ Date.prototype.getMonthDays = function(month) {
 /** Returns the number of day in the year. */
 Date.prototype.getDayOfYear = function() {
 	var now = new Date(this.getFullYear(), this.getMonth(), this.getDate(), 0, 0, 0);
-	var then = new Date(this.getFullYear(), 0, 1, 0, 0, 0);
+	var then = new Date(this.getFullYear(), 0, 0, 0, 0, 0);
 	var time = now - then;
 	return Math.floor(time / Date.DAY);
 };
