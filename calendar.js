@@ -12,7 +12,7 @@
  * Read the entire license text here: http://www.gnu.org/licenses/lgpl.html
  */
 
-// $Id: calendar.js,v 1.49 2005/03/07 09:26:34 mishoo Exp $
+// $Id: calendar.js,v 1.50 2005/03/07 09:49:44 mishoo Exp $
 
 /** The Calendar object constructor. */
 Calendar = function (firstDayOfWeek, dateStr, onSelected, onClose) {
@@ -966,7 +966,7 @@ Calendar.prototype.create = function (_par) {
 /** keyboard navigation, only for popup calendars */
 Calendar._keyEvent = function(ev) {
 	var cal = window._dynarch_popupCalendar;
-	if (!cal)
+	if (!cal || cal.multiple)
 		return false;
 	(Calendar.is_ie) && (ev = window.event);
 	var act = (Calendar.is_ie || ev.type == "keypress"),
