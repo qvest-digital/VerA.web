@@ -10,7 +10,7 @@
  * Public License, as long as you do not remove or alter this notice.
  */
 
-// $Id: calendar.js,v 1.8 2003/07/02 14:27:40 mishoo Exp $
+// $Id: calendar.js,v 1.9 2003/07/02 14:29:27 mishoo Exp $
 
 /** The Calendar object constructor. */
 Calendar = function (mondayFirst, dateStr, onSelected, onClose) {
@@ -1179,7 +1179,8 @@ Calendar.prototype.parseDate = function (str, fmt) {
 		} else if (parseInt(a[i], 10) <= 12 && m == -1) {
 			m = a[i]-1;
 		} else if (parseInt(a[i], 10) > 31 && y == 0) {
-			y = a[i];
+			y = parseInt(a[i], 10);
+			(y < 100) && (y += (y > 29) ? 1900 : 2000);
 		} else if (d == 0) {
 			d = a[i];
 		}
