@@ -19,7 +19,7 @@
  * than modifying calendar.js itself).
  */
 
-// $Id: calendar-setup.js,v 1.19 2004/05/28 14:35:57 mishoo Exp $
+// $Id: calendar-setup.js,v 1.20 2004/06/06 19:37:28 mishoo Exp $
 
 /**
  *  This function "patches" an input field (or other element) to use a calendar
@@ -71,7 +71,7 @@ Calendar.setup = function (params) {
 	param_default("singleClick",    true);
 	param_default("disableFunc",    null);
 	param_default("dateStatusFunc", params["disableFunc"]);	// takes precedence if both are defined
-	param_default("firstDay",       0); // defaults to "Sunday" first
+	param_default("firstDay",       null);
 	param_default("align",          "Br");
 	param_default("range",          [1900, 2999]);
 	param_default("weekNumbers",    true);
