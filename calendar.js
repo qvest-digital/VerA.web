@@ -10,7 +10,7 @@
  * Read the entire license text here: http://www.gnu.org/licenses/lgpl.html
  */
 
-// $Id: calendar.js,v 1.23 2004/01/13 21:52:44 mishoo Exp $
+// $Id: calendar.js,v 1.24 2004/01/14 15:23:10 mishoo Exp $
 
 /** The Calendar object constructor. */
 Calendar = function (mondayFirst, dateStr, onSelected, onClose) {
@@ -78,6 +78,8 @@ Calendar._C = null;
 /// detect a special case of "web browser"
 Calendar.is_ie = ( /msie/i.test(navigator.userAgent) &&
 		   !/opera/i.test(navigator.userAgent) );
+
+Calendar.is_ie5 = ( Calendar.is_ie && /msie 5\.0/i.test(navigator.userAgent) );
 
 /// detect Opera browser
 Calendar.is_opera = /opera/i.test(navigator.userAgent);
@@ -397,9 +399,9 @@ Calendar.tableMouseOver = function (ev) {
 				break;
 		while (count-- > 0)
 			if (decrease) {
-				if (!(--i in range))
+				if (!range.contains(--i))
 					i = range.length - 1;
-			} else if (!(++i in range))
+			} else if (!range.contains(++i))
 				i = 0;
 		var newval = range[i];
 		el.firstChild.data = newval;
@@ -474,7 +476,6 @@ Calendar.calDragEnd = function (ev) {
 	cal.dragging = false;
 	with (Calendar) {
 		removeEvent(document, "mousemove", calDragIt);
-		// removeEvent(document, "mouseover", stopEvent);
 		removeEvent(document, "mouseup", calDragEnd);
 		tableMouseUp(ev);
 	}
@@ -494,7 +495,7 @@ Calendar.dayMouseDown = function(ev) {
 			el._current = el.firstChild.data;
 			addEvent(document, "mousemove", tableMouseOver);
 		} else
-			addEvent(document, "mouseover", tableMouseOver);
+			addEvent(document, Calendar.is_ie5 ? "mousemove" : "mouseover", tableMouseOver);
 		addClass(el, "hilite active");
 		addEvent(document, "mouseup", tableMouseUp);
 	} else if (cal.isPopup) {
@@ -654,9 +655,9 @@ Calendar.cellClick = function(el, ev) {
 				if (range[i] == current)
 					break;
 			if (ev && ev.shiftKey) {
-				if (!(--i in range))
+				if (!range.contains(--i))
 					i = range.length - 1;
-			} else if (!(++i in range))
+			} else if (!range.contains(++i))
 				i = 0;
 			var newval = range[i];
 			el.firstChild.data = newval;
@@ -825,7 +826,7 @@ Calendar.prototype.create = function (_par) {
 		cell = Calendar.createElement("td", row);
 		cell.className = "time";
 		cell.colSpan = 2;
-		cell.innerHTML = "&nbsp;";
+		cell.innerHTML = Calendar._TT["TIME"] || "&nbsp;";
 
 		cell = Calendar.createElement("td", row);
 		cell.className = "time";
@@ -1039,6 +1040,7 @@ Calendar._keyEvent = function(ev) {
  */
 Calendar.prototype._init = function (mondayFirst, date) {
 	var today = new Date();
+	this.table.style.visibility = "hidden";
 	var year = date.getFullYear();
 	if (year < this.minYear) {
 		year = this.minYear;
@@ -1129,6 +1131,7 @@ Calendar.prototype._init = function (mondayFirst, date) {
 	this.ar_days = ar_days;
 	this.title.firstChild.data = Calendar._MN[month] + ", " + year;
 	this.onSetTime();
+	this.table.style.visibility = "visible";
 	// PROFILE
 	// this.tooltips.firstChild.data = "Generated in " + ((new Date()) - today) + " ms";
 };
@@ -1283,6 +1286,30 @@ Calendar.prototype.showAtElement = function (el, opts) {
 		this.showAt(p.x, p.y + el.offsetHeight);
 		return true;
 	}
+	function fixPosition(box) {
+		if (box.x < 0)
+			box.x = 0;
+		if (box.y < 0)
+			box.y = 0;
+		var cp = document.createElement("div");
+		var s = cp.style;
+		s.position = "absolute";
+		s.right = s.bottom = s.width = s.height = "0px";
+		document.body.appendChild(cp);
+		var br = Calendar.getAbsolutePos(cp);
+		document.body.removeChild(cp);
+		if (Calendar.is_ie) {
+			br.y += document.body.scrollTop;
+			br.x += document.body.scrollLeft;
+		} else {
+			br.y += window.scrollY;
+			br.x += window.scrollX;
+		}
+		var tmp = box.x + box.width - br.x;
+		if (tmp > 0) box.x -= tmp;
+		tmp = box.y + box.height - br.y;
+		if (tmp > 0) box.y -= tmp;
+	};
 	this.element.style.display = "block";
 	Calendar.continuation_for_the_fucking_khtml_browser = function() {
 		var w = self.element.offsetWidth;
@@ -1309,6 +1336,10 @@ Calendar.prototype.showAtElement = function (el, opts) {
 		    case "r": p.x += el.offsetWidth - w; break;
 		    case "l": break; // already there
 		}
+		p.width = w;
+		p.height = h + 40;
+		self.monthsCombo.style.display = "none";
+		fixPosition(p);
 		self.showAt(p.x, p.y);
 	};
 	if (Calendar.is_khtml)
@@ -1340,37 +1371,62 @@ Calendar.prototype.parseDate = function (str, fmt) {
 		fmt = this.dateFormat;
 	}
 	var b = [];
-	fmt.replace(/(%.)/g, function(str, par) {
-		return b[b.length] = par;
-	});
+	if (!Calendar.is_ie5)
+		fmt.replace(/(%.)/g, function(str, par) {
+			return b[b.length] = par;
+		});
+	else (function() {	// protect variables
+		// OK, once more: IE5 SUCKS!
+		var i = 50;	// make sure we don't go in endless loop here
+		var a;
+		while ((a = /(%.)/.exec(fmt)) && --i > 0) {
+			b[b.length] = a[0];
+			fmt = fmt.substr(0, a.index) + fmt.substr(a.index + a[0].length);
+		}
+	})();
 	var i = 0, j = 0;
 	var hr = 0;
 	var min = 0;
 	for (i = 0; i < a.length; ++i) {
-		if (b[i] == "%a" || b[i] == "%A") {
-			continue;
-		}
-		if (b[i] == "%d" || b[i] == "%e") {
+		switch (b[i]) {
+		    case "%d":
+		    case "%e":
 			d = parseInt(a[i], 10);
-		}
-		if (b[i] == "%m") {
+			break;
+
+		    case "%m":
 			m = parseInt(a[i], 10) - 1;
-		}
-		if (b[i] == "%Y" || b[i] == "%y") {
+			break;
+
+		    case "%Y":
+		    case "%y":
 			y = parseInt(a[i], 10);
 			(y < 100) && (y += (y > 29) ? 1900 : 2000);
-		}
-		if (b[i] == "%b" || b[i] == "%B") {
+			break;
+
+		    case "%b":
+		    case "%B":
 			for (j = 0; j < 12; ++j) {
 				if (Calendar._MN[j].substr(0, a[i].length).toLowerCase() == a[i].toLowerCase()) { m = j; break; }
 			}
-		} else if (/%[HIkl]/.test(b[i])) {
+			break;
+
+		    case "%H":
+		    case "%I":
+		    case "%k":
+		    case "%l":
 			hr = parseInt(a[i], 10);
-		} else if (/%[pP]/.test(b[i])) {
+			break;
+
+		    case "%P":
+		    case "%p":
 			if (/pm/i.test(a[i]) && hr < 12)
 				hr += 12;
-		} else if (b[i] == "%M") {
+			break;
+
+		    case "%M":
 			min = parseInt(a[i], 10);
+			break;
 		}
 	}
 	if (y != 0 && m != -1 && d != 0) {
@@ -1518,7 +1574,6 @@ Calendar.prototype._dragStart = function (ev) {
 	this.yOffs = posY - parseInt(st.top);
 	with (Calendar) {
 		addEvent(document, "mousemove", calDragIt);
-		// addEvent(document, "mouseover", stopEvent);
 		addEvent(document, "mouseup", calDragEnd);
 	}
 };
@@ -1633,10 +1688,37 @@ Date.prototype.print = function (str) {
 			tmp += tmp ? ("|" + i) : i;
 		Date._msh_formatRegexp = re = new RegExp("(" + tmp + ")", 'g');
 	}
-	return str.replace(re, function(match, par) { return s[par]; });
+	if (!Calendar.is_ie5)
+		return str.replace(re, function(match, par) { return s[par]; });
+	else {
+		// do I have to tell you one more time that IE5 sucks?  no, but
+		// it seems that I can't help it.. ;-)
+		var i = 50;	// make sure we don't go in endless loop here
+		var a;
+		while ((a = re.exec(str)) && --i > 0)
+			// str = RegExp.leftContext + RegExp.$1 + RegExp.rightContext;
+			str = str.substr(0, a.index) + s[a[0]] + str.substr(a.index + a[0].length);
+		return str;
+	}
 };
 
 // END: DATE OBJECT PATCHES
+
+// BEGIN: ARRAY OBJECT PATCHES (mainly for IE5)
+
+Array.prototype.contains = function(element) {
+	try {
+		return eval("element in this");
+	} catch (e) {
+		// the sucking IE5 here
+		for (var i = this.length; --i >= 0;)
+			if (i == element)
+				return true;
+		return false;
+	}
+};
+
+// END: ARRAY OBJECT PATCHES
 
 // global object that remembers the calendar
 window.calendar = null;
