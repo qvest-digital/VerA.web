@@ -10,7 +10,7 @@
  * Read the entire license text here: http://www.gnu.org/licenses/lgpl.html
  */
 
-// $Id: calendar.js,v 1.29 2004/02/06 10:07:43 mishoo Exp $
+// $Id: calendar.js,v 1.30 2004/02/06 11:23:55 mishoo Exp $
 
 /** The Calendar object constructor. */
 Calendar = function (firstDayOfWeek, dateStr, onSelected, onClose) {
@@ -1074,17 +1074,15 @@ Calendar.prototype._init = function (firstDayOfWeek, date) {
 
 	var row = this.tbody.firstChild;
 	var MN = Calendar._SMN[month];
-	var week_number = date.getWeekNumber();
 	var ar_days = new Array();
 	var weekend = Calendar._TT["WEEKEND"];
 	for (var i = 0; i < 6; ++i, row = row.nextSibling) {
 		var cell = row.firstChild;
 		if (this.weekNumbers) {
 			cell.className = "day wn";
-			cell.firstChild.data = week_number;
+			cell.firstChild.data = date.getWeekNumber();
 			cell = cell.nextSibling;
 		}
-		++week_number;
 		row.className = "daysrow";
 		var hasdays = false;
 		for (var j = 0; j < 7; ++j, cell = cell.nextSibling, date.setDate(date.getDate() + 1)) {
@@ -1616,13 +1614,13 @@ Date.prototype.getDayOfYear = function() {
 
 /** Returns the number of the week in year, as defined in ISO 8601. */
 Date.prototype.getWeekNumber = function() {
-	var now = new Date(this.getFullYear(), this.getMonth(), this.getDate(), 0, 0, 0);
-	var then = new Date(this.getFullYear(), 0, 1, 0, 0, 0);
-	var time = now - then;
-	var day = then.getDay(); // 0 means Sunday
-	if (day == 0) day = 7;
-	(day > 4) && (day -= 4) || (day += 3);
-	return Math.round(((time / Date.DAY) + day) / 7);
+	var d = new Date(this.getFullYear(), this.getMonth(), this.getDate(), 0, 0, 0);
+	var DoW = d.getDay();
+	d.setDate(d.getDate() - (DoW + 6) % 7 + 3); // Nearest Thu
+	var ms = d.valueOf(); // GMT
+	d.setMonth(0);
+	d.setDate(4); // Thu in Week 1
+	return Math.round((ms - d.valueOf()) / (7 * 864e5)) + 1;
 };
 
 /** Checks dates equality (ignores time) */
