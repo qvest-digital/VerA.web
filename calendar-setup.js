@@ -14,7 +14,7 @@
  * quickly.
  */
 
-// $Id: calendar-setup.js,v 1.2 2003/07/05 10:37:37 mishoo Exp $
+// $Id: calendar-setup.js,v 1.3 2003/09/24 08:10:37 mishoo Exp $
 
 /**
  *  This function "patches" an input field (or other element) to use a calendar
@@ -46,20 +46,21 @@
 Calendar.setup = function (params) {
 	function param_default(pname, def) { if (typeof params[pname] == "undefined") { params[pname] = def; } };
 
-	param_default("inputField",    null);
-	param_default("displayArea",   null);
-	param_default("button",        null);
-	param_default("eventName",     "click");
-	param_default("ifFormat",      "y/mm/dd");
-	param_default("daFormat",      "y/mm/dd");
-	param_default("singleClick",   true);
-	param_default("disableFunc",   null);
-	param_default("mondayFirst",   false);
-	param_default("align",         "Bl");
-	param_default("range",         [1900, 2999]);
-	param_default("weekNumbers",   true);
-	param_default("flat",          null);
-	param_default("flatCallback",  null);
+	param_default("inputField",     null);
+	param_default("displayArea",    null);
+	param_default("button",         null);
+	param_default("eventName",      "click");
+	param_default("ifFormat",       "y/mm/dd");
+	param_default("daFormat",       "y/mm/dd");
+	param_default("singleClick",    true);
+	param_default("disableFunc",    null);
+	param_default("dateStatusFunc", params["disableFunc"]);	// takes precedence if both are defined
+	param_default("mondayFirst",    false);
+	param_default("align",          "Bl");
+	param_default("range",          [1900, 2999]);
+	param_default("weekNumbers",    true);
+	param_default("flat",           null);
+	param_default("flatCallback",   null);
 
 	var tmp = ["inputField", "displayArea", "button"];
 	for (var i in tmp) {
@@ -102,7 +103,7 @@ Calendar.setup = function (params) {
 		cal.params = params;
 		cal.weekNumbers = params.weekNumbers;
 		cal.setRange(params.range[0], params.range[1]);
-		cal.setDisabledHandler(params.disableFunc);
+		cal.setDateStatusHandler(params.dateStatusFunc);
 		cal.create(params.flat);
 		cal.show();
 		return false;
@@ -122,7 +123,7 @@ Calendar.setup = function (params) {
 		}
 		window.calendar.setRange(params.range[0], params.range[1]);
 		window.calendar.params = params;
-		window.calendar.setDisabledHandler(params.disableFunc);
+		window.calendar.setDateStatusHandler(params.dateStatusFunc);
 		window.calendar.setDateFormat(dateFmt);
 		if (mustCreate) {
 			window.calendar.create();

@@ -10,14 +10,14 @@
  * Public License, as long as you do not remove or alter this notice.
  */
 
-// $Id: calendar.js,v 1.11 2003/07/08 18:51:41 mishoo Exp $
+// $Id: calendar.js,v 1.12 2003/09/24 08:10:37 mishoo Exp $
 
 /** The Calendar object constructor. */
 Calendar = function (mondayFirst, dateStr, onSelected, onClose) {
 	// member variables
 	this.activeDiv = null;
 	this.currentDateEl = null;
-	this.checkDisabled = null;
+	this.getDateStatus = null;
 	this.timeout = null;
 	this.onSelected = onSelected || null;
 	this.onClose = onClose || null;
@@ -568,7 +568,7 @@ Calendar.cellClick = function(el) {
 			return;
 		    case 0:
 			// TODAY will bring us here
-			if ((typeof cal.checkDisabled == "function") && cal.checkDisabled(date)) {
+			if ((typeof cal.getDateStatus == "function") && cal.getDateStatus(date)) {
 				// remember, "date" was previously set to new
 				// Date() if TODAY was clicked; thus, it
 				// contains today date.
@@ -904,11 +904,16 @@ Calendar.prototype._init = function (mondayFirst, date) {
 			}
 			cell.disabled = false;
 			cell.firstChild.data = iday;
-			if (typeof this.checkDisabled == "function") {
+			if (typeof this.getDateStatus == "function") {
 				date.setDate(iday);
-				if (this.checkDisabled(date)) {
+				var status = this.getDateStatus(date);
+				if (status === true) {
 					cell.className += " disabled";
 					cell.disabled = true;
+				} else {
+					if (/disabled/i.test(status))
+						cell.disabled = true;
+					cell.className += " " + status;
 				}
 			}
 			if (!cell.disabled) {
@@ -971,8 +976,8 @@ Calendar.prototype.setMondayFirst = function (mondayFirst) {
  *  object) and returns a boolean value.  If the returned value is true then
  *  the passed date will be marked as disabled.
  */
-Calendar.prototype.setDisabledHandler = function (unaryFunction) {
-	this.checkDisabled = unaryFunction;
+Calendar.prototype.setDateStatusHandler = Calendar.prototype.setDisabledHandler = function (unaryFunction) {
+	this.getDateStatus = unaryFunction;
 };
 
 /** Customization of allowed year range for the calendar. */

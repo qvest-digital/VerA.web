@@ -197,8 +197,8 @@ Sundays).</p>
         displayArea    :    "show_f",       // ID of the span where the date is to be shown
         daFormat       :    "DD, MM d, y",  // format of the displayed date
         align          :    "Tl",           // alignment (defaults to "Bl")
-        disableFunc    :    function (date) { // disable weekend days (Saturdays == 6 and Subdays == 0)
-                              return (date.getDay() == 6 || date.getDay() == 0);
+        dateStatusFunc :    function (date) { // disable weekend days (Saturdays == 6 and Subdays == 0)
+                              return (date.getDay() == 6 || date.getDay() == 0) ? true : false;
                             }
     });
 </script>
