@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-<!-- $Id: index.html,v 1.14 2005/03/05 11:36:35 mishoo Exp $ -->
+<!-- $Id: index.html,v 1.15 2005/03/05 14:38:10 mishoo Exp $ -->
 
 <head>
 <meta http-equiv="content-type" content="text/xml; charset=utf-8" />
 <title>The Coolest DHTML Calendar - Online Demo</title>
+<link rel="stylesheet" type="text/css" media="all" href="skins/aqua/theme.css" title="Aqua" />
 <link rel="alternate stylesheet" type="text/css" media="all" href="calendar-blue.css" title="winter" />
 <link rel="alternate stylesheet" type="text/css" media="all" href="calendar-blue2.css" title="blue" />
 <link rel="alternate stylesheet" type="text/css" media="all" href="calendar-brown.css" title="summer" />
 <link rel="alternate stylesheet" type="text/css" media="all" href="calendar-green.css" title="green" />
-<link rel="stylesheet" type="text/css" media="all" href="calendar-win2k-1.css" title="win2k-1" />
+<link rel="alternate stylesheet" type="text/css" media="all" href="calendar-win2k-1.css" title="win2k-1" />
 <link rel="alternate stylesheet" type="text/css" media="all" href="calendar-win2k-2.css" title="win2k-2" />
 <link rel="alternate stylesheet" type="text/css" media="all" href="calendar-win2k-cold-1.css" title="win2k-cold-1" />
 <link rel="alternate stylesheet" type="text/css" media="all" href="calendar-win2k-cold-2.css" title="win2k-cold-2" />
@@ -170,6 +171,8 @@ title="Visit the project website">jscalendar</a>-1.0
 <p>
 <div style="float: right; border: 1px solid #b87; padding: 2px; font-size: 90%; background: #ffb;">
 Theme:<br />
+<a href="#" id="defaultTheme" onclick="return setActiveStyleSheet(this, 'Aqua');">Aqua</a>
+|
 <a href="#" onclick="return setActiveStyleSheet(this, 'winter');">winter</a>
 |
 <a href="#" onclick="return setActiveStyleSheet(this, 'blue');">blue</a>
@@ -178,7 +181,7 @@ Theme:<br />
 |
 <a href="#" onclick="return setActiveStyleSheet(this, 'green');">green</a>
 <br />
-<a href="#" id="defaultTheme" onclick="return setActiveStyleSheet(this, 'win2k-1');">win2k-1</a>
+<a href="#" onclick="return setActiveStyleSheet(this, 'win2k-1');">win2k-1</a>
 |
 <a href="#" onclick="return setActiveStyleSheet(this, 'win2k-2');">win2k-2</a>
 |
@@ -188,7 +191,7 @@ Theme:<br />
 <br />
 <a href="#" onclick="return setActiveStyleSheet(this, 'system');">system</a>
 <script type="text/javascript">
-setActiveStyleSheet(document.getElementById("defaultTheme"), "win2k-1");
+setActiveStyleSheet(document.getElementById("defaultTheme"), "Aqua");
 </script>
 </div>
 <a href="release-notes.html">Release notes</a>.
@@ -288,7 +291,7 @@ dates (only for popup calendars; does <em>not</em> work with Opera
 
           </td>
 
-          <td style="padding: 5px; margin: 5px; border: 1px solid #984; background: #ed9; width: 15em;">
+          <td style="padding: 5px; margin: 5px; border: 1px solid #984; background: #ed9; width: 19em;">
 
             <div style="background: #984; color: #fea; font-weight: bold; padding: 2px; text-align: center">
               Flat calendar
@@ -299,9 +302,9 @@ dates (only for popup calendars; does <em>not</em> work with Opera
 
             <!-- the calendar will be inserted here -->
             <div id="display" style="float: right; clear: both;"></div>
-            <div id="preview" style="font-size: 80%; text-align: center; padding: 2px"></div>
+            <div id="preview" style="font-size: 80%; text-align: center; padding: 2px">&nbsp;</div>
 
-            <p style="width: 12em"><small>
+            <p style="clear: both;"><small>
               The example above uses the <code>setDisabledHandler()</code> member function
               to setup a handler that would only enable days withing a range of 10 days,
               forward or backward, from the current date.
