@@ -10,7 +10,7 @@
  * Public License, as long as you do not remove or alter this notice.
  */
 
-// $Id: calendar.js,v 1.1.1.1 2003/03/05 10:51:03 mishoo Exp $
+// $Id: calendar.js,v 1.2 2003/03/11 10:38:06 mishoo Exp $
 
 /** The Calendar object constructor. */
 Calendar = function (mondayFirst, dateStr, onSelected, onClose) {
@@ -1079,16 +1079,16 @@ Calendar.prototype.parseDate = function (str, fmt) {
 			continue;
 		}
 		if (b[i] == "d" || b[i] == "dd") {
-			d = parseInt(a[i]);
+			d = parseInt(a[i], 10);
 		}
 		if (b[i] == "m" || b[i] == "mm") {
-			m = parseInt(a[i]) - 1;
+			m = parseInt(a[i], 10) - 1;
 		}
 		if (b[i] == "y") {
-			y = parseInt(a[i]);
+			y = parseInt(a[i], 10);
 		}
 		if (b[i] == "yy") {
-			y = parseInt(a[i]) + 1900;
+			y = parseInt(a[i], 10) + 1900;
 		}
 		if (b[i] == "M" || b[i] == "MM") {
 			for (j = 0; j < 12; ++j) {
@@ -1113,9 +1113,9 @@ Calendar.prototype.parseDate = function (str, fmt) {
 				}
 				m = t;
 			}
-		} else if (parseInt(a[i]) <= 12 && m == -1) {
+		} else if (parseInt(a[i], 10) <= 12 && m == -1) {
 			m = a[i]-1;
-		} else if (parseInt(a[i]) > 31 && y == 0) {
+		} else if (parseInt(a[i], 10) > 31 && y == 0) {
 			y = a[i];
 		} else if (d == 0) {
 			d = a[i];
