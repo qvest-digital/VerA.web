@@ -131,7 +131,7 @@ Installing the calendar used to be quite a task until version 0.9.3.  Starting
 with 0.9.3 I have included the file \texttt{calendar-setup.js} whose goal is to
 assist you to setup a popup or flat calendar within minutes.
 
-First you have to include the needed scripts and stylesheet.  Make sure you do
+First you have to include the needed scripts and style-sheet.  Make sure you do
 this in your document's \texttt{<head>} section, also make sure you put the
 correct paths to the scripts.
 
@@ -229,7 +229,7 @@ Then there is the JavaScript code that sets up the calendar into the
 
 \subsection{\texttt{Calendar.setup} in detail}\label{sec:Calendar.setup}
 
-Folloing there is the complete list of properties interpreted by
+Following there is the complete list of properties interpreted by
 Calendar.setup.  All of them have default values, so you can pass only those
 which you would like to customize.  Anyway, you \emph{must} pass at least one
 of \texttt{inputField}, \texttt{displayArea} or \texttt{button}.  Otherwise you
@@ -363,7 +363,7 @@ called \emph{after} calling \texttt{Calendar.create}.
 Suppose the end-user has popped up a calendar and selects a date.  The calendar
 then closes.  What really happens now?
 
-There are two approaces.  The first (used in verry old versions of the
+There are two approaches.  The first (used in very old versions of the
 calendar) was to drop completely the Calendar object and when the end-user pops
 up the calendar again to create another one.  This approach is bad for more
 reasons:
@@ -428,7 +428,7 @@ approaches presented in the previous section, it would call
 \item [disabledHandler] --- this function gets called for any day in a month,
 just before displaying the month.  It is called with a JavaScript \texttt{Date}
 object and should return \texttt{true} if that date should be disabled
-(unselectable) or false otherwise.
+(not selectable) or false otherwise.
 
 \end{itemize}
 
@@ -598,7 +598,7 @@ function disallowDate(date) {
 calendar.setDisabledHandler(disallowDate);
 \end{verbatim}
 
-If you change this function in ``realtime'', meaning, without creating a new
+If you change this function in ``real-time'', meaning, without creating a new
 calendar, then you have to call \texttt{calendar.refresh()} to make it
 redisplay the month and take into account the new disabledHandler.
 
