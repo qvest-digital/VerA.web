@@ -88,7 +88,7 @@ Calendar._TT["CLOSE"] = "Zapri";
 Calendar._TT["TODAY"] = "Danes";
 
 // date formats
-Calendar._TT["DEF_DATE_FORMAT"] = "dd-mm-y";
-Calendar._TT["TT_DATE_FORMAT"] = "DD, dd.mm.y";
+Calendar._TT["DEF_DATE_FORMAT"] = "%Y-%m-%d";
+Calendar._TT["TT_DATE_FORMAT"] = "%a, %b %e";
 
 Calendar._TT["WK"] = "Ted";
