@@ -4,7 +4,6 @@ CALENDAR TODO LIST  -*- text -*-
 
 ** For 0.9.6
 
-
   1. Automatic positioning of the calendar if it's out-of-window
   -- DONE
 
@@ -18,5 +17,11 @@ CALENDAR TODO LIST  -*- text -*-
   -- DONE
 
   5. Any weekday can be "the first day of week"
+  -- DONE
 
   6. PHP wrapper
+  -- 80%
+
+** For 0.9.7
+
+  1. Fix bug with showOtherMonths and dateStatusFunc
