@@ -36,11 +36,11 @@ Calendar._DN = new Array
 
 // short day names
 Calendar._SDN = new Array
-("Lun",
+("Dim",
+ "Lun",
  "Mar",
- "Mer",
+ "Mar",
  "Jeu",
- "Thu",
  "Ven",
  "Sam",
  "Dim");
@@ -93,7 +93,7 @@ Calendar._TT["ABOUT_TIME"] = "\n\n" +
 "Selection de l\'heure :\n" +
 "- Cliquer sur heures ou minutes pour incrementer\n" +
 "- ou Maj-clic pour decrementer\n" +
-"- ou clic et glisser deplacer pour une selection plus rapide";
+"- ou clic et glisser-deplacer pour une selection plus rapide";
 
 Calendar._TT["PREV_YEAR"] = "Année préc. (maintenir pour menu)";
 Calendar._TT["PREV_MONTH"] = "Mois préc. (maintenir pour menu)";
@@ -115,7 +115,7 @@ Calendar._TT["WEEKEND"] = "0,6";
 
 Calendar._TT["CLOSE"] = "Fermer";
 Calendar._TT["TODAY"] = "Aujourd'hui";
-Calendar._TT["TIME_PART"] = "(Shift-)Click ou glisser pour modifier la valeur";
+Calendar._TT["TIME_PART"] = "(Maj-)Clic ou glisser pour modifier la valeur";
 
 // date formats
 Calendar._TT["DEF_DATE_FORMAT"] = "%d/%m/%Y";
