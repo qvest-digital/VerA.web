@@ -19,6 +19,52 @@ my $today_time = strftime "%A, %e %b %Y (%H:%M)", localtime;
 print $today_time;
 </%perl>.</p>
 
+    <h2>0.9.5</h2>
+
+    <p>
+      This release's primary goal is to fix a wrong license statement which
+      can be found in some files from 0.9.4.  For instance in README or
+      calendar.js, the statement was that the code is distributed under the
+      GNU GPL; that's because I had plans to change the license, then
+      changed my mind but unfortunately I committed files so.  I am sorry
+      for this inconvenience, please use the latest (0.9.5) release which is
+      fully covered by LGPL.
+    </p>
+
+    <p>Other changes:</p>
+
+    <ul>
+
+      <li>
+        <b>Fixed</b> an annoying bug that prevented the calendar to display
+	correctly when it was configured for an input field inside a
+	<b>scrolling area</b>.  <b>Many thanks</b> to Ian Barrack (<a
+	href="http://www.simban.com">Simban.com</a>) who pointed it up and
+	donated quote some money for the Calendar project!
+      </li>
+
+      <li>
+        All examples use UTF-8 now; the translations may not be all
+        up-to-date, but I <strong>strongly</strong> suggest everyone to use
+        UTF-8; other encodings are a plain mess.  So far I know for sure
+        that Romanian translation will work with UTF-8 and <em>not
+        anymore</em> with ISO-8859-2.  Other translations are probably
+        usable under UTF-8, but if your preferred language isn't... ;-)
+        please make it and send it to me for inclusion.
+      </li>
+
+      <li>
+        Fixed small bug in the documentation (one footnote didn't appear
+        where it should have).
+      </li>
+
+      <li>
+        Updated translations: DE, ES, HU, IT, RO.  Thanks to everyone who
+        sent translations!
+      </li>
+
+    </ul>
+
     <h2>0.9.4</h2>
 
     <h3>New stuff</h3>
