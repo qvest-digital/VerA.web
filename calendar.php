@@ -37,7 +37,6 @@ class DHTML_Calendar {
         $this->calendar_lib_path = preg_replace('/\/+$/', '/', $calendar_lib_path);
         $this->calendar_options = array('ifFormat' => '%Y/%m/%d',
                                         'daFormat' => '%Y/%m/%d');
-        echo NEWLINE . '<!-- this page uses the coolest DHTML calendar: http://dynarch.com/mishoo/calendar.epl -->' . NEWLINE . NEWLINE;
     }
 
     function set_option($name, $value) {
