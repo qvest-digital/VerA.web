@@ -10,7 +10,7 @@
  * Read the entire license text here: http://www.gnu.org/licenses/lgpl.html
  */
 
-// $Id: calendar.js,v 1.35 2004/02/25 22:32:38 mishoo Exp $
+// $Id: calendar.js,v 1.36 2004/04/20 17:48:28 mishoo Exp $
 
 /** The Calendar object constructor. */
 Calendar = function (firstDayOfWeek, dateStr, onSelected, onClose) {
@@ -36,6 +36,7 @@ Calendar = function (firstDayOfWeek, dateStr, onSelected, onClose) {
 	this.showsTime = false;
 	this.time24 = true;
 	this.yearStep = 2;
+	this.multiple = null;
 	// HTML elements
 	this.table = null;
 	this.element = null;
@@ -577,17 +578,23 @@ Calendar.cellClick = function(el, ev) {
 	var newdate = false;
 	var date = null;
 	if (typeof el.navtype == "undefined") {
-		Calendar.removeClass(cal.currentDateEl, "selected");
-		Calendar.addClass(el, "selected");
-		closing = (cal.currentDateEl == el);
-		if (!closing) {
-			cal.currentDateEl = el;
+		if (cal.currentDateEl) {
+			Calendar.removeClass(cal.currentDateEl, "selected");
+			Calendar.addClass(el, "selected");
+			closing = (cal.currentDateEl == el);
+			if (!closing) {
+				cal.currentDateEl = el;
+			}
 		}
 		cal.date = new Date(el.caldate);
 		date = cal.date;
-		newdate = true;
+		var other_month = !(cal.dateClicked = !el.otherMonth);
+		if (!other_month && !cal.currentDateEl)
+			cal._toggleMultipleDate(new Date(date));
+		else
+			newdate = true;
 		// a date was clicked
-		if (!(cal.dateClicked = !el.otherMonth))
+		if (other_month)
 			cal._init(cal.firstDayOfWeek, date);
 	} else {
 		if (el.navtype == 200) {
@@ -1076,6 +1083,7 @@ Calendar.prototype._init = function (firstDayOfWeek, date) {
 	var MN = Calendar._SMN[month];
 	var ar_days = new Array();
 	var weekend = Calendar._TT["WEEKEND"];
+	var dates = this.datesCells = {};
 	for (var i = 0; i < 6; ++i, row = row.nextSibling) {
 		var cell = row.firstChild;
 		if (this.weekNumbers) {
@@ -1106,6 +1114,7 @@ Calendar.prototype._init = function (firstDayOfWeek, date) {
 			}
 			cell.disabled = false;
 			cell.firstChild.data = iday;
+			dates[date.print("%Y%m%d")] = cell;
 			if (typeof this.getDateStatus == "function") {
 				var status = this.getDateStatus(date, year, month, iday);
 				if (status === true) {
@@ -1121,7 +1130,7 @@ Calendar.prototype._init = function (firstDayOfWeek, date) {
 				ar_days[ar_days.length] = cell;
 				cell.caldate = new Date(date);
 				cell.ttip = "_";
-				if (current_month && iday == mday) {
+				if (!this.multiple && current_month && iday == mday) {
 					cell.className += " selected";
 					this.currentDateEl = cell;
 				}
@@ -1143,8 +1152,39 @@ Calendar.prototype._init = function (firstDayOfWeek, date) {
 	this.title.firstChild.data = Calendar._MN[month] + ", " + year;
 	this.onSetTime();
 	this.table.style.visibility = "visible";
+	this._initMultipleDates();
 	// PROFILE
 	// this.tooltips.firstChild.data = "Generated in " + ((new Date()) - today) + " ms";
+};
+
+Calendar.prototype._initMultipleDates = function() {
+	if (this.multiple) {
+		for (var i in this.multiple) {
+			var cell = this.datesCells[i];
+			var d = this.multiple[i];
+			if (!d)
+				continue;
+			if (cell)
+				cell.className += " selected";
+		}
+	}
+};
+
+Calendar.prototype._toggleMultipleDate = function(date) {
+	if (this.multiple) {
+		var ds = date.print("%Y%m%d");
+		var cell = this.datesCells[ds];
+		if (cell) {
+			var d = this.multiple[ds];
+			if (!d) {
+				Calendar.addClass(cell, "selected");
+				this.multiple[ds] = date;
+			} else {
+				Calendar.removeClass(cell, "selected");
+				delete this.multiple[ds];
+			}
+		}
+	}
 };
 
 /**

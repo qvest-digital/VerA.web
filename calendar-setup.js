@@ -19,7 +19,7 @@
  * than modifying calendar.js itself).
  */
 
-// $Id: calendar-setup.js,v 1.15 2004/02/04 08:10:03 mishoo Exp $
+// $Id: calendar-setup.js,v 1.16 2004/04/20 17:48:28 mishoo Exp $
 
 /**
  *  This function "patches" an input field (or other element) to use a calendar
@@ -88,6 +88,7 @@ Calendar.setup = function (params) {
 	param_default("position",       null);
 	param_default("cache",          false);
 	param_default("showOthers",     false);
+	param_default("multiple",       null);
 
 	var tmp = ["inputField", "displayArea", "button"];
 	for (var i in tmp) {
@@ -95,7 +96,7 @@ Calendar.setup = function (params) {
 			params[tmp[i]] = document.getElementById(params[tmp[i]]);
 		}
 	}
-	if (!(params.flat || params.inputField || params.displayArea || params.button)) {
+	if (!(params.flat || params.multiple || params.inputField || params.displayArea || params.button)) {
 		alert("Calendar.setup:\n  Nothing to setup (no fields found).  Please check your code");
 		return false;
 	}
@@ -162,6 +163,14 @@ Calendar.setup = function (params) {
 				cal.setDate(params.date);
 			cal.hide();
 		}
+		if (params.multiple) {
+			cal.multiple = {};
+			for (var i = params.multiple.length; --i >= 0;) {
+				var d = params.multiple[i];
+				var ds = d.print("%Y%m%d");
+				cal.multiple[ds] = d;
+			}
+		}
 		cal.showsOtherMonths = params.showOthers;
 		cal.yearStep = params.step;
 		cal.setRange(params.range[0], params.range[1]);
@@ -170,7 +179,8 @@ Calendar.setup = function (params) {
 		cal.setDateFormat(dateFmt);
 		if (mustCreate)
 			cal.create();
-		cal.parseDate(dateEl.value || dateEl.innerHTML);
+		if (dateEl)
+			cal.parseDate(dateEl.value || dateEl.innerHTML);
 		cal.refresh();
 		if (!params.position)
 			cal.showAtElement(params.button || params.displayArea || params.inputField, params.align);
