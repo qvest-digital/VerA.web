@@ -7,10 +7,11 @@
 <script type="text/javascript">
   // define info for dates in this table:
   var dateInfo = {
-    "20040610" : "foo",
-    "20040615" : "bar",
-    "20040618" : "25$",
-    "20040624" : "60$"
+    "20050308" : "Mishoo's&nbsp;birthday",
+    "20050310" : "foo",
+    "20050315" : "bar",
+    "20050318" : "25$",
+    "20050324" : "60$"
   };
 </script>
 <style type="text/css">
@@ -29,9 +30,9 @@
   function getDateText(date, d) {
     var inf = dateInfo[date.print("%Y%m%d")];
     if (!inf) {
-      return d + "<br/>&nbsp;";
+      return d + "<div class='inf'>&nbsp;</div>";
     } else {
-      return d + "<br/><span class='inf'>" + inf + "</span>";
+      return d + "<div class='inf'>" + inf + "</div>";
     }
   };
   function flatCallback(cal) {
@@ -104,5 +105,5 @@
 
 <hr />
 <address><a href="http://dynarch.com/mishoo/">mishoo</a></address>
-<!-- hhmts start --> Last modified: Thu Jun 24 18:37:56 CEST 2004 <!-- hhmts end -->
+<!-- hhmts start --> Last modified: Sat Mar  5 17:18:06 EET 2005 <!-- hhmts end -->
 </body> </html>
