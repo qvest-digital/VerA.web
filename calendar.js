@@ -9,7 +9,7 @@
  * This script is distributed under the GNU General Public License.
  */
 
-// $Id: calendar.js,v 1.15 2003/10/26 01:07:46 mishoo Exp $
+// $Id: calendar.js,v 1.16 2003/10/26 01:41:11 mishoo Exp $
 
 /** The Calendar object constructor. */
 Calendar = function (mondayFirst, dateStr, onSelected, onClose) {
@@ -252,10 +252,10 @@ Calendar.showMonthsCombo = function () {
 	cal.activeMonth = mon;
 	var s = mc.style;
 	s.display = "block";
-	if (cd.navtype < 0 || Calendar.is_khtml)
+	if (cd.navtype < 0)
 		s.left = cd.offsetLeft + "px";
 	else
-		s.left = cd.offsetLeft + cd.offsetWidth - mc.offsetWidth;
+		s.left = (cd.offsetLeft + cd.offsetWidth - mc.offsetWidth) + "px";
 	s.top = (cd.offsetTop + cd.offsetHeight) + "px";
 };
 
@@ -292,10 +292,10 @@ Calendar.showYearsCombo = function (fwd) {
 	if (show) {
 		var s = yc.style;
 		s.display = "block";
-		if (cd.navtype < 0 || Calendar.is_khtml)
+		if (cd.navtype < 0)
 			s.left = cd.offsetLeft + "px";
 		else
-			s.left = cd.offsetLeft + cd.offsetWidth - yc.offsetWidth;
+			s.left = (cd.offsetLeft + cd.offsetWidth - yc.offsetWidth) + "px";
 		s.top = (cd.offsetTop + cd.offsetHeight) + "px";
 	}
 };
