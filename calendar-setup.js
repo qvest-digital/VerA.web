@@ -19,7 +19,7 @@
  * than modifying calendar.js itself).
  */
 
-// $Id: calendar-setup.js,v 1.14 2004/01/15 10:54:29 mishoo Exp $
+// $Id: calendar-setup.js,v 1.15 2004/02/04 08:10:03 mishoo Exp $
 
 /**
  *  This function "patches" an input field (or other element) to use a calendar
@@ -36,7 +36,7 @@
  *   ifFormat      | date format that will be stored in the input field
  *   daFormat      | the date format that will be used to display the date in displayArea
  *   singleClick   | (true/false) wether the calendar is in single click mode or not (default: true)
- *   mondayFirst   | (true/false) if true Monday is the first day of week, Sunday otherwise (default: true)
+ *   firstDay      | numeric: 0 to 6.  "0" means display Sunday first, "1" means display Monday first, etc.
  *   align         | alignment (default: "Br"); if you don't know what's this see the calendar documentation
  *   range         | array with 2 elements.  Default: [1900, 2999] -- the range of years available
  *   weekNumbers   | (true/false) if it's true (default) the calendar will display week numbers
@@ -52,6 +52,8 @@
  *   electric      | if true (default) then given fields/date areas are updated for each move; otherwise they're updated only on close
  *   step          | configures the step of the years in drop-down boxes; default: 2
  *   position      | configures the calendar absolute position; default: null
+ *   cache         | if "true" (but default: "false") it will reuse the same calendar object, where possible
+ *   showOthers    | if "true" (but default: "false") it will show days from other months too
  *
  *  None of them is required, they all have default values.  However, if you
  *  pass none of "inputField", "displayArea" or "button" you'll get a warning
@@ -69,7 +71,7 @@ Calendar.setup = function (params) {
 	param_default("singleClick",    true);
 	param_default("disableFunc",    null);
 	param_default("dateStatusFunc", params["disableFunc"]);	// takes precedence if both are defined
-	param_default("mondayFirst",    true);
+	param_default("firstDay",       0); // defaults to "Sunday" first
 	param_default("align",          "Br");
 	param_default("range",          [1900, 2999]);
 	param_default("weekNumbers",    true);
@@ -84,6 +86,8 @@ Calendar.setup = function (params) {
 	param_default("electric",       true);
 	param_default("step",           2);
 	param_default("position",       null);
+	param_default("cache",          false);
+	param_default("showOthers",     false);
 
 	var tmp = ["inputField", "displayArea", "button"];
 	for (var i in tmp) {
@@ -126,7 +130,7 @@ Calendar.setup = function (params) {
 			alert("Calendar.setup:\n  Flat specified but can't find parent.");
 			return false;
 		}
-		var cal = new Calendar(params.mondayFirst, params.date, params.onSelect || onSelect);
+		var cal = new Calendar(params.firstDay, params.date, params.onSelect || onSelect);
 		cal.showsTime = params.showsTime;
 		cal.time24 = (params.timeFormat == "24");
 		cal.params = params;
@@ -144,8 +148,8 @@ Calendar.setup = function (params) {
 		var dateFmt = params.inputField ? params.ifFormat : params.daFormat;
 		var mustCreate = false;
 		var cal = window.calendar;
-		if (!window.calendar) {
-			window.calendar = cal = new Calendar(params.mondayFirst,
+		if (!(cal && params.cache)) {
+			window.calendar = cal = new Calendar(params.firstDay,
 							     params.date,
 							     params.onSelect || onSelect,
 							     params.onClose || function(cal) { cal.hide(); });
@@ -158,6 +162,7 @@ Calendar.setup = function (params) {
 				cal.setDate(params.date);
 			cal.hide();
 		}
+		cal.showsOtherMonths = params.showOthers;
 		cal.yearStep = params.step;
 		cal.setRange(params.range[0], params.range[1]);
 		cal.params = params;
