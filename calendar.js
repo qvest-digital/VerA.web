@@ -10,7 +10,7 @@
  * Read the entire license text here: http://www.gnu.org/licenses/lgpl.html
  */
 
-// $Id: calendar.js,v 1.32 2004/02/06 11:57:21 mishoo Exp $
+// $Id: calendar.js,v 1.33 2004/02/06 12:11:14 mishoo Exp $
 
 /** The Calendar object constructor. */
 Calendar = function (firstDayOfWeek, dateStr, onSelected, onClose) {
@@ -1697,6 +1697,15 @@ Date.prototype.print = function (str) {
 	}
 
 	return str;
+};
+
+Date.prototype.__msh_oldSetFullYear = Date.prototype.setFullYear;
+Date.prototype.setFullYear = function(y) {
+	var d = new Date(this);
+	d.__msh_oldSetFullYear(y);
+	if (d.getMonth() != this.getMonth())
+		this.setDate(28);
+	this.__msh_oldSetFullYear(y);
 };
 
 // END: DATE OBJECT PATCHES
