@@ -22,7 +22,7 @@
 
 \maketitle
 
-{\small\verb|$Id: reference.tex,v 1.11 2003/10/29 00:31:10 mishoo Exp $|}
+{\small\verb|$Id: reference.tex,v 1.12 2003/10/29 12:44:40 mishoo Exp $|}
 {\begin{small}\begin{quote}
 {\begin{flushright}
 \noindent
@@ -649,17 +649,19 @@ characters are the following:
 \texttt{\%S} & second ( 00 .. 59 ) \\
 \texttt{\%s} & number of seconds since Epoch (since Jan 01 1970 00:00:00 UTC) \\
 \texttt{\%t} & a tab character \\
-\texttt{\%U, \%W, \%V} & the week number\footnote{There are more algorithms for
-computing the week number.  All three specifiers implement the same one, as
-defined by ISO 8601: ``the week 01 is the week that has the Thursday in the
-current year, which is equivalent to the week that contains the fourth day of
-January.  Weeks start on Monday.}\\
+\texttt{\%U, \%W, \%V} & the week number\footnotemark\\
 \texttt{\%u} & the day of the week ( 1 .. 7, 1 = MON )\\
 \texttt{\%w} & the day of the week ( 0 .. 6, 0 = SUN )\\
 \texttt{\%y} & year without the century ( 00 .. 99 )\\
 \texttt{\%Y} & year including the century ( ex. 1979 )\\
 \texttt{\%\%} & a literal \texttt{\%} character
 \end{tabular}
+
+\footnotetext{There are more algorithms for computing the week number.  All
+three specifiers currently implement the same one, as defined by ISO 8601:
+``the week 01 is the week that has the Thursday in the current year, which is
+equivalent to the week that contains the fourth day of January.  Weeks start on
+Monday.}
 
 \subsubsection{\texttt{Calendar.setTtDateFormat}}\label{sec:Calendar.setTtDateFormat}
 
