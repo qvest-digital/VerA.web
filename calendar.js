@@ -1,7 +1,7 @@
 /*  Copyright Mihai Bazon, 2002, 2003  |  http://dynarch.com/mishoo/
  * ------------------------------------------------------------------
  *
- * The DHTML Calendar, version 0.9.4 "Your favorite time"
+ * The DHTML Calendar, version 0.9.5 "Your favorite time, bis"
  *
  * Details and latest version at:
  * http://dynarch.com/mishoo/calendar.epl
@@ -10,7 +10,7 @@
  * Read the entire license text here: http://www.gnu.org/licenses/lgpl.html
  */
 
-// $Id: calendar.js,v 1.21 2003/11/03 04:34:45 mishoo Exp $
+// $Id: calendar.js,v 1.22 2003/11/05 17:30:12 mishoo Exp $
 
 /** The Calendar object constructor. */
 Calendar = function (mondayFirst, dateStr, onSelected, onClose) {
