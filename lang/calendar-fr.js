@@ -119,5 +119,5 @@ Calendar._TT["TIME_PART"] = "(Maj-)Clic ou glisser-d\xE9placer pour changer la v
 Calendar._TT["DEF_DATE_FORMAT"] = "%Y-%m-%d";
 Calendar._TT["TT_DATE_FORMAT"] = "%A %e %B %Y";
 
-Calendar._TT["WK"] = "wk";
+Calendar._TT["WK"] = "sem.";
 Calendar._TT["TIME"] = "Heure:";
