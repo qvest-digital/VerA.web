@@ -16,20 +16,18 @@
 \author{Mihai Bazon, \texttt{<mishoo@infoiasi.ro>}}
 \date{\today\\\vspace{0.2ex}
 {\small
-calendar version: 0.9.3\\
-document version: 0.1
+calendar version: 0.9.4
 }
 }
 
 \begin{document}
 \maketitle
+{\small\verb|$Id: reference.tex,v 1.8 2003/10/15 20:35:39 mishoo Exp $|}
 
 {\begin{small}\begin{quote}
 {\begin{flushright}
 \noindent
-``Though a program be but three lines of code, someday it will have to be
-maintained.''\\
---- \emph{The Tao of Programming}
+``Select your favorite time''
 \end{flushright}}
 \end{quote}\end{small}}
 \tableofcontents
@@ -46,7 +44,7 @@ The DHTML Calendar widget\footnote
         programming the term ``control'' might be more familiar
         }
 is an (HTML) user interface element that gives end-users a friendly way to
-input dates.  It works in a web browser.  The first versions only provided
+select date and time.  It works in a web browser.  The first versions only provided
 support for popup calendars, while starting with version 0.9 it also supports
 ``flat'' display.  A ``flat'' calendar is a calendar that stays visible in the
 page all the time.  In this mode it could be very useful for ``blog'' pages and
@@ -54,7 +52,7 @@ other pages that require the calendar to be always present.
 
 The calendar is compatible with most popular browsers nowadays.  While it's
 created using web standards and it should generally work with any compliant
-browser, the following browsers were found to work: Mozilla (the main
+browser, the following browsers were found to work: Mozilla (the
 development platform), Netscape~6.0 or better, all other Gecko-based browsers,
 Internet Explorer~5.0 or better \emph{for Windows}\footnote{people report that the calendar does
 not work with IE5/Mac.  I don't have access to a Macintosh,
@@ -63,7 +61,8 @@ therefore---sorry---I can't fix it.}, Opera~7\footnote
         keyboard navigation; also Opera doesn't seem to allow disabling text
         selection when one drags the mouse on the page; despite all that, the
         calendar is still highly functional under Opera 7 and looks as good as
-        in other supported browsers. }.
+        in other supported browsers. } and Konqueror 3.1.2 (with pretty much the
+same dysfunctions as in Opera).
 
 You can find the latest info and version at the calendar homepage:
 
@@ -79,7 +78,8 @@ refers to the combination of HTML, CSS, JavaScript and DOM.  DOM (Document
 Object Model) is a set of interfaces that glues the other three together.  In
 other words, DOM allows dynamic modification of an HTML page through a program.
 JavaScript is our programming language, since that's what browsers like.  CSS
-is a way to make it look good ;-).
+is a way to make it look good ;-).  So all this soup is generically known as
+DHTML.
 
 Using DOM calls, the program dynamically creates a \texttt{<table>} element
 that contains a calendar for the given date and then inserts it in the document
@@ -123,10 +123,10 @@ version 0.9.3 this is the recommended way to setup a calendar.
 \end{center}
 
 The calendar is released under the
-{\href{http://www.gnu.org/licenses/lgpl.html}{GNU Lesser General Public
+{\href{http://www.gnu.org/licenses/gpl.html}{GNU Lesser General Public
 License}}.  This basically means that you are allowed to use it for anything you
 like, except selling it for profit or claiming it's authorship.  You can read
-the entire license text {\href{http://www.gnu.org/licenses/lgpl.html}{here}}.
+the entire license text {\href{http://www.gnu.org/licenses/gpl.html}{here}}.
 
 
 
@@ -135,7 +135,9 @@ the entire license text {\href{http://www.gnu.org/licenses/lgpl.html}{here}}.
 
 Installing the calendar used to be quite a task until version 0.9.3.  Starting
 with 0.9.3 I have included the file \texttt{calendar-setup.js} whose goal is to
-assist you to setup a popup or flat calendar within minutes.
+assist you to setup a popup or flat calendar within minutes.  You are
+encouraged to modify this file and \emph{not} calendar.js if you need
+extra customization, but you're on your own.
 
 First you have to include the needed scripts and style-sheet.  Make sure you do
 this in your document's \texttt{<head>} section, also make sure you put the
@@ -273,7 +275,8 @@ calendar, for instance:
 
 \begin{verbatim}
 cal.weekNumbers = false; // do not display week numbers
-cal.setDateFormat("y.mm.dd"); // set this format: 2003.12.31
+cal.showsTime = true;    // include a time selector
+cal.setDateFormat("%Y.%m.%d"); // set this format: 2003.12.31
 cal.setDisabledHandler(function(date) {
   // verify date and return true if it has to be disabled
   if (date.getFullYear() == 2004) {
@@ -294,7 +297,8 @@ that you provided.
 
 The calendar is created by following some steps (even the function
 \texttt{Calendar.setup}, described in section \ref{sec:quick-start}, does the
-same):
+same).  While you can skip optional steps if you're happy with the defaults,
+please respect the order below.
 
 \begin{enumerate}
 
@@ -302,8 +306,15 @@ same):
 section \ref{sec:Calendar.constructor}.
 
 \item [optional] Set the \texttt{weekNumbers} property to \texttt{false} if you don't want
-the calendar to display week numbers.  This step must take place \emph{before}
-calling \texttt{Calendar.create}.
+the calendar to display week numbers.
+
+\item [optional] Set the \texttt{showsTime} property to \texttt{true} if you
+want the calendar to also provide a time selector.
+
+\item [optional] Set the \texttt{time24} property to \texttt{false} if you want
+the time selector to be in 12-hour format.  Default is 24-hour format.  This
+property only has effect if you also set \texttt{showsTime} to
+\texttt{true}.
 
 \item [optional] Set the range of years available for selection (see section
 \ref{sec:Calendar.setRange}).  The default range is [1970..2050].
@@ -394,6 +405,13 @@ cache the JavaScript object.  It does this by checking the global variable
 Calendar object.  When the end-user closes the calendar, our code will only
 call ``\texttt{hide}'' on it, therefore keeping the JavaScript object and the
 HTML elements in place.
+
+{\color{red} CAVEAT:} \quad Since time selection support was introduced, this
+``object caching'' mechanism has the following drawback: if you once created
+the calendar with the time selection support, then other items that may not
+require this functionality will still get a calendar with the time selection
+support enabled.  And reciprocal. ;-)  Hopefully this will be corrected in a
+later version, but for now it doesn't seem such a big problem.
 
 \subsection{Callback functions}
 
@@ -593,7 +611,7 @@ This function configures the format in which the calendar reports the date to
 your ``onSelect'' handler.  Call it like this:
 
 \begin{verbatim}
-calendar.setDateFormat("y/mm/dd");
+calendar.setDateFormat("%y/%m/%d");
 \end{verbatim}
 
 As you can see, it receives only one parameter, the required format.  The magic
@@ -601,27 +619,36 @@ characters are the following:
 
 \begin{tabular}{ r l }
 \\
-d  & the date ( ex: 1 .. 31 ) \\
-dd & the date, zero padded ( ex: 01 .. 31 ) \\
-m  & month as a number ( ex: 1 .. 12 ) \\
-mm & month, zero padded ( ex: 01 .. 12 ) \\
-y  & 4 digit year ( ex: 1979 ) \\
-yy & 2 digit year, yy - 1900 ( ex: 79 ) (USING THIS IS NOT RECOMMENDED) \\
-w  & the number of the week in the year (1 or 2 digits) \\
-ww & the number of the week, zero padded (2 digits) \\
-D  & short weekday name ( ex: Sun, Wed, Fri ) \\
-DD & long weekday name ( ex: Sunday, Wednesday, Friday ) \\
-M  & short month name ( ex: Mar, Jan, Oct ) \\
-MM & long month name ( ex: March, January, October )\\\\
+\texttt{\%a} & abbreviated weekday name \\
+\texttt{\%A} & full weekday name \\
+\texttt{\%b} & abbreviated month name \\
+\texttt{\%B} & full month name \\
+\texttt{\%C} & century number \\
+\texttt{\%d} & the day of the month ( 00 .. 31 ) \\
+\texttt{\%e} & the day of the month ( 0 .. 31 ) \\
+\texttt{\%H} & hour ( 00 .. 23 ) \\
+\texttt{\%I} & hour ( 01 .. 12 ) \\
+\texttt{\%j} & day of the year ( 000 .. 366 ) \\
+\texttt{\%k} & hour ( 0 .. 23 ) \\
+\texttt{\%l} & hour ( 1 .. 12 ) \\
+\texttt{\%m} & month ( 01 .. 12 ) \\
+\texttt{\%M} & minute ( 00 .. 59 ) \\
+\texttt{\%n} & a newline character \\
+\texttt{\%p} & ``PM'' or ``AM'' \\
+\texttt{\%P} & ``pm'' or ``am'' \\
+\texttt{\%S} & second ( 00 .. 59 ) \\
+\texttt{\%t} & a tab character \\
+\texttt{\%U, \%W, \%V} & the week number\footnote{There are more algorithms for
+computing the week number.  All three specifiers implement the same one, as
+defined by ISO 8601: ``the week 01 is the week that has the Thursday in the
+current year, which is equivalent to the week that contains the fourth day of
+January.  Weeks start on Monday.}\\
+\texttt{\%u} & the day of the week ( 1 .. 7, 1 = MON )\\
+\texttt{\%w} & the day of the week ( 0 .. 6, 0 = SUN )\\
+\texttt{\%y} & year without the century ( 00 .. 99 )\\
+\texttt{\%Y} & year including the century ( ex. 1979 )\\
+\texttt{\%\%} & a literal \texttt{\%} character
 \end{tabular}
-
-{\color{red}\textbf{WARNING!}}\quad The format specifiers are likely to change.
-The current is a complete mess, in that that, for instance, you can't have a
-format like this: ``ymmdd''---you have to separate them through non-word
-characters, like for example ``y-mm-dd''.  In next versions of calendar the
-format will probably use a ``\%'' prefix, like in \texttt{strftime} from
-ANSI-C, so the format above will be possible to write like this:
-``\%y\%mm\%dd''.
 
 \subsubsection{\texttt{Calendar.setTtDateFormat}}\label{sec:Calendar.setTtDateFormat}
 
@@ -854,15 +881,17 @@ specified in section \ref{sec:Calendar.setDateFormat}.
 
 
 
-\section{Sponsors}
+\section{Credits}
 
 The following people either sponsored, donated money to the project or bought
-developer licenses (listed in reverse chronological order).  Your name could be here
-too!  If you wish to sponsor the project (for instance request a feature and
-pay me for implementing it) or donate some money please
+commercial licenses (listed in reverse chronological order).  Your name could
+be here too!  If you wish to sponsor the project (for instance request a
+feature and pay me for implementing it) or donate some money please
 \emph{please} contact me at \texttt{\href{mailto:mishoo@infoiasi.ro}{mishoo@infoiasi.ro}}.
 
 \begin{itemize}
+
+\item Himanshukumar Shah
 
 \item Seyhan Ersoy ({\href{http://www.oocgi.com}{http://www.oocgi.com}})
 
