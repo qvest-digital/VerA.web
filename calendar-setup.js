@@ -19,7 +19,7 @@
  * than modifying calendar.js itself).
  */
 
-// $Id: calendar-setup.js,v 1.18 2004/05/01 07:52:53 mishoo Exp $
+// $Id: calendar-setup.js,v 1.19 2004/05/28 14:35:57 mishoo Exp $
 
 /**
  *  This function "patches" an input field (or other element) to use a calendar
@@ -141,7 +141,7 @@ Calendar.setup = function (params) {
 		if (params.ifFormat) {
 			cal.setDateFormat(params.ifFormat);
 		}
-		if (typeof params.inputField.value == "string") {
+		if (params.inputField && typeof params.inputField.value == "string") {
 			cal.parseDate(params.inputField.value);
 		}
 		cal.create(params.flat);
