@@ -1,28 +1,30 @@
-\documentclass[a4paper,10pt]{article}
+\documentclass[a4paper,twoside,10pt]{dynadoc}
 
 % enlarge the page a bit..
-\addtolength{\hoffset}{-1cm}
-\addtolength{\textwidth}{2cm}
-\addtolength{\voffset}{-1.5cm}
-\addtolength{\textheight}{3cm}
+% \addtolength{\hoffset}{-1cm}
+% \addtolength{\textwidth}{2cm}
+% \addtolength{\voffset}{-1.5cm}
+% \addtolength{\textheight}{3cm}
 
 \usepackage{latexsym}
 \usepackage{amssymb}
 %\usepackage{tabularx}
 \usepackage{ltxtable}
 \usepackage{hyperref}
+\usepackage{wrapfig}
 
 \title{DHTML Calendar Widget}
-\author{Mihai Bazon, \texttt{<mihai\_bazon@yahoo.com>}}
+\author{Mihai Bazon, \texttt{<mihai\_bazon@yahoo.com>}\\
+\copyright\ Dynarch.com 2002--2005, \href{http://www.dynarch.com/}{\texttt{www.dynarch.com}}}
 \date{\today\\\vspace{0.2ex}
-{\small calendar version: 0.9.6 ``Keep cool but don't freeze''}
+{\small calendar version: 1.0 ``It is happening again''}
 }
 
 \begin{document}
 
 \maketitle
 
-{\small\verb|$Id: reference.tex,v 1.22 2004/06/24 17:48:21 mishoo Exp $|}
+{\small\verb|$Id: reference.tex,v 1.23 2005/03/05 11:37:14 mishoo Exp $|}
 {\begin{small}\begin{quote}
 {\begin{flushright}
 \noindent
@@ -50,23 +52,24 @@ other pages that require the calendar to be always present.
 
 The calendar is compatible with most popular browsers nowadays.  While it's
 created using web standards and it should generally work with any compliant
-browser, the following browsers were found to work: Mozilla (the
+browser, the following browsers were found to work: Mozilla/Firefox (the
 development platform), Netscape~6.0 or better, all other Gecko-based browsers,
 Internet Explorer~5.0 or better \emph{for Windows}\footnote{people report that the calendar does
-not work with IE5/Mac.  I don't have access to a Macintosh,
-therefore---sorry---I can't fix it.}, Opera~7\footnote
+not work with IE5/Mac.  However, this browser was discontinued and we
+believe that supporting it doesn't worth the efforts, given the fact that
+it has the worst, buggiest implementation for DOM I've ever seen.}, Opera~7\footnote
         { under Opera 7 the calendar still lacks some functionality, such as
         keyboard navigation; also Opera doesn't seem to allow disabling text
         selection when one drags the mouse on the page; despite all that, the
         calendar is still highly functional under Opera 7 and looks as good as
-        in other supported browsers. } and Konqueror 3.1.2 (with pretty much the
-same dysfunctions as in Opera).
+        in other supported browsers. }, Konqueror 3.1.2 and Apple Safari for
+MacOSX.
 
 You can find the latest info and version at the calendar homepage:
 
 \begin{center}
-{\href{http://dynarch.com/mishoo/calendar.epl}
-{\texttt{http://dynarch.com/mishoo/calendar.epl}}}
+{\href{http://www.dynarch.com/projects/calendar/}
+{\texttt{www.dynarch.com/projects/calendar}}}
 \end{center}
 
 \subsection{How does this thing work?}
@@ -116,14 +119,13 @@ version 0.9.3 this is the recommended way to setup a calendar.
 \subsection{License}
 
 \begin{center}
-\noindent \copyright\ Mihai Bazon, 2002 -- 2003, \texttt{<mihai\_bazon@yahoo.com>}\\
-\href{http://dynarch.com/mishoo/}{\texttt{http://dynarch.com/mishoo/}}\\
+\noindent \copyright\ Dynarch.com 2002--2005,
+\href{http://www.dynarch.com/}{\texttt{www.dynarch.com}}\\
+Author: Mihai Bazon
 \end{center}
 
 The calendar is released under the
-{\href{http://www.gnu.org/licenses/lgpl.html}{GNU Lesser General Public License}}.  You
-can {\href{http://www.gnu.org/licenses/lgpl.html}{read the entire license text
-here}}.
+{\href{http://www.gnu.org/licenses/lgpl.html}{GNU Lesser General Public License}}.
 
 
 
@@ -248,6 +250,374 @@ warning message saying that there's nothing to setup.
 \LTXtable{\textwidth}{Calendar.setup.pdf.tex}
 \fi
 \end{small}
+
+
+
+
+\section{Recipes}
+
+This section presents some common ways to setup a calendar using the
+\texttt{Calendar.setup} function detailed in the previous section.
+
+We don't discuss here about loading the JS or CSS code---so make sure you
+add the proper $<$script$>$ and $<$style$>$ or $<$link$>$ elements in your
+HTML code.  Also, when we present input fields, please note that they should
+be embedded in some form in order for data to be actually sent to server; we
+don't discuss these things here because they are not related to our
+calendar.
+
+\subsection{Popup calendars}
+
+These samples can be found in the file “\texttt{simple-1.html}” from the
+calendar package.
+
+\subsubsection{Simple text field with calendar attached to a button}
+
+% \begin{wrapfigure}{r}{5cm}
+% \includegraphics{field-button}
+% \end{wrapfigure}
+
+This piece of code will create a calendar for a simple input field with a
+button that will open the calendar when clicked.
+
+\begin{verbatim}
+<input type="text" name="date" id="f_date_b"
+       /><button type="reset" id="f_trigger_b"
+       >...</button>
+<script type="text/javascript">
+    Calendar.setup({
+        inputField     :    "f_date_b",           //*
+        ifFormat       :    "%m/%d/%Y %I:%M %p",
+        showsTime      :    true,
+        button         :    "f_trigger_b",        //*
+        step           :    1
+    });
+</script>
+\end{verbatim}
+
+Note that this code does more actually; the only \emph{required} fields are
+those marked with “//$*$”---that is, the ID of the input field and the ID of
+the button need to be passed to \texttt{Calendar.setup} in order for the
+calendar to be properly assigned to this input field.  As one can easily
+guess from the argument names, the other arguments configure a certain date
+format, instruct the calendar to also include a time selector and display
+every year in the drop-down boxes (the “step” parameter)---instead of showing
+every other year as the default calendar does.
+
+\subsubsection{Simple field with calendar attached to an image}
+
+Same as the above, but the element that triggers the calendar is this time
+an image, not a button.
+
+\begin{verbatim}
+<input type="text" name="date" id="f_date_c" readonly="1" />
+<img src="img.gif" id="f_trigger_c"
+     style="cursor: pointer; border: 1px solid red;"
+     title="Date selector"
+     onmouseover="this.style.background='red';"
+     onmouseout="this.style.background=''" />
+<script type="text/javascript">
+    Calendar.setup({
+        inputField     :    "f_date_c",
+        ifFormat       :    "%B %e, %Y",
+        button         :    "f_trigger_c",
+        align          :    "Tl",
+        singleClick    :    false
+    });
+</script>
+\end{verbatim}
+
+Note that the same 2 parameters are required as in the previous case; the
+difference is that the 'button' parameter now gets the ID of the image
+instead of the ID of the button.  But the event is the same: at 'onclick' on
+the element that is passed as 'button', the calendar will be shown.
+
+The above code additionally sets an alignment mode---the parameters are
+described in \ref{sec:Calendar.showAtElement}.
+
+\subsubsection{Hidden field, plain text triggers}
+
+Sometimes, to assure that the date is well formatted, you might want not to
+allow the end user to write a date manually.  This can easily be achieved
+with an input field by setting its \texttt{readonly} attribute, which is
+defined by the HTML4 standard; however, here's an even nicer approach: our
+calendar widget allows you to use a hidden field as the way to pass data to
+server, and a “display area” to show the end user the selected date.  The
+“display area” can be any HTML element, such as a DIV or a SPAN or
+whatever---we will use a SPAN in our sample.
+
+\begin{verbatim}
+<input type="hidden" name="date" id="f_date_d" />
+
+<p>Your birthday:
+   <span style="background-color: #ff8; cursor: default;"
+         onmouseover="this.style.backgroundColor='#ff0';"
+         onmouseout="this.style.backgroundColor='#ff8';"
+         id="show_d"
+   >Click to open date selector</span>.</p>
+
+<script type="text/javascript">
+    Calendar.setup({
+        inputField     :    "f_date_d",
+        ifFormat       :    "%Y/%d/%m",
+        displayArea    :    "show_d",
+        daFormat       :    "%A, %B %d, %Y",
+    });
+</script>
+\end{verbatim}
+
+The above code will configure a calendar attached to the hidden field and to
+the SPAN having the id=“show\_d”.  When the SPAN element is clicked, the
+calendar opens and allows the end user to chose a date.  When the date is
+chosen, the input field will be updated with the value in the format
+“\texttt{\%Y/\%d/\%m}”, and the SPAN element will display the date in a
+friendlier format (defined by “\texttt{daFormat}”).
+
+Beware that using this approach will make your page unfunctional in browsers
+that do not support JavaScript or our calendar.
+
+\subsubsection{2 Linked fields, no trigger buttons}
+
+Supposing you want to create 2 fields that hold an interval of exactly one
+week.  The first is the starting date, and the second is the ending date.
+You want the fields to be automatically updated when some date is clicked in
+one or the other, in order to keep exactly one week difference between them.
+
+\begin{verbatim}
+<input type="text" name="date" id="f_date_a" />
+<input type="text" name="date" id="f_calcdate" />
+
+<script type="text/javascript">
+    function catcalc(cal) {
+        var date = cal.date;
+        var time = date.getTime()
+        // use the _other_ field
+        var field = document.getElementById("f_calcdate");
+        if (field == cal.params.inputField) {
+            field = document.getElementById("f_date_a");
+            time -= Date.WEEK; // substract one week
+        } else {
+            time += Date.WEEK; // add one week
+        }
+        var date2 = new Date(time);
+        field.value = date2.print("%Y-%m-%d %H:%M");
+    }
+    Calendar.setup({
+        inputField     :    "f_date_a",
+        ifFormat       :    "%Y-%m-%d %H:%M",
+        showsTime      :    true,
+        timeFormat     :    "24",
+        onUpdate       :    catcalc
+    });
+    Calendar.setup({
+        inputField     :    "f_calcdate",
+        ifFormat       :    "%Y-%m-%d %H:%M",
+        showsTime      :    true,
+        timeFormat     :    "24",
+        onUpdate       :    catcalc
+    });
+</script>
+\end{verbatim}
+
+The above code will configure 2 input fields with calendars attached, as
+usual.  The first thing to note is that there's no trigger button---in such
+case, the calendar will popup when one clicks into the input field.  Using
+the \texttt{onUpdate} parameter, we pass a reference to a function of ours
+that will get called after a date was selected.  In that function we
+determine what field was updated and we compute the date in the other input
+field such that it keeps a one week difference between the two.  Enjoy! :-)
+
+\subsection{Flat calendars}
+
+This sample can be found in “\texttt{simple-2.html}”.  It will configure a
+flat calendar that is always displayed in the page, in the DIV having the
+id=“calendar-container”.  When a date is clicked our function hander gets
+called (\texttt{dateChanged}) and it will compute an URL to jump to based on
+the selected date, then use \texttt{window.location} to visit the new link.
+
+\begin{verbatim}
+<div style="float: right; margin-left: 1em; margin-bottom: 1em;"
+id="calendar-container"></div>
+
+<script type="text/javascript">
+  function dateChanged(calendar) {
+    // Beware that this function is called even if the end-user only
+    // changed the month/year.  In order to determine if a date was
+    // clicked you can use the dateClicked property of the calendar:
+    if (calendar.dateClicked) {
+      // OK, a date was clicked, redirect to /yyyy/mm/dd/index.php
+      var y = calendar.date.getFullYear();
+      var m = calendar.date.getMonth();     // integer, 0..11
+      var d = calendar.date.getDate();      // integer, 1..31
+      // redirect...
+      window.location = "/" + y + "/" + m + "/" + d + "/index.php";
+    }
+  };
+
+  Calendar.setup(
+    {
+      flat         : "calendar-container", // ID of the parent element
+      flatCallback : dateChanged           // our callback function
+    }
+  );
+</script>
+\end{verbatim}
+
+\subsection{Highlight special dates}
+
+So you want to display certain dates in a different color, or with bold
+font, or whatever, right?  Well, no problem---our calendar can do this as
+well.  It doesn't matter if it's a flat or popup calendar---we'll use a flat
+one for this sample.  The idea, however, is that you need to have the dates
+in an array or a JavaScript object---whatever is suitable for your way of
+thinking---and use it from a function that returns a value, telling the
+calendar what kind of date is the passed one.
+
+Too much talking, here's the code ;-)
+
+\begin{verbatim}
+<!-- this goes into the <head> tag -->
+<style type="text/css">
+  .special { background-color: #000; color: #fff; }
+</style>
+
+<!-- and the rest inside the <body> -->
+<div style="float: right; margin-left: 1em; margin-bottom: 1em;"
+id="calendar-container"></div>
+
+<script type="text/javascript">
+  var SPECIAL_DAYS = {
+    0 : [ 13, 24 ],		// special days in January
+    2 : [ 1, 6, 8, 12, 18 ],	// special days in March
+    8 : [ 21, 11 ]		// special days in September
+  };
+
+  function dateIsSpecial(year, month, day) {
+    var m = SPECIAL_DAYS[month];
+    if (!m) return false;
+    for (var i in m) if (m[i] == day) return true;
+    return false;
+  };
+
+  function dateChanged(calendar) {
+    // Beware that this function is called even if the end-user only
+    // changed the month/year.  In order to determine if a date was
+    // clicked you can use the dateClicked property of the calendar:
+    if (calendar.dateClicked) {
+      // OK, a date was clicked, redirect to /yyyy/mm/dd/index.php
+      var y = calendar.date.getFullYear();
+      var m = calendar.date.getMonth();     // integer, 0..11
+      var d = calendar.date.getDate();      // integer, 1..31
+      // redirect...
+      window.location = "/" + y + "/" + m + "/" + d + "/index.php";
+    }
+  };
+
+  function ourDateStatusFunc(date, y, m, d) {
+    if (dateIsSpecial(y, m, d))
+      return "special";
+    else
+      return false; // other dates are enabled
+      // return true if you want to disable other dates
+  };
+
+  Calendar.setup(
+    {
+      flat         : "calendar-container", // ID of the parent element
+      flatCallback : dateChanged,          // our callback function
+      dateStatusFunc : ourDateStatusFunc
+    }
+  );
+</script>
+\end{verbatim}
+
+So the above code creates a normal flat calendar, like in the previous
+sample.  We hook into it with the function “\texttt{ourDateStatusFunc}”,
+which receives a date object as the first argument, and also the year,
+month, date as the next 3 arguments (normally, you can extract year, month,
+date from the first parameter too, but we pass them separately for
+convenience, as it's very likely that they are going to be used in this
+function).
+
+So, this function receives a date.  It can return \texttt{false} if you want
+no special action to be taken on that date, \texttt{true} if that date
+should be disabled (unselectable), or a string if you want to assign a
+special CSS class to that date.  We return “special” for the dates that we
+want to highlight---and note that we defined a “special” look for them in
+the CSS section.
+
+I used a simple approach here to define what dates are special.  There's a
+JavaScript object (the SPECIAL\_DAYS global variable) which holds an array
+of dates for each month.  Month numbers start at zero (January).  Months
+that don't contain special dates can be absent from this object.  Note that
+the way to implement this is completely separated from the calendar
+code---therefore, feel free to use your imagination if you have better
+ideas. :-)
+
+\subsection{Select multiple dates}
+
+Starting version 1.0, the calendar is able to handle multiple dates
+selection.  You just need to pass the “\texttt{multiple}” parameter to
+\texttt{Calendar.setup} and add some special code that interprets the
+selection once the calendar is closed.
+
+\begin{verbatim}
+<a id="trigger" href="#">[open calendar...]</a>
+<div id="output"></div>
+<script type="text/javascript">//<![CDATA[
+    // the default multiple dates selected,
+    // first time the calendar is displayed
+    var MA = [];
+
+    function closed(cal) {
+
+      // here we'll write the output; this is only for example.  You
+      // will normally fill an input field or something with the dates.
+      var el = document.getElementById("output");
+
+      // reset initial content.
+      el.innerHTML = "";
+
+      // Reset the "MA", in case one triggers the calendar again.
+      // CAREFUL!  You don't want to do "MA = [];".  We need to modify
+      // the value of the current array, instead of creating a new one.
+      // Calendar.setup is called only once! :-)  So be careful.
+      MA.length = 0;
+
+      // walk the calendar's multiple dates selection hash
+      for (var i in cal.multiple) {
+        var d = cal.multiple[i];
+        // sometimes the date is not actually selected,
+        // so let's check
+        if (d) {
+          // OK, selected.  Fill an input field or something.
+          el.innerHTML += d.print("%A, %Y %B %d") + "<br />";
+          // and push it in the "MA", in case one triggers the calendar again.
+          MA[MA.length] = d;
+        }
+      }
+      cal.hide();
+      return true;
+    };
+
+    Calendar.setup({
+      align      : "BR",
+      showOthers : true,
+      multiple   : MA, // pass the initial or computed array of multiple dates
+      onClose    : closed,
+      button     : "trigger"
+    });
+//]]></script>
+\end{verbatim}
+
+The above code creates a popup calendar and passes to it an array of dates,
+which is initially empty, in the “multiple” argument.  When the calendar is
+closed it will call our “\texttt{closed}” function handler; in this handler
+we determine what dates were actually selected, inspecting the
+“\texttt{cal.multiple}” property, we display them in a DIV element right
+next to the $<$a$>$ element that opens the calendar, and we reinitialize the
+global array of selected dates (which will be used if the end user opens the
+calendar again).  I guess the code speaks for itself, right? :-)
 
 
 
