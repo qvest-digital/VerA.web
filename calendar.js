@@ -10,7 +10,7 @@
  * Read the entire license text here: http://www.gnu.org/licenses/lgpl.html
  */
 
-// $Id: calendar.js,v 1.25 2004/01/15 05:56:33 mishoo Exp $
+// $Id: calendar.js,v 1.26 2004/01/15 06:02:34 mishoo Exp $
 
 /** The Calendar object constructor. */
 Calendar = function (mondayFirst, dateStr, onSelected, onClose) {
@@ -34,6 +34,7 @@ Calendar = function (mondayFirst, dateStr, onSelected, onClose) {
 	this.ar_days = null;
 	this.showsTime = false;
 	this.time24 = true;
+	this.yearStep = 2;
 	// HTML elements
 	this.table = null;
 	this.element = null;
@@ -296,7 +297,7 @@ Calendar.showYearsCombo = function (fwd) {
 			yr.style.display = "none";
 		}
 		yr = yr.nextSibling;
-		Y += fwd ? 2 : -2;
+		Y += fwd ? cal.yearStep : -cal.yearStep;
 	}
 	if (show) {
 		var s = yc.style;
