@@ -1,7 +1,7 @@
 // ** I18N
 
 // Calendar BG language
-// Author: Mihai Bazon, <mishoo@infoiasi.ro>
+// Author: Mihai Bazon, <mihai_bazon@yahoo.com>
 // Translator: Valentin Sheiretsky, <valio@valio.eu.org>
 // Encoding: Windows-1251
 // Distributed under the same terms as the calendar itself.

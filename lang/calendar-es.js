@@ -1,7 +1,7 @@
 // ** I18N
 
 // Calendar ES (spanish) language
-// Author: Mihai Bazon, <mishoo@infoiasi.ro>
+// Author: Mihai Bazon, <mihai_bazon@yahoo.com>
 // Updater: Servilio Afre Puentes <servilios@yahoo.com>
 // Updated: 2004-06-03
 // Encoding: utf-8

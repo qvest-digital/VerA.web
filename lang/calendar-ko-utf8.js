@@ -1,7 +1,7 @@
 // ** I18N
 
 // Calendar EN language
-// Author: Mihai Bazon, <mishoo@infoiasi.ro>
+// Author: Mihai Bazon, <mihai_bazon@yahoo.com>
 // Translation: Yourim Yi <yyi@yourim.net>
 // Encoding: EUC-KR
 // lang : ko

@@ -10,7 +10,7 @@
  * Read the entire license text here: http://www.gnu.org/licenses/lgpl.html
  */
 
-// $Id: calendar.js,v 1.38 2004/06/06 19:36:18 mishoo Exp $
+// $Id: calendar.js,v 1.39 2004/06/23 11:12:24 mishoo Exp $
 
 /** The Calendar object constructor. */
 Calendar = function (firstDayOfWeek, dateStr, onSelected, onClose) {
@@ -631,7 +631,7 @@ Calendar.cellClick = function(el, ev) {
 				text = "Help and about box text is not translated into this language.\n" +
 					"If you know this language and you feel generous please update\n" +
 					"the corresponding file in \"lang\" subdir to match calendar-en.js\n" +
-					"and send it back to <mishoo@infoiasi.ro> to get it into the distribution  ;-)\n\n" +
+					"and send it back to <mihai_bazon@yahoo.com> to get it into the distribution  ;-)\n\n" +
 					"Thank you!\n" +
 					"http://dynarch.com/mishoo/calendar.epl\n";
 			}
