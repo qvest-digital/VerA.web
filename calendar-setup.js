@@ -19,7 +19,7 @@
  * than modifying calendar.js itself).
  */
 
-// $Id: calendar-setup.js,v 1.20 2004/06/06 19:37:28 mishoo Exp $
+// $Id: calendar-setup.js,v 1.21 2004/06/13 09:29:55 mishoo Exp $
 
 /**
  *  This function "patches" an input field (or other element) to use a calendar
@@ -132,6 +132,7 @@ Calendar.setup = function (params) {
 			return false;
 		}
 		var cal = new Calendar(params.firstDay, params.date, params.onSelect || onSelect);
+		cal.showsOtherMonths = params.showOthers;
 		cal.showsTime = params.showsTime;
 		cal.time24 = (params.timeFormat == "24");
 		cal.params = params;
