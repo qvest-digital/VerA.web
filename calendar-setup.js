@@ -14,7 +14,7 @@
  * quickly.
  */
 
-// $Id: calendar-setup.js,v 1.3 2003/09/24 08:10:37 mishoo Exp $
+// $Id: calendar-setup.js,v 1.4 2003/10/06 16:14:46 mishoo Exp $
 
 /**
  *  This function "patches" an input field (or other element) to use a calendar
@@ -38,6 +38,9 @@
  *   flat          | null or element ID; if not null the calendar will be a flat calendar having the parent with the given ID
  *   flatCallback  | function that receives a JS Date object and returns an URL to point the browser to (for flat calendar)
  *   disableFunc   | function that receives a JS Date object and should return true if that date has to be disabled in the calendar
+ *   onSelect      | function that gets called when a date is selected.  You don't _have_ to supply this (the default is generally okay)
+ *   onClose       | function that gets called when the calendar is closed.  [default]
+ *   date          | the date that the calendar will be initially displayed to
  *
  *  None of them is required, they all have default values.  However, if you
  *  pass none of "inputField", "displayArea" or "button" you'll get a warning
@@ -61,6 +64,9 @@ Calendar.setup = function (params) {
 	param_default("weekNumbers",    true);
 	param_default("flat",           null);
 	param_default("flatCallback",   null);
+	param_default("onSelect",       null);
+	param_default("onClose",        null);
+	param_default("date",           null);
 
 	var tmp = ["inputField", "displayArea", "button"];
 	for (var i in tmp) {
@@ -99,7 +105,7 @@ Calendar.setup = function (params) {
 			alert("Calendar.setup:\n  Flat specified but can't find parent.");
 			return false;
 		}
-		var cal = new Calendar(params.mondayFirst, null, onSelect);
+		var cal = new Calendar(params.mondayFirst, params.date, params.onSelect || onSelect);
 		cal.params = params;
 		cal.weekNumbers = params.weekNumbers;
 		cal.setRange(params.range[0], params.range[1]);
@@ -115,7 +121,10 @@ Calendar.setup = function (params) {
 		var dateFmt = params.inputField ? params.ifFormat : params.daFormat;
 		var mustCreate = false;
 		if (!window.calendar) {
-			window.calendar = new Calendar(params.mondayFirst, null, onSelect, function(cal) { cal.hide(); });
+			window.calendar = new Calendar(params.mondayFirst,
+						       params.date,
+						       params.onSelect || onSelect,
+						       params.onClose || function(cal) { cal.hide(); });
 			window.calendar.weekNumbers = params.weekNumbers;
 			mustCreate = true;
 		} else {
