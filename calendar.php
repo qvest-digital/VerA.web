@@ -1,9 +1,9 @@
 <?php
 
 /**
- *  File: calendar.php
- *  (c) dynarch.com 2004
- *  Distributed under the same terms as "The Coolest DHTML Calendar".
+ *  File: calendar.php | (c) dynarch.com 2004
+ *  Distributed as part of "The Coolest DHTML Calendar"
+ *  under the same terms.
  *  -----------------------------------------------------------------
  *  This file implements a simple PHP wrapper for the calendar.  It
  *  allows you to easily include all the calendar files and setup the
@@ -99,7 +99,7 @@ class DHTML_Calendar {
         while (list($key, $val) = each($array)) {
             if (is_bool($val))
                 $val = $val ? 'true' : 'false';
-            else
+            else if (!is_numeric($val))
                 $val = '"'.$val.'"';
             if ($jstr) $jstr .= ',';
             $jstr .= '"' . $key . '":' . $val;
