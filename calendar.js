@@ -10,7 +10,7 @@
  * Read the entire license text here: http://www.gnu.org/licenses/lgpl.html
  */
 
-// $Id: calendar.js,v 1.31 2004/02/06 11:44:08 mishoo Exp $
+// $Id: calendar.js,v 1.32 2004/02/06 11:57:21 mishoo Exp $
 
 /** The Calendar object constructor. */
 Calendar = function (firstDayOfWeek, dateStr, onSelected, onClose) {
@@ -986,7 +986,7 @@ Calendar._keyEvent = function(ev) {
 		Calendar.cellClick(cal._nav_now);
 		break;
 	    case 27: // KEY esc
-		act && cal.hide();
+		act && cal.callCloseHandler();
 		break;
 	    case 37: // KEY left
 	    case 38: // KEY up
