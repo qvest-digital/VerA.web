@@ -9,7 +9,7 @@
  * This script is distributed under the GNU General Public License.
  */
 
-// $Id: calendar.js,v 1.16 2003/10/26 01:41:11 mishoo Exp $
+// $Id: calendar.js,v 1.17 2003/10/29 00:06:07 mishoo Exp $
 
 /** The Calendar object constructor. */
 Calendar = function (mondayFirst, dateStr, onSelected, onClose) {
@@ -581,7 +581,8 @@ Calendar.cellClick = function(el, ev) {
 		// unless "today" was clicked, we assume no date was clicked so
 		// the selected handler will know not to close the calenar when
 		// in single-click mode.
-		cal.dateClicked = (el.navtype == 0);
+		// cal.dateClicked = (el.navtype == 0);
+		cal.dateClicked = false;
 		var year = date.getFullYear();
 		var mon = date.getMonth();
 		function setMonth(m) {
