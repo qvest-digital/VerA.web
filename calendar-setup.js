@@ -19,7 +19,7 @@
  * than modifying calendar.js itself).
  */
 
-// $Id: calendar-setup.js,v 1.13 2004/01/15 10:46:51 mishoo Exp $
+// $Id: calendar-setup.js,v 1.14 2004/01/15 10:54:29 mishoo Exp $
 
 /**
  *  This function "patches" an input field (or other element) to use a calendar
@@ -37,7 +37,7 @@
  *   daFormat      | the date format that will be used to display the date in displayArea
  *   singleClick   | (true/false) wether the calendar is in single click mode or not (default: true)
  *   mondayFirst   | (true/false) if true Monday is the first day of week, Sunday otherwise (default: true)
- *   align         | alignment (default: "Bl"); if you don't know what's this see the calendar documentation
+ *   align         | alignment (default: "Br"); if you don't know what's this see the calendar documentation
  *   range         | array with 2 elements.  Default: [1900, 2999] -- the range of years available
  *   weekNumbers   | (true/false) if it's true (default) the calendar will display week numbers
  *   flat          | null or element ID; if not null the calendar will be a flat calendar having the parent with the given ID
@@ -70,7 +70,7 @@ Calendar.setup = function (params) {
 	param_default("disableFunc",    null);
 	param_default("dateStatusFunc", params["disableFunc"]);	// takes precedence if both are defined
 	param_default("mondayFirst",    true);
-	param_default("align",          "Bl");
+	param_default("align",          "Br");
 	param_default("range",          [1900, 2999]);
 	param_default("weekNumbers",    true);
 	param_default("flat",           null);
