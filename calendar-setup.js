@@ -19,7 +19,7 @@
  * than modifying calendar.js itself).
  */
 
-// $Id: calendar-setup.js,v 1.8 2003/11/07 01:52:53 mishoo Exp $
+// $Id: calendar-setup.js,v 1.9 2003/11/10 07:52:32 mishoo Exp $
 
 /**
  *  This function "patches" an input field (or other element) to use a calendar
@@ -49,6 +49,7 @@
  *   date          | the date that the calendar will be initially displayed to
  *   showsTime     | default: false; if true the calendar will include a time selector
  *   timeFormat    | the time format; can be "12" or "24", default is "12"
+ *   electric      | if true (default) then given fields/date areas are updated for each move; otherwise they're updated only on close
  *
  *  None of them is required, they all have default values.  However, if you
  *  pass none of "inputField", "displayArea" or "button" you'll get a warning
@@ -78,6 +79,7 @@ Calendar.setup = function (params) {
 	param_default("date",           null);
 	param_default("showsTime",      false);
 	param_default("timeFormat",     "24");
+	param_default("electric",       true);
 
 	var tmp = ["inputField", "displayArea", "button"];
 	for (var i in tmp) {
@@ -91,7 +93,8 @@ Calendar.setup = function (params) {
 	}
 
 	function onSelect(cal) {
-		if (cal.params.flat) {
+		var update = (cal.dateClicked || params.electric);
+		if (update && cal.params.flat) {
 			if (typeof cal.params.flatCallback == "function") {
 				cal.params.flatCallback(cal);
 			} else {
@@ -99,16 +102,16 @@ Calendar.setup = function (params) {
 			}
 			return false;
 		}
-		if (cal.params.inputField) {
+		if (update && cal.params.inputField) {
 			cal.params.inputField.value = cal.date.print(cal.params.ifFormat);
 		}
-		if (cal.params.displayArea) {
+		if (update && cal.params.displayArea) {
 			cal.params.displayArea.innerHTML = cal.date.print(cal.params.daFormat);
 		}
-		if (cal.params.singleClick && cal.dateClicked) {
+		if (update && cal.params.singleClick && cal.dateClicked) {
 			cal.callCloseHandler();
 		}
-		if (typeof cal.params.onUpdate == "function") {
+		if (update && typeof cal.params.onUpdate == "function") {
 			cal.params.onUpdate(cal);
 		}
 	};
@@ -158,7 +161,7 @@ Calendar.setup = function (params) {
 			cal.create();
 		cal.parseDate(dateEl.value || dateEl.innerHTML);
 		cal.refresh();
-		cal.showAtElement(params.displayArea || params.inputField, params.align);
+		cal.showAtElement(params.button || params.displayArea || params.inputField, params.align);
 		return false;
 	};
 };
