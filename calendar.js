@@ -1,7 +1,7 @@
 /*  Copyright Mihai Bazon, 2002, 2003  |  http://students.infoiasi.ro/~mishoo
  * ---------------------------------------------------------------------------
  *
- * The DHTML Calendar, version 0.9.3 "It's still alive"
+ * The DHTML Calendar, version 0.9.3 "It's still alive & keeps rocking"
  *
  * Details and latest version at:
  * http://students.infoiasi.ro/~mishoo/site/calendar.epl
@@ -10,7 +10,7 @@
  * Public License, as long as you do not remove or alter this notice.
  */
 
-// $Id: calendar.js,v 1.6 2003/07/02 13:51:33 mishoo Exp $
+// $Id: calendar.js,v 1.7 2003/07/02 14:13:02 mishoo Exp $
 
 /** The Calendar object constructor. */
 Calendar = function (mondayFirst, dateStr, onSelected, onClose) {
@@ -947,6 +947,16 @@ Calendar.prototype.setDate = function (date) {
 	if (!date.equalsTo(this.date)) {
 		this._init(this.mondayFirst, date);
 	}
+};
+
+/**
+ *  Refreshes the calendar.  Useful if the "disabledHandler" function is
+ *  dynamic, meaning that the list of disabled date can change at runtime.
+ *  Just * call this function if you think that the list of disabled dates
+ *  should * change.
+ */
+Calendar.prototype.refresh = function () {
+	this._init(this.mondayFirst, this.date);
 };
 
 /** Modifies the "mondayFirst" parameter (EU/US style). */
