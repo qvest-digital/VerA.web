@@ -6,7 +6,8 @@
  * Details and latest version at:
  * http://dynarch.com/mishoo/calendar.epl
  *
- * This script is distributed under the GNU General Public License.
+ * This script is distributed under the GNU Lesser General Public License.
+ * Read the entire license text here: http://www.gnu.org/licenses/lgpl.html
  *
  * This file defines helper functions for setting up the calendar.  They are
  * intended to help non-programmers get a working calendar on their site
@@ -18,7 +19,7 @@
  * than modifying calendar.js itself).
  */
 
-// $Id: calendar-setup.js,v 1.6 2003/10/26 01:07:46 mishoo Exp $
+// $Id: calendar-setup.js,v 1.7 2003/11/03 05:54:09 mishoo Exp $
 
 /**
  *  This function "patches" an input field (or other element) to use a calendar
