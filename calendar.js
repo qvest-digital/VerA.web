@@ -10,7 +10,7 @@
  * Public License, as long as you do not remove or alter this notice.
  */
 
-// $Id: calendar.js,v 1.12 2003/09/24 08:10:37 mishoo Exp $
+// $Id: calendar.js,v 1.13 2003/09/24 14:27:52 fsoft Exp $
 
 /** The Calendar object constructor. */
 Calendar = function (mondayFirst, dateStr, onSelected, onClose) {
@@ -568,7 +568,7 @@ Calendar.cellClick = function(el) {
 			return;
 		    case 0:
 			// TODAY will bring us here
-			if ((typeof cal.getDateStatus == "function") && cal.getDateStatus(date)) {
+			if ((typeof cal.getDateStatus == "function") && cal.getDateStatus(date, date.getFullYear(), date.getMonth(), date.getDate())) {
 				// remember, "date" was previously set to new
 				// Date() if TODAY was clicked; thus, it
 				// contains today date.
@@ -906,7 +906,7 @@ Calendar.prototype._init = function (mondayFirst, date) {
 			cell.firstChild.data = iday;
 			if (typeof this.getDateStatus == "function") {
 				date.setDate(iday);
-				var status = this.getDateStatus(date);
+				var status = this.getDateStatus(date, year, month, iday);
 				if (status === true) {
 					cell.className += " disabled";
 					cell.disabled = true;

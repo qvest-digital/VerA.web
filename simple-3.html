@@ -56,12 +56,10 @@ id="calendar-container"></div>
     8 : [ 21, 11 ]		// special days in September
   };
 
-  function dateIsSpecial(date) {
-    var m = SPECIAL_DAYS[date.getMonth()];
+  function dateIsSpecial(date, year, month, day) {
+    var m = SPECIAL_DAYS[month];
     if (!m) return false;
-    var d = date.getDate();
-    for (var i in m)
-      if (m[i] == d) return true;
+    for (var i in m) if (m[i] == day) return true;
     return false;
   };
 
@@ -83,8 +81,8 @@ id="calendar-container"></div>
     {
       flat         : "calendar-container", // ID of the parent element
       flatCallback : dateChanged,          // our callback function
-      dateStatusFunc : function(date) {
-                         if (dateIsSpecial(date)) return "special";
+      dateStatusFunc : function(date, y, m, d) {
+                         if (dateIsSpecial(date,y,m,d)) return "special";
                          else return false; // other dates are disabled
                        }
     }
