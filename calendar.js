@@ -10,7 +10,7 @@
  * Public License, as long as you do not remove or alter this notice.
  */
 
-// $Id: calendar.js,v 1.5 2003/06/24 08:22:04 mishoo Exp $
+// $Id: calendar.js,v 1.6 2003/07/02 13:51:33 mishoo Exp $
 
 /** The Calendar object constructor. */
 Calendar = function (mondayFirst, dateStr, onSelected, onClose) {
@@ -312,6 +312,7 @@ Calendar.tableMouseUp = function(ev) {
 		if (mon.month != date.getMonth()) {
 			date.setMonth(mon.month);
 			cal.setDate(date);
+			cal.dateClicked = false;
 			cal.callHandler();
 		}
 	} else {
@@ -321,6 +322,7 @@ Calendar.tableMouseUp = function(ev) {
 			if (year.year != date.getFullYear()) {
 				date.setFullYear(year.year);
 				cal.setDate(date);
+				cal.dateClicked = false;
 				cal.callHandler();
 			}
 		}
@@ -1069,9 +1071,38 @@ Calendar.prototype.showAt = function (x, y) {
 };
 
 /** Shows the calendar near a given element. */
-Calendar.prototype.showAtElement = function (el) {
+Calendar.prototype.showAtElement = function (el, opts) {
 	var p = Calendar.getAbsolutePos(el);
-	this.showAt(p.x, p.y + el.offsetHeight);
+	if (!opts || typeof opts != "string") {
+		this.showAt(p.x, p.y + el.offsetHeight);
+		return true;
+	}
+	this.show();
+	var w = this.element.offsetWidth;
+	var h = this.element.offsetHeight;
+	this.hide();
+	var valign = opts.substr(0, 1);
+	var halign = "l";
+	if (opts.length > 1) {
+		halign = opts.substr(1, 1);
+	}
+	// vertical alignment
+        switch (valign) {
+	    case "T": p.y -= h; break;
+	    case "B": p.y += el.offsetHeight; break;
+	    case "C": p.y += (el.offsetHeight - h) / 2; break;
+	    case "t": p.y += el.offsetHeight - h; break;
+	    case "b": break; // already there
+        }
+	// horizontal alignment
+	switch (halign) {
+	    case "L": p.x -= w; break;
+	    case "R": p.x += el.offsetWidth; break;
+	    case "C": p.x += (el.offsetWidth - w) / 2; break;
+	    case "r": p.x += el.offsetWidth - w; break;
+	    case "l": break; // already there
+	}
+	this.showAt(p.x, p.y);
 };
 
 /** Customizes the date format. */
