@@ -12,7 +12,7 @@
  * Read the entire license text here: http://www.gnu.org/licenses/lgpl.html
  */
 
-// $Id: calendar.js,v 1.48 2005/03/07 07:43:38 mishoo Exp $
+// $Id: calendar.js,v 1.49 2005/03/07 09:26:34 mishoo Exp $
 
 /** The Calendar object constructor. */
 Calendar = function (firstDayOfWeek, dateStr, onSelected, onClose) {
@@ -599,7 +599,7 @@ Calendar.cellClick = function(el, ev) {
 		if (!other_month && !cal.currentDateEl)
 			cal._toggleMultipleDate(new Date(date));
 		else
-			newdate = true;
+			newdate = !el.disabled;
 		// a date was clicked
 		if (other_month)
 			cal._init(cal.firstDayOfWeek, date);
@@ -703,11 +703,11 @@ Calendar.cellClick = function(el, ev) {
 			newdate = closing = true;
 	}
 	if (newdate) {
-		cal.callHandler();
+		ev && cal.callHandler();
 	}
 	if (closing) {
 		Calendar.removeClass(el, "hilite");
-		cal.callCloseHandler();
+		ev && cal.callCloseHandler();
 	}
 };
 
@@ -969,9 +969,10 @@ Calendar._keyEvent = function(ev) {
 	if (!cal)
 		return false;
 	(Calendar.is_ie) && (ev = window.event);
-	var act = (Calendar.is_ie || ev.type == "keypress");
+	var act = (Calendar.is_ie || ev.type == "keypress"),
+		K = ev.keyCode;
 	if (ev.ctrlKey) {
-		switch (ev.keyCode) {
+		switch (K) {
 		    case 37: // KEY left
 			act && Calendar.cellClick(cal._nav_pm);
 			break;
@@ -987,7 +988,7 @@ Calendar._keyEvent = function(ev) {
 		    default:
 			return false;
 		}
-	} else switch (ev.keyCode) {
+	} else switch (K) {
 	    case 32: // KEY space (now)
 		Calendar.cellClick(cal._nav_now);
 		break;
@@ -999,48 +1000,78 @@ Calendar._keyEvent = function(ev) {
 	    case 39: // KEY right
 	    case 40: // KEY down
 		if (act) {
-			var date = cal.date.getDate() - 1;
-			var el = cal.currentDateEl;
-			var ne = null;
-			var prev = (ev.keyCode == 37) || (ev.keyCode == 38);
-			switch (ev.keyCode) {
-			    case 37: // KEY left
-				(--date >= 0) && (ne = cal.ar_days[date]);
-				break;
-			    case 38: // KEY up
-				date -= 7;
-				(date >= 0) && (ne = cal.ar_days[date]);
-				break;
-			    case 39: // KEY right
-				(++date < cal.ar_days.length) && (ne = cal.ar_days[date]);
-				break;
-			    case 40: // KEY down
-				date += 7;
-				(date < cal.ar_days.length) && (ne = cal.ar_days[date]);
-				break;
-			}
-			if (!ne) {
-				if (prev) {
-					Calendar.cellClick(cal._nav_pm);
-				} else {
-					Calendar.cellClick(cal._nav_nm);
-				}
-				date = (prev) ? cal.date.getMonthDays() : 1;
+			var prev, x, y, ne, el, step;
+			prev = K == 37 || K == 38;
+			step = (K == 37 || K == 39) ? 1 : 7;
+			function setVars() {
 				el = cal.currentDateEl;
-				ne = cal.ar_days[date - 1];
+				var p = el.pos;
+				x = p & 15;
+				y = p >> 4;
+				ne = cal.ar_days[y][x];
+			};setVars();
+			function prevMonth() {
+				var date = new Date(cal.date);
+				date.setDate(date.getDate() - step);
+				cal.setDate(date);
+			};
+			function nextMonth() {
+				var date = new Date(cal.date);
+				date.setDate(date.getDate() + step);
+				cal.setDate(date);
+			};
+			while (1) {
+				switch (K) {
+				    case 37: // KEY left
+					if (--x >= 0)
+						ne = cal.ar_days[y][x];
+					else {
+						x = 6;
+						K = 38;
+						continue;
+					}
+					break;
+				    case 38: // KEY up
+					if (--y >= 0)
+						ne = cal.ar_days[y][x];
+					else {
+						prevMonth();
+						setVars();
+					}
+					break;
+				    case 39: // KEY right
+					if (++x < 7)
+						ne = cal.ar_days[y][x];
+					else {
+						x = 0;
+						K = 40;
+						continue;
+					}
+					break;
+				    case 40: // KEY down
+					if (++y < cal.ar_days.length)
+						ne = cal.ar_days[y][x];
+					else {
+						nextMonth();
+						setVars();
+					}
+					break;
+				}
+				break;
 			}
-			Calendar.removeClass(el, "selected");
-			Calendar.addClass(ne, "selected");
-			cal.date = new Date(ne.caldate);
-			cal.callHandler();
-			cal.currentDateEl = ne;
+			if (ne) {
+				if (!ne.disabled)
+					Calendar.cellClick(ne);
+				else if (prev)
+					prevMonth();
+				else
+					nextMonth();
+			}
 		}
 		break;
 	    case 13: // KEY enter
-		if (act) {
-			cal.callHandler();
-			cal.hide();
-		}
+		if (act)
+			Calendar.cellClick(cal.currentDateEl, ev);
 		break;
 	    default:
 		return false;
@@ -1083,7 +1114,7 @@ Calendar.prototype._init = function (firstDayOfWeek, date) {
 
 	var row = this.tbody.firstChild;
 	var MN = Calendar._SMN[month];
-	var ar_days = new Array();
+	var ar_days = this.ar_days = new Array();
 	var weekend = Calendar._TT["WEEKEND"];
 	var dates = this.multiple ? (this.datesCells = {}) : null;
 	for (var i = 0; i < 6; ++i, row = row.nextSibling) {
@@ -1094,11 +1125,13 @@ Calendar.prototype._init = function (firstDayOfWeek, date) {
 			cell = cell.nextSibling;
 		}
 		row.className = "daysrow";
-		var hasdays = false, iday;
-		for (var j = 0; j < 7; ++j, cell = cell.nextSibling, date.setDate(date.getDate() + 1)) {
+		var hasdays = false, iday, dpos = ar_days[i] = [];
+		for (var j = 0; j < 7; ++j, cell = cell.nextSibling, date.setDate(iday + 1)) {
 			iday = date.getDate();
 			var wday = date.getDay();
 			cell.className = "day";
+			cell.pos = i << 4 | j;
+			dpos[j] = cell;
 			var current_month = (date.getMonth() == month);
 			if (!current_month) {
 				if (this.showsOtherMonths) {
@@ -1135,7 +1168,6 @@ Calendar.prototype._init = function (firstDayOfWeek, date) {
 				}
 			}
 			if (!cell.disabled) {
-				ar_days[ar_days.length] = cell;
 				cell.caldate = new Date(date);
 				cell.ttip = "_";
 				if (!this.multiple && current_month
@@ -1156,7 +1188,6 @@ Calendar.prototype._init = function (firstDayOfWeek, date) {
 		if (!(hasdays || this.showsOtherMonths))
 			row.className = "emptyrow";
 	}
-	this.ar_days = ar_days;
 	this.title.innerHTML = Calendar._MN[month] + ", " + year;
 	this.onSetTime();
 	this.table.style.visibility = "visible";
