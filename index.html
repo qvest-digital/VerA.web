@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-<!-- $Id: index.html,v 1.10 2004/02/06 18:53:09 mishoo Exp $ -->
+<!-- $Id: index.html,v 1.11 2004/06/06 19:35:37 mishoo Exp $ -->
 
 <head>
 <meta http-equiv="content-type" content="text/xml; charset=utf-8" />
@@ -73,7 +73,7 @@ function showCalendar(id, format, showsTime, showsOtherMonths) {
     calendar.hide();                 // so we hide it first.
   } else {
     // first-time call, create the calendar.
-    var cal = new Calendar(true, null, selected, closeHandler);
+    var cal = new Calendar(1, null, selected, closeHandler);
     // uncomment the following line to hide the week numbers
     // cal.weekNumbers = false;
     if (typeof showsTime == "string") {
@@ -128,7 +128,7 @@ function showFlatCalendar() {
   var parent = document.getElementById("display");
 
   // construct a calendar giving only the "selected" handler.
-  var cal = new Calendar(true, null, flatSelected);
+  var cal = new Calendar(0, null, flatSelected);
 
   // hide week numbers
   cal.weekNumbers = false;
