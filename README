@@ -17,15 +17,19 @@ The DHTML Calendar
 Contents
 ---------
 
-  calendar.js -- the main program file
-  lang/*.js   -- internalization files
-  *.css       -- color themes
-  cal.html    -- example usage file
+  calendar.js     -- the main program file
+  lang/*.js       -- internalization files
+  *.css           -- color themes
+  cal.html        -- example usage file
+  doc/            -- documentation, in PDF and HTML
+  simple-1.html   -- quick setup examples [popup calendars]
+  simple-2.html   -- quick setup example for flat calendar
 
-Documentation
---------------
+Homepage
+---------
 
   For details and latest versions please refer to calendar
   homepage, located on my website:
 
     http://students.infoiasi.ro/~mishoo/site/calendar.epl
+
