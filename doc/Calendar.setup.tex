@@ -97,6 +97,13 @@ hide/destroy the calendar.  You're on your own.  Check the calendar-setup.js
 file for an example.
 & null
 \\\hline
+\texttt{onUpdate}
+& function & If you supply a function handler here, it will be called right
+after the target field is updated with a new date.  You can use this to
+chain 2 calendars, for instance to setup a default date in the second just
+after a date was selected in the first.
+& null
+\\\hline
 \texttt{date}
 & date & This allows you to setup an initial date where the calendar will be
 positioned to.  If absent then the calendar will open to the today date.

@@ -46,9 +46,14 @@
 
 <hr />
 
-<p><b>Basic setup: one input field only.</b> Clicking in the input field
+<p><b>Basic setup: one input per calendar.</b> Clicking in the input field
 activates the calendar.  The date format is "%m/%d/%Y %I:%M %p".  The
 calendar defaults to "single-click mode".</p>
+
+<p>The example below has been updated to show you how to create "linked"
+fields.  Basically, when some field is filled with a date, the other
+is updated so that the difference between them remains one week.  The
+property useful here is "onUpdate".</p>
 
 <form action="#" method="get">
 <input type="text" name="date" id="f_date_a" />
