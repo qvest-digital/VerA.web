@@ -1,5 +1,5 @@
 #! /usr/bin/perl -w
-# $Id: make-release.pl,v 1.3 2004/02/06 19:39:19 mishoo Exp $
+# $Id: make-release.pl,v 1.4 2005/03/05 14:38:26 mishoo Exp $
 
 # This script creates a release of the calendar, as a ZIP file.  You _have_ to
 # specify a release version number, such as 0.9.3, in which case the file
@@ -16,7 +16,7 @@ die("You did not specify a release version number.  Please do so, like this:\n"
 my $tmpdir = '/tmp';
 
 # create directory tree
-my ($basename, $basedir, $langdir, $docdir);
+my ($basename, $basedir, $langdir, $docdir, $skindir);
 {
   # base directory
   $basename = "jscalendar-$version";
@@ -35,6 +35,10 @@ my ($basename, $basedir, $langdir, $docdir);
   $docdir = "$basedir/doc";
   mkdir $docdir;
   mkdir "$docdir/html";
+
+  # skins directory
+  $skindir = "$basedir/skins";
+  mkdir $skindir;
 }
 
 # copy lang files
@@ -48,6 +52,12 @@ chdir '..';                     # back to base directory
 my @css_files = <*.css>;
 print "\033[1;37mCopying\033[0m ".join(', ', @css_files)." to \033[1;32m$basedir\033[0m.\n";
 system('cp -v '.join(' ', @css_files)." $basedir");
+
+# copy themes
+my @themes = <skins/*>;
+print "\033[1;37mCopying\033[0m ".join(', ', @themes)." to \033[1;32m$skindir\033[0m.\n";
+system('cp -rv '.join(' ', @themes)." $skindir");
+system("find $skindir -name CVS -type d -exec rm -rfv {} \\;");
 
 # copy documentation files
 print "\033[1;33mCompiling documentation...\033[0m\n";
