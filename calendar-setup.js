@@ -19,7 +19,7 @@
  * than modifying calendar.js itself).
  */
 
-// $Id: calendar-setup.js,v 1.7 2003/11/03 05:54:09 mishoo Exp $
+// $Id: calendar-setup.js,v 1.8 2003/11/07 01:52:53 mishoo Exp $
 
 /**
  *  This function "patches" an input field (or other element) to use a calendar
@@ -114,7 +114,8 @@ Calendar.setup = function (params) {
 	};
 
 	if (params.flat != null) {
-		params.flat = document.getElementById(params.flat);
+		if (typeof params.flat == "string")
+			params.flat = document.getElementById(params.flat);
 		if (!params.flat) {
 			alert("Calendar.setup:\n  Flat specified but can't find parent.");
 			return false;
