@@ -12,7 +12,7 @@
  * Read the entire license text here: http://www.gnu.org/licenses/lgpl.html
  */
 
-// $Id: calendar.js,v 1.50 2005/03/07 09:49:44 mishoo Exp $
+// $Id: calendar.js,v 1.51 2005/03/07 16:44:31 mishoo Exp $
 
 /** The Calendar object constructor. */
 Calendar = function (firstDayOfWeek, dateStr, onSelected, onClose) {
@@ -152,23 +152,19 @@ Calendar.addClass = function(el, className) {
 	el.className += " " + className;
 };
 
+// FIXME: the following 2 functions totally suck, are useless and should be replaced immediately.
 Calendar.getElement = function(ev) {
-	if (Calendar.is_ie) {
-		var fuck = window.event.srcElement;
-		if (fuck.tagName == "DIV")
-			fuck = fuck.parentNode;
-		return fuck;
-	} else {
-		return ev.currentTarget;
-	}
+	var f = Calendar.is_ie ? window.event.srcElement : ev.currentTarget;
+	while (f.nodeType != 1 || /^div$/i.test(f.tagName))
+		f = f.parentNode;
+	return f;
 };
 
 Calendar.getTargetElement = function(ev) {
-	if (Calendar.is_ie) {
-		return window.event.srcElement;
-	} else {
-		return ev.target;
-	}
+	var f = Calendar.is_ie ? window.event.srcElement : ev.target;
+	while (f.nodeType != 1)
+		f = f.parentNode;
+	return f;
 };
 
 Calendar.stopEvent = function(ev) {
