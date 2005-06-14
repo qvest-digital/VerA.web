@@ -120,9 +120,9 @@ Calendar._TT["DAY_FIRST"] = "Visa %s först";
 // means Monday, etc.
 Calendar._TT["WEEKEND"] = "0";
 
-Calendar._TT["CLOSE"] = "St\xe4ng";
+Calendar._TT["CLOSE"] = "Stäng";
 Calendar._TT["TODAY"] = "Idag";
-Calendar._TT["TIME_PART"] = "(Skift-)klicka eller drag f\xf6r att \xe4ndra tid";
+Calendar._TT["TIME_PART"] = "(Skift-)klicka eller drag för att ändra tid";
 
 // date formats
 Calendar._TT["DEF_DATE_FORMAT"] = "%Y-%m-%d";
