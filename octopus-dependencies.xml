@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project>
+
+	<dependencies>
+
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.12</version>
+			<properties>
+				<dist.bundle>true</dist.bundle>
+                <war.bundle>true</war.bundle>
+			</properties>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging</artifactId>
+			<version>1.0.3</version>
+			<properties>
+				<dist.bundle>true</dist.bundle>
+			</properties>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-httpclient</groupId>
+			<artifactId>commons-httpclient</artifactId>
+			<version>3.0-rc4</version>
+			<properties>
+				<dist.bundle>true</dist.bundle>
+			</properties>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-discovery</groupId>
+			<artifactId>commons-discovery</artifactId>
+			<version>0.2</version>
+			<properties>
+				<dist.bundle>true</dist.bundle>
+			</properties>
+		</dependency>
+
+		<dependency>
+			<groupId>xmlrpc</groupId>
+			<artifactId>xmlrpc</artifactId>
+			<version>1.2-b1</version>
+			<properties>
+				<dist.bundle>true</dist.bundle>
+			</properties>
+		</dependency>
+
+		<dependency>
+			<groupId>velocity</groupId>
+			<artifactId>velocity</artifactId>
+			<version>1.4</version>
+			<properties>
+				<dist.bundle>true</dist.bundle>
+			</properties>
+		</dependency>
+
+		<dependency>
+			<groupId>velocity</groupId>
+			<artifactId>velocity-dep</artifactId>
+			<version>1.4</version>
+			<properties>
+				<dist.bundle>true</dist.bundle>
+			</properties>
+		</dependency>
+
+		<dependency>
+			<groupId>org.bouncycastle.jce</groupId>
+			<artifactId>bouncycastle-jdk14-provider</artifactId>
+			<version>1.24.0</version>
+			<properties>
+				<dist.bundle>true</dist.bundle>
+			</properties>
+		</dependency>
+
+		<dependency>
+			<groupId>axis</groupId>
+			<artifactId>axis</artifactId>
+			<version>${octopus.axis.version}</version>
+			<properties>
+				<dist.bundle>true</dist.bundle>
+			</properties>
+		</dependency>
+
+		<dependency>
+			<groupId>axis</groupId>
+			<artifactId>axis-jaxrpc</artifactId>
+			<version>${octopus.axis.version}</version>
+			<properties>
+				<dist.bundle>true</dist.bundle>
+			</properties>
+		</dependency>
+
+		<dependency>
+			<groupId>axis</groupId>
+			<artifactId>axis-saaj</artifactId>
+			<version>${octopus.axis.version}</version>
+			<properties>
+				<dist.bundle>true</dist.bundle>
+			</properties>
+		</dependency>
+
+		<dependency>
+			<groupId>axis</groupId>
+			<artifactId>axis-wsdl4j</artifactId>
+			<version>${octopus.axis.version}</version>
+			<properties>
+				<dist.bundle>true</dist.bundle>
+			</properties>
+		</dependency>
+
+ 	</dependencies>
+
+</project>
