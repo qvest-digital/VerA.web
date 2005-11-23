@@ -1,4 +1,4 @@
-/* $Id: TcCommonConfig.java,v 1.1.1.1 2005/11/21 13:33:37 asteban Exp $
+/* $Id: TcCommonConfig.java,v 1.2 2005/11/23 08:32:40 asteban Exp $
  * 
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
@@ -358,13 +358,13 @@ public class TcCommonConfig {
         return (moduleConfig != null) ? moduleConfig.getWebPathStatic() : '/' + moduleName + '/';
     }
 
-    /**
-     * Liefert eine Liste der registrierten Worker eines Modules
+    /*
+     * Liefert eine Liste der registrierten Worker eines Moduls
      * @return Bezeichnende Namen als Keys und vollqualifizierte Klassennamen als String-Values
-     */
     public Map getDeclaredContentWorkers(String moduleName) {
         return getModuleConfig(moduleName).getDeclaredContentWorkers();
     }
+     */
 
     /**
      * Liefert das Config Objekt eines modules

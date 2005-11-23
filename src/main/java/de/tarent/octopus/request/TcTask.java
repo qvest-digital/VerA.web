@@ -1,4 +1,4 @@
-/* $Id: TcTask.java,v 1.1.1.1 2005/11/21 13:33:37 asteban Exp $
+/* $Id: TcTask.java,v 1.2 2005/11/23 08:32:40 asteban Exp $
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
  * 
@@ -500,8 +500,6 @@ public class TcTask {
 		protected String name;
         protected String worker;
         protected String workerClassName;
-        protected Class workerClass = null;
-        protected Throwable workerClassError = null;
 
         protected TNode next;
         protected TNode child;
@@ -510,15 +508,7 @@ public class TcTask {
             super(parent);
             name = actionElement.getAttribute(ACTION_NAME_ATTRIBUTE_NAME);
             worker = actionElement.getAttribute(ACTION_WORKER_ATTRIBUTE_NAME);
-            workerClassName = (String) moduleConfig.getDeclaredContentWorkers().get(worker);
-            if (workerClassName == null)
-                workerClassName = worker;
 
-            try {
-                workerClass = moduleConfig.getClassLoader().loadClass(workerClassName);
-            } catch (Throwable e) {
-                workerClassError = e;
-            }
             Element childNode = Xml.getFirstChildElement(actionElement);
             child = getTNode(childNode, this);
 
@@ -559,12 +549,11 @@ public class TcTask {
             if (worker == null)
                 out.add(Resources.getInstance().get("TASK_ERROR_EMPTY_ACTION_WORKER", name));
 
-            if (workerClass == null)
-                out.add(Resources.getInstance().get("TASK_ERROR_WORKER_CLASS_ERROR", new Object[]{name, worker, workerClassName, workerClassError}));
+            if (moduleConfig.getContentWorkerDeclaration(worker) == null)
+                out.add(Resources.getInstance().get("TASK_ERROR_WORKER_CLASS_ERROR", new Object[]{name, worker}));
             else
                 try {
-                    TcContentWorker workerObject =
-                        TcContentWorkerFactory.getContentWorker(moduleConfig, worker, null);
+                    TcContentWorker workerObject = TcContentWorkerFactory.getContentWorker(moduleConfig, worker, null);
 
                     //TcContentWorker workerObject = (TcContentWorker) workerClass.newInstance();
                     TcPortDefinition port = workerObject.getWorkerDefinition(); 
@@ -627,20 +616,22 @@ public class TcTask {
 
         protected TcMessageDefinition getWorkerOutMessage() {
             try {
-                TcContentWorker theWorker = (TcContentWorker) workerClass.newInstance();
+                TcContentWorker theWorker = TcContentWorkerFactory.getContentWorker(moduleConfig, worker, null);
                 return theWorker.getWorkerDefinition().getOperation(name).getOutputMessage();
                 // Keine Fehlerbehandlung, da es hinterher eh static sein soll.
             } catch (Exception e) {
+                logger.log(Level.WARNING, Resources.getInstance().get("TASK_ERROR_WORKER_DESCRIPTION_ERROR", worker), e);
             }
             return new TcMessageDefinition();
         }
 
         protected TcMessageDefinition getWorkerInMessage() {
             try {
-                TcContentWorker theWorker = (TcContentWorker) workerClass.newInstance();
+                TcContentWorker theWorker = TcContentWorkerFactory.getContentWorker(moduleConfig, worker, null);
                 return theWorker.getWorkerDefinition().getOperation(name).getInputMessage();
                 // Keine Fehlerbehandlung, da es hinterher eh static sein soll.
             } catch (Exception e) {
+                logger.log(Level.WARNING, Resources.getInstance().get("TASK_ERROR_WORKER_DESCRIPTION_ERROR", worker), e);
             }
             return new TcMessageDefinition();
         }

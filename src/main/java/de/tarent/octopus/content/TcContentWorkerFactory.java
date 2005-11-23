@@ -1,4 +1,4 @@
-/* $Id: TcContentWorkerFactory.java,v 1.1.1.1 2005/11/21 13:33:37 asteban Exp $
+/* $Id: TcContentWorkerFactory.java,v 1.2 2005/11/23 08:32:40 asteban Exp $
  * 
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
@@ -27,12 +27,15 @@
 
 package de.tarent.octopus.content;
 
+import de.tarent.octopus.config.ContentWorkerDeclaration;
 import de.tarent.octopus.config.TcModuleConfig;
 import de.tarent.octopus.resource.Resources;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Logger;
+import de.tarent.octopus.server.SpecialWorkerFactory;
+import de.tarent.octopus.server.WorkerCreationException;
 
 /** 
  * Factory Klasse mit statischen Methoden zur Lieferung von WorkerInstanzen
@@ -43,10 +46,14 @@ import java.util.logging.Logger;
 public class TcContentWorkerFactory {
     private static Logger logger = Logger.getLogger(TcContentWorkerFactory.class.getName());
 
-    /** Map mit TcContentWorkern.
+    /** Map mit TcContentWorkern. Keys der Map sind die ClassLoader der Module. Values sind wiederum Maps mit ("workername"=>Instance).
      *  Dadurch werden die Worker gepuffert und müssen nicht für jede Anfrage neu erstellt werden.
      */
-    private static Map workers = new HashMap();
+    protected static Map workers = new HashMap();
+
+    /** Map mit den Speziellen Factorys zur Instanziierung von Workern. Keys der Map sind die ClassLoader der Module. Values sind wiederum Maps mit ("factoryClassName"=>Instance).
+     */
+    protected static Map factorys = new HashMap();
 
     /**
      * Liefert TcContentWorker.
@@ -58,39 +65,65 @@ public class TcContentWorkerFactory {
      * @return Einen Worker mit dem entsprechenden Namen
      */
     public static TcContentWorker getContentWorker(TcModuleConfig config, String workerName, String requestID)
-        throws
-            ClassNotFoundException,
-            InstantiationException,
-            IllegalAccessException,
-            ClassCastException,
-            TcContentProzessException {
-        ClassLoader moduleLoader = config.getClassLoader();
-        if (!workers.containsKey(moduleLoader))
-            workers.put(moduleLoader, new HashMap());
-        Map moduleWorkers = (Map) workers.get(moduleLoader);
-        if (!moduleWorkers.containsKey(workerName)) {
-            String workerClassName = null;
-            if ("TcPutParams".equals(workerName))
-                workerClassName = "de.tarent.octopus.content.TcPutParams";
-            else if (config.getDeclaredContentWorkers().containsKey(workerName))
-                workerClassName = config.getDeclaredContentWorkers().get(workerName).toString();
-            else if (config.getDeclaredContentWorkers().containsValue(workerName)) {
-                workerClassName = workerName;
-                logger.warning(Resources.getInstance().get("WORKERFACTORY_LOG_DEPRECATED_USE", requestID, workerName, config.getName()));
-            } else
-                logger.severe(Resources.getInstance().get("WORKERFACTORY_LOG_UNDECLARED_WORKER", requestID, workerName, config.getName()));
-            if (workerClassName == null)
-                throw new TcContentProzessException(Resources.getInstance().get("WORKERFACTORY_EXC_UNDECLARED_WORKER", workerName, config.getName()));
-            Object workerClass = moduleLoader.loadClass(workerClassName).newInstance();
-            TcContentWorker worker;
-            if (workerClass instanceof TcContentWorker)
-                worker = (TcContentWorker)workerClass;
-            else
-                worker = new TcReflectedWorkerWrapper(workerClass);
-
-            worker.init(config);
-            moduleWorkers.put(workerName, worker);
+        throws WorkerCreationException,
+               TcContentProzessException {
+        
+        ContentWorkerDeclaration workerDeclaration = config.getContentWorkerDeclaration(workerName);
+        if (null == workerDeclaration) {
+            logger.severe(Resources.getInstance().get("WORKERFACTORY_LOG_UNDECLARED_WORKER", requestID, workerName, config.getName()));
+            throw new WorkerCreationException(Resources.getInstance().get("WORKERFACTORY_EXC_UNDECLARED_WORKER", workerName, config.getName()));
         }
-        return (TcContentWorker) moduleWorkers.get(workerName);
+
+        // Bei einem Singleton cachen wir die Instanz, 
+        if (workerDeclaration.isSingletonInstantiation()) {
+
+            // Da jedes Modul einen eigenen Classloader besitzt müssen die 
+            // Worker unter diesem Classloader im Cache verwendet werden.
+            ClassLoader moduleLoader = config.getClassLoader();
+            Map moduleWorkers = (Map)workers.get(moduleLoader);
+            if (null == moduleWorkers) {
+                moduleWorkers = new HashMap();
+                workers.put(moduleLoader, moduleWorkers);
+            }
+
+            if (!moduleWorkers.containsKey(workerName)) {
+                TcContentWorker worker = getNewWorkerInstance(config, workerDeclaration);
+                moduleWorkers.put(workerName, worker);                
+            }
+            return (TcContentWorker) moduleWorkers.get(workerName);
+        }
+        // sonst erzeugen wir jedes mal eine neue.        
+        else {
+            return getNewWorkerInstance(config, workerDeclaration);
+        }
+    }
+
+    protected static TcContentWorker getNewWorkerInstance(TcModuleConfig config, ContentWorkerDeclaration workerDeclaration) 
+        throws WorkerCreationException, TcContentProzessException {
+
+        // Da jedes Modul einen eigenen Classloader besitzt müssen 
+        // auch die Factorys mit diesem Classloader geladen werden.
+        // Nur so ist es möglich einem Modul eine eigene Factory hinzu zu fügen.
+        ClassLoader moduleLoader = config.getClassLoader();
+
+        Map moduleFactorys = (Map)factorys.get(moduleLoader);
+        if (null == moduleFactorys) {
+            moduleFactorys = new HashMap();
+            factorys.put(moduleLoader, moduleFactorys);
+        }        
+        
+        SpecialWorkerFactory factory = (SpecialWorkerFactory)moduleFactorys.get(workerDeclaration.getFactory());
+        if (null == factory) {
+            try {
+                logger.fine(Resources.getInstance().get("WORKERFACTORY_LOADING_FACTORY", workerDeclaration.getFactory()));
+                factory = (SpecialWorkerFactory)moduleLoader.loadClass(workerDeclaration.getFactory()).newInstance();
+            } catch (Exception reflectionException) {
+                throw new WorkerCreationException(Resources.getInstance().get("WORKERFACTORY_EXC_LOADING_FACTORY", workerDeclaration.getFactory(), workerDeclaration.getWorkerName()), reflectionException);
+            }
+            moduleFactorys.put(workerDeclaration.getFactory(), factory);
+        }
+        TcContentWorker worker = factory.createInstance(config, workerDeclaration);
+        worker.init(config);
+        return worker;
     }
 }

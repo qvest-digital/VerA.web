@@ -1,4 +1,4 @@
-/* $Id: TcModuleConfig.java,v 1.1.1.1 2005/11/21 13:33:37 asteban Exp $
+/* $Id: TcModuleConfig.java,v 1.2 2005/11/23 08:32:40 asteban Exp $
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
  * 
@@ -65,6 +65,8 @@ import de.tarent.octopus.server.PersonalConfig;
 import de.tarent.octopus.soap.TcSOAPEngine;
 import de.tarent.octopus.util.DataFormatException;
 import de.tarent.octopus.util.Xml;
+import org.w3c.dom.Attr;
+import de.tarent.octopus.resource.Resources;
 
 /**
  * Beinhaltet die Einstellungen zu eimem Module.
@@ -82,6 +84,11 @@ public class TcModuleConfig {
     public final static String PREFS_PARAMS = "params";
     public static final String CONFIG_PARAM_ON_UNAUTHORIZED = "onUnauthorized";
     public static final String CONFIG_PARAM_PERSONAL_CONFIG_CLASS = "personalConfigClass";
+
+    /**
+     * Default Factory, die verwendet wird, wenn in der Config keine Angaben zu einem Worker gemacht wurden.
+     */
+    public static final String DEFAULT_WORKER_FACTORY_NAME = "de.tarent.octopus.content.DirectWorkerFactory";
 
     //
     // Variablen
@@ -118,10 +125,9 @@ public class TcModuleConfig {
 
     /**
      * Map mit den deklarierten Workern.
-     * Kurze Namen als String Keys und 
-     * vollständige Package-Class Bezeichner als String Values.
+     * Eindeutige Namen als String Keys ContentWorkerDeclatarion-Objekte als Values.
      */
-    protected Map declaredContentWorkers;
+    protected Map contentWorkersDeclarations;
 
     /**
      * Verfügbare Tasks
@@ -170,7 +176,7 @@ public class TcModuleConfig {
                 }
             } else if ("contentWorkerDeklaration".equals(currNode.getNodeName())) {
                 try {
-                    declaredContentWorkers = Xml.getParamMap(currNode);
+                    contentWorkersDeclarations = parseContentWorkerDeklarations(currNode);
                 } catch (DataFormatException dfe) {
                     logger.log(Level.SEVERE, "Fehler beim Parsen der Content Worker Deklaration.", dfe);
                     throw dfe;
@@ -228,10 +234,105 @@ public class TcModuleConfig {
 
     }
 
+    /** 
+     *  Auslesen der Content Worker Deklarationen
+     */
+    protected Map parseContentWorkerDeklarations(Node context) 
+        throws DataFormatException {
+        Map declarationMap = new HashMap();
+        
+        // Es gibt einen Default-Worker, 
+        // der für das Hinzufügen von Parameern in den Content genutzt wird.
+        ContentWorkerDeclaration putParamWorker = new ContentWorkerDeclaration();
+        putParamWorker.setWorkerName(Resources.getInstance().get("REQUESTDISPATCHER_CLS_PARAM_WORKER"));
+        putParamWorker.setImplementationSource("de.tarent.octopus.content.TcPutParams");
+        putParamWorker.setSingletonInstantiation(true);
+        putParamWorker.setFactory(DEFAULT_WORKER_FACTORY_NAME);
+        declarationMap.put(putParamWorker.getWorkerName(), putParamWorker);
+
+        
+        NodeList nodes = context.getChildNodes();
+        Node currNode;
+        for (int i = 0; i < nodes.getLength(); i++) {
+            currNode = nodes.item(i);
+
+            // z.B. <worker name="SQLExecutor" implementation="de.tarent.demo.SQLExecutor" singleton="true" factory="direct"/>
+            if (currNode instanceof Element && "worker".equals(currNode.getNodeName())) {
+                ContentWorkerDeclaration workerDek = new ContentWorkerDeclaration();
+                Element workerElement = (Element)currNode;
+                
+                // name
+                Attr name = workerElement.getAttributeNode("name");
+                if (name == null)
+                    throw new DataFormatException("Eine Worker-Deklaration muss ein name-Attribut haben.");
+                workerDek.setWorkerName(name.getValue());
+
+                // implementation
+                Attr implementation = workerElement.getAttributeNode("implementation");
+                if (implementation == null)
+                    throw new DataFormatException("Eine Worker-Deklaration muss ein implementation-Attribut haben.");
+                workerDek.setImplementationSource(implementation.getValue());
+
+                // singleton
+                Attr singleton = workerElement.getAttributeNode("singleton");
+                if (singleton != null)
+                    workerDek.setSingletonInstantiation(new Boolean(singleton.getValue()).booleanValue());
+
+                // factory
+                Attr factory = workerElement.getAttributeNode("factory");
+                if (factory != null)
+                    workerDek.setFactory(getExpandedWorkerFactoryName(factory.getValue()));
+                else
+                    workerDek.setFactory(DEFAULT_WORKER_FACTORY_NAME);
+
+                declarationMap.put(workerDek.getWorkerName(), workerDek);
+            }
+            // Zur Erhaltung der Kompatibilität sind auch <param name="workername" value="Klasse"/> erlaubt.
+            else if (currNode instanceof Element && "param".equals(currNode.getNodeName())) {
+                ContentWorkerDeclaration workerDek = new ContentWorkerDeclaration();
+                Element workerElement = (Element)currNode;                
+                
+                // name
+                Attr name = workerElement.getAttributeNode("name");
+                if (name == null)
+                    throw new DataFormatException("Eine param-Element muss ein name-Attribut haben.");
+                workerDek.setWorkerName(name.getValue());
+
+                // value
+                Attr value = workerElement.getAttributeNode("value");
+                if (value == null)
+                    throw new DataFormatException("Ein param-Element muss ein value-Attribut haben.");
+                workerDek.setImplementationSource(value.getValue());
+
+                workerDek.setFactory(DEFAULT_WORKER_FACTORY_NAME);
+
+                declarationMap.put(workerDek.getWorkerName(), workerDek);
+            }
+        }
+        return declarationMap;
+    }
+    
+    /**
+     * Liefert einen voll Qualifizierten Klassennamen zurück.
+     * Wenn 'shortname' keinen Punkt enthält wird er als Kurzname interpretiert,
+     * und entsprechend expandiert. Sonst wird davon aus gegangen, dass es sich 
+     * bereits um einen kompletten Klassennamen handelt.
+     * 
+     * Methode zur Expansion ist: "de.tarent.octopus.content."+ UK_FIRST_LOWER_REST(shortname) +"WorkerFactory"
+     * 
+     * @param shortname Ein Kurzname oder bereits ein voll qualifizierter Name
+     * @return Den vollen Klassennamen für shortname, oder shortname, wenn es bereits ein Klassenname ist.
+     */
+    protected String getExpandedWorkerFactoryName(String shortname) {
+        if (shortname.indexOf(".") < 0)
+            return "de.tarent.octopus.content."+ shortname.substring(0,1).toUpperCase() + shortname.substring(1).toLowerCase()  +"WorkerFactory";
+        return shortname;
+    }
+
     /**
      * Auslesen der DataAccess Informationen
      */
-    private Map parseDataAccess(Node dataAccessNode, Preferences preferences) throws DataFormatException {
+    protected Map parseDataAccess(Node dataAccessNode, Preferences preferences) throws DataFormatException {
 
         Map sources = new HashMap();
 
@@ -281,12 +382,12 @@ public class TcModuleConfig {
     }
 
     /**
-     * Liefert eine Map mit den existierenden Workern.
-     * Kurze Namen als String Keys und 
-     * vollständige Package-Class Bezeichner als String Values.
+     * Liefert das Declaration Objekt zu einem ContentWorker
+     * @param workerName Eindeutiger Bezeichner des Workers in diesem Modul
+     * @return Objekt mit Informationen zur Instantiierung des Workers
      */
-    public Map getDeclaredContentWorkers() {
-        return declaredContentWorkers;
+    public ContentWorkerDeclaration getContentWorkerDeclaration(String workerName) {
+        return (ContentWorkerDeclaration)contentWorkersDeclarations.get(workerName);
     }
 
     /**

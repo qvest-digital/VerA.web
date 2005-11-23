@@ -1,4 +1,4 @@
-/* $Id: TcConfig.java,v 1.1.1.1 2005/11/21 13:33:37 asteban Exp $
+/* $Id: TcConfig.java,v 1.2 2005/11/23 08:32:40 asteban Exp $
  * 
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
@@ -157,13 +157,14 @@ public class TcConfig {
         return commonConfig.getModuleRootPath(currentModuleName);
     }
 
-    /**
+
+    /*
      * Liefert eine Liste der registrierten Worker
      * @return Bezeichnende Namen als Keys und vollqualifizierte Klassennamen als String-Values
-     */
     public Map getDeclaredContentWorkers() {
         return commonConfig.getDeclaredContentWorkers(currentModuleName);
     }
+     */
 
     /**
      * Liefert den Typ der Response, der benutzt werden soll,
