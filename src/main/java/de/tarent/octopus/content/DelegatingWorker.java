@@ -1,4 +1,4 @@
-/* $Id: TcActionDeclarationException.java,v 1.2 2005/11/30 15:53:12 asteban Exp $
+/* $Id: DelegatingWorker.java,v 1.1 2005/11/30 15:53:12 asteban Exp $
  * 
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
@@ -27,21 +27,17 @@
 
 package de.tarent.octopus.content;
 
-public class TcActionDeclarationException extends TcContentProzessException {
+/**
+ * Interface für Wrapperklassen von Workern, 
+ * um eine einheitliche Schnittstelle für das Liefern des Delegate zu bieten.
+ * 
+ * @author Sebastian Mancke
+ */
+public interface DelegatingWorker {
+
     /**
-	 * serialVersionUID = 4046678480790596852L
-	 */
-	private static final long serialVersionUID = 4046678480790596852L;
+     * Returns the target Worker
+     */
+	public Object getWorkerDelegate();
 
-	public TcActionDeclarationException(String msg) {
-        super(msg);
-    }
-
-	public TcActionDeclarationException(String msg, Throwable t) {
-        super(msg, t);
-    }
-	
-    public TcActionDeclarationException(Throwable t) {
-        super(t);
-    }
 }
