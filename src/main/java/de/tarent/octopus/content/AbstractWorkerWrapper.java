@@ -1,4 +1,4 @@
-/* $Id: AbstractWorkerWrapper.java,v 1.1 2005/11/30 15:53:12 asteban Exp $
+/* $Id: AbstractWorkerWrapper.java,v 1.2 2005/12/02 15:29:05 asteban Exp $
  * 
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
@@ -45,6 +45,7 @@ import de.tarent.octopus.request.TcRequest;
 import de.tarent.octopus.server.InOutParam;
 import de.tarent.octopus.server.OctopusContext;
 import java.util.Map;
+import de.tarent.octopus.resource.Resources;
 
 /**
  * Basisklasse für Worker-Wrapper nach dem Template-Method Pattern.
@@ -54,7 +55,7 @@ import java.util.Map;
 public abstract class AbstractWorkerWrapper 
     implements TcContentWorker, DelegatingWorker {
 
-    Logger logger = Logger.getLogger(AbstractWorkerWrapper.class.getName());
+    private static Logger logger = Logger.getLogger(AbstractWorkerWrapper.class.getName());
 
 
     /**
@@ -157,21 +158,35 @@ public abstract class AbstractWorkerWrapper
                 // it schould be filled with an null-Value
                 if (null == actionData.inputParams[i]) {
                     args[argsPos++] = null;
+                    if (logger.isLoggable(Level.FINEST))
+                        logger.finest(i+". generic param is not declared as WebParam, applying null");
                 } else {                                    
                     Object paramValue = octopusContext.getContextField(actionData.inputParams[i]);
+                    if (logger.isLoggable(Level.FINEST))
+                        logger.finest("Filling "+i+". generic param with context-field: "+actionData.inputParams[i]+" paramValue="+paramValue);
 
                     if (paramValue == null && actionData.mandatoryFlags[i])
-                        throw new TcActionInvocationException("Anfragefehler: Der Parameter '" + actionData.inputParams[i] + "' muss vorhanden sein. (" + workerClass.getName() + "#" + actionName + ")");
-                                
-                    if (actionData.isInOutParam(argsPos)) {
-                        paramValue = new EnrichedInOutParam(actionData.inputParams[i], paramValue);
-                        inOutParams.add(paramValue);                
-                    } else {
-                        // Bei InOutParametern kann keine Typkonvertierung geschehen.
-                        // TODO: Mit JDK 1.5 - Generics wird das aber gehen.
-                        if (! actionData.args[argsPos].isInstance(paramValue)) {
-                            paramValue = tryToConvert(paramValue, actionData.getArgTargetType(argsPos));
+                        throw new TcActionInvocationException(Resources.getInstance()
+                                                              .get("WORKER_WRAPPER_EXC_MISSING_PARAM", 
+                                                                   new Object[]{tcRequest.getRequestID(),
+                                                                                actionData.inputParams[i], 
+                                                                                actionData.getArgTargetType(argsPos).getName(), 
+                                                                                workerClass.getName(), 
+                                                                                actionName}));
+                    // type conversion
+                    if (! actionData.getArgTargetType(argsPos).isInstance(paramValue)) {
+                        paramValue = tryToConvert(paramValue, actionData.getArgTargetType(argsPos));
+                        if (logger.isLoggable(Level.FINEST)) {
+                            logger.finest("Applying type conversion for param "+actionData.inputParams[i]+" to type "+actionData.getArgTargetType(argsPos));
+                            logger.finest("New value: "+paramValue);
                         }
+                    }
+                    
+                    if (actionData.isInOutParam(argsPos)) {
+                        if (logger.isLoggable(Level.FINEST))
+                            logger.finest("Wrapping param "+actionData.inputParams[i]+" as InOutParam.");
+                        paramValue = new EnrichedInOutParam(actionData.inputParams[i], paramValue);
+                        inOutParams.add(paramValue);
                     }
                     args[argsPos++] = paramValue;
                 }
@@ -179,12 +194,17 @@ public abstract class AbstractWorkerWrapper
             Object result;
             
             result = actionData.method.invoke(workerDelegate, args);
-            if (actionData.outputParam != null)
+            if (actionData.outputParam != null) {
                 octopusContext.setContextField(actionData.outputParam, result);
+                if (logger.isLoggable(Level.FINEST))
+                    logger.finest("Action result ["+actionData.outputParam+"]:"+result);
+            }
             
             for (Iterator iter = inOutParams.iterator(); iter.hasNext();) {
                 EnrichedInOutParam ioParam = (EnrichedInOutParam)iter.next();
                 octopusContext.setContextField(ioParam.getContextFieldName(), ioParam.get());
+                if (logger.isLoggable(Level.FINEST))
+                    logger.finest("Action result from InOutParam ["+ioParam.getContextFieldName()+"]:"+ioParam.get());
             }
             
             return (octopusContext.getStatus() != null) 
@@ -210,6 +230,8 @@ public abstract class AbstractWorkerWrapper
     
     /** Convertiert ein Object.
      *  Falls dies fehl schlägt oder der Parameter==null ist wird <code>null</code> zurück gegeben.
+     *
+     * TODO: Unterstützung für long => Date
      */
     protected Object tryToConvert(Object param, Class targetType) 
         throws TcContentProzessException {
@@ -238,6 +260,12 @@ public abstract class AbstractWorkerWrapper
                 if (param == null)
                     return new Double(0);
                 return Double.valueOf(param.toString());                
+            }
+                
+            else if (targetType.equals(Float.class) || targetType.equals(Float.TYPE)) {
+                if (param == null)
+                    return new Float(0);
+                return Float.valueOf(param.toString());                
             }
                 
             else if (targetType.equals(List.class) && param instanceof Object[]) {

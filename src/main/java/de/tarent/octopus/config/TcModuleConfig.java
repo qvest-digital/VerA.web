@@ -1,4 +1,4 @@
-/* $Id: TcModuleConfig.java,v 1.2 2005/11/23 08:32:40 asteban Exp $
+/* $Id: TcModuleConfig.java,v 1.3 2005/12/02 15:29:05 asteban Exp $
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
  * 
@@ -208,7 +208,6 @@ public class TcModuleConfig {
                 otherNodes.put(currNode.getNodeName(), currNode);
             }
         }
-
         
         configParams = new HashMap(rawConfigParams);
         override("Parameter von " + name, configParams, preferences.node(PREFS_PARAMS));
@@ -233,6 +232,27 @@ public class TcModuleConfig {
         }
 
     }
+
+    /**
+     * Protected empty Contructor,
+     * only for creation of MockUps
+     */
+    protected TcModuleConfig(String basedir, Map rawConfigParams) {
+        this.name = "mockup-module";
+        this.realPath = new File(basedir);
+        this.rawConfigParams = rawConfigParams;
+        this.configParams = rawConfigParams;
+    }
+
+    /** 
+     * Creates an Config Object for testing purpose
+     * @param @param rawConfigParams the config parameters
+     */
+    public static TcModuleConfig createMockupModuleConfig(String basedir, Map rawConfigParams) {
+        return new TcModuleConfig(basedir, rawConfigParams);
+    }
+
+
 
     /** 
      *  Auslesen der Content Worker Deklarationen

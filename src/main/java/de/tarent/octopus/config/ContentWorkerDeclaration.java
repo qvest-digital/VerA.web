@@ -1,4 +1,4 @@
-/* $Id: ContentWorkerDeclaration.java,v 1.1 2005/11/23 08:32:40 asteban Exp $
+/* $Id: ContentWorkerDeclaration.java,v 1.2 2005/12/02 15:29:05 asteban Exp $
  * 
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
@@ -44,11 +44,11 @@ public class ContentWorkerDeclaration {
      * Gibt an ob von dem Worker immer neue Instanzen erzeugt werden sollen,
      * oder immer die gleiche verwendet wird. Default ist singletonInstantiation = true
      */
-    public final boolean isSingletonInstantiation() {
+    public boolean isSingletonInstantiation() {
         return singletonInstantiation;
     }
 
-    public final void setSingletonInstantiation(final boolean newSingletonInstantiation) {
+    public void setSingletonInstantiation(final boolean newSingletonInstantiation) {
         this.singletonInstantiation = newSingletonInstantiation;
     }
 
@@ -57,11 +57,11 @@ public class ContentWorkerDeclaration {
      * Liefert die Factory, von der dieser Worker erzeugt werden kann.
      * @return Voll qualifizierter Klassenname der Factory
      */
-    public final String getFactory() {
+    public String getFactory() {
         return factory;
     }
 
-    public final void setFactory(final String newFactory) {
+    public void setFactory(final String newFactory) {
         this.factory = newFactory;
     }
 
@@ -70,11 +70,11 @@ public class ContentWorkerDeclaration {
      * Liefert die Factoryspezifische Quelle des Workers.
      * Dies kann z.B. der Klassenname oder Scriptname des Workers sein.
      */
-    public final String getImplementationSource() {
+    public String getImplementationSource() {
         return implementationSource;
     }
 
-    public final void setImplementationSource(final String newImplementationSource) {
+    public void setImplementationSource(final String newImplementationSource) {
         this.implementationSource = newImplementationSource;
     }
 
@@ -83,11 +83,11 @@ public class ContentWorkerDeclaration {
     /**
      * Eindeutiger Bezeichner, unter dem den Worker in dem Modul verfügbar ist.
      */
-    public final String getWorkerName() {
+    public String getWorkerName() {
         return workerName;
     }
 
-    public final void setWorkerName(final String newWorkerName) {
+    public void setWorkerName(final String newWorkerName) {
         this.workerName = newWorkerName;
     }
     

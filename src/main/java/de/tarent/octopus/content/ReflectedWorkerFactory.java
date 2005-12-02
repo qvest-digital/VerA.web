@@ -1,4 +1,4 @@
-/* $Id: ReflectedWorkerFactory.java,v 1.1 2005/11/23 08:32:40 asteban Exp $
+/* $Id: ReflectedWorkerFactory.java,v 1.2 2005/12/02 15:29:05 asteban Exp $
  * 
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
@@ -46,6 +46,8 @@ import de.tarent.octopus.config.TcModuleConfig;
 public class ReflectedWorkerFactory implements SpecialWorkerFactory {
 
     private static Logger logger = Logger.getLogger(ReflectedWorkerFactory.class.getName());
+    private static Class[] emptyClassArray = new Class[]{};
+    private static Object[] emptyObjectArray = new Object[]{};
 
     /**
      * Läd die als ImplementationSource angegebene Klasse und Kapselt sie mit einem ReflectedWorkerWrapper.
@@ -57,7 +59,7 @@ public class ReflectedWorkerFactory implements SpecialWorkerFactory {
         try {
             logger.fine(Resources.getInstance().get("WORKERFACTORY_LOADING_WORKER", getClass().getName(), workerDeclaration.getWorkerName(), workerDeclaration.getImplementationSource()));            
             Class workerClass = config.getClassLoader().loadClass(workerDeclaration.getImplementationSource());
-            return new TcReflectedWorkerWrapper(workerClass.newInstance());
+            return new TcReflectedWorkerWrapper(workerClass.getConstructor(emptyClassArray).newInstance(emptyObjectArray));
         } catch (Exception reflectionException) {
             throw new WorkerCreationException(Resources.getInstance().get("WORKERFACTORY_EXC_LOADING_WORKER", getClass().getName(), workerDeclaration.getWorkerName(), workerDeclaration.getImplementationSource()), reflectionException);
         }
