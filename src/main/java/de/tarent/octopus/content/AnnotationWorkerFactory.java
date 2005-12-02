@@ -1,4 +1,4 @@
-/* $Id: AnnotationWorkerFactory.java,v 1.1 2005/11/30 15:53:01 asteban Exp $
+/* $Id: AnnotationWorkerFactory.java,v 1.2 2005/12/02 15:29:05 asteban Exp $
  * 
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
@@ -59,7 +59,7 @@ public class AnnotationWorkerFactory implements SpecialWorkerFactory {
         try {
             logger.fine(Resources.getInstance().get("WORKERFACTORY_LOADING_WORKER", getClass().getName(), workerDeclaration.getWorkerName(), workerDeclaration.getImplementationSource()));
             Class workerClass = config.getClassLoader().loadClass(workerDeclaration.getImplementationSource());
-            return new AnnotationWorkerWrapper(workerClass.newInstance());
+            return new AnnotationWorkerWrapper(workerClass.getConstructor().newInstance());
         } catch (Exception reflectionException) {
             throw new WorkerCreationException(Resources.getInstance().get("WORKERFACTORY_EXC_LOADING_WORKER", getClass().getName(), workerDeclaration.getWorkerName(), workerDeclaration.getImplementationSource()), reflectionException);
         }

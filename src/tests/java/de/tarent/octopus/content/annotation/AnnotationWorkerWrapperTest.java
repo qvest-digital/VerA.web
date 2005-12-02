@@ -1,0 +1,159 @@
+
+
+package de.tarent.octopus.content.annotation;
+
+import de.tarent.octopus.config.*;
+import de.tarent.octopus.content.*;
+import de.tarent.octopus.request.*;
+import java.util.*;
+import java.util.logging.*;
+
+
+public class AnnotationWorkerWrapperTest
+    extends junit.framework.TestCase {
+
+    private static Logger logger = Logger.getLogger(AnnotationWorkerWrapperTest.class.getName());
+    
+    static boolean calledFlag;
+
+    TcModuleConfig moduleConfig;
+    TcContentWorker sampleWorker1;
+    TcContentWorker sampleWorker2;
+    TcRequest request;
+    TcContent content;
+    TcConfig config;
+
+
+
+    public AnnotationWorkerWrapperTest(String init) {
+        super(init);
+    }
+
+    public void setUp() 
+        throws Exception {
+        calledFlag = false;
+        moduleConfig = TcModuleConfig.createMockupModuleConfig("/tmp", new HashMap());
+        
+        AnnotationWorkerFactory factory = new AnnotationWorkerFactory();
+        ContentWorkerDeclaration workerDeclaration = new ContentWorkerDeclaration();
+        workerDeclaration.setImplementationSource(SampleWorker1.class.getName());
+        sampleWorker1 = factory.createInstance(moduleConfig, workerDeclaration);
+
+        workerDeclaration.setImplementationSource(SampleWorker2.class.getName());
+        sampleWorker2 = factory.createInstance(moduleConfig, workerDeclaration);
+
+        request = new TcRequest();
+        request.setRequestParameters(new HashMap());
+        content = new TcContent();
+
+        // this mockup can produce errors if parts of the config will be accecced
+        config = new TcConfig(null, null, null, null);
+    }
+    
+    public void testVersion() 
+        throws Exception {
+        
+        assertEquals("Given Version.", "0.4.2", sampleWorker1.getVersion() );
+        assertEquals("Default Version.", "1.0", sampleWorker2.getVersion() );
+    }
+
+
+    public void testInitCall() 
+        throws Exception {
+        
+        sampleWorker1.init(moduleConfig);
+        assertTrue("Init method was called.", ((SampleWorker1)((DelegatingWorker)sampleWorker1).getWorkerDelegate()).wasInitCalled);
+        
+        sampleWorker2.init(moduleConfig);
+        // no init method, only assert, that there is no exception        
+    }
+
+    public void testSimpleCall1() 
+        throws Exception {
+        sampleWorker1.doAction(config, "helloWorld", request, content);
+        assertEquals("getting result", "Hello World!", content.getAsString("helloWorldResult"));
+    }
+
+    public void testSimpleCall2() 
+        throws Exception {
+        sampleWorker1.doAction(config, "helloWorldWithDefaultResult", request, content);
+        assertEquals("getting result", "Hello World!", content.getAsString("return"));
+    }
+
+    public void testSimpleCall3() 
+        throws Exception {
+        sampleWorker1.doAction(config, "otherName", request, content);
+        assertEquals("getting result", "Hello World!", content.getAsString("return"));
+    }
+
+    public void testArgumentCall1() 
+        throws Exception {
+        content.setField("firstname", "Frank");
+        sampleWorker1.doAction(config, "helloWorldWithArgument", request, content);
+        assertEquals("getting result", "Hello Frank", content.getAsString("return"));
+    }
+
+    public void testArgumentCall2() 
+        throws Exception {
+        content.setField("firstname", "Frank");
+        sampleWorker1.doAction(config, "nameAnnotation", request, content);
+        assertEquals("getting result", "Hello Frank", content.getAsString("return"));
+    }
+
+    public void testMandatoryParams1() 
+        throws Exception {
+
+        content.setField("mandatoryByDefault", "Frank");
+        content.setField("mandatory", "Frank");
+        content.setField("optional", (String)null);
+        sampleWorker1.doAction(config, "optionalArguments", request, content);
+        // only assert, that there is no exception
+    }
+
+    public void testMandatoryParams2()
+        throws Exception {
+
+        try {
+            content.setField("mandatoryByDefault", "Frank");
+            content.setField("mandatory", (String)null);
+            content.setField("optional", (String)null);
+            sampleWorker1.doAction(config, "optionalArguments", request, content);
+        } catch (TcActionInvocationException aie) {
+            // success
+            return;
+        }
+        fail("no exception on missing mandatory param");
+    }
+
+    public void testMandatoryParams3()
+        throws Exception {
+
+        try {
+            content.setField("mandatoryByDefault", (String)null);
+            content.setField("mandatory", "Frank");
+            content.setField("optional", (String)null);
+            sampleWorker1.doAction(config, "optionalArguments", request, content);
+        } catch (TcActionInvocationException aie) {
+            // success
+            return;
+        }
+        fail("no exception on missing mandatory param");
+    }
+
+    public void testTypesSimple() 
+        throws Exception {
+
+        content.setField("testCase", this);
+        content.setField("int", 42);
+        content.setField("long", 42l);
+        content.setField("float", 42f);
+        content.setField("double", 42d);
+        content.setField("boolean", true);
+        content.setField("list", Collections.singletonList("test"));
+        content.setField("map", Collections.singletonMap("test", "test"));
+        content.setField("optional", (String)null);
+
+        sampleWorker1.doAction(config, "testTypesSimple", request, content);
+    }
+
+}

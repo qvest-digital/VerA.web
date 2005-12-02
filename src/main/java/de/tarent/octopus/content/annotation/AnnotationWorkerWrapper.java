@@ -1,4 +1,4 @@
-/* $Id: AnnotationWorkerWrapper.java,v 1.1 2005/11/30 15:53:01 asteban Exp $
+/* $Id: AnnotationWorkerWrapper.java,v 1.2 2005/12/02 15:29:05 asteban Exp $
  * 
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
@@ -129,31 +129,43 @@ public class AnnotationWorkerWrapper
         action.inputParams = new String[action.genericArgsCount];
         action.mandatoryFlags = new boolean[action.genericArgsCount];
         action.descriptions = new String[action.genericArgsCount];
+        int passCntxOffset = (action.passOctopusContext) ? 1 : 0;
         Annotation[][] parameterAnnotations = action.method.getParameterAnnotations();
-        for (int i= (action.passOctopusContext) ? 1 : 0;
-             i < action.args.length;
-             i++) {
+        for (int i=0; i < action.genericArgsCount; i++) {
             
+            int paramPos = (action.passOctopusContext) ? i+1 : i;
             Description pDescription = null;
             Optional pOptional = null;
             WebParam pWebParam = null;
+            Name pName = null;
             
-            for (int j=0; j<parameterAnnotations[i].length; j++) {
-                if (parameterAnnotations[i][j].getClass().equals(Description.class))
-                    pDescription = (Description)parameterAnnotations[i][j];                                
-
-                else if (parameterAnnotations[i][j].getClass().equals(Optional.class))
-                    pOptional = (Optional)parameterAnnotations[i][j];                
-
-                else if (parameterAnnotations[i][j].getClass().equals(WebParam.class))
-                    pWebParam = (WebParam)parameterAnnotations[i][j];
+            if (logger.isLoggable(Level.FINEST)) {
+                for (Object o : parameterAnnotations[paramPos])
+                    logger.finest("Annotations on "+paramPos+": "+o );
             }
-         
-            action.inputParams[i] = (pWebParam == null) ? null : pWebParam.name();
+            for (int j=0; j<parameterAnnotations[paramPos].length; j++) {
+                logger.finest("IS WEB PARAM: "+parameterAnnotations[paramPos][j].annotationType().getName());
+                if (parameterAnnotations[paramPos][j].annotationType().equals(Description.class))
+                    pDescription = (Description)parameterAnnotations[paramPos][j];                                
+
+                else if (parameterAnnotations[paramPos][j].annotationType().equals(Optional.class))
+                    pOptional = (Optional)parameterAnnotations[paramPos][j];                
+
+                else if (parameterAnnotations[paramPos][j].annotationType().equals(WebParam.class))
+                    pWebParam = (WebParam)parameterAnnotations[paramPos][j];
+
+                else if (parameterAnnotations[paramPos][j].annotationType().equals(Name.class))
+                    pName = (Name)parameterAnnotations[paramPos][j];
+            }
+            
+            // If WebParam is present, its name will be used,
+            // otherwise the Name Annotation or null.
+            action.inputParams[i] = (pWebParam != null) 
+                ? pWebParam.name() 
+                : ((pName != null) ? pName.value() : null);
             action.mandatoryFlags[i] = (pOptional == null) ? true : (! pOptional.value());
             action.descriptions[i] = (pDescription == null) ? null : pDescription.value();
         }
-
         
         // Getting the Key for the return-Value
         if (! Void.class.equals(action.method.getReturnType())) {
