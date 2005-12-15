@@ -1,4 +1,4 @@
-/* $Id: WorkerCreationException.java,v 1.1 2005/11/23 08:32:40 asteban Exp $
+/* $Id: WorkerCreationException.java,v 1.2 2005/12/15 10:05:22 christoph Exp $
  * 
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
@@ -30,13 +30,16 @@ package de.tarent.octopus.server;
 /** 
  * Exception, für Fehler beim Erstellen einer neuen Worker-Instatnz
  * 
- * @see TcContentWorker
+ * @see de.tarent.octopus.content.TcContentWorker
  * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
  */
-public class WorkerCreationException 
-    extends Exception {
-    
-    public WorkerCreationException() {
+public class WorkerCreationException extends Exception {
+    /**
+	 * serialVersionUID = 46639696610147426L;
+	 */
+	private static final long serialVersionUID = 46639696610147426L;
+
+	public WorkerCreationException() {
         super();
     }
     
