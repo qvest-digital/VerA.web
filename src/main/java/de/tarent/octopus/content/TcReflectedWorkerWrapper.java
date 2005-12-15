@@ -1,4 +1,4 @@
-/* $Id: TcReflectedWorkerWrapper.java,v 1.2 2005/11/30 15:53:12 asteban Exp $
+/* $Id: TcReflectedWorkerWrapper.java,v 1.3 2005/12/15 10:04:10 christoph Exp $
  * 
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
@@ -28,13 +28,7 @@
 package de.tarent.octopus.content;
 
 import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;

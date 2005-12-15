@@ -1,4 +1,4 @@
-/* $Id: AbstractWorkerWrapper.java,v 1.2 2005/12/02 15:29:05 asteban Exp $
+/* $Id: AbstractWorkerWrapper.java,v 1.3 2005/12/15 10:04:10 christoph Exp $
  * 
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
@@ -27,7 +27,6 @@
 
 package de.tarent.octopus.content;
 
-import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Arrays;

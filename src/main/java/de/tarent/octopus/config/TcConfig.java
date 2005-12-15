@@ -1,4 +1,4 @@
-/* $Id: TcConfig.java,v 1.2 2005/11/23 08:32:40 asteban Exp $
+/* $Id: TcConfig.java,v 1.3 2005/12/15 10:04:10 christoph Exp $
  * 
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
@@ -28,7 +28,6 @@
 package de.tarent.octopus.config;
 
 import java.io.File;
-import java.util.Map;
 
 import de.tarent.octopus.server.PersonalConfig;
 import de.tarent.octopus.data.TcDataAccessException;
