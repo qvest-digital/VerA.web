@@ -1,4 +1,4 @@
-/* $Id: LoginManagerXML.java,v 1.1.1.1 2005/11/21 13:33:38 asteban Exp $
+/* $Id: LoginManagerXML.java,v 1.2 2005/12/15 10:04:52 christoph Exp $
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
  * 
@@ -35,10 +35,10 @@ import java.util.logging.Logger;
 import javax.xml.parsers.SAXParserFactory;
 
 import org.xml.sax.Attributes;
-import org.xml.sax.HandlerBase;
 import org.xml.sax.Locator;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
+import org.xml.sax.helpers.DefaultHandler;
 
 import de.tarent.octopus.config.TcCommonConfig;
 import de.tarent.octopus.request.TcRequest;
@@ -105,7 +105,7 @@ public class LoginManagerXML extends AbstractLoginManager {
     }
 
 
-    private class MyContentHandler extends HandlerBase {
+    private class MyContentHandler extends DefaultHandler {
         private Map usermap = new HashMap();
         private Map groupmap = new HashMap();
         
