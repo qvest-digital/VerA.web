@@ -1,4 +1,4 @@
-/* $Id: ContentWorkerDeclaration.java,v 1.2 2005/12/02 15:29:05 asteban Exp $
+/* $Id: ContentWorkerDeclaration.java,v 1.3 2005/12/15 10:03:44 christoph Exp $
  * 
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
@@ -29,7 +29,7 @@ package de.tarent.octopus.config;
 /** 
  * Klasse zur Kapselung der Informaionen zu einem ContentWorker.
  * 
- * @see TcContentWorker
+ * @see de.tarent.octopus.content.TcContentWorker
  * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
  */
 public class ContentWorkerDeclaration {

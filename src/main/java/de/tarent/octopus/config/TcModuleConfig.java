@@ -1,4 +1,4 @@
-/* $Id: TcModuleConfig.java,v 1.3 2005/12/02 15:29:05 asteban Exp $
+/* $Id: TcModuleConfig.java,v 1.4 2005/12/15 10:03:44 christoph Exp $
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
  * 
@@ -246,7 +246,7 @@ public class TcModuleConfig {
 
     /** 
      * Creates an Config Object for testing purpose
-     * @param @param rawConfigParams the config parameters
+     * @param rawConfigParams the config parameters
      */
     public static TcModuleConfig createMockupModuleConfig(String basedir, Map rawConfigParams) {
         return new TcModuleConfig(basedir, rawConfigParams);
