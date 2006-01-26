@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <project>
-
 	<dependencies>
-
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
 			<version>1.2.12</version>
 			<properties>
 				<dist.bundle>true</dist.bundle>
-                <war.bundle>true</war.bundle>
+				<war.bundle>true</war.bundle>
 			</properties>
 		</dependency>
 
@@ -26,7 +24,7 @@
 		<dependency>
 			<groupId>commons-httpclient</groupId>
 			<artifactId>commons-httpclient</artifactId>
-			<version>3.0-rc4</version>
+			<version>3.0</version>
 			<properties>
 				<dist.bundle>true</dist.bundle>
 			</properties>
@@ -113,6 +111,6 @@
 			</properties>
 		</dependency>
 
- 	</dependencies>
+	</dependencies>
 
 </project>
