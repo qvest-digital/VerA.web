@@ -1,4 +1,4 @@
-/* $Id: TcVelocityResponseEngine.java,v 1.1.1.1 2005/11/21 13:33:38 asteban Exp $
+/* $Id: TcVelocityResponseEngine.java,v 1.2 2006/02/08 11:26:44 christoph Exp $
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
  * 
@@ -46,88 +46,98 @@ import de.tarent.octopus.request.TcRequest;
 import de.tarent.octopus.request.TcResponse;
 import de.tarent.octopus.resource.Resources;
 
-/** Diese Klasse repräsentiert die <a href="http://jakarta.apache.org/velocity/" target="_blank">Velocity</a> Template-Engine.
- *
- *  @author <a href="mailto:H.Helwich@tarent.de">Hendrik Helwich</a>, <b>tarent GmbH</b>
+/**
+ * This class merge the octopus content with a velocity script.
+ * 
+ * @author <a href="mailto:h.helwich@tarent.de">Hendrik Helwich</a>, <b>tarent GmbH</b>
  */
 public class TcVelocityResponseEngine implements TcResponseEngine {
-    /** Der Logger */
-    private static Logger logger = Logger.getLogger(TcCommonConfig.class.getName());
+	/** Filename suffix */
+	public static final String FILE_SUFFIX = ".vm";
+	/** Velocity content-key for the {@link octopus-request TcRequest}. */
+	public static final String PARAM_NAME_REQUEST = "octopusRequest";
+	/** Velocity content-key for the {@link octopus-response TcResponse}. */
+	public static final String PARAM_NAME_RESPONSE = "octopusResponse";
+	/** Velocity content-key for the {@link octopus-response-stream Writer}. */
+	public static final String PARAM_NAME_RESPONSESTREAM = "octopusResponseStream";
+	/** Velocity content-key for the {@link octopus-config TcConfig}. */
+	public static final String PARAM_NAME_CONFIG = "octopusConfig";
 
-    private static final String suffix = ".vm";
-    public final static String PARAM_NAME_REQUEST = "octopusRequest";
-    public final static String PARAM_NAME_CONFIG = "octopusConfig";
-    private VelocityEngine engine = new VelocityEngine();
-    private VelocityContext context = null;
-    private File rootPath;
+	/** Logger instance */
+	private Logger logger;
+	/** Velocity engine instance */
+	private VelocityEngine engine;
+	/** Velocity script rootpath */
+	private File rootPath;
 
-    public void init(TcModuleConfig moduleConfig, TcCommonConfig commonConfig) {
-        try {
-            rootPath = new File(commonConfig.getTemplateRootPath(moduleConfig.getName()), "velocity");
-            logger.config("Velocity-Root: " + rootPath);
-            Properties p = new Properties();
-            p.setProperty("file.resource.loader.path", rootPath.getAbsolutePath());
-            p.setProperty("velocimacro.library", commonConfig.getConfigData("velocity.macro.library"));
-            p.setProperty(
-                "velocimacro.permissions.allow.inline",
-                commonConfig.getConfigData("velocity.macro.permissions.allow.inline"));
-            p.setProperty(
-                "velocimacro.permissions.allow.inline.to.replace.global",
-                commonConfig.getConfigData("velocity.macro.permissions.allow.inline.to.replace.global"));
-            p.setProperty(
-                "velocimacro.permissions.allow.inline.local.scope",
-                commonConfig.getConfigData("velocity.macro.permissions.allow.inline.local.scope"));
-            p.setProperty(
-                "velocimacro.context.localscope",
-                commonConfig.getConfigData("velocity.macro.context.localscope"));
-            String loggerClass = commonConfig.getConfigData("velocity.log.system.class");
-            if (loggerClass != null && loggerClass.trim().length() > 0)
-                p.setProperty("runtime.log.logsystem.class", loggerClass);
-            engine.init(p);
-        } catch (Exception e) {
-            logger.log(Level.SEVERE, "Fehler beim Init der Velocity Engine.", e);
-        }
-        context = new VelocityContext();
-    }
+	public void init(TcModuleConfig moduleConfig, TcCommonConfig commonConfig) {
+		logger = Logger.getLogger(TcVelocityResponseEngine.class.getName());
+		engine = new VelocityEngine();
+		try {
+			rootPath = new File(commonConfig.getTemplateRootPath(moduleConfig.getName()), "velocity");
+			logger.config("Velocity-Root: " + rootPath);
+			Properties properties = new Properties();
+			properties.setProperty("file.resource.loader.path", rootPath.getAbsolutePath());
+			properties.setProperty("velocimacro.library", commonConfig.getConfigData("velocity.macro.library"));
+			properties.setProperty("velocimacro.permissions.allow.inline", commonConfig.getConfigData("velocity.macro.permissions.allow.inline"));
+			properties.setProperty("velocimacro.permissions.allow.inline.to.replace.global", commonConfig.getConfigData("velocity.macro.permissions.allow.inline.to.replace.global"));
+			properties.setProperty("velocimacro.permissions.allow.inline.local.scope", commonConfig.getConfigData("velocity.macro.permissions.allow.inline.local.scope"));
+			properties.setProperty("velocimacro.context.localscope", commonConfig.getConfigData("velocity.macro.context.localscope"));
+			
+			String loggerClass = commonConfig.getConfigData("velocity.log.system.class");
+			if (loggerClass != null && loggerClass.trim().length() > 0)
+				properties.setProperty("runtime.log.logsystem.class", loggerClass);
+			
+			engine.init(properties);
+		} catch (Exception e) {
+			logger.log(Level.SEVERE, "Fehler beim Init der Velocity Engine.", e);
+		}
+	}
 
-    public void sendResponse(TcConfig config, TcResponse tcResponse, TcContent theContent, TcResponseDescription desc, TcRequest request)
-        throws ResponseProcessingException {
-
-        context = new VelocityContext();
-
-        // die Daten in den Kontext hängen
-        String key;
-        for (Iterator e = theContent.getKeys(); e.hasNext();) {
-            key = (String) e.next();
-            context.put(key, theContent.get((key)));
-        }
-        context.put(PARAM_NAME_CONFIG, config);
-        context.put(PARAM_NAME_REQUEST, request);
-
-        String templateFile = desc.getDescName() + suffix;
-        if (!(new File(rootPath, templateFile)).exists())
-            throw new ResponseProcessingException("Template '" + templateFile + "' kann nicht gefunden werden.");
-        
-        String encoding = (String) theContent.getAsObject("responseParams.encoding");
-        if (encoding == null || encoding.length() == 0)
-            encoding = config.getDefaultEncoding();
-        Writer out;
-        boolean doClose = true;
-        try {
-            out = new OutputStreamWriter(tcResponse.getOutputStream(), encoding);
-            logger.fine(Resources.getInstance().get("VELOCITYRESPONSE_LOG_ENCODING", request.getRequestID(), encoding));
-        } catch (UnsupportedEncodingException e) {
-            logger.log(Level.WARNING, Resources.getInstance().get("VELOCITYRESPONSE_LOG_ENCODING_UNSUPPORTED", request.getRequestID(), encoding), e);
-            out = tcResponse.getWriter();
-            doClose = false;
-        }
-        try {
-            engine.mergeTemplate(templateFile, config.getDefaultEncoding(), context, out);
-            if (doClose)
-                out.close();
-        } catch (Exception e) {
-            logger.log(Level.SEVERE, "Fehler beim Erzeugen der Ausgabeseite mit Velocity.", e);
-            throw new ResponseProcessingException("Fehler beim Erzeugen der Ausgabeseite mit Velocity.", e);
-        }
-    }
+	public void sendResponse(TcConfig tcConfig, TcResponse tcResponse, TcContent tcContent, TcResponseDescription desc, TcRequest tcRequest)
+			throws ResponseProcessingException {
+		
+		String template = desc.getDescName() + FILE_SUFFIX;
+		if (!(new File(rootPath, template)).exists())
+			throw new ResponseProcessingException("Template '" + template + "' not found.");
+		
+		String encoding = (String)tcContent.getAsObject("responseParams.encoding");
+		if (encoding == null || encoding.length() == 0)
+			encoding = tcConfig.getDefaultEncoding();
+		
+		Writer writer;
+		boolean doClose = true;
+		try {
+			writer = new OutputStreamWriter(tcResponse.getOutputStream(), encoding);
+			logger.fine(Resources.getInstance().get("VELOCITYRESPONSE_LOG_ENCODING", tcRequest.getRequestID(), encoding));
+		} catch (UnsupportedEncodingException e) {
+			logger.log(Level.WARNING, Resources.getInstance().get("VELOCITYRESPONSE_LOG_ENCODING_UNSUPPORTED", tcRequest.getRequestID(), encoding), e);
+			writer = tcResponse.getWriter();
+			doClose = false;
+		}
+		
+		try {
+			VelocityContext context = new VelocityContext();
+			
+			String key;
+			for (Iterator it = tcContent.getKeys(); it.hasNext(); ) {
+				key = (String)it.next();
+				context.put(key, tcContent.get((key)));
+			}
+			tcContent.setField(PARAM_NAME_RESPONSESTREAM, writer);
+			
+			context.put(PARAM_NAME_CONFIG, tcConfig);
+			context.put(PARAM_NAME_REQUEST, tcRequest);
+			context.put(PARAM_NAME_RESPONSE, tcResponse);
+			context.put(PARAM_NAME_RESPONSESTREAM, writer);
+			
+			engine.mergeTemplate(template, tcConfig.getDefaultEncoding(), context, writer);
+			
+			if (doClose)
+				writer.close();
+		} catch (Exception e) {
+			logger.log(Level.SEVERE, "Fehler beim Erzeugen der Ausgabeseite mit Velocity.", e);
+			throw new ResponseProcessingException( "Fehler beim Erzeugen der Ausgabeseite mit Velocity.", e);
+		}
+	}
 }

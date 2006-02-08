@@ -1,4 +1,4 @@
-/* $Id: TcBinaryResponseEngine.java,v 1.1.1.1 2005/11/21 13:33:38 asteban Exp $
+/* $Id: TcBinaryResponseEngine.java,v 1.2 2006/02/08 11:26:44 christoph Exp $
  * 
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
@@ -29,8 +29,13 @@ package de.tarent.octopus.response;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.PrintWriter;
+import java.io.Reader;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
@@ -45,120 +50,201 @@ import de.tarent.octopus.request.TcRequest;
 import de.tarent.octopus.request.TcResponse;
 import de.tarent.octopus.resource.Resources;
 
-/** Diese Klasse gibt eine Datei aus dem Filesystem zurück.
+/**
+ * This class return a stream from the filesystem or the octopus context.
  * 
- * Der Dateiname muss im Content hinterlegt werden.
- * Hinter welchem Key dieser gespeichert ist muss dann beim
- * Response-Tag in der Config-XML-Datei dann als name
- * angegeben werden.
- *
- * @author Christoph Jerolimov, <b>tarent GmbH</b>
+ * The parameter must be defined in an map whose key context-key is
+ * defined as the name attribute of the repoonse tag.
+ * 
+ * The input type must be a {@link Map} (with the <code>PARAM_*</code> keys,
+ * a {@link File}, a {@link String} (which point on a file), an
+ * {@link InputStream} or a {@link Reader}.
+ * 
+ * @author <a href="mailto:c.jerolimov@tarent.de">Christoph Jerolimov</a>, tarent GmbH
  */
 public class TcBinaryResponseEngine implements TcResponseEngine {
-    private static Logger logger = Logger.getLogger(TcCommonConfig.class.getName());
+	/**
+	 * Param for a map response, define the response type, see
+	 * {@link #BINARY_RESPONSE_TYPE_STREAM} and
+	 * {@link #BINARY_RESPONSE_TYPE_LOCALFILE}.
+	 */
+	public static final String PARAM_TYPE = "type";
+	/** Param for a map response, must contain the filename. */
+	public static final String PARAM_FILENAME = "filename";
+	/** Param for a map response, may cotain a last modified header date (as string). */
+	// TODO Diese Header Information koennte auch direkt hier aus dem Header gelesen werden.
+	public static final String PARAM_FILEDATE = "date";
+	/** Param for a map response, may contain the content-type. */
+	public static final String PARAM_MIMETYPE = "mimetype";
+	/** Param for a map response, must contain a readable stream if type is stream. */
+	public static final String PARAM_STREAM = "stream";
+	/** Param for a map response, may contain <code>true</code> if this is a download. */
+	public static final String PARAM_IS_ATTACHMENT = "isAttachment";
 
+	/** Value for {@link #PARAM_TYPE}, will return a stream. */
+	public static final String BINARY_RESPONSE_TYPE_STREAM = "stream";
+	/** Value for {@link #PARAM_TYPE}, will return a local file. */
+	public static final String BINARY_RESPONSE_TYPE_LOCALFILE = "localfile";
+
+	/** HTTP header timestamp for the last modification date. */
+	public static final DateFormat HTTP_DEFAULT_TIMESTAMP = new SimpleDateFormat("dd MMM yyyy HH:mm:ss");
+	/** HTTP header content type for unknown content types. */
+	public static final String HTTP_DETAULT_MIMETYPE = "application/octet-stream";
+
+	/** java util logger */
+	private Logger logger = Logger.getLogger(TcCommonConfig.class.getName());
+
+	/**
+	 * @see TcResponseEngine#init(TcModuleConfig, TcCommonConfig)
+	 */
     public void init(TcModuleConfig moduleConfig, TcCommonConfig commonConfig) {
     }
 
-    public void sendResponse(TcConfig config, TcResponse tcResponse, TcContent tcContent, TcResponseDescription desc, TcRequest request)
-        throws ResponseProcessingException {
-
+	/**
+	 * @see TcResponseEngine#sendResponse(TcConfig, TcResponse, TcContent, TcResponseDescription, TcRequest)
+	 */
+    public void sendResponse(TcConfig tcConfig, TcResponse tcResponse, TcContent tcContent, TcResponseDescription desc, TcRequest tcRequest)
+        	throws ResponseProcessingException {
+    	
         try {
-        	int size = 0;
-        	byte[] buffer = new byte[1024];
+        	Object data = tcContent.get(desc.getDescName());
         	
-            Map info = (Map)tcContent.get(desc.getDescName());
-            String type = (String)info.get("type");
-            
-            if (BINARY_RESPONSE_TYPE_STREAM.equals(type)) {
-				String filename = (String)info.get("filename");
-				String mimetype = (String)info.get("mimetype");
-
-            	// Header setzten
-				tcResponse.setContentType(getContentString(filename, mimetype));
-
-				// Zurückgeben des Streams
-				InputStream input = (InputStream)info.get("stream");
-				OutputStream output = tcResponse.getOutputStream();
-				while (size != -1) {
-					size = input.read(buffer);
-					if (size != -1)
-						output.write(buffer, 0, size);
-				}
-				output.flush();
-				output.close();
-				input.close();
-				input = null;
-				logger.finer(Resources.getInstance().get("BINARYRESPONSE_LOG_FILE_HANDLED", request.getRequestID()));
-
-            } else if (BINARY_RESPONSE_TYPE_LOCALFILE.equals(type)) {
-				String filename = (String)info.get("filename");
-				String filedate = (String)info.get("date");
-
-				File file = new File(filename);
-				if (file.exists() && file.isFile()) {
-					// Überprüfen ob Datei geändert wurden ist und nur dann senden.
-					SimpleDateFormat df = new SimpleDateFormat("dd MMM yyyy HH:mm:ss");
-					Date dateFileIsModified = new Date(file.lastModified() / 1000 * 1000);
-					Date dateBrowserSend = (filedate == null ? null : df.parse(filedate));
-					String dateFileString = df.format(dateFileIsModified);
-
-					if (dateBrowserSend == null || dateFileIsModified.after(dateBrowserSend)) {
-						// Header setzten
-						tcResponse.setHeader("Pragma", null);
-						tcResponse.setHeader("Date", dateFileString);
-						tcResponse.setHeader("Last-Modified", dateFileString);
-						tcResponse.setHeader("Content-Length", String.valueOf(file.length()));
-						tcResponse.setContentType(getContentString(file.getName(), null));
-
-						// Zurückgeben der Datei
-						InputStream input = new FileInputStream(file);
-						OutputStream output = tcResponse.getOutputStream();
-						while (size != -1) {
-							size = input.read(buffer);
-							if (size != -1)
-								output.write(buffer, 0, size);
-						}
-						output.flush();
-						output.close();
-						input.close();
-						input = null;
-						logger.finer(Resources.getInstance().get("BINARYRESPONSE_LOG_FILE_HANDLED", request.getRequestID(), filename));
-					} else {
-						// Wenn Datei nicht gesendet werden muss, dies als HTTP-Response 304 (Not Modified) zurückgeben.
-						tcResponse.setHeader("Pragma", null);
-						tcResponse.setHeader("Date", dateFileString);
-						tcResponse.setHeader("Last-Modified", dateFileString);
-						tcResponse.setStatus(304);
-						logger.finer(Resources.getInstance().get("BINARYRESPONSE_LOG_NOT_MODIFIED", request.getRequestID(), filename));
-					}
-	            } else {
-    	            // Wenn Datei nicht vorhanden, dies als HTTP-Fehler 404 (File not found) zurückgeben.
-        	        tcResponse.setStatus(404);
-            	    logger.warning(Resources.getInstance().get("BINARYRESPONSE_LOG_NOT_FOUND", request.getRequestID(), filename));
+            if (data instanceof File) {
+            	File file = (File)data;
+            	tcResponse.setContentType(getContentString(file.getName(), null));
+            	processFile(tcRequest, tcResponse, file, file.getName(), null);
+            } else if (data instanceof String) {
+            	File file = new File((String)data);
+            	tcResponse.setContentType(getContentString(file.getName(), null));
+            	processFile(tcRequest, tcResponse, file, file.getName(), null);
+            } else if (data instanceof Map) {
+            	Map info = (Map)data;
+            	String type = (String)info.get(PARAM_TYPE);
+				String filename = (String)info.get(PARAM_FILENAME);
+				String filedate = (String)info.get(PARAM_FILEDATE);
+				String mimetype = (String)info.get(PARAM_MIMETYPE);
+            	
+            	if (isTrue(info.get(PARAM_IS_ATTACHMENT))) {
+            		tcResponse.setHeader("Content-Disposition", "attachment" + (filename != null ? "; filename=\"" + filename + "\"" : ""));
             	}
+            	
+	            if (BINARY_RESPONSE_TYPE_STREAM.equals(type)) {
+	            	tcResponse.setContentType(getContentString(filename, mimetype));
+					processStream(tcResponse, info.get(PARAM_STREAM));
+	            } else if (BINARY_RESPONSE_TYPE_LOCALFILE.equals(type)) {
+	            	File file = new File(filename);
+	            	tcResponse.setContentType(getContentString(file.getName(), mimetype));
+	            	processFile(tcRequest, tcResponse, file, file.getName(), filedate);
+	            }
+            } else {
+            	tcResponse.setContentType(getContentString(null, null));
+            	processStream(tcResponse, data);
             }
         } catch (Exception e) {
-            logger.log(Level.SEVERE, Resources.getInstance().get("BINARYRESPONSE_LOG_ERROR", request.getRequestID()), e);
+            logger.log(Level.SEVERE, Resources.getInstance().get("BINARYRESPONSE_LOG_ERROR", tcRequest.getRequestID()), e);
             throw new ResponseProcessingException(Resources.getInstance().get("BINARYRESPONSE_EXC_ERROR"), e);
         }
     }
-	
+
+    /**
+     * Process a file stream.
+     * 
+     * @param tcRequest
+     * @param tcResponse
+     * @param file
+     * @param filename
+     * @param filedate
+     * @throws IOException
+     * @throws ParseException
+     */
+    protected void processFile(TcRequest tcRequest, TcResponse tcResponse, File file, String filename, String filedate) throws IOException, ParseException {
+		if (file.exists() && file.isFile()) {
+			// send only if file was modified
+			Date dateFileIsModified = new Date(file.lastModified() / 1000 * 1000);
+			Date dateBrowserSend = (filedate == null ? null : HTTP_DEFAULT_TIMESTAMP.parse(filedate));
+			String dateFileString = HTTP_DEFAULT_TIMESTAMP.format(dateFileIsModified);
+			
+			if (dateBrowserSend == null || dateFileIsModified.after(dateBrowserSend)) {
+				// set header
+				tcResponse.setHeader("Pragma", null);
+				tcResponse.setHeader("Date", dateFileString);
+				tcResponse.setHeader("Last-Modified", dateFileString);
+				tcResponse.setHeader("Content-Length", String.valueOf(file.length()));
+				tcResponse.setContentType(getContentString(file.getName(), null));
+				
+				// return stream
+				processStream(tcResponse, new FileInputStream(file));
+				logger.finer(Resources.getInstance().get("BINARYRESPONSE_LOG_FILE_HANDLED", tcRequest.getRequestID(), filename));
+			} else {
+				// return file not modified
+				tcResponse.setHeader("Pragma", null);
+				tcResponse.setHeader("Date", dateFileString);
+				tcResponse.setHeader("Last-Modified", dateFileString);
+				tcResponse.setStatus(304);
+				logger.finer(Resources.getInstance().get("BINARYRESPONSE_LOG_NOT_MODIFIED", tcRequest.getRequestID(), filename));
+			}
+        } else {
+            // if no file found return http status 404
+	        tcResponse.setStatus(404);
+    	    logger.warning(Resources.getInstance().get("BINARYRESPONSE_LOG_NOT_FOUND", tcRequest.getRequestID(), filename));
+    	}
+    }
+
+    /**
+     * Pipe the real data stream to the reponse. At the moment it can handle
+     * {@link InputStream} and {@link Reader} instances.
+     * 
+     * @param tcResponse
+     * @param input
+     * @throws IOException
+     * @throws NullPointerException If input is null.
+     * @throws ClassCastException If input class is not supported.
+     */
+	protected void processStream(TcResponse tcResponse, Object input) throws IOException {
+		if (input instanceof InputStream) {
+			InputStream is = (InputStream)input;
+			OutputStream os = tcResponse.getOutputStream();
+			int size = 0;
+			byte b[] = new byte[1024];
+			while (size != -1) {
+				size = is.read(b);
+				if (size != -1)
+					os.write(b, 0, size);
+			}
+			is.close();
+			os.close();
+		} else if (input instanceof Reader) {
+			Reader r = (Reader)input;
+			PrintWriter w = tcResponse.getWriter();
+			int size = 0;
+			char c[] = new char[1024];
+			while (size != -1) {
+				size = r.read(c);
+				if (size != -1)
+					w.write(c, 0, size);
+			}
+			r.close();
+			w.close();
+		} else if (input == null) {
+			throw new NullPointerException();
+		} else {
+			throw new ClassCastException();
+		}
+	}
+
 	/**
-	 * Generiert einen fertigen Content-String aus einem Dateinamen
-	 * und einem MimeType.
+	 * Create a http-like contenttype from the filename and mimetype.
 	 * 
-	 * Content-String-Format:
+	 * format:
 	 *   mime/type
 	 *   mime/type; name="filename.txt"
 	 * 
-	 * Default:
-	 *   MIMETYPE_DETAULT
-	 *   ohne Dateiname
+	 * default:
+	 *   {@link #HTTP_DETAULT_MIMETYPE} without filename
 	 */
 	private String getContentString(String filename, String mimetype) {
 		if (filename == null && mimetype == null) {
-			return MIMETYPE_DEFAULT;
+			return HTTP_DETAULT_MIMETYPE;
 		} else if (filename == null) {
 			return mimetype;
 		} else if (mimetype == null) {
@@ -167,7 +253,13 @@ public class TcBinaryResponseEngine implements TcResponseEngine {
 			return mimetype + "; name=\"" + filename + "\"";
 		}
 	}
-	
+
+	/**
+	 * Create some standard file types.
+	 * 
+	 * @param filename
+	 * @return
+	 */
 	private String getMimeType(String filename) {
 		if (filename.endsWith(".png")) {
 			return "image/png";
@@ -180,11 +272,16 @@ public class TcBinaryResponseEngine implements TcResponseEngine {
 		} else if (filename.endsWith(".css")) {
 			return "text/css";
 		}
-		return MIMETYPE_DEFAULT;
+		return HTTP_DETAULT_MIMETYPE;
 	}
-	
-	public static final String BINARY_RESPONSE_TYPE_STREAM = "stream";
-	public static final String BINARY_RESPONSE_TYPE_LOCALFILE = "localfile";
-	
-	private static final String MIMETYPE_DEFAULT = "application/octet-stream";
+
+	/**
+	 * Return true if the Parameter is "true".
+	 * 
+	 * @param o
+	 * @return
+	 */
+	private boolean isTrue(Object o) {
+		return o != null && o.toString().equals("true");
+	}
 }
