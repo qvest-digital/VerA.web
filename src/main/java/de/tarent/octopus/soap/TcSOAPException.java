@@ -1,4 +1,4 @@
-/* $Id: TcSOAPException.java,v 1.1.1.1 2005/11/21 13:33:38 asteban Exp $
+/* $Id: TcSOAPException.java,v 1.2 2006/02/08 11:27:00 christoph Exp $
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
  * 
@@ -27,7 +27,6 @@
 package de.tarent.octopus.soap;
 
 import java.io.OutputStream;
-import java.util.logging.Logger;
 
 import org.apache.axis.AxisFault;
 import org.apache.axis.Message;
@@ -39,8 +38,6 @@ public class TcSOAPException extends Exception {
 	 * serialVersionUID = -4535324668548567738L
 	 */
 	private static final long serialVersionUID = -4535324668548567738L;
-
-	private static Logger logger = Logger.getLogger(TcSOAPException.class.getName());
 
 	protected AxisFault axisFault;
 

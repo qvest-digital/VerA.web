@@ -1,4 +1,4 @@
-/* $Id: AbstractLoginManager.java,v 1.1.1.1 2005/11/21 13:33:38 asteban Exp $
+/* $Id: AbstractLoginManager.java,v 1.2 2006/02/08 11:27:00 christoph Exp $
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
  * 
@@ -48,8 +48,6 @@ import de.tarent.octopus.server.UserManager;
  * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
  */
 public abstract class AbstractLoginManager implements LoginManager {
-
-    private static Logger logger = Logger.getLogger(AbstractLoginManager.class.getName());
 
     public static String PREFIX_PERSONAL_CONFIGS = "personalConfig-";
     

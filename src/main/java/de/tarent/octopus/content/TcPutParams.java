@@ -1,4 +1,4 @@
-/* $Id: TcPutParams.java,v 1.1.1.1 2005/11/21 13:33:37 asteban Exp $
+/* $Id: TcPutParams.java,v 1.2 2006/02/08 11:27:00 christoph Exp $
  * 
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
@@ -44,9 +44,6 @@ import de.tarent.octopus.util.CVS;
  */
 public class TcPutParams implements TcContentWorker {
     public static String CONTENT_PREFIX = "request";
-
-    private static Logger logger = Logger.getLogger(TcPutParams.class.getName());
-    private TcConfig tcConfig;
 
     /**
      * Diese Methode wird nach Erzeugung des Workers aufgerufen, so dass dieser
@@ -125,6 +122,6 @@ public class TcPutParams implements TcContentWorker {
      * @see de.tarent.octopus.content.TcContentWorker#getVersion()
      */
     public String getVersion() {
-        return CVS.getContent("$Revision: 1.1.1.1 $") + " (" + CVS.getContent("$Date: 2005/11/21 13:33:37 $") + ')';
+        return CVS.getContent("$Revision: 1.2 $") + " (" + CVS.getContent("$Date: 2006/02/08 11:27:00 $") + ')';
     }
 }
