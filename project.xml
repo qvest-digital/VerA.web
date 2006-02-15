@@ -74,6 +74,12 @@
 	<!-- any mailing lists for the project -->
 	<mailingLists />
 
+  <repository>
+    <connection>
+      scm:cvs:ext:asteban@kassandra.tarent.de:/cvs/newcvsroot:octopus/core
+    </connection>
+  </repository>
+
 	<!-- who the developers are for the project -->
 	<developers>
 		<developer>
@@ -87,13 +93,27 @@
 			</roles>
 			<timezone>+1</timezone>
 		</developer>
+		<developer>
+			<id>christoph</id>
+			<name>Christoph Jerolimov</name>
+			<email>c.jerolimov@tarent.de</email>
+			<organization>tarent GmbH</organization>
+			<organizationUrl>http://www.tarent.de/</organizationUrl>
+			<roles>
+				<role>Developer</role>
+			</roles>
+			<timezone>+1</timezone>
+		</developer>
 	</developers>
 
 	<!-- default reports for tarent projects. -->
 	<reports>
 		<report>maven-pmd-plugin</report>
 		<report>maven-jxr-plugin</report>
-		<report>maven-changes-plugin</report>
+        <report>maven-changes-plugin</report>
+        <report>maven-changelog-plugin</report>
+        <report>maven-file-activity-plugin</report>
+        <report>maven-developer-activity-plugin</report>
 		<report>maven-tasklist-plugin</report>
 		<report>maven-javadoc-plugin</report>
 		<report>maven-jdepend-plugin</report>

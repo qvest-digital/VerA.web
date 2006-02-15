@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+  This file has dublicates in
+     octopus/core/octopus-dependencies.xml
+     octopus/webapp/octopus-dependencies.xml
+  Always keep this files in sync!
+-->
 
 <project>
 	<dependencies>
@@ -18,15 +24,7 @@
 			<version>1.0.3</version>
 			<properties>
 				<dist.bundle>true</dist.bundle>
-			</properties>
-		</dependency>
-
-		<dependency>
-			<groupId>commons-httpclient</groupId>
-			<artifactId>commons-httpclient</artifactId>
-			<version>3.0</version>
-			<properties>
-				<dist.bundle>true</dist.bundle>
+				<war.bundle>true</war.bundle>
 			</properties>
 		</dependency>
 
@@ -36,6 +34,7 @@
 			<version>0.2</version>
 			<properties>
 				<dist.bundle>true</dist.bundle>
+				<war.bundle>true</war.bundle>
 			</properties>
 		</dependency>
 
@@ -45,6 +44,7 @@
 			<version>1.2-b1</version>
 			<properties>
 				<dist.bundle>true</dist.bundle>
+				<war.bundle>true</war.bundle>
 			</properties>
 		</dependency>
 
@@ -54,6 +54,7 @@
 			<version>1.4</version>
 			<properties>
 				<dist.bundle>true</dist.bundle>
+				<war.bundle>true</war.bundle>
 			</properties>
 		</dependency>
 
@@ -63,6 +64,7 @@
 			<version>1.4</version>
 			<properties>
 				<dist.bundle>true</dist.bundle>
+				<war.bundle>true</war.bundle>
 			</properties>
 		</dependency>
 
@@ -72,6 +74,7 @@
 			<version>1.24.0</version>
 			<properties>
 				<dist.bundle>true</dist.bundle>
+				<war.bundle>true</war.bundle>
 			</properties>
 		</dependency>
 
@@ -81,6 +84,7 @@
 			<version>${octopus.axis.version}</version>
 			<properties>
 				<dist.bundle>true</dist.bundle>
+				<war.bundle>true</war.bundle>
 			</properties>
 		</dependency>
 
@@ -90,6 +94,7 @@
 			<version>${octopus.axis.version}</version>
 			<properties>
 				<dist.bundle>true</dist.bundle>
+				<war.bundle>true</war.bundle>
 			</properties>
 		</dependency>
 
@@ -99,6 +104,7 @@
 			<version>${octopus.axis.version}</version>
 			<properties>
 				<dist.bundle>true</dist.bundle>
+				<war.bundle>true</war.bundle>
 			</properties>
 		</dependency>
 
@@ -108,9 +114,8 @@
 			<version>${octopus.axis.version}</version>
 			<properties>
 				<dist.bundle>true</dist.bundle>
+				<war.bundle>true</war.bundle>
 			</properties>
 		</dependency>
-
 	</dependencies>
-
 </project>
