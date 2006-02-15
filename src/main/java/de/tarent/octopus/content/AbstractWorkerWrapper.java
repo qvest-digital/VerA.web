@@ -1,4 +1,4 @@
-/* $Id: AbstractWorkerWrapper.java,v 1.3 2005/12/15 10:04:10 christoph Exp $
+/* $Id: AbstractWorkerWrapper.java,v 1.4 2006/02/15 14:56:06 asteban Exp $
  * 
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
@@ -74,7 +74,10 @@ public abstract class AbstractWorkerWrapper
      */
     HashMap actionDataLookup = new HashMap();
         
-    
+        
+    private static Class[] emptyClassArray = new Class[]{};
+    private static Object[] emptyObjectArray = new Object[]{};
+
     public AbstractWorkerWrapper(Object workerDelegate) {
         this.workerDelegate = workerDelegate;
         workerClass = workerDelegate.getClass();
@@ -114,6 +117,12 @@ public abstract class AbstractWorkerWrapper
      * Liefert die Version, in der der Worker vorliegt.
      */
     public abstract String getVersion();
+
+
+    /**
+     * Wrap the value with an InOutParam Container
+     */
+    public abstract EnrichedInOutParam wrapWithInOutParam(Object value);
 
 
     /**
@@ -184,8 +193,10 @@ public abstract class AbstractWorkerWrapper
                     if (actionData.isInOutParam(argsPos)) {
                         if (logger.isLoggable(Level.FINEST))
                             logger.finest("Wrapping param "+actionData.inputParams[i]+" as InOutParam.");
-                        paramValue = new EnrichedInOutParam(actionData.inputParams[i], paramValue);
-                        inOutParams.add(paramValue);
+                            EnrichedInOutParam iop = wrapWithInOutParam(paramValue);
+                            iop.setContextFieldName(actionData.inputParams[i]);
+                            inOutParams.add(iop);
+                            paramValue = iop;
                     }
                     args[argsPos++] = paramValue;
                 }
@@ -289,7 +300,7 @@ public abstract class AbstractWorkerWrapper
             // and the Param is a Map. Then we create a BeanMap with the key=>values from the Map
             else if (param instanceof Map && Map.class.isAssignableFrom(targetType)) {
                 try {
-                    Map newSpectialMap = (Map)targetType.newInstance();
+                    Map newSpectialMap = (Map)targetType.getConstructor(emptyClassArray).newInstance(emptyObjectArray);
                     newSpectialMap.putAll((Map)param);
                     return newSpectialMap;
                 } catch (Exception e) {
@@ -301,7 +312,7 @@ public abstract class AbstractWorkerWrapper
             logger.log(Level.WARNING, "Formatfehler beim Konvertieren eines Übergabeparamters (von "+param.getClass()+" nach "+targetType.getName()+")", e);
             throw new TcContentProzessException("Formatfehler Fehler beim Konvertieren eines Übergabeparamters (von "+param.getClass()+" nach "+targetType.getName()+")", e);
         }
-        return null;        
+        throw new TcContentProzessException("Keine Konvertierungsregel für die Umwandlung von "+param.getClass()+" nach "+targetType.getName()+" vorhanden.");
     }
 
 
@@ -379,6 +390,14 @@ public abstract class AbstractWorkerWrapper
         }
 	}
 
+    public interface EnrichedInOutParam 
+        extends InOutParam {
+        
+        public String getContextFieldName();
+        public void setContextFieldName(String newContextFieldName);
+    }
+
+
     /**
      * Structure for storing the metadata of an action
      */
@@ -408,7 +427,7 @@ public abstract class AbstractWorkerWrapper
          * Determines wether the param at pos is an in-out Param, or not.
          */
         public boolean isInOutParam(int pos) {
-            return args[pos].equals(InOutParam.class);
+            return args[pos].isAssignableFrom(InOutParam.class);
         }
 
         /** Count of the parameters without counting the OctopusContext-parameter */
@@ -430,34 +449,4 @@ public abstract class AbstractWorkerWrapper
         public String outputParam;
     }
 
-
-    /**
-     * Implementierung eines InOutParam, mit dem Ein-Ausgabeparameter bei Actions realisiert werden können
-     */
-    class EnrichedInOutParam 
-        implements InOutParam {
-
-        Object data;
-        String contextFieldName;
-
-        protected EnrichedInOutParam(String contextFieldName, Object data) {
-            this.data = data;
-            this.contextFieldName = contextFieldName;
-        }
-
-        protected String getContextFieldName() {
-            return contextFieldName;
-        }
-
-        protected void setContextFieldName(String newContextFieldName) {
-            this.contextFieldName = newContextFieldName;
-        }
-
-        public Object get() {
-            return this.data;
-        }
-        public void set(Object newData) {
-            this.data = newData;
-        }	
-    }
 }
