@@ -1,4 +1,4 @@
-/* $Id: OctopusContext.java,v 1.1.1.1 2005/11/21 13:33:38 asteban Exp $
+/* $Id: OctopusContext.java,v 1.2 2006/02/15 14:54:39 asteban Exp $
  * 
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
@@ -20,7 +20,7 @@
  * tarent GmbH., hereby disclaims all copyright
  * interest in the program 'tarent-octopus'
  * (which makes passes at compilers) written
- * by Wolfgang Klein and Christoph Jerolimov.
+ * by Sebastian Mancke
  * signature of Elmar Geese, 1 June 2002
  * Elmar Geese, CEO tarent GmbH
  */

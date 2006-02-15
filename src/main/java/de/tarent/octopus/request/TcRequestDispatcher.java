@@ -1,4 +1,4 @@
-/* $Id: TcRequestDispatcher.java,v 1.1.1.1 2005/11/21 13:33:37 asteban Exp $
+/* $Id: TcRequestDispatcher.java,v 1.2 2006/02/15 14:54:39 asteban Exp $
  * 
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
@@ -52,6 +52,7 @@ import de.tarent.octopus.server.OctopusContext;
 import de.tarent.octopus.server.PersonalConfig;
 import de.tarent.octopus.soap.TcSOAPException;
 import de.tarent.octopus.util.Threads;
+import de.tarent.octopus.server.Context;
 
 /** 
  * Wichtigste Steuerkomponente für den Ablauf und die Abarbeitung einer Anfrage.
@@ -193,8 +194,8 @@ public class TcRequestDispatcher {
         OctopusContext context = new TcAll(tcRequest, theContent, config);
         TcTaskManager taskManager = new TcTaskManager(context);
         try {
+            Context.setActive(context);
             outerLoader = Threads.setContextClassLoader(moduleConfig.getClassLoader());
-            OctopusFactory.octopusContext.set(context);
             
             putStandardParams(moduleConfig, config, tcResponse, tcRequest, theContent);
 
@@ -233,7 +234,7 @@ public class TcRequestDispatcher {
                       Resources.getInstance().get("REQUESTDISPATCHER_OUT_TASK_ERROR", task),
                       e);
         } finally {
-            OctopusFactory.octopusContext.set(null);
+            Context.clear();
             Threads.setContextClassLoader(outerLoader);
         }
     }

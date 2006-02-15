@@ -1,5 +1,5 @@
 /*
- * $Id: OctopusFactory.java,v 1.1.1.1 2005/11/21 13:33:38 asteban Exp $
+ * $Id: OctopusFactory.java,v 1.2 2006/02/15 14:54:39 asteban Exp $
  * 
  * Created on 14.06.2005
  */
@@ -32,6 +32,12 @@ import de.tarent.octopus.server.OctopusContext;
  * @author mikel
  */
 public class OctopusFactory implements ObjectFactory, OctopusReferences, Serializable {
+
+    /** Serialisierungs-ID */
+    private static final long serialVersionUID = 3258132436037547832L;
+
+    private static Logger logger = Logger.getLogger(OctopusFactory.class.getName());
+
     //
     // statische Methoden
     //
@@ -65,7 +71,7 @@ public class OctopusFactory implements ObjectFactory, OctopusReferences, Seriali
 //            logger.info("JNDI Environment: " + envCtx.getEnvironment());
             envCtx.bind("octopus/References", instanceToBind);
         } catch (NamingException e) {
-            logger.log(Level.WARNING, "Konnte OctopusReferences-Instanz nicht binden", e);
+            logger.log(Level.INFO, "JNDI Kontext steht nur lesend zur Verfügung. Die OctopusReferences-Instanz konnte nicht gebunden werden.");
         }
     }
     
@@ -80,7 +86,7 @@ public class OctopusFactory implements ObjectFactory, OctopusReferences, Seriali
      * @return aktueller Octopus-Kontext
      */
     public OctopusContext getContext() {
-        return (OctopusContext) octopusContext.get();
+        return de.tarent.octopus.server.Context.getActive();
     }
     
     //
@@ -95,12 +101,4 @@ public class OctopusFactory implements ObjectFactory, OctopusReferences, Seriali
     public Object getObjectInstance(Object obj, Name name, Context nameCtx, Hashtable environment) throws Exception {
         return this;
     }
-
-    /** Der aktuelle OctopusContext; soll nur aus dem Octopus heraus geschrieben werden. */
-    public static ThreadLocal octopusContext = new ThreadLocal();
-
-    /** Serialisierungs-ID */
-    private static final long serialVersionUID = 3258132436037547832L;
-
-    private static Logger logger = Logger.getLogger(OctopusFactory.class.getName());
 }
