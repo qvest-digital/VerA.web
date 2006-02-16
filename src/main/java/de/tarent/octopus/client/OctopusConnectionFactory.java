@@ -1,4 +1,4 @@
-/* $Id: OctopusConnectionFactory.java,v 1.2 2006/02/16 16:43:02 asteban Exp $
+/* $Id: OctopusConnectionFactory.java,v 1.3 2006/02/16 16:53:41 kirchner Exp $
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
  * 
@@ -30,8 +30,12 @@ import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.io.*;
+
+import de.tarent.octopus.request.Octopus;
 import de.tarent.octopus.request.directCall.OctopusDirectCallConnection;
+import de.tarent.octopus.request.directCall.OctopusDirectCallStarter;
 import de.tarent.octopus.request.directCall.OctopusStarter;
+import de.tarent.octopus.request.internal.OctopusInternalStarter;
 import de.tarent.octopus.client.remote.*;
 
 /** 
@@ -117,7 +121,7 @@ public class OctopusConnectionFactory {
                                  conf.get(key));
             }
         }
-        OctopusStarter starter = new OctopusStarter(octopus_conf);
+        OctopusStarter starter = new OctopusDirectCallStarter(octopus_conf);
         con.setOctopusStarter(starter);
 
         return con;

@@ -1,4 +1,4 @@
-/* $Id: OctopusStarter.java,v 1.3 2006/02/16 16:43:02 asteban Exp $
+/* $Id: OctopusStarter.java,v 1.4 2006/02/16 16:53:41 kirchner Exp $
  * 
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
@@ -26,7 +26,7 @@
  */
 package de.tarent.octopus.request.directCall;
 
-import de.tarent.octopus.request.TcRequest;
+import java.util.Map;
 
 /** 
  * Kapselt das Ansprechen des Octopus
@@ -37,6 +37,7 @@ public interface OctopusStarter {
 
     /**
      * Startet die Abarbeitung einer Anfrage
+     * @throws TcDirectCallException 
      */
-    public OctopusDirectCallResult request(Map requestParams);
+    public OctopusDirectCallResult request(Map requestParams) throws TcDirectCallException;
 }

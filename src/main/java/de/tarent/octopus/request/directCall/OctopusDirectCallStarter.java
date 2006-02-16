@@ -1,4 +1,4 @@
-/* $Id: OctopusDirectCallStarter.java,v 1.1 2006/02/16 16:43:02 asteban Exp $
+/* $Id: OctopusDirectCallStarter.java,v 1.2 2006/02/16 16:53:41 kirchner Exp $
  * 
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
@@ -92,7 +92,7 @@ public class OctopusDirectCallStarter implements OctopusStarter {
                 cfg.put(args[i].substring(2,pos), args[i].substring(pos+1));
                 i++;
             }
-            OctopusStarter starter = new OctopusStarter(cfg);
+            OctopusDirectCallStarter starter = new OctopusDirectCallStarter(cfg);
 
             Map params = new HashMap();     
             for (; i+1 < args.length; i+=2) {

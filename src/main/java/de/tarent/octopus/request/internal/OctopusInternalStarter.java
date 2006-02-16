@@ -1,4 +1,4 @@
-/* $Id: OctopusInternalStarter.java,v 1.1 2006/02/16 16:43:02 asteban Exp $
+/* $Id: OctopusInternalStarter.java,v 1.2 2006/02/16 16:53:41 kirchner Exp $
  * 
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
@@ -26,19 +26,19 @@
  */
 package de.tarent.octopus.request.internal;
 
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-
-import de.tarent.octopus.config.TcModuleConfig;
 import de.tarent.octopus.request.Octopus;
-import de.tarent.octopus.request.TcEnv;
 import de.tarent.octopus.request.TcRequest;
 import de.tarent.octopus.request.TcSession;
+import de.tarent.octopus.request.directCall.OctopusDirectCallResult;
+import de.tarent.octopus.request.directCall.OctopusStarter;
+import de.tarent.octopus.request.directCall.TcDirectCallException;
+import de.tarent.octopus.request.directCall.TcDirectCallResponse;
+import de.tarent.octopus.request.directCall.TcDirectCallSession;
 import de.tarent.octopus.resource.Resources;
-import de.tarent.octopus.soap.TcSOAPEngine;
-import de.tarent.octopus.util.DataFormatException;
-import de.tarent.octopus.util.Xml;
 
 /** 
  * Kapselt das Ansprechen des Octopus
