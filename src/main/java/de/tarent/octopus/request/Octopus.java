@@ -1,4 +1,4 @@
-/* $Id: Octopus.java,v 1.1.1.1 2005/11/21 13:33:37 asteban Exp $
+/* $Id: Octopus.java,v 1.2 2006/02/16 16:11:04 kirchner Exp $
  * 
  * Created on 18.09.2003
  * 
@@ -28,6 +28,7 @@
  */
 package de.tarent.octopus.request;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -84,10 +85,11 @@ public class Octopus {
             InstantiationException,
             IllegalAccessException,
             TcContentProzessException {
-        dispatcher = new TcRequestDispatcher(new TcCommonConfig(env, config, this));
+    	TcCommonConfig commonconfig = new TcCommonConfig(env, config, this);
+        dispatcher = new TcRequestDispatcher(commonconfig);
         this.config = config;
         OctopusFactory.tryToBind();
-        preloadModules(config.getPreloadModules(), dispatcher.getCommonConfig());
+        preloadModules(commonconfig);
         initModules(dispatcher);
     }
 
@@ -147,15 +149,6 @@ public class Octopus {
      */
     public static interface Configuration {
         /**
-         * Diese Methode liefert eine Liste der Module, die mit dem Octopus
-         * zusammen initialisiert werden sollen.
-         *   
-         * @return eine Liste von Modulnamen als Strings. Statt einer leeren
-         *  Liste darf <code>null</code> geliefert werden.
-         */
-        public List getPreloadModules();
-
-        /**
          * Diese Methode liefert zu einem Modulnamen die Konfiguration.
          * 
          * @param module der Name des Moduls.
@@ -169,7 +162,9 @@ public class Octopus {
     /*
      * geschützte Methoden
      */
-    private void preloadModules(List preloads, TcCommonConfig commonConfig) {
+    private void preloadModules(TcCommonConfig commonConfig) {
+    	String preloadstring = commonConfig.getConfigData("preloadModules");
+    	List preloads = Arrays.asList(preloadstring.split(" "));
         if (preloads == null)
             return;
         Iterator itPreloads = preloads.iterator();

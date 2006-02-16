@@ -1,4 +1,4 @@
-/* $Id: OctopusStarter.java,v 1.1.1.1 2005/11/21 13:33:37 asteban Exp $
+/* $Id: OctopusStarter.java,v 1.2 2006/02/16 16:11:04 kirchner Exp $
  * 
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
@@ -267,11 +267,6 @@ public class OctopusStarter {
      * Diese Klasse liefert dem Octopus notwendige Daten. 
      */
     protected class OctopusConfig implements Octopus.Configuration {
-
-        public List getPreloadModules() {
-            return null;
-        }
-
         /**
          * Diese Methode liefert zu einem Modulnamen die Konfiguration.
          * 
