@@ -1,4 +1,4 @@
-/* $Id: TcTask.java,v 1.2 2005/11/23 08:32:40 asteban Exp $
+/* $Id: TcTask.java,v 1.3 2006/02/16 10:32:36 asteban Exp $
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
  * 
@@ -617,6 +617,8 @@ public class TcTask {
         protected TcMessageDefinition getWorkerOutMessage() {
             try {
                 TcContentWorker theWorker = TcContentWorkerFactory.getContentWorker(moduleConfig, worker, null);
+                if (theWorker.getWorkerDefinition() == null || theWorker.getWorkerDefinition().getOperation(name) == null)
+                    return null;
                 return theWorker.getWorkerDefinition().getOperation(name).getOutputMessage();
                 // Keine Fehlerbehandlung, da es hinterher eh static sein soll.
             } catch (Exception e) {
@@ -628,6 +630,8 @@ public class TcTask {
         protected TcMessageDefinition getWorkerInMessage() {
             try {
                 TcContentWorker theWorker = TcContentWorkerFactory.getContentWorker(moduleConfig, worker, null);
+                if (theWorker.getWorkerDefinition() == null || theWorker.getWorkerDefinition().getOperation(name) == null)
+                    return null;
                 return theWorker.getWorkerDefinition().getOperation(name).getInputMessage();
                 // Keine Fehlerbehandlung, da es hinterher eh static sein soll.
             } catch (Exception e) {
