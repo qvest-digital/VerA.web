@@ -1,4 +1,4 @@
-/* $Id: OctopusConnectionFactory.java,v 1.1.1.1 2005/11/21 13:33:38 asteban Exp $
+/* $Id: OctopusConnectionFactory.java,v 1.2 2006/02/16 16:43:02 asteban Exp $
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
  * 
@@ -52,12 +52,16 @@ public class OctopusConnectionFactory {
     public static final String CONNECTION_TYPE_KEY = "type";
     public static final String CONNECTION_TYPE_DIRECT_CALL = "directCall";
     public static final String CONNECTION_TYPE_REMOTE = "remote";
+    public static final String CONNECTION_TYPE_INTERNAL = "internal";
 
     public static final String MODULE_KEY = "module";
 
     HashMap connections = new HashMap();
     HashMap configurations = new HashMap();
 
+    /** The Octopus instance for an internal call */
+    Octopus internalOctopusInstance;
+    
     protected static OctopusConnectionFactory theInstance = null;
     protected OctopusConnectionFactory() {}
     public static OctopusConnectionFactory getInstance() {
@@ -86,6 +90,10 @@ public class OctopusConnectionFactory {
             OctopusConnection con = getRemoteConnection(conf);
             connections.put(connectionName, con);
             return con;
+        } else if (CONNECTION_TYPE_INTERNAL.equals(conf.get(CONNECTION_TYPE_KEY))) {
+            OctopusConnection con = getInternalConnection(conf);
+            connections.put(connectionName, con);
+            return con;
         }
         throw new FactoryConfigurationException("Ander Verbindungstypen als directCall werden von der Factory noch nicht unterstützt.", null);
     }
@@ -110,6 +118,26 @@ public class OctopusConnectionFactory {
             }
         }
         OctopusStarter starter = new OctopusStarter(octopus_conf);
+        con.setOctopusStarter(starter);
+
+        return con;
+    }
+
+	protected OctopusConnection getInternalConnection(Map conf) {
+        OctopusDirectCallConnection con = new OctopusDirectCallConnection();
+        con.setModuleName((String)conf.get(MODULE_KEY));
+        
+        // No params or configuration used here
+        //         Map octopus_conf = new HashMap();
+        //         for (Iterator iter = conf.keySet().iterator(); iter.hasNext();) {
+        //             String key = (String)iter.next();
+        
+        //             if (key.startsWith(OCTOPUS_PARAMS_KEY_PREFIX)) {
+        //                 octopus_conf.put(key.substring(OCTOPUS_PARAMS_KEY_PREFIX.length()),
+        //                                  conf.get(key));
+        //             }
+        //         }
+        OctopusStarter starter = new OctopusInternalStarter(getInternalOctopusInstance());
         con.setOctopusStarter(starter);
 
         return con;
@@ -153,4 +181,21 @@ public class OctopusConnectionFactory {
         }
         return p;
     }
+
+
+    /** 
+     * Returns the Octopus Instance which is used for internal calls to modules
+     */
+    public final Octopus getInternalOctopusInstance() {
+        return internalOctopusInstance;
+    }    
+
+    /** 
+     * Sets the Octopus Instance which is used for internal calls to modules
+     */
+    public final void setInternalOctopusInstance(final Octopus newInternalOctopusInstance) {
+        this.internalOctopusInstance = newInternalOctopusInstance;
+    }
+
+
 }
