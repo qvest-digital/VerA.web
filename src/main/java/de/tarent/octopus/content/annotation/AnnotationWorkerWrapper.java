@@ -1,4 +1,4 @@
-/* $Id: AnnotationWorkerWrapper.java,v 1.2 2005/12/02 15:29:05 asteban Exp $
+/* $Id: AnnotationWorkerWrapper.java,v 1.3 2006/02/16 11:43:25 asteban Exp $
  * 
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
@@ -90,7 +90,7 @@ public class AnnotationWorkerWrapper
             throw new NullPointerException("Action Name darf nicht null sein");
 
         // Finding the proper method
-        ActionData action = new ActionData();
+        ActionData action = new AnnotationActionData();
         Method[] methods = getWorkerClass().getMethods();
         
         for (int i = 0; i < methods.length; i++) {
@@ -217,7 +217,7 @@ public class AnnotationWorkerWrapper
             throws TcActionDeclarationException {
             if (args[pos] == null)
                 return Void.class;
-
+            
             // Generic InOutParam Type
             if (de.tarent.octopus.content.annotation.InOutParam.class.isAssignableFrom(args[pos])) {
                 if (genericParameterTypes == null)
@@ -235,5 +235,48 @@ public class AnnotationWorkerWrapper
             
             return args[pos];
         }
+
+        public boolean isInOutParam(int pos) {
+            return de.tarent.octopus.content.annotation.InOutParam.class.isAssignableFrom(args[pos])
+                || de.tarent.octopus.server.InOutParam.class.isAssignableFrom(args[pos]);
+        }
     }
+
+
+    public EnrichedInOutParam wrapWithInOutParam(Object value) {
+        return new EnrichedParamImplementation(value);
+    }
+
+
+    /**
+     * Implementierung eines InOutParam, mit dem Ein-Ausgabeparameter bei Actions realisiert werden können
+     */
+    class EnrichedParamImplementation<T> 
+        implements de.tarent.octopus.content.annotation.InOutParam, EnrichedInOutParam {
+        
+        T data;
+        String contextFieldName;
+        
+        protected EnrichedParamImplementation(T data) {
+            this.data = data;
+        }
+
+        public String getContextFieldName() {
+            return contextFieldName;
+        }
+        
+        public void setContextFieldName(String newContextFieldName) {
+            this.contextFieldName = newContextFieldName;
+        }
+
+        public T get() {
+            return this.data;
+        }
+
+        public void set(Object newData) {
+            this.data = (T)newData;
+        }
+
+    }
+
 }

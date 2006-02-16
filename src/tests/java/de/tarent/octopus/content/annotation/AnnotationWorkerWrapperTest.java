@@ -151,9 +151,47 @@ public class AnnotationWorkerWrapperTest
         content.setField("boolean", true);
         content.setField("list", Collections.singletonList("test"));
         content.setField("map", Collections.singletonMap("test", "test"));
-        content.setField("optional", (String)null);
 
         sampleWorker1.doAction(config, "testTypesSimple", request, content);
     }
+
+
+    public void testParameterConversions() 
+        throws Exception {
+
+        content.setField("testCase", this);
+
+        content.setField("int1", "42");
+        content.setField("long1", "42");
+        content.setField("float1", "42");
+        content.setField("double1", "42");
+        content.setField("boolean1", "True");
+        // fields int2, long2, float2, double2, boolean2 are undefined
+
+        content.setField("list", new String[]{"test"});
+        Map map = new HashMap();
+        map.put("name", "Frank");
+        map.put("city", "Prüm");
+        content.setField("map", map);
+
+        sampleWorker1.doAction(config, "testParameterConversions", request, content);
+    }
+
+
+    public void testInOuts() 
+        throws Exception {
+
+        content.setField("p1", "test");
+        content.setField("p2", 40);
+        content.setField("p3", false);
+
+        sampleWorker1.doAction(config, "testInOuts", request, content);
+
+        assertEquals("String InOut", "test.suffix", content.get("p1"));
+        assertEquals("Integer InOut", 42, content.get("p2"));
+        assertEquals("String InOut", true, content.get("p3"));
+    }
+
+    
 
 }
