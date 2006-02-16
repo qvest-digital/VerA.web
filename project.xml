@@ -104,6 +104,17 @@
 			</roles>
 			<timezone>+1</timezone>
 		</developer>
+		<developer>
+			<id>mikel</id>
+			<name>Michael Kliknk</name>
+			<email>m.klink@tarent.de</email>
+			<organization>tarent GmbH</organization>
+			<organizationUrl>http://www.tarent.de/</organizationUrl>
+			<roles>
+				<role>Developer</role>
+			</roles>
+			<timezone>+1</timezone>
+		</developer>
 	</developers>
 
 	<!-- default reports for tarent projects. -->
