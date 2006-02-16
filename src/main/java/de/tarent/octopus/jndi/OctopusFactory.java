@@ -1,5 +1,5 @@
 /*
- * $Id: OctopusFactory.java,v 1.2 2006/02/15 14:54:39 asteban Exp $
+ * $Id: OctopusFactory.java,v 1.3 2006/02/16 10:31:27 asteban Exp $
  * 
  * Created on 14.06.2005
  */
@@ -54,7 +54,7 @@ public class OctopusFactory implements ObjectFactory, OctopusReferences, Seriali
         		return;
         	
         } catch (NamingException ne) {
-        	logger.log(Level.WARNING, "Keine OctopusFactory Instanz im JNDI-Baum vorgefunden.");
+        	logger.log(Level.INFO, "Keine OctopusFactory Instanz im JNDI-Baum vorgefunden.");
         	
         	// Exception wird erwartet, wenn JNDI Struktur OctopusFactory
         	// Instanz nicht enthält.
