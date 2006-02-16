@@ -1,4 +1,4 @@
-/* $Id: TcReflectedWorkerWrapper.java,v 1.3 2005/12/15 10:04:10 christoph Exp $
+/* $Id: TcReflectedWorkerWrapper.java,v 1.4 2006/02/16 10:32:01 asteban Exp $
  * 
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
@@ -192,5 +192,38 @@ public class TcReflectedWorkerWrapper
     }
 
 
+    public EnrichedInOutParam wrapWithInOutParam(Object value) {
+        return new EnrichedParamImplementation(value);
+    }
+
+
+    /**
+     * Implementierung eines InOutParam, mit dem Ein-Ausgabeparameter bei Actions realisiert werden können
+     */
+    class EnrichedParamImplementation
+        implements EnrichedInOutParam {
+
+        Object data;
+        String contextFieldName;
+
+        protected EnrichedParamImplementation(Object data) {
+            this.data = data;
+        }
+
+        public String getContextFieldName() {
+            return contextFieldName;
+        }
+
+        public void setContextFieldName(String newContextFieldName) {
+            this.contextFieldName = newContextFieldName;
+        }
+
+        public Object get() {
+            return this.data;
+        }
+        public void set(Object newData) {
+            this.data = newData;
+        }	
+    }
 
 }
