@@ -1,4 +1,4 @@
-/* $Id: TcSimpleResponseEngine.java,v 1.1.1.1 2005/11/21 13:33:38 asteban Exp $
+/* $Id: TcSimpleResponseEngine.java,v 1.2 2006/02/17 10:07:16 christoph Exp $
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
  * 
@@ -240,17 +240,12 @@ class TarParsedTemplate {
      * Direktiven. Direktiven können wieder Vectoren oder Strings mit Anweisungen sein.
      */
     private List template = null;
-    private String FILESEP = System.getProperty("file.separator");
     private String templatePath;
     private char[][] TAG = { { '{', '$' }, { '$', '}' } };
-    private TcTemplateSystemParams systemParams;
-    private TarTemplateDescription description;
     private Map childs = null;
 
     public TarParsedTemplate(TcTemplateSystemParams systemParams, TarTemplateDescription description)
         throws ResponseProcessingException {
-        this.systemParams = systemParams;
-        this.description = description;
         templatePath = systemParams.getTemplateRootPath();
         template = getParsedTemplate(description.getName());
     }

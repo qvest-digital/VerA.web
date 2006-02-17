@@ -1,4 +1,4 @@
-/* $Id: TcVelocityResponseEngine.java,v 1.2 2006/02/08 11:26:44 christoph Exp $
+/* $Id: TcVelocityResponseEngine.java,v 1.3 2006/02/17 10:07:16 christoph Exp $
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
  * 
@@ -28,6 +28,7 @@ package de.tarent.octopus.response;
 
 import java.io.File;
 import java.io.OutputStreamWriter;
+import java.io.Reader;
 import java.io.UnsupportedEncodingException;
 import java.io.Writer;
 import java.util.Iterator;
@@ -45,6 +46,7 @@ import de.tarent.octopus.content.TcContent;
 import de.tarent.octopus.request.TcRequest;
 import de.tarent.octopus.request.TcResponse;
 import de.tarent.octopus.resource.Resources;
+import de.tarent.octopus.server.OctopusContext;
 
 /**
  * This class merge the octopus content with a velocity script.
@@ -54,14 +56,18 @@ import de.tarent.octopus.resource.Resources;
 public class TcVelocityResponseEngine implements TcResponseEngine {
 	/** Filename suffix */
 	public static final String FILE_SUFFIX = ".vm";
-	/** Velocity content-key for the {@link octopus-request TcRequest}. */
-	public static final String PARAM_NAME_REQUEST = "octopusRequest";
-	/** Velocity content-key for the {@link octopus-response TcResponse}. */
-	public static final String PARAM_NAME_RESPONSE = "octopusResponse";
-	/** Velocity content-key for the {@link octopus-response-stream Writer}. */
-	public static final String PARAM_NAME_RESPONSESTREAM = "octopusResponseStream";
-	/** Velocity content-key for the {@link octopus-config TcConfig}. */
+	/** Velocity content-key for the {@link TcConfig}. */
 	public static final String PARAM_NAME_CONFIG = "octopusConfig";
+	/** Velocity content-key for the {@link TcRequest}. */
+	public static final String PARAM_NAME_REQUEST = "octopusRequest";
+	/** Velocity content-key for the {@link TcResponse}. */
+	public static final String PARAM_NAME_RESPONSE = "octopusResponse";
+	/** Octopus content-key for the {@link Writer}. */
+	private static final String OCTOPUS_RESPONSEENGINE = "octopusResponseEngine";
+	/** Octopus content-key for the {@link TcVelocityResponseEngine}. */
+	private static final String OCTOPUS_RESPONSESTREAM = "octopusResponseStream";
+	/** Octopus content-key for the {@link VelocityContext}. */
+	private static final String OCTOPUS_RESPONSECONTEXT = "octopusResponseContext";
 
 	/** Logger instance */
 	private Logger logger;
@@ -70,6 +76,9 @@ public class TcVelocityResponseEngine implements TcResponseEngine {
 	/** Velocity script rootpath */
 	private File rootPath;
 
+	/**
+	 * Init this response engine.
+	 */
 	public void init(TcModuleConfig moduleConfig, TcCommonConfig commonConfig) {
 		logger = Logger.getLogger(TcVelocityResponseEngine.class.getName());
 		engine = new VelocityEngine();
@@ -94,6 +103,9 @@ public class TcVelocityResponseEngine implements TcResponseEngine {
 		}
 	}
 
+	/**
+	 * Return a response.
+	 */
 	public void sendResponse(TcConfig tcConfig, TcResponse tcResponse, TcContent tcContent, TcResponseDescription desc, TcRequest tcRequest)
 			throws ResponseProcessingException {
 		
@@ -124,12 +136,13 @@ public class TcVelocityResponseEngine implements TcResponseEngine {
 				key = (String)it.next();
 				context.put(key, tcContent.get((key)));
 			}
-			tcContent.setField(PARAM_NAME_RESPONSESTREAM, writer);
+			tcContent.setField(OCTOPUS_RESPONSEENGINE, this);
+			tcContent.setField(OCTOPUS_RESPONSESTREAM, writer);
+			tcContent.setField(OCTOPUS_RESPONSECONTEXT, context);
 			
 			context.put(PARAM_NAME_CONFIG, tcConfig);
 			context.put(PARAM_NAME_REQUEST, tcRequest);
 			context.put(PARAM_NAME_RESPONSE, tcResponse);
-			context.put(PARAM_NAME_RESPONSESTREAM, writer);
 			
 			engine.mergeTemplate(template, tcConfig.getDefaultEncoding(), context, writer);
 			
@@ -139,5 +152,21 @@ public class TcVelocityResponseEngine implements TcResponseEngine {
 			logger.log(Level.SEVERE, "Fehler beim Erzeugen der Ausgabeseite mit Velocity.", e);
 			throw new ResponseProcessingException( "Fehler beim Erzeugen der Ausgabeseite mit Velocity.", e);
 		}
+	}
+
+	/**
+	 * Allow additional template merge with a reader.
+	 * 
+	 * @param cntx
+	 * @param reader
+	 * @throws Exception
+	 */
+	static public void mergeTemplate(OctopusContext cntx, Reader reader) throws Exception {
+		TcVelocityResponseEngine responseEngine =
+				(TcVelocityResponseEngine)cntx.contentAsObject(OCTOPUS_RESPONSEENGINE);
+		responseEngine.engine.evaluate(
+				(VelocityContext)cntx.contentAsObject(OCTOPUS_RESPONSECONTEXT),
+				(Writer)cntx.contentAsObject(OCTOPUS_RESPONSESTREAM),
+				reader.toString(), reader);
 	}
 }
