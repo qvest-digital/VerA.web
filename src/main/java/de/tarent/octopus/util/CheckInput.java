@@ -1,4 +1,4 @@
-/* $Id: CheckInput.java,v 1.1.1.1 2005/11/21 13:33:38 asteban Exp $
+/* $Id: CheckInput.java,v 1.2 2006/02/23 15:07:57 christoph Exp $
  * 
  * Created on 22.09.2003
  *
@@ -70,8 +70,6 @@ public class CheckInput {
     private static Pattern IP_PLZ = Pattern.compile("[0-9]{5}");
     /* Datum */
     public static String IT_Datum = new String("Datum");
-    private static String ID_Datum = new String("Eine gültiges Datum hat folgendes Format:\n\n TT.MM.JJJJ");
-    private static Pattern IP_Datum = Pattern.compile("[0-9]{2}.[0-9]{2}.[0-9]{4}");
 
     /**
      * Dient zur Registrierung der Elemente (IT,ID,IP)

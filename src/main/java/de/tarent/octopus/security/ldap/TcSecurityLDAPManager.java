@@ -1,4 +1,4 @@
-/* $Id: TcSecurityLDAPManager.java,v 1.1.1.1 2005/11/21 13:33:38 asteban Exp $
+/* $Id: TcSecurityLDAPManager.java,v 1.2 2006/02/23 15:07:57 christoph Exp $
  * 
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
@@ -325,19 +325,6 @@ public class TcSecurityLDAPManager
 	}
 
 	/**
-	 * @param username
-	 */
-	private String convertBase64IfNeeded(String username) {
-		if(!username.matches("[A-Za-z0-9 \\-]*")) {
-		    //Convert Username to byte-Array and convert to Base64 represantation
-			logger.log(Level.INFO, username + " enthält Umlaute!");
-			byte[] byte_represantation = username.getBytes();
-			username = byteArrayToBase64(byte_represantation);
-		}
-		return username;
-	}
-
-	/**
 	 * Sortiert Gruppen-String
 	 * @param gruppe Gruppen-String
 	 * @return sortierten String
@@ -482,37 +469,6 @@ public class TcSecurityLDAPManager
 			throw new TcSecurityException("Fehler beim Zugriff auf das LDAP-Verzeichnis.");
 		}
 		return (index>=0);
-	}
-
-	/*
-		 * Der folgende Code wurde aus der Klasse java.util.prefs.Base64:
-		 * 
-		 * Static methods for translating Base64 encoded strings to byte arrays
-		 * and vice-versa.
-		 *
-		 * @author  Josh Bloch
-		 * @version 1.3, 12/03/01
-		 * @see     Preferences
-		 * @since   1.4
-		 */
-	/**
-	 * Translates the specified byte array into a Base64 string as per
-	 * Preferences.put(byte[]).
-	 */
-	private String byteArrayToBase64(byte[] a)
-	{
-		return byteArrayToBase64(a, false);
-	}
-
-	/**
-	 * Translates the specified byte array into an "aternate representation"
-	 * Base64 string.  This non-standard variant uses an alphabet that does
-	 * not contain the uppercase alphabetic characters, which makes it
-	 * suitable for use in situations where case-folding occurs.
-	 */
-	private String byteArrayToAltBase64(byte[] a)
-	{
-		return byteArrayToBase64(a, true);
 	}
 
 	private String byteArrayToBase64(byte[] a, boolean alternate)

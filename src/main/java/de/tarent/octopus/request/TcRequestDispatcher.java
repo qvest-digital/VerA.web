@@ -1,4 +1,4 @@
-/* $Id: TcRequestDispatcher.java,v 1.2 2006/02/15 14:54:39 asteban Exp $
+/* $Id: TcRequestDispatcher.java,v 1.3 2006/02/23 15:07:57 christoph Exp $
  * 
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
@@ -41,7 +41,6 @@ import de.tarent.octopus.content.TcContent;
 import de.tarent.octopus.content.TcContentProzessException;
 import de.tarent.octopus.content.TcContentWorker;
 import de.tarent.octopus.content.TcContentWorkerFactory;
-import de.tarent.octopus.jndi.OctopusFactory;
 import de.tarent.octopus.resource.Resources;
 import de.tarent.octopus.response.ResponseProcessingException;
 import de.tarent.octopus.response.TcResponseCreator;

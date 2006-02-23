@@ -1,4 +1,4 @@
-/* $Id: GroovyWorkerFactory.java,v 1.1 2005/11/30 15:53:12 asteban Exp $
+/* $Id: GroovyWorkerFactory.java,v 1.2 2006/02/23 15:07:57 christoph Exp $
  * 
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
@@ -29,7 +29,6 @@ package de.tarent.octopus.content;
 
 import de.tarent.octopus.config.ContentWorkerDeclaration;
 import de.tarent.octopus.resource.Resources;
-import java.util.logging.Logger;
 import de.tarent.octopus.server.SpecialWorkerFactory;
 import de.tarent.octopus.server.WorkerCreationException;
 import de.tarent.octopus.config.TcModuleConfig;
@@ -43,9 +42,6 @@ import de.tarent.octopus.config.TcModuleConfig;
  * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
  */
 public class GroovyWorkerFactory implements SpecialWorkerFactory {
-
-    private static Logger logger = Logger.getLogger(DirectWorkerFactory.class.getName());
-
     /**
      * Läd die als ImplementationSource angegebene Klasse und gibt sie gecastet TcContentWorker zurück.
      * 

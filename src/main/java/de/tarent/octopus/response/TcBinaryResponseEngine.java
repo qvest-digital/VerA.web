@@ -1,4 +1,4 @@
-/* $Id: TcBinaryResponseEngine.java,v 1.2 2006/02/08 11:26:44 christoph Exp $
+/* $Id: TcBinaryResponseEngine.java,v 1.3 2006/02/23 15:07:57 christoph Exp $
  * 
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
@@ -143,6 +143,12 @@ public class TcBinaryResponseEngine implements TcResponseEngine {
         } catch (Exception e) {
             logger.log(Level.SEVERE, Resources.getInstance().get("BINARYRESPONSE_LOG_ERROR", tcRequest.getRequestID()), e);
             throw new ResponseProcessingException(Resources.getInstance().get("BINARYRESPONSE_EXC_ERROR"), e);
+        } finally {
+        	try {
+				tcResponse.close();
+			} catch (IOException e) {
+	            logger.log(Level.SEVERE, Resources.getInstance().get("BINARYRESPONSE_LOG_ERROR", tcRequest.getRequestID()), e);
+			}
         }
     }
 
@@ -201,6 +207,7 @@ public class TcBinaryResponseEngine implements TcResponseEngine {
      * @throws ClassCastException If input class is not supported.
      */
 	protected void processStream(TcResponse tcResponse, Object input) throws IOException {
+		tcResponse.flush();
 		if (input instanceof InputStream) {
 			InputStream is = (InputStream)input;
 			OutputStream os = tcResponse.getOutputStream();

@@ -1,5 +1,5 @@
 /*
- * $Id: OctopusFactory.java,v 1.3 2006/02/16 10:31:27 asteban Exp $
+ * $Id: OctopusFactory.java,v 1.4 2006/02/23 15:07:57 christoph Exp $
  * 
  * Created on 14.06.2005
  */
@@ -60,8 +60,9 @@ public class OctopusFactory implements ObjectFactory, OctopusReferences, Seriali
         	// Instanz nicht enthält.
         }
         
-        assert ( initCtx != null );
-        assert ( envCtx != null );
+        // Wenn JNDI nicht zur Verfügung steht wird die OctopusFactory nicht gebindet.
+        if (initCtx == null || envCtx == null)
+        	return;
         
         Object instanceToBind = new OctopusFactory();
         

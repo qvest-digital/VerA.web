@@ -1,4 +1,4 @@
-/* $Id: TarWhereNode.java,v 1.1.1.1 2005/11/21 13:33:37 asteban Exp $
+/* $Id: TarWhereNode.java,v 1.2 2006/02/23 15:07:57 christoph Exp $
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
  * 
@@ -143,20 +143,6 @@ public class TarWhereNode {
      */
     public StringBuffer getValue() {
         return new StringBuffer(value);
-    }
-
-    /**
-     * Quotet einen String.
-     * Dabei werden alle  "'" durch "\'" ersetzt und der String in "'" eingebettet.
-     */
-    private String quote(String token) {
-        StringBuffer outValue = new StringBuffer(token);
-        int pos = -2;
-        while (-1 != (pos = outValue.toString().indexOf("'", pos + 2))) {
-            outValue.replace(pos, pos + 1, "\\'");
-        }
-
-        return new StringBuffer().append("'").append(outValue).append("'").toString();
     }
 
     /**

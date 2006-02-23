@@ -1,4 +1,4 @@
-/* $Id: TcDirectCallResponse.java,v 1.1.1.1 2005/11/21 13:33:37 asteban Exp $
+/* $Id: TcDirectCallResponse.java,v 1.2 2006/02/23 15:07:57 christoph Exp $
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
  * 
@@ -138,6 +138,17 @@ public class TcDirectCallResponse implements TcResponse {
             printWriter.flush();
         if (outputStream != null)
             outputStream.flush();
+    }
+
+    /**
+     * Diese Methode schlieﬂt die Ausgaben ab. 
+     */
+    public void close() 
+        throws IOException{
+        if (printWriter != null)
+            printWriter.close();
+        if (outputStream != null)
+            outputStream.close();
     }
 
     private void assertOutputStreamExistance() {

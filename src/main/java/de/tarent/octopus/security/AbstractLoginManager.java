@@ -1,4 +1,4 @@
-/* $Id: AbstractLoginManager.java,v 1.2 2006/02/08 11:27:00 christoph Exp $
+/* $Id: AbstractLoginManager.java,v 1.3 2006/02/23 15:07:57 christoph Exp $
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
  * 
@@ -29,7 +29,6 @@ package de.tarent.octopus.security;
 import java.net.PasswordAuthentication;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Logger;
 
 import de.tarent.octopus.config.TcCommonConfig;
 import de.tarent.octopus.config.TcConfigException;
