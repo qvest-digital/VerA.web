@@ -39,6 +39,26 @@
 		</dependency>
 
 		<dependency>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+			<version>1.1</version>
+			<properties>
+				<dist.bundle>true</dist.bundle>
+				<war.bundle>true</war.bundle>
+			</properties>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>1.1</version>
+			<properties>
+				<dist.bundle>true</dist.bundle>
+				<war.bundle>true</war.bundle>
+			</properties>
+		</dependency>
+
+		<dependency>
 			<groupId>xmlrpc</groupId>
 			<artifactId>xmlrpc</artifactId>
 			<version>1.2-b1</version>
