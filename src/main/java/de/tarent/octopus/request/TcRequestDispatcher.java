@@ -1,4 +1,4 @@
-/* $Id: TcRequestDispatcher.java,v 1.3 2006/02/23 15:07:57 christoph Exp $
+/* $Id: TcRequestDispatcher.java,v 1.4 2006/02/27 11:12:38 asteban Exp $
  * 
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
@@ -250,7 +250,7 @@ public class TcRequestDispatcher {
         TcContent theContent) {
         String standardParamWorker = Resources.getInstance().get("REQUESTDISPATCHER_CLS_PARAM_WORKER");
         try {
-
+            
             TcContentWorker worker = TcContentWorkerFactory.getContentWorker(moduleConfig, standardParamWorker, request.getRequestID());
             worker.doAction(config, "putMinimal", request, theContent);
         } catch (Exception e) {
@@ -323,19 +323,19 @@ public class TcRequestDispatcher {
 
         tcResponse.setAuthorisationRequired(moduleConfig.getOnUnauthorizedAction());
 
-        if (TcRequest.isWebType(tcRequest.getRequestType())) {
+        TcConfig cfg = new TcConfig(config, null, tcRequest, tcRequest.getModule());
+
+        if (TcRequest.isWebType(tcRequest.getRequestType()) && ! "soap".equalsIgnoreCase(cfg.getDefaultResponseType())) {
             // Web-Type über sendResponse abwickeln.
-            TcConfig cfg = new TcConfig(config, null, tcRequest, tcRequest.getModule());
             sendError(moduleConfig, cfg, tcResponse, tcRequest, securityException.getMessage(), securityException);
         } else {            
-
             // Eine SOAP Anfrage bekommt auch eine SOAP Fehlermeldung
             //throw new ResponseProcessingException(message, new TcSOAPException(message));
             if (logger.isLoggable(Level.FINE))
                 logger.log(Level.FINE, Resources.getInstance().get("REQUESTDISPATCHER_LOG_SENDING_ERROR", tcRequest.getRequestID(), securityException.getMessage()));
             if (logger.isLoggable(Level.FINEST))
                 logger.log(Level.FINEST, Resources.getInstance().get("REQUESTDISPATCHER_LOG_SENDING_ERROR", tcRequest.getRequestID(), securityException.getMessage()), securityException);
-            tcResponse.sendError(tcRequest.getRequestType(), tcRequest.getRequestID(), securityException.getMessage(), new TcSOAPException(securityException));
+            tcResponse.sendError(TcRequest.REQUEST_TYPE_SOAP, tcRequest.getRequestID(), securityException.getMessage(), new TcSOAPException(securityException));
             return;
         }
 
