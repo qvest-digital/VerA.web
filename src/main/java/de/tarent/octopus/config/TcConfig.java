@@ -1,4 +1,4 @@
-/* $Id: TcConfig.java,v 1.3 2005/12/15 10:04:10 christoph Exp $
+/* $Id: TcConfig.java,v 1.4 2006/02/28 09:34:45 christoph Exp $
  * 
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
@@ -32,7 +32,6 @@ import java.io.File;
 import de.tarent.octopus.server.PersonalConfig;
 import de.tarent.octopus.data.TcDataAccessException;
 import de.tarent.octopus.data.TcGenericDataAccessWrapper;
-import de.tarent.octopus.request.TcRequest;
 import de.tarent.octopus.request.TcTaskList;
 import de.tarent.octopus.response.TcResponseDescription;
 
@@ -50,7 +49,6 @@ public class TcConfig {
 
     private TcCommonConfig commonConfig;
     private PersonalConfig personalConfig;
-    private TcRequest tcRequest;
     private String currentModuleName;
 
     /**
@@ -62,11 +60,9 @@ public class TcConfig {
     public TcConfig(
         TcCommonConfig commonConfig,
         PersonalConfig personalConfig,
-        TcRequest tcRequest,
         String currentModuleName) {
         this.commonConfig = commonConfig;
         this.personalConfig = personalConfig;
-        this.tcRequest = tcRequest;
         this.currentModuleName = currentModuleName;
     }
 
@@ -90,18 +86,17 @@ public class TcConfig {
     }
 
 	/**
-	 * Liefert den TcRequest
-     * @deprecated TcRequest wird bald aus der CommonConfig heraus genommen.
-	 */
-	public TcRequest getTcRequest() {
-		return tcRequest;
-	}
-
-	/**
 	 * Liefert die systemweiten Einstellungen
 	 */
 	public TcCommonConfig getCommonConfig() {
 		return commonConfig;
+	}
+
+	/**
+	 * Setzt die User Einstellungen
+	 */
+	public void setPersonalConfig(PersonalConfig personalConfig) {
+		this.personalConfig = personalConfig;
 	}
 
 	/**

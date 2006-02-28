@@ -1,4 +1,4 @@
-/* $Id: TcRequestDispatcher.java,v 1.4 2006/02/27 11:12:38 asteban Exp $
+/* $Id: TcRequestDispatcher.java,v 1.5 2006/02/28 09:34:45 christoph Exp $
  * 
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
@@ -146,20 +146,25 @@ public class TcRequestDispatcher {
         //
         // Wirklich auszuführendes Module und Task sind nun identifiziert.
         //
-            
-            
+        
+        
 
         //==================================================
         // 2. Security
-        //
         PersonalConfig personalConfig = null;
-        ClassLoader outerLoader = null;
+    	TcConfig config = new TcConfig(commonConfig, personalConfig, module);
+    	TcContent content = new TcContent();
+        OctopusContext context = new TcAll(tcRequest, content, config);
+    	ClassLoader outerLoader = null;
+    	
+    	Context.setActive(context);
         try {
             outerLoader = Threads.setContextClassLoader(moduleConfig.getClassLoader());
             LoginManager loginManager = commonConfig.getLoginManager(moduleConfig);
             loginManager.handleAuthentication(commonConfig, tcRequest, theSession);
             personalConfig = loginManager.getPersonalConfig(commonConfig, tcRequest, theSession);
             personalConfig.testTaskAccess(commonConfig, tcRequest);
+            Threads.setContextClassLoader(outerLoader);
         } catch (Exception securityException) {
             // Für diese Aktion ist eine andere Berechtigung nötig
             if (logger.isLoggable(Level.INFO))
@@ -174,45 +179,45 @@ public class TcRequestDispatcher {
                 
             if (logger.isLoggable(Level.INFO))
                 logger.log(Level.FINE, "Authentication Error wurde an den Client gesendet. Kehre nun zurück.");
+            
+        	Context.clear();
             return;
         } finally {
             Threads.setContextClassLoader(outerLoader);
         }
-
-
+        
         // Berechtigung erfolgreich geprüft!
-        TcConfig config = new TcConfig(commonConfig, personalConfig, tcRequest, module);
-
+        config.setPersonalConfig(personalConfig);
+        
+        
         //
         // Authentifizierung ist beendet.
         //
 
         //==================================================
         // 3. Abarbeitung des auszuführenden Task
-        TcContent theContent = new TcContent();
-        OctopusContext context = new TcAll(tcRequest, theContent, config);
         TcTaskManager taskManager = new TcTaskManager(context);
         try {
             Context.setActive(context);
             outerLoader = Threads.setContextClassLoader(moduleConfig.getClassLoader());
             
-            putStandardParams(moduleConfig, config, tcResponse, tcRequest, theContent);
+            putStandardParams(moduleConfig, config, tcResponse, tcRequest, content);
 
             taskManager.start(tcRequest.getModule(), tcRequest.getTask(), true);
 
             // Abarbeitung aller Schritte
             // durch den TaskManager
-            while (taskManager.doNextStep()) { /** Do nothing here **/ }
+            while (taskManager.doNextStep()) { /* Do nothing here */ }
 
             TcResponseDescription responseDescription  = taskManager.getCurrentResponseDescription();            
             // Sending the response
             responseCreator.sendResponse(moduleConfig,
                                          config,
                                          tcResponse,
-                                         theContent,
+                                         content,
                                          responseDescription,
                                          tcRequest);
-
+            
         } catch (TcContentProzessException cpe) {
             logger.log(Level.SEVERE, Resources.getInstance().get("REQUESTDISPATCHER_LOG_TASK_ERROR", requestID, task), cpe);
         	if ("soapFault".equalsIgnoreCase(taskManager.getCurrentOnErrorAction()))
@@ -233,8 +238,8 @@ public class TcRequestDispatcher {
                       Resources.getInstance().get("REQUESTDISPATCHER_OUT_TASK_ERROR", task),
                       e);
         } finally {
-            Context.clear();
             Threads.setContextClassLoader(outerLoader);
+            Context.clear();
         }
     }
 
@@ -323,7 +328,7 @@ public class TcRequestDispatcher {
 
         tcResponse.setAuthorisationRequired(moduleConfig.getOnUnauthorizedAction());
 
-        TcConfig cfg = new TcConfig(config, null, tcRequest, tcRequest.getModule());
+        TcConfig cfg = new TcConfig(config, null, tcRequest.getModule());
 
         if (TcRequest.isWebType(tcRequest.getRequestType()) && ! "soap".equalsIgnoreCase(cfg.getDefaultResponseType())) {
             // Web-Type über sendResponse abwickeln.

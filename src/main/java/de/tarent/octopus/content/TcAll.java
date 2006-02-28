@@ -1,4 +1,4 @@
-/* $Id: TcAll.java,v 1.1.1.1 2005/11/21 13:33:37 asteban Exp $
+/* $Id: TcAll.java,v 1.2 2006/02/28 09:34:45 christoph Exp $
  * 
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
@@ -75,7 +75,7 @@ public class TcAll
 		request.setRequestParameters(requestmap);
 		request.setRequestType(requesttype);
 		content = new TcContent();
-		config = new TcConfig_Clone(request);
+		config = new TcConfig_Clone();
 	}
 
 
@@ -304,8 +304,8 @@ public class TcAll
 	private class TcConfig_Clone extends TcConfig {
 		Map session = new HashMap();
 		
-		public TcConfig_Clone(TcRequest request) {
-			super(null, null, request, null);
+		public TcConfig_Clone() {
+			super(null, null, null);
 		}
 		
 		public void setSessionValue(String key, Object value) {

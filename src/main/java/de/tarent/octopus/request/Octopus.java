@@ -1,4 +1,4 @@
-/* $Id: Octopus.java,v 1.3 2006/02/16 16:17:06 kirchner Exp $
+/* $Id: Octopus.java,v 1.4 2006/02/28 09:34:45 christoph Exp $
  * 
  * Created on 18.09.2003
  * 
@@ -221,7 +221,7 @@ public class Octopus {
 
         TcTaskManager taskmanager = new TcTaskManager(new TcAll(tcRequest,
                                                                 new TcContent(),
-                                                                new TcConfig(config, null, null, modulename)));
+                                                                new TcConfig(config, null, modulename)));
         taskmanager.start(modulename, taskname, false);
 
         while (taskmanager.doNextStep()) { /* Do nothing here */ }
