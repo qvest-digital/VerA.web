@@ -1,4 +1,4 @@
-/* $Id: Octopus.java,v 1.4 2006/02/28 09:34:45 christoph Exp $
+/* $Id: Octopus.java,v 1.5 2006/03/10 11:18:18 kirchner Exp $
  * 
  * Created on 18.09.2003
  * 
@@ -165,7 +165,7 @@ public class Octopus {
     private void preloadModules(TcCommonConfig commonConfig) {
     	String preloadstring = commonConfig.getConfigData(TcEnv.KEY_PRELOAD_MODULES);
     	List preloads=null;
-    	if(preloadstring!=null){
+    	if(preloadstring!=null&&preloadstring.length()>0){
     		preloads = Arrays.asList(preloadstring.split(" "));
     	}
         if (preloads == null)

@@ -1,4 +1,4 @@
-/* $Id: AbstractWorkerWrapper.java,v 1.4 2006/02/15 14:56:06 asteban Exp $
+/* $Id: AbstractWorkerWrapper.java,v 1.5 2006/03/10 11:18:18 kirchner Exp $
  * 
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
@@ -247,6 +247,9 @@ public abstract class AbstractWorkerWrapper
         throws TcContentProzessException {
 
         try {
+        	if(param==null&&!targetType.isPrimitive()){
+        		return null;
+        	}
 
             if (targetType.equals(Boolean.class) || targetType.equals(Boolean.TYPE)) {
                 if (param == null)
@@ -310,7 +313,10 @@ public abstract class AbstractWorkerWrapper
              }           
         } catch (NumberFormatException e) {
             logger.log(Level.WARNING, "Formatfehler beim Konvertieren eines Übergabeparamters (von "+param.getClass()+" nach "+targetType.getName()+")", e);
-            throw new TcContentProzessException("Formatfehler Fehler beim Konvertieren eines Übergabeparamters (von "+param.getClass()+" nach "+targetType.getName()+")", e);
+            //Altes Verhalten wird wiederhergestellt, die TcContentProcessException
+            //Macht z.b. im Broker(evtl. alle anderen SBK-Projekte) Probleme
+            //throw new TcContentProzessException("Formatfehler Fehler beim Konvertieren eines Übergabeparamters (von "+param.getClass()+" nach "+targetType.getName()+")", e);
+            return null;
         }
         throw new TcContentProzessException("Keine Konvertierungsregel für die Umwandlung von "+param.getClass()+" nach "+targetType.getName()+" vorhanden.");
     }
