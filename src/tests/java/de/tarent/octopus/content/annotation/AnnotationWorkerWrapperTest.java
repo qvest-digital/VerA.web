@@ -47,7 +47,7 @@ public class AnnotationWorkerWrapperTest
         content = new TcContent();
 
         // this mockup can produce errors if parts of the config will be accecced
-        config = new TcConfig(null, null, null, null);
+        config = new TcConfig(null, null, null);
     }
     
     public void testVersion() 
