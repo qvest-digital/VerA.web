@@ -1,4 +1,4 @@
-/* $Id: Xml.java,v 1.1.1.1 2005/11/21 13:33:38 asteban Exp $
+/* $Id: Xml.java,v 1.2 2006/03/14 22:53:02 asteban Exp $
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
  * 
@@ -171,12 +171,20 @@ public class Xml {
         
         //Ganze Liste drinn
         if (type != null && type.toLowerCase().equals("array") || type.toLowerCase().equals("list")) {
-            NodeList paramChilds = paramElement.getElementsByTagName("value");
-            List values = new ArrayList();
+            NodeList paramChilds = paramElement.getChildNodes();
+            List values = new ArrayList(paramChilds.getLength());
             for (int j = 0; j < paramChilds.getLength(); j++) {
                 Node valueChild = paramChilds.item(j);
-                String value = valueChild.getFirstChild().getNodeValue();
-                values.add(value);
+                if (valueChild instanceof Element) {
+                    Element valueChildElement = (Element)paramChilds.item(j);
+                    if ("value".equals(valueChildElement.getTagName())) {
+                        String value = valueChild.getFirstChild().getNodeValue();
+                        values.add(value);
+                    } 
+                    else if ("param".equals(valueChildElement.getTagName())) {
+                        values.add(getParamValue(valueChildElement));
+                    }                    
+                }
             }
             return values;
         } 
