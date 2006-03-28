@@ -7,6 +7,18 @@
 -->
 
 <project>
+    <name>octopus dependencies</name>
+    <shortDescription>This maven project file defines the dependencies of an octopus project.</shortDescription>
+    <description>
+    	<p>
+    		This maven project file defines the dependencies of an octopus project.
+    	</p>
+    	<p>
+			This file has duplicates in octopus/core/octopus-dependencies.xml
+			and octopus/webapp/octopus-dependencies.xml.
+			Always keep these files synchronized!
+    	</p>
+    </description>
 	<dependencies>
 		<dependency>
 			<groupId>log4j</groupId>
