@@ -1,4 +1,4 @@
-/* $Id: TcResponse.java,v 1.2 2006/02/23 15:07:57 christoph Exp $
+/* $Id: TcResponse.java,v 1.3 2006/03/30 13:48:25 christoph Exp $
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
  * 
@@ -65,7 +65,6 @@ public interface TcResponse {
 	 * Das muss passiert sein, bevor etwas ausgegeben wurde.
 	 */
 	public void setStatus(int code);
-
 
     /**
      * Setzt einen Header-Parameter.

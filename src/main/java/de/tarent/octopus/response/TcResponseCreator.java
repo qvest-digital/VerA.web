@@ -1,4 +1,4 @@
-/* $Id: TcResponseCreator.java,v 1.1.1.1 2005/11/21 13:33:38 asteban Exp $
+/* $Id: TcResponseCreator.java,v 1.2 2006/03/30 13:48:26 christoph Exp $
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
  * 
@@ -121,18 +121,19 @@ public class TcResponseCreator {
         }
 
         String contentType = theContent.getAsString("responseParams.ContentType");
-        if (contentType == null)
-            contentType = config.getDefaultContentType();
-
-        tcResponse.setContentType(contentType);
-
-        if (engine instanceof TcRPCResponseEngine && tcResponse instanceof TcDirectCallResponse)
-            pushRPCOutputParams(config, (TcDirectCallResponse)tcResponse, theContent, desc);
-        else
-            engine.sendResponse(config, tcResponse, theContent, desc, request);
-    }
-
-
+		if (contentType == null)
+			contentType = config.getDefaultContentType();
+		tcResponse.setContentType(contentType);
+		
+		String cacheControl = theContent.getAsString("responseParams.CacheControl");
+		if (cacheControl == null || !cacheControl.equals("disabled"))
+			tcResponse.setCachingTime(0);
+		
+		if (engine instanceof TcRPCResponseEngine && tcResponse instanceof TcDirectCallResponse)
+			pushRPCOutputParams(config, (TcDirectCallResponse) tcResponse, theContent, desc);
+		else
+			engine.sendResponse(config, tcResponse, theContent, desc, request);
+	}
 
     public void pushRPCOutputParams(TcConfig config, TcDirectCallResponse response, TcContent theContent, TcResponseDescription desc)
         throws ResponseProcessingException {

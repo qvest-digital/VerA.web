@@ -1,4 +1,4 @@
-/* $Id: TcDirectCallResponse.java,v 1.2 2006/02/23 15:07:57 christoph Exp $
+/* $Id: TcDirectCallResponse.java,v 1.3 2006/03/30 13:48:26 christoph Exp $
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
  * 
@@ -178,7 +178,6 @@ public class TcDirectCallResponse implements TcResponse {
 	public void setStatus(int code) {
         code = statusCode;
     }
-
 
     /**
      * Setzt einen Header-Parameter.
