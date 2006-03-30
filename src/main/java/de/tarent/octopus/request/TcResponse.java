@@ -1,4 +1,4 @@
-/* $Id: TcResponse.java,v 1.3 2006/03/30 13:48:25 christoph Exp $
+/* $Id: TcResponse.java,v 1.4 2006/03/30 14:49:27 christoph Exp $
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
  * 
@@ -78,6 +78,14 @@ public interface TcResponse {
      * @param millis maximale Caching-Dauer in Millisekunden. Negative Werte verbieten ein Caching.
      */
     public void setCachingTime(int millis);
+
+    /**
+     * Diese Methode setzt die maximale Verweildauer der Antwort in einem Cache. 
+     * 
+     * @param millis maximale Caching-Dauer in Millisekunden. Negative Werte verbieten ein Caching.
+     * @param param Zusätzliche Caching Paramater. Null entspricht default verhalten.
+     */
+    public void setCachingTime(int millis, String param);
     
     /**
      * Diese Methode liefert die maximale Verweildauer der Antwort in einem Cache

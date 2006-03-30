@@ -1,4 +1,4 @@
-/* $Id: TcDirectCallResponse.java,v 1.3 2006/03/30 13:48:26 christoph Exp $
+/* $Id: TcDirectCallResponse.java,v 1.4 2006/03/30 14:49:27 christoph Exp $
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
  * 
@@ -265,6 +265,10 @@ public class TcDirectCallResponse implements TcResponse {
      */
     public void setCachingTime(int millis) {
         cachingTime = millis;
+    }
+
+    public void setCachingTime(int millis, String param) {
+    	setCachingTime(millis);
     }
 
     /* (non-Javadoc)
