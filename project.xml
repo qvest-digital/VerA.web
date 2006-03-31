@@ -33,15 +33,15 @@
 	<currentVersion>${octopus.version}</currentVersion>
 
 	<!-- a short but descriptive name for the project -->
-	<name>octopus annotations extension</name>
+	<name>tarent-octopus annotation extension</name>
 
 	<!-- a description of what the project does -->
 	<description>
-		Erweiterung des tarent-octopus um Java 1.5 Annotations.
+		Annotation extension of the tarent-octopus application containers.
 	</description>
 
 	<!-- a short description of what the project does -->
-	<shortDescription>tarent-octopus annotation extension.</shortDescription>
+	<shortDescription>Annotation extension of tarent-octopus.</shortDescription>
 
 	<!-- details about the organization that 'owns' the project -->
 	<organization>
