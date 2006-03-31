@@ -33,15 +33,15 @@
 	<currentVersion>${octopus.version}</currentVersion>
 
 	<!-- a short but descriptive name for the project -->
-	<name>tarent-octopus kernel</name>
+	<name>tarent-octopus core</name>
 
 	<!-- a description of what the project does -->
 	<description>
-		Kernkomponente des tarent-octopus Application Containers.
+		Core module of the tarent-octopus application containers.
 	</description>
 
 	<!-- a short description of what the project does -->
-	<shortDescription>Core component of tarent-octopus.</shortDescription>
+	<shortDescription>Core module of tarent-octopus.</shortDescription>
 
 	<!-- details about the organization that 'owns' the project -->
 	<organization>
@@ -60,7 +60,7 @@
  	<url>http://kassandra.tarent.de/maven-projects/octopus-core/</url>
 
 	<!-- The link to bugzilla. -->
-	<issueTrackingUrl>http://bugzilla.tarent.de/</issueTrackingUrl>
+	<issueTrackingUrl>http://bugzilla.tarent.de/bugzilla/</issueTrackingUrl>
 
 	<!-- the host which has the web sites -->
 	<siteAddress>kassandra.tarent.de</siteAddress>
@@ -69,23 +69,30 @@
 		directory for the web site on the host. This is always
 		/home/maven/projects/"project name"
 	-->
-	<siteDirectory>/home/maven/projects/octopus-kernel</siteDirectory>
+	<siteDirectory>/home/maven/projects/octopus</siteDirectory>
 
 	<!-- any mailing lists for the project -->
-	<mailingLists />
+	<mailingLists>
+		<mailingList>
+			<name>dev@tarent.de</name>
+			<subscribe>http://mailman.kleinhenz.net/mailman/listinfo/dev</subscribe>
+			<unsubscribe>http://mailman.kleinhenz.net/mailman/listinfo/dev</unsubscribe>
+			<archive>http://mailman.kleinhenz.net/mailman/private/dev/</archive>
+		</mailingList>
+	</mailingLists>
 
-  <repository>
-    <connection>
-      scm:cvs:ext:asteban@kassandra.tarent.de:/cvs/newcvsroot:octopus/core
-    </connection>
-  </repository>
+	<repository>
+		<connection>
+			scm:cvs:ext:kassandra.tarent.de:/cvs/newcvsroot:octopus/core
+		</connection>
+	</repository>
 
 	<!-- who the developers are for the project -->
 	<developers>
 		<developer>
 			<id>asteban</id>
 			<name>Sebastian Mancke</name>
-			<email>smancke@tarent.de</email>
+			<email>s.mancke@tarent.de</email>
 			<organization>tarent GmbH</organization>
 			<organizationUrl>http://www.tarent.de/</organizationUrl>
 			<roles>
@@ -106,7 +113,7 @@
 		</developer>
 		<developer>
 			<id>mikel</id>
-			<name>Michael Kliknk</name>
+			<name>Michael Klink</name>
 			<email>m.klink@tarent.de</email>
 			<organization>tarent GmbH</organization>
 			<organizationUrl>http://www.tarent.de/</organizationUrl>
