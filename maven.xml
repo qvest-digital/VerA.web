@@ -9,7 +9,7 @@
 		<ant:echo>copy site resources</ant:echo>
         <ant:copy todir="target/docs">
 			<fileset dir="src/site" id="id">
-			    <include name="*"/>
+			    <include name="**/*"/>
 			</fileset>
 		</ant:copy>
 	</goal>
