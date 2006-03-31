@@ -30,23 +30,30 @@
 				</tr>
 				<tr>
 					<td>logging.level</td>
-					<td>Defines the log level of the octopus, allowed are all java.util.logging levels.</td>
+					<td>Defines the log level of the octopus,
+						allowed are all java.util.logging levels.</td>
 				</tr>
 				<tr>
 					<td>logging.pattern</td>
-					<td>Defines the filename pattern for logging, allowed are all FileHandler options.</td>
+					<td>Defines the filename pattern for logging,
+						allowed are all FileHandler options.</td>
 				</tr>
 				<tr>
 					<td>logging.limit</td>
-					<td>Defines the maximum size of one log file, default is 4 MB. To disable limit set this parameter to <code>0</code> or <code>disabled</code>.</td>
+					<td>Defines the maximum size of one log file, default is 4 MB.
+						To disable limit set this parameter to <code>0</code> or <code>disabled</code>,
+						also allowed is the option <code>default</code>.</td>
 				</tr>
 				<tr>
 					<td>logging.count</td>
-					<td>Defines the maximum count of all log files, default is 10. To disable limit set this parameter to <code>1</code> or <code>disabled</code>.</td>
+					<td>Defines the maximum count of all log files, default is 10.
+						To disable limit set this parameter to <code>1</code> or <code>disabled</code>,
+						also allowed is the option <code>default</code>.</td>
 				</tr>
 				<tr>
 					<td>paths.logPath</td>
-					<td>Optional histric parameter which define the log path. (No default! It will insert between module path and logging.pattern.)</td>
+					<td>Optional histric parameter which define the log path.
+						No default, it will insert between module path and logging.pattern.</td>
 				</tr>
 			</table>
 			<p>
