@@ -1,4 +1,4 @@
-/* $Id: TcVelocityResponseEngine.java,v 1.3 2006/02/17 10:07:16 christoph Exp $
+/* $Id: TcVelocityResponseEngine.java,v 1.4 2006/05/07 23:05:57 jens Exp $
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
  * 
@@ -31,7 +31,9 @@ import java.io.OutputStreamWriter;
 import java.io.Reader;
 import java.io.UnsupportedEncodingException;
 import java.io.Writer;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.Properties;
@@ -42,6 +44,7 @@ import org.apache.velocity.VelocityContext;
 import de.tarent.octopus.config.TcCommonConfig;
 import de.tarent.octopus.config.TcConfig;
 import de.tarent.octopus.config.TcModuleConfig;
+import de.tarent.octopus.content.CookieMap;
 import de.tarent.octopus.content.TcContent;
 import de.tarent.octopus.request.TcRequest;
 import de.tarent.octopus.request.TcResponse;
@@ -108,6 +111,22 @@ public class TcVelocityResponseEngine implements TcResponseEngine {
 	 */
 	public void sendResponse(TcConfig tcConfig, TcResponse tcResponse, TcContent tcContent, TcResponseDescription desc, TcRequest tcRequest)
 			throws ResponseProcessingException {
+		
+		// adding cookies (e.g. set by PersonalConfig)
+		Map cookiesSettings = new HashMap(1); 
+		cookiesSettings.put(CookieMap.CONFIG_MAXAGE, tcConfig.getModuleConfig().getParam(CookieMap.PREFIX_CONFIG_MAP + "." + CookieMap.CONFIG_MAXAGE));
+		Map cookiesMap = (Map) tcContent.getAsObject(CookieMap.PREFIX_COOKIE_MAP);
+		if (cookiesMap != null) {
+			Iterator iter = cookiesMap.keySet().iterator();
+			while (iter.hasNext()) {
+				String key = (String) iter.next();
+				Map cookieMap = (Map) cookiesMap.get(key);
+				if (cookieMap.get(CookieMap.COOKIE_MAP_FIELD_COOKIE) != null)
+					tcResponse.addCookie(cookieMap.get(CookieMap.COOKIE_MAP_FIELD_COOKIE));
+				else
+					tcResponse.addCookie(key, (String) cookieMap.get(CookieMap.COOKIE_MAP_FIELD_VALUE), cookiesSettings);
+			}
+		}	
 		
 		String template = desc.getDescName() + FILE_SUFFIX;
 		if (!(new File(rootPath, template)).exists())

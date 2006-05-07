@@ -1,4 +1,4 @@
-/* $Id: TcPersonalConfig.java,v 1.1.1.1 2005/11/21 13:33:37 asteban Exp $
+/* $Id: TcPersonalConfig.java,v 1.2 2006/05/07 23:05:57 jens Exp $
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
  * 
@@ -27,6 +27,8 @@
 package de.tarent.octopus.config;
 
 import de.tarent.octopus.security.*;
+import de.tarent.octopus.content.CookieMap;
+import de.tarent.octopus.content.TcContent;
 import de.tarent.octopus.request.*;
 import de.tarent.octopus.server.*;
 import java.util.HashMap;
@@ -74,6 +76,69 @@ public class TcPersonalConfig implements PersonalConfig {
      */
     public Object getSessionValue(String key) {
         return sessionData.get(key);
+    }
+    
+    /**
+     * Gets the user preference by key
+     */
+    public String getUserPreference(String key) {
+    	String value;
+    	OctopusContext oc = Context.getActive();
+        
+        // Looking for a cookie with the name "key" in the cookies
+        // given from the HttpServletRequest. These cookies has been put
+        // into the TcRequest by the HttpHelper-Class.
+        TcRequest tcRequest = oc.getRequestObject();
+        Map cookiesMap = (Map) tcRequest.getParam(CookieMap.PREFIX_COOKIE_MAP);
+        value = (String) cookiesMap.get(key);
+        
+        // Looking for cookies that has been set within
+        // this Octopus call and are stored in the TcContent.
+        // It is also possible to set a Cookie-Object directly
+        // by setting this Object to the field "cookie" in the content's
+        // cookies-Map. Because we do not want the octopus to have the
+        // Servlet-API as a dependency the values of this directly assigned
+        // Cookies will not be found as a user preference during the request
+        // in which this cookie has been set.
+        TcContent tcContent = oc.getContentObject();
+        Map unstoredCookies = (Map)tcContent.get(CookieMap.PREFIX_COOKIE_MAP);
+        if (unstoredCookies != null && unstoredCookies.containsKey(key)) {
+            return (String) ((Map)unstoredCookies.get(key)).get(CookieMap.COOKIE_MAP_FIELD_VALUE);
+        }
+            
+        return value;        
+    }
+    
+    /**
+     * Sets the user preference key to the given value 
+     */
+    public void setUserPreference(String key, String value) {
+    	OctopusContext oc = Context.getActive();
+    	TcContent tcContent = oc.getContentObject();
+    	
+    	Map cookiesMap;
+    	if (tcContent.getAsObject(CookieMap.PREFIX_COOKIE_MAP) instanceof Map)
+			cookiesMap = (Map) tcContent.getAsObject(CookieMap.PREFIX_COOKIE_MAP);
+    	else {
+    		cookiesMap = new HashMap();
+    	}
+    	
+    	// Each field in the cookies-Map is another Map with two fields: the field
+    	// "value" and the field "cookie". The cookies-Map in the request contains
+    	// all cookies already stored and both the value and a Cookie-Object are
+    	// available in the appropriate fields. When cookies are set over the user
+    	// preferences (this method) only the field "value" will be filled and the
+    	// Cookie-Object will be created after the dispatch is completed so the
+    	// octopus-core does not need to import the Servlet-API. Nevertheless you
+    	// can assign Cookie-Object directly by putting them into the "cookie"-field
+    	// in the cookies-Map in the octopus-content. The "cookie"-field will be
+    	// preferred to the "value"-field if both fields are present.
+    	// For cookie configuration setting see: de.tarent.octopus.content.CookieMap
+    	Map cookieMap = new HashMap(1);
+    	cookieMap.put(CookieMap.COOKIE_MAP_FIELD_VALUE, value);
+    	
+    	cookiesMap.put(key, cookieMap);
+    	tcContent.setField(CookieMap.PREFIX_COOKIE_MAP, cookiesMap);
     }
 
     /**

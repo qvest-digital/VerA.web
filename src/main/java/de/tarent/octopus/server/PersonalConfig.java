@@ -1,4 +1,4 @@
-/* $Id: PersonalConfig.java,v 1.1.1.1 2005/11/21 13:33:38 asteban Exp $
+/* $Id: PersonalConfig.java,v 1.2 2006/05/07 23:05:57 jens Exp $
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
  * 
@@ -101,6 +101,15 @@ public interface PersonalConfig {
      */
     public Iterator getSessionKeys(String key);
 
+    /**
+     * Gets the user preference by key
+     */
+    public String getUserPreference(String key);
+    
+    /**
+     * Sets the user preference key to the given value 
+     */
+    public void setUserPreference(String key, String value);
 
     /**
      * Liefert den Login Namen
@@ -198,8 +207,7 @@ public interface PersonalConfig {
      * Setzt den vollständigen Namen des Users
      */
     public void setUserName(String name);
-
-
+    
 
     public void setUserGivenName(String givenName);
 }

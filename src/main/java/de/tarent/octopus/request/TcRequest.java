@@ -1,4 +1,4 @@
-/* $Id: TcRequest.java,v 1.2 2006/02/23 15:07:57 christoph Exp $
+/* $Id: TcRequest.java,v 1.3 2006/05/07 23:05:57 jens Exp $
  * 
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
@@ -80,6 +80,7 @@ public class TcRequest {
     private final static String PARAM_MODULE = "module";
     public static final String PARAM_PASSWORD = "password";
 	public static final String PARAM_USERNAME = "username";
+    public static final String PARAM_COOKIES = "cookies";
 
 
     //

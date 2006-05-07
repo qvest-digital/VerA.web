@@ -1,4 +1,4 @@
-/* $Id: TcDirectCallResponse.java,v 1.4 2006/03/30 14:49:27 christoph Exp $
+/* $Id: TcDirectCallResponse.java,v 1.5 2006/05/07 23:05:57 jens Exp $
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
  * 
@@ -277,4 +277,10 @@ public class TcDirectCallResponse implements TcResponse {
     public int getCachingTime() {
         return cachingTime;
     }
+
+	public void addCookie(String name, String value, Map settings) {
+	}
+	
+	public void addCookie(Object cookie) {		
+	}
 }

@@ -1,4 +1,4 @@
-/* $Id: TcResponse.java,v 1.4 2006/03/30 14:49:27 christoph Exp $
+/* $Id: TcResponse.java,v 1.5 2006/05/07 23:05:57 jens Exp $
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
  * 
@@ -29,6 +29,8 @@ package de.tarent.octopus.request;
 import java.io.OutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Map;
+
 import de.tarent.octopus.soap.TcSOAPEngine;
 
 /** 
@@ -94,6 +96,28 @@ public interface TcResponse {
      */
     public int getCachingTime();
     
+    /**
+     * Adds a cookie to the response.
+     * Default cookie setting can be set in the config.
+     * See {@link de.tarent.octopus.content.CookieMap} for detailed settings.
+     * 
+     * @param name
+     * @param value
+     * @param settings 
+     */
+    public void addCookie(String name, String value, Map settings);
+    
+    /**
+     * Adds a cookie to the response.
+     * 
+     * Because the dispatched classes in the octopus-core 
+     * does not know the Servlet-API and the Cookie-Object
+     * this method accepts an Object as parameter and
+     * adds this to cookies in case it is a Cookie-Object.
+     * 
+     * @param cookie
+     */
+    public void addCookie(Object cookie);
     /**
      *  TODO: Eigentlich macht es keinen Sinn, dass
      *        die response irgend eine Engine kennt.
