@@ -1,4 +1,4 @@
-/* $Id: OctopusContext.java,v 1.2 2006/02/15 14:54:39 asteban Exp $
+/* $Id: OctopusContext.java,v 1.3 2006/05/08 15:47:38 asteban Exp $
  * 
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
@@ -54,6 +54,13 @@ public interface OctopusContext {
     public static final String SESSION_FIELD_PREFIX = "SESSION:";
     public static final String CONFIG_FIELD_PREFIX = "CONFIG:";
 
+
+    /** 
+     * Key for a list of objects to clean up after the execution of a task.
+     * The objects in this list have be of the type Runnable or Cleanable.
+     */
+    public static final String CLEANUP_OBJECT_LIST = "octopus.cleanup.objects";
+    
     /**
      * Liefert den Inhalt eines Feldes aus einem der Contextbereiche Request, Content, Session oder Config
      * Aus welchem Bereich das Feld Stammt wird über das Prefix entschieden.
@@ -75,6 +82,21 @@ public interface OctopusContext {
 	public TcConfig getConfigObject();
 	
 	public TcRequest getRequestObject();
+
+
+    /**
+     * Adds the supplied object to the List of Cleanup-Objects in the Content.
+     * After the processing of the request, the octopus will call the close() method for each of these objects.
+     * This will be done even if the request processing will throw an exception.
+     */
+    public void addCleanupCode(Closeable closeable);
+
+    /**
+     * Adds the supplied object to the List of Cleanup-Objects in the Content.
+     * After the processing of the request, the octopus will call the run() method for each of these objects.
+     * This will be done even if the request processing will throw an exception.
+     */
+    public void addCleanupCode(Runnable runnable);
 
 
 	//===>  C O N T E N T  <===//

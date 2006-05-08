@@ -1,4 +1,4 @@
-/* $Id: Context.java,v 1.1 2006/02/15 14:54:39 asteban Exp $
+/* $Id: Context.java,v 1.2 2006/05/08 15:47:38 asteban Exp $
  * 
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
@@ -24,6 +24,7 @@
  * signature of Elmar Geese, 1 June 2002
  * Elmar Geese, CEO tarent GmbH
  */
+package de.tarent.octopus.server;
 
 /**
  * This class gives a static access to the OctopusContext Object associated with the 
@@ -41,8 +42,6 @@
  * @author <a href="mailto:sebastian@tarent.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
  * @version 1.0
  */
-package de.tarent.octopus.server;
-
 public class Context {
     
     private static ThreadLocal currentContext = new ThreadLocal();

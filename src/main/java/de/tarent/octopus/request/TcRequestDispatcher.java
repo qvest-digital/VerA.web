@@ -1,4 +1,4 @@
-/* $Id: TcRequestDispatcher.java,v 1.5 2006/02/28 09:34:45 christoph Exp $
+/* $Id: TcRequestDispatcher.java,v 1.6 2006/05/08 15:47:38 asteban Exp $
  * 
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
@@ -29,6 +29,8 @@ package de.tarent.octopus.request;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.List;
+import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -52,6 +54,7 @@ import de.tarent.octopus.server.PersonalConfig;
 import de.tarent.octopus.soap.TcSOAPException;
 import de.tarent.octopus.util.Threads;
 import de.tarent.octopus.server.Context;
+import de.tarent.octopus.server.Closeable;
 
 /** 
  * Wichtigste Steuerkomponente für den Ablauf und die Abarbeitung einer Anfrage.
@@ -238,8 +241,41 @@ public class TcRequestDispatcher {
                       Resources.getInstance().get("REQUESTDISPATCHER_OUT_TASK_ERROR", task),
                       e);
         } finally {
+            // run the cleanup hooks; this should never cause an exception 
+            processCleanupCode(requestID, content);
+
             Threads.setContextClassLoader(outerLoader);
             Context.clear();
+        }
+    }
+
+    /**
+     * This Helper Method executes all
+     * Runnable- and Closeable-Objects in the cleanup list within the context.
+     * The key of the list is determined by the Constant {@link de.tarent.octopus.server.OctopusContext#CLEANUP_OBJECT_LIST}
+     */
+    public void processCleanupCode(String requestID, TcContent theContent) {
+        List cleanupObjectList = (List)theContent.getAsObject(OctopusContext.CLEANUP_OBJECT_LIST);
+        if (cleanupObjectList != null) {
+            for (Iterator iter = cleanupObjectList.iterator(); iter.hasNext();) {
+                Object cleanupObject = iter.next();
+                try {
+                    if (cleanupObject instanceof Runnable) {
+                        ((Runnable)cleanupObject).run();
+                        // remove after processing
+                        iter.remove();
+                    }
+                    else if (cleanupObject instanceof Closeable) {
+                        ((Closeable)cleanupObject).close();
+                        // remove after processing
+                        iter.remove();
+                    }
+                    else
+                        logger.log(Level.SEVERE, Resources.getInstance().get("REQUESTDISPATCHER_LOG_CLEANUPOBJECT_WRONG_TYPE", requestID, (cleanupObject == null ? null : cleanupObject.getClass().getName()), cleanupObject));
+                } catch (Throwable t) {
+                    logger.log(Level.SEVERE, Resources.getInstance().get("REQUESTDISPATCHER_LOG_CLEANUPOBJECT_CLOSE_ERROR", requestID, cleanupObject), t);
+                }
+            }
         }
     }
 
