@@ -1,4 +1,4 @@
-/* $Id: TcTask.java,v 1.3 2006/02/16 10:32:36 asteban Exp $
+/* $Id: TcTask.java,v 1.4 2006/05/10 10:53:55 asteban Exp $
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
  * 
@@ -878,7 +878,7 @@ public class TcTask {
                     logger.log(Level.FINE, Resources.getInstance().get("TASK_LOG_PARAM_RESOLVED_NULL", context.getRequestObject().getRequestID(), name));
             }
             
-            context.setContent(name, resolvedValue);
+            context.setContextField(name, resolvedValue);
         }
 
         public TNode getNext() {
