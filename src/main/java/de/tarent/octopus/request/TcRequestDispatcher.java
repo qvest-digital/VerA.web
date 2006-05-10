@@ -1,4 +1,4 @@
-/* $Id: TcRequestDispatcher.java,v 1.6 2006/05/08 15:47:38 asteban Exp $
+/* $Id: TcRequestDispatcher.java,v 1.7 2006/05/10 07:57:35 mikel Exp $
  * 
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
@@ -27,6 +27,7 @@
 
 package de.tarent.octopus.request;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
@@ -250,14 +251,15 @@ public class TcRequestDispatcher {
     }
 
     /**
-     * This Helper Method executes all
-     * Runnable- and Closeable-Objects in the cleanup list within the context.
-     * The key of the list is determined by the Constant {@link de.tarent.octopus.server.OctopusContext#CLEANUP_OBJECT_LIST}
+     * This helper method executes all {@link Runnable} and {@link Closeable} objects
+     * in the cleanup list within the context. This list is expected to be associated
+     * with the key {@link OctopusContext#CLEANUP_OBJECT_LIST "octopus.cleanup.objects"}.
+     * During this process the cleanup list is emptied.
      */
     public void processCleanupCode(String requestID, TcContent theContent) {
-        List cleanupObjectList = (List)theContent.getAsObject(OctopusContext.CLEANUP_OBJECT_LIST);
-        if (cleanupObjectList != null) {
-            for (Iterator iter = cleanupObjectList.iterator(); iter.hasNext();) {
+        Object cleanupObjectList = theContent.getAsObject(OctopusContext.CLEANUP_OBJECT_LIST);
+        if (cleanupObjectList instanceof Collection) {
+            for (Iterator iter = ((Collection)cleanupObjectList).iterator(); iter.hasNext();) {
                 Object cleanupObject = iter.next();
                 try {
                     if (cleanupObject instanceof Runnable) {
@@ -276,7 +278,8 @@ public class TcRequestDispatcher {
                     logger.log(Level.SEVERE, Resources.getInstance().get("REQUESTDISPATCHER_LOG_CLEANUPOBJECT_CLOSE_ERROR", requestID, cleanupObject), t);
                 }
             }
-        }
+        } else if (cleanupObjectList != null)
+            logger.warning(Resources.getInstance().get("REQUESTDISPATCHER_LOG_INVALID_CLEANUPLIST", requestID, cleanupObjectList.getClass().getName()));
     }
 
     /**
