@@ -1,4 +1,4 @@
-/* $Id: TcPersonalConfig.java,v 1.2 2006/05/07 23:05:57 jens Exp $
+/* $Id: TcPersonalConfig.java,v 1.3 2006/05/11 11:44:26 jens Exp $
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
  * 
@@ -90,7 +90,7 @@ public class TcPersonalConfig implements PersonalConfig {
         // into the TcRequest by the HttpHelper-Class.
         TcRequest tcRequest = oc.getRequestObject();
         Map cookiesMap = (Map) tcRequest.getParam(CookieMap.PREFIX_COOKIE_MAP);
-        value = (String) cookiesMap.get(key);
+        value = cookiesMap != null ? (String) cookiesMap.get(key) : null;
         
         // Looking for cookies that has been set within
         // this Octopus call and are stored in the TcContent.
