@@ -70,28 +70,38 @@
 		&lt;param name="key" value="value"/&gt;
 	&lt;/response&gt;</pre>
 			<p>
-				Some response parameters will allowed in every response type
+				Some response parameters will be allowed in every response type and some will only be supported by special response engines.
 				(no support for direct connect):
 			</p>
 			<table>
 				<tr>
 					<th>Key</th>
 					<th>Value</th>
+					<th>Engines</th>
 					<th>Since</th>
 				</tr>
 				<tr>
 					<td>ContentType</td>
-					<td>MimeType, e.g. <code>text/html;charset=UTF-8</code></td>
+					<td>MimeType, e.g. <code>text/html;charset=UTF-8</code>. If not present, the ContentType will be used from the module-wide parameter <code>defaultContentType</code>.</td>
+					<td>ALL</td>
+					<td>octopus 1.2</td>
+				</tr>
+				<tr>
+					<td>encoding</td>
+					<td>The used encoding for the writer, e.g. <code>UTF-8</code>. If not present, the encoding will be used from the module-wide parameter <code>defaultEncoding</code>.</td>
+					<td>velocity,raw</td>
 					<td>octopus 1.2</td>
 				</tr>
 				<tr>
 					<td>CachingTime</td>
 					<td>Time in milliseconds, default is zero (no caching allowed).</td>
+					<td>ALL</td>
 					<td>octopus 1.3.3</td>
 				</tr>
 				<tr>
 					<td>CachingParam</td>
 					<td>Comma seperated parameter without spaces. Allowed parameter are:</td>
+					<td>ALL</td>
 					<td></td>
 				</tr>
 				<tr>
@@ -102,6 +112,7 @@
 						this fix some problems with the MSIE 6 which was specified in
 						<a href="http://support.microsoft.com/kb/812935/EN-US/">KB 812935</a> and
 						<a href="http://support.microsoft.com/kb/316431/EN-US/">KB 316431</a>.</td>
+					<td>ALL</td>
 					<td>octopus 1.3.3</td>
 				</tr>
 				<tr>
@@ -112,6 +123,7 @@
 						this fix some problems with the MSIE 6 which was specified in
 						<a href="http://support.microsoft.com/kb/812935/EN-US/">KB 812935</a> and
 						<a href="http://support.microsoft.com/kb/316431/EN-US/">KB 316431</a>.</td>
+					<td>ALL</td>
 					<td>octopus 1.3.5</td>
 				</tr>
 			</table>
