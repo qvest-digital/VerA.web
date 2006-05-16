@@ -1,4 +1,4 @@
-/* $Id: TcRequestDispatcher.java,v 1.7 2006/05/10 07:57:35 mikel Exp $
+/* $Id: TcRequestDispatcher.java,v 1.8 2006/05/16 12:49:40 christoph Exp $
  * 
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
@@ -30,7 +30,6 @@ package de.tarent.octopus.request;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.List;
 import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
