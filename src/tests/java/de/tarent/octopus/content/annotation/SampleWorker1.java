@@ -2,9 +2,9 @@
 package de.tarent.octopus.content.annotation;
 
 import de.tarent.octopus.config.TcModuleConfig;
-import de.tarent.octopus.server.OctopusContext;
 import de.tarent.octopus.content.annotation.InOutParam;
 
+import junit.framework.Assert;
 import junit.framework.TestCase;
 
 import javax.jws.*;
@@ -93,23 +93,23 @@ public class SampleWorker1 {
                                 @Name("list") List list,
                                 @Name("map") Map map)
     {
-        testCase.assertEquals("Integer Übergabe", 42, (int)int1);
-        testCase.assertEquals("int Übergabe", 42, int2);
+    	Assert.assertEquals("Integer Übergabe", 42, (int)int1);
+    	Assert.assertEquals("int Übergabe", 42, int2);
 
-        testCase.assertEquals("Long Übergabe", 42, (long)long1);
-        testCase.assertEquals("long Übergabe", 42, long2);
+    	Assert.assertEquals("Long Übergabe", 42, (long)long1);
+    	Assert.assertEquals("long Übergabe", 42, long2);
 
-        testCase.assertEquals("Float Übergabe", 42f, (float)float1);
-        testCase.assertEquals("float Übergabe", 42f, float2);
+    	Assert.assertEquals("Float Übergabe", 42f, (float)float1);
+    	Assert.assertEquals("float Übergabe", 42f, float2);
 
-        testCase.assertEquals("Double Übergabe", 42d, (double)double1);
-        testCase.assertEquals("double Übergabe", 42d, double2);
+        Assert.assertEquals("Double Übergabe", 42d, (double)double1);
+        Assert.assertEquals("double Übergabe", 42d, double2);
 
-        testCase.assertEquals("Boolean Übergabe", true, (boolean)boolean1);
-        testCase.assertEquals("boolean Übergabe", true, boolean2);
+        Assert.assertEquals("Boolean Übergabe", true, (boolean)boolean1);
+        Assert.assertEquals("boolean Übergabe", true, boolean2);
         
-        testCase.assertTrue("List Übergabe", list.size()== 1);
-        testCase.assertTrue("Map Übergabe", map.size()== 1);        
+        Assert.assertTrue("List Übergabe", list.size()== 1);
+        Assert.assertTrue("Map Übergabe", map.size()== 1);        
     }
 
 
@@ -152,25 +152,25 @@ public class SampleWorker1 {
                                          @Name("map") 
                                          MyMapBean mapBan)
     {
-        testCase.assertEquals("Integer Übergabe", 42, (int)int1);
-        testCase.assertEquals("int Übergabe", 0, int2);
+    	Assert.assertEquals("Integer Übergabe", 42, (int)int1);
+        Assert.assertEquals("int Übergabe", 0, int2);
 
-        testCase.assertEquals("Long Übergabe", 42, (long)long1);
-        testCase.assertEquals("long Übergabe", 0, long2);
+        Assert.assertEquals("Long Übergabe", 42, (long)long1);
+        Assert.assertEquals("long Übergabe", 0, long2);
 
-        testCase.assertEquals("Float Übergabe", 42f, (float)float1);
-        testCase.assertEquals("float Übergabe", 0f, float2);
+        Assert.assertEquals("Float Übergabe", 42f, (float)float1);
+        Assert.assertEquals("float Übergabe", 0f, float2);
 
-        testCase.assertEquals("Double Übergabe", 42d, (double)double1);
-        testCase.assertEquals("double Übergabe", 0d, double2);
+        Assert.assertEquals("Double Übergabe", 42d, (double)double1);
+        Assert.assertEquals("double Übergabe", 0d, double2);
 
-        testCase.assertEquals("Boolean Übergabe", true, (boolean)boolean1);
-        testCase.assertEquals("boolean Übergabe", false, boolean2);
+        Assert.assertEquals("Boolean Übergabe", true, (boolean)boolean1);
+        Assert.assertEquals("boolean Übergabe", false, boolean2);
         
-        testCase.assertTrue("List Übergabe", list.size()== 1);
+        Assert.assertTrue("List Übergabe", list.size()== 1);
         
-        testCase.assertEquals("MapBean Übergabe", "Frank", mapBan.getName());
-        testCase.assertEquals("MapBean Übergabe", "Prüm", mapBan.getCity());
+        Assert.assertEquals("MapBean Übergabe", "Frank", mapBan.getName());
+        Assert.assertEquals("MapBean Übergabe", "Prüm", mapBan.getCity());
     }
 
 

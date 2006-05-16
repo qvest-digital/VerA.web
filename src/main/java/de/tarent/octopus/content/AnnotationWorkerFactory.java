@@ -1,4 +1,4 @@
-/* $Id: AnnotationWorkerFactory.java,v 1.2 2005/12/02 15:29:05 asteban Exp $
+/* $Id: AnnotationWorkerFactory.java,v 1.3 2006/05/16 12:56:03 christoph Exp $
  * 
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
@@ -32,7 +32,6 @@ import de.tarent.octopus.resource.Resources;
 import java.util.logging.Logger;
 import de.tarent.octopus.server.WorkerCreationException;
 import de.tarent.octopus.server.SpecialWorkerFactory;
-import java.net.URLClassLoader;
 import de.tarent.octopus.config.TcModuleConfig;
 
 import de.tarent.octopus.content.annotation.AnnotationWorkerWrapper;

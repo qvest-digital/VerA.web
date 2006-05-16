@@ -1,4 +1,4 @@
-/* $Id: AnnotationWorkerWrapper.java,v 1.3 2006/02/16 11:43:25 asteban Exp $
+/* $Id: AnnotationWorkerWrapper.java,v 1.4 2006/05/16 12:56:02 christoph Exp $
  * 
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
@@ -27,26 +27,22 @@
 
 package de.tarent.octopus.content.annotation;
 
-import javax.jws.WebMethod;
-import javax.jws.WebParam;
-import javax.jws.WebResult;
-
-import java.lang.reflect.*;
 import java.lang.annotation.Annotation;
-import java.util.Arrays;
+import java.lang.reflect.Method;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.jws.WebMethod;
+import javax.jws.WebParam;
+import javax.jws.WebResult;
+
 import de.tarent.octopus.content.AbstractWorkerWrapper;
-import de.tarent.octopus.server.OctopusContext;
 import de.tarent.octopus.content.TcActionDeclarationException;
-import de.tarent.octopus.server.InOutParam;
+import de.tarent.octopus.server.OctopusContext;
 
 /**
  * Wrapper für Octopus Worker auf Basis von Annotations
@@ -129,7 +125,7 @@ public class AnnotationWorkerWrapper
         action.inputParams = new String[action.genericArgsCount];
         action.mandatoryFlags = new boolean[action.genericArgsCount];
         action.descriptions = new String[action.genericArgsCount];
-        int passCntxOffset = (action.passOctopusContext) ? 1 : 0;
+//        int passCntxOffset = (action.passOctopusContext) ? 1 : 0;
         Annotation[][] parameterAnnotations = action.method.getParameterAnnotations();
         for (int i=0; i < action.genericArgsCount; i++) {
             

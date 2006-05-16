@@ -42,7 +42,7 @@ public class AnnotationWorkerFactoryTest
         throws Exception {
 
         try {
-            TcContentWorker worker = factory.createInstance(config, workerDeclaration);
+            factory.createInstance(config, workerDeclaration);
         } catch (Exception e) {
             // Success
             return;
@@ -50,14 +50,13 @@ public class AnnotationWorkerFactoryTest
         
         fail("No exception on worker creation with missing source");
     }
-
     
     public void testErrorHandling_wrongSource() 
         throws Exception {
 
         try {
             workerDeclaration.setImplementationSource("xxx.yyy.zzzz");
-            TcContentWorker worker = factory.createInstance(config, workerDeclaration);
+            factory.createInstance(config, workerDeclaration);
         } catch (Exception e) {
             // Success
             return;

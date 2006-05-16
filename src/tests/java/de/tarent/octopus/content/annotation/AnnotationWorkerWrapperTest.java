@@ -6,14 +6,10 @@ import de.tarent.octopus.config.*;
 import de.tarent.octopus.content.*;
 import de.tarent.octopus.request.*;
 import java.util.*;
-import java.util.logging.*;
-
 
 public class AnnotationWorkerWrapperTest
     extends junit.framework.TestCase {
 
-    private static Logger logger = Logger.getLogger(AnnotationWorkerWrapperTest.class.getName());
-    
     static boolean calledFlag;
 
     TcModuleConfig moduleConfig;
