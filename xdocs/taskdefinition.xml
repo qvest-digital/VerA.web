@@ -82,13 +82,13 @@
 				</tr>
 				<tr>
 					<td>ContentType</td>
-					<td>MimeType, e.g. <code>text/html;charset=UTF-8</code>. If not present, the ContentType will be used from the module-wide parameter <code>defaultContentType</code>.</td>
+					<td>MimeType, e.g. <code>text/html;charset=UTF-8</code>. If not present, the ContentType will be used from the module-wide or server-wide parameter <code>defaultContentType</code>.</td>
 					<td>ALL</td>
 					<td>octopus 1.2</td>
 				</tr>
 				<tr>
 					<td>encoding</td>
-					<td>The used encoding for the writer, e.g. <code>UTF-8</code>. If not present, the encoding will be used from the module-wide parameter <code>defaultEncoding</code>.</td>
+					<td>The used encoding for the writer, e.g. <code>UTF-8</code>. If not present, the encoding will be used from the module-wide or server-wide parameter <code>defaultEncoding</code>.</td>
 					<td>velocity,raw</td>
 					<td>octopus 1.2</td>
 				</tr>
