@@ -1,4 +1,4 @@
-/* $Id: Octopus.java,v 1.5 2006/03/10 11:18:18 kirchner Exp $
+/* $Id: Octopus.java,v 1.6 2006/05/17 11:41:04 asteban Exp $
  * 
  * Created on 18.09.2003
  * 
@@ -89,8 +89,7 @@ public class Octopus {
         dispatcher = new TcRequestDispatcher(commonconfig);
         this.config = config;
         OctopusFactory.tryToBind();
-        preloadModules(commonconfig);
-        initModules(dispatcher);
+        preloadModules(commonconfig);        
     }
 
     /**
@@ -181,34 +180,6 @@ public class Octopus {
                     commonConfig.registerModule(moduleName, moduleConfig);
                 else
                     logger.warning(Resources.getInstance().get("OCTOPUS_LOG_PRELOAD_MODULE_ERROR", moduleName));
-            }
-        }
-    }
-
-    /**
-     * Diese Methode initialisiert die Module; insbesondere werden hier
-     * die Autostart-Tasks der einzelnen Module aufgerufen.
-     * 
-     * @param dispatcher der zu benutzende Request-Dispatcher.
-     */
-    protected void initModules(TcRequestDispatcher dispatcher)
-        throws
-            TcConfigException,
-            TcTaskProzessingException,
-            ClassNotFoundException,
-            InstantiationException,
-            IllegalAccessException,
-            TcContentProzessException {
-        TcCommonConfig commonConfig = dispatcher.getCommonConfig();
-        Iterator it = commonConfig.getExistingModuleNames();
-        //Durchlaufe alle Module
-        while (it.hasNext()) {
-            String moduleName = it.next().toString();
-
-            try {
-                doAutostart(moduleName, commonConfig);
-            } catch (Exception e) {
-                logger.log(Level.WARNING, Resources.getInstance().get("COMMONCONFIG_LOG_AUTOSTART_ERROR", moduleName), e);
             }
         }
     }
