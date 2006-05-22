@@ -1,4 +1,4 @@
-/* $Id: Octopus.java,v 1.6 2006/05/17 11:41:04 asteban Exp $
+/* $Id: Octopus.java,v 1.7 2006/05/22 07:16:35 asteban Exp $
  * 
  * Created on 18.09.2003
  * 
@@ -184,7 +184,7 @@ public class Octopus {
         }
     }
 
-    private void callTask(String modulename, TcCommonConfig config, String taskname) throws TcContentProzessException, TcTaskProzessingException {
+    private void callTask(String modulename, TcCommonConfig config, String taskname) throws TcContentProzessException, TcTaskProzessingException, TcConfigException {
         TcRequest tcRequest = new TcRequest(TcRequest.createRequestID());
         tcRequest.setRequestParameters(new HashMap());
         tcRequest.setModule(modulename);
@@ -192,7 +192,7 @@ public class Octopus {
 
         TcTaskManager taskmanager = new TcTaskManager(new TcAll(tcRequest,
                                                                 new TcContent(),
-                                                                new TcConfig(config, null, modulename)));
+                                                                new TcConfig(config, config.createNewPersonalConfig(modulename), modulename)));
         taskmanager.start(modulename, taskname, false);
 
         while (taskmanager.doNextStep()) { /* Do nothing here */ }
@@ -208,7 +208,8 @@ public class Octopus {
             ClassNotFoundException,
             InstantiationException,
             IllegalAccessException,
-            TcContentProzessException {
+            TcContentProzessException,
+            TcConfigException {
         TcModuleConfig moduleconfig = commonConfig.getModuleConfig(modulename);
         TcTaskList tasklist = moduleconfig.getTaskList();
         TcTask task = tasklist.getTask(TASKNAME_AUTOSTART);
@@ -248,7 +249,8 @@ public class Octopus {
             ClassNotFoundException,
             InstantiationException,
             IllegalAccessException,
-            TcContentProzessException {
+            TcContentProzessException,
+            TcConfigException {
         TcModuleConfig moduleconfig = commonConfig.getModuleConfig(modulename);
         TcTaskList tasklist = moduleconfig.getTaskList();
         TcTask task = tasklist.getTask(TASKNAME_CLEANUP);
