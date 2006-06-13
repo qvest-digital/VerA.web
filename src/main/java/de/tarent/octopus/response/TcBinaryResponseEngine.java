@@ -1,4 +1,4 @@
-/* $Id: TcBinaryResponseEngine.java,v 1.3 2006/02/23 15:07:57 christoph Exp $
+/* $Id: TcBinaryResponseEngine.java,v 1.4 2006/06/13 10:16:58 asteban Exp $
  * 
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
@@ -80,6 +80,8 @@ public class TcBinaryResponseEngine implements TcResponseEngine {
 	public static final String PARAM_STREAM = "stream";
 	/** Param for a map response, may contain <code>true</code> if this is a download. */
 	public static final String PARAM_IS_ATTACHMENT = "isAttachment";
+	/** Param for a map response, may contain the name suggested for the downloaded file, if it is an attachment. As default, the local name of the PARAM_FILENAME will be used.*/
+	public static final String PARAM_ATTACHMENT_FILENAME = "attachmentFilename";
 
 	/** Value for {@link #PARAM_TYPE}, will return a stream. */
 	public static final String BINARY_RESPONSE_TYPE_STREAM = "stream";
@@ -123,18 +125,22 @@ public class TcBinaryResponseEngine implements TcResponseEngine {
 				String filename = (String)info.get(PARAM_FILENAME);
 				String filedate = (String)info.get(PARAM_FILEDATE);
 				String mimetype = (String)info.get(PARAM_MIMETYPE);
+
+				String attachmentFilename = (String)info.get(PARAM_ATTACHMENT_FILENAME);
+                if (attachmentFilename == null && filename != null) {
+                    attachmentFilename = new File(filename).getName();
+                }
             	
             	if (isTrue(info.get(PARAM_IS_ATTACHMENT))) {
-            		tcResponse.setHeader("Content-Disposition", "attachment" + (filename != null ? "; filename=\"" + filename + "\"" : ""));
+            		tcResponse.setHeader("Content-Disposition", "attachment" + (attachmentFilename != null ? "; filename=\"" + attachmentFilename + "\"" : ""));
             	}
             	
+                tcResponse.setContentType(getContentString(attachmentFilename, mimetype));
 	            if (BINARY_RESPONSE_TYPE_STREAM.equals(type)) {
-	            	tcResponse.setContentType(getContentString(filename, mimetype));
 					processStream(tcResponse, info.get(PARAM_STREAM));
 	            } else if (BINARY_RESPONSE_TYPE_LOCALFILE.equals(type)) {
 	            	File file = new File(filename);
-	            	tcResponse.setContentType(getContentString(file.getName(), mimetype));
-	            	processFile(tcRequest, tcResponse, file, file.getName(), filedate);
+	            	processFile(tcRequest, tcResponse, file, attachmentFilename, filedate);
 	            }
             } else {
             	tcResponse.setContentType(getContentString(null, null));
