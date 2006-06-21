@@ -1,4 +1,4 @@
-/* $Id: Octopus.java,v 1.7 2006/05/22 07:16:35 asteban Exp $
+/* $Id: Octopus.java,v 1.8 2006/06/21 09:03:38 kleinhenz Exp $
  * 
  * Created on 18.09.2003
  * 
@@ -32,7 +32,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.logging.Level;
+import java.util.Map;
 import java.util.logging.Logger;
 import java.util.prefs.Preferences;
 
@@ -43,6 +43,8 @@ import de.tarent.octopus.config.TcModuleConfig;
 import de.tarent.octopus.content.TcAll;
 import de.tarent.octopus.content.TcContent;
 import de.tarent.octopus.content.TcContentProzessException;
+import de.tarent.octopus.extensions.OctopusExtension;
+import de.tarent.octopus.extensions.OctopusExtensionLoader;
 import de.tarent.octopus.jndi.OctopusFactory;
 import de.tarent.octopus.resource.Resources;
 import de.tarent.octopus.response.ResponseProcessingException;
@@ -57,6 +59,9 @@ public class Octopus {
 
     public static final String TASKNAME_CLEANUP = "cleanup";
     public static final String TASKNAME_AUTOSTART = "autostart";
+    
+    // optional JMX extension
+    private OctopusExtension jmxManagementServer = null;
 
     /*
      * Konstruktoren
@@ -89,7 +94,20 @@ public class Octopus {
         dispatcher = new TcRequestDispatcher(commonconfig);
         this.config = config;
         OctopusFactory.tryToBind();
-        preloadModules(commonconfig);        
+        preloadModules(commonconfig); 
+        
+        // Initalizing the optional JMX subsystem
+        String jmxEnabledString = commonconfig.getConfigData("jmxenabled");
+        if (Boolean.valueOf(jmxEnabledString).booleanValue())
+        {
+            logger.info("Enabling optional JMX subsystem.");
+
+            Map params = new HashMap();
+            params.put("octopus", this);
+            params.put("config", commonconfig);
+
+            jmxManagementServer = OctopusExtensionLoader.load("de.tarent.octopus.jmx.OctopusManagement", params);
+        }
     }
 
     /**
@@ -113,7 +131,12 @@ public class Octopus {
             IllegalAccessException,
             TcContentProzessException,
             TcConfigException {
-        cleanupModules(dispatcher);
+        
+            // shutting down the JMX subsystem
+            if (jmxManagementServer!=null)
+                jmxManagementServer.stop();
+
+            cleanupModules(dispatcher);
     }
 
     /**
