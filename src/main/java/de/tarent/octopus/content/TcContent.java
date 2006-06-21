@@ -1,4 +1,4 @@
-/* $Id: TcContent.java,v 1.1.1.1 2005/11/21 13:33:37 asteban Exp $
+/* $Id: TcContent.java,v 1.2 2006/06/21 13:44:37 jens Exp $
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
  * 
@@ -271,7 +271,7 @@ public class TcContent {
      * bei Fehlern wird einfach zurück gekehrt.
      */
     public void setField(String key, Object data) {
-        if (key == null || data == null || "".equals(key))
+        if (key == null || "".equals(key))
             return;
 
         StringTokenizer st = new StringTokenizer(key, ".");
@@ -279,6 +279,7 @@ public class TcContent {
         Object node = theContent;
         Object newNode;
         int index;
+                
         while (st.hasMoreTokens()) {
 
             if (node instanceof Map) {
