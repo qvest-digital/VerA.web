@@ -41,13 +41,14 @@ import de.tarent.octopus.content.TcMessageDefinitionPart;
 import de.tarent.octopus.request.Octopus;
 import de.tarent.octopus.request.TcRequest;
 import de.tarent.octopus.request.TcTask;
+import de.tarent.octopus.request.TcTaskList;
 import de.tarent.octopus.request.directCall.TcDirectCallResponse;
 import de.tarent.octopus.request.directCall.TcDirectCallSession;
 import de.tarent.octopus.response.ResponseProcessingException;
 
 public class OctopusModuleManagement implements DynamicMBean
 {
-    private static ObjectName jmxName = null;
+    private ObjectName jmxName = null;
     private MBeanInfo octopusMBeanInfo = null;
     private MBeanServer mbs = null;
     private HashMap octopusOperationMap = null;
@@ -227,26 +228,31 @@ public class OctopusModuleManagement implements DynamicMBean
     /******************* Octopus specific bindings follow *********************/
         
     /**
-     * Checks if a task with the given name is available in this Octopus. The
-     * name of the tasks follow the pattern "moduleName.taskName". So the "getData" 
-     * operation of the broker modules is named "broker.getData". Core tasks of the
-     * octopus system use the module name "octopus".
+     * Checks if a task with the given name is available in this Octopus. 
+     * 
+     * @param taskName Name of the task.
      */
     private boolean octopusTaskAvailable(String taskName)
     {
-        // TODO: implement
-        return true;
+        for (int i=0; i<octopusMBeanInfo.getOperations().length;i++)
+            if (octopusMBeanInfo.getOperations()[i].getName().equals(taskName))
+                return true;
+ 
+        return false;
     }
     
     /**
      * Checks if a specific attribute is available in this Octopus.
      * 
-     * @param attributeName Name of the attribute
+     * @param attributeName Name of the attribute.
      * @return true if the attribute is available, false otherwise.
      */
     private boolean octopusAttributeAvailable(String attributeName)
     {
-        // TODO: implement
+        for (int i=0; i<octopusMBeanInfo.getAttributes().length;i++)
+            if (octopusMBeanInfo.getAttributes()[i].getName().equals(attributeName))
+                return true;
+ 
         return false;
     }
     
@@ -261,9 +267,8 @@ public class OctopusModuleManagement implements DynamicMBean
     {
         if (!octopusAttributeAvailable(attributeName))
             throw new AttributeNotFoundException("Cannot find " + attributeName + " attribute.");
-
-        // TODO: implement
-        return null;
+        
+        return octopusConfig.getConfigData(attributeName);
     }
 
     /**
@@ -290,8 +295,9 @@ public class OctopusModuleManagement implements DynamicMBean
      * @param params Parameters of the task.
      * @return Return value of the operation.
      * @throws ReflectionException if the module or task is not available or the parameters are of the wrong type.
+     * @throws MBeanException if the task was not processed properly.
      */
-    private Object callOctopusTask(String task, Object[] params) throws ReflectionException
+    private Object callOctopusTask(String task, Object[] params) throws ReflectionException, MBeanException
     {
         // allow only available tasks
         if (!octopusTaskAvailable(task))
@@ -327,7 +333,12 @@ public class OctopusModuleManagement implements DynamicMBean
             logger.log(Level.SEVERE, "Error calling Octopus task " + task + " from JMX subsystem.", e);
         }
 
-        // TODO: error handling of octopus errors.
+        // catch errors
+        if (response.errorWhileProcessing())
+        {
+            Exception e = response.getErrorException();
+            throw new MBeanException(response.getErrorException(),response.getErrorMessage()); 
+        }
         
         // retrieve output values
         Map result = new HashMap();
@@ -345,40 +356,58 @@ public class OctopusModuleManagement implements DynamicMBean
 
     private void buildDynamicMBeanInfo(String module)
     {
-        // construct Octopus attribute descriptions
-        MBeanAttributeInfo[] octopusAttributes = new MBeanAttributeInfo[] {};
-        /*
-                     new MBeanAttributeInfo("State",
-                                   "java.lang.String",
-                                   "State string.",
-                                   true,
-                                   true,
-                                   false);
-
-         */
-
-        // construct Octopus task ("module.task") descriptions
-        List oOps = new ArrayList();
-        Iterator iter2 = octopusConfig.getTaskList(module).getTasksKeys();
-        while (iter2.hasNext())
+        // construct Octopus core attribute descriptions
+        List temp = new ArrayList();
+        Iterator iter = null;
+        Object tempA[] = null;
+        MBeanAttributeInfo[] octopusAttributes = null;
+        if ("octopus".equals(module))
         {
-            String thisTaskName = (String)iter2.next();
-            TcTask thisTask = octopusConfig.getTaskList(module).getTask(thisTaskName);
-            MBeanParameterInfo[] thisParameters = parseParameters(thisTask.getInputMessage());
-
-            MBeanOperationInfo thisOperation = new MBeanOperationInfo(
-                    thisTaskName,
-                    thisTask.getDescription(),
-                    thisParameters,
-                    "java.util.Map", 
-                    MBeanOperationInfo.ACTION);
-            oOps.add(thisOperation);
-            octopusOperationMap.put(thisTaskName, thisParameters);
-        }            
+            iter = octopusConfig.getConfigKeys();
+            while (iter.hasNext())
+            {
+                temp.add(new MBeanAttributeInfo((String)iter.next(),
+                        "java.lang.String",
+                        "Generic Octopus configuration parameter.",
+                        true,
+                        false,
+                        false));
+            }        
         
-        Object temp[] = oOps.toArray();
-        MBeanOperationInfo[] octopusOperations = new MBeanOperationInfo[temp.length];
-        System.arraycopy(temp, 0, octopusOperations, 0, temp.length);
+            tempA = temp.toArray();
+            octopusAttributes = new MBeanAttributeInfo[tempA.length];
+            System.arraycopy(tempA, 0, octopusAttributes, 0, tempA.length);
+        }
+        
+        // construct Octopus task descriptions
+        temp = new ArrayList();
+        TcTaskList taskList = null;
+        if (!"octopus".equals(module))
+            taskList = octopusConfig.getTaskList(module);
+        MBeanOperationInfo[] octopusOperations = null;
+        if (taskList!=null)
+        {
+            iter = taskList.getTasksKeys();
+            while (iter.hasNext())
+            {
+                String thisTaskName = (String)iter.next();
+                TcTask thisTask = octopusConfig.getTaskList(module).getTask(thisTaskName);
+                MBeanParameterInfo[] thisParameters = parseParameters(thisTask.getInputMessage());
+    
+                MBeanOperationInfo thisOperation = new MBeanOperationInfo(
+                        thisTaskName,
+                        thisTask.getDescription(),
+                        thisParameters,
+                        "java.util.Map", 
+                        MBeanOperationInfo.ACTION);
+                temp.add(thisOperation);
+                octopusOperationMap.put(thisTaskName, thisParameters);
+            }            
+            
+            tempA = temp.toArray();
+            octopusOperations = new MBeanOperationInfo[tempA.length];
+            System.arraycopy(tempA, 0, octopusOperations, 0, tempA.length);
+        }
         
         // construct Octopus notification descriptions
         MBeanNotificationInfo[] octopusNotifications = new MBeanNotificationInfo[] {};

@@ -43,6 +43,17 @@ public class OctopusManagement implements OctopusExtension
         
         modules = new ArrayList();
         
+        // initialize octopus core MBean
+        try
+        {
+            modules.add(new OctopusModuleManagement(octopus, commonconfig, "octopus"));
+        }
+        catch (Exception e)
+        {
+            logger.log(Level.SEVERE, "Error initializing JMX for octopus core.", e);
+        }
+        
+        // initialize module specific MBeans
         Iterator iter = commonconfig.getExistingModuleNames();
         String module = null;
         while (iter.hasNext())
