@@ -1,0 +1,424 @@
+/*
+ * Copyright (c) tarent GmbH
+ * Bahnhofstrasse 13 . 53123 Bonn
+ * www.tarent.de . info@tarent.de
+ *
+ * Created on 19.06.2006
+ */
+
+package de.tarent.octopus.jmx;
+
+import java.lang.management.ManagementFactory;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import javax.management.Attribute;
+import javax.management.AttributeList;
+import javax.management.AttributeNotFoundException;
+import javax.management.DynamicMBean;
+import javax.management.InvalidAttributeValueException;
+import javax.management.MBeanAttributeInfo;
+import javax.management.MBeanConstructorInfo;
+import javax.management.MBeanException;
+import javax.management.MBeanInfo;
+import javax.management.MBeanNotificationInfo;
+import javax.management.MBeanOperationInfo;
+import javax.management.MBeanParameterInfo;
+import javax.management.MBeanServer;
+import javax.management.MalformedObjectNameException;
+import javax.management.ObjectName;
+import javax.management.ReflectionException;
+import javax.management.RuntimeOperationsException;
+
+import de.tarent.octopus.config.TcCommonConfig;
+import de.tarent.octopus.content.TcMessageDefinition;
+import de.tarent.octopus.content.TcMessageDefinitionPart;
+import de.tarent.octopus.request.Octopus;
+import de.tarent.octopus.request.TcRequest;
+import de.tarent.octopus.request.TcTask;
+import de.tarent.octopus.request.directCall.TcDirectCallResponse;
+import de.tarent.octopus.request.directCall.TcDirectCallSession;
+import de.tarent.octopus.response.ResponseProcessingException;
+
+public class OctopusModuleManagement implements DynamicMBean
+{
+    private static ObjectName jmxName = null;
+    private MBeanInfo octopusMBeanInfo = null;
+    private MBeanServer mbs = null;
+    private HashMap octopusOperationMap = null;
+    private TcCommonConfig octopusConfig = null;
+    private Octopus octopus = null;
+    private String module = null;
+    
+    private static Logger logger = Logger.getLogger(OctopusModuleManagement.class.getName());
+
+    public OctopusModuleManagement(Octopus octopus, TcCommonConfig commonconfig, String module) throws MalformedObjectNameException, NullPointerException
+    {
+        octopusOperationMap = new HashMap();
+        
+        this.octopusConfig = commonconfig;
+        this.octopus = octopus;
+        this.module = module;
+        
+        jmxName = new ObjectName("de.tarent.octopus.jmx:type=" + module);
+        
+        buildDynamicMBeanInfo(module);
+    }
+
+    /**
+     * Starts the management thread by getting a connection to a running
+     * JMX server (or creating a new server) and publishing the management
+     * information to the server.
+     * 
+     * @throws Exception if the registration fails.
+     */
+    public void start() throws Exception 
+    {
+        MBeanServer mbs = ManagementFactory.getPlatformMBeanServer(); 
+           
+        mbs.registerMBean(this, jmxName);  
+    }
+
+    /**
+     * Shuts down the JMX server by unregistering the MBean from the
+     * running server.
+     * 
+     * @throws Exception if the unregistering fails.
+     */
+    public void stop() throws Exception
+    {
+        mbs.unregisterMBean(jmxName);
+    }
+    
+    public Object getAttribute(String attribute) throws AttributeNotFoundException, MBeanException, ReflectionException
+    {
+        // Check whether used attribute name is null
+        if (attribute==null) 
+        {
+            throw new RuntimeOperationsException(
+                  new IllegalArgumentException("Attribute name cannot be null"),
+                  "Cannot invoke a getter with null attribute name");
+        }
+
+        if (octopusAttributeAvailable(attribute))    
+            return getOctopusAttribute(attribute);
+        else
+            // attribute has not been recognized: throw an AttributeNotFoundException
+            throw new AttributeNotFoundException("Cannot find " + attribute + " attribute.");
+    }
+
+    public void setAttribute(Attribute attribute) throws AttributeNotFoundException, InvalidAttributeValueException, MBeanException, ReflectionException
+    {
+        // Check whether used attribute name is null
+        if (attribute==null) 
+        {
+            throw new RuntimeOperationsException(
+                  new IllegalArgumentException("Attribute name cannot be null"),
+                  "Cannot invoke a setter with null attribute name");
+        }
+        
+        if (octopusAttributeAvailable(attribute.getName()))    
+            setOctopusAttribute(attribute.getName(), attribute.getValue());
+        else
+            // attribute has not been recognized: throw an AttributeNotFoundException
+            throw new AttributeNotFoundException("Cannot find " + attribute + " attribute.");
+    }
+
+    public AttributeList getAttributes(String[] attributeNames)
+    {
+        // Check whether used attribute name is null
+        if (attributeNames==null) 
+        {
+            throw new RuntimeOperationsException(
+                  new IllegalArgumentException("Attribute name cannot be null"),
+                  "Cannot invoke a setter with null attribute name");
+        }
+        
+        AttributeList resultList = new AttributeList();
+        
+        // An empty list returns an empty result list
+        if (attributeNames.length==0)
+            return resultList;
+
+        // Build result list
+        for (int i=0;i<attributeNames.length;i++) 
+        {
+            try 
+            {        
+                Object value = getAttribute((String)attributeNames[i]);     
+                resultList.add(new Attribute(attributeNames[i],value));
+            } 
+            catch (Exception e) 
+            {
+                throw new RuntimeOperationsException(
+                        new IllegalArgumentException("Error getting value for " + attributeNames[i] + " attribute."));
+            }
+        }
+        
+        return resultList;
+    }
+
+    public AttributeList setAttributes(AttributeList attributeNames)
+    {
+        // Check whether used attribute name is null
+        if (attributeNames==null) 
+        {
+            throw new RuntimeOperationsException(
+                  new IllegalArgumentException("Attribute name cannot be null"),
+                  "Cannot invoke a setter with null attribute name");
+        }
+        
+        AttributeList resultList = new AttributeList();
+        
+        // An empty list returns an empty result list
+        if (attributeNames.size()==0)
+            return resultList;
+
+        // Build result list
+        Iterator i = attributeNames.iterator();
+        while (i.hasNext()) 
+        {
+            Attribute thisAttribute = (Attribute)i.next();
+            try 
+            {
+                setAttribute(thisAttribute);
+                String name = thisAttribute.getName();
+                Object value = getAttribute(name); 
+                resultList.add(new Attribute(name,value));
+            } 
+            catch(Exception e) 
+            {
+                e.printStackTrace();
+            }
+        }
+        
+        return resultList;
+    }
+
+    public Object invoke(String actionName, Object[] params, String[] signature) throws MBeanException, ReflectionException
+    {
+        // check whether the operation name is null
+        if (actionName==null) 
+        {
+            throw new RuntimeOperationsException(
+                 new IllegalArgumentException("Operation name cannot be null"), 
+                 "Cannot invoke a null operation.");
+        }
+
+        if (octopusTaskAvailable(actionName))    
+            return callOctopusTask(actionName, params);
+        else
+            // Unknown operation
+            throw new ReflectionException(
+                    new NoSuchMethodException(actionName), 
+                        "Cannot find the operation " + actionName);
+    }
+
+    public MBeanInfo getMBeanInfo()
+    {
+        return octopusMBeanInfo;
+    }
+
+    /******************* Octopus specific bindings follow *********************/
+        
+    /**
+     * Checks if a task with the given name is available in this Octopus. The
+     * name of the tasks follow the pattern "moduleName.taskName". So the "getData" 
+     * operation of the broker modules is named "broker.getData". Core tasks of the
+     * octopus system use the module name "octopus".
+     */
+    private boolean octopusTaskAvailable(String taskName)
+    {
+        // TODO: implement
+        return true;
+    }
+    
+    /**
+     * Checks if a specific attribute is available in this Octopus.
+     * 
+     * @param attributeName Name of the attribute
+     * @return true if the attribute is available, false otherwise.
+     */
+    private boolean octopusAttributeAvailable(String attributeName)
+    {
+        // TODO: implement
+        return false;
+    }
+    
+    /**
+     * Returns the value of a given attribute.
+     * 
+     * @param attributeName Name of the attribute.
+     * @return Value of the attribute.
+     * @throws AttributeNotFoundException if the attribute is not available.
+     */
+    private Object getOctopusAttribute(String attributeName) throws AttributeNotFoundException
+    {
+        if (!octopusAttributeAvailable(attributeName))
+            throw new AttributeNotFoundException("Cannot find " + attributeName + " attribute.");
+
+        // TODO: implement
+        return null;
+    }
+
+    /**
+     * Sets the value of an attribute.
+     * 
+     * @param attributeName Name of the attribute.
+     * @param attributeValue Value of the attribute.
+     * @throws AttributeNotFoundException if the attribute is not available or the parameters are of the wrong type.
+     */
+    private void setOctopusAttribute(String attributeName, Object attributeValue) throws AttributeNotFoundException
+    {
+        if (!octopusAttributeAvailable(attributeName))
+            throw new AttributeNotFoundException("Cannot find " + attributeName + " attribute.");
+
+        // TODO: implement
+    }
+    
+    /**
+     * Calls the given Octopus task. The actionName attribute gives the module and
+     * task to be called in the form "module.task". The result of the task operation
+     * is returned.
+     * 
+     * @param actionName Name of the task an module.
+     * @param params Parameters of the task.
+     * @return Return value of the operation.
+     * @throws ReflectionException if the module or task is not available or the parameters are of the wrong type.
+     */
+    private Object callOctopusTask(String task, Object[] params) throws ReflectionException
+    {
+        // allow only available tasks
+        if (!octopusTaskAvailable(task))
+            throw new ReflectionException(
+                    new NoSuchMethodException(task), 
+                        "Cannot find the operation " + task);        
+
+        // retrieve parameter names and other info
+        MBeanParameterInfo[] parameterInfo = (MBeanParameterInfo[])octopusOperationMap.get(task);
+
+        // build the request
+        TcRequest request = new TcRequest();
+        request.setRequestParameters(new HashMap());
+        request.setParam("module", module);
+        request.setParam("task", task);
+        request.setParam("context", "Hallo");
+        for (int i=0; i<params.length; i++)
+        {
+            String key = parameterInfo[i].getName();
+            Object value = params[i];
+            
+            request.setParam(key, value);
+        }
+        
+        // issue call
+        TcDirectCallResponse response = new TcDirectCallResponse();
+        try
+        {
+            octopus.dispatch(request, response, new TcDirectCallSession());
+        }
+        catch (ResponseProcessingException e)
+        {
+            logger.log(Level.SEVERE, "Error calling Octopus task " + task + " from JMX subsystem.", e);
+        }
+
+        // TODO: error handling of octopus errors.
+        
+        // retrieve output values
+        Map result = new HashMap();
+        Iterator iter = response.getResponseObjectKeys();
+        while (iter.hasNext())
+        {
+            String key = (String)iter.next();
+            Object value = response.getResponseObject(key);
+            
+            result.put(key, value);
+        }
+        
+        return result;        
+    }
+
+    private void buildDynamicMBeanInfo(String module)
+    {
+        // construct Octopus attribute descriptions
+        MBeanAttributeInfo[] octopusAttributes = new MBeanAttributeInfo[] {};
+        /*
+                     new MBeanAttributeInfo("State",
+                                   "java.lang.String",
+                                   "State string.",
+                                   true,
+                                   true,
+                                   false);
+
+         */
+
+        // construct Octopus task ("module.task") descriptions
+        List oOps = new ArrayList();
+        Iterator iter2 = octopusConfig.getTaskList(module).getTasksKeys();
+        while (iter2.hasNext())
+        {
+            String thisTaskName = (String)iter2.next();
+            TcTask thisTask = octopusConfig.getTaskList(module).getTask(thisTaskName);
+            MBeanParameterInfo[] thisParameters = parseParameters(thisTask.getInputMessage());
+
+            MBeanOperationInfo thisOperation = new MBeanOperationInfo(
+                    thisTaskName,
+                    thisTask.getDescription(),
+                    thisParameters,
+                    "java.util.Map", 
+                    MBeanOperationInfo.ACTION);
+            oOps.add(thisOperation);
+            octopusOperationMap.put(thisTaskName, thisParameters);
+        }            
+        
+        Object temp[] = oOps.toArray();
+        MBeanOperationInfo[] octopusOperations = new MBeanOperationInfo[temp.length];
+        System.arraycopy(temp, 0, octopusOperations, 0, temp.length);
+        
+        // construct Octopus notification descriptions
+        MBeanNotificationInfo[] octopusNotifications = new MBeanNotificationInfo[] {};
+        /*
+                    new MBeanNotificationInfo(
+            new String[] { AttributeChangeNotification.ATTRIBUTE_CHANGE },
+            AttributeChangeNotification.class.getName(),
+            "This notification is emitted when the reset() method is called.");
+
+        */
+
+        octopusMBeanInfo = new MBeanInfo(module + "OctopusModuleManagement",
+                                   "tarent Octopus JMX MBean for module " + module,
+                                   octopusAttributes,
+                                   new MBeanConstructorInfo[] {},
+                                   octopusOperations,
+                                   octopusNotifications);
+    }
+
+    private MBeanParameterInfo[] parseParameters(TcMessageDefinition inputMessage)
+    {
+        List result = new ArrayList();
+        
+        Iterator iter = inputMessage.getParts().iterator();
+        while (iter.hasNext())
+        {
+            TcMessageDefinitionPart thisPart = (TcMessageDefinitionPart)iter.next();
+            String thisPartName = thisPart.getName().replaceFirst(".*:","");
+            
+            String thisPartType = thisPart.getPartDataType();
+            String thisPartDescription = thisPart.getDescription();
+            
+            MBeanParameterInfo thisInfo = new MBeanParameterInfo(thisPartName, thisPartType, thisPartDescription);
+            result.add(thisInfo);
+        }
+
+        Object temp[] = result.toArray();
+        MBeanParameterInfo[] octopusParameters = new MBeanParameterInfo[temp.length];
+        System.arraycopy(temp, 0, octopusParameters, 0, temp.length);
+
+        return octopusParameters;
+    }
+}
