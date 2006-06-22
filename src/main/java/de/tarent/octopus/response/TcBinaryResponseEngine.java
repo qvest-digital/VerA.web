@@ -1,4 +1,4 @@
-/* $Id: TcBinaryResponseEngine.java,v 1.4 2006/06/13 10:16:58 asteban Exp $
+/* $Id: TcBinaryResponseEngine.java,v 1.5 2006/06/22 10:10:29 mley Exp $
  * 
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
@@ -82,7 +82,11 @@ public class TcBinaryResponseEngine implements TcResponseEngine {
 	public static final String PARAM_IS_ATTACHMENT = "isAttachment";
 	/** Param for a map response, may contain the name suggested for the downloaded file, if it is an attachment. As default, the local name of the PARAM_FILENAME will be used.*/
 	public static final String PARAM_ATTACHMENT_FILENAME = "attachmentFilename";
-
+	/** Param for a map response, may contain a Runnable, that is executed, when the BinaryResponse succeds */
+	public static final String PARAM_RUNNABLE_SUCCEED = "succeededRunnable";
+	/** Param for a map response, may contain a Runnable, that is executed, when the BinaryResponse fails */
+	public static final String PARAM_RUNNABLE_FAIL = "failedRunnable";
+	
 	/** Value for {@link #PARAM_TYPE}, will return a stream. */
 	public static final String BINARY_RESPONSE_TYPE_STREAM = "stream";
 	/** Value for {@link #PARAM_TYPE}, will return a local file. */
@@ -125,7 +129,9 @@ public class TcBinaryResponseEngine implements TcResponseEngine {
 				String filename = (String)info.get(PARAM_FILENAME);
 				String filedate = (String)info.get(PARAM_FILEDATE);
 				String mimetype = (String)info.get(PARAM_MIMETYPE);
-
+				Runnable succeededRunnable = (Runnable)info.get(PARAM_RUNNABLE_SUCCEED);
+				Runnable failedRunnable = (Runnable)info.get(PARAM_RUNNABLE_FAIL);
+				
 				String attachmentFilename = (String)info.get(PARAM_ATTACHMENT_FILENAME);
                 if (attachmentFilename == null && filename != null) {
                     attachmentFilename = new File(filename).getName();
@@ -134,14 +140,22 @@ public class TcBinaryResponseEngine implements TcResponseEngine {
             	if (isTrue(info.get(PARAM_IS_ATTACHMENT))) {
             		tcResponse.setHeader("Content-Disposition", "attachment" + (attachmentFilename != null ? "; filename=\"" + attachmentFilename + "\"" : ""));
             	}
+            	try {
+            		tcResponse.setContentType(getContentString(attachmentFilename, mimetype));
+            		if (BINARY_RESPONSE_TYPE_STREAM.equals(type)) {
+            			processStream(tcResponse, info.get(PARAM_STREAM));
+            		} else if (BINARY_RESPONSE_TYPE_LOCALFILE.equals(type)) {
+            			File file = new File(filename);
+            			processFile(tcRequest, tcResponse, file, attachmentFilename, filedate);
+            		}
+            	}catch(IOException ioe) {
+            		if(failedRunnable != null)
+            			failedRunnable.run();
+            		throw ioe;
+            	}
+            	if(succeededRunnable != null)
+            		succeededRunnable.run();
             	
-                tcResponse.setContentType(getContentString(attachmentFilename, mimetype));
-	            if (BINARY_RESPONSE_TYPE_STREAM.equals(type)) {
-					processStream(tcResponse, info.get(PARAM_STREAM));
-	            } else if (BINARY_RESPONSE_TYPE_LOCALFILE.equals(type)) {
-	            	File file = new File(filename);
-	            	processFile(tcRequest, tcResponse, file, attachmentFilename, filedate);
-	            }
             } else {
             	tcResponse.setContentType(getContentString(null, null));
             	processStream(tcResponse, data);
