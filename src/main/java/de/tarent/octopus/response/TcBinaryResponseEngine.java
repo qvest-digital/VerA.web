@@ -1,4 +1,4 @@
-/* $Id: TcBinaryResponseEngine.java,v 1.5 2006/06/22 10:10:29 mley Exp $
+/* $Id: TcBinaryResponseEngine.java,v 1.6 2006/06/26 08:28:07 mley Exp $
  * 
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
@@ -82,9 +82,17 @@ public class TcBinaryResponseEngine implements TcResponseEngine {
 	public static final String PARAM_IS_ATTACHMENT = "isAttachment";
 	/** Param for a map response, may contain the name suggested for the downloaded file, if it is an attachment. As default, the local name of the PARAM_FILENAME will be used.*/
 	public static final String PARAM_ATTACHMENT_FILENAME = "attachmentFilename";
-	/** Param for a map response, may contain a Runnable, that is executed, when the BinaryResponse succeds */
+
+	/** 
+	 * Param for a map response, may contain a Runnable, that is executed, when the BinaryResponse succeeds,
+	 * meaning that writing data to the respone's outputstream finished without any IOExceptions.
+	 */
 	public static final String PARAM_RUNNABLE_SUCCEED = "succeededRunnable";
-	/** Param for a map response, may contain a Runnable, that is executed, when the BinaryResponse fails */
+
+	/** 
+	 * Param for a map response, may contain a Runnable, that is executed, when the BinaryResponse fails.
+	 * i.e. the user cancels the download, or other network problems occur and an IOException is thrown.
+	 */
 	public static final String PARAM_RUNNABLE_FAIL = "failedRunnable";
 	
 	/** Value for {@link #PARAM_TYPE}, will return a stream. */
@@ -140,7 +148,7 @@ public class TcBinaryResponseEngine implements TcResponseEngine {
             	if (isTrue(info.get(PARAM_IS_ATTACHMENT))) {
             		tcResponse.setHeader("Content-Disposition", "attachment" + (attachmentFilename != null ? "; filename=\"" + attachmentFilename + "\"" : ""));
             	}
-            	try {
+            	try { 
             		tcResponse.setContentType(getContentString(attachmentFilename, mimetype));
             		if (BINARY_RESPONSE_TYPE_STREAM.equals(type)) {
             			processStream(tcResponse, info.get(PARAM_STREAM));
@@ -149,10 +157,12 @@ public class TcBinaryResponseEngine implements TcResponseEngine {
             			processFile(tcRequest, tcResponse, file, attachmentFilename, filedate);
             		}
             	}catch(IOException ioe) {
+            		// if an IOExcption occurs, the response failed.
             		if(failedRunnable != null)
             			failedRunnable.run();
             		throw ioe;
             	}
+            	// when arriving here, the response succeeded.
             	if(succeededRunnable != null)
             		succeededRunnable.run();
             	
