@@ -1,4 +1,4 @@
-/* $Id: TcCommonConfig.java,v 1.2 2005/11/23 08:32:40 asteban Exp $
+/* $Id: TcCommonConfig.java,v 1.3 2006/07/11 13:47:37 kleinhenz Exp $
  * 
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
@@ -627,6 +627,16 @@ public class TcCommonConfig {
         return configData.get(key);
     }
 
+    /**
+     * Returns an iterator over all available configuration
+     * items.
+     * 
+     * @return Iterator.
+     */
+    public Iterator getConfigKeys() {
+        return configData.keySet().iterator();
+    }
+    
     /**
      * Diese Methode liefert die Umgebungswerte
      * 
