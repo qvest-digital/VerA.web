@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns:j="jelly:core" xmlns:ant="jelly:ant" xmlns:maven="jelly:maven">
+	<preGoal name="site">
+		<attainGoal name="doc:copyresources" />
+	</preGoal>
+
+	<goal name="doc:copyresources" description="copy site resources">
+		<ant:echo>copy site resources</ant:echo>
+        <ant:copy todir="target/docs">
+			<fileset dir="src/site" id="id">
+			    <include name="**/*"/>
+			</fileset>
+		</ant:copy>
+	</goal>
+
+	<!--  Example goal to generate PDF JavaDoc -->
+	<goal name="pdfdoc" description="generates JavaDoc PDF">
+		<ant:echo>Generating PDF JavaDoc</ant:echo>
+		<ant:javadoc doclet="com.tarsec.javadoc.pdfdoclet.PDFDoclet"
+			     docletpath="${maven.repo.local}/com.tarsec.javadoc.pdfdoclet/jars/pdfdoclet-1.0.2-all.jar"
+			     packagenames="*" maxmemory="512M"
+			     additionalparam="-pdf target/apidoc.pdf -config project.properties"
+			     private="no">
+			     <sourcepath>
+			     	<pathelement location="./src/main/java"/>
+			     </sourcepath>
+		</ant:javadoc>
+	</goal>
+</project>
