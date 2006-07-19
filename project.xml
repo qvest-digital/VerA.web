@@ -182,6 +182,15 @@
 	-->
 	<dependencies>
         <!-- Tarent internal -->
+        <dependency>
+			<groupId>de.tarent.octopus</groupId>
+			<artifactId>octopus-rpctunnel</artifactId>
+			<version>0.1</version>
+			<properties>
+				<dist.bundle>false</dist.bundle>
+				<war.bundle>false</war.bundle>
+			</properties>
+		</dependency>
         <!-- external -->
         <!-- inherits octopus-dependencies -->
  	</dependencies>
