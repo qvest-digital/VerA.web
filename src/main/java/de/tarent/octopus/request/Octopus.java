@@ -1,4 +1,4 @@
-/* $Id: Octopus.java,v 1.8 2006/06/21 09:03:38 kleinhenz Exp $
+/* $Id: Octopus.java,v 1.9 2006/07/19 09:09:14 hendrik Exp $
  * 
  * Created on 18.09.2003
  * 
@@ -48,6 +48,7 @@ import de.tarent.octopus.extensions.OctopusExtensionLoader;
 import de.tarent.octopus.jndi.OctopusFactory;
 import de.tarent.octopus.resource.Resources;
 import de.tarent.octopus.response.ResponseProcessingException;
+import de.tarent.octopus.rpctunnel.OctopusRPCTunnel;
 
 /**
  * Diese Klasse dient als Wrapper für Octopus-Funktionalitäten,
@@ -108,6 +109,9 @@ public class Octopus {
 
             jmxManagementServer = OctopusExtensionLoader.load("de.tarent.octopus.jmx.OctopusManagement", params);
         }
+        
+        logger.info("Enabling optional RPC-Tunnel.");
+        OctopusRPCTunnel.createInstance(this, commonconfig);
     }
 
     /**
