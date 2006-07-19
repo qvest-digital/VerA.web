@@ -1,4 +1,4 @@
-/* $Id: Octopus.java,v 1.9 2006/07/19 09:09:14 hendrik Exp $
+/* $Id: Octopus.java,v 1.10 2006/07/19 12:19:30 hendrik Exp $
  * 
  * Created on 18.09.2003
  * 
@@ -110,7 +110,7 @@ public class Octopus {
             jmxManagementServer = OctopusExtensionLoader.load("de.tarent.octopus.jmx.OctopusManagement", params);
         }
         
-        logger.info("Enabling optional RPC-Tunnel.");
+        logger.info("Enabling optional RPC-tunnel.");
         OctopusRPCTunnel.createInstance(this, commonconfig);
     }
 
