@@ -10,23 +10,32 @@ package de.tarent.octopus.rpctunnel;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Logger;
 
 public class RPCTunnel
 {
 	private static Map listeners;
+    private static Logger logger = Logger.getLogger(RPCTunnel.class.getName());
 
 	public static boolean registerListener(RPCListener listener, String role)
 	{
 		if (listeners == null)
 			listeners = new HashMap();
 		listeners.put(role, listener);
+		logger.info("Listener "+role+" is registered by the RPC-tunnel.");
 		return true;
 	}
 
 	public static boolean unregisterListener(RPCListener listener)
 	{
-		return listeners == null ? false :
-			listeners.values().remove(listener);
+		if (listeners == null)
+			return false;
+		else {
+			boolean b = listeners.values().remove(listener);
+			if (b)
+				logger.info("Listener is unregistered by the RPC-tunnel.");
+			return b;
+		}
 	}
 	
 	/**
