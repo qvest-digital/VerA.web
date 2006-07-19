@@ -7,15 +7,10 @@
  */
 package de.tarent.octopus.rpctunnel;
 
-import java.util.HashMap;
-import java.util.Iterator;
+import java.lang.reflect.Method;
 import java.util.Map;
 import java.util.logging.Logger;
 
-import de.tarent.octopus.client.OctopusConnection;
-import de.tarent.octopus.client.OctopusConnectionFactory;
-import de.tarent.octopus.client.OctopusResult;
-import de.tarent.octopus.client.OctopusTask;
 import de.tarent.octopus.config.TcCommonConfig;
 import de.tarent.octopus.request.Octopus;
 
@@ -35,9 +30,23 @@ public class OctopusRPCTunnel
 	{
         octopusConfig = commonconfig;
         this.octopus = octopus;
-		listener = new OctopusRPCListener(octopus, commonconfig);
-		try { //The class RPCTunnel may not be available
-			RPCTunnel.registerListener(listener, OCTOPUS_ROLE);
+		try {
+			listener = new OctopusRPCListener(octopus, commonconfig);
+			
+			try {
+				//Registration of the listener-implementation.
+				//The class RPCTunnel may not be available so it's necessary to use reflection.
+				//The call RPCTunnel.registerListener(listener, OCTOPUS_ROLE)
+				//wouldn't allow to catch exeptions inside this class.
+				
+				Class tunnelc = Class.forName("de.tarent.octopus.rpctunnel.RPCTunnel");
+				Class listc = Class.forName("de.tarent.octopus.rpctunnel.RPCListener");
+				Method reg = tunnelc.getMethod("registerListener", new Class[] {listc, String.class});
+				reg.invoke(this, new Object[] {listener, OCTOPUS_ROLE});
+			} catch (Exception e) {
+				throw new RPCTunnelUnavailableException();
+			}
+			
 		} catch (NoClassDefFoundError e) {
 			throw new RPCTunnelUnavailableException();
 		}
@@ -52,13 +61,13 @@ public class OctopusRPCTunnel
 	 */
 	public static void createInstance(Octopus octopus, TcCommonConfig commonconfig)
 	{
-		if (octTunnel != null) //Class is already constructed
-			return;
-		try { //Try to create an instance of OctopusRPCTunnel
-			octTunnel = new OctopusRPCTunnel(octopus, commonconfig);
-		} catch (RPCTunnelUnavailableException e) {
-			octTunnel = null;
-			logger.warning("RPC-Tunnel is unavailable.");
+		if (!isAvailable()) {
+			try { //Try to create an instance of OctopusRPCTunnel
+				octTunnel = new OctopusRPCTunnel(octopus, commonconfig);
+			} catch (RPCTunnelUnavailableException e) {
+				octTunnel = null;
+				logger.warning("RPC-tunnel is unavailable.");
+			}
 		}
 	}
 	
@@ -72,46 +81,12 @@ public class OctopusRPCTunnel
 		//At this point it is ensured that class RPCTunnel is in the classpath
 		return RPCTunnel.execute(myRole, partnerRole, module, task, parameters);
 	}
-}
-
-class OctopusRPCListener implements RPCListener
-{
-    private TcCommonConfig octopusConfig = null;
-    private Octopus octopus = null;
-    
-    private static Logger logger = Logger.getLogger(OctopusRPCListener.class.getName());
-
-    public OctopusRPCListener(Octopus octopus, TcCommonConfig commonconfig)
-    {
-        this.octopusConfig = commonconfig;
-        this.octopus = octopus;
-    }
-
-	public Map execute(String myRole, String partnerRole, String module, String task, Map parameters)
-	{
-		OctopusConnectionFactory ocConnectionFactory = OctopusConnectionFactory.getInstance();
-		Map configuration = new HashMap();
-		configuration.put(OctopusConnectionFactory.CONNECTION_TYPE_KEY, OctopusConnectionFactory.CONNECTION_TYPE_DIRECT_CALL);
-		configuration.put(OctopusConnectionFactory.MODULE_KEY, module);
-		// weitere Parameter in der konkreten Verbindungsklasse (z.B. OctopusRemoteConnection)
-		ocConnectionFactory.setConfiguration("octopus", configuration);
-		OctopusConnection ocConnection = ocConnectionFactory.getConnection(module);
-		
-		//OctopusTask ocTask = ocConnection.getTask(task);
-		//OctopusResult ocResult = ocTask.add("paramName", "value").invoke();
-		
-		OctopusResult ocResult = ocConnection.callTask(task, parameters);
-		Iterator iter = ocResult.getDataKeys();
-		
-		//Create result map
-		Map data = new HashMap();
-		while (iter.hasNext()) {
-			String key = (String) iter.next();
-			data.put(key, ocResult.getData(key));
-		}
-		return data;
+	
+	public static boolean isAvailable() {
+		return octTunnel != null;
 	}
 }
+
 
 class RPCTunnelUnavailableException extends Exception 
 {
