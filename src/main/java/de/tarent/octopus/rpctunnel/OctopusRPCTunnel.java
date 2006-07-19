@@ -14,6 +14,12 @@ import java.util.logging.Logger;
 import de.tarent.octopus.config.TcCommonConfig;
 import de.tarent.octopus.request.Octopus;
 
+/** Wrapper singleton class for class <code>de.tarent.octopus.rpctunnel.RPCTunnel</code> which
+ * is part of a different library and must not be available.
+ * 
+ * @author hendrik
+ *
+ */
 public class OctopusRPCTunnel 
 {
     private TcCommonConfig octopusConfig = null;
@@ -30,10 +36,12 @@ public class OctopusRPCTunnel
 	{
         octopusConfig = commonconfig;
         this.octopus = octopus;
-		try {
+		try
+		{
 			listener = new OctopusRPCListener(octopus, commonconfig);
-			
-			try {
+
+			try
+			{
 				//Registration of the listener-implementation.
 				//The class RPCTunnel may not be available so it's necessary to use reflection.
 				//The call RPCTunnel.registerListener(listener, OCTOPUS_ROLE)
@@ -46,7 +54,6 @@ public class OctopusRPCTunnel
 			} catch (Exception e) {
 				throw new RPCTunnelUnavailableException();
 			}
-			
 		} catch (NoClassDefFoundError e) {
 			throw new RPCTunnelUnavailableException();
 		}
@@ -61,8 +68,10 @@ public class OctopusRPCTunnel
 	 */
 	public static void createInstance(Octopus octopus, TcCommonConfig commonconfig)
 	{
-		if (!isAvailable()) {
-			try { //Try to create an instance of OctopusRPCTunnel
+		if (!isAvailable()) 
+		{
+			try 
+			{ //Try to create an instance of OctopusRPCTunnel
 				octTunnel = new OctopusRPCTunnel(octopus, commonconfig);
 			} catch (RPCTunnelUnavailableException e) {
 				octTunnel = null;
