@@ -16,6 +16,7 @@ class OctopusRPCListener implements RPCListener
 {
     private TcCommonConfig octopusConfig = null;
     private Octopus octopus = null;
+    private static final String CONNECTION_NAME = "octopus";
     
     private static Logger logger = Logger.getLogger(OctopusRPCListener.class.getName());
 
@@ -28,15 +29,12 @@ class OctopusRPCListener implements RPCListener
 	public Map execute(String myRole, String partnerRole, String module, String task, Map parameters)
 	{
 		OctopusConnectionFactory ocConnectionFactory = OctopusConnectionFactory.getInstance();
-		Map configuration = new HashMap();
-		configuration.put(OctopusConnectionFactory.CONNECTION_TYPE_KEY, OctopusConnectionFactory.CONNECTION_TYPE_DIRECT_CALL);
-		configuration.put(OctopusConnectionFactory.MODULE_KEY, module);
-		// weitere Parameter in der konkreten Verbindungsklasse (z.B. OctopusRemoteConnection)
-		ocConnectionFactory.setConfiguration("octopus", configuration);
-		OctopusConnection ocConnection = ocConnectionFactory.getConnection(module);
 		
-		//OctopusTask ocTask = ocConnection.getTask(task);
-		//OctopusResult ocResult = ocTask.add("paramName", "value").invoke();
+		Map configuration = new HashMap();
+		configuration.put(OctopusConnectionFactory.CONNECTION_TYPE_KEY, OctopusConnectionFactory.CONNECTION_TYPE_INTERNAL);
+		configuration.put(OctopusConnectionFactory.MODULE_KEY, module);
+		ocConnectionFactory.setConfiguration(CONNECTION_NAME, configuration);
+		OctopusConnection ocConnection = ocConnectionFactory.getConnection(CONNECTION_NAME);
 		
 		OctopusResult ocResult = ocConnection.callTask(task, parameters);
 		Iterator iter = ocResult.getDataKeys();
