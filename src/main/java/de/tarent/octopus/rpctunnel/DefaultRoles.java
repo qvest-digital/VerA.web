@@ -1,4 +1,4 @@
-/* $Id$
+/* $Id: DefaultRoles.java,v 1.1 2006/07/24 14:59:57 jens Exp $
  *
  * tarent-contact, Plattform-Independent Webservice-Based Contactmanagement
  * Copyright (C) 2002 tarent GmbH
@@ -20,15 +20,17 @@
  * tarent GmbH., hereby disclaims all copyright
  * interest in the program 'tarent-octopus'
  * (which makes passes at compilers) written
- * by Hendrik Helwich. 
+ * by Jens Neumaier. 
  * signature of Elmar Geese, 1 June 2002
  * Elmar Geese, CEO tarent GmbH
  */
 package de.tarent.octopus.rpctunnel;
 
-import java.util.Map;
-
-public interface RPCListener
-{
-	Map execute(String myRole, String partnerRole, String module, String task, Map parameters);
+/**
+ * @author Jens Neumaier, tarent GmbH
+ *
+ */
+public interface DefaultRoles {
+	public static final String ROLE_OCTOPUS = "octopus";
+	public static final String ROLE_ACTIVEBPEL = "activebpel";
 }

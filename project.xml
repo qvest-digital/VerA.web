@@ -141,6 +141,22 @@
 		is an example here.
 	-->
 	<dependencies>
+		<dependency>
+			<groupId>org.activebpel</groupId>
+			<artifactId>ae_wsio</artifactId>
+			<version>2.1</version>
+			<properties>
+				<dist.bundle>false</dist.bundle>
+			</properties>
+		</dependency>
+		<dependency>
+			<groupId>org.activebpel</groupId>
+			<artifactId>ae_rtbpelsvr</artifactId>
+			<version>2.1</version>
+			<properties>
+				<dist.bundle>false</dist.bundle>
+			</properties>
+		</dependency>
 	</dependencies>
 
 </project>
