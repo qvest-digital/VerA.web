@@ -44,6 +44,8 @@ public class OctopusRPCTunnel
     private TcCommonConfig octopusConfig = null;
     private Octopus octopus = null;
 	private OctopusRPCListener listener = null;
+
+    public static final String ROLE_OCTOPUS = "octopus";
 	
 	private static OctopusRPCTunnel octTunnel = null;
 	
@@ -67,7 +69,7 @@ public class OctopusRPCTunnel
 				Class tunnelc = Class.forName("de.tarent.octopus.rpctunnel.RPCTunnel");
 				Class listc = Class.forName("de.tarent.octopus.rpctunnel.RPCListener");
 				Method reg = tunnelc.getMethod("registerListener", new Class[] {listc, String.class});
-				reg.invoke(this, new Object[] {listener, DefaultRoles.ROLE_OCTOPUS});
+				reg.invoke(this, new Object[] {listener, ROLE_OCTOPUS});
 			} catch (Exception e) {
 				throw new RPCTunnelUnavailableException();
 			}
