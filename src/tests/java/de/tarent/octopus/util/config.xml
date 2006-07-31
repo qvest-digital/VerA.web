@@ -12,7 +12,7 @@
 	
 
 	<include>
-		<param name="config2" value="C:\workspace\octopus-core\src\tests\java\de\tarent\octopus\util\config2.xml"/>
+		<param name="config2" value="./config2.xml"/>
 	</include>
 
 	<params>

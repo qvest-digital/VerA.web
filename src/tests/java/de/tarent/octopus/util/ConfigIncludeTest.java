@@ -1,17 +1,13 @@
 package de.tarent.octopus.util;
 
-import java.util.*;
-import java.util.logging.Level;
+import java.io.File;
+import java.util.Map;
 import java.util.prefs.Preferences;
 
-import javax.xml.parsers.*;
 import org.w3c.dom.Document;
 
 import de.tarent.octopus.config.TcModuleConfig;
-import de.tarent.octopus.request.TcEnv;
 import de.tarent.octopus.resource.Resources;
-
-import java.io.*;
 
 /**
  * Tests the Parsing of List Params with nested Maps
@@ -35,8 +31,7 @@ public class ConfigIncludeTest
 
     public void testRecursiveIncludes() 
         throws Exception {
-        // C:\workspace\octopus-core\src\tests\java\de\tarent\octopus\\util
-        String realPath = "c:\\workspace\\octopus-core\\src\\tests\\java\\de\\tarent\\octopus\\util";
+        String realPath = "src/tests/java/de/tarent/octopus/util";
         File modulePath = new File(realPath);
         
         File configFile;                        

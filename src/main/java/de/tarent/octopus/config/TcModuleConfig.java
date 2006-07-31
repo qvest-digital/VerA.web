@@ -1,4 +1,4 @@
-/* $Id: TcModuleConfig.java,v 1.5 2006/07/31 09:44:23 nils Exp $
+/* $Id: TcModuleConfig.java,v 1.6 2006/07/31 14:52:24 christoph Exp $
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
  * 
@@ -214,7 +214,7 @@ public class TcModuleConfig {
                     
                     
                     // absolute path or realtive path
-                    configFile = new File(path);
+                    configFile = new File(realPath, path);
                     if ( configFile.exists() ){
                         try {
                             includeDocument = Xml.getParsedDocument(Resources.getInstance().get("REQUESTPROXY_URL_MODULE_CONFIG", configFile.getAbsolutePath()));

@@ -1,4 +1,4 @@
-/* $Id: TcRequest.java,v 1.3 2006/05/07 23:05:57 jens Exp $
+/* $Id: TcRequest.java,v 1.4 2006/07/31 14:52:24 christoph Exp $
  * 
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
@@ -72,7 +72,7 @@ public class TcRequest {
     public final static String PARAM_FILE_CONTENT_NAME = "ContentName";
     public final static String PARAM_FILE_CONTENT_SIZE = "ContentSize";
     public final static String PARAM_FILE_CONTENT_STREAM = "ContentStream";
-    public final static String PARAM_ENCODED_URL = "encodedUrl";
+//    public final static String PARAM_ENCODED_URL = "encodedUrl";
     public final static String PARAM_SESSION_ID = "jsessionid";
     public final static String PARAM_ASK_FOR_COOKIES = "askForCookies";
     public final static String PARAM_DEBUG = "debug";
