@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+
+<tcModuleConfig>
+
+	<description>
+		Test Config 1
+	</description>
+
+	<!-- Parameters ======================================================================= -->
+
+	
+
+	<include>
+		<param name="config2" value="C:\workspace\octopus-core\src\tests\java\de\tarent\octopus\util\config2.xml"/>
+	</include>
+
+	<params>
+		<param name="TestParameter1" value="1"/>
+	</params>
+
+	
+	<!-- ================================================================================== -->
+
+	<!-- Tasks configuration ============================================================== -->
+  
+	<tasks>
+
+
+    
+  	</tasks>
+	
+	<!-- ================================================================================== -->
+	
+</tcModuleConfig>
+ 

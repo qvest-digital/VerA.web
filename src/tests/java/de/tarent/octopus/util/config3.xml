@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+
+<tcModuleConfig>
+
+	<description>
+		Dieses Modul nimmt die Anfragen des Contact-Clients und anderer Contact-Snap-Ins
+		entgegen.
+	</description>
+
+	<!-- Parameters ======================================================================= -->
+
+	<params>
+		
+		<param name="Testparameter3" value="3"/>
+		
+		
+	</params>
+	
+	
+	<!-- ================================================================================== -->
+
+	<!-- Tasks configuration ============================================================== -->
+  
+	<tasks>
+
+
+    
+  	</tasks>
+	
+	<!-- ================================================================================== -->
+	
+</tcModuleConfig>
+ 
