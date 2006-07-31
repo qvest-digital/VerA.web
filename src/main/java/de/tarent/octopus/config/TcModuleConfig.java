@@ -1,4 +1,4 @@
-/* $Id: TcModuleConfig.java,v 1.4 2005/12/15 10:03:44 christoph Exp $
+/* $Id: TcModuleConfig.java,v 1.5 2006/07/31 09:44:23 nils Exp $
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
  * 
@@ -26,9 +26,12 @@
 
 package de.tarent.octopus.config;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.lang.reflect.Constructor;
 import java.net.MalformedURLException;
@@ -50,6 +53,10 @@ import javax.wsdl.WSDLException;
 import javax.wsdl.factory.WSDLFactory;
 import javax.wsdl.xml.WSDLWriter;
 import javax.xml.namespace.QName;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.FactoryConfigurationError;
+import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.axis.encoding.TypeMappingRegistry;
 import org.w3c.dom.Document;
@@ -58,6 +65,7 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import de.tarent.octopus.request.TcEnv;
 import de.tarent.octopus.request.TcTaskList;
 import de.tarent.octopus.security.TcSecurityException;
 import de.tarent.octopus.server.LoginManager;
@@ -66,6 +74,8 @@ import de.tarent.octopus.soap.TcSOAPEngine;
 import de.tarent.octopus.util.DataFormatException;
 import de.tarent.octopus.util.Xml;
 import org.w3c.dom.Attr;
+import org.xml.sax.SAXException;
+
 import de.tarent.octopus.resource.Resources;
 
 /**
@@ -145,13 +155,92 @@ public class TcModuleConfig {
         this.name = name;
         this.realPath = realPath;
         this.configPrefs = preferences;
+        
+        collectSectionsFromDocument(document, preferences);
+        
+        configParams = new HashMap(rawConfigParams);
+        override("Parameter von " + name, configParams, preferences.node(PREFS_PARAMS));
+
+        if (taskList == null)
+            throw new DataFormatException("Die Konfigurationsdatei muss einen Tasks-Abschnitt besitzen.");
+        
+        try {
+            logger.config("Exportiere WSDL-Darstellung des Moduls");
+            wsdlDefinition = taskList.getPortDefinition().getWsdlDefinition(true, "http://schema.tarent.de/" + name, name, "http://localhost:8080/octopus");
+            OutputStream os = new FileOutputStream(new File(realPath, "module.wsdl"));
+            WSDLFactory factory;
+            factory = WSDLFactory.newInstance();
+            WSDLWriter writer = factory.newWSDLWriter();
+            writer.writeWSDL(wsdlDefinition, os);
+            os.close();
+            //logger.config(name + ": " + sw.toString());
+        } catch (WSDLException e) {
+            logger.log(Level.SEVERE, "WSDL-Fehler", e);
+        } catch (IOException e) {
+            logger.log(Level.SEVERE, "IO-Fehler", e);
+        }
+
+    }
+
+    /**
+     * @param document
+     * @param preferences
+     * @throws DataFormatException
+     */
+    private void collectSectionsFromDocument(Document document, Preferences preferences) throws DataFormatException {
+        
         NodeList sections = document.getDocumentElement().getChildNodes();
 
         
         // Auslesen der übrigen Section mit den in der Application angegebenen Namen
         for (int i = 0; i < sections.getLength(); i++) {
             Node currNode = sections.item(i);
-            if ("params".equals(currNode.getNodeName())) {
+            
+            if ("include".equals(currNode.getNodeName())) {
+                Map includes = new HashMap();
+                includes.putAll(Xml.getParamMap(currNode));
+                File configFile = null;                        
+                
+                System.out.println("includes.size(): " + includes.size());
+                for (Iterator iter = includes.entrySet().iterator(); iter.hasNext(); ){
+                    
+                    Document includeDocument = null;
+                    
+                    Map.Entry current = (Map.Entry)iter.next();
+                    String name = (String)current.getKey();
+                    String path = (String)current.getValue();
+                    
+                    System.out.println("Name: " + name +", Path: " + path);
+                    
+                    
+                    // absolute path or realtive path
+                    configFile = new File(path);
+                    if ( configFile.exists() ){
+                        try {
+                            includeDocument = Xml.getParsedDocument(Resources.getInstance().get("REQUESTPROXY_URL_MODULE_CONFIG", configFile.getAbsolutePath()));
+                        } catch (Exception e) {
+                            logger.log(Level.SEVERE, "Error while loading included config file. Parsing aborted" );
+                        }
+                    }
+                    if (! configFile.exists() || includeDocument == null) {
+                        
+                        // classpath
+                        InputStream is = classLoader.getResourceAsStream(path);
+                        
+                        try {
+                            DocumentBuilder parser = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+                            includeDocument = parser.parse(is);
+                        } catch (Exception e) {
+                            logger.log(Level.SEVERE, "Error while loading included config file from classpath." );
+                        }
+                    }
+                    
+                    if (includeDocument != null)
+                        collectSectionsFromDocument(includeDocument, preferences);
+                }
+            }
+            
+            else if ("params".equals(currNode.getNodeName())) {
                 try {
                     rawConfigParams.putAll(Xml.getParamMap(currNode));
                 } catch (DataFormatException dfe) {
@@ -208,30 +297,9 @@ public class TcModuleConfig {
                 otherNodes.put(currNode.getNodeName(), currNode);
             }
         }
-        
-        configParams = new HashMap(rawConfigParams);
-        override("Parameter von " + name, configParams, preferences.node(PREFS_PARAMS));
-
-        if (taskList == null)
-            throw new DataFormatException("Die Konfigurationsdatei muss einen Tasks-Abschnitt besitzen.");
-        
-        try {
-            logger.config("Exportiere WSDL-Darstellung des Moduls");
-            wsdlDefinition = taskList.getPortDefinition().getWsdlDefinition(true, "http://schema.tarent.de/" + name, name, "http://localhost:8080/octopus");
-            OutputStream os = new FileOutputStream(new File(realPath, "module.wsdl"));
-            WSDLFactory factory;
-            factory = WSDLFactory.newInstance();
-            WSDLWriter writer = factory.newWSDLWriter();
-            writer.writeWSDL(wsdlDefinition, os);
-            os.close();
-            //logger.config(name + ": " + sw.toString());
-        } catch (WSDLException e) {
-            logger.log(Level.SEVERE, "WSDL-Fehler", e);
-        } catch (IOException e) {
-            logger.log(Level.SEVERE, "IO-Fehler", e);
-        }
-
     }
+
+   
 
     /**
      * Protected empty Contructor,
