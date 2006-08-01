@@ -191,6 +191,16 @@
 				<war.bundle>false</war.bundle>
 			</properties>
 		</dependency>
+		
+        <dependency>
+			<groupId>de.tarent.octopus</groupId>
+			<artifactId>octopus-ext-annotation</artifactId>
+			<version>${octopus.version}</version>
+			<properties>
+				<dist.bundle>true</dist.bundle>
+				<war.bundle>true</war.bundle>
+			</properties>
+		</dependency>
         <!-- external -->
         <!-- inherits octopus-dependencies -->
  	</dependencies>
