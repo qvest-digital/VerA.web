@@ -1,4 +1,4 @@
-/* $Id: TcTask.java,v 1.4 2006/05/10 10:53:55 asteban Exp $
+/* $Id: TcTask.java,v 1.5 2006/08/01 09:08:10 christoph Exp $
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
  * 
@@ -432,7 +432,9 @@ public class TcTask {
             groups = groupsString.split("[,]");
 
             Element childNode = Xml.getFirstChildElement(taskXmlTree);
-            if (DESCRIPTION_ELEMENT_NAME.equals(childNode.getNodeName())) {
+            if (childNode == null) {
+            	System.err.println("No children found for: " + taskXmlTree);
+            } else if (DESCRIPTION_ELEMENT_NAME.equals(childNode.getNodeName())) {
                 StringBuffer sb = new StringBuffer();
                 NodeList children = childNode.getChildNodes();
                 String content;
