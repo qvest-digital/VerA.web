@@ -1,0 +1,99 @@
+##
+## printStackTraceElement
+##
+#macro(printStackTraceElement $ste)
+	<tr>
+		<td class="list1"/>
+		<td colspan="3" class="list1">${st.className}.${st.methodName}</td>
+	</tr><tr>
+		<td class="list2"/>
+		<td class="list2">from</td>
+  #if($st.isNativeMethod())
+  		<td class="list2"><i>Native Method</i></td>
+   		<td class="list2"/>
+  #elseif($st.fileName)
+  		<td class="list2">$st.fileName</td>
+   #if($st.lineNumber >= 0)
+  		<td class="list2">Line $st.lineNumber</td>
+   #else
+   		<td class="list2"/>
+   #end
+  #else
+  		<td class="list2"><i>Unknown Source</i></td>
+   		<td class="list2"/>
+  #end
+	</tr>
+ #end
+##
+##
+##
+## printStackTraceAsCause
+##
+#macro(printStackTraceAsCause $ex $ct)
+  #if($ex.cause)
+   #printStackTraceAsCause($ex.cause $ex.stackTrace)
+  #end
+  #set($ttl=[])
+  #set($ctl=[])
+  #foreach($i in $ex.stackTrace)
+   #if($ttl.add($i)) #end
+  #end
+  #foreach($i in $ct)
+   #if($ctl.add($i)) #end
+  #end
+  #set($m = $ttl.size() - 1)
+  #set($n = $ctl.size() - 1)
+  #foreach($i in [0..$m])
+   #if($n >= 0 && $ttl.get($m) == $ctl.get($n))
+    #set($m = $m - 1)
+    #set($n = $n - 1)
+   #else
+    #set($n = -1)
+   #end
+  #end
+	<tr><th colspan="4" class="list1">$ex.class.name</th></tr>
+	<tr><td colspan="4" class="list2"><b>&nbsp;$!ex.localizedMessage</b></td></tr>
+  #foreach($i in [0..$m])
+   #set($st = $ttl.get($i))
+   #printStackTraceElement($st)
+  #end
+#end
+##
+##
+## printStackTrace
+##
+#macro(printStackTrace $ex)
+<table cellspacing="0" cellpadding="3" class="list">
+  #if($ex.cause)
+   #printStackTraceAsCause($ex.cause $ex.stackTrace)
+  #end
+	<tr><th colspan="4" class="list1">$ex.class.name</th></tr>
+	<tr><td colspan="4" class="list2"><b>&nbsp;$!ex.localizedMessage</b></td></tr>
+  #foreach($st in $ex.stackTrace)
+   #printStackTraceElement($st)
+  #end
+</table>
+#end
+##
+##
+<html>
+ <head>
+  <title>Anwendungsfehler</title>
+  #parse("style.vm")
+ </head>
+ <body>
+  <h3>Anwendungsfehler.</h3>
+  Bei der Bearbeitung Ihrer Anfrage ist ein Fehler aufgetreten.
+  Bitte melden Sie dies Ihrem Administrator.<br><br>
+
+  <b>Fehler:</b> $status.message</b>
+  <br><b>Detail</b>: $status.detailMessage
+<br><br>
+#if($status.exception)
+  #printStackTrace($status.exception)
+#else
+  Unbekannter Fehler.
+#end
+
+ </body>
+</html>

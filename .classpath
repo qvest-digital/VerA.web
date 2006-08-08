@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<classpath>
+  <classpathentry excluding="" kind="src" path="src/main/java">
+  </classpathentry>
+  <classpathentry excluding="" including="*/**|" kind="src" path="src/main/resources">
+  </classpathentry>
+  <classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER">
+  </classpathentry>
+  <classpathentry kind="var" path="MAVEN_REPO/de.tarent.octopus/jars/octopus-core-HEAD-SNAPSHOT.jar">
+  </classpathentry>
+  <classpathentry kind="var" path="MAVEN_REPO/de.tarent.octopus/jars/octopus-HEAD-SNAPSHOT.jar">
+  </classpathentry>
+  <classpathentry kind="var" path="MAVEN_REPO/de.tarent.octopus/jars/octopus-sync-1.4.jar">
+  </classpathentry>
+  <classpathentry kind="var" path="MAVEN_REPO/de.tarent.libraries/jars/dblayer-0.4.jar">
+  </classpathentry>
+  <classpathentry kind="output" path="target/classes">
+  </classpathentry>
+</classpath>
