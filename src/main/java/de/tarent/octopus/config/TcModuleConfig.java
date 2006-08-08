@@ -1,4 +1,4 @@
-/* $Id: TcModuleConfig.java,v 1.8 2006/08/08 14:46:09 christoph Exp $
+/* $Id: TcModuleConfig.java,v 1.9 2006/08/08 16:22:10 christoph Exp $
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
  * 
@@ -261,7 +261,10 @@ public class TcModuleConfig {
                     throw dfe;
                 }
             } else if ("tasks".equals(currNode.getNodeName())) {
-                taskList = new TcTaskList((Element) currNode, this);
+            	if (taskList == null)
+            		taskList = new TcTaskList();
+                taskList.parseTasks((Element) currNode, this);
+                // TODO parseTasks aus TcTaskList entfernen
             } else if ("loginManager".equals(currNode.getNodeName())) {
                 try {
                     loginManagerParams.putAll(Xml.getParamMap(currNode));
@@ -271,14 +274,18 @@ public class TcModuleConfig {
                 }
             } else if ("dataAccess".equals(currNode.getNodeName())) {
                 try {
-                    dataAccess = parseDataAccess(currNode, preferences.node(PREFS_DATA_ACCESS));
+                	if (dataAccess == null)
+                		dataAccess = new HashMap();
+                    dataAccess.putAll(parseDataAccess(currNode, preferences.node(PREFS_DATA_ACCESS)));
                 } catch (DataFormatException dfe) {
                     logger.log(Level.SEVERE, "Fehler beim Parsen des Data Access Abschnitts.", dfe);
                     throw dfe;
                 }
             } else if ("contentWorkerDeklaration".equals(currNode.getNodeName())) {
                 try {
-                    contentWorkersDeclarations = parseContentWorkerDeklarations(currNode);
+                	if (contentWorkersDeclarations == null)
+                		contentWorkersDeclarations = new HashMap();
+                    contentWorkersDeclarations.putAll(parseContentWorkerDeklarations(currNode));
                 } catch (DataFormatException dfe) {
                     logger.log(Level.SEVERE, "Fehler beim Parsen der Content Worker Deklaration.", dfe);
                     throw dfe;
@@ -292,10 +299,15 @@ public class TcModuleConfig {
                     if (content != null)
                         sb.append(content);
                 }
-                description = sb.toString();
+                if (description != null && description.length() != 0) {
+                	description += " - " + sb.toString();
+                } else {
+                	description = sb.toString();
+                }
             } else if ("types".equals(currNode.getNodeName())) {
                 try {
                     // TODO: richtig machen.
+                	// Joh watt dän?
                     Class javaClass = getClassLoader().loadClass("de.tarent.schemas.Groupware_xsd.OptionMapType");
                     QName qname = new QName("http://schemas.tarent.de/Groupware.xsd", "OptionMapType");
                     TypeMappingRegistry reg = TcSOAPEngine.engine.getTypeMappingRegistry();

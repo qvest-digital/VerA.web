@@ -1,4 +1,4 @@
-/* $Id: TcTaskList.java,v 1.1.1.1 2005/11/21 13:33:37 asteban Exp $
+/* $Id: TcTaskList.java,v 1.2 2006/08/08 16:22:10 christoph Exp $
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
  * 
@@ -44,11 +44,10 @@ import org.w3c.dom.Element;
  */
 public class TcTaskList {
     protected String nameSpace;
-    protected Map tasks;
+    protected Map tasks = new HashMap();
     protected String description;
 
-    public TcTaskList(Element taskTree, TcModuleConfig moduleConfig) {
-        tasks = parseTasks(taskTree, moduleConfig);
+    public TcTaskList() {
     }
 
     public TcTask getTask(String name) {
@@ -60,8 +59,7 @@ public class TcTaskList {
      * Kopie auf TcCommon Config
      * Soll später nur noch hier existieren.
      */
-    private Map parseTasks(Element tasksNode, TcModuleConfig moduleConfig) {
-        Map tasks = new HashMap();
+    public void parseTasks(Element tasksNode, TcModuleConfig moduleConfig) {
         // Evtl. auch nicht vorhanden
         nameSpace = tasksNode.getAttribute("name");
         if (nameSpace == null || nameSpace.length() == 0)
@@ -74,7 +72,6 @@ public class TcTaskList {
 
             currTaskElement = Xml.getNextSiblingElement(currTaskElement);
         }
-        return tasks;
     }
 
     public TcPortDefinition getPortDefinition() {
