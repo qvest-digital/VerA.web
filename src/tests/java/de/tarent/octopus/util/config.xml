@@ -11,9 +11,7 @@
 
 	
 
-	<include>
-		<param name="config2" value="./config2.xml"/>
-	</include>
+	<include file="./config2.xml"/>
 
 	<params>
 		<param name="TestParameter1" value="1"/>
