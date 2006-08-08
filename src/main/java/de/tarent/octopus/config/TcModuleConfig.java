@@ -1,4 +1,4 @@
-/* $Id: TcModuleConfig.java,v 1.7 2006/08/08 13:46:39 nils Exp $
+/* $Id: TcModuleConfig.java,v 1.8 2006/08/08 14:46:09 christoph Exp $
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
  * 
@@ -26,12 +26,9 @@
 
 package de.tarent.octopus.config;
 
-import java.io.ByteArrayInputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -46,7 +43,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.prefs.BackingStoreException;
@@ -57,31 +53,23 @@ import javax.wsdl.WSDLException;
 import javax.wsdl.factory.WSDLFactory;
 import javax.wsdl.xml.WSDLWriter;
 import javax.xml.namespace.QName;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.FactoryConfigurationError;
-import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.axis.encoding.TypeMappingRegistry;
+import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import de.tarent.octopus.cronjobs.CronJob;
-import de.tarent.octopus.request.TcEnv;
 import de.tarent.octopus.request.TcTaskList;
+import de.tarent.octopus.resource.Resources;
 import de.tarent.octopus.security.TcSecurityException;
 import de.tarent.octopus.server.LoginManager;
 import de.tarent.octopus.server.PersonalConfig;
 import de.tarent.octopus.soap.TcSOAPEngine;
 import de.tarent.octopus.util.DataFormatException;
 import de.tarent.octopus.util.Xml;
-import org.w3c.dom.Attr;
-import org.xml.sax.SAXException;
-
-import de.tarent.octopus.resource.Resources;
 
 /**
  * Beinhaltet die Einstellungen zu eimem Module.
