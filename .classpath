@@ -13,8 +13,6 @@
   </classpathentry>
   <classpathentry kind="var" path="MAVEN_REPO/de.tarent.octopus/jars/octopus-sync-1.4.jar">
   </classpathentry>
-  <classpathentry kind="var" path="MAVEN_REPO/de.tarent.libraries/jars/dblayer-0.4.jar">
-  </classpathentry>
   <classpathentry kind="output" path="target/classes">
   </classpathentry>
 </classpath>

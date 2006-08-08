@@ -170,18 +170,5 @@
                 <war.target.path>/OCTOPUS/lib</war.target.path>
 			</properties>
 		</dependency>
-		
-		<dependency>
-			<groupId>de.tarent.libraries</groupId>
-			<artifactId>dblayer</artifactId>
-			<version>0.4</version>
-			<properties>
- 				<dist.bundle>true</dist.bundle>
-                <war.target.path>/OCTOPUS/lib</war.target.path>
-			</properties>
-		</dependency>
-		
-
  	</dependencies>
-
 </project>
