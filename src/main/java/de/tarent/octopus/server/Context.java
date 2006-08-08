@@ -1,4 +1,4 @@
-/* $Id: Context.java,v 1.2 2006/05/08 15:47:38 asteban Exp $
+/* $Id: Context.java,v 1.3 2006/08/08 12:41:37 christoph Exp $
  * 
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
@@ -26,6 +26,8 @@
  */
 package de.tarent.octopus.server;
 
+import java.util.LinkedList;
+
 /**
  * This class gives a static access to the OctopusContext Object associated with the 
  * request of the current Thread. At the begin of the octopus request processing 
@@ -35,36 +37,37 @@ package de.tarent.octopus.server;
  * During the processing of an Octopus request the active OctpusContext may change 
  * depending on the current executed scope.
  *
- * TODO: Maybe it would be nice to have a stack for each thread. Then we would be
- * able to push the contexts for a new sub-scope and pop it afterwards.
- * 
- *
  * @author <a href="mailto:sebastian@tarent.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
- * @version 1.0
+ * @version 1.1
  */
 public class Context {
-    
+    /** Hold a stack of context informations in a {@link LinkedList}. */
     private static ThreadLocal currentContext = new ThreadLocal();
 
     /**
      * Returns the current active OctopusContext for this thread
      */
     public static OctopusContext getActive() {
-        return (OctopusContext)currentContext.get();
+        return (OctopusContext)((LinkedList)currentContext.get()).getLast();
     }
 
     /**
-     * Sets the current active OctopusContext for this thread
+     * Add the current active OctopusContext on the content stack.
      */
-    public static void setActive(OctopusContext oc) {
-        currentContext.set(oc);
+    public static void addActive(OctopusContext oc) {
+    	LinkedList contextList = (LinkedList)currentContext.get();
+    	if (contextList == null) {
+    		contextList = new LinkedList();
+    		currentContext.set(contextList);
+    	}
+    	
+    	contextList.addLast(oc);
     }
 
     /**
-     * Removes all Information for hold for the current thread
+     * Remove one context information from the context stack.
      */
     public static void clear() {
-        currentContext.set(null);
+        ((LinkedList)currentContext.get()).removeLast();
     }
-    
 }

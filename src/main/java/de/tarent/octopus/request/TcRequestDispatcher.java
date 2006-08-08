@@ -1,4 +1,4 @@
-/* $Id: TcRequestDispatcher.java,v 1.8 2006/05/16 12:49:40 christoph Exp $
+/* $Id: TcRequestDispatcher.java,v 1.9 2006/08/08 12:41:37 christoph Exp $
  * 
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
@@ -36,7 +36,6 @@ import java.util.logging.Logger;
 
 import de.tarent.octopus.config.TcCommonConfig;
 import de.tarent.octopus.config.TcConfig;
-import de.tarent.octopus.config.TcConfigException;
 import de.tarent.octopus.config.TcModuleConfig;
 import de.tarent.octopus.content.TcAll;
 import de.tarent.octopus.content.TcContent;
@@ -79,7 +78,7 @@ public class TcRequestDispatcher {
      *
      * @param common gemeinsames Basiskonfigurationsobjekt
      */
-    public TcRequestDispatcher(TcCommonConfig common) throws TcConfigException {
+    public TcRequestDispatcher(TcCommonConfig common) {
         commonConfig = common;
         responseCreator = new TcResponseCreator();
     }
@@ -160,8 +159,8 @@ public class TcRequestDispatcher {
         OctopusContext context = new TcAll(tcRequest, content, config);
     	ClassLoader outerLoader = null;
     	
-    	Context.setActive(context);
         try {
+        	Context.addActive(context);
             outerLoader = Threads.setContextClassLoader(moduleConfig.getClassLoader());
             LoginManager loginManager = commonConfig.getLoginManager(moduleConfig);
             loginManager.handleAuthentication(commonConfig, tcRequest, theSession);
@@ -183,10 +182,10 @@ public class TcRequestDispatcher {
             if (logger.isLoggable(Level.INFO))
                 logger.log(Level.FINE, "Authentication Error wurde an den Client gesendet. Kehre nun zurück.");
             
-        	Context.clear();
             return;
         } finally {
             Threads.setContextClassLoader(outerLoader);
+        	Context.clear();
         }
         
         // Berechtigung erfolgreich geprüft!
@@ -201,7 +200,7 @@ public class TcRequestDispatcher {
         // 3. Abarbeitung des auszuführenden Task
         TcTaskManager taskManager = new TcTaskManager(context);
         try {
-            Context.setActive(context);
+            Context.addActive(context);
             outerLoader = Threads.setContextClassLoader(moduleConfig.getClassLoader());
             
             putStandardParams(moduleConfig, config, tcResponse, tcRequest, content);
