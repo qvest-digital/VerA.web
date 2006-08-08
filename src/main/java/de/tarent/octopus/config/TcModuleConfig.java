@@ -1,4 +1,4 @@
-/* $Id: TcModuleConfig.java,v 1.6 2006/07/31 14:52:24 christoph Exp $
+/* $Id: TcModuleConfig.java,v 1.7 2006/08/08 13:46:39 nils Exp $
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
  * 
@@ -28,8 +28,10 @@ package de.tarent.octopus.config;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -39,10 +41,12 @@ import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.prefs.BackingStoreException;
@@ -65,6 +69,7 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import de.tarent.octopus.cronjobs.CronJob;
 import de.tarent.octopus.request.TcEnv;
 import de.tarent.octopus.request.TcTaskList;
 import de.tarent.octopus.security.TcSecurityException;
@@ -197,22 +202,17 @@ public class TcModuleConfig {
             Node currNode = sections.item(i);
             
             if ("include".equals(currNode.getNodeName())) {
-                Map includes = new HashMap();
-                includes.putAll(Xml.getParamMap(currNode));
-                File configFile = null;                        
                 
-                System.out.println("includes.size(): " + includes.size());
-                for (Iterator iter = includes.entrySet().iterator(); iter.hasNext(); ){
-                    
-                    Document includeDocument = null;
-                    
-                    Map.Entry current = (Map.Entry)iter.next();
-                    String name = (String)current.getKey();
-                    String path = (String)current.getValue();
-                    
-                    System.out.println("Name: " + name +", Path: " + path);
-                    
-                    
+                File configFile = null;                        
+                Document includeDocument = null;
+                
+                NamedNodeMap attributes = currNode.getAttributes();
+                Node fileNode = attributes.getNamedItem("file");
+                if (fileNode != null){
+                    String path = fileNode.getNodeValue();
+                    name = fileNode.getNodeValue();
+                
+                
                     // absolute path or realtive path
                     configFile = new File(realPath, path);
                     if ( configFile.exists() ){
@@ -222,22 +222,47 @@ public class TcModuleConfig {
                             logger.log(Level.SEVERE, "Error while loading included config file. Parsing aborted" );
                         }
                     }
-                    if (! configFile.exists() || includeDocument == null) {
-                        
-                        // classpath
-                        InputStream is = classLoader.getResourceAsStream(path);
-                        
+                }
+                // classpath
+                else if (attributes.getNamedItem("packagename") != null){
+                    String pkgname = attributes.getNamedItem("packagename").getNodeValue();
+                    String resname = pkgname.replace('.','/') + "/config.xml";
+                    String tmpFileName = System.getProperty("java.io.tmpdir") + "config" +  new Date().getTime()  + ".xml";
+                   
+                    try {
+                        // Extract config from jar-file, store it in temp directory, parse it and delete temp-file
+                        InputStream is = getClassLoader().getResourceAsStream(resname);
+                        FileOutputStream out = new FileOutputStream(tmpFileName);
+
+                        int availableLength = is.available();
+                        byte[] totalBytes = new byte[availableLength];
+                        int bytedata = is.read(totalBytes);
+
+                        out.write(totalBytes);
+                        is.close();
+                        out.close();
+                    } catch (FileNotFoundException e1) {
+                        logger.log(Level.SEVERE, "Error while loading included config file from classpath. Temporary File could not be found or generated" );
+                    } catch (IOException e1) {
+                         e1.printStackTrace();
+                    }
+                   
+                    configFile = new File(tmpFileName);
+                    if ( configFile.exists() ){
                         try {
-                            DocumentBuilder parser = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-                            includeDocument = parser.parse(is);
+                            includeDocument = Xml.getParsedDocument(Resources.getInstance().get("REQUESTPROXY_URL_MODULE_CONFIG", configFile.getAbsolutePath()));
+                            if (!configFile.delete())
+                                logger.log(Level.SEVERE, "Error deleting temporary config-file in " + tmpFileName + "." );
                         } catch (Exception e) {
-                            logger.log(Level.SEVERE, "Error while loading included config file from classpath." );
+                            logger.log(Level.SEVERE, "Error while loading included config file from classpath. Parsing aborted" );
                         }
                     }
-                    
-                    if (includeDocument != null)
-                        collectSectionsFromDocument(includeDocument, preferences);
                 }
+                
+                if (includeDocument != null){
+                    collectSectionsFromDocument(includeDocument, preferences);
+                }
+               
             }
             
             else if ("params".equals(currNode.getNodeName())) {
