@@ -1,4 +1,4 @@
-/* $Id: OctopusDirectCallTask.java,v 1.1.1.1 2005/11/21 13:33:37 asteban Exp $
+/* $Id: OctopusDirectCallTask.java,v 1.2 2006/08/09 15:39:56 christoph Exp $
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
  * 
@@ -26,9 +26,13 @@
 
 package de.tarent.octopus.request.directCall;
 
-import de.tarent.octopus.client.*;
-import java.util.*;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Map;
 
+import de.tarent.octopus.client.OctopusCallException;
+import de.tarent.octopus.client.OctopusResult;
+import de.tarent.octopus.client.OctopusTask;
 
 /** 
  * Aufruf eines Task des Octopus.
@@ -47,7 +51,19 @@ public class OctopusDirectCallTask implements OctopusTask {
     }    
 
     public OctopusTask add(String paramName, Object paramValue) {
-        params.put(paramName, paramValue);
+    	Object param = params.get(paramName);
+    	if (param == null) {
+    		params.put(paramName, paramValue);
+    	} else {
+    		if (param instanceof List) {
+    			((List)param).addLast(paramValue);
+    		} else {
+    			List list = new List();
+    			list.add(param);
+    			list.addLast(paramValue);
+    			params.put(paramName, list);
+    		}
+    	}
         return this;
     }
 
@@ -81,4 +97,13 @@ public class OctopusDirectCallTask implements OctopusTask {
 		return false;
 	}
 
+	/**
+	 * This is just a marker extension of {@link LinkedList} to tag internal
+	 * parameters with more than one value.
+	 */
+	private static class List extends LinkedList {
+		/** serialVersionUID */
+		private static final long serialVersionUID = 1L;
+		// nothing more than a marker
+	}
 }
