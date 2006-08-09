@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 
-<!--!DOCTYPE tcModuleConfig SYSTEM "../tcModuleConfig.dtd"-->
-
 <!-- Hauptkonfiguration des Cronjob-Moduls -->
 <tcModuleConfig>
 
@@ -11,15 +9,7 @@
 
   <!-- Konfigurations Parameter -->
   <params>
-    <!--
-    <param name="paths.templateRoot" value="templates/"/>
-    <param name="defaultResponseType" value="velocity"/>
-
-    <param name="jdbcDriver" value="org.postgresql.Driver"/>
-    <param name="jdbcConnectionString" value="jdbc:postgresql://localhost/demo"/>
-    <param name="jdbcUsername" value="postgres"/>
-    <param name="jdbcPassword" value="postgres"/>
-    -->
+ 
   </params>
 
   <!-- Auflistung aller Worker, die im System existieren mit name=Classenname -->
@@ -29,14 +19,6 @@
 
   <!-- Ablaufbeschreibungen der Aktionen -->
   <tasks>
-
-    <!-- Initialisierung des Systems -->
-	<task name="autostart" access="public">
-      <description>Alle Worker die automatisch ohne einen Request aufgerufen werden sollen</description>
-      <response type="none" name="none"/>
-	</task>
-
-   
 
     <!-- Definition der von außen erreichbaren Tasks -->
     
@@ -48,7 +30,6 @@
       		<value>cronjobnames</value>
     	</param>
   	  </response>
-  	  
       <!-- <response type="none" name="none"/> -->
 	</task>
 	
@@ -175,8 +156,6 @@
     	</param>
   	</response>
   	</task>
-  	
-  	
 
 	<task name="runCronJob" access="public" groups="User">
       <description>Starts a Cronjob immediately. The Cronjob is specified by a CronJobMap (cronjob) or by name (cronjobname)</description>
