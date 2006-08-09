@@ -29,7 +29,7 @@
 		The version of the project under development, e.g.
 		1.1, 1.2, 2.0-SNAPSHOT 
 	-->
-	<currentVersion>1.0</currentVersion>
+	<currentVersion>1.1-SNAPSHOT</currentVersion>
 
 	<!-- a short but descriptive name for the project -->
 	<name>tarent-octopus cronjobs extension</name>

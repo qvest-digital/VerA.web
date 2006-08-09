@@ -1,27 +1,26 @@
 package de.tarent.octopus.cronjobs.worker;
 
-import de.tarent.octopus.content.TcAll;
-import de.tarent.octopus.content.TcReflectedWorker;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import de.tarent.octopus.cronjobs.Cron;
 import de.tarent.octopus.cronjobs.CronJob;
 import de.tarent.octopus.cronjobs.ExactCronJob;
 import de.tarent.octopus.cronjobs.IntervalCronJob;
 import de.tarent.octopus.server.OctopusContext;
 
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.Map.Entry;
-
-public class CronJobWorker extends TcReflectedWorker{
+public class CronJobWorker {
     
-    private static Cron cronjobQueue = new Cron(); 
+    private Cron cronjobQueue = new Cron(); 
+    private static Logger logger = Logger.getLogger(CronJobWorker.class.getName());
+
     
     /**
      * this method creates a new cronjob. If a cronjob with the same name already exists, 
@@ -33,18 +32,25 @@ public class CronJobWorker extends TcReflectedWorker{
      * @return cronjob: cronjob-map of edited or created cronjob 
      */
    
-    final static public String[] INPUT_setCronJob = {"cronjobmap"};
+    final static public String[] INPUT_setCronJob = {"cronjob"};
     final static public boolean[] MANDATORY_setCronJob = {true};
     final static public String OUTPUT_setCronJob = "cronjob";
     
-    static public Map setCronJob(OctopusContext all, Map cronJobMap) {
+    public Map setCronJob(OctopusContext all, Map cronJobMap) {
 
-        String name             = (String) cronJobMap.get(Cron.CRONJOBMAP_KEY_NAME);
+        String name             = (String)cronJobMap.get(Cron.CRONJOBMAP_KEY_NAME);
         Integer type            = (Integer)cronJobMap.get(Cron.CRONJOBMAP_KEY_TYPE);
         String procedure        = (String)cronJobMap.get(Cron.CRONJOBMAP_KEY_PROCEDURE);
         String errorProcedure   = (String)cronJobMap.get(Cron.CRONJOBMAP_KEY_ERRORPROCEDURE);
         
         Map properties          = (Map)cronJobMap.get(Cron.CRONJOBMAP_KEY_PROPERTIES);
+        
+        // Some Entries must be set or we will return null 
+        if (name == null || procedure == null || properties == null){
+            logger.log(Level.WARNING, "Error in Task setCronJob. One of the following Map entries has not been set: " + "name: " + name + ", procedure: " + procedure + ", properties: " + properties);
+            return null;
+        }
+        
         
         Integer alreadyRunning  = (Integer) properties.get(CronJob.PROPERTIESMAP_KEY_ALREADYRUNNING);
         // Delete entry from properties after extraction
@@ -111,7 +117,7 @@ public class CronJobWorker extends TcReflectedWorker{
             properties.remove(IntervalCronJob.PROPERTIESMAP_KEY_INTERVAL);
             
             // intervalTime has to be set and must be greater than zero
-            if (intervalTime > 0) 
+            if (intervalTime  > 0) 
                 cronJob = new IntervalCronJob(intervalTime);
         }
         
@@ -126,10 +132,11 @@ public class CronJobWorker extends TcReflectedWorker{
             cronJob.setProperties(properties);
             cronJob.setAlreadyRunning(alreadyRunning.intValue());
             
-            cronjobQueue.addJob(cronJob);
-            
-            Map newCronJobMap = cronJob.getCronJobMap();
-            return newCronJobMap;
+            if (cronjobQueue.addJob(cronJob)){                
+                Map newCronJobMap = cronJob.getCronJobMap();
+                return newCronJobMap;
+            }
+            return null;
         }
         return null;        
     }
@@ -148,7 +155,7 @@ public class CronJobWorker extends TcReflectedWorker{
     final static public boolean[] MANDATORY_GETCRONJOBNAMES = {false, false, false};
     final static public String OUTPUT_GETCRONJOBNAMES = "cronjobnames";
     
-    static public List getCronJobNames(OctopusContext all, String name, Integer type, Boolean sort) {
+    public List getCronJobNames(OctopusContext all, String name, Integer type, Boolean sort) {
          
         List cronjobnames = new ArrayList();
         Map cronJobMaps = cronjobQueue.getCronJobMaps();
@@ -182,7 +189,7 @@ public class CronJobWorker extends TcReflectedWorker{
     final static public boolean[] MANDATORY_GETCRONJOBS = {false, false};
     final static public String OUTPUT_GETCRONJOBS = "cronjobs";
     
-    static public List getCronJobs(OctopusContext all, String name, Integer type) {
+    public List getCronJobs(OctopusContext all, String name, Integer type) {
         
         List filteredCronJobMaps = new ArrayList();
         
@@ -210,7 +217,7 @@ public class CronJobWorker extends TcReflectedWorker{
     final static public boolean[] MANDATORY_GETCRONJOB = {true};
     final static public String OUTPUT_GETCRONJOB = "cronjob";
     
-    static public Map getCronJob(OctopusContext all, String name) {
+    public Map getCronJob(OctopusContext all, String name) {
         
         return cronjobQueue.getCronJobMapByName(name);
     }
@@ -227,7 +234,7 @@ public class CronJobWorker extends TcReflectedWorker{
     final static public boolean[] MANDATORY_RUNCRONJOB = {false, false};
     final static public String OUTPUT_RUNCRONJOB = "cronjob";
     
-    static public Map runCronJob(OctopusContext all, Map cronJobMap, String cronJobName) {
+    public Map runCronJob(OctopusContext all, Map cronJobMap, String cronJobName) {
         
         boolean started = false;
         
@@ -254,7 +261,7 @@ public class CronJobWorker extends TcReflectedWorker{
     final static public boolean[] MANDATORY_GETCRONJOBSTATUS = {false, false};
     final static public String OUTPUT_GETCRONJOBSTATUS = "status";
     
-    static public String getCronJobStatus(OctopusContext all, Map cronJobMap, String cronJobName) {
+    public String getCronJobStatus(OctopusContext all, Map cronJobMap, String cronJobName) {
         
         cronJobMap = cronjobQueue.mergeCronJobMapAndName(cronJobMap, cronJobName);
         
@@ -279,7 +286,7 @@ public class CronJobWorker extends TcReflectedWorker{
     final static public boolean[] MANDATORY_REMOVECRONJOB = {false, false};
     final static public String OUTPUT_REMOVECRONJOB = "cronjob";
     
-    static public Map removeCronJob(OctopusContext all, Map inputCronJobMap, String cronJobName) {
+    public Map removeCronJob(OctopusContext all, Map inputCronJobMap, String cronJobName) {
         
         inputCronJobMap = cronjobQueue.mergeCronJobMapAndName(inputCronJobMap, cronJobName);
         
@@ -298,7 +305,7 @@ public class CronJobWorker extends TcReflectedWorker{
     final static public boolean[] MANDATORY_GETAVAILABLECRONJOBTYPES = {};
     final static public String OUTPUT_GETAVAILABLECRONJOBTYPES = "availableTypes";
     
-    static public List getAvailableCronJobTypes(OctopusContext all) {
+    public List getAvailableCronJobTypes(OctopusContext all) {
        
         List types = new ArrayList();
         types.add(new Integer(Cron.EXACT_CRONJOB));
@@ -316,7 +323,7 @@ public class CronJobWorker extends TcReflectedWorker{
     final static public boolean[] MANDATORY_GETAVAILABLECRONJOBPROPERTIES = {true};
     final static public String OUTPUT_GETAVAILABLECRONJOBPROPERTIES = "availableProperties";
     
-    static public Map getAvailableCronJobProperties(OctopusContext all, Integer type) {
+    public Map getAvailableCronJobProperties(OctopusContext all, Integer type) {
        
         Map properties = new HashMap();
         
@@ -347,7 +354,7 @@ public class CronJobWorker extends TcReflectedWorker{
     final static public boolean[] MANDATORY_ACTIVATECRONJOB = {false, false};
     final static public String OUTPUT_ACTIVATECRONJOB = "cronjob";
     
-    static public Map activateCronJob(OctopusContext all, Map cronJobMap, String cronJobName) {
+    public Map activateCronJob(OctopusContext all, Map cronJobMap, String cronJobName) {
         
         cronJobMap = cronjobQueue.mergeCronJobMapAndName(cronJobMap, cronJobName);
         
@@ -363,7 +370,7 @@ public class CronJobWorker extends TcReflectedWorker{
     final static public boolean[] MANDATORY_DEACTIVATECRONJOB = {false, false};
     final static public String OUTPUT_DEACTIVATECRONJOB = "cronjob";
     
-    static public Map deactivateCronJob(OctopusContext all, Map cronJobMap, String cronJobName) {
+    public Map deactivateCronJob(OctopusContext all, Map cronJobMap, String cronJobName) {
         
         cronJobMap = cronjobQueue.mergeCronJobMapAndName(cronJobMap, cronJobName);
         
@@ -379,7 +386,7 @@ public class CronJobWorker extends TcReflectedWorker{
     final static public boolean[] MANDATORY_STARTCRONJOBROUTINE = {};
     final static public String OUTPUT_STARTCRONJOBROUTINE = null;
     
-    static public void startCronJobRoutine(OctopusContext all) {
+    public void startCronJobRoutine(OctopusContext all) {
         
         cronjobQueue.activateCron();
        
@@ -389,13 +396,13 @@ public class CronJobWorker extends TcReflectedWorker{
     final static public boolean[] MANDATORY_STOPCRONJOBROUTINE = {};
     final static public String OUTPUT_STOPCRONJOBROUTINE = null;
     
-    static public void stopCronJobRoutine(OctopusContext all) {
+    public void stopCronJobRoutine(OctopusContext all) {
         
         cronjobQueue.deactivateCron();
        
     }
     
-    private static String loadStandardErrorProcedure() {
+    private String loadStandardErrorProcedure() {
         // TODO Auto-generated method stub
         return null;
     }

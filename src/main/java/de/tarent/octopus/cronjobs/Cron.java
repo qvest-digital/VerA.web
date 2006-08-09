@@ -97,10 +97,12 @@ public class Cron extends Thread
      * 
      * @param job Job to be added.
      */
-    public void addJob(CronJob job)
+    public boolean addJob(CronJob job)
     {
         // If a cronjob with the same name already exists, we will wait, until this job is finished 
         // before we replace it with the new cronjob
+        if (job == null)            
+            return false;
         
         if (jobs.containsKey(job.getName())){
             CronJob oldJob = (CronJob)jobs.get(job.getName());
@@ -114,6 +116,8 @@ public class Cron extends Thread
         }
         
         jobs.put(job.getName(), job);
+        
+        return true;
     }
     
     /**
@@ -122,6 +126,9 @@ public class Cron extends Thread
      * @return cronJob: the corresponding cronjob or null if there is no 
      */
     public CronJob getCronJobByCronJobMap(Map cronJobMap){
+        
+        if (cronJobMap == null)
+            return null;
         
         CronJob tmpJob = getCronJobByName(cronJobMap.get(Cron.CRONJOBMAP_KEY_NAME).toString());
         
@@ -144,7 +151,7 @@ public class Cron extends Thread
     public boolean removeJob(Map jobMap)
     {
         // First check if there is a cronjob with the correct name
-        if (getCronJobByCronJobMap(jobMap) != null){
+        if (jobMap != null && getCronJobByCronJobMap(jobMap) != null){
                 jobs.remove(jobMap.get(Cron.CRONJOBMAP_KEY_NAME));
                 return true;    
         }
@@ -376,7 +383,7 @@ public class Cron extends Thread
         public void run(){
             try {
                 
-                FileOutputStream fileOut = new FileOutputStream(new File(System.getProperty("user.home") + System.getProperty("file.separator") + "cronJobBackup"));
+                FileOutputStream fileOut = new FileOutputStream(new File(System.getProperty("java.io.tmpdir") + System.getProperty("file.separator") + "cronJobBackup"));
                 ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
             
                 objectOut.writeObject(getCronJobMaps());
