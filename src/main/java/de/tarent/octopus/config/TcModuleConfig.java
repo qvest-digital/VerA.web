@@ -1,4 +1,4 @@
-/* $Id: TcModuleConfig.java,v 1.9 2006/08/08 16:22:10 christoph Exp $
+/* $Id: TcModuleConfig.java,v 1.10 2006/08/09 12:53:28 nils Exp $
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
  * 
@@ -189,6 +189,7 @@ public class TcModuleConfig {
         for (int i = 0; i < sections.getLength(); i++) {
             Node currNode = sections.item(i);
             
+            
             if ("include".equals(currNode.getNodeName())) {
                 
                 File configFile = null;                        
@@ -198,9 +199,7 @@ public class TcModuleConfig {
                 Node fileNode = attributes.getNamedItem("file");
                 if (fileNode != null){
                     String path = fileNode.getNodeValue();
-                    name = fileNode.getNodeValue();
-                
-                
+                    
                     // absolute path or realtive path
                     configFile = new File(realPath, path);
                     if ( configFile.exists() ){
@@ -221,12 +220,13 @@ public class TcModuleConfig {
                         // Extract config from jar-file, store it in temp directory, parse it and delete temp-file
                         InputStream is = getClassLoader().getResourceAsStream(resname);
                         FileOutputStream out = new FileOutputStream(tmpFileName);
-
-                        int availableLength = is.available();
-                        byte[] totalBytes = new byte[availableLength];
-                        int bytedata = is.read(totalBytes);
-
-                        out.write(totalBytes);
+                        
+                        if (is != null){
+                            int availableLength = is.available();
+                            byte[] totalBytes = new byte[availableLength];
+                            int bytedata = is.read(totalBytes);
+                            out.write(totalBytes);
+                        }
                         is.close();
                         out.close();
                     } catch (FileNotFoundException e1) {
