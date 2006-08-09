@@ -1,4 +1,4 @@
-/* $Id: TcModuleConfig.java,v 1.10 2006/08/09 12:53:28 nils Exp $
+/* $Id: TcModuleConfig.java,v 1.11 2006/08/09 14:05:17 christoph Exp $
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
  * 
@@ -27,7 +27,6 @@
 package de.tarent.octopus.config;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -38,7 +37,6 @@ import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -53,6 +51,8 @@ import javax.wsdl.WSDLException;
 import javax.wsdl.factory.WSDLFactory;
 import javax.wsdl.xml.WSDLWriter;
 import javax.xml.namespace.QName;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.axis.encoding.TypeMappingRegistry;
 import org.w3c.dom.Attr;
@@ -61,6 +61,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 import de.tarent.octopus.request.TcTaskList;
 import de.tarent.octopus.resource.Resources;
@@ -124,7 +125,7 @@ public class TcModuleConfig {
      * <br>Eine Map, in der unter den Namen der Datenquellen wieder
      * Maps mit String Keys und String Values abgelegt sind.
      */
-    protected Map dataAccess;
+    protected Map dataAccess = new HashMap();
 
     /**
      * Map mit den deklarierten Workern.
@@ -189,71 +190,68 @@ public class TcModuleConfig {
         for (int i = 0; i < sections.getLength(); i++) {
             Node currNode = sections.item(i);
             
-            
             if ("include".equals(currNode.getNodeName())) {
                 
-                File configFile = null;                        
                 Document includeDocument = null;
                 
                 NamedNodeMap attributes = currNode.getAttributes();
-                Node fileNode = attributes.getNamedItem("file");
-                if (fileNode != null){
-                    String path = fileNode.getNodeValue();
+                
+                if (attributes.getNamedItem("file") != null){
+                    String path = attributes.getNamedItem("file").getNodeValue();
                     
                     // absolute path or realtive path
-                    configFile = new File(realPath, path);
+                    File configFile = new File(realPath, path);
+                    logger.log(Level.INFO, "Loading file '" + configFile.getAbsolutePath() + "'.");
+                    
                     if ( configFile.exists() ){
                         try {
                             includeDocument = Xml.getParsedDocument(Resources.getInstance().get("REQUESTPROXY_URL_MODULE_CONFIG", configFile.getAbsolutePath()));
                         } catch (Exception e) {
-                            logger.log(Level.SEVERE, "Error while loading included config file. Parsing aborted" );
+                            logger.log(Level.SEVERE, "Error while loading config file '" + configFile + "'. Parsing aborted.", e );
                         }
-                    }
-                }
-                // classpath
-                else if (attributes.getNamedItem("packagename") != null){
-                    String pkgname = attributes.getNamedItem("packagename").getNodeValue();
-                    String resname = pkgname.replace('.','/') + "/config.xml";
-                    String tmpFileName = System.getProperty("java.io.tmpdir") + "config" +  new Date().getTime()  + ".xml";
-                   
-                    try {
-                        // Extract config from jar-file, store it in temp directory, parse it and delete temp-file
-                        InputStream is = getClassLoader().getResourceAsStream(resname);
-                        FileOutputStream out = new FileOutputStream(tmpFileName);
-                        
-                        if (is != null){
-                            int availableLength = is.available();
-                            byte[] totalBytes = new byte[availableLength];
-                            int bytedata = is.read(totalBytes);
-                            out.write(totalBytes);
-                        }
-                        is.close();
-                        out.close();
-                    } catch (FileNotFoundException e1) {
-                        logger.log(Level.SEVERE, "Error while loading included config file from classpath. Temporary File could not be found or generated" );
-                    } catch (IOException e1) {
-                         e1.printStackTrace();
-                    }
-                   
-                    configFile = new File(tmpFileName);
-                    if ( configFile.exists() ){
-                        try {
-                            includeDocument = Xml.getParsedDocument(Resources.getInstance().get("REQUESTPROXY_URL_MODULE_CONFIG", configFile.getAbsolutePath()));
-                            if (!configFile.delete())
-                                logger.log(Level.SEVERE, "Error deleting temporary config-file in " + tmpFileName + "." );
-                        } catch (Exception e) {
-                            logger.log(Level.SEVERE, "Error while loading included config file from classpath. Parsing aborted" );
-                        }
+                    } else {
+                    	logger.log(Level.WARNING, "Count not found config file '" + configFile + "'. Will be ignored." );
                     }
                 }
                 
-                if (includeDocument != null){
-                    collectSectionsFromDocument(includeDocument, preferences);
+                // classpath
+                else if (attributes.getNamedItem("packagename") != null || attributes.getNamedItem("classpath") != null) {
+                	String resource;
+                	if (attributes.getNamedItem("packagename") != null) {
+                		resource = attributes.getNamedItem("packagename").getNodeValue().replace('.', '/');
+                		resource += "/config.xml";
+                	} else {
+                		resource = attributes.getNamedItem("classpath").getNodeValue().replace('.', '/');
+                	}
+                	
+                	try {
+                		logger.log(Level.INFO, "Loading file '" + resource + "' from classpath." );
+                		
+                    	InputStream inputStream = getClassLoader().getResourceAsStream(resource);
+                    	
+                    	if (inputStream != null) {
+    						includeDocument = DocumentBuilderFactory.newInstance()
+    								.newDocumentBuilder().parse(inputStream);
+                    	} else {
+                    		logger.log(Level.WARNING, "Count not found config file '" + resource + "' in classpath. Will be ignored." );
+                    	}
+						
+					} catch (SAXException e) {
+						logger.log(Level.SEVERE, "Error while parsing included config file from classpath.", e );
+					} catch (ParserConfigurationException e) {
+						logger.log(Level.SEVERE, "Error while parsing included config file from classpath.", e );
+					} catch (IOException e) {
+						logger.log(Level.SEVERE, "Error while loading included config file from classpath.", e );
+					}
+                } else {
+                	logger.log(Level.SEVERE, "Illegal include attributes. No 'file', 'packagename' oder 'classpath' found." );
                 }
-               
-            }
-            
-            else if ("params".equals(currNode.getNodeName())) {
+                	
+				if (includeDocument != null) {
+					collectSectionsFromDocument(includeDocument, preferences);
+				}
+				
+            } else if ("params".equals(currNode.getNodeName())) {
                 try {
                     rawConfigParams.putAll(Xml.getParamMap(currNode));
                 } catch (DataFormatException dfe) {
@@ -274,8 +272,6 @@ public class TcModuleConfig {
                 }
             } else if ("dataAccess".equals(currNode.getNodeName())) {
                 try {
-                	if (dataAccess == null)
-                		dataAccess = new HashMap();
                     dataAccess.putAll(parseDataAccess(currNode, preferences.node(PREFS_DATA_ACCESS)));
                 } catch (DataFormatException dfe) {
                     logger.log(Level.SEVERE, "Fehler beim Parsen des Data Access Abschnitts.", dfe);
