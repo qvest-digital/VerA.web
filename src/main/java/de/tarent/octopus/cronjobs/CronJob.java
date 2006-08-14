@@ -36,7 +36,7 @@ public abstract class CronJob implements Runnable
     
     protected static final int timeToWaitForNextTry         = 5000; // milliseconds to wait if job is already running and alreadyRunning == ALREADY_RUNNING_WAIT
     
-	private Date lastRun = new Date();
+	private Date lastRun;
 	private Thread executionThread;
     private int alreadyRunning = ALREADY_RUNNING_PARALLEL;
     private boolean active = true;
@@ -47,12 +47,9 @@ public abstract class CronJob implements Runnable
     private String errorMessage = new String();
     
     private Map properties;
-    
-    private Map cronJobMap; 
-    
+     
     public void run(){
         
-            cronJobMap = new HashMap();
             
         // First try to instantiate procedure class
           
@@ -98,9 +95,7 @@ public abstract class CronJob implements Runnable
                 runOnError("Error trying to invoke run-method of procedure " + runnableObject.getClass(), e);
                 return;
             }
-        
-        
-        setLastRun(new Date());
+        //setLastRun(new Date());
         setErrorMessage(new String()); // Set Errormessage to empty String 
     }
     
@@ -194,14 +189,14 @@ public abstract class CronJob implements Runnable
             c = Class.forName(errorProcedure);
             runnableObject = c.newInstance();
         }catch (Exception ex){
-            errorMsg += "\n An Error occured while trying to instantiate the error procedure " + procedure; 
+            errorMsg += "\n An Error occured while trying to instantiate the error procedure " + errorProcedure; 
         }
         
         if (runnableObject != null){
             try {
                 boolean methodRunStarted = false;
                 Method m[] = c.getMethods();
-                // Finally find the run()-method and start the procedure
+                // Finally find the run()-method and start the errorprocedure
                 for (int i = 0; i < m.length; i++){
                     if (m[i].getName().equals("run")){
                         m[i].invoke(runnableObject, new Object[] {});
@@ -210,10 +205,10 @@ public abstract class CronJob implements Runnable
                     }
                 }
                 if (!methodRunStarted)
-                    errorMsg += "\n An Error occured while trying to invoke run-method of the error procedure " + procedure + ".\n No run-method found.";       
+                    errorMsg += "\n An Error occured while trying to invoke run-method of the error procedure " + errorProcedure + ".\n No run-method found.";       
                 
             } catch (Exception exp) {
-                errorMsg += "\n An Error occured while trying to invoke run-method of the error procedure " + procedure;                
+                errorMsg += "\n An Error occured while trying to invoke run-method of the error procedure " + errorProcedure;                
             }       
         }
         
@@ -252,16 +247,12 @@ public abstract class CronJob implements Runnable
         jobMap.put(Cron.CRONJOBMAP_KEY_TYPE, new Integer(getType()));
         jobMap.put(Cron.CRONJOBMAP_KEY_PROCEDURE, getProcedure());
         jobMap.put(Cron.CRONJOBMAP_KEY_ERRORPROCEDURE, getErrorProcedure());
-        jobMap.put(Cron.CRONJOBMAP_KEY_PROPERTIES, getProperties());
-        jobMap.put(Cron.CRONJOBMAP_KEY_STATUS, getStatus().toString());
         jobMap.put(Cron.CRONJOBMAP_KEY_ERROR, getErrorMessage());
-        jobMap.put(Cron.CRONJOBMAP_KEY_LASTRUN, getLastRun().toString());
+        jobMap.put(Cron.CRONJOBMAP_KEY_PROPERTIES, getProperties());
+        jobMap.put(Cron.CRONJOBMAP_KEY_STATUS, getStatus() == null? "":getStatus().toString());
+        jobMap.put(Cron.CRONJOBMAP_KEY_LASTRUN, getLastRun() != null?getLastRun().toString(): null);
         
-        return cronJobMap;
-    }
-
-    public void setCronJobMap(Map cronJobMap) {
-        this.cronJobMap = cronJobMap;
+        return jobMap;
     }
 
     public String getErrorMessage() {
@@ -273,7 +264,7 @@ public abstract class CronJob implements Runnable
     }
     
     public State getStatus(){
-        return executionThread.getState();
+        return executionThread == null? null:executionThread.getState();
     }
     
     public void activate(){

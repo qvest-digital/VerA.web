@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <projectDescription>
-  <name>cronjobs</name>
+  <name>octopus-ext-cronjobs</name>
   <comment>Cronjobs extension of the tarent-octopus server.</comment>
   <projects>
   </projects>

@@ -30,7 +30,7 @@ public class CronJobWorker {
      * @param type: can be set to get names of just one type of cronjobs
      * @param sort: optional flag to sort the returned list alphabetically 
      * @return cronjob: cronjob-map of edited or created cronjob 
-     */
+     */ 
    
     final static public String[] INPUT_setCronJob = {"cronjob"};
     final static public boolean[] MANDATORY_setCronJob = {true};
@@ -38,16 +38,23 @@ public class CronJobWorker {
     
     public Map setCronJob(OctopusContext all, Map cronJobMap) {
 
+        cronJobMap = correctCronJobMap(cronJobMap);
+        
         String name             = (String)cronJobMap.get(Cron.CRONJOBMAP_KEY_NAME);
-        Integer type            = (Integer)cronJobMap.get(Cron.CRONJOBMAP_KEY_TYPE);
+        Integer type = null;
+        try {
+            type = new Integer(Integer.parseInt(cronJobMap.get(Cron.CRONJOBMAP_KEY_TYPE).toString()));
+        } catch (NumberFormatException e1) {
+            logger.log(Level.WARNING, "Error while parsing Integer CronJobType from Map. Value is not parseable: " + cronJobMap.get(Cron.CRONJOBMAP_KEY_TYPE));
+        }
         String procedure        = (String)cronJobMap.get(Cron.CRONJOBMAP_KEY_PROCEDURE);
         String errorProcedure   = (String)cronJobMap.get(Cron.CRONJOBMAP_KEY_ERRORPROCEDURE);
         
         Map properties          = (Map)cronJobMap.get(Cron.CRONJOBMAP_KEY_PROPERTIES);
         
         // Some Entries must be set or we will return null 
-        if (name == null || procedure == null || properties == null){
-            logger.log(Level.WARNING, "Error in Task setCronJob. One of the following Map entries has not been set: " + "name: " + name + ", procedure: " + procedure + ", properties: " + properties);
+        if (name == null || procedure == null || properties == null || type == null){
+            logger.log(Level.WARNING, "Error in Task setCronJob. One of the following Map entries has not been set: " + "name: " + name + ", procedure: " + procedure + ", properties: " + properties + ", type: " + type);
             return null;
         }
         
@@ -73,34 +80,35 @@ public class CronJobWorker {
             // routines that iterate on the properties dont have to handle them
             for (Iterator iter = properties.entrySet().iterator(); iter.hasNext();){
 
-                Entry e = (Entry)iter.next();
+                Entry e = (Entry) iter.next();
                 String key = e.getKey().toString();
                 
                if (key.equals(ExactCronJob.PROPERTIESMAP_KEY_HOUR)){
                     hour = ((Integer)e.getValue()).intValue();
-                    properties.remove(ExactCronJob.PROPERTIESMAP_KEY_HOUR);
                }
                 
                if (key.equals(ExactCronJob.PROPERTIESMAP_KEY_MINUTE)){
                    minute = ((Integer)e.getValue()).intValue();
-                   properties.remove(ExactCronJob.PROPERTIESMAP_KEY_MINUTE);
                }
                 
                if (key.equals(ExactCronJob.PROPERTIESMAP_KEY_MONTH)){
                    month = ((Integer)e.getValue()).intValue();
-                   properties.remove(ExactCronJob.PROPERTIESMAP_KEY_MONTH);
                }
                                     
                if (key.toLowerCase().equals(ExactCronJob.PROPERTIESMAP_KEY_DAYOFMONTH)){
                    dayOfMonth = ((Integer)e.getValue()).intValue();
-                   properties.remove(ExactCronJob.PROPERTIESMAP_KEY_DAYOFMONTH);
                }
                 
                if (key.toLowerCase().equals(ExactCronJob.PROPERTIESMAP_KEY_DAYOFWEEK)){
                    dayOfWeek = ((Integer)e.getValue()).intValue();
-                   properties.remove(ExactCronJob.PROPERTIESMAP_KEY_DAYOFWEEK);
                }
             }
+            
+            if (hour > -1 ) properties.remove(ExactCronJob.PROPERTIESMAP_KEY_HOUR);
+            if (minute > -1) properties.remove(ExactCronJob.PROPERTIESMAP_KEY_MINUTE);
+            if (month > -1) properties.remove(ExactCronJob.PROPERTIESMAP_KEY_MONTH);
+            if (dayOfWeek > -1) properties.remove(ExactCronJob.PROPERTIESMAP_KEY_DAYOFMONTH);
+            if (dayOfMonth > -1) properties.remove(ExactCronJob.PROPERTIESMAP_KEY_DAYOFWEEK);
             
             // At least one parameter has to be set (!= -1)
             if (hour != -1 || minute != -1 || month != -1 || dayOfMonth != -1 || dayOfWeek != -1)
@@ -113,8 +121,15 @@ public class CronJobWorker {
             
             // Get interval value from properties map, store it and delete it in the map
             // so that later routines that iterate on the properties dont have to handle it
-            int intervalTime = ((Integer) properties.get(IntervalCronJob.PROPERTIESMAP_KEY_INTERVAL)).intValue();
-            properties.remove(IntervalCronJob.PROPERTIESMAP_KEY_INTERVAL);
+            Integer interval = (Integer) properties.get(IntervalCronJob.PROPERTIESMAP_KEY_INTERVAL);
+            int intervalTime = 0;
+            if (interval != null){
+                intervalTime = interval.intValue();
+                properties.remove(IntervalCronJob.PROPERTIESMAP_KEY_INTERVAL);
+            }
+            else
+                logger.log(Level.WARNING, "Error trying to create an IntervalCronJob. Entry '" + IntervalCronJob.PROPERTIESMAP_KEY_INTERVAL + "' in properties map has not been set.");
+            
             
             // intervalTime has to be set and must be greater than zero
             if (intervalTime  > 0) 
@@ -130,7 +145,8 @@ public class CronJobWorker {
                 cronJob.setErrorProcedure(loadStandardErrorProcedure());
             
             cronJob.setProperties(properties);
-            cronJob.setAlreadyRunning(alreadyRunning.intValue());
+            if (alreadyRunning != null)
+                cronJob.setAlreadyRunning(alreadyRunning.intValue());
             
             if (cronjobQueue.addJob(cronJob)){                
                 Map newCronJobMap = cronJob.getCronJobMap();
@@ -138,6 +154,9 @@ public class CronJobWorker {
             }
             return null;
         }
+        
+        logger.log(Level.WARNING, "No CronJob could be created.");
+        
         return null;        
     }
     
@@ -213,7 +232,7 @@ public class CronJobWorker {
      *  @param name : the name of the specified cronjob 
      */ 
     
-    final static public String[] INPUT_GETCRONJOB = {"name"};
+    final static public String[] INPUT_GETCRONJOB = {"cronjobname"};
     final static public boolean[] MANDATORY_GETCRONJOB = {true};
     final static public String OUTPUT_GETCRONJOB = "cronjob";
     
@@ -224,7 +243,7 @@ public class CronJobWorker {
    
     
     /**
-     * This action returns a cronjob-maps for a secific cronjob 
+     * This action returns a cronjob-maps for a specific cronjob 
      * 
      * @param cronjob: cronjobmap that specifies the cronjob
      * @param name : the name of the specified cronjob 
@@ -234,22 +253,26 @@ public class CronJobWorker {
     final static public boolean[] MANDATORY_RUNCRONJOB = {false, false};
     final static public String OUTPUT_RUNCRONJOB = "cronjob";
     
-    public Map runCronJob(OctopusContext all, Map cronJobMap, String cronJobName) {
+    public Map runCronJob(OctopusContext all, Map inputCronJobMap, String cronJobName) {
         
-        boolean started = false;
-        
-        cronJobMap = cronjobQueue.mergeCronJobMapAndName(cronJobMap, cronJobName);
+         Map cronJobMap = cronjobQueue.mergeCronJobMapAndName(inputCronJobMap, cronJobName);
         
         if (cronJobMap != null){
             CronJob job = cronjobQueue.getCronJobByName(cronJobMap.get(Cron.CRONJOBMAP_KEY_NAME).toString());
             
             if (job != null){
-                started = cronjobQueue.forceRun(cronjobQueue.getCronJobByName(cronJobMap.get(Cron.CRONJOBMAP_KEY_NAME).toString()));
-                return job.getCronJobMap();
+                cronjobQueue.forceRun(job);
+                Map returnMap = job.getCronJobMap();
+                return returnMap;
             }
         }
-            //inputCronJobMap.put(Cron.CRONJOBMAP_KEY_ERROR, "No cronjob with name " + inputCronJobMap.get(Cron.CRONJOBMAP_KEY_NAME) + " found.");
-        //return inputCronJobMap;
+        
+        String errMsg = "An Error occured trying to activate a cronjob. The transfered parameters either reference different cornjobs or both parameters are null. ";
+        errMsg += "\n inputCronJobMap: " + inputCronJobMap;
+        errMsg += "\n cronJobName: " + cronJobName;
+        
+        all.setContentError(errMsg);
+        logger.log(Level.WARNING, errMsg);
         return null;
     }
     
@@ -257,18 +280,25 @@ public class CronJobWorker {
      * This action returns the status of a cronjob as String representing an object of Thread.State
      */
     
-    final static public String[] INPUT_GETCRONJOBSTATUS = {"cronjob", "name"};
+    final static public String[] INPUT_GETCRONJOBSTATUS = {"cronjob", "cronjobname"};
     final static public boolean[] MANDATORY_GETCRONJOBSTATUS = {false, false};
     final static public String OUTPUT_GETCRONJOBSTATUS = "status";
     
-    public String getCronJobStatus(OctopusContext all, Map cronJobMap, String cronJobName) {
+    public String getCronJobStatus(OctopusContext all, Map inputCronJobMap, String cronJobName) {
         
-        cronJobMap = cronjobQueue.mergeCronJobMapAndName(cronJobMap, cronJobName);
+        Map cronJobMap = cronjobQueue.mergeCronJobMapAndName(inputCronJobMap, cronJobName);
         
         if (cronJobMap != null){
             CronJob job = cronjobQueue.getCronJobByCronJobMap(cronJobMap);
-            return ((Thread.State)job.getStatus()).toString();
+            return job.getStatus() != null ?(job.getStatus()).toString(): "";
         }
+        
+        String errMsg = "An Error occured trying get the status of a cronjob. The transfered parameters either reference different cornjobs or both parameters are null. ";
+        errMsg += "\n inputCronJobMap: " + inputCronJobMap;
+        errMsg += "\n cronJobName: " + cronJobName;
+        
+        all.setContentError(errMsg);
+        logger.log(Level.WARNING, errMsg);
         
         return null;
     }
@@ -288,12 +318,19 @@ public class CronJobWorker {
     
     public Map removeCronJob(OctopusContext all, Map inputCronJobMap, String cronJobName) {
         
-        inputCronJobMap = cronjobQueue.mergeCronJobMapAndName(inputCronJobMap, cronJobName);
+        Map cronJobMap = cronjobQueue.mergeCronJobMapAndName(inputCronJobMap, cronJobName);
         
-        if (inputCronJobMap != null && cronjobQueue.removeJob(inputCronJobMap)){
+        if (cronJobMap != null && cronjobQueue.removeJob(cronJobMap)){
             //inputCronJobMap.put(Cron.CRONJOBMAP_KEY_STATUS, Thread.State.TERMINATED);
-            return inputCronJobMap;
+            logger.log(Level.INFO, "Cronjob has been removed from queue: " + cronJobMap.get(Cron.CRONJOBMAP_KEY_NAME));
+            return cronJobMap;
         }
+        String errMsg = "An Error occured trying to remove Cronjob from queue. The transfered parameters either reference different cornjobs or both parameters are null. ";
+        errMsg += "\n inputCronJobMap: " + inputCronJobMap;
+        errMsg += "\n cronJobName: " + cronJobName;
+        
+        all.setContentError(errMsg);
+        logger.log(Level.WARNING, errMsg);
         return null;
     }
     
@@ -354,14 +391,22 @@ public class CronJobWorker {
     final static public boolean[] MANDATORY_ACTIVATECRONJOB = {false, false};
     final static public String OUTPUT_ACTIVATECRONJOB = "cronjob";
     
-    public Map activateCronJob(OctopusContext all, Map cronJobMap, String cronJobName) {
+    public Map activateCronJob(OctopusContext all, Map inputCronJobMap, String cronJobName) {
         
-        cronJobMap = cronjobQueue.mergeCronJobMapAndName(cronJobMap, cronJobName);
+        Map cronJobMap = cronjobQueue.mergeCronJobMapAndName(inputCronJobMap, cronJobName);
         
         if (cronJobMap != null) {
             if (cronjobQueue.activateCronJob(cronJobMap))
+                logger.log(Level.INFO, "CronJob " + cronJobMap.get(Cron.CRONJOBMAP_KEY_NAME) + "has been activated and will be runnable."  );
                 return cronJobMap;
         }
+        
+        String errMsg = "An Error occured trying to activate a cronjob. The transfered parameters either reference different cornjobs or both parameters are null. ";
+        errMsg += "\n inputCronJobMap: " + inputCronJobMap;
+        errMsg += "\n cronJobName: " + cronJobName;
+        
+        all.setContentError(errMsg);
+        logger.log(Level.WARNING, errMsg);
         return null; 
        
     }
@@ -370,14 +415,21 @@ public class CronJobWorker {
     final static public boolean[] MANDATORY_DEACTIVATECRONJOB = {false, false};
     final static public String OUTPUT_DEACTIVATECRONJOB = "cronjob";
     
-    public Map deactivateCronJob(OctopusContext all, Map cronJobMap, String cronJobName) {
+    public Map deactivateCronJob(OctopusContext all, Map inputCronJobMap, String cronJobName) {
         
-        cronJobMap = cronjobQueue.mergeCronJobMapAndName(cronJobMap, cronJobName);
+        Map cronJobMap = cronjobQueue.mergeCronJobMapAndName(inputCronJobMap, cronJobName);
         
         if (cronJobMap != null) {
             if (cronjobQueue.deactivateCronJob(cronJobMap))
                 return cronJobMap;
         }
+        
+        String errMsg = "An Error occured trying to deactivate a cronjob. The transfered parameters either reference different cornjobs or both parameters are null. ";
+        errMsg += "\n inputCronJobMap: " + inputCronJobMap;
+        errMsg += "\n cronJobName: " + cronJobName;
+        
+        all.setContentError(errMsg);
+        logger.log(Level.WARNING, errMsg);
         return null; 
        
     }
@@ -400,6 +452,33 @@ public class CronJobWorker {
         
         cronjobQueue.deactivateCron();
        
+    }
+    
+    
+    private Map correctCronJobMap(Map input){
+        
+        Map resultMap = input;
+        Map properties = input.get(Cron.CRONJOBMAP_KEY_PROPERTIES) != null ? (Map) input.get(Cron.CRONJOBMAP_KEY_PROPERTIES): new HashMap();
+        
+        for (Iterator iter = input.entrySet().iterator(); iter.hasNext();){
+            Entry entry = (Entry) iter.next();
+            Object key = entry.getKey();
+            
+            // if there is an entry in the cronjobmap, that doesnt belong there
+            // we remove it from the cronjobmap and add it to the internal properties map
+            if (!key.equals(Cron.CRONJOBMAP_KEY_NAME) && !key.equals(Cron.CRONJOBMAP_KEY_PROPERTIES)
+                && !key.equals(Cron.CRONJOBMAP_KEY_TYPE) && !key.equals(Cron.CRONJOBMAP_KEY_STATUS)
+                && !key.equals(Cron.CRONJOBMAP_KEY_PROCEDURE) && !key.equals(Cron.CRONJOBMAP_KEY_ERRORPROCEDURE)
+                && !key.equals(Cron.CRONJOBMAP_KEY_LASTRUN) && !key.equals(Cron.CRONJOBMAP_KEY_ERROR)){
+            
+                    properties.put(entry.getKey(), entry.getValue());
+                    resultMap.remove(key);
+             
+            }
+        }
+        
+        resultMap.put(Cron.CRONJOBMAP_KEY_PROPERTIES, properties);
+        return resultMap;
     }
     
     private String loadStandardErrorProcedure() {

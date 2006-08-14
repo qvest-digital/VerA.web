@@ -34,7 +34,7 @@ public class IntervalCronJob extends CronJob
     public IntervalCronJob(int intervalMinutes)
     {
         this.intervalMinutes = intervalMinutes;
-        setLastRun(new Date());
+        //setLastRun(new Date());
     }
 
     

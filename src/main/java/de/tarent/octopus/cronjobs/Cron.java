@@ -21,8 +21,11 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import de.tarent.octopus.cronjobs.CronJob;
+import de.tarent.octopus.cronjobs.worker.CronJobWorker;
 
 /**
  * This implements a Unix(tm) style cron job system. To submit a job, subclass
@@ -47,12 +50,15 @@ public class Cron extends Thread
     public static final String CRONJOBMAP_KEY_LASTRUN           = "lastrun";
     
     private int CHECK_INTERVAL = 30000;
-    private int timeBase = 60000;
+    private int TIMEBASE = 60000;
     
     private boolean stopped = false;
     private Map jobs = null;
     
     private CronExporter cronExporter;
+    
+    private static Logger logger = Logger.getLogger(Cron.class.getName());
+
     
     /**
      * Standard constructor. Creates a new instance of the cron system.
@@ -61,13 +67,14 @@ public class Cron extends Thread
     public Cron()
     {
         this.jobs = new HashMap();
+        this.start();
     }
 
     public Cron(int timeBase)
     {
     	this();
-    	this.timeBase = timeBase;
-    	this.CHECK_INTERVAL = timeBase/2;
+    	this.TIMEBASE = timeBase;
+    	this.CHECK_INTERVAL = timeBase / 2;
     }
    
     
@@ -88,7 +95,8 @@ public class Cron extends Thread
     public void activateCron()
     {
         stopped = false;
-        if (this.getState().equals(Thread.State.RUNNABLE))
+        State state = this.getState();
+        if (state.equals(State.NEW) || state.equals(State.RUNNABLE))
                 this.start();
     }
     
@@ -108,7 +116,7 @@ public class Cron extends Thread
             CronJob oldJob = (CronJob)jobs.get(job.getName());
             while(!oldJob.runnable()){
                try {
-                Thread.sleep(CHECK_INTERVAL/2);
+                Thread.sleep(CHECK_INTERVAL);
                 } catch (InterruptedException e) {
                     // e.printStackTrace();
                 }
@@ -116,6 +124,7 @@ public class Cron extends Thread
         }
         
         jobs.put(job.getName(), job);
+        logger.log(Level.FINEST, "New Cronjob added to queue: " + job.getName());
         
         return true;
     }
@@ -132,9 +141,9 @@ public class Cron extends Thread
         
         CronJob tmpJob = getCronJobByName(cronJobMap.get(Cron.CRONJOBMAP_KEY_NAME).toString());
         
-        // If there is a cronjob, at least the parameters type, procedure and errorprocedure have to be correct
+        // If there is a cronjob, at least the parameters type, procedure and name have to be correct
         if (tmpJob.getProcedure().equals(cronJobMap.get(Cron.CRONJOBMAP_KEY_PROCEDURE))
-                && tmpJob.getErrorProcedure().equals(cronJobMap.get(Cron.CRONJOBMAP_KEY_ERRORPROCEDURE))
+                && tmpJob.getName().equals(cronJobMap.get(Cron.CRONJOBMAP_KEY_NAME))
                 && new Integer(tmpJob.getType()).equals(cronJobMap.get(Cron.CRONJOBMAP_KEY_TYPE))){
             return tmpJob;
         }
@@ -165,6 +174,7 @@ public class Cron extends Thread
     {
         while (!stopped)
         {
+            
             try
             {
                 Thread.sleep(CHECK_INTERVAL);
@@ -173,6 +183,8 @@ public class Cron extends Thread
             {
                 e.printStackTrace();
             }
+            
+            logger.log(Level.FINEST, "Cron is checking for Jobs to Start. " + new Date() );
             
             Thread storeThread = new Thread(new CronExporter()); 
             storeThread.start();
@@ -216,27 +228,29 @@ public class Cron extends Thread
         Date lastRun = thisJob.getLastRun();
         Date currentDate = new Date();
 
-        if ((currentDate.getTime() - lastRun.getTime()) > intervalMinutes*timeBase)
+        if (lastRun == null || (currentDate.getTime() - lastRun.getTime()) > intervalMinutes * TIMEBASE)
         {
             thisJob.setLastRun(currentDate);
+            logger.log(Level.FINEST, "Cron starts Interval CronJob " + thisJob.getName() + " at " + currentDate );
             thisJob.start();
         }
     }
 
     private void runExactCronJob(CronJob job)
     {
+        logger.log(Level.FINEST, "Cron checks Exact CronJob " + job.getName() + " at " + new Date() );
+        
         ExactCronJob thisJob = (ExactCronJob)job;
         
        
         // Check if this job was already run in this minute
         Date lastRun = thisJob.getLastRun();
         Date currentRunDate = new Date();
-        if (currentRunDate.getTime() - lastRun.getTime() < timeBase)
-        {
-        	
+        if (lastRun != null && currentRunDate.getTime() - lastRun.getTime() < TIMEBASE)
+        {	
             return;
         }
-        
+       
         // Check time constraints
         Calendar currentDate = new GregorianCalendar();
         boolean run = true;
@@ -245,12 +259,14 @@ public class Cron extends Thread
         run = run && (thisJob.getMonth()==-1 || (thisJob.getMonth()==currentDate.get(Calendar.MONTH)));
         run = run && (thisJob.getDayOfMonth()==-1 || (thisJob.getDayOfMonth()==currentDate.get(Calendar.DAY_OF_MONTH)));
         run = run && (thisJob.getDayOfWeek()==-1 || (thisJob.getDayOfWeek()==currentDate.get(Calendar.DAY_OF_WEEK)));
+     
 
-;
         // Run it..
         if (run && job.runnable())
         {
-            //job.setLastRun(currentRunDate);
+            logger.log(Level.FINE, "Cron starts Exact CronJob " + job.getName() + " at " + new Date() );
+            
+            job.setLastRun(currentRunDate);
             job.start();
         }
     }

@@ -48,7 +48,7 @@ public class ExactCronJob extends CronJob
     
     public static final String PROPERTIESMAP_KEY_HOUR               = "hour";
     public static final String PROPERTIESMAP_KEY_MINUTE             = "minute";
-    public static final String PROPERTIESMAP_KEY_MONTH              = "minute";
+    public static final String PROPERTIESMAP_KEY_MONTH              = "month";
     public static final String PROPERTIESMAP_KEY_DAYOFWEEK          = "dayofweek";
     public static final String PROPERTIESMAP_KEY_DAYOFMONTH         = "dayofmonth";
     
