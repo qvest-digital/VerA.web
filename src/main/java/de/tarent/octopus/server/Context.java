@@ -1,4 +1,4 @@
-/* $Id: Context.java,v 1.3 2006/08/08 12:41:37 christoph Exp $
+/* $Id: Context.java,v 1.4 2006/08/17 10:34:25 christoph Exp $
  * 
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
@@ -48,20 +48,20 @@ public class Context {
      * Returns the current active OctopusContext for this thread
      */
     public static OctopusContext getActive() {
-        return (OctopusContext)((LinkedList)currentContext.get()).getLast();
+    	LinkedList stack = (LinkedList)currentContext.get();
+        return stack == null ? null : (OctopusContext)stack.getLast();
     }
 
     /**
      * Add the current active OctopusContext on the content stack.
      */
     public static void addActive(OctopusContext oc) {
-    	LinkedList contextList = (LinkedList)currentContext.get();
-    	if (contextList == null) {
-    		contextList = new LinkedList();
-    		currentContext.set(contextList);
+    	LinkedList stack = (LinkedList)currentContext.get();
+    	if (stack == null) {
+    		stack = new LinkedList();
+    		currentContext.set(stack);
     	}
-    	
-    	contextList.addLast(oc);
+    	stack.addLast(oc);
     }
 
     /**
