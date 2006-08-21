@@ -3,6 +3,8 @@ package testing;
 import java.util.HashMap;
 import java.util.Map;
 
+import de.tarent.octopus.cronjobs.CronJob;
+
 public class CronJobMapFactory {
     
 
@@ -53,7 +55,9 @@ public class CronJobMapFactory {
         
         Map properties = new HashMap();
         properties.put(PROPERTIESMAP_KEY_INTERVAL, interval == null? new Integer(0): interval);
+        properties.put("blabla", "mööööööp");
         
+        //properties.put(CronJob.PROPERTIESMAP_KEY_ALREADYRUNNING, new Integer(CronJob.ALREADY_RUNNING_DROP));
         cronJobMap.put(CRONJOBMAP_KEY_PROPERTIES, properties);
         
         return cronJobMap;

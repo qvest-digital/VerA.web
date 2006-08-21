@@ -46,11 +46,11 @@ public class CronjobTests {
         //OctopusResult ocResult0 = activateCron.invoke();
         
         OctopusTask setCronJob1 = ocConnection.getTask("setCronJob");
-        OctopusResult ocResult = setCronJob1.add("cronjob", mapFactory.createIntervalCronJobMap("interval_test_1", procedure , new Integer(10))).invoke();
+        OctopusResult ocResult = setCronJob1.add("cronjob", mapFactory.createIntervalCronJobMap("interval_test_1", procedure , new Integer(2))).invoke();
         //printMap((Map) ocResult.getData("cronjob"));
         
-        OctopusTask setCronJob2 = ocConnection.getTask("setCronJob");
-        OctopusResult ocResult2 = setCronJob2.add("cronjob", mapFactory.createExactCronJobMap("exact_test_1",  procedure , new Integer(18), new Integer(22), new Integer(-1), new Integer(-1), new Integer(-1))).invoke();
+        //OctopusTask setCronJob2 = ocConnection.getTask("setCronJob");
+        //OctopusResult ocResult2 = setCronJob2.add("cronjob", mapFactory.createExactCronJobMap("exact_test_1",  procedure , new Integer(18), new Integer(22), new Integer(-1), new Integer(-1), new Integer(-1))).invoke();
         //printMap((Map) ocResult2.getData("cronjob"));
         
        
@@ -58,24 +58,24 @@ public class CronjobTests {
         OctopusResult ocResult3 = getCronJobs.invoke();
         printMapList((List) ocResult3.getData("cronjobs"));
         
-        //OctopusTask runCronJob = ocConnection.getTask("runCronJob");
-        //OctopusResult ocResult4 = runCronJob.add("cronjobname", "interval_test_1").invoke();
-        //printMap((Map) ocResult4.getData("cronjob"));
+        //OctopusTask runCronJob = ocConnection.getTask("getCronJobNames");
+        //OctopusResult ocResult4 = runCronJob.add("sort", new Boolean(true)).invoke();
+        //System.out.println("########\n" + ocResult4.getData("cronjobnames"));
         
         
 
         
-        OctopusTask getCronJob = ocConnection.getTask("getCronJob");
-        OctopusResult ocResult5 = getCronJob.add("cronjobname", "interval_test_1").invoke();
-        Map cronJobMap = (Map) ocResult5.getData("cronjob");
+        //ctopusTask getCronJob = ocConnection.getTask("getCronJob");
+        //OctopusResult ocResult5 = getCronJob.add("cronjobname", "interval_test_2").invoke();
+        //Map cronJobMap = (Map) ocResult5.getData("cronjob");
         
-        OctopusTask activateCronJob = ocConnection.getTask("activateCronJob");
-        activateCronJob.add("cronjob", cronJobMap);
-        OctopusResult ocResult6 = activateCronJob.add("cronjobname", cronJobMap.get(Cron.CRONJOBMAP_KEY_NAME)).invoke();
+        //OctopusTask activateCronJob = ocConnection.getTask("activateCronJob");
+        //activateCronJob.add("cronjob", cronJobMap);
+        //OctopusResult ocResult6 = activateCronJob.add("cronjobname", cronJobMap.get(Cron.CRONJOBMAP_KEY_NAME)).invoke();
         
         
-        OctopusTask removeCronJob = ocConnection.getTask("removeCronJob");
-        removeCronJob.add("cronjobname", "exact_test_1").invoke();
+        //OctopusTask removeCronJob = ocConnection.getTask("removeCronJob");
+        //removeCronJob.add("cronjobname", "exact_test_1").invoke();
         
         ocResult3 = getCronJobs.invoke();
         printMapList((List) ocResult3.getData("cronjobs"));

@@ -14,6 +14,8 @@ import java.lang.reflect.Method;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * This interface must be implemented when extending the cron system
@@ -27,14 +29,16 @@ import java.util.Map;
 
 public abstract class CronJob implements Runnable
 {
+    Logger logger = Logger.getLogger(getClass().getName());
     public static final String PROPERTIESMAP_KEY_ALREADYRUNNING     = "alreadyrunning";
     
-    protected static final int ALREADY_RUNNING_PARALLEL     = 1;    // if job is already running a second instance is started parallel
-    protected static final int ALREADY_RUNNING_WAIT         = 2;    // if job is already running process waits until job is finished to start next job
-    protected static final int ALREADY_RUNNING_INTERRUPT    = 3;    // if job is already running the actual job will be interrupted before starting a new job
-    protected static final int ALREADY_RUNNING_DROP         = 4;    // if job is already running the start of a second job is dropped
+    public static final int ALREADY_RUNNING_PARALLEL     = 1;    // if job is already running a second instance is started parallel
+    public static final int ALREADY_RUNNING_WAIT         = 2;    // if job is already running process waits until job is finished to start next job
+    public static final int ALREADY_RUNNING_INTERRUPT    = 3;    // if job is already running the actual job will be interrupted before starting a new job
+    public static final int ALREADY_RUNNING_DROP         = 4;    // if job is already running the start of a second job is dropped
     
     protected static final int timeToWaitForNextTry         = 5000; // milliseconds to wait if job is already running and alreadyRunning == ALREADY_RUNNING_WAIT
+    protected static final int maxTimeToWait                = 25000; // wait max 25 seconds for finishing a cronjob 
     
 	private Date lastRun;
 	private Thread executionThread;
@@ -72,10 +76,8 @@ public abstract class CronJob implements Runnable
                 String methodname = m[i].getName();
                 
                 if (methodname.startsWith("set")){
-                    String parameterName = methodname.substring(4).toLowerCase();
-                    if (properties.containsKey(parameterName)
-                        && (m[i].getParameterTypes().length == 1 )
-                        &&  m[i].getParameterTypes()[0].isInstance( properties.get(parameterName)))
+                    String parameterName = methodname.substring(3).toLowerCase();
+                    if (properties.containsKey(parameterName))
                         try {
                             m[i].invoke(runnableObject, new Object[] {properties.get(parameterName)});
                         } catch (Exception e){
@@ -118,8 +120,17 @@ public abstract class CronJob implements Runnable
             switch (alreadyRunning)
             {
                 case ALREADY_RUNNING_PARALLEL:  return true;
-                case ALREADY_RUNNING_WAIT:    { while (executionThread.getState() != Thread.State.TERMINATED)
+                case ALREADY_RUNNING_WAIT:    { Date startDate = new Date();
+                                                Date lastTry = new Date();
+                                                
+                                                while (executionThread.getState() != Thread.State.TERMINATED )
                                                 {
+                                                    lastTry = new Date();
+                                                    if ((lastTry.getTime() - startDate.getTime()) > maxTimeToWait){
+                                                        executionThread.interrupt();
+                                                        logger.log(Level.WARNING, "Waiting time expired. Current instance of " + getName() + "will be interrupted and new instance will be started.");
+                                                        break;
+                                                    }
                                                     try {
                                                         Thread.sleep(timeToWaitForNextTry);
                                                     } catch (InterruptedException e) {                                                       
@@ -129,7 +140,7 @@ public abstract class CronJob implements Runnable
                                                 return true;
                                               }
                 case ALREADY_RUNNING_INTERRUPT: {executionThread.interrupt();
-                                                 executionThread = null;}
+                                                 return true;}
                 case ALREADY_RUNNING_DROP:      return executionThread.getState() == Thread.State.TERMINATED;
             }
     	}
@@ -212,7 +223,7 @@ public abstract class CronJob implements Runnable
             }       
         }
         
-        setErrorMessage(errorMsg); 
+        setErrorMessage(errorMsg + "\n" + e.getMessage() + "\n" + e.getCause()); 
     }
 
     public String getErrorProcedure() {
@@ -232,6 +243,7 @@ public abstract class CronJob implements Runnable
     }
 
     public Map getProperties() {
+        properties.put(PROPERTIESMAP_KEY_ALREADYRUNNING, new Integer(getAlreadyRunning()));
         return properties;
     }
 

@@ -34,7 +34,7 @@
 	</task>
 	
 	<task name="getCronJobs" access="public" groups="Anonymous">
-      <description>Returns a Cronjob-Maps for every existing cronjob as a List</description>
+      <description>Returns a List with Cronjob-Maps of every existing cronjob</description>
       <action name="getCronJobs" worker="CronJobWorker"/>
       <response type="soap" name="xxx">
     	<param name="OutputFields" type="array">
@@ -117,7 +117,7 @@
       		Starts or reactivates the routine that handles all cronjobs
   	  </description>
       <action name="startCronJobRoutine" worker="CronJobWorker"/>
-      <response type="none" name="none"/>
+      <response type="soap" name="xxx"/>
   	</task> 
   	
   	<task name="stopCronJobRoutine" access="public" groups="Anonymous">
@@ -126,7 +126,8 @@
       		This will not stop immediately but will avoid that the routine starts again.
   	  </description>
       <action name="stopCronJobRoutine" worker="CronJobWorker"/>
-      <response type="none" name="none"/>
+      <response type="soap" name="xxx"/>
+    	
   	</task> 
   	
   	
