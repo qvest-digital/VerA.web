@@ -13,24 +13,33 @@
 				OFF, SEVERE, WARNING, WARNING
 				CONFIG, FINE, FINER, FINEST, ALL
 		-->
-		<param name="logging.level" type="array">
-			<param name="de.tarent.sbk" value="WARN">
+		<param name="logging.level" type="map">
+			<param name="de.tarent.sbk" type="map">
 				<param name="level" value="INFO"/>
 				<param name="handler" value="INFO"/>
 			</param>
-			<param name="de.tarent.sbk.bonus" value="INFO"/>
-			<param name="de.tarent.sbk.profil" value="INFO"/>
-			<param name="de.tarent.sbk.profil.merge" value="INFO"/>
+			<param name="de.tarent.sbk.bonus" type="map">
+				<param name="level" value="INFO"/>
+				<param name="handler" value="console"/>
+			</param>
+			<param name="de.tarent.sbk.profil" type="map">
+				<param name="level" value="INFO"/>
+				<param name="handler" value="console"/>
+			</param>
+			<param name="de.tarent.sbk.profil.merge" type="map">
+				<param name="level" value="INFO"/>
+				<param name="handler" value="console"/>
+			</param>
 		</param>
 		
-		<param name="logging.handler" type="array">
-			<param name="stdout">
+		<param name="logging.handler" type="map">
+			<param name="console" type="map">
 				<param name="class" value="java.util.logging.ConsoleHandler"/>
 			</param>
-			<param name="stdout">
+			<param name="socket" type="map">
 				<param name="class" value="java.util.logging.SocketHandler"/>
 			</param>
-			<param name="stdout">
+			<param name="file" type="map">
 				<param name="class" value="java.util.logging.FileHandler"/>
 			</param>
 		</param>

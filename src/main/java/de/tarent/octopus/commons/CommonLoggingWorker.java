@@ -2,14 +2,21 @@ package de.tarent.octopus.commons;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.ConsoleHandler;
+import java.util.logging.FileHandler;
+import java.util.logging.Handler;
 import java.util.logging.LogManager;
+import java.util.logging.Logger;
+import java.util.logging.SocketHandler;
 
 import javax.jws.WebMethod;
 
 import de.tarent.commons.messages.Message;
 import de.tarent.octopus.content.annotation.Name;
 import de.tarent.octopus.content.annotation.Optional;
+import de.tarent.octopus.server.Context;
 
 /**
  * This octopus worker will be load the java.util.logging configuration
@@ -56,7 +63,13 @@ public class CommonLoggingWorker {
 					logInternal(READ_CONFIGURATION_FILE.getMessage(file.getAbsoluteFile()));
 					LogManager.getLogManager().readConfiguration(new FileInputStream(file.getAbsoluteFile()));
 				} else {
-					logInternal(FILE_NOT_FOUND.getMessage(file.getAbsoluteFile()));
+					file = new File(Context.getActive().moduleRootPath(), contentFilename);
+					if (file.exists()) {
+						logInternal(READ_CONFIGURATION_FILE.getMessage(file.getAbsoluteFile()));
+						LogManager.getLogManager().readConfiguration(new FileInputStream(file.getAbsoluteFile()));
+					} else {
+						logInternal(FILE_NOT_FOUND.getMessage(file.getAbsoluteFile()));
+					}
 				}
 			} else if (configFilename != null) {
 				File file = new File(configFilename);
@@ -64,20 +77,89 @@ public class CommonLoggingWorker {
 					logInternal(READ_CONFIGURATION_FILE.getMessage(file.getAbsoluteFile()));
 					LogManager.getLogManager().readConfiguration(new FileInputStream(file.getAbsoluteFile()));
 				} else {
-					logInternal(FILE_NOT_FOUND.getMessage(file.getAbsoluteFile()));
+					file = new File(Context.getActive().moduleRootPath(), configFilename);
+					if (file.exists()) {
+						logInternal(READ_CONFIGURATION_FILE.getMessage(file.getAbsoluteFile()));
+						LogManager.getLogManager().readConfiguration(new FileInputStream(file.getAbsoluteFile()));
+					} else {
+						logInternal(FILE_NOT_FOUND.getMessage(file.getAbsoluteFile()));
+					}
 				}
 			} else {
-				System.err.println(NO_PARAMETER_AVAILABLE);
+				logInternal(NO_PARAMETER_AVAILABLE.getMessage());
 			}
 		} catch (Exception e) {
-			logInternal(UNEXPECTED_EXCEPTION.getMessage(e.getLocalizedMessage(), contentFilename, configFilename));
+			logInternal(UNEXPECTED_EXCEPTION.getMessage(e.getLocalizedMessage()), e);
 		}
 	}
 
 	@WebMethod
 	public void setAdditionalConfiguration(
-			/*@Name("CONFIG:loggingConfiguration") @Optional(true) Map<String, Object> loggingConfiguration*/) {
+			@Name("CONFIG:logging.handler") @Optional(true) Map<String, Map<String, String>> configHandler,
+			@Name("CONFIG:logging.level") @Optional(true) Map<String, Map<String, String>> configLevel) {
 		
+		Map<String, Handler> handler = new HashMap<String, Handler>();
+		Map<String, Logger> logger = new HashMap<String, Logger>();
+		
+		for (Map.Entry<String, Map<String, String>> entry : configHandler.entrySet()) {
+			handler.put(entry.getKey(), getHandler(entry.getValue()));
+		}
+		
+		for (Map.Entry<String, Map<String, String>> entry : configLevel.entrySet()) {
+			logger.put(entry.getKey(), getLogger(entry.getValue(), handler));
+		}
+	}
+
+	protected Handler getHandler(Map<String, String> configuration) {
+		try {
+			String clazz = configuration.get("class");
+			if (clazz.equals("java.util.logging.ConsoleHandler")) {
+				return new ConsoleHandler();
+			} else if (clazz.equals("java.util.logging.FileHandler")) {
+				String pattern = configuration.get("pattern");
+				int limit = getParameter(configuration, "limit", 0);
+				int count = getParameter(configuration, "limit", 1);
+				boolean a = getParameter(configuration, "limit", false);
+				return new FileHandler(pattern, limit, count, a);
+			} else if (clazz.equals("java.util.logging.SocketHandler")) {
+				String host = getParameter(configuration, "host", "127.0.0.1");
+				int port = getParameter(configuration, "port", 0);
+				return new SocketHandler(host, port);
+			} else {
+				throw new RuntimeException("Unknown handler class " + clazz);
+			}
+		} catch (Exception e) {
+			logInternal(UNEXPECTED_EXCEPTION.getMessage(e.getLocalizedMessage()), e);
+			return null;
+		}
+	}
+
+	protected Logger getLogger(Map<String, String> configuration, Map<String, Handler> handler) {
+		return null;
+	}
+
+	protected String getParameter(Map<String, String> configuration, String key, String def) {
+		String result = configuration.get(key);
+		if (result != null && result.trim().length() != 0)
+			return result;
+		else
+			return def;
+	}
+
+	protected int getParameter(Map<String, String> configuration, String key, int def) {
+		try {
+			return Integer.parseInt(configuration.get(key));
+		} catch (Exception e) {
+			return def;
+		}
+	}
+
+	protected boolean getParameter(Map<String, String> configuration, String key, boolean def) {
+		try {
+			return Boolean.parseBoolean(configuration.get(key));
+		} catch (Exception e) {
+			return def;
+		}
 	}
 
 	/**
@@ -96,7 +178,8 @@ public class CommonLoggingWorker {
 	 * 
 	 * @param e Exception
 	 */
-	protected void logInternal(Exception e) {
+	protected void logInternal(String message, Exception e) {
+		logInternal(message);
 		e.printStackTrace();
 	}
 }
