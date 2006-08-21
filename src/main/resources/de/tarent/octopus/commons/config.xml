@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+	tarent-octopus common config.xml
+-->
+
+<tcModuleConfig>
+	<contentWorkerDeklaration>
+		<worker
+			name="CommonLoggingWorker"
+			implementation="de.tarent.octopus.commons.CommonLoggingWorker"
+			singleton="true"
+			factory="annotation"/>
+		<worker
+			name="CommonWebWorker"
+			implementation="de.tarent.octopus.commons.CommonWebWorker"
+			singleton="true"
+			factory="annotation"/>
+	</contentWorkerDeklaration>
+	
+	<tasks>
+		<task name="readLoggingConfiguration" access="public" groups="Administrator">
+			<description>
+				Load the java.util.logging from the content parameter
+				"loggingConfigurationFile" or out of the module configuration
+				with parameter key "loggingConfigurationFile".
+			</description>
+			<param name="loggingConfigurationFile" ref-value="loggingConfigurationFile"/>
+			<action name="readConfiguration" worker="CommonLoggingWorker" />
+			<response type="soap" name="unused">
+				<param name="OutputFields" type="array">
+				</param>
+			</response>
+		</task>
+	</tasks>
+</tcModuleConfig>
