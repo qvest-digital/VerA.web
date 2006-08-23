@@ -2,7 +2,7 @@ package testing;
 
 public class TestProcedure implements Runnable {
     
-    private String blabla;
+    private String ausgabe;
 
     public void run() {
         for (int i = 0; i < 6; i++){
@@ -16,13 +16,13 @@ public class TestProcedure implements Runnable {
                 //System.out.println("THREAD INTERRUPTED");
                 break;
             }
-            System.out.println("test... "+ i + " " + blabla);
+            System.out.println("test... "+ i + " " + ausgabe);
         }
 
     }
     
-    public void setBlabla(String blabla){
-        this.blabla = blabla;
+    public void setAusgabe(String ausgabe){
+        this.ausgabe = ausgabe;
     }
 
 }
