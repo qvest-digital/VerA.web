@@ -273,7 +273,7 @@ public class Cron extends Thread
         // Run it..
         if (run && job.runnable())
         {
-            logger.log(Level.FINE, "Cron starts Exact CronJob " + job.getName() + " at " + new Date() );
+            logger.log(Level.INFO, "Cron starts Exact CronJob " + job.getName() + " at " + new Date() );
             
             job.setLastRun(currentRunDate);
             job.start();
