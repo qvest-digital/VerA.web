@@ -106,7 +106,7 @@ public class Cron extends Thread
                 e.printStackTrace();
             }
         
-        this.start();
+        this.run();
     }
     
     /**

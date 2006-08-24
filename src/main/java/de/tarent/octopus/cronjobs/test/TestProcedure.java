@@ -1,4 +1,4 @@
-package testing;
+package de.tarent.octopus.cronjobs.test;
 
 public class TestProcedure implements Runnable {
     
@@ -13,7 +13,7 @@ public class TestProcedure implements Runnable {
             try {
                 Thread.sleep(2000);
             } catch (InterruptedException e) {
-                //System.out.println("THREAD INTERRUPTED");
+                System.out.println("THREAD INTERRUPTED");
                 break;
             }
             System.out.println("test... "+ i + " " + ausgabe);

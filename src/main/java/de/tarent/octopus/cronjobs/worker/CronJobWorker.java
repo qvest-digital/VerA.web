@@ -124,7 +124,7 @@ public class CronJobWorker {
                     }
                 }
             }
-            return filteredCronJobMaps.size() > 0? filteredCronJobMaps: null;
+            return filteredCronJobMaps;
         }
         catch (Exception e) {
             
