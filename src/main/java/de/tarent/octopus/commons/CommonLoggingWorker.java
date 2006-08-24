@@ -14,9 +14,10 @@ import java.util.logging.SocketHandler;
 import javax.jws.WebMethod;
 
 import de.tarent.commons.messages.Message;
+import de.tarent.commons.messages.MessageHelper;
 import de.tarent.octopus.content.annotation.Name;
 import de.tarent.octopus.content.annotation.Optional;
-import de.tarent.octopus.server.Context;
+import de.tarent.octopus.server.OctopusContext;
 
 /**
  * This octopus worker will be load the java.util.logging configuration
@@ -52,18 +53,22 @@ public class CommonLoggingWorker {
 	 */
 	@WebMethod
 	public void readConfiguration(
+			OctopusContext octopusContext,
 			@Name("CONTENT:loggingConfigurationFile") @Optional(true) String contentFilename,
 			@Name("CONFIG:loggingConfigurationFile") @Optional(true) String configFilename) {
 		
 		try {
 			logInternal("#readConfiguration: Reload java.util.logging-Configuration.");
+			
+			File modulePath = octopusContext.moduleRootPath();
+			
 			if (contentFilename != null) {
 				File file = new File(contentFilename);
 				if (file.exists()) {
 					logInternal(READ_CONFIGURATION_FILE.getMessage(file.getAbsoluteFile()));
 					LogManager.getLogManager().readConfiguration(new FileInputStream(file.getAbsoluteFile()));
 				} else {
-					file = new File(Context.getActive().moduleRootPath(), contentFilename);
+					file = new File(modulePath, contentFilename);
 					if (file.exists()) {
 						logInternal(READ_CONFIGURATION_FILE.getMessage(file.getAbsoluteFile()));
 						LogManager.getLogManager().readConfiguration(new FileInputStream(file.getAbsoluteFile()));
@@ -77,7 +82,7 @@ public class CommonLoggingWorker {
 					logInternal(READ_CONFIGURATION_FILE.getMessage(file.getAbsoluteFile()));
 					LogManager.getLogManager().readConfiguration(new FileInputStream(file.getAbsoluteFile()));
 				} else {
-					file = new File(Context.getActive().moduleRootPath(), configFilename);
+					file = new File(modulePath, configFilename);
 					if (file.exists()) {
 						logInternal(READ_CONFIGURATION_FILE.getMessage(file.getAbsoluteFile()));
 						LogManager.getLogManager().readConfiguration(new FileInputStream(file.getAbsoluteFile()));
@@ -181,5 +186,9 @@ public class CommonLoggingWorker {
 	protected void logInternal(String message, Exception e) {
 		logInternal(message);
 		e.printStackTrace();
+	}
+
+	static {
+		MessageHelper.init();
 	}
 }
