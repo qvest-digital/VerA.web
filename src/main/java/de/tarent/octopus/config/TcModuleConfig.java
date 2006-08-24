@@ -1,4 +1,4 @@
-/* $Id: TcModuleConfig.java,v 1.11 2006/08/09 14:05:17 christoph Exp $
+/* $Id: TcModuleConfig.java,v 1.12 2006/08/24 16:16:00 christoph Exp $
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
  * 
@@ -210,7 +210,7 @@ public class TcModuleConfig {
                             logger.log(Level.SEVERE, "Error while loading config file '" + configFile + "'. Parsing aborted.", e );
                         }
                     } else {
-                    	logger.log(Level.WARNING, "Count not found config file '" + configFile + "'. Will be ignored." );
+                    	logger.log(Level.WARNING, "Config file '" + configFile + "' not found. Will be ignored." );
                     }
                 }
                 
@@ -225,7 +225,7 @@ public class TcModuleConfig {
                 	}
                 	
                 	try {
-                		logger.log(Level.INFO, "Loading file '" + resource + "' from classpath." );
+                		logger.log(Level.INFO, "Loading file '" + resource + "' from module classpath." );
                 		
                     	InputStream inputStream = getClassLoader().getResourceAsStream(resource);
                     	
@@ -233,7 +233,16 @@ public class TcModuleConfig {
     						includeDocument = DocumentBuilderFactory.newInstance()
     								.newDocumentBuilder().parse(inputStream);
                     	} else {
-                    		logger.log(Level.WARNING, "Count not found config file '" + resource + "' in classpath. Will be ignored." );
+                    		logger.log(Level.INFO, "Config file '" + resource + "' not found in module classpath. Try octopus classpath." );
+                    		
+                    		inputStream = getClass().getClassLoader().getResourceAsStream(resource);
+                    		
+                    		if (inputStream != null) {
+                    			includeDocument = DocumentBuilderFactory.newInstance()
+										.newDocumentBuilder().parse(inputStream);
+                    		} else {
+                    			logger.log(Level.WARNING, "Config file '" + resource + "' not found in module nor octopus classpath.");
+                    		}
                     	}
 						
 					} catch (SAXException e) {
@@ -244,7 +253,7 @@ public class TcModuleConfig {
 						logger.log(Level.SEVERE, "Error while loading included config file from classpath.", e );
 					}
                 } else {
-                	logger.log(Level.SEVERE, "Illegal include attributes. No 'file', 'packagename' oder 'classpath' found." );
+                	logger.log(Level.SEVERE, "Illegal include attributes. No 'file', 'packagename' or 'classpath' found." );
                 }
                 	
 				if (includeDocument != null) {
