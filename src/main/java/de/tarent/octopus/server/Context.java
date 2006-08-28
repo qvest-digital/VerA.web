@@ -1,4 +1,4 @@
-/* $Id: Context.java,v 1.4 2006/08/17 10:34:25 christoph Exp $
+/* $Id: Context.java,v 1.5 2006/08/28 09:27:13 kirchner Exp $
  * 
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
@@ -27,6 +27,7 @@
 package de.tarent.octopus.server;
 
 import java.util.LinkedList;
+import java.util.NoSuchElementException;
 
 /**
  * This class gives a static access to the OctopusContext Object associated with the 
@@ -42,14 +43,22 @@ import java.util.LinkedList;
  */
 public class Context {
     /** Hold a stack of context informations in a {@link LinkedList}. */
-    private static ThreadLocal currentContext = new ThreadLocal();
+    private static ThreadLocal currentContext = new ThreadLocal(){
+    	public Object initialValue(){
+    		return new LinkedList();
+    	}
+    };
 
     /**
      * Returns the current active OctopusContext for this thread
      */
     public static OctopusContext getActive() {
     	LinkedList stack = (LinkedList)currentContext.get();
-        return stack == null ? null : (OctopusContext)stack.getLast();
+    	try{
+    		return (OctopusContext)stack.getLast();
+    	}catch(NoSuchElementException nsee){
+    		return null;
+    	}
     }
 
     /**
@@ -57,10 +66,6 @@ public class Context {
      */
     public static void addActive(OctopusContext oc) {
     	LinkedList stack = (LinkedList)currentContext.get();
-    	if (stack == null) {
-    		stack = new LinkedList();
-    		currentContext.set(stack);
-    	}
     	stack.addLast(oc);
     }
 
@@ -68,6 +73,10 @@ public class Context {
      * Remove one context information from the context stack.
      */
     public static void clear() {
-        ((LinkedList)currentContext.get()).removeLast();
+        try{
+        	((LinkedList)currentContext.get()).removeLast();
+        }catch(NoSuchElementException nsee){
+        	//Do nothing, Stack is already empty...
+        }
     }
 }
