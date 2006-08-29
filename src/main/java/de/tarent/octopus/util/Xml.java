@@ -1,4 +1,4 @@
-/* $Id: Xml.java,v 1.2 2006/03/14 22:53:02 asteban Exp $
+/* $Id: Xml.java,v 1.3 2006/08/29 13:26:10 christoph Exp $
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
  * 
@@ -170,7 +170,7 @@ public class Xml {
         String type = paramElement.getAttribute("type");        
         
         //Ganze Liste drinn
-        if (type != null && type.toLowerCase().equals("array") || type.toLowerCase().equals("list")) {
+        if (type != null && (type.toLowerCase().equals("array") || type.toLowerCase().equals("list"))) {
             NodeList paramChilds = paramElement.getChildNodes();
             List values = new ArrayList(paramChilds.getLength());
             for (int j = 0; j < paramChilds.getLength(); j++) {
@@ -209,9 +209,10 @@ public class Xml {
                         NodeList paramChilds = paramElement.getElementsByTagName("value");
 
                         Node valueChild = null;
-                        if (paramChilds.getLength() > 0)
+                        if (paramChilds.getLength() > 0) {
                             valueChild = paramChilds.item(0);
-                        value = valueChild.getFirstChild().getNodeValue();
+                            value = valueChild.getFirstChild().getNodeValue();
+                        }
                     }
                     return value;
                 } catch (NullPointerException npe) {
