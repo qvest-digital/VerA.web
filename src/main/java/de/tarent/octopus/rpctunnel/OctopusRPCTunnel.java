@@ -118,6 +118,9 @@ public class OctopusRPCTunnel
 
 class RPCTunnelUnavailableException extends Exception 
 {
+	/** serialVersionUID */
+	private static final long serialVersionUID = -2463482051282677136L;
+
 	public RPCTunnelUnavailableException() 
 	{
 		super();
