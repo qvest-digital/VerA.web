@@ -1,4 +1,4 @@
-/* $Id: TcModuleConfig.java,v 1.12 2006/08/24 16:16:00 christoph Exp $
+/* $Id: TcModuleConfig.java,v 1.13 2006/08/29 13:26:34 christoph Exp $
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
  * 
@@ -512,7 +512,7 @@ public class TcModuleConfig {
      * Liefert einen Parameter, der in der Config gesetzt wurde.
      */
     public String getParam(String key) {
-        return substituteVars((String) configParams.get(key));
+        return substituteVars((String) getField(configParams, key));
     }
 
 
@@ -542,9 +542,20 @@ public class TcModuleConfig {
     }
 
     public Object getParamAsObject(String key) {
-        return configParams.get(key);
+        return getField(configParams, key);
     }
 
+	protected Object getField(Map data, String key) {
+		Object result = data.get(key);
+		if (result == null && key.indexOf(".") != -1) {
+			Object sub = data.get(key.substring(0, key.indexOf(".")));
+			if (sub instanceof Map) {
+				return getField((Map)sub, key.substring(key.indexOf(".") + 1));
+			}
+		}
+		return result;
+	}
+	
     /**
      * Diese Methode überschreibt einen Parameter in den Preferences.  
      * 
