@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.logging.ConsoleHandler;
 import java.util.logging.FileHandler;
 import java.util.logging.Handler;
+import java.util.logging.Level;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
 import java.util.logging.SocketHandler;
@@ -29,6 +30,8 @@ import de.tarent.octopus.server.OctopusContext;
  * @author Christoph Jerolimov, tarent GmbH
  */
 public class CommonLoggingWorker {
+	/** Java util logger instance. */
+	private static final Logger logger = Logger.getLogger(CommonLoggingWorker.class.getName());
 	/** Will be syserr'ed if no parameter is available. */
 	public static Message NO_PARAMETER_AVAILABLE;
 	/** Will be syserr'ed if a new configuration file will be read. (1th param is full filename.) */
@@ -40,25 +43,27 @@ public class CommonLoggingWorker {
 
 	/**
 	 * This octopus action re-configure the {@link LogManager} with the given
-	 * parameters <code>contentFilename</code> or <code>configFilename</code>.
+	 * parameters <code>logging.property.file</code>.
 	 * 
 	 * If <code>contentFilename</code> is set, the configuration file will be
-	 * loaded from the content parameter <code>loggingConfigurationFile</code>.
+	 * loaded from the content parameter <code>logging.property.file</code>.
 	 * 
 	 * Otherwise it tries to load the configuration file name from the octopus
-	 * module configuration with the parameter <code>loggingConfigurationFile</code>.
+	 * module configuration with the parameter <code>logging.property.file</code>.
 	 * 
 	 * @param contentFilename
 	 * @param configFilename
 	 */
 	@WebMethod
-	public void readConfiguration(
+	public void appendLoggingProperties(
 			OctopusContext octopusContext,
-			@Name("CONTENT:loggingConfigurationFile") @Optional(true) String contentFilename,
-			@Name("CONFIG:loggingConfigurationFile") @Optional(true) String configFilename) {
+			@Name("CONTENT:logging.property.file") @Optional(true) String contentFilename,
+			@Name("CONFIG:logging.property.file") @Optional(true) String configFilename) {
 		
 		try {
-			logInternal("#readConfiguration: Reload java.util.logging-Configuration.");
+			logInternal("Run appendLoggingProperties: Wlll reload java.util.logging configuration.");
+			logInternal("    contentFilename: " + contentFilename);
+			logInternal("     configFilename: " + configFilename);
 			
 			File modulePath = octopusContext.moduleRootPath();
 			
@@ -99,48 +104,79 @@ public class CommonLoggingWorker {
 	}
 
 	@WebMethod
-	public void setAdditionalConfiguration(
+	public void appendLoggingHandler(
 			@Name("CONFIG:logging.handler") @Optional(true) Map<String, Map<String, String>> configHandler,
-			@Name("CONFIG:logging.level") @Optional(true) Map<String, Map<String, String>> configLevel) {
+			@Name("CONFIG:logging.logger") @Optional(true) Map<String, Map<String, String>> configLogger) {
+		logInternal("Run appendLoggingHandler: Wlll append java.util.logging configuration.");
+		logInternal("    configHandler: " + configHandler);
+		logInternal("    configLogger : " + configLogger);
 		
-		Map<String, Handler> handler = new HashMap<String, Handler>();
-		Map<String, Logger> logger = new HashMap<String, Logger>();
+		Map<String, Handler> handlerPool = new HashMap<String, Handler>();
 		
-		for (Map.Entry<String, Map<String, String>> entry : configHandler.entrySet()) {
-			handler.put(entry.getKey(), getHandler(entry.getValue()));
+		if (configHandler != null) {
+			for (Map.Entry<String, Map<String, String>> entry : configHandler.entrySet()) {
+				handlerPool.put(entry.getKey(), getHandler(entry.getValue()));
+			}
 		}
 		
-		for (Map.Entry<String, Map<String, String>> entry : configLevel.entrySet()) {
-			logger.put(entry.getKey(), getLogger(entry.getValue(), handler));
+		if (configLogger != null) {
+			for (Map.Entry<String, Map<String, String>> entry : configLogger.entrySet()) {
+				setLogger(entry.getKey(), entry.getValue(), handlerPool);
+			}
 		}
 	}
 
 	protected Handler getHandler(Map<String, String> configuration) {
 		try {
-			String clazz = configuration.get("class");
-			if (clazz.equals("java.util.logging.ConsoleHandler")) {
-				return new ConsoleHandler();
-			} else if (clazz.equals("java.util.logging.FileHandler")) {
+			String classname = configuration.get("class");
+			String level = configuration.get("level");
+			
+			Handler handler = null;
+			
+			if (classname.equals("java.util.logging.ConsoleHandler")) {
+				handler = new ConsoleHandler();
+			} else if (classname.equals("java.util.logging.FileHandler")) {
 				String pattern = configuration.get("pattern");
 				int limit = getParameter(configuration, "limit", 0);
 				int count = getParameter(configuration, "limit", 1);
 				boolean a = getParameter(configuration, "limit", false);
-				return new FileHandler(pattern, limit, count, a);
-			} else if (clazz.equals("java.util.logging.SocketHandler")) {
+				handler = new FileHandler(pattern, limit, count, a);
+			} else if (classname.equals("java.util.logging.SocketHandler")) {
 				String host = getParameter(configuration, "host", "127.0.0.1");
 				int port = getParameter(configuration, "port", 0);
-				return new SocketHandler(host, port);
+				handler =  new SocketHandler(host, port);
 			} else {
-				throw new RuntimeException("Unknown handler class " + clazz);
+				handler = (Handler)Class.forName(classname).newInstance();
 			}
+			
+			if (level != null && level.length() != 0)
+				handler.setLevel(Level.parse(level));
+			
+			return handler;
+			
 		} catch (Exception e) {
 			logInternal(UNEXPECTED_EXCEPTION.getMessage(e.getLocalizedMessage()), e);
 			return null;
 		}
 	}
 
-	protected Logger getLogger(Map<String, String> configuration, Map<String, Handler> handler) {
-		return null;
+	protected void setLogger(String name, Map<String, String> configuration, Map<String, Handler> handlerPool) {
+		Logger logger = Logger.getLogger(name);
+		
+		String level = configuration.get("level");
+		String handlers = configuration.get("handler");
+		
+		if (level != null && level.length() != 0)
+			logger.setLevel(Level.parse(level));
+		
+		if (handlers != null) {
+			for (String h : handlers.split("[,;]")) {
+				Handler handler = handlerPool.get(h.trim());
+				if (handler != null) {
+					logger.addHandler(handler);
+				}
+			}
+		}
 	}
 
 	protected String getParameter(Map<String, String> configuration, String key, String def) {
@@ -174,7 +210,7 @@ public class CommonLoggingWorker {
 	 * @param message Message string
 	 */
 	protected void logInternal(String message) {
-		System.err.println("[" + getClass().getSimpleName() + "] " + message);
+		logger.log(Level.CONFIG, message);
 	}
 
 	/**
@@ -184,8 +220,7 @@ public class CommonLoggingWorker {
 	 * @param e Exception
 	 */
 	protected void logInternal(String message, Exception e) {
-		logInternal(message);
-		e.printStackTrace();
+		logger.log(Level.SEVERE, message, e);
 	}
 
 	static {

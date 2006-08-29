@@ -18,22 +18,33 @@
 	</contentWorkerDeklaration>
 	
 	<tasks>
-		<task name="readLoggingProperties" access="public" groups="Administrator">
+		<task name="appendLoggingProperties" access="private">
 			<description>
 				Load the java.util.logging from the content parameter
-				"loggingConfigurationFile" or out of the module configuration
-				with parameter key "loggingConfigurationFile".
+				"logging.property.file" or out of the module configuration
+				with parameter key "logging.property.file".
 			</description>
-			<action name="readConfiguration" worker="CommonLoggingWorker" />
+			<action name="appendLoggingProperties" worker="CommonLoggingWorker" />
 		</task>
 
-		<task name="readOctopusConfigLogging" access="public" groups="Administrator">
+		<task name="appendLoggingHandler" access="private">
 			<description>
-				Load the java.util.logging from the content parameter
-				"loggingConfigurationFile" or out of the module configuration
-				with parameter key "loggingConfigurationFile".
+				Append some handler and loggers to the java.util.logging settings.
 			</description>
-			<action name="setAdditionalConfiguration" worker="CommonLoggingWorker" />
+			<action name="appendLoggingHandler" worker="CommonLoggingWorker" />
+		</task>
+		
+		<task name="appendLoggingInformation" access="public" groups="Anonymous,User,Administrator">
+			<description>
+				Append logging information.
+			</description>
+			<doTask name="appendLoggingProperties"/>
+			<doTask name="appendLoggingHandler"/>
+			<response type="soap" name="unused">
+				<param name="OutputFields" type="array">
+					<value>status</value>
+				</param>
+			</response>
 		</task>
 	</tasks>
 </tcModuleConfig>
