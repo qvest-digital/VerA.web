@@ -1,4 +1,4 @@
-/* $Id: Octopus.java,v 1.10 2006/07/19 12:19:30 hendrik Exp $
+/* $Id: Octopus.java,v 1.11 2006/08/30 09:29:56 christoph Exp $
  * 
  * Created on 18.09.2003
  * 
@@ -49,6 +49,8 @@ import de.tarent.octopus.jndi.OctopusFactory;
 import de.tarent.octopus.resource.Resources;
 import de.tarent.octopus.response.ResponseProcessingException;
 import de.tarent.octopus.rpctunnel.OctopusRPCTunnel;
+import de.tarent.octopus.server.Context;
+import de.tarent.octopus.server.OctopusContext;
 
 /**
  * Diese Klasse dient als Wrapper für Octopus-Funktionalitäten,
@@ -216,13 +218,23 @@ public class Octopus {
         tcRequest.setRequestParameters(new HashMap());
         tcRequest.setModule(modulename);
         tcRequest.setTask(taskname);
-
-        TcTaskManager taskmanager = new TcTaskManager(new TcAll(tcRequest,
-                                                                new TcContent(),
-                                                                new TcConfig(config, config.createNewPersonalConfig(modulename), modulename)));
-        taskmanager.start(modulename, taskname, false);
-
-        while (taskmanager.doNextStep()) { /* Do nothing here */ }
+        
+        OctopusContext context = new TcAll(
+        		tcRequest,
+                new TcContent(),
+                new TcConfig(config, config.createNewPersonalConfig(modulename), modulename));
+        
+        try {
+            Context.addActive(context);
+        	
+            TcTaskManager taskmanager = new TcTaskManager(context);
+            taskmanager.start(modulename, taskname, false);
+            
+            while (taskmanager.doNextStep()) { /* Do nothing here */ }
+            
+        } finally {
+        	Context.clear();
+        }
     }
 
     /**
