@@ -1,4 +1,4 @@
-/* $Id: TcModuleConfig.java,v 1.13 2006/08/29 13:26:34 christoph Exp $
+/* $Id: TcModuleConfig.java,v 1.14 2006/08/30 09:25:00 nils Exp $
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
  * 
@@ -199,7 +199,6 @@ public class TcModuleConfig {
                 if (attributes.getNamedItem("file") != null){
                     String path = attributes.getNamedItem("file").getNodeValue();
                     
-                    // absolute path or realtive path
                     File configFile = new File(realPath, path);
                     logger.log(Level.INFO, "Loading file '" + configFile.getAbsolutePath() + "'.");
                     
