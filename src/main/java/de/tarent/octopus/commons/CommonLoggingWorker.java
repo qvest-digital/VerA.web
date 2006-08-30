@@ -2,6 +2,7 @@ package de.tarent.octopus.commons;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.ConsoleHandler;
@@ -105,6 +106,7 @@ public class CommonLoggingWorker {
 
 	@WebMethod
 	public void appendLoggingHandler(
+			OctopusContext octopusContext,
 			@Name("CONFIG:logging.handler") @Optional(true) Map<String, Map<String, String>> configHandler,
 			@Name("CONFIG:logging.logger") @Optional(true) Map<String, Map<String, String>> configLogger) {
 		logInternal("Run appendLoggingHandler: Wlll append java.util.logging configuration.");
@@ -115,7 +117,7 @@ public class CommonLoggingWorker {
 		
 		if (configHandler != null) {
 			for (Map.Entry<String, Map<String, String>> entry : configHandler.entrySet()) {
-				handlerPool.put(entry.getKey(), getHandler(entry.getValue()));
+				handlerPool.put(entry.getKey(), getHandler(octopusContext, entry.getValue()));
 			}
 		}
 		
@@ -126,7 +128,7 @@ public class CommonLoggingWorker {
 		}
 	}
 
-	protected Handler getHandler(Map<String, String> configuration) {
+	protected Handler getHandler(OctopusContext octopusContext, Map<String, String> configuration) {
 		try {
 			String classname = configuration.get("class");
 			String level = configuration.get("level");
@@ -146,7 +148,26 @@ public class CommonLoggingWorker {
 				int port = getParameter(configuration, "port", 0);
 				handler =  new SocketHandler(host, port);
 			} else {
-				handler = (Handler)Class.forName(classname).newInstance();
+				Class clazz = Class.forName(classname);
+				Method setter = null;
+				handler = (Handler)clazz.newInstance();
+				
+				for (Map.Entry<String, String> entry : configuration.entrySet()) {
+					String key = entry.getKey();
+					String value = octopusContext.moduleConfig().substituteVars(entry.getValue());
+					
+					if (!(key.equals("class") || key.equals("level"))) {
+						setter = clazz.getMethod("set" +
+								key.substring(0, 1).toUpperCase() +
+								key.substring(1),
+								new Class[] { String.class });
+						if (setter != null) {
+							setter.invoke(handler, new Object[] { value });
+						} else {
+							logInternal("No setter for " + key + " found.");
+						}
+					}
+				}
 			}
 			
 			if (level != null && level.length() != 0)
