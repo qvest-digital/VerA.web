@@ -1,4 +1,4 @@
-/* $Id: Context.java,v 1.5 2006/08/28 09:27:13 kirchner Exp $
+/* $Id: Context.java,v 1.6 2006/08/30 09:30:22 christoph Exp $
  * 
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
@@ -27,7 +27,6 @@
 package de.tarent.octopus.server;
 
 import java.util.LinkedList;
-import java.util.NoSuchElementException;
 
 /**
  * This class gives a static access to the OctopusContext Object associated with the 
@@ -42,41 +41,37 @@ import java.util.NoSuchElementException;
  * @version 1.1
  */
 public class Context {
-    /** Hold a stack of context informations in a {@link LinkedList}. */
-    private static ThreadLocal currentContext = new ThreadLocal(){
-    	public Object initialValue(){
-    		return new LinkedList();
-    	}
-    };
+	/** Hold a stack of context informations in a {@link LinkedList}. */
+	private static ThreadLocal currentContext = new ThreadLocal() {
+		public Object initialValue() {
+			return new LinkedList();
+		}
+	};
 
-    /**
-     * Returns the current active OctopusContext for this thread
-     */
-    public static OctopusContext getActive() {
-    	LinkedList stack = (LinkedList)currentContext.get();
-    	try{
-    		return (OctopusContext)stack.getLast();
-    	}catch(NoSuchElementException nsee){
-    		return null;
-    	}
-    }
+	/**
+	 * Returns the current active OctopusContext for this thread
+	 */
+	public static OctopusContext getActive() {
+		LinkedList stack = (LinkedList) currentContext.get();
+		if (!stack.isEmpty())
+			return (OctopusContext) stack.getLast();
+		else
+			return null;
+	}
 
-    /**
-     * Add the current active OctopusContext on the content stack.
-     */
-    public static void addActive(OctopusContext oc) {
-    	LinkedList stack = (LinkedList)currentContext.get();
-    	stack.addLast(oc);
-    }
+	/**
+	 * Add the current active OctopusContext on the content stack.
+	 */
+	public static void addActive(OctopusContext context) {
+		((LinkedList) currentContext.get()).addLast(context);
+	}
 
-    /**
-     * Remove one context information from the context stack.
-     */
-    public static void clear() {
-        try{
-        	((LinkedList)currentContext.get()).removeLast();
-        }catch(NoSuchElementException nsee){
-        	//Do nothing, Stack is already empty...
-        }
-    }
+	/**
+	 * Remove one context information from the context stack.
+	 */
+	public static void clear() {
+		LinkedList stack = (LinkedList) currentContext.get();
+		if (!stack.isEmpty())
+			stack.removeLast();
+	}
 }
