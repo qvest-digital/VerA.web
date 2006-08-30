@@ -17,7 +17,7 @@ import de.tarent.octopus.server.OctopusContext;
 
 public class CronJobWorker {
     
-    private Cron cronjobQueue = new Cron(); 
+    private Cron cronjobQueue;
     private static Logger logger = Logger.getLogger(CronJobWorker.class.getName());
 
     
@@ -371,10 +371,11 @@ public class CronJobWorker {
     final static public boolean[] MANDATORY_STARTCRONJOBROUTINE = {};
     final static public String OUTPUT_STARTCRONJOBROUTINE = null;
     
-    public void startCronJobRoutine() {
-        
-        cronjobQueue.activateCron();
-       
+    public void startCronJobRoutine(OctopusContext oc) {
+        logger.log(Level.INFO, "Cron routine started");
+        if (cronjobQueue == null)
+            cronjobQueue = new Cron(oc.moduleRootPath()); 
+        cronjobQueue.activateCron();       
     }
     
     final static public String[] INPUT_STOPCRONJOBROUTINE = {};

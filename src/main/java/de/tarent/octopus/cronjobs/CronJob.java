@@ -263,6 +263,7 @@ public abstract class CronJob implements Runnable
         jobMap.put(Cron.CRONJOBMAP_KEY_PROPERTIES, getProperties());
         jobMap.put(Cron.CRONJOBMAP_KEY_STATUS, getStatus() == null? "":getStatus().toString());
         jobMap.put(Cron.CRONJOBMAP_KEY_LASTRUN, getLastRun() != null?getLastRun().toString(): null);
+        jobMap.put(Cron.CRONJOBMAP_KEY_ACTIVE, new Boolean(active));
         
         return jobMap;
     }

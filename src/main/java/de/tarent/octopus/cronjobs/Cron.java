@@ -50,6 +50,7 @@ public class Cron extends Thread
     public static final String CRONJOBMAP_KEY_STATUS            = "status";
     public static final String CRONJOBMAP_KEY_ERROR             = "error";
     public static final String CRONJOBMAP_KEY_LASTRUN           = "lastrun";
+    public static final Object CRONJOBMAP_KEY_ACTIVE            = "active";
     
     private int CHECK_INTERVAL = 30000;
     private int TIMEBASE = 60000;
@@ -58,6 +59,7 @@ public class Cron extends Thread
     private Map jobs = null;
     
     private CronExporter cronExporter;
+    private File savePath;
     
     private static Logger logger = Logger.getLogger(Cron.class.getName());
 
@@ -66,16 +68,17 @@ public class Cron extends Thread
      * Standard constructor. Creates a new instance of the cron system.
      */
     
-    public Cron()
+    public Cron(File savePath)
     {
+        this.savePath = savePath;
         this.jobs = new HashMap();
         restoreBackup();
         this.start();
     }
 
-    public Cron(int timeBase)
+    public Cron(File savePath, int timeBase)
     {
-    	this();
+    	this(savePath);
     	this.TIMEBASE = timeBase;
     	this.CHECK_INTERVAL = timeBase / 2;
     }
@@ -408,8 +411,8 @@ public class Cron extends Thread
         
         public void run(){
             try {
-                
-                FileOutputStream fileOut = new FileOutputStream(new File(System.getProperty("java.io.tmpdir") + System.getProperty("file.separator") + "cronJobBackup"));
+                String moduleRootPath = savePath.getAbsolutePath();
+                FileOutputStream fileOut = new FileOutputStream(moduleRootPath + System.getProperty("file.separator") + "cronJobs.backup");
                 ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
             
                 objectOut.writeObject(getCronJobMaps());
@@ -430,7 +433,8 @@ public class Cron extends Thread
    private void restoreBackup(){
        
        Map result = null;
-       File backupFile = new File (System.getProperty("java.io.tmpdir") + System.getProperty("file.separator") + "cronJobBackup");
+       String moduleRootPath = savePath.getAbsolutePath();
+       File backupFile = new File (moduleRootPath + System.getProperty("file.separator") + "cronJobBackup");
        if (backupFile.exists()){
            try {
                 long filoeSize = backupFile.length();
@@ -587,6 +591,7 @@ public class Cron extends Thread
        
        Map resultMap = input;
        Map properties = input.get(Cron.CRONJOBMAP_KEY_PROPERTIES) != null ? (Map) input.get(Cron.CRONJOBMAP_KEY_PROPERTIES): new HashMap();
+       Map propertiesToAdd = new HashMap();
        
        for (Iterator iter = input.entrySet().iterator(); iter.hasNext();){
            Entry entry = (Entry) iter.next();
@@ -597,14 +602,16 @@ public class Cron extends Thread
            if (!key.equals(Cron.CRONJOBMAP_KEY_NAME) && !key.equals(Cron.CRONJOBMAP_KEY_PROPERTIES)
                && !key.equals(Cron.CRONJOBMAP_KEY_TYPE) && !key.equals(Cron.CRONJOBMAP_KEY_STATUS)
                && !key.equals(Cron.CRONJOBMAP_KEY_PROCEDURE) && !key.equals(Cron.CRONJOBMAP_KEY_ERRORPROCEDURE)
-               && !key.equals(Cron.CRONJOBMAP_KEY_LASTRUN) && !key.equals(Cron.CRONJOBMAP_KEY_ERROR)){
+               && !key.equals(Cron.CRONJOBMAP_KEY_LASTRUN) && !key.equals(Cron.CRONJOBMAP_KEY_ERROR) && !key.equals(Cron.CRONJOBMAP_KEY_ACTIVE)){
            
-                   properties.put(entry.getKey(), entry.getValue());
+                   propertiesToAdd.put(entry.getKey(), entry.getValue());
                    resultMap.remove(key);
             
            }
        }
        
+       properties.putAll(propertiesToAdd);
+           
        resultMap.put(Cron.CRONJOBMAP_KEY_PROPERTIES, properties);
        return resultMap;
    }
