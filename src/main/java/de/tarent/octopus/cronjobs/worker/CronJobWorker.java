@@ -1,5 +1,6 @@
 package de.tarent.octopus.cronjobs.worker;
 
+import java.lang.Thread.State;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -18,6 +19,7 @@ import de.tarent.octopus.server.OctopusContext;
 public class CronJobWorker {
     
     private Cron cronjobQueue;
+    private Thread cronThread; 
     private static Logger logger = Logger.getLogger(CronJobWorker.class.getName());
 
     
@@ -374,8 +376,14 @@ public class CronJobWorker {
     public void startCronJobRoutine(OctopusContext oc) {
         logger.log(Level.INFO, "Cron routine started");
         if (cronjobQueue == null)
-            cronjobQueue = new Cron(oc.moduleRootPath()); 
-        cronjobQueue.activateCron();       
+            cronjobQueue = new Cron( oc.moduleRootPath()); 
+        
+        cronjobQueue.activateCron();
+        
+        if (cronThread == null || cronThread.getState().equals(State.TERMINATED))
+            cronThread = new Thread(cronjobQueue);
+        
+        cronThread.start();
     }
     
     final static public String[] INPUT_STOPCRONJOBROUTINE = {};

@@ -15,6 +15,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.lang.Thread.State;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -37,7 +38,7 @@ import de.tarent.octopus.cronjobs.CronJob;
  * @author Michael Kleinhenz (m.kleinhenz@tarent.de)
  * @author Nils Neumaier (n.neumaier@tarent.de)
  */
-public class Cron extends Thread
+public class Cron implements Runnable
 {
     public static final int EXACT_CRONJOB = 1;
     public static final int INTERVAL_CRONJOB = 2;    
@@ -73,7 +74,6 @@ public class Cron extends Thread
         this.savePath = savePath;
         this.jobs = new HashMap();
         restoreBackup();
-        this.start();
     }
 
     public Cron(File savePath, int timeBase)
@@ -101,15 +101,6 @@ public class Cron extends Thread
     public void activateCron()
     {
         stopped = false;
-        State state = this.getState();
-        while (!state.equals(State.NEW) && !state.equals(State.RUNNABLE) && !state.equals(State.TERMINATED))
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        
-        this.run();
     }
     
     /**
