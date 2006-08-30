@@ -1,4 +1,4 @@
-/* $Id: TcResponseCreator.java,v 1.3 2006/03/30 14:49:27 christoph Exp $
+/* $Id: TcResponseCreator.java,v 1.4 2006/08/30 09:33:14 christoph Exp $
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
  * 
@@ -144,9 +144,7 @@ public class TcResponseCreator {
 		}
 	}
 
-    public void pushRPCOutputParams(TcConfig config, TcDirectCallResponse response, TcContent theContent, TcResponseDescription desc)
-        throws ResponseProcessingException {
-
+    public void pushRPCOutputParams(TcConfig config, TcDirectCallResponse response, TcContent theContent, TcResponseDescription desc) {
         // Wenn ein ContentType angegeben wurde, 
         // wurde dieser bereits im TcRequestCreator gesetzt.
         String contentType = theContent.getAsString("responseParams.ContentType");

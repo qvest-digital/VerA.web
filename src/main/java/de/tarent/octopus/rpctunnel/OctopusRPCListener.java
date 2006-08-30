@@ -29,7 +29,6 @@ package de.tarent.octopus.rpctunnel;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.logging.Logger;
 
 import de.tarent.octopus.client.OctopusConnection;
 import de.tarent.octopus.client.OctopusConnectionFactory;
@@ -37,19 +36,12 @@ import de.tarent.octopus.client.OctopusResult;
 import de.tarent.octopus.config.TcCommonConfig;
 import de.tarent.octopus.request.Octopus;
 
-
 class OctopusRPCListener implements RPCListener
 {
-    private TcCommonConfig octopusConfig = null;
-    private Octopus octopus = null;
     private static final String CONNECTION_NAME = "octopus";
     
-    private static Logger logger = Logger.getLogger(OctopusRPCListener.class.getName());
-
     public OctopusRPCListener(Octopus octopus, TcCommonConfig commonconfig)
     {
-        this.octopusConfig = commonconfig;
-        this.octopus = octopus;
     }
 
 	public Map execute(String myRole, String partnerRole, String module, String task, Map parameters)

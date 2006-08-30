@@ -41,8 +41,6 @@ import de.tarent.octopus.request.Octopus;
  */
 public class OctopusRPCTunnel 
 {	
-    private TcCommonConfig octopusConfig = null;
-    private Octopus octopus = null;
 	private OctopusRPCListener listener = null;
 
     public static final String ROLE_OCTOPUS = "octopus";
@@ -53,8 +51,6 @@ public class OctopusRPCTunnel
 	
 	private OctopusRPCTunnel(Octopus octopus, TcCommonConfig commonconfig) throws RPCTunnelUnavailableException
 	{
-        octopusConfig = commonconfig;
-        this.octopus = octopus;
 		try
 		{
 			listener = new OctopusRPCListener(octopus, commonconfig);
