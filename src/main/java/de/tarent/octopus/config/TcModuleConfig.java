@@ -1,4 +1,4 @@
-/* $Id: TcModuleConfig.java,v 1.14 2006/08/30 09:25:00 nils Exp $
+/* $Id: TcModuleConfig.java,v 1.15 2006/08/30 09:31:06 christoph Exp $
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
  * 
@@ -511,7 +511,7 @@ public class TcModuleConfig {
      * Liefert einen Parameter, der in der Config gesetzt wurde.
      */
     public String getParam(String key) {
-        return substituteVars((String) getField(configParams, key));
+        return (String)getParamAsObject(key);
     }
 
 
@@ -529,19 +529,27 @@ public class TcModuleConfig {
     }
 
     /**
-     * Ersetzt variablen in den Parameterwerten mit werten.
+     * Ersetzt variablen in den Parameterwerten mit Werten.
      * Im Moment wird nur:
-     *   ${HOME} => Homeverzeichnis 
+     *   ${HOME} => Homeverzeichnis
+     *   ${user.home} => Homeverzeichnis
+     *   ${module.path} => Modulverzeichnis
      * unterstützt.
      */
-    protected String substituteVars(String value) {
+    public String substituteVars(String value) {
         if (value == null)
             return null;
-        return value.replaceAll("\\$\\{HOME\\}", escapedUserHome);
+        value = value.replaceAll("\\$\\{HOME\\}", escapedUserHome);
+        value = value.replaceAll("\\$\\{user\\.home\\}", realPath.getAbsolutePath());
+        value = value.replaceAll("\\$\\{module\\.path\\}", realPath.getAbsolutePath());
+        return value;
     }
 
     public Object getParamAsObject(String key) {
-        return getField(configParams, key);
+    	Object result = getField(configParams, key);
+    	if (result instanceof String)
+    		return substituteVars((String)result);
+    	return result;
     }
 
 	protected Object getField(Map data, String key) {
