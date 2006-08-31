@@ -4,8 +4,11 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -113,7 +116,12 @@ public class CommonLoggingWorker {
 			for (Map.Entry<String, Map<String, String>> entry : configHandler.entrySet()) {
 				String handlername = entry.getKey();
 				Properties properties = new Properties();
-				properties.putAll(entry.getValue());
+				
+				for (Map.Entry<String, String> param : entry.getValue().entrySet()) {
+					String key = param.getKey();
+					String value = octopusContext.moduleConfig().substituteVars(param.getValue());
+					properties.put(key, value);
+				}
 				
 				logManager.setHandler(handlername, properties, null);
 			}
@@ -122,12 +130,55 @@ public class CommonLoggingWorker {
 		if (configLogger != null) {
 			for (Map.Entry<String, Map<String, String>> entry : configLogger.entrySet()) {
 				String loggername = entry.getKey();
+				String level = entry.getValue().get("level");
+				String handlers = entry.getValue().get("handlers");
 				
 				Properties properties = new Properties();
-				properties.setProperty(loggername + ".level", entry.getValue().get("level"));
-				properties.setProperty(loggername + ".handlers", entry.getValue().get("handlers"));
+				if (level != null && level.length() != 0)
+					properties.setProperty(loggername + ".level", level);
+				if (handlers != null && handlers.length() != 0)
+					properties.setProperty(loggername + ".handlers", handlers);
 				
 				logManager.readConfiguration(properties);
+			}
+		}
+	}
+
+	@WebMethod
+	public void changeHandlerLevels(
+			@Name("CONFIG:logging.level") @Optional(true) Map<String, Map<String, String>> configLevels) {
+		
+		if (configLevels != null) {
+			for (Map.Entry<String, Map<String, String>> entry : configLevels.entrySet()) {
+				String loggername = entry.getKey();
+				if (loggername.equals("root"))
+					loggername = "";
+				
+				if (logger.isLoggable(Level.INFO))
+					logger.log(Level.INFO, "Will change log level for handler of logger '" + loggername + "' with " + entry.getValue() + ".");
+				
+				List<Handler> handlers = Arrays.asList(Logger.getLogger(loggername).getHandlers());
+				if (logger.isLoggable(Level.INFO))
+					logger.log(Level.INFO, "Available handlers: " + handlers);
+				
+				for (Map.Entry<String, String> handlerToLevel : entry.getValue().entrySet()) {
+					String handlerpattern = handlerToLevel.getKey();
+					String level = handlerToLevel.getValue();
+					
+					if (level != null && level.length() != 0) {
+						for (Handler handler : handlers) {
+							if (handler.toString().contains(handlerpattern)) {
+								if (logger.isLoggable(Level.INFO))
+									logger.log(Level.INFO, "Change level of handler '" + handler + "' for logger '" + loggername + "' on '" + level + "'.");
+								try {
+									handler.setLevel(Level.parse(level));
+								} catch (IllegalArgumentException e) {
+									logger.log(Level.WARNING, "Bad level '" + level + "' for handler '" + handler + "' for logger '" + loggername + "'.");
+								}
+							}
+						}
+					}
+				}
 			}
 		}
 	}

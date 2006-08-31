@@ -34,12 +34,20 @@
 			<action name="appendLoggingHandler" worker="CommonLoggingWorker" />
 		</task>
 		
+		<task name="changeHandlerLevels" access="public" groups="Anonymous,User,Administrator">
+			<description>
+				Change the handler log leven for defined loggers.
+			</description>
+			<action name="changeHandlerLevels" worker="CommonLoggingWorker" />
+		</task>
+		
 		<task name="appendLoggingInformation" access="public" groups="Anonymous,User,Administrator">
 			<description>
 				Append logging information.
 			</description>
 			<doTask name="appendLoggingProperties"/>
 			<doTask name="appendLoggingHandler"/>
+			<doTask name="changeHandlerLevels"/>
 			<response type="soap" name="unused">
 				<param name="OutputFields" type="array">
 					<value>status</value>
