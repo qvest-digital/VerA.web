@@ -18,7 +18,7 @@
 	</contentWorkerDeklaration>
 	
 	<tasks>
-		<task name="appendLoggingProperties" access="private">
+		<task name="appendLoggingProperties" access="public" groups="Anonymous,User,Administrator">
 			<description>
 				Load the java.util.logging from the content parameter
 				"logging.property.file" or out of the module configuration
@@ -26,8 +26,8 @@
 			</description>
 			<action name="appendLoggingProperties" worker="CommonLoggingWorker" />
 		</task>
-
-		<task name="appendLoggingHandler" access="private">
+		
+		<task name="appendLoggingHandler" access="public" groups="Anonymous,User,Administrator">
 			<description>
 				Append some handler and loggers to the java.util.logging settings.
 			</description>
