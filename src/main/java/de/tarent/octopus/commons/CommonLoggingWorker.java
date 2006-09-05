@@ -94,7 +94,7 @@ public class CommonLoggingWorker {
 			// This will reset all other logging configurations and that
 			// is really evil and can be have side effects to other
 			// software producer that are running in the same vm.
-			LogManager.getInstance().readConfiguration(is);
+			getLogManager().readConfiguration(is);
 			
 			return true;
 		} else {
@@ -110,7 +110,7 @@ public class CommonLoggingWorker {
 			@Name("CONFIG:logging.handler") @Optional(true) Map<String, Map<String, String>> configHandler,
 			@Name("CONFIG:logging.logger") @Optional(true) Map<String, Map<String, String>> configLogger) {
 		
-		LogManager logManager = LogManager.getInstance();
+		LogManager logManager = getLogManager();
 		
 		if (configHandler != null) {
 			for (Map.Entry<String, Map<String, String>> entry : configHandler.entrySet()) {
@@ -181,5 +181,18 @@ public class CommonLoggingWorker {
 				}
 			}
 		}
+	}
+
+	/** {@link LogManager} instance for this common logging worker. */
+	protected LogManager logManagerInstance = LogManager.getInstance();
+
+	/**
+	 * Return one {@link LogManager} instance for all octopus actions
+	 * in this worker.
+	 * 
+	 * @return
+	 */
+	protected LogManager getLogManager() {
+		return logManagerInstance;
 	}
 }
