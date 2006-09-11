@@ -54,5 +54,12 @@
 				</param>
 			</response>
 		</task>
+		
+		<task name="initializeThreadLogger" access="private">
+			<description>
+				Initialize a thread logger for the current instance.
+			</description>
+			<action name="initializeThreadLogger" worker="CommonLoggingWorker" />
+		</task>
 	</tasks>
 </tcModuleConfig>

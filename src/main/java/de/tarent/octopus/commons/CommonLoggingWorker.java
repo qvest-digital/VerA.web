@@ -15,6 +15,7 @@ import java.util.logging.Logger;
 import javax.jws.WebMethod;
 
 import de.tarent.commons.logging.LogManager;
+import de.tarent.commons.logging.ThreadLogger;
 import de.tarent.commons.messages.Message;
 import de.tarent.commons.messages.MessageHelper;
 import de.tarent.octopus.content.annotation.Name;
@@ -181,6 +182,24 @@ public class CommonLoggingWorker {
 				}
 			}
 		}
+	}
+
+	/**
+	 * Initialize a thread logger for the current request thread with
+	 * the request id of the surroung webapplication server.
+	 * 
+	 * @param octopusContext
+	 */
+	@WebMethod
+	public void initializeThreadLogger(OctopusContext octopusContext) {
+		String threadId = octopusContext.getRequestObject().getRequestID();
+		final ThreadLogger threadLogger = ThreadLogger.createInstance(threadId);
+		
+		octopusContext.addCleanupCode(new Runnable() {
+			public void run() {
+				threadLogger.clean();
+			}
+		});
 	}
 
 	/** {@link LogManager} instance for this common logging worker. */
