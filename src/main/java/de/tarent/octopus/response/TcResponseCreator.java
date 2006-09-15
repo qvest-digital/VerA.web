@@ -1,4 +1,4 @@
-/* $Id: TcResponseCreator.java,v 1.4 2006/08/30 09:33:14 christoph Exp $
+/* $Id: TcResponseCreator.java,v 1.5 2006/09/15 07:57:03 christoph Exp $
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
  * 
@@ -77,7 +77,7 @@ public class TcResponseCreator {
      * Initialisierung mit Logger
      */
     public TcResponseCreator() {
-        responseEngines = new HashMap();
+        responseEngines = new LinkedHashMap();
     }
 
     /**
@@ -176,7 +176,7 @@ public class TcResponseCreator {
             }             
             return map;            
         } else {
-            HashMap map = new HashMap();
+            LinkedHashMap map = new LinkedHashMap();
             if (fieldsObject != null && fieldsObject.toString().length() != 0)
                 map.put(fieldsObject.toString(), fieldsObject.toString());
             return map;            

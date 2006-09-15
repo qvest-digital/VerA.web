@@ -1,4 +1,4 @@
-/* $Id: TcDirectCallResponse.java,v 1.5 2006/05/07 23:05:57 jens Exp $
+/* $Id: TcDirectCallResponse.java,v 1.6 2006/09/15 07:57:03 christoph Exp $
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
  * 
@@ -45,7 +45,7 @@ public class TcDirectCallResponse implements TcResponse {
     String contentType = null;
     int statusCode = -1;
     int cachingTime = -1;
-    HashMap header = null;
+    Map header = null;
     TcSOAPEngine soapEngine = null;
     String taskName = null;
     String moduleName = null;
@@ -61,7 +61,7 @@ public class TcDirectCallResponse implements TcResponse {
     public void addResponseObject(String responseObjectName, Object o) {
         if (responseObjects==null) {
             responseObjects = new LinkedList();
-            responseObjectsMap = new HashMap();
+            responseObjectsMap = new LinkedHashMap();
         }
         responseObjects.add(o);
         responseObjectsMap.put(responseObjectName, o);
@@ -185,7 +185,7 @@ public class TcDirectCallResponse implements TcResponse {
      */
     public void setHeader(String key, String value) {
         if (header == null)
-            header = new HashMap();
+            header = new LinkedHashMap();
         header.put(key,value);
     }
 

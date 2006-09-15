@@ -1,4 +1,4 @@
-/* $Id: TcTask.java,v 1.5 2006/08/01 09:08:10 christoph Exp $
+/* $Id: TcTask.java,v 1.6 2006/09/15 07:57:03 christoph Exp $
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
  * 
@@ -43,9 +43,9 @@ import de.tarent.octopus.util.ParamReference;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
@@ -286,7 +286,7 @@ public class TcTask {
      * Namen dieser MessageParts auf den jeweiligen MessagePart.
      */
     protected static Map partsListToMap(List parts) {
-        Map partsMap = new TreeMap();
+        Map partsMap = new LinkedHashMap();
         if (parts != null) {
             Iterator itParts = parts.iterator();
             while(itParts.hasNext()) {

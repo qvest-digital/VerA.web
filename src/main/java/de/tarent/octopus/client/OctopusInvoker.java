@@ -3,8 +3,8 @@ package de.tarent.octopus.client;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -138,7 +138,7 @@ public class OctopusInvoker {
 			throw new RuntimeException(Resources.getInstance().get("INTERNAL_CALL_NO_OCTOPUS_RESULT", module, task));
 		
 		// Transform data and make it more simple to use them.
-		Map data = new HashMap();
+		Map data = new LinkedHashMap();
 		for (Iterator it = or.getDataKeys(); it.hasNext(); ) {
 			String key = (String)it.next();
 			data.put(key, or.getData(key));

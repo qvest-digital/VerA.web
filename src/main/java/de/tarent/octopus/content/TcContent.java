@@ -1,4 +1,4 @@
-/* $Id: TcContent.java,v 1.2 2006/06/21 13:44:37 jens Exp $
+/* $Id: TcContent.java,v 1.3 2006/09/15 07:57:03 christoph Exp $
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
  * 
@@ -26,8 +26,8 @@
 
 package de.tarent.octopus.content;
 
-import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
@@ -72,7 +72,7 @@ public class TcContent {
      * Initialisiert den Content mit leeren Feldern und dem Status "ok".
      */
     public TcContent() {
-        theContent = new HashMap();
+        theContent = new LinkedHashMap();
         setStatus(TcContentWorker.RESULT_ok);
     }
 
@@ -84,7 +84,7 @@ public class TcContent {
      * @param e Exception, deren Meldungen aufgetreten sind.
      */
     public TcContent(Exception e) {
-        theContent = new HashMap();
+        theContent = new LinkedHashMap();
         setError(e);
     }
 
@@ -285,7 +285,7 @@ public class TcContent {
             if (node instanceof Map) {
                 newNode = ((Map) node).get(token);
                 if (newNode == null) {
-                    newNode = new HashMap();
+                    newNode = new LinkedHashMap();
                     ((Map) node).put(token, newNode);
                 }
             } else if (node instanceof List) {
@@ -301,7 +301,7 @@ public class TcContent {
 //                     ((Vector) node).setSize(index + 1);
                 newNode = ((List) node).get(index);
                 if (newNode == null) {
-                    newNode = new HashMap();
+                    newNode = new LinkedHashMap();
                     ((List) node).set(index, newNode);
                 }
             } else
