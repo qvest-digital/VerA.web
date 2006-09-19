@@ -1,22 +1,31 @@
 package de.tarent.octopus.cronjobs.test;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import de.tarent.octopus.cronjobs.Cron;
+
 public class TestProcedure implements Runnable {
     
+    private Logger logger = Logger.getLogger(TestProcedure.class.getName());
+
     private String ausgabe;
 
     public void run() {
         for (int i = 0; i < 6; i++){
             if (Thread.interrupted()){
-                System.out.println("THREAD INTERRUPTED");
+                logger.log(Level.WARNING,"THREAD INTERRUPTED");
                 break;
             }
             try {
                 Thread.sleep(2000);
             } catch (InterruptedException e) {
-                System.out.println("THREAD INTERRUPTED");
+                logger.log(Level.WARNING,"THREAD INTERRUPTED");
                 break;
             }
-            System.out.println("test... "+ i + " " + ausgabe);
+            logger.log(Level.INFO,"TEST " + i + ": " + ausgabe );
+            System.out.println("TEST " + i + ": " + ausgabe);
+            
         }
 
     }

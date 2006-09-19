@@ -222,7 +222,7 @@ public abstract class CronJob implements Runnable
                 errorMsg += "\n An Error occured while trying to invoke run-method of the error procedure " + errorProcedure;                
             }       
         }
-        
+        logger.log(Level.SEVERE, errorMsg);
         setErrorMessage(errorMsg + "\n" + e.getMessage() + "\n" + e.getCause()); 
     }
 

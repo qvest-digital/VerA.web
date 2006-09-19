@@ -59,7 +59,6 @@ public class Cron implements Runnable
     private boolean stopped = false;
     private Map jobs = null;
     
-    private CronExporter cronExporter;
     private File savePath;
     
     private static Logger logger = Logger.getLogger(Cron.class.getName());
@@ -115,16 +114,16 @@ public class Cron implements Runnable
         if (job == null)            
             return false;
         
-        if (jobs.containsKey(job.getName())){
-            CronJob oldJob = (CronJob)jobs.get(job.getName());
-            while(!oldJob.runnable()){
-               try {
-                Thread.sleep(CHECK_INTERVAL);
-                } catch (InterruptedException e) {
-                    // e.printStackTrace();
-                }
-            }   
-        }
+//        if (jobs.containsKey(job.getName())){
+//            CronJob oldJob = (CronJob)jobs.get(job.getName());
+//            while(!oldJob.runnable()){
+//               try {
+//                Thread.sleep(CHECK_INTERVAL);
+//                } catch (InterruptedException e) {
+//                    // e.printStackTrace();
+//                }
+//            }   
+//        }
         
         jobs.put(job.getName(), job);
         logger.log(Level.FINEST, "New Cronjob added to queue: " + job.getName());
@@ -187,10 +186,12 @@ public class Cron implements Runnable
                 e.printStackTrace();
             }
             
-            logger.log(Level.FINEST, "Cron is checking for Jobs to Start. " + new Date() );
             
             Thread storeThread = new Thread(new CronExporter()); 
             storeThread.start();
+            logger.log(Level.INFO, "Cron is storing Backup to " + savePath.getAbsolutePath() );
+            
+            logger.log(Level.FINEST, "Cron is checking for Jobs to Start. " + new Date() );
             
             List clonedJobs = new ArrayList(jobs.values());
             Iterator iter = clonedJobs.iterator();
@@ -425,10 +426,12 @@ public class Cron implements Runnable
        
        Map result = null;
        String moduleRootPath = savePath.getAbsolutePath();
-       File backupFile = new File (moduleRootPath + System.getProperty("file.separator") + "cronJobBackup");
+       File backupFile = new File (moduleRootPath + System.getProperty("file.separator") + "cronJobs.backup");
+       logger.log(Level.INFO, "Restoring Backup from " + backupFile.getAbsolutePath());
+       
        if (backupFile.exists()){
            try {
-                long filoeSize = backupFile.length();
+                //long fileSize = backupFile.length();
                 FileInputStream fileIn = new FileInputStream(backupFile);
                 ObjectInputStream objectInput = new ObjectInputStream(fileIn);
                 
