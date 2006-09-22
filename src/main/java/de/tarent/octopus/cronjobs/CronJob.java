@@ -8,6 +8,8 @@
 
 package de.tarent.octopus.cronjobs;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.lang.Thread.State;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -175,22 +177,27 @@ public abstract class CronJob implements Runnable
     public void runOnError(String errorMsg, Exception e){
         
         if (e.getClass() == SecurityException.class) {
-            errorMsg += "\n the underlying method is inaccessible.";
+            errorMsg += "\n the underlying method is inaccessible. ";
         }
         else if (e.getClass() == IllegalArgumentException.class ) {
-            errorMsg += "\n the number of actual and formal parameters differ, or an unwrapping conversion fails.";   
+            errorMsg += "\n the number of actual and formal parameters differ, or an unwrapping conversion fails. ";   
         }
         else if (e.getClass() == InstantiationException.class ) {
            
         } 
         else if (e.getClass() == InvocationTargetException.class) {
-            errorMsg += "\n the underlying method throws an exception.";
+            errorMsg += "\n the underlying method throws an exception. ";
             // Error while invocation of method
         }
         else if (e.getClass() == ClassNotFoundException.class){
             errorMsg += "\n the class cannot be located.";
             // Error while instantiation of class
         }
+        
+        StringWriter sw = new StringWriter();
+        e.printStackTrace(new PrintWriter(sw));
+        String stacktrace = sw.toString();
+        errorMsg += stacktrace;
         
         boolean procedureStarted = false;
         Class c = null;
@@ -200,7 +207,7 @@ public abstract class CronJob implements Runnable
             c = Class.forName(errorProcedure);
             runnableObject = c.newInstance();
         }catch (Exception ex){
-            errorMsg += "\n An Error occured while trying to instantiate the error procedure " + errorProcedure; 
+            errorMsg += "\n An Error occured while trying to instantiate the error procedure " + errorProcedure + ". "; 
         }
         
         if (runnableObject != null){
@@ -219,11 +226,11 @@ public abstract class CronJob implements Runnable
                     errorMsg += "\n An Error occured while trying to invoke run-method of the error procedure " + errorProcedure + ".\n No run-method found.";       
                 
             } catch (Exception exp) {
-                errorMsg += "\n An Error occured while trying to invoke run-method of the error procedure " + errorProcedure;                
+                errorMsg += "\n An Error occured while trying to invoke run-method of the error procedure " + errorProcedure + ". ";                
             }       
         }
         logger.log(Level.SEVERE, errorMsg);
-        setErrorMessage(errorMsg + "\n" + e.getMessage() + "\n" + e.getCause()); 
+        setErrorMessage(errorMsg + "\n" + e.getMessage() + "\n" + e.getCause() + ". "); 
     }
 
     public String getErrorProcedure() {
