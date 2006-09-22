@@ -199,7 +199,6 @@ public abstract class CronJob implements Runnable
         String stacktrace = sw.toString();
         errorMsg += stacktrace;
         
-        boolean procedureStarted = false;
         Class c = null;
         Object runnableObject = null;
         
@@ -226,7 +225,12 @@ public abstract class CronJob implements Runnable
                     errorMsg += "\n An Error occured while trying to invoke run-method of the error procedure " + errorProcedure + ".\n No run-method found.";       
                 
             } catch (Exception exp) {
-                errorMsg += "\n An Error occured while trying to invoke run-method of the error procedure " + errorProcedure + ". ";                
+                errorMsg += "\n An Error occured while trying to invoke run-method of the error procedure " + errorProcedure + ". ";
+                StringWriter sw2 = new StringWriter();
+                exp.printStackTrace(new PrintWriter(sw2));
+                String stacktrace2 = sw2.toString();
+                errorMsg += stacktrace2;
+                
             }       
         }
         logger.log(Level.SEVERE, errorMsg);
