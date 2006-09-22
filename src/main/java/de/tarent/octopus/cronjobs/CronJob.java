@@ -197,7 +197,7 @@ public abstract class CronJob implements Runnable
         StringWriter sw = new StringWriter();
         e.printStackTrace(new PrintWriter(sw));
         String stacktrace = sw.toString();
-        errorMsg += stacktrace;
+        errorMsg += "\n" + stacktrace;
         
         Class c = null;
         Object runnableObject = null;
@@ -229,7 +229,7 @@ public abstract class CronJob implements Runnable
                 StringWriter sw2 = new StringWriter();
                 exp.printStackTrace(new PrintWriter(sw2));
                 String stacktrace2 = sw2.toString();
-                errorMsg += stacktrace2;
+                errorMsg += "\n" + stacktrace2;
                 
             }       
         }
