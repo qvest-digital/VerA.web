@@ -1,4 +1,4 @@
-/* $Id: TcAll.java,v 1.3 2006/05/08 15:47:38 asteban Exp $
+/* $Id: TcAll.java,v 1.4 2006/09/25 06:26:17 asteban Exp $
  * 
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
@@ -41,6 +41,7 @@ import de.tarent.octopus.request.TcRequest;
 import de.tarent.octopus.server.OctopusContext;
 import de.tarent.octopus.server.Closeable;
 import java.util.ArrayList;
+import de.tarent.octopus.client.OctopusTask;
 
 
 /** 
@@ -139,7 +140,11 @@ public class TcAll
             setContent(fieldName, value);
         }
     }
-
+    
+    public OctopusTask getTask(String taskName) {
+        return request.getTask(taskName);
+    }
+    
     public void addCleanupCode(Closeable closeable) {
         addCleanupCodeInternal(closeable);
     }

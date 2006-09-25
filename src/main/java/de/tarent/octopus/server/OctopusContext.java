@@ -1,4 +1,4 @@
-/* $Id: OctopusContext.java,v 1.3 2006/05/08 15:47:38 asteban Exp $
+/* $Id: OctopusContext.java,v 1.4 2006/09/25 06:26:16 asteban Exp $
  * 
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
@@ -38,6 +38,7 @@ import de.tarent.octopus.config.TcConfig;
 import de.tarent.octopus.config.TcPersonalConfig;
 import de.tarent.octopus.request.TcRequest;
 import de.tarent.octopus.content.TcContent;
+import de.tarent.octopus.client.OctopusTask;
 
 /**
  * Kontext, in dem ein Worker im Octopus existiert.
@@ -83,7 +84,15 @@ public interface OctopusContext {
 	
 	public TcRequest getRequestObject();
 
-
+    /** 
+     * Returns an OctopusTask instance to the supplied task in the current module over the OctopusClient API.
+     * A call to this task uses the same session an therefore the same authentication. 
+     * On the other hand, the request and content are fresh. 
+     * @param taskName The name of the target task in this module
+     * @return A callable task for the target task in the current module
+     */
+    public OctopusTask getTask(String taskName);
+        
     /**
      * Adds the supplied object to the List of Cleanup-Objects in the Content.
      * After the processing of the request, the octopus will call the close() method for each of these objects.

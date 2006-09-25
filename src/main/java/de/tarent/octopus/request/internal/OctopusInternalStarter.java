@@ -1,4 +1,4 @@
-/* $Id: OctopusInternalStarter.java,v 1.2 2006/02/16 16:53:41 kirchner Exp $
+/* $Id: OctopusInternalStarter.java,v 1.3 2006/09/25 06:26:16 asteban Exp $
  * 
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
@@ -50,15 +50,26 @@ public class OctopusInternalStarter implements OctopusStarter {
 
     private static Logger logger = Logger.getLogger(OctopusStarter.class.getName());
 
-    // TODO: Derzeit hat ein OctopusStarter genau eine Session
-    TcSession tcSession = new TcDirectCallSession();
+    TcSession tcSession;
 
     Octopus octopus;
 
+    /**
+     * Creates an OctopusStarter with a new dummy Session
+     */
     public OctopusInternalStarter(Octopus octopus) {
         this.octopus = octopus;
+        tcSession = new TcDirectCallSession();
     }
 
+    /**
+     * Creates an OctopusStarter with the supplied session
+     */
+    public OctopusInternalStarter(Octopus octopus, TcSession session) {
+        this.octopus = octopus;
+        this.tcSession = session;
+    }
+    
     /**
      * Startet die Abarbeitung einer Anfrage
      */

@@ -1,4 +1,4 @@
-/* $Id: TcRequest.java,v 1.5 2006/07/31 16:52:08 christoph Exp $
+/* $Id: TcRequest.java,v 1.6 2006/09/25 06:26:16 asteban Exp $
  * 
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
@@ -32,6 +32,8 @@ import java.util.Iterator;
 import java.util.Map;
 
 import de.tarent.octopus.resource.Resources;
+import de.tarent.octopus.client.OctopusConnection;
+import de.tarent.octopus.client.OctopusTask;
 
 /** 
  * Datenkontainer zur Kapselung der Parameter einer Anfrage.
@@ -82,6 +84,28 @@ public class TcRequest {
 	public static final String PARAM_USERNAME = "username";
     public static final String PARAM_COOKIES = "cookies";
 
+
+    //
+    // Variablen
+    //
+    /** Request-ID, wichtig insbesondere beim Loggen */
+    private String requestID = "";
+	/** Passwort-Authentifizierung */
+    private PasswordAuthentication passwordAuthentication = null;
+    /** Request-Modul */
+    private String module = null;
+    /** Request-Task */
+    private String task = null;
+    /** Requestparameter */
+    private Map requestParameters = null;
+    /** Requesttyp, vergleiche REQUEST_TYPE_* */
+    private int requestType;
+    /** Flag: werden Cookies unterstützt? */
+	private boolean supportCookies = false;
+	/** Flag: werden Cookies gefordert? */
+	private boolean askForCookies = false;
+    /** The internal connection to same target module as the request object in the same octopus instance over the OctopusClient API */
+    OctopusConnection octopusConnection = null;
 
     //
     // öffentliche statische Methoden
@@ -506,24 +530,28 @@ public class TcRequest {
     protected String getTaskFromParams() {
         return (requestParameters != null) ? get(PARAM_TASK) : null;
     }
+
+    /** 
+     * Returns an OctopusTask instance to the supplied task in the current module over the OctopusClient API.
+     * A call to this task uses the same session an therefore the same authentication. 
+     * On the other hand, the request and content are fresh. 
+     * @param taskName The name of the target task in this module
+     * @return A callable task for the target task in the current module
+     */
+    public OctopusTask getTask(String taskName) {
+        return getOctopusConnection().getTask(taskName);
+    }
+
+    /** Returns the internal connection to same target module as the request object in the same octopus instance over the OctopusClient API */
+    public OctopusConnection getOctopusConnection() {
+        return octopusConnection;
+    }
+
+    /** Sets the internal connection to same target module as the request object in the same octopus instance over the OctopusClient API */
+    public void setOctopusConnection(final OctopusConnection newOctopusConnection) {
+        this.octopusConnection = newOctopusConnection;
+    }
     
-    //
-    // Variablen
-    //
-    /** Request-ID, wichtig insbesondere beim Loggen */
-    private String requestID = "";
-	/** Passwort-Authentifizierung */
-    private PasswordAuthentication passwordAuthentication = null;
-    /** Request-Modul */
-    private String module = null;
-    /** Request-Task */
-    private String task = null;
-    /** Requestparameter */
-    private Map requestParameters = null;
-    /** Requesttyp, vergleiche REQUEST_TYPE_* */
-    private int requestType;
-    /** Flag: werden Cookies unterstützt? */
-	private boolean supportCookies = false;
-	/** Flag: werden Cookies gefordert? */
-	private boolean askForCookies = false;
+
+    
 }

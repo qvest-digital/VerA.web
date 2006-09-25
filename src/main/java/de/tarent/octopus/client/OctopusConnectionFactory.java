@@ -1,4 +1,4 @@
-/* $Id: OctopusConnectionFactory.java,v 1.3 2006/02/16 16:53:41 kirchner Exp $
+/* $Id: OctopusConnectionFactory.java,v 1.4 2006/09/25 06:26:17 asteban Exp $
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
  * 
@@ -99,7 +99,7 @@ public class OctopusConnectionFactory {
             connections.put(connectionName, con);
             return con;
         }
-        throw new FactoryConfigurationException("Ander Verbindungstypen als directCall werden von der Factory noch nicht unterstützt.", null);
+        throw new FactoryConfigurationException("Andere Verbindungstypen als directCall, internal und remote werden von der Factory noch nicht unterstützt.", null);
     }
 
     public void setConfiguration(String connectionName, Map configValues) {
