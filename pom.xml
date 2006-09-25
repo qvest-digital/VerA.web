@@ -54,18 +54,19 @@
 				<directory>src/test/resources</directory>
 			</testResource>
 		</testResources>		
-	</build>	
 
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
           <configuration>
             <source>1.4</source>
             <target>1.4</target>
           </configuration>
-      </plugin>
-    </plugins>
+        </plugin>
+      </plugins>
+	</build>	
+
 
 	<!-- the dependencies that are required for this project -->
 	<dependencies>
