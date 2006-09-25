@@ -58,7 +58,7 @@ public abstract class CronJob implements Runnable
         
             
         // First try to instantiate procedure class
-          
+        	setErrorMessage(new String()); // Set Errormessage to empty String 
             Class c = null;
             Object runnableObject = null;
             
@@ -91,16 +91,16 @@ public abstract class CronJob implements Runnable
             try {
                 // Finally find the run()-method and start the procedure
                 for (int i = 0; i < m.length; i++){
-                    if (m[i].getName().equals("run"));
+                    if (m[i].getName().equals("run")) {
                         m[i].invoke(runnableObject, new Object[] {});
                         break;
+                    }
                 }
             } catch (Exception e) {
                 runOnError("Error trying to invoke run-method of procedure " + runnableObject.getClass(), e);
                 return;
             }
         //setLastRun(new Date());
-        setErrorMessage(new String()); // Set Errormessage to empty String 
     }
     
     //abstract public void run();
