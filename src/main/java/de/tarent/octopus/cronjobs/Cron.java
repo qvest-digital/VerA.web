@@ -15,7 +15,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.lang.Thread.State;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -29,6 +28,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import de.tarent.octopus.cronjobs.CronJob;
+import de.tarent.octopus.server.OctopusContext;
 
 /**
  * This implements a Unix(tm) style cron job system. To submit a job, subclass
@@ -59,6 +59,7 @@ public class Cron implements Runnable
     private boolean stopped = false;
     private Map jobs = null;
     
+    private OctopusContext octopusContext;
     private File savePath;
     
     private static Logger logger = Logger.getLogger(Cron.class.getName());
@@ -68,16 +69,17 @@ public class Cron implements Runnable
      * Standard constructor. Creates a new instance of the cron system.
      */
     
-    public Cron(File savePath)
+    public Cron(OctopusContext octopusContext, File savePath)
     {
+    	this.octopusContext = octopusContext;
         this.savePath = savePath;
         this.jobs = new HashMap();
         restoreBackup();
     }
 
-    public Cron(File savePath, int timeBase)
+    public Cron(OctopusContext octopusContext, File savePath, int timeBase)
     {
-    	this(savePath);
+    	this(octopusContext, savePath);
     	this.TIMEBASE = timeBase;
     	this.CHECK_INTERVAL = timeBase / 2;
     }
@@ -390,6 +392,13 @@ public class Cron implements Runnable
         return null;
     }
     
+    public void setOctopusContext(OctopusContext octopusContext) {
+    	this.octopusContext = octopusContext;
+    }
+    
+    public OctopusContext getOctopusContext() {
+    	return octopusContext;
+    }
     
     /**
      * This routine stores the actual list of cronjobs persistent on harddrive
@@ -488,7 +497,7 @@ public class Cron implements Runnable
        
        
        // Some Entries must be set or we will return null 
-       if (name == null || name.equals("")|| procedure == null || procedure.equals("")|| properties == null || type == null){
+       if (name == null || name.equals("")|| procedure == null || procedure.equals("")|| properties == null) {
            exceptionErrorMessage += "Error in Task setCronJob. One of the following Map entries has not been set or could not be used: " + "name: " + name + ", procedure: " + procedure + ", properties: " + properties + ", type: " + type + ". ";
            throw new Exception(exceptionErrorMessage);
        }
@@ -532,7 +541,7 @@ public class Cron implements Runnable
            
            // At least one parameter has to be set (!= -1)
            if (hour != -1 || minute != -1 || month != -1 || dayOfMonth != -1 || dayOfWeek != -1)
-               cronJob = new ExactCronJob(hour, minute, month, dayOfMonth, dayOfWeek);
+               cronJob = new ExactCronJob(this, hour, minute, month, dayOfMonth, dayOfWeek);
            
        }
        
@@ -547,7 +556,7 @@ public class Cron implements Runnable
             
            // intervalTime has to be set and must be greater than zero
            if (intervalTime  > 0) 
-               cronJob = new IntervalCronJob(intervalTime);
+               cronJob = new IntervalCronJob(this, intervalTime);
            else
                logger.log(Level.WARNING, "Error trying to create an IntervalCronJob. Entry '" + IntervalCronJob.PROPERTIESMAP_KEY_INTERVAL + "' in properties map has not been set or is lower than one.");
            

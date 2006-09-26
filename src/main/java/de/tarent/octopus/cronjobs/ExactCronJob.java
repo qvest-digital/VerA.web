@@ -8,11 +8,7 @@
 
 package de.tarent.octopus.cronjobs;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.Iterator;
 import java.util.Map;
-import java.util.Map.Entry;
-
 
 /**
  * This implements a CronJob that is either started on a exactly specified date
@@ -58,9 +54,6 @@ public class ExactCronJob extends CronJob
     private int dayOfMonth = -1;
     private int dayOfWeek = -1;
     
-    private Date lastRun = null;
-
-   
     /**
      * Creates a new ExactCronJob. This job will be run at an exact time either once or
      * multiple times on recurring time events. It closely resembles the unix cron system but
@@ -75,15 +68,15 @@ public class ExactCronJob extends CronJob
      * @param dayOfMonth The day of month, the job should be run.
      * @param dayOfWeek The day of week, the job should be run.
      */
-    public ExactCronJob(int hour, int minute, int month, int dayOfMonth, int dayOfWeek)
+    public ExactCronJob(Cron cron, int hour, int minute, int month, int dayOfMonth, int dayOfWeek)
     {
+    	super(cron);
+    	
         setHour(hour);
         setMinute(minute);
         setMonth(month);
         setDayOfMonth(dayOfMonth);
         setDayOfWeek(dayOfWeek);
-        
-        lastRun = new Date();
     }
     
     /**
@@ -93,9 +86,9 @@ public class ExactCronJob extends CronJob
      * @param hour The hour, the job should be run (24h clock).
      * @param minute The minute, the job should be run (24h clock).
      */
-    public ExactCronJob(int hour, int minute)
+    public ExactCronJob(Cron cron, int hour, int minute)
     {
-        this(hour, minute, -1, -1, -1);
+        this(cron, hour, minute, -1, -1, -1);
     }
 
     /**

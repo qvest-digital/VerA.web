@@ -77,7 +77,7 @@ public class CronJobWorker {
                 Map tmpMap = (Map)iter.next();
                 if (name == null || name.equals("") || (tmpMap.get(Cron.CRONJOBMAP_KEY_NAME)).equals(name)){
                     if (type == null || ((Integer)tmpMap.get(Cron.CRONJOBMAP_KEY_TYPE)).equals(type)){
-                        cronjobnames.add((String)tmpMap.get(Cron.CRONJOBMAP_KEY_NAME));
+                        cronjobnames.add(tmpMap.get(Cron.CRONJOBMAP_KEY_NAME));
                     }
                 }
             }
@@ -376,7 +376,7 @@ public class CronJobWorker {
     public void startCronJobRoutine(OctopusContext oc) {
         logger.log(Level.INFO, "Cron routine started");
         if (cronjobQueue == null)
-            cronjobQueue = new Cron( oc.moduleRootPath()); 
+            cronjobQueue = new Cron(oc.cloneContext(), oc.moduleRootPath()); 
         
         cronjobQueue.activateCron();
         

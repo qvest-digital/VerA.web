@@ -19,6 +19,8 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import de.tarent.octopus.server.Context;
+
 /**
  * This interface must be implemented when extending the cron system
  * with new job types. Please note that you'll also have to modify the
@@ -53,10 +55,22 @@ public abstract class CronJob implements Runnable
     private String errorMessage = new String();
     
     private Map properties;
-     
+    
+    private Cron cron;
+    
+    public CronJob(Cron cron) {
+    	this.cron = cron;
+    }
+    
+    public void setCron(Cron cron) {
+    	setCron(cron);
+    }
+    
+    public Cron getCron() {
+    	return cron;
+    }
+    
     public void run(){
-        
-            
         // First try to instantiate procedure class
         	setErrorMessage(new String()); // Set Errormessage to empty String 
             Class c = null;
@@ -88,6 +102,7 @@ public abstract class CronJob implements Runnable
                 }
             }
             
+            Context.addActive(getCron().getOctopusContext().cloneContext());
             try {
                 // Finally find the run()-method and start the procedure
                 for (int i = 0; i < m.length; i++){
@@ -100,6 +115,7 @@ public abstract class CronJob implements Runnable
                 runOnError("Error trying to invoke run-method of procedure " + runnableObject.getClass(), e);
                 return;
             }
+            Context.clear();
         //setLastRun(new Date());
     }
     
@@ -209,7 +225,8 @@ public abstract class CronJob implements Runnable
             errorMsg += "\n An Error occured while trying to instantiate the error procedure " + errorProcedure + ". "; 
         }
         
-        if (runnableObject != null){
+        if (runnableObject != null && c != null){
+        	Context.addActive(getCron().getOctopusContext().cloneContext());
             try {
                 boolean methodRunStarted = false;
                 Method m[] = c.getMethods();
@@ -230,8 +247,8 @@ public abstract class CronJob implements Runnable
                 exp.printStackTrace(new PrintWriter(sw2));
                 String stacktrace2 = sw2.toString();
                 errorMsg += "\n" + stacktrace2;
-                
-            }       
+            }
+            Context.clear();
         }
         logger.log(Level.SEVERE, errorMsg);
         setErrorMessage(errorMsg + "\n" + e.getMessage() + "\n" + e.getCause() + ". "); 

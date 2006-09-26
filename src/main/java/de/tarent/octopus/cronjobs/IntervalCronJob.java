@@ -8,8 +8,6 @@
 
 package de.tarent.octopus.cronjobs;
 
-import java.lang.reflect.Method;
-import java.util.Date;
 import java.util.Map;
 
 /**
@@ -31,8 +29,9 @@ public class IntervalCronJob extends CronJob
      * @param intervalMinutes
      * @param alreadyRunning    responisble for the behaviour of the job if this job is already running
      */
-    public IntervalCronJob(int intervalMinutes)
+    public IntervalCronJob(Cron cron, int intervalMinutes)
     {
+    	super(cron);
         this.intervalMinutes = intervalMinutes;
         //setLastRun(new Date());
     }
