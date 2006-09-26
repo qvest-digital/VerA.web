@@ -1,4 +1,4 @@
-/* $Id: TcAll.java,v 1.4 2006/09/25 06:26:17 asteban Exp $
+/* $Id: TcAll.java,v 1.5 2006/09/26 14:26:04 christoph Exp $
  * 
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
@@ -345,5 +345,22 @@ public class TcAll
 		public Object getSessionValueAsObject(String key) {
 			return session.get(key);
 		}
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public OctopusContext cloneContext() {
+		return cloneContext(true, true);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public OctopusContext cloneContext(boolean newRequest, boolean newContent) {
+		return new TcAll(
+				newRequest ? new TcRequest() : getRequestObject(),
+				newContent ? new TcContent() : getContentObject(),
+				getConfigObject());
 	}
 }

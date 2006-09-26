@@ -1,4 +1,4 @@
-/* $Id: OctopusContext.java,v 1.4 2006/09/25 06:26:16 asteban Exp $
+/* $Id: OctopusContext.java,v 1.5 2006/09/26 14:26:15 christoph Exp $
  * 
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
@@ -180,5 +180,28 @@ public interface OctopusContext {
 	
 	public void setError(Exception e);
 	
-	public void setError(String message);	
+	public void setError(String message);
+	
+	//===>  C L O N E  <===//
+	
+	/**
+	 * Return a new octopus context with an empty request an empty content.
+	 * 
+	 * @see #cloneContext(boolean, boolean)
+	 */
+	public OctopusContext cloneContext();
+
+	/**
+	 * Return a new octopus context. If the parameter <code>newRequest</code>
+	 * is <code>true</code> a new empty request will be created, otherwise
+	 * the new context will also use the current {@link TcRequest} instance.
+	 * If the parameter <code>newContent</code> is <code>true</code> a new
+	 * empty content will be created. Otherwise the current {@link TcContent}
+	 * will be used.
+	 * 
+	 * @param newRequest
+	 * @param newContent
+	 * @return
+	 */
+	public OctopusContext cloneContext(boolean newRequest, boolean newContent);
 }
