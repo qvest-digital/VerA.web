@@ -1,5 +1,5 @@
 /*
- * $Id: TcTaskManager.java,v 1.1.1.1 2005/11/21 13:33:37 asteban Exp $
+ * $Id: TcTaskManager.java,v 1.2 2006/09/26 18:24:26 christoph Exp $
  * tarent-octopus, Webservice Data Integrator and Applicationserver Copyright
  * (C) 2002 tarent GmbH
  * 
@@ -74,11 +74,11 @@ public class TcTaskManager {
     public static final String ON_ERROR_ACTION_RESUME_NEXT = "resumeNext";
 
 	/** Dieser String enthält die Aktion, die im Fehlerfall ausgeführt werden soll */
-	String onErrorAction = null;
+	private String onErrorAction = null;
 
 
     // Status der letzten aktion
-    String status;
+    private String status;
     
 
     /** Vom letzten ResponseNode erzeugte ResponseDescription 
@@ -118,30 +118,29 @@ public class TcTaskManager {
     public boolean doNextStep() 
         throws TcTaskProzessingException, TcContentProzessException {
 
-        TcTask.TNode positionNode = null;
+        if (position instanceof TcTask.ResponseNode) {
+            // createResponseDescription
+            TcTask.ResponseNode respNode = (TcTask.ResponseNode)position;
+            responseDescription = new TcResponseDescription(respNode.name, respNode.type);
+        	position.perform(this, context);
+            
+            // and return the end of Processing
+            return false;
+        }
+        
         try {
-            positionNode = next();
+        	position.perform(this, context);
+            return next();
         } catch (TcContentProzessException cpe) {
             if (ON_ERROR_ACTION_RESUME_NEXT.equalsIgnoreCase(getCurrentOnErrorAction())) {
                 logger.log(Level.WARNING, Resources.getInstance().get("TASK_MANAGER_LOG_ERROR_RESUME", tcRequest.getRequestID()), cpe);
                 status = TcContentWorker.RESULT_error;
                 theContent.setError(cpe);
+                return next();
             } else {
                 throw cpe;
             }
         }
-        if (positionNode instanceof TcTask.ResponseNode) {
-            
-            // createResponseDescription
-            TcTask.ResponseNode respNode = (TcTask.ResponseNode)positionNode;
-            responseDescription = new TcResponseDescription(respNode.name, respNode.type);
-                        
-            // and return the end of Processing
-            return false;
-        }
-        
-        // return, that furture actions are available
-        return true;        
     }
 
 	/**
@@ -152,10 +151,9 @@ public class TcTaskManager {
 	 *         Action zeigt, also als nächstes eine Action abgearbeitet werden
 	 *         soll. Wenn als nächstes die Response generiert werden soll wird
 	 *         false zurück gegeben.
+	 * @throws TcTaskProzessingException 
 	 */
-	protected TcTask.TNode next()
-            throws TcTaskProzessingException, TcContentProzessException {
-
+	protected boolean next() throws TcTaskProzessingException {
 		logger.finer("Next called with '" + status + "' at " + position);
 		if (position == null)
 			throw new TcTaskProzessingException("Position steht nicht auf einem Node Objekt. Das verarbeiten der Tasks muss mit start() beginnen.");
@@ -182,7 +180,7 @@ public class TcTaskManager {
 					parent = parent.getParent();
 				} else if (trace != null && trace.size() > 0) {
 					position = (TcTask.TNode) trace.remove(trace.size() - 1);
-					return next();
+					return true;
 				} else {
 					throw new TcTaskProzessingException(
 						"Unerwartetes Ende des Tasks bei: " + position);
@@ -190,8 +188,6 @@ public class TcTaskManager {
 			} while (next == null);
 		}
 
-        next.perform(this, context);
-        
 		// Jetzt sollte next auf dem nächsten Element stehen.
 		// Dieses kann also nun ausgewertet werden
 		if (next instanceof TcTask.SimpleGlue) {
@@ -217,8 +213,7 @@ public class TcTaskManager {
 			return next();
 		} else {
 			position = next;
-            return position;
-			//return ! (next instanceof TcTask.ResponseNode);
+            return true;
         }
 
 	}

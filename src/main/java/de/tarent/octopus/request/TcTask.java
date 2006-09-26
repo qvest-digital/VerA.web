@@ -1,4 +1,4 @@
-/* $Id: TcTask.java,v 1.6 2006/09/15 07:57:03 christoph Exp $
+/* $Id: TcTask.java,v 1.7 2006/09/26 18:24:26 christoph Exp $
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
  * 
@@ -428,8 +428,7 @@ public class TcTask {
             super(null);
             name = taskXmlTree.getAttribute(TASK_NAME_ATTRIBUTE_NAME);
             access = taskXmlTree.getAttribute(TASK_ACCESS_ATTRIBUTE_NAME);
-            String groupsString = taskXmlTree.getAttribute(TASK_GOUPS_ATTRIBUTE_NAME);
-            groups = groupsString.split("[,]");
+            groups = parseGroups(taskXmlTree.getAttribute(TASK_GOUPS_ATTRIBUTE_NAME));
 
             Element childNode = Xml.getFirstChildElement(taskXmlTree);
             if (childNode == null) {
@@ -448,6 +447,14 @@ public class TcTask {
             child = getTNode(childNode, this);
         }
 
+        protected String[] parseGroups(String groupsString) {
+        	String groupArray[] = groupsString.split("[,]");
+        	for (int i = 0; i < groupArray.length; i++) {
+        		groupArray[i] = groupArray[i].trim();
+        	}
+        	return groupArray;
+        }
+        
         public String getName() {
             return name;
         }
