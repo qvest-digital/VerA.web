@@ -78,7 +78,7 @@ public abstract class CronJob implements Runnable
                 String methodname = m[i].getName();
                 
                 if (methodname.startsWith("set")){
-                    String parameterName = methodname.substring(3).toLowerCase();
+                    String parameterName = Character.toLowerCase(methodname.charAt(3))+methodname.substring(4);
                     if (properties.containsKey(parameterName))
                         try {
                             m[i].invoke(runnableObject, new Object[] {properties.get(parameterName)});
