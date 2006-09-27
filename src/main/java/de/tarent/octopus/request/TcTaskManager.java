@@ -1,5 +1,5 @@
 /*
- * $Id: TcTaskManager.java,v 1.2 2006/09/26 18:24:26 christoph Exp $
+ * $Id: TcTaskManager.java,v 1.3 2006/09/27 11:50:04 asteban Exp $
  * tarent-octopus, Webservice Data Integrator and Applicationserver Copyright
  * (C) 2002 tarent GmbH
  * 
@@ -122,10 +122,6 @@ public class TcTaskManager {
             // createResponseDescription
             TcTask.ResponseNode respNode = (TcTask.ResponseNode)position;
             responseDescription = new TcResponseDescription(respNode.name, respNode.type);
-        	position.perform(this, context);
-            
-            // and return the end of Processing
-            return false;
         }
         
         try {
@@ -158,6 +154,10 @@ public class TcTaskManager {
 		if (position == null)
 			throw new TcTaskProzessingException("Position steht nicht auf einem Node Objekt. Das verarbeiten der Tasks muss mit start() beginnen.");
 
+        // end processing if it is a response node
+        if (position instanceof TcTask.ResponseNode)            
+            return false;
+
 		TcTask.TNode next = null;
 
 		// Entweder das erste Kind suchen
@@ -180,6 +180,8 @@ public class TcTaskManager {
 					parent = parent.getParent();
 				} else if (trace != null && trace.size() > 0) {
 					position = (TcTask.TNode) trace.remove(trace.size() - 1);
+                    // ATTENTION: the perform in a TNode is called twice,
+                    // because here we move the position pointer to the tnode again.
 					return true;
 				} else {
 					throw new TcTaskProzessingException(
@@ -190,11 +192,7 @@ public class TcTaskManager {
 
 		// Jetzt sollte next auf dem nächsten Element stehen.
 		// Dieses kann also nun ausgewertet werden
-		if (next instanceof TcTask.SimpleGlue) {
-			position = next;
-			return next();
-		}
-		else if (next instanceof TcTask.DoTaskNode) {
+        if (next instanceof TcTask.DoTaskNode) {
 			TcTask.DoTaskNode doTaskNode = (TcTask.DoTaskNode) next;
 			String callStatus = doTaskNode.doStatus;
 			if (callStatus == null || callStatus.length() == 0)
@@ -210,7 +208,7 @@ public class TcTaskManager {
 						+ "' bei: "
 						+ doTaskNode);
 			}
-			return next();
+			return true;
 		} else {
 			position = next;
             return true;

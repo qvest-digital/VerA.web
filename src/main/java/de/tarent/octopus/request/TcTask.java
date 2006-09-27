@@ -1,4 +1,4 @@
-/* $Id: TcTask.java,v 1.7 2006/09/26 18:24:26 christoph Exp $
+/* $Id: TcTask.java,v 1.8 2006/09/27 11:50:04 asteban Exp $
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
  * 
@@ -332,16 +332,6 @@ public class TcTask {
         return arg;
     }
     
-    //
-    // Innere Schnittstellen und Klassen
-    //
-    /**
-     * Diese Marker-Schnittstelle markiert TNodes, bei denen
-     * bei Suche nach der nächsten Aktion oder Response in simpler Weise
-     * fortgefahren werden soll bei der Suche. 
-     */
-    protected interface SimpleGlue {
-    }
 
     /**
      * Diese Klasse modelliert die Knoten der Taskbeschreibung. 
@@ -657,7 +647,7 @@ public class TcTask {
     /**
      * Diese Klasse modelliert status-Knoten in der Task-Beschreibung
      */
-    protected class StatusNode extends TNode implements SimpleGlue {
+    protected class StatusNode extends TNode {
 		protected TNode child;
         protected TNode next;
 
@@ -856,7 +846,7 @@ public class TcTask {
     /**
      * Diese Klasse modelliert param-Knoten in der Task-Beschreibung 
      */
-    protected class ParamNode extends TNode implements SimpleGlue {
+    protected class ParamNode extends TNode {
 		protected String name;
         protected Object value;
 
@@ -936,7 +926,7 @@ public class TcTask {
     /**
      * Diese Klasse modelliert comment-Knoten in der Task-Beschreibung.
      */
-    protected class CommentNode extends TNode implements SimpleGlue {
+    protected class CommentNode extends TNode {
         protected TNode next;
 
         protected String comment;
@@ -981,7 +971,7 @@ public class TcTask {
     /**
      * Diese Klasse beschreibt contract-Knoten in der Task-Beschreibung
      */
-    protected class ContractNode extends TNode implements SimpleGlue {
+    protected class ContractNode extends TNode {
 		protected TNode next;
 
         protected TcMessageDefinition input = new TcMessageDefinition(); 
