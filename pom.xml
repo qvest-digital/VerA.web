@@ -103,6 +103,12 @@
     	</dependency>
 
     	<dependency>
+      		<groupId>commons-discovery</groupId>
+      		<artifactId>commons-discovery</artifactId>
+      		<version>0.2</version>
+    	</dependency>
+
+    	<dependency>
       		<groupId>xmlrpc</groupId>
       		<artifactId>xmlrpc</artifactId>
       		<version>1.2-b1</version>
