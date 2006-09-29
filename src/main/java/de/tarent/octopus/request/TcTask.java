@@ -1,4 +1,4 @@
-/* $Id: TcTask.java,v 1.8 2006/09/27 11:50:04 asteban Exp $
+/* $Id: TcTask.java,v 1.9 2006/09/29 13:43:38 asteban Exp $
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
  * 
@@ -805,9 +805,6 @@ public class TcTask {
 
             if (type == null || type.length() == 0)
                 out.add(Resources.getInstance().get("TASK_ERROR_RESPONSE_NO_TYPE", this));
-
-            if (name == null || name.length() == 0)
-                out.add(Resources.getInstance().get("TASK_ERROR_RESPONSE_NO_NAME", this));
 
             return out;
         }
