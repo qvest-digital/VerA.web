@@ -226,30 +226,32 @@ public abstract class CronJob implements Runnable
             errorMsg += "\n An Error occured while trying to instantiate the error procedure " + errorProcedure + ". "; 
         }
         
-        if (runnableObject != null && c != null){
-            Context.addActive(getCron().getOctopusContext().cloneContext());
-            try {
-                boolean methodRunStarted = false;
-                Method m[] = c.getMethods();
-                // Finally find the run()-method and start the errorprocedure
-                for (int i = 0; i < m.length; i++){
-                    if (m[i].getName().equals("run")){
-                        m[i].invoke(runnableObject, new Object[] {});
-                        methodRunStarted = true;
-                        break;
-                    }
-                }
-                if (!methodRunStarted)
-                    errorMsg += "\n An Error occured while trying to invoke run-method of the error procedure " + errorProcedure + ".\n No run-method found.";       
-                
-            } catch (Exception exp) {
-                errorMsg += "\n An Error occured while trying to invoke run-method of the error procedure " + errorProcedure + ". ";
-                StringWriter sw2 = new StringWriter();
-                exp.printStackTrace(new PrintWriter(sw2));
-                String stacktrace2 = sw2.toString();
-                errorMsg += "\n" + stacktrace2;
-            }
-            Context.clear();
+        if (errorProcedure != null && errorProcedure.length() > 0 ){
+	        if (runnableObject != null && c != null){
+	            Context.addActive(getCron().getOctopusContext().cloneContext());
+	            try {
+	                boolean methodRunStarted = false;
+	                Method m[] = c.getMethods();
+	                // Finally find the run()-method and start the errorprocedure
+	                for (int i = 0; i < m.length; i++){
+	                    if (m[i].getName().equals("run")){
+	                        m[i].invoke(runnableObject, new Object[] {});
+	                        methodRunStarted = true;
+	                        break;
+	                    }
+	                }
+	                if (!methodRunStarted)
+	                    errorMsg += "\n An Error occured while trying to invoke run-method of the error procedure " + errorProcedure + ".\n No run-method found.";       
+	                
+	            } catch (Exception exp) {
+	                errorMsg += "\n An Error occured while trying to invoke run-method of the error procedure " + errorProcedure + ". ";
+	                StringWriter sw2 = new StringWriter();
+	                exp.printStackTrace(new PrintWriter(sw2));
+	                String stacktrace2 = sw2.toString();
+	                errorMsg += "\n" + stacktrace2;
+	            }
+	            Context.clear();
+	        }
         }
         logger.log(Level.SEVERE, errorMsg);
         setErrorMessage(errorMsg); 
@@ -316,4 +318,12 @@ public abstract class CronJob implements Runnable
     public void deactivate(){
         active = false;
     }
+
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
+	}
 }
