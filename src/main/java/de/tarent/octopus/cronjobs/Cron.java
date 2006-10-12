@@ -54,7 +54,7 @@ public class Cron implements Runnable
     public static final Object CRONJOBMAP_KEY_ACTIVE            = "active";
     
     private int CHECK_INTERVAL = 30000;
-    private int TIMEBASE = 60000;
+    private long TIMEBASE = 60000;
     
     private boolean stopped = false;
     private Map jobs = null;
@@ -494,6 +494,8 @@ public class Cron implements Runnable
        String errorProcedure   = (String)cronJobMap.get(Cron.CRONJOBMAP_KEY_ERRORPROCEDURE);
        Map properties          = (Map)cronJobMap.get(Cron.CRONJOBMAP_KEY_PROPERTIES);
        String errorMessage     = (String)cronJobMap.get(Cron.CRONJOBMAP_KEY_ERROR);
+       Boolean active		   = (Boolean)cronJobMap.get(Cron.CRONJOBMAP_KEY_ACTIVE);
+       String lastRun		   = (String)cronJobMap.get(Cron.CRONJOBMAP_KEY_LASTRUN);
        
        
        // Some Entries must be set or we will return null 
@@ -579,6 +581,12 @@ public class Cron implements Runnable
            cronJob.setProperties(properties);
            if (alreadyRunning != null)
                cronJob.setAlreadyRunning(alreadyRunning.intValue());
+           if (active != null)
+        	   cronJob.setActive(active.booleanValue());
+           else
+        	   cronJob.setActive(false);
+           if (lastRun != null && lastRun.length() > 0)
+        	   cronJob.setLastRun(new Date(lastRun));
        }
        
        return cronJob;

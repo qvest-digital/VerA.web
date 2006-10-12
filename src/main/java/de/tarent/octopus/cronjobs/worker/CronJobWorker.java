@@ -39,7 +39,20 @@ public class CronJobWorker {
     
     public Map setCronJob(Map cronJobMap) {
         
-        try{
+    	// If cronjob already exists and "active" or "errormessage" are not set in the new cronjobmap
+    	// we take the entries of the old cronjob that should get overwritten
+    	CronJob oldCronJob = cronjobQueue.getCronJobByName(cronJobMap.get(Cron.CRONJOBMAP_KEY_NAME).toString());
+    	if (oldCronJob != null){
+    		Map oldCronJobMap = oldCronJob.getCronJobMap();
+    		if (cronJobMap.get(Cron.CRONJOBMAP_KEY_ACTIVE) == null) 
+	    		cronJobMap.put(Cron.CRONJOBMAP_KEY_ACTIVE, oldCronJobMap.get(Cron.CRONJOBMAP_KEY_ACTIVE));
+	    	if (cronJobMap.get(Cron.CRONJOBMAP_KEY_ERROR) == null)
+	    		cronJobMap.put(Cron.CRONJOBMAP_KEY_ERROR, oldCronJobMap.get(Cron.CRONJOBMAP_KEY_ERROR));
+	    	if (cronJobMap.get(Cron.CRONJOBMAP_KEY_LASTRUN) == null)
+	    		cronJobMap.put(Cron.CRONJOBMAP_KEY_LASTRUN, oldCronJobMap.get(Cron.CRONJOBMAP_KEY_LASTRUN));
+	    }
+	    	
+    	try{
             CronJob cronJob = cronjobQueue.createCronJobFromCronJobMap(cronJobMap);
             if (cronJob != null && cronjobQueue.addJob(cronJob)){                
                 Map newCronJobMap = cronJob.getCronJobMap();
