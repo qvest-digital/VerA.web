@@ -44,8 +44,8 @@ public abstract class CronJob implements Runnable
     protected static final int timeToWaitForNextTry         = 5000; // milliseconds to wait if job is already running and alreadyRunning == ALREADY_RUNNING_WAIT
     protected static final int maxTimeToWait                = 25000; // wait max 25 seconds for finishing a cronjob 
     
-	private Date lastRun;
-	private Thread executionThread;
+    private Date lastRun;
+    private Thread executionThread;
     private int alreadyRunning = ALREADY_RUNNING_PARALLEL;
     private boolean active = true;
     
@@ -59,20 +59,20 @@ public abstract class CronJob implements Runnable
     private Cron cron;
     
     public CronJob(Cron cron) {
-    	this.cron = cron;
+        this.cron = cron;
     }
     
     public void setCron(Cron cron) {
-    	setCron(cron);
+        setCron(cron);
     }
     
     public Cron getCron() {
-    	return cron;
+        return cron;
     }
     
     public void run(){
         // First try to instantiate procedure class
-        	setErrorMessage(new String()); // Set Errormessage to empty String 
+            setErrorMessage(new String()); // Set Errormessage to empty String 
             Class c = null;
             Object runnableObject = null;
             
@@ -117,6 +117,7 @@ public abstract class CronJob implements Runnable
             }
             Context.clear();
         //setLastRun(new Date());
+        setErrorMessage(new String()); // Set Errormessage to empty String 
     }
     
     //abstract public void run();
@@ -124,8 +125,8 @@ public abstract class CronJob implements Runnable
     
     public void start()
     {
-    	executionThread = new Thread(this);
-    	executionThread.start();
+        executionThread = new Thread(this);
+        executionThread.start();
     }
     
     public boolean runnable()
@@ -133,8 +134,8 @@ public abstract class CronJob implements Runnable
         if (!active)
             return false;
         
-    	if(executionThread!= null && executionThread.isAlive())
-    	{
+        if(executionThread!= null && executionThread.isAlive())
+        {
             switch (alreadyRunning)
             {
                 case ALREADY_RUNNING_PARALLEL:  return true;
@@ -161,18 +162,18 @@ public abstract class CronJob implements Runnable
                                                  return true;}
                 case ALREADY_RUNNING_DROP:      return executionThread.getState() == Thread.State.TERMINATED;
             }
-    	}
-    	return true;
+        }
+        return true;
     }
     
     public Date getLastRun()
     {
-    	return lastRun;
+        return lastRun;
     }
     
     public void setLastRun(Date date)
     {
-    	lastRun = date;
+        lastRun = date;
     }
     public String getName() {
         return name;
@@ -226,7 +227,7 @@ public abstract class CronJob implements Runnable
         }
         
         if (runnableObject != null && c != null){
-        	Context.addActive(getCron().getOctopusContext().cloneContext());
+            Context.addActive(getCron().getOctopusContext().cloneContext());
             try {
                 boolean methodRunStarted = false;
                 Method m[] = c.getMethods();
@@ -251,7 +252,7 @@ public abstract class CronJob implements Runnable
             Context.clear();
         }
         logger.log(Level.SEVERE, errorMsg);
-        setErrorMessage(errorMsg + "\n" + e.getMessage() + "\n" + e.getCause() + ". "); 
+        setErrorMessage(errorMsg); 
     }
 
     public String getErrorProcedure() {
