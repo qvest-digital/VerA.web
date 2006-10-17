@@ -1,4 +1,4 @@
-/* $Id: TcRequestDispatcher.java,v 1.9 2006/08/08 12:41:37 christoph Exp $
+/* $Id: TcRequestDispatcher.java,v 1.10 2006/10/17 14:49:31 asteban Exp $
  * 
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
@@ -254,7 +254,7 @@ public class TcRequestDispatcher {
      * with the key {@link OctopusContext#CLEANUP_OBJECT_LIST "octopus.cleanup.objects"}.
      * During this process the cleanup list is emptied.
      */
-    public void processCleanupCode(String requestID, TcContent theContent) {
+    public static void processCleanupCode(String requestID, TcContent theContent) {
         Object cleanupObjectList = theContent.getAsObject(OctopusContext.CLEANUP_OBJECT_LIST);
         if (cleanupObjectList instanceof Collection) {
             for (Iterator iter = ((Collection)cleanupObjectList).iterator(); iter.hasNext();) {

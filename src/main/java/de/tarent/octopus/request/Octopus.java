@@ -1,4 +1,4 @@
-/* $Id: Octopus.java,v 1.11 2006/08/30 09:29:56 christoph Exp $
+/* $Id: Octopus.java,v 1.12 2006/10/17 14:49:31 asteban Exp $
  * 
  * Created on 18.09.2003
  * 
@@ -233,6 +233,7 @@ public class Octopus {
             while (taskmanager.doNextStep()) { /* Do nothing here */ }
             
         } finally {
+            TcRequestDispatcher.processCleanupCode(tcRequest.getRequestID(), context.getContentObject());
         	Context.clear();
         }
     }
