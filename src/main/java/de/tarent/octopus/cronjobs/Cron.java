@@ -191,7 +191,7 @@ public class Cron implements Runnable
             
             Thread storeThread = new Thread(new CronExporter()); 
             storeThread.start();
-            logger.log(Level.INFO, "Cron is storing Backup to " + savePath.getAbsolutePath() );
+            logger.log(Level.FINEST, "Cron is storing Backup to " + savePath.getAbsolutePath() );
             
             logger.log(Level.FINEST, "Cron is checking for Jobs to Start. " + new Date() );
             
