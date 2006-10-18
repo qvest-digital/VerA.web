@@ -626,4 +626,8 @@ public class Cron implements Runnable
        resultMap.put(Cron.CRONJOBMAP_KEY_PROPERTIES, properties);
        return resultMap;
    }
+   
+   public boolean isActivated(){
+	   return !stopped;
+   }
 }
