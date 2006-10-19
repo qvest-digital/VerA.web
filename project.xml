@@ -161,15 +161,5 @@
  				<war.bundle>true</war.bundle>
 			</properties>
 		</dependency>
-		
-		<dependency>
-			<groupId>de.tarent.octopus</groupId>
-			<artifactId>octopus-sync</artifactId>
-			<version>1.4</version>
-			<properties>
- 				<dist.bundle>true</dist.bundle>
-                <war.target.path>/OCTOPUS/lib</war.target.path>
-			</properties>
-		</dependency>
  	</dependencies>
 </project>

@@ -11,8 +11,6 @@
   </classpathentry>
   <classpathentry kind="var" path="MAVEN_REPO/de.tarent.octopus/jars/octopus-HEAD-SNAPSHOT.jar">
   </classpathentry>
-  <classpathentry kind="var" path="MAVEN_REPO/de.tarent.octopus/jars/octopus-sync-1.4.jar">
-  </classpathentry>
   <classpathentry kind="var" path="MAVEN_REPO/javax.servlet/jars/servlet-api-2.4.jar">
   </classpathentry>
   <classpathentry kind="var" path="MAVEN_REPO/log4j/jars/log4j-1.2.12.jar">
