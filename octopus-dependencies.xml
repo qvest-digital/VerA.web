@@ -7,18 +7,6 @@
 -->
 
 <project>
-    <name>octopus dependencies</name>
-    <shortDescription>This maven project file defines the dependencies of an octopus project.</shortDescription>
-    <description>
-    	<p>
-    		This maven project file defines the dependencies of an octopus project.
-    	</p>
-    	<p>
-			This file has duplicates in octopus/core/octopus-dependencies.xml
-			and octopus/webapp/octopus-dependencies.xml.
-			Always keep these files synchronized!
-    	</p>
-    </description>
 	<dependencies>
 		<dependency>
 			<groupId>log4j</groupId>
@@ -143,12 +131,11 @@
 		<dependency>
 			<groupId>axis</groupId>
 			<artifactId>axis-wsdl4j</artifactId>
-			<version>${octopus.axis.version}</version>
+			<version>1.5.1</version>
 			<properties>
 				<dist.bundle>true</dist.bundle>
 				<war.bundle>true</war.bundle>
 			</properties>
 		</dependency>
-
 	</dependencies>
 </project>
