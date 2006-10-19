@@ -1,4 +1,4 @@
-/* $Id: TcSOAPEngine.java,v 1.2 2006/10/19 08:13:22 jens Exp $
+/* $Id: TcSOAPEngine.java,v 1.3 2006/10/19 14:20:23 asteban Exp $
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
  * 
@@ -38,6 +38,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.zip.GZIPInputStream;
 
+import org.apache.axis.Constants;
+import org.apache.axis.encoding.DefaultSOAPEncodingTypeMappingImpl;
+import org.apache.axis.encoding.TypeMapping;
+import org.apache.axis.encoding.ser.SimpleDeserializerFactory;
+import org.apache.axis.encoding.ser.SimpleSerializerFactory;
 import org.apache.axis.AxisEngine;
 import org.apache.axis.AxisFault;
 import org.apache.axis.EngineConfiguration;
@@ -55,6 +60,7 @@ import org.xml.sax.SAXException;
 import de.tarent.octopus.request.TcEnv;
 import de.tarent.octopus.request.TcRequest;
 import de.tarent.octopus.resource.Resources;
+import java.io.File;
 
 /** 
  * Bereitstellung und Kapselung von SOAP Funktionalität
@@ -66,58 +72,44 @@ public class TcSOAPEngine {
     public static final String NAMESPACE_URI = "http://schemas.tarent.de/";
     public static final String NAMESPACE_URI_TC = NAMESPACE_URI + "tccontact";
 
-    // TODO: war default member, soll es auch wieder werden.
     public static AxisEngine engine;
-    // TODO: war default member, soll es auch wieder werden.
 
     TcEnv env;
-    //TypeMappingRegistryImpl regImpl;
 
     public TcSOAPEngine(TcEnv env) {
         this.env = env;
         
-        // because config is not yet parsed before soap engine initialization
-        // the config file file be assumed to be at WEB-INF/axis-config.wsdd
-        
-        /*if (env.getValueAsString(TcEnv.KEY_PATHS_AXIS_CONFIGURATION) != null || env.getValueAsString(TcEnv.KEY_PATHS_AXIS_CONFIGURATION) == "") {
-            String pathEngineConfiguration;
-	        if (env.getValueAsString(TcEnv.KEY_PATHS_AXIS_CONFIGURATION).startsWith("/"))
-	        	pathEngineConfiguration = env.getValueAsString(TcEnv.KEY_PATHS_AXIS_CONFIGURATION);
-	        else
-	        	pathEngineConfiguration = env.getValueAsString(TcEnv.KEY_PATHS_ROOT) + env.getValueAsString(TcEnv.KEY_PATHS_AXIS_CONFIGURATION);
-	        	
-	       	EngineConfiguration engineConfiguration = new FileProvider(pathEngineConfiguration);
-	       	engine = new AxisServer(engineConfiguration);
+        // TODO: It would be better to bind the SOAP-Engine to a specific module
+        //       and configure the type mapping for the modules of the octopus.
+        String axisConfigFile = env.getValueAsString(TcEnv.KEY_PATHS_ROOT) + "axis-config.wsdd";
+        if (new File(axisConfigFile).exists()) {
+            logger.info(Resources.getInstance().get("SOAPENGINE_LOG_USING_AXIS_CONFIGURATION_FILE",axisConfigFile));
+            EngineConfiguration engineConfiguration = new FileProvider(axisConfigFile);
+            engine = new AxisServer(engineConfiguration);
+        } else {
+            logger.info(Resources.getInstance().get("SOAPENGINE_LOG_USING_AXIS_DEFAULT_CONFIGURATION"));
+            engine = new AxisServer();
+            registerTypes(engine.getTypeMappingRegistry(), env);
         }
-        else*/
-        EngineConfiguration engineConfiguration = new FileProvider(env.getValueAsString(TcEnv.KEY_PATHS_ROOT) + "axis-config.wsdd");
-        engine = new AxisServer(engineConfiguration);
-
     }
 
     /**
-     * Registrieren der gewollten Type Mappings
-     * TODO: Configurierbar machen.
+     * Registrieren der gewollten Default Type Mappings, wenn keine Axis Konfiguration angegeben wurde
 	 * @deprecated not used since engine configuration is read from an engine configuration file
      */
     protected void registerTypes(TypeMappingRegistry reg, TcEnv env) {
-/*
-        //StringBuffer
-//         SingletonSerializerFactory sbFactory = 
-//             new SingletonSerializerFactory(new SimpleSerializer(StringBuffer.class, Constants.XSD_STRING));
-
-        //TypeMapping mapping = new TypeMappingImpl(null);
+        
         TypeMapping mapping = (TypeMapping) DefaultSOAPEncodingTypeMappingImpl.createWithDelegate(); 
         mapping.register(StringBuffer.class, 
                          Constants.XSD_STRING,
                          new SimpleSerializerFactory(StringBuffer.class, Constants.XSD_STRING),
                          new SimpleDeserializerFactory(String.class, Constants.XSD_STRING));
-
+        
         //mapping.setSupportedEncodings(Constants.URIS_SOAP_ENC);
         for (int i=0; i<Constants.URIS_SOAP_ENC.length; i++) {
             reg.register(Constants.URIS_SOAP_ENC[i], mapping);
         }
-        reg.registerDefault(mapping);*/
+        reg.registerDefault(mapping);
     }
 
 
