@@ -1,4 +1,4 @@
-/* $Id: TcSOAPEngine.java,v 1.1.1.1 2005/11/21 13:33:38 asteban Exp $
+/* $Id: TcSOAPEngine.java,v 1.2 2006/10/19 08:13:22 jens Exp $
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
  * 
@@ -40,14 +40,11 @@ import java.util.zip.GZIPInputStream;
 
 import org.apache.axis.AxisEngine;
 import org.apache.axis.AxisFault;
-import org.apache.axis.Constants;
+import org.apache.axis.EngineConfiguration;
 import org.apache.axis.Message;
 import org.apache.axis.MessageContext;
-import org.apache.axis.encoding.DefaultSOAPEncodingTypeMappingImpl;
-import org.apache.axis.encoding.TypeMapping;
+import org.apache.axis.configuration.FileProvider;
 import org.apache.axis.encoding.TypeMappingRegistry;
-import org.apache.axis.encoding.ser.SimpleDeserializerFactory;
-import org.apache.axis.encoding.ser.SimpleSerializerFactory;
 import org.apache.axis.message.RPCElement;
 import org.apache.axis.message.RPCParam;
 import org.apache.axis.message.SOAPEnvelope;
@@ -60,7 +57,7 @@ import de.tarent.octopus.request.TcRequest;
 import de.tarent.octopus.resource.Resources;
 
 /** 
- * Bereitstellung und Kapselung von SOAP Funktionalität
+ * Bereitstellung und Kapselung von SOAP FunktionalitÃ¤t
  * 
  * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
  */
@@ -78,27 +75,39 @@ public class TcSOAPEngine {
 
     public TcSOAPEngine(TcEnv env) {
         this.env = env;
+        
+        // because config is not yet parsed before soap engine initialization
+        // the config file file be assumed to be at WEB-INF/axis-config.wsdd
+        
+        /*if (env.getValueAsString(TcEnv.KEY_PATHS_AXIS_CONFIGURATION) != null || env.getValueAsString(TcEnv.KEY_PATHS_AXIS_CONFIGURATION) == "") {
+            String pathEngineConfiguration;
+	        if (env.getValueAsString(TcEnv.KEY_PATHS_AXIS_CONFIGURATION).startsWith("/"))
+	        	pathEngineConfiguration = env.getValueAsString(TcEnv.KEY_PATHS_AXIS_CONFIGURATION);
+	        else
+	        	pathEngineConfiguration = env.getValueAsString(TcEnv.KEY_PATHS_ROOT) + env.getValueAsString(TcEnv.KEY_PATHS_AXIS_CONFIGURATION);
+	        	
+	       	EngineConfiguration engineConfiguration = new FileProvider(pathEngineConfiguration);
+	       	engine = new AxisServer(engineConfiguration);
+        }
+        else*/
+        EngineConfiguration engineConfiguration = new FileProvider(env.getValueAsString(TcEnv.KEY_PATHS_ROOT) + "axis-config.wsdd");
+        engine = new AxisServer(engineConfiguration);
 
-//         regImpl = new TypeMappingRegistryImpl();
-//         registerTypes(regImpl, env);
-        //engine = new AxisServer(new MyAxisConfiguration(regImpl));        
-        //engine = new AxisServer(new FileProvider("/home/asteban/trash/axis.wsdd") );
-        engine = new AxisServer();
-        registerTypes(engine.getTypeMappingRegistry(), env);
     }
 
     /**
      * Registrieren der gewollten Type Mappings
      * TODO: Configurierbar machen.
+	 * @deprecated not used since engine configuration is read from an engine configuration file
      */
     protected void registerTypes(TypeMappingRegistry reg, TcEnv env) {
-
+/*
         //StringBuffer
 //         SingletonSerializerFactory sbFactory = 
 //             new SingletonSerializerFactory(new SimpleSerializer(StringBuffer.class, Constants.XSD_STRING));
 
         //TypeMapping mapping = new TypeMappingImpl(null);
-        TypeMapping mapping = DefaultSOAPEncodingTypeMappingImpl.create(); 
+        TypeMapping mapping = (TypeMapping) DefaultSOAPEncodingTypeMappingImpl.createWithDelegate(); 
         mapping.register(StringBuffer.class, 
                          Constants.XSD_STRING,
                          new SimpleSerializerFactory(StringBuffer.class, Constants.XSD_STRING),
@@ -108,7 +117,7 @@ public class TcSOAPEngine {
         for (int i=0; i<Constants.URIS_SOAP_ENC.length; i++) {
             reg.register(Constants.URIS_SOAP_ENC[i], mapping);
         }
-        reg.registerDefault(mapping);
+        reg.registerDefault(mapping);*/
     }
 
 
@@ -153,10 +162,10 @@ public class TcSOAPEngine {
     /**
      * Interpretiert die Eingabe als SOAP Message im RPC Style
      * 
-     * Alle Bestandteile der Aufrufe werden in Maps zurückgegeben.
+     * Alle Bestandteile der Aufrufe werden in Maps zurÃ¼ckgegeben.
      * Dabei wird der Methodenname unter dem Key "task" abgelegt,
      * der Namespace der Methode unter "taskNamespaceURI" und
-     * die Übergabeparameter unter ihren Namen. Sie können auch Maps
+     * die Ãœbergabeparameter unter ihren Namen. Sie kÃ¶nnen auch Maps
      * und Vektoren sein.
      */
     public void analyseSoapRequest(InputStream message, List headers, List modules, List tasks, List params) throws TcSOAPException {
@@ -256,7 +265,7 @@ public class TcSOAPEngine {
      * Vorsicht: Es werden nur Maps, Listen und Arrays traversiert. 
      * Wenn ein Array in einem anderen Datencontainer enthalten ist, wird es nicht gefunden
      * <br>
-     * TODO: Besser wäre natürlich ein direktes Deserialisieren als List durch Axis (derzeit nicht unterstützt).
+     * TODO: Besser wÃ¤re natÃ¼rlich ein direktes Deserialisieren als List durch Axis (derzeit nicht unterstÃ¼tzt).
      */
     protected Object replaceArrayWithList(Object o) {
         Object out = o;
@@ -271,7 +280,7 @@ public class TcSOAPEngine {
                 Object replacement = replaceArrayWithList(element);
 
                 // Hier ist ein echtes == gemeint, kein equals, 
-                // da nur ausgetauscht werden muss, wenn sich die Objektinstanz wirklich geändert hat.
+                // da nur ausgetauscht werden muss, wenn sich die Objektinstanz wirklich geÃ¤ndert hat.
                 if (replacement != element)
                     list.set(i, replacement);
             }            
@@ -285,7 +294,7 @@ public class TcSOAPEngine {
                 Object replacement = replaceArrayWithList(element);
 
                 // Hier ist ein echtes == gemeint, kein equals, 
-                // da nur ausgetauscht werden muss, wenn sich die Objektinstanz wirklich geändert hat.
+                // da nur ausgetauscht werden muss, wenn sich die Objektinstanz wirklich geÃ¤ndert hat.
                 if (replacement != element)
                     map.put(entry.getKey(), replacement);
             }            
@@ -294,7 +303,7 @@ public class TcSOAPEngine {
     }
 
     /**
-     * Diese Methode macht aus einem Header-Element eine Map.<br>
+     * Diese Methode macht aus einem Header-Element einn DOM Element.<br>
      * TODO: Dies ist noch auszuarbeiten 
      * 
      * @param headerPart Header-Element
@@ -307,8 +316,8 @@ public class TcSOAPEngine {
     
     /**
      * Erstellt einen Context mit Parametern der Nachricht
-     * Da unser System die Informationen, für die der MessageContext
-     * ist anderweitig bereit stellt, müssen wir da nicht viel rein tun.
+     * Da unser System die Informationen, fÃ¼r die der MessageContext
+     * ist anderweitig bereit stellt, mÃ¼ssen wir da nicht viel rein tun.
      */
     private MessageContext createMessageContext(AxisEngine engine) {
         MessageContext msgContext = new MessageContext(engine);
@@ -326,14 +335,14 @@ public class TcSOAPEngine {
     }
 
     /**
-     * Hängt einen GZIP Filter über den übergebenen Stream
+     * HÃ¤ngt einen GZIP Filter Ã¼ber den Ã¼bergebenen Stream
      */
     public static InputStream addGZIPFilterToInputStream(InputStream inStream) throws java.io.IOException {
         return new GZIPInputStream(inStream);
     }
 
     /**
-     * Soll Später einen PGP Filter über den übergebenen Stream legen.
+     * Soll SpÃ¤ter einen PGP Filter Ã¼ber den Ã¼bergebenen Stream legen.
      * Ist aber nocht nicht implementiert
      */
     public static InputStream addPGPFilterToInputStream(InputStream inStream) throws java.io.IOException {
@@ -344,7 +353,7 @@ public class TcSOAPEngine {
      * Liefert den Namespacebezeichner,
      * unter dem das Schema eines Modules festgelegt ist.
      *
-     * Im Moment wird einfach der Modulname an eine bestimmte URL angehängt
+     * Im Moment wird einfach der Modulname an eine bestimmte URL angehÃ¤ngt
      *
      * @param module Der Name eines Modules
      * @return Namespacebezeichner zu dem Modul
@@ -352,16 +361,16 @@ public class TcSOAPEngine {
     public String getNamespaceByModuleName(String module) {
         if (module == null || module.equals("") || module.equals("default"))
             return NAMESPACE_URI_TC;
-        return NAMESPACE_URI_TC + "/" + module;
+        return NAMESPACE_URI + module;
     }
 
     /**
-     * Liefert den Modulnamen, des Modules, das für einen bestimmter Namespace zuständig ist.
+     * Liefert den Modulnamen, des Modules, das fÃ¼r einen bestimmter Namespace zustÃ¤ndig ist.
      *
      * Im Moment wird der Modulname einfach aus der URI extrahiert.
      *
      * @param namespaceUri Namespacebezeichner zu dem Modul
-     * @return Zugehöriger Modulname
+     * @return ZugehÃ¶riger Modulname
      */
     public String getModuleNameFromNamespace(String namespaceUri) {
         logger.fine("namespace: " + namespaceUri + "\n TcPrefix: " + NAMESPACE_URI_TC);
@@ -371,7 +380,7 @@ public class TcSOAPEngine {
         else if (namespaceUri.startsWith(NAMESPACE_URI))
             out = namespaceUri.substring(NAMESPACE_URI.length());
         else
-            logger.fine("Namespace startet nicht mit erlaubten Präfixen");
+            logger.fine("Namespace startet nicht mit erlaubten PrÃ¤fixen");
 
         if (out.startsWith("/"))
             out = out.substring(1);
