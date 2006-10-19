@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import de.tarent.octopus.cronjobs.Cron;
 import de.tarent.octopus.cronjobs.CronJob;
 import de.tarent.octopus.cronjobs.ExactCronJob;
@@ -387,16 +388,16 @@ public class CronJobWorker {
     final static public String OUTPUT_STARTCRONJOBROUTINE = null;
     
     public void startCronJobRoutine(OctopusContext oc) {
-        logger.log(Level.INFO, "Cron routine started");
+    	
         if (cronjobQueue == null)
             cronjobQueue = new Cron(oc.cloneContext(), oc.moduleRootPath()); 
         
-        cronjobQueue.activateCron();
-        
-        if (cronThread == null || cronThread.getState().equals(State.TERMINATED))
-            cronThread = new Thread(cronjobQueue);
-        
-        cronThread.start();
+        if (cronThread == null || cronThread.getState().equals(State.TERMINATED) || !cronjobQueue.isActivated()){
+            cronjobQueue.activateCron();
+        	cronThread = new Thread(cronjobQueue);
+            cronThread.start();
+            logger.log(Level.INFO, "Cron routine started");
+        }
     }
     
     final static public String[] INPUT_STOPCRONJOBROUTINE = {};
