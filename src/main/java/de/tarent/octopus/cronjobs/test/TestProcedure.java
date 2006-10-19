@@ -3,8 +3,6 @@ package de.tarent.octopus.cronjobs.test;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import de.tarent.octopus.cronjobs.Cron;
-
 public class TestProcedure implements Runnable {
     
     private Logger logger = Logger.getLogger(TestProcedure.class.getName());
