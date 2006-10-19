@@ -188,7 +188,7 @@ public class CronJobWorker {
                 CronJob job = cronjobQueue.getCronJobByName(cronJobMap.get(Cron.CRONJOBMAP_KEY_NAME).toString());
                 
                 if (job != null){
-                    cronjobQueue.forceRun(job);
+                    cronjobQueue.forceRun(job, true);
                     Map returnMap = job.getCronJobMap();
                     return returnMap;
                 }

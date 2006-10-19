@@ -13,6 +13,7 @@ import java.io.StringWriter;
 import java.lang.Thread.State;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -131,7 +132,13 @@ public abstract class CronJob implements Runnable
     
     public boolean runnable()
     {
-        if (!active)
+    	return runnable(false);
+    }
+    
+    public boolean runnable(boolean ignoreDeactived)
+    {
+    	// If cronjob is deactivated and ignoreDeactived isnt set true, ABORT 
+        if (!active && !ignoreDeactived)
             return false;
         
         if(executionThread!= null && executionThread.isAlive())
@@ -293,7 +300,18 @@ public abstract class CronJob implements Runnable
         jobMap.put(Cron.CRONJOBMAP_KEY_ERROR, getErrorMessage());
         jobMap.put(Cron.CRONJOBMAP_KEY_PROPERTIES, getProperties());
         jobMap.put(Cron.CRONJOBMAP_KEY_STATUS, getStatus() == null? "":getStatus().toString());
-        jobMap.put(Cron.CRONJOBMAP_KEY_LASTRUN, getLastRun() != null?getLastRun().toString(): null);
+        if (getLastRun() != null){
+        	SimpleDateFormat formatter = new SimpleDateFormat("dd'.' MMMM yyyy',' HH:mm:ss");
+        	String lastRun = null;
+			try {
+				lastRun = formatter.format(getLastRun());
+			} catch (Exception e) {
+				logger.log(Level.WARNING, "Error during conversion of Date LastRun to String");
+			}        	
+			if (lastRun != null)
+        		jobMap.put(Cron.CRONJOBMAP_KEY_LASTRUN, lastRun);
+        }
+        
         jobMap.put(Cron.CRONJOBMAP_KEY_ACTIVE, new Boolean(active));
         
         return jobMap;

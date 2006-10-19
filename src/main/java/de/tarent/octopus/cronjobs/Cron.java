@@ -15,6 +15,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -307,8 +308,16 @@ public class Cron implements Runnable
      * @return
      */
     public boolean forceRun(CronJob job){
+    	return forceRun(job, false);
+    }
+    /**
+     * starts a cronjob immediately if it is runnable
+     * @param job
+     * @return
+     */
+    public boolean forceRun(CronJob job, boolean ignoreDeactived){
         
-        if (job.runnable()){
+        if (job.runnable(ignoreDeactived)){
             job.setLastRun(new Date());
             job.start();
             return true;
@@ -585,8 +594,18 @@ public class Cron implements Runnable
         	   cronJob.setActive(active.booleanValue());
            else
         	   cronJob.setActive(false);
-           if (lastRun != null && lastRun.length() > 0)
-        	   cronJob.setLastRun(new Date(lastRun));
+           if (lastRun != null && lastRun.length() > 0){
+        	   
+			try {
+				// Thu Oct 19 14:07:49 CEST 2006
+				SimpleDateFormat formatter = new SimpleDateFormat("dd'.' MMMM yyyy',' HH:mm:ss");
+				Date date = (Date) formatter.parse(lastRun);
+				if (date != null)
+					cronJob.setLastRun(date);
+			} catch (Exception e) {
+				logger.log(Level.WARNING, "Error trying to parse date " + lastRun +". Lastrun could not be set while saving cronjob.");
+			}        	   
+           }
        }
        
        return cronJob;
