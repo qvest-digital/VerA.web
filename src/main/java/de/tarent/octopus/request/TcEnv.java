@@ -1,4 +1,4 @@
-/* $Id: TcEnv.java,v 1.4 2006/05/17 11:41:47 asteban Exp $
+/* $Id: TcEnv.java,v 1.5 2006/10/30 08:45:16 asteban Exp $
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
  * 
@@ -364,6 +364,7 @@ public class TcEnv extends HashMap {
     public final static String KEY_LOGGING_COUNT = "logging.count";
     public final static String KEY_LOGGING_PORT = "logging.port";
     public final static String KEY_LOG_SOAP_REQUEST_LEVEL = "logging.soap.request.level";
+    public final static String KEY_USE_SOAP_NS_AS_MODULE = "useSOAPNSAsModule"; // default == true
     public final static String KEY_PATHS_CONFIG_ROOT = "paths.configRoot";
     public final static String KEY_PATHS_CONFIG_FILE = "paths.configFile";
     public final static String KEY_PATHS_MODULES = "paths.modules";

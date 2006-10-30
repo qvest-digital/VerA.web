@@ -1,4 +1,4 @@
-/* $Id: TcTask.java,v 1.9 2006/09/29 13:43:38 asteban Exp $
+/* $Id: TcTask.java,v 1.10 2006/10/30 08:45:16 asteban Exp $
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
  * 
@@ -54,6 +54,7 @@ import java.util.regex.Pattern;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import java.util.HashMap;
 
 /** 
  * Klasse zur Repräsentation eines Task
@@ -797,7 +798,19 @@ public class TcTask {
         protected void perform(TcTaskManager manager, OctopusContext context) 
             throws TcTaskProzessingException, TcContentProzessException {
             logger.log(Level.FINE, Resources.getInstance().get("TASK_STRING_PERFORMING_NODE", context.getRequestObject().getRequestID(), "ResponseNode", " type="+type+" name="+name));
-            context.setContent("responseParams", paramMap);
+
+            Map mapCopy = new HashMap();
+            mapCopy.putAll(paramMap);
+            
+            // replace ref values
+            for (Iterator iter = mapCopy.entrySet().iterator(); iter.hasNext();) {
+                Map.Entry me = (Map.Entry)iter.next();
+                if (me.getValue() instanceof ParamReference) {
+                    Object resolvedValue = context.getContextField(((ParamReference)me.getValue()).getRefvalue());
+                    mapCopy.put(me.getKey(), resolvedValue);
+                }
+            }
+            context.setContent("responseParams", mapCopy);
         }        
 
         public List getErrors() {
