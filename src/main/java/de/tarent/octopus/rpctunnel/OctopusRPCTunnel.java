@@ -90,7 +90,7 @@ public class OctopusRPCTunnel
 				octTunnel = new OctopusRPCTunnel(octopus, commonconfig);
 			} catch (RPCTunnelUnavailableException e) {
 				octTunnel = null;
-				logger.warning("RPC-tunnel is unavailable.");
+				logger.info("Octopus-RPC-tunnel is unavailable.");
 			}
 		}
 	}
