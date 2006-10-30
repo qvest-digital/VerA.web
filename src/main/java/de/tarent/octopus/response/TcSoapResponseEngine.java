@@ -1,4 +1,4 @@
-/* $Id: TcSoapResponseEngine.java,v 1.1.1.1 2005/11/21 13:33:38 asteban Exp $
+/* $Id: TcSoapResponseEngine.java,v 1.2 2006/10/30 08:44:20 asteban Exp $
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
  * 
@@ -55,6 +55,8 @@ public class TcSoapResponseEngine implements TcRPCResponseEngine, TcResponseEngi
     public void sendResponse(TcConfig config, TcResponse tcResponse, TcContent theContent, TcResponseDescription desc, TcRequest request)
         throws ResponseProcessingException {
 
+        TcSOAPEngine engine = tcResponse.getSoapEngine();
+
         // Wenn ein ContentType angegeben wurde, 
         // wurde dieser bereits im TcRequestCreator gesetzt.
         // Ansonsten wird text/xml für SOAP gesetzt.
@@ -62,13 +64,14 @@ public class TcSoapResponseEngine implements TcRPCResponseEngine, TcResponseEngi
         if (contentType == null)
             tcResponse.setContentType("text/xml");
 
-        TcSOAPEngine engine = tcResponse.getSoapEngine();
-        String namespace = engine.getNamespaceByModuleName(tcResponse.getModuleName());
+        String namespace = theContent.getAsString("responseParams.Namespace");
+        if (namespace == null)
+            namespace = engine.getNamespaceByModuleName(tcResponse.getModuleName());
+        
         String callingMethodName = tcResponse.getTaskName();
         RPCResponse rpcResponse = new RPCResponse(engine, namespace, callingMethodName);
 
         try {
-
             Map outputFields = TcResponseCreator.refineOutputFields(theContent.getAsObject(RPC_RESPONSE_OUTPUT_FIELDS));
             for (Iterator iter = outputFields.keySet().iterator(); iter.hasNext();) {
                 String fieldNameOutput = (String)iter.next();

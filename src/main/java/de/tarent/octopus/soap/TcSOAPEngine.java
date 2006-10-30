@@ -1,4 +1,4 @@
-/* $Id: TcSOAPEngine.java,v 1.3 2006/10/19 14:20:23 asteban Exp $
+/* $Id: TcSOAPEngine.java,v 1.4 2006/10/30 08:43:27 asteban Exp $
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
  * 
@@ -71,13 +71,18 @@ public class TcSOAPEngine {
     private static Logger logger = Logger.getLogger(TcSOAPEngine.class.getName());
     public static final String NAMESPACE_URI = "http://schemas.tarent.de/";
     public static final String NAMESPACE_URI_TC = NAMESPACE_URI + "tccontact";
-
+    
+    boolean useSOAPNSAsModule = true;
+    
     public static AxisEngine engine;
 
     TcEnv env;
 
     public TcSOAPEngine(TcEnv env) {
         this.env = env;
+        
+        if (null != env.getValue(TcEnv.KEY_USE_SOAP_NS_AS_MODULE))
+            useSOAPNSAsModule = env.getValueAsBoolean(TcEnv.KEY_USE_SOAP_NS_AS_MODULE);
         
         // TODO: It would be better to bind the SOAP-Engine to a specific module
         //       and configure the type mapping for the modules of the octopus.
@@ -366,17 +371,21 @@ public class TcSOAPEngine {
      */
     public String getModuleNameFromNamespace(String namespaceUri) {
         logger.fine("namespace: " + namespaceUri + "\n TcPrefix: " + NAMESPACE_URI_TC);
-        String out = "";
-        if (namespaceUri.startsWith(NAMESPACE_URI_TC))
-            out = namespaceUri.substring(NAMESPACE_URI_TC.length());
-        else if (namespaceUri.startsWith(NAMESPACE_URI))
-            out = namespaceUri.substring(NAMESPACE_URI.length());
-        else
-            logger.fine("Namespace startet nicht mit erlaubten Präfixen");
 
+        String out = ""; // default module
+        
+        if (useSOAPNSAsModule) {
+            if (namespaceUri.startsWith(NAMESPACE_URI_TC))
+                out = namespaceUri.substring(NAMESPACE_URI_TC.length());
+            else if (namespaceUri.startsWith(NAMESPACE_URI))
+                out = namespaceUri.substring(NAMESPACE_URI.length());
+            else
+                logger.fine("Namespace startet nicht mit erlaubten Präfixen");
+        } 
+        
         if (out.startsWith("/"))
             out = out.substring(1);
-
+        
         logger.fine("Modulname: " + out);
         return out;
     }
