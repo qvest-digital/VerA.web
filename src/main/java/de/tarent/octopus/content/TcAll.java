@@ -1,4 +1,4 @@
-/* $Id: TcAll.java,v 1.5 2006/09/26 14:26:04 christoph Exp $
+/* $Id: TcAll.java,v 1.6 2006/11/02 15:03:02 christoph Exp $
  * 
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
@@ -30,6 +30,7 @@ package de.tarent.octopus.content;
 import java.io.File;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -358,9 +359,13 @@ public class TcAll
 	 * {@inheritDoc}
 	 */
 	public OctopusContext cloneContext(boolean newRequest, boolean newContent) {
-		return new TcAll(
-				newRequest ? new TcRequest() : getRequestObject(),
-				newContent ? new TcContent() : getContentObject(),
-				getConfigObject());
+		TcRequest r = newRequest ? new TcRequest() : getRequestObject();
+		TcContent c = newContent ? new TcContent() : getContentObject();
+		if (newRequest)
+			r.setRequestParameters(new LinkedHashMap());
+		else
+			r.setRequestParameters(new LinkedHashMap(r.getRequestParameters()));
+		r.setModule(getModuleName());
+		return new TcAll(r, c, getConfigObject());
 	}
 }
