@@ -64,7 +64,7 @@ public class Cron implements Runnable
     private File savePath;
     
     private static Logger logger = Logger.getLogger(Cron.class.getName());
-
+    private static long cronExportCount = 0L;
     
     /**
      * Standard constructor. Creates a new instance of the cron system.
@@ -191,6 +191,7 @@ public class Cron implements Runnable
             
             
             Thread storeThread = new Thread(new CronExporter()); 
+            storeThread.setName("Cron Export Thread #" + (cronExportCount++));
             storeThread.start();
             logger.log(Level.FINEST, "Cron is storing Backup to " + savePath.getAbsolutePath() );
             

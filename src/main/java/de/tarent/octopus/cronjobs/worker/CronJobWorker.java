@@ -21,7 +21,7 @@ public class CronJobWorker {
     
     private Cron cronjobQueue;
     private Thread cronThread;
-    private static long cronThreadCount;
+    private static long cronThreadCount = 0L;
     private static Logger logger = Logger.getLogger(CronJobWorker.class.getName());
     
     /**

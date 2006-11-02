@@ -37,6 +37,8 @@ public abstract class CronJob implements Runnable
     Logger logger = Logger.getLogger(getClass().getName());
     public static final String PROPERTIESMAP_KEY_ALREADYRUNNING     = "alreadyrunning";
     
+    private static long cronJobCount = 0L;
+    
     public static final int ALREADY_RUNNING_PARALLEL     = 1;    // if job is already running a second instance is started parallel
     public static final int ALREADY_RUNNING_WAIT         = 2;    // if job is already running process waits until job is finished to start next job
     public static final int ALREADY_RUNNING_INTERRUPT    = 3;    // if job is already running the actual job will be interrupted before starting a new job
@@ -127,6 +129,7 @@ public abstract class CronJob implements Runnable
     public void start()
     {
         executionThread = new Thread(this);
+        executionThread.setName("Cron Job " + name + " #" + (cronJobCount++));
         executionThread.start();
     }
     
