@@ -20,9 +20,9 @@ import de.tarent.octopus.server.OctopusContext;
 public class CronJobWorker {
     
     private Cron cronjobQueue;
-    private Thread cronThread; 
+    private Thread cronThread;
+    private static long cronThreadCount;
     private static Logger logger = Logger.getLogger(CronJobWorker.class.getName());
-
     
     /**
      * this method creates a new cronjob. If a cronjob with the same name already exists, 
@@ -395,8 +395,9 @@ public class CronJobWorker {
         if (cronThread == null || cronThread.getState().equals(State.TERMINATED) || !cronjobQueue.isActivated()){
             cronjobQueue.activateCron();
         	cronThread = new Thread(cronjobQueue);
+        	cronThread.setName("Cron Managment Thread #" + (cronThreadCount++));
             cronThread.start();
-            logger.log(Level.INFO, "Cron routine started");
+            logger.log(Level.INFO, "Cron routine started.");
         }
     }
     
@@ -405,9 +406,10 @@ public class CronJobWorker {
     final static public String OUTPUT_STOPCRONJOBROUTINE = null;
     
     public void stopCronJobRoutine() {
-        
-        cronjobQueue.deactivateCron();
-       
+        if (cronjobQueue != null) {
+        	cronjobQueue.deactivateCron();
+        	logger.log(Level.INFO, "Cron routine stopped.");
+        }
     }
     /**
      * Set an error message into the current content.

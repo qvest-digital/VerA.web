@@ -599,7 +599,7 @@ public class Cron implements Runnable
 			try {
 				// Thu Oct 19 14:07:49 CEST 2006
 				SimpleDateFormat formatter = new SimpleDateFormat("dd'.' MMMM yyyy',' HH:mm:ss");
-				Date date = (Date) formatter.parse(lastRun);
+				Date date = formatter.parse(lastRun);
 				if (date != null)
 					cronJob.setLastRun(date);
 			} catch (Exception e) {
