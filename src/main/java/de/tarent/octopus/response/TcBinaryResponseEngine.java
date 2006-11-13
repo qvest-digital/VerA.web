@@ -1,4 +1,4 @@
-/* $Id: TcBinaryResponseEngine.java,v 1.6 2006/06/26 08:28:07 mley Exp $
+/* $Id: TcBinaryResponseEngine.java,v 1.7 2006/11/13 17:48:44 kleinhenz Exp $
  * 
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
@@ -297,7 +297,7 @@ public class TcBinaryResponseEngine implements TcResponseEngine {
 	 * @param filename
 	 * @return
 	 */
-	private String getMimeType(String filename) {
+	protected String getMimeType(String filename) {
 		if (filename.endsWith(".png")) {
 			return "image/png";
 		} else if (filename.endsWith(".gif")) {
