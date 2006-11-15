@@ -1,4 +1,4 @@
-/* $Id: OctopusRemoteTask.java,v 1.2 2006/11/15 10:38:13 hendrik Exp $
+/* $Id: OctopusRemoteTask.java,v 1.3 2006/11/15 10:56:04 hendrik Exp $
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
  * 
@@ -109,8 +109,6 @@ public class OctopusRemoteTask implements OctopusTask {
             xmlType = Constants.XSD_BOOLEAN;
         else if (paramValue instanceof Long)
             xmlType = Constants.XSD_LONG;
-        else if (paramValue instanceof Date)
-            xmlType = Constants.XSD_DATE;
         
         add(paramName, paramValue, xmlType);
         return this;
