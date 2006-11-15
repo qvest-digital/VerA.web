@@ -1,4 +1,4 @@
-/* $Id: OctopusRemoteTask.java,v 1.1.1.1 2005/11/21 13:33:38 asteban Exp $
+/* $Id: OctopusRemoteTask.java,v 1.2 2006/11/15 10:38:13 hendrik Exp $
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
  * 
@@ -93,8 +93,8 @@ public class OctopusRemoteTask implements OctopusTask {
     }
 
     /**
-     * @return Gibt eine Refferenz auf sich selbst zurück. 
-     *         Damit sind z.B. folgende Aufrufe möglich: add().add().add ...
+     * @return Gibt eine Refferenz auf sich selbst zurï¿½ck. 
+     *         Damit sind z.B. folgende Aufrufe mï¿½glich: add().add().add ...
      */
     public OctopusTask add(String paramName, Object paramValue) {
         if (paramName == null)
@@ -109,6 +109,8 @@ public class OctopusRemoteTask implements OctopusTask {
             xmlType = Constants.XSD_BOOLEAN;
         else if (paramValue instanceof Long)
             xmlType = Constants.XSD_LONG;
+        else if (paramValue instanceof Date)
+            xmlType = Constants.XSD_DATE;
         
         add(paramName, paramValue, xmlType);
         return this;
@@ -189,7 +191,7 @@ public class OctopusRemoteTask implements OctopusTask {
      * Vorsicht: Es werden nur Maps, Listen und Arrays traversiert. 
      * Wenn ein Array in einem anderen Datencontainer enthalten ist, wird es nicht gefunden
      * <br>
-     * TODO: Besser wäre natürlich ein direktes Deserialisieren als List durch Axis (derzeit nicht unterstützt).
+     * TODO: Besser wï¿½re natï¿½rlich ein direktes Deserialisieren als List durch Axis (derzeit nicht unterstï¿½tzt).
      */
     protected Object replaceArrayWithList(Object o) {
         Object out = o;
@@ -204,7 +206,7 @@ public class OctopusRemoteTask implements OctopusTask {
                 Object replacement = replaceArrayWithList(element);
 
                 // Hier ist ein echtes == gemeint, kein equals, 
-                // da nur ausgetauscht werden muss, wenn sich die Objektinstanz wirklich geändert hat.
+                // da nur ausgetauscht werden muss, wenn sich die Objektinstanz wirklich geï¿½ndert hat.
                 if (replacement != element)
                     list.set(i, replacement);
             }            
@@ -218,7 +220,7 @@ public class OctopusRemoteTask implements OctopusTask {
                 Object replacement = replaceArrayWithList(element);
 
                 // Hier ist ein echtes == gemeint, kein equals, 
-                // da nur ausgetauscht werden muss, wenn sich die Objektinstanz wirklich geändert hat.
+                // da nur ausgetauscht werden muss, wenn sich die Objektinstanz wirklich geï¿½ndert hat.
                 if (replacement != element)
                     map.put(entry.getKey(), replacement);
             }            
