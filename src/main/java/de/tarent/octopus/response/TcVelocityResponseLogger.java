@@ -1,4 +1,4 @@
-/* $Id: TcVelocityResponseLogger.java,v 1.1.1.1 2005/11/21 13:33:38 asteban Exp $
+/* $Id: TcVelocityResponseLogger.java,v 1.2 2006/11/23 14:33:30 schmitz Exp $
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
  * 
@@ -26,14 +26,15 @@
 
 package de.tarent.octopus.response;
 
-import java.util.logging.Logger;
-
+import org.apache.commons.logging.Log;
 import org.apache.velocity.runtime.RuntimeServices;
 import org.apache.velocity.runtime.log.LogSystem;
 
+import de.tarent.octopus.logging.LogFactory;
+
 public class TcVelocityResponseLogger implements LogSystem {
 	/** Der Logger */
-	private static Logger logger = Logger.getLogger(TcVelocityResponseLogger.class.getName());
+	private static Log logger = LogFactory.getLog(TcVelocityResponseLogger.class);
 
 	public TcVelocityResponseLogger () {
 		// do Nothing
@@ -46,16 +47,16 @@ public class TcVelocityResponseLogger implements LogSystem {
 	public void logVelocityMessage(int level, String message) {
 		switch (level) {
 			case 1:
-  				logger.finest(message);
+  				logger.trace(message);
 				break;
 			case 2:
-				logger.fine(message);
+				logger.debug(message);
 				break;
 			case 3:
-				logger.warning(message);
+				logger.warn(message);
 				break;
 			default:
-				logger.severe("[Unknown Level (" + level + ")] " + message);
+				logger.error("[Unknown Level (" + level + ")] " + message);
 				break;
 		}
 	}

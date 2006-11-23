@@ -1,4 +1,4 @@
-/* $Id: TcTask.java,v 1.10 2006/10/30 08:45:16 asteban Exp $
+/* $Id: TcTask.java,v 1.11 2006/11/23 14:33:30 schmitz Exp $
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
  * 
@@ -26,35 +26,35 @@
 
 package de.tarent.octopus.request;
 
-import de.tarent.octopus.server.OctopusContext;
-import de.tarent.octopus.content.*;
-import de.tarent.octopus.config.TcModuleConfig;
-import de.tarent.octopus.content.TcContentWorker;
-import de.tarent.octopus.content.TcMessageDefinition;
-import de.tarent.octopus.content.TcMessageDefinitionPart;
-import de.tarent.octopus.content.TcOperationDefinition;
-import de.tarent.octopus.content.TcPortDefinition;
-import de.tarent.octopus.content.TcContentWorkerFactory;
-import de.tarent.octopus.resource.Resources;
-import de.tarent.octopus.response.TcResponseCreator;
-import de.tarent.octopus.util.DataFormatException;
-import de.tarent.octopus.util.Xml;
-import de.tarent.octopus.util.ParamReference;
-
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.commons.logging.Log;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import java.util.HashMap;
+
+import de.tarent.octopus.config.TcModuleConfig;
+import de.tarent.octopus.content.TcContentProzessException;
+import de.tarent.octopus.content.TcContentWorker;
+import de.tarent.octopus.content.TcContentWorkerFactory;
+import de.tarent.octopus.content.TcMessageDefinition;
+import de.tarent.octopus.content.TcMessageDefinitionPart;
+import de.tarent.octopus.content.TcOperationDefinition;
+import de.tarent.octopus.content.TcPortDefinition;
+import de.tarent.octopus.logging.LogFactory;
+import de.tarent.octopus.resource.Resources;
+import de.tarent.octopus.response.TcResponseCreator;
+import de.tarent.octopus.server.OctopusContext;
+import de.tarent.octopus.util.DataFormatException;
+import de.tarent.octopus.util.ParamReference;
+import de.tarent.octopus.util.Xml;
 
 /** 
  * Klasse zur Repräsentation eines Task
@@ -70,7 +70,7 @@ public class TcTask {
     private TcMessageDefinition contractInput = null;
     private TcMessageDefinition contractOutput = null;
     
-    private static Logger logger = Logger.getLogger(TcTask.class.getName());
+    private static Log logger = LogFactory.getLog(TcTask.class);
 
     //
     // Konstanten
@@ -371,7 +371,7 @@ public class TcTask {
          */
         protected void perform(TcTaskManager manager, OctopusContext context) 
             throws TcTaskProzessingException, TcContentProzessException {
-            logger.log(Level.FINE, Resources.getInstance().get("TASK_STRING_PERFORMING_NODE", context.getRequestObject().getRequestID(),this.getClass().getName()));
+            logger.debug(Resources.getInstance().get("TASK_STRING_PERFORMING_NODE", context.getRequestObject().getRequestID(),this.getClass().getName()));
         }
 
         public TcMessageDefinition out(TcMessageDefinition out) {
@@ -519,12 +519,12 @@ public class TcTask {
         protected void perform(TcTaskManager manager, OctopusContext context) 
             throws TcTaskProzessingException, TcContentProzessException {
             String requestID = context.getRequestObject().getRequestID();
-            logger.log(Level.FINE, Resources.getInstance().get("TASK_STRING_PERFORMING_NODE", requestID, "ActionNode", "do action action="+name +" with worker="+worker));
+            logger.debug(Resources.getInstance().get("TASK_STRING_PERFORMING_NODE", requestID, "ActionNode", "do action action="+name +" with worker="+worker));
             try {
                 TcContentWorker workerInstance = TcContentWorkerFactory.getContentWorker(context.moduleConfig(), worker, requestID);
                 String status = workerInstance.doAction(context.getConfigObject(), name, context.getRequestObject(), context.getContentObject());
                 manager.setStatus(status);
-                logger.fine(Resources.getInstance()
+                logger.debug(Resources.getInstance()
                             .get("TASK_LOG_WORKER_CALLED",
                                  new Object[] { requestID, status, name, worker, workerInstance.getVersion()}));                            
             } catch(TcContentProzessException cpe) {
@@ -591,7 +591,7 @@ public class TcTask {
                     if (outPart != null && !outPart.isOptional()) {
                         String partType = part.getPartDataType();
                         if (!isSubTypeOf(outPart.getPartDataType(), partType))
-                            logger.warning(Resources.getInstance().get("TASK_ERROR_INNER_INCOMPATIBILITY", new Object[] {TcTask.this.getName(), name, part.getName(), partType, outPart.getPartDataType()}));
+                            logger.warn(Resources.getInstance().get("TASK_ERROR_INNER_INCOMPATIBILITY", new Object[] {TcTask.this.getName(), name, part.getName(), partType, outPart.getPartDataType()}));
                     } else
                     	in.addPart(part);
                 }
@@ -622,7 +622,7 @@ public class TcTask {
                 return theWorker.getWorkerDefinition().getOperation(name).getOutputMessage();
                 // Keine Fehlerbehandlung, da es hinterher eh static sein soll.
             } catch (Exception e) {
-                logger.log(Level.WARNING, Resources.getInstance().get("TASK_ERROR_WORKER_DESCRIPTION_ERROR", worker), e);
+                logger.warn(Resources.getInstance().get("TASK_ERROR_WORKER_DESCRIPTION_ERROR", worker), e);
             }
             return new TcMessageDefinition();
         }
@@ -635,7 +635,7 @@ public class TcTask {
                 return theWorker.getWorkerDefinition().getOperation(name).getInputMessage();
                 // Keine Fehlerbehandlung, da es hinterher eh static sein soll.
             } catch (Exception e) {
-                logger.log(Level.WARNING, Resources.getInstance().get("TASK_ERROR_WORKER_DESCRIPTION_ERROR", worker), e);
+                logger.warn(Resources.getInstance().get("TASK_ERROR_WORKER_DESCRIPTION_ERROR", worker), e);
             }
             return new TcMessageDefinition();
         }
@@ -791,13 +791,13 @@ public class TcTask {
             try {
                 paramMap = Xml.getParamMap(responseElement);
             } catch (DataFormatException dfe) {
-                logger.log(Level.WARNING, Resources.getInstance().get("TASK_ERROR_RESPONSE_PARAMS_SPURIOUS", this), dfe);
+                logger.warn(Resources.getInstance().get("TASK_ERROR_RESPONSE_PARAMS_SPURIOUS", this), dfe);
             }
         }
 
         protected void perform(TcTaskManager manager, OctopusContext context) 
             throws TcTaskProzessingException, TcContentProzessException {
-            logger.log(Level.FINE, Resources.getInstance().get("TASK_STRING_PERFORMING_NODE", context.getRequestObject().getRequestID(), "ResponseNode", " type="+type+" name="+name));
+            logger.debug(Resources.getInstance().get("TASK_STRING_PERFORMING_NODE", context.getRequestObject().getRequestID(), "ResponseNode", " type="+type+" name="+name));
 
             Map mapCopy = new HashMap();
             mapCopy.putAll(paramMap);
@@ -868,7 +868,7 @@ public class TcTask {
                 name = Xml.getParamName(paramElement);
                 value = Xml.getParamValue(paramElement);
             } catch (DataFormatException dfe) {
-                logger.log(Level.WARNING, Resources.getInstance().get("TASK_ERROR_PARAM_PARAMS_SPURIOUS", this), dfe);
+                logger.warn(Resources.getInstance().get("TASK_ERROR_PARAM_PARAMS_SPURIOUS", this), dfe);
             }
 
             Element nextNode = Xml.getNextSiblingElement(paramElement);
@@ -877,14 +877,14 @@ public class TcTask {
 
         protected void perform(TcTaskManager manager, OctopusContext context) 
             throws TcTaskProzessingException, TcContentProzessException {
-            logger.log(Level.FINE, Resources.getInstance().get("TASK_STRING_PERFORMING_NODE", context.getRequestObject().getRequestID(), "ParamNode", " name="+name+" value="+value));
+            logger.debug(Resources.getInstance().get("TASK_STRING_PERFORMING_NODE", context.getRequestObject().getRequestID(), "ParamNode", " name="+name+" value="+value));
             
             // TODO: Die Params müssten eigentlich rekursiv durchlaufen werden um alle darinliegenden ParamReference auf auflösen zu können
             Object resolvedValue = value;
             if (value instanceof ParamReference) {
                 resolvedValue = context.getContextField(((ParamReference)value).getRefvalue());
                 if (resolvedValue == null)
-                    logger.log(Level.FINE, Resources.getInstance().get("TASK_LOG_PARAM_RESOLVED_NULL", context.getRequestObject().getRequestID(), name));
+                    logger.debug(Resources.getInstance().get("TASK_LOG_PARAM_RESOLVED_NULL", context.getRequestObject().getRequestID(), name));
             }
             
             context.setContextField(name, resolvedValue);
@@ -1013,7 +1013,7 @@ public class TcTask {
                     // TODO: Test, ob schon enthalten, Vergleich
                     contractOutput.addPart(part);
                 } else {
-                    logger.warning(Resources.getInstance().get("TASK_ERROR_CONTRACT_PART_UNKNOWN", child.getNodeName(), part));
+                    logger.warn(Resources.getInstance().get("TASK_ERROR_CONTRACT_PART_UNKNOWN", child.getNodeName(), part));
                 }
             }
         }
@@ -1064,7 +1064,7 @@ public class TcTask {
 
         protected void perform(TcTaskManager manager, OctopusContext context) 
             throws TcTaskProzessingException, TcContentProzessException {
-            logger.log(Level.FINE, Resources.getInstance().get("TASK_STRING_PERFORMING_NODE", context.getRequestObject().getRequestID(), "OnErrorNode", "set action="+action));
+            logger.debug(Resources.getInstance().get("TASK_STRING_PERFORMING_NODE", context.getRequestObject().getRequestID(), "OnErrorNode", "set action="+action));
 			manager.setOnErrorAction(action);
         }        
 

@@ -1,4 +1,4 @@
-/* $Id: TcSecurityLDAPManager.java,v 1.2 2006/02/23 15:07:57 christoph Exp $
+/* $Id: TcSecurityLDAPManager.java,v 1.3 2006/11/23 14:33:30 schmitz Exp $
  * 
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
@@ -34,8 +34,6 @@ import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Map;
 import java.util.Vector;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.naming.AuthenticationException;
 import javax.naming.CommunicationException;
@@ -51,6 +49,9 @@ import javax.naming.directory.ModificationItem;
 import javax.naming.directory.SearchResult;
 import javax.naming.ldap.InitialLdapContext;
 
+import org.apache.commons.logging.Log;
+
+import de.tarent.octopus.logging.LogFactory;
 import de.tarent.octopus.security.TcSecurityException;
 
 /**
@@ -69,7 +70,7 @@ public class TcSecurityLDAPManager
 	private String baseDN;
 	private String relative;
 	public boolean login = false;
-	private static Logger logger = Logger.getLogger(TcSecurityLDAPManager.class.getName());
+	private static Log logger = LogFactory.getLog(TcSecurityLDAPManager.class);
 
 	/**
 	 * Erzeugt einen LDAPManager
@@ -105,13 +106,13 @@ public class TcSecurityLDAPManager
 	{
 	    
 	    //At first, search for uid
-	    logger.log(Level.FINE,"Doing login with userid " + username);
+	    logger.debug("Doing login with userid " + username);
 		String security_principal = username;
 		if (appendBaseDN)
 		{
 			security_principal =  getUserDN(username) + relative + baseDN;
 		}
-		logger.log(Level.FINE,"User is " + security_principal);
+		logger.debug("User is " + security_principal);
 		env.put(Context.SECURITY_AUTHENTICATION, authType);
 		env.put(Context.SECURITY_PRINCIPAL, security_principal);
 		env.put(Context.SECURITY_CREDENTIALS, passwort);
@@ -120,30 +121,30 @@ public class TcSecurityLDAPManager
 		{
 			//Versuche, LDAP-Verbindung herzustellen
 			if(lctx!=null){
-				logger.log(Level.FINE, "We are already logged in, closing connection...");
+				logger.debug("We are already logged in, closing connection...");
 				lctx.close();
 				lctx = null;
 			}
-			logger.log(Level.FINE, "Environment is: " + env.toString());
+			logger.debug("Environment is: " + env.toString());
 			lctx = new InitialLdapContext(env, null);
 			login = true;
 		} catch (AuthenticationException e)
 		{
 			//Falls die Authentification nicht stimmt
-            if (Level.INFO.equals(logger.getLevel()))
-                logger.log(Level.FINE, "Fehlerhafte Authenifizierung über LDAP.");
-            if (Level.FINE.equals(logger.getLevel()))
-                logger.log(Level.FINE, "Fehlerhafte Authenifizierung über LDAP.", e);
+            if (logger.isInfoEnabled())
+                logger.info("Fehlerhafte Authenifizierung über LDAP.");
+            if (logger.isDebugEnabled())
+                logger.debug("Fehlerhafte Authenifizierung über LDAP.", e);
 			throw new TcSecurityException(TcSecurityException.ERROR_AUTH_ERROR);
 
 		} catch (CommunicationException e)
 		{
 			//Falls LDAP-Server nicht erreichbar
-            logger.log(Level.SEVERE, "Der LDAP-Server ist nicht erreichbar, bitte versuchen Sie es später noch einmal.", e);
+            logger.error("Der LDAP-Server ist nicht erreichbar, bitte versuchen Sie es später noch einmal.", e);
 			throw new TcSecurityException(TcSecurityException.ERROR_SERVER_AUTH_ERROR);
 		} catch (NamingException e)
 		{
-            logger.log(Level.SEVERE, "Es ist ein Fehler bei der Kommunikation mit dem Authentifizierungs-Server aufgetreten, bitte versuchen Sie es später noch einmal.", e);
+            logger.error("Es ist ein Fehler bei der Kommunikation mit dem Authentifizierungs-Server aufgetreten, bitte versuchen Sie es später noch einmal.", e);
 			throw new TcSecurityException(TcSecurityException.ERROR_SERVER_AUTH_ERROR);
 		}
 	}
@@ -155,7 +156,7 @@ public class TcSecurityLDAPManager
 	 */
 	public void login() throws TcSecurityException
 	{
-		logger.log(Level.INFO, "Doing anonymous login...");
+		logger.info("Doing anonymous login...");
 		env.put(Context.SECURITY_AUTHENTICATION, "none");
 		try
 		{
@@ -164,11 +165,11 @@ public class TcSecurityLDAPManager
         } catch (CommunicationException e)
 		{
 			//Falls LDAP-Server nicht erreichbar
-            logger.log(Level.SEVERE, "Der LDAP-Server ist nicht erreichbar, bitte versuchen Sie es später noch einmal.", e);
+            logger.error("Der LDAP-Server ist nicht erreichbar, bitte versuchen Sie es später noch einmal.", e);
 			throw new TcSecurityException(TcSecurityException.ERROR_SERVER_AUTH_ERROR);
 		} catch (NamingException e)
 		{
-            logger.log(Level.SEVERE, "Es ist ein Fehler bei der Kommunikation mit dem Authentifizierungs-Server aufgetreten, bitte versuchen Sie es später noch einmal.", e);
+            logger.error("Es ist ein Fehler bei der Kommunikation mit dem Authentifizierungs-Server aufgetreten, bitte versuchen Sie es später noch einmal.", e);
 			throw new TcSecurityException(TcSecurityException.ERROR_SERVER_AUTH_ERROR);
 		}
 	}
@@ -191,7 +192,7 @@ public class TcSecurityLDAPManager
 		String gruppe)
 		throws TcSecurityException
 	{
-	    logger.log(Level.FINE, "Füge User " + userid + " hinzu.");
+	    logger.debug("Füge User " + userid + " hinzu.");
 		if(checkuid(userid)){modifyContactUser(userid, vorname, nachname, passwort, gruppe);}
 		else{
 			gruppe = sortGroup(gruppe);
@@ -242,7 +243,7 @@ public class TcSecurityLDAPManager
 		gruppe = sortGroup(gruppe);
 		
 		
-		logger.log(Level.FINE, "Modifiziere LDAP-User: " + userid);
+		logger.debug("Modifiziere LDAP-User: " + userid);
 		Vector mods = new Vector();
 		String password = "";
 		//Passwort generieren
@@ -291,7 +292,7 @@ public class TcSecurityLDAPManager
 		if(!this.checkAttribute(userid, "userPassword")){mods.add(new ModificationItem(DirContext.ADD_ATTRIBUTE, new BasicAttribute("userPassword", password)));		}
 		mods.add(new ModificationItem(DirContext.REPLACE_ATTRIBUTE, new BasicAttribute("userPassword", password)));
 		try {
-		    logger.log(Level.FINE, mods.toString());
+		    logger.debug(mods.toString());
 			lctx.modifyAttributes(getUserDN(userid)+relative+baseDN, (ModificationItem[]) mods.toArray(new ModificationItem[1]));
 		} catch (NamingException e2) {
 			throw new TcSecurityException(TcSecurityException.ERROR_SERVER_AUTH_ERROR, e2);
@@ -306,7 +307,7 @@ public class TcSecurityLDAPManager
 	 * @throws TcSecurityException Kapselt evtl auftretende NamingException
 	 */
 	public void modifyContactUserAttribute(String userid, String attribute, String value) throws TcSecurityException{
-		logger.log(Level.FINE, "Modifiziere Attribut " + attribute + " von: " + userid + " nach " + value);
+		logger.debug("Modifiziere Attribut " + attribute + " von: " + userid + " nach " + value);
 		
 		//Checke Attribute
 		Vector mods = new Vector();
@@ -316,7 +317,7 @@ public class TcSecurityLDAPManager
 		//try to modify user...
 		if(!mods.isEmpty()){
 			try {
-			    logger.log(Level.FINE, mods.toString());
+			    logger.debug(mods.toString());
 				lctx.modifyAttributes(getUserDN(userid)+relative+baseDN, (ModificationItem[]) mods.toArray(new ModificationItem[1]));
 			} catch (NamingException e2) {
 				throw new TcSecurityException(TcSecurityException.ERROR_SERVER_AUTH_ERROR, e2);
@@ -357,7 +358,7 @@ public class TcSecurityLDAPManager
 			}
 		}
 		try{
-		    logger.log(Level.FINE, ">>>>>>>>>>>>> Checke Attribut " + attribut + " von Object " + name);
+		    logger.debug(">>>>>>>>>>>>> Checke Attribut " + attribut + " von Object " + name);
 			BasicAttributes zusuchendeAttribute = new BasicAttributes(true);
 			zusuchendeAttribute.put( new BasicAttribute("uid", name));
 			zusuchendeAttribute.put( new BasicAttribute(attribut) );
@@ -391,7 +392,7 @@ public class TcSecurityLDAPManager
 		}
 		Attributes attributes;
         try {
-            logger.log(Level.FINE, ">>>>>>>>>>>>> Checke Attribut " + attribute + " von Object " + name + " auf Werrt " + wert);
+            logger.debug(">>>>>>>>>>>>> Checke Attribut " + attribute + " von Object " + name + " auf Werrt " + wert);
             attributes = lctx.getAttributes(getUserDN(name)+relative+baseDN);
             try {
                 Attribute test = attributes.get(attribute);
@@ -742,7 +743,7 @@ public class TcSecurityLDAPManager
         } catch (NamingException e) {
             throw new TcSecurityException("Es ist ein Fehler beim Holen der Userdaten aufgetreten! ", e);
         }
-        logger.log(Level.FINE, userdata.toString());
+        logger.debug(userdata.toString());
         return userdata;
     }
 

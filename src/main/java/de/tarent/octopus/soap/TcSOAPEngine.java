@@ -1,4 +1,4 @@
-/* $Id: TcSOAPEngine.java,v 1.4 2006/10/30 08:43:27 asteban Exp $
+/* $Id: TcSOAPEngine.java,v 1.5 2006/11/23 14:33:31 schmitz Exp $
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
  * 
@@ -26,6 +26,7 @@
 
 package de.tarent.octopus.soap;
 
+import java.io.File;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -34,33 +35,32 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.zip.GZIPInputStream;
 
-import org.apache.axis.Constants;
-import org.apache.axis.encoding.DefaultSOAPEncodingTypeMappingImpl;
-import org.apache.axis.encoding.TypeMapping;
-import org.apache.axis.encoding.ser.SimpleDeserializerFactory;
-import org.apache.axis.encoding.ser.SimpleSerializerFactory;
 import org.apache.axis.AxisEngine;
 import org.apache.axis.AxisFault;
+import org.apache.axis.Constants;
 import org.apache.axis.EngineConfiguration;
 import org.apache.axis.Message;
 import org.apache.axis.MessageContext;
 import org.apache.axis.configuration.FileProvider;
+import org.apache.axis.encoding.DefaultSOAPEncodingTypeMappingImpl;
+import org.apache.axis.encoding.TypeMapping;
 import org.apache.axis.encoding.TypeMappingRegistry;
+import org.apache.axis.encoding.ser.SimpleDeserializerFactory;
+import org.apache.axis.encoding.ser.SimpleSerializerFactory;
 import org.apache.axis.message.RPCElement;
 import org.apache.axis.message.RPCParam;
 import org.apache.axis.message.SOAPEnvelope;
 import org.apache.axis.message.SOAPHeaderElement;
 import org.apache.axis.server.AxisServer;
+import org.apache.commons.logging.Log;
 import org.xml.sax.SAXException;
 
+import de.tarent.octopus.logging.LogFactory;
 import de.tarent.octopus.request.TcEnv;
 import de.tarent.octopus.request.TcRequest;
 import de.tarent.octopus.resource.Resources;
-import java.io.File;
 
 /** 
  * Bereitstellung und Kapselung von SOAP Funktionalität
@@ -68,7 +68,7 @@ import java.io.File;
  * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
  */
 public class TcSOAPEngine {
-    private static Logger logger = Logger.getLogger(TcSOAPEngine.class.getName());
+    private static Log logger = LogFactory.getLog(TcSOAPEngine.class);
     public static final String NAMESPACE_URI = "http://schemas.tarent.de/";
     public static final String NAMESPACE_URI_TC = NAMESPACE_URI + "tccontact";
     
@@ -129,7 +129,7 @@ public class TcSOAPEngine {
      * @throws TcSOAPException
      */
     public TcRequest[] readSoapRequests(InputStream inStream, int requestType, String requestID) throws TcSOAPException {
-        logger.entering(TcSOAPEngine.class.getName(), "readSoapRequests", new Object[] {inStream, new Integer(requestType), requestID});
+        logger.trace(TcSOAPEngine.class.getName() + " readSoapRequests " + new Object[] {inStream, new Integer(requestType), requestID});
         
         if (inStream != null) {
             List moduleList = new ArrayList();
@@ -180,7 +180,7 @@ public class TcSOAPEngine {
         //         try {
         //             message = HttpHelper.logInput(message, env.get(TcEnv.KEY_LOG_SOAP_REQUEST_LEVEL), "SOAPENGINE_LOG_INPUT");
         //         } catch (IOException e1) {
-        //             logger.log(Level.WARNING, Resources.getInstance().get("SOAPENGINE_LOG_INPUT_LOG_ERROR"), e1);
+        //             logger.warn(Resources.getInstance().get("SOAPENGINE_LOG_INPUT_LOG_ERROR"), e1);
         //             throw new TcSOAPException(e1);
         // 		}
         
@@ -197,7 +197,7 @@ public class TcSOAPEngine {
             bodyElements = env.getBodyElements();
             headerElements = env.getHeaders();
 		} catch (AxisFault e) {
-            logger.log(Level.WARNING, Resources.getInstance().get("SOAPENGINE_LOG_SOAP_MSG_ERROR"), e);
+            logger.warn(Resources.getInstance().get("SOAPENGINE_LOG_SOAP_MSG_ERROR"), e);
             throw new TcSOAPException(e);
 		}
         if (bodyElements != null)
@@ -215,10 +215,10 @@ public class TcSOAPEngine {
             tasks.add(rpcElem.getMethodName());
             params.add(bodyPartToMap(rpcElem));
         } catch(SAXException ex) {
-            logger.log(Level.WARNING, Resources.getInstance().get("SOAPENGINE_LOG_SAX_BODY_ERROR"), ex);
+            logger.warn(Resources.getInstance().get("SOAPENGINE_LOG_SAX_BODY_ERROR"), ex);
             throw new TcSOAPException(ex);
         } catch(ClassCastException cce) {
-            logger.log(Level.WARNING, Resources.getInstance().get("SOAPENGINE_LOG_CAST_BODY_ERROR"), cce);
+            logger.warn(Resources.getInstance().get("SOAPENGINE_LOG_CAST_BODY_ERROR"), cce);
             throw new TcSOAPException(cce);
         }
         logger.info("BODIES: " + params);
@@ -228,10 +228,10 @@ public class TcSOAPEngine {
             SOAPHeaderElement hdrElem = (SOAPHeaderElement) itElements.next();
             headers.add(headerPartToMap(hdrElem));
         } catch(SAXException ex) {
-            logger.log(Level.WARNING, Resources.getInstance().get("SOAPENGINE_LOG_SAX_HEADER_ERROR"), ex);
+            logger.warn(Resources.getInstance().get("SOAPENGINE_LOG_SAX_HEADER_ERROR"), ex);
             throw new TcSOAPException(ex);
         } catch(ClassCastException cce) {
-            logger.log(Level.WARNING, Resources.getInstance().get("SOAPENGINE_LOG_CAST_HEADER_ERROR"), cce);
+            logger.warn(Resources.getInstance().get("SOAPENGINE_LOG_CAST_HEADER_ERROR"), cce);
             throw new TcSOAPException(cce);
         }
         logger.info("HEADERS: " + headers);
@@ -370,7 +370,7 @@ public class TcSOAPEngine {
      * @return Zugehöriger Modulname
      */
     public String getModuleNameFromNamespace(String namespaceUri) {
-        logger.fine("namespace: " + namespaceUri + "\n TcPrefix: " + NAMESPACE_URI_TC);
+        logger.debug("namespace: " + namespaceUri + "\n TcPrefix: " + NAMESPACE_URI_TC);
 
         String out = ""; // default module
         
@@ -380,13 +380,13 @@ public class TcSOAPEngine {
             else if (namespaceUri.startsWith(NAMESPACE_URI))
                 out = namespaceUri.substring(NAMESPACE_URI.length());
             else
-                logger.fine("Namespace startet nicht mit erlaubten Präfixen");
+                logger.debug("Namespace startet nicht mit erlaubten Präfixen");
         } 
         
         if (out.startsWith("/"))
             out = out.substring(1);
         
-        logger.fine("Modulname: " + out);
+        logger.debug("Modulname: " + out);
         return out;
     }
 

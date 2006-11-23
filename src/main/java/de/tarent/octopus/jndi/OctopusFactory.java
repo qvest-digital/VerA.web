@@ -1,5 +1,5 @@
 /*
- * $Id: OctopusFactory.java,v 1.4 2006/02/23 15:07:57 christoph Exp $
+ * $Id: OctopusFactory.java,v 1.5 2006/11/23 14:33:30 schmitz Exp $
  * 
  * Created on 14.06.2005
  */
@@ -7,8 +7,6 @@ package de.tarent.octopus.jndi;
 
 import java.io.Serializable;
 import java.util.Hashtable;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -16,6 +14,9 @@ import javax.naming.Name;
 import javax.naming.NamingException;
 import javax.naming.spi.ObjectFactory;
 
+import org.apache.commons.logging.Log;
+
+import de.tarent.octopus.logging.LogFactory;
 import de.tarent.octopus.server.OctopusContext;
 
 /**
@@ -36,7 +37,7 @@ public class OctopusFactory implements ObjectFactory, OctopusReferences, Seriali
     /** Serialisierungs-ID */
     private static final long serialVersionUID = 3258132436037547832L;
 
-    private static Logger logger = Logger.getLogger(OctopusFactory.class.getName());
+    private static Log logger = LogFactory.getLog(OctopusFactory.class);
 
     //
     // statische Methoden
@@ -54,7 +55,7 @@ public class OctopusFactory implements ObjectFactory, OctopusReferences, Seriali
         		return;
         	
         } catch (NamingException ne) {
-        	logger.log(Level.INFO, "Keine OctopusFactory Instanz im JNDI-Baum vorgefunden.");
+        	logger.info("Keine OctopusFactory Instanz im JNDI-Baum vorgefunden.");
         	
         	// Exception wird erwartet, wenn JNDI Struktur OctopusFactory
         	// Instanz nicht enthält.
@@ -72,7 +73,7 @@ public class OctopusFactory implements ObjectFactory, OctopusReferences, Seriali
 //            logger.info("JNDI Environment: " + envCtx.getEnvironment());
             envCtx.bind("octopus/References", instanceToBind);
         } catch (NamingException e) {
-            logger.log(Level.INFO, "JNDI Kontext steht nur lesend zur Verfügung. Die OctopusReferences-Instanz konnte nicht gebunden werden.");
+            logger.info("JNDI Kontext steht nur lesend zur Verfügung. Die OctopusReferences-Instanz konnte nicht gebunden werden.");
         }
     }
     

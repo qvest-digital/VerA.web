@@ -1,4 +1,4 @@
-/* $Id: TcXsltResponseEngine.java,v 1.1.1.1 2005/11/21 13:33:38 asteban Exp $
+/* $Id: TcXsltResponseEngine.java,v 1.2 2006/11/23 14:33:30 schmitz Exp $
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
  * 
@@ -31,18 +31,19 @@ import java.io.StringReader;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-import javax.xml.transform.stream.StreamResult;
-import javax.xml.transform.stream.StreamSource;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
+import javax.xml.transform.stream.StreamResult;
+import javax.xml.transform.stream.StreamSource;
+
+import org.apache.commons.logging.Log;
 
 import de.tarent.octopus.config.TcCommonConfig;
 import de.tarent.octopus.config.TcConfig;
 import de.tarent.octopus.config.TcModuleConfig;
 import de.tarent.octopus.content.TcContent;
+import de.tarent.octopus.logging.LogFactory;
 import de.tarent.octopus.request.TcRequest;
 import de.tarent.octopus.request.TcResponse;
 import de.tarent.octopus.resource.Resources;
@@ -55,7 +56,7 @@ import de.tarent.octopus.util.Xml;
  */
 public class TcXsltResponseEngine implements TcResponseEngine {
     /** Der Logger */
-    private static Logger logger = Logger.getLogger(TcXsltResponseEngine.class.getName());
+    private static Log logger = LogFactory.getLog(TcXsltResponseEngine.class);
     private static final String suffix = ".xsl";
     private static final String subdir = "xslt";
 
@@ -91,7 +92,7 @@ public class TcXsltResponseEngine implements TcResponseEngine {
             }
             transformer.transform(new StreamSource(new StringReader(xmlDef)), new StreamResult(tcResponse.getWriter()));
         } catch (TransformerException e) {
-            logger.log(Level.WARNING, Resources.getInstance().get("XSLTRESPONSE_LOG_TRANSFORM_EXCEPTION", request.getRequestID(), templateFile), e);
+            logger.warn(Resources.getInstance().get("XSLTRESPONSE_LOG_TRANSFORM_EXCEPTION", request.getRequestID(), templateFile), e);
         }
     }
 

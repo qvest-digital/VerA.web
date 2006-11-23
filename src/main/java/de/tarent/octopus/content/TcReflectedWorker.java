@@ -1,4 +1,4 @@
-/* $Id: TcReflectedWorker.java,v 1.1.1.1 2005/11/21 13:33:37 asteban Exp $
+/* $Id: TcReflectedWorker.java,v 1.2 2006/11/23 14:33:29 schmitz Exp $
  * 
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
@@ -37,11 +37,12 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.apache.commons.logging.Log;
 
 import de.tarent.octopus.config.TcConfig;
 import de.tarent.octopus.config.TcModuleConfig;
+import de.tarent.octopus.logging.LogFactory;
 import de.tarent.octopus.request.TcRequest;
 
 /**
@@ -72,19 +73,19 @@ abstract public class TcReflectedWorker implements TcContentWorker {
 	 * Initalisiert die Aktionen des Workers.
 	 */
 	public TcReflectedWorker() {
-		Logger logger = Logger.getLogger(getClass().getName());
+		Log logger = LogFactory.getLog(getClass());
 		
 		try {
 			pre = getClass().getMethod("pre", PREPOST_PARAMETER);
 		} catch (SecurityException e) {
-			logger.log(Level.SEVERE, e.getMessage(), e);
+			logger.error(e.getMessage(), e);
 		} catch (NoSuchMethodException e) {
 		}
 		
 		try {
 			post = getClass().getMethod("post", PREPOST_PARAMETER);
 		} catch (SecurityException e) {
-			logger.log(Level.SEVERE, e.getMessage(), e);
+			logger.error(e.getMessage(), e);
 		} catch (NoSuchMethodException e) {
 		}
 		
@@ -124,13 +125,13 @@ abstract public class TcReflectedWorker implements TcContentWorker {
 					}
 					_serviceActions.put(method.getName(), new WorkerAction(method, method.getName(), paramNames, paramTypes, mandatory, output));
 				} catch (TcActionDeclarationException e) {
-					logger.log(Level.SEVERE, e.getMessage(), e);
+					logger.error(e.getMessage(), e);
 					_serviceActions.put(method.getName(), e);
 				} catch (IllegalAccessException e) {
-					logger.log(Level.SEVERE, e.getMessage(), e);
+					logger.error(e.getMessage(), e);
 					_serviceActions.put(method.getName(), new TcActionDeclarationException(e));
 				} catch (SecurityException e) {
-					logger.log(Level.SEVERE, e.getMessage(), e);
+					logger.error(e.getMessage(), e);
 					_serviceActions.put(method.getName(), new TcActionDeclarationException(e));
 				}
 			}

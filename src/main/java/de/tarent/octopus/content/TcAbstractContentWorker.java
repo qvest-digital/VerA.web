@@ -1,4 +1,4 @@
-/* $Id: TcAbstractContentWorker.java,v 1.1.1.1 2005/11/21 13:33:37 asteban Exp $
+/* $Id: TcAbstractContentWorker.java,v 1.2 2006/11/23 14:33:29 schmitz Exp $
  * 
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
@@ -29,11 +29,12 @@ package de.tarent.octopus.content;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.apache.commons.logging.Log;
 
 import de.tarent.octopus.config.TcCommonConfig;
 import de.tarent.octopus.config.TcConfig;
+import de.tarent.octopus.logging.LogFactory;
 import de.tarent.octopus.request.TcRequest;
 
 /** 
@@ -43,7 +44,7 @@ import de.tarent.octopus.request.TcRequest;
  * @author <a href="mailto:H.Helwich@tarent.de">Hendrik Helwich</a>, <b>tarent GmbH</b>
  */
 public abstract class TcAbstractContentWorker implements TcContentWorker {
-    private static Logger logger = Logger.getLogger(TcAbstractContentWorker.class.getName());
+    private static Log logger = LogFactory.getLog(TcAbstractContentWorker.class);
     private TcCommonConfig commonConfig;
 
     public String doAction(TcConfig tcConfig, String actionName, TcRequest tcRequest, TcContent tcContent)
@@ -59,8 +60,8 @@ public abstract class TcAbstractContentWorker implements TcContentWorker {
         Object[] arguments = new Object[] { tcConfig, tcRequest, tcContent };
         try {
             actionMethod = workerClass.getMethod(actionName, parameterTypes);
-            if (logger.isLoggable(Level.INFO))
-                logger.finest("Starte Methode \"" + workerClass.getName() + "." + actionName + "(...)\"");
+            if (logger.isTraceEnabled())
+                logger.trace("Starte Methode \"" + workerClass.getName() + "." + actionName + "(...)\"");
 //            result = (String) actionMethod.invoke(this, arguments);
             actionMethod.invoke(this, arguments);
             result = RESULT_ok;
@@ -68,10 +69,10 @@ public abstract class TcAbstractContentWorker implements TcContentWorker {
             throw new TcContentProzessException(
                 "Nicht unterstützte Action im Worker '" + workerClass.getName() + "': " + actionName);
         } catch (IllegalAccessException e) {
-            logger.log(Level.SEVERE, "Fehler im Worker '" + workerClass.getName() + "'", e);
+            logger.error("Fehler im Worker '" + workerClass.getName() + "'", e);
             throw new TcContentProzessException(e);
         } catch (InvocationTargetException e) {
-            logger.log(Level.SEVERE, "Fehler im Worker '" + workerClass.getName() + "'", e);
+            logger.error("Fehler im Worker '" + workerClass.getName() + "'", e);
             throw new TcContentProzessException(e);
         }
         return result;

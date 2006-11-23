@@ -1,4 +1,4 @@
-/* $Id: Octopus.java,v 1.12 2006/10/17 14:49:31 asteban Exp $
+/* $Id: Octopus.java,v 1.13 2006/11/23 14:33:30 schmitz Exp $
  * 
  * Created on 18.09.2003
  * 
@@ -33,8 +33,9 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Logger;
 import java.util.prefs.Preferences;
+
+import org.apache.commons.logging.Log;
 
 import de.tarent.octopus.config.TcCommonConfig;
 import de.tarent.octopus.config.TcConfig;
@@ -46,6 +47,7 @@ import de.tarent.octopus.content.TcContentProzessException;
 import de.tarent.octopus.extensions.OctopusExtension;
 import de.tarent.octopus.extensions.OctopusExtensionLoader;
 import de.tarent.octopus.jndi.OctopusFactory;
+import de.tarent.octopus.logging.LogFactory;
 import de.tarent.octopus.resource.Resources;
 import de.tarent.octopus.response.ResponseProcessingException;
 import de.tarent.octopus.rpctunnel.OctopusRPCTunnel;
@@ -59,6 +61,13 @@ import de.tarent.octopus.server.OctopusContext;
  * @author mikel
  */
 public class Octopus {
+	/*
+     * geschützte Member-Variablen
+     */
+    private TcRequestDispatcher dispatcher;
+    private Configuration config;
+
+    private static Log logger = LogFactory.getLog(Octopus.class);
 
     public static final String TASKNAME_CLEANUP = "cleanup";
     public static final String TASKNAME_AUTOSTART = "autostart";
@@ -155,9 +164,9 @@ public class Octopus {
      */
     public void dispatch(TcRequest tcRequest, TcResponse tcResponse, TcSession theSession)
         throws ResponseProcessingException {
-        logger.entering(getClass().getName(), "dispatch", new Object[] {tcRequest, tcResponse, theSession});
+        logger.trace(getClass().getName() +" dispatch " + new Object[] {tcRequest, tcResponse, theSession});
         dispatcher.dispatch(tcRequest, tcResponse, theSession);
-        logger.exiting(getClass().getName(), "dispatch");
+        logger.trace(getClass().getName() + " dispatch");
     }
 
     public Preferences getModulePreferences(String moduleName) {
@@ -203,12 +212,12 @@ public class Octopus {
             Object oNext = itPreloads.next();
             if (oNext != null) {
                 String moduleName = oNext.toString();
-                logger.config(Resources.getInstance().get("OCTOPUS_LOG_PRELOAD_MODULE", moduleName));
+                logger.debug(Resources.getInstance().get("OCTOPUS_LOG_PRELOAD_MODULE", moduleName));
                 TcModuleConfig moduleConfig = config.getModuleConfig(moduleName, getModulePreferences(moduleName));
                 if (moduleConfig != null)
                     commonConfig.registerModule(moduleName, moduleConfig);
                 else
-                    logger.warning(Resources.getInstance().get("OCTOPUS_LOG_PRELOAD_MODULE_ERROR", moduleName));
+                    logger.warn(Resources.getInstance().get("OCTOPUS_LOG_PRELOAD_MODULE_ERROR", moduleName));
             }
         }
     }
@@ -254,7 +263,7 @@ public class Octopus {
         TcTaskList tasklist = moduleconfig.getTaskList();
         TcTask task = tasklist.getTask(TASKNAME_AUTOSTART);
         if (task != null) {           
-            logger.fine(Resources.getInstance().get("OCTOPUS_LOG_AUTOSTART_MODULE", modulename));
+            logger.debug(Resources.getInstance().get("OCTOPUS_LOG_AUTOSTART_MODULE", modulename));
             callTask(modulename, commonConfig, TASKNAME_AUTOSTART);
         }
     }
@@ -295,7 +304,7 @@ public class Octopus {
         TcTaskList tasklist = moduleconfig.getTaskList();
         TcTask task = tasklist.getTask(TASKNAME_CLEANUP);
         if (task != null) {
-            logger.fine(Resources.getInstance().get("OCTOPUS_LOG_CLEANUP_MODULE", modulename));
+            logger.debug(Resources.getInstance().get("OCTOPUS_LOG_CLEANUP_MODULE", modulename));
             callTask(modulename, commonConfig, TASKNAME_CLEANUP);
         }
     }
@@ -303,13 +312,4 @@ public class Octopus {
     private Preferences getOctopusPreferences() {
         return Preferences.systemRoot().node("/de/tarent/octopus");
     }
-
-    /*
-     * geschützte Member-Variablen
-     */
-    private TcRequestDispatcher dispatcher;
-    private Configuration config;
-
-    private static Logger logger = Logger.getLogger(Octopus.class.getName());
-
 }

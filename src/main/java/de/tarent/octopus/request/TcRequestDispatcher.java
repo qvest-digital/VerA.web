@@ -1,4 +1,4 @@
-/* $Id: TcRequestDispatcher.java,v 1.10 2006/10/17 14:49:31 asteban Exp $
+/* $Id: TcRequestDispatcher.java,v 1.11 2006/11/23 14:33:30 schmitz Exp $
  * 
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
@@ -29,10 +29,10 @@ package de.tarent.octopus.request;
 
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.Iterator;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.Map;
+
+import org.apache.commons.logging.Log;
 
 import de.tarent.octopus.config.TcCommonConfig;
 import de.tarent.octopus.config.TcConfig;
@@ -42,18 +42,19 @@ import de.tarent.octopus.content.TcContent;
 import de.tarent.octopus.content.TcContentProzessException;
 import de.tarent.octopus.content.TcContentWorker;
 import de.tarent.octopus.content.TcContentWorkerFactory;
+import de.tarent.octopus.logging.LogFactory;
 import de.tarent.octopus.resource.Resources;
 import de.tarent.octopus.response.ResponseProcessingException;
 import de.tarent.octopus.response.TcResponseCreator;
 import de.tarent.octopus.response.TcResponseDescription;
 import de.tarent.octopus.security.TcSecurityException;
+import de.tarent.octopus.server.Closeable;
+import de.tarent.octopus.server.Context;
 import de.tarent.octopus.server.LoginManager;
 import de.tarent.octopus.server.OctopusContext;
 import de.tarent.octopus.server.PersonalConfig;
 import de.tarent.octopus.soap.TcSOAPException;
 import de.tarent.octopus.util.Threads;
-import de.tarent.octopus.server.Context;
-import de.tarent.octopus.server.Closeable;
 
 /** 
  * Wichtigste Steuerkomponente für den Ablauf und die Abarbeitung einer Anfrage.
@@ -69,7 +70,7 @@ public class TcRequestDispatcher {
 
     private TcResponseCreator responseCreator;
     private TcCommonConfig commonConfig;
-    private static Logger logger = Logger.getLogger(TcRequestDispatcher.class.getName());
+    private static Log logger = LogFactory.getLog(TcRequestDispatcher.class);
 
     /**
      * Initialisierung des Systes.
@@ -124,7 +125,7 @@ public class TcRequestDispatcher {
 
         TcModuleConfig moduleConfig = commonConfig.getModuleConfig(module);
         if (moduleConfig == null) {
-            logger.log(Level.SEVERE, Resources.getInstance().get("REQUESTDISPATCHER_LOG_NO_MODULE", requestID, module));
+            logger.error(Resources.getInstance().get("REQUESTDISPATCHER_LOG_NO_MODULE", requestID, module));
             throw new ResponseProcessingException(
                 Resources.getInstance().get("REQUESTDISPATCHER_EXC_NO_MODULE", module));
         }
@@ -134,7 +135,7 @@ public class TcRequestDispatcher {
             tcRequest.setTask(task);
         }
         if (moduleConfig.getTaskList().getTask(task) == null) {
-            logger.log(Level.SEVERE, Resources.getInstance().get("REQUESTDISPATCHER_LOG_NO_TASK", requestID, task, module));
+            logger.error(Resources.getInstance().get("REQUESTDISPATCHER_LOG_NO_TASK", requestID, task, module));
             throw new ResponseProcessingException(
                 Resources.getInstance().get("REQUESTDISPATCHER_EXC_NO_TASK", task, module));
         }
@@ -169,18 +170,18 @@ public class TcRequestDispatcher {
             Threads.setContextClassLoader(outerLoader);
         } catch (Exception securityException) {
             // Für diese Aktion ist eine andere Berechtigung nötig
-            if (logger.isLoggable(Level.INFO))
-                logger.log(Level.INFO, Resources.getInstance().get("REQUESTDISPATCHER_LOG_SESSION_ERROR", requestID, module, task));
-            if (logger.isLoggable(Level.INFO))
-                logger.log(Level.INFO, Resources.getInstance().get("REQUESTDISPATCHER_LOG_SESSION_ERROR", requestID, module, task), securityException);
+            if (logger.isInfoEnabled())
+                logger.info(Resources.getInstance().get("REQUESTDISPATCHER_LOG_SESSION_ERROR", requestID, module, task));
+            if (logger.isInfoEnabled())
+                logger.info(Resources.getInstance().get("REQUESTDISPATCHER_LOG_SESSION_ERROR", requestID, module, task), securityException);
                 
             if (securityException instanceof TcSecurityException)
                 sendAuthenticationError(moduleConfig, commonConfig, tcRequest, tcResponse, (TcSecurityException)securityException);
             else
                 sendAuthenticationError(moduleConfig, commonConfig, tcRequest, tcResponse, new TcSecurityException(TcSecurityException.ERROR_SERVER_AUTH_ERROR, securityException));
                 
-            if (logger.isLoggable(Level.INFO))
-                logger.log(Level.FINE, "Authentication Error wurde an den Client gesendet. Kehre nun zurück.");
+            if (logger.isInfoEnabled())
+                logger.debug("Authentication Error wurde an den Client gesendet. Kehre nun zurück.");
             
             return;
         } finally {
@@ -221,7 +222,7 @@ public class TcRequestDispatcher {
                                          tcRequest);
             
         } catch (TcContentProzessException cpe) {
-            logger.log(Level.SEVERE, Resources.getInstance().get("REQUESTDISPATCHER_LOG_TASK_ERROR", requestID, task), cpe);
+            logger.error(Resources.getInstance().get("REQUESTDISPATCHER_LOG_TASK_ERROR", requestID, task), cpe);
         	if ("soapFault".equalsIgnoreCase(taskManager.getCurrentOnErrorAction()))
         		tcResponse.sendError(TcRequest.REQUEST_TYPE_SOAP, requestID, null, cpe);
             else
@@ -230,12 +231,12 @@ public class TcRequestDispatcher {
                           cpe);
 
         } catch (ResponseProcessingException rpe) {
-            logger.log(Level.SEVERE, Resources.getInstance().get("REQUESTDISPATCHER_LOG_RESPONSE_ERROR", requestID), rpe);
+            logger.error(Resources.getInstance().get("REQUESTDISPATCHER_LOG_RESPONSE_ERROR", requestID), rpe);
             sendError(moduleConfig,config,tcResponse,tcRequest,
                       Resources.getInstance().get("REQUESTDISPATCHER_OUT_RESPONSE_ERROR"),
                       rpe);
         } catch (Exception e) {
-            logger.log(Level.SEVERE, Resources.getInstance().get("REQUESTDISPATCHER_LOG_TASK_ERROR", requestID, task), e);
+            logger.error(Resources.getInstance().get("REQUESTDISPATCHER_LOG_TASK_ERROR", requestID, task), e);
             sendError(moduleConfig,config,tcResponse,tcRequest,
                       Resources.getInstance().get("REQUESTDISPATCHER_OUT_TASK_ERROR", task),
                       e);
@@ -271,13 +272,13 @@ public class TcRequestDispatcher {
                         iter.remove();
                     }
                     else
-                        logger.log(Level.SEVERE, Resources.getInstance().get("REQUESTDISPATCHER_LOG_CLEANUPOBJECT_WRONG_TYPE", requestID, (cleanupObject == null ? null : cleanupObject.getClass().getName()), cleanupObject));
+                        logger.error(Resources.getInstance().get("REQUESTDISPATCHER_LOG_CLEANUPOBJECT_WRONG_TYPE", requestID, (cleanupObject == null ? null : cleanupObject.getClass().getName()), cleanupObject));
                 } catch (Throwable t) {
-                    logger.log(Level.SEVERE, Resources.getInstance().get("REQUESTDISPATCHER_LOG_CLEANUPOBJECT_CLOSE_ERROR", requestID, cleanupObject), t);
+                    logger.error(Resources.getInstance().get("REQUESTDISPATCHER_LOG_CLEANUPOBJECT_CLOSE_ERROR", requestID, cleanupObject), t);
                 }
             }
         } else if (cleanupObjectList != null)
-            logger.warning(Resources.getInstance().get("REQUESTDISPATCHER_LOG_INVALID_CLEANUPLIST", requestID, cleanupObjectList.getClass().getName()));
+            logger.warn(Resources.getInstance().get("REQUESTDISPATCHER_LOG_INVALID_CLEANUPLIST", requestID, cleanupObjectList.getClass().getName()));
     }
 
     /**
@@ -296,9 +297,7 @@ public class TcRequestDispatcher {
             TcContentWorker worker = TcContentWorkerFactory.getContentWorker(moduleConfig, standardParamWorker, request.getRequestID());
             worker.doAction(config, "putMinimal", request, theContent);
         } catch (Exception e) {
-            logger.log(
-                Level.SEVERE,
-                Resources.getInstance().get(
+            logger.error(Resources.getInstance().get(
                     "REQUESTDISPATCHER_LOG_PARAM_SET_ERROR",
                     request.getRequestID(),
                     standardParamWorker),
@@ -341,9 +340,7 @@ public class TcRequestDispatcher {
         responseParams.put("message", message);
         theContent.setField("responseParams", responseParams);
         putStandardParams(moduleConfig, config, tcResponse, request, theContent);
-        logger.log(
-                   Level.FINE,
-                   Resources.getInstance().get("REQUESTDISPATCHER_LOG_SENDING_ERROR", request.getRequestID(), message),
+        logger.debug(Resources.getInstance().get("REQUESTDISPATCHER_LOG_SENDING_ERROR", request.getRequestID(), message),
                    e);
 
         responseCreator.sendResponse(
@@ -373,10 +370,10 @@ public class TcRequestDispatcher {
         } else {            
             // Eine SOAP Anfrage bekommt auch eine SOAP Fehlermeldung
             //throw new ResponseProcessingException(message, new TcSOAPException(message));
-            if (logger.isLoggable(Level.FINE))
-                logger.log(Level.FINE, Resources.getInstance().get("REQUESTDISPATCHER_LOG_SENDING_ERROR", tcRequest.getRequestID(), securityException.getMessage()));
-            if (logger.isLoggable(Level.FINEST))
-                logger.log(Level.FINEST, Resources.getInstance().get("REQUESTDISPATCHER_LOG_SENDING_ERROR", tcRequest.getRequestID(), securityException.getMessage()), securityException);
+            if (logger.isDebugEnabled())
+                logger.debug(Resources.getInstance().get("REQUESTDISPATCHER_LOG_SENDING_ERROR", tcRequest.getRequestID(), securityException.getMessage()));
+            if (logger.isTraceEnabled())
+                logger.trace(Resources.getInstance().get("REQUESTDISPATCHER_LOG_SENDING_ERROR", tcRequest.getRequestID(), securityException.getMessage()), securityException);
             tcResponse.sendError(TcRequest.REQUEST_TYPE_SOAP, tcRequest.getRequestID(), securityException.getMessage(), new TcSOAPException(securityException));
             return;
         }

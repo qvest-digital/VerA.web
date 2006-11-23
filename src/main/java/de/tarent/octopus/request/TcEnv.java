@@ -1,4 +1,4 @@
-/* $Id: TcEnv.java,v 1.5 2006/10/30 08:45:16 asteban Exp $
+/* $Id: TcEnv.java,v 1.6 2006/11/23 14:33:30 schmitz Exp $
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
  * 
@@ -29,10 +29,12 @@ package de.tarent.octopus.request;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
+
+import org.apache.commons.logging.Log;
+
+import de.tarent.octopus.logging.LogFactory;
 
 /** 
  * Ein key=value Container für Einstellungswerte.
@@ -45,6 +47,11 @@ import java.util.prefs.Preferences;
  * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
  */
 public class TcEnv extends HashMap {
+	//
+    // private statische Variablen
+    //
+    /** Logger für diese Klasse */
+    private static Log logger = LogFactory.getLog(TcEnv.class);
     /**
 	 * serialVersionUID = -3477717156564940686L
 	 */
@@ -310,12 +317,12 @@ public class TcEnv extends HashMap {
                 for (int i = 0; i < keys.length; i++) {
                     String key = keys[i];
                     String value = overrides.get(key, get(key));
-                    logger.config("[" + context + "] Override for " + key + ": " + value);
+                    logger.debug("[" + context + "] Override for " + key + ": " + value);
                     setValue(key, value);
                 }
             }
         } catch (BackingStoreException e) {
-            logger.log(Level.SEVERE, "[" + context + "] Preferences-API-Zugriff", e);
+            logger.error("[" + context + "] Preferences-API-Zugriff", e);
         }
     }
 
@@ -385,11 +392,5 @@ public class TcEnv extends HashMap {
     public final static String KEY_LDAP_USER = "ldapuser";
     public final static String KEY_LDAP_PWD = "ldappwd";
 //    public final static String KEY_ = "";
-//    public final static String KEY_ = "";
-
-    //
-    // private statische Variablen
-    //
-    /** Logger für diese Klasse */
-    private static Logger logger = Logger.getLogger(TcEnv.class.getName());
+//    public final static String KEY_ = "";    
 } /* end class TcRequest */

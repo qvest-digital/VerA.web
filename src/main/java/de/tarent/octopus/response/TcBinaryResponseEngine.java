@@ -1,4 +1,4 @@
-/* $Id: TcBinaryResponseEngine.java,v 1.7 2006/11/13 17:48:44 kleinhenz Exp $
+/* $Id: TcBinaryResponseEngine.java,v 1.8 2006/11/23 14:33:30 schmitz Exp $
  * 
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
@@ -42,10 +42,13 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.apache.commons.logging.Log;
+
 import de.tarent.octopus.config.TcCommonConfig;
 import de.tarent.octopus.config.TcConfig;
 import de.tarent.octopus.config.TcModuleConfig;
 import de.tarent.octopus.content.TcContent;
+import de.tarent.octopus.logging.LogFactory;
 import de.tarent.octopus.request.TcRequest;
 import de.tarent.octopus.request.TcResponse;
 import de.tarent.octopus.resource.Resources;
@@ -106,7 +109,7 @@ public class TcBinaryResponseEngine implements TcResponseEngine {
 	public static final String HTTP_DETAULT_MIMETYPE = "application/octet-stream";
 
 	/** java util logger */
-	private Logger logger = Logger.getLogger(TcCommonConfig.class.getName());
+	private Log logger = LogFactory.getLog(TcCommonConfig.class);
 
 	/**
 	 * @see TcResponseEngine#init(TcModuleConfig, TcCommonConfig)
@@ -171,13 +174,13 @@ public class TcBinaryResponseEngine implements TcResponseEngine {
             	processStream(tcResponse, data);
             }
         } catch (Exception e) {
-            logger.log(Level.SEVERE, Resources.getInstance().get("BINARYRESPONSE_LOG_ERROR", tcRequest.getRequestID()), e);
+            logger.error(Resources.getInstance().get("BINARYRESPONSE_LOG_ERROR", tcRequest.getRequestID()), e);
             throw new ResponseProcessingException(Resources.getInstance().get("BINARYRESPONSE_EXC_ERROR"), e);
         } finally {
         	try {
 				tcResponse.close();
 			} catch (IOException e) {
-	            logger.log(Level.SEVERE, Resources.getInstance().get("BINARYRESPONSE_LOG_ERROR", tcRequest.getRequestID()), e);
+	            logger.error(Resources.getInstance().get("BINARYRESPONSE_LOG_ERROR", tcRequest.getRequestID()), e);
 			}
         }
     }
@@ -210,19 +213,19 @@ public class TcBinaryResponseEngine implements TcResponseEngine {
 				
 				// return stream
 				processStream(tcResponse, new FileInputStream(file));
-				logger.finer(Resources.getInstance().get("BINARYRESPONSE_LOG_FILE_HANDLED", tcRequest.getRequestID(), filename));
+				logger.debug(Resources.getInstance().get("BINARYRESPONSE_LOG_FILE_HANDLED", tcRequest.getRequestID(), filename));
 			} else {
 				// return file not modified
 				tcResponse.setHeader("Pragma", null);
 				tcResponse.setHeader("Date", dateFileString);
 				tcResponse.setHeader("Last-Modified", dateFileString);
 				tcResponse.setStatus(304);
-				logger.finer(Resources.getInstance().get("BINARYRESPONSE_LOG_NOT_MODIFIED", tcRequest.getRequestID(), filename));
+				logger.debug(Resources.getInstance().get("BINARYRESPONSE_LOG_NOT_MODIFIED", tcRequest.getRequestID(), filename));
 			}
         } else {
             // if no file found return http status 404
 	        tcResponse.setStatus(404);
-    	    logger.warning(Resources.getInstance().get("BINARYRESPONSE_LOG_NOT_FOUND", tcRequest.getRequestID(), filename));
+    	    logger.warn(Resources.getInstance().get("BINARYRESPONSE_LOG_NOT_FOUND", tcRequest.getRequestID(), filename));
     	}
     }
 

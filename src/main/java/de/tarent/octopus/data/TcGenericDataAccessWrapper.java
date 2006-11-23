@@ -1,4 +1,4 @@
-/* $Id: TcGenericDataAccessWrapper.java,v 1.1.1.1 2005/11/21 13:33:37 asteban Exp $
+/* $Id: TcGenericDataAccessWrapper.java,v 1.2 2006/11/23 14:33:30 schmitz Exp $
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
  * 
@@ -40,8 +40,10 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.apache.commons.logging.Log;
+
+import de.tarent.octopus.logging.LogFactory;
 
 /** 
  * Zugriffsschicht zur Datenbank.
@@ -55,6 +57,35 @@ import java.util.logging.Logger;
  * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
  */
 public class TcGenericDataAccessWrapper {
+	//
+    // geschützte Member
+    //
+    protected TarDBConnection dbConnection;
+
+    protected Connection jdbcConnection;
+
+    protected List resultSets;
+    protected List resultSetCommands;
+    protected int resultSetCache;
+    protected Map dirtyDataSections;
+
+    protected static Log logger = LogFactory.getLog(TcGenericDataAccessWrapper.class);
+
+    protected static List allDataAccessWrappers = Collections.synchronizedList(new ArrayList());
+
+    protected String schema = null;
+    
+    protected long creationTimeMillis = 0;
+    protected final static long MAX_TIME_MILLIS = 600000;
+    
+    /** Hier werden die aktuellen Benutzungslocks gezählt */
+    private int useCount = 0;
+    /** Mutex für das Erzeugen der {@link #jdbcConnection Datenbankverbindung} */
+    private final Object connectionMutex = new Object();
+    /** Mutex für das Verwalten des {@link #useCount} */
+    private final Object useMutex = new Object();
+    /** Flag: {@link #jdbcConnection Datenbankverbindung} soll baldmöglichst geschlossen werden */
+    private boolean pendingDisconnect = false;
     //
     // Konstruktoren
     //
@@ -81,7 +112,7 @@ public class TcGenericDataAccessWrapper {
 
         allDataAccessWrappers.add(new WeakReference(this));
         cleanWrapperList();
-        logger.fine("Wrapperlistengröße: " + allDataAccessWrappers.size());
+        logger.debug("Wrapperlistengröße: " + allDataAccessWrappers.size());
     }
 
     //
@@ -109,9 +140,9 @@ public class TcGenericDataAccessWrapper {
     }
 
     /** Der statische Logger dieser Klasse */
-    public void setLogger(Logger logger) {
-        TcGenericDataAccessWrapper.logger = logger;
-    }
+//    public void setLogger(Logger logger) {
+//        TcGenericDataAccessWrapper.logger = logger;
+//    }
 
     //
     // öffentliche Methoden
@@ -156,7 +187,7 @@ public class TcGenericDataAccessWrapper {
     public void disconnect() throws SQLException {
         use();
         pendingDisconnect = true;
-        logger.fine("Requesting disconnect");
+        logger.debug("Requesting disconnect");
         unUse();
     }
     
@@ -179,7 +210,7 @@ public class TcGenericDataAccessWrapper {
     public void use() {
         synchronized (useMutex) {
             useCount += 1;
-            logger.finer("Benutzungen: " + useCount);
+            logger.debug("Benutzungen: " + useCount);
         }
     }
 
@@ -192,9 +223,9 @@ public class TcGenericDataAccessWrapper {
     public void unUse() throws SQLException {
         synchronized (useMutex) {
             useCount -= 1;
-            logger.finer("Benutzungen: " + useCount);
+            logger.debug("Benutzungen: " + useCount);
             if (useCount <= 0 && pendingDisconnect) {
-                logger.fine("Executing pending disconnect");
+                logger.debug("Executing pending disconnect");
                 doDisconnect();
             }
         }
@@ -244,7 +275,7 @@ public class TcGenericDataAccessWrapper {
                 }
                 return;
             } catch (ConcurrentModificationException e) {
-                logger.log(Level.INFO, "Concurrent Modification in setDirtyDataSectionOnAll --- starting again", e);
+                logger.info("Concurrent Modification in setDirtyDataSectionOnAll --- starting again", e);
             }
             try {
                 Thread.sleep(10);
@@ -288,16 +319,16 @@ public class TcGenericDataAccessWrapper {
             throw new TcDataAccessException("Kein Datensatz mit dieser Bedingung vorhanden!");
 
         } catch (java.sql.SQLException sqle) {
-            logger.log(Level.SEVERE, "Fehler beim DB Zugriff", sqle);
+            logger.error("Fehler beim DB Zugriff", sqle);
             throw new TcDataAccessException("Fehler beim DB Zugriff", sqle);
         } catch (ClassNotFoundException cnfe) {
-            logger.log(Level.SEVERE, "Fehler beim DB Zugriff. Kann Datenbanktreiber anscheinend nicht finden.", cnfe);
+            logger.error("Fehler beim DB Zugriff. Kann Datenbanktreiber anscheinend nicht finden.", cnfe);
             throw new TcDataAccessException("Fehler beim DB Zugriff. Kann Datenbanktreiber anscheinend nicht finden.", cnfe);
         } finally {
             try {
                 unUse();
             } catch (SQLException e) {
-                logger.log(Level.WARNING, "Fehler beim Freigeben der Datenverbindung.", e);
+                logger.warn("Fehler beim Freigeben der Datenverbindung.", e);
             }
         }
     }
@@ -318,7 +349,7 @@ public class TcGenericDataAccessWrapper {
             String sql = "SELECT * FROM " + tableName;
             if (whereClause != null && whereClause.length() != 0)
                 sql += " WHERE " + whereClause;
-            logger.finer("SQL[0]: " + sql);
+            logger.debug("SQL[0]: " + sql);
             ResultSet cursor = getResultSet(sql, false, tableName);
 
             if (cursor.absolute(offset)) {
@@ -335,16 +366,16 @@ public class TcGenericDataAccessWrapper {
             }
             throw new TcDataAccessException("Kein Datensatz mit dieser Bedingung und diesem Offset vorhanden!");
         } catch (java.sql.SQLException sqle) {
-            logger.log(Level.SEVERE, "Fehler beim DB Zugriff", sqle);
+            logger.error("Fehler beim DB Zugriff", sqle);
             throw new TcDataAccessException("Fehler beim DB Zugriff", sqle);
         } catch (ClassNotFoundException cnfe) {
-            logger.log(Level.SEVERE, "Fehler beim DB Zugriff. Kann Datenbanktreiber anscheinend nicht finden.", cnfe);
+            logger.error("Fehler beim DB Zugriff. Kann Datenbanktreiber anscheinend nicht finden.", cnfe);
             throw new TcDataAccessException("Fehler beim DB Zugriff. Kann Datenbanktreiber anscheinend nicht finden.", cnfe);
         } finally {
             try {
                 unUse();
             } catch (SQLException e) {
-                logger.log(Level.WARNING, "Fehler beim Freigeben der Datenverbindung.", e);
+                logger.warn("Fehler beim Freigeben der Datenverbindung.", e);
             }
         }
     }
@@ -371,7 +402,7 @@ public class TcGenericDataAccessWrapper {
             connect();
 
             if (!cache) {
-                logger.finest("Erzeuge neues, ungecachtes ResultSet");
+                logger.trace("Erzeuge neues, ungecachtes ResultSet");
                 Statement stmt = jdbcConnection.createStatement();
                 return stmt.executeQuery(cmd);
             }
@@ -380,7 +411,7 @@ public class TcGenericDataAccessWrapper {
 
             ResultSet cursor = null;
 
-            logger.finest("dirtyDataSections.get( " + dataSection + " ): " + dirtyDataSections.get(dataSection));
+            logger.trace("dirtyDataSections.get( " + dataSection + " ): " + dirtyDataSections.get(dataSection));
             // Wenn das Resultset gepuffert und noch gültig ist
             if (index >= 0 && dirtyDataSections.get(dataSection) == null) {
                 // Hole das gepufferte
@@ -394,7 +425,7 @@ public class TcGenericDataAccessWrapper {
                 } else {
                     cursor = (ResultSet) resultSets.get(index);
                 }
-                logger.finest("Habe bestehendes ResultSet geholt: " + cursor);
+                logger.trace("Habe bestehendes ResultSet geholt: " + cursor);
             } else {
                 Statement stmt = jdbcConnection.createStatement();
                 cursor = stmt.executeQuery(cmd);
@@ -403,12 +434,12 @@ public class TcGenericDataAccessWrapper {
                 // sonst ein neues
                 removeDirtyDataSection(dataSection);
 
-                logger.finest(
+                logger.trace(
                     "resultSetCache/resultSets.size(): " + resultSetCache + "/" + resultSets.size() + "   =>" + resultSets);
                 while (resultSets.size() > resultSetCache) {
                     ResultSet oldCursor = (ResultSet) resultSets.remove(0);
                     oldCursor.close();
-                    logger.finest("Habe altes Resultset geschlossen: " + oldCursor);
+                    logger.trace("Habe altes Resultset geschlossen: " + oldCursor);
                     resultSetCommands.remove(0);
                 }
             }
@@ -447,14 +478,14 @@ public class TcGenericDataAccessWrapper {
            String sql = "UPDATE " + tableName + " (" + sqlKeyList + ") VALUES (" + sqlValueList + ")";
            if (whereClause != null && whereClause.length() != 0)
                sql += " WHERE " + whereClause;
-           logger.finer("SQL[0]: " + sql);
+           logger.debug("SQL[0]: " + sql);
 
            return doSql(sql, tableName);
        } catch (java.sql.SQLException sqle) {
-           logger.log(Level.SEVERE, "Fehler beim DB Zugriff", sqle);
+           logger.error("Fehler beim DB Zugriff", sqle);
            throw new TcDataAccessException("Fehler beim DB Zugriff", sqle);
        } catch (ClassNotFoundException cnfe) {
-           logger.log(Level.SEVERE, "Fehler beim DB Zugriff. Kann Datenbanktreiber anscheinend nicht finden.", cnfe);
+           logger.error("Fehler beim DB Zugriff. Kann Datenbanktreiber anscheinend nicht finden.", cnfe);
            throw new TcDataAccessException("Fehler beim DB Zugriff. Kann Datenbanktreiber anscheinend nicht finden.", cnfe);
        }
    }
@@ -469,10 +500,10 @@ public class TcGenericDataAccessWrapper {
     */
    protected int doSql(String sql, String dataSection) throws SQLException, ClassNotFoundException {
        if (dataSection != null)
-           logger.fine("dirtyDataSections.get( " + dataSection + " ): " + dirtyDataSections.get(dataSection));
+           logger.debug("dirtyDataSections.get( " + dataSection + " ): " + dirtyDataSections.get(dataSection));
        setDirtyDataSection(dataSection);
        if (dataSection != null)
-           logger.fine("dirtyDataSections.get( " + dataSection + " ): " + dirtyDataSections.get(dataSection));
+           logger.debug("dirtyDataSections.get( " + dataSection + " ): " + dirtyDataSections.get(dataSection));
        try {
            use();
            connect();
@@ -541,35 +572,5 @@ public class TcGenericDataAccessWrapper {
                 jdbcConnection = null;
             }
         }
-    }
-    
-    //
-    // geschützte Member
-    //
-    protected TarDBConnection dbConnection;
-
-    protected Connection jdbcConnection;
-
-    protected List resultSets;
-    protected List resultSetCommands;
-    protected int resultSetCache;
-    protected Map dirtyDataSections;
-
-    protected static Logger logger = Logger.getLogger(TcGenericDataAccessWrapper.class.getName());
-
-    protected static List allDataAccessWrappers = Collections.synchronizedList(new ArrayList());
-
-    protected String schema = null;
-    
-    protected long creationTimeMillis = 0;
-    protected final static long MAX_TIME_MILLIS = 600000;
-    
-    /** Hier werden die aktuellen Benutzungslocks gezählt */
-    private int useCount = 0;
-    /** Mutex für das Erzeugen der {@link #jdbcConnection Datenbankverbindung} */
-    private final Object connectionMutex = new Object();
-    /** Mutex für das Verwalten des {@link #useCount} */
-    private final Object useMutex = new Object();
-    /** Flag: {@link #jdbcConnection Datenbankverbindung} soll baldmöglichst geschlossen werden */
-    private boolean pendingDisconnect = false;
+    }    
 }

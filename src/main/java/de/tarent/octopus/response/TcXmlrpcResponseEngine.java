@@ -1,5 +1,5 @@
 /*
- * $Id: TcXmlrpcResponseEngine.java,v 1.1.1.1 2005/11/21 13:33:38 asteban Exp $
+ * $Id: TcXmlrpcResponseEngine.java,v 1.2 2006/11/23 14:33:30 schmitz Exp $
  * 
  * Created on 02.06.2004
  * 
@@ -32,14 +32,18 @@
 package de.tarent.octopus.response;
 
 import java.nio.ByteBuffer;
-import java.util.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.commons.logging.Log;
 
 import de.tarent.octopus.config.TcCommonConfig;
 import de.tarent.octopus.config.TcConfig;
 import de.tarent.octopus.config.TcModuleConfig;
 import de.tarent.octopus.content.TcContent;
+import de.tarent.octopus.logging.LogFactory;
 import de.tarent.octopus.request.TcRequest;
 import de.tarent.octopus.request.TcResponse;
 import de.tarent.octopus.xmlrpc.XmlRpcBuffer;
@@ -52,6 +56,10 @@ import de.tarent.octopus.xmlrpc.XmlRpcBuffer;
  * @author mikel
  */
 public class TcXmlrpcResponseEngine implements TcRPCResponseEngine, TcResponseEngine {
+	//
+    // Membervariablen
+    //
+    private static Log logger = LogFactory.getLog(TcXmlrpcResponseEngine.class);
     /* (non-Javadoc)
      * @see de.tarent.octopus.response.TcResponseEngine#sendResponse(de.tarent.octopus.config.TcConfig, de.tarent.octopus.request.TcResponse, de.tarent.octopus.content.TcContent, de.tarent.octopus.response.TcResponseDescription, java.lang.String)
      */
@@ -92,7 +100,7 @@ public class TcXmlrpcResponseEngine implements TcRPCResponseEngine, TcResponseEn
         // TODO Auto-generated method stub
 
         try {
-            logger.fine("Gebe XML-RPC-Message aus. Antwort auf Methode:" + tcResponse.getTaskName());
+            logger.debug("Gebe XML-RPC-Message aus. Antwort auf Methode:" + tcResponse.getTaskName());
             XmlRpcBuffer buffer = new XmlRpcBuffer();
             buffer.appendResponse(resultList);
             ByteBuffer byteBuffer = buffer.toByteBuffer();
@@ -100,9 +108,7 @@ public class TcXmlrpcResponseEngine implements TcRPCResponseEngine, TcResponseEn
             byteBuffer.get(bytes);
             tcResponse.getOutputStream().write(bytes);
         } catch (Exception e) {
-            logger.log(
-                Level.SEVERE,
-                "Versuche, eine XML-RPC-Fault auszugeben.",
+            logger.error("Versuche, eine XML-RPC-Fault auszugeben.",
                 e);
             try {
                 XmlRpcBuffer buffer = new XmlRpcBuffer();
@@ -112,9 +118,7 @@ public class TcXmlrpcResponseEngine implements TcRPCResponseEngine, TcResponseEn
                 byteBuffer.get(bytes);
                 tcResponse.getOutputStream().write(bytes);
             } catch (Exception e2) {
-                logger.log(
-                    Level.SEVERE,
-                    "Es konnte auch keine XML-RPC Fehlermeldung ausgegeben werden. Schmeiﬂe jetzt einfach eine Exception.",
+                logger.error("Es konnte auch keine XML-RPC Fehlermeldung ausgegeben werden. Schmeiﬂe jetzt einfach eine Exception.",
                     e2);
                 throw new ResponseProcessingException("Es ist Fehler bei der Formatierung der Ausgabe ausgetreten.", e);
             }
@@ -126,9 +130,6 @@ public class TcXmlrpcResponseEngine implements TcRPCResponseEngine, TcResponseEn
     public void init(TcModuleConfig moduleConfig, TcCommonConfig commonConfig) {
         // TODO Auto-generated method stub
     }
-    //
-    // Membervariablen
-    //
-    private static Logger logger = Logger.getLogger(TcXmlrpcResponseEngine.class.getName());
+    
 
 }

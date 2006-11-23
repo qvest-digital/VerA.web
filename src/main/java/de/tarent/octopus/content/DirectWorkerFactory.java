@@ -1,4 +1,4 @@
-/* $Id: DirectWorkerFactory.java,v 1.2 2005/12/02 15:29:05 asteban Exp $
+/* $Id: DirectWorkerFactory.java,v 1.3 2006/11/23 14:33:29 schmitz Exp $
  * 
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
@@ -27,12 +27,14 @@
 
 package de.tarent.octopus.content;
 
+import org.apache.commons.logging.Log;
+
 import de.tarent.octopus.config.ContentWorkerDeclaration;
+import de.tarent.octopus.config.TcModuleConfig;
+import de.tarent.octopus.logging.LogFactory;
 import de.tarent.octopus.resource.Resources;
-import java.util.logging.Logger;
 import de.tarent.octopus.server.SpecialWorkerFactory;
 import de.tarent.octopus.server.WorkerCreationException;
-import de.tarent.octopus.config.TcModuleConfig;
 
 
 /** 
@@ -44,7 +46,7 @@ import de.tarent.octopus.config.TcModuleConfig;
  */
 public class DirectWorkerFactory implements SpecialWorkerFactory {
 
-    private static Logger logger = Logger.getLogger(DirectWorkerFactory.class.getName());
+    private static Log logger = LogFactory.getLog(DirectWorkerFactory.class);
     private static Class[] emptyClassArray = new Class[]{};
     private static Object[] emptyObjectArray = new Object[]{};
 
@@ -56,7 +58,7 @@ public class DirectWorkerFactory implements SpecialWorkerFactory {
     public TcContentWorker createInstance(TcModuleConfig config, ContentWorkerDeclaration workerDeclaration) 
         throws WorkerCreationException {
         try {
-            logger.fine(Resources.getInstance().get("WORKERFACTORY_LOADING_WORKER", getClass().getName(), workerDeclaration.getWorkerName(), workerDeclaration.getImplementationSource()));
+            logger.debug(Resources.getInstance().get("WORKERFACTORY_LOADING_WORKER", getClass().getName(), workerDeclaration.getWorkerName(), workerDeclaration.getImplementationSource()));
             Class workerClass = config.getClassLoader().loadClass(workerDeclaration.getImplementationSource());
             return (TcContentWorker)workerClass.getConstructor(emptyClassArray).newInstance(emptyObjectArray);
         } catch (ClassCastException castException) {

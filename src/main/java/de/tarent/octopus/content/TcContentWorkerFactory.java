@@ -1,4 +1,4 @@
-/* $Id: TcContentWorkerFactory.java,v 1.2 2005/11/23 08:32:40 asteban Exp $
+/* $Id: TcContentWorkerFactory.java,v 1.3 2006/11/23 14:33:29 schmitz Exp $
  * 
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
@@ -27,13 +27,15 @@
 
 package de.tarent.octopus.content;
 
-import de.tarent.octopus.config.ContentWorkerDeclaration;
-import de.tarent.octopus.config.TcModuleConfig;
-import de.tarent.octopus.resource.Resources;
-
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Logger;
+
+import org.apache.commons.logging.Log;
+
+import de.tarent.octopus.config.ContentWorkerDeclaration;
+import de.tarent.octopus.config.TcModuleConfig;
+import de.tarent.octopus.logging.LogFactory;
+import de.tarent.octopus.resource.Resources;
 import de.tarent.octopus.server.SpecialWorkerFactory;
 import de.tarent.octopus.server.WorkerCreationException;
 
@@ -44,7 +46,7 @@ import de.tarent.octopus.server.WorkerCreationException;
  * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
  */
 public class TcContentWorkerFactory {
-    private static Logger logger = Logger.getLogger(TcContentWorkerFactory.class.getName());
+    private static Log logger = LogFactory.getLog(TcContentWorkerFactory.class);
 
     /** Map mit TcContentWorkern. Keys der Map sind die ClassLoader der Module. Values sind wiederum Maps mit ("workername"=>Instance).
      *  Dadurch werden die Worker gepuffert und müssen nicht für jede Anfrage neu erstellt werden.
@@ -70,7 +72,7 @@ public class TcContentWorkerFactory {
         
         ContentWorkerDeclaration workerDeclaration = config.getContentWorkerDeclaration(workerName);
         if (null == workerDeclaration) {
-            logger.severe(Resources.getInstance().get("WORKERFACTORY_LOG_UNDECLARED_WORKER", requestID, workerName, config.getName()));
+            logger.error(Resources.getInstance().get("WORKERFACTORY_LOG_UNDECLARED_WORKER", requestID, workerName, config.getName()));
             throw new WorkerCreationException(Resources.getInstance().get("WORKERFACTORY_EXC_UNDECLARED_WORKER", workerName, config.getName()));
         }
 
@@ -115,7 +117,7 @@ public class TcContentWorkerFactory {
         SpecialWorkerFactory factory = (SpecialWorkerFactory)moduleFactorys.get(workerDeclaration.getFactory());
         if (null == factory) {
             try {
-                logger.fine(Resources.getInstance().get("WORKERFACTORY_LOADING_FACTORY", workerDeclaration.getFactory()));
+                logger.debug(Resources.getInstance().get("WORKERFACTORY_LOADING_FACTORY", workerDeclaration.getFactory()));
                 factory = (SpecialWorkerFactory)moduleLoader.loadClass(workerDeclaration.getFactory()).newInstance();
             } catch (Exception reflectionException) {
                 throw new WorkerCreationException(Resources.getInstance().get("WORKERFACTORY_EXC_LOADING_FACTORY", workerDeclaration.getFactory(), workerDeclaration.getWorkerName()), reflectionException);

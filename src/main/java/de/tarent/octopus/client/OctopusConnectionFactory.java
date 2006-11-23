@@ -1,4 +1,4 @@
-/* $Id: OctopusConnectionFactory.java,v 1.4 2006/09/25 06:26:17 asteban Exp $
+/* $Id: OctopusConnectionFactory.java,v 1.5 2006/11/23 14:33:30 schmitz Exp $
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
  * 
@@ -26,17 +26,22 @@
 
 package de.tarent.octopus.client;
 
-import java.util.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import java.io.*;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Properties;
 
+import org.apache.commons.logging.Log;
+
+import de.tarent.octopus.client.remote.OctopusRemoteConnection;
+import de.tarent.octopus.logging.LogFactory;
 import de.tarent.octopus.request.Octopus;
 import de.tarent.octopus.request.directCall.OctopusDirectCallConnection;
 import de.tarent.octopus.request.directCall.OctopusDirectCallStarter;
 import de.tarent.octopus.request.directCall.OctopusStarter;
 import de.tarent.octopus.request.internal.OctopusInternalStarter;
-import de.tarent.octopus.client.remote.*;
 
 /** 
  * Factory zur Lieferung einer Client-Schnittstelle zum Octopus.
@@ -47,7 +52,7 @@ import de.tarent.octopus.client.remote.*;
  */
 public class OctopusConnectionFactory {
 
-    private static Logger logger = Logger.getLogger(OctopusConnectionFactory.class.getName());
+    private static Log logger = LogFactory.getLog(OctopusConnectionFactory.class);
 
     public static final String PROPERTY_FILE_NAME_END = "-octopus-connection.properties";
 
@@ -164,7 +169,7 @@ public class OctopusConnectionFactory {
             try {
                 con.setKeepSessionAlive(new Integer((String)conf.get(OctopusRemoteConnection.KEEP_SESSION_ALIVE)));
             } catch (NumberFormatException  e) {            
-                logger.log(Level.WARNING, "Fehlerhafter Wert für Octopus Connection Propertie:"+OctopusRemoteConnection.KEEP_SESSION_ALIVE, e);
+                logger.warn("Fehlerhafter Wert für Octopus Connection Propertie:"+OctopusRemoteConnection.KEEP_SESSION_ALIVE, e);
             }
         }
         return con;

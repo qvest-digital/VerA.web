@@ -1,4 +1,4 @@
-/* $Id: LoginManagerLDAP.java,v 1.1.1.1 2005/11/21 13:33:38 asteban Exp $
+/* $Id: LoginManagerLDAP.java,v 1.2 2006/11/23 14:33:29 schmitz Exp $
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
  * 
@@ -28,9 +28,11 @@ package de.tarent.octopus.security;
 
 import java.net.PasswordAuthentication;
 import java.util.Map;
-import java.util.logging.Logger;
+
+import org.apache.commons.logging.Log;
 
 import de.tarent.octopus.config.TcCommonConfig;
+import de.tarent.octopus.logging.LogFactory;
 import de.tarent.octopus.request.TcEnv;
 import de.tarent.octopus.request.TcRequest;
 import de.tarent.octopus.security.ldap.TcSecurityLDAPManager;
@@ -45,10 +47,10 @@ import de.tarent.octopus.server.PersonalConfig;
  * @deprecated moved to LDAPLib, will be deleted as soon as 2005-06-01
  */
 public class LoginManagerLDAP extends AbstractLoginManager {
-	Logger logger = Logger.getLogger(this.getClass().getName());
+	Log logger = LogFactory.getLog(this.getClass());
     protected void doLogin(TcCommonConfig commonConfig, PersonalConfig pConfig, TcRequest tcRequest) 
         throws TcSecurityException {
-    	logger.warning("Die Klasse " + this.getClass().getName() + " soll nicht mehr verwendet werden, sie wird nicht mehr gepflegt! Stattdessen muss das Jar LDAPLib.jar im Classpath liegen, dann kann die Klasse de.tarent.ldap.LoginManagerLDAP genutzt werden.");
+    	logger.warn("Die Klasse " + this.getClass().getName() + " soll nicht mehr verwendet werden, sie wird nicht mehr gepflegt! Stattdessen muss das Jar LDAPLib.jar im Classpath liegen, dann kann die Klasse de.tarent.ldap.LoginManagerLDAP genutzt werden.");
         // TODO:
         // Eigentlich soll die Cofiguration 
         // dieses Loginmanagers aus der ModuleConfig kommen

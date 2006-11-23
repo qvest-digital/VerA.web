@@ -1,4 +1,4 @@
-/* $Id: TcReflectedWorkerWrapper.java,v 1.4 2006/02/16 10:32:01 asteban Exp $
+/* $Id: TcReflectedWorkerWrapper.java,v 1.5 2006/11/23 14:33:29 schmitz Exp $
  * 
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
@@ -29,12 +29,13 @@ package de.tarent.octopus.content;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import de.tarent.octopus.server.OctopusContext;
 import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.commons.logging.Log;
+
+import de.tarent.octopus.logging.LogFactory;
+import de.tarent.octopus.server.OctopusContext;
 
 /**
  * Reflection Worker, der als Wrapper zu einer Generischen Java-Klasse fungiert.
@@ -45,7 +46,7 @@ public class TcReflectedWorkerWrapper
     
     extends AbstractWorkerWrapper {
 
-    Logger logger = Logger.getLogger(getClass().getName());
+    Log logger = LogFactory.getLog(getClass());
 
     // Feldkonstanten für die Metadaten
     public static final String FIELD_NAME_PREFIX_INPUT = "INPUT_";
@@ -69,10 +70,10 @@ public class TcReflectedWorkerWrapper
         try {
             return (String)workerClass.getField(FIELD_NAME_VERSION).get(workerDelegate);
 		} catch (NoSuchFieldException nf) {
-			logger.log(Level.CONFIG, "Für den Worker "+workerClass.getName()+" wurde keine Version angegeben.");
+			logger.debug("Für den Worker "+workerClass.getName()+" wurde keine Version angegeben.");
             return "1.0";
 		} catch (Exception e) {
-			logger.log(Level.SEVERE, e.getMessage(), e);
+			logger.error(e.getMessage(), e);
             throw new RuntimeException("Fehler beim Ermitteln der Version von "+workerClass.getName(), e);
         }    
     }
@@ -184,7 +185,7 @@ public class TcReflectedWorkerWrapper
                 }
             }
         } catch (Exception e) {
-            logger.log(Level.SEVERE, e.getMessage(), e);
+            logger.error(e.getMessage(), e);
             throw new TcActionDeclarationException("Fehler beim Ermitteln der Selbstbeschreibung von "+workerClass.getName(), e);
         }
         

@@ -8,8 +8,9 @@
 
 package de.tarent.octopus.extensions;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.apache.commons.logging.Log;
+
+import de.tarent.octopus.logging.LogFactory;
 
 /**
  * A simple extension loader that relieves the calling code of extensive
@@ -22,7 +23,7 @@ import java.util.logging.Logger;
  */
 public class OctopusExtensionLoader
 {
-    private static Logger logger = Logger.getLogger(OctopusExtensionLoader.class.getName());
+    private static Log logger = LogFactory.getLog(OctopusExtensionLoader.class);
     
     /**
      * Loads, initializes and starts the extension given by classname.
@@ -43,15 +44,15 @@ public class OctopusExtensionLoader
         }
         catch (InstantiationException e)
         {
-            logger.log(Level.SEVERE, "Error getting extension instance: " + classname, e);
+            logger.error("Error getting extension instance: " + classname, e);
         }
         catch (IllegalAccessException e)
         {
-            logger.log(Level.SEVERE, "Illegal Access getting extension instance: " + classname, e);
+            logger.error("Illegal Access getting extension instance: " + classname, e);
         }
         catch (ClassNotFoundException e)
         {
-            logger.log(Level.SEVERE, "Extension class not found: " + classname, e);
+            logger.error("Extension class not found: " + classname, e);
         }
 
         if (extension!=null)

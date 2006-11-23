@@ -1,5 +1,5 @@
 /*
- * $Id: TcTaskManager.java,v 1.3 2006/09/27 11:50:04 asteban Exp $
+ * $Id: TcTaskManager.java,v 1.4 2006/11/23 14:33:30 schmitz Exp $
  * tarent-octopus, Webservice Data Integrator and Applicationserver Copyright
  * (C) 2002 tarent GmbH
  * 
@@ -25,16 +25,19 @@
 
 package de.tarent.octopus.request;
 
-import de.tarent.octopus.server.OctopusContext;
-import de.tarent.octopus.config.TcConfig;
-import de.tarent.octopus.content.*;
-import de.tarent.octopus.response.*;
-import de.tarent.octopus.resource.Resources;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
-import java.util.logging.Level;
+
+import org.apache.commons.logging.Log;
+
+import de.tarent.octopus.config.TcConfig;
+import de.tarent.octopus.content.TcContent;
+import de.tarent.octopus.content.TcContentProzessException;
+import de.tarent.octopus.content.TcContentWorker;
+import de.tarent.octopus.logging.LogFactory;
+import de.tarent.octopus.resource.Resources;
+import de.tarent.octopus.response.TcResponseDescription;
+import de.tarent.octopus.server.OctopusContext;
 
 /**
  * Diese Klasse verwaltet den Ablauf der Verarbeitung eines Tasks. 
@@ -45,8 +48,7 @@ import java.util.logging.Level;
  */
 public class TcTaskManager {
 	/** Der Logger */
-	private static Logger logger =
-		Logger.getLogger(TcTaskManager.class.getName());
+	private static Log logger =	LogFactory.getLog(TcTaskManager.class);
 
 	/**
 	 * Strukturierte Liste der Tasks des aktuellen Moduls. Wird erst gesetzt,
@@ -129,7 +131,7 @@ public class TcTaskManager {
             return next();
         } catch (TcContentProzessException cpe) {
             if (ON_ERROR_ACTION_RESUME_NEXT.equalsIgnoreCase(getCurrentOnErrorAction())) {
-                logger.log(Level.WARNING, Resources.getInstance().get("TASK_MANAGER_LOG_ERROR_RESUME", tcRequest.getRequestID()), cpe);
+                logger.warn(Resources.getInstance().get("TASK_MANAGER_LOG_ERROR_RESUME", tcRequest.getRequestID()), cpe);
                 status = TcContentWorker.RESULT_error;
                 theContent.setError(cpe);
                 return next();
@@ -150,7 +152,7 @@ public class TcTaskManager {
 	 * @throws TcTaskProzessingException 
 	 */
 	protected boolean next() throws TcTaskProzessingException {
-		logger.finer("Next called with '" + status + "' at " + position);
+		logger.debug("Next called with '" + status + "' at " + position);
 		if (position == null)
 			throw new TcTaskProzessingException("Position steht nicht auf einem Node Objekt. Das verarbeiten der Tasks muss mit start() beginnen.");
 
@@ -165,14 +167,14 @@ public class TcTaskManager {
 
 		// oder den ersten Nachbar suchen
 		if (next == null) {
-			logger.finer("No child, trying next");
+			logger.debug("No child, trying next");
 			next = position.getNext();
 		}
 
 		// Wenn weder Kinder noch Nachbarn existieren muss
 		// nach dem ersten Vater gesucht werden, der Nachfolger hat.
 		if (next == null) {
-			logger.finer("No next, stepping up");
+			logger.debug("No next, stepping up");
 			TcTask.TNode parent = position.getParent();
 			do {
 				if (parent != null && !(parent instanceof TcTask.TaskNode)) {

@@ -1,4 +1,4 @@
-/* $Id: OctopusRemoteConnection.java,v 1.1.1.1 2005/11/21 13:33:38 asteban Exp $
+/* $Id: OctopusRemoteConnection.java,v 1.2 2006/11/23 14:33:30 schmitz Exp $
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
  * 
@@ -26,22 +26,28 @@
 
 package de.tarent.octopus.client.remote;
 
-import java.util.Timer;
-import java.util.TimerTask;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.PrintWriter;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import java.io.*;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.xml.rpc.ServiceException;
 
+import org.apache.commons.logging.Log;
+
 import de.tarent.octopus.client.OctopusCallException;
 import de.tarent.octopus.client.OctopusConnection;
+import de.tarent.octopus.client.OctopusConstants;
 import de.tarent.octopus.client.OctopusResult;
 import de.tarent.octopus.client.OctopusTask;
-import de.tarent.octopus.client.OctopusConstants;
 import de.tarent.octopus.client.UserDataProvider;
+import de.tarent.octopus.logging.LogFactory;
 
 
 /** 
@@ -51,7 +57,7 @@ import de.tarent.octopus.client.UserDataProvider;
  */
 public class OctopusRemoteConnection implements OctopusConnection {
 
-    private static Logger logger = Logger.getLogger(OctopusRemoteConnection.class.getName());
+	private static Log logger = LogFactory.getLog(OctopusRemoteConnection.class);
 
 
     public static final String AUTH_TYPE = "authType";
@@ -173,7 +179,7 @@ public class OctopusRemoteConnection implements OctopusConnection {
             } catch (OctopusCallException oce) {
                 hasValidLogin = false;
                 askForUserData = true;
-                logger.log(Level.INFO, "Exception during login: "+oce.getErrorCode(), oce);
+                logger.info("Exception during login: "+oce.getErrorCode(), oce);
                 // Hier wird im Moment immer weiter gemacht.
                 // Wenn der Server aber einen sauberen Statuscode mitgibt,
                 // muss nur bei Loginfehlern durch fehlerhalte Eingaben weiter gemacht werden.
@@ -240,9 +246,9 @@ public class OctopusRemoteConnection implements OctopusConnection {
             serviceURL = in.readLine();
             in.close();
         } catch (FileNotFoundException fne) {
-            logger.log(Level.FINE, "Keine Octopus Sessiondatei gefunden unter <"+sessionCookieFile+">", fne);
+            logger.debug("Keine Octopus Sessiondatei gefunden unter <"+sessionCookieFile+">", fne);
         } catch (Exception e) {
-            logger.log(Level.WARNING, "Fehler beim Lesen eines Octopus Session Cookies aus <"+sessionCookieFile+">", e);
+            logger.warn("Fehler beim Lesen eines Octopus Session Cookies aus <"+sessionCookieFile+">", e);
         }
         if (in != null)
             try {
@@ -259,7 +265,7 @@ public class OctopusRemoteConnection implements OctopusConnection {
             out.flush();
             out.close();
         } catch (Exception e) {
-            logger.log(Level.WARNING, "Fehler beim Speichern eines Octopus Session Cookies in <"+sessionCookieFile+">", e);
+            logger.warn("Fehler beim Speichern eines Octopus Session Cookies in <"+sessionCookieFile+">", e);
             if (out != null)
                 try {
                     out.close();
@@ -403,7 +409,7 @@ public class OctopusRemoteConnection implements OctopusConnection {
             try {            
                 con.getTask(OctopusRemoteConnection.TASK_TEST_SESSION_STATUS).invoke();
             } catch (OctopusCallException e) {
-                logger.log(Level.WARNING, "Error on keep alive requesr. Maybe the delay is to large.", e);
+                logger.warn("Error on keep alive requesr. Maybe the delay is to large.", e);
             }
         }
     }

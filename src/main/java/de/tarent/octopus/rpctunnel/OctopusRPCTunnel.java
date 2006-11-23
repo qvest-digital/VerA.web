@@ -28,9 +28,11 @@ package de.tarent.octopus.rpctunnel;
 
 import java.lang.reflect.Method;
 import java.util.Map;
-import java.util.logging.Logger;
+
+import org.apache.commons.logging.Log;
 
 import de.tarent.octopus.config.TcCommonConfig;
+import de.tarent.octopus.logging.LogFactory;
 import de.tarent.octopus.request.Octopus;
 
 /** Wrapper singleton class for class <code>de.tarent.octopus.rpctunnel.RPCTunnel</code> which
@@ -47,7 +49,7 @@ public class OctopusRPCTunnel
 	
 	private static OctopusRPCTunnel octTunnel = null;
 	
-    private static Logger logger = Logger.getLogger(OctopusRPCTunnel.class.getName());
+    private static Log logger = LogFactory.getLog(OctopusRPCTunnel.class);
 	
 	private OctopusRPCTunnel(Octopus octopus, TcCommonConfig commonconfig) throws RPCTunnelUnavailableException
 	{

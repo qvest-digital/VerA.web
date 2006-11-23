@@ -1,4 +1,4 @@
-/* $Id: OctopusDirectCallStarter.java,v 1.2 2006/02/16 16:53:41 kirchner Exp $
+/* $Id: OctopusDirectCallStarter.java,v 1.3 2006/11/23 14:33:31 schmitz Exp $
  * 
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
@@ -38,10 +38,12 @@ import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 import java.util.prefs.Preferences;
 
+import org.apache.commons.logging.Log;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXParseException;
 
 import de.tarent.octopus.config.TcModuleConfig;
+import de.tarent.octopus.logging.LogFactory;
 import de.tarent.octopus.request.Octopus;
 import de.tarent.octopus.request.TcEnv;
 import de.tarent.octopus.request.TcRequest;
@@ -61,7 +63,7 @@ public class OctopusDirectCallStarter implements OctopusStarter {
     private Octopus octopus = null;
     private TcEnv env = null;
 
-    private static Logger logger = Logger.getLogger(OctopusStarter.class.getName());
+    private static Log logger = LogFactory.getLog(OctopusStarter.class);
 
 
     private static Logger baseLogger = null;
@@ -175,11 +177,11 @@ public class OctopusDirectCallStarter implements OctopusStarter {
 
             soapEngine = new TcSOAPEngine(env);
         } catch (Exception e) {
-            logger.log(Level.SEVERE, Resources.getInstance().get("REQUESTPROXY_LOG_INIT_EXCEPTION"), e);
+            logger.error(Resources.getInstance().get("REQUESTPROXY_LOG_INIT_EXCEPTION"), e);
             throw new RuntimeException("Fehler beim Initialisieren des lokalen Octopus", e);
         }
 
-        logger.exiting("TcRequextProxy", "init");
+        logger.trace("TcRequextProxy init");
     }
 
     public void destroy() {
@@ -187,7 +189,7 @@ public class OctopusDirectCallStarter implements OctopusStarter {
             try {
                 octopus.deInit();
             } catch (Exception e) {
-                logger.log(Level.WARNING, Resources.getInstance().get("REQUESTPROXY_LOG_CLEANUP_EXCEPTION"), e);
+                logger.warn(Resources.getInstance().get("REQUESTPROXY_LOG_CLEANUP_EXCEPTION"), e);
             }
 
         // TODO: Sollte der logHandler wirklich geschlossen werden?
@@ -204,26 +206,26 @@ public class OctopusDirectCallStarter implements OctopusStarter {
     public OctopusDirectCallResult request(Map requestParams)
         throws TcDirectCallException {
 
-        logger.fine(Resources.getInstance().get("REQUESTPROXY_LOG_REQUEST_PROCESSING_START"));
+        logger.debug(Resources.getInstance().get("REQUESTPROXY_LOG_REQUEST_PROCESSING_START"));
 
         try {
             TcDirectCallResponse response = new TcDirectCallResponse();
-            logger.finest(Resources.getInstance().get("REQUESTPROXY_LOG_RESPONSE_OBJECT_CREATED"));
+            logger.trace(Resources.getInstance().get("REQUESTPROXY_LOG_RESPONSE_OBJECT_CREATED"));
             response.setSoapEngine(soapEngine);
                         
-            logger.finest(Resources.getInstance().get("REQUESTPROXY_LOG_SESSION_OBJECT_CREATED"));
+            logger.trace(Resources.getInstance().get("REQUESTPROXY_LOG_SESSION_OBJECT_CREATED"));
             
             TcRequest request = new TcRequest();
             request.setRequestParameters(requestParams);
             request.setParam(TcRequest.PARAM_SESSION_ID, tcSession.getId());
-            logger.finest(Resources.getInstance().get("REQUESTPROXY_LOG_REQUEST_OBJECT_CREATED"));
+            logger.debug(Resources.getInstance().get("REQUESTPROXY_LOG_REQUEST_OBJECT_CREATED"));
                         
             octopus.dispatch(request, response, tcSession);
             
             response.flush();
             return new OctopusDirectCallResult(response);
         } catch (Exception e) {
-            logger.log(Level.SEVERE, Resources.getInstance().get("REQUESTPROXY_LOG_PROCESSING_EXCEPTION"), e);
+            logger.error(Resources.getInstance().get("REQUESTPROXY_LOG_PROCESSING_EXCEPTION"), e);
             throw new TcDirectCallException(Resources.getInstance().get("REQUESTPROXY_LOG_PROCESSING_EXCEPTION"), e);
         }
         
@@ -287,12 +289,12 @@ public class OctopusDirectCallStarter implements OctopusStarter {
             realPath = env.getValue(TcEnv.KEY_PATHS_ROOT) + "modules/"+ module +"/";
             if (realPath == null || ! (new File(realPath)).exists()) {
                 realPath = modulePreferences.get(PREF_NAME_REAL_PATH, null);
-                logger.log(Level.INFO, Resources.getInstance().get("OCTOPUS_STARTER_LOG_MODULE_PATH_PREFERENCES", module));
+                logger.info(Resources.getInstance().get("OCTOPUS_STARTER_LOG_MODULE_PATH_PREFERENCES", module));
             }
-            logger.log(Level.INFO, Resources.getInstance().get("OCTOPUS_STARTER_LOG_MODULE_PATH", module, realPath));
+            logger.info(Resources.getInstance().get("OCTOPUS_STARTER_LOG_MODULE_PATH", module, realPath));
 
             if (realPath == null || (! (new File(realPath)).exists())) {
-                logger.log(Level.SEVERE, Resources.getInstance().get("OCTOPUS_STARTER_LOG_MODULE_PATH_INVALID", module, realPath));
+                logger.error(Resources.getInstance().get("OCTOPUS_STARTER_LOG_MODULE_PATH_INVALID", module, realPath));
                 return null;
             }
             File modulePath = new File(realPath);
@@ -309,23 +311,21 @@ public class OctopusDirectCallStarter implements OctopusStarter {
                 configFile = new File(modulePath, "config.xml");
             }
             if (! configFile.exists()) {
-                logger.log(Level.SEVERE, Resources.getInstance().get("OCTOPUS_STARTER_LOG_MODULE_CONFIG_PATH_INVALID", module, configFile));
+                logger.error(Resources.getInstance().get("OCTOPUS_STARTER_LOG_MODULE_CONFIG_PATH_INVALID", module, configFile));
                 return null;
             }
 			modulePreferences.put(PREF_NAME_REAL_PATH, realPath);
             try {
-                logger.config(Resources.getInstance().get("REQUESTPROXY_LOG_PARSING_MODULE_CONFIG", configFile, module));
+                logger.debug(Resources.getInstance().get("REQUESTPROXY_LOG_PARSING_MODULE_CONFIG", configFile, module));
                 Document document = Xml.getParsedDocument(Resources.getInstance().get("REQUESTPROXY_URL_MODULE_CONFIG", configFile.getAbsolutePath()));
                 return new TcModuleConfig(module, modulePath, document, modulePreferences);
             } catch (SAXParseException se) {
-                logger.log(
-                    Level.SEVERE,
-                    Resources.getInstance().get("REQUESTPROXY_LOG_MODULE_PARSE_SAX_EXCEPTION", new Integer(se.getLineNumber()), new Integer(se.getColumnNumber())),
+                logger.error(Resources.getInstance().get("REQUESTPROXY_LOG_MODULE_PARSE_SAX_EXCEPTION", new Integer(se.getLineNumber()), new Integer(se.getColumnNumber())),
                     se);
             } catch (DataFormatException ex) {
-                logger.log(Level.SEVERE, Resources.getInstance().get("REQUESTPROXY_LOG_MODULE_PARSE_FORMAT_EXCEPTION"), ex);
+                logger.error(Resources.getInstance().get("REQUESTPROXY_LOG_MODULE_PARSE_FORMAT_EXCEPTION"), ex);
             } catch (Exception ex) {
-                logger.log(Level.SEVERE, Resources.getInstance().get("REQUESTPROXY_LOG_MODULE_PARSE_EXCEPTION"), ex);
+                logger.error(Resources.getInstance().get("REQUESTPROXY_LOG_MODULE_PARSE_EXCEPTION"), ex);
             }
             
             return null;

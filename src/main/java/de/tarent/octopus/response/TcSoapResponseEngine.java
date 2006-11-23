@@ -1,4 +1,4 @@
-/* $Id: TcSoapResponseEngine.java,v 1.2 2006/10/30 08:44:20 asteban Exp $
+/* $Id: TcSoapResponseEngine.java,v 1.3 2006/11/23 14:33:30 schmitz Exp $
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
  * 
@@ -26,19 +26,21 @@
 
 package de.tarent.octopus.response;
 
-import de.tarent.octopus.soap.RPCResponse;
-import de.tarent.octopus.soap.TcSOAPEngine;
-import de.tarent.octopus.soap.TcSOAPException;
+import java.util.Iterator;
+import java.util.Map;
+
+import org.apache.commons.logging.Log;
+
 import de.tarent.octopus.config.TcCommonConfig;
 import de.tarent.octopus.config.TcConfig;
 import de.tarent.octopus.config.TcModuleConfig;
 import de.tarent.octopus.content.TcContent;
+import de.tarent.octopus.logging.LogFactory;
 import de.tarent.octopus.request.TcRequest;
 import de.tarent.octopus.request.TcResponse;
-
-import java.util.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import de.tarent.octopus.soap.RPCResponse;
+import de.tarent.octopus.soap.TcSOAPEngine;
+import de.tarent.octopus.soap.TcSOAPException;
 
 /** 
  *  Diese Klasse gibt die ausgewählten Felder eines TcContent Objekte als SOAP Nachricht zurück.
@@ -47,7 +49,7 @@ import java.util.logging.Logger;
  */
 public class TcSoapResponseEngine implements TcRPCResponseEngine, TcResponseEngine {
     /** Der Logger */
-    private static Logger logger = Logger.getLogger(TcCommonConfig.class.getName());
+    private static Log logger = LogFactory.getLog(TcCommonConfig.class);
 
     public void init(TcModuleConfig moduleConfig, TcCommonConfig commonConfig) {
     }
@@ -86,20 +88,16 @@ public class TcSoapResponseEngine implements TcRPCResponseEngine, TcResponseEngi
             //             rpcResponse.addParam(fieldName, theContent.getAsObject(fieldName));
             //         }
             
-            logger.fine("Gebe SOAP Message aus. Antwort auf Methode:" + callingMethodName);
+            logger.debug("Gebe SOAP Message aus. Antwort auf Methode:" + callingMethodName);
             rpcResponse.writeTo(tcResponse.getOutputStream());
         } catch (Exception e) {
-            logger.log(
-                Level.SEVERE,
-                "Versuche, eine SOAP-Fault auszugeben.",
+            logger.error("Versuche, eine SOAP-Fault auszugeben.",
                 e);
             TcSOAPException soapException = new TcSOAPException(e);
             try {
                 soapException.writeTo(tcResponse.getOutputStream());
             } catch (Exception e2) {
-                logger.log(
-                    Level.SEVERE,
-                    "Es konnte auch keine SOAP Fehlermeldung ausgegeben werden. Schmeiße jetzt einfach eine Exception.",
+                logger.error("Es konnte auch keine SOAP Fehlermeldung ausgegeben werden. Schmeiße jetzt einfach eine Exception.",
                     e2);
                 throw new ResponseProcessingException("Es ist Fehler bei der Formatierung der Ausgabe ausgetreten.", e);
             }

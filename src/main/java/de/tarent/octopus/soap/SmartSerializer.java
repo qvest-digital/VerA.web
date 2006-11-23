@@ -1,20 +1,25 @@
 package de.tarent.octopus.soap;
 
-import java.util.logging.Logger;
 import java.io.IOException;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
 import javax.xml.namespace.QName;
+
 import org.apache.axis.Constants;
 import org.apache.axis.encoding.SerializationContext;
 import org.apache.axis.encoding.Serializer;
 import org.apache.axis.wsdl.fromJava.Types;
+import org.apache.commons.logging.Log;
 import org.w3c.dom.Element;
 import org.xml.sax.Attributes;
-import java.util.*;
-import java.util.logging.Level;
+
+import de.tarent.octopus.logging.LogFactory;
 
 public class SmartSerializer implements Serializer {
 
-    private static final Logger logger = Logger.getLogger(SmartSerializer.class.getName());
+    private static final Log logger = LogFactory.getLog(SmartSerializer.class);
 
     public void serialize(QName proposedName, Attributes attributes, Object value, SerializationContext context) 
         throws IOException {
@@ -41,7 +46,7 @@ public class SmartSerializer implements Serializer {
                 context.writeString(context.getEncoder().encode(""+value));
             }
         } catch (Exception e) {
-            logger.log(Level.SEVERE, "Error while serialization", e);
+            logger.error("Error while serialization", e);
         } finally {
             context.endElement();
         }

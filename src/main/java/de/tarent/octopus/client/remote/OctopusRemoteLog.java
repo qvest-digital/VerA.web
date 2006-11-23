@@ -1,4 +1,4 @@
-/* $Id: OctopusRemoteLog.java,v 1.1.1.1 2005/11/21 13:33:38 asteban Exp $
+/* $Id: OctopusRemoteLog.java,v 1.2 2006/11/23 14:33:30 schmitz Exp $
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2005 tarent GmbH
  * 
@@ -32,12 +32,13 @@ import java.io.PrintWriter;
 import java.text.MessageFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import org.apache.axis.AxisFault;
 import org.apache.axis.Message;
 import org.apache.axis.client.Call;
+import org.apache.commons.logging.Log;
+
+import de.tarent.octopus.logging.LogFactory;
 
 /** 
  * Klasse, die Logs zur Remotekommunikation anlegt...
@@ -45,7 +46,7 @@ import org.apache.axis.client.Call;
  * @author Philipp Kirchner, tarent GmbH
  */
 public class OctopusRemoteLog {
-	private Logger logger = Logger.getLogger(this.getClass().getName());
+	private Log logger = LogFactory.getLog(this.getClass());
 	
 	private String taskName;
 	private Date taskStart;
@@ -66,7 +67,7 @@ public class OctopusRemoteLog {
 			conlog = new PrintWriter(new FileOutputStream(new File(System.getProperty("user.home")+File.separator+"ContactClient.con.log")));
 			condumplog = new PrintWriter(new FileOutputStream(new File(System.getProperty("user.home")+File.separator+"ContactClient.condump.log")));
 		} catch (FileNotFoundException e) {
-			logger.log(Level.WARNING, "Fehler beim Dateizugriff!", e);
+			logger.warn("Fehler beim Dateizugriff!", e);
 		}
 	}
 	

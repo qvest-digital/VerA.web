@@ -1,4 +1,4 @@
-/* $Id: Xml.java,v 1.3 2006/08/29 13:26:10 christoph Exp $
+/* $Id: Xml.java,v 1.4 2006/11/23 14:33:30 schmitz Exp $
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
  * 
@@ -32,7 +32,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Logger;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.FactoryConfigurationError;
@@ -46,31 +45,34 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
+import org.apache.commons.logging.Log;
+import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import org.w3c.dom.Attr;
 import org.xml.sax.SAXException;
+
+import de.tarent.octopus.logging.LogFactory;
 
 public class Xml {
     /** Der Logger */
-    private static Logger logger = Logger.getLogger(Xml.class.getName());
+    private static Log logger = LogFactory.getLog(Xml.class);
     private static TransformerFactory tFactory = null;
 
     public static Transformer getXSLTTransformer(Source xsltSource) throws TransformerConfigurationException {
         if (tFactory == null) {
-            logger.finer("erzeuge Transformer-Factory");
+            logger.debug("erzeuge Transformer-Factory");
             tFactory = TransformerFactory.newInstance();
         }
-        logger.finest("erzeuge Transformer aus XSLT-Objekt");
+        logger.trace("erzeuge Transformer aus XSLT-Objekt");
         return tFactory.newTransformer(xsltSource);
     }
 
     public static void doXsltTransformation(Source xmlSource, Source xsltSource, Result output)
         throws TransformerConfigurationException, TransformerException {
         Transformer transformer = getXSLTTransformer(xsltSource);
-        logger.finest("transformiere XML-Objekt");
+        logger.trace("transformiere XML-Objekt");
         transformer.transform(xmlSource, output);
     }
 

@@ -1,4 +1,4 @@
-/* $Id: TcSimpleResponseEngine.java,v 1.2 2006/02/17 10:07:16 christoph Exp $
+/* $Id: TcSimpleResponseEngine.java,v 1.3 2006/11/23 14:33:30 schmitz Exp $
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
  * 
@@ -36,9 +36,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
+import org.apache.commons.logging.Log;
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
@@ -49,6 +48,7 @@ import de.tarent.octopus.config.TcCommonConfig;
 import de.tarent.octopus.config.TcConfig;
 import de.tarent.octopus.config.TcModuleConfig;
 import de.tarent.octopus.content.TcContent;
+import de.tarent.octopus.logging.LogFactory;
 import de.tarent.octopus.request.TcRequest;
 import de.tarent.octopus.request.TcResponse;
 import de.tarent.octopus.util.Xml;
@@ -58,7 +58,7 @@ import de.tarent.octopus.util.Xml;
  *  @author <a href="mailto:H.Helwich@tarent.de">Hendrik Helwich</a>, <b>tarent GmbH</b>
  */
 public class TcSimpleResponseEngine implements TcResponseEngine {
-    private static Logger logger = Logger.getLogger(TcSimpleResponseEngine.class.getName());
+    private static Log logger = LogFactory.getLog(TcSimpleResponseEngine.class);
 
     public void init(TcModuleConfig moduleConfig, TcCommonConfig commonConfig) {
     }
@@ -116,11 +116,9 @@ public class TcSimpleResponseEngine implements TcResponseEngine {
         Document document = null;
         try {
             document = Xml.getParsedDocument(filename);
-            logger.fine("PageDescription '" + filename + "' Datei geparst.");
+            logger.debug("PageDescription '" + filename + "' Datei geparst.");
         } catch (SAXParseException se) {
-            logger.log(
-                Level.SEVERE,
-                " SaxExeption beim Parsen der PageDescription '"
+            logger.error(" SaxExeption beim Parsen der PageDescription '"
                     + filename
                     + "' Datei (Zeile "
                     + se.getLineNumber()
@@ -130,7 +128,7 @@ public class TcSimpleResponseEngine implements TcResponseEngine {
                 se);
             return null;
         } catch (Exception e) {
-            logger.log(Level.SEVERE, "Fehler beim Parsen der PageDescription '" + filename + "' Datei.", e);
+            logger.error("Fehler beim Parsen der PageDescription '" + filename + "' Datei.", e);
             return null;
         }
 
@@ -169,8 +167,7 @@ public class TcSimpleResponseEngine implements TcResponseEngine {
         desc.setTemplateRootPath(templatePath);
 
         if (desc == null) {
-            logger.severe(
-                "PageDescription '"
+            logger.error("PageDescription '"
                     + templateFile
                     + "' konnte nicht erzeugt werden. Nehme jetzt 'pageDescriptionError'"
                     + suffix);
@@ -180,7 +177,7 @@ public class TcSimpleResponseEngine implements TcResponseEngine {
             desc = getPageDescriptionFromFile(templateFile);
             desc.setTemplateRootPath(templatePath);
         } else {
-            logger.fine("PageDescription '" + templateFile + "' erstellt.");
+            logger.debug("PageDescription '" + templateFile + "' erstellt.");
         }
 
         return desc;
@@ -194,7 +191,7 @@ public class TcSimpleResponseEngine implements TcResponseEngine {
 
         String templateFile = config.getTemplateRootPath() + "simple/" + descName + suffix;
 
-        logger.fine("Templatefile '" + templateFile + "' existiert:" + (new File(templateFile)).exists());
+        logger.debug("Templatefile '" + templateFile + "' existiert:" + (new File(templateFile)).exists());
         // Nach einem gleichnamigen Template in dem Default Modul suchen
 
         if (!(new File(templateFile)).exists()) {

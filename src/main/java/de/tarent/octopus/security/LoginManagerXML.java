@@ -1,4 +1,4 @@
-/* $Id: LoginManagerXML.java,v 1.2 2005/12/15 10:04:52 christoph Exp $
+/* $Id: LoginManagerXML.java,v 1.3 2006/11/23 14:33:29 schmitz Exp $
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
  * 
@@ -29,11 +29,10 @@ import java.io.File;
 import java.net.PasswordAuthentication;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.xml.parsers.SAXParserFactory;
 
+import org.apache.commons.logging.Log;
 import org.xml.sax.Attributes;
 import org.xml.sax.Locator;
 import org.xml.sax.SAXException;
@@ -41,6 +40,7 @@ import org.xml.sax.SAXParseException;
 import org.xml.sax.helpers.DefaultHandler;
 
 import de.tarent.octopus.config.TcCommonConfig;
+import de.tarent.octopus.logging.LogFactory;
 import de.tarent.octopus.request.TcRequest;
 import de.tarent.octopus.resource.Resources;
 import de.tarent.octopus.server.PersonalConfig;
@@ -53,7 +53,7 @@ import de.tarent.octopus.server.PersonalConfig;
  */
 public class LoginManagerXML extends AbstractLoginManager {
 
-    private static Logger logger = Logger.getLogger(LoginManagerXML.class.getName());
+    private static Log logger = LogFactory.getLog(LoginManagerXML.class);
 
     public static final String KEY_USER_FILE = "userFile";
     public static final String DEFAULT_USER_FILE_NAME = "user.xml";
@@ -74,16 +74,14 @@ public class LoginManagerXML extends AbstractLoginManager {
         try {
             SAXParserFactory.newInstance().newSAXParser().parse(fileUrl, ch);
         } catch (SAXParseException e) {
-            logger.log(
-                       Level.WARNING,
-                       Resources.getInstance().get(
+            logger.warn(Resources.getInstance().get(
                                                    "LOGINMANAGERXML_LOG_USER_PARSE_SAX_EXCEPTION",
                                                    new Integer(e.getLineNumber()),
                                                    new Integer(e.getColumnNumber())),
                        e);
             throw new TcSecurityException(Resources.getInstance().get("LOGINMANAGERXML_EXC_USER_PARSE_ERROR", userFile));
         } catch (Exception e) {
-            logger.log(Level.WARNING, Resources.getInstance().get("LOGINMANAGERXML_LOG_USER_PARSE_ERROR"), e);
+            logger.warn(Resources.getInstance().get("LOGINMANAGERXML_LOG_USER_PARSE_ERROR"), e);
             throw new TcSecurityException(Resources.getInstance().get("LOGINMANAGERXML_EXC_USER_PARSE_ERROR", userFile));
         }
 

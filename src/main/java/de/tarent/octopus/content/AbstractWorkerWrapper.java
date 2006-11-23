@@ -1,4 +1,4 @@
-/* $Id: AbstractWorkerWrapper.java,v 1.7 2006/05/16 12:49:25 christoph Exp $
+/* $Id: AbstractWorkerWrapper.java,v 1.8 2006/11/23 14:33:29 schmitz Exp $
  * 
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
@@ -35,16 +35,17 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.Map;
+
+import org.apache.commons.logging.Log;
 
 import de.tarent.octopus.config.TcConfig;
 import de.tarent.octopus.config.TcModuleConfig;
+import de.tarent.octopus.logging.LogFactory;
 import de.tarent.octopus.request.TcRequest;
+import de.tarent.octopus.resource.Resources;
 import de.tarent.octopus.server.InOutParam;
 import de.tarent.octopus.server.OctopusContext;
-import java.util.Map;
-import de.tarent.octopus.resource.Resources;
 
 /**
  * Basisklasse für Worker-Wrapper nach dem Template-Method Pattern.
@@ -54,7 +55,7 @@ import de.tarent.octopus.resource.Resources;
 public abstract class AbstractWorkerWrapper 
     implements TcContentWorker, DelegatingWorker {
 
-    private static Logger logger = Logger.getLogger(AbstractWorkerWrapper.class.getName());
+    private static Log logger = LogFactory.getLog(AbstractWorkerWrapper.class);
 
 
     /**
@@ -133,11 +134,11 @@ public abstract class AbstractWorkerWrapper
             Method m = workerClass.getMethod("init", new Class[]{TcModuleConfig.class});
             m.invoke(workerDelegate, new Object[]{config} );
 		} catch (SecurityException e) {
-			logger.log(Level.SEVERE, e.getMessage(), e);
+			logger.error(e.getMessage(), e);
 		} catch (NoSuchMethodException e) {
             //DO NOTHING
 		} catch (Exception e) {
-			logger.log(Level.SEVERE, e.getMessage(), e);
+			logger.error(e.getMessage(), e);
             throw new RuntimeException("Fehler bei Ausführung der init() Methode von "+workerClass.getName(), e);
         }
     }
@@ -166,12 +167,12 @@ public abstract class AbstractWorkerWrapper
                 // it schould be filled with an null-Value
                 if (null == actionData.inputParams[i]) {
                     args[argsPos++] = null;
-                    if (logger.isLoggable(Level.FINEST))
-                        logger.finest(i+". generic param is not declared as WebParam, applying null");
+                    if (logger.isTraceEnabled())
+                        logger.trace(i+". generic param is not declared as WebParam, applying null");
                 } else {                                    
                     Object paramValue = octopusContext.getContextField(actionData.inputParams[i]);
-                    if (logger.isLoggable(Level.FINEST))
-                        logger.finest("Filling "+i+". generic param with context-field: "+actionData.inputParams[i]+" paramValue="+paramValue);
+                    if (logger.isTraceEnabled())
+                        logger.trace("Filling "+i+". generic param with context-field: "+actionData.inputParams[i]+" paramValue="+paramValue);
 
                     if (paramValue == null && actionData.mandatoryFlags[i])
                         throw new TcActionInvocationException(Resources.getInstance()
@@ -184,15 +185,15 @@ public abstract class AbstractWorkerWrapper
                     // type conversion
                     if (! actionData.getArgTargetType(argsPos).isInstance(paramValue)) {
                         paramValue = tryToConvert(paramValue, actionData.getArgTargetType(argsPos));
-                        if (logger.isLoggable(Level.FINEST)) {
-                            logger.finest("Applying type conversion for param "+actionData.inputParams[i]+" to type "+actionData.getArgTargetType(argsPos));
-                            logger.finest("New value: "+paramValue);
+                        if (logger.isTraceEnabled()) {
+                            logger.trace("Applying type conversion for param "+actionData.inputParams[i]+" to type "+actionData.getArgTargetType(argsPos));
+                            logger.trace("New value: "+paramValue);
                         }
                     }
                     
                     if (actionData.isInOutParam(argsPos)) {
-                        if (logger.isLoggable(Level.FINEST))
-                            logger.finest("Wrapping param "+actionData.inputParams[i]+" as InOutParam.");
+                        if (logger.isTraceEnabled())
+                            logger.trace("Wrapping param "+actionData.inputParams[i]+" as InOutParam.");
                             EnrichedInOutParam iop = wrapWithInOutParam(paramValue);
                             iop.setContextFieldName(actionData.inputParams[i]);
                             inOutParams.add(iop);
@@ -206,15 +207,15 @@ public abstract class AbstractWorkerWrapper
             result = actionData.method.invoke(workerDelegate, args);
             if (actionData.outputParam != null) {
                 octopusContext.setContextField(actionData.outputParam, result);
-                if (logger.isLoggable(Level.FINEST))
-                    logger.finest("Action result ["+actionData.outputParam+"]:"+result);
+                if (logger.isTraceEnabled())
+                    logger.trace("Action result ["+actionData.outputParam+"]:"+result);
             }
             
             for (Iterator iter = inOutParams.iterator(); iter.hasNext();) {
                 EnrichedInOutParam ioParam = (EnrichedInOutParam)iter.next();
                 octopusContext.setContextField(ioParam.getContextFieldName(), ioParam.get());
-                if (logger.isLoggable(Level.FINEST))
-                    logger.finest("Action result from InOutParam ["+ioParam.getContextFieldName()+"]:"+ioParam.get());
+                if (logger.isTraceEnabled())
+                    logger.trace("Action result from InOutParam ["+ioParam.getContextFieldName()+"]:"+ioParam.get());
             }
             
             return (octopusContext.getStatus() != null) 
@@ -307,12 +308,12 @@ public abstract class AbstractWorkerWrapper
                     newSpectialMap.putAll((Map)param);
                     return newSpectialMap;
                 } catch (Exception e) {
-                    logger.log(Level.WARNING, "Fehler beim Konvertieren eines Übergabeparamters (Map nach "+targetType.getName()+")", e);
+                    logger.warn("Fehler beim Konvertieren eines Übergabeparamters (Map nach "+targetType.getName()+")", e);
                     throw new TcContentProzessException("Fehler beim Konvertieren eines Übergabeparamters (Map nach "+targetType.getName()+")", e);
                 }
              }           
         } catch (NumberFormatException e) {
-            logger.log(Level.WARNING, "Formatfehler beim Konvertieren eines Übergabeparamters (von "+( (param != null) ? param.getClass().toString() : "null") +" nach "+ ( (targetType != null) ? targetType.getName() : "null")+")", e);
+            logger.warn("Formatfehler beim Konvertieren eines Übergabeparamters (von "+( (param != null) ? param.getClass().toString() : "null") +" nach "+ ( (targetType != null) ? targetType.getName() : "null")+")", e);
             //Altes Verhalten wird wiederhergestellt, die TcContentProcessException
             //Macht z.b. im Broker(evtl. alle anderen SBK-Projekte) Probleme
             //throw new TcContentProzessException("Formatfehler Fehler beim Konvertieren eines Übergabeparamters (von "+param.getClass()+" nach "+targetType.getName()+")", e);
@@ -391,7 +392,7 @@ public abstract class AbstractWorkerWrapper
 
             return port;                    
         } catch (Exception e) {
-			logger.log(Level.SEVERE, e.getMessage(), e);
+			logger.error(e.getMessage(), e);
             throw new RuntimeException("Fehler beim Ermitteln der Selbstbeschreibung von "+workerClass.getName(), e);
         }
 	}

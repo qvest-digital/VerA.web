@@ -1,4 +1,4 @@
-/* $Id: XmlRpcEngine.java,v 1.1.1.1 2005/11/21 13:33:38 asteban Exp $
+/* $Id: XmlRpcEngine.java,v 1.2 2006/11/23 14:33:30 schmitz Exp $
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
  * 
@@ -31,13 +31,14 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.commons.logging.Log;
 import org.apache.xmlrpc.XmlRpcRequest;
 import org.apache.xmlrpc.XmlRpcRequestProcessor;
 
+import de.tarent.octopus.logging.LogFactory;
 import de.tarent.octopus.request.TcRequest;
 import de.tarent.octopus.soap.TcSOAPException;
 
@@ -49,7 +50,7 @@ import de.tarent.octopus.soap.TcSOAPException;
 public class XmlRpcEngine {
 
     /** Logger für diese Klasse */
-    private static Logger logger = Logger.getLogger(XmlRpcEngine.class.getName());
+    private static Log logger = LogFactory.getLog(XmlRpcEngine.class);
 
 
     /**
@@ -62,7 +63,7 @@ public class XmlRpcEngine {
      * @throws TcSOAPException
      */
     public static TcRequest[] readXmlRpcRequests(InputStream inStream, int requestType, String requestID) throws TcSOAPException {
-        logger.entering(XmlRpcEngine.class.getName(), "readXmlRpcRequests", new Object[] {inStream, new Integer(requestType), requestID});
+        logger.trace(XmlRpcEngine.class.getName() + " readXmlRpcRequests " + new Object[] {inStream, new Integer(requestType), requestID});
 
         XmlRpcRequest xmlRpcRequest = null;
 

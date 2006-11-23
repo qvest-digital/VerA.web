@@ -1,4 +1,4 @@
-/* $Id: TcCommonConfig.java,v 1.3 2006/07/11 13:47:37 kleinhenz Exp $
+/* $Id: TcCommonConfig.java,v 1.4 2006/11/23 14:33:30 schmitz Exp $
  * 
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
@@ -35,9 +35,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
+import org.apache.commons.logging.Log;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -46,6 +45,7 @@ import org.xml.sax.SAXParseException;
 import de.tarent.octopus.data.TarDBConnection;
 import de.tarent.octopus.data.TcDataAccessException;
 import de.tarent.octopus.data.TcGenericDataAccessWrapper;
+import de.tarent.octopus.logging.LogFactory;
 import de.tarent.octopus.request.Octopus;
 import de.tarent.octopus.request.TcEnv;
 import de.tarent.octopus.request.TcTaskList;
@@ -80,7 +80,7 @@ public class TcCommonConfig {
 	public static final String AUTH_TYPE_LDAP = "LDAP";
     
 	/** Der Logger */
-    private static Logger logger = Logger.getLogger(TcCommonConfig.class.getName());
+    private static Log logger = LogFactory.getLog(TcCommonConfig.class);
 
     /** Die Daten aus der Haupt Konfigurations Datei
      * und Environment Werte aus der ServletEnv
@@ -134,7 +134,7 @@ public class TcCommonConfig {
         this.octopus = octopus;
         parseConfigFile();
         bufferedDataAccessWrappers = new HashMap();
-        logger.fine(Resources.getInstance().get("COMMONCONFIG_LOG_INITIALIZED"));
+        logger.debug(Resources.getInstance().get("COMMONCONFIG_LOG_INITIALIZED"));
     }
 
     /**
@@ -152,21 +152,19 @@ public class TcCommonConfig {
                 configData.get(TcEnv.KEY_PATHS_CONFIG_FILE));
         Document document = null;
         try {
-            logger.config(Resources.getInstance().get("COMMONCONFIG_LOG_CONFIG_FILE", filename));
-            logger.finer(Resources.getInstance().get("COMMONCONFIG_LOG_PARSE_START"));
+            logger.debug(Resources.getInstance().get("COMMONCONFIG_LOG_CONFIG_FILE", filename));
+            logger.debug(Resources.getInstance().get("COMMONCONFIG_LOG_PARSE_START"));
             document = Xml.getParsedDocument(filename);
-            logger.finer(Resources.getInstance().get("COMMONCONFIG_LOG_PARSE_STOP"));
+            logger.debug(Resources.getInstance().get("COMMONCONFIG_LOG_PARSE_STOP"));
         } catch (SAXParseException se) {
-            logger.log(
-                Level.SEVERE,
-                Resources.getInstance().get(
+            logger.error(Resources.getInstance().get(
                     "COMMONCONFIG_LOG_PARSE_SAX_EXCEPTION",
                     new Integer(se.getLineNumber()),
                     new Integer(se.getColumnNumber())),
                 se);
             throw new TcConfigException(Resources.getInstance().get("COMMONCONFIG_EXC_PARSE_ERROR"), se);
         } catch (Exception e) {
-            logger.log(Level.SEVERE, Resources.getInstance().get("COMMONCONFIG_LOG_PARSE_ERROR"), e);
+            logger.error(Resources.getInstance().get("COMMONCONFIG_LOG_PARSE_ERROR"), e);
             throw new TcConfigException(Resources.getInstance().get("COMMONCONFIG_EXC_PARSE_ERROR"), e);
         }
 
@@ -179,7 +177,7 @@ public class TcCommonConfig {
                     configData.setAllValues(Xml.getParamMap(currNode));
                 } catch (DataFormatException dfe) {
                     String msg = Resources.getInstance().get("COMMONCONFIG_LOG_PARSE_APPLICATION_ERROR");
-                    logger.log(Level.SEVERE, msg, dfe);
+                    logger.error(msg, dfe);
                     throw new TcConfigException(msg, dfe);
                 }
             }else if("loginManager".equals(currNode.getNodeName())){
@@ -187,7 +185,7 @@ public class TcCommonConfig {
 					configLoginManager.putAll(Xml.getParamMap(currNode));
                 } catch (DataFormatException dfe) {
                     String msg = Resources.getInstance().get("COMMONCONFIG_LOG_PARSE_APPLICATION_ERROR");
-                    logger.log(Level.SEVERE, msg, dfe);
+                    logger.error(msg, dfe);
                     throw new TcConfigException(msg, dfe);
                 }
             }
@@ -199,7 +197,7 @@ public class TcCommonConfig {
         // defaultModuleConfig setzen
         if (configData.get(TcEnv.KEY_DEFAULT_MODULE) == null) {
             String msg = Resources.getInstance().get("COMMONCONFIG_LOG_DEFAULT_ENTRY_MISSING");
-            logger.log(Level.CONFIG, msg);
+            logger.debug(msg);
         }
     }
 
@@ -228,16 +226,16 @@ public class TcCommonConfig {
             bufferedDataAccessWrappers.remove(dataAccessKey);
             try {
 				accessWrapper.disconnect();
-                logger.fine(Resources.getInstance().get("COMMONCONFIG_LOG_CLOSED_ACCESS_WRAPPER", dataAccessKey));
+                logger.debug(Resources.getInstance().get("COMMONCONFIG_LOG_CLOSED_ACCESS_WRAPPER", dataAccessKey));
 			} catch (SQLException e) {
-                logger.log(Level.WARNING, Resources.getInstance().get("COMMONCONFIG_LOG_ERROR_CLOSING_WRAPPER", dataAccessKey), e);
+                logger.warn(Resources.getInstance().get("COMMONCONFIG_LOG_ERROR_CLOSING_WRAPPER", dataAccessKey), e);
 			}
             accessWrapper = null;
         }
 
         if (accessWrapper == null) {
             // Neu erstellen
-            logger.config(Resources.getInstance().get("COMMONCONFIG_LOG_CREATING_ACCESS_WRAPPER", dataAccessKey));
+            logger.debug(Resources.getInstance().get("COMMONCONFIG_LOG_CREATING_ACCESS_WRAPPER", dataAccessKey));
             Map source = null;
 
             TcModuleConfig module = getModuleConfig(moduleName);
@@ -250,10 +248,10 @@ public class TcCommonConfig {
                 source = (Map) dataAccess.get(dataAccessName);
             }
 
-            logger.finer(Resources.getInstance().get("COMMONCONFIG_LOG_ACCESS_WRAPPER_DATA", source));
+            logger.debug(Resources.getInstance().get("COMMONCONFIG_LOG_ACCESS_WRAPPER_DATA", source));
             if (source == null) {
                 String msg = Resources.getInstance().get("COMMONCONFIG_LOG_ACCESS_WRAPPER_NO_DATA", dataAccessKey);
-                logger.severe(msg);
+                logger.error(msg);
                 throw new TcDataAccessException(msg);
             }
 
@@ -262,13 +260,12 @@ public class TcCommonConfig {
                 Class clazz = module.getClassLoader().loadClass(dbConnection.getAccessWrapperClassName());
                 accessWrapper = (TcGenericDataAccessWrapper) clazz.newInstance();
                 accessWrapper.setDBConnection(dbConnection);
-                logger.finer(
-                    Resources.getInstance().get(
+                logger.debug(Resources.getInstance().get(
                         "COMMONCONFIG_LOG_CREATED_ACCESS_WRAPPER",
                         dbConnection.getAccessWrapperClassName()));
             } catch (Exception e) {
                 String msg = Resources.getInstance().get("COMMONCONFIG_LOG_ACCESS_WRAPPER_ERROR", dataAccessKey);
-                logger.log(Level.SEVERE, msg, e);
+                logger.error(msg, e);
                 throw new TcDataAccessException(msg, e);
             }
             bufferedDataAccessWrappers.put(dataAccessKey, accessWrapper);
@@ -299,7 +296,7 @@ public class TcCommonConfig {
                 try {
 					wrapper.disconnect();
 				} catch (SQLException e) {
-                    logger.log(Level.WARNING, Resources.getInstance().get("COMMONCONFIG_LOG_ERROR_CLOSING_WRAPPER", key), e);
+                    logger.warn(Resources.getInstance().get("COMMONCONFIG_LOG_ERROR_CLOSING_WRAPPER", key), e);
                 }
                 itAccessWrappers.remove();
                 if (buffer.length() > 0)
@@ -307,9 +304,9 @@ public class TcCommonConfig {
                 buffer.append(key);
             }
         } catch(ParseException pe) {
-            logger.log(Level.WARNING, Resources.getInstance().get("COMMONCONFIG_LOG_INVALID_ACCESS_KEY", key), pe);
+            logger.warn(Resources.getInstance().get("COMMONCONFIG_LOG_INVALID_ACCESS_KEY", key), pe);
         }
-        logger.config(Resources.getInstance().get("COMMONCONFIG_LOG_REMOVED_ACCESS_WRAPPERS", moduleName, new Integer(i), buffer));
+        logger.debug(Resources.getInstance().get("COMMONCONFIG_LOG_REMOVED_ACCESS_WRAPPERS", moduleName, new Integer(i), buffer));
     }
 
     /**
@@ -376,7 +373,7 @@ public class TcCommonConfig {
                 if (moduleConfig != null)
                     registerModule(moduleName, moduleConfig);
                 else
-                    logger.warning(Resources.getInstance().get("COMMONCONFIG_LOG_MODULE_INVALID", moduleName));            
+                    logger.warn(Resources.getInstance().get("COMMONCONFIG_LOG_MODULE_INVALID", moduleName));            
             }
         }
         return (TcModuleConfig) moduleConfigs.get(moduleName);
@@ -401,18 +398,18 @@ public class TcCommonConfig {
                 Map.Entry taskErrors = (Map.Entry) itTaskErrors.next();
                 Object task = taskErrors.getKey();
                 if (!(taskErrors.getValue() instanceof List)) {
-                    logger.warning(Resources.getInstance().get("COMMONCONFIG_LOG_TASK_ERROR_INVALID", moduleName, task, taskErrors.getValue()));
+                    logger.warn(Resources.getInstance().get("COMMONCONFIG_LOG_TASK_ERROR_INVALID", moduleName, task, taskErrors.getValue()));
                     continue;
                 }
                 Iterator itErrors = ((List)taskErrors.getValue()).iterator();
                 while (itErrors.hasNext())
-                    logger.warning(Resources.getInstance().get("COMMONCONFIG_LOG_TASK_ERROR", moduleName, task, itErrors.next()));
+                    logger.warn(Resources.getInstance().get("COMMONCONFIG_LOG_TASK_ERROR", moduleName, task, itErrors.next()));
             }
         }
         try {
             octopus.doAutostart(moduleName, this);
         } catch (Exception e) {
-            logger.log(Level.WARNING, Resources.getInstance().get("COMMONCONFIG_LOG_AUTOSTART_ERROR", moduleName), e);
+            logger.warn(Resources.getInstance().get("COMMONCONFIG_LOG_AUTOSTART_ERROR", moduleName), e);
         }
     }
 
@@ -426,12 +423,12 @@ public class TcCommonConfig {
             try {
                 octopus.doCleanup(moduleName, this);
             } catch (Exception e) {
-                logger.log(Level.WARNING, Resources.getInstance().get("COMMONCONFIG_LOG_CLEANUP_ERROR", moduleName), e);
+                logger.warn(Resources.getInstance().get("COMMONCONFIG_LOG_CLEANUP_ERROR", moduleName), e);
             }
             try {
                 dropModuleDataAccess(moduleName);
             } catch (Exception e) {
-                logger.log(Level.WARNING, Resources.getInstance().get("COMMONCONFIG_LOG_CLEANUP_ERROR", moduleName), e);
+                logger.warn(Resources.getInstance().get("COMMONCONFIG_LOG_CLEANUP_ERROR", moduleName), e);
             }
             moduleConfigs.remove(moduleName);
         }
@@ -578,18 +575,18 @@ public class TcCommonConfig {
         if (loginManager == null) {
         	Map loginManagerParams = getConfigLoginManager();
             if (!loginManagerParams.isEmpty()) {
-                logger.config("Default-Login-Manager-Erstellung");
+                logger.debug("Default-Login-Manager-Erstellung");
                 //Octopus möchte seine Config selber machen...
                 String loginManagerClassName = (String) loginManagerParams.get("loginManagerClass");
                 if (loginManagerClassName != null) {
-                    logger.fine("Lade LoginManager Klasse: " + loginManagerClassName);
+                    logger.debug("Lade LoginManager Klasse: " + loginManagerClassName);
                     try {
                         //Eintrag ist angegeben...
                         Class loginManagerClass = Class.forName(loginManagerClassName);
                         loginManager = (LoginManager) loginManagerClass.newInstance();
                         loginManager.setConfiguration(loginManagerParams);
                     } catch (Exception e) {
-                        logger.severe("Fehler beim Laden des LoginManagers." + e.getMessage());
+                        logger.error("Fehler beim Laden des LoginManagers." + e.getMessage());
                         throw new TcSecurityException(TcSecurityException.ERROR_SERVER_AUTH_ERROR, e);
                     }
                 }
@@ -597,7 +594,7 @@ public class TcCommonConfig {
             if (loginManager == null) {
                 //Hier der Fallback-Teil für die alte Konfiguration...
                 String authType = configData.get(TcEnv.KEY_AUTHENTICATION_TYPE);
-                logger.fine("LoginManager: Fallback auf Octopus 1.1 Variante: " + authType);
+                logger.debug("LoginManager: Fallback auf Octopus 1.1 Variante: " + authType);
                 if (AUTH_TYPE_LDAP.equalsIgnoreCase(authType)) {
                     loginManager = new LoginManagerLDAP();
                 } else if (AUTH_TYPE_XML.equalsIgnoreCase(authType)) {
@@ -608,7 +605,7 @@ public class TcCommonConfig {
                     loginManager = new LoginManagerAcceptAll();
                 } else {
                     String msg = Resources.getInstance().get("COMMONCONFIG_LOG_INVALID_AUTH_METHOD", authType);
-                    logger.severe(msg);
+                    logger.error(msg);
                     throw new TcSecurityException(msg);
                 }
             }

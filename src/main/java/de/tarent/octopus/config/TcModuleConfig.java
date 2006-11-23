@@ -1,4 +1,4 @@
-/* $Id: TcModuleConfig.java,v 1.15 2006/08/30 09:31:06 christoph Exp $
+/* $Id: TcModuleConfig.java,v 1.16 2006/11/23 14:33:30 schmitz Exp $
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
  * 
@@ -41,8 +41,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
 
@@ -55,6 +53,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.axis.encoding.TypeMappingRegistry;
+import org.apache.commons.logging.Log;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -63,6 +62,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import de.tarent.octopus.logging.LogFactory;
 import de.tarent.octopus.request.TcTaskList;
 import de.tarent.octopus.resource.Resources;
 import de.tarent.octopus.security.TcSecurityException;
@@ -106,7 +106,7 @@ public class TcModuleConfig {
     protected Constructor personalConfigConstructor = null;
 
     /** Der Logger */
-    private static Logger logger = Logger.getLogger(TcModuleConfig.class.getName());
+    private static Log logger = LogFactory.getLog(TcModuleConfig.class);
 
     /*
      * Config Parameter
@@ -159,7 +159,7 @@ public class TcModuleConfig {
             throw new DataFormatException("Die Konfigurationsdatei muss einen Tasks-Abschnitt besitzen.");
         
         try {
-            logger.config("Exportiere WSDL-Darstellung des Moduls");
+            logger.debug("Exportiere WSDL-Darstellung des Moduls");
             wsdlDefinition = taskList.getPortDefinition().getWsdlDefinition(true, "http://schema.tarent.de/" + name, name, "http://localhost:8080/octopus");
             OutputStream os = new FileOutputStream(new File(realPath, "module.wsdl"));
             WSDLFactory factory;
@@ -167,11 +167,11 @@ public class TcModuleConfig {
             WSDLWriter writer = factory.newWSDLWriter();
             writer.writeWSDL(wsdlDefinition, os);
             os.close();
-            //logger.config(name + ": " + sw.toString());
+            //logger.debug(name + ": " + sw.toString());
         } catch (WSDLException e) {
-            logger.log(Level.SEVERE, "WSDL-Fehler", e);
+            logger.error("WSDL-Fehler", e);
         } catch (IOException e) {
-            logger.log(Level.SEVERE, "IO-Fehler", e);
+            logger.error("IO-Fehler", e);
         }
 
     }
@@ -200,16 +200,16 @@ public class TcModuleConfig {
                     String path = attributes.getNamedItem("file").getNodeValue();
                     
                     File configFile = new File(realPath, path);
-                    logger.log(Level.INFO, "Loading file '" + configFile.getAbsolutePath() + "'.");
+                    logger.info("Loading file '" + configFile.getAbsolutePath() + "'.");
                     
                     if ( configFile.exists() ){
                         try {
                             includeDocument = Xml.getParsedDocument(Resources.getInstance().get("REQUESTPROXY_URL_MODULE_CONFIG", configFile.getAbsolutePath()));
                         } catch (Exception e) {
-                            logger.log(Level.SEVERE, "Error while loading config file '" + configFile + "'. Parsing aborted.", e );
+                            logger.error("Error while loading config file '" + configFile + "'. Parsing aborted.", e );
                         }
                     } else {
-                    	logger.log(Level.WARNING, "Config file '" + configFile + "' not found. Will be ignored." );
+                    	logger.warn("Config file '" + configFile + "' not found. Will be ignored." );
                     }
                 }
                 
@@ -224,7 +224,7 @@ public class TcModuleConfig {
                 	}
                 	
                 	try {
-                		logger.log(Level.INFO, "Loading file '" + resource + "' from module classpath." );
+                		logger.info("Loading file '" + resource + "' from module classpath." );
                 		
                     	InputStream inputStream = getClassLoader().getResourceAsStream(resource);
                     	
@@ -232,7 +232,7 @@ public class TcModuleConfig {
     						includeDocument = DocumentBuilderFactory.newInstance()
     								.newDocumentBuilder().parse(inputStream);
                     	} else {
-                    		logger.log(Level.INFO, "Config file '" + resource + "' not found in module classpath. Try octopus classpath." );
+                    		logger.info("Config file '" + resource + "' not found in module classpath. Try octopus classpath." );
                     		
                     		inputStream = getClass().getClassLoader().getResourceAsStream(resource);
                     		
@@ -240,19 +240,19 @@ public class TcModuleConfig {
                     			includeDocument = DocumentBuilderFactory.newInstance()
 										.newDocumentBuilder().parse(inputStream);
                     		} else {
-                    			logger.log(Level.WARNING, "Config file '" + resource + "' not found in module nor octopus classpath.");
+                    			logger.warn("Config file '" + resource + "' not found in module nor octopus classpath.");
                     		}
                     	}
 						
 					} catch (SAXException e) {
-						logger.log(Level.SEVERE, "Error while parsing included config file from classpath.", e );
+						logger.error("Error while parsing included config file from classpath.", e );
 					} catch (ParserConfigurationException e) {
-						logger.log(Level.SEVERE, "Error while parsing included config file from classpath.", e );
+						logger.error("Error while parsing included config file from classpath.", e );
 					} catch (IOException e) {
-						logger.log(Level.SEVERE, "Error while loading included config file from classpath.", e );
+						logger.error("Error while loading included config file from classpath.", e );
 					}
                 } else {
-                	logger.log(Level.SEVERE, "Illegal include attributes. No 'file', 'packagename' or 'classpath' found." );
+                	logger.error("Illegal include attributes. No 'file', 'packagename' or 'classpath' found." );
                 }
                 	
 				if (includeDocument != null) {
@@ -263,7 +263,7 @@ public class TcModuleConfig {
                 try {
                     rawConfigParams.putAll(Xml.getParamMap(currNode));
                 } catch (DataFormatException dfe) {
-                    logger.log(Level.SEVERE, "Fehler beim Parsen der Config-Parameter.", dfe);
+                    logger.error("Fehler beim Parsen der Config-Parameter.", dfe);
                     throw dfe;
                 }
             } else if ("tasks".equals(currNode.getNodeName())) {
@@ -275,14 +275,14 @@ public class TcModuleConfig {
                 try {
                     loginManagerParams.putAll(Xml.getParamMap(currNode));
                 } catch (DataFormatException dfe) {
-                    logger.log(Level.SEVERE, "Fehler beim Parsen der Config-Parameter.", dfe);
+                    logger.error("Fehler beim Parsen der Config-Parameter.", dfe);
                     throw dfe;
                 }
             } else if ("dataAccess".equals(currNode.getNodeName())) {
                 try {
                     dataAccess.putAll(parseDataAccess(currNode, preferences.node(PREFS_DATA_ACCESS)));
                 } catch (DataFormatException dfe) {
-                    logger.log(Level.SEVERE, "Fehler beim Parsen des Data Access Abschnitts.", dfe);
+                    logger.error("Fehler beim Parsen des Data Access Abschnitts.", dfe);
                     throw dfe;
                 }
             } else if ("contentWorkerDeklaration".equals(currNode.getNodeName())) {
@@ -291,7 +291,7 @@ public class TcModuleConfig {
                 		contentWorkersDeclarations = new HashMap();
                     contentWorkersDeclarations.putAll(parseContentWorkerDeklarations(currNode));
                 } catch (DataFormatException dfe) {
-                    logger.log(Level.SEVERE, "Fehler beim Parsen der Content Worker Deklaration.", dfe);
+                    logger.error("Fehler beim Parsen der Content Worker Deklaration.", dfe);
                     throw dfe;
                 }
             } else if ("description".equals(currNode.getNodeName())) {
@@ -320,7 +320,7 @@ public class TcModuleConfig {
                     qname = new QName("http://schemas.tarent.de/Groupware.xsd", "EntryType");
                     reg.getDefaultTypeMapping().register(javaClass, qname, new org.apache.axis.encoding.ser.BeanSerializerFactory(javaClass, qname), new org.apache.axis.encoding.ser.BeanDeserializerFactory(javaClass, qname));
                 } catch (ClassNotFoundException e1) {
-                    logger.log(Level.SEVERE, "Typenübergabe", e1);
+                    logger.error("Typenübergabe", e1);
                 }
             } else if (currNode instanceof Element) {
                 otherNodes.put(currNode.getNodeName(), currNode);
@@ -649,25 +649,25 @@ public class TcModuleConfig {
      */
     public ClassLoader getClassLoader() {
         if (classLoader == null) {
-            logger.config("ClassLoader-Erstellung für das Modul " + getName());
+            logger.debug("ClassLoader-Erstellung für das Modul " + getName());
             List urlList = new ArrayList();
             if (getRealPath().exists()) {
                 File classesDir = new File(getRealPath(), "classes");
                 if (classesDir.exists()) try {
                     urlList.add(classesDir.toURL());
                 } catch (MalformedURLException mue) {
-                    logger.log(Level.WARNING, "Fehler beim Wandeln des Modul-classes-Pfads '" + classesDir + "' in eine URL.");
+                    logger.warn("Fehler beim Wandeln des Modul-classes-Pfads '" + classesDir + "' in eine URL.");
                 }
                 File libs[] = new File(getRealPath(), "lib").listFiles();
                 if (libs != null) {
                     for (int i = 0; i < libs.length; i++) try {
                         urlList.add(libs[i].toURL());
                     } catch (MalformedURLException mue) {
-                        logger.log(Level.WARNING, "Fehler beim Wandeln des Modul-lib-Pfads '" + libs[i] + "' in eine URL.");
+                        logger.warn("Fehler beim Wandeln des Modul-lib-Pfads '" + libs[i] + "' in eine URL.");
                     } 
                 }
             } else {
-                logger.warning("Modulverzeichnis '" + getRealPath() + "' des Moduls '" + getName() + "' existiert nicht.");
+                logger.warn("Modulverzeichnis '" + getRealPath() + "' des Moduls '" + getName() + "' existiert nicht.");
             }
             
             URL urls[] = new URL[urlList.size()];
@@ -751,12 +751,12 @@ public class TcModuleConfig {
                 for (int i = 0; i < keys.length; i++) {
                     String key = keys[i];
                     String value = preferences.get(key, asString(map.get(key)));
-                    logger.config("[" + context + "] Override for " + key + ": " + value);
+                    logger.debug("[" + context + "] Override for " + key + ": " + value);
                     map.put(key, value);
                 }
             }
         } catch (BackingStoreException e) {
-            logger.log(Level.SEVERE, "[" + context + "] Preferences-API-Zugriff", e);
+            logger.error("[" + context + "] Preferences-API-Zugriff", e);
         }
 	}
 	
@@ -774,18 +774,18 @@ public class TcModuleConfig {
 	public synchronized LoginManager getLoginManager() throws TcSecurityException {
         if (loginManager == null) {
             if (!loginManagerParams.isEmpty()) {
-                logger.config("Login-Manager-Erstellung für das Modul " + getName());
+                logger.debug("Login-Manager-Erstellung für das Modul " + getName());
                 //Modul möchte seine Config selber machen...
                 String loginManagerClassName = (String) loginManagerParams.get("loginManagerClass");
                 if (loginManagerClassName != null) {
-                    logger.finer("Lade LoginManager-Implementierung: " + loginManagerClassName);
+                    logger.debug("Lade LoginManager-Implementierung: " + loginManagerClassName);
                     try {
                         //Eintrag ist angegeben...
                         Class loginManagerClass = getClassLoader().loadClass(loginManagerClassName);
                         loginManager = (LoginManager) loginManagerClass.newInstance();
                         loginManager.setConfiguration(loginManagerParams);
                     } catch (Exception e) {
-                        logger.log(Level.SEVERE, "Fehler beim Laden des LoginManagers.", e);
+                        logger.error("Fehler beim Laden des LoginManagers.", e);
                         throw new TcSecurityException(TcSecurityException.ERROR_SERVER_AUTH_ERROR, e);
                     }
                 }
@@ -810,12 +810,12 @@ public class TcModuleConfig {
                     Class classClass = className != null ? getClassLoader().loadClass(className) : TcPersonalConfig.class;
                     if (!PersonalConfig.class.isAssignableFrom(classClass)) {
                         String msg = "Fehler beim Laden des Konstruktors für PersonalConfigs; angegebene Klasse implementiert nicht PersonalConfig.";
-                        logger.severe(msg);
+                        logger.error(msg);
                         throw new TcConfigException(msg);
                     }
                     personalConfigConstructor = classClass.getConstructor(new Class[0]);
                 } catch (Exception e) {
-                    logger.log(Level.SEVERE, "Fehler beim Laden des Konstruktors für PersonalConfigs.", e);
+                    logger.error("Fehler beim Laden des Konstruktors für PersonalConfigs.", e);
                     throw new TcConfigException("Fehler beim Laden des Konstruktors für PersonalConfigs.", e);
                 }
             }
@@ -823,7 +823,7 @@ public class TcModuleConfig {
         try {
             return (PersonalConfig) personalConfigConstructor.newInstance(new Object[0]);
         } catch (Exception e) {
-            logger.log(Level.SEVERE, "Fehler beim Ausführen des Konstruktors für PersonalConfigs.", e);
+            logger.error("Fehler beim Ausführen des Konstruktors für PersonalConfigs.", e);
             throw new TcConfigException("Fehler beim Ausführen des Konstruktors für PersonalConfigs.", e);
         }
     }

@@ -1,4 +1,4 @@
-/* $Id: OctopusInternalStarter.java,v 1.3 2006/09/25 06:26:16 asteban Exp $
+/* $Id: OctopusInternalStarter.java,v 1.4 2006/11/23 14:33:31 schmitz Exp $
  * 
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
@@ -27,9 +27,10 @@
 package de.tarent.octopus.request.internal;
 
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
+import org.apache.commons.logging.Log;
+
+import de.tarent.octopus.logging.LogFactory;
 import de.tarent.octopus.request.Octopus;
 import de.tarent.octopus.request.TcRequest;
 import de.tarent.octopus.request.TcSession;
@@ -48,7 +49,7 @@ import de.tarent.octopus.resource.Resources;
 public class OctopusInternalStarter implements OctopusStarter {
 
 
-    private static Logger logger = Logger.getLogger(OctopusStarter.class.getName());
+    private static Log logger = LogFactory.getLog(OctopusStarter.class);
 
     TcSession tcSession;
 
@@ -76,26 +77,26 @@ public class OctopusInternalStarter implements OctopusStarter {
     public OctopusDirectCallResult request(Map requestParams)
         throws TcDirectCallException {
 
-        logger.fine(Resources.getInstance().get("REQUESTPROXY_LOG_REQUEST_PROCESSING_START"));
+        logger.debug(Resources.getInstance().get("REQUESTPROXY_LOG_REQUEST_PROCESSING_START"));
 
         try {
             TcDirectCallResponse response = new TcDirectCallResponse();
-            logger.finest(Resources.getInstance().get("REQUESTPROXY_LOG_RESPONSE_OBJECT_CREATED"));
+            logger.trace(Resources.getInstance().get("REQUESTPROXY_LOG_RESPONSE_OBJECT_CREATED"));
             //response.setSoapEngine(soapEngine);
                         
-            logger.finest(Resources.getInstance().get("REQUESTPROXY_LOG_SESSION_OBJECT_CREATED"));
+            logger.trace(Resources.getInstance().get("REQUESTPROXY_LOG_SESSION_OBJECT_CREATED"));
             
             TcRequest request = new TcRequest();
             request.setRequestParameters(requestParams);
             request.setParam(TcRequest.PARAM_SESSION_ID, tcSession.getId());
-            logger.finest(Resources.getInstance().get("REQUESTPROXY_LOG_REQUEST_OBJECT_CREATED"));
+            logger.trace(Resources.getInstance().get("REQUESTPROXY_LOG_REQUEST_OBJECT_CREATED"));
             
             octopus.dispatch(request, response, tcSession);
             
             response.flush();
             return new OctopusDirectCallResult(response);
         } catch (Exception e) {
-            logger.log(Level.SEVERE, Resources.getInstance().get("REQUESTPROXY_LOG_PROCESSING_EXCEPTION"), e);
+            logger.error(Resources.getInstance().get("REQUESTPROXY_LOG_PROCESSING_EXCEPTION"), e);
             throw new TcDirectCallException(Resources.getInstance().get("REQUESTPROXY_LOG_PROCESSING_EXCEPTION"), e);
         }
         

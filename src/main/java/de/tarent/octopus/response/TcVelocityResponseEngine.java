@@ -1,4 +1,4 @@
-/* $Id: TcVelocityResponseEngine.java,v 1.4 2006/05/07 23:05:57 jens Exp $
+/* $Id: TcVelocityResponseEngine.java,v 1.5 2006/11/23 14:33:30 schmitz Exp $
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
  * 
@@ -38,6 +38,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.Properties;
 
+import org.apache.commons.logging.Log;
 import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.VelocityContext;
 
@@ -46,6 +47,7 @@ import de.tarent.octopus.config.TcConfig;
 import de.tarent.octopus.config.TcModuleConfig;
 import de.tarent.octopus.content.CookieMap;
 import de.tarent.octopus.content.TcContent;
+import de.tarent.octopus.logging.LogFactory;
 import de.tarent.octopus.request.TcRequest;
 import de.tarent.octopus.request.TcResponse;
 import de.tarent.octopus.resource.Resources;
@@ -73,7 +75,7 @@ public class TcVelocityResponseEngine implements TcResponseEngine {
 	private static final String OCTOPUS_RESPONSECONTEXT = "octopusResponseContext";
 
 	/** Logger instance */
-	private Logger logger;
+	private Log logger;
 	/** Velocity engine instance */
 	private VelocityEngine engine;
 	/** Velocity script rootpath */
@@ -83,11 +85,11 @@ public class TcVelocityResponseEngine implements TcResponseEngine {
 	 * Init this response engine.
 	 */
 	public void init(TcModuleConfig moduleConfig, TcCommonConfig commonConfig) {
-		logger = Logger.getLogger(TcVelocityResponseEngine.class.getName());
+		logger = LogFactory.getLog(TcVelocityResponseEngine.class);
 		engine = new VelocityEngine();
 		try {
 			rootPath = new File(commonConfig.getTemplateRootPath(moduleConfig.getName()), "velocity");
-			logger.config("Velocity-Root: " + rootPath);
+			logger.debug("Velocity-Root: " + rootPath);
 			Properties properties = new Properties();
 			properties.setProperty("file.resource.loader.path", rootPath.getAbsolutePath());
 			properties.setProperty("velocimacro.library", commonConfig.getConfigData("velocity.macro.library"));
@@ -102,7 +104,7 @@ public class TcVelocityResponseEngine implements TcResponseEngine {
 			
 			engine.init(properties);
 		} catch (Exception e) {
-			logger.log(Level.SEVERE, "Fehler beim Init der Velocity Engine.", e);
+			logger.error("Fehler beim Init der Velocity Engine.", e);
 		}
 	}
 
@@ -140,9 +142,9 @@ public class TcVelocityResponseEngine implements TcResponseEngine {
 		boolean doClose = true;
 		try {
 			writer = new OutputStreamWriter(tcResponse.getOutputStream(), encoding);
-			logger.fine(Resources.getInstance().get("VELOCITYRESPONSE_LOG_ENCODING", tcRequest.getRequestID(), encoding));
+			logger.debug(Resources.getInstance().get("VELOCITYRESPONSE_LOG_ENCODING", tcRequest.getRequestID(), encoding));
 		} catch (UnsupportedEncodingException e) {
-			logger.log(Level.WARNING, Resources.getInstance().get("VELOCITYRESPONSE_LOG_ENCODING_UNSUPPORTED", tcRequest.getRequestID(), encoding), e);
+			logger.warn(Resources.getInstance().get("VELOCITYRESPONSE_LOG_ENCODING_UNSUPPORTED", tcRequest.getRequestID(), encoding), e);
 			writer = tcResponse.getWriter();
 			doClose = false;
 		}
@@ -168,7 +170,7 @@ public class TcVelocityResponseEngine implements TcResponseEngine {
 			if (doClose)
 				writer.close();
 		} catch (Exception e) {
-			logger.log(Level.SEVERE, "Fehler beim Erzeugen der Ausgabeseite mit Velocity.", e);
+			logger.error("Fehler beim Erzeugen der Ausgabeseite mit Velocity.", e);
 			throw new ResponseProcessingException( "Fehler beim Erzeugen der Ausgabeseite mit Velocity.", e);
 		}
 	}

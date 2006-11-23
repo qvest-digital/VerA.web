@@ -1,4 +1,4 @@
-/* $Id: TcResponseCreator.java,v 1.5 2006/09/15 07:57:03 christoph Exp $
+/* $Id: TcResponseCreator.java,v 1.6 2006/11/23 14:33:30 schmitz Exp $
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
  * 
@@ -26,6 +26,7 @@
 
 package de.tarent.octopus.response;
 
+import de.tarent.octopus.logging.LogFactory;
 import de.tarent.octopus.request.directCall.TcDirectCallResponse;
 import de.tarent.octopus.config.TcConfig;
 import de.tarent.octopus.config.TcModuleConfig;
@@ -36,6 +37,8 @@ import de.tarent.octopus.util.ConsistentMap;
 
 import java.util.*;
 import java.util.logging.Logger;
+
+import org.apache.commons.logging.Log;
 
 /** 
  * View Komponente, die die Ausgabe steuert.
@@ -70,7 +73,7 @@ import java.util.logging.Logger;
  * @author <a href="mailto:H.Helwich@tarent.de">Hendrik Helwich</a>, <b>tarent GmbH</b>
  */
 public class TcResponseCreator {
-    private static Logger logger = Logger.getLogger(TcResponseCreator.class.getName());
+    private static Log logger = LogFactory.getLog(TcResponseCreator.class);
     private Map responseEngines;
 
     /**
@@ -159,7 +162,7 @@ public class TcResponseCreator {
             response.addResponseObject(fieldNameOutput, theContent.getAsObject(fieldNameContent));
         } 
         
-        logger.fine("Gebe Daten per DirectCall zurück. Antwort auf Methode");
+        logger.debug("Gebe Daten per DirectCall zurück. Antwort auf Methode");
     }
     
 
