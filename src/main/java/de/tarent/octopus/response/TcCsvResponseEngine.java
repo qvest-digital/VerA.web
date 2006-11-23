@@ -1,4 +1,4 @@
-/* $Id: TcCsvResponseEngine.java,v 1.1 2006/11/13 17:48:44 kleinhenz Exp $
+/* $Id: TcCsvResponseEngine.java,v 1.2 2006/11/23 15:45:02 kleinhenz Exp $
  * 
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
@@ -31,6 +31,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -71,8 +72,30 @@ public class TcCsvResponseEngine implements TcResponseEngine
     
     private void generateCSV(OutputStream os, List processMe) throws ResponseProcessingException, IOException
     {
+        // generate header
+        Object firstEntry = processMe.get(0);
+        if (firstEntry instanceof Map)
+            generateHeaderLine(os, (Map)firstEntry);
+        
         for (int i=0; i<processMe.size(); i++)
             generateCSVLine(os, processMe.get(i));
+    }
+
+    private void generateHeaderLine(OutputStream os, Map input) throws IOException
+    {
+        Iterator iter = input.keySet().iterator();
+        while (iter.hasNext())
+        {
+            String thisValue = (String)iter.next();
+            thisValue = thisValue.replace("\"", "\"\"");
+            os.write("\"".getBytes());
+            os.write(thisValue.getBytes());
+            os.write("\"".getBytes());
+            if (iter.hasNext())
+                os.write(";".getBytes());            
+        }
+        
+        os.write("\n".getBytes());        
     }
 
     private void generateCSVLine(OutputStream os, Object input) throws ResponseProcessingException, IOException
@@ -85,7 +108,6 @@ public class TcCsvResponseEngine implements TcResponseEngine
             generateCSVLine(os, (List)input);
         else
             throw new ResponseProcessingException("Given second level data in response field has to be either List, Map or Array.");
-        
     }
     
     private void generateCSVLine(OutputStream os, List input) throws IOException
