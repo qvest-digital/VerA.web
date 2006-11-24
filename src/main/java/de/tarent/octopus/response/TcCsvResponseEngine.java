@@ -1,4 +1,4 @@
-/* $Id: TcCsvResponseEngine.java,v 1.2 2006/11/23 15:45:02 kleinhenz Exp $
+/* $Id: TcCsvResponseEngine.java,v 1.3 2006/11/24 13:26:18 kleinhenz Exp $
  * 
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
@@ -95,7 +95,7 @@ public class TcCsvResponseEngine implements TcResponseEngine
                 os.write(";".getBytes());            
         }
         
-        os.write("\n".getBytes());        
+        os.write("\r\n".getBytes());        
     }
 
     private void generateCSVLine(OutputStream os, Object input) throws ResponseProcessingException, IOException
@@ -123,7 +123,7 @@ public class TcCsvResponseEngine implements TcResponseEngine
                 os.write(";".getBytes());
         }
         
-        os.write("\n".getBytes());
+        os.write("\r\n".getBytes());
     }
     
     protected String getMimeType(String filename)
