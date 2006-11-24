@@ -1,4 +1,4 @@
-/* $Id: TcCsvResponseEngine.java,v 1.3 2006/11/24 13:26:18 kleinhenz Exp $
+/* $Id: TcCsvResponseEngine.java,v 1.4 2006/11/24 15:30:03 kleinhenz Exp $
  * 
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
@@ -47,6 +47,8 @@ public class TcCsvResponseEngine implements TcResponseEngine
     public void sendResponse(TcConfig tcConfig, TcResponse tcResponse, TcContent tcContent, TcResponseDescription desc, TcRequest tcRequest)
         	throws ResponseProcessingException 
     {
+        tcResponse.setContentType("text/plain");
+        
         // Daten fuer die Ausgabe holen
         Object data = tcContent.get(desc.getDescName());
 
@@ -126,11 +128,6 @@ public class TcCsvResponseEngine implements TcResponseEngine
         os.write("\r\n".getBytes());
     }
     
-    protected String getMimeType(String filename)
-    {
-        return "text/plain";
-    }
-
     public void init(TcModuleConfig moduleConfig, TcCommonConfig commonConfig)
     {
     }
