@@ -1,4 +1,4 @@
-/* $Id: TcDirectCallResponse.java,v 1.6 2006/09/15 07:57:03 christoph Exp $
+/* $Id: TcDirectCallResponse.java,v 1.7 2006/12/04 13:05:46 jens Exp $
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
  * 
@@ -282,5 +282,8 @@ public class TcDirectCallResponse implements TcResponse {
 	}
 	
 	public void addCookie(Object cookie) {		
+	}
+	
+	public void setErrorLevel(String errorLevel) {
 	}
 }

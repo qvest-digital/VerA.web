@@ -1,4 +1,4 @@
-/* $Id: TcResponse.java,v 1.5 2006/05/07 23:05:57 jens Exp $
+/* $Id: TcResponse.java,v 1.6 2006/12/04 13:05:44 jens Exp $
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
  * 
@@ -67,6 +67,11 @@ public interface TcResponse {
 	 * Das muss passiert sein, bevor etwas ausgegeben wurde.
 	 */
 	public void setStatus(int code);
+	
+	/**
+	 * Setzt das Ausgabe-Level für geworfene Fehlermeldungen.
+	 */
+	public void setErrorLevel(String errorLevel);
 
     /**
      * Setzt einen Header-Parameter.

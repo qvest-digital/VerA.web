@@ -1,4 +1,4 @@
-/* $Id: TcEnv.java,v 1.6 2006/11/23 14:33:30 schmitz Exp $
+/* $Id: TcEnv.java,v 1.7 2006/12/04 13:05:44 jens Exp $
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
  * 
@@ -391,6 +391,16 @@ public class TcEnv extends HashMap {
     public final static String KEY_LDAP_AUTHORIZATION = "ldapauth";
     public final static String KEY_LDAP_USER = "ldapuser";
     public final static String KEY_LDAP_PWD = "ldappwd";
+    public final static String KEY_RESPONSE_ERROR_LEVEL = "response.errorLevel";
+    public final static String KEY_REQUEST_ALLOWED_TYPES = "request.allowedTypes";
+    
+    public final static String VALUE_RESPONSE_ERROR_LEVEL_DEVELOPMENT = "development";
+    public final static String VALUE_RESPONSE_ERROR_LEVEL_RELEASE = "release";
+    public final static String VALUE_REQUEST_TYPE_ANY = "ANY";
+    public final static String VALUE_REQUEST_TYPE_SOAP = "SOAP";
+    public final static String VALUE_REQUEST_TYPE_WEB = "WEB";
+    public final static String VALUE_REQUEST_TYPE_XMLRPC = "XMLRPC";
+    public final static String VALUE_REQUEST_TYPE_DIRECTCALL = "DIRECTCALL";
 //    public final static String KEY_ = "";
 //    public final static String KEY_ = "";    
 } /* end class TcRequest */

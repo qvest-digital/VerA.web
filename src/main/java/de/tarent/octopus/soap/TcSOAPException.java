@@ -1,4 +1,4 @@
-/* $Id: TcSOAPException.java,v 1.2 2006/02/08 11:27:00 christoph Exp $
+/* $Id: TcSOAPException.java,v 1.3 2006/12/04 13:05:46 jens Exp $
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
  * 
@@ -44,6 +44,7 @@ public class TcSOAPException extends Exception {
     public TcSOAPException(String message) {
         super(message);
         axisFault = new AxisFault(message);
+        axisFault.clearFaultDetails();
     }
 
     public TcSOAPException(Exception e) {

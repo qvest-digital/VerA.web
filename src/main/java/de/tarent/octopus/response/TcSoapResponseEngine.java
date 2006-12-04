@@ -1,4 +1,4 @@
-/* $Id: TcSoapResponseEngine.java,v 1.3 2006/11/23 14:33:30 schmitz Exp $
+/* $Id: TcSoapResponseEngine.java,v 1.4 2006/12/04 13:05:45 jens Exp $
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
  * 
@@ -36,8 +36,10 @@ import de.tarent.octopus.config.TcConfig;
 import de.tarent.octopus.config.TcModuleConfig;
 import de.tarent.octopus.content.TcContent;
 import de.tarent.octopus.logging.LogFactory;
+import de.tarent.octopus.request.TcEnv;
 import de.tarent.octopus.request.TcRequest;
 import de.tarent.octopus.request.TcResponse;
+import de.tarent.octopus.resource.Resources;
 import de.tarent.octopus.soap.RPCResponse;
 import de.tarent.octopus.soap.TcSOAPEngine;
 import de.tarent.octopus.soap.TcSOAPException;
@@ -93,7 +95,13 @@ public class TcSoapResponseEngine implements TcRPCResponseEngine, TcResponseEngi
         } catch (Exception e) {
             logger.error("Versuche, eine SOAP-Fault auszugeben.",
                 e);
-            TcSOAPException soapException = new TcSOAPException(e);
+            
+            TcSOAPException soapException;
+            if (config.getModuleConfig().getParam(TcEnv.KEY_RESPONSE_ERROR_LEVEL).equals(TcEnv.VALUE_RESPONSE_ERROR_LEVEL_DEVELOPMENT))
+            	soapException = new TcSOAPException(e);
+            else
+            	soapException = new TcSOAPException(Resources.getInstance().get("ERROR_MESSAGE_GENERAL_ERROR"));
+            
             try {
                 soapException.writeTo(tcResponse.getOutputStream());
             } catch (Exception e2) {
