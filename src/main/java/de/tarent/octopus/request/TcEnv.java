@@ -1,4 +1,4 @@
-/* $Id: TcEnv.java,v 1.7 2006/12/04 13:05:44 jens Exp $
+/* $Id: TcEnv.java,v 1.8 2006/12/06 18:12:08 asteban Exp $
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
  * 
@@ -377,6 +377,7 @@ public class TcEnv extends HashMap {
     public final static String KEY_PATHS_MODULES = "paths.modules";
     public final static String KEY_DEFAULT_MODULE = "defaultModule";
     public final static String KEY_PRELOAD_MODULES = "preloadModules";
+    public final static String KEY_WEBAPP_CONTEXT_PATH_NAME = "webappContextPathName";
     public final static String KEY_PATHS_TEMPLATE_ROOT = "paths.templateRoot";
     public final static String KEY_PATHS_WEB_ROOT = "paths.webRoot";
     public final static String KEY_PATHS_AXIS_CONFIGURATION = "paths.axisConfiguration";
