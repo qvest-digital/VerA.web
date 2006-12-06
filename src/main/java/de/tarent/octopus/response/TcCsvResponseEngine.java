@@ -1,4 +1,4 @@
-/* $Id: TcCsvResponseEngine.java,v 1.4 2006/11/24 15:30:03 kleinhenz Exp $
+/* $Id: TcCsvResponseEngine.java,v 1.5 2006/12/06 18:11:29 asteban Exp $
  * 
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
@@ -89,7 +89,7 @@ public class TcCsvResponseEngine implements TcResponseEngine
         while (iter.hasNext())
         {
             String thisValue = (String)iter.next();
-            thisValue = thisValue.replace("\"", "\"\"");
+            thisValue = thisValue.replaceAll("\"", "\"\"");
             os.write("\"".getBytes());
             os.write(thisValue.getBytes());
             os.write("\"".getBytes());
@@ -117,7 +117,7 @@ public class TcCsvResponseEngine implements TcResponseEngine
         for (int i=0; i<input.size(); i++)
         {
             String thisValue = input.get(i)!=null ? input.get(i).toString() : "";
-            thisValue = thisValue.replace("\"", "\"\"");
+            thisValue = thisValue.replaceAll("\"", "\"\"");
             os.write("\"".getBytes());
             os.write(thisValue.getBytes());
             os.write("\"".getBytes());
