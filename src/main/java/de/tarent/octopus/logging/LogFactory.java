@@ -20,10 +20,15 @@ import org.apache.log4j.xml.DOMConfigurator;
 
 
 /**
- * A simple factory which can be used to get a log instance.
- * This is due to the automatic log choosing in
- * {@link org.apache.commons.logging.LogFactory}
- * 
+ * A simple factory which should be used to get a log instance in tarent projects.
+ * This implementations use an on small configuration in a ressource properties file /tarent-logging.properties
+ * to decide which underlaying logging system should be used.
+ *
+ * <p>This way makes it possible to use apache.commmons.logging in a shared environment (i.e. J2EE) an
+ * without having to use the same underlying logging system.<p/>
+ *
+ * <p>For configuration, there has to be a file /tarent-logging.properties in the classpath with the single property <code>logging.api</code>.
+ * Possible values for this Property are: jdk (Java util logging backend), log4j (Log4j backend), commons (apache commons default behavior), simple (apache commons simple logger)<p/>
  */
 public class LogFactory {
 
