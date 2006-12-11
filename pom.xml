@@ -63,6 +63,21 @@
             <target>1.4</target>
           </configuration>
         </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                   <archive>
+                      <manifestEntries>
+                         <Implementation-Title>${project.artifactId}</Implementation-Title>
+                         <version_description>${project.description}</version_description>
+                         <version_copyright>Copyright (c) 2003-2006 tarent GmbH</version_copyright>
+                         <Implementation-Vendor>tarent GmbH (www.tarent.de)</Implementation-Vendor>
+                         <Implementation-Version>${project.version}</Implementation-Version>
+        		      </manifestEntries>
+                   </archive>
+               </configuration>
+            </plugin>
       </plugins>
 	</build>	
   <reporting>
