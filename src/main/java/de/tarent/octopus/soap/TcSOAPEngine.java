@@ -1,4 +1,4 @@
-/* $Id: TcSOAPEngine.java,v 1.5 2006/11/23 14:33:31 schmitz Exp $
+/* $Id: TcSOAPEngine.java,v 1.6 2006/12/11 19:56:16 asteban Exp $
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
  * 
@@ -221,7 +221,7 @@ public class TcSOAPEngine {
             logger.warn(Resources.getInstance().get("SOAPENGINE_LOG_CAST_BODY_ERROR"), cce);
             throw new TcSOAPException(cce);
         }
-        logger.info("BODIES: " + params);
+        logger.trace("BODIES: " + params);
         if (headerElements != null)
             itElements = headerElements.iterator();
         while (itElements != null && itElements.hasNext()) try {
@@ -234,7 +234,7 @@ public class TcSOAPEngine {
             logger.warn(Resources.getInstance().get("SOAPENGINE_LOG_CAST_HEADER_ERROR"), cce);
             throw new TcSOAPException(cce);
         }
-        logger.info("HEADERS: " + headers);
+        logger.trace("HEADERS: " + headers);
     }
 
     /**
