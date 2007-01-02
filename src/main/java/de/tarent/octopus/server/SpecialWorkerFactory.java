@@ -1,4 +1,4 @@
-/* $Id: SpecialWorkerFactory.java,v 1.1 2005/11/23 08:32:40 asteban Exp $
+/* $Id: SpecialWorkerFactory.java,v 1.2 2007/01/02 09:51:19 christoph Exp $
  * 
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
@@ -29,8 +29,6 @@ package de.tarent.octopus.server;
 
 import de.tarent.octopus.config.ContentWorkerDeclaration;
 import de.tarent.octopus.content.TcContentWorker;
-import de.tarent.octopus.config.TcModuleConfig;
-
 
 /** 
  * Schnittstelle für Factorys, die ContentWorker nach unterschiedlichen 
@@ -41,14 +39,14 @@ import de.tarent.octopus.config.TcModuleConfig;
  * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
  */
 public interface SpecialWorkerFactory {
-
     /**
      * Liefert einen Worker entsprechend der workerDeclaration zurück.
      * Im Normalfall muss von der Factory nur die ImplementationSource berücksichtigt werden.
      * 
+     * @param classLoader Octopus Classloader fuer Worker.
      * @param workerDeclaration Beschreibung zur Instanziierung des Workers.
      */
-    public TcContentWorker createInstance(TcModuleConfig config, ContentWorkerDeclaration workerDeclaration)
+    public TcContentWorker createInstance(ClassLoader classLoader, ContentWorkerDeclaration workerDeclaration)
         throws WorkerCreationException;
 
 }

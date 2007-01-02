@@ -1,4 +1,4 @@
-/* $Id: TcCommonConfig.java,v 1.4 2006/11/23 14:33:30 schmitz Exp $
+/* $Id: TcCommonConfig.java,v 1.5 2007/01/02 09:51:19 christoph Exp $
  * 
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
@@ -92,11 +92,16 @@ public class TcCommonConfig {
      */
     protected Octopus.Configuration configuration;
 
+    /**
+     * Login Manager
+     */
     protected LoginManager loginManager = null;
+
     /**
      * 
      */
     protected Octopus octopus;
+
     /** 
      * Die Konfigurationen der einzelnen Module.
      * Mit ihren Namen als String Keys und TcModuleConfig Objekten als Values.
@@ -328,7 +333,11 @@ public class TcCommonConfig {
      */
     public File getTemplateRootPath(String moduleName) {
         TcModuleConfig config = getModuleConfig(moduleName);
-        return new File(config.getRealPath(), config.getParam(TcEnv.KEY_PATHS_TEMPLATE_ROOT));
+        if (config.getParam(TcEnv.KEY_PATHS_TEMPLATE_ROOT) == null ||
+        		config.getParam(TcEnv.KEY_PATHS_TEMPLATE_ROOT).length() == 0)
+        	return config.getRealPath();
+        else
+        	return new File(config.getRealPath(), config.getParam(TcEnv.KEY_PATHS_TEMPLATE_ROOT));
     }
 
     /**

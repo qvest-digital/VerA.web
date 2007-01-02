@@ -1,4 +1,4 @@
-/* $Id: AbstractWorkerWrapper.java,v 1.8 2006/11/23 14:33:29 schmitz Exp $
+/* $Id: AbstractWorkerWrapper.java,v 1.9 2007/01/02 09:51:19 christoph Exp $
  * 
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
@@ -283,8 +283,6 @@ public abstract class AbstractWorkerWrapper
             }
                 
             else if (targetType.equals(List.class) && param instanceof Object[]) {
-                if (param == null)
-                    return null;
                 return Arrays.asList((Object[])param);
             }
 
@@ -319,7 +317,9 @@ public abstract class AbstractWorkerWrapper
             //throw new TcContentProzessException("Formatfehler Fehler beim Konvertieren eines Übergabeparamters (von "+param.getClass()+" nach "+targetType.getName()+")", e);
             return null;
         }
-        throw new TcContentProzessException("Keine Konvertierungsregel für die Umwandlung von "+param.getClass()+" nach "+targetType.getName()+" vorhanden.");
+        throw new TcContentProzessException("Keine Konvertierungsregel für die Umwandlung von " +
+        		(param != null ? param.getClass() : null) + 
+        		" nach "+targetType.getName()+" vorhanden.");
     }
 
 
@@ -423,8 +423,7 @@ public abstract class AbstractWorkerWrapper
          * Normaly, this ist the paramtype. In the case of InOutParams 
          * this is the Type ob the InOutParam Value.
          */
-        public Class getArgTargetType(int pos) 
-            throws TcActionDeclarationException {
+        public Class getArgTargetType(int pos) {
             if (isInOutParam(pos))
                 return Object.class;
             return args[pos];

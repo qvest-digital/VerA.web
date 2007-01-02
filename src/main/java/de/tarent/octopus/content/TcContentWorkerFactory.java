@@ -1,4 +1,4 @@
-/* $Id: TcContentWorkerFactory.java,v 1.3 2006/11/23 14:33:29 schmitz Exp $
+/* $Id: TcContentWorkerFactory.java,v 1.4 2007/01/02 09:51:19 christoph Exp $
  * 
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
@@ -67,8 +67,7 @@ public class TcContentWorkerFactory {
      * @return Einen Worker mit dem entsprechenden Namen
      */
     public static TcContentWorker getContentWorker(TcModuleConfig config, String workerName, String requestID)
-        throws WorkerCreationException,
-               TcContentProzessException {
+        throws WorkerCreationException {
         
         ContentWorkerDeclaration workerDeclaration = config.getContentWorkerDeclaration(workerName);
         if (null == workerDeclaration) {
@@ -101,7 +100,7 @@ public class TcContentWorkerFactory {
     }
 
     protected static TcContentWorker getNewWorkerInstance(TcModuleConfig config, ContentWorkerDeclaration workerDeclaration) 
-        throws WorkerCreationException, TcContentProzessException {
+        throws WorkerCreationException {
 
         // Da jedes Modul einen eigenen Classloader besitzt müssen 
         // auch die Factorys mit diesem Classloader geladen werden.
@@ -124,7 +123,7 @@ public class TcContentWorkerFactory {
             }
             moduleFactorys.put(workerDeclaration.getFactory(), factory);
         }
-        TcContentWorker worker = factory.createInstance(config, workerDeclaration);
+        TcContentWorker worker = factory.createInstance(moduleLoader, workerDeclaration);
         worker.init(config);
         return worker;
     }

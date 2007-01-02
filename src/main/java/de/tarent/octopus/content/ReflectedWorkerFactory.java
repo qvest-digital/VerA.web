@@ -1,4 +1,4 @@
-/* $Id: ReflectedWorkerFactory.java,v 1.4 2006/11/23 14:33:29 schmitz Exp $
+/* $Id: ReflectedWorkerFactory.java,v 1.5 2007/01/02 09:51:19 christoph Exp $
  * 
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
@@ -30,12 +30,10 @@ package de.tarent.octopus.content;
 import org.apache.commons.logging.Log;
 
 import de.tarent.octopus.config.ContentWorkerDeclaration;
-import de.tarent.octopus.config.TcModuleConfig;
 import de.tarent.octopus.logging.LogFactory;
 import de.tarent.octopus.resource.Resources;
 import de.tarent.octopus.server.SpecialWorkerFactory;
 import de.tarent.octopus.server.WorkerCreationException;
-
 
 /** 
  * Instantiiert Worker nach der ReflectedWorkerWrapper Konvention.
@@ -55,11 +53,11 @@ public class ReflectedWorkerFactory implements SpecialWorkerFactory {
      * 
      * @param workerDeclaration Beschreibung zur Instanziierung des Workers.
      */
-    public TcContentWorker createInstance(TcModuleConfig config, ContentWorkerDeclaration workerDeclaration)
+    public TcContentWorker createInstance(ClassLoader classLoader, ContentWorkerDeclaration workerDeclaration)
         throws WorkerCreationException {
         try {
             logger.debug(Resources.getInstance().get("WORKERFACTORY_LOADING_WORKER", getClass().getName(), workerDeclaration.getWorkerName(), workerDeclaration.getImplementationSource()));            
-            Class workerClass = config.getClassLoader().loadClass(workerDeclaration.getImplementationSource());
+            Class workerClass = classLoader.loadClass(workerDeclaration.getImplementationSource());
             return new TcReflectedWorkerWrapper(workerClass.getConstructor(emptyClassArray).newInstance(emptyObjectArray));
         } catch (Exception reflectionException) {
             throw new WorkerCreationException(Resources.getInstance().get("WORKERFACTORY_EXC_LOADING_WORKER", getClass().getName(), workerDeclaration.getWorkerName(), workerDeclaration.getImplementationSource()), reflectionException);

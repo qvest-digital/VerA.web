@@ -1,4 +1,4 @@
-/* $Id: GroovyWorkerFactory.java,v 1.2 2006/02/23 15:07:57 christoph Exp $
+/* $Id: GroovyWorkerFactory.java,v 1.3 2007/01/02 09:51:19 christoph Exp $
  * 
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
@@ -31,8 +31,6 @@ import de.tarent.octopus.config.ContentWorkerDeclaration;
 import de.tarent.octopus.resource.Resources;
 import de.tarent.octopus.server.SpecialWorkerFactory;
 import de.tarent.octopus.server.WorkerCreationException;
-import de.tarent.octopus.config.TcModuleConfig;
-
 
 /** 
  * Instantiiert eine Groovy-Klasse, die nach dem ReflectedWorkerWrapper Prinzip arbeitet
@@ -47,7 +45,7 @@ public class GroovyWorkerFactory implements SpecialWorkerFactory {
      * 
      * @param workerDeclaration Beschreibung zur Instanziierung des Workers.
      */
-    public TcContentWorker createInstance(TcModuleConfig config, ContentWorkerDeclaration workerDeclaration) 
+    public TcContentWorker createInstance(ClassLoader classLoader, ContentWorkerDeclaration workerDeclaration) 
         throws WorkerCreationException {
         try {
             //GroovyClassLoader loader = new GroovyClassLoader(config.getClassLoader());

@@ -1,4 +1,4 @@
-/* $Id: TcModuleConfig.java,v 1.16 2006/11/23 14:33:30 schmitz Exp $
+/* $Id: TcModuleConfig.java,v 1.17 2007/01/02 09:51:19 christoph Exp $
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
  * 
@@ -643,45 +643,62 @@ public class TcModuleConfig {
     }
 
     /**
-     * Liefert den ClassLoader für das Modul.
-     * 
-     * @return Modul-ClassLoader.
-     */
-    public ClassLoader getClassLoader() {
-        if (classLoader == null) {
-            logger.debug("ClassLoader-Erstellung für das Modul " + getName());
-            List urlList = new ArrayList();
-            if (getRealPath().exists()) {
-                File classesDir = new File(getRealPath(), "classes");
-                if (classesDir.exists()) try {
-                    urlList.add(classesDir.toURL());
-                } catch (MalformedURLException mue) {
-                    logger.warn("Fehler beim Wandeln des Modul-classes-Pfads '" + classesDir + "' in eine URL.");
-                }
-                File libs[] = new File(getRealPath(), "lib").listFiles();
-                if (libs != null) {
-                    for (int i = 0; i < libs.length; i++) try {
-                        urlList.add(libs[i].toURL());
-                    } catch (MalformedURLException mue) {
-                        logger.warn("Fehler beim Wandeln des Modul-lib-Pfads '" + libs[i] + "' in eine URL.");
-                    } 
-                }
-            } else {
-                logger.warn("Modulverzeichnis '" + getRealPath() + "' des Moduls '" + getName() + "' existiert nicht.");
-            }
-            
-            URL urls[] = new URL[urlList.size()];
-            for (int i = 0; i < urlList.size(); i++)
-                urls[i] = (URL) urlList.get(i);
-            classLoader = new URLClassLoader(urls, getClass().getClassLoader());
-        }
-        return classLoader;
-    }
+	 * Liefert den ClassLoader für das Modul.
+	 * 
+	 * @return Modul-ClassLoader.
+	 */
+	public ClassLoader getClassLoader() {
+		if (classLoader == null) {
+			logger.debug("ClassLoader-Erstellung für das Modul '" + getName() + "'.");
+			
+			List urlList = new ArrayList();
+			if (getRealPath().exists()) {
+				appendClasses(urlList, new File(getRealPath(), "../WEB-INF/classes"));
+				appendJars(urlList, new File(getRealPath(), "../WEB-INF/lib"));
+				appendClasses(urlList, new File(getRealPath(), "classes"));
+				appendJars(urlList, new File(getRealPath(), "lib"));
+			} else {
+				logger.warn("Modulverzeichnis '" + getRealPath() + "' des Moduls '" + getName() + "' existiert nicht.");
+			}
+			
+			classLoader = new URLClassLoader(
+					(URL[])urlList.toArray(new URL[urlList.size()]),
+					getClass().getClassLoader());
+		}
+		
+		return classLoader;
+	}
+
+	private void appendClasses(List urlList, File classesDir) {
+		if (classesDir.exists()) {
+			try {
+				urlList.add(classesDir.toURL());
+			} catch (MalformedURLException e) {
+				logger.warn("Fehler beim Wandeln des Modul-classes-Pfads '" + classesDir + "' in eine URL.");
+			}
+		}
+	}
+
+    private void appendJars(List urlList, File libDir) {
+		if (libDir.exists()) {
+			File libs[] = libDir.listFiles();
+			if (libs != null) {
+				for (int i = 0; i < libs.length; i++)
+					try {
+						if (libs[i].getName().endsWith(".jar"))
+							urlList.add(libs[i].toURL());
+					} catch (MalformedURLException e) {
+						logger.warn("Fehler beim Wandeln des Modul-lib-Pfads '" + libs[i] + "' in eine URL.");
+					}
+			}
+		}
+	}
 
     /**
-     * Liefert die Liste der Tasks
-     * @return TcTaskList
-     */
+	 * Liefert die Liste der Tasks
+	 * 
+	 * @return TcTaskList
+	 */
     public TcTaskList getTaskList() {
         return taskList;
     }
