@@ -1,4 +1,4 @@
-/* $Id: TcSOAPEngine.java,v 1.6 2006/12/11 19:56:16 asteban Exp $
+/* $Id: TcSOAPEngine.java,v 1.7 2007/01/05 16:50:37 asteban Exp $
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
  * 
@@ -61,6 +61,7 @@ import de.tarent.octopus.logging.LogFactory;
 import de.tarent.octopus.request.TcEnv;
 import de.tarent.octopus.request.TcRequest;
 import de.tarent.octopus.resource.Resources;
+import org.apache.axis.ConfigurationException;
 
 /** 
  * Bereitstellung und Kapselung von SOAP Funktionalität
@@ -86,10 +87,20 @@ public class TcSOAPEngine {
         
         // TODO: It would be better to bind the SOAP-Engine to a specific module
         //       and configure the type mapping for the modules of the octopus.
-        String axisConfigFile = env.getValueAsString(TcEnv.KEY_PATHS_ROOT) + "axis-config.wsdd";
+        final String axisConfigFile = env.getValueAsString(TcEnv.KEY_PATHS_ROOT) + "axis-config.wsdd";
         if (new File(axisConfigFile).exists()) {
             logger.info(Resources.getInstance().get("SOAPENGINE_LOG_USING_AXIS_CONFIGURATION_FILE",axisConfigFile));
-            EngineConfiguration engineConfiguration = new FileProvider(axisConfigFile);
+            EngineConfiguration engineConfiguration = new FileProvider(axisConfigFile) {  //new FileProvider(axisConfigFile);
+                    public TypeMappingRegistry getTypeMappingRegistry() {
+                        try {
+                            return super.getTypeMappingRegistry();
+                        } catch (ConfigurationException e) {
+                            // log the configuration error
+                            logger.error(Resources.getInstance().get("SOAPENGINE_LOG_AXIS_CONFIGURATION_ERROR", axisConfigFile), e);
+                        }
+                        return null;
+                    }
+                };
             engine = new AxisServer(engineConfiguration);
         } else {
             logger.info(Resources.getInstance().get("SOAPENGINE_LOG_USING_AXIS_DEFAULT_CONFIGURATION"));
