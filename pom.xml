@@ -32,7 +32,7 @@
 		The version of the project under development, e.g.
 		1.1, 1.2, 2.0-SNAPSHOT 
 	-->
-	<version>1.4.4-SNAPSHOT</version>
+	<version>1.5.0-SNAPSHOT</version>
 
 	<scm>
 		<connection>scm:cvs:local:/cvs/newcvsroot:octopus/extensions/annotation</connection>
@@ -118,14 +118,13 @@
 		<dependency>
 			<groupId>de.tarent.octopus</groupId>
 			<artifactId>octopus-core</artifactId>
-			<version>1.4.3</version>
+			<version>1.5.0-SNAPSHOT</version>
 		</dependency>
 
 		<dependency>
 			<groupId>javax.jws</groupId>
 			<artifactId>javaws-jsr181</artifactId>
 			<version>1.0</version>
-			<scope>provided</scope>
 		</dependency>
 
 		<dependency>
@@ -153,5 +152,4 @@
 			<url>scp://kassandra.tarent.de/home/maven/projects/octopus</url>
 		</site>
 	</distributionManagement>
-
 </project>
