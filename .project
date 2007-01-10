@@ -1,15 +1,11 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
 <projectDescription>
   <name>octopus-ext-commons</name>
-  <comment>tarent-octopus common workers.</comment>
-  <projects>
-  </projects>
+  <comment>tarent-octopus common worker</comment>
+  <projects/>
   <buildSpec>
     <buildCommand>
       <name>org.eclipse.jdt.core.javabuilder</name>
-      <arguments>
-      </arguments>
+      <arguments/>
     </buildCommand>
   </buildSpec>
   <natures>
