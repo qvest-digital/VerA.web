@@ -1,4 +1,4 @@
-/* $Id: AnnotationWorkerFactory.java,v 1.3 2006/05/16 12:56:03 christoph Exp $
+/* $Id: AnnotationWorkerFactory.java,v 1.4 2007/01/10 11:07:35 christoph Exp $
  * 
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
@@ -29,38 +29,51 @@ package de.tarent.octopus.content;
 
 import de.tarent.octopus.config.ContentWorkerDeclaration;
 import de.tarent.octopus.resource.Resources;
+
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import de.tarent.octopus.server.WorkerCreationException;
 import de.tarent.octopus.server.SpecialWorkerFactory;
-import de.tarent.octopus.config.TcModuleConfig;
 
 import de.tarent.octopus.content.annotation.AnnotationWorkerWrapper;
 
-
-/** 
+/**
  * Instantiiert AnnotationWorker nach der ReflectedWorkerWrapper Konvention.
  * 
- * 
  * @see TcContentWorker
- * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
+ * @author Sebastian Mancke, tarent GmbH
  */
 public class AnnotationWorkerFactory implements SpecialWorkerFactory {
-
-    private static Logger logger = Logger.getLogger(ReflectedWorkerFactory.class.getName());
+	private static Logger logger = Logger.getLogger(AnnotationWorkerFactory.class.getName());
 
     /**
-     * Läd die als ImplementationSource angegebene Klasse und Kapselt sie mit einem AnnotationWorkerWrapper.
+     * Liefert einen Worker entsprechend der workerDeclaration zurück.
+     * Im Normalfall muss von der Factory nur die ImplementationSource berücksichtigt werden.
      * 
+     * @param classLoader Octopus Classloader fuer Worker.
      * @param workerDeclaration Beschreibung zur Instanziierung des Workers.
      */
-    public TcContentWorker createInstance(TcModuleConfig config, ContentWorkerDeclaration workerDeclaration)
-        throws WorkerCreationException {
-        try {
-            logger.fine(Resources.getInstance().get("WORKERFACTORY_LOADING_WORKER", getClass().getName(), workerDeclaration.getWorkerName(), workerDeclaration.getImplementationSource()));
-            Class workerClass = config.getClassLoader().loadClass(workerDeclaration.getImplementationSource());
-            return new AnnotationWorkerWrapper(workerClass.getConstructor().newInstance());
-        } catch (Exception reflectionException) {
-            throw new WorkerCreationException(Resources.getInstance().get("WORKERFACTORY_EXC_LOADING_WORKER", getClass().getName(), workerDeclaration.getWorkerName(), workerDeclaration.getImplementationSource()), reflectionException);
-        }
-    }
+	public TcContentWorker createInstance(
+			ClassLoader classLoader,
+			ContentWorkerDeclaration workerDeclaration)
+			throws WorkerCreationException {
+		
+		try {
+			if (logger.isLoggable(Level.FINE))
+				logger.fine(Resources.getInstance().get("WORKERFACTORY_LOADING_WORKER",
+						getClass().getName(),
+						workerDeclaration.getWorkerName(),
+						workerDeclaration.getImplementationSource()));
+			
+			Class workerClass = classLoader.loadClass(workerDeclaration.getImplementationSource());
+			return new AnnotationWorkerWrapper(workerClass.newInstance());
+		} catch (Exception reflectionException) {
+			throw new WorkerCreationException(Resources.getInstance().get(
+					"WORKERFACTORY_EXC_LOADING_WORKER",
+					getClass().getName(),
+					workerDeclaration.getWorkerName(),
+					workerDeclaration.getImplementationSource()),
+					reflectionException);
+		}
+	}
 }

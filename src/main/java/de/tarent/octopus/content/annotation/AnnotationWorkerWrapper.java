@@ -1,4 +1,4 @@
-/* $Id: AnnotationWorkerWrapper.java,v 1.4 2006/05/16 12:56:02 christoph Exp $
+/* $Id: AnnotationWorkerWrapper.java,v 1.5 2007/01/10 11:07:35 christoph Exp $
  * 
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
@@ -51,8 +51,7 @@ import de.tarent.octopus.server.OctopusContext;
  * 
  * @author Sebastian Mancke
  */
-public class AnnotationWorkerWrapper    
-    extends AbstractWorkerWrapper {
+public class AnnotationWorkerWrapper extends AbstractWorkerWrapper {
 
     Logger logger = Logger.getLogger(getClass().getName());
         
@@ -199,9 +198,7 @@ public class AnnotationWorkerWrapper
 
 
     
-    class AnnotationActionData 
-        extends ActionData {
-
+    class AnnotationActionData extends ActionData {
         private Type[] genericParameterTypes = null;
 
         /** 
@@ -209,8 +206,7 @@ public class AnnotationWorkerWrapper
          * Normaly, this ist the paramtype. In the case of InOutParams 
          * this is the Generic-Type of the InOutParam.
          */
-        public Class getArgTargetType(int pos) 
-            throws TcActionDeclarationException {
+        public Class getArgTargetType(int pos) throws TcActionDeclarationException {
             if (args[pos] == null)
                 return Void.class;
             

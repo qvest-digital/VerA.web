@@ -33,10 +33,10 @@ public class AnnotationWorkerWrapperTest
         AnnotationWorkerFactory factory = new AnnotationWorkerFactory();
         ContentWorkerDeclaration workerDeclaration = new ContentWorkerDeclaration();
         workerDeclaration.setImplementationSource(SampleWorker1.class.getName());
-        sampleWorker1 = factory.createInstance(moduleConfig, workerDeclaration);
+        sampleWorker1 = factory.createInstance(getClass().getClassLoader(), workerDeclaration);
 
         workerDeclaration.setImplementationSource(SampleWorker2.class.getName());
-        sampleWorker2 = factory.createInstance(moduleConfig, workerDeclaration);
+        sampleWorker2 = factory.createInstance(getClass().getClassLoader(), workerDeclaration);
 
         request = new TcRequest();
         request.setRequestParameters(new HashMap());

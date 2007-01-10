@@ -31,9 +31,9 @@ public class AnnotationWorkerFactoryTest
     
     public void testCreation() 
         throws Exception {
-        workerDeclaration.setImplementationSource(this.getClass().getName());
+        workerDeclaration.setImplementationSource(getClass().getName());
 
-        TcContentWorker worker = factory.createInstance(config, workerDeclaration);
+        TcContentWorker worker = factory.createInstance(getClass().getClassLoader(), workerDeclaration);
         Object workerDelegate = ((DelegatingWorker)worker).getWorkerDelegate();
         assertEquals("Worker is instance of the class.", workerDelegate.getClass(), getClass());
     }
@@ -42,7 +42,7 @@ public class AnnotationWorkerFactoryTest
         throws Exception {
 
         try {
-            factory.createInstance(config, workerDeclaration);
+            factory.createInstance(getClass().getClassLoader(), workerDeclaration);
         } catch (Exception e) {
             // Success
             return;
@@ -56,7 +56,7 @@ public class AnnotationWorkerFactoryTest
 
         try {
             workerDeclaration.setImplementationSource("xxx.yyy.zzzz");
-            factory.createInstance(config, workerDeclaration);
+            factory.createInstance(getClass().getClassLoader(), workerDeclaration);
         } catch (Exception e) {
             // Success
             return;
