@@ -1,4 +1,4 @@
-/* $Id: AbstractWorkerWrapper.java,v 1.10 2007/01/10 10:11:56 christoph Exp $
+/* $Id: AbstractWorkerWrapper.java,v 1.11 2007/01/10 17:11:53 hendrik Exp $
  * 
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
@@ -30,6 +30,7 @@ package de.tarent.octopus.content;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -48,7 +49,7 @@ import de.tarent.octopus.server.InOutParam;
 import de.tarent.octopus.server.OctopusContext;
 
 /**
- * Basisklasse für Worker-Wrapper nach dem Template-Method Pattern.
+ * Basisklasse fï¿½r Worker-Wrapper nach dem Template-Method Pattern.
  * 
  * @author Sebastian Mancke
  */
@@ -71,7 +72,7 @@ public abstract class AbstractWorkerWrapper
 
 
     /**
-     * Cache für die Metainformationen zu den Actions
+     * Cache fï¿½r die Metainformationen zu den Actions
      */
     HashMap actionDataLookup = new HashMap();
         
@@ -109,7 +110,7 @@ public abstract class AbstractWorkerWrapper
 
 
     /**
-     * Liefert die Namen aller von dem Worker bereit gestellten Actions zurück
+     * Liefert die Namen aller von dem Worker bereit gestellten Actions zurï¿½ck
      */
     public abstract String[] getActionNames() throws TcActionDeclarationException;
 
@@ -139,7 +140,7 @@ public abstract class AbstractWorkerWrapper
             //DO NOTHING
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
-            throw new RuntimeException("Fehler bei Ausführung der init() Methode von "+workerClass.getName(), e);
+            throw new RuntimeException("Fehler bei Ausfï¿½hrung der init() Methode von "+workerClass.getName(), e);
         }
     }
 
@@ -240,9 +241,9 @@ public abstract class AbstractWorkerWrapper
 
     
     /** Convertiert ein Object.
-     *  Falls dies fehl schlägt oder der Parameter==null ist wird <code>null</code> zurück gegeben.
+     *  Falls dies fehl schlï¿½gt oder der Parameter==null ist wird <code>null</code> zurï¿½ck gegeben.
      *
-     * TODO: Unterstützung für long => Date
+     * TODO: Unterstï¿½tzung fï¿½r long => Date
      */
     protected Object tryToConvert(Object param, Class targetType) 
         throws TcContentProzessException {
@@ -282,11 +283,11 @@ public abstract class AbstractWorkerWrapper
                 return Float.valueOf(param.toString());                
             }
                 
-            else if (targetType.equals(List.class) && param instanceof Object[]) {
+            else if (targetType.equals(Collection.class) && param instanceof Object[]) {
                 return Arrays.asList((Object[])param);
             }
 
-            else if (targetType.equals(List.class)) {
+            else if (targetType.equals(Collection.class)) {
                 if (param == null)
                     return null;
                 return Collections.singletonList(param);
@@ -306,18 +307,18 @@ public abstract class AbstractWorkerWrapper
                     newSpectialMap.putAll((Map)param);
                     return newSpectialMap;
                 } catch (Exception e) {
-                    logger.warn("Fehler beim Konvertieren eines Übergabeparamters (Map nach "+targetType.getName()+")", e);
-                    throw new TcContentProzessException("Fehler beim Konvertieren eines Übergabeparamters (Map nach "+targetType.getName()+")", e);
+                    logger.warn("Fehler beim Konvertieren eines ï¿½bergabeparamters (Map nach "+targetType.getName()+")", e);
+                    throw new TcContentProzessException("Fehler beim Konvertieren eines ï¿½bergabeparamters (Map nach "+targetType.getName()+")", e);
                 }
              }           
         } catch (NumberFormatException e) {
-            logger.warn("Formatfehler beim Konvertieren eines Übergabeparamters (von "+( (param != null) ? param.getClass().toString() : "null") +" nach "+ ( (targetType != null) ? targetType.getName() : "null")+")", e);
+            logger.warn("Formatfehler beim Konvertieren eines ï¿½bergabeparamters (von "+( (param != null) ? param.getClass().toString() : "null") +" nach "+ ( (targetType != null) ? targetType.getName() : "null")+")", e);
             //Altes Verhalten wird wiederhergestellt, die TcContentProcessException
             //Macht z.b. im Broker(evtl. alle anderen SBK-Projekte) Probleme
-            //throw new TcContentProzessException("Formatfehler Fehler beim Konvertieren eines Übergabeparamters (von "+param.getClass()+" nach "+targetType.getName()+")", e);
+            //throw new TcContentProzessException("Formatfehler Fehler beim Konvertieren eines ï¿½bergabeparamters (von "+param.getClass()+" nach "+targetType.getName()+")", e);
             return null;
         }
-        throw new TcContentProzessException("Keine Konvertierungsregel für die Umwandlung von " +
+        throw new TcContentProzessException("Keine Konvertierungsregel fï¿½r die Umwandlung von " +
         		(param != null ? param.getClass() : null) + 
         		" nach "+targetType.getName()+" vorhanden.");
     }
@@ -325,7 +326,7 @@ public abstract class AbstractWorkerWrapper
 
     /**
      * Holt die Metadaten zu der Action aus dem Cache, 
-     * oder stellt sie über getActionData neu zusammen.
+     * oder stellt sie ï¿½ber getActionData neu zusammen.
      *
      * @param actionName Name der Action
      * @return Metadaten die beschreiben, wie die Action-Methode aufgerufen werden soll.
@@ -344,11 +345,11 @@ public abstract class AbstractWorkerWrapper
        
     
    /**
-     * TODO: Berücksichtigen von:
+     * TODO: Berï¿½cksichtigen von:
      *         - Datentypen der Signatur
      *         - InOutParams
      *         - Descriptions
-     *         - Mögliche Exceptions
+     *         - Mï¿½gliche Exceptions
      */
     public TcPortDefinition getWorkerDefinition() {
         try { 
