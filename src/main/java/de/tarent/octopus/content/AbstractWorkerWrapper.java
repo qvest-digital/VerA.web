@@ -1,4 +1,4 @@
-/* $Id: AbstractWorkerWrapper.java,v 1.9 2007/01/02 09:51:19 christoph Exp $
+/* $Id: AbstractWorkerWrapper.java,v 1.10 2007/01/10 10:11:56 christoph Exp $
  * 
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
@@ -422,8 +422,10 @@ public abstract class AbstractWorkerWrapper
          * Returns the type for the parameter to use.
          * Normaly, this ist the paramtype. In the case of InOutParams 
          * this is the Type ob the InOutParam Value.
+         * 
+         * @throws TcActionDeclarationException
          */
-        public Class getArgTargetType(int pos) {
+        public Class getArgTargetType(int pos) throws TcActionDeclarationException {
             if (isInOutParam(pos))
                 return Object.class;
             return args[pos];

@@ -1,4 +1,4 @@
-/* $Id: SpecialWorkerFactory.java,v 1.2 2007/01/02 09:51:19 christoph Exp $
+/* $Id: SpecialWorkerFactory.java,v 1.3 2007/01/10 10:11:56 christoph Exp $
  * 
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
