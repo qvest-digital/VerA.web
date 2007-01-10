@@ -1,4 +1,4 @@
-/* $Id: AbstractWorkerWrapper.java,v 1.11 2007/01/10 17:11:53 hendrik Exp $
+/* $Id: AbstractWorkerWrapper.java,v 1.12 2007/01/10 17:23:19 hendrik Exp $
  * 
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
@@ -283,11 +283,11 @@ public abstract class AbstractWorkerWrapper
                 return Float.valueOf(param.toString());                
             }
                 
-            else if (targetType.equals(Collection.class) && param instanceof Object[]) {
+            else if (Collection.class.isAssignableFrom(targetType) && param instanceof Object[]) {
                 return Arrays.asList((Object[])param);
             }
 
-            else if (targetType.equals(Collection.class)) {
+            else if (Collection.class.isAssignableFrom(targetType)) {
                 if (param == null)
                     return null;
                 return Collections.singletonList(param);
