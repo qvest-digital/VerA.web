@@ -151,7 +151,7 @@ public class OctopusModuleManagement implements DynamicMBean
         {
             try 
             {        
-                Object value = getAttribute((String)attributeNames[i]);     
+                Object value = getAttribute(attributeNames[i]);     
                 resultList.add(new Attribute(attributeNames[i],value));
             } 
             catch (Exception e) 
@@ -336,8 +336,7 @@ public class OctopusModuleManagement implements DynamicMBean
         // catch errors
         if (response.errorWhileProcessing())
         {
-            Exception e = response.getErrorException();
-            throw new MBeanException(response.getErrorException(),response.getErrorMessage()); 
+            throw new MBeanException(response.getErrorException(), response.getErrorMessage()); 
         }
         
         // retrieve output values
