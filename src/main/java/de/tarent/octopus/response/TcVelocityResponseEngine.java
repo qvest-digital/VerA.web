@@ -1,4 +1,4 @@
-/* $Id: TcVelocityResponseEngine.java,v 1.5 2006/11/23 14:33:30 schmitz Exp $
+/* $Id: TcVelocityResponseEngine.java,v 1.6 2007/01/10 10:11:08 christoph Exp $
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
  * 
@@ -34,8 +34,6 @@ import java.io.Writer;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.Properties;
 
 import org.apache.commons.logging.Log;
@@ -170,8 +168,8 @@ public class TcVelocityResponseEngine implements TcResponseEngine {
 			if (doClose)
 				writer.close();
 		} catch (Exception e) {
-			logger.error("Fehler beim Erzeugen der Ausgabeseite mit Velocity.", e);
-			throw new ResponseProcessingException( "Fehler beim Erzeugen der Ausgabeseite mit Velocity.", e);
+			logger.error("Fehler beim Erzeugen der Ausgabeseite mit Velocity-Ausgabeseite '" + template + "'.", e);
+			throw new ResponseProcessingException("Fehler beim Erzeugen der Velocity-Ausgabeseite '" + template + "'.", e);
 		}
 	}
 
