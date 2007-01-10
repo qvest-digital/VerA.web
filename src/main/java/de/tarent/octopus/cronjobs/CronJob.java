@@ -14,9 +14,11 @@ import java.lang.Thread.State;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -29,9 +31,7 @@ import de.tarent.octopus.server.Context;
  *
  * @author Nils Neumaier (n.neumaier@tarent.de)
  * @author Michael Kleinhenz (m.kleinhenz@tarent.de)
- * 
  */
-
 public abstract class CronJob implements Runnable
 {
     Logger logger = Logger.getLogger(getClass().getName());
@@ -73,54 +73,74 @@ public abstract class CronJob implements Runnable
         return cron;
     }
     
-    public void run(){
+    public void run() {
         // First try to instantiate procedure class
-            setErrorMessage(new String()); // Set Errormessage to empty String 
-            Class c = null;
-            Object runnableObject = null;
+        setErrorMessage(new String()); // Set Errormessage to empty String 
+        Class c = null;
+        Object runnableObject = null;
+        
+        try {
+            c = Class.forName(procedure);
+            runnableObject = c.newInstance();
+        }catch (Exception e){
+            runOnError("An Error occured while trying to instantiate " + procedure, e); 
+            return;
+        }
+        
+        // Try to find all Setter-Methods that match properties from parameter map 
+        // and run each Setter with the correct parameter
+        Method m[] = c.getMethods();
+        
+        for (int i = 0; i < m.length; i++) {
+            String methodname = m[i].getName();
+            Class[] params = m[i].getParameterTypes();
             
-            try {
-                c = Class.forName(procedure);
-                runnableObject = c.newInstance();
-            }catch (Exception e){
-                runOnError("An Error occured while trying to instantiate " + procedure, e); 
-                return;
-            }
-            
-            // Try to find all Setter-Methods that match properties from parameter map 
-            // and run each Setter with the correct parameter
-            
-            Method m[] = c.getMethods();
-            for (int i = 0; i < m.length; i++){
-                String methodname = m[i].getName();
-                Class[] params = m[i].getParameterTypes();
-                if (methodname.startsWith("set") && params.length == 1 && params[0].equals(String.class)) {
-                    String parameterName = Character.toLowerCase(methodname.charAt(3))+methodname.substring(4);
-                    if (properties.containsKey(parameterName))
-                        try {
-                            m[i].invoke(runnableObject, new Object[] {properties.get(parameterName)});
-                        } catch (Exception e){
-                            runOnError("An Error occured while trying to invoke method " + m[i].getName() + "on object " + runnableObject.getClass(), e); 
-                        }
+            if (methodname.startsWith("set") && params.length == 1 && params[0].equals(String.class)) {
+                String parameterName = Character.toLowerCase(methodname.charAt(3))+methodname.substring(4);
+                if (properties.containsKey(parameterName)) {
+                    try {
+                        m[i].invoke(runnableObject, new Object[] { properties.get(parameterName) } );
+                    } catch (Exception e){
+                        runOnError("An Error occured while trying to invoke method " + m[i].getName() + " on object " + runnableObject.getClass(), e); 
+                    }
                 }
+            } else if (methodname.equals("setProperties") && params.length == 1 && params[0].equals(Properties.class)) {
+            	try {
+            		Properties properties = new Properties();
+            		properties.putAll(this.properties);
+            		m[i].invoke(runnableObject, new Object[] { properties } );
+            	} catch (Exception e) {
+            		runOnError("An Error occured while trying to invoke method " + m[i].getName() + " on object " + runnableObject.getClass(), e);
+            	}
+            } else if (methodname.equals("setProperties") && params.length == 1 && params[0].equals(Map.class)) {
+            	try {
+            		m[i].invoke(runnableObject, new Object[] { Collections.unmodifiableMap(this.properties) } );
+            	} catch (Exception e) {
+            		runOnError("An Error occured while trying to invoke method " + m[i].getName() + " on object " + runnableObject.getClass(), e);
+            	}
             }
-            
-            Context.addActive(getCron().getOctopusContext().cloneContext());
-            try {
-                // Finally find the run()-method and start the procedure
+        }
+        
+        Context.addActive(getCron().getOctopusContext().cloneContext());
+        try {
+        	if (runnableObject instanceof Runnable) {
+        		((Runnable)runnableObject).run();
+        	} else {
+                // If no runnable find the run method
                 for (int i = 0; i < m.length; i++){
                     if (m[i].getName().equals("run")) {
                         m[i].invoke(runnableObject, new Object[] {});
                         break;
                     }
                 }
-            } catch (Exception e) {
-                runOnError("Error trying to invoke run-method of procedure " + runnableObject.getClass(), e);
-                return;
-            }
-            Context.clear();
-        //setLastRun(new Date());
-        setErrorMessage(new String()); // Set Errormessage to empty String 
+        	}
+        } catch (Exception e) {
+            runOnError("Error trying to invoke run-method of procedure " + runnableObject.getClass(), e);
+            return;
+        }
+        Context.clear();
+        
+        setErrorMessage(""); // Set Errormessage to empty String 
     }
     
     //abstract public void run();
