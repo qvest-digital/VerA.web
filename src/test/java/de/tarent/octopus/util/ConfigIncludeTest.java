@@ -1,6 +1,7 @@
 package de.tarent.octopus.util;
 
 import java.io.File;
+import java.net.URL;
 import java.util.prefs.Preferences;
 
 import junit.framework.TestCase;
@@ -15,17 +16,15 @@ import de.tarent.octopus.resource.Resources;
  */
 public class ConfigIncludeTest extends TestCase {
     public void testRecursiveIncludes() throws Exception {
-        File modulePath = new File("src/tests/java/de/tarent/octopus/util");
+        URL url = ConfigIncludeTest.class.getResource("config.xml");
         
-        File configFile = new File(modulePath, "config.xml");
-
-        String resource = Resources.getInstance().get("REQUESTPROXY_URL_MODULE_CONFIG", configFile.getAbsolutePath());
+        String resource = Resources.getInstance().get("REQUESTPROXY_URL_MODULE_CONFIG", url.getFile());
         
         Document document = Xml.getParsedDocument(resource);
         
         Preferences modulePreferences = Preferences.systemRoot().node("/de/tarent/octopus");
         
-        TcModuleConfig config = new TcModuleConfig("Testname", modulePath, document, modulePreferences);
+        TcModuleConfig config = new TcModuleConfig("Testname", new File(url.getFile()).getParentFile(), document, modulePreferences);
         
         assertEquals("Falsche Anzahl an eingelesenen Parametern: ", 2, config.getParams().size());
     }
