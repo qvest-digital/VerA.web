@@ -1,4 +1,4 @@
-/* $Id: OctopusRemoteTask.java,v 1.3 2006/11/15 10:56:04 hendrik Exp $
+/* $Id: OctopusRemoteTask.java,v 1.4 2007/01/24 10:34:56 asteban Exp $
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
  * 
@@ -40,6 +40,11 @@ import org.apache.axis.client.Service;
 import javax.xml.namespace.QName;
 import org.apache.axis.encoding.XMLType;
 import javax.xml.rpc.*;
+import de.tarent.octopus.logging.LogFactory;
+import org.apache.commons.logging.Log;
+import java.io.InputStream;
+import org.apache.axis.configuration.FileProvider;
+import org.apache.axis.encoding.TypeMappingRegistry;
 
 /** 
  * Aufruf eines Task des Octopus als Client-Server variante.
@@ -48,18 +53,17 @@ import javax.xml.rpc.*;
  */
 public class OctopusRemoteTask implements OctopusTask {
 
+ 	private static final String AXIS_CONFIG = "/axis-config.wsdd";
+
+    Log logger = LogFactory.getLog(OctopusRemoteTask.class);
     
     static Service axisSoapService;
 
     Call axisSoapCall;
-    static {
-        axisSoapService = new Service();
-        axisSoapService.getEngine().setOption(AxisEngine.PROP_DOMULTIREFS, Boolean.FALSE);
-    }
 
-    String moduleName;   
+    String moduleName;
     String taskName;
-    OctopusRemoteConnection connection;    
+    OctopusRemoteConnection connection;
     List params;
     boolean connectionTracking = false;
     private static OctopusRemoteLog log = null;
@@ -67,6 +71,8 @@ public class OctopusRemoteTask implements OctopusTask {
     
     public OctopusRemoteTask() 
         throws javax.xml.rpc.ServiceException {
+        initAxisSOAPService();
+
         axisSoapCall = (Call) axisSoapService.createCall();
         axisSoapCall.setMaintainSession(false);
         params = new ArrayList();
@@ -85,7 +91,30 @@ public class OctopusRemoteTask implements OctopusTask {
         //         axisSoapCall.setMaintainSession(OctopusRemoteConnection.AUTH_TYPE_SESSION
         //                                         .equals(connection.getAuthType()));
     }
-
+    
+    protected synchronized void initAxisSOAPService() {
+        if (axisSoapService == null) {
+            InputStream is = OctopusRemoteTask.class.getResourceAsStream(AXIS_CONFIG);
+            if (is != null) {
+                logger.info("Reading axis soap configuration from ressource: '"+AXIS_CONFIG+"'.");
+                EngineConfiguration engineConfiguration = new FileProvider(is) {
+                        public TypeMappingRegistry getTypeMappingRegistry() {
+                            try {
+                                return super.getTypeMappingRegistry();
+                            } catch (ConfigurationException e) {
+                                // throw anything wrapped by a runtime exception to show the error at beginning
+                                throw new RuntimeException(e);
+                            }
+                        }
+                    };
+                axisSoapService = new Service(engineConfiguration);                
+                axisSoapService.getEngine().setOption(AxisEngine.PROP_DOMULTIREFS, Boolean.FALSE);
+            } else {
+                logger.info("No axis soap configuration available in ressources ('"+AXIS_CONFIG+"').");
+                axisSoapService = new Service();
+            }
+        }
+    }
     
     public void add(String paramName, Object value, QName type) {
         params.add(value);
