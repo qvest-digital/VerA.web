@@ -37,7 +37,7 @@ public class RPCTunnel
     
     // Registering default OctopusCallbackListener
     static {
-    	RPCTunnel.registerListener(new OctopusCallbackListener(), DefaultRoles.ROLE_ACTIVEBPEL);
+    	//RPCTunnel.registerListener(new OctopusCallbackListener(), DefaultRoles.ROLE_ACTIVEBPEL);
     }
 
 	public static boolean registerListener(RPCListener listener, String role)
