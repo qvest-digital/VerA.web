@@ -1,4 +1,4 @@
-/* $Id: OctopusConnectionFactory.java,v 1.5 2006/11/23 14:33:30 schmitz Exp $
+/* $Id: OctopusConnectionFactory.java,v 1.6 2007/02/16 14:47:51 asteban Exp $
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
  * 
@@ -80,11 +80,12 @@ public class OctopusConnectionFactory {
     }
 
 
-    public OctopusConnection getConnection(String connectionName)
+    /**
+     * Returns a connection for <code>connectionName</code>. 
+     * Subsequent calls will always return a new Connection instance.
+     */
+    public OctopusConnection getNewConnection(String connectionName) 
         throws FactoryConfigurationException {
-
-        if (connections.get(connectionName) != null)
-            return (OctopusConnection)connections.get(connectionName);
 
         if(configurations.get(connectionName)==null){
         	setConfiguration(connectionName, getConfigValues(connectionName));
@@ -92,19 +93,29 @@ public class OctopusConnectionFactory {
         Map conf = (Map)configurations.get(connectionName);
 
         if (CONNECTION_TYPE_DIRECT_CALL.equals(conf.get(CONNECTION_TYPE_KEY))) {
-            OctopusConnection con = getDirectCallConnection(conf);
-            connections.put(connectionName, con);
-            return con;
+            return getDirectCallConnection(conf);
         } else if (CONNECTION_TYPE_REMOTE.equals(conf.get(CONNECTION_TYPE_KEY))) {
-            OctopusConnection con = getRemoteConnection(conf);
-            connections.put(connectionName, con);
-            return con;
+            return getRemoteConnection(conf);
         } else if (CONNECTION_TYPE_INTERNAL.equals(conf.get(CONNECTION_TYPE_KEY))) {
-            OctopusConnection con = getInternalConnection(conf);
-            connections.put(connectionName, con);
-            return con;
+            return getInternalConnection(conf);
         }
         throw new FactoryConfigurationException("Andere Verbindungstypen als directCall, internal und remote werden von der Factory noch nicht unterstützt.", null);
+    }
+
+    /**
+     * Returns the connection for <code>connectionName</code>. 
+     * Subsequent calls to this method with the same parameter will return the same Connection instance.
+     *
+     */
+    public OctopusConnection getConnection(String connectionName)
+        throws FactoryConfigurationException {
+
+        if (connections.get(connectionName) != null)
+            return (OctopusConnection)connections.get(connectionName);
+        
+        OctopusConnection con = getNewConnection(connectionName);
+        connections.put(connectionName, con);            
+        return con;
     }
 
     public void setConfiguration(String connectionName, Map configValues) {
