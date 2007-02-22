@@ -1,4 +1,4 @@
-/* $Id: TcRequest.java,v 1.7 2007/02/22 15:39:20 jens Exp $
+/* $Id: TcRequest.java,v 1.8 2007/02/22 16:36:38 jens Exp $
  * 
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
@@ -30,12 +30,6 @@ import java.net.PasswordAuthentication;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.Map;
-
-import javax.xml.soap.SOAPHeaderElement;
-
-import org.apache.axis.message.MessageElement;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 
 import de.tarent.octopus.resource.Resources;
 import de.tarent.octopus.client.OctopusConnection;
@@ -580,21 +574,21 @@ public class TcRequest {
     /**
 	 * Returns requested header information defined by constants available in the {@link RequestHeader} interface or the RequestHeader implementation
 	 * 
-	 * @param headerInformationType constant indentifier for the requested header information
-	 * @return header information <code>Object</code>
+	 * @param headerType constant indentifier for the requested header information
+	 * @return header as <code>Object</code>
 	 */
-	public Object getHeaderInformationObject(String headerInformationType) {
-		return header.getHeaderInformationObject(headerInformationType);
+	public Object getHeaderAsObject(String headerType) {
+		return header.getObject(headerType);
 	}
 	
 	/**
 	 * Returns requested header information defined by constants available in the {@link RequestHeader} interface or the RequestHeader implementation
 	 * 
-	 * @param headerInformationType constant indentifier for the requested header information
-	 * @return header information <code>Object</code>
+	 * @param headerType constant indentifier for the requested header information
+	 * @return header as <code>String</code>
 	 */
-	public String getHeaderInformationString(String headerInformationType) {
-		return header.getHeaderInformationString(headerInformationType);
+	public String getHeaderAsString(String headerType) {
+		return header.getString(headerType);
 	}
 
 }

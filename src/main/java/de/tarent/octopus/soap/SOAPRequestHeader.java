@@ -15,7 +15,7 @@ public class SOAPRequestHeader implements RequestHeader {
 	//
     // * Header information type constants
     //
-	public static final String HEADER_INFORMATION_REPLY_TO_ADDRESS = "replyToAddress";
+	public static final String HEADER_TYPE_REPLY_TO_ADDRESS = "replyToAddress";
 	
 	public SOAPHeaderElement firstHeaderElement;
 	
@@ -24,19 +24,19 @@ public class SOAPRequestHeader implements RequestHeader {
 	}
 	
 	/**
-	 * @see RequestHeader#getHeaderInformationObject(String)
+	 * @see RequestHeader#getObject(String)
 	 */
-	public Object getHeaderInformationObject(String headerInformationType) {
-		if (headerInformationType.equals(HEADER_INFORMATION_REPLY_TO_ADDRESS))
+	public Object getObject(String headerType) {
+		if (headerType.equals(HEADER_TYPE_REPLY_TO_ADDRESS))
 			return getReplyToAddress();
 		return null;
 	}
 
 	/**
-	 * @see RequestHeader#getHeaderInformationString(String)
+	 * @see RequestHeader#getString(String)
 	 */
-	public String getHeaderInformationString(String headerInformationType) {
-		if (headerInformationType.equals(HEADER_INFORMATION_REPLY_TO_ADDRESS))
+	public String getString(String headerType) {
+		if (headerType.equals(HEADER_TYPE_REPLY_TO_ADDRESS))
 			return getReplyToAddress();
 		return null;
 	}
