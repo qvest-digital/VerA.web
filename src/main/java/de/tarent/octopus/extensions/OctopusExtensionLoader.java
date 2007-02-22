@@ -52,7 +52,7 @@ public class OctopusExtensionLoader
         }
         catch (ClassNotFoundException e)
         {
-            logger.error("Extension class not found: " + classname, e);
+            logger.info("Extension class not found: " + classname, e);
         }
 
         if (extension!=null)
