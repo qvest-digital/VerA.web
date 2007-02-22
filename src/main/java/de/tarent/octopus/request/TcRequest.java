@@ -1,4 +1,4 @@
-/* $Id: TcRequest.java,v 1.6 2006/09/25 06:26:16 asteban Exp $
+/* $Id: TcRequest.java,v 1.7 2007/02/22 15:39:20 jens Exp $
  * 
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
@@ -30,6 +30,12 @@ import java.net.PasswordAuthentication;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.Map;
+
+import javax.xml.soap.SOAPHeaderElement;
+
+import org.apache.axis.message.MessageElement;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 import de.tarent.octopus.resource.Resources;
 import de.tarent.octopus.client.OctopusConnection;
@@ -84,7 +90,6 @@ public class TcRequest {
 	public static final String PARAM_USERNAME = "username";
     public static final String PARAM_COOKIES = "cookies";
 
-
     //
     // Variablen
     //
@@ -106,6 +111,8 @@ public class TcRequest {
 	private boolean askForCookies = false;
     /** The internal connection to same target module as the request object in the same octopus instance over the OctopusClient API */
     OctopusConnection octopusConnection = null;
+    /** Header object that may be given from the request **/
+    private RequestHeader header;
 
     //
     // öffentliche statische Methoden
@@ -552,6 +559,42 @@ public class TcRequest {
         this.octopusConnection = newOctopusConnection;
     }
     
-
+    /**
+     * Returns the header object. This object implements the {@link RequestHeader} interface.
+     * 
+     * @return header
+     */
+    public RequestHeader getHeader() {
+    	return this.header;
+    }
     
+    /**
+     * Sets the header object. This object needs to be implement the {@link RequestHeader} interface.
+     * 
+     * @param header header to set
+     */
+    public void setHeader(RequestHeader header) {
+    	this.header = header;
+    }
+    
+    /**
+	 * Returns requested header information defined by constants available in the {@link RequestHeader} interface or the RequestHeader implementation
+	 * 
+	 * @param headerInformationType constant indentifier for the requested header information
+	 * @return header information <code>Object</code>
+	 */
+	public Object getHeaderInformationObject(String headerInformationType) {
+		return header.getHeaderInformationObject(headerInformationType);
+	}
+	
+	/**
+	 * Returns requested header information defined by constants available in the {@link RequestHeader} interface or the RequestHeader implementation
+	 * 
+	 * @param headerInformationType constant indentifier for the requested header information
+	 * @return header information <code>Object</code>
+	 */
+	public String getHeaderInformationString(String headerInformationType) {
+		return header.getHeaderInformationString(headerInformationType);
+	}
+
 }

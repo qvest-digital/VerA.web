@@ -1,4 +1,4 @@
-/* $Id: TcSOAPEngine.java,v 1.7 2007/01/05 16:50:37 asteban Exp $
+/* $Id: TcSOAPEngine.java,v 1.8 2007/02/22 15:39:20 jens Exp $
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
  * 
@@ -159,6 +159,8 @@ public class TcSOAPEngine {
                 octRequest.setRequestParameters(params);
                 octRequest.setModule(itModules.next().toString());
                 octRequest.setTask(itTasks.next().toString());
+                if (!headerList.isEmpty())
+                    octRequest.setHeader(new SOAPRequestHeader((SOAPHeaderElement)headerList.get(0)));
                 requests[i] = octRequest;
             }
             return requests;
