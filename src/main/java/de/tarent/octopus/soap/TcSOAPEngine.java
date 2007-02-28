@@ -1,4 +1,4 @@
-/* $Id: TcSOAPEngine.java,v 1.8 2007/02/22 15:39:20 jens Exp $
+/* $Id: TcSOAPEngine.java,v 1.9 2007/02/28 14:20:15 jens Exp $
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
  * 
@@ -49,12 +49,14 @@ import org.apache.axis.encoding.TypeMapping;
 import org.apache.axis.encoding.TypeMappingRegistry;
 import org.apache.axis.encoding.ser.SimpleDeserializerFactory;
 import org.apache.axis.encoding.ser.SimpleSerializerFactory;
+import org.apache.axis.message.MessageElement;
 import org.apache.axis.message.RPCElement;
 import org.apache.axis.message.RPCParam;
 import org.apache.axis.message.SOAPEnvelope;
 import org.apache.axis.message.SOAPHeaderElement;
 import org.apache.axis.server.AxisServer;
 import org.apache.commons.logging.Log;
+import org.w3c.dom.Node;
 import org.xml.sax.SAXException;
 
 import de.tarent.octopus.logging.LogFactory;
@@ -160,7 +162,7 @@ public class TcSOAPEngine {
                 octRequest.setModule(itModules.next().toString());
                 octRequest.setTask(itTasks.next().toString());
                 if (!headerList.isEmpty())
-                    octRequest.setHeader(new SOAPRequestHeader((SOAPHeaderElement)headerList.get(0)));
+                    octRequest.setHeaders(new SOAPRequestHeaders(headerList));
                 requests[i] = octRequest;
             }
             return requests;
@@ -313,15 +315,30 @@ public class TcSOAPEngine {
     }
 
     /**
-     * Diese Methode macht aus einem Header-Element einn DOM Element.<br>
-     * TODO: Dies ist noch auszuarbeiten 
+     * This methods returns a map with the header's name as key and a MessageElement as value.
+     * These maps will be put in a list structure and not directly in a map because multiple
+     * headers of the same name may exists. The load overhead should not be relevant because
+     * normaly headers should only be delivered if needed.
+     * If the header has DOM-Elements as children the will be recursively processed by this
+     * method and provided in a <code>List</code> of Singleton-Maps as well.
      * 
-     * @param headerPart Header-Element
-     * @return Map der Key-Value-Zuordnung des Headers
+     * @param headerPart header to process
+     * @return a singleton map with the header's name as key and a <code>MessageElement</code> or a <code>List</code> of subheaders as value
      * @throws SAXException
      */
-    private Map headerPartToMap(SOAPHeaderElement headerPart) throws SAXException {
-        return Collections.singletonMap(headerPart.getName(), headerPart.getObjectValue());
+    private Map headerPartToMap(MessageElement headerPart) throws SAXException {
+    	// test if child elements are present, pretending no elements follow if the first child is a text node 
+    	if (headerPart.getFirstChild().getNodeType() != Node.TEXT_NODE) {
+    		List subheaderNodes = headerPart.getChildren();
+    		List subheaderList= new ArrayList(subheaderNodes.size());
+    		Iterator iter = subheaderNodes.iterator();
+    		while (iter.hasNext()) {
+    			MessageElement subheader = (MessageElement) iter.next();
+    			subheaderList.add(headerPartToMap(subheader));
+    		}
+    		return Collections.singletonMap(headerPart.getName(), subheaderList);
+    	}
+        return Collections.singletonMap(headerPart.getName(), headerPart.getRealElement());
     }
     
     /**

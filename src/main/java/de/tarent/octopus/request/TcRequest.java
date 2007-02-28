@@ -1,4 +1,4 @@
-/* $Id: TcRequest.java,v 1.8 2007/02/22 16:36:38 jens Exp $
+/* $Id: TcRequest.java,v 1.9 2007/02/28 14:20:14 jens Exp $
  * 
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
@@ -105,8 +105,8 @@ public class TcRequest {
 	private boolean askForCookies = false;
     /** The internal connection to same target module as the request object in the same octopus instance over the OctopusClient API */
     OctopusConnection octopusConnection = null;
-    /** Header object that may be given from the request **/
-    private RequestHeader header;
+    /** Headers object that may be given from the request **/
+    private RequestHeaders headers;
 
     //
     // öffentliche statische Methoden
@@ -558,8 +558,8 @@ public class TcRequest {
      * 
      * @return header
      */
-    public RequestHeader getHeader() {
-    	return this.header;
+    public RequestHeaders getHeaders() {
+    	return this.headers;
     }
     
     /**
@@ -567,28 +567,7 @@ public class TcRequest {
      * 
      * @param header header to set
      */
-    public void setHeader(RequestHeader header) {
-    	this.header = header;
+    public void setHeaders(RequestHeaders headers) {
+    	this.headers = headers;
     }
-    
-    /**
-	 * Returns requested header information defined by constants available in the {@link RequestHeader} interface or the RequestHeader implementation
-	 * 
-	 * @param headerType constant indentifier for the requested header information
-	 * @return header as <code>Object</code>
-	 */
-	public Object getHeaderAsObject(String headerType) {
-		return header.getObject(headerType);
-	}
-	
-	/**
-	 * Returns requested header information defined by constants available in the {@link RequestHeader} interface or the RequestHeader implementation
-	 * 
-	 * @param headerType constant indentifier for the requested header information
-	 * @return header as <code>String</code>
-	 */
-	public String getHeaderAsString(String headerType) {
-		return header.getString(headerType);
-	}
-
 }
