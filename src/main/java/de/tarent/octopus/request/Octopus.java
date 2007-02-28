@@ -1,4 +1,4 @@
-/* $Id: Octopus.java,v 1.13 2006/11/23 14:33:30 schmitz Exp $
+/* $Id: Octopus.java,v 1.14 2007/02/28 14:19:48 jens Exp $
  * 
  * Created on 18.09.2003
  * 
@@ -174,6 +174,7 @@ public class Octopus {
         if (moduleName == null)
             return modulePreferences;
         while (moduleName.startsWith("/")) moduleName = moduleName.substring(1);
+        while (moduleName.endsWith("/")) moduleName = moduleName.substring(0, moduleName.length()-1);
         return modulePreferences.node(moduleName);
     }
     
