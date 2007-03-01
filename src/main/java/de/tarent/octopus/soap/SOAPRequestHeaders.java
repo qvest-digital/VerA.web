@@ -30,7 +30,7 @@ public class SOAPRequestHeaders extends RequestHeaders {
 	 */
 	public String getHeaderAsString(String headerName) {
 		Node domHeaderNode = (Node)this.getHeaderAsObject(headerName);
-		return domHeaderNode == null ? null : domHeaderNode.getNodeValue();
+		return domHeaderNode == null ? null : domHeaderNode.getFirstChild().getNodeValue();
 	}
 	
 	/**
