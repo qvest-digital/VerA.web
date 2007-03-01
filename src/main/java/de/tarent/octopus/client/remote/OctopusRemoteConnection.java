@@ -1,4 +1,4 @@
-/* $Id: OctopusRemoteConnection.java,v 1.3 2007/03/01 11:31:01 fkoester Exp $
+/* $Id: OctopusRemoteConnection.java,v 1.4 2007/03/01 13:49:16 fkoester Exp $
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
  * 
@@ -36,6 +36,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.regex.Pattern;
 
 import javax.xml.rpc.ServiceException;
 
@@ -355,9 +356,24 @@ public class OctopusRemoteConnection implements OctopusConnection {
     }
 
     public String getSessionCookieFile() {
-        if (sessionCookieFile == null)
-            return sessionCookieFile;
-        return sessionCookieFile.replaceAll("\\$\\{HOME\\}", System.getProperty("user.home"));
+        if (this.sessionCookieFile == null)
+            return this.sessionCookieFile;
+        
+        // does not work as expected when property "user.home" contains backslashes (e.g. if running windows)
+        //return sessionCookieFile.replaceAll("\\$\\{HOME\\}", System.getProperty("user.home"));
+        
+        // workaround follows
+        
+        String homeExp = "${HOME}"; //$NON-NLS-1$
+        String result = this.sessionCookieFile;
+        
+        while(result.indexOf(homeExp) != -1)
+        {
+        	// this line needs a high screen-resolution :)
+        	result = this.sessionCookieFile.substring(0, this.sessionCookieFile.indexOf(homeExp)) + System.getProperty("user.home") + this.sessionCookieFile.substring(this.sessionCookieFile.indexOf(homeExp)+homeExp.length()); //$NON-NLS-1$
+        }
+        
+        return result;
     }
 
     public void setSessionCookieFile(String newSessionCookieFile) {
