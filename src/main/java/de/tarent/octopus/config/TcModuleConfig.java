@@ -1,4 +1,4 @@
-/* $Id: TcModuleConfig.java,v 1.18 2007/01/10 10:12:48 christoph Exp $
+/* $Id: TcModuleConfig.java,v 1.19 2007/03/01 13:54:27 christoph Exp $
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
  * 
@@ -35,7 +35,6 @@ import java.lang.reflect.Constructor;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;

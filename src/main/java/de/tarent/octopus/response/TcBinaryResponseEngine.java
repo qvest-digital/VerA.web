@@ -1,4 +1,4 @@
-/* $Id: TcBinaryResponseEngine.java,v 1.8 2006/11/23 14:33:30 schmitz Exp $
+/* $Id: TcBinaryResponseEngine.java,v 1.9 2007/03/01 13:54:26 christoph Exp $
  * 
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
@@ -39,8 +39,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import org.apache.commons.logging.Log;
 

@@ -1,4 +1,4 @@
-/* $Id: TcCommonConfig.java,v 1.5 2007/01/02 09:51:19 christoph Exp $
+/* $Id: TcCommonConfig.java,v 1.6 2007/03/01 13:54:27 christoph Exp $
  * 
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
@@ -46,6 +46,7 @@ import de.tarent.octopus.data.TarDBConnection;
 import de.tarent.octopus.data.TcDataAccessException;
 import de.tarent.octopus.data.TcGenericDataAccessWrapper;
 import de.tarent.octopus.logging.LogFactory;
+import de.tarent.octopus.request.OctopusConfiguration;
 import de.tarent.octopus.request.Octopus;
 import de.tarent.octopus.request.TcEnv;
 import de.tarent.octopus.request.TcTaskList;
@@ -90,7 +91,7 @@ public class TcCommonConfig {
     /**
      * Dieses Objekt erlaubt ein dynamisches Nachladen neuer Module.
      */
-    protected Octopus.Configuration configuration;
+    protected OctopusConfiguration configuration;
 
     /**
      * Login Manager
@@ -133,7 +134,7 @@ public class TcCommonConfig {
      * @param env Ein Datenkontainer, mit mindestens den Einträgen:
      *  config.configRoot, config.configData
      */
-    public TcCommonConfig(TcEnv env, Octopus.Configuration config, Octopus octopus) throws TcConfigException {
+    public TcCommonConfig(TcEnv env, OctopusConfiguration config, Octopus octopus) throws TcConfigException {
         configData = env;
         configuration = config;
         this.octopus = octopus;

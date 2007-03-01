@@ -1,4 +1,4 @@
-/* $Id: OctopusServlet.java,v 1.1 2007/01/10 11:07:05 christoph Exp $
+/* $Id: OctopusServlet.java,v 1.2 2007/03/01 13:54:27 christoph Exp $
  * 
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
@@ -27,12 +27,10 @@
 
 package de.tarent.octopus.request.servlet;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.prefs.Preferences;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
@@ -43,11 +41,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.logging.Log;
-import org.w3c.dom.Document;
-import org.xml.sax.SAXParseException;
 
 import de.tarent.octopus.client.OctopusConnectionFactory;
-import de.tarent.octopus.config.TcModuleConfig;
 import de.tarent.octopus.logging.LogFactory;
 import de.tarent.octopus.request.Octopus;
 import de.tarent.octopus.request.TcEnv;
@@ -57,8 +52,6 @@ import de.tarent.octopus.request.TcSession;
 import de.tarent.octopus.resource.Resources;
 import de.tarent.octopus.soap.TcSOAPEngine;
 import de.tarent.octopus.soap.TcSOAPException;
-import de.tarent.octopus.util.DataFormatException;
-import de.tarent.octopus.util.Xml;
 import de.tarent.octopus.request.directCall.OctopusDirectCallConnection;
 import de.tarent.octopus.client.OctopusConnection;
 import de.tarent.octopus.request.internal.OctopusInternalStarter;
@@ -83,7 +76,7 @@ public class OctopusServlet extends HttpServlet {
     private TcEnv env;
 
     private TcSOAPEngine soapEngine;
-    private static Log logger = LogFactory.getLog(OctopusServlet.class);
+    static Log logger = LogFactory.getLog(OctopusServlet.class);
 
     // Fehler, der während des Initialisierens auftritt
     private Exception initError = null;
@@ -136,7 +129,7 @@ public class OctopusServlet extends HttpServlet {
             
             soapEngine = new TcSOAPEngine(env);
             octopus = new Octopus();
-            octopus.init(env, new WebAppConfig());
+            octopus.init(env, new OctopusServletConfiguration(this));
             //Octopus für lokale Connections bekannt machen
             OctopusConnectionFactory.getInstance().setInternalOctopusInstance(octopus);
             
@@ -400,56 +393,5 @@ public class OctopusServlet extends HttpServlet {
         env.overrideValues("base", "/de/tarent/octopus/overrides");
         
         return env;
-    }
-
-    /**
-     * Diese Klasse liefert dem Octopus notwendige Daten. 
-     */
-    protected class WebAppConfig implements Octopus.Configuration {
-        /**
-         * Diese Methode liefert zu einem Modulnamen die Konfiguration.
-         * 
-         * @param module der Name des Moduls.
-         * @return Modulkonfiguration zu dem Modul. <code>null</code>
-         *  steht hier für ein nicht gefundenes Modul.
-         * @see de.tarent.octopus.request.Octopus.Configuration#getModuleConfig(String, Preferences)
-         */
-        public TcModuleConfig getModuleConfig(String module, Preferences modulePreferences) {
-            ServletContext moduleContext =  null;
-
-            if (module.equals(webappContextPathName))
-                moduleContext = getServletContext();
-            else {
-                moduleContext = getServletContext().getContext("/" + module);
-            }
-            String realPath = null;
-            if (moduleContext == null)
-                logger.info(Resources.getInstance().get("REQUESTPROXY_LOG_NO_MODULE_CONTEXT", module));
-            if (moduleContext != null)
-                realPath = moduleContext.getRealPath("/OCTOPUS/");
-           if (realPath == null || realPath.length() == 0)
-                return null;
-            File modulePath = new File(realPath);
-            File configFile = new File(modulePath, "config.xml");
-            if (!configFile.exists())
-                configFile = new File(modulePath, "module-config.xml");
-            if (!configFile.exists())
-                return null;
-            try {
-                logger.debug(Resources.getInstance().get("REQUESTPROXY_LOG_PARSING_MODULE_CONFIG", configFile, module));
-                Document document = Xml.getParsedDocument(Resources.getInstance().get("REQUESTPROXY_URL_MODULE_CONFIG", configFile.getAbsolutePath()));
-                return new TcModuleConfig(module, modulePath, document, modulePreferences);
-            } catch (SAXParseException se) {
-                logger.error(Resources.getInstance().get("REQUESTPROXY_LOG_MODULE_PARSE_SAX_EXCEPTION", new Integer(se.getLineNumber()), new Integer(se.getColumnNumber())),
-                    se);
-            } catch (DataFormatException ex) {
-                logger.error(Resources.getInstance().get("REQUESTPROXY_LOG_MODULE_PARSE_FORMAT_EXCEPTION"), ex);
-            } catch (Exception ex) {
-                logger.error(Resources.getInstance().get("REQUESTPROXY_LOG_MODULE_PARSE_EXCEPTION"), ex);
-            }
-
-            return null;
-        }
-        
     }
 }

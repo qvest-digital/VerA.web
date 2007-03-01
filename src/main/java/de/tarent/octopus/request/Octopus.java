@@ -1,4 +1,4 @@
-/* $Id: Octopus.java,v 1.14 2007/02/28 14:19:48 jens Exp $
+/* $Id: Octopus.java,v 1.15 2007/03/01 13:54:27 christoph Exp $
  * 
  * Created on 18.09.2003
  * 
@@ -65,7 +65,7 @@ public class Octopus {
      * geschützte Member-Variablen
      */
     private TcRequestDispatcher dispatcher;
-    private Configuration config;
+    private OctopusConfiguration config;
 
     private static Log logger = LogFactory.getLog(Octopus.class);
 
@@ -93,7 +93,7 @@ public class Octopus {
      * @param config Konfigurationsdaten
      * TODO! Parameter spezifizieren. 
      */
-    public void init(TcEnv env, Configuration config)
+    public void init(TcEnv env, OctopusConfiguration config)
         throws
             TcConfigException,
             ClassCastException,
@@ -179,49 +179,29 @@ public class Octopus {
     }
     
     /*
-     * geschachtelte Klassen und Schnittstellen.
-     */
-    /**
-     * Mit dieser Schnittstelle werden dem Octopus Konfigurationsdaten zur
-     * Verfügung gestellt.  
-     */
-    public static interface Configuration {
-        /**
-         * Diese Methode liefert zu einem Modulnamen die Konfiguration.
-         * 
-         * @param module der Name des Moduls.
-         * @param modulePreferences Preferences zum Modul als Hints.
-         * @return Modulkonfiguration zu dem Modul. <code>null</code>
-         *  steht hier für ein nicht gefundenes Modul.
-         */
-        public TcModuleConfig getModuleConfig(String module, Preferences modulePreferences);
-    }
-
-    /*
-     * geschützte Methoden
-     */
-    private void preloadModules(TcCommonConfig commonConfig) {
-    	String preloadstring = commonConfig.getConfigData(TcEnv.KEY_PRELOAD_MODULES);
-    	List preloads=null;
-    	if(preloadstring!=null&&preloadstring.length()>0){
-    		preloads = Arrays.asList(preloadstring.split(" "));
-    	}
-        if (preloads == null)
-            return;
-        Iterator itPreloads = preloads.iterator();
-        while (itPreloads.hasNext()) {
-            Object oNext = itPreloads.next();
-            if (oNext != null) {
-                String moduleName = oNext.toString();
-                logger.debug(Resources.getInstance().get("OCTOPUS_LOG_PRELOAD_MODULE", moduleName));
-                TcModuleConfig moduleConfig = config.getModuleConfig(moduleName, getModulePreferences(moduleName));
-                if (moduleConfig != null)
-                    commonConfig.registerModule(moduleName, moduleConfig);
-                else
-                    logger.warn(Resources.getInstance().get("OCTOPUS_LOG_PRELOAD_MODULE_ERROR", moduleName));
-            }
-        }
-    }
+	 * geschützte Methoden
+	 */
+	private void preloadModules(TcCommonConfig commonConfig) {
+		String preloadString = commonConfig.getConfigData(TcEnv.KEY_PRELOAD_MODULES);
+		if (preloadString == null || preloadString.length() == 0)
+			return;
+		
+		List preloads = Arrays.asList(preloadString.split("[\\ ,\\,,\\;]"));
+		
+		for (Iterator it = preloads.iterator(); it.hasNext();) {
+			String module = it.next().toString().trim();
+			if (module.length() == 0)
+				continue;
+			
+			logger.debug(Resources.getInstance().get("OCTOPUS_LOG_PRELOAD_MODULE", module));
+			TcModuleConfig moduleConfig = config.getModuleConfig(module, getModulePreferences(module));
+			
+			if (moduleConfig != null)
+				commonConfig.registerModule(module, moduleConfig);
+			else
+				logger.warn(Resources.getInstance().get("OCTOPUS_LOG_PRELOAD_MODULE_ERROR", module));
+		}
+	}
 
     private void callTask(String modulename, TcCommonConfig config, String taskname) throws TcContentProzessException, TcTaskProzessingException, TcConfigException {
         TcRequest tcRequest = new TcRequest(TcRequest.createRequestID());

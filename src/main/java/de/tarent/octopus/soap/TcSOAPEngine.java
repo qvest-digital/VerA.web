@@ -1,4 +1,4 @@
-/* $Id: TcSOAPEngine.java,v 1.9 2007/02/28 14:20:15 jens Exp $
+/* $Id: TcSOAPEngine.java,v 1.10 2007/03/01 13:54:27 christoph Exp $
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
  * 
@@ -117,7 +117,7 @@ public class TcSOAPEngine {
      */
     protected void registerTypes(TypeMappingRegistry reg, TcEnv env) {
         
-        TypeMapping mapping = (TypeMapping) DefaultSOAPEncodingTypeMappingImpl.createWithDelegate(); 
+        TypeMapping mapping = DefaultSOAPEncodingTypeMappingImpl.createWithDelegate(); 
         mapping.register(StringBuffer.class, 
                          Constants.XSD_STRING,
                          new SimpleSerializerFactory(StringBuffer.class, Constants.XSD_STRING),

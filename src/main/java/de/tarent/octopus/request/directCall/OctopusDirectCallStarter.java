@@ -1,4 +1,4 @@
-/* $Id: OctopusDirectCallStarter.java,v 1.3 2006/11/23 14:33:31 schmitz Exp $
+/* $Id: OctopusDirectCallStarter.java,v 1.4 2007/03/01 13:54:27 christoph Exp $
  * 
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
@@ -44,6 +44,7 @@ import org.xml.sax.SAXParseException;
 
 import de.tarent.octopus.config.TcModuleConfig;
 import de.tarent.octopus.logging.LogFactory;
+import de.tarent.octopus.request.OctopusConfiguration;
 import de.tarent.octopus.request.Octopus;
 import de.tarent.octopus.request.TcEnv;
 import de.tarent.octopus.request.TcRequest;
@@ -267,7 +268,7 @@ public class OctopusDirectCallStarter implements OctopusStarter {
     /**
      * Diese Klasse liefert dem Octopus notwendige Daten. 
      */
-    protected class OctopusConfig implements Octopus.Configuration {
+    protected class OctopusConfig implements OctopusConfiguration {
 
         public List getPreloadModules() {
             return null;
@@ -281,7 +282,7 @@ public class OctopusDirectCallStarter implements OctopusStarter {
          * @param module der Name des Moduls.
          * @return Modulkonfiguration zu dem Modul. <code>null</code>
          *  steht hier für ein nicht gefundenes Modul.
-         * @see de.tarent.octopus.request.Octopus.Configuration#getModuleConfig(String, Preferences)
+         * @see de.tarent.octopus.request.OctopusConfiguration#getModuleConfig(String, Preferences)
          */
         public TcModuleConfig getModuleConfig(String module, Preferences modulePreferences) {
             String realPath = null;
