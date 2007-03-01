@@ -1,4 +1,4 @@
-/* $Id: OctopusRemoteConnection.java,v 1.2 2006/11/23 14:33:30 schmitz Exp $
+/* $Id: OctopusRemoteConnection.java,v 1.3 2007/03/01 11:31:01 fkoester Exp $
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
  * 
@@ -246,9 +246,9 @@ public class OctopusRemoteConnection implements OctopusConnection {
             serviceURL = in.readLine();
             in.close();
         } catch (FileNotFoundException fne) {
-            logger.debug("Keine Octopus Sessiondatei gefunden unter <"+sessionCookieFile+">", fne);
+            logger.debug("Keine Octopus Sessiondatei gefunden unter <"+getSessionCookieFile()+">", fne);
         } catch (Exception e) {
-            logger.warn("Fehler beim Lesen eines Octopus Session Cookies aus <"+sessionCookieFile+">", e);
+            logger.warn("Fehler beim Lesen eines Octopus Session Cookies aus <"+getSessionCookieFile()+">", e);
         }
         if (in != null)
             try {
@@ -265,7 +265,7 @@ public class OctopusRemoteConnection implements OctopusConnection {
             out.flush();
             out.close();
         } catch (Exception e) {
-            logger.warn("Fehler beim Speichern eines Octopus Session Cookies in <"+sessionCookieFile+">", e);
+            logger.warn("Fehler beim Speichern eines Octopus Session Cookies in <"+getSessionCookieFile()+">", e);
             if (out != null)
                 try {
                     out.close();
