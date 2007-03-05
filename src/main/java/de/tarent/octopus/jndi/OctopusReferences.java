@@ -1,5 +1,5 @@
 /*
- * $Id: OctopusReferences.java,v 1.1.1.1 2005/11/21 13:33:38 asteban Exp $
+ * $Id: OctopusReferences.java,v 1.2 2007/03/05 10:53:37 christoph Exp $
  * 
  * Created on 14.06.2005
  */
@@ -9,7 +9,7 @@ import de.tarent.octopus.server.OctopusContext;
 
 /**
  * Diese Schnittstelle dient der abstrahierten Abfrage Octopus-spezifischer
- * Daten, zum Beispiel via JNDI mit der Klasse {@link OctopusFactory}.
+ * Daten, zum Beispiel via JNDI mit der Klasse {@link OctopusJndiFactory}.
  * 
  * @author mikel
  */

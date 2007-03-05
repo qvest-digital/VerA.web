@@ -1,4 +1,4 @@
-/* $Id: Octopus.java,v 1.15 2007/03/01 13:54:27 christoph Exp $
+/* $Id: Octopus.java,v 1.16 2007/03/05 10:53:37 christoph Exp $
  * 
  * Created on 18.09.2003
  * 
@@ -46,7 +46,7 @@ import de.tarent.octopus.content.TcContent;
 import de.tarent.octopus.content.TcContentProzessException;
 import de.tarent.octopus.extensions.OctopusExtension;
 import de.tarent.octopus.extensions.OctopusExtensionLoader;
-import de.tarent.octopus.jndi.OctopusFactory;
+import de.tarent.octopus.jndi.OctopusJndiFactory;
 import de.tarent.octopus.logging.LogFactory;
 import de.tarent.octopus.resource.Resources;
 import de.tarent.octopus.response.ResponseProcessingException;
@@ -65,7 +65,8 @@ public class Octopus {
      * geschützte Member-Variablen
      */
     private TcRequestDispatcher dispatcher;
-    private OctopusConfiguration config;
+    private OctopusConfiguration octopusConfig;
+    private TcCommonConfig commonConfig;
 
     private static Log logger = LogFactory.getLog(Octopus.class);
 
@@ -102,27 +103,28 @@ public class Octopus {
             InstantiationException,
             IllegalAccessException,
             TcContentProzessException {
-    	TcCommonConfig commonconfig = new TcCommonConfig(env, config, this);
-        dispatcher = new TcRequestDispatcher(commonconfig);
-        this.config = config;
-        OctopusFactory.tryToBind();
-        preloadModules(commonconfig); 
+        octopusConfig = config;
+    	commonConfig = new TcCommonConfig(env, config, this);
+        dispatcher = new TcRequestDispatcher(commonConfig);
+        
+        OctopusJndiFactory.tryToBind();
+        preloadModules(commonConfig); 
         
         // Initalizing the optional JMX subsystem
-        String jmxEnabledString = commonconfig.getConfigData("jmxenabled");
+        String jmxEnabledString = commonConfig.getConfigData("jmxenabled");
         if (Boolean.valueOf(jmxEnabledString).booleanValue())
         {
             logger.info("Enabling optional JMX subsystem.");
 
             Map params = new HashMap();
             params.put("octopus", this);
-            params.put("config", commonconfig);
+            params.put("config", commonConfig);
 
             jmxManagementServer = OctopusExtensionLoader.load("de.tarent.octopus.jmx.OctopusManagement", params);
         }
         
         logger.info("Enabling optional RPC-tunnel.");
-        OctopusRPCTunnel.createInstance(this, commonconfig);
+        OctopusRPCTunnel.createInstance(this, commonConfig);
     }
 
     /**
@@ -194,7 +196,7 @@ public class Octopus {
 				continue;
 			
 			logger.debug(Resources.getInstance().get("OCTOPUS_LOG_PRELOAD_MODULE", module));
-			TcModuleConfig moduleConfig = config.getModuleConfig(module, getModulePreferences(module));
+			TcModuleConfig moduleConfig = octopusConfig.getModuleConfig(module, getModulePreferences(module));
 			
 			if (moduleConfig != null)
 				commonConfig.registerModule(module, moduleConfig);
@@ -288,6 +290,14 @@ public class Octopus {
             logger.debug(Resources.getInstance().get("OCTOPUS_LOG_CLEANUP_MODULE", modulename));
             callTask(modulename, commonConfig, TASKNAME_CLEANUP);
         }
+    }
+
+    public OctopusConfiguration getOctopusConfiguration() {
+    	return octopusConfig;
+    }
+
+    public TcCommonConfig getCommonConfig() {
+    	return commonConfig;
     }
 
     private Preferences getOctopusPreferences() {

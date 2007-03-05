@@ -52,6 +52,11 @@ class OctopusServletConfiguration implements OctopusConfiguration {
 			return null;
 		}
 		
+		return getModuleConfig(module, modulePreferences, moduleContext);
+	}
+
+	TcModuleConfig getModuleConfig(String module, Preferences modulePreferences, ServletContext moduleContext) {
+
 		String realPath = moduleContext.getRealPath("/OCTOPUS/");
 		if (realPath == null || realPath.length() == 0) {
 			OctopusServlet.logger.info(Resources.getInstance().get("REQUESTPROXY_LOG_NO_MODULE_CONTEXT", module));
@@ -79,5 +84,4 @@ class OctopusServletConfiguration implements OctopusConfiguration {
 		
 		return null;
 	}
-
 }

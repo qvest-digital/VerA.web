@@ -1,5 +1,5 @@
 /*
- * $Id: OctopusFactory.java,v 1.5 2006/11/23 14:33:30 schmitz Exp $
+ * $Id: OctopusJndiFactory.java,v 1.1 2007/03/05 10:53:37 christoph Exp $
  * 
  * Created on 14.06.2005
  */
@@ -32,12 +32,11 @@ import de.tarent.octopus.server.OctopusContext;
  * 
  * @author mikel
  */
-public class OctopusFactory implements ObjectFactory, OctopusReferences, Serializable {
-
+public class OctopusJndiFactory implements ObjectFactory, OctopusReferences, Serializable {
     /** Serialisierungs-ID */
     private static final long serialVersionUID = 3258132436037547832L;
 
-    private static Log logger = LogFactory.getLog(OctopusFactory.class);
+    private static Log logger = LogFactory.getLog(OctopusJndiFactory.class);
 
     //
     // statische Methoden
@@ -51,7 +50,7 @@ public class OctopusFactory implements ObjectFactory, OctopusReferences, Seriali
             
             // Wenn schon eine OctopusFactory Instanz eingebunden wurde,
             // muss dies nicht noch einmal geschehen.
-        	if ( envCtx.lookup("octopus/References") instanceof OctopusFactory )
+        	if ( envCtx.lookup("octopus/References") instanceof OctopusJndiFactory )
         		return;
         	
         } catch (NamingException ne) {
@@ -65,7 +64,7 @@ public class OctopusFactory implements ObjectFactory, OctopusReferences, Seriali
         if (initCtx == null || envCtx == null)
         	return;
         
-        Object instanceToBind = new OctopusFactory();
+        Object instanceToBind = new OctopusJndiFactory();
         
         try {
 //            logger.info("JNDI Environment: " + envCtx.getEnvironment());
