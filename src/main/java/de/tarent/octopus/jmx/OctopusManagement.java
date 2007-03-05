@@ -78,9 +78,9 @@ public class OctopusManagement implements OctopusExtension
         Iterator iter = modules.iterator();
         OctopusModuleManagement module = null;
         while (iter.hasNext())
+            module = (OctopusModuleManagement)iter.next();
             try
             {
-                module = (OctopusModuleManagement)iter.next();
                 module.start();
             }
             catch (Exception e)
