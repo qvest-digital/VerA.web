@@ -1,4 +1,4 @@
-/* $Id: OctopusRemoteConnection.java,v 1.5 2007/03/01 14:46:11 fkoester Exp $
+/* $Id: OctopusRemoteConnection.java,v 1.6 2007/03/05 15:47:25 robert Exp $
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
  * 
@@ -28,6 +28,7 @@ package de.tarent.octopus.client.remote;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -97,7 +98,7 @@ public class OctopusRemoteConnection implements OctopusConnection {
     UserDataProvider userDataProvider;
    
     /**
-     * Liefert ein CallObject, dass für den Aufruf dieses Task verwendet werden kann.
+     * Liefert ein CallObject, dass fr den Aufruf dieses Task verwendet werden kann.
      */
     public OctopusTask getTask(String taskName) 
         throws OctopusCallException {
@@ -207,7 +208,7 @@ public class OctopusRemoteConnection implements OctopusConnection {
     /**
      * Nimmt eine Session, die in einem Session-Cookie gespeichert war wieder auf.
      *                                          
-     * @return true, wenn eine gültige Session aufgenommen wurde, false sonst.
+     * @return true, wenn eine gltige Session aufgenommen wurde, false sonst.
      */
     public boolean continueSession()
         throws OctopusCallException {
@@ -356,10 +357,21 @@ public class OctopusRemoteConnection implements OctopusConnection {
 
     public String getSessionCookieFile() {
         if (sessionCookieFile == null)
-            return sessionCookieFile;
-        return sessionCookieFile.replaceAll("\\$\\{HOME\\}", System.getProperty("user.home"));
+        {
+        	sessionCookieFile = System.getProperty("user.home")
+        	                    + File.separator
+        	                    + serviceURL.replaceAll("\\|:|/", "_")
+        	                    + "_"
+        	                    + moduleName.replaceAll("/", "_");
+        }
+        
+        return sessionCookieFile;
     }
 
+    /**
+     * @deprecated Do not use any more.
+     * @param newSessionCookieFile
+     */
     public void setSessionCookieFile(String newSessionCookieFile) {
         this.sessionCookieFile = newSessionCookieFile;
     }
@@ -394,7 +406,7 @@ public class OctopusRemoteConnection implements OctopusConnection {
 
     
     /**
-     * Klasse, die regelmäßig den Octopus anfragen kann, um die Session 'am Leben' zu halten.
+     * Klasse, die regelmig den Octopus anfragen kann, um die Session 'am Leben' zu halten.
      */
     class KeepAliveTimer extends TimerTask {
         OctopusRemoteConnection con;        
