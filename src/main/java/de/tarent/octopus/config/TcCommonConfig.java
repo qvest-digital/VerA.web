@@ -1,4 +1,4 @@
-/* $Id: TcCommonConfig.java,v 1.6 2007/03/01 13:54:27 christoph Exp $
+/* $Id: TcCommonConfig.java,v 1.7 2007/03/07 12:17:51 christoph Exp $
  * 
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
@@ -35,6 +35,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.prefs.Preferences;
 
 import org.apache.commons.logging.Log;
 import org.w3c.dom.Document;
@@ -46,7 +47,6 @@ import de.tarent.octopus.data.TarDBConnection;
 import de.tarent.octopus.data.TcDataAccessException;
 import de.tarent.octopus.data.TcGenericDataAccessWrapper;
 import de.tarent.octopus.logging.LogFactory;
-import de.tarent.octopus.request.OctopusConfiguration;
 import de.tarent.octopus.request.Octopus;
 import de.tarent.octopus.request.TcEnv;
 import de.tarent.octopus.request.TcTaskList;
@@ -86,12 +86,12 @@ public class TcCommonConfig {
     /** Die Daten aus der Haupt Konfigurations Datei
      * und Environment Werte aus der ServletEnv
      */
-    protected TcEnv configData;
+    protected TcEnv env;
 
     /**
      * Dieses Objekt erlaubt ein dynamisches Nachladen neuer Module.
      */
-    protected OctopusConfiguration configuration;
+    protected TcModuleLookup moduleLookup;
 
     /**
      * Login Manager
@@ -134,9 +134,9 @@ public class TcCommonConfig {
      * @param env Ein Datenkontainer, mit mindestens den Einträgen:
      *  config.configRoot, config.configData
      */
-    public TcCommonConfig(TcEnv env, OctopusConfiguration config, Octopus octopus) throws TcConfigException {
-        configData = env;
-        configuration = config;
+    public TcCommonConfig(TcEnv env, TcModuleLookup moduleLookup, Octopus octopus) throws TcConfigException {
+        this.env = env;
+        this.moduleLookup = moduleLookup;
         this.octopus = octopus;
         parseConfigFile();
         bufferedDataAccessWrappers = new HashMap();
@@ -153,9 +153,9 @@ public class TcCommonConfig {
         String filename =
             Resources.getInstance().get(
                 "COMMONCONFIG_URL_CONFIG_FILE",
-                configData.get(TcEnv.KEY_PATHS_ROOT),
-                configData.get(TcEnv.KEY_PATHS_CONFIG_ROOT),
-                configData.get(TcEnv.KEY_PATHS_CONFIG_FILE));
+                env.get(TcEnv.KEY_PATHS_ROOT),
+                env.get(TcEnv.KEY_PATHS_CONFIG_ROOT),
+                env.get(TcEnv.KEY_PATHS_CONFIG_FILE));
         Document document = null;
         try {
             logger.debug(Resources.getInstance().get("COMMONCONFIG_LOG_CONFIG_FILE", filename));
@@ -180,7 +180,7 @@ public class TcCommonConfig {
             Node currNode = sections.item(i);
             if ("application".equals(currNode.getNodeName())) {
                 try {
-                    configData.setAllValues(Xml.getParamMap(currNode));
+                    env.setAllValues(Xml.getParamMap(currNode));
                 } catch (DataFormatException dfe) {
                     String msg = Resources.getInstance().get("COMMONCONFIG_LOG_PARSE_APPLICATION_ERROR");
                     logger.error(msg, dfe);
@@ -196,12 +196,12 @@ public class TcCommonConfig {
                 }
             }
         }
-        configData.overrideValues("common", "/de/tarent/octopus/overrides/common");
+        env.overrideValues("common", "/de/tarent/octopus/overrides/common");
 
         moduleConfigs = new HashMap();
 
         // defaultModuleConfig setzen
-        if (configData.get(TcEnv.KEY_DEFAULT_MODULE) == null) {
+        if (env.get(TcEnv.KEY_DEFAULT_MODULE) == null) {
             String msg = Resources.getInstance().get("COMMONCONFIG_LOG_DEFAULT_ENTRY_MISSING");
             logger.debug(msg);
         }
@@ -374,19 +374,63 @@ public class TcCommonConfig {
      */
 
     /**
-     * Liefert das Config Objekt eines modules
-     */
+	 * Liefert das Config Objekt eines modules
+	 */
     public TcModuleConfig getModuleConfig(String moduleName) {
-        if (!moduleConfigs.containsKey(moduleName)) {
-            synchronized (moduleConfigs) {
-                TcModuleConfig moduleConfig = configuration.getModuleConfig(moduleName, octopus.getModulePreferences(moduleName));
-                if (moduleConfig != null)
-                    registerModule(moduleName, moduleConfig);
-                else
-                    logger.warn(Resources.getInstance().get("COMMONCONFIG_LOG_MODULE_INVALID", moduleName));            
-            }
+        if (moduleConfigs.containsKey(moduleName))
+        	return (TcModuleConfig) moduleConfigs.get(moduleName);
+        
+        synchronized (moduleConfigs) {
+        	Preferences modulePreferences = octopus.getModulePreferences(moduleName);
+    		File modulePath = moduleLookup.getModulePath(moduleName);
+    		
+			if (modulePath == null) {
+				String modulePrefPath = modulePreferences.get(TcModuleLookup.PREF_NAME_REAL_PATH, null);
+				logger.info(Resources.getInstance().get("OCTOPUS_STARTER_LOG_MODULE_PATH_PREFERENCES", moduleName));
+				if (modulePrefPath != null && modulePrefPath.length() != 0)
+					modulePath = new File(modulePrefPath);
+			}
+			
+    		File configFile = new File(modulePath, "config.xml");
+    		if (!configFile.exists()) {
+    			configFile = new File(modulePath, "module-config.xml");
+    		}
+    		if (!configFile.exists()) {
+    			String configEnvFile = (String) env.getValue(TcEnv.KEY_MODULE_CONFIGFILE_LOCATION_PREFIX + moduleName);
+    			if (File.separatorChar != '/')
+    				configEnvFile = configEnvFile.replace('/', File.separatorChar);
+    			if (new File(configEnvFile).isAbsolute())
+        			configFile = new File(configEnvFile);
+    			else
+    				configFile = new File(System.getProperty("user.dir"), configEnvFile);
+    		}
+    		if (!configFile.exists()) {
+    			logger.error(Resources.getInstance().get("OCTOPUS_STARTER_LOG_MODULE_CONFIG_PATH_INVALID", moduleName, configFile));
+    			return null;
+    		}
+    		
+    		modulePreferences.put(TcModuleLookup.PREF_NAME_REAL_PATH, configFile.getParent());
+    		env.setValue(TcEnv.KEY_MODULE_CONFIGFILE_LOCATION_PREFIX + moduleName, configFile.getAbsolutePath());
+    		
+    		try {
+    			logger.debug(Resources.getInstance().get("REQUESTPROXY_LOG_PARSING_MODULE_CONFIG", configFile, moduleName));
+    			Document document = Xml.getParsedDocument(Resources.getInstance().get("REQUESTPROXY_URL_MODULE_CONFIG", configFile.getAbsolutePath()));
+    			TcModuleConfig moduleConfig = new TcModuleConfig(
+    					moduleName,
+    					modulePath,
+    					document,
+    					modulePreferences);
+    			moduleConfigs.put(moduleName, moduleConfig);
+    			return moduleConfig;
+    		} catch (SAXParseException e) {
+    			logger.error(Resources.getInstance().get("REQUESTPROXY_LOG_MODULE_PARSE_SAX_EXCEPTION", new Integer(e.getLineNumber()), new Integer(e.getColumnNumber())), e);
+    		} catch (DataFormatException e) {
+    			logger.error(Resources.getInstance().get("REQUESTPROXY_LOG_MODULE_PARSE_FORMAT_EXCEPTION"), e);
+    		} catch (Exception e) {
+    			logger.error(Resources.getInstance().get("REQUESTPROXY_LOG_MODULE_PARSE_EXCEPTION"), e);
+    		}
+    		return null;
         }
-        return (TcModuleConfig) moduleConfigs.get(moduleName);
     }
 
     /**
@@ -472,7 +516,7 @@ public class TcCommonConfig {
         if (moduleConfig != null)
             result = moduleConfig.getParam(TcEnv.KEY_DEFAULT_RESPONSE_TYPE);
         if (result == null || result.length() == 0)
-            result = configData.get(TcEnv.KEY_DEFAULT_RESPONSE_TYPE);
+            result = env.get(TcEnv.KEY_DEFAULT_RESPONSE_TYPE);
         return result;
     }
     /**
@@ -484,7 +528,7 @@ public class TcCommonConfig {
         if (moduleConfig != null)
             result = moduleConfig.getParam(TcEnv.KEY_DEFAULT_ERROR_DESCRIPTION);
         if (result == null || result.length() == 0)
-            result = configData.get(TcEnv.KEY_DEFAULT_ERROR_DESCRIPTION);
+            result = env.get(TcEnv.KEY_DEFAULT_ERROR_DESCRIPTION);
         return result;
     }
 
@@ -497,7 +541,7 @@ public class TcCommonConfig {
         if (moduleConfig != null)
             result = moduleConfig.getParam(TcEnv.KEY_DEFAULT_ENCODING);
         if (result == null || result.length() == 0)
-            result = configData.get(TcEnv.KEY_DEFAULT_ENCODING);
+            result = env.get(TcEnv.KEY_DEFAULT_ENCODING);
         return result;
     }
 
@@ -510,7 +554,7 @@ public class TcCommonConfig {
         if (moduleConfig != null)
             result = moduleConfig.getParam(TcEnv.KEY_DEFAULT_CONTENT_TYPE);
         if (result == null || result.length() == 0)
-            result = configData.get(TcEnv.KEY_DEFAULT_CONTENT_TYPE);
+            result = env.get(TcEnv.KEY_DEFAULT_CONTENT_TYPE);
         return result;
     }
 
@@ -518,7 +562,7 @@ public class TcCommonConfig {
      * Liefert das Default-Modul
      */
     public String getDefaultModuleName() {
-        return configData.get(TcEnv.KEY_DEFAULT_MODULE);
+        return env.get(TcEnv.KEY_DEFAULT_MODULE);
     }
 
     /**
@@ -603,7 +647,7 @@ public class TcCommonConfig {
             }
             if (loginManager == null) {
                 //Hier der Fallback-Teil für die alte Konfiguration...
-                String authType = configData.get(TcEnv.KEY_AUTHENTICATION_TYPE);
+                String authType = env.get(TcEnv.KEY_AUTHENTICATION_TYPE);
                 logger.debug("LoginManager: Fallback auf Octopus 1.1 Variante: " + authType);
                 if (AUTH_TYPE_LDAP.equalsIgnoreCase(authType)) {
                     loginManager = new LoginManagerLDAP();
@@ -631,7 +675,7 @@ public class TcCommonConfig {
      * @return Wert
      */
     public String getConfigData(String key) {
-        return configData.get(key);
+        return env.get(key);
     }
 
     /**
@@ -641,7 +685,7 @@ public class TcCommonConfig {
      * @return Iterator.
      */
     public Iterator getConfigKeys() {
-        return configData.keySet().iterator();
+        return env.keySet().iterator();
     }
     
     /**
@@ -650,7 +694,7 @@ public class TcCommonConfig {
      * @return Umgebungsobjekt.
      */
     public TcEnv getEnvironment() {
-        return configData;
+        return env;
     }
 	/**
 	 * @return Returns the configLoginManager.

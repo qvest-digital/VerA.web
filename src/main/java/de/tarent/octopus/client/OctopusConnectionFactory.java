@@ -1,4 +1,4 @@
-/* $Id: OctopusConnectionFactory.java,v 1.6 2007/02/16 14:47:51 asteban Exp $
+/* $Id: OctopusConnectionFactory.java,v 1.7 2007/03/07 12:17:52 christoph Exp $
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
  * 
@@ -40,8 +40,8 @@ import de.tarent.octopus.logging.LogFactory;
 import de.tarent.octopus.request.Octopus;
 import de.tarent.octopus.request.directCall.OctopusDirectCallConnection;
 import de.tarent.octopus.request.directCall.OctopusDirectCallStarter;
-import de.tarent.octopus.request.directCall.OctopusStarter;
 import de.tarent.octopus.request.internal.OctopusInternalStarter;
+import de.tarent.octopus.request.internal.OctopusStarter;
 
 /** 
  * Factory zur Lieferung einer Client-Schnittstelle zum Octopus.

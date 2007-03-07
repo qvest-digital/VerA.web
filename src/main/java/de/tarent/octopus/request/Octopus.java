@@ -1,4 +1,4 @@
-/* $Id: Octopus.java,v 1.16 2007/03/05 10:53:37 christoph Exp $
+/* $Id: Octopus.java,v 1.17 2007/03/07 12:17:52 christoph Exp $
  * 
  * Created on 18.09.2003
  * 
@@ -37,6 +37,7 @@ import java.util.prefs.Preferences;
 
 import org.apache.commons.logging.Log;
 
+import de.tarent.octopus.config.TcModuleLookup;
 import de.tarent.octopus.config.TcCommonConfig;
 import de.tarent.octopus.config.TcConfig;
 import de.tarent.octopus.config.TcConfigException;
@@ -46,7 +47,8 @@ import de.tarent.octopus.content.TcContent;
 import de.tarent.octopus.content.TcContentProzessException;
 import de.tarent.octopus.extensions.OctopusExtension;
 import de.tarent.octopus.extensions.OctopusExtensionLoader;
-import de.tarent.octopus.jndi.OctopusJndiFactory;
+import de.tarent.octopus.jndi.OctopusContextJndiFactory;
+import de.tarent.octopus.jndi.OctopusInstanceJndiFactory;
 import de.tarent.octopus.logging.LogFactory;
 import de.tarent.octopus.resource.Resources;
 import de.tarent.octopus.response.ResponseProcessingException;
@@ -65,7 +67,7 @@ public class Octopus {
      * geschützte Member-Variablen
      */
     private TcRequestDispatcher dispatcher;
-    private OctopusConfiguration octopusConfig;
+    private TcModuleLookup octopusConfig;
     private TcCommonConfig commonConfig;
 
     private static Log logger = LogFactory.getLog(Octopus.class);
@@ -94,7 +96,7 @@ public class Octopus {
      * @param config Konfigurationsdaten
      * TODO! Parameter spezifizieren. 
      */
-    public void init(TcEnv env, OctopusConfiguration config)
+    public void init(TcEnv env, TcModuleLookup config)
         throws
             TcConfigException,
             ClassCastException,
@@ -107,7 +109,8 @@ public class Octopus {
     	commonConfig = new TcCommonConfig(env, config, this);
         dispatcher = new TcRequestDispatcher(commonConfig);
         
-        OctopusJndiFactory.tryToBind();
+        new OctopusInstanceJndiFactory().bind();
+        new OctopusContextJndiFactory().bind();
         preloadModules(commonConfig); 
         
         // Initalizing the optional JMX subsystem
@@ -196,11 +199,9 @@ public class Octopus {
 				continue;
 			
 			logger.debug(Resources.getInstance().get("OCTOPUS_LOG_PRELOAD_MODULE", module));
-			TcModuleConfig moduleConfig = octopusConfig.getModuleConfig(module, getModulePreferences(module));
+			TcModuleConfig moduleConfig = commonConfig.getModuleConfig(module);
 			
-			if (moduleConfig != null)
-				commonConfig.registerModule(module, moduleConfig);
-			else
+			if (moduleConfig == null)
 				logger.warn(Resources.getInstance().get("OCTOPUS_LOG_PRELOAD_MODULE_ERROR", module));
 		}
 	}
@@ -292,7 +293,7 @@ public class Octopus {
         }
     }
 
-    public OctopusConfiguration getOctopusConfiguration() {
+    public TcModuleLookup getOctopusConfiguration() {
     	return octopusConfig;
     }
 

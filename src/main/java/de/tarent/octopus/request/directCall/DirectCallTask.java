@@ -1,4 +1,4 @@
-/* $Id: OctopusDirectCallTask.java,v 1.2 2006/08/09 15:39:56 christoph Exp $
+/* $Id: DirectCallTask.java,v 1.1 2007/03/07 12:17:52 christoph Exp $
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
  * 
@@ -33,19 +33,20 @@ import java.util.Map;
 import de.tarent.octopus.client.OctopusCallException;
 import de.tarent.octopus.client.OctopusResult;
 import de.tarent.octopus.client.OctopusTask;
+import de.tarent.octopus.request.internal.OctopusStarter;
 
 /** 
  * Aufruf eines Task des Octopus.
  *
  * @author <a href="mailto:sebastian@tarent.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
  */
-public class OctopusDirectCallTask implements OctopusTask {
+public class DirectCallTask implements OctopusTask {
     
     OctopusStarter octopusStarter;
     String moduleName;
     Map params;
 
-    public OctopusDirectCallTask(OctopusStarter octopusStarter) {
+    public DirectCallTask(OctopusStarter octopusStarter) {
         this.octopusStarter = octopusStarter;
         params = new HashMap();
     }    

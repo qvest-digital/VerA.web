@@ -1,4 +1,4 @@
-/* $Id: OctopusStarter.java,v 1.4 2006/02/16 16:53:41 kirchner Exp $
+/* $Id: OctopusStarter.java,v 1.1 2007/03/07 12:17:52 christoph Exp $
  * 
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
@@ -24,9 +24,12 @@
  * signature of Elmar Geese, 1 June 2002
  * Elmar Geese, CEO tarent GmbH
  */
-package de.tarent.octopus.request.directCall;
+package de.tarent.octopus.request.internal;
 
 import java.util.Map;
+
+import de.tarent.octopus.request.directCall.OctopusDirectCallResult;
+import de.tarent.octopus.request.directCall.TcDirectCallException;
 
 /** 
  * Kapselt das Ansprechen des Octopus

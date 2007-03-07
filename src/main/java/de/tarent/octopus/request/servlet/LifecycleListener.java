@@ -1,7 +1,6 @@
 package de.tarent.octopus.request.servlet;
 
 import java.net.MalformedURLException;
-import java.util.prefs.Preferences;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
@@ -48,10 +47,8 @@ public class LifecycleListener implements ServletContextListener {
 					"Webapplication context '" + module + "' initialized, " +
 					"will be register it at internal octopus.");
 			
-			Preferences preferences = octopus.getModulePreferences(module);
 			TcCommonConfig commonConfig = octopus.getCommonConfig();
-			TcModuleConfig moduleConfig = getOctopusServletConfiguration().
-					getModuleConfig(module, preferences, servletContext);
+			TcModuleConfig moduleConfig = commonConfig.getModuleConfig(module);
 			commonConfig.registerModule(module, moduleConfig);
 		}
 	}
@@ -101,7 +98,7 @@ public class LifecycleListener implements ServletContextListener {
 		}
 	}
 
-	protected OctopusServletConfiguration getOctopusServletConfiguration() {
-		return (OctopusServletConfiguration)getOctopus().getOctopusConfiguration();
+	protected ServletModuleLookup getOctopusServletConfiguration() {
+		return (ServletModuleLookup)getOctopus().getOctopusConfiguration();
 	}
 }

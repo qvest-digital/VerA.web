@@ -1,4 +1,4 @@
-/* $Id: OctopusServlet.java,v 1.2 2007/03/01 13:54:27 christoph Exp $
+/* $Id: OctopusServlet.java,v 1.3 2007/03/07 12:17:51 christoph Exp $
  * 
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
@@ -129,7 +129,7 @@ public class OctopusServlet extends HttpServlet {
             
             soapEngine = new TcSOAPEngine(env);
             octopus = new Octopus();
-            octopus.init(env, new OctopusServletConfiguration(this));
+            octopus.init(env, new ServletModuleLookup(getServletContext(), this));
             //Octopus für lokale Connections bekannt machen
             OctopusConnectionFactory.getInstance().setInternalOctopusInstance(octopus);
             

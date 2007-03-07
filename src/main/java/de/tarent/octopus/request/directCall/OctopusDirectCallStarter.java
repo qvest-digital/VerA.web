@@ -1,4 +1,4 @@
-/* $Id: OctopusDirectCallStarter.java,v 1.4 2007/03/01 13:54:27 christoph Exp $
+/* $Id: OctopusDirectCallStarter.java,v 1.5 2007/03/07 12:17:52 christoph Exp $
  * 
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
@@ -29,30 +29,23 @@ package de.tarent.octopus.request.directCall;
 import java.io.File;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 import java.util.logging.FileHandler;
 import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
-import java.util.prefs.Preferences;
 
 import org.apache.commons.logging.Log;
-import org.w3c.dom.Document;
-import org.xml.sax.SAXParseException;
 
-import de.tarent.octopus.config.TcModuleConfig;
 import de.tarent.octopus.logging.LogFactory;
-import de.tarent.octopus.request.OctopusConfiguration;
 import de.tarent.octopus.request.Octopus;
 import de.tarent.octopus.request.TcEnv;
 import de.tarent.octopus.request.TcRequest;
 import de.tarent.octopus.request.TcSession;
+import de.tarent.octopus.request.internal.OctopusStarter;
 import de.tarent.octopus.resource.Resources;
 import de.tarent.octopus.soap.TcSOAPEngine;
-import de.tarent.octopus.util.DataFormatException;
-import de.tarent.octopus.util.Xml;
 
 /** 
  * Ermöglicht das einfache Starten des Octopus
@@ -61,11 +54,10 @@ import de.tarent.octopus.util.Xml;
  * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
  */
 public class OctopusDirectCallStarter implements OctopusStarter {
+    private static final Log logger = LogFactory.getLog(OctopusStarter.class);
+
     private Octopus octopus = null;
     private TcEnv env = null;
-
-    private static Log logger = LogFactory.getLog(OctopusStarter.class);
-
 
     private static Logger baseLogger = null;
 
@@ -174,7 +166,7 @@ public class OctopusDirectCallStarter implements OctopusStarter {
             }
             
             octopus = new Octopus();
-            octopus.init(env, new OctopusConfig());
+            octopus.init(env, new DirectCallModuleLookup(this));
 
             soapEngine = new TcSOAPEngine(env);
         } catch (Exception e) {
@@ -265,76 +257,7 @@ public class OctopusDirectCallStarter implements OctopusStarter {
         return env;
     }
 
-    /**
-     * Diese Klasse liefert dem Octopus notwendige Daten. 
-     */
-    protected class OctopusConfig implements OctopusConfiguration {
-
-        public List getPreloadModules() {
-            return null;
-        }
-
-        /**
-         * Diese Methode liefert zu einem Modulnamen die Konfiguration.
-         * 
-         * TODO: Freie konfigurierbarkeit des Modulpfades in dem Environment
-         * 
-         * @param module der Name des Moduls.
-         * @return Modulkonfiguration zu dem Modul. <code>null</code>
-         *  steht hier für ein nicht gefundenes Modul.
-         * @see de.tarent.octopus.request.OctopusConfiguration#getModuleConfig(String, Preferences)
-         */
-        public TcModuleConfig getModuleConfig(String module, Preferences modulePreferences) {
-            String realPath = null;
-
-            realPath = env.getValue(TcEnv.KEY_PATHS_ROOT) + "modules/"+ module +"/";
-            if (realPath == null || ! (new File(realPath)).exists()) {
-                realPath = modulePreferences.get(PREF_NAME_REAL_PATH, null);
-                logger.info(Resources.getInstance().get("OCTOPUS_STARTER_LOG_MODULE_PATH_PREFERENCES", module));
-            }
-            logger.info(Resources.getInstance().get("OCTOPUS_STARTER_LOG_MODULE_PATH", module, realPath));
-
-            if (realPath == null || (! (new File(realPath)).exists())) {
-                logger.error(Resources.getInstance().get("OCTOPUS_STARTER_LOG_MODULE_PATH_INVALID", module, realPath));
-                return null;
-            }
-            File modulePath = new File(realPath);
-            
-            File configFile;                        
-            if (null != env.getValue(TcEnv.KEY_MODULE_CONFIGFILE_LOCATION_PREFIX + module)) {
-                String configFileLocation = (String)env.getValue(TcEnv.KEY_MODULE_CONFIGFILE_LOCATION_PREFIX + module);
-                if (File.separatorChar != '/')
-                    configFileLocation = configFileLocation.replace('/', File.separatorChar);
-                configFile = new File(configFileLocation);
-                if (!configFile.isAbsolute())
-                    configFile = new File(System.getProperty("user.dir"), configFileLocation);
-            } else {
-                configFile = new File(modulePath, "config.xml");
-            }
-            if (! configFile.exists()) {
-                logger.error(Resources.getInstance().get("OCTOPUS_STARTER_LOG_MODULE_CONFIG_PATH_INVALID", module, configFile));
-                return null;
-            }
-			modulePreferences.put(PREF_NAME_REAL_PATH, realPath);
-            try {
-                logger.debug(Resources.getInstance().get("REQUESTPROXY_LOG_PARSING_MODULE_CONFIG", configFile, module));
-                Document document = Xml.getParsedDocument(Resources.getInstance().get("REQUESTPROXY_URL_MODULE_CONFIG", configFile.getAbsolutePath()));
-                return new TcModuleConfig(module, modulePath, document, modulePreferences);
-            } catch (SAXParseException se) {
-                logger.error(Resources.getInstance().get("REQUESTPROXY_LOG_MODULE_PARSE_SAX_EXCEPTION", new Integer(se.getLineNumber()), new Integer(se.getColumnNumber())),
-                    se);
-            } catch (DataFormatException ex) {
-                logger.error(Resources.getInstance().get("REQUESTPROXY_LOG_MODULE_PARSE_FORMAT_EXCEPTION"), ex);
-            } catch (Exception ex) {
-                logger.error(Resources.getInstance().get("REQUESTPROXY_LOG_MODULE_PARSE_EXCEPTION"), ex);
-            }
-            
-            return null;
-        }
-        
-        //
-        // Konstanten
-        //
-        public final static String PREF_NAME_REAL_PATH = "realPath";
+    public TcEnv getEnv() {
+    	return env;
     }
 }

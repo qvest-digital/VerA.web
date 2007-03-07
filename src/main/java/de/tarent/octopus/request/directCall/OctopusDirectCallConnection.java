@@ -1,4 +1,4 @@
-/* $Id: OctopusDirectCallConnection.java,v 1.1.1.1 2005/11/21 13:33:37 asteban Exp $
+/* $Id: OctopusDirectCallConnection.java,v 1.2 2007/03/07 12:17:52 christoph Exp $
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
  * 
@@ -27,6 +27,8 @@
 package de.tarent.octopus.request.directCall;
 
 import de.tarent.octopus.client.*;
+import de.tarent.octopus.request.internal.OctopusStarter;
+
 import java.util.*;
 
 /** 
@@ -50,7 +52,7 @@ public class OctopusDirectCallConnection
      */
     public OctopusTask getTask(String taskName)
         throws OctopusCallException {
-        OctopusTask task = new OctopusDirectCallTask(getOctopusStarter());
+        OctopusTask task = new DirectCallTask(getOctopusStarter());
         task.add(PARAM_MODULE, getModuleName());
         task.add(PARAM_TASK, taskName);
         return task;

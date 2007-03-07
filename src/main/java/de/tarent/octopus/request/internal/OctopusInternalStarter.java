@@ -1,4 +1,4 @@
-/* $Id: OctopusInternalStarter.java,v 1.4 2006/11/23 14:33:31 schmitz Exp $
+/* $Id: OctopusInternalStarter.java,v 1.5 2007/03/07 12:17:52 christoph Exp $
  * 
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
@@ -35,7 +35,6 @@ import de.tarent.octopus.request.Octopus;
 import de.tarent.octopus.request.TcRequest;
 import de.tarent.octopus.request.TcSession;
 import de.tarent.octopus.request.directCall.OctopusDirectCallResult;
-import de.tarent.octopus.request.directCall.OctopusStarter;
 import de.tarent.octopus.request.directCall.TcDirectCallException;
 import de.tarent.octopus.request.directCall.TcDirectCallResponse;
 import de.tarent.octopus.request.directCall.TcDirectCallSession;
