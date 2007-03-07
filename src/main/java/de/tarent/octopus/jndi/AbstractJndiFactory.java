@@ -85,7 +85,7 @@ public abstract class AbstractJndiFactory implements ObjectFactory {
 			logger.info("JNDI context '" + getLookupPath() + "' successful binded.");
 			return true;
 		} catch (NamingException e) {
-			logger.error("JNDI context available, but can not bind context '" + getLookupPath() + "'.", e);
+			logger.info("JNDI context available, but can not bind context '" + getLookupPath() + "'.");
 			return false;
 		}
 	}
