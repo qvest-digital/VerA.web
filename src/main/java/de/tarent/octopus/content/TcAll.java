@@ -1,4 +1,4 @@
-/* $Id: TcAll.java,v 1.6 2006/11/02 15:03:02 christoph Exp $
+/* $Id: TcAll.java,v 1.7 2007/03/07 17:28:22 christoph Exp $
  * 
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
@@ -270,9 +270,6 @@ public class TcAll
 		return config.getCommonConfig();
 	}
 	
-    /**
-     * TODO: Auf PersonalConfig ändern!
-     */
 	public TcPersonalConfig personalConfig() {
 		return (TcPersonalConfig)config.getPersonalConfig();
 	}

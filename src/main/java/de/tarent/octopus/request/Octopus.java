@@ -1,4 +1,4 @@
-/* $Id: Octopus.java,v 1.17 2007/03/07 12:17:52 christoph Exp $
+/* $Id: Octopus.java,v 1.18 2007/03/07 17:28:22 christoph Exp $
  * 
  * Created on 18.09.2003
  * 
@@ -67,7 +67,7 @@ public class Octopus {
      * geschützte Member-Variablen
      */
     private TcRequestDispatcher dispatcher;
-    private TcModuleLookup octopusConfig;
+    private TcModuleLookup moduleLookup;
     private TcCommonConfig commonConfig;
 
     private static Log logger = LogFactory.getLog(Octopus.class);
@@ -87,26 +87,16 @@ public class Octopus {
     /*
      * öffentliche Methoden
      */
+
     /**
      * Diese Methode initialisiert den Octopus. Dieser Schritt ist notwendig,
      * damit der Octopus Anfragen bearbeiten kann und damit Autostart-Tasks
      * abgearbeitet werden..
      * 
      * @param env Eine Sammlung diverser Parameter.
-     * @param config Konfigurationsdaten
-     * TODO! Parameter spezifizieren. 
      */
-    public void init(TcEnv env, TcModuleLookup config)
-        throws
-            TcConfigException,
-            ClassCastException,
-            TcTaskProzessingException,
-            ClassNotFoundException,
-            InstantiationException,
-            IllegalAccessException,
-            TcContentProzessException {
-        octopusConfig = config;
-    	commonConfig = new TcCommonConfig(env, config, this);
+    public void init(TcEnv env) throws TcConfigException, ClassCastException {
+    	commonConfig = new TcCommonConfig(env, this);
         dispatcher = new TcRequestDispatcher(commonConfig);
         
         new OctopusInstanceJndiFactory().bind();
@@ -114,7 +104,7 @@ public class Octopus {
         preloadModules(commonConfig); 
         
         // Initalizing the optional JMX subsystem
-        String jmxEnabledString = commonConfig.getConfigData("jmxenabled");
+        String jmxEnabledString = commonConfig.getConfigData(TcEnv.KEY_JMX_ENABLED);
         if (Boolean.valueOf(jmxEnabledString).booleanValue())
         {
             logger.info("Enabling optional JMX subsystem.");
@@ -128,6 +118,17 @@ public class Octopus {
         
         logger.info("Enabling optional RPC-tunnel.");
         OctopusRPCTunnel.createInstance(this, commonConfig);
+    }
+
+    /**
+     * Diese Methode initialisiert den Octopus. Dieser Schritt ist notwendig,
+     * damit der Octopus Anfragen bearbeiten kann und damit Autostart-Tasks
+     * abgearbeitet werden..
+     * 
+     * @param moduleLookup Lookup context for modules.
+     */
+    public void init(TcModuleLookup moduleLookup) throws ClassCastException {
+    	this.moduleLookup = moduleLookup;
     }
 
     /**
@@ -146,9 +147,6 @@ public class Octopus {
         throws
             ClassCastException,
             TcTaskProzessingException,
-            ClassNotFoundException,
-            InstantiationException,
-            IllegalAccessException,
             TcContentProzessException,
             TcConfigException {
         
@@ -238,9 +236,6 @@ public class Octopus {
     public void doAutostart(String modulename, TcCommonConfig commonConfig)
         throws
             TcTaskProzessingException,
-            ClassNotFoundException,
-            InstantiationException,
-            IllegalAccessException,
             TcContentProzessException,
             TcConfigException {
         TcModuleConfig moduleconfig = commonConfig.getModuleConfig(modulename);
@@ -257,9 +252,6 @@ public class Octopus {
         throws
             ClassCastException,
             TcTaskProzessingException,
-            ClassNotFoundException,
-            InstantiationException,
-            IllegalAccessException,
             TcContentProzessException,
             TcConfigException {
         TcCommonConfig commonConfig = dispatcher.getCommonConfig();
@@ -279,9 +271,6 @@ public class Octopus {
         throws
             TcTaskProzessingException,
             ClassCastException,
-            ClassNotFoundException,
-            InstantiationException,
-            IllegalAccessException,
             TcContentProzessException,
             TcConfigException {
         TcModuleConfig moduleconfig = commonConfig.getModuleConfig(modulename);
@@ -293,8 +282,8 @@ public class Octopus {
         }
     }
 
-    public TcModuleLookup getOctopusConfiguration() {
-    	return octopusConfig;
+    public TcModuleLookup getModuleLookup() {
+    	return moduleLookup;
     }
 
     public TcCommonConfig getCommonConfig() {

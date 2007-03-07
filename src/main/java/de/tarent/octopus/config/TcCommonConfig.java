@@ -1,4 +1,4 @@
-/* $Id: TcCommonConfig.java,v 1.7 2007/03/07 12:17:51 christoph Exp $
+/* $Id: TcCommonConfig.java,v 1.8 2007/03/07 17:28:22 christoph Exp $
  * 
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
@@ -86,12 +86,12 @@ public class TcCommonConfig {
     /** Die Daten aus der Haupt Konfigurations Datei
      * und Environment Werte aus der ServletEnv
      */
-    protected TcEnv env;
+    private TcEnv env;
 
     /**
      * Dieses Objekt erlaubt ein dynamisches Nachladen neuer Module.
      */
-    protected TcModuleLookup moduleLookup;
+    private TcModuleLookup moduleLookup;
 
     /**
      * Login Manager
@@ -134,9 +134,8 @@ public class TcCommonConfig {
      * @param env Ein Datenkontainer, mit mindestens den Einträgen:
      *  config.configRoot, config.configData
      */
-    public TcCommonConfig(TcEnv env, TcModuleLookup moduleLookup, Octopus octopus) throws TcConfigException {
+    public TcCommonConfig(TcEnv env, Octopus octopus) throws TcConfigException {
         this.env = env;
-        this.moduleLookup = moduleLookup;
         this.octopus = octopus;
         parseConfigFile();
         bufferedDataAccessWrappers = new HashMap();
@@ -365,14 +364,6 @@ public class TcCommonConfig {
         return (moduleConfig != null) ? moduleConfig.getWebPathStatic() : '/' + moduleName + '/';
     }
 
-    /*
-     * Liefert eine Liste der registrierten Worker eines Moduls
-     * @return Bezeichnende Namen als Keys und vollqualifizierte Klassennamen als String-Values
-    public Map getDeclaredContentWorkers(String moduleName) {
-        return getModuleConfig(moduleName).getDeclaredContentWorkers();
-    }
-     */
-
     /**
 	 * Liefert das Config Objekt eines modules
 	 */
@@ -381,6 +372,11 @@ public class TcCommonConfig {
         	return (TcModuleConfig) moduleConfigs.get(moduleName);
         
         synchronized (moduleConfigs) {
+        	if (moduleLookup == null) {
+        		logger.error(Resources.getInstance().get("COMMONCONFIG_LOG_MODULELOOKUP_NA", moduleName));
+        		return null;
+        	}
+        	
         	Preferences modulePreferences = octopus.getModulePreferences(moduleName);
     		File modulePath = moduleLookup.getModulePath(moduleName);
     		
@@ -409,9 +405,6 @@ public class TcCommonConfig {
     			return null;
     		}
     		
-    		modulePreferences.put(TcModuleLookup.PREF_NAME_REAL_PATH, configFile.getParent());
-    		env.setValue(TcEnv.KEY_MODULE_CONFIGFILE_LOCATION_PREFIX + moduleName, configFile.getAbsolutePath());
-    		
     		try {
     			logger.debug(Resources.getInstance().get("REQUESTPROXY_LOG_PARSING_MODULE_CONFIG", configFile, moduleName));
     			Document document = Xml.getParsedDocument(Resources.getInstance().get("REQUESTPROXY_URL_MODULE_CONFIG", configFile.getAbsolutePath()));
@@ -421,6 +414,12 @@ public class TcCommonConfig {
     					document,
     					modulePreferences);
     			moduleConfigs.put(moduleName, moduleConfig);
+    			
+        		modulePreferences.put(TcModuleLookup.PREF_NAME_REAL_PATH, configFile.getParent());
+        		env.setValue(TcEnv.KEY_MODULE_CONFIGFILE_LOCATION_PREFIX + moduleName, configFile.getAbsolutePath());
+        		
+        		registerModule(moduleName, moduleConfig);
+        		
     			return moduleConfig;
     		} catch (SAXParseException e) {
     			logger.error(Resources.getInstance().get("REQUESTPROXY_LOG_MODULE_PARSE_SAX_EXCEPTION", new Integer(e.getLineNumber()), new Integer(e.getColumnNumber())), e);
@@ -429,6 +428,10 @@ public class TcCommonConfig {
     		} catch (Exception e) {
     			logger.error(Resources.getInstance().get("REQUESTPROXY_LOG_MODULE_PARSE_EXCEPTION"), e);
     		}
+    		
+    		modulePreferences.remove(TcModuleLookup.PREF_NAME_REAL_PATH);
+    		env.remove(TcEnv.KEY_MODULE_CONFIGFILE_LOCATION_PREFIX + moduleName);
+    		
     		return null;
         }
     }
@@ -439,13 +442,13 @@ public class TcCommonConfig {
      * @param moduleName Modulname
      * @param config Modulkonfiguration
      */
-    public void registerModule(String moduleName, TcModuleConfig config) {
-        if (config == null)
+    public void registerModule(String moduleName, TcModuleConfig moduleConfig) {
+        if (moduleConfig == null)
             return;
         if (moduleConfigs.containsKey(moduleName))
             deregisterModule(moduleName);
-        moduleConfigs.put(moduleName, config);
-        Map taskErrorsMap = config.getTaskList().getErrors();
+        moduleConfigs.put(moduleName, moduleConfig);
+        Map taskErrorsMap = moduleConfig.getTaskList().getErrors();
         if (taskErrorsMap != null) {
             Iterator itTaskErrors = taskErrorsMap.entrySet().iterator();
             while (itTaskErrors.hasNext()) {
@@ -687,7 +690,15 @@ public class TcCommonConfig {
     public Iterator getConfigKeys() {
         return env.keySet().iterator();
     }
-    
+
+    public void setModuleLookup(TcModuleLookup moduleLookup) {
+    	this.moduleLookup = moduleLookup;
+    }
+
+    public TcModuleLookup getModuleLookup() {
+    	return moduleLookup;
+    }
+
     /**
      * Diese Methode liefert die Umgebungswerte
      * 
@@ -696,7 +707,8 @@ public class TcCommonConfig {
     public TcEnv getEnvironment() {
         return env;
     }
-	/**
+
+    /**
 	 * @return Returns the configLoginManager.
 	 */
 	public Map getConfigLoginManager() {

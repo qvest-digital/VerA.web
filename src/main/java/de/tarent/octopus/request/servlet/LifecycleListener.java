@@ -98,7 +98,7 @@ public class LifecycleListener implements ServletContextListener {
 		}
 	}
 
-	protected ServletModuleLookup getOctopusServletConfiguration() {
-		return (ServletModuleLookup)getOctopus().getOctopusConfiguration();
+	protected ServletModuleLookup getOctopusServletLookup() {
+		return (ServletModuleLookup)getOctopus().getModuleLookup();
 	}
 }

@@ -1,4 +1,4 @@
-/* $Id: TcEnv.java,v 1.8 2006/12/06 18:12:08 asteban Exp $
+/* $Id: TcEnv.java,v 1.9 2007/03/07 17:28:22 christoph Exp $
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
  * 
@@ -372,9 +372,12 @@ public class TcEnv extends HashMap {
     public final static String KEY_LOGGING_PORT = "logging.port";
     public final static String KEY_LOG_SOAP_REQUEST_LEVEL = "logging.soap.request.level";
     public final static String KEY_USE_SOAP_NS_AS_MODULE = "useSOAPNSAsModule"; // default == true
+    public final static String KEY_JMX_ENABLED = "jmxenabled"; // default == false
     public final static String KEY_PATHS_CONFIG_ROOT = "paths.configRoot";
     public final static String KEY_PATHS_CONFIG_FILE = "paths.configFile";
     public final static String KEY_PATHS_MODULES = "paths.modules";
+    public final static String KEY_MODULES = "modules";
+    public final static String KEY_MODULE_SOURCE = "source";
     public final static String KEY_DEFAULT_MODULE = "defaultModule";
     public final static String KEY_PRELOAD_MODULES = "preloadModules";
     public final static String KEY_WEBAPP_CONTEXT_PATH_NAME = "webappContextPathName";
@@ -402,6 +405,6 @@ public class TcEnv extends HashMap {
     public final static String VALUE_REQUEST_TYPE_WEB = "WEB";
     public final static String VALUE_REQUEST_TYPE_XMLRPC = "XMLRPC";
     public final static String VALUE_REQUEST_TYPE_DIRECTCALL = "DIRECTCALL";
-//    public final static String KEY_ = "";
-//    public final static String KEY_ = "";    
-} /* end class TcRequest */
+    public final static String VALUE_MODULE_SOURCE_SERVLET_PREFIX = "servlet:";
+    public final static String VALUE_MODULE_SOURCE_FILE_PREFIX = "file:";
+}

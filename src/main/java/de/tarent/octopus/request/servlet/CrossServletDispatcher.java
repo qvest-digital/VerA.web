@@ -41,7 +41,7 @@ public class CrossServletDispatcher {
 	}
 
 	private static ServletModuleLookup getOctopusServletConfiguration() {
-		return (ServletModuleLookup)getOctopus().getOctopusConfiguration();
+		return (ServletModuleLookup)getOctopus().getModuleLookup();
 	}
 
 	private static Octopus getOctopus() {

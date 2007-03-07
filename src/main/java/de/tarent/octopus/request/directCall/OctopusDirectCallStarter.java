@@ -1,4 +1,4 @@
-/* $Id: OctopusDirectCallStarter.java,v 1.5 2007/03/07 12:17:52 christoph Exp $
+/* $Id: OctopusDirectCallStarter.java,v 1.6 2007/03/07 17:28:22 christoph Exp $
  * 
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
@@ -166,7 +166,8 @@ public class OctopusDirectCallStarter implements OctopusStarter {
             }
             
             octopus = new Octopus();
-            octopus.init(env, new DirectCallModuleLookup(this));
+            octopus.init(env);
+            octopus.init(new DirectCallModuleLookup(this));
 
             soapEngine = new TcSOAPEngine(env);
         } catch (Exception e) {
