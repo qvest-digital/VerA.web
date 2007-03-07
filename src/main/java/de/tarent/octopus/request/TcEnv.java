@@ -1,4 +1,4 @@
-/* $Id: TcEnv.java,v 1.9 2007/03/07 17:28:22 christoph Exp $
+/* $Id: TcEnv.java,v 1.10 2007/03/07 20:39:18 christoph Exp $
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
  * 
@@ -57,6 +57,10 @@ public class TcEnv extends HashMap {
 	 */
 	private static final long serialVersionUID = -3477717156564940686L;
 
+	public TcEnv() {
+		
+	}
+
     /**
      * Setzt die Map mit den Einstellungen. Alle vorhandenen Werte werden überschrieben.
      *
@@ -113,13 +117,22 @@ public class TcEnv extends HashMap {
     }
 
     /**
-     * Gibt einen Wert als Object zurück
+     * Gibt einen Wert als String oder String[] zurück.
      *
      * @param key Der Key mit Prefix, z.B. "global.sessionTimeout"
      * @return Ein String oder String[] Objekt
      */
     public Object getValue(String key) {
         return this.get(key);
+    }
+
+    /**
+     * Gibt einen Wert als Object zurück.
+     * @param key
+     * @return
+     */
+    public Object getValueAsObject(String key) {
+    	return super.get(key);
     }
 
     /**
@@ -337,20 +350,20 @@ public class TcEnv extends HashMap {
         StringBuffer sb = new StringBuffer();
 
         sb.append("TcEnv:\n");
-        for (Iterator e = this.keySet().iterator(); e.hasNext();) {
-            String key = (String) e.next();
-            Object val = this.get(key);
-            if (val instanceof String[]) {
-                String[] sArr = (String[]) val;
-                sb.append(key + " =>  (");
+        for (Iterator it = this.entrySet().iterator(); it.hasNext();) {
+        	Map.Entry entry = (Map.Entry) it.next();
+            if (entry.getValue() instanceof String[]) {
+                String[] sArr = (String[]) entry.getValue();
+                sb.append(entry.getKey() + " =>  (");
                 for (int i = 0; i < sArr.length; i++) {
                     sb.append(" \"" + sArr[i] + "\" ");
                 }
                 sb.append(")\n");
-            } else
-                sb.append(key + " => " + val + "\n");
+            } else {
+                sb.append(entry.getKey() + " => " + entry.getValue() + "\n");
+            }
         }
-        return "" + sb;
+        return sb.toString();
     }
 
     //
