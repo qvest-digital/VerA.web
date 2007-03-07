@@ -1,4 +1,4 @@
-/* $Id: Octopus.java,v 1.18 2007/03/07 17:28:22 christoph Exp $
+/* $Id: Octopus.java,v 1.19 2007/03/07 20:38:55 christoph Exp $
  * 
  * Created on 18.09.2003
  * 
@@ -101,6 +101,19 @@ public class Octopus {
         
         new OctopusInstanceJndiFactory().bind();
         new OctopusContextJndiFactory().bind();
+    }
+
+    /**
+     * Diese Methode initialisiert den Octopus. Dieser Schritt ist notwendig,
+     * damit der Octopus Anfragen bearbeiten kann und damit Autostart-Tasks
+     * abgearbeitet werden..
+     * 
+     * @param moduleLookup Lookup context for modules.
+     */
+    public void init(TcModuleLookup moduleLookup) throws ClassCastException {
+    	this.moduleLookup = moduleLookup;
+    	commonConfig.setModuleLookup(moduleLookup);
+    	
         preloadModules(commonConfig); 
         
         // Initalizing the optional JMX subsystem
@@ -118,17 +131,6 @@ public class Octopus {
         
         logger.info("Enabling optional RPC-tunnel.");
         OctopusRPCTunnel.createInstance(this, commonConfig);
-    }
-
-    /**
-     * Diese Methode initialisiert den Octopus. Dieser Schritt ist notwendig,
-     * damit der Octopus Anfragen bearbeiten kann und damit Autostart-Tasks
-     * abgearbeitet werden..
-     * 
-     * @param moduleLookup Lookup context for modules.
-     */
-    public void init(TcModuleLookup moduleLookup) throws ClassCastException {
-    	this.moduleLookup = moduleLookup;
     }
 
     /**
