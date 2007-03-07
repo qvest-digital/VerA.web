@@ -48,10 +48,10 @@ class ServletModuleLookup implements TcModuleLookup {
 	}
 
 	public File getModulePath(String module) {
-		Map modules = (Map)getEnvironment().getValue(TcEnv.KEY_MODULES);
+		Map modules = (Map)getEnvironment().getValueAsObject(TcEnv.KEY_MODULES);
 		if (modules != null) {
 			// Find modules parameters by module name
-			// or use the common behind the '*'.
+			// or use the default behind the '*'.
 			Map parameters = (Map)modules.get(module);
 			if (parameters == null) {
 				parameters = (Map)modules.get("*");
@@ -67,7 +67,7 @@ class ServletModuleLookup implements TcModuleLookup {
 			
 			String source = (String)parameters.get(TcEnv.KEY_MODULE_SOURCE);
 			if (source == null || source.length() == 0) {
-				logger.warn(Resources.getInstance().get("OCTOPUS_MODULELOOKUP_NO_SOURCE_PARAMETER", module, parameters));
+				logger.warn(Resources.getInstance().get("OCTOPUS_MODULELOOKUP_NO_SOURCE_PARAMETER", module));
 				return null;
 			} else {
 				source = source.replaceAll("\\*", module);
@@ -77,13 +77,22 @@ class ServletModuleLookup implements TcModuleLookup {
 			if (source.startsWith(TcEnv.VALUE_MODULE_SOURCE_SERVLET_PREFIX)) {
 				return getModuleByServletContext(source.substring(TcEnv.VALUE_MODULE_SOURCE_SERVLET_PREFIX.length()));
 			} else if (source.startsWith(TcEnv.VALUE_MODULE_SOURCE_FILE_PREFIX)) {
-				return new File(source.substring(TcEnv.VALUE_MODULE_SOURCE_FILE_PREFIX.length()));
+				String sourcePath = source.substring(TcEnv.VALUE_MODULE_SOURCE_FILE_PREFIX.length());
+				if (new File(sourcePath).isAbsolute()) {
+					return new File(sourcePath);
+				} else {
+					String octopusPath = getServletContext().getRealPath("");
+					return new File(octopusPath, sourcePath);
+				}
 			} else {
 				logger.error(Resources.getInstance().get("OCTOPUS_MODULELOOKUP_ILLEGAL_SOURCE", module, source));
 				return null;
 			}
 		} else {
 			// Default behavior when no modules are configured.
+			if (!module.startsWith("/"))
+				module = "/" + module;
+			logger.info(Resources.getInstance().get("OCTOPUS_MODULELOOKUP_PARAMETERS_NOT_FOUND", module));
 			logger.info(Resources.getInstance().get("OCTOPUS_MODULELOOKUP_USE_SOURCE", module, TcEnv.VALUE_MODULE_SOURCE_SERVLET_PREFIX + module));
 			return getModuleByServletContext(module);
 		}
@@ -94,7 +103,7 @@ class ServletModuleLookup implements TcModuleLookup {
 		if (module.equals(octopusServlet.webappContextPathName))
 			moduleContext = servletContext;
 		else {
-			moduleContext = servletContext.getContext("/" + module);
+			moduleContext = servletContext.getContext(module);
 		}
 		
 		if (moduleContext == null) {
