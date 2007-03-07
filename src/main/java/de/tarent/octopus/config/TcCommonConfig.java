@@ -1,4 +1,4 @@
-/* $Id: TcCommonConfig.java,v 1.8 2007/03/07 17:28:22 christoph Exp $
+/* $Id: TcCommonConfig.java,v 1.9 2007/03/07 20:40:47 christoph Exp $
  * 
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
@@ -393,12 +393,14 @@ public class TcCommonConfig {
     		}
     		if (!configFile.exists()) {
     			String configEnvFile = (String) env.getValue(TcEnv.KEY_MODULE_CONFIGFILE_LOCATION_PREFIX + moduleName);
-    			if (File.separatorChar != '/')
-    				configEnvFile = configEnvFile.replace('/', File.separatorChar);
-    			if (new File(configEnvFile).isAbsolute())
-        			configFile = new File(configEnvFile);
-    			else
-    				configFile = new File(System.getProperty("user.dir"), configEnvFile);
+    			if (configEnvFile != null) {
+	    			if (File.separatorChar != '/')
+	    				configEnvFile = configEnvFile.replace('/', File.separatorChar);
+	    			if (new File(configEnvFile).isAbsolute())
+	        			configFile = new File(configEnvFile);
+	    			else
+	    				configFile = new File(System.getProperty("user.dir"), configEnvFile);
+    			}
     		}
     		if (!configFile.exists()) {
     			logger.error(Resources.getInstance().get("OCTOPUS_STARTER_LOG_MODULE_CONFIG_PATH_INVALID", moduleName, configFile));
