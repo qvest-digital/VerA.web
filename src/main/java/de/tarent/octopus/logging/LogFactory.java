@@ -101,7 +101,7 @@ public class LogFactory {
             initLog4jOctopusLogging(env);
     }
     
-    public static void initLog4jOctopusLogging(TcEnv env) throws IOException {
+    public static void initLog4jOctopusLogging(TcEnv env) {
         String rootPath = env.getValueAsString(TcEnv.KEY_PATHS_ROOT);
         File f = new File(rootPath, "log4j_properties.xml");
         if (!f.exists())

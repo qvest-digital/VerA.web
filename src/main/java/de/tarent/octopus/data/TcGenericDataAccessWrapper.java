@@ -1,4 +1,4 @@
-/* $Id: TcGenericDataAccessWrapper.java,v 1.2 2006/11/23 14:33:30 schmitz Exp $
+/* $Id: TcGenericDataAccessWrapper.java,v 1.3 2007/03/11 14:04:34 christoph Exp $
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
  * 
@@ -529,7 +529,7 @@ public class TcGenericDataAccessWrapper {
      * @return Ein Array mit den Feldnamen der Spalten in der richtigen Reihenfolge. Vorsicht: Die erste Spalte liegt im Array bei [0], wärend der erste Spalte in einem ResultSet mit 1 anfängt.
      */
     protected String[] getFieldList(ResultSet cursor, Object cacheKey)
-        throws java.sql.SQLException, ClassNotFoundException {
+        throws java.sql.SQLException {
 
         ResultSetMetaData rsmd = cursor.getMetaData();
         String[] out = new String[rsmd.getColumnCount()];

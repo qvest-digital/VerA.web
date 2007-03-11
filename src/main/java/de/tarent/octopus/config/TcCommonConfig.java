@@ -1,4 +1,4 @@
-/* $Id: TcCommonConfig.java,v 1.9 2007/03/07 20:40:47 christoph Exp $
+/* $Id: TcCommonConfig.java,v 1.10 2007/03/11 14:04:34 christoph Exp $
  * 
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
@@ -254,7 +254,7 @@ public class TcCommonConfig {
             }
 
             logger.debug(Resources.getInstance().get("COMMONCONFIG_LOG_ACCESS_WRAPPER_DATA", source));
-            if (source == null) {
+            if (module == null || source == null) {
                 String msg = Resources.getInstance().get("COMMONCONFIG_LOG_ACCESS_WRAPPER_NO_DATA", dataAccessKey);
                 logger.error(msg);
                 throw new TcDataAccessException(msg);

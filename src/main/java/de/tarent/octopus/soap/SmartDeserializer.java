@@ -18,7 +18,10 @@ import org.xml.sax.SAXException;
  */
 public class SmartDeserializer extends DeserializerImpl {
 
-    Object containerObject = null;
+    /** serialVersionUID */
+	private static final long serialVersionUID = 7492736949191767385L;
+
+	Object containerObject = null;
 
     int childIndex;
         

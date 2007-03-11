@@ -1,4 +1,4 @@
-/* $Id: AbstractWorkerWrapper.java,v 1.12 2007/01/10 17:23:19 hendrik Exp $
+/* $Id: AbstractWorkerWrapper.java,v 1.13 2007/03/11 14:04:34 christoph Exp $
  * 
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
@@ -426,7 +426,7 @@ public abstract class AbstractWorkerWrapper
          * 
          * @throws TcActionDeclarationException
          */
-        public Class getArgTargetType(int pos) throws TcActionDeclarationException {
+        public Class getArgTargetType(int pos) {
             if (isInOutParam(pos))
                 return Object.class;
             return args[pos];

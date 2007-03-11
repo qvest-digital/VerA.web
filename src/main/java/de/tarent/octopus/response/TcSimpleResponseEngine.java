@@ -1,4 +1,4 @@
-/* $Id: TcSimpleResponseEngine.java,v 1.3 2006/11/23 14:33:30 schmitz Exp $
+/* $Id: TcSimpleResponseEngine.java,v 1.4 2007/03/11 14:04:34 christoph Exp $
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
  * 
@@ -164,7 +164,6 @@ public class TcSimpleResponseEngine implements TcResponseEngine {
         String templateFile = templatePath + descName + suffix;
 
         TcPageDescription desc = getPageDescriptionFromFile(templateFile);
-        desc.setTemplateRootPath(templatePath);
 
         if (desc == null) {
             logger.error("PageDescription '"
@@ -177,6 +176,7 @@ public class TcSimpleResponseEngine implements TcResponseEngine {
             desc = getPageDescriptionFromFile(templateFile);
             desc.setTemplateRootPath(templatePath);
         } else {
+            desc.setTemplateRootPath(templatePath);
             logger.debug("PageDescription '" + templateFile + "' erstellt.");
         }
 

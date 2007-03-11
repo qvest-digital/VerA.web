@@ -7,7 +7,10 @@ import org.apache.axis.Constants;
 
 public class SmartSerializerFactory implements SerializerFactory {
 
-    List mechanisms;
+    /** serialVersionUID */
+	private static final long serialVersionUID = -2476137120473428328L;
+
+	List mechanisms;
 
     public SmartSerializerFactory() {
         mechanisms = new ArrayList(1);

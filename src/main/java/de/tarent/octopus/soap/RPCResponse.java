@@ -1,4 +1,4 @@
-/* $Id: RPCResponse.java,v 1.1.1.1 2005/11/21 13:33:38 asteban Exp $
+/* $Id: RPCResponse.java,v 1.2 2007/03/11 14:04:34 christoph Exp $
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
  * 
@@ -54,8 +54,7 @@ public class RPCResponse {
         rpc = new RPCElement(namespace, callingMethodName + METHOD_RESPONSE_SUFFIX, null);
     }
 
-    public void addParam(String name, Object value)
-        throws SOAPException {
+    public void addParam(String name, Object value) {
         rpc.addParam(new RPCParam(name, value));
     }
 

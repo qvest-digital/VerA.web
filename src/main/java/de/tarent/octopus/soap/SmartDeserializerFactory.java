@@ -11,7 +11,9 @@ import org.apache.axis.Constants;
  */
 public class SmartDeserializerFactory implements DeserializerFactory {
 
-    List mechanisms;
+    /** serialVersionUID */
+	private static final long serialVersionUID = -5887479778012020482L;
+	List mechanisms;
     
     public SmartDeserializerFactory() {
         mechanisms = new ArrayList(1);

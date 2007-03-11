@@ -1,4 +1,4 @@
-/* $Id: TcSOAPEngine.java,v 1.10 2007/03/01 13:54:27 christoph Exp $
+/* $Id: TcSOAPEngine.java,v 1.11 2007/03/11 14:04:34 christoph Exp $
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
  * 
@@ -372,7 +372,7 @@ public class TcSOAPEngine {
      * Soll Später einen PGP Filter über den übergebenen Stream legen.
      * Ist aber nocht nicht implementiert
      */
-    public static InputStream addPGPFilterToInputStream(InputStream inStream) throws java.io.IOException {
+    public static InputStream addPGPFilterToInputStream(InputStream inStream) {
         return inStream;
     }
 

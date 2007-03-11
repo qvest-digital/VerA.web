@@ -1,4 +1,4 @@
-/* $Id: OctopusRemoteLog.java,v 1.2 2006/11/23 14:33:30 schmitz Exp $
+/* $Id: OctopusRemoteLog.java,v 1.3 2007/03/11 14:04:34 christoph Exp $
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2005 tarent GmbH
  * 
@@ -95,6 +95,7 @@ public class OctopusRemoteLog {
 		} catch (AxisFault e) {
 			//Ignorieren, wir möchten ja nur die Größe wissen
 		}
+		assert task != null;
 		startLogEntry(task.getTaskName(), size, task.params);
 	}
 	
