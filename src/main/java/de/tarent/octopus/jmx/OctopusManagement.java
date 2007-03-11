@@ -8,8 +8,8 @@
 
 package de.tarent.octopus.jmx;
 
-import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
@@ -23,7 +23,7 @@ public class OctopusManagement implements OctopusExtension
 {
     private static Logger logger = Logger.getLogger(OctopusManagement.class.getName());
 
-    private List modules = null;
+    private List<OctopusModuleManagement> modules = new LinkedList<OctopusModuleManagement>();
     
     public OctopusManagement()
     {
@@ -40,8 +40,6 @@ public class OctopusManagement implements OctopusExtension
             
         Octopus octopus = (Octopus)((Map)params).get("octopus");
         TcCommonConfig commonconfig = (TcCommonConfig)((Map)params).get("config");
-        
-        modules = new ArrayList();
         
         // initialize octopus core MBean
         try
@@ -75,10 +73,7 @@ public class OctopusManagement implements OctopusExtension
      */
     public void start()
     {
-        Iterator iter = modules.iterator();
-        OctopusModuleManagement module = null;
-        while (iter.hasNext())
-            module = (OctopusModuleManagement)iter.next();
+        for (OctopusModuleManagement module : modules)
             try
             {
                 module.start();
@@ -95,12 +90,9 @@ public class OctopusManagement implements OctopusExtension
      */
     public void stop()
     {
-        Iterator iter = modules.iterator();
-        OctopusModuleManagement module = null;
-        while (iter.hasNext())
+        for (OctopusModuleManagement module : modules)
             try
             {
-                module = (OctopusModuleManagement)iter.next();
                 module.stop();
             }
             catch (Exception e)
