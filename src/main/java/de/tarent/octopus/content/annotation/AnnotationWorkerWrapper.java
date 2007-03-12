@@ -1,4 +1,4 @@
-/* $Id: AnnotationWorkerWrapper.java,v 1.5 2007/01/10 11:07:35 christoph Exp $
+/* $Id: AnnotationWorkerWrapper.java,v 1.6 2007/03/12 08:18:27 christoph Exp $
  * 
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
@@ -206,7 +206,7 @@ public class AnnotationWorkerWrapper extends AbstractWorkerWrapper {
          * Normaly, this ist the paramtype. In the case of InOutParams 
          * this is the Generic-Type of the InOutParam.
          */
-        public Class getArgTargetType(int pos) throws TcActionDeclarationException {
+        public Class getArgTargetType(int pos) {
             if (args[pos] == null)
                 return Void.class;
             
@@ -218,9 +218,13 @@ public class AnnotationWorkerWrapper extends AbstractWorkerWrapper {
                     Type genericType = ((ParameterizedType)genericParameterTypes[pos]).getActualTypeArguments()[0];
                     if (genericType instanceof Class)
                         return (Class)genericType;
-                }                 
-                throw new TcActionDeclarationException("Fehler bei Bestimmung des Generic-Zieltypes für "+pos+". Parameter von "+method.getName());
-            } 
+                }
+                
+                TcActionDeclarationException actionDeclarationException = new TcActionDeclarationException(
+                		"Fehler bei Bestimmung des Generic-Zieltypes für " + pos + ". " +
+                		"Parameter von " + method.getName());
+                throw new Error(actionDeclarationException);
+            }
             
             if (de.tarent.octopus.server.InOutParam.class.isAssignableFrom(args[pos]))
                 return Object.class;
@@ -234,11 +238,9 @@ public class AnnotationWorkerWrapper extends AbstractWorkerWrapper {
         }
     }
 
-
     public EnrichedInOutParam wrapWithInOutParam(Object value) {
         return new EnrichedParamImplementation(value);
     }
-
 
     /**
      * Implementierung eines InOutParam, mit dem Ein-Ausgabeparameter bei Actions realisiert werden können
@@ -268,7 +270,5 @@ public class AnnotationWorkerWrapper extends AbstractWorkerWrapper {
         public void set(Object newData) {
             this.data = (T)newData;
         }
-
     }
-
 }
