@@ -32,7 +32,7 @@
 		The version of the project under development, e.g.
 		1.1, 1.2, 2.0-SNAPSHOT 
 	-->
-	<version>1.5.2-SNAPSHOT</version>
+	<version>1.6.1-SNAPSHOT</version>
 
 	<scm>
 		<connection>scm:cvs:local:/cvs/newcvsroot:octopus/extensions/commons</connection>
@@ -118,19 +118,19 @@
 		<dependency>
 			<groupId>de.tarent.octopus</groupId>
 			<artifactId>octopus-core</artifactId>
-			<version>1.5.2-SNAPSHOT</version>
+			<version>1.6.1-SNAPSHOT</version>
 		</dependency>
 
 		<dependency>
 			<groupId>de.tarent.octopus</groupId>
 			<artifactId>octopus-ext-annotation</artifactId>
-			<version>1.5.2-SNAPSHOT</version>
+			<version>1.6.1-SNAPSHOT</version>
 		</dependency>
 
 		<dependency>
 			<groupId>de.tarent.commons</groupId>
 			<artifactId>tarent-commons</artifactId>
-			<version>1.1.5</version>
+			<version>1.1.7</version>
 		</dependency>
 
 		<dependency>
