@@ -1,4 +1,4 @@
-/* $Id: OctopusRemoteConnection.java,v 1.7 2007/03/11 14:04:34 christoph Exp $
+/* $Id: OctopusRemoteConnection.java,v 1.8 2007/03/13 10:18:04 robert Exp $
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
  * 
@@ -71,7 +71,6 @@ public class OctopusRemoteConnection implements OctopusConnection {
     public static final String AUTO_LOGIN = "autoLogin";
     public static final String CONNECTION_TRACKING = "connectionTracking";
     public static final String USE_SESSION_COOKIE = "useSessionCookie";
-    public static final String SESSION_COOKIE_FILE = "sessionCookieFile";
     public static final String KEEP_SESSION_ALIVE = "keepSessionAlive";
     
     public static String PARAM_USERNAME = "username";
@@ -240,12 +239,16 @@ public class OctopusRemoteConnection implements OctopusConnection {
     protected void loadSessionCookie() {
         BufferedReader in = null;
 
-        serviceURL = null;
-        username = null;
+        // If session cookie could not be loaded the caller expects username and
+        // serviceURL to be null. However getSessionCookieFile() needs a non-null
+        // serviceURL to work correctly.
+        String tmpServiceURL = null;
+        String tmpUsername = null;
+        
         try {
             in = new BufferedReader(new FileReader(getSessionCookieFile()));
-            username = in.readLine();
-            serviceURL = in.readLine();
+            tmpUsername = in.readLine();
+            tmpServiceURL = in.readLine();
             in.close();
         } catch (FileNotFoundException fne) {
             logger.debug("Keine Octopus Sessiondatei gefunden unter <"+getSessionCookieFile()+">", fne);
@@ -255,7 +258,13 @@ public class OctopusRemoteConnection implements OctopusConnection {
         if (in != null)
             try {
                 in.close();
-            } catch (Exception e) {}
+            } catch (IOException e) {}
+
+        if (tmpUsername == null || tmpServiceURL == null)
+        {
+        	username = null;
+        	serviceURL = null;
+        }
     }
 
     protected void storeSessionCookie() {
@@ -359,22 +368,15 @@ public class OctopusRemoteConnection implements OctopusConnection {
     public String getSessionCookieFile() {
         if (sessionCookieFile == null)
         {
+        	// Translates service URL into a proper file name by
+        	// replacing illegal characters with underscores.
         	sessionCookieFile = System.getProperty("user.home")
         	                    + File.separator
-        	                    + serviceURL.replaceAll("\\|:|/", "_")
-        	                    + "_"
-        	                    + moduleName.replaceAll("/", "_");
+        	                    + ".octopus_sessioncookie_"
+        	                    + serviceURL.replaceAll("\\\\|:|/", "_");
         }
         
         return sessionCookieFile;
-    }
-
-    /**
-     * @deprecated Do not use any more.
-     * @param newSessionCookieFile
-     */
-    public void setSessionCookieFile(String newSessionCookieFile) {
-        this.sessionCookieFile = newSessionCookieFile;
     }
     
     public boolean isUseSessionCookie() {

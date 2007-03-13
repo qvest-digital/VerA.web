@@ -1,4 +1,4 @@
-/* $Id: OctopusConnectionFactory.java,v 1.7 2007/03/07 12:17:52 christoph Exp $
+/* $Id: OctopusConnectionFactory.java,v 1.8 2007/03/13 10:18:04 robert Exp $
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
  * 
@@ -174,7 +174,6 @@ public class OctopusConnectionFactory {
         con.setAutoLogin("true".equalsIgnoreCase((String)conf.get(OctopusRemoteConnection.AUTO_LOGIN)));
         con.setConnectionTracking("true".equalsIgnoreCase((String)conf.get(OctopusRemoteConnection.CONNECTION_TRACKING)));
         con.setUseSessionCookie("true".equalsIgnoreCase((String)conf.get(OctopusRemoteConnection.USE_SESSION_COOKIE)));
-        con.setSessionCookieFile((String)conf.get(OctopusRemoteConnection.SESSION_COOKIE_FILE));
 
         if (conf.get(OctopusRemoteConnection.KEEP_SESSION_ALIVE) != null) {
             try {
