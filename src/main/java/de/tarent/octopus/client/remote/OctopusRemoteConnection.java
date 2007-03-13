@@ -1,4 +1,4 @@
-/* $Id: OctopusRemoteConnection.java,v 1.8 2007/03/13 10:18:04 robert Exp $
+/* $Id: OctopusRemoteConnection.java,v 1.9 2007/03/13 17:12:01 robert Exp $
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
  * 
@@ -96,7 +96,7 @@ public class OctopusRemoteConnection implements OctopusConnection {
     KeepAliveTimer keepAliveTimer;
     boolean isDoingLogin;
     UserDataProvider userDataProvider;
-   
+    
     /**
      * Liefert ein CallObject, dass fr den Aufruf dieses Task verwendet werden kann.
      */
@@ -225,6 +225,7 @@ public class OctopusRemoteConnection implements OctopusConnection {
                 getTask(TASK_TEST_SESSION_STATUS).invoke();
                 startKeepAliveTimer();
                 setIsDoingLogin(false);
+                
                 return true;
             } catch (OctopusCallException e) {
             }
@@ -260,11 +261,8 @@ public class OctopusRemoteConnection implements OctopusConnection {
                 in.close();
             } catch (IOException e) {}
 
-        if (tmpUsername == null || tmpServiceURL == null)
-        {
-        	username = null;
-        	serviceURL = null;
-        }
+      	username = tmpUsername;
+       	serviceURL = tmpServiceURL;
     }
 
     protected void storeSessionCookie() {
@@ -373,7 +371,7 @@ public class OctopusRemoteConnection implements OctopusConnection {
         	sessionCookieFile = System.getProperty("user.home")
         	                    + File.separator
         	                    + ".octopus_sessioncookie_"
-        	                    + serviceURL.replaceAll("\\\\|:|/", "_");
+        	                    + startServiceURL.replaceAll("\\\\|:|/", "_");
         }
         
         return sessionCookieFile;
