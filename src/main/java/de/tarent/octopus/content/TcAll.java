@@ -1,4 +1,4 @@
-/* $Id: TcAll.java,v 1.7 2007/03/07 17:28:22 christoph Exp $
+/* $Id: TcAll.java,v 1.8 2007/03/16 16:11:56 christoph Exp $
  * 
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
@@ -63,9 +63,9 @@ public class TcAll
 	 * @param tcConfig
 	 */
 	public TcAll(TcRequest tcRequest, TcContent tcContent, TcConfig tcConfig) {
-		request = tcRequest;
-		content = tcContent;
-		config = tcConfig;
+		this.request = tcRequest;
+		this.content = tcContent;
+		this.config = tcConfig;
 	}
 	
 	/**
@@ -75,11 +75,11 @@ public class TcAll
 	 * @param requesttype siehe de.tarent.octopus.request.HttpHelper.REQUEST_TYPE_*
 	 */
 	public TcAll(Map requestmap, int requesttype) {
-		request = new TcRequest(TcRequest.createRequestID());
-		request.setRequestParameters(requestmap);
-		request.setRequestType(requesttype);
-		content = new TcContent();
-		config = new TcConfig_Clone();
+		this.request = new TcRequest(TcRequest.createRequestID());
+		this.request.setRequestParameters(requestmap);
+		this.request.setRequestType(requesttype);
+		this.content = new TcContent();
+		this.config = new TcConfig_Clone();
 	}
 
 
