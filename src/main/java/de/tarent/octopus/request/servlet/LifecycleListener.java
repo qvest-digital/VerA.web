@@ -19,8 +19,8 @@ import org.apache.commons.logging.LogFactory;
  * 
  * It will be used for realize that new octopus modules will be available.
  * So we can implement
- * the {@link Octopus#doAutostart(String, TcCommonConfig))} and
- * the {@link Octopus#doCleanup(String, TcCommonConfig)} also if one module
+ * the {@link Octopus#doAutostart(String, CommonConfig))} and
+ * the {@link Octopus#doCleanup(String, CommonConfig)} also if one module
  * will loaded after the octopus webapplication. (Only in seperate
  * installations.)
  * 
