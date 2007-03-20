@@ -1,4 +1,4 @@
-/* $Id: AnnotationWorkerFactory.java,v 1.5 2007/03/20 14:46:36 amaier Exp $
+/* $Id: AnnotationWorkerFactory.java,v 1.6 2007/03/20 16:03:41 amaier Exp $
  * 
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
@@ -40,7 +40,7 @@ import de.tarent.octopus.content.annotation.AnnotationWorkerWrapper;
 /**
  * Instantiiert AnnotationWorker nach der ReflectedWorkerWrapper Konvention.
  * 
- * @see TcContentWorker
+ * @see ContentWorker
  * @author Sebastian Mancke, tarent GmbH
  */
 public class AnnotationWorkerFactory implements SpecialWorkerFactory {
