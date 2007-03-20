@@ -1,4 +1,4 @@
-/* $Id: AnnotationWorkerFactory.java,v 1.4 2007/01/10 11:07:35 christoph Exp $
+/* $Id: AnnotationWorkerFactory.java,v 1.5 2007/03/20 14:46:36 amaier Exp $
  * 
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
@@ -47,13 +47,13 @@ public class AnnotationWorkerFactory implements SpecialWorkerFactory {
 	private static Logger logger = Logger.getLogger(AnnotationWorkerFactory.class.getName());
 
     /**
-     * Liefert einen Worker entsprechend der workerDeclaration zurück.
-     * Im Normalfall muss von der Factory nur die ImplementationSource berücksichtigt werden.
+     * Liefert einen Worker entsprechend der workerDeclaration zurï¿½ck.
+     * Im Normalfall muss von der Factory nur die ImplementationSource berï¿½cksichtigt werden.
      * 
      * @param classLoader Octopus Classloader fuer Worker.
      * @param workerDeclaration Beschreibung zur Instanziierung des Workers.
      */
-	public TcContentWorker createInstance(
+	public ContentWorker createInstance(
 			ClassLoader classLoader,
 			ContentWorkerDeclaration workerDeclaration)
 			throws WorkerCreationException {

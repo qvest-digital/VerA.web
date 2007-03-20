@@ -8,7 +8,7 @@ import java.util.HashMap;
 public class AnnotationWorkerFactoryTest
     extends junit.framework.TestCase {
 
-    TcModuleConfig config;
+    ModuleConfig config;
     AnnotationWorkerFactory factory;
     ContentWorkerDeclaration workerDeclaration;
 
@@ -23,7 +23,7 @@ public class AnnotationWorkerFactoryTest
     }
 
     public void setUp() {
-        config = TcModuleConfig.createMockupModuleConfig("/tmp", new HashMap());
+        config = ModuleConfig.createMockupModuleConfig("/tmp", new HashMap());
         factory = new AnnotationWorkerFactory();
         workerDeclaration = new ContentWorkerDeclaration();
 
@@ -33,7 +33,7 @@ public class AnnotationWorkerFactoryTest
         throws Exception {
         workerDeclaration.setImplementationSource(getClass().getName());
 
-        TcContentWorker worker = factory.createInstance(getClass().getClassLoader(), workerDeclaration);
+        ContentWorker worker = factory.createInstance(getClass().getClassLoader(), workerDeclaration);
         Object workerDelegate = ((DelegatingWorker)worker).getWorkerDelegate();
         assertEquals("Worker is instance of the class.", workerDelegate.getClass(), getClass());
     }

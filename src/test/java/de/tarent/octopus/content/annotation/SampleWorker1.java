@@ -1,7 +1,7 @@
 
 package de.tarent.octopus.content.annotation;
 
-import de.tarent.octopus.config.TcModuleConfig;
+import de.tarent.octopus.config.ModuleConfig;
 import de.tarent.octopus.content.annotation.InOutParam;
 
 import junit.framework.Assert;
@@ -15,7 +15,7 @@ public class SampleWorker1 {
 
     public boolean wasInitCalled = false;
 
-    public void init(TcModuleConfig tmc) 
+    public void init(ModuleConfig tmc) 
     {
         wasInitCalled = true;
     }
@@ -93,23 +93,23 @@ public class SampleWorker1 {
                                 @Name("list") List list,
                                 @Name("map") Map map)
     {
-    	Assert.assertEquals("Integer Übergabe", 42, (int)int1);
-    	Assert.assertEquals("int Übergabe", 42, int2);
+    	Assert.assertEquals("Integer ï¿½bergabe", 42, (int)int1);
+    	Assert.assertEquals("int ï¿½bergabe", 42, int2);
 
-    	Assert.assertEquals("Long Übergabe", 42, (long)long1);
-    	Assert.assertEquals("long Übergabe", 42, long2);
+    	Assert.assertEquals("Long ï¿½bergabe", 42, (long)long1);
+    	Assert.assertEquals("long ï¿½bergabe", 42, long2);
 
-    	Assert.assertEquals("Float Übergabe", 42f, (float)float1);
-    	Assert.assertEquals("float Übergabe", 42f, float2);
+    	Assert.assertEquals("Float ï¿½bergabe", 42f, (float)float1);
+    	Assert.assertEquals("float ï¿½bergabe", 42f, float2);
 
-        Assert.assertEquals("Double Übergabe", 42d, (double)double1);
-        Assert.assertEquals("double Übergabe", 42d, double2);
+        Assert.assertEquals("Double ï¿½bergabe", 42d, (double)double1);
+        Assert.assertEquals("double ï¿½bergabe", 42d, double2);
 
-        Assert.assertEquals("Boolean Übergabe", true, (boolean)boolean1);
-        Assert.assertEquals("boolean Übergabe", true, boolean2);
+        Assert.assertEquals("Boolean ï¿½bergabe", true, (boolean)boolean1);
+        Assert.assertEquals("boolean ï¿½bergabe", true, boolean2);
         
-        Assert.assertTrue("List Übergabe", list.size()== 1);
-        Assert.assertTrue("Map Übergabe", map.size()== 1);        
+        Assert.assertTrue("List ï¿½bergabe", list.size()== 1);
+        Assert.assertTrue("Map ï¿½bergabe", map.size()== 1);        
     }
 
 
@@ -152,25 +152,25 @@ public class SampleWorker1 {
                                          @Name("map") 
                                          MyMapBean mapBan)
     {
-    	Assert.assertEquals("Integer Übergabe", 42, (int)int1);
-        Assert.assertEquals("int Übergabe", 0, int2);
+    	Assert.assertEquals("Integer ï¿½bergabe", 42, (int)int1);
+        Assert.assertEquals("int ï¿½bergabe", 0, int2);
 
-        Assert.assertEquals("Long Übergabe", 42, (long)long1);
-        Assert.assertEquals("long Übergabe", 0, long2);
+        Assert.assertEquals("Long ï¿½bergabe", 42, (long)long1);
+        Assert.assertEquals("long ï¿½bergabe", 0, long2);
 
-        Assert.assertEquals("Float Übergabe", 42f, (float)float1);
-        Assert.assertEquals("float Übergabe", 0f, float2);
+        Assert.assertEquals("Float ï¿½bergabe", 42f, (float)float1);
+        Assert.assertEquals("float ï¿½bergabe", 0f, float2);
 
-        Assert.assertEquals("Double Übergabe", 42d, (double)double1);
-        Assert.assertEquals("double Übergabe", 0d, double2);
+        Assert.assertEquals("Double ï¿½bergabe", 42d, (double)double1);
+        Assert.assertEquals("double ï¿½bergabe", 0d, double2);
 
-        Assert.assertEquals("Boolean Übergabe", true, (boolean)boolean1);
-        Assert.assertEquals("boolean Übergabe", false, boolean2);
+        Assert.assertEquals("Boolean ï¿½bergabe", true, (boolean)boolean1);
+        Assert.assertEquals("boolean ï¿½bergabe", false, boolean2);
         
-        Assert.assertTrue("List Übergabe", list.size()== 1);
+        Assert.assertTrue("List ï¿½bergabe", list.size()== 1);
         
-        Assert.assertEquals("MapBean Übergabe", "Frank", mapBan.getName());
-        Assert.assertEquals("MapBean Übergabe", "Prüm", mapBan.getCity());
+        Assert.assertEquals("MapBean ï¿½bergabe", "Frank", mapBan.getName());
+        Assert.assertEquals("MapBean ï¿½bergabe", "Prï¿½m", mapBan.getCity());
     }
 
 

@@ -1,4 +1,4 @@
-/* $Id: AnnotationWorkerWrapper.java,v 1.6 2007/03/12 08:18:27 christoph Exp $
+/* $Id: AnnotationWorkerWrapper.java,v 1.7 2007/03/20 14:46:36 amaier Exp $
  * 
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
@@ -41,11 +41,11 @@ import javax.jws.WebParam;
 import javax.jws.WebResult;
 
 import de.tarent.octopus.content.AbstractWorkerWrapper;
-import de.tarent.octopus.content.TcActionDeclarationException;
+import de.tarent.octopus.content.ActionDeclarationException;
 import de.tarent.octopus.server.OctopusContext;
 
 /**
- * Wrapper für Octopus Worker auf Basis von Annotations
+ * Wrapper fï¿½r Octopus Worker auf Basis von Annotations
  * Angelehnt an den Standard "WebServices Metadata for the Java Platform", JSR-181
  *
  * 
@@ -66,7 +66,7 @@ public class AnnotationWorkerWrapper extends AbstractWorkerWrapper {
         if (null != version)
             return version.value();
         
-        logger.log(Level.CONFIG, "Für den Worker "+getWorkerClass().getName()+" wurde keine Version angegeben.");
+        logger.log(Level.CONFIG, "Fï¿½r den Worker "+getWorkerClass().getName()+" wurde keine Version angegeben.");
         return "1.0";
     }
 
@@ -79,7 +79,7 @@ public class AnnotationWorkerWrapper extends AbstractWorkerWrapper {
      * @return Metadaten die beschreiben, wie die Action-Methode aufgerufen werden soll.
      */
     public ActionData getActionData(String actionName) 
-        throws TcActionDeclarationException {
+        throws ActionDeclarationException {
         
         if (null == actionName)
             throw new NullPointerException("Action Name darf nicht null sein");
@@ -106,7 +106,7 @@ public class AnnotationWorkerWrapper extends AbstractWorkerWrapper {
         }
         
         if (action.method == null)
-            throw new TcActionDeclarationException("Serverfehler: Keine passende Methode für die Action "+actionName+" im Worker "+getWorkerClass().getName()+" gefunden.");
+            throw new ActionDeclarationException("Serverfehler: Keine passende Methode fï¿½r die Action "+actionName+" im Worker "+getWorkerClass().getName()+" gefunden.");
 
         if (action.method.getAnnotation(Description.class) != null)
             action.description = action.method.getAnnotation(Description.class).value();
@@ -176,7 +176,7 @@ public class AnnotationWorkerWrapper extends AbstractWorkerWrapper {
     }
 
     public String[] getActionNames() 
-        throws TcActionDeclarationException {
+        throws ActionDeclarationException {
 
         List out = new ArrayList();
 
@@ -220,8 +220,8 @@ public class AnnotationWorkerWrapper extends AbstractWorkerWrapper {
                         return (Class)genericType;
                 }
                 
-                TcActionDeclarationException actionDeclarationException = new TcActionDeclarationException(
-                		"Fehler bei Bestimmung des Generic-Zieltypes für " + pos + ". " +
+                ActionDeclarationException actionDeclarationException = new ActionDeclarationException(
+                		"Fehler bei Bestimmung des Generic-Zieltypes fï¿½r " + pos + ". " +
                 		"Parameter von " + method.getName());
                 throw new Error(actionDeclarationException);
             }
@@ -243,7 +243,7 @@ public class AnnotationWorkerWrapper extends AbstractWorkerWrapper {
     }
 
     /**
-     * Implementierung eines InOutParam, mit dem Ein-Ausgabeparameter bei Actions realisiert werden können
+     * Implementierung eines InOutParam, mit dem Ein-Ausgabeparameter bei Actions realisiert werden kï¿½nnen
      */
     class EnrichedParamImplementation<T> 
         implements de.tarent.octopus.content.annotation.InOutParam, EnrichedInOutParam {
