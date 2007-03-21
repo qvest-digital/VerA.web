@@ -167,7 +167,7 @@ public class AnnotationWorkerWrapperTest
         content.setField("list", new String[]{"test"});
         Map map = new HashMap();
         map.put("name", "Frank");
-        map.put("city", "Pr�m");
+        map.put("city", "Prüm");
         content.setField("map", map);
 
         sampleWorker1.doAction(config, "testParameterConversions", request, content);

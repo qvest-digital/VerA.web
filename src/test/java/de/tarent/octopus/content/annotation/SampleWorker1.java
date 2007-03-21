@@ -93,23 +93,23 @@ public class SampleWorker1 {
                                 @Name("list") List list,
                                 @Name("map") Map map)
     {
-    	Assert.assertEquals("Integer �bergabe", 42, (int)int1);
-    	Assert.assertEquals("int �bergabe", 42, int2);
+    	Assert.assertEquals("Integer Übergabe", 42, (int)int1);
+    	Assert.assertEquals("int Übergabe", 42, int2);
 
-    	Assert.assertEquals("Long �bergabe", 42, (long)long1);
-    	Assert.assertEquals("long �bergabe", 42, long2);
+    	Assert.assertEquals("Long Übergabe", 42, (long)long1);
+    	Assert.assertEquals("long Übergabe", 42, long2);
 
-    	Assert.assertEquals("Float �bergabe", 42f, (float)float1);
-    	Assert.assertEquals("float �bergabe", 42f, float2);
+    	Assert.assertEquals("Float Übergabe", 42f, (float)float1);
+    	Assert.assertEquals("float Übergabe", 42f, float2);
 
-        Assert.assertEquals("Double �bergabe", 42d, (double)double1);
-        Assert.assertEquals("double �bergabe", 42d, double2);
+        Assert.assertEquals("Double Übergabe", 42d, (double)double1);
+        Assert.assertEquals("double Übergabe", 42d, double2);
 
-        Assert.assertEquals("Boolean �bergabe", true, (boolean)boolean1);
-        Assert.assertEquals("boolean �bergabe", true, boolean2);
+        Assert.assertEquals("Boolean Übergabe", true, (boolean)boolean1);
+        Assert.assertEquals("boolean Übergabe", true, boolean2);
         
-        Assert.assertTrue("List �bergabe", list.size()== 1);
-        Assert.assertTrue("Map �bergabe", map.size()== 1);        
+        Assert.assertTrue("List Übergabe", list.size()== 1);
+        Assert.assertTrue("Map Übergabe", map.size()== 1);        
     }
 
 
@@ -152,25 +152,25 @@ public class SampleWorker1 {
                                          @Name("map") 
                                          MyMapBean mapBan)
     {
-    	Assert.assertEquals("Integer �bergabe", 42, (int)int1);
-        Assert.assertEquals("int �bergabe", 0, int2);
+    	Assert.assertEquals("Integer Übergabe", 42, (int)int1);
+        Assert.assertEquals("int Übergabe", 0, int2);
 
-        Assert.assertEquals("Long �bergabe", 42, (long)long1);
-        Assert.assertEquals("long �bergabe", 0, long2);
+        Assert.assertEquals("Long Übergabe", 42, (long)long1);
+        Assert.assertEquals("long Übergabe", 0, long2);
 
-        Assert.assertEquals("Float �bergabe", 42f, (float)float1);
-        Assert.assertEquals("float �bergabe", 0f, float2);
+        Assert.assertEquals("Float Übergabe", 42f, (float)float1);
+        Assert.assertEquals("float Übergabe", 0f, float2);
 
-        Assert.assertEquals("Double �bergabe", 42d, (double)double1);
-        Assert.assertEquals("double �bergabe", 0d, double2);
+        Assert.assertEquals("Double Übergabe", 42d, (double)double1);
+        Assert.assertEquals("double Übergabe", 0d, double2);
 
-        Assert.assertEquals("Boolean �bergabe", true, (boolean)boolean1);
-        Assert.assertEquals("boolean �bergabe", false, boolean2);
+        Assert.assertEquals("Boolean Übergabe", true, (boolean)boolean1);
+        Assert.assertEquals("boolean Übergabe", false, boolean2);
         
-        Assert.assertTrue("List �bergabe", list.size()== 1);
+        Assert.assertTrue("List Übergabe", list.size()== 1);
         
-        Assert.assertEquals("MapBean �bergabe", "Frank", mapBan.getName());
-        Assert.assertEquals("MapBean �bergabe", "Pr�m", mapBan.getCity());
+        Assert.assertEquals("MapBean Übergabe", "Frank", mapBan.getName());
+        Assert.assertEquals("MapBean Übergabe", "Prüm", mapBan.getCity());
     }
 
 

@@ -1,4 +1,4 @@
-/* $Id: AnnotationWorkerWrapper.java,v 1.7 2007/03/20 14:46:36 amaier Exp $
+/* $Id: AnnotationWorkerWrapper.java,v 1.8 2007/03/21 13:16:22 amaier Exp $
  * 
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
@@ -45,7 +45,7 @@ import de.tarent.octopus.content.ActionDeclarationException;
 import de.tarent.octopus.server.OctopusContext;
 
 /**
- * Wrapper f�r Octopus Worker auf Basis von Annotations
+ * Wrapper für Octopus Worker auf Basis von Annotations
  * Angelehnt an den Standard "WebServices Metadata for the Java Platform", JSR-181
  *
  * 
@@ -66,7 +66,7 @@ public class AnnotationWorkerWrapper extends AbstractWorkerWrapper {
         if (null != version)
             return version.value();
         
-        logger.log(Level.CONFIG, "F�r den Worker "+getWorkerClass().getName()+" wurde keine Version angegeben.");
+        logger.log(Level.CONFIG, "Für den Worker "+getWorkerClass().getName()+" wurde keine Version angegeben.");
         return "1.0";
     }
 
@@ -106,7 +106,7 @@ public class AnnotationWorkerWrapper extends AbstractWorkerWrapper {
         }
         
         if (action.method == null)
-            throw new ActionDeclarationException("Serverfehler: Keine passende Methode f�r die Action "+actionName+" im Worker "+getWorkerClass().getName()+" gefunden.");
+            throw new ActionDeclarationException("Serverfehler: Keine passende Methode für die Action "+actionName+" im Worker "+getWorkerClass().getName()+" gefunden.");
 
         if (action.method.getAnnotation(Description.class) != null)
             action.description = action.method.getAnnotation(Description.class).value();
@@ -221,7 +221,7 @@ public class AnnotationWorkerWrapper extends AbstractWorkerWrapper {
                 }
                 
                 ActionDeclarationException actionDeclarationException = new ActionDeclarationException(
-                		"Fehler bei Bestimmung des Generic-Zieltypes f�r " + pos + ". " +
+                		"Fehler bei Bestimmung des Generic-Zieltypes für " + pos + ". " +
                 		"Parameter von " + method.getName());
                 throw new Error(actionDeclarationException);
             }
@@ -243,7 +243,7 @@ public class AnnotationWorkerWrapper extends AbstractWorkerWrapper {
     }
 
     /**
-     * Implementierung eines InOutParam, mit dem Ein-Ausgabeparameter bei Actions realisiert werden k�nnen
+     * Implementierung eines InOutParam, mit dem Ein-Ausgabeparameter bei Actions realisiert werden können
      */
     class EnrichedParamImplementation<T> 
         implements de.tarent.octopus.content.annotation.InOutParam, EnrichedInOutParam {
