@@ -1,5 +1,5 @@
 /* 
- * $Id: Forward.java,v 1.1 2007/03/11 13:56:15 christoph Exp $
+ * $Id: Forward.java,v 1.2 2007/03/21 13:18:19 amaier Exp $
  * 
  * Created on 19.09.2003
  */
@@ -42,11 +42,11 @@ public class Forward extends HttpServlet {
 	/** Logger-Instanz */
 	public final static Log logger = LogFactory.getLog(Forward.class);
 
-    /** Servlet-Parameter für den Pfad zum KontextRoot der Ziel Webanwendung */
+    /** Servlet-Parameter fÃ¼r den Pfad zum KontextRoot der Ziel Webanwendung */
 	public final static String INIT_PARAM_TARGET_CONTEXT = "targetContext";
-    /** Servlet-Parameter für den Pfad zum Servlet innerhalb der Ziel Webanwendung */
+    /** Servlet-Parameter fÃ¼r den Pfad zum Servlet innerhalb der Ziel Webanwendung */
 	public final static String INIT_PARAM_TARGET_PATH = "targetPath";
-	/** Default-Servlet-Parameter für {@link #INIT_PARAM_TARGET_PATH} */
+	/** Default-Servlet-Parameter fÃ¼r {@link #INIT_PARAM_TARGET_PATH} */
 	public final static String DEFAULT_TARGET_PATH = "/octopus";
 
 	/**
