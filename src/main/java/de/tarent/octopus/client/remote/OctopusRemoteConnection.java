@@ -1,4 +1,4 @@
-/* $Id: OctopusRemoteConnection.java,v 1.9 2007/03/13 17:12:01 robert Exp $
+/* $Id: OctopusRemoteConnection.java,v 1.9.2.1 2007/03/21 15:06:46 fkoester Exp $
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
  * 
@@ -246,20 +246,23 @@ public class OctopusRemoteConnection implements OctopusConnection {
         String tmpServiceURL = null;
         String tmpUsername = null;
         
-        try {
-            in = new BufferedReader(new FileReader(getSessionCookieFile()));
-            tmpUsername = in.readLine();
-            tmpServiceURL = in.readLine();
-            in.close();
-        } catch (FileNotFoundException fne) {
-            logger.debug("Keine Octopus Sessiondatei gefunden unter <"+getSessionCookieFile()+">", fne);
-        } catch (Exception e) {
-            logger.warn("Fehler beim Lesen eines Octopus Session Cookies aus <"+getSessionCookieFile()+">", e);
+        if(getSessionCookieFile() != null)
+        {
+	        try {
+	            in = new BufferedReader(new FileReader(getSessionCookieFile()));
+	            tmpUsername = in.readLine();
+	            tmpServiceURL = in.readLine();
+	            in.close();
+	        } catch (FileNotFoundException fne) {
+	            logger.debug("Keine Octopus Sessiondatei gefunden unter <"+getSessionCookieFile()+">", fne);
+	        } catch (Exception e) {
+	            logger.warn("Fehler beim Lesen eines Octopus Session Cookies aus <"+getSessionCookieFile()+">", e);
+	        }
+	        if (in != null)
+	            try {
+	                in.close();
+	            } catch (IOException e) {}
         }
-        if (in != null)
-            try {
-                in.close();
-            } catch (IOException e) {}
 
       	username = tmpUsername;
        	serviceURL = tmpServiceURL;
