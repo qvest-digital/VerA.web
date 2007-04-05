@@ -32,7 +32,7 @@
 		The version of the project under development, e.g.
 		1.1, 1.2, 2.0-SNAPSHOT 
 	-->
-	<version>1.90.0-SNAPSHOT</version>
+	<version>1.91.0-SNAPSHOT</version>
 
 	<scm>
 		<connection>scm:cvs:local:/cvs/newcvsroot:octopus/extensions/jmx</connection>
@@ -118,7 +118,7 @@
 		<dependency>
 			<groupId>de.tarent.octopus</groupId>
 			<artifactId>octopus-core</artifactId>
-			<version>1.90.0-SNAPSHOT</version>
+			<version>1.91.0-SNAPSHOT</version>
 		</dependency>
 
 		<dependency>
