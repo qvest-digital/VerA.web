@@ -32,7 +32,7 @@
 		The version of the project under development, e.g.
 		1.1, 1.2, 2.0-SNAPSHOT 
 	-->
-	<version>1.6.1-SNAPSHOT</version>
+	<version>1.6.1</version>
 
 	<!-- Information required to build the project. -->
 	<build>
@@ -198,4 +198,12 @@
 			<url>scp://kassandra.tarent.de/home/maven/projects/octopus</url>
 		</site>
 	</distributionManagement>
+
+        <scm>
+                <connection>
+                        scm:cvs:local:/cvs/newcvsroot:octopus/core
+                </connection>
+          <tag>RELEASE_Octopus_1_6_1</tag>
+  </scm>
+
 </project>
