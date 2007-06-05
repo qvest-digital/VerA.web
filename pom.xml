@@ -38,6 +38,158 @@
 		<connection>scm:cvs:local:/cvs/newcvsroot:octopus/extensions/commons</connection>
 	</scm>
 
+	<mailingLists>
+		<mailingList>
+			<name>octopus-commits@evolvis.org</name>
+		</mailingList>
+	</mailingLists>
+
+	<developers>
+		<developer>
+			<id>asteban</id>
+			<name>Sebastian Mancke</name>
+			<email>s.mancke@tarent.de</email>
+			<organization>tarent GmbH</organization>
+			<organizationUrl>http://www.tarent.de/</organizationUrl>
+			<roles>
+				<role>Developer</role>
+			</roles>
+			<timezone>+1</timezone>
+		</developer>
+
+		<developer>
+			<id>mikel</id>
+			<name>Michael Klink</name>
+			<email>m.klink@tarent.de</email>
+			<organization>tarent GmbH</organization>
+			<organizationUrl>http://www.tarent.de/</organizationUrl>
+			<roles>
+				<role>Developer</role>
+			</roles>
+			<timezone>+1</timezone>
+		</developer>
+
+		<developer>
+			<id>christoph</id>
+			<name>Christoph Jerolimov</name>
+			<email>c.jerolimov@tarent.de</email>
+			<organization>tarent GmbH</organization>
+			<organizationUrl>http://www.tarent.de/</organizationUrl>
+			<roles>
+				<role>Developer</role>
+			</roles>
+			<timezone>+1</timezone>
+		</developer>
+
+		<developer>
+			<id>nils</id>
+			<name>Nils Neumaier</name>
+			<email>n.neumaier@tarent.de</email>
+			<organization>tarent GmbH</organization>
+			<organizationUrl>http://www.tarent.de/</organizationUrl>
+			<roles>
+				<role>Developer</role>
+			</roles>
+			<timezone>+1</timezone>
+		</developer>
+
+		<developer>
+			<id>kirchner</id>
+			<name>Philipp Kirchner</name>
+			<email>p.kirchner@tarent.de</email>
+			<organization>tarent GmbH</organization>
+			<organizationUrl>http://www.tarent.de/</organizationUrl>
+			<roles>
+				<role>Developer</role>
+			</roles>
+			<timezone>+1</timezone>
+		</developer>
+
+		<developer>
+			<id>hendrik</id>
+			<name>Hendrik Helwich</name>
+			<email>h.helwich@tarent.de</email>
+			<organization>tarent GmbH</organization>
+			<organizationUrl>http://www.tarent.de/</organizationUrl>
+			<roles>
+				<role>Developer</role>
+			</roles>
+			<timezone>+1</timezone>
+		</developer>
+
+		<developer>
+			<id>jens</id>
+			<name>Jens Neumaier</name>
+			<email>j.neumaier@tarent.de</email>
+			<organization>tarent GmbH</organization>
+			<organizationUrl>http://www.tarent.de/</organizationUrl>
+			<roles>
+				<role>Developer</role>
+			</roles>
+			<timezone>+1</timezone>
+		</developer>
+
+		<developer>
+			<id>kleinhenz</id>
+			<name>Michael Kleinhenz</name>
+			<email>m.kleinhenz@tarent.de</email>
+			<organization>tarent GmbH</organization>
+			<organizationUrl>http://www.tarent.de/</organizationUrl>
+			<roles>
+				<role>Developer</role>
+			</roles>
+			<timezone>+1</timezone>
+		</developer>
+
+		<developer>
+			<id>schmitz</id>
+			<name>Thomas Schmitz</name>
+			<email>t.schmitz@tarent.de</email>
+			<organization>tarent GmbH</organization>
+			<organizationUrl>http://www.tarent.de/</organizationUrl>
+			<roles>
+				<role>Developer</role>
+			</roles>
+			<timezone>+1</timezone>
+		</developer>
+
+		<developer>
+			<id>fkoster</id>
+			<name>Fabian Koester</name>
+			<email>f.koester@tarent.de</email>
+			<organization>tarent GmbH</organization>
+			<organizationUrl>http://www.tarent.de/</organizationUrl>
+			<roles>
+				<role>Developer</role>
+			</roles>
+			<timezone>+1</timezone>
+		</developer>
+
+		<developer>
+			<id>robert</id>
+			<name>Robert Schuster</name>
+			<email>r.schuster@tarent.de</email>
+			<organization>tarent GmbH</organization>
+			<organizationUrl>http://www.tarent.de/</organizationUrl>
+			<roles>
+				<role>Developer</role>
+			</roles>
+			<timezone>+1</timezone>
+		</developer>
+
+		<developer>
+			<id>amaier</id>
+			<name>Alex Maier</name>
+			<email>a.maier@tarent.de</email>
+			<organization>tarent GmbH</organization>
+			<organizationUrl>http://www.tarent.de/</organizationUrl>
+			<roles>
+				<role>Developer</role>
+			</roles>
+			<timezone>+1</timezone>
+		</developer>
+	</developers>
+
 	<!-- Information required to build the project. -->
 	<build>
 		<sourceDirectory>src/main/java</sourceDirectory>
@@ -82,29 +234,76 @@
 			</plugin>
 		</plugins>
 	</build>
+
 	<reporting>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-project-info-reports-plugin</artifactId>
-				<reportSets>
-					<reportSet>
-						<reports>
-							<report>dependencies</report>
-							<!--report>project-team</report>
-								<report>mailing-list</report>
-								<report>cim</report>
-								<report>issue-tracking</report>
-								<report>license</report>
-								<report>scm</report-->
-						</reports>
-					</reportSet>
-				</reportSets>
 			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jxr-plugin</artifactId>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-clover-plugin</artifactId>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-changes-plugin</artifactId>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-clover-plugin</artifactId>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jxr-plugin</artifactId>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-pmd-plugin</artifactId>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-report-plugin</artifactId>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+			</plugin>
+
+			<!-- deaktiviert weil externes plugin repo
+				<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>findbugs-maven-plugin</artifactId>
+				</plugin>
+			-->
+
+			<!-- deaktiviert weil nicht einfach funktionstuechtig
+				<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>dashboard-maven-plugin</artifactId>
+				</plugin>
+			-->
+
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
 				<configuration>
+					<source>1.4</source>
+					<target>1.4</target>
+					<encoding>UTF-8</encoding>
+					<charset>UTF-8</charset>
 					<minmemory>128m</minmemory>
 					<maxmemory>512</maxmemory>
 					<show>package</show>
