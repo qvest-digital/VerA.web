@@ -26,7 +26,25 @@
 	<!-- The full name of the project. -->
 	<name>tarent-octopus servlet</name>
 
-	<description>octopus application framework, servlet part only</description>
+	<description>
+		an opensource webservice and webapplication framework (servlet part)
+	</description>
+
+	<url>http://octopus.evolvis.org/</url>
+
+	<inceptionYear>2001</inceptionYear>
+
+	<licenses>
+		<license>
+			<name>GNU General Public License</name>
+			<url>http://www.gnu.org/licenses/gpl.txt</url>
+		</license>
+	</licenses>
+
+	<organization>
+		<name>tarent GmbH, Germany</name>
+		<url>http://www.tarent.de/</url>
+	</organization>
 
 	<!-- 
 		The version of the project under development, e.g.
@@ -218,6 +236,7 @@
 					<encoding>UTF-8</encoding>
 				</configuration>
 			</plugin>
+			
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jar-plugin</artifactId>
@@ -226,7 +245,7 @@
 						<manifestEntries>
 							<Implementation-Title>${project.artifactId}</Implementation-Title>
 							<version_description>${project.description}</version_description>
-							<version_copyright>Copyright (c) 2003-2006 tarent GmbH</version_copyright>
+							<version_copyright>Copyright (c) 2001-2007 tarent GmbH</version_copyright>
 							<Implementation-Vendor>tarent GmbH (www.tarent.de)</Implementation-Vendor>
 							<Implementation-Version>${project.version}</Implementation-Version>
 						</manifestEntries>
