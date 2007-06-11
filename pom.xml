@@ -26,7 +26,25 @@
 	<!-- The full name of the project. -->
 	<name>tarent-octopus cronjob extension</name>
 
-	<description>tarent-octopus cronjob extension</description>
+	<description>
+		tarent-octopus cronjob extension
+	</description>
+
+	<url>http://octopus.evolvis.org/</url>
+
+	<inceptionYear>2006</inceptionYear>
+
+	<licenses>
+		<license>
+			<name>GNU General Public License</name>
+			<url>http://www.gnu.org/licenses/gpl.txt</url>
+		</license>
+	</licenses>
+
+	<organization>
+		<name>tarent GmbH, Germany</name>
+		<url>http://www.tarent.de/</url>
+	</organization>
 
 	<!-- 
 		The version of the project under development, e.g.
@@ -46,141 +64,9 @@
 
 	<developers>
 		<developer>
-			<id>asteban</id>
-			<name>Sebastian Mancke</name>
-			<email>s.mancke@tarent.de</email>
-			<organization>tarent GmbH</organization>
-			<organizationUrl>http://www.tarent.de/</organizationUrl>
-			<roles>
-				<role>Developer</role>
-			</roles>
-			<timezone>+1</timezone>
-		</developer>
-
-		<developer>
-			<id>mikel</id>
-			<name>Michael Klink</name>
-			<email>m.klink@tarent.de</email>
-			<organization>tarent GmbH</organization>
-			<organizationUrl>http://www.tarent.de/</organizationUrl>
-			<roles>
-				<role>Developer</role>
-			</roles>
-			<timezone>+1</timezone>
-		</developer>
-
-		<developer>
-			<id>christoph</id>
-			<name>Christoph Jerolimov</name>
-			<email>c.jerolimov@tarent.de</email>
-			<organization>tarent GmbH</organization>
-			<organizationUrl>http://www.tarent.de/</organizationUrl>
-			<roles>
-				<role>Developer</role>
-			</roles>
-			<timezone>+1</timezone>
-		</developer>
-
-		<developer>
 			<id>nils</id>
 			<name>Nils Neumaier</name>
 			<email>n.neumaier@tarent.de</email>
-			<organization>tarent GmbH</organization>
-			<organizationUrl>http://www.tarent.de/</organizationUrl>
-			<roles>
-				<role>Developer</role>
-			</roles>
-			<timezone>+1</timezone>
-		</developer>
-
-		<developer>
-			<id>kirchner</id>
-			<name>Philipp Kirchner</name>
-			<email>p.kirchner@tarent.de</email>
-			<organization>tarent GmbH</organization>
-			<organizationUrl>http://www.tarent.de/</organizationUrl>
-			<roles>
-				<role>Developer</role>
-			</roles>
-			<timezone>+1</timezone>
-		</developer>
-
-		<developer>
-			<id>hendrik</id>
-			<name>Hendrik Helwich</name>
-			<email>h.helwich@tarent.de</email>
-			<organization>tarent GmbH</organization>
-			<organizationUrl>http://www.tarent.de/</organizationUrl>
-			<roles>
-				<role>Developer</role>
-			</roles>
-			<timezone>+1</timezone>
-		</developer>
-
-		<developer>
-			<id>jens</id>
-			<name>Jens Neumaier</name>
-			<email>j.neumaier@tarent.de</email>
-			<organization>tarent GmbH</organization>
-			<organizationUrl>http://www.tarent.de/</organizationUrl>
-			<roles>
-				<role>Developer</role>
-			</roles>
-			<timezone>+1</timezone>
-		</developer>
-
-		<developer>
-			<id>kleinhenz</id>
-			<name>Michael Kleinhenz</name>
-			<email>m.kleinhenz@tarent.de</email>
-			<organization>tarent GmbH</organization>
-			<organizationUrl>http://www.tarent.de/</organizationUrl>
-			<roles>
-				<role>Developer</role>
-			</roles>
-			<timezone>+1</timezone>
-		</developer>
-
-		<developer>
-			<id>schmitz</id>
-			<name>Thomas Schmitz</name>
-			<email>t.schmitz@tarent.de</email>
-			<organization>tarent GmbH</organization>
-			<organizationUrl>http://www.tarent.de/</organizationUrl>
-			<roles>
-				<role>Developer</role>
-			</roles>
-			<timezone>+1</timezone>
-		</developer>
-
-		<developer>
-			<id>fkoster</id>
-			<name>Fabian Koester</name>
-			<email>f.koester@tarent.de</email>
-			<organization>tarent GmbH</organization>
-			<organizationUrl>http://www.tarent.de/</organizationUrl>
-			<roles>
-				<role>Developer</role>
-			</roles>
-			<timezone>+1</timezone>
-		</developer>
-
-		<developer>
-			<id>robert</id>
-			<name>Robert Schuster</name>
-			<email>r.schuster@tarent.de</email>
-			<organization>tarent GmbH</organization>
-			<organizationUrl>http://www.tarent.de/</organizationUrl>
-			<roles>
-				<role>Developer</role>
-			</roles>
-			<timezone>+1</timezone>
-		</developer>
-
-		<developer>
-			<id>amaier</id>
-			<name>Alex Maier</name>
-			<email>a.maier@tarent.de</email>
 			<organization>tarent GmbH</organization>
 			<organizationUrl>http://www.tarent.de/</organizationUrl>
 			<roles>
@@ -225,7 +111,7 @@
 						<manifestEntries>
 							<Implementation-Title>${project.artifactId}</Implementation-Title>
 							<version_description>${project.description}</version_description>
-							<version_copyright>Copyright (c) 2003-2006 tarent GmbH</version_copyright>
+							<version_copyright>Copyright (c) 2006-2007 tarent GmbH</version_copyright>
 							<Implementation-Vendor>tarent GmbH (www.tarent.de)</Implementation-Vendor>
 							<Implementation-Version>${project.version}</Implementation-Version>
 						</manifestEntries>
