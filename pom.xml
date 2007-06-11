@@ -27,7 +27,7 @@
 	<name>tarent-octopus cronjob extension</name>
 
 	<description>
-		tarent-octopus cronjob extension
+		an opensource webservice and webapplication framework (cronjob extension)
 	</description>
 
 	<url>http://octopus.evolvis.org/</url>
@@ -63,6 +63,18 @@
 	</mailingLists>
 
 	<developers>
+		<developer>
+			<id>kleinhenz</id>
+			<name>Michael Kleinhenz</name>
+			<email>m.kleinhenz@tarent.de</email>
+			<organization>tarent GmbH</organization>
+			<organizationUrl>http://www.tarent.de/</organizationUrl>
+			<roles>
+				<role>Developer</role>
+			</roles>
+			<timezone>+1</timezone>
+		</developer>
+
 		<developer>
 			<id>nils</id>
 			<name>Nils Neumaier</name>
