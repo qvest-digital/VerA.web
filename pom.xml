@@ -24,10 +24,10 @@
 	<packaging>jar</packaging>
 
 	<!-- The full name of the project. -->
-	<name>tarent-octopus common worker</name>
+	<name>tarent-octopus common</name>
 
 	<description>
-		tarent-octopus common worker
+		an opensource webservice and webapplication framework (common part)
 	</description>
 
 	<url>http://octopus.evolvis.org/</url>
