@@ -1,8 +1,28 @@
-/* 
- * $Id: Forward.java,v 1.2 2007/03/21 13:18:19 amaier Exp $
- * 
- * Created on 19.09.2003
+/*
+ * tarent-octopus servlet,
+ * an opensource webservice and webapplication framework (servlet part)
+ * Copyright (c) 2001-2007 tarent GmbH
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License,version 2
+ * as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+ * 02110-1301, USA.
+ *
+ * tarent GmbH., hereby disclaims all copyright
+ * interest in the program 'tarent-octopus servlet'
+ * Signature of Elmar Geese, 11 June 2007
+ * Elmar Geese, CEO tarent GmbH.
  */
+
 package de.tarent.octopus.request.servlet;
 
 import java.io.IOException;
@@ -32,7 +52,7 @@ import org.apache.commons.logging.LogFactory;
  * now not needful, this is not performance critically.)
  * </p>
  * 
- * @author Michael Klink, target GmbH
+ * @author Michael Klink, tarent GmbH
  * @author Christoph Jerolimov, tarent GmbH
  */
 public class Forward extends HttpServlet {
