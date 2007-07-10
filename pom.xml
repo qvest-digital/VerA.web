@@ -17,6 +17,12 @@
 	-->
 	<artifactId>octopus-ext-beans</artifactId>
 
+	<!-- 
+		The version of the project under development, e.g.
+		1.1, 1.2, 2.0-SNAPSHOT 
+	-->
+	<version>2.0.0-SNAPSHOT</version>
+
 	<!--
 		The type of artifact this project produces, for example jar
 		or war.
@@ -46,15 +52,28 @@
 		<url>http://www.tarent.de/</url>
 	</organization>
 
-	<!-- 
-		The version of the project under development, e.g.
-		1.1, 1.2, 2.0-SNAPSHOT 
-	-->
-	<version>2.0.0-SNAPSHOT</version>
-
 	<scm>
 		<connection>scm:svn:svn://svn.evolvis.org/svnroot/octopus/extension/beans/trunk</connection>
 	</scm>
+
+	<repositories>
+		<repository>
+			<id>evolvis-release-repository</id>
+			<name>evolvis.org release repository</name>
+			<url>http://maven-repo.evolvis.org/releases</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>evolvis-snapshot-repository</id>
+			<name>evolvis.org snapshot repository</name>
+			<url>http://maven-repo.evolvis.org/snapshots</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
 
 	<mailingLists>
 		<mailingList>
@@ -224,18 +243,19 @@
 	<!-- this section is required for deployment -->
 	<distributionManagement>
 		<repository>
-			<id>tarent2-repository</id>
-			<name>tarent Maven2 Repository</name>
-			<url>scp://kassandra.tarent.de/home/maven/repository2/</url>
+			<id>evolvis-release-repository</id>
+			<name>evolvis.org release repository</name>
+			<url>scpexe://maven-repo.evolvis.org/var/www/maven_repo/releases</url>
 		</repository>
 		<snapshotRepository>
-			<id>tarent2-repository</id>
-			<name>tarent Maven2 Repository</name>
-			<url>scp://kassandra.tarent.de/home/maven/repository2/</url>
+			<id>evolvis-snapshot-repository</id>
+			<name>evolvis.org snapshot repository</name>
+			<url>scpexe://maven-repo.evolvis.org/var/www/maven_repo/snapshots</url>
 		</snapshotRepository>
 		<site>
-			<id>maven-site-projects</id>
-			<url>scp://kassandra.tarent.de/home/maven/projects/octopus</url>
+			<id>evolvis-site-repository</id>
+			<name>evolvis.org site repository</name>
+			<url>scpexe://svn.evolvis.org/var/lib/gforge/chroot/home/groups/octopus/htdocs/${project.artifactId}</url>
 		</site>
 	</distributionManagement>
 </project>
