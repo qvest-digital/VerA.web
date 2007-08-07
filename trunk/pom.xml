@@ -35,7 +35,7 @@
 	<description>Veranstaltungsmanagment VerA.web</description>
 
 	<scm>
-		<connection>scm:cvs:local:/cvs/newcvsroot:customer/aa/veraweb</connection>
+		<connection>scm:svn:svn://svn.evolvis.org/svnroot/veraweb/trunk</connection>
 	</scm>
 
 	<repositories>
