@@ -1,0 +1,89 @@
+/*
+ * $Id: Proxy.java,v 1.1 2007/06/20 11:56:51 christoph Exp $
+ * 
+ * Created on 25.07.2005
+ */
+package de.tarent.aa.veraweb.beans;
+
+import java.sql.Timestamp;
+
+import de.tarent.octopus.custom.beans.BeanException;
+import de.tarent.octopus.server.OctopusContext;
+import de.tarent.octopus.server.PersonalConfig;
+
+/**
+ * Diese Bohne stellt Stellvertretungen dar.
+ * 
+ * @author mikel
+ */
+public class Proxy extends AbstractBean {
+    //
+    // tproxy
+    //
+    /** tproxy.pk serial NOT NULL */
+    public Integer id;
+
+    /** tproxy.fk_user int4 NOT NULL */
+    public Integer user;
+
+    /** tproxy.proxy varchar(100) NOT NULL */
+    public String proxy;
+
+    /** tproxy.validfrom timestamptz */
+    public Timestamp validFrom;
+
+    /** tproxy.validtill timestamptz */
+    public Timestamp validTill;
+    
+    //
+    // tuser
+    //
+    /** tuser.username varchar(100) NOT NULL */
+    public String userRole;
+
+    /** tuser.fk_orgunit: int4 DEFAULT 0 */
+    public Integer orgunit;
+
+    //
+    // Klasse AbstractBean
+    //
+    /**
+     * Der Benutzer und Stellvertreterrolle müssen angegeben sein.
+     */
+    public void verify() {
+        if (proxy == null || proxy.length() == 0)
+            addError("Sie m&uuml;ssen eine Stellvertreterrollenbezeichnung eingeben.");
+        if (user == null || user.intValue() == 0)
+            addError("Sie m&uuml;ssen einen Benutzer eingeben.");
+        if (validFrom != null && validTill != null && validFrom.after(validTill))
+        	addError("Der Beginn der Vertretung muss vor dem Ende liegen.");
+    }
+
+    /**
+     * Diese Methode testet, ob im aktuellen Kontext diese Bohne gelesen werden
+     * darf.<br>
+     * Test ist leer.
+     * 
+     * @param cntx
+     *            Octopus-Kontext
+     * @throws BeanException
+     *             Wenn im angegebenen Kontext diese Bohne nicht gelesen werden
+     *             darf.
+     * @see de.tarent.aa.veraweb.beans.AbstractBean#checkRead(de.tarent.octopus.server.OctopusContext)
+     */
+    public void checkRead(OctopusContext cntx) throws BeanException {
+    }
+
+    /**
+     * Diese Methode testet, ob im aktuellen Kontext diese Bohne geschrieben
+     * werden darf.<br>
+     * Test ist, ob der Benutzer User ist.
+     * 
+     * @param cntx Octopus-Kontext
+     * @throws BeanException Wenn im angegebenen Kontext diese Bohne nicht geschrieben werden darf.
+     * @see de.tarent.aa.veraweb.beans.AbstractBean#checkWrite(de.tarent.octopus.server.OctopusContext)
+     */
+    public void checkWrite(OctopusContext cntx) throws BeanException {
+        checkGroup(cntx, PersonalConfig.GROUP_USER);
+    }
+}
