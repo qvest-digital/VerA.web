@@ -1,30 +1,26 @@
-/* $Id: Messages.java,v 1.2 2004/04/30 09:22:56 philipp Exp $
- * 
- * Created on 02.05.2003 by philipp
- * 
- * tarent-contact, Plattform-Independent Webservice-Based Contact Management
- * Copyright (C) 2002 tarent GmbH
- * 
+/*
+ * VerA.web,
+ * Veranstaltungsmanagment VerA.web
+ * Copyright (c) 2005-2007 tarent GmbH
+ *
  * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License
- * as published by the Free Software Foundation; either version 2
- * of the License, or (at your option) any later version.
- * 
+ * modify it under the terms of the GNU General Public License,version 2
+ * as published by the Free Software Foundation.
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
- * 
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+ * 02110-1301, USA.
+ *
  * tarent GmbH., hereby disclaims all copyright
- * interest in the program 'tarent-octopus'
- * (which makes passes at compilers) written
- * by Philipp Kirchner.
- * signature of Elmar Geese, 1 June 2002
- * Elmar Geese, CEO tarent GmbH
+ * interest in the program 'VerA.web'
+ * Signature of Elmar Geese, 7 August 2007
+ * Elmar Geese, CEO tarent GmbH.
  */
 package de.tarent.ldap;
 
