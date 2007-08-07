@@ -1,0 +1,195 @@
+/*
+ * $Id: OrgUnitListWorker.java,v 1.1 2007/06/20 11:56:51 christoph Exp $
+ * 
+ * Created on 17.08.2005
+ */
+package de.tarent.aa.veraweb.worker;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
+import de.tarent.aa.veraweb.beans.OrgUnit;
+import de.tarent.dblayer.sql.clause.Clause;
+import de.tarent.dblayer.sql.clause.Expr;
+import de.tarent.dblayer.sql.clause.RawClause;
+import de.tarent.dblayer.sql.clause.Where;
+import de.tarent.octopus.custom.beans.Bean;
+import de.tarent.octopus.custom.beans.BeanException;
+import de.tarent.octopus.custom.beans.Database;
+import de.tarent.octopus.custom.beans.veraweb.DatabaseVeraWeb;
+import de.tarent.octopus.custom.beans.veraweb.ListWorkerVeraWeb;
+import de.tarent.octopus.server.OctopusContext;
+
+/**
+ * Diese Octopus-Worker-Klasse stellt Operationen zur Anzeige
+ * von Mandantenlisten zur Verfügung. Details bitte dem
+ * {@link de.tarent.octopus.custom.beans.veraweb.ListWorkerVeraWeb}
+ * entnehmen.
+ * 
+ * @author mikel
+ */
+public class OrgUnitListWorker extends ListWorkerVeraWeb {
+    //
+    // Konstruktoren
+    //
+    /**
+     * Dieser Konstruktor bestimmt den Basis-Bean-Typ des Workers.
+     */
+    public OrgUnitListWorker() {
+        super("OrgUnit");
+    }
+    
+    //
+    // BeanListWorker
+    //
+    /**
+     * Wird von {@link de.tarent.octopus.custom.beans.BeanListWorker#saveList(OctopusContext)}
+     * aufgerufen und soll das übergebene Bean als neuen Eintrag speichern.
+     * 
+     * @see #saveBean(OctopusContext, Bean)
+     * 
+     * @param cntx Octopus-Kontext
+     * @param errors kummulierte Fehlerliste
+     * @param bean einzufügendes Bean
+     * @throws BeanException
+     * @throws IOException
+     */
+    protected int insertBean(OctopusContext cntx, List errors, Bean bean) throws BeanException, IOException {
+    	int count = 0;
+        if (bean.isModified() && bean.isCorrect()) {
+            if (bean instanceof OrgUnit) {
+                OrgUnit orgunitBean = (OrgUnit) bean;
+                if (orgunitBean.id != null) {
+                    errors.add("Einzufügender Mandant darf keine ID haben");
+                    return count;
+                }
+                Database database = new DatabaseVeraWeb(cntx);
+                OrgUnit dupBean = (OrgUnit) database.getBean("OrgUnit",
+                        database.getSelect("OrgUnit").
+                        where(Expr.equal("unitname", orgunitBean.name)));
+                if (dupBean != null) {
+                    errors.add("Einzufügender Mandant " + orgunitBean.name + " existiert bereits.");
+                    return count;
+                }
+            }
+            saveBean(cntx, bean);
+            count++;
+        }
+        return count;
+    }
+    
+    /**
+     * Wird von {@link de.tarent.octopus.custom.beans.BeanListWorker#saveList(OctopusContext)}
+     * aufgerufen und soll die übergebene Liste von Beans aktualisieren.
+     * 
+     * @see #saveBean(OctopusContext, Bean)
+     * 
+     * @param cntx Octopus-Kontext
+     * @param errors kummulierte Fehlerliste
+     * @param beanlist Liste von zu aktualisierenden Beans
+     * @throws BeanException
+     * @throws IOException
+     */
+    protected int updateBeanList(OctopusContext cntx, List errors, List beanlist) throws BeanException, IOException {
+    	int count = 0;
+        for (Iterator it = beanlist.iterator(); it.hasNext(); ) {
+            Bean bean = (Bean)it.next();
+            if (bean.isModified() && bean.isCorrect()) {
+                if (bean instanceof OrgUnit) {
+                    OrgUnit orgunitBean = (OrgUnit) bean;
+                    if (orgunitBean.id == null) {
+                        errors.add("Zu aktualisierender Mandant " + orgunitBean.name + " muss eine ID haben");
+                        continue;
+                    }
+                    Database database = new DatabaseVeraWeb(cntx);
+                    OrgUnit dupBean = (OrgUnit) database.getBean("OrgUnit",
+                            database.getSelect("OrgUnit").
+                            where(Where.and(
+                                    Expr.equal("unitname", orgunitBean.name),
+                                    Expr.notEqual("pk", orgunitBean.id))));
+                    if (dupBean != null) {
+                        errors.add("Ein Mandant mit Namen " + orgunitBean.name + " existiert bereits.");
+                        continue;
+                    }
+                }
+                saveBean(cntx, bean);
+                count++;
+            } else if (bean.isModified()) {
+                errors.addAll(bean.getErrors());
+            }
+        }
+        return count;
+    }
+
+
+	//
+	// weitere Octopus-Aktionen
+	//
+
+	/** Octopus-Eingabe-Parameter für {@link #cleanupDatabase(OctopusContext, Integer)} */
+	public static final String INPUT_cleanupDatabase[] = { "orgunit" };
+	/** Octopus-Eingabe-Parameter für {@link #cleanupDatabase(OctopusContext, Integer)} */
+	public static final boolean MANDATORY_cleanupDatabase[] = { false };
+	/** Octopus-Ausgabe-Parameter für {@link #cleanupDatabase(OctopusContext, Integer)} */
+	public static final String OUTPUT_cleanupDatabase = "missingorgunit";
+	/**
+	 * Zeigt eine Statistik über 'verloren' gegangene Datensätze an.
+	 * Wenn der Parameter <code>orgunit</code> übergeben wird werden
+	 * alle Datensätze ohne gültigen Mandanten diesem zugeordnet.
+	 * 
+	 * @param cntx Octopus-Context-Instanz
+	 * @param orgunit Neue Orgunit-ID
+	 * @throws BeanException
+	 * @throws IOException
+	 */
+	public Map cleanupDatabase(OctopusContext cntx, Integer orgunit) throws BeanException, IOException {
+		Database database = getDatabase(cntx);
+		Clause where = new RawClause("fk_orgunit IS NULL OR " +
+				"fk_orgunit NOT IN (SELECT pk FROM veraweb.torgunit)");
+		
+		Map missingorgunit = new HashMap();
+		
+		if (orgunit != null) {
+			database.execute(database.getUpdate("Person").
+					update("fk_orgunit", orgunit).where(where));
+			database.execute(database.getUpdate("Event").
+					update("fk_orgunit", orgunit).where(where));
+			database.execute(database.getUpdate("Import").
+					update("fk_orgunit", orgunit).where(where));
+			database.execute(database.getUpdate("ImportPerson").
+					update("fk_orgunit", orgunit).where(where));
+			database.execute(database.getUpdate("Location").
+					update("fk_orgunit", orgunit).where(where));
+			database.execute(database.getUpdate("Mailinglist").
+					update("fk_orgunit", orgunit).where(where));
+			database.execute(database.getUpdate("Categorie").
+					update("fk_orgunit", orgunit).where(where));
+			database.execute(database.getUpdate("User").
+					update("fk_orgunit", orgunit).where(where));
+			
+			missingorgunit.put("result", "done");
+		}
+		
+		missingorgunit.put("person", database.getCount(
+				database.getCount("Person").where(where)));
+		missingorgunit.put("event", database.getCount(
+				database.getCount("Event").where(where)));
+		missingorgunit.put("import", database.getCount(
+				database.getCount("Import").where(where)));
+		missingorgunit.put("importperson", database.getCount(
+				database.getCount("ImportPerson").where(where)));
+		missingorgunit.put("location", database.getCount(
+				database.getCount("Location").where(where)));
+		missingorgunit.put("mailinglist", database.getCount(
+				database.getCount("Mailinglist").where(where)));
+		missingorgunit.put("category", database.getCount(
+				database.getCount("Categorie").where(where)));
+		missingorgunit.put("user", database.getCount(
+				database.getCount("User").where(where)));
+		
+		return missingorgunit;
+	}
+}
