@@ -1,0 +1,115 @@
+#set($title = "Statistik erstellen")
+#parse("inc/header.vm")
+
+<form id="formlist" name="formlist" action="" method="get" target="" onsubmit="return exportStatistik();">
+<input type="hidden" id="a" name="a" value="statistik">
+
+<table class="tab" border="0" cellspacing="0" cellpadding="0"><tr>
+	<td class="tableft">&nbsp;</td>
+	<td class="tabactiv"><span class="tabactiv">Statistik</span></td>
+	<td class="tabright">&nbsp;</td>
+</tr></table>
+
+#openContent()
+#openContentSection()
+
+<h1>Statistik auf folgenden Zeitrahmen einschr&auml;nken:</h1>
+
+<table class="form"><tr>
+	<td class="label">Zeitrahmen-Beginn:</td>
+	<td class="value">
+		<input type="text" name="begin" value="" id="begin" class="date" style="width: 90px;">
+		<span id="showBegin"><img src="${paths.staticWeb}images/calendar.gif" alt="Datum ausw&auml;hlen" title="Datum ausw&auml;hlen"></span>
+		<script type="text/javascript">
+		    Calendar.setup({
+				inputField     :    "begin",
+				button         :    "showBegin",
+				ifFormat       :    "%d.%m.%Y",
+				showsTime      :    false
+			});
+		</script>
+##		&nbsp; &nbsp;
+##		(<a href="javascript:document.getElementById('begin').value='$!message.date("DATE", $firstDayInMonth)'; document.getElementById('end').value='$!message.date("DATE", $lastDayInMonth)';">aktuellen Monat einf&uuml;gen</a>)
+	</td>
+</tr><tr>
+	<td class="label">Zeitrahmen-Ende:</td>
+	<td class="value">
+		<input type="text" name="end" value="" id="end" class="date" style="width: 90px;">
+		<span id="showEnd"><img src="${paths.staticWeb}images/calendar.gif" alt="Datum ausw&auml;hlen" title="Datum ausw&auml;hlen"></span>
+		<script type="text/javascript">
+		    Calendar.setup({
+				inputField     :    "end",
+				button         :    "showEnd",
+				ifFormat       :    "%d.%m.%Y",
+				showsTime      :    false
+			});
+		</script>
+	</td>
+</tr></table><br>
+
+<script type="text/javascript">
+	function exportStatistik() {
+		if (document.getElementById('formlist').statistik[0].checked) {
+			document.getElementById('formlist').action = 'StatistikExport';
+			document.getElementById('formlist').target = '_blank';
+			document.getElementById('a').value = 'statistik';
+		} else if (document.getElementById('formlist').statistik[1].checked) {
+			document.getElementById('formlist').action = 'StatistikExport';
+			document.getElementById('formlist').target = '_blank';
+			document.getElementById('a').value = 'statistik';
+		} else if (document.getElementById('formlist').statistik[2].checked) {
+			document.getElementById('formlist').action = 'StatistikExport';
+			document.getElementById('formlist').target = '_blank';
+			document.getElementById('a').value = 'statistik';
+		} else if (document.getElementById('formlist').statistik[3].checked) {
+			document.getElementById('formlist').action = 'StatistikPersonSearch';
+			document.getElementById('formlist').target = '';
+			document.getElementById('a').value = 'statistikHost';
+		} else if (document.getElementById('formlist').statistik[4].checked) {
+			document.getElementById('formlist').action = 'StatistikPersonSearch';
+			document.getElementById('formlist').target = '';
+			document.getElementById('a').value = 'statistikGuest';
+		} else if (document.getElementById('formlist').statistik[5].checked) {
+			document.getElementById('formlist').action = 'StatistikExport';
+			document.getElementById('formlist').target = '_blank';
+			document.getElementById('a').value = 'statistik';
+		} else {
+			alert('UNKNOWN');
+			return false;
+		}
+	}
+</script>
+
+<br>
+<h1 style="margin-bottom: 10px;">Statistiktyp ausw&auml;hlen</h1>
+
+<input type="radio" id="EventsPerYear" name="statistik" value="EventsPerYear" checked><label for="EventsPerYear">
+Gesamt&uuml;bersicht &uuml;ber die Anzahl der Veranstaltungen pro Jahr.</label><br><br>
+
+<input type="radio" id="EventsPerMonth" name="statistik" value="EventsPerMonth"><label for="EventsPerMonth">
+Gesamt&uuml;bersicht &uuml;ber die Anzahl der Veranstaltungen pro Monat.</label><br><br>
+
+<input type="radio" id="EventsGroupByHost1" name="statistik" value="EventsGroupByHost"><label for="EventsGroupByHost1">
+Gesamt&uuml;bersicht &uuml;ber alle Veranstaltungen, gruppiert nach Gastgeber.</label><br><br>
+
+<input type="radio" id="EventsGroupByHost2" name="statistik" value="EventsGroupByHost"><label for="EventsGroupByHost2">
+&Uuml;bersicht &uuml;ber alle Veranstaltungen eines Gastgebers (mit Suche).</label><br><br>
+
+<input type="radio" id="EventsGroupByGuest" name="statistik" value="EventsGroupByGuest"><label for="EventsGroupByGuest">
+&Uuml;bersicht &uuml;ber alle Veranstaltungen eines Gastes (mit Suche).</label><br><br>
+
+<input type="radio" id="EventsGroupByLocation" name="statistik" value="EventsGroupByLocation"><label for="EventsGroupByLocation">
+&Uuml;bersicht &uuml;ber alle Veranstaltungen sortiert nach Veranstaltungsort.</label><br><br>
+
+<div id="fixme" class="fixme1"><div class="fixme2"><div class="fixme3">
+
+<input type="submit" class="submit" name="create" value="Statistik erstellen"> &nbsp;
+
+</div></div></div>
+
+#closeContentSection()
+#closeContent()
+
+</form>
+
+#parse("inc/footer.vm")

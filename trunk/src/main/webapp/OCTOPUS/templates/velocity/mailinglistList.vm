@@ -1,0 +1,91 @@
+#set($title = "Verteilerliste")
+#parse("inc/header.vm")
+
+<script type="text/javascript">
+<!--
+function deleteMailinglist() {
+	var n = 0; //Anzahl der markierten Verteiler
+	for (var i = 0; i < document.formlist.length; i++) {
+		if (document.formlist.elements[i].type == "checkbox")
+			if (document.formlist.elements[i].checked == true)
+				n++;
+	}
+	var check = false;
+	if (n == 1)
+		check = confirm("Soll der markierte Verteiler entfernt werden?");
+	else if (n > 1)
+		check = confirm("Sollen die markierten Verteiler entfernt werden?");
+	if (check == true) {
+		document.getElementById('remove').name = 'remove';
+		document.formlist.submit();
+	}
+}
+//-->
+</script>
+
+<form id="formlist" name="formlist" action="ShowMailinglistList" method="POST">
+<table class="tab" border="0" cellspacing="0" cellpadding="0"><tr>
+	<td class="tableft">&nbsp;</td>
+	<td class="tabactiv"><span class="tabactiv">Verteiler</span></td>
+	<td class="tabright">&nbsp;</td>
+</tr></table>
+
+#openContent()
+#openContentSection()
+
+<input type="hidden" name="start" value="">
+<input type="hidden" name="selectAll" value="false">
+<input type="hidden" name="selectNone" value="false">
+<input type="hidden" name="doRemove" value="true">
+<input type="hidden" id="remove" name="removeDisabled" value="true">
+
+#foreach($bean in $list)
+<input type="hidden" name="list" value="$bean.id">
+#end
+<table class="list">
+	<tr class="list1" style="height: 20px;">
+		<th class="list" style="width: 20px;">&nbsp;</th>
+		<th class="list">ID</th>
+		<th class="list">Bezeichnung</th>
+		<th class="list">Benutzer</th>
+		<th class="list">Angelegt am</th>
+		<th class="list">Erzeugt aus VA</th>
+	</tr>
+	#foreach($bean in $list)
+	#if ($velocityCount % 2 == 0)
+		#set($class = "list1")
+	#else
+		#set($class = "list2")
+	#end
+	<tr class="$class" onmouseover="onMouseOverList(this);" onmouseout="onMouseOutList(this);">
+		<td class="list"><input type="checkbox" name="${bean.id}-select" value="true" class="checkbox" #if($listselection.indexOf($bean.id) != -1) checked#end></td>
+		<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowMailinglistDetail?id=$!{bean.id}';"><input type="hidden" name="${bean.id}-id" value="$bean.id">$!bean.id</td>
+		<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowMailinglistDetail?id=$!{bean.id}';">$!bean.name</td>
+		<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowMailinglistDetail?id=$!{bean.id}';">$!bean.username</td>
+		<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowMailinglistDetail?id=$!{bean.id}';">$!message.date("DATE_TIME", $bean.created)</td>
+		<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowMailinglistDetail?id=$!{bean.id}';">$!bean.eventname</td>
+	</tr>
+
+	#end
+</table>
+
+#if ($listparam.count == 0)
+	<br>Keine Daten gefunden.
+#end
+
+<div id="fixme" class="fixme1"><div class="fixme2"><div class="fixme3">
+
+	#parse("inc/list-navi.vm")
+	#parse("inc/list-direct.vm")
+
+	<input type="button" name="remove" value="L&ouml;schen" onclick="deleteMailinglist();" title="markierte Verteiler l&ouml;schen" #if($grants.mayWrite()) class="button" #else class="buttondisabled" disabled #end> &nbsp;
+
+</div></div></div>
+
+</form>
+
+#closeContentSection()
+#closeContent()
+
+
+#parse("inc/footer.vm")

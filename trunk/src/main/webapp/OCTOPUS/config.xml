@@ -1,0 +1,2607 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--!DOCTYPE tcModuleConfig SYSTEM "../tcModuleConfig.dtd"-->
+
+<!--
+	Octopus config.xml
+	
+	Auswärtiges Amt - VerA.web
+	
+	Hauptkonfiguration
+	Datenbank-Einstellungen siehe dblayer.properties
+-->
+<tcModuleConfig>
+	<!-- textuelle Beschreibung des Moduls -->
+	<description>AA - VerA.web</description>
+
+	<!-- Authentifizierung für dieses Modul -->
+	<loginManager>
+		<!-- Java-Klasse, die als LoginManager für das Modul instanziiert werden soll; hier sollte immer "de.tarent.ldap.LoginManagerLDAPAA" für einen Zugriff auf einen LDAP-Server mit dem AA.schema eingestellt sein. -->
+		<param name="loginManagerClass" value="de.tarent.ldap.LoginManagerLDAPAA" />
+		<!-- Login-Benutzername für einen System-Admin ohne LDAP-Rückhalt. -->
+		<param name="systemlogin" value="system"/>
+		<!-- Login-Passwort für einen System-Admin ohne LDAP-Rückhalt. -->
+		<param name="systempassword" value="manager"/>
+		<!-- der Authentisierungstyp bei LDAP-Zugriffen; er sollte auf "simple" stehen. -->
+		<param name="ldapauth" value="simple" />
+		<!-- der Basis-DN bei LDAP-Zugriffen; im Falle der Test-Auslandsvertretung 01 ist es "ou=testav01,dc=aa". -->
+		<param name="ldapbasedn" value="ou=testav01,dc=aa" />
+		<!-- der Benutzer bei LDAP-Zugriffen, die nicht ein einfaches Überprüfen eines Logins darstellen; zum Beispiel "cn=Manager,ou=testav01,dc=aa". -->
+		<param name="ldapuser" value="cn=Manager,ou=testav01,dc=aa" />
+		<!-- der relative DN unter ldapbasedn" mit Authentifizierungsinformationen der AA-Rollen; im Falle der Test-Auslandsvertretung 01 ist es "ou=Users". -->
+		<param name="ldaprelative" value="ou=Users" />
+		<!-- der LDAP-Filter, mit dem in den AA-Rollen unter "ldaprelative" nach möglichen Rollen für einen im Anmeldedialog angegebenen Benutzernamen gesucht wird. -->
+		<param name="aarolefilter" value="(&amp;(|(person=uid={0}@auswaertiges-amt.de,ou=Personen,dc=aa)(person=uid={0}.auswaertiges-amt.de,ou=Personen,dc=aa)(person=uid={0},ou=Personen,dc=aa))(objectclass=AARole))" />
+		
+		<!-- Hier die lokale Konfiguration vom LDAP abgleichen -->
+		<!-- Muster -->
+		<!-- die URL des LDAP-Servers bei LDAP-Zugriffen; im Falle der Test-Auslandsvertretung 01 ist es "ldap://localhost:389/". -->
+		<!-- <param name="ldapurl" value="ldap://host:port/" /> -->
+		<!-- das Passwort bei LDAP-Zugriffen, die nicht ein einfaches Überprüfen eines Logins darstellen; zum Beispiel "secunet". -->
+		<!-- <param name="ldappwd" value="password" /> -->
+		<!-- -->
+		<!-- Einstellungen im AA -->
+		<param name="ldapurl" value="ldap://localhost:389/" />
+		<param name="ldappwd" value="secunet" />
+		<!-- -->
+		<!-- Einstellungen bei tarent
+		<param name="ldapurl" value="ldap://172.16.97.145:3890/" />
+		<param name="ldappwd" value="secret" />
+		-->
+		<!-- Einstellungen auf AEON
+		<param name="ldapurl" value="ldap://192.168.250.128:3890/" />
+		<param name="ldappwd" value="secret" />
+		-->
+	</loginManager>
+	
+	<!-- Die in diesem Element enthaltenen param-Elemente erlauben, gewisse Aspekte von VerA.web zu steuern. -->
+	<params>
+		<!-- ************************* -->
+		<!-- *** Octopus-Steuerung *** -->
+		<!-- ************************* -->
+		<!-- Diese Parameter steuern das Zusammenspiel mit dem Application Server und sollten allgemein nicht geändert werden. -->
+		<!-- der relative Pfad der Antwort-Templates; "templates/". -->
+		<param name="paths.templateRoot" value="templates/"/>
+		<!-- die Java-Klasse, in der Informationen zum angemeldeten Benutzer gehalten werden; "de.tarent.octopus.PersonalConfigAA". -->
+		<param name="personalConfigClass" value="de.tarent.octopus.PersonalConfigAA"/>
+		<!-- der Dateiname der Konfigurationsdatei für den Datenbankzugriff; "dblayer.properties". -->
+		<param name="dblayer" value="dblayer.properties"/>
+		<!-- die Vorgabe für den Rückgabeformattyp der Octopus-Tasks; "velocity". -->
+		<param name="defaultResponseType" value="velocity"/>
+		<!-- die Vorgabe für den Content Type der Rückgaben der Octopus-Tasks; "text/html;charset=UTF-8". -->
+		<param name="defaultContentType" value="text/html;charset=UTF-8"/>
+		<!-- die Vorgabe für die Zeichenkodierung der Rückgaben der Octopus-Tasks; "UTF-8". -->
+		<param name="defaultEncoding" value="UTF-8"/>
+		<!-- der Name des Skripts für die Darstellung von Fehlerseiten; "error" referenziert bei obigen Einstellungen "templates/velocity/error.vm". -->
+		<param name="defaultErrorDescriptionName" value="error"/>
+
+		<!-- ************************* -->
+		<!-- *** E-Mail-Versendung *** -->
+		<!-- ************************* -->
+		<!-- Im Parameter "mailServer" wird die Versendung von E-Mails gesteuert. -->
+		<param name="mailServer" type="map">
+			<!-- die Wartezeit zwischen dem Versendenden verschiedener E-Mails in Sekunden. -->
+			<param name="waitBetweenJobs" value="60"/>
+			<!-- der SMTP-Server. -->
+			<param name="host" value="hermes.tarent.de"/>
+			<!-- der Absender, wenn zum versendenden Benutzer keine E-Mail-Adresse im LDAP gefunden wird; hier kann "$role" als Platzhalter für die Rolle des versendenden Benutzers genutzt werden; zum Beispiel "$role@auswaertiges-amt.de". -->
+			<param name="from" value="$role@tarent.de"/>
+		</param>
+		<!-- maximale Länge, die eine "mailto:..."-URL annehmen darf; "-1"  steht für keine Beschränkung. -->
+		<param name="mailToUrlMaxSize" value="1024"/>
+
+		<!-- ********************** -->
+		<!-- *** Im- und Export *** -->
+		<!-- ********************** -->
+		<!-- die für den Duplikatscheck beim Import relevanten Felder werden hierin aufgeführt. Durch Anpassung der beiden Beans aneinander werden dort in aller Regel gleichnamige Felder in den Test eingehen. -->
+		<param name="importProperties" type="map">
+			<!-- Bean- und Datensatzfeld, die den gleichen Wert enthalten müssen um die Datensätze als Duplikate zu erkennen -->
+			<param name="beanFieldEqual1" value="firstname_a_e1"/>
+			<param name="fieldEqual1" value="firstname_a_e1"/>
+			<!-- Bean- und Datensatzfeld, die den gleichen Wert enthalten müssen um die Datensätze als Duplikate zu erkennen -->
+			<param name="beanFieldEqual2" value="lastname_a_e1"/>
+			<param name="fieldEqual2" value="lastname_a_e1"/>
+		</param>
+		<!-- Nutzung der Adressfreitextfelder -->
+		<param name="importTextfieldMapping" type="map">
+			<!-- Muster:
+			<param name="n:Doctype" value="NAME_DES_DOKUMENTTYPS"/>
+			<param name="n:Person" value="IMPORTFELD_PERSON"/>
+			<param name="n:Partner" value="IMPORTFELD_PARTNER"/>
+			<param name="n:Join" value="VERKNÜPFUNGSWORT"/>
+			-->
+			<param name="1:Doctype" value="ehem. MadLAN Adresse 1"/>
+			<param name="1:Person" value="textfield_1"/>
+			<param name="2:Doctype" value="ehem. MadLAN Adresse 2"/>
+			<param name="2:Person" value="textfield_2"/>
+			<param name="3:Doctype" value="ehem. MadLAN Adresse kyrillisch"/>
+			<param name="3:Person" value="textfield_3"/>
+		</param>
+		<!-- die Liste der Bean-Felder, die beim Befüllen einer Person Bestands-Bean aus einer ImportPerson Import-Bean nicht übernommen werden sollen. -->
+		<param name="ignorePersonFields" type="array">
+			<value>id</value>
+			<value>contact</value>
+			<value>saveunder</value>
+			<value>modified</value>
+			<value>namefilter</value>
+		</param>
+		<!-- die Einstellungen für das Bearbeiten von Duplikatslisten eines Import werden hier gehalten. -->
+		<param name="importDuplicatesProperties" type="map">
+			<!-- maximal Anzahl Importdatensätze, die auf einer Seite angezeigt werden sollen -->
+			<param name="dsCount" value="5"/>
+			<!-- maximale Anzahl der Duplikate im Bestand, die zu einem Importdatensatz angezeigt wird. -->
+			<param name="dupCount" value="-1"/>
+		</param>
+		<!-- Diese Parameter geben die verfügbaren Datenaustauschformate an und steuern weitere Aspekte des Im- und Exports. -->
+		<!-- die Liste der Namen der Parameter, die jeweils ein verfügbares Datenaustauschformat beschreiben. -->
+		<param name="exchangeFormats" type="array">
+			<value>formatCSV</value>
+			<value>formatXML</value>
+			<value>formatCCM</value>
+			<value>formatMAdLANPerson</value>
+			<value>formatMAdLANFirma</value>
+			<value>formatX-ManageKontakt</value>
+			<value>formatCSVPersdat+Anschrift</value>	
+			<value>formatCSVPersdat+Anschrift+Doktyp</value>
+			<value>formatCSVPersdat+Doktyp</value>
+			<value>formatCSVPersdat+Kategorien</value>
+			<value>formatCSV_ISO-8859-15</value>
+		</param>
+		
+		<!-- ************************************************ -->
+		<!-- *** Definition der verfügbaren Exportformate *** -->
+		<!-- ************************************************ -->
+		<!-- Exportformate werden in eigenen Parametern definiert, deren Namenseinträge im
+		     Parameter "exchangeFormats" aufgelistet sind. Diese Namen sind zwar frei wählbar,
+		     um aber Kollisionen mit anderen Parametern zu vermeiden, sollten sie als Konvention
+		     dem Muster "format*" genügen.
+		     
+			 - In "name" enthalten sie einen Namen zur Anzeige,
+		     - in "description" eine ausführlichere Beschreibung zur Anzeige,
+		     - in "defaultExtension" die Vorgabe für eine entsprechende Dateiendung,
+		     - in "mimeType" den MIME-Typ,
+		     - in "exporterClass" den Namen der Java-Klasse, die einen Export in diesem Format durchführen kann,
+		     - in "importerClass" den Namen der Java-Klasse, die einen Import in diesem Format versteht und
+		     - in "properties" eine Sammlung Format-spezifischer Eigenschaften.
+		     
+			 Insbesondere sind unter "properties" die Einträge "remarks" und "choices" untergebracht;
+			 ersterer stellt eine Liste von Bemerkungen, die an der Oberfläche zu dem Format angezeigt werden, dar,
+			 letzterer eine Sammlung von Format-spezifischen Benutzer-wählbaren Optionen; diese enthalten
+			 - unter "label" einen Bezeichner zur Anzeige, dazu
+			 - optional unter "select" eine Auswahl mit Abbildungen Wert auf Bezeichner und
+			 - unter "default" einen Vorgabewert.
+			 Die vom Benutzer gelieferten Werte werden jeweils unter dem Schlüssel der Option
+			 in der Sammlung mit den bestehenden "properties" der ex- oder importierenden Klasse
+			 übergeben.
+		 -->
+		
+		<!-- *** CSV-Formate *** -->
+		<!-- CSV-Formate ex- und importieren CSV-Dateien mit Spaltennamen in der ersten Zeile;
+			 hierzu sind die entsprechenden "format*"-Parameter wie folgt zu befüllen:
+			 
+			 - "exporterClass": "de.tarent.aa.veraweb.utils.GenericCSVExporter".
+			 - "importerClass": "de.tarent.aa.veraweb.utils.GenericCSVImporter".
+			 - "properties": folgende spezifische Eigenschaften kennen diese Klassen:
+				- "encoding": die Zeichenkodierung in der CSV-Datei; zum Beispiel "UTF-8".
+				- "fieldSeparator": das Spaltentrennzeichen in der CSV-Datei; zum Beispiel ";".
+				- "textQualifier": das Anführungszeichen in der CSV-Datei, mit dem Feldinhalte
+				  eingeschlossen sind, die Spaltentrennzeichen oder Zeilenumbrüche enthalten;
+				  zum Beispiel "&quot;".
+				- "dateFormat": das Format, in dem Datumsangaben (also Inhalte von Feldern vom
+				  Typ Date, Time, Timestamp etc.) exportiert bzw. bei einem Import erwartet
+				  werden; zum Beispiel "dd.MM.yyyy". Eine ausführliche Beschreibung der
+				  Gestaltungsmöglichkeiten dieses Formats findet sich bei der Dokumentation
+				  der benutzten Klasse java.text.SimpleDateFormat, siehe
+				  http://java.sun.com/j2se/1.4.2/docs/api/java/text/SimpleDateFormat.html
+				- "exportMapping": die Abbildung von CSV-Spaltennamen auf Muster mit Personenfeldern,
+				  die als {typ:name} auftauchen, wobei der Typ
+				  
+				    "" Stammdatenattribute,
+				    "CAT" Kategorienränge,
+				    "EVE" Ereignisse,
+				    "COR" Diplomatische Corps und die Typen
+				    "DTM" und "DTP" Freitexte von Hauptperson und Partner zu Dokumenttypen bezeichnen;
+				  
+				  Das Jokerzeichen * kann abschließend im Namen genutzt werden; zum Beispiel:
+
+					<param name="*" value="{:*}"/>
+					<param name="Kategorie *" value="{CAT:*}"/>
+					<param name="Ereignis *" value="{EVE:*}"/>
+					<param name="Dipl. Corps *" value="{COR:*}"/>
+					<param name="Dokumenttyp * (Hauptperson)" value="{DTM:*}"/>
+					<param name="Dokumenttyp * (Partner)" value="{DTP:*}"/>
+
+				 Dies bedeutet, dass alle Stammdatenfelder ("{:*}") unter ihrem VerA.web-Bezeichner
+				 ("*") exportiert werden sollen, alle Kategorienrange ("{CAT:*}") unter 'Kategorie
+				 KATEGORIENNAME' ("Kategorie *"), alle Ereignisrange ("{EVE:*}") unter 'Ereignis
+				 EREIGNISNAME' ("Kategorie *"), alle diplomatischen Corps unter 'Dipl. Corps CORPS'
+				 ("Dipl. Corps *"), alle Dokumenttypfreitexte der Hauptperson
+				 ("{DTM:*}") unter 'Dokumenttyp DOKUMENTTYPNAME (Hauptperson)' ("Dokumenttyp *
+				 (Hauptperson)") und alle Dokumenttypfreitexte der Partner ("{DTP:*}") unter
+				 'Dokumenttyp DOKUMENTTYPNAME  (Partner)' ("Dokumenttyp * (Partner)").
+
+				 Sollen nun generell Kategorienränge, Hauptpersonen- oder Partnerfreitexte
+				 weggelassen werden, so ist lediglich die Zeile mit der entsprechenden Zuordnung
+				 zu löschen.
+
+				 Soll nun aber innerhalb eines dieser Bereiche nur eine bestimmte Auswahl exportiert
+				 werden, z.B. nur eine bestimmte Unterauswahl der Stammdaten oder nur die Ränge
+				 bestimmter Kategorien exportiert werden, so ist die Jokerzeichen-orientierte
+				 Darstellung in der entsprechenden Zeile durch eine explizite Aufzahlung zu ersetzen.
+
+				 Soll zum Beispiel von den Stammdaten nur Vor- und Nachname der Hauptperson im
+				 Zeichensatz Latin exportiert werden, so ist
+
+					<param name="*" value="{:*}"/>
+
+				 durch
+
+					<param name="lastname_a_e1" value="{:lastname_a_e1}"/>
+					<param name="firstname_a_e1" value="{:firstname_a_e1}"/>
+
+				 zu ersetzen. Sollen die Spalten passend "Nachname" und "Vorname" genannt werden,
+				 so ist folgendes zu benutzen:
+
+					<param name="Nachname" value="{:lastname_a_e1}"/>
+					<param name="Vorname" value="{:firstname_a_e1}"/>
+		 -->
+		<param name="formatCSV" type="map">
+			<param name="name" value="CSV"/>
+			<param name="description" value="Comma-Separated-Values"/>
+			<param name="defaultExtension" value=".csv"/>
+			<param name="mimeType" value="text/csv;charset=UTF-8"/>
+			<!--param name="icon"/-->
+			<param name="exporterClass" value="de.tarent.aa.veraweb.utils.GenericCSVExporter"/>
+			<param name="importerClass" value="de.tarent.aa.veraweb.utils.GenericCSVImporter"/>
+			<param name="properties" type="map">
+				<param name="remarks" type="array">
+					<value>
+						Je nach Menge der exportierten Felder (insbesondere ist dies von der
+						Anzahl exportierter Dokumenttypen und Kategorien abhängig) kann es
+						passieren, dass MS Excel und OO Calc die exportierten Daten nicht
+						vollständig lesen können.
+					</value>
+				</param>
+				<param name="encoding" value="UTF-8"/>
+				<param name="fieldSeparator" value=";"/>
+				<param name="textQualifier" value="&quot;"/>
+				<param name="exportMapping" type="map">
+					<param name="*" value="{:*}"/>
+					<param name="Kategorie *" value="{CAT:*}"/>
+					<param name="Ereignis *" value="{EVE:*}"/>
+					<param name="Dipl. Corps *" value="{COR:*}"/>
+					<param name="Dokumenttyp * (Hauptperson)" value="{DTM:*}"/>
+					<param name="Dokumenttyp * (Partner)" value="{DTP:*}"/>
+				</param>
+			</param>
+		</param>
+		
+		<param name="formatX-ManageKontakt" type="map">
+			<param name="name" value="X-Manage-CSV" />
+			<param name="description" value="X-Manage Kontakte" />
+			<param name="defaultExtension" value=".csv" />
+			<param name="mimeType" value="text/csv;charset=UTF-8" />
+			<param name="exporterClass" value="de.tarent.aa.veraweb.utils.GenericCSVExporter" />			
+			<param name="importerClass" value="de.tarent.aa.veraweb.utils.GenericCSVImporter" />
+			<param name="properties" type="map">
+				<param name="encoding" value="UTF-8" />
+				<param name="fieldSeparator" value="," />
+				<param name="textQualifier" value="&quot;" />
+				<param name="dateFormat" value="dd.MM.yyyy"/>
+				<param name="exportMapping" type="map">
+					<!-- Hauptperson -->
+					<param name="Nachname" value="{:lastname_a_e1}" />
+					<param name="Vorname" value="{:firstname_a_e1}" />
+					<param name="Anrede" value="{:salutation_a_e1}" />
+					<param name="Sprache" value="{:languages_a_e1}" />
+					<param name="Geburtstag" value="{:birthday_a_e1}" />
+					<param name="Titel" value="{:title_a_e1}" />
+					<param name="Nationalität" value="{:nationality_a_e1}" />
+					<param name="Notizen" value="{:note_a_e1}" />
+					<!-- Adresse geschäftlich-->
+					<param name="Firma" value="{:company_a_e1}" />
+					<param name="Position" value="{:function_a_e1}" />
+					<param name="Straße geschäftlich" value="{:street_a_e1}" />
+					<param name="Ort geschäftlich" value="{:city_a_e1}" />
+					<param name="Postleitzahl geschäftlich" value="{:zipcode_a_e1}" />
+					<param name="Land geschäftlich" value="{:country_a_e1}" />
+					<param name="Telefon geschäftlich" value="{:fon_a_e1}" />
+					<param name="Mobiltelefon" value="{:mobil_a_e1}" />
+					<param name="Fax geschäftlich" value="{:fax_a_e1}" />
+					<param name="E-Mail-Adresse" value="{:mail_a_e1}" />
+					<param name="Webseite geschäftlich" value="{:url_a_e1}" />
+					<!-- Adresse privat-->
+					<param name="Straße privat" value="{:street_b_e1}" />
+					<param name="Ort privat" value="{:city_b_e1}" />
+					<param name="Postleitzahl privat" value="{:zipcode_b_e1}" />
+					<param name="Land privat" value="{:country_b_e1}" />
+					<param name="Telefon privat" value="{:fon_b_e1}" />
+					<param name="Fax privat" value="{:fax_b_e1}" />
+					<param name="E-Mail 2:Adresse" value="{:mail_b_e1}" />
+					<param name="Webseite privat" value="{:url_b_e1}" />
+					<!-- Adresse Lieferung -->
+					<param name="Straße Lieferung" value="{:street_c_e1}" />
+					<param name="Ort Lieferung" value="{:city_c_e1}" />
+					<param name="Postleitzahl Lieferung" value="{:zipcode_c_e1}" />
+					<param name="Land Lieferung" value="{:country_c_e1}" />
+					<!-- "Kategorie" ? -->
+				</param>
+			</param>
+		</param>
+		
+		<param name="formatCSV_ISO-8859-15" type="map">
+			<param name="name" value="CSV-ISO-8859-15"/>
+			<param name="description" value="Im-/Export ISO-8859-15"/>
+			<param name="defaultExtension" value=".csv"/>
+			<param name="mimeType" value="text/csv;charset=ISO-8859-15"/>
+			<!--param name="icon"/-->
+			<param name="exporterClass" value="de.tarent.aa.veraweb.utils.GenericCSVExporter"/>
+			<param name="importerClass" value="de.tarent.aa.veraweb.utils.GenericCSVImporter"/>
+			<param name="properties" type="map">
+				<param name="remarks" type="array">
+					<value>						
+						Dieses Format ist für Im-/Exporte in MS-Office-Anwendungen geeignet, die den Zeichensatz ISO-8859-15 verwenden. 
+						Je nach Menge der exportierten Felder (insbesondere ist dies von der
+						Anzahl exportierter Dokumenttypen und Kategorien abhängig) kann es
+						passieren, dass MS Excel und OO Calc die exportierten Daten nicht
+						vollständig lesen können.
+					</value>
+				</param>
+				<param name="encoding" value="ISO-8859-15"/>
+				<param name="fieldSeparator" value=";"/>
+				<param name="textQualifier" value="&quot;"/>
+				<param name="exportMapping" type="map">
+					<param name="*" value="{:*}"/>
+					<param name="Kategorie *" value="{CAT:*}"/>
+					<param name="Ereignis *" value="{EVE:*}"/>
+					<param name="Dipl. Corps *" value="{COR:*}"/>
+					<param name="Dokumenttyp * (Hauptperson)" value="{DTM:*}"/>
+					<param name="Dokumenttyp * (Partner)" value="{DTP:*}"/>
+				</param>
+			</param>
+		</param>
+		
+		<param name="formatCSVPersdaten+Anschrift" type="map">
+			<param name="name" value="CSVPersdaten+Anschrift"/>
+			<param name="description" value="Comma-Separated-Values"/>
+			<param name="defaultExtension" value=".csv"/>
+			<param name="mimeType" value="text/csv;charset=UTF-8"/>
+			<!--param name="icon"/-->
+			<param name="exporterClass" value="de.tarent.aa.veraweb.utils.GenericCSVExporter"/>
+			<param name="importerClass" value="de.tarent.aa.veraweb.utils.GenericCSVImporter"/>
+			<param name="properties" type="map">
+				<param name="remarks" type="array">
+					<value>
+						Es werden nur die Felder aus den Karteireitern "Personendaten",  
+						"Anschriften" und deren untergeordneten Karteireitern exportiert.
+					</value>
+				</param>
+				<param name="encoding" value="UTF-8"/>
+				<param name="fieldSeparator" value=";"/>
+				<param name="textQualifier" value="&quot;"/>
+				<param name="exportMapping" type="map">
+					<param name="*" value="{:*}"/>
+				</param>
+			</param>
+		</param>
+
+		<param name="formatCSVPersdat+Anschrift+Doktyp" type="map">
+			<param name="name" value="CSVPersdat+Anschrift+Doktyp"/>
+			<param name="description" value="Comma-Separated-Values"/>
+			<param name="defaultExtension" value=".csv"/>
+			<param name="mimeType" value="text/csv;charset=UTF-8"/>
+			<!--param name="icon"/-->
+			<param name="exporterClass" value="de.tarent.aa.veraweb.utils.GenericCSVExporter"/>
+			<param name="importerClass" value="de.tarent.aa.veraweb.utils.GenericCSVImporter"/>
+			<param name="properties" type="map">
+				<param name="remarks" type="array">
+					<value>
+						Es werden nur die Felder aus den Karteireitern "Personendaten",  
+						"Anschriften", "Dokumenttypen" und deren untergeordneten
+						Karteireitern exportiert. 
+						Je nach Menge der exportierten Felder (insbesondere ist dies von der
+						Anzahl exportierter Dokumenttypen abhängig) kann es passieren, dass
+						MS Excel und OO Calc die exportierten Daten nicht vollständig lesen
+						können.
+					</value>
+				</param>
+				<param name="encoding" value="UTF-8"/>
+				<param name="fieldSeparator" value=";"/>
+				<param name="textQualifier" value="&quot;"/>
+				<param name="exportMapping" type="map">
+					<param name="*" value="{:*}"/>
+					<param name="Dokumenttyp * (Hauptperson)" value="{DTM:*}"/>
+					<param name="Dokumenttyp * (Partner)" value="{DTP:*}"/>
+				</param>
+			</param>
+		</param>
+		
+		<param name="formatCSVPersdat+Doktyp" type="map">
+			<param name="name" value="CSVPersdat+Doktyp"/>
+			<param name="description" value="Comma-Separated-Values"/>
+			<param name="defaultExtension" value=".csv"/>
+			<param name="mimeType" value="text/csv;charset=UTF-8"/>
+			<!--param name="icon"/-->
+			<param name="exporterClass" value="de.tarent.aa.veraweb.utils.GenericCSVExporter"/>
+			<param name="importerClass" value="de.tarent.aa.veraweb.utils.GenericCSVImporter"/>
+			<param name="properties" type="map">
+				<param name="remarks" type="array">
+					<value>
+						Es werden nur die Felder aus den Karteireitern "Personendaten", 
+						 "Dokumenttypen" und deren untergeordneten Karteireitern exportiert.		
+						Je nach Menge der exportierten Felder (insbesondere ist dies von der
+						Anzahl exportierter Dokumenttypen abhängig) kann es passieren, dass
+						MS Excel und OO Calc die exportierten Daten nicht vollständig lesen
+						können.
+					</value>
+				</param>
+				<param name="encoding" value="UTF-8"/>
+				<param name="fieldSeparator" value=";"/>
+				<param name="textQualifier" value="&quot;"/>
+				<param name="exportMapping" type="map">
+				<!--	<param name="*" value="{:*}"/> -->
+					<param name="lastname_a_e1" value="{:lastname_a_e1}" />
+					<param name="lastname_a_e2" value="{:lastname_a_e2}" />
+					<param name="lastname_a_e3" value="{:lastname_a_e3}" />
+					<param name="lastname_b_e1" value="{:lastname_b_e1}" />
+					<param name="lastname_b_e2" value="{:lastname_b_e2}" />
+					<param name="lastname_b_e3" value="{:lastname_b_e3}" />
+					<param name="firstname_a_e1" value="{:firstname_a_e1}" />
+					<param name="firstname_a_e2" value="{:firstname_a_e2}" />
+					<param name="firstname_a_e3" value="{:firstname_a_e3}" />
+					<param name="firstname_b_e1" value="{:firstname_b_e1}" />
+					<param name="firstname_b_e2" value="{:firstname_b_e2}" />
+					<param name="firstname_b_e3" value="{:firstname_b_e3}" />
+					<param name="id" value="{:id}" />
+					<param name="created" value="{:created}" />
+					<param name="createdby" value="{:createdby}" />
+					<param name="changed" value="{:changed}" />
+					<param name="changedby" value="{:changedby}" />
+					<param name="expire" value="{:expire}" />
+					<param name="importsource" value="{:importsource}" />
+					<param name="salutation_a_e1" value="{:salutation_a_e1}" />
+					<param name="salutation_a_e2" value="{:salutation_a_e2}" />
+					<param name="salutation_a_e3" value="{:salutation_a_e3}" />
+					<param name="salutation_b_e1" value="{:salutation_b_e1}" />
+					<param name="salutation_b_e2" value="{:salutation_b_e2}" />
+					<param name="salutation_b_e3" value="{:salutation_b_e3}" />
+					<param name="title_a_e1" value="{:title_a_e1}" />
+					<param name="title_a_e2" value="{:title_a_e2}" />
+					<param name="title_a_e3" value="{:title_a_e3}" />			
+					<param name="title_b_e1" value="{:title_b_e1}" />
+					<param name="title_b_e2" value="{:title_b_e2}" />
+					<param name="title_b_e3" value="{:title_b_e3}" />
+					<param name="domestic_a_e1" value="{:domestic_a_e1}" />
+					<param name="domestic_b_e1" value="{:domestic_b_e1}" />
+					<param name="sex_a_e1" value="{:sex_a_e1}" />
+					<param name="sex_b_e1" value="{:sex_b_e1}" />
+					<param name="birthday_a_e1" value="{:birthday_a_e1}" />
+					<param name="birthday_b_e1" value="{:birthday_b_e1}" />
+					<param name="diplodate_a_e1" value="{:diplodate_a_e1}" />
+					<param name="languages_a_e1" value="{:languages_a_e1}" />
+					<param name="languages_b_e1" value="{:languages_b_e1}" />
+					<param name="nationality_a_e1" value="{:nationality_a_e1}" />
+					<param name="nationality_b_e1" value="{:nationality_b_e1}" />
+					<param name="noteorga_a_e1" value="{:noteorga_a_e1}" />
+					<param name="noteorga_b_e1" value="{:noteorga_b_e1}" />
+					<param name="iscompany" value="{:iscompany}" />
+					<param name="notehost_a_e1" value="{:notehost_a_e1}" />
+					<param name="notehost_b_e1" value="{:notehost_b_e1}" />	
+					<param name="Dokumenttyp * (Hauptperson)" value="{DTM:*}"/>
+					<param name="Dokumenttyp * (Partner)" value="{DTP:*}"/>
+				</param>
+			</param>
+		</param>
+
+		<param name="formatCSVPersdat+Kategorien" type="map">
+			<param name="name" value="CSVPersdat+Kategorien"/>
+			<param name="description" value="Comma-Separated-Values"/>
+			<param name="defaultExtension" value=".csv"/>
+			<param name="mimeType" value="text/csv;charset=UTF-8"/>
+			<!--param name="icon"/-->
+			<param name="exporterClass" value="de.tarent.aa.veraweb.utils.GenericCSVExporter"/>
+			<param name="importerClass" value="de.tarent.aa.veraweb.utils.GenericCSVImporter"/>
+			<param name="properties" type="map">
+				<param name="remarks" type="array">
+					<value>
+						Es werden nur die Felder aus den Karteireitern "Personendaten",  
+						"Kategorien" und deren untergeordneten	Karteireitern exportiert .
+						Je nach Menge der exportierten Felder (insbesondere ist dies von der
+						Anzahl exportierter Kategorien abhängig) kann es passieren, dass MS
+						Excel und OO Calc die exportierten Daten nicht vollständig lesen können.
+					</value>
+				</param>
+				<param name="encoding" value="UTF-8"/>
+				<param name="fieldSeparator" value=";"/>
+				<param name="textQualifier" value="&quot;"/>
+				<param name="exportMapping" type="map">
+					<param name="*" value="{:*}"/>
+					<param name="Kategorie *" value="{CAT:*}"/>
+					<param name="Ereignis *" value="{EVE:*}"/>
+					<param name="Dipl. Corps *" value="{COR:*}"/>
+				</param>
+			</param>
+		</param>
+		
+		<!-- *** XML-Formate *** -->
+		<!-- XML-Formate ex- und importieren XML-Dateien gemäß einem VerA.web-eigenem XML-Dialekt;
+			 dieses Format wird insbesondere beim Datenaustausch über das ZKM (Zentrales
+			 Kommunikationsmodul, aka CCM = central communication module) genutzt. Hierzu sind
+			 die entsprechenden "format*"-Parameter wie folgt zu befüllen:
+			 
+			 - "exporterClass": "de.tarent.aa.veraweb.utils.XMLExporter".
+			 - "importerClass": "de.tarent.aa.veraweb.utils.XMLImporter".
+			 - "properties": folgende spezifische Eigenschaften kennen diese Klassen:
+				- "encoding": die Zeichenkodierung in der XML-Datei; zum Beispiel "UTF-8".
+				- "ccm-envelope": Flag, ob ein ZKM-kompatibler Rahmen um einen Export gelegt werden
+				  soll; bei ZKM-Nutzung "true", sonst "false".
+				- "ccm-application": die Applikationsbezeichnung für VerA.web im ZKM,
+				  zum Beispiel "veraweb".
+				- "ccm-endpoint": das Kürzel für den lokalen Server im ZKM für Absenderangaben,
+				  zum Beispiel "666".
+				- "ccm-receiver": das Kürzel für den fernen Server im ZKM für Zielangaben;
+				  dieses Property wird aber gemeinhin mittels eines "choices"-Eintrags vom
+				  Benutzer eingebbar gemacht.
+				- "ccm-outgoing-folder": das Verzeichnis für ZKM-Exporte; Default ist
+				  "/var/spool/ccm/in/".
+		 -->
+		
+		<param name="formatXML" type="map">
+			<param name="name" value="XML"/>
+			<param name="description" value="VerA.web-XML"/>
+			<param name="defaultExtension" value=".xml"/>
+			<param name="mimeType" value="text/xml;charset=UTF-8"/>
+			<param name="mimeType" value="application/veraweb-xml;charset=UTF-8"/>
+			<!--param name="icon"/-->
+			<param name="exporterClass" value="de.tarent.aa.veraweb.utils.XMLExporter"/>
+			<param name="importerClass" value="de.tarent.aa.veraweb.utils.XMLImporter"/>
+			<param name="properties" type="map">
+				<param name="encoding" value="UTF-8"/>
+			</param>
+		</param>
+
+		<param name="formatCCM" type="map">
+			<param name="name" value="ZKM"/>
+			<param name="description" value="VerA.web-XML über das Zentrale Kommunikationsmodul"/>
+			<param name="defaultExtension" value=".xml"/>
+			<param name="mimeType" value="text/xml;charset=UTF-8"/>
+			<param name="mimeType" value="application/veraweb-xml;charset=UTF-8"/>
+			<!--param name="icon"/-->
+			<param name="exporterClass" value="de.tarent.aa.veraweb.utils.XMLExporter"/>
+			<param name="importerClass" value="de.tarent.aa.veraweb.utils.XMLImporter"/>
+			<param name="properties" type="map">
+				<param name="choices" type="map">
+					<param name="ccm-receiver" type="map">
+						<param name="label" value="Ziel (ZKM-Kürzel)"/>
+						<param name="default" value="---"/>
+					</param>
+				</param>
+				<param name="remarks" type="array">
+					<value>
+						Die Exportdatei wird sowohl im ZKM-Ausgangsordner abgelegt
+						als auch Ihnen zur Kontrolle zum Herunterladen angeboten.
+						Das Herunterladens können Sie bedenkenlos abbrechen.
+					</value>
+				</param>
+				<param name="encoding" value="UTF-8"/>
+				<param name="ccm-envelope" value="true"/>
+				<param name="ccm-application" value="veraweb"/>
+				<param name="ccm-endpoint" value="666"/>
+				<param name="ccm-outgoing-folder" value="C:\"/>
+			</param>
+		</param>
+		
+		<!-- *** MAdLAN-Formate *** -->
+		<!-- MAdLAN-Formate ex- und importieren MAdLAN-kompatible Office-Exporte; sie sind im
+			 Wesentlichen für die Altdatenübernahme gedacht. Die entsprechenden "format*"-Parameter
+			 sind wie folgt zu befüllen:
+			 
+			 - "exporterClass": "de.tarent.aa.veraweb.utils.MAdLANExporter".
+			 - "importerClass": "de.tarent.aa.veraweb.utils.MAdLANImporter".
+			 - "properties": folgende spezifische Eigenschaften kennen diese Klassen:
+				- "encodingA": Hier wird die Zeichenkodierung der nicht-kyrillischen Spalteninhalte
+				  (vergleiche "kyrillicFields" unten) eingestellt. Möglich sind die Werte "balt",
+				  "baltic", "cyrext", "cyrillic", "east", "greek", "turasb", "turkish" und "west".
+				  Für die eigentliche MAdLAN-Übernahme sinnvoll sind "baltic","east", "turkish" und
+				  "west". Diese Auswahl wird gemeinhin mittels eines "choices"-Eintrags dem Benutzer
+				  beim Ex- oder Import überlassen.
+				- "encodingB": Hier wird die Zeichenkodierung der kyrillischen Spalteninhalte
+				  (vergleiche "kyrillicFields" unten) eingestellt. Möglich sind die Werte "balt",
+				  "baltic", "cyrext", "cyrillic", "east", "greek", "turasb", "turkish" und "west".
+				  Für die eigentliche MAdLAN-Übernahme sinnvoll ist "cyrillic". Diese Auswahl kann
+				  mittels eines "choices"-Eintrags dem Benutzer beim Ex- oder Import überlassen werden.
+				- "madlanFileEncoding": Hier wird die grundsätzliche Zeichenkodierung (die Kodierung
+				  selbst der Spaltenüberschriften und eine Vorumsetzung, auf der das Mapping für
+				  "encodingA" und "encodingB" aufbaut) eingestellt. Dies sollte grundsätzlich
+				  "ISO-8859-1" sein.
+				- "fieldMapping": die Abbildung von MAdLAN-Bezeichnern auf Import-Bean-Feldnamen;
+				  statt eines MAdLAN-Bezeichners kann auch eine Konstante (markiert durch einen
+				  führenden Doppelpunkt) stehen; Import-Bean-Feldnamen können um ein Doppelpunkt
+				  und einen 0-basierten Index ergänzt werden.
+				- "textfieldMapping": die Nutzung der Adressfreitextfelder nach dem Muster:
+
+					<param name="n:Doctype" value="NAME_DES_DOKUMENTTYPS"/>
+					<param name="n:Person" value="IMPORTFELD_PERSON"/>
+					<param name="n:Partner" value="IMPORTFELD_PARTNER"/>
+					<param name="n:Join" value="VERKNÜPFUNGSWORT"/>
+
+				- "kyrillicFields": die Liste der MAdLAN-Bezeichner mit kyrillischen Feldinhalt,
+				  also der Spalten, die in "encodingB" interpretiert werden sollen.
+				- "importRequiredFields": die Liste der zwingend notwendigen MAdLAN-Felder.
+				- "setNullFields": die Liste der Import-Bean-Felder, die bei Leerstring-Eingabe
+				  auf null gesetzt werden sollen.
+				- "fitDateFields": die Liste der Felder, deren Datumsinhalte gegebenenfalls in das
+				  20. oder 21. Jahrhundert gehoben werden müssen.
+				- "ignorePersonFields": die Liste der Bean-Felder, die beim Befüllen einer Person
+				  Bestands-Bean aus einer ImportPerson Import-Bean nicht übernommen werden sollen.
+		 -->
+
+		<param name="formatMAdLANPerson" type="map">
+			<param name="name" value="MAdLAN-Personen"/>
+			<param name="description" value="MAdLAN-Personen-Import"/>
+			<param name="defaultExtension" value=".madlan"/>
+			<param name="mimeType" value="text/csv"/>
+			<!--param name="icon"/-->
+			<param name="exporterClass" value="de.tarent.aa.veraweb.utils.MAdLANExporter"/>
+			<param name="importerClass" value="de.tarent.aa.veraweb.utils.MAdLANImporter"/>
+			<param name="properties" type="map">
+				<param name="choices" type="map">
+					<param name="encodingA" type="map">
+						<param name="label" value="Encoding"/>
+						<param name="select" type="map">
+							<param name="Baltic" value="Baltisch"/>
+							<param name="East" value="Östlich"/>
+							<param name="Turkish" value="Türkisch"/>
+							<param name="West" value="Westlich"/>
+							<param name="Cyrillic" value="Kyrillisch"/>
+						</param>
+						<param name="default" value="West"/>
+					</param>
+					<param name="encodingB" type="map">
+						<param name="label" value="Encoding (kyrillisch)"/>
+						<param name="select" type="map">
+							<param name="Baltic" value="Baltisch"/>
+							<param name="East" value="Östlich"/>
+							<param name="Turkish" value="Türkisch"/>
+							<param name="West" value="Westlich"/>
+							<param name="Cyrillic" value="Kyrillisch"/>
+						</param>
+						<param name="default" value="Cyrillic"/>
+					</param>
+				</param>
+				<!-- Verwendetes Encoding für die Madlan_datei. Auskommentieren für Standardzeichensatz -->
+				<!--<param name="madlanFileEncoding" value="ISO-8859-1"/>-->
+
+				<!-- Definition der Abbildung MAdLAN-Personen-Felder -> ImportPerson-Bean-Felder[:0-basierter Index] -->
+				<param name="fieldMapping" type="map">
+					<!-- Hauptperson -->
+					<param name="Name" value="lastname_a_e1"/>
+					<param name="Vorname" value="firstname_a_e1:0"/>
+					<param name="Vatername" value="firstname_a_e1:1"/>
+					<param name="Titel" value="title_a_e1"/>
+					<param name="Anrede" value="salutation_a_e1"/>
+					<param name="Sprache" value="languages_a_e1"/>
+					<param name="Gebdat" value="birthday_a_e1"/>
+					<param name="Region" value="note_a_e1"/> <!-- Als "letztes" in Feld Bemerkung -->
+					<param name="Staat" value="nationality_a_e1"/>
+					<param name="KName" value="lastname_a_e2"/>
+					<param name="KVorname" value="firstname_a_e2:0"/>
+					<param name="KVatername" value="firstname_a_e2:1"/>
+					<param name="KTitel" value="title_a_e2"/>
+					<param name="KAnrede" value="salutation_a_e2"/>
+					
+					<!-- Partner -->
+					<param name="Partner" value="lastname_b_e1"/>
+					<param name="KPartner" value="lastname_b_e2"/>
+					
+					<!-- Adresse -->
+					<param name="Funktion" value="function_a_e1"/>
+					<param name="Firma" value="company_a_e1"/>
+					<param name="Str" value="street_a_e1"/>
+					<param name="Ort" value="city_a_e1"/>
+					<param name="Telefon" value="fon_a_e1"/>
+					<param name="Fax" value="fax_a_e1"/>
+					<param name="Telex" value="mail_a_e1"/>
+					<param name="PTelefon" value="fon_a_e1"/>
+					<param name="KFunktion" value="function_a_e2"/>
+					
+					<!-- Bemerkungen -->
+					<param name="Info" value="note_a_e1:0"/>
+					<param name="Info1" value="notehost_a_e1"/>
+					<param name="Info2" value="noteorga_a_e1"/>
+					<param name="Gruppe" value="category"/> <!-- Kategorie - Kategorien dürfen direkt beim Personenimport angelegt werden => fachl. Für Madlan-Import bevorzugte Lösung; machbar, Konsequenzen? -->
+					<param name="Anlass" value="occasion"/> <!-- Ereignis - Entspricht Kategorie mit Zusatzmerkmal -->
+					
+					<!-- Adressen -->
+					<param name="Adr" value="textfield_1"/> <!-- Freitextfeld zum Dokumenttyp - Adresse 1 -->
+					<param name="PAdr" value="textfield_2"/> <!-- Freitextfeld zum Dokumenttyp - Adresse 2 -->
+					<param name="KAdr" value="textfield_3"/> <!-- Freitextfeld zum Dokumenttyp - Adresse kyrillisch -->
+					
+					<!-- Madlan-Felder, die verworfen werden
+					<param name="Etikett" value=""/> - unnötig, denn in VerA.Web haben wir doch die Adresszuordnung für den entsprechenden Dokumenttypen festgelegt
+					-->
+				</param>
+				<!-- Nutzung der Adressfreitextfelder -->
+				<param name="textfieldMapping" type="map">
+					<!-- Muster:
+					<param name="n:Doctype" value="NAME_DES_DOKUMENTTYPS"/>
+					<param name="n:Person" value="IMPORTFELD_PERSON"/>
+					<param name="n:Partner" value="IMPORTFELD_PARTNER"/>
+					<param name="n:Join" value="VERKNÜPFUNGSWORT"/>
+					-->
+					
+					<param name="1:Doctype" value="ehem. MadLAN Adresse 1"/>
+					<param name="1:Person" value="textfield_1"/>
+		
+					<param name="2:Doctype" value="ehem. MadLAN Adresse 2"/>
+					<param name="2:Person" value="textfield_2"/>
+		
+					<param name="3:Doctype" value="ehem. MadLAN Adresse kyrillisch"/>
+					<param name="3:Person" value="textfield_3"/>
+				</param>
+				<!-- Liste der kyrillischen MAdLAN-Felder -->
+				<param name="kyrillicFields" type="array">
+					<value>KName</value>
+					<value>KVorname</value>
+					<value>KPartner</value>
+					<value>KAnrede</value>
+					<value>KTitel</value>
+					<value>KFunktion</value>
+					<value>KVatername</value>
+					<value>KAdr</value>
+				</param>
+				<!-- Liste der zwingend erforderlichen ImportPerson-Felder -->
+				<param name="importRequiredFields" type="array">
+					<value>lastname_a_e1</value>
+				</param>
+				<!-- Liste der ImportPerson-Felder, die  auf NULL gesetzt werden sollen wenn das Datenfeld einem Leerstring entspricht. -->
+				<param name="setNullFields" type="array">
+					<value>lastname_a_e1</value>
+					<value>firstname_a_e1</value>
+					<value>title_a_e1</value>
+					<value>salutation_a_e1</value>
+					<value>languages_a_e1</value>
+					<value>birthday_a_e1</value>
+					<value>note_a_e1</value>
+					<value>lastname_a_e2</value>
+					<value>firstname_a_e2</value>
+					<value>title_a_e2</value>
+					<value>salutation_a_e2</value>
+		
+					<value>lastname_b_e1</value>
+					<value>lastname_b_e2</value>
+					
+					<value>function_a_e1</value>
+					<value>company_a_e1</value>
+					<value>street_a_e1</value>
+					<value>city_a_e1</value>
+					<value>fon_a_e1</value>
+					<value>mail_a_e1</value>
+					<value>fax_a_e1</value>
+					<value>function_a_e2</value>
+		
+					<value>duplicates</value>
+				</param>
+				<!-- Name der Datum-Felder, bei denen Jahreszahlen<100 dem Jahrhundert 1900 zugeordnet werden sollen -->
+				<param name="fitDateFields" type="array">
+					<value>birthday_a_e1</value>
+				</param>
+				<!-- Beim Festschreiben eines Import-Datensatzes werden alle Felder der neuen Datensätze mit gleich benannten Feldern des Import-Datensatzes gefüllt.
+				        Es ist nötig, dass dabei einige Felder nicht übertragen werden (wie z.B. der Primärschlüssel).
+				        Diese Felder können in den folgenden zwei XML-Elementen spezifiziert werden. -->
+				<param name="ignorePersonFields" type="array">
+					<value>id</value>
+					<value>contact</value>
+					<value>saveunder</value>
+					<value>modified</value>
+					<value>namefilter</value>
+				</param>
+			</param>
+		</param>
+
+		<param name="formatMAdLANFirma" type="map">
+			<param name="name" value="MAdLAN-Firmen"/>
+			<param name="description" value="MAdLAN-Firmen-Import"/>
+			<param name="defaultExtension" value=".madlan"/>
+			<param name="mimeType" value="text/csv"/>
+			<!--param name="icon"/-->
+			<param name="exporterClass" value="de.tarent.aa.veraweb.utils.MAdLANExporter"/>
+			<param name="importerClass" value="de.tarent.aa.veraweb.utils.MAdLANImporter"/>
+			<param name="properties" type="map">
+				<param name="choices" type="map">
+					<param name="encodingA" type="map">
+						<param name="label" value="Encoding"/>
+						<param name="select" type="map">
+							<param name="Baltic" value="Baltisch"/>
+							<param name="East" value="Östlich"/>
+							<param name="Turkish" value="Türkisch"/>
+							<param name="West" value="Westlich"/>
+							<param name="Cyrillic" value="Kyrillisch"/>
+						</param>
+						<param name="default" value="West"/>
+					</param>
+					<param name="encodingB" type="map">
+						<param name="label" value="Encoding (kyrillisch)"/>
+						<param name="select" type="map">
+							<param name="Baltic" value="Baltisch"/>
+							<param name="East" value="Östlich"/>
+							<param name="Turkish" value="Türkisch"/>
+							<param name="West" value="Westlich"/>
+							<param name="Cyrillic" value="Kyrillisch"/>
+						</param>
+						<param name="default" value="Cyrillic"/>
+					</param>
+				</param>
+				<!-- Verwendetes Encoding für die Madlan_datei. Auskommentieren für Standardzeichensatz -->
+				<!--<param name="madlanFileEncoding" value="ISO-8859-1"/>-->
+			
+				<!-- Definition der Abbildung MAdLAN-Firmen-Felder -> ImportPerson-Bean-Felder[:0-basierter Index] -->
+				<param name="fieldMapping" type="map">
+					<param name=":t" value="iscompany"/>
+					<param name="Firma" value="lastname_a_e1"/>
+					<param name="FGruppe" value="category"/>
+					<param name="Telefon" value="fon_a_e1"/>
+					<param name="Fax" value="fax_a_e1"/>
+					<param name="EMail" value="mail_a_e1"/>
+					<param name="Strasse" value="street_a_e1"/>
+					<param name="Ort" value="city_a_e1"/>
+					<param name="Adresse" value="textfield_1"/>
+					<param name="Info" value="note_a_e1:0"/>
+					<param name="KyrAdresse" value="textfield_3"/>
+				</param>
+				<!-- Nutzung der Adressfreitextfelder -->
+				<param name="textfieldMapping" type="map">
+					<!-- Muster:
+					<param name="n:Doctype" value="NAME_DES_DOKUMENTTYPS"/>
+					<param name="n:Person" value="IMPORTFELD_PERSON"/>
+					<param name="n:Partner" value="IMPORTFELD_PARTNER"/>
+					<param name="n:Join" value="VERKNÜPFUNGSWORT"/>
+					-->
+					
+					<param name="1:Doctype" value="ehem. MadLAN Adresse 1"/>
+					<param name="1:Person" value="textfield_1"/>
+		
+					<param name="2:Doctype" value="ehem. MadLAN Adresse 2"/>
+					<param name="2:Person" value="textfield_2"/>
+		
+					<param name="3:Doctype" value="ehem. MadLAN Adresse kyrillisch"/>
+					<param name="3:Person" value="textfield_3"/>
+				</param>
+				<!-- Liste der kyrillischen MAdLAN-Felder -->
+				<param name="kyrillicFields" type="array">
+					<value>KyrAdresse</value>
+				</param>
+				<!-- Liste der zwingend erforderlichen ImportPerson-Felder -->
+				<param name="importRequiredFields" type="array">
+					<value>lastname_a_e1</value>
+					<value>note_a_e1</value>
+					<value>street_a_e1</value>
+					<value>city_a_e1</value>
+					<value>fon_a_e1</value>
+					<value>fax_a_e1</value>
+				</param>
+				<!-- Liste der ImportPerson-Felder, die  auf NULL gesetzt werden sollen wenn das Datenfeld einem Leerstring entspricht. -->
+				<param name="setNullFields" type="array">
+					<value>lastname_a_e1</value>
+					<value>firstname_a_e1</value>
+					<value>title_a_e1</value>
+					<value>salutation_a_e1</value>
+					<value>languages_a_e1</value>
+					<value>birthday_a_e1</value>
+					<value>note_a_e1</value>
+					<value>lastname_a_e2</value>
+					<value>firstname_a_e2</value>
+					<value>title_a_e2</value>
+					<value>salutation_a_e2</value>
+		
+					<value>lastname_b_e1</value>
+					<value>lastname_b_e2</value>
+					
+					<value>function_a_e1</value>
+					<value>company_a_e1</value>
+					<value>street_a_e1</value>
+					<value>city_a_e1</value>
+					<value>country_a_e1</value>
+					<value>fon_a_e1</value>
+					<value>mail_a_e1</value>
+					<value>fax_a_e1</value>
+					<value>function_a_e2</value>
+		
+					<value>duplicates</value>
+				</param>
+				<!-- Beim Festschreiben eines Import-Datensatzes werden alle Felder der neuen Datensätze mit gleich benannten Feldern des Import-Datensatzes gefüllt.
+				        Es ist nötig, dass dabei einige Felder nicht übertragen werden (wie z.B. der Primärschlüssel).
+				        Diese Felder können in den folgenden zwei XML-Elementen spezifiziert werden. -->
+				<param name="ignorePersonFields" type="array">
+					<value>id</value>
+					<value>contact</value>
+					<value>saveunder</value>
+					<value>modified</value>
+					<value>namefilter</value>
+				</param>
+			</param>
+		</param>
+		
+		<!-- ************************************************ -->
+		<!-- *** Automatisches Kopieren von Personendaten *** -->
+		<!-- ************************************************ -->
+		<!-- Folgender Parameter steuert das automatische Kopieren von Personendaten.
+		     Hierbei sind die Werte "all" (alle Adress- und Kommunikationsdaten),
+		     "name" (nur die Namendaten), "address" (nur die Adressdaten) und "contact"
+		     (nur die Kommunikationsdaten) zulässig.
+		-->
+		<!-- kopieren der lateinischen Daten in die anderen Zeichensätze. -->
+		<param name="copyPersonDataLatinToExtra" value="all"/>
+		
+		<!-- ******************************************************************* -->
+		<!-- *** Automatisches Erstellen von Personen-Dokumenttyp-Freitexten *** -->
+		<!-- ******************************************************************* -->
+		<!-- Folgende Parameter steuern, welche personalisierte Freitexte zu Dokumenttypen automatisch erzeugt werden. Hierbei sind die Werte "all" (alle Freitexte werden erzeugt, gegebenenfalls überschrieben), "new" (nur nicht vorhandene Freitexte werden erzeugt), "flag:99" (wie "new", aber nur bei Flag 99) und "none" (keine Freitexte werden erzeugt) zulässig. -->
+		<!-- erzeugen beim Neuanlegen von Personen. -->
+		<param name="createDoctypeOnNewPerson" value="new"/>
+		<!-- erzeugen beim Speichern von Personen. -->
+		<param name="createDoctypeOnSavePerson" value="new"/>
+		<!-- Folgende Parameter steuern, wie automatisch erzeugte Freitexte zu Dokumenttypen gefüllt werden; sie sind Listen von Einträgen, die entweder Bezeichner aus der Menge (firstname, lastname, title, salutation, function, company, street, city, zipcode, country, pobox, poboxzipcode, suffix1, suffix2, phone, fax, mobile, email, url) sind, die je nach Dokumenttyp in den verschiedenen Adressen und Zeichensätzen interpretiert werden, oder freie Texte. Freie Texte können eines der Präfixe "BOTH:", "PREV:" oder "NEXT:" haben; diese bewirken, dass der freie Text nur übernommen wird, wenn beide angrenzenden Felder, nur das vorherige oder nur das folgende nicht-leer sind. -->
+		<!-- das Muster für das Erzeugen des Hauptpersonenfreitexts. -->
+		<param name="createDoctypeFormat" type="array">
+			<value>salutation</value>
+			<value>PREV:
+</value>
+			<value>title</value>
+			<value>BOTH: </value>
+			<value>firstname</value>
+			<value>BOTH: </value>
+			<value>lastname</value>
+		</param>
+		<!-- das Muster für das Erzeugen des Partnerpersonfreitexts. -->
+		<param name="createDoctypeFormatPartner" type="array">
+			<value>salutation</value>
+			<value>PREV:
+</value>
+			<value>title</value>
+			<value>BOTH: </value>
+			<value>firstname</value>
+			<value>BOTH: </value>
+			<value>lastname</value>
+		</param>
+		
+		<!-- ***************** -->
+		<!-- *** Sonstiges *** -->
+		<!-- ***************** -->
+		<!-- das Präfix, das ein führendes + einer Telefon- oder Faxnummer ersetzen soll. -->
+		<param name="phoneAreacode" value="+"/>
+		<!-- der Eingangszeichensatz bei einer Zeichensatzumwandlung. -->
+		<param name="encoding.input" value="ISO-8859-1"/>
+		<!-- der Ausgangszeichensatz bei einer Zeichensatzwandlung. -->
+		<param name="encoding.output" value="UTF-8"/>
+	</params>
+
+	<!-- Hier können DataSources eingetragen werden; in diesem Modul wird aber ein alternativer Datenzugriff genutzt. -->
+	<dataAccess>
+	</dataAccess>
+
+	<!-- **************** -->
+	<!-- *** Logging: *** -->
+	<!-- **************** -->
+	<!-- Die in diesem Element enthaltenen param-Elemente erlauben, das Modul-eigene Logging zu steuern.
+
+		 Neben dem Logging, das der tarent-octopus selber betreibt, gibt es ein Modul-internes
+		 Logging. Dieses verwendet die Log4J-API, die dynamischer konfigurierbar ist als die
+		 java.util.logging-API, die vom tarent-octopus benutzt wird.
+ 
+		 Dieses Element wird mittels des Log4J-DOMConfigurators eingelesen. In ihm können nun
+		 Log-Kategorien Level-Filter und Ausgabeschnittstellen zugeordnet werden. Details zu
+		 den verfügbaren Optionen finden sich in der Log4J-Dokumentation, siehe
+		 http://logging.apache.org/log4j/docs/
+
+		 Das Modul veraweb nutzt im eigenen Code Kategorien, die nach dem vollständigen Klassennamen
+		 (inklusive Package-Pfad) bezeichnet sind, so dass insbesondere die (Ober-)Kategorien
+		 "de.tarent.aa.veraweb", "de.tarent.dblayer" und "de.tarent.octopus" interessant sind.
+
+		 Ältere eingebundene Bibliotheken benutzen zum Teil Kategorien, die passend zu dem Inhalt
+		 des Log-Kommentars bezeichnet sind, so dass die Kategorien "WORKER", "SQL" und "ERROR"
+		 noch von Interesse sind.
+
+		 Bei der Initialisierung des Moduls veraweb werden FileAppender der Kategorien "SQL",
+		 "WORKER", "ERROR", "de.tarent.dblayer" und "de.tarent.aa.veraweb" manipuliert:
+		 Falls der enthaltene Dateiname nicht leer ist, jedoch keinen Pfad enthält, wird
+		 als Dateipfad das Verzeichnis "log" innerhalb des Modulverzeichnisses vorangesetzt.
+	 -->
+	<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/" debug="true">
+		<category name="WORKER" additivity="false">
+			<level value="WARN"/>
+			<appender-ref ref="FileLog"/>
+		</category>
+		
+		<category name="SQL" additivity="false">
+			<level value="WARN"/>
+			<appender-ref ref="FileLog"/>
+		</category>
+		
+		<category name="ERROR">
+			<level value="ALL"/>
+			<appender-ref ref="ErrorLog"/>
+		</category>
+		
+		<category name="de.tarent.dblayer" additivity="false">
+			<level value="WARN"/>
+			<appender-ref ref="FileLog"/>
+		</category>
+		
+		<category name="de.tarent.aa.veraweb" additivity="false">
+			<level value="WARN"/>
+			<appender-ref ref="FileLog"/>
+		</category>
+		
+		<category name="de.tarent.octopus" additivity="false">
+			<level value="WARN"/>
+			<appender-ref ref="FileLog"/>
+		</category>
+		
+		<appender name="Console" class="org.apache.log4j.ConsoleAppender"> 
+			<param name="Target" value="System.out"/> 
+			<layout class="org.apache.log4j.PatternLayout"> 
+				<param name="ConversionPattern" value="%-5p %c{1} - %m%n"/> 
+			</layout> 
+		</appender>
+		
+		<appender name="FileLog" class="org.apache.log4j.RollingFileAppender">
+			<param name="MaxFileSize" value="1500KB"/>
+			<param name="MaxBackupIndex" value="8"/>
+			<param name="File" value="veraweb.log"/>
+			<layout class="org.apache.log4j.PatternLayout">
+				<param name="ConversionPattern" value="[%5p] %d{dd.MM.yy HH:mm:ss} (%F:%L) - %m%n"/>
+			</layout>
+		</appender> 
+		
+		<appender name="ErrorLog" class="org.apache.log4j.RollingFileAppender">
+			<param name="MaxFileSize" value="5MB"/>
+			<param name="MaxBackupIndex" value="8"/>
+			<param name="File" value="error.log"/>
+			<layout class="org.apache.log4j.PatternLayout">
+				<param name="ConversionPattern" value="[%5p] %d{dd.MM.yy HH:mm:ss} (%F:%L) - %m%n"/>
+			</layout>
+		</appender> 
+		
+		<appender name="Socket" class="org.apache.log4j.net.SocketAppender">
+			<param name="RemoteHost" value="localhost"/>
+			<param name="Port" value="4445"/>
+		</appender>
+		
+		<root> 
+			<priority value="DEBUG"/> 
+		</root>
+	</log4j:configuration>
+
+	<!-- ******************************* -->
+	<!-- *** Kontrollflussdefinition *** -->
+	<!-- ******************************* -->
+	<!-- In den folgenden Elementen "contentWorkerDeklaration" und "tasks" werden die
+		 zur Verfügung stehenden Octopus-Worker deklariert und darauf aufbauend die
+		 aufrufbaren Octopus-Tasks definiert.
+		 
+		 Diese Daten sollten nicht geändert werden müssen.
+	 -->
+
+	<!-- Auflistung aller Worker, die im System existieren mit name=Classenname -->
+	<contentWorkerDeklaration>
+		<!-- System-Worker, initalisierung der DB-Schicht, Message-, Action- und Context-Objekte. -->
+		<param name="SystemWorker"  value="de.tarent.aa.veraweb.worker.SystemWorker"/>
+		<param name="SecurityWorker" value="de.tarent.aa.veraweb.worker.SecurityWorker"/>
+		<param name="MessageWorker" value="de.tarent.aa.veraweb.worker.MessageWorker"/>
+		<param name="ActionWorker" value="de.tarent.aa.veraweb.worker.ActionWorker"/>
+		<param name="ContextWorker" value="de.tarent.aa.veraweb.worker.ContextWorker"/>
+		<param name="VerifyWorker"  value="de.tarent.aa.veraweb.worker.VerifyWorker"/>
+		<param name="ConfigWorker" value="de.tarent.aa.veraweb.worker.ConfigWorker"/>
+		<param name="CleanupWorker" value="de.tarent.aa.veraweb.worker.CleanupWorker"/>
+		<param name="UserConfigWorker" value="de.tarent.aa.veraweb.worker.UserConfigWorker"/>
+		<param name="ProxyWorker" value="de.tarent.aa.veraweb.worker.ProxyWorker"/>
+		<param name="ProxyListWorker" value="de.tarent.aa.veraweb.worker.ProxyListWorker"/>
+		<param name="UserWorker" value="de.tarent.aa.veraweb.worker.UserWorker"/>
+		<param name="UserListWorker" value="de.tarent.aa.veraweb.worker.UserListWorker"/>
+		<param name="OrgUnitListWorker" value="de.tarent.aa.veraweb.worker.OrgUnitListWorker"/>
+		
+		<!-- Personendaten-Worker -->
+		<param name="PersonListWorker" value="de.tarent.aa.veraweb.worker.PersonListWorker"/>
+		<param name="PersonGuestListWorker" value="de.tarent.aa.veraweb.worker.PersonGuestListWorker"/>
+		<param name="PersonDetailWorker" value="de.tarent.aa.veraweb.worker.PersonDetailWorker"/>
+		<param name="PersonReplaceWorker" value="de.tarent.aa.veraweb.worker.PersonReplaceWorker"/>
+		<param name="PersonDoctypeWorker" value="de.tarent.aa.veraweb.worker.PersonDoctypeWorker"/>
+		<param name="PersonCategorieWorker" value="de.tarent.aa.veraweb.worker.PersonCategorieWorker"/>
+		<param name="PersonDupcheckWorker" value="de.tarent.aa.veraweb.worker.PersonDupcheckWorker"/>
+		<param name="ImportPersonsWorker" value="de.tarent.aa.veraweb.worker.ImportPersonsWorker"/>
+		<param name="ImportPersonsDuplicateWorker" value="de.tarent.aa.veraweb.worker.ImportPersonsDuplicateWorker"/>
+		<param name="PersonExportWorker" value="de.tarent.aa.veraweb.worker.PersonExportWorker"/>
+		<param name="DataExchangeWorker" value="de.tarent.aa.veraweb.worker.DataExchangeWorker"/>
+		<param name="CompanyListWorker" value="de.tarent.aa.veraweb.worker.CompanyListWorker"/>
+		
+		<!-- eMail-Verteiler-Worker -->
+		<param name="MailinglistWorker" value="de.tarent.aa.veraweb.worker.MailinglistWorker"/>
+		<param name="MailinglistListWorker" value="de.tarent.aa.veraweb.worker.MailinglistListWorker"/>
+		<param name="MailinglistDetailWorker" value="de.tarent.aa.veraweb.worker.MailinglistDetailWorker"/>
+		<param name="MailDraftWorker" value="de.tarent.aa.veraweb.worker.MailDraftWorker"/>
+		<param name="MailOutboxWorker" value="de.tarent.aa.veraweb.worker.MailOutboxWorker"/>
+		<param name="MailDispatchWorker" value="de.tarent.aa.veraweb.worker.MailDispatchWorker"/>
+		
+		<!-- Veranstaltungen-Worker -->
+		<param name="EventListWorker" value="de.tarent.aa.veraweb.worker.EventListWorker"/>
+		<param name="EventDetailWorker" value="de.tarent.aa.veraweb.worker.EventDetailWorker"/>
+		<param name="EventDoctypeWorker" value="de.tarent.aa.veraweb.worker.EventDoctypeWorker"/>
+		<param name="GuestWorker" value="de.tarent.aa.veraweb.worker.GuestWorker"/>
+		<param name="GuestListWorker" value="de.tarent.aa.veraweb.worker.GuestListWorker"/>
+		<param name="GuestDetailWorker" value="de.tarent.aa.veraweb.worker.GuestDetailWorker"/>
+		<param name="GuestDoctypeWorker" value="de.tarent.aa.veraweb.worker.GuestDoctypeWorker"/>
+		<param name="GuestExportWorker" value="de.tarent.aa.veraweb.worker.GuestExportWorker"/>
+		<param name="GuestReportWorker" value="de.tarent.aa.veraweb.worker.GuestReportWorker"/>
+		
+		<!-- Stammdaten-Worker -->
+		<param name="ColorWorker" value="de.tarent.aa.veraweb.worker.ColorWorker"/>
+		<param name="FunctionWorker" value="de.tarent.aa.veraweb.worker.FunctionWorker"/>
+		<param name="LocationWorker" value="de.tarent.aa.veraweb.worker.LocationWorker"/>
+		<param name="DoctypeWorker" value="de.tarent.aa.veraweb.worker.DoctypeWorker"/>
+		<param name="CategorieWorker" value="de.tarent.aa.veraweb.worker.CategorieWorker"/>
+		<param name="SalutationWorker" value="de.tarent.aa.veraweb.worker.SalutationWorker"/>
+		<param name="SalutationDoctypeWorker" value="de.tarent.aa.veraweb.worker.SalutationDoctypeWorker"/>
+		<param name="StatistikWorker" value="de.tarent.aa.veraweb.worker.StatistikWorker"/>
+		<param name="CompleteWorker"  value="de.tarent.aa.veraweb.worker.CompleteWorker"/>
+	</contentWorkerDeklaration>
+
+	<!--
+		Verfügbare Benutzergruppen:
+		
+		*	"Unclear"				Benutzer, deren AA-Rolle nach Login nicht klar ist
+		*	"Unauthorized"			Benutzer, deren (gewählte) Rollen nicht autorisiert sind
+		*	"User"					Benutzer, deren (gewählte) Rollen autorisiert sind
+		
+		*	"ByProxy"				Benutzer, die als Vertreter angemeldet sind
+		*	"InPerson"				Benutzer, die persönlich (also nicht als Vertreter) angemeldet sind
+		
+		*	"StandardFieldsReader"	Benutzer, die die Standardfelder lesen dürfen
+		*	"RemarkFieldsReader"	Benutzer, die die limitierten Bemerkungsfelder lesen dürfen
+		*	"Exporter"				Benutzer, die exportieren dürfen
+		*	"Writer"				Benutzer, die schreiben dürfen, abhängig von ihrer Leseberechtigung
+		*	"PartialAdmin"			Teiladministratoren
+		*	"Administrator"			Volladministratoren
+	-->
+	<tasks>
+		<!-- Automatische Tasks zum Start und Beenden des Modules. -->
+		<task name="autostart" access="public">
+			<description>Alle Worker die automatisch ohne einen Request aufgerufen werden sollen.</description>
+			<action name="initLogging" worker="SystemWorker"/>
+			<action name="openPool" worker="SystemWorker"/>
+			<action name="init" worker="MessageWorker"/>
+			<action name="init" worker="ConfigWorker"/>
+			<action name="load" worker="MailDispatchWorker"/>
+			<response type="none" name="none"/>
+		</task>
+		
+		<task name="cleanup" access="public">
+			<description>Wird automatisch beim Beenden des Servlets aufgerufen.</description>
+			<action name="closePool" worker="SystemWorker"/>
+			<action name="clean" worker="ConfigWorker"/>
+			<action name="unload" worker="MailDispatchWorker"/>
+			<response type="none" name="none"/>
+		</task>
+		
+		<!-- VERIFY Task -->
+		<task name="Verify" access="private">
+			<description>
+				Dieses Task überprüft unterschiedliche Einstellungen; zum
+				Unterdrücken entsprechender Warnung können diese
+				auskommentiert werden. Ein reibungsloser Ablauf
+				kann dann nicht mehr gewährleistet werden.
+			</description>
+			<action name="verifyDatabase" worker="VerifyWorker"/>
+			<action name="getDatabaseCharset" worker="VerifyWorker"/>
+			<action name="verifySchemaVersion" worker="VerifyWorker"/>
+			<action name="verifyXMLTransformer" worker="VerifyWorker"/>
+			<!--action name="verifyJavaVersion" worker="VerifyWorker"/-->
+		</task>
+		
+		<!-- LOGIN und DEFAULT Task. -->
+		<task name="login" access="public" groups="User,Unclear,Unauthorized">
+			<description>Der Login Task --- hier wird der Login *durchgeführt*</description>
+			<doTask name="Main" />
+		</task>
+		
+		<task name="logout" access="public" groups="LoggedOut">
+			<description>Der Logout Task</description>
+			<doTask name="ShowLogin" />
+		</task>
+		
+		<task name="default" access="public" groups="User,Unclear,Unauthorized">
+			<description>Der Default Task</description>
+			<contract>
+				<input name="username" type="xsd:string" optional="f" description="Benutzername"/>
+				<input name="password" type="xsd:string" optional="f" description="Passwort"/>
+			</contract>
+			<doTask name="Main" />
+		</task>
+		
+		<!-- Umsetzung LOGIN / LOGOUT / MAIN / INFO -->
+		<task name="ShowLogin" access="public" groups="Anonymous,User">
+			<description>
+				Dieser Task zeigt den Login Dialog an.
+			</description>
+			<doTask name="Load"/>
+			<doTask name="Verify"/>
+			<response type="velocity" name="login">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+		
+		<task name="LoginAsProxy" access="public" groups="User,Unclear,Unauthorized">
+			<description>
+				Falls der optionale Parameter "proxyFor" angegeben ist, wird versucht,
+				den aktuell authentisierten Nutzer als Stellvertreter für die ebenda
+				angegebene Rolle anzumelden.
+				Schlägt dies fehl oder wurde der optionale Parameter nicht angegeben,
+				wird eine Auswahl möglicher Stellvertretungen angezeigt.
+			</description>
+			<contract>
+				<input name="proxyFor" type="xsd:string" optional="t" description="zu vertretene Rolle"/>
+				<output name="list" type="xsd:array" optional="t" description="Liste vertretbarer Rollen, falls Anmeldung in Vertretung erfolglos war"/>
+			</contract>
+			<doTask name="Load"/>
+			<doTask name="Verify"/>
+			<action name="select" worker="ProxyWorker" />
+			<status equals="ok">
+				<doTask name="Main"/>
+			</status>
+			<param name="proxiesFor" value="all"/>
+			<param name="proxiesValid" value="now"/>
+			<param name="proxy" value="self"/>
+			<action name="showList" worker="ProxyListWorker" />
+			<action name="uniqueProxiedFilter" worker="ProxyListWorker" />
+			<response type="velocity" name="selectProxy">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+		
+		<task name="Main" access="public" groups="User">
+			<description>
+				Dieser Task zeigt den Hauptdialog an.
+			</description>
+			<doTask name="Load"/>
+			<doTask name="Verify"/>
+			<action name="init" worker="UserConfigWorker"/>
+			<response type="velocity" name="main">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+		
+		<task name="Info" access="public" groups="User,Unclear,Unauthorized">
+			<description>
+				Dieser Task zeigt den Infodialog an.
+			</description>
+			<doTask name="Load"/>
+			<doTask name="Verify"/>
+			<action name="init" worker="UserConfigWorker"/>
+			<response type="velocity" name="info">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+		
+		<!-- LOAD DATA -->
+		<task name="Load" access="private" groups="User">
+			<description>
+				Lädt Daten die von allen Templates benötigt werden.
+				u.a. ResourceBundles oder Zugriffsberechtigungsflags.
+			</description>
+			<action name="load" worker="MessageWorker"/>
+			<action name="load" worker="ActionWorker"/>
+			<action name="load" worker="SecurityWorker"/>
+			<action name="load" worker="ConfigWorker"/>
+			<action name="load" worker="UserConfigWorker"/>
+		</task>
+		
+		<task name="LoadStammdaten" access="private" groups="User">
+			<description>Alle Worker die für die Stammdaten benötigt werden, z.B. Berechtigungen setzten.</description>
+			<doTask name="Load"/>
+		</task>
+		
+		<!-- Umsetzung STAMMDATEN -->
+		<task name="Color" access="public" groups="Administrator,PartialAdmin">
+			<doTask name="LoadStammdaten"/>
+			<action name="saveList" worker="ColorWorker" />
+			<action name="showList" worker="ColorWorker" />
+			<response type="velocity" name="color">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+		
+		<task name="Function" access="public" groups="Administrator,PartialAdmin">
+			<doTask name="LoadStammdaten"/>
+			<action name="saveList" worker="FunctionWorker" />
+			<action name="showList" worker="FunctionWorker" />
+			<param name="liststarts" value="true"/>
+			<response type="velocity" name="function">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+		
+		<task name="Location" access="public" groups="Administrator,PartialAdmin">
+			<doTask name="LoadStammdaten"/>
+			<action name="saveList" worker="LocationWorker" />
+			<action name="showList" worker="LocationWorker" />
+			<param name="liststarts" value="true"/>
+			<response type="velocity" name="location">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+		
+		<task name="Categorie" access="public" groups="Administrator,PartialAdmin">
+			<doTask name="LoadStammdaten"/>
+			<action name="getAll" worker="EventListWorker"/>
+			<action name="saveList" worker="CategorieWorker" />
+			<action name="showList" worker="CategorieWorker" />
+			<param name="liststarts" value="true"/>
+			<response type="velocity" name="categorie">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+		
+		<task name="Doctype" access="public" groups="Administrator,PartialAdmin">
+			<doTask name="LoadStammdaten"/>
+			<action name="saveList" worker="DoctypeWorker" />
+			<action name="showList" worker="DoctypeWorker" />
+			<param name="liststarts" value="true"/>
+			<response type="velocity" name="doctype">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+		
+		<task name="Salutation" access="public" groups="Administrator,PartialAdmin">
+			<doTask name="LoadStammdaten"/>
+			<action name="saveList" worker="SalutationWorker" />
+			<action name="showList" worker="SalutationWorker" />
+			<param name="liststarts" value="true"/>
+			<response type="velocity" name="salutation">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+		
+		<task name="SalutationDoctype" access="public" groups="User">
+			<doTask name="LoadStammdaten"/>
+			<action name="saveList" worker="SalutationDoctypeWorker" />
+			<action name="showList" worker="SalutationDoctypeWorker" />
+			<action name="getAll" worker="DoctypeWorker" />
+			<response type="velocity" name="salutationDoctype">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+		
+		<task name="Config" access="public" groups="Administrator,PartialAdmin">
+			<doTask name="LoadStammdaten"/>
+			<action name="save" worker="ConfigWorker" />
+			<action name="getAll" worker="DoctypeWorker" />
+			<action name="getAll" worker="SalutationWorker" />
+			<response type="velocity" name="config">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+		
+		<task name="UserConfig" access="public" groups="StandardFieldsReader">
+			<doTask name="LoadStammdaten"/>
+			<action name="save" worker="UserConfigWorker" />
+			<response type="velocity" name="userConfig">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+		
+		<!-- Umsetzung PERSON -->
+		<task name="ShowPersonSearch" access="public" groups="StandardFieldsReader">
+			<description>
+				Dieser Task zeigt einen Suchdialog für Personen.
+			</description>
+			<contract>
+				<input name="Vorname" type="xsd:string" optional="t" description="Vorgabewert: gesuchter Vorname"/>
+				<input name="Nachname" type="xsd:string" optional="t" description="Vorgabewert: gesuchter Nachname"/>
+				<input name="Institution" type="xsd:string" optional="t" description="Vorgabewert: gesuchte Institution"/>
+				<input name="Ort" type="xsd:string" optional="t" description="Vorgabewert: gesuchter Ort"/>
+				<input name="Straße" type="xsd:string" optional="t" description="Vorgabewert: gesuchte Straße"/>
+				<input name="PLZ" type="xsd:string" optional="t" description="Vorgabewert: gesuchte PLZ"/>
+				<input name="Funktion" type="xsd:string" optional="t" description="Vorgabewert: gesuchte Funktion"/>
+				<input name="Kategorie" type="xsd:string" optional="t" description="Vorgabewert: gesuchte Kategorie"/>
+				<input name="Ereignis" type="xsd:string" optional="t" description="Vorgabewert: gesuchtes Ereignis"/>
+				<input name="IstFirma" type="xsd:string" optional="t" description="Vorgabe-Flag: Firmen gesucht"/>
+				<input name="Datenherkunft" type="xsd:string" optional="t" description="Vorgabewert: gesuchte Datenherkunft"/>
+				<input name="Gültigkeitsdatum" type="xsd:string" optional="t" description="Vorgabewert: gesuchtes Gültigkeitsdatum"/>
+				<input name="Gültigkeitstyp" type="xsd:string" optional="t" description="Vorgabewert: Art der Gültigkeitsdatumsangabe"/>
+			</contract>
+			<doTask name="Load"/>
+			<action name="getAll" worker="CategorieWorker" />
+			<action name="getSearch" worker="PersonListWorker" />
+			<response type="velocity" name="personSearch">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+		
+		<task name="SearchPerson" access="public" groups="StandardFieldsReader">
+			<description>
+				Dieser Task sucht Personen.
+			</description>
+			<contract>
+				<input name="Vorname" type="xsd:string" optional="t" description="gesuchter Vorname"/>
+				<input name="Nachname" type="xsd:string" optional="t" description="gesuchter Nachname"/>
+				<input name="Institution" type="xsd:string" optional="t" description="gesuchte Institution"/>
+				<input name="Ort" type="xsd:string" optional="t" description="gesuchter Ort"/>
+				<input name="Straße" type="xsd:string" optional="t" description="gesuchte Straße"/>
+				<input name="PLZ" type="xsd:string" optional="t" description="gesuchte PLZ"/>
+				<input name="Funktion" type="xsd:string" optional="t" description="gesuchte Funktion"/>
+				<input name="Kategorie" type="xsd:string" optional="t" description="gesuchte Kategorie"/>
+				<input name="Ereignis" type="xsd:string" optional="t" description="gesuchtes Ereignis"/>
+				<input name="IstFirma" type="xsd:string" optional="t" description="Flag: Firmen gesucht"/>
+				<input name="Datenherkunft" type="xsd:string" optional="t" description="gesuchte Datenherkunft"/>
+				<input name="Gültigkeitsdatum" type="xsd:string" optional="t" description="gesuchtes Gültigkeitsdatum"/>
+				<input name="Gültigkeitstyp" type="xsd:string" optional="t" description="Art der Gültigkeitsdatumsangabe"/>
+			</contract>
+			<doTask name="Load"/>
+			<action name="saveList" worker="PersonListWorker" />
+			<action name="showList" worker="PersonListWorker" />
+			<action name="exportFormat" worker="PersonExportWorker" />
+			<param name="liststarts" value="true"/>
+			<response type="velocity" name="personList">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+		
+		<task name="CreatePerson" access="public" groups="Writer">
+			<description>
+				Dieser Task zeigt eine Person an.
+			</description>
+			<doTask name="Load"/>
+			<action name="getAll" worker="SalutationWorker"/>
+			<action name="getDoctype" worker="PersonDetailWorker" />
+			<response type="velocity" name="personDetail">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+		
+		<task name="ShowPerson" access="public" groups="StandardFieldsReader">
+			<description>
+				Dieser Task zeigt eine Person an.
+			</description>
+			<contract>
+				<input name="id" type="xsd:string" optional="t" description="ID der Person; wenn leer, wird diese aus der Session geladen."/>
+			</contract>
+			<doTask name="Load"/>
+			<action name="getAll" worker="SalutationWorker"/>
+			<action name="showDetail" worker="PersonDetailWorker" />
+			<action name="getDoctype" worker="PersonDetailWorker" />
+			<response type="velocity" name="personDetail">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+		
+		<task name="ShowTestPerson" access="public" groups="StandardFieldsReader">
+			<description>
+				Dieser Task zeigt eine Test-Person an.
+			</description>
+			<doTask name="Load"/>
+			<action name="getAll" worker="SalutationWorker"/>
+			<action name="showTestPerson" worker="PersonDetailWorker" />
+			<action name="getDoctype" worker="PersonDetailWorker" />
+			<response type="velocity" name="personDetail">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+		
+		<task name="CopyPerson" access="public" groups="StandardFieldsReader">
+			<description>
+				Kopiert eine Person in ein neues Bean und zeigt dieses zum bearbeiten an.
+			</description>
+			<doTask name="Load"/>
+			<action name="getAll" worker="SalutationWorker"/>
+			<action name="copyPerson" worker="PersonDetailWorker"/>
+			<action name="getDoctype" worker="PersonDetailWorker" />
+			<response type="velocity" name="personDetail">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+		
+		<task name="ShowReplacePerson" access="public" groups="Writer">
+			<description>Zeigt einen Dialog zum Personen Suchen/Ersetzen an.</description>
+			<param name="action" value="replace"/>
+			<doTask name="Load"/>
+			<action name="getReplaceRequest" worker="PersonReplaceWorker"/>
+			<response type="velocity" name="personReplace">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+		
+		<task name="CountReplaceAllPerson" access="public" groups="Writer">
+			<description>Führt ein Suchen/Ersetzen über mehrere Personen durch.</description>
+			<param name="action" value="replace"/>
+			<param name="snr-action" value="count"/>
+			<action name="getReplaceRequest" worker="PersonReplaceWorker"/>
+			<status equals="invalidsearch">
+				<doTask name="ShowReplacePerson"/>
+			</status>
+			<action name="countData" worker="PersonReplaceWorker"/>
+			<doTask name="ShowReplacePerson"/>
+		</task>
+		
+		<task name="SaveReplaceAllPerson" access="public" groups="Writer">
+			<description>Führt ein Suchen/Ersetzen über mehrere Personen durch.</description>
+			<param name="action" value="replace"/>
+			<param name="snr-action" value="replaceAll"/>
+			<action name="getReplaceRequest" worker="PersonReplaceWorker"/>
+			<status equals="invalidsearch">
+				<doTask name="ShowReplacePerson"/>
+			</status>
+			<action name="countData" worker="PersonReplaceWorker"/>
+			<action name="replaceAllData" worker="PersonReplaceWorker"/>
+			<doTask name="ShowReplacePerson"/>
+		</task>
+		
+		<task name="ShowReplacePersonList" access="public" groups="Writer">
+			<description>Führt ein Suchen/Ersetzen über mehrere Personen durch.</description>
+			<param name="action" value="replace"/>
+			<param name="snr-action" value="replace"/>
+			<action name="getReplaceRequest" worker="PersonReplaceWorker"/>
+			<status equals="invalidsearch">
+				<doTask name="ShowReplacePerson"/>
+			</status>
+			<doTask name="Load"/>
+			<action name="saveList" worker="PersonReplaceWorker" />
+			<action name="showList" worker="PersonReplaceWorker" />
+			<param name="liststarts" value="true"/>
+			<response type="velocity" name="personList">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+		
+		<task name="SaveReplacePersonList" access="public" groups="Writer">
+			<description>Führt ein Suchen/Ersetzen über mehrere Personen durch.</description>
+			<param name="action" value="replace"/>
+			<param name="snr-action" value="replace"/>
+			<action name="getReplaceRequest" worker="PersonReplaceWorker"/>
+			<status equals="invalidsearch">
+				<doTask name="ShowReplacePerson"/>
+			</status>
+			<action name="countData" worker="PersonReplaceWorker"/>
+			<action name="replaceSelectedData" worker="PersonReplaceWorker"/>
+			<doTask name="ShowReplacePerson"/>
+		</task>
+		
+		<task name="LoadPersonCompany" access="public" groups="Writer">
+			<description>
+				Dieser Task übernimmt die Firmen-Adresse die per Popup
+				ausgefählt worden ist und zeigt diese ungespeichert wieder an.
+			</description>
+			<contract>
+				<input name="company" type="xsd:string" optional="f" description="ID des Person-Eintrages der als Firma übernommen werden soll."/>
+			</contract>
+			<doTask name="Load"/>
+			<action name="copyCompanyData" worker="CompanyListWorker"/>
+			<doTask name="CreatePerson"/>
+		</task>
+		
+		<task name="SavePerson" access="public" groups="Writer">
+			<description>
+				Dieser Task speichert eine Person.
+			</description>
+			<doTask name="SavePersonWithDupcheck"/>
+			<action name="getAll" worker="SalutationWorker"/>
+			<action name="getDoctype" worker="PersonDetailWorker" />
+			<response type="velocity" name="personDetail">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+		
+		<task name="SavePersonWithDupcheck" access="private">
+			<description>
+				Dieser Task überprüft ob eine entsprechende Person
+				bereits existiert und zeigt ggf. den Dupcheck-Dialog an.
+			</description>
+			<contract>
+				<input name="id" type="xsd:string" optional="f" description="ID der Person"/>
+				<input name="person-nodupcheck" type="xsd:string" optional="t" description="Flag: Kein Duplikatscheck"/>
+			</contract>
+			<doTask name="Load"/>
+			<action name="prepareSaveDetail" worker="PersonDetailWorker" />
+			<status equals="saveperson">
+				<action name="check" worker="PersonDupcheckWorker" />
+				<status equals="dupcheck">
+					<doTask name="PersonDupcheck"/>
+				</status>
+				<action name="saveDetail" worker="PersonDetailWorker" />
+				<status equals="notcorrect">
+					<doTask name="ShowPerson"/>
+			</status>
+			</status>
+		</task>
+		
+		<task name="PersonDupcheck" access="public" groups="Writer">
+			<description>
+				Dieser Task zeigt einen Vergleich zwischen zwei oder mehr Personen-Duplikaten an.
+			</description>
+			<doTask name="Load"/>
+			<action name="showList" worker="PersonDupcheckWorker" />
+			<response type="velocity" name="personDupcheckList">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+		
+		<task name="PersonDupcheckCancel" access="public" groups="Writer">
+			<description>
+				Dieser Task zeigt einen Vergleich zwischen zwei oder mehr Personen-Duplikaten an.
+			</description>
+			<doTask name="Load"/>
+			<action name="check" worker="PersonDupcheckWorker" />
+			<action name="getAll" worker="SalutationWorker"/>
+			<action name="getDoctype" worker="PersonDetailWorker" />
+			<response type="velocity" name="personDetail">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+		
+		<task name="ShowPersonDoctypeList" access="public" groups="StandardFieldsReader">
+			<description>
+				Dieser Task zeigt die zu einer Person gehörigen Dokumenten-Typen an.
+			</description>
+			<contract>
+				<input name="id" type="xsd:string" optional="t" description="ID der Person; wenn leer, wird diese aus der Session geladen."/>
+			</contract>
+			<doTask name="SavePersonWithDupcheck"/>
+			<action name="showDetail" worker="PersonDetailWorker" />
+			<action name="getDoctype" worker="PersonDetailWorker" />
+			<action name="saveList" worker="PersonDoctypeWorker" />
+			<action name="showList" worker="PersonDoctypeWorker" />
+			<response type="velocity" name="personDoctype">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+		
+		<task name="ShowPersonDoctype" access="public" groups="StandardFieldsReader">
+			<description>
+				Dieser Task zeigt die zu einer Person gehörigen Dokumenten-Typen an.
+			</description>
+			<contract>
+				<input name="id" type="xsd:string" optional="t" description="ID der Person; wenn leer, wird diese aus der Session geladen."/>
+			</contract>
+			<doTask name="Load"/>
+			<action name="showDetail" worker="PersonDetailWorker" />
+			<action name="getDoctype" worker="PersonDetailWorker" />
+			<action name="showDetail" worker="PersonDoctypeWorker" />
+			<response type="velocity" name="personDoctype">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+		
+		<task name="CreatePersonDoctype" access="public" groups="Writer">
+			<description>
+				Dieser Task zeigt die zu einer Person gehörigen Dokumenten-Typen an.
+			</description>
+			<contract>
+				<input name="id" type="xsd:string" optional="t" description="ID der Person; wenn leer, wird diese aus der Session geladen."/>
+			</contract>
+			<doTask name="Load"/>
+			<action name="showDetail" worker="PersonDetailWorker" />
+			<action name="getDoctype" worker="PersonDetailWorker" />
+			<action name="createAll" worker="PersonDoctypeWorker" />
+			<action name="showList" worker="PersonDoctypeWorker" />
+			<response type="velocity" name="personDoctype">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+		
+		<task name="SavePersonDoctype" access="public" groups="Writer">
+			<description>
+				Dieser Task zeigt die zu einer Person gehörigen Dokumenten-Typen an.
+			</description>
+			<contract>
+				<input name="id" type="xsd:string" optional="t" description="ID der Person; wenn leer, wird diese aus der Session geladen."/>
+			</contract>
+			<doTask name="Load"/>
+			<action name="saveDetail" worker="PersonDoctypeWorker" />
+			<doTask name="ShowPersonDoctype"/>
+		</task>
+		
+		<task name="ShowPersonCategorieList" access="public" groups="StandardFieldsReader">
+			<description>
+				Dieser Task zeigt die zu einer Person gehörigen Kategorien an.
+			</description>
+			<contract>
+				<input name="id" type="xsd:string" optional="t" description="ID der Person; wenn leer, wird diese aus der Session geladen."/>
+			</contract>
+			<doTask name="SavePersonWithDupcheck"/>
+			<action name="showDetail" worker="PersonDetailWorker" />
+			<action name="getDoctype" worker="PersonDetailWorker" />
+			<action name="saveList" worker="PersonCategorieWorker" />
+			<action name="showList" worker="PersonCategorieWorker" />
+			<action name="getAll" worker="CategorieWorker" />
+			<response type="velocity" name="personCategorie">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+		
+		<task name="DeletePerson" access="public" groups="Writer">
+			<description>
+				Dieser Task löscht eine Person.
+			</description>
+			<contract>
+				<input name="PersonId" type="xsd:string" optional="f" description="ID der Person"/>
+				<input name="NoValidityCheck" type="xsd:string" optional="t" description="Flag: Keine Nachfrage bei noch gültigen Personen"/>
+				<input name="DeleteInXManage" type="xsd:string" optional="t" description="Flag: Ebenfalls Löschung in XManage"/>
+			</contract>
+			<doTask name="SearchPerson"/>
+		</task>
+		
+		<task name="PersonExport" access="public" groups="Exporter">
+			<description>
+				Task exportiert das aktuelle Personen-Suchergebnis.
+			</description>
+			<action name="getSelection" worker="PersonExportWorker"/>
+			<action name="export" worker="PersonExportWorker"/>
+			<response type="binary" name="stream">
+				<param name="CachingParam" value="nocachecontrol,nopragma"/>
+			</response>
+		</task>
+		
+		<!-- Umsetzung -->
+		<task name="CreateDocSpecData" access="public" groups="Writer">
+			<description>
+				Dieser Task erzeugt die Dokument-Typ-spezifischen Daten
+				zu einer Person und einem / jedem Dokument-Typ.
+			</description>
+			<contract>
+				<input name="PersonId" type="xsd:string" optional="f" description="ID der Person"/>
+				<input name="DokTypId" type="xsd:string" optional="t" description="ID des Dokumenten-Typs"/>
+			</contract>
+			<doTask name="ShowPerson"/>
+		</task>
+		
+		<task name="ExportPerson" access="public" groups="Exporter">
+			<description>
+				Dieser Task exportiert eine Person.
+			</description>
+			<contract>
+				<input name="PersonId" type="xsd:string" optional="f" description="ID der Person"/>
+			</contract>
+			<response type="velocity" name="export">
+				<param name="CachingParam" value="nocachecontrol,nopragma"/>
+				<!--param name="ContentType" value="text/csv;charset=UTF-8"/-->
+				<param name="ContentType" value="application/vnd.ms-excel"/>
+				<param name="Content-Disposition" value="attachment; filename=export.csv"/><!-- Erweiterung Octopus nötig -->
+				<param name="Content-Description" value="VerA.web Personenexport"/><!-- Erweiterung Octopus nötig -->
+			</response>
+		</task>
+		
+		<task name="ExportPersons" access="public" groups="Exporter">
+			<description>
+				Dieser Task zeigt einen Dialog zum Exportieren von Personen.
+			</description>
+			<doTask name="Load"/>
+			<param name="domain" value="ou"/><!-- wenn Admin, dann alle Veranstaltungen und Kategorien -->
+			<param name="invertOrder" value="true"/><!-- Dreht die Liste der Veranstaltung chronologisch um. -->
+			<action name="getAll" worker="EventListWorker"/>
+			<action name="getAll" worker="CategorieWorker"/>
+			<action name="getFormats" worker="DataExchangeWorker"/>
+			<response type="velocity" name="exportPersons">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+
+		<task name="ExportPersonsHandler" access="public" groups="Exporter">
+			<description>
+				Dieser Task exportiert Personen gemäß Vorgaben aus dem Task "ExportPersons".
+			</description>
+			<param name="domain" value="ou"/><!-- wenn Admin, dann aus allen Mandanten -->
+			<action name="export" worker="DataExchangeWorker"/>
+			<response type="binary" name="stream">
+				<param name="CachingParam" value="nocachecontrol,nopragma"/>
+			</response>
+		</task>
+		
+		<task name="ImportPersons" access="public" groups="Writer">
+			<description>
+				Dieser Task zeigt einen Dialog zum Importieren von Personen aus einer Madlan-Export-Datei.
+			</description>
+			<doTask name="Load"/>
+			<action name="getFormats" worker="DataExchangeWorker"/>
+			<param name="domain" value="all"/>
+			<action name="getAll" worker="OrgUnitListWorker" />
+			<response type="velocity" name="import">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+		
+		<task name="ImportPersonsFile" access="public" groups="Writer">
+			<description>
+				Dieser Task importiert Personen aus einer Madlan-Export-Datei in die spezielle DB-Tabelle "timportperson".
+			</description>
+			<doTask name="Load"/>
+			<action name="importToTransit" worker="DataExchangeWorker"/>
+			<status equals="invalidData">
+				<doTask name="ImportPersons"/>
+			</status>
+			<response type="velocity" name="importResult">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+		
+		<task name="ImportPersonsStoredRecord" access="public" groups="Writer">
+			<description>
+				Dieser Task setzt den Import von Personen aus der DB-Tabelle "timportperson" fort.
+			</description>
+			<doTask name="Load"/>
+			<action name="importStoredRecord" worker="ImportPersonsWorker" />
+			<response type="velocity" name="importResult">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+		
+		<task name="ImportPersonsFinalise" access="public" groups="Writer">
+			<description>
+				Dieser Task importiert Personen aus der DB-Tabelle "timportperson" in die Personendatenbasis.
+			</description>
+			<doTask name="Load"/>
+			<action name="finalise" worker="ImportPersonsWorker" />
+			<response type="velocity" name="importResult">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+		
+		<task name="ImportPersonsEditDuplicates" access="public" groups="Writer">
+			<description>
+				Dieser Task ermöglicht die Bearbeitung der Duplikat-Datensätze von einem Importvorgang.
+			</description>
+			<doTask name="Load"/>
+			<action name="saveList" worker="ImportPersonsDuplicateWorker" />
+			<action name="showList" worker="ImportPersonsDuplicateWorker" />
+<!--			<action name="editDuplicates" worker="ImportPersonsDuplicateWorker" />-->
+			<response type="velocity" name="duplicateList">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+		<!-- Umsetzung VERTEILER -->
+		<task name="CreateMailinglist" access="public" groups="StandardFieldsReader">
+			<description>
+				Zeigt einen Dialog zur Erstellung eines Mail-Verteilers an.
+			</description>
+			<doTask name="Load"/>
+			<action name="getSearch" worker="GuestListWorker"/>
+			<action name="getEvent" worker="GuestListWorker" />
+			<action name="showList" worker="GuestListWorker"/>
+			<action name="guessMaillinglist" worker="MailinglistWorker"/>
+			<response type="velocity" name="mailinglistCreate">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+		
+		<task name="SaveMailinglist" access="public" groups="Writer">
+			<description>
+				Speichert einen Mail-Verteiler und zeigt anschließend die Gästeliste an.
+			</description>
+			<doTask name="Load"/>
+			<action name="getSearch" worker="GuestListWorker"/>
+			<action name="getEvent" worker="GuestListWorker" />
+			<action name="showList" worker="GuestListWorker"/>
+			<action name="saveDetail" worker="MailinglistDetailWorker"/>
+			<status equals="error">
+				<doTask name="CreateMailinglist"/>
+			</status>
+			<action name="createMailinglist" worker="MailinglistWorker"/>
+			<status equals="error">
+				<doTask name="CreateMailinglist"/>
+			</status>
+			<doTask name="ShowGuestList"/>
+		</task>
+		
+		<task name="ShowMailinglistList" access="public" groups="StandardFieldsReader">
+			<description>
+				Dieser Task zeigt eine Liste von Email-Verteilern an.
+			</description>
+			<doTask name="Load"/>
+			<action name="saveList" worker="MailinglistListWorker" />
+			<action name="showList" worker="MailinglistListWorker" />
+			<response type="velocity" name="mailinglistList">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+		
+		<task name="ShowMailinglistDetail" access="public" groups="StandardFieldsReader">
+			<description>
+				Dieser Task zeigt die Adressen zu einem Email-Verteiler an.
+			</description>
+			<doTask name="Load"/>
+			<action name="showDetail" worker="MailinglistDetailWorker"/>
+			<action name="saveList" worker="MailinglistDetailWorker"/>
+			<action name="showList" worker="MailinglistDetailWorker"/>
+			<action name="getAddressList" worker="MailinglistDetailWorker"/>
+			<response type="velocity" name="mailinglistDetail">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+		
+		<task name="MailinglistWrite" access="public" groups="StandardFieldsReader">
+			<description>Zeigt einen Dialog zum versenden von eMail an.</description>
+			<doTask name="Load"/>
+			<action name="showDetail" worker="MailinglistDetailWorker"/>
+			<action name="writeMail" worker="MailDispatchWorker"/>
+			<action name="getAll" worker="MailDraftWorker"/>
+			<response type="velocity" name="mailinglistWrite">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+		
+		<task name="MailinglistSend" access="public" groups="StandardFieldsReader">
+			<description>Versendet die eMails und wechselt zur Vrrteiler-Ansicht.</description>
+			<doTask name="Load"/>
+			<action name="showDetail" worker="MailinglistDetailWorker"/>
+			<action name="getSelection" worker="MailinglistDetailWorker"/>
+			<action name="sendMail" worker="MailDispatchWorker"/>
+			<status equals="error">
+				<doTask name="MailinglistWrite"/>
+			</status>
+			<doTask name="ShowMailinglistDetail"/>
+		</task>
+		
+		<!-- Umsetzung eMail-Vorlagen und eMail-Versenden -->
+		<task name="MailDraftList" access="public" groups="Writer">
+			<description>Zeigt eine Liste von eMail-Entwürfen an.</description>
+			<doTask name="Load"/>
+			<action name="saveList" worker="MailDraftWorker"/>
+			<action name="showList" worker="MailDraftWorker"/>
+			<param name="liststarts" value="true"/>
+			<response type="velocity" name="mailDraftList">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+		
+		<task name="MailDraftDetail" access="public" groups="Writer">
+			<description>Zeigt einen eMail-Entwürf an.</description>
+			<doTask name="Load"/>
+			<action name="saveDetail" worker="MailDraftWorker"/>
+			<action name="showDetail" worker="MailDraftWorker"/>
+			<response type="velocity" name="mailDraftDetail">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+		
+		<task name="MailOutboxList" access="public" groups="PartialAdmin,Administrator">
+			<description>Zeigt eine Liste von eMails im Postausgang an.</description>
+			<doTask name="Load"/>
+			<action name="saveList" worker="MailOutboxWorker"/>
+			<action name="showList" worker="MailOutboxWorker"/>
+			<response type="velocity" name="mailOutboxList">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+		
+		<task name="MailOutboxDetail" access="public" groups="PartialAdmin,Administrator">
+			<description>Zeigt eine eMail im Postausgang an.</description>
+			<doTask name="Load"/>
+			<action name="saveDetail" worker="MailOutboxWorker"/>
+			<action name="showDetail" worker="MailOutboxWorker"/>
+			<response type="velocity" name="mailOutboxDetail">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+		
+		<!-- Umsetzung VERANSTALTUNG -->
+		<task name="ShowEventSearch" access="public" groups="StandardFieldsReader">
+			<description>
+				Dieser Task zeigt einen Suchdialog für Veranstaltungen.
+			</description>
+			<contract>
+				<input name="Aktuell" type="xsd:string" optional="t" description="Vorgabe-Flag: nur aktuelle Veranstaltungen"/>
+				<input name="Name" type="xsd:string" optional="t" description="Vorgabewert: gesuchter Name"/>
+				<input name="Langname" type="xsd:string" optional="t" description="Vorgabewert: gesuchter Langname"/>
+				<input name="Datum" type="xsd:string" optional="t" description="Vorgabewert: gesuchtes Datum"/>
+				<input name="Ort" type="xsd:string" optional="t" description="Vorgabewert: gesuchter Ort"/>
+				<input name="Gastgeber" type="xsd:string" optional="t" description="Vorgabewert: gesuchter Gastgeber"/>
+			</contract>
+			<doTask name="Load"/>
+			<action name="getSearch" worker="EventListWorker" />
+			<response type="velocity" name="eventSearch">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+		
+		<task name="SearchEvent" access="public" groups="StandardFieldsReader">
+			<description>
+				Dieser Task sucht Veranstaltungen.
+			</description>
+			<contract>
+				<input name="Aktuell" type="xsd:string" optional="t" description="Flag: nur aktuelle Veranstaltungen"/>
+				<input name="Name" type="xsd:string" optional="t" description="gesuchter Name"/>
+				<input name="Langname" type="xsd:string" optional="t" description="gesuchter Langname"/>
+				<input name="Datum" type="xsd:string" optional="t" description="gesuchtes Datum"/>
+				<input name="Ort" type="xsd:string" optional="t" description="gesuchter Ort"/>
+				<input name="Gastgeber" type="xsd:string" optional="t" description="gesuchter Gastgeber"/>
+			</contract>
+			<doTask name="Load"/>
+			<action name="saveList" worker="EventListWorker" />
+			<action name="showList" worker="EventListWorker" />
+			<response type="velocity" name="eventList">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+		
+		<task name="CreateEvent" access="public" groups="Writer">
+			<description>
+				Dieser Task zeigt eine Veranstaltung an.
+			</description>
+			<doTask name="Load"/>
+			<action name="getAll" worker="LocationWorker" />
+			<response type="velocity" name="eventDetail">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+		
+		<task name="ShowEvent" access="public" groups="StandardFieldsReader">
+			<description>
+				Dieser Task zeigt eine Veranstaltung an.
+			</description>
+			<doTask name="Load"/>
+			<action name="getAll" worker="LocationWorker" />
+			<action name="showDetail" worker="EventDetailWorker" />
+			<response type="velocity" name="eventDetail">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+		
+		<task name="SaveEvent" access="public" groups="Writer">
+			<description>
+				Dieser Task speichert eine Veranstaltung.
+			</description>
+			<doTask name="Load"/>
+			<action name="getAll" worker="LocationWorker" />
+			<action name="saveDetail" worker="EventDetailWorker" />
+			<response type="velocity" name="eventDetail">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+		
+		<task name="ShowEventDoctype" access="public" groups="StandardFieldsReader">
+			<description>
+				Dieser Task zeigt die Dokumententypen zu einer Veranstaltung an.
+			</description>
+			<doTask name="Load"/>
+			<action name="saveDetail" worker="EventDetailWorker" />
+			<status equals="notsaved">
+				<doTask name="SaveEvent"/>
+			</status>
+			<action name="showDetail" worker="EventDetailWorker" />
+			<action name="saveList" worker="EventDoctypeWorker" />
+			<action name="showList" worker="EventDoctypeWorker" />
+			<action name="getAll" worker="DoctypeWorker" />
+			<response type="velocity" name="eventDoctype">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+		
+		<!-- Umsetzung GAESTELISTE -->
+		<task name="ShowGuestList" access="public" groups="StandardFieldsReader">
+			<description>
+				Zeigt eine Gästeliste an.
+			</description>
+			<doTask name="Load"/>
+			<action name="getSearch" worker="GuestListWorker"/>
+			<action name="getEvent" worker="GuestListWorker" />
+			<status equals="noevent"><doTask name="CreateEvent"/></status>
+			<action name="saveList" worker="GuestListWorker"/>
+			<action name="showList" worker="GuestListWorker"/>
+			<action name="getSums" worker="GuestListWorker"/>
+			<param name="liststarts" value="true"/>
+			<response type="velocity" name="guestList">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+		
+		<task name="ShowGuestDetail" access="public" groups="StandardFieldsReader">
+			<description>
+				Zeigt die Informationen eines Gastes an.
+			</description>
+			<doTask name="Load"/>
+			<action name="getSearch" worker="GuestListWorker"/>
+			<action name="getEvent" worker="GuestListWorker" />
+			<status equals="noevent"><doTask name="CreateEvent"/></status>
+			<action name="getAll" worker="CategorieWorker"/>
+			<action name="showDetail" worker="GuestDetailWorker"/>
+			<status equals="notfound">
+				<doTask name="ShowGuestList"/>
+			</status>
+			<response type="velocity" name="guestDetail">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+		
+		<task name="ShowTestGuest" access="public" groups="StandardFieldsReader">
+			<description>
+				Dieser Task zeigt einen Test Gast.
+			</description>
+			<doTask name="Load"/>
+			<action name="getSearch" worker="GuestListWorker"/>
+			<action name="getEvent" worker="GuestListWorker"/>
+			<status equals="noevent"><doTask name="CreateEvent"/></status>
+			<action name="getAll" worker="CategorieWorker"/>
+			<action name="showTestGuest" worker="GuestDetailWorker"/>
+			<response type="velocity" name="guestDetail">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+		
+		<task name="SaveGuestDetail" access="public" groups="Writer">
+			<description>
+				Speichert die Informationen eines Gastes.
+			</description>
+			<action name="saveDetail" worker="GuestDetailWorker"/>
+			<doTask name="ShowGuestDetail"/>
+		</task>
+		
+		<task name="ShowGuestDoctype" access="public" groups="StandardFieldsReader">
+			<description>
+				Zeigt die Dokumenttypen eines Gastes an.
+			</description>
+			<doTask name="Load"/>
+			<action name="getSearch" worker="GuestListWorker"/>
+			<action name="getEvent" worker="GuestListWorker" />
+			<status equals="noevent"><doTask name="CreateEvent"/></status>
+			<action name="showDetail" worker="GuestDetailWorker"/>
+			<action name="showDetail" worker="GuestDoctypeWorker"/>
+			<response type="velocity" name="guestDoctype">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+		
+		<task name="ReloadGuestData" access="public" groups="Writer">
+			<description>
+				Lädt die Dokumenttypen eines Gastes neu.
+			</description>
+			<action name="getSearch" worker="GuestListWorker"/>
+			<action name="getEvent" worker="GuestListWorker" />
+			<status equals="noevent"><doTask name="CreateEvent"/></status>
+			<action name="reloadData" worker="GuestWorker"/>
+			<status equals="showDoctype">
+			<doTask name="ShowGuestDoctype"/>
+			</status>
+			<doTask name="ShowGuestDetail"/>
+		</task>
+		
+		<task name="ReloadAllGuestData" access="public" groups="Writer">
+			<description>
+				Lädt die Dokumenttypen eines Gastes neu.
+			</description>
+			<doTask name="Load"/>
+			<action name="getSearch" worker="GuestListWorker"/>
+			<action name="getEvent" worker="GuestListWorker" />
+			<status equals="noevent"><doTask name="CreateEvent"/></status>
+			<action name="showList" worker="GuestListWorker"/>
+			<action name="getSums" worker="GuestListWorker"/>
+			<action name="reloadAllData" worker="GuestWorker"/>
+			<action name="showList" worker="GuestListWorker"/>
+			<response type="velocity" name="guestList">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+		
+		<task name="SaveGuestDoctype" access="public" groups="Writer">
+			<description>
+				Speichert die Dokumenttypen eines Gastes ab.
+			</description>
+			<action name="saveDetail" worker="GuestDoctypeWorker"/>
+			<doTask name="ShowGuestDoctype"/>
+		</task>
+		
+		<task name="AddPersonToEventDetail" access="public" groups="Writer">
+			<description>
+				Fügt eine Person einer Veranstaltung hinzu und zeigt diese
+				anschließend wieder an.
+			</description>
+			<action name="showDetail" worker="PersonDetailWorker"/>
+			<action name="addPerson" worker="GuestWorker"/>
+			<doTask name="ShowPerson"/>
+		</task>
+		
+		<task name="AddPersonToEventSearch" access="public" groups="Writer">
+			<description>
+				Fügt die markierten Personen aus einer Gästeliste zu einer
+				Veranstaltung hinzu und zeigt die Personenliste wieder an.
+			</description>
+			<action name="getSearch" worker="GuestListWorker"/>
+			<action name="getEvent" worker="GuestListWorker" />
+			<doTask name="ShowPersonSearch"/>
+		</task>
+		
+		<task name="AddPersonToEventList" access="public" groups="Writer">
+			<description>
+				Fügt die markierten Personen aus einer Gästeliste zu einer
+				Veranstaltung hinzu und zeigt die Personenliste wieder an.
+			</description>
+			<action name="getSearch" worker="GuestListWorker"/>
+			<action name="getEvent" worker="GuestListWorker" />
+			<status equals="noevent"><doTask name="CreateEvent"/></status>
+			<action name="extendGuestSelection" worker="PersonGuestListWorker"/>
+			<doTask name="SearchPerson"/>
+		</task>
+		
+		<task name="AddPersonToEventGuestList" access="public" groups="Writer">
+			<description>
+				Fügt die markierten Personen aus einer Gästeliste zu einer
+				Veranstaltung hinzu und zeigt die Personenliste wieder an.
+			</description>
+			<action name="getSearch" worker="GuestListWorker"/>
+			<action name="getEvent" worker="GuestListWorker" />
+			<status equals="noevent"><doTask name="CreateEvent"/></status>
+			<action name="getSelection" worker="PersonListWorker"/>
+			<action name="extendGuestSelection" worker="PersonGuestListWorker"/>
+			<action name="addGuestList" worker="GuestWorker"/>
+			<action name="clearGuestSelection" worker="PersonGuestListWorker"/>
+			<doTask name="ShowGuestList"/>
+		</task>
+		
+		<task name="AddEventToEventSearch" access="public" groups="Writer">
+			<description>
+				Fügt Gäste einer Veranstaltungen zur einer anderen hinzu.
+			</description>
+			<action name="getSearch" worker="GuestListWorker"/>
+			<action name="getEvent" worker="GuestListWorker" />
+			<status equals="noevent"><doTask name="CreateEvent"/></status>
+			<doTask name="ShowEventSearch"/>
+		</task>
+		
+		<task name="AddEventToEventList" access="public" groups="Writer">
+			<description>
+				Fügt Gäste einer Veranstaltungen zur einer anderen hinzu.
+			</description>
+			<action name="getSearch" worker="GuestListWorker"/>
+			<action name="getEvent" worker="GuestListWorker" />
+			<status equals="noevent"><doTask name="CreateEvent"/></status>
+			<doTask name="SearchEvent"/>
+		</task>
+		
+		<task name="AddEventToEventGuestList" access="public" groups="Writer">
+			<description>
+				Fügt Gäste einer Veranstaltungen zur einer anderen hinzu.
+			</description>
+			<action name="getSearch" worker="GuestListWorker"/>
+			<action name="getEvent" worker="GuestListWorker" />
+			<status equals="noevent"><doTask name="CreateEvent"/></status>
+			<action name="addEvent" worker="GuestWorker"/>
+			<doTask name="ShowGuestList"/>
+		</task>
+		
+		<task name="SetHostToEventSearch" access="public" groups="Writer">
+			<description>
+				Setzt einen Gastgeber für eine Veranstaltung.
+			</description>
+			<action name="saveTemp" worker="EventDetailWorker"/>
+			<doTask name="ShowPersonSearch"/>
+		</task>
+		
+		<task name="SetHostToEventList" access="public" groups="Writer">
+			<description>
+				Setzt einen Gastgeber für eine Veranstaltung.
+			</description>
+			<action name="loadTemp" worker="EventDetailWorker"/>
+			<doTask name="SearchPerson"/>
+		</task>
+		
+		<task name="SetHostToEventDetail" access="public" groups="Writer">
+			<description>
+				Setzt einen Gastgeber für eine Veranstaltung.
+			</description>
+			<action name="loadTemp" worker="EventDetailWorker"/>
+			<action name="setHost" worker="EventDetailWorker"/>
+			<doTask name="SaveEvent"/>
+		</task>
+		
+		<task name="CalcSerialNumber" access="public" groups="Writer">
+			<description>
+				Berechnet die Laufende Nummer von Gästen in einer Gästeliste.
+			</description>
+			<doTask name="Load"/>
+			<action name="getSearch" worker="GuestListWorker"/>
+			<action name="getEvent" worker="GuestListWorker" />
+			<action name="calcSerialNumber" worker="GuestWorker"/>
+			<action name="showList" worker="GuestListWorker"/>
+			<action name="getSums" worker="GuestListWorker"/>
+			<response type="velocity" name="guestList">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+		
+		
+		<!-- Umsetzung GAESTELISTE EXPORT -->
+		<task name="ShowExportGuestDoctype" access="public" groups="StandardFieldsReader">
+			<description>
+				Exportiert die Dokumenttypen eines Gastes.
+			</description>
+			<doTask name="Load"/>
+			<action name="getSearch" worker="GuestListWorker"/>
+			<action name="getEvent" worker="GuestListWorker" />
+			<action name="getSelection" worker="GuestListWorker"/>
+			<action name="getAll" worker="EventDoctypeWorker" />
+			<action name="calc" worker="GuestExportWorker" />
+			<response type="velocity" name="guestDoctypeExport">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+		
+		<task name="ExportGuestDoctype" access="public" groups="StandardFieldsReader">
+			<description>
+				Exportiert die Dokumenttypen eines Gastes.
+			</description>
+			<doTask name="Load"/>
+			<action name="getSearch" worker="GuestListWorker"/>
+			<action name="getEvent" worker="GuestListWorker" />
+			<action name="export" worker="GuestExportWorker" />
+			<response type="binary" name="stream">
+				<param name="CachingParam" value="nocachecontrol,nopragma"/>
+			</response>
+		</task>
+		
+		<task name="ShowReportGuestList" access="public" groups="StandardFieldsReader">
+			<description>
+				Zeigt eine Auswahl von zur Verfügung stehenden Reporten an.
+			</description>
+			<doTask name="Load"/>
+			<action name="getSearch" worker="GuestListWorker"/>
+			<action name="getEvent" worker="GuestListWorker" />
+			<action name="getSelection" worker="GuestListWorker"/>
+			<response type="velocity" name="reportSelection">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+		
+		<task name="ReportGuestList" access="public" groups="StandardFieldsReader">
+			<description>
+				Exportiert einen Report und zeigt diesen als HTML-Bericht an.
+			</description>
+			<doTask name="Load"/>
+			<action name="getSearch" worker="GuestListWorker"/>
+			<action name="getEvent" worker="GuestListWorker"/>
+			<action name="createReport" worker="GuestReportWorker"/>
+			<response type="velocity" name="reportGuestList">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+		
+		<!-- Umsetzung STATISTIKEN -->
+		<task name="Statistik" access="public" groups="Exporter">
+			<description>
+				Zeigt einen Dialog zur Auswahl von Statiksten an.
+			</description>
+			<doTask name="Load"/>
+			<action name="getFirstDayInMonth" worker="StatistikWorker"/>
+			<action name="getLastDayInMonth" worker="StatistikWorker"/>
+			<response type="velocity" name="statistik">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+		
+		<task name="StatistikPersonSearch" access="public" groups="Exporter">
+			<description>
+				Zeigt einen Dialog zum Suchen von Personen an.
+			</description>
+			<action name="loadStatistik" worker="StatistikWorker"/>
+			<doTask name="ShowPersonSearch"/>
+		</task>
+		
+		<task name="StatistikPersonList" access="public" groups="Exporter">
+			<description>
+				Zeigt eine Liste mit Personen an.
+			</description>
+			<doTask name="SearchPerson"/>
+		</task>
+		
+		<task name="StatistikExport" access="public" groups="Exporter">
+			<description>
+				Erstellt eine Steuerdatei mit Statistischen Informationen.
+			</description>
+			<doTask name="Load"/>
+			<action name="loadStatistik" worker="StatistikWorker"/>
+			<action name="getStatistik" worker="StatistikWorker"/>
+			<response type="velocity" name="statistikExport">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+		
+		<!-- Umsetzung AJAX - Nachladen von Daten. -->
+		<task name="Complete" access="private">
+			<response type="velocity" name="complete">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+		
+		<task name="CompleteLocation" access="public" groups="StandardFieldsReader">
+			<doTask name="Load"/>
+			<action name="completeLocation" worker="CompleteWorker"/>
+			<doTask name="Complete"/>
+		</task>
+		
+		<!-- Umsetzung POPUPS -->
+		<task name="popupNewLocation" access="public" groups="StandardFieldsReader">
+			<description>
+				Zeigt ein Popup an zum Einfügen eines neuen Ortes.
+			</description>
+			<doTask name="Load"/>
+			<response type="velocity" name="popupNewLocation">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+		
+		<task name="popupSelectFunction" access="public" groups="StandardFieldsReader">
+			<description>
+				Zeigt ein Popup zur Auswahl einer Funktion an.
+			</description>
+			<doTask name="Load"/>
+			<action name="showList" worker="FunctionWorker"/>
+			<param name="liststarts" value="true"/>
+			<response type="velocity" name="popupSelectFunction">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+		
+		<task name="popupSelectCompany" access="public" groups="StandardFieldsReader">
+			<description>
+				Zeigt ein Popup zur Auswahl einer Funktion an.
+			</description>
+			<doTask name="Load"/>
+			<action name="showList" worker="CompanyListWorker"/>
+			<param name="liststarts" value="true"/>
+			<response type="velocity" name="popupSelectCompany">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+		
+		<task name="popupPersonExport" access="public" groups="StandardFieldsReader">
+			<description>
+				Zeigt ein Popup mit den Stammdaten der Person zum direkten kopieren.
+			</description>
+			<doTask name="Load"/>
+			<action name="showDetail" worker="PersonDetailWorker"/>
+			<action name="getDoctype" worker="PersonDetailWorker"/>
+			<action name="createExport" worker="PersonDetailWorker"/>
+			<response type="velocity" name="popupPersonExport">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+		
+		<!-- Umsetzung Vertretungen -->
+		<task name="Proxy" access="public" groups="InPerson">
+			<description>
+				Dieser Task zeigt die Stellvertreter des aktuellen Benutzers an.
+				Werden dem Task Stellvertretungsdaten übergeben, so wird zuvor versucht,
+				anhand dieser bestehende Stellvertretungen abzuändern.
+			</description>
+			<doTask name="Load"/>
+			<action name="saveList" worker="ProxyListWorker" />
+			<param name="proxiesFor" value="self"/>
+			<param name="proxiesValid" refvalue="proxiesValid"/>
+			<param name="proxy" value="all"/>
+			<param name="order" refvalue="order"/>
+			<action name="showList" worker="ProxyListWorker" />
+			<action name="showAARoleList" worker="UserWorker" />
+			<response type="velocity" name="proxy">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+
+		<task name="OUProxy" access="public" groups="PartialAdmin,Administrator">
+			<description>
+				Dieser Task zeigt die Stellvertreter aller Benutzer im gleichen Mandanten an.
+				Werden dem Task Stellvertretungsdaten übergeben, so wird zuvor versucht,
+				anhand dieser bestehende Stellvertretungen abzuändern.
+			</description>
+			<doTask name="Load"/>
+			<action name="saveList" worker="ProxyListWorker" />
+			<param name="proxiesFor" value="ou"/>
+			<param name="proxiesValid" refvalue="proxiesValid"/>
+			<param name="proxy" value="all"/>
+			<param name="order" refvalue="order"/>
+			<action name="showList" worker="ProxyListWorker" />
+			<action name="showAARoleList" worker="UserWorker" />
+			<action name="getAll" worker="UserListWorker" />
+			<response type="velocity" name="proxy">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+
+		<task name="AllProxy" access="public" groups="Administrator">
+			<description>
+				Dieser Task zeigt die Stellvertreter aller Benutzer an.
+				Werden dem Task Stellvertretungsdaten übergeben, so wird zuvor versucht,
+				anhand dieser bestehende Stellvertretungen abzuändern.
+			</description>
+			<doTask name="Load"/>
+			<action name="saveList" worker="ProxyListWorker" />
+			<param name="proxiesFor" value="all"/>
+			<param name="proxiesValid" refvalue="proxiesValid"/>
+			<param name="proxy" value="all"/>
+			<param name="order" refvalue="order"/>
+			<action name="showList" worker="ProxyListWorker" />
+			<action name="showAARoleList" worker="UserWorker" />
+			<action name="getAll" worker="UserListWorker" />
+			<action name="getMap" worker="OrgUnitListWorker" />
+			<response type="velocity" name="proxy">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+
+		<!-- Umsetzung Benutzer -->
+
+		<task name="OUUser" access="public" groups="PartialAdmin,Administrator">
+			<description>
+				Dieser Task zeigt alle Benutzer im gleichen Mandanten an.
+				Werden dem Task Benutzerdaten übergeben, so wird zuvor versucht,
+				anhand dieser bestehende Benutzer abzuändern.
+			</description>
+			<doTask name="Load"/>
+			<action name="saveList" worker="UserListWorker" />
+			<param name="domain" value="unassigned"/>
+			<action name="showAARoleList" worker="UserWorker" />
+			<param name="domain" value="ou"/><!-- wird auch von user.vm genutzt -->
+			<param name="order" refvalue="order"/>
+			<action name="showList" worker="UserListWorker" />
+			<action name="getAll" worker="OrgUnitListWorker" />
+			<response type="velocity" name="user">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+
+		<task name="AllUser" access="public" groups="Administrator">
+			<description>
+				Dieser Task zeigt alle Benutzer an.
+				Werden dem Task Benutzerdaten übergeben, so wird zuvor versucht,
+				anhand dieser bestehende Benutzer abzuändern.
+			</description>
+			<doTask name="Load"/>
+			<action name="saveList" worker="UserListWorker" />
+			<param name="domain" value="unassigned"/>
+			<action name="showAARoleList" worker="UserWorker" />
+			<param name="domain" value="all"/><!-- wird auch von user.vm genutzt -->
+			<param name="order" refvalue="order"/>
+			<action name="showList" worker="UserListWorker" />
+			<action name="getAll" worker="OrgUnitListWorker" />
+			<response type="velocity" name="user">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+
+		<!-- Umsetzung Mandanten -->
+
+		<task name="Orgunit" access="public" groups="Administrator">
+			<description>
+				Dieser Task zeigt alle Mandanten an.
+				Werden dem Task Benutzerdaten übergeben, so wird zuvor versucht,
+				anhand dieser bestehende Mandanten abzuändern.
+			</description>
+			<doTask name="Load"/>
+			<action name="saveList" worker="OrgUnitListWorker" />
+			<action name="showList" worker="OrgUnitListWorker" />
+			<response type="velocity" name="orgunit">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+
+		<task name="OrgunitCleanup" access="public" groups="Administrator">
+			<description>
+				Dieser Task zeigt Mandanten-unabhängige Daten an und
+				bietet dem Admin die Möglichkeit diese einem bestehenden
+				Mandaten zuzuordnen.
+			</description>
+			<doTask name="Load"/>
+			<action name="getAll" worker="OrgUnitListWorker" />
+			<action name="cleanupDatabase" worker="OrgUnitListWorker" />
+			<response type="velocity" name="orgunitCleanup">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+		
+		<!-- Cleanup-Task -->
+		<task name="Cleanup" access="public" groups="Administrator">
+			<description>
+				Dieser Task übernimmt einige Aufraumarbeiten in der Datenbank.
+			</description>
+			<doTask name="Load"/>
+			<action name="summarizeCategories" worker="CleanupWorker"/>
+			<response type="velocity" name="cleanup">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+	</tasks>
+</tcModuleConfig>
