@@ -1,0 +1,340 @@
+    --------
+    tarent-database User Manual 
+    --------
+
+tarent-database User Manual 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    
+ The tarent-database (aka DBLayer) should be used wherever access to databases is needed in tarent-applications.
+ It depends heavily on the tarent-commons and the Java JDBC library.
+ The funtionality of the library can be divided in the following areas:
+
+ [[1]] Engine: Database Connection and Query Execution ({{{./apidocs/de/tarent/dblayer/engine/package-summary.html}de.tarent.dblayer.engine}})
+
+ [[2]] SQL Object Model  ({{{./apidocs/de/tarent/dblayer/sql/package-summary.html}de.tarent.dblayer.sql}})
+
+ [[3]] Object Persistence ({{{./apidocs/de/tarent/dblayer/persistence/package-frame.html}de.tarent.dblayer.persistence}})
+
+ All parts of the DBLayer focus on reducing the amount of database code in the applications and make the remaining code independent of the underlaying database system.
+
+
+Engine
+~~~~~~
+
+ Package: ({{{./apidocs/de/tarent/dblayer/engine/package-summary.html}de.tarent.dblayer.engine}})
+
+ The central class in the tarent-database is the DB class. There you can find static methods for connection handling, and query execution.
+
+
+* Configuration
+
+ Configuration of connections in the tarent-database is done by adding a named connection pool with the DB class ({{{./apidocs/de/tarent/dblayer/engine/DB.html#openPool(java.lang.String, java.util.Map)}DB.openPool(java.lang.String poolname, java.util.Map info)}}).
+ The connections are stored in static fields of the DBLayer and therefore are present wherever the same class loader is used.
+ The addPool() method expects a Map with configuration properties. Valid keys for this configuration can be taken fromt the constants in
+ the {{{./apidocs/de/tarent/dblayer/engine/Pool.html}Pool}} Pool. At time of writing, the following connection types are supported:
+
+    * Apache Commons Pooling
+
+      This is the default way, connection pooling is done in the tarent-database. For this method the tarent-database 
+      uses the apache commons-dbcp API to provide pooled connections over the JDBC 3 DataSources of the driver.
+
+    * Simple JDBC 2 Connection
+    
+      With this type, the tarent-database creates simple JDBC 2 like Connections with java.sql.DriverManager.getConnection(...).
+      As this way does not support connection pooling, it should only be used for single-connection client like applications.
+      Set the property USE_OLD_JDBC2=true to use it.
+
+    * JNDI
+
+      With this variant, the DBLayer uses pooled connections provide over JNDI.
+      This way is usual, if the application runs in an Application Server (e.g. WSA), where the DataSources are configured.
+      Set the property USE_JNDI=true to use it.
+
+* Connection Management
+
+ Many server applications lack a good connection management. But what ist good?
+
+     * Use one connection for one task.
+
+     * <<Ensure>>, that <<every>> connection is closed after usage.
+
+     * Do not use the same connection over a long time if possible. (more houres od more days)
+
+     * Use a new connection for each http request.
+         
+            * Not more requests (threads) with the same connection.
+
+            * No connections in the session.
+
+
+ Historically, the way to execute SQL code with the tarent-database was to call an execution method in the DB class with the pool name as argument.
+ With this approach, a new Connection has to be obtained for each action. Although we have Connection pooling configured in the most use cases,
+ this is not a good approach for the following reasons.
+    
+    * Risk for lost connections
+
+       The worst thing in an enterprise application are unclosed database connections. Since every opened Connection has to be closed,
+       opening more connections advances the risk of getting not closed connections.
+
+    * More open connections
+
+       If database operations overlap (e.g. deleting while iterating over a result set) 
+       there will be several opended Connections opened at for the same task.
+    
+    * Transaction handling
+
+       Of course transaction handling is only possible, if all the actions are done with the same connection.
+
+      <<Recommended:>>
+  Today, it is recommended to use a DBContext for SQL execution. This DBContext should be obtained via an
+  application specific factory, which cares for the livecycle of the connection in the context. In server-based applications
+  this factory should be implemented as follows: Within one request thread, the same connection should be returned each time.
+  The factory is responsible to close the connection in the DBContext after the request processing is done
+  (e.g. implemented by OctopusContext.addCleanupCode()).
+
+
+
+SQL Object Model 
+~~~~~~~~~~~~~~~~
+
+  Package {{{https://kassandra.tarent.de/maven-projects/tarent-database/apidocs/de/tarent/dblayer/sql/package-summary.html}de.tarent.dblayer.sql}}
+
+  With this package the tarent-database provides an object oriented api for construction of SQL Statements. 
+  The benefits of this way are:
+    
+    * No more String concatenations in SQL code
+
+    * Database independent SQL layer
+
+    * Possibility to create SQL Statements in multiple steps
+
+    * Easy use with through completition
+
+  The proposed way to build a statement is by the static factory methods in the class {{{https://kassandra.tarent.de/maven-projects/tarent-database/apidocs/de/tarent/dblayer/sql/SQL.html}SQL}}.
+  Only the methods with the DBContext argument should be used, to allow the tarent-database the construction of database specific implementations.
+  A simple Select may be constructed and executed like the following example.
+
++-------------------
+  DBContext dbc = ApplicationSpecificFactory.getDBContext();
+
+  Select select = SQL.Select(dbc);
+  select.from("person");
+  select.select("person.pk_person");
+  select.select("person.vorname");
+  select.select("person.nachname");
+  select.orderBy(Order.asc("person.nachname"));
+  select.whereAndEq("person.status", "activated");
++-------------------
+
+  For easy usage, this may be written in one command.
+
++-------------------
+  DBContext dbc = ApplicationSpecificFactory.getDBContext();
+
+  Select select = SQL.Select(dbc)
+                     .from("person")
+                     .select("person.pk_person")
+                     .select("person.vorname")
+                     .select("person.nachname")
+                     .orderBy(Order.asc("person.nachname"))
+                     .whereAndEq("person.status", "activated");
++-------------------
+
+  The execution of a constructed SQL may be done like the next example:
+
++-------------------
+  Select select = SQL.Select(dbc);
+  ...
+  ResultSet rs = null;
+  try {
+    rs = select.getResultSet();
+
+    while (rs.next()) {
+        System.out.println(rs.getString(0));
+    }
+  } finally {
+    DB.close(rs);
+  }
++-------------------
+
+  There are more ways than one! The following example does the same, but encapsulates the iteration over the result set
+  in a visitor pattern implementation. The benefit is a secure and robust handling of the ResultSet.
+
++-------------------
+  Select select = SQL.Select(dbc);
+  select.iterate(new ResultProcessor() {
+    public void process(ResultSet rs) throws SQLException {
+        System.out.println(rs.getString(0));
+    }
+  }
++-------------------
+
+
+
+
+Object Persistence
+~~~~~~~~~~~~~~~~~~
+
+ Package: {{{./apidocs/de/tarent/dblayer/persistence/package-frame.html}de.tarent.dblayer.persistence}}
+
+ On top of the interfaces in the {{{../tarent-commons/}tarent-commons}} the tarent-database has an API for simple object persistence.
+ This API tries to make simple things easy, by providing powerful default implementations. As well as make everything possible
+ by customizing the implementations. 
+ The thinking in the API is entity-based. This means, the unit of configuration is one entity, which may have associations to other entities.
+ A full configuration set for one entity consits of the following classes:
+
+    * Business Object (e.g. a JavaBean like class)
+      
+      The framework does not have any requirements in the way, this business object is implemented.
+      Although we recommend an interface driven design with an JavaBean like interface an straight forward property based implementation.
+      But depending on the needs it will make sense to use e.g. simple Maps for storage of the data.
+
+      The only requirement from the framework is, that the EntityFactory is able to handle the object.
+
+    * Database Access Object (DAO), for loading and storing the business objects, using the factory and the mapping.
+
+      The DAO ist the unit, wich does the real work. For each entity type there has to be one DAO.
+      It has methods for retrieval and storage of the business objects.
+      The powerful implementation in the tarent-database is the {{{./apidocs/de/tarent/dblayer/persistence/AbstractDAO.html}AbstractDAO}}.
+      It uses a DBMaping and an EntityFactory for its work.
+      Because in the most implementations the generic storage methods have to be extended by special ones,
+      this class provides many protected helper methods and is intended to be subclassed for each entity.
+
+    * EntityFactory, able to create business objects and fill them with data.
+
+      This factory has to implement the tarent-commons interface {{{../tarent-commons/apidocs/de/tarent/commons/datahandling/entity/EntityFactory.html}EntityFactory}}.
+      For entity implementations with a JavaBean like interface, the default implementation {{{../tarent-commons/apidocs/de/tarent/commons/datahandling/entity/DefaultEntityFactory.html}DefaultEntityFactory}}
+      should be used or extended. The DefaultEntityFactory is a powerfull implementation with build in support for associations to other entities,
+      with 1:1, 1:N and N:M relations.
+
+    * DBMapping where the mappig from the business object to the database is configured.
+
+      This mapping has to implement the {{{./apidocs/de/tarent/dblayer/persistence/DBMapping.html}DBMapping}} interface.
+      Thru this interface the mapping provides a set of tarent-database SQL statements for retrieving all or one entity as well as
+      insert, update and deletion of an entity. The alias names of the selected columns in this mapping have to match
+      the property names of the business object. All of the statements have placeholder for the values of entity, modeled as 
+      tarent-database ParamValues.
+
+      If the used factory is able to handle relations between entities, the mapping may provide joined result sets with 1:1,
+      1:N or N:M relations. In this case, the alias names of the columns in this result sets have to include the path to the property in the
+      assotiation. (e.g. if we have a relation from <<<user>>> to <<<role>>> we may have a result set
+      (id, username, role.id, role.rolename) in the mapping for <<<user>>>, but the result set (user.id, user.username, id, rolename)
+      in the mapping of the role.
+
+
+* Persistence Example
+
+  To show the concept, in the following some snippets of a small example are shown.
+  The full code of the example is included in the tarent-database JUnit test code (./tarent-database/src/tests/java/de/tarent/dblayer/persistence/)
+
+  First of all, we have our example business object <<<Person>>>, implemented as plain old Java object (Pojo).
+
++---------------------
+public class Person {
+    String givenName;
+    int id;
+
+    // getXXX and setXXX for all properties
+}
++---------------------
+
+   The main work to do is the configuration of the mapping from the Person class to the database.
+   If we extend the AbstractDBMapping, we only have to configure the field mapping in our simple case.
+   All statements needed will be genereated by the AbstractDBMapping super class.
+   To know, which of the configured fields should be included in the statements, it is possible to
+   provide a bitfield describing fields, while adding them.
+
++-----------------------
+public class PersonDBMapping extends AbstractDBMapping {
+    
+    public PersonDBMapping(DBContext cntx) {
+        super(cntx);
+    }
+
+    public String getTargetTable() {
+        return "person";
+    }
+    
+    public void configureMapping() {
+        addField("person.pk_person", "id", PRIMARY_KEY_FIELDS | COMMON_FIELDS);
+        addField("person.vorname", "givenName", DEFAULT_FIELD_SET );
+    }
+}
++-----------------------
+
+   Now we have our business object and the mapping to the database, so we can go on and create a DAO 
+   for retrieving and storage of the objects. A DAO needs a mapping and an EntityFactory. For the mapping
+   we provide a new instance of PersonDBMapping. For the EntityFactory we use the default implementation.
+   In the most cases the DAO should be implemented as a singleton, but for this example this does not matter.
+
++-----------------------
+public class PersonDAO extends AbstractDAO {
+    
+    public PersonDAO() {
+        super();
+        // ApplicationSpecificFactory has to be adapted the the application
+        setDbMapping(new PersonDBMapping( ApplicationSpecificFactory.getDBContext() ));
+        setEntityFactory(new DefaultEntityFactory(Person.class));
+    }
+    
+    public void setEntityKeys(InsertKeys keys, Object entity) {
+        ((Person)entity).setId(keys.getPk());
+    }
+
+    public Person getPersonByID(DBContext dbc, Integer id) throws SQLException {
+        return (Person)getEntityByIdFilter(dbc, AbstractDBMapping.STMT_SELECT_ONE, "id", id);
+    }
+}
++-----------------------
+
+   With this DAO we can do the basic operations for the Person entity.
+    
+
++-----------------------
+    PersonDAO pdao = new PersonDAO();
+    DBContext dbc = ApplicationSpecificFactory.getDBContext()
+
+    // fetch one Person object by id
+    Person p = pdao.getPersonByID(dbc, new Integer(1));
+
+    // fetch a list of Person objects
+    List persons = pdao.getAll(dbc);
+
+    // fetch a list of Person objects
+    List persons = pdao.getAll(dbc);
+
+    // fetch a list of Person objects with a filter an paging configuration    
+    ListFilter listFilterParams = ... // e.g. new PersonListFilterImpl().init(octopusContext, "person");
+    List persons = pdao.getAll(dbc, listFilterParams);
+
+    // delete a Person object
+    Person p = pdao.getPersonByID(dbc, new Integer(1));
+    pdao.delete(dbc, p);
+
+    // update a Person object
+    Person p = pdao.getPersonByID(dbc, new Integer(1));
+    p.setGivenName("NewName");
+    pdao.update(dbc, p);
++-----------------------
+
+
+  For this simple example, the framework may have a bit overhead.
+  If you would like to see more of the power, you should refer to the full example
+  in (./tarent-database/src/tests/java/de/tarent/dblayer/persistence/), where the Person class has a 
+  relation to a Firma class and all entities are created from one joined query.
+
+  Furthermore, it is planed to extend the persistence API with simple default implementations for those standard cases.
+
+
+
+~~~  For creation and filling of this business object, we need a factory. In the most cases it should be implemented as singleton,
+~~~  but for this example this does not matter.
+~~~
+~~~+---------------------
+~~~public class PersonEntityFactory extends DefaultEntityFactory {
+~~~    protected PersonEntityFactory() {
+~~~        super();
+~~~    }    
+~~~}
+~~~+---------------------
+~~~

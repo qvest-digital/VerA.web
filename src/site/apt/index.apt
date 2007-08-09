@@ -1,0 +1,4 @@
+tarent-database (aka DBLayer)
+    
+    Dies ist die Basisbibliothek der Tarent für den Datenbankzugriff.
+    Sie bietet Connection-Pooling, Statement Erstellung sowie ein Persistenzframework.    
