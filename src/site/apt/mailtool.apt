@@ -1,0 +1,25 @@
+                           ------
+                          MailTool
+                           ------
+                   		Fabian Köster
+                           ------
+                       Date 09.11.2006
+                       
+
+MailTool
+
+  The class {{{apidocs/de/tarent/commons/mail/MailTool.html}<MailTool>}} enables you to easily send mails out of your application.
+  
+  <<Note>>: The maven2-dependency to java-mail is now set to <provided> so you must explicitely configure this dependency in your project if you want to use this tool.
+  
+* <<License-Problem>>
+
+  The tool uses Suns {{{http://java.sun.com/products/javamail/}JavaMail-Library}} which is licensed under the {{{http://www.sun.com/cddl/}Common Development and Distribution License (CDDL)}},
+  which is derived from the {{{http://www.mozilla.org/MPL/MPL-1.1.html}Mozilla Public License (MPL)}}, approved as an open source license by the {{{http://www.opensource.org/}Open Source Initiative (OSI)}} but <<not>> compatible with the {{{http://www.fsf.org/licenses/gpl.html}GNU General Public License (GPL)}}.
+  
+  {{{http://www.fsf.org/licensing/licenses/index_html#GPLIncompatibleLicenses}Statement from the Free Software Foundation (FSF) about the CDDL}}:
+  
+  <<<This is a free software license which is not a strong copyleft; it has some complex restrictions that make it incompatible with the GNU GPL. It requires that all attribution notices be maintained, while the GPL only requires certain types of notices. Also, it terminates in retaliation for certain aggressive uses of patents. So, a module covered by the GPL and a module covered by the CDDL cannot legally be linked together. We urge you not to use the CDDL for this reason.
+  Also unfortunate in the CDDL is its use of the term {{{http://www.gnu.org/philosophy/not-ipr.xhtml}"intellectual property"}}.>>>
+  
+  

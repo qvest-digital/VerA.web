@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+	<dataaccess name="broker">
+		<class>de.tarent.commons.dataaccess.backend.impl.BrokerDataAccessBackend</class>
+		<parameters>
+			<module>broker</module>
+			<type>remote</type>
+			<serviceURL>http://127.0.0.1:8888/broker/do</serviceURL>
+			<username></username>
+			<password></password>
+		</parameters>
+	</dataaccess>
+
+	<mapping for="broker">
+		<class>de.tarent.commons.dataaccess.test.Person</class>
+		<parameters>
+			<brokerview>MitarbeiterDaten</brokerview>
+			<key>login</key>
+		</parameters>
+		<rules>
+			<rename result="uid" backend="login" direction="both" drop="true"/>
+			<rename result="firstname" backend="vorname" direction="both" drop="true"/>
+			<rename result="lastname" backend="nachname" direction="both" drop="true"/>
+			<ignore result="*" backend="*" direction="both" drop="true"/>
+		</rules>
+	</mapping>
+</config>

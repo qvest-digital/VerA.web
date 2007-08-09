@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="tarent-commons">
+  <bannerRight>
+    <src>tarent_small.png</src>
+  </bannerRight>
+  
+  <body>
+    <links>
+      <item name="APT Guide" href="http://maven.apache.org/guides/mini/guide-apt-format.html"/>
+    </links>
+
+    <menu name="tarent-commons">
+      <item name="Introduction" href="index.html" />
+    </menu>
+    
+    <menu name="Dataaccess">
+      <item name="Quickstart" href="dataaccess-quickstart.html"/>
+      <item name="Configuration" href="dataaccess-configuration.html"/>
+    </menu>
+    
+    <!--<menu name="Datahandling">
+     <item name="Entity-Interface" href="entity.html" />
+    </menu>-->
+    
+    <menu name="Utils">
+      <item name="ChecksumTool" href="checksum.html" />
+      <item name="MailTool" href="mailtool.html" />
+      <item name="ByteHandler" href="bytehandler.html" />
+    </menu>
+    
+    <menu name="UI-Components">
+      <item name="MouseWheelNavigator" href="mouse_wheel_navigator.html" />
+    </menu>
+    
+    ${reports}
+
+  </body>
+</project>

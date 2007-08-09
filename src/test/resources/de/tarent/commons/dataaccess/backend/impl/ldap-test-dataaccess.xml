@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+	<dataaccess name="ldap-tarent">
+		<class>de.tarent.commons.dataaccess.backend.impl.LdapDataAccessBackend</class>
+		<parameters>
+			<!-- LDAP URL and DN -->
+			<baseUrl>ldap://ldap.tarent.de/</baseUrl>
+			<baseDn>ou=tarent GmbH,dc=tarent,dc=de</baseDn>
+			<!-- LDAP username -->
+			<!-- <secutityPrincipal></secutityPrincipal> -->
+			<!-- LDAP pssword -->
+			<!-- secutityCredentials></secutityCredentials> -->
+			
+			<encodingFilterInput>UTF-8</encodingFilterInput>
+			<encodingFilterOutput>ISO-8859-1</encodingFilterOutput>
+		</parameters>
+	</dataaccess>
+	
+	<mapping for="ldap-tarent">
+		<class>de.tarent.commons.dataaccess.test.Person</class>
+		<parameters>
+			<key>uid</key>
+		</parameters>
+		<rules>
+			<rename result="uid" backend="x-ldap-name" direction="both" drop="true"/>
+			<rename result="firstname" backend="givenName" direction="both" drop="true"/>
+			<rename result="lastname" backend="sn" direction="both" drop="true"/>
+			<ignore result="*" backend="*" direction="both" drop="true"/>
+		</rules>
+	</mapping>
+</config>

@@ -1,0 +1,87 @@
+
+   ---
+   Dataaccss configuration
+   ---
+
+Dataaccess configuration
+
+  You can configure the dataaccess in two ways. Write java code or load an
+  XML configuration file (recommended).
+
+* Pure java code
+
+  Make an instance of an <<<DataAccessBackend>>>, configure it and put it
+  into the <<<DataAccessConfiguration>>>. Like this:
+
++-----------------------------------------------------------------------------+
+    import de.tarent.commons.dataaccess.DataAccessConfiguration;
+    import de.tarent.commons.dataaccess.backend.impl.MemoryDataAccessBackend;
+    
+    
+    MemoryDataAccessBackend backend = new MemoryDataAccessBackend();
+    
+    new DataAccessConfiguration().putDataAccessBackend("default", backend);
++-----------------------------------------------------------------------------+  
+
+
+* XML configuration (java code)
+
+  The recommended way is that you load an XML configuration file into the
+  <<<DataAccessConfiguration>>> as <<<InputStream>>>, <<<Reader>>> or
+  <<<String>>>. Each of them must contain directly the xml content.
+  
+  So your java code look like this:
+
++-----------------------------------------------------------------------------+
+    import java.io.InputStream;
+    
+    import de.tarent.commons.dataaccess.DataAccessConfiguration;
+    
+    
+    // Read configuration from classpath (here same package expected)
+    InputStream inputStream = getClass().getResourceAsStream("dataaccess.xml");
+    new DataAccessConfiguration().parseXmlConfig(inputStream);
+    
+    // Read configuration from the current working directory
+    InputStream inputStream = new FileInputStream("dataaccess.xml");
+    new DataAccessConfiguration().parseXmlConfig(inputStream);
++-----------------------------------------------------------------------------+
+
+* XML configuration (format)
+
+  The XML code is very simple and depends for large parts of the used
+  implementation. The basic format looks like this:
+
++-----------------------------------------------------------------------------+
+    <?xml version="1.0" encoding="UTF-8"?>
+    <backends>
+        <dataaccess name="backend-name" class="full-qualified-classname">
+            <!-- depends on the implementation class -->
+        </dataaccess>
+    </backends>
++-----------------------------------------------------------------------------+
+
+  Use the in memory backend:
+
++-----------------------------------------------------------------------------+
+    <?xml version="1.0" encoding="UTF-8"?>
+    <backends>
+        <dataaccess name="default" class="de.tarent.commons.dataaccess.backend.impl.MemoryDataAccessBackend">
+            <!-- nothing needed -->
+        </dataaccess>
+    </backends>
++-----------------------------------------------------------------------------+
+
+  Use the sql backend (configured with an in memory hsqldb instance):
+
++-----------------------------------------------------------------------------+
+    <?xml version="1.0" encoding="UTF-8"?>
+    <backends>
+        <dataaccess name="default" class="de.tarent.commons.dataaccess.backend.impl.SqlDataAccessBackend">
+            <driverClass>org.hsqldb.jdbcDriver</driverClass>
+            <jdbcURL>jdbc:hsqldb:mem:memory01</jdbcURL>
+            <username>sa</username>
+            <password></password>
+        </dataaccess>
+    </backends>
++-----------------------------------------------------------------------------+

@@ -1,0 +1,29 @@
+                           ------
+                         ByteHandler
+                           ------
+                   		Fabian Köster
+                           ------
+                       Date 04.02.2007
+                       
+
+
+ByteHandler
+
+  The {{{apidocs/de/tarent/commons/utils/ByteHandler.html}<ByteHandler>}}- and {{{apidocs/de/tarent/commons/utils/ByteHandlerSI.html}<ByteHandlerSI>}}-classes help you to easily convert Byte-units in your applications.
+  
+  The most commons use will be a call of <getOptimalRepresentationForBytes>-Method for converting a long-value of bytes into a fitting representation-form like KiB, MiB, GiB ...\
+  I recommend you to avoid the use of ByteHandler-class and instead use ByteHandlerSI because its compliant to the International System of Units. See the corresponding {{{http://en.wikipedia.org/wiki/Byte}Wikipedia-Article}} for further information.
+  
+*Example
+  
+  A call of:
+
+-----------------------
+System.out.println(ByteHandlerSI.getOptimalRepresentationForBytes(424054425324l));
+-----------------------
+
+  leads to the output:
+
+----------------------
+394,93 GiB
+----------------------
