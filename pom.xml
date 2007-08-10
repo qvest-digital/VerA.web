@@ -17,6 +17,12 @@
 	-->
 	<artifactId>veraweb</artifactId>
 
+	<!-- 
+		The version of the project under development, e.g.
+		1.1, 1.2, 2.0-SNAPSHOT 
+	-->
+	<version>1.2.0-SNAPSHOT</version>
+
 	<!--
 		The type of artifact this project produces, for example jar
 		or war.
@@ -26,17 +32,29 @@
 	<!-- The full name of the project. -->
 	<name>VerA.web</name>
 
-	<!-- 
-		The version of the project under development, e.g.
-		1.1, 1.2, 2.0-SNAPSHOT 
-	-->
-	<version>1.2.0-SNAPSHOT</version>
+	<description>
+		Veranstaltungsmanagment VerA.web
+	</description>
 
-	<description>Veranstaltungsmanagment VerA.web</description>
+	<url>http://octopus.evolvis.org/</url>
+
+	<inceptionYear>2005</inceptionYear>
 
 	<scm>
 		<connection>scm:svn:svn://svn.evolvis.org/svnroot/veraweb/trunk</connection>
 	</scm>
+
+	<licenses>
+		<license>
+			<name>GNU General Public License</name>
+			<url>http://www.gnu.org/licenses/gpl.txt</url>
+		</license>
+	</licenses>
+
+	<organization>
+		<name>tarent GmbH, Germany</name>
+		<url>http://www.tarent.de/</url>
+	</organization>
 
 	<repositories>
 		<repository>
@@ -57,13 +75,11 @@
 		</repository>
 	</repositories>
 
-	<!--
 	<mailingLists>
 		<mailingList>
-			<name>none yet</name>
+			<name>veraweb-commits@evolvis.org</name>
 		</mailingList>
 	</mailingLists>
-	-->
 
 	<developers>
 		<developer>
@@ -209,8 +225,8 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
 				<configuration>
-					<source>1.4</source>
-					<target>1.4</target>
+					<source>1.5</source>
+					<target>1.5</target>
 					<encoding>ISO-8859-1</encoding>
 					<charset>ISO-8859-1</charset>
 					<minmemory>128m</minmemory>
@@ -300,4 +316,23 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
+
+	<!-- this section is required for deployment -->
+	<distributionManagement>
+		<repository>
+			<id>evolvis-release-repository</id>
+			<name>evolvis.org release repository</name>
+			<url>scpexe://maven-repo.evolvis.org/var/www/maven_repo/releases</url>
+		</repository>
+		<snapshotRepository>
+			<id>evolvis-snapshot-repository</id>
+			<name>evolvis.org snapshot repository</name>
+			<url>scpexe://maven-repo.evolvis.org/var/www/maven_repo/snapshots</url>
+		</snapshotRepository>
+		<site>
+			<id>evolvis-site-repository</id>
+			<name>evolvis.org site repository</name>
+			<url>scpexe://maven@svn.evolvis.org/site/octopus/htdocs/${project.artifactId}</url>
+		</site>
+	</distributionManagement>
 </project>
