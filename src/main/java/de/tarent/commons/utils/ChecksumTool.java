@@ -28,12 +28,17 @@
  */
 package de.tarent.commons.utils;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.security.DigestInputStream;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 import org.apache.commons.logging.Log;
 
 import de.tarent.commons.logging.LogFactory;
 
-import jonelo.jacksum.JacksumAPI;
-import jonelo.jacksum.algorithm.AbstractChecksum;
 
 /**
  * 
@@ -69,16 +74,43 @@ public class ChecksumTool
 	public static String createChecksum(String pFileName)
 	{
 		String checksumString = null;
-		try
-		{
-			AbstractChecksum checksum = JacksumAPI.getChecksumInstance("md5");
-			checksum.readFile(pFileName);
-			checksumString = checksum.getFormattedValue();
+		
+		MessageDigest md;
+		try {
+			md = MessageDigest.getInstance("MD5");
+		} catch (NoSuchAlgorithmException e) {
+			if(logger.isWarnEnabled()) logger.warn(e.toString());
+			return null;
 		}
-		catch(Exception pExcp)
-		{
-			if(logger.isWarnEnabled()) logger.warn(pExcp.toString());
+		
+		FileInputStream fis;
+		try {
+			fis = new FileInputStream(pFileName);
+		} catch (FileNotFoundException e) {
+			return null;
 		}
+		
+		DigestInputStream dis = new DigestInputStream(fis, md);
+		
+		// The dis.read method reads one byte of fis and updates the
+		// MessageDigest. The following code reads the whole file.
+		try {
+			while(dis.read() != -1);
+			dis.close();
+		} catch (IOException e) {
+			if(logger.isWarnEnabled()) logger.warn(e.toString());
+			return null;
+		}
+
+		// Now we can compute the checksum.
+		byte [] digest = md.digest();
+		StringBuffer buffer = new StringBuffer();
+		for(int i = 0; i < digest.length; i++) {
+			String s = Integer.toHexString(digest[i] & 0xff);
+			s = (s.length() == 1) ?	"0" + s : s;
+			buffer.append(s);
+		}
+		checksumString = buffer.toString();
 		
 		return checksumString;
 	}
