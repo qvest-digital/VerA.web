@@ -119,4 +119,8 @@ public class LdapDataAccessBackendTest extends TestCase {
 		assertEquals("Alex", person.getFirstname());
 		assertEquals("Maier", person.getLastname());
 	}*/
+	
+	public void testNothing() {
+		assertTrue(true);
+	}
 }
