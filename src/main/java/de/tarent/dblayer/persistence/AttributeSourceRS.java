@@ -85,6 +85,33 @@ public class AttributeSourceRS implements AttributeSource {
             throw new RuntimeException(sqle);
         }
     }
+    
+    
+    /** returns the Java type of values in the column
+     * with the given attribute name.
+     * 
+     */
+    public Class getAttributeType(String attributeName) {
+    	if (columnNameAlias != null && columnNameAlias.containsKey(attributeName))
+            attributeName = (String)columnNameAlias.get(attributeName);
+    	
+    	String className;
+		try {
+			className = rs.getMetaData().getColumnClassName(rs.findColumn(attributeName));
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+    	
+		Class returnClass;
+		try {
+			returnClass = Class.forName(className);
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException(e);
+		} 
+		
+    	return returnClass;
+	}
+    
 
     public List getAttributeNames() {
         if (attributeNames == null) {
@@ -113,5 +140,6 @@ public class AttributeSourceRS implements AttributeSource {
 
         return attributeNames;
     }
+
 }
 
