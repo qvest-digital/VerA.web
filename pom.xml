@@ -209,17 +209,10 @@
 			<scope>test</scope>
 		</dependency>
 
-		<!--dependency>
+		<dependency>
 			<groupId>oracle</groupId>
 			<artifactId>ojdbc14</artifactId>
 			<version>10.2</version>
-			<scope>test</scope>
-		</dependency -->
-		
-		<dependency>
-			<groupId>ojdbc</groupId>
-			<artifactId>ojdbc</artifactId>
-			<version>14</version>
 			<scope>test</scope>
 		</dependency>
 		
