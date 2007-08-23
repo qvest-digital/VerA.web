@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project>
+	<skin>
+		<groupId>org.apache.maven.skins</groupId>
+		<artifactId>maven-stylus-skin</artifactId>
+		<version>1.0.1</version>
+	</skin>
+
+	<body>
+		<links>
+			<item name="octopus-core" href="http://octopus.evolvis.org/octopus-core/" />
+			<item name="evolvis" href="http://evolvis.org/" />
+			<item name="evolvis project homepage" href="http://evolvis.org/projects/octopus/" />
+		</links>
+		
+		<menu name="Core modules">
+			<item name="Octopus core" href="http://octopus.evolvis.org/octopus-core/" />
+			<item name="RPC Tunnel" href="http://octopus.evolvis.org/octopus-rpctunnel/" />
+			<item name="Servlet code" href="http://octopus.evolvis.org/octopus-servlet/" />
+			<item name="Embedded deployment" href="http://octopus.evolvis.org/octopus-embedded-webapp/" />
+			<item name="Standalone deployment" href="http://octopus.evolvis.org/octopus-standalone-webapp/" />
+		</menu>
+		
+		<menu name="Extensions">
+			<item name="octopus-annotation" href="http://octopus.evolvis.org/octopus-annotation/" />
+			<item name="octopus-commons" href="http://octopus.evolvis.org/octopus-commons/" />
+			<item name="octopus-cronjobs" href="http://octopus.evolvis.org/octopus-cronjobs/" />
+			<item name="octopus-jmx" href="http://octopus.evolvis.org/octopus-jmx/" />
+			<item name="octopus-beans" href="http://octopus.evolvis.org/octopus-beans/" />
+		</menu>
+		
+		<menu ref="modules" />
+		
+		${reports}
+	</body>
+</project>
