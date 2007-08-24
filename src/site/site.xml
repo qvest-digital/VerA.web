@@ -1,38 +1,33 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <project name="tarent-commons">
-  <bannerRight>
-    <src>tarent_small.png</src>
-  </bannerRight>
-  
-  <body>
-    <links>
-      <item name="APT Guide" href="http://maven.apache.org/guides/mini/guide-apt-format.html"/>
-    </links>
+	<skin>
+		<groupId>org.apache.maven.skins</groupId>
+		<artifactId>maven-stylus-skin</artifactId>
+		<version>1.0.1</version>
+	</skin>
 
-    <menu name="tarent-commons">
-      <item name="Introduction" href="index.html" />
-    </menu>
-    
-    <menu name="Dataaccess">
-      <item name="Quickstart" href="dataaccess-quickstart.html"/>
-      <item name="Configuration" href="dataaccess-configuration.html"/>
-    </menu>
-    
-    <!--<menu name="Datahandling">
-     <item name="Entity-Interface" href="entity.html" />
-    </menu>-->
-    
-    <menu name="Utils">
-      <item name="ChecksumTool" href="checksum.html" />
-      <item name="MailTool" href="mailtool.html" />
-      <item name="ByteHandler" href="bytehandler.html" />
-    </menu>
-    
-    <menu name="UI-Components">
-      <item name="MouseWheelNavigator" href="mouse_wheel_navigator.html" />
-    </menu>
-    
-    ${reports}
+	<body>
+		<menu name="tarent-commons">
+			<item name="Introduction" href="index.html" />
+		</menu>
 
-  </body>
+		<menu name="Dataaccess">
+			<item name="Quickstart" href="dataaccess-quickstart.html" />
+			<item name="Configuration" href="dataaccess-configuration.html" />
+		</menu>
+
+		<menu name="Utils">
+			<item name="ChecksumTool" href="checksum.html" />
+			<item name="MailTool" href="mailtool.html" />
+			<item name="ByteHandler" href="bytehandler.html" />
+		</menu>
+
+		<menu name="UI-Components">
+			<item name="MouseWheelNavigator" href="mouse_wheel_navigator.html" />
+		</menu>
+		
+		<menu ref="modules" />
+		
+		${reports}
+	</body>
 </project>
