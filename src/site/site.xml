@@ -1,13 +1,19 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <project name="tarent-database">
+	<skin>
+		<groupId>org.apache.maven.skins</groupId>
+		<artifactId>maven-stylus-skin</artifactId>
+		<version>1.0.1</version>
+	</skin>
 
 	<body>
 		<menu name="tarent-database">
 			<item name="Introduction" href="index.html" />
-			<item name="User Manual" href="userManual.html" />
+			<item name="User Manual" href="user_manual.html" />
 		</menu>
 		
-		${reports}
+		<menu ref="modules" />
 		
+		${reports}
 	</body>
 </project>
