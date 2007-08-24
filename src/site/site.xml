@@ -1,18 +1,13 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <project name="tarent-database">
-  
-  <body>
-    <links>
-      <item name="Tarent maven2 Guide" href="https://priamus.tarent.de/wikis/intranet/wiki/index.php?page=Maven"/>
-      <item name="APT Guide" href="http://www.xmlmind.com/_aptconvert/docs/userguidetoc.html"/>
-    </links>
 
-    <menu name="tarent-database">
-      <item name="Introduction" href="index.html" />
-      <item name="User Manual" href="userManual.html"/>
-    </menu>
-        
-    ${reports}
-
-  </body>
+	<body>
+		<menu name="tarent-database">
+			<item name="Introduction" href="index.html" />
+			<item name="User Manual" href="userManual.html" />
+		</menu>
+		
+		${reports}
+		
+	</body>
 </project>
