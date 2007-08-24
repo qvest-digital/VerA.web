@@ -9,7 +9,7 @@
 
 	<version>1.3.0-SNAPSHOT</version>
 
-	<name>tarent commons</name>
+	<name>tarent-commons</name>
 
 	<description>a set of common components and solutions</description>
 
@@ -293,7 +293,7 @@
 		<site>
 			<id>evolvis-site-repository</id>
 			<name>evolvis.org site repository</name>
-			<url>scpexe://maven@svn.evolvis.org/site/tarentdatabase/htdocs</url>
+			<url>scpexe://maven@svn.evolvis.org/site/tarentcommons/htdocs</url>
 		</site>
 	</distributionManagement>
 
