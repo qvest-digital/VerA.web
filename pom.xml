@@ -83,9 +83,21 @@
 
 	<developers>
 		<developer>
-			<id>christoph</id>
+			<id>cjerolimov</id>
 			<name>Christoph Jerolimov</name>
 			<email>c.jerolimov@tarent.de</email>
+			<organization>tarent GmbH</organization>
+			<organizationUrl>http://www.tarent.de/</organizationUrl>
+			<roles>
+				<role>Developer</role>
+			</roles>
+			<timezone>+1</timezone>
+		</developer>
+
+		<developer>
+			<id>asteeg</id>
+			<name>Alex Steeg</name>
+			<email>a.steeg@tarent.de</email>
 			<organization>tarent GmbH</organization>
 			<organizationUrl>http://www.tarent.de/</organizationUrl>
 			<roles>
