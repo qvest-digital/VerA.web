@@ -25,7 +25,11 @@
 
 package de.tarent.commons.datahandling;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+
 import de.tarent.octopus.server.OctopusContext;
 
 /**
@@ -402,5 +406,9 @@ public class ListFilterImpl implements ListFilter {
 			return getLastPageStart();
 		else		
 			return (page-1) * limit;
+	}
+	
+	public String getFilterName() {
+		return toString();
 	}
 }

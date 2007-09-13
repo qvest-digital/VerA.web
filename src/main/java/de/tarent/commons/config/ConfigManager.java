@@ -238,8 +238,8 @@ public class ConfigManager
     	if(applicationClass == null)
     		applicationClass = FileLoader.class;
     	
-        //loader = new FileLoader(variant, applicationClass);
-    	loader = new JARLoader(variant, applicationClass);
+        loader = new FileLoader(variant, applicationClass);
+    	//loader = new JARLoader(variant, applicationClass);
       }
     
     // Initializes the application variant's Preferences instance.
