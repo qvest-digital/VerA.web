@@ -4,6 +4,7 @@
 package de.tarent.commons.ui;
 
 import java.awt.Component;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Collections;
@@ -13,6 +14,7 @@ import java.util.logging.Logger;
 
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
@@ -28,6 +30,7 @@ import javax.swing.SwingUtilities;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 
+import de.tarent.commons.utils.TaskManager;
 import de.tarent.commons.utils.TaskManager.Context;
 import de.tarent.commons.utils.TaskManager.TaskListener;
 
@@ -54,18 +57,27 @@ public class TaskManagerPanel extends JComponent implements TaskListener {
 	protected JToggleButton toggleExtendedButton;
 	protected Popup popup;
 	protected JScrollPane contextScrollPane;
+	protected ImageIcon cancelIcon = new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/de/tarent/commons/gfx/process-stop.png")));
+	protected ImageIcon collapsed = new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/de/tarent/commons/gfx/expanded.gif")));
+	protected ImageIcon expanded = new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/de/tarent/commons/gfx/collapsed.gif")));
+	protected Context currentContext;
+
+	protected int mode;
 
 	protected final static Logger logger = Logger.getLogger(TaskManagerPanel.class.getName());
+	protected final static int SINGLE_MODE = 0;
+	protected final static int MULTI_MODE = 1;
+	protected final static int NONE_MODE = 2;
 
 	public TaskManagerPanel() {
 		setLayout(new FormLayout("pref, 3dlu, pref, 3dlu, pref, 3dlu, pref",
-		"pref"));
+		"1dlu, fill:pref, 1dlu"));
 
 		CellConstraints cc = new CellConstraints();
-		add(getGlobalLabel(), cc.xy(1, 1));
-		add(getGlobalProgressBar(), cc.xy(3, 1));
-		add(getGlobalCancelButton(), cc.xy(5, 1));
-		add(getToggleExtendedButton(), cc.xy(7, 1));
+		add(getGlobalLabel(), cc.xy(1, 2));
+		add(getGlobalProgressBar(), cc.xy(3, 2));
+		add(getGlobalCancelButton(), cc.xy(5, 2));
+		add(getToggleExtendedButton(), cc.xy(7, 2));
 	}
 
 	protected Map<Context, TaskPanel> getContexts() {
@@ -73,14 +85,14 @@ public class TaskManagerPanel extends JComponent implements TaskListener {
 			contexts = Collections.synchronizedMap(new Hashtable<Context, TaskPanel>());
 		return contexts;
 	}
-	
+
 	protected JScrollPane getContextScrollPane() {
 		if(contextScrollPane == null)
 			contextScrollPane = new JScrollPane(getContextList());
-		
+
 		return contextScrollPane;
 	}
-	
+
 	protected JList getContextList() {
 		if(contextList == null) {
 			contextList = new JList(new DefaultListModel());
@@ -98,7 +110,7 @@ public class TaskManagerPanel extends JComponent implements TaskListener {
 		}
 		return contextList;
 	}
-	
+
 	protected JLabel getGlobalLabel() {
 		if(globalLabel == null) {
 			globalLabel = new JLabel();
@@ -111,21 +123,42 @@ public class TaskManagerPanel extends JComponent implements TaskListener {
 		if(globalProgressBar == null) {
 			globalProgressBar = new JProgressBar();
 			globalProgressBar.setVisible(false);
+			globalProgressBar.setIndeterminate(true);
 		}
 		return globalProgressBar;
 	}
 
 	protected JButton getGlobalCancelButton() {
 		if(globalCancelButton == null) {
-			globalCancelButton = new JButton("X");
+			globalCancelButton = new JButton(cancelIcon);
 			globalCancelButton.setVisible(false);
+			globalCancelButton.addActionListener(new ActionListener() {
+
+				/**
+				 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+				 */
+				public void actionPerformed(ActionEvent e) {
+					// Make the button unclickable instantly because a task
+					// should not be cancelled twice.
+					getGlobalCancelButton().setEnabled(false);
+
+					new Thread()
+					{
+						public void run()
+						{
+							if (getContexts().keySet().toArray()[0] != null)
+								((Context)getContexts().keySet().toArray()[0]).cancel();
+						}
+					}.start();
+				}
+			});
 		}
 		return globalCancelButton;
 	}
 
 	protected JToggleButton getToggleExtendedButton() {
 		if(toggleExtendedButton == null) {
-			toggleExtendedButton = new JToggleButton("^");
+			toggleExtendedButton = new JToggleButton(collapsed);
 			toggleExtendedButton.setVisible(false);
 			toggleExtendedButton.addActionListener(new ActionListener() {
 
@@ -134,12 +167,15 @@ public class TaskManagerPanel extends JComponent implements TaskListener {
 				 */
 				public void actionPerformed(ActionEvent e) {
 					if(getToggleExtendedButton().isSelected()) {
+						getToggleExtendedButton().setIcon(expanded);
 						int x = (int)(getToggleExtendedButton().getLocationOnScreen().getX()+getToggleExtendedButton().getWidth()-getContextScrollPane().getPreferredSize().getWidth());
 						int y = (int)(getToggleExtendedButton().getLocationOnScreen().getY()-getContextScrollPane().getPreferredSize().getHeight());
 						popup = PopupFactory.getSharedInstance().getPopup(TaskManagerPanel.this, getContextScrollPane(), x, y);
 						popup.show();
-					} else
+					} else {
 						popup.hide();
+						getToggleExtendedButton().setIcon(collapsed);
+					}
 				}
 			});
 		}
@@ -150,29 +186,42 @@ public class TaskManagerPanel extends JComponent implements TaskListener {
 	 * @see de.tarent.commons.utils.TaskManager.TaskListener#activityDescriptionSet(de.tarent.commons.utils.TaskManager.Context, java.lang.String)
 	 */
 	public void activityDescriptionSet(Context t, String description) {
-		TaskPanel taskPanel = getContexts().get(t);
+		if(mode == MULTI_MODE) {
+			synchronized(getContexts()) {
+				TaskPanel taskPanel = getContexts().get(t);
 
-		if(taskPanel == null) {
-			logger.warning("activityDescriptionSet taskPanel null");
-			return;
-		}
+				if(taskPanel == null) {
+					logger.warning("activityDescriptionSet taskPanel null");
+					return;
+				}
 
-		taskPanel.getLabel().setText(description);
+				taskPanel.getLabel().setText(description);
+			}
+			getContextList().repaint();
+		} else
+			getGlobalLabel().setText(description);
 	}
 
 	/**
 	 * @see de.tarent.commons.utils.TaskManager.TaskListener#currentUpdated(de.tarent.commons.utils.TaskManager.Context, int)
 	 */
 	public void currentUpdated(Context t, int amount) {
-		logger.info("currentUpdated");
-		TaskPanel taskPanel = getContexts().get(t);
+		logger.fine("currentUpdated");
 
-		if(taskPanel == null) {
-			logger.warning("currentUpdated taskPanel null");
-			return;
-		}
+		if(mode == MULTI_MODE) {
+			synchronized (getContexts()) {
+				TaskPanel taskPanel = getContexts().get(t);
 
-		taskPanel.getProgressBar().setValue(amount);
+				if(taskPanel == null) {
+					logger.warning("currentUpdated taskPanel null");
+					return;
+				}
+
+				taskPanel.getProgressBar().setValue(amount);
+			}
+			getContextList().repaint();
+		} else 
+			getGlobalProgressBar().setValue(amount);
 	}
 
 	/**
@@ -180,14 +229,21 @@ public class TaskManagerPanel extends JComponent implements TaskListener {
 	 */
 	public void goalUpdated(Context t, int amount) {
 		logger.info("goalUpdated");
-		TaskPanel taskPanel = getContexts().get(t);
 
-		if(taskPanel == null) {
-			logger.warning("goalUpdated taskPanel null");
-			return;
-		}
+		if(mode == MULTI_MODE) {
+			synchronized (getContexts()) {
+				TaskPanel taskPanel = getContexts().get(t);
 
-		taskPanel.getProgressBar().setMaximum(amount);
+				if(taskPanel == null) {
+					logger.warning("goalUpdated taskPanel null");
+					return;
+				}
+
+				taskPanel.getProgressBar().setMaximum(amount);
+			}
+			getContextList().repaint();
+		} else 
+			getGlobalProgressBar().setMaximum(amount);
 	}
 
 	/**
@@ -239,18 +295,48 @@ public class TaskManagerPanel extends JComponent implements TaskListener {
 	}
 
 	protected void addContext(Context context, String description) {
-		TaskPanel taskPanel = new TaskPanel(description);
+		TaskPanel taskPanel = new TaskPanel(context, description);
 		getContexts().put(context, taskPanel);
 		((DefaultListModel)getContextList().getModel()).addElement(taskPanel);
-		getGlobalProgressBar().setIndeterminate(true);
-		getGlobalProgressBar().setVisible(true);
-		getGlobalLabel().setText(description);
-		getToggleExtendedButton().setVisible(true);
+		setGlobalElementsState();
 	}
 
 	protected void removeContext(Context context) {
-		((DefaultListModel)contextList.getModel()).removeElement(contexts.get(context));
-		contexts.remove(context);
+		synchronized (getContexts()) {
+			((DefaultListModel)contextList.getModel()).removeElement(getContexts().get(context));
+			getContexts().remove(context);
+			setGlobalElementsState();
+		}
+	}
+
+	protected void setGlobalElementsState() {
+		synchronized (getContexts()) {
+			if(getContexts().size() == 0) {
+				// no tasks running, hide components
+				mode = NONE_MODE;
+				getGlobalLabel().setVisible(false);
+				getGlobalProgressBar().setVisible(false);
+				getGlobalCancelButton().setVisible(false);
+				getToggleExtendedButton().setVisible(false);
+
+			} else if(getContexts().size() == 1) {
+				// single task running, visualize this tasks with the global elements and hide extended-button
+				mode = SINGLE_MODE;
+				getGlobalProgressBar().setVisible(true);
+				getGlobalLabel().setVisible(true);
+
+			} else {
+				// multiple tasks running
+				mode = MULTI_MODE;
+				getGlobalCancelButton().setEnabled(false);
+				getGlobalCancelButton().setVisible(false);
+				getGlobalProgressBar().setIndeterminate(true);
+				getGlobalProgressBar().setVisible(true);
+				getToggleExtendedButton().setVisible(true);
+				getGlobalLabel().setVisible(true);
+				getGlobalLabel().setText(Messages.getString("TaskManagerPanel_Multiple_Tasks_Running"));
+			}
+		}
 	}
 
 	protected void setProgressLater(final Context context, final int progress) {
@@ -258,23 +344,43 @@ public class TaskManagerPanel extends JComponent implements TaskListener {
 		SwingUtilities.invokeLater(new Runnable() {
 
 			public void run() {
-				TaskPanel taskPanel = getContexts().get(context);
+				TaskPanel taskPanel;
 
-				if(taskPanel == null) {
-					logger.warning("setProgress taskPanel null");
-					return;
+				if(mode == MULTI_MODE) {
+
+					synchronized (getContexts()) {
+						taskPanel = getContexts().get(context);
+					}
+
+					if(taskPanel == null) {
+						logger.warning("setProgress taskPanel null");
+						return;
+					}
+
+					if (progress == 0) {
+						taskPanel.getCancelButton().setVisible(context != null && context.isCancelable());
+						taskPanel.getCancelButton().setEnabled(true);
+
+						if (taskPanel.getProgressBar().getMaximum() == 0)
+							taskPanel.getProgressBar().setIndeterminate(true);
+					}
+					else {
+						taskPanel.getProgressBar().setIndeterminate(false);
+						taskPanel.getProgressBar().setValue(progress);
+					}
+				} else {
+					if (progress == 0) {
+						getGlobalCancelButton().setVisible(context != null && context.isCancelable());
+						getGlobalCancelButton().setEnabled(true);
+
+						if (getGlobalProgressBar().getMaximum() == 0)
+							getGlobalProgressBar().setIndeterminate(true);
+					}
+					else {
+						getGlobalProgressBar().setIndeterminate(false);
+						getGlobalProgressBar().setValue(progress);
+					}
 				}
-
-				if (progress == 0) {
-					taskPanel.setVisible(true);
-					taskPanel.getCancelButton().setVisible(context != null && context.isCancelable());
-					taskPanel.getCancelButton().setEnabled(true);
-
-					if (taskPanel.getProgressBar().getMaximum() == 0)
-						taskPanel.getProgressBar().setIndeterminate(true);
-				}
-				else
-					taskPanel.getProgressBar().setValue(progress);
 			}
 		});
 	}
@@ -290,26 +396,26 @@ public class TaskManagerPanel extends JComponent implements TaskListener {
 		protected JLabel label;
 		protected JButton cancelButton;
 		protected String description;
+		protected Context context;
 
-		public TaskPanel(String description) {
+		public TaskPanel(Context context, String description) {
 			super();
 
 			this.description = description;
 
 			FormLayout layout = new FormLayout("fill:pref:grow, 1dlu, pref", // columns
 			"fill:pref, 1dlu, fill:pref"); // rows
-			
-			//layout.setRowGroups(new int[][] { { 1, 3} });
 
 			setLayout(layout);
-			
+
 			CellConstraints cc = new CellConstraints();
 
 			add(getProgressBar(), cc.xy(1, 1));
 			add(getCancelButton(), cc.xy(3, 1));
 			add(getLabel(), cc.xyw(1, 3, 3));
-			
+
 			getLabel().setText(description);
+			getCancelButton().setToolTipText(Messages.getFormattedString("SmallTaskManagerPanel_CancelProgress", description));
 			setBorder(BorderFactory.createLoweredBevelBorder());
 		}
 
@@ -326,8 +432,30 @@ public class TaskManagerPanel extends JComponent implements TaskListener {
 		}
 
 		public JButton getCancelButton() {
-			if(cancelButton == null)
-				cancelButton = new JButton("x");
+			if(cancelButton == null) {
+				cancelButton = new JButton(TaskManagerPanel.this.cancelIcon);
+				cancelButton.addActionListener(new ActionListener() {
+
+					/**
+					 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+					 */
+					public void actionPerformed(ActionEvent e) {
+						// Make the button unclickable instantly because a task
+						// should not be cancelled twice.
+						getCancelButton().setEnabled(false);
+
+						new Thread()
+						{
+							public void run()
+							{
+								if (TaskPanel.this.context != null)
+									TaskPanel.this.context.cancel();
+							}
+						}.start();
+					}
+					
+				});
+			}
 			return cancelButton;
 		}
 	}
