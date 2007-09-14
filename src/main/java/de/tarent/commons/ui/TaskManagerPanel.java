@@ -216,6 +216,7 @@ public class TaskManagerPanel extends JComponent implements TaskListener {
 		if(toggleExtendedButton == null) {
 			toggleExtendedButton = new JToggleButton(collapsed);
 			toggleExtendedButton.setVisible(false);
+			toggleExtendedButton.setToolTipText(Messages.getString("TaskManagerPanel_ExtendedButton_ToolTip"));
 			toggleExtendedButton.addActionListener(new ActionListener() {
 
 				/**
