@@ -31,245 +31,245 @@ import de.tarent.commons.utils.TaskManager.Context;
  * @author Robert Schuster
  */
 public class SmallTaskManagerPanel extends JComponent implements
-    TaskManager.TaskListener
+TaskManager.TaskListener
 {
-  /**
+	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -1129992957849564059L;
 
-/**
-   * A label showing the description of the currently active task.
-   */
-  private JLabel label = new JLabel();
+	/**
+	 * A label showing the description of the currently active task.
+	 */
+	private JLabel label = new JLabel();
 
-  /**
-   * A progress bar showing the progress of the currently active task.
-   */
-  private JProgressBar progressBar = new JProgressBar(0, 0);
+	/**
+	 * A progress bar showing the progress of the currently active task.
+	 */
+	private JProgressBar progressBar = new JProgressBar(0, 0);
 
-  /**
-   * A button allowing cancellation of the currently active task.
-   */
-  private AbstractButton cancelButton = new JButton();
+	/**
+	 * A button allowing cancellation of the currently active task.
+	 */
+	private AbstractButton cancelButton = new JButton();
 
-  private Context showingContext;
+	private Context showingContext;
 
-  private String description;
+	private String description;
 
-  List contexts = Collections.synchronizedList(new ArrayList());
+	List contexts = Collections.synchronizedList(new ArrayList());
 
-  public SmallTaskManagerPanel()
-  {
-    cancelButton.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/de/tarent/commons/gfx/process-stop.png"))));
-    
-    FormLayout layout = new FormLayout("3dlu, pref, 3dlu, pref, 3dlu, pref",
-                                       "12dlu");
-    setLayout(layout);
+	public SmallTaskManagerPanel()
+	{
+		cancelButton.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/de/tarent/commons/gfx/process-stop.png"))));
 
-    CellConstraints cc = new CellConstraints();
-    add(label, cc.xy(2, 1));
-    add(progressBar, cc.xy(4, 1));
-    add(cancelButton, cc.xy(6, 1));
+		FormLayout layout = new FormLayout("3dlu, pref, 3dlu, pref, 3dlu, pref",
+		"12dlu");
+		setLayout(layout);
 
-    progressBar.setVisible(false);
-    cancelButton.setVisible(false);
+		CellConstraints cc = new CellConstraints();
+		add(label, cc.xy(2, 1));
+		add(progressBar, cc.xy(4, 1));
+		add(cancelButton, cc.xy(6, 1));
 
-    cancelButton.addActionListener(new ActionListener()
-    {
-      public void actionPerformed(ActionEvent ae)
-      {
-        // Make the button unclickable instantly because a task
-        // should not be cancelled twice.
-        cancelButton.setEnabled(false);
+		progressBar.setVisible(false);
+		cancelButton.setVisible(false);
 
-        new Thread()
-        {
-          public void run()
-          {
-            if (showingContext != null)
-              showingContext.cancel();
-          }
-        }.start();
-      }
-    });
-  }
+		cancelButton.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent ae)
+			{
+				// Make the button unclickable instantly because a task
+				// should not be cancelled twice.
+				cancelButton.setEnabled(false);
 
-  /**
-   * Puts the newly registered task as the active one and copies
-   * the description.
-   * 
-   */
-  public void taskRegistered(Context t, final String description)
-  {
-      addContext(t);
-      this.description = description;
-      cancelButton.setToolTipText(Messages.getFormattedString("SmallTaskManagerPanel_CancelProgress", description));
-  }
+				new Thread()
+				{
+					public void run()
+					{
+						if (showingContext != null)
+							showingContext.cancel();
+					}
+				}.start();
+			}
+		});
+	}
 
-  /** Calls {@link #taskRegistered(Context, String)}.
-   */
-  public void blockingTaskRegistered(Context t, String description)
-  {
-    taskRegistered(t, description);
-  }
+	/**
+	 * Puts the newly registered task as the active one and copies
+	 * the description.
+	 * 
+	 */
+	public void taskRegistered(Context t, final String description)
+	{
+		addContext(t);
+		this.description = description;
+		cancelButton.setToolTipText(Messages.getFormattedString("SmallTaskManagerPanel_CancelProgress", description));
+	}
 
-  /** Calls {@link #taskRegistered(Context, String)}.
-   */
-  public void exclusiveTaskRegistered(Context t, String description)
-  {
-    taskRegistered(t, description);
-  }
+	/** Calls {@link #taskRegistered(Context, String)}.
+	 */
+	public void blockingTaskRegistered(Context t, String description)
+	{
+		taskRegistered(t, description);
+	}
 
-  /** Sets the label's text (on the Swing thread).
-   * 
-   * @param text
-   */
-  private void setLabelLater(final String text)
-  {
-    SwingUtilities.invokeLater(new Runnable()
-    {
-      public void run()
-      {
-        label.setText(text);
-      }
-    });
-  }
+	/** Calls {@link #taskRegistered(Context, String)}.
+	 */
+	public void exclusiveTaskRegistered(Context t, String description)
+	{
+		taskRegistered(t, description);
+	}
 
-  /**
-   * Sets the progress bar on the Swing thread.
-   * 
-   * <p>If <code>progress</code> is <code>0</code> this
-   * is interpreted as the task's start which results in
-   * the label, the progress bar and the cancel button (if
-   * applicable) being made visible.</p>
-   * 
-   * <p>If the progress bar's maximum value is zero it is
-   * set into indeterminate mode.</p>
-   * 
-   * <p>In case <code>progress</code> is non-zero the progress
-   * bar's value is updated accordingly.</p>
-   * 
-   * @param progress
-   */
-  private void setProgressLater(final int progress)
-  {
-    SwingUtilities.invokeLater(new Runnable()
-    {
-      public void run()
-      {
-        if (progress == 0)
-          {
-            label.setText(description);
-            progressBar.setVisible(true);
-            cancelButton.setVisible(showingContext != null && showingContext.isCancelable());
-            cancelButton.setEnabled(true);
+	/** Sets the label's text (on the Swing thread).
+	 * 
+	 * @param text
+	 */
+	private void setLabelLater(final String text)
+	{
+		SwingUtilities.invokeLater(new Runnable()
+		{
+			public void run()
+			{
+				label.setText(text);
+			}
+		});
+	}
 
-            if (progressBar.getMaximum() == 0)
-              progressBar.setIndeterminate(true);
-            
-            getRootPane().revalidate();
-          }
-        else
-          progressBar.setValue(progress);
-      }
-    });
-  }
+	/**
+	 * Sets the progress bar on the Swing thread.
+	 * 
+	 * <p>If <code>progress</code> is <code>0</code> this
+	 * is interpreted as the task's start which results in
+	 * the label, the progress bar and the cancel button (if
+	 * applicable) being made visible.</p>
+	 * 
+	 * <p>If the progress bar's maximum value is zero it is
+	 * set into indeterminate mode.</p>
+	 * 
+	 * <p>In case <code>progress</code> is non-zero the progress
+	 * bar's value is updated accordingly.</p>
+	 * 
+	 * @param progress
+	 */
+	private void setProgressLater(final int progress)
+	{
+		SwingUtilities.invokeLater(new Runnable()
+		{
+			public void run()
+			{
+				if (progress == 0)
+				{
+					label.setText(description);
+					progressBar.setVisible(true);
+					cancelButton.setVisible(showingContext != null && showingContext.isCancelable());
+					cancelButton.setEnabled(true);
 
-  private void setMaximumLater(final int progress)
-  {
-    SwingUtilities.invokeLater(new Runnable()
-    {
-      public void run()
-      {
-        progressBar.setIndeterminate(false);
-        progressBar.setMaximum(progress);
-      }
-    });
-  }
+					if (progressBar.getMaximum() == 0)
+						progressBar.setIndeterminate(true);
 
-  public void activityDescriptionSet(Context t, String description)
-  {
-    if (t == showingContext)
-      setLabelLater(description);
-  }
+					getRootPane().revalidate();
+				}
+				else
+					progressBar.setValue(progress);
+			}
+		});
+	}
 
-  public void taskStarted(Context t)
-  {
-    if (t == showingContext)
-      setProgressLater(0);
-  }
+	private void setMaximumLater(final int progress)
+	{
+		SwingUtilities.invokeLater(new Runnable()
+		{
+			public void run()
+			{
+				progressBar.setIndeterminate(false);
+				progressBar.setMaximum(progress);
+			}
+		});
+	}
 
-  /**
-   * Makes the child components invisible and the set
-   * the progress bar's maximum value back to zero.
-   */
-  public void taskCompleted(Context t)
-  {
-      if (t == showingContext)
-      {
-        SwingUtilities.invokeLater(new Runnable()
-        {
-          public void run()
-          {
-            label.setText("");
-            progressBar.setVisible(false);
-            cancelButton.setVisible(false);
-            progressBar.setMaximum(0);
+	public void activityDescriptionSet(Context t, String description)
+	{
+		if (t == showingContext)
+			setLabelLater(description);
+	}
 
-            getRootPane().revalidate();
-          }
-        });
-      }
+	public void taskStarted(Context t)
+	{
+		if (t == showingContext)
+			setProgressLater(0);
+	}
 
-      removeContext(t);
-  }
+	/**
+	 * Makes the child components invisible and the set
+	 * the progress bar's maximum value back to zero.
+	 */
+	public void taskCompleted(Context t)
+	{
+		if (t == showingContext)
+		{
+			SwingUtilities.invokeLater(new Runnable()
+			{
+				public void run()
+				{
+					label.setText("");
+					progressBar.setVisible(false);
+					cancelButton.setVisible(false);
+					progressBar.setMaximum(0);
 
-  /**
-   * Calls {@link #taskCompleted(Context)}.
-   */
-  public void taskCancelled(Context t)
-  {
-    taskCompleted(t);
-  }
+					getRootPane().revalidate();
+				}
+			});
+		}
 
-  /**
-   * Updates the progress bar.
-   */
-  public void currentUpdated(Context t, int amount)
-  {
-    if (t == showingContext)
-      setProgressLater(amount);
-  }
+		removeContext(t);
+	}
 
-  /**
-   * Updates the progress bar's maximum value.
-   */
-  public void goalUpdated(Context t, int amount)
-  {
-    if (t == showingContext)
-      setMaximumLater(amount);
-  }
-  
+	/**
+	 * Calls {@link #taskCompleted(Context)}.
+	 */
+	public void taskCancelled(Context t)
+	{
+		taskCompleted(t);
+	}
 
-  private Context getMostImportantContext() {
-      Context mostImportant = null;
-      for (Iterator iter = contexts.iterator(); iter.hasNext();) {
-          Context cntx = (Context)iter.next();
-          // if both are equal, the later one wins
-          if (mostImportant == null || mostImportant.getPriority() <= cntx.getPriority())
-              mostImportant = cntx;
-      }
-      return mostImportant;
-  }
-    
-  private void addContext(Context cntx) {
-      contexts.add(cntx);
-      showingContext = getMostImportantContext();
-  }
+	/**
+	 * Updates the progress bar.
+	 */
+	public void currentUpdated(Context t, int amount)
+	{
+		if (t == showingContext)
+			setProgressLater(amount);
+	}
 
-  private void removeContext(Context cntx) {
-      contexts.remove(cntx);
-      showingContext = getMostImportantContext();
-  }
+	/**
+	 * Updates the progress bar's maximum value.
+	 */
+	public void goalUpdated(Context t, int amount)
+	{
+		if (t == showingContext)
+			setMaximumLater(amount);
+	}
+
+
+	private Context getMostImportantContext() {
+		Context mostImportant = null;
+		for (Iterator iter = contexts.iterator(); iter.hasNext();) {
+			Context cntx = (Context)iter.next();
+			// if both are equal, the later one wins
+			if (mostImportant == null || mostImportant.getPriority() <= cntx.getPriority())
+				mostImportant = cntx;
+		}
+		return mostImportant;
+	}
+
+	private void addContext(Context cntx) {
+		contexts.add(cntx);
+		showingContext = getMostImportantContext();
+	}
+
+	private void removeContext(Context cntx) {
+		contexts.remove(cntx);
+		showingContext = getMostImportantContext();
+	}
 }
