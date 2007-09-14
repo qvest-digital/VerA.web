@@ -145,7 +145,7 @@ public class AsyncEntityListImpl extends AbstractDataSubject {
 
 
     /**
-     * Template method to override for error reorting
+     * Template method to override for error reporting
      */
     protected void reportError(Exception e) {
         e.printStackTrace();
