@@ -4,9 +4,13 @@
 package de.tarent.commons.ui;
 
 import java.awt.Component;
+import java.awt.Point;
+import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.Collections;
 import java.util.Hashtable;
 import java.util.Map;
@@ -104,6 +108,58 @@ public class TaskManagerPanel extends JComponent implements TaskListener {
 				 */
 				public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
 					return (TaskPanel)value; 
+				}
+
+			});
+			contextList.addMouseListener(new MouseAdapter() {
+				
+				protected MouseEvent mousePressedEvent;
+
+				public Component getComponentAt(MouseEvent e) {
+					int index = getContextList().locationToIndex(e.getPoint());
+					int y = e.getY() - getContextList().indexToLocation(index).y;
+					return ((TaskPanel)getContextList().getModel().getElementAt(index)).getComponentAt(e.getX(), y);
+				}
+
+				public Rectangle getRepaintBounds(MouseEvent e) {
+					int index = getContextList().locationToIndex(e.getPoint());
+					Point p = getContextList().indexToLocation(index);
+					TaskPanel taskPanel = (TaskPanel)getContextList().getModel().getElementAt(index);
+					return new Rectangle(p.x, p.y, taskPanel.getPreferredSize().width, taskPanel.getPreferredSize().height);
+				}
+
+				/**
+				 * @see java.awt.event.MouseListener#mouseClicked(java.awt.event.MouseEvent)
+				 */
+				public void mouseClicked(MouseEvent e) {
+					Component c = getComponentAt(e);
+					if (c instanceof JButton) {
+						c.dispatchEvent(new MouseEvent(c, e.getID(), e.getWhen(), e.getModifiers(), 0, 0, e.getClickCount(), e.isPopupTrigger(), e.getButton()));
+						getContextList().repaint(getRepaintBounds(e));					
+					}
+				}
+
+				/**
+				 * @see java.awt.event.MouseListener#mousePressed(java.awt.event.MouseEvent)
+				 */
+				public void mousePressed(MouseEvent e) {
+					Component c = getComponentAt(e);
+					mousePressedEvent = e;
+					if (c instanceof JButton) {
+						c.dispatchEvent(new MouseEvent(c, e.getID(), e.getWhen(), e.getModifiers(), 0, 0, e.getClickCount(), e.isPopupTrigger(), e.getButton()));
+						getContextList().repaint(getRepaintBounds(e));
+					}
+				}
+
+				/**
+				 * @see java.awt.event.MouseListener#mouseReleased(java.awt.event.MouseEvent)
+				 */
+				public void mouseReleased(MouseEvent e) {
+					Component c = getComponentAt(mousePressedEvent);
+					if (c instanceof JButton) {
+						c.dispatchEvent(new MouseEvent(c, MouseEvent.MOUSE_RELEASED, e.getWhen(), e.getModifiers(), 0, 0, e.getClickCount(), e.isPopupTrigger(), e.getButton()));
+						getContextList().repaint(getRepaintBounds(mousePressedEvent));
+					}
 				}
 
 			});
@@ -440,6 +496,7 @@ public class TaskManagerPanel extends JComponent implements TaskListener {
 					 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
 					 */
 					public void actionPerformed(ActionEvent e) {
+						
 						// Make the button unclickable instantly because a task
 						// should not be cancelled twice.
 						getCancelButton().setEnabled(false);
@@ -453,10 +510,18 @@ public class TaskManagerPanel extends JComponent implements TaskListener {
 							}
 						}.start();
 					}
-					
+
 				});
 			}
 			return cancelButton;
 		}
+		
+		public Component getComponentAt(int x, int y) {
+            for (int i = 0; i < getComponentCount(); i++)
+                if (getComponent(i).getBounds().contains(x, y))
+                    return getComponent(i);
+            
+            return null;
+        }
 	}
 }
