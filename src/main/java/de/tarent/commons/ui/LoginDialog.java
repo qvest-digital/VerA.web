@@ -93,10 +93,14 @@ public class LoginDialog extends JFrame implements DeferringLoginProvider
 	{
 		this(null, null, null);
 	}
+	
+	public LoginDialog(String initialUser, String initialConnection, Image icon) {
+		this(initialUser, initialConnection, icon, null);
+	}
 
-	public LoginDialog(String pInitialUser, String initialConnection, Image icon)
+	public LoginDialog(String pInitialUser, String initialConnection, Image icon, String appTitle)
 	{
-		super(Messages.getString("LoginDialog_Title"));
+		super(Messages.getString("LoginDialog_Title") + (appTitle == null ? "" : (" - " + appTitle)));
 
 		if(icon != null)
 			setIconImage(icon);
