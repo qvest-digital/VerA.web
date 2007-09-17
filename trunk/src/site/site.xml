@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <project>
 	<skin>
 		<groupId>org.apache.maven.skins</groupId>
@@ -11,7 +11,7 @@
 			<item name="Overview" href="index.html" />
 			<item name="evolvis project homepage" href="http://evolvis.org/projects/octopus/" />
 			<item name="tarent GmbH" href="http://www.tarent.de/" />
-			<item name="Auswärtiges Amt" href="http://evolvis.org/" />
+			<item name="Auswaertiges Amt" href="http://evolvis.org/" />
 		</links>
 		
 		<menu name="${project.name}">
@@ -26,7 +26,7 @@
 		<menu name="Supported by">
 			<item name="evolvis" href="http://evolvis.org/" />
 			<item name="tarent GmbH" href="http://www.tarent.de/" />
-			<item name="Auswärtiges Amt" href="http://www.auswaertiges-amt.de/" />
+			<item name="Auswaertiges Amt" href="http://www.auswaertiges-amt.de/" />
 		</menu>
 		
 		<menu ref="modules" />
