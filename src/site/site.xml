@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project>
+	<skin>
+		<groupId>org.apache.maven.skins</groupId>
+		<artifactId>maven-stylus-skin</artifactId>
+		<version>1.0.1</version>
+	</skin>
+
+	<body>
+		<links>
+			<item name="Overview" href="index.html" />
+			<item name="evolvis project homepage" href="http://evolvis.org/projects/octopus/" />
+			<item name="tarent GmbH" href="http://www.tarent.de/" />
+			<item name="Auswärtiges Amt" href="http://evolvis.org/" />
+		</links>
+		
+		<menu name="${project.name}">
+			<item name="Overview" href="index.html" />
+			<item name="Status" href="status.html" />
+			<item name="History" href="history.html" />
+			<item name="Screenshots" href="screenshots.html" />
+			<item name="Downloads" href="downloads.html" />
+			<item name="Voraussetzungen" href="sysreq.html" />
+		</menu>
+		
+		<menu name="Supported by">
+			<item name="evolvis" href="http://evolvis.org/" />
+			<item name="tarent GmbH" href="http://www.tarent.de/" />
+			<item name="Auswärtiges Amt" href="http://www.auswaertiges-amt.de/" />
+		</menu>
+		
+		<menu ref="modules" />
+		
+		${reports}
+	</body>
+</project>
