@@ -1,0 +1,21 @@
+
+Veranstaltungsmanagment VerA.web
+
+	Das Veranstaltungsmanagment VerA.web bietet u. a. folgende Funktionen:
+	
+	* vollständige Adressverwaltung
+	
+	* verwaltungsmöglichkeit von Veranstaltungen
+	
+	* inkl. Einladungslisten und E-Mailverteiler
+	
+	* Verwaltung von Zusagen, Absagen, und Nachrückern
+	
+	* Teilnehmer in verschiedenen Rollen
+	
+	* MS- und OpenOffice-Schnittstelle
+
+
+    VerA.web ist lizensiert unter
+	{{{http://www.gnu.org/licenses/gpl-2.0.txt}GNU GENERAL PUBLIC LICENSE,
+	Version 2}}.
