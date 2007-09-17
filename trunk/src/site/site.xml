@@ -8,8 +8,7 @@
 
 	<body>
 		<links>
-			<item name="Overview" href="index.html" />
-			<item name="evolvis project homepage" href="http://evolvis.org/projects/octopus/" />
+			<item name="evolvis project homepage" href="http://evolvis.org/projects/veraweb/" />
 			<item name="tarent GmbH" href="http://www.tarent.de/" />
 			<item name="Auswaertiges Amt" href="http://evolvis.org/" />
 		</links>
@@ -20,7 +19,12 @@
 			<item name="History" href="history.html" />
 			<item name="Screenshots" href="screenshots.html" />
 			<item name="Downloads" href="downloads.html" />
-			<item name="Voraussetzungen" href="sysreq.html" />
+			<item name="Systemvoraussetzungen" href="sysreq.html" />
+		</menu>
+		
+		<menu name="Dokumentation">
+			<item name="Benutzerhandbuch (PDF)" href="doc/Benutzerhandbuch_1.2.pdf" />
+			<item name="Installationsanleitung" href="install.html" />
 		</menu>
 		
 		<menu name="Supported by">
