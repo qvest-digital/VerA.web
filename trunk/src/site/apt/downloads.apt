@@ -9,7 +9,7 @@ Aktueller Release 1.1.16
 	  
 	  EAR Archiv für das deployen in Enterprise Servern.\
 	  \
-	  Beinahltet veraweb.war sowie octopus.war für das deployen in\
+	  Beinhaltet veraweb.war sowie octopus.war für das deployen in\
 	  diversen Servlet Containern.
 	
 	* {{{release/2006-11-15_1-1-16/octopusLibs.zip}Octopus libraries}}
