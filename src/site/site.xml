@@ -10,7 +10,7 @@
 		<links>
 			<item name="evolvis project homepage" href="http://evolvis.org/projects/veraweb/" />
 			<item name="tarent GmbH" href="http://www.tarent.de/" />
-			<item name="Auswaertiges Amt" href="http://evolvis.org/" />
+			<item name="Auswaertiges Amt" href="http://www.auswaertiges-amt.de/" />
 		</links>
 		
 		<menu name="${project.name}">
