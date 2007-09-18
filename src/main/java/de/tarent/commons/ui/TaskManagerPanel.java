@@ -405,9 +405,11 @@ public class TaskManagerPanel extends JComponent implements TaskListener {
 				getGlobalCancelButton().setVisible(false);
 				getToggleExtendedButton().setVisible(false);
 				
-				// if visible, also hide popup
+				// if visible, also hide popup and deselect toggle-button
 				if(popup != null)
 					popup.hide();
+				
+				getToggleExtendedButton().setSelected(false);
 
 			} else if(getContexts().size() == 1) {
 				// single task running, visualize this tasks with the global elements and hide extended-button
