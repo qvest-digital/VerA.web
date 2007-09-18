@@ -9,6 +9,8 @@ import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Collections;
@@ -72,8 +74,28 @@ public class TaskManagerPanel extends JComponent implements TaskListener {
 	protected final static int SINGLE_MODE = 0;
 	protected final static int MULTI_MODE = 1;
 	protected final static int NONE_MODE = 2;
-
+	
 	public TaskManagerPanel() {
+		this(null);
+	}
+
+	public TaskManagerPanel(final Component resizeComp) {
+		// we should listen on component resizes in order to ensure correct position of popup
+		if(resizeComp != null)
+			resizeComp.addComponentListener(new ComponentAdapter() {
+
+				/**
+				 * @see java.awt.event.ComponentAdapter#componentResized(java.awt.event.ComponentEvent)
+				 */
+				@Override
+				public void componentResized(ComponentEvent e) {
+					if(resizeComp.isVisible())
+						TaskManagerPanel.this.showPopup();
+				}
+				
+			});
+		
+		
 		setLayout(new FormLayout("pref, 3dlu, pref, 3dlu, pref, 3dlu, pref",
 		"1dlu, fill:pref, 1dlu"));
 
@@ -225,10 +247,7 @@ public class TaskManagerPanel extends JComponent implements TaskListener {
 				public void actionPerformed(ActionEvent e) {
 					if(getToggleExtendedButton().isSelected()) {
 						getToggleExtendedButton().setIcon(expanded);
-						int x = (int)(getToggleExtendedButton().getLocationOnScreen().getX()+getToggleExtendedButton().getWidth()-getContextScrollPane().getPreferredSize().getWidth());
-						int y = (int)(getToggleExtendedButton().getLocationOnScreen().getY()-getContextScrollPane().getPreferredSize().getHeight());
-						popup = PopupFactory.getSharedInstance().getPopup(TaskManagerPanel.this, getContextScrollPane(), x, y);
-						popup.show();
+						showPopup();
 					} else {
 						popup.hide();
 						getToggleExtendedButton().setIcon(collapsed);
@@ -237,6 +256,16 @@ public class TaskManagerPanel extends JComponent implements TaskListener {
 			});
 		}
 		return toggleExtendedButton;
+	}
+	
+	protected void showPopup() {
+		if(popup != null)
+			popup.hide();
+			
+		int x = (int)(getToggleExtendedButton().getLocationOnScreen().getX()+getToggleExtendedButton().getWidth()-getContextScrollPane().getPreferredSize().getWidth());
+		int y = (int)(getToggleExtendedButton().getLocationOnScreen().getY()-getContextScrollPane().getPreferredSize().getHeight());
+		popup = PopupFactory.getSharedInstance().getPopup(TaskManagerPanel.this, getContextScrollPane(), x, y);
+		popup.show();
 	}
 
 	/**
@@ -375,6 +404,10 @@ public class TaskManagerPanel extends JComponent implements TaskListener {
 				getGlobalProgressBar().setVisible(false);
 				getGlobalCancelButton().setVisible(false);
 				getToggleExtendedButton().setVisible(false);
+				
+				// if visible, also hide popup
+				if(popup != null)
+					popup.hide();
 
 			} else if(getContexts().size() == 1) {
 				// single task running, visualize this tasks with the global elements and hide extended-button
@@ -524,5 +557,11 @@ public class TaskManagerPanel extends JComponent implements TaskListener {
             
             return null;
         }
+	}
+	
+	protected class RelocatingPopup extends Popup {
+		public RelocatingPopup() {
+			
+		}
 	}
 }
