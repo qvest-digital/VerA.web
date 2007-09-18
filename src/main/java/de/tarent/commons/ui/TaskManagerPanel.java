@@ -410,6 +410,7 @@ public class TaskManagerPanel extends JComponent implements TaskListener {
 					popup.hide();
 				
 				getToggleExtendedButton().setSelected(false);
+				getToggleExtendedButton().setIcon(collapsed);
 
 			} else if(getContexts().size() == 1) {
 				// single task running, visualize this tasks with the global elements and hide extended-button
