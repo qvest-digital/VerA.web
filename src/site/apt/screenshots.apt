@@ -4,7 +4,7 @@ Screenshots
 	* <<{{{images/01_anmeldung.png}Anmeldung}}>>
 	
 	Gültige Authentifizierung über Benutzernamen sowie Rollen. Zusätzlich\
-	können sich Anwender "in Vertretung" für Kollegen einloggen um z.B. derren\
+	können sich Anwender "in Vertretung" für Kollegen einloggen um z.B. deren\
 	Urlaubsvertretung zu übernehmen.\
 	\
 	Technisch kann die Authentifizierung unterschiedliche Directorysysteme\
@@ -13,7 +13,7 @@ Screenshots
 	* <<{{{images/02_suche.png}Suche}} /
 	  {{{images/03_suchergebnis.png}Suchergebnis}} (Personen)>>
 	
-	Detailierte Suchmöglichkten und übersichtliche Suchergebnisdarstellung mit\
+	Detailierte Suchmöglichkeit und übersichtliche Suchergebnisdarstellung mit\
 	Direkteinsprung zu Seiten und Nachnamen.
 
 	* <<{{{images/04_personendaten.png}Personendaten}} /

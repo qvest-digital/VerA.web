@@ -47,7 +47,7 @@
 	<licenses>
 		<license>
 			<name>GNU General Public License</name>
-			<url>http://www.gnu.org/licenses/gpl.txt</url>
+			<url>http://www.gnu.org/licenses/gpl-2.0.txt</url>
 		</license>
 	</licenses>
 
@@ -83,7 +83,7 @@
 
 	<developers>
 		<developer>
-			<id>christoph</id>
+			<id>jerolimov</id>
 			<name>Christoph Jerolimov</name>
 			<email>c.jerolimov@tarent.de</email>
 			<organization>tarent GmbH</organization>
@@ -95,7 +95,7 @@
 		</developer>
 
 		<developer>
-			<id>hendrik</id>
+			<id>hhelwich</id>
 			<name>Hendrik Helwich</name>
 			<email>h.helwich@tarent.de</email>
 			<organization>tarent GmbH</organization>
@@ -107,7 +107,7 @@
 		</developer>
 
 		<developer>
-			<id>mikel</id>
+			<id>mklink</id>
 			<name>Michael Klink</name>
 			<email>m.klink@tarent.de</email>
 			<organization>tarent GmbH</organization>
