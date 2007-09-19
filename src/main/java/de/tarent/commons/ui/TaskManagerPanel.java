@@ -4,6 +4,7 @@
 package de.tarent.commons.ui;
 
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.Toolkit;
@@ -64,8 +65,8 @@ public class TaskManagerPanel extends JComponent implements TaskListener {
 	protected Popup popup;
 	protected JScrollPane contextScrollPane;
 	protected ImageIcon cancelIcon = new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/de/tarent/commons/gfx/process-stop.png")));
-	protected ImageIcon collapsed = new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/de/tarent/commons/gfx/expanded.gif")));
-	protected ImageIcon expanded = new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/de/tarent/commons/gfx/collapsed.gif")));
+//	protected ImageIcon collapsed = new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/de/tarent/commons/gfx/expanded.gif")));
+//	protected ImageIcon expanded = new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/de/tarent/commons/gfx/collapsed.gif")));
 	protected Context currentContext;
 
 	protected int mode;
@@ -209,6 +210,7 @@ public class TaskManagerPanel extends JComponent implements TaskListener {
 	protected JButton getGlobalCancelButton() {
 		if(globalCancelButton == null) {
 			globalCancelButton = new JButton(cancelIcon);
+			//globalCancelButton = new JButton("x");
 			globalCancelButton.setVisible(false);
 			globalCancelButton.addActionListener(new ActionListener() {
 
@@ -236,7 +238,9 @@ public class TaskManagerPanel extends JComponent implements TaskListener {
 
 	protected JToggleButton getToggleExtendedButton() {
 		if(toggleExtendedButton == null) {
-			toggleExtendedButton = new JToggleButton(collapsed);
+			//toggleExtendedButton = new JToggleButton(collapsed);
+			toggleExtendedButton = new JToggleButton("^");
+			toggleExtendedButton.setPreferredSize(new Dimension(toggleExtendedButton.getPreferredSize().width, 1));
 			toggleExtendedButton.setVisible(false);
 			toggleExtendedButton.setToolTipText(Messages.getString("TaskManagerPanel_ExtendedButton_ToolTip"));
 			toggleExtendedButton.addActionListener(new ActionListener() {
@@ -246,11 +250,11 @@ public class TaskManagerPanel extends JComponent implements TaskListener {
 				 */
 				public void actionPerformed(ActionEvent e) {
 					if(getToggleExtendedButton().isSelected()) {
-						getToggleExtendedButton().setIcon(expanded);
+						//getToggleExtendedButton().setIcon(expanded);
 						showPopup();
 					} else {
 						popup.hide();
-						getToggleExtendedButton().setIcon(collapsed);
+						//getToggleExtendedButton().setIcon(collapsed);
 					}
 				}
 			});
@@ -410,7 +414,7 @@ public class TaskManagerPanel extends JComponent implements TaskListener {
 					popup.hide();
 				
 				getToggleExtendedButton().setSelected(false);
-				getToggleExtendedButton().setIcon(collapsed);
+				//getToggleExtendedButton().setIcon(collapsed);
 
 			} else if(getContexts().size() == 1) {
 				// single task running, visualize this tasks with the global elements and hide extended-button
@@ -497,7 +501,7 @@ public class TaskManagerPanel extends JComponent implements TaskListener {
 			this.description = description;
 
 			FormLayout layout = new FormLayout("fill:pref:grow, 1dlu, pref", // columns
-			"fill:pref, 1dlu, fill:pref"); // rows
+			"fill:pref, 1dlu, pref"); // rows
 
 			setLayout(layout);
 
@@ -509,7 +513,8 @@ public class TaskManagerPanel extends JComponent implements TaskListener {
 
 			getLabel().setText(description);
 			getCancelButton().setToolTipText(Messages.getFormattedString("SmallTaskManagerPanel_CancelProgress", description));
-			setBorder(BorderFactory.createLoweredBevelBorder());
+			//setBorder(BorderFactory.createLoweredBevelBorder());
+			setBorder(BorderFactory.createEmptyBorder(3, 3, 3, 3));
 		}
 
 		public JProgressBar getProgressBar() {
@@ -527,6 +532,8 @@ public class TaskManagerPanel extends JComponent implements TaskListener {
 		public JButton getCancelButton() {
 			if(cancelButton == null) {
 				cancelButton = new JButton(TaskManagerPanel.this.cancelIcon);
+				//cancelButton = new JButton("x");
+				cancelButton.setPreferredSize(new Dimension(cancelButton.getPreferredSize().width, 1));
 				cancelButton.addActionListener(new ActionListener() {
 
 					/**
