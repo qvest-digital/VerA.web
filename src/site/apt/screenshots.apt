@@ -1,7 +1,7 @@
 
 Screenshots
 
-	* <<{{{images/01_anmeldung.png}Anmeldung}}>>
+	* <<{{{screenshots_01_anmeldung.html}Anmeldung}}>>
 	
 	Gültige Authentifizierung über Benutzernamen sowie Rollen. Zusätzlich\
 	können sich Anwender "in Vertretung" für Kollegen einloggen um z.B. deren\
@@ -10,25 +10,25 @@ Screenshots
 	Technisch kann die Authentifizierung unterschiedliche Directorysysteme\
 	verwenden, u.a. LDAP sowie ADS.
 
-	* <<{{{images/02_suche.png}Suche}} /
-	  {{{images/03_suchergebnis.png}Suchergebnis}} (Personen)>>
+	* <<{{{screenshots_02_suche.html}Suche}} /
+	  {{{screenshots_03_suchergebnis.html}Suchergebnis}} (Personen)>>
 	
 	Detailierte Suchmöglichkeit und übersichtliche Suchergebnisdarstellung mit\
 	Direkteinsprung zu Seiten und Nachnamen.
 
-	* <<{{{images/04_personendaten.png}Personendaten}} /
-	  {{{images/05_anschriften.png}Anschriftsdaten}}>>
+	* <<{{{screenshots_04_personendaten.html}Personendaten}} /
+	  {{{screenshots_05_anschriften.html}Anschriftsdaten}}>>
 	
 	Umfangreiche Speichermöglichkeiten von Personendaten (getrennte Haupt- und\
 	Partnerdaten in je drei Schreibweisen) sowie Anschriftsdaten (Geschäftlich,\
 	Privat und Weitere ebenfalls in jeweils drei Schreibweisen).
 	
 	Weiterhin können Personen über
-	{{{images/06_dokumententypen.png}Dokumenttypen}} und
-	{{{images/07_kategorisierung.png}Kategorien}} individuallisiert werden.
+	{{{screenshots_06_dokumententypen.html}Dokumenttypen}} und
+	{{{screenshots_07_kategorisierung.html}Kategorien}} individuallisiert werden.
 	
-	* <<{{{images/08_veranstaltung_detail.png}Veranstaltung}} /
-	  {{{images/09_gaesteliste.png}Gästeliste}}>>
+	* <<{{{screenshots_08_veranstaltung_detail.html}Veranstaltung}} /
+	  {{{screenshots_09_gaesteliste.html}Gästeliste}}>>
 	
 	Detailierte Informationen (unabhängig von Stammdaten) je Gast speicherbar.\
 	Erstellung von Statistiken und Exporten. Anbindung an MS- und OpenOffice.
