@@ -12,7 +12,7 @@ Installationsanleitung VerA.web
 	enthalten jeweils auch eine Version der Webframeworks tarent-octopus.
 	
 	Deployen Sie die veraweb.war sowie octopus.war Verzeichnisse in einem
-	beliebigen Servlet Container oder das gemeinsame Arschiv als EAR in einem
+	beliebigen Servlet Container oder das gemeinsame Archiv als EAR in einem
 	Enterprise Server.
 	
 	Beachten Sie die besonderheit das die beiden Webanwendungen miteinander
