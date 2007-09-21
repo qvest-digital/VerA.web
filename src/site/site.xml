@@ -32,5 +32,9 @@
 		<menu ref="modules" />
 		
 		${reports}
+		
+		<menu name="">
+			<item name="Impressum" href="http://evolvis.org/impress/" />
+		</menu>
 	</body>
 </project>
