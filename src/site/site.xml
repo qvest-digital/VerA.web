@@ -5,33 +5,43 @@
 		<artifactId>maven-stylus-skin</artifactId>
 		<version>1.0.1</version>
 	</skin>
-
+	
+	<bannerLeft>
+		<name>octopus</name>
+		<src>images/octopus-logo.png</src>
+		<href>http://octopus.evolvis.org/</href>
+	</bannerLeft>
+	
 	<body>
+		<head>
+			<link rel="shortcut icon" type="image/x-icon" href="images/octopus-favicon.ico" />
+		</head>
+		
 		<links>
-			<item name="octopus main page" href="../" />
 			<item name="evolvis" href="http://evolvis.org/" />
 			<item name="evolvis project homepage" href="http://evolvis.org/projects/octopus/" />
 		</links>
 		
-		<menu name="Core modules">
-			<item name="Octopus core" href="../octopus-core/" />
-			<item name="RPC tunnel" href="../octopus-rpctunnel/" />
-			<item name="Servlet code" href="../octopus-servlet/" />
-			<item name="Embedded deployment" href="../octopus-embedded-webapp/" />
-			<item name="Standalone deployment" href="../octopus-standalone-webapp/" />
-		</menu>
-		
-		<menu name="Extensions">
-			<item name="octopus-annotation" href="../octopus-ext-annotation/" />
-			<item name="octopus-commons" href="../octopus-ext-commons/" />
-			<item name="octopus-cronjobs" href="../octopus-ext-cronjobs/" />
-			<item name="octopus-jmx" href="../octopus-ext-jmx/" />
-			<item name="octopus-beans" href="../octopus-ext-beans/" />
-		</menu>
-		
 		<menu ref="modules" />
 		
 		${reports}
+		
+		<menu name="Links">
+			<item name="RPC tunnel"            href="../octopus-rpctunnel/" />
+			<item name="Octopus core"          href="../octopus-core/" />
+			<item name="Octopus servlet"       href="../octopus-servlet/" />
+			<item name="Octopus commons"       href="../octopus-ext-commons/" />
+			<item name="Embedded WAR"          href="../octopus-embedded-webapp/" />
+			<item name="Standalone WAR"        href="../octopus-standalone-webapp/" />
+			<item name="Annotation extension"  href="../octopus-ext-annotation/" />
+			<item name="Cronjob extension"     href="../octopus-ext-cronjobs/" />
+			<item name="JMX extension"         href="../octopus-ext-jmx/" />
+		</menu>
+		
+		<menu name="Supported by">
+			<item name="evolvis" href="http://evolvis.org/" />
+			<item name="tarent GmbH" href="http://www.tarent.de/" />
+		</menu>
 		
 		<menu name="">
 			<item name="Impressum" href="http://evolvis.org/impress/" />
