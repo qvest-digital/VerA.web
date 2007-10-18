@@ -1,4 +1,4 @@
-/* $Id: TcEnv.java,v 1.10 2007/03/07 20:39:18 christoph Exp $
+/* $Id: TcEnv.java,v 1.10.2.1 2007/10/18 11:54:20 christoph Exp $
  * tarent-octopus, Webservice Data Integrator and Applicationserver
  * Copyright (C) 2002 tarent GmbH
  * 
@@ -37,12 +37,12 @@ import org.apache.commons.logging.Log;
 import de.tarent.octopus.logging.LogFactory;
 
 /** 
- * Ein key=value Container für Einstellungswerte.
+ * Ein key=value Container fï¿½r Einstellungswerte.
  *
- * Die Keys sollten ein Prefix besitzen, das bezeichet, für welches Modul oder Package diese Einstellungen relevant sind.
+ * Die Keys sollten ein Prefix besitzen, das bezeichet, fï¿½r welches Modul oder Package diese Einstellungen relevant sind.
  * <br>z.B. "tcResponse.templatePath"
  * <br><br>
- * Wenn eine Einstellung für mehrere Module ist, soll das prefix "global" benutzt werden
+ * Wenn eine Einstellung fï¿½r mehrere Module ist, soll das prefix "global" benutzt werden
  *
  * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
  */
@@ -50,7 +50,7 @@ public class TcEnv extends HashMap {
 	//
     // private statische Variablen
     //
-    /** Logger für diese Klasse */
+    /** Logger fï¿½r diese Klasse */
     private static Log logger = LogFactory.getLog(TcEnv.class);
     /**
 	 * serialVersionUID = -3477717156564940686L
@@ -62,7 +62,7 @@ public class TcEnv extends HashMap {
 	}
 
     /**
-     * Setzt die Map mit den Einstellungen. Alle vorhandenen Werte werden überschrieben.
+     * Setzt die Map mit den Einstellungen. Alle vorhandenen Werte werden ï¿½berschrieben.
      *
      * @param envMap Erwartet eine Map mit Strings als key und Strings und Stringarrays als Values
      */
@@ -71,7 +71,7 @@ public class TcEnv extends HashMap {
     }
 
     /**
-     * Setzt eine  Einstellung. Ein vorhandener Wert wird überschrieben.
+     * Setzt eine  Einstellung. Ein vorhandener Wert wird ï¿½berschrieben.
      *
      * @param key Der Key mit Prefix, z.B. "global.sessionTimeout"
      * @param value Wert
@@ -82,7 +82,7 @@ public class TcEnv extends HashMap {
     }
 
     /**
-     * Setzt eine  Einstellung. Ein vorhandener Wert wird überschrieben.
+     * Setzt eine  Einstellung. Ein vorhandener Wert wird ï¿½berschrieben.
      *
      * @param prefix Das Prefix, z.B. "global"
      * @param key Der Key ohne Prefix, z.B. "sessionTimeout"
@@ -94,7 +94,7 @@ public class TcEnv extends HashMap {
     }
 
     /**
-     * Setzt ein Einstellungsarray. Ein vorhandener Wert wird überschrieben.
+     * Setzt ein Einstellungsarray. Ein vorhandener Wert wird ï¿½berschrieben.
      *
      * @param key Der Key mit Prefix, z.B. "global.sessionTimeout"
      * @param values Werte als Stringarray
@@ -105,7 +105,7 @@ public class TcEnv extends HashMap {
     }
 
     /**
-     * Setzt ein Einstellungsarray. Ein vorhandener Wert wird überschrieben.
+     * Setzt ein Einstellungsarray. Ein vorhandener Wert wird ï¿½berschrieben.
      *
      * @param prefix Das Prefix, z.B. "global"
      * @param key Der Key ohne Prefix, z.B. "sessionTimeout"
@@ -117,7 +117,7 @@ public class TcEnv extends HashMap {
     }
 
     /**
-     * Gibt einen Wert als String oder String[] zurück.
+     * Gibt einen Wert als String oder String[] zurï¿½ck.
      *
      * @param key Der Key mit Prefix, z.B. "global.sessionTimeout"
      * @return Ein String oder String[] Objekt
@@ -127,7 +127,7 @@ public class TcEnv extends HashMap {
     }
 
     /**
-     * Gibt einen Wert als Object zurück.
+     * Gibt einen Wert als Object zurï¿½ck.
      * @param key
      * @return
      */
@@ -136,10 +136,10 @@ public class TcEnv extends HashMap {
     }
 
     /**
-     * Gibt einen Wert als String zurück
+     * Gibt einen Wert als String zurï¿½ck
      *
      * @param key Der Key mit Prefix, z.B. "global.sessionTimeout"
-     * @return Einen String. Wenn ein String[] gespeichert ist, wird das erste Element zurück gegeben.
+     * @return Einen String. Wenn ein String[] gespeichert ist, wird das erste Element zurï¿½ck gegeben.
      */
     public String getValueAsString(String key) {
         Object value = this.get(key);
@@ -152,11 +152,11 @@ public class TcEnv extends HashMap {
     }
 
     /**
-     * Gibt einen Wert als String zurück
-     * Wrapper für getValueAsString
+     * Gibt einen Wert als String zurï¿½ck
+     * Wrapper fï¿½r getValueAsString
      *
      * @param key Der Key mit Prefix, z.B. "global.sessionTimeout"
-     * @return Einen String. Wenn ein String[] gespeichert ist, wird das erste Element zurück gegeben.
+     * @return Einen String. Wenn ein String[] gespeichert ist, wird das erste Element zurï¿½ck gegeben.
      */
     public String get(String key) {
         Object value = super.get(key);
@@ -169,10 +169,10 @@ public class TcEnv extends HashMap {
     }
 
     /**
-     * Gibt einen Wert als String[] zurück
+     * Gibt einen Wert als String[] zurï¿½ck
      *
      * @param key Der Key mit Prefix, z.B. "global.sessionTimeout"
-     * @return Einen String. Wenn ein String[] gespeichert ist, wird das erste Element zurück gegeben.
+     * @return Einen String. Wenn ein String[] gespeichert ist, wird das erste Element zurï¿½ck gegeben.
      */
     public String[] getValueAsStringArray(String key) {
         Object value = this.get(key);
@@ -185,7 +185,7 @@ public class TcEnv extends HashMap {
     }
 
     /**
-     * Gibt einen Wert als boolean zurück
+     * Gibt einen Wert als boolean zurï¿½ck
      *
      * @param key Der Key mit Prefix, z.B. "global.sessionTimeout"
      * @return true, wenn der String, oder der erste Eintrag im String-Array "true" ist, false sonst. Nicht case-Sensitiv.
@@ -204,10 +204,10 @@ public class TcEnv extends HashMap {
     }
 
     /**
-     * Gibt einen Wert als Zahl zurück
+     * Gibt einen Wert als Zahl zurï¿½ck
      *
      * @param key Der Key mit Prefix, z.B. "global.sessionTimeout"
-     * @return Zahlwert oder 0, wenn es kein gültiger Zahlwert ist.
+     * @return Zahlwert oder 0, wenn es kein gï¿½ltiger Zahlwert ist.
      */
     public int getValueAsInt(String key) {
         Object value = super.get(key);
@@ -227,7 +227,7 @@ public class TcEnv extends HashMap {
     }
 
     /**
-     * Gibt einen Wert als Object zurück
+     * Gibt einen Wert als Object zurï¿½ck
      *
      * @param prefix Das Prefix, z.B. "global"
      * @param key Der Key ohne Prefix, z.B. "sessionTimeout"
@@ -239,11 +239,11 @@ public class TcEnv extends HashMap {
     }
 
     /**
-     * Gibt einen Wert als String zurück
+     * Gibt einen Wert als String zurï¿½ck
      *
      * @param prefix Das Prefix, z.B. "global"
      * @param key Der Key ohne Prefix, z.B. "sessionTimeout"
-     * @return Einen String. Wenn ein String[] gespeichert ist, wird das erste Element zurück gegeben.
+     * @return Einen String. Wenn ein String[] gespeichert ist, wird das erste Element zurï¿½ck gegeben.
      */
     public String getValueAsString(String prefix, String key) {
         key = prefix + "." + key;
@@ -257,11 +257,11 @@ public class TcEnv extends HashMap {
     }
 
     /**
-     * Gibt einen Wert als String[] zurück
+     * Gibt einen Wert als String[] zurï¿½ck
      *
      * @param prefix Das Prefix, z.B. "global"
      * @param key Der Key ohne Prefix, z.B. "sessionTimeout"
-     * @return Einen String. Wenn ein String[] gespeichert ist, wird das erste Element zurück gegeben.
+     * @return Einen String. Wenn ein String[] gespeichert ist, wird das erste Element zurï¿½ck gegeben.
      */
     public String[] getValueAsStringArray(String prefix, String key) {
         key = prefix + "." + key;
@@ -275,7 +275,7 @@ public class TcEnv extends HashMap {
     }
 
     /**
-     * Gibt einen Wert als boolean zurück
+     * Gibt einen Wert als boolean zurï¿½ck
      *
      * @param prefix Das Prefix, z.B. "global"
      * @param key Der Key ohne Prefix, z.B. "sessionTimeout"
@@ -296,7 +296,7 @@ public class TcEnv extends HashMap {
     }
 
     /**
-     * Gibt einen Wert als Zahl zurück
+     * Gibt einen Wert als Zahl zurï¿½ck
      *
      * @param key Der Key mit Prefix, z.B. "global.sessionTimeout"
      * @return true, wenn der String, oder der erste Eintrag im String-Array "true" ist, false sonst. Nicht case-Sensitiv.
@@ -316,10 +316,10 @@ public class TcEnv extends HashMap {
     }
 
     /**
-     * Diese Methode überschreibt Werte dieses Environments aus den Preferences.
+     * Diese Methode ï¿½berschreibt Werte dieses Environments aus den Preferences.
      * 
-     * @param context Kontext für Log-Ausgaben
-     * @param systemNodeName Systemknotenbezeichner für den Override-Bereich.
+     * @param context Kontext fï¿½r Log-Ausgaben
+     * @param systemNodeName Systemknotenbezeichner fï¿½r den Override-Bereich.
      */
     public void overrideValues(String context, String systemNodeName) {
         Preferences overrides = Preferences.systemRoot().node(systemNodeName);
@@ -344,7 +344,7 @@ public class TcEnv extends HashMap {
     //
     /**
      * Diese Methode liefert eine String-Darstellung des Environments
-     * für Debug-Zwecke.  
+     * fï¿½r Debug-Zwecke.  
      */
     public String toString() {
         StringBuffer sb = new StringBuffer();
@@ -367,10 +367,10 @@ public class TcEnv extends HashMap {
     }
 
     //
-    // Schlüsselkonstanten
+    // Schlï¿½sselkonstanten
     //
    
-    /** Prefix für den Key, unter dem der direkte Pfad zu einer 
+    /** Prefix fï¿½r den Key, unter dem der direkte Pfad zu einer 
         Configdatei eines Modules angegeben werden kann 
         Der gesamte key setzt sich zusammen aus: KEY_MODULE_CONFIGFILE_LOCATION_PREFIX + modulname */
     public final static String KEY_MODULE_CONFIGFILE_LOCATION_PREFIX = "moduleConfig.";
@@ -386,6 +386,7 @@ public class TcEnv extends HashMap {
     public final static String KEY_LOG_SOAP_REQUEST_LEVEL = "logging.soap.request.level";
     public final static String KEY_USE_SOAP_NS_AS_MODULE = "useSOAPNSAsModule"; // default == true
     public final static String KEY_JMX_ENABLED = "jmxenabled"; // default == false
+    public final static String KEY_RPCTUNNEL_ENABLED = "rpctunnelenabled"; // default == false
     public final static String KEY_PATHS_CONFIG_ROOT = "paths.configRoot";
     public final static String KEY_PATHS_CONFIG_FILE = "paths.configFile";
     public final static String KEY_PATHS_MODULES = "paths.modules";

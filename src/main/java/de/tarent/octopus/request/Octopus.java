@@ -1,4 +1,4 @@
-/* $Id: Octopus.java,v 1.19 2007/03/07 20:38:55 christoph Exp $
+/* $Id: Octopus.java,v 1.19.2.1 2007/10/18 11:54:20 christoph Exp $
  * 
  * Created on 18.09.2003
  * 
@@ -57,14 +57,14 @@ import de.tarent.octopus.server.Context;
 import de.tarent.octopus.server.OctopusContext;
 
 /**
- * Diese Klasse dient als Wrapper für Octopus-Funktionalitäten,
- * der auch außerhalb von Web-Applikationskontexten benutzt werden kann.
+ * Diese Klasse dient als Wrapper fï¿½r Octopus-Funktionalitï¿½ten,
+ * der auch auï¿½erhalb von Web-Applikationskontexten benutzt werden kann.
  * 
  * @author mikel
  */
 public class Octopus {
 	/*
-     * geschützte Member-Variablen
+     * geschï¿½tzte Member-Variablen
      */
     private TcRequestDispatcher dispatcher;
     private TcModuleLookup moduleLookup;
@@ -85,7 +85,7 @@ public class Octopus {
     }
 
     /*
-     * öffentliche Methoden
+     * ï¿½ffentliche Methoden
      */
 
     /**
@@ -128,9 +128,23 @@ public class Octopus {
 
             jmxManagementServer = OctopusExtensionLoader.load("de.tarent.octopus.jmx.OctopusManagement", params);
         }
+        else
+        {
+        	logger.info("Optional JMX subsystem is disabled.");
+        }
         
-        logger.info("Enabling optional RPC-tunnel.");
-        OctopusRPCTunnel.createInstance(this, commonConfig);
+        // Initalizing the optional rpc tunnel subsystem
+        String rpcTunnelEnabledString = commonConfig.getConfigData(TcEnv.KEY_RPCTUNNEL_ENABLED);
+        if (Boolean.valueOf(rpcTunnelEnabledString).booleanValue())
+        {
+            logger.info("Enabling optional RPC-tunnel.");
+            
+            OctopusRPCTunnel.createInstance(this, commonConfig);
+        }
+        else
+        {
+        	logger.info("Optional RPC-tunnel is disabled.");
+        }
     }
 
     /**
@@ -160,7 +174,7 @@ public class Octopus {
     }
 
     /**
-     * Diese Methode führt einen Request aus.
+     * Diese Methode fï¿½hrt einen Request aus.
      * 
      * @param tcRequest
      * @param tcResponse
@@ -184,7 +198,7 @@ public class Octopus {
     }
     
     /*
-	 * geschützte Methoden
+	 * geschï¿½tzte Methoden
 	 */
 	private void preloadModules(TcCommonConfig commonConfig) {
 		String preloadString = commonConfig.getConfigData(TcEnv.KEY_PRELOAD_MODULES);
@@ -232,7 +246,7 @@ public class Octopus {
     }
 
     /**
-     * @param modulename Name des Moduls, in dem der Autostart durchgeführt werden soll
+     * @param modulename Name des Moduls, in dem der Autostart durchgefï¿½hrt werden soll
      * @param commonConfig die Config
      */
     public void doAutostart(String modulename, TcCommonConfig commonConfig)
