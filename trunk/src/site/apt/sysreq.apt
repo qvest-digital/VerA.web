@@ -39,7 +39,7 @@ Voraussetzungen für die Entwicklung:
 
 Webapplication Container
 
-    VerA.web ist eine Java (tm) Webanwendung, die generell innerhalb beliebiger
+    veraweb ist eine Java (tm) Webanwendung, die generell innerhalb beliebiger
 	Java Enterprise Server sowie Java Webapplication Container läuft.
 	
 	Vorrausgesetzt wird die Servlet API 2.4 oder höher.
