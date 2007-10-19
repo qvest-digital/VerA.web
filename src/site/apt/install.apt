@@ -1,14 +1,14 @@
 
-Installationsanleitung VerA.web
+Installationsanleitung veraweb
 
 * Benötigte Software
 
     Siehe Systemvorraussetzungen.
 
 
-* Installation Octopus + VerA.web
+* Installation Octopus + veraweb
 
-	Laden Sie sich die letzte Version von VerA.web herrunter. Die Releases
+	Laden Sie sich die letzte Version von veraweb herrunter. Die Releases
 	enthalten jeweils auch eine Version der Webframeworks tarent-octopus.
 	
 	Deployen Sie die veraweb.war sowie octopus.war Verzeichnisse in einem
@@ -24,7 +24,7 @@ Installationsanleitung VerA.web
 	
 * Installation LDAP
 
-	VerA.web verwendet zur Authentifizierung einen LDAP-Service. In der
+	veraweb verwendet zur Authentifizierung einen LDAP-Service. In der
 	Webanwendung (veraweb.war) finden Sie unter OCTOPUS/config.xml eine
 	Konfigurationsdatei in der Sie den entsprechenden Server einstellen können.
 	Beispielkonfigurationen sind bereits enthalten.
@@ -60,7 +60,7 @@ Installationsanleitung VerA.web
 
 	Wenn all diese Punkte abgearbeitet wurden, können Sie ihrer Server bzw.
 	Container nun starten und über die URL /veraweb sich über die Anmeldemaske
-	an VerA.web anmelden.
+	an veraweb anmelden.
 
 * Probleme
 
