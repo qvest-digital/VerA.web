@@ -266,10 +266,12 @@ public class TaskManagerPanel extends JComponent implements TaskListener {
 		if(popup != null)
 			popup.hide();
 			
-		int x = (int)(getToggleExtendedButton().getLocationOnScreen().getX()+getToggleExtendedButton().getWidth()-getContextScrollPane().getPreferredSize().getWidth());
-		int y = (int)(getToggleExtendedButton().getLocationOnScreen().getY()-getContextScrollPane().getPreferredSize().getHeight());
-		popup = PopupFactory.getSharedInstance().getPopup(TaskManagerPanel.this, getContextScrollPane(), x, y);
-		popup.show();
+		if(getToggleExtendedButton().isVisible()) {
+			int x = (int)(getToggleExtendedButton().getLocationOnScreen().getX()+getToggleExtendedButton().getWidth()-getContextScrollPane().getPreferredSize().getWidth());
+			int y = (int)(getToggleExtendedButton().getLocationOnScreen().getY()-getContextScrollPane().getPreferredSize().getHeight());
+			popup = PopupFactory.getSharedInstance().getPopup(TaskManagerPanel.this, getContextScrollPane(), x, y);
+			popup.show();
+		}
 	}
 
 	/**
