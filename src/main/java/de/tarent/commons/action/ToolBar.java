@@ -8,10 +8,12 @@ import java.util.logging.Logger;
 
 import javax.swing.AbstractButton;
 import javax.swing.Action;
+import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JToggleButton;
 import javax.swing.JToolBar;
+import javax.swing.SwingConstants;
 
 
 /**
@@ -75,6 +77,9 @@ public class ToolBar extends JToolBar implements ActionContainer {
     //fix tool bar height: see constructor!
     private static final int HEIGHT = 45;
     
+    // whether the toolbar should be small (without text) or large with large symbols and the action-text under it
+    protected boolean small = true;
+    
     //The cached groups:
     //each new group will be encapsulated via one new JToolBar instance
     //and added to the root JToolBar (thus de.tarent.contact.gui.action.ToolBar).
@@ -84,15 +89,30 @@ public class ToolBar extends JToolBar implements ActionContainer {
   
     private String uniqueName;
     
-    
     /** Returns empty and not floatable tool bar with the assigned unique name.*/
-    public ToolBar(String aUniqueName){
+    public ToolBar(String aUniqueName) {
+    	this(aUniqueName, true);
+    }
+    
+    /**
+     * Returns empty and not floatable tool bar with the assigned unique name.
+     * 
+     * @param aUniqueName - a unique name
+     * @param small - whether the toolbar should be small (without text) or large with large symbols and the action-text under it
+     */
+    public ToolBar(String aUniqueName, boolean small){
         uniqueName = aUniqueName;
+        
+        this.small = small;
+        
         //we set hight of a tool bar with invisible component (rigid area):
         //the space between tool bar and button edges will be required,
         //because of empty border (explicitly deactivated for better look).
         //add(Box.createRigidArea(new Dimension(5,HEIGHT)));
         setFloatable(false);
+        
+        if(!small)
+        	setOpaque(false);
     }
     
     public String getContainerUniqueName() {
@@ -124,10 +144,16 @@ public class ToolBar extends JToolBar implements ActionContainer {
      */
     private void addButton( Action action ) throws ActionContainerException {
         AbstractButton newButton = initButton( action );
-        Dimension d = new Dimension(28,28);
-        newButton.setMinimumSize(d);
-        newButton.setMaximumSize(d);
-        newButton.setPreferredSize(d);
+        if(small) {
+        	Dimension d = new Dimension(28,28);
+        	newButton.setMinimumSize(d);
+        	newButton.setMaximumSize(d);
+        	newButton.setPreferredSize(d);
+        } else {
+        	newButton.setBorder(BorderFactory.createEmptyBorder(2, 5, 2, 5));
+            newButton.setOpaque(false);
+        }
+        
         JToolBar assignedGroup = getAssignedGroupToolBar( action );
         int pos = MenuHelper.getInsertPosition(assignedGroup.getComponents(), ACTION_PRIORITY, (Integer) action.getValue(ACTION_PRIORITY));
               
@@ -193,7 +219,13 @@ public class ToolBar extends JToolBar implements ActionContainer {
         	newButton.setSelected(((AbstractGUIAction)action).isSelected());
         
         //2. retrieve common properties
-        newButton.putClientProperty("hideActionText", Boolean.TRUE);//don't use name as text of tool button
+        if(small)
+        	newButton.putClientProperty("hideActionText", Boolean.TRUE);//don't use name as text of tool button
+        else {
+        	newButton.setHorizontalTextPosition(SwingConstants.CENTER);
+            newButton.setVerticalTextPosition(SwingConstants.BOTTOM);
+        }
+        
         //set default properties:
         // MNEMONIC_KEY,
         // NAME,SHORT_DESCRIPTION,
