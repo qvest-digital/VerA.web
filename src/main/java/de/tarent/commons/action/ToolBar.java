@@ -177,6 +177,8 @@ public class ToolBar extends JToolBar implements ActionContainer {
             //remove border for better Look&Feel 
             groupToolBar.setBorder(null);
             
+            groupToolBar.setOpaque(false);
+            
             //set priority
             Integer groupPriority = (Integer) action.getValue(GROUP_PRIORITY);
             if(groupPriority == null) groupPriority = new Integer(DEFAULT_PRIORITY);
