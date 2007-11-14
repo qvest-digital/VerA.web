@@ -49,7 +49,7 @@
 	</organization>
 
 	<scm>
-		<connection>scm:svn:svn://svn.evolvis.org/svnroot/tarentdatabase/trunk</connection>
+		<connection>scm:svn:svn+ssh://dgoemans@svn.evolvis.org/svnroot/tarentdatabase/trunk</connection>
     </scm>
     
     <repositories>
