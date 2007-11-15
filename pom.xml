@@ -238,7 +238,7 @@
 		<site>
 			<id>evolvis-site-repository</id>
 			<name>evolvis.org site repository</name>
-			<url>scpexe://maven@svn.evolvis.org:/site/tarentdatabase/htdocs</url>
+			<url>scpexe://maven@svn.evolvis.org:/site/tarentdatabase/htdocs/site</url>
 		</site>
 	</distributionManagement>
 	
