@@ -7,6 +7,15 @@
 	</skin>
 
 	<body>
+		<head>
+			<link rel="shortcut icon" type="image/x-icon" href="images/evolvis-favicon.ico" />
+		</head>
+		
+		<links>
+			<item name="evolvis" href="http://evolvis.org/" />
+			<item name="evolvis project homepage" href="http://evolvis.org/projects/tarentdatabase/" />
+		</links>
+		
 		<menu name="tarent-database">
 			<item name="Introduction" href="index.html" />
 			<item name="User Manual" href="user_manual.html" />
@@ -15,5 +24,14 @@
 		<menu ref="modules" />
 		
 		${reports}
+		
+		<menu name="Supported by">
+			<item name="evolvis" href="http://evolvis.org/" />
+			<item name="tarent GmbH" href="http://www.tarent.de/" />
+		</menu>
+		
+		<menu name="">
+			<item name="Impressum" href="http://evolvis.org/impress/" />
+		</menu>
 	</body>
 </project>
