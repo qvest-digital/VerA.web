@@ -7,7 +7,7 @@
 
 	<packaging>jar</packaging>
 
-	<version>1.3.1</version>
+	<version>1.3.2-SNAPSHOT</version>
 
 	<name>tarent-commons</name>
 
@@ -30,7 +30,7 @@
 	</organization>
 
 	<scm>
-		<connection>scm:svn:svn+ssh://fkoester@svn.evolvis.org/svnroot/tarentcommons/tags/tarent-commons-1.3.1</connection>
+		<connection>scm:svn:svn+ssh://fkoester@svn.evolvis.org/svnroot/tarentcommons</connection>
     </scm>
 
 	<repositories>
