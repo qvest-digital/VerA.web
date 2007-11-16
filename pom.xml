@@ -132,6 +132,17 @@
 					</archive>
 				</configuration>
 			</plugin>
+			<plugin>
+			     <groupId>de.tarent.maven.plugins</groupId>
+			     <artifactId>mvn-gforge-plugin</artifactId>
+			     <version>0.1.2-SNAPSHOT</version>
+			     <configuration>
+			        <fileTypes>
+			           <type>javadoc</type>
+			           <type>sources</type>
+			        </fileTypes>
+			     </configuration>
+			 </plugin>
 		</plugins>
 	</build>
 
