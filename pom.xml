@@ -30,7 +30,7 @@
 	</organization>
 
 	<scm>
-		<connection>scm:svn:svn://svn.evolvis.org/svnroot/tarentcommons/trunk</connection>
+		<connection>scm:svn:svn+ssh://fkoester@svn.evolvis.org/svnroot/tarentcommons/trunk</connection>
     </scm>
 
 	<repositories>
@@ -135,7 +135,7 @@
 			<plugin>
 			     <groupId>de.tarent.maven.plugins</groupId>
 			     <artifactId>mvn-gforge-plugin</artifactId>
-			     <version>0.1.2-SNAPSHOT</version>
+			     <version>0.1.2</version>
 			     <configuration>
 			        <fileTypes>
 			           <type>javadoc</type>
@@ -287,17 +287,17 @@
 		<repository>
 			<id>evolvis-release-repository</id>
 			<name>evolvis.org release repository</name>
-			<url>scpexe://maven-repo.evolvis.org/var/www/maven_repo/releases</url>
+			<url>scpexe://maven-repo.evolvis.org:/var/www/maven_repo/releases</url>
 		</repository>
 		<snapshotRepository>
 			<id>evolvis-snapshot-repository</id>
 			<name>evolvis.org snapshot repository</name>
-			<url>scpexe://maven-repo.evolvis.org/var/www/maven_repo/snapshots</url>
+			<url>scpexe://maven-repo.evolvis.org:/var/www/maven_repo/snapshots</url>
 		</snapshotRepository>
 		<site>
 			<id>evolvis-site-repository</id>
 			<name>evolvis.org site repository</name>
-			<url>scpexe://maven@svn.evolvis.org/site/tarentcommons/htdocs</url>
+			<url>scpexe://maven@svn.evolvis.org:/site/tarentcommons/htdocs/site</url>
 		</site>
 	</distributionManagement>
 
