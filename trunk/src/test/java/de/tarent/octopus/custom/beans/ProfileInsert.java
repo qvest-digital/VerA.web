@@ -33,10 +33,10 @@ package de.tarent.octopus.custom.beans;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.logging.ConsoleHandler;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.logging.SimpleFormatter;
 
 import junit.framework.TestCase;
 import de.tarent.octopus.client.OctopusConnection;
@@ -51,19 +51,20 @@ import de.tarent.octopus.client.OctopusResult;
  * @author mikel
  */
 public class ProfileInsert extends TestCase {
-    OctopusConnection con = OctopusConnectionFactory.getInstance().getConnection("test");
+    private OctopusConnection con;
     private static Logger baseLogger = null;
     private FileHandler fileLogHandler = null;
     
-    final static Map taskParamsTestProfile = new TreeMap();
-    static {
-        taskParamsTestProfile.put("module", "veraweb");
+    public void testProfile() {
+    	if (con == null)
+    		return;
+    	
+    	Map taskParamsTestProfile = new TreeMap();
+    	taskParamsTestProfile.put("module", "veraweb");
         taskParamsTestProfile.put("username", "pol-2");
         taskParamsTestProfile.put("password", "Benutzer99");
         taskParamsTestProfile.put("count", "10");
-    }
-    
-    public void testProfile() {
+        
         ProfileLogger pLog = new ProfileLogger();
         OctopusResult res = con.callTask("testProfile", taskParamsTestProfile);
         pLog.log("testProfile");
@@ -74,13 +75,12 @@ public class ProfileInsert extends TestCase {
         super.setUp();
         baseLogger = Logger.getLogger("de.tarent");
         baseLogger.setLevel(Level.ALL);
-        fileLogHandler = new FileHandler("test/log/octopus-%g_%u.log", 1000000, 10, true);
-        fileLogHandler.setEncoding("UTF-8");
-        fileLogHandler.setFormatter(new SimpleFormatter());
-        baseLogger.addHandler(fileLogHandler);
+        baseLogger.addHandler(new ConsoleHandler());
+//        con = OctopusConnectionFactory.getInstance().getConnection("test");
     }
 
     protected void tearDown() throws Exception {
+    	con = null;
         super.tearDown();
     }
 
