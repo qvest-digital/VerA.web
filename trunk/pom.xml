@@ -293,6 +293,14 @@
 			<groupId>de.tarent.octopus</groupId>
 			<artifactId>octopus-ext-commons</artifactId>
 			<version>1.90.4</version>
+			<exclusions>
+				<!-- Replaced by tarentcommons.evolvis.org -->
+				<!-- With group id de.tarent.libraries now. -->
+				<exclusion>
+					<groupId>de.tarent.commons</groupId>
+					<artifactId>tarent-commons</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 
 		<dependency>
