@@ -1,6 +1,6 @@
 /*
- * VerA.web,
- * Veranstaltungsmanagment VerA.web
+ * veraweb,
+ * Veranstaltungsmanagment veraweb
  * Copyright (c) 2005-2007 tarent GmbH
  *
  * This program is free software; you can redistribute it and/or
@@ -18,8 +18,8 @@
  * 02110-1301, USA.
  *
  * tarent GmbH., hereby disclaims all copyright
- * interest in the program 'VerA.web'
- * Signature of Elmar Geese, 7 August 2007
+ * interest in the program 'veraweb'
+ * Signature of Elmar Geese, 21 November 2007
  * Elmar Geese, CEO tarent GmbH.
  */
 
