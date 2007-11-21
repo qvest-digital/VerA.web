@@ -1,29 +1,4 @@
 /*
- * VerA.web,
- * Veranstaltungsmanagment VerA.web
- * Copyright (c) 2005-2007 tarent GmbH
- *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License,version 2
- * as published by the Free Software Foundation.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
- * 02110-1301, USA.
- *
- * tarent GmbH., hereby disclaims all copyright
- * interest in the program 'VerA.web'
- * Signature of Elmar Geese, 7 August 2007
- * Elmar Geese, CEO tarent GmbH.
- */
-
-/*
  * $Id: ProxyWorker.java,v 1.1 2007/06/20 11:56:51 christoph Exp $
  * 
  * Created on 26.07.2005
@@ -44,11 +19,11 @@ import de.tarent.dblayer.sql.clause.WhereList;
 import de.tarent.dblayer.sql.statement.Select;
 import de.tarent.octopus.LoginManagerAA;
 import de.tarent.octopus.PersonalConfigAA;
-import de.tarent.octopus.content.ContentWorker;
+import de.tarent.octopus.content.TcContentWorker;
 import de.tarent.octopus.custom.beans.BeanException;
 import de.tarent.octopus.custom.beans.Database;
 import de.tarent.octopus.custom.beans.veraweb.DatabaseVeraWeb;
-import de.tarent.octopus.security.OctopusSecurityException;
+import de.tarent.octopus.security.TcSecurityException;
 import de.tarent.octopus.server.OctopusContext;
 
 /**
@@ -74,7 +49,7 @@ public class ProxyWorker {
      * @param proxyFor (optional) Rolle, die vertreten werden soll
      */
     public void select(OctopusContext octx, String proxyFor) {
-        PersonalConfigAA pConfig = (PersonalConfigAA) octx.configImpl();
+        PersonalConfigAA pConfig = (PersonalConfigAA) octx.personalConfig();
         if (pConfig == null || !pConfig.getGrants().isAuthenticated())
             octx.setStatus("noProxy");
         else if (proxyFor == null || proxyFor.length() == 0)
@@ -87,9 +62,9 @@ public class ProxyWorker {
                 else {
                     // PersonalConfigAA an die Stellvertretung anpassen
                     ((LoginManagerAA)(octx.moduleConfig().getLoginManager())).setProxy(octx, proxy);
-                    octx.setStatus(ContentWorker.RESULT_ok);
+                    octx.setStatus(TcContentWorker.RESULT_ok);
                 }
-            } catch (OctopusSecurityException e) {
+            } catch (TcSecurityException e) {
                 octx.setStatus("noProxy");
             } catch (BeanException e) {
                 logger.warn("BeanException bei Stellvertreterermittlung", e);
@@ -106,7 +81,7 @@ public class ProxyWorker {
     //
     Proxy getApplicableProxyEntry(OctopusContext octx, String proxyFor) throws BeanException, IOException {
         Database database = new DatabaseVeraWeb(octx);
-        PersonalConfigAA pConfig = (PersonalConfigAA) octx.configImpl();
+        PersonalConfigAA pConfig = (PersonalConfigAA) octx.personalConfig();
         // Vertretungen einsammeln
         WhereList whereClause = new WhereList();
         if (pConfig == null)

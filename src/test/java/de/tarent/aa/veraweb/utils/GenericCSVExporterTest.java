@@ -1,29 +1,4 @@
 /*
- * VerA.web,
- * Veranstaltungsmanagment VerA.web
- * Copyright (c) 2005-2007 tarent GmbH
- *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License,version 2
- * as published by the Free Software Foundation.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
- * 02110-1301, USA.
- *
- * tarent GmbH., hereby disclaims all copyright
- * interest in the program 'VerA.web'
- * Signature of Elmar Geese, 7 August 2007
- * Elmar Geese, CEO tarent GmbH.
- */
-
-/*
  * $Id: GenericCSVExporterTest.java,v 1.1 2007/06/20 11:56:52 christoph Exp $
  * 
  * Created on 24.08.2005
@@ -38,19 +13,19 @@ import java.util.Map;
 
 import de.tarent.data.exchange.ExchangeFormat;
 import de.tarent.octopus.PersonalConfigAA;
-import de.tarent.octopus.config.CommonConfig;
-import de.tarent.octopus.config.OctopusConfig;
-import de.tarent.octopus.config.OctopusConfigException;
-import de.tarent.octopus.config.ModuleConfig;
-import de.tarent.octopus.config.OctopusEnvironment;
-import de.tarent.octopus.content.Content;
+import de.tarent.octopus.config.TcCommonConfig;
+import de.tarent.octopus.config.TcConfig;
+import de.tarent.octopus.config.TcConfigException;
+import de.tarent.octopus.config.TcModuleConfig;
+import de.tarent.octopus.content.TcAll;
+import de.tarent.octopus.content.TcContent;
 import de.tarent.octopus.custom.beans.Database;
 import de.tarent.octopus.custom.beans.veraweb.DatabaseVeraWeb;
 import de.tarent.octopus.exchange.ConfiguredExchangeFormat;
 import de.tarent.octopus.request.Octopus;
-import de.tarent.octopus.request.OctopusRequest;
+import de.tarent.octopus.request.TcEnv;
+import de.tarent.octopus.request.TcRequest;
 import de.tarent.octopus.server.OctopusContext;
-import de.tarent.octopus.server.OctopusContextImpl;
 import junit.framework.TestCase;
 
 /**
@@ -64,9 +39,9 @@ public class GenericCSVExporterTest extends TestCase {
     //
     /**
      * Diese Testmethode testet einen gemischten Export.
-     * @throws OctopusConfigException 
+     * @throws TcConfigException 
      */
-    public void testMixedExportPositive() throws IOException, OctopusConfigException {
+    public void testMixedExportPositive() throws IOException, TcConfigException {
         ByteArrayOutputStream baOutputStream = new ByteArrayOutputStream();
         GenericCSVExporter exporter = new GenericCSVExporter();
         exporter.setDatabase(createDatabase());
@@ -80,7 +55,7 @@ public class GenericCSVExporterTest extends TestCase {
     //
     // Hilfsmethoden
     //
-    Database createDatabase() throws OctopusConfigException {
+    Database createDatabase() throws TcConfigException {
         return new DatabaseVeraWeb(createOctopusContext());
     }
     
@@ -113,28 +88,28 @@ public class GenericCSVExporterTest extends TestCase {
         return new Octopus();
     }
     
-    CommonConfig createOctopusCommonConfig() throws OctopusConfigException {
-        return new CommonConfig(createOctopusEnvironment(), createOctopus());
+    TcCommonConfig createOctopusCommonConfig() throws TcConfigException {
+        return new TcCommonConfig(createOctopusEnvironment(), createOctopus());
     }
     
-    OctopusConfig createOctopusConfig(OctopusRequest request) throws OctopusConfigException {
-        return new OctopusConfig(createOctopusCommonConfig(), createOctopusPersonalConfig(), "Test");
+    TcConfig createOctopusConfig(TcRequest request) throws TcConfigException {
+        return new TcConfig(createOctopusCommonConfig(), createOctopusPersonalConfig(), "Test");
     }
     
-    Content createOctopusContent() {
-        return new Content();
+    TcContent createOctopusContent() {
+        return new TcContent();
     }
     
-    OctopusContext createOctopusContext() throws OctopusConfigException {
-        OctopusRequest request = createOctopusRequest();
-        return new OctopusContextImpl(request, createOctopusContent(), createOctopusConfig(request));
+    OctopusContext createOctopusContext() throws TcConfigException {
+        TcRequest request = createOctopusRequest();
+        return new TcAll(request, createOctopusContent(), createOctopusConfig(request));
     }
     
-    OctopusEnvironment createOctopusEnvironment() throws OctopusConfigException {
-        return new OctopusEnvironment();
+    TcEnv createOctopusEnvironment() {
+        return new TcEnv();
     }
     
-    ModuleConfig createModuleConfig() {
+    TcModuleConfig createModuleConfig() {
         return null; // Mhmpf!
     }
     
@@ -142,7 +117,7 @@ public class GenericCSVExporterTest extends TestCase {
         return new PersonalConfigAA();
     }
     
-    OctopusRequest createOctopusRequest() {
-        return new OctopusRequest("--Test--");
+    TcRequest createOctopusRequest() {
+        return new TcRequest("--Test--");
     }
 }

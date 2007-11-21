@@ -1,29 +1,4 @@
 /*
- * VerA.web,
- * Veranstaltungsmanagment VerA.web
- * Copyright (c) 2005-2007 tarent GmbH
- *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License,version 2
- * as published by the Free Software Foundation.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
- * 02110-1301, USA.
- *
- * tarent GmbH., hereby disclaims all copyright
- * interest in the program 'VerA.web'
- * Signature of Elmar Geese, 7 August 2007
- * Elmar Geese, CEO tarent GmbH.
- */
-
-/*
  * $Id: DataExchangeWorker.java,v 1.1 2007/06/20 11:56:51 christoph Exp $
  * 
  * Created on 10.06.2005
@@ -63,9 +38,9 @@ import de.tarent.dblayer.sql.clause.RawClause;
 import de.tarent.dblayer.sql.clause.WhereList;
 import de.tarent.dblayer.sql.statement.Select;
 import de.tarent.octopus.PersonalConfigAA;
-import de.tarent.octopus.config.ModuleConfig;
-import de.tarent.octopus.config.PersonalConfigImpl;
-import de.tarent.octopus.content.ContentProzessException;
+import de.tarent.octopus.config.TcModuleConfig;
+import de.tarent.octopus.config.TcPersonalConfig;
+import de.tarent.octopus.content.TcContentProzessException;
 import de.tarent.octopus.custom.beans.Bean;
 import de.tarent.octopus.custom.beans.BeanException;
 import de.tarent.octopus.custom.beans.Database;
@@ -73,7 +48,7 @@ import de.tarent.octopus.custom.beans.DatabaseUtilizer;
 import de.tarent.octopus.custom.beans.TransactionContext;
 import de.tarent.octopus.custom.beans.veraweb.DatabaseVeraWeb;
 import de.tarent.octopus.exchange.ConfiguredExchangeFormat;
-import de.tarent.octopus.response.BinaryResponseEngine;
+import de.tarent.octopus.response.TcBinaryResponseEngine;
 import de.tarent.octopus.server.OctopusContext;
 
 /**
@@ -125,7 +100,7 @@ public class DataExchangeWorker {
      */
     public Map getFormats(OctopusContext cntx, String formatEnumKey) {
         Map result = Collections.EMPTY_MAP;
-        ModuleConfig moduleConfig = cntx.moduleConfig();
+        TcModuleConfig moduleConfig = cntx.moduleConfig();
         if (moduleConfig != null) {
             result = new LinkedHashMap();
             Object formatNamesObject = moduleConfig.getParamAsObject(formatEnumKey != null ? formatEnumKey : KEY_FORMAT_NAMES);
@@ -164,16 +139,16 @@ public class DataExchangeWorker {
      * @param category Kategorienfilter
      * @param domain Domäne, aus der die Personen stammen ("all" oder "ou")
      * @return exportierter Datenstrom
-     * @throws ContentProzessException bei ungültigen Parameterwerten.
+     * @throws TcContentProzessException bei ungültigen Parameterwerten.
      * @throws BeanException 
      */
-    public Map export(final OctopusContext cntx, final String formatKey, final String filter, final Integer event, final Integer category, final String domain) throws ContentProzessException, IOException {
-        ModuleConfig moduleConfig = cntx.moduleConfig();
+    public Map export(final OctopusContext cntx, final String formatKey, final String filter, final Integer event, final Integer category, final String domain) throws TcContentProzessException, IOException {
+        TcModuleConfig moduleConfig = cntx.moduleConfig();
         assert moduleConfig != null;
         // Zunächst mal die benötigten Objekte erstellen
         final ExchangeFormat format = getExchangeFormat(moduleConfig.getParams(), formatKey, cntx.getRequestObject().getRequestParameters());
         if (format == null)
-            throw new ContentProzessException("Unbekannter Exportformatschlüssel '" +  formatKey + "'.");
+            throw new TcContentProzessException("Unbekannter Exportformatschlüssel '" +  formatKey + "'.");
         final Database database = new DatabaseVeraWeb(cntx);
 
         final MultiOutputStream mos = new MultiOutputStream();
@@ -192,11 +167,11 @@ public class DataExchangeWorker {
 	                }
 	                
 	                // Mandantenbeschränkung
-	                PersonalConfigImpl pImpl = cntx.configImpl();
+	                TcPersonalConfig pConfig = cntx.personalConfig();
 	                Integer orgUnit = null;
-	                if (pImpl instanceof PersonalConfigAA) {
-	                    PersonalConfigAA aaConfig = (PersonalConfigAA) pImpl;
-	                    if (!(PARAM_DOMAIN_VALUE_ALL.equals(domain) && pImpl.isUserInGroup(PersonalConfigAA.GROUP_ADMIN)))
+	                if (pConfig instanceof PersonalConfigAA) {
+	                    PersonalConfigAA aaConfig = (PersonalConfigAA) pConfig;
+	                    if (!(PARAM_DOMAIN_VALUE_ALL.equals(domain) && pConfig.isUserInGroup(PersonalConfigAA.GROUP_ADMIN)))
 	                        orgUnit = aaConfig.getOrgUnitId();
 	                } else
 	                    throw new BeanException("Missing user information");
@@ -257,15 +232,15 @@ public class DataExchangeWorker {
      *  Datensätze unter "dsCount", der Anzahl Duplikate unter "dupCount", der Anzahl
      *  importierter Datensätze unter "saveCount" und der Import-ID unter "id".
      * @throws IOException 
-     * @throws ContentProzessException 
+     * @throws TcContentProzessException 
      */
-    public Map importToTransit(OctopusContext cntx, Map stream, String formatKey, String importSource, Integer orgUnit, Map importProperties) throws BeanException, IOException, ContentProzessException {
-        ModuleConfig moduleConfig = cntx.moduleConfig();
+    public Map importToTransit(OctopusContext cntx, Map stream, String formatKey, String importSource, Integer orgUnit, Map importProperties) throws BeanException, IOException, TcContentProzessException {
+        TcModuleConfig moduleConfig = cntx.moduleConfig();
         assert moduleConfig != null;
         // Zunächst mal die benötigten Objekte erstellen
         ExchangeFormat format = getExchangeFormat(moduleConfig.getParams(), formatKey, cntx.getRequestObject().getRequestParameters());
         if (format == null)
-            throw new ContentProzessException("Unbekannter Importformatschlüssel '" +  formatKey + "'.");
+            throw new TcContentProzessException("Unbekannter Importformatschlüssel '" +  formatKey + "'.");
         if (importSource == null || importSource.length() == 0) {
         	Map status = new HashMap();
         	status.put("invalidData", "importSource");
@@ -308,12 +283,12 @@ public class DataExchangeWorker {
         Database database = new DatabaseVeraWeb(cntx);
         TransactionContext context = database.getTransactionContext();
         try {
-	        if (cntx.configImpl() instanceof PersonalConfigAA) {
-	            PersonalConfigAA aaConfig = (PersonalConfigAA)cntx.configImpl();
+	        if (cntx.personalConfig() instanceof PersonalConfigAA) {
+	            PersonalConfigAA aaConfig = (PersonalConfigAA)cntx.personalConfig();
 	            if (orgUnit == null || orgUnit.intValue() == 0 || !aaConfig.isUserInGroup(PersonalConfigAA.GROUP_ADMIN))
 	                orgUnit = aaConfig.getOrgUnitId();
 	        } else
-	            throw new ContentProzessException("Missing user information");
+	            throw new TcContentProzessException("Missing user information");
 	        
 	        Importer importer = createImporter(format, context, istream);
 	        Import importInstance = createImport(context, formatKey, importSource, orgUnit);
@@ -346,7 +321,7 @@ public class DataExchangeWorker {
     //
     /**
      * Diese Methode erstellt eine {@link Map}, aus der die
-     * {@link BinaryResponseEngine} die Daten für ihre
+     * {@link TcBinaryResponseEngine} die Daten für ihre
      * Octopus-Response-Erstellung entnimmt.
      * 
      * @param filename Dateiname, den die Response tragen soll
@@ -356,11 +331,11 @@ public class DataExchangeWorker {
      */
     static Map createBinaryResponse(String filename, String mimetype, InputStream inputstream) {
         Map binaryResponse = new HashMap();
-        binaryResponse.put(BinaryResponseEngine.PARAM_TYPE, BinaryResponseEngine.BINARY_RESPONSE_TYPE_STREAM);
-        binaryResponse.put(BinaryResponseEngine.PARAM_FILENAME, filename);
-        binaryResponse.put(BinaryResponseEngine.PARAM_MIMETYPE, mimetype);
-        binaryResponse.put(BinaryResponseEngine.PARAM_STREAM, inputstream);
-        binaryResponse.put(BinaryResponseEngine.PARAM_IS_ATTACHMENT, Boolean.TRUE);
+        binaryResponse.put(TcBinaryResponseEngine.PARAM_TYPE, TcBinaryResponseEngine.BINARY_RESPONSE_TYPE_STREAM);
+        binaryResponse.put(TcBinaryResponseEngine.PARAM_FILENAME, filename);
+        binaryResponse.put(TcBinaryResponseEngine.PARAM_MIMETYPE, mimetype);
+        binaryResponse.put(TcBinaryResponseEngine.PARAM_STREAM, inputstream);
+        binaryResponse.put(TcBinaryResponseEngine.PARAM_IS_ATTACHMENT, Boolean.TRUE);
         return binaryResponse;
     }
     
@@ -426,9 +401,9 @@ public class DataExchangeWorker {
      * @param format basierendes {@link ExchangeFormat}
      * @param database zu benutzende {@link Database}
      * @return ein passender {@link Exporter}
-     * @throws ContentProzessException bei Fehlern beim Instanziieren des Exporters.
+     * @throws TcContentProzessException bei Fehlern beim Instanziieren des Exporters.
      */
-    static Exporter createExporter(ExchangeFormat format, Database database, OutputStream os) throws ContentProzessException {
+    static Exporter createExporter(ExchangeFormat format, Database database, OutputStream os) throws TcContentProzessException {
         assert format != null;
         assert database != null;
         try {
@@ -444,7 +419,7 @@ public class DataExchangeWorker {
             }
             return exporter;
         } catch (Exception e) {
-            throw new ContentProzessException("Fehler beim Instanziieren des Exporters", e);
+            throw new TcContentProzessException("Fehler beim Instanziieren des Exporters", e);
         }
     }
     
@@ -601,9 +576,9 @@ public class DataExchangeWorker {
      * @param importSource Bezeichner der Importquelle
      * @param orgunit Mandanten-ID, in der der Import erfolgt
      * @return neue {@link Import}-Instanz zu den angegebenen Daten
-     * @throws ContentProzessException
+     * @throws TcContentProzessException
      */
-    static Import createImport(TransactionContext context, String formatKey, String importSource, Integer orgunit) throws ContentProzessException {
+    static Import createImport(TransactionContext context, String formatKey, String importSource, Integer orgunit) throws TcContentProzessException {
         try {
             Database database = context.getDatabase();
             Import importInstance = (Import) database.createBean("Import");
@@ -613,9 +588,9 @@ public class DataExchangeWorker {
             database.saveBean(importInstance, context, true);
             return importInstance;
         } catch (BeanException e) {
-            throw new ContentProzessException("Fehler beim Erstellen eines Importvorgangs", e);
+            throw new TcContentProzessException("Fehler beim Erstellen eines Importvorgangs", e);
         } catch (IOException e) {
-            throw new ContentProzessException("Fehler beim Speichern eines Importvorgangs", e);
+            throw new TcContentProzessException("Fehler beim Speichern eines Importvorgangs", e);
         } 
     }
 
@@ -624,9 +599,9 @@ public class DataExchangeWorker {
      * 
      * @param format basierendes {@link ExchangeFormat}
      * @return ein passender {@link Importer}
-     * @throws ContentProzessException bei Fehlern beim Instanziieren des Exporters.
+     * @throws TcContentProzessException bei Fehlern beim Instanziieren des Exporters.
      */
-    static Importer createImporter(ExchangeFormat format, TransactionContext context, InputStream is) throws ContentProzessException {
+    static Importer createImporter(ExchangeFormat format, TransactionContext context, InputStream is) throws TcContentProzessException {
         assert format != null;
         assert context != null;
         try {
@@ -642,7 +617,7 @@ public class DataExchangeWorker {
             }
             return importer;
         } catch (Exception e) {
-            throw new ContentProzessException("Fehler beim Instanziieren des Importers", e);
+            throw new TcContentProzessException("Fehler beim Instanziieren des Importers", e);
         }
     }
 

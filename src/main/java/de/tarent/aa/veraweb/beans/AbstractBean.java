@@ -1,28 +1,3 @@
-/*
- * VerA.web,
- * Veranstaltungsmanagment VerA.web
- * Copyright (c) 2005-2007 tarent GmbH
- *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License,version 2
- * as published by the Free Software Foundation.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
- * 02110-1301, USA.
- *
- * tarent GmbH., hereby disclaims all copyright
- * interest in the program 'VerA.web'
- * Signature of Elmar Geese, 7 August 2007
- * Elmar Geese, CEO tarent GmbH.
- */
-
 package de.tarent.aa.veraweb.beans;
 
 import de.tarent.octopus.PersonalConfigAA;
@@ -83,7 +58,7 @@ public abstract class AbstractBean extends MapBean {
 	 * @throws BeanException
 	 */
 	protected void checkGroup(OctopusContext cntx, String group) throws BeanException {
-		PersonalConfig personalConfig = cntx != null ? cntx.configImpl() : null;
+		PersonalConfig personalConfig = cntx != null ? cntx.personalConfig() : null;
 		if (personalConfig == null)
 			throw new BeanException("No personal config");
 		if (!personalConfig.isUserInGroup(group))

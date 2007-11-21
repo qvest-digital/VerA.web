@@ -50,7 +50,7 @@ import javax.naming.directory.SearchControls;
 import javax.naming.directory.SearchResult;
 import javax.naming.ldap.InitialLdapContext;
 
-import de.tarent.octopus.security.OctopusSecurityException;
+import de.tarent.octopus.security.TcSecurityException;
 
 /**
  * für Zugriff auf ein LDAP-Verzeichnis
@@ -1171,7 +1171,7 @@ public class LDAPManager {
 	/* (non-Javadoc)
 	 * @see de.tarent.octopus.server.UserManager#getUserParam(java.lang.String, java.lang.String)
 	 */
-	public Object getUserParam(String userID, String paramname) throws OctopusSecurityException{
+	public Object getUserParam(String userID, String paramname) throws TcSecurityException{
         Attribute temp = null;
         try {
         	String dn = getUserDN(userID);
@@ -1179,9 +1179,9 @@ public class LDAPManager {
             if(attr.get(paramname)!=null) {temp = attr.get(paramname);}
 			return temp!=null?temp.get():null;
         } catch (NamingException e) {
-            throw new OctopusSecurityException("Es ist ein Fehler beim Holen der Userdaten aufgetreten! ", e);
+            throw new TcSecurityException("Es ist ein Fehler beim Holen der Userdaten aufgetreten! ", e);
         } catch (LDAPException e){
-        	throw new OctopusSecurityException(OctopusSecurityException.ERROR_SERVER_USERMANAGEMENT_ERROR, e);
+        	throw new TcSecurityException(TcSecurityException.ERROR_SERVER_USERMANAGEMENT_ERROR, e);
         }
 	}
 

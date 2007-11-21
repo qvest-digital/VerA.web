@@ -1,29 +1,4 @@
-/*
- * VerA.web,
- * Veranstaltungsmanagment VerA.web
- * Copyright (c) 2005-2007 tarent GmbH
- *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License,version 2
- * as published by the Free Software Foundation.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
- * 02110-1301, USA.
- *
- * tarent GmbH., hereby disclaims all copyright
- * interest in the program 'VerA.web'
- * Signature of Elmar Geese, 7 August 2007
- * Elmar Geese, CEO tarent GmbH.
- */
-
-/* $Id: PersonExportWorker.java,v 1.1 2007/06/20 11:56:51 christoph Exp $ */
+/* $Id: PersonExportWorker.java,v 1.2 2007/10/25 11:05:12 christoph Exp $ */
 package de.tarent.aa.veraweb.worker;
 
 import java.io.IOException;
@@ -53,7 +28,7 @@ import de.tarent.dblayer.sql.statement.Select;
 import de.tarent.octopus.PersonalConfigAA;
 import de.tarent.octopus.custom.beans.BeanException;
 import de.tarent.octopus.custom.beans.Database;
-import de.tarent.octopus.response.BinaryResponseEngine;
+import de.tarent.octopus.response.TcBinaryResponseEngine;
 import de.tarent.octopus.server.OctopusContext;
 
 /**
@@ -110,7 +85,7 @@ public class PersonExportWorker extends PersonListWorker {
      * 
      * @param cntx Octopus-Kontext
      * @return eine Map mit Einträgen "type", "filename", "mimetype" und "stream" für die
-     *  {@link BinaryResponseEngine}
+     *  {@link TcBinaryResponseEngine}
 	 */
 	public Map export(final OctopusContext cntx) throws BeanException, IOException, FactoryConfigurationError, TransformerFactoryConfigurationError {
 		final Database database = getDatabase(cntx);
@@ -201,7 +176,7 @@ public class PersonExportWorker extends PersonListWorker {
         			
         			// Export-Select ausführen
         			exportSelect(
-        					spreadSheet, database, ((PersonalConfigAA)cntx.configImpl()).getGrants(),
+        					spreadSheet, database, ((PersonalConfigAA)cntx.personalConfig()).getGrants(),
         					doctype, select, data, memberAEx, memberBEx, addressEx);
         			
         			// Tabelle schließen
@@ -227,11 +202,11 @@ public class PersonExportWorker extends PersonListWorker {
 		
 		// Stream-Informationen zurück geben
 		Map stream = new HashMap();
-		stream.put(BinaryResponseEngine.PARAM_TYPE, BinaryResponseEngine.BINARY_RESPONSE_TYPE_STREAM);
-		stream.put(BinaryResponseEngine.PARAM_FILENAME, ExportHelper.getFilename(filename));
-		stream.put(BinaryResponseEngine.PARAM_MIMETYPE, ExportHelper.getContentType(spreadSheet.getContentType()));
-		stream.put(BinaryResponseEngine.PARAM_STREAM, pis);
-		stream.put(BinaryResponseEngine.PARAM_IS_ATTACHMENT, Boolean.TRUE);
+		stream.put(TcBinaryResponseEngine.PARAM_TYPE, TcBinaryResponseEngine.BINARY_RESPONSE_TYPE_STREAM);
+		stream.put(TcBinaryResponseEngine.PARAM_FILENAME, ExportHelper.getFilename(filename));
+		stream.put(TcBinaryResponseEngine.PARAM_MIMETYPE, ExportHelper.getContentType(spreadSheet.getContentType()));
+		stream.put(TcBinaryResponseEngine.PARAM_STREAM, pis);
+		stream.put(TcBinaryResponseEngine.PARAM_IS_ATTACHMENT, Boolean.TRUE);
 		return stream;
 	}
 
