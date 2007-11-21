@@ -292,7 +292,7 @@
 		<dependency>
 			<groupId>de.tarent.octopus</groupId>
 			<artifactId>octopus-ext-commons</artifactId>
-			<version>1.90.0</version>
+			<version>1.90.4</version>
 		</dependency>
 
 		<dependency>
@@ -304,14 +304,14 @@
 		<dependency>
 			<groupId>de.tarent.octopus</groupId>
 			<artifactId>octopus-ext-jmx</artifactId>
-			<version>1.90.0</version>
+			<version>1.90.4</version>
 			<scope>provided</scope>
 		</dependency>
 
 		<dependency>
 			<groupId>de.tarent.octopus</groupId>
 			<artifactId>octopus-ext-annotation</artifactId>
-			<version>1.90.0</version>
+			<version>1.90.4</version>
 		</dependency>
 
 		<dependency>
