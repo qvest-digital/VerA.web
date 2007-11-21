@@ -1,29 +1,4 @@
 /*
- * VerA.web,
- * Veranstaltungsmanagment VerA.web
- * Copyright (c) 2005-2007 tarent GmbH
- *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License,version 2
- * as published by the Free Software Foundation.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
- * 02110-1301, USA.
- *
- * tarent GmbH., hereby disclaims all copyright
- * interest in the program 'VerA.web'
- * Signature of Elmar Geese, 7 August 2007
- * Elmar Geese, CEO tarent GmbH.
- */
-
-/*
  * Created on 10.03.2005
  */
 package de.tarent.aa.veraweb.worker;
@@ -42,7 +17,7 @@ import de.tarent.dblayer.sql.clause.RawClause;
 import de.tarent.dblayer.sql.clause.Where;
 import de.tarent.dblayer.sql.statement.Select;
 import de.tarent.octopus.PersonalConfigAA;
-import de.tarent.octopus.config.PersonalConfigImpl;
+import de.tarent.octopus.config.TcPersonalConfig;
 import de.tarent.octopus.custom.beans.Bean;
 import de.tarent.octopus.custom.beans.BeanException;
 import de.tarent.octopus.custom.beans.Database;
@@ -136,12 +111,12 @@ public class CategorieWorker extends StammdatenWorker {
 	}
 
 	protected Clause getWhere(OctopusContext cntx) throws BeanException {
-        PersonalConfigImpl pImpl = cntx.configImpl();
-        if (pImpl instanceof PersonalConfigAA) {
-            PersonalConfigAA aaConfig = (PersonalConfigAA) pImpl;
+        TcPersonalConfig pConfig = cntx.personalConfig();
+        if (pConfig instanceof PersonalConfigAA) {
+            PersonalConfigAA aaConfig = (PersonalConfigAA) pConfig;
             String domain = cntx.contentAsString(PARAM_DOMAIN);
-            if (!(PARAM_DOMAIN_VALUE_ALL.equals(domain) && pImpl.isUserInGroup(PersonalConfigAA.GROUP_ADMIN))) {
-        		Integer orgunit = ((PersonalConfigAA)(cntx.configImpl())).getOrgUnitId();
+            if (!(PARAM_DOMAIN_VALUE_ALL.equals(domain) && pConfig.isUserInGroup(PersonalConfigAA.GROUP_ADMIN))) {
+        		Integer orgunit = ((PersonalConfigAA)(cntx.personalConfig())).getOrgUnitId();
             	if (orgunit == null)
             		return Expr.isNull("tcategorie.fk_orgunit");
             	else
@@ -209,7 +184,7 @@ public class CategorieWorker extends StammdatenWorker {
 	
 	protected void saveBean(OctopusContext cntx, Bean bean) throws BeanException, IOException
 	{
-		((Categorie) bean).orgunit = ((PersonalConfigAA) (cntx.configImpl())).getOrgUnitId();
+		((Categorie) bean).orgunit = ((PersonalConfigAA) (cntx.personalConfig())).getOrgUnitId();
 		if (bean.isModified() && bean.isCorrect())
 		{
 			if (((Categorie) bean).rank != null && cntx.requestAsBoolean("resort").booleanValue())

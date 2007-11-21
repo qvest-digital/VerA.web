@@ -33,11 +33,11 @@ import java.util.logging.Logger;
 
 import javax.naming.AuthenticationException;
 
-import de.tarent.octopus.config.CommonConfig;
-import de.tarent.octopus.config.OctopusEnvironment;
-import de.tarent.octopus.request.OctopusRequest;
+import de.tarent.octopus.config.TcCommonConfig;
+import de.tarent.octopus.request.TcEnv;
+import de.tarent.octopus.request.TcRequest;
 import de.tarent.octopus.security.AbstractLoginManager;
-import de.tarent.octopus.security.OctopusSecurityException;
+import de.tarent.octopus.security.TcSecurityException;
 import de.tarent.octopus.server.PersonalConfig;
 
 /** 
@@ -75,12 +75,12 @@ public class LoginManagerLDAPGeneric extends AbstractLoginManager {
 	 */
 	protected void initLDAPManager() throws LDAPException {
         Map params = new HashMap();
-        params.put(LDAPManager.KEY_BASE_DN, getConfigurationString(OctopusEnvironment.KEY_LDAP_BASE_DN));
-        params.put(LDAPManager.KEY_RELATIVE, getConfigurationString(OctopusEnvironment.KEY_LDAP_RELATIVE));
-        params.put(LDAPManager.KEY_RELATIVE_USER, getConfigurationString(OctopusEnvironment.KEY_LDAP_RELATIVE));
+        params.put(LDAPManager.KEY_BASE_DN, getConfigurationString(TcEnv.KEY_LDAP_BASE_DN));
+        params.put(LDAPManager.KEY_RELATIVE, getConfigurationString(TcEnv.KEY_LDAP_RELATIVE));
+        params.put(LDAPManager.KEY_RELATIVE_USER, getConfigurationString(TcEnv.KEY_LDAP_RELATIVE));
         ldapManager = LDAPManager.login(
                 LDAPManager.class,
-                getConfigurationString(OctopusEnvironment.KEY_LDAP_URL),
+                getConfigurationString(TcEnv.KEY_LDAP_URL),
                 params
                 );
     }
@@ -97,11 +97,11 @@ public class LoginManagerLDAPGeneric extends AbstractLoginManager {
 	 * @param tcRequest Benutzeranfrage mit Authentisierungsdaten
 	 * @throws TcSecurityException bei fehlgeschlagener Authorisierung
 	 */
-    protected void doLogin(CommonConfig commonConfig, PersonalConfig pConfig, OctopusRequest tcRequest) 
-        throws OctopusSecurityException {
+    protected void doLogin(TcCommonConfig commonConfig, PersonalConfig pConfig, TcRequest tcRequest) 
+        throws TcSecurityException {
         PasswordAuthentication pwdAuth = tcRequest.getPasswordAuthentication();
         if (pwdAuth == null)
-            throw new OctopusSecurityException(OctopusSecurityException.ERROR_AUTH_ERROR);
+            throw new TcSecurityException(TcSecurityException.ERROR_AUTH_ERROR);
         doLogin(pwdAuth, pConfig, true);
     }
     
@@ -115,18 +115,18 @@ public class LoginManagerLDAPGeneric extends AbstractLoginManager {
      * @param repeat Flag: Soll bei Server-Problemen ein zweiter Login versucht werden
      * @throws TcSecurityException bei fehlgeschlagener Authorisierung
      */
-    private void doLogin(PasswordAuthentication pwdAuth, PersonalConfig pConfig, boolean repeat) throws OctopusSecurityException {
+    private void doLogin(PasswordAuthentication pwdAuth, PersonalConfig pConfig, boolean repeat) throws TcSecurityException {
         try {
             if (ldapManager == null)
                 initLDAPManager();
-            ldapManager.login(pwdAuth.getUserName(), new String(pwdAuth.getPassword()), getConfigurationString(OctopusEnvironment.KEY_LDAP_AUTHORIZATION));
+            ldapManager.login(pwdAuth.getUserName(), new String(pwdAuth.getPassword()), getConfigurationString(TcEnv.KEY_LDAP_AUTHORIZATION));
             initPersonalConfig(pConfig, pwdAuth.getUserName());
 			
             pConfig.userLoggedIn(pwdAuth.getUserName());
         } catch (LDAPException e) {
             logger.log(Level.SEVERE, "Fehler beim LDAP-Zugriff!", e);
             if(e.getCause() instanceof AuthenticationException)
-                throw new OctopusSecurityException(OctopusSecurityException.ERROR_AUTH_ERROR, e);
+                throw new TcSecurityException(TcSecurityException.ERROR_AUTH_ERROR, e);
             if (repeat) {
                 try {
                     initLDAPManager();
@@ -136,7 +136,7 @@ public class LoginManagerLDAPGeneric extends AbstractLoginManager {
                     logger.log(Level.SEVERE, "Fehler beim LDAP-Reconnect!", e1);
                 }
             }
-            throw new OctopusSecurityException(OctopusSecurityException.ERROR_SERVER_AUTH_ERROR, e);
+            throw new TcSecurityException(TcSecurityException.ERROR_SERVER_AUTH_ERROR, e);
         }
     }
     
@@ -148,7 +148,7 @@ public class LoginManagerLDAPGeneric extends AbstractLoginManager {
 	 * @param pConfig persönliche Konfiguration des auszuloggenden Benutzers
 	 * @param tcRequest Benutzeranfrage
      */
-    protected void doLogout(CommonConfig commonConfig, PersonalConfig pConfig, OctopusRequest tcRequest) {
+    protected void doLogout(TcCommonConfig commonConfig, PersonalConfig pConfig, TcRequest tcRequest) {
         pConfig.setUserGroups(new String[]{PersonalConfig.GROUP_LOGGED_OUT});
         pConfig.userLoggedOut();
     }

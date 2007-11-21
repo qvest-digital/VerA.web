@@ -279,45 +279,51 @@
 		<dependency>
 			<groupId>de.tarent.octopus</groupId>
 			<artifactId>octopus-core</artifactId>
-			<version>1.6.0</version>
+			<version>1.6.2</version>
 			<scope>provided</scope>
 		</dependency>
 
 		<dependency>
 			<groupId>de.tarent.octopus</groupId>
 			<artifactId>octopus-servlet</artifactId>
-			<version>1.6.0</version>
+			<version>1.6.2</version>
 		</dependency>
 
 		<dependency>
 			<groupId>de.tarent.octopus</groupId>
 			<artifactId>octopus-ext-commons</artifactId>
-			<version>1.6.0</version>
+			<version>1.90.0</version>
 		</dependency>
 
 		<dependency>
 			<groupId>de.tarent.octopus</groupId>
 			<artifactId>octopus-ext-cronjobs</artifactId>
-			<version>1.6.0</version>
+			<version>1.6.2</version>
 		</dependency>
 
 		<dependency>
 			<groupId>de.tarent.octopus</groupId>
 			<artifactId>octopus-ext-jmx</artifactId>
-			<version>1.6.0</version>
+			<version>1.90.0</version>
 			<scope>provided</scope>
 		</dependency>
 
 		<dependency>
 			<groupId>de.tarent.octopus</groupId>
 			<artifactId>octopus-ext-annotation</artifactId>
-			<version>1.6.0</version>
+			<version>1.90.0</version>
 		</dependency>
 
 		<dependency>
-			<groupId>de.tarent.utils</groupId>
+			<groupId>de.tarent.libraries</groupId>
+			<artifactId>tarent-commons</artifactId>
+			<version>1.3.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>de.tarent.libraries</groupId>
 			<artifactId>tarent-database</artifactId>
-			<version>1.4.3-SNAPSHOT</version>
+			<version>1.5.2</version>
 		</dependency>
 
 		<dependency>

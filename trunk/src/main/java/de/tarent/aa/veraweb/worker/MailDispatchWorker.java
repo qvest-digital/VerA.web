@@ -1,29 +1,4 @@
 /*
- * VerA.web,
- * Veranstaltungsmanagment VerA.web
- * Copyright (c) 2005-2007 tarent GmbH
- *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License,version 2
- * as published by the Free Software Foundation.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
- * 02110-1301, USA.
- *
- * tarent GmbH., hereby disclaims all copyright
- * interest in the program 'VerA.web'
- * Signature of Elmar Geese, 7 August 2007
- * Elmar Geese, CEO tarent GmbH.
- */
-
-/*
  * $Id: MailDispatchWorker.java,v 1.1 2007/06/20 11:56:51 christoph Exp $
  */
 package de.tarent.aa.veraweb.worker;
@@ -423,7 +398,7 @@ public class MailDispatchWorker implements Runnable {
 	 * @return eMail-Adresse
 	 */
 	protected String getMailAddress(OctopusContext cntx) {
-		String from = cntx.configImpl().getEmail();
+		String from = cntx.personalConfig().getEmail();
 		if (from != null && from.length() != 0) {
 			logger.info("Verwende eMail-Adresse aus dem LDAP: " + from);
 			return from;
@@ -432,7 +407,7 @@ public class MailDispatchWorker implements Runnable {
 		Map settings = (Map)cntx.moduleConfig().getParamAsObject("mailServer");
 		from = (String)settings.get("from");
 		if (from.indexOf("$role") != -1) {
-			from = from.replaceAll("(\\$role)", ((PersonalConfigAA)cntx.configImpl()).getRole());
+			from = from.replaceAll("(\\$role)", ((PersonalConfigAA)cntx.personalConfig()).getRole());
 		}
 		logger.info("Verwende eMail-Adresse aus der Konfigurationsdatei: " + from);
 		return from;

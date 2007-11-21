@@ -28,7 +28,7 @@ package de.tarent.ldap;
 import java.util.HashMap;
 import java.util.Map;
 
-import de.tarent.octopus.config.OctopusEnvironment;
+import de.tarent.octopus.request.TcEnv;
 import de.tarent.octopus.server.PersonalConfig;
 import de.tarent.octopus.server.UserManager;
 
@@ -77,15 +77,15 @@ public class LoginManagerLDAPTarentContact extends LoginManagerLDAPGeneric {
      */
     protected void initLDAPManager() throws LDAPException {
         Map params = new HashMap();
-        params.put(LDAPManager.KEY_BASE_DN, getConfigurationString(OctopusEnvironment.KEY_LDAP_BASE_DN));
-        params.put(LDAPManager.KEY_RELATIVE, getConfigurationString(OctopusEnvironment.KEY_LDAP_RELATIVE));
-        params.put(LDAPManager.KEY_RELATIVE_USER, getConfigurationString(OctopusEnvironment.KEY_LDAP_RELATIVE));
+        params.put(LDAPManager.KEY_BASE_DN, getConfigurationString(TcEnv.KEY_LDAP_BASE_DN));
+        params.put(LDAPManager.KEY_RELATIVE, getConfigurationString(TcEnv.KEY_LDAP_RELATIVE));
+        params.put(LDAPManager.KEY_RELATIVE_USER, getConfigurationString(TcEnv.KEY_LDAP_RELATIVE));
         params.put(LDAPManagerTarentContact.KEY_OBJECTCLASS, getConfigurationString("disableForceTarentObjectClass"));
         params.put(LDAPManagerTarentContact.KEY_GOSASUPPORT, getConfigurationString(LDAPManagerTarentContact.KEY_GOSASUPPORT));
         params.put(LDAPManagerTarentContact.KEY_REALLYDELETE, getConfigurationString(LDAPManagerTarentContact.KEY_REALLYDELETE));
         ldapManager = LDAPManager.login(
                 LDAPManagerTarentContact.class,
-                getConfigurationString(OctopusEnvironment.KEY_LDAP_URL),
+                getConfigurationString(TcEnv.KEY_LDAP_URL),
                 params
                 );
     }
@@ -102,16 +102,16 @@ public class LoginManagerLDAPTarentContact extends LoginManagerLDAPGeneric {
 	public UserManager getUserManager() {
         try {
             Map params = new HashMap();
-            params.put(LDAPManager.KEY_BASE_DN, getConfigurationString(OctopusEnvironment.KEY_LDAP_BASE_DN));
-            params.put(LDAPManager.KEY_RELATIVE, getConfigurationString(OctopusEnvironment.KEY_LDAP_RELATIVE));
-            params.put(LDAPManager.KEY_RELATIVE_USER, getConfigurationString(OctopusEnvironment.KEY_LDAP_RELATIVE));
+            params.put(LDAPManager.KEY_BASE_DN, getConfigurationString(TcEnv.KEY_LDAP_BASE_DN));
+            params.put(LDAPManager.KEY_RELATIVE, getConfigurationString(TcEnv.KEY_LDAP_RELATIVE));
+            params.put(LDAPManager.KEY_RELATIVE_USER, getConfigurationString(TcEnv.KEY_LDAP_RELATIVE));
             return (UserManager) LDAPManager.login(
                     LDAPManagerTarentContact.class,
-                    getConfigurationString(OctopusEnvironment.KEY_LDAP_URL),
+                    getConfigurationString(TcEnv.KEY_LDAP_URL),
                     params,
-                    getConfigurationString(OctopusEnvironment.KEY_LDAP_USER),
-                    getConfigurationString(OctopusEnvironment.KEY_LDAP_PWD),
-                    getConfigurationString(OctopusEnvironment.KEY_LDAP_AUTHORIZATION)
+                    getConfigurationString(TcEnv.KEY_LDAP_USER),
+                    getConfigurationString(TcEnv.KEY_LDAP_PWD),
+                    getConfigurationString(TcEnv.KEY_LDAP_AUTHORIZATION)
                     );
         } catch (LDAPException e) {
             logger.warning(e.getLocalizedMessage());

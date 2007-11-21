@@ -1,29 +1,4 @@
 /*
- * VerA.web,
- * Veranstaltungsmanagment VerA.web
- * Copyright (c) 2005-2007 tarent GmbH
- *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License,version 2
- * as published by the Free Software Foundation.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
- * 02110-1301, USA.
- *
- * tarent GmbH., hereby disclaims all copyright
- * interest in the program 'VerA.web'
- * Signature of Elmar Geese, 7 August 2007
- * Elmar Geese, CEO tarent GmbH.
- */
-
-/*
  * $Id: ProxyListWorker.java,v 1.1 2007/06/20 11:56:51 christoph Exp $
  * 
  * Created on 25.07.2005
@@ -223,7 +198,7 @@ public class ProxyListWorker extends ListWorkerVeraWeb {
      * @see de.tarent.octopus.custom.beans.BeanListWorker#extendWhere(de.tarent.octopus.server.OctopusContext, de.tarent.dblayer.sql.statement.Select)
      */
     protected void extendWhere(OctopusContext cntx, Select select) throws BeanException, IOException {
-        PersonalConfigAA pCfg = (PersonalConfigAA) cntx.configImpl();
+        PersonalConfigAA pCfg = (PersonalConfigAA) cntx.personalConfig();
         String proxiesFor = cntx.contentAsString(PARAM_PROXIES_FOR);
         String proxyValid = cntx.contentAsString(PARAM_PROXIES_VALID);
         String proxy = cntx.contentAsString(PARAM_PROXY);

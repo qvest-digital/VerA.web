@@ -1,29 +1,4 @@
 /*
- * VerA.web,
- * Veranstaltungsmanagment VerA.web
- * Copyright (c) 2005-2007 tarent GmbH
- *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License,version 2
- * as published by the Free Software Foundation.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
- * 02110-1301, USA.
- *
- * tarent GmbH., hereby disclaims all copyright
- * interest in the program 'VerA.web'
- * Signature of Elmar Geese, 7 August 2007
- * Elmar Geese, CEO tarent GmbH.
- */
-
-/*
  * $Id: ContextWorker.java,v 1.1 2007/06/20 11:56:51 christoph Exp $
  * 
  * Created on 07.03.2005
@@ -35,7 +10,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import de.tarent.octopus.content.ContentProzessException;
+import de.tarent.octopus.content.TcContentProzessException;
 import de.tarent.octopus.server.OctopusContext;
 
 /**
@@ -68,7 +43,7 @@ public class ContextWorker {
      * @param oc aktueller Octopus-Kontext
      * @param contexts Serialisierung eines Kontext-Stacks
      * @return Serialisierung des Kontext-Stacks ohne den bisherig obersten Kontext
-     * @throws ContentProzessException
+     * @throws TcContentProzessException
      */
 	public String pop(OctopusContext oc, String contexts) {
 	    StringBuffer contextsBuffer = new StringBuffer(contexts == null ? "" : contexts);
@@ -96,7 +71,7 @@ public class ContextWorker {
      *  als Bezeichner von Octopus-Content-Variablen interpretiert werden, deren Werte
      *  als Teil des Kontexts gesichert werden sollen.
      * @return Serialisierung des Kontext-Stacks erweitert um den übergebenen Kontext.
-     * @throws ContentProzessException
+     * @throws TcContentProzessException
      */
 	public String push(OctopusContext oc, String contexts, List data) {
 	    if (data == null || data.isEmpty())

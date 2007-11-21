@@ -1,38 +1,13 @@
 /*
- * VerA.web,
- * Veranstaltungsmanagment VerA.web
- * Copyright (c) 2005-2007 tarent GmbH
- *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License,version 2
- * as published by the Free Software Foundation.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
- * 02110-1301, USA.
- *
- * tarent GmbH., hereby disclaims all copyright
- * interest in the program 'VerA.web'
- * Signature of Elmar Geese, 7 August 2007
- * Elmar Geese, CEO tarent GmbH.
- */
-
-/*
  * $Id: WorkerFactory.java,v 1.1 2007/06/20 11:56:51 christoph Exp $
  * 
  * Created on 17.05.2005
  */
 package de.tarent.aa.veraweb.worker;
 
-import de.tarent.octopus.content.ContentWorker;
-import de.tarent.octopus.content.ContentWorkerFactory;
-import de.tarent.octopus.content.ReflectedWorkerWrapper;
+import de.tarent.octopus.content.TcContentWorker;
+import de.tarent.octopus.content.TcContentWorkerFactory;
+import de.tarent.octopus.content.TcReflectedWorkerWrapper;
 import de.tarent.octopus.server.OctopusContext;
 import de.tarent.octopus.server.WorkerCreationException;
 
@@ -166,12 +141,11 @@ public class WorkerFactory {
      */
 	static private Object getWorker(OctopusContext cntx, String name) {
 		try {
-            ContentWorker worker = ContentWorkerFactory.getContentWorker(
+            TcContentWorker worker = TcContentWorkerFactory.getContentWorker(
                     cntx.moduleConfig(), name,
                     cntx.getRequestObject().getRequestID());
-            return (worker instanceof ReflectedWorkerWrapper) ?
-                 ((ReflectedWorkerWrapper)worker).getWorkerDelegate() : worker;
-		} catch (ClassCastException e) {
+            return (worker instanceof TcReflectedWorkerWrapper) ?
+                 ((TcReflectedWorkerWrapper)worker).getWorkerDelegate() : worker;
 		} catch (WorkerCreationException e) {
 		}
         return null;

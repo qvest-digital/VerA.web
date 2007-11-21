@@ -1,29 +1,4 @@
 /*
- * VerA.web,
- * Veranstaltungsmanagment VerA.web
- * Copyright (c) 2005-2007 tarent GmbH
- *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License,version 2
- * as published by the Free Software Foundation.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
- * 02110-1301, USA.
- *
- * tarent GmbH., hereby disclaims all copyright
- * interest in the program 'VerA.web'
- * Signature of Elmar Geese, 7 August 2007
- * Elmar Geese, CEO tarent GmbH.
- */
-
-/*
  * $Id: PersonDetailWorker.java,v 1.1 2007/06/20 11:56:51 christoph Exp $
  * 
  * Created on 01.03.2005
@@ -397,8 +372,8 @@ public class PersonDetailWorker implements PersonConstants {
 			}
 			
 			DateHelper.addTimeToDate(person.diplodate_a_e1, cntx.requestAsString("person-diplotime_a_e1"), person.getErrors());
-			person.orgunit = ((PersonalConfigAA)cntx.configImpl()).getOrgUnitId();
-			person.updateHistoryFields(null, ((PersonalConfigAA)cntx.configImpl()).getRoleWithProxy());
+			person.orgunit = ((PersonalConfigAA)cntx.personalConfig()).getOrgUnitId();
+			person.updateHistoryFields(null, ((PersonalConfigAA)cntx.personalConfig()).getRoleWithProxy());
 			AddressHelper.checkPersonSalutation(person, database, context);
 			
 			// Updatet das Gueltigkeitsdatum automatisch auf "in 3 Jahre"
@@ -432,7 +407,7 @@ public class PersonDetailWorker implements PersonConstants {
 					database.getNextPk(person, context);
 					Insert insert = database.getInsert(person);
 					insert.insert("pk", person.id);
-					if (!((PersonalConfigAA)cntx.configImpl()).getGrants().mayReadRemarkFields()) {
+					if (!((PersonalConfigAA)cntx.personalConfig()).getGrants().mayReadRemarkFields()) {
 						insert.remove("note_a_e1");
 						insert.remove("note_b_e1");
 						insert.remove("notehost_a_e1");
@@ -453,7 +428,7 @@ public class PersonDetailWorker implements PersonConstants {
 				} else {
 					cntx.setContent("countUpdate", new Integer(1));
 					Update update = database.getUpdate(person);
-					if (!((PersonalConfigAA)cntx.configImpl()).getGrants().mayReadRemarkFields()) {
+					if (!((PersonalConfigAA)cntx.personalConfig()).getGrants().mayReadRemarkFields()) {
 						update.remove("note_a_e1");
 						update.remove("note_b_e1");
 						update.remove("notehost_a_e1");
@@ -550,7 +525,7 @@ public class PersonDetailWorker implements PersonConstants {
 			person = (Person)database.getBean("Person", personId);
 		}
 		if (person != null && person.id != null) {
-			person.updateHistoryFields(null, ((PersonalConfigAA)cntx.configImpl()).getRoleWithProxy());
+			person.updateHistoryFields(null, ((PersonalConfigAA)cntx.personalConfig()).getRoleWithProxy());
 			Update update = database.getUpdate("Person");
 			update.update(database.getProperty(person, "created"), person.created);
 			update.update(database.getProperty(person, "createdby"), person.createdby);

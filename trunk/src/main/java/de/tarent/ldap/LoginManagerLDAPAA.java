@@ -1,28 +1,3 @@
-/*
- * VerA.web,
- * Veranstaltungsmanagment VerA.web
- * Copyright (c) 2005-2007 tarent GmbH
- *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License,version 2
- * as published by the Free Software Foundation.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
- * 02110-1301, USA.
- *
- * tarent GmbH., hereby disclaims all copyright
- * interest in the program 'VerA.web'
- * Signature of Elmar Geese, 7 August 2007
- * Elmar Geese, CEO tarent GmbH.
- */
-
 package de.tarent.ldap;
 
 import java.net.PasswordAuthentication;
@@ -43,16 +18,16 @@ import de.tarent.aa.veraweb.beans.User;
 import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.octopus.LoginManagerAA;
 import de.tarent.octopus.PersonalConfigAA;
-import de.tarent.octopus.config.CommonConfig;
-import de.tarent.octopus.config.OctopusConfig;
-import de.tarent.octopus.config.OctopusEnvironment;
-import de.tarent.octopus.content.Content;
+import de.tarent.octopus.config.TcCommonConfig;
+import de.tarent.octopus.config.TcConfig;
+import de.tarent.octopus.content.TcAll;
+import de.tarent.octopus.content.TcContent;
 import de.tarent.octopus.custom.beans.Database;
 import de.tarent.octopus.custom.beans.veraweb.DatabaseVeraWeb;
-import de.tarent.octopus.request.OctopusRequest;
-import de.tarent.octopus.security.OctopusSecurityException;
+import de.tarent.octopus.request.TcEnv;
+import de.tarent.octopus.request.TcRequest;
+import de.tarent.octopus.security.TcSecurityException;
 import de.tarent.octopus.server.OctopusContext;
-import de.tarent.octopus.server.OctopusContextImpl;
 import de.tarent.octopus.server.PersonalConfig;
 
 
@@ -86,16 +61,16 @@ public class LoginManagerLDAPAA extends LoginManagerLDAPGeneric implements Login
      * 
      * @param octx anzupassender Octopus-Kontext der Sitzung des Vertreters
      * @param proxyDescription Beschreibungs-Bean der Vertretung
-     * @throws OctopusSecurityException Wenn keine authentisierte persönliche Konfiguration
+     * @throws TcSecurityException Wenn keine authentisierte persönliche Konfiguration
      *  vorliegt oder schon als Vertreter agiert wird.
      * @see LoginManagerAA#setProxy(OctopusContext, Proxy)
      */
-    public void setProxy(OctopusContext octx, Proxy proxyDescription) throws OctopusSecurityException {
-        PersonalConfigAA pConfig = (PersonalConfigAA) octx.configImpl();
+    public void setProxy(OctopusContext octx, Proxy proxyDescription) throws TcSecurityException {
+        PersonalConfigAA pConfig = (PersonalConfigAA) octx.personalConfig();
         if (pConfig == null || !pConfig.getGrants().isAuthenticated())
-            throw new OctopusSecurityException("Missing personal config for proxying.");
+            throw new TcSecurityException("Missing personal config for proxying.");
         if (pConfig.getProxy() != null)
-            throw new OctopusSecurityException("Proxying is not transitive.");
+            throw new TcSecurityException("Proxying is not transitive.");
         pConfig.setUserGroups(new String[0]);
         pConfig.setProxy(proxyDescription.proxy);
         pConfig.setRole(proxyDescription.userRole);
@@ -107,15 +82,15 @@ public class LoginManagerLDAPAA extends LoginManagerLDAPGeneric implements Login
      * VerA.web-Benutzer ausgewählt werden können. 
      * 
      * @return Liste verfügbarer AA-Rollen.
-     * @throws OctopusSecurityException 
+     * @throws TcSecurityException 
      * @see LoginManagerAA#getAARoles()
      */
-    public Set getAARoles() throws OctopusSecurityException {
+    public Set getAARoles() throws TcSecurityException {
         if (ldapManager instanceof LDAPManagerAA)
             try {
                 return ((LDAPManagerAA)ldapManager).getPossibleRoles();
             } catch (NamingException e) {
-                throw new OctopusSecurityException("Rollen konnten nicht bezogen werden", e);
+                throw new TcSecurityException("Rollen konnten nicht bezogen werden", e);
             }
         else
             return null;
@@ -131,7 +106,7 @@ public class LoginManagerLDAPAA extends LoginManagerLDAPGeneric implements Login
      * @param pConfig PersonalConfig des neu eingelogten Benutzers
      * @param userName Benutzer-ID des neu eingeloggten Benutzers
      * @throws LDAPException
-     * @see #doLogin(CommonConfig, PersonalConfig, OctopusRequest)
+     * @see #doLogin(TcCommonConfig, PersonalConfig, TcRequest)
      * @see LoginManagerLDAPGeneric#initPersonalConfig(de.tarent.octopus.server.PersonalConfig, java.lang.String)
      */
     protected void initPersonalConfig(PersonalConfig pConfig, String userName) throws LDAPException {
@@ -154,18 +129,18 @@ public class LoginManagerLDAPAA extends LoginManagerLDAPGeneric implements Login
      * Diese Methode erzeugt den zu verwendenden LDAPManager.
      * 
      * @throws LDAPException 
-     * @see #doLogin(CommonConfig, PersonalConfig, OctopusRequest)
+     * @see #doLogin(TcCommonConfig, PersonalConfig, TcRequest)
      * @see LoginManagerLDAPGeneric#initLDAPManager()
      */
     protected void initLDAPManager() throws LDAPException {
         Map params = new HashMap();
-        params.put(LDAPManager.KEY_BASE_DN, getConfigurationString(OctopusEnvironment.KEY_LDAP_BASE_DN));
-        params.put(LDAPManager.KEY_RELATIVE, getConfigurationString(OctopusEnvironment.KEY_LDAP_RELATIVE));
-        params.put(LDAPManager.KEY_RELATIVE_USER, getConfigurationString(OctopusEnvironment.KEY_LDAP_RELATIVE));
+        params.put(LDAPManager.KEY_BASE_DN, getConfigurationString(TcEnv.KEY_LDAP_BASE_DN));
+        params.put(LDAPManager.KEY_RELATIVE, getConfigurationString(TcEnv.KEY_LDAP_RELATIVE));
+        params.put(LDAPManager.KEY_RELATIVE_USER, getConfigurationString(TcEnv.KEY_LDAP_RELATIVE));
         params.put(LDAPManagerAA.KEY_ROLE_FILTER, getConfigurationString(KEY_ROLE_FILTER));
         ldapManager = LDAPManager.login(
                 LDAPManagerAA.class,
-                getConfigurationString(OctopusEnvironment.KEY_LDAP_URL),
+                getConfigurationString(TcEnv.KEY_LDAP_URL),
                 params
                 );
     }
@@ -181,18 +156,18 @@ public class LoginManagerLDAPAA extends LoginManagerLDAPGeneric implements Login
      * 
      * @param commonConfig Konfigurationsdaten des Octopus
      * @param pConfig persönliche Konfiguration des einzuloggenden Benutzers
-     * @param octopusRequest Benutzeranfrage mit Authentisierungsdaten
-     * @throws OctopusSecurityException bei fehlgeschlagener Authorisierung
-     * @see de.tarent.ldap.LoginManagerLDAPGeneric#doLogin(de.tarent.octopus.config.CommonConfig, de.tarent.octopus.server.PersonalConfig, de.tarent.octopus.request.OctopusRequest)
+     * @param tcRequest Benutzeranfrage mit Authentisierungsdaten
+     * @throws TcSecurityException bei fehlgeschlagener Authorisierung
+     * @see de.tarent.ldap.LoginManagerLDAPGeneric#doLogin(de.tarent.octopus.config.TcCommonConfig, de.tarent.octopus.server.PersonalConfig, de.tarent.octopus.request.TcRequest)
      */
-    protected void doLogin(CommonConfig commonConfig, PersonalConfig pConfig, OctopusRequest octopusRequest) throws OctopusSecurityException {
-        PasswordAuthentication origAuth = octopusRequest.getPasswordAuthentication();
+    protected void doLogin(TcCommonConfig commonConfig, PersonalConfig pConfig, TcRequest tcRequest) throws TcSecurityException {
+        PasswordAuthentication origAuth = tcRequest.getPasswordAuthentication();
         // http://www.ietf.org/internet-drafts/draft-ietf-ldapbis-authmeth-18.txt
         // Clients SHOULD disallow an empty password input to a Name/Password Authentication user interface.
         if (origAuth != null && (origAuth.getPassword() == null || origAuth.getPassword().length == 0))
-            throw new OctopusSecurityException("Leere Passwörter sind nicht zulässig.");
+            throw new TcSecurityException("Leere Passwörter sind nicht zulässig.");
         try {
-            super.doLogin(commonConfig, pConfig, octopusRequest);
+            super.doLogin(commonConfig, pConfig, tcRequest);
             if (pConfig instanceof PersonalConfigAA) {
                 PersonalConfigAA aaConfig = (PersonalConfigAA) pConfig;
                 // In doLogin wird initPersonalConfig aufgerufen, und dabei sollte die Rolle
@@ -200,13 +175,13 @@ public class LoginManagerLDAPAA extends LoginManagerLDAPGeneric implements Login
                 // auf die uid, die auch von getAARoles zur Bearbeitung geliefert wird.
                 if (aaConfig.getRole() == null) {
                     logger.warning("Rolle nicht aus uid gesetzt, Login wird genutzt.");
-                    aaConfig.setRole(octopusRequest.getPasswordAuthentication().getUserName());
+                    aaConfig.setRole(tcRequest.getPasswordAuthentication().getUserName());
                 }
                 aaConfig.setRoles(null);
                 logger.fine("Login unmittelbar: Rolle = " + aaConfig.getRole() + ", Rollen nicht ermittelt");
-                fillInUserGroups(commonConfig, aaConfig, octopusRequest);
+                fillInUserGroups(commonConfig, aaConfig, tcRequest);
             }
-        } catch (OctopusSecurityException se) {
+        } catch (TcSecurityException se) {
             if (origAuth != null && ldapManager instanceof LDAPManagerAA) {
                 Collection possibleRoles = null;
                 try {
@@ -214,12 +189,12 @@ public class LoginManagerLDAPAA extends LoginManagerLDAPGeneric implements Login
                 } catch (NamingException e) {
                     throw se;
                 }
-                Collection authorizedRoles = authorized(commonConfig, pConfig, octopusRequest, possibleRoles);
+                Collection authorizedRoles = authorized(commonConfig, pConfig, tcRequest, possibleRoles);
                 Iterator itRoles = authorizedRoles.isEmpty() ? possibleRoles.iterator() : authorizedRoles.iterator();
                 while (itRoles.hasNext()) try {
                     PasswordAuthentication newAuth = new PasswordAuthentication(itRoles.next().toString(), origAuth.getPassword());
-                    octopusRequest.setPasswordAuthentication(newAuth);
-                    super.doLogin(commonConfig, pConfig, octopusRequest);
+                    tcRequest.setPasswordAuthentication(newAuth);
+                    super.doLogin(commonConfig, pConfig, tcRequest);
                     pConfig.setUserLogin(origAuth.getUserName());
                     if (pConfig instanceof PersonalConfigAA) {
                         PersonalConfigAA aaConfig = (PersonalConfigAA) pConfig;
@@ -245,14 +220,14 @@ public class LoginManagerLDAPAA extends LoginManagerLDAPGeneric implements Login
                             aaConfig.setRoles(new ArrayList(authorizedRoles));
                             logger.fine("Login mittelbar: Login = " + origAuth.getUserName() + ", Rolle nicht ermittelt, Rollen = " + aaConfig.getRoles());
                         }
-                        fillInUserGroups(commonConfig, aaConfig, octopusRequest);
+                        fillInUserGroups(commonConfig, aaConfig, tcRequest);
                     }
                     return;
-                } catch(OctopusSecurityException se2) {
+                } catch(TcSecurityException se2) {
                 }
             }
-            octopusRequest.setPasswordAuthentication(origAuth);
-            if (pConfig instanceof PersonalConfigAA && isSystemUser(octopusRequest.getPasswordAuthentication())) {
+            tcRequest.setPasswordAuthentication(origAuth);
+            if (pConfig instanceof PersonalConfigAA && isSystemUser(tcRequest.getPasswordAuthentication())) {
                 logger.warning("Login als Superadmin");
                 PersonalConfigAA aaConfig = (PersonalConfigAA) pConfig;
                 pConfig.setUserEmail("root@localhost");
@@ -265,8 +240,8 @@ public class LoginManagerLDAPAA extends LoginManagerLDAPGeneric implements Login
                         PersonalConfigAA.GROUP_READ_REMARKS, PersonalConfigAA.GROUP_EXPORT,
                         PersonalConfigAA.GROUP_READ_STANDARD, PersonalConfig.GROUP_USER,
                         PersonalConfigAA.GROUP_IN_PERSON});
-                pConfig.userLoggedIn(octopusRequest.getPasswordAuthentication().getUserName());
-                aaConfig.setRole(octopusRequest.getPasswordAuthentication().getUserName());
+                pConfig.userLoggedIn(tcRequest.getPasswordAuthentication().getUserName());
+                aaConfig.setRole(tcRequest.getPasswordAuthentication().getUserName());
                 aaConfig.setRoles(null);
                 aaConfig.setVerawebId(new Integer(-1));
                 aaConfig.setOrgUnitId(new Integer(-1));
@@ -283,10 +258,10 @@ public class LoginManagerLDAPAA extends LoginManagerLDAPGeneric implements Login
      * 
      * @param commonConfig Konfigurationsdaten des Octopus
      * @param pConfig persönliche Konfiguration des auszuloggenden Benutzers
-     * @param octopusRequest Benutzeranfrage
-     * @see de.tarent.ldap.LoginManagerLDAPGeneric#doLogout(de.tarent.octopus.config.CommonConfig, de.tarent.octopus.server.PersonalConfig, de.tarent.octopus.request.OctopusRequest)
+     * @param tcRequest Benutzeranfrage
+     * @see de.tarent.ldap.LoginManagerLDAPGeneric#doLogout(de.tarent.octopus.config.TcCommonConfig, de.tarent.octopus.server.PersonalConfig, de.tarent.octopus.request.TcRequest)
      */
-    protected void doLogout(CommonConfig commonConfig, PersonalConfig pConfig, OctopusRequest octopusRequest) {
+    protected void doLogout(TcCommonConfig commonConfig, PersonalConfig pConfig, TcRequest tcRequest) {
         if (pConfig instanceof PersonalConfigAA) {
             PersonalConfigAA aaConfig = (PersonalConfigAA) pConfig;
             aaConfig.setRole(null);
@@ -295,7 +270,7 @@ public class LoginManagerLDAPAA extends LoginManagerLDAPGeneric implements Login
             aaConfig.setOrgUnitId(null);
             aaConfig.setVerawebId(null);
         }
-        super.doLogout(commonConfig, pConfig, octopusRequest);
+        super.doLogout(commonConfig, pConfig, tcRequest);
     }
 
     //
@@ -316,16 +291,16 @@ public class LoginManagerLDAPAA extends LoginManagerLDAPGeneric implements Login
      * 
      * @param commonConfig aktuelle allgemeine Konfiguration
      * @param pConfig aktuelle persönliche Konfiguration
-     * @param octopusRequest aktueller Request
+     * @param tcRequest aktueller Request
      * @param roles Sammlung von AA-Rollen
      * @return Sammlung der AA-Rollen aus <code>roles</code>, die VerA.web-autorisiert sind.
      */
-    Collection authorized(CommonConfig commonConfig, PersonalConfig pConfig, OctopusRequest octopusRequest, Collection roles) {
+    Collection authorized(TcCommonConfig commonConfig, PersonalConfig pConfig, TcRequest tcRequest, Collection roles) {
         if (roles == null || roles.size() == 0)
             return roles;
         Collection result = new ArrayList(roles.size());
-        OctopusContext cntx = new OctopusContextImpl(octopusRequest, new Content(),
-                new OctopusConfig(commonConfig, pConfig, octopusRequest.getModule()));
+        OctopusContext cntx = new TcAll(tcRequest, new TcContent(),
+                new TcConfig(commonConfig, pConfig, tcRequest.getModule()));
         Database database = new DatabaseVeraWeb(cntx);
         Iterator itRoles = roles.iterator();
         while(itRoles.hasNext()) {
@@ -351,9 +326,9 @@ public class LoginManagerLDAPAA extends LoginManagerLDAPGeneric implements Login
      * @param commonConfig aktuelle allgemeine Konfiguration
      * @param pConfig aktuelle persönliche Konfiguration, der Octopus-Benutzergruppen
      *  zugeordnet werden.
-     * @param octopusRequest aktueller Request
+     * @param tcRequest aktueller Request
      */
-    void fillInUserGroups(CommonConfig commonConfig, PersonalConfigAA pConfig, OctopusRequest octopusRequest) {
+    void fillInUserGroups(TcCommonConfig commonConfig, PersonalConfigAA pConfig, TcRequest tcRequest) {
         pConfig.setVerawebId(null);
         pConfig.setOrgUnitId(null);
         if (pConfig.getRole() == null || pConfig.getRole().length() == 0) {
@@ -362,8 +337,8 @@ public class LoginManagerLDAPAA extends LoginManagerLDAPGeneric implements Login
                     PersonalConfigAA.GROUP_UNCLEAR_ROLE : PersonalConfigAA.GROUP_UNAUTHORIZED;
             pConfig.setUserGroups(new String[]{ group });
         } else {
-            OctopusContext cntx = new OctopusContextImpl(octopusRequest, new Content(),
-                    new OctopusConfig(commonConfig, pConfig, octopusRequest.getModule()));
+            OctopusContext cntx = new TcAll(tcRequest, new TcContent(),
+                    new TcConfig(commonConfig, pConfig, tcRequest.getModule()));
             Database database = new DatabaseVeraWeb(cntx);
             List groups = new ArrayList();
             try {

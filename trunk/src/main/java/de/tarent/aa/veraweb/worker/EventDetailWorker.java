@@ -1,29 +1,4 @@
 /*
- * VerA.web,
- * Veranstaltungsmanagment VerA.web
- * Copyright (c) 2005-2007 tarent GmbH
- *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License,version 2
- * as published by the Free Software Foundation.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
- * 02110-1301, USA.
- *
- * tarent GmbH., hereby disclaims all copyright
- * interest in the program 'VerA.web'
- * Signature of Elmar Geese, 7 August 2007
- * Elmar Geese, CEO tarent GmbH.
- */
-
-/*
  * $Id: EventDetailWorker.java,v 1.1 2007/06/20 11:56:51 christoph Exp $
  * Created on 14.03.2005
  */
@@ -135,7 +110,7 @@ public class EventDetailWorker {
 				DateHelper.addTimeToDate(event.begin, cntx.requestAsString("event-begintime"), event.getErrors());
 				DateHelper.addTimeToDate(event.end, cntx.requestAsString("event-endtime"), event.getErrors());
 			}
-			event.orgunit = ((PersonalConfigAA) cntx.configImpl()).getOrgUnitId();
+			event.orgunit = ((PersonalConfigAA) cntx.personalConfig()).getOrgUnitId();
 
 			Event oldEvent = (Event) database.getBean("Event", event.id, context);
 
@@ -146,7 +121,7 @@ public class EventDetailWorker {
 			if (event.shortname != null && event.shortname.length() != 0)
 			{
 				WhereList where = new WhereList();
-				where.addAnd(Expr.equal("fk_orgunit", ((PersonalConfigAA) cntx.configImpl()).getOrgUnitId()));
+				where.addAnd(Expr.equal("fk_orgunit", ((PersonalConfigAA) cntx.personalConfig()).getOrgUnitId()));
 				where.addAnd(Expr.equal("shortname", event.shortname));
 				if (event.id != null)
 				{
@@ -237,7 +212,7 @@ public class EventDetailWorker {
 					database.getNextPk(event, context);
 					Insert insert = database.getInsert(event);
 					insert.insert("pk", event.id);
-					if (!((PersonalConfigAA) cntx.configImpl()).getGrants().mayReadRemarkFields())
+					if (!((PersonalConfigAA) cntx.personalConfig()).getGrants().mayReadRemarkFields())
 					{
 						insert.remove("note");
 					}
@@ -246,7 +221,7 @@ public class EventDetailWorker {
 				{
 					cntx.setContent("countUpdate", new Integer(1));
 					Update update = database.getUpdate(event);
-					if (!((PersonalConfigAA) cntx.configImpl()).getGrants().mayReadRemarkFields())
+					if (!((PersonalConfigAA) cntx.personalConfig()).getGrants().mayReadRemarkFields())
 					{
 						update.remove("note");
 					}
@@ -368,7 +343,7 @@ public class EventDetailWorker {
 		Event event = (Event)request.getBean("Event", "event");
 		DateHelper.addTimeToDate(event.begin, cntx.requestAsString("event-begintime"), event.getErrors());
 		DateHelper.addTimeToDate(event.end, cntx.requestAsString("event-endtime"), event.getErrors());
-		event.orgunit = ((PersonalConfigAA)cntx.configImpl()).getOrgUnitId();
+		event.orgunit = ((PersonalConfigAA)cntx.personalConfig()).getOrgUnitId();
 		cntx.setSession("eventtemp", event);
 		cntx.setContent("event", event);
 	}

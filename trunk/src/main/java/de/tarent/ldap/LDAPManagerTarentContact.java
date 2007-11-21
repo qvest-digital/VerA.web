@@ -59,7 +59,7 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
 import de.tarent.ldap.contact.ContactUser;
-import de.tarent.octopus.security.OctopusSecurityException;
+import de.tarent.octopus.security.TcSecurityException;
 import de.tarent.octopus.server.UserManager;
 
 /**
@@ -627,44 +627,44 @@ public class LDAPManagerTarentContact extends LDAPManager implements UserManager
     /* (non-Javadoc)
      * @see de.tarent.octopus.server.UserManager#addUser(java.lang.String, java.lang.String, java.lang.String, java.lang.String)
      */
-    public void addUser(String userID, String firstName, String lastName, String password) throws OctopusSecurityException{
+    public void addUser(String userID, String firstName, String lastName, String password) throws TcSecurityException{
         try {
             addContactUser(userID, firstName, lastName, password);
         } catch (LDAPException e) {
-            throw new OctopusSecurityException(OctopusSecurityException.ERROR_SERVER_USERMANAGEMENT_ERROR, e);
+            throw new TcSecurityException(TcSecurityException.ERROR_SERVER_USERMANAGEMENT_ERROR, e);
         }
     }
 
     /* (non-Javadoc)
      * @see de.tarent.octopus.server.UserManager#modifyUser(java.lang.String, java.lang.String, java.lang.String, java.lang.String)
      */
-    public void modifyUser(String userID, String firstName, String lastName, String password) throws OctopusSecurityException {
+    public void modifyUser(String userID, String firstName, String lastName, String password) throws TcSecurityException {
         try {
             modifyContactUser(userID, firstName, lastName, password);
         } catch (LDAPException e) {
-            throw new OctopusSecurityException(OctopusSecurityException.ERROR_SERVER_USERMANAGEMENT_ERROR, e);
+            throw new TcSecurityException(TcSecurityException.ERROR_SERVER_USERMANAGEMENT_ERROR, e);
         }
     }
 
     /* (non-Javadoc)
      * @see de.tarent.octopus.server.UserManager#deleteUser(java.lang.String)
      */
-    public void deleteUser(String userID) throws OctopusSecurityException {
+    public void deleteUser(String userID) throws TcSecurityException {
         try {
             deleteContactUser(userID);
         } catch (LDAPException e) {
-            throw new OctopusSecurityException(OctopusSecurityException.ERROR_SERVER_USERMANAGEMENT_ERROR, e);
+            throw new TcSecurityException(TcSecurityException.ERROR_SERVER_USERMANAGEMENT_ERROR, e);
         }
     }
 
     /* (non-Javadoc)
      * @see de.tarent.octopus.server.UserManager#setUserParam(java.lang.String, java.lang.String, java.lang.Object)
      */
-    public void setUserParam(String userID, String paramname, Object paramvalue) throws OctopusSecurityException {
+    public void setUserParam(String userID, String paramname, Object paramvalue) throws TcSecurityException {
         try {
             modifyContactUserAttribute(userID, paramname, paramvalue.toString());
         } catch (LDAPException e) {
-            throw new OctopusSecurityException(OctopusSecurityException.ERROR_SERVER_USERMANAGEMENT_ERROR, e);
+            throw new TcSecurityException(TcSecurityException.ERROR_SERVER_USERMANAGEMENT_ERROR, e);
         }
         
     }
