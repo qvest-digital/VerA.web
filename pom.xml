@@ -163,6 +163,18 @@
 					</archive>
 				</configuration>
 			</plugin>
+			
+			<plugin>
+			     <groupId>de.tarent.maven.plugins</groupId>
+			     <artifactId>mvn-gforge-plugin</artifactId>
+			     <version>0.2</version>
+			     <configuration>
+			        <fileTypes>
+			           <type>javadoc</type>
+			           <type>sources</type>
+			        </fileTypes>
+			     </configuration>
+			 </plugin>
 		</plugins>
 		
 		<sourceDirectory>src/main/java</sourceDirectory>
