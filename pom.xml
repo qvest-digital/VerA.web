@@ -77,6 +77,56 @@
 		</mailingList>
 	</mailingLists>
 	
+	<developers>
+		<developer>
+			<id>smancke</id>
+			<name>Sebastian Mancke</name>
+			<email>s.mancke@tarent.de</email>
+			<organization>tarent GmbH</organization>
+			<organizationUrl>http://www.tarent.de</organizationUrl>
+			<roles>
+				<role>Developer</role>
+			</roles>
+			<timezone>+1</timezone>
+		</developer>
+
+		<developer>
+			<id>mpelzer</id>
+			<name>Martin Pelzer</name>
+			<email>m.pelzer@tarent.de</email>
+			<organization>tarent GmbH</organization>
+			<organizationUrl>http://www.tarent.de</organizationUrl>
+			<roles>
+				<role>Developer</role>
+			</roles>
+			<timezone>+1</timezone>
+		</developer>
+
+		<developer>
+			<id>dgoemans</id>
+			<name>David Goemans</name>
+			<email>d.goemans@tarent.de</email>
+			<organization>tarent GmbH</organization>
+			<organizationUrl>http://www.tarent.de</organizationUrl>
+			<roles>
+				<role>Developer</role>
+			</roles>
+			<timezone>+1</timezone>
+		</developer>
+
+		<developer>
+			<id>fkoester</id>
+			<name>Fabian Köster</name>
+			<email>f.koester@tarent.de</email>
+			<organization>tarent GmbH</organization>
+			<organizationUrl>http://www.tarent.de/</organizationUrl>
+			<roles>
+				<role>Developer</role>
+			</roles>
+			<timezone>+1</timezone>
+		</developer>
+	</developers>
+	
 	<!-- Information required to build the project. -->
 	<build>
 		<plugins>
