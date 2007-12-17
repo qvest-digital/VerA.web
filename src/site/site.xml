@@ -11,14 +11,9 @@
 			<link rel="shortcut icon" type="image/x-icon" href="images/evolvis-favicon.ico" />
 		</head>
 		
-		<links>
-			<item name="evolvis" href="http://evolvis.org/" />
-			<item name="evolvis project homepage" href="http://evolvis.org/projects/tarentdatabase/" />
-		</links>
-		
-		<menu name="tarent-database">
-			<item name="Introduction" href="index.html" />
-			<item name="User Manual" href="user_manual.html" />
+		<menu name="Main">
+			<item name="Wiki" href="http://wiki.evolvis.org/tarentcommons/" />
+			<item name="Project homepage" href="http://evolvis.org/projects/tarentcommons/" />
 		</menu>
 		
 		<menu ref="modules" />
