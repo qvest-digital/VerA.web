@@ -14,21 +14,56 @@
 			de.tarent.octopus.request.servlet.OctopusServlet
 		</servlet-class>
 
+		<!-- Config directory. -->
 		<init-param>
 			<param-name>paths.configRoot</param-name>
 			<param-value>octopus-config/</param-value>
 		</init-param>
 
+		<!-- relativ zum Config-Root aus 'paths.configRoot' -->
 		<init-param>
-			<!-- relativ zum Config-Root aus 'paths.configRoot' -->
 			<param-name>paths.configFile</param-name>
 			<param-value>octopus-server.xml</param-value>
 		</init-param>
 
+		<!--
+			Logging parameter for octopus.
+			
+			Allowed parameters are logging.level (see java.util.logging.Level),
+			logging.pattern, logging.limit and logging.count (see
+			java.util.logging.FileHandler). logging.count additional support
+			disabled.
+		-->
+		<init-param>
+			<param-name>logging.level</param-name>
+			<param-value>INFO</param-value>
+		</init-param>
+		
+		<init-param>
+			<param-name>logging.pattern</param-name>
+			<param-value>octopus-%g_%u.log</param-value>
+		</init-param>
+		
+		<init-param>
+			<param-name>logging.limit</param-name>
+			<param-value>default</param-value>
+		</init-param>
+		
+		<init-param>
+			<param-name>logging.count</param-name>
+			<param-value>default</param-value>
+		</init-param>
+		
+		<!-- Pfad is relativ to '/WEB-INF/' directory and must terminte with an '/'. -->
+		<init-param>
+			<param-name>paths.logPath</param-name>
+			<param-value>log</param-value>
+		</init-param>
+		
 		<!-- Response error level "development" or "release" -->
 		<init-param>
 			<param-name>response.errorLevel</param-name>
-			<param-value>release</param-value>
+			<param-value>development</param-value>
 		</init-param>
 
 		<!-- Allowed request types: ANY, WEB, SOAP, XMLRPC or DIRECTCALL -->
@@ -79,5 +114,4 @@
 		<servlet-name>OctopusServlet</servlet-name>
 		<url-pattern>/octopus/*</url-pattern>
 	</servlet-mapping>
-
 </web-app>
