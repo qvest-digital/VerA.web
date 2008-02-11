@@ -23,17 +23,12 @@
 		</links>
 		
 		<menu name="${project.name}">
-			<item name="Overview" href="index.html" />
-			<item name="Status" href="status.html" />
-			<item name="History" href="history.html" />
-			<item name="Screenshots" href="screenshots.html" />
-			<item name="Downloads" href="downloads.html" />
-			<item name="Systemvoraussetzungen" href="sysreq.html" />
+			<item name="Product page" href="https://veraweb.tarent.com/" />
 		</menu>
 		
 		<menu name="Dokumentation">
+			<item name="Wiki" href="https://wiki.evolvis.org/veraweb/" />
 			<item name="Benutzerhandbuch (PDF)" href="doc/Benutzerhandbuch_1.2.pdf" />
-			<item name="Installationsanleitung" href="install.html" />
 		</menu>
 		
 		<menu name="Supported by">
