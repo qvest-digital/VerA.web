@@ -1,9 +1,33 @@
-<big>'''MediaWiki has been successfully installed.'''</big>
+== Veranstaltungsmanagment veraweb ==
 
-Consult the [http://meta.wikimedia.org/wiki/Help:Contents User's Guide] for information on using the wiki software.
+veraweb ist eine OpenSource Software für Veranstaltungsmanagment und wurde im Auftrag des
+[http://www.auswaertiges-amt.de/ Auswärtigem Amtes] von der [http://www.tarent.de/ tarent GmbH] entwickelt.
 
-== Getting started ==
+Die vollständige Software inkl. Benutzerhandbuch wird auf den Seiten von [http://evolvis.org/ evolvis] zur freien Verfügung bereitgestellt.
 
-* [http://www.mediawiki.org/wiki/Manual:Configuration_settings Configuration settings list]
-* [http://www.mediawiki.org/wiki/Manual:FAQ MediaWiki FAQ]
-* [http://lists.wikimedia.org/mailman/listinfo/mediawiki-announce MediaWiki release mailing list]
+Bitte beachten Sie das diese Seite für Entwickler und Administratoren gedacht ist und Informationen zur Installation und Warten bereitstellt,
+eine Anwenderorientierte Produktseite finden Sie unter [http://veraweb.tarent.com veraweb.tarent.com].
+
+== Funktionsauszug ==
+
+* vollständige Adressverwaltung	
+
+* Verwaltungsmöglichkeit von Veranstaltungen
+
+* inkl. Einladungslisten und E-Mailverteiler
+
+* Verwaltung von Zusagen, Absagen, und Nachrückern
+
+* Teilnehmer in verschiedenen Rollen
+
+* MS- und OpenOffice-Schnittstelle
+
+== OpenSource ==
+
+* Lizensiert unter GNU GENERAL PUBLIC LICENSE, Version 2.
+
+* Vollständig verfügbar als [[Downloads|Binary]] sowie als [http://evolvis.org/scm/?group_id=17 Sourcecode].
+
+== Download ==
+
+* Letzte Stabile Version: 1.1.6 ([[Downloads|Download]])
