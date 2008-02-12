@@ -1,7 +1,7 @@
 /*
  * veraweb,
  * Veranstaltungsmanagment veraweb
- * Copyright (c) 2005-2007 tarent GmbH
+ * Copyright (c) 2005-2008 tarent GmbH
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License,version 2
@@ -57,6 +57,7 @@ import de.tarent.dblayer.sql.statement.Insert;
 import de.tarent.dblayer.sql.statement.Select;
 import de.tarent.dblayer.sql.statement.Update;
 import de.tarent.octopus.PersonalConfigAA;
+import de.tarent.octopus.custom.beans.BeanChangeLogger;
 import de.tarent.octopus.custom.beans.BeanException;
 import de.tarent.octopus.custom.beans.Database;
 import de.tarent.octopus.custom.beans.Request;
@@ -423,10 +424,15 @@ public class PersonDetailWorker implements PersonConstants {
 				}
 			}
 			
+			/*
+			 * modified to support change logging
+			 * cklein 2008-02-12
+			 */
 	        person.verify();
 			if (person.isModified() && person.isCorrect()) {
 		        AddressHelper.copyAddressData(cntx, person, personOld);
 				
+				BeanChangeLogger clogger = new BeanChangeLogger( database );
 				if (person.id == null) {
 					cntx.setContent("countInsert", new Integer(1));
 					database.getNextPk(person, context);
@@ -441,7 +447,7 @@ public class PersonDetailWorker implements PersonConstants {
 						insert.remove("noteorga_b_e1");
 					}
 					context.execute(insert);
-					
+
 					//Bug 1592 Wenn die person kopiert wurde, dann die Kategorien der
 					//original Person an neue Person kopieren
 					Integer originalPersonId = cntx.requestAsInteger("originalPersonId");
@@ -449,7 +455,8 @@ public class PersonDetailWorker implements PersonConstants {
 					{
 						copyCategories(originalPersonId, person.id,  database,  context);
 					}
-					
+
+					clogger.logInsert( cntx.personalConfig().getLoginname(), person );	
 				} else {
 					cntx.setContent("countUpdate", new Integer(1));
 					Update update = database.getUpdate(person);
@@ -462,8 +469,10 @@ public class PersonDetailWorker implements PersonConstants {
 						update.remove("noteorga_b_e1");
 					}
 					context.execute(update);
+
+					clogger.logUpdate( cntx.personalConfig().getLoginname(), personOld, person );	
 				}
-				
+
 				getPersonId(cntx, person.id, true);
 				
 				PersonDoctypeWorker.createPersonDoctype(cntx, database, context, person);
@@ -558,8 +567,12 @@ public class PersonDetailWorker implements PersonConstants {
 			update.update(database.getProperty(person, "changedby"), person.changedby);
 			update.where(Expr.equal(database.getProperty(person, "id"), person.id));
 			database.execute(update);
+			
+			// get the original version of the object for logging purposes
+			Person personOld = ( Person ) database.getBean( "Person", personId );
+			BeanChangeLogger clogger = new BeanChangeLogger( database );
+			clogger.logUpdate( cntx.personalConfig().getLoginname(), personOld, person );	
 		}
-
 	}
 
     //
@@ -679,12 +692,13 @@ public class PersonDetailWorker implements PersonConstants {
 	 * mehr berücksichtigt. 
 	 * </p>
 	 * 
+	 * @param cntx Aktueller Octopus Kontext
 	 * @param database Datenbank-Referenz in der gelöscht werden soll.
 	 * @param personid PK aus tperson, dessen Eintrag gelöscht werden soll.
 	 * @throws BeanException inkl. Datenbank-Fehler
 	 * @throws IOException
 	 */
-	void removePerson(Database database, Integer personid) throws BeanException, IOException {
+	void removePerson(OctopusContext cntx, Database database, Integer personid) throws BeanException, IOException {
 		// Gibt an ob diese Person noch einer Veranstaltung zugeordnet ist.
 		boolean hasEvent =
 				database.getCount(
@@ -723,6 +737,15 @@ public class PersonDetailWorker implements PersonConstants {
 					update("fk_host", null).
 					update("hostname", null).
 					where(Expr.equal("fk_host", personid)));
+
+			/*
+			 * modified to support change logging
+			 * cklein 2008-02-12
+			 */
+			BeanChangeLogger clogger = new BeanChangeLogger( database );
+			Person p = new Person();
+			p.id = personid;
+			clogger.logDelete( cntx.personalConfig().getLoginname(), p );
 		}
 	}
 }

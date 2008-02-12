@@ -50,6 +50,7 @@ import de.tarent.dblayer.sql.statement.Insert;
 import de.tarent.dblayer.sql.statement.Select;
 import de.tarent.dblayer.sql.statement.Update;
 import de.tarent.octopus.PersonalConfigAA;
+import de.tarent.octopus.custom.beans.BeanChangeLogger;
 import de.tarent.octopus.custom.beans.BeanException;
 import de.tarent.octopus.custom.beans.Database;
 import de.tarent.octopus.custom.beans.Request;
@@ -224,6 +225,11 @@ public class GuestDetailWorker extends GuestListWorker {
 
 			guest.verify();
 
+			/*
+			 * modified to support change logging
+			 * cklein 2008-02-12
+			 */
+			BeanChangeLogger clogger = new BeanChangeLogger( database );
 			if (guest.id == null)
 			{
 				cntx.setContent("countInsert", new Integer(1));
@@ -238,6 +244,8 @@ public class GuestDetailWorker extends GuestListWorker {
 					insert.remove("noteorga_b");
 				}
 				context.execute(insert);
+
+				clogger.logInsert( cntx.personalConfig().getLoginname(), guest );
 			} else
 			{
 				cntx.setContent("countUpdate", new Integer(1));
@@ -250,6 +258,14 @@ public class GuestDetailWorker extends GuestListWorker {
 					update.remove("noteorga_b");
 				}
 				context.execute(update);
+
+				// retrieve old instance of guest for update logging
+				Guest guestOld = ( Guest ) database.getBean( "Guest", guest.id, context);
+				// we will quietly ignore non existing old entities and simply omit logging
+				if ( guestOld != null )
+				{
+					clogger.logUpdate( cntx.personalConfig().getLoginname(), guestOld, guest );
+				}
 			}
 
 			context.commit();

@@ -289,7 +289,12 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 			PersonDetailWorker personDetailWorker = WorkerFactory.getPersonDetailWorker(cntx);
 			for (Iterator it = selectionRemove.iterator(); it.hasNext(); ) {
 				Integer id = (Integer)it.next();
-				personDetailWorker.removePerson(database, id);
+				
+				/*
+				 * updated to reflect interface changes on removePerson
+				 * cklein 2008-02-12
+				 */
+				personDetailWorker.removePerson( cntx, database, id );
 				selection.remove(id);
 				count++;
 			}
