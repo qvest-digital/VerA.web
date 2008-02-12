@@ -52,6 +52,7 @@ import de.tarent.dblayer.sql.statement.Select;
 import de.tarent.octopus.PersonalConfigAA;
 import de.tarent.octopus.config.TcPersonalConfig;
 import de.tarent.octopus.custom.beans.Bean;
+import de.tarent.octopus.custom.beans.BeanChangeLogger;
 import de.tarent.octopus.custom.beans.BeanException;
 import de.tarent.octopus.custom.beans.BeanListWorker;
 import de.tarent.octopus.custom.beans.Database;
@@ -273,7 +274,15 @@ public class EventListWorker extends ListWorkerVeraWeb {
 				SQL.Delete().
 				from("veraweb.tevent_doctype").
 				where(Expr.equal("fk_event", event.id)));
-		return super.removeBean(cntx, bean);
+
+		boolean result = super.removeBean(cntx, bean);
+		if ( result )
+		{
+			BeanChangeLogger clogger = new BeanChangeLogger( database );
+			clogger.logDelete( cntx.personalConfig().getLoginname(), event );	
+		}
+
+		return result;
 	}
 
     /** Octopus-Eingabe-Parameter für {@link #getSearch(OctopusContext)} */

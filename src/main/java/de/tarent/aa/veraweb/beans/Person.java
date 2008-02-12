@@ -77,6 +77,7 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 	public String domestic_a_e1;
 	public String sex_a_e1;
 	public Timestamp birthday_a_e1;
+	public String birthplace_a_e1;
 	public Timestamp diplodate_a_e1;
 	public String languages_a_e1;
 	public String nationality_a_e1;
@@ -87,6 +88,7 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 	// Hauptperson, Zeichensatz 1
 	public String salutation_a_e2;
 	public Integer fk_salutation_a_e2;
+	public String birthplace_a_e2;
 	public String title_a_e2;
 	public String firstname_a_e2;
 	public String lastname_a_e2;
@@ -94,6 +96,7 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 	// Hauptperson, Zeichensatz 2
 	public String salutation_a_e3;
 	public Integer fk_salutation_a_e3;
+	public String birthplace_a_e3;
 	public String title_a_e3;
 	public String firstname_a_e3;
 	public String lastname_a_e3;
@@ -107,6 +110,7 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 	public String domestic_b_e1;
 	public String sex_b_e1;
 	public Timestamp birthday_b_e1;
+	public String birthplace_b_e1;
 	public Timestamp diplodate_b_e1;
 	public String languages_b_e1;
 	public String nationality_b_e1;
@@ -117,6 +121,7 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 	// Partner, Zeichensatz 1
 	public String salutation_b_e2;
 	public Integer fk_salutation_b_e2;
+	public String birthplace_b_e2;
 	public String title_b_e2;
 	public String firstname_b_e2;
 	public String lastname_b_e2;
@@ -124,6 +129,7 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 	// Partner, Zeichensatz 2
 	public String salutation_b_e3;
 	public Integer fk_salutation_b_e3;
+	public String birthplace_b_e3;
 	public String title_b_e3;
 	public String firstname_b_e3;
 	public String lastname_b_e3;
@@ -534,6 +540,10 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 			return birthday_a_e1;
 		}
 
+		public String getBirthplace() {
+			return birthplace_a_e1;
+		}
+
 		public Timestamp getDiplodate() {
 			return diplodate_a_e1;
 		}
@@ -590,6 +600,10 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 			birthday_a_e1 = value;
 		}
 
+		public void setBirthplace(String value) {
+			birthplace_a_e1 = value;
+		}
+
 		public void setDiplodate(Timestamp value) {
 			diplodate_a_e1 = value;
 		}
@@ -627,6 +641,10 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 			return fk_salutation_a_e2;
 		}
 
+		public String getBirthplace() {
+			return birthplace_a_e2;
+		}
+
 		public String getTitle() {
 			return title_a_e2;
 		}
@@ -645,6 +663,10 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 
 		public void setSalutationFK(Integer value) {
 			fk_salutation_a_e2 = value;
+		}
+
+		public void setBirthplace(String value) {
+			birthplace_a_e2 = value;
 		}
 
 		public void setTitle(String value) {
@@ -672,6 +694,10 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 			return fk_salutation_a_e3;
 		}
 
+		public String getBirthplace() {
+			return birthplace_a_e3;
+		}
+
 		public String getTitle() {
 			return title_a_e3;
 		}
@@ -690,6 +716,10 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 
 		public void setSalutationFK(Integer value) {
 			fk_salutation_a_e3 = value;
+		}
+
+		public void setBirthplace(String value) {
+			birthplace_a_e3 = value;
 		}
 
 		public void setTitle(String value) {
@@ -739,6 +769,10 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 
 		public Timestamp getBirthday() {
 			return birthday_b_e1;
+		}
+
+		public String getBirthplace() {
+			return birthplace_b_e1;
 		}
 
 		public Timestamp getDiplodate() {
@@ -797,6 +831,10 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 			birthday_b_e1 = value;
 		}
 
+		public void setBirthplace(String value) {
+			birthplace_b_e1 = value;
+		}
+
 		public void setDiplodate(Timestamp value) {
 			diplodate_b_e1 = value;
 		}
@@ -834,6 +872,10 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 			return fk_salutation_b_e2;
 		}
 
+		public String getBirthplace() {
+			return birthplace_b_e2;
+		}
+
 		public String getTitle() {
 			return title_b_e2;
 		}
@@ -852,6 +894,10 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 
 		public void setSalutationFK(Integer value) {
 			fk_salutation_b_e2 = value;
+		}
+
+		public void setBirthplace(String value) {
+			birthplace_b_e2 = value;
 		}
 
 		public void setTitle(String value) {
@@ -879,6 +925,10 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 			return fk_salutation_b_e3;
 		}
 
+		public String getBirthplace() {
+			return birthplace_b_e3;
+		}
+
 		public String getTitle() {
 			return title_b_e3;
 		}
@@ -897,6 +947,10 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 
 		public void setSalutationFK(Integer value) {
 			fk_salutation_b_e3 = value;
+		}
+
+		public void setBirthplace(String value) {
+			birthplace_b_e3 = value;
 		}
 
 		public void setTitle(String value) {

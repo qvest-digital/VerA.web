@@ -1,15 +1,15 @@
-﻿--
+--
 -- $Id: veraweb-schema.sql,v 1.31 2006/08/23 18:28:40 christoph Exp $
 --
 -- FORMAT: UTF-8
 --
--- Update Script fÃ¼r das VerA.Web - Schema.
+-- Update Script fuer das VerA.Web - Schema.
 --
 -- Kann auf eine beliebige Version des Schemas
 -- oder eine leere Datenbank angewendet werden.
 --
--- Die Datenbank innerhalb der dieses Script ausgefÃ¼hrt wird,
--- muss dem Benutzer entsprechen der es ausfÃ¼hrt.
+-- Die Datenbank innerhalb der dieses Script ausgefuehrt wird,
+-- muss dem Benutzer entsprechen der es ausfuehrt.
 --
 
 SET client_encoding = 'UNICODE';
@@ -51,8 +51,10 @@ CREATE OR REPLACE FUNCTION serv_verawebschema(int4) RETURNS varchar AS
  *  2006-01-20  add: tperson primary key constraint
  *  2006-01-24  add: indexes on tperson und tguest_doctype
  *  2006-02-17  add: indexes on tperson, tperson_doctype, tguest and tguest_doctype
+ *  2008-02-11  cklein: added upgrade paths based on the change requests per the next version 1.2.0, incl. changes to tperson, tguest, new: tdata_change_log, tfield_of_work
  * </changelog>
  * ----------------------------------------------------------- */
+
 
 DECLARE
 	vmsg varchar;
@@ -64,7 +66,7 @@ DECLARE
 
 BEGIN
 	--##### please set vversion to current date
-	vversion := \'2006-02-17\';		
+	vversion := \'2008-02-12\';
 	--#####
 	
 	vrecno := 0;
@@ -85,7 +87,7 @@ BEGIN
 		GRANT ALL ON SCHEMA veraweb TO veraweb WITH GRANT OPTION;
 		COMMENT ON SCHEMA veraweb IS \'The veraweb namespace. 
 		
-		veraweb, Plattform-Independent Webservice-Based eventmanagement, Copyright (C) 2004-2005 tarent GmbH.
+		veraweb, Plattform-Independent Webservice-Based eventmanagement, Copyright (C) 2004-2008 tarent GmbH.
 		This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version of the License, or (at your option) any later version. 
 		This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 		See the GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program; if not, write to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA. 
@@ -411,6 +413,7 @@ END;\'
 			  tperson.domestic::varchar(1) AS domestic_a_e1,
 			  tperson.gender::varchar(1) AS sex_a_e1,
 			  tcontact.dbirthday::timestamptz AS birthday_a_e1,
+			  NULL::varchar(100) as birthplace_a_e1,
 			  tperson.diplodate AS diplodate_a_e1,
 			  tcontact.slanguages AS languages_a_e1,
 			  tcontact.snationality AS nationality_a_e1,
@@ -421,6 +424,7 @@ END;\'
 			  -- Hauptperson, Zeichensatz 1
 			  salutation_z1 AS salutation_a_e2,
 			  NULL::int4 AS fk_salutation_a_e2,
+			  NULL::varchar(100) as birthplace_a_e2,
 			  titel_z1 AS title_a_e2,
 			  firstname_z1 AS firstname_a_e2,
 			  lastname_z1 AS lastname_a_e2,
@@ -428,6 +432,7 @@ END;\'
 			  -- Hauptperson, Zeichensatz 2
 			  salutation_z2 AS salutation_a_e3,
 			  NULL::int4 AS fk_salutation_a_e3,
+			  NULL::varchar(100) as birthplace_a_e3,
 			  titel_z2 AS title_a_e3,
 			  firstname_z2 AS firstname_a_e3,
 			  lastname_z2 AS lastname_a_e3,
@@ -441,6 +446,7 @@ END;\'
 			  domestic_p::character varying(1) AS domestic_b_e1,
 			  gender_p::character varying(1) AS sex_b_e1,
 			  birthday_p AS birthday_b_e1,
+			  NULL::varchar(100) as birthplace_b_e1,
 			  NULL::timestamptz AS diplodate_b_e1,
 			  languages_p AS languages_b_e1,
 			  nationality_p AS nationality_b_e1,
@@ -451,6 +457,7 @@ END;\'
 			  -- Partner, Zeichensatz 1
 			  salutation_p_z1 AS salutation_b_e2,
 			  NULL::int4 AS fk_salutation_b_e2,
+			  NULL::varchar(100) as birthplace_b_e2,
 			  titel_p_z1 AS title_b_e2,
 			  firstname_p_z1 AS firstname_b_e2,
 			  lastname_p_z1 AS lastname_b_e2,
@@ -458,11 +465,12 @@ END;\'
 			  -- Partner, Zeichensatz 2
 			  salutation_p_z2 AS salutation_b_e3,
 			  NULL::int4 AS fk_salutation_b_e3,
+			  NULL::varchar(100) as birthplace_b_e3,
 			  titel_p_z2 AS title_b_e3,
 			  firstname_p_z2 AS firstname_b_e3,
 			  lastname_p_z2 AS lastname_b_e3,
 			  
-			  -- Adressdaten Geschäftlich, Latein
+			  -- Adressdaten Geschaeftlich, Latein
 			  function_b AS function_a_e1,
 			  company_b AS company_a_e1,
 			  sstreetprivate AS street_a_e1,
@@ -479,7 +487,7 @@ END;\'
 			  semailprivate AS mail_a_e1,
 			  surlprivate AS url_a_e1,
 			  
-			  -- Adressdaten Geschäftlich, Zeichensatz 1
+			  -- Adressdaten Geschaeftlich, Zeichensatz 1
 			  function_b_z1 AS function_a_e2,
 			  company_b_z1 AS company_a_e2,
 			  street_b_z1 AS street_a_e2,
@@ -496,7 +504,7 @@ END;\'
 			  mail_b_z1 AS mail_a_e2,
 			  www_b_z1 AS url_a_e2,
 			  
-			  -- Adressdaten Geschäftlich, Zeichensatz 2
+			  -- Adressdaten Geschaeftlich, Zeichensatz 2
 			  function_b_z2 AS function_a_e3,
 			  company_b_z2 AS company_a_e3,
 			  street_b_z2 AS street_a_e3,
@@ -1265,6 +1273,9 @@ END;\'
 			  domestic_a_e1 varchar(1) NOT NULL DEFAULT \'t\'::character varying,
 			  sex_a_e1 varchar(1) NOT NULL DEFAULT \'m\'::character varying,
 			  birthday_a_e1 timestamptz,
+	-------- added new attribute as per the change request for the next version 1.2.0
+	-------- cklein 2008-02-11
+			  birthplace_a_e1 varchar(100),
 			  diplodate_a_e1 timestamptz,
 			  languages_a_e1 varchar(250),
 			  nationality_a_e1 varchar(100),
@@ -1275,13 +1286,18 @@ END;\'
 			  -- Hauptperson, Zeichensatz 1
 			  salutation_a_e2 varchar(50),
 			  fk_salutation_a_e2 int4,
-			  title_a_e2 varchar(250),
+	-------- added new attribute as per the change request for the next version 1.2.0
+	-------- cklein 2008-02-11
+			  birthplace_a_e2 varchar(100),
 			  firstname_a_e2 varchar(100),
 			  lastname_a_e2 varchar(100),
 			  
 			  -- Hauptperson, Zeichensatz 2
 			  salutation_a_e3 varchar(50),
 			  fk_salutation_a_e3 int4,
+	-------- added new attribute as per the change request for the next version 1.2.0
+	-------- cklein 2008-02-11
+			  birthplace_a_e3 varchar(100),
 			  title_a_e3 varchar(250),
 			  firstname_a_e3 varchar(100),
 			  lastname_a_e3 varchar(100),
@@ -1295,6 +1311,7 @@ END;\'
 			  domestic_b_e1 varchar(1) NOT NULL DEFAULT \'t\'::character varying,
 			  sex_b_e1 varchar(1) NOT NULL DEFAULT \'m\'::character varying,
 			  birthday_b_e1 timestamptz,
+			  birthplace_b_e1 varchar(100),
 			  diplodate_b_e1 timestamptz,
 			  languages_b_e1 varchar(250),
 			  nationality_b_e1 varchar(100),
@@ -1305,6 +1322,7 @@ END;\'
 			  -- Partner, Zeichensatz 1
 			  salutation_b_e2 varchar(50),
 			  fk_salutation_b_e2 int4,
+			  birthplace_b_e2 varchar(100),
 			  title_b_e2 varchar(250),
 			  firstname_b_e2 varchar(100),
 			  lastname_b_e2 varchar(100),
@@ -1312,6 +1330,7 @@ END;\'
 			  -- Partner, Zeichensatz 2
 			  salutation_b_e3 varchar(50),
 			  fk_salutation_b_e3 int4,
+			  birthplace_b_e3 varchar(100),
 			  title_b_e3 varchar(250),
 			  firstname_b_e3 varchar(100),
 			  lastname_b_e3 varchar(100),
@@ -1501,27 +1520,86 @@ END;\'
 		vmsg := \'end.createTABLE.tperson\';
 		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
 	ELSE
-	--------<COLUMN>
-	--ALTER TABLE veraweb.tperson ADD CONSTRAINT tperson_pkey PRIMARY KEY (pk);
-	vint := 0;
-	SELECT count(*) INTO vint FROM information_schema.constraint_column_usage
-		WHERE table_schema = \'veraweb\' AND table_name = \'tperson\' AND column_name = \'pk\' AND constraint_name = \'tperson_pkey\';
-	IF vint = 0 THEN
-		vmsg := \'begin.addconstraint.tperson.pk\';
-		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
-		IF $1 = 1 THEN
-			ALTER TABLE veraweb.tperson ADD CONSTRAINT tperson_pkey PRIMARY KEY (pk);
+		--------<COLUMN>
+		--ALTER TABLE veraweb.tperson ADD CONSTRAINT tperson_pkey PRIMARY KEY (pk);
+		vint := 0;
+		SELECT count(*) INTO vint FROM information_schema.constraint_column_usage
+			WHERE table_schema = \'veraweb\' AND table_name = \'tperson\' AND column_name = \'pk\' AND constraint_name = \'tperson_pkey\';
+		IF vint = 0 THEN
+			vmsg := \'begin.addconstraint.tperson.pk\';
+			INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
+			IF $1 = 1 THEN
+				ALTER TABLE veraweb.tperson ADD CONSTRAINT tperson_pkey PRIMARY KEY (pk);
+			END IF;
+			vmsg := \'end.addconstraint.tperson.pk\';
+			INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
 		END IF;
-		vmsg := \'end.addconstraint.tperson.pk\';
-		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
-	END IF;
-	--------<COLUMN/>
+		--------<COLUMN/>
+	
+		-------- added additional upgrade path as per the change request for the next version 1.2.0
+		-------- cklein 2008-02-11
+		--------<COLUMN>
+        --ALTER TABLE veraweb.tperson ADD COLUMN birthplace_a_e1 varchar(100)
+		vint := 0;
+		SELECT count(*) INTO vint FROM information_schema.columns
+			WHERE table_schema = \'veraweb\' AND table_name = \'tperson\' AND column_name = \'birthplace_a_e1\';
+		IF vint > 0 THEN
+			vmsg := \'begin.addcolumn.tperson.birthplace_a_e1\';
+			INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
+			IF $1 = 1 THEN
+				ALTER TABLE veraweb.tperson ADD COLUMN birthplace_a_e1 varchar(100);
+			END IF;
+			vmsg := \'end.addcolumn.tperson.birthplace_a_e1\';
+			INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
+			vmsg := \'begin.addcolumn.tperson.birthplace_a_e2\';
+			INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
+			IF $1 = 1 THEN
+				ALTER TABLE veraweb.tperson ADD COLUMN birthplace_a_e2 varchar(100);
+			END IF;
+			vmsg := \'end.addcolumn.tperson.birthplace_a_e2\';
+			INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
+			vmsg := \'begin.addcolumn.tperson.birthplace_a_e3\';
+			INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
+			IF $1 = 1 THEN
+				ALTER TABLE veraweb.tperson ADD COLUMN birthplace_a_e3 varchar(100);
+			END IF;
+			vmsg := \'end.addcolumn.tperson.birthplace_a_e3\';
+			INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
+		END IF
+
+		vint := 0;
+		SELECT count(*) INTO vint FROM information_schema.columns
+			WHERE table_schema = \'veraweb\' AND table_name = \'tperson\' AND column_name = \'birthplace_b_e1\';
+		IF vint > 0 THEN
+			vmsg := \'begin.addcolumn.tperson.birthplace_b_e1\';
+			INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
+			IF $1 = 1 THEN
+				ALTER TABLE veraweb.tperson ADD COLUMN birthplace_b_e1 varchar(100);
+			END IF;
+			vmsg := \'end.addcolumn.tperson.birthplace_b_e1\';
+			INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
+			vmsg := \'begin.addcolumn.tperson.birthplace_b_e2\';
+			INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
+			IF $1 = 1 THEN
+				ALTER TABLE veraweb.tperson ADD COLUMN birthplace_b_e2 varchar(100);
+			END IF;
+			vmsg := \'end.addcolumn.tperson.birthplace_b_e2\';
+			INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
+			vmsg := \'begin.addcolumn.tperson.birthplace_b_e3\';
+			INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
+			IF $1 = 1 THEN
+				ALTER TABLE veraweb.tperson ADD COLUMN birthplace_b_e3 varchar(100);
+			END IF;
+			vmsg := \'end.addcolumn.tperson.birthplace_b_e3\';
+			INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
+		END IF
+		--------<COLUMN/>
 	END IF;
 	
 	--ALTER TABLE veraweb.tperson ALTER COLUMN gender SET NOT NULL;
 	vint := 0;
 	SELECT count(*) INTO vint FROM information_schema.columns
-		WHERE table_schema = \'veraweb\' AND table_name = \'tperson\' AND column_name = \'gender\' AND is_nullable = \'YES\';
+		WHERE table_schema = \'veraweb\' AND table_name = \'tperson_categorie\' AND column_name = \'fk_vera\';
 	IF vint > 0 THEN
 		vmsg := \'begin.changecolumn.tperson.gender add not null\';
 		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
@@ -1996,6 +2074,71 @@ END;\'
 	--------<COLUMN/>
 	END IF;
 	---------------------------</TABLE>
+
+	-------- added table as per the change request for the next version 1.2.0
+	-------- cklein 2008-02-12
+	---------------------------<TABLE>
+	vint := 0;
+	SELECT count(*) INTO vint FROM information_schema.tables 
+		WHERE table_schema = \'veraweb\' AND table_name = \'tworkarea\';
+	IF vint = 0 THEN
+		vmsg := \'begin.createTABLE.tworkare\';
+		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
+		IF $1 = 1 THEN
+			CREATE TABLE veraweb.tworkarea
+			(
+			  pk serial NOT NULL,
+			  name varchar(250) NOT NULL,
+			  CONSTRAINT tworkarea_pkey PRIMARY KEY (pk)
+			  
+			  // TODO
+			) WITH OIDS;
+		END IF;
+		vmsg := \'end.createTABLE.tworkarea\';
+		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
+	ELSE
+	--------<COLUMN>
+	--------<COLUMN/>
+	END IF;
+	---------------------------</TABLE>
+
+	-------- added table as per the change request for the next version 1.2.0
+	-------- cklein 2008-02-12
+	---------------------------<TABLE>
+	vint := 0;
+	SELECT count(*) INTO vint FROM information_schema.tables 
+		WHERE table_schema = \'veraweb\' AND table_name = \'tchangelog\';
+	IF vint = 0 THEN
+		vmsg := \'begin.createTABLE.tchangelog\';
+		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
+		IF $1 = 1 THEN
+			CREATE DOMAIN objecttype
+				AS varchar(30);				-- CHECK (value IN ('tperson', 'tguest', 'tguestlist'));
+			CREATE TABLE veraweb.tchangelog
+			(
+			  pk serial NOT NULL,
+			  username varchar(100) NOT NULL,
+			  otype objecttype NOT NULL,		-- the type of the object
+			  oid int4 NOT NULL,				-- the id of the object
+			  action varchar(6) NOT NULL,		-- the action logged, one of delete, insert, or update
+			  attributes text NOT NULL,			-- a list of comma separated attribute names
+			  date timestamptz,
+			  CONSTRAINT tchangelog_pkey PRIMARY KEY (pk)
+			) WITH OIDS;
+			CREATE INDEX tchangelog_date_index ON veraweb.tchangelog
+			  USING btree (date);
+			CREATE INDEX tchangelog_username_index ON veraweb.tchangelog
+			  USING btree (username);
+		END IF;
+		vmsg := \'end.createTABLE.tchangelog\';
+		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
+	ELSE
+	--------<COLUMN>
+	--------<COLUMN/>
+	END IF;
+	---------------------------</TABLE>
+	
+	
 	
 	---------------------------</TABLES>
 	
@@ -2318,9 +2461,7 @@ END;\'
 	END IF;
 	---------------------------</SEQUENCE>
 	
-	---------------------------</SEQUENCES>
-	
-	
+	---------------------------</SEQUENCES>	
 	
 	-- Update veraweb.tconfig: SCHEMA_VERSION = vversion
 	IF $1 = 1 THEN
@@ -2343,3 +2484,4 @@ END;\'
 
 END;'
   LANGUAGE 'plpgsql' VOLATILE;
+

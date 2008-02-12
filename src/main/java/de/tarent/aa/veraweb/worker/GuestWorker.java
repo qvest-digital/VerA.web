@@ -52,6 +52,7 @@ import de.tarent.dblayer.sql.statement.Insert;
 import de.tarent.dblayer.sql.statement.Select;
 import de.tarent.dblayer.sql.statement.Update;
 import de.tarent.octopus.PersonalConfigAA;
+import de.tarent.octopus.custom.beans.BeanChangeLogger;
 import de.tarent.octopus.custom.beans.BeanException;
 import de.tarent.octopus.custom.beans.Database;
 import de.tarent.octopus.custom.beans.ExecutionContext;
@@ -472,6 +473,13 @@ public class GuestWorker {
 		
 		guest.verify();
 		if (guest.isCorrect()) {
+
+			/*
+			 * modified for change logging support
+			 * cklein
+			 * 2008-02-12
+			 */
+			BeanChangeLogger clogger = new BeanChangeLogger( database );
 			if (guest.id == null) {
 				database.getNextPk(guest, context);
 				Insert insert = database.getInsert(guest);
@@ -483,6 +491,8 @@ public class GuestWorker {
 					insert.remove("noteorga_b");
 				}
 				context.execute(insert);
+				
+				clogger.logInsert( cntx.personalConfig().getLoginname(), guest );
 			} else {
 				Update update = database.getUpdate(guest);
 				if (!((PersonalConfigAA)cntx.personalConfig()).getGrants().mayReadRemarkFields()) {
@@ -492,8 +502,11 @@ public class GuestWorker {
 					update.remove("noteorga_b");
 				}
 				context.execute(update);
+
+				Guest guestOld = ( Guest ) database.getBean( "Guest", guest.id );
+				clogger.logUpdate( cntx.personalConfig().getLoginname(), guestOld, guest );
 			}
-			
+
 			refreshDoctypes(cntx, database, context, guest, person);
 			return true;
 		}

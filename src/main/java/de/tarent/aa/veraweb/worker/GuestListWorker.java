@@ -50,6 +50,7 @@ import de.tarent.dblayer.sql.statement.Select;
 import de.tarent.dblayer.sql.statement.Update;
 import de.tarent.octopus.PersonalConfigAA;
 import de.tarent.octopus.custom.beans.Bean;
+import de.tarent.octopus.custom.beans.BeanChangeLogger;
 import de.tarent.octopus.custom.beans.BeanException;
 import de.tarent.octopus.custom.beans.Database;
 import de.tarent.octopus.custom.beans.Request;
@@ -243,11 +244,13 @@ public class GuestListWorker extends ListWorkerVeraWeb {
 				count++;
 			}
 			if ("t".equals(data.get("deleted"))) {
-				personDetailWorker.removePerson(database, (Integer)data.get("person"));
+				personDetailWorker.removePerson(cntx, database, (Integer)data.get("person"));
 			}
 		}
 		selection.clear();
-		
+
+		// TODO updates Event, change must be logged
+		// TODO should be refactor-moved to Event
 		Event event = (Event)cntx.contentAsObject("event");
 		boolean noHost = 0 ==
 				database.getCount(
@@ -264,7 +267,7 @@ public class GuestListWorker extends ListWorkerVeraWeb {
 		return count;
 	}
 
-	protected void saveBean(OctopusContext cntx, Bean bean) throws BeanException {
+	protected void saveBean(OctopusContext cntx, Bean bean) throws BeanException, IOException {
 		Database database = getDatabase(cntx);
 		Guest guest = (Guest)bean;
 		guest.updateHistoryFields(null, ((PersonalConfigAA)cntx.personalConfig()).getRoleWithProxy());
@@ -295,17 +298,33 @@ public class GuestListWorker extends ListWorkerVeraWeb {
 		}
 		
 		database.execute(update);
+		
+		/*
+		 * modified to support change logging
+		 * cklein 2008-02-12
+		 */
+		BeanChangeLogger clogger = new BeanChangeLogger( database );
+		Guest guestOld = ( Guest ) database.getBean( "Guest", guest.id );
+		clogger.logUpdate( cntx.personalConfig().getLoginname(), guestOld, guest );
 	}
 
 	protected boolean removeBean(OctopusContext cntx, Bean bean) throws BeanException, IOException {
 		Database database = getDatabase(cntx);
-		
+
 		database.execute(SQL.Delete().
 				from("veraweb.tguest_doctype").
 				where(Expr.equal("fk_guest", ((Guest)bean).id)));
 		database.execute(SQL.Delete().
 				from("veraweb.tguest").
 				where(Expr.equal("pk", ((Guest)bean).id)));
+
+		/*
+		 * modified to support change logging
+		 * cklein 2008-02-12
+		 */
+		BeanChangeLogger clogger = new BeanChangeLogger( database );
+		clogger.logDelete( cntx.personalConfig().getLoginname(), bean );
+
 		return true;
 	}
 

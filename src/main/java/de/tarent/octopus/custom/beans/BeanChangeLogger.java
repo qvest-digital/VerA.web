@@ -1,0 +1,180 @@
+/*
+ * veraweb,
+ * Veranstaltungsmanagment veraweb
+ * Copyright (c) 2005-2008 tarent GmbH
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License,version 2
+ * as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+ * 02110-1301, USA.
+ *
+ * tarent GmbH., hereby disclaims all copyright
+ * interest in the program 'veraweb'
+ * Signature of Elmar Geese, 21 November 2007
+ * Elmar Geese, CEO tarent GmbH.
+ */
+
+/*
+ * $Id: BeanChangeLogger.java,v 1.2 2008/02/12 12:00:00 cklein Exp $
+ * 
+ * Created on 12.02.2008
+ */
+package de.tarent.octopus.custom.beans;
+
+import java.io.IOException;
+import java.sql.Date;
+import java.util.Iterator;
+
+import de.tarent.dblayer.sql.statement.Insert;
+
+/**
+ * The class BeanChangeLogger represents a facility
+ * for logging changes to individual beans.
+ * 
+ * The changes logged will be written to the same
+ * database. For this to work, the database schema
+ * must include the following schema extensions:
+ * 
+ * CREATE TABLE tchangelog
+ * (
+ * 		pk serial NOT NULL,
+ * 		username varchar(100) NOT NULL,
+ * 		otype varchar(30) NOT NULL,		-- the type of the object
+ * 		oid int4 NOT NULL,				-- the id of the object
+ * 		attributes text NOT NULL,		-- a list of comma separated attribute names
+ * 		date timestamptz,
+ * 		CONSTRAINT tchangelog_pkey PRIMARY KEY (pk)
+ * );
+ * 
+ * In order to create an actual entry in the log, the ChangeLogEntry bean will
+ * be used for storing the information to and for retrieving the informatiom
+ * from the database.
+ * 
+ * @author cklein
+ * @since 1.2
+ */
+public class BeanChangeLogger {
+
+	private Database database;
+
+	/**
+	 * Creates a new instance of the logger.
+	 * 
+	 * @param database	the database to which we will be logging changes to
+	 */
+	public BeanChangeLogger( Database database )
+	{
+		this.database = database;
+	}
+
+	/**
+	 * Logs the update change to the database. if any.
+	 * For this, the method will compare the old version o and the new
+	 * version n of a bean of the same class.
+	 * 
+	 * @param username	the username who is committing the change
+	 * @param o			the bean's old state from the database
+	 * @param n			the bean's new state from the request
+	 */
+	@SuppressWarnings("unchecked")
+	public void logUpdate( String username, Bean o, Bean n ) throws BeanException, IOException
+	{
+		if ( ! o.getClass().equals( n.getClass() ) )
+		{
+			throw new IllegalArgumentException( "Beans o and n must be of the same type." );
+		}
+
+		// compile a comma separated list of attributes that were changed
+		// from version o to version n of the bean.
+		StringBuffer changedAttributes = new StringBuffer();
+		Iterator< String > i = ( Iterator< String > ) o.getFields().iterator();
+		while( i.hasNext() )
+		{
+			String k = i.next();
+
+			if ( k.compareTo( "id" ) == 0 )
+			{
+				// we skip the primary key a/o id field
+				continue;
+			}
+
+			Comparable nv = ( Comparable ) n.getField( k );
+			Comparable ov = ( Comparable ) o.getField( k );
+			if ( ov.compareTo( nv ) != 0 )
+			{
+				if ( changedAttributes.length() > 0 )
+				{
+					changedAttributes.append( ',' );
+				}
+				changedAttributes.append( k );
+			}
+		}
+
+		// are there any differences from o to n?
+		if ( changedAttributes.length() > 0 )
+		{
+			ChangeLogEntry entry = this.createNewChangeLogEntryInstance( "update", username, o.getClass().getName(), ( Integer ) o.getField( "id" ), changedAttributes.toString() );
+			this.insertLogEntry( entry );
+		}
+	}
+
+	/**
+	 * Logs the insert change to the database. if any.
+	 * 
+	 * @param username	the username who is committing the change
+	 * @param o			the bean's old state from the database
+	 */
+	public void logInsert( String username, Bean o ) throws BeanException, IOException
+	{
+		ChangeLogEntry entry = this.createNewChangeLogEntryInstance( "insert", username, o.getClass().getName(), ( Integer ) o.getField( "id" ), "*" );
+		this.insertLogEntry( entry );
+	}
+
+	/**
+	 * Logs the delete change to the database.
+	 * 
+	 * @param username	the username who is committing the change
+	 * @param o			the bean's old state from the database
+	 */
+	public void logDelete( String username, Bean o ) throws BeanException, IOException
+	{
+		ChangeLogEntry entry = this.createNewChangeLogEntryInstance( "delete", username, o.getClass().getName(), ( Integer ) o.getField( "id" ), "*" );
+		this.insertLogEntry( entry );
+	}
+
+	private void insertLogEntry( ChangeLogEntry entry )
+		throws BeanException, IOException
+	{
+		entry.verify();
+		if ( entry.isCorrect() )
+		{
+			TransactionContext context = this.database.getTransactionContext();
+			this.database.getNextPk( entry, context );
+			Insert insert = this.database.getInsert( entry );
+			insert.insert( "pk", entry.id );
+			context.execute(insert);
+		}
+	}
+
+	private ChangeLogEntry createNewChangeLogEntryInstance( String action, String username, String otype, Integer oid, String attributes )
+		throws BeanException, IOException
+	{
+		ChangeLogEntry result = new ChangeLogEntry();
+		result.username = username;
+		result.otype = otype;
+		result.oid = oid;
+		result.action = action;
+		result.attributes = attributes;
+		result.date = new Date( System.currentTimeMillis() );
+		return result;
+	}
+}

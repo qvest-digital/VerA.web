@@ -1,7 +1,7 @@
 /*
  * veraweb,
  * Veranstaltungsmanagment veraweb
- * Copyright (c) 2005-2007 tarent GmbH
+ * Copyright (c) 2005-2008 tarent GmbH
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License,version 2
@@ -52,6 +52,7 @@ import de.tarent.dblayer.sql.statement.Insert;
 import de.tarent.dblayer.sql.statement.Select;
 import de.tarent.dblayer.sql.statement.Update;
 import de.tarent.octopus.PersonalConfigAA;
+import de.tarent.octopus.custom.beans.BeanChangeLogger;
 import de.tarent.octopus.custom.beans.BeanException;
 import de.tarent.octopus.custom.beans.Database;
 import de.tarent.octopus.custom.beans.Request;
@@ -231,6 +232,11 @@ public class EventDetailWorker {
 			/** Veranstaltung speichern */
 			if (event.isModified() && event.isCorrect() && questions.isEmpty())
 			{
+				/*
+				 * modified to support change logging
+				 * cklein 2008-02-12
+				 */
+				BeanChangeLogger clogger = new BeanChangeLogger( database );
 				if (event.id == null)
 				{
 					cntx.setContent("countInsert", new Integer(1));
@@ -242,6 +248,8 @@ public class EventDetailWorker {
 						insert.remove("note");
 					}
 					context.execute(insert);
+
+					clogger.logInsert( cntx.personalConfig().getLoginname(), event );	
 				} else
 				{
 					cntx.setContent("countUpdate", new Integer(1));
@@ -251,6 +259,8 @@ public class EventDetailWorker {
 						update.remove("note");
 					}
 					context.execute(update);
+
+					clogger.logUpdate( cntx.personalConfig().getLoginname(), oldEvent, event );	
 				}
 
 				if (saveLocation)
@@ -332,12 +342,18 @@ public class EventDetailWorker {
 				{
 					context.execute(SQL.Update().table("veraweb.tguest").update("ishost", new Integer(1)).update("invitationtype", invitationtype)
 						.where(Where.and(Expr.equal("fk_event", event.id), Expr.equal("fk_person", event.host))));
+					
+					// TODO also modifies tguest, full change logging requires
+					// TODO refactor and centralize in GuestDetailWorker
 				}
 
 				if (oldEvent != null && !event.invitationtype.equals(oldEvent.invitationtype))
 				{
 					context.execute(SQL.Update().table("veraweb.tguest").update("invitationtype", event.invitationtype).where(
 						Where.and(Expr.equal("fk_event", event.id), Expr.notEqual("ishost", new Integer(1)))));
+
+					// TODO also modifies tevent, full change logging requires
+					// TODO refactor and centralize in EventDetailWorker
 				}
 			} else
 			{
