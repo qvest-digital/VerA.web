@@ -205,6 +205,20 @@ public abstract class AbstractDBMapping implements DBMapping {
     }
     
     
+    /** returns the combined integer value for a given
+     * set of field set names. 
+     * 
+     * @param names the names of the field sets
+     * @return the combined integer value for all given fields
+     */
+    protected int getFieldDefinitionValue(String [] names) {
+    	int value = 0;
+    	for (int i = 0; i < names.length; i++)
+    		value |= this.getFieldDefinitionValue(names[i]);
+    	return value;
+    }
+    
+    
     public void setBeanName(Class associatedBean) {
     	this.associatedBean = associatedBean;
     }
