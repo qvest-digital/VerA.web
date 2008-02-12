@@ -1,0 +1,105 @@
+#if($action == "guest")
+#set($title = "Veranstaltung suchen - Veranstaltung: $!message.plain($event.shortname)")
+#elseif($action == "addperson")
+#set($title = "Veranstaltung suchen - Person zuordnen")
+#else
+#set($title = "Veranstaltung suchen")
+#end
+#parse("inc/header.vm")
+
+#if($action == "guest")
+	#set($formurl = "AddEventToEventList")
+#else
+	#set($formurl = "SearchEvent")
+#end
+
+<form action="$formurl" method="post">
+<input type="hidden" name="start" value="0">
+<input type="hidden" name="selectAll" value="false">
+<input type="hidden" name="selectNone" value="true">
+
+<table class="tab" border="0" cellspacing="0" cellpadding="0"><tr>
+	<td class="tableft">&nbsp;</td>
+	<td class="tabactiv"><span class="tabactiv">Suche</span></td>
+	<td class="tabright">&nbsp;</td>
+</tr></table>
+
+#openContent()
+#openContentSection()
+
+<input type="hidden" name="search" value="reset">
+<table class="form"><tr>
+	<td class="label"><label for="shortname">Kurzbezeichnung:</label></td>
+	<td class="value"><input type="text" name="shortname" id="shortname" value="" class="text"></td>
+</tr><tr>
+	<td class="label"><label for="begin">Datum Beginn:</label></td>
+	<td class="value">
+		<input type="text" name="begin" value="" id="begin" class="date">
+		<span id="show-begin"><img src="${paths.staticWeb}images/calendar.gif" alt="Datum ausw&auml;hlen" title="Datum ausw&auml;hlen"></span>
+		<script type="text/javascript">
+		    Calendar.setup({
+				inputField     :    "begin",
+				button         :    "show-begin",
+				ifFormat       :    "%d.%m.%Y",
+				showsTime      :    false
+			});
+		</script>
+	</td>
+</tr><tr>
+	<td class="label"><label for="eventname">Name:</label></td>
+	<td class="value"><textarea rows="4" cols="20" name="eventname" id="eventname" value="" class="text"></textarea></td>
+</tr><tr>
+	<td class="label"><label for="hostname">Gastgeber:</label></td>
+	<td class="value"><input type="text" name="hostname" id="hostname" value="" class="text"></td>
+</tr><tr>
+	<td class="label"><label for="location">Veranstaltungsort:</label></td>
+	<td class="value"><input type="text" name="location" id="location" value="" class="text"></td>
+</tr><tr>
+	<td class="label">&nbsp;</td>
+	<td class="value">
+		<hr class="contentsection">
+		<table class="form"><tr>
+			<td class="value" style="width: 24px;">
+				<input type="checkbox" id="current" name="current" value="true" checked>
+			</td><td class="value">
+				<label for="current">Nur in zuk&uuml;nftigen Veranstaltungen suchen</label>
+			</td>
+		</tr></table>
+	</td>
+</tr></table><br>
+
+##<br><a href="SearchEvent?search=current">Aktuelle Veranstaltungen anzeigen</a><br><br>
+
+<table class="list">
+	<tr style="height: 20px;">
+		<td class="list2warn" style="text-align: center; width: 60px;"><strong>Hinweis</strong></td>
+		<td class="list1warn">
+			Sie k&ouml;nnen bei der Suche sogenannte Platzhalter verwenden,
+			der * steht f&uuml;r mehrere und das ? f&uuml;r einzelne Zeichen.
+		</td>
+	</tr>
+</table>
+
+<div id="fixme" class="fixme1"><div class="fixme2"><div class="fixme3">
+
+#if($action == "guest")
+	<input type="submit" class="submit" value="Suche starten"> &nbsp;
+	<input type="reset"  class="reset" value="Felder leeren"> &nbsp;
+	<input type="button" class="cancel"  name="cancel" value="Zur&uuml;ck" onclick="window.location.href='ShowGuestList';"> &nbsp;
+#elseif($action == "addperson")
+	<input type="submit" class="submit" value="Suche starten"> &nbsp;
+	<input type="reset"  class="reset" value="Felder leeren"> &nbsp;
+	<input type="button" class="cancel"  name="cancel" value="Zur&uuml;ck" onclick="window.location.href='ShowPerson';"> &nbsp;
+#else
+	<input type="submit" class="submit" value="Suche starten"> &nbsp;
+	<input type="reset"  class="reset" value="Felder leeren"> &nbsp;
+#end
+
+</div></div></div>
+
+#closeContentSection()
+#closeContent()
+
+</form>
+
+#parse("inc/footer.vm")
