@@ -40,7 +40,6 @@ import org.apache.commons.logging.Log;
  * 
  */
 public class DefaultEntityFactory implements EntityFactory {
-
     private static final Log logger = LogFactory.getLog(DefaultEntityFactory.class);
 
     public static final String PROPTERTY_SEPERATOR = ".";
@@ -50,9 +49,11 @@ public class DefaultEntityFactory implements EntityFactory {
     private static Class[] emptyClassArray = new Class[]{};
     private String className;
     
-    // The name of the PrimaryKey with which to look up entities in the
-    // LookupContext for duplicate-identification. The default is "id".
-    private final String keyName;
+    /**
+     * The name of the PrimaryKey with which to look up entities in the
+     * LookupContext for duplicate-identification. The default is null.
+     */
+    private String keyName;
     
 
     
@@ -91,6 +92,10 @@ public class DefaultEntityFactory implements EntityFactory {
      */
     protected EntityFactory getFactoryFor(Class attributeType, String attributeName) {
     	return EntityFactoryRegistry.getEntityFactory(attributeType);
+    }
+
+    protected EntityFactory getFactoryFor(Object entity, String attributeName) {
+        return null;
     }
 
     /**
@@ -160,6 +165,8 @@ public class DefaultEntityFactory implements EntityFactory {
                 // create or fill the entity if any field for the entity exist                
                 EntityFactory ef = getFactoryFor(propertyName);
                 if (ef == null)
+                	ef = getFactoryFor(entity, propertyName);
+                if (ef == null)
                 	ef = getFactoryFor(as.getAttributeType(propertyName), propertyName);
                 if (ef == null)
                     throw new RuntimeException("No factory configured for property '"+propertyName+"' (in factory "+getClass().getName()+").");
@@ -176,7 +183,7 @@ public class DefaultEntityFactory implements EntityFactory {
                 if (getMethod != null)
                     referredEntity = Pojo.get(entity, getMethod);                
                 
-                if (referredEntity != null) {
+                if (referredEntity != null && !(referredEntity instanceof Collection)) {
                     ef.fillEntity(referredEntity, pas, lc);
                 } else {
                     // create a new on, if none exists already
@@ -273,4 +280,7 @@ public class DefaultEntityFactory implements EntityFactory {
         className = this.instantiationClass.getName();
     }
 
+	public void setKeyName(String keyName) {
+		this.keyName = keyName;
+	}
 }
