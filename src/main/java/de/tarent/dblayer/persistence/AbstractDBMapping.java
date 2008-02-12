@@ -41,16 +41,33 @@ import java.util.*;
 public abstract class AbstractDBMapping implements DBMapping {
 
 	public static final String PROPTERTY_SEPERATOR = ".";
-		
+    
+	// the following definitions are deprecated and should no longer be used
+	@Deprecated
     protected static final int EMPTY_FIELD_SET = 0;
+	@Deprecated
     protected static final int PRIMARY_KEY_FIELDS = 1;
+	@Deprecated
     protected static final int COMMON_FIELDS = 2;
+	@Deprecated
     protected static final int MINIMAL_FIELDS = 4;
+	@Deprecated
     protected static final int WRITEABLE_FIELDS = 8;
+	@Deprecated
     protected static final int ALL_FIELDS = 0xFFFF;
 
+	@Deprecated
     protected static final int DEFAULT_FIELD_SET = COMMON_FIELDS | WRITEABLE_FIELDS;
-
+    
+    
+    /** Map for storing the fields; some standard fields
+     * are already defined.
+     * The key defines the name, the value the value.
+     * 
+     */
+    protected Map<String, Integer> fields = new HashMap<String, Integer>();
+    private int currentNewFieldsNumber;	// contains the number of the the next custom field that will be added
+    
     /**
      * Maximal length of an identifier bevore we use an alias.
      * For example the Oracle allows only 30 characters.
@@ -65,6 +82,9 @@ public abstract class AbstractDBMapping implements DBMapping {
     protected Insert insert;
     protected Update update;
     protected Delete delete;
+    
+    protected Class associatedBean;
+    
 
     /**
      * This is a context, whoch should not be used for sql execution,
@@ -78,7 +98,7 @@ public abstract class AbstractDBMapping implements DBMapping {
      * 
      */
     public AbstractDBMapping() {
-    	
+    	this.initFields();
     }
     
     
@@ -90,9 +110,26 @@ public abstract class AbstractDBMapping implements DBMapping {
      */
     public AbstractDBMapping(DBContext dbc) {
         this.contextWithPoolInformation = dbc;
+        this.initFields();
         configureMapping();
         init();
     }
+    
+    
+    /**
+     * Default constructor.
+     * Calles the abstract configureMapping() and starts the initialization.
+     * 
+     * @param dbc A database context, which will be used for configuration information and not for connecting to the database.
+     */
+    public AbstractDBMapping(DBContext dbc, Class associatedBean) {
+        this.contextWithPoolInformation = dbc;
+        this.associatedBean = associatedBean;
+        this.initFields();
+        configureMapping();
+        init();
+    }
+    
 
     /**
      * Default constructor with a custom max Identifier length.
@@ -104,8 +141,72 @@ public abstract class AbstractDBMapping implements DBMapping {
     public AbstractDBMapping(int maxIdentifierLength, DBContext dbc) {
         this.maxIdentifierLength = maxIdentifierLength;
         this.contextWithPoolInformation = dbc;
+        this.initFields();
         configureMapping();
         init();
+    }
+    
+    
+    /** fills the field list with standard fields
+     * 
+     *
+     */
+    private void initFields() {
+    	this.fields.put("emptyFieldSet", new Integer(0));
+    	this.fields.put("primaryKeyFields", new Integer(1));
+    	this.fields.put("commonFields", new Integer(2));
+    	this.fields.put("minimalFields", new Integer(4));
+    	this.fields.put("writeableFields", new Integer(8));
+    	this.fields.put("allFields", new Integer(0xFFFF));
+    	this.fields.put("defaultFieldSet", new Integer(2 | 8));
+    	
+    	// set starting point of custom fields to 7 so that
+    	// the next field will get value 2^7 = 128
+    	this.currentNewFieldsNumber = 7;
+    }
+    
+    
+    /** adds a custom field definition to the list. The n
+     * is chosen internally.
+     * 
+     * @param name the name of the new field definition
+     */
+    public void addCustomFieldDefinition(String name) {
+    	if (!this.fields.containsKey(name)) {
+    		this.fields.put(name, this.pow(2, this.currentNewFieldsNumber));
+    		this.currentNewFieldsNumber++;
+    	}
+    }
+    
+    
+    private int pow(int a, int b) {
+    	int result = 1;
+    	for (int i = 0; i < b; i++)
+    		result *= a;
+    	return result;
+    }
+    
+    
+    /** returns the integer value for a given field definition name;
+     * if the name is not defined yet, it will be defined
+     * 
+     * @param name
+     * @return
+     */
+    protected int getFieldDefinitionValue(String name) {
+    	Integer value = this.fields.get(name);
+    	if (value != null)
+    		return value.intValue();
+    	else {
+    		// field not defined. Define now.
+    		this.addCustomFieldDefinition(name);
+    		return this.fields.get(name).intValue();
+    	}
+    }
+    
+    
+    public void setBeanName(Class associatedBean) {
+    	this.associatedBean = associatedBean;
     }
 
 
@@ -147,7 +248,7 @@ public abstract class AbstractDBMapping implements DBMapping {
         for (Iterator iter = fieldList.iterator(); iter.hasNext();) {
             FieldMapping field = (FieldMapping)iter.next();
             // add all primary key fields as where clause
-            if (field.containedInFieldSet(PRIMARY_KEY_FIELDS))
+            if (field.containedInFieldSet(this.getFieldDefinitionValue("primaryKeyFields")))
                 select.whereAndEq(field.getColumnName(), new ParamValue(field.getPropertyName()));
         }
         return select;
@@ -161,7 +262,7 @@ public abstract class AbstractDBMapping implements DBMapping {
         for (Iterator iter = fieldList.iterator(); iter.hasNext();) {
             FieldMapping field = (FieldMapping)iter.next();
             // add all primary key fields as generated keys
-            if (field.containedInFieldSet(PRIMARY_KEY_FIELDS)) {
+            if (field.containedInFieldSet(this.getFieldDefinitionValue("primaryKeyFields"))) {
                 insert.addReturnKeyColumn(field.getColumnName());
             }
         }
@@ -180,7 +281,7 @@ public abstract class AbstractDBMapping implements DBMapping {
         for (Iterator iter = fieldList.iterator(); iter.hasNext();) {
             FieldMapping field = (FieldMapping)iter.next();
             // add all primary key fields as where clause
-            if (field.containedInFieldSet(PRIMARY_KEY_FIELDS)) {
+            if (field.containedInFieldSet(this.getFieldDefinitionValue("primaryKeyFields"))) {
                 update.whereAndEq(field.getColumnName(), new ParamValue(field.getPropertyName()));
                 filterExist = true;
             }
@@ -202,7 +303,7 @@ public abstract class AbstractDBMapping implements DBMapping {
         for (Iterator iter = fieldList.iterator(); iter.hasNext();) {
             FieldMapping field = (FieldMapping)iter.next();
             // add all primary key fields as where clause
-            if (field.containedInFieldSet(PRIMARY_KEY_FIELDS)){
+            if (field.containedInFieldSet(this.getFieldDefinitionValue("primaryKeyFields"))){
                 delete.whereAndEq(field.getColumnName(), new ParamValue(field.getPropertyName()));
                 filterExist = true;
             }
@@ -419,7 +520,7 @@ public abstract class AbstractDBMapping implements DBMapping {
         for (Iterator iter = fieldList.iterator(); iter.hasNext();) {
             FieldMapping field = (FieldMapping)iter.next();
             // add all primary key fields as generated keys
-            if (field.containedInFieldSet(PRIMARY_KEY_FIELDS))
+            if (field.containedInFieldSet(this.getFieldDefinitionValue("primaryKeyFields")))
                 return field;
         }
         return null;
@@ -436,11 +537,11 @@ public abstract class AbstractDBMapping implements DBMapping {
     public void init() {
         // add default statement for selection multiple records
         if (getQuery(STMT_SELECT_ALL) == null)
-            addQuery(STMT_SELECT_ALL, createBasicSelectAll(), COMMON_FIELDS);
+            addQuery(STMT_SELECT_ALL, createBasicSelectAll(), this.getFieldDefinitionValue("commonFields"));
 
         // add default statement for selection of one record
         if (getQuery(STMT_SELECT_ONE) == null)
-            addQuery(STMT_SELECT_ONE, createBasicSelectOne(), COMMON_FIELDS);
+            addQuery(STMT_SELECT_ONE, createBasicSelectOne(), this.getFieldDefinitionValue("commonFields"));
         
         for (Iterator iter = statementList.iterator(); iter.hasNext();)
             completeSelect((Query)iter.next());        
@@ -475,7 +576,7 @@ public abstract class AbstractDBMapping implements DBMapping {
         for (Iterator iter = fieldList.iterator(); iter.hasNext();) {
             FieldMapping field = (FieldMapping)iter.next();
             // only add, if the bitmask of the field contains the bitmask of the statement
-            if (field.containedInFieldSet(WRITEABLE_FIELDS))
+            if (field.containedInFieldSet(this.getFieldDefinitionValue("writeableFields")))
                 insert.insert(field.getColumnName(), new ParamValue(field.getPropertyName()));
         }
     }
@@ -484,7 +585,7 @@ public abstract class AbstractDBMapping implements DBMapping {
         for (Iterator iter = fieldList.iterator(); iter.hasNext();) {
             FieldMapping field = (FieldMapping)iter.next();
             // only add, if the bitmask of the field contains the bitmask of the statement
-            if (field.containedInFieldSet(WRITEABLE_FIELDS))
+            if (field.containedInFieldSet(this.getFieldDefinitionValue("writeableFields")))
                 update.update(field.getColumnName(), new ParamValue(field.getPropertyName()));
         }
     }
@@ -554,7 +655,7 @@ public abstract class AbstractDBMapping implements DBMapping {
             this.columnName = columnName;
             this.propertyName = propertyName;
             this.originalPropertyName = propertyName;
-            this.fieldSetBitmask = DEFAULT_FIELD_SET;
+            this.fieldSetBitmask = getFieldDefinitionValue("defaultFieldSet");
         }
 
         /**

@@ -112,7 +112,7 @@ public class AttributeSourceRS implements AttributeSource {
     	return returnClass;
 	}
     
-
+    
     public List getAttributeNames() {
         if (attributeNames == null) {
             try {

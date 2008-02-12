@@ -30,8 +30,11 @@ import de.tarent.commons.datahandling.entity.*;
 import de.tarent.dblayer.engine.DB;
 import de.tarent.dblayer.engine.DBContext;
 import de.tarent.dblayer.engine.InsertKeys;
+import de.tarent.dblayer.persistence.annotations.Id;
 import de.tarent.dblayer.sql.statement.ExtPreparedStatement;
 import de.tarent.dblayer.sql.statement.Select;
+
+import java.lang.reflect.Method;
 import java.sql.*;
 import java.util.*;
 
@@ -47,6 +50,7 @@ import de.tarent.dblayer.sql.clause.Order;
 import de.tarent.commons.datahandling.PrimaryKeyList;
 import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.commons.logging.TimeMeasureTool;
+import de.tarent.commons.utils.Pojo;
 
 
 
@@ -61,8 +65,17 @@ public abstract class AbstractDAO {
 	
     DBMapping dbMapping;
     EntityFactory entityFactory;
+    private Class bean;
 
+    
     public AbstractDAO() {
+    	
+    }
+    
+    public AbstractDAO(Class bean) {
+    	// register this DAO in the global DAO registry
+    	DAORegistry.registerDAO(this, bean);
+    	this.bean = bean;
     }
 
     public AbstractDAO(DBMapping dbMapping, EntityFactory entityFactory) {
@@ -70,7 +83,26 @@ public abstract class AbstractDAO {
         this.entityFactory = entityFactory;
     }
 
-    public abstract void setEntityKeys(InsertKeys keys, Object entity);
+    
+    /** has to be overwritten if bean is not set
+     * 
+     * @param keys
+     * @param entity
+     */
+    public void setEntityKeys(InsertKeys keys, Object entity) {
+    	if (this.bean == null)
+    		return;
+    	
+    	// if bean is set we can search for the method marked with @Id. The
+    	// related setter method has to be used to set the id.
+    	Method [] methods = this.bean.getMethods();
+		for (int i = 0; i < methods.length; i++) {
+			if (methods[i].getAnnotation(Id.class) != null) {
+				// We found the method marked with @Id. Get related setter method and set pk.
+				Pojo.set(entity, methods[i].getName().substring(3).toLowerCase(), keys.getPk());
+			}
+		}
+    }
 
 
     /**
@@ -599,6 +631,8 @@ public abstract class AbstractDAO {
 
     public void setEntityFactory(EntityFactory newEntityFactory) {
         this.entityFactory = newEntityFactory;
+        if (this.bean != null)
+        	EntityFactoryRegistry.registerEntityFactory(this.bean, newEntityFactory);
     }
     
     public DBMapping getDbMapping() {
