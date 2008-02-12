@@ -1,4 +1,6 @@
-== Auftretende Datenbank-Probleme ==
+== fehlender Eintrag in FROM-Klausel für Tabelle »tguest_doctype« ==
+
+'''Fehler'''
 
   Fehler
   Bei der Bearbeitung Ihrer Anfrage ist ein Fehler aufgetreten. Bitte melden Sie dies Ihrem Administrator.
@@ -7,10 +9,15 @@
   de.tarent.dblayer.sql.SQLStatementException
   FEHLER: '''fehlender Eintrag in FROM-Klausel für Tabelle »tguest_doctype«''' [SQL: ...]
 
+'''Problembehebung'''
+
 Dieser Fehler tritt auf wenn die Einstellung "Freitextfeld" vom Administrator noch nicht gesetzt ist.
 Durch einen Fehler in der Version 1.1.16 wird beim Anlegen eines Gastes ein ungültiges SQL generiert.
 Zur Behebung dieses Fehlers wählen Sie als Administrator unter Einstellungen bitte ein gültiges "Freitextfeld" aus.
 
+== duplizierter Schlüssel verletzt Unique-Constraint ==
+
+'''Fehler'''
 
   Fehler
   Bei der Bearbeitung Ihrer Anfrage ist ein Fehler aufgetreten. Bitte melden Sie dies Ihrem Administrator.
@@ -18,6 +25,8 @@ Zur Behebung dieses Fehlers wählen Sie als Administrator unter Einstellungen bi
   Details
   de.tarent.dblayer.sql.SQLStatementException
   FEHLER: '''duplizierter Schlüssel verletzt Unique-Constraint''' »tcategorie_pkey« [SQL: ...]
+
+'''Problembehebung'''
 
 Sollte es zu diesem oder einem vergleichbaren Unique-Constraint Datenbankfehler kommen,
 so stimmen der Datenbank Inhalt und Seqenznummern der automatisch erstellten IDs nicht mehr überein.
