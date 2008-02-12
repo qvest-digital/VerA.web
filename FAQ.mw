@@ -1,0 +1,8 @@
+== Datenbank-Fehler ==
+
+  FEHLER: duplizierter Schlüssel verletzt Unique-Constraint »tcategorie_pkey«
+  [SQL: INSERT INTO veraweb.tcategorie   (fk_orgunit, rank, flags, fk_event, catname) VALUES (0, 4, 0, 3, 'Kategorie1')]
+
+Sollte es zu diesem oder einem vergleichbaren Unique-Constraint Datenbankfehler kommen sollte dies mit der mitgelieferten Funktion korrigiert werden:
+
+  SELECT serv_build_sequences();
