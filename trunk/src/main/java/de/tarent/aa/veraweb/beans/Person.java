@@ -55,13 +55,13 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 	public Timestamp created;
 	/** Erstellt von */
 	public String createdby;
-	/** Geändert am */
+	/** Geï¿½ndert am */
 	public Timestamp changed;
-	/** Geänder von */
+	/** Geï¿½nder von */
 	public String changedby;
-	/** Als gelöscht markiert */
+	/** Als gelï¿½scht markiert */
 	public String deleted;
-	/** Gültigkeit lauft ab am */
+	/** Gï¿½ltigkeit lauft ab am */
 	public Timestamp expire;
 	/** Flag ob diese Person eine Firma ist */
 	public String iscompany;
@@ -110,7 +110,7 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 	public String domestic_b_e1;
 	public String sex_b_e1;
 	public Timestamp birthday_b_e1;
-	public String birthplace_b_e1;
+	//public String birthplace_b_e1;
 	public Timestamp diplodate_b_e1;
 	public String languages_b_e1;
 	public String nationality_b_e1;
@@ -121,7 +121,7 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 	// Partner, Zeichensatz 1
 	public String salutation_b_e2;
 	public Integer fk_salutation_b_e2;
-	public String birthplace_b_e2;
+	//public String birthplace_b_e2;
 	public String title_b_e2;
 	public String firstname_b_e2;
 	public String lastname_b_e2;
@@ -129,12 +129,12 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 	// Partner, Zeichensatz 2
 	public String salutation_b_e3;
 	public Integer fk_salutation_b_e3;
-	public String birthplace_b_e3;
+	//public String birthplace_b_e3;
 	public String title_b_e3;
 	public String firstname_b_e3;
 	public String lastname_b_e3;
 
-	// Adressdaten Geschäftlich, Latein
+	// Adressdaten Geschï¿½ftlich, Latein
 	public String function_a_e1;
 	public String company_a_e1;
 	public String street_a_e1;
@@ -151,7 +151,7 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 	public String mail_a_e1;
 	public String url_a_e1;
 
-	// Adressdaten Geschäftlich, Zeichensatz 1
+	// Adressdaten Geschï¿½ftlich, Zeichensatz 1
 	public String function_a_e2;
 	public String company_a_e2;
 	public String street_a_e2;
@@ -168,7 +168,7 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 	public String mail_a_e2;
 	public String url_a_e2;
 
-	// Adressdaten Geschäftlich, Zeichensatz 2
+	// Adressdaten Geschï¿½ftlich, Zeichensatz 2
 	public String function_a_e3;
 	public String company_a_e3;
 	public String street_a_e3;
@@ -294,7 +294,7 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 				(firstname_a_e1 != null && firstname_a_e1.length() != 0) ||
 				(lastname_a_e1 != null && lastname_a_e1.length() != 0) ||
 				(company_a_e1 != null && company_a_e1.length() != 0))) {
-			addError("Sie müssen einen Vornamen, einen Nachnamen oder eine Firma angeben.");
+			addError("Sie mï¿½ssen einen Vornamen, einen Nachnamen oder eine Firma angeben.");
 		}
 	}
 
@@ -325,7 +325,7 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 	}
 
     /**
-     * Diese Methode leert beschränkte Felder.<br>
+     * Diese Methode leert beschrï¿½nkte Felder.<br>
      * Hier sind es die Bemerkungsfelder, wenn der Benutzer nicht in der Gruppe
      * {@link PersonalConfigAA#GROUP_READ_REMARKS} der hierzu freigeschalteten ist.
      * 
@@ -400,112 +400,112 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 	}
 
 	/**
-	 * Diese Methode liefert eine Facade für die Hauptperson-Daten im Latin-Zeichensatz.
+	 * Diese Methode liefert eine Facade fï¿½r die Hauptperson-Daten im Latin-Zeichensatz.
 	 */
 	public PersonMemberFacade getMainLatin() {
 		return new MainLatin();
 	}
 
 	/**
-	 * Diese Methode liefert eine Facade für die Hauptperson-Daten im Zusatzzeichensatz 1.
+	 * Diese Methode liefert eine Facade fï¿½r die Hauptperson-Daten im Zusatzzeichensatz 1.
 	 */
 	public PersonMemberFacade getMainExtra1() {
 		return new MainExtra1();
 	}
 
 	/**
-	 * Diese Methode liefert eine Facade für die Hauptperson-Daten im Zusatzzeichensatz 2.
+	 * Diese Methode liefert eine Facade fï¿½r die Hauptperson-Daten im Zusatzzeichensatz 2.
 	 */
 	public PersonMemberFacade getMainExtra2() {
 		return new MainExtra2();
 	}
 
 	/**
-	 * Diese Methode liefert eine Facade für die Partner-Daten im Latin-Zeichensatz.
+	 * Diese Methode liefert eine Facade fï¿½r die Partner-Daten im Latin-Zeichensatz.
 	 */
 	public PersonMemberFacade getPartnerLatin() {
 		return new PartnerLatin();
 	}
 
 	/**
-	 * Diese Methode liefert eine Facade für die Partner-Daten im Zusatzzeichensatz 1.
+	 * Diese Methode liefert eine Facade fï¿½r die Partner-Daten im Zusatzzeichensatz 1.
 	 */
 	public PersonMemberFacade getPartnerExtra1() {
 		return new PartnerExtra1();
 	}
 
 	/**
-	 * Diese Methode liefert eine Facade für die Partner-Daten im Zusatzzeichensatz 2.
+	 * Diese Methode liefert eine Facade fï¿½r die Partner-Daten im Zusatzzeichensatz 2.
 	 */
 	public PersonMemberFacade getPartnerExtra2() {
 		return new PartnerExtra2();
 	}
 
 	/**
-	 * Diese Methode liefert eine Facade für die Dienst-Adresse im Latin-Zeichensatz.
+	 * Diese Methode liefert eine Facade fï¿½r die Dienst-Adresse im Latin-Zeichensatz.
 	 */
 	public PersonAddressFacade getBusinessLatin() {
 		return new BusinessLatin();
 	}
 
 	/**
-	 * Diese Methode liefert eine Facade für die Dienst-Adresse im Zusatzzeichensatz 1.
+	 * Diese Methode liefert eine Facade fï¿½r die Dienst-Adresse im Zusatzzeichensatz 1.
 	 */
 	public PersonAddressFacade getBusinessExtra1() {
 		return new BusinessExtra1();
 	}
 
 	/**
-	 * Diese Methode liefert eine Facade für die Dienst-Adresse im Zusatzzeichensatz 2.
+	 * Diese Methode liefert eine Facade fï¿½r die Dienst-Adresse im Zusatzzeichensatz 2.
 	 */
 	public PersonAddressFacade getBusinessExtra2() {
 		return new BusinessExtra2();
 	}
 
 	/**
-	 * Diese Methode liefert eine Facade für die Privat-Adresse im Latin-Zeichensatz.
+	 * Diese Methode liefert eine Facade fï¿½r die Privat-Adresse im Latin-Zeichensatz.
 	 */
 	public PersonAddressFacade getPrivateLatin() {
 		return new PrivateLatin();
 	}
 
 	/**
-	 * Diese Methode liefert eine Facade für die Privat-Adresse im Zusatzzeichensatz 1.
+	 * Diese Methode liefert eine Facade fï¿½r die Privat-Adresse im Zusatzzeichensatz 1.
 	 */
 	public PersonAddressFacade getPrivateExtra1() {
 		return new PrivateExtra1();
 	}
 
 	/**
-	 * Diese Methode liefert eine Facade für die Privat-Adresse im Zusatzzeichensatz 2.
+	 * Diese Methode liefert eine Facade fï¿½r die Privat-Adresse im Zusatzzeichensatz 2.
 	 */
 	public PersonAddressFacade getPrivateExtra2() {
 		return new PrivateExtra2();
 	}
 
 	/**
-	 * Diese Methode liefert eine Facade für die Zusatz-Adresse im Latin-Zeichensatz.
+	 * Diese Methode liefert eine Facade fï¿½r die Zusatz-Adresse im Latin-Zeichensatz.
 	 */
 	public PersonAddressFacade getOtherLatin() {
 		return new OtherLatin();
 	}
 
 	/**
-	 * Diese Methode liefert eine Facade für die Zusatz-Adresse im Zusatzzeichensatz 1.
+	 * Diese Methode liefert eine Facade fï¿½r die Zusatz-Adresse im Zusatzzeichensatz 1.
 	 */
 	public PersonAddressFacade getOtherExtra1() {
 		return new OtherExtra1();
 	}
 
 	/**
-	 * Diese Klasse liefert eine Facade für die Zusatz-Adresse im Zusatzzeichensatz 2.
+	 * Diese Klasse liefert eine Facade fï¿½r die Zusatz-Adresse im Zusatzzeichensatz 2.
 	 */
 	public PersonAddressFacade getOtherExtra2() {
 		return new OtherExtra2();
 	}
 
 	/**
-	 * Diese Klasse liefert eine Facade für die Hauptperson-Daten im Latin-Zeichensatz.
+	 * Diese Klasse liefert eine Facade fï¿½r die Hauptperson-Daten im Latin-Zeichensatz.
 	 */
 	private class MainLatin extends AbstractMember {
 		public String getSalutation() {
@@ -630,7 +630,7 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 	}
 
 	/**
-	 * Diese Klasse liefert eine Facade für die Hauptperson-Daten im Zusatzzeichensatz 1.
+	 * Diese Klasse liefert eine Facade fï¿½r die Hauptperson-Daten im Zusatzzeichensatz 1.
 	 */
 	private class MainExtra1 extends AbstractMember {
 		public String getSalutation() {
@@ -683,7 +683,7 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 	}
 
 	/**
-	 * Diese Klasse liefert eine Facade für die Hauptperson-Daten im Zusatzzeichensatz 2.
+	 * Diese Klasse liefert eine Facade fï¿½r die Hauptperson-Daten im Zusatzzeichensatz 2.
 	 */
 	private class MainExtra2 extends AbstractMember {
 		public String getSalutation() {
@@ -736,7 +736,7 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 	}
 
 	/**
-	 * Diese Klasse liefert eine Facade für die Partner-Daten im Latin-Zeichensatz.
+	 * Diese Klasse liefert eine Facade fï¿½r die Partner-Daten im Latin-Zeichensatz.
 	 */
 	private class PartnerLatin extends AbstractMember {
 		public String getSalutation() {
@@ -770,11 +770,11 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 		public Timestamp getBirthday() {
 			return birthday_b_e1;
 		}
-
+/*
 		public String getBirthplace() {
 			return birthplace_b_e1;
 		}
-
+*/
 		public Timestamp getDiplodate() {
 			return diplodate_b_e1;
 		}
@@ -830,11 +830,11 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 		public void setBirthday(Timestamp value) {
 			birthday_b_e1 = value;
 		}
-
+/*
 		public void setBirthplace(String value) {
 			birthplace_b_e1 = value;
 		}
-
+*/
 		public void setDiplodate(Timestamp value) {
 			diplodate_b_e1 = value;
 		}
@@ -861,7 +861,7 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 	}
 
 	/**
-	 * Diese Klasse liefert eine Facade für die Partner-Daten im Zusatzzeichensatz 1.
+	 * Diese Klasse liefert eine Facade fï¿½r die Partner-Daten im Zusatzzeichensatz 1.
 	 */
 	private class PartnerExtra1 extends AbstractMember {
 		public String getSalutation() {
@@ -871,11 +871,11 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 		public Integer getSalutationFK() {
 			return fk_salutation_b_e2;
 		}
-
+/*
 		public String getBirthplace() {
 			return birthplace_b_e2;
 		}
-
+*/
 		public String getTitle() {
 			return title_b_e2;
 		}
@@ -895,11 +895,11 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 		public void setSalutationFK(Integer value) {
 			fk_salutation_b_e2 = value;
 		}
-
+/*
 		public void setBirthplace(String value) {
 			birthplace_b_e2 = value;
 		}
-
+*/
 		public void setTitle(String value) {
 			title_b_e2 = value;
 		}
@@ -914,7 +914,7 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 	}
 
 	/**
-	 * Diese Klasse liefert eine Facade für die Partner-Daten im Zusatzzeichensatz 2.
+	 * Diese Klasse liefert eine Facade fï¿½r die Partner-Daten im Zusatzzeichensatz 2.
 	 */
 	private class PartnerExtra2 extends AbstractMember {
 		public String getSalutation() {
@@ -924,11 +924,11 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 		public Integer getSalutationFK() {
 			return fk_salutation_b_e3;
 		}
-
+/*
 		public String getBirthplace() {
 			return birthplace_b_e3;
 		}
-
+*/
 		public String getTitle() {
 			return title_b_e3;
 		}
@@ -948,11 +948,11 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 		public void setSalutationFK(Integer value) {
 			fk_salutation_b_e3 = value;
 		}
-
+/*
 		public void setBirthplace(String value) {
 			birthplace_b_e3 = value;
 		}
-
+*/
 		public void setTitle(String value) {
 			title_b_e3 = value;
 		}
@@ -967,7 +967,7 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 	}
 
 	/**
-	 * Diese Klasse liefert eine Facade für die Dienst-Adresse im Latin-Zeichensatz.
+	 * Diese Klasse liefert eine Facade fï¿½r die Dienst-Adresse im Latin-Zeichensatz.
 	 */
 	private class BusinessLatin implements PersonAddressFacade {
 		public String getFunction() {
@@ -1092,7 +1092,7 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 	}
 
 	/**
-	 * Diese Klasse liefert eine Facade für die Dienst-Adresse im Zusatzzeichensatz 1.
+	 * Diese Klasse liefert eine Facade fï¿½r die Dienst-Adresse im Zusatzzeichensatz 1.
 	 */
 	private class BusinessExtra1 implements PersonAddressFacade {
 		public String getFunction() {
@@ -1217,7 +1217,7 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 	}
 
 	/**
-	 * Diese Klasse liefert eine Facade für die Dienst-Adresse im Zusatzzeichensatz 2.
+	 * Diese Klasse liefert eine Facade fï¿½r die Dienst-Adresse im Zusatzzeichensatz 2.
 	 */
 	private class BusinessExtra2 implements PersonAddressFacade {
 		public String getFunction() {
@@ -1342,7 +1342,7 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 	}
 
 	/**
-	 * Diese Klasse liefert eine Facade für die Privat-Adresse im Latin-Zeichensatz.
+	 * Diese Klasse liefert eine Facade fï¿½r die Privat-Adresse im Latin-Zeichensatz.
 	 */
 	private class PrivateLatin implements PersonAddressFacade {
 		public String getFunction() {
@@ -1467,7 +1467,7 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 	}
 
 	/**
-	 * Diese Klasse liefert eine Facade für die Privat-Adresse im Zusatzzeichensatz 2.
+	 * Diese Klasse liefert eine Facade fï¿½r die Privat-Adresse im Zusatzzeichensatz 2.
 	 */
 	private class PrivateExtra1 implements PersonAddressFacade {
 		public String getFunction() {
@@ -1592,7 +1592,7 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 	}
 
 	/**
-	 * Diese Klasse liefert eine Facade für die Privat-Adresse im Zusatzzeichensatz 2.
+	 * Diese Klasse liefert eine Facade fï¿½r die Privat-Adresse im Zusatzzeichensatz 2.
 	 */
 	private class PrivateExtra2 implements PersonAddressFacade {
 		public String getFunction() {
@@ -1717,7 +1717,7 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 	}
 
 	/**
-	 * Diese Klasse liefert eine Facade für die Zusatz-Adresse im Latin-Zeichensatz.
+	 * Diese Klasse liefert eine Facade fï¿½r die Zusatz-Adresse im Latin-Zeichensatz.
 	 */
 	private class OtherLatin implements PersonAddressFacade {
 		public String getFunction() {
@@ -1842,7 +1842,7 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 	}
 
 	/**
-	 * Diese Klasse liefert eine Facade für die Zusatz-Adresse im Zusatzzeichensatz 1.
+	 * Diese Klasse liefert eine Facade fï¿½r die Zusatz-Adresse im Zusatzzeichensatz 1.
 	 */
 	private class OtherExtra1 implements PersonAddressFacade {
 		public String getFunction() {
@@ -1967,7 +1967,7 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 	}
 
 	/**
-	 * Diese Klasse liefert eine Facade für die Zusatz-Adresse im Zusatzzeichensatz 2.
+	 * Diese Klasse liefert eine Facade fï¿½r die Zusatz-Adresse im Zusatzzeichensatz 2.
 	 */
 	private class OtherExtra2 implements PersonAddressFacade {
 		public String getFunction() {

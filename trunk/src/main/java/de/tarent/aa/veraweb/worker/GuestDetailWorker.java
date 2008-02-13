@@ -27,7 +27,9 @@
 package de.tarent.aa.veraweb.worker;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -38,14 +40,17 @@ import de.tarent.aa.veraweb.beans.Doctype;
 import de.tarent.aa.veraweb.beans.Guest;
 import de.tarent.aa.veraweb.beans.GuestDoctype;
 import de.tarent.aa.veraweb.beans.GuestSearch;
+import de.tarent.aa.veraweb.beans.GuestWorkArea;
 import de.tarent.aa.veraweb.beans.Person;
 import de.tarent.aa.veraweb.beans.PersonCategorie;
+import de.tarent.aa.veraweb.beans.WorkArea;
 import de.tarent.aa.veraweb.beans.facade.EventConstants;
 import de.tarent.aa.veraweb.beans.facade.GuestMemberFacade;
 import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.clause.Limit;
 import de.tarent.dblayer.sql.clause.Where;
 import de.tarent.dblayer.sql.clause.WhereList;
+import de.tarent.dblayer.sql.statement.Delete;
 import de.tarent.dblayer.sql.statement.Insert;
 import de.tarent.dblayer.sql.statement.Select;
 import de.tarent.dblayer.sql.statement.Update;
@@ -58,7 +63,7 @@ import de.tarent.octopus.custom.beans.TransactionContext;
 import de.tarent.octopus.server.OctopusContext;
 
 /**
- * Dieser Octopus-Worker dient der Anzeige und Bearbeitung von Details von Gästen.
+ * Dieser Octopus-Worker dient der Anzeige und Bearbeitung von Details von Gï¿½sten.
  */
 public class GuestDetailWorker extends GuestListWorker {
     //
@@ -69,13 +74,13 @@ public class GuestDetailWorker extends GuestListWorker {
     /** Eingabe-Parameterzwang der Octopus-Aktion {@link #showDetail(OctopusContext, Integer, Integer)} */
 	public static final boolean MANDATORY_showDetail[] = { false, false };
 	/**
-	 * Diese Octopus-Aktion lädt Details zu einem Gast, der über ID oder über Position in der Ergebnisliste zu einer
-	 * aktuellen Gästesuche identifiziert wird.<br>
-	 * Wird der Gast oder die dazugehörende Person nicht gefunden, so wird der Status "notfound" gesetzt. Ansonsten werden
-	 * folgende Einträge im Octopus-Content gesetzt:
+	 * Diese Octopus-Aktion lï¿½dt Details zu einem Gast, der ï¿½ber ID oder ï¿½ber Position in der Ergebnisliste zu einer
+	 * aktuellen Gï¿½stesuche identifiziert wird.<br>
+	 * Wird der Gast oder die dazugehï¿½rende Person nicht gefunden, so wird der Status "notfound" gesetzt. Ansonsten werden
+	 * folgende Eintrï¿½ge im Octopus-Content gesetzt:
 	 * <ul>
 	 * <li> "guest" mit den Gastdetails
-	 * <li> "person" mit den Details der zugehörigen Person
+	 * <li> "person" mit den Details der zugehï¿½rigen Person
 	 * <li> "main" mit der Facade zur Hauptperson
 	 * <li> "partner" mit der Facade zur Partnerperson
 	 * <li> "address" mit der Facade zur Adresse zum Standard-Freitextfeld
@@ -86,8 +91,9 @@ public class GuestDetailWorker extends GuestListWorker {
 	 * @param guestid
 	 *          ID des Gasts
 	 * @param offset
-	 *          alternativ: Offset des Gasts in der aktuellen Gästesuche
+	 *          alternativ: Offset des Gasts in der aktuellen Gï¿½stesuche
 	 */
+	@SuppressWarnings("unchecked")
 	public void showDetail(OctopusContext cntx, Integer guestid, Integer offset) throws BeanException, IOException
 	{
 		Database database = getDatabase(cntx);
@@ -143,6 +149,33 @@ public class GuestDetailWorker extends GuestListWorker {
 				cntx.setContent("showGuestListData", new Boolean(guestDoctype != null));
 				
 				cntx.setContent("guestListData", guestDoctype);
+				
+				/*
+				 * modified to support none, one [or multiple] workAreas as per the change request for the next version 1.2.0 
+				 * as of now, only one workArea per guest is being supported, however, we will be using lists in order to support
+				 * multiple assignments in the future (for this, only the view must be adjusted)
+				 * 
+				 * cklein
+				 * 2008-12-13
+				 */
+				select = database.getSelect( GuestWorkArea.class.getName() );
+				select.where( Expr.equal( "fk_guest", guest.id ) );
+				List< GuestWorkArea > temp = database.getBeanList( GuestWorkArea.class.getName(), select );
+				// we require a hash map here
+				Iterator< GuestWorkArea > i = temp.iterator();
+				HashMap guestWorkAreas = new HashMap();
+				while( i.hasNext() )
+				{
+					GuestWorkArea gwa = i.next();
+					guestWorkAreas.put( gwa.workarea, gwa );
+				}
+				cntx.setContent( "guestWorkAreas", guestWorkAreas );
+
+				// read the defined workareas from the database
+				select = database.getSelect( WorkArea.class.getName() );
+				select.where( Expr.equal( "deleted", "f" ) );
+				List< WorkArea > allWorkAreas = database.getBeanList( WorkArea.class.getName(), select );
+				cntx.setContent( "allWorkAreas", allWorkAreas );
 			}
 		} catch (Exception e)
 		{
@@ -156,17 +189,17 @@ public class GuestDetailWorker extends GuestListWorker {
     /**
 		 * Diese Methode speichert Details zu einem Gast.<br>
 		 * Der Gast wird aus dem Octopus-Request gelesen. Je nach Einladungsart und -status werden dann Korrekturen an den
-		 * laufenden Nummern ausgeführt und die Bean wird geprüft ({@link BeanException} falls sie unvollständig ist oder
-		 * ungültige Einträge enthält). Schließlich wird sie gespeichert und passend wird im Octopus-Content unter
+		 * laufenden Nummern ausgefï¿½hrt und die Bean wird geprï¿½ft ({@link BeanException} falls sie unvollstï¿½ndig ist oder
+		 * ungï¿½ltige Eintrï¿½ge enthï¿½lt). Schlieï¿½lich wird sie gespeichert und passend wird im Octopus-Content unter
 		 * "countInsert" oder "countUpdate" 1 eingetragen. 
 		 * Wenn der Nutzer dies im GUI bestaetigt hat, wird der Rang der Kategorie aus den Stammdaten der Person uebernommen.
 		 * 
 		 * @param cntx
 		 *          Octopus-Content
 		 * @throws BeanException
-		 *           bei ungültigen oder unvollständigen Einträgen
+		 *           bei ungï¿½ltigen oder unvollstï¿½ndigen Eintrï¿½gen
 		 */
-	public void saveDetail(OctopusContext cntx) throws BeanException, IOException
+	public void saveDetail(OctopusContext cntx) throws BeanException, IOException, Exception
 	{
 		Request request = getRequest(cntx);
 		Database database = getDatabase(cntx);
@@ -229,7 +262,7 @@ public class GuestDetailWorker extends GuestListWorker {
 			 * modified to support change logging
 			 * cklein 2008-02-12
 			 */
-			BeanChangeLogger clogger = new BeanChangeLogger( database );
+			BeanChangeLogger clogger = new BeanChangeLogger( database, context );
 			if (guest.id == null)
 			{
 				cntx.setContent("countInsert", new Integer(1));
@@ -245,9 +278,14 @@ public class GuestDetailWorker extends GuestListWorker {
 				}
 				context.execute(insert);
 
+				// save changes to the work area assignment
+				this.updateWorkAreaAssignments( cntx, context, guest, GuestDetailWorker.ACTION_INSERT );
+				
 				clogger.logInsert( cntx.personalConfig().getLoginname(), guest );
 			} else
 			{
+				Guest guestOld = ( Guest ) database.getBean( "Guest", guest.id, context);
+
 				cntx.setContent("countUpdate", new Integer(1));
 				Update update = database.getUpdate(guest);
 				if (!((PersonalConfigAA) cntx.personalConfig()).getGrants().mayReadRemarkFields())
@@ -259,8 +297,10 @@ public class GuestDetailWorker extends GuestListWorker {
 				}
 				context.execute(update);
 
+				// save changes to the work area assignment
+				this.updateWorkAreaAssignments( cntx, context, guest, GuestDetailWorker.ACTION_UPDATE );
+
 				// retrieve old instance of guest for update logging
-				Guest guestOld = ( Guest ) database.getBean( "Guest", guest.id, context);
 				// we will quietly ignore non existing old entities and simply omit logging
 				if ( guestOld != null )
 				{
@@ -269,12 +309,59 @@ public class GuestDetailWorker extends GuestListWorker {
 			}
 
 			context.commit();
-		} finally
+		}
+		// cklein
+		// 2008-02-13
+		// prior to the change, there was a finally here
+		// which caused the transaction to be always rolled back
+		catch( BeanException e )
 		{
 			context.rollBack();
 		}
 	}
 
+	/**
+	 * This method will update any changes to the work area assignments
+	 * made for the currently processed guest entity.
+	 * 
+	 * There are three distinct modes of operation here:
+	 * 
+	 * on insert
+	 * 	on insert, the initial set of work areas assigned will be written out to the database
+	 * on update
+	 * 	on update, any previous workarea assignments that are now unassigned, will be deleted. any new assignments will be added.
+	 * on delete
+	 *  on delete, all assignments will be deleted
+	 * 
+	 * @param cntx the current octopus context
+	 * @param guest instance of the currently processed guest entity bean
+	 * @param action one of ACTION_INSERT, ACTION_DELETE, ACTION_UPDATE
+	 */
+	public static final int ACTION_INSERT = 0;
+	public static final int ACTION_UPDATE = 1;
+	public static final int ACTION_DELETE = 2;
+	public void updateWorkAreaAssignments( OctopusContext cntx, TransactionContext context, Guest guest, Integer action )
+	{
+		switch( action )
+		{
+			case GuestDetailWorker.ACTION_INSERT :
+			case GuestDetailWorker.ACTION_UPDATE :
+			{
+				//context.execute( stmnt );
+				break;
+			}
+			case GuestDetailWorker.ACTION_DELETE :
+			{
+				//context.execute( stmnt );
+				break;
+			}
+			default :
+			{
+				throw new RuntimeException( "Unknown action. Must be one of ACTION_INSERT, ACTION_DELETE, or ACTION_UPDATE." );
+			}
+		}
+	}
+	
     /** Eingabe-Parameter der Octopus-Aktion {@link #showTestGuest(OctopusContext)} */
 	public static final String INPUT_showTestGuest[] = {};
 	/**
@@ -299,9 +386,9 @@ public class GuestDetailWorker extends GuestListWorker {
     /**
      * Diese Methode erzeugt Test-Gast-Daten in einer Gast-Member-Facade.
      * 
-     * @param facade zu füllende Gast-Member-Facade
-     * @param suffix Feldinhaltanhang für Textfelder
-     * @param random Wert für laufende Nummer, Sitznummer und Tischnummer
+     * @param facade zu fï¿½llende Gast-Member-Facade
+     * @param suffix Feldinhaltanhang fï¿½r Textfelder
+     * @param random Wert fï¿½r laufende Nummer, Sitznummer und Tischnummer
      */
 	protected void showTestGuest(GuestMemberFacade facade, String suffix, int random) {
 		facade.setColor("Farbe" + suffix);
@@ -309,7 +396,7 @@ public class GuestDetailWorker extends GuestListWorker {
 		facade.setInvitationStatus(new Integer(new Random().nextInt(3) + 1));
 		facade.setInvitationType(new Integer(new Random().nextInt(3)));
 		facade.setLanguages("Sprachen" + suffix);
-		facade.setNationality("Nationalität" + suffix);
+		facade.setNationality("Nationalitï¿½t" + suffix);
 		facade.setNoteHost("Bemerkung (Gastgeber)" + suffix);
 		facade.setNoteOrga("Bemerkung (Organisation)" + suffix);
 		facade.setOrderNo(new Integer(random));
@@ -318,15 +405,15 @@ public class GuestDetailWorker extends GuestListWorker {
 	}
 
     /**
-     * Diese Methode liefert eine {@link Guest}-Instanz passend zu den übergebenen
+     * Diese Methode liefert eine {@link Guest}-Instanz passend zu den ï¿½bergebenen
      * Kriterien. Falls eine Gast- und Veranstaltungs-ID vorliegt, wird der Gast
-     * anhand dieser selektiert, sonst wird er über den übergebenen Offset in der
-     * Ergebnisliste zur aktuellen Gastsuche ausgewählt.<br>
+     * anhand dieser selektiert, sonst wird er ï¿½ber den ï¿½bergebenen Offset in der
+     * Ergebnisliste zur aktuellen Gastsuche ausgewï¿½hlt.<br>
      * 
      * @param cntx Octopus-Kontext
-     * @param eventid Veranstaltungs-ID für Selektion über ID
-     * @param guestid Gast-ID für Selektion über ID
-     * @param offset Gast-Offset für Selektion über Offset in Suchergebnisliste
+     * @param eventid Veranstaltungs-ID fï¿½r Selektion ï¿½ber ID
+     * @param guestid Gast-ID fï¿½r Selektion ï¿½ber ID
+     * @param offset Gast-Offset fï¿½r Selektion ï¿½ber Offset in Suchergebnisliste
      * @return der selektierte Gast oder <code>null</code>
      */
 	protected Guest getGuest(OctopusContext cntx, Integer eventid, Integer guestid, Integer offset) throws BeanException, IOException {
@@ -369,7 +456,7 @@ public class GuestDetailWorker extends GuestListWorker {
 			Guest guest = (Guest)database.getBean(BEANNAME, select);
 			if (guest != null) {
 				// Gast wurde gefunden. Durch diese Suche (per ID) konnte sich aber ggf. die
-				// Position innerhalb der Liste verändert werden, daher wird diese nun neu
+				// Position innerhalb der Liste verï¿½ndert werden, daher wird diese nun neu
 				// Kalkuliert.
 				Select selectForPosition = database.getSelect("Guest");
 				extendColumns(cntx, selectForPosition);

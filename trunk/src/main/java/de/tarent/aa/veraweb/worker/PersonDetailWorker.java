@@ -87,11 +87,11 @@ public class PersonDetailWorker implements PersonConstants {
     /** Eingabe-Parameterzwang der Octopus-Aktion {@link #showDetail(OctopusContext, Integer, Person)} */
 	public static final boolean MANDATORY_showDetail[] = { false, false };
 	/**
-	 * Diese Octopus Aktion nimmt die übergebene Person oder die Person zu der
-     * übergebenen ID oder die Person zu der ID unter "person-id" in der Session
-     * und gibt sie zurück. Als Seiteneffekt wird (wenn die Person nicht null ist)
+	 * Diese Octopus Aktion nimmt die ï¿½bergebene Person oder die Person zu der
+     * ï¿½bergebenen ID oder die Person zu der ID unter "person-id" in der Session
+     * und gibt sie zurï¿½ck. Als Seiteneffekt wird (wenn die Person nicht null ist)
      * im Octopus-Content unter "person-diplodatetime" ein Flag, ob das
-     * Akkreditierungsdatum einen Zeitanteil enthält, und die übergebene ID (falls
+     * Akkreditierungsdatum einen Zeitanteil enthï¿½lt, und die ï¿½bergebene ID (falls
      * die Person durch sie identifiziert wurde) in der Session unter "person-id"
      * abgelegt.
 	 * 
@@ -117,13 +117,13 @@ public class PersonDetailWorker implements PersonConstants {
     /** Eingabe-Parameterzwang der Octopus-Aktion {@link #copyPerson(OctopusContext, Integer)} */
 	public static final boolean MANDATORY_copyPerson[] = { false };
 	/**
-	 * Kopiert die Personendaten, die der übergebenen ID zugeordnet sind oder
-     * sich im Octopus-Request unterhalb des Schlüssels "person" befinden, 
-	 * und stellt diese unter dem Schlüssel "person" und ein Flag, ob das
-     * Akkreditierungsdatum einen Zeitanteil enthält, unter "person-diplodatetime" 
+	 * Kopiert die Personendaten, die der ï¿½bergebenen ID zugeordnet sind oder
+     * sich im Octopus-Request unterhalb des Schlï¿½ssels "person" befinden, 
+	 * und stellt diese unter dem Schlï¿½ssel "person" und ein Flag, ob das
+     * Akkreditierungsdatum einen Zeitanteil enthï¿½lt, unter "person-diplodatetime" 
      * in den Octopus-Content.<br>
      * In der aktuellen Implementierung werden dabei neben den Teilpersonen- und
-     * Adressangaben in den Zusatzzeichensätzen lediglich folgende Felder
+     * Adressangaben in den Zusatzzeichensï¿½tzen lediglich folgende Felder
      * auf <code>null</code> gesetzt:
 	 * {@link Person#id},
 	 * {@link Person#expire},
@@ -180,10 +180,10 @@ public class PersonDetailWorker implements PersonConstants {
     /** Eingabe-Parameter der Octopus-Aktion {@link #showTestPerson(OctopusContext)} */
 	public static final String INPUT_showTestPerson[] = {};
 	/**
-	 * Erstellt eine Test-Person und stellt diese unter dem Schlüssel "person"
-     * und ein Flag, ob das Akkreditierungsdatum einen Zeitanteil enthält, unter
+	 * Erstellt eine Test-Person und stellt diese unter dem Schlï¿½ssel "person"
+     * und ein Flag, ob das Akkreditierungsdatum einen Zeitanteil enthï¿½lt, unter
      * "person-diplodatetime" in den Octopus-Content.<br>
-     * Anhand des Werts des Octopus-Request-Parameters zum Schlüssel "partner"
+     * Anhand des Werts des Octopus-Request-Parameters zum Schlï¿½ssel "partner"
      * werden nur Daten zur Partnerperson ("only"), nur Daten zur Hauptperson
      * ("without") oder zu beiden (sonst) erzeugt.
 	 * 
@@ -204,7 +204,7 @@ public class PersonDetailWorker implements PersonConstants {
      * Label-Dokumenttyps in der Konfiguration unter "freitextfeld" erwartet,
      * und der Dokumenttyp wird im Octopus-Content unter "doctype" abgelegt.<br>
 	 * Wenn zu dieser Person noch kein entsprechender Eintrag existiert
-	 * wird die einfache Form eines Dokumenttypens zurückgegeben.
+	 * wird die einfache Form eines Dokumenttypens zurï¿½ckgegeben.
 	 * 
 	 * @param cntx Octopus-Kontext
 	 */
@@ -246,7 +246,7 @@ public class PersonDetailWorker implements PersonConstants {
 	 * Erstellt ein Personen-Etikett-Label, um damit in einer Textverarbeitung
 	 * leicht einen Brief zu erstellen. Die Person wird hierzu im Octopus-Content
      * unter "person", ein ({@link PersonDoctype Personen-}){@link Doctype Dokumenttyp}
-     * unter "doctype" und die ID des Label-Dokumenttyps (für den Fall, dass der
+     * unter "doctype" und die ID des Label-Dokumenttyps (fï¿½r den Fall, dass der
      * Dokumenttyp nicht personalisiert wurde) in der Konfiguration unter "freitextfeld"
      * erwartet, und das Erzeugnis wird im Octopus-Content unter "personExport" abgelegt.
 	 * 
@@ -285,7 +285,7 @@ public class PersonDetailWorker implements PersonConstants {
 				buffer.append(helper.getFreitext(freitextfeld, addresstype, locale, false)).append(nl).append(nl);
 			}
 			
-			// funktion, firma und straße
+			// funktion, firma und straï¿½e
 			if (facade.getFunction() != null && facade.getFunction().length() != 0)
 				buffer.append(facade.getFunction()).append(nl);
 			if (facade.getCompany() != null && facade.getCompany().length() != 0)
@@ -338,7 +338,7 @@ public class PersonDetailWorker implements PersonConstants {
     /** Eingabe-Parameterzwang der Octopus-Aktion {@link #prepareSaveDetail(OctopusContext, Boolean)} */
 	public static final boolean MANDATORY_prepareSaveDetail[] = { false };
 	/**
-     * Diese Octopus-Aktion testet das übergebene Flag; falls es gesetzt
+     * Diese Octopus-Aktion testet das ï¿½bergebene Flag; falls es gesetzt
      * ist, wird der Status "saveperson" gesetzt.
 	 * 
 	 * @param cntx Octopus-Kontext
@@ -356,15 +356,15 @@ public class PersonDetailWorker implements PersonConstants {
     /** Eingabe-Parameterzwang der Octopus-Aktion {@link #saveDetail(OctopusContext, Person)} */
 	public static final boolean MANDATORY_saveDetail[] = { false };
 	/**
-     * Diese Octopus-Aktions speichert die übergebenen Person oder die Person
-     * aus dem Octopus-Request unterhalb des Schlüssels "person" in der Datenbank.
-     * Hierbei werden gegebenenfalls Änderungen im Latin-Zeichensatz in die anderen
-     * Zeichensätze übertragen.<br>
-     * Die gespeicherte Person wird zurückgegeben, "countInsert" oder "countUpdate"
+     * Diese Octopus-Aktions speichert die ï¿½bergebenen Person oder die Person
+     * aus dem Octopus-Request unterhalb des Schlï¿½ssels "person" in der Datenbank.
+     * Hierbei werden gegebenenfalls ï¿½nderungen im Latin-Zeichensatz in die anderen
+     * Zeichensï¿½tze ï¿½bertragen.<br>
+     * Die gespeicherte Person wird zurï¿½ckgegeben, "countInsert" oder "countUpdate"
      * im Octopus-Content wird mit 1 und "person-diplodatetime" mit einem Flag, ob
      * das Akkreditierungsdatum einen Zeitanteil hat, belegt, und die Werte unter
      * "personTab", "personMemberTab", "personAddresstypeTab" und "personLocaleTab"
-     * im Octopus-Request werden unter den gleichen Schlüsseln in den -Content
+     * im Octopus-Request werden unter den gleichen Schlï¿½sseln in den -Content
      * kopiert.
 	 * 
 	 * @param cntx Octopus-Kontext
@@ -403,7 +403,7 @@ public class PersonDetailWorker implements PersonConstants {
 			AddressHelper.checkPersonSalutation(person, database, context);
 			
 			// Updatet das Gueltigkeitsdatum automatisch auf "in 3 Jahre"
-			// wenn dieses nicht verändert wurde.
+			// wenn dieses nicht verï¿½ndert wurde.
 			if (person.expire != null && personOld != null && personOld.expire != null) {
 				Calendar e1 = Calendar.getInstance();
 				Calendar e2 = Calendar.getInstance();
@@ -432,7 +432,7 @@ public class PersonDetailWorker implements PersonConstants {
 			if (person.isModified() && person.isCorrect()) {
 		        AddressHelper.copyAddressData(cntx, person, personOld);
 				
-				BeanChangeLogger clogger = new BeanChangeLogger( database );
+				BeanChangeLogger clogger = new BeanChangeLogger( database, context );
 				if (person.id == null) {
 					cntx.setContent("countInsert", new Integer(1));
 					database.getNextPk(person, context);
@@ -542,7 +542,7 @@ public class PersonDetailWorker implements PersonConstants {
 	public static final boolean MANDATORY_updatePerson[] = { false, false };
 	/**
      * Diese Octopus-Aktion aktualisiert die Historisierungsdaten der Person mit der
-     * übergebenen ID (es wird die übergebene genommen oder eine Instanz aus der DB
+     * ï¿½bergebenen ID (es wird die ï¿½bergebene genommen oder eine Instanz aus der DB
      * geladen).
 	 * 
 	 * @param cntx Octopus-Kontext
@@ -576,10 +576,10 @@ public class PersonDetailWorker implements PersonConstants {
 	}
 
     //
-    // öffentliche Hilfsmethoden
+    // ï¿½ffentliche Hilfsmethoden
     //
     /**
-     * Diese Methode erzeugt eine Test-Person und liefert diese zurück.
+     * Diese Methode erzeugt eine Test-Person und liefert diese zurï¿½ck.
      * 
      * @param partner bei "only" werden nur Daten zur Partnerperson, bei "without"
      *  nur Daten zur Hauptperson und sonst Daten zu beiden erzeugt.
@@ -597,9 +597,9 @@ public class PersonDetailWorker implements PersonConstants {
             showTestPerson(person.getPartnerExtra1(), suffix + " (Partner ZS1)");
             showTestPerson(person.getPartnerExtra2(), suffix + " (Partner ZS2)");
         }
-        showTestPerson(person.getBusinessLatin(), suffix + " (Geschäftlich L)");
-        showTestPerson(person.getBusinessExtra1(), suffix + " (Geschäftlich ZS1)");
-        showTestPerson(person.getBusinessExtra2(), suffix + " (Geschäftlich ZS2)");
+        showTestPerson(person.getBusinessLatin(), suffix + " (Geschï¿½ftlich L)");
+        showTestPerson(person.getBusinessExtra1(), suffix + " (Geschï¿½ftlich ZS1)");
+        showTestPerson(person.getBusinessExtra2(), suffix + " (Geschï¿½ftlich ZS2)");
         showTestPerson(person.getPrivateLatin(), suffix + " (Privat L)");
         showTestPerson(person.getPrivateExtra1(), suffix + " (Privat ZS1)");
         showTestPerson(person.getPrivateExtra2(), suffix + " (Privat ZS2)");
@@ -613,12 +613,12 @@ public class PersonDetailWorker implements PersonConstants {
     }
     
     //
-    // geschützte Hilfsmethoden
+    // geschï¿½tzte Hilfsmethoden
     //
     /**
-     * Diese Methode füllt die Personen-Member-Facade mit Testwerten.
+     * Diese Methode fï¿½llt die Personen-Member-Facade mit Testwerten.
      * 
-     * @param suffix Suffix für Text-wertige Attribute
+     * @param suffix Suffix fï¿½r Text-wertige Attribute
      */
     protected static void showTestPerson(PersonMemberFacade facade, String suffix) {
         facade.setBirthday(new Timestamp(System.currentTimeMillis()));
@@ -626,7 +626,7 @@ public class PersonDetailWorker implements PersonConstants {
         facade.setFirstname("Vorname" + suffix);
         facade.setLanguages("Sprachen" + suffix);
         facade.setLastname("Nachname" + suffix);
-        facade.setNationality("Nationalität" + suffix);
+        facade.setNationality("Nationalitï¿½t" + suffix);
         facade.setNote("Bemerkung" + suffix);
         facade.setNoteHost("Bemerkung (Gastgeber)" + suffix);
         facade.setNoteOrga("Bemerkung (Organisation)" + suffix);
@@ -635,9 +635,9 @@ public class PersonDetailWorker implements PersonConstants {
     }
 
     /**
-     * Diese Methode füllt die Personen-Adress-Facade mit Testwerten.
+     * Diese Methode fï¿½llt die Personen-Adress-Facade mit Testwerten.
      * 
-     * @param suffix Suffix für Text-wertige Attribute
+     * @param suffix Suffix fï¿½r Text-wertige Attribute
      */
     protected static void showTestPerson(PersonAddressFacade facade, String suffix) {
         facade.setCity("Ort" + suffix);
@@ -650,7 +650,7 @@ public class PersonDetailWorker implements PersonConstants {
         facade.setPhone("Telefon" + suffix);
         facade.setPOBox("Postfach" + suffix);
         facade.setPOBoxZipCode("Postfach PLZ" + suffix);
-        facade.setStreet("Straße" + suffix);
+        facade.setStreet("Straï¿½e" + suffix);
         facade.setSuffix1("Adresszusatz 1" + suffix);
         facade.setSuffix2("Adresszusatz 2" + suffix);
         facade.setUrl("www" + suffix);
@@ -659,15 +659,15 @@ public class PersonDetailWorker implements PersonConstants {
 
 
     /**
-     * Diese Methode liefert eine aktuelle Personen-ID, wahlweise die übergebene
-     * oder die unter dem Schlüssel "person-id" in der Session. Falls die übergebene
+     * Diese Methode liefert eine aktuelle Personen-ID, wahlweise die ï¿½bergebene
+     * oder die unter dem Schlï¿½ssel "person-id" in der Session. Falls die ï¿½bergebene
      * genommen wird, wird sie unter "person-id" in die Session geschrieben.<br>
-     * Die übergebene ID wird genutzt, wenn sie nicht <code>null</code> ist oder
+     * Die ï¿½bergebene ID wird genutzt, wenn sie nicht <code>null</code> ist oder
      * der Parameter <code>forceset</code> <code>true</code> ist.
      * 
      * @param cntx Octopus-Kontext
      * @param id neue aktuelle ID
-     * @param forceSet erzwingt das Nutzen der übergebenen ID, selbst wenn sie
+     * @param forceSet erzwingt das Nutzen der ï¿½bergebenen ID, selbst wenn sie
      *  <code>null</code> ist.
      * @return die aktuelle Personen-ID
      */
@@ -681,20 +681,20 @@ public class PersonDetailWorker implements PersonConstants {
 
 	/**
 	 * <p>
-	 * Löscht eine Person aus der Tabelle <code>tperson</code>, wenn
+	 * Lï¿½scht eine Person aus der Tabelle <code>tperson</code>, wenn
 	 * auf diese keine Referenzen mehr in <code>tguest</code> existieren.
-	 * Dabei werden auch alle abhängigen Tabelleneinträge gelöscht.
+	 * Dabei werden auch alle abhï¿½ngigen Tabelleneintrï¿½ge gelï¿½scht.
 	 * </p>
 	 * <p>
-	 * Wenn entsprechende Einträge noch existieren, wird lediglich
+	 * Wenn entsprechende Eintrï¿½ge noch existieren, wird lediglich
 	 * die Spalte <code>deleted</code> auf @link PersonConstants#DELETED_TRUE
-	 * gesetzt, entsprechende Einträge werden bei der Suche, etc. nicht
-	 * mehr berücksichtigt. 
+	 * gesetzt, entsprechende Eintrï¿½ge werden bei der Suche, etc. nicht
+	 * mehr berï¿½cksichtigt. 
 	 * </p>
 	 * 
 	 * @param cntx Aktueller Octopus Kontext
-	 * @param database Datenbank-Referenz in der gelöscht werden soll.
-	 * @param personid PK aus tperson, dessen Eintrag gelöscht werden soll.
+	 * @param database Datenbank-Referenz in der gelï¿½scht werden soll.
+	 * @param personid PK aus tperson, dessen Eintrag gelï¿½scht werden soll.
 	 * @throws BeanException inkl. Datenbank-Fehler
 	 * @throws IOException
 	 */
@@ -706,18 +706,18 @@ public class PersonDetailWorker implements PersonConstants {
 				where(Expr.equal("fk_person", personid))).intValue() != 0;
 		
 		if (hasEvent) {
-			// Datenbank-Eintrag auf Gelöscht setzten.
+			// Datenbank-Eintrag auf Gelï¿½scht setzten.
 			if (logger.isEnabledFor(Priority.DEBUG)) {
-				logger.log(Priority.DEBUG, "Person löschen: Person #" + personid + " wird als gelöscht markiert.");
+				logger.log(Priority.DEBUG, "Person lï¿½schen: Person #" + personid + " wird als gelï¿½scht markiert.");
 			}
 			database.execute(SQL.Update().
 					table("veraweb.tperson").
 					update("deleted", PersonConstants.DELETED_TRUE).
 					where(Expr.equal("pk", personid)));
 		} else {
-			// Datenbank-Einträge inkl. Abhänigkeiten löschen.
+			// Datenbank-Eintrï¿½ge inkl. Abhï¿½nigkeiten lï¿½schen.
 			if (logger.isEnabledFor(Priority.DEBUG)) {
-				logger.log(Priority.DEBUG, "Person löschen: Person #" + personid + " wird vollständig gelöscht.");
+				logger.log(Priority.DEBUG, "Person lï¿½schen: Person #" + personid + " wird vollstï¿½ndig gelï¿½scht.");
 			}
 			
 			database.execute(SQL.Delete().

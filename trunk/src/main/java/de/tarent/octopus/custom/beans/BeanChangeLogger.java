@@ -48,9 +48,10 @@ import de.tarent.dblayer.sql.statement.Insert;
  * (
  * 		pk serial NOT NULL,
  * 		username varchar(100) NOT NULL,
- * 		otype varchar(30) NOT NULL,		-- the type of the object
- * 		oid int4 NOT NULL,				-- the id of the object
- * 		attributes text NOT NULL,		-- a list of comma separated attribute names
+ * 		objtype varchar(30) NOT NULL,		-- the type of the object
+ * 		objid int4 NOT NULL,				-- the id of the object
+ * 		op varchar(6) NOT NULL,				-- the sql operation: insert|delete|update
+ * 		attributes text NOT NULL,			-- a list of comma separated attribute names
  * 		date timestamptz,
  * 		CONSTRAINT tchangelog_pkey PRIMARY KEY (pk)
  * );
@@ -65,12 +66,20 @@ import de.tarent.dblayer.sql.statement.Insert;
 public class BeanChangeLogger {
 
 	private Database database;
+	private TransactionContext context;
 
 	/**
 	 * Creates a new instance of the logger.
 	 * 
 	 * @param database	the database to which we will be logging changes to
+	 * @param context the current transaction context
 	 */
+	public BeanChangeLogger( Database database, TransactionContext context )
+	{
+		this.database = database;
+		this.context = context;
+	}
+
 	public BeanChangeLogger( Database database )
 	{
 		this.database = database;
@@ -106,10 +115,14 @@ public class BeanChangeLogger {
 				// we skip the primary key a/o id field
 				continue;
 			}
-
+			
 			Comparable nv = ( Comparable ) n.getField( k );
 			Comparable ov = ( Comparable ) o.getField( k );
-			if ( ov.compareTo( nv ) != 0 )
+			if 
+			( 
+				( ( ov != null ) && ( ov.compareTo( nv ) != 0 ) ) 
+				|| ( ( ov == null ) && ( nv != null ) )
+			)
 			{
 				if ( changedAttributes.length() > 0 )
 				{
@@ -157,22 +170,26 @@ public class BeanChangeLogger {
 		entry.verify();
 		if ( entry.isCorrect() )
 		{
-			TransactionContext context = this.database.getTransactionContext();
-			this.database.getNextPk( entry, context );
+			ExecutionContext c = this.database;
+			if( this.context != null )
+			{
+				c = this.context;
+			}
+
+			this.database.getNextPk( entry, c );
 			Insert insert = this.database.getInsert( entry );
-			insert.insert( "pk", entry.id );
-			context.execute(insert);
+			c.execute( insert );
 		}
 	}
 
-	private ChangeLogEntry createNewChangeLogEntryInstance( String action, String username, String otype, Integer oid, String attributes )
+	private ChangeLogEntry createNewChangeLogEntryInstance( String op, String username, String otype, Integer oid, String attributes )
 		throws BeanException, IOException
 	{
 		ChangeLogEntry result = new ChangeLogEntry();
 		result.username = username;
-		result.otype = otype;
-		result.oid = oid;
-		result.action = action;
+		result.objecttype = otype;
+		result.objectid = oid;
+		result.op = op;
 		result.attributes = attributes;
 		result.date = new Date( System.currentTimeMillis() );
 		return result;

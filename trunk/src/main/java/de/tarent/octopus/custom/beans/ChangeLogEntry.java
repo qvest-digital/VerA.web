@@ -35,20 +35,29 @@ import java.sql.Date;
 import de.tarent.aa.veraweb.beans.AbstractBean;
 
 /**
- * The bean class ChangeLogEntry represents an EntityBean
- * used for storage and retrieval of change log entries
- * from and to a database, respectively.
+ * The bean class ChangeLogEntry represents a single entry
+ * in the newly introduced change logging feature.
+ * 
+ * Each changelog entry stores information on the change
+ * action, which is one of insert, delete or update and
+ * the attributes of the object that were changed by the
+ * user who committed the action.
+ * 
+ * For now, changelogging is enabled for the following
+ * entities {see Person}, {see Guest}, and {see Event}.  
+ * 
+ * @see de.tarent.octopus.custom.beans.BeanChangeLogger
  * 
  * @author cklein
- * @since 1.2
+ * @since 1.2.0
  */
 public class ChangeLogEntry extends AbstractBean
 {
 	public Integer	id;
 	public String	username;
-	public String	otype;
-	public Integer	oid;
-	public String	action;
+	public String	objecttype;
+	public Integer	objectid;
+	public String	op;
 	public String	attributes;
 	public Date		date;
 
