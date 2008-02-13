@@ -624,6 +624,28 @@ public abstract class AbstractDAO {
             DB.close(ps);
         }
     }
+    
+
+    /** Delete a single entity only identified by its primary key
+     * 
+     * @param dbc the database context
+     * @param primaryKey the primary key of the entity to delete
+     * @throws SQLException thrown when there are problems with the database
+     */
+    public void delete(DBContext dbc, int primaryKey) throws SQLException {
+    	ExtPreparedStatement eps = getDbMapping().getDelete().prepare(dbc);
+    	
+    	Field pkField = getDbMapping().getPkField();
+    	eps.setAttribute(pkField.getPropertyName(), new Integer(primaryKey));
+    	
+    	PreparedStatement ps = eps.getPreparedStatement();
+        try {
+            ps.executeUpdate();
+        } finally {
+            DB.close(ps);
+        }
+    }
+    
 
     public EntityFactory getEntityFactory() {
         return entityFactory;
