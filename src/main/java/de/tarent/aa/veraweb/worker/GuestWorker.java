@@ -61,8 +61,8 @@ import de.tarent.octopus.custom.beans.veraweb.DatabaseVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
 
 /**
- * Diese Octopus-Worker-Klasse stellt Operationen für Gäste von
- * Veranstaltungen zur Verfügung. 
+ * Diese Octopus-Worker-Klasse stellt Operationen fï¿½r Gï¿½ste von
+ * Veranstaltungen zur Verfï¿½gung. 
  * 
  * @author christoph
  * @author mikel
@@ -71,10 +71,10 @@ public class GuestWorker {
     //
     // Octopus-Aktionen
     //
-    /** Octopus-Eingabe-Parameter für {@link #addGuestList(OctopusContext)} */
+    /** Octopus-Eingabe-Parameter fï¿½r {@link #addGuestList(OctopusContext)} */
 	public static final String INPUT_addGuestList[] = {};
 	/**
-	 * Diese Octopus-Aktion fügt eine Reihe von Gästen einer
+	 * Diese Octopus-Aktion fï¿½gt eine Reihe von Gï¿½sten einer
 	 * Veranstaltung hinzu.<br>
 	 * 
 	 * @param cntx OctopusContext
@@ -132,10 +132,10 @@ public class GuestWorker {
 		}
 	}
 
-	/** Octopus-Eingabe-Parameter für {@link #addEvent(OctopusContext, Integer)} */
+	/** Octopus-Eingabe-Parameter fï¿½r {@link #addEvent(OctopusContext, Integer)} */
 	public static final String INPUT_addEvent[] = { "id" };
 	/**
-	 * Fügt die Gäste einer Veranstaltung einer anderen Veranstaltung hinzu.
+	 * Fï¿½gt die Gï¿½ste einer Veranstaltung einer anderen Veranstaltung hinzu.
 	 * 
 	 * @param cntx
 	 * @throws BeanException
@@ -145,7 +145,7 @@ public class GuestWorker {
 		Database database = new DatabaseVeraWeb(cntx);
 		TransactionContext context = database.getTransactionContext();
 		Event event = (Event)cntx.contentAsObject("event");
-		logger.debug("Füge Gäste der Veranstaltung #" + eventId + " der Verstanstaltung #" + event.id + " hinzu.");
+		logger.debug("Fï¿½ge Gï¿½ste der Veranstaltung #" + eventId + " der Verstanstaltung #" + event.id + " hinzu.");
 		
 		try {
 			List list = database.getList(SQL.Select().
@@ -166,9 +166,9 @@ public class GuestWorker {
 						(Integer)data.get("fk_person"),
 						(Integer)data.get("fk_category"),
 						Boolean.valueOf(data.get("reserve") != null && ((Integer)data.get("reserve")).intValue() != 0),
-						// Aus alter Veranstaltung übernehmen
+						// Aus alter Veranstaltung ï¿½bernehmen
 						//(Integer)data.get("invitationtype"),
-						// Veranstaltungs-Standard übernehmen
+						// Veranstaltungs-Standard ï¿½bernehmen
 						event.invitationtype,
 						Boolean.FALSE);
 				if (invite) invited++; else notInvited++;
@@ -183,10 +183,10 @@ public class GuestWorker {
 		}
 	}
 
-	/** Octopus-Eingabe-Parameter für {@link #addPerson(OctopusContext, Integer)} */
+	/** Octopus-Eingabe-Parameter fï¿½r {@link #addPerson(OctopusContext, Integer)} */
 	public static final String INPUT_addPerson[] = { "event-id" };
 	/**
-	 * Fügt eine Person aus dem Content zu einer Veranstaltung hinzu.
+	 * Fï¿½gt eine Person aus dem Content zu einer Veranstaltung hinzu.
 	 * 
 	 * Wird offenbar nur verwendet wenn aus der Detail-Sicht einer Person diese Person einer Veranstaltung zugewiesen
 	 * wird. Falls der Person nur eine einzige Kategorie zugeordnet ist, wird diese mit in die Veranstaltung uebernommen
@@ -221,7 +221,7 @@ public class GuestWorker {
 					}
 				} catch (Exception e)
 				{
-					logger.warn("addPerson: Konnte fuer Person: " + person + " beim Hinzufügen zur Veranstaltung: " + event
+					logger.warn("addPerson: Konnte fuer Person: " + person + " beim Hinzufï¿½gen zur Veranstaltung: " + event
 						+ " keine PersonCategorie ermitteln", e);
 				}
 				invite = addGuest(cntx, database, context, event, person.id, catId, Boolean.FALSE, event.invitationtype, Boolean.FALSE);
@@ -231,7 +231,7 @@ public class GuestWorker {
 					notInvited++;
 			} else
 			{
-				logger.error("addPerson: Konnte Person: " + person + " der Veranstaltung: " + event + " nicht hinzufügen.");
+				logger.error("addPerson: Konnte Person: " + person + " der Veranstaltung: " + event + " nicht hinzufï¿½gen.");
 			}
 
 			cntx.setContent("event", event);
@@ -245,7 +245,7 @@ public class GuestWorker {
 		}
 	}
 
-	/** Octopus-Eingabe-Parameter für {@link #reloadData(OctopusContext, Integer)} */
+	/** Octopus-Eingabe-Parameter fï¿½r {@link #reloadData(OctopusContext, Integer)} */
 	public static final String INPUT_reloadData[] = { "guest-id" };
 	/**
 	 * Diese Octopus-Aktion aktuallisiert die Daten eines Gastes
@@ -270,7 +270,7 @@ public class GuestWorker {
 	}
 
 	/**
-	 * Octopus-Eingabe-Parameter für {@link #reloadAllData(OctopusContext)}
+	 * Octopus-Eingabe-Parameter fï¿½r {@link #reloadAllData(OctopusContext)}
 	 */
 	public static final String INPUT_reloadAllData[] = {};
 	/**
@@ -305,10 +305,10 @@ public class GuestWorker {
 		}
 	}
 
-    /** Octopus-Eingabe-Parameter für {@link #calcSerialNumber(OctopusContext)} */
+    /** Octopus-Eingabe-Parameter fï¿½r {@link #calcSerialNumber(OctopusContext)} */
     public static final String INPUT_calcSerialNumber[] = {};
     /**
-     * Diese Octopus-Aktion berechnet für eine Veranstaltung die 'Laufende Nummer'.
+     * Diese Octopus-Aktion berechnet fï¿½r eine Veranstaltung die 'Laufende Nummer'.
      * 
      * @param cntx
      * @throws BeanException
@@ -322,7 +322,7 @@ public class GuestWorker {
 		
 		Map questions = new HashMap();
 		if (event.begin.before(new Date()) && !cntx.requestAsBoolean("calc-serialno").booleanValue()) {
-			questions.put("calc-serialno", "Diese Veranstaltung liegt bereits in der Vergangenheit, möchten Sie trotzdem die Laufende-Nummer neu berechnen?");
+			questions.put("calc-serialno", "Diese Veranstaltung liegt bereits in der Vergangenheit, mï¿½chten Sie trotzdem die Laufende-Nummer neu berechnen?");
 		} else {
 			new GuestSerialNumber.CalcSerialNumberImpl3(database, event).calcSerialNumber();
 		}
@@ -332,10 +332,10 @@ public class GuestWorker {
 	}
 
     //
-    // Geschützte Methoden
+    // Geschï¿½tzte Methoden
     //
 	/**
-	 * Neuen Gast hinzufügen.
+	 * Neuen Gast hinzufï¿½gen.
 	 * 
 	 * @see #saveGuest(OctopusContext, Database, ExecutionContext, Event, Integer, Integer, Integer, Boolean, Integer, Boolean)
 	 */
@@ -369,17 +369,17 @@ public class GuestWorker {
 	}
 
     /**
-     * Diese Methode fügt eine Person einer Veranstaltung hinzu.<br><br>
+     * Diese Methode fï¿½gt eine Person einer Veranstaltung hinzu.<br><br>
      * 
      * <strong>Achtung:</strong> Wenn die Gast-ID null ist wird ein neuer
      * Gast angelegt wenn dieser noch nicht dieser Veranstaltung zugeordnet
-     * war. Wenn die Gast-ID übergeben wird, wird dieser Gast aktuallisiert!
+     * war. Wenn die Gast-ID ï¿½bergeben wird, wird dieser Gast aktuallisiert!
      * 
      * @param cntx Octopus-Context
      * @param database Datenbank
      * @param event Veranstaltung
-     * @param guestId Gast der bearbeitet werden soll, null zum hinzufügen.
-     * @param personId Person mit dessen Daten der Gast gefüllt werden soll.
+     * @param guestId Gast der bearbeitet werden soll, null zum hinzufï¿½gen.
+     * @param personId Person mit dessen Daten der Gast gefï¿½llt werden soll.
      * @param categoryId Kategorie nach der gefiltert wurde.
      * @param reserve Gibt an ob dieser Gast auf Reserve gesetzt werden soll.
      * @param invitationtype Gibt an ob dieser Gast mit/ohne Partner eingeladen werden soll.
@@ -389,10 +389,10 @@ public class GuestWorker {
 		if (event == null) return false;
 		
 		if (guestId == null) {
-			logger.debug("Füge Person #" + personId + " der Veranstaltung #" + event.id + " hinzu.");
+			logger.debug("Fï¿½ge Person #" + personId + " der Veranstaltung #" + event.id + " hinzu.");
 		}
 		
-		// Keinen neuen Gast hinzufügen wenn diese Person bereits zugeordnet war.
+		// Keinen neuen Gast hinzufï¿½gen wenn diese Person bereits zugeordnet war.
 		if (guestId == null) {
 			if (database.getCount(database.getCount("Guest").where(Where.and(
 					Expr.equal("fk_event", event.id),
@@ -414,13 +414,13 @@ public class GuestWorker {
 			personId = guest.person;
 		}
 		
-		// Vollständige Personendaten laden.
+		// Vollstï¿½ndige Personendaten laden.
 		Person person = (Person)
 				database.getBean("Person",
 				database.getSelect("Person").
 				where(Expr.equal("pk", personId)), context);
 		if (person == null) {
-			logger.warn("Person #" + personId + " konnte nicht gefunden und daher der Veranstaltung #" + event.id + " nicht hinzugefügt werden.");
+			logger.warn("Person #" + personId + " konnte nicht gefunden und daher der Veranstaltung #" + event.id + " nicht hinzugefï¿½gt werden.");
 			return false;
 		}
 		
@@ -514,7 +514,7 @@ public class GuestWorker {
 	}
 
     /**
-     * Diese Methode aktualisiert die Dokumenttypen eines übergebenen Gasts.
+     * Diese Methode aktualisiert die Dokumenttypen eines ï¿½bergebenen Gasts.
      * 
      * @param cntx OctopusContext
      * @param database Datenbank
@@ -527,7 +527,7 @@ public class GuestWorker {
         if (guest == null || person == null) {
 			logger.warn("Aktuallisieren der Dokumententypen von Gast #" +
 					(guest == null || guest.id == null ? "null" : guest.id.toString()) +
-					" nicht möglich. (Person #" +
+					" nicht mï¿½glich. (Person #" +
 					(person == null || person.id == null ? "null" : person.id.toString()) + ")");
 			return;
         }
@@ -771,6 +771,6 @@ public class GuestWorker {
     //
     // Variablen
     //
-    /** Logger für diese Klasse */
+    /** Logger fï¿½r diese Klasse */
     private final static Logger logger = Logger.getLogger(GuestWorker.class);
 }

@@ -1289,6 +1289,7 @@ END;\'
 	-------- added new attribute as per the change request for the next version 1.2.0
 	-------- cklein 2008-02-11
 			  birthplace_a_e2 varchar(100),
+			  title_a_e2 varchar(250),
 			  firstname_a_e2 varchar(100),
 			  lastname_a_e2 varchar(100),
 			  
@@ -1311,7 +1312,7 @@ END;\'
 			  domestic_b_e1 varchar(1) NOT NULL DEFAULT \'t\'::character varying,
 			  sex_b_e1 varchar(1) NOT NULL DEFAULT \'m\'::character varying,
 			  birthday_b_e1 timestamptz,
-			  birthplace_b_e1 varchar(100),
+			  --birthplace_b_e1 varchar(100),
 			  diplodate_b_e1 timestamptz,
 			  languages_b_e1 varchar(250),
 			  nationality_b_e1 varchar(100),
@@ -1322,7 +1323,7 @@ END;\'
 			  -- Partner, Zeichensatz 1
 			  salutation_b_e2 varchar(50),
 			  fk_salutation_b_e2 int4,
-			  birthplace_b_e2 varchar(100),
+			  --birthplace_b_e2 varchar(100),
 			  title_b_e2 varchar(250),
 			  firstname_b_e2 varchar(100),
 			  lastname_b_e2 varchar(100),
@@ -1330,7 +1331,7 @@ END;\'
 			  -- Partner, Zeichensatz 2
 			  salutation_b_e3 varchar(50),
 			  fk_salutation_b_e3 int4,
-			  birthplace_b_e3 varchar(100),
+			  --birthplace_b_e3 varchar(100),
 			  title_b_e3 varchar(250),
 			  firstname_b_e3 varchar(100),
 			  lastname_b_e3 varchar(100),
@@ -1543,7 +1544,7 @@ END;\'
 		vint := 0;
 		SELECT count(*) INTO vint FROM information_schema.columns
 			WHERE table_schema = \'veraweb\' AND table_name = \'tperson\' AND column_name = \'birthplace_a_e1\';
-		IF vint > 0 THEN
+		IF vint = 0 THEN
 			vmsg := \'begin.addcolumn.tperson.birthplace_a_e1\';
 			INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
 			IF $1 = 1 THEN
@@ -1565,12 +1566,12 @@ END;\'
 			END IF;
 			vmsg := \'end.addcolumn.tperson.birthplace_a_e3\';
 			INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
-		END IF
+		END IF;
 
 		vint := 0;
 		SELECT count(*) INTO vint FROM information_schema.columns
 			WHERE table_schema = \'veraweb\' AND table_name = \'tperson\' AND column_name = \'birthplace_b_e1\';
-		IF vint > 0 THEN
+		IF vint = 0 THEN
 			vmsg := \'begin.addcolumn.tperson.birthplace_b_e1\';
 			INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
 			IF $1 = 1 THEN
@@ -1592,7 +1593,7 @@ END;\'
 			END IF;
 			vmsg := \'end.addcolumn.tperson.birthplace_b_e3\';
 			INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
-		END IF
+		END IF;
 		--------<COLUMN/>
 	END IF;
 	
@@ -2089,9 +2090,33 @@ END;\'
 			(
 			  pk serial NOT NULL,
 			  name varchar(250) NOT NULL,
+			  deleted varchar(1) NOT NULL DEFAULT \'f\'::character varying,
 			  CONSTRAINT tworkarea_pkey PRIMARY KEY (pk)
-			  
-			  // TODO
+			) WITH OIDS;
+		END IF;
+		vmsg := \'end.createTABLE.tworkarea\';
+		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
+	ELSE
+	--------<COLUMN>
+	--------<COLUMN/>
+	END IF;
+	---------------------------</TABLE>
+
+	-------- added table as per the change request for the next version 1.2.0
+	-------- cklein 2008-02-13
+	---------------------------<TABLE>
+	vint := 0;
+	SELECT count(*) INTO vint FROM information_schema.tables 
+		WHERE table_schema = \'veraweb\' AND table_name = \'tguest_workarea\';
+	IF vint = 0 THEN
+		vmsg := \'begin.createTABLE.tworkarea\';
+		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
+		IF $1 = 1 THEN
+			CREATE TABLE veraweb.tguest_workarea
+			(
+			  fk_guest int4 NOT NULL REFERENCES veraweb.tguest(pk) ON DELETE CASCADE,
+			  fk_workarea int4 NOT NULL REFERENCES veraweb.tworkarea(pk) ON DELETE RESTRICT,
+			  CONSTRAINT tguest_workarea_pkey PRIMARY KEY (fk_guest, fk_workarea)
 			) WITH OIDS;
 		END IF;
 		vmsg := \'end.createTABLE.tworkarea\';
@@ -2112,15 +2137,13 @@ END;\'
 		vmsg := \'begin.createTABLE.tchangelog\';
 		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
 		IF $1 = 1 THEN
-			CREATE DOMAIN objecttype
-				AS varchar(30);				-- CHECK (value IN ('tperson', 'tguest', 'tguestlist'));
 			CREATE TABLE veraweb.tchangelog
 			(
 			  pk serial NOT NULL,
 			  username varchar(100) NOT NULL,
-			  otype objecttype NOT NULL,		-- the type of the object
-			  oid int4 NOT NULL,				-- the id of the object
-			  action varchar(6) NOT NULL,		-- the action logged, one of delete, insert, or update
+			  objtype varchar(250) NOT NULL,	-- the type of the object (fully-qualified-classname)
+			  objid int4 NOT NULL,				-- the id of the object
+			  op varchar(6) NOT NULL,			-- the operation logged, one of delete, insert, or update
 			  attributes text NOT NULL,			-- a list of comma separated attribute names
 			  date timestamptz,
 			  CONSTRAINT tchangelog_pkey PRIMARY KEY (pk)
@@ -2484,4 +2507,5 @@ END;\'
 
 END;'
   LANGUAGE 'plpgsql' VOLATILE;
+
 

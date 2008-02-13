@@ -60,7 +60,7 @@ import de.tarent.octopus.custom.beans.veraweb.RequestVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
 
 /**
- * Verwaltet eine Gästeliste.
+ * Verwaltet eine Gï¿½steliste.
  * 
  * @author Mikel, Christoph
  * @version $Revision: 1.1 $
@@ -226,7 +226,7 @@ public class GuestListWorker extends ListWorkerVeraWeb {
 		if (selection == null || selection.size() == 0)
 			return count;
 		
-		// Abfrage ob auch entsprechende Person gelöscht werden soll.
+		// Abfrage ob auch entsprechende Person gelï¿½scht werden soll.
 		Select select = SQL.Select().
 				from("veraweb.tguest").
 				selectAs("tguest.pk", "guest").
@@ -235,7 +235,7 @@ public class GuestListWorker extends ListWorkerVeraWeb {
 				joinLeftOuter("veraweb.tperson", "tguest.fk_person", "tperson.pk").
 				where(Expr.in("tguest.pk", selection));
 		
-		// Entsprechende Gäste und Personen löschen
+		// Entsprechende Gï¿½ste und Personen lï¿½schen
 		Guest guest = new Guest();
 		for (Iterator it = database.getList(select).iterator(); it.hasNext(); ) {
 			Map data = (Map)it.next();
@@ -305,7 +305,8 @@ public class GuestListWorker extends ListWorkerVeraWeb {
 		 */
 		BeanChangeLogger clogger = new BeanChangeLogger( database );
 		Guest guestOld = ( Guest ) database.getBean( "Guest", guest.id );
-		clogger.logUpdate( cntx.personalConfig().getLoginname(), guestOld, guest );
+		throw new RuntimeException( "guestid: " + guest.id );
+		//clogger.logUpdate( cntx.personalConfig().getLoginname(), guestOld, guest );
 	}
 
 	protected boolean removeBean(OctopusContext cntx, Bean bean) throws BeanException, IOException {
@@ -318,6 +319,8 @@ public class GuestListWorker extends ListWorkerVeraWeb {
 				from("veraweb.tguest").
 				where(Expr.equal("pk", ((Guest)bean).id)));
 
+		WorkerFactory.getGuestDetailWorker( cntx ).updateWorkAreaAssignments( cntx, database.getTransactionContext(), ( Guest ) bean, GuestDetailWorker.ACTION_DELETE );
+		
 		/*
 		 * modified to support change logging
 		 * cklein 2008-02-12
@@ -336,10 +339,10 @@ public class GuestListWorker extends ListWorkerVeraWeb {
     /** Ausgabe-Parameter der Octopus-Aktion {@link #getSums(OctopusContext)} */
     public static final String OUTPUT_getSums = "guestlist-sums";
     /**
-     * Diese Octopus-Aktion liefert die Gesamtzahlen der aktuellen Gästeliste.
+     * Diese Octopus-Aktion liefert die Gesamtzahlen der aktuellen Gï¿½steliste.
      * 
      * @param cntx Octopus-Kontext
-     * @return {@link Map} mit Gesamtzahlen unter den Schlüsseln "platz", "reserve",
+     * @return {@link Map} mit Gesamtzahlen unter den Schlï¿½sseln "platz", "reserve",
      *  "all", "offen", "zusagen" und "absagen".
      */
     public Map getSums(OctopusContext cntx) throws BeanException {
@@ -356,13 +359,13 @@ public class GuestListWorker extends ListWorkerVeraWeb {
     public static final String OUTPUT_getSearch = "search";
     /**
      * Diese Octopus-Aktion liefert eine {@link GuestSearch}-Instanz, die die aktuellen
-     * Gästesuchkriterien enthält. Diese stammen entweder aus dem Octopus-Content (unter
+     * Gï¿½stesuchkriterien enthï¿½lt. Diese stammen entweder aus dem Octopus-Content (unter
      * "search"), aus dem Octopus-Request oder aus der Octopus-Session (unter "searchGuest").
-     * Vor der Rückgabe wird die Instanz unter "searchGuest" in die Octopus-Session
+     * Vor der Rï¿½ckgabe wird die Instanz unter "searchGuest" in die Octopus-Session
      * gestellt.
      * 
      * @param cntx Octopus-Kontext
-     * @return {@link GuestSearch}-Instanz zur aktuellen Gästesuche
+     * @return {@link GuestSearch}-Instanz zur aktuellen Gï¿½stesuche
      * @throws BeanException
      */
     public GuestSearch getSearch(OctopusContext cntx) throws BeanException {
@@ -387,7 +390,7 @@ public class GuestListWorker extends ListWorkerVeraWeb {
     /** Ausgabe-Parameter der Octopus-Aktion {@link #getEvent(OctopusContext)} */
     public static final String OUTPUT_getEvent = "event";
     /**
-     * Diese Octopus-Aktion liefert das Ereignis aus der aktuellen Gästesuche,
+     * Diese Octopus-Aktion liefert das Ereignis aus der aktuellen Gï¿½stesuche,
      * siehe Aktion {@link #getSearch(OctopusContext)}.
      * 
      * @param cntx Octopus-Kontext
@@ -404,10 +407,10 @@ public class GuestListWorker extends ListWorkerVeraWeb {
     }
 
     //
-    // öffentliche Hilfsfunktionen
+    // ï¿½ffentliche Hilfsfunktionen
     //
     /**
-     * Diese Methode überträgt Gästesuchkriterien aus einer {@link GuestSearch}-Instanz
+     * Diese Methode ï¿½bertrï¿½gt Gï¿½stesuchkriterien aus einer {@link GuestSearch}-Instanz
      * in einer WHERE-Statement-Liste.
      */
     public static void addGuestListFilter(GuestSearch search, WhereList where) {
@@ -464,13 +467,13 @@ public class GuestListWorker extends ListWorkerVeraWeb {
     }
 
     //
-    // geschützte Hilfsfunktionen
+    // geschï¿½tzte Hilfsfunktionen
     //
 	/**
-	 * Berechnet die Gesamtzahlen der aktuellen Gästeliste.
+	 * Berechnet die Gesamtzahlen der aktuellen Gï¿½steliste.
 	 * 
 	 * Vor Version 1.50 wurden "Auf Platz" und "Auf Reserve"
-	 * pro Datensatz berechnet, die aktuelle Umsetzung zählt
+	 * pro Datensatz berechnet, die aktuelle Umsetzung zï¿½hlt
 	 * diese pro eingeladenen Member. (Vgl. Bug 1480)
 	 * 
 	 * @param database

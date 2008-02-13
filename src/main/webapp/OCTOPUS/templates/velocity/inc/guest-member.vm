@@ -6,6 +6,7 @@
 			<option value="0" #if(0 == $facade.InvitationStatus) selected#end>Offen</option>
 			<option value="1" #if(1 == $facade.InvitationStatus) selected#end>Zusage</option>
 			<option value="2" #if(2 == $facade.InvitationStatus) selected#end>Absage</option>
+			<option value="3" #if(3 == $facade.InvitationStatus) selected#end>Teilgenommen</option>
 		</select>
 	</td>
 </tr><tr>
@@ -55,6 +56,16 @@
 </tr><tr>
 	<td class="label">Nationalit&auml;t/Staats.:</td>
 	<td class="value"><input type="text" id="guest-nationality$ext" name="guest-nationality$ext" value="$!message.text($facade.Nationality)" class="text"></td>
+</tr><tr>
+	<td class="label">Arbeitsbereich:</td>
+	<td class="value">
+		<select name="guest-workarea" class="combobox" onchange="setModified('workArea')">
+			<option value="">Kein Arbeitsbereich</option>
+			#foreach($workArea in $allWorkAreas)
+			<option value="$workArea.id" #if( $guestWorkAreas.hasKey( $workArea.id ) ) selected#end>$workArea.name</option>
+			#end
+		</select>
+	</td>
 </tr><tr>
 	<td class="label">Hinweis Gastgeber:</td>
 	<td class="value"><textarea rows="4" cols="20" id="guest-notehost$ext" name="guest-notehost$ext" #if($grants.mayReadRemarkFields()) class="text">$!message.textarea($facade.NoteHost)#else class="textdisabled" disabled="true">#end</textarea></td>

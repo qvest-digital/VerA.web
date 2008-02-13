@@ -1,7 +1,7 @@
 /*
  * veraweb,
  * Veranstaltungsmanagment veraweb
- * Copyright (c) 2005-2007 tarent GmbH
+ * Copyright (c) 2005-2008 tarent GmbH
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License,version 2
@@ -38,15 +38,15 @@ import de.tarent.octopus.server.WorkerCreationException;
 
 /**
  * Diese Klasse gibt Instanzen anderer Worker und direktem Arbeiten mit
- * diesen zurück. Dadurch verlaggert sich die Verwendung von statischen
- * Methoden ausschließlich in diese Klasse.
+ * diesen zurï¿½ck. Dadurch verlaggert sich die Verwendung von statischen
+ * Methoden ausschlieï¿½lich in diese Klasse.
  * 
  * @author Christoph
  */
 public class WorkerFactory {
 	private WorkerFactory() {
 	}
-
+	
     /**
      * Diese Methode liefert den Worker namens "PersonDetailWorker".
      * 
@@ -127,6 +127,19 @@ public class WorkerFactory {
 		return (VerifyWorker)getWorker(cntx, "VerifyWorker");
 	}
 
+
+	/**
+	 * Gets a new instance of the {@link GuestDetailWorker}.
+	 *  
+	 * @param cntx the current octopus context
+	 * @return instance of {@link GuestDetailWorker}
+	 * @since 1.2.0
+	 */
+	static public GuestDetailWorker getGuestDetailWorker( OctopusContext cntx )
+	{
+		return ( GuestDetailWorker ) getWorker( cntx, "GuestDetailWorker" );
+	}
+	
 	/**
 	 * Diese Methode liefert den Worker namens "GuestListWorker".
 	 * 
