@@ -3,7 +3,6 @@ package de.tarent.dblayer.persistence;
 import java.util.HashMap;
 import java.util.Map;
 
-import de.tarent.commons.datahandling.entity.EntityFactoryRegistry;
 
 /** This class is a registry for data access objects.
  * 
