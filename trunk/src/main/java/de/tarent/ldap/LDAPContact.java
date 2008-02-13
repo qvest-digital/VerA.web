@@ -45,7 +45,7 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
 /**
- * Objekt, welches ungefähr das repräsentiert, was inetOrgPerson im LDAP ist...
+ * Objekt, welches ungefï¿½hr das reprï¿½sentiert, was inetOrgPerson im LDAP ist...
  * 
  * @author philipp
  */
@@ -83,7 +83,7 @@ public class LDAPContact {
 	private String privatHandy = new String("");
 	private String privatEmail = new String("");
 	
-	private static final String[] INVALID_CHARS = {"ä", "Ä", "ö", "Ö", "ü", "Ü", "ß"};
+	private static final String[] INVALID_CHARS = {"ï¿½", "ï¿½", "ï¿½", "ï¿½", "ï¿½", "ï¿½", "ï¿½"};
 	
 	public LDAPContact(){
 	}
@@ -185,36 +185,36 @@ public class LDAPContact {
 	}
 
 	public String toString(){
-	String rückgabe = new String();
-		rückgabe += "Vorname: "+vorname+"\n";
-		rückgabe +="Mittlerer Name: " + mittelname + "\n";
-		rückgabe +="Nachname:" + nachname + "\n";
-		rückgabe +="Spitzname:" + spitzname + "\n";
-		rückgabe +="UserID:" + userid + "\n"; 
-		rückgabe +="Geschäftlich:\n";
-		rückgabe +="Firma: "+ arbeitFirma + "\n";
-		rückgabe +="Abteilung: " + arbeitAbteilung + "\n";
-		rückgabe +="Strasse: " + arbeitStrasse +"\n";
-		rückgabe +="PLZ/Ort: " + arbeitPLZ + " " + arbeitOrt + "\n";
-		rückgabe +="Staat: " + arbeitBundesstaat + "\n";
-		rückgabe +="Land: " + arbeitLand + "\n";
-		rückgabe +="Job: " + arbeitJob + "\n";
-		rückgabe +="EMail: " + arbeitEmail + "\n";
-		rückgabe +="Telefon: " + arbeitTelefon + "\n";
-		rückgabe +="Fax: " + arbeitFax + "\n";
-		rückgabe +="Pager: " + pager + "\n";
-		rückgabe +="Handy: " + arbeitHandy + "\n";
-		rückgabe +="Privat: \n";
-		rückgabe +="Strasse: " + privatStrasse + "\n";
-		rückgabe +="Telefon: " + privatTelefon + "\n";
-		rückgabe +="\n";
-		rückgabe +="Beschreibung: " + beschreibung +"\n";
+	String ruckgabe = new String();
+		ruckgabe += "Vorname: "+vorname+"\n";
+		ruckgabe +="Mittlerer Name: " + mittelname + "\n";
+		ruckgabe +="Nachname:" + nachname + "\n";
+		ruckgabe +="Spitzname:" + spitzname + "\n";
+		ruckgabe +="UserID:" + userid + "\n"; 
+		ruckgabe +="Geschï¿½ftlich:\n";
+		ruckgabe +="Firma: "+ arbeitFirma + "\n";
+		ruckgabe +="Abteilung: " + arbeitAbteilung + "\n";
+		ruckgabe +="Strasse: " + arbeitStrasse +"\n";
+		ruckgabe +="PLZ/Ort: " + arbeitPLZ + " " + arbeitOrt + "\n";
+		ruckgabe +="Staat: " + arbeitBundesstaat + "\n";
+		ruckgabe +="Land: " + arbeitLand + "\n";
+		ruckgabe +="Job: " + arbeitJob + "\n";
+		ruckgabe +="EMail: " + arbeitEmail + "\n";
+		ruckgabe +="Telefon: " + arbeitTelefon + "\n";
+		ruckgabe +="Fax: " + arbeitFax + "\n";
+		ruckgabe +="Pager: " + pager + "\n";
+		ruckgabe +="Handy: " + arbeitHandy + "\n";
+		ruckgabe +="Privat: \n";
+		ruckgabe +="Strasse: " + privatStrasse + "\n";
+		ruckgabe +="Telefon: " + privatTelefon + "\n";
+		ruckgabe +="\n";
+		ruckgabe +="Beschreibung: " + beschreibung +"\n";
 		
-		return rückgabe;
+		return ruckgabe;
 	}
 	
 	/**
-	 * Getter für Nachname
+	 * Getter fï¿½r Nachname
 	 * @return Nachname
 	 */
 	public String getNachname() {
@@ -223,7 +223,7 @@ public class LDAPContact {
 	}
 
 	/**
-	 * Getter für Spitzname
+	 * Getter fï¿½r Spitzname
 	 * @return Spitzname
 	 */
 	public String getSpitzname() {
@@ -231,7 +231,7 @@ public class LDAPContact {
 	}
 
 	/**
-	 * Getter für Vorname
+	 * Getter fï¿½r Vorname
 	 * @return Vorname
 	 */
 	public String getVorname() {
@@ -239,7 +239,7 @@ public class LDAPContact {
 	}
 
 	/**
-	 * Setter für Nachname
+	 * Setter fï¿½r Nachname
 	 * @param string Nachname
 	 */
 	public void setNachname(String string) {
@@ -248,7 +248,7 @@ public class LDAPContact {
 	}
 
 	/**
-	 * Setter für Spitzname
+	 * Setter fï¿½r Spitzname
 	 * @param string Spitzname
 	 */
 	public void setSpitzname(String string) {
@@ -256,7 +256,7 @@ public class LDAPContact {
 	}
 
 	/**
-	 * Setter für Vorname
+	 * Setter fï¿½r Vorname
 	 * @param string Vorname
 	 */
 	public void setVorname(String string) {
@@ -264,7 +264,7 @@ public class LDAPContact {
 	}
 
 	/**
-	 * Getter für UserID
+	 * Getter fï¿½r UserID
 	 * @return UserID
 	 */
 	public String getUserid() {
@@ -272,7 +272,7 @@ public class LDAPContact {
 	}
 
 	/**
-	 * Setter für UserID
+	 * Setter fï¿½r UserID
 	 * @param string UserID
 	 */
 	public void setUserid(String string) {
@@ -280,7 +280,7 @@ public class LDAPContact {
 	}
 
 	/**
-	 * Getter für ArbeitFirma
+	 * Getter fï¿½r ArbeitFirma
 	 * @return ArbeitFirma
 	 */
 	public String getArbeitFirma() {
@@ -288,7 +288,7 @@ public class LDAPContact {
 	}
 
 	/**
-	 * Getter für ArbeitOrt
+	 * Getter fï¿½r ArbeitOrt
 	 * @return ArbeitOrt
 	 */
 	public String getArbeitOrt() {
@@ -296,7 +296,7 @@ public class LDAPContact {
 	}
 
 	/**
-	 * Getter für ArbeitPLZ
+	 * Getter fï¿½r ArbeitPLZ
 	 * @return ArbeitPLZ
 	 */
 	public String getArbeitPLZ() {
@@ -304,7 +304,7 @@ public class LDAPContact {
 	}
 
 	/**
-	 * Getter für ArbeitStrasse
+	 * Getter fï¿½r ArbeitStrasse
 	 * @return ArbeitStrasse
 	 */
 	public String getArbeitStrasse() {
@@ -312,7 +312,7 @@ public class LDAPContact {
 	}
 
 	/**
-	 * Setter für ArbeitFirma
+	 * Setter fï¿½r ArbeitFirma
 	 * @param string ArbeitFirma
 	 */
 	public void setArbeitFirma(String string) {
@@ -321,7 +321,7 @@ public class LDAPContact {
 	}
 
 	/**
-	 * Setter für ArbeitOrt
+	 * Setter fï¿½r ArbeitOrt
 	 * @param string ArbeitOrt
 	 */
 	public void setArbeitOrt(String string) {
@@ -329,7 +329,7 @@ public class LDAPContact {
 	}
 
 	/**
-	 * Setter für ArbeitPLZ
+	 * Setter fï¿½r ArbeitPLZ
 	 * @param string ArbeitPLZ
 	 */
 	public void setArbeitPLZ(String string) {
@@ -337,7 +337,7 @@ public class LDAPContact {
 	}
 
 	/**
-	 * Setter für ArbeitStrasse
+	 * Setter fï¿½r ArbeitStrasse
 	 * @param string ArbeitStrasse
 	 */
 	public void setArbeitStrasse(String string) {
@@ -345,7 +345,7 @@ public class LDAPContact {
 	}
 
 	/**
-	 * Getter für ArbeitJob
+	 * Getter fï¿½r ArbeitJob
 	 * @return ArbeitJob
 	 */
 	public String getArbeitJob() {
@@ -353,7 +353,7 @@ public class LDAPContact {
 	}
 
 	/**
-	 * Getter für Email
+	 * Getter fï¿½r Email
 	 * @return Email
 	 */
 	public String getArbeitEmail() {
@@ -361,7 +361,7 @@ public class LDAPContact {
 	}
 
 	/**
-	 * Setter für ArbeitJob
+	 * Setter fï¿½r ArbeitJob
 	 * @param string ArbeitJob
 	 */
 	public void setArbeitJob(String string) {
@@ -369,7 +369,7 @@ public class LDAPContact {
 	}
 
 	/**
-	 * Setter für Email
+	 * Setter fï¿½r Email
 	 * @param string Email
 	 */
 	public void setArbeitEmail(String string) {
@@ -390,7 +390,7 @@ public class LDAPContact {
 	}
 
 	/**
-	 * Getter für ArbeitFax
+	 * Getter fï¿½r ArbeitFax
 	 * @return ArbeitFax
 	 */
 	public String getArbeitFax() {
@@ -398,7 +398,7 @@ public class LDAPContact {
 	}
 
 	/**
-	 * Setter für ArbeitFax
+	 * Setter fï¿½r ArbeitFax
 	 * @param string ArbeitFax
 	 */
 	public void setArbeitFax(String string) {
@@ -410,7 +410,7 @@ public class LDAPContact {
 	}
 
 	/**
-	 * Getter für ArbeitTelefon
+	 * Getter fï¿½r ArbeitTelefon
 	 * @return ArbeitTelefon
 	 */
 	public String getArbeitTelefon() {
@@ -418,7 +418,7 @@ public class LDAPContact {
 	}
 
 	/**
-	 * Setter für ArbeitTelefon
+	 * Setter fï¿½r ArbeitTelefon
 	 * @param string ArbeitTelefon
 	 */
 	public void setArbeitTelefon(String string) {
@@ -430,7 +430,7 @@ public class LDAPContact {
 	}
 
 	/**
-	 * Getter für Handy
+	 * Getter fï¿½r Handy
 	 * @return Handy
 	 */
 	public String getArbeitHandy() {
@@ -438,7 +438,7 @@ public class LDAPContact {
 	}
 
 	/**
-	 * Setter für Handy
+	 * Setter fï¿½r Handy
 	 * @param string Handy
 	 */
 	public void setArbeitHandy(String string) {
@@ -450,7 +450,7 @@ public class LDAPContact {
 	}
 
 	/**
-	 * Getter für HomeTelefon
+	 * Getter fï¿½r HomeTelefon
 	 * @return HomeTelefon
 	 */
 	public String getPrivatTelefon() {
@@ -458,7 +458,7 @@ public class LDAPContact {
 	}
 
 	/**
-	 * Getter für Pager
+	 * Getter fï¿½r Pager
 	 * @return Pager
 	 */
 	public String getPager() {
@@ -466,7 +466,7 @@ public class LDAPContact {
 	}
 
 	/**
-	 * Setter für HomeTelefon
+	 * Setter fï¿½r HomeTelefon
 	 * @param string HomeTelefon
 	 */
 	public void setPrivatTelefon(String string) {
@@ -478,7 +478,7 @@ public class LDAPContact {
 	}
 
 	/**
-	 * Setter für Pager
+	 * Setter fï¿½r Pager
 	 * @param string Pager
 	 */
 	public void setPager(String string) {
@@ -486,7 +486,7 @@ public class LDAPContact {
 	}
 
 	/**
-	 * Getter für ArbeitAbteilung
+	 * Getter fï¿½r ArbeitAbteilung
 	 * @return ArbeitAbteilung
 	 */
 	public String getArbeitAbteilung() {
@@ -494,7 +494,7 @@ public class LDAPContact {
 	}
 
 	/**
-	 * Setter für ArbeitAbteilung
+	 * Setter fï¿½r ArbeitAbteilung
 	 * @param string
 	 */
 	public void setArbeitAbteilung(String string) {
@@ -502,7 +502,7 @@ public class LDAPContact {
 	}
 
 	/**
-	 * Getter für Beschreibung
+	 * Getter fï¿½r Beschreibung
 	 * @return Beschreibung
 	 */
 	public String getBeschreibung() {
@@ -510,7 +510,7 @@ public class LDAPContact {
 	}
 
 	/**
-	 * Setter für Beschreibung
+	 * Setter fï¿½r Beschreibung
 	 * @param string Beschreibung
 	 */
 	public void setBeschreibung(String string) {
@@ -518,7 +518,7 @@ public class LDAPContact {
 	}
 
 	/**
-	 * Getter für HomeStrasse
+	 * Getter fï¿½r HomeStrasse
 	 * @return HomeStrasse
 	 */
 	public String getPrivatStrasse() {
@@ -526,7 +526,7 @@ public class LDAPContact {
 	}
 
 	/**
-	 * Setter für HomeStrase
+	 * Setter fï¿½r HomeStrase
 	 * @param string HomeStrasse
 	 */
 	public void setPrivatStrasse(String string) {
@@ -534,7 +534,7 @@ public class LDAPContact {
 	}
 
 	/**
-	 * Getter für ArbeitLand
+	 * Getter fï¿½r ArbeitLand
 	 * @return ArbeitLand
 	 */
 	public String getArbeitLand() {
@@ -542,7 +542,7 @@ public class LDAPContact {
 	}
 
 	/**
-	 * Setter für ArbeitLand
+	 * Setter fï¿½r ArbeitLand
 	 * @param string ArbeitLand
 	 */
 	public void setArbeitLand(String string) {
@@ -550,7 +550,7 @@ public class LDAPContact {
 	}
 
 	/**
-	 * Getter für Mittelname
+	 * Getter fï¿½r Mittelname
 	 * @return Mittelname
 	 */
 	public String getMittelname() {
@@ -558,7 +558,7 @@ public class LDAPContact {
 	}
 
 	/**
-	 * Setter für Mittelname
+	 * Setter fï¿½r Mittelname
 	 * @param string Mittelname
 	 */
 	public void setMittelname(String string) {
@@ -566,7 +566,7 @@ public class LDAPContact {
 	}
 
 	/**
-	 * Getter für ArbeitBundesstaat
+	 * Getter fï¿½r ArbeitBundesstaat
 	 * @return ArbeitBundesstaat
 	 */
 	public String getArbeitBundesstaat() {
@@ -574,7 +574,7 @@ public class LDAPContact {
 	}
 
 	/**
-	 * Setter für ArbeitBundesstart
+	 * Setter fï¿½r ArbeitBundesstart
 	 * @param string ArbeitBundesstaat
 	 */
 	public void setArbeitBundesstaat(String string) {
@@ -683,8 +683,8 @@ public void setAllUsers(Map map) {
 	 * @param this - LDAPContact , aus dem gelesen werden soll
 	 * 					@see de.tarent.octopus.sync.ldap.LDAPContact
 	 * @param attribute - Attribut, welches den Wert beschreibt
-	 * @return String mit dem gewünschen Wert
-	 * @throws LDAPException - wenn etwas schief läuft
+	 * @return String mit dem gewï¿½nschen Wert
+	 * @throws LDAPException - wenn etwas schief lï¿½uft
 	 */
 	protected String getValue(NamedNodeMap attribute) throws LDAPException{
 		Method getter;
