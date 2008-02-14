@@ -319,7 +319,7 @@ public class GuestListWorker extends ListWorkerVeraWeb {
 				from("veraweb.tguest").
 				where(Expr.equal("pk", ((Guest)bean).id)));
 
-		WorkerFactory.getGuestDetailWorker( cntx ).updateWorkAreaAssignments( cntx, database.getTransactionContext(), ( Guest ) bean, GuestDetailWorker.ACTION_DELETE );
+		WorkerFactory.getGuestDetailWorker( cntx ).updateWorkAreaAssignments( cntx, database, ( Guest ) bean, GuestDetailWorker.ACTION_DELETE );
 		
 		/*
 		 * modified to support change logging

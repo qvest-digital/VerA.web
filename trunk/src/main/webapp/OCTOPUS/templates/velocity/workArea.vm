@@ -1,7 +1,7 @@
 #set($title = "Stammdaten - Arbeitsbereiche")
 #parse("inc/header.vm")	
 
-<form id="formlist" name="formlist" action="Location" method="POST">
+<form id="formlist" name="formlist" action="WorkArea" method="POST">
 <input type="hidden" name="doInsert" value="true">
 <input type="hidden" name="doUpdate" value="true">
 <input type="hidden" name="doRemove" value="true">

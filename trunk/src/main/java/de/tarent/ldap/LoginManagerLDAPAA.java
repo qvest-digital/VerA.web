@@ -1,7 +1,7 @@
 /*
  * veraweb,
  * Veranstaltungsmanagment veraweb
- * Copyright (c) 2005-2007 tarent GmbH
+ * Copyright (c) 2005-2008 tarent GmbH
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License,version 2
@@ -57,7 +57,7 @@ import de.tarent.octopus.server.PersonalConfig;
 
 
 /**
- * Diese Klasse dient als LoginManager über LDAP im Kontext des Auswärtigen Amts.
+ * Diese Klasse dient als LoginManager ï¿½ber LDAP im Kontext des Auswï¿½rtigen Amts.
  * Insbesondere beachtet wird hier das Anmelden wahlweise als Benutzer oder als
  * Rolle. Ebenfalls beachtet wird das Anmelden mit noch zu erweiternden Namen.
  * 
@@ -67,26 +67,26 @@ public class LoginManagerLDAPAA extends LoginManagerLDAPGeneric implements Login
     //
     // Konstanten
     //
-    /** Schlüssel des Konfigurationseintrags für den Rollenfilter */
+    /** Schlï¿½ssel des Konfigurationseintrags fï¿½r den Rollenfilter */
     public final static String KEY_ROLE_FILTER = "aarolefilter";
     
-    /** Schlüssel des Konfigurationseintrags für den Superadmin-Login */
+    /** Schlï¿½ssel des Konfigurationseintrags fï¿½r den Superadmin-Login */
     public final static String KEY_SYSTEM_ADMIN_LOGIN = "systemlogin";
 
-    /** Schlüssel des Konfigurationseintrags für das Superadmin-Passwort */
+    /** Schlï¿½ssel des Konfigurationseintrags fï¿½r das Superadmin-Passwort */
     public final static String KEY_SYSTEM_ADMIN_PASSWORD = "systempassword";
     
     //
     // Schnittstelle LoginManagerAA
     //
     /**
-     * Diese Methode ändert die persönliche Konfiguration so ab, dass sie
+     * Diese Methode ï¿½ndert die persï¿½nliche Konfiguration so ab, dass sie
      * in Vertretung der angegebenen Rolle handelt.<br>
-     * TODO: Ablauf der Gültigkeit mitaufnehmen und bei Ablauf ungültig werden.
+     * TODO: Ablauf der Gï¿½ltigkeit mitaufnehmen und bei Ablauf ungï¿½ltig werden.
      * 
      * @param octx anzupassender Octopus-Kontext der Sitzung des Vertreters
      * @param proxyDescription Beschreibungs-Bean der Vertretung
-     * @throws TcSecurityException Wenn keine authentisierte persönliche Konfiguration
+     * @throws TcSecurityException Wenn keine authentisierte persï¿½nliche Konfiguration
      *  vorliegt oder schon als Vertreter agiert wird.
      * @see LoginManagerAA#setProxy(OctopusContext, Proxy)
      */
@@ -103,10 +103,10 @@ public class LoginManagerLDAPAA extends LoginManagerLDAPGeneric implements Login
     }
 
     /**
-     * Diese Methode liefert eine Auflistung verfügbarer AA-Rollen, aus denen
-     * VerA.web-Benutzer ausgewählt werden können. 
+     * Diese Methode liefert eine Auflistung verfï¿½gbarer AA-Rollen, aus denen
+     * VerA.web-Benutzer ausgewï¿½hlt werden kï¿½nnen. 
      * 
-     * @return Liste verfügbarer AA-Rollen.
+     * @return Liste verfï¿½gbarer AA-Rollen.
      * @throws TcSecurityException 
      * @see LoginManagerAA#getAARoles()
      */
@@ -122,7 +122,7 @@ public class LoginManagerLDAPAA extends LoginManagerLDAPGeneric implements Login
     }
     
     //
-    // LoginManagerLDAPGeneric Überschreibungen
+    // LoginManagerLDAPGeneric ï¿½berschreibungen
     //
     /**
      * Diese Methode setzt nach einem erfolgreichen Login in der PersonalConfig in
@@ -171,16 +171,16 @@ public class LoginManagerLDAPAA extends LoginManagerLDAPGeneric implements Login
     }
 
     /**
-     * Diese Methode überprüft die Credentials im Request und setzt im Erfolgsfall die
-     * entsprechenden Daten in der übergebenen PersonalConfig.<br>
-     * Hier wird auf die Funktionalität, die schon in {@link LoginManagerLDAPGeneric}
-     * vorliegt, zurückgegriffen, wenn diese nicht zum Erfolg führt, wird aber versucht,
-     * über den Inhalt des person-Attributs den Login zu schaffen.<br>
-     * Zusätzlich gibt es die Möglichkeit, sich als ein vorgegebener System-Admin ohne
+     * Diese Methode ï¿½berprï¿½ft die Credentials im Request und setzt im Erfolgsfall die
+     * entsprechenden Daten in der ï¿½bergebenen PersonalConfig.<br>
+     * Hier wird auf die Funktionalitï¿½t, die schon in {@link LoginManagerLDAPGeneric}
+     * vorliegt, zurï¿½ckgegriffen, wenn diese nicht zum Erfolg fï¿½hrt, wird aber versucht,
+     * ï¿½ber den Inhalt des person-Attributs den Login zu schaffen.<br>
+     * Zusï¿½tzlich gibt es die Mï¿½glichkeit, sich als ein vorgegebener System-Admin ohne
      * LDAP-Authentisierung anzumelden
      * 
      * @param commonConfig Konfigurationsdaten des Octopus
-     * @param pConfig persönliche Konfiguration des einzuloggenden Benutzers
+     * @param pConfig persï¿½nliche Konfiguration des einzuloggenden Benutzers
      * @param tcRequest Benutzeranfrage mit Authentisierungsdaten
      * @throws TcSecurityException bei fehlgeschlagener Authorisierung
      * @see de.tarent.ldap.LoginManagerLDAPGeneric#doLogin(de.tarent.octopus.config.TcCommonConfig, de.tarent.octopus.server.PersonalConfig, de.tarent.octopus.request.TcRequest)
@@ -190,9 +190,27 @@ public class LoginManagerLDAPAA extends LoginManagerLDAPGeneric implements Login
         // http://www.ietf.org/internet-drafts/draft-ietf-ldapbis-authmeth-18.txt
         // Clients SHOULD disallow an empty password input to a Name/Password Authentication user interface.
         if (origAuth != null && (origAuth.getPassword() == null || origAuth.getPassword().length == 0))
-            throw new TcSecurityException("Leere Passwörter sind nicht zulässig.");
+            throw new TcSecurityException("Leere Passwï¿½rter sind nicht zulï¿½ssig.");
         try {
-            super.doLogin(commonConfig, pConfig, tcRequest);
+        	/* the password authentication returned by TcRequest contains the fully
+        	 * qualified username. This will break with the current implementation
+        	 * of the LoginManagerLDAPGeneric.
+        	 * Therefore we will simply rewrite the username request paramter in
+        	 * tcRequest.
+        	 * 
+        	 * Change Request 2.11 for the next release version 1.2.0
+		     * requires that users may now use qualified names when logging in
+		     * (i.e. users may specify their at-domain, e.g. username@domain.tld)
+		     * instead of just their ldap name.
+		     * 
+		     * cklein
+        	 * 2008-02-14
+        	 */
+            String username = ( String ) tcRequest.getParam( "username" );
+            String[] parts = username.split( "@" );
+            tcRequest.setParam( "username", parts[ 0 ] );
+            super.doLogin( commonConfig, pConfig, tcRequest );
+
             if (pConfig instanceof PersonalConfigAA) {
                 PersonalConfigAA aaConfig = (PersonalConfigAA) pConfig;
                 // In doLogin wird initPersonalConfig aufgerufen, und dabei sollte die Rolle
@@ -234,7 +252,7 @@ public class LoginManagerLDAPAA extends LoginManagerLDAPGeneric implements Login
                             // bereits korrekt auf die erste vom LDAP gelieferte uid gesetzt sein, also
                             // auf die uid, die auch von getAARoles zur Bearbeitung geliefert wird.
                             if (aaConfig.getRole() == null) {
-                                logger.warning("Rolle nicht aus uid gesetzt, Prüfrolle wird genutzt.");
+                                logger.warning("Rolle nicht aus uid gesetzt, Prï¿½frolle wird genutzt.");
                                 aaConfig.setRole(newAuth.getUserName());
                             }
                             aaConfig.setRoles(null);
@@ -277,12 +295,12 @@ public class LoginManagerLDAPAA extends LoginManagerLDAPGeneric implements Login
     }
     
     /**
-     * Diese Methode führt ein Ausloggen des Benutzers durch. Insbesondere werden
-     * entsprechende Markierungen in seiner persönlichen Konfiguration gesetzt.<br>
+     * Diese Methode fï¿½hrt ein Ausloggen des Benutzers durch. Insbesondere werden
+     * entsprechende Markierungen in seiner persï¿½nlichen Konfiguration gesetzt.<br>
      * Hier werden die speziellen Rollen- und Stellvertreterfelder geleert.
      * 
      * @param commonConfig Konfigurationsdaten des Octopus
-     * @param pConfig persönliche Konfiguration des auszuloggenden Benutzers
+     * @param pConfig persï¿½nliche Konfiguration des auszuloggenden Benutzers
      * @param tcRequest Benutzeranfrage
      * @see de.tarent.ldap.LoginManagerLDAPGeneric#doLogout(de.tarent.octopus.config.TcCommonConfig, de.tarent.octopus.server.PersonalConfig, de.tarent.octopus.request.TcRequest)
      */
@@ -315,7 +333,7 @@ public class LoginManagerLDAPAA extends LoginManagerLDAPGeneric implements Login
      * die im VerA.web-Kontext autorisiert sind.
      * 
      * @param commonConfig aktuelle allgemeine Konfiguration
-     * @param pConfig aktuelle persönliche Konfiguration
+     * @param pConfig aktuelle persï¿½nliche Konfiguration
      * @param tcRequest aktueller Request
      * @param roles Sammlung von AA-Rollen
      * @return Sammlung der AA-Rollen aus <code>roles</code>, die VerA.web-autorisiert sind.
@@ -345,11 +363,11 @@ public class LoginManagerLDAPAA extends LoginManagerLDAPGeneric implements Login
     
     /**
      * Diese Methode liest zu der AA-Rolle der Anmeldung eines Benutzers die
-     * zugehörigen Octopus-Benutzergruppen aus und setzt diese in der persönlichen
+     * zugehï¿½rigen Octopus-Benutzergruppen aus und setzt diese in der persï¿½nlichen
      * Konfiguration.
      * 
      * @param commonConfig aktuelle allgemeine Konfiguration
-     * @param pConfig aktuelle persönliche Konfiguration, der Octopus-Benutzergruppen
+     * @param pConfig aktuelle persï¿½nliche Konfiguration, der Octopus-Benutzergruppen
      *  zugeordnet werden.
      * @param tcRequest aktueller Request
      */
@@ -428,9 +446,9 @@ public class LoginManagerLDAPAA extends LoginManagerLDAPGeneric implements Login
     }
     
     /**
-     * Diese Methode führt ein toString aus, sichert dies aber durch einen <code>null</code>-Test
+     * Diese Methode fï¿½hrt ein toString aus, sichert dies aber durch einen <code>null</code>-Test
      * vorher ab. Sollte das Objekt eine Liste sein, so wird toString des ersten enthaltenen Objekts
-     * ausgeführt.
+     * ausgefï¿½hrt.
      * 
      * @param o Objekt
      * @return {@link String}-Darstellung des Objekts, gegebenenfalls des ersten enthaltenen Objekts
@@ -444,7 +462,7 @@ public class LoginManagerLDAPAA extends LoginManagerLDAPGeneric implements Login
     }
     
     /**
-     * Diese Methode versucht, das übergebene Objekt als Integer zu interpretieren, wobei
+     * Diese Methode versucht, das ï¿½bergebene Objekt als Integer zu interpretieren, wobei
      * dezimale, oktale und hexadezimale Darstellungen akzeptiert werden. Sollte das Objekt
      * eine Liste sein, so wird versucht, das erste enthaltene Objekt als Integer zu interpretieren.
      * 
@@ -468,7 +486,7 @@ public class LoginManagerLDAPAA extends LoginManagerLDAPGeneric implements Login
     }
     
     //
-    // geschützte Member
+    // geschï¿½tzte Member
     //
     final static Logger logger = Logger.getLogger(LoginManagerLDAPAA.class.getName());
 }

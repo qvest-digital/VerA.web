@@ -170,6 +170,17 @@ public class WorkerFactory {
 		return (LocationWorker)getWorker(cntx, "LocationWorker");
 	}
 
+	/**
+	 * Diese Methode liefert den Worker namens "LocationWorker".
+	 * 
+	 * @param cntx Octopus-Kontext
+	 * @return {@link LocationWorker}-Instanz des Moduls
+	 */
+	static public WorkAreaWorker getWorkAreaWorker( OctopusContext cntx )
+	{
+		return ( WorkAreaWorker ) getWorker( cntx, "WorkAreaWorker" );
+	}
+
     /**
      * Diese statische Methode holt mittels des Octopus-Kontexts einen Worker. 
      * 

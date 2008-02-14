@@ -76,6 +76,7 @@
 		<worker name="SalutationDoctypeWorker" implementation="de.tarent.aa.veraweb.worker.SalutationDoctypeWorker" singleton="true" factory="reflected" />
 		<worker name="StatistikWorker" implementation="de.tarent.aa.veraweb.worker.StatistikWorker" singleton="true" factory="reflected" />
 		<worker name="CompleteWorker"  implementation="de.tarent.aa.veraweb.worker.CompleteWorker" singleton="true" factory="reflected" />
+		<worker name="WorkAreaWorker" implementation="de.tarent.aa.veraweb.worker.WorkAreaWorker" singleton="true" factory="reflected" />
 	</contentWorkerDeklaration>
 
 	<!--
@@ -261,7 +262,22 @@
 				<param name="ContentType" value="text/html;charset=UTF-8"/>
 			</response>
 		</task>
-		
+
+		<!--
+		  - change request 2.16 for next release version 1.2.0
+		  - cklein
+		  - 2008-02-14
+		  -->		
+		<task name="WorkArea" access="public" groups="Administrator,PartialAdmin">
+			<doTask name="LoadStammdaten"/>
+			<action name="saveList" worker="WorkAreaWorker" />
+			<action name="showList" worker="WorkAreaWorker" />
+			<param name="liststarts" value="true"/>
+			<response type="velocity" name="workArea">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+
 		<task name="Categorie" access="public" groups="Administrator,PartialAdmin">
 			<doTask name="LoadStammdaten"/>
 			<action name="getAll" worker="EventListWorker"/>
@@ -347,6 +363,7 @@
 			<response type="velocity" name="personSearch">
 				<param name="ContentType" value="text/html;charset=UTF-8"/>
 			</response>
+
 		</task>
 		
 		<task name="SearchPerson" access="public" groups="StandardFieldsReader">

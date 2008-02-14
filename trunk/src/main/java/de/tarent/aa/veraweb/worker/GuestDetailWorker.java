@@ -32,6 +32,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.Vector;
 
 import org.apache.log4j.Logger;
 import org.apache.log4j.Priority;
@@ -58,6 +59,7 @@ import de.tarent.octopus.PersonalConfigAA;
 import de.tarent.octopus.custom.beans.BeanChangeLogger;
 import de.tarent.octopus.custom.beans.BeanException;
 import de.tarent.octopus.custom.beans.Database;
+import de.tarent.octopus.custom.beans.ExecutionContext;
 import de.tarent.octopus.custom.beans.Request;
 import de.tarent.octopus.custom.beans.TransactionContext;
 import de.tarent.octopus.server.OctopusContext;
@@ -127,6 +129,33 @@ public class GuestDetailWorker extends GuestListWorker {
 		cntx.setContent("partner", person.getMemberFacade(false, locale));
 		cntx.setContent("address", person.getAddressFacade(addresstype, locale));
 
+		/*
+		 * modified to support none, one [or multiple] workAreas as per the change request for the next version 1.2.0 
+		 * as of now, only one workArea per guest is being supported, however, we will be using lists in order to support
+		 * multiple assignments in the future (for this, only the view must be adjusted)
+		 * 
+		 * cklein
+		 * 2008-12-13
+		 */
+		Select select = database.getSelect( GuestWorkArea.class.getSimpleName() );
+		select.where( Expr.equal( "fk_guest", guest.id ) );
+		List< GuestWorkArea > temp = database.getBeanList( GuestWorkArea.class.getSimpleName(), select );
+		// we require a hash map here
+		Iterator< GuestWorkArea > i = temp.iterator();
+		HashMap guestWorkAreas = new HashMap();
+		while( i.hasNext() )
+		{
+			GuestWorkArea gwa = i.next();
+			guestWorkAreas.put( gwa.workarea, gwa );
+		}
+		cntx.setContent( "guestWorkAreas", guestWorkAreas );
+
+		// read the defined workareas from the database
+		select = database.getSelect( WorkArea.class.getSimpleName() );
+		select.where( Expr.equal( "deleted", "f" ) );
+		List< WorkArea > allWorkAreas = database.getBeanList( WorkArea.class.getSimpleName(), select );
+		cntx.setContent( "allWorkAreas", allWorkAreas );
+
 		// Bug 1591 Im Kopf der Gaesteliste sollen nicht die Stammdaten, sondern die
 		// Daten der Gaesteliste angezeigt werden
 		try
@@ -139,7 +168,7 @@ public class GuestDetailWorker extends GuestListWorker {
 			{
 				GuestDoctype guestDoctype = new GuestDoctype();
 
-				Select select = database.getSelect(guestDoctype);
+				select = database.getSelect(guestDoctype);
 				guestDoctype.doctype = freitextfeld;
 				guestDoctype.guest = guest.id;
 				select.where(database.getWhere(guestDoctype));
@@ -149,33 +178,6 @@ public class GuestDetailWorker extends GuestListWorker {
 				cntx.setContent("showGuestListData", new Boolean(guestDoctype != null));
 				
 				cntx.setContent("guestListData", guestDoctype);
-				
-				/*
-				 * modified to support none, one [or multiple] workAreas as per the change request for the next version 1.2.0 
-				 * as of now, only one workArea per guest is being supported, however, we will be using lists in order to support
-				 * multiple assignments in the future (for this, only the view must be adjusted)
-				 * 
-				 * cklein
-				 * 2008-12-13
-				 */
-				select = database.getSelect( GuestWorkArea.class.getName() );
-				select.where( Expr.equal( "fk_guest", guest.id ) );
-				List< GuestWorkArea > temp = database.getBeanList( GuestWorkArea.class.getName(), select );
-				// we require a hash map here
-				Iterator< GuestWorkArea > i = temp.iterator();
-				HashMap guestWorkAreas = new HashMap();
-				while( i.hasNext() )
-				{
-					GuestWorkArea gwa = i.next();
-					guestWorkAreas.put( gwa.workarea, gwa );
-				}
-				cntx.setContent( "guestWorkAreas", guestWorkAreas );
-
-				// read the defined workareas from the database
-				select = database.getSelect( WorkArea.class.getName() );
-				select.where( Expr.equal( "deleted", "f" ) );
-				List< WorkArea > allWorkAreas = database.getBeanList( WorkArea.class.getName(), select );
-				cntx.setContent( "allWorkAreas", allWorkAreas );
 			}
 		} catch (Exception e)
 		{
@@ -340,19 +342,28 @@ public class GuestDetailWorker extends GuestListWorker {
 	public static final int ACTION_INSERT = 0;
 	public static final int ACTION_UPDATE = 1;
 	public static final int ACTION_DELETE = 2;
-	public void updateWorkAreaAssignments( OctopusContext cntx, TransactionContext context, Guest guest, Integer action )
+	public void updateWorkAreaAssignments( OctopusContext cntx, ExecutionContext context, Guest guest, Integer action )
+		throws BeanException, IOException
 	{
 		switch( action )
 		{
 			case GuestDetailWorker.ACTION_INSERT :
 			case GuestDetailWorker.ACTION_UPDATE :
 			{
-				//context.execute( stmnt );
+				Database database = context.getDatabase();
+				Select select = database.getSelect( GuestWorkArea.class.getSimpleName() );
+				select.where( Expr.equal( "fk_guest", guest.id ) );
+				List< GuestWorkArea > assigned = database.getBeanList( GuestWorkArea.class.getSimpleName(), select );
+				List< GuestWorkArea > newAssignments = new Vector< GuestWorkArea >();
+				// TODO implement
 				break;
 			}
 			case GuestDetailWorker.ACTION_DELETE :
 			{
-				//context.execute( stmnt );
+				Database database = context.getDatabase();
+				Delete delete = database.getDelete( GuestWorkArea.class.getSimpleName() );
+				delete.where( Expr.equal( "fk_guest", guest.id ) );
+				context.execute( delete );
 				break;
 			}
 			default :
@@ -361,7 +372,7 @@ public class GuestDetailWorker extends GuestListWorker {
 			}
 		}
 	}
-	
+
     /** Eingabe-Parameter der Octopus-Aktion {@link #showTestGuest(OctopusContext)} */
 	public static final String INPUT_showTestGuest[] = {};
 	/**
