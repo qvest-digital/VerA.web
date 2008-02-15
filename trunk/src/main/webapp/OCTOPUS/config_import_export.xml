@@ -429,7 +429,7 @@
 		</param>
 
 		<param name="formatCSVPersdat+Doktyp1.0" type="map">
-			<param name="name" value="CSVPersdat+Doktyp"/>
+			<param name="name" value="CSVPersdat+Doktyp 1.0"/>
 			<param name="description" value="Comma-Separated-Values"/>
 			<param name="defaultExtension" value=".csv"/>
 			<param name="mimeType" value="text/csv;charset=UTF-8"/>
