@@ -81,6 +81,6 @@ public class WorkArea extends AbstractBean
     */
    public void checkWrite( OctopusContext cntx ) throws BeanException
    {
-       checkGroup( cntx, PersonalConfigAA.GROUP_WRITE );
+       checkGroup( cntx, PersonalConfigAA.GROUP_ADMIN );
    }
 }

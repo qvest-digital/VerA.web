@@ -77,12 +77,22 @@
 <table class="form">
 	<tr>
 		<td class="label">Login:</td>
-		<td class="value">$octopusConfig.personalConfig.userLogin</td>
+		<td class="value">$!octopusConfig.personalConfig.userLogin</td>
 	</tr><tr>
 		<td class="label">Rolle:</td>
 		<td class="value">
 #if($octopusConfig.personalConfig.role)
 			$octopusConfig.personalConfig.role
+#else
+			<i>nicht gew&auml;hlt</i>
+#end
+		</td>
+	</tr>
+	<tr>
+		<td class="label">Mandant:</td>
+		<td class="value">
+#if($orgUnit.id != 0)
+			$orgUnit.name
 #else
 			<i>nicht gew&auml;hlt</i>
 #end

@@ -33,6 +33,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+import de.tarent.aa.veraweb.beans.OrgUnit;
+import de.tarent.aa.veraweb.beans.User;
 import de.tarent.aa.veraweb.beans.UserConfig;
 import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.clause.Where;
@@ -45,7 +47,7 @@ import de.tarent.octopus.server.OctopusContext;
 
 /**
  * Dieser Octopus-Worker stellt Aktionen zum laden und speichern
- * von Benutzereinstellungen zur Verfügung.
+ * von Benutzereinstellungen zur Verfï¿½gung.
  * 
  * @author Christoph Jerolimov
  * @version $Revision: 1.1 $
@@ -57,12 +59,12 @@ public class UserConfigWorker {
 	private static final String PARAMS_BOOLEAN[] = {
 		"guestListFunction", "guestListCity", "guestListPhone" };
 
-	/** Octopus-Eingabe-Parameter für {@link #init(OctopusContext)} */
+	/** Octopus-Eingabe-Parameter fï¿½r {@link #init(OctopusContext)} */
 	public static final String INPUT_init[] = {};
-	/** Octopus-Ausgabe-Parameter für {@link #init(OctopusContext)} */
+	/** Octopus-Ausgabe-Parameter fï¿½r {@link #init(OctopusContext)} */
 	public static final String OUTPUT_init = "userConfig";
 	/**
-	 * Lädt die Konfiguration aus der Datenbank in die Session.
+	 * Lï¿½dt die Konfiguration aus der Datenbank in die Session.
 	 * 
 	 * @param cntx
 	 * @throws BeanException
@@ -81,16 +83,33 @@ public class UserConfigWorker {
 			Map data = (Map)it.next();
 			result.put(data.get("key"), data.get("value"));
 		}
+		
+		/*
+		 * modified to support display of orgunit as per change request for version 1.2.0
+		 * 
+		 * cklein
+		 * 2008-02-15 
+		 */
+		User user = ( User ) database.getBean( "User", userId );
+		OrgUnit orgUnit = null;
+
+		orgUnit = new OrgUnit();
+		if ( user.orgunit != null && user.orgunit.intValue() != 0 )
+		{
+			orgUnit = ( OrgUnit ) database.getBean( "OrgUnit", user.orgunit );
+		}
+
+		cntx.setContent( "orgUnit", orgUnit );
 		cntx.setSession("userConfig", result);
 		return result;
 	}
 
-	/** Octopus-Eingabe-Parameter für {@link #load(OctopusContext)} */
+	/** Octopus-Eingabe-Parameter fï¿½r {@link #load(OctopusContext)} */
 	public static final String INPUT_load[] = {};
-	/** Octopus-Ausgabe-Parameter für {@link #load(OctopusContext)} */
+	/** Octopus-Ausgabe-Parameter fï¿½r {@link #load(OctopusContext)} */
 	public static final String OUTPUT_load = "userConfig";
 	/**
-	 * Lädt die Konfiguration aus der Session in den Content.
+	 * Lï¿½dt die Konfiguration aus der Session in den Content.
 	 * 
 	 * @param cntx
 	 * @throws BeanException
@@ -104,7 +123,7 @@ public class UserConfigWorker {
 		return result;
 	}
 
-	/** Octopus-Eingabe-Parameter für {@link #save(OctopusContext)} */
+	/** Octopus-Eingabe-Parameter fï¿½r {@link #save(OctopusContext)} */
 	public static final String INPUT_save[] = {};
 	/**
 	 * Speichert die Benutzer Einstellungen in der Datenbank.
