@@ -770,11 +770,12 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 		public Timestamp getBirthday() {
 			return birthday_b_e1;
 		}
-/*
+
 		public String getBirthplace() {
-			return birthplace_b_e1;
+			throw new RuntimeException( "Not implemented." );
+			//return birthplace_b_e1;
 		}
-*/
+
 		public Timestamp getDiplodate() {
 			return diplodate_b_e1;
 		}
@@ -830,11 +831,12 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 		public void setBirthday(Timestamp value) {
 			birthday_b_e1 = value;
 		}
-/*
+
 		public void setBirthplace(String value) {
-			birthplace_b_e1 = value;
+			throw new RuntimeException( "Not implemented." );
+			//birthplace_b_e2 = value;
 		}
-*/
+
 		public void setDiplodate(Timestamp value) {
 			diplodate_b_e1 = value;
 		}
@@ -871,11 +873,12 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 		public Integer getSalutationFK() {
 			return fk_salutation_b_e2;
 		}
-/*
+
 		public String getBirthplace() {
-			return birthplace_b_e2;
+			throw new RuntimeException( "Not implemented." );
+			//return birthplace_b_e2;
 		}
-*/
+
 		public String getTitle() {
 			return title_b_e2;
 		}
@@ -895,11 +898,12 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 		public void setSalutationFK(Integer value) {
 			fk_salutation_b_e2 = value;
 		}
-/*
+
 		public void setBirthplace(String value) {
-			birthplace_b_e2 = value;
+			throw new RuntimeException( "Not implemented." );
+			//birthplace_b_e2 = value;
 		}
-*/
+
 		public void setTitle(String value) {
 			title_b_e2 = value;
 		}
@@ -924,11 +928,12 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 		public Integer getSalutationFK() {
 			return fk_salutation_b_e3;
 		}
-/*
+
 		public String getBirthplace() {
-			return birthplace_b_e3;
+			throw new RuntimeException( "Not implemented." );
+			//return birthplace_b_e3;
 		}
-*/
+
 		public String getTitle() {
 			return title_b_e3;
 		}
@@ -948,11 +953,12 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 		public void setSalutationFK(Integer value) {
 			fk_salutation_b_e3 = value;
 		}
-/*
+
 		public void setBirthplace(String value) {
-			birthplace_b_e3 = value;
+			throw new RuntimeException( "Not implemented." );
+			//birthplace_b_e3 = value;
 		}
-*/
+
 		public void setTitle(String value) {
 			title_b_e3 = value;
 		}

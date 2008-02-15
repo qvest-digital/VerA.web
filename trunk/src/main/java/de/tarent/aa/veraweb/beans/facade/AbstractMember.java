@@ -28,17 +28,17 @@ package de.tarent.aa.veraweb.beans.facade;
 import java.sql.Timestamp;
 
 /**
- * Implementiert die Basis der Grundfunktionalität einer MemberFacade.
+ * Implementiert die Basis der Grundfunktionalitï¿½t einer MemberFacade.
  * 
  * @author Michael Klink, Christoph Jerolimov
  */
 public abstract class AbstractMember implements PersonMemberFacade {
-    /** @return Flag für {@link PersonConstants#DOMESTIC_INLAND Inland} oder {@link PersonConstants#DOMESTIC_AUSLAND Ausland} */
+    /** @return Flag fï¿½r {@link PersonConstants#DOMESTIC_INLAND Inland} oder {@link PersonConstants#DOMESTIC_AUSLAND Ausland} */
 	public String getDomestic() {
 		return null;
 	}
 
-    /** @return Flag für {@link PersonConstants#SEX_MALE männlich} oder {@link PersonConstants#SEX_FEMALE weiblich} */
+    /** @return Flag fï¿½r {@link PersonConstants#SEX_MALE mï¿½nnlich} oder {@link PersonConstants#SEX_FEMALE weiblich} */
 	public String getSex() {
 		return null;
 	}
@@ -48,6 +48,12 @@ public abstract class AbstractMember implements PersonMemberFacade {
 		return null;
 	}
 
+	/** @return Geburtsort */
+	public String getBirthplace()
+	{
+		return null;
+	}
+	
     /** @return Akkretierungsdatum */
 	public Timestamp getDiplodate() {
 		return null;
@@ -58,7 +64,7 @@ public abstract class AbstractMember implements PersonMemberFacade {
 		return null;
 	}
 
-    /** @return Nationalität */
+    /** @return Nationalitï¿½t */
 	public String getNationality() {
 		return null;
 	}
@@ -68,53 +74,58 @@ public abstract class AbstractMember implements PersonMemberFacade {
 		return null;
 	}
 
-    /** @return Bemerkung für die Orga */
+    /** @return Bemerkung fï¿½r die Orga */
 	public String getNoteOrga() {
 		return null;
 	}
 
-    /** @return Bemerkung für den Gastgeber */
+    /** @return Bemerkung fï¿½r den Gastgeber */
 	public String getNoteHost() {
 		return null;
 	}
 
-    /** Ändert Flag für {@link PersonConstants#DOMESTIC_INLAND Inland} oder {@link PersonConstants#DOMESTIC_AUSLAND Ausland} */
+    /** ï¿½ndert Flag fï¿½r {@link PersonConstants#DOMESTIC_INLAND Inland} oder {@link PersonConstants#DOMESTIC_AUSLAND Ausland} */
 	public void setDomestic(String value) {
 	}
 
-    /** Ändert Flag für {@link PersonConstants#SEX_MALE männlich} oder {@link PersonConstants#SEX_FEMALE weiblich} */
+    /** ï¿½ndert Flag fï¿½r {@link PersonConstants#SEX_MALE mï¿½nnlich} oder {@link PersonConstants#SEX_FEMALE weiblich} */
 	public void setSex(String value) {
 	}
 
-    /** Ändert Geburtsdatum */
+    /** ï¿½ndert Geburtsdatum */
 	public void setBirthday(Timestamp value) {
 	}
 
-    /** Ändert Akkretierungsdatum */
+	/** @return Geburtsort */
+	public void setBirthplace(String value)
+	{
+	}
+
+	/** ï¿½ndert Akkretierungsdatum */
 	public void setDiplodate(Timestamp value) {
 	}
 
-    /** Ändert Sprachen */
+    /** ï¿½ndert Sprachen */
 	public void setLanguages(String value) {
 	}
 
-    /** Ändert Nationalität */
+    /** ï¿½ndert Nationalitï¿½t */
 	public void setNationality(String value) {
 	}
 
-    /** Ändert Bemerkung */
+    /** ï¿½ndert Bemerkung */
 	public void setNote(String value) {
 	}
 
-    /** Ändert Bemerkung für die Orga */
+    /** ï¿½ndert Bemerkung fï¿½r die Orga */
 	public void setNoteOrga(String value) {
 	}
 
-    /** Ändert Bemerkung für den Gastgeber */
+    /** ï¿½ndert Bemerkung fï¿½r den Gastgeber */
 	public void setNoteHost(String value) {
 	}
 
-    /** Gibt einen zusammengesetzten Namen zurück. */
+    /** Gibt einen zusammengesetzten Namen zurï¿½ck. */
 	public String getSaveAs() {
 		StringBuffer buffer = new StringBuffer();
 		if (getLastname() != null)

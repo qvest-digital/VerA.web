@@ -24,6 +24,10 @@
  */
 package de.tarent.aa.veraweb.beans;
 
+import de.tarent.octopus.PersonalConfigAA;
+import de.tarent.octopus.custom.beans.BeanException;
+import de.tarent.octopus.server.OctopusContext;
+
 /**
  * The bean class GuestWorkArea represents a relationship
  * entity that associates the specified {see WorkArea} to
@@ -36,4 +40,14 @@ public class GuestWorkArea extends AbstractBean
 {
 	public Integer guest;
 	public Integer workarea;
+
+    public void checkRead( OctopusContext cntx ) throws BeanException
+    {
+        checkGroup( cntx, PersonalConfigAA.GROUP_READ_STANDARD );
+    }
+   
+    public void checkWrite( OctopusContext cntx ) throws BeanException
+    {
+        checkGroup( cntx, PersonalConfigAA.GROUP_WRITE );
+    }
 }

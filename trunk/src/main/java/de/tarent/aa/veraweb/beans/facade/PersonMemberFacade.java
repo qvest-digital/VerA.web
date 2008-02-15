@@ -47,15 +47,18 @@ public interface PersonMemberFacade {
 
 	/** @return Nachname */
 	public String getLastname();
-
-	/** @return Flag für {@link PersonConstants#DOMESTIC_INLAND Inland} oder {@link PersonConstants#DOMESTIC_AUSLAND Ausland} */
+	
+	/** @return Flag fï¿½r {@link PersonConstants#DOMESTIC_INLAND Inland} oder {@link PersonConstants#DOMESTIC_AUSLAND Ausland} */
 	public String getDomestic();
 
-	/** @return Flag für {@link PersonConstants#SEX_MALE männlich} oder {@link PersonConstants#SEX_FEMALE weiblich} */
+	/** @return Flag fï¿½r {@link PersonConstants#SEX_MALE mï¿½nnlich} oder {@link PersonConstants#SEX_FEMALE weiblich} */
 	public String getSex();
 
 	/** @return Geburtsdatum */
 	public Timestamp getBirthday();
+
+	/** @return Geburtsort */
+	public String getBirthplace();
 
 	/** @return Akkretierungsdatum */
 	public Timestamp getDiplodate();
@@ -63,60 +66,63 @@ public interface PersonMemberFacade {
 	/** @return Sprachen */
 	public String getLanguages();
 
-	/** @return Nationalität */
+	/** @return Nationalitï¿½t */
 	public String getNationality();
 
 	/** @return Bemerkung */
 	public String getNote();
 
-	/** @return Bemerkung für die Orga */
+	/** @return Bemerkung fï¿½r die Orga */
 	public String getNoteOrga();
 
-	/** @return Bemerkung für den Gastgeber */
+	/** @return Bemerkung fï¿½r den Gastgeber */
 	public String getNoteHost();
 
-	/** Ändert Anrede */
+	/** ï¿½ndert Anrede */
 	public void setSalutation(String value);
 
-	/** Ändert Anrede-ID */
+	/** ï¿½ndert Anrede-ID */
 	public void setSalutationFK(Integer value);
 
-	/** Ändert Akad. Titel */
+	/** ï¿½ndert Akad. Titel */
 	public void setTitle(String value);
 
-	/** Ändert Vorname */
+	/** ï¿½ndert Vorname */
 	public void setFirstname(String value);
 
-	/** Ändert Nachname */
+	/** ï¿½ndert Nachname */
 	public void setLastname(String value);
 
-	/** Ändert Flag für {@link PersonConstants#DOMESTIC_INLAND Inland} oder {@link PersonConstants#DOMESTIC_AUSLAND Ausland} */
+	/** ï¿½ndert Flag fï¿½r {@link PersonConstants#DOMESTIC_INLAND Inland} oder {@link PersonConstants#DOMESTIC_AUSLAND Ausland} */
 	public void setDomestic(String value);
 
-	/** Ändert Flag für {@link PersonConstants#SEX_MALE männlich} oder {@link PersonConstants#SEX_FEMALE weiblich} */
+	/** ï¿½ndert Flag fï¿½r {@link PersonConstants#SEX_MALE mï¿½nnlich} oder {@link PersonConstants#SEX_FEMALE weiblich} */
 	public void setSex(String value);
 
-	/** Ändert Geburtsdatum */
+	/** ï¿½ndert Geburtsdatum */
 	public void setBirthday(Timestamp value);
 
-	/** Ändert Akkretierungsdatum */
+	/** aendert Geburtsort */
+	public void setBirthplace(String birthplace);
+
+	/** ï¿½ndert Akkretierungsdatum */
 	public void setDiplodate(Timestamp value);
 
-	/** Ändert Sprachen */
+	/** ï¿½ndert Sprachen */
 	public void setLanguages(String value);
 
-	/** Ändert Nationalität */
+	/** ï¿½ndert Nationalitï¿½t */
 	public void setNationality(String value);
 
-	/** Ändert Bemerkung */
+	/** ï¿½ndert Bemerkung */
 	public void setNote(String value);
 
-	/** Ändert Bemerkung für die Orga */
+	/** ï¿½ndert Bemerkung fï¿½r die Orga */
 	public void setNoteOrga(String value);
 
-	/** Ändert Bemerkung für den Gastgeber */
+	/** ï¿½ndert Bemerkung fï¿½r den Gastgeber */
 	public void setNoteHost(String value);
 
-	/** Gibt einen zusammengesetzten Namen zurück. */
+	/** Gibt einen zusammengesetzten Namen zurï¿½ck. */
 	public String getSaveAs();
 }

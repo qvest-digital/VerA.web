@@ -109,6 +109,7 @@ public class PersonDetailWorker implements PersonConstants {
 		if (person != null) {
 			cntx.setContent("person-diplodatetime", Boolean.valueOf(DateHelper.isTimeInDate(person.diplodate_a_e1)));
 		}
+		
 		return person;
 	}
 
@@ -376,7 +377,6 @@ public class PersonDetailWorker implements PersonConstants {
 		cntx.setContent("personAddresstypeTab", cntx.requestAsInteger("personAddresstypeTab"));
 		cntx.setContent("personLocaleTab", cntx.requestAsInteger("personLocaleTab"));
 		
-		
 		Database database = new DatabaseVeraWeb(cntx);
 		TransactionContext context = database.getTransactionContext();
 		
@@ -423,16 +423,16 @@ public class PersonDetailWorker implements PersonConstants {
 					person.setModified(true);
 				}
 			}
-			
-			/*
-			 * modified to support change logging
-			 * cklein 2008-02-12
-			 */
+
 	        person.verify();
 			if (person.isModified() && person.isCorrect()) {
 		        AddressHelper.copyAddressData(cntx, person, personOld);
 				
-				BeanChangeLogger clogger = new BeanChangeLogger( database, context );
+				/*
+				 * modified to support change logging
+				 * cklein 2008-02-12
+				 */
+		        BeanChangeLogger clogger = new BeanChangeLogger( database, context );
 				if (person.id == null) {
 					cntx.setContent("countInsert", new Integer(1));
 					database.getNextPk(person, context);
@@ -480,12 +480,15 @@ public class PersonDetailWorker implements PersonConstants {
 				cntx.setStatus("notcorrect");
 			}
 			context.commit();
-			
+
 			cntx.setContent("person-diplodatetime", Boolean.valueOf(DateHelper.isTimeInDate(person.diplodate_a_e1)));
-			return person;
-		} finally {
+		} 
+		catch( BeanException e )
+		{
 			context.rollBack();
 		}
+
+		return person;
 	}
 
 	

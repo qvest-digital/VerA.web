@@ -125,7 +125,16 @@
 		#end
 	</td>
 </tr></table>
+#end
 
+#if ( $ext == "_a_e1" || $ext == "_a_e2" || $ext == "_a_e3" )
+<table class="form"><tr>
+	<td class="label"><label for="person-birthplace$ext">Geburtsort:</label></td>
+	<td class="value"><input type="text" name="person-birthplace$ext" value="$!message.text($facade.Birthplace)" id="person-birthplace$ext" class="text" onchange="setModified();"></td>
+</tr></table>
+#end
+
+#if ( $ext == "_a_e1" || $ext == "_b_e1" )
 <table class="form"><tr>
 	<td class="label"><label for="person-languages$ext">Sprachen:</label></td>
 	<td class="value"><input type="text" id="person-languages$ext" name="person-languages$ext" value="$!message.text($facade.Languages)" class="text" onchange="setModified();"></td>

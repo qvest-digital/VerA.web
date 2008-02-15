@@ -51,6 +51,7 @@ import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.clause.Limit;
 import de.tarent.dblayer.sql.clause.Where;
 import de.tarent.dblayer.sql.clause.WhereList;
+import de.tarent.dblayer.sql.statement.AbstractStatement;
 import de.tarent.dblayer.sql.statement.Delete;
 import de.tarent.dblayer.sql.statement.Insert;
 import de.tarent.dblayer.sql.statement.Select;
@@ -345,22 +346,50 @@ public class GuestDetailWorker extends GuestListWorker {
 	public void updateWorkAreaAssignments( OctopusContext cntx, ExecutionContext context, Guest guest, Integer action )
 		throws BeanException, IOException
 	{
+		Request request = getRequest( cntx );
+		Database database = context.getDatabase();
 		switch( action )
 		{
 			case GuestDetailWorker.ACTION_INSERT :
 			case GuestDetailWorker.ACTION_UPDATE :
 			{
-				Database database = context.getDatabase();
-				Select select = database.getSelect( GuestWorkArea.class.getSimpleName() );
-				select.where( Expr.equal( "fk_guest", guest.id ) );
-				List< GuestWorkArea > assigned = database.getBeanList( GuestWorkArea.class.getSimpleName(), select );
-				List< GuestWorkArea > newAssignments = new Vector< GuestWorkArea >();
-				// TODO implement
+				WorkArea workArea = ( WorkArea ) request.getBean( WorkArea.class.getSimpleName(), "workArea" );
+				if ( workArea.id != null )
+				{
+					// assignment was made
+					Select select = database.getSelect( GuestWorkArea.class.getSimpleName() );
+					select.where( Expr.equal( "fk_guest", guest.id ) );
+					GuestWorkArea guestWorkArea = ( GuestWorkArea ) database.getBean( GuestWorkArea.class.getSimpleName(), select );
+					AbstractStatement stmnt = null; 
+					if ( guestWorkArea == null )
+					{
+						guestWorkArea = new GuestWorkArea();
+						guestWorkArea.guest = guest.id;
+						guestWorkArea.workarea = workArea.id;
+						stmnt = database.getInsert( guestWorkArea );
+					}
+					else
+					{
+						stmnt = new Update();
+						( ( Update ) stmnt ).table( "veraweb.tguest_workarea" );
+						( ( Update ) stmnt ).where( Expr.equal( "fk_guest", guestWorkArea.guest ) );
+						( ( Update ) stmnt ).whereAnd( Expr.equal( "fk_workarea", guestWorkArea.workarea ) );
+						( ( Update ) stmnt ).update( "fk_workarea", workArea.id );
+						guestWorkArea.workarea = workArea.id;
+					}
+					context.execute( stmnt );
+				}
+				else
+				{
+					// unassigned
+					Delete delete = database.getDelete( GuestWorkArea.class.getSimpleName() );
+					delete.where( Expr.equal( "fk_guest", guest.id ) );
+					context.execute( delete );
+				}
 				break;
 			}
 			case GuestDetailWorker.ACTION_DELETE :
 			{
-				Database database = context.getDatabase();
 				Delete delete = database.getDelete( GuestWorkArea.class.getSimpleName() );
 				delete.where( Expr.equal( "fk_guest", guest.id ) );
 				context.execute( delete );

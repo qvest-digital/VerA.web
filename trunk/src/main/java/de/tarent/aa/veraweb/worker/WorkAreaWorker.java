@@ -28,13 +28,11 @@ package de.tarent.aa.veraweb.worker;
 
 import java.io.IOException;
 
-import de.tarent.aa.veraweb.beans.Location;
 import de.tarent.aa.veraweb.beans.WorkArea;
 import de.tarent.dblayer.sql.clause.Clause;
 import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.clause.Order;
 import de.tarent.dblayer.sql.statement.Select;
-import de.tarent.octopus.PersonalConfigAA;
 import de.tarent.octopus.custom.beans.Bean;
 import de.tarent.octopus.custom.beans.BeanException;
 import de.tarent.octopus.server.OctopusContext;
