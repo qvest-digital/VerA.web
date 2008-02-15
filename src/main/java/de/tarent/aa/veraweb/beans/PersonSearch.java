@@ -44,6 +44,7 @@ public class PersonSearch extends AbstractBean {
 	public String zipcode;
 	public String city;
 	public String country;
+	public Integer workArea;
 	public Integer categorie;
 	public Integer categorie2;
 	public Boolean iscompany;

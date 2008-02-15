@@ -91,7 +91,12 @@
 		<td class="subtableft">&nbsp;</td>
 		<td class="subtab" id="detail-1-tab"><a href="javascript:showTab('detail-1');" id="detail-1-link" class="subtab">Allgemein</a></td>
 		<td class="subtab" id="detail-2-tab"><a href="javascript:showTab('detail-2');" id="detail-2-link" class="subtab">$!config.main</a></td>
-		<td class="subtab" id="detail-3-tab"><a href="javascript:showTab('detail-3');" id="detail-3-link" class="subtab">$!config.partner</a></td>
+## partner tab now renders inactive if there is no partner defined or none has been invited
+## for existing guests, newly created guests will render the tab active
+## as per change request for version 1.2.0
+## cklein 2008-02-15
+              <td #if( ( $guest.getIsPartnerInvited() && $person.getHasPartner() ) || $octopusRequest.task == "CreatePerson" ) class="subtab" #else class="tabdisabled" #end id="detail-3-tab"><a href="javascript:showTab('detail-3');" id="detail-3-link" class="subtab">$!config.partner</a></td>
+##            <td class="subtab" id="detail-3-tab"><a href="javascript:showTab('detail-3');" id="detail-3-link" class="subtab">$!config.partner</a></td>
 		<td class="subtabcenter">&nbsp;</td>
 	</tr></table>
 </div>

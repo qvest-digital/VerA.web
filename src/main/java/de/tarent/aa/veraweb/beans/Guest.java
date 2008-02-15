@@ -51,9 +51,9 @@ public class Guest extends AbstractHistoryBean implements EventConstants {
 	public Timestamp created;
 	/** Erstellt von */
 	public String createdby;
-	/** Geändert am */
+	/** Geï¿½ndert am */
 	public Timestamp changed;
-	/** Geänder von */
+	/** Geï¿½nder von */
 	public String changedby;
 	/** ID der Person */
 	public Integer person;
@@ -132,7 +132,7 @@ public class Guest extends AbstractHistoryBean implements EventConstants {
 	}
     
     /**
-     * Diese Methode leert beschränkte Felder.<br>
+     * Diese Methode leert beschrï¿½nkte Felder.<br>
      * Hier sind es die Bemerkungsfelder, wenn der Benutzer nicht in der Gruppe
      * {@link PersonalConfigAA#GROUP_READ_REMARKS} der hierzu freigeschalteten ist.
      * 
@@ -150,23 +150,35 @@ public class Guest extends AbstractHistoryBean implements EventConstants {
         }
         super.clearRestrictedFields(cntx);
     }
-
+	
 	/**
-	 * Diese Methode liefert eine Facade für die Hauptperson dieses Gastes zurück.
+	 * Diese Methode gibt an, ob ein Partner fÃ¼r diesen Gast mit auf der GÃ¤steliste steht.
+	 * @return boolean true falls ein existierender Partner mit eingeladen wurde
+	 */
+	// added as per change request for version 1.2.0
+	public boolean getIsPartnerInvited()
+	{
+		GuestMemberFacade g = this.getMain();
+		int invitationType = g.getInvitationType();
+		return ( ( invitationType == TYPE_MITPARTNER ) || ( invitationType == TYPE_NURPARTNER ) );
+	}
+   
+	/**
+	 * Diese Methode liefert eine Facade fï¿½r die Hauptperson dieses Gastes zurï¿½ck.
 	 */
 	public GuestMemberFacade getMain() {
 		return new Main();
 	}
 
 	/**
-	 * Diese Methode liefert eine Facade für den Partner dieses Gastes zurück.
+	 * Diese Methode liefert eine Facade fï¿½r den Partner dieses Gastes zurï¿½ck.
 	 */
 	public GuestMemberFacade getPartner() {
 		return new Partner();
 	}
 
 	/**
-	 * Diese Klasse stellt eine Facade für die Hauptperson dieses Gastes dar.
+	 * Diese Klasse stellt eine Facade fï¿½r die Hauptperson dieses Gastes dar.
 	 */
 	private class Main implements GuestMemberFacade {
 		public Integer getInvitationType() {
@@ -275,7 +287,7 @@ public class Guest extends AbstractHistoryBean implements EventConstants {
 	}
 
 	/**
-	 * Diese Klasse stellt eine Facade für den Partner dieses Gastes dar.
+	 * Diese Klasse stellt eine Facade fï¿½r den Partner dieses Gastes dar.
 	 */
 	private class Partner implements GuestMemberFacade {
 		public Integer getInvitationType() {

@@ -345,6 +345,20 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
         }
         super.clearRestrictedFields(cntx);
     }
+    
+    /**
+     * Diese Methode gibt an, ob ein Partner für diesen Gast mit auf der Gästeliste steht.
+     *
+     * @return boolean true falls ein existierender Partner mit eingeladen wurde
+     */
+     // added as per change request for version 1.2.0
+    public boolean getHasPartner()
+    {
+    	/* check for partner latin */
+    	PartnerLatin p = ( PartnerLatin ) this.getMemberFacade( new Integer( MEMBER_PARTNER ), new Integer( LOCALE_LATIN ) );
+    	// partner is always expected to have a lastname or a firstname
+    	return ( ( p.getLastname().length() > 0 ) || ( p.getFirstname().length() > 0 ) );
+    }
 
     public PersonMemberFacade getMemberFacade(Integer member, Integer locale) {
 		return getMemberFacade(member == null || member.intValue() != MEMBER_PARTNER, locale);

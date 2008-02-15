@@ -64,7 +64,7 @@ import de.tarent.octopus.server.OctopusContext;
 
 /**
  * Diese Octopus-Worker-Klasse stellt Operationen zur Anzeige
- * von Personenlisten zur Verfügung.
+ * von Personenlisten zur Verfï¿½gung.
  * Details bitte dem BeanListWorker entnehmen.
  * 
  * @author Christoph
@@ -87,10 +87,10 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 
 
 	/**
-	 * Octopus-Aktion die eine <strong>blätterbare</strong> Liste
+	 * Octopus-Aktion die eine <strong>blï¿½tterbare</strong> Liste
 	 * mit Beans aus der Datenbank in den Content stellt. Kann durch
 	 * {@link #extendColumns(OctopusContext, Select)} erweitert bzw.
-	 * {@link #extendWhere(OctopusContext, Select)} eingeschränkt werden.
+	 * {@link #extendWhere(OctopusContext, Select)} eingeschrï¿½nkt werden.
 	 * 
 	 * Lenkt hier die entsprechende getSelect - Anfrage an eine
 	 * spezialisierte Form.
@@ -192,11 +192,11 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 	}
 
 	/**
-	 * Überprüft ob eine Person die nötigen Berechtigungen hat um Personen
-	 * zu löschen und ob diese ggf. noch Veranstaltungen zugeordent sind.
+	 * ï¿½berprï¿½ft ob eine Person die nï¿½tigen Berechtigungen hat um Personen
+	 * zu lï¿½schen und ob diese ggf. noch Veranstaltungen zugeordent sind.
 	 * 
-	 * Bei Veränderungen an dieser Methode müssen diese ggf. auch in der
-	 * personList.vm übernommen werden, dort werden entsprechende JavaScript
+	 * Bei Verï¿½nderungen an dieser Methode mï¿½ssen diese ggf. auch in der
+	 * personList.vm ï¿½bernommen werden, dort werden entsprechende JavaScript
 	 * Meldungen ausgegeben.
 	 * 
 	 * siehe Anwendungsfall: UC.PERSON.LOESCH
@@ -216,12 +216,12 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 		if (admin) user = false;
 		
 		if (!(user || admin)) {
-			errors.add("Sie haben keine Berechtigung Personen zu löschen.");
+			errors.add("Sie haben keine Berechtigung Personen zu lï¿½schen.");
 			return count;
 		}
-		/** User dürfen immer nur eine Person gleichzeitig löschen. */
+		/** User dï¿½rfen immer nur eine Person gleichzeitig lï¿½schen. */
 		if (user && selectionRemove.size() > 1) {
-			errors.add("Sie dürfen immer nur eine Person gleichzeitig löschen.\n" +
+			errors.add("Sie dï¿½rfen immer nur eine Person gleichzeitig lï¿½schen.\n" +
 					"Bitte markieren sie nur einen Eintrag oder wenden Sie sich an Ihren Administrator.");
 			return count;
 		}
@@ -243,14 +243,14 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 				for (Iterator it = personIsGuest.iterator(); it.hasNext(); ) {
 					Person person = (Person)it.next();
 					if (maxquestions == 0 || errors.size() < maxquestions)
-						errors.add("Die Person \"" + person.getMainLatin().getSaveAs() + "\" ist einer laufenden Veranstaltung zugeordnet und kann nicht gelöscht werden.");
+						errors.add("Die Person \"" + person.getMainLatin().getSaveAs() + "\" ist einer laufenden Veranstaltung zugeordnet und kann nicht gelï¿½scht werden.");
 					selectionRemove.remove(person.id);
 					i--;
 				}
 			}
 		}
 		
-		/** Test ob Personen noch gültig sind und nicht gelöscht werden dürfen. */
+		/** Test ob Personen noch gï¿½ltig sind und nicht gelï¿½scht werden dï¿½rfen. */
 		if ((user || admin) && !selectionRemove.isEmpty()) {
 			for (int i = 0; i < selectionRemove.size(); i += subselectsize) {
 				List subList = selectionRemove.subList(i, i + subselectsize < selectionRemove.size() ? i + subselectsize : selectionRemove.size());
@@ -266,7 +266,7 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 						cntx.setContent("remove-person", Boolean.TRUE);
 					} else {
 						if (maxquestions == 0 || questions.size() < maxquestions) {
-							questions.put("remove-expire-" + person.id, "Das Gültigkeitsdatum der Person \"" + person.getMainLatin().getSaveAs()  + "\" liegt in der Zukunft. Soll die Person trotzdem gelöscht werden?");
+							questions.put("remove-expire-" + person.id, "Das Gï¿½ltigkeitsdatum der Person \"" + person.getMainLatin().getSaveAs()  + "\" liegt in der Zukunft. Soll die Person trotzdem gelï¿½scht werden?");
 						}
 						selectionRemove.remove(person.id);
 						i--;
@@ -275,16 +275,16 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 			}
 		}
 		
-		/** Fragen ob alle Personen wirklich gelöscht werden sollen. */
+		/** Fragen ob alle Personen wirklich gelï¿½scht werden sollen. */
 		if (!getContextAsBoolean(cntx, "remove-person")) {
-			questions.put("remove-person", "Sollen alle markierten Personen gelöscht werden?");
+			questions.put("remove-person", "Sollen alle markierten Personen gelï¿½scht werden?");
 		}
 		
 		if (!questions.isEmpty()) {
 			cntx.setContent("listquestions", questions);
 		}
 		
-		/** Löscht Personen aus VerA.Web */
+		/** Lï¿½scht Personen aus VerA.Web */
 		if ((user || admin) && !selectionRemove.isEmpty() && getContextAsBoolean(cntx, "remove-person")) {
 			PersonDetailWorker personDetailWorker = WorkerFactory.getPersonDetailWorker(cntx);
 			for (Iterator it = selectionRemove.iterator(); it.hasNext(); ) {
@@ -303,9 +303,9 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 	}
 
     /**
-     * Wirft eine BeanException, die Personen werden mit ihren Abhängigkeiten
+     * Wirft eine BeanException, die Personen werden mit ihren Abhï¿½ngigkeiten
      * direkt in der Methode @link #removeSelection(OctopusContext, List, List)
-     * gelöscht.
+     * gelï¿½scht.
      */
     protected boolean removeBean(OctopusContext cntx, Bean bean) throws BeanException, IOException {
         throw new BeanException("PersonListWorker#removeBean is deprecated");
@@ -314,15 +314,15 @@ public class PersonListWorker extends ListWorkerVeraWeb {
     //
     // Octopus-Aktionen
     //
-    /** Octopus-Eingabeparameter für {@link #getSearch(OctopusContext)} */
+    /** Octopus-Eingabeparameter fï¿½r {@link #getSearch(OctopusContext)} */
     public static final String INPUT_getSearch[] = {};
-    /** Octopus-Ausgabeparameter für {@link #getSearch(OctopusContext)} */
+    /** Octopus-Ausgabeparameter fï¿½r {@link #getSearch(OctopusContext)} */
     public static final String OUTPUT_getSearch = "search";
     /**
      * Diese Octopus-Aktion liefert ein aktuelles {@link PersonSearch}-Objekt.
      * Dies wird aus dem Request geholt geholt, falls ein Requestparameter
      * "search" den Wert "reset" hat. Beim Wert "clear" wird ein leeres
-     * Objekt zurück gegeben. Ausgewichen wird dann auf ein entsprechendes
+     * Objekt zurï¿½ck gegeben. Ausgewichen wird dann auf ein entsprechendes
      * Session-Objekt. Das Ergebnis wird in der Session gesetzt. 
      * 
      * @param cntx Octopus-Kontext
@@ -345,7 +345,7 @@ public class PersonListWorker extends ListWorkerVeraWeb {
     }
 
     //
-    // geschützte Hilfsmethoden
+    // geschï¿½tzte Hilfsmethoden
     //
 	private boolean getContextAsBoolean(OctopusContext cntx, String key) {
 		return Boolean.valueOf(cntx.contentAsString(key)).booleanValue() ?
@@ -353,7 +353,7 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 	}
 
 	/**
-	 * Gibt eine Person-List-Filter Bedinung inkl. Mandanten Einschränkung zurück.
+	 * Gibt eine Person-List-Filter Bedinung inkl. Mandanten Einschrï¿½nkung zurï¿½ck.
 	 * 
 	 * @param cntx
 	 * @throws BeanException
@@ -367,7 +367,7 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 	}
 
 	/**
-	 * Erweitert die übergebene WhereList um Bedingungen der Suche.
+	 * Erweitert die ï¿½bergebene WhereList um Bedingungen der Suche.
 	 * Die WhereList ist danach <strong>niemals</strong> leer.
 	 * 
 	 * @param cntx
@@ -377,7 +377,11 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 	private void addPersonListFilter(OctopusContext cntx, WhereList list) throws BeanException {
 		PersonSearch search = getSearch(cntx);
 		list.addAnd(Expr.equal("deleted", PersonConstants.DELETED_FALSE));
-		
+		/* TODO
+		if (search.workArea != null) {
+			list.addAnd(Expr.equal(".fk_categorie", search.categorie));
+		}
+		*/
 		if (search.categorie != null) {
 			list.addAnd(Expr.equal("cat1.fk_categorie", search.categorie));
 		}

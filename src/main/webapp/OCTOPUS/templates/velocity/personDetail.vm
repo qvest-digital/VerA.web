@@ -97,7 +97,13 @@
 	<table class="subtab" border="0" cellspacing="0" cellpadding="0"><tr>
 		<td class="subtableft">&nbsp;</td>
 		<td class="subtab" id="person-1-tab"><a href="javascript:showTab('person-1');" id="person-1-link" class="subtab">$!config.main</a></td>
-		<td class="subtab" id="person-2-tab"><a href="javascript:showTab('person-2');" id="person-2-link" class="subtab">$!config.partner</a></td>
+
+## partner tab now renders inactive if there is no partner defined
+## for existing persons, newly created persons will render the tab active
+## as per change request for version 1.2.0
+## cklein 2008-02-15
+              <td  #if( $person.getHasPartner() || $octopusRequest.task == "CreatePerson" ) class="subtab" #else class="tabdisabled" #end id="person-2-tab"><a href="javascript:showTab('person-2');" id="person-2-link" class="subtab">$!config.partner</a></td>
+##            <td class="subtab" id="person-2-tab"><a href="javascript:showTab('person-2');" id="person-2-link" class="subtab">$!config.partner</a></td>
 		<td class="subtabcenter">&nbsp;</td>
 		<td class="subtab" id="person-zs1-tab" style="width: 100px;"><a href="javascript:showTab('person-zs1');" id="person-zs1-link" class="subtab">$!config.latin</a></td>
 		<td class="subtab" id="person-zs2-tab" style="width: 100px;"><a href="javascript:showTab('person-zs2');" id="person-zs2-link" class="subtab">$!config.extra1</a></td>
