@@ -230,7 +230,31 @@
 		<td class="value"><input type="text" name="faxdomain" value="$!message.text($config.faxdomain)" class="text"></td>
 	</tr>
 </table><br>
-	
+
+<h1>Änderungsprotokoll:</h1>
+<table class="form">
+	<tr>
+		<td class="label">Vorhaltezeit der Protokolldaten (Tage/Monate/Jahre):</td>
+		<td class="value">
+		<input type="hidden" name="changeLogRetentionPolicy" value="$!message.text($config.changeLogRetentionPolicy.toString()" class="text" readonly="readonly" style="width: 80px;">
+		<input type="text" name="changeLogRetentionPolicyDisplay" value="$!message.text($config.changeLogRetentionPolicy.toFormattedString( '%Y%M%D' )" class="text" readonly="readonly" style="width: 80px;">
+		<span id="show-changeLogRetentionPolicy"><img src="${paths.staticWeb}images/calendar.gif"></span>
+		<link rel="stylesheet" type="text/css" href="${paths.staticWeb}styles/dialog.css">
+		<script type="text/javascript" src="${paths.staticWeb}scripts/DurationInputDialog.js"></script>
+		<script type="text/javascript">
+			DurationInputDialog.setup(
+				{
+					display : "changeLogRetentionPolicyDisplay",
+					value : "changeLogRetentionPolicyValue",
+					button : "show-changeLogRetentionPolicy",
+					title : "Geben Sie die Aufbewahrungsfrist ein:"
+				}
+			);
+		</script>
+		</td>
+	</tr>
+</table><br>
+
 <div id="fixme" class="fixme1"><div class="fixme2"><div class="fixme3">
 
 	<input type="submit" name="save" value="Speichern" #if($grants.isAdmin()) class="submit" #else class="buttondisabled" disabled #end> &nbsp;

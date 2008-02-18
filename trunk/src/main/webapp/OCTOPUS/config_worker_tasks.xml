@@ -32,6 +32,10 @@
 		<worker name="UserWorker" implementation="de.tarent.aa.veraweb.worker.UserWorker" singleton="true" factory="reflected" />
 		<worker name="UserListWorker" implementation="de.tarent.aa.veraweb.worker.UserListWorker" singleton="true" factory="reflected" />
 		<worker name="OrgUnitListWorker" implementation="de.tarent.aa.veraweb.worker.OrgUnitListWorker" singleton="true" factory="reflected" />
+
+		<!-- Changelog-Worker -->
+		<worker name="ChangeLogMaintenanceWorker" implementation="de.tarent.aa.veraweb.worker.ChangeLogMaintenanceWorker" singleton="true" factory="reflected" />
+		<worker name="ChangeLogReportsWorker" implementation="de.tarent.aa.veraweb.worker.ChangeLogReportsWorker" singleton="true" factory="reflected" />
 		
 		<!-- Personendaten-Worker -->
 		<worker name="PersonListWorker" implementation="de.tarent.aa.veraweb.worker.PersonListWorker" singleton="true" factory="reflected" />
@@ -105,6 +109,7 @@
 			<action name="init" worker="MessageWorker"/>
 			<action name="init" worker="ConfigWorker"/>
 			<action name="load" worker="MailDispatchWorker"/>
+<!--			<action name="changeLogMaintenance" worker="ChangeLogMaintenanceWorker"/> -->
 			<response type="none" name="none"/>
 		</task>
 		
@@ -274,6 +279,21 @@
 			<action name="showList" worker="WorkAreaWorker" />
 			<param name="liststarts" value="true"/>
 			<response type="velocity" name="workArea">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+
+		<!--
+		  - change request 2.10.4 for next release version 1.2.0
+		  - cklein
+		  - 2008-02-18
+		  -->		
+		<task name="Reports" access="public" groups="Administrator">
+			<doTask name="LoadStammdaten"/>
+			<action name="saveList" worker="LocationWorker" />
+			<action name="showList" worker="LocationWorker" />
+			<param name="liststarts" value="true"/>
+			<response type="velocity" name="reports">
 				<param name="ContentType" value="text/html;charset=UTF-8"/>
 			</response>
 		</task>
