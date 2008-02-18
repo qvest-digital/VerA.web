@@ -30,7 +30,9 @@ import de.tarent.commons.datahandling.entity.*;
 import de.tarent.dblayer.engine.DB;
 import de.tarent.dblayer.engine.DBContext;
 import de.tarent.dblayer.engine.InsertKeys;
+import de.tarent.dblayer.persistence.annotations.ForeignKey;
 import de.tarent.dblayer.persistence.annotations.Id;
+import de.tarent.dblayer.persistence.annotations.Reference;
 import de.tarent.dblayer.sql.statement.ExtPreparedStatement;
 import de.tarent.dblayer.sql.statement.Select;
 
@@ -261,19 +263,32 @@ public abstract class AbstractDAO {
         }
     }
 
+    
+    protected List getEntityList(DBContext dbc, String queryID, ListFilter listFilterParams, ParamList params) throws SQLException {
+        return getEntityList(dbc, (Select)getDbMapping().getQuery(queryID).clone(), listFilterParams, params);
+    }
+    
+    
     protected List getEntityList(DBContext dbc, String queryID, ListFilter listFilterParams) throws SQLException {
-        return getEntityList(dbc, (Select)getDbMapping().getQuery(queryID).clone(), listFilterParams);
+        return getEntityList(dbc, (Select)getDbMapping().getQuery(queryID).clone(), listFilterParams, null);
     }
 
+    
     /**
      * Helper method for retrieving a list of Entities by a applying the supplied filter parameters.
      * This method normally calls getEntityList_LimitImplementation, but may be overidden to call getEntityList_CursorImplementation
      *
      * Attention: As a side affect of this method, the select will be modified. Use Select.clone() to supply a copy of the object, if needed.     
      */
-    protected List getEntityList(DBContext dbc, Select select, ListFilter listFilterParams) throws SQLException {
-        return getEntityList_LimitImplementation(dbc, select, listFilterParams);
+    protected List getEntityList(DBContext dbc, Select select, ListFilter listFilterParams, ParamList params) throws SQLException {
+        return getEntityList_LimitImplementation(dbc, select, listFilterParams, params);
     }
+    
+    
+    protected List getEntityList(DBContext dbc, Select select, ListFilter listFilterParams) throws SQLException {
+        return getEntityList_LimitImplementation(dbc, select, listFilterParams, null);
+    }
+    
     
     /**
      * Helper method for retrieving a list of Entities by a applying the supplied filter parameters.
@@ -281,7 +296,7 @@ public abstract class AbstractDAO {
      * and the count property in the ListFilter will be set the the total count of the result.
      * Attention: As a side affect of this method, the select will be modified. Use Select.clone() to supply a copy of the object, if needed.     
      */
-    protected List getEntityList_LimitImplementation(DBContext dbc, Select select, ListFilter listFilterParams) throws SQLException {
+    protected List getEntityList_LimitImplementation(DBContext dbc, Select select, ListFilter listFilterParams, ParamList params) throws SQLException {
 
         if (select.getUniqueColumn() == null && (select.getLimit() != null || listFilterParams.useLimit()))
             select.setUniqueColumn(getDbMapping().getPkField().getColumnName());
@@ -306,6 +321,15 @@ public abstract class AbstractDAO {
                 epsCount = countSelect.prepare(dbc);
                 for (Iterator iter = values.iterator(); iter.hasNext();)
                     epsCount.setAttribute((String)iter.next(), iter.next());
+                
+                if (params != null) {
+    	            List pList = params.getParams();
+    	            for (int i=0; i<pList.size(); i++) {
+    	                Object[] paramNameValue = (Object[]) pList.get(i);
+    	                epsCount.setAttribute((String) paramNameValue[0], paramNameValue[1]);
+    	            }
+                }
+                
                 ResultSet rs = epsCount.getPreparedStatement().executeQuery();
                 if (rs.next()) 
                     listFilterParams.setCount(rs.getInt(1));
@@ -339,6 +363,14 @@ public abstract class AbstractDAO {
             for (Iterator iter = values.iterator(); iter.hasNext();)
                 eps.setAttribute((String)iter.next(), iter.next());
 
+            if (params != null) {
+	            List pList = params.getParams();
+	            for (int i=0; i<pList.size(); i++) {
+	                Object[] paramNameValue = (Object[]) pList.get(i);
+	                eps.setAttribute((String) paramNameValue[0], paramNameValue[1]);
+	            }
+            }
+            
             return getEntityList(dbc, eps.getPreparedStatement());
         } finally {
         	if (eps != null)
@@ -595,34 +627,342 @@ public abstract class AbstractDAO {
             DB.close(ps);
         }
     }
+    
+    
+    /** Inserts a single entity and all its child entities
+     * Note: does only work with annotated beans!
+     * 
+     * @param dbc the database context
+     * @param entity the entity to insert
+     * @throws SQLException thrown if there are problems with the database
+     */
+    public void insertDeep(DBContext dbc, Object entity) throws SQLException {
+    	boolean inTransaction = ! dbc.getDefaultConnection().getAutoCommit();
+        if (!inTransaction) 
+            dbc.getDefaultConnection().setAutoCommit(false);
+    	
+        try {
+	    	// first insert entity itself
+	    	insert(dbc, entity);
+	    	
+	    	// We can only insert deep if the bean is annotated. Otherwise
+	    	// we just insert as insert() would have been used.
+	    	if (entity.getClass().getAnnotation(de.tarent.dblayer.persistence.annotations.Entity.class) != null) {
+	    		int pkEntity = 0;
+	        	// get primary key of entity
+	        	Method [] entityMethods = entity.getClass().getMethods();
+	        	for (int i = 0; i < entityMethods.length; i++) {
+	        		if (entityMethods[i].getAnnotation(Id.class) != null) {
+	        			pkEntity = (Integer) Pojo.get(entity, entityMethods[i]);
+	        		}
+	        	}
+	        	
+	    		// now iterate over attributes and insert each
+	        	// attribute that has annotation @Reference
+	        	// (Note: special treatments for collections)
+	    		Method[] methods = entity.getClass().getMethods();
+	    		for (int i = 0; i < methods.length; i++) {
+	    			if (methods[i].getAnnotation(Reference.class) != null) {
+	    				// there is a reference. get the referenced object and
+	    				// call its insertDeep method in its DAO
+	    				Object referencedEntity = Pojo.get(entity, methods[i]);
+	    				Class referencedBean = methods[i].getAnnotation(Reference.class).bean();
+	    				
+	    				
+	    				if (referencedEntity instanceof Collection) {
+	    					// Referenced entity is a collection of beans. Iterate
+	    					// over collection and call insertDeep for each one
+	    					Iterator iter = ((Collection) referencedEntity).iterator();
+	    					while (iter.hasNext()) {
+	    						Object refEntity = iter.next();
+	
+	    						// insert primary key of entity in referenced entity
+	        					// To do that we have to find the foreign key in the referenced entity
+	        					Method [] refMethods = refEntity.getClass().getMethods();
+	    						for (int j = 0; j < refMethods.length; j++) {
+	        						if (refMethods[j].getAnnotation(ForeignKey.class) != null) {
+	        							// found foreign key attribute; set primary key of entity
+	        							Pojo.set(refEntity, refMethods[j].getName().substring(3), pkEntity);
+	        						}
+	        					}
+	    						
+	    						DAORegistry.getDAOForBean(referencedBean).insertDeep(dbc, refEntity);
+	    					}
+	    				} else if (referencedEntity != null) {
+	    					// referencend entity is a single bean
+	    					
+	    					// insert primary key of entity in referenced entity
+	    					// To do that we have to find the foreign key in the referenced entity
+	    					Method [] refMethods = referencedEntity.getClass().getMethods();
+	    					for (int j = 0; j < refMethods.length; j++) {
+	    						if (refMethods[j].getAnnotation(ForeignKey.class) != null) {
+	    							// found foreign key attribute; set primary key of entity
+	    							Pojo.set(referencedEntity, refMethods[j].getName().substring(3), pkEntity);
+	    						}
+	    					}    					 
+	    					
+	    					DAORegistry.getDAOForBean(referencedBean).insertDeep(dbc, referencedEntity);
+	    				}
+	    			}
+	    		}
+	    	}
+	    } catch (SQLException e) {
+	        dbc.getDefaultConnection().rollback();
+	        throw e;
+	    }
+		
+		if (!inTransaction) {
+	        dbc.getDefaultConnection().commit();
+	        dbc.getDefaultConnection().setAutoCommit(true);
+		}
+	}
 
+    
     /**
      * Update a single entity. 
      */
-    public void update(DBContext dbc, Object entity) throws SQLException {
+    public void update(DBContext dbc, Object entity) throws SQLException, EntityOperationException {
         ExtPreparedStatement eps = getDbMapping().getUpdate().prepare(dbc);
         entityFactory.writeTo(eps, entity);
         PreparedStatement ps = eps.getPreparedStatement();
         try {
-            ps.executeUpdate();
+            int updatedRows = ps.executeUpdate();
+            if (updatedRows == 0)
+            	throw new EntityOperationException("entity does not exist (" + entity.getClass().getName() + ")");
+            if (updatedRows > 1)
+            	throw new EntityOperationException("several entities with this primary key exist");
         } finally {
             DB.close(ps);
         }
+    }
+    
+    
+    /** Updates a single entity and all its child entities.
+     * If the primary key of a child entity is not set tarent-database
+     * assumes that this child is new and inserts in into the db
+     * (instead of updating it)
+     * Note: does only work with annotated beans!
+     * 
+     * @param dbc the database context
+     * @param entity the entity to update
+     * @throws SQLException thrown if there are problems with the database
+     */
+    public void updateDeep(DBContext dbc, Object entity) throws SQLException, EntityOperationException {
+    	boolean inTransaction = ! dbc.getDefaultConnection().getAutoCommit();
+        if (!inTransaction) 
+            dbc.getDefaultConnection().setAutoCommit(false);
+    	
+        try {
+	    	// first update entity itself
+	    	update(dbc, entity);
+	    	
+	    	// We can only update deep if the bean is annotated. Otherwise
+	    	// we just update as update() would have been used.
+	    	if (entity.getClass().getAnnotation(de.tarent.dblayer.persistence.annotations.Entity.class) != null) {
+	    		int pkEntity = 0;
+	        	// get primary key of entity
+	        	Method [] entityMethods = entity.getClass().getMethods();
+	        	for (int i = 0; i < entityMethods.length; i++) {
+	        		if (entityMethods[i].getAnnotation(Id.class) != null) {
+	        			pkEntity = (Integer) Pojo.get(entity, entityMethods[i]);
+	        		}
+	        	}
+	        	
+	    		// now iterate over attributes and insert each
+	        	// attribute that has annotation @Reference
+	        	// (Note: special treatments for collections)
+	    		Method[] methods = entity.getClass().getMethods();
+	    		for (int i = 0; i < methods.length; i++) {
+	    			if (methods[i].getAnnotation(Reference.class) != null) {
+	    				// there is a reference. get the referenced object and
+	    				// call its updateDeep method in its DAO
+	    				Object referencedEntity = Pojo.get(entity, methods[i]);
+	    				Class referencedBean = methods[i].getAnnotation(Reference.class).bean();
+	    				
+	    				
+	    				if (referencedEntity instanceof Collection) {
+	    					// Referenced entity is a collection of beans. Iterate
+	    					// over collection and call updateDeep for each one
+	    					Iterator iter = ((Collection) referencedEntity).iterator();
+	    					while (iter.hasNext()) {
+	    						Object refEntity = iter.next();
+	    						boolean insert = false;
+	    						
+	    						// insert primary key of entity in referenced entity
+	        					// To do that we have to find the foreign key in the referenced entity
+	        					Method [] refMethods = refEntity.getClass().getMethods();
+	    						for (int j = 0; j < refMethods.length; j++) {
+	        						if (refMethods[j].getAnnotation(ForeignKey.class) != null) {
+	        							// found foreign key attribute; set primary key of entity
+	        							Pojo.set(refEntity, refMethods[j].getName().substring(3), pkEntity);
+	        						}
+	        						
+	        						// check if primary key is set. if so update else insert
+	        						if (refMethods[j].getAnnotation(Id.class) != null) {
+	        							if (((Integer) Pojo.get(refEntity, refMethods[j])).intValue() == 0) {
+	        								// the primary key of the referenced entity is 0. So it is new and has
+	        								// to be inserted instead of updated.
+	        								insert = true;
+	        							}
+	        						}
+	        					}
+	    						
+	    						if (insert)
+	    							DAORegistry.getDAOForBean(referencedBean).insertDeep(dbc, refEntity);
+	    						else
+	    							DAORegistry.getDAOForBean(referencedBean).updateDeep(dbc, refEntity);
+	    					}
+	    				} else if (referencedEntity != null) {
+	    					// referencend entity is a single bean
+	    					boolean insert = false;
+	    					
+	    					// insert primary key of entity in referenced entity
+	    					// To do that we have to find the foreign key in the referenced entity
+	    					Method [] refMethods = referencedEntity.getClass().getMethods();
+	    					for (int j = 0; j < refMethods.length; j++) {
+	    						if (refMethods[j].getAnnotation(ForeignKey.class) != null) {
+	    							// found foreign key attribute; set primary key of entity
+	    							Pojo.set(referencedEntity, refMethods[j].getName().substring(3), pkEntity);
+	    						}
+	    						
+	    						// check if primary key is set. if so update else insert
+	    						if (refMethods[j].getAnnotation(Id.class) != null) {
+	    							if (((Integer) Pojo.get(referencedEntity, refMethods[j])).intValue() == 0) {
+	    								// the primary key of the referenced entity is 0. So it is new and has
+	    								// to be inserted instead of updated.
+	    								insert = true;
+	    							}
+	    						}
+	    					}    					 
+	    					
+	    					if (insert)
+	    						DAORegistry.getDAOForBean(referencedBean).insertDeep(dbc, referencedEntity);
+	    					else
+	    						DAORegistry.getDAOForBean(referencedBean).updateDeep(dbc, referencedEntity);
+	    				}
+	    			}
+	    		}
+	    	}
+        } catch (SQLException e) {
+            dbc.getDefaultConnection().rollback();
+            throw e;
+        }
+    	
+        if (!inTransaction) {
+	        dbc.getDefaultConnection().commit();
+	        dbc.getDefaultConnection().setAutoCommit(true);
+		}
     }
 
 
     /**
      * Delete a single entity. 
+     * @throws EntityOperationException 
      */
-    public void delete(DBContext dbc, Object entity) throws SQLException {
+    public void delete(DBContext dbc, Object entity) throws SQLException, EntityOperationException {
         ExtPreparedStatement eps = getDbMapping().getDelete().prepare(dbc);
         entityFactory.writeTo(eps, entity);
         PreparedStatement ps = eps.getPreparedStatement();
         try {
-            ps.executeUpdate();
+            int updatedRows = ps.executeUpdate();
+            if (updatedRows == 0)
+            	throw new EntityOperationException("entity does not exist (" + entity.getClass().getName() + ")");
+            if (updatedRows > 1)
+            	throw new EntityOperationException("several entities with this primary key exist");
         } finally {
             DB.close(ps);
         }
+    }
+    
+    
+    /** deletes a single entity and all its child entities
+     * Note: does only work with annotated beans!
+     * 
+     * @param dbc the database context
+     * @param entity the entity to delete
+     * @throws SQLException thrown if there are problems with the database
+     * @throws EntityOperationException 
+     */
+    public void deleteDeep(DBContext dbc, Object entity) throws SQLException, EntityOperationException {
+    	boolean inTransaction = ! dbc.getDefaultConnection().getAutoCommit();
+        if (!inTransaction) 
+            dbc.getDefaultConnection().setAutoCommit(false);
+    	
+        try {
+	    	// first delete child entities, then parent entity (because of foreign key constraints)
+	    	
+	    	// We can only delete deep if the bean is annotated. Otherwise
+	    	// we just delete as delete() would have been used.
+	    	if (entity.getClass().getAnnotation(de.tarent.dblayer.persistence.annotations.Entity.class) != null) {
+	    		int pkEntity = 0;
+	        	// get primary key of entity
+	        	Method [] entityMethods = entity.getClass().getMethods();
+	        	for (int i = 0; i < entityMethods.length; i++) {
+	        		if (entityMethods[i].getAnnotation(Id.class) != null) {
+	        			pkEntity = (Integer) Pojo.get(entity, entityMethods[i]);
+	        		}
+	        	}
+	        	
+	    		// now iterate over attributes and delete each
+	        	// attribute that has annotation @Reference
+	        	// (Note: special treatments for collections)
+	    		Method[] methods = entity.getClass().getMethods();
+	    		for (int i = 0; i < methods.length; i++) {
+	    			if (methods[i].getAnnotation(Reference.class) != null) {
+	    				// there is a reference. get the referenced object and
+	    				// call its deleteDeep method in its DAO
+	    				Object referencedEntity = Pojo.get(entity, methods[i]);
+	    				Class referencedBean = methods[i].getAnnotation(Reference.class).bean();
+	    				
+	    				
+	    				if (referencedEntity instanceof Collection) {
+	    					// Referenced entity is a collection of beans. Iterate
+	    					// over collection and call insertDeep for each one
+	    					Iterator iter = ((Collection) referencedEntity).iterator();
+	    					while (iter.hasNext()) {
+	    						Object refEntity = iter.next();
+	
+	    						// insert primary key of entity in referenced entity
+	        					// To do that we have to find the foreign key in the referenced entity
+	        					Method [] refMethods = refEntity.getClass().getMethods();
+	    						for (int j = 0; j < refMethods.length; j++) {
+	        						if (refMethods[j].getAnnotation(ForeignKey.class) != null) {
+	        							// found foreign key attribute; set primary key of entity
+	        							Pojo.set(refEntity, refMethods[j].getName().substring(3), pkEntity);
+	        						}
+	        					}
+	    						
+	    						DAORegistry.getDAOForBean(referencedBean).deleteDeep(dbc, refEntity);
+	    					}
+	    				} else if (referencedEntity != null) {
+	    					// referencend entity is a single bean
+	    					
+	    					// insert primary key of entity in referenced entity
+	    					// To do that we have to find the foreign key in the referenced entity
+	    					Method [] refMethods = referencedEntity.getClass().getMethods();
+	    					for (int j = 0; j < refMethods.length; j++) {
+	    						if (refMethods[j].getAnnotation(ForeignKey.class) != null) {
+	    							// found foreign key attribute; set primary key of entity
+	    							Pojo.set(referencedEntity, refMethods[j].getName().substring(3), pkEntity);
+	    						}
+	    					}    					 
+	    					
+	    					DAORegistry.getDAOForBean(referencedBean).deleteDeep(dbc, referencedEntity);
+	    				}
+	    			}
+	    		}
+	    	}
+	    	
+	    	delete(dbc, entity);
+        } catch (SQLException e) {
+            dbc.getDefaultConnection().rollback();
+            throw e;
+        }
+    	
+        if (!inTransaction) {
+	        dbc.getDefaultConnection().commit();
+	        dbc.getDefaultConnection().setAutoCommit(true);
+		}
     }
     
 
