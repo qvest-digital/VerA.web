@@ -23,6 +23,12 @@ import de.tarent.dblayer.persistence.annotations.Transient;
  */
 public abstract class AnnotatedDBMapping extends AbstractDBMapping {
 
+	
+	public AnnotatedDBMapping() {
+		super();
+	}
+	
+	
 	public AnnotatedDBMapping(DBContext dbc, Class bean) {
 		super(dbc, bean);
 	}
