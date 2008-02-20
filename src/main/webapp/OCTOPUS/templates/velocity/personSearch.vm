@@ -87,6 +87,7 @@
 	<td class="value">
 		<select name="categorie" id="categorie" class="combobox">
 		<option value="">Alle</option>
+		<option value="0">Keine Kategorie zugeordnet</option>
 		#foreach($categorie in $allCategorie)
 			#if((!$categorie.flags) || ($categorie.flags != 1))
 			<option value="$!categorie.id" #if($search.categorie == $!categorie.id) selected #end>$!categorie.name</option>
@@ -99,6 +100,7 @@
 	<td class="value">
 		<select name="workarea" id="workarea" class="combobox">
 		<option value="">Alle</option>
+		<option value="0">Kein Arbeitsbereich zugeordnet</option>
 		#foreach($workArea in $allWorkArea)
 			<option value="$!workArea.id" #if($search.workarea == $!workArea.id) selected #end>$!workArea.name</option>
 		#end

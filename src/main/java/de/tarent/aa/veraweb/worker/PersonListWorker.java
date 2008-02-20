@@ -121,6 +121,9 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 	}
 
 	protected void extendColumns(OctopusContext cntx, Select select) throws BeanException, IOException {
+		select.joinLeftOuter( "veraweb.tworkarea", "tperson.fk_workarea", "tworkarea.pk" );
+		select.selectAs( "tworkarea.name", "workarea_name" );
+		select.orderBy( Order.asc( "workarea_name" ) );
 	}
 
 	protected void extendWhere(OctopusContext cntx, Select select) throws BeanException {
@@ -129,14 +132,27 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 		select.where(getPersonListFilter(cntx));
 		
 		if (search.categorie != null) {
-			select.joinLeftOuter("veraweb.tperson_categorie cat1", "tperson.pk", "cat1.fk_person");
+			/*
+			 * extension to support search for persons with no assigned categories
+			 * 
+			 * cklein
+			 * 2008-02-20
+			 */
+			if ( search.categorie.intValue() == 0 )
+			{
+				select.joinLeftOuter( "veraweb.tperson_categorie cat1", "tperson.pk", "cat1.fk_person" );
+				select.whereAnd( new RawClause( "cat1.fk_person is null" ) );
+			}
+			else
+			{
+				select.joinLeftOuter("veraweb.tperson_categorie cat1", "tperson.pk", "cat1.fk_person");
+			}
 		}
 		if (search.categorie2 != null) {
 			select.joinLeftOuter("veraweb.tperson_categorie cat2", "tperson.pk", "cat2.fk_person");
 		}
 		if (search.workarea != null) {
 			select.joinLeftOuter("veraweb.tworkarea workarea", "tperson.fk_workarea", "workarea.pk");
-			select.where( Expr.equal( "workarea.pk", cntx.requestAsInteger( "workarea" ) ) );
 		}
 	}
 
@@ -160,7 +176,6 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 		}
 		if (search.workarea != null) {
 			select.joinLeftOuter("veraweb.tworkarea workarea", "tperson.fk_workarea", "workarea.pk");
-			select.where( Expr.equal( "workarea.pk", cntx.requestAsInteger( "workarea" ) ) );
 		}
 		select.where(new RawClause(buffer));
 		
@@ -391,7 +406,12 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 		}
 		*/
 		if (search.categorie != null) {
-			list.addAnd(Expr.equal("cat1.fk_categorie", search.categorie));
+			// prevent 0 categorie foreign keys from being found
+			// categories with id ::= 0 are being used for finding persons with no assigned categories 
+			if ( search.categorie.intValue() != 0 )
+			{
+				list.addAnd(Expr.equal("cat1.fk_categorie", search.categorie));
+			}
 		}
 		if (search.categorie2 != null) {
 			list.addAnd(Expr.equal("cat2.fk_categorie", search.categorie2));

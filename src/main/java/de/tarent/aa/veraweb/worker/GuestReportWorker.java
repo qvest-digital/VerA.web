@@ -40,6 +40,7 @@ import de.tarent.aa.veraweb.beans.GuestSearch;
 import de.tarent.aa.veraweb.utils.DatabaseHelper;
 import de.tarent.dblayer.sql.SQL;
 import de.tarent.dblayer.sql.clause.Expr;
+import de.tarent.dblayer.sql.clause.Order;
 import de.tarent.dblayer.sql.clause.WhereList;
 import de.tarent.dblayer.sql.statement.Select;
 import de.tarent.octopus.custom.beans.BeanException;
@@ -49,7 +50,7 @@ import de.tarent.octopus.server.OctopusContext;
 
 /**
  * Dieser Worker stellt entsprechende Funktionen zur Erstellung von
- * Berichten zu Gästelisten bereit.
+ * Berichten zu Gï¿½stelisten bereit.
  * 
  * @author Christoph Jerolimov
  */
@@ -57,39 +58,39 @@ public class GuestReportWorker {
     //
     // Octopus-Aktionen
     //
-    /** Octopus-Eingabeparameter für {@link #createReport(OctopusContext)} */
+    /** Octopus-Eingabeparameter fï¿½r {@link #createReport(OctopusContext)} */
 	public static final String INPUT_createReport[] = {};
 	/**
-     * Diese Octopus-Aktion erzeugt Daten für einen Bericht. Hierbei wird auf
-     * die Werte unter den Schlüsseln "type" (Kategorisierung des Berichts) und
-     * "sort1", "sort2" und "sort3" (Sortierkriterien für den Bericht) aus
+     * Diese Octopus-Aktion erzeugt Daten fï¿½r einen Bericht. Hierbei wird auf
+     * die Werte unter den Schlï¿½sseln "type" (Kategorisierung des Berichts) und
+     * "sort1", "sort2" und "sort3" (Sortierkriterien fï¿½r den Bericht) aus
      * dem Octopus-Request, "event" (die Veranstaltung) und "search" (Kriterien
-     * für die Gästesuche) aus dem Octopus-Content, "selectionGuest" (Liste
-     * ausgewählter Gäste-Einträge) aus der Session und "freitextfeld2" (ID des
-     * Dokumenttyps für das Bericht-Freitextfeld) zurückgegriffen.<br>
-     * Für den Bericht stehen zur Kategorisierung folgende Werte zur Verfügung:
+     * fï¿½r die Gï¿½stesuche) aus dem Octopus-Content, "selectionGuest" (Liste
+     * ausgewï¿½hlter Gï¿½ste-Eintrï¿½ge) aus der Session und "freitextfeld2" (ID des
+     * Dokumenttyps fï¿½r das Bericht-Freitextfeld) zurï¿½ckgegriffen.<br>
+     * Fï¿½r den Bericht stehen zur Kategorisierung folgende Werte zur Verfï¿½gung:
      * <ul>
      * <li>"Kat01": Kategorien mit Partner
      * <li>"Kat02": Kategorien mit Telefon und Mobiltelefon
      * <li>"Kat03": Kategorien mit Partner und Fax
      * <li>"Alpha01": Alphabetisch mit Partner, Telefon und Mobiltelefon
      * </ul>
-     * Weiterhin stehen folgende Sortierkriterien zur Verfügung:
+     * Weiterhin stehen folgende Sortierkriterien zur Verfï¿½gung:
      * <ul>
      * <li>"category": Kategorie-Rang, Kategorie-Name
-     * <li>"country": Land (der geschäftliche Adresse in Latin)
+     * <li>"country": Land (der geschï¿½ftliche Adresse in Latin)
      * <li>"name": Nachname, Vorname (der Hauptperson in Latin)
      * <li>"orderno": laufende Nummer
      * <li>"rank": Gast-Rang
      * <li>"table": Tischnummer
-     * <li>"zipcode": Postleitzahl (der geschäftliche Adresse in Latin)
+     * <li>"zipcode": Postleitzahl (der geschï¿½ftliche Adresse in Latin)
      * </ul>
-     * Im Octopus-Content werden unter den Schlüsseln "datum" (das zu verwendende
+     * Im Octopus-Content werden unter den Schlï¿½sseln "datum" (das zu verwendende
      * aktuelle Datum), "titel" (Titel mit lesbarem Berichtstyp), "type" (wie oben
-     * Kategorisierung des Berichts), "data" (Map mit Gästesummen unter "platz",
-     * "reserve",  "all", "offen",  "zusagen" und "absagen"), "kategorie" (Flag für
-     * "Kat*"-Typen), "alphabetisch" (Flag für "Alpha*"-Typen) und "guestlist"
-     * (Liste der konkreten Gastdaten) Daten für den Bericht bereitgestellt.
+     * Kategorisierung des Berichts), "data" (Map mit Gï¿½stesummen unter "platz",
+     * "reserve",  "all", "offen",  "zusagen" und "absagen"), "kategorie" (Flag fï¿½r
+     * "Kat*"-Typen), "alphabetisch" (Flag fï¿½r "Alpha*"-Typen) und "guestlist"
+     * (Liste der konkreten Gastdaten) Daten fï¿½r den Bericht bereitgestellt.
      * 
      * @param cntx
      * @throws BeanException
@@ -164,7 +165,21 @@ public class GuestReportWorker {
 				selectAs("tcategorie.catname", "category").
 				joinLeftOuter("veraweb.tperson", "fk_person", "tperson.pk").
 				joinLeftOuter("veraweb.tcategorie", "fk_category", "tcategorie.pk");
-		
+
+		/*
+		 * modified to support ordering by workarea as per change request for version 1.2.0
+		 * 
+		 * cklein
+		 * 2008-02-20
+		 */
+		Boolean orderByWorkArea = cntx.requestAsBoolean( "orderByWorkArea" );
+		if ( orderByWorkArea.booleanValue() )
+		{
+			select.joinLeftOuter( "veraweb.tworkarea", "tperson.fk_workarea", "tworkarea.pk" );
+			select.selectAs( "CASE WHEN tworkarea.name <> 'Kein' THEN tworkarea.name ELSE 'Kein Arbeitsbereich' END", "workarea_name" );
+		}
+		cntx.setContent( "orderByWorkArea", orderByWorkArea );
+
 		if (freitextfeld != null) {
 			select.joinLeftOuter("veraweb.tguest_doctype", "tguest.pk", "tguest_doctype.fk_guest AND fk_doctype = " + freitextfeld);
 			select.selectAs("tguest_doctype.pk IS NOT NULL", "showdoctype");
@@ -186,7 +201,7 @@ public class GuestReportWorker {
 			select.selectAs("FALSE", "showdoctype");
 		}
 		
-		/** Nur die aktuelle Auswahl zurückgeben. */
+		/** Nur die aktuelle Auswahl zurï¿½ckgeben. */
 		WhereList where = new WhereList();
 		GuestListWorker.addGuestListFilter(search, where);
 		if (selection != null && selection.size() > 0) {
@@ -201,6 +216,10 @@ public class GuestReportWorker {
 		if (kategorie) {
 			order.add("tcategorie.rank");
 			order.add("tcategorie.catname");
+		}
+		if ( orderByWorkArea.booleanValue() )
+		{
+			setSortOrder( order, "tworkarea.name" );
 		}
 		setSortOrder(order, cntx.requestAsString("sort1"));
 		setSortOrder(order, cntx.requestAsString("sort2"));
@@ -223,11 +242,11 @@ public class GuestReportWorker {
     // Hilfsmethoden
     //
     /**
-     * Diese Methode fügt gemäß einem übergebenen Sortierkriterium ("orderno",
+     * Diese Methode fï¿½gt gemï¿½ï¿½ einem ï¿½bergebenen Sortierkriterium ("orderno",
      * "name", "country", "zipcode", "category", "rank" oder "table") passende
-     * ORDER-BY-Spaltennamen in die übergebene Liste ein.
+     * ORDER-BY-Spaltennamen in die ï¿½bergebene Liste ein.
      * 
-     *  @param order Liste von ORDER-BY-Spaltennamen, die hier ergänzt werden soll.
+     *  @param order Liste von ORDER-BY-Spaltennamen, die hier ergï¿½nzt werden soll.
      *  @param sort abstraktes Sortierkriterium
      */
 	static void setSortOrder(List order, String sort) {
@@ -249,6 +268,8 @@ public class GuestReportWorker {
 			order.add("tguest.rank");
 		} else if (sort.equals("table")) {
 			order.add("tguest.tableno");
+		} else if (sort.equals("tworkarea.name")) {
+			order.add("tworkarea.name");
 		}
 	}
 }

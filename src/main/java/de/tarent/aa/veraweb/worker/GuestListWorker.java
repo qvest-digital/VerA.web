@@ -271,6 +271,18 @@ public class GuestListWorker extends ListWorkerVeraWeb {
 		Database database = getDatabase(cntx);
 		Guest guest = (Guest)bean;
 		guest.updateHistoryFields(null, ((PersonalConfigAA)cntx.personalConfig()).getRoleWithProxy());
+
+		/* restore old guest state for logging purposes
+		 * cklein
+		 * 2008-02-20
+		 */
+		Guest guestOld = ( Guest ) database.getBean( "Guest", guest.id );
+		// restore foreign keys
+		guest.person = guestOld.person;
+		guest.category = guestOld.category;
+		guest.color_a = guestOld.color_a;
+		guest.color_b = guestOld.color_b;
+		guest.event = guestOld.event;
 		
 		Update update = SQL.Update().
 				table("veraweb.tguest").
@@ -304,9 +316,7 @@ public class GuestListWorker extends ListWorkerVeraWeb {
 		 * cklein 2008-02-12
 		 */
 		BeanChangeLogger clogger = new BeanChangeLogger( database );
-		Guest guestOld = ( Guest ) database.getBean( "Guest", guest.id );
-		throw new RuntimeException( "guestid: " + guest.id );
-		//clogger.logUpdate( cntx.personalConfig().getLoginname(), guestOld, guest );
+		clogger.logUpdate( cntx.personalConfig().getLoginname(), guestOld, guest );
 	}
 
 	protected boolean removeBean(OctopusContext cntx, Bean bean) throws BeanException, IOException {
@@ -503,6 +513,9 @@ public class GuestListWorker extends ListWorkerVeraWeb {
 		select.selectAs(
 				"SUM(CASE WHEN reserve != 1 AND invitationstatus   = 2 AND invitationtype != 3 THEN 1 ELSE 0 END) + " +
 				"SUM(CASE WHEN reserve != 1 AND invitationstatus_p = 2 AND invitationtype != 2 THEN 1 ELSE 0 END)", "absagen");
+		select.selectAs(
+				"SUM(CASE WHEN reserve != 1 AND invitationstatus   = 3 AND invitationtype != 3 THEN 1 ELSE 0 END) + " +
+				"SUM(CASE WHEN reserve != 1 AND invitationstatus_p = 3 AND invitationtype != 2 THEN 1 ELSE 0 END)", "teilnahmen");
 //		select.selectAs(
 //				"SUM(CASE WHEN reserve = 1  AND invitationstatus   = 1 AND invitationtype != 3 THEN 1 ELSE 0 END) + " +
 //				"SUM(CASE WHEN reserve = 1  AND invitationstatus_p = 1 AND invitationtype != 2 THEN 1 ELSE 0 END)", "zusagenReserve");
@@ -515,21 +528,24 @@ public class GuestListWorker extends ListWorkerVeraWeb {
 		Long reserve = (Long)result.get("reserve");
 		Long zusagen = (Long)result.get("zusagen");
 		Long absagen = (Long)result.get("absagen");
+		Long teilnahmen = (Long)result.get("teilnahmen");
 //		Long zusagenReserve = (Long)result.get("zusagenReserve");
 //		Long absagenReserve = (Long)result.get("absagenReserve");
 		if (platz == null) platz = new Long(0);
 		if (reserve == null) reserve = new Long(0);
 		if (zusagen == null) zusagen = new Long(0);
 		if (absagen == null) absagen = new Long(0);
+		if (teilnahmen == null) teilnahmen = new Long(0);
 //		if (zusagenReserve == null) zusagenReserve = new Long(0);
 //		if (absagenReserve == null) absagenReserve = new Long(0);
 		
 		data.put("platz", platz);
 		data.put("reserve", reserve);
 		data.put("all", new Long(platz.longValue() + reserve.longValue()));
-		data.put("offen", new Long(platz.longValue() - zusagen.longValue() - absagen.longValue()));
+		data.put("offen", new Long(platz.longValue() - zusagen.longValue() - absagen.longValue() - teilnahmen.longValue()));
 		data.put("zusagen", zusagen);
 		data.put("absagen", absagen);
+		data.put("teilnahmen", teilnahmen);
 //		data.put("offenReserve", new Long(reserve.longValue() - zusagenReserve.longValue() - absagenReserve.longValue()));
 //		data.put("zusagenReserve", zusagenReserve);
 //		data.put("absagenReserve", absagenReserve);

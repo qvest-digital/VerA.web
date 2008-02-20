@@ -117,7 +117,15 @@
 #end
 		</select>
 	</td>
-</tr></table><br>
+</tr>
+## added as per change request for version 1.2.0
+## cklein
+## 2008-02-20
+<tr>
+	<td class="label">Zusätzliche Sortierung nach</td>
+	<td><input type="checkbox" id="orderByWorkArea" name="orderByWorkArea" value="true">&nbsp;<label for="orderByWorkArea">Arbeitsbereich</label></td>
+</tr>
+</table><br>
 
 <div>
 <div id="fixme" class="fixme1"><div class="fixme2"><div class="fixme3">
