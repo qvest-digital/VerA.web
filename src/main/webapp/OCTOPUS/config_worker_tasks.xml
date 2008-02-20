@@ -344,6 +344,7 @@
 			<action name="save" worker="ConfigWorker" />
 			<action name="getAll" worker="DoctypeWorker" />
 			<action name="getAll" worker="SalutationWorker" />
+			<action name="getAll" worker="WorkAreaWorker"/>
 			<response type="velocity" name="config">
 				<param name="ContentType" value="text/html;charset=UTF-8"/>
 			</response>
@@ -379,6 +380,7 @@
 			</contract>
 			<doTask name="Load"/>
 			<action name="getAll" worker="CategorieWorker" />
+			<action name="getAll" worker="WorkAreaWorker"/>
 			<action name="getSearch" worker="PersonListWorker" />
 			<response type="velocity" name="personSearch">
 				<param name="ContentType" value="text/html;charset=UTF-8"/>
@@ -399,6 +401,7 @@
 				<input name="PLZ" type="xsd:string" optional="t" description="gesuchte PLZ"/>
 				<input name="Funktion" type="xsd:string" optional="t" description="gesuchte Funktion"/>
 				<input name="Kategorie" type="xsd:string" optional="t" description="gesuchte Kategorie"/>
+				<input name="Arbeitsbereich" type="xsd:string" optional="t" description="gesuchter Arbeitsbereich"/>
 				<input name="Ereignis" type="xsd:string" optional="t" description="gesuchtes Ereignis"/>
 				<input name="IstFirma" type="xsd:string" optional="t" description="Flag: Firmen gesucht"/>
 				<input name="Datenherkunft" type="xsd:string" optional="t" description="gesuchte Datenherkunft"/>
@@ -421,6 +424,7 @@
 			</description>
 			<doTask name="Load"/>
 			<action name="getAll" worker="SalutationWorker"/>
+			<action name="getAll" worker="WorkAreaWorker"/>
 			<action name="getDoctype" worker="PersonDetailWorker" />
 			<response type="velocity" name="personDetail">
 				<param name="ContentType" value="text/html;charset=UTF-8"/>
@@ -436,6 +440,7 @@
 			</contract>
 			<doTask name="Load"/>
 			<action name="getAll" worker="SalutationWorker"/>
+			<action name="getAll" worker="WorkAreaWorker"/>
 			<action name="showDetail" worker="PersonDetailWorker" />
 			<action name="getDoctype" worker="PersonDetailWorker" />
 			<response type="velocity" name="personDetail">
@@ -449,6 +454,7 @@
 			</description>
 			<doTask name="Load"/>
 			<action name="getAll" worker="SalutationWorker"/>
+			<action name="getAll" worker="WorkAreaWorker"/>
 			<action name="showTestPerson" worker="PersonDetailWorker" />
 			<action name="getDoctype" worker="PersonDetailWorker" />
 			<response type="velocity" name="personDetail">
@@ -462,6 +468,7 @@
 			</description>
 			<doTask name="Load"/>
 			<action name="getAll" worker="SalutationWorker"/>
+			<action name="getAll" worker="WorkAreaWorker"/>
 			<action name="copyPerson" worker="PersonDetailWorker"/>
 			<action name="getDoctype" worker="PersonDetailWorker" />
 			<response type="velocity" name="personDetail">
@@ -553,6 +560,7 @@
 			</description>
 			<doTask name="SavePersonWithDupcheck"/>
 			<action name="getAll" worker="SalutationWorker"/>
+			<action name="getAll" worker="WorkAreaWorker"/>
 			<action name="getDoctype" worker="PersonDetailWorker" />
 			<response type="velocity" name="personDetail">
 				<param name="ContentType" value="text/html;charset=UTF-8"/>

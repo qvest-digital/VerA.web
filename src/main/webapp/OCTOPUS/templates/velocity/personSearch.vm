@@ -95,6 +95,16 @@
 		</select>
 	</td>
 </tr><tr>
+	<td class="label"><label for="workarea">Arbeitsbereich:</label></td>
+	<td class="value">
+		<select name="workarea" id="workarea" class="combobox">
+		<option value="">Alle</option>
+		#foreach($workArea in $allWorkArea)
+			<option value="$!workArea.id" #if($search.workarea == $!workArea.id) selected #end>$!workArea.name</option>
+		#end
+		</select>
+	</td>
+</tr><tr>
 	<td class="label"><label for="categorie2">Ereignis</label></td>
 	<td class="value">
 		<select name="categorie2" id="categorie2" class="combobox">

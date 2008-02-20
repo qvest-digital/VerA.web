@@ -134,6 +134,10 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 		if (search.categorie2 != null) {
 			select.joinLeftOuter("veraweb.tperson_categorie cat2", "tperson.pk", "cat2.fk_person");
 		}
+		if (search.workarea != null) {
+			select.joinLeftOuter("veraweb.tworkarea workarea", "tperson.fk_workarea", "workarea.pk");
+			select.where( Expr.equal( "workarea.pk", cntx.requestAsInteger( "workarea" ) ) );
+		}
 	}
 
 	protected Integer getAlphaStart(OctopusContext cntx, String start) throws BeanException, IOException {
@@ -153,6 +157,10 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 		}
 		if (search.categorie2 != null) {
 			select.joinLeftOuter("veraweb.tperson_categorie cat2", "tperson.pk", "cat2.fk_person");
+		}
+		if (search.workarea != null) {
+			select.joinLeftOuter("veraweb.tworkarea workarea", "tperson.fk_workarea", "workarea.pk");
+			select.where( Expr.equal( "workarea.pk", cntx.requestAsInteger( "workarea" ) ) );
 		}
 		select.where(new RawClause(buffer));
 		

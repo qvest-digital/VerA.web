@@ -52,6 +52,7 @@ CREATE OR REPLACE FUNCTION serv_verawebschema(int4) RETURNS varchar AS
  *  2006-01-24  add: indexes on tperson und tguest_doctype
  *  2006-02-17  add: indexes on tperson, tperson_doctype, tguest and tguest_doctype
  *  2008-02-11  cklein: added upgrade paths based on the change requests per the next version 1.2.0, incl. changes to tperson, tguest, new: tdata_change_log, tfield_of_work
+ *  2008-02-20  cklein: reverted part of the previous changes, namely association of the workarea entity with the guest entity: this is actually to be associated with a tperson instead
  * </changelog>
  * ----------------------------------------------------------- */
 
@@ -1263,6 +1264,9 @@ END;\'
 			  dateexpire timestamptz DEFAULT (now() + \'3 years\'::interval),
 			  iscompany varchar(1) NOT NULL DEFAULT \'f\'::character varying,
 			  importsource varchar(250),
+	-------- added new attribute as per the change request for the next version 1.2.0
+	-------- cklein 2008-02-20
+              fk_workarea int4,
 			  
 			  -- Hauptperson, Latein
 			  salutation_a_e1 varchar(50),
@@ -1312,6 +1316,9 @@ END;\'
 			  domestic_b_e1 varchar(1) NOT NULL DEFAULT \'t\'::character varying,
 			  sex_b_e1 varchar(1) NOT NULL DEFAULT \'m\'::character varying,
 			  birthday_b_e1 timestamptz,
+	-------- added new attribute as per the change request for the next version 1.2.0
+	-------- outcommented since it is no longer required
+	-------- cklein 2008-02-11
 			  --birthplace_b_e1 varchar(100),
 			  diplodate_b_e1 timestamptz,
 			  languages_b_e1 varchar(250),
@@ -1323,6 +1330,9 @@ END;\'
 			  -- Partner, Zeichensatz 1
 			  salutation_b_e2 varchar(50),
 			  fk_salutation_b_e2 int4,
+	-------- added new attribute as per the change request for the next version 1.2.0
+	-------- outcommented since it is no longer required
+	-------- cklein 2008-02-11
 			  --birthplace_b_e2 varchar(100),
 			  title_b_e2 varchar(250),
 			  firstname_b_e2 varchar(100),
@@ -1331,6 +1341,9 @@ END;\'
 			  -- Partner, Zeichensatz 2
 			  salutation_b_e3 varchar(50),
 			  fk_salutation_b_e3 int4,
+	-------- added new attribute as per the change request for the next version 1.2.0
+	-------- outcommented since it is no longer required
+	-------- cklein 2008-02-11
 			  --birthplace_b_e3 varchar(100),
 			  title_b_e3 varchar(250),
 			  firstname_b_e3 varchar(100),
@@ -1488,7 +1501,8 @@ END;\'
 			  mobil_c_e3 varchar(100),
 			  mail_c_e3 varchar(250),
 			  url_c_e3 varchar(250),
-			  CONSTRAINT tperson_pkey PRIMARY KEY (pk)
+			  CONSTRAINT tperson_pkey PRIMARY KEY (pk),
+			  CONSTRAINT tperson_fkey_workarea FOREIGN KEY (fk_workarea) REFERENCES veraweb.tworkarea (pk) ON UPDATE RESTRICT ON DELETE RESTRICT
 			)
 			WITH OIDS;
 			CREATE INDEX tperson_bothnames_a_e1_index ON veraweb.tperson
@@ -1536,10 +1550,46 @@ END;\'
 			INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
 		END IF;
 		--------<COLUMN/>
+
+		-------- added additional upgrade path as per the change request for the next version 1.2.0
+		-------- cklein 2008-02-20
+		--------<COLUMN>
+		--ALTER TABLE veraweb.tperson ADD CONSTRAINT tperson_fkey_workarea FOREIGN KEY (fk_workarea) REFERENCES veraweb.tworkarea (pk) ON UPDATE RESTRICT ON DELETE RESTRICT
+		vint := 0;
+		SELECT count(*) INTO vint FROM information_schema.constraint_column_usage
+			WHERE table_schema = \'veraweb\' AND table_name = \'tperson\' AND column_name = \'fk_workarea\' AND constraint_name = \'tperson_fkey_workarea\';
+		IF vint = 0 THEN
+			vmsg := \'begin.addconstraint.tperson.fk_workarea\';
+			INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
+			IF $1 = 1 THEN
+				ALTER TABLE veraweb.tperson ADD CONSTRAINT tperson_fkey_workarea FOREIGN KEY (fk_workarea) REFERENCES veraweb.tworkarea (pk) ON UPDATE RESTRICT ON DELETE RESTRICT;
+			END IF;
+			vmsg := \'end.addconstraint.tperson.fk_workarea\';
+			INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
+		END IF;
+		--------<COLUMN/>
 	
 		-------- added additional upgrade path as per the change request for the next version 1.2.0
-		-------- cklein 2008-02-11
+		-------- cklein 2008-02-20
 		--------<COLUMN>
+        --ALTER TABLE veraweb.tperson ADD COLUMN fk_workarea int4
+		vint := 0;
+		SELECT count(*) INTO vint FROM information_schema.columns
+			WHERE table_schema = \'veraweb\' AND table_name = \'tperson\' AND column_name = \'fk_workarea\';
+		IF vint = 0 THEN
+			vmsg := \'begin.addcolumn.tperson.fk_workarea\';
+			INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
+			IF $1 = 1 THEN
+				ALTER TABLE veraweb.tperson ADD COLUMN fk_workarea int4;
+			END IF;
+			vmsg := \'end.addcolumn.tperson.fk_workarea\';
+			INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
+		END IF;
+		--------<COLUMN/>
+
+		-------- added additional upgrade path as per the change request for the next version 1.2.0
+		-------- cklein 2008-02-11
+		--------<COLUMNS>
         --ALTER TABLE veraweb.tperson ADD COLUMN birthplace_a_e1 varchar(100)
 		vint := 0;
 		SELECT count(*) INTO vint FROM information_schema.columns
@@ -1567,34 +1617,38 @@ END;\'
 			vmsg := \'end.addcolumn.tperson.birthplace_a_e3\';
 			INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
 		END IF;
+		--------<COLUMNS/>
 
-		vint := 0;
-		SELECT count(*) INTO vint FROM information_schema.columns
-			WHERE table_schema = \'veraweb\' AND table_name = \'tperson\' AND column_name = \'birthplace_b_e1\';
-		IF vint = 0 THEN
-			vmsg := \'begin.addcolumn.tperson.birthplace_b_e1\';
-			INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
-			IF $1 = 1 THEN
-				ALTER TABLE veraweb.tperson ADD COLUMN birthplace_b_e1 varchar(100);
-			END IF;
-			vmsg := \'end.addcolumn.tperson.birthplace_b_e1\';
-			INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
-			vmsg := \'begin.addcolumn.tperson.birthplace_b_e2\';
-			INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
-			IF $1 = 1 THEN
-				ALTER TABLE veraweb.tperson ADD COLUMN birthplace_b_e2 varchar(100);
-			END IF;
-			vmsg := \'end.addcolumn.tperson.birthplace_b_e2\';
-			INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
-			vmsg := \'begin.addcolumn.tperson.birthplace_b_e3\';
-			INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
-			IF $1 = 1 THEN
-				ALTER TABLE veraweb.tperson ADD COLUMN birthplace_b_e3 varchar(100);
-			END IF;
-			vmsg := \'end.addcolumn.tperson.birthplace_b_e3\';
-			INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
-		END IF;
-		--------<COLUMN/>
+-- Provable future change: add birthplace attribute to partner
+		--------<COLUMNS>
+--		vint := 0;
+--		SELECT count(*) INTO vint FROM information_schema.columns
+--			WHERE table_schema = \'veraweb\' AND table_name = \'tperson\' AND column_name = \'birthplace_b_e1\';
+--		IF vint = 0 THEN
+--			vmsg := \'begin.addcolumn.tperson.birthplace_b_e1\';
+--			INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
+--			IF $1 = 1 THEN
+--				ALTER TABLE veraweb.tperson ADD COLUMN birthplace_b_e1 varchar(100);
+--			END IF;
+--			vmsg := \'end.addcolumn.tperson.birthplace_b_e1\';
+--			INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
+--			vmsg := \'begin.addcolumn.tperson.birthplace_b_e2\';
+--			INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
+--			IF $1 = 1 THEN
+--				ALTER TABLE veraweb.tperson ADD COLUMN birthplace_b_e2 varchar(100);
+--			END IF;
+--			vmsg := \'end.addcolumn.tperson.birthplace_b_e2\';
+--			INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
+--			vmsg := \'begin.addcolumn.tperson.birthplace_b_e3\';
+--			INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
+--			IF $1 = 1 THEN
+--				ALTER TABLE veraweb.tperson ADD COLUMN birthplace_b_e3 varchar(100);
+--			END IF;
+--			vmsg := \'end.addcolumn.tperson.birthplace_b_e3\';
+--			INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
+--		END IF;
+		--------<COLUMNS/>
+
 	END IF;
 	
 	--ALTER TABLE veraweb.tperson ALTER COLUMN gender SET NOT NULL;
@@ -2090,36 +2144,17 @@ END;\'
 			(
 			  pk serial NOT NULL,
 			  name varchar(250) NOT NULL,
-			  deleted varchar(1) NOT NULL DEFAULT \'f\'::character varying,
 			  CONSTRAINT tworkarea_pkey PRIMARY KEY (pk)
 			) WITH OIDS;
 		END IF;
 		vmsg := \'end.createTABLE.tworkarea\';
 		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
-	ELSE
-	--------<COLUMN>
-	--------<COLUMN/>
-	END IF;
-	---------------------------</TABLE>
-
-	-------- added table as per the change request for the next version 1.2.0
-	-------- cklein 2008-02-13
-	---------------------------<TABLE>
-	vint := 0;
-	SELECT count(*) INTO vint FROM information_schema.tables 
-		WHERE table_schema = \'veraweb\' AND table_name = \'tguest_workarea\';
-	IF vint = 0 THEN
-		vmsg := \'begin.createTABLE.tworkarea\';
+		vmsg := \'begin.insertDEFAULTS.tworkarea\';
 		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
 		IF $1 = 1 THEN
-			CREATE TABLE veraweb.tguest_workarea
-			(
-			  fk_guest int4 NOT NULL REFERENCES veraweb.tguest(pk) ON DELETE CASCADE,
-			  fk_workarea int4 NOT NULL REFERENCES veraweb.tworkarea(pk) ON DELETE RESTRICT,
-			  CONSTRAINT tguest_workarea_pkey PRIMARY KEY (fk_guest, fk_workarea)
-			) WITH OIDS;
+			INSERT INTO veraweb.tworkarea (pk,name) VALUES(0,\'Kein\');
 		END IF;
-		vmsg := \'end.createTABLE.tworkarea\';
+		vmsg := \'end.insertDEFAULTS.tworkarea\';
 		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
 	ELSE
 	--------<COLUMN>

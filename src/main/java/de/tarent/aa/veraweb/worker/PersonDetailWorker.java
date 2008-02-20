@@ -109,10 +109,10 @@ public class PersonDetailWorker implements PersonConstants {
 		if (person != null) {
 			cntx.setContent("person-diplodatetime", Boolean.valueOf(DateHelper.isTimeInDate(person.diplodate_a_e1)));
 		}
-		
+
 		return person;
 	}
-
+	
     /** Eingabe-Parameter der Octopus-Aktion {@link #copyPerson(OctopusContext, Integer)} */
 	public static final String INPUT_copyPerson[] = { "id" };
     /** Eingabe-Parameterzwang der Octopus-Aktion {@link #copyPerson(OctopusContext, Integer)} */
@@ -388,6 +388,14 @@ public class PersonDetailWorker implements PersonConstants {
 			if (cntx.requestAsBoolean("forcedupcheck").booleanValue()) {
 				return person;
 			}
+			
+			/*
+			 * added support for workarea assignment
+			 * 
+			 * cklein
+			 * 2008-02-20
+			 */
+			person.workarea = cntx.requestAsInteger( "workarea-id" );
 			
 			Person personOld = null;
 			if (person != null && person.id != null) {

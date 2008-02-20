@@ -151,6 +151,17 @@ DurationInputDialog.handlers.showButtonClickHandler = function( event )
 	}
 }
 
+DurationInputDialog.handlers.okButtonClickHandler = function( event )
+{
+	event = window.event ? window.event : event;
+	var target = ( event.target ? event.target : event.srcElement ).parentNode;
+	var instance = DurationInputDialog.instances[ target.id ];
+	if ( instance )
+	{
+		
+	}
+}
+
 DurationInputDialog.showModalInputDialog = function( instance, windowSpec )
 {
 	var container = document.getElementById( "DurationInputDialogInstances" );

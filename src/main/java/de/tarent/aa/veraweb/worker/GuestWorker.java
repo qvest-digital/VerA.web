@@ -146,7 +146,7 @@ public class GuestWorker {
 		TransactionContext context = database.getTransactionContext();
 		Event event = (Event)cntx.contentAsObject("event");
 		logger.debug("F�ge G�ste der Veranstaltung #" + eventId + " der Verstanstaltung #" + event.id + " hinzu.");
-		
+
 		try {
 			List list = database.getList(SQL.Select().
 					from("veraweb.tguest").
@@ -173,10 +173,10 @@ public class GuestWorker {
 						Boolean.FALSE);
 				if (invite) invited++; else notInvited++;
 			}
-			
+
 			cntx.setContent("invited", new Integer(invited));
 			cntx.setContent("notInvited", new Integer(notInvited));
-			
+
 			context.commit();
 		} finally {
 			context.rollBack();
