@@ -27,12 +27,10 @@
 package de.tarent.aa.veraweb.worker;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
-import java.util.Vector;
 
 import org.apache.log4j.Logger;
 import org.apache.log4j.Priority;
@@ -41,7 +39,6 @@ import de.tarent.aa.veraweb.beans.Doctype;
 import de.tarent.aa.veraweb.beans.Guest;
 import de.tarent.aa.veraweb.beans.GuestDoctype;
 import de.tarent.aa.veraweb.beans.GuestSearch;
-import de.tarent.aa.veraweb.beans.GuestWorkArea;
 import de.tarent.aa.veraweb.beans.Person;
 import de.tarent.aa.veraweb.beans.PersonCategorie;
 import de.tarent.aa.veraweb.beans.WorkArea;
@@ -51,8 +48,6 @@ import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.clause.Limit;
 import de.tarent.dblayer.sql.clause.Where;
 import de.tarent.dblayer.sql.clause.WhereList;
-import de.tarent.dblayer.sql.statement.AbstractStatement;
-import de.tarent.dblayer.sql.statement.Delete;
 import de.tarent.dblayer.sql.statement.Insert;
 import de.tarent.dblayer.sql.statement.Select;
 import de.tarent.dblayer.sql.statement.Update;
@@ -60,7 +55,6 @@ import de.tarent.octopus.PersonalConfigAA;
 import de.tarent.octopus.custom.beans.BeanChangeLogger;
 import de.tarent.octopus.custom.beans.BeanException;
 import de.tarent.octopus.custom.beans.Database;
-import de.tarent.octopus.custom.beans.ExecutionContext;
 import de.tarent.octopus.custom.beans.Request;
 import de.tarent.octopus.custom.beans.TransactionContext;
 import de.tarent.octopus.server.OctopusContext;
@@ -130,33 +124,6 @@ public class GuestDetailWorker extends GuestListWorker {
 		cntx.setContent("partner", person.getMemberFacade(false, locale));
 		cntx.setContent("address", person.getAddressFacade(addresstype, locale));
 
-		/*
-		 * modified to support none, one [or multiple] workAreas as per the change request for the next version 1.2.0 
-		 * as of now, only one workArea per guest is being supported, however, we will be using lists in order to support
-		 * multiple assignments in the future (for this, only the view must be adjusted)
-		 * 
-		 * cklein
-		 * 2008-12-13
-		 */
-		Select select = database.getSelect( GuestWorkArea.class.getSimpleName() );
-		select.where( Expr.equal( "fk_guest", guest.id ) );
-		List< GuestWorkArea > temp = database.getBeanList( GuestWorkArea.class.getSimpleName(), select );
-		// we require a hash map here
-		Iterator< GuestWorkArea > i = temp.iterator();
-		HashMap guestWorkAreas = new HashMap();
-		while( i.hasNext() )
-		{
-			GuestWorkArea gwa = i.next();
-			guestWorkAreas.put( gwa.workarea, gwa );
-		}
-		cntx.setContent( "guestWorkAreas", guestWorkAreas );
-
-		// read the defined workareas from the database
-		select = database.getSelect( WorkArea.class.getSimpleName() );
-		select.where( Expr.equal( "deleted", "f" ) );
-		List< WorkArea > allWorkAreas = database.getBeanList( WorkArea.class.getSimpleName(), select );
-		cntx.setContent( "allWorkAreas", allWorkAreas );
-
 		// Bug 1591 Im Kopf der Gaesteliste sollen nicht die Stammdaten, sondern die
 		// Daten der Gaesteliste angezeigt werden
 		try
@@ -169,7 +136,7 @@ public class GuestDetailWorker extends GuestListWorker {
 			{
 				GuestDoctype guestDoctype = new GuestDoctype();
 
-				select = database.getSelect(guestDoctype);
+				Select select = database.getSelect(guestDoctype);
 				guestDoctype.doctype = freitextfeld;
 				guestDoctype.guest = guest.id;
 				select.where(database.getWhere(guestDoctype));
@@ -281,9 +248,6 @@ public class GuestDetailWorker extends GuestListWorker {
 				}
 				context.execute(insert);
 
-				// save changes to the work area assignment
-				this.updateWorkAreaAssignments( cntx, context, guest, GuestDetailWorker.ACTION_INSERT );
-				
 				clogger.logInsert( cntx.personalConfig().getLoginname(), guest );
 			} else
 			{
@@ -299,9 +263,6 @@ public class GuestDetailWorker extends GuestListWorker {
 					update.remove("noteorga_b");
 				}
 				context.execute(update);
-
-				// save changes to the work area assignment
-				this.updateWorkAreaAssignments( cntx, context, guest, GuestDetailWorker.ACTION_UPDATE );
 
 				// retrieve old instance of guest for update logging
 				// we will quietly ignore non existing old entities and simply omit logging
@@ -320,85 +281,6 @@ public class GuestDetailWorker extends GuestListWorker {
 		catch( BeanException e )
 		{
 			context.rollBack();
-		}
-	}
-
-	/**
-	 * This method will update any changes to the work area assignments
-	 * made for the currently processed guest entity.
-	 * 
-	 * There are three distinct modes of operation here:
-	 * 
-	 * on insert
-	 * 	on insert, the initial set of work areas assigned will be written out to the database
-	 * on update
-	 * 	on update, any previous workarea assignments that are now unassigned, will be deleted. any new assignments will be added.
-	 * on delete
-	 *  on delete, all assignments will be deleted
-	 * 
-	 * @param cntx the current octopus context
-	 * @param guest instance of the currently processed guest entity bean
-	 * @param action one of ACTION_INSERT, ACTION_DELETE, ACTION_UPDATE
-	 */
-	public static final int ACTION_INSERT = 0;
-	public static final int ACTION_UPDATE = 1;
-	public static final int ACTION_DELETE = 2;
-	public void updateWorkAreaAssignments( OctopusContext cntx, ExecutionContext context, Guest guest, Integer action )
-		throws BeanException, IOException
-	{
-		Request request = getRequest( cntx );
-		Database database = context.getDatabase();
-		switch( action )
-		{
-			case GuestDetailWorker.ACTION_INSERT :
-			case GuestDetailWorker.ACTION_UPDATE :
-			{
-				WorkArea workArea = ( WorkArea ) request.getBean( WorkArea.class.getSimpleName(), "workArea" );
-				if ( workArea.id != null )
-				{
-					// assignment was made
-					Select select = database.getSelect( GuestWorkArea.class.getSimpleName() );
-					select.where( Expr.equal( "fk_guest", guest.id ) );
-					GuestWorkArea guestWorkArea = ( GuestWorkArea ) database.getBean( GuestWorkArea.class.getSimpleName(), select );
-					AbstractStatement stmnt = null; 
-					if ( guestWorkArea == null )
-					{
-						guestWorkArea = new GuestWorkArea();
-						guestWorkArea.guest = guest.id;
-						guestWorkArea.workarea = workArea.id;
-						stmnt = database.getInsert( guestWorkArea );
-					}
-					else
-					{
-						stmnt = new Update();
-						( ( Update ) stmnt ).table( "veraweb.tguest_workarea" );
-						( ( Update ) stmnt ).where( Expr.equal( "fk_guest", guestWorkArea.guest ) );
-						( ( Update ) stmnt ).whereAnd( Expr.equal( "fk_workarea", guestWorkArea.workarea ) );
-						( ( Update ) stmnt ).update( "fk_workarea", workArea.id );
-						guestWorkArea.workarea = workArea.id;
-					}
-					context.execute( stmnt );
-				}
-				else
-				{
-					// unassigned
-					Delete delete = database.getDelete( GuestWorkArea.class.getSimpleName() );
-					delete.where( Expr.equal( "fk_guest", guest.id ) );
-					context.execute( delete );
-				}
-				break;
-			}
-			case GuestDetailWorker.ACTION_DELETE :
-			{
-				Delete delete = database.getDelete( GuestWorkArea.class.getSimpleName() );
-				delete.where( Expr.equal( "fk_guest", guest.id ) );
-				context.execute( delete );
-				break;
-			}
-			default :
-			{
-				throw new RuntimeException( "Unknown action. Must be one of ACTION_INSERT, ACTION_DELETE, or ACTION_UPDATE." );
-			}
 		}
 	}
 

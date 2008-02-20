@@ -56,16 +56,6 @@ public class WorkAreaWorker extends StammdatenWorker
 		super( "WorkArea" );
 	}
 
-	protected void extendWhere( OctopusContext cntx, Select select )
-		throws BeanException, IOException
-	{
-		Clause clause = getWhere( cntx );
-		if ( clause != null )
-		{
-			select.where( clause );
-		}
-	}
-
 	protected void extendColumns( OctopusContext cntx, Select select )
 		throws BeanException, IOException
 	{
@@ -87,43 +77,9 @@ public class WorkAreaWorker extends StammdatenWorker
 	protected void extendAll( OctopusContext cntx, Select select )
 		throws BeanException, IOException
 	{
-		Clause clause = getWhere( cntx );
-		if ( clause != null )
-		{
-			select.where( clause );
-		}
-	}
-
-	protected Clause getWhere( OctopusContext cntx )
-		throws BeanException
-	{
-		Clause clause = Expr.equal( "deleted", "f" );
-		/*
-        TcPersonalConfig pConfig = cntx.personalConfig();
-        if ( pConfig instanceof PersonalConfigAA )
-        {
-            PersonalConfigAA aaConfig = ( PersonalConfigAA ) pConfig;
-            String domain = cntx.contentAsString( PARAM_DOMAIN );
-            if ( ! ( PARAM_DOMAIN_VALUE_ALL.equals( domain ) && pConfig.isUserInGroup( PersonalConfigAA.GROUP_ADMIN ) ) )
-            {
-        		Integer orgunit = ( ( PersonalConfigAA ) ( cntx.personalConfig() ) ).getOrgUnitId();
-            	if (orgunit == null)
-            		return Expr.isNull( "tcategorie.fk_orgunit" );
-            	else
-            		return Expr.equal( "tcategorie.fk_orgunit", aaConfig.getOrgUnitId() );
-            }
-            return null;
-        } else
-        {
-            throw new BeanException( "Missing user information." );
-        }
-        */
-		return clause;
-	}
-
-	protected void saveBean(OctopusContext cntx, Bean bean) throws BeanException, IOException
-	{
-		( ( WorkArea ) bean).deleted = "f";
-		super.saveBean( cntx, bean );
+		// hide default entry with pk=0 from user, the workarea "Kein" with pk ::= 0
+		// is only used internally in order to be able to use foreign key constraints
+		// with individual workareas being assigned to one or multiple users.
+		select.where( Expr.greater( "pk", 0 ) );
 	}
 }

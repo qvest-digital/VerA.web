@@ -31,8 +31,7 @@ import de.tarent.octopus.server.OctopusContext;
 /**
  * The bean class WorkArea represents an entity that
  * stores so-called standing data for association with
- * {@link Guest} via the {@link GuestWorkArea} relationship
- * entity.
+ * {@link Person}s.
  * 
  * @author cklein
  * @since 1.2.0
@@ -43,7 +42,6 @@ public class WorkArea extends AbstractBean
 {
 	public Integer id;
 	public String name;
-	public String deleted;
 
 	/**
 	 * Verifies that the name was correctly set.
