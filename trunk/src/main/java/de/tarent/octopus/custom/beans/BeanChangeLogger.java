@@ -118,17 +118,24 @@ public class BeanChangeLogger {
 			
 			Comparable nv = ( Comparable ) n.getField( k );
 			Comparable ov = ( Comparable ) o.getField( k );
-			if 
-			( 
-				( ( ov != null ) && ( ov.compareTo( nv ) != 0 ) ) 
-				|| ( ( ov == null ) && ( nv != null ) )
-			)
+			try
 			{
-				if ( changedAttributes.length() > 0 )
+				if 
+				( 
+					( ( ov != null ) && ( ov.compareTo( nv ) != 0 ) ) 
+					|| ( ( ov == null ) && ( nv != null ) )
+				)
 				{
-					changedAttributes.append( ',' );
+					if ( changedAttributes.length() > 0 )
+					{
+						changedAttributes.append( ',' );
+					}
+					changedAttributes.append( k );
 				}
-				changedAttributes.append( k );
+			}
+			catch( NullPointerException e )
+			{
+				;; // just catch
 			}
 		}
 

@@ -71,6 +71,8 @@ public class Guest extends AbstractHistoryBean implements EventConstants {
 	public Integer rank;
 	/** Reserve */
 	public Boolean reserve;
+	/** Arbeitsbereich */
+	public String workarea_name;
 
 	// Hauptperson
 	public Integer invitationstatus_a;

@@ -69,6 +69,8 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 	public String importsource;
 	/** Workarea */
 	public Integer workarea;
+	/** Workarea Name for display purposes only */
+	public Integer workarea_name;
 
 	// Hauptperson, Latein
 	public String salutation_a_e1;

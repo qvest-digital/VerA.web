@@ -27,6 +27,9 @@
 package de.tarent.aa.veraweb.worker;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 import de.tarent.aa.veraweb.beans.WorkArea;
 import de.tarent.dblayer.sql.clause.Clause;
@@ -35,6 +38,7 @@ import de.tarent.dblayer.sql.clause.Order;
 import de.tarent.dblayer.sql.statement.Select;
 import de.tarent.octopus.custom.beans.Bean;
 import de.tarent.octopus.custom.beans.BeanException;
+import de.tarent.octopus.custom.beans.Database;
 import de.tarent.octopus.server.OctopusContext;
 
 /**
@@ -56,6 +60,13 @@ public class WorkAreaWorker extends StammdatenWorker
 		super( "WorkArea" );
 	}
 
+	protected void extendWhere(OctopusContext cntx, Select select) throws BeanException, IOException {
+		// hide default entry with pk=0 from user, the workarea "Kein" with pk ::= 0
+		// is only used internally in order to be able to use foreign key constraints
+		// with individual workareas being assigned to one or multiple users.
+		select.where( Expr.greater( "pk", 0 ) );
+	}
+
 	protected void extendColumns( OctopusContext cntx, Select select )
 		throws BeanException, IOException
 	{
@@ -72,6 +83,34 @@ public class WorkAreaWorker extends StammdatenWorker
 				cntx.setContent( "order", order );
 			}
 		}
+	}
+
+	protected boolean removeBean(OctopusContext cntx, Bean bean) throws BeanException, IOException
+	{
+		try
+		{
+			super.removeBean( cntx, bean );
+		}
+		catch( BeanException e )
+		{
+			if ( e.getCause().getMessage().indexOf( "Fremdschlüssel-Constraint" ) > 0 )
+			{
+				List< String > errors = ( List< String > ) cntx.getContextField( OUTPUT_saveListErrors );
+				if  ( errors == null )
+				{
+					errors = new ArrayList< String >();
+				}
+				Database database = getDatabase(cntx);
+				bean = database.getBean( "WorkArea", ( ( WorkArea ) bean ).id ); 
+				errors.add( "Der ausgewählte Arbeitsbereich mit dem Namen '" + ( ( WorkArea ) bean ).name + " ist noch einzelnen Personen zugeordnet und kann nicht gelöscht werden." );
+				cntx.setContent( OUTPUT_saveListErrors, errors );
+			}
+			else
+			{
+				throw e;
+			}
+		}
+		return true;
 	}
 
 	protected void extendAll( OctopusContext cntx, Select select )

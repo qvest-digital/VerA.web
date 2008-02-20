@@ -137,6 +137,7 @@
 	<tr class="list1" style="height: 20px;">
 		<th class="list" style="width: 20px;">&nbsp;</th>
 		<th class="list">ID</th>
+		<th class="list" title="Arbeitsbereich">Arbeitsbereich</th>
 		<th class="list" title="Hauptperson, Zeichensatz 1">Name</th>
 		<th class="list" title="Hauptperson, Zeichensatz 1">Vorname</th>
 		<th class="list" title="Gesch&auml;ftlich, Zeichensatz 1">Amtsbezeichnung</th>
@@ -242,6 +243,7 @@
 	<tr class="$class" style="height: 22px;" onmouseover="onMouseOverList(this);" onmouseout="onMouseOutList(this);">
 		<td class="list"><input type="checkbox" name="${bean.id}-select" value="true" class="checkbox" #if($listselection.indexOf($bean.id) != -1) checked#end></td>
 		<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}';"><input type="hidden" name="${bean.id}-id" value="$bean.id">$!{bean.id}</td>
+		<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}';">$!message.plain($bean.workarea_name)</td>
 		<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}';">$!message.plain($bean.lastname_a_e1)</td>
 		<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}';">$!message.plain($bean.firstname_a_e1)</td>
 		<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}';">$!message.plain($bean.function_a_e1)</td>

@@ -250,6 +250,7 @@
 				<option #if($bean.invitationstatus_a && $bean.invitationstatus_a == 0) selected#end value="0">Offen</option>
 				<option #if($bean.invitationstatus_a && $bean.invitationstatus_a == 1) selected#end value="1">Zusage</option>
 				<option #if($bean.invitationstatus_a && $bean.invitationstatus_a == 2) selected#end value="2">Absage</option>
+				<option #if($bean.invitationstatus_a && $bean.invitationstatus_a == 3) selected#end value="3">Teilgenommen</option>
 			</select>
 		#else
 			<input type="hidden" name="${bean.id}-invitationstatus_a" value="$!bean.invitationstatus_a">nicht eingeladen
@@ -261,6 +262,7 @@
 				<option #if($bean.invitationstatus_b && $bean.invitationstatus_b == 0) selected#end value="0">Offen</option>
 				<option #if($bean.invitationstatus_b && $bean.invitationstatus_b == 1) selected#end value="1">Zusage</option>
 				<option #if($bean.invitationstatus_b && $bean.invitationstatus_b == 2) selected#end value="2">Absage</option>
+				<option #if($bean.invitationstatus_a && $bean.invitationstatus_b == 3) selected#end value="3">Teilgenommen</option>
 			</select>
 		#else
 			<input type="hidden" name="${bean.id}-invitationstatus_b" value="$!bean.invitationstatus_b">nicht eingeladen
@@ -294,6 +296,8 @@
 		<td class="list1" style="width:  7%;"><strong>$!guestlist-sums.zusagen</strong></td>
 		<td class="list2" style="width: 12%;">Absagen:</td>
 		<td class="list1" style="width:  7%;"><strong>$!guestlist-sums.absagen</strong></td>
+		<td class="list2" style="width: 13%;">Teilnahmen:</td>
+		<td class="list1" style="width:  7%;"><strong>$!guestlist-sums.teilnahmen</strong></td>
 		<td class="list2" style="width: 13%;">Auf&nbsp;Platz:</td>
 		<td class="list1" style="width:  7%;"><strong>$!guestlist-sums.platz</strong></td>
 		<td class="list2" style="width: 13%;">Auf&nbsp;Reserve:</td>
