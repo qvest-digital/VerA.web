@@ -82,7 +82,6 @@
 #end
 
 #end
-
 #foreach($bean in $list)
 <input type="hidden" name="list" value="$bean.id">
 #end
@@ -147,6 +146,11 @@
 		<th class="list" title="Gesch&auml;ftlich, Zeichensatz 1">Ort&nbsp;(G)</th>
 	</tr>
 	#end
+	
+	##
+	## cklein
+	## 2008-02-12
+	#set($currentRow=$listparam.start)
 	#foreach($bean in $list)
 	#if ($velocityCount % 2 == 0)
 		#set($class = "list1")
@@ -241,18 +245,22 @@
 	</tr>
 	#else
 	<tr class="$class" style="height: 22px;" onmouseover="onMouseOverList(this);" onmouseout="onMouseOutList(this);">
+	##
+	## cklein
+	## 2008-02-21
 		<td class="list"><input type="checkbox" name="${bean.id}-select" value="true" class="checkbox" #if($listselection.indexOf($bean.id) != -1) checked#end></td>
-		<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}';"><input type="hidden" name="${bean.id}-id" value="$bean.id">$!{bean.id}</td>
-		<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}';">$!message.plain($bean.workarea_name)</td>
-		<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}';">$!message.plain($bean.lastname_a_e1)</td>
-		<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}';">$!message.plain($bean.firstname_a_e1)</td>
-		<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}';">$!message.plain($bean.function_a_e1)</td>
-		<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}';">$!message.plain($bean.company_a_e1)</td>
-		<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}';">$!message.plain($bean.street_a_e1)</td>
-		<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}';">$!message.plain($bean.zipcode_a_e1)</td>
-		<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}';">$!message.plain($bean.city_a_e1)</td>
+		<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}&offset=$!{currentRow}';"><input type="hidden" name="${bean.id}-id" value="$bean.id">$!{bean.id}</td>
+		<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}&offset=$!{currentRow}';">$!message.plain($bean.workarea_name)</td>
+		<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}&offset=$!{currentRow}';">$!message.plain($bean.lastname_a_e1)</td>
+		<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}&offset=$!{currentRow}';">$!message.plain($bean.firstname_a_e1)</td>
+		<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}&offset=$!{currentRow}';">$!message.plain($bean.function_a_e1)</td>
+		<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}&offset=$!{currentRow}';">$!message.plain($bean.company_a_e1)</td>
+		<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}&offset=$!{currentRow}';">$!message.plain($bean.street_a_e1)</td>
+		<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}&offset=$!{currentRow}';">$!message.plain($bean.zipcode_a_e1)</td>
+		<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}&offset=$!{currentRow}';">$!message.plain($bean.city_a_e1)</td>
 	</tr>
 	#end
+	#set($currentRow=$currentRow+1)
 	#end
 </table>
 

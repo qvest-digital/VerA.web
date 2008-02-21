@@ -104,22 +104,36 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 	 */
 	public List showList(OctopusContext cntx) throws BeanException, IOException {
 		Database database = getDatabase(cntx);
-		
+		// Direct Search Result Navigation Extension
+		/*
+		 * cklein
+		 * 2008-02-21
+		 */
+		Select select = this.prepareShowList( cntx, database );
+		Map param = ( Map )cntx.contentAsObject( OUTPUT_showListParams );
+		cntx.setContent( OUTPUT_getSelection, getSelection( cntx, ( Integer ) param.get( "count" ) ) );
+		return getResultList( database, select );
+	}
+
+	// Direct Search Result Navigation Extension
+	/*
+	 * cklein
+	 * 2008-02-21
+	 */
+	public Select prepareShowList( OctopusContext cntx, Database database ) throws BeanException, IOException
+	{
 		Integer start = getStart(cntx);
 		Integer limit = getLimit(cntx);
 		Integer count = getCount(cntx, database);
 		Map param = getParamMap(start, limit, count);
-		
 		Select select = getSelect(getSearch(cntx), database);
 		extendColumns(cntx, select);
 		extendWhere(cntx, select);
 		select.Limit(new Limit((Integer)param.get("limit"), (Integer)param.get("start")));
-		
 		cntx.setContent(OUTPUT_showListParams, param);
-		cntx.setContent(OUTPUT_getSelection, getSelection(cntx, count));
-		return getResultList(database, select);
+		return select;
 	}
-
+	
 	protected void extendColumns(OctopusContext cntx, Select select) throws BeanException, IOException {
 		select.selectAs( "workarea.name", "workarea_name" );
 		select.orderBy( Order.asc( "workarea_name" ) );
