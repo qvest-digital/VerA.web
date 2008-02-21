@@ -58,7 +58,9 @@
 	<td class="label"><label for="person-fax$ext">Fax:</label></td>
 	<td class="value"><input type="text" id="person-fax$ext" name="person-fax$ext" value="$!message.text($facade.Fax)" class="text" onchange="setModified();"></td>
 </tr><tr>
-	<td class="label"><label for="person-mail$ext">E-Mail:</label></td>
+## added mailto: link as per change request for version 1.2.0
+## cklein 2008-02-21
+	<td class="label"><label style="float:left;" for="person-mail$ext">E-Mail:</label>#if($facade.EMail && $facade.EMail.length()>0)<a style="float:right;" href="mailto:$!message.text($facade.EMail)"><img src="${paths.staticWeb}images/email.gif"></a>#end</label></td>
 	<td class="value"><input type="text" id="person-mail$ext" name="person-mail$ext" value="$!message.text($facade.EMail)" class="text" onchange="setModified();"></td>
 </tr><tr>
 	<td class="label"><label for="person-mobil$ext">Mobil:</label></td>

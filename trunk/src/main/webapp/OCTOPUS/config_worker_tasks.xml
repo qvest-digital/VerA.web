@@ -298,17 +298,31 @@
 			</response>
 		</task>
 
-		<task name="Categorie" access="public" groups="Administrator,PartialAdmin">
+<!-- modified to allow all authorized users to view the categories as per change request for version 1.2.0
+     split the action in two distinct tasks, namely SaveCategories and Categorie, with Categorie taking over
+     the role of displaying and browsing the list of categories and SaveCategories being
+     responsible for actually saving changes to the list. This is in order to allow users who are not administrators
+     to use the Categorie task.
+     cklein
+     2008-02-21
+  -->
+		<task name="Categorie" access="public" groups="Administrator,PartialAdmin,User">
 			<doTask name="LoadStammdaten"/>
 			<action name="getAll" worker="EventListWorker"/>
-			<action name="saveList" worker="CategorieWorker" />
 			<action name="showList" worker="CategorieWorker" />
 			<param name="liststarts" value="true"/>
 			<response type="velocity" name="categorie">
 				<param name="ContentType" value="text/html;charset=UTF-8"/>
 			</response>
 		</task>
-		
+
+		<task name="SaveCategories" access="public" groups="Administrator,PartialAdmin,User">
+			<doTask name="LoadStammdaten"/>
+			<action name="getAll" worker="EventListWorker"/>
+			<action name="saveList" worker="CategorieWorker" />
+			<doTask name="Categorie"/>
+		</task>
+
 		<task name="Doctype" access="public" groups="Administrator,PartialAdmin">
 			<doTask name="LoadStammdaten"/>
 			<action name="saveList" worker="DoctypeWorker" />
