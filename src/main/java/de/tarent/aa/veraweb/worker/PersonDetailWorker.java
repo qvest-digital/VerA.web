@@ -32,9 +32,14 @@ package de.tarent.aa.veraweb.worker;
 
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 import org.apache.log4j.Logger;
@@ -52,6 +57,7 @@ import de.tarent.aa.veraweb.utils.AddressHelper;
 import de.tarent.aa.veraweb.utils.DateHelper;
 import de.tarent.dblayer.sql.SQL;
 import de.tarent.dblayer.sql.clause.Expr;
+import de.tarent.dblayer.sql.clause.Limit;
 import de.tarent.dblayer.sql.clause.Where;
 import de.tarent.dblayer.sql.statement.Insert;
 import de.tarent.dblayer.sql.statement.Select;
@@ -109,6 +115,79 @@ public class PersonDetailWorker implements PersonConstants {
 		if (person != null) {
 			cntx.setContent("person-diplodatetime", Boolean.valueOf(DateHelper.isTimeInDate(person.diplodate_a_e1)));
 		}
+
+		Map map = (Map)cntx.sessionAsObject( "statistikSettings" );
+		if ( map == null )
+		{
+			map = new HashMap();
+			cntx.setSession( "statistikSettings", map );
+		}
+
+		// Direct Search Result Navigation Extension
+		Integer offset = cntx.requestAsInteger( "offset" );
+		if ( offset != null )
+		{
+			PersonListWorker plworker = WorkerFactory.getPersonListWorker(cntx);
+			Select select = plworker.prepareShowList( cntx, database );
+			// query first, last, next and previous persons from db
+			ArrayList< Person > list = new ArrayList< Person >();
+
+			Map< String, Person > navigation = new HashMap< String, Person >();
+			Map params = ( Map ) cntx.contentAsObject( PersonListWorker.OUTPUT_showListParams );
+			Integer count = ( Integer ) params.get( "count" ); 
+			// first and previous
+			if ( offset > 0 )
+			{
+				// previous
+				select.Limit( new Limit( 1, offset - 1 ) );
+				navigation.put( "previous", ( Person ) database.getBean( "Person", select ) );
+				if ( offset > 1 )
+				{
+					// first
+					select.Limit( new Limit( 1, 0 ) );
+					navigation.put( "first", ( Person ) database.getBean( "Person", select ) );
+				}
+				else
+				{
+					navigation.put( "first", null );
+				}
+			}
+			else
+			{
+				navigation.put( "first", null );
+				navigation.put( "previous", null );
+			}
+			// next and last
+			if ( offset < count - 1 )
+			{
+				// next
+				select.Limit( new Limit( 1, offset + 1 ) );
+				navigation.put( "next", ( Person ) database.getBean( "Person", select ) );
+				if ( offset > 1 )
+				{
+					// last
+					select.Limit( new Limit( 1, count - 1 ) );
+					navigation.put( "last", ( Person ) database.getBean( "Person", select ) );
+				}
+				else
+				{
+					navigation.put( "last", null );
+				}
+			}
+			else
+			{
+				navigation.put( "next", null );
+				navigation.put( "last", null );
+			}
+			cntx.setContent( "navigation", navigation );
+		}
+
+		// TODO implement correctly
+		map.put( "statistik", "EventsGroupByGuest" );
+		map.put( "begin", "1.1.1970" );
+		map.put( "end", "31.12.2020" );
+//		map.put( "begin", DateFormat.getDateInstance().format( new Date( person.created.getTime() ) ) );
+//		map.put( "end", DateFormat.getDateInstance().format( new Date() ) );
 
 		return person;
 	}
