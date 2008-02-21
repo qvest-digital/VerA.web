@@ -30,8 +30,8 @@ public class DAORegistry {
 	 * @param bean
 	 * @return
 	 */
-	public static <T extends AbstractDAO> T getDAOForBean(Class bean) {
-		return (T) daos.get(bean);
+	public static AbstractDAO getDAOForBean(Class bean) {
+		return daos.get(bean);
 	}
 	
 	
@@ -40,8 +40,8 @@ public class DAORegistry {
 	 * @param bean
 	 * @return
 	 */
-	public static <T extends AbstractDAO> T getDAOForBean(Object bean) {
-		return (T) daos.get(bean.getClass());
+	public static AbstractDAO getDAOForBean(Object bean) {
+		return daos.get(bean.getClass());
 	}
 		
 }
