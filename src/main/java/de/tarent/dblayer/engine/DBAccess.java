@@ -69,7 +69,7 @@ public class DBAccess {
 	 * @param bean the bean for which the DAO is requested
 	 * @return a DAO for the given bean
 	 */
-	public static AbstractDAO getDAOForBean(Class bean) {
+	public static <T extends AbstractDAO> T getDAOForBean(Class bean) {
 		return DAORegistry.getDAOForBean(bean);
 	}
 	
@@ -79,7 +79,7 @@ public class DBAccess {
 	 * @param bean the bean for which the DAO is requested
 	 * @return a DAO for the given bean
 	 */
-	public static AbstractDAO getDAOForBean(Object bean) {
+	public static <T extends AbstractDAO> T getDAOForBean(Object bean) {
 		return DAORegistry.getDAOForBean(bean);
 	}
 	
