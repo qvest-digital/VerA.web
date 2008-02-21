@@ -267,7 +267,7 @@
 		<dependency>
 			<groupId>de.tarent.libraries</groupId>
 			<artifactId>tarent-commons</artifactId>
-			<version>1.3.0</version>
+			<version>1.3.5-SNAPSHOT</version>
 		</dependency>
 
 		<dependency>
