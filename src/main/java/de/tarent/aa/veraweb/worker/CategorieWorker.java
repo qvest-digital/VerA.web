@@ -46,22 +46,23 @@ import de.tarent.octopus.config.TcPersonalConfig;
 import de.tarent.octopus.custom.beans.Bean;
 import de.tarent.octopus.custom.beans.BeanException;
 import de.tarent.octopus.custom.beans.Database;
+import de.tarent.octopus.security.TcSecurityException;
 import de.tarent.octopus.server.OctopusContext;
 
 /**
  * <p>
- * Diese Octopus-Worker-Klasse stellt Operationen für Dokumenttypen
- * zur Verfügung. Details bitte dem BeanListWorker entnehmen.
+ * Diese Octopus-Worker-Klasse stellt Operationen fï¿½r Dokumenttypen
+ * zur Verfï¿½gung. Details bitte dem BeanListWorker entnehmen.
  * </p>
  * <p>
  * Wenn eine <em>person</em> im Octopus-Content steht, wird bei der
  * <em>getAll</em>-Aktion die Ergebnis-Liste auf die Kategorien
- * eingeschränkt die NICHT dieser Person zugeordnet sind.
+ * eingeschrï¿½nkt die NICHT dieser Person zugeordnet sind.
  * </p>
  * <p>
  * Wenn ein <em>event</em> im Octopus-Content steht, wird bei der
  * <em>getAll</em>-Aktion die Ergebnis-Liste auf die Kategorien
- * eingeschränkt die entweder ALLEN oder DIESEM Event zugeordnet sind.
+ * eingeschrï¿½nkt die entweder ALLEN oder DIESEM Event zugeordnet sind.
  * </p>
  * 
  * @see de.tarent.octopus.custom.beans.BeanListWorker
@@ -70,7 +71,7 @@ import de.tarent.octopus.server.OctopusContext;
  */
 public class CategorieWorker extends StammdatenWorker {
     //
-    // öffentliche Konstanten
+    // ï¿½ffentliche Konstanten
     //
     /** Parameter: Wessen Kategorien? */
     public final static String PARAM_DOMAIN = "domain";
@@ -151,6 +152,35 @@ public class CategorieWorker extends StammdatenWorker {
         } else {
             throw new BeanException("Missing user information");
         }
+	}
+	
+	/**
+	 * Overrides parent class' behaviour in order to safely implement
+	 * change request 2.8 for version 1.2.0 which states that all authenticated
+	 * users must have viewer access to the list of categories.
+	 * The feature is implemented reusing existing code and templates and
+	 * therefore we must first test whether the user is authorized to
+	 * save the list. For that, the user must implement either the Administrator
+	 * or the PartialAdmin role.
+	 * Will delegate processing to the super class if the user implements one
+	 * of the above roles and processing continues as normal.
+	 * @throws BeanException in case that the user is not authorized to save the list
+	 * @throws IOException
+	 */
+	public void saveList(OctopusContext cntx) throws BeanException, IOException
+	{
+		TcPersonalConfig pConfig = cntx.personalConfig();
+		if (
+			pConfig.isUserInGroup( PersonalConfigAA.GROUP_ADMIN ) ||
+			pConfig.isUserInGroup( PersonalConfigAA.GROUP_ADMIN )
+		)
+		{
+			super.saveList( cntx );
+		}
+		else
+		{
+	        throw new BeanException( "Sie besitzen keine Berechtigung, Ã„nderungen an den Kategorien zu speichern." );
+		}
 	}
 
 	protected int insertBean(OctopusContext cntx, List errors, Bean bean) throws BeanException, IOException

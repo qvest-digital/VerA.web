@@ -40,29 +40,39 @@
 </div>
  #end
 
- #if($grants.isAdmin() || $grants.isPartialAdmin())
+## modified in order to make categories available to all users for viewing as per change request for version 1.2.0
+## cklein
+## 2008-02-21
+#if($grants.isUser())
 <div class="menusection">
 	<strong class="menutitle">Verwaltung</strong>
+#if($grants.isAdmin() || $grants.isPartialAdmin())
 	<a href="${paths.staticWeb}do/Config" class="menulink">Einstellungen</a>
 	<a href="${paths.staticWeb}do/Location?start=0" class="menulink">Veranstaltungsorte</a>
+#end
   #if($grants.isAdmin())
 	<a href="${paths.staticWeb}do/Doctype?start=0" class="menulink">Dokumenttypen</a>
   #end
 	<a href="${paths.staticWeb}do/Categorie?start=0" class="menulink">Kategorien</a>
+#if($grants.isAdmin() || $grants.isPartialAdmin())
 	<a href="${paths.staticWeb}do/Color" class="menulink">Farben</a>
+#end
   #if($grants.isAdmin())
 	<a href="${paths.staticWeb}do/Salutation?start=0" class="menulink">Anreden</a>
   #end
+#if($grants.isAdmin() || $grants.isPartialAdmin())
 	<a href="${paths.staticWeb}do/Function?start=0&limit=5" class="menulink">Funktionen/Amtsbez.</a>
 	<a href="${paths.staticWeb}do/MailDraftList?start=0" class="menulink">E-Mail-Vorlagen</a>
 	<a href="${paths.staticWeb}do/MailOutboxList?start=0" class="menulink">E-Mail-Postausgang</a>
 	<a href="${paths.staticWeb}do/WorkArea?start=0" class="menulink">Arbeitsbereiche</a>
+#end
   #if($grants.isAdmin())
 	<a href="${paths.staticWeb}do/Orgunit?start=0" class="menulink">Mandanten</a>
 	<a href="${paths.staticWeb}do/AllUser?start=0" class="menulink">Benutzer</a>
 	<a href="${paths.staticWeb}do/AllProxy?start=0" class="menulink">Stellvertretungen</a>
 	<a href="${paths.staticWeb}do/Reports?start=0" class="menulink">Reports</a>
-  #else
+  #end
+  #if($grants.isPartialAdmin() && ! $grants.isAdmin())
 	<a href="${paths.staticWeb}do/OUUser?start=0" class="menulink">Benutzer</a>
 	<a href="${paths.staticWeb}do/OUProxy?start=0" class="menulink">Stellvertretungen</a>
   #end

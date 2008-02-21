@@ -121,8 +121,7 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 	}
 
 	protected void extendColumns(OctopusContext cntx, Select select) throws BeanException, IOException {
-		select.joinLeftOuter( "veraweb.tworkarea", "tperson.fk_workarea", "tworkarea.pk" );
-		select.selectAs( "tworkarea.name", "workarea_name" );
+		select.selectAs( "workarea.name", "workarea_name" );
 		select.orderBy( Order.asc( "workarea_name" ) );
 	}
 
@@ -133,7 +132,7 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 		
 		if (search.categorie != null) {
 			/*
-			 * extension to support search for persons with no assigned categories
+			 * extension to support search for persons with no assigned categories as per change request for version 1.2.0
 			 * 
 			 * cklein
 			 * 2008-02-20
@@ -151,9 +150,12 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 		if (search.categorie2 != null) {
 			select.joinLeftOuter("veraweb.tperson_categorie cat2", "tperson.pk", "cat2.fk_person");
 		}
-		if (search.workarea != null) {
-			select.joinLeftOuter("veraweb.tworkarea workarea", "tperson.fk_workarea", "workarea.pk");
-		}
+
+		/*
+		 * modified to support workarea display in the search result list as per change request for version 1.2.0
+		 * cklein 2008-02-12
+		 */
+		select.joinLeftOuter("veraweb.tworkarea workarea", "tperson.fk_workarea", "workarea.pk");
 	}
 
 	protected Integer getAlphaStart(OctopusContext cntx, String start) throws BeanException, IOException {
@@ -400,11 +402,17 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 	private void addPersonListFilter(OctopusContext cntx, WhereList list) throws BeanException {
 		PersonSearch search = getSearch(cntx);
 		list.addAnd(Expr.equal("deleted", PersonConstants.DELETED_FALSE));
-		/* TODO
-		if (search.workArea != null) {
-			list.addAnd(Expr.equal(".fk_categorie", search.categorie));
+
+		/*
+		 * modified to support search for individual workareas as per change request for version 1.2.0
+		 * cklein
+		 * 2008-02-21
+		 */
+		if ( search.workarea != null )
+		{
+			list.addAnd( Expr.equal( "tperson.fk_workarea", search.workarea ) );
 		}
-		*/
+		
 		if (search.categorie != null) {
 			// prevent 0 categorie foreign keys from being found
 			// categories with id ::= 0 are being used for finding persons with no assigned categories 
