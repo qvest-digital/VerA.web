@@ -158,10 +158,10 @@ anwählen und als Attribut "Person" anklicken und dort auf den eigenen "Common N
 
 == Konfiguration Datenbank ==
 
-Bei der Datenbank müsst ihr diese je nach Betriebsystem über die
+Bei der Datenbank müssen Sie diese je nach Betriebsystem über die
 Paketverwaltung oder einen Installer installieren. Scriptsprachen sollten
 dabei direkt mit installiert werden. Dann muss ein Benutzer "veraweb" mit
-dem Passwort "veraweb" angelegt werden. Mit diesem erzeugt ihr dann die
+dem Passwort "veraweb" angelegt werden. Mit diesem erzeugen Sie dann die
 Datenbank "veraweb". Die folgenden Scripte / SQL-Befehle müssen bereits
 mit diesem Benutzer ausgeführt werden und dürfen nicht als "postgres"
 Benutzer direkt nach dem Anlegen der Tabelle mit ausgeführt werden.
