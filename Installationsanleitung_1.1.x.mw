@@ -45,7 +45,7 @@ Die Datei /etc/ldap/ldap.conf mit folgenden Daten füllen:
  BASE    dc=tarent, dc=de
  URI ldap://veraweb-ldap.tarent.de
 
-Mit "ldapsearch -x" testen, ob der LDAP Daten zurückliefert
+Mit "ldapsearch -x" testen, ob der LDAP Daten zurückliefert:
 
  root@veraweb-ldap:/etc/ldap# ldapsearch -x
 
