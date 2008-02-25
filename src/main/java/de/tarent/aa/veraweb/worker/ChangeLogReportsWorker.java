@@ -99,13 +99,21 @@ public class ChangeLogReportsWorker extends ListWorkerVeraWeb
 		Date bd = ( Date ) BeanFactory.transform( begin, Date.class );
 		if ( bd == null )
 		{
-			bd = ( Date ) BeanFactory.transform( "01.01." + Calendar.getInstance().get( Calendar.YEAR ), Date.class );
+			bd = ( Date ) map.get( "begin" );
+			if ( bd == null )
+			{
+				bd = ( Date ) BeanFactory.transform( "01.01." + Calendar.getInstance().get( Calendar.YEAR ), Date.class );
+			}
 		}
-		
+
 		Date ed = ( Date ) BeanFactory.transform( end, Date.class );
 		if ( ed == null )
 		{
-			ed = new Date( System.currentTimeMillis() );
+			ed = ( Date ) map.get( "end" );
+			if ( ed == null )
+			{
+				ed = new Date( System.currentTimeMillis() );
+			}
 		}
 
 		// make sure that end is always after begin
