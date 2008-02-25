@@ -289,12 +289,20 @@
 		  - cklein
 		  - 2008-02-18
 		  -->		
-		<task name="Reports" access="public" groups="Administrator">
+		<task name="ChangeLogReport" access="public" groups="Administrator">
 			<doTask name="LoadStammdaten"/>
-			<action name="saveList" worker="LocationWorker" />
-			<action name="showList" worker="LocationWorker" />
+			<action name="loadConfig" worker="ChangeLogReportsWorker" />
+			<response type="velocity" name="changeLogReport">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+
+		<task name="ShowChangeLogReport" access="public" groups="Administrator">
+			<doTask name="LoadStammdaten"/>
+			<action name="loadConfig" worker="ChangeLogReportsWorker" />
+			<action name="showList" worker="ChangeLogReportsWorker" />
 			<param name="liststarts" value="true"/>
-			<response type="velocity" name="reports">
+			<response type="velocity" name="changeLogHtmlReport">
 				<param name="ContentType" value="text/html;charset=UTF-8"/>
 			</response>
 		</task>

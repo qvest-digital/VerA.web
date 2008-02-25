@@ -27,13 +27,23 @@
 package de.tarent.aa.veraweb.worker;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.util.Date;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-import de.tarent.aa.veraweb.beans.WorkArea;
+import de.tarent.aa.veraweb.beans.ChangeLogEntry;
+import de.tarent.aa.veraweb.beans.ChangeLogReport;
 import de.tarent.dblayer.sql.clause.Clause;
+import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.clause.Order;
 import de.tarent.dblayer.sql.statement.Select;
 import de.tarent.octopus.custom.beans.Bean;
 import de.tarent.octopus.custom.beans.BeanException;
+import de.tarent.octopus.custom.beans.BeanFactory;
+import de.tarent.octopus.custom.beans.Database;
 import de.tarent.octopus.custom.beans.veraweb.ListWorkerVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
 
@@ -55,18 +65,77 @@ public class ChangeLogReportsWorker extends ListWorkerVeraWeb
 	 */
 	public ChangeLogReportsWorker()
 	{
-		// TODO
-		super( "ChangeLogReport" );
+		super( "ChangeLogEntry" );
 	}
 
+	/**
+	 * Input parameters for action {@link #loadConfig( OctopusContext, String, String ) }
+	 */
+	public static final String INPUT_loadConfig[] = { "begin", "end" };
+	/**
+	 * Input parameter configuration for action {@link #loadReport( OctopusContext, String, String ) }
+	 */
+	public static final boolean MANDATORY_loadConfig[] = { false, false };
+
+	/**
+	 * Stores and loads the report configuration in / from the session.
+	 * 
+	 * @param cntx
+	 * @param begin
+	 * @param end
+	 * @throws BeanException 
+	 */
+	@SuppressWarnings( "unchecked" )
+	public void loadConfig( OctopusContext cntx, String begin, String end ) throws BeanException
+	{
+		Map< String, Object > map = ( Map< String, Object > ) cntx.sessionAsObject( "changeLogReportSettings" );
+		if ( map == null )
+		{
+			map = new HashMap< String, Object >();
+			cntx.setSession( "changeLogReportSettings", map );
+		}
+
+		Date tmp = ( Date ) BeanFactory.transform( begin, Date.class );
+		if ( tmp == null )
+		{
+			tmp = ( Date ) BeanFactory.transform( "01.01." + Calendar.getInstance().get( Calendar.YEAR ), Date.class );
+		}
+		map.put( "begin", tmp );
+
+		tmp = ( Date ) BeanFactory.transform( end, Date.class );
+		if ( tmp == null )
+		{
+			tmp = new Date( System.currentTimeMillis() );
+		}
+		map.put( "end", tmp );
+
+		DateFormat format = DateFormat.getDateInstance( DateFormat.DEFAULT );
+		cntx.setContent( "begin", format.format( map.get( "begin" ) ) );
+		cntx.setContent( "end", format.format( map.get( "end" ) ) );
+	}
+
+	public List showList(OctopusContext cntx) throws BeanException, IOException {
+		Database database = getDatabase(cntx);
+		Select select = getSelect( database );
+		extendColumns( cntx, select );
+		extendWhere( cntx, select );
+		return getResultList( database, select );
+	}
+
+	@SuppressWarnings("unchecked")
 	protected void extendWhere( OctopusContext cntx, Select select )
 		throws BeanException, IOException
 	{
-		Clause clause = getWhere( cntx );
-		if ( clause != null )
-		{
-			select.where( clause );
-		}
+		Map< String, Object > map = ( Map< String, Object > ) cntx.sessionAsObject( "changeLogReportSettings" );
+		Date begin = ( Date ) map.get( "begin" );
+		Date end = ( Date ) map.get( "end" );
+		Calendar calendar = Calendar.getInstance();
+		// end date must point to day.month.year 23:59:59 in order to find todays change log entries
+		calendar.setTime( end );
+		calendar.add( Calendar.DAY_OF_MONTH, 1 );
+		calendar.add( Calendar.SECOND, -1 );
+		select.where( Expr.greaterOrEqual( "date", begin ) );
+		select.whereAnd( Expr.lessOrEqual( "date", calendar.getTime() ) );
 	}
 
 	protected void extendColumns( OctopusContext cntx, Select select )
@@ -79,7 +148,8 @@ public class ChangeLogReportsWorker extends ListWorkerVeraWeb
 			{
 				select.orderBy( Order.asc( order ) );
 				cntx.setContent( "order", order );
-			} else if ( "flags".equals( order ) )
+			}
+			else if ( "flags".equals( order ) )
 			{
 				select.orderBy( Order.asc( order ).andAsc( "name" ) );
 				cntx.setContent( "order", order );
@@ -101,7 +171,6 @@ public class ChangeLogReportsWorker extends ListWorkerVeraWeb
 		throws BeanException
 	{
 		Clause clause = null;
-		//Clause clause = Expr.equal( "deleted", "f" );
 		return clause;
 	}
 

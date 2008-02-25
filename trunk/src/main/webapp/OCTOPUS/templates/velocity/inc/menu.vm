@@ -70,7 +70,7 @@
 	<a href="${paths.staticWeb}do/Orgunit?start=0" class="menulink">Mandanten</a>
 	<a href="${paths.staticWeb}do/AllUser?start=0" class="menulink">Benutzer</a>
 	<a href="${paths.staticWeb}do/AllProxy?start=0" class="menulink">Stellvertretungen</a>
-	<a href="${paths.staticWeb}do/Reports?start=0" class="menulink">Reports</a>
+	<a href="${paths.staticWeb}do/ChangeLogReport" class="menulink">Reports</a>
   #end
   #if($grants.isPartialAdmin() && ! $grants.isAdmin())
 	<a href="${paths.staticWeb}do/OUUser?start=0" class="menulink">Benutzer</a>

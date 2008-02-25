@@ -28,12 +28,12 @@
  * 
  * Created on 12.02.2008
  */
-package de.tarent.octopus.custom.beans;
+package de.tarent.aa.veraweb.beans;
 
-import java.sql.Date;
+import java.util.Date;
 
-import de.tarent.aa.veraweb.beans.AbstractBean;
 import de.tarent.octopus.PersonalConfigAA;
+import de.tarent.octopus.custom.beans.BeanException;
 import de.tarent.octopus.server.OctopusContext;
 
 /**
@@ -61,7 +61,7 @@ public class ChangeLogEntry extends AbstractBean
 	public Integer	objectid;
 	public String	op;
 	public String	attributes;
-	public Date		date;
+	public Date		created;
 
 	/**
 	 * Creates a new instance of this.
@@ -74,7 +74,7 @@ public class ChangeLogEntry extends AbstractBean
 	/**
 	 * Only admins may read the entity beans from the table.
 	 */
-	public void checkRead(OctopusContext cntx) throws BeanException
+	public void checkRead( OctopusContext cntx ) throws BeanException
 	{
 		checkGroup( cntx, PersonalConfigAA.GROUP_ADMIN );
 	}
@@ -85,8 +85,15 @@ public class ChangeLogEntry extends AbstractBean
 	 * for purging old entries from change log. The service runs
 	 * with the priviledge of the anonymous user group.
 	 */
-	public void checkWrite(OctopusContext cntx) throws BeanException
+	public void checkWrite( OctopusContext cntx ) throws BeanException
 	{
-		checkGroup( cntx, PersonalConfigAA.GROUP_ANONYMOUS );
+		try
+		{
+			checkGroup( cntx, PersonalConfigAA.GROUP_ANONYMOUS );
+		}
+		catch( BeanException e )
+		{
+			checkGroup( cntx, PersonalConfigAA.GROUP_USER );
+		}
 	}
 }

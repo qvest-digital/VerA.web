@@ -34,6 +34,7 @@ import java.io.IOException;
 import java.sql.Date;
 import java.util.Iterator;
 
+import de.tarent.aa.veraweb.beans.ChangeLogEntry;
 import de.tarent.dblayer.sql.statement.Insert;
 
 /**
@@ -198,7 +199,7 @@ public class BeanChangeLogger {
 		result.objectid = oid;
 		result.op = op;
 		result.attributes = attributes;
-		result.date = new Date( System.currentTimeMillis() );
+		result.created = new Date( System.currentTimeMillis() );
 		return result;
 	}
 }
