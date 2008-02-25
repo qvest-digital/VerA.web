@@ -37,7 +37,7 @@
 		<!-- ************************************************ -->
 		<!-- ***        Change Log Retention Policy       *** -->
 		<!-- ************************************************ -->
-		<param name="changeLogRetentionPolicy" value="P1Y0M0D"/>
+		<param name="changeLogRetentionPolicy" value="P0Y0M1D"/>
 
 		<!-- ************************************************ -->
 		<!-- *** Automatisches Kopieren von Personendaten *** -->

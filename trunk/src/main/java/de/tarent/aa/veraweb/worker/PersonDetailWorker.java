@@ -33,7 +33,6 @@ package de.tarent.aa.veraweb.worker;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.text.DateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -128,7 +127,7 @@ public class PersonDetailWorker implements PersonConstants {
 		 * cklein
 		 * 2008-02-21
 		 */
-		// TODO REFACTOR
+		// TODO REFACTOR + cleanup
 		Integer offset = cntx.requestAsInteger( "offset" );
 		if ( offset != null )
 		{

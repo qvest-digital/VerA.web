@@ -128,21 +128,9 @@ DurationInputDialog.handlers.showButtonClickHandler = function( event )
 		}
 		else
 		{
-			var offsetLeft = DurationInputDialog.getOffsetLeftRecursively( target );
-			if ( ( offsetLeft + 200 ) > ( document.body.scrollLeft + document.body.scrollWidth ) )
-			{
-				offsetLeft -= 200;
-			}
-			var offsetTop = DurationInputDialog.getOffsetTopRecursively( target );
-			if ( ( offsetTop + 200 ) > ( document.body.scrollTop + document.body.scrollHeight ) )
-			{
-				offsetTop -= 250;
-			}
 			DurationInputDialog.showModalInputDialog(
 				instance,
 				{
-					left : offsetLeft,
-					top : offsetTop,
 					width: 200,
 					height: 140
 				}
@@ -179,7 +167,6 @@ DurationInputDialog.showModalInputDialog = function( instance, windowSpec )
 		dialog.id = "DurationInputDialogInstance" + instance.spec.button;
 		dialog.className = "inputDialog";
 		dialog.style.visibility = "hidden";
-		dialog.style.display = "none";
 		dialog.style.position = "absolute";
 		dialog.style.zIndex = "1";
 
@@ -255,10 +242,22 @@ DurationInputDialog.showModalInputDialog = function( instance, windowSpec )
 		container.appendChild( dialog );
 	}
 
+	var offsetLeft = DurationInputDialog.getOffsetLeftRecursively( instance.button );
+	windowSpec.left = offsetLeft;
+	if ( ( offsetLeft + dialog.offsetWidth ) > ( document.body.scrollLeft + document.body.scrollWidth ) )
+	{
+		windowSpec.left -= dialog.offsetWidth;
+	}
+	var offsetTop = DurationInputDialog.getOffsetTopRecursively( instance.button );
+	windowSpec.top = offsetTop;
+	if ( ( offsetTop + dialog.offsetHeight ) > ( document.body.scrollTop + document.body.scrollHeight ) )
+	{
+		windowSpec.top -= dialog.offsetHeight;
+	}
+
 	dialog.style.left = windowSpec.left + "px";
 	dialog.style.top = windowSpec.top + "px";
 	dialog.style.visibility = "visible";
-	dialog.style.display = "inline";
 
 	instance.dialog = dialog;
 	dialog.instance = instance;
@@ -271,7 +270,6 @@ DurationInputDialog.hideModalInputDialog = function( instance )
 	{
 		instance.isVisible = false;
 		instance.dialog.style.visibility = "hidden";
-		instance.dialog.style.display = "none";
 	}
 }
 
@@ -280,6 +278,11 @@ DurationInputDialog.getOffsetLeftRecursively = function( elt )
 	var result = 0;
 	while ( elt.tagName != "HTML" )
 	{
+		if( elt.tagName == "TBODY" || elt.tagName == "TR" )
+		{
+			elt = elt.parentNode;
+			continue;
+		}
 		result += elt.offsetLeft;
 		elt = elt.parentNode;
 	}
@@ -291,8 +294,13 @@ DurationInputDialog.getOffsetTopRecursively = function( elt )
 	var result = 0;
 	while ( elt.tagName != "HTML" )
 	{
-		result += elt.offsetTop;
+		if( elt.tagName == "TBODY" || elt.tagName == "TR" )
+		{
+			elt = elt.parentNode;
+			continue;
+		}
 		elt = elt.parentNode;
+		result += elt.offsetTop;
 	}
 	return result;
 }

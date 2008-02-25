@@ -67,7 +67,7 @@ import de.tarent.octopus.response.TcBinaryResponseEngine;
 import de.tarent.octopus.server.OctopusContext;
 
 /**
- * Diese Octopus-Worker-Klasse exportiert Dokumententypen einer Gästeliste
+ * Diese Octopus-Worker-Klasse exportiert Dokumententypen einer Gï¿½steliste
  * in ein OpenDocument-SpreadSheet.
  * 
  * @author Christoph
@@ -79,16 +79,16 @@ public class GuestExportWorker {
     //
     // Octopus-Aktionen
     //
-	/** Octopus-Eingabeparameter für {@link #calc(OctopusContext, Integer)} */
+	/** Octopus-Eingabeparameter fï¿½r {@link #calc(OctopusContext, Integer)} */
 	public static final String INPUT_calc[] = { "doctype" };
-	/** Octopus-Eingabeparameter für {@link #calc(OctopusContext, Integer)} */
+	/** Octopus-Eingabeparameter fï¿½r {@link #calc(OctopusContext, Integer)} */
 	public static final boolean MANDATORY_calc[] = { false };
-	/** Octopus-Ausgabeparameter für {@link #calc(OctopusContext, Integer)} */
+	/** Octopus-Ausgabeparameter fï¿½r {@link #calc(OctopusContext, Integer)} */
 	public static final String OUTPUT_calc = "exportCalc";
 	/**
 	 * <p>
-	 * Berechnet wieviele Dokumenttypen einer Gästeliste exportiert
-	 * werden sollen und können.
+	 * Berechnet wieviele Dokumenttypen einer Gï¿½steliste exportiert
+	 * werden sollen und kï¿½nnen.
 	 * </p>
 	 * 
 	 * @param cntx OctopusContext
@@ -159,17 +159,17 @@ public class GuestExportWorker {
 		return result;
 	}
 
-	/** Octopus-Eingabeparameter für {@link #export(OctopusContext, Integer)} */
+	/** Octopus-Eingabeparameter fï¿½r {@link #export(OctopusContext, Integer)} */
 	public static final String INPUT_export[] = { "doctype" };
-	/** Octopus-Ausgabeparameter für {@link #export(OctopusContext, Integer)} */
+	/** Octopus-Ausgabeparameter fï¿½r {@link #export(OctopusContext, Integer)} */
 	public static final String OUTPUT_export = "stream";
 	/**
 	 * <p>
-	 * Exportiert die Dokumenttypen einer Gästeliste.
+	 * Exportiert die Dokumenttypen einer Gï¿½steliste.
 	 * </p>
 	 * <p>
-	 * Wenn Daten Gäste selektiert wurden werden diese exportiert,
-	 * falls dies nicht der Fall ist alle Gäste der übergebenen Veranstaltung.
+	 * Wenn Daten Gï¿½ste selektiert wurden werden diese exportiert,
+	 * falls dies nicht der Fall ist alle Gï¿½ste der ï¿½bergebenen Veranstaltung.
 	 * </p>
 	 * 
 	 * @param cntx OctopusContext
@@ -189,16 +189,16 @@ public class GuestExportWorker {
 		List selection = (List)cntx.sessionAsObject("selectionGuest");
 		Doctype doctype = (Doctype)database.getBean("Doctype", doctypeid);
 		
-		// Spreadsheet öffnen
+		// Spreadsheet ï¿½ffnen
 		final SpreadSheet spreadSheet = SpreadSheetFactory.getSpreadSheet(doctype.format);
 		spreadSheet.init();
 		String filename = OctopusHelper.getFilename(cntx, spreadSheet.getFileExtension(), "export." + spreadSheet.getFileExtension());
 		
 		if (logger.isInfoEnabled())
-			logger.info("Exportiere Gästeliste. (Dateiname: '" + filename + "'; Dokumenttyp: #" + doctype.id + "; Format: '" + spreadSheet.getClass().getName() + "')");
+			logger.info("Exportiere Gï¿½steliste. (Dateiname: '" + filename + "'; Dokumenttyp: #" + doctype.id + "; Format: '" + spreadSheet.getClass().getName() + "')");
 		
-		// Tabelle öffnen und erste Zeile schreiben
-		spreadSheet.openTable("Gäste", 65);
+		// Tabelle ï¿½ffnen und erste Zeile schreiben
+		spreadSheet.openTable("Gï¿½ste", 65);
 		spreadSheet.openRow();
 		exportHeader(spreadSheet);
 		spreadSheet.closeRow();
@@ -215,20 +215,20 @@ public class GuestExportWorker {
 		select.selectAs("CASE WHEN orderno IS NOT NULL THEN orderno ELSE orderno_p END", "someorderno");
 		
 		if (selection != null && selection.size() > 0) {
-			// Joint tguest und schränkt das Ergebnis auf den entsprechenden
-			// Dokumenten-Typ und bestimmte Gäste ein.
+			// Joint tguest und schrï¿½nkt das Ergebnis auf den entsprechenden
+			// Dokumenten-Typ und bestimmte Gï¿½ste ein.
 			if (logger.isInfoEnabled())
-				logger.info("Exportiere Gästeliste anhand der Sleektion.");
+				logger.info("Exportiere Gï¿½steliste anhand der Sleektion.");
 			
 			select.join(new Join(Join.INNER, "veraweb.tguest", new RawClause(withHost +
 					"tguest_doctype.fk_guest = tguest.pk AND tguest_doctype.fk_doctype = " + doctype.id)));
 			
 			select.where(Expr.in("tguest_doctype.fk_guest", selection));
 		} else if (event != null && event.id != null && event.id.intValue() != 0) {
-			// Joint tguest und schränkt das Ergebnis auf den entsprechenden
+			// Joint tguest und schrï¿½nkt das Ergebnis auf den entsprechenden
 			// Dokumenten-Typ und eine Veranstaltung ein.
 			if (logger.isInfoEnabled())
-				logger.info("Exportiere Gästeliste der Veranstaltung " + event.id + ".");
+				logger.info("Exportiere Gï¿½steliste der Veranstaltung " + event.id + ".");
 			
 			select.join(new Join(Join.INNER, "veraweb.tguest", new RawClause(withHost +
 					"tguest_doctype.fk_guest = tguest.pk AND tguest_doctype.fk_doctype = " + doctype.id)));
@@ -237,8 +237,8 @@ public class GuestExportWorker {
 			GuestListWorker.addGuestListFilter(search, list);
 			select.where(list);
 		} else {
-			logger.error("Konnte Gästeliste nicht exportieren.");
-			throw new BeanException("Konnte Gästeliste nicht exportieren.");
+			logger.error("Konnte Gï¿½steliste nicht exportieren.");
+			throw new BeanException("Konnte Gï¿½steliste nicht exportieren.");
 		}
 		
 		WorkerFactory.getGuestListWorker(cntx).getSums(database, data, search, selection);
@@ -248,6 +248,7 @@ public class GuestExportWorker {
 		select.select("tperson.firstname_a_e1");
 		select.select("tperson.country_a_e1");
 		select.select("tperson.zipcode_a_e1");
+		select.select("tperson.birthplace_a_e1");
 		select.joinLeftOuter("veraweb.tcategorie", "tguest.fk_category", "tcategorie.pk");
 		select.selectAs("tcategorie.catname", "catname");
 		select.selectAs("tcategorie.rank", "catrang");
@@ -267,21 +268,21 @@ public class GuestExportWorker {
 		GuestReportWorker.setSortOrder(order, cntx.requestAsString("sort3"));
 		select.orderBy(DatabaseHelper.getOrder(order));
 		
-		// Export-Select ausführen
+		// Export-Select ausfï¿½hren
 		exportSelect(spreadSheet, database, event, doctype, search, select, data);
 		
-		// Tabelle schließen
+		// Tabelle schlieï¿½en
 		spreadSheet.closeTable();
 		
 		// SpreadSheet speichern
 		if (logger.isInfoEnabled())
-			logger.info("Gebe Gästeliste als Download zurück.");
+			logger.info("Gebe Gï¿½steliste als Download zurï¿½ck.");
         final PipedInputStream pis = new PipedInputStream();
         final PipedOutputStream pos = new PipedOutputStream(pis);
         new Thread(new Runnable() {
         	public void run() {
         		if (logger.isDebugEnabled())
-        			logger.debug("Gästelisten-Export: Starte das Speichern eines Spreadsheets.");
+        			logger.debug("Gï¿½stelisten-Export: Starte das Speichern eines Spreadsheets.");
         		try {
 					spreadSheet.save(pos);
 				} catch (Throwable t) {
@@ -296,11 +297,11 @@ public class GuestExportWorker {
 					}
 				}
         		if (logger.isDebugEnabled())
-        			logger.debug("Gästelisten-Export: Beende das Speichern eines Spreadsheets.");
+        			logger.debug("Gï¿½stelisten-Export: Beende das Speichern eines Spreadsheets.");
         	}
         }).start();
 		
-		// Stream-Informationen zurück geben
+		// Stream-Informationen zurï¿½ck geben
 		Map stream = new HashMap();
 		stream.put(TcBinaryResponseEngine.PARAM_TYPE, TcBinaryResponseEngine.BINARY_RESPONSE_TYPE_STREAM);
 		stream.put(TcBinaryResponseEngine.PARAM_FILENAME, ExportHelper.getFilename(filename));
@@ -314,20 +315,20 @@ public class GuestExportWorker {
     // Hilfsmethoden
     //
     /**
-     * Diese Methode exportiert alle Gäste, die über das übergebene Select-Statement
-     * erfasst werden, in das übergebene Spreadsheet.<br>
+     * Diese Methode exportiert alle Gï¿½ste, die ï¿½ber das ï¿½bergebene Select-Statement
+     * erfasst werden, in das ï¿½bergebene Spreadsheet.<br>
      * TODO: Parameter, von denen nur eine oder zwei Eigenschaften benutzt werden, durch Parameter ersetzen, die direkt diese Eigenschaften darstellen
      * 
      * @param spreadSheet Exportziel
      * @param database Exportquelle, auf die das Statement select angewendet werden soll
-     * @param event Veranstaltung, zu der die Gäste gehören
-     * @param doctype Dokumenttyp, der über sein partner-Flag bestimmt, ob Hauptperson
+     * @param event Veranstaltung, zu der die Gï¿½ste gehï¿½ren
+     * @param doctype Dokumenttyp, der ï¿½ber sein partner-Flag bestimmt, ob Hauptperson
      *  und Partner in der gleichen oder in separaten Zeilen exportiert werden.
-     * @param search Gästesuche-Kriterien, die über ihre Eigenschaften invitationstatus
+     * @param search Gï¿½stesuche-Kriterien, die ï¿½ber ihre Eigenschaften invitationstatus
      *  und reserve bestimmen, ob Hauptperson, Partner oder beide exportiert werden sollen.
-     * @param select Select-Statement, das auf der übergebenen database ausgeführt wird, um
-     *  die zu exportierenden Datensätze zu liefern.
-     * @param data Map mit Zusatzinformationen unter den Schlüsseln "doctype", "zusagen",
+     * @param select Select-Statement, das auf der ï¿½bergebenen database ausgefï¿½hrt wird, um
+     *  die zu exportierenden Datensï¿½tze zu liefern.
+     * @param data Map mit Zusatzinformationen unter den Schlï¿½sseln "doctype", "zusagen",
      *  "absagen", "offenen", "platz" und "reserve".
      */
 	protected void exportSelect(SpreadSheet spreadSheet, Database database, Event event, Doctype doctype, GuestSearch search, Select select, Map data) throws BeanException {
@@ -415,7 +416,7 @@ public class GuestExportWorker {
 	}
 
 	/**
-	 * Schreibt die Überschriften des Export-Dokumentes.
+	 * Schreibt die ï¿½berschriften des Export-Dokumentes.
 	 * 
 	 * @param spreadSheet In das geschrieben werden soll.
 	 */
@@ -428,8 +429,8 @@ public class GuestExportWorker {
 		spreadSheet.addCell("Partner_Freitextfeld");
 		spreadSheet.addCell("Verbinder");
 		
-		spreadSheet.addCell("Anschrift"); // P, G oder S - Vorgabe aus Person, überschreibbar
-		spreadSheet.addCell("Zeichensatz"); // L, F1 oder F2 - Vorgabe aus Person, überschreibbar
+		spreadSheet.addCell("Anschrift"); // P, G oder S - Vorgabe aus Person, ï¿½berschreibbar
+		spreadSheet.addCell("Zeichensatz"); // L, F1 oder F2 - Vorgabe aus Person, ï¿½berschreibbar
 		
 		spreadSheet.addCell("Funktion");
 		spreadSheet.addCell("Anrede");
@@ -448,7 +449,8 @@ public class GuestExportWorker {
 		spreadSheet.addCell("Land");
 		spreadSheet.addCell("Adresszusatz_1");
 		spreadSheet.addCell("Adresszusatz_2");
-		
+
+		spreadSheet.addCell("Geburtsort");
 		spreadSheet.addCell("Telefon");
 		spreadSheet.addCell("Fax");
 		spreadSheet.addCell("Email");
@@ -461,13 +463,13 @@ public class GuestExportWorker {
 		//
 		// Kategorie spezifische Daten, wenn nach Kategorie gefilter wurde.
 		//
-		spreadSheet.addCell("Kategorie"); // Verweis auf Kategorie, die zur Auswahl führte
+		spreadSheet.addCell("Kategorie"); // Verweis auf Kategorie, die zur Auswahl fï¿½hrte
 		spreadSheet.addCell("Kategorie_Rang"); // Der Rang der Kategorie innerhalb der Kategorien
 		spreadSheet.addCell("Rang"); // Der Rang der Person innerhalb der Kategorie
 		spreadSheet.addCell("Reserve"); // 0 = Tisch, 1 = Reservce
 		
 		//
-		// Veranstaltungsspezifische Attribute für Person
+		// Veranstaltungsspezifische Attribute fï¿½r Person
 		//
 		spreadSheet.addCell("Status"); // 0 = Offen, 1 = Zusage, 2 = Absage
 		spreadSheet.addCell("Tisch");
@@ -477,12 +479,12 @@ public class GuestExportWorker {
 		spreadSheet.addCell("Inland"); // Ja / Nein
 		spreadSheet.addCell("Sprachen");
 		spreadSheet.addCell("Geschlecht"); // M oder F
-		spreadSheet.addCell("Nationalität");
+		spreadSheet.addCell("Nationalitï¿½t");
 		spreadSheet.addCell("Hinweis_Gastgeber");
 		spreadSheet.addCell("Hinweis_Orgateam");
 		
 		//
-		// Veranstaltungsspezifische Attribute für Partner der Person
+		// Veranstaltungsspezifische Attribute fï¿½r Partner der Person
 		//
 		spreadSheet.addCell("Partner_Status"); // 0 = Offen, 1 = Zusage, 2 = Absage
 		spreadSheet.addCell("Partner_Tisch");
@@ -492,7 +494,7 @@ public class GuestExportWorker {
 		spreadSheet.addCell("Partner_Inland"); // Ja / Nein
 		spreadSheet.addCell("Partner_Sprachen");
 		spreadSheet.addCell("Partner_Geschlecht"); // M oder F
-		spreadSheet.addCell("Partner_Nationalität");
+		spreadSheet.addCell("Partner_Nationalitï¿½t");
 		spreadSheet.addCell("Partner_Hinweis_Gastgeber");
 		spreadSheet.addCell("Partner_Hinweis_Orgateam");
 		
@@ -578,7 +580,8 @@ public class GuestExportWorker {
 		spreadSheet.addCell(guest.get("country"));
 		spreadSheet.addCell(guest.get("suffix1"));
 		spreadSheet.addCell(guest.get("suffix2"));
-		
+
+		spreadSheet.addCell(guest.get("birthplace"));
 		spreadSheet.addCell(guest.get("fon"));
 		spreadSheet.addCell(guest.get("fax"));
 		spreadSheet.addCell(guest.get("mail"));
@@ -591,13 +594,13 @@ public class GuestExportWorker {
 		//
 		// Kategorie spezifische Daten, wenn nach Kategorie gefilter wurde.
 		//
-		spreadSheet.addCell(guest.get("catname")); // Verweis auf Kategorie, die zur Auswahl führte
+		spreadSheet.addCell(guest.get("catname")); // Verweis auf Kategorie, die zur Auswahl fï¿½hrte
 		spreadSheet.addCell(guest.get("catrang")); // Der Rang der Kategorie innerhalb der Kategorien
 		spreadSheet.addCell(guest.get("guestrang")); // Der Rang der Person innerhalb der Kategorie
 		spreadSheet.addCell(getReserve((Integer)guest.get("reserve"))); // 0 = Tisch, 1 = Reservce
 		
 		//
-		// Veranstaltungsspezifische Attribute für Person
+		// Veranstaltungsspezifische Attribute fï¿½r Person
 		//
 		if (showA) {
 			spreadSheet.addCell(getStatus((Integer)guest.get("invitationstatus"))); // 0 = Offen, 1 = Zusage, 2 = Absage
@@ -626,7 +629,7 @@ public class GuestExportWorker {
 		}
 		
 		//
-		// Veranstaltungsspezifische Attribute für Partner der Person
+		// Veranstaltungsspezifische Attribute fï¿½r Partner der Person
 		//
 		if (showB) {
 			spreadSheet.addCell(getStatus((Integer)guest.get("invitationstatus_p"))); // 0 = Offen, 1 = Zusage, 2 = Absage
@@ -670,7 +673,7 @@ public class GuestExportWorker {
 	}
 
 	/**
-	 * Export ausschließlich die Gast-Daten in eine Zeile.
+	 * Export ausschlieï¿½lich die Gast-Daten in eine Zeile.
 	 * 
 	 * @param spreadSheet In das geschrieben werden soll.
 	 * @param event Event das exportiert wird.
@@ -706,7 +709,8 @@ public class GuestExportWorker {
 		spreadSheet.addCell(guest.get("country"));
 		spreadSheet.addCell(guest.get("suffix1"));
 		spreadSheet.addCell(guest.get("suffix2"));
-		
+
+		spreadSheet.addCell(guest.get("birthplace"));
 		spreadSheet.addCell(guest.get("fon"));
 		spreadSheet.addCell(guest.get("fax"));
 		spreadSheet.addCell(guest.get("mail"));
@@ -719,13 +723,13 @@ public class GuestExportWorker {
 		//
 		// Kategorie spezifische Daten, wenn nach Kategorie gefilter wurde.
 		//
-		spreadSheet.addCell(guest.get("catname")); // Verweis auf Kategorie, die zur Auswahl führte
+		spreadSheet.addCell(guest.get("catname")); // Verweis auf Kategorie, die zur Auswahl fï¿½hrte
 		spreadSheet.addCell(guest.get("catrang")); // Der Rang der Kategorie innerhalb der Kategorien
 		spreadSheet.addCell(guest.get("guestrang")); // Der Rang der Person innerhalb der Kategorie
 		spreadSheet.addCell(getReserve((Integer)guest.get("reserve"))); // 0 = Tisch, 1 = Reservce
 		
 		//
-		// Veranstaltungsspezifische Attribute für Person
+		// Veranstaltungsspezifische Attribute fï¿½r Person
 		//
 		spreadSheet.addCell(getStatus((Integer)guest.get("invitationstatus"))); // 0 = Offen, 1 = Zusage, 2 = Absage
 		spreadSheet.addCell(guest.get("tableno"));
@@ -740,7 +744,7 @@ public class GuestExportWorker {
 		spreadSheet.addCell(guest.get("noteorga"));
 		
 		//
-		// Veranstaltungsspezifische Attribute für Partner der Person
+		// Veranstaltungsspezifische Attribute fï¿½r Partner der Person
 		//
 		spreadSheet.addCell(null); // 0 = Offen, 1 = Zusage, 2 = Absage
 		spreadSheet.addCell(null);
@@ -770,7 +774,7 @@ public class GuestExportWorker {
 	}
 
 	/**
-	 * Export ausschließlich die Partner-Daten in eine Zeile.
+	 * Export ausschlieï¿½lich die Partner-Daten in eine Zeile.
 	 * 
 	 * @param spreadSheet In das geschrieben werden soll.
 	 * @param event Event das exportiert wird.
@@ -806,7 +810,8 @@ public class GuestExportWorker {
 		spreadSheet.addCell(guest.get("country"));
 		spreadSheet.addCell(guest.get("suffix1"));
 		spreadSheet.addCell(guest.get("suffix2"));
-		
+
+		spreadSheet.addCell(guest.get("birthplace"));
 		spreadSheet.addCell(guest.get("fon"));
 		spreadSheet.addCell(guest.get("fax"));
 		spreadSheet.addCell(guest.get("mail"));
@@ -819,13 +824,13 @@ public class GuestExportWorker {
 		//
 		// Kategorie spezifische Daten, wenn nach Kategorie gefilter wurde.
 		//
-		spreadSheet.addCell(guest.get("catname")); // Verweis auf Kategorie, die zur Auswahl führte
+		spreadSheet.addCell(guest.get("catname")); // Verweis auf Kategorie, die zur Auswahl fï¿½hrte
 		spreadSheet.addCell(guest.get("catrang")); // Der Rang der Kategorie innerhalb der Kategorien
 		spreadSheet.addCell(guest.get("guestrang")); // Der Rang der Person innerhalb der Kategorie
 		spreadSheet.addCell(getReserve((Integer)guest.get("reserve"))); // 0 = Tisch, 1 = Reservce
 		
 		//
-		// Veranstaltungsspezifische Attribute für Person
+		// Veranstaltungsspezifische Attribute fï¿½r Person
 		//
 		spreadSheet.addCell(getStatus((Integer)guest.get("invitationstatus_p"))); // 0 = Offen, 1 = Zusage, 2 = Absage
 		spreadSheet.addCell(guest.get("tableno_p"));
@@ -840,7 +845,7 @@ public class GuestExportWorker {
 		spreadSheet.addCell(guest.get("noteorga_p"));
 		
 		//
-		// Veranstaltungsspezifische Attribute für Partner der Person
+		// Veranstaltungsspezifische Attribute fï¿½r Partner der Person
 		//
 		spreadSheet.addCell(null); // 0 = Offen, 1 = Zusage, 2 = Absage
 		spreadSheet.addCell(null);
@@ -870,9 +875,9 @@ public class GuestExportWorker {
 	}
 
     //
-    // öffentliche Hilfsmethoden
+    // ï¿½ffentliche Hilfsmethoden
     //
-    /** Diese Methode liefert eine String-Darstellung für einen Reserve-Wert */
+    /** Diese Methode liefert eine String-Darstellung fï¿½r einen Reserve-Wert */
 	public static String getReserve(Integer reserve) {
 		return reserve == null ? null : (reserve.intValue() == 1 ? "Reserve" : "Tisch");
 	}
@@ -888,17 +893,17 @@ public class GuestExportWorker {
 	}
 
     /**
-     * Diese Methode liefert zu einem Integer den um 1 erhöhten Wert oder
-     * 0, falls <code>null</code> übergeben worden war. 
+     * Diese Methode liefert zu einem Integer den um 1 erhï¿½hten Wert oder
+     * 0, falls <code>null</code> ï¿½bergeben worden war. 
      */
 	public static Integer getColor(Integer color) {
 		return new Integer(color == null ? 0 : color.intValue() + 1);
 	}
 
 	/**
-	 * Anschrifttyp als P,G,S zurückgeben.
+	 * Anschrifttyp als P,G,S zurï¿½ckgeben.
 	 * 
-	 * Vorgabe aus PersonDoctype, Überschreibbar in GuestDoctype
+	 * Vorgabe aus PersonDoctype, ï¿½berschreibbar in GuestDoctype
 	 * Muss auch in anderen Bereichen umgesetzt werden.
 	 * Z.B. beim "Neu Laden" in Worker und Template.
 	 */
@@ -915,9 +920,9 @@ public class GuestExportWorker {
 	}
 
 	/**
-	 * Zeichensatz als L,F1,F2 zurückgeben.
+	 * Zeichensatz als L,F1,F2 zurï¿½ckgeben.
 	 * 
-	 * Vorgabe aus PersonDoctype, Überschreibbar in GuestDoctype
+	 * Vorgabe aus PersonDoctype, ï¿½berschreibbar in GuestDoctype
 	 * Muss auch in anderen Bereichen umgesetzt werden.
 	 * Z.B. beim "Neu Laden" in Worker und Template.
 	 */

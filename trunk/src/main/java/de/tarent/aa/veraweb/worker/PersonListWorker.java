@@ -269,8 +269,8 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 						database.getBeanList("Person",
 						database.getSelect("Person").
 						join(new Join(Join.INNER, "veraweb.tguest", new RawClause(
-								"tguest.fk_person = tperson.pk AND tperson.pk IN (" +
-								new StatementList(subList) + ")"))).
+								"tguest.fk_person = tperson.pk AND tperson.pk IN " +
+								new StatementList(subList) ))).
 						join(new Join(Join.INNER, "veraweb.tevent",
 								"tguest.fk_event", "tevent.pk AND tevent.datebegin > now()::date")));
 				for (Iterator it = personIsGuest.iterator(); it.hasNext(); ) {
@@ -292,7 +292,7 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 						database.getSelect("Person").
 		                where(new RawClause(
 		                        "dateexpire >= " + Format.format(new Date()) +
-		                        " AND pk IN (" + new StatementList(subList) + ")")));
+		                        " AND pk IN " + new StatementList(subList))));
 				for (Iterator it = personExpireInFuture.iterator(); it.hasNext(); ) {
 					Person person = (Person)it.next();
 					if (getContextAsBoolean(cntx, "remove-expire-" + person.id)) {
