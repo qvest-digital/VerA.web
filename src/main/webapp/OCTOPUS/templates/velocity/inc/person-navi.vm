@@ -1,0 +1,27 @@
+## created in order to support direct search result navigation as per change request for version 1.2.0
+## cklein
+## 2008-02-22
+<table style="margin-bottom:5px;"><tr><td>
+#set( $current = ${navigation.current.offset} + 1 )
+<span class="listnavitext" style="margin-right: 15px;">${current} von $listparam.count</span>
+#if(!$navigation.first)
+	<a class="listnavilinkinactiv" title="Erstes Suchergebnis">&laquo;&laquo;</a>
+#else
+	<a href="${paths.staticWeb}do/ShowPerson?id=${navigation.first.person.id}&offset=${navigation.first.offset}" class="listnavilink" title="Erstes Suchergebnis">&laquo;&laquo;</a>
+#end
+#if(!$navigation.previous)
+	<a class="listnavilinkinactiv" title="Vorheriges Suchergebnis">&laquo;</a>
+#else
+	<a href="${paths.staticWeb}do/ShowPerson?id=${navigation.previous.person.id}&offset=${navigation.previous.offset}" class="listnavilink" title="Vorheriges Suchergebnis">&laquo;</a>
+#end
+#if(!$navigation.next)
+	<a class="listnavilinkinactiv" title="N&auml;chstes Suchergebnis">&raquo;</a>
+#else
+	<a href="${paths.staticWeb}do/ShowPerson?id=${navigation.next.person.id}&offset=${navigation.next.offset}" class="listnavilink" title="N&auml;chstes Suchergebnis">&raquo;</a>
+#end
+#if(!$navigation.last)
+	<a class="listnavilinkinactiv" title="Letztes Suchergebnis">&raquo;&raquo;</a>
+#else
+	<a href="${paths.staticWeb}do/ShowPerson?id=${navigation.last.person.id}&offset=${navigation.last.offset}" class="listnavilink" title="Letztes Suchergebnis">&raquo;&raquo;</a>
+#end
+</td></tr></table>

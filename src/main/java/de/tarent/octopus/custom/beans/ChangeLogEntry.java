@@ -33,6 +33,8 @@ package de.tarent.octopus.custom.beans;
 import java.sql.Date;
 
 import de.tarent.aa.veraweb.beans.AbstractBean;
+import de.tarent.octopus.PersonalConfigAA;
+import de.tarent.octopus.server.OctopusContext;
 
 /**
  * The bean class ChangeLogEntry represents a single entry
@@ -67,5 +69,24 @@ public class ChangeLogEntry extends AbstractBean
 	public ChangeLogEntry()
 	{
 		super();
+	}
+
+	/**
+	 * Only admins may read the entity beans from the table.
+	 */
+	public void checkRead(OctopusContext cntx) throws BeanException
+	{
+		checkGroup( cntx, PersonalConfigAA.GROUP_ADMIN );
+	}
+
+	/**
+	 * Anonymous user group requires write access to the
+	 * entity bean, since a background service will be responsible
+	 * for purging old entries from change log. The service runs
+	 * with the priviledge of the anonymous user group.
+	 */
+	public void checkWrite(OctopusContext cntx) throws BeanException
+	{
+		checkGroup( cntx, PersonalConfigAA.GROUP_ANONYMOUS );
 	}
 }

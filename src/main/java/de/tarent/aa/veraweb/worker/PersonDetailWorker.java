@@ -123,29 +123,47 @@ public class PersonDetailWorker implements PersonConstants {
 			cntx.setSession( "statistikSettings", map );
 		}
 
-		// Direct Search Result Navigation Extension
+		/*
+		 * modified to support direct search result list navigation as per the change request for version 1.2.0
+		 * cklein
+		 * 2008-02-21
+		 */
+		// TODO REFACTOR
 		Integer offset = cntx.requestAsInteger( "offset" );
 		if ( offset != null )
 		{
 			PersonListWorker plworker = WorkerFactory.getPersonListWorker(cntx);
 			Select select = plworker.prepareShowList( cntx, database );
-			// query first, last, next and previous persons from db
-			ArrayList< Person > list = new ArrayList< Person >();
-
-			Map< String, Person > navigation = new HashMap< String, Person >();
+			
+			Map< String, Map< String, Object > > navigation = new HashMap< String, Map< String, Object > >();
+			Map< String, Object > entry = null;
 			Map params = ( Map ) cntx.contentAsObject( PersonListWorker.OUTPUT_showListParams );
 			Integer count = ( Integer ) params.get( "count" ); 
+
+			// current
+			entry = new HashMap< String, Object >();
+			entry.put( "person", person );
+			entry.put( "offset", offset );
+			navigation.put( "current", entry );
+
 			// first and previous
 			if ( offset > 0 )
 			{
 				// previous
 				select.Limit( new Limit( 1, offset - 1 ) );
-				navigation.put( "previous", ( Person ) database.getBean( "Person", select ) );
-				if ( offset > 1 )
+				// velocity makes it rather complicated
+				entry = new HashMap< String, Object >();
+				entry.put( "person", database.getBean( "Person", select ) );
+				entry.put( "offset", new Integer( offset.intValue() - 1 ) );
+				navigation.put( "previous", entry );
+				if ( offset > 0 )
 				{
 					// first
 					select.Limit( new Limit( 1, 0 ) );
-					navigation.put( "first", ( Person ) database.getBean( "Person", select ) );
+					entry = new HashMap< String, Object >();
+					entry.put( "person", database.getBean( "Person", select ) );
+					entry.put( "offset", new Integer( 0 ) );
+					navigation.put( "first", entry );
 				}
 				else
 				{
@@ -162,12 +180,18 @@ public class PersonDetailWorker implements PersonConstants {
 			{
 				// next
 				select.Limit( new Limit( 1, offset + 1 ) );
-				navigation.put( "next", ( Person ) database.getBean( "Person", select ) );
-				if ( offset > 1 )
+				entry = new HashMap< String, Object >();
+				entry.put( "person", database.getBean( "Person", select ) );
+				entry.put( "offset", new Integer( offset.intValue() + 1 ) );
+				navigation.put( "next", entry );
+				if ( offset < count - 1 )
 				{
 					// last
 					select.Limit( new Limit( 1, count - 1 ) );
-					navigation.put( "last", ( Person ) database.getBean( "Person", select ) );
+					entry = new HashMap< String, Object >();
+					entry.put( "person", database.getBean( "Person", select ) );
+					entry.put( "offset", new Integer( count.intValue() - 1 ) );
+					navigation.put( "last", entry );
 				}
 				else
 				{
@@ -181,13 +205,21 @@ public class PersonDetailWorker implements PersonConstants {
 			}
 			cntx.setContent( "navigation", navigation );
 		}
+		else
+		{
+			cntx.setContent( "navigation", ( Map ) null );
+		}
 
-		// TODO implement correctly
+		/*
+		 * modified to support a direct statistics access from the detail view as per the change request for version 1.2.0
+		 * cklein
+		 * 2008-02-21
+		 */
 		map.put( "statistik", "EventsGroupByGuest" );
-		map.put( "begin", "1.1.1970" );
-		map.put( "end", "31.12.2020" );
-//		map.put( "begin", DateFormat.getDateInstance().format( new Date( person.created.getTime() ) ) );
-//		map.put( "end", DateFormat.getDateInstance().format( new Date() ) );
+		String temp = DateFormat.getDateInstance().format( new Date( person.created.getTime() ) );
+		String[] t = temp.split( "[.]" );
+		map.put( "begin", "01." + t[ 1 ] + "." + t[ 2 ] );
+		map.put( "end", DateFormat.getDateInstance().format( new Date() ) );
 
 		return person;
 	}

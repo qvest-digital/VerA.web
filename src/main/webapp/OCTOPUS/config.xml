@@ -35,6 +35,11 @@
 		<param name="defaultErrorDescriptionName" value="error"/>
 
 		<!-- ************************************************ -->
+		<!-- ***        Change Log Retention Policy       *** -->
+		<!-- ************************************************ -->
+		<param name="changeLogRetentionPolicy" value="P1Y0M0D"/>
+
+		<!-- ************************************************ -->
 		<!-- *** Automatisches Kopieren von Personendaten *** -->
 		<!-- ************************************************ -->
 		<!-- Folgender Parameter steuert das automatische Kopieren von Personendaten.
@@ -137,7 +142,7 @@
 		</category>
 		
 		<category name="de.tarent.aa.veraweb" additivity="false">
-			<level value="WARN"/>
+			<level value="ALL"/>
 			<appender-ref ref="FileLog"/>
 		</category>
 		

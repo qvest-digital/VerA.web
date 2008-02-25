@@ -109,7 +109,7 @@
 			<action name="init" worker="MessageWorker"/>
 			<action name="init" worker="ConfigWorker"/>
 			<action name="load" worker="MailDispatchWorker"/>
-<!--			<action name="changeLogMaintenance" worker="ChangeLogMaintenanceWorker"/> -->
+			<action name="load" worker="ChangeLogMaintenanceWorker"/>
 			<response type="none" name="none"/>
 		</task>
 		
@@ -118,6 +118,7 @@
 			<action name="closePool" worker="SystemWorker"/>
 			<action name="clean" worker="ConfigWorker"/>
 			<action name="unload" worker="MailDispatchWorker"/>
+			<action name="unload" worker="ChangeLogMaintenanceWorker"/>
 			<response type="none" name="none"/>
 		</task>
 		
