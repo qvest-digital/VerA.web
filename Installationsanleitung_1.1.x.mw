@@ -7,16 +7,17 @@ Siehe [[Systemvoraussetzungen]].
 == Installation Octopus + veraweb ==
 
 Laden Sie sich die letzte Version von veraweb herrunter. Die Releases
-enthalten jeweils auch eine Version der Webframeworks tarent-octopus.
+enthalten jeweils auch eine Version des Webframeworks tarent-octopus.
 
 Deployen Sie die veraweb.war sowie octopus.war Verzeichnisse in einem
 beliebigen Servlet Container oder das gemeinsame Archiv als EAR in einem
 Enterprise Server.
 
-Beachten Sie die besonderheit das die beiden Webanwendungen miteinander
-kommunizieren müssen und Sie hierfür den Parameter crossContext auf true
-in der Webapplikationsbeschreibung setzen müssen. Fertige
-Konfigurationsdateien finden sie unter veraweb.war/WEB-INF/veraweb.xml
+Beachten Sie die Besonderheit, dass die beiden Webanwendungen miteinander
+kommunizieren müssen und Sie hierfür in der Webapplikationsbeschreibung 
+den Parameter crossContext auf true setzen müssen. 
+
+Fertige Konfigurationsdateien finden sie unter veraweb.war/WEB-INF/veraweb.xml
 sowie octopus.war/WEB-INF/octopus.xml. Diese Konfigurationsdateien kopieren
 Sie im Tomcat z.B. in den Ordner conf/Catalina/localhost/.
 
