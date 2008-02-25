@@ -826,7 +826,8 @@ public class PersonDetailWorker implements PersonConstants {
 				database.getCount(
 				database.getCount("Guest").
 				where(Expr.equal("fk_person", personid))).intValue() != 0;
-		
+
+		Person oldPerson = ( Person ) database.getBean( "Person", personid );
 		if (hasEvent) {
 			// Datenbank-Eintrag auf Gel�scht setzten.
 			if (logger.isEnabledFor(Priority.DEBUG)) {
@@ -859,15 +860,21 @@ public class PersonDetailWorker implements PersonConstants {
 					update("fk_host", null).
 					update("hostname", null).
 					where(Expr.equal("fk_host", personid)));
+		}
 
-			/*
-			 * modified to support change logging
-			 * cklein 2008-02-12
-			 */
-			BeanChangeLogger clogger = new BeanChangeLogger( database );
-			Person p = new Person();
-			p.id = personid;
-			clogger.logDelete( cntx.personalConfig().getLoginname(), p );
+		/*
+		 * modified to support change logging
+		 * cklein 2008-02-12
+		 */
+		BeanChangeLogger clogger = new BeanChangeLogger( database );
+		if ( hasEvent )
+		{
+			Person newPerson = ( Person ) database.getBean( "Person", personid );
+			clogger.logUpdate( cntx.personalConfig().getLoginname(), oldPerson, newPerson );
+		}
+		else
+		{
+			clogger.logDelete( cntx.personalConfig().getLoginname(), oldPerson );
 		}
 	}
 }
