@@ -95,19 +95,30 @@ public class ChangeLogReportsWorker extends ListWorkerVeraWeb
 			cntx.setSession( "changeLogReportSettings", map );
 		}
 
-		Date tmp = ( Date ) BeanFactory.transform( begin, Date.class );
-		if ( tmp == null )
+		// fetch begin and end dates or sane defaults
+		Date bd = ( Date ) BeanFactory.transform( begin, Date.class );
+		if ( bd == null )
 		{
-			tmp = ( Date ) BeanFactory.transform( "01.01." + Calendar.getInstance().get( Calendar.YEAR ), Date.class );
+			bd = ( Date ) BeanFactory.transform( "01.01." + Calendar.getInstance().get( Calendar.YEAR ), Date.class );
 		}
-		map.put( "begin", tmp );
+		
+		Date ed = ( Date ) BeanFactory.transform( end, Date.class );
+		if ( ed == null )
+		{
+			ed = new Date( System.currentTimeMillis() );
+		}
 
-		tmp = ( Date ) BeanFactory.transform( end, Date.class );
-		if ( tmp == null )
+		// make sure that end is always after begin
+		if ( ed.after( bd ) )
 		{
-			tmp = new Date( System.currentTimeMillis() );
+			map.put( "begin", bd );
+			map.put( "end", ed );
 		}
-		map.put( "end", tmp );
+		else
+		{
+			map.put( "begin", ed );
+			map.put( "end", bd );
+		}
 
 		DateFormat format = DateFormat.getDateInstance( DateFormat.DEFAULT );
 		cntx.setContent( "begin", format.format( map.get( "begin" ) ) );
