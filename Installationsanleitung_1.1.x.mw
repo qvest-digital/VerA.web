@@ -142,20 +142,18 @@ Folgende Felder müssen ausgefüllt werden:
 * Home directory (/home/verawebadmin)
 
 Ein Passwort sollte vergeben werden (z. B. "test").
-Nachdem der Benutzer angelegt wurde, wählt man diesen wiederum aus (in
-der Menustruktur links anklicken)
-Im rechten Frame öffnet sich nun der Benutzer.
-Man scrollt runter, bis man als Überschrift "objectClass" sieht und
-klickt auf "Wert hinzufügen"
-In der Auswahlliste wählt man AARole
-Aus abhängigkeit müssen nun noch ein paar Werte ausgefüllt werden.
+Nachdem der Benutzer angelegt wurde, wählen Sie diesen wiederum aus (in
+der Menustruktur links anklicken). Im rechten Frame öffnet sich nun der Benutzer.
+
+Jetzt nachunten scrollen bis Sie als Überschrift "objectClass" sehen und
+dort "Wert hinzufügen" anklicken.
+In der Auswahlliste wählen Sie AARole
+Um Abhängigkeiten zu erfüllen,  müssen nun noch ein paar Werte ausgefüllt werden.
 * mail (verawebadmin@tarent.de)
 * mailbox (verawebadmin@tarent.de)
 * rid (1000)
-speichern
-Jetzt wiederum den Benutzer auswählen => "Neues Attribut hinzufügen"
-anwählen und als Attribut "Person" anklicken und 
-auf den eigenen "Common Name" verlinken
+Dies Eingaben speichern und nun wiederum den Benutzer auswählen. Dann "Neues Attribut hinzufügen"
+anwählen und als Attribut "Person" anklicken und dort auf den eigenen "Common Name" verlinken
 (cn=verawebadmin,ou=Users,dc=tarent,dc=de)
 
 == Konfiguration Datenbank ==
