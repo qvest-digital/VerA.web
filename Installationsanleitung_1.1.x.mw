@@ -15,9 +15,7 @@ Enterprise Server.
 
 Beachten Sie die Besonderheit, dass die beiden Webanwendungen miteinander
 kommunizieren müssen und Sie hierfür in der Webapplikationsbeschreibung 
-den Parameter crossContext auf true setzen müssen. 
-
-Fertige Konfigurationsdateien finden sie unter veraweb.war/WEB-INF/veraweb.xml
+den Parameter crossContext auf true setzen müssen. Fertige Konfigurationsdateien finden sie unter veraweb.war/WEB-INF/veraweb.xml
 sowie octopus.war/WEB-INF/octopus.xml. Diese Konfigurationsdateien kopieren
 Sie im Tomcat z.B. in den Ordner conf/Catalina/localhost/.
 
