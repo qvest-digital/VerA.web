@@ -5,7 +5,7 @@
 
 #parse("inc/header.vm")
 
-<form action="ShowChangeLogReport" method="post" target="_blank">
+<form action="ShowChangeLogReport" method="post" target="_blank" onSubmit="location.reload();return true;">
 
 <table class="tab" border="0" cellspacing="0" cellpadding="0"><tr>
 	<td class="tableft">&nbsp;</td>
