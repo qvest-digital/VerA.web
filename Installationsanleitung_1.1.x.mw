@@ -134,12 +134,12 @@ Hier wählt man als Wert: "veragroup".
 Unterhalb der Organizational-Unit "Users" auf "* Neuen Eintrag erzeugen"
 klicken und einen Eintrag vom Typ
 "User Account" anlegen
-Die Felder
+Folgende Felder müssen ausgefüllt werden:
 * Last Name (verawebadmin)
 * Common Name (verawebadmin)
 * User ID (verawebadmin)
 * Home directory (/home/verawebadmin)
-müssen ausgefüllt werden.
+
 Ein Passwort sollte vergeben werden. (test)
 Nachdem der Benutzer angelegt wurde, wählt man diesen wiederum aus (in
 der Menustruktur links anklicken)
