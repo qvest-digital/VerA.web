@@ -7,6 +7,8 @@ import java.sql.Date;
 import java.util.Calendar;
 
 /**
+ * TODO refactor existing change log bean management to this class
+ * 
  * The bean class ChangeLogReport represents a 
  * session bean that models the configuration
  * for a change log report.

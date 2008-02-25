@@ -18,9 +18,11 @@
 	#if(($bean && $bean.category && $bean.category != $category) || (!$bean.category))
 		#if(!$bean.category && $category != "")
 			#set($category = "")
+			#set($workarea = "")
 			<div class="kategorie"><em>Keiner Kategorie zugeordnet</em></div>
 		#elseif($bean.category)
 			#set($category = $bean.category)
+			#set($workarea = "")
 			<div class="kategorie">$!message.plain($category)</div>
 		#end
 	#end
