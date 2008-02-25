@@ -23,15 +23,17 @@ Sie im Tomcat z.B. in den Ordner conf/Catalina/localhost/.
 
 veraweb verwendet zur Authentifizierung einen LDAP-Service. In der
 Webanwendung (veraweb.war) finden Sie unter OCTOPUS/config.xml eine
-Konfigurationsdatei in der Sie den entsprechenden Server einstellen können.
+Konfigurationsdatei, in der Sie den entsprechenden Server einstellen können.
 Beispielkonfigurationen sind bereits enthalten.
 
-Die Pakete "slapd" und "ldap-utils" installieren. Während der
-Installation wird man nach dem Administrator-Passwort für den
+Installieren Sie die Pakete "slapd" und "ldap-utils". Während der
+Installation werden Sie nach dem Administrator-Passwort für den
 LDAP-Benutzer gefragt, dieses wird später noch benötigt.
-Die Schemadateien  AA-2005-03-23.schema und samba.schema nach
-/etc/ldap/schema/ kopieren und dem Ldapserver durch folgende Einträge in
-der Datei /etc/ldap/slapd.conf bekannt machen.
+Kopieren Sie die Schemadateien  AA-2005-03-23.schema und samba.schema nach
+/etc/ldap/schema/  
+
+Machen Sie nun den Ldapserver durch folgende Einträge in
+der Datei /etc/ldap/slapd.conf bekannt:
 
  include /etc/ldap/schema/samba.schema
  include /etc/ldap/schema/AA-2005-03-23.schema
