@@ -133,7 +133,8 @@ Das einzige Feld was hier angegeben werden muss ist: "Group"
 Hier wählt man als Wert: "veragroup".
 Unterhalb der Organizational-Unit "Users" auf "* Neuen Eintrag erzeugen"
 klicken und einen Eintrag vom Typ
-"User Account" anlegen
+"User Account" anlegen.
+
 Folgende Felder müssen ausgefüllt werden:
 * Last Name (verawebadmin)
 * Common Name (verawebadmin)
