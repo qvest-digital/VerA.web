@@ -141,7 +141,7 @@ Folgende Felder müssen ausgefüllt werden:
 * User ID (verawebadmin)
 * Home directory (/home/verawebadmin)
 
-Ein Passwort sollte vergeben werden. (test)
+Ein Passwort sollte vergeben werden (z. B. "test").
 Nachdem der Benutzer angelegt wurde, wählt man diesen wiederum aus (in
 der Menustruktur links anklicken)
 Im rechten Frame öffnet sich nun der Benutzer.
