@@ -88,6 +88,7 @@
 			<option #if($search.invitationstatus && $search.invitationstatus == 1) selected#end value="1">nur Offene</option>
 			<option #if($search.invitationstatus && $search.invitationstatus == 2) selected#end value="2">nur Zusagen</option>
 			<option #if($search.invitationstatus && $search.invitationstatus == 3) selected#end value="3">nur Absagen</option>
+			<option #if($search.invitationstatus && $search.invitationstatus == 3) selected#end value="4">nur Teilnahmen</option>
 		</select>
 	</td>
 </tr></table><br>

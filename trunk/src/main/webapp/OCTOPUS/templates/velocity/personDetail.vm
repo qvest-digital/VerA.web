@@ -218,6 +218,13 @@
 
 <div id="fixme" class="fixme1"><div class="fixme2"><div class="fixme3">
 
+## modified to support direct search result navigation as per change request for version 1.2.0
+## cklein
+## 2008-02-22
+#if($navigation)
+	#parse("inc/person-navi.vm")
+#end
+
 #if($action == "guest")
     #if($person && $person.id)
     <input type="button" name="add" class="button" value="&Uuml;bernehmen" title="Gast direkt in G&auml;steliste &uuml;bernehmen" onclick="addToGuestList();"> &nbsp;

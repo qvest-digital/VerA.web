@@ -147,7 +147,7 @@
 	</tr>
 	#end
 	
-	##
+	## modified for direct search result navigation from the person detail view as per change request for version 1.2.0
 	## cklein
 	## 2008-02-12
 	#set($currentRow=$listparam.start)
@@ -162,32 +162,35 @@
 		#set($hasA = $bean.lastname_a_e1.length() > 0 || $bean.firstname_a_e1.length() > 0)
 		#set($hasB = $bean.lastname_b_e1.length() > 0 || $bean.firstname_b_e1.length() > 0)
 		
+## Fix for Bug 987
+## cklein
+## 2008-02-22
 		#if($event.invitationtype == 2)
 			## Ohne Partner
 			<td class="list" title="$!config.main einladen">
-				<input type="checkbox" id="${bean.id}-select" name="${bean.id}-select" value="true" class="checkbox" #if($listselection.indexOf($bean.id) != -1) checked#end #if(!$hasA) onClick="hasNoMain('${bean.id}-select');" #end>
+				<input type="checkbox" id="${bean.id}-select" name="${bean.id}-select" value="true" class="checkbox" #if($listselection.indexOf($bean.id) != -1) checked#end #if(!$hasA) onClick="hasNoMain('${bean.id}-select');" #else onClick="onClickEnforceConsistentState('${bean.id}-select', '${bean.id}-partner', '${bean.id}-reserve');" #end>
 			</td>
 			<td class="list" title="$!config.partner einladen">
-				<input type="checkbox" id="${bean.id}-partner" name="${bean.id}-partner" value="true" class="checkbox" #if($invitepartner.indexOf($bean.id) != -1) checked#end #if(!$hasB) onClick="hasNoPartner('${bean.id}-partner');" #end>
+				<input type="checkbox" id="${bean.id}-partner" name="${bean.id}-partner" value="true" class="checkbox" #if($invitepartner.indexOf($bean.id) != -1) checked#end #if(!$hasB) onClick="hasNoPartner('${bean.id}-partner');" #else onClick="onClickEnforceConsistentState('${bean.id}-select', '${bean.id}-partner', '${bean.id}-reserve');" #end>
 			</td>
 		#elseif($event.invitationtype == 3)
 			## NurPartner
 			<td class="list" title="$!config.main einladen">
-				<input type="checkbox" id="${bean.id}-select" name="${bean.id}-select" value="true" class="checkbox" #if($listselection.indexOf($bean.id) != -1) checked#end #if(!$hasA) onClick="hasNoMain('${bean.id}-select');" #end>
+				<input type="checkbox" id="${bean.id}-select" name="${bean.id}-select" value="true" class="checkbox" #if($listselection.indexOf($bean.id) != -1) checked#end #if(!$hasA) onClick="hasNoMain('${bean.id}-select');" #else onClick="onClickEnforceConsistentState('${bean.id}-select', '${bean.id}-partner', '${bean.id}-reserve');" #end>
 			</td>
 			<td class="list" title="$!config.partner einladen">
-				<input type="checkbox" id="${bean.id}-partner" name="${bean.id}-partner" value="true" class="checkbox" #if($invitepartner.indexOf($bean.id) != -1) checked#end #if(!$hasB) onClick="hasNoPartner('${bean.id}-partner');" #end>
+				<input type="checkbox" id="${bean.id}-partner" name="${bean.id}-partner" value="true" class="checkbox" #if($invitepartner.indexOf($bean.id) != -1) checked#end #if(!$hasB) onClick="hasNoPartner('${bean.id}-partner');" #else onClick="onClickEnforceConsistentState('${bean.id}-select', '${bean.id}-partner', '${bean.id}-reserve');" #end>
 			</td>
 		#else
 			## Mit Partner
 			<td class="list" title="$!config.main einladen">
-				<input type="checkbox" id="${bean.id}-select" name="${bean.id}-select" value="true" class="checkbox" #if($listselection.indexOf($bean.id) != -1) checked#end #if(!$hasA) onClick="hasNoMain('${bean.id}-select');" #elseif($hasB) onClick="onClickSetState('${bean.id}-select', '${bean.id}-partner');" #end>
+				<input type="checkbox" id="${bean.id}-select" name="${bean.id}-select" value="true" class="checkbox" #if($listselection.indexOf($bean.id) != -1) checked#end #if(!$hasA) onClick="hasNoMain('${bean.id}-select');" #elseif($hasB) onClick="onClickSetState('${bean.id}-select', '${bean.id}-partner');onClickEnforceConsistentState('${bean.id}-select', '${bean.id}-partner', '${bean.id}-reserve');" #end>
 			</td>
 			<td class="list" title="$!config.partner einladen">
-				<input type="checkbox" id="${bean.id}-partner" name="${bean.id}-partner" value="true" class="checkbox" #if($invitepartner.indexOf($bean.id) != -1) checked#end #if(!$hasB) onClick="hasNoPartner('${bean.id}-partner');" #elseif($hasA) onClick="onClickSetState('${bean.id}-partner', '${bean.id}-select');" #else onClick="" #end>
+				<input type="checkbox" id="${bean.id}-partner" name="${bean.id}-partner" value="true" class="checkbox" #if($invitepartner.indexOf($bean.id) != -1) checked#end #if(!$hasB) onClick="hasNoPartner('${bean.id}-partner');" #elseif($hasA) onClick="onClickSetState('${bean.id}-partner', '${bean.id}-select');onClickEnforceConsistentState('${bean.id}-select', '${bean.id}-partner', '${bean.id}-reserve');" #else onClick="onClickEnforceConsistentState('${bean.id}-select', '${bean.id}-partner', '${bean.id}-reserve');" #end>
 			</td>
 		#end
-		<td class="list" title="Auf Reserve"><input type="checkbox" name="${bean.id}-reserve" value="true" class="checkbox" #if($selectreserve.indexOf($bean.id) != -1) checked#end></td>
+		<td class="list" title="Auf Reserve"><input type="checkbox" name="${bean.id}-reserve" id="${bean.id}-reserve" value="true" class="checkbox" #if($selectreserve.indexOf($bean.id) != -1) checked#end onClick="onClickEnsureSelection('${bean.id}-select', '${bean.id}-partner', '${bean.id}-reserve', $event.invitationtype);"></td>
 		<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}&person-category=' + document.getElementById('$!{bean.id}-category').value;"><input type="hidden" name="${bean.id}-id" value="$bean.id">$!{bean.id}</td>
 		<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}&person-category=' + document.getElementById('$!{bean.id}-category').value;">$!message.plain($bean.lastname_a_e1)</td>
 		<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}&person-category=' + document.getElementById('$!{bean.id}-category').value;">$!message.plain($bean.firstname_a_e1)</td>
@@ -245,7 +248,8 @@
 	</tr>
 	#else
 	<tr class="$class" style="height: 22px;" onmouseover="onMouseOverList(this);" onmouseout="onMouseOutList(this);">
-	##
+
+	## modified for direct search result navigation from the person detail view as per change request for version 1.2.0
 	## cklein
 	## 2008-02-21
 		<td class="list"><input type="checkbox" name="${bean.id}-select" value="true" class="checkbox" #if($listselection.indexOf($bean.id) != -1) checked#end></td>
@@ -321,6 +325,39 @@
 	function onClickSetState(box1, box2) {
 		if (document.getElementById(box1).checked) {
 			document.getElementById(box2).checked = true;
+		}
+	}
+
+## Fix for Bug 987
+## cklein
+## 2008-02-22
+	function onClickEnforceConsistentState(box1, box2, box3) {
+		var checked = document.getElementById(box1).checked || document.getElementById(box2).checked;
+		if ( ! checked )
+		{
+			document.getElementById(box3).checked = false;
+		}
+	}
+
+	function onClickEnsureSelection(box1, box2, box3, invitationType) {
+		if ( document.getElementById(box3).checked )
+		{
+			var checked = document.getElementById(box1).checked || document.getElementById(box2).checked;
+			if ( ! checked )
+			{
+				if ( invitationType == 1 )
+				{
+					document.getElementById(box1).checked = document.getElementById(box2).checked = true;
+				}
+				else if ( invitationType == 2 )
+				{
+					document.getElementById(box2).checked = true;
+				}
+				else if ( invitationType == 3 )
+				{
+					document.getElementById(box1).checked = true;
+				}
+			}
 		}
 	}
 </script>

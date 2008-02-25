@@ -470,6 +470,17 @@ public class GuestListWorker extends ListWorkerVeraWeb {
                         "(invitationtype = 3 AND invitationstatus_p=2)" +
                         ")"));
                 break;
+            case 4:
+                // nur Teilnahmen
+                where.addAnd(new RawClause("(" +
+                        // Mit Partner
+                        "(invitationtype = 1 AND (invitationstatus=3 OR invitationstatus_p=3)) OR" +
+                        // Ohne Partner
+                        "(invitationtype = 2 AND invitationstatus=3) OR" +
+                        // Nur Partner
+                        "(invitationtype = 3 AND invitationstatus_p=3)" +
+                        ")"));
+                break;
             }
         }
     }

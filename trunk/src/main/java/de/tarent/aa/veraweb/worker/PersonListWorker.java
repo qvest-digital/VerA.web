@@ -104,8 +104,7 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 	 */
 	public List showList(OctopusContext cntx) throws BeanException, IOException {
 		Database database = getDatabase(cntx);
-		// Direct Search Result Navigation Extension
-		/*
+		/* modified (refactored part of behaviour to prepareShowList for additional reuse) as per change request for version 1.2.0 
 		 * cklein
 		 * 2008-02-21
 		 */
@@ -115,11 +114,6 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 		return getResultList( database, select );
 	}
 
-	// Direct Search Result Navigation Extension
-	/*
-	 * cklein
-	 * 2008-02-21
-	 */
 	public Select prepareShowList( OctopusContext cntx, Database database ) throws BeanException, IOException
 	{
 		Integer start = getStart(cntx);
