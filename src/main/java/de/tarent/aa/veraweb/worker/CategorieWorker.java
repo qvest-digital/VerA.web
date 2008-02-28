@@ -113,6 +113,44 @@ public class CategorieWorker extends StammdatenWorker {
 		}
 	}
 
+	@Override
+	public void getAll(OctopusContext cntx) throws BeanException, IOException
+	{
+		Integer count = cntx.requestAsInteger( "count" );
+		if ( count != null )
+		{
+			cntx.setContent( "count", count );
+		}
+		super.getAll(cntx);
+	}
+
+	/**
+	 * Returns all available person categories that have not been 
+	 * assigned to a specific event.
+	 * 
+	 * @param cntx
+	 * @throws BeanException
+	 * @throws IOException
+	 */
+	public static String[] INPUT_getAllAvailablePersonCategories = {};
+	public static String[] MANDATOR_getAllAvailablePersonCategories = {};
+	public void getAllAvailablePersonCategories( OctopusContext cntx ) throws BeanException, IOException
+	{
+		Database database = getDatabase(cntx);
+		Select select = database.getSelect(BEANNAME);
+		extendColumns(cntx, select);
+		extendAll(cntx, select);
+		select.whereAnd( Expr.isNull( "fk_event" ) );
+
+		Integer count = cntx.requestAsInteger( "count" );
+		if ( count != null )
+		{
+			cntx.setContent( "count", count );
+		}
+
+		cntx.setContent("all" + BEANNAME, database.getList(select));
+	}
+
 	protected void extendAll(OctopusContext cntx, Select select) throws BeanException, IOException {
 		Clause clause = null;
 		Person person = (Person)cntx.contentAsObject("person");

@@ -192,7 +192,7 @@
 	#set($offset = $listparam.start + $velocityCount)
 	
 	<tr class="$class" onmouseover="onMouseOverList(this);" onmouseout="onMouseOutList(this);">
-		<td class="list"><input type="hidden" id="${bean.id}-modified" name="${bean.id}-modified" value="false"><input type="hidden" id="${bean.id}-invitationtype" name="${bean.id}-invitationtype" value="${bean.invitationtype}"><input type="checkbox" name="${bean.id}-select" value="true" class="checkbox" #if($listselection.indexOf($bean.id) != -1) checked#end></td>
+		<td class="list"><input type="hidden" id="${bean.id}-modified" name="${bean.id}-modified" value="false"><input type="hidden" id="${bean.id}-invitationtype" name="${bean.id}-invitationtype" value="${bean.invitationtype}"><input type="checkbox" name="${bean.id}-select" onChange="selectionChange( this );" value="true" class="checkbox" #if($listselection.indexOf($bean.id) != -1) checked#end></td>
 		<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&offset=$offset';"><input type="hidden" name="${bean.id}-id" value="$bean.id">
 			#if($bean.ishost && $bean.ishost == 1)
 				<em>Gastgeber</em>
@@ -375,6 +375,59 @@
     <input type="submit" name="remove" value="L&ouml;schen" #if($grants.mayWrite()) class="button" #else class="buttondisabled" disabled #end> &nbsp;
     <input type="button" name="add" value="Gast hinzuf&uuml;gen" title="Personen suchen und zu der G&auml;steliste hinzuf&uuml;gen" onclick="window.location.href='AddPersonToEventSearch?action=guest&search=clear';" #if($grants.mayWrite()) class="button" #else class="buttondisabled" disabled #end> &nbsp;
     <input type="button" name="cancel" value="Zur&uuml;ck" title="Zur&uuml;ck zu den Veranstaltungdetails" class="reset" onclick="window.location.href='ShowEvent?id=$!event.id&action=event';"> &nbsp;
+
+<script type="text/javascript">
+
+	var selectedCount = ${listselection.size()};
+	function hasSelection()
+	{
+		return ( selectedCount > 0 );
+	}
+
+	function selectionChange( elt )
+	{
+		selectedCount += ( elt.checked ? 1 : -1 );
+	}
+
+	function unassignCategories()
+	{
+		if ( hasSelection() )
+		{
+			selectPersonCategory( "${paths.staticWeb}do/popupUnassignGuestCategory?count=" + selectedCount );
+		}
+		else
+		{
+			alert( "Wählen Sie bitte zunächst eine oder mehrere Personen aus." );
+		}
+	}
+	function assignCategories()
+	{
+		if ( hasSelection() )
+		{
+			selectPersonCategory( "${paths.staticWeb}do/popupAssignGuestCategory?count=" + selectedCount );
+		}
+		else
+		{
+			alert( "Wählen Sie bitte zunächst eine oder mehrere Personen aus." );
+		}
+	}
+
+</script>
+
+#set($isUser = false)
+#set($isAdmin = false)
+#foreach($group in $octopusConfig.personalConfig.UserGroups)
+	#if($group == "Writer")
+		#set($isUser = true)
+	#elseif($group == "PartialAdmin")
+		#set($isAdmin = true)
+	#elseif($group == "Administrator")
+		#set($isAdmin = true)
+	#end
+#end
+
+	<input type="button" name="assignCategory" value="Kategorien zuordnen" #if($isUser) class="button" onClick="assignCategories();" #else class="buttondisabled" disabled="disabled" #end>&nbsp;
+	<input type="button" name="unassignCategory" value="Kategorien entfernen" #if($isUser) class="button" onClick="unassignCategories();" #else class="buttondisabled" disabled="disabled" #end>
 
 </div></div></div>
 </div>

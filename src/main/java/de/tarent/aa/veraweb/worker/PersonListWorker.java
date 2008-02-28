@@ -38,6 +38,7 @@ import java.util.List;
 import java.util.Map;
 
 import de.tarent.aa.veraweb.beans.Person;
+import de.tarent.aa.veraweb.beans.PersonCategorie;
 import de.tarent.aa.veraweb.beans.PersonSearch;
 import de.tarent.aa.veraweb.beans.facade.PersonConstants;
 import de.tarent.aa.veraweb.utils.DatabaseHelper;
@@ -114,6 +115,39 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 		Map param = ( Map )cntx.contentAsObject( OUTPUT_showListParams );
 		cntx.setContent( OUTPUT_getSelection, getSelection( cntx, ( Integer ) param.get( "count" ) ) );
 		return getResultList( database, select );
+	}
+
+	@Override
+	public void saveList(OctopusContext cntx) throws BeanException, IOException
+	{
+		// does the user request categories to be assigned or unassigned?
+		String assignmentAction = cntx.requestAsString( "assignmentAction" );
+		if ( assignmentAction != null )
+		{
+			Database database = getDatabase(cntx);
+			List selection = this.getSelection( cntx, this.getCount( cntx, database ) );
+			Iterator iter = selection.iterator();
+			PersonCategorieWorker personCategoryWorker = WorkerFactory.getPersonCategorieWorker( cntx ); 
+			PersonCategorie personCategory = new PersonCategorie();
+			personCategory.categorie = cntx.requestAsInteger( "categoryAssignmentId" ); 
+			while( iter.hasNext() )
+			{
+				personCategory.person = ( Integer ) iter.next();
+				if ( "assign".compareTo( assignmentAction ) == 0 )
+				{
+					// TODO rank from category?
+					personCategoryWorker.assignCategory( cntx, personCategory );
+				}
+				else
+				{
+					personCategoryWorker.unassignCategory( personCategory );
+				}
+			}
+		}
+		else
+		{
+			super.saveList(cntx);
+		}
 	}
 
 	public Select prepareShowList( OctopusContext cntx, Database database ) throws BeanException, IOException

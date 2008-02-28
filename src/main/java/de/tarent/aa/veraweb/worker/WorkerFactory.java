@@ -48,6 +48,16 @@ public class WorkerFactory {
 	}
 	
     /**
+     * Diese Methode liefert den Worker namens "PersonCategorieWorker".
+     * 
+     * @param cntx Octopus-Kontext
+     * @return {@link PersonCategorieWorker}-Instanz des Moduls
+     */
+	static public PersonCategorieWorker getPersonCategorieWorker(OctopusContext cntx) {
+		return (PersonCategorieWorker)getWorker(cntx, "PersonCategorieWorker");
+	}
+
+	/**
      * Diese Methode liefert den Worker namens "PersonDetailWorker".
      * 
      * @param cntx Octopus-Kontext

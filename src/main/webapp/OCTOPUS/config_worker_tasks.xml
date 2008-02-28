@@ -435,7 +435,7 @@
 				<input name="Gültigkeitstyp" type="xsd:string" optional="t" description="Vorgabewert: Art der Gültigkeitsdatumsangabe"/>
 			</contract>
 			<doTask name="Load"/>
-			<action name="getAll" worker="CategorieWorker" />
+			<action name="getAllAvailablePersonCategories" worker="CategorieWorker" />
 			<action name="getAll" worker="WorkAreaWorker"/>
 			<action name="getSearch" worker="PersonListWorker" />
 			<response type="velocity" name="personSearch">
@@ -1496,17 +1496,68 @@
 		</task>
 
 		<!--
-		  - modified as per change request 2.6.2, 2.6.3 for version 1.2.0
+		  - modified as per change request 2.6.2 for version 1.2.0
 		  - cklein
 		  - 2008-02-28
 		-->		
-		<task name="popupSelectCategory" access="public" groups="StandardFieldsReader">
+		<task name="popupAssignPersonCategory" access="public" groups="StandardFieldsReader">
 			<description>
 				Zeigt ein Popup zur Auswahl einer Kategorie an.
 			</description>
 			<doTask name="Load"/>
-			<action name="showList" worker="CategorieWorker"/>
-			<param name="liststarts" value="true"/>
+			<action name="getAllAvailablePersonCategories" worker="CategorieWorker"/>
+			<param name="assignmentAction" value="assign"/>
+			<response type="velocity" name="popupSelectCategory">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+
+		<!--
+		  - modified as per change request 2.6.2 for version 1.2.0
+		  - cklein
+		  - 2008-02-28
+		-->		
+		<task name="popupUnassignPersonCategory" access="public" groups="StandardFieldsReader">
+			<description>
+				Zeigt ein Popup zur Auswahl einer Kategorie an.
+			</description>
+			<doTask name="Load"/>
+			<action name="getAllAvailablePersonCategories" worker="PersonCategorieWorker"/>
+			<param name="assignmentAction" value="unassign"/>
+			<response type="velocity" name="popupSelectCategory">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+
+		<!--
+		  - modified as per change request 2.6.3 for version 1.2.0
+		  - cklein
+		  - 2008-02-28
+		-->		
+		<task name="popupAssignGuestCategory" access="public" groups="StandardFieldsReader">
+			<description>
+				Zeigt ein Popup zur Auswahl einer Kategorie an.
+			</description>
+			<doTask name="Load"/>
+			<action name="getAll" worker="CategorieWorker"/>
+			<param name="assignmentAction" value="assign"/>
+			<response type="velocity" name="popupSelectCategory">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+
+		<!--
+		  - modified as per change request 2.6.3 for version 1.2.0
+		  - cklein
+		  - 2008-02-28
+		-->		
+		<task name="popupUnassignGuestCategory" access="public" groups="StandardFieldsReader">
+			<description>
+				Zeigt ein Popup zur Auswahl einer Kategorie an.
+			</description>
+			<doTask name="Load"/>
+			<action name="getAll" worker="CategorieWorker"/>
+			<param name="assignmentAction" value="unassign"/>
 			<response type="velocity" name="popupSelectCategory">
 				<param name="ContentType" value="text/html;charset=UTF-8"/>
 			</response>
