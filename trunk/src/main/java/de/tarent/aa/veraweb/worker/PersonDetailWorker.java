@@ -215,7 +215,12 @@ public class PersonDetailWorker implements PersonConstants {
 		 * 2008-02-21
 		 */
 		map.put( "statistik", "EventsGroupByGuest" );
-		String temp = DateFormat.getDateInstance().format( new Date( person.created.getTime() ) );
+		Date d = new Date( System.currentTimeMillis() );
+		if ( person != null && person.created != null )
+		{
+			d = new Date( person.created.getTime() );
+		}
+		String temp = DateFormat.getDateInstance().format( d );
 		String[] t = temp.split( "[.]" );
 		map.put( "begin", "01." + t[ 1 ] + "." + t[ 2 ] );
 		map.put( "end", DateFormat.getDateInstance().format( new Date() ) );

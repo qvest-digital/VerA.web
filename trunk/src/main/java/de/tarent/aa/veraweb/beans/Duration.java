@@ -9,6 +9,8 @@ package de.tarent.aa.veraweb.beans;
  */
 public class Duration extends AbstractBean
 {
+	public static String DEFAULT_FORMAT = "%Y%M%D";
+
 	public Integer years;
 	public Integer months;
 	public Integer days;
@@ -165,6 +167,11 @@ public class Duration extends AbstractBean
 		return temp.toString();
 	}
 
+	public String toFormattedString()
+	{
+		return this.toFormattedString( Duration.DEFAULT_FORMAT );
+	}
+	
 	public String toString()
 	{
 		StringBuffer temp = new StringBuffer();

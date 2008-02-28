@@ -86,7 +86,7 @@ public class PersonExportWorker extends PersonListWorker {
 	public static final String OUTPUT_exportFormat = "exportFormat";
 	/**
      * Diese Octopus-Aktion liefert die Standard-Dateinamenerweiterung zu dem Format,
-     * das beim Standard-Label-Dokumenttyp für einen Spreadsheet-Export eingestellt ist.
+     * das beim Standard-Label-Dokumenttyp fï¿½r einen Spreadsheet-Export eingestellt ist.
      * 
      * @param cntx Octopus-Kontext
      * @return Standard-Dateinamenerweiterung
@@ -109,15 +109,15 @@ public class PersonExportWorker extends PersonListWorker {
      * mit den aktuellen Personen.
      * 
      * @param cntx Octopus-Kontext
-     * @return eine Map mit Einträgen "type", "filename", "mimetype" und "stream" für die
+     * @return eine Map mit Eintrï¿½gen "type", "filename", "mimetype" und "stream" fï¿½r die
      *  {@link TcBinaryResponseEngine}
 	 */
 	public Map export(final OctopusContext cntx) throws BeanException, IOException, FactoryConfigurationError, TransformerFactoryConfigurationError {
 		final Database database = getDatabase(cntx);
 		final Doctype doctype = getExportDoctype(cntx);
 		if (doctype == null) {
-			logger.error("Konnte Gästeliste nicht exportieren, es wurde kein Dokumenttyp konfiguriert.");
-			throw new BeanException("Konnte Gästeliste nicht exportieren, es wurde kein Dokumenttyp konfiguriert.");
+			logger.error("Konnte Gï¿½steliste nicht exportieren, es wurde kein Dokumenttyp konfiguriert.");
+			throw new BeanException("Konnte Gï¿½steliste nicht exportieren, es wurde kein Dokumenttyp konfiguriert.");
 		}
 		
 		final SpreadSheet spreadSheet = SpreadSheetFactory.getSpreadSheet(doctype.format);
@@ -172,8 +172,8 @@ public class PersonExportWorker extends PersonListWorker {
         			if (memberBEx == null) memberAEx = "_a_e1";
         			if (addressEx == null) memberAEx = "_a_e1";
         			
-        			// Tabelle öffnen und erste Zeile schreiben
-        			spreadSheet.openTable("Gäste", 65);
+        			// Tabelle ï¿½ffnen und erste Zeile schreiben
+        			spreadSheet.openTable("Gï¿½ste", 65);
         			spreadSheet.openRow();
         			exportHeader(spreadSheet);
         			spreadSheet.closeRow();
@@ -199,12 +199,12 @@ public class PersonExportWorker extends PersonListWorker {
         			select.select("addresstype");
         			select.select("locale");
         			
-        			// Export-Select ausführen
+        			// Export-Select ausfï¿½hren
         			exportSelect(
         					spreadSheet, database, ((PersonalConfigAA)cntx.personalConfig()).getGrants(),
         					doctype, select, data, memberAEx, memberBEx, addressEx);
         			
-        			// Tabelle schließen
+        			// Tabelle schlieï¿½en
         			spreadSheet.closeTable();
         			
         			// SpreadSheet speichern
@@ -225,7 +225,7 @@ public class PersonExportWorker extends PersonListWorker {
         	}
         }).start();
 		
-		// Stream-Informationen zurück geben
+		// Stream-Informationen zurï¿½ck geben
 		Map stream = new HashMap();
 		stream.put(TcBinaryResponseEngine.PARAM_TYPE, TcBinaryResponseEngine.BINARY_RESPONSE_TYPE_STREAM);
 		stream.put(TcBinaryResponseEngine.PARAM_FILENAME, ExportHelper.getFilename(filename));
@@ -236,7 +236,7 @@ public class PersonExportWorker extends PersonListWorker {
 	}
 
 	/**
-	 * Schreibt die Überschriften des Export-Dokumentes.
+	 * Schreibt die ï¿½berschriften des Export-Dokumentes.
 	 * 
 	 * @param spreadSheet {@link SpreadSheet}, in das geschrieben werden soll.
 	 */
@@ -249,8 +249,8 @@ public class PersonExportWorker extends PersonListWorker {
 		spreadSheet.addCell("Partner_Freitextfeld");
 		spreadSheet.addCell("Verbinder");
 		
-		spreadSheet.addCell("Anschrift"); // P, G oder S - Vorgabe aus Person, überschreibbar
-		spreadSheet.addCell("Zeichensatz"); // L, F1 oder F2 - Vorgabe aus Person, überschreibbar
+		spreadSheet.addCell("Anschrift"); // P, G oder S - Vorgabe aus Person, ï¿½berschreibbar
+		spreadSheet.addCell("Zeichensatz"); // L, F1 oder F2 - Vorgabe aus Person, ï¿½berschreibbar
 		
 		spreadSheet.addCell("Funktion");
 		spreadSheet.addCell("Anrede");
@@ -269,7 +269,13 @@ public class PersonExportWorker extends PersonListWorker {
 		spreadSheet.addCell("Land");
 		spreadSheet.addCell("Adresszusatz_1");
 		spreadSheet.addCell("Adresszusatz_2");
-		
+
+		/*
+		 * modified to support birthplace as per change request for version 1.2.0
+		 * cklein
+		 * 2008-02-26
+		 */
+		spreadSheet.addCell("Geburtsort");
 		spreadSheet.addCell("Telefon");
 		spreadSheet.addCell("Fax");
 		spreadSheet.addCell("Email");
@@ -279,16 +285,22 @@ public class PersonExportWorker extends PersonListWorker {
 		spreadSheet.addCell("Postfach_Nr");
 		spreadSheet.addCell("Postfach_PLZ");
 		
+		/*
+		 * modified to support workareas as per change request for version 1.2.0
+		 * cklein
+		 * 2008-02-26
+		 */
+		spreadSheet.addCell("Arbeitsbereich");
 		//
 		// Kategorie spezifische Daten, wenn nach Kategorie gefilter wurde.
 		//
-		spreadSheet.addCell("Kategorie"); // Verweis auf Kategorie, die zur Auswahl führte
+		spreadSheet.addCell("Kategorie"); // Verweis auf Kategorie, die zur Auswahl fï¿½hrte
 		spreadSheet.addCell("Kategorie_Rang"); // Der Rang der Kategorie innerhalb der Kategorien
 		spreadSheet.addCell("Rang"); // Der Rang der Person innerhalb der Kategorie
 		spreadSheet.addCell("Reserve"); // 0 = Tisch, 1 = Reservce
 		
 		//
-		// Veranstaltungsspezifische Attribute für Person
+		// Veranstaltungsspezifische Attribute fï¿½r Person
 		//
 		spreadSheet.addCell("Status"); // 0 = Offen, 1 = Zusage, 2 = Absage
 		spreadSheet.addCell("Tisch");
@@ -298,12 +310,12 @@ public class PersonExportWorker extends PersonListWorker {
 		spreadSheet.addCell("Inland"); // Ja / Nein
 		spreadSheet.addCell("Sprachen");
 		spreadSheet.addCell("Geschlecht"); // M oder F
-		spreadSheet.addCell("Nationalität");
+		spreadSheet.addCell("Nationalitï¿½t");
 		spreadSheet.addCell("Hinweis_Gastgeber");
 		spreadSheet.addCell("Hinweis_Orgateam");
 		
 		//
-		// Veranstaltungsspezifische Attribute für Partner der Person
+		// Veranstaltungsspezifische Attribute fï¿½r Partner der Person
 		//
 		spreadSheet.addCell("Partner_Status"); // 0 = Offen, 1 = Zusage, 2 = Absage
 		spreadSheet.addCell("Partner_Tisch");
@@ -313,7 +325,7 @@ public class PersonExportWorker extends PersonListWorker {
 		spreadSheet.addCell("Partner_Inland"); // Ja / Nein
 		spreadSheet.addCell("Partner_Sprachen");
 		spreadSheet.addCell("Partner_Geschlecht"); // M oder F
-		spreadSheet.addCell("Partner_Nationalität");
+		spreadSheet.addCell("Partner_Nationalitï¿½t");
 		spreadSheet.addCell("Partner_Hinweis_Gastgeber");
 		spreadSheet.addCell("Partner_Hinweis_Orgateam");
 		
@@ -333,19 +345,19 @@ public class PersonExportWorker extends PersonListWorker {
 	}
 
     /**
-     * Diese Methode exportiert die Personen aus dem übergebenen Select in das
-     * übergebene Spreadsheet  
+     * Diese Methode exportiert die Personen aus dem ï¿½bergebenen Select in das
+     * ï¿½bergebene Spreadsheet  
      * 
      * @param spreadSheet {@link SpreadSheet}, in das exportiert werden soll.
-     * @param database Datenbank, in der das Select ausgeführt werden soll.
+     * @param database Datenbank, in der das Select ausgefï¿½hrt werden soll.
      * @param doctype Dokumenttyp, der vorgibt, ob Hauptperson und Partner in einem
      *  gemeinsamen oder in zwei getrennten Zeilen exportiert werden sollen.
      * @param select Select-Statement, das die zu exportierenden Personen selektiert.
-     * @param data Zusatzdaten unter den Schlüsseln "doctype", "color1", "color2",
+     * @param data Zusatzdaten unter den Schlï¿½sseln "doctype", "color1", "color2",
      *  "color3" und "color4".
-     * @param memberAEx Attributschlüsselsuffix der Hauptperson
-     * @param memberBEx Attributschlüsselsuffix der Partnerperson
-     * @param addressEx Attributschlüsselsuffix der Adressdaten
+     * @param memberAEx Attributschlï¿½sselsuffix der Hauptperson
+     * @param memberBEx Attributschlï¿½sselsuffix der Partnerperson
+     * @param addressEx Attributschlï¿½sselsuffix der Adressdaten
      */
 	protected void exportSelect(SpreadSheet spreadSheet, Database database, Grants grants, Doctype doctype, Select select, Map data, String memberAEx, String memberBEx, String addressEx) throws BeanException {
 		for (Iterator it = database.getList(select).iterator(); it.hasNext(); ) {
@@ -465,6 +477,12 @@ public class PersonExportWorker extends PersonListWorker {
 		spreadSheet.addCell(person.get("suffix1" + addressEx));
 		spreadSheet.addCell(person.get("suffix2" + addressEx));
 		
+		/*
+		 * modified to support birthplace as per change request for version 1.2.0
+		 * cklein
+		 * 2008-02-26
+		 */
+		spreadSheet.addCell(person.get("birthplace" + addressEx));
 		spreadSheet.addCell(person.get("fon" + addressEx));
 		spreadSheet.addCell(person.get("fax" + addressEx));
 		spreadSheet.addCell(person.get("mail" + addressEx));
@@ -473,17 +491,23 @@ public class PersonExportWorker extends PersonListWorker {
 		spreadSheet.addCell(person.get("company" + addressEx));
 		spreadSheet.addCell(person.get("pobox" + addressEx));
 		spreadSheet.addCell(person.get("poboxzipcode" + addressEx));
-		
+
+		/*
+		 * modified to support work areas as per change request for version 1.2.0
+		 * cklein
+		 * 2008-02-26
+		 */
+		spreadSheet.addCell(null); // Verweis auf Arbeitsbereich, der zur Auswahl fÃ¼hrte
 		//
 		// Kategorie spezifische Daten, wenn nach Kategorie gefilter wurde.
 		//
-		spreadSheet.addCell(null); // Verweis auf Kategorie, die zur Auswahl führte
+		spreadSheet.addCell(null); // Verweis auf Kategorie, die zur Auswahl fï¿½hrte
 		spreadSheet.addCell(null); // Der Rang der Kategorie innerhalb der Kategorien
 		spreadSheet.addCell(null); // Der Rang der Person innerhalb der Kategorie
 		spreadSheet.addCell(null); // 0 = Tisch, 1 = Reservce
 		
 		//
-		// Veranstaltungsspezifische Attribute für Person
+		// Veranstaltungsspezifische Attribute fï¿½r Person
 		//
 		if (showA) {
 			spreadSheet.addCell(null); // 0 = Offen, 1 = Zusage, 2 = Absage
@@ -512,7 +536,7 @@ public class PersonExportWorker extends PersonListWorker {
 		}
 		
 		//
-		// Veranstaltungsspezifische Attribute für Partner der Person
+		// Veranstaltungsspezifische Attribute fï¿½r Partner der Person
 		//
 		if (showB) {
 			spreadSheet.addCell(null); // 0 = Offen, 1 = Zusage, 2 = Absage
@@ -556,7 +580,7 @@ public class PersonExportWorker extends PersonListWorker {
 	}
 
 	/**
-	 * Export ausschließlich die Gast-Daten in eine Zeile.
+	 * Export ausschlieï¿½lich die Gast-Daten in eine Zeile.
 	 * 
 	 * @param spreadSheet In das geschrieben werden soll.
 	 * @param person Map mit den Gastdaten.
@@ -591,7 +615,13 @@ public class PersonExportWorker extends PersonListWorker {
 		spreadSheet.addCell(person.get("country" + addressEx));
 		spreadSheet.addCell(person.get("suffix1" + addressEx));
 		spreadSheet.addCell(person.get("suffix2" + addressEx));
-		
+
+		/*
+		 * modified to support birthplace as per change request for version 1.2.0
+		 * cklein
+		 * 2008-02-26
+		 */
+		spreadSheet.addCell(person.get("birthplace" + addressEx));
 		spreadSheet.addCell(person.get("fon" + addressEx));
 		spreadSheet.addCell(person.get("fax" + addressEx));
 		spreadSheet.addCell(person.get("mail" + addressEx));
@@ -601,16 +631,22 @@ public class PersonExportWorker extends PersonListWorker {
 		spreadSheet.addCell(person.get("pobox" + addressEx));
 		spreadSheet.addCell(person.get("poboxzipcode" + addressEx));
 		
+		/*
+		 * modified to support work areas as per change request for version 1.2.0
+		 * cklein
+		 * 2008-02-26
+		 */
+		spreadSheet.addCell(null); // Verweis auf Arbeitsbereich, der zur Auswahl fÃ¼hrte
 		//
 		// Kategorie spezifische Daten, wenn nach Kategorie gefilter wurde.
 		//
-		spreadSheet.addCell(null); // Verweis auf Kategorie, die zur Auswahl führte
+		spreadSheet.addCell(null); // Verweis auf Kategorie, die zur Auswahl fï¿½hrte
 		spreadSheet.addCell(null); // Der Rang der Kategorie innerhalb der Kategorien
 		spreadSheet.addCell(null); // Der Rang der Person innerhalb der Kategorie
 		spreadSheet.addCell(null); // 0 = Tisch, 1 = Reservce
 		
 		//
-		// Veranstaltungsspezifische Attribute für Person
+		// Veranstaltungsspezifische Attribute fï¿½r Person
 		//
 		spreadSheet.addCell(null); // 0 = Offen, 1 = Zusage, 2 = Absage
 		spreadSheet.addCell(null);
@@ -625,7 +661,7 @@ public class PersonExportWorker extends PersonListWorker {
 		spreadSheet.addCell(showRemarks ? person.get("noteorga_a_e1") : null);
 		
 		//
-		// Veranstaltungsspezifische Attribute für Partner der Person
+		// Veranstaltungsspezifische Attribute fï¿½r Partner der Person
 		//
 		spreadSheet.addCell(null); // 0 = Offen, 1 = Zusage, 2 = Absage
 		spreadSheet.addCell(null);
@@ -655,7 +691,7 @@ public class PersonExportWorker extends PersonListWorker {
 	}
 
 	/**
-	 * Export ausschließlich die Partner-Daten in eine Zeile.
+	 * Export ausschlieï¿½lich die Partner-Daten in eine Zeile.
 	 * 
 	 * @param spreadSheet In das geschrieben werden soll.
 	 * @param person Map mit den Personendaten.
@@ -690,7 +726,13 @@ public class PersonExportWorker extends PersonListWorker {
 		spreadSheet.addCell(person.get("country" + addressEx));
 		spreadSheet.addCell(person.get("suffix1" + addressEx));
 		spreadSheet.addCell(person.get("suffix2" + addressEx));
-		
+
+		/*
+		 * modified to support birthplace as per change request for version 1.2.0
+		 * cklein
+		 * 2008-02-26
+		 */
+		spreadSheet.addCell(""); // partners do not have a birthplace + addressEx attribute
 		spreadSheet.addCell(person.get("fon" + addressEx));
 		spreadSheet.addCell(person.get("fax" + addressEx));
 		spreadSheet.addCell(person.get("mail" + addressEx));
@@ -703,13 +745,13 @@ public class PersonExportWorker extends PersonListWorker {
 		//
 		// Kategorie spezifische Daten, wenn nach Kategorie gefilter wurde.
 		//
-		spreadSheet.addCell(null); // Verweis auf Kategorie, die zur Auswahl führte
+		spreadSheet.addCell(null); // Verweis auf Kategorie, die zur Auswahl fï¿½hrte
 		spreadSheet.addCell(null); // Der Rang der Kategorie innerhalb der Kategorien
 		spreadSheet.addCell(null); // Der Rang der Person innerhalb der Kategorie
 		spreadSheet.addCell(null); // 0 = Tisch, 1 = Reservce
 		
 		//
-		// Veranstaltungsspezifische Attribute für Person
+		// Veranstaltungsspezifische Attribute fï¿½r Person
 		//
 		spreadSheet.addCell(null); // 0 = Offen, 1 = Zusage, 2 = Absage
 		spreadSheet.addCell(null);
@@ -724,7 +766,7 @@ public class PersonExportWorker extends PersonListWorker {
 		spreadSheet.addCell(showRemarks ? person.get("noteorga_b_e1") : null);
 		
 		//
-		// Veranstaltungsspezifische Attribute für Partner der Person
+		// Veranstaltungsspezifische Attribute fï¿½r Partner der Person
 		//
 		spreadSheet.addCell(null); // 0 = Offen, 1 = Zusage, 2 = Absage
 		spreadSheet.addCell(null);
@@ -757,7 +799,7 @@ public class PersonExportWorker extends PersonListWorker {
      * Diese Methode liefert eine RGB-Farbe zu einer Person. 
      * 
      * @param person Person, zu der die Farbe gesucht wird.
-     * @param data Zusatzdaten unter den Schlüsseln "color1", "color2",
+     * @param data Zusatzdaten unter den Schlï¿½sseln "color1", "color2",
      *  "color3" und "color4".
      * @param main Flag, ob es um die Hauptperson (<code>true</code>) oder
      *  den Partner (<code>false</code>) geht
@@ -779,9 +821,9 @@ public class PersonExportWorker extends PersonListWorker {
 	}
 
 	/**
-	 * Lädt den Dokumenttypen der zum Personen-Export verwendet werden soll,
-	 * hierfür wird der Standard-Dokumenttyp verwendet, ist dieser nicht
-	 * gesetzt wird der Dokumenttyp des Freitextfeldes zurück gegeben.
+	 * Lï¿½dt den Dokumenttypen der zum Personen-Export verwendet werden soll,
+	 * hierfï¿½r wird der Standard-Dokumenttyp verwendet, ist dieser nicht
+	 * gesetzt wird der Dokumenttyp des Freitextfeldes zurï¿½ck gegeben.
 	 * 
 	 * @param cntx
 	 * @return

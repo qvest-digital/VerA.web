@@ -48,7 +48,7 @@ import de.tarent.octopus.server.OctopusContext;
 
 /**
  * Dieser Octopus-Worker erweitert die Personen-Liste (vergleiche Worker
- * {@link PersonListWorker}) um Auswahllisten für den Partner und das
+ * {@link PersonListWorker}) um Auswahllisten fï¿½r den Partner und das
  * Reserve-Flag.
  * 
  * @author Christoph Jerolimov
@@ -58,16 +58,16 @@ public class PersonGuestListWorker extends PersonListWorker {
     //
     // Octopus-Aktionen
     //
-    /** Eingabe-PArameter für die Octopus-Aktion {@link #extendGuestSelection(OctopusContext)} */
+    /** Eingabe-PArameter fï¿½r die Octopus-Aktion {@link #extendGuestSelection(OctopusContext)} */
 	public static final String INPUT_extendGuestSelection[] = {};
 	/**
-     * Diese Octopus-Aktion erweitert die Listenselektionsfunktionalität des
+     * Diese Octopus-Aktion erweitert die Listenselektionsfunktionalitï¿½t des
      * {@link de.tarent.octopus.custom.beans.BeanListWorker}s um weitere
      * Selektionsspalten.<br>
-     * Hierzu wird zusätzlich auf die Daten im Octopus-Content unter "event", im Request
+     * Hierzu wird zusï¿½tzlich auf die Daten im Octopus-Content unter "event", im Request
      * unter "list", "search", "selectAll", "selectNone", "{ID}-partner", "{ID}-reserve"
      * und "{ID}-category" und in der Session unter "addguest-invitepartner",
-     * "addguest-selectreserve", "addguest-invitecategory" zurückgegriffen. Daten werden
+     * "addguest-selectreserve", "addguest-invitecategory" zurï¿½ckgegriffen. Daten werden
      * dann im Octopus-Content unter "invitepartner", "selectreserve", "invitecategory",
      * "personCategorie" und "search" und in der Session unter "selectionPErson",
      * "addguest-invitepartner", "addguest-selectreserve" und "addguest-invitecategory"
@@ -94,11 +94,11 @@ public class PersonGuestListWorker extends PersonListWorker {
 			
 			Select select = database.getSelectIds(database.createBean(BEANNAME));
 			Clause clause = getPersonListFilter(cntx);
-			if (search.categorie != null && search.categorie2 != null) {
+			if (search.categoriesSelection != null && search.categorie2 != null) {
 				select.joinLeftOuter("veraweb.tperson_categorie AS cat1", "tperson.pk", "cat1.fk_person");
 				select.joinLeftOuter("veraweb.tperson_categorie AS cat2", "tperson.pk", "cat2.fk_person");
 				select.selectAs("cat1.fk_categorie", "category");
-			} else if (search.categorie != null) {
+			} else if (search.categoriesSelection != null) {
 				select.joinLeftOuter("veraweb.tperson_categorie AS cat1", "tperson.pk", "cat1.fk_person");
 				select.selectAs("cat1.fk_categorie", "category");
 			} else if (search.categorie2 != null) {
@@ -109,12 +109,22 @@ public class PersonGuestListWorker extends PersonListWorker {
 			}
 			select.where(clause);
 			
+			/*
+			 * modified to support searching for persons that have no categories assigned as per change request for version 1.2.0
+			 * cklein
+			 * 2008-02-26
+			 */
+			if ( search.categoriesSelection.size() == 1 && ( ( Integer ) search.categoriesSelection.get( 0 ) ).intValue() == 0 )
+			{
+				select.whereAnd( Expr.isNull( "cat1.fk_person" ) );
+			}
+			
 			// Kategorien berechnen
 			invitecategory = new HashMap();
-			if (search.categorie != null) {
+			if (search.categoriesSelection!= null) {
 				for (Iterator it = database.getList(select).iterator(); it.hasNext(); ) {
 					Map data = (Map)it.next();
-					invitecategory.put(data.get("id"), search.categorie);
+					invitecategory.put(data.get("id"), data.get( "category" ) /*search.categorie*/ );
 				}
 			} else if (search.categorie2 != null) {
 				for (Iterator it = database.getList(select).iterator(); it.hasNext(); ) {
@@ -156,11 +166,11 @@ public class PersonGuestListWorker extends PersonListWorker {
 			selectreserve = new ArrayList();
 			
 			Select select = database.getSelectIds(database.createBean(BEANNAME));
-			if (search.categorie != null && search.categorie2 != null) {
+			if (search.categoriesSelection != null && search.categorie2 != null) {
 				select.joinLeftOuter("veraweb.tperson_categorie AS cat1", "tperson.pk", "cat1.fk_person");
 				select.joinLeftOuter("veraweb.tperson_categorie AS cat2", "tperson.pk", "cat2.fk_person");
 				select.selectAs("cat1.fk_categorie", "category");
-			} else if (search.categorie != null) {
+			} else if (search.categoriesSelection != null) {
 				select.joinLeftOuter("veraweb.tperson_categorie AS cat1", "tperson.pk", "cat1.fk_person");
 				select.selectAs("cat1.fk_categorie", "category");
 			} else if (search.categorie2 != null) {
@@ -178,6 +188,15 @@ public class PersonGuestListWorker extends PersonListWorker {
 					invitemain.add(((Map)it.next()).get("id"));
 				}
 			}
+			/*
+			 * modified to support searching for persons that have no categories assigned as per change request for version 1.2.0
+			 * cklein
+			 * 2008-02-26
+			 */
+			if ( search.categoriesSelection.size() == 1 && ( ( Integer ) search.categoriesSelection.get( 0 ) ).intValue() == 0 )
+			{
+				select.whereAnd( Expr.isNull( "cat1.fk_person" ) );
+			}
 			if (event.invitationtype.intValue() != EventConstants.TYPE_OHNEPARTNER) {
 				select.where(Where.and(clause, Where.or(
 						Expr.greater("lastname_b_e1", ""),
@@ -187,7 +206,7 @@ public class PersonGuestListWorker extends PersonListWorker {
 				}
 			}
 		} else {
-			// IDs zusammenführen.
+			// IDs zusammenfï¿½hren.
 			if (invitepartner == null) invitepartner = new ArrayList();
 			if (selectreserve == null) selectreserve = new ArrayList();
 			
@@ -225,12 +244,12 @@ public class PersonGuestListWorker extends PersonListWorker {
 		cntx.setContent("search", search);
 	}
 
-    /** Eingabe-PArameter für die Octopus-Aktion {@link #clearGuestSelection(OctopusContext)} */
+    /** Eingabe-PArameter fï¿½r die Octopus-Aktion {@link #clearGuestSelection(OctopusContext)} */
 	public static final String INPUT_clearGuestSelection[] = {};
 	/**
-     * Diese Octopus-Aktion setzt die zusätzlichen Personen-Selektionen in der
+     * Diese Octopus-Aktion setzt die zusï¿½tzlichen Personen-Selektionen in der
      * Session unter "addguest-selectreserve", "addguest-invitepartner" und
-     * "addguest-invitecategory" zurück.
+     * "addguest-invitecategory" zurï¿½ck.
      * 
      * @param cntx Octopus-Kontext.
 	 */
@@ -246,14 +265,14 @@ public class PersonGuestListWorker extends PersonListWorker {
     /**
      * Diese Hilfsklasse wird in der obigen Octopus-Aktion
      * {@link PersonGuestListWorker#extendGuestSelection(OctopusContext)}
-     * benutzt, um ein Objekt zur Verfügung zu stellen, das zu Personen
-     * die zugehörigen personalisierten Kategorien liefert. 
+     * benutzt, um ein Objekt zur Verfï¿½gung zu stellen, das zu Personen
+     * die zugehï¿½rigen personalisierten Kategorien liefert. 
      */
 	static public class PersonCategorie {
         /** Aus dieser DB sollen die personalisierten Kategorien gelesen werden. */
 		private final Database database;
 		/**
-         * Dieser Konstruktor legt die übergeben DB lokal ab.
+         * Dieser Konstruktor legt die ï¿½bergeben DB lokal ab.
          * 
          * @param database Aus dieser DB sollen die personalisierten Kategorien gelesen werden.
 		 */
@@ -265,7 +284,7 @@ public class PersonGuestListWorker extends PersonListWorker {
          * Diese Methode liefert die personalisierten Kategorien zu einer Personen-ID. 
          * 
          * @param personId ID der Person, deren personalisierte Kategorien gesucht sind.
-         * @return Liste der personalisierten Kategorien der Person zu der übergebenen ID.
+         * @return Liste der personalisierten Kategorien der Person zu der ï¿½bergebenen ID.
 		 */
 		public List getList(Integer personId) {
 			if (personId == null)
