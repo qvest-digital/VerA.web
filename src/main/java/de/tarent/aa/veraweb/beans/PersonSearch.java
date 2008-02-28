@@ -29,6 +29,7 @@
 package de.tarent.aa.veraweb.beans;
 
 import java.util.Date;
+import java.util.List;
 
 import de.tarent.octopus.PersonalConfigAA;
 import de.tarent.octopus.custom.beans.BeanException;
@@ -45,7 +46,7 @@ public class PersonSearch extends AbstractBean {
 	public String city;
 	public String country;
 	public Integer workarea;
-	public Integer categorie;
+	public List categoriesSelection;
 	public Integer categorie2;
 	public Boolean iscompany;
 	public String importsource;

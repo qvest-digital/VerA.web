@@ -250,6 +250,15 @@ public class GuestExportWorker {
 		select.select("tperson.zipcode_a_e1");
 		select.select("tperson.birthplace_a_e1");
 		select.joinLeftOuter("veraweb.tcategorie", "tguest.fk_category", "tcategorie.pk");
+
+		/*
+		 * modified to support workareas as per change request for version 1.2.0
+		 * cklein
+		 * 2008-02-26
+		 */
+		select.selectAs("tworkarea.name", "workareaname");
+		select.joinLeftOuter("veraweb.tworkarea", "tworkarea.pk", "tperson.fk_workarea");
+
 		select.selectAs("tcategorie.catname", "catname");
 		select.selectAs("tcategorie.rank", "catrang");
 		select.joinLeftOuter("veraweb.tperson_categorie", "tperson_categorie.fk_person", "tguest.fk_person AND tperson_categorie.fk_categorie = tguest.fk_category");
@@ -343,14 +352,22 @@ public class GuestExportWorker {
 			Integer reserve = (Integer)guest.get("reserve");
 			Integer invitationstatus_a = (Integer)guest.get("invitationstatus");
 			Integer invitationstatus_b = (Integer)guest.get("invitationstatus_p");
+
+			/*
+			 * modified to support the additional fourth invitation_status of "teilgenommen"
+			 * cklein
+			 * 2008-02-26
+			 */
 			boolean showA = search.invitationstatus == null || (
 					(search.invitationstatus.intValue() == 1 && (invitationstatus_a == null || invitationstatus_a.intValue() == 0)) ||
 					(search.invitationstatus.intValue() == 2 && (invitationstatus_a != null && invitationstatus_a.intValue() == 1)) ||
-					(search.invitationstatus.intValue() == 3 && (invitationstatus_a != null && invitationstatus_a.intValue() == 2)));
+					(search.invitationstatus.intValue() == 3 && (invitationstatus_a != null && invitationstatus_a.intValue() == 2)) ||
+					(search.invitationstatus.intValue() == 4 && (invitationstatus_a != null && invitationstatus_a.intValue() == 3)));
 			boolean showB = search.invitationstatus == null || (
 					(search.invitationstatus.intValue() == 1 && (invitationstatus_b == null || invitationstatus_b.intValue() == 0)) ||
 					(search.invitationstatus.intValue() == 2 && (invitationstatus_b != null && invitationstatus_b.intValue() == 1)) ||
-					(search.invitationstatus.intValue() == 3 && (invitationstatus_b != null && invitationstatus_b.intValue() == 2)));
+					(search.invitationstatus.intValue() == 3 && (invitationstatus_b != null && invitationstatus_b.intValue() == 2)) ||
+					(search.invitationstatus.intValue() == 4 && (invitationstatus_b != null && invitationstatus_b.intValue() == 3)));
 			showA = showA && (search.reserve == null || (
 					(search.reserve.intValue() == 1 && (reserve == null || reserve.intValue() == 0)) ||
 					(search.reserve.intValue() == 2 && (reserve != null && reserve.intValue() == 1))));
@@ -450,6 +467,11 @@ public class GuestExportWorker {
 		spreadSheet.addCell("Adresszusatz_1");
 		spreadSheet.addCell("Adresszusatz_2");
 
+		/*
+		 * modified to support birthplace as per change request for version 1.2.0
+		 * cklein
+		 * 2008-02-26
+		 */
 		spreadSheet.addCell("Geburtsort");
 		spreadSheet.addCell("Telefon");
 		spreadSheet.addCell("Fax");
@@ -466,6 +488,13 @@ public class GuestExportWorker {
 		spreadSheet.addCell("Kategorie"); // Verweis auf Kategorie, die zur Auswahl f�hrte
 		spreadSheet.addCell("Kategorie_Rang"); // Der Rang der Kategorie innerhalb der Kategorien
 		spreadSheet.addCell("Rang"); // Der Rang der Person innerhalb der Kategorie
+
+		/*
+		 * modified to support workareas as per change request for version 1.2.0
+		 * cklein
+		 * 2008-02-26
+		 */
+		spreadSheet.addCell("Arbeitsbereich");
 		spreadSheet.addCell("Reserve"); // 0 = Tisch, 1 = Reservce
 		
 		//
@@ -479,7 +508,7 @@ public class GuestExportWorker {
 		spreadSheet.addCell("Inland"); // Ja / Nein
 		spreadSheet.addCell("Sprachen");
 		spreadSheet.addCell("Geschlecht"); // M oder F
-		spreadSheet.addCell("Nationalit�t");
+		spreadSheet.addCell("Nationalität");
 		spreadSheet.addCell("Hinweis_Gastgeber");
 		spreadSheet.addCell("Hinweis_Orgateam");
 		
@@ -494,7 +523,7 @@ public class GuestExportWorker {
 		spreadSheet.addCell("Partner_Inland"); // Ja / Nein
 		spreadSheet.addCell("Partner_Sprachen");
 		spreadSheet.addCell("Partner_Geschlecht"); // M oder F
-		spreadSheet.addCell("Partner_Nationalit�t");
+		spreadSheet.addCell("Partner_Nationalität");
 		spreadSheet.addCell("Partner_Hinweis_Gastgeber");
 		spreadSheet.addCell("Partner_Hinweis_Orgateam");
 		
@@ -504,6 +533,13 @@ public class GuestExportWorker {
 		spreadSheet.addCell("Anzahl_Zusagen");
 		spreadSheet.addCell("Anzahl_Absagen");
 		spreadSheet.addCell("Anzahl_Offene");
+
+		/*
+		 * modified to support fourth invitation state as per change request for version 1.2.0
+		 * cklein
+		 * 2008-02-26
+		 */
+		spreadSheet.addCell("Anzahl_Teilnahmen");
 		spreadSheet.addCell("Anzahl_Gaeste_auf_Platz");
 		spreadSheet.addCell("Anzahl_Gaeste_auf_Reserve");
 		spreadSheet.addCell("Veranstaltungsname");
@@ -581,7 +617,12 @@ public class GuestExportWorker {
 		spreadSheet.addCell(guest.get("suffix1"));
 		spreadSheet.addCell(guest.get("suffix2"));
 
-		spreadSheet.addCell(guest.get("birthplace"));
+		/*
+		 * modified to support birthplace as per change request for version 1.2.0
+		 * cklein
+		 * 2008-02-26
+		 */
+		spreadSheet.addCell(guest.get("birthplace_a_e1"));
 		spreadSheet.addCell(guest.get("fon"));
 		spreadSheet.addCell(guest.get("fax"));
 		spreadSheet.addCell(guest.get("mail"));
@@ -597,6 +638,13 @@ public class GuestExportWorker {
 		spreadSheet.addCell(guest.get("catname")); // Verweis auf Kategorie, die zur Auswahl f�hrte
 		spreadSheet.addCell(guest.get("catrang")); // Der Rang der Kategorie innerhalb der Kategorien
 		spreadSheet.addCell(guest.get("guestrang")); // Der Rang der Person innerhalb der Kategorie
+
+		/*
+		 * modified to support workareas as per change request for version 1.2.0
+		 * cklein
+		 * 2008-02-26
+		 */
+		spreadSheet.addCell(guest.get("workareaname"));
 		spreadSheet.addCell(getReserve((Integer)guest.get("reserve"))); // 0 = Tisch, 1 = Reservce
 		
 		//
@@ -663,6 +711,13 @@ public class GuestExportWorker {
 		spreadSheet.addCell(data.get("zusagen"));
 		spreadSheet.addCell(data.get("absagen"));
 		spreadSheet.addCell(data.get("offenen"));
+
+		/*
+		 * modified to support fourth invitation state as per change request for version 1.2.0
+		 * cklein
+		 * 2008-02-26
+		 */
+		spreadSheet.addCell(data.get("teilnahmen"));
 		spreadSheet.addCell(data.get("platz"));
 		spreadSheet.addCell(data.get("reserve"));
 		spreadSheet.addCell(event.shortname);
@@ -710,7 +765,12 @@ public class GuestExportWorker {
 		spreadSheet.addCell(guest.get("suffix1"));
 		spreadSheet.addCell(guest.get("suffix2"));
 
-		spreadSheet.addCell(guest.get("birthplace"));
+		/*
+		 * modified to support birthplace as per change request for version 1.2.0
+		 * cklein
+		 * 2008-02-26
+		 */
+		spreadSheet.addCell(guest.get("birthplace_a_e1"));
 		spreadSheet.addCell(guest.get("fon"));
 		spreadSheet.addCell(guest.get("fax"));
 		spreadSheet.addCell(guest.get("mail"));
@@ -726,6 +786,13 @@ public class GuestExportWorker {
 		spreadSheet.addCell(guest.get("catname")); // Verweis auf Kategorie, die zur Auswahl f�hrte
 		spreadSheet.addCell(guest.get("catrang")); // Der Rang der Kategorie innerhalb der Kategorien
 		spreadSheet.addCell(guest.get("guestrang")); // Der Rang der Person innerhalb der Kategorie
+
+		/*
+		 * modified to support workareas as per change request for version 1.2.0
+		 * cklein
+		 * 2008-02-26
+		 */
+		spreadSheet.addCell(guest.get("workareaname"));
 		spreadSheet.addCell(getReserve((Integer)guest.get("reserve"))); // 0 = Tisch, 1 = Reservce
 		
 		//
@@ -764,6 +831,13 @@ public class GuestExportWorker {
 		spreadSheet.addCell(data.get("zusagen"));
 		spreadSheet.addCell(data.get("absagen"));
 		spreadSheet.addCell(data.get("offenen"));
+
+		/*
+		 * modified to support fourth invitation state as per change request for version 1.2.0
+		 * cklein
+		 * 2008-02-26
+		 */
+		spreadSheet.addCell(data.get("teilnahmen"));
 		spreadSheet.addCell(data.get("platz"));
 		spreadSheet.addCell(data.get("reserve"));
 		spreadSheet.addCell(event.shortname);
@@ -811,7 +885,12 @@ public class GuestExportWorker {
 		spreadSheet.addCell(guest.get("suffix1"));
 		spreadSheet.addCell(guest.get("suffix2"));
 
-		spreadSheet.addCell(guest.get("birthplace"));
+		/*
+		 * modified to support birthplace as per change request for version 1.2.0
+		 * cklein
+		 * 2008-02-26
+		 */
+		spreadSheet.addCell(""); // birthplace does not exist for partner
 		spreadSheet.addCell(guest.get("fon"));
 		spreadSheet.addCell(guest.get("fax"));
 		spreadSheet.addCell(guest.get("mail"));
@@ -827,6 +906,13 @@ public class GuestExportWorker {
 		spreadSheet.addCell(guest.get("catname")); // Verweis auf Kategorie, die zur Auswahl f�hrte
 		spreadSheet.addCell(guest.get("catrang")); // Der Rang der Kategorie innerhalb der Kategorien
 		spreadSheet.addCell(guest.get("guestrang")); // Der Rang der Person innerhalb der Kategorie
+
+		/*
+		 * modified to support workareas as per change request for version 1.2.0
+		 * cklein
+		 * 2008-02-26
+		 */
+		spreadSheet.addCell(guest.get("workareaname"));
 		spreadSheet.addCell(getReserve((Integer)guest.get("reserve"))); // 0 = Tisch, 1 = Reservce
 		
 		//
@@ -865,6 +951,13 @@ public class GuestExportWorker {
 		spreadSheet.addCell(data.get("zusagen"));
 		spreadSheet.addCell(data.get("absagen"));
 		spreadSheet.addCell(data.get("offenen"));
+
+		/*
+		 * modified to support fourth invitation state as per change request for version 1.2.0
+		 * cklein
+		 * 2008-02-26
+		 */
+		spreadSheet.addCell(data.get("teilnahmen"));
 		spreadSheet.addCell(data.get("platz"));
 		spreadSheet.addCell(data.get("reserve"));
 		spreadSheet.addCell(event.shortname);
@@ -955,8 +1048,15 @@ public class GuestExportWorker {
 			return "Offen";
 		} else if (status.intValue() == 1) {
 			return "Zusage";
-		} else { // status.intValue() == 2
+		} else if (status.intValue() == 2) {
 			return "Absage";
+		} else { // status == 3
+			/*
+			 * modified to support forth invitation state as per change request for version 1.2.0
+			 * cklein
+			 * 2008-02-26
+			 */
+			return "Teilnahme";
 		}
 	}
 }

@@ -46,12 +46,13 @@ function Duration()
 
 Duration.fromString = function( sval )
 {
-	var regex = /^P([0-9]+Y)?([0-9]+M)?([0-9]+D)?$/g;
+	var regex = /^P([0-9]+Y)?([0-9]+M)?([0-9]+D)?$/;
 	var result = new Duration();
 	if ( regex.test( sval ) )
 	{
 		var amount = 0;
 		var cc = 0;
+		var nval = 0;
 		for( var i = 1; i < sval.length; i++ )
 		{
 			cc = sval.charCodeAt( i );
@@ -203,6 +204,6 @@ alert( d.toString() );
 d = Duration.fromString( "P14Y5M" );
 alert( d.toString() );
 
-alert( d.toFormattedString( "Et duurt %Y, %M un %d bis et sowigg iss." ) );
+alert( d.toFormattedString( "Et duurt %Y, %M un %d bis het suwig is." ) );
 </script>
 */

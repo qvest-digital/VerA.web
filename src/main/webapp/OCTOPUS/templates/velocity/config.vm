@@ -38,6 +38,7 @@
 <input type="hidden" name="saveconfig" value="helptarget">
 
 <input type="hidden" name="saveconfig" value="faxdomain">
+<input type="hidden" name="saveconfig" value="changeLogRetentionPolicy">
 
 <h1>Standard Auswahl von Tabulatoren</h1>
 #if(!$config.personTab)
@@ -160,33 +161,6 @@
 	</tr>
 </table><br>
 
-## added change log maintenance worker configuration as per change request for version 1.2.0
-## cklein
-## 2008-02-18
-<h1>Änderungsprotokoll:</h1>
-<table class="form">
-	<tr>
-		<td class="label">Vorhaltezeit der Protokolldaten (Tage/Monate/Jahre):</td>
-		<td class="value">
-		<input type="hidden" name="changeLogRetentionPolicy" value="$!message.text($config.changeLogRetentionPolicy.toString())" class="text" readonly="readonly" style="width: 80px;">
-		<input type="text" name="changeLogRetentionPolicyDisplay" value="$!message.text($config.changeLogRetentionPolicy.toFormattedString( '%Y%M%D' ))" class="text" readonly="readonly" style="background-color: #f0f0f0;width: 200px;">
-		<span id="show-changeLogRetentionPolicy"><img src="${paths.staticWeb}images/calendar.gif"></span>
-		<link rel="stylesheet" type="text/css" href="${paths.staticWeb}styles/dialog.css">
-		<script type="text/javascript" src="${paths.staticWeb}scripts/DurationInputDialog.js"></script>
-		<script type="text/javascript">
-			DurationInputDialog.setup(
-				{
-					display : "changeLogRetentionPolicyDisplay",
-					value : "changeLogRetentionPolicyValue",
-					button : "show-changeLogRetentionPolicy",
-					title : "Geben Sie die Aufbewahrungsfrist ein:"
-				}
-			);
-		</script>
-		</td>
-	</tr>
-</table><br>
-
 <h1>Oberfl&auml;chen Beschriftungen:</h1>
 <table class="form">
 	<tr>
@@ -255,6 +229,36 @@
 	<tr>
 		<td class="label">Fax-DN (@fax.aa):</td>
 		<td class="value"><input type="text" name="faxdomain" value="$!message.text($config.faxdomain)" class="text"></td>
+	</tr>
+</table><br>
+
+## added change log maintenance worker configuration as per change request for version 1.2.0
+## cklein
+## 2008-02-18
+<h1>Änderungsprotokoll:</h1>
+<table class="form">
+	<tr>
+		<td class="label">Vorhaltezeit der Protokolldaten (Tage/Monate/Jahre):</td>
+		<td class="value">
+		<input type="hidden" name="changeLogRetentionPolicy" id="changeLogRetentionPolicyValue" value="$!message.text($config.changeLogRetentionPolicy.toString())" class="text" readonly="readonly" style="width: 80px;">
+##		<input type="hidden" name="changeLogRetentionPolicy" id="changeLogRetentionPolicyValue" value="P1Y5M3D" class="text" readonly="readonly" style="width: 80px;">
+##		<input type="text" id="changeLogRetentionPolicyDisplay" value="1 Jahr 5 Monate 3 Tage" class="text" readonly="readonly" style="background-color: #f0f0f0;width: 200px;">
+		<input type="text" id="changeLogRetentionPolicyDisplay" value="$!message.text($config.changeLogRetentionPolicy.toFormattedString( '%Y%M%D' ))" class="text" readonly="readonly" style="background-color: #f0f0f0;width: 200px;">
+		<span id="show-changeLogRetentionPolicy"><img src="${paths.staticWeb}images/calendar.gif"></span>
+		<link rel="stylesheet" type="text/css" href="${paths.staticWeb}styles/dialog.css">
+		<script type="text/javascript" src="${paths.staticWeb}scripts/Duration.js"></script>
+		<script type="text/javascript" src="${paths.staticWeb}scripts/DurationInputDialog.js"></script>
+		<script type="text/javascript">
+			DurationInputDialog.setup(
+				{
+					display : "changeLogRetentionPolicyDisplay",
+					value : "changeLogRetentionPolicyValue",
+					button : "show-changeLogRetentionPolicy",
+					title : "Geben Sie die Aufbewahrungsfrist ein:"
+				}
+			);
+		</script>
+		</td>
 	</tr>
 </table><br>
 

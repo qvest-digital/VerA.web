@@ -119,6 +119,7 @@ DurationInputDialog.handlers.showButtonClickHandler = function( event )
 {
 	event = window.event ? window.event : event;
 	var target = ( event.target ? event.target : event.srcElement ).parentNode;
+
 	var instance = DurationInputDialog.instances[ target.id ];
 	if ( instance )
 	{
@@ -141,13 +142,32 @@ DurationInputDialog.handlers.showButtonClickHandler = function( event )
 
 DurationInputDialog.handlers.okButtonClickHandler = function( event )
 {
-	event = window.event ? window.event : event;
-	var target = ( event.target ? event.target : event.srcElement ).parentNode;
-	var instance = DurationInputDialog.instances[ target.id ];
-	if ( instance )
+	var elt = this;
+	while( elt.className != "inputDialog" )
 	{
-		
+		elt = elt.parentNode;
 	}
+
+	instance = elt.instance;
+	var duration = new Duration();
+	duration.years = instance.inputYears.value;
+	duration.months = instance.inputMonths.value;
+	duration.days = instance.inputDays.value;
+	instance.value.value = duration.toString();
+	instance.display.value = duration.toFormattedString();
+	DurationInputDialog.hideModalInputDialog( instance );
+}
+
+DurationInputDialog.handlers.cancelButtonClickHandler = function( event )
+{
+	var elt = this;
+	while( elt.className != "inputDialog" )
+	{
+		elt = elt.parentNode;
+	}
+
+	instance = elt.instance;
+	DurationInputDialog.hideModalInputDialog( instance );
 }
 
 DurationInputDialog.showModalInputDialog = function( instance, windowSpec )
@@ -188,10 +208,51 @@ DurationInputDialog.showModalInputDialog = function( instance, windowSpec )
 
 		var dialogBody = document.createElement( "DIV" );
 		dialogBody.className = "dialogBody";
-		dialogBody.style.height = windowSpec.height + "px";
-		dialogBody.style.width = windowSpec.width + "px";
+		dialogBody.style.padding = "16px";
+		dialogBody.style.height = ( windowSpec.height - 30 ) + "px";
+		dialogBody.style.width = ( windowSpec.width - 30 ) + "px";
 
-		// TODO add input fields
+		var label = document.createElement( "LABEL" );
+		var labelText = document.createTextNode( "Jahre" );
+		var br = document.createElement( "BR" );
+		br.style.clear = "both";
+		label.setAttribute( "for", "durationInYears" );
+		label.style.width = "100px";
+		var inputField = document.createElement( "INPUT" );
+		inputField.type = "textbox";
+		inputField.size = "5";
+		inputField.style.float = "right";
+		inputField.style.width = "50%";
+		inputField.maxLength = "4";
+		inputField.name = inputField.id = "durationInYears";
+		dialogBody.appendChild( label );
+		label.appendChild( labelText );
+		dialogBody.appendChild( inputField );
+		instance.inputYears = inputField;
+		dialogBody.appendChild( br );
+		br = br.cloneNode( true );
+		label = label.cloneNode( false );
+		label.setAttribute( "for", "durationInMonths" );
+		labelText = labelText.cloneNode( false );
+		labelText.data = "Monate";
+		inputField = inputField.cloneNode( true );
+		inputField.name = inputField.id = "durationInMonths";
+		dialogBody.appendChild( label );
+		label.appendChild( labelText );
+		dialogBody.appendChild( inputField );
+		instance.inputMonths = inputField;
+		dialogBody.appendChild( br );
+		br = br.cloneNode( true );
+		label = label.cloneNode( false );
+		label.setAttribute( "for", "durationInDays" );
+		labelText = labelText.cloneNode( true );
+		labelText.data = "Tage";
+		inputField = inputField.cloneNode( true );
+		inputField.name = inputField.id = "durationInDays";
+		dialogBody.appendChild( label );
+		label.appendChild( labelText );
+		dialogBody.appendChild( inputField );
+		instance.inputDays = inputField;
 
 		dialogBorder.appendChild( dialogBody );
 
@@ -204,38 +265,16 @@ DurationInputDialog.showModalInputDialog = function( instance, windowSpec )
 		okButton.type = "button";
 		okButton.name = "ok";
 		okButton.value = "OK";
-		okButton.style.float = "right";
 		okButton.style.width = "100px";
-		okButton.onclick = function( event ) 
-		{
-			var elt = this;
-			while( elt.className != "inputDialog" )
-			{
-				elt = elt.parentNode;
-			}
-
-			instance = elt.instance;
-			DurationInputDialog.hideModalInputDialog( instance );
-		};
+		okButton.onclick = DurationInputDialog.handlers.okButtonClickHandler;
 		dialogFooter.appendChild( okButton );
 
 		var cancelButton = document.createElement( "INPUT" );
 		cancelButton.type = "button";
 		cancelButton.name = "cancel";
 		cancelButton.value = "Abbruch";
-		cancelButton.style.float = "left";
 		cancelButton.style.width = "100px";
-		cancelButton.onclick = function( event )
-		{
-			var elt = this;
-			while( elt.className != "inputDialog" )
-			{
-				elt = elt.parentNode;
-			}
-
-			instance = elt.instance;
-			DurationInputDialog.hideModalInputDialog( instance );
-		};
+		cancelButton.onclick = DurationInputDialog.handlers.cancelButtonClickHandler;
 		dialogFooter.appendChild( cancelButton );
 
 		dialogBorder.appendChild( dialogFooter );
@@ -244,20 +283,31 @@ DurationInputDialog.showModalInputDialog = function( instance, windowSpec )
 
 	var offsetLeft = DurationInputDialog.getOffsetLeftRecursively( instance.button );
 	windowSpec.left = offsetLeft;
-	if ( ( offsetLeft + dialog.offsetWidth ) > ( document.body.scrollLeft + document.body.scrollWidth ) )
+	if ( ( offsetLeft + dialog.offsetWidth ) > ( document.body.scrollLeft + document.body.clientWidth ) )
 	{
 		windowSpec.left -= dialog.offsetWidth;
 	}
+	
 	var offsetTop = DurationInputDialog.getOffsetTopRecursively( instance.button );
 	windowSpec.top = offsetTop;
-	if ( ( offsetTop + dialog.offsetHeight ) > ( document.body.scrollTop + document.body.scrollHeight ) )
+	if ( ( offsetTop + dialog.offsetHeight ) > ( document.body.scrollTop + document.body.clientHeight ) )
 	{
 		windowSpec.top -= dialog.offsetHeight;
+		windowSpec.top -= instance.button.firstChild.offsetHeight;
+	}
+	else
+	{
+		windowSpec.top += instance.button.firstChild.offsetHeight;
 	}
 
 	dialog.style.left = windowSpec.left + "px";
 	dialog.style.top = windowSpec.top + "px";
 	dialog.style.visibility = "visible";
+
+	var duration = Duration.fromString( instance.value.value );
+	instance.inputYears.value = duration.years;
+	instance.inputMonths.value = duration.months;
+	instance.inputDays.value = duration.days;
 
 	instance.dialog = dialog;
 	dialog.instance = instance;
@@ -276,15 +326,10 @@ DurationInputDialog.hideModalInputDialog = function( instance )
 DurationInputDialog.getOffsetLeftRecursively = function( elt )
 {
 	var result = 0;
-	while ( elt.tagName != "HTML" )
+	while ( elt.tagName != "BODY" )
 	{
-		if( elt.tagName == "TBODY" || elt.tagName == "TR" )
-		{
-			elt = elt.parentNode;
-			continue;
-		}
 		result += elt.offsetLeft;
-		elt = elt.parentNode;
+		elt = elt.offsetParent;
 	}
 	return result;
 }
@@ -292,15 +337,10 @@ DurationInputDialog.getOffsetLeftRecursively = function( elt )
 DurationInputDialog.getOffsetTopRecursively = function( elt )
 {
 	var result = 0;
-	while ( elt.tagName != "HTML" )
+	while ( elt.tagName != "BODY" )
 	{
-		if( elt.tagName == "TBODY" || elt.tagName == "TR" )
-		{
-			elt = elt.parentNode;
-			continue;
-		}
-		elt = elt.parentNode;
 		result += elt.offsetTop;
+		elt = elt.offsetParent;
 	}
 	return result;
 }

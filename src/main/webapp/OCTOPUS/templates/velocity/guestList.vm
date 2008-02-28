@@ -88,7 +88,7 @@
 			<option #if($search.invitationstatus && $search.invitationstatus == 1) selected#end value="1">nur Offene</option>
 			<option #if($search.invitationstatus && $search.invitationstatus == 2) selected#end value="2">nur Zusagen</option>
 			<option #if($search.invitationstatus && $search.invitationstatus == 3) selected#end value="3">nur Absagen</option>
-			<option #if($search.invitationstatus && $search.invitationstatus == 3) selected#end value="4">nur Teilnahmen</option>
+			<option #if($search.invitationstatus && $search.invitationstatus == 4) selected#end value="4">nur Teilnahmen</option>
 		</select>
 	</td>
 </tr></table><br>
@@ -291,17 +291,17 @@
 
 <br><table class="list" border="0" cellspacing="0" cellpadding="0">
 	<tr style="height: 20px;">
-		<td class="list2" style="width: 13%;">Offen:</td>
+		<td class="list2" style="text-align:right;width: 13%;">Offen:</td>
 		<td class="list1" style="width:  7%;"><strong>$!guestlist-sums.offen</strong></td>
-		<td class="list2" style="width: 13%;">Zusagen:</td>
+		<td class="list2" style="text-align:right;width: 13%;">Zusagen:</td>
 		<td class="list1" style="width:  7%;"><strong>$!guestlist-sums.zusagen</strong></td>
-		<td class="list2" style="width: 12%;">Absagen:</td>
+		<td class="list2" style="text-align:right;width: 12%;">Absagen:</td>
 		<td class="list1" style="width:  7%;"><strong>$!guestlist-sums.absagen</strong></td>
-		<td class="list2" style="width: 13%;">Teilnahmen:</td>
+		<td class="list2" style="text-align:right;width: 13%;">Teilnahmen:</td>
 		<td class="list1" style="width:  7%;"><strong>$!guestlist-sums.teilnahmen</strong></td>
-		<td class="list2" style="width: 13%;">Auf&nbsp;Platz:</td>
+		<td class="list2" style="text-align:right;width: 13%;">Auf&nbsp;Platz:</td>
 		<td class="list1" style="width:  7%;"><strong>$!guestlist-sums.platz</strong></td>
-		<td class="list2" style="width: 13%;">Auf&nbsp;Reserve:</td>
+		<td class="list2" style="text-align:right;width: 13%;">Auf&nbsp;Reserve:</td>
 		<td class="list1" style="width:  7%;"><strong>$!guestlist-sums.reserve</strong></td>
 	</tr>
 </table><br>

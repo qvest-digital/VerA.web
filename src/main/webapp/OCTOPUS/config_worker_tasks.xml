@@ -50,6 +50,7 @@
 		<worker name="PersonExportWorker" implementation="de.tarent.aa.veraweb.worker.PersonExportWorker" singleton="true" factory="reflected" />
 		<worker name="DataExchangeWorker" implementation="de.tarent.aa.veraweb.worker.DataExchangeWorker" singleton="true" factory="reflected" />
 		<worker name="CompanyListWorker" implementation="de.tarent.aa.veraweb.worker.CompanyListWorker" singleton="true" factory="reflected" />
+		<worker name="PersonDuplicateSearchWorker" implementation="de.tarent.aa.veraweb.worker.PersonDuplicateSearchWorker" singleton="true" factory="reflected" />
 		
 		<!-- eMail-Verteiler-Worker -->
 		<worker name="MailinglistWorker" implementation="de.tarent.aa.veraweb.worker.MailinglistWorker" singleton="true" factory="reflected" />
@@ -196,7 +197,7 @@
 				<param name="ContentType" value="text/html;charset=UTF-8"/>
 			</response>
 		</task>
-		
+
 		<task name="Main" access="public" groups="User">
 			<description>
 				Dieser Task zeigt den Hauptdialog an.
@@ -208,7 +209,7 @@
 				<param name="ContentType" value="text/html;charset=UTF-8"/>
 			</response>
 		</task>
-		
+
 		<task name="Info" access="public" groups="User,Unclear,Unauthorized">
 			<description>
 				Dieser Task zeigt den Infodialog an.
@@ -285,11 +286,31 @@
 		</task>
 
 		<!--
+		  - change request 2.3 for next release version 1.2.0
+		  - cklein
+		  - 2008-02-27
+		  -->		
+		<task name="PersonDuplicateSearch" access="public" groups="User">
+			<doTask name="LoadStammdaten"/>
+			<action name="saveList" worker="PersonDuplicateSearchWorker" />
+			<action name="showList" worker="PersonDuplicateSearchWorker" />
+			<!--<action name="exportFormat" worker="PersonDuplicateSearchWorker" />-->
+			<param name="liststarts" value="true"/>
+			<response type="velocity" name="personList">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+
+		<!--
 		  - change request 2.10.4 for next release version 1.2.0
 		  - cklein
 		  - 2008-02-18
 		  -->		
 		<task name="ChangeLogReport" access="public" groups="Administrator">
+			<description>
+				Erlaubt die Konfiguration des in einem zweiten Schritt
+				zu erzeugenden ChangeLogReports.
+			</description>
 			<doTask name="LoadStammdaten"/>
 			<action name="loadConfig" worker="ChangeLogReportsWorker" />
 			<response type="velocity" name="changeLogReport">
@@ -298,6 +319,10 @@
 		</task>
 
 		<task name="ShowChangeLogReport" access="public" groups="Administrator">
+			<description>
+				Zeigt die Änderungshistorie für einen definierten Zeitraum als
+				HTML Report an.
+			</description>
 			<doTask name="LoadStammdaten"/>
 			<action name="loadConfig" worker="ChangeLogReportsWorker" />
 			<action name="showList" worker="ChangeLogReportsWorker" />
@@ -316,6 +341,11 @@
      2008-02-21
   -->
 		<task name="Categorie" access="public" groups="Administrator,PartialAdmin,User">
+			<description>
+				Zeigt eine Liste der Kategorien an. Diese Liste ist für Administrator
+				und PartialAdmins zur Bearbeitung freigegeben und normale Anwender (User)
+				können diese Liste einsehen.
+			</description>
 			<doTask name="LoadStammdaten"/>
 			<action name="getAll" worker="EventListWorker"/>
 			<action name="showList" worker="CategorieWorker" />
@@ -325,7 +355,10 @@
 			</response>
 		</task>
 
-		<task name="SaveCategories" access="public" groups="Administrator,PartialAdmin,User">
+		<task name="SaveCategories" access="public" groups="Administrator,PartialAdmin"><!--User-->
+			<description>
+				Speicher die Änderungen an den Kategorien.
+			</description>
 			<doTask name="LoadStammdaten"/>
 			<action name="getAll" worker="EventListWorker"/>
 			<action name="saveList" worker="CategorieWorker" />
@@ -1461,7 +1494,24 @@
 				<param name="ContentType" value="text/html;charset=UTF-8"/>
 			</response>
 		</task>
-		
+
+		<!--
+		  - modified as per change request 2.6.2, 2.6.3 for version 1.2.0
+		  - cklein
+		  - 2008-02-28
+		-->		
+		<task name="popupSelectCategory" access="public" groups="StandardFieldsReader">
+			<description>
+				Zeigt ein Popup zur Auswahl einer Kategorie an.
+			</description>
+			<doTask name="Load"/>
+			<action name="showList" worker="CategorieWorker"/>
+			<param name="liststarts" value="true"/>
+			<response type="velocity" name="popupSelectCategory">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+
 		<!-- Umsetzung Vertretungen -->
 		<task name="Proxy" access="public" groups="InPerson">
 			<description>

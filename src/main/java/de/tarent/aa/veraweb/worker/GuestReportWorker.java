@@ -217,9 +217,14 @@ public class GuestReportWorker {
 			order.add("tcategorie.rank");
 			order.add("tcategorie.catname");
 		}
+		/*
+		 * modified to support workareas as per change request for version 1.2.0
+		 * cklein
+		 * 2008-02-21
+		 */
 		if ( orderByWorkArea.booleanValue() )
 		{
-			setSortOrder( order, "tworkarea.name" );
+			setSortOrder( order, "workareaname" );
 		}
 		setSortOrder(order, cntx.requestAsString("sort1"));
 		setSortOrder(order, cntx.requestAsString("sort2"));
@@ -268,7 +273,12 @@ public class GuestReportWorker {
 			order.add("tguest.rank");
 		} else if (sort.equals("table")) {
 			order.add("tguest.tableno");
-		} else if (sort.equals("tworkarea.name")) {
+		} else if (sort.equals("workareaname")) {
+			/*
+			 * modified to support workareas as per change request for version 1.2.0
+			 * cklein
+			 * 2008-02-21
+			 */
 			order.add("tworkarea.name");
 		}
 	}

@@ -13,6 +13,9 @@
 #elseif($action == "replace")
 #set($title = "Suchen &amp; Ersetzen")
 #parse("inc/header.vm")
+#elseif($action == "duplicateSearch")
+#set($title = "Duplikatsuche")
+#parse("inc/header.vm")
 #else
 #if(($listerrors && $listerrors.size() > 0) || ($listquestions && $listquestions.size() > 0))
 #set($title = "Person l&ouml;schen")
@@ -132,6 +135,24 @@
 		<th class="list" title="Gesch&auml;ftlich, Zeichensatz 1">PLZ&nbsp;(G)</th>
 		<th class="list" title="Gesch&auml;ftlich, Zeichensatz 1">Ort&nbsp;(G)</th>
 	</tr>
+	#elseif($action == "duplicateSearch" )
+
+	## modified for duplicate search as per change request for version 1.2.0
+	## cklein
+	## 2008-02-27
+	<tr class="list1" style="height: 20px;">
+		<th class="list" style="width: 20px;">&nbsp;</th>
+		<th class="list">ID</th>
+		<th class="list" title="Datum">Datum</th>
+		<th class="list" title="Arbeitsbereich">Arbeitsbereich</th>
+		<th class="list" title="Hauptperson, Zeichensatz 1">Name</th>
+		<th class="list" title="Hauptperson, Zeichensatz 1">Vorname</th>
+		<th class="list" title="Gesch&auml;ftlich, Zeichensatz 1">Amtsbezeichnung</th>
+		<th class="list" title="Gesch&auml;ftlich, Zeichensatz 1">Firma / Institution&nbsp;(G)</th>
+		<th class="list" title="Gesch&auml;ftlich, Zeichensatz 1">Stra&szlig;e&nbsp;(G)</th>
+		<th class="list" title="Gesch&auml;ftlich, Zeichensatz 1">PLZ&nbsp;(G)</th>
+		<th class="list" title="Gesch&auml;ftlich, Zeichensatz 1">Ort&nbsp;(G)</th>
+	</tr>
 	#else
 	<tr class="list1" style="height: 20px;">
 		<th class="list" style="width: 20px;">&nbsp;</th>
@@ -190,7 +211,7 @@
 				<input type="checkbox" id="${bean.id}-partner" name="${bean.id}-partner" value="true" class="checkbox" #if($invitepartner.indexOf($bean.id) != -1) checked#end #if(!$hasB) onClick="hasNoPartner('${bean.id}-partner');" #elseif($hasA) onClick="onClickSetState('${bean.id}-partner', '${bean.id}-select');onClickEnforceConsistentState('${bean.id}-select', '${bean.id}-partner', '${bean.id}-reserve');" #else onClick="onClickEnforceConsistentState('${bean.id}-select', '${bean.id}-partner', '${bean.id}-reserve');" #end>
 			</td>
 		#end
-		<td class="list" title="Auf Reserve"><input type="checkbox" name="${bean.id}-reserve" id="${bean.id}-reserve" value="true" class="checkbox" #if($selectreserve.indexOf($bean.id) != -1) checked#end onClick="onClickEnsureSelection('${bean.id}-select', '${bean.id}-partner', '${bean.id}-reserve', $event.invitationtype);"></td>
+		<td class="list" title="Auf Reserve"><input type="checkbox" name="${bean.id}-reserve" id="${bean.id}-reserve" value="true" class="checkbox" #if($selectreserve.indexOf($bean.id) != -1) checked#end onClick="onClickEnsureSelection( '${bean.id}-select', '${bean.id}-partner', '${bean.id}-reserve', $event.invitationtype, ${hasA}, ${hasB} );"></td>
 		<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}&person-category=' + document.getElementById('$!{bean.id}-category').value;"><input type="hidden" name="${bean.id}-id" value="$bean.id">$!{bean.id}</td>
 		<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}&person-category=' + document.getElementById('$!{bean.id}-category').value;">$!message.plain($bean.lastname_a_e1)</td>
 		<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}&person-category=' + document.getElementById('$!{bean.id}-category').value;">$!message.plain($bean.firstname_a_e1)</td>
@@ -246,6 +267,24 @@
 		<td class="list" style="cursor: pointer;" onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($bean.zipcode_a_e1)</td>
 		<td class="list" style="cursor: pointer;" onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($bean.city_a_e1)</td>
 	</tr>
+	#elseif($action == "duplicateSearch" )
+
+	## modified for duplicate search as per change request for version 1.2.0
+	## cklein
+	## 2008-02-27
+	<tr class="$class" style="height: 22px;" onmouseover="onMouseOverList(this);" onmouseout="onMouseOutList(this);">
+		<td class="list"><input type="checkbox" name="${bean.id}-select" value="true" class="checkbox" #if($listselection.indexOf($bean.id) != -1) checked#end></td>
+		<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}&offset=$!{currentRow}&action=$!{action}';"><input type="hidden" name="${bean.id}-id" value="$bean.id">$!{bean.id}</td>
+		<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}&offset=$!{currentRow}&action=$!{action}';">$!message.date("DATE", $bean.created)</td>
+		<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}&offset=$!{currentRow}&action=$!{action}';">$!message.plain($bean.workarea_name)</td>
+		<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}&offset=$!{currentRow}&action=$!{action}';">$!message.plain($bean.lastname_a_e1)</td>
+		<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}&offset=$!{currentRow}&action=$!{action}';">$!message.plain($bean.firstname_a_e1)</td>
+		<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}&offset=$!{currentRow}&action=$!{action}';">$!message.plain($bean.function_a_e1)</td>
+		<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}&offset=$!{currentRow}&action=$!{action}';">$!message.plain($bean.company_a_e1)</td>
+		<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}&offset=$!{currentRow}&action=$!{action}';">$!message.plain($bean.street_a_e1)</td>
+		<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}&offset=$!{currentRow}&action=$!{action}';">$!message.plain($bean.zipcode_a_e1)</td>
+		<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}&offset=$!{currentRow}&action=$!{action}';">$!message.plain($bean.city_a_e1)</td>
+	</tr>	
 	#else
 	<tr class="$class" style="height: 22px;" onmouseover="onMouseOverList(this);" onmouseout="onMouseOutList(this);">
 
@@ -339,24 +378,33 @@
 		}
 	}
 
-	function onClickEnsureSelection(box1, box2, box3, invitationType) {
+	function onClickEnsureSelection(box1, box2, box3, invitationType, hasMain, hasPartner) {
 		if ( document.getElementById(box3).checked )
 		{
 			var checked = document.getElementById(box1).checked || document.getElementById(box2).checked;
 			if ( ! checked )
 			{
-				if ( invitationType == 1 )
+				var errmsg = "";
+				if ( invitationType == 2 || invitationType == 1 )
 				{
-					document.getElementById(box1).checked = document.getElementById(box2).checked = true;
+					errmsg = "zur Person";
+					document.getElementById(box1).checked = hasMain;
 				}
-				else if ( invitationType == 2 )
+				if ( invitationType == 3 || invitationType == 1 )
 				{
-					document.getElementById(box2).checked = true;
+					if ( errmsg.length > 0 )
+					{
+						errmsg += " und ";
+					}
+					errmsg += "zum Partner";
+					document.getElementById(box2).checked = hasPartner;
 				}
-				else if ( invitationType == 3 )
-				{
-					document.getElementById(box1).checked = true;
-				}
+			}
+			checked = document.getElementById(box1).checked || document.getElementById(box2).checked;
+			if ( ! checked )
+			{
+				alert( "Diese Person kann nicht auf Reserve gesetzt werden, da die notwendigen Daten " + errmsg + " nicht vollständig erfasst wurden." );
+				document.getElementById(box3).checked = false;
 			}
 		}
 	}

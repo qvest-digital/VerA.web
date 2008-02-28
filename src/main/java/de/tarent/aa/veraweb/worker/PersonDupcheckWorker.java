@@ -33,6 +33,7 @@ import de.tarent.aa.veraweb.beans.Person;
 import de.tarent.aa.veraweb.beans.facade.PersonConstants;
 import de.tarent.aa.veraweb.utils.AddressHelper;
 import de.tarent.aa.veraweb.utils.DateHelper;
+import de.tarent.dblayer.sql.Join;
 import de.tarent.dblayer.sql.clause.Clause;
 import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.clause.Where;
@@ -80,14 +81,14 @@ public class PersonDupcheckWorker extends ListWorkerVeraWeb {
      * Diese Octopus-Aktion holt eine Person aus dem Octopus-Request
      * (unter "person-*") oder der Octopus-Session (unter "dupcheck-person"),
      * legt sie und ihr Akkreditierungsdatum unter "person" bzw. "person-diplodatetime"
-     * in den Octopus-Content und testet das übergebene Flag. Ist es
+     * in den Octopus-Content und testet das ï¿½bergebene Flag. Ist es
      * <code>true</code>, so wird der Eintrag in der Octopus-Session unter
-     * "dupcheck-person" gelöscht. Ansonsten wird dieser auf die eingelesene
-     * Person gesetzt und ein Duplikats-Check durchgeführt; falls dieser Duplikate
+     * "dupcheck-person" gelï¿½scht. Ansonsten wird dieser auf die eingelesene
+     * Person gesetzt und ein Duplikats-Check durchgefï¿½hrt; falls dieser Duplikate
      * zur Person findet, wird der Status "dupcheck" gesetzt. 
      * 
      * @param cntx Octopus-Kontext
-     * @param nodupcheck Flag zum Übergehen des Duplikat-Checks
+     * @param nodupcheck Flag zum ï¿½bergehen des Duplikat-Checks
 	 */
 	public void check(OctopusContext cntx, Boolean nodupcheck) throws BeanException, IOException {
 		Request request = new RequestVeraWeb(cntx);
@@ -123,12 +124,12 @@ public class PersonDupcheckWorker extends ListWorkerVeraWeb {
     public List showList(OctopusContext cntx) throws BeanException, IOException
 	{
 		//Bug 1592 
-    cntx.setContent("originalPersonId", cntx.requestAsInteger("originalPersonId"));
+    	cntx.setContent("originalPersonId", cntx.requestAsInteger("originalPersonId"));
 		return super.showList(cntx);
 	}
 
 	//
-    // geschützte Hilfsmethoden
+    // geschï¿½tzte Hilfsmethoden
     //
 	protected Clause getDuplicateExpr(OctopusContext cntx, Person person) {
 		Clause clause = Where.and(

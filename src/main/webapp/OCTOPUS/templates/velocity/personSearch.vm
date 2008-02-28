@@ -67,30 +67,15 @@
 	<td class="label"><label for="country">Land:</label></td>
 	<td class="value"><input type="text" name="country" id="country" value="$!message.text($search.country)" class="text"></td>
 </tr>
-<!--
-<tr>
-	<td class="label"><label for="workArea">Arbeitsbereich:</label></td>
-	<td class="value">
-		<select name="workArea" id="workArea" class="combobox">
-		<option value="">Alle</option>
-		#foreach($workArea in $allWorkAreas)
-			#if((!$workArea.flags) || ($workArea.flags != 1))
-			<option value="$!workArea.id" #if($search.workArea == $!workArea.id) selected #end>$!workArea.name</option>
-			#end
-		#end
-		</select>
-	</td>
-</tr>
--->
 <tr>
 	<td class="label"><label for="categorie">Kategorie:</label></td>
 	<td class="value">
-		<select name="categorie" id="categorie" class="combobox">
-		<option value="">Alle</option>
-		<option value="0">Keine Kategorie zugeordnet</option>
+		<select name="categoriesSelection" id="categorie" class="list" size="8" multiple="multiple" onChange="ensureCorrectSelection( this );">
+		<option value="" #if( $search.categoriesSelection || $search.categoriesSelection.size() == 0 ) selected #end>Alle</option>
+		<option value="0" #if( $search.categoriesSelection.size() == 1 && $search.categoriesSelection.get(0).intValue() == 0 ) selected #end>Keine Kategorie zugeordnet</option>
 		#foreach($categorie in $allCategorie)
 			#if((!$categorie.flags) || ($categorie.flags != 1))
-			<option value="$!categorie.id" #if($search.categorie == $!categorie.id) selected #end>$!categorie.name</option>
+			<option value="$!categorie.id" #if($search.categoriesSelection.contains( $categorie.id )) selected #end>$!categorie.name</option>
 			#end
 		#end
 		</select>
@@ -206,6 +191,27 @@
 		document.getElementById('categorie2').selectedIndex = 0;
 		document.getElementById('validtype').selectedIndex = 0;
 		document.getElementById('iscompany').checked = false;
+	}
+
+	function ensureCorrectSelection( elt )
+	{
+		var deselectionStart = elt.options[ 0 ].selected ? 1 : 0;
+		var deselectionSkip = deselectionStart == 1 ? 0 : ( elt.options[ 1 ].selected ? 1 : -1 );
+		for( var i=0; i < elt.options.length; i++ )
+		{
+			// on select ALL or NONE we must skip the element's option
+			// we also skip the element's option in case that it is one of the multi-selectable ones
+			// not equal to either ALL or NONE
+			if ( i == deselectionSkip || deselectionSkip == -1 )
+			{
+				continue;
+			}
+			// we deselect all beginning with deselectionStart
+			if ( i >= deselectionStart )
+			{
+				elt.options[ i ].selected = false;
+			}
+		}
 	}
 </script>
 

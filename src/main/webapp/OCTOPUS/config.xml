@@ -35,11 +35,6 @@
 		<param name="defaultErrorDescriptionName" value="error"/>
 
 		<!-- ************************************************ -->
-		<!-- ***        Change Log Retention Policy       *** -->
-		<!-- ************************************************ -->
-		<param name="changeLogRetentionPolicy" value="P0Y0M1D"/>
-
-		<!-- ************************************************ -->
 		<!-- *** Automatisches Kopieren von Personendaten *** -->
 		<!-- ************************************************ -->
 		<!-- Folgender Parameter steuert das automatische Kopieren von Personendaten.

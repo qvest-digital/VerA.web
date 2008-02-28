@@ -58,6 +58,7 @@ import de.tarent.dblayer.sql.statement.Select;
 import de.tarent.octopus.PersonalConfigAA;
 import de.tarent.octopus.custom.beans.Bean;
 import de.tarent.octopus.custom.beans.BeanException;
+import de.tarent.octopus.custom.beans.BeanFactory;
 import de.tarent.octopus.custom.beans.Database;
 import de.tarent.octopus.custom.beans.veraweb.ListWorkerVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
@@ -108,6 +109,7 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 		 * cklein
 		 * 2008-02-21
 		 */
+		cntx.setContent( "action", ( String ) null ); // reset action
 		Select select = this.prepareShowList( cntx, database );
 		Map param = ( Map )cntx.contentAsObject( OUTPUT_showListParams );
 		cntx.setContent( OUTPUT_getSelection, getSelection( cntx, ( Integer ) param.get( "count" ) ) );
@@ -131,64 +133,55 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 	protected void extendColumns(OctopusContext cntx, Select select) throws BeanException, IOException {
 		select.selectAs( "workarea.name", "workarea_name" );
 		select.orderBy( Order.asc( "workarea_name" ) );
-	}
-
-	protected void extendWhere(OctopusContext cntx, Select select) throws BeanException {
-		PersonSearch search = getSearch(cntx);
-		
-		select.where(getPersonListFilter(cntx));
-		
-		if (search.categorie != null) {
-			/*
-			 * extension to support search for persons with no assigned categories as per change request for version 1.2.0
-			 * 
-			 * cklein
-			 * 2008-02-20
-			 */
-			if ( search.categorie.intValue() == 0 )
-			{
-				select.joinLeftOuter( "veraweb.tperson_categorie cat1", "tperson.pk", "cat1.fk_person" );
-				select.whereAnd( new RawClause( "cat1.fk_person is null" ) );
-			}
-			else
-			{
-				select.joinLeftOuter("veraweb.tperson_categorie cat1", "tperson.pk", "cat1.fk_person");
-			}
-		}
-		if (search.categorie2 != null) {
-			select.joinLeftOuter("veraweb.tperson_categorie cat2", "tperson.pk", "cat2.fk_person");
-		}
 
 		/*
 		 * modified to support workarea display in the search result list as per change request for version 1.2.0
 		 * cklein 2008-02-12
 		 */
-		select.joinLeftOuter("veraweb.tworkarea workarea", "tperson.fk_workarea", "workarea.pk");
+		select.from( "veraweb.tworkarea workarea" );
+		select.whereAnd( new RawClause( "workarea.pk=tperson.fk_workarea" ) );
 	}
 
-	protected Integer getAlphaStart(OctopusContext cntx, String start) throws BeanException, IOException {
+	protected void extendWhere(OctopusContext cntx, Select select) throws BeanException
+	{
+		PersonSearch search = getSearch( cntx );
+		select.whereAnd( getPersonListFilter( cntx ) );
+
+		/*
+		 * extension to support search for persons with no assigned categories as per change request for version 1.2.0
+		 * extension to support for multiple categories at once
+		 * 
+		 * cklein
+		 * 2008-02-20/26
+		 */
+		select.from( "veraweb.tperson_categorie cat1" );
+		if
+		(
+			( search.categoriesSelection != null ) &&
+			( search.categoriesSelection.size() >= 1 ) &&
+			( search.categoriesSelection.get( 0 ).toString().length() > 0 ) && // workaround for octopus behaviour
+			( ( ( Integer ) search.categoriesSelection.get( 0 ) ).intValue() == 0 )
+		)
+		{
+			//select.from( "veraweb.tperson_categorie cat1" );
+		}
+		if ( search.categorie2 != null )
+		{
+			select.from( "veraweb.tperson_categorie cat2" );
+			select.whereAnd( new RawClause( "tperson.pk=cat2.fk_person" ) );
+		}
+	}
+
+	protected Integer getAlphaStart(OctopusContext cntx, String start) throws BeanException, IOException
+	{
 		Database database = getDatabase(cntx);
-		PersonSearch search = getSearch(cntx);
-		
-		StringBuffer buffer = new StringBuffer();
-		buffer.append("(");
-		buffer.append(getPersonListFilter(cntx).clauseToString());
-		buffer.append(") AND lastname_a_e1 < '");
-		Escaper.escape(buffer, start);
-		buffer.append("'");
-		
 		Select select = database.getCount(BEANNAME);
-		if (search.categorie != null) {
-			select.joinLeftOuter("veraweb.tperson_categorie cat1", "tperson.pk", "cat1.fk_person");
+		this.extendWhere( cntx, select );
+		if ( start != null && start.length() > 0 )
+		{
+			select.whereAnd( Expr.less( "tperson.lastname_a_e1", Escaper.escape( start ) ) );
 		}
-		if (search.categorie2 != null) {
-			select.joinLeftOuter("veraweb.tperson_categorie cat2", "tperson.pk", "cat2.fk_person");
-		}
-		if (search.workarea != null) {
-			select.joinLeftOuter("veraweb.tworkarea workarea", "tperson.fk_workarea", "workarea.pk");
-		}
-		select.where(new RawClause(buffer));
-		
+
 		Integer i = database.getCount(select);
 		return new Integer(i.intValue() - (i.intValue() % getLimit(cntx).intValue()));
 	}
@@ -197,10 +190,10 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 		return getSelect(null, database);
 	}
 
-	protected Select getSelect(PersonSearch search, Database database) {
+	protected Select getSelect(PersonSearch search, Database database) throws BeanException, IOException {
 		Select select;
 		if (search != null) {
-			select = new Select(search.categorie != null || search.categorie2 != null);
+			select = new Select(search.categoriesSelection != null || search.categorie2 != null);
 		} else {
 			select = SQL.SelectDistinct();
 		}
@@ -373,6 +366,24 @@ public class PersonListWorker extends ListWorkerVeraWeb {
             search = (PersonSearch)cntx.sessionAsObject("search" + BEANNAME);
         if (search == null)
             search = new PersonSearch();
+
+        /*
+         * modified to support category multi selection
+         * cklein
+         * 2008-02-26
+         */
+        List list = ( List ) BeanFactory.transform( cntx.requestAsObject( "categoriesSelection" ), List.class );
+        ArrayList< Integer > selection = new ArrayList< Integer >( list.size() );
+        if ( list.size() > 0 && list.get( 0 ).toString().length() > 0 )
+        {
+        	Iterator iter = list.iterator();
+        	while( iter.hasNext() )
+        	{
+        		selection.add( new Integer( ( String ) iter.next() ) );
+        	}
+        }
+        search.categoriesSelection = selection;
+
         cntx.setSession("search" + BEANNAME, search);
         return search;
     }
@@ -421,13 +432,32 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 			list.addAnd( Expr.equal( "tperson.fk_workarea", search.workarea ) );
 		}
 		
-		if (search.categorie != null) {
-			// prevent 0 categorie foreign keys from being found
-			// categories with id ::= 0 are being used for finding persons with no assigned categories 
-			if ( search.categorie.intValue() != 0 )
+		if
+		(
+			( search.categoriesSelection != null ) &&
+			( search.categoriesSelection.size() >= 1 ) &&
+			( search.categoriesSelection.get( 0 ).toString().length() > 0 ) // workaround for octopus behaviour
+		)
+		{
+			if ( ( ( Integer ) search.categoriesSelection.get( 0 ) ).intValue() != 0 )
 			{
-				list.addAnd(Expr.equal("cat1.fk_categorie", search.categorie));
+				// all of the selected categories
+				list.addAnd( new RawClause( "tperson.pk=cat1.fk_person" ) );
+				list.addAnd(Expr.in("cat1.fk_categorie", search.categoriesSelection));
 			}
+			else
+			{
+				// no categories assigned
+				Select subSelect = new Select( true );
+				subSelect.from( "veraweb.tperson_categorie" );
+				subSelect.selectAs( "tperson_categorie.fk_person" );
+				//subSelect.where( Expr.in( "tperson_categorie.fk_categorie", new StatementList( search.categoriesSelection ) ) );
+				list.addAnd( Expr.notIn( "tperson.pk", new RawClause( subSelect.clauseToString() ) ) );
+			}
+		}
+		else
+		{
+			;; // search in all categories
 		}
 		if (search.categorie2 != null) {
 			list.addAnd(Expr.equal("cat2.fk_categorie", search.categorie2));

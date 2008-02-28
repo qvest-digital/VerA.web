@@ -32,6 +32,9 @@
 	<a href="${paths.staticWeb}do/Statistik" class="menulink">Statistiken</a>
   #end
   #if($grants.mayWrite())
+	<a href="${paths.staticWeb}do/PersonDuplicateSearch" class="menulink">Duplikatsuche</a>
+  #end
+  #if($grants.mayWrite())
 	<a href="${paths.staticWeb}do/ImportPersons" class="menulink">Personen-Import</a>
   #end
   #if($grants.mayExport())

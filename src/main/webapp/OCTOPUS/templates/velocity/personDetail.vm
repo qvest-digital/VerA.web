@@ -260,14 +260,18 @@
 	#end
 	<input type="button" name="remove" value="L&ouml;schen" title="Aktuelle Person l&ouml;schen und zur Personenliste zur&uuml;ckkehren." onclick="if (checkModified()) { removePerson(); }" #if($grants.mayWrite()) class="button" #else class="buttondisabled" disabled #end> &nbsp;
 	#end
-    <input type="button" name="cancel" class="button" value="Listenansicht" onclick="if (checkModified()) { window.location.href='${paths.staticWeb}do/SearchPerson?action=person'; }"> &nbsp;
+	#if( $action == "duplicateSearch" )
+		<input type="button" name="cancel" class="button" value="Listenansicht" onclick="if (checkModified()) { window.location.href='${paths.staticWeb}do/PersonDuplicateSearch'; }"> &nbsp;
+	#else
+	    <input type="button" name="cancel" class="button" value="Listenansicht" onclick="if (checkModified()) { window.location.href='${paths.staticWeb}do/SearchPerson?action=person'; }"> &nbsp;
+	#end
 #end
 ## modified to provide a direct statistic button as per change request for version 1.2.0
 ## cklein
 ## 2008-02-21
 ##	<input type="hidden" name="a" value="">
 ##    <input type="button" name="statistics" class="button" value="Statistik" onclick="PersonForm.action='${paths.staticWeb}do/StatistikPersonSearch';PersonForm.elements['a'].value='statistikGuest';PersonForm.target='_blank';PersonForm.submit();PersonForm.target='';PersonForm.action='${paths.staticWeb}do/SavePerson'; }"> &nbsp;
-    <input type="button" name="statistics" class="button" value="Statistik" onclick="window.open( '${paths.staticWeb}do/StatistikExport?id=$person.id' );"> &nbsp;
+    <input type="button" name="statistics" class="button" value="Statistik" onclick="window.open( '${paths.staticWeb}do/StatistikExport?id=$!person.id' );"> &nbsp;
 
 </div></div></div>
 
