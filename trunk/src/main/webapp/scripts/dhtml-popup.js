@@ -28,6 +28,14 @@ function selectCompany(url, field) {
 	openPopup('company', url + 'popupSelectCompany/field=' + field, 520, 380, "status=no,resizable=no,scrollbars=yes,dependent=yes,alwaysRaised=yes");
 }
 
+function selectPersonCategory(url) {
+	openPopup('function', url, 320, 200, "status=no,resizable=no,scrollbars=yes,dependent=yes,alwaysRaised=yes");
+}
+
+function selectGuestCategory(url) {
+	openPopup('function', url, 320, 200, "status=no,resizable=no,scrollbars=yes,dependent=yes,alwaysRaised=yes");
+}
+
 function exportPerson(url, id) {
 	openPopup('person', url + 'popupPersonExport?id=' + id, 520, 380, "status=no,resizable=no,scrollbars=no,dependent=yes,alwaysRaised=yes");
 }
@@ -49,7 +57,7 @@ function returnCity() {
 				}
 			}
 			if (exists) {
-/*				alert('Der Ort existiert bereits in der Liste und wird nun ausgewählt.'); */
+/*				alert('Der Ort existiert bereits in der Liste und wird nun ausgewï¿½hlt.'); */
 			}
 			window.opener.document.getElementById('addcity').value = city;
 			window.opener.addCity();

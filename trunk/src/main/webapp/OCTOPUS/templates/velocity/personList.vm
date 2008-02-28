@@ -291,7 +291,7 @@
 	## modified for direct search result navigation from the person detail view as per change request for version 1.2.0
 	## cklein
 	## 2008-02-21
-		<td class="list"><input type="checkbox" name="${bean.id}-select" value="true" class="checkbox" #if($listselection.indexOf($bean.id) != -1) checked#end></td>
+		<td class="list"><input type="checkbox" name="${bean.id}-select" value="true" class="checkbox" onChange="selectionChange( this );" #if($listselection.indexOf($bean.id) != -1) checked#end></td>
 		<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}&offset=$!{currentRow}';"><input type="hidden" name="${bean.id}-id" value="$bean.id">$!{bean.id}</td>
 		<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}&offset=$!{currentRow}';">$!message.plain($bean.workarea_name)</td>
 		<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}&offset=$!{currentRow}';">$!message.plain($bean.lastname_a_e1)</td>
@@ -408,6 +408,7 @@
 			}
 		}
 	}
+	
 </script>
 
 #elseif($action == "host")
@@ -464,6 +465,42 @@
 		document.getElementById('remove-person').value = person;
 		return person;
 	}
+
+	var selectedCount = ${listselection.size()};
+	function hasSelection()
+	{
+		return ( selectedCount > 0 );
+	}
+
+	function selectionChange( elt )
+	{
+		selectedCount += ( elt.checked ? 1 : -1 );
+	}
+
+	function unassignCategories()
+	{
+		if ( hasSelection() )
+		{
+			selectPersonCategory( "${paths.staticWeb}do/popupUnassignPersonCategory?count=" + selectedCount );
+		}
+		else
+		{
+			alert( "Wählen Sie bitte zunächst eine oder mehrere Personen aus." );
+		}
+	}
+
+	function assignCategories()
+	{
+		if ( hasSelection() )
+		{
+			selectPersonCategory( "${paths.staticWeb}do/popupAssignPersonCategory?count=" + selectedCount );
+		}
+		else
+		{
+			alert( "Wählen Sie bitte zunächst eine oder mehrere Personen aus." );
+		}
+	}
+
 </script>
 
 <input type="submit" name="remove" value="L&ouml;schen" title="markierte Personen l&ouml;schen" onclick="return removePerson();" #if($grants.mayWrite()) class="button" #else class="buttondisabled" disabled #end> &nbsp;
@@ -474,6 +511,9 @@
 #end
 <input type="button" class="cancel" name="cancel" value="Zur&uuml;ck" onclick="window.location.href='ShowPersonSearch';"> &nbsp;
 
+<input type="button" name="assignCategory" value="Kategorien zuordnen" #if($isUser) class="button" onClick="assignCategories();" #else class="buttondisabled" disabled="disabled" #end>&nbsp;
+<input type="button" name="unassignCategory" value="Kategorien entfernen" #if($isUser) class="button" onClick="unassignCategories();" #else class="buttondisabled" disabled="disabled" #end>
+
 #end
 
 </div></div></div>
@@ -481,6 +521,6 @@
 #closeContentSection()
 #closeContent()
 
-</form>
 
+</form>
 #parse("inc/footer.vm")

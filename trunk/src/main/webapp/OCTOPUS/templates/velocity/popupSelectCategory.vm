@@ -1,0 +1,82 @@
+## Popup zur Auswahl einer oder keiner Kategorie
+## cklein
+## 2008-02-28
+
+<html>
+
+<head>
+	<title>Wählen Sie eine oder keine Kategorie</title>
+	<link rel="stylesheet" type="text/css" href="${paths.staticWeb}styles/default.css" media="all">
+	<link rel="stylesheet" type="text/css" href="${paths.staticWeb}styles/screen.css" media="screen,projection" title="Ausw&auml;rtiges Amt Intranet-Stil">
+	<script type="text/javascript" src="/veraweb/scripts/dhtml-popup.js"></script>
+	<script type="text/javascript">
+		var oldState = { categoryId : null, actionName : null };
+
+		function selected( elt )
+		{
+			window.opener.document.forms[ "formlist" ].elements[ "categoryAssignmentId" ] = elt.options[ elt.selectedIndex ].value;
+			window.opener.document.forms[ "formlist" ].elements[ "categoryAssignmentAction" ] = "${assignmentAction}";
+		}
+
+		function restore()
+		{
+			window.opener.document.forms[ "formlist" ].elements[ "categoryAssignmentId" ] = oldState.categoryId;
+			window.opener.document.forms[ "formlist" ].elements[ "categoryAssignmentAction" ] = oldState.actionName;
+		}
+
+		function initialize()
+		{
+			oldState.categoryId = window.opener.document.forms[ "formlist" ].elements[ "categoryAssignmentId" ];
+			oldState.actionName = window.opener.document.forms[ "formlist" ].elements[ "categoryAssignmentAction" ];
+		}
+
+		function send()
+		{
+#if( $assignmentAction == "assign" )
+			doit = confirm( "Wollen Sie ${count} Personen bzw. Gäste der ausgewählten Kategorie zuordnen?" );
+#else
+			doit = confirm( "Wollen Sie ${count} Personen bzw. Gäste aus der ausgewählten Kategorie entfernen?" );
+#end
+			if ( doit )
+			{
+				window.opener.document.forms[ "formlist" ].submit();
+			}
+		}
+	</script>
+</head>
+
+<body>
+
+<form>
+<table class="tab" border="0" cellspacing="0" cellpadding="0"><tr><td class="tableft">&nbsp;</td></tr></table>
+
+<div class="content">
+	<div class="contentsection" style="padding:0 8;">
+		<strong>Wählen Sie eine zuzuweisende Kategorie aus:</strong>
+	</div>
+	<div class="contentsection" style="padding:0 8;">
+		<label for="category">Kategorie:</label>
+		<select name="category" id="category" onChange="selected(this);">
+		<option value="">
+#if( $assignmentAction == "unassign" )
+		<option value="0">Alle entfernen
+#end
+		#foreach( $category in $allCategorie )
+		<option value="${category.id}">${category.name}
+		#end
+		</select>
+	</div>
+	<hr class="contentsection">
+	<div class="contentsection" style="padding:0 8;text-align: right;">
+		<input type="button" value="Abbrechen" onClick="restore();closePopup();">&nbsp;
+#if( $assignmentAction == "assign" )
+		<input type="button" value="Zuweisen" onClick="send();closePopup();">
+#else
+		<input type="button" value="Entfernen" onClick="send();closePopup();">
+#end
+	</div>
+</div>
+</form>
+
+</body>
+</html>
