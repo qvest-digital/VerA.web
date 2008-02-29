@@ -46,7 +46,6 @@ import de.tarent.octopus.config.TcPersonalConfig;
 import de.tarent.octopus.custom.beans.Bean;
 import de.tarent.octopus.custom.beans.BeanException;
 import de.tarent.octopus.custom.beans.Database;
-import de.tarent.octopus.security.TcSecurityException;
 import de.tarent.octopus.server.OctopusContext;
 
 /**
@@ -121,6 +120,7 @@ public class CategorieWorker extends StammdatenWorker {
 		{
 			cntx.setContent( "count", count );
 		}
+		
 		super.getAll(cntx);
 	}
 
@@ -159,19 +159,34 @@ public class CategorieWorker extends StammdatenWorker {
 					Expr.isNull("fk_event"),
 					new RawClause("pk NOT IN (SELECT fk_categorie FROM veraweb.tperson_categorie WHERE fk_person = " + person.id + ")"));
 		}
+
 		Event event = (Event)cntx.contentAsObject("event");
-		if (event != null && event.id != null) {
-			clause = Where.or(
-					Expr.isNull("fk_event"),
-					Expr.equal("fk_event", event.id));
+		Integer eventId = cntx.requestAsInteger( "eventId" );
+		if ( eventId.intValue() == 0 )
+		{
+			if ( event != null )
+			{
+				eventId = event.id;
+			}
+			else
+			{
+				eventId = null;
+			}
 		}
-        
+		if ( eventId != null ) {
+			clause = Where.or(
+				Expr.isNull( "fk_event" ),
+				Expr.equal( "fk_event", eventId )
+			);
+		}
+
 		Clause orgUnitTest = getWhere(cntx);
         if (orgUnitTest != null)
         	clause = clause == null ? orgUnitTest : Where.and(orgUnitTest, clause);
         
         if (clause != null)
             select.where(clause);
+
 	}
 
 	protected Clause getWhere(OctopusContext cntx) throws BeanException {

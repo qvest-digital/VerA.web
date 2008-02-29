@@ -27,14 +27,20 @@
 package de.tarent.aa.veraweb.worker;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.tarent.aa.veraweb.beans.Categorie;
 import de.tarent.aa.veraweb.beans.PersonCategorie;
+import de.tarent.dblayer.engine.DB;
+import de.tarent.dblayer.sql.SQL;
 import de.tarent.dblayer.sql.clause.Expr;
+import de.tarent.dblayer.sql.statement.Delete;
 import de.tarent.dblayer.sql.statement.Select;
 import de.tarent.octopus.custom.beans.Bean;
 import de.tarent.octopus.custom.beans.BeanException;
+import de.tarent.octopus.custom.beans.Database;
 import de.tarent.octopus.custom.beans.veraweb.ListWorkerVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
 
@@ -87,5 +93,56 @@ public class PersonCategorieWorker extends ListWorkerVeraWeb {
 	protected void saveBean(OctopusContext cntx, Bean bean) throws BeanException, IOException {
 		super.saveBean(cntx, bean);
 		WorkerFactory.getPersonDetailWorker(cntx).updatePerson(cntx, null, ((PersonCategorie)bean).person);
+	}
+
+	public void addCategoryAssignment( OctopusContext cntx, Integer categoryId, Integer personId, Database database ) throws BeanException, IOException
+	{
+		Categorie category = ( Categorie ) database.getBean( "Categorie", categoryId );
+		if ( category != null )
+		{
+			Select select = database.getCount( "PersonCategorie" );
+			select.where( Expr.equal( "fk_person", personId ) );
+			select.whereAnd( Expr.equal( "fk_categorie", categoryId ) );
+			Integer count = database.getCount( select );
+			if ( count.intValue() == 0 )
+			{
+				PersonCategorie personCategory = ( PersonCategorie ) database.createBean( "PersonCategorie" );
+				personCategory.categorie = categoryId;
+				personCategory.person = personId;
+				personCategory.rank = category.rank;
+				this.saveBean( cntx, personCategory );
+			}
+		}
+	}
+
+	public void removeAllCategoryAssignments( OctopusContext cntx, Integer personId, Database database ) throws BeanException, IOException
+	{
+		try
+		{
+			DB.update(
+				cntx.getModuleName(),
+				SQL.Delete().from( "veraweb.tperson_categorie" ).where( Expr.equal( "fk_person", personId ) )
+			);
+		}
+		catch( SQLException e )
+		{
+			throw new BeanException( "Die Kategoriezuweisungen konnte nicht aufgehoben werden.", e );
+		}
+	}
+
+	public void removeCategoryAssignment( OctopusContext cntx, Integer categoryId, Integer personId, Database database ) throws BeanException, IOException
+	{
+		Categorie category = ( Categorie ) database.getBean( "Categorie", categoryId );
+		if ( category != null )
+		{
+			Select select = database.getSelect( "PersonCategorie" );
+			select.where( Expr.equal( "fk_person", personId ) );
+			select.whereAnd( Expr.equal( "fk_categorie", categoryId ) );
+			PersonCategorie personCategory = ( PersonCategorie ) database.getBean( "PersonCategorie", select );
+			if ( personCategory != null )
+			{
+				database.removeBean( personCategory );
+			}
+		}
 	}
 }

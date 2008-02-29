@@ -1522,7 +1522,7 @@
 				Zeigt ein Popup zur Auswahl einer Kategorie an.
 			</description>
 			<doTask name="Load"/>
-			<action name="getAllAvailablePersonCategories" worker="PersonCategorieWorker"/>
+			<action name="getAllAvailablePersonCategories" worker="CategorieWorker"/>
 			<param name="assignmentAction" value="unassign"/>
 			<response type="velocity" name="popupSelectCategory">
 				<param name="ContentType" value="text/html;charset=UTF-8"/>

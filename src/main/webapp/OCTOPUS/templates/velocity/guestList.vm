@@ -129,6 +129,8 @@
 <input type="hidden" name="doInsert" value="true">
 <input type="hidden" name="doUpdate" value="true">
 <input type="hidden" name="doRemove" value="true">
+<input type="hidden" name="categoryAssignmentAction" value="">
+<input type="hidden" name="categoryAssignmentId" value="">
 
 #foreach($bean in $list)
 <input type="hidden" name="list" value="$bean.id">
@@ -393,7 +395,7 @@
 	{
 		if ( hasSelection() )
 		{
-			selectPersonCategory( "${paths.staticWeb}do/popupUnassignGuestCategory?count=" + selectedCount );
+			selectPersonCategory( "${paths.staticWeb}do/popupUnassignGuestCategory?count=" + selectedCount + "&eventId=" + ${event.id} );
 		}
 		else
 		{
@@ -404,7 +406,7 @@
 	{
 		if ( hasSelection() )
 		{
-			selectPersonCategory( "${paths.staticWeb}do/popupAssignGuestCategory?count=" + selectedCount );
+			selectPersonCategory( "${paths.staticWeb}do/popupAssignGuestCategory?count=" + selectedCount + "&eventId=" + ${event.id} );
 		}
 		else
 		{

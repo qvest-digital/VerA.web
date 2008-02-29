@@ -29,6 +29,7 @@
 package de.tarent.aa.veraweb.worker;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -37,6 +38,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import de.tarent.aa.veraweb.beans.Categorie;
 import de.tarent.aa.veraweb.beans.Person;
 import de.tarent.aa.veraweb.beans.PersonCategorie;
 import de.tarent.aa.veraweb.beans.PersonSearch;
@@ -110,7 +112,7 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 		 * cklein
 		 * 2008-02-21
 		 */
-		cntx.setContent( "action", ( String ) null ); // reset action
+//		cntx.setContent( "action", ( String ) null ); // reset action
 		Select select = this.prepareShowList( cntx, database );
 		Map param = ( Map )cntx.contentAsObject( OUTPUT_showListParams );
 		cntx.setContent( OUTPUT_getSelection, getSelection( cntx, ( Integer ) param.get( "count" ) ) );
@@ -121,28 +123,35 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 	public void saveList(OctopusContext cntx) throws BeanException, IOException
 	{
 		// does the user request categories to be assigned or unassigned?
-		String assignmentAction = cntx.requestAsString( "assignmentAction" );
-		if ( assignmentAction != null )
+		String assignmentAction = cntx.requestAsString( "categoryAssignmentAction" );
+		if ( assignmentAction != null && assignmentAction.length() > 0 )
 		{
 			Database database = getDatabase(cntx);
+			PersonCategorieWorker personCategoryWorker = WorkerFactory.getPersonCategorieWorker( cntx );
+			Integer categoryId = cntx.requestAsInteger( "categoryAssignmentId" );
 			List selection = this.getSelection( cntx, this.getCount( cntx, database ) );
 			Iterator iter = selection.iterator();
-			PersonCategorieWorker personCategoryWorker = WorkerFactory.getPersonCategorieWorker( cntx ); 
-			PersonCategorie personCategory = new PersonCategorie();
-			personCategory.categorie = cntx.requestAsInteger( "categoryAssignmentId" ); 
 			while( iter.hasNext() )
 			{
-				personCategory.person = ( Integer ) iter.next();
-				if ( "assign".compareTo( assignmentAction ) == 0 )
+				Integer personId = ( Integer ) iter.next();
+				if ( "assign".compareTo( assignmentAction ) == 0 && categoryId.intValue() > 0 )
 				{
-					// TODO rank from category?
-					personCategoryWorker.assignCategory( cntx, personCategory );
+					personCategoryWorker.addCategoryAssignment( cntx, categoryId, personId, database );
 				}
 				else
 				{
-					personCategoryWorker.unassignCategory( personCategory );
+					if ( categoryId.intValue() == 0 )
+					{
+						personCategoryWorker.removeAllCategoryAssignments( cntx, personId, database );
+					}
+					else
+					{
+						personCategoryWorker.removeCategoryAssignment( cntx, categoryId, personId, database );
+					}
 				}
+				iter.remove();
 			}
+			cntx.setSession( "selection" + BEANNAME, selection );
 		}
 		else
 		{
@@ -182,22 +191,20 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 		select.whereAnd( getPersonListFilter( cntx ) );
 
 		/*
-		 * extension to support search for persons with no assigned categories as per change request for version 1.2.0
 		 * extension to support for multiple categories at once
 		 * 
 		 * cklein
 		 * 2008-02-20/26
 		 */
-		select.from( "veraweb.tperson_categorie cat1" );
 		if
 		(
 			( search.categoriesSelection != null ) &&
 			( search.categoriesSelection.size() >= 1 ) &&
 			( search.categoriesSelection.get( 0 ).toString().length() > 0 ) && // workaround for octopus behaviour
-			( ( ( Integer ) search.categoriesSelection.get( 0 ) ).intValue() == 0 )
+			( ( ( Integer ) search.categoriesSelection.get( 0 ) ).intValue() != 0 ) 
 		)
 		{
-			//select.from( "veraweb.tperson_categorie cat1" );
+			select.from( "veraweb.tperson_categorie cat1" );
 		}
 		if ( search.categorie2 != null )
 		{
@@ -395,28 +402,29 @@ public class PersonListWorker extends ListWorkerVeraWeb {
         if ("clear".equals(param))
             search = new PersonSearch();
         else if ("reset".equals(param))
+        {
             search = (PersonSearch)getRequest(cntx).getBean("PersonSearch");
+            /*
+             * modified to support category multi selection
+             * cklein
+             * 2008-02-26
+             */
+            List list = ( List ) BeanFactory.transform( cntx.requestAsObject( "categoriesSelection" ), List.class );
+            ArrayList< Integer > selection = new ArrayList< Integer >( list.size() );
+            if ( list.size() > 0 && list.get( 0 ).toString().length() > 0 )
+            {
+            	Iterator iter = list.iterator();
+            	while( iter.hasNext() )
+            	{
+            		selection.add( new Integer( ( String ) iter.next() ) );
+            	}
+            }
+            search.categoriesSelection = selection;
+        }
         if (search == null)
             search = (PersonSearch)cntx.sessionAsObject("search" + BEANNAME);
         if (search == null)
             search = new PersonSearch();
-
-        /*
-         * modified to support category multi selection
-         * cklein
-         * 2008-02-26
-         */
-        List list = ( List ) BeanFactory.transform( cntx.requestAsObject( "categoriesSelection" ), List.class );
-        ArrayList< Integer > selection = new ArrayList< Integer >( list.size() );
-        if ( list.size() > 0 && list.get( 0 ).toString().length() > 0 )
-        {
-        	Iterator iter = list.iterator();
-        	while( iter.hasNext() )
-        	{
-        		selection.add( new Integer( ( String ) iter.next() ) );
-        	}
-        }
-        search.categoriesSelection = selection;
 
         cntx.setSession("search" + BEANNAME, search);
         return search;
@@ -440,7 +448,7 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 		WhereList list = new WhereList();
 		addPersonListFilter(cntx, list);
 		return Where.and(
-				Expr.equal("fk_orgunit", ((PersonalConfigAA)cntx.personalConfig()).getOrgUnitId()),
+				Expr.equal("tperson.fk_orgunit", ((PersonalConfigAA)cntx.personalConfig()).getOrgUnitId()),
 				list);
 	}
 
@@ -454,7 +462,7 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 	 */
 	private void addPersonListFilter(OctopusContext cntx, WhereList list) throws BeanException {
 		PersonSearch search = getSearch(cntx);
-		list.addAnd(Expr.equal("deleted", PersonConstants.DELETED_FALSE));
+		list.addAnd(Expr.equal("tperson.deleted", PersonConstants.DELETED_FALSE));
 
 		/*
 		 * modified to support search for individual workareas as per change request for version 1.2.0

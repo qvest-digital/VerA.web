@@ -30,6 +30,8 @@
 <input type="hidden" name="selectAll" value="false">
 <input type="hidden" name="selectNone" value="false">
 <input type="hidden" name="doRemove" value="true">
+<input type="hidden" name="categoryAssignmentAction" value="">
+<input type="hidden" name="categoryAssignmentId" value="">
 
 <table class="tab" border="0" cellspacing="0" cellpadding="0"><tr>
 	<td class="tableft">&nbsp;</td>
