@@ -76,7 +76,40 @@ public class GuestListWorker extends ListWorkerVeraWeb {
 		super("Guest");
 	}
 
-    //
+    @Override
+	public void saveList(OctopusContext cntx) throws BeanException, IOException
+	{
+		// does the user request categories to be assigned or unassigned?
+		String assignmentAction = cntx.requestAsString( "categoryAssignmentAction" );
+		if ( assignmentAction != null && assignmentAction.length() > 0 )
+		{
+			Database database = getDatabase(cntx);
+			Integer categoryId = cntx.requestAsInteger( "categoryAssignmentId" );
+			List selection = this.getSelection( cntx, this.getCount( cntx, database ) );
+			Iterator iter = selection.iterator();
+			while( iter.hasNext() )
+			{
+				Guest guest = ( Guest ) database.getBean( "Guest", ( Integer ) iter.next() );
+				if ( "assign".compareTo( assignmentAction ) == 0 && categoryId.intValue() > 0 )
+				{
+					guest.category = categoryId;
+				}
+				else
+				{
+					guest.category = null;
+				}
+				this.saveBean( cntx, guest );
+				iter.remove();
+			}
+			cntx.setSession( "selection" + BEANNAME, selection );
+		}
+		else
+		{
+			super.saveList( cntx );
+		}
+	}
+
+	//
     // Oberklasse BeanListWorker
     //
 	protected void extendWhere(OctopusContext cntx, Select select) throws BeanException {
@@ -278,11 +311,11 @@ public class GuestListWorker extends ListWorkerVeraWeb {
 		 */
 		Guest guestOld = ( Guest ) database.getBean( "Guest", guest.id );
 		// restore foreign keys
-		guest.person = guestOld.person;
-		guest.category = guestOld.category;
-		guest.color_a = guestOld.color_a;
-		guest.color_b = guestOld.color_b;
-		guest.event = guestOld.event;
+		//guest.person = guestOld.person;
+		//guest.category = guestOld.category;
+		//guest.color_a = guestOld.color_a;
+		//guest.color_b = guestOld.color_b;
+		//guest.event = guestOld.event;
 		
 		Update update = SQL.Update().
 				table("veraweb.tguest").
@@ -292,8 +325,9 @@ public class GuestListWorker extends ListWorkerVeraWeb {
 				update("createdby", guest.createdby).
 				update("changed", guest.changed).
 				update("changedby", guest.changedby).
+				update("fk_category", guest.category).
 				where(Expr.equal("pk", guest.id));
-		
+
 		if (guest.invitationtype.intValue() == EventConstants.TYPE_MITPARTNER) {
 			if (guest.invitationstatus_a != null && guest.invitationstatus_a.intValue() == 2)
 				update.update("orderno", null);

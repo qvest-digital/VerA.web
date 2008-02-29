@@ -14,20 +14,20 @@
 
 		function selected( elt )
 		{
-			window.opener.document.forms[ "formlist" ].elements[ "categoryAssignmentId" ] = elt.options[ elt.selectedIndex ].value;
-			window.opener.document.forms[ "formlist" ].elements[ "categoryAssignmentAction" ] = "${assignmentAction}";
+			window.opener.document.forms[ "formlist" ].elements[ "categoryAssignmentId" ].value = elt.options[ elt.selectedIndex ].value;
+			window.opener.document.forms[ "formlist" ].elements[ "categoryAssignmentAction" ].value = "${assignmentAction}";
 		}
 
 		function restore()
 		{
-			window.opener.document.forms[ "formlist" ].elements[ "categoryAssignmentId" ] = oldState.categoryId;
-			window.opener.document.forms[ "formlist" ].elements[ "categoryAssignmentAction" ] = oldState.actionName;
+			window.opener.document.forms[ "formlist" ].elements[ "categoryAssignmentId" ].value = oldState.categoryId;
+			window.opener.document.forms[ "formlist" ].elements[ "categoryAssignmentAction" ].value = oldState.actionName;
 		}
 
 		function initialize()
 		{
-			oldState.categoryId = window.opener.document.forms[ "formlist" ].elements[ "categoryAssignmentId" ];
-			oldState.actionName = window.opener.document.forms[ "formlist" ].elements[ "categoryAssignmentAction" ];
+			oldState.categoryId = window.opener.document.forms[ "formlist" ].elements[ "categoryAssignmentId" ].value;
+			oldState.actionName = window.opener.document.forms[ "formlist" ].elements[ "categoryAssignmentAction" ].value;
 		}
 
 		function send()
