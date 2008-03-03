@@ -66,7 +66,9 @@
 	
 	<td class="label" style="width: 19%;"><strong>Gast:</strong></td>
 	<td class="value" style="width: 31%;"><input type="text" id="person-main" name="person-main" value="$!message.text($name)" class="textdisabled" style="width: 90%;" readonly></td>
-	<td class="label" style="width: 19%;">E-Mail-Adresse:</td>
+## added mailto: link as per change request for version 1.2.0
+## cklein 2008-03-03
+	<td class="label"><label style="float:left;" for="person-mail$ext">E-Mail:</label>#if($email && $email.length()>0)<a style="float:right;" href="mailto:$!message.text($email)"><img src="${paths.staticWeb}images/email.gif"></a>#end</label></td>
 	<td class="value" style="width: 31%;"><input type="text" id="person-mail" name="person-mail" value="$!message.text($email)" class="textdisabled" style="width: 90%;" readonly></td>
 </tr><tr>
 	
@@ -234,7 +236,9 @@
 	<td class="label">Fax:</td>
 	<td class="value"><input type="text" id="guestdoctype-fax" name="guestdoctype-fax" value="$!message.text($guestdoctype.fax)" class="text"></td>
 </tr><tr>
-	<td class="label">E-Mail:</td>
+## added mailto: link as per change request for version 1.2.0
+## cklein 2008-02-21
+	<td class="label"><label style="float:left;" for="person-mail$ext">E-Mail:</label>#if($email && $email.length()>0)<a style="float:right;" href="mailto:$!message.text($email)"><img src="${paths.staticWeb}images/email.gif"></a>#end</label></td>
 	<td class="value"><input type="text" id="guestdoctype-mail" name="guestdoctype-mail" value="$!message.text($guestdoctype.mail)" class="text"></td>
 </tr><tr>
 	<td class="label">www:</td>

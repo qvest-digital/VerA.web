@@ -133,7 +133,7 @@ DurationInputDialog.handlers.showButtonClickHandler = function( event )
 				instance,
 				{
 					width: 200,
-					height: 140
+					height: 100
 				}
 			);
 		}
@@ -209,7 +209,7 @@ DurationInputDialog.showModalInputDialog = function( instance, windowSpec )
 		var dialogBody = document.createElement( "DIV" );
 		dialogBody.className = "dialogBody";
 		dialogBody.style.padding = "16px";
-		dialogBody.style.height = ( windowSpec.height - 30 ) + "px";
+		dialogBody.style.height = ( windowSpec.height ) + "px";
 		dialogBody.style.width = ( windowSpec.width - 30 ) + "px";
 
 		var label = document.createElement( "LABEL" );
@@ -217,11 +217,12 @@ DurationInputDialog.showModalInputDialog = function( instance, windowSpec )
 		var br = document.createElement( "BR" );
 		br.style.clear = "both";
 		label.setAttribute( "for", "durationInYears" );
-		label.style.width = "100px";
+		label.style.cssFloat = "left";
+
 		var inputField = document.createElement( "INPUT" );
 		inputField.type = "textbox";
 		inputField.size = "5";
-		inputField.style.float = "right";
+		inputField.style.cssFloat = "right";
 		inputField.style.width = "50%";
 		inputField.maxLength = "4";
 		inputField.name = inputField.id = "durationInYears";
@@ -261,21 +262,21 @@ DurationInputDialog.showModalInputDialog = function( instance, windowSpec )
 		dialogFooter.style.width = windowSpec.width + "px";
 
 		// TODO add ok / cancel buttons
-		var okButton = document.createElement( "INPUT" );
-		okButton.type = "button";
-		okButton.name = "ok";
-		okButton.value = "OK";
-		okButton.style.width = "100px";
-		okButton.onclick = DurationInputDialog.handlers.okButtonClickHandler;
-		dialogFooter.appendChild( okButton );
-
 		var cancelButton = document.createElement( "INPUT" );
 		cancelButton.type = "button";
 		cancelButton.name = "cancel";
 		cancelButton.value = "Abbruch";
-		cancelButton.style.width = "100px";
+		cancelButton.style.width = "50%";
 		cancelButton.onclick = DurationInputDialog.handlers.cancelButtonClickHandler;
 		dialogFooter.appendChild( cancelButton );
+
+		var okButton = document.createElement( "INPUT" );
+		okButton.type = "button";
+		okButton.name = "ok";
+		okButton.value = "OK";
+		okButton.style.width = "50%";
+		okButton.onclick = DurationInputDialog.handlers.okButtonClickHandler;
+		dialogFooter.appendChild( okButton );
 
 		dialogBorder.appendChild( dialogFooter );
 		container.appendChild( dialog );
