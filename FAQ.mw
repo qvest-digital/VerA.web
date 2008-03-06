@@ -1,8 +1,3 @@
-== LDAP Einrichtung und Konfiguration ==
-
-Bitte verwenden Sie die neuste Version von veraweb (mindestens 1.2.x) sowie die entsprechende [[Installationsanleitung 1.2.x]].
-Mit dieser Version ist es einfacher eine bestehende LDAP Installation (oder eine frische Standardinstallation) zu verwenden.
-
 == fehlender Eintrag in FROM-Klausel für Tabelle »tguest_doctype« ==
 
 '''Fehler'''
