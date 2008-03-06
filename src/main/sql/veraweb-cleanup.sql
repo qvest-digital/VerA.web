@@ -1,11 +1,15 @@
-﻿--
--- $Id: veraweb-cleanup.sql,v 1.14 2006/06/22 14:00:36 christoph Exp $
+--
+-- $Id: veraweb-schema.sql,v 1.31 2006/08/23 18:28:40 christoph Exp $
 --
 -- FORMAT: UTF-8
 --
--- Script das Datenbereinigungs Aktionen aufführt.
--- Kann gefahrlos auf aktuelle Daten angewendet werden.
--- Bei großen Datenbank-Updates kann ein ausführen erforderlich sein.
+-- Update Script fuer das VerA.Web - Schema.
+--
+-- Kann auf eine beliebige Version des Schemas
+-- oder eine leere Datenbank angewendet werden.
+--
+-- Die Datenbank innerhalb der dieses Script ausgefuehrt wird,
+-- muss dem Benutzer entsprechen der es ausfuehrt.
 --
 
 SET client_encoding = 'UNICODE';

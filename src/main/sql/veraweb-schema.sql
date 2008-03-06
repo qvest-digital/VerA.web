@@ -12,8 +12,6 @@
 -- muss dem Benutzer entsprechen der es ausfuehrt.
 --
 
-SET client_encoding = 'UNICODE';
-
 CREATE OR REPLACE FUNCTION serv_verawebschema(int4) RETURNS varchar AS
 '
 /* ------------------------------------------------------------ 
@@ -53,6 +51,7 @@ CREATE OR REPLACE FUNCTION serv_verawebschema(int4) RETURNS varchar AS
  *  2006-02-17  add: indexes on tperson, tperson_doctype, tguest and tguest_doctype
  *  2008-02-11  cklein: added upgrade paths based on the change requests per the next version 1.2.0, incl. changes to tperson, tguest, new: tdata_change_log, tfield_of_work
  *  2008-02-20  cklein: reverted part of the previous changes, namely association of the workarea entity with the guest entity: this is actually to be associated with a tperson instead
+ *  2008-03-06  cklein: fixed a few bugs: tworkarea table must be created prior to tperson table
  * </changelog>
  * ----------------------------------------------------------- */
 
@@ -1160,7 +1159,39 @@ END;\'
 	--------<COLUMN/>
 	END IF;
 	---------------------------</TABLE>
-	
+
+	-------- added table as per the change request for the next version 1.2.0
+	-------- cklein 2008-02-12
+	---------------------------<TABLE>
+	vint := 0;
+	SELECT count(*) INTO vint FROM information_schema.tables 
+		WHERE table_schema = \'veraweb\' AND table_name = \'tworkarea\';
+	IF vint = 0 THEN
+		vmsg := \'begin.createTABLE.tworkare\';
+		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
+		IF $1 = 1 THEN
+			CREATE TABLE veraweb.tworkarea
+			(
+			  pk serial NOT NULL,
+			  name varchar(250) NOT NULL,
+			  CONSTRAINT tworkarea_pkey PRIMARY KEY (pk)
+			) WITH OIDS;
+		END IF;
+		vmsg := \'end.createTABLE.tworkarea\';
+		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
+		vmsg := \'begin.insertDEFAULTS.tworkarea\';
+		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
+		IF $1 = 1 THEN
+			INSERT INTO veraweb.tworkarea (pk,name) VALUES(0,\'Kein\');
+		END IF;
+		vmsg := \'end.insertDEFAULTS.tworkarea\';
+		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
+	ELSE
+	--------<COLUMN>
+	--------<COLUMN/>
+	END IF;
+	---------------------------</TABLE>
+
 	---------------------------<TABLE>
 	vint := 0;
 	SELECT count(*) INTO vint FROM information_schema.tables 
@@ -1554,24 +1585,6 @@ END;\'
 		-------- added additional upgrade path as per the change request for the next version 1.2.0
 		-------- cklein 2008-02-20
 		--------<COLUMN>
-		--ALTER TABLE veraweb.tperson ADD CONSTRAINT tperson_fkey_workarea FOREIGN KEY (fk_workarea) REFERENCES veraweb.tworkarea (pk) ON UPDATE RESTRICT ON DELETE RESTRICT
-		vint := 0;
-		SELECT count(*) INTO vint FROM information_schema.constraint_column_usage
-			WHERE table_schema = \'veraweb\' AND table_name = \'tperson\' AND column_name = \'fk_workarea\' AND constraint_name = \'tperson_fkey_workarea\';
-		IF vint = 0 THEN
-			vmsg := \'begin.addconstraint.tperson.fk_workarea\';
-			INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
-			IF $1 = 1 THEN
-				ALTER TABLE veraweb.tperson ADD CONSTRAINT tperson_fkey_workarea FOREIGN KEY (fk_workarea) REFERENCES veraweb.tworkarea (pk) ON UPDATE RESTRICT ON DELETE RESTRICT;
-			END IF;
-			vmsg := \'end.addconstraint.tperson.fk_workarea\';
-			INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
-		END IF;
-		--------<COLUMN/>
-	
-		-------- added additional upgrade path as per the change request for the next version 1.2.0
-		-------- cklein 2008-02-20
-		--------<COLUMN>
         --ALTER TABLE veraweb.tperson ADD COLUMN fk_workarea int4
 		vint := 0;
 		SELECT count(*) INTO vint FROM information_schema.columns
@@ -1587,6 +1600,24 @@ END;\'
 		END IF;
 		--------<COLUMN/>
 
+		-------- added additional upgrade path as per the change request for the next version 1.2.0
+		-------- cklein 2008-02-20
+		--------<COLUMN>
+		--ALTER TABLE veraweb.tperson ADD CONSTRAINT tperson_fkey_workarea FOREIGN KEY (fk_workarea) REFERENCES veraweb.tworkarea (pk) ON UPDATE RESTRICT ON DELETE RESTRICT
+		vint := 0;
+		SELECT count(*) INTO vint FROM information_schema.constraint_column_usage
+			WHERE table_schema = \'veraweb\' AND table_name = \'tperson\' AND column_name = \'fk_workarea\' AND constraint_name = \'tperson_fkey_workarea\';
+		IF vint = 0 THEN
+			vmsg := \'begin.addconstraint.tperson.fk_workarea\';
+			INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
+			IF $1 = 1 THEN
+				ALTER TABLE veraweb.tperson ADD CONSTRAINT tperson_fkey_workarea FOREIGN KEY (fk_workarea) REFERENCES veraweb.tworkarea (pk) ON UPDATE RESTRICT ON DELETE RESTRICT;
+			END IF;
+			vmsg := \'end.addconstraint.tperson.fk_workarea\';
+			INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
+		END IF;
+		--------<COLUMN/>
+	
 		-------- added additional upgrade path as per the change request for the next version 1.2.0
 		-------- cklein 2008-02-11
 		--------<COLUMNS>
@@ -2123,38 +2154,6 @@ END;\'
 			) WITH OIDS;
 		END IF;
 		vmsg := \'end.createTABLE.tproxy\';
-		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
-	ELSE
-	--------<COLUMN>
-	--------<COLUMN/>
-	END IF;
-	---------------------------</TABLE>
-
-	-------- added table as per the change request for the next version 1.2.0
-	-------- cklein 2008-02-12
-	---------------------------<TABLE>
-	vint := 0;
-	SELECT count(*) INTO vint FROM information_schema.tables 
-		WHERE table_schema = \'veraweb\' AND table_name = \'tworkarea\';
-	IF vint = 0 THEN
-		vmsg := \'begin.createTABLE.tworkare\';
-		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
-		IF $1 = 1 THEN
-			CREATE TABLE veraweb.tworkarea
-			(
-			  pk serial NOT NULL,
-			  name varchar(250) NOT NULL,
-			  CONSTRAINT tworkarea_pkey PRIMARY KEY (pk)
-			) WITH OIDS;
-		END IF;
-		vmsg := \'end.createTABLE.tworkarea\';
-		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
-		vmsg := \'begin.insertDEFAULTS.tworkarea\';
-		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
-		IF $1 = 1 THEN
-			INSERT INTO veraweb.tworkarea (pk,name) VALUES(0,\'Kein\');
-		END IF;
-		vmsg := \'end.insertDEFAULTS.tworkarea\';
 		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
 	ELSE
 	--------<COLUMN>
