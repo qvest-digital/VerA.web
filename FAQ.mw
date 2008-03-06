@@ -1,4 +1,3 @@
-
 == veraweb-schema.sql: Nicht standardkonforme Verwendung von \' in Zeichenkettenkonstante ==
 
 '''Fehler'''
@@ -11,11 +10,9 @@
    Die Verwendung von \' ist veraltet und führt unter PostgreSQL zu genannter Fehlermeldung.
    Die Funktion wird jedoch vollständig angelegt und kann ohne weiteres durch SELECT * FROM serv_verawebschema(0);
    getestet werden bzw. durch SELECT * FROM serv_verawebschema(1); ausgeführt werden.
-
    Um die Fehlermeldung abzustellen, muss die Konfiguration von PostgreSQL geändert werden.
    Dies geschieht über die Konfigurationsdatei /etc/postgresql/8.2/main/postgresql.conf.
    Suchen Sie dort den Schlüssel "escape_string_warning" und setzen Sie diesen von "on" auf "off".
-
 
 == fehlender Eintrag in FROM-Klausel für Tabelle »tguest_doctype« ==
 
