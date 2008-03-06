@@ -53,7 +53,8 @@ public class LDAPManagerAA extends LDAPManager {
     // Konstanten
     //
     /** LDAP-Objektklasse für AA-Rollen */
-    public final static String OBJECT_CLASS_AA_ROLE = "AARole";
+    // TODO cklein please extract this const into the ldap access config file.
+    public final static String OBJECT_CLASS_AA_ROLE = "person";
     /** Parameter-Schlüssel für den AA-Rollen-Filter */
     public final static String KEY_ROLE_FILTER = "role-filter";
 
@@ -103,7 +104,7 @@ public class LDAPManagerAA extends LDAPManager {
      * @throws NamingException
      */
     public Set getPossibleRoles() throws NamingException {
-        Set roleUids = getPossibleRoles(SearchControls.ONELEVEL_SCOPE, "(objectclass=AARole)");
+        Set roleUids = getPossibleRoles(SearchControls.ONELEVEL_SCOPE, "(objectclass=" + OBJECT_CLASS_AA_ROLE + ")");
         logger.fine("Alle verfügbaren Rollen: " + roleUids);
         return roleUids;
     }
