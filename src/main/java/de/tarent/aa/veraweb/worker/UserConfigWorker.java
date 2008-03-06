@@ -91,14 +91,13 @@ public class UserConfigWorker {
 		 * 2008-02-15 
 		 */
 		User user = ( User ) database.getBean( "User", userId );
-		OrgUnit orgUnit = null;
-
-		orgUnit = new OrgUnit();
-		if ( user.orgunit != null && user.orgunit.intValue() != 0 )
+		OrgUnit orgUnit = new OrgUnit();
+		
+		if ( user != null && user.orgunit != null && user.orgunit.intValue() != 0 )
 		{
 			orgUnit = ( OrgUnit ) database.getBean( "OrgUnit", user.orgunit );
 		}
-
+		
 		cntx.setContent( "orgUnit", orgUnit );
 		cntx.setSession("userConfig", result);
 		return result;
