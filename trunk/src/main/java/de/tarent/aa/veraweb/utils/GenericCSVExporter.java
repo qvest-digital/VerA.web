@@ -75,8 +75,8 @@ public class GenericCSVExporter extends GenericCSVBase implements Exporter
 	// Schnittstelle Exporter
 	//
 	/**
-	 * Diese Methode wird zu jeder zu exportierenden Person aufgerufen, übergeben wird die Person als Zusammenstellung von
-	 * {@link Person}. Sie fügt dem Export eine Beschreibung der übergebenen VerA.web-Person hinzu.
+	 * Diese Methode wird zu jeder zu exportierenden Person aufgerufen, ï¿½bergeben wird die Person als Zusammenstellung von
+	 * {@link Person}. Sie fï¿½gt dem Export eine Beschreibung der ï¿½bergebenen VerA.web-Person hinzu.
 	 * 
 	 * @param person
 	 *          {@link Person}-Bean
@@ -106,11 +106,11 @@ public class GenericCSVExporter extends GenericCSVBase implements Exporter
 	public void startExport() throws IOException
 	{
 		if (exchangeFormat == null)
-			throw new IOException("Der Export benötigt ein ExchangeFormat.");
+			throw new IOException("Der Export benï¿½tigt ein ExchangeFormat.");
 		if (database == null)
-			throw new IOException("Der Export benötigt eine Database.");
+			throw new IOException("Der Export benï¿½tigt eine Database.");
 		if (outputStream == null)
-			throw new IOException("Der Export benötigt einen OutputStream.");
+			throw new IOException("Der Export benï¿½tigt einen OutputStream.");
 		try
 		{
 			readProperties();
@@ -144,7 +144,7 @@ public class GenericCSVExporter extends GenericCSVBase implements Exporter
 	}
 
 	//
-	// geschützte Hilfsmethoden
+	// geschï¿½tzte Hilfsmethoden
 	//
 	/**
 	 * Diese Methode initialisiert den internen {@link CSVFileWriter}.
@@ -170,10 +170,10 @@ public class GenericCSVExporter extends GenericCSVBase implements Exporter
 	}
 
 	//
-	// geschützte innere Klassen
+	// geschï¿½tzte innere Klassen
 	//
 	/**
-	 * Diese Klasse setzt die {@link Entity}-Facade für {@link Person}-Instanzen um.
+	 * Diese Klasse setzt die {@link Entity}-Facade fï¿½r {@link Person}-Instanzen um.
 	 */
 	class PersonEntity implements Entity
 	{
@@ -181,11 +181,11 @@ public class GenericCSVExporter extends GenericCSVBase implements Exporter
 		// Schnittstelle Entity
 		//
 		/**
-		 * Diese Methode erlaubt das Abfragen von Daten zu einem bestimmten Schlüssel. Die Schlüssel werden in
+		 * Diese Methode erlaubt das Abfragen von Daten zu einem bestimmten Schlï¿½ssel. Die Schlï¿½ssel werden in
 		 * {@link GenericCSVExporter#getAvailableFields()} erstellt.
 		 * 
 		 * @param sourceKey
-		 *          Quellfeldschlüssel
+		 *          Quellfeldschlï¿½ssel
 		 * @return Quellfeldwert als {@link String}; <code>null</code>-Felder werden als Leerstring <code>""</code>
 		 *         geliefert; <code>Date</code>-Felder werden mit {@link GenericCSVBase#dateFormat} formatiert.
 		 */
@@ -237,7 +237,7 @@ public class GenericCSVExporter extends GenericCSVBase implements Exporter
 		 *          Name der Kategorie
 		 * @return Rang der Person in der Kategorie; <code>null</code>, wenn nicht in der Kategorie,
 		 *         {@link GenericCSVExporter#DEFAULT_RANK}, wenn weder ein individueller noch ein allgemeiner Rang zu der
-		 *         Kategorie vorliegt, jedoch sehr wohl Kategorienzugehörigkeit besteht.
+		 *         Kategorie vorliegt, jedoch sehr wohl Kategorienzugehï¿½rigkeit besteht.
 		 */
 		Object getRank(String categoryName) throws BeanException, IOException
 		{
@@ -315,10 +315,10 @@ public class GenericCSVExporter extends GenericCSVBase implements Exporter
 		//
 		// Membervariablen
 		//
-		/** Die {@link Person}, für die dies eine Facade ist. */
+		/** Die {@link Person}, fï¿½r die dies eine Facade ist. */
 		final Person	person;
 
-		/** Die Ränge der Person in den Kategorien */
+		/** Die Rï¿½nge der Person in den Kategorien */
 		Map						ranks							= null;
 
 		/** Die Dokumenttypfreitexte der Hauptperson */
@@ -328,14 +328,14 @@ public class GenericCSVExporter extends GenericCSVBase implements Exporter
 		Map						textFieldsPartner	= null;
 	}
 
-	/** Einschränkung auf Mandant */
+	/** Einschrï¿½nkung auf Mandant */
 	protected Integer			orgUnitId			= null;
 
-	/** Einschränkung auf Kategorie <code>Null</code> = alle Kategorien, 0 = keine Kategorie */
+	/** Einschrï¿½nkung auf Kategorie <code>Null</code> = alle Kategorien, 0 = keine Kategorie */
 	protected Integer			categoryId		= null;
 
 	//
-	// geschützte Membervariablen
+	// geschï¿½tzte Membervariablen
 	//
 	/** CSV-Ausgabe-Objekt */
 	CSVFileWriter					csvWriter			= null;
@@ -365,7 +365,7 @@ public class GenericCSVExporter extends GenericCSVBase implements Exporter
 
 	/**
 	 * Diese Methode holt alle notwendigen Kategorien aus der Datenbank.<br>
-	 * Nur die vom Nutzer ausgewählte Kategorien. Nur die Kategorien des Mandanten
+	 * Nur die vom Nutzer ausgewï¿½hlte Kategorien. Nur die Kategorien des Mandanten
 	 * 
 	 * @throws IOException
 	 * @throws BeanException
@@ -381,7 +381,7 @@ public class GenericCSVExporter extends GenericCSVBase implements Exporter
 
 		Select sel = database.getSelect("Categorie");
 
-		/*TODO sobald Select.whereAnd(Clause) zum DB-Layer.jar gehört, kann der Code(Kot) unten ausgetauscht werden.
+		/*TODO sobald Select.whereAnd(Clause) zum DB-Layer.jar gehoert, kann der Code(Kot) unten ausgetauscht werden.
 		if (this.categoryId != null)
 		{
 			sel.whereAnd(Expr.equal("pk", this.categoryId));
@@ -418,7 +418,7 @@ public class GenericCSVExporter extends GenericCSVBase implements Exporter
 	 */
 	protected List getDocumentTypesFromDB() throws BeanException, IOException
 	{
-		// TODO nur die Dokumenttypen des Mandanten, falls Doktypen auf Mandanten eingeschränkt werden.
+		// TODO nur die Dokumenttypen des Mandanten, falls Doktypen auf Mandanten eingeschrï¿½nkt werden.
 		return super.getDocumentTypesFromDB();
 	}
 
