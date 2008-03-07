@@ -52,17 +52,9 @@ public class LDAPManagerAA extends LDAPManager {
     //
     // Konstanten
     //
-    /** LDAP-Objektklasse f�r AA-Rollen */
-    /** Parameter-Schl�ssel f�r den AA-Rollen-Filter */
+    /** LDAP-Objektklasse fuer AA-Rollen */
+    /** Parameter-Schluessel fuer den AA-Rollen-Filter */
     public final static String KEY_ROLE_FILTER = "role-filter";
-
-    /**
-     * Parameter-Schluessel fuer die Objekt Klasse, welche von den in
-     * LDAP definierten Benutzern implementiert wird.
-     */
-    public final static String KEY_USER_OBJECT_CLASS = "user-object-class";
-
-    private String defaultUserObjectClass = null;
     
     //
     // Konstruktor
@@ -77,8 +69,6 @@ public class LDAPManagerAA extends LDAPManager {
      */
     public LDAPManagerAA(InitialLdapContext lctx, Map params) {
         super(lctx, params);
-        this.defaultUserObjectClass = ( String ) params.get( LDAPManagerAA.KEY_USER_OBJECT_CLASS );
-        setDefaultObjectClasses( new String[] { this.defaultUserObjectClass } );
         String roleFilter = (String) params.get(KEY_ROLE_FILTER);
         filterTemplate = new MessageFormat(roleFilter != null ? roleFilter : "(objectclass=" + this.defaultUserObjectClass + ')');
     }
@@ -111,7 +101,9 @@ public class LDAPManagerAA extends LDAPManager {
      * @throws NamingException
      */
     public Set getPossibleRoles() throws NamingException {
-        Set roleUids = getPossibleRoles(SearchControls.ONELEVEL_SCOPE, "(objectclass=" + this.defaultUserObjectClass + ")");
+		SearchControls cons = new SearchControls();
+		this.initializeSearchControls( cons );
+		Set roleUids = getPossibleRoles("(objectclass=" + this.defaultUserObjectClass + ")", cons);
         logger.fine("Alle verf�gbaren Rollen: " + roleUids);
         return roleUids;
     }
@@ -131,7 +123,9 @@ public class LDAPManagerAA extends LDAPManager {
      * @throws NamingException
      */
     public Set getPossibleRoles(String login) throws NamingException {
-        Set roleUids = getPossibleRoles(SearchControls.ONELEVEL_SCOPE, filterTemplate.format(new Object[]{login}));
+    	SearchControls cons = new SearchControls();
+    	this.initializeSearchControls( cons );
+        Set roleUids = getPossibleRoles(filterTemplate.format(new Object[]{login}), cons);
         logger.fine("Rollen f�r " + login + ": " + roleUids);
         return roleUids;
     }
@@ -144,10 +138,8 @@ public class LDAPManagerAA extends LDAPManager {
      * @return Sammlung m�glicher Rollen zu dem Filter
      * @throws NamingException
      */
-    public Set getPossibleRoles(int searchScope, String filter) throws NamingException {
+    public Set getPossibleRoles(String filter, SearchControls cons) throws NamingException {
         Set roleUids = new HashSet();
-        SearchControls cons = new SearchControls();
-        cons.setSearchScope(searchScope);
         NamingEnumeration ergebnis = lctx.search(relativeUser.substring(1) + baseDN, filter, cons);
         while (ergebnis.hasMore()) {
             Attributes result = ((SearchResult) ergebnis.nextElement()).getAttributes();
