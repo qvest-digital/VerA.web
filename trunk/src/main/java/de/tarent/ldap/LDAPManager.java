@@ -26,6 +26,7 @@ package de.tarent.ldap;
 
 import java.lang.reflect.Constructor;
 import java.math.BigInteger;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Iterator;
@@ -738,7 +739,9 @@ public class LDAPManager {
             attr.put(att);
         }
 		try {
-			NamingEnumeration ne = lctx.search(relativeUser.substring(1) + baseDN, attr);
+			SearchControls cons = new SearchControls();
+    		this.initializeSearchControls( cons );
+    		NamingEnumeration ne = lctx.search(relativeUser.substring(1) + baseDN, filterTemplate.format(new Object[]{uid}), cons );
 			if (!ne.hasMore()) {
 				throw new LDAPException(Messages.getString("LDAPManager.95")); //$NON-NLS-1$
 			}
@@ -1214,4 +1217,6 @@ public class LDAPManager {
         env.put(Context.PROVIDER_URL, ldapurl);
         return env;
     }
+
+    protected MessageFormat filterTemplate;
 }

@@ -70,7 +70,14 @@ public class LDAPManagerAA extends LDAPManager {
     public LDAPManagerAA(InitialLdapContext lctx, Map params) {
         super(lctx, params);
         String roleFilter = (String) params.get(KEY_ROLE_FILTER);
-        filterTemplate = new MessageFormat(roleFilter != null ? roleFilter : "(objectclass=" + this.defaultUserObjectClass + ')');
+        // setup a valid filter template, by default we only search for the uid
+        String objFilter = "(uid={0})";
+        if ( this.defaultUserObjectClass != null && this.defaultUserObjectClass.length() > 0 )
+        {
+        	// if set, we extend the default search filter template by the defined user object class
+        	objFilter = "&(objectclass=" + this.defaultUserObjectClass + ")" + objFilter + ")";
+        }
+        filterTemplate = new MessageFormat(roleFilter != null ? roleFilter : objFilter);
     }
 
     //
@@ -88,12 +95,12 @@ public class LDAPManagerAA extends LDAPManager {
     public Map getUserData(String userName) throws LDAPException {
         try {
             String dn = getUserDN(userName);
-            return LDAPUtil.toMap(lctx.getAttributes(dn + relativeUser + baseDN));
+    		return LDAPUtil.toMap(lctx.getAttributes(dn + relativeUser + baseDN));
         } catch (NamingException e) {
             throw new LDAPException("Es ist ein Fehler beim Holen der Userdaten aufgetreten!", e);
         }
     }
-    
+
     /**
      * Diese Methode ermittelt alle verf�gbaren Rollen.
      * 
@@ -152,8 +159,6 @@ public class LDAPManagerAA extends LDAPManager {
     //
     // Members
     //
-    /** filter-Template f�r {@link #getPossibleRoles(String)} */
-    protected MessageFormat filterTemplate = null;
     
     /** eigener statischer Logger */
     private static Logger logger = Logger.getLogger(LDAPManagerAA.class.getName());
