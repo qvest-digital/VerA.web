@@ -76,12 +76,7 @@ public class LoginManagerLDAPAA extends LoginManagerLDAPGeneric implements Login
     /** Schl�ssel des Konfigurationseintrags f�r das Superadmin-Passwort */
     public final static String KEY_SYSTEM_ADMIN_PASSWORD = "systempassword";
 
-    /**
-     * Schluessel des Konfigurationseintrags fuer die Objekt Klasse,
-     * welche von den in LDAP definierten Benutzern implementiert wird.
-     */
-    public final static String KEY_USER_OBJECT_CLASS = "ldapuserobjectclass";
-    
+
     //
     // Schnittstelle LoginManagerAA
     //
@@ -169,7 +164,8 @@ public class LoginManagerLDAPAA extends LoginManagerLDAPGeneric implements Login
         params.put(LDAPManager.KEY_RELATIVE, getConfigurationString(TcEnv.KEY_LDAP_RELATIVE));
         params.put(LDAPManager.KEY_RELATIVE_USER, getConfigurationString(TcEnv.KEY_LDAP_RELATIVE));
         params.put(LDAPManagerAA.KEY_ROLE_FILTER, getConfigurationString(KEY_ROLE_FILTER));
-        params.put(LDAPManagerAA.KEY_USER_OBJECT_CLASS, getConfigurationString(KEY_USER_OBJECT_CLASS));
+        params.put(LDAPManager.KEY_USER_OBJECT_CLASS, getConfigurationString(LoginManagerLDAPGeneric.KEY_USER_OBJECT_CLASS));
+        params.put(LDAPManager.KEY_RECURSIVE_LOOKUPS, getConfigurationString(LoginManagerLDAPGeneric.KEY_RECURSIVE_LOOKUPS));
         ldapManager = LDAPManager.login(
                 LDAPManagerAA.class,
                 getConfigurationString(TcEnv.KEY_LDAP_URL),
