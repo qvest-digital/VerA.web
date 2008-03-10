@@ -207,7 +207,7 @@
 		#else
 			## Mit Partner
 			<td class="list" title="$!config.main einladen">
-				<input type="checkbox" id="${bean.id}-select" name="${bean.id}-select" value="true" class="checkbox" #if($listselection.indexOf($bean.id) != -1) checked#end #if(!$hasA) onClick="hasNoMain('${bean.id}-select');" #elseif($hasB) onClick="onClickSetState('${bean.id}-select', '${bean.id}-partner');onClickEnforceConsistentState('${bean.id}-select', '${bean.id}-partner', '${bean.id}-reserve');" #end>
+				<input type="checkbox" id="${bean.id}-select" name="${bean.id}-select" value="true" class="checkbox" #if($listselection.indexOf($bean.id) != -1) checked#end #if(!$hasA) onClick="hasNoMain('${bean.id}-select');" #elseif($hasB) onClick="onClickSetState('${bean.id}-select', '${bean.id}-partner');onClickEnforceConsistentState('${bean.id}-select', '${bean.id}-partner', '${bean.id}-reserve');" #else onClick="onClickEnforceConsistentState('${bean.id}-select', '${bean.id}-partner', '${bean.id}-reserve');" #end>
 			</td>
 			<td class="list" title="$!config.partner einladen">
 				<input type="checkbox" id="${bean.id}-partner" name="${bean.id}-partner" value="true" class="checkbox" #if($invitepartner.indexOf($bean.id) != -1) checked#end #if(!$hasB) onClick="hasNoPartner('${bean.id}-partner');" #elseif($hasA) onClick="onClickSetState('${bean.id}-partner', '${bean.id}-select');onClickEnforceConsistentState('${bean.id}-select', '${bean.id}-partner', '${bean.id}-reserve');" #else onClick="onClickEnforceConsistentState('${bean.id}-select', '${bean.id}-partner', '${bean.id}-reserve');" #end>
@@ -373,7 +373,9 @@
 ## cklein
 ## 2008-02-22
 	function onClickEnforceConsistentState(box1, box2, box3) {
+alert( "shit" );
 		var checked = document.getElementById(box1).checked || document.getElementById(box2).checked;
+		alert( checked );
 		if ( ! checked )
 		{
 			document.getElementById(box3).checked = false;
@@ -505,16 +507,23 @@
 
 </script>
 
+#if($list && $list.size() > 0 )
 <input type="submit" name="remove" value="L&ouml;schen" title="markierte Personen l&ouml;schen" onclick="return removePerson();" #if($grants.mayWrite()) class="button" #else class="buttondisabled" disabled #end> &nbsp;
-#if($exportFormat)
+#end
+
+## modified to disable buttons in case that the result list is empty
+## cklein
+## 2008-03-10
+#if($exportFormat && $list && $list.size() > 0 )
 <input type="button" name="export" value="Export" onclick="document.formlist.action='${paths.staticWeb}do/PersonExport/export.$exportFormat'; document.formlist.submit(); document.formlist.action='${paths.staticWeb}do/$octopusRequest.task';" #if($grants.mayExport()) class="button" #else class="buttondisabled" disabled #end> &nbsp;
 #else
 <input type="button" name="export" value="Export" #if($grants.mayExport()) class="button" disabled title="Der Export steht nicht zur Verf&uuml;gung da kein Dokumenttyp konfiguriert worden ist." #else class="buttondisabled" disabled #end> &nbsp;
 #end
+<input type="button" name="assignCategory" value="Kategorien zuordnen" #if($isUser && $list && $list.size() > 0) class="button" onClick="assignCategories();" #else class="buttondisabled" disabled="disabled" #end>&nbsp;
+<input type="button" name="unassignCategory" value="Kategorien entfernen" #if($isUser && $list && $list.size() > 0) class="button" onClick="unassignCategories();" #else class="buttondisabled" disabled="disabled" #end>
+
 <input type="button" class="cancel" name="cancel" value="Zur&uuml;ck" onclick="window.location.href='ShowPersonSearch';"> &nbsp;
 
-<input type="button" name="assignCategory" value="Kategorien zuordnen" #if($isUser) class="button" onClick="assignCategories();" #else class="buttondisabled" disabled="disabled" #end>&nbsp;
-<input type="button" name="unassignCategory" value="Kategorien entfernen" #if($isUser) class="button" onClick="unassignCategories();" #else class="buttondisabled" disabled="disabled" #end>
 
 #end
 
