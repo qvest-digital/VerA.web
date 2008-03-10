@@ -75,7 +75,7 @@ public class LDAPManagerAA extends LDAPManager {
         if ( this.defaultUserObjectClass != null && this.defaultUserObjectClass.length() > 0 )
         {
         	// if set, we extend the default search filter template by the defined user object class
-        	objFilter = "&(objectclass=" + this.defaultUserObjectClass + ")" + objFilter + ")";
+        	objFilter = "(&(objectclass=" + this.defaultUserObjectClass + ")" + objFilter + ")";
         }
         filterTemplate = new MessageFormat(roleFilter != null ? roleFilter : objFilter);
     }
@@ -106,6 +106,7 @@ public class LDAPManagerAA extends LDAPManager {
      * 
      * @return Sammlung verf�gbarer Rollen
      * @throws NamingException
+     * @throws LDAPException 
      */
     public Set getPossibleRoles() throws NamingException {
 		SearchControls cons = new SearchControls();
@@ -128,6 +129,7 @@ public class LDAPManagerAA extends LDAPManager {
      * @param login Login, zu dem m�gliche Rollen gesucht werden sollen
      * @return Sammlung m�glicher Rollen zu dem Login
      * @throws NamingException
+     * @throws LDAPException 
      */
     public Set getPossibleRoles(String login) throws NamingException {
     	SearchControls cons = new SearchControls();
@@ -144,18 +146,27 @@ public class LDAPManagerAA extends LDAPManager {
      * @param filter JNDI-Suchfilter
      * @return Sammlung m�glicher Rollen zu dem Filter
      * @throws NamingException
+     * @throws LDAPException 
      */
     public Set getPossibleRoles(String filter, SearchControls cons) throws NamingException {
         Set roleUids = new HashSet();
-        NamingEnumeration ergebnis = lctx.search(relativeUser.substring(1) + baseDN, filter, cons);
-        while (ergebnis.hasMore()) {
-            Attributes result = ((SearchResult) ergebnis.nextElement()).getAttributes();
-            // TODO: hier wird einer der uid-Eintr�ge genommen, nicht alle. Nach Anpassung andere getPossibleRoles entsprechend anpassen
-            roleUids.add(result.get("uid").get());
+        try
+        {
+	        this.recreateInitialContext();
+	        NamingEnumeration ergebnis = lctx.search(relativeUser.substring(1) + baseDN, filter, cons);
+	        while (ergebnis.hasMore()) {
+	            Attributes result = ((SearchResult) ergebnis.nextElement()).getAttributes();
+	            // TODO: hier wird einer der uid-Eintr�ge genommen, nicht alle. Nach Anpassung andere getPossibleRoles entsprechend anpassen
+	            roleUids.add(result.get("uid").get());
+	        }
+	        return roleUids;
         }
-        return roleUids;
+        catch( LDAPException e )
+        {
+        	throw new NamingException( "Die Verbindung zum LDAP Server wurde geschlossen." );
+        }
     }
-    
+
     //
     // Members
     //

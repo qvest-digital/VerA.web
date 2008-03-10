@@ -82,7 +82,7 @@ public class LDAPManager {
     // Variablen
     //
 	// Der n�tige LDAPContext
-	protected final InitialLdapContext	lctx;
+	protected InitialLdapContext	lctx;
 	// Base DN f�r's LDAP
 	protected String			baseDN;
 	// ein relativer DN, falls alles, was behandelt wird relativ zum Base DN
@@ -139,20 +139,52 @@ public class LDAPManager {
      *  m�ssen Werte vorliegen.
      * @return LDAPManager
      */
-    public static LDAPManager instantiate(Class managerClass, Hashtable env, Map params) throws LDAPException {
-        try {
-            InitialLdapContext lctx = new InitialLdapContext(env, null);
-            Constructor constructor = managerClass.getConstructor(new Class[] {InitialLdapContext.class, Map.class});
-            if (constructor != null)
-                return (LDAPManager) constructor.newInstance(new Object[] {lctx, params});
-        } catch (CommunicationException e) {
-            throw new LDAPException(Messages.getString("LDAPManager.ldap_not_reachable_01"), e); //$NON-NLS-1$
-        } catch (NamingException e) {
-            throw new LDAPException(Messages.getString("LDAPManager.commication_error_01"), e); //$NON-NLS-1$
-        } catch (Exception e) {
-            throw new LDAPException("LDAPManager konnte nicht erzeugt werden", e);
+    public static LDAPManager instantiate(Class managerClass, Hashtable env, Map params) throws LDAPException
+    {
+    	LDAPManager result =  null;
+    	InitialLdapContext lctx = null;
+
+        try
+        {
+            lctx = new InitialLdapContext( env, null );
         }
-        throw new LDAPException("Konstruktor nicht verf�gbar");
+        catch ( CommunicationException e )
+        {
+            throw new LDAPException( Messages.getString( "LDAPManager.ldap_not_reachable_01" ), e ); //$NON-NLS-1$
+        }
+        catch ( NamingException e )
+        {
+            throw new LDAPException( Messages.getString( "LDAPManager.commication_error_01" ), e ); //$NON-NLS-1$
+        }
+
+        try
+        {
+            Constructor constructor = managerClass.getConstructor( new Class[] { InitialLdapContext.class, Map.class } );
+        	result = ( LDAPManager ) constructor.newInstance( new Object[] { lctx, params } );
+        	LDAPManager.ldapEnvironment = env;
+        }
+    	catch ( Exception e )
+    	{
+            throw new LDAPException( "Kann LDAPManager nicht instantiieren, der spezifizierte Konstruktor ist nicht verfügbar." );
+    	}
+    	return result;
+    }
+
+    private static Hashtable ldapEnvironment = null;
+    protected void recreateInitialContext() throws LDAPException
+    {
+        try
+        {
+            lctx = new InitialLdapContext( LDAPManager.ldapEnvironment, null );
+        }
+        catch ( CommunicationException e )
+        {
+            throw new LDAPException( Messages.getString( "LDAPManager.ldap_not_reachable_01" ), e ); //$NON-NLS-1$
+        }
+        catch ( NamingException e )
+        {
+            throw new LDAPException( Messages.getString( "LDAPManager.commication_error_01" ), e ); //$NON-NLS-1$
+        }
     }
     
     //
