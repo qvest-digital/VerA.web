@@ -68,14 +68,14 @@
 	<td class="value"><input type="text" name="country" id="country" value="$!message.text($search.country)" class="text"></td>
 </tr>
 <tr>
-	<td class="label"><label for="categorie">Kategorie:</label></td>
+	<td class="label" style="vertical-align:top;"><label for="categorie">Kategorie:</label></td>
 	<td class="value">
 		<select name="categoriesSelection" id="categorie" class="list" size="8" multiple="multiple" onChange="ensureCorrectSelection( this );">
-		<option value="" #if( $search.categoriesSelection || $search.categoriesSelection.size() == 0 ) selected #end>Alle</option>
-		<option value="0" #if( $search.categoriesSelection.size() == 1 && $search.categoriesSelection.get(0).intValue() == 0 ) selected #end>Keine Kategorie zugeordnet</option>
+		<option value="" #if( ! $search.categoriesSearch || ( $search.categoriesSelection && $search.categoriesSelection.size() == 0 ) ) selected #end>Alle</option>
+		<option value="0" #if( $search.categoriesSelection && $search.categoriesSelection.size() == 1 && $search.categoriesSelection.get(0).intValue() == 0 ) selected #end>Keine Kategorie zugeordnet</option>
 		#foreach($categorie in $allCategorie)
 			#if((!$categorie.flags) || ($categorie.flags != 1))
-			<option value="$!categorie.id" #if($search.categoriesSelection.contains( $categorie.id )) selected #end>$!categorie.name</option>
+			<option value="$!categorie.id" #if($search.categoriesSelection && $search.categoriesSelection.contains( $categorie.id )) selected #end>$!categorie.name</option>
 			#end
 		#end
 		</select>
@@ -145,6 +145,17 @@
 		<td class="list1warn">
 			Sie k&ouml;nnen bei der Suche sogenannte Platzhalter verwenden,
 			der * steht f&uuml;r mehrere und das ? f&uuml;r einzelne Zeichen.
+		</td>
+	</tr>
+	<tr>
+		<td class="list2warn">&nbsp;</td>
+		<td class="list1warn">
+			Die Suche unterstützt nun auch die Mehrfachsuche nach Kategorien. Um mehrere Kategorien auszuwählen,
+			halten Sie bitte die Maustaste gedrückt und ziehen Sie den Mauszeiger über die in der Suche zu
+			berücksichtigenden Kategorien. Alternativ können Sie bei gedrückter STRG-Taste mit der linken Maustaste
+			auf die zu berücksichtigenden Kategorien klicken.
+			Beachten Sie bitte, das die beiden Pseudokategorien "Alle" und "Keine" nicht zusammen mit anderen
+			Kategorien ausgewählt werden können.
 		</td>
 	</tr>
 </table>
