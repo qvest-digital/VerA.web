@@ -8,6 +8,20 @@
 	<display-name>veraweb</display-name>
 	<description>veraweb</description>
 
+	<filter>
+	 <filter-name>CharacterEncodingFilter</filter-name>
+	 <filter-class>de.tarent.octopus.request.servlet.CharacterEncodingFilter</filter-class>
+	 <init-param>
+	  <param-name>encoding</param-name>
+	  <param-value>UTF-8</param-value>
+	 </init-param>
+	</filter>
+
+	<filter-mapping>
+	 <filter-name>CharacterEncodingFilter</filter-name>
+	 <url-pattern>/*</url-pattern>
+	</filter-mapping>
+
 	<servlet>
 		<servlet-name>OctopusServlet</servlet-name>
 		<servlet-class>
