@@ -28,6 +28,8 @@ package de.tarent.aa.veraweb.worker;
 
 import java.io.IOException;
 import java.text.DateFormat;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -84,9 +86,10 @@ public class ChangeLogReportsWorker extends ListWorkerVeraWeb
 	 * @param begin
 	 * @param end
 	 * @throws BeanException 
+	 * @throws IOException 
 	 */
 	@SuppressWarnings( "unchecked" )
-	public void loadConfig( OctopusContext cntx, String begin, String end ) throws BeanException
+	public void loadConfig( OctopusContext cntx, String begin, String end ) throws BeanException, IOException
 	{
 		Map< String, Object > map = ( Map< String, Object > ) cntx.sessionAsObject( "changeLogReportSettings" );
 		if ( map == null )
@@ -131,6 +134,13 @@ public class ChangeLogReportsWorker extends ListWorkerVeraWeb
 		DateFormat format = DateFormat.getDateInstance( DateFormat.DEFAULT );
 		cntx.setContent( "begin", format.format( map.get( "begin" ) ) );
 		cntx.setContent( "end", format.format( map.get( "end" ) ) );
+
+		Database database = getDatabase(cntx);
+		Integer count = getCount( cntx, database );
+		if ( count.intValue() == 0 )
+		{
+			cntx.setContent( "noLogDataAvailableMessage", "Es stehen keine Protokolldaten zur Verfügung." );
+		}
 	}
 
 	public List showList(OctopusContext cntx) throws BeanException, IOException {
