@@ -308,7 +308,9 @@
 #end
 	function copyPerson() {
 		document.getElementById('PersonForm').action = '${paths.staticWeb}do/CopyPerson';
-		document.getElementById('PersonForm').id.value = '';
+## fixed bug 1011, copying did not work due to below line
+## cklein 2008-03-11
+##		document.getElementById('PersonForm').id.value = '';
 		document.getElementById('PersonForm').originalPersonId.value = '$!person.id';
 		document.getElementById('PersonForm').submit();
 	}
