@@ -195,8 +195,11 @@ public class ConfigWorker extends ListWorkerVeraWeb {
 	 */
 	private void saveValue(OctopusContext cntx, String key, String value) throws BeanException, IOException {
 		// wenn standard, dann null und default aus properties laden, sonst neuen wert in config hinterlegen
-		for (int i = 0; i < defaultTarget.length; i++) {
+		boolean found = false;
+		for (int i = 0; i < defaultTarget.length; i++) 
+		{
 			if (defaultTarget[i].equals(key)) {
+				found = true;
 				if ( "CHANGE_LOG_RETENTION_POLICY".compareTo( defaultSource[ i ] ) == 0 )
 				{
 					Duration dnew = Duration.fromString( value );
@@ -229,6 +232,11 @@ public class ConfigWorker extends ListWorkerVeraWeb {
 				}
 				break;
 			}
+		}
+		if ( ! found )
+		{
+			// ist kein default konfigurationseintrag
+			config.put( key, value );
 		}
 		
 		// einstellung in datenbank speichern
