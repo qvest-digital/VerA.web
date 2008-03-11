@@ -373,9 +373,7 @@
 ## cklein
 ## 2008-02-22
 	function onClickEnforceConsistentState(box1, box2, box3) {
-alert( "shit" );
 		var checked = document.getElementById(box1).checked || document.getElementById(box2).checked;
-		alert( checked );
 		if ( ! checked )
 		{
 			document.getElementById(box3).checked = false;

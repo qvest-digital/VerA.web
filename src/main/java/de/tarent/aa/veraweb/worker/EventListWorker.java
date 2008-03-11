@@ -63,7 +63,7 @@ import de.tarent.octopus.server.OctopusContext;
 
 /**
  * Diese Octopus-Worker-Klasse stellt Operationen zur Anzeige von
- * Veranstaltungslisten zur Verfügung. Details zur Verwendung
+ * Veranstaltungslisten zur Verfï¿½gung. Details zur Verwendung
  * bitte dem {@link BeanListWorker} entnehmen.<br><br>
  * 
  * Verwendet als Filter der Veranstaltungen ein Event-Object
@@ -76,7 +76,7 @@ import de.tarent.octopus.server.OctopusContext;
  */
 public class EventListWorker extends ListWorkerVeraWeb {
     //
-    // öffentliche Konstanten
+    // ï¿½ffentliche Konstanten
     //
     /** Parameter: Wessen Ereignisse? */
     public final static String PARAM_DOMAIN = "domain";
@@ -98,7 +98,7 @@ public class EventListWorker extends ListWorkerVeraWeb {
     // Basisklasse BeanListWorker
     //
     /**
-     * Diese Methode fügt eine Bedingung zum Filtern nach dem Mandanten hinzu, wenn der
+     * Diese Methode fï¿½gt eine Bedingung zum Filtern nach dem Mandanten hinzu, wenn der
      * aktuelle Benutzer nicht Superadmin ist.
      * 
      * @param cntx Octopus-Kontext
@@ -119,8 +119,8 @@ public class EventListWorker extends ListWorkerVeraWeb {
             throw new BeanException("Missing user information");
         
         // Dreht die Sortierung beim Export von Personen-Daten
-        // um, um erst die "ältesten" Veranstaltungen zu sehen,
-        // da diese am wahrscheinlichsten für einen Export
+        // um, um erst die "ï¿½ltesten" Veranstaltungen zu sehen,
+        // da diese am wahrscheinlichsten fï¿½r einen Export
         // in Frage kommen.
         String invertOrder = cntx.contentAsString("invertOrder");
         if ("true".equals(invertOrder)) {
@@ -175,7 +175,7 @@ public class EventListWorker extends ListWorkerVeraWeb {
 					"location" }));
 		}
 		if (search.begin != null) {
-			Timestamp nextDay = new Timestamp(search.begin.getTime() + 86400000); // nächster tag
+			Timestamp nextDay = new Timestamp(search.begin.getTime() + 86400000); // nï¿½chster tag
 			where.addAnd(Where.and(
 					Expr.greaterOrEqual("datebegin", search.begin),
 					Expr.less("datebegin", nextDay)));
@@ -194,8 +194,8 @@ public class EventListWorker extends ListWorkerVeraWeb {
 	}
 
 	/**
-	 * Überprüft ob eine Veranstaltung nicht mindestens ein Jahr in der
-	 * Vergangheit liegt und fragt ggf. ob diese trotzdem gelöscht werden soll.
+	 * ï¿½berprï¿½ft ob eine Veranstaltung nicht mindestens ein Jahr in der
+	 * Vergangheit liegt und fragt ggf. ob diese trotzdem gelï¿½scht werden soll.
 	 * <br><br>
 	 * siehe Anwendungsfall: UC.VERA.LOESCH
 	 */
@@ -220,7 +220,7 @@ public class EventListWorker extends ListWorkerVeraWeb {
 			if (cntx.requestAsBoolean("remove-event" + event.id).booleanValue()) {
 				removeExpireEvents.add(event.id);
 			} else {
-				questions.put("remove-event" + event.id, "Die Veranstaltung '" + event.shortname + "' ist noch nicht veraltet, soll diese trotzdem gel&ouml;scht werden?");
+				questions.put("remove-event" + event.id, "Die Veranstaltung '" + event.shortname + "' ist noch nicht veraltet, soll diese trotzdem gelÃ¶scht werden?");
 			}
 		}
 		
@@ -250,7 +250,7 @@ public class EventListWorker extends ListWorkerVeraWeb {
 	}
 
 	/**
-	 * Löscht Veranstaltungen und die zugeordneten Gäste.
+	 * Lï¿½scht Veranstaltungen und die zugeordneten Gï¿½ste.
 	 */
 	protected boolean removeBean(OctopusContext cntx, Bean bean) throws BeanException, IOException {
 		Database database = new DatabaseVeraWeb(cntx);
@@ -285,9 +285,9 @@ public class EventListWorker extends ListWorkerVeraWeb {
 		return result;
 	}
 
-    /** Octopus-Eingabe-Parameter für {@link #getSearch(OctopusContext)} */
+    /** Octopus-Eingabe-Parameter fï¿½r {@link #getSearch(OctopusContext)} */
 	public static final String INPUT_getSearch[] = {};
-    /** Octopus-Ausgabe-Parameter für {@link #getSearch(OctopusContext)} */
+    /** Octopus-Ausgabe-Parameter fï¿½r {@link #getSearch(OctopusContext)} */
 	public static final String OUTPUT_getSearch = "search";
 
 	/**
@@ -295,7 +295,7 @@ public class EventListWorker extends ListWorkerVeraWeb {
 	 * Entsprechende Eingaben werden in der Session gespeichert.
 	 * 
 	 * @param cntx Octopus-Context
-	 * @return Event-Instanz die die aktuelle Suche repräsentiert.
+	 * @return Event-Instanz die die aktuelle Suche reprï¿½sentiert.
 	 * @throws BeanException
 	 */
 	public Event getSearch(OctopusContext cntx) throws BeanException {

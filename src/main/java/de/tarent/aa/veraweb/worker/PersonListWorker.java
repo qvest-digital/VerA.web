@@ -283,12 +283,12 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 		if (admin) user = false;
 		
 		if (!(user || admin)) {
-			errors.add("Sie haben keine Berechtigung Personen zu l�schen.");
+			errors.add("Sie haben keine Berechtigung Personen zu löschen.");
 			return count;
 		}
 		/** User d�rfen immer nur eine Person gleichzeitig l�schen. */
 		if (user && selectionRemove.size() > 1) {
-			errors.add("Sie d�rfen immer nur eine Person gleichzeitig l�schen.\n" +
+			errors.add("Sie dürfen immer nur eine Person gleichzeitig löschen.\n" +
 					"Bitte markieren sie nur einen Eintrag oder wenden Sie sich an Ihren Administrator.");
 			return count;
 		}
@@ -310,7 +310,7 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 				for (Iterator it = personIsGuest.iterator(); it.hasNext(); ) {
 					Person person = (Person)it.next();
 					if (maxquestions == 0 || errors.size() < maxquestions)
-						errors.add("Die Person \"" + person.getMainLatin().getSaveAs() + "\" ist einer laufenden Veranstaltung zugeordnet und kann nicht gel�scht werden.");
+						errors.add("Die Person \"" + person.getMainLatin().getSaveAs() + "\" ist einer laufenden Veranstaltung zugeordnet und kann nicht gelöscht werden.");
 					selectionRemove.remove(person.id);
 					i--;
 				}
@@ -333,7 +333,7 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 						cntx.setContent("remove-person", Boolean.TRUE);
 					} else {
 						if (maxquestions == 0 || questions.size() < maxquestions) {
-							questions.put("remove-expire-" + person.id, "Das G�ltigkeitsdatum der Person \"" + person.getMainLatin().getSaveAs()  + "\" liegt in der Zukunft. Soll die Person trotzdem gel�scht werden?");
+							questions.put("remove-expire-" + person.id, "Das Gültigkeitsdatum der Person \"" + person.getMainLatin().getSaveAs()  + "\" liegt in der Zukunft. Soll die Person trotzdem gelöscht werden?");
 						}
 						selectionRemove.remove(person.id);
 						i--;
@@ -344,7 +344,7 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 		
 		/** Fragen ob alle Personen wirklich gel�scht werden sollen. */
 		if (!getContextAsBoolean(cntx, "remove-person")) {
-			questions.put("remove-person", "Sollen alle markierten Personen gel�scht werden?");
+			questions.put("remove-person", "Sollen alle markierten Personen gelöscht werden?");
 		}
 		
 		if (!questions.isEmpty()) {
