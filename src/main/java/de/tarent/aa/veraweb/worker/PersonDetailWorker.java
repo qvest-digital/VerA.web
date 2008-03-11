@@ -547,6 +547,15 @@ public class PersonDetailWorker implements PersonConstants {
 				}
 			}
 
+			/* bug fix for bug 1011
+			 * dupes could not be saved due to isModified() == false
+			 * based on the additional parameter originalPersonId and the fact that
+			 * the person to be saved has a primary key equal to null, we will
+			 * now set the isModified flag on the bean to true in case the above two
+			 * requirements hold true
+			 * cklein 2008-03-11
+			 */
+			person.setModified( ( person.id == null ) && cntx.requestContains( "originalPersonId" ) );
 	        person.verify();
 			if (person.isModified() && person.isCorrect()) {
 		        AddressHelper.copyAddressData(cntx, person, personOld);
