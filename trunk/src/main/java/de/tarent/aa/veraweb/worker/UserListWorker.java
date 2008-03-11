@@ -50,7 +50,7 @@ import de.tarent.octopus.server.OctopusContext;
 
 /**
  * Diese Octopus-Worker-Klasse stellt Operationen zur Anzeige
- * von Benutzerlisten zur Verfügung. Details bitte dem
+ * von Benutzerlisten zur Verfï¿½gung. Details bitte dem
  * {@link de.tarent.octopus.custom.beans.veraweb.ListWorkerVeraWeb}
  * entnehmen.
  * 
@@ -58,7 +58,7 @@ import de.tarent.octopus.server.OctopusContext;
  */
 public class UserListWorker extends ListWorkerVeraWeb {
     //
-    // öffentliche Konstanten
+    // ï¿½ffentliche Konstanten
     //
     /** Parameter: Wer alles? */
     public final static String PARAM_DOMAIN = "domain";
@@ -86,8 +86,8 @@ public class UserListWorker extends ListWorkerVeraWeb {
 	// BeanListWorker
 	//
 	/**
-	 * Methode für das Erweitern des ListWorkerVeraWeb-Select-Statements um Spalten.<br>
-	 * Hier wird eine Sortierung eingefügt.
+	 * Methode fï¿½r das Erweitern des ListWorkerVeraWeb-Select-Statements um Spalten.<br>
+	 * Hier wird eine Sortierung eingefï¿½gt.
 	 * 
 	 * @param cntx
 	 *          Octopus-Context
@@ -121,7 +121,7 @@ public class UserListWorker extends ListWorkerVeraWeb {
 	}
 
     /**
-		 * Methode für das Erweitern des Select-Statements um Bedingungen.<br>
+		 * Methode fï¿½r das Erweitern des Select-Statements um Bedingungen.<br>
 		 * Hier wird der Parameter {@link #PARAM_DOMAIN "domain"} ausgewertet.<br>
 		 * {@link #PARAM_DOMAIN "domain"} kann neben einer Rollenbezeichnung die Werte {@link #PARAM_DOMAIN_VALUE_ALL "all"},
 		 * {@link #PARAM_DOMAIN_VALUE_OU "ou"} und {@link #PARAM_DOMAIN_VALUE_SELF "self"} haben.
@@ -137,12 +137,12 @@ public class UserListWorker extends ListWorkerVeraWeb {
         PersonalConfigAA pCfg = (PersonalConfigAA) cntx.personalConfig();
         String domain = cntx.contentAsString(PARAM_DOMAIN);
         WhereList list = new WhereList();
-        // TODO: Je nach Benutzergruppe passende Einschränkung machen
+        // TODO: Je nach Benutzergruppe passende Einschrï¿½nkung machen
         //
         // domain: Wer alles?
         //
         if (PARAM_DOMAIN_VALUE_ALL.equals(domain)) {
-            // alle Benutzer, keine Einschränkung
+            // alle Benutzer, keine Einschrï¿½nkung
         } else if (PARAM_DOMAIN_VALUE_OU.equals(domain)) {
             if (pCfg == null || pCfg.getOrgUnitId() == null)
                 list.addAnd(Expr.isNull("fk_orgunit"));
@@ -165,13 +165,13 @@ public class UserListWorker extends ListWorkerVeraWeb {
     
     /**
      * Wird von {@link de.tarent.octopus.custom.beans.BeanListWorker#saveList(OctopusContext)}
-     * aufgerufen und soll das übergebene Bean als neuen Eintrag speichern.
+     * aufgerufen und soll das ï¿½bergebene Bean als neuen Eintrag speichern.
      * 
      * @see #saveBean(OctopusContext, Bean)
      * 
      * @param cntx Octopus-Kontext
      * @param errors kummulierte Fehlerliste
-     * @param bean einzufügendes Bean
+     * @param bean einzufï¿½gendes Bean
      * @throws BeanException
      * @throws IOException
      */
@@ -181,7 +181,7 @@ public class UserListWorker extends ListWorkerVeraWeb {
             if (bean instanceof User) {
                 User userBean = (User) bean;
                 if (userBean.id != null) {
-                    errors.add("Einzufügender Benutzer darf keine ID haben");
+                    errors.add("EinzufÃ¼gender Benutzer darf keine ID haben");
                     return count;
                 }
                 Database database = new DatabaseVeraWeb(cntx);
@@ -191,9 +191,9 @@ public class UserListWorker extends ListWorkerVeraWeb {
                 if (dupBean != null) {
                     OrgUnit ou = (OrgUnit) database.getBean("OrgUnit", dupBean.orgunit);
                     if (ou != null) {
-                        errors.add("Einzufügender Benutzer ist bereits dem Mandanten " + ((ou.name != null && ou.name.length() > 0) ? ou.name : ou.id.toString()) + " zugeordnet.");
+                        errors.add("EinzufÃ¼gender Benutzer ist bereits dem Mandanten " + ((ou.name != null && ou.name.length() > 0) ? ou.name : ou.id.toString()) + " zugeordnet.");
                     } else {
-                        errors.add("Einzufügender Benutzer ist bereits VerA.web zugeordnet.");
+                        errors.add("EinzufÃ¼gender Benutzer ist bereits VerA.web zugeordnet.");
                     }
                     return count;
                 }
@@ -206,13 +206,13 @@ public class UserListWorker extends ListWorkerVeraWeb {
     
     /**
      * Wird von {@link de.tarent.octopus.custom.beans.BeanListWorker#saveList(OctopusContext)}
-     * aufgerufen und soll das übergebene Bean als neuen Eintrag speichern.
+     * aufgerufen und soll das ï¿½bergebene Bean als neuen Eintrag speichern.
      * 
      * @see #saveBean(OctopusContext, Bean)
      * 
      * @param cntx Octopus-Kontext
      * @param errors kummulierte Fehlerliste
-     * @param bean einzufügendes Bean
+     * @param bean einzufï¿½gendes Bean
      * @throws BeanException
      * @throws IOException
      */

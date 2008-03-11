@@ -50,7 +50,7 @@ import de.tarent.octopus.server.OctopusContext;
 
 /**
  * Diese Octopus-Worker-Klasse stellt Operationen zur Anzeige
- * von Mandantenlisten zur Verfügung. Details bitte dem
+ * von Mandantenlisten zur Verfï¿½gung. Details bitte dem
  * {@link de.tarent.octopus.custom.beans.veraweb.ListWorkerVeraWeb}
  * entnehmen.
  * 
@@ -72,13 +72,13 @@ public class OrgUnitListWorker extends ListWorkerVeraWeb {
     //
     /**
      * Wird von {@link de.tarent.octopus.custom.beans.BeanListWorker#saveList(OctopusContext)}
-     * aufgerufen und soll das übergebene Bean als neuen Eintrag speichern.
+     * aufgerufen und soll das ï¿½bergebene Bean als neuen Eintrag speichern.
      * 
      * @see #saveBean(OctopusContext, Bean)
      * 
      * @param cntx Octopus-Kontext
      * @param errors kummulierte Fehlerliste
-     * @param bean einzufügendes Bean
+     * @param bean einzufï¿½gendes Bean
      * @throws BeanException
      * @throws IOException
      */
@@ -88,7 +88,7 @@ public class OrgUnitListWorker extends ListWorkerVeraWeb {
             if (bean instanceof OrgUnit) {
                 OrgUnit orgunitBean = (OrgUnit) bean;
                 if (orgunitBean.id != null) {
-                    errors.add("Einzufügender Mandant darf keine ID haben");
+                    errors.add("EinzufÃ¼gender Mandant darf keine ID haben");
                     return count;
                 }
                 Database database = new DatabaseVeraWeb(cntx);
@@ -96,7 +96,7 @@ public class OrgUnitListWorker extends ListWorkerVeraWeb {
                         database.getSelect("OrgUnit").
                         where(Expr.equal("unitname", orgunitBean.name)));
                 if (dupBean != null) {
-                    errors.add("Einzufügender Mandant " + orgunitBean.name + " existiert bereits.");
+                    errors.add("EinzufÃ¼gender Mandant " + orgunitBean.name + " existiert bereits.");
                     return count;
                 }
             }
@@ -108,7 +108,7 @@ public class OrgUnitListWorker extends ListWorkerVeraWeb {
     
     /**
      * Wird von {@link de.tarent.octopus.custom.beans.BeanListWorker#saveList(OctopusContext)}
-     * aufgerufen und soll die übergebene Liste von Beans aktualisieren.
+     * aufgerufen und soll die ï¿½bergebene Liste von Beans aktualisieren.
      * 
      * @see #saveBean(OctopusContext, Bean)
      * 
@@ -154,16 +154,16 @@ public class OrgUnitListWorker extends ListWorkerVeraWeb {
 	// weitere Octopus-Aktionen
 	//
 
-	/** Octopus-Eingabe-Parameter für {@link #cleanupDatabase(OctopusContext, Integer)} */
+	/** Octopus-Eingabe-Parameter fï¿½r {@link #cleanupDatabase(OctopusContext, Integer)} */
 	public static final String INPUT_cleanupDatabase[] = { "orgunit" };
-	/** Octopus-Eingabe-Parameter für {@link #cleanupDatabase(OctopusContext, Integer)} */
+	/** Octopus-Eingabe-Parameter fï¿½r {@link #cleanupDatabase(OctopusContext, Integer)} */
 	public static final boolean MANDATORY_cleanupDatabase[] = { false };
-	/** Octopus-Ausgabe-Parameter für {@link #cleanupDatabase(OctopusContext, Integer)} */
+	/** Octopus-Ausgabe-Parameter fï¿½r {@link #cleanupDatabase(OctopusContext, Integer)} */
 	public static final String OUTPUT_cleanupDatabase = "missingorgunit";
 	/**
-	 * Zeigt eine Statistik über 'verloren' gegangene Datensätze an.
-	 * Wenn der Parameter <code>orgunit</code> übergeben wird werden
-	 * alle Datensätze ohne gültigen Mandanten diesem zugeordnet.
+	 * Zeigt eine Statistik ï¿½ber 'verloren' gegangene Datensï¿½tze an.
+	 * Wenn der Parameter <code>orgunit</code> ï¿½bergeben wird werden
+	 * alle Datensï¿½tze ohne gï¿½ltigen Mandanten diesem zugeordnet.
 	 * 
 	 * @param cntx Octopus-Context-Instanz
 	 * @param orgunit Neue Orgunit-ID

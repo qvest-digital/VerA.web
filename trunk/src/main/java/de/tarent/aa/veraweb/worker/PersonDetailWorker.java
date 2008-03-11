@@ -732,9 +732,9 @@ public class PersonDetailWorker implements PersonConstants {
             showTestPerson(person.getPartnerExtra1(), suffix + " (Partner ZS1)");
             showTestPerson(person.getPartnerExtra2(), suffix + " (Partner ZS2)");
         }
-        showTestPerson(person.getBusinessLatin(), suffix + " (Gesch�ftlich L)");
-        showTestPerson(person.getBusinessExtra1(), suffix + " (Gesch�ftlich ZS1)");
-        showTestPerson(person.getBusinessExtra2(), suffix + " (Gesch�ftlich ZS2)");
+        showTestPerson(person.getBusinessLatin(), suffix + " (Geschäftlich L)");
+        showTestPerson(person.getBusinessExtra1(), suffix + " (Geschäftlich ZS1)");
+        showTestPerson(person.getBusinessExtra2(), suffix + " (Geschäftlich ZS2)");
         showTestPerson(person.getPrivateLatin(), suffix + " (Privat L)");
         showTestPerson(person.getPrivateExtra1(), suffix + " (Privat ZS1)");
         showTestPerson(person.getPrivateExtra2(), suffix + " (Privat ZS2)");
@@ -761,7 +761,7 @@ public class PersonDetailWorker implements PersonConstants {
         facade.setFirstname("Vorname" + suffix);
         facade.setLanguages("Sprachen" + suffix);
         facade.setLastname("Nachname" + suffix);
-        facade.setNationality("Nationalit�t" + suffix);
+        facade.setNationality("Nationalität" + suffix);
         facade.setNote("Bemerkung" + suffix);
         facade.setNoteHost("Bemerkung (Gastgeber)" + suffix);
         facade.setNoteOrga("Bemerkung (Organisation)" + suffix);
@@ -785,7 +785,7 @@ public class PersonDetailWorker implements PersonConstants {
         facade.setPhone("Telefon" + suffix);
         facade.setPOBox("Postfach" + suffix);
         facade.setPOBoxZipCode("Postfach PLZ" + suffix);
-        facade.setStreet("Stra�e" + suffix);
+        facade.setStreet("Straße" + suffix);
         facade.setSuffix1("Adresszusatz 1" + suffix);
         facade.setSuffix2("Adresszusatz 2" + suffix);
         facade.setUrl("www" + suffix);
@@ -844,7 +844,7 @@ public class PersonDetailWorker implements PersonConstants {
 		if (hasEvent) {
 			// Datenbank-Eintrag auf Gel�scht setzten.
 			if (logger.isEnabledFor(Priority.DEBUG)) {
-				logger.log(Priority.DEBUG, "Person l�schen: Person #" + personid + " wird als gel�scht markiert.");
+				logger.log(Priority.DEBUG, "Person löschen: Person #" + personid + " wird als gelöscht markiert.");
 			}
 			database.execute(SQL.Update().
 					table("veraweb.tperson").
@@ -853,7 +853,7 @@ public class PersonDetailWorker implements PersonConstants {
 		} else {
 			// Datenbank-Eintr�ge inkl. Abh�nigkeiten l�schen.
 			if (logger.isEnabledFor(Priority.DEBUG)) {
-				logger.log(Priority.DEBUG, "Person l�schen: Person #" + personid + " wird vollst�ndig gel�scht.");
+				logger.log(Priority.DEBUG, "Person löschen: Person #" + personid + " wird vollständig gelöscht.");
 			}
 			
 			database.execute(SQL.Delete().

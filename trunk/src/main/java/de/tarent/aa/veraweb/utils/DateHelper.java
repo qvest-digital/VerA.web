@@ -33,15 +33,15 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Diese Klasse enthält statische Hilfsmethoden für die Behandlung
+ * Diese Klasse enthï¿½lt statische Hilfsmethoden fï¿½r die Behandlung
  * von Datums- und Zeitwerten. 
  */
 public class DateHelper {
     /**
-     * Diese Methode setzt die Zeit (Stunde, Minute, Sekunde) im übergebenen
-     * {@link Date}-Objekt gemäß dem ebenfalls übergebenen String. Akzeptiert
+     * Diese Methode setzt die Zeit (Stunde, Minute, Sekunde) im ï¿½bergebenen
+     * {@link Date}-Objekt gemï¿½ï¿½ dem ebenfalls ï¿½bergebenen String. Akzeptiert
      * werden darin Zeitangaben im Format 'STUNDE.MINUTE', 'STUNDE:MINUTE',
-     * 'STUNDE' oder ''. Im Fall einer ungültigen oder leeren Angabe wird die
+     * 'STUNDE' oder ''. Im Fall einer ungï¿½ltigen oder leeren Angabe wird die
      * Zeit auf 00:00:30 gesetzt (eine "Nicht-Zeit", {@link #isTimeInDate(Date)})
      * und gegebenenfalls eine Fehlermeldung eingetragen. 
      * 
@@ -91,7 +91,7 @@ public class DateHelper {
 			}
 		} catch (Exception e) {
 			if (errors != null) {
-				errors.add("'" + input + "' ist keine gültige Uhrzeit, bitte verwenden Sie das Format SS.MM.");
+				errors.add("'" + input + "' ist keine gÃ¼ltige Uhrzeit, bitte verwenden Sie das Format SS.MM.");
 			}
 			time.set(Calendar.HOUR_OF_DAY, 0);
 			time.set(Calendar.MINUTE, 0);
@@ -108,16 +108,16 @@ public class DateHelper {
 	}
 
     /**
-     * Diese Methode testet, ob der Sekundenanteil der Zeit des übergebenen
+     * Diese Methode testet, ob der Sekundenanteil der Zeit des ï¿½bergebenen
      * {@link Date}-Objekts 0 ist.<br>
      * In VerA.web wird als Zeit 00:00:30 eingetragen, um darzustellen,
-     * dass <e>keine</e> Zeitangabe im Datum vorliegt, während im Falle
+     * dass <e>keine</e> Zeitangabe im Datum vorliegt, wï¿½hrend im Falle
      * vorhandener Zeitangaben nur Stunden- und Minutenangaben eingetragen
      * werden, vergleiche {@link #addTimeToDate(Date, String, List)}.
      * 
      * @param date zu testendes {@link Date}-Objekts
      * @return <code>true</code> genau dann, wenn das Datum den
-     *  Sekundenanteil 0 hat, also im VerA.web-Kontext einen gültigen
+     *  Sekundenanteil 0 hat, also im VerA.web-Kontext einen gï¿½ltigen
      *  Zeiteintrag.
      */
 	static public boolean isTimeInDate(Date date) {

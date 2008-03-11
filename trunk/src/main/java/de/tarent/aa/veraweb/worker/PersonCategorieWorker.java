@@ -84,7 +84,7 @@ public class PersonCategorieWorker extends ListWorkerVeraWeb {
 				errors = new ArrayList();
 				cntx.setContent(OUTPUT_saveListErrors, errors);
 			}
-			errors.add("Um eine neue Kategorie hinzuzuf&uuml;gen w&auml;hlen" +
+			errors.add("Um eine neue Kategorie hinzuzufügen wählen" +
 					" Sie bitte eine Kategorie aus. " +
 					"(Sie haben nur einen Rang eingegeben.)");
 		}

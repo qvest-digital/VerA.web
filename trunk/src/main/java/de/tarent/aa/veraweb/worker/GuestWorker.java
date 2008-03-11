@@ -322,7 +322,7 @@ public class GuestWorker {
 		
 		Map questions = new HashMap();
 		if (event.begin.before(new Date()) && !cntx.requestAsBoolean("calc-serialno").booleanValue()) {
-			questions.put("calc-serialno", "Diese Veranstaltung liegt bereits in der Vergangenheit, m�chten Sie trotzdem die Laufende-Nummer neu berechnen?");
+			questions.put("calc-serialno", "Diese Veranstaltung liegt bereits in der Vergangenheit, möchten Sie trotzdem die Laufende-Nummer neu berechnen?");
 		} else {
 			new GuestSerialNumber.CalcSerialNumberImpl3(database, event).calcSerialNumber();
 		}
