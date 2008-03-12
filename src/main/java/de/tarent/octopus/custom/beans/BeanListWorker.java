@@ -44,61 +44,61 @@ import de.tarent.octopus.server.OctopusContext;
 
 /**
  * Abstrakter Worker der Seitenweise Listen von Datenbankinhalten darstallen
- * und speichern kann. Stellt mehrere Methoden zum erweitern zur Verfügung
- * um die Datensichten einzuschränken und/oder zu erweitern.
- * Merkt sich zusätzlich die Benutzer-Selektion um seitenübergreifende
- * Aktionen durchzuführen.
+ * und speichern kann. Stellt mehrere Methoden zum erweitern zur Verfï¿½gung
+ * um die Datensichten einzuschrï¿½nken und/oder zu erweitern.
+ * Merkt sich zusï¿½tzlich die Benutzer-Selektion um seitenï¿½bergreifende
+ * Aktionen durchzufï¿½hren.
  * 
  * @author Michael Klink, Alex Steeg, Christoph Jerolimov
  * @version 1.3
  */
 public abstract class BeanListWorker {
-	/** Instanz eines Log4J Loggers für die aktuelle Klasse */
+	/** Instanz eines Log4J Loggers fï¿½r die aktuelle Klasse */
 	private static final Logger logger = Logger.getLogger(BeanListWorker.class);
 
 	/** Name des Beans, das der jeweils abgeleitete Worker verwaltet. */
 	protected final String BEANNAME;
 
-	/** Gibt das Prefix eines neu hinzugefügten Beans an. */
+	/** Gibt das Prefix eines neu hinzugefï¿½gten Beans an. */
 	protected String INPUT_ADD = "add";
-	/** Input-Parameter: Wenn dieser true ist, können dieser Liste neue Elemente hinzugefügt werden. */
+	/** Input-Parameter: Wenn dieser true ist, kï¿½nnen dieser Liste neue Elemente hinzugefï¿½gt werden. */
 	protected String INPUT_INSERT = "doInsert";
-	/** Input-Parameter: Wenn dieser true ist, können Elemente dieser Liste aktuallisiert werden. */
+	/** Input-Parameter: Wenn dieser true ist, kï¿½nnen Elemente dieser Liste aktuallisiert werden. */
 	protected String INPUT_UPDATE = "doUpdate";
-	/** Input-Parameter: Wenn dieser true ist, können Elemente dieser Liste gelöscht werden. */
+	/** Input-Parameter: Wenn dieser true ist, kï¿½nnen Elemente dieser Liste gelï¿½scht werden. */
 	protected String INPUT_REMOVE = "doRemove";
-	/** Input-Parameter: Wenn dieser Parameter übergeben wird, können Elemente gespeichert werden. */
+	/** Input-Parameter: Wenn dieser Parameter ï¿½bergeben wird, kï¿½nnen Elemente gespeichert werden. */
 	protected String INPUT_BUTTON_SAVE = "save";
-	/** Input-Parameter: Wenn dieser Parameter übergeben wird, können Elemente gelöscht werden. */
+	/** Input-Parameter: Wenn dieser Parameter ï¿½bergeben wird, kï¿½nnen Elemente gelï¿½scht werden. */
 	protected String INPUT_BUTTON_REMOVE = "remove";
 
-	/** Input-Parameter: Beinhaltet eine Liste von IDs die in übergeben werden sollen. */
+	/** Input-Parameter: Beinhaltet eine Liste von IDs die in ï¿½bergeben werden sollen. */
 	protected String INPUT_LIST = "list";
-	/** Input-Parameter: Wenn dieser Parameter true ist, wird die komplett verfügbare Liste markiert. */
+	/** Input-Parameter: Wenn dieser Parameter true ist, wird die komplett verfï¿½gbare Liste markiert. */
 	protected String INPUT_SELECTALL = "selectAll";
 	/** Input-Parameter: Wenn dieser Parameter true ist, wird die komplette markierte Liste geleert. */
 	protected String INPUT_SELECTNONE = "selectNone";
 
-    /** Octopus-Eingabe-Parameter für {@link #getAll(OctopusContext)} */
+    /** Octopus-Eingabe-Parameter fï¿½r {@link #getAll(OctopusContext)} */
 	public static final String INPUT_getAll[] = {};
 
-    /** Octopus-Eingabe-Parameter für {@link #showList(OctopusContext)} */
+    /** Octopus-Eingabe-Parameter fï¿½r {@link #showList(OctopusContext)} */
 	public static final String INPUT_showList[] = {};
-    /** Octopus-Ausgabe-Parameter für {@link #showList(OctopusContext)} */
+    /** Octopus-Ausgabe-Parameter fï¿½r {@link #showList(OctopusContext)} */
 	public static final String OUTPUT_showList = "list";
-    /** Octopus-Ausgabe-Parameter für {@link #showList(OctopusContext)} */
+    /** Octopus-Ausgabe-Parameter fï¿½r {@link #showList(OctopusContext)} */
 	public static final String OUTPUT_showListParams = "listparam";
 
-    /** Octopus-Eingabe-Parameter für {@link #saveList(OctopusContext)} */
+    /** Octopus-Eingabe-Parameter fï¿½r {@link #saveList(OctopusContext)} */
 	public static final String INPUT_saveList[] = {};
-    /** Octopus-Ausgabe-Parameter für {@link #saveList(OctopusContext)} */
+    /** Octopus-Ausgabe-Parameter fï¿½r {@link #saveList(OctopusContext)} */
 	public static final String OUTPUT_saveListErrors = "listerrors";
 
-    /** Octopus-Eingabe-Parameter für {@link #getSelection(OctopusContext, Integer)} */
+    /** Octopus-Eingabe-Parameter fï¿½r {@link #getSelection(OctopusContext, Integer)} */
 	public static final String INPUT_getSelection[] = { "listsize" };
-    /** Octopus-Eingabe-Parameter für {@link #getSelection(OctopusContext, Integer)} */
+    /** Octopus-Eingabe-Parameter fï¿½r {@link #getSelection(OctopusContext, Integer)} */
 	public static final boolean MANDATORY_getSelection[] = { false };
-    /** Octopus-Ausgabe-Parameter für {@link #getSelection(OctopusContext, Integer)} */
+    /** Octopus-Ausgabe-Parameter fï¿½r {@link #getSelection(OctopusContext, Integer)} */
 	public static final String OUTPUT_getSelection = "listselection";
 
     /**
@@ -112,10 +112,10 @@ public abstract class BeanListWorker {
     }
     
 	/**
-	 * Octopus-Aktion die alle Einträge aus der Datenbank zurückliefert
+	 * Octopus-Aktion die alle Eintrï¿½ge aus der Datenbank zurï¿½ckliefert
 	 * und als Liste in den Content stellt. Kann durch
 	 * {@link #extendColumns(OctopusContext, Select)} erweitert bzw.
-	 * {@link #extendAll(OctopusContext, Select)} eingeschränkt werden.
+	 * {@link #extendAll(OctopusContext, Select)} eingeschrï¿½nkt werden.
 	 * 
 	 * @param cntx Octopus-Context
 	 * @throws BeanException
@@ -130,10 +130,10 @@ public abstract class BeanListWorker {
 		cntx.setContent("all" + BEANNAME, database.getList(select));
 	}
 
-    /** Octopus-Ausgabe-Parameter für {@link #getMap(OctopusContext)} */
+    /** Octopus-Ausgabe-Parameter fï¿½r {@link #getMap(OctopusContext)} */
 	public static final String INPUT_getMap[] = {};
 	/**
-	 * Octopus-Aktion die alle Einträge aus der Datenbank zurückliefert
+	 * Octopus-Aktion die alle Eintrï¿½ge aus der Datenbank zurï¿½ckliefert
 	 * und diese als Map in den Content stellt.
 	 * 
 	 * @param cntx
@@ -159,7 +159,7 @@ public abstract class BeanListWorker {
 			if (idField == null)
 				idField = "id";
 			if (!sample.getFields().contains(idField)) {
-				logger.warn("Schlüsselfeld " + idField + " von " + BEANNAME + " nicht verfügbar.");
+				logger.warn("Schlï¿½sselfeld " + idField + " von " + BEANNAME + " nicht verfï¿½gbar.");
 				return;
 			}
 			
@@ -174,10 +174,10 @@ public abstract class BeanListWorker {
 	}
 
 	/**
-	 * Octopus-Aktion die eine <strong>blätterbare</strong> Liste
+	 * Octopus-Aktion die eine <strong>blï¿½tterbare</strong> Liste
 	 * mit Beans aus der Datenbank in den Content stellt. Kann durch
 	 * {@link #extendColumns(OctopusContext, Select)} erweitert bzw.
-	 * {@link #extendWhere(OctopusContext, Select)} eingeschränkt werden.
+	 * {@link #extendWhere(OctopusContext, Select)} eingeschrï¿½nkt werden.
 	 * 
 	 * @see #getSelection(OctopusContext, Integer)
 	 * 
@@ -206,7 +206,7 @@ public abstract class BeanListWorker {
 
 	/**
 	 * Wird von showList verwendet um ein entsprechendes Select-Statement
-	 * zurück zugeben. In der Standardimplementierung ein vollständiges
+	 * zurï¿½ck zugeben. In der Standardimplementierung ein vollstï¿½ndiges
 	 * Bean-Select.
 	 * 
 	 * @see #getResultList(Database, Select)
@@ -222,7 +222,7 @@ public abstract class BeanListWorker {
 
 	/**
 	 * Wird von showList verwendet um eine entsprechende Ergebnisliste
-	 * aus dem übergebenem Select-Statement zurückzugeben.
+	 * aus dem ï¿½bergebenem Select-Statement zurï¿½ckzugeben.
 	 * In der Standardimplemtierung wird eine einfache Bean-Liste erstellt.
 	 * 
 	 * @see #getSelect(Database)
@@ -238,7 +238,7 @@ public abstract class BeanListWorker {
 	}
 
 	/**
-	 * Speichert eine übergebene Liste von Beans in der Datenbank. Verwendet
+	 * Speichert eine ï¿½bergebene Liste von Beans in der Datenbank. Verwendet
 	 * insertBean, updateBeanList und removeSelection.
 	 * 
 	 * @param cntx Octopus-Context
@@ -277,12 +277,12 @@ public abstract class BeanListWorker {
 	}
 
 	/**
-	 * Wird von saveList aufgerufen und soll das übergebene Bean speichern.
+	 * Wird von saveList aufgerufen und soll das ï¿½bergebene Bean speichern.
 	 * Ruft in der Standard-Implementierung <code>saveBean(cntx, bean);</code>
 	 * auf, wenn sowohl das isModified als auch das isCorrect-Flag true ist.<br><br>
 	 * 
-	 * Kann überladen werden falls zusätzliche Sicherheitsabfragen oder
-	 * sonstige Kontrollen (z.B. existiert bereit) ausgeführt werden sollen.
+	 * Kann ï¿½berladen werden falls zusï¿½tzliche Sicherheitsabfragen oder
+	 * sonstige Kontrollen (z.B. existiert bereit) ausgefï¿½hrt werden sollen.
 	 * 
 	 * @see #saveBean(OctopusContext, Bean)
 	 * 
@@ -307,18 +307,18 @@ public abstract class BeanListWorker {
 	}
 
 	/**
-	 * Wird von saveList aufgerufen und soll die übergebene Liste von Beans
-	 * aktuallisieren. Ruft in der Standard-Implementierung für jedes Bean
+	 * Wird von saveList aufgerufen und soll die ï¿½bergebene Liste von Beans
+	 * aktuallisieren. Ruft in der Standard-Implementierung fï¿½r jedes Bean
 	 * <code>saveBean(cntx, bean);</code> auf, wenn sowohl das isModified-
 	 * als auch das isCorrect-Flag true ist.<br><br>
 	 * 
-	 * Kann überladen werden falls zusätzliche Sicherheitsabfragen oder
-	 * sonstige Kontrollen auf die vollständige Liste ausgeführt werden müssen.
+	 * Kann ï¿½berladen werden falls zusï¿½tzliche Sicherheitsabfragen oder
+	 * sonstige Kontrollen auf die vollstï¿½ndige Liste ausgefï¿½hrt werden mï¿½ssen.
 	 * 
 	 * @see #saveBean(OctopusContext, Bean)
 	 * 
 	 * @param cntx
-	 * @param errors Liste in die Warnungen als Strings hinzugefügt werden können.
+	 * @param errors Liste in die Warnungen als Strings hinzugefï¿½gt werden kï¿½nnen.
 	 * @param beanlist
 	 * @throws BeanException
 	 * @throws IOException
@@ -338,17 +338,17 @@ public abstract class BeanListWorker {
 	}
 
 	/**
-	 * Wird von saveList aufgerufen und soll die übergebene Liste von Bean-IDs
-	 * löschen. Ruft in der Standard-Implementierung für jede ID
+	 * Wird von saveList aufgerufen und soll die ï¿½bergebene Liste von Bean-IDs
+	 * lï¿½schen. Ruft in der Standard-Implementierung fï¿½r jede ID
 	 * <code>removeBean(cntx, bean);</code> auf.<br><br>
 	 * 
-	 * Kann überladen werden falls zusätzliche Sicherheitsabfragen und
-	 * sonstige Kontrollen auf die vollständige Liste ausgeführt werden müssen.
+	 * Kann ï¿½berladen werden falls zusï¿½tzliche Sicherheitsabfragen und
+	 * sonstige Kontrollen auf die vollstï¿½ndige Liste ausgefï¿½hrt werden mï¿½ssen.
 	 * 
 	 * @see #removeBean(OctopusContext, Bean)
 	 * 
 	 * @param cntx
-	 * @param errors Liste in die Warnungen als Strings hinzugefügt werden können.
+	 * @param errors Liste in die Warnungen als Strings hinzugefï¿½gt werden kï¿½nnen.
 	 * @param selection
 	 * @throws BeanException
 	 * @throws IOException
@@ -367,7 +367,7 @@ public abstract class BeanListWorker {
 	}
 
 	/**
-	 * Methode die von abgeleiteten Klassen überschrieben werden kann,
+	 * Methode die von abgeleiteten Klassen ï¿½berschrieben werden kann,
 	 * um das Select-Statement um Spalten zu erweitern.
 	 * 
 	 * @param cntx
@@ -378,7 +378,7 @@ public abstract class BeanListWorker {
 	}
 
 	/**
-	 * Methode die von abgeleiteten Klassen überschrieben werden kann,
+	 * Methode die von abgeleiteten Klassen ï¿½berschrieben werden kann,
 	 * um das Select-Statement um Bedingungen zu erweitern.
 	 * 
 	 * @param cntx
@@ -389,7 +389,7 @@ public abstract class BeanListWorker {
 	}
 
 	/**
-	 * Methode die von abgeleiteten Klassen überschrieben werden kann,
+	 * Methode die von abgeleiteten Klassen ï¿½berschrieben werden kann,
 	 * um das Select-Statement um Bedingungen zu erweitern.
 	 * 
 	 * @param cntx
@@ -400,8 +400,8 @@ public abstract class BeanListWorker {
 	}
 
 	/**
-	 * Methode die von abgeleiteten Klassen überschrieben werden kann,
-	 * um ggf. abhängige Datenbankeinträge ebenfalls zu löschen.<br><br>
+	 * Methode die von abgeleiteten Klassen ï¿½berschrieben werden kann,
+	 * um ggf. abhï¿½ngige Datenbankeintrï¿½ge ebenfalls zu lï¿½schen.<br><br>
 	 * 
 	 * Standardimplemtierung: <code>getDatabase(cntx).removeBean(bean);</code>
 	 * 
@@ -416,8 +416,8 @@ public abstract class BeanListWorker {
 	}
 
 	/**
-	 * Methode die von abgeleiteten Klassen überschrieben werden kann,
-	 * um abhängige Datenbank einträge ebenfalls zu aktuallisieren.<br><br>
+	 * Methode die von abgeleiteten Klassen ï¿½berschrieben werden kann,
+	 * um abhï¿½ngige Datenbank eintrï¿½ge ebenfalls zu aktuallisieren.<br><br>
 	 * 
 	 * Standardimplemtierung: <code>getDatabase(cntx).saveBean(bean);</code>
 	 * 
@@ -431,13 +431,13 @@ public abstract class BeanListWorker {
 	}
 
 	/**
-	 * Mergt die aktuelle Selekion von markierten Einträgen mit der neuen
+	 * Mergt die aktuelle Selekion von markierten Eintrï¿½gen mit der neuen
 	 * vom Benutzer getroffenen Auswahl und gibt eine Liste der nun aktuellen
-	 * Einträge zurück.
+	 * Eintrï¿½ge zurï¿½ck.
 	 * 
 	 * @param cntx
-	 * @param count Gibt die erwartete Größe der Liste an.
-	 * @return neue Liste mit selektierten Listeneinträgen (ID's als Integer).
+	 * @param count Gibt die erwartete Grï¿½ï¿½e der Liste an.
+	 * @return neue Liste mit selektierten Listeneintrï¿½gen (ID's als Integer).
 	 * @throws BeanException
 	 * @throws IOException
 	 */
@@ -470,7 +470,7 @@ public abstract class BeanListWorker {
 				selection.add(((Map)it.next()).get("id"));
 			}
 		} else {
-			// IDs zusammenführen.
+			// IDs zusammenfï¿½hren.
 			if (selection == null) selection = new ArrayList(count != null ? count.intValue() : 10);
 			List list = (List)BeanFactory.transform(cntx.requestAsObject(INPUT_LIST), List.class);
 			for (Iterator it = list.iterator(); it.hasNext(); ) {
@@ -488,12 +488,12 @@ public abstract class BeanListWorker {
 	}
 
 	/**
-	 * Gibt eine Map mit Parametern zurück die für das Blättern in einer
-	 * Weboberfläche benötigt werden.
+	 * Gibt eine Map mit Parametern zurï¿½ck die fï¿½r das Blï¿½ttern in einer
+	 * Weboberflï¿½che benï¿½tigt werden.
 	 * 
-	 * @param start Offset ab welchen die Datensätze angezeigt werden
-	 * @param limit Anzahl Datensätze pro Seite (maximal)
-	 * @param count Anzahl DAtensätze auf der aktuellen Seite
+	 * @param start Offset ab welchen die Datensï¿½tze angezeigt werden
+	 * @param limit Anzahl Datensï¿½tze pro Seite (maximal)
+	 * @param count Anzahl DAtensï¿½tze auf der aktuellen Seite
 	 * @return Map mit Parametern
 	 */
 	protected Map getParamMap(Integer start, Integer limit, Integer count) {
@@ -536,7 +536,7 @@ public abstract class BeanListWorker {
 		return param;
 	}
 
-	/** @return Die Anzahl von Datensätze mit dem aktuellen Filter. */
+	/** @return Die Anzahl von Datensï¿½tze mit dem aktuellen Filter. */
 	protected Integer getCount(OctopusContext cntx, Database database) throws BeanException, IOException {
 		Select select = database.getCount(BEANNAME);
 		extendWhere(cntx, select);
@@ -550,7 +550,7 @@ public abstract class BeanListWorker {
 	protected abstract Request getRequest(OctopusContext cntx);
 
 	/**
-	 * Gibt den Index zurück, ab welchem Datensatz die aktuelle Seite angezeigt
+	 * Gibt den Index zurï¿½ck, ab welchem Datensatz die aktuelle Seite angezeigt
 	 * werden soll, vgl. {@link #getLimit(OctopusContext)}.
 	 * 
 	 * @param cntx Octopus-Context
@@ -578,7 +578,7 @@ public abstract class BeanListWorker {
 	}
 
 	/**
-	 * Gibt den Index anhand eines übergebenen Start-Parameters zurück.
+	 * Gibt den Index anhand eines ï¿½bergebenen Start-Parameters zurï¿½ck.
 	 * Muss von dem entsprechenden ListWorker implementiert werden. 
 	 * 
 	 * @param cntx Octopus-Context
@@ -592,7 +592,7 @@ public abstract class BeanListWorker {
 	}
 
 	/**
-	 * Gibt das Limit zurück, wieviele Datensätze auf der aktuellen Seite
+	 * Gibt das Limit zurï¿½ck, wieviele Datensï¿½tze auf der aktuellen Seite
 	 * angezeigt werden sollen, vgl. {@link #getStart(OctopusContext)}.
 	 * 
 	 * @param cntx Octopus-Context

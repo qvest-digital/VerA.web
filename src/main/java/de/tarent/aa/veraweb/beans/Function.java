@@ -38,7 +38,7 @@ public class Function extends AbstractBean {
 
 	public void verify() throws BeanException {
 		if (name == null || name.length() == 0)
-			addError("Sie m&uuml;ssen der Funktion einen Namen geben.");
+			addError("Sie müssen der Funktion einen Namen geben.");
 	}
 
     /**

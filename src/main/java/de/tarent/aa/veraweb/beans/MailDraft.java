@@ -35,7 +35,7 @@ import de.tarent.octopus.custom.beans.BeanException;
 import de.tarent.octopus.server.OctopusContext;
 
 /**
- * Dieses Bean repräsentiert eine eMail-Vorlage und wird als Tupel
+ * Dieses Bean reprï¿½sentiert eine eMail-Vorlage und wird als Tupel
  * in der Tabelle <code>veraweb.tmaildraft</code> gespeichert.
  * 
  * @author Christoph Jerolimov
@@ -54,14 +54,14 @@ public class MailDraft extends AbstractHistoryBean {
 	public String createdby;
 	/** Erstellt am */
 	public Timestamp created;
-	/** Geänder von */
+	/** Geï¿½nder von */
 	public String changedby;
-	/** Geändert am */
+	/** Geï¿½ndert am */
 	public Timestamp changed;
 
 	public void verify() throws BeanException {
 		if (name == null || name.length() == 0)
-			addError("Sie müssen der E-Mail-Vorlage einen Namen geben.");
+			addError("Sie mÃ¼ssen der E-Mail-Vorlage einen Namen geben.");
 		if (subject == null || subject.length() == 0)
 			addError("Sie haben der E-Mail-Vorlage keinen Betreff gegeben.");
 		if (text == null || text.length() == 0)

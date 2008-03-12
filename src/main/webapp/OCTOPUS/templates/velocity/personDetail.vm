@@ -43,7 +43,12 @@
 <input type="hidden" id="personAddresstypeTab" name="personAddresstypeTab" value="1">
 <input type="hidden" id="personLocaleTab" name="personLocaleTab" value="1">
 
-#if ($person && $person && $person.id)
+## modified in order to not loose the current person navigation offset
+## part of change request for version 1.2.0 (direct search result navigation from the person detail pages)
+## cklein 2008-03-12
+<input type="hidden" id="offset" name="offset" value="${navigation.current.offset}">
+
+#if ($person && $person.id)
 <input type="hidden" name="person-nodupcheck" value="true">
 #end
 <input type="hidden" name="start" value="0">
@@ -80,10 +85,15 @@
 </table><br>
 #end
 
-#if($person.errors.size() > 0)
+#if($person)
+#set( $errors = $person.errors )
+#elseif($newPersonErrors)
+#set( $errors = $newPersonErrors )
+#end
+#if($errors.size() > 0)
 <div style="margin: 10px 0px 10px 0px; padding: 10px 10px 10px 10px; background-color: #ffffff; border: 2px solid #ff0000;">
-	$person.errors.get(0)<br>
-##	#foreach($error in $person.errors)
+	$errors.get(0)<br>
+##	#foreach($error in $errors)
 ##		$error<br>
 ##	#end
 </div>
@@ -261,7 +271,7 @@
 	<input type="button" name="remove" value="L&ouml;schen" title="Aktuelle Person l&ouml;schen und zur Personenliste zur&uuml;ckkehren." onclick="if (checkModified()) { removePerson(); }" #if($grants.mayWrite()) class="button" #else class="buttondisabled" disabled #end> &nbsp;
 	#end
 
-## modified to disable the button in case that
+## modified to disable the button in case that this is a new record
 ## modified to provide a direct statistic button as per change request for version 1.2.0
 ## cklein
 ## 2008-02-21

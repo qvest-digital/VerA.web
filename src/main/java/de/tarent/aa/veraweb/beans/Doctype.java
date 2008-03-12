@@ -34,7 +34,7 @@ import de.tarent.octopus.custom.beans.BeanException;
 import de.tarent.octopus.server.OctopusContext;
 
 /**
- * Repräsentiert ein Datenbank-Tupel aus der Tabelle <code>tdoctype</code>,
+ * Reprï¿½sentiert ein Datenbank-Tupel aus der Tabelle <code>tdoctype</code>,
  * ein Dokumenttyp.
  * 
  * @author Christoph, Mikel
@@ -45,7 +45,7 @@ public class Doctype extends AbstractBean {
     /** {@link #flags}-Attributwert: Standardtyp */
 	public static final int FLAG_IS_STANDARD = 99;
 
-    /** pk serial NOT NULL: Primärschlüssel */
+    /** pk serial NOT NULL: Primï¿½rschlï¿½ssel */
 	public Integer id;
     /** docname varchar(200) NOT NULL: Name des Dokumenttyps */
 	public String name;
@@ -59,7 +59,7 @@ public class Doctype extends AbstractBean {
 	public Integer sortorder;
     /** flags int4: Flags, vergleiche <code>FLAG_*</code> */
 	public Integer flags;
-    /** host int4 NOT NULL DEFAULT 1: Dokument auch für Gastgeber erzeugen */
+    /** host int4 NOT NULL DEFAULT 1: Dokument auch fï¿½r Gastgeber erzeugen */
 	public Boolean host;
     /** isdefault int4 NOT NULL DEFAULT 0: Standard-Dokumenttyp */
 	public Boolean isdefault;
@@ -71,14 +71,14 @@ public class Doctype extends AbstractBean {
 	public String format;
 
     /**
-     * Überprüft das Bean auf innere Vollständigkeit.
+     * ï¿½berprï¿½ft das Bean auf innere Vollstï¿½ndigkeit.
      * Hier wird getestet, ob die Kategorie einen nicht-leeren Namen hat.
      * 
-     * @throws BeanException bei Unvollständigkeit
+     * @throws BeanException bei Unvollstï¿½ndigkeit
      */
 	public void verify() throws BeanException {
 		if (name == null || name.length() == 0)
-			addError("Sie m&uuml;ssen einen Namen eingeben.");
+			addError("Sie mÃ¼ssen einen Namen eingeben.");
 	}
 
     /**

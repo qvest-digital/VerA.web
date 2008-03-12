@@ -73,13 +73,13 @@ public class Proxy extends AbstractBean {
     // Klasse AbstractBean
     //
     /**
-     * Der Benutzer und Stellvertreterrolle m�ssen angegeben sein.
+     * Der Benutzer und Stellvertreterrolle m�ssen angegeben sein.
      */
     public void verify() {
         if (proxy == null || proxy.length() == 0)
-            addError("Sie m&uuml;ssen eine Stellvertreterrollenbezeichnung eingeben.");
+            addError("Sie müssen eine Stellvertreterrollenbezeichnung eingeben.");
         if (user == null || user.intValue() == 0)
-            addError("Sie m&uuml;ssen einen Benutzer eingeben.");
+            addError("Sie müssen einen Benutzer eingeben.");
         if (validFrom != null && validTill != null && validFrom.after(validTill))
         	addError("Der Beginn der Vertretung muss vor dem Ende liegen.");
     }
