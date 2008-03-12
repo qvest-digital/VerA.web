@@ -68,7 +68,7 @@ public class Event extends AbstractHistoryBean implements OrgUnitDependent {
 		if (shortname == null || shortname.length() == 0)
 			addError("Die Veranstaltung kann nicht gespeichert werden. Vergeben Sie bitte eine Kurzbezeichnung.");
 		if (begin == null)
-			addError("Sie m&uuml;ssen den Beginn der Veranstaltung im Format TT.MM.JJJJ sowie SS.MM angeben.");
+			addError("Sie mÃ¼ssen den Beginn der Veranstaltung im Format TT.MM.JJJJ sowie SS.MM angeben.");
 	}
 
     /**
@@ -98,7 +98,7 @@ public class Event extends AbstractHistoryBean implements OrgUnitDependent {
     }
 
     /**
-     * Diese Methode leert beschränkte Felder.<br>
+     * Diese Methode leert beschrï¿½nkte Felder.<br>
      * Hier sind es die Bemerkungsfelder, wenn der Benutzer nicht in der Gruppe
      * {@link PersonalConfigAA#GROUP_READ_REMARKS} der hierzu freigeschalteten ist.
      * 

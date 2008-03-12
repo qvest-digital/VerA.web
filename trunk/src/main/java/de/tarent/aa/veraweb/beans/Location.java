@@ -39,7 +39,7 @@ public class Location extends AbstractBean implements OrgUnitDependent {
 
 	public void verify() throws BeanException {
 		if (name == null || name.length() == 0)
-			addError("Sie m&uuml;ssen einen Namen eingeben.");
+			addError("Sie müssen einen Namen eingeben.");
 	}
 
     /**

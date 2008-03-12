@@ -48,7 +48,7 @@ public class Categorie extends AbstractBean implements OrgUnitDependent {
     /** {@link #flags}-Eintrag: diplomatisches Korp */
 	static public final int FLAG_DIPLO_CORPS = 99;
 
-    /** pk serial NOT NULL: Primärschlüssel */
+    /** pk serial NOT NULL: Primï¿½rschlï¿½ssel */
 	public Integer id;
     /** fk_orgunit int4 DEFAULT 0: Mandant */
 	public Integer orgunit;
@@ -62,14 +62,14 @@ public class Categorie extends AbstractBean implements OrgUnitDependent {
 	public Integer rank;
 
     /**
-     * Überprüft das Bean auf innere Vollständigkeit.
+     * ï¿½berprï¿½ft das Bean auf innere Vollstï¿½ndigkeit.
      * Hier wird getestet, ob die Kategorie einen nicht-leeren Namen hat.
      * 
-     * @throws BeanException bei Unvollständigkeit
+     * @throws BeanException bei Unvollstï¿½ndigkeit
      */
 	public void verify() throws BeanException {
 		if (name == null || name.length() == 0)
-			addError("Sie m&uuml;ssen eine Bezeichnung eingeben.");
+			addError("Sie mÃ¼ssen eine Bezeichnung eingeben.");
 	}
 
     /**
@@ -88,7 +88,7 @@ public class Categorie extends AbstractBean implements OrgUnitDependent {
     /**
      * Diese Methode testet, ob im aktuellen Kontext diese Bohne geschrieben
      * werden darf.<br>
-     * Test ist, ob der Benutzer Writer ist. Für das automatische Generieren von
+     * Test ist, ob der Benutzer Writer ist. Fï¿½r das automatische Generieren von
      * Kategorien beim Import ist dies notwendig.
      * 
      * @param cntx Octopus-Kontext

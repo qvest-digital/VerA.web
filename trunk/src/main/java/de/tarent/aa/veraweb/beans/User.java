@@ -54,7 +54,7 @@ public class User extends AbstractBean implements OrgUnitDependent {
      */
     public void verify() {
         if (name == null || name.length() == 0)
-            addError("Sie m&uuml;ssen eine Benutzerrollenbezeichnung eingeben.");
+            addError("Sie müssen eine Benutzerrollenbezeichnung eingeben.");
     }
     
     /**

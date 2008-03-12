@@ -123,23 +123,78 @@ public class PersonDetailWorker implements PersonConstants {
 		}
 
 		/*
+		 * added for support of direct search result list navigation, see below
+		 * cklein 2008-03-12
+		 */
+		this.restoreNavigation( cntx, person, database, false );
+		
+		/*
+		 * modified to support a direct statistics access from the detail view as per the change request for version 1.2.0
+		 * cklein
+		 * 2008-02-21
+		 */
+		map.put( "statistik", "EventsGroupByGuest" );
+		Date d = new Date( System.currentTimeMillis() );
+		if ( person != null && person.created != null )
+		{
+			d = new Date( person.created.getTime() );
+		}
+		String temp = DateFormat.getDateInstance().format( d );
+		String[] t = temp.split( "[.]" );
+		map.put( "begin", "01." + t[ 1 ] + "." + t[ 2 ] );
+		map.put( "end", DateFormat.getDateInstance().format( new Date() ) );
+
+		return person;
+	}
+
+	protected void restoreNavigation( OctopusContext cntx, Person person, Database database, boolean navigateToLast ) throws BeanException, IOException
+	{
+		/*
 		 * modified to support direct search result list navigation as per the change request for version 1.2.0
 		 * cklein
 		 * 2008-02-21
 		 */
-		// TODO REFACTOR + cleanup
 		Integer offset = cntx.requestAsInteger( "offset" );
+
+		Select select = null;
+		PersonListWorker plworker = WorkerFactory.getPersonListWorker(cntx);
 		if ( offset != null )
 		{
-			PersonListWorker plworker = WorkerFactory.getPersonListWorker(cntx);
-			Select select = plworker.prepareShowList( cntx, database );
-			
+			select = plworker.prepareShowList( cntx, database );
+		}
+		Map params = ( Map ) cntx.contentAsObject( PersonListWorker.OUTPUT_showListParams );
+		Integer count = ( Integer ) params.get( "count" );
+
+		/* a new record was added by copying an existing, we move the offset to the last search list result entry
+		 * in order to prevent false positives, i.e. the copied record does no longer match the search criteria,
+		 * we will first try to find the person in the database, if it is not available, then we will fall back
+		 * to the original person that was copied
+		 * cklein 2008-03-12
+		 */
+		if ( navigateToLast )
+		{
+			select.Limit( new Limit( 1, count.intValue() - 1 ) );
+			Person tmp = ( Person ) database.getBean( "Person", select );
+			if ( tmp != null && tmp.id.compareTo( person.id ) == 0 )
+			{
+				// adjust the offset to point to the newly created 
+				offset = new Integer( count.intValue() - 1 );
+			}
+			else
+			{
+				/* unset offset so that the navigation will be removed from the page, since the currently displayed
+				 * person record does not match the current offset (the copied person is not part of the search result list
+				 */
+				offset = null;
+			}
+		}
+
+		if ( offset != null )
+		{
 			Map< String, Map< String, Object > > navigation = new HashMap< String, Map< String, Object > >();
 			Map< String, Object > entry = null;
-			Map params = ( Map ) cntx.contentAsObject( PersonListWorker.OUTPUT_showListParams );
-			Integer count = ( Integer ) params.get( "count" ); 
 
-			// current
+			// setup current
 			entry = new HashMap< String, Object >();
 			entry.put( "person", person );
 			entry.put( "offset", offset );
@@ -208,24 +263,6 @@ public class PersonDetailWorker implements PersonConstants {
 		{
 			cntx.setContent( "navigation", ( Map ) null );
 		}
-
-		/*
-		 * modified to support a direct statistics access from the detail view as per the change request for version 1.2.0
-		 * cklein
-		 * 2008-02-21
-		 */
-		map.put( "statistik", "EventsGroupByGuest" );
-		Date d = new Date( System.currentTimeMillis() );
-		if ( person != null && person.created != null )
-		{
-			d = new Date( person.created.getTime() );
-		}
-		String temp = DateFormat.getDateInstance().format( d );
-		String[] t = temp.split( "[.]" );
-		map.put( "begin", "01." + t[ 1 ] + "." + t[ 2 ] );
-		map.put( "end", DateFormat.getDateInstance().format( new Date() ) );
-
-		return person;
 	}
 	
     /** Eingabe-Parameter der Octopus-Aktion {@link #copyPerson(OctopusContext, Integer)} */
@@ -286,8 +323,18 @@ public class PersonDetailWorker implements PersonConstants {
 			AddressHelper.clearAddressData(person.getOtherExtra1());
 			AddressHelper.clearAddressData(person.getOtherExtra2());
 			AddressHelper.checkPersonSalutation(person, database, database.getTransactionContext());
+/* IMPORTANT REMOVE
+			for ( int i = 0; i < 10000; i++ )
+			{
+				person.id = null;
+				person.setModified( true );
+				this.saveDetail(cntx, person);
+				
+				try { Thread.sleep( 50 ); } catch ( Exception e){}
+			}
+*/
 		}
-		
+
 		cntx.setContent("person", person);
 		cntx.setContent("person-diplodatetime", Boolean.valueOf(DateHelper.isTimeInDate(person.diplodate_a_e1)));
 		cntx.setContent("originalPersonId", cntx.requestAsInteger("originalPersonId"));
@@ -491,19 +538,52 @@ public class PersonDetailWorker implements PersonConstants {
 		cntx.setContent("personMemberTab", cntx.requestAsInteger("personMemberTab"));
 		cntx.setContent("personAddresstypeTab", cntx.requestAsInteger("personAddresstypeTab"));
 		cntx.setContent("personLocaleTab", cntx.requestAsInteger("personLocaleTab"));
-		
+
 		Database database = new DatabaseVeraWeb(cntx);
 		TransactionContext context = database.getTransactionContext();
-		
+
 		try {
 			if (person == null) {
 				Request request = new RequestVeraWeb(cntx); 
 				person = (Person)request.getBean("Person", "person");
 			}
-			if (cntx.requestAsBoolean("forcedupcheck").booleanValue()) {
-				return person;
+
+			/* fix for bug 1013
+			 * cklein 2008-03-12
+			 */
+	        person.verify();
+			if ( ! person.isCorrect() )
+			{
+				cntx.setStatus("notcorrect");
+
+				// is this a new record?
+				if ( person.id == null )
+				{
+					// since this is a new person and since we must return null in order to 
+					// have the view rendered with all fields disabled, we transfer the errors from the
+					// person to the template parameter newPersonErrors
+					cntx.setContent( "newPersonErrors", person.getErrors() );
+					return null;
+				}
+				else
+				{
+					return person;
+				}
 			}
-			
+
+			if (cntx.requestAsBoolean("forcedupcheck").booleanValue())
+			{
+//				return person;
+			}
+
+			/* fix for bug 1011
+			 * cklein 2008-03-12
+			 */
+			if ( cntx.requestContains( "originalPersonId" ) )
+			{
+				person.setModified( true );
+			}
+
 			/*
 			 * added support for workarea assignment
 			 * 
@@ -511,7 +591,7 @@ public class PersonDetailWorker implements PersonConstants {
 			 * 2008-02-20
 			 */
 			person.workarea = cntx.requestAsInteger( "workarea-id" );
-			
+
 			Person personOld = null;
 			if (person != null && person.id != null) {
 				personOld = (Person)database.getBean("Person", person.id, context);
@@ -519,12 +599,12 @@ public class PersonDetailWorker implements PersonConstants {
 			if (person == null) {
 				return null;
 			}
-			
+
 			DateHelper.addTimeToDate(person.diplodate_a_e1, cntx.requestAsString("person-diplotime_a_e1"), person.getErrors());
 			person.orgunit = ((PersonalConfigAA)cntx.personalConfig()).getOrgUnitId();
 			person.updateHistoryFields(null, ((PersonalConfigAA)cntx.personalConfig()).getRoleWithProxy());
 			AddressHelper.checkPersonSalutation(person, database, context);
-			
+
 			// Updatet das Gueltigkeitsdatum automatisch auf "in 3 Jahre"
 			// wenn dieses nicht ver�ndert wurde.
 			if (person.expire != null && personOld != null && personOld.expire != null) {
@@ -547,15 +627,7 @@ public class PersonDetailWorker implements PersonConstants {
 				}
 			}
 
-			/* bug fix for bug 1011
-			 * dupes could not be saved due to isModified() == false
-			 * based on the additional parameter originalPersonId and the fact that
-			 * the person to be saved has a primary key equal to null, we will
-			 * now set the isModified flag on the bean to true in case the above two
-			 * requirements hold true
-			 * cklein 2008-03-11
-			 */
-			person.setModified( ( person.id == null ) && cntx.requestContains( "originalPersonId" ) );
+			// must reverify due to above changes
 	        person.verify();
 			if (person.isModified() && person.isCorrect()) {
 		        AddressHelper.copyAddressData(cntx, person, personOld);
@@ -620,6 +692,12 @@ public class PersonDetailWorker implements PersonConstants {
 			context.rollBack();
 		}
 
+		/* fixing a bug: navigation was lost on save
+		 * added for support of direct search result list navigation, see below
+		 * cklein 2008-03-12
+		 */
+		this.restoreNavigation( cntx, person, database, cntx.requestContains( "originalPersonId" ) );
+		
 		return person;
 	}
 

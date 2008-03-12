@@ -68,6 +68,6 @@ public class PersonCategorie extends AbstractBean {
 
     public void verify() throws BeanException {
     	if (person == null || categorie == null)
-    		addError("Kann Verbindung zwischen Person nud Kategorie nicht speichern.");
+    		addError("Kann Verbindung zwischen Person und Kategorie nicht speichern.");
     }
 }

@@ -298,7 +298,7 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 				(firstname_a_e1 != null && firstname_a_e1.length() != 0) ||
 				(lastname_a_e1 != null && lastname_a_e1.length() != 0) ||
 				(company_a_e1 != null && company_a_e1.length() != 0))) {
-			addError("Sie m�ssen einen Vornamen, einen Nachnamen oder eine Firma angeben.");
+			addError("Sie müssen einen Vornamen, einen Nachnamen oder eine Firma angeben.");
 		}
 	}
 

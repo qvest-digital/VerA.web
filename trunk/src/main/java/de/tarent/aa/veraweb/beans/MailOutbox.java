@@ -35,7 +35,7 @@ import de.tarent.octopus.custom.beans.BeanException;
 import de.tarent.octopus.server.OctopusContext;
 
 /**
- * Dieses Bean repräsentiert eine ausgehende eMail und wird als Tupel
+ * Dieses Bean reprï¿½sentiert eine ausgehende eMail und wird als Tupel
  * in der Tabelle <code>veraweb.tmailoutbox</code> gespeichert.
  * 
  * @author Christoph Jerolimov
@@ -59,13 +59,13 @@ public class MailOutbox extends AbstractBean {
 	public Integer status;
 	/** Absender der eMail */
 	public String from;
-	/** Empfänger der eMail */
+	/** Empfï¿½nger der eMail */
 	public String to;
 	/** Betreff der eMail */
 	public String subject;
 	/** Text der eMail */
 	public String text;
-	/** Daten der letzten Veränderung */
+	/** Daten der letzten Verï¿½nderung */
 	public Timestamp lastupdate;
 	/** Error Text */
 	public String errortext;
@@ -74,7 +74,7 @@ public class MailOutbox extends AbstractBean {
 		if (from == null || from.length() == 0)
 			addError("Die E-Mail kann nicht ohne Absender versendet werden.");
 		if (to == null || to.length() == 0)
-			addError("Die E-Mail kann nicht ohne Empfänger versendet werden.");
+			addError("Die E-Mail kann nicht ohne EmpfÃ¤nger versendet werden.");
 		if (subject == null || subject.length() == 0)
 			addError("Die E-Mail kann nicht ohne Betreff versendet werden.");
 	}

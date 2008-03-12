@@ -115,6 +115,7 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 //		cntx.setContent( "action", ( String ) null ); // reset action
 		Select select = this.prepareShowList( cntx, database );
 		Map param = ( Map )cntx.contentAsObject( OUTPUT_showListParams );
+		select.Limit(new Limit((Integer)param.get("limit"), (Integer)param.get("start")));
 		cntx.setContent( OUTPUT_getSelection, getSelection( cntx, ( Integer ) param.get( "count" ) ) );
 		return getResultList( database, select );
 	}
@@ -168,7 +169,6 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 		Select select = getSelect(getSearch(cntx), database);
 		extendColumns(cntx, select);
 		extendWhere(cntx, select);
-		select.Limit(new Limit((Integer)param.get("limit"), (Integer)param.get("start")));
 		cntx.setContent(OUTPUT_showListParams, param);
 		return select;
 	}
@@ -310,8 +310,14 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 				for (Iterator it = personIsGuest.iterator(); it.hasNext(); ) {
 					Person person = (Person)it.next();
 					if (maxquestions == 0 || errors.size() < maxquestions)
-						errors.add("Die Person \"" + person.getMainLatin().getSaveAs() + "\" ist einer laufenden Veranstaltung zugeordnet und kann nicht gelöscht werden.");
+						errors.add("Die Person \"" + person.getMainLatin().getSaveAs() + "\" (ID: " + person.id + ") ist einer laufenden Veranstaltung zugeordnet und kann nicht gelöscht werden.");
 					selectionRemove.remove(person.id);
+					/* 
+					 * will remove person from selection aswell as it is not deletable, this saves the user from 
+					 * having to deselect the person prior to executing the delete operation
+					 * cklein 2008-03-12
+					 */
+					selection.remove( person.id );
 					i--;
 				}
 			}
@@ -362,10 +368,20 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 				 * cklein 2008-02-12
 				 */
 				personDetailWorker.removePerson( cntx, database, id );
-				selection.remove(id);
+				it.remove();
+				selection.remove( id );
 				count++;
 			}
 		}
+
+		/* fix: selection remained active in session, causing lists to autoselect
+		 * individual entries in the lists, will remove the session variable
+		 * additionally, non-deletable entries remained selected, will reset the
+		 * session variable with the new selection list
+		 * cklein 2008-03-12
+		 */
+		cntx.setSession( "selection" + BEANNAME, selection );
+
 		return count;
 	}
 

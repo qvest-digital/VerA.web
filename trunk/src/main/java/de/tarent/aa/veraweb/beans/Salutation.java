@@ -39,13 +39,13 @@ public class Salutation extends AbstractBean {
 	public String name;
 	/**
 	 * Automatisch mit dieser Anrede verbundenes Geschlecht.<br>
-	 * NULL = Keins, 'M' = Männlich, 'F' = Weiblich
+	 * NULL = Keins, 'M' = Mï¿½nnlich, 'F' = Weiblich
 	 */
 	public String gender;
 
 	public void verify() throws BeanException {
 		if (name == null || name.length() == 0)
-			addError("Sie m&uuml;ssen einen Namen eingeben.");
+			addError("Sie mÃ¼ssen einen Namen eingeben.");
 	}
 
     /**
