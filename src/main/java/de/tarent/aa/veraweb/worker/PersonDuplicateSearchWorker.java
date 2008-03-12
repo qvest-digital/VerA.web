@@ -213,16 +213,13 @@ public class PersonDuplicateSearchWorker extends PersonListWorker
 			// code in part replicated from BeanListWorker.getStart() in order to prevent infinite recursion via getAlphaStart()
 			String s = cntx.requestAsString("start");
 			Integer start = null;
-			if ( s != null && s.length() != 0 )
+			try
 			{
-				try
-				{
-					start = new Integer( s );
-				}
-				catch ( NumberFormatException e )
-				{
-					start = new Integer(0);
-				}
+				start = new Integer( s );
+			}
+			catch ( NumberFormatException e )
+			{
+				start = new Integer( 0 );
 			}
 			cntx.setSession( "start" + BEANNAME, start );
 			Integer limit = getLimit( cntx );
