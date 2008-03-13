@@ -323,16 +323,6 @@ public class PersonDetailWorker implements PersonConstants {
 			AddressHelper.clearAddressData(person.getOtherExtra1());
 			AddressHelper.clearAddressData(person.getOtherExtra2());
 			AddressHelper.checkPersonSalutation(person, database, database.getTransactionContext());
-/* IMPORTANT REMOVE
-			for ( int i = 0; i < 10000; i++ )
-			{
-				person.id = null;
-				person.setModified( true );
-				this.saveDetail(cntx, person);
-				
-				try { Thread.sleep( 50 ); } catch ( Exception e){}
-			}
-*/
 		}
 
 		cntx.setContent("person", person);

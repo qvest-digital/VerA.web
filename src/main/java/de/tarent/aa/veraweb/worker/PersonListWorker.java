@@ -29,7 +29,6 @@
 package de.tarent.aa.veraweb.worker;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -38,9 +37,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import de.tarent.aa.veraweb.beans.Categorie;
 import de.tarent.aa.veraweb.beans.Person;
-import de.tarent.aa.veraweb.beans.PersonCategorie;
 import de.tarent.aa.veraweb.beans.PersonSearch;
 import de.tarent.aa.veraweb.beans.facade.PersonConstants;
 import de.tarent.aa.veraweb.utils.DatabaseHelper;
@@ -48,6 +45,7 @@ import de.tarent.dblayer.sql.Escaper;
 import de.tarent.dblayer.sql.Format;
 import de.tarent.dblayer.sql.Join;
 import de.tarent.dblayer.sql.SQL;
+import de.tarent.dblayer.sql.SyntaxErrorException;
 import de.tarent.dblayer.sql.clause.Clause;
 import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.clause.Limit;
@@ -189,27 +187,90 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 	{
 		PersonSearch search = getSearch( cntx );
 		select.whereAnd( getPersonListFilter( cntx ) );
-
+		
 		/*
 		 * extension to support for multiple categories at once
 		 * 
 		 * cklein
 		 * 2008-02-20/26
 		 */
-		if
-		(
-			( search.categoriesSelection != null ) &&
-			( search.categoriesSelection.size() >= 1 ) &&
-			( search.categoriesSelection.get( 0 ).toString().length() > 0 ) && // workaround for octopus behaviour
-			( ( ( Integer ) search.categoriesSelection.get( 0 ) ).intValue() != 0 ) 
-		)
-		{
-			select.from( "veraweb.tperson_categorie cat1" );
-		}
+		this.extendSelectByMultipleCategorySearch( cntx, search, select );
 		if ( search.categorie2 != null )
 		{
 			select.from( "veraweb.tperson_categorie cat2" );
 			select.whereAnd( new RawClause( "tperson.pk=cat2.fk_person" ) );
+		}
+	}
+
+	/**
+	 * Extends the select statement in order to allow search for multiple
+	 * categories at once using either AND or OR.
+	 *  
+	 * @param cntx
+	 * @param search
+	 * @param select
+	 */
+	protected void extendSelectByMultipleCategorySearch( OctopusContext cntx, PersonSearch search, Select select )
+	{
+		if
+		(
+			( search.categoriesSelection != null ) &&
+			( search.categoriesSelection.size() >= 1 ) &&
+			( search.categoriesSelection.get( 0 ).toString().length() > 0 ) // workaround for octopus behaviour
+		)
+		{
+			if ( ( ( Integer ) search.categoriesSelection.get( 0 ) ).intValue() != 0 )
+			{
+				// FUTURE extension for supporting OR a/o AND
+				boolean isOr = false;
+				if ( cntx.contentContains( "disjunctCategorySearch" ) )
+				{
+					isOr = cntx.requestAsBoolean( "disjunctCategorySearch" ).booleanValue();
+				}
+				if ( isOr )
+				{
+					// any of the selected categories (OR clause)
+					select.whereAnd( new RawClause( "tperson.pk=cat1.fk_person" ) );
+					select.whereAnd( Expr.in( "cat1.fk_categorie", search.categoriesSelection) );
+				}
+				else
+				{
+					// all of the selected categories (AND clause)
+					Iterator iter = search.categoriesSelection.iterator();
+					int count = 0;
+					while( iter.hasNext() )
+					{
+						String alias = "cat" + count;
+						select.from( "veraweb.tperson_categorie " + alias );
+						select.whereAnd(
+							Where.and(
+								new RawClause( "tperson.pk=" + alias + ".fk_person" ),
+								new RawClause( alias + ".fk_categorie=" + iter.next() )
+							)
+						);
+						count++;
+					}
+				}
+			}
+			else
+			{
+				// no categories assigned
+				Select subSelect = new Select( true );
+				subSelect.from( "veraweb.tperson_categorie" );
+				subSelect.selectAs( "tperson_categorie.fk_person" );
+				try
+				{
+					select.whereAnd( Expr.notIn( "tperson.pk", new RawClause( "(" + subSelect.statementToString() + ")" ) ) );
+				}
+				catch( SyntaxErrorException e )
+				{
+					;; // just catch, will never happen
+				}
+			}
+		}
+		else
+		{
+			;; // search in all categories
 		}
 	}
 
@@ -238,7 +299,7 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 		} else {
 			select = SQL.SelectDistinct();
 		}
-		
+
 		return select.
 				from("veraweb.tperson").
 				selectAs("tperson.pk", "id").
@@ -489,34 +550,7 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 		{
 			list.addAnd( Expr.equal( "tperson.fk_workarea", search.workarea ) );
 		}
-		
-		if
-		(
-			( search.categoriesSelection != null ) &&
-			( search.categoriesSelection.size() >= 1 ) &&
-			( search.categoriesSelection.get( 0 ).toString().length() > 0 ) // workaround for octopus behaviour
-		)
-		{
-			if ( ( ( Integer ) search.categoriesSelection.get( 0 ) ).intValue() != 0 )
-			{
-				// all of the selected categories
-				list.addAnd( new RawClause( "tperson.pk=cat1.fk_person" ) );
-				list.addAnd(Expr.in("cat1.fk_categorie", search.categoriesSelection));
-			}
-			else
-			{
-				// no categories assigned
-				Select subSelect = new Select( true );
-				subSelect.from( "veraweb.tperson_categorie" );
-				subSelect.selectAs( "tperson_categorie.fk_person" );
-				//subSelect.where( Expr.in( "tperson_categorie.fk_categorie", new StatementList( search.categoriesSelection ) ) );
-				list.addAnd( Expr.notIn( "tperson.pk", new RawClause( subSelect.clauseToString() ) ) );
-			}
-		}
-		else
-		{
-			;; // search in all categories
-		}
+
 		if (search.categorie2 != null) {
 			list.addAnd(Expr.equal("cat2.fk_categorie", search.categorie2));
 		}

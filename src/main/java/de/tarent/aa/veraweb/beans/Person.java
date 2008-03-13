@@ -70,7 +70,7 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 	/** Workarea */
 	public Integer workarea;
 	/** Workarea Name for display purposes only */
-	public Integer workarea_name;
+	public String workarea_name;
 
 	// Hauptperson, Latein
 	public String salutation_a_e1;
