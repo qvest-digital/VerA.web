@@ -676,17 +676,19 @@ public class PersonDetailWorker implements PersonConstants {
 			context.commit();
 
 			cntx.setContent("person-diplodatetime", Boolean.valueOf(DateHelper.isTimeInDate(person.diplodate_a_e1)));
+
+			/* fixing bug #1020: in case of rollback the below operation fails due to the fact that the person record was not created
+			 * 
+			 * fixing a bug: navigation was lost on save
+			 * added for support of direct search result list navigation, see below
+			 * cklein 2008-03-12
+			 */
+			this.restoreNavigation( cntx, person, database, cntx.requestContains( "originalPersonId" ) );
 		} 
 		catch( BeanException e )
 		{
 			context.rollBack();
 		}
-
-		/* fixing a bug: navigation was lost on save
-		 * added for support of direct search result list navigation, see below
-		 * cklein 2008-03-12
-		 */
-		this.restoreNavigation( cntx, person, database, cntx.requestContains( "originalPersonId" ) );
 		
 		return person;
 	}
