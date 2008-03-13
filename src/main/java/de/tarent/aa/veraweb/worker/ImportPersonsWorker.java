@@ -59,35 +59,35 @@ import de.tarent.octopus.server.OctopusContext;
 
 /**
  * Diese Octopus-Worker-Klasse stellt Operationen zum Import von Personendaten zur
- * Verfügung. 
+ * Verfï¿½gung. 
  * 
  * @author hendrik
  * @author mikel
  */
 public class ImportPersonsWorker {
     //
-    // öffentliche Konstanten
+    // ï¿½ffentliche Konstanten
     //
     /***/
     public final static String FIELD_IMPORTED_COUNT = "imported";
     //
     // Octopus-Aktionen
     //
-    /** Octopus-Eingabe-Parameter für {@link #importStoredRecord(OctopusContext, Integer)} */
+    /** Octopus-Eingabe-Parameter fï¿½r {@link #importStoredRecord(OctopusContext, Integer)} */
     public static final String[] INPUT_importStoredRecord = { "REQUEST:importId" };
-    /** Octopus-Eingabe-Parameter-Pflicht für {@link #importStoredRecord(OctopusContext, Integer)} */
+    /** Octopus-Eingabe-Parameter-Pflicht fï¿½r {@link #importStoredRecord(OctopusContext, Integer)} */
     public static final boolean[] MANDATORY_importStoredRecord = { true };
-    /** Octopus-Ausgabe-Parameter für {@link #importStoredRecord(OctopusContext, Integer)} */
+    /** Octopus-Ausgabe-Parameter fï¿½r {@link #importStoredRecord(OctopusContext, Integer)} */
     public static final String OUTPUT_importStoredRecord = "importStatus";
     /**
-     * Diese Octopus-Aktion liefert zum Import mit der übergebenen ID die
+     * Diese Octopus-Aktion liefert zum Import mit der ï¿½bergebenen ID die
      * Import-Statistik-Daten 
      * 
      * @param cntx Octopus-Kontext
      * @param importId Import-ID
      * @return Map mit Informationen zum Import, insbesondere der Anzahl gefundener
-     *  Datensätze unter "dsCount", der Anzahl Duplikate unter "dupCount", der Anzahl
-     *  importierter Datensätze unter "saveCount" und der Import-ID unter "id".
+     *  Datensï¿½tze unter "dsCount", der Anzahl Duplikate unter "dupCount", der Anzahl
+     *  importierter Datensï¿½tze unter "saveCount" und der Import-ID unter "id".
      * @throws BeanException 
      * @throws IOException 
      */
@@ -95,29 +95,29 @@ public class ImportPersonsWorker {
 		//Initialisiere Datenbank
 		Database database = new DatabaseVeraWeb(cntx);
         ImportPerson sample = (ImportPerson) database.createBean("ImportPerson");
-		//Erstelle SELECT-Anfrage, die die Anzahl der Datensätze liest.
+		//Erstelle SELECT-Anfrage, die die Anzahl der Datensï¿½tze liest.
 		Select select = database.getCount(sample);
 		WhereList where = new WhereList();
 			//Bed: Datensatz wurde noch nicht festgeschrieben
 		where.addAnd(Expr.equal(database.getProperty(sample, "dupcheckaction"), ImportPerson.FALSE));
-			//Bed: Nur Datensätze von dem aktuellen Importvorgang
+			//Bed: Nur Datensï¿½tze von dem aktuellen Importvorgang
 		where.addAnd(Expr.equal(database.getProperty(sample, "fk_import"), importId));
 		select.where(where);
 		Integer dsCount = database.getCount(select);
 		
-		//Erstelle SELECT-Anfrage, die die Anzahl der Datensätze mit Duplikaten liest.
+		//Erstelle SELECT-Anfrage, die die Anzahl der Datensï¿½tze mit Duplikaten liest.
 		select = database.getCount(sample);
 		where = new WhereList();
 			//Bed: Es existieren Duplikate zu dem Datensatz 
 		where.addAnd(Expr.isNotNull(database.getProperty(sample, "duplicates")));
 			//Bed: Datensatz wurde noch nicht festgeschrieben
 		where.addAnd(Expr.equal(database.getProperty(sample, "dupcheckaction"), ImportPerson.FALSE));
-			//Bed: Nur Datensätze von dem aktuellen Importvorgang
+			//Bed: Nur Datensï¿½tze von dem aktuellen Importvorgang
 		where.addAnd(Expr.equal(database.getProperty(sample, "fk_import"), importId));
 		select.where(where);
 		Integer dupCount = database.getCount(select);
 		
-		//Erstelle SELECT-Anfrage, die die Anzahl der zum Speichern freigegebenen Datensätze liest.
+		//Erstelle SELECT-Anfrage, die die Anzahl der zum Speichern freigegebenen Datensï¿½tze liest.
 		select = database.getCount(sample);
 		where = new WhereList();
 		where.addAnd(
@@ -129,7 +129,7 @@ public class ImportPersonsWorker {
 		));
 			//Bed: Datensatz wurde noch nicht festgeschrieben
 		where.addAnd(Expr.equal(database.getProperty(sample, "dupcheckaction"), ImportPerson.FALSE));
-			//Bed: Nur Datensätze von dem aktuellen Importvorgang
+			//Bed: Nur Datensï¿½tze von dem aktuellen Importvorgang
 		where.addAnd(Expr.equal(database.getProperty(sample, "fk_import"), importId));
 		select.where(where);
 		Integer saveCount = database.getCount(select);
@@ -137,29 +137,29 @@ public class ImportPersonsWorker {
         return DataExchangeWorker.createImportStats(dsCount.intValue(), dupCount.intValue(), saveCount.intValue(), importId);
 	}
 	
-    /** Octopus-Eingabe-Parameter für {@link #finalise(OctopusContext, Integer, List, Map)} */
+    /** Octopus-Eingabe-Parameter fï¿½r {@link #finalise(OctopusContext, Integer, List, Map)} */
     public static final String[] INPUT_finalise = { "REQUEST:importId", "CONFIG:ignorePersonFields", "CONFIG:importTextfieldMapping" };
-    /** Octopus-Eingabe-Parameter-Pflicht für {@link #finalise(OctopusContext, Integer, List, Map)} */
+    /** Octopus-Eingabe-Parameter-Pflicht fï¿½r {@link #finalise(OctopusContext, Integer, List, Map)} */
     public static final boolean[] MANDATORY_finalise = { true, true, true };
-    /** Octopus-Ausgabe-Parameter für {@link #finalise(OctopusContext, Integer, List, Map)} */
+    /** Octopus-Ausgabe-Parameter fï¿½r {@link #finalise(OctopusContext, Integer, List, Map)} */
     public static final String OUTPUT_finalise = "importStatus";
     /**
      * Diese Octopus-Aktion finalisiert einen Import. Hierbei wird als Nebeneffekt in
-     * den Content unter dem Schlüssel {@link #FIELD_IMPORTED_COUNT "imported"} die Anzahl
-     * der tatsächlich importierten Datensätze eingetragen.
+     * den Content unter dem Schlï¿½ssel {@link #FIELD_IMPORTED_COUNT "imported"} die Anzahl
+     * der tatsï¿½chlich importierten Datensï¿½tze eingetragen.
      * 
      * @param cntx Octopus-Kontext
-     * @param importId ID eines früheren Imports
+     * @param importId ID eines frï¿½heren Imports
      * @param ignorePersonFields
-     * @param importTextfieldMapping Map für das Mapping der Adressfreitextfelder 
+     * @param importTextfieldMapping Map fï¿½r das Mapping der Adressfreitextfelder 
      * @return Map mit Informationen zum Import, insbesondere der Anzahl gefundener
-     *  Datensätze unter "dsCount", der Anzahl Duplikate unter "dupCount", der Anzahl
-     *  importierter Datensätze unter "saveCount" und der Import-ID unter "id".
+     *  Datensï¿½tze unter "dsCount", der Anzahl Duplikate unter "dupCount", der Anzahl
+     *  importierter Datensï¿½tze unter "saveCount" und der Import-ID unter "id".
      * @throws BeanException
      * @throws IOException 
      */
 	public Map finalise(OctopusContext cntx, Integer importId, List ignorePersonFields, Map importTextfieldMapping) throws BeanException, IOException {
-		//Initialisiere Datenbank und lese die ID für den Importvorgang
+		//Initialisiere Datenbank und lese die ID fï¿½r den Importvorgang
 		Database database = new DatabaseVeraWeb(cntx);
 		TransactionContext context = database.getTransactionContext();
 		
@@ -171,10 +171,10 @@ public class ImportPersonsWorker {
             ImportPerson sampleImportPerson = new ImportPerson();
             // importTextfieldMapping analysieren, Doctypes holen...
             List personDoctypeCreators = parseTextfieldMapping(database, context, importTextfieldMapping);
-			//Erstelle SELECT-Anfrage, die die einzufügenden Datensätze liest.
+			//Erstelle SELECT-Anfrage, die die einzufï¿½genden Datensï¿½tze liest.
 			Select select = database.getSelect(sampleImportPerson);
 			WhereList where = new WhereList();
-            //Bed: Nur Datensätze von dem aktuellen Importvorgang
+            //Bed: Nur Datensï¿½tze von dem aktuellen Importvorgang
 			where.addAnd(Expr.equal(database.getProperty(sampleImportPerson, "fk_import"), importId));
 			where.addAnd(
 					Where.or(
@@ -187,7 +187,7 @@ public class ImportPersonsWorker {
 			where.addAnd(Expr.equal(database.getProperty(sampleImportPerson, "dupcheckaction"), ImportPerson.FALSE));
 			select.where(where);
 			
-			//Hole die festzuschreibenden Datensätze und schreiben diese iterativ in die Personen-Tabellen
+			//Hole die festzuschreibenden Datensï¿½tze und schreiben diese iterativ in die Personen-Tabellen
 			List result = database.getList(select);
 			for (Iterator it=result.iterator(); it.hasNext(); ) {
 				Map importPerson = (Map) it.next();
@@ -202,6 +202,16 @@ public class ImportPersonsWorker {
 				}
 				AddressHelper.copyAddressData(cntx, person, null);
 				
+				/* assign default workarea = 0 in case that person.workarea is null
+				 * 
+				 * modified as per change request for version 1.2.0
+				 * cklein 2008-03-27
+				 */
+				if ( person.workarea == null )
+				{
+					person.workarea = new Integer( 0 );
+				}
+
 				// Neue Person speichern
 				person.verify();
 				if (person.isCorrect()) {
@@ -415,7 +425,7 @@ public class ImportPersonsWorker {
             this.join = join;
             doctype = (Doctype) database.getBean("Doctype", database.getSelect("Doctype").where(Expr.equal("docname", doctypeName)), context);
             if (doctype == null)
-                logger.warn("Für den Import konfigurierten Dokumenttyp '" + doctypeName + "' nicht gefunden.");
+                logger.warn("Fï¿½r den Import konfigurierten Dokumenttyp '" + doctypeName + "' nicht gefunden.");
         }
         //
         // Methoden
