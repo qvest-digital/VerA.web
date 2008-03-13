@@ -53,10 +53,20 @@
 	</td>
 </tr></table><br>
 
+<table class="list" style="margin-top: 15px;">
+	<tbody><tr class="list2warn" style="height: 18px;">
+		<td class="list2warn" style="text-align: center; width: 100px;"><strong>Hinweis</strong></td>
+
+		<td class="list1warn" style="padding-left: 8px;">
+			Die Erzeugung des Berichtes kann, abhängig vom ausgewähltem Zeitraum und der Menge an verfügbaren Daten, recht lange dauern.
+		</td>
+	</tr>
+</tbody></table>
+
 <div id="fixme" class="fixme1"><div class="fixme2"><div class="fixme3">
 
 	<input type="submit" class="submit" value="Report erzeugen"> &nbsp;
-	<input type="reset"  class="reset" value="Felder leeren"> &nbsp;
+	<input type="reset"  class="reset" value="Felder zurücksetzen"> &nbsp;
 
 </div></div></div>
 

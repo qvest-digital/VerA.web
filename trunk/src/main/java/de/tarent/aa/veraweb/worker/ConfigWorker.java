@@ -236,7 +236,15 @@ public class ConfigWorker extends ListWorkerVeraWeb {
 		if ( ! found )
 		{
 			// ist kein default konfigurationseintrag
-			config.put( key, value );
+			if ( "".compareTo( value ) == 0 )
+			{
+				value = null;
+				config.remove( key );
+			}
+			else
+			{
+				config.put( key, value );
+			}
 		}
 		
 		// einstellung in datenbank speichern

@@ -476,7 +476,7 @@
 		
 		<task name="CreatePerson" access="public" groups="Writer">
 			<description>
-				Dieser Task zeigt eine Person an.
+				Dieser Task erzeugt eine neue, initial leere, Person.
 			</description>
 			<doTask name="Load"/>
 			<action name="getAll" worker="SalutationWorker"/>
