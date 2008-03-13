@@ -63,7 +63,7 @@ public class DateHelper {
 				 */
 				time.set(Calendar.HOUR_OF_DAY, 0);
 				time.set(Calendar.MINUTE, 0);
-				time.set(Calendar.SECOND, 0);
+				time.set(Calendar.SECOND, 30);
 			} else if (input.indexOf(":") != -1) {
 				String tokens[] = input.split("\\:");
 				if (tokens.length == 2) {
