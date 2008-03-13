@@ -27,7 +27,6 @@ package de.tarent.aa.veraweb.worker;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -37,10 +36,8 @@ import org.apache.log4j.Logger;
 import de.tarent.aa.veraweb.beans.Categorie;
 import de.tarent.dblayer.sql.Join;
 import de.tarent.dblayer.sql.SQL;
-import de.tarent.dblayer.sql.Statement;
 import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.clause.RawClause;
-import de.tarent.dblayer.sql.clause.StatementList;
 import de.tarent.dblayer.sql.clause.Where;
 import de.tarent.dblayer.sql.clause.WhereList;
 import de.tarent.dblayer.sql.statement.Select;
@@ -50,7 +47,7 @@ import de.tarent.octopus.custom.beans.veraweb.DatabaseVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
 
 /**
- * Diese Klasse übernimmt einige Aufräumarbeiten in der Datenbank.
+ * Diese Klasse ï¿½bernimmt einige Aufrï¿½umarbeiten in der Datenbank.
  * 
  * @author Christoph Jerolimov
  */
@@ -58,12 +55,12 @@ public class CleanupWorker {
 	/** Log4j logger Instanz. */
 	private static final Logger logger = Logger.getLogger(CleanupWorker.class);
 
-	/** Octopus Input-Parameter für {@link #summarizeCategories(OctopusContext)}. */
+	/** Octopus Input-Parameter fï¿½r {@link #summarizeCategories(OctopusContext)}. */
 	public static final String INPUT_summarizeCategories[] = {};
 	/**
 	 * Diese Methode fasst mehrere Kategorien als eine Zusammen.
 	 * Alle Kategorien des Schemas <code>catname n</code> werden
-	 * in die Kategorie <code>catname</code> übernommen.
+	 * in die Kategorie <code>catname</code> ï¿½bernommen.
 	 * 
 	 * @param cntx Octopus context
 	 */
@@ -88,7 +85,7 @@ public class CleanupWorker {
 			Integer orgunit = (Integer)((Map)orgunitIt.next()).get("fk_orgunit");
 			
 			if (logger.isInfoEnabled())
-				logger.info("Fasse automatisch mehrere Kategorien / Ereignisse für " +
+				logger.info("Fasse automatisch mehrere Kategorien / Ereignisse fï¿½r " +
 						"den Mandanten #" + orgunit + " zusammen.");
 			
 			Select subcategoriesSelect = SQL.Select().
@@ -124,7 +121,7 @@ public class CleanupWorker {
 				
 				assert subcategorypk != null && topcategorypk != null;
 				
-				addMessage(cntx, "Überführe Daten " +
+				addMessage(cntx, "ï¿½berfï¿½hre Daten " +
 						"aus Kategorie \"" + subcategoryname + "\" (" + subcategorypk + ")" +
 						" in Kategorie \"" + topcategoryname + "\" (" + topcategorypk + ").");
 				
@@ -215,7 +212,7 @@ public class CleanupWorker {
 								Expr.equal("fk_orgunit", orgunit))));
 			
 			if (topcategorie != null) {
-				addMessage(cntx, "Überführe Daten " +
+				addMessage(cntx, "ï¿½berfï¿½hre Daten " +
 						"aus Kategorie \"" + catname + "\" (" + catpk + ")" +
 						" in Kategorie \"" + topcategorie.name + "\" (" + topcategorie.id + ").");
 				

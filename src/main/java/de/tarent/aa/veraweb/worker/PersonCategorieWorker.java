@@ -36,7 +36,6 @@ import de.tarent.aa.veraweb.beans.PersonCategorie;
 import de.tarent.dblayer.engine.DB;
 import de.tarent.dblayer.sql.SQL;
 import de.tarent.dblayer.sql.clause.Expr;
-import de.tarent.dblayer.sql.statement.Delete;
 import de.tarent.dblayer.sql.statement.Select;
 import de.tarent.octopus.custom.beans.Bean;
 import de.tarent.octopus.custom.beans.BeanException;

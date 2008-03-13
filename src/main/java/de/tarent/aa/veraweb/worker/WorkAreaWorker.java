@@ -28,11 +28,9 @@ package de.tarent.aa.veraweb.worker;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import de.tarent.aa.veraweb.beans.WorkArea;
-import de.tarent.dblayer.sql.clause.Clause;
 import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.clause.Order;
 import de.tarent.dblayer.sql.statement.Select;

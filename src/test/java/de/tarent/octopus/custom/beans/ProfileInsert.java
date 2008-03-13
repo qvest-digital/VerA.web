@@ -40,12 +40,11 @@ import java.util.logging.Logger;
 
 import junit.framework.TestCase;
 import de.tarent.octopus.client.OctopusConnection;
-import de.tarent.octopus.client.OctopusConnectionFactory;
 import de.tarent.octopus.client.OctopusResult;
 
 /**
  * Diese Testklasse dient dem Profilen des Zeitverhaltens beim Erstellen
- * von Insert-Statements, das deutlich länger braucht als das Erstellen von
+ * von Insert-Statements, das deutlich lï¿½nger braucht als das Erstellen von
  * analogen Where-Klauseln.
  * 
  * @author mikel
