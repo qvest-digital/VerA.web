@@ -590,7 +590,14 @@ public class PersonDetailWorker implements PersonConstants {
 				return null;
 			}
 
-			DateHelper.addTimeToDate(person.diplodate_a_e1, cntx.requestAsString("person-diplotime_a_e1"), person.getErrors());
+			/* fix for bug 1020, the old fix caused the time string 00:00 to be displayed which is also not correct
+			 * cklein 2008-03-12
+			 */
+			String diploTime = cntx.requestAsString("person-diplotime_a_e1");
+			if ( diploTime != null && diploTime.length() > 0 )
+			{
+				DateHelper.addTimeToDate(person.diplodate_a_e1, diploTime, person.getErrors());
+			}
 			person.orgunit = ((PersonalConfigAA)cntx.personalConfig()).getOrgUnitId();
 			person.updateHistoryFields(null, ((PersonalConfigAA)cntx.personalConfig()).getRoleWithProxy());
 			AddressHelper.checkPersonSalutation(person, database, context);
