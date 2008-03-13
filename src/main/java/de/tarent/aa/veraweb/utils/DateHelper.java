@@ -58,7 +58,12 @@ public class DateHelper {
 		Calendar time = Calendar.getInstance();
 		try {
 			if (input == null) {
-				throw new NullPointerException();
+				/* fixed bug #1020
+				 * throwing NPE here lead to the fact that the person record can no longer be copied
+				 */
+				time.set(Calendar.HOUR_OF_DAY, 0);
+				time.set(Calendar.MINUTE, 0);
+				time.set(Calendar.SECOND, 0);
 			} else if (input.indexOf(":") != -1) {
 				String tokens[] = input.split("\\:");
 				if (tokens.length == 2) {

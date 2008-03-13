@@ -563,7 +563,7 @@ public class PersonDetailWorker implements PersonConstants {
 
 			if (cntx.requestAsBoolean("forcedupcheck").booleanValue())
 			{
-//				return person;
+				return person;
 			}
 
 			/* fix for bug 1011
