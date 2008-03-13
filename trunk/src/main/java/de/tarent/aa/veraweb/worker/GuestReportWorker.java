@@ -40,7 +40,6 @@ import de.tarent.aa.veraweb.beans.GuestSearch;
 import de.tarent.aa.veraweb.utils.DatabaseHelper;
 import de.tarent.dblayer.sql.SQL;
 import de.tarent.dblayer.sql.clause.Expr;
-import de.tarent.dblayer.sql.clause.Order;
 import de.tarent.dblayer.sql.clause.WhereList;
 import de.tarent.dblayer.sql.statement.Select;
 import de.tarent.octopus.custom.beans.BeanException;

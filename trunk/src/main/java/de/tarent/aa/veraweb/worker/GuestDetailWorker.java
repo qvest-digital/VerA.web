@@ -28,7 +28,6 @@ package de.tarent.aa.veraweb.worker;
 
 import java.io.IOException;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -41,7 +40,6 @@ import de.tarent.aa.veraweb.beans.GuestDoctype;
 import de.tarent.aa.veraweb.beans.GuestSearch;
 import de.tarent.aa.veraweb.beans.Person;
 import de.tarent.aa.veraweb.beans.PersonCategorie;
-import de.tarent.aa.veraweb.beans.WorkArea;
 import de.tarent.aa.veraweb.beans.facade.EventConstants;
 import de.tarent.aa.veraweb.beans.facade.GuestMemberFacade;
 import de.tarent.dblayer.sql.clause.Expr;
