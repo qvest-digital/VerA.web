@@ -68,6 +68,7 @@
 				#if(!$bean.invitationstatus || $bean.invitationstatus == 0)Offen#end
 				#if($bean.invitationstatus && $bean.invitationstatus == 1)Zusage#end
 				#if($bean.invitationstatus && $bean.invitationstatus == 2)Absage#end
+				#if($bean.invitationstatus && $bean.invitationstatus == 3)Teilnahme#end
 			#else
 				nicht eingeladen
 			#end
@@ -77,6 +78,7 @@
 				#if(!$bean.invitationstatus_p || $bean.invitationstatus_p == 0)Offen#end
 				#if($bean.invitationstatus_p && $bean.invitationstatus_p == 1)Zusage#end
 				#if($bean.invitationstatus_p && $bean.invitationstatus_p == 2)Absage#end
+				#if($bean.invitationstatus_p && $bean.invitationstatus_p == 3)Teilnahme#end
 			#else
 				nicht eingeladen
 			#end

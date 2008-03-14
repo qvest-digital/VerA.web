@@ -164,6 +164,15 @@ td.kategorieAbsage {
 	text-align: center;
 	vertical-align: middle;
 }
+td.kategorieTeilnahme {
+	font-size: 10px;
+	font-family: sans-serif;
+	width: 50px;
+	color: #000000;
+	background-color: #ffffff;
+	text-align: center;
+	vertical-align: middle;
+}
 hr.kategorie {
 	width: 100%;
 	color: #000000;

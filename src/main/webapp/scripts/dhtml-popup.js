@@ -29,11 +29,11 @@ function selectCompany(url, field) {
 }
 
 function selectPersonCategory(url) {
-	openPopup('function', url, 600, 240, "status=no,resizable=no,scrollbars=yes,dependent=yes,alwaysRaised=yes");
+	openPopup('function', url, 320, 220, "status=no,resizable=yes,scrollbars=yes,dependent=yes,alwaysRaised=yes");
 }
 
 function selectGuestCategory(url) {
-	openPopup('function', url, 320, 200, "status=no,resizable=no,scrollbars=yes,dependent=yes,alwaysRaised=yes");
+	openPopup('function', url, 320, 220, "status=no,resizable=yes,scrollbars=yes,dependent=yes,alwaysRaised=yes");
 }
 
 function exportPerson(url, id) {

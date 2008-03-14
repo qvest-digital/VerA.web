@@ -238,11 +238,9 @@
 <h1>Änderungsprotokoll:</h1>
 <table class="form">
 	<tr>
-		<td class="label">Vorhaltezeit der Protokolldaten (Tage/Monate/Jahre):</td>
+		<td class="label">Vorhaltezeit der Protokolldaten (Jahre/Monate/Tage):</td>
 		<td class="value">
 		<input type="hidden" name="changeLogRetentionPolicy" id="changeLogRetentionPolicyValue" value="$!message.text($config.changeLogRetentionPolicy.toString())" class="text" readonly="readonly" style="width: 80px;">
-##		<input type="hidden" name="changeLogRetentionPolicy" id="changeLogRetentionPolicyValue" value="P1Y5M3D" class="text" readonly="readonly" style="width: 80px;">
-##		<input type="text" id="changeLogRetentionPolicyDisplay" value="1 Jahr 5 Monate 3 Tage" class="text" readonly="readonly" style="background-color: #f0f0f0;width: 200px;">
 		<input type="text" id="changeLogRetentionPolicyDisplay" value="$!message.text($config.changeLogRetentionPolicy.toFormattedString( '%Y%M%D' ))" class="text" readonly="readonly" style="background-color: #f0f0f0;width: 200px;">
 		<span id="show-changeLogRetentionPolicy"><img src="${paths.staticWeb}images/calendar.gif"></span>
 		<link rel="stylesheet" type="text/css" href="${paths.staticWeb}styles/dialog.css">

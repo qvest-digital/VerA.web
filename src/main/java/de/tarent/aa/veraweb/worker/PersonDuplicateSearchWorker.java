@@ -142,6 +142,7 @@ public class PersonDuplicateSearchWorker extends PersonListWorker
 	protected void extendSubselect( OctopusContext cntx, Database database, Select subselect )
 	{
 		subselect.from( "veraweb.tperson person2" );
+//		subselect.from( "veraweb.tperson_cross_product" );
 		subselect.whereAnd(
 			Where.and(
 				Expr.equal( "tperson.fk_orgunit", ( ( PersonalConfigAA ) cntx.personalConfig() ).getOrgUnitId() ),

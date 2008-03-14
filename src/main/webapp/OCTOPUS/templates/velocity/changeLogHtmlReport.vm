@@ -22,6 +22,7 @@
 				<th>Benutzer</th>
 				<th>Objekt</th>
 				<th>Objekt-Id</th>
+				<th>Name</th>
 				<th>Art der Änderung</th>
 				<th>Geänderte Felder</th>
 			</tr>
@@ -29,8 +30,41 @@
 			<tr>
 				<td>$message.date( "DATE", $entry.created )</td>
 				<td>$!message.plain( $entry.username )</td>
-				<td>$!message.plain( $entry.objecttype )</td>
+				#set( $idx=1+$entry.objecttype.lastIndexOf( "." ) )
+				<td>$!message.plain( $entry.objecttype.substring( $idx ) )</td>
 				<td>$!message.plain( $entry.objectid )</td>
+				<td>
+				#if( $entry.op == "insert" || $entry.op == "update" || ( $entry.op == "delete" && $entry.attributes != "*" ) )
+					## link will be displayed only iff the object still exists
+					#set( $task="" )
+					#set( $params="" )
+					#if ( $entry.objecttype == "de.tarent.aa.veraweb.beans.Person" )
+						#set( $task="ShowPerson" )
+						#set( $params="?id=${entry.objectid}" )
+					#elseif( $entry.objecttype == "de.tarent.aa.veraweb.beans.Guest" )
+						#set( $task="ShowGuestDetail" )
+						#set( $params="?id=${entry.objectid}" )
+					#else
+						## ( $entry.objecttype == "de.tarent.aa.veraweb.beans.Event" )
+						#set( $task="ShowEvent" )
+						#set( $params="?id=${entry.objectid}" )
+					#end
+					<a href="${paths.staticWeb}do/${task}${params}" target="_blank">
+				#end
+				#set( $len=50 )
+				#set( $ellipsis="" )
+				#if ( $entry.objectname )
+				#set( $ellipsis="..." )
+				#if ( $len > $entry.objectname.length() )
+				#set( $len=$entry.objectname.length() )
+				#set( $ellipsis="" )
+				#end
+				#end
+				$!message.plain( $entry.objectname.substring( 0, $len ) )$ellipsis
+				#if( $entry.op == "insert" || $entry.op == "update" || ( $entry.op == "delete" && $entry.attributes != "*" ) )
+					</a>
+				#end				
+				</td>
 				<td>$!message.plain( $entry.op )</td>
 				#if( $entry.attributes == "*" )
 					#set( $attrs = "alle" )
