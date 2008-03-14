@@ -250,6 +250,12 @@
     <input type="submit" name="save" value="Speichern" #if($grants.mayWrite()) class="button" #else class="buttondisabled" disabled #end> &nbsp;
     <input type="button" name="copy" value="Person kopieren" onclick="if (checkModified()) { copyPerson(); }" #if($grants.mayWrite()) class="button" #else class="buttondisabled" disabled #end> &nbsp;
     <input type="button" name="export" class="button" value="Etikett erzeugen" onclick="exportPerson('${paths.staticWeb}do/', '$!person.id');"> &nbsp;
+
+## modified to provide a direct statistic button as per change request for version 1.2.0
+## cklein
+## 2008-03-14
+    <input type="button" value="Statistik" name="statistics" 	#if($person && $person.id) class="button" onclick="window.open( '${paths.staticWeb}do/StatistikExport?id=$!person.id' );" #else disabled="disabled" class="buttondisabled" #end> &nbsp;
+
     #if($person && $person.id)
     <input type="button" name="cancel" class="button" value="Zur&uuml;ck" title="Zur&uuml;ck zur Personenliste" onclick="if (checkModified()) { window.location.href='${paths.staticWeb}do/SetHostToEventList'; }"> &nbsp;
     #else
@@ -259,6 +265,12 @@
     <input type="submit" name="save" value="Speichern" #if($grants.mayWrite()) class="button" #else class="buttondisabled" disabled #end> &nbsp;
     <input type="button" name="copy" value="Person kopieren" onclick="if (checkModified()) { copyPerson(); }" #if($grants.mayWrite()) class="button" #else class="buttondisabled" disabled #end> &nbsp;
     <input type="button" name="export" class="button" value="Etikett erzeugen" onclick="exportPerson('${paths.staticWeb}do/', '$!person.id');"> &nbsp;
+
+## modified to provide a direct statistic button as per change request for version 1.2.0
+## cklein
+## 2008-03-14
+    <input type="button" value="Statistik" name="statistics" 	#if($person && $person.id) class="button" onclick="window.open( '${paths.staticWeb}do/StatistikExport?id=$!person.id' );" #else disabled="disabled" class="buttondisabled" #end> &nbsp;
+
     <input type="button" name="cancel" class="button" value="Zur&uuml;ck" onclick="if (checkModified()) { window.location.href='${paths.staticWeb}do/ShowGuestDetail'; }"> &nbsp;
 #else
     <input type="submit" name="save" value="Speichern" #if($grants.mayWrite()) class="button" #else class="buttondisabled" disabled #end> &nbsp;

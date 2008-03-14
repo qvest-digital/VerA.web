@@ -42,41 +42,71 @@
 				window.opener.document.forms[ "formlist" ].submit();
 			}
 		}
+		
+		function adjustSize()
+		{
+			var elt = document.getElementById( "category" );
+			var minWidth = 400;
+			var newWidth = elt ? elt.offsetWidth : minWidth;
+			if ( newWidth < minWidth )
+			{
+				newWidth = minWidth;
+			}
+			if( window.innerWidth < newWidth )
+			{
+				// add fixed margins + paddings
+				newWidth += 60;
+			}
+			window.resizeTo( newWidth, window.innerHeight );
+		}
 	</script>
 </head>
 
-<body>
+<body onload="adjustSize();">
 
 <form>
 <table class="tab" border="0" cellspacing="0" cellpadding="0"><tr><td class="tableft">&nbsp;</td></tr></table>
 
-<div class="content">
+<div class="content" id="content">
 	<div class="contentsection" style="padding:0 8;">
 		<strong>Wählen Sie eine zuzuweisende Kategorie aus:</strong>
 	</div>
 	<div class="contentsection" style="padding:0 8;">
+	#if( $allCategorie.size() > 0 )
 		<label for="category">Kategorie:</label>
 		<select name="category" id="category" onChange="selected(this);">
 		<option value="">
-#if( $assignmentAction == "unassign" )
+	#if( $assignmentAction == "unassign" )
 		<option value="0">Alle entfernen
-#end
+	#end
 		#foreach( $category in $allCategorie )
 		<option value="${category.id}">${category.name}
 		#end
 		</select>
+	#else
+	    Sie haben keine Kategorien konfiguriert. Diese können Sie im Verwaltungsbereich unter dem Punkt <em>Kategorien</em> definieren.
+	#end
 	</div>
 	<hr class="contentsection">
 	<div class="contentsection" style="padding:0 8;text-align: right;">
 		<input type="button" value="Abbrechen" onClick="restore();closePopup();">&nbsp;
-#if( $assignmentAction == "assign" )
+#if( $assignmentAction == "assign" && $allCategorie.size() > 0 )
 		<input type="button" value="Zuweisen" onClick="send();closePopup();">
-#else
+#elseif ( $allCategorie.size() > 0 )
 		<input type="button" value="Entfernen" onClick="send();closePopup();">
 #end
 	</div>
 </div>
 </form>
 
+<table class="list">
+	<tr style="height: 20px;">
+		<td class="list2warn" style="text-align: center; width: 60px;"><strong>Hinweis</strong></td>
+		<td class="list1warn">
+			Sie haben ${count} Personen ausgewählt. Abhängig von der Anzahl
+			der ausgewählten Personen kann die Aktion eine gewisse Zeit in Anspruch nehmen.
+		</td>
+	</tr>
+</table>
 </body>
 </html>

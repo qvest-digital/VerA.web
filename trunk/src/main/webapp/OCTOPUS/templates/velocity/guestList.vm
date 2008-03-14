@@ -376,7 +376,6 @@
     <input type="submit" name="save" value="Speichern" #if($grants.mayWrite()) class="button" #else class="buttondisabled" disabled #end> &nbsp;
     <input type="submit" name="remove" value="L&ouml;schen" #if($grants.mayWrite()) class="button" #else class="buttondisabled" disabled #end> &nbsp;
     <input type="button" name="add" value="Gast hinzuf&uuml;gen" title="Personen suchen und zu der G&auml;steliste hinzuf&uuml;gen" onclick="window.location.href='AddPersonToEventSearch?action=guest&search=clear';" #if($grants.mayWrite()) class="button" #else class="buttondisabled" disabled #end> &nbsp;
-    <input type="button" name="cancel" value="Zur&uuml;ck" title="Zur&uuml;ck zu den Veranstaltungdetails" class="reset" onclick="window.location.href='ShowEvent?id=$!event.id&action=event';"> &nbsp;
 
 <script type="text/javascript">
 
@@ -428,8 +427,10 @@
 	#end
 #end
 
-	<input type="button" name="assignCategory" value="Kategorien zuordnen" #if($isUser) class="button" onClick="assignCategories();" #else class="buttondisabled" disabled="disabled" #end>&nbsp;
-	<input type="button" name="unassignCategory" value="Kategorien entfernen" #if($isUser) class="button" onClick="unassignCategories();" #else class="buttondisabled" disabled="disabled" #end>
+	<input type="button" name="assignCategory" value="Kategorien zuordnen" #if($isUser) class="button" onClick="assignCategories();" #else class="buttondisabled" disabled="disabled" #end style="width:140px;">&nbsp;
+	<input type="button" name="unassignCategory" value="Kategorien entfernen" #if($isUser) class="button" onClick="unassignCategories();" #else class="buttondisabled" disabled="disabled" #end style="width:140px;">
+
+    <input type="button" name="cancel" value="Zur&uuml;ck" title="Zur&uuml;ck zu den Veranstaltungdetails" class="reset" onclick="window.location.href='ShowEvent?id=$!event.id&action=event';"> &nbsp;
 
 </div></div></div>
 </div>

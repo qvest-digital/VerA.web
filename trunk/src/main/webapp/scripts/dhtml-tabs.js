@@ -4,21 +4,23 @@
 			if ( tab.className == "tabdisabled" )
 			{
 				tab.style.borderBottom = 'none';
-				tab.style.backgroundColor = '#a3a8af';
+				tab.style.backgroundColor = '#b3b8bb';
+				if (link) {
+					link.style.color = '#000000';
+		/*			link.style.cursor = 'default'; TODO */
+				}
 			}
 			else
 			{
-				if (tab) {
-	/*				tab.style.borderTop = '1px solid #C0C7F0'; */
-	/*				tab.style.borderLeft = '1px solid #C0C7F0'; */
-					tab.style.borderBottom = 'none';
-					tab.style.backgroundColor = '#f3f8ff';
+/*				tab.style.borderTop = '1px solid #C0C7F0'; */
+/*				tab.style.borderLeft = '1px solid #C0C7F0'; */
+				tab.style.borderBottom = 'none';
+				tab.style.backgroundColor = '#f3f8ff';
+				if (link) {
+					link.style.color = '#336699';
+		/*			link.style.cursor = 'default'; TODO */
 				}
 			}
-		}
-		if (link) {
-			link.style.color = '#000000';
-/*			link.style.cursor = 'default'; TODO */
 		}
 	}
 
@@ -31,12 +33,9 @@
 			}
 			else
 			{
-				if (tab) {
-					tab.style.borderBottom = '1px solid #80A7E0';
-					tab.style.backgroundColor = '#d3d8df';
-				}
+				tab.style.borderBottom = '1px solid #80A7E0';
+				tab.style.backgroundColor = '#d3d8df';
 				if (link) {
-					link.style.color = '#336699';
 	/*				link.style.cursor = 'pointer'; TODO */
 				}
 			}
@@ -46,10 +45,10 @@
 	function disableTab(tab, link) {
 		if (tab) {
 			tab.style.borderBottom = '1px solid #80A7E0';
-			tab.style.backgroundColor = '#83888f';
+			tab.style.backgroundColor = '#93989f';
 		}
 		if (link) {
-			link.style.color = '#606060';
+			link.style.color = '#000000';
 /*			link.style.cursor = 'default'; TODO */
 		}
 	}

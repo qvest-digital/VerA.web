@@ -34,6 +34,7 @@ import de.tarent.aa.veraweb.beans.WorkArea;
 import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.clause.Order;
 import de.tarent.dblayer.sql.statement.Select;
+import de.tarent.octopus.PersonalConfigAA;
 import de.tarent.octopus.custom.beans.Bean;
 import de.tarent.octopus.custom.beans.BeanException;
 import de.tarent.octopus.custom.beans.Database;
@@ -58,11 +59,25 @@ public class WorkAreaWorker extends StammdatenWorker
 		super( "WorkArea" );
 	}
 
+	@Override
+	protected void saveBean( OctopusContext cntx, Bean bean ) throws BeanException, IOException
+	{
+		WorkArea workArea = ( WorkArea ) bean;
+
+		if ( workArea.orgunit == null )
+		{
+			workArea.orgunit = ( ( PersonalConfigAA ) cntx.personalConfig() ).getOrgUnitId();
+		}
+
+		super.saveBean(cntx, bean);
+	}
+
 	protected void extendWhere(OctopusContext cntx, Select select) throws BeanException, IOException {
 		// hide default entry with pk=0 from user, the workarea "Kein" with pk ::= 0
 		// is only used internally in order to be able to use foreign key constraints
 		// with individual workareas being assigned to one or multiple users.
 		select.where( Expr.greater( "pk", 0 ) );
+		select.where( Expr.equal( "fk_orgunit", ( ( PersonalConfigAA ) cntx.personalConfig() ).getOrgUnitId() ) );
 	}
 
 	protected void extendColumns( OctopusContext cntx, Select select )
@@ -118,5 +133,6 @@ public class WorkAreaWorker extends StammdatenWorker
 		// is only used internally in order to be able to use foreign key constraints
 		// with individual workareas being assigned to one or multiple users.
 		select.where( Expr.greater( "pk", 0 ) );
+		select.where( Expr.equal( "fk_orgunit", ( ( PersonalConfigAA ) cntx.personalConfig() ).getOrgUnitId() ) );
 	}
 }

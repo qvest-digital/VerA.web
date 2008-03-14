@@ -52,6 +52,7 @@ CREATE OR REPLACE FUNCTION serv_verawebschema(int4) RETURNS varchar AS
  *  2008-02-11  cklein: added upgrade paths based on the change requests per the next version 1.2.0, incl. changes to tperson, tguest, new: tdata_change_log, tfield_of_work
  *  2008-02-20  cklein: reverted part of the previous changes, namely association of the workarea entity with the guest entity: this is actually to be associated with a tperson instead
  *  2008-03-06  cklein: fixed a few bugs: tworkarea table must be created prior to tperson table
+ *  2008-03-14  cklein: adding not null constraint to tperson.fk_workarea, adding additional attribute objname to tchange_log
  * </changelog>
  * ----------------------------------------------------------- */
 
@@ -1297,7 +1298,9 @@ END;\'
 			  importsource varchar(250),
 	-------- added new attribute as per the change request for the next version 1.2.0
 	-------- cklein 2008-02-20
-              fk_workarea int4,
+	-------- added NOT NULL constraint
+	-------- cklein 2008-03-14
+              fk_workarea int4 NOT NULL,
 			  
 			  -- Hauptperson, Latein
 			  salutation_a_e1 varchar(50),
@@ -2175,6 +2178,7 @@ END;\'
 			(
 			  pk serial NOT NULL,
 			  username varchar(100) NOT NULL,
+			  objname varchar(300) NOT NULL,	-- the name of the object (tperson:firstname/lastname,tevent:name,tguest:/tperson:firstname/lastname)
 			  objtype varchar(250) NOT NULL,	-- the type of the object (fully-qualified-classname)
 			  objid int4 NOT NULL,				-- the id of the object
 			  op varchar(6) NOT NULL,			-- the operation logged, one of delete, insert, or update

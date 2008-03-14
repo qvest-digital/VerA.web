@@ -57,6 +57,7 @@ public class ChangeLogEntry extends AbstractBean
 {
 	public Integer	id;
 	public String	username;
+	public String	objectname;
 	public String	objecttype;
 	public Integer	objectid;
 	public String	op;

@@ -35,7 +35,11 @@ import java.sql.Date;
 import java.util.Iterator;
 
 import de.tarent.aa.veraweb.beans.ChangeLogEntry;
+import de.tarent.aa.veraweb.beans.Event;
+import de.tarent.aa.veraweb.beans.Guest;
+import de.tarent.aa.veraweb.beans.Person;
 import de.tarent.dblayer.sql.statement.Insert;
+import de.tarent.octopus.custom.beans.veraweb.DatabaseVeraWeb;
 
 /**
  * The class BeanChangeLogger represents a facility
@@ -143,7 +147,7 @@ public class BeanChangeLogger {
 		// are there any differences from o to n?
 		if ( changedAttributes.length() > 0 )
 		{
-			ChangeLogEntry entry = this.createNewChangeLogEntryInstance( "update", username, o.getClass().getName(), ( Integer ) o.getField( "id" ), changedAttributes.toString() );
+			ChangeLogEntry entry = this.createNewChangeLogEntryInstance( "update", username, determineObjectName( o ), o.getClass().getName(), ( Integer ) o.getField( "id" ), changedAttributes.toString() );
 			this.insertLogEntry( entry );
 		}
 	}
@@ -156,7 +160,7 @@ public class BeanChangeLogger {
 	 */
 	public void logInsert( String username, Bean o ) throws BeanException, IOException
 	{
-		ChangeLogEntry entry = this.createNewChangeLogEntryInstance( "insert", username, o.getClass().getName(), ( Integer ) o.getField( "id" ), "*" );
+		ChangeLogEntry entry = this.createNewChangeLogEntryInstance( "insert", username, determineObjectName( o ), o.getClass().getName(), ( Integer ) o.getField( "id" ), "*" );
 		this.insertLogEntry( entry );
 	}
 
@@ -168,10 +172,35 @@ public class BeanChangeLogger {
 	 */
 	public void logDelete( String username, Bean o ) throws BeanException, IOException
 	{
-		ChangeLogEntry entry = this.createNewChangeLogEntryInstance( "delete", username, o.getClass().getName(), ( Integer ) o.getField( "id" ), "*" );
+		ChangeLogEntry entry = this.createNewChangeLogEntryInstance( "delete", username, determineObjectName( o ), o.getClass().getName(), ( Integer ) o.getField( "id" ), "*" );
 		this.insertLogEntry( entry );
 	}
 
+	private String determineObjectName( Bean o ) throws BeanException, IOException
+	{
+		String result = "";
+
+		if ( o instanceof Event )
+		{
+			result = ( ( Event ) o ).shortname; // shortname is mandatory
+		}
+		else
+		{
+			if ( o instanceof Guest )
+			{
+				o = this.database.getBean( "Person", ( ( Guest ) o ).person );
+			}
+			Person p = ( Person ) o;
+			result = p.lastname_a_e1 + ", " + p.firstname_a_e1; // lastname is mandatory, even for companies 
+		}
+		if ( result == null || result.length() == 0 )
+		{
+			result = "Kein Name vergeben";
+		}
+
+		return result;
+	}
+	
 	private void insertLogEntry( ChangeLogEntry entry )
 		throws BeanException, IOException
 	{
@@ -190,11 +219,12 @@ public class BeanChangeLogger {
 		}
 	}
 
-	private ChangeLogEntry createNewChangeLogEntryInstance( String op, String username, String otype, Integer oid, String attributes )
+	private ChangeLogEntry createNewChangeLogEntryInstance( String op, String username, String oname, String otype, Integer oid, String attributes )
 		throws BeanException, IOException
 	{
 		ChangeLogEntry result = new ChangeLogEntry();
 		result.username = username;
+		result.objectname = oname;
 		result.objecttype = otype;
 		result.objectid = oid;
 		result.op = op;

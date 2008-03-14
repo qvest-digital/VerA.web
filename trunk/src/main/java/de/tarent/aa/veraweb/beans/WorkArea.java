@@ -41,6 +41,7 @@ import de.tarent.octopus.server.OctopusContext;
 public class WorkArea extends AbstractBean
 {
 	public Integer id;
+	public Integer orgunit;
 	public String name;
 
 	/**
