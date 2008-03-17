@@ -173,7 +173,7 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 	
 	protected void extendColumns(OctopusContext cntx, Select select) throws BeanException, IOException {
 		select.selectAs( "workarea.name", "workarea_name" );
-		select.orderBy( Order.asc( "workarea_name" ) );
+		//select.orderBy( Order.asc( "workarea_name" ) );
 
 		/*
 		 * modified to support workarea display in the search result list as per change request for version 1.2.0
