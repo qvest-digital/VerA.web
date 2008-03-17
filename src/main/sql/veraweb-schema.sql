@@ -53,6 +53,7 @@ CREATE OR REPLACE FUNCTION serv_verawebschema(int4) RETURNS varchar AS
  *  2008-02-20  cklein: reverted part of the previous changes, namely association of the workarea entity with the guest entity: this is actually to be associated with a tperson instead
  *  2008-03-06  cklein: fixed a few bugs: tworkarea table must be created prior to tperson table
  *  2008-03-14  cklein: adding not null constraint to tperson.fk_workarea, adding additional attribute objname to tchange_log
+ *  2008-03-14	cklein: added foreign key constraint fk_orgunit to tworkarea
  * </changelog>
  * ----------------------------------------------------------- */
 
@@ -111,6 +112,9 @@ BEGIN
 		  CONSTRAINT tupdate_pkey PRIMARY KEY (id)
 		) WITH OIDS;
 		COMMENT ON TABLE veraweb.tupdate IS \'VerA.Web: System-Tabelle\';	
+	ELSE
+		-- TUPDATE LEEREN
+		DELETE FROM veraweb.tupdate;
 	END IF;	
 	-- TRESULT ANLEGEN
 	vint := 0;
@@ -124,11 +128,10 @@ BEGIN
 		  CONSTRAINT tresult_pkey PRIMARY KEY (id)
 		) WITH OIDS;
 		COMMENT ON TABLE veraweb.tresult IS \'VerA.Web: System-Tabelle\';	
+	ELSE
+		-- TRESULT LEEREN
+		DELETE FROM veraweb.tresult;
 	END IF;
-	
-	-- TRESULT und TUPDATE LEEREN
-	DELETE FROM veraweb.tupdate;
-	DELETE FROM veraweb.tresult;
 	
 	SELECT CURRENT_TIMESTAMP INTO vdate;
 	
@@ -1161,38 +1164,6 @@ END;\'
 	END IF;
 	---------------------------</TABLE>
 
-	-------- added table as per the change request for the next version 1.2.0
-	-------- cklein 2008-02-12
-	---------------------------<TABLE>
-	vint := 0;
-	SELECT count(*) INTO vint FROM information_schema.tables 
-		WHERE table_schema = \'veraweb\' AND table_name = \'tworkarea\';
-	IF vint = 0 THEN
-		vmsg := \'begin.createTABLE.tworkare\';
-		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
-		IF $1 = 1 THEN
-			CREATE TABLE veraweb.tworkarea
-			(
-			  pk serial NOT NULL,
-			  name varchar(250) NOT NULL,
-			  CONSTRAINT tworkarea_pkey PRIMARY KEY (pk)
-			) WITH OIDS;
-		END IF;
-		vmsg := \'end.createTABLE.tworkarea\';
-		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
-		vmsg := \'begin.insertDEFAULTS.tworkarea\';
-		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
-		IF $1 = 1 THEN
-			INSERT INTO veraweb.tworkarea (pk,name) VALUES(0,\'Kein\');
-		END IF;
-		vmsg := \'end.insertDEFAULTS.tworkarea\';
-		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
-	ELSE
-	--------<COLUMN>
-	--------<COLUMN/>
-	END IF;
-	---------------------------</TABLE>
-
 	---------------------------<TABLE>
 	vint := 0;
 	SELECT count(*) INTO vint FROM information_schema.tables 
@@ -1275,7 +1246,43 @@ END;\'
 	--------<COLUMN/>
 	END IF;
 	---------------------------</TABLE>
-	
+
+	-------- added table as per the change request for the next version 1.2.0
+	-------- cklein 2008-02-12
+	-------- added foreign key constraint fk_orgunit
+	-------- cklein 2008-02-14
+	---------------------------<TABLE>
+	vint := 0;
+	SELECT count(*) INTO vint FROM information_schema.tables 
+		WHERE table_schema = \'veraweb\' AND table_name = \'tworkarea\';
+	IF vint = 0 THEN
+		vmsg := \'begin.createTABLE.tworkare\';
+		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
+		IF $1 = 1 THEN
+			CREATE TABLE veraweb.tworkarea
+			(
+			  pk serial NOT NULL,
+			  name varchar(250) NOT NULL,
+			  fk_orgunit int4 NULL, -- must allow null as there is no default orgunit, see the default workarea below corresponding to no workarea
+			  CONSTRAINT tworkarea_pkey PRIMARY KEY (pk),
+			  CONSTRAINT tworkarea_fkey_orgunit FOREIGN KEY (fk_orgunit) REFERENCES veraweb.torgunit (pk) ON UPDATE RESTRICT ON DELETE RESTRICT
+			) WITH OIDS;
+		END IF;
+		vmsg := \'end.createTABLE.tworkarea\';
+		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
+		vmsg := \'begin.insertDEFAULTS.tworkarea\';
+		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
+		IF $1 = 1 THEN
+			INSERT INTO veraweb.tworkarea (pk,name) VALUES(0,\'Kein\');
+		END IF;
+		vmsg := \'end.insertDEFAULTS.tworkarea\';
+		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
+	ELSE
+	--------<COLUMN>
+	--------<COLUMN/>
+	END IF;
+	---------------------------</TABLE>
+
 	---------------------------<TABLE>
 	vint := 0;
 	SELECT count(*) INTO vint FROM information_schema.tables WHERE
