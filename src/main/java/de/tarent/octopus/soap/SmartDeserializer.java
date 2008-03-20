@@ -80,10 +80,10 @@ public class SmartDeserializer extends DeserializerImpl {
                                DeserializationContext context)
         throws SAXException
     {
-        
-        //Deserializer dser = context.getDeserializerForType(type);
-        //QName type = context.getTypeFromAttributes(namespace, localName, attributes);
         QName type = getDefaultType();
+        if (type == null)
+    		type = context.getTypeFromAttributes(namespace, localName, attributes);
+        
         Class clazz = context.getTypeMapping().getClassForQName(type);
         if (clazz == null)
             throw new SAXException("no java type configured for '"+type+"'");
