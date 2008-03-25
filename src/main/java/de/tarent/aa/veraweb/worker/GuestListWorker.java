@@ -356,19 +356,27 @@ public class GuestListWorker extends ListWorkerVeraWeb {
 	protected boolean removeBean(OctopusContext cntx, Bean bean) throws BeanException, IOException {
 		Database database = getDatabase(cntx);
 
+		/*
+		 * modified to support change logging
+		 * cklein 2008-02-12
+		 */
+		BeanChangeLogger clogger = new BeanChangeLogger( database );
+		/*
+		 * see bug #1033
+		 */
+		if ( ( ( Guest ) bean ).person == null )
+		{
+			// need to load the guest entity in order to retrieve the person
+			bean = database.getBean( "Guest", ( ( Guest ) bean ).id );
+		}
+		clogger.logDelete( cntx.personalConfig().getLoginname(), bean );
+
 		database.execute(SQL.Delete().
 				from("veraweb.tguest_doctype").
 				where(Expr.equal("fk_guest", ((Guest)bean).id)));
 		database.execute(SQL.Delete().
 				from("veraweb.tguest").
 				where(Expr.equal("pk", ((Guest)bean).id)));
-		
-		/*
-		 * modified to support change logging
-		 * cklein 2008-02-12
-		 */
-		BeanChangeLogger clogger = new BeanChangeLogger( database );
-		clogger.logDelete( cntx.personalConfig().getLoginname(), bean );
 
 		return true;
 	}

@@ -29,9 +29,14 @@
 package de.tarent.aa.veraweb.worker;
 
 import java.io.IOException;
+import java.sql.Connection;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Calendar;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 
@@ -66,6 +71,24 @@ public class ChangeLogMaintenanceWorker implements Runnable {
 	/** Octopus-Eingabe-Parameter für {@link #load(OctopusContext)} */
 	public static final String INPUT_load[] = {};
 
+	private Duration getConfiguration()
+	{
+		Duration result = Duration.fromString( "P0" );
+
+		List list = ( List ) cntx.contentAsObject( "allConfig" );
+		for ( Iterator it = list.iterator(); it.hasNext(); )
+		{
+			Map entry = ( Map ) it.next();
+			if ( "changeLogRetentionPolicy".compareTo( ( String ) entry.get( "key" ) ) == 0  )
+			{
+				result = Duration.fromString( ( String ) entry.get( "value" ) );
+				break;
+			}
+		}
+
+		return result;
+	}
+	
 	/**
 	 * Starts the background maintenance service.
 	 * 
@@ -75,7 +98,8 @@ public class ChangeLogMaintenanceWorker implements Runnable {
 	{
 		this.logger.info( "ChangeLogMaintenanceWorker wird im Hintergrund gestartet." );
 		this.cntx = cntx;
-		this.retentionPolicy = Duration.fromString( cntx.moduleConfig().getParam( "changeLogRetentionPolicy" ) );
+
+		this.retentionPolicy = this.getConfiguration();
 		if ( this.retentionPolicy.toString().equals( "P0" ) )
 		{
 			// log invalid setting and use 1yr. default
@@ -132,7 +156,6 @@ public class ChangeLogMaintenanceWorker implements Runnable {
 				}
 				try
 				{
-					// TODO reactivate
 					Thread.sleep( this.waitMillis < 1000 ? 1000 : this.waitMillis );
 				}
 				catch (InterruptedException e)
@@ -161,9 +184,25 @@ public class ChangeLogMaintenanceWorker implements Runnable {
 		c.add( Calendar.MONTH, -1 * this.retentionPolicy.months );
 		c.add( Calendar.DAY_OF_MONTH, -1 * this.retentionPolicy.days );
 		Date d = new Date( c.getTimeInMillis() );
-		DB.update(
-			this.cntx.getModuleName(),
-			SQL.Delete().from( "veraweb.tchangelog" ).where( Expr.lessOrEqual( "date", d.toString() ) )
-		);
+
+		/*
+		 * partly replicated from VerifyWorker.verifyDatabase() since it seems 
+		 * to be the only working variant to also automatically and safely close
+		 * any open connections
+		 * cklein 2008-03-25
+		 */
+		if ( ! DB.hasPool(cntx.getModuleName() ) )
+		{
+			Connection connection = DB.getConnection( this.cntx.getModuleName() );
+			if ( connection != null && ! connection.isClosed() )
+			{
+				Statement statement = connection.createStatement();
+				statement.execute(
+					SQL.Delete().from( "veraweb.tchangelog" ).where( Expr.lessOrEqual( "date", d.toString() ) ).statementToString()
+				);
+				statement.close();
+				connection.close();
+			}
+		}
 	}
 }
