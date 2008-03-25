@@ -73,6 +73,7 @@ public class ConfiguredExchangeFormat extends ExchangeFormat {
      * 
      * @param data {@link Map} mit weiteren Format-Properties
      */
+    @Override
     public void addProperties(Map data) {
         super.addProperties(data);
     }

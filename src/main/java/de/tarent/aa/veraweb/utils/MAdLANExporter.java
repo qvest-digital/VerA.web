@@ -57,9 +57,9 @@ import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.clause.RawClause;
 import de.tarent.dblayer.sql.clause.WhereList;
 import de.tarent.dblayer.sql.statement.Select;
-import de.tarent.octopus.custom.beans.BeanException;
-import de.tarent.octopus.custom.beans.Database;
-import de.tarent.octopus.custom.beans.DatabaseUtilizer;
+import de.tarent.octopus.beans.BeanException;
+import de.tarent.octopus.beans.Database;
+import de.tarent.octopus.beans.DatabaseUtilizer;
 
 /**
  * Diese Klasse dient dem Erzeugen eines MAdLAN-CSV-Exports über den
@@ -90,7 +90,7 @@ public class MAdLANExporter implements Exporter, Exchanger, DatabaseUtilizer, Ma
     /**
      * Die zu nutzende Datenbank.
      * 
-     * @see de.tarent.octopus.custom.beans.DatabaseUtilizer#setDatabase(de.tarent.octopus.custom.beans.Database)
+     * @see de.tarent.octopus.beans.DatabaseUtilizer#setDatabase(de.tarent.octopus.beans.Database)
      */
     public void setDatabase(Database database) {
         this.db = database;
@@ -98,7 +98,7 @@ public class MAdLANExporter implements Exporter, Exchanger, DatabaseUtilizer, Ma
     /**
      * Die zu nutzende Datenbank.
      * 
-     * @see de.tarent.octopus.custom.beans.DatabaseUtilizer#getDatabase()
+     * @see de.tarent.octopus.beans.DatabaseUtilizer#getDatabase()
      */
     public Database getDatabase() {
         return db;
@@ -286,7 +286,7 @@ public class MAdLANExporter implements Exporter, Exchanger, DatabaseUtilizer, Ma
         MessageFormat format = (MessageFormat) textfieldSelects.get(key);
         if (format != null)
         try {
-            Iterator it = new ResultList(DB.result(db.getModuleName(), format.format(new Object[] {person.id})).resultSet()).iterator();
+            Iterator it = new ResultList(DB.result(db, format.format(new Object[] {person.id})).resultSet()).iterator();
             if (it.hasNext())
                 return String.valueOf(((Map)it.next()).get("field")); 
         } catch (SQLException e) {

@@ -67,10 +67,10 @@ import de.tarent.data.exchange.ExchangeFormat;
 import de.tarent.data.exchange.Exchanger;
 import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.statement.Select;
-import de.tarent.octopus.custom.beans.Bean;
-import de.tarent.octopus.custom.beans.BeanException;
-import de.tarent.octopus.custom.beans.Database;
-import de.tarent.octopus.custom.beans.DatabaseUtilizer;
+import de.tarent.octopus.beans.Bean;
+import de.tarent.octopus.beans.BeanException;
+import de.tarent.octopus.beans.Database;
+import de.tarent.octopus.beans.DatabaseUtilizer;
 
 /**
  * Diese Klasse dient dem Erzeugen eines VerA.web-XML-Exports.<br>
@@ -463,7 +463,7 @@ public class XMLExporter implements Exporter, Exchanger, DatabaseUtilizer,
                     db.getProperty(samplePersonCategory, "categorie"))
             .selectAs(db.getProperty(samplePersonCategory, "rank"), "individualRank")
             .where(Expr.equal(db.getProperty(samplePersonCategory, "person"), person.id));
-        List list = db.getList(select);
+        List list = db.getList(select, db);
         for (Iterator itList = list.iterator(); itList.hasNext(); ) {
             Map data = (Map) itList.next();
             // sampleCategory.putAll(data) würde versuchen, auch den Wert von individualRank
@@ -498,7 +498,7 @@ public class XMLExporter implements Exporter, Exchanger, DatabaseUtilizer,
             .selectAs(db.getProperty(samplePersonDoctype, "textfieldPartner"), "textfieldPartner")
             .selectAs(db.getProperty(samplePersonDoctype, "textfieldJoin"), "textfieldJoin")
             .where(Expr.equal(db.getProperty(samplePersonDoctype, "person"), person.id));
-        List list = db.getList(select);
+        List list = db.getList(select, db);
         for (Iterator itList = list.iterator(); itList.hasNext(); ) {
             Map data = (Map) itList.next();
             appendChild(personElement, createDocTypeElement(data));

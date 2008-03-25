@@ -46,7 +46,7 @@ import java.util.logging.Logger;
 import de.tarent.aa.veraweb.beans.ImportPerson;
 import de.tarent.data.exchange.ExchangeFormat;
 import de.tarent.data.exchange.Exchanger;
-import de.tarent.octopus.custom.beans.BeanException;
+import de.tarent.octopus.beans.BeanException;
 
 /**
  * Diese Klasse dient dem Import eines MAdLAN-CSV-Exports über den

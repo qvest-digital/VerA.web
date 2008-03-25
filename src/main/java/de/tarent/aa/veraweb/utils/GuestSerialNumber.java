@@ -42,8 +42,8 @@ import de.tarent.dblayer.sql.clause.RawClause;
 import de.tarent.dblayer.sql.clause.WhereList;
 import de.tarent.dblayer.sql.statement.Select;
 import de.tarent.dblayer.sql.statement.Update;
-import de.tarent.octopus.custom.beans.BeanException;
-import de.tarent.octopus.custom.beans.Database;
+import de.tarent.octopus.beans.BeanException;
+import de.tarent.octopus.beans.Database;
 
 /**
  * Diese Klasse sammelt Hilfsklassen zum Ermitteln laufender Nummern für Gäste. 
@@ -125,7 +125,7 @@ public class GuestSerialNumber {
 		}
 		
 		protected void setSerialNumber(Select select) throws BeanException, IOException {
-			for (Iterator it = database.getList(select).iterator(); it.hasNext(); ) {
+			for (Iterator it = database.getList(select, database).iterator(); it.hasNext(); ) {
 				setSerialNumber((Map)it.next());
 			}
 		}
@@ -170,7 +170,8 @@ public class GuestSerialNumber {
          * <li>Sortiert alle anderen anhand ihres Namens ein.</li>
          * </ul>
          */
-		public void calcSerialNumber() throws BeanException, IOException {
+		@Override
+        public void calcSerialNumber() throws BeanException, IOException {
 			clearSerialNumber();
 			calcSerialNumberForGuestRank();
 			
@@ -179,7 +180,7 @@ public class GuestSerialNumber {
 					selectAs("pk", "id").
 					selectAs("flags", "flag").
 					orderBy(Order.asc("rank").andAsc("catname"));
-			for (Iterator it = database.getList(select).iterator(); it.hasNext(); ) {
+			for (Iterator it = database.getList(select, database).iterator(); it.hasNext(); ) {
 				Map map = (Map)it.next();
 				if (((Integer)map.get("flag")).intValue() == Categorie.FLAG_DIPLO_CORPS) {
 					calcSerialNumberForDiploCorp((Integer)map.get("id"));
@@ -281,7 +282,8 @@ public class GuestSerialNumber {
          * <li>Sortiert alle anderen anhand ihres Namens ein.</li>
          * </ul>
          */
-		public void calcSerialNumber() throws BeanException, IOException {
+		@Override
+        public void calcSerialNumber() throws BeanException, IOException {
 			clearSerialNumber();
 			
 			WhereList where = new WhereList();

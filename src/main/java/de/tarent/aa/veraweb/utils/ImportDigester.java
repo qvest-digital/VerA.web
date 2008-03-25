@@ -35,7 +35,7 @@ import java.util.List;
 
 import de.tarent.aa.veraweb.beans.ImportPerson;
 import de.tarent.aa.veraweb.beans.ImportPersonExtra;
-import de.tarent.octopus.custom.beans.BeanException;
+import de.tarent.octopus.beans.BeanException;
 
 /**
  * Diese Schnittstelle stellt bei einem Import die Instanz dar, der ein

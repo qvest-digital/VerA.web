@@ -131,7 +131,8 @@ public class ContactUser {
 		return vorname;
 	}
 	
-	public String toString(){
+	@Override
+    public String toString(){
 		return "Vorname: "+vorname+", Nachname: "+nachname+", Name: "+name+", EMail: "+email+", admin: "+admin.toString();
 	}
 	/**

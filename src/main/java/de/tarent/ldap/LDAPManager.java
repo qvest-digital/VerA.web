@@ -205,7 +205,7 @@ public class LDAPManager {
 		this.baseDN = (String) params.get(KEY_BASE_DN);
 		this.relative = surroundWithCommas((String) params.get(KEY_RELATIVE));
 		this.relativeUser = surroundWithCommas((String) params.get(KEY_RELATIVE_USER));
-        this.defaultUserObjectClass = ( String ) params.get( LDAPManagerAA.KEY_USER_OBJECT_CLASS );
+        this.defaultUserObjectClass = ( String ) params.get( LDAPManager.KEY_USER_OBJECT_CLASS );
         setDefaultObjectClasses( new String[] { this.defaultUserObjectClass } );
 	}
 
@@ -303,11 +303,11 @@ public class LDAPManager {
 			while (it.hasNext()) {
 				String adduser = (String) it.next();
 				try {
-					String adduser2 = getUserDN(adduser) + relativeUser + baseDN; //$NON-NLS-1$
+					String adduser2 = getUserDN(adduser) + relativeUser + baseDN; 
 					users.add(adduser2);
 				} catch (LDAPException le) {
 					logger.log(Level.WARNING, Messages.getString("LDAPManager.76") + adduser
-							+ Messages.getString("LDAPManager.77")); //$NON-NLS-1$ //$NON-NLS-2$
+							+ Messages.getString("LDAPManager.77")); //$NON-NLS-1$ 
 				}
 			}
 			attr.put(users);
@@ -315,7 +315,7 @@ public class LDAPManager {
 		} catch (NamingException e) {
 			throw new LDAPException(Messages.getString("LDAPManager.Konnte_OU_nicht_anlegen_01")
 					+ Messages.getString("LDAPManager.78") + ou + relative + baseDN
-					+ Messages.getString("LDAPManager.79") + e.getMessage(), e); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+					+ Messages.getString("LDAPManager.79") + e.getMessage(), e); //$NON-NLS-1$ 
 		}
 	}
 
@@ -367,7 +367,7 @@ public class LDAPManager {
 		boolean vorhanden = false;
 		try {
 			//Zu suchende Attribute zusammenbauen
-			Attributes attributes = lctx.getAttributes(getUserDN(name) + relative + baseDN); //$NON-NLS-1$
+			Attributes attributes = lctx.getAttributes(getUserDN(name) + relative + baseDN); 
 			//hole Attrbute
 			Attribute tester = attributes.get(attribute);
 			NamingEnumeration liste = null;
@@ -650,7 +650,7 @@ public class LDAPManager {
 			objectclass = lctx.getAttributes("ou=" + value + relative + baseDN, objectClassA).get("objectClass"); //$NON-NLS-1$ //$NON-NLS-2$
 		} catch (NamingException e) {
 			throw new LDAPException(Messages.getString("LDAPManager.Konnte_objectClass_nicht_sichern_01")
-					+ e.getMessage(), e); //$NON-NLS-1$
+					+ e.getMessage(), e); 
 		}
 		boolean modified = false;
 		//Checke objectclass
@@ -668,7 +668,7 @@ public class LDAPManager {
 		//member neu bauen
 		for (int i = 0; i < user.size(); i++) {
 			try {
-				member.add(getUserDN(user.get(i).toString()) + relativeUser + baseDN); //$NON-NLS-1$
+				member.add(getUserDN(user.get(i).toString()) + relativeUser + baseDN); 
 			} catch (LDAPException le) {
 				logger.log(Level.WARNING, Messages.getString("LDAPManager.87")); //$NON-NLS-1$
 			}
@@ -678,10 +678,10 @@ public class LDAPManager {
 		//F�hre �nderungen durch
 		try {
 			lctx.modifyAttributes("ou=" + value + relative + baseDN, (ModificationItem[]) modifications
-					.toArray(new ModificationItem[1])); //$NON-NLS-1$
+					.toArray(new ModificationItem[1])); 
 		} catch (NamingException e2) {
 			throw new LDAPException(Messages.getString("LDAPManager.OU_konnte_nicht_modifiziert_werden_01")
-					+ e2.toString(), e2); //$NON-NLS-1$
+					+ e2.toString(), e2); 
 		}
 	}
 
@@ -871,7 +871,7 @@ public class LDAPManager {
 	 */
 	public Attributes getSystemPreferenceKey(String key) throws NamingException {
 		Attributes attr = null;
-		attr = (Attributes) lctx.getAttributes("PreferenceKey=" + key + relative + baseDN);
+		attr = lctx.getAttributes("PreferenceKey=" + key + relative + baseDN);
 		return attr;
 	}
 

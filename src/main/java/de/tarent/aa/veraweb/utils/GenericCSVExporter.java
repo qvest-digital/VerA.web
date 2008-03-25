@@ -42,6 +42,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import de.tarent.aa.veraweb.beans.Person;
 import de.tarent.data.exchange.ExchangeFormat;
 import de.tarent.data.exchange.MappingException;
@@ -50,8 +51,8 @@ import de.tarent.dblayer.sql.clause.Clause;
 import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.clause.Where;
 import de.tarent.dblayer.sql.statement.Select;
-import de.tarent.octopus.custom.beans.Bean;
-import de.tarent.octopus.custom.beans.BeanException;
+import de.tarent.octopus.beans.Bean;
+import de.tarent.octopus.beans.BeanException;
 import de.tarent.utils.CSVFileWriter;
 
 /**
@@ -251,7 +252,7 @@ public class GenericCSVExporter extends GenericCSVBase implements Exporter
 					database.getProperty(samplePersonCategory, "categorie")).selectAs(database.getProperty(sampleCategory, "name"), "name").selectAs(
 					database.getProperty(sampleCategory, "rank"), "rankDefault").selectAs(database.getProperty(samplePersonCategory, "rank"), "rank")
 					.where(Expr.equal(database.getProperty(samplePersonCategory, "person"), person.id));
-				List entries = database.getList(select);
+				List entries = database.getList(select, database);
 				for (Iterator itEntries = entries.iterator(); itEntries.hasNext();)
 				{
 					Map entry = (Map) itEntries.next();
@@ -294,7 +295,7 @@ public class GenericCSVExporter extends GenericCSVBase implements Exporter
 					database.getProperty(samplePersonDocType, "textfield"), "textField").selectAs(
 					database.getProperty(samplePersonDocType, "textfieldPartner"), "textFieldPartner").where(
 					Expr.equal(database.getProperty(samplePersonDocType, "person"), person.id));
-				List entries = database.getList(select);
+				List entries = database.getList(select, database);
 				for (Iterator itEntries = entries.iterator(); itEntries.hasNext();)
 				{
 					Map entry = (Map) itEntries.next();
@@ -370,7 +371,8 @@ public class GenericCSVExporter extends GenericCSVBase implements Exporter
 	 * @throws IOException
 	 * @throws BeanException
 	 */
-	protected List getCategoriesFromDB() throws BeanException, IOException
+	@Override
+    protected List getCategoriesFromDB() throws BeanException, IOException
 	{
 		// alle Kategorien.
 		if (this.categoryId == null && this.orgUnitId == null)
@@ -408,7 +410,7 @@ public class GenericCSVExporter extends GenericCSVBase implements Exporter
 		else if (expr1 == null && expr2 != null)
 			sel.where(expr2);
 
-		return database.getList(sel);
+		return database.getList(sel, database);
 	}
 
 	/*
@@ -416,7 +418,8 @@ public class GenericCSVExporter extends GenericCSVBase implements Exporter
 	 * 
 	 * @see de.tarent.aa.veraweb.utils.GenericCSVBase#getDocumentTypesFromDB()
 	 */
-	protected List getDocumentTypesFromDB() throws BeanException, IOException
+	@Override
+    protected List getDocumentTypesFromDB() throws BeanException, IOException
 	{
 		// TODO nur die Dokumenttypen des Mandanten, falls Doktypen auf Mandanten eingeschr�nkt werden.
 		return super.getDocumentTypesFromDB();

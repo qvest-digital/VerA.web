@@ -49,7 +49,7 @@ import java.util.ResourceBundle;
  */
 public class LocaleMessage {
     /** Name des zu benutzenden Bundles */
-	public static final String BUNDLE_NAME = "de.tarent.octopus.custom.beans.messages";
+	public static final String BUNDLE_NAME = "de.tarent.octopus.beans.messages";
 
 	protected Locale locale;
 	protected ResourceBundle bundle;

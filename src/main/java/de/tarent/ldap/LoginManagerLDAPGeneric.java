@@ -111,6 +111,7 @@ public class LoginManagerLDAPGeneric extends AbstractLoginManager
 	 * @param tcRequest Benutzeranfrage mit Authentisierungsdaten
 	 * @throws TcSecurityException bei fehlgeschlagener Authorisierung
 	 */
+    @Override
     protected void doLogin(TcCommonConfig commonConfig, PersonalConfig pConfig, TcRequest tcRequest) 
         throws TcSecurityException {
         PasswordAuthentication pwdAuth = tcRequest.getPasswordAuthentication();
@@ -162,6 +163,7 @@ public class LoginManagerLDAPGeneric extends AbstractLoginManager
 	 * @param pConfig pers�nliche Konfiguration des auszuloggenden Benutzers
 	 * @param tcRequest Benutzeranfrage
      */
+    @Override
     protected void doLogout(TcCommonConfig commonConfig, PersonalConfig pConfig, TcRequest tcRequest) {
         pConfig.setUserGroups(new String[]{PersonalConfig.GROUP_LOGGED_OUT});
         pConfig.userLoggedOut();
