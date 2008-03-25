@@ -1,7 +1,5 @@
-#Mon Mar 10 16:43:36 CET 2008
+#Tue Mar 25 19:00:38 GMT+01:00 2008
 eclipse.preferences.version=1
-encoding//src/main/java/de/tarent/aa/veraweb/config.properties=UTF-8
-encoding//src/main/java/de/tarent/aa/veraweb/veraweb.properties=UTF-8
-encoding//src/main/java/de/tarent/octopus/custom/beans/messages.properties=UTF-8
 encoding//src/site=UTF-8
+encoding/<project>=ISO-8859-1
 instance/org.eclipse.core.net/org.eclipse.core.net.hasMigrated=true
