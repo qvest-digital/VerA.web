@@ -55,7 +55,8 @@ public class MultiOutputStream extends OutputStream {
 	/**
 	 * Übergibt die zu schreibende Information an mehrere OutputStreams.
 	 */
-	public void write(int b) throws IOException {
+	@Override
+    public void write(int b) throws IOException {
 		for (int i = 0; i < size; i++) {
 			try {
 				((OutputStream)streams.get(i)).write(b);
@@ -67,7 +68,8 @@ public class MultiOutputStream extends OutputStream {
 	/**
 	 * Übergibt die zu schreibende Information an mehrere OutputStreams.
 	 */
-	public void write(byte[] b) throws IOException {
+	@Override
+    public void write(byte[] b) throws IOException {
 		for (int i = 0; i < size; i++) {
 			try {
 				((OutputStream)streams.get(i)).write(b);
@@ -79,7 +81,8 @@ public class MultiOutputStream extends OutputStream {
 	/**
 	 * Übergibt die zu schreibende Information an mehrere OutputStreams.
 	 */
-	public void write(byte[] b, int off, int len) throws IOException {
+	@Override
+    public void write(byte[] b, int off, int len) throws IOException {
 		for (int i = 0; i < size; i++) {
 			try {
 				((OutputStream)streams.get(i)).write(b, off, len);
@@ -91,7 +94,8 @@ public class MultiOutputStream extends OutputStream {
 	/**
 	 * Schließt alle Kind-OutputStreams.
 	 */
-	public void close() {
+	@Override
+    public void close() {
 		for (int i = 0; i < size; i++) {
 			try {
 				((OutputStream)streams.get(i)).close();

@@ -327,7 +327,7 @@ public class LDAPManagerTarentContact extends LDAPManager implements UserManager
             contact = lctx.getAttributes("uid=" + ldc.getUserid() + ",ou=" + vertgrp + relative + baseDN); //$NON-NLS-1$ //$NON-NLS-2$
         } catch (NamingException e1) {
             throw new LDAPException(Messages.getString("LDAPManager.Contact_01") + ldc.getUserid()
-                    + Messages.getString("LDAPManager._existiert_gar_nicht_01") + e1.getMessage(), e1); //$NON-NLS-1$ //$NON-NLS-2$
+                    + Messages.getString("LDAPManager._existiert_gar_nicht_01") + e1.getMessage(), e1); //$NON-NLS-1$ 
         }
         //hole ObjectClass
         Attribute objectClass = contact.get("objectClass"); //$NON-NLS-1$
@@ -338,7 +338,7 @@ public class LDAPManagerTarentContact extends LDAPManager implements UserManager
             if (!checkAttribute(contact, "objectClass", value)) {
                 objectClass.add(value);
                 modified = true;
-            } //$NON-NLS-1$
+            } 
         }
         //Wenn ge�ndert, dann modifizieren
         if (modified) {
@@ -350,14 +350,14 @@ public class LDAPManagerTarentContact extends LDAPManager implements UserManager
         modified = false;
         for (int i = 0; i < ldc.getUsers().size(); i++) {
             try {
-                String value = getUserDN(ldc.getUsers().get(i).toString()) + relativeUser + baseDN; //$NON-NLS-1$
+                String value = getUserDN(ldc.getUsers().get(i).toString()) + relativeUser + baseDN; 
                 if (!checkAttribute(contact, "member", value)) {
                     member.add(value);
                     modified = true;
-                } //$NON-NLS-1$
+                } 
             } catch (LDAPException le) {
                 logger.log(Level.WARNING, Messages.getString("LDAPManager.84") + ldc.getUsers().get(i).toString()
-                        + Messages.getString("LDAPManager.85"), le); //$NON-NLS-1$ //$NON-NLS-2$
+                        + Messages.getString("LDAPManager.85"), le); //$NON-NLS-1$ 
             }
         }
         //Wenn ge�ndert, dann modifizieren
@@ -375,10 +375,10 @@ public class LDAPManagerTarentContact extends LDAPManager implements UserManager
         if (!modifications.isEmpty()) {
             try {
                 lctx.modifyAttributes("uid=" + ldc.getUserid() + ",ou=" + vertgrp + relative + baseDN,
-                        (ModificationItem[]) modifications.toArray(new ModificationItem[1])); //$NON-NLS-1$ //$NON-NLS-2$
+                        (ModificationItem[]) modifications.toArray(new ModificationItem[1])); 
             } catch (NamingException e2) {
                 throw new LDAPException(Messages.getString("LDAPManager.User_konnte_nicht_modifiziert_werden_01")
-                        + e2.toString(), e2); //$NON-NLS-1$
+                        + e2.toString(), e2); 
             }
         }
     }

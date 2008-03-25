@@ -33,8 +33,10 @@ import java.util.Properties;
 import java.util.StringTokenizer;
 import java.util.prefs.AbstractPreferences;
 import java.util.prefs.BackingStoreException;
+
 import javax.naming.NamingException;
 import javax.naming.directory.Attributes;
+
 import de.tarent.ldap.LDAPException;
 import de.tarent.ldap.LDAPManager;
 
@@ -74,7 +76,8 @@ public class LDAPSystemPreferences extends AbstractPreferences {
 	 * 
 	 * @see java.util.prefs.AbstractPreferences#flushSpi()
 	 */
-	protected void flushSpi() throws BackingStoreException {
+	@Override
+    protected void flushSpi() throws BackingStoreException {
 		initLDM();
 		createPath();
 		String relativeold = adjustRelative();
@@ -213,7 +216,8 @@ public class LDAPSystemPreferences extends AbstractPreferences {
 	 * @see flushSpi()
 	 * @see java.util.prefs.AbstractPreferences#removeNodeSpi()
 	 */
-	protected void removeNodeSpi() throws BackingStoreException {
+	@Override
+    protected void removeNodeSpi() throws BackingStoreException {
 		Iterator it = cache.keySet().iterator();
 		while (it.hasNext()) {
 			String key = (String) it.next();
@@ -241,7 +245,8 @@ public class LDAPSystemPreferences extends AbstractPreferences {
 	 * 
 	 * @see java.util.prefs.AbstractPreferences#syncSpi()
 	 */
-	protected void syncSpi() throws BackingStoreException {
+	@Override
+    protected void syncSpi() throws BackingStoreException {
 		initLDM();
 		createPath();
 		String relativeOld = adjustRelative();
@@ -292,7 +297,7 @@ public class LDAPSystemPreferences extends AbstractPreferences {
 				try {
 					Attributes attrs = ldm.getSystemPreferenceKey(keys[i]);
 					timestamp.put(keys[i], new BigInteger((String) attrs.get("PreferenceLastModified").get(0)));
-					cache.put(keys[i], (String) attrs.get("PreferenceValue").get(0));
+					cache.put(keys[i], attrs.get("PreferenceValue").get(0));
 				} catch (NamingException e1) {
 					throw new BackingStoreException(e1);
 				}
@@ -309,7 +314,8 @@ public class LDAPSystemPreferences extends AbstractPreferences {
 	 * 
 	 * @see java.util.prefs.AbstractPreferences#childrenNamesSpi()
 	 */
-	protected String[] childrenNamesSpi() throws BackingStoreException {
+	@Override
+    protected String[] childrenNamesSpi() throws BackingStoreException {
 		String children[] = null;
 		initLDM();
 		String relativeOld = adjustRelative();
@@ -328,7 +334,8 @@ public class LDAPSystemPreferences extends AbstractPreferences {
 	 * 
 	 * @see java.util.prefs.AbstractPreferences#keysSpi()
 	 */
-	protected String[] keysSpi() throws BackingStoreException {
+	@Override
+    protected String[] keysSpi() throws BackingStoreException {
 		initLDM();
 		String relativeOld = adjustRelative();
 		String keys[] = null;
@@ -347,7 +354,8 @@ public class LDAPSystemPreferences extends AbstractPreferences {
 	 * 
 	 * @see java.util.prefs.AbstractPreferences#removeSpi(java.lang.String)
 	 */
-	protected void removeSpi(String key) {
+	@Override
+    protected void removeSpi(String key) {
 		BigInteger modifed = BigInteger.valueOf((new Date()).getTime());
 		if (cache.containsKey(key)) {
 			cache.remove(key);
@@ -385,7 +393,8 @@ public class LDAPSystemPreferences extends AbstractPreferences {
 	 * 
 	 * @see java.util.prefs.AbstractPreferences#getSpi(java.lang.String)
 	 */
-	protected String getSpi(String key) {
+	@Override
+    protected String getSpi(String key) {
 		String result;
 		result = (String) cache.get(key);
 		String relativeOld = null;
@@ -420,7 +429,8 @@ public class LDAPSystemPreferences extends AbstractPreferences {
 	 *            Der Wert der Preference
 	 * @see java.util.prefs.AbstractPreferences#putSpi(java.lang.String)
 	 */
-	protected void putSpi(String key, String value) {
+	@Override
+    protected void putSpi(String key, String value) {
 		BigInteger modifed = BigInteger.valueOf((new Date()).getTime());
 		if (cache.containsKey(key)) {
 			cache.remove(key);
@@ -453,7 +463,8 @@ public class LDAPSystemPreferences extends AbstractPreferences {
 	 * 
 	 * @see java.util.prefs.AbstractPreferences#childSpi(java.lang.String)
 	 */
-	protected AbstractPreferences childSpi(String arg0) {
+	@Override
+    protected AbstractPreferences childSpi(String arg0) {
 		return new LDAPSystemPreferences(this, arg0);
 	}
 }

@@ -28,7 +28,9 @@ package de.tarent.ldap;
 import java.util.HashMap;
 import java.util.Map;
 
+import de.tarent.octopus.config.TcCommonConfig;
 import de.tarent.octopus.request.TcEnv;
+import de.tarent.octopus.request.TcRequest;
 import de.tarent.octopus.server.PersonalConfig;
 import de.tarent.octopus.server.UserManager;
 
@@ -51,7 +53,8 @@ public class LoginManagerLDAPTarentContact extends LoginManagerLDAPGeneric {
      * @see #doLogin(TcCommonConfig, PersonalConfig, TcRequest)
      * @see LoginManagerLDAPGeneric#initPersonalConfig(de.tarent.octopus.server.PersonalConfig, java.lang.String)
      */
-	protected void initPersonalConfig(PersonalConfig pConfig, String userName) throws LDAPException {
+	@Override
+    protected void initPersonalConfig(PersonalConfig pConfig, String userName) throws LDAPException {
         if (ldapManager instanceof LDAPManagerTarentContact) {
             Map userdata = ((LDAPManagerTarentContact) ldapManager).getUserData(userName);
             pConfig.setUserLastName((String) userdata.get("nachname"));
@@ -75,6 +78,7 @@ public class LoginManagerLDAPTarentContact extends LoginManagerLDAPGeneric {
      * @see #doLogin(TcCommonConfig, PersonalConfig, TcRequest)
      * @see LoginManagerLDAPGeneric#initLDAPManager()
      */
+    @Override
     protected void initLDAPManager() throws LDAPException {
         Map params = new HashMap();
         params.put(LDAPManager.KEY_BASE_DN, getConfigurationString(TcEnv.KEY_LDAP_BASE_DN));
@@ -99,7 +103,8 @@ public class LoginManagerLDAPTarentContact extends LoginManagerLDAPGeneric {
      * @return UserManager oder <code>null</code>, falls Konfigurationsprobleme bestehen.
 	 * @see de.tarent.octopus.server.LoginManager#getUserManager()
 	 */
-	public UserManager getUserManager() {
+	@Override
+    public UserManager getUserManager() {
         try {
             Map params = new HashMap();
             params.put(LDAPManager.KEY_BASE_DN, getConfigurationString(TcEnv.KEY_LDAP_BASE_DN));
@@ -125,7 +130,8 @@ public class LoginManagerLDAPTarentContact extends LoginManagerLDAPGeneric {
      * @return <code>true</code> falls Userverwaltung möglich, <code>false</code> sonst.
 	 * @see de.tarent.octopus.server.LoginManager#isUserManagementSupported()
 	 */
-	public boolean isUserManagementSupported() {
+	@Override
+    public boolean isUserManagementSupported() {
 		return true;
 	}
 }

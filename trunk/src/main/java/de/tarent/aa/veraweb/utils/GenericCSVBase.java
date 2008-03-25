@@ -50,10 +50,10 @@ import de.tarent.data.exchange.ExchangeFormat;
 import de.tarent.data.exchange.Exchanger;
 import de.tarent.data.exchange.FieldMapping;
 import de.tarent.data.exchange.MappingException;
-import de.tarent.octopus.custom.beans.Bean;
-import de.tarent.octopus.custom.beans.BeanException;
-import de.tarent.octopus.custom.beans.Database;
-import de.tarent.octopus.custom.beans.DatabaseUtilizer;
+import de.tarent.octopus.beans.Bean;
+import de.tarent.octopus.beans.BeanException;
+import de.tarent.octopus.beans.Database;
+import de.tarent.octopus.beans.DatabaseUtilizer;
 
 /**
  * Diese Klasse stellt Basisfunktionalitäten für den generischen CSV-Im- und -Export
@@ -256,7 +256,7 @@ public class GenericCSVBase implements Exchanger, DatabaseUtilizer {
      */
     protected List getCategoriesFromDB() throws BeanException, IOException
     {
-    	return database.getList(database.getSelect("Categorie"));
+    	return database.getList(database.getSelect("Categorie"), database);
     }
     /**
      * Diese Methode holt alle notwendigen Dokumenttypen aus der Datenbank.
@@ -266,7 +266,7 @@ public class GenericCSVBase implements Exchanger, DatabaseUtilizer {
      */
     protected List getDocumentTypesFromDB() throws BeanException, IOException
     {
-    	return database.getList(database.getSelect("Doctype"));
+    	return database.getList(database.getSelect("Doctype"), database);
     }
     
     /**

@@ -73,6 +73,7 @@ public class PersonalConfigAA extends TcPersonalConfig {
     /**
      * @see de.tarent.octopus.config.TcPersonalConfig#setUserGroups(java.lang.String[], java.lang.String)
      */
+    @Override
     public void setUserGroups(String[] newGroups, String area) {
         grants = null;
         super.setUserGroups(newGroups, area);
@@ -81,6 +82,7 @@ public class PersonalConfigAA extends TcPersonalConfig {
     /**
      * @see de.tarent.octopus.config.TcPersonalConfig#setUserGroups(java.lang.String[])
      */
+    @Override
     public void setUserGroups(String[] newGroups) {
         grants = null;
         super.setUserGroups(newGroups);

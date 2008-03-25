@@ -43,12 +43,12 @@ import de.tarent.aa.veraweb.beans.User;
 import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.octopus.LoginManagerAA;
 import de.tarent.octopus.PersonalConfigAA;
+import de.tarent.octopus.beans.Database;
+import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
 import de.tarent.octopus.config.TcCommonConfig;
 import de.tarent.octopus.config.TcConfig;
 import de.tarent.octopus.content.TcAll;
 import de.tarent.octopus.content.TcContent;
-import de.tarent.octopus.custom.beans.Database;
-import de.tarent.octopus.custom.beans.veraweb.DatabaseVeraWeb;
 import de.tarent.octopus.request.TcEnv;
 import de.tarent.octopus.request.TcRequest;
 import de.tarent.octopus.security.TcSecurityException;
@@ -135,6 +135,7 @@ public class LoginManagerLDAPAA extends LoginManagerLDAPGeneric implements Login
      * @see #doLogin(TcCommonConfig, PersonalConfig, TcRequest)
      * @see LoginManagerLDAPGeneric#initPersonalConfig(de.tarent.octopus.server.PersonalConfig, java.lang.String)
      */
+    @Override
     protected void initPersonalConfig(PersonalConfig pConfig, String userName) throws LDAPException {
         if (ldapManager instanceof LDAPManagerAA) {
             Map userdata = ((LDAPManagerAA) ldapManager).getUserData(userName);
@@ -158,6 +159,7 @@ public class LoginManagerLDAPAA extends LoginManagerLDAPGeneric implements Login
      * @see #doLogin(TcCommonConfig, PersonalConfig, TcRequest)
      * @see LoginManagerLDAPGeneric#initLDAPManager()
      */
+    @Override
     protected void initLDAPManager() throws LDAPException {
         Map params = new HashMap();
         params.put(LDAPManager.KEY_BASE_DN, getConfigurationString(TcEnv.KEY_LDAP_BASE_DN));
@@ -188,6 +190,7 @@ public class LoginManagerLDAPAA extends LoginManagerLDAPGeneric implements Login
      * @throws TcSecurityException bei fehlgeschlagener Authorisierung
      * @see de.tarent.ldap.LoginManagerLDAPGeneric#doLogin(de.tarent.octopus.config.TcCommonConfig, de.tarent.octopus.server.PersonalConfig, de.tarent.octopus.request.TcRequest)
      */
+    @Override
     protected void doLogin(TcCommonConfig commonConfig, PersonalConfig pConfig, TcRequest tcRequest) throws TcSecurityException {
         PasswordAuthentication origAuth = tcRequest.getPasswordAuthentication();
         // http://www.ietf.org/internet-drafts/draft-ietf-ldapbis-authmeth-18.txt
@@ -307,6 +310,7 @@ public class LoginManagerLDAPAA extends LoginManagerLDAPGeneric implements Login
      * @param tcRequest Benutzeranfrage
      * @see de.tarent.ldap.LoginManagerLDAPGeneric#doLogout(de.tarent.octopus.config.TcCommonConfig, de.tarent.octopus.server.PersonalConfig, de.tarent.octopus.request.TcRequest)
      */
+    @Override
     protected void doLogout(TcCommonConfig commonConfig, PersonalConfig pConfig, TcRequest tcRequest) {
         if (pConfig instanceof PersonalConfigAA) {
             PersonalConfigAA aaConfig = (PersonalConfigAA) pConfig;

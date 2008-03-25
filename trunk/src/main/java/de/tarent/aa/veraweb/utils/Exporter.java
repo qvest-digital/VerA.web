@@ -33,7 +33,7 @@ package de.tarent.aa.veraweb.utils;
 import java.io.IOException;
 
 import de.tarent.aa.veraweb.beans.Person;
-import de.tarent.octopus.custom.beans.BeanException;
+import de.tarent.octopus.beans.BeanException;
 
 /**
  * Diese Schnittstelle ist für jede grundsätzliche Exportvariante umzusetzen.

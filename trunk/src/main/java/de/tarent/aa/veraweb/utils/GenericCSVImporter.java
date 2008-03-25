@@ -52,7 +52,7 @@ import de.tarent.aa.veraweb.beans.ImportPersonDoctype;
 import de.tarent.data.exchange.ExchangeFormat;
 import de.tarent.data.exchange.MappingException;
 import de.tarent.data.exchange.FieldMapping.Entity;
-import de.tarent.octopus.custom.beans.BeanException;
+import de.tarent.octopus.beans.BeanException;
 import de.tarent.utils.CSVFileReader;
 
 /**
