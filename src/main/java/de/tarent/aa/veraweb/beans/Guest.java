@@ -34,7 +34,7 @@ import de.tarent.aa.veraweb.beans.facade.EventConstants;
 import de.tarent.aa.veraweb.beans.facade.GuestMemberFacade;
 import de.tarent.aa.veraweb.utils.AddressHelper;
 import de.tarent.octopus.PersonalConfigAA;
-import de.tarent.octopus.custom.beans.BeanException;
+import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.server.OctopusContext;
 import de.tarent.octopus.server.PersonalConfig;
 
@@ -102,7 +102,8 @@ public class Guest extends AbstractHistoryBean implements EventConstants {
 	public String color_b;
 	public Integer fk_color_b;
 
-	public void verify() throws BeanException {
+	@Override
+    public void verify() throws BeanException {
 		if (ishost == null) ishost = new Integer(0);
 		AddressHelper.setColor(this);
 	}
@@ -116,7 +117,8 @@ public class Guest extends AbstractHistoryBean implements EventConstants {
 	 * @throws BeanException Wenn im angegebenen Kontext diese Bohne nicht gelesen werden darf.
 	 * @see de.tarent.aa.veraweb.beans.AbstractBean#checkRead(de.tarent.octopus.server.OctopusContext)
 	 */
-	public void checkRead(OctopusContext cntx) throws BeanException {
+	@Override
+    public void checkRead(OctopusContext cntx) throws BeanException {
 		 checkGroup(cntx, PersonalConfigAA.GROUP_READ_STANDARD);
 	}
 
@@ -129,7 +131,8 @@ public class Guest extends AbstractHistoryBean implements EventConstants {
 	 * @throws BeanException Wenn im angegebenen Kontext diese Bohne nicht geschrieben werden darf.
 	 * @see de.tarent.aa.veraweb.beans.AbstractBean#checkWrite(de.tarent.octopus.server.OctopusContext)
 	 */
-	public void checkWrite(OctopusContext cntx) throws BeanException {
+	@Override
+    public void checkWrite(OctopusContext cntx) throws BeanException {
 		 checkGroup(cntx, PersonalConfigAA.GROUP_WRITE);
 	}
     
@@ -142,6 +145,7 @@ public class Guest extends AbstractHistoryBean implements EventConstants {
      * @throws BeanException bei Problemen mit der Bean
      * @see de.tarent.aa.veraweb.beans.AbstractBean#clearRestrictedFields(de.tarent.octopus.server.OctopusContext)
      */
+    @Override
     public void clearRestrictedFields(OctopusContext cntx) throws BeanException {
         PersonalConfig personalConfig = cntx != null ? cntx.personalConfig() : null;
         if (personalConfig == null || !personalConfig.isUserInGroup(PersonalConfigAA.GROUP_READ_REMARKS)) {

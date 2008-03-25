@@ -32,11 +32,11 @@ import java.sql.Timestamp;
 
 import de.tarent.aa.veraweb.beans.facade.AbstractMember;
 import de.tarent.aa.veraweb.beans.facade.PersonAddressFacade;
-import de.tarent.aa.veraweb.beans.facade.PersonMemberFacade;
 import de.tarent.aa.veraweb.beans.facade.PersonConstants;
+import de.tarent.aa.veraweb.beans.facade.PersonMemberFacade;
 import de.tarent.aa.veraweb.utils.AddressHelper;
 import de.tarent.octopus.PersonalConfigAA;
-import de.tarent.octopus.custom.beans.BeanException;
+import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.server.OctopusContext;
 import de.tarent.octopus.server.PersonalConfig;
 
@@ -291,7 +291,8 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 	public String mail_c_e3;
 	public String url_c_e3;
 
-	public void verify() throws BeanException {
+	@Override
+    public void verify() throws BeanException {
 		AddressHelper.checkPerson(this);
 		
 		if (!(
@@ -311,7 +312,8 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 	 * @throws BeanException Wenn im angegebenen Kontext diese Bohne nicht gelesen werden darf.
 	 * @see de.tarent.aa.veraweb.beans.AbstractBean#checkRead(de.tarent.octopus.server.OctopusContext)
 	 */
-	public void checkRead(OctopusContext cntx) throws BeanException {
+	@Override
+    public void checkRead(OctopusContext cntx) throws BeanException {
 		checkGroup(cntx, PersonalConfigAA.GROUP_READ_STANDARD);
 	}
 
@@ -324,7 +326,8 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 	 * @throws BeanException Wenn im angegebenen Kontext diese Bohne nicht geschrieben werden darf.
 	 * @see de.tarent.aa.veraweb.beans.AbstractBean#checkWrite(de.tarent.octopus.server.OctopusContext)
 	 */
-	public void checkWrite(OctopusContext cntx) throws BeanException {
+	@Override
+    public void checkWrite(OctopusContext cntx) throws BeanException {
 		checkGroup(cntx, PersonalConfigAA.GROUP_WRITE);
 	}
 
@@ -337,6 +340,7 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
      * @throws BeanException bei Problemen mit der Bean
      * @see de.tarent.aa.veraweb.beans.AbstractBean#clearRestrictedFields(de.tarent.octopus.server.OctopusContext)
      */
+    @Override
     public void clearRestrictedFields(OctopusContext cntx) throws BeanException {
         PersonalConfig personalConfig = cntx != null ? cntx.personalConfig() : null;
         if (personalConfig == null || !personalConfig.isUserInGroup(PersonalConfigAA.GROUP_READ_REMARKS)) {
@@ -546,43 +550,53 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 			return lastname_a_e1;
 		}
 
-		public String getDomestic() {
+		@Override
+        public String getDomestic() {
 			return domestic_a_e1;
 		}
 
-		public String getSex() {
+		@Override
+        public String getSex() {
 			return sex_a_e1;
 		}
 
-		public Timestamp getBirthday() {
+		@Override
+        public Timestamp getBirthday() {
 			return birthday_a_e1;
 		}
 
-		public String getBirthplace() {
+		@Override
+        public String getBirthplace() {
 			return birthplace_a_e1;
 		}
 
-		public Timestamp getDiplodate() {
+		@Override
+        public Timestamp getDiplodate() {
 			return diplodate_a_e1;
 		}
 
-		public String getLanguages() {
+		@Override
+        public String getLanguages() {
 			return languages_a_e1;
 		}
 
-		public String getNationality() {
+		@Override
+        public String getNationality() {
 			return nationality_a_e1;
 		}
 
-		public String getNote() {
+		@Override
+        public String getNote() {
 			return note_a_e1;
 		}
 
-		public String getNoteOrga() {
+		@Override
+        public String getNoteOrga() {
 			return noteorga_a_e1;
 		}
 
-		public String getNoteHost() {
+		@Override
+        public String getNoteHost() {
 			return notehost_a_e1;
 		}
 
@@ -606,43 +620,53 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 			lastname_a_e1 = value;
 		}
 
-		public void setDomestic(String value) {
+		@Override
+        public void setDomestic(String value) {
 			domestic_a_e1 = value;
 		}
 
-		public void setSex(String value) {
+		@Override
+        public void setSex(String value) {
 			sex_a_e1 = value;
 		}
 
-		public void setBirthday(Timestamp value) {
+		@Override
+        public void setBirthday(Timestamp value) {
 			birthday_a_e1 = value;
 		}
 
-		public void setBirthplace(String value) {
+		@Override
+        public void setBirthplace(String value) {
 			birthplace_a_e1 = value;
 		}
 
-		public void setDiplodate(Timestamp value) {
+		@Override
+        public void setDiplodate(Timestamp value) {
 			diplodate_a_e1 = value;
 		}
 
-		public void setLanguages(String value) {
+		@Override
+        public void setLanguages(String value) {
 			languages_a_e1 = value;
 		}
 
-		public void setNationality(String value) {
+		@Override
+        public void setNationality(String value) {
 			nationality_a_e1 = value;
 		}
 
-		public void setNote(String value) {
+		@Override
+        public void setNote(String value) {
 			note_a_e1 = value;
 		}
 
-		public void setNoteOrga(String value) {
+		@Override
+        public void setNoteOrga(String value) {
 			noteorga_a_e1 = value;
 		}
 
-		public void setNoteHost(String value) {
+		@Override
+        public void setNoteHost(String value) {
 			notehost_a_e1 = value;
 		}
 	}
@@ -659,7 +683,8 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 			return fk_salutation_a_e2;
 		}
 
-		public String getBirthplace() {
+		@Override
+        public String getBirthplace() {
 			return birthplace_a_e2;
 		}
 
@@ -683,7 +708,8 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 			fk_salutation_a_e2 = value;
 		}
 
-		public void setBirthplace(String value) {
+		@Override
+        public void setBirthplace(String value) {
 			birthplace_a_e2 = value;
 		}
 
@@ -712,7 +738,8 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 			return fk_salutation_a_e3;
 		}
 
-		public String getBirthplace() {
+		@Override
+        public String getBirthplace() {
 			return birthplace_a_e3;
 		}
 
@@ -736,7 +763,8 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 			fk_salutation_a_e3 = value;
 		}
 
-		public void setBirthplace(String value) {
+		@Override
+        public void setBirthplace(String value) {
 			birthplace_a_e3 = value;
 		}
 
@@ -777,44 +805,54 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 			return lastname_b_e1;
 		}
 
-		public String getDomestic() {
+		@Override
+        public String getDomestic() {
 			return domestic_b_e1;
 		}
 
-		public String getSex() {
+		@Override
+        public String getSex() {
 			return sex_b_e1;
 		}
 
-		public Timestamp getBirthday() {
+		@Override
+        public Timestamp getBirthday() {
 			return birthday_b_e1;
 		}
 
-		public String getBirthplace() {
+		@Override
+        public String getBirthplace() {
 			throw new RuntimeException( "Not implemented." );
 			//return birthplace_b_e1;
 		}
 
-		public Timestamp getDiplodate() {
+		@Override
+        public Timestamp getDiplodate() {
 			return diplodate_b_e1;
 		}
 
-		public String getLanguages() {
+		@Override
+        public String getLanguages() {
 			return languages_b_e1;
 		}
 
-		public String getNationality() {
+		@Override
+        public String getNationality() {
 			return nationality_b_e1;
 		}
 
-		public String getNote() {
+		@Override
+        public String getNote() {
 			return note_b_e1;
 		}
 
-		public String getNoteOrga() {
+		@Override
+        public String getNoteOrga() {
 			return noteorga_b_e1;
 		}
 
-		public String getNoteHost() {
+		@Override
+        public String getNoteHost() {
 			return notehost_b_e1;
 		}
 
@@ -838,44 +876,54 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 			lastname_b_e1 = value;
 		}
 
-		public void setDomestic(String value) {
+		@Override
+        public void setDomestic(String value) {
 			domestic_b_e1 = value;
 		}
 
-		public void setSex(String value) {
+		@Override
+        public void setSex(String value) {
 			sex_b_e1 = value;
 		}
 
-		public void setBirthday(Timestamp value) {
+		@Override
+        public void setBirthday(Timestamp value) {
 			birthday_b_e1 = value;
 		}
 
-		public void setBirthplace(String value) {
+		@Override
+        public void setBirthplace(String value) {
 			throw new RuntimeException( "Not implemented." );
 			//birthplace_b_e2 = value;
 		}
 
-		public void setDiplodate(Timestamp value) {
+		@Override
+        public void setDiplodate(Timestamp value) {
 			diplodate_b_e1 = value;
 		}
 
-		public void setLanguages(String value) {
+		@Override
+        public void setLanguages(String value) {
 			languages_b_e1 = value;
 		}
 
-		public void setNationality(String value) {
+		@Override
+        public void setNationality(String value) {
 			nationality_b_e1 = value;
 		}
 
-		public void setNote(String value) {
+		@Override
+        public void setNote(String value) {
 			note_b_e1 = value;
 		}
 
-		public void setNoteOrga(String value) {
+		@Override
+        public void setNoteOrga(String value) {
 			noteorga_b_e1 = value;
 		}
 
-		public void setNoteHost(String value) {
+		@Override
+        public void setNoteHost(String value) {
 			notehost_b_e1 = value;
 		}
 	}
@@ -892,7 +940,8 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 			return fk_salutation_b_e2;
 		}
 
-		public String getBirthplace() {
+		@Override
+        public String getBirthplace() {
 			throw new RuntimeException( "Not implemented." );
 			//return birthplace_b_e2;
 		}
@@ -917,7 +966,8 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 			fk_salutation_b_e2 = value;
 		}
 
-		public void setBirthplace(String value) {
+		@Override
+        public void setBirthplace(String value) {
 			throw new RuntimeException( "Not implemented." );
 			//birthplace_b_e2 = value;
 		}
@@ -947,7 +997,8 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 			return fk_salutation_b_e3;
 		}
 
-		public String getBirthplace() {
+		@Override
+        public String getBirthplace() {
 			throw new RuntimeException( "Not implemented." );
 			//return birthplace_b_e3;
 		}
@@ -972,7 +1023,8 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 			fk_salutation_b_e3 = value;
 		}
 
-		public void setBirthplace(String value) {
+		@Override
+        public void setBirthplace(String value) {
 			throw new RuntimeException( "Not implemented." );
 			//birthplace_b_e3 = value;
 		}

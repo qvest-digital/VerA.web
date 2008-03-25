@@ -176,7 +176,8 @@ public class Duration extends AbstractBean
 		return this.toFormattedString( Duration.DEFAULT_FORMAT );
 	}
 	
-	public String toString()
+	@Override
+    public String toString()
 	{
 		StringBuffer temp = new StringBuffer();
 		temp.append( 'P' );

@@ -28,7 +28,7 @@
  */
 package de.tarent.aa.veraweb.beans;
 
-import de.tarent.octopus.custom.beans.BeanException;
+import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.server.OctopusContext;
 
 /**
@@ -48,12 +48,14 @@ public class UserConfig extends AbstractBean {
 	/**
 	 * Hebt den Leseschutz für die User-Config auf.
 	 */
-	public void checkRead(OctopusContext cntx) throws BeanException {
+	@Override
+    public void checkRead(OctopusContext cntx) throws BeanException {
 	}
 
 	/**
 	 * Hebt den Schreibschutz für die User-Config auf. 
 	 */
-	public void checkWrite(OctopusContext cntx) throws BeanException {
+	@Override
+    public void checkWrite(OctopusContext cntx) throws BeanException {
 	}
 }

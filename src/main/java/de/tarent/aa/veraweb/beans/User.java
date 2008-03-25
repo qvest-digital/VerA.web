@@ -31,7 +31,7 @@
 package de.tarent.aa.veraweb.beans;
 
 import de.tarent.octopus.PersonalConfigAA;
-import de.tarent.octopus.custom.beans.BeanException;
+import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.server.OctopusContext;
 
 /**
@@ -52,6 +52,7 @@ public class User extends AbstractBean implements OrgUnitDependent {
     /**
      * Der Benutzername (genauer: die AA-Rolle) muss angegeben sein.
      */
+    @Override
     public void verify() {
         if (name == null || name.length() == 0)
             addError("Sie müssen eine Benutzerrollenbezeichnung eingeben.");
@@ -66,6 +67,7 @@ public class User extends AbstractBean implements OrgUnitDependent {
      * @throws BeanException Wenn im angegebenen Kontext diese Bohne nicht gelesen werden darf.
      * @see de.tarent.aa.veraweb.beans.AbstractBean#checkRead(de.tarent.octopus.server.OctopusContext)
      */
+    @Override
     public void checkRead(OctopusContext cntx) throws BeanException {
     }
 
@@ -77,6 +79,7 @@ public class User extends AbstractBean implements OrgUnitDependent {
      * @param cntx Octopus-Kontext
      * @throws BeanException Wenn im angegebenen Kontext diese Bohne nicht geschrieben werden darf.
      */
+    @Override
     public void checkWrite(OctopusContext cntx) throws BeanException {
         checkGroup(cntx, PersonalConfigAA.GROUP_PARTIAL_ADMIN);
     }

@@ -26,14 +26,14 @@
 package de.tarent.aa.veraweb.beans;
 
 import de.tarent.octopus.PersonalConfigAA;
-import de.tarent.octopus.custom.beans.BeanException;
-import de.tarent.octopus.custom.beans.MapBean;
+import de.tarent.octopus.beans.BeanException;
+import de.tarent.octopus.beans.MapBean;
 import de.tarent.octopus.server.OctopusContext;
 import de.tarent.octopus.server.PersonalConfig;
 
 /**
  * Diese Klasse stellt eine abstrakte Basis für Beans auf Basis der
- * {@link de.tarent.octopus.custom.beans.MapBean} dar.
+ * {@link de.tarent.octopus.beans.MapBean} dar.
  * 
  * @author christoph
  */

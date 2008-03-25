@@ -31,7 +31,7 @@ package de.tarent.aa.veraweb.beans;
 import java.sql.Timestamp;
 
 import de.tarent.octopus.PersonalConfigAA;
-import de.tarent.octopus.custom.beans.BeanException;
+import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.server.OctopusContext;
 
 /**
@@ -59,7 +59,8 @@ public class MailDraft extends AbstractHistoryBean {
 	/** Ge�ndert am */
 	public Timestamp changed;
 
-	public void verify() throws BeanException {
+	@Override
+    public void verify() throws BeanException {
 		if (name == null || name.length() == 0)
 			addError("Sie müssen der E-Mail-Vorlage einen Namen geben.");
 		if (subject == null || subject.length() == 0)
@@ -77,7 +78,8 @@ public class MailDraft extends AbstractHistoryBean {
 	 * @throws BeanException Wenn im angegebenen Kontext diese Bohne nicht gelesen werden darf.
 	 * @see AbstractBean#checkRead(OctopusContext)
 	 */
-	public void checkRead(OctopusContext cntx) throws BeanException {
+	@Override
+    public void checkRead(OctopusContext cntx) throws BeanException {
 		checkGroup(cntx, PersonalConfigAA.GROUP_READ_STANDARD);
 	}
 
@@ -90,7 +92,8 @@ public class MailDraft extends AbstractHistoryBean {
 	 * @throws BeanException Wenn im angegebenen Kontext diese Bohne nicht geschrieben werden darf.
 	 * @see AbstractBean#checkWrite(OctopusContext)
 	 */
-	public void checkWrite(OctopusContext cntx) throws BeanException {
+	@Override
+    public void checkWrite(OctopusContext cntx) throws BeanException {
 		checkGroup(cntx, PersonalConfigAA.GROUP_READ_STANDARD);
 	}
 }

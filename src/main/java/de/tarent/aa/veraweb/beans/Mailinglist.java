@@ -31,7 +31,7 @@ package de.tarent.aa.veraweb.beans;
 import java.sql.Timestamp;
 
 import de.tarent.octopus.PersonalConfigAA;
-import de.tarent.octopus.custom.beans.BeanException;
+import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.server.OctopusContext;
 
 public class Mailinglist extends AbstractHistoryBean implements OrgUnitDependent {
@@ -45,7 +45,8 @@ public class Mailinglist extends AbstractHistoryBean implements OrgUnitDependent
 	public Timestamp created;
 	public String createdby;
 
-	public void verify() throws BeanException {
+	@Override
+    public void verify() throws BeanException {
 		if (name == null || name.length() == 0)
 			addError("Bitte geben sie dem Verteiler einen Namen.");
 	}
@@ -59,6 +60,7 @@ public class Mailinglist extends AbstractHistoryBean implements OrgUnitDependent
      * @throws BeanException Wenn im angegebenen Kontext diese Bohne nicht gelesen werden darf.
      * @see de.tarent.aa.veraweb.beans.AbstractBean#checkRead(de.tarent.octopus.server.OctopusContext)
      */
+    @Override
     public void checkRead(OctopusContext cntx) throws BeanException {
         checkGroup(cntx, PersonalConfigAA.GROUP_READ_STANDARD);
     }
@@ -72,6 +74,7 @@ public class Mailinglist extends AbstractHistoryBean implements OrgUnitDependent
      * @throws BeanException Wenn im angegebenen Kontext diese Bohne nicht geschrieben werden darf.
      * @see de.tarent.aa.veraweb.beans.AbstractBean#checkWrite(de.tarent.octopus.server.OctopusContext)
      */
+    @Override
     public void checkWrite(OctopusContext cntx) throws BeanException {
         checkGroup(cntx, PersonalConfigAA.GROUP_READ_STANDARD);
     }

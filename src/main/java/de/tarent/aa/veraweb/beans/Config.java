@@ -29,7 +29,7 @@
  */
 package de.tarent.aa.veraweb.beans;
 
-import de.tarent.octopus.custom.beans.BeanException;
+import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.server.OctopusContext;
 
 /**
@@ -56,6 +56,7 @@ public class Config extends AbstractBean {
      * @throws BeanException Wenn im angegebenen Kontext diese Bohne nicht gelesen werden darf.
      * @see de.tarent.aa.veraweb.beans.AbstractBean#checkRead(de.tarent.octopus.server.OctopusContext)
      */
-	public void checkRead(OctopusContext cntx) throws BeanException {
+	@Override
+    public void checkRead(OctopusContext cntx) throws BeanException {
 	}
 }
