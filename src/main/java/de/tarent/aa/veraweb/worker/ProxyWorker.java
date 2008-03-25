@@ -44,10 +44,10 @@ import de.tarent.dblayer.sql.clause.WhereList;
 import de.tarent.dblayer.sql.statement.Select;
 import de.tarent.octopus.LoginManagerAA;
 import de.tarent.octopus.PersonalConfigAA;
+import de.tarent.octopus.beans.BeanException;
+import de.tarent.octopus.beans.Database;
+import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
 import de.tarent.octopus.content.TcContentWorker;
-import de.tarent.octopus.custom.beans.BeanException;
-import de.tarent.octopus.custom.beans.Database;
-import de.tarent.octopus.custom.beans.veraweb.DatabaseVeraWeb;
 import de.tarent.octopus.security.TcSecurityException;
 import de.tarent.octopus.server.OctopusContext;
 

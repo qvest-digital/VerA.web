@@ -38,12 +38,12 @@ import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.clause.Where;
 import de.tarent.dblayer.sql.statement.Select;
 import de.tarent.octopus.PersonalConfigAA;
-import de.tarent.octopus.custom.beans.BeanException;
-import de.tarent.octopus.custom.beans.Database;
-import de.tarent.octopus.custom.beans.Request;
-import de.tarent.octopus.custom.beans.veraweb.DatabaseVeraWeb;
-import de.tarent.octopus.custom.beans.veraweb.ListWorkerVeraWeb;
-import de.tarent.octopus.custom.beans.veraweb.RequestVeraWeb;
+import de.tarent.octopus.beans.BeanException;
+import de.tarent.octopus.beans.Database;
+import de.tarent.octopus.beans.Request;
+import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
+import de.tarent.octopus.beans.veraweb.ListWorkerVeraWeb;
+import de.tarent.octopus.beans.veraweb.RequestVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
 
 /**
@@ -64,7 +64,8 @@ public class PersonDupcheckWorker extends ListWorkerVeraWeb {
     //
     // Oberklasse BeanListWorker
     //
-	protected void extendWhere(OctopusContext cntx, Select select) throws BeanException, IOException {
+	@Override
+    protected void extendWhere(OctopusContext cntx, Select select) throws BeanException, IOException {
 		Person person = (Person)cntx.contentAsObject("person");
 		select.where(getDuplicateExpr(cntx, person));
 	}
@@ -120,6 +121,7 @@ public class PersonDupcheckWorker extends ListWorkerVeraWeb {
     /* (non-Javadoc)
      * @see de.tarent.octopus.custom.beans.BeanListWorker#showList(de.tarent.octopus.server.OctopusContext)
      */
+    @Override
     public List showList(OctopusContext cntx) throws BeanException, IOException
 	{
 		//Bug 1592 

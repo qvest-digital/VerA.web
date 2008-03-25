@@ -50,11 +50,11 @@ import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.clause.Where;
 import de.tarent.dblayer.sql.clause.WhereList;
 import de.tarent.dblayer.sql.statement.Select;
-import de.tarent.octopus.custom.beans.BeanException;
-import de.tarent.octopus.custom.beans.Database;
-import de.tarent.octopus.custom.beans.ExecutionContext;
-import de.tarent.octopus.custom.beans.TransactionContext;
-import de.tarent.octopus.custom.beans.veraweb.DatabaseVeraWeb;
+import de.tarent.octopus.beans.BeanException;
+import de.tarent.octopus.beans.Database;
+import de.tarent.octopus.beans.ExecutionContext;
+import de.tarent.octopus.beans.TransactionContext;
+import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
 
 /**
@@ -188,7 +188,7 @@ public class ImportPersonsWorker {
 			select.where(where);
 			
 			//Hole die festzuschreibenden Datens�tze und schreiben diese iterativ in die Personen-Tabellen
-			List result = database.getList(select);
+			List result = database.getList(select, database);
 			for (Iterator it=result.iterator(); it.hasNext(); ) {
 				Map importPerson = (Map) it.next();
 				Integer ipID = (Integer)importPerson.get("id");

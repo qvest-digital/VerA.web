@@ -49,16 +49,16 @@ import de.tarent.dblayer.sql.clause.Where;
 import de.tarent.dblayer.sql.clause.WhereList;
 import de.tarent.dblayer.sql.statement.Select;
 import de.tarent.octopus.PersonalConfigAA;
-import de.tarent.octopus.custom.beans.Bean;
-import de.tarent.octopus.custom.beans.BeanException;
-import de.tarent.octopus.custom.beans.Database;
-import de.tarent.octopus.custom.beans.veraweb.ListWorkerVeraWeb;
+import de.tarent.octopus.beans.Bean;
+import de.tarent.octopus.beans.BeanException;
+import de.tarent.octopus.beans.Database;
+import de.tarent.octopus.beans.veraweb.ListWorkerVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
 
 /**
  * Diese Octopus-Worker-Klasse stellt Operationen zur Anzeige
  * von Stellvertreterlisten zur Verfügung. Details bitte dem
- * {@link de.tarent.octopus.custom.beans.veraweb.ListWorkerVeraWeb}
+ * {@link de.tarent.octopus.beans.veraweb.ListWorkerVeraWeb}
  * entnehmen.
  * 
  * @author mikel
@@ -188,8 +188,9 @@ public class ProxyListWorker extends ListWorkerVeraWeb {
      * @param cntx Octopus-Context
      * @param select Select-Statement
      * @see #extendColumns(Select)
-     * @see de.tarent.octopus.custom.beans.BeanListWorker#extendColumns(de.tarent.octopus.server.OctopusContext, de.tarent.dblayer.sql.statement.Select)
+     * @see de.tarent.octopus.beans.BeanListWorker#extendColumns(de.tarent.octopus.server.OctopusContext, de.tarent.dblayer.sql.statement.Select)
      */
+    @Override
     protected void extendColumns(OctopusContext cntx, Select select) throws BeanException, IOException {
         extendColumns(select);
         String order = cntx.contentAsString(PARAM_ORDER);
@@ -220,8 +221,9 @@ public class ProxyListWorker extends ListWorkerVeraWeb {
      * 
      * @param cntx Octopus-Context
      * @param select Select-Statement
-     * @see de.tarent.octopus.custom.beans.BeanListWorker#extendWhere(de.tarent.octopus.server.OctopusContext, de.tarent.dblayer.sql.statement.Select)
+     * @see de.tarent.octopus.beans.BeanListWorker#extendWhere(de.tarent.octopus.server.OctopusContext, de.tarent.dblayer.sql.statement.Select)
      */
+    @Override
     protected void extendWhere(OctopusContext cntx, Select select) throws BeanException, IOException {
         PersonalConfigAA pCfg = (PersonalConfigAA) cntx.personalConfig();
         String proxiesFor = cntx.contentAsString(PARAM_PROXIES_FOR);
@@ -284,7 +286,8 @@ public class ProxyListWorker extends ListWorkerVeraWeb {
         select.where(list);
     }
 
-	protected void saveBean(OctopusContext cntx, Bean bean) throws BeanException, IOException {
+	@Override
+    protected void saveBean(OctopusContext cntx, Bean bean) throws BeanException, IOException {
 		Proxy proxy = (Proxy)bean;
 		if (proxy.validFrom != null) {
 			Calendar calendar = Calendar.getInstance();

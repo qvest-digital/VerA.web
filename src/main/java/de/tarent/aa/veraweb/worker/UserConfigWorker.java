@@ -40,9 +40,9 @@ import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.clause.Where;
 import de.tarent.dblayer.sql.statement.Select;
 import de.tarent.octopus.PersonalConfigAA;
-import de.tarent.octopus.custom.beans.BeanException;
-import de.tarent.octopus.custom.beans.Database;
-import de.tarent.octopus.custom.beans.veraweb.DatabaseVeraWeb;
+import de.tarent.octopus.beans.BeanException;
+import de.tarent.octopus.beans.Database;
+import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
 
 /**
@@ -79,7 +79,7 @@ public class UserConfigWorker {
 		select.where(Expr.equal("fk_user", userId));
 		
 		Map result = new HashMap();
-		for (Iterator it = database.getList(select).iterator(); it.hasNext(); ) {
+		for (Iterator it = database.getList(select, database).iterator(); it.hasNext(); ) {
 			Map data = (Map)it.next();
 			result.put(data.get("key"), data.get("value"));
 		}

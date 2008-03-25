@@ -51,8 +51,8 @@ import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.clause.Where;
 import de.tarent.dblayer.sql.statement.Select;
 import de.tarent.octopus.PersonalConfigAA;
-import de.tarent.octopus.custom.beans.BeanException;
-import de.tarent.octopus.custom.beans.Database;
+import de.tarent.octopus.beans.BeanException;
+import de.tarent.octopus.beans.Database;
 import de.tarent.octopus.response.TcBinaryResponseEngine;
 import de.tarent.octopus.server.OctopusContext;
 
@@ -360,7 +360,7 @@ public class PersonExportWorker extends PersonListWorker {
      * @param addressEx Attributschl�sselsuffix der Adressdaten
      */
 	protected void exportSelect(SpreadSheet spreadSheet, Database database, Grants grants, Doctype doctype, Select select, Map data, String memberAEx, String memberBEx, String addressEx) throws BeanException {
-		for (Iterator it = database.getList(select).iterator(); it.hasNext(); ) {
+		for (Iterator it = database.getList(select, database).iterator(); it.hasNext(); ) {
 			Map person = (Map)it.next();
 			
 			boolean showA =

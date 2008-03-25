@@ -44,7 +44,7 @@ import de.tarent.aa.veraweb.beans.Duration;
 import de.tarent.dblayer.engine.DB;
 import de.tarent.dblayer.sql.SQL;
 import de.tarent.dblayer.sql.clause.Expr;
-import de.tarent.octopus.custom.beans.BeanException;
+import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.server.OctopusContext;
 
 /**

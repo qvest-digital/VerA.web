@@ -38,9 +38,9 @@ import javax.xml.transform.TransformerFactory;
 import de.tarent.aa.veraweb.beans.Config;
 import de.tarent.dblayer.engine.DB;
 import de.tarent.dblayer.sql.clause.Expr;
-import de.tarent.octopus.custom.beans.BeanException;
-import de.tarent.octopus.custom.beans.Database;
-import de.tarent.octopus.custom.beans.veraweb.DatabaseVeraWeb;
+import de.tarent.octopus.beans.BeanException;
+import de.tarent.octopus.beans.Database;
+import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
 
 /**
@@ -153,12 +153,13 @@ public class VerifyWorker {
 	 * @param cntx OctopusContext
 	 */
 	public void getDatabaseCharset(OctopusContext cntx) {
-		Database database = new DatabaseVeraWeb(cntx);
+		DatabaseVeraWeb database = new DatabaseVeraWeb(cntx);
 		
 		String LC_CTYPE = getResult(database, "SHOW LC_CTYPE");
 		String LC_COLLATE = getResult(database, "SHOW LC_COLLATE");
 		cntx.setContent("LC_CTYPE", LC_CTYPE);
 		cntx.setContent("LC_COLLATE", LC_COLLATE);
+		database.close();
 	}
 
 	/** Octopus-Eingabeparameter f�r die Action {@link #verifyDatabaseCharset(OctopusContext)} */
@@ -184,13 +185,21 @@ public class VerifyWorker {
 	}
 
 	protected String getResult(Database database, String statement) {
+		ResultSet rs = null;
 		try {
-			ResultSet rs = database.result(statement);
+			rs = database.result(statement);
 			return rs.next() ? rs.getString(1) : null;
 		} catch (BeanException e) {
 			return null;
 		} catch (SQLException e) {
 			return null;
+		} finally {
+			if (rs != null) {
+	            try {
+	                database.close(rs);
+                } catch (BeanException e) {
+                }
+			}
 		}
 	}
 

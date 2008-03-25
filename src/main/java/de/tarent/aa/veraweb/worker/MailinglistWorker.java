@@ -46,9 +46,9 @@ import de.tarent.dblayer.sql.clause.RawClause;
 import de.tarent.dblayer.sql.clause.Where;
 import de.tarent.dblayer.sql.clause.WhereList;
 import de.tarent.dblayer.sql.statement.Select;
-import de.tarent.octopus.custom.beans.BeanException;
-import de.tarent.octopus.custom.beans.Database;
-import de.tarent.octopus.custom.beans.veraweb.DatabaseVeraWeb;
+import de.tarent.octopus.beans.BeanException;
+import de.tarent.octopus.beans.Database;
+import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
 
 /**
@@ -211,7 +211,7 @@ public class MailinglistWorker {
 						"length(tperson.mail_a_e1) != 0 OR " +
 						"length(tperson.fax_a_e1) != 0)"));
 		
-		for (Iterator it = database.getList(select).iterator(); it.hasNext(); ) {
+		for (Iterator it = database.getList(select, database).iterator(); it.hasNext(); ) {
 			Map data = (Map)it.next();
 			Integer person = (Integer)data.get("person");
 			if (((Boolean)data.get("hasguestdoctype")).booleanValue()) {

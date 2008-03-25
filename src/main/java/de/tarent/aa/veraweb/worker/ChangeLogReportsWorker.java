@@ -40,11 +40,11 @@ import de.tarent.dblayer.sql.clause.Clause;
 import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.clause.Order;
 import de.tarent.dblayer.sql.statement.Select;
-import de.tarent.octopus.custom.beans.Bean;
-import de.tarent.octopus.custom.beans.BeanException;
-import de.tarent.octopus.custom.beans.BeanFactory;
-import de.tarent.octopus.custom.beans.Database;
-import de.tarent.octopus.custom.beans.veraweb.ListWorkerVeraWeb;
+import de.tarent.octopus.beans.Bean;
+import de.tarent.octopus.beans.BeanException;
+import de.tarent.octopus.beans.BeanFactory;
+import de.tarent.octopus.beans.Database;
+import de.tarent.octopus.beans.veraweb.ListWorkerVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
 
 /**
@@ -141,7 +141,8 @@ public class ChangeLogReportsWorker extends ListWorkerVeraWeb
 		}
 	}
 
-	public List showList(OctopusContext cntx) throws BeanException, IOException {
+	@Override
+    public List showList(OctopusContext cntx) throws BeanException, IOException {
 		Database database = getDatabase(cntx);
 		Select select = getSelect( database );
 		extendColumns( cntx, select );
@@ -149,7 +150,8 @@ public class ChangeLogReportsWorker extends ListWorkerVeraWeb
 		return getResultList( database, select );
 	}
 
-	@SuppressWarnings("unchecked")
+	@Override
+    @SuppressWarnings("unchecked")
 	protected void extendWhere( OctopusContext cntx, Select select )
 		throws BeanException, IOException
 	{
@@ -165,7 +167,8 @@ public class ChangeLogReportsWorker extends ListWorkerVeraWeb
 		select.whereAnd( Expr.lessOrEqual( "date", calendar.getTime() ) );
 	}
 
-	protected void extendColumns( OctopusContext cntx, Select select )
+	@Override
+    protected void extendColumns( OctopusContext cntx, Select select )
 		throws BeanException, IOException
 	{
 		if ( cntx.requestContains( "order" ) )
@@ -184,7 +187,8 @@ public class ChangeLogReportsWorker extends ListWorkerVeraWeb
 		}
 	}
 
-	protected void extendAll( OctopusContext cntx, Select select )
+	@Override
+    protected void extendAll( OctopusContext cntx, Select select )
 		throws BeanException, IOException
 	{
 		Clause clause = getWhere( cntx );
@@ -201,7 +205,8 @@ public class ChangeLogReportsWorker extends ListWorkerVeraWeb
 		return clause;
 	}
 
-	protected void saveBean(OctopusContext cntx, Bean bean) throws BeanException, IOException
+	@Override
+    protected void saveBean(OctopusContext cntx, Bean bean) throws BeanException, IOException
 	{
 		throw new RuntimeException( "Change log entries cannot be modified. Not implemented." );
 	}

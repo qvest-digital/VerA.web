@@ -50,11 +50,11 @@ import de.tarent.dblayer.sql.statement.Insert;
 import de.tarent.dblayer.sql.statement.Select;
 import de.tarent.dblayer.sql.statement.Update;
 import de.tarent.octopus.PersonalConfigAA;
-import de.tarent.octopus.custom.beans.BeanChangeLogger;
-import de.tarent.octopus.custom.beans.BeanException;
-import de.tarent.octopus.custom.beans.Database;
-import de.tarent.octopus.custom.beans.Request;
-import de.tarent.octopus.custom.beans.TransactionContext;
+import de.tarent.octopus.beans.BeanException;
+import de.tarent.octopus.beans.Database;
+import de.tarent.octopus.beans.Request;
+import de.tarent.octopus.beans.TransactionContext;
+import de.tarent.octopus.beans.veraweb.BeanChangeLogger;
 import de.tarent.octopus.server.OctopusContext;
 
 /**
@@ -383,7 +383,7 @@ public class GuestDetailWorker extends GuestListWorker {
 				extendWhere(cntx, selectForPosition);
 				
 				int newOffset = 1;
-				for (Iterator it = database.getList(selectForPosition).iterator(); it.hasNext(); ) {
+				for (Iterator it = database.getList(selectForPosition, database).iterator(); it.hasNext(); ) {
 					Integer id = (Integer)((Map)it.next()).get("id");
 					if (id.intValue() == guestid.intValue()) {
 						search.offset = new Integer(newOffset);

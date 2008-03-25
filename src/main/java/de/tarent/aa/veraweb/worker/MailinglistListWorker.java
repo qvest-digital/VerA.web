@@ -34,9 +34,9 @@ import de.tarent.aa.veraweb.beans.Mailinglist;
 import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.statement.Select;
 import de.tarent.octopus.PersonalConfigAA;
-import de.tarent.octopus.custom.beans.Bean;
-import de.tarent.octopus.custom.beans.BeanException;
-import de.tarent.octopus.custom.beans.veraweb.ListWorkerVeraWeb;
+import de.tarent.octopus.beans.Bean;
+import de.tarent.octopus.beans.BeanException;
+import de.tarent.octopus.beans.veraweb.ListWorkerVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
 
 /**
@@ -59,22 +59,26 @@ public class MailinglistListWorker extends ListWorkerVeraWeb {
     //
     // Oberklasse BeanListWorker
     //
-	protected void extendWhere(OctopusContext cntx, Select select) throws BeanException, IOException {
+	@Override
+    protected void extendWhere(OctopusContext cntx, Select select) throws BeanException, IOException {
 		select.where(Expr.equal("tmailinglist.fk_orgunit", ((PersonalConfigAA)(cntx.personalConfig())).getOrgUnitId()));
 	}
 
-	protected void extendAll(OctopusContext cntx, Select select) throws BeanException, IOException {
+	@Override
+    protected void extendAll(OctopusContext cntx, Select select) throws BeanException, IOException {
 		select.where(Expr.equal("tmailinglist.fk_orgunit", ((PersonalConfigAA)(cntx.personalConfig())).getOrgUnitId()));
 	}
 
-	protected void extendColumns(OctopusContext cntx, Select select) throws BeanException {
+	@Override
+    protected void extendColumns(OctopusContext cntx, Select select) throws BeanException {
 		select.joinLeftOuter("veraweb.tuser", "tmailinglist.fk_user", "tuser.pk");
 		select.joinLeftOuter("veraweb.tevent", "tmailinglist.fk_vera", "tevent.pk");
 		select.selectAs("tuser.username", "username");
 		select.selectAs("tevent.shortname", "eventname");
 	}
 
-	protected void saveBean(OctopusContext cntx, Bean bean) throws BeanException, IOException {
+	@Override
+    protected void saveBean(OctopusContext cntx, Bean bean) throws BeanException, IOException {
 		((Mailinglist)bean).orgunit = ((PersonalConfigAA)(cntx.personalConfig())).getOrgUnitId();
 		super.saveBean(cntx, bean);
 	}

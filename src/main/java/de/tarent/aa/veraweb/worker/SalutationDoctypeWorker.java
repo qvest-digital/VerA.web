@@ -35,9 +35,9 @@ import java.io.IOException;
 import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.clause.Order;
 import de.tarent.dblayer.sql.statement.Select;
-import de.tarent.octopus.custom.beans.BeanException;
-import de.tarent.octopus.custom.beans.Database;
-import de.tarent.octopus.custom.beans.veraweb.ListWorkerVeraWeb;
+import de.tarent.octopus.beans.BeanException;
+import de.tarent.octopus.beans.Database;
+import de.tarent.octopus.beans.veraweb.ListWorkerVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
 
 /**
@@ -57,14 +57,16 @@ public class SalutationDoctypeWorker extends ListWorkerVeraWeb {
     //
     // Oberklasse BeanListWorker
     //
-	protected void extendColumns(OctopusContext cntx, Select select) throws BeanException, IOException {
+	@Override
+    protected void extendColumns(OctopusContext cntx, Select select) throws BeanException, IOException {
 		select.join("veraweb.tdoctype", "fk_doctype", "tdoctype.pk");
 		select.selectAs("tdoctype.docname", "name");
 		select.selectAs("tdoctype.sortorder", "sortorder");
 		select.orderBy(Order.asc("tdoctype.sortorder").andAsc("tdoctype.docname"));
 	}
 
-	protected void extendWhere(OctopusContext cntx, Select select) throws BeanException, IOException {
+	@Override
+    protected void extendWhere(OctopusContext cntx, Select select) throws BeanException, IOException {
 		Integer id = cntx.requestAsInteger("id");
 		select.where(Expr.equal("fk_salutation", id));
 		

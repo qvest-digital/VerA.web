@@ -31,8 +31,9 @@ import de.tarent.dblayer.sql.SQL;
 import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.clause.Limit;
 import de.tarent.dblayer.sql.clause.Order;
-import de.tarent.octopus.custom.beans.BeanException;
-import de.tarent.octopus.custom.beans.veraweb.DatabaseVeraWeb;
+import de.tarent.octopus.beans.BeanException;
+import de.tarent.octopus.beans.Database;
+import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
 
 /**
@@ -57,12 +58,13 @@ public class CompleteWorker {
 	 */
 	private List getList(OctopusContext cntx, String table, String column, String query) throws BeanException {
 		cntx.setContent(QUERY, query);
-		return new DatabaseVeraWeb(cntx).getList(SQL.Select().
+		Database database = new DatabaseVeraWeb(cntx);
+		return database.getList(SQL.Select().
 				from(table).
 				selectAs(column, COLUMN).
 				where(Expr.like(column, query + '%')).
 				orderBy(Order.asc(column)).
-				Limit(LIMIT));
+				Limit(LIMIT), database);
 	}
 
 	/** Octopus-Eingabeparameter der Aktion {@link #completeLocation(OctopusContext, String)} */

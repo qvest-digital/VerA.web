@@ -42,9 +42,9 @@ import java.util.Set;
 import de.tarent.aa.veraweb.beans.User;
 import de.tarent.octopus.LoginManagerAA;
 import de.tarent.octopus.PersonalConfigAA;
-import de.tarent.octopus.custom.beans.BeanException;
-import de.tarent.octopus.custom.beans.Database;
-import de.tarent.octopus.custom.beans.veraweb.DatabaseVeraWeb;
+import de.tarent.octopus.beans.BeanException;
+import de.tarent.octopus.beans.Database;
+import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
 import de.tarent.octopus.security.TcSecurityException;
 import de.tarent.octopus.server.OctopusContext;
 
@@ -149,7 +149,7 @@ public class UserWorker {
                     // nichts auszuschließen
                 } else if (PARAM_DOMAIN_VALUE_UNASSIGNED.equals(domain)) {
                     Database database = new DatabaseVeraWeb(octx);
-                    List users = database.getList(database.getSelect("User"));
+                    List users = database.getList(database.getSelect("User"), database);
                     if (users != null && users.size() > 0) {
                         exclusions = new ArrayList(users.size());
                         for (Iterator itUsers = users.iterator(); itUsers.hasNext(); )

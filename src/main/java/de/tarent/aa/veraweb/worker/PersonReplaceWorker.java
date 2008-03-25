@@ -46,8 +46,8 @@ import de.tarent.dblayer.sql.clause.WhereList;
 import de.tarent.dblayer.sql.statement.Select;
 import de.tarent.dblayer.sql.statement.Update;
 import de.tarent.octopus.PersonalConfigAA;
-import de.tarent.octopus.custom.beans.BeanException;
-import de.tarent.octopus.custom.beans.Database;
+import de.tarent.octopus.beans.BeanException;
+import de.tarent.octopus.beans.Database;
 import de.tarent.octopus.server.OctopusContext;
 
 /**

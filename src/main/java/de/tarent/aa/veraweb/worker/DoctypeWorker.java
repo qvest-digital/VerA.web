@@ -38,9 +38,9 @@ import de.tarent.dblayer.sql.SQL;
 import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.clause.RawClause;
 import de.tarent.dblayer.sql.statement.Select;
-import de.tarent.octopus.custom.beans.Bean;
-import de.tarent.octopus.custom.beans.BeanException;
-import de.tarent.octopus.custom.beans.Database;
+import de.tarent.octopus.beans.Bean;
+import de.tarent.octopus.beans.BeanException;
+import de.tarent.octopus.beans.Database;
 import de.tarent.octopus.server.OctopusContext;
 
 /**
@@ -55,7 +55,7 @@ import de.tarent.octopus.server.OctopusContext;
  * steht, wird das Ergebnis der <code>getAll</code>-Aktion auf die
  * Dokumenttypen eingeschränkt die NICHT dieser Anrede zugeordnet sind.
  * 
- * @see de.tarent.octopus.custom.beans.BeanListWorker
+ * @see de.tarent.octopus.beans.BeanListWorker
  * 
  * @author Christoph
  */
@@ -73,7 +73,8 @@ public class DoctypeWorker extends StammdatenWorker {
     //
     // Oberklasse BeanListWorker
     //
-	protected void extendAll(OctopusContext cntx, Select select) throws BeanException, IOException {
+	@Override
+    protected void extendAll(OctopusContext cntx, Select select) throws BeanException, IOException {
 		Event event = (Event)cntx.contentAsObject("event");
 		if (event != null) {
 			select.where(new RawClause("pk NOT IN (" +
@@ -88,7 +89,8 @@ public class DoctypeWorker extends StammdatenWorker {
 		}
 	}
 
-	protected void saveBean(OctopusContext cntx, Bean bean) throws BeanException, IOException {
+	@Override
+    protected void saveBean(OctopusContext cntx, Bean bean) throws BeanException, IOException {
 		Doctype doctype = (Doctype)bean;
 		Boolean isdefault = doctype.isdefault;
 		if (isdefault != null && isdefault.booleanValue()) {

@@ -57,11 +57,11 @@ import de.tarent.dblayer.sql.clause.WhereList;
 import de.tarent.dblayer.sql.statement.Delete;
 import de.tarent.dblayer.sql.statement.Select;
 import de.tarent.octopus.PersonalConfigAA;
-import de.tarent.octopus.custom.beans.Bean;
-import de.tarent.octopus.custom.beans.BeanException;
-import de.tarent.octopus.custom.beans.BeanFactory;
-import de.tarent.octopus.custom.beans.Database;
-import de.tarent.octopus.custom.beans.veraweb.ListWorkerVeraWeb;
+import de.tarent.octopus.beans.Bean;
+import de.tarent.octopus.beans.BeanException;
+import de.tarent.octopus.beans.BeanFactory;
+import de.tarent.octopus.beans.Database;
+import de.tarent.octopus.beans.veraweb.ListWorkerVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
 
 /**
@@ -316,7 +316,7 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 	}
 
 	protected List getResultList(Database database, Select select) throws BeanException, IOException {
-		return database.getList(select);
+		return database.getList(select, database);
 	}
 
 	/**

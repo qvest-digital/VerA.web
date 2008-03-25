@@ -39,10 +39,10 @@ import de.tarent.aa.veraweb.beans.Duration;
 import de.tarent.dblayer.sql.SQL;
 import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.octopus.PersonalConfigAA;
-import de.tarent.octopus.custom.beans.BeanException;
-import de.tarent.octopus.custom.beans.BeanFactory;
-import de.tarent.octopus.custom.beans.Database;
-import de.tarent.octopus.custom.beans.veraweb.ListWorkerVeraWeb;
+import de.tarent.octopus.beans.BeanException;
+import de.tarent.octopus.beans.BeanFactory;
+import de.tarent.octopus.beans.Database;
+import de.tarent.octopus.beans.veraweb.ListWorkerVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
 
 /**
@@ -87,7 +87,7 @@ public class ConfigWorker extends ListWorkerVeraWeb {
     /**
      * Diese Octopus-Aktion initialisiert die Map der Konfig-Eintr�ge dieses
      * Workers aus der Datenbank (mittels der ererbten Aktion
-     * {@link de.tarent.octopus.custom.beans.BeanListWorker#getAll(OctopusContext)})
+     * {@link de.tarent.octopus.beans.BeanListWorker#getAll(OctopusContext)})
      * gegebenenfalls erg�nzt um einige Muss-Eintr�ge.  
      * 
      * @param cntx Octopus-Kontext

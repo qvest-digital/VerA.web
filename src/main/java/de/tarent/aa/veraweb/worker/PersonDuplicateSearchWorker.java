@@ -21,9 +21,9 @@ import de.tarent.dblayer.sql.clause.RawClause;
 import de.tarent.dblayer.sql.clause.Where;
 import de.tarent.dblayer.sql.statement.Select;
 import de.tarent.octopus.PersonalConfigAA;
-import de.tarent.octopus.custom.beans.BeanException;
-import de.tarent.octopus.custom.beans.Database;
-import de.tarent.octopus.custom.beans.veraweb.DatabaseVeraWeb;
+import de.tarent.octopus.beans.BeanException;
+import de.tarent.octopus.beans.Database;
+import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
 
 /**
@@ -117,7 +117,7 @@ public class PersonDuplicateSearchWorker extends PersonListWorker
 			Person template = new Person();
 	        select.selectAs( database.getProperty( template, "id" ), "id" );
 			extendWhere( cntx, select );
-			for ( Iterator it = database.getList( select ).iterator(); it.hasNext(); )
+			for ( Iterator it = database.getList( select, database ).iterator(); it.hasNext(); )
 			{
 				result.add( ( ( Map ) it.next() ).get( "id" ) );
 			}

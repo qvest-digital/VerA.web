@@ -47,9 +47,9 @@ import de.tarent.dblayer.sql.clause.Where;
 import de.tarent.dblayer.sql.clause.WhereList;
 import de.tarent.dblayer.sql.statement.Select;
 import de.tarent.dblayer.sql.statement.Update;
-import de.tarent.octopus.custom.beans.BeanException;
-import de.tarent.octopus.custom.beans.Database;
-import de.tarent.octopus.custom.beans.veraweb.ListWorkerVeraWeb;
+import de.tarent.octopus.beans.BeanException;
+import de.tarent.octopus.beans.Database;
+import de.tarent.octopus.beans.veraweb.ListWorkerVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
 
 /**
@@ -72,9 +72,10 @@ public class ImportPersonsDuplicateWorker extends ListWorkerVeraWeb {
 	// Oberklasse BeanListWorker
 	//
 	/**
-	 * @see de.tarent.octopus.custom.beans.BeanListWorker#showList(de.tarent.octopus.server.OctopusContext)
+	 * @see de.tarent.octopus.beans.BeanListWorker#showList(de.tarent.octopus.server.OctopusContext)
 	 */
-	public List showList(OctopusContext cntx) throws BeanException, IOException {
+	@Override
+    public List showList(OctopusContext cntx) throws BeanException, IOException {
 		Map importDuplicatesProperties = (Map) cntx.moduleConfig().getParams().get("importDuplicatesProperties");
 		if (importDuplicatesProperties == null)
 			ImportPersonsWorker.logger.warn("Konfiguration für die Duplikatbearbeitung beim Personen-Import wurde nicht gefunden.");
@@ -129,7 +130,8 @@ public class ImportPersonsDuplicateWorker extends ListWorkerVeraWeb {
 		return beans;
 	}
 
-	public void saveList(OctopusContext cntx) throws BeanException, IOException {
+	@Override
+    public void saveList(OctopusContext cntx) throws BeanException, IOException {
 		if (cntx.requestContains(INPUT_BUTTON_SAVE)) {
 			Database database = getDatabase(cntx);
 			ImportPerson sample = new ImportPerson();
@@ -171,7 +173,8 @@ public class ImportPersonsDuplicateWorker extends ListWorkerVeraWeb {
 	 * Datensatz wurde noch nicht festgeschrieben.
 	 * Nur Datensätze von dem aktuellen Importvorgang.
 	 */
-	protected void extendWhere(OctopusContext cntx, Select select) throws BeanException {
+	@Override
+    protected void extendWhere(OctopusContext cntx, Select select) throws BeanException {
 		Database database = getDatabase(cntx);
 		ImportPerson sample = new ImportPerson();
 		Long importId = new Long(cntx.requestAsString("importId"));
@@ -189,7 +192,8 @@ public class ImportPersonsDuplicateWorker extends ListWorkerVeraWeb {
 		cntx.setContent("importId", importId);
 	}
 
-	protected void extendColumns(OctopusContext cntx, Select select) throws BeanException {
+	@Override
+    protected void extendColumns(OctopusContext cntx, Select select) throws BeanException {
 		Database database = getDatabase(cntx);
 		try {
 			select.orderBy(Order.asc(database.getProperty(database.createBean(BEANNAME), "lastname_a_e1")));

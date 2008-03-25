@@ -32,7 +32,6 @@ package de.tarent.aa.veraweb.worker;
 
 import java.io.IOException;
 import java.sql.Timestamp;
-import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -62,13 +61,13 @@ import de.tarent.dblayer.sql.statement.Insert;
 import de.tarent.dblayer.sql.statement.Select;
 import de.tarent.dblayer.sql.statement.Update;
 import de.tarent.octopus.PersonalConfigAA;
-import de.tarent.octopus.custom.beans.BeanChangeLogger;
-import de.tarent.octopus.custom.beans.BeanException;
-import de.tarent.octopus.custom.beans.Database;
-import de.tarent.octopus.custom.beans.Request;
-import de.tarent.octopus.custom.beans.TransactionContext;
-import de.tarent.octopus.custom.beans.veraweb.DatabaseVeraWeb;
-import de.tarent.octopus.custom.beans.veraweb.RequestVeraWeb;
+import de.tarent.octopus.beans.BeanException;
+import de.tarent.octopus.beans.Database;
+import de.tarent.octopus.beans.Request;
+import de.tarent.octopus.beans.TransactionContext;
+import de.tarent.octopus.beans.veraweb.BeanChangeLogger;
+import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
+import de.tarent.octopus.beans.veraweb.RequestVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
 
 /**

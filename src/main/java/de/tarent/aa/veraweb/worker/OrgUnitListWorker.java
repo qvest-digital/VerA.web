@@ -41,17 +41,17 @@ import de.tarent.dblayer.sql.clause.Clause;
 import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.clause.RawClause;
 import de.tarent.dblayer.sql.clause.Where;
-import de.tarent.octopus.custom.beans.Bean;
-import de.tarent.octopus.custom.beans.BeanException;
-import de.tarent.octopus.custom.beans.Database;
-import de.tarent.octopus.custom.beans.veraweb.DatabaseVeraWeb;
-import de.tarent.octopus.custom.beans.veraweb.ListWorkerVeraWeb;
+import de.tarent.octopus.beans.Bean;
+import de.tarent.octopus.beans.BeanException;
+import de.tarent.octopus.beans.Database;
+import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
+import de.tarent.octopus.beans.veraweb.ListWorkerVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
 
 /**
  * Diese Octopus-Worker-Klasse stellt Operationen zur Anzeige
  * von Mandantenlisten zur Verf�gung. Details bitte dem
- * {@link de.tarent.octopus.custom.beans.veraweb.ListWorkerVeraWeb}
+ * {@link de.tarent.octopus.beans.veraweb.ListWorkerVeraWeb}
  * entnehmen.
  * 
  * @author mikel
@@ -71,7 +71,7 @@ public class OrgUnitListWorker extends ListWorkerVeraWeb {
     // BeanListWorker
     //
     /**
-     * Wird von {@link de.tarent.octopus.custom.beans.BeanListWorker#saveList(OctopusContext)}
+     * Wird von {@link de.tarent.octopus.beans.BeanListWorker#saveList(OctopusContext)}
      * aufgerufen und soll das �bergebene Bean als neuen Eintrag speichern.
      * 
      * @see #saveBean(OctopusContext, Bean)
@@ -82,6 +82,7 @@ public class OrgUnitListWorker extends ListWorkerVeraWeb {
      * @throws BeanException
      * @throws IOException
      */
+    @Override
     protected int insertBean(OctopusContext cntx, List errors, Bean bean) throws BeanException, IOException {
     	int count = 0;
         if (bean.isModified() && bean.isCorrect()) {
@@ -107,7 +108,7 @@ public class OrgUnitListWorker extends ListWorkerVeraWeb {
     }
     
     /**
-     * Wird von {@link de.tarent.octopus.custom.beans.BeanListWorker#saveList(OctopusContext)}
+     * Wird von {@link de.tarent.octopus.beans.BeanListWorker#saveList(OctopusContext)}
      * aufgerufen und soll die �bergebene Liste von Beans aktualisieren.
      * 
      * @see #saveBean(OctopusContext, Bean)
@@ -118,6 +119,7 @@ public class OrgUnitListWorker extends ListWorkerVeraWeb {
      * @throws BeanException
      * @throws IOException
      */
+    @Override
     protected int updateBeanList(OctopusContext cntx, List errors, List beanlist) throws BeanException, IOException {
     	int count = 0;
         for (Iterator it = beanlist.iterator(); it.hasNext(); ) {

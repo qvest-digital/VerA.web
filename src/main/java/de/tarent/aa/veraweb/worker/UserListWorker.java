@@ -41,17 +41,17 @@ import de.tarent.dblayer.sql.clause.Order;
 import de.tarent.dblayer.sql.clause.WhereList;
 import de.tarent.dblayer.sql.statement.Select;
 import de.tarent.octopus.PersonalConfigAA;
-import de.tarent.octopus.custom.beans.Bean;
-import de.tarent.octopus.custom.beans.BeanException;
-import de.tarent.octopus.custom.beans.Database;
-import de.tarent.octopus.custom.beans.veraweb.DatabaseVeraWeb;
-import de.tarent.octopus.custom.beans.veraweb.ListWorkerVeraWeb;
+import de.tarent.octopus.beans.Bean;
+import de.tarent.octopus.beans.BeanException;
+import de.tarent.octopus.beans.Database;
+import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
+import de.tarent.octopus.beans.veraweb.ListWorkerVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
 
 /**
  * Diese Octopus-Worker-Klasse stellt Operationen zur Anzeige
  * von Benutzerlisten zur Verf�gung. Details bitte dem
- * {@link de.tarent.octopus.custom.beans.veraweb.ListWorkerVeraWeb}
+ * {@link de.tarent.octopus.beans.veraweb.ListWorkerVeraWeb}
  * entnehmen.
  * 
  * @author mikel
@@ -93,10 +93,11 @@ public class UserListWorker extends ListWorkerVeraWeb {
 	 *          Octopus-Context
 	 * @param select
 	 *          Select-Statement
-	 * @see de.tarent.octopus.custom.beans.BeanListWorker#extendColumns(de.tarent.octopus.server.OctopusContext,
+	 * @see de.tarent.octopus.beans.BeanListWorker#extendColumns(de.tarent.octopus.server.OctopusContext,
 	 *      de.tarent.dblayer.sql.statement.Select)
 	 */
-	protected void extendColumns(OctopusContext cntx, Select select) throws BeanException, IOException
+	@Override
+    protected void extendColumns(OctopusContext cntx, Select select) throws BeanException, IOException
 	{
 		String order = cntx.contentAsString(PARAM_ORDER);
 		if (order != null)
@@ -130,9 +131,10 @@ public class UserListWorker extends ListWorkerVeraWeb {
 		 *          Octopus-Context
 		 * @param select
 		 *          Select-Statement
-		 * @see de.tarent.octopus.custom.beans.BeanListWorker#extendWhere(de.tarent.octopus.server.OctopusContext,
+		 * @see de.tarent.octopus.beans.BeanListWorker#extendWhere(de.tarent.octopus.server.OctopusContext,
 		 *      de.tarent.dblayer.sql.statement.Select)
 		 */
+    @Override
     protected void extendWhere(OctopusContext cntx, Select select) throws BeanException, IOException {
         PersonalConfigAA pCfg = (PersonalConfigAA) cntx.personalConfig();
         String domain = cntx.contentAsString(PARAM_DOMAIN);
@@ -164,7 +166,7 @@ public class UserListWorker extends ListWorkerVeraWeb {
     }
     
     /**
-     * Wird von {@link de.tarent.octopus.custom.beans.BeanListWorker#saveList(OctopusContext)}
+     * Wird von {@link de.tarent.octopus.beans.BeanListWorker#saveList(OctopusContext)}
      * aufgerufen und soll das �bergebene Bean als neuen Eintrag speichern.
      * 
      * @see #saveBean(OctopusContext, Bean)
@@ -175,6 +177,7 @@ public class UserListWorker extends ListWorkerVeraWeb {
      * @throws BeanException
      * @throws IOException
      */
+    @Override
     protected int insertBean(OctopusContext cntx, List errors, Bean bean) throws BeanException, IOException {
     	int count = 0;
         if (bean.isModified() && bean.isCorrect()) {
@@ -205,7 +208,7 @@ public class UserListWorker extends ListWorkerVeraWeb {
     }
     
     /**
-     * Wird von {@link de.tarent.octopus.custom.beans.BeanListWorker#saveList(OctopusContext)}
+     * Wird von {@link de.tarent.octopus.beans.BeanListWorker#saveList(OctopusContext)}
      * aufgerufen und soll das �bergebene Bean als neuen Eintrag speichern.
      * 
      * @see #saveBean(OctopusContext, Bean)
@@ -216,7 +219,8 @@ public class UserListWorker extends ListWorkerVeraWeb {
      * @throws BeanException
      * @throws IOException
      */
-   protected boolean removeBean(OctopusContext cntx, Bean bean) throws BeanException, IOException {
+   @Override
+protected boolean removeBean(OctopusContext cntx, Bean bean) throws BeanException, IOException {
 	    if (bean != null && ((User)bean).id != null) {
 		    Proxy proxy = new Proxy();
 		    proxy.user = ((User)bean).id;

@@ -42,10 +42,10 @@ import de.tarent.dblayer.sql.clause.RawClause;
 import de.tarent.dblayer.sql.clause.Where;
 import de.tarent.dblayer.sql.statement.Select;
 import de.tarent.octopus.PersonalConfigAA;
+import de.tarent.octopus.beans.Bean;
+import de.tarent.octopus.beans.BeanException;
+import de.tarent.octopus.beans.Database;
 import de.tarent.octopus.config.TcPersonalConfig;
-import de.tarent.octopus.custom.beans.Bean;
-import de.tarent.octopus.custom.beans.BeanException;
-import de.tarent.octopus.custom.beans.Database;
 import de.tarent.octopus.server.OctopusContext;
 
 /**
@@ -64,7 +64,7 @@ import de.tarent.octopus.server.OctopusContext;
  * eingeschr�nkt die entweder ALLEN oder DIESEM Event zugeordnet sind.
  * </p>
  * 
- * @see de.tarent.octopus.custom.beans.BeanListWorker
+ * @see de.tarent.octopus.beans.BeanListWorker
  * 
  * @author Christoph
  */
@@ -93,13 +93,15 @@ public class CategorieWorker extends StammdatenWorker {
     //
     // Basisklasse BeanListWorker
     //
-	protected void extendWhere(OctopusContext cntx, Select select) throws BeanException, IOException {
+	@Override
+    protected void extendWhere(OctopusContext cntx, Select select) throws BeanException, IOException {
 		Clause orgUnitTest = getWhere(cntx);
 		if (orgUnitTest != null)
 			select.where(orgUnitTest);
 	}
 
-	protected void extendColumns(OctopusContext cntx, Select select) throws BeanException, IOException {
+	@Override
+    protected void extendColumns(OctopusContext cntx, Select select) throws BeanException, IOException {
 		if (cntx.requestContains("order")) {
 			String order = cntx.requestAsString("order");
 			if ("name".equals(order)) {
@@ -148,10 +150,11 @@ public class CategorieWorker extends StammdatenWorker {
 			cntx.setContent( "count", count );
 		}
 
-		cntx.setContent("all" + BEANNAME, database.getList(select));
+		cntx.setContent("all" + BEANNAME, database.getList(select, database));
 	}
 
-	protected void extendAll(OctopusContext cntx, Select select) throws BeanException, IOException {
+	@Override
+    protected void extendAll(OctopusContext cntx, Select select) throws BeanException, IOException {
 		Clause clause = null;
 		Person person = (Person)cntx.contentAsObject("person");
 		if (person != null && person.id != null) {
@@ -189,7 +192,8 @@ public class CategorieWorker extends StammdatenWorker {
 
 	}
 
-	protected Clause getWhere(OctopusContext cntx) throws BeanException {
+	@Override
+    protected Clause getWhere(OctopusContext cntx) throws BeanException {
         TcPersonalConfig pConfig = cntx.personalConfig();
         if (pConfig instanceof PersonalConfigAA) {
             PersonalConfigAA aaConfig = (PersonalConfigAA) pConfig;
@@ -220,7 +224,8 @@ public class CategorieWorker extends StammdatenWorker {
 	 * @throws BeanException in case that the user is not authorized to save the list
 	 * @throws IOException
 	 */
-	public void saveList(OctopusContext cntx) throws BeanException, IOException
+	@Override
+    public void saveList(OctopusContext cntx) throws BeanException, IOException
 	{
 		TcPersonalConfig pConfig = cntx.personalConfig();
 		if (
@@ -236,7 +241,8 @@ public class CategorieWorker extends StammdatenWorker {
 		}
 	}
 
-	protected int insertBean(OctopusContext cntx, List errors, Bean bean) throws BeanException, IOException
+	@Override
+    protected int insertBean(OctopusContext cntx, List errors, Bean bean) throws BeanException, IOException
 	{
 		int count = 0;
 		if (bean.isModified() && bean.isCorrect())
@@ -290,7 +296,8 @@ public class CategorieWorker extends StammdatenWorker {
 	}
 	
 	
-	protected void saveBean(OctopusContext cntx, Bean bean) throws BeanException, IOException
+	@Override
+    protected void saveBean(OctopusContext cntx, Bean bean) throws BeanException, IOException
 	{
 		((Categorie) bean).orgunit = ((PersonalConfigAA) (cntx.personalConfig())).getOrgUnitId();
 		if (bean.isModified() && bean.isCorrect())
@@ -303,7 +310,8 @@ public class CategorieWorker extends StammdatenWorker {
 		super.saveBean(cntx, bean);
 	}
 
-	protected int removeSelection(OctopusContext cntx, List errors, List selection) throws BeanException, IOException {
+	@Override
+    protected int removeSelection(OctopusContext cntx, List errors, List selection) throws BeanException, IOException {
 		int count = super.removeSelection(cntx, errors, selection);
 		
 		getDatabase(cntx).execute(

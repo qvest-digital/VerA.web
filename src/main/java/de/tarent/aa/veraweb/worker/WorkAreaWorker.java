@@ -35,9 +35,9 @@ import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.clause.Order;
 import de.tarent.dblayer.sql.statement.Select;
 import de.tarent.octopus.PersonalConfigAA;
-import de.tarent.octopus.custom.beans.Bean;
-import de.tarent.octopus.custom.beans.BeanException;
-import de.tarent.octopus.custom.beans.Database;
+import de.tarent.octopus.beans.Bean;
+import de.tarent.octopus.beans.BeanException;
+import de.tarent.octopus.beans.Database;
 import de.tarent.octopus.server.OctopusContext;
 
 /**
@@ -72,7 +72,8 @@ public class WorkAreaWorker extends StammdatenWorker
 		super.saveBean(cntx, bean);
 	}
 
-	protected void extendWhere(OctopusContext cntx, Select select) throws BeanException, IOException {
+	@Override
+    protected void extendWhere(OctopusContext cntx, Select select) throws BeanException, IOException {
 		// hide default entry with pk=0 from user, the workarea "Kein" with pk ::= 0
 		// is only used internally in order to be able to use foreign key constraints
 		// with individual workareas being assigned to one or multiple users.
@@ -80,7 +81,8 @@ public class WorkAreaWorker extends StammdatenWorker
 		select.where( Expr.equal( "fk_orgunit", ( ( PersonalConfigAA ) cntx.personalConfig() ).getOrgUnitId() ) );
 	}
 
-	protected void extendColumns( OctopusContext cntx, Select select )
+	@Override
+    protected void extendColumns( OctopusContext cntx, Select select )
 		throws BeanException, IOException
 	{
 		if ( cntx.requestContains( "order" ) )
@@ -98,7 +100,8 @@ public class WorkAreaWorker extends StammdatenWorker
 		}
 	}
 
-	protected boolean removeBean(OctopusContext cntx, Bean bean) throws BeanException, IOException
+	@Override
+    protected boolean removeBean(OctopusContext cntx, Bean bean) throws BeanException, IOException
 	{
 		try
 		{
@@ -126,7 +129,8 @@ public class WorkAreaWorker extends StammdatenWorker
 		return true;
 	}
 
-	protected void extendAll( OctopusContext cntx, Select select )
+	@Override
+    protected void extendAll( OctopusContext cntx, Select select )
 		throws BeanException, IOException
 	{
 		// hide default entry with pk=0 from user, the workarea "Kein" with pk ::= 0
