@@ -70,6 +70,7 @@ public class ProfileInsert extends TestCase {
         printResult(res, "testProfile-Result:" );
     }
 
+    @Override
     protected void setUp() throws Exception {
         super.setUp();
         baseLogger = Logger.getLogger("de.tarent");
@@ -78,6 +79,7 @@ public class ProfileInsert extends TestCase {
 //        con = OctopusConnectionFactory.getInstance().getConnection("test");
     }
 
+    @Override
     protected void tearDown() throws Exception {
     	con = null;
         super.tearDown();

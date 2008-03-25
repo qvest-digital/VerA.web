@@ -46,6 +46,7 @@ import junit.framework.TestCase;
 
 public class AALoginTest extends TestCase {
     LDAPManagerAA manager = null;
+    @Override
     protected void setUp() throws Exception {
         super.setUp();
         Map params = new HashMap();
@@ -61,6 +62,7 @@ public class AALoginTest extends TestCase {
         }
     }
 
+    @Override
     protected void tearDown() throws Exception {
         manager = null;
         super.tearDown();
