@@ -6,18 +6,6 @@
 
   <module>
     <web>
-      <web-uri>introspection.war</web-uri>
-    </web>
-  </module>
-
-  <module>
-    <web>
-      <web-uri>octopus.war</web-uri>
-    </web>
-  </module>
-
-  <module>
-    <web>
       <web-uri>veraweb.war</web-uri>
     </web>
   </module>

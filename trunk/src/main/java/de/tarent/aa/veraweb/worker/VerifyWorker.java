@@ -131,7 +131,7 @@ public class VerifyWorker {
 	 */
 	public void verifySchemaVersion(OctopusContext cntx) throws BeanException, IOException {
 		Database database = new DatabaseVeraWeb(cntx);
-		
+
 		Config config = (Config)
 				database.getBean("Config",
 				database.getSelect("Config").

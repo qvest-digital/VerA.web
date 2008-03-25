@@ -275,7 +275,11 @@
 	## cklein
 	## 2008-02-27
 	<tr class="$class" style="height: 22px;" onmouseover="onMouseOverList(this);" onmouseout="onMouseOutList(this);">
-		<td class="list"><input type="checkbox" name="${bean.id}-select" value="true" class="checkbox" #if($listselection.indexOf($bean.id) != -1) checked#end></td>
+	
+	## fixing bug 1037
+	## 2008-03-25 cklein
+	
+		<td class="list"><input type="checkbox" name="${bean.id}-select" value="true" class="checkbox" onChange="selectionChange( this );" #if($listselection.indexOf($bean.id) != -1) checked#end></td>
 		<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}&offset=$!{currentRow}&action=$!{action}';"><input type="hidden" name="${bean.id}-id" value="$bean.id">$!{bean.id}</td>
 		<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}&offset=$!{currentRow}&action=$!{action}';">$!message.date("DATE", $bean.created)</td>
 		<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}&offset=$!{currentRow}&action=$!{action}';">$!message.plain($bean.workarea_name)</td>
