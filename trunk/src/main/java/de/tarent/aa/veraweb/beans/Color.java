@@ -30,7 +30,7 @@
 package de.tarent.aa.veraweb.beans;
 
 import de.tarent.octopus.PersonalConfigAA;
-import de.tarent.octopus.custom.beans.BeanException;
+import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.server.OctopusContext;
 
 /**
@@ -92,7 +92,8 @@ public class Color extends AbstractBean {
      * 
      * @throws BeanException bei Unvollst�ndigkeit
      */
-	public void verify() throws BeanException {
+	@Override
+    public void verify() throws BeanException {
 		if (name == null || name.length() == 0)
 			addError("Sie müssen einen Namen eingeben.");
 	}
@@ -106,6 +107,7 @@ public class Color extends AbstractBean {
      * @throws BeanException Wenn im angegebenen Kontext diese Bohne nicht gelesen werden darf.
      * @see de.tarent.aa.veraweb.beans.AbstractBean#checkRead(de.tarent.octopus.server.OctopusContext)
      */
+    @Override
     public void checkRead(OctopusContext cntx) throws BeanException {
         checkGroup(cntx, PersonalConfigAA.GROUP_READ_STANDARD);
     }

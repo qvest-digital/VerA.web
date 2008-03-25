@@ -33,8 +33,9 @@ package de.tarent.aa.veraweb.beans;
 import java.util.Date;
 
 import de.tarent.octopus.PersonalConfigAA;
-import de.tarent.octopus.custom.beans.BeanException;
+import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.server.OctopusContext;
+import de.tarent.octopus.server.PersonalConfig;
 
 /**
  * The bean class ChangeLogEntry represents a single entry
@@ -48,7 +49,7 @@ import de.tarent.octopus.server.OctopusContext;
  * For now, changelogging is enabled for the following
  * entities {see Person}, {see Guest}, and {see Event}.  
  * 
- * @see de.tarent.octopus.custom.beans.BeanChangeLogger
+ * @see de.tarent.octopus.beans.veraweb.BeanChangeLogger
  * 
  * @author cklein
  * @since 1.2.0
@@ -75,7 +76,8 @@ public class ChangeLogEntry extends AbstractBean
 	/**
 	 * Only admins may read the entity beans from the table.
 	 */
-	public void checkRead( OctopusContext cntx ) throws BeanException
+	@Override
+    public void checkRead( OctopusContext cntx ) throws BeanException
 	{
 		checkGroup( cntx, PersonalConfigAA.GROUP_ADMIN );
 	}
@@ -86,15 +88,16 @@ public class ChangeLogEntry extends AbstractBean
 	 * for purging old entries from change log. The service runs
 	 * with the priviledge of the anonymous user group.
 	 */
-	public void checkWrite( OctopusContext cntx ) throws BeanException
+	@Override
+    public void checkWrite( OctopusContext cntx ) throws BeanException
 	{
 		try
 		{
-			checkGroup( cntx, PersonalConfigAA.GROUP_ANONYMOUS );
+			checkGroup( cntx, PersonalConfig.GROUP_ANONYMOUS );
 		}
 		catch( BeanException e )
 		{
-			checkGroup( cntx, PersonalConfigAA.GROUP_USER );
+			checkGroup( cntx, PersonalConfig.GROUP_USER );
 		}
 	}
 }

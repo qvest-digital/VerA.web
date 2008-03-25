@@ -33,7 +33,7 @@ package de.tarent.aa.veraweb.beans;
 import java.sql.Timestamp;
 
 import de.tarent.octopus.PersonalConfigAA;
-import de.tarent.octopus.custom.beans.BeanException;
+import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.server.OctopusContext;
 
 /**
@@ -72,6 +72,7 @@ public class Import extends AbstractHistoryBean {
      * @throws BeanException Wenn im angegebenen Kontext diese Bohne nicht gelesen werden darf.
      * @see de.tarent.aa.veraweb.beans.AbstractBean#checkRead(de.tarent.octopus.server.OctopusContext)
      */
+    @Override
     public void checkRead(OctopusContext cntx) throws BeanException {
         checkGroup(cntx, PersonalConfigAA.GROUP_WRITE);
     }
@@ -85,6 +86,7 @@ public class Import extends AbstractHistoryBean {
      * @throws BeanException Wenn im angegebenen Kontext diese Bohne nicht geschrieben werden darf.
      * @see de.tarent.aa.veraweb.beans.AbstractBean#checkWrite(de.tarent.octopus.server.OctopusContext)
      */
+    @Override
     public void checkWrite(OctopusContext cntx) throws BeanException {
         checkGroup(cntx, PersonalConfigAA.GROUP_WRITE);
     }
