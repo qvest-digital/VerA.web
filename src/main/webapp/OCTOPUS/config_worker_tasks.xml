@@ -18,6 +18,7 @@
 	<!-- Auflistung aller Worker, die im System existieren mit name=Classenname -->
 	<contentWorkerDeklaration>
 		<!-- System-Worker, initalisierung der DB-Schicht, Message-, Action- und Context-Objekte. -->
+		<worker name="PoolWorker" implementation="de.tarent.dblayer.engine.PoolWorker" singleton="true" factory="reflected" />
 		<worker name="SystemWorker" implementation="de.tarent.aa.veraweb.worker.SystemWorker" singleton="true" factory="reflected" />
 		<worker name="SecurityWorker" implementation="de.tarent.aa.veraweb.worker.SecurityWorker" singleton="true" factory="reflected" />
 		<worker name="MessageWorker" implementation="de.tarent.aa.veraweb.worker.MessageWorker" singleton="true" factory="reflected" />
@@ -106,7 +107,8 @@
 		<task name="autostart" access="public">
 			<description>Alle Worker die automatisch ohne einen Request aufgerufen werden sollen.</description>
 			<action name="initLogging" worker="SystemWorker"/>
-			<action name="openPool" worker="SystemWorker"/>
+			<param name="poolDefinitions" refvalue="CONFIG:databasePools"/>
+			<action name="openPools" worker="PoolWorker"/>
 			<action name="init" worker="MessageWorker"/>
 			<action name="init" worker="ConfigWorker"/>
 			<action name="load" worker="MailDispatchWorker"/>
@@ -116,7 +118,8 @@
 		
 		<task name="cleanup" access="public">
 			<description>Wird automatisch beim Beenden des Servlets aufgerufen.</description>
-			<action name="closePool" worker="SystemWorker"/>
+			<param name="poolDefinitions" refvalue="CONFIG:databasePools"/>
+			<action name="closePools" worker="PoolWorker"/>
 			<action name="clean" worker="ConfigWorker"/>
 			<action name="unload" worker="MailDispatchWorker"/>
 			<action name="unload" worker="ChangeLogMaintenanceWorker"/>
