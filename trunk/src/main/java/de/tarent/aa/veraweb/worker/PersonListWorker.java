@@ -423,7 +423,7 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 			PersonDetailWorker personDetailWorker = WorkerFactory.getPersonDetailWorker(cntx);
 			for (Iterator it = selectionRemove.iterator(); it.hasNext(); ) {
 				Integer id = (Integer)it.next();
-				
+
 				/*
 				 * updated to reflect interface changes on removePerson
 				 * cklein 2008-02-12

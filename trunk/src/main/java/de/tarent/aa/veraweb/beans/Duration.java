@@ -35,6 +35,10 @@ public class Duration extends AbstractBean
 	{
 		String regex = "^P([0-9]+Y)?([0-9]+M)?([0-9]+D)?$";
 		Duration result = new Duration();
+		if ( value == null )
+		{
+			value = "P0";
+		}
 		if ( value.matches( regex ) )
 		{
 			int amount = 0;
