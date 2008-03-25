@@ -36,22 +36,22 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+import junit.framework.TestCase;
 import de.tarent.data.exchange.ExchangeFormat;
 import de.tarent.octopus.PersonalConfigAA;
+import de.tarent.octopus.beans.Database;
+import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
 import de.tarent.octopus.config.TcCommonConfig;
 import de.tarent.octopus.config.TcConfig;
 import de.tarent.octopus.config.TcConfigException;
 import de.tarent.octopus.config.TcModuleConfig;
 import de.tarent.octopus.content.TcAll;
 import de.tarent.octopus.content.TcContent;
-import de.tarent.octopus.custom.beans.Database;
-import de.tarent.octopus.custom.beans.veraweb.DatabaseVeraWeb;
 import de.tarent.octopus.exchange.ConfiguredExchangeFormat;
 import de.tarent.octopus.request.Octopus;
 import de.tarent.octopus.request.TcEnv;
 import de.tarent.octopus.request.TcRequest;
 import de.tarent.octopus.server.OctopusContext;
-import junit.framework.TestCase;
 
 /**
  * Diese Testklasse testet {@link GenericCSVExporter}. 

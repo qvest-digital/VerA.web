@@ -40,14 +40,16 @@ import de.tarent.aa.veraweb.beans.facade.PersonDoctypeFacade;
 public class MailDispatchWorkerTest extends TestCase {
 	MailDispatchWorker worker;
 
-	protected void setUp() throws Exception {
+	@Override
+    protected void setUp() throws Exception {
 		super.setUp();
 		worker = new MailDispatchWorker();
 		
 		Logger.getLogger("de.tarent").addAppender(new NullAppender());
 	}
 
-	protected void tearDown() throws Exception {
+	@Override
+    protected void tearDown() throws Exception {
 		super.tearDown();
 		worker = null;
 	}
