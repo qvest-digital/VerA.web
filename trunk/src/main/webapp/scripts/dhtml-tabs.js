@@ -4,7 +4,8 @@
 			if ( tab.className == "tabdisabled" )
 			{
 				tab.style.borderBottom = 'none';
-				tab.style.backgroundColor = '#b3b8bb';
+//				tab.style.backgroundColor = '#b3b8bb';
+				tab.style.backgroundColor = '#f3f8ff';
 				if (link) {
 					link.style.color = '#000000';
 		/*			link.style.cursor = 'default'; TODO */
