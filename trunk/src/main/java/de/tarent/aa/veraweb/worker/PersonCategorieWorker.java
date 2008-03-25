@@ -37,10 +37,10 @@ import de.tarent.dblayer.engine.DB;
 import de.tarent.dblayer.sql.SQL;
 import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.statement.Select;
-import de.tarent.octopus.custom.beans.Bean;
-import de.tarent.octopus.custom.beans.BeanException;
-import de.tarent.octopus.custom.beans.Database;
-import de.tarent.octopus.custom.beans.veraweb.ListWorkerVeraWeb;
+import de.tarent.octopus.beans.Bean;
+import de.tarent.octopus.beans.BeanException;
+import de.tarent.octopus.beans.Database;
+import de.tarent.octopus.beans.veraweb.ListWorkerVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
 
 /**
@@ -60,19 +60,22 @@ public class PersonCategorieWorker extends ListWorkerVeraWeb {
     //
     // Oberklasse BeanListWorker
     //
-	protected void extendWhere(OctopusContext cntx, Select select) throws BeanException, IOException {
+	@Override
+    protected void extendWhere(OctopusContext cntx, Select select) throws BeanException, IOException {
 		Bean bean = (Bean)cntx.contentAsObject("person");
 		select.where(Expr.equal("fk_person", bean.getField("id")));
 	}
 
-	protected void extendColumns(OctopusContext cntx, Select select) throws BeanException, IOException {
+	@Override
+    protected void extendColumns(OctopusContext cntx, Select select) throws BeanException, IOException {
 		select.join("veraweb.tcategorie", "fk_categorie", "tcategorie.pk");
 		select.selectAs("tcategorie.rank", "catrank");
 		select.selectAs("tcategorie.catname", "name");
 		select.selectAs("tcategorie.flags", "flags");
 	}
 
-	public void saveList(OctopusContext cntx) throws BeanException, IOException {
+	@Override
+    public void saveList(OctopusContext cntx) throws BeanException, IOException {
 		super.saveList(cntx);
 		
 		String addRank = cntx.requestAsString("add-rank");
@@ -89,7 +92,8 @@ public class PersonCategorieWorker extends ListWorkerVeraWeb {
 		}
 	}
 
-	protected void saveBean(OctopusContext cntx, Bean bean) throws BeanException, IOException {
+	@Override
+    protected void saveBean(OctopusContext cntx, Bean bean) throws BeanException, IOException {
 		super.saveBean(cntx, bean);
 		WorkerFactory.getPersonDetailWorker(cntx).updatePerson(cntx, null, ((PersonCategorie)bean).person);
 	}

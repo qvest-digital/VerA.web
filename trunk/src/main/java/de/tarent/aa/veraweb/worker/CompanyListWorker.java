@@ -40,10 +40,10 @@ import de.tarent.dblayer.sql.clause.RawClause;
 import de.tarent.dblayer.sql.clause.Where;
 import de.tarent.dblayer.sql.statement.Select;
 import de.tarent.octopus.PersonalConfigAA;
-import de.tarent.octopus.custom.beans.BeanException;
-import de.tarent.octopus.custom.beans.Database;
-import de.tarent.octopus.custom.beans.Request;
-import de.tarent.octopus.custom.beans.veraweb.ListWorkerVeraWeb;
+import de.tarent.octopus.beans.BeanException;
+import de.tarent.octopus.beans.Database;
+import de.tarent.octopus.beans.Request;
+import de.tarent.octopus.beans.veraweb.ListWorkerVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
 
 /**
@@ -52,7 +52,7 @@ import de.tarent.octopus.server.OctopusContext;
  * diese werden in dem Popup zur Firmen-Auswahl angezeigt.
  * </p>
  * <p>
- * Details bitte dem {@link de.tarent.octopus.custom.beans.BeanListWorker BeanListWorker} entnehmen.
+ * Details bitte dem {@link de.tarent.octopus.beans.BeanListWorker BeanListWorker} entnehmen.
  * </p>
  * 
  * @author Christoph Jerolimov
@@ -74,18 +74,21 @@ public class CompanyListWorker extends ListWorkerVeraWeb {
 	/**
 	 * Schränkt das Suchergebnis auf nicht gelöschte Firmen ein.
 	 */
-	protected void extendWhere(OctopusContext cntx, Select select) throws BeanException, IOException {
+	@Override
+    protected void extendWhere(OctopusContext cntx, Select select) throws BeanException, IOException {
 		select.where(Where.and(
 				Expr.equal("fk_orgunit", ((PersonalConfigAA)cntx.personalConfig()).getOrgUnitId()), Where.and(
 				Expr.equal("deleted", PersonConstants.DELETED_FALSE),
 				Expr.equal("iscompany", PersonConstants.ISCOMPANY_TRUE))));
 	}
 
-	protected void extendColumns(OctopusContext cntx, Select select) throws BeanException, IOException {
+	@Override
+    protected void extendColumns(OctopusContext cntx, Select select) throws BeanException, IOException {
 		select.orderBy(Order.asc("lastname_a_e1"));
 	}
 
-	protected Integer getAlphaStart(OctopusContext cntx, String start) throws BeanException, IOException {
+	@Override
+    protected Integer getAlphaStart(OctopusContext cntx, String start) throws BeanException, IOException {
 		Database database = getDatabase(cntx);
 		
 		Where where = Where.and(
@@ -109,7 +112,8 @@ public class CompanyListWorker extends ListWorkerVeraWeb {
 
 	/** Gibt die maximale Anzahl von Datensätzen pro Seite. */
 	protected Integer limit = new Integer(5);
-	protected Integer getLimit(OctopusContext cntx) {
+	@Override
+    protected Integer getLimit(OctopusContext cntx) {
 		return limit;
 	}
 

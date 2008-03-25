@@ -63,15 +63,15 @@ import de.tarent.dblayer.sql.clause.RawClause;
 import de.tarent.dblayer.sql.clause.WhereList;
 import de.tarent.dblayer.sql.statement.Select;
 import de.tarent.octopus.PersonalConfigAA;
+import de.tarent.octopus.beans.Bean;
+import de.tarent.octopus.beans.BeanException;
+import de.tarent.octopus.beans.Database;
+import de.tarent.octopus.beans.DatabaseUtilizer;
+import de.tarent.octopus.beans.TransactionContext;
+import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
 import de.tarent.octopus.config.TcModuleConfig;
 import de.tarent.octopus.config.TcPersonalConfig;
 import de.tarent.octopus.content.TcContentProzessException;
-import de.tarent.octopus.custom.beans.Bean;
-import de.tarent.octopus.custom.beans.BeanException;
-import de.tarent.octopus.custom.beans.Database;
-import de.tarent.octopus.custom.beans.DatabaseUtilizer;
-import de.tarent.octopus.custom.beans.TransactionContext;
-import de.tarent.octopus.custom.beans.veraweb.DatabaseVeraWeb;
 import de.tarent.octopus.exchange.ConfiguredExchangeFormat;
 import de.tarent.octopus.response.TcBinaryResponseEngine;
 import de.tarent.octopus.server.OctopusContext;
@@ -588,7 +588,7 @@ public class DataExchangeWorker {
         assert select != null;
         assert exporter != null;
         
-       	for (Iterator it = database.getList(select).iterator(); it.hasNext(); ) {
+       	for (Iterator it = database.getList(select, database).iterator(); it.hasNext(); ) {
        		Person person = (Person)database.getBean("Person", (Integer)((Map)it.next()).get("id"));
        		exporter.exportPerson(person);
         }

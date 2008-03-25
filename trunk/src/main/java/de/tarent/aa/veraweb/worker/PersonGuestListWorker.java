@@ -41,9 +41,9 @@ import de.tarent.dblayer.sql.clause.Clause;
 import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.clause.Where;
 import de.tarent.dblayer.sql.statement.Select;
-import de.tarent.octopus.custom.beans.BeanException;
-import de.tarent.octopus.custom.beans.BeanFactory;
-import de.tarent.octopus.custom.beans.Database;
+import de.tarent.octopus.beans.BeanException;
+import de.tarent.octopus.beans.BeanFactory;
+import de.tarent.octopus.beans.Database;
 import de.tarent.octopus.server.OctopusContext;
 
 /**
@@ -62,7 +62,7 @@ public class PersonGuestListWorker extends PersonListWorker {
 	public static final String INPUT_extendGuestSelection[] = {};
 	/**
      * Diese Octopus-Aktion erweitert die Listenselektionsfunktionalit�t des
-     * {@link de.tarent.octopus.custom.beans.BeanListWorker}s um weitere
+     * {@link de.tarent.octopus.beans.BeanListWorker}s um weitere
      * Selektionsspalten.<br>
      * Hierzu wird zus�tzlich auf die Daten im Octopus-Content unter "event", im Request
      * unter "list", "search", "selectAll", "selectNone", "{ID}-partner", "{ID}-reserve"
@@ -122,19 +122,19 @@ public class PersonGuestListWorker extends PersonListWorker {
 			// Kategorien berechnen
 			invitecategory = new HashMap();
 			if (search.categoriesSelection!= null) {
-				for (Iterator it = database.getList(select).iterator(); it.hasNext(); ) {
+				for (Iterator it = database.getList(select, database).iterator(); it.hasNext(); ) {
 					Map data = (Map)it.next();
 					invitecategory.put(data.get("id"), data.get( "category" ) /*search.categorie*/ );
 				}
 			} else if (search.categorie2 != null) {
-				for (Iterator it = database.getList(select).iterator(); it.hasNext(); ) {
+				for (Iterator it = database.getList(select, database).iterator(); it.hasNext(); ) {
 					Map data = (Map)it.next();
 					invitecategory.put(data.get("id"), search.categorie2);
 				}
 			} else {
 				boolean hasMore = false;
 				Integer id = null, category = null, oldId = null, oldCategory = null;
-				for (Iterator it = database.getList(select).iterator(); it.hasNext(); ) {
+				for (Iterator it = database.getList(select, database).iterator(); it.hasNext(); ) {
 					Map data = (Map)it.next();
 					id = (Integer)data.get("id");
 					category = (Integer)data.get("category");
@@ -184,7 +184,7 @@ public class PersonGuestListWorker extends PersonListWorker {
 				select.where(Where.and(clause, Where.or(
 						Expr.greater("lastname_a_e1", ""),
 						Expr.greater("firstname_a_e1", ""))));
-				for (Iterator it = database.getList(select).iterator(); it.hasNext(); ) {
+				for (Iterator it = database.getList(select, database).iterator(); it.hasNext(); ) {
 					invitemain.add(((Map)it.next()).get("id"));
 				}
 			}
@@ -201,7 +201,7 @@ public class PersonGuestListWorker extends PersonListWorker {
 				select.where(Where.and(clause, Where.or(
 						Expr.greater("lastname_b_e1", ""),
 						Expr.greater("firstname_b_e1", ""))));
-				for (Iterator it = database.getList(select).iterator(); it.hasNext(); ) {
+				for (Iterator it = database.getList(select, database).iterator(); it.hasNext(); ) {
 					invitepartner.add(((Map)it.next()).get("id"));
 				}
 			}
@@ -298,7 +298,7 @@ public class PersonGuestListWorker extends PersonListWorker {
 						selectAs("tcategorie.rank", "catrank").
 						selectAs("tcategorie.catname", "name").
 						selectAs("tcategorie.flags", "flags").
-						where(Expr.equal("fk_person", personId)));
+						where(Expr.equal("fk_person", personId)), database);
 			} catch (BeanException e) {
 				e.printStackTrace();
 			} catch (IOException e) {

@@ -59,9 +59,9 @@ import de.tarent.dblayer.sql.clause.RawClause;
 import de.tarent.dblayer.sql.clause.Where;
 import de.tarent.dblayer.sql.clause.WhereList;
 import de.tarent.dblayer.sql.statement.Select;
-import de.tarent.octopus.custom.beans.BeanException;
-import de.tarent.octopus.custom.beans.Database;
-import de.tarent.octopus.custom.beans.veraweb.DatabaseVeraWeb;
+import de.tarent.octopus.beans.BeanException;
+import de.tarent.octopus.beans.Database;
+import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
 import de.tarent.octopus.request.TcRequest;
 import de.tarent.octopus.response.TcBinaryResponseEngine;
 import de.tarent.octopus.server.OctopusContext;
@@ -341,7 +341,7 @@ public class GuestExportWorker {
      *  "absagen", "offenen", "platz" und "reserve".
      */
 	protected void exportSelect(SpreadSheet spreadSheet, Database database, Event event, Doctype doctype, GuestSearch search, Select select, Map data) throws BeanException {
-		for (Iterator it = database.getList(select).iterator(); it.hasNext(); ) {
+		for (Iterator it = database.getList(select, database).iterator(); it.hasNext(); ) {
 			Map guest = (Map)it.next();
 			
 			Integer invitationtype = (Integer)guest.get("invitationtype");

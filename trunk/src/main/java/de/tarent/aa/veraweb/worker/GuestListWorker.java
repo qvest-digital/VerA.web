@@ -49,14 +49,14 @@ import de.tarent.dblayer.sql.clause.WhereList;
 import de.tarent.dblayer.sql.statement.Select;
 import de.tarent.dblayer.sql.statement.Update;
 import de.tarent.octopus.PersonalConfigAA;
-import de.tarent.octopus.custom.beans.Bean;
-import de.tarent.octopus.custom.beans.BeanChangeLogger;
-import de.tarent.octopus.custom.beans.BeanException;
-import de.tarent.octopus.custom.beans.Database;
-import de.tarent.octopus.custom.beans.Request;
-import de.tarent.octopus.custom.beans.veraweb.DatabaseVeraWeb;
-import de.tarent.octopus.custom.beans.veraweb.ListWorkerVeraWeb;
-import de.tarent.octopus.custom.beans.veraweb.RequestVeraWeb;
+import de.tarent.octopus.beans.Bean;
+import de.tarent.octopus.beans.BeanException;
+import de.tarent.octopus.beans.Database;
+import de.tarent.octopus.beans.Request;
+import de.tarent.octopus.beans.veraweb.BeanChangeLogger;
+import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
+import de.tarent.octopus.beans.veraweb.ListWorkerVeraWeb;
+import de.tarent.octopus.beans.veraweb.RequestVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
 
 /**
@@ -248,7 +248,7 @@ public class GuestListWorker extends ListWorkerVeraWeb {
 	}
 
 	protected List getResultList(Database database, Select select) throws BeanException, IOException {
-		return database.getList(select);
+		return database.getList(select, database);
 	}
 
 	protected int removeSelection(OctopusContext cntx, List errors, List selection) throws BeanException, IOException {
@@ -270,7 +270,7 @@ public class GuestListWorker extends ListWorkerVeraWeb {
 		
 		// Entsprechende G�ste und Personen l�schen
 		Guest guest = new Guest();
-		for (Iterator it = database.getList(select).iterator(); it.hasNext(); ) {
+		for (Iterator it = database.getList(select, database).iterator(); it.hasNext(); ) {
 			Map data = (Map)it.next();
 			guest.id = (Integer)data.get("guest");
 			if (removeBean(cntx, guest)) {
@@ -576,7 +576,7 @@ public class GuestListWorker extends ListWorkerVeraWeb {
 //				"SUM(CASE WHEN reserve = 1  AND invitationstatus   = 2 AND invitationtype != 3 THEN 1 ELSE 0 END) + " +
 //				"SUM(CASE WHEN reserve = 1  AND invitationstatus_p = 2 AND invitationtype != 2 THEN 1 ELSE 0 END)", "absagenReserve");
 		
-		Map result = (Map)database.getList(select).iterator().next();
+		Map result = (Map)database.getList(select, database).iterator().next();
 		Long platz = (Long)result.get("platz");
 		Long reserve = (Long)result.get("reserve");
 		Long zusagen = (Long)result.get("zusagen");

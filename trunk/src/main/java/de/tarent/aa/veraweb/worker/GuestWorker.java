@@ -52,12 +52,12 @@ import de.tarent.dblayer.sql.statement.Insert;
 import de.tarent.dblayer.sql.statement.Select;
 import de.tarent.dblayer.sql.statement.Update;
 import de.tarent.octopus.PersonalConfigAA;
-import de.tarent.octopus.custom.beans.BeanChangeLogger;
-import de.tarent.octopus.custom.beans.BeanException;
-import de.tarent.octopus.custom.beans.Database;
-import de.tarent.octopus.custom.beans.ExecutionContext;
-import de.tarent.octopus.custom.beans.TransactionContext;
-import de.tarent.octopus.custom.beans.veraweb.DatabaseVeraWeb;
+import de.tarent.octopus.beans.BeanException;
+import de.tarent.octopus.beans.Database;
+import de.tarent.octopus.beans.ExecutionContext;
+import de.tarent.octopus.beans.TransactionContext;
+import de.tarent.octopus.beans.veraweb.BeanChangeLogger;
+import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
 
 /**
@@ -156,7 +156,7 @@ public class GuestWorker {
 					select("invitationtype").
 					where(Where.and(
 							Expr.equal("fk_event", eventId),
-							Expr.isNotNull("fk_person"))));
+							Expr.isNotNull("fk_person"))), database);
 			int invited = 0;
 			int notInvited = 0;
 			boolean invite;
@@ -293,7 +293,7 @@ public class GuestWorker {
 				List list =
 						database.getList(
 						database.getSelectIds(new Guest()).
-						where(Expr.equal("fk_event", event.id)));
+						where(Expr.equal("fk_event", event.id)), database);
 				for (Iterator it = list.iterator(); it.hasNext(); ) {
 					Integer guestId = (Integer)((Map)it.next()).get("id");
 					updateGuest(cntx, database, context, event, guestId);

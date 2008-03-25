@@ -41,10 +41,10 @@ import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.clause.Order;
 import de.tarent.dblayer.sql.statement.Select;
 import de.tarent.octopus.PersonalConfigAA;
-import de.tarent.octopus.custom.beans.BeanException;
-import de.tarent.octopus.custom.beans.Database;
-import de.tarent.octopus.custom.beans.Request;
-import de.tarent.octopus.custom.beans.veraweb.ListWorkerVeraWeb;
+import de.tarent.octopus.beans.BeanException;
+import de.tarent.octopus.beans.Database;
+import de.tarent.octopus.beans.Request;
+import de.tarent.octopus.beans.veraweb.ListWorkerVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
 
 /**
@@ -70,20 +70,23 @@ public class MailinglistDetailWorker extends ListWorkerVeraWeb {
     //
     // Oberklasse BeanListWorker
     //
-	protected void extendColumns(OctopusContext cntx, Select select) throws BeanException {
+	@Override
+    protected void extendColumns(OctopusContext cntx, Select select) throws BeanException {
 		select.joinLeftOuter("veraweb.tperson", "fk_person", "tperson.pk");
 		select.selectAs("lastname_a_e1", "lastname");
 		select.selectAs("firstname_a_e1", "firstname");
 		select.orderBy(Order.asc("lastname").andAsc("firstname"));
 	}
 
-	protected void extendWhere(OctopusContext cntx, Select select) throws BeanException {
+	@Override
+    protected void extendWhere(OctopusContext cntx, Select select) throws BeanException {
 		Mailinglist mailinglist = (Mailinglist)cntx.contentAsObject("mailinglist");
 		select.where(Expr.equal("fk_mailinglist", mailinglist.id));
 	}
 
-	protected List getResultList(Database database, Select select) throws BeanException, IOException {
-		return database.getList(select);
+	@Override
+    protected List getResultList(Database database, Select select) throws BeanException, IOException {
+		return database.getList(select, database);
 	}
 
     //
@@ -177,7 +180,7 @@ public class MailinglistDetailWorker extends ListWorkerVeraWeb {
 		StringBuffer addresses = new StringBuffer();
 		boolean first = true;
 		
-		for (Iterator it = database.getList(select).iterator(); it.hasNext(); ) {
+		for (Iterator it = database.getList(select, database).iterator(); it.hasNext(); ) {
 			Map data = (Map)it.next();
 			String str = (String)(data).get("address");
 			

@@ -49,6 +49,7 @@ import de.tarent.aa.veraweb.beans.Person;
 import de.tarent.aa.veraweb.beans.facade.PersonDoctypeFacade;
 import de.tarent.aa.veraweb.utils.MailDispatcher;
 import de.tarent.dblayer.engine.DB;
+import de.tarent.dblayer.engine.Result;
 import de.tarent.dblayer.helper.ResultList;
 import de.tarent.dblayer.sql.SQL;
 import de.tarent.dblayer.sql.clause.Expr;
@@ -57,11 +58,11 @@ import de.tarent.dblayer.sql.clause.Order;
 import de.tarent.dblayer.sql.clause.Where;
 import de.tarent.dblayer.sql.statement.Select;
 import de.tarent.octopus.PersonalConfigAA;
-import de.tarent.octopus.custom.beans.BeanException;
-import de.tarent.octopus.custom.beans.Database;
-import de.tarent.octopus.custom.beans.Request;
-import de.tarent.octopus.custom.beans.veraweb.DatabaseVeraWeb;
-import de.tarent.octopus.custom.beans.veraweb.RequestVeraWeb;
+import de.tarent.octopus.beans.BeanException;
+import de.tarent.octopus.beans.Database;
+import de.tarent.octopus.beans.Request;
+import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
+import de.tarent.octopus.beans.veraweb.RequestVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
 
 /**
@@ -184,11 +185,13 @@ public class MailDispatchWorker implements Runnable {
 		select.orderBy(Order.asc("lastupdate"));
 		select.Limit(new Limit(new Integer(1), new Integer(0)));
 		
+		Result r = null;
 		ResultSet rs = null;
 		for (boolean found = true; found; ) {
 			try {
 				found = false;
-				rs = DB.result(moduleName, select).resultSet();
+				r = DB.result(moduleName, select);
+				rs = r.resultSet();
 				
 				for (Iterator it = new ResultList(rs).iterator(); it.hasNext(); ) {
 					Map data = (Map)it.next();
@@ -208,6 +211,9 @@ public class MailDispatchWorker implements Runnable {
 						rs.close();
 					} catch (SQLException e) {
 					}
+				}
+				if (r != null) {
+					r.closeAll();
 				}
 			}
 		}
@@ -319,7 +325,7 @@ public class MailDispatchWorker implements Runnable {
 		outbox.lastupdate = new Timestamp(System.currentTimeMillis());
 		
 		int savedMails = 0;
-		for (Iterator it = database.getList(select).iterator(); it.hasNext(); ) {
+		for (Iterator it = database.getList(select, database).iterator(); it.hasNext(); ) {
 			Map data = (Map)it.next();
 			Person person = (Person)database.getBean("Person", (Integer)data.get("person"));
 			
@@ -359,7 +365,7 @@ public class MailDispatchWorker implements Runnable {
 						"fk_person", person.id.toString()).
 				where(Expr.equal("tdoctype.pk", doctypeId));
 		
-		for (Iterator it = database.getList(select).iterator(); it.hasNext(); ) {
+		for (Iterator it = database.getList(select, database).iterator(); it.hasNext(); ) {
 			Map data = (Map)it.next();
 			addresstype = (Integer)data.get("at2");
 			locale = (Integer)data.get("l2");

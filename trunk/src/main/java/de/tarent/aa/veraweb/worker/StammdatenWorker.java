@@ -36,10 +36,10 @@ import de.tarent.dblayer.sql.clause.RawClause;
 import de.tarent.dblayer.sql.clause.Where;
 import de.tarent.dblayer.sql.statement.Select;
 import de.tarent.octopus.PersonalConfigAA;
-import de.tarent.octopus.custom.beans.Bean;
-import de.tarent.octopus.custom.beans.BeanException;
-import de.tarent.octopus.custom.beans.Database;
-import de.tarent.octopus.custom.beans.veraweb.ListWorkerVeraWeb;
+import de.tarent.octopus.beans.Bean;
+import de.tarent.octopus.beans.BeanException;
+import de.tarent.octopus.beans.Database;
+import de.tarent.octopus.beans.veraweb.ListWorkerVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
 
 /**
@@ -60,7 +60,8 @@ public class StammdatenWorker extends ListWorkerVeraWeb {
     //
     // Hilfsmethoden
     //
-	protected Integer getAlphaStart(OctopusContext cntx, String start) throws BeanException, IOException {
+	@Override
+    protected Integer getAlphaStart(OctopusContext cntx, String start) throws BeanException, IOException {
 		Database database = getDatabase(cntx);
 		
 		Clause clause = getWhere(cntx);
@@ -92,7 +93,8 @@ public class StammdatenWorker extends ListWorkerVeraWeb {
 		return null;
 	}
 
-	protected int insertBean(OctopusContext cntx, List errors, Bean bean) throws BeanException, IOException {
+	@Override
+    protected int insertBean(OctopusContext cntx, List errors, Bean bean) throws BeanException, IOException {
 		int count = 0;
 		if (bean.isModified() && bean.isCorrect()) {
 			Database database = getDatabase(cntx);

@@ -32,8 +32,8 @@ import java.io.IOException;
 import java.sql.Timestamp;
 
 import de.tarent.aa.veraweb.beans.MailOutbox;
-import de.tarent.octopus.custom.beans.BeanException;
-import de.tarent.octopus.custom.beans.veraweb.ListWorkerVeraWeb;
+import de.tarent.octopus.beans.BeanException;
+import de.tarent.octopus.beans.veraweb.ListWorkerVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
 
 /**

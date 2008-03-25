@@ -47,6 +47,17 @@
       </roles>
       <timezone>+1</timezone>
     </developer>
+    <developer>
+      <id>cklein</id>
+      <name>Carsten Klein</name>
+      <email>c.klein@tarent.de</email>
+      <organization>tarent GmbH</organization>
+      <organizationUrl>http://www.tarent.de/</organizationUrl>
+      <roles>
+        <role>Developer</role>
+      </roles>
+      <timezone>+1</timezone>
+    </developer>
   </developers>
   <licenses>
     <license>
@@ -175,6 +186,11 @@
           <groupId>de.tarent.commons</groupId>
         </exclusion>
       </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>de.tarent.octopus</groupId>
+      <artifactId>octopus-ext-beans</artifactId>
+      <version>1.6.2</version>
     </dependency>
     <dependency>
       <groupId>de.tarent.octopus</groupId>

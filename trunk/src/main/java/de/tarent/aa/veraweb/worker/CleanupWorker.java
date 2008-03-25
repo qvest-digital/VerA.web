@@ -41,9 +41,9 @@ import de.tarent.dblayer.sql.clause.RawClause;
 import de.tarent.dblayer.sql.clause.Where;
 import de.tarent.dblayer.sql.clause.WhereList;
 import de.tarent.dblayer.sql.statement.Select;
-import de.tarent.octopus.custom.beans.BeanException;
-import de.tarent.octopus.custom.beans.Database;
-import de.tarent.octopus.custom.beans.veraweb.DatabaseVeraWeb;
+import de.tarent.octopus.beans.BeanException;
+import de.tarent.octopus.beans.Database;
+import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
 
 /**
@@ -80,7 +80,7 @@ public class CleanupWorker {
 				selectAs("fk_orgunit", "fk_orgunit").
 				from("veraweb.tcategorie");
 		
-		List orgunits = database.getList(orgunitsSelect);
+		List orgunits = database.getList(orgunitsSelect, database);
 		for (Iterator orgunitIt = orgunits.iterator(); orgunitIt.hasNext(); ) {
 			Integer orgunit = (Integer)((Map)orgunitIt.next()).get("fk_orgunit");
 			
@@ -111,7 +111,7 @@ public class CleanupWorker {
 						Expr.equal("c1.fk_orgunit", orgunit),
 						Expr.equal("c2.fk_orgunit", orgunit)));
 			
-			List subcategories = database.getList(subcategoriesSelect);
+			List subcategories = database.getList(subcategoriesSelect, database);
 			for (Iterator it = subcategories.iterator(); it.hasNext(); ) {
 				Map entry = (Map)it.next();
 				Integer subcategorypk = (Integer)entry.get("subcategorypk");
@@ -184,7 +184,7 @@ public class CleanupWorker {
 		List illegalCategories =
 				database.getList(
 				database.getSelect("Categorie").where(
-						whereList));
+						whereList), database);
 		
 		for (Iterator it = illegalCategories.iterator(); it.hasNext(); ) {
 			Map illegalCategory = (Map)it.next();

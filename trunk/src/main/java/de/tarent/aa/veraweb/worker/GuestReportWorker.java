@@ -42,9 +42,9 @@ import de.tarent.dblayer.sql.SQL;
 import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.clause.WhereList;
 import de.tarent.dblayer.sql.statement.Select;
-import de.tarent.octopus.custom.beans.BeanException;
-import de.tarent.octopus.custom.beans.Database;
-import de.tarent.octopus.custom.beans.veraweb.DatabaseVeraWeb;
+import de.tarent.octopus.beans.BeanException;
+import de.tarent.octopus.beans.Database;
+import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
 
 /**
@@ -239,7 +239,7 @@ public class GuestReportWorker {
 		cntx.setContent("data", data);
 		cntx.setContent("kategorie", Boolean.valueOf(kategorie));
 		cntx.setContent("alphabetisch", Boolean.valueOf(alphabetisch));
-		cntx.setContent("guestlist", database.getList(select));
+		cntx.setContent("guestlist", database.getList(select, database));
 	}
 
     //

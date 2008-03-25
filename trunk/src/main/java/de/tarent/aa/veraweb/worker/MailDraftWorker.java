@@ -38,9 +38,9 @@ import de.tarent.dblayer.sql.SQL;
 import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.clause.RawClause;
 import de.tarent.dblayer.sql.statement.Select;
-import de.tarent.octopus.custom.beans.BeanException;
-import de.tarent.octopus.custom.beans.Database;
-import de.tarent.octopus.custom.beans.veraweb.ListWorkerVeraWeb;
+import de.tarent.octopus.beans.BeanException;
+import de.tarent.octopus.beans.Database;
+import de.tarent.octopus.beans.veraweb.ListWorkerVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
 
 /**
@@ -65,7 +65,8 @@ public class MailDraftWorker extends ListWorkerVeraWeb {
     //
     // Oberklasse BeanListWorker
     //
-	protected Integer getAlphaStart(OctopusContext cntx, String start) throws BeanException, IOException {
+	@Override
+    protected Integer getAlphaStart(OctopusContext cntx, String start) throws BeanException, IOException {
 		Database database = getDatabase(cntx);
 		
 		StringBuffer buffer = new StringBuffer();
@@ -84,7 +85,8 @@ public class MailDraftWorker extends ListWorkerVeraWeb {
 	/**
 	 * Updatet ausschlieﬂlich den Namen der in der Liste angezeigt wird.
 	 */
-	protected int updateBeanList(OctopusContext cntx, List errors, List beanlist) throws BeanException, IOException {
+	@Override
+    protected int updateBeanList(OctopusContext cntx, List errors, List beanlist) throws BeanException, IOException {
 		int count = 0;
 		for (Iterator it = beanlist.iterator(); it.hasNext(); ) {
 			MailDraft mailDraft = (MailDraft)it.next();

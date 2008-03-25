@@ -36,8 +36,8 @@ import de.tarent.dblayer.sql.clause.Clause;
 import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.statement.Select;
 import de.tarent.octopus.PersonalConfigAA;
-import de.tarent.octopus.custom.beans.Bean;
-import de.tarent.octopus.custom.beans.BeanException;
+import de.tarent.octopus.beans.Bean;
+import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.server.OctopusContext;
 
 /**
@@ -57,19 +57,23 @@ public class LocationWorker extends StammdatenWorker {
     //
     // Oberklasse BeanListWorker
     //
-	protected void extendWhere(OctopusContext cntx, Select select) throws BeanException, IOException {
+	@Override
+    protected void extendWhere(OctopusContext cntx, Select select) throws BeanException, IOException {
 		select.where(Expr.equal("tlocation.fk_orgunit", ((PersonalConfigAA)(cntx.personalConfig())).getOrgUnitId()));
 	}
 
-	protected void extendAll(OctopusContext cntx, Select select) throws BeanException, IOException {
+	@Override
+    protected void extendAll(OctopusContext cntx, Select select) throws BeanException, IOException {
 		select.where(Expr.equal("tlocation.fk_orgunit", ((PersonalConfigAA)(cntx.personalConfig())).getOrgUnitId()));
 	}
 
-	protected Clause getWhere(OctopusContext cntx) {
+	@Override
+    protected Clause getWhere(OctopusContext cntx) {
 		return Expr.equal("tlocation.fk_orgunit", ((PersonalConfigAA)(cntx.personalConfig())).getOrgUnitId());
 	}
 
-	protected void saveBean(OctopusContext cntx, Bean bean) throws BeanException, IOException {
+	@Override
+    protected void saveBean(OctopusContext cntx, Bean bean) throws BeanException, IOException {
 		((Location)bean).orgunit = ((PersonalConfigAA)(cntx.personalConfig())).getOrgUnitId();
 		super.saveBean(cntx, bean);
 	}

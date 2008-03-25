@@ -36,11 +36,11 @@ import de.tarent.aa.veraweb.beans.Guest;
 import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.clause.Order;
 import de.tarent.dblayer.sql.statement.Select;
-import de.tarent.octopus.custom.beans.Bean;
-import de.tarent.octopus.custom.beans.BeanException;
-import de.tarent.octopus.custom.beans.Database;
-import de.tarent.octopus.custom.beans.TransactionContext;
-import de.tarent.octopus.custom.beans.veraweb.ListWorkerVeraWeb;
+import de.tarent.octopus.beans.Bean;
+import de.tarent.octopus.beans.BeanException;
+import de.tarent.octopus.beans.Database;
+import de.tarent.octopus.beans.TransactionContext;
+import de.tarent.octopus.beans.veraweb.ListWorkerVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
 
 /**
@@ -63,11 +63,13 @@ public class EventDoctypeWorker extends ListWorkerVeraWeb {
     //
     // Oberklasse BeanListWorker
     //
-	protected void extendAll(OctopusContext cntx, Select select) throws BeanException, IOException {
+	@Override
+    protected void extendAll(OctopusContext cntx, Select select) throws BeanException, IOException {
 		select.where(Expr.equal("fk_event", getEvent(cntx).id));
 	}
 
-	protected void extendColumns(OctopusContext cntx, Select select) throws BeanException {
+	@Override
+    protected void extendColumns(OctopusContext cntx, Select select) throws BeanException {
 		select.join("veraweb.tdoctype", "tevent_doctype.fk_doctype", "tdoctype.pk");
 		select.selectAs("tdoctype.docname", "name");
 		select.selectAs("tdoctype.sortorder", "sortorder");
@@ -75,11 +77,13 @@ public class EventDoctypeWorker extends ListWorkerVeraWeb {
 		select.orderBy(Order.asc("name"));
 	}
 
-	protected void extendWhere(OctopusContext cntx, Select select) throws BeanException {
+	@Override
+    protected void extendWhere(OctopusContext cntx, Select select) throws BeanException {
 		select.where(Expr.equal("fk_event", getEvent(cntx).id));
 	}
 
-	protected void saveBean(OctopusContext cntx, Bean bean) throws BeanException, IOException {
+	@Override
+    protected void saveBean(OctopusContext cntx, Bean bean) throws BeanException, IOException {
 		super.saveBean(cntx, bean);
 		
 		Database database = getDatabase(cntx);
@@ -89,7 +93,7 @@ public class EventDoctypeWorker extends ListWorkerVeraWeb {
 			List list =
 					database.getList(
 					database.getSelectIds(new Guest()).
-					where(Expr.equal("fk_event", ((EventDoctype)bean).event)));
+					where(Expr.equal("fk_event", ((EventDoctype)bean).event)), database);
 			GuestWorker worker = WorkerFactory.getGuestWorker(cntx);
 			for (Iterator it = list.iterator(); it.hasNext(); ) {
 				worker.refreshDoctypes(cntx, database, context, (Integer)((Map)it.next()).get("id"));

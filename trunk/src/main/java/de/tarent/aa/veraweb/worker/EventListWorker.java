@@ -50,15 +50,15 @@ import de.tarent.dblayer.sql.clause.Where;
 import de.tarent.dblayer.sql.clause.WhereList;
 import de.tarent.dblayer.sql.statement.Select;
 import de.tarent.octopus.PersonalConfigAA;
+import de.tarent.octopus.beans.Bean;
+import de.tarent.octopus.beans.BeanException;
+import de.tarent.octopus.beans.BeanListWorker;
+import de.tarent.octopus.beans.Database;
+import de.tarent.octopus.beans.veraweb.BeanChangeLogger;
+import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
+import de.tarent.octopus.beans.veraweb.ListWorkerVeraWeb;
+import de.tarent.octopus.beans.veraweb.RequestVeraWeb;
 import de.tarent.octopus.config.TcPersonalConfig;
-import de.tarent.octopus.custom.beans.Bean;
-import de.tarent.octopus.custom.beans.BeanChangeLogger;
-import de.tarent.octopus.custom.beans.BeanException;
-import de.tarent.octopus.custom.beans.BeanListWorker;
-import de.tarent.octopus.custom.beans.Database;
-import de.tarent.octopus.custom.beans.veraweb.DatabaseVeraWeb;
-import de.tarent.octopus.custom.beans.veraweb.ListWorkerVeraWeb;
-import de.tarent.octopus.custom.beans.veraweb.RequestVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
 
 /**
@@ -107,6 +107,7 @@ public class EventListWorker extends ListWorkerVeraWeb {
      * @see BeanListWorker#getAll(OctopusContext)
      * @see BeanListWorker#extendAll(OctopusContext, Select)
      */
+    @Override
     protected void extendAll(OctopusContext cntx, Select select) throws BeanException, IOException {
         super.extendAll(cntx, select);
         TcPersonalConfig pConfig = cntx.personalConfig();
@@ -143,7 +144,8 @@ public class EventListWorker extends ListWorkerVeraWeb {
 	 * 
 	 * @see #getSearch(OctopusContext)
 	 */
-	protected void extendWhere(OctopusContext cntx, Select select) throws BeanException {
+	@Override
+    protected void extendWhere(OctopusContext cntx, Select select) throws BeanException {
 		Event search = getSearch(cntx);
 		
 		// WHERE - Filtert das Datenbank Ergebnis anhand der Benutzereingaben.
@@ -199,7 +201,8 @@ public class EventListWorker extends ListWorkerVeraWeb {
 	 * <br><br>
 	 * siehe Anwendungsfall: UC.VERA.LOESCH
 	 */
-	protected int removeSelection(OctopusContext cntx, List errors, List selection) throws BeanException, IOException {
+	@Override
+    protected int removeSelection(OctopusContext cntx, List errors, List selection) throws BeanException, IOException {
 		int count = 0;
 		if (selection == null || selection.size() == 0) return count;
 		Database database = new DatabaseVeraWeb(cntx);
@@ -238,7 +241,7 @@ public class EventListWorker extends ListWorkerVeraWeb {
 		Select select = database.getSelectIds(event).where(clause);
 		
 		Map data;
-		for (Iterator it = database.getList(select).iterator(); it.hasNext(); ) {
+		for (Iterator it = database.getList(select, database).iterator(); it.hasNext(); ) {
 			data = (Map)it.next();
 			event.id = (Integer)data.get("id");
 			if (removeBean(cntx, event)) {
@@ -252,7 +255,8 @@ public class EventListWorker extends ListWorkerVeraWeb {
 	/**
 	 * L�scht Veranstaltungen und die zugeordneten G�ste.
 	 */
-	protected boolean removeBean(OctopusContext cntx, Bean bean) throws BeanException, IOException {
+	@Override
+    protected boolean removeBean(OctopusContext cntx, Bean bean) throws BeanException, IOException {
 		Database database = new DatabaseVeraWeb(cntx);
 		
 		Event event = (Event)bean;

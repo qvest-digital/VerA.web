@@ -50,7 +50,8 @@ public class FunctionWorker extends StammdatenWorker {
     //
     // Oberklasse BeanListWorker
     //
-	protected Integer getLimit(OctopusContext cntx) {
+	@Override
+    protected Integer getLimit(OctopusContext cntx) {
 		return new Integer(5);
 	}
 }
