@@ -3,5 +3,5 @@
    "-//Sun Microsystems, Inc.//DTD J2EE Application 1.3//EN"
    "http://www.jboss.org/j2ee/dtd/jboss-app_3_2.dtd">
 <jboss-app>
-     <loader-repository>de.tarent.veraweb:loader=octopus.war</loader-repository>
+     <loader-repository>de.tarent.veraweb:loader=veraweb.war</loader-repository>
 </jboss-app>

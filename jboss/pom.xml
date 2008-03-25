@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?><project>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>de.tarent.aa.veraweb</groupId>
+  <artifactId>veraweb-ear</artifactId>
+  <packaging>ear</packaging>
+  <name>veraweb</name>
+  <version>1.2.0-SNAPSHOT</version>
+  <description>Veranstaltungsmanagment veraweb</description>
+  <url>http://veraweb.evolvis.org/</url>
+  <inceptionYear>2005</inceptionYear>
+  <mailingLists>
+    <mailingList>
+      <name>veraweb-commits@evolvis.org</name>
+    </mailingList>
+  </mailingLists>
+  <developers>
+    <developer>
+      <id>jerolimov</id>
+      <name>Christoph Jerolimov</name>
+      <email>c.jerolimov@tarent.de</email>
+      <organization>tarent GmbH</organization>
+      <organizationUrl>http://www.tarent.de/</organizationUrl>
+      <roles>
+        <role>Developer</role>
+      </roles>
+      <timezone>+1</timezone>
+    </developer>
+    <developer>
+      <id>hhelwich</id>
+      <name>Hendrik Helwich</name>
+      <email>h.helwich@tarent.de</email>
+      <organization>tarent GmbH</organization>
+      <organizationUrl>http://www.tarent.de/</organizationUrl>
+      <roles>
+        <role>Developer</role>
+      </roles>
+      <timezone>+1</timezone>
+    </developer>
+    <developer>
+      <id>mklink</id>
+      <name>Michael Klink</name>
+      <email>m.klink@tarent.de</email>
+      <organization>tarent GmbH</organization>
+      <organizationUrl>http://www.tarent.de/</organizationUrl>
+      <roles>
+        <role>Developer</role>
+      </roles>
+      <timezone>+1</timezone>
+    </developer>
+  </developers>
+  <licenses>
+    <license>
+      <name>GNU General Public License</name>
+      <url>http://www.gnu.org/licenses/gpl-2.0.txt</url>
+    </license>
+  </licenses>
+  <scm>
+    <connection>scm:svn:svn://svn.evolvis.org/svnroot/veraweb/trunk</connection>
+  </scm>
+  <organization>
+    <name>tarent GmbH, Germany</name>
+    <url>http://www.tarent.de/</url>
+  </organization>
+  <build>
+    <outputDirectory>../target/${project.artifactId}/WEB-INF/classes</outputDirectory>
+    <resources>
+      <resource>
+        <directory>../src/main/resources</directory>
+      </resource>
+    </resources>
+    <plugins>
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>1.5</source>
+          <target>1.5</target>
+          <encoding>UTF-8</encoding>
+        </configuration>
+      </plugin>
+      <plugin>
+        <artifactId>maven-ear-plugin</artifactId>
+        <configuration>
+          <archive>
+            <addMavenDescriptor>false</addMavenDescriptor>
+            <manifestEntries>
+              <version_name>${project.artifactId}</version_name>
+              <version_description>${project.description}</version_description>
+              <version_copyright>Copyright (c) 2005-2008 tarent GmbH</version_copyright>
+              <version_vendor>tarent GmbH (www.tarent.de)</version_vendor>
+              <version_version>${project.version}</version_version>
+            </manifestEntries>
+          </archive>
+          <jboss>
+            <version>4</version>
+            <loader-repository>com.foo:loader=${artifactId}.ear</loader-repository>
+          </jboss>
+          <modules>
+            <webModule>
+              <bundleFileName>veraweb.war</bundleFileName>
+              <unpack>false</unpack>
+              <groupId>de.tarent.aa.veraweb</groupId>
+              <artifactId>veraweb</artifactId>
+              <context-root>verwaweb</context-root>
+            </webModule>
+          </modules>
+          <webappDirectory>../target/${artifactId}</webappDirectory>
+          <applicationXml>../src/main/webapp/ear/meta/application.xml</applicationXml>
+          <earSourceExcludes>OCTOPUS/customized.xml</earSourceExcludes>
+          <finalName>veraweb</finalName>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+  <dependencies>
+    <dependency>
+      <groupId>de.tarent.aa.veraweb</groupId>
+      <artifactId>veraweb</artifactId>
+      <version>1.2.0-SNAPSHOT</version>
+      <type>war</type>
+    </dependency>
+  </dependencies>
+  <distributionManagement>
+    <repository>
+      <id>evolvis-release-repository</id>
+      <name>evolvis.org release repository</name>
+      <url>scpexe://maven-repo.evolvis.org/var/www/maven_repo/releases</url>
+    </repository>
+    <snapshotRepository>
+      <id>evolvis-snapshot-repository</id>
+      <name>evolvis.org snapshot repository</name>
+      <url>scpexe://maven-repo.evolvis.org/var/www/maven_repo/snapshots</url>
+    </snapshotRepository>
+    <site>
+      <id>evolvis-site-repository</id>
+      <name>evolvis.org site repository</name>
+      <url>scpexe://maven@svn.evolvis.org/site/veraweb/htdocs/maven-site</url>
+    </site>
+  </distributionManagement>
+</project>

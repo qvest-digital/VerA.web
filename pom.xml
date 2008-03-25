@@ -62,7 +62,6 @@
     <url>http://www.tarent.de/</url>
   </organization>
   <build>
-    <sourceDirectory>src/main/java</sourceDirectory>
     <testSourceDirectory>src/test/java</testSourceDirectory>
     <outputDirectory>target/${project.artifactId}/WEB-INF/classes</outputDirectory>
     <testOutputDirectory>target/test-classes</testOutputDirectory>
@@ -82,7 +81,7 @@
         <configuration>
           <source>1.5</source>
           <target>1.5</target>
-          <encoding>ISO-8859-1</encoding>
+          <encoding>UTF-8</encoding>
         </configuration>
       </plugin>
       <plugin>
@@ -90,6 +89,7 @@
         <version>2.0</version>
         <configuration>
           <archive>
+            <addMavenDescriptor>false</addMavenDescriptor>
             <manifestEntries>
               <version_name>${project.artifactId}</version_name>
               <version_description>${project.description}</version_description>
@@ -244,36 +244,36 @@
       <plugin>
         <artifactId>maven-project-info-reports-plugin</artifactId>
         <configuration>
-          <charset>ISO-8859-1</charset>
-          <encoding>ISO-8859-1</encoding>
+          <charset>UTF-8</charset>
+          <encoding>UTF-8</encoding>
         </configuration>
       </plugin>
       <plugin>
         <artifactId>maven-jxr-plugin</artifactId>
         <configuration>
-          <charset>ISO-8859-1</charset>
-          <encoding>ISO-8859-1</encoding>
+          <charset>UTF-8</charset>
+          <encoding>UTF-8</encoding>
         </configuration>
       </plugin>
       <plugin>
         <artifactId>maven-clover-plugin</artifactId>
         <configuration>
-          <charset>ISO-8859-1</charset>
-          <encoding>ISO-8859-1</encoding>
+          <charset>UTF-8</charset>
+          <encoding>UTF-8</encoding>
         </configuration>
       </plugin>
       <plugin>
         <artifactId>maven-changes-plugin</artifactId>
         <configuration>
-          <charset>ISO-8859-1</charset>
-          <encoding>ISO-8859-1</encoding>
+          <charset>UTF-8</charset>
+          <encoding>UTF-8</encoding>
         </configuration>
       </plugin>
       <plugin>
         <artifactId>maven-surefire-report-plugin</artifactId>
         <configuration>
-          <charset>ISO-8859-1</charset>
-          <encoding>ISO-8859-1</encoding>
+          <charset>UTF-8</charset>
+          <encoding>UTF-8</encoding>
         </configuration>
       </plugin>
       <plugin>
@@ -281,8 +281,8 @@
         <configuration>
           <source>1.5</source>
           <target>1.5</target>
-          <charset>ISO-8859-1</charset>
-          <encoding>ISO-8859-1</encoding>
+          <charset>UTF-8</charset>
+          <encoding>UTF-8</encoding>
           <minmemory>128m</minmemory>
           <maxmemory>256m</maxmemory>
           <show>package</show>
