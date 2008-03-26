@@ -173,7 +173,7 @@ public class PersonExportWorker extends PersonListWorker {
         			if (addressEx == null) memberAEx = "_a_e1";
         			
         			// Tabelle �ffnen und erste Zeile schreiben
-        			spreadSheet.openTable("G�ste", 65);
+        			spreadSheet.openTable("Gäste", 65);
         			spreadSheet.openRow();
         			exportHeader(spreadSheet);
         			spreadSheet.closeRow();
@@ -310,7 +310,7 @@ public class PersonExportWorker extends PersonListWorker {
 		spreadSheet.addCell("Inland"); // Ja / Nein
 		spreadSheet.addCell("Sprachen");
 		spreadSheet.addCell("Geschlecht"); // M oder F
-		spreadSheet.addCell("Nationalit�t");
+		spreadSheet.addCell("Nationalität");
 		spreadSheet.addCell("Hinweis_Gastgeber");
 		spreadSheet.addCell("Hinweis_Orgateam");
 		
@@ -325,7 +325,7 @@ public class PersonExportWorker extends PersonListWorker {
 		spreadSheet.addCell("Partner_Inland"); // Ja / Nein
 		spreadSheet.addCell("Partner_Sprachen");
 		spreadSheet.addCell("Partner_Geschlecht"); // M oder F
-		spreadSheet.addCell("Partner_Nationalit�t");
+		spreadSheet.addCell("Partner_Nationalität");
 		spreadSheet.addCell("Partner_Hinweis_Gastgeber");
 		spreadSheet.addCell("Partner_Hinweis_Orgateam");
 		
