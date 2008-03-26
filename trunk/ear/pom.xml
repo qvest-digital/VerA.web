@@ -62,12 +62,7 @@
     <url>http://www.tarent.de/</url>
   </organization>
   <build>
-    <outputDirectory>../target/${project.artifactId}/WEB-INF/classes</outputDirectory>
-    <resources>
-      <resource>
-        <directory>../src/main/resources</directory>
-      </resource>
-    </resources>
+    <outputDirectory>target/${project.artifactId}</outputDirectory>
     <plugins>
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
@@ -103,9 +98,8 @@
               <context-root>verwaweb</context-root>
             </webModule>
           </modules>
-          <webappDirectory>../target/${artifactId}</webappDirectory>
+          <webappDirectory>${project.build.directory}-${project.version}/${artifactId}</webappDirectory>
           <applicationXml>../src/main/webapp/ear/meta/application.xml</applicationXml>
-          <earSourceExcludes>OCTOPUS/customized.xml</earSourceExcludes>
           <finalName>veraweb</finalName>
         </configuration>
       </plugin>
