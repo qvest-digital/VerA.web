@@ -13,6 +13,7 @@
 			}
 			else
 			{
+				tab.className = "tabactiv";
 /*				tab.style.borderTop = '1px solid #C0C7F0'; */
 /*				tab.style.borderLeft = '1px solid #C0C7F0'; */
 				tab.style.borderBottom = 'none';
@@ -34,6 +35,7 @@
 			}
 			else
 			{
+				tab.className = "tabinactiv";
 				tab.style.borderBottom = '1px solid #80A7E0';
 				tab.style.backgroundColor = '#d3d8df';
 				if (link) {
