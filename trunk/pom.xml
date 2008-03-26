@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project>
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>de.tarent.aa.veraweb</groupId>
+  <artifactId>veraweb-ear</artifactId>
+
+  <name>veraweb</name>
+  <version>1.2.0-SNAPSHOT</version>
+  <packaging>pom</packaging>
+
+  <scm>
+    <connection>scm:svn:svn://svn.evolvis.org/svnroot/veraweb/trunk</connection>
+  </scm>
+
+  <organization>
+    <name>tarent GmbH, Germany</name>
+    <url>http://www.tarent.de/</url>
+  </organization>
+
+  <licenses>
+    <license>
+      <name>GNU General Public License</name>
+      <url>http://www.gnu.org/licenses/gpl-2.0.txt</url>
+    </license>
+  </licenses>
+
+  <modules>
+    <module>veraweb-war</module>
+    <module>veraweb-ear</module>  
+  </modules>
+
+  <distributionManagement>
+    <repository>
+      <id>evolvis-release-repository</id>
+      <name>evolvis.org release repository</name>
+      <url>scpexe://maven-repo.evolvis.org/var/www/maven_repo/releases</url>
+    </repository>
+
+    <snapshotRepository>
+      <id>evolvis-snapshot-repository</id>
+      <name>evolvis.org snapshot repository</name>
+      <url>scpexe://maven-repo.evolvis.org/var/www/maven_repo/snapshots</url>
+    </snapshotRepository>
+
+    <site>
+      <id>evolvis-site-repository</id>
+      <name>evolvis.org site repository</name>
+      <url>scpexe://maven@svn.evolvis.org/site/veraweb/htdocs/maven-site</url>
+    </site>
+  </distributionManagement>
+</project>

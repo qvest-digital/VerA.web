@@ -5,49 +5,6 @@
   <packaging>ear</packaging>
   <name>veraweb</name>
   <version>1.2.0-SNAPSHOT</version>
-  <description>Veranstaltungsmanagment veraweb</description>
-  <url>http://veraweb.evolvis.org/</url>
-  <inceptionYear>2005</inceptionYear>
-  <mailingLists>
-    <mailingList>
-      <name>veraweb-commits@evolvis.org</name>
-    </mailingList>
-  </mailingLists>
-  <developers>
-    <developer>
-      <id>jerolimov</id>
-      <name>Christoph Jerolimov</name>
-      <email>c.jerolimov@tarent.de</email>
-      <organization>tarent GmbH</organization>
-      <organizationUrl>http://www.tarent.de/</organizationUrl>
-      <roles>
-        <role>Developer</role>
-      </roles>
-      <timezone>+1</timezone>
-    </developer>
-    <developer>
-      <id>hhelwich</id>
-      <name>Hendrik Helwich</name>
-      <email>h.helwich@tarent.de</email>
-      <organization>tarent GmbH</organization>
-      <organizationUrl>http://www.tarent.de/</organizationUrl>
-      <roles>
-        <role>Developer</role>
-      </roles>
-      <timezone>+1</timezone>
-    </developer>
-    <developer>
-      <id>mklink</id>
-      <name>Michael Klink</name>
-      <email>m.klink@tarent.de</email>
-      <organization>tarent GmbH</organization>
-      <organizationUrl>http://www.tarent.de/</organizationUrl>
-      <roles>
-        <role>Developer</role>
-      </roles>
-      <timezone>+1</timezone>
-    </developer>
-  </developers>
   <licenses>
     <license>
       <name>GNU General Public License</name>
@@ -55,7 +12,7 @@
     </license>
   </licenses>
   <scm>
-    <connection>scm:svn:svn://svn.evolvis.org/svnroot/veraweb/trunk</connection>
+    <connection>scm:svn:svn://svn.evolvis.org/svnroot/veraweb/trunk/ear</connection>
   </scm>
   <organization>
     <name>tarent GmbH, Germany</name>
@@ -65,18 +22,9 @@
     <outputDirectory>target/${project.artifactId}</outputDirectory>
     <plugins>
       <plugin>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <configuration>
-          <source>1.5</source>
-          <target>1.5</target>
-          <encoding>UTF-8</encoding>
-        </configuration>
-      </plugin>
-      <plugin>
         <artifactId>maven-ear-plugin</artifactId>
         <configuration>
           <archive>
-            <addMavenDescriptor>false</addMavenDescriptor>
             <manifestEntries>
               <version_name>${project.artifactId}</version_name>
               <version_description>${project.description}</version_description>
@@ -98,9 +46,11 @@
               <context-root>verwaweb</context-root>
             </webModule>
           </modules>
+<!--
           <webappDirectory>${project.build.directory}-${project.version}/${artifactId}</webappDirectory>
           <applicationXml>../src/main/webapp/ear/meta/application.xml</applicationXml>
           <finalName>veraweb</finalName>
+-->
         </configuration>
       </plugin>
     </plugins>

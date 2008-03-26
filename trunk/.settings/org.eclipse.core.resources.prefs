@@ -1,5 +1,8 @@
-#Tue Mar 25 19:00:38 GMT+01:00 2008
+#Wed Mar 26 11:35:29 CET 2008
+=\=\=\=\=\=\=
+<<<<<<<=.mine
+>>>>>>>=.r104
 eclipse.preferences.version=1
-encoding//src/site=UTF-8
+encoding//veraweb-war/src/main/resources/de/tarent/octopus/beans/messages.properties=UTF-8
 encoding/<project>=ISO-8859-1
 instance/org.eclipse.core.net/org.eclipse.core.net.hasMigrated=true
