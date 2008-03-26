@@ -1,19 +1,20 @@
-<?xml version="1.0" encoding="UTF-8"?><project>
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project>
   <modelVersion>4.0.0</modelVersion>
 
+  <groupId>de.tarent.aa.veraweb</groupId>
+  <artifactId>veraweb</artifactId>
+  <packaging>ear</packaging>
+  <version>1.2.0-SNAPSHOT</version>
+
+  <name>veraweb</name>
   <description>Veranstaltungsmanagment veraweb</description>
   <url>http://veraweb.evolvis.org/</url>
-
-  <groupId>de.tarent.aa.veraweb</groupId>
-  <artifactId>veraweb-ear</artifactId>
-  <packaging>ear</packaging>
 
   <scm>
     <connection>scm:svn:svn://svn.evolvis.org/svnroot/veraweb/trunk/veraweb-ear</connection>
   </scm>
-
-  <name>veraweb</name>
-  <version>1.2.0-SNAPSHOT</version>
 
   <organization>
     <name>tarent GmbH, Germany</name>
@@ -30,7 +31,7 @@
   <inceptionYear>2005</inceptionYear>
 
   <build>
-    <outputDirectory>target/${project.artifactId}</outputDirectory>
+    <outputDirectory>target/${project.name}</outputDirectory>
 
     <plugins>
       <plugin>
@@ -49,7 +50,7 @@
 
           <jboss>
             <version>4</version>
-            <loader-repository>com.foo:loader=${artifactId}.ear</loader-repository>
+            <loader-repository>com.foo:loader=${project.name}.ear</loader-repository>
           </jboss>
 
           <modules>

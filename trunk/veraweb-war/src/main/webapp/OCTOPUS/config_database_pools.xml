@@ -28,7 +28,10 @@
 				<!--
 				Backend configuration
 				-->
+				<!--
 				<param name="serverName" value="192.168.165.100" />
+				-->
+				<param name="serverName" value="localhost" />
 				<param name="portNumber" value="5432" />
 				<param name="databaseName" value="veraweb" />
 				<param name="user" value="veraweb" />
