@@ -8,11 +8,11 @@
 
 <table class="tab" border="0" cellspacing="0" cellpadding="0"><tr>
 	<td class="tableft">&nbsp;</td>
-	<td class="tabinactiv"><a href="ShowPerson?id=$!person.id&tab=person" class="tabinactiv">Personendaten</a></td>
-	<td class="tabinactiv"><a href="ShowPerson?id=$!person.id&tab=anschrift" class="tabinactiv">Anschriften</a></td>
+	<td class="tabinactiv"><a href="ShowPerson?id=$!person.id&tab=person&offset=${navigation.current.offset}" class="tabinactiv">Personendaten</a></td>
+	<td class="tabinactiv"><a href="ShowPerson?id=$!person.id&tab=anschrift&offset=${navigation.current.offset}" class="tabinactiv">Anschriften</a></td>
 #if($person && $person && $person.id && $person.id)
-	<td class="tabactiv"><a href="ShowPersonDoctypeList?id=$!person.id" class="tabactiv">Dokumenttypen</a></td>
-	<td class="tabinactiv"><a href="ShowPersonCategorieList?id=$!person.id" class="tabinactiv">Kategorien</a></td>
+	<td class="tabactiv"><a href="ShowPersonDoctypeList?id=$!person.id&offset=${navigation.current.offset}" class="tabactiv">Dokumenttypen</a></td>
+	<td class="tabinactiv"><a href="ShowPersonCategorieList?id=$!person.id&offset=${navigation.current.offset}" class="tabinactiv">Kategorien</a></td>
 #else
 	<td class="tabdisabled"><span class="tabdisabled">Dokumenttypen</span></td>
 	<td class="tabdisabled"><span class="tabdisabled">Kategorien</span></td>
