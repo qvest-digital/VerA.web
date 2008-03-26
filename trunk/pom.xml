@@ -4,7 +4,10 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>de.tarent.aa.veraweb</groupId>
-  <artifactId>veraweb-ear</artifactId>
+  <artifactId>veraweb</artifactId>
+
+  <description>Veranstaltungsmanagment veraweb</description>
+  <url>http://veraweb.evolvis.org/</url>
 
   <name>veraweb</name>
   <version>1.2.0-SNAPSHOT</version>
@@ -25,6 +28,64 @@
       <url>http://www.gnu.org/licenses/gpl-2.0.txt</url>
     </license>
   </licenses>
+
+  <inceptionYear>2005</inceptionYear>
+
+  <mailingLists>
+    <mailingList>
+      <name>veraweb-commits@evolvis.org</name>
+    </mailingList>
+  </mailingLists>
+
+  <developers>
+    <developer>
+      <id>jerolimov</id>
+      <name>Christoph Jerolimov</name>
+      <email>c.jerolimov@tarent.de</email>
+      <organization>tarent GmbH</organization>
+      <organizationUrl>http://www.tarent.de/</organizationUrl>
+      <roles>
+        <role>Developer</role>
+      </roles>
+      <timezone>+1</timezone>
+    </developer>
+
+    <developer>
+      <id>hhelwich</id>
+      <name>Hendrik Helwich</name>
+      <email>h.helwich@tarent.de</email>
+      <organization>tarent GmbH</organization>
+      <organizationUrl>http://www.tarent.de/</organizationUrl>
+      <roles>
+        <role>Developer</role>
+      </roles>
+      <timezone>+1</timezone>
+    </developer>
+
+    <developer>
+      <id>mklink</id>
+      <name>Michael Klink</name>
+      <email>m.klink@tarent.de</email>
+      <organization>tarent GmbH</organization>
+      <organizationUrl>http://www.tarent.de/</organizationUrl>
+      <roles>
+        <role>Developer</role>
+      </roles>
+      <timezone>+1</timezone>
+    </developer>
+
+    <developer>
+      <id>cklein</id>
+      <name>Carsten Klein</name>
+      <email>c.klein@tarent.de</email>
+      <organization>tarent GmbH</organization>
+      <organizationUrl>http://www.tarent.de/</organizationUrl>
+      <roles>
+        <role>Developer</role>
+      </roles>
+      <timezone>+1</timezone>
+    </developer>
+  </developers>
 
   <modules>
     <module>veraweb-war</module>
