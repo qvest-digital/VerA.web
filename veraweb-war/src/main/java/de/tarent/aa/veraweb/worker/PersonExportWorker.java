@@ -48,6 +48,7 @@ import de.tarent.aa.veraweb.utils.OctopusHelper;
 import de.tarent.commons.spreadsheet.export.SpreadSheet;
 import de.tarent.commons.spreadsheet.export.SpreadSheetFactory;
 import de.tarent.dblayer.sql.clause.Expr;
+import de.tarent.dblayer.sql.clause.RawClause;
 import de.tarent.dblayer.sql.clause.Where;
 import de.tarent.dblayer.sql.statement.Select;
 import de.tarent.octopus.PersonalConfigAA;
@@ -168,9 +169,14 @@ public class PersonExportWorker extends PersonListWorker {
         					}
         				}
         			}
+        			/*
+        			 * fixing long standing bug
+        			 * there were typos here that resulted in that memberBEx and addressEx remained null
+        			 * cklein 2008-03-26
+        			 */
         			if (memberAEx == null) memberAEx = "_a_e1";
-        			if (memberBEx == null) memberAEx = "_a_e1";
-        			if (addressEx == null) memberAEx = "_a_e1";
+        			if (memberBEx == null) memberBEx = "_b_e1";
+        			if (addressEx == null) addressEx= "_a_e1";
         			
         			// Tabelle �ffnen und erste Zeile schreiben
         			spreadSheet.openTable("Gäste", 65);
@@ -191,8 +197,9 @@ public class PersonExportWorker extends PersonListWorker {
         			extendColumns(cntx, select);
         			extendWhere(cntx, select);
         			
-        			select.joinLeftOuter("veraweb.tperson_doctype", "tperson.pk", "tperson_doctype.fk_person" +
-        					" AND tperson_doctype.fk_doctype = " + doctype.id);
+        			select.from("veraweb.tperson_doctype");
+        			select.whereAnd( new RawClause( "tperson.pk=tperson_doctype.fk_person" +
+        					" AND tperson_doctype.fk_doctype = " + doctype.id ) );
         			select.select("textfield");
         			select.select("textfield_p");
         			select.select("textjoin");
@@ -200,7 +207,13 @@ public class PersonExportWorker extends PersonListWorker {
         			select.select("locale");
         			
         			// Export-Select ausf�hren
-        			exportSelect(
+        			/*
+        			 * fixing long standing bug
+        			 * exportSelect tries to access the current octopus context which tries to get itself
+        			 * from the thread local map of this thread which is not an octopus controlled thread
+        			 * cklein 2008-03-26
+        			 */
+        			exportSelect( cntx,
         					spreadSheet, database, ((PersonalConfigAA)cntx.personalConfig()).getGrants(),
         					doctype, select, data, memberAEx, memberBEx, addressEx);
         			
@@ -359,8 +372,8 @@ public class PersonExportWorker extends PersonListWorker {
      * @param memberBEx Attributschl�sselsuffix der Partnerperson
      * @param addressEx Attributschl�sselsuffix der Adressdaten
      */
-	protected void exportSelect(SpreadSheet spreadSheet, Database database, Grants grants, Doctype doctype, Select select, Map data, String memberAEx, String memberBEx, String addressEx) throws BeanException {
-		for (Iterator it = database.getList(select, database).iterator(); it.hasNext(); ) {
+	protected void exportSelect(final OctopusContext cntx, SpreadSheet spreadSheet, Database database, Grants grants, Doctype doctype, Select select, Map data, String memberAEx, String memberBEx, String addressEx) throws BeanException {
+		for (Iterator it = database.getBeanList("Person", select).iterator(); it.hasNext(); ) {
 			Map person = (Map)it.next();
 			
 			boolean showA =
