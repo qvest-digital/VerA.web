@@ -1,127 +1,156 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <project>
-  <modelVersion>4.0.0</modelVersion>
+	<modelVersion>4.0.0</modelVersion>
 
-  <groupId>de.tarent.aa.veraweb</groupId>
-  <artifactId>veraweb</artifactId>
+	<groupId>org.evolvis.veraweb</groupId>
+	<artifactId>veraweb-evolvis-parent</artifactId>
+	<packaging>pom</packaging>
+	<version>1.2.0-SNAPSHOT</version>
 
-  <description>Veranstaltungsmanagment veraweb</description>
-  <url>http://veraweb.evolvis.org/</url>
+	<name>veraweb-evolvis-parent</name>
+	<description>Veranstaltungsmanagment veraweb</description>
 
-  <name>veraweb</name>
-  <version>1.2.0-SNAPSHOT</version>
-  <packaging>pom</packaging>
+	<inceptionYear>2005</inceptionYear>
 
-  <scm>
-    <connection>scm:svn:svn://svn.evolvis.org/svnroot/veraweb/trunk</connection>
-  </scm>
+	<licenses>
+		<license>
+			<name>GNU General Public License</name>
+			<url>http://www.gnu.org/licenses/gpl-2.0.txt</url>
+		</license>
+	</licenses>
 
-  <organization>
-    <name>tarent GmbH, Germany</name>
-    <url>http://www.tarent.de/</url>
-  </organization>
+	<url>http://veraweb.evolvis.org/</url>
 
-  <licenses>
-    <license>
-      <name>GNU General Public License</name>
-      <url>http://www.gnu.org/licenses/gpl-2.0.txt</url>
-    </license>
-  </licenses>
+	<mailingLists>
+		<mailingList>
+			<name>veraweb-commits@evolvis.org</name>
+		</mailingList>
+		<mailingList>
+			<name>veraweb-discussion@evolvis.org</name>
+		</mailingList>
+	</mailingLists>
 
-  <inceptionYear>2005</inceptionYear>
+	<organization>
+		<name>tarent GmbH, Germany</name>
+		<url>http://www.tarent.de/</url>
+	</organization>
 
-  <mailingLists>
-    <mailingList>
-      <name>veraweb-commits@evolvis.org</name>
-    </mailingList>
-  </mailingLists>
+	<scm>
+		<connection>
+			scm:svn:svn://svn.evolvis.org/svnroot/veraweb/trunk
+		</connection>
+	</scm>
 
-  <developers>
-    <developer>
-      <id>jerolimov</id>
-      <name>Christoph Jerolimov</name>
-      <email>c.jerolimov@tarent.de</email>
-      <organization>tarent GmbH</organization>
-      <organizationUrl>http://www.tarent.de/</organizationUrl>
-      <roles>
-        <role>Developer</role>
-      </roles>
-      <timezone>+1</timezone>
-    </developer>
+	<repositories>
+		<repository>
+			<id>evolvis-release-repository</id>
+			<name>evolvis.org release repository</name>
+			<url>http://maven-repo.evolvis.org/releases</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>evolvis-snapshot-repository</id>
+			<name>evolvis.org snapshot repository</name>
+			<url>http://maven-repo.evolvis.org/snapshots</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
 
-    <developer>
-      <id>hhelwich</id>
-      <name>Hendrik Helwich</name>
-      <email>h.helwich@tarent.de</email>
-      <organization>tarent GmbH</organization>
-      <organizationUrl>http://www.tarent.de/</organizationUrl>
-      <roles>
-        <role>Developer</role>
-      </roles>
-      <timezone>+1</timezone>
-    </developer>
+	<distributionManagement>
+		<repository>
+			<id>evolvis-release-repository</id>
+			<name>evolvis.org release repository</name>
+			<url>
+				scpexe://maven-repo.evolvis.org/var/www/maven_repo/releases
+			</url>
+		</repository>
 
-    <developer>
-      <id>mklink</id>
-      <name>Michael Klink</name>
-      <email>m.klink@tarent.de</email>
-      <organization>tarent GmbH</organization>
-      <organizationUrl>http://www.tarent.de/</organizationUrl>
-      <roles>
-        <role>Developer</role>
-      </roles>
-      <timezone>+1</timezone>
-    </developer>
+		<snapshotRepository>
+			<id>evolvis-snapshot-repository</id>
+			<name>evolvis.org snapshot repository</name>
+			<url>
+				scpexe://maven-repo.evolvis.org/var/www/maven_repo/snapshots
+			</url>
+		</snapshotRepository>
 
-    <developer>
-      <id>cklein</id>
-      <name>Carsten Klein</name>
-      <email>c.klein@tarent.de</email>
-      <organization>tarent GmbH</organization>
-      <organizationUrl>http://www.tarent.de/</organizationUrl>
-      <roles>
-        <role>Developer</role>
-      </roles>
-      <timezone>+1</timezone>
-    </developer>
-  </developers>
+		<site>
+			<id>evolvis-site-repository</id>
+			<name>evolvis.org site repository</name>
+			<url>
+				scpexe://maven@svn.evolvis.org/site/veraweb/htdocs/maven-site
+			</url>
+		</site>
+	</distributionManagement>
 
-  <modules>
-    <module>veraweb-war</module>
-    <module>veraweb-ear</module>  
-  </modules>
+	<developers>
+		<developer>
+			<id>jerolimov</id>
+			<name>Christoph Jerolimov</name>
+			<email>c.jerolimov@tarent.de</email>
+			<organization>tarent GmbH</organization>
+			<organizationUrl>http://www.tarent.de/</organizationUrl>
+			<roles>
+				<role>Developer</role>
+			</roles>
+			<timezone>+1</timezone>
+		</developer>
 
-  <build>
-    <plugins>
-      <plugin>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <configuration>
-          <source>1.5</source>
-          <target>1.5</target>
-          <encoding>UTF-8</encoding>
-        </configuration>
-      </plugin>
-    </plugins>
-  </build>
+		<developer>
+			<id>hhelwich</id>
+			<name>Hendrik Helwich</name>
+			<email>h.helwich@tarent.de</email>
+			<organization>tarent GmbH</organization>
+			<organizationUrl>http://www.tarent.de/</organizationUrl>
+			<roles>
+				<role>Developer</role>
+			</roles>
+			<timezone>+1</timezone>
+		</developer>
 
-  <distributionManagement>
-    <repository>
-      <id>evolvis-release-repository</id>
-      <name>evolvis.org release repository</name>
-      <url>scpexe://maven-repo.evolvis.org/var/www/maven_repo/releases</url>
-    </repository>
+		<developer>
+			<id>mklink</id>
+			<name>Michael Klink</name>
+			<email>m.klink@tarent.de</email>
+			<organization>tarent GmbH</organization>
+			<organizationUrl>http://www.tarent.de/</organizationUrl>
+			<roles>
+				<role>Developer</role>
+			</roles>
+			<timezone>+1</timezone>
+		</developer>
 
-    <snapshotRepository>
-      <id>evolvis-snapshot-repository</id>
-      <name>evolvis.org snapshot repository</name>
-      <url>scpexe://maven-repo.evolvis.org/var/www/maven_repo/snapshots</url>
-    </snapshotRepository>
+		<developer>
+			<id>cklein</id>
+			<name>Carsten Klein</name>
+			<email>c.klein@tarent.de</email>
+			<organization>tarent GmbH</organization>
+			<organizationUrl>http://www.tarent.de/</organizationUrl>
+			<roles>
+				<role>Developer</role>
+			</roles>
+			<timezone>+1</timezone>
+		</developer>
+	</developers>
 
-    <site>
-      <id>evolvis-site-repository</id>
-      <name>evolvis.org site repository</name>
-      <url>scpexe://maven@svn.evolvis.org/site/veraweb/htdocs/maven-site</url>
-    </site>
-  </distributionManagement>
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.5</source>
+					<target>1.5</target>
+					<encoding>UTF-8</encoding>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<modules>
+		<module>veraweb-war</module>
+		<module>veraweb-ear</module>
+	</modules>
 </project>

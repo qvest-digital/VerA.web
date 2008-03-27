@@ -4,8 +4,6 @@
 <!--
 	Octopus config.xml
 	
-	Auswärtiges Amt - VerA.web
-	
 	E-Mail-Versendung
 -->
 <tcModuleConfig>
@@ -15,9 +13,12 @@
 			<!-- die Wartezeit zwischen dem Versendenden verschiedener E-Mails in Sekunden. -->
 			<param name="waitBetweenJobs" value="60"/>
 			<!-- der SMTP-Server. -->
-			<param name="host" value="hermes.tarent.de"/>
-			<!-- der Absender, wenn zum versendenden Benutzer keine E-Mail-Adresse im LDAP gefunden wird; hier kann "$role" als Platzhalter für die Rolle des versendenden Benutzers genutzt werden; zum Beispiel "$role@auswaertiges-amt.de". -->
-			<param name="from" value="$role@tarent.de"/>
+			<param name="host" value="mail.example.com"/>
+			<!--
+				Der Absender, wenn zum versendenden Benutzer keine E-Mail-Adresse im LDAP gefunden wird.
+				Hier kann "$role" als Platzhalter für die Rolle des versendenden Benutzers genutzt werden.
+			-->
+			<param name="from" value="$role@example.com"/>
 		</param>
 		<!-- maximale Länge, die eine "mailto:..."-URL annehmen darf; "-1"  steht für keine Beschränkung. -->
 		<param name="mailToUrlMaxSize" value="1024"/>

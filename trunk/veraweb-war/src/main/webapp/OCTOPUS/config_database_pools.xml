@@ -4,8 +4,6 @@
 <!--
 	Octopus config.xml
 	
-	Auswärtiges Amt - VerA.web
-	
 	LDAP-Access - Authentifizierung für dieses Modul.
 -->
 <tcModuleConfig>
@@ -28,9 +26,6 @@
 				<!--
 				Backend configuration
 				-->
-				<!--
-				<param name="serverName" value="192.168.165.100" />
-				-->
 				<param name="serverName" value="localhost" />
 				<param name="portNumber" value="5432" />
 				<param name="databaseName" value="veraweb" />
@@ -43,7 +38,7 @@
 				if no connection becomes available within this time. 
 				Default: 40 
 				-->
-				<param name="poolMaxActive" value="10" />
+				<param name="poolMaxActive" value="40" />
 				
 				<!--
 				Maximum time to wait for a free connection.
@@ -55,13 +50,13 @@
 				Minimum Idle connection to hold in the pool.
 				Default: 2
 				-->				
-				<param name="poolMinIdle" value="1" />
+				<param name="poolMinIdle" value="2" />
 				
 				<!--
 				Maximum Idle connection to hold in the pool.
 				Default: 10
 				-->
-				<param name="poolMaxIdle" value="3" />
+				<param name="poolMaxIdle" value="10" />
 				
 				<!-- 
 				The time im ms to wait before checking for old connectoins to remove in ms.
