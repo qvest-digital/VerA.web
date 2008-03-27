@@ -297,7 +297,7 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 		if (search != null) {
 			select = new Select(search.categoriesSelection != null || search.categorie2 != null);
 		} else {
-			select = SQL.SelectDistinct();
+			select = SQL.SelectDistinct( database );
 		}
 
 		return select.
@@ -674,8 +674,8 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 		}
 	}
 
-	static Delete getPersonClear() {
-		return SQL.Delete().from("veraweb.tperson").where(new RawClause(
+	static Delete getPersonClear( Database db ) {
+		return SQL.Delete( db ).from("veraweb.tperson").where(new RawClause(
 				"deleted = 't' AND " +
 				"pk NOT IN (SELECT fk_person FROM veraweb.tguest) AND " +
 				"pk NOT IN (SELECT fk_person FROM veraweb.tperson_mailinglist)"));

@@ -131,7 +131,7 @@ public class GuestReportWorker {
 			titel += " (alphabetisch)";
 		}
 		
-		Select select = SQL.Select().
+		Select select = SQL.Select( database ).
 				from("veraweb.tguest").
 				selectAs("tguest.pk", "id").
 				selectAs("CASE WHEN orderno IS NOT NULL THEN orderno ELSE orderno_p END", "someorderno").

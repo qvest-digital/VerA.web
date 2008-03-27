@@ -46,14 +46,14 @@ import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.beans.Database;
 
 /**
- * Diese Klasse sammelt Hilfsklassen zum Ermitteln laufender Nummern für Gäste. 
+ * Diese Klasse sammelt Hilfsklassen zum Ermitteln laufender Nummern fï¿½r Gï¿½ste. 
  * 
  * @author christoph
  */
 public class GuestSerialNumber {
     /**
-     * Diese Klasse ist Basisklasse für Hilfsklassen zum Ermitteln laufender
-     * Nummern für Gäste.
+     * Diese Klasse ist Basisklasse fï¿½r Hilfsklassen zum Ermitteln laufender
+     * Nummern fï¿½r Gï¿½ste.
      */
 	static public abstract class CalcSerialNumber {
 		protected int orderNo = 0;
@@ -61,8 +61,8 @@ public class GuestSerialNumber {
 		protected Event event;
 		
         /**
-         * Dieser Konstruktor übernimmt Datenbank und Veranstaltung zur
-         * Benutzung bei der späteren Berechnung laufender Gästenummern. 
+         * Dieser Konstruktor ï¿½bernimmt Datenbank und Veranstaltung zur
+         * Benutzung bei der spï¿½teren Berechnung laufender Gï¿½stenummern. 
          */
 		public CalcSerialNumber(Database database, Event event) {
 			this.database = database;
@@ -70,14 +70,14 @@ public class GuestSerialNumber {
 		}
 
         /**
-         * Diese abstrakte Methode berechnet die tatsächlichen laufenden
-         * Nummern der Gäste der im Konstruktor übergebenen Veranstaltung
-         * in der ebenda übergebenen Datenbank.  
+         * Diese abstrakte Methode berechnet die tatsï¿½chlichen laufenden
+         * Nummern der Gï¿½ste der im Konstruktor ï¿½bergebenen Veranstaltung
+         * in der ebenda ï¿½bergebenen Datenbank.  
          */
 		public abstract void calcSerialNumber() throws BeanException, IOException;
 		
 		protected void clearSerialNumber() throws BeanException {
-			Update update = SQL.Update().
+			Update update = SQL.Update( database ).
 					table("veraweb.tguest").
 					update("orderno", null).
 					update("orderno_p", null).
@@ -117,7 +117,7 @@ public class GuestSerialNumber {
 				throw new IOException("wrong invitationtype");
 			}
 			
-			database.execute(SQL.Update().
+			database.execute(SQL.Update( database ).
 					table("veraweb.tguest").
 					update("tguest.orderno", orderno_a).
 					update("tguest.orderno_p", orderno_b).
@@ -131,7 +131,7 @@ public class GuestSerialNumber {
 		}
 		
 		protected Select getSelect() {
-			return SQL.Select().
+			return SQL.Select( database ).
 					from("veraweb.tguest").
 					selectAs("tguest.pk", "id").
 					selectAs("tguest.invitationtype", "invitationtype").
@@ -144,29 +144,29 @@ public class GuestSerialNumber {
 	}
 
     /**
-     * Berechnet die 'Laufende Nummer' einer Gästeliste nach folgendem Schema:
+     * Berechnet die 'Laufende Nummer' einer Gï¿½steliste nach folgendem Schema:
      * <ul>
-     * <li>Sortiert Gäste mit Rang ein.</li>
-     * <li>Sortiert Gäste anhand ihrer Kategorie ein.</li>
+     * <li>Sortiert Gï¿½ste mit Rang ein.</li>
+     * <li>Sortiert Gï¿½ste anhand ihrer Kategorie ein.</li>
      * <li>Sortiert alle anderen anhand ihres Namens ein.</li>
      * </ul>
      */
 	static public class CalcSerialNumberImpl2 extends CalcSerialNumber {
         /**
-         * Dieser Konstruktor übernimmt Datenbank und Veranstaltung zur
-         * Benutzung bei der späteren Berechnung laufender Gästenummern. 
+         * Dieser Konstruktor ï¿½bernimmt Datenbank und Veranstaltung zur
+         * Benutzung bei der spï¿½teren Berechnung laufender Gï¿½stenummern. 
          */
 		public CalcSerialNumberImpl2(Database database, Event event) {
 			super(database, event);
 		}
 		
         /**
-         * Diese Methode berechnet die tatsächlichen laufenden Nummern der
-         * Gäste der im Konstruktor übergebenen Veranstaltung in der ebenda
-         * übergebenen Datenbank nach folgendem Schema:
+         * Diese Methode berechnet die tatsï¿½chlichen laufenden Nummern der
+         * Gï¿½ste der im Konstruktor ï¿½bergebenen Veranstaltung in der ebenda
+         * ï¿½bergebenen Datenbank nach folgendem Schema:
          * <ul>
-         * <li>Sortiert Gäste mit Rang ein.</li>
-         * <li>Sortiert Gäste anhand ihrer Kategorie ein.</li>
+         * <li>Sortiert Gï¿½ste mit Rang ein.</li>
+         * <li>Sortiert Gï¿½ste anhand ihrer Kategorie ein.</li>
          * <li>Sortiert alle anderen anhand ihres Namens ein.</li>
          * </ul>
          */
@@ -175,7 +175,7 @@ public class GuestSerialNumber {
 			clearSerialNumber();
 			calcSerialNumberForGuestRank();
 			
-			Select select = SQL.Select().
+			Select select = SQL.Select( database ).
 					from("veraweb.tcategorie").
 					selectAs("pk", "id").
 					selectAs("flags", "flag").
@@ -240,8 +240,8 @@ public class GuestSerialNumber {
 		/**
 		 * @param event Event
 		 * @return
-		 * 		Where-Liste mit Einschränkung auf die übergebene Veranstaltung
-		 * 		und nur nocht nicht einsortierte Gäste.
+		 * 		Where-Liste mit Einschrï¿½nkung auf die ï¿½bergebene Veranstaltung
+		 * 		und nur nocht nicht einsortierte Gï¿½ste.
 		 */
 		private WhereList getGuestSerialNumberWhere(Event event) {
 			WhereList where = new WhereList();
@@ -254,31 +254,31 @@ public class GuestSerialNumber {
 	}
 
     /**
-     * Berechnet die 'Laufende Nummer' einer Gästeliste nach folgendem Schema:
+     * Berechnet die 'Laufende Nummer' einer Gï¿½steliste nach folgendem Schema:
      * <ul>
-     * <li>Sortiert Gäste anhand ihrer Kategorie ein.</li>
-     * <li>Sortiert Gäste mit Rang ein.</li>
-     * <li>Sortiert Gäste nach Akkreditierungsdatum ein.</li>
+     * <li>Sortiert Gï¿½ste anhand ihrer Kategorie ein.</li>
+     * <li>Sortiert Gï¿½ste mit Rang ein.</li>
+     * <li>Sortiert Gï¿½ste nach Akkreditierungsdatum ein.</li>
      * <li>Sortiert alle anderen anhand ihres Namens ein.</li>
      * </ul>
      */
 	static public class CalcSerialNumberImpl3 extends CalcSerialNumber {
         /**
-         * Dieser Konstruktor übernimmt Datenbank und Veranstaltung zur
-         * Benutzung bei der späteren Berechnung laufender Gästenummern. 
+         * Dieser Konstruktor ï¿½bernimmt Datenbank und Veranstaltung zur
+         * Benutzung bei der spï¿½teren Berechnung laufender Gï¿½stenummern. 
          */
 		public CalcSerialNumberImpl3(Database database, Event event) {
 			super(database, event);
 		}
 		
         /**
-         * Diese Methode berechnet die tatsächlichen laufenden Nummern der
-         * Gäste der im Konstruktor übergebenen Veranstaltung in der ebenda
-         * übergebenen Datenbank nach folgendem Schema:
+         * Diese Methode berechnet die tatsï¿½chlichen laufenden Nummern der
+         * Gï¿½ste der im Konstruktor ï¿½bergebenen Veranstaltung in der ebenda
+         * ï¿½bergebenen Datenbank nach folgendem Schema:
          * <ul>
-         * <li>Sortiert Gäste anhand ihrer Kategorie ein.</li>
-         * <li>Sortiert Gäste mit Rang ein.</li>
-         * <li>Sortiert Gäste nach Akkreditierungsdatum ein.</li>
+         * <li>Sortiert Gï¿½ste anhand ihrer Kategorie ein.</li>
+         * <li>Sortiert Gï¿½ste mit Rang ein.</li>
+         * <li>Sortiert Gï¿½ste nach Akkreditierungsdatum ein.</li>
          * <li>Sortiert alle anderen anhand ihres Namens ein.</li>
          * </ul>
          */

@@ -54,23 +54,23 @@ import de.tarent.octopus.server.OctopusContext;
 
 /**
  * <p>
- * Diese Octopus-Worker-Klasse stellt Operationen für die Verbindung
- * von Personen zu Dokumenttypen zur Verfügung.
+ * Diese Octopus-Worker-Klasse stellt Operationen fï¿½r die Verbindung
+ * von Personen zu Dokumenttypen zur Verfï¿½gung.
  * Details bitte dem BeanListWorker entnehmen.
  * </p>
  * 
  * <p>
  * Die Aktion {@link #showList(OctopusContext) showList} gibt eine
- * Liste zurück die zwigend alle Dokumenttypen enthält.
+ * Liste zurï¿½ck die zwigend alle Dokumenttypen enthï¿½lt.
  * Sollte zu der entsprechenden Person noch kein Dokumenttyp vorhanden
- * sein wird ein unvollständiges Bean zurückgegeben.
+ * sein wird ein unvollstï¿½ndiges Bean zurï¿½ckgegeben.
  * </p>
  * 
  * <p>
- * Der Worker stellt zusätzlich zur anzeige der Liste Aktionen
+ * Der Worker stellt zusï¿½tzlich zur anzeige der Liste Aktionen
  * zum direkten Anzeigen ({@link #showDetail(OctopusContext, Integer, Integer) showDetail})
  * und Speichern ({@link #saveDetail(OctopusContext) saveDetail}) von
- * {@link de.tarent.aa.veraweb.beans.PersonDoctype}-Beans zur Verfügung.
+ * {@link de.tarent.aa.veraweb.beans.PersonDoctype}-Beans zur Verfï¿½gung.
  * </p>
  * 
  * @author Christoph Jerolimov
@@ -90,11 +90,11 @@ public class PersonDoctypeWorker extends ListWorkerVeraWeb {
     // Oberklasse BeanListWorker
     //
 	/**
-	 * Überladen weil die standard Erstellung nicht richtig zählt.
+	 * ï¿½berladen weil die standard Erstellung nicht richtig zï¿½hlt.
 	 */
 	@Override
     protected Integer getCount(OctopusContext cntx, Database database) throws BeanException, IOException {
-		Select select = SQL.Select();
+		Select select = SQL.Select( database );
 		select.from("veraweb.tperson_doctype");
 		select.select("COUNT(*)");
 		extendWhere(cntx, select);
@@ -123,7 +123,7 @@ public class PersonDoctypeWorker extends ListWorkerVeraWeb {
 		PersonDoctype personDoctype = (PersonDoctype)bean;
 		if (personDoctype.id != null) {
 			Database database = getDatabase(cntx);
-			Update update = SQL.Update().
+			Update update = SQL.Update( database ).
 					table("veraweb.tperson_doctype").
 					update("addresstype", personDoctype.addresstype).
 					update("locale", personDoctype.locale).
@@ -139,21 +139,21 @@ public class PersonDoctypeWorker extends ListWorkerVeraWeb {
 	//
     // Octopus-Aktionen
     //
-    /** Octopus-Eingabeparameter für die Aktion {@link #showDetail(OctopusContext, Integer, Integer)} */
+    /** Octopus-Eingabeparameter fï¿½r die Aktion {@link #showDetail(OctopusContext, Integer, Integer)} */
 	public static final String INPUT_showDetail[] = { "persondoctype-id", "persondoctype-doctype" };
-    /** Octopus-Eingabeparameterzwang für die Aktion {@link #showDetail(OctopusContext, Integer, Integer)} */
+    /** Octopus-Eingabeparameterzwang fï¿½r die Aktion {@link #showDetail(OctopusContext, Integer, Integer)} */
 	public static final boolean MANDATORY_showDetail[] = { false, false };
 	/**
 	 * <p>
-	 * Lädt eine Person-Dokumententyp-Verknüpfung und stellt diese
+	 * Lï¿½dt eine Person-Dokumententyp-Verknï¿½pfung und stellt diese
 	 * als <code>persondoctype</code> in den Content.
 	 * </p>
 	 * 
 	 * <p>
-	 * Wenn eine Person-Doctype-ID übergeben wird, wird ein entsprechender
+	 * Wenn eine Person-Doctype-ID ï¿½bergeben wird, wird ein entsprechender
 	 * Eintrag aus der Datenbank geladen, falls dies nicht der Fall ist,
 	 * wird anhand der Doctype-ID dann ein neuer Person-Doctype-Eingtrag
-	 * erzeugt (nicht in der Datenbank) und zurückgegeben.
+	 * erzeugt (nicht in der Datenbank) und zurï¿½ckgegeben.
 	 * </p>
 	 * 
 	 * @param cntx OctopusContext
@@ -208,8 +208,8 @@ public class PersonDoctypeWorker extends ListWorkerVeraWeb {
     /** Eingabe-Parameter der Octopus-Aktion {@link #saveDetail(OctopusContext)} */
 	public static final String INPUT_saveDetail[] = {};
 	/**
-	 * Speichert eine Person-Doctype-Verknüpfung, die als <code>persondoctype</code>
-	 * Bean im Request vorhanden und gültig sein muss.
+	 * Speichert eine Person-Doctype-Verknï¿½pfung, die als <code>persondoctype</code>
+	 * Bean im Request vorhanden und gï¿½ltig sein muss.
 	 * 
 	 * @param cntx OctopusContext
 	 * @throws BeanException
@@ -231,7 +231,7 @@ public class PersonDoctypeWorker extends ListWorkerVeraWeb {
     public static final String INPUT_createAll[] = {};
     /**
      * Diese Octopus-Aktion erzeugt alle fehlenden Personen-Dokumenttypen
-     * zu der Person unter dem Schlüssel "person" im Octopus-Content.
+     * zu der Person unter dem Schlï¿½ssel "person" im Octopus-Content.
      * 
      * @param cntx Octopus-Kontext
      */
@@ -249,11 +249,11 @@ public class PersonDoctypeWorker extends ListWorkerVeraWeb {
     }
 
 	//
-    // öffentliche Hilfsmethoden
+    // ï¿½ffentliche Hilfsmethoden
     //
     /**
      * Diese Methode erzeugt alle fehlenden Personen-Dokumenttypen
-     * zu der übergebenen Person.
+     * zu der ï¿½bergebenen Person.
      */
 	public static void createPersonDoctype(OctopusContext cntx, Database database, ExecutionContext context, Person person) throws BeanException, IOException {
 		if (person == null || person.id == null) return;

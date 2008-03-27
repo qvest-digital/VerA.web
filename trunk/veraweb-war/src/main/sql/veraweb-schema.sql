@@ -54,9 +54,10 @@ CREATE OR REPLACE FUNCTION serv_verawebschema(int4) RETURNS varchar AS
  *  2008-03-06  cklein: fixed a few bugs: tworkarea table must be created prior to tperson table
  *  2008-03-14  cklein: adding not null constraint to tperson.fk_workarea, adding additional attribute objname to tchange_log
  *  2008-03-14	cklein: added foreign key constraint fk_orgunit to tworkarea
+ *  2008-03-27  cklein: typo in upgrade path for tperson caused upgrade to fail when called a second time (tperson_fkey_workarea was created twice or multiple times)
+ *                      missing drop sequence in upgrade path for timportperson
  * </changelog>
  * ----------------------------------------------------------- */
-
 
 DECLARE
 	vmsg varchar;
@@ -1616,7 +1617,7 @@ END;\'
 		--ALTER TABLE veraweb.tperson ADD CONSTRAINT tperson_fkey_workarea FOREIGN KEY (fk_workarea) REFERENCES veraweb.tworkarea (pk) ON UPDATE RESTRICT ON DELETE RESTRICT
 		vint := 0;
 		SELECT count(*) INTO vint FROM information_schema.constraint_column_usage
-			WHERE table_schema = \'veraweb\' AND table_name = \'tperson\' AND column_name = \'fk_workarea\' AND constraint_name = \'tperson_fkey_workarea\';
+			WHERE table_schema = \'veraweb\' AND table_name = \'tworkarea\' AND column_name = \'pk\' AND constraint_name = \'tperson_fkey_workarea\';
 		IF vint = 0 THEN
 			vmsg := \'begin.addconstraint.tperson.fk_workarea\';
 			INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
@@ -1759,12 +1760,13 @@ END;\'
 	--DROP falls veraltete Variante erkannt an Spalte ssalutation
 	vint := 0;
 	SELECT count(*) INTO vint FROM information_schema.columns
-		WHERE table_schema = \'veraweb\' AND table_name = \'timportperson\' AND column_name = \'ssalutation\';
-	IF vint > 0 THEN
+		WHERE table_schema = \'veraweb\' AND table_name = \'timportperson\' AND column_name = \'fk_workarea\';
+	IF vint = 0 THEN
 		vmsg := \'begin.dropTABLE.timportperson\';
 		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
 		IF $1 = 1 THEN
 			DROP TABLE veraweb.timportperson CASCADE;
+			DROP SEQUENCE veraweb.timportperson_pk_seq;
 		END IF;
 		vmsg := \'end.dropTABLE.timportperson\';
 		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);

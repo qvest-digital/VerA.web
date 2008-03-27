@@ -326,7 +326,7 @@ public class EventDetailWorker {
 						WorkerFactory.getGuestListWorker(cntx).removeBean(cntx, hostToRemove);
 					}
 
-					// context.execute(SQL.Update().
+					// context.execute(SQL.Update(database).
 					// table("veraweb.tguest").
 					// update("ishost", Boolean.FALSE).
 					// where(Where.and(
@@ -340,7 +340,7 @@ public class EventDetailWorker {
 						Boolean.TRUE);
 				} else if (updateHost)
 				{
-					context.execute(SQL.Update().table("veraweb.tguest").update("ishost", new Integer(1)).update("invitationtype", invitationtype)
+					context.execute(SQL.Update( database ).table("veraweb.tguest").update("ishost", new Integer(1)).update("invitationtype", invitationtype)
 						.where(Where.and(Expr.equal("fk_event", event.id), Expr.equal("fk_person", event.host))));
 					
 					// TODO also modifies tguest, full change logging requires
@@ -349,7 +349,7 @@ public class EventDetailWorker {
 
 				if (oldEvent != null && !event.invitationtype.equals(oldEvent.invitationtype))
 				{
-					context.execute(SQL.Update().table("veraweb.tguest").update("invitationtype", event.invitationtype).where(
+					context.execute(SQL.Update( database ).table("veraweb.tguest").update("invitationtype", event.invitationtype).where(
 						Where.and(Expr.equal("fk_event", event.id), Expr.notEqual("ishost", new Integer(1)))));
 
 					// TODO also modifies tevent, full change logging requires

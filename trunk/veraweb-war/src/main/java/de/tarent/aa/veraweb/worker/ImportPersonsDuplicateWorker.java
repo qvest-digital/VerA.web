@@ -78,13 +78,13 @@ public class ImportPersonsDuplicateWorker extends ListWorkerVeraWeb {
     public List showList(OctopusContext cntx) throws BeanException, IOException {
 		Map importDuplicatesProperties = (Map) cntx.moduleConfig().getParams().get("importDuplicatesProperties");
 		if (importDuplicatesProperties == null)
-			ImportPersonsWorker.logger.warn("Konfiguration für die Duplikatbearbeitung beim Personen-Import wurde nicht gefunden.");
+			ImportPersonsWorker.logger.warn("Konfiguration fï¿½r die Duplikatbearbeitung beim Personen-Import wurde nicht gefunden.");
 		if (cntx.sessionAsObject("limit" + BEANNAME) == null)
 			cntx.setSession("limit" + BEANNAME, new Integer(Integer.parseInt((String) importDuplicatesProperties.get("dsCount"))));
 		
 		List beans = super.showList(cntx);
 		
-		// Zu den Duplikatdatensätzen noch einige Beispiel-Duplikate hinzufügen.
+		// Zu den Duplikatdatensï¿½tzen noch einige Beispiel-Duplikate hinzufï¿½gen.
 		int dsCount = -1;
 		if (importDuplicatesProperties != null)
 			dsCount = Integer.parseInt((String) importDuplicatesProperties.get("dupCount"));
@@ -138,7 +138,7 @@ public class ImportPersonsDuplicateWorker extends ListWorkerVeraWeb {
 			Long importId = new Long(cntx.requestAsString("importId"));
 			
 			// Entfernt alle markierungen in der Datenbank.
-			Update update = SQL.Update();
+			Update update = SQL.Update( database );
 			update.table(database.getProperty(sample, "table"));
 			update.update("dupcheckstatus", ImportPerson.FALSE);
 			update.where(Where.and(
@@ -149,7 +149,7 @@ public class ImportPersonsDuplicateWorker extends ListWorkerVeraWeb {
 			// Markierungen wieder setzten.
 			List selection = getSelection(cntx, null);
 			if (selection != null && selection.size() > 0) {
-				update = SQL.Update();
+				update = SQL.Update( database );
 				update.table(database.getProperty(sample, "table"));
 				update.update("dupcheckstatus", ImportPerson.TRUE);
 				update.where(Where.and(Where.and(
@@ -171,7 +171,7 @@ public class ImportPersonsDuplicateWorker extends ListWorkerVeraWeb {
 	 * Bedingung:
 	 * Es existieren Duplikate zu dem Datensatz.
 	 * Datensatz wurde noch nicht festgeschrieben.
-	 * Nur Datensätze von dem aktuellen Importvorgang.
+	 * Nur Datensï¿½tze von dem aktuellen Importvorgang.
 	 */
 	@Override
     protected void extendWhere(OctopusContext cntx, Select select) throws BeanException {

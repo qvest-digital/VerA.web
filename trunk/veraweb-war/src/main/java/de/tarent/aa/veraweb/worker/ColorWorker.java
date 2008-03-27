@@ -59,15 +59,15 @@ import de.tarent.octopus.server.OctopusContext;
  * </p>
  * <ul>
  * <li>ID 1 = Inland: Ja - Geschlecht: Weiblich</li>
- * <li>ID 2 = Inland: Ja - Geschlecht: Männlich</li>
+ * <li>ID 2 = Inland: Ja - Geschlecht: Mï¿½nnlich</li>
  * <li>ID 3 = Inland: Nein - Geschlecht: Weiblich</li>
- * <li>ID 4 = Inland: Nein - Geschlecht: Männlich</li>
+ * <li>ID 4 = Inland: Nein - Geschlecht: Mï¿½nnlich</li>
  * </ul>
  * 
  * @author Christoph
  */
 public class ColorWorker {
-	/** Octopus-Eingabeparameter für die Aktion {@link #showList(OctopusContext)} */
+	/** Octopus-Eingabeparameter fï¿½r die Aktion {@link #showList(OctopusContext)} */
 	public static final String INPUT_showList[] = {};
 	/**
 	 * Holt eine Liste von Farben und stellt diese in den Content.
@@ -96,7 +96,7 @@ public class ColorWorker {
 				where(Expr.equal("pk", new Integer(4)))));
 	}
 
-	/** Octopus-Eingabeparameter für die Aktion {@link #saveList(OctopusContext)} */
+	/** Octopus-Eingabeparameter fï¿½r die Aktion {@link #saveList(OctopusContext)} */
 	public static final String INPUT_saveList[] = {};
 	/**
 	 * Speichert eine Liste von Farben.
@@ -130,7 +130,7 @@ public class ColorWorker {
 	}
 
 	protected void removeColor(Database database) throws BeanException {
-		Delete delete = SQL.Delete().from("veraweb.tcolor");
+		Delete delete = SQL.Delete( database ).from("veraweb.tcolor");
 		delete.where(new RawClause("pk NOT IN (1, 2, 3, 4)"));
 		database.execute(delete);
 	}
@@ -151,10 +151,10 @@ public class ColorWorker {
 	}
 
 	/**
-	 * Gibt die ID des entsprechenden Farbwertes zurück.
+	 * Gibt die ID des entsprechenden Farbwertes zurï¿½ck.
 	 * 
 	 * @param domestic (default ja)
-	 * @param sex (default männlich)
+	 * @param sex (default mï¿½nnlich)
 	 * @return 1 - 4
 	 */
 	public static Integer getColor(String domestic, String sex) {

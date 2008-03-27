@@ -56,7 +56,7 @@ import de.tarent.octopus.beans.ExecutionContext;
 import de.tarent.octopus.server.OctopusContext;
 
 /**
- * Diese Klasse dient als Importziel für die Methode
+ * Diese Klasse dient als Importziel fï¿½r die Methode
  * {@link DataExchangeWorker#importToTransit(OctopusContext, Map, String, String, Integer, Map)}.
  */
 public class VerawebDigester implements ImportDigester {
@@ -81,15 +81,15 @@ public class VerawebDigester implements ImportDigester {
     }
     
     //
-    // öffentliche Methoden
+    // ï¿½ffentliche Methoden
     //
     /**
      * Diese Methode liefert den aktuellen Stand dieses Imports in Form einer
      * {@link Map} mit speziellen Inhalten.
      * 
      * @return Map mit Informationen zum Import, insbesondere der Anzahl gefundener
-     *  Datensätze unter "dsCount", der Anzahl Duplikate unter "dupCount", der Anzahl
-     *  importierter Datensätze unter "saveCount" und der Import-ID unter "id".
+     *  Datensï¿½tze unter "dsCount", der Anzahl Duplikate unter "dupCount", der Anzahl
+     *  importierter Datensï¿½tze unter "saveCount" und der Import-ID unter "id".
      */
     public Map getImportStats() {
         return DataExchangeWorker.createImportStats(incorrectCount, personCount, duplicateCount, importableCount, importInstance.id);
@@ -114,13 +114,13 @@ public class VerawebDigester implements ImportDigester {
 
     /**
      * Diese Methode wird von einem {@link Importer} zu jeder zu importierenden
-     * Person aufgerufen, übergeben wird die Person und eine Liste mit Beans,
-     * die Zusätze zur Person darstellen.<br>
-     * Falls Abhängigkeiten unter diesen Beans bestehen, stehen in der
-     * Liste die Beans, von der eine bestimmte Bean abhängt, vor dieser. 
+     * Person aufgerufen, ï¿½bergeben wird die Person und eine Liste mit Beans,
+     * die Zusï¿½tze zur Person darstellen.<br>
+     * Falls Abhï¿½ngigkeiten unter diesen Beans bestehen, stehen in der
+     * Liste die Beans, von der eine bestimmte Bean abhï¿½ngt, vor dieser. 
      * 
      * @param person eine {@link ImportPerson}-Instanz
-     * @param extras eine Liste mit Beans, die Zusätze zur Person darstellen; es
+     * @param extras eine Liste mit Beans, die Zusï¿½tze zur Person darstellen; es
      *  werden nur solche akzeptiert, die {@link ImportPersonExtra} implementieren.
      * @throws BeanException 
      * @throws IOException 
@@ -143,28 +143,34 @@ public class VerawebDigester implements ImportDigester {
         person.dupcheckstatus = ImportPerson.FALSE;
         // Verwaltungsdaten: keine Duplikate
         person.duplicates = null;
-        // Verwaltungsdaten: nicht gelöscht
+        // Verwaltungsdaten: nicht gelï¿½scht
         person.deleted = PersonConstants.DELETED_FALSE;
         // Verwaltungsdaten: istFirma-Flag
         if (!PersonConstants.ISCOMPANY_TRUE.equals(person.iscompany))
             person.iscompany = PersonConstants.ISCOMPANY_FALSE;
         AddressHelper.checkPersonSalutation(person, db, context);
         
+        /*
+         * fk_workarea must not be null, setting default workarea "Keine" with pk == 0
+         * cklein 2008-03-27
+         */
+        person.workarea = new Integer( 0 );
+        
         // Datensatz nicht berechtigte Felder entziehen.
         person.clearRestrictedFields(cntx);
         
-        // Datensatz auf vollständigkeit testen.
+        // Datensatz auf vollstï¿½ndigkeit testen.
         person.verify();
         if (person.isCorrect()) {
-            // Zähler aktualisieren
+            // Zï¿½hler aktualisieren
             personCount++;
             
         	// Datensatz speichern.
 	        if (extras == null) {
-                db.saveBean(person, context, false); // neue ID wird nicht benötigt
+                db.saveBean(person, context, false); // neue ID wird nicht benï¿½tigt
 	        } else {
 	        	db.saveBean(person, context, true);
-	            // Extras übernehmen
+	            // Extras ï¿½bernehmen
 	            for(Iterator itExtras = extras.iterator(); itExtras.hasNext(); ) {
 	                Object extraObject = itExtras.next();
 	                if (extraObject instanceof ImportPersonExtra) {
@@ -181,14 +187,14 @@ public class VerawebDigester implements ImportDigester {
 
     /**
      * Diese Methode findet zu allen {@link ImportPerson}s dieses Imports Duplikate
-     * in der Tabelle <code>veraweb.tperson</code> zu den {@link Person}s und trägt
+     * in der Tabelle <code>veraweb.tperson</code> zu den {@link Person}s und trï¿½gt
      * diese jeweils in das Attribut {@link ImportPerson#duplicates} ein.
      */
     int markDuplicates() throws IOException, BeanException {
         Person samplePerson = new Person();
         int duplicateCount = 0;
         ImportPerson sampleImportPerson = new ImportPerson();
-        Select select = SQL.Select();
+        Select select = SQL.Select( db );
         select.from(" veraweb.tperson JOIN veraweb.timportperson ON (" +
         		"(tperson.firstname_a_e1 = timportperson.firstname_a_e1 OR " +
         		"(timportperson.firstname_a_e1 IS NULL AND tperson.firstname_a_e1 IS NULL)) AND " +
@@ -226,13 +232,13 @@ public class VerawebDigester implements ImportDigester {
     }
     
     /**
-     * Diese Methode trägt in die übergebene {@link ImportPerson} die übergebenen
+     * Diese Methode trï¿½gt in die ï¿½bergebene {@link ImportPerson} die ï¿½bergebenen
      * IDs von Duplikaten in der Tabelle <code>veraweb.tperson</code> ein. 
      * 
      * @param importPerson in dieser {@link ImportPerson} wird nur das Feld
      *  {@link ImportPerson#id} als stimmig angenommen und nur das Feld
-     *  {@link ImportPerson#duplicates} verändert.
-     * @param duplicates diese IDs werden als Duplikate in die übergebene
+     *  {@link ImportPerson#duplicates} verï¿½ndert.
+     * @param duplicates diese IDs werden als Duplikate in die ï¿½bergebene
      *  {@link ImportPerson} eingetragen und abgespeichert.
      */
     void setDuplicates(ImportPerson importPerson, List duplicates) throws BeanException, IOException {
@@ -248,7 +254,7 @@ public class VerawebDigester implements ImportDigester {
     
     /**
      * Diese Methode erzeugt aus einer {@link List Liste} einen String, in dem die
-     * Listenelemente durch {@link ImportPerson#PK_SEPERATOR_CHAR} getrennt aufgeführt
+     * Listenelemente durch {@link ImportPerson#PK_SEPERATOR_CHAR} getrennt aufgefï¿½hrt
      * werden.  
      * 
      * @param duplicates Liste von Duplikat-IDs
@@ -269,7 +275,7 @@ public class VerawebDigester implements ImportDigester {
     }
     
     //
-    // geschützte Member
+    // geschï¿½tzte Member
     //
     int personCount = 0;
     int importableCount = 0;

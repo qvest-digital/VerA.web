@@ -44,7 +44,7 @@ import de.tarent.octopus.beans.veraweb.ListWorkerVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
 
 /**
- * Dieser Octopus-Worker repräsentiert eine Übersichtsseite
+ * Dieser Octopus-Worker reprï¿½sentiert eine ï¿½bersichtsseite
  * sowie die Detailseiten zu eMail-Vorlagen.
  * Siehe Task MailDraftList und MailDraftDetail.<br><br>
  * 
@@ -83,7 +83,7 @@ public class MailDraftWorker extends ListWorkerVeraWeb {
 
 
 	/**
-	 * Updatet ausschließlich den Namen der in der Liste angezeigt wird.
+	 * Updatet ausschlieï¿½lich den Namen der in der Liste angezeigt wird.
 	 */
 	@Override
     protected int updateBeanList(OctopusContext cntx, List errors, List beanlist) throws BeanException, IOException {
@@ -91,8 +91,9 @@ public class MailDraftWorker extends ListWorkerVeraWeb {
 		for (Iterator it = beanlist.iterator(); it.hasNext(); ) {
 			MailDraft mailDraft = (MailDraft)it.next();
 			if (mailDraft.isModified()) {
-				getDatabase(cntx).execute(
-						SQL.Update().
+				Database db = getDatabase(cntx);
+				db.execute(
+						SQL.Update( db ).
 						table("veraweb.tmaildraft").
 						update("name", mailDraft.name).
 						where(Expr.equal("pk", mailDraft.id)));
@@ -105,15 +106,15 @@ public class MailDraftWorker extends ListWorkerVeraWeb {
     //
     // Octopus-Aktionen
     //
-	/** Octopus-Eingabe-Parameter für {@link #showDetail(OctopusContext, Integer, MailDraft)} */
+	/** Octopus-Eingabe-Parameter fï¿½r {@link #showDetail(OctopusContext, Integer, MailDraft)} */
 	public static final String INPUT_showDetail[] = { "id", "maildraft" };
-	/** Octopus-Eingabe-Parameter für {@link #showDetail(OctopusContext, Integer, MailDraft)} */
+	/** Octopus-Eingabe-Parameter fï¿½r {@link #showDetail(OctopusContext, Integer, MailDraft)} */
 	public static final boolean MANDATORY_showDetail[] = { false, false };
-	/** Octopus-Ausgabe-Parameter für {@link #showDetail(OctopusContext, Integer, MailDraft)} */
+	/** Octopus-Ausgabe-Parameter fï¿½r {@link #showDetail(OctopusContext, Integer, MailDraft)} */
 	public static final String OUTPUT_showDetail = "maildraft";
 	/**
-	 * Lädt einen eMail-Entwurf aus der Datenbank und stellt
-	 * diesen in den Content, wenn eine ID übergeben wurde
+	 * Lï¿½dt einen eMail-Entwurf aus der Datenbank und stellt
+	 * diesen in den Content, wenn eine ID ï¿½bergeben wurde
 	 * und sich noch kein Entwurf im Content befindet.
 	 * 
 	 * @param cntx Octopus-Context
@@ -130,14 +131,14 @@ public class MailDraftWorker extends ListWorkerVeraWeb {
 		return null;
 	}
 
-	/** Octopus-Eingabe-Parameter für {@link #saveDetail(OctopusContext, Boolean)} */
+	/** Octopus-Eingabe-Parameter fï¿½r {@link #saveDetail(OctopusContext, Boolean)} */
 	public static final String INPUT_saveDetail[] = { "save" };
-	/** Octopus-Eingabe-Parameter für {@link #saveDetail(OctopusContext, Boolean)} */
+	/** Octopus-Eingabe-Parameter fï¿½r {@link #saveDetail(OctopusContext, Boolean)} */
 	public static final boolean MANDATORY_saveDetail[] = { false };
-	/** Octopus-Ausgabe-Parameter für {@link #saveDetail(OctopusContext, Boolean)} */
+	/** Octopus-Ausgabe-Parameter fï¿½r {@link #saveDetail(OctopusContext, Boolean)} */
 	public static final String OUTPUT_saveDetail = "maildraft";
 	/**
-	 * Speichert den übergebenen eMail-Entwurf bzw. lädt diesen aus dem
+	 * Speichert den ï¿½bergebenen eMail-Entwurf bzw. lï¿½dt diesen aus dem
 	 * Request und speichert diesen im Content und in der Datenbank,
 	 * wenn im Request der Parameter save auf true gesetzt ist.
 	 * 

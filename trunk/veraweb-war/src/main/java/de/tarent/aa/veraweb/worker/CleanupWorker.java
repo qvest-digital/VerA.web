@@ -76,7 +76,7 @@ public class CleanupWorker {
 		if (logger.isInfoEnabled())
 			logger.info("Fasse automatisch mehrere Kategorien / Ereignisse zusammen. (summarizeCategoriesA)");
 		
-		Select orgunitsSelect = SQL.SelectDistinct().
+		Select orgunitsSelect = SQL.SelectDistinct( database ).
 				selectAs("fk_orgunit", "fk_orgunit").
 				from("veraweb.tcategorie");
 		
@@ -88,7 +88,7 @@ public class CleanupWorker {
 				logger.info("Fasse automatisch mehrere Kategorien / Ereignisse f�r " +
 						"den Mandanten #" + orgunit + " zusammen.");
 			
-			Select subcategoriesSelect = SQL.Select().
+			Select subcategoriesSelect = SQL.Select( database ).
 			selectAs("c1.pk", "subcategorypk").
 			selectAs("c1.catname", "subcategoryname").
 			selectAs("c2.pk", "topcategorypk").
@@ -121,7 +121,7 @@ public class CleanupWorker {
 				
 				assert subcategorypk != null && topcategorypk != null;
 				
-				addMessage(cntx, "�berf�hre Daten " +
+				addMessage(cntx, "Überführe Daten " +
 						"aus Kategorie \"" + subcategoryname + "\" (" + subcategorypk + ")" +
 						" in Kategorie \"" + topcategoryname + "\" (" + topcategorypk + ").");
 				
@@ -212,7 +212,7 @@ public class CleanupWorker {
 								Expr.equal("fk_orgunit", orgunit))));
 			
 			if (topcategorie != null) {
-				addMessage(cntx, "�berf�hre Daten " +
+				addMessage(cntx, "Überführe Daten " +
 						"aus Kategorie \"" + catname + "\" (" + catpk + ")" +
 						" in Kategorie \"" + topcategorie.name + "\" (" + topcategorie.id + ").");
 				
@@ -238,22 +238,22 @@ public class CleanupWorker {
 			Integer subcategorypk, Integer topcategorypk)
 			throws BeanException {
 		
-		database.execute(SQL.Update().
+		database.execute(SQL.Update( database ).
 				table("veraweb.tguest").
 				update("fk_category", topcategorypk).
 				where(Expr.equal("fk_category", subcategorypk)));
-		database.execute(SQL.Update().
+		database.execute(SQL.Update( database ).
 				table("veraweb.tperson_categorie").
 				update("fk_categorie", topcategorypk).
 				where(Expr.equal("fk_categorie", subcategorypk)));
-		database.execute(SQL.Delete().from("veraweb.tperson_categorie").where(
+		database.execute(SQL.Delete( database ).from("veraweb.tperson_categorie").where(
 				Expr.in("pk", new RawClause("(" +
 						"SELECT tpc1.pk FROM veraweb.tperson_categorie tpc1" +
 						" JOIN veraweb.tperson_categorie tpc2 ON (" +
 						"tpc1.fk_person = tpc2.fk_person AND " +
 						"tpc1.fk_categorie = tpc2.fk_categorie AND " +
 						"tpc1.pk < tpc2.pk))"))));
-		database.execute(SQL.Delete().
+		database.execute(SQL.Delete( database ).
 				from("veraweb.tcategorie").
 				where(Expr.equal("pk", subcategorypk)));
 	}
@@ -262,7 +262,7 @@ public class CleanupWorker {
 			Integer categorypk, String newname)
 			throws BeanException {
 		
-		database.execute(SQL.Update().
+		database.execute(SQL.Update( database ).
 				table("veraweb.tcategorie").
 				update("catname", newname).
 				where(Expr.equal("pk", categorypk)));

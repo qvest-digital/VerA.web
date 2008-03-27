@@ -51,7 +51,7 @@ import de.tarent.octopus.beans.Database;
 import de.tarent.octopus.server.OctopusContext;
 
 /**
- * Diese Octopus-Worker übernimmt das Suchen und Ersetzen von
+ * Diese Octopus-Worker ï¿½bernimmt das Suchen und Ersetzen von
  * Personendaten und entsprechendenen Dokumenttypen.
  * 
  * Er kennt sowohl Funktionen zum Ersetzen von allen Treffern,
@@ -81,7 +81,7 @@ public class PersonReplaceWorker extends PersonListWorker {
 	static private final List GROUP_04 = new ArrayList();
 	/** Firma / Institution */
 	static private final List GROUP_05 = new ArrayList();
-	/** Straße, Adresszusatz und Land */
+	/** Straï¿½e, Adresszusatz und Land */
 	static private final List GROUP_06 = new ArrayList();
 	/** PLZ / Ort und PLZ / Postfach */
 	static private final List GROUP_07 = new ArrayList();
@@ -138,13 +138,13 @@ public class PersonReplaceWorker extends PersonListWorker {
 	//
 
 	/**
-	 * Octopus-Aktion die eine <strong>blätterbare</strong> Liste
+	 * Octopus-Aktion die eine <strong>blï¿½tterbare</strong> Liste
 	 * mit Beans aus der Datenbank in den Content stellt. Kann durch
 	 * {@link #extendColumns(OctopusContext, Select)} erweitert bzw.
-	 * {@link #extendWhere(OctopusContext, Select)} eingeschränkt werden.
+	 * {@link #extendWhere(OctopusContext, Select)} eingeschrï¿½nkt werden.
 	 * 
 	 * Lenkt hier die entsprechende getSelect - Anfrage an die
-	 * Ursprüngliche Version des BeanListWorkers.
+	 * Ursprï¿½ngliche Version des BeanListWorkers.
 	 * 
 	 * @see #getSelection(OctopusContext, Integer)
 	 * 
@@ -172,7 +172,7 @@ public class PersonReplaceWorker extends PersonListWorker {
 	}
 
 	/**
-	 * Ändert die Suchanfrage der Personenliste auf die zu ersetzenen Personen.
+	 * ï¿½ndert die Suchanfrage der Personenliste auf die zu ersetzenen Personen.
 	 */
 	protected void extendWhere(OctopusContext cntx, Select select) throws BeanException {
 		WhereList where = new WhereList();
@@ -236,9 +236,9 @@ public class PersonReplaceWorker extends PersonListWorker {
 	// NEUE OCTOPUS AKTIONEN
 	//
 
-	/** Octopus-Eingabe-Parameter für {@link #getReplaceRequest(OctopusContext)} */
+	/** Octopus-Eingabe-Parameter fï¿½r {@link #getReplaceRequest(OctopusContext)} */
 	public static final String INPUT_getReplaceRequest[] = {};
-	/** Octopus-Eingabe-Parameter für {@link #getReplaceRequest(OctopusContext)} */
+	/** Octopus-Eingabe-Parameter fï¿½r {@link #getReplaceRequest(OctopusContext)} */
 	public static final String OUTPUT_getReplaceRequest = "replace-request";
 	/**
 	 * Kopiert die Such & Ersetz anfragen in den Content und merkt
@@ -287,7 +287,7 @@ public class PersonReplaceWorker extends PersonListWorker {
 
 	/**
 	 * Gibt eine Liste entsprechend der aktuellen Anfrage
-	 * zum Suchen/Ersetzen zurück.
+	 * zum Suchen/Ersetzen zurï¿½ck.
 	 * 
 	 * @param replaceRequest Map, siehe {@link #getReplaceRequest(OctopusContext)}
 	 * @return Liste mit Feldern
@@ -318,14 +318,14 @@ public class PersonReplaceWorker extends PersonListWorker {
 	}
 
 
-	/** Octopus-Eingabe-Parameter für {@link #countData(OctopusContext)} */
+	/** Octopus-Eingabe-Parameter fï¿½r {@link #countData(OctopusContext)} */
 	public static final String INPUT_countData[] = {};
-	/** Octopus-Eingabe-Parameter für {@link #countData(OctopusContext)} */
+	/** Octopus-Eingabe-Parameter fï¿½r {@link #countData(OctopusContext)} */
 	public static final String OUTPUT_countData = "snr-count";
 	/**
-	 * Berechnet wieviele Datensätze bei einem {@link #replaceAllData(OctopusContext)}
-	 * oder einem {@link #replaceSelectedData(OctopusContext)} ersetzt werden würden
-	 * und gibt diese Zahl zur Benutzerinformation zurück.
+	 * Berechnet wieviele Datensï¿½tze bei einem {@link #replaceAllData(OctopusContext)}
+	 * oder einem {@link #replaceSelectedData(OctopusContext)} ersetzt werden wï¿½rden
+	 * und gibt diese Zahl zur Benutzerinformation zurï¿½ck.
 	 * 
 	 * @param cntx
 	 * @throws BeanException
@@ -354,7 +354,7 @@ public class PersonReplaceWorker extends PersonListWorker {
 	}
 
 
-	/** Octopus-Eingabe-Parameter für {@link #replaceAllData(OctopusContext)} */
+	/** Octopus-Eingabe-Parameter fï¿½r {@link #replaceAllData(OctopusContext)} */
 	public static final String INPUT_replaceAllData[] = {};
 	/**
 	 * Octopus-Aktion die alle Daten sucht und ersetzt.
@@ -383,7 +383,7 @@ public class PersonReplaceWorker extends PersonListWorker {
 			where.addAnd(getReplaceWhere(fields, search, wildcardPre, wildcardPost));
 			
 			database.execute(
-					getReplaceUpdate(fields, search, replace, wildcardPre, wildcardPost).
+					getReplaceUpdate(database, fields, search, replace, wildcardPre, wildcardPost).
 					where(where));
 		}
 		if (((Boolean)replaceRequest.get("snr-group20")).booleanValue()) {
@@ -394,7 +394,7 @@ public class PersonReplaceWorker extends PersonListWorker {
 							getReplaceWhere("textfield", search, wildcardPre, wildcardPost),
 							getReplaceWhere("textfield_p", search, wildcardPre, wildcardPost)));
 			
-			database.execute(SQL.Update().
+			database.execute(SQL.Update( database ).
 					table("veraweb.tperson_doctype").
 					update("textfield", getReplaceClause("textfield", search, replace, wildcardPre, wildcardPost)).
 					update("textfield_p", getReplaceClause("textfield_p", search, replace, wildcardPre, wildcardPost)).
@@ -403,10 +403,10 @@ public class PersonReplaceWorker extends PersonListWorker {
 	}
 
 
-	/** Octopus-Eingabe-Parameter für {@link #replaceSelectedData(OctopusContext)} */
+	/** Octopus-Eingabe-Parameter fï¿½r {@link #replaceSelectedData(OctopusContext)} */
 	public static final String INPUT_replaceSelectedData[] = {};
 	/**
-	 * Ersetzt in der Gästeliste ausgewählte Gäste.
+	 * Ersetzt in der Gï¿½steliste ausgewï¿½hlte Gï¿½ste.
 	 * 
 	 * @param cntx
 	 * @throws BeanException
@@ -437,7 +437,7 @@ public class PersonReplaceWorker extends PersonListWorker {
 			where.addAnd(getReplaceWhere(fields, search, wildcardPre, wildcardPost));
 			
 			database.execute(
-					getReplaceUpdate(fields, search, replace, wildcardPre, wildcardPost).
+					getReplaceUpdate(database, fields, search, replace, wildcardPre, wildcardPost).
 					where(where));
 		}
 		if (((Boolean)replaceRequest.get("snr-group20")).booleanValue()) {
@@ -448,7 +448,7 @@ public class PersonReplaceWorker extends PersonListWorker {
 							getReplaceWhere("textfield", search, wildcardPre, wildcardPost),
 							getReplaceWhere("textfield_p", search, wildcardPre, wildcardPost))));
 			
-			database.execute(SQL.Update().
+			database.execute(SQL.Update( database ).
 					table("veraweb.tperson_doctype").
 					update("textfield", getReplaceClause("textfield", search, replace, wildcardPre, wildcardPost)).
 					update("textfield_p", getReplaceClause("textfield_p", search, replace, wildcardPre, wildcardPost)).
@@ -458,7 +458,7 @@ public class PersonReplaceWorker extends PersonListWorker {
 
 
 	/**
-	 * Gibt eine Where-Bedingung für die übergebenen Spalten zurück.
+	 * Gibt eine Where-Bedingung fï¿½r die ï¿½bergebenen Spalten zurï¿½ck.
 	 * 
 	 * @param fields
 	 * @param search
@@ -517,15 +517,15 @@ public class PersonReplaceWorker extends PersonListWorker {
 	}
 
 	/**
-	 * Gibt ein Update mit den entsprechenden Spalten zurück.
+	 * Gibt ein Update mit den entsprechenden Spalten zurï¿½ck.
 	 * 
 	 * @param fields
 	 * @param search
 	 * @param replace
 	 * @return Update
 	 */
-	protected Update getReplaceUpdate(List fields, String search, String replace, boolean wildcardPre, boolean wildcardPost) {
-		Update update = SQL.Update().table("veraweb.tperson");
+	protected Update getReplaceUpdate(Database db, List fields, String search, String replace, boolean wildcardPre, boolean wildcardPost) {
+		Update update = SQL.Update( db ).table("veraweb.tperson");
 		for (int i = 0; i < fields.size(); i++) {
 			String field = (String)fields.get(i);
 			update.update(field, getReplaceClause(field, search, replace, wildcardPre, wildcardPost));

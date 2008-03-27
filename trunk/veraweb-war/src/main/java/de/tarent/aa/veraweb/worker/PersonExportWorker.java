@@ -213,7 +213,7 @@ public class PersonExportWorker extends PersonListWorker {
         			 * from the thread local map of this thread which is not an octopus controlled thread
         			 * cklein 2008-03-26
         			 */
-        			exportSelect( cntx,
+        			exportSelect(
         					spreadSheet, database, ((PersonalConfigAA)cntx.personalConfig()).getGrants(),
         					doctype, select, data, memberAEx, memberBEx, addressEx);
         			
@@ -372,7 +372,7 @@ public class PersonExportWorker extends PersonListWorker {
      * @param memberBEx Attributschl�sselsuffix der Partnerperson
      * @param addressEx Attributschl�sselsuffix der Adressdaten
      */
-	protected void exportSelect(final OctopusContext cntx, SpreadSheet spreadSheet, Database database, Grants grants, Doctype doctype, Select select, Map data, String memberAEx, String memberBEx, String addressEx) throws BeanException {
+	protected void exportSelect(SpreadSheet spreadSheet, Database database, Grants grants, Doctype doctype, Select select, Map data, String memberAEx, String memberBEx, String addressEx) throws BeanException {
 		for (Iterator it = database.getBeanList("Person", select).iterator(); it.hasNext(); ) {
 			Map person = (Map)it.next();
 			
