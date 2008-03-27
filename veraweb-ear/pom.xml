@@ -37,7 +37,7 @@
 
 	<scm>
 		<connection>
-			scm:svn:svn://svn.evolvis.org/svnroot/veraweb/trunk
+			scm:svn:svn://svn.evolvis.org/svnroot/veraweb/trunk/veraweb-ear
 		</connection>
 	</scm>
 
