@@ -45,10 +45,17 @@ import javax.naming.directory.SearchResult;
 import junit.framework.TestCase;
 
 public class AALoginTest extends TestCase {
-    LDAPManagerAA manager = null;
+	private boolean TEST_ENABLED = false;
+	
+    private LDAPManagerAA manager = null;
+    
     @Override
     protected void setUp() throws Exception {
-        super.setUp();
+    	super.setUp();
+    	
+    	if (!TEST_ENABLED)
+    		return;
+    	
         Map params = new HashMap();
         params.put(LDAPManager.KEY_BASE_DN, "ou=testav01,dc=aa");
         params.put(LDAPManager.KEY_RELATIVE, "ou=Users");
@@ -69,7 +76,7 @@ public class AALoginTest extends TestCase {
     }
 
     public void testFindRolesForAddress() throws NamingException {
-    	if (manager == null)
+    	if (!TEST_ENABLED || manager == null)
     		return;
     	
         SearchControls cons = new SearchControls();
@@ -88,7 +95,7 @@ public class AALoginTest extends TestCase {
     }
     
     public void testGetUserData() throws LDAPException {
-    	if (manager == null)
+    	if (!TEST_ENABLED || manager == null)
     		return;
     	
         System.out.println(manager.getUserData("pol-2"));
