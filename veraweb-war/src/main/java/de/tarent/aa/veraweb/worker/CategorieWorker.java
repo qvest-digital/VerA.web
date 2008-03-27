@@ -288,7 +288,7 @@ public class CategorieWorker extends StammdatenWorker {
 		if (bean.rank != null)
 		{
 			Database database = getDatabase(cntx);
-			database.execute(SQL.Update().
+			database.execute(SQL.Update( database ).
 				table("veraweb.tcategorie").
 				update("rank", new RawClause("rank + 1")).
 				where(Expr.greaterOrEqual("rank", bean.rank)));
@@ -314,8 +314,9 @@ public class CategorieWorker extends StammdatenWorker {
     protected int removeSelection(OctopusContext cntx, List errors, List selection) throws BeanException, IOException {
 		int count = super.removeSelection(cntx, errors, selection);
 		
-		getDatabase(cntx).execute(
-				SQL.Delete().
+		Database db = getDatabase(cntx);
+		db.execute(
+				SQL.Delete( db ).
 				from("veraweb.tperson_categorie").
 				where(new RawClause("fk_categorie NOT IN (" +
 				"SELECT pk FROM veraweb.tcategorie)")));

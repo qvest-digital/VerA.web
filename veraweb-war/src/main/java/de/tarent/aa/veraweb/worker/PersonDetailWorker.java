@@ -916,7 +916,7 @@ public class PersonDetailWorker implements PersonConstants {
 			if (logger.isEnabledFor(Priority.DEBUG)) {
 				logger.log(Priority.DEBUG, "Person löschen: Person #" + personid + " wird als gelöscht markiert.");
 			}
-			database.execute(SQL.Update().
+			database.execute(SQL.Update( database ).
 					table("veraweb.tperson").
 					update("deleted", PersonConstants.DELETED_TRUE).
 					where(Expr.equal("pk", personid)));
@@ -926,19 +926,19 @@ public class PersonDetailWorker implements PersonConstants {
 				logger.log(Priority.DEBUG, "Person löschen: Person #" + personid + " wird vollständig gelöscht.");
 			}
 			
-			database.execute(SQL.Delete().
+			database.execute(SQL.Delete( database ).
 					from("veraweb.tperson_categorie").
 					where(Expr.equal("fk_person", personid)));
-			database.execute(SQL.Delete().
+			database.execute(SQL.Delete( database ).
 					from("veraweb.tperson_doctype").
 					where(Expr.equal("fk_person", personid)));
-			database.execute(SQL.Delete().
+			database.execute(SQL.Delete( database ).
 					from("veraweb.tperson_mailinglist").
 					where(Expr.equal("fk_person", personid)));
-			database.execute(SQL.Delete().
+			database.execute(SQL.Delete( database ).
 					from("veraweb.tperson").
 					where(Expr.equal("pk", personid)));
-			database.execute(SQL.Update().
+			database.execute(SQL.Update( database ).
 					table("veraweb.tevent").
 					update("fk_host", null).
 					update("hostname", null).

@@ -80,9 +80,9 @@ public class MailDispatchWorker implements Runnable {
 	/** Regex Pattern zur erkennung von eMail Tags. */
 	private final Pattern mailtags = Pattern.compile("<[A-Za-z]+>");
 
-	/** Modulnamen für den Datenbank-Pool */
+	/** Modulnamen fï¿½r den Datenbank-Pool */
 	protected String moduleName;
-	/** Thread in dem das eigentliche versenden ausgeführt wird. */
+	/** Thread in dem das eigentliche versenden ausgefï¿½hrt wird. */
 	protected Thread thread;
 	/** MailDispatcher der den Versand an den SMTP-Server vornimmt. */
 	protected MailDispatcher dispatcher = new MailDispatcher();
@@ -93,12 +93,13 @@ public class MailDispatchWorker implements Runnable {
 	/** Gibt die Wartezeit zwischen zwei Dispatch aufrufen an. */
 	protected int waitMillis = 0;
 
+	private OctopusContext cntx;
 
 	//
 	// OCTOPUS-AKTIONEN ZUM STARTEN UND STOPPEN DES VERSENDE THREADS.
 	//
 
-	/** Octopus-Eingabe-Parameter für {@link #load(OctopusContext)} */
+	/** Octopus-Eingabe-Parameter fï¿½r {@link #load(OctopusContext)} */
 	public static final String INPUT_load[] = {};
 	/**
 	 * Startet das automatische versenden von eMails im Hintergrund.
@@ -106,6 +107,9 @@ public class MailDispatchWorker implements Runnable {
 	 * @param cntx Octopus-Context
 	 */
 	public void load(OctopusContext cntx) {
+		
+		this.cntx = cntx;
+		
 		logger.info("MailDispatcher wird im Hintergrund gestartet.");
 		
 		moduleName = cntx.getModuleName();
@@ -135,7 +139,7 @@ public class MailDispatchWorker implements Runnable {
 		}
 	}
 
-	/** Octopus-Eingabe-Parameter für {@link #unload(OctopusContext)} */
+	/** Octopus-Eingabe-Parameter fï¿½r {@link #unload(OctopusContext)} */
 	public static final String INPUT_unload[] = {};
 	/**
 	 * Stopppt das automatische versenden von eMails im Hintergrund.
@@ -172,7 +176,8 @@ public class MailDispatchWorker implements Runnable {
 	 * Versendet alle offenen eMails.
 	 */
 	public void sendMails() {
-		Select select = SQL.Select().
+		Database db = new DatabaseVeraWeb( this.cntx );
+		Select select = SQL.Select( db ).
 				from("veraweb.tmailoutbox").
 				selectAs("pk", "id").
 				selectAs("status", "status").
@@ -190,7 +195,7 @@ public class MailDispatchWorker implements Runnable {
 		for (boolean found = true; found; ) {
 			try {
 				found = false;
-				r = DB.result(moduleName, select);
+				r = ( Result ) select.execute();
 				rs = r.resultSet();
 				
 				for (Iterator it = new ResultList(rs).iterator(); it.hasNext(); ) {
@@ -248,7 +253,8 @@ public class MailDispatchWorker implements Runnable {
 		if (error != null && error.length() > 200) {
 			error = error.substring(0, 195) + "\n...";
 		}
-		DB.update(moduleName, SQL.Update().
+		Database db = new DatabaseVeraWeb( this.cntx );
+		DB.update(moduleName, SQL.Update( db ).
 				table("veraweb.tmailoutbox").
 				update("status", new Integer(status)).
 				update("lastupdate", new Timestamp(System.currentTimeMillis())).
@@ -257,7 +263,8 @@ public class MailDispatchWorker implements Runnable {
 	}
 
 	protected void deleteMail(Integer id) throws SQLException {
-		DB.update(moduleName, SQL.Delete().
+		Database db = new DatabaseVeraWeb( this.cntx );
+		DB.update(moduleName, SQL.Delete( db ).
 				from("veraweb.tmailoutbox").
 				where(Expr.equal("pk", id)));
 	}
@@ -267,7 +274,7 @@ public class MailDispatchWorker implements Runnable {
 	// OCTOPUS-AKTIONEN ZUM ERSTELLEN UND SPEICHERN VON EMAILS
 	//
 
-	/** Octopus-Eingabe-Parameter für die Aktion {@link #writeMail(OctopusContext)} */
+	/** Octopus-Eingabe-Parameter fï¿½r die Aktion {@link #writeMail(OctopusContext)} */
 	public static final String INPUT_writeMail[] = {};
 	/**
 	 * Octopus-Aktion zur Verwaltung einer 'in process' eMail.
@@ -296,7 +303,7 @@ public class MailDispatchWorker implements Runnable {
 		cntx.setContent("errors", errors);
 	}
 
-	/** Octopus-Eingabe-Parameter für die Aktion {@link #sendMail(OctopusContext)} */
+	/** Octopus-Eingabe-Parameter fï¿½r die Aktion {@link #sendMail(OctopusContext)} */
 	public static final String INPUT_sendMail[] = {};
 	/**
 	 * Octopus-Aktion zum versenden einer eMail an einen Verteiler.
@@ -355,7 +362,7 @@ public class MailDispatchWorker implements Runnable {
 		}
 		
 		Integer addresstype, locale;
-		Select select = SQL.Select().
+		Select select = SQL.Select( database ).
 				from("veraweb.tdoctype").
 				selectAs("tdoctype.addresstype", "at1").
 				selectAs("tdoctype.locale", "l1").
@@ -385,7 +392,7 @@ public class MailDispatchWorker implements Runnable {
 	}
 
 	/**
-	 * Gibt einen eMail-Text zurück bei dem die Platzhalter
+	 * Gibt einen eMail-Text zurï¿½ck bei dem die Platzhalter
 	 * durch Personen-Daten ersetzt sind.
 	 * 
 	 * @param text Text mit Platzhaltern

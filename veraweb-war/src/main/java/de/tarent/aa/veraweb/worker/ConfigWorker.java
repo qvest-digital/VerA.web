@@ -29,19 +29,26 @@
 package de.tarent.aa.veraweb.worker;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 
+import de.tarent.aa.veraweb.beans.Config;
 import de.tarent.aa.veraweb.beans.Duration;
 import de.tarent.dblayer.sql.SQL;
 import de.tarent.dblayer.sql.clause.Expr;
+import de.tarent.dblayer.sql.statement.Delete;
+import de.tarent.dblayer.sql.statement.Insert;
+import de.tarent.dblayer.sql.statement.Select;
+import de.tarent.dblayer.sql.statement.Update;
 import de.tarent.octopus.PersonalConfigAA;
 import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.beans.BeanFactory;
 import de.tarent.octopus.beans.Database;
+import de.tarent.octopus.beans.TransactionContext;
 import de.tarent.octopus.beans.veraweb.ListWorkerVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
 
@@ -162,8 +169,9 @@ public class ConfigWorker extends ListWorkerVeraWeb {
      * @param cntx Octopus-Kontext
      * @throws BeanException
      * @throws IOException
+     * @throws SQLException 
      */
-	public void save(OctopusContext cntx) throws BeanException, IOException {
+	public void save(OctopusContext cntx) throws BeanException, IOException, SQLException {
 		if (!cntx.personalConfig().isUserInGroup(PersonalConfigAA.GROUP_ADMIN))
 			return;
 		
@@ -193,7 +201,7 @@ public class ConfigWorker extends ListWorkerVeraWeb {
 	 * cklein
 	 * 2008-02-27
 	 */
-	private void saveValue(OctopusContext cntx, String key, String value) throws BeanException, IOException {
+	private void saveValue(OctopusContext cntx, String key, String value) throws BeanException, IOException, SQLException {
 		// wenn standard, dann null und default aus properties laden, sonst neuen wert in config hinterlegen
 		boolean found = false;
 		for (int i = 0; i < defaultTarget.length; i++) 
@@ -257,23 +265,23 @@ public class ConfigWorker extends ListWorkerVeraWeb {
 				where(Expr.equal("cname", key)));
 		
 			if (count.intValue() == 0) {
-				database.execute(
-					SQL.Insert().
-					table("veraweb.tconfig").
-					insert("cname", key).
-					insert("cvalue", value));
+				Insert insert = SQL.Insert( database );
+				insert.table( "veraweb.tconfig" );
+				insert.insert( "cname", key );
+				insert.insert( "cvalue", value );
+				insert.execute();
 			} else {
-				database.execute(
-					SQL.Update().
-					table("veraweb.tconfig").
-					update("cvalue", value).
-					where(Expr.equal("cname", key)));
+				Update update = SQL.Update( database );
+				update.table( "veraweb.tconfig" );
+				update.update( "cvalue", value );
+				update.where( Expr.equal( "cname", key ) );
+				update.execute();
 			}
 		} else {
-			database.execute(
-				SQL.Delete().
-				from("veraweb.tconfig").
-				where(Expr.equal("cname", key)));
+			Delete delete = SQL.Delete( database );
+			delete.from( "veraweb.tconfig" );
+			delete.where( Expr.equal( "cname", key ) );
+			delete.execute();
 		}
 	}
 

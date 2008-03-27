@@ -124,7 +124,7 @@ public class PersonCategorieWorker extends ListWorkerVeraWeb {
 		{
 			DB.update(
 				cntx.getModuleName(),
-				SQL.Delete().from( "veraweb.tperson_categorie" ).where( Expr.equal( "fk_person", personId ) )
+				SQL.Delete( database ).from( "veraweb.tperson_categorie" ).where( Expr.equal( "fk_person", personId ) )
 			);
 		}
 		catch( SQLException e )

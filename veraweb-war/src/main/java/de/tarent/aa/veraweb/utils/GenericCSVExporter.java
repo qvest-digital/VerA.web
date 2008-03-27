@@ -410,7 +410,7 @@ public class GenericCSVExporter extends GenericCSVBase implements Exporter
 		else if (expr1 == null && expr2 != null)
 			sel.where(expr2);
 
-		return database.getList(sel, database);
+		return database.getBeanList( "Categorie", sel );
 	}
 
 	/*

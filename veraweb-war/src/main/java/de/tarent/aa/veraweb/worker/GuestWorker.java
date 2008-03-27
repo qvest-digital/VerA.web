@@ -148,7 +148,7 @@ public class GuestWorker {
 		logger.debug("F�ge G�ste der Veranstaltung #" + eventId + " der Verstanstaltung #" + event.id + " hinzu.");
 
 		try {
-			List list = database.getList(SQL.Select().
+			List list = database.getList(SQL.Select( database ).
 					from("veraweb.tguest").
 					select("fk_person").
 					select("fk_category").
@@ -527,7 +527,7 @@ public class GuestWorker {
         if (guest == null || person == null) {
 			logger.warn("Aktuallisieren der Dokumententypen von Gast #" +
 					(guest == null || guest.id == null ? "null" : guest.id.toString()) +
-					" nicht m�glich. (Person #" +
+					" nicht möglich. (Person #" +
 					(person == null || person.id == null ? "null" : person.id.toString()) + ")");
 			return;
         }

@@ -44,7 +44,10 @@ import de.tarent.aa.veraweb.beans.Duration;
 import de.tarent.dblayer.engine.DB;
 import de.tarent.dblayer.sql.SQL;
 import de.tarent.dblayer.sql.clause.Expr;
+import de.tarent.dblayer.sql.statement.Delete;
 import de.tarent.octopus.beans.BeanException;
+import de.tarent.octopus.beans.Database;
+import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
 
 /**
@@ -185,24 +188,10 @@ public class ChangeLogMaintenanceWorker implements Runnable {
 		c.add( Calendar.DAY_OF_MONTH, -1 * this.retentionPolicy.days );
 		Date d = new Date( c.getTimeInMillis() );
 
-		/*
-		 * partly replicated from VerifyWorker.verifyDatabase() since it seems 
-		 * to be the only working variant to also automatically and safely close
-		 * any open connections
-		 * cklein 2008-03-25
-		 */
-		if ( ! DB.hasPool(cntx.getModuleName() ) )
-		{
-			Connection connection = DB.getConnection( this.cntx.getModuleName() );
-			if ( connection != null && ! connection.isClosed() )
-			{
-				Statement statement = connection.createStatement();
-				statement.execute(
-					SQL.Delete().from( "veraweb.tchangelog" ).where( Expr.lessOrEqual( "date", d.toString() ) ).statementToString()
-				);
-				statement.close();
-				connection.close();
-			}
-		}
+		Database db = new DatabaseVeraWeb( this.cntx );
+		Delete delete = SQL.Delete( db );
+		delete.from( "veraweb.tchangelog" );
+		delete.where( Expr.lessOrEqual( "date", d.toString() ) );
+		delete.execute();
 	}
 }

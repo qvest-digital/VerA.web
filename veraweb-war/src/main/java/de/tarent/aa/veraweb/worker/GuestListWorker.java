@@ -233,7 +233,7 @@ public class GuestListWorker extends ListWorkerVeraWeb {
 	}
 
 	protected Select getSelect(Database database) throws BeanException, IOException {
-		return SQL.SelectDistinct().
+		return SQL.SelectDistinct( database ).
 				from("veraweb.tguest").
 				selectAs("tguest.pk", "id").
 				selectAs("tguest.rank", "rank").
@@ -260,7 +260,7 @@ public class GuestListWorker extends ListWorkerVeraWeb {
 			return count;
 		
 		// Abfrage ob auch entsprechende Person gel�scht werden soll.
-		Select select = SQL.Select().
+		Select select = SQL.Select( database ).
 				from("veraweb.tguest").
 				selectAs("tguest.pk", "guest").
 				selectAs("tperson.pk", "person").
@@ -291,7 +291,7 @@ public class GuestListWorker extends ListWorkerVeraWeb {
 						Expr.equal("fk_event", event.id),
 						Expr.equal("ishost", new Integer(1))))).intValue();
 		if (noHost) {
-			database.execute(SQL.Update().
+			database.execute(SQL.Update( database ).
 					table("veraweb.tevent").
 					update("fk_host", null).
 					update("hostname", null).
@@ -317,7 +317,7 @@ public class GuestListWorker extends ListWorkerVeraWeb {
 		//guest.color_b = guestOld.color_b;
 		//guest.event = guestOld.event;
 		
-		Update update = SQL.Update().
+		Update update = SQL.Update( database ).
 				table("veraweb.tguest").
 				update("invitationstatus", guest.invitationstatus_a).
 				update("invitationstatus_p", guest.invitationstatus_b).
@@ -371,10 +371,10 @@ public class GuestListWorker extends ListWorkerVeraWeb {
 		}
 		clogger.logDelete( cntx.personalConfig().getLoginname(), bean );
 
-		database.execute(SQL.Delete().
+		database.execute(SQL.Delete( database ).
 				from("veraweb.tguest_doctype").
 				where(Expr.equal("fk_guest", ((Guest)bean).id)));
-		database.execute(SQL.Delete().
+		database.execute(SQL.Delete( database ).
 				from("veraweb.tguest").
 				where(Expr.equal("pk", ((Guest)bean).id)));
 
@@ -429,6 +429,16 @@ public class GuestListWorker extends ListWorkerVeraWeb {
         
         if (search != null && !("lastname_a_e1".equals(search.listorder) || "firstname_a_e1".equals(search.listorder) || "mail_a_e1".equals(search.listorder))) {
             search.listorder = null;
+        }
+        
+        /*
+         * fix for the case that the user requests guest with no search object being available
+         * in that case an NPE was thrown
+         * cklein 2008-03-27
+         */
+        if ( search == null )
+        {
+        	search = new GuestSearch();
         }
         
         cntx.setSession("search" + BEANNAME, search);
@@ -552,7 +562,7 @@ public class GuestListWorker extends ListWorkerVeraWeb {
 			where.addAnd(Expr.in("pk", selection));
 		}
 		
-		Select select = SQL.Select().
+		Select select = SQL.Select( database ).
 				from("veraweb.tguest").
 				where(where);
 		

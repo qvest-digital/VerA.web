@@ -53,19 +53,19 @@ import de.tarent.octopus.server.OctopusContext;
 
 /**
  * Dieser Octopus-Worker stellt Aktionen zur Verwaltung (erstellen
- * und löschen) von Verteilern in VerA.Web bereit.
+ * und lï¿½schen) von Verteilern in VerA.Web bereit.
  * 
  * @author Hendrik, Christoph Jerolimov
  * @version $Revision: 1.1 $
  */
 public class MailinglistWorker {
-	/** Octopus-Eingabe-Parameter für {@link #guessMaillinglist(OctopusContext)} */
+	/** Octopus-Eingabe-Parameter fï¿½r {@link #guessMaillinglist(OctopusContext)} */
 	public static final String INPUT_guessMaillinglist[] = {};
-	/** Octopus-Ausgabe-Parameter für {@link #guessMaillinglist(OctopusContext)} */
+	/** Octopus-Ausgabe-Parameter fï¿½r {@link #guessMaillinglist(OctopusContext)} */
 	public static final String OUTPUT_guessMaillinglist = "mailinglistParams";
 
 	/**
-	 * Schätzt wie groß der neue Verteiler werden wird und
+	 * Schï¿½tzt wie groï¿½ der neue Verteiler werden wird und
 	 * erweitert die Map <code>mailinglistParam</code> im Content
 	 * um den Key <code>count</code>.
 	 * 
@@ -96,14 +96,14 @@ public class MailinglistWorker {
 	}
 
 
-	/** Octopus-Eingabe-Parameter für {@link #createMailinglist(OctopusContext, Mailinglist)} */
+	/** Octopus-Eingabe-Parameter fï¿½r {@link #createMailinglist(OctopusContext, Mailinglist)} */
 	public static final String INPUT_createMailinglist[] = { "CONTENT:mailinglist" };
-	/** Octopus-Ausgabe-Parameter für {@link #createMailinglist(OctopusContext, Mailinglist)} */
+	/** Octopus-Ausgabe-Parameter fï¿½r {@link #createMailinglist(OctopusContext, Mailinglist)} */
 	public static final String OUTPUT_createMailinglist = "mailinglistParams";
 
 	/**
 	 * Erstellt einen neuen Verteiler und speichert die Anzahl der
-	 * hinzugefügten Adressen in der Map <code>mailinglistParam</code>
+	 * hinzugefï¿½gten Adressen in der Map <code>mailinglistParam</code>
 	 * im Content im Key <code>count</code>.
 	 * 
 	 * @param cntx
@@ -143,7 +143,7 @@ public class MailinglistWorker {
 			GuestListWorker.addGuestListFilter(search, (WhereList)clause);
 		}
 		
-		// Personen hinzufügen
+		// Personen hinzufï¿½gen
 		int savedAddresses = addMailinglist(cntx, mailinglist, freitextfeld, addresstype, locale, clause);
 		
 		// Ergebnis ist Params eintragen
@@ -154,23 +154,23 @@ public class MailinglistWorker {
 	}
 
 	/**
-	 * Fügt Gäste einem bestehendem Verteiler anhand der übergebenen Bedingung
-	 * <code>clause</code> hinzu. Die Bedingung darf dabei Einschränkungen auf
+	 * Fï¿½gt Gï¿½ste einem bestehendem Verteiler anhand der ï¿½bergebenen Bedingung
+	 * <code>clause</code> hinzu. Die Bedingung darf dabei Einschrï¿½nkungen auf
 	 * die Tabellen <code>tguest</code> und <code>tperson</code> vornehmen.
 	 * <br><br>
 	 * Die Adresse die in den entsprechenden Verteiler eingetragen wird, wird
-	 * aus dem entsprechenden Personen-Dokumenttyp 'Freitextfeld' gewählt.
-	 * Sollte dieser nicht existieren wird entsprechend des übergebenen
+	 * aus dem entsprechenden Personen-Dokumenttyp 'Freitextfeld' gewï¿½hlt.
+	 * Sollte dieser nicht existieren wird entsprechend des ï¿½bergebenen
 	 * Adresstyps und Zeichensatzes in den normalen Personen Datengesucht. (Im
-	 * Zweifel wird auf die geschäftlichen lateinischen Daten zurückgegriffen.)
+	 * Zweifel wird auf die geschï¿½ftlichen lateinischen Daten zurï¿½ckgegriffen.)
 	 * 
 	 * @param cntx Octopus-Context
-	 * @param mailinglist Verteiler dem Gäste hinzugefügt werden sollen.
+	 * @param mailinglist Verteiler dem Gï¿½ste hinzugefï¿½gt werden sollen.
 	 * @param doctype ID des Dokumenttypes der verwendet werden soll.
 	 * @param addresstype Adresstyp
 	 * @param locale Zeichensatz
 	 * @param clause Bedingung
-	 * @return Anzahl der hinzugefügten Adressen.
+	 * @return Anzahl der hinzugefï¿½gten Adressen.
 	 * @throws BeanException 
 	 * @throws IOException 
 	 */
@@ -181,7 +181,7 @@ public class MailinglistWorker {
 		String personMail = getMailColumn(addresstype, locale);
 		String personFax = getFaxColumn(addresstype, locale);
 		
-		Select select = SQL.SelectDistinct().
+		Select select = SQL.SelectDistinct( database ).
 				from("veraweb.tguest").
 				selectAs("tguest.pk", "guest").
 				selectAs("tperson.pk", "person").
@@ -320,8 +320,8 @@ public class MailinglistWorker {
 	 * 1. Schaut ob ein entsprechender GuestDoctype existiert und kopiert
 	 *    ggf. aus diesem eMail-Adresse oder Fax-Nimmer.<br>
 	 * 2. Falls kein entsprechender Eintrag gefunden wurde wird die allgemeine
-	 *    Person zu dem übergebenem Gast gesucht und die eMail-Adresse
-	 *    oder Fax-Nummer entsprechend des Dokumenttypens "Etikett" übernommen.
+	 *    Person zu dem ï¿½bergebenem Gast gesucht und die eMail-Adresse
+	 *    oder Fax-Nummer entsprechend des Dokumenttypens "Etikett" ï¿½bernommen.
 	 * 
 	 * @param database
 	 * @param mailinglist
@@ -343,7 +343,7 @@ public class MailinglistWorker {
 	}
 
 	/**
-	 * Gibt eine 'gesauberte' Faxnummer mit dem Zusatz '@fax' zurück.
+	 * Gibt eine 'gesauberte' Faxnummer mit dem Zusatz '@fax' zurï¿½ck.
 	 * 
 	 * @param cntx Octopus-Context
 	 * @param number Faxnummer
@@ -357,7 +357,7 @@ public class MailinglistWorker {
 	}
 
 	/**
-	 * Gibt eine 'gesauberte' eMail-Adresse zurück.
+	 * Gibt eine 'gesauberte' eMail-Adresse zurï¿½ck.
 	 * 
 	 * @param cntx Octopus-Context
 	 * @param mail eMail-Adresse

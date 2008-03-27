@@ -65,7 +65,7 @@ import de.tarent.octopus.server.OctopusContext;
 
 /**
  * Dieser Octopus-Worker stellt Aktionen zur Erstellung
- * von Statistiken zur Verfügung.
+ * von Statistiken zur Verfï¿½gung.
  *  
  * @author Christoph
  */
@@ -73,12 +73,12 @@ public class StatistikWorker {
     /** Logger dieser Klasse */
 	private final Logger logger = Logger.getLogger(getClass());
 
-	/** Octopus-Eingabeparameter für die Aktion {@link #getFirstDayInMonth()} */
+	/** Octopus-Eingabeparameter fï¿½r die Aktion {@link #getFirstDayInMonth()} */
 	public static final String INPUT_getFirstDayInMonth[] = {};
-	/** Octopus-Ausgabeparameter für die Aktion {@link #getFirstDayInMonth()} */
+	/** Octopus-Ausgabeparameter fï¿½r die Aktion {@link #getFirstDayInMonth()} */
 	public static final String OUTPUT_getFirstDayInMonth = "firstDayInMonth";
 	/**
-	 * @return Gibt den ersten Tag des aktuellen Monats zurück.
+	 * @return Gibt den ersten Tag des aktuellen Monats zurï¿½ck.
 	 */
 	public Date getFirstDayInMonth() {
 		Calendar calendar = Calendar.getInstance();
@@ -86,12 +86,12 @@ public class StatistikWorker {
 		return calendar.getTime();
 	}
 
-	/** Octopus-Eingabeparameter für die Aktion {@link #getLastDayInMonth()} */
+	/** Octopus-Eingabeparameter fï¿½r die Aktion {@link #getLastDayInMonth()} */
 	public static final String INPUT_getLastDayInMonth[] = {};
-	/** Octopus-Ausgabeparameter für die Aktion {@link #getLastDayInMonth()} */
+	/** Octopus-Ausgabeparameter fï¿½r die Aktion {@link #getLastDayInMonth()} */
 	public static final String OUTPUT_getLastDayInMonth = "lastDayInMonth";
 	/**
-	 * @return Gibt den letzten Tag des aktuellen Monats zurück.
+	 * @return Gibt den letzten Tag des aktuellen Monats zurï¿½ck.
 	 */
 	public Date getLastDayInMonth() {
 		Calendar calendar = Calendar.getInstance();
@@ -101,12 +101,12 @@ public class StatistikWorker {
 		return calendar.getTime();
 	}
 
-	/** Octopus-Eingabeparameter für die Aktion {@link #loadStatistik(OctopusContext, String, String, String)} */
+	/** Octopus-Eingabeparameter fï¿½r die Aktion {@link #loadStatistik(OctopusContext, String, String, String)} */
 	public static final String INPUT_loadStatistik[] = { "statistik", "begin", "end" };
-	/** Octopus-Eingabeparameter für die Aktion {@link #loadStatistik(OctopusContext, String, String, String)} */
+	/** Octopus-Eingabeparameter fï¿½r die Aktion {@link #loadStatistik(OctopusContext, String, String, String)} */
 	public static final boolean MANDATORY_loadStatistik[] = { false, false, false };
 	/**
-	 * Speichert die Einstellungen für die nächste Statistik in der Session.
+	 * Speichert die Einstellungen fï¿½r die nï¿½chste Statistik in der Session.
 	 * 
 	 * @param cntx Octopus-Context
 	 * @param statistik Statistikname
@@ -130,25 +130,25 @@ public class StatistikWorker {
 		cntx.setContent("end", map.get("end"));
 	}
 
-	/** Octopus-Eingabeparameter für die Aktion {@link #getStatistik(OctopusContext, String, String, String, Integer)} */
+	/** Octopus-Eingabeparameter fï¿½r die Aktion {@link #getStatistik(OctopusContext, String, String, String, Integer)} */
 	public static final String INPUT_getStatistik[] = { "statistik", "begin", "end", "id" };
-	/** Octopus-Eingabeparameter für die Aktion {@link #getStatistik(OctopusContext, String, String, String, Integer)} */
+	/** Octopus-Eingabeparameter fï¿½r die Aktion {@link #getStatistik(OctopusContext, String, String, String, Integer)} */
 	public static final boolean MANDATORY_getStatistik[] = { true, false, false, false };
 	/**
-	 * Exportiert Statistiken für folgende Fälle:<br>
+	 * Exportiert Statistiken fï¿½r folgende Fï¿½lle:<br>
 	 * 
 	 * <ul>
-	 * <li><em>EventsPerYear</em> - Übersicht über die Anzahl der Veranstaltungen pro Jahr.</li>
-	 * <li><em>EventsPerMonth</em> - Übersicht über die Anzahl der Veranstaltungen pro Monat.</li>
-	 * <li><em>EventsGroupByHost</em> - Übersicht über die Verstanstaltungen eines Gastgebers.</li>
-	 * <li><em>EventsGroupByGuest</em> - Übersicht über die Veranstaltungen eines Gastes.</li>
+	 * <li><em>EventsPerYear</em> - ï¿½bersicht ï¿½ber die Anzahl der Veranstaltungen pro Jahr.</li>
+	 * <li><em>EventsPerMonth</em> - ï¿½bersicht ï¿½ber die Anzahl der Veranstaltungen pro Monat.</li>
+	 * <li><em>EventsGroupByHost</em> - ï¿½bersicht ï¿½ber die Verstanstaltungen eines Gastgebers.</li>
+	 * <li><em>EventsGroupByGuest</em> - ï¿½bersicht ï¿½ber die Veranstaltungen eines Gastes.</li>
 	 * </ul>
 	 * 
 	 * @param cntx Octopus-Context
 	 * @param statistik Statistikname
 	 * @param begin Zeitrahmen-Beginn
 	 * @param end Zeitrahmen-Ende
-	 * @param id Abhängig vom Statistiknamen
+	 * @param id Abhï¿½ngig vom Statistiknamen
 	 */
 	public void getStatistik(OctopusContext cntx, String statistik, String begin, String end, Integer id) throws BeanException, IOException {
 		Database database = new DatabaseVeraWeb(cntx);
@@ -159,27 +159,27 @@ public class StatistikWorker {
 		Select select;
 		Clause clause = getEventFilter(cntx, filterBegin, filterEnd);
 		if (statistik.equals("EventsPerYear")) {
-			select = getEventsPerYear();
+			select = getEventsPerYear( database );
 			select.where(clause);
 		} else if (statistik.equals("EventsPerMonth")) {
-			select = getEventsPerMonth();
+			select = getEventsPerMonth( database );
 			select.where(clause);
 		} else if (statistik.equals("EventsGroupByHost")) {
-			select = getEventsGroupByHost();
+			select = getEventsGroupByHost( database );
 			if (id != null) {
 				clause = Where.and(Expr.equal("tguest.fk_person", id), clause);
 				cntx.setContent("person", database.getBean("Person", id));
 			}
 			select.where(clause);
 		} else if (statistik.equals("EventsGroupByGuest")) {
-			select = getEventsGroupByGuest();
+			select = getEventsGroupByGuest( database );
 			if (id != null) {
 				clause = Where.and(Expr.equal("tguest.fk_person", id), clause);
 				cntx.setContent("person", database.getBean("Person", id));
 			}
 			select.where(clause);
 		} else if (statistik.equals("EventsGroupByLocation")) {
-			select = getEventsGroupByLocation();
+			select = getEventsGroupByLocation( database );
 			select.where(clause);
 		} else {
 			throw new BeanException("Es wurde versucht eine unbekannte Statistik zu exportieren: " + statistik);
@@ -190,7 +190,7 @@ public class StatistikWorker {
 		//ResultList resultList = (ResultList)database.getList(select);
 		//cntx.setContent("stream", getExport(cntx, resultList.getResultSet()));
 		
-		// EXPORT ÜBER EIN VELOCITY SCRIPT
+		// EXPORT ï¿½BER EIN VELOCITY SCRIPT
 		cntx.setContent("begin", filterBegin);
 		cntx.setContent("end", filterEnd);
 		ResultList resultList = (ResultList)database.getList(select, database);
@@ -198,15 +198,15 @@ public class StatistikWorker {
 	}
 
 	/**
-	 * Erstellt ein SQL-Statement das für folgende Statistik verwendet wird:
+	 * Erstellt ein SQL-Statement das fï¿½r folgende Statistik verwendet wird:
 	 * <ul>
-	 * <li><em>"Gesamtübersicht über die Anzahl der Veranstaltungen pro Jahr."</em></li>
+	 * <li><em>"Gesamtï¿½bersicht ï¿½ber die Anzahl der Veranstaltungen pro Jahr."</em></li>
 	 * </ul>
 	 * 
 	 * @return SQL-Statement, nie null.
 	 */
-	protected Select getEventsPerYear() {
-		return SQL.Select().
+	protected Select getEventsPerYear( Database db ) {
+		return SQL.Select( db ).
 				from("veraweb.tevent").
 				selectAs("date(to_char(datebegin, 'YYYY-01-01'))", "year").
 				selectAs("count(*)", "events").
@@ -215,15 +215,15 @@ public class StatistikWorker {
 	}
 
 	/**
-	 * Erstellt ein SQL-Statement das für folgende Statistik verwendet wird:
+	 * Erstellt ein SQL-Statement das fï¿½r folgende Statistik verwendet wird:
 	 * <ul>
-	 * <li><em>"Gesamtübersicht über die Anzahl der Veranstaltungen pro Monat."</em></li>
+	 * <li><em>"Gesamtï¿½bersicht ï¿½ber die Anzahl der Veranstaltungen pro Monat."</em></li>
 	 * </ul>
 	 * 
 	 * @return SQL-Statement, nie null.
 	 */
-	protected Select getEventsPerMonth() {
-		return SQL.Select().
+	protected Select getEventsPerMonth( Database db ) {
+		return SQL.Select( db ).
 				from("veraweb.tevent").
 				selectAs("date(to_char(datebegin, 'YYYY-MM-01'))", "month").
 				selectAs("count(*)", "events").
@@ -232,27 +232,27 @@ public class StatistikWorker {
 	}
 
 	/**
-	 * Erstellt ein SQL-Statement das für folgende Statistik verwendet wird:
+	 * Erstellt ein SQL-Statement das fï¿½r folgende Statistik verwendet wird:
 	 * <ul>
-	 * <li><em>"Gesamtübersicht über alle Veranstaltungen, gruppiert nach Gastgeber."</em></li>
-	 * <li><em>"Übersicht über alle Veranstaltungen eines Gastgebers (mit Suche)."</em></li>
+	 * <li><em>"Gesamtï¿½bersicht ï¿½ber alle Veranstaltungen, gruppiert nach Gastgeber."</em></li>
+	 * <li><em>"ï¿½bersicht ï¿½ber alle Veranstaltungen eines Gastgebers (mit Suche)."</em></li>
 	 * </ul>
 	 * <p>
 	 * Die Filterung auf einen bestimmten Gastgeber muss dabei auf einer
-	 * höher liegenden Ebene geschehen. Theoretisch ließe sich mit dieser
-	 * Abfrage auch eine (gruppierte) Liste aller Gästgeber realisieren.
+	 * hï¿½her liegenden Ebene geschehen. Theoretisch lieï¿½e sich mit dieser
+	 * Abfrage auch eine (gruppierte) Liste aller Gï¿½stgeber realisieren.
 	 * </p>
 	 * 
 	 * @return SQL-Statement, nie null.
 	 */
-	protected Select getEventsGroupByHost() {
+	protected Select getEventsGroupByHost( Database db ) {
 		String zusagen = "(SELECT SUM(" +
 				"(CASE WHEN (invitationtype != 3 AND invitationstatus = 1) THEN 1 ELSE 0 END) +" +
 				"(CASE WHEN (invitationtype != 2 AND invitationstatus_p = 1) THEN 1 ELSE 0 END))" +
 				" FROM veraweb.tguest g WHERE" +
 				" g.fk_event = tevent.pk)";
 		
-		return SQL.Select().
+		return SQL.Select( db ).
 				from("veraweb.tevent").
 				joinLeftOuter("veraweb.tguest", "tevent.pk", "tguest.fk_event AND tguest.ishost = 1").
 				joinLeftOuter("veraweb.tperson", "tguest.fk_person", "tperson.pk").
@@ -269,20 +269,20 @@ public class StatistikWorker {
 	}
 
 	/**
-	 * Erstellt ein SQL-Statement das für folgende Statistik verwendet wird:
+	 * Erstellt ein SQL-Statement das fï¿½r folgende Statistik verwendet wird:
 	 * <ul>
-	 * <li><em>"Übersicht über alle Veranstaltungen eines Gastes (mit Suche)."</em></li>
+	 * <li><em>"ï¿½bersicht ï¿½ber alle Veranstaltungen eines Gastes (mit Suche)."</em></li>
 	 * </ul>
 	 * <p>
 	 * Die Filterung auf einen bestimmten Gast muss dabei auf einer
-	 * höher liegenden Ebene geschehen. Theoretisch ließe sich mit dieser
-	 * Abfrage auch eine (gruppierte) Liste alles Gästen realisieren.
+	 * hï¿½her liegenden Ebene geschehen. Theoretisch lieï¿½e sich mit dieser
+	 * Abfrage auch eine (gruppierte) Liste alles Gï¿½sten realisieren.
 	 * </p>
 	 * 
 	 * @return SQL-Statement, nie null.
 	 */
-	protected Select getEventsGroupByGuest() {
-		return SQL.Select().
+	protected Select getEventsGroupByGuest( Database db ) {
+		return SQL.Select( db ).
 				from("veraweb.tguest").
 				joinLeftOuter("veraweb.tevent", "fk_event", "tevent.pk").
 				joinLeftOuter("veraweb.tperson", "tguest.fk_person", "tperson.pk").
@@ -301,20 +301,20 @@ public class StatistikWorker {
 	}
 
 	/**
-	 * Erstellt ein SQL-Statement das für folgende Statistik verwendet wird:
+	 * Erstellt ein SQL-Statement das fï¿½r folgende Statistik verwendet wird:
 	 * <ul>
-	 * <li><em>"Übersicht über alle Veranstaltungen sortiert nach Veranstaltungsort."</em></li>
+	 * <li><em>"ï¿½bersicht ï¿½ber alle Veranstaltungen sortiert nach Veranstaltungsort."</em></li>
 	 * </ul>
 	 * <p>
 	 * Die Filterung auf einen bestimmten Veranstaltungsort muss dabei auf einer
-	 * höher liegenden Ebene geschehen. Theoretisch ließe sich mit dieser
+	 * hï¿½her liegenden Ebene geschehen. Theoretisch lieï¿½e sich mit dieser
 	 * Abfrage auch eine (gruppierte) Liste aller Veranstaltungsorte realisieren.
 	 * </p>
 	 * 
 	 * @return SQL-Statement, nie null.
 	 */
-	protected Select getEventsGroupByLocation() {
-		return SQL.Select().
+	protected Select getEventsGroupByLocation( Database db ) {
+		return SQL.Select( db ).
 				from("veraweb.tevent").
 				joinLeftOuter("veraweb.tguest", "tevent.pk", "tguest.fk_event AND tguest.ishost = 1").
 				joinLeftOuter("veraweb.tperson", "tguest.fk_person", "tperson.pk").
@@ -327,7 +327,7 @@ public class StatistikWorker {
 	}
 
 	/**
-	 * Gibt einen SQL-Filter zurück der eine Einschränkung auf den
+	 * Gibt einen SQL-Filter zurï¿½ck der eine Einschrï¿½nkung auf den
 	 * Starttermin einer Veranstaltung legt.
 	 * 
 	 * @param cntx
@@ -354,7 +354,7 @@ public class StatistikWorker {
 
 	/**
 	 * Exportiert eine Veranstaltung und gibt das Spreadsheet Ergebnis
-	 * in einer Ocotpus-ResultMap zurück, die von der Binary-Response
+	 * in einer Ocotpus-ResultMap zurï¿½ck, die von der Binary-Response
 	 * ausgegeben werden kann.
 	 * 
 	 * @see #getColumnName(String)

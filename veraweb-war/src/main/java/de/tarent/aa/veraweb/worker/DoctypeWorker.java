@@ -44,16 +44,16 @@ import de.tarent.octopus.beans.Database;
 import de.tarent.octopus.server.OctopusContext;
 
 /**
- * Diese Octopus-Worker-Klasse stellt Operationen für Dokumenttypen
- * zur Verfügung. Details bitte dem BeanListWorker entnehmen.
+ * Diese Octopus-Worker-Klasse stellt Operationen fï¿½r Dokumenttypen
+ * zur Verfï¿½gung. Details bitte dem BeanListWorker entnehmen.
  * 
  * Wenn eine Veranstaltung als 'event' im Octopus-Content
  * steht, wird das Ergebnis der <code>getAll</code>-Aktion auf die
- * Dokumenttypen eingeschränkt die NICHT diesem Event zugeordnet sind.
+ * Dokumenttypen eingeschrï¿½nkt die NICHT diesem Event zugeordnet sind.
  * 
  * Wenn eine Anrede als 'salutation' im Octopus-Content
  * steht, wird das Ergebnis der <code>getAll</code>-Aktion auf die
- * Dokumenttypen eingeschränkt die NICHT dieser Anrede zugeordnet sind.
+ * Dokumenttypen eingeschrï¿½nkt die NICHT dieser Anrede zugeordnet sind.
  * 
  * @see de.tarent.octopus.beans.BeanListWorker
  * 
@@ -93,13 +93,13 @@ public class DoctypeWorker extends StammdatenWorker {
     protected void saveBean(OctopusContext cntx, Bean bean) throws BeanException, IOException {
 		Doctype doctype = (Doctype)bean;
 		Boolean isdefault = doctype.isdefault;
+		Database database = getDatabase(cntx);
 		if (isdefault != null && isdefault.booleanValue()) {
-			getDatabase(cntx).execute(SQL.Update().
+			database.execute(SQL.Update( database ).
 					table("veraweb.tdoctype").
 					update("isdefault", Boolean.FALSE));
 		}
 		if (doctype.id != null && doctype.flags != null && doctype.flags.intValue() == 50) {
-			Database database = getDatabase(cntx);
 			Doctype old = (Doctype)database.getBean(BEANNAME, doctype.id);
 			if (old.flags == null || old.flags.intValue() != 50) {
 				database.execute(database.getUpdate("GuestDoctype").

@@ -261,21 +261,21 @@ public class EventListWorker extends ListWorkerVeraWeb {
 		
 		Event event = (Event)bean;
 		database.execute(
-				SQL.Delete().
+				SQL.Delete( database ).
 				from("veraweb.tguest_doctype").
 				where(Expr.in("fk_guest",
-						SQL.Select().
+						SQL.Select( database ).
 						from("veraweb.tguest").
 						selectAs("pk", "id").
 						where(Expr.equal("fk_event", event.id)))));
 		database.execute(
-				SQL.Delete().
+				SQL.Delete( database ).
 				from("veraweb.tguest").
 				where(Expr.equal("fk_event", event.id)));
-		database.execute(PersonListWorker.getPersonClear());
+		database.execute(PersonListWorker.getPersonClear( database ));
 		
 		database.execute(
-				SQL.Delete().
+				SQL.Delete( database ).
 				from("veraweb.tevent_doctype").
 				where(Expr.equal("fk_event", event.id)));
 
