@@ -4,10 +4,7 @@
 <!--
 	Octopus config.xml
 	
-	Auswärtiges Amt - VerA.web
-	
 	Hauptkonfiguration
-	Datenbank-Einstellungen siehe dblayer.properties
 -->
 <tcModuleConfig>
 	<!-- textuelle Beschreibung des Moduls -->
