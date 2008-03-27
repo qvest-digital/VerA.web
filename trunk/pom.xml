@@ -39,6 +39,12 @@
 		<connection>
 			scm:svn:svn://svn.evolvis.org/svnroot/veraweb/trunk
 		</connection>
+		<developerConnection>
+			scm:svn:svn+ssh://maven@svn.evolvis.org/svnroot/veraweb/trunk
+		</developerConnection>
+		<url>
+			http://evolvis.org/plugins/scmsvn/viewcvs.php/?root=veraweb
+		</url>
 	</scm>
 
 	<repositories>
