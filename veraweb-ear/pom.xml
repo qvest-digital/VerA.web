@@ -5,7 +5,7 @@
 	<groupId>org.evolvis.veraweb</groupId>
 	<artifactId>veraweb-ear</artifactId>
 	<packaging>ear</packaging>
-	<version>1.2.0</version>
+	<version>1.2.1-SNAPSHOT</version>
 
 	<name>veraweb-evolvis-ear</name>
 	<description>Veranstaltungsmanagment veraweb</description>
@@ -195,7 +195,7 @@
 		<dependency>
 			<groupId>org.evolvis.veraweb</groupId>
 			<artifactId>veraweb-war</artifactId>
-			<version>1.2.0</version>
+			<version>1.2.1-SNAPSHOT</version>
 			<type>war</type>
 		</dependency>
 	</dependencies>
