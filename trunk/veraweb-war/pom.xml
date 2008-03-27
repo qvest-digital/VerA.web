@@ -80,7 +80,7 @@
 			<id>evolvis-site-repository</id>
 			<name>evolvis.org site repository</name>
 			<url>
-				scpexe://maven@svn.evolvis.org/site/veraweb/htdocs/maven-site
+				scpexe://maven@svn.evolvis.org/site/veraweb/htdocs/maven-site/veraweb-war
 			</url>
 		</site>
 	</distributionManagement>
