@@ -181,7 +181,7 @@
 							<unpack>false</unpack>
 							<groupId>org.evolvis.veraweb</groupId>
 							<artifactId>veraweb-war</artifactId>
-							<context-root>verwaweb</context-root>
+							<context-root>veraweb</context-root>
 						</webModule>
 					</modules>
 
