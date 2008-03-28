@@ -192,13 +192,14 @@ public class PersonDuplicateSearchWorker extends PersonListWorker
 	protected void extendWhere( OctopusContext cntx, Select select )
 	{
 		Database database = new DatabaseVeraWeb( cntx );
-		Select subselect = null; 
+		Select subselect = null;
 		try
 		{
 			Person template = new Person();
 			subselect = database.getSelectIds( template );
 			this.extendSubselect( cntx, database, subselect );
-			subselect.setDistinct( true );
+			subselect.setDistinct( false );
+			subselect.orderBy( Order.asc( "tperson.lastname_a_e1" ).andAsc( "tperson.firstname_a_e1" ) );
 		}
 		catch( Exception e )
 		{
@@ -222,7 +223,7 @@ public class PersonDuplicateSearchWorker extends PersonListWorker
 			}
 			cntx.setSession( "start" + BEANNAME, start );
 			Integer limit = getLimit( cntx );
-			subselect.Limit( new Limit( limit, start ) );
+			select.Limit( new Limit( limit, start ) );
 		}
 		catch( Exception e )
 		{
