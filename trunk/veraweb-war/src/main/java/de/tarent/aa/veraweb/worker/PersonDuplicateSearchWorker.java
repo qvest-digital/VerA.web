@@ -57,8 +57,9 @@ public class PersonDuplicateSearchWorker extends PersonListWorker
 		cntx.setContent( "action", "duplicateSearch" );
 
 		Select select = getSelect(database);
-		extendColumns(cntx, select);
-		extendWhere(cntx, select);
+		this.extendColumns(cntx, select);
+		this.extendWhere(cntx, select);
+		this.extendLimit( cntx, select );
 		select.orderBy( Order.asc( "lastname_a_e1" ).andAsc( "firstname_a_e1" ) );
 
 		return getResultList(database, select);
@@ -88,9 +89,10 @@ public class PersonDuplicateSearchWorker extends PersonListWorker
 	{
 		// code duplicated from PersonListWorker.getAlphaStart()
 		Database database = getDatabase(cntx);
-		Select select = database.getCount(BEANNAME);
+		Select select = database.getEmptySelect( new Person() );
+		select.select( "COUNT(DISTINCT(tperson.pk))" );
 		select.from( "veraweb.tperson person2" );
-		select.setDistinct( true );
+		select.setDistinct( false );
 
 		this.extendWhere( cntx, select );
 		if ( start != null && start.length() > 0 )
@@ -116,7 +118,8 @@ public class PersonDuplicateSearchWorker extends PersonListWorker
 			Select select = this.getSelect( database );
 			Person template = new Person();
 	        select.selectAs( database.getProperty( template, "id" ), "id" );
-			extendWhere( cntx, select );
+			this.extendWhere( cntx, select );
+			this.extendLimit( cntx, select );
 			for ( Iterator it = database.getList( select, database ).iterator(); it.hasNext(); )
 			{
 				result.add( ( ( Map ) it.next() ).get( "id" ) );
@@ -133,7 +136,9 @@ public class PersonDuplicateSearchWorker extends PersonListWorker
 	@Override
 	protected Integer getCount(OctopusContext cntx, Database database) throws BeanException, IOException
 	{
-		Select select = database.getCount( this.BEANNAME );
+		Select select = database.getEmptySelect( new Person() );
+		select.select( "COUNT(DISTINCT(tperson.pk))" );
+		select.setDistinct( false );
 		this.extendSubselect( cntx, database, select );
 
 		return database.getCount( select );
@@ -188,6 +193,13 @@ public class PersonDuplicateSearchWorker extends PersonListWorker
 		);
 	}
 
+	protected void extendLimit( OctopusContext cntx, Select select ) throws BeanException, IOException
+	{
+		Integer start = this.getStart( cntx );
+		Integer limit = this.getLimit( cntx );
+		select.Limit( new Limit( limit, start ) );
+	}
+	
 	@Override
 	protected void extendWhere( OctopusContext cntx, Select select )
 	{
@@ -200,30 +212,6 @@ public class PersonDuplicateSearchWorker extends PersonListWorker
 			this.extendSubselect( cntx, database, subselect );
 			subselect.setDistinct( false );
 			subselect.orderBy( Order.asc( "tperson.lastname_a_e1" ).andAsc( "tperson.firstname_a_e1" ) );
-		}
-		catch( Exception e )
-		{
-			;; // just catch, should never happen
-		}
-
-		try
-		{
-			Map param = ( Map )cntx.contentAsObject( OUTPUT_showListParams );
-
-			// code in part replicated from BeanListWorker.getStart() in order to prevent infinite recursion via getAlphaStart()
-			String s = cntx.requestAsString("start");
-			Integer start = null;
-			try
-			{
-				start = new Integer( s );
-			}
-			catch ( NumberFormatException e )
-			{
-				start = new Integer( 0 );
-			}
-			cntx.setSession( "start" + BEANNAME, start );
-			Integer limit = getLimit( cntx );
-			select.Limit( new Limit( limit, start ) );
 		}
 		catch( Exception e )
 		{
