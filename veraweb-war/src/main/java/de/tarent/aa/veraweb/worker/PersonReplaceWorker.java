@@ -34,6 +34,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import de.tarent.aa.veraweb.beans.Person;
 import de.tarent.aa.veraweb.beans.facade.PersonConstants;
 import de.tarent.dblayer.sql.Escaper;
 import de.tarent.dblayer.sql.SQL;
@@ -334,9 +335,10 @@ public class PersonReplaceWorker extends PersonListWorker {
 	public Integer countData(OctopusContext cntx) throws BeanException, IOException {
 		Database database = getDatabase(cntx);
 		
-		Select select = database.getCount("Person");
+		Select select = database.getEmptySelect( new Person() );
+		select.select( "COUNT(DISTINCT(tperson.pk))" );
 		WhereList where = new WhereList();
-		
+
 		if ("replace".equals(cntx.contentAsString("snr-action"))) {
 			List selection = getSelection(cntx, null);
 			if (selection == null || selection.size() == 0)
