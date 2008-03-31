@@ -150,6 +150,8 @@
 				<artifactId>maven-ear-plugin</artifactId>
 
 				<configuration>
+					<finalName>veraweb.ear</finalName>
+
 					<archive>
 						<manifestEntries>
 							<version_name>${project.name}</version_name>
@@ -171,21 +173,19 @@
 					<jboss>
 						<version>4</version>
 						<loader-repository>
-							com.foo:loader=${project.name}.ear
+							{$project.groupId}:loader=${project.name}.ear
 						</loader-repository>
 					</jboss>
 
 					<modules>
 						<webModule>
 							<bundleFileName>veraweb.war</bundleFileName>
-							<unpack>false</unpack>
+							<unpack>true</unpack>
 							<groupId>org.evolvis.veraweb</groupId>
 							<artifactId>veraweb-war</artifactId>
 							<context-root>veraweb</context-root>
 						</webModule>
 					</modules>
-
-					<finalName>${project.name}</finalName>
 				</configuration>
 			</plugin>
 		</plugins>
