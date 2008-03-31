@@ -1,12 +1,17 @@
 * [http://veraweb.evolvis.org/maven-site/doc/Benutzerhandbuch_1.2.pdf Benutzerhandbuch]
 
+== Unstable (Continuous Integration) Builds ==
+
+* http://maven-repo.evolvis.org/snapshots/org/evolvis/veraweb/veraweb-war/?C=N;O=D
+* http://maven-repo.evolvis.org/snapshots/org/evolvis/veraweb/veraweb-ear/?C=N;O=D
+
 == Release 1.2.1 ==
 
-Downloads available at the evolvis repository: http://evolvis.org/frs/?group_id=17&release_id=156
+* Downloads available at the evolvis repository: http://evolvis.org/frs/?group_id=17&release_id=156
 
 == Release 1.2.0 ==
 
-Downloads available at the evolvis repository: http://evolvis.org/frs/?group_id=17&release_id=156
+* Downloads available at the evolvis repository: http://evolvis.org/frs/?group_id=17&release_id=156
 
 == Versionshistory 1.1.x ==
 
