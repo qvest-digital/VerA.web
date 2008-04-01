@@ -83,6 +83,7 @@ The application specific logging could be find in the '''veraweb.ear/veraweb.war
 		</category>
 		
 		<category name="SQL" additivity="false">
+
 			<level value="WARN"/>
 			<appender-ref ref="FileLog"/>
 		</category>
@@ -98,11 +99,6 @@ The application specific logging could be find in the '''veraweb.ear/veraweb.war
 		</category>
 		
 		<category name="de.tarent.aa.veraweb" additivity="false">
-			<level value="ALL"/>
-			<appender-ref ref="FileLog"/>
-		</category>
-		
-		<category name="de.tarent.ldap" additivity="false">
 			<level value="ALL"/>
 			<appender-ref ref="FileLog"/>
 		</category>
