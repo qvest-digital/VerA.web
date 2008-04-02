@@ -771,9 +771,13 @@ public class LDAPManager {
             attr.put(att);
         }
 		try {
+    		String name = relativeUser.substring(1) + baseDN;
+    		String filter = filterTemplate.format(new Object[]{uid});
 			SearchControls cons = new SearchControls();
     		this.initializeSearchControls( cons );
-    		NamingEnumeration ne = lctx.search(relativeUser.substring(1) + baseDN, filterTemplate.format(new Object[]{uid}), cons );
+    		if (logger.isLoggable(Level.INFO))
+    			logger.log(Level.INFO, "Search LDAP account in \"" + name + "\" with filter \"" + filter + "\".");
+    		NamingEnumeration ne = lctx.search(name, filter, cons);
 			if (!ne.hasMore()) {
 				throw new LDAPException(Messages.getString("LDAPManager.95")); //$NON-NLS-1$
 			}
