@@ -189,9 +189,9 @@ public class ChangeLogMaintenanceWorker implements Runnable {
 		Date d = new Date( c.getTimeInMillis() );
 
 		Database db = new DatabaseVeraWeb( this.cntx );
-		Delete delete = SQL.Delete( db );
-		delete.from( "veraweb.tchangelog" );
+		Delete delete = db.getDelete( "ChangeLogEntry" );
 		delete.where( Expr.lessOrEqual( "date", d.toString() ) );
 		delete.execute();
+		DB.getConnection( db ).close();
 	}
 }
