@@ -54,10 +54,10 @@
 	</head>
 	<body>
 		<table class="header"><tr>
-    		<td class="logo1"><img src="${paths.staticWeb}images/aamt_logo.gif" width="150" height="70" alt="AA Logo"/></td>
-    		<td class="logo2" style="background-image: url(${paths.staticWeb}images/topbg.gif);">&nbsp;</td>
+    		<td class="logo1"><img src="${paths.staticWeb}images/veraweb-head01.png" width="150" height="70" alt="Veraweb"/></td>
+    		<td class="logo2">&nbsp;</td>
 		</tr><tr>
-    		<td class="headerkennung"><img src="${paths.staticWeb}images/intranet_kennung.gif" width="150" height="30" alt="Intranet"/></td>
+    		<td class="headerkennung"><img src="${paths.staticWeb}images/veraweb-head02.png" width="150" height="30" alt="Veraweb"/></td>
     		<td class="headertitle"><strong class="headertitle">$!title</strong></td>
 		</tr></table>
 		
