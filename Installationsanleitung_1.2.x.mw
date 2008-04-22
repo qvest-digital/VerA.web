@@ -55,7 +55,56 @@ Verwenden Sie hierfür zum Beispiel den Grafischen PostgreSql Client pgAdmin.
 
 == Installation LDAP ==
 
+Mit dieser Version können Sie eine beliebige LDAP Installation verwenden. Nach der Installation von veraweb müssen Sie noch Ihre entsprechenden LDAP Konfigurationsparameter in die Datei OCTOPUS/config_ldap_access.xml eintragen. Diese sieht standardmäßig wie folgt aus:
 
+<source lang="xml">
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--!DOCTYPE tcModuleConfig SYSTEM "../tcModuleConfig.dtd"-->
+
+<!--
+	Octopus config.xml
+	
+	LDAP-Access - Authentifizierung für dieses Modul.
+-->
+<tcModuleConfig>
+	<loginManager>
+		<!-- Login-Benutzername für einen System-Admin ohne LDAP-Rückhalt. -->
+		<param name="systemlogin" value="system"/>
+		<!-- Login-Passwort für einen System-Admin ohne LDAP-Rückhalt. -->
+		<param name="systempassword" value="manager"/>
+		
+		<!-- Java-Klasse, die als LoginManager für das Modul instanziiert werden soll; hier sollte immer "de.tarent.ldap.LoginManagerLDAPAA" für einen Zugriff auf einen LDAP-Server mit dem AA.schema eingestellt sein. -->
+		<param name="loginManagerClass" value="de.tarent.ldap.LoginManagerLDAPAA" />
+		<!-- der Authentisierungstyp bei LDAP-Zugriffen; er sollte auf "simple" stehen. -->
+		<param name="ldapauth" value="simple" />
+		
+		<!-- die URL des LDAP-Servers bei LDAP-Zugriffen; im Falle der Test-Auslandsvertretung 01 ist es "ldap://localhost:389/". -->
+		<param name="ldapurl" value="ldap://ldap.example.com:389/" />
+		<!-- der Benutzer bei LDAP-Zugriffen, die nicht ein einfaches Überprüfen eines Logins darstellen; zum Beispiel "cn=Manager,ou=testav01,dc=aa". -->
+		<param name="ldapuser" value="cn=Users,ou=example,dc=com" />
+		<!-- LDAP Passwort falls erforderlich -->
+		<!-- <param name="ldappwd" value="password" /> -->
+		
+		<!-- der Basis-DN bei LDAP-Zugriffen; im Falle der Test-Auslandsvertretung 01 ist es "ou=testav01,dc=aa". -->
+		<param name="ldapbasedn" value="dc=example,dc=com" />
+		<!-- der relative DN unter ldapbasedn" mit Authentifizierungsinformationen der AA-Rollen; im Falle der Test-Auslandsvertretung 01 ist es "ou=Users". -->
+		<param name="ldaprelative" value="ou=Users" />
+		
+		<!-- die Objektklasse, welche standardmaessig von allen Benutzern implementiert wird -->
+		<param name="ldapuserobjectclass" value="person" />
+		<!-- Ermöglicht rekursive LDAP lookups, gültige Werte sind "true" oder "false"-->
+		<param name="ldaprecursivelookups" value="true" />
+		<!-- der LDAP-Filter, mit dem in den AA-Rollen unter "ldaprelative" nach möglichen Rollen für einen im Anmeldedialog angegebenen Benutzernamen gesucht wird. -->
+		<param name="aarolefilter" value="(&amp;(objectClass=person)(uid={0}))" />
+	</loginManager>
+</tcModuleConfig>
+</source>
+
+In der Regel müssen dabei folgende Parameter geändert werden:
+
+* '''ldapurl''' auf die IP-Adresse Ihres LDAP Servers, z.B. '''ldap://192.168.100.200:389/'''
+* '''ldapuser''' auf einen LDAP User mit Zugriff auf Ihre Benutzerdaten.
+* '''ldapbasedn''' auf Ihre LDAP Base DN
 
 == Konfiguration Datenbank ==
 
