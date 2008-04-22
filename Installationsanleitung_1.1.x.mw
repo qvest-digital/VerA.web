@@ -85,75 +85,79 @@ Alle Zeilen die mit "access" starten auskommentieren.
 Mit "/etc/init.d/slapd restart" den LDAP Server neu starten.
 Die Datei /etc/ldap/ldap.conf mit folgenden Daten füllen:
 
- BASE    dc=tarent, dc=de
- URI ldap://veraweb-ldap.tarent.de
+  BASE dc=tarent, dc=de
+  URI ldap://veraweb-ldap.tarent.de
 
 Mit "ldapsearch -x" testen, ob der LDAP Daten zurückliefert:
 
- root@veraweb-ldap:/etc/ldap# ldapsearch -x
+  root@veraweb-ldap:/etc/ldap# ldapsearch -x
 
- # extended LDIF
- #
- # LDAPv3
- # base  with scope subtree
- # filter: (objectclass=*)
- # requesting: ALL
- #
- # tarent.de
- dn: dc=tarent,dc=de
- objectClass: top
- objectClass: dcObject
- objectClass: organization
- o: tarent.de
- dc: tarent
- # admin, tarent.de
- dn: cn=admin,dc=tarent,dc=de
- objectClass: simpleSecurityObject
- objectClass: organizationalRole
- cn: admin
- description: LDAP administrator
- userPassword:: e2NyeXB0fVpnYk5tdmowbGJYMXM=
- #  search result
- search: 2
- result: 0 Success
- # numResponses: 3
- # numEntries: 2
+  # extended LDIF
+  #
+  # LDAPv3
+  # base  with scope subtree
+  # filter: (objectclass=*)
+  # requesting: ALL
+  #
+  # tarent.de
+  dn: dc=tarent,dc=de
+  objectClass: top
+  objectClass: dcObject
+  objectClass: organization
+  o: tarent.de
+  dc: tarent
+  # admin, tarent.de
+  dn: cn=admin,dc=tarent,dc=de
+  objectClass: simpleSecurityObject
+  objectClass: organizationalRole
+  cn: admin
+  description: LDAP administrator
+  userPassword:: e2NyeXB0fVpnYk5tdmowbGJYMXM=
+  #  search result
+  search: 2
+  result: 0 Success
+  # numResponses: 3
+  # numEntries: 2
 
 ==== phpldapadmin ====
 Um die ersten initialen Daten einfach in den Ldap zu bekommen, kann man
 z.B. das Paket "phpldapadmin" installieren "apt-get install phpldapadmin"
 und die Datei /etc/phpldapadmin/apache.conf wie folgt anpassen:
 
- < VirtualHost *:* >
- ServerName veraweb-ldap.tarent.de
- ServerAdmin root@tarent.de
- DocumentRoot /usr/share/phpldapadmin
- ErrorLog /var/log/apache2/veraweb-ldap.tarent.de-error.log
- CustomLog /var/log/apache2/veraweb-ldap.tarent.de-access.log common
- < / VirtualHost >
- < Directory /usr/share/phpldapadmin/htdocs/ >
- DirectoryIndex index.php
- Options +FollowSymLinks
- AllowOverride None
-     Order allow,deny
-             Allow from all
-             < IfModule mod_mime.c >
-                 AddType application/x-httpd-php .php
-                 php_flag magic_quotes_gpc Off
-                     php_flag track_vars On
-                     php_flag register_globals On
-                     php_value include_path
-                 < / IfModule >
-                 < IfModule !mod_php4.c >
-                 < IfModule mod_actions.c >
-                 < IfModule mod_cgi.c >
-                         AddType application/x-httpd-php .php
-                         Action application/x-httpd-php /cgi-bin/php4
-                 < / IfModule >
-                 < / IfModule >
-                 < / IfModule >
-             < / IfModule >
-         < / Directory >
+<source lang="xml">
+<VirtualHost *:*>
+    ServerName veraweb-ldap.tarent.de
+    ServerAdmin root@tarent.de
+    DocumentRoot /usr/share/phpldapadmin
+    ErrorLog /var/log/apache2/veraweb-ldap.tarent.de-error.log
+    CustomLog /var/log/apache2/veraweb-ldap.tarent.de-access.log common
+</VirtualHost>
+
+<Directory /usr/share/phpldapadmin/htdocs/>
+    DirectoryIndex index.php
+    Options +FollowSymLinks
+    AllowOverride None
+    Order allow,deny
+    Allow from all
+
+    <IfModule mod_mime.c>
+        AddType application/x-httpd-php .php
+        php_flag magic_quotes_gpc Off
+        php_flag track_vars On
+        php_flag register_globals On
+        php_value include_path
+    </IfModule>
+
+    <IfModule !mod_php4.c>
+    <IfModule mod_actions.c>
+    <IfModule mod_cgi.c>
+        AddType application/x-httpd-php .php
+        Action application/x-httpd-php /cgi-bin/php4
+    </IfModule>
+    </IfModule>
+    </IfModule>
+</Directory>
+</source>
 
 Diese Datei nach /etc/apache2/sites-enabled/000-default verlinken (evtl.
 vorherigen Link löschen). Mit "/etc/init.d/apache2 restart" den Apache2
