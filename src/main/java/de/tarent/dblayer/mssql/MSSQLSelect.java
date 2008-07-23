@@ -84,7 +84,7 @@ public class MSSQLSelect extends Select {
             if (isWhereEmpty(dbc))
                 sb.append(Where.WHERE);
             else
-                sb.append("AND ");
+                sb.append(" AND ");
             
             sb.append(uColumn);
             sb.append(" NOT IN (");
@@ -104,8 +104,9 @@ public class MSSQLSelect extends Select {
                     sb.append(clauseString);
                 }
             }
-            appendGroupBy(sb);
-            appendOrder(dbc, sb);
+            //for inner select GROUP/ORDER BY are irrelevant
+            //appendGroupBy(sb);
+            //appendOrder(dbc, sb);
             appendLimit(dbc, sb);
             sb.append(")");
             
