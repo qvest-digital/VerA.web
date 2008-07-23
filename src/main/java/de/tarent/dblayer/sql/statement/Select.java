@@ -649,7 +649,9 @@ public class Select extends AbstractStatement implements Clause, Cloneable {
             String clauseString = _whereClause.clauseToString(dbc);
             if (clauseString.length() != 0) {
                 sb.append(Where.WHERE);
+            	sb.append(" (");
                 sb.append(clauseString);
+                sb.append(") ");
             }
 		}
     }
