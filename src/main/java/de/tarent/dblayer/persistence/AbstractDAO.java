@@ -312,6 +312,7 @@ public abstract class AbstractDAO {
             // reset the expression in the distinct on, the distinct is still active
             countSelect.setDistinctOn(null);
             countSelect.Limit(null);
+            countSelect.orderBy(null);
             countSelect.select("COUNT(*)");            
             if (where != null)
                 countSelect.whereAnd(where);
