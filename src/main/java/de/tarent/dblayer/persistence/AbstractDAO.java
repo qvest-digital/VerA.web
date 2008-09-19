@@ -710,12 +710,12 @@ public abstract class AbstractDAO {
 	    } catch (SQLException e) {
 	        dbc.getDefaultConnection().rollback();
 	        throw e;
+	    } finally {
+			if (!inTransaction) {
+		        dbc.getDefaultConnection().commit();
+		        dbc.getDefaultConnection().setAutoCommit(true);
+			}
 	    }
-		
-		if (!inTransaction) {
-	        dbc.getDefaultConnection().commit();
-	        dbc.getDefaultConnection().setAutoCommit(true);
-		}
 	}
 
     
@@ -847,12 +847,12 @@ public abstract class AbstractDAO {
         } catch (SQLException e) {
             dbc.getDefaultConnection().rollback();
             throw e;
+        } finally {
+	        if (!inTransaction) {
+		        dbc.getDefaultConnection().commit();
+		        dbc.getDefaultConnection().setAutoCommit(true);
+			}
         }
-    	
-        if (!inTransaction) {
-	        dbc.getDefaultConnection().commit();
-	        dbc.getDefaultConnection().setAutoCommit(true);
-		}
     }
 
 
@@ -958,12 +958,12 @@ public abstract class AbstractDAO {
         } catch (SQLException e) {
             dbc.getDefaultConnection().rollback();
             throw e;
+        } finally {
+	        if (!inTransaction) {
+		        dbc.getDefaultConnection().commit();
+		        dbc.getDefaultConnection().setAutoCommit(true);
+			}
         }
-    	
-        if (!inTransaction) {
-	        dbc.getDefaultConnection().commit();
-	        dbc.getDefaultConnection().setAutoCommit(true);
-		}
     }
     
 
