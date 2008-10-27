@@ -220,8 +220,13 @@ public class Select extends AbstractStatement implements Clause, Cloneable {
     }
     
     /** This method returns the list of alias names of the selected columns. */
-    public Collection getColumnAliasList() {
+    public List<String> getColumnAliasList() {
         return _columnAliasList;
+    }
+    
+    /** This method returns the list of the selected columns. */
+    public List<String>  getSelectColumns() {
+        return _selectColumns;
     }
 	
     // * tables from which to select
@@ -419,6 +424,11 @@ public class Select extends AbstractStatement implements Clause, Cloneable {
     /** Sets a column of the result set, which is unique. Currently this is only used from the MSSQL Select implementation to support a limit,offset workaroud. */
     public void setUniqueColumn(String newUniqueColumn) {
         this.uniqueColumn = newUniqueColumn;
+    }
+    
+    /** Returns the order by clause */
+    public Order getOrderClause(){
+    	return _orderClause;
     }
 
     // * executing the select

@@ -28,22 +28,38 @@
  */
 package de.tarent.dblayer.mssql;
 
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.StringTokenizer;
 
 import de.tarent.dblayer.engine.DBContext;
-import de.tarent.dblayer.engine.SetDbContext;
 import de.tarent.dblayer.sql.Statement;
 import de.tarent.dblayer.sql.SyntaxErrorException;
 import de.tarent.dblayer.sql.clause.Limit;
+import de.tarent.dblayer.sql.clause.Order;
 import de.tarent.dblayer.sql.statement.Select;
-import de.tarent.dblayer.sql.clause.Clause;
-import de.tarent.dblayer.sql.clause.Where;
 import java.util.List;
 
 /**
- * Mssql specific extension of the {@link Select} {@link Statement} to support a limit and offset.
+ * Mssql specific extension of the {@link Select} {@link Statement} to 
+ * support a limit and offset.
  *
+ * In Mssql limit/offset works this way:
+ * 
+ *  SELECT TOP &lt;limit&gt; &lt;projection&gt;
+ * 	FROM (SELECT TOP &lt;limit&gt; &lt;projection&gt; 
+ * 		  FROM (SELECT TOP &lt;limit+offset&gt; &lt;projection&gt;
+ *				FROM &lt;relations&gt;
+ *				WHERE &lt;selection&gt; 
+ *				ORDER BY &lt;normal order&gt;	
+ *				)
+ *		  ORDER BY &lt;reverse order&gt;
+ *		  )
+ *  ORDER BY &lt;normal order&gt;
+ *  
  * @author Sebastian Mancke, tarent GmbH
+ * @author Christian Preilowski, tarent GmbH
+ * 
  */
 public class MSSQLSelect extends Select {
     //
@@ -59,71 +75,73 @@ public class MSSQLSelect extends Select {
         super(distinct);
     }
 
-    public void getParams(List list) {
-        super.getParams(list);
-
-        // HACK: append them twice, if we have the subselect, for paging
-        if (getLimit() != null && getLimit().getOffset() > 0)
-            super.getParams(list);
-    }
-
-    //
-    // interface {@link Statement}
-    //
     /**
      * Append the where part to the statement.
      * This is extracted into a method for overidding
      */
     protected void appendWherePart(DBContext dbc, StringBuffer sb) {
-        super.appendWherePart(dbc, sb);
-        if (getLimit() != null && getLimit().getOffset() > 0) {
-            String uColumn = getUniqueColumn();
-            if (uColumn == null)
-                throw new IllegalStateException("For usage of limit and offset in MSSQL, a UniqueColumn has to be set to the Select.");
-            
-            if (isWhereEmpty(dbc))
-                sb.append(Where.WHERE);
-            else
-                sb.append(" AND ");
-            
-            sb.append(uColumn);
-            sb.append(" NOT IN (");
-            appendSelectPart(sb);
-            insertDistinctOnClause(sb);
-            sb.append("TOP ");
-            sb.append(getLimit().getOffset());
-            sb.append(" ");
-            sb.append(uColumn); // select the uniqueColumn instead of all columns
-            appendFromPart(dbc, sb);
-            
-            // doing the same as super.appendWherePart, but with a clone
-            if (getWhere() != null) {
-                String clauseString = ((Clause)getWhere().clone()).clauseToString(dbc);
-                if (clauseString.length() != 0) {
-                    sb.append(Where.WHERE);
-                    sb.append(clauseString);
-                }
-            }
-            //for inner select GROUP/ORDER BY are irrelevant
-            //appendGroupBy(sb);
-            //appendOrder(dbc, sb);
-            appendLimit(dbc, sb);
-            sb.append(")");
-            
-        }
+    	//if there is no limit/offset -> normal where clause else do nothing
+    	if (getLimit() == null || getLimit().getOffset() <= 0){
+    		super.appendWherePart(dbc, sb);
+    	}
+    }
+    
+    protected void appendFromPart(DBContext dbc, StringBuffer sb){
+    	//mssql specific limit impl
+    	if (getLimit() != null && getLimit().getOffset() > 0){
+    		sb.append(" FROM (");
+    		//MIDDLE SELECT
+    		appendSelectPart(sb);
+    	    insertDistinctOnClause(sb);
+    	    sb.append("TOP "+getLimit().getLimit()+" ");
+    	    addColumnAliasList(sb);
+    	    sb.append(" FROM (");
+    			//INNER SELECT
+	    		appendSelectPart(sb);
+	    	    insertDistinctOnClause(sb);
+	    		sb.append("TOP "+(getLimit().getOffset()+getLimit().getLimit())+" ");
+	    		try {
+					super.appendColumnList(sb);
+				} catch (SyntaxErrorException e) {
+					throw new RuntimeException(e);
+				}
+	    		super.appendFromPart(dbc, sb);
+	    		super.appendWherePart(dbc, sb);
+	    		super.appendOrder(dbc, sb);
+	    		sb.append(" ) AS inner_select ");
+	    		//INNER SELECT END
+	    	addAliasedOrderBy(sb, true);
+	    	sb.append(" ) AS middle_select ");
+    		//MIDDLE SELECT END
+    	}else{	//if there is no limit/offset -> normal from clause
+    		super.appendFromPart(dbc, sb);
+		}
     }
 
-
+    protected void appendOrder(DBContext dbc, StringBuffer sb) {
+    	//mssql specific limit impl
+    	if (getLimit() != null && getLimit().getOffset() > 0){
+    		addAliasedOrderBy(sb, false);
+    	}else{
+			super.appendOrder(dbc, sb);
+    	}
+    }
 
     protected void appendColumnList(StringBuffer sb) 
         throws SyntaxErrorException {
-
+    	//mssql specific limit impl
         if (getLimit() != null) {
             sb.append("TOP ");
             sb.append(getLimit().getLimit());
-            sb.append(" ");            
+            sb.append(" ");
+            if (getLimit().getOffset() > 0){
+            	addColumnAliasList(sb);
+            }else{
+            	super.appendColumnList(sb);
+            }
+        }else{
+        	super.appendColumnList(sb);
         }
-        super.appendColumnList(sb);
     }
 
     /**
@@ -161,10 +179,53 @@ public class MSSQLSelect extends Select {
      * the requested data columns from the inner ones.
      */
     protected void addColumnAliasList(StringBuffer sb) {
-        for (Iterator it = getColumnAliasList().iterator();it.hasNext();) {
+        for (Iterator<String> it = getColumnAliasList().iterator();it.hasNext();) {
             sb.append(it.next());
             if (it.hasNext())
                 sb.append(", ");
         }
+    }
+    
+    
+    /**
+     * Adds a order by clause to the query that uses the aliases of 
+     * the order columns. if reverseOrder is set true, the order of each 
+     * order column will be reversed.
+     * 
+     * @param sb the String buffer to add the clause
+     * @param reverseOrder  reverse order switch
+     */
+    protected void addAliasedOrderBy(StringBuffer sb, boolean reverseOrder){
+		//create a select column - alias map
+		List<String> selectColumns = getSelectColumns();
+		List<String> columnAliases = getColumnAliasList();
+		HashMap<String, String> aliasMapping = new HashMap<String, String>();
+		for (int i=0;i<selectColumns.size();i++){
+			//because getSelectColumns() returns "columnname AS alias" 
+			//we have to extract only the first part
+			StringTokenizer st = new StringTokenizer(selectColumns.get(i),"AS");
+			aliasMapping.put(st.nextToken().trim(), columnAliases.get(i));
+		}
+		
+		if (super.getOrderClause() != null) {
+			Order orderBy = super.getOrderClause();
+			List<String> orderColumns = orderBy.getColumns();
+    		List<Boolean> sortDirections = orderBy.getSortDirections();
+    		sb.append(" ORDER BY");
+    		for(int i=0;i<orderColumns.size();i++){
+				if (sortDirections.get(i)==true)
+					if (reverseOrder)
+						sb.append(" "+aliasMapping.get(orderColumns.get(i))+" DESC");
+					else
+						sb.append(" "+aliasMapping.get(orderColumns.get(i))+" ASC");
+				else
+					if (reverseOrder)
+						sb.append(" "+aliasMapping.get(orderColumns.get(i))+" ASC");
+					else
+						sb.append(" "+aliasMapping.get(orderColumns.get(i))+" DESC");
+				if ( i < (orderColumns.size()-1) )
+					sb.append(",");
+    		}
+		}
     }
 }
