@@ -1765,8 +1765,25 @@ END;\'
 		vmsg := \'begin.dropTABLE.timportperson\';
 		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
 		IF $1 = 1 THEN
-			DROP TABLE veraweb.timportperson CASCADE;
-			DROP SEQUENCE veraweb.timportperson_pk_seq;
+			-- BUGFIX:
+			-- CAN DROP ONLY IF EXISTS (PostgreSQL 8.2 added this feature)
+			-- INSTALLATION CHOKES HERE IN NEW/VANILLA SETUPS... 
+			SELECT count(*) INTO vint FROM pg_class WHERE relname = \'timportperson\';
+			IF vint = 1 THEN
+				vmsg := \'really dropping table timportperson - because table is present\';
+				DROP TABLE veraweb.timportperson CASCADE;
+			ELSE
+				vmsg := \'not dropping table timportperson - because table is not even present\';
+			END IF;
+			-- BUGFIX... same procedure with the associated sequence...
+			vint := 0;
+			SELECT count(*) INTO vint FROM pg_class WHERE relname = \'timportperson_pk_seq\';
+			IF vint = 1 THEN
+				vmsg := \'really dropping sequence timportperson_pk_seq - because sequence is present\';
+				DROP SEQUENCE veraweb.timportperson_pk_seq;
+			ELSE
+				vmsg := \'not dropping sequence timportperson_pk_seq - because sequence is not even present\';
+			END IF;
 		END IF;
 		vmsg := \'end.dropTABLE.timportperson\';
 		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
