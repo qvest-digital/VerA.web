@@ -1260,21 +1260,24 @@ END;\'
 		vmsg := \'begin.createTABLE.tworkare\';
 		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
 		IF $1 = 1 THEN
+			CREATE SEQUENCE veraweb.tworkarea_pk_seq INCREMENT 1 MINVALUE 0;
 			CREATE TABLE veraweb.tworkarea
 			(
-			  pk serial NOT NULL,
+			  pk int4 NOT NULL,
 			  name varchar(250) NOT NULL,
 			  fk_orgunit int4 NULL, -- must allow null as there is no default orgunit, see the default workarea below corresponding to no workarea
 			  CONSTRAINT tworkarea_pkey PRIMARY KEY (pk),
 			  CONSTRAINT tworkarea_fkey_orgunit FOREIGN KEY (fk_orgunit) REFERENCES veraweb.torgunit (pk) ON UPDATE RESTRICT ON DELETE RESTRICT
 			) WITH OIDS;
+			ALTER TABLE veraweb.tworkarea ALTER COLUMN pk SET DEFAULT nextval('veraweb.tworkarea_pk_seq'::regclass);
+			ALTER TABLE veraweb.tworkarea ADD CONSTRAINT tworkarea_pkey PRIMARY KEY(pk);
 		END IF;
 		vmsg := \'end.createTABLE.tworkarea\';
 		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
 		vmsg := \'begin.insertDEFAULTS.tworkarea\';
 		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
 		IF $1 = 1 THEN
-			INSERT INTO veraweb.tworkarea (pk,name) VALUES(0,\'Kein\');
+			INSERT INTO veraweb.tworkarea (pk,name) VALUES(\'Kein\');
 		END IF;
 		vmsg := \'end.insertDEFAULTS.tworkarea\';
 		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
