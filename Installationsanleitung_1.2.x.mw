@@ -44,14 +44,14 @@ Aktivieren Sie ggf. die Scriptsprache pgsql:
 
   postgres $ '''createlang --dbname=veraweb plpgsql'''
 
-Die nachfolgenden Schritte müssen dann mit dem Benutzer veraweb auf der Datenbank veraweb direkt ausgeführt werden.
+Die nachfolgenden Schritte müssen dann mit dem '''Benutzer veraweb''' auf der Datenbank veraweb direkt ausgeführt werden.
 Verwenden Sie hierfür zum Beispiel den Grafischen PostgreSql Client pgAdmin.
 
 # Führen Sie anschließend das Script '''veraweb-schema.sql''' aus welches die nachfolgende Funktion anlegt.
 # Erstellen Sie mit der Funktion '''SELECT serv_verawebschema(1);''' das eigentliche Datenbankschema.
 # Fügen Sie die nötigen Stammdaten mit dem Script '''veraweb-stammdaten.sql''' ein.
 # Lesen Sie in der Tabelle '''veraweb.tuser''' Ihre Benutzer an.
-# Aktualisieren Sie alle veraweb Datenbank Sequenzen mit der Funktion '''SELECT serv_build_sequences();'''
+# Aktualisieren Sie alle veraweb Datenbank Sequenzen mit der Funktion '''SELECT veraweb.serv_build_sequences();'''
 
 == Installation LDAP ==
 
