@@ -37,11 +37,14 @@ public interface PersonAddressFacade {
 	/** @return Firma / Institution */
 	public String getCompany();
 
-	/** @return Straße und Hausnummer */
+	/** @return Straï¿½e und Hausnummer */
 	public String getStreet();
 
 	/** @return PLZ */
 	public String getZipCode();
+	
+	/** @return sBundesland **/
+	public String getState();
 
 	/** @return Ort */
 	public String getCity();
@@ -64,7 +67,7 @@ public interface PersonAddressFacade {
 	/** @return Telefonnummer */
 	public String getPhone();
 
-	/** @return Faxgerätnummer */
+	/** @return Faxgerï¿½tnummer */
 	public String getFax();
 
 	/** @return Mobiltelefonnummer */
@@ -82,11 +85,14 @@ public interface PersonAddressFacade {
 	/** Setzt die Firma / Institutition */
 	public void setCompany(String value);
 
-	/** Setzt die Straße und Hausnummer */
+	/** Setzt die Straï¿½e und Hausnummer */
 	public void setStreet(String value);
 
 	/** Setzt die PLZ */
 	public void setZipCode(String value);
+	
+	/** Setzt das Bundesland **/
+	public void setState(String value);
 
 	/** Setzt den Ort */
 	public void setCity(String value);
@@ -109,7 +115,7 @@ public interface PersonAddressFacade {
 	/** Setzt die Telefonummer */
 	public void setPhone(String value);
 
-	/** Setzt die Faxgerätnummer */
+	/** Setzt die Faxgerï¿½tnummer */
 	public void setFax(String value);
 
 	/** Setzt die Mobiltelefonnummer */

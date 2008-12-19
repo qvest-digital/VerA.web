@@ -144,6 +144,7 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 	public String street_a_e1;
 	public String zipcode_a_e1;
 	public String city_a_e1;
+	public String state_a_e1;
 	public String country_a_e1;
 	public String pobox_a_e1;
 	public String poboxzipcode_a_e1;
@@ -161,6 +162,7 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 	public String street_a_e2;
 	public String zipcode_a_e2;
 	public String city_a_e2;
+	public String state_a_e2;
 	public String country_a_e2;
 	public String pobox_a_e2;
 	public String poboxzipcode_a_e2;
@@ -177,6 +179,7 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 	public String company_a_e3;
 	public String street_a_e3;
 	public String zipcode_a_e3;
+	public String state_a_e3;
 	public String city_a_e3;
 	public String country_a_e3;
 	public String pobox_a_e3;
@@ -195,6 +198,7 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 	public String street_b_e1;
 	public String zipcode_b_e1;
 	public String city_b_e1;
+	public String state_b_e1;
 	public String country_b_e1;
 	public String pobox_b_e1;
 	public String poboxzipcode_b_e1;
@@ -212,6 +216,7 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 	public String street_b_e2;
 	public String zipcode_b_e2;
 	public String city_b_e2;
+	public String state_b_e2;
 	public String country_b_e2;
 	public String pobox_b_e2;
 	public String poboxzipcode_b_e2;
@@ -229,6 +234,7 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 	public String street_b_e3;
 	public String zipcode_b_e3;
 	public String city_b_e3;
+	public String state_b_e3;
 	public String country_b_e3;
 	public String pobox_b_e3;
 	public String poboxzipcode_b_e3;
@@ -245,6 +251,7 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 	public String company_c_e1;
 	public String street_c_e1;
 	public String zipcode_c_e1;
+	public String state_c_e1;
 	public String city_c_e1;
 	public String country_c_e1;
 	public String pobox_c_e1;
@@ -262,6 +269,7 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 	public String company_c_e2;
 	public String street_c_e2;
 	public String zipcode_c_e2;
+	public String state_c_e2;
 	public String city_c_e2;
 	public String country_c_e2;
 	public String pobox_c_e2;
@@ -279,6 +287,7 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 	public String company_c_e3;
 	public String street_c_e3;
 	public String zipcode_c_e3;
+	public String state_c_e3;
 	public String city_c_e3;
 	public String country_c_e3;
 	public String pobox_c_e3;
@@ -1061,6 +1070,10 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 		public String getZipCode() {
 			return zipcode_a_e1;
 		}
+		
+		public String getState() {
+			return state_a_e1;
+		}
 
 		public String getCity() {
 			return city_a_e1;
@@ -1120,6 +1133,10 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 
 		public void setZipCode(String value) {
 			zipcode_a_e1 = value;
+		}
+		
+		public void setState(String state) {
+			state_a_e1 = state;
 		}
 
 		public void setCity(String value) {
@@ -1186,6 +1203,10 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 		public String getZipCode() {
 			return zipcode_a_e2;
 		}
+		
+		public String getState() {
+			return state_a_e2;
+		}
 
 		public String getCity() {
 			return city_a_e2;
@@ -1245,6 +1266,10 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 
 		public void setZipCode(String value) {
 			zipcode_a_e2 = value;
+		}
+		
+		public void setState(String state) {
+			state_a_e2 = state;
 		}
 
 		public void setCity(String value) {
@@ -1311,6 +1336,10 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 		public String getZipCode() {
 			return zipcode_a_e3;
 		}
+		
+		public String getState() {
+			return state_a_e3;
+		}
 
 		public String getCity() {
 			return city_a_e3;
@@ -1370,6 +1399,10 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 
 		public void setZipCode(String value) {
 			zipcode_a_e3 = value;
+		}
+		
+		public void setState(String state) {
+			state_a_e3 = state;
 		}
 
 		public void setCity(String value) {
@@ -1436,6 +1469,10 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 		public String getZipCode() {
 			return zipcode_b_e1;
 		}
+		
+		public String getState() {
+			return state_b_e1;
+		}
 
 		public String getCity() {
 			return city_b_e1;
@@ -1495,6 +1532,10 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 
 		public void setZipCode(String value) {
 			zipcode_b_e1 = value;
+		}
+		
+		public void setState(String state) {
+			state_b_e1 = state;
 		}
 
 		public void setCity(String value) {
@@ -1561,6 +1602,10 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 		public String getZipCode() {
 			return zipcode_b_e2;
 		}
+		
+		public String getState() {
+			return state_b_e2;
+		}
 
 		public String getCity() {
 			return city_b_e2;
@@ -1620,6 +1665,10 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 
 		public void setZipCode(String value) {
 			zipcode_b_e2 = value;
+		}
+		
+		public void setState(String state) {
+			state_b_e2 = state;
 		}
 
 		public void setCity(String value) {
@@ -1686,6 +1735,10 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 		public String getZipCode() {
 			return zipcode_b_e3;
 		}
+		
+		public String getState() {
+			return state_b_e3;
+		}
 
 		public String getCity() {
 			return city_b_e3;
@@ -1745,6 +1798,10 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 
 		public void setZipCode(String value) {
 			zipcode_b_e3 = value;
+		}
+		
+		public void setState(String state) {
+			state_b_e3 = state;
 		}
 
 		public void setCity(String value) {
@@ -1811,6 +1868,10 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 		public String getZipCode() {
 			return zipcode_c_e1;
 		}
+		
+		public String getState() {
+			return state_c_e1;
+		}
 
 		public String getCity() {
 			return city_c_e1;
@@ -1870,6 +1931,10 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 
 		public void setZipCode(String value) {
 			zipcode_c_e1 = value;
+		}
+		
+		public void setState(String state) {
+			state_c_e1 = state;
 		}
 
 		public void setCity(String value) {
@@ -1936,6 +2001,10 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 		public String getZipCode() {
 			return zipcode_c_e2;
 		}
+		
+		public String getState() {
+			return state_c_e2;
+		}
 
 		public String getCity() {
 			return city_c_e2;
@@ -1995,6 +2064,10 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 
 		public void setZipCode(String value) {
 			zipcode_c_e2 = value;
+		}
+		
+		public void setState(String state) {
+			state_c_e2 = state;
 		}
 
 		public void setCity(String value) {
@@ -2061,6 +2134,10 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 		public String getZipCode() {
 			return zipcode_c_e3;
 		}
+		
+		public String getState() {
+			return state_c_e3;
+		}
 
 		public String getCity() {
 			return city_c_e3;
@@ -2120,6 +2197,10 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 
 		public void setZipCode(String value) {
 			zipcode_c_e3 = value;
+		}
+		
+		public void setState(String state) {
+			state_c_e3 = state;
 		}
 
 		public void setCity(String value) {
