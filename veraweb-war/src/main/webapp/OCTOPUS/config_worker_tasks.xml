@@ -454,6 +454,7 @@
 				<input name="Nachname" type="xsd:string" optional="t" description="gesuchter Nachname"/>
 				<input name="Institution" type="xsd:string" optional="t" description="gesuchte Institution"/>
 				<input name="Ort" type="xsd:string" optional="t" description="gesuchter Ort"/>
+				<input name="Bundesland" type="xsd:string" optional="t" description="gesuchtes Bundesland"/>
 				<input name="Straße" type="xsd:string" optional="t" description="gesuchte Straße"/>
 				<input name="PLZ" type="xsd:string" optional="t" description="gesuchte PLZ"/>
 				<input name="Funktion" type="xsd:string" optional="t" description="gesuchte Funktion"/>

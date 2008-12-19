@@ -43,6 +43,7 @@ public class PersonSearch extends AbstractBean {
 	public String company;
 	public String street;
 	public String zipcode;
+	public String state;
 	public String city;
 	public String country;
 	public Integer workarea;

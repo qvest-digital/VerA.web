@@ -311,6 +311,7 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 				select("company_a_e1").
 				select("street_a_e1").
 				select("zipcode_a_e1").
+				select("state_a_e1").
 				select("city_a_e1").
 				orderBy(Order.asc("lastname_a_e1").andAsc("firstname_a_e1"));
 	}
@@ -667,6 +668,18 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 					"zipcode_c_e1",
 					"zipcode_c_e2",
 					"zipcode_c_e3" }));
+		}
+		if (search.state != null && search.state.length() != 0) {
+			list.addAnd(DatabaseHelper.getWhere(search.state, new String[] {
+					"state_a_e1",
+					"state_a_e2",
+					"state_a_e3",
+					"state_b_e1",
+					"state_b_e2",
+					"state_b_e3",
+					"state_c_e1",
+					"state_c_e2",
+					"state_c_e3" }));
 		}
 		if (search.onlyhosts != null && search.onlyhosts.booleanValue()) {
 			list.addAnd(Expr.in("tperson.pk", new RawClause(
