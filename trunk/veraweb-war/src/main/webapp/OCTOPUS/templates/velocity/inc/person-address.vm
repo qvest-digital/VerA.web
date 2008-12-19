@@ -34,6 +34,9 @@
 		</tr></table>
 	</td>
 </tr><tr>
+	<td class="label"><label for="person-state$ext">Bundesland:</label></td>
+	<td class="value"><input type="text" id="person-state$ext" name="person-state$ext" value="$!message.text($facade.State)" class="text" onchange="setModified();"></td>
+</tr><tr>
 	<td class="label"><label for="person-country$ext">Land:</label></td>
 	<td class="value"><input type="text" id="person-country$ext" name="person-country$ext" value="$!message.text($facade.Country)" class="text" onchange="setModified();"></td>
 </tr><tr>

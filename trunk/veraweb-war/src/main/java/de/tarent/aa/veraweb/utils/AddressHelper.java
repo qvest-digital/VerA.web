@@ -66,7 +66,7 @@ public class AddressHelper implements PersonConstants {
 	}
 
     /**
-     * Diese Methode überprüft eine Reihe Felder einer {@link Person}-Instanz
+     * Diese Methode ï¿½berprï¿½ft eine Reihe Felder einer {@link Person}-Instanz
      * und setzt gegebenenfalls sinnvolle Standardwerte ein.<br>
      * Es findet auch eine Sonderbehandlung spezieller {@link ImportPerson}-Felder
      * statt. 
@@ -182,9 +182,9 @@ public class AddressHelper implements PersonConstants {
 	}
 
     /**
-     * Diese Methode prüft die speziellen ImportPerson-Felder und kürzt sie ggf.
+     * Diese Methode prï¿½ft die speziellen ImportPerson-Felder und kï¿½rzt sie ggf.
      * 
-     * @param importPerson zu prüfende ImportPerson.
+     * @param importPerson zu prï¿½fende ImportPerson.
      */
     private static void checkImportPersonFields(ImportPerson importPerson) {
         assert importPerson != null;
@@ -231,6 +231,8 @@ public class AddressHelper implements PersonConstants {
 			facade.setZipCode(facade.getZipCode().substring(0, 50));
 		if (facade.getCity() != null && facade.getCity().length() > 100)
 			facade.setCity(facade.getCity().substring(0, 100));
+		if (facade.getState() != null && facade.getState().length() > 100)
+			facade.setCity(facade.getCity().substring(0, 100));
 		
 		if (facade.getCountry() != null && facade.getCountry().length() > 100)
 			facade.setCountry(facade.getCountry().substring(0, 100));
@@ -257,12 +259,12 @@ public class AddressHelper implements PersonConstants {
 
 	/**
 	 * Kopiert die Adressdaten einer Person je nach vorhanden sein in
-	 * andere Adresstypen und Zeichensätze. Die aktuelle Implementierung
+	 * andere Adresstypen und Zeichensï¿½tze. Die aktuelle Implementierung
 	 * kopiert dabei die Daten nur in eine Richtung:
 	 * 
 	 * <ul>
-	 * <li>Latein-Geschäftlich nach Latain-Privat und Latein-Weitere.</li>
-	 * <li>Latein-Geschäftlich nach Zeichensatz 1-Geschäftlich und Zeichensatz 2-Geschäftlich.</li>
+	 * <li>Latein-Geschï¿½ftlich nach Latain-Privat und Latein-Weitere.</li>
+	 * <li>Latein-Geschï¿½ftlich nach Zeichensatz 1-Geschï¿½ftlich und Zeichensatz 2-Geschï¿½ftlich.</li>
 	 * <li>Latein-Privat nach Zeichensatz 1-Privat und Zeichensatz 2-Privat.</li>
 	 * <li>Latein-Weitere nach Zeichensatz 1-Weitere und Zeichensatz 2-Weitere.</li>
 	 * </ul>
@@ -313,7 +315,7 @@ public class AddressHelper implements PersonConstants {
 	/**
 	 * Kopiert den Vornamen, den Nachnamen, den Akad. Titel und die Anrede
 	 * einer Facade in eine andere wenn das entsprechende Feld dort nicht
-	 * gefüllt ist.
+	 * gefï¿½llt ist.
 	 * 
 	 * @param source
 	 * @param target
@@ -343,7 +345,7 @@ public class AddressHelper implements PersonConstants {
 	/**
 	 * Kopiert den Vornamen, den Nachnamen, den Akad. Titel und die Anrede
 	 * einer Facade in eine andere wenn die entsprechenden Felder vorher
-	 * identisch waren und das Zielfeld nicht verändert wurde.
+	 * identisch waren und das Zielfeld nicht verï¿½ndert wurde.
 	 * 
 	 * @param source
 	 * @param target
@@ -371,7 +373,7 @@ public class AddressHelper implements PersonConstants {
 
 	/**
 	 * Kopiert alle Adress- und Kommunikationsdaten einer AddressFacade
-	 * in eine andere, wenn das entsprechende Feld dort nicht gefüllt ist.
+	 * in eine andere, wenn das entsprechende Feld dort nicht gefï¿½llt ist.
 	 * 
 	 * @param source
 	 * @param target
@@ -392,6 +394,8 @@ public class AddressHelper implements PersonConstants {
 				target.setStreet(source.getStreet());
 			if (forceCopy || empty(target.getZipCode()))
 				target.setZipCode(source.getZipCode());
+			if (forceCopy || empty(target.getState()))
+				target.setState(source.getState());
 			if (forceCopy || empty(target.getCity()))
 				target.setCity(source.getCity());
 			if (forceCopy || empty(target.getCountry()))
@@ -421,8 +425,8 @@ public class AddressHelper implements PersonConstants {
 
 	/**
 	 * Kopiert alle Adress- und Kommunikationsdaten einer AddressFacade
-	 * in eine andere, wenn das entsprechende Feld übereinstimmte und
-	 * nun nur in der Quelle verändert worden ist.
+	 * in eine andere, wenn das entsprechende Feld ï¿½bereinstimmte und
+	 * nun nur in der Quelle verï¿½ndert worden ist.
 	 * 
 	 * @param source
 	 * @param target
@@ -445,6 +449,8 @@ public class AddressHelper implements PersonConstants {
 				target.setStreet(source.getStreet());
 			if (forceCopy || (equal(sourceOld.getZipCode(), targetOld.getZipCode()) && equal(target.getZipCode(), targetOld.getZipCode())))
 				target.setZipCode(source.getZipCode());
+			if (forceCopy || (equal(sourceOld.getState(), targetOld.getState()) && equal(target.getState(), targetOld.getState())))
+				target.setState(source.getState());
 			if (forceCopy || (equal(sourceOld.getCity(), targetOld.getCity()) && equal(target.getCity(), targetOld.getCity())))
 				target.setCity(source.getCity());
 			if (forceCopy || (equal(sourceOld.getCountry(), targetOld.getCountry()) && equal(target.getCountry(), targetOld.getCountry())))
@@ -473,9 +479,9 @@ public class AddressHelper implements PersonConstants {
 	}
 
     /**
-     * Diese Methode setzt die Felder einer {@link PersonMemberFacade} zurück.
+     * Diese Methode setzt die Felder einer {@link PersonMemberFacade} zurï¿½ck.
      * 
-     * @param facade zurückzusetzende {@link PersonMemberFacade}
+     * @param facade zurï¿½ckzusetzende {@link PersonMemberFacade}
      */
 	public static void clearAddressData(PersonMemberFacade facade) {
 		facade.setBirthday(null);
@@ -495,9 +501,9 @@ public class AddressHelper implements PersonConstants {
 	}
 
     /**
-     * Diese Methode setzt die Felder einer {@link PersonAddressFacade} zurück.
+     * Diese Methode setzt die Felder einer {@link PersonAddressFacade} zurï¿½ck.
      * 
-     * @param facade zurückzusetzende {@link PersonAddressFacade}
+     * @param facade zurï¿½ckzusetzende {@link PersonAddressFacade}
      */
 	public static void clearAddressData(PersonAddressFacade facade) {
 		facade.setCity(null);
@@ -515,6 +521,7 @@ public class AddressHelper implements PersonConstants {
 		facade.setSuffix2(null);
 		facade.setUrl(null);
 		facade.setZipCode(null);
+		facade.setState(null);
 	}
 
 	private static boolean equal(String s1, String s2) {

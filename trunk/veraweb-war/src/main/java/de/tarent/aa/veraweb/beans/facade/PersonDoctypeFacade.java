@@ -47,20 +47,20 @@ import de.tarent.octopus.server.OctopusContext;
  * @author Christoph Jerolimov
  */
 public class PersonDoctypeFacade {
-	/** Alle Dokumenttypen werden neu erzeugt, ggf. alte überschrieben! */
+	/** Alle Dokumenttypen werden neu erzeugt, ggf. alte ï¿½berschrieben! */
 	public static final String CREATEDOCTYPE_ALL = "all";
 	/** Alle nicht existierenden Dokumenttypen werden erzeugt. */
 	public static final String CREATEDOCTYPE_NEW = "new";
-	/** Wie 'new', jedoch nur für Dokumenttypen mit dem Flag 99. */
+	/** Wie 'new', jedoch nur fï¿½r Dokumenttypen mit dem Flag 99. */
 	public static final String CREATEDOCTYPE_FLAG = "flag:";
 	/** Die Dokumenttypen werden nicht automatisch erzeugt. */
 	public static final String CREATEDOCTYPE_NONE = "none";
 
-	/** Wird eingefügt wenn sowohl das Feld davor als auch danach NICHT leer sind. */
+	/** Wird eingefï¿½gt wenn sowohl das Feld davor als auch danach NICHT leer sind. */
 	public static final String CREATEDOCTYPE_BOTH = "BOTH:";
-	/** Wird eingefügt wenn das Feld davor NICHT leer ist. */
+	/** Wird eingefï¿½gt wenn das Feld davor NICHT leer ist. */
 	public static final String CREATEDOCTYPE_PREV = "PREV:";
-	/** Wird eingefügt wenn das Feld danach NICHT leer ist. */
+	/** Wird eingefï¿½gt wenn das Feld danach NICHT leer ist. */
 	public static final String CREATEDOCTYPE_NEXT = "NEXT:";
 
 	protected final OctopusContext cntx;
@@ -117,7 +117,7 @@ public class PersonDoctypeFacade {
 	}
 
 	/**
-	 * Gibt einen Freitext zurück.
+	 * Gibt einen Freitext zurï¿½ck.
 	 * 
 	 * @param doctype PK eines Dokumenttypens
 	 * @param addresstype Addresstype (1 = Privat, ...) - default 2
@@ -141,7 +141,7 @@ public class PersonDoctypeFacade {
 	}
 
 	/**
-	 * Gibt einen Freitext-Verbinder zurück.
+	 * Gibt einen Freitext-Verbinder zurï¿½ck.
 	 * 
 	 * @return Freitextfeld-Verbinder
 	 */
@@ -208,12 +208,12 @@ public class PersonDoctypeFacade {
 	}
 
 	/**
-	 * Gibt zu einem übergebenen Key einen entsprechenden Eintrag
-	 * aus der übergebenen Person oder der Facade zurück.
-	 * Wenn die übergebene PersonMemberFacade null ist,
+	 * Gibt zu einem ï¿½bergebenen Key einen entsprechenden Eintrag
+	 * aus der ï¿½bergebenen Person oder der Facade zurï¿½ck.
+	 * Wenn die ï¿½bergebene PersonMemberFacade null ist,
 	 * werden die Daten der lateinischen Hauptperson verwendet.
-	 * Wenn die übergebene PersonAddressFacade null ist,
-	 * werden die lateinischen Geschäftsdaten verwendet.
+	 * Wenn die ï¿½bergebene PersonAddressFacade null ist,
+	 * werden die lateinischen Geschï¿½ftsdaten verwendet.
 	 * 
 	 * @param key Bean-Key
 	 * @return Feldinhalt
@@ -238,6 +238,8 @@ public class PersonDoctypeFacade {
 			return addressFacade.getCompany();
 		} else if (key.equals("street")) {
 			return addressFacade.getStreet();
+		} else if (key.equals("state")) {
+			return addressFacade.getState();
 		} else if (key.equals("city")) {
 			return addressFacade.getCity();
 		} else if (key.equals("zipcode")) {

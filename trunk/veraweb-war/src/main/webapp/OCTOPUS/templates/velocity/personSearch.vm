@@ -61,6 +61,9 @@
 	<td class="label"><label for="zipcode">PLZ:</label></td>
 	<td class="value"><input type="text" name="zipcode" id="zipcode" value="$!message.text($search.zipcode)" class="text"></td>
 </tr><tr>
+	<td class="label"><label for="zipcode">Bundesland:</label></td>
+	<td class="value"><input type="text" name="state" id="state" value="$!message.text($search.state)" class="text"></td>
+</tr><tr>
 	<td class="label"><label for="city">Ort:</label></td>
 	<td class="value"><input type="text" name="city" id="city" value="$!message.text($search.city)" class="text"></td>
 </tr><tr>
