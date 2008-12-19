@@ -213,16 +213,19 @@ public class MSSQLSelect extends Select {
     		List<Boolean> sortDirections = orderBy.getSortDirections();
     		sb.append(" ORDER BY");
     		for(int i=0;i<orderColumns.size();i++){
+    			String currentColumn = aliasMapping.get(orderColumns.get(i));
+    			if (currentColumn==null)//no alias defined
+    				currentColumn = orderColumns.get(i);
 				if (sortDirections.get(i)==true)
 					if (reverseOrder)
-						sb.append(" "+aliasMapping.get(orderColumns.get(i))+" DESC");
+						sb.append(" "+currentColumn+" DESC");
 					else
-						sb.append(" "+aliasMapping.get(orderColumns.get(i))+" ASC");
+						sb.append(" "+currentColumn+" ASC");
 				else
 					if (reverseOrder)
-						sb.append(" "+aliasMapping.get(orderColumns.get(i))+" ASC");
+						sb.append(" "+currentColumn+" ASC");
 					else
-						sb.append(" "+aliasMapping.get(orderColumns.get(i))+" DESC");
+						sb.append(" "+currentColumn+" DESC");
 				if ( i < (orderColumns.size()-1) )
 					sb.append(",");
     		}
