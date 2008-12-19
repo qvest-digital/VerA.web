@@ -340,9 +340,21 @@ public abstract class AbstractDAO {
                 if (epsCount != null)
                     epsCount.close();
             }
-
+            //check if limit+start > count 
+            // ->then set limit to lower value 
+            int count = listFilterParams.getCount();
+            int start = listFilterParams.getStart();
+            int limit = listFilterParams.getLimit();
+            if (count < (start+limit) ){
+            	if (count < start){
+            		limit = 0;
+            	}else{
+            		int diff = (start+limit) - count ;
+            		limit = limit - diff;
+            	}
+            }
             // set limit
-            select.Limit(new Limit(listFilterParams.getLimit(), listFilterParams.getStart()));
+            select.Limit(new Limit(limit, start));
         }
 
         if (where != null)
