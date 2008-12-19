@@ -374,6 +374,7 @@ END;\'
 			PERFORM veraweb.serv_transform_column(\'veraweb.tcontact\', \'snationality\', \'varchar(100)\');
 			PERFORM veraweb.serv_transform_column(\'veraweb.tcontact\', \'sstreetprivate\', \'varchar(100)\');
 			PERFORM veraweb.serv_transform_column(\'veraweb.tcontact\', \'szippostalcodeprivate\', \'varchar(50)\');
+			PERFORM veraweb.serv_transform_column(\'veraweb.tcontact\', \'sstateprivate\', \'varchar(100)\');
 			PERFORM veraweb.serv_transform_column(\'veraweb.tcontact\', \'scityprivate\', \'varchar(100)\');
 			PERFORM veraweb.serv_transform_column(\'veraweb.tcontact\', \'scountryprivate\', \'varchar(100)\');
 			PERFORM veraweb.serv_transform_column(\'veraweb.tcontact\', \'sphoneprivate\', \'varchar(100)\');
@@ -384,6 +385,7 @@ END;\'
 			PERFORM veraweb.serv_transform_column(\'veraweb.tcontact\', \'scompany\', \'varchar(250)\');
 			PERFORM veraweb.serv_transform_column(\'veraweb.tcontact\', \'sstreet\', \'varchar(100)\');
 			PERFORM veraweb.serv_transform_column(\'veraweb.tcontact\', \'szippostalcode\', \'varchar(50)\');
+			PERFORM veraweb.serv_transform_column(\'veraweb.tcontact\', \'sstate\', \'varchar(100)\');
 			PERFORM veraweb.serv_transform_column(\'veraweb.tcontact\', \'scity\', \'varchar(100)\');
 			PERFORM veraweb.serv_transform_column(\'veraweb.tcontact\', \'scountry\', \'varchar(100)\');
 			PERFORM veraweb.serv_transform_column(\'veraweb.tcontact\', \'sphone\', \'varchar(100)\');
@@ -393,6 +395,7 @@ END;\'
 			PERFORM veraweb.serv_transform_column(\'veraweb.tcontact\', \'surl\', \'varchar(250)\');
 			PERFORM veraweb.serv_transform_column(\'veraweb.tcontact\', \'sstreetdelivery\', \'varchar(100)\');
 			PERFORM veraweb.serv_transform_column(\'veraweb.tcontact\', \'szippostalcodedelivery\', \'varchar(50)\');
+			PERFORM veraweb.serv_transform_column(\'veraweb.tcontact\', \'sstatedelivery\', \'varchar(100)\');
 			PERFORM veraweb.serv_transform_column(\'veraweb.tcontact\', \'scitydelivery\', \'varchar(100)\');
 			PERFORM veraweb.serv_transform_column(\'veraweb.tcontact\', \'scountrydelivery\', \'varchar(100)\');
 			
@@ -480,6 +483,7 @@ END;\'
 			  company_b AS company_a_e1,
 			  sstreetprivate AS street_a_e1,
 			  szippostalcodeprivate AS zipcode_a_e1,
+			  sstateprivate AS state_a_e1,
 			  scityprivate AS city_a_e1,
 			  scountryprivate AS country_a_e1,
 			  pobox_b AS pobox_a_e1,
@@ -497,6 +501,7 @@ END;\'
 			  company_b_z1 AS company_a_e2,
 			  street_b_z1 AS street_a_e2,
 			  zipcode_b_z1 AS zipcode_a_e2,
+			  state_b_z1 AS state_a_e2,
 			  city_b_z1 AS city_a_e2,
 			  country_b_z1 AS country_a_e2,
 			  pobox_b_z1 AS pobox_a_e2,
@@ -514,6 +519,7 @@ END;\'
 			  company_b_z2 AS company_a_e3,
 			  street_b_z2 AS street_a_e3,
 			  zipcode_b_z2 AS zipcode_a_e3,
+			  state AS state_a_e3,
 			  city_b_z2 AS city_a_e3,
 			  country_b_z2 AS country_a_e3,
 			  pobox_b_z2 AS pobox_a_e3,
@@ -531,6 +537,7 @@ END;\'
 			  scompany AS company_b_e1,
 			  sstreet AS street_b_e1,
 			  szippostalcode AS zipcode_b_e1,
+			  sstate AS state_b_e1,
 			  scity AS city_b_e1,
 			  scountry AS country_b_e1,
 			  pobox_a AS pobox_b_e1,
@@ -548,6 +555,7 @@ END;\'
 			  company_a_z1 AS company_b_e2,
 			  street_a_z1 AS street_b_e2,
 			  zipcode_a_z1 AS zipcode_b_e2,
+			  state_a_z1 AS state_b_e2,
 			  city_a_z1 AS city_b_e2,
 			  country_a_z1 AS country_b_e2,
 			  pobox_a_z1 AS pobox_b_e2,
@@ -565,6 +573,7 @@ END;\'
 			  company_a_z2 AS company_b_e3,
 			  street_a_z2 AS street_b_e3,
 			  zipcode_a_z2 AS zipcode_b_e3,
+			  state_a_z2 AS state_b_e3,
 			  city_a_z2 AS city_b_e3,
 			  country_a_z2 AS country_b_e3,
 			  pobox_a_z2 AS pobox_b_e3,
@@ -582,6 +591,7 @@ END;\'
 			  company_c AS company_c_e1,
 			  sstreetdelivery AS street_c_e1,
 			  szippostalcodedelivery AS zipcode_c_e1,
+			  sstatedelivery AS state_c_e1,
 			  scitydelivery AS city_c_e1,
 			  scountrydelivery AS country_c_e1,
 			  pobox_c AS pobox_c_e1,
@@ -599,6 +609,7 @@ END;\'
 			  company_c_z1 AS company_c_e2,
 			  street_c_z1 AS street_c_e2,
 			  zipcode_c_z1 AS zipcode_c_e2,
+			  state_c_z1 AS state_c_e2,
 			  city_c_z1 AS city_c_e2,
 			  country_c_z1 AS country_c_e2,
 			  pobox_c_z1 AS pobox_c_e2,
@@ -616,6 +627,7 @@ END;\'
 			  company_c_z2 AS company_c_e3,
 			  street_c_z2 AS street_c_e3,
 			  zipcode_c_z2 AS zipcode_c_e3,
+			  state_c_z2 AS state_c_e3,
 			  city_c_z2 AS city_c_e3,
 			  country_c_z2 AS country_c_e3,
 			  pobox_c_z2 AS pobox_c_e3,
@@ -1055,6 +1067,7 @@ END;\'
 			  firstname varchar(100),
 			  lastname varchar(100),
 			  zipcode varchar(50),
+			  state varchar(100),
 			  city varchar(100),
 			  street varchar(100),
 			  country varchar(100),
@@ -1269,15 +1282,14 @@ END;\'
 			  CONSTRAINT tworkarea_pkey PRIMARY KEY (pk),
 			  CONSTRAINT tworkarea_fkey_orgunit FOREIGN KEY (fk_orgunit) REFERENCES veraweb.torgunit (pk) ON UPDATE RESTRICT ON DELETE RESTRICT
 			) WITH OIDS;
-			ALTER TABLE veraweb.tworkarea ALTER COLUMN pk SET DEFAULT nextval('veraweb.tworkarea_pk_seq'::regclass);
-			ALTER TABLE veraweb.tworkarea ADD CONSTRAINT tworkarea_pkey PRIMARY KEY(pk);
+			ALTER TABLE veraweb.tworkarea ALTER COLUMN pk SET DEFAULT nextval(\'veraweb.tworkarea_pk_seq\'::regclass);
 		END IF;
 		vmsg := \'end.createTABLE.tworkarea\';
 		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
 		vmsg := \'begin.insertDEFAULTS.tworkarea\';
 		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
 		IF $1 = 1 THEN
-			INSERT INTO veraweb.tworkarea (pk,name) VALUES(\'Kein\');
+			INSERT INTO veraweb.tworkarea (name) VALUES(\'Kein\');
 		END IF;
 		vmsg := \'end.insertDEFAULTS.tworkarea\';
 		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
@@ -1399,6 +1411,7 @@ END;\'
 			  company_a_e1 varchar(250),
 			  street_a_e1 varchar(100),
 			  zipcode_a_e1 varchar(50),
+			  state_a_e1 varchar(100),
 			  city_a_e1 varchar(100),
 			  country_a_e1 varchar(100),
 			  pobox_a_e1 varchar(50),
@@ -1416,6 +1429,7 @@ END;\'
 			  company_a_e2 varchar(250),
 			  street_a_e2 varchar(100),
 			  zipcode_a_e2 varchar(50),
+			  state_a_e2 varchar(100),
 			  city_a_e2 varchar(100),
 			  country_a_e2 varchar(100),
 			  pobox_a_e2 varchar(50),
@@ -1433,6 +1447,7 @@ END;\'
 			  company_a_e3 varchar(250),
 			  street_a_e3 varchar(100),
 			  zipcode_a_e3 varchar(50),
+			  state_a_e3 varchar(100),
 			  city_a_e3 varchar(100),
 			  country_a_e3 varchar(100),
 			  pobox_a_e3 varchar(50),
@@ -1450,6 +1465,7 @@ END;\'
 			  company_b_e1 varchar(250),
 			  street_b_e1 varchar(100),
 			  zipcode_b_e1 varchar(50),
+			  state_b_e1 varchar(100),
 			  city_b_e1 varchar(100),
 			  country_b_e1 varchar(100),
 			  pobox_b_e1 varchar(50),
@@ -1467,6 +1483,7 @@ END;\'
 			  company_b_e2 varchar(250),
 			  street_b_e2 varchar(100),
 			  zipcode_b_e2 varchar(50),
+			  state_b_e2 varchar(100),
 			  city_b_e2 varchar(100),
 			  country_b_e2 varchar(100),
 			  pobox_b_e2 varchar(50),
@@ -1484,6 +1501,7 @@ END;\'
 			  company_b_e3 varchar(250),
 			  street_b_e3 varchar(100),
 			  zipcode_b_e3 varchar(50),
+			  state_b_e3 varchar(100),
 			  city_b_e3 varchar(100),
 			  country_b_e3 varchar(100),
 			  pobox_b_e3 varchar(50),
@@ -1501,6 +1519,7 @@ END;\'
 			  company_c_e1 varchar(250),
 			  street_c_e1 varchar(100),
 			  zipcode_c_e1 varchar(50),
+			  state_c_e1 varchar(100),
 			  city_c_e1 varchar(100),
 			  country_c_e1 varchar(100),
 			  pobox_c_e1 varchar(50),
@@ -1518,6 +1537,7 @@ END;\'
 			  company_c_e2 varchar(250),
 			  street_c_e2 varchar(100),
 			  zipcode_c_e2 varchar(50),
+			  state_c_e2 varchar(100),
 			  city_c_e2 varchar(100),
 			  country_c_e2 varchar(100),
 			  pobox_c_e2 varchar(50),
@@ -1535,6 +1555,7 @@ END;\'
 			  company_c_e3 varchar(250),
 			  street_c_e3 varchar(100),
 			  zipcode_c_e3 varchar(50),
+			  state_c_e3 varchar(100),
 			  city_c_e3 varchar(100),
 			  country_c_e3 varchar(100),
 			  pobox_c_e3 varchar(50),
