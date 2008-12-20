@@ -51,14 +51,14 @@ UPDATE veraweb.tguest SET ishost = 0 WHERE ishost IS NULL;
 UPDATE veraweb.tguest SET reserve = 0 WHERE reserve IS NULL;
 
 -- Updatet Farbwahl von Gaesten entsprechend ihrer 'Inland' und 'Geschlecht' Angabe
-UPDATE veraweb.tguest SET fk_color = 1 WHERE domestic_a != 0 AND gender = 'F';
-UPDATE veraweb.tguest SET fk_color = 2 WHERE domestic_a != 0 AND gender != 'F';
-UPDATE veraweb.tguest SET fk_color = 3 WHERE domestic_a = 0 AND gender = 'F';
-UPDATE veraweb.tguest SET fk_color = 4 WHERE domestic_a = 0 AND gender != 'F';
-UPDATE veraweb.tguest SET fk_color_p = 1 WHERE domestic_b != 0 AND gender_p = 'F';
-UPDATE veraweb.tguest SET fk_color_p = 2 WHERE domestic_b != 0 AND gender_p != 'F';
-UPDATE veraweb.tguest SET fk_color_p = 3 WHERE domestic_b = 0 AND gender_p = 'F';
-UPDATE veraweb.tguest SET fk_color_p = 4 WHERE domestic_b = 0 AND gender_p != 'F';
+UPDATE veraweb.tguest SET fk_color = 1 WHERE domestic_a != '0' AND gender = 'F';
+UPDATE veraweb.tguest SET fk_color = 2 WHERE domestic_a != '0' AND gender != 'F';
+UPDATE veraweb.tguest SET fk_color = 3 WHERE domestic_a = '0' AND gender = 'F';
+UPDATE veraweb.tguest SET fk_color = 4 WHERE domestic_a = '0' AND gender != 'F';
+UPDATE veraweb.tguest SET fk_color_p = 1 WHERE domestic_b != '0' AND gender_p = 'F';
+UPDATE veraweb.tguest SET fk_color_p = 2 WHERE domestic_b != '0' AND gender_p != 'F';
+UPDATE veraweb.tguest SET fk_color_p = 3 WHERE domestic_b = '0' AND gender_p = 'F';
+UPDATE veraweb.tguest SET fk_color_p = 4 WHERE domestic_b = '0' AND gender_p != 'F';
 
 -- Updatet Person-Dokumenttypen und setzt 'Anschrift' und 'Zeichensatz' aus dem Dokumenttyp
 UPDATE veraweb.tperson_doctype SET locale = (SELECT locale FROM veraweb.tdoctype WHERE pk = fk_doctype) WHERE locale NOT IN (1, 2, 3);

@@ -232,7 +232,7 @@ public class AddressHelper implements PersonConstants {
 		if (facade.getCity() != null && facade.getCity().length() > 100)
 			facade.setCity(facade.getCity().substring(0, 100));
 		if (facade.getState() != null && facade.getState().length() > 100)
-			facade.setCity(facade.getCity().substring(0, 100));
+			facade.setState(facade.getState().substring(0, 100));
 		
 		if (facade.getCountry() != null && facade.getCountry().length() > 100)
 			facade.setCountry(facade.getCountry().substring(0, 100));
