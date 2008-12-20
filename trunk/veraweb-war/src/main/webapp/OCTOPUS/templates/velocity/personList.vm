@@ -114,7 +114,7 @@
 		<th class="list" title="Gesch&auml;ftlich, Zeichensatz 1">Stra&szlig;e&nbsp;(G)</th>
 		<th class="list" title="Gesch&auml;ftlich, Zeichensatz 1">PLZ&nbsp;(G)</th>
 		<th class="list" title="Gesch&auml;ftlich, Zeichensatz 1">Ort&nbsp;(G)</th>
-		<th class="list" title="Gesch&auml;ftlich, Zeichensatz 1">Bundesland&nbsp;(G)</th>
+		#if($userConfig.personListState)<th class="list" title="Gesch&auml;ftlich, Zeichensatz 1">Bundesland&nbsp;(G)</th>#end
 	</tr>
 	#elseif($action == "statistikHost")
 	<tr class="list1" style="height: 20px;">
@@ -126,7 +126,7 @@
 		<th class="list" title="Gesch&auml;ftlich, Zeichensatz 1">Stra&szlig;e&nbsp;(G)</th>
 		<th class="list" title="Gesch&auml;ftlich, Zeichensatz 1">PLZ&nbsp;(G)</th>
 		<th class="list" title="Gesch&auml;ftlich, Zeichensatz 1">Ort&nbsp;(G)</th>
-		<th class="list" title="Gesch&auml;ftlich, Zeichensatz 1">Bundesland&nbsp;(G)</th>
+		#if($userConfig.personListState)<th class="list" title="Gesch&auml;ftlich, Zeichensatz 1">Bundesland&nbsp;(G)</th>#end
 	</tr>
 	#elseif($action == "statistikGuest")
 	<tr class="list1" style="height: 20px;">
@@ -138,7 +138,7 @@
 		<th class="list" title="Gesch&auml;ftlich, Zeichensatz 1">Stra&szlig;e&nbsp;(G)</th>
 		<th class="list" title="Gesch&auml;ftlich, Zeichensatz 1">PLZ&nbsp;(G)</th>
 		<th class="list" title="Gesch&auml;ftlich, Zeichensatz 1">Ort&nbsp;(G)</th>
-		<th class="list" title="Gesch&auml;ftlich, Zeichensatz 1">Bundesland&nbsp;(G)</th>
+		#if($userConfig.personListState)<th class="list" title="Gesch&auml;ftlich, Zeichensatz 1">Bundesland&nbsp;(G)</th>#end
 	</tr>
 	#elseif($action == "duplicateSearch" )
 
@@ -157,7 +157,7 @@
 		<th class="list" title="Gesch&auml;ftlich, Zeichensatz 1">Stra&szlig;e&nbsp;(G)</th>
 		<th class="list" title="Gesch&auml;ftlich, Zeichensatz 1">PLZ&nbsp;(G)</th>
 		<th class="list" title="Gesch&auml;ftlich, Zeichensatz 1">Ort&nbsp;(G)</th>
-		<th class="list" title="Gesch&auml;ftlich, Zeichensatz 1">Bundesland&nbsp;(G)</th>
+		#if($userConfig.personListState)<th class="list" title="Gesch&auml;ftlich, Zeichensatz 1">Bundesland&nbsp;(G)</th>#end
 	</tr>
 	#else
 	<tr class="list1" style="height: 20px;">
@@ -171,7 +171,7 @@
 		<th class="list" title="Gesch&auml;ftlich, Zeichensatz 1">Stra&szlig;e&nbsp;(G)</th>
 		<th class="list" title="Gesch&auml;ftlich, Zeichensatz 1">PLZ&nbsp;(G)</th>
 		<th class="list" title="Gesch&auml;ftlich, Zeichensatz 1">Ort&nbsp;(G)</th>
-		<th class="list" title="Gesch&auml;ftlich, Zeichensatz 1">Bundesland&nbsp;(G)</th>
+		#if($userConfig.personListState)<th class="list" title="Gesch&auml;ftlich, Zeichensatz 1">Bundesland&nbsp;(G)</th>#end
 	</tr>
 	#end
 	
@@ -251,7 +251,7 @@
 		<td class="list" style="cursor: pointer;" onclick="window.location.href='SetHostToEventDetail?hostid=$!{bean.id}';">$!message.plain($bean.street_a_e1)</td>
 		<td class="list" style="cursor: pointer;" onclick="window.location.href='SetHostToEventDetail?hostid=$!{bean.id}';">$!message.plain($bean.zipcode_a_e1)</td>
 		<td class="list" style="cursor: pointer;" onclick="window.location.href='SetHostToEventDetail?hostid=$!{bean.id}';">$!message.plain($bean.city_a_e1)</td>
-		<td class="list" style="cursor: pointer;" onclick="window.location.href='SetHostToEventDetail?hostid=$!{bean.id}';">$!message.plain($bean.state_a_e1)</td>
+		#if($userConfig.personListState)<td class="list" style="cursor: pointer;" onclick="window.location.href='SetHostToEventDetail?hostid=$!{bean.id}';">$!message.plain($bean.state_a_e1)</td>#end
 	</tr>
 	#elseif($action == "statistikHost")
 	<tr class="$class" style="height: 22px;" onmouseover="onMouseOverList(this);" onmouseout="onMouseOutList(this);">
@@ -263,7 +263,7 @@
 		<td class="list" style="cursor: pointer;" onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($bean.street_a_e1)</td>
 		<td class="list" style="cursor: pointer;" onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($bean.zipcode_a_e1)</td>
 		<td class="list" style="cursor: pointer;" onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($bean.city_a_e1)</td>
-		<td class="list" style="cursor: pointer;" onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($bean.state_a_e1)</td>
+		#if($userConfig.personListState)<td class="list" style="cursor: pointer;" onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($bean.state_a_e1)</td>#end
 	</tr>
 	#elseif($action == "statistikGuest")
 	<tr class="$class" style="height: 22px;" onmouseover="onMouseOverList(this);" onmouseout="onMouseOutList(this);">
@@ -275,7 +275,7 @@
 		<td class="list" style="cursor: pointer;" onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($bean.street_a_e1)</td>
 		<td class="list" style="cursor: pointer;" onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($bean.zipcode_a_e1)</td>
 		<td class="list" style="cursor: pointer;" onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($bean.city_a_e1)</td>
-		<td class="list" style="cursor: pointer;" onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($bean.state_a_e1)</td>
+		#if($userConfig.personListState)<td class="list" style="cursor: pointer;" onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($bean.state_a_e1)</td>#end
 	</tr>
 	#elseif($action == "duplicateSearch" )
 
@@ -298,7 +298,7 @@
 		<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}&offset=$!{currentRow}&action=$!{action}';">$!message.plain($bean.street_a_e1)</td>
 		<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}&offset=$!{currentRow}&action=$!{action}';">$!message.plain($bean.zipcode_a_e1)</td>
 		<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}&offset=$!{currentRow}&action=$!{action}';">$!message.plain($bean.city_a_e1)</td>
-		<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}&offset=$!{currentRow}&action=$!{action}';">$!message.plain($bean.state_a_e1)</td>
+		#if($userConfig.personListState)<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}&offset=$!{currentRow}&action=$!{action}';">$!message.plain($bean.state_a_e1)</td>#end
 	</tr>	
 	#else
 	<tr class="$class" style="height: 22px;" onmouseover="onMouseOverList(this);" onmouseout="onMouseOutList(this);">
@@ -316,7 +316,7 @@
 		<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}&offset=$!{currentRow}';">$!message.plain($bean.street_a_e1)</td>
 		<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}&offset=$!{currentRow}';">$!message.plain($bean.zipcode_a_e1)</td>
 		<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}&offset=$!{currentRow}';">$!message.plain($bean.city_a_e1)</td>
-		<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}&offset=$!{currentRow}';">$!message.plain($bean.state_a_e1)</td>
+		#if($userConfig.personListState)<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}&offset=$!{currentRow}';">$!message.plain($bean.state_a_e1)</td>#end
 	</tr>
 	#end
 	#set($currentRow=$currentRow+1)

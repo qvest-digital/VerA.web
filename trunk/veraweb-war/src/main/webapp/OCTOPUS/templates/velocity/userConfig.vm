@@ -115,6 +115,18 @@
     		<td class="value">&nbsp;</td>
 		</tr></table></td>
 	</tr>
+</table><br>
+
+<h1>Zus&auml;tzliche Felder in der Personenliste</h1>
+<table class="form">
+	<tr>
+		<td class="label">Personenliste:</td>
+		<td class="value"><table class="list" style="width: 99%;"><tr class="list1">
+    		<td class="value" style="width: 20px;"><input type="checkbox" name="personListState" id="personListState" value="true" #if($userConfig.personListState) checked #end></td>
+    		<td class="value" style="width:120px;"><label for="guestListFunction">&nbsp;Bundesland</label></td>
+    		<td class="value">&nbsp;</td>
+		</tr></table></td>
+	</tr>
 </table>
 
 <div id="fixme" class="fixme1"><div class="fixme2"><div class="fixme3">

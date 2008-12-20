@@ -57,7 +57,7 @@ public class UserConfigWorker {
 		"personTab", "personMemberTab",
 		"personAddresstypeTab", "personLocaleTab" };
 	private static final String PARAMS_BOOLEAN[] = {
-		"guestListFunction", "guestListCity", "guestListPhone" };
+		"guestListFunction", "guestListCity", "guestListPhone", "personListState" };
 
 	/** Octopus-Eingabe-Parameter f�r {@link #init(OctopusContext)} */
 	public static final String INPUT_init[] = {};
