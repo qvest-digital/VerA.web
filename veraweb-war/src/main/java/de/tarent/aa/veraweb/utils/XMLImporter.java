@@ -62,7 +62,7 @@ import de.tarent.data.exchange.Exchanger;
 import de.tarent.octopus.beans.BeanException;
 
 /**
- * Diese Klasse stellt einen Import für XML-Daten im VerA.web-Schema dar.
+ * Diese Klasse stellt einen Import fï¿½r XML-Daten im VerA.web-Schema dar.
  * 
  * @author mikel
  */
@@ -71,9 +71,9 @@ public class XMLImporter implements Importer, Exchanger, VerawebNamespaceConstan
     // Konstruktoren
     //
     /**
-     * Dieser Konstruktor merkt sich nach <code>null</code>-Test die übergebene Quelle.
+     * Dieser Konstruktor merkt sich nach <code>null</code>-Test die ï¿½bergebene Quelle.
      * 
-     * @param source Datenquelle für den Import
+     * @param source Datenquelle fï¿½r den Import
      */
     public XMLImporter(InputSource source) {
         if (source == null)
@@ -167,11 +167,11 @@ public class XMLImporter implements Importer, Exchanger, VerawebNamespaceConstan
     // Schnittstelle Importer
     //
     /**
-     * Diese Methode führt einen Import aus. Hierbei werden alle erkannten zu
-     * importierenden Personendatensätze und Zusätze nacheinander dem übergebenen 
-     * {@link ImportDigester} übergeben.
+     * Diese Methode fï¿½hrt einen Import aus. Hierbei werden alle erkannten zu
+     * importierenden Personendatensï¿½tze und Zusï¿½tze nacheinander dem ï¿½bergebenen 
+     * {@link ImportDigester} ï¿½bergeben.
      * 
-     * @param digester der {@link ImportDigester}, der die Datensätze weiter
+     * @param digester der {@link ImportDigester}, der die Datensï¿½tze weiter
      *  verarbeitet.
      * @throws IOException 
      * @see de.tarent.aa.veraweb.utils.Importer#importAll(de.tarent.aa.veraweb.utils.ImportDigester)
@@ -192,7 +192,7 @@ public class XMLImporter implements Importer, Exchanger, VerawebNamespaceConstan
     // innere Klassen
     //
     /**
-     * Diese Klasse dient dem Import als SAX-{@link ContentHandler} für die 
+     * Diese Klasse dient dem Import als SAX-{@link ContentHandler} fï¿½r die 
      * Interpretation des VerA.web-Schemas.
      */
     static class VerawebContentHandler implements ContentHandler {
@@ -200,7 +200,7 @@ public class XMLImporter implements Importer, Exchanger, VerawebNamespaceConstan
         // Konstruktoren
         //
         /**
-         * Dieser Konstruktor merkt sich lediglich den übergebenen {@link ImportDigester}.
+         * Dieser Konstruktor merkt sich lediglich den ï¿½bergebenen {@link ImportDigester}.
          * 
          * @param digester der {@link ImportDigester}, in den importiert werden soll.
          */
@@ -246,6 +246,8 @@ public class XMLImporter implements Importer, Exchanger, VerawebNamespaceConstan
         final static int MODE_CATEGORY = 16384 | MODE_PERSON;
         /** in /container/person/doctype */
         final static int MODE_DOCTYPE = 32768 | MODE_PERSON;
+        /** in /container/person/address/city */
+        final static int MODE_STATE = 65536 | MODE_ADDRESS;
         
         //
         // Schnittstelle ContentHandler
@@ -330,6 +332,9 @@ public class XMLImporter implements Importer, Exchanger, VerawebNamespaceConstan
                 setModeEntering(MODE_CITY, localName);
                 setCityAttributes(atts);
                 charBuffer.setLength(0);
+            } else if (STATE_ELEMENT.equals(localName)) { // in address
+                setModeEntering(MODE_STATE, localName);
+                charBuffer.setLength(0);
             } else if (POBOX_ELEMENT.equals(localName)) { // in address
                 setModeEntering(MODE_POBOX, localName);
                 setPOBoxAttributes(atts);
@@ -357,7 +362,7 @@ public class XMLImporter implements Importer, Exchanger, VerawebNamespaceConstan
         
         /**
          * Receive notification of the end of an element.<br>
-         * Hier wird nach Test des Namensraums in einen alten Modus zurück
+         * Hier wird nach Test des Namensraums in einen alten Modus zurï¿½ck
          * gesprungen und der Textinhalt des Elements passend verarbeitet.
          * 
          * @see ContentHandler#endElement(java.lang.String, java.lang.String, java.lang.String)
@@ -400,6 +405,8 @@ public class XMLImporter implements Importer, Exchanger, VerawebNamespaceConstan
                 setStreet();
             } else if (CITY_ELEMENT.equals(localName)) { // in address
                 setCity();
+            } else if (STATE_ELEMENT.equals(localName)) { // in address
+                setState();
             } else if (POBOX_ELEMENT.equals(localName)) { // in address
                 setPOBox();
             } else if (SUFFIX_ELEMENT.equals(localName)) { // in address
@@ -427,7 +434,7 @@ public class XMLImporter implements Importer, Exchanger, VerawebNamespaceConstan
 
         /**
          * Receive notification of ignorable whitespace in element content.<br>
-         * Hier wird solcher tatsächlich ignoriert.
+         * Hier wird solcher tatsï¿½chlich ignoriert.
          * @see ContentHandler#ignorableWhitespace(char[], int, int)
          */
         public void ignorableWhitespace(char[] ch, int start, int length) throws SAXException {
@@ -436,7 +443,7 @@ public class XMLImporter implements Importer, Exchanger, VerawebNamespaceConstan
 
         /**
          * Begin the scope of a prefix-URI Namespace mapping.<br>
-         * Die Namensräume und ihre Präfixe werden in {@link #nameSpaces} gehalten.
+         * Die Namensrï¿½ume und ihre Prï¿½fixe werden in {@link #nameSpaces} gehalten.
          * 
          * @see ContentHandler#startPrefixMapping(java.lang.String, java.lang.String)
          */
@@ -447,7 +454,7 @@ public class XMLImporter implements Importer, Exchanger, VerawebNamespaceConstan
 
         /**
          * End the scope of a prefix-URI mapping.<br>
-         * Die Namensräume und ihre Präfixe werden in {@link #nameSpaces} gehalten.
+         * Die Namensrï¿½ume und ihre Prï¿½fixe werden in {@link #nameSpaces} gehalten.
          * 
          * @see ContentHandler#endPrefixMapping(java.lang.String)
          */
@@ -595,7 +602,7 @@ public class XMLImporter implements Importer, Exchanger, VerawebNamespaceConstan
         }
         
         /**
-         * Diese Methode setzt den Straßentext der aktuellen Adresse, passend
+         * Diese Methode setzt den Straï¿½entext der aktuellen Adresse, passend
          * zu Sprache und Typ.
          */
         void setStreet() {
@@ -627,6 +634,17 @@ public class XMLImporter implements Importer, Exchanger, VerawebNamespaceConstan
             
             PersonAddressFacade facade = person.getAddressFacade(getAddressType(), entityLocale);
             facade.setCity(cityText);
+        }
+        
+        /**
+         * Diese Methode setzt den Bundeslandtext der aktuellen Adresse, passend
+         * zu Sprache und Typ.
+         */
+        void setState() {
+            String stateText = charBuffer.toString();
+            
+            PersonAddressFacade facade = person.getAddressFacade(getAddressType(), entityLocale);
+            facade.setState(stateText);
         }
         
         /**
@@ -772,7 +790,7 @@ public class XMLImporter implements Importer, Exchanger, VerawebNamespaceConstan
         /**
          * Diese Methode betrachtet einen String als einen QName, ermittelt,
          * ob dieser QName im Veraweb-Namensraum liegt und gibt in diesem
-         * Fall den lokalen Anteil zurück, sonst <code>null</code>.
+         * Fall den lokalen Anteil zurï¿½ck, sonst <code>null</code>.
          * 
          * @param value als QName betrachteter Wert
          * @return lokaler Part im Veraweb-Namensraum, sonst <code>null</code>.
@@ -788,14 +806,14 @@ public class XMLImporter implements Importer, Exchanger, VerawebNamespaceConstan
         
         /**
          * Diese Methode versucht, aus dem aktuellen {@link #mode Modus} in
-         * einen anderen zu wechseln, prüft hierbei, ob die dadurch implizierte
+         * einen anderen zu wechseln, prï¿½ft hierbei, ob die dadurch implizierte
          * Verschachtelung von Elementen erlaubt ist, und wirft gegebenenfalls
          * eine Ausnahme.
          * 
          * @param newMode neuer Modus, vergleiche MODE_*-Konstanten
          * @param nodeName Name des XML-Elements, dessentwegen der Moduswechsel
-         *  gewünscht wird
-         * @throws SAXException bei unerlaubten Moduswechselwünschen
+         *  gewï¿½nscht wird
+         * @throws SAXException bei unerlaubten Moduswechselwï¿½nschen
          */
         void setModeEntering(int newMode, String nodeName) throws SAXException {
             int expected = -1; 
@@ -839,12 +857,12 @@ public class XMLImporter implements Importer, Exchanger, VerawebNamespaceConstan
 
         /**
          * Diese Methode versucht, aus dem aktuellen {@link #mode Modus} in
-         * den Vormodus zu wechseln, prüft hierbei, ob dies erlaubt ist, und
+         * den Vormodus zu wechseln, prï¿½ft hierbei, ob dies erlaubt ist, und
          * wirft gegebenenfalls eine Ausnahme.
          * 
          * @param nodeName Name des XML-Elements, dessentwegen der Moduswechsel
-         *  gewünscht wird
-         * @throws SAXException bei unerlaubten Moduswechselwünschen
+         *  gewï¿½nscht wird
+         * @throws SAXException bei unerlaubten Moduswechselwï¿½nschen
          */
         void setModeLeaving(String nodeName) throws SAXException {
             switch(mode) {
@@ -886,7 +904,7 @@ public class XMLImporter implements Importer, Exchanger, VerawebNamespaceConstan
          * Diese Methode setzt die {@link #entityLanguage} und als Nebeneffekt die
          * {@link #entityLocale} gleich passend mit. 
          * 
-         * @param entityLanguage die Sprache der aktuellen Entität, ein Wert von
+         * @param entityLanguage die Sprache der aktuellen Entitï¿½t, ein Wert von
          *  {@link #LANGUAGE_ATTRIBUTE_LATIN}, {@link #LANGUAGE_ATTRIBUTE_EXTRA_1}
          *  und {@link #LANGUAGE_ATTRIBUTE_EXTRA_2}.
          */
@@ -920,7 +938,7 @@ public class XMLImporter implements Importer, Exchanger, VerawebNamespaceConstan
         }
         
         //
-        // geschützte Member
+        // geschï¿½tzte Member
         //
         /** Der aktuelle Modus, vergleiche MODE_*-Konstanten */
         int mode = MODE_OUTSIDE;
@@ -938,7 +956,7 @@ public class XMLImporter implements Importer, Exchanger, VerawebNamespaceConstan
         String entitySubType = null;
         /** Zeigt an, in welcher Sprache das aktuelle Element gerade eingelesen wird. */
         String entityLanguage = null;
-        /** Die aufgelöste {@link #entityLanguage}. */
+        /** Die aufgelï¿½ste {@link #entityLanguage}. */
         Integer entityLocale = null;
         /** Hier werden Textdaten gesammelt. Da wir Textelemente nur in Blattknoten, reicht ein Buffer. */
         final StringBuffer charBuffer = new StringBuffer();
@@ -946,12 +964,12 @@ public class XMLImporter implements Importer, Exchanger, VerawebNamespaceConstan
         final StringBuffer categoryBuffer = new StringBuffer();
         /** Hier werden Ereignisse gesammelt. */
         final StringBuffer occasionBuffer = new StringBuffer();
-        /** Hier werden aktuell gültige Präfixe auf Namensraum-URIs gemapt. */
+        /** Hier werden aktuell gï¿½ltige Prï¿½fixe auf Namensraum-URIs gemapt. */
         final Map nameSpaces = new HashMap();
     }
     
     //
-    // geschützte Member
+    // geschï¿½tzte Member
     //
     /** Das zu verwendende Austauschformat */
     ExchangeFormat format = null;
@@ -962,7 +980,7 @@ public class XMLImporter implements Importer, Exchanger, VerawebNamespaceConstan
     /** Der zu verwendende Ausgabedatenstrom */
     OutputStream outputStream = null;
     
-    /** Datenquelle für die XML-Transformation */
+    /** Datenquelle fï¿½r die XML-Transformation */
     InputSource source = null;
     
     /** Locale-Konstante {@link PersonConstants#ADDRESSTYPE_BUSINESS} als Objekt */
