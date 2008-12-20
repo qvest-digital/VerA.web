@@ -860,6 +860,7 @@ public class PersonDetailWorker implements PersonConstants {
         facade.setSuffix2("Adresszusatz 2" + suffix);
         facade.setUrl("www" + suffix);
         facade.setZipCode("PLZ" + suffix);
+        facade.setState("Bundesland" + suffix);
     }
 
 
