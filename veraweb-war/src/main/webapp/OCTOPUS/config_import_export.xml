@@ -221,6 +221,7 @@
 					<param name="Straße geschäftlich" value="{:street_a_e1}" />
 					<param name="Ort geschäftlich" value="{:city_a_e1}" />
 					<param name="Postleitzahl geschäftlich" value="{:zipcode_a_e1}" />
+					<param name="Bundesland geschäftlich" value="{:state_a_e1}" />
 					<param name="Land geschäftlich" value="{:country_a_e1}" />
 					<param name="Telefon geschäftlich" value="{:fon_a_e1}" />
 					<param name="Mobiltelefon" value="{:mobil_a_e1}" />
@@ -231,6 +232,7 @@
 					<param name="Straße privat" value="{:street_b_e1}" />
 					<param name="Ort privat" value="{:city_b_e1}" />
 					<param name="Postleitzahl privat" value="{:zipcode_b_e1}" />
+					<param name="Bundesland privat" value="{:state_b_e1}" />
 					<param name="Land privat" value="{:country_b_e1}" />
 					<param name="Telefon privat" value="{:fon_b_e1}" />
 					<param name="Fax privat" value="{:fax_b_e1}" />
@@ -240,6 +242,7 @@
 					<param name="Straße Lieferung" value="{:street_c_e1}" />
 					<param name="Ort Lieferung" value="{:city_c_e1}" />
 					<param name="Postleitzahl Lieferung" value="{:zipcode_c_e1}" />
+					<param name="Bundesland Lieferung" value="{:state_c_e1}" />
 					<param name="Land Lieferung" value="{:country_c_e1}" />
 					<!-- "Kategorie" ? -->
 				</param>
