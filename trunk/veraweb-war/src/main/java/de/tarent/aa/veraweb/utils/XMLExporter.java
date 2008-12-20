@@ -128,25 +128,25 @@ public class XMLExporter implements Exporter, Exchanger, DatabaseUtilizer,
     public final static int NOTE_TYPE_ORGANIZATION = 1;
     /** intern: Bermkungstyp Gastgeber */
     public final static int NOTE_TYPE_HOST = 2;
-    /** Property-Schlüssel für das Encoding der Ausgabedatei */
+    /** Property-Schlï¿½ssel fï¿½r das Encoding der Ausgabedatei */
     public final static String PROPERTY_ENCODING = "encoding";
     /** Vorgabewert: Character-Encoding */
     public final static String DEFAULT_ENCODING = "UTF-8";
-    /** Property-Schlüssel für das Verwenden eines CCM-Envelopes */
+    /** Property-Schlï¿½ssel fï¿½r das Verwenden eines CCM-Envelopes */
     public final static String PROPERTY_CCM_ENVELOPE = "ccm-envelope";
     /** Vorgabewert: CCM-Envelope */
     public final static boolean DEFAULT_CCM_ENVELOPE = false;
-    /** Property-Schlüssel für den CCM-Bezeichner für die Applikation VerA.web */
+    /** Property-Schlï¿½ssel fï¿½r den CCM-Bezeichner fï¿½r die Applikation VerA.web */
     public final static String PROPERTY_CCM_APPLICATION = "ccm-application";
     /** Vorgabewert: CCM-Applikationsbezeichner */
     public final static String DEFAULT_CCM_APPLICATION = "veraweb";
-    /** Property-Schlüssel für das CCM-Kürzel der lokalen Installation */
+    /** Property-Schlï¿½ssel fï¿½r das CCM-Kï¿½rzel der lokalen Installation */
     public final static String PROPERTY_CCM_ENDPOINT = "ccm-endpoint";
-    /** Property-Schlüssel für das CCM-Kürzel der entfernten Installation */
+    /** Property-Schlï¿½ssel fï¿½r das CCM-Kï¿½rzel der entfernten Installation */
     public final static String PROPERTY_CCM_RECEIVER = "ccm-receiver";
-    /** Property-Schlüssel für das Verzeichnis für CCM-Exporte */
+    /** Property-Schlï¿½ssel fï¿½r das Verzeichnis fï¿½r CCM-Exporte */
     public final static String PROPERTY_CCM_OUTGOING_FOLDER = "ccm-outgoing-folder";
-    /** Vorgabewert: Verzeichnis für CCM-Exporte */
+    /** Vorgabewert: Verzeichnis fï¿½r CCM-Exporte */
     public final static String DEFAULT_CCM_OUTGOING_FOLDER = "/var/spool/ccm/in/";
     
     //
@@ -231,7 +231,7 @@ public class XMLExporter implements Exporter, Exchanger, DatabaseUtilizer,
     // Schnittstelle Exporter
     //
     /**
-     * Diese Methode fügt dem XML-Dokument eine Beschreibung der übergebenen VerA.web-Person
+     * Diese Methode fï¿½gt dem XML-Dokument eine Beschreibung der ï¿½bergebenen VerA.web-Person
      * hinzu.
      * 
      * @param person {@link Person}-Bean
@@ -248,7 +248,7 @@ public class XMLExporter implements Exporter, Exchanger, DatabaseUtilizer,
         insertAddresses(personElement, person);
         insertCategories(personElement, person);
         insertDocTypes(personElement, person);
-        // Personenelement in das Dokument einfügen
+        // Personenelement in das Dokument einfï¿½gen
         baseElement.appendChild(personElement);
     }
 
@@ -372,7 +372,7 @@ public class XMLExporter implements Exporter, Exchanger, DatabaseUtilizer,
             String millis = String.valueOf(now.getTime());
             millis = millis.substring(millis.length() - 3);
             StringBuffer buffer = new StringBuffer();
-            buffer.append("rte") // Präfix --- "ctn" bei hoher und "rte" bei normaler Priorität, "sys" bei Fehlerdateien
+            buffer.append("rte") // Prï¿½fix --- "ctn" bei hoher und "rte" bei normaler Prioritï¿½t, "sys" bei Fehlerdateien
                 .append('_')
                 .append(ccmApplication) // Applikation
                 .append('_')
@@ -388,8 +388,8 @@ public class XMLExporter implements Exporter, Exchanger, DatabaseUtilizer,
     }
 
     /**
-     * Diese Methode führt einen Rollback auf das alternative Ziel durch,
-     * löscht dabei z.B. neu erstellte Dateien wieder.
+     * Diese Methode fï¿½hrt einen Rollback auf das alternative Ziel durch,
+     * lï¿½scht dabei z.B. neu erstellte Dateien wieder.
      */
     public void rollback() {
     	if (ccmOutgoingFile != null && ccmOutgoingFile.exists()) {
@@ -398,10 +398,10 @@ public class XMLExporter implements Exporter, Exchanger, DatabaseUtilizer,
     }
 
     //
-    // geschützte Methoden
+    // geschï¿½tzte Methoden
     //
     /**
-     * Diese Methode fügt dem VerA.web-Personen-Element Verwaltungsinformationen
+     * Diese Methode fï¿½gt dem VerA.web-Personen-Element Verwaltungsinformationen
      * hinzu.
      * 
      * @param personElement VerA.web-Personen-Element
@@ -418,7 +418,7 @@ public class XMLExporter implements Exporter, Exchanger, DatabaseUtilizer,
     }
 
     /**
-     * Diese Methode fügt dem VerA.web-Personen-Element Unterelemente für
+     * Diese Methode fï¿½gt dem VerA.web-Personen-Element Unterelemente fï¿½r
      * Hauptperson und Pertner hinzu. 
      * 
      * @param personElement VerA.web-Personen-Element
@@ -433,7 +433,7 @@ public class XMLExporter implements Exporter, Exchanger, DatabaseUtilizer,
     }
 
     /**
-     * Diese Methode fügt dem VerA.web-Personen-Element Unterelemente für
+     * Diese Methode fï¿½gt dem VerA.web-Personen-Element Unterelemente fï¿½r
      * die verschiedenen Adressen hinzu.
      * 
      * @param personElement VerA.web-Personen-Element
@@ -446,7 +446,7 @@ public class XMLExporter implements Exporter, Exchanger, DatabaseUtilizer,
     }
 
     /**
-     * Diese Methode fügt dem VerA.web-Personen-Element Unterelemente für
+     * Diese Methode fï¿½gt dem VerA.web-Personen-Element Unterelemente fï¿½r
      * die verschiedenen Kategorien (echte Kategorien und Ereignisse) hinzu.
      * 
      * @param personElement VerA.web-Personen-Element
@@ -466,9 +466,9 @@ public class XMLExporter implements Exporter, Exchanger, DatabaseUtilizer,
         List list = db.getList(select, db);
         for (Iterator itList = list.iterator(); itList.hasNext(); ) {
             Map data = (Map) itList.next();
-            // sampleCategory.putAll(data) würde versuchen, auch den Wert von individualRank
-            // zu setzen (-> Fehler); außerdem wird hier ein EntrySet.iterator() benutzt, den
-            // ResultMap nicht unterstützt.
+            // sampleCategory.putAll(data) wï¿½rde versuchen, auch den Wert von individualRank
+            // zu setzen (-> Fehler); auï¿½erdem wird hier ein EntrySet.iterator() benutzt, den
+            // ResultMap nicht unterstï¿½tzt.
             for (Iterator itFields = sampleCategory.getFields().iterator(); itFields.hasNext(); ) {
                 Object field = itFields.next();
                 sampleCategory.put(field, data.get(field));
@@ -478,7 +478,7 @@ public class XMLExporter implements Exporter, Exchanger, DatabaseUtilizer,
     }
     
     /**
-     * Diese Methode fügt dem VerA.web-Personen-Element Unterelemente für
+     * Diese Methode fï¿½gt dem VerA.web-Personen-Element Unterelemente fï¿½r
      * die verschiedenen Dokumenttyp-Freitexte hinzu.
      * 
      * @param personElement VerA.web-Personen-Element
@@ -527,7 +527,7 @@ public class XMLExporter implements Exporter, Exchanger, DatabaseUtilizer,
      * Diese Methode erzeugt ein <code>vw:category</code>-Element.
      * 
      * @param category {@link Categorie}-Bean
-     * @param individualRank individueller Rang bezüglich der Kategorie
+     * @param individualRank individueller Rang bezï¿½glich der Kategorie
      * @return ein <code>vw:category</code>-{@link Element} oder <code>null</code>
      */
     Element createCategoryElement(Categorie category, Integer individualRank) {
@@ -730,6 +730,7 @@ public class XMLExporter implements Exporter, Exchanger, DatabaseUtilizer,
             notEmpty |= appendChild(address, createTextElement(COMPANY_ELEMENT_VW, facade.getCompany()));
             notEmpty |= appendChild(address, createTextElement(STREET_ELEMENT_VW, facade.getStreet()));
             notEmpty |= appendChild(address, createTextElement(CITY_ELEMENT_VW, facade.getCity(), CITY_ZIPCODE_ATTRIBUTE_VW, facade.getZipCode(), true));
+            notEmpty |= appendChild(address, createTextElement(STATE_ELEMENT_VW, facade.getState()));
             notEmpty |= appendChild(address, createTextElement(POBOX_ELEMENT_VW, facade.getPOBox(), POBOX_ZIPCODE_ATTRIBUTE_VW, facade.getPOBoxZipCode(), true));
             notEmpty |= appendChild(address, createTextElement(SUFFIX_ELEMENT_VW, facade.getSuffix1(), SUFFIX_INDEX_ATTRIBUTE_VW, SUFFIX_INDEX_ATTRIBUTE_1_VW, false));
             notEmpty |= appendChild(address, createTextElement(SUFFIX_ELEMENT_VW, facade.getSuffix2(), SUFFIX_INDEX_ATTRIBUTE_VW, SUFFIX_INDEX_ATTRIBUTE_2_VW, false));
@@ -743,7 +744,7 @@ public class XMLExporter implements Exporter, Exchanger, DatabaseUtilizer,
     }
     
     /**
-     * Diese Methode erzeugt ein Element mit Textinhalt, falls der übergebene
+     * Diese Methode erzeugt ein Element mit Textinhalt, falls der ï¿½bergebene
      * Text nicht leer ist. 
      * 
      * @param name Name des zu erzeugenden Elements
@@ -762,7 +763,7 @@ public class XMLExporter implements Exporter, Exchanger, DatabaseUtilizer,
     
     /**
      * Diese Methode erzeugt ein Element mit Textinhalt und einem Attribut,
-     * falls die übergebenen Texte nicht leer sind. 
+     * falls die ï¿½bergebenen Texte nicht leer sind. 
      * 
      * @param name Name des zu erzeugenden Elements
      * @param text Text des zu erzeugenden Elements
@@ -786,7 +787,7 @@ public class XMLExporter implements Exporter, Exchanger, DatabaseUtilizer,
     }
     
     /**
-     * Diese statische Methode setzt ein Attribut, falls der übergebene Wert weder
+     * Diese statische Methode setzt ein Attribut, falls der ï¿½bergebene Wert weder
      * <code>null</code> noch <code>""</code> ist. 
      * 
      * @param element {@link Element}, bei dem das Attribut gesetzt werden soll
@@ -809,13 +810,13 @@ public class XMLExporter implements Exporter, Exchanger, DatabaseUtilizer,
     }
     
     /**
-     * Diese statische Methode fügt ein Kindelement hinzu, falls jenes nicht
+     * Diese statische Methode fï¿½gt ein Kindelement hinzu, falls jenes nicht
      * <code>null</code> ist. 
      * 
      * @param element {@link Element}, das ein neues Kind-{@link Element}
      *  erhalten soll
      * @param child das neue Kind-{@link Element}
-     * @return <code>true</code> falls das Kind-Element angefügt wurde
+     * @return <code>true</code> falls das Kind-Element angefï¿½gt wurde
      */
     static boolean appendChild(Element element, Element child) {
         assert element != null;
@@ -828,7 +829,7 @@ public class XMLExporter implements Exporter, Exchanger, DatabaseUtilizer,
     }
     
     //
-    // geschützte Member-Variablen
+    // geschï¿½tzte Member-Variablen
     //
     /** Der zu verwendende Eingabedatenstrom --- wird intern nicht genutzt */
     InputStream inputStream = null;
