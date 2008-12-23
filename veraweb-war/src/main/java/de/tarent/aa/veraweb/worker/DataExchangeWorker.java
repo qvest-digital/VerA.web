@@ -74,6 +74,7 @@ import de.tarent.octopus.config.TcPersonalConfig;
 import de.tarent.octopus.content.TcContentProzessException;
 import de.tarent.octopus.exchange.ConfiguredExchangeFormat;
 import de.tarent.octopus.response.TcBinaryResponseEngine;
+import de.tarent.octopus.server.Context;
 import de.tarent.octopus.server.OctopusContext;
 
 /**
@@ -183,6 +184,8 @@ public class DataExchangeWorker {
 		
         new Thread(new Runnable() {
         	public void run() {
+        		Context.addActive(cntx);
+        		
         		Exporter exporter = null;
         		try {
 	                exporter = createExporter(format, database, mos);
