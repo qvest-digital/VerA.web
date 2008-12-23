@@ -238,13 +238,13 @@ public class PersonDoctypeFacade {
 			return addressFacade.getCompany();
 		} else if (key.equals("street")) {
 			return addressFacade.getStreet();
-		} else if (key.equals("state")) {
-			return addressFacade.getState();
-		} else if (key.equals("city")) {
-			return addressFacade.getCity();
 		} else if (key.equals("zipcode")) {
 			return addressFacade.getZipCode();
+		} else if (key.equals("state")) {
+			return addressFacade.getCity();
 		} else if (key.equals("country")) {
+			return addressFacade.getState();
+		} else if (key.equals("city")) {
 			return addressFacade.getCountry();
 		} else if (key.equals("pobox")) {
 			return addressFacade.getPOBox();
