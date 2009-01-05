@@ -68,8 +68,20 @@ public class WorkAreaWorker extends StammdatenWorker
 		{
 			workArea.orgunit = ( ( PersonalConfigAA ) cntx.personalConfig() ).getOrgUnitId();
 		}
-
-		super.saveBean(cntx, bean);
+		if ( workArea.orgunit == -1)
+		{
+			List< String > errors = ( List< String > ) cntx.getContextField( OUTPUT_saveListErrors );
+			if  ( errors == null )
+			{
+				errors = new ArrayList< String >();
+			}
+			errors.add( "Der Arbeitsbereich mit dem Namen '" + ( ( WorkArea ) bean ).name + "' konnte nicht angelegt werden. Bitte weisen Sie sich zuerst einen Mandanten zu." );
+			cntx.setContent( OUTPUT_saveListErrors, errors );
+		}
+		else
+		{
+			super.saveBean(cntx, bean);
+		}
 	}
 
 	@Override
