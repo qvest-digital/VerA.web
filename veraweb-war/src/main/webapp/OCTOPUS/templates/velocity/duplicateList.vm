@@ -1,0 +1,107 @@
+#set($title = "Duplikate &uuml;bernehmen")
+#parse("inc/header.vm")
+
+<form id="formlist" name="formlist" action="ImportPersonsEditDuplicates" method="POST">
+<input type="hidden" name="start" value="">
+<input type="hidden" name="selectAll" value="false">
+<input type="hidden" name="selectNone" value="false">
+<input type="hidden" name="importId" value="$!importId">
+<input type="hidden" name="saveCount" value="$!saveCount">
+
+<table class="tab" border="0" cellspacing="0" cellpadding="0"><tr>
+	<td class="tableft">&nbsp;</td>
+	<td class="tabactiv"><span class="tabactiv">Duplikate</span></td>
+	<td class="tabright">&nbsp;</td>
+</tr></table>
+
+#openContent()
+#openContentSection()
+
+#foreach($bean in $list)
+<input type="hidden" name="list" value="$bean.id">
+#end
+<table class="list">
+	<tr class="list1" style="height: 20px;">
+		<th class="list">Import</th>
+		<th class="list">ID</th>
+		<th class="list">Name</th>
+		<th class="list">Vorname</th>
+		<th class="list">Amtsbezeichnung</th>
+		<th class="list">Firma / Institution</th>
+		<th class="list">Stra&szlig;e</th>
+		<th class="list">PLZ</th>
+		<th class="list">Ort</th>
+	</tr>
+	#foreach($bean in $list)
+		#set($person = $bean.mainLatin)
+		#set($address = $bean.businessLatin)
+		#set($class = "list1")
+	<tr class="$class">
+		<td class="list">
+##			<input type="hidden" name="${bean.id}-checked" #if($bean.dupcheckstatus == 1) value="true" #else value="false" #end>
+##			<input type="checkbox" name="${bean.id}-check" #if($bean.dupcheckstatus == 1 )checked #end value="true" class="checkbox">
+			<input type="checkbox" name="${bean.id}-select" value="true" #if($listselection.indexOf($bean.id) != -1) checked #end class="checkbox">
+		</td>
+		<td class="list"><input type="hidden" name="${bean.id}-id" value="$bean.id">$!bean.id</td>
+		<td class="list">$!person.lastname</td>
+		<td class="list">$!person.firstname</td>
+		<td class="list">$!address.function</td>
+		<td class="list">$!address.company</td>
+		<td class="list">$!address.street</td>
+		<td class="list">$!address.zipcode</td>
+		<td class="list">$!address.city</td>
+	</tr>
+		#set($class = "list2")
+		#foreach($duplicate in $bean.getDuplicateList())
+		#set($person = $duplicate.mainLatin)
+		#set($address = $duplicate.businessLatin)
+	<tr class="$class">
+		<td class="list">&nbsp;</td>
+		<td class="list">$!duplicate.id</td>
+		<td class="list">$!person.lastname</td>
+		<td class="list">$!person.firstname</td>
+		<td class="list">$!address.function</td>
+		<td class="list">$!address.company</td>
+		<td class="list">$!address.street</td>
+		<td class="list">$!address.zipcode</td>
+		<td class="list">$!address.city</td>
+	</tr>
+		#end
+		#if ($bean.hasMoreDuplicates())
+	<tr class="$class">
+		<td class="list">&nbsp;</td>
+		<td class="list">...</td>
+		<td class="list">...</td>
+		<td class="list">...</td>
+		<td class="list">...</td>
+		<td class="list">...</td>
+		<td class="list">...</td>
+		<td class="list">...</td>
+		<td class="list">...</td>
+	</tr>
+		#end
+	#end
+</table><br>
+
+Anzahl zu speichernde Duplikate: $!listselection.size()
+
+#if ($listparam.count == 0)
+	<br><br>Keine Daten gefunden.
+#end
+
+<div id="fixme" class="fixme1"><div class="fixme2"><div class="fixme3">
+
+	#parse("inc/list-navi.vm")
+	#parse("inc/list-direct.vm")
+
+	<input type="submit" class="button" name="save" value="&Uuml;bernehmen" title="Markierung &uuml;bernehmen"> &nbsp;
+	<input type="button" class="button" onClick="document.formlist.action='ImportPersonsStoredRecord';document.formlist.submit();" name="save" value="Zur&uuml;ck" title="Zur&uuml;ck zum Import-Fenster"> &nbsp;
+
+</div></div></div>
+
+</form>
+
+#closeContentSection()
+#closeContent()
+
+#parse("inc/footer.vm")
