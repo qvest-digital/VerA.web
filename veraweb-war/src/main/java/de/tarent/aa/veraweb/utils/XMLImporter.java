@@ -246,7 +246,7 @@ public class XMLImporter implements Importer, Exchanger, VerawebNamespaceConstan
         final static int MODE_CATEGORY = 16384 | MODE_PERSON;
         /** in /container/person/doctype */
         final static int MODE_DOCTYPE = 32768 | MODE_PERSON;
-        /** in /container/person/address/city */
+        /** in /container/person/address/state */
         final static int MODE_STATE = 65536 | MODE_ADDRESS;
         
         //
@@ -841,6 +841,7 @@ public class XMLImporter implements Importer, Exchanger, VerawebNamespaceConstan
             case MODE_COMPANY:
             case MODE_STREET:
             case MODE_CITY:
+            case MODE_STATE:
             case MODE_POBOX:
             case MODE_SUFFIX:
             case MODE_PHONE:
@@ -890,6 +891,7 @@ public class XMLImporter implements Importer, Exchanger, VerawebNamespaceConstan
             case MODE_COMPANY:
             case MODE_STREET:
             case MODE_CITY:
+            case MODE_STATE:
             case MODE_POBOX:
             case MODE_SUFFIX:
             case MODE_PHONE:
