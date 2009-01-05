@@ -529,7 +529,7 @@
 #if($exportFormat && $list && $list.size() > 0 )
 <input type="button" name="export" value="Export" onclick="document.formlist.action='${paths.staticWeb}do/PersonExport/export.$exportFormat'; document.formlist.submit(); document.formlist.action='${paths.staticWeb}do/$octopusRequest.task';" #if($grants.mayExport()) class="button" #else class="buttondisabled" disabled #end> &nbsp;
 #else
-<input type="button" name="export" value="Export" #if($grants.mayExport()) class="button" disabled title="Der Export steht nicht zur Verf&uuml;gung da kein Dokumenttyp konfiguriert worden ist." #else class="buttondisabled" disabled #end> &nbsp;
+<input type="button" class="buttondisabled" name="export" value="Export" #if($grants.mayExport()) title="Der Export steht nicht zur Verf&uuml;gung da kein Dokumenttyp konfiguriert worden ist." #else  title="Der Export steht nicht zur Verf&uuml;gung da Ihnen die Berechtigung fehlt." #end> &nbsp;
 #end
 <input type="button" name="assignCategory" value="Kategorien zuordnen" #if($isUser && $list && $list.size() > 0) class="button" onClick="assignCategories();" #else class="buttondisabled" disabled="disabled" #end style="width:140px;">&nbsp;
 <input type="button" name="unassignCategory" value="Kategorien entfernen" #if($isUser && $list && $list.size() > 0) class="button" onClick="unassignCategories();" #else class="buttondisabled" disabled="disabled" #end style="width:140px;">
