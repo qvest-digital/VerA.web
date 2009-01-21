@@ -72,7 +72,7 @@
 #end
 #if($listquestions && $listquestions.size() > 0)
 <div style="margin: 10px 0px 10px 0px; padding: 10px 10px 10px 10px; background-color: #ffffff; border: 2px solid #00ff00;">
-	<strong>Bitte best&auml;tigen sie das L&ouml;schen von Personen:</strong><br>
+	<strong>Bitte best&auml;tigen Sie das L&ouml;schen von Personen:</strong><br>
 	<ul style="margin: 0px 0px 0px -10px;">
 	#foreach($quest in $listquestions.entrySet())
 		<li style="margin: 5px 0px 0px 0px;"><input type="hidden" name="$quest.key" value="true">$!message.plain($quest.value)</li>

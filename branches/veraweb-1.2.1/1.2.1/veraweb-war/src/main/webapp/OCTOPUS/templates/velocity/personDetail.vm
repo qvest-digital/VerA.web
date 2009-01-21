@@ -12,7 +12,7 @@
 			Diese Person wurde erfolgreich zur Veranstaltung &quot;$!message.plain($event.shortname)&quot; eingeladen.
 		#end
 		#if($notInvited == 1)
-			Diese Person wurde nicht eingeladen, da sie bereits auf der G&auml;steliste stand.
+			Diese Person wurde nicht eingeladen, da Sie bereits auf der G&auml;steliste stand.
 		#end
 	</div>
 #end

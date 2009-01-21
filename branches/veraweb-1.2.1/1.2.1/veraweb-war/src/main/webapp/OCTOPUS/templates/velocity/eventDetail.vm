@@ -41,7 +41,7 @@
 #elseif($listquestions && $listquestions.size() > 0)
 <div style="width: 99%; background-color: #ffffff;">
 <div style="margin: 10px 0px 10px 0px; padding: 10px 10px 10px 10px; background-color: #ffffff; border: 2px solid #00ff00;">
-	<strong>Bitte best&auml;tigen sie das Speichern dieser Veranstaltung</strong><br>
+	<strong>Bitte best&auml;tigen Sie das Speichern dieser Veranstaltung</strong><br>
 	<table class="form" style="margin: 5px 0px 0px 0px;">
 	#foreach($quest in $listquestions.entrySet())
 		<tr>
