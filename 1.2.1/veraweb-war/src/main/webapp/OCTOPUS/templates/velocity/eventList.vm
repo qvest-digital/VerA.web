@@ -50,7 +50,7 @@
 </div>
 #elseif($listquestions && $listquestions.size() > 0)
 <div style="margin: 10px 0px 10px 0px; padding: 10px 10px 10px 10px; background-color: #ffffff; border: 2px solid #00ff00;">
-	<strong>Bitte best&auml;tigen sie das L&ouml;schen von Veranstaltungen</strong><br>
+	<strong>Bitte best&auml;tigen Sie das L&ouml;schen von Veranstaltungen</strong><br>
 	<table class="form" style="margin: 5px 0px 0px 0px;">
 	#foreach($quest in $listquestions.entrySet())
 		<tr>
