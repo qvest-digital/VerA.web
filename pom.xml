@@ -136,17 +136,17 @@
 			<timezone>+1</timezone>
 		</developer>
 
-	    <developer>
-            <id>cpreil</id>
-            <name>Christian Preilowski</name>
-            <email>c.preilowski@tarent.de</email>
-            <organization>tarent GmbH</organization>
-            <organizationUrl>http://www.tarent.de</organizationUrl>
-            <roles>
-                <role>Developer</role>
-            </roles>
-            <timezone>+1</timezone>
-        </developer>
+		<developer>
+	            	<id>cpreil</id>
+	            	<name>Christian Preilowski</name>
+	            	<email>c.preilowski@tarent.de</email>
+	            	<organization>tarent GmbH</organization>
+	            	<organizationUrl>http://www.tarent.de</organizationUrl>
+	            	<roles>
+	                	<role>Developer</role>
+	            	</roles>
+            		<timezone>+1</timezone>
+        	</developer>
 	</developers>
 
 	<!-- Information required to build the project. -->
