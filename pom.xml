@@ -55,11 +55,8 @@
 			http://evolvis.org/plugins/scmsvn/viewcvs.php/trunk/?root=tarentdatabase
 		</url>
 		<connection>
-			scm:svn:svn://svn.evolvis.org/svnroot/tarentdatabase/trunk
-		</connection>
-		<developerConnection>
 			scm:svn:svn+ssh://maven@svn.evolvis.org/svnroot/tarentdatabase/trunk
-		</developerConnection>
+		</connection>
 	</scm>
 
 	<repositories>
