@@ -1,6 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<!-- 
 		the version of maven's project object model. 
 		Let this unchanged!
@@ -34,7 +32,7 @@
 		The version of the project under development, e.g.
 		1.1, 1.2, 2.0-SNAPSHOT 
 	-->
-	<version>1.5.3-SNAPSHOT</version>
+	<version>1.5.3</version>
 
 	<url>http://tarentdatabase.evolvis.org/</url>
 
@@ -51,12 +49,8 @@
 	</organization>
 
 	<scm>
-		<url>
-			http://evolvis.org/plugins/scmsvn/viewcvs.php/trunk/?root=tarentdatabase
-		</url>
-		<connection>
-			scm:svn:svn+ssh://maven@svn.evolvis.org/svnroot/tarentdatabase/trunk
-		</connection>
+		<url>http://evolvis.org/plugins/scmsvn/viewcvs.php/tags/?root=tarentdatabase/tarent-database-1.5.3</url>
+		<connection>scm:svn:svn+ssh://maven@svn.evolvis.org/svnroot/tarentdatabase/tags/tarent-database-1.5.3</connection>
 	</scm>
 
 	<repositories>
