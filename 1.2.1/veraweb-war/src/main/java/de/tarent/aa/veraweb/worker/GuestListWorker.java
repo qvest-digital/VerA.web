@@ -36,6 +36,7 @@ import java.util.List;
 import java.util.Map;
 
 import de.tarent.aa.veraweb.beans.Event;
+import de.tarent.aa.veraweb.beans.EventDoctype;
 import de.tarent.aa.veraweb.beans.Guest;
 import de.tarent.aa.veraweb.beans.GuestSearch;
 import de.tarent.aa.veraweb.beans.facade.EventConstants;
@@ -120,9 +121,24 @@ public class GuestListWorker extends ListWorkerVeraWeb {
 		select.where(list);
 	}
 
-	protected void extendColumns(OctopusContext cntx, Select select) throws BeanException {
+	protected void extendColumns(OctopusContext cntx, Select select) throws BeanException, IOException {
 		GuestSearch search = getSearch(cntx);
-		Integer freitextfeld = ConfigWorker.getInteger(cntx, "freitextfeld");
+		Integer configFreitextfeld = ConfigWorker.getInteger(cntx, "freitextfeld");
+		Integer freitextfeld = null;
+
+		Database database = getDatabase(cntx);
+		
+		Select eventDoctypeSelect = database.getSelect("EventDoctype");
+		eventDoctypeSelect.where(Expr.equal("fk_event", cntx.requestAsInteger("search-event")));
+		
+		List<EventDoctype> eventDoctypes = database.getBeanList("EventDoctype", eventDoctypeSelect);
+		if(eventDoctypes.size() > 0) {
+			for(EventDoctype doctype : eventDoctypes) {
+				if(doctype.id == configFreitextfeld) {
+					freitextfeld = configFreitextfeld;
+				}
+			}
+		}
 		
 		select.joinLeftOuter("veraweb.tperson", "tguest.fk_person", "tperson.pk");
 		select.joinLeftOuter("veraweb.tcategorie", "tguest.fk_category", "tcategorie.pk");
