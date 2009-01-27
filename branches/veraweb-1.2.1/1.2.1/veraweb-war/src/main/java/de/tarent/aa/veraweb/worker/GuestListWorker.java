@@ -36,7 +36,6 @@ import java.util.List;
 import java.util.Map;
 
 import de.tarent.aa.veraweb.beans.Event;
-import de.tarent.aa.veraweb.beans.EventDoctype;
 import de.tarent.aa.veraweb.beans.Guest;
 import de.tarent.aa.veraweb.beans.GuestSearch;
 import de.tarent.aa.veraweb.beans.facade.EventConstants;
@@ -126,17 +125,15 @@ public class GuestListWorker extends ListWorkerVeraWeb {
 		Integer configFreitextfeld = ConfigWorker.getInteger(cntx, "freitextfeld");
 		Integer freitextfeld = null;
 
-		Database database = getDatabase(cntx);
-		
-		Select eventDoctypeSelect = database.getSelect("EventDoctype");
-		eventDoctypeSelect.where(Expr.equal("fk_event", cntx.requestAsInteger("search-event")));
-		
-		List<EventDoctype> eventDoctypes = database.getBeanList("EventDoctype", eventDoctypeSelect);
-		if(eventDoctypes.size() > 0) {
-			for(EventDoctype doctype : eventDoctypes) {
-				if(doctype.id == configFreitextfeld) {
-					freitextfeld = configFreitextfeld;
-				}
+		if(configFreitextfeld != null) {
+			Database database = getDatabase(cntx);
+			
+			Select eventDoctypeSelect = database.getCount("EventDoctype");
+			eventDoctypeSelect.where(Expr.equal("fk_event", cntx.requestAsInteger("search-event")));
+			eventDoctypeSelect.whereAnd(Expr.equal("fk_doctype", configFreitextfeld));
+	
+			if(database.getCount(eventDoctypeSelect) != 0) {
+				freitextfeld = configFreitextfeld;
 			}
 		}
 		
