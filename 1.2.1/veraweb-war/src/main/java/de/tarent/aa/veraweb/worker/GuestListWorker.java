@@ -53,6 +53,7 @@ import de.tarent.octopus.beans.Bean;
 import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.beans.Database;
 import de.tarent.octopus.beans.Request;
+import de.tarent.octopus.beans.TransactionContext;
 import de.tarent.octopus.beans.veraweb.BeanChangeLogger;
 import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
 import de.tarent.octopus.beans.veraweb.ListWorkerVeraWeb;
@@ -368,29 +369,30 @@ public class GuestListWorker extends ListWorkerVeraWeb {
 
 	protected boolean removeBean(OctopusContext cntx, Bean bean) throws BeanException, IOException {
 		Database database = getDatabase(cntx);
-
+		TransactionContext context = database.getTransactionContext();
 		/*
 		 * modified to support change logging
 		 * cklein 2008-02-12
 		 */
-		BeanChangeLogger clogger = new BeanChangeLogger( database );
+		BeanChangeLogger clogger = new BeanChangeLogger( database, context );
 		/*
 		 * see bug #1033
 		 */
 		if ( ( ( Guest ) bean ).person == null )
 		{
 			// need to load the guest entity in order to retrieve the person
-			bean = database.getBean( "Guest", ( ( Guest ) bean ).id );
+			bean = database.getBean( "Guest", ( ( Guest ) bean ).id, context );
 		}
 		clogger.logDelete( cntx.personalConfig().getLoginname(), bean );
-
-		database.execute(SQL.Delete( database ).
+		
+		context.execute(SQL.Delete( database ).
 				from("veraweb.tguest_doctype").
 				where(Expr.equal("fk_guest", ((Guest)bean).id)));
-		database.execute(SQL.Delete( database ).
+		context.execute(SQL.Delete( database ).
 				from("veraweb.tguest").
 				where(Expr.equal("pk", ((Guest)bean).id)));
-
+		context.commit();
+		
 		return true;
 	}
 
