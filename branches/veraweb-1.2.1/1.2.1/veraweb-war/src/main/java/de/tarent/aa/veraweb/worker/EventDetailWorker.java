@@ -289,11 +289,11 @@ public class EventDetailWorker {
 						Where
 							.or(Expr.equal("flags", new Integer(Doctype.FLAG_IS_STANDARD)), Expr.equal("flags", new Integer(Doctype.FLAG_NO_FREITEXT)))),
 						context);
-					EventDoctype eventDoctype = new EventDoctype();
-					eventDoctype.event = event.id;
 					for (Iterator it = list.iterator(); it.hasNext();)
 					{
 						Doctype doctype = (Doctype) it.next();
+						EventDoctype eventDoctype = new EventDoctype();
+						eventDoctype.event = event.id;
 						eventDoctype.doctype = doctype.id;
 						if (eventDoctype.event != null && eventDoctype.doctype != null)
 						{
