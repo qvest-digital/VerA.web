@@ -20,11 +20,11 @@
 		#if(!$bean.category && $category != "")
 			#set($category = "")
 			#set($workarea = "")
-##			<div class="kategorie"><em>Keiner Kategorie zugeordnet</em></div>
+			<div class="kategorie"><em>Keiner Kategorie zugeordnet</em></div>
 		#elseif($bean.category)
 			#set($category = $bean.category)
 			#set($workarea = "")
-##			<div class="kategorie">$!message.plain($category)</div>
+			<div class="kategorie">$!message.plain($category)</div>
 		#end
 	#end
 
@@ -32,10 +32,10 @@
 		#if( $bean.workarea_name != $workarea )
 			#if( $bean.workarea_name == "Kein Arbeitsbereich" && $workarea != "" )
 				#set($workarea = "")
-##				<div class="kategorie" style="margin-left: 1em;"><em>Keinem Arbeitsbereich zugeordnet</em></div>
+				<div class="kategorie" style="margin-left: 1em;"><em>Keinem Arbeitsbereich zugeordnet</em></div>
 			#else
 				#set($workarea = $bean.workarea_name)
-##				<div class="kategorie" style="margin-left: 1em;">$!message.plain($workarea)</div>
+				<div class="kategorie" style="margin-left: 1em;">$!message.plain($workarea)</div>
 			#end
 		#end
 	#end
