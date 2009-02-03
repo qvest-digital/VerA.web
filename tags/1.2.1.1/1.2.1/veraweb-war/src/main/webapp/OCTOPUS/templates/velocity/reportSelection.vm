@@ -1,0 +1,144 @@
+#set($title = "G&auml;steliste erstellen f&uuml;r Veranstaltung: $!event.shortname")
+#parse("inc/header.vm")
+
+<table class="tab" border="0" cellspacing="0" cellpadding="0"><tr>
+	<td class="tableft">&nbsp;</td>
+	<td class="tabactiv"><span class="tabactiv">G&auml;steliste</span></td>
+	<td class="tabright">&nbsp;</td>
+</tr></table>
+
+#openContent()
+#openContentSection()
+
+<table class="form"><tr>
+	<td class="label" style="width: 19%;"><strong>Veranstaltung:</strong></td>
+	<td class="value" style="width: 31%;"><input type="text" id="event-shortname" name="event-shortname" value="$!message.text($event.shortname)" class="textdisabled" style="width: 90%;" readonly title="Veranstaltungs-ID: $!event.id"></td>
+	<td class="label" style="width: 19%;">Einladungsart:</td>
+	#if ($event.invitationtype == 2)
+	<td class="value" style="width: 31%;"><input type="text" id="event-invitationtype" name="event-invitationtype" value="Ohne Partner" class="textdisabled" style="width: 90%;" readonly></td>
+	#elseif ($event.invitationtype == 3)
+	<td class="value" style="width: 31%;"><input type="text" id="event-invitationtype" name="event-invitationtype" value="Nur Partner" class="textdisabled" style="width: 90%;" readonly></td>
+	#else
+	<td class="value" style="width: 31%;"><input type="text" id="event-invitationtype" name="event-invitationtype" value="Mit Partner" class="textdisabled" style="width: 90%;" readonly></td>
+	#end
+</tr><tr>
+	<td class="label" style="width: 19%;">Datum:</td>
+	<td class="value" style="width: 31%;"><input type="text" id="event-begin" name="event-begin" value="$!message.date("DATE_TIME", $event.begin)" class="textdisabled" style="width: 90%;" readonly></td>
+	<td class="label" style="width: 19%;">Max. Anzahl G&auml;ste:</td>
+	<td class="value" style="width: 31%;"><input type="text" id="event-maxguest" name="event-maxguest" value="$!message.text($event.maxguest)" class="intdisabled" readonly></td>
+</tr></table>
+
+<hr class="contentsection" />
+
+<form action="ReportGuestList" target="_blank" method="get">
+
+<table class="form"><tr>
+	<td class="label" style="width: 19%;"><strong>Ausgabeformat:</strong></td>
+	<td class="value">
+		<select name="type" class="combobox">
+			<option value="Kat01">Liste nach Kategorien gruppiert - mit Partner</option>
+			<option value="Kat02">Liste nach Kategorien gruppiert - mit Tel. und Mobiltelefon</option>
+			<option value="Kat03">Liste nach Kategorien gruppiert - mit Partner und Fax</option>
+			<option value="Alpha01">Liste nach Sortierung - mit Partner, Tel. und Mobiltelefon</option>
+		</select>
+	</td>
+</tr></table>
+<br>
+
+<table class="form"><tr>
+	<td class="label" style="width: 19%;">Sortierung:</td>
+	<td class="value">
+		<select name="sort1" class="combobox">
+#if($search.listorder == "lastname_a_e1" || $search.listorder == "firstname_a_e1" || $search.listorder == "mail_a_e1")
+			<option value="orderno">Laufende Nummer</option>
+			<option value="name" selected>Name</option>
+			<option value="country">Land</option>
+			<option value="zipcode">PLZ</option>
+			<option value="category">Kategorie</option>
+			<option value="rank">Rang</option>
+			<option value="table">Tisch</option>
+#else
+			<option value="orderno">Laufende Nummer</option>
+			<option value="name">Name</option>
+			<option value="country">Land</option>
+			<option value="zipcode">PLZ</option>
+			<option value="category">Kategorie</option>
+			<option value="rank">Rang</option>
+			<option value="table">Tisch</option>
+#end
+		</select>
+	</td>
+</tr><tr>
+	<td class="label" style="width: 19%;">&nbsp;</td>
+	<td class="value">
+		<select name="sort2" class="combobox">
+			<option value=""></option>
+#if($search.listorder == "lastname_a_e1" || $search.listorder == "firstname_a_e1" || $search.listorder == "mail_a_e1")
+			<option value="orderno">Laufende Nummer</option>
+			<option value="name">Name</option>
+			<option value="country">Land</option>
+			<option value="zipcode">PLZ</option>
+			<option value="category" selected>Kategorie</option>
+			<option value="rank">Rang</option>
+			<option value="table">Tisch</option>
+#else
+			<option value="orderno">Laufende Nummer</option>
+			<option value="name" selected>Name</option>
+			<option value="country">Land</option>
+			<option value="zipcode">PLZ</option>
+			<option value="category">Kategorie</option>
+			<option value="rank">Rang</option>
+			<option value="table">Tisch</option>
+#end
+		</select>
+	</td>
+</tr><tr>
+	<td class="label" style="width: 19%;">&nbsp;</td>
+	<td class="value">
+		<select name="sort3" class="combobox">
+#if($search.listorder == "lastname_a_e1" || $search.listorder == "firstname_a_e1" || $search.listorder == "mail_a_e1")
+			<option value=""></option>
+			<option value="orderno">Laufende Nummer</option>
+			<option value="name">Name</option>
+			<option value="country">Land</option>
+			<option value="zipcode">PLZ</option>
+			<option value="category">Kategorie</option>
+			<option value="rank" selected>Rang</option>
+			<option value="table">Tisch</option>
+#else
+			<option value="" selected></option>
+			<option value="orderno">Laufende Nummer</option>
+			<option value="name">Name</option>
+			<option value="country">Land</option>
+			<option value="zipcode">PLZ</option>
+			<option value="category">Kategorie</option>
+			<option value="rank">Rang</option>
+			<option value="table">Tisch</option>
+#end
+		</select>
+	</td>
+</tr>
+## added as per change request for version 1.2.0
+## cklein
+## 2008-02-20
+<tr>
+	<td class="label">Zusätzliche Sortierung nach</td>
+	<td><input type="checkbox" id="orderByWorkArea" name="orderByWorkArea" value="true">&nbsp;<label for="orderByWorkArea">Arbeitsbereich</label></td>
+</tr>
+</table><br>
+
+<div>
+<div id="fixme" class="fixme1"><div class="fixme2"><div class="fixme3">
+
+<input type="submit" name="report" value="Erstellen" class="submit"> &nbsp;
+<input type="button" name="cancel" value="Zur&uuml;ck" class="cancel" onclick="window.location.href='ShowGuestList';">
+
+</div></div></div>
+</div>
+
+</form>
+
+#closeContentSection()
+#closeContent()
+
+#parse("inc/footer.vm")

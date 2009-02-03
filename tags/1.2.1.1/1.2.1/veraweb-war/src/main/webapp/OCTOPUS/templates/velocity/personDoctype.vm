@@ -1,0 +1,72 @@
+#if($person && $person)
+#set($title = "Person bearbeiten: $!message.plain($person.MainLatin.SaveAs)")
+#parse("inc/header.vm")
+#else
+#set($title = "Neue Person anlegen")
+#parse("inc/header.vm")
+#end
+
+<table class="tab" border="0" cellspacing="0" cellpadding="0"><tr>
+	<td class="tableft">&nbsp;</td>
+	<td class="tabinactiv"><a href="ShowPerson?id=$!person.id&tab=person&offset=${navigation.current.offset}" class="tabinactiv">Personendaten</a></td>
+	<td class="tabinactiv"><a href="ShowPerson?id=$!person.id&tab=anschrift&offset=${navigation.current.offset}" class="tabinactiv">Anschriften</a></td>
+#if($person && $person && $person.id && $person.id)
+	<td class="tabactiv"><a href="ShowPersonDoctypeList?id=$!person.id&offset=${navigation.current.offset}" class="tabactiv">Dokumenttypen</a></td>
+	<td class="tabinactiv"><a href="ShowPersonCategorieList?id=$!person.id&offset=${navigation.current.offset}" class="tabinactiv">Kategorien</a></td>
+#else
+	<td class="tabdisabled"><span class="tabdisabled">Dokumenttypen</span></td>
+	<td class="tabdisabled"><span class="tabdisabled">Kategorien</span></td>
+#end
+	<td class="tabright">&nbsp;</td>
+</tr></table>
+
+#openContent()
+
+#openContentSection()
+#parse("inc/person-header.vm")
+#closeContentSection()
+
+#openContentSection()
+#if($persondoctype)
+#parse("inc/person-doctype2.vm")
+#else
+#parse("inc/person-doctype.vm")
+#end
+#closeContentSection()
+
+#closeContent()
+
+<input type="hidden" id="inviteGuestReserve" name="inviteGuestReserve" value="false">
+<input type="hidden" id="inviteGuestPartner" name="inviteGuestPartner" value="false">
+<script type="text/javascript">
+	function addToGuestList() {
+		htmlConfirm('Soll dieser Gast auf Platz gesetzt werden?', new Array('Ja', 'Nein'), new Array("addToGuestQuestX1('false');", "addToGuestQuestX1('true');"));
+	}
+	
+	function addToGuestQuestX1(answer) {
+		document.getElementById('inviteGuestReserve').value = answer;
+		htmlConfirm('Soll die Partnerin / der Partner mit eingeladen werden?', new Array('Ja', 'Nein'), new Array("addToGuestQuestX2('true');", "addToGuestQuestX2('false');"));
+	}
+	
+	function addToGuestQuestX2(answer) {
+		document.getElementById('inviteGuestPartner').value = answer;
+		htmlWait();
+		
+		var url = '${paths.staticWeb}do/AddPersonToEventGuestList';
+		url += '?list=$!{person.id}';
+		url += '&$!{person.id}-id=${person.id}';
+		url += '&$!{person.id}-select=true';
+		url += '&$!{person.id}-reserve=' + document.getElementById('inviteGuestReserve').value;
+		url += '&$!{person.id}-partner=' + document.getElementById('inviteGuestPartner').value;
+		window.location.href = url;
+	}
+	
+	#if(!$grants.mayWrite())
+	disableForm(document.getElementById('formlist'));
+	#end
+	disableFormInput(document.getElementById('person-expire'));
+	disableFormCheckbox(document.getElementById('person-iscompany'));
+	hideBlock(document.getElementById('show-expire'));
+</script>
+
+#parse("inc/footer.vm")
