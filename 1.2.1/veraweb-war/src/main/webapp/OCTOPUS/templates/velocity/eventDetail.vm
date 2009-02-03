@@ -200,6 +200,7 @@
 							addCityNo();
 							#end
 						}
+						setModified();
         			}
         			
         			function addCityYes() {
