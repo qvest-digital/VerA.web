@@ -38,6 +38,7 @@ import java.util.List;
 import java.util.Map;
 
 import de.tarent.aa.veraweb.beans.Person;
+import de.tarent.aa.veraweb.beans.PersonCategorie;
 import de.tarent.aa.veraweb.beans.PersonSearch;
 import de.tarent.aa.veraweb.beans.facade.PersonConstants;
 import de.tarent.aa.veraweb.utils.DatabaseHelper;
@@ -61,6 +62,7 @@ import de.tarent.octopus.beans.Bean;
 import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.beans.BeanFactory;
 import de.tarent.octopus.beans.Database;
+import de.tarent.octopus.beans.TransactionContext;
 import de.tarent.octopus.beans.veraweb.ListWorkerVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
 
@@ -126,16 +128,22 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 		if ( assignmentAction != null && assignmentAction.length() > 0 )
 		{
 			Database database = getDatabase(cntx);
+			TransactionContext context = database.getTransactionContext();
 			PersonCategorieWorker personCategoryWorker = WorkerFactory.getPersonCategorieWorker( cntx );
 			Integer categoryId = cntx.requestAsInteger( "categoryAssignmentId" );
 			List selection = this.getSelection( cntx, this.getCount( cntx, database ) );
 			Iterator iter = selection.iterator();
+			PersonCategorie category = null;
 			while( iter.hasNext() )
 			{
 				Integer personId = ( Integer ) iter.next();
 				if ( "assign".compareTo( assignmentAction ) == 0 && categoryId.intValue() > 0 )
 				{
-					personCategoryWorker.addCategoryAssignment( cntx, categoryId, personId, database );
+					category = personCategoryWorker.addCategoryAssignment( cntx, categoryId, personId, database, false );
+					if(category != null)
+					{
+						database.saveBean(category, context, false);
+					}
 				}
 				else
 				{
@@ -150,6 +158,7 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 				}
 				iter.remove();
 			}
+			context.commit();
 			cntx.setSession( "selection" + BEANNAME, selection );
 		}
 		else
