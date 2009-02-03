@@ -56,6 +56,7 @@ CREATE OR REPLACE FUNCTION serv_verawebschema(int4) RETURNS varchar AS
  *  2008-03-14	cklein: added foreign key constraint fk_orgunit to tworkarea
  *  2008-03-27  cklein: typo in upgrade path for tperson caused upgrade to fail when called a second time (tperson_fkey_workarea was created twice or multiple times)
  *                      missing drop sequence in upgrade path for timportperson
+ *  2009-02-03  tschmi: fixed bug with building sequence for tworkarea
  * </changelog>
  * ----------------------------------------------------------- */
 
@@ -176,15 +177,24 @@ BEGIN
 		vresult varchar;
 		vmaxid int4;
 		vstmt varchar;
+		vworkareapk int4;
 	BEGIN
 		vcount := 0;
 		vpos2 := 0;
 		vpos1 := 0;
+		vworkareapk :=0;
 		vresult := \'\'\'\';
 		vpk := \'\'\'\';
 		
 		PERFORM SETVAL(\'\'veraweb.tresult_id_seq\'\', (SELECT MAX(id) FROM veraweb.tresult));
 		PERFORM SETVAL(\'\'veraweb.tupdate_id_seq\'\', (SELECT MAX(id) FROM veraweb.tupdate));
+		
+		Select max(pk) into vworkareapk from veraweb.tworkarea;
+		IF vworkareapk = 0 then
+			PERFORM SETVAL(\'\'veraweb.tworkarea_pk_seq\'\', (1));
+		else
+			PERFORM SETVAL(\'\'veraweb.tworkarea_pk_seq\'\', (SELECT MAX(pk) FROM veraweb.tworkarea));
+		end if;
 		
 		FOR vseq IN SELECT * FROM pg_catalog.pg_statio_user_sequences WHERE schemaname = \'\'veraweb\'\' LOOP
 			SELECT position(\'\'pk_\'\'  in vseq.relname) into vpos1;
@@ -193,9 +203,10 @@ BEGIN
 				SELECT substring(vseq.relname from 1 for (vpos1 - 2)) into vtable;
 				SELECT substring(vseq.relname from vpos1 for (vpos2 - vpos1)) into vpk;
 				vcount := vcount + 1;
-				vstmt := \'\'SELECT SETVAL(\'\'\'\'veraweb.\'\' || vseq.relname || \'\'\'\'\'\', \'\' || \'\'(SELECT MAX(\'\' || vpk || \'\') FROM veraweb.\'\' || vtable || \'\'));\'\';
-				--INSERT INTO colibri.tresult(value) VALUES (vstmt);
-				EXECUTE vstmt;
+				if vtable <> \'\'tworkarea\'\' then
+					vstmt := \'\'SELECT SETVAL(\'\'\'\'veraweb.\'\' || vseq.relname || \'\'\'\'\'\', \'\' || \'\'(SELECT MAX(\'\' || vpk || \'\') FROM veraweb.\'\' || vtable || \'\'));\'\';
+					EXECUTE vstmt;
+				end if;
 			ELSE
 				INSERT INTO veraweb.tresult(value) VALUES (\'\'ERROR FINDING SEQUENCE NAME \'\' || vseq.relname);
 		END IF;
@@ -1761,7 +1772,7 @@ END;\'
 	vint := 0;
 	SELECT count(*) INTO vint FROM information_schema.columns
 		WHERE table_schema = \'veraweb\' AND table_name = \'timportperson\' AND column_name = \'fk_workarea\';
-	IF vint = 0 THEN
+	IF vint > 0 THEN
 		vmsg := \'begin.dropTABLE.timportperson\';
 		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
 		IF $1 = 1 THEN
