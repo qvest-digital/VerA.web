@@ -1,0 +1,63 @@
+#macro(openContent)
+<div class="content">
+#end
+
+#macro(closeContent)
+</div>
+#end
+
+#macro(openContentSection)
+<div class="contentsection">
+	<table class="form" cellpadding="0" cellspacing="0" border="0">
+	<tr><td style="width: 10px;">&nbsp;</td><td>
+#end
+
+#macro(closeContentSection)
+	</td><td style="width: 10px;">&nbsp;</td></tr>
+	</table>
+</div>
+#end
+
+#macro(openContentBlock $id)
+<div class="contentsection" id="$id" style="display: none;">
+	<table class="form" cellpadding="0" cellspacing="0" border="0">
+	<tr><td style="width: 10px;">&nbsp;</td><td>
+#end
+
+#macro(closeContentBlock)
+	</td><td style="width: 10px;">&nbsp;</td></tr>
+	</table>
+</div>
+#end
+
+#macro(comboAddresstype $name $current $style)
+	<select name="$name" class="combobox"#if($style) style="$style"#end>
+		<option value="1"#if($current == 1) selected#end>$!config.business</option>
+		<option value="2"#if($current == 2) selected#end>$!config.private</option>
+		<option value="3"#if($current == 3) selected#end>$!config.other</option>
+	</select>
+#end
+
+#macro(comboLocale $name $current $style)
+	<select name="$name" class="combobox"#if($style) style="$style"#end>
+		<option value="1"#if($current == 1) selected#end>$!config.latin</option>
+		<option value="2"#if($current == 2) selected#end>$!config.extra1</option>
+		<option value="3"#if($current == 3) selected#end>$!config.extra2</option>
+	</select>
+#end
+
+#macro(textAddresstype $current)
+	#if($current == 1) $!config.business
+	#elseif($current == 2) $!config.private
+	#elseif($current == 3) $!config.other
+	#else FEHLER
+	#end
+#end
+
+#macro(textLocale)
+	#if($current == 1) $!config.latin
+	#elseif($current == 2) $!config.extra1
+	#elseif($current == 3) $!config.extra2
+	#else FEHLER
+	#end
+#end
