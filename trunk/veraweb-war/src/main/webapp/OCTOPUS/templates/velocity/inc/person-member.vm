@@ -157,15 +157,15 @@
 	<td class="value"><input type="text" id="person-nationality$ext" name="person-nationality$ext" value="$!message.text($facade.Nationality)" class="text" onchange="setModified();"></td>
 </tr><tr>
 	<td class="label"><label for="person-note$ext">Bemerkung:</label></td>
-	<td class="value"><textarea rows="4" cols="20" id="person-note$ext" name="person-note$ext" onchange="setModified();" #if($grants.mayReadRemarkFields()) class="text">$!message.textarea($facade.Note)#else class="textdisabled" disabled="true">#end</textarea></td>
+	<td class="value"><textarea rows="3" cols="20" id="person-note$ext" name="person-note$ext" onchange="setModified();" #if($grants.mayReadRemarkFields()) class="text">$!message.textarea($facade.Note)#else class="textdisabled" disabled="true">#end</textarea></td>
 </tr></table>
 
 <table class="form"><tr>
 	<td class="label"><label for="person-noteorga$ext">Hinweis f&uuml;r Orga:</label></td>
-	<td class="value"><textarea rows="4" cols="20" id="person-noteorga$ext" name="person-noteorga$ext" onchange="setModified();" #if($grants.mayReadRemarkFields()) class="text">$!message.textarea($facade.NoteOrga)#else class="textdisabled" disabled="true">#end</textarea></td>
+	<td class="value"><textarea rows="3" cols="20" id="person-noteorga$ext" name="person-noteorga$ext" onchange="setModified();" #if($grants.mayReadRemarkFields()) class="text">$!message.textarea($facade.NoteOrga)#else class="textdisabled" disabled="true">#end</textarea></td>
 </tr><tr>
 	<td class="label"><label for="person-notehost$ext">Hinweis f&uuml;r Gastgeber:</label></td>
-	<td class="value"><textarea rows="4" cols="20" id="person-notehost$ext" name="person-notehost$ext" onchange="setModified();" #if($grants.mayReadRemarkFields()) class="text">$!message.textarea($facade.NoteHost)#else class="textdisabled" disabled="true">#end</textarea></td>
+	<td class="value"><textarea rows="3" cols="20" id="person-notehost$ext" name="person-notehost$ext" onchange="setModified();" #if($grants.mayReadRemarkFields()) class="text">$!message.textarea($facade.NoteHost)#else class="textdisabled" disabled="true">#end</textarea></td>
 </tr><tr>
 	<td class="label"><label for="person-showimportsource">Datenherkunft:</label></td>
 	<td class="value"><input type="text" id="person-showimportsource" name="person-showimportsource" value="$!message.text($person.importsource)" readonly class="textdisabled"></td>
