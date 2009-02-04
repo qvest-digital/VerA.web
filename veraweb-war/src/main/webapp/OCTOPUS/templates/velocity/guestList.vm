@@ -104,7 +104,7 @@
 #elseif($listquestions && $listquestions.size() > 0)
 <form action="" method="POST">
 <div style="margin: 10px 0px 10px 0px; padding: 10px 10px 10px 10px; background-color: #ffffff; border: 2px solid #00ff00;">
-	<strong>Bitte best&auml;tigen sie die folgende Aktion:</strong><br>
+	<strong>Bitte best&auml;tigen Sie die folgende Aktion:</strong><br>
 	<table class="form" style="margin: 5px 0px 0px 0px;">
 	#foreach($quest in $listquestions.entrySet())
 		<tr>
@@ -353,7 +353,7 @@
 	<tr style="height: 20px;">
 		<td class="list2warn" style="text-align: center; width: 60px;"><strong>Hinweis</strong></td>
 		<td class="list1warn">
-			Beim erstellen von Steuerdateien oder G&auml;stelisten wird Ihr
+			Beim Erstellen von Steuerdateien oder G&auml;stelisten wird Ihr
 			oben ausgew&auml;hlter Filter ber&uuml;cksichtigt.<br>
 			Wenn Sie einzelne G&auml;ste markieren werden nur diese exportiert,
 			ansonsten die vollst&auml;ndige Liste.

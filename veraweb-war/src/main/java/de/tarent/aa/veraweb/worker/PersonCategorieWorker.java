@@ -40,6 +40,7 @@ import de.tarent.dblayer.sql.statement.Select;
 import de.tarent.octopus.beans.Bean;
 import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.beans.Database;
+import de.tarent.octopus.beans.TransactionContext;
 import de.tarent.octopus.beans.veraweb.ListWorkerVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
 
@@ -100,6 +101,11 @@ public class PersonCategorieWorker extends ListWorkerVeraWeb {
 
 	public void addCategoryAssignment( OctopusContext cntx, Integer categoryId, Integer personId, Database database ) throws BeanException, IOException
 	{
+		addCategoryAssignment(cntx, categoryId, personId, database, true);
+	}
+	
+	public PersonCategorie addCategoryAssignment( OctopusContext cntx, Integer categoryId, Integer personId, Database database, boolean save ) throws BeanException, IOException
+	{
 		Categorie category = ( Categorie ) database.getBean( "Categorie", categoryId );
 		if ( category != null )
 		{
@@ -113,23 +119,30 @@ public class PersonCategorieWorker extends ListWorkerVeraWeb {
 				personCategory.categorie = categoryId;
 				personCategory.person = personId;
 				personCategory.rank = category.rank;
-				this.saveBean( cntx, personCategory );
+				if(save)
+					this.saveBean( cntx, personCategory );
+				return personCategory;
 			}
 		}
+		return null;
 	}
 
 	public void removeAllCategoryAssignments( OctopusContext cntx, Integer personId, Database database ) throws BeanException, IOException
 	{
+		TransactionContext context = database.getTransactionContext();
 		try
 		{
-			DB.update(
-				cntx.getModuleName(),
-				SQL.Delete( database ).from( "veraweb.tperson_categorie" ).where( Expr.equal( "fk_person", personId ) )
+			DB.update(context,
+				SQL.Delete( context ).from( "veraweb.tperson_categorie" ).where( Expr.equal( "fk_person", personId ) )
 			);
+			context.commit();
 		}
 		catch( SQLException e )
 		{
 			throw new BeanException( "Die Kategoriezuweisungen konnte nicht aufgehoben werden.", e );
+		}
+		finally {
+			context.rollBack();
 		}
 	}
 

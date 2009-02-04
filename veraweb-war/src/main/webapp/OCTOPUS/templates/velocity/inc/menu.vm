@@ -67,9 +67,9 @@
 	<a href="${paths.staticWeb}do/Function?start=0&limit=5" class="menulink">Funktionen/Amtsbez.</a>
 	<a href="${paths.staticWeb}do/MailDraftList?start=0" class="menulink">E-Mail-Vorlagen</a>
 	<a href="${paths.staticWeb}do/MailOutboxList?start=0" class="menulink">E-Mail-Postausgang</a>
-	<a href="${paths.staticWeb}do/WorkArea?start=0" class="menulink">Arbeitsbereiche</a>
 #end
   #if($grants.isAdmin())
+	<a href="${paths.staticWeb}do/WorkArea?start=0" class="menulink">Arbeitsbereiche</a>
 	<a href="${paths.staticWeb}do/Orgunit?start=0" class="menulink">Mandanten</a>
 	<a href="${paths.staticWeb}do/AllUser?start=0" class="menulink">Benutzer</a>
 	<a href="${paths.staticWeb}do/AllProxy?start=0" class="menulink">Stellvertretungen</a>
