@@ -85,6 +85,7 @@ public class GuestListWorker extends ListWorkerVeraWeb {
 		if ( assignmentAction != null && assignmentAction.length() > 0 )
 		{
 			Database database = getDatabase(cntx);
+			TransactionContext context = database.getTransactionContext();
 			Integer categoryId = cntx.requestAsInteger( "categoryAssignmentId" );
 			List selection = this.getSelection( cntx, this.getCount( cntx, database ) );
 			Iterator iter = selection.iterator();
@@ -99,9 +100,10 @@ public class GuestListWorker extends ListWorkerVeraWeb {
 				{
 					guest.category = null;
 				}
-				this.saveBean( cntx, guest );
+				database.saveBean(guest, context, false);
 				iter.remove();
 			}
+			context.commit();
 			cntx.setSession( "selection" + BEANNAME, selection );
 		}
 		else
