@@ -1,0 +1,938 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--!DOCTYPE tcModuleConfig SYSTEM "../tcModuleConfig.dtd"-->
+
+<!--
+	Octopus config.xml
+	
+	Im- und Export
+-->
+<tcModuleConfig>
+	<!-- Die in diesem Element enthaltenen param-Elemente erlauben, gewisse Aspekte von VerA.web zu steuern. -->
+	<params>
+		<!-- die für den Duplikatscheck beim Import relevanten Felder werden hierin aufgeführt. Durch Anpassung der beiden Beans aneinander werden dort in aller Regel gleichnamige Felder in den Test eingehen. -->
+		<param name="importProperties" type="map">
+			<!-- Bean- und Datensatzfeld, die den gleichen Wert enthalten müssen um die Datensätze als Duplikate zu erkennen -->
+			<param name="beanFieldEqual1" value="firstname_a_e1"/>
+			<param name="fieldEqual1" value="firstname_a_e1"/>
+			<!-- Bean- und Datensatzfeld, die den gleichen Wert enthalten müssen um die Datensätze als Duplikate zu erkennen -->
+			<param name="beanFieldEqual2" value="lastname_a_e1"/>
+			<param name="fieldEqual2" value="lastname_a_e1"/>
+		</param>
+		<!-- Nutzung der Adressfreitextfelder -->
+		<param name="importTextfieldMapping" type="map">
+			<!-- Muster:
+			<param name="n:Doctype" value="NAME_DES_DOKUMENTTYPS"/>
+			<param name="n:Person" value="IMPORTFELD_PERSON"/>
+			<param name="n:Partner" value="IMPORTFELD_PARTNER"/>
+			<param name="n:Join" value="VERKNÜPFUNGSWORT"/>
+			-->
+			<param name="1:Doctype" value="ehem. MadLAN Adresse 1"/>
+			<param name="1:Person" value="textfield_1"/>
+			<param name="2:Doctype" value="ehem. MadLAN Adresse 2"/>
+			<param name="2:Person" value="textfield_2"/>
+			<param name="3:Doctype" value="ehem. MadLAN Adresse kyrillisch"/>
+			<param name="3:Person" value="textfield_3"/>
+		</param>
+		<!-- die Liste der Bean-Felder, die beim Befüllen einer Person Bestands-Bean aus einer ImportPerson Import-Bean nicht übernommen werden sollen. -->
+		<param name="ignorePersonFields" type="array">
+			<value>id</value>
+			<value>contact</value>
+			<value>saveunder</value>
+			<value>modified</value>
+			<value>namefilter</value>
+		</param>
+		<!-- die Einstellungen für das Bearbeiten von Duplikatslisten eines Import werden hier gehalten. -->
+		<param name="importDuplicatesProperties" type="map">
+			<!-- maximal Anzahl Importdatensätze, die auf einer Seite angezeigt werden sollen -->
+			<param name="dsCount" value="5"/>
+			<!-- maximale Anzahl der Duplikate im Bestand, die zu einem Importdatensatz angezeigt wird. -->
+			<param name="dupCount" value="-1"/>
+		</param>
+		<!-- Diese Parameter geben die verfügbaren Datenaustauschformate an und steuern weitere Aspekte des Im- und Exports. -->
+		<!-- die Liste der Namen der Parameter, die jeweils ein verfügbares Datenaustauschformat beschreiben. -->
+		<param name="exchangeFormats" type="array">
+			<value>formatCSV</value>
+			<value>formatXML</value>
+			<value>formatCCM</value>
+			<value>formatMAdLANPerson</value>
+			<value>formatMAdLANFirma</value>
+			<value>formatX-ManageKontakt</value>
+			<value>formatCSVPersdat+Anschrift</value>	
+			<value>formatCSVPersdat+Anschrift+Doktyp</value>
+			<value>formatCSVPersdat+Doktyp</value>
+			<value>formatCSVPersdat+Doktyp1.0</value>
+			<value>formatCSVPersdat+Kategorien</value>
+			<value>formatCSV_ISO-8859-15</value>
+		</param>
+		
+		<!-- ************************************************ -->
+		<!-- *** Definition der verfügbaren Exportformate *** -->
+		<!-- ************************************************ -->
+		<!-- Exportformate werden in eigenen Parametern definiert, deren Namenseinträge im
+		     Parameter "exchangeFormats" aufgelistet sind. Diese Namen sind zwar frei wählbar,
+		     um aber Kollisionen mit anderen Parametern zu vermeiden, sollten sie als Konvention
+		     dem Muster "format*" genügen.
+		     
+			 - In "name" enthalten sie einen Namen zur Anzeige,
+		     - in "description" eine ausführlichere Beschreibung zur Anzeige,
+		     - in "defaultExtension" die Vorgabe für eine entsprechende Dateiendung,
+		     - in "mimeType" den MIME-Typ,
+		     - in "exporterClass" den Namen der Java-Klasse, die einen Export in diesem Format durchführen kann,
+		     - in "importerClass" den Namen der Java-Klasse, die einen Import in diesem Format versteht und
+		     - in "properties" eine Sammlung Format-spezifischer Eigenschaften.
+		     
+			 Insbesondere sind unter "properties" die Einträge "remarks" und "choices" untergebracht;
+			 ersterer stellt eine Liste von Bemerkungen, die an der Oberfläche zu dem Format angezeigt werden, dar,
+			 letzterer eine Sammlung von Format-spezifischen Benutzer-wählbaren Optionen; diese enthalten
+			 - unter "label" einen Bezeichner zur Anzeige, dazu
+			 - optional unter "select" eine Auswahl mit Abbildungen Wert auf Bezeichner und
+			 - unter "default" einen Vorgabewert.
+			 Die vom Benutzer gelieferten Werte werden jeweils unter dem Schlüssel der Option
+			 in der Sammlung mit den bestehenden "properties" der ex- oder importierenden Klasse
+			 übergeben.
+		 -->
+		
+		<!-- *** CSV-Formate *** -->
+		<!-- CSV-Formate ex- und importieren CSV-Dateien mit Spaltennamen in der ersten Zeile;
+			 hierzu sind die entsprechenden "format*"-Parameter wie folgt zu befüllen:
+			 
+			 - "exporterClass": "de.tarent.aa.veraweb.utils.GenericCSVExporter".
+			 - "importerClass": "de.tarent.aa.veraweb.utils.GenericCSVImporter".
+			 - "properties": folgende spezifische Eigenschaften kennen diese Klassen:
+				- "encoding": die Zeichenkodierung in der CSV-Datei; zum Beispiel "UTF-8".
+				- "fieldSeparator": das Spaltentrennzeichen in der CSV-Datei; zum Beispiel ";".
+				- "textQualifier": das Anführungszeichen in der CSV-Datei, mit dem Feldinhalte
+				  eingeschlossen sind, die Spaltentrennzeichen oder Zeilenumbrüche enthalten;
+				  zum Beispiel "&quot;".
+				- "dateFormat": das Format, in dem Datumsangaben (also Inhalte von Feldern vom
+				  Typ Date, Time, Timestamp etc.) exportiert bzw. bei einem Import erwartet
+				  werden; zum Beispiel "dd.MM.yyyy". Eine ausführliche Beschreibung der
+				  Gestaltungsmöglichkeiten dieses Formats findet sich bei der Dokumentation
+				  der benutzten Klasse java.text.SimpleDateFormat, siehe
+				  http://java.sun.com/j2se/1.4.2/docs/api/java/text/SimpleDateFormat.html
+				- "exportMapping": die Abbildung von CSV-Spaltennamen auf Muster mit Personenfeldern,
+				  die als {typ:name} auftauchen, wobei der Typ
+				  
+				    "" Stammdatenattribute,
+				    "CAT" Kategorienränge,
+				    "EVE" Ereignisse,
+				    "COR" Diplomatische Corps und die Typen
+				    "DTM" und "DTP" Freitexte von Hauptperson und Partner zu Dokumenttypen bezeichnen;
+				  
+				  Das Jokerzeichen * kann abschließend im Namen genutzt werden; zum Beispiel:
+
+					<param name="*" value="{:*}"/>
+					<param name="Kategorie *" value="{CAT:*}"/>
+					<param name="Ereignis *" value="{EVE:*}"/>
+					<param name="Dipl. Corps *" value="{COR:*}"/>
+					<param name="Dokumenttyp * (Hauptperson)" value="{DTM:*}"/>
+					<param name="Dokumenttyp * (Partner)" value="{DTP:*}"/>
+
+				 Dies bedeutet, dass alle Stammdatenfelder ("{:*}") unter ihrem VerA.web-Bezeichner
+				 ("*") exportiert werden sollen, alle Kategorienrange ("{CAT:*}") unter 'Kategorie
+				 KATEGORIENNAME' ("Kategorie *"), alle Ereignisrange ("{EVE:*}") unter 'Ereignis
+				 EREIGNISNAME' ("Kategorie *"), alle diplomatischen Corps unter 'Dipl. Corps CORPS'
+				 ("Dipl. Corps *"), alle Dokumenttypfreitexte der Hauptperson
+				 ("{DTM:*}") unter 'Dokumenttyp DOKUMENTTYPNAME (Hauptperson)' ("Dokumenttyp *
+				 (Hauptperson)") und alle Dokumenttypfreitexte der Partner ("{DTP:*}") unter
+				 'Dokumenttyp DOKUMENTTYPNAME  (Partner)' ("Dokumenttyp * (Partner)").
+
+				 Sollen nun generell Kategorienränge, Hauptpersonen- oder Partnerfreitexte
+				 weggelassen werden, so ist lediglich die Zeile mit der entsprechenden Zuordnung
+				 zu löschen.
+
+				 Soll nun aber innerhalb eines dieser Bereiche nur eine bestimmte Auswahl exportiert
+				 werden, z.B. nur eine bestimmte Unterauswahl der Stammdaten oder nur die Ränge
+				 bestimmter Kategorien exportiert werden, so ist die Jokerzeichen-orientierte
+				 Darstellung in der entsprechenden Zeile durch eine explizite Aufzahlung zu ersetzen.
+
+				 Soll zum Beispiel von den Stammdaten nur Vor- und Nachname der Hauptperson im
+				 Zeichensatz Latin exportiert werden, so ist
+
+					<param name="*" value="{:*}"/>
+
+				 durch
+
+					<param name="lastname_a_e1" value="{:lastname_a_e1}"/>
+					<param name="firstname_a_e1" value="{:firstname_a_e1}"/>
+
+				 zu ersetzen. Sollen die Spalten passend "Nachname" und "Vorname" genannt werden,
+				 so ist folgendes zu benutzen:
+
+					<param name="Nachname" value="{:lastname_a_e1}"/>
+					<param name="Vorname" value="{:firstname_a_e1}"/>
+		 -->
+		<param name="formatCSV" type="map">
+			<param name="name" value="CSV"/>
+			<param name="description" value="Comma-Separated-Values"/>
+			<param name="defaultExtension" value=".csv"/>
+			<param name="mimeType" value="text/csv;charset=UTF-8"/>
+			<!--param name="icon"/-->
+			<param name="exporterClass" value="de.tarent.aa.veraweb.utils.GenericCSVExporter"/>
+			<param name="importerClass" value="de.tarent.aa.veraweb.utils.GenericCSVImporter"/>
+			<param name="properties" type="map">
+				<param name="remarks" type="array">
+					<value>
+						Je nach Menge der exportierten Felder (insbesondere ist dies von der
+						Anzahl exportierter Dokumenttypen und Kategorien abhängig) kann es
+						passieren, dass MS Excel und OO Calc die exportierten Daten nicht
+						vollständig lesen können.
+					</value>
+				</param>
+				<param name="encoding" value="UTF-8"/>
+				<param name="fieldSeparator" value=";"/>
+				<param name="textQualifier" value="&quot;"/>
+				<param name="exportMapping" type="map">
+					<param name="*" value="{:*}"/>
+					<param name="Kategorie *" value="{CAT:*}"/>
+					<param name="Ereignis *" value="{EVE:*}"/>
+					<param name="Dipl. Corps *" value="{COR:*}"/>
+					<param name="Dokumenttyp * (Hauptperson)" value="{DTM:*}"/>
+					<param name="Dokumenttyp * (Partner)" value="{DTP:*}"/>
+				</param>
+			</param>
+		</param>
+		
+		<param name="formatX-ManageKontakt" type="map">
+			<param name="name" value="X-Manage-CSV" />
+			<param name="description" value="X-Manage Kontakte" />
+			<param name="defaultExtension" value=".csv" />
+			<param name="mimeType" value="text/csv;charset=UTF-8" />
+			<param name="exporterClass" value="de.tarent.aa.veraweb.utils.GenericCSVExporter" />			
+			<param name="importerClass" value="de.tarent.aa.veraweb.utils.GenericCSVImporter" />
+			<param name="properties" type="map">
+				<param name="encoding" value="UTF-8" />
+				<param name="fieldSeparator" value="," />
+				<param name="textQualifier" value="&quot;" />
+				<param name="dateFormat" value="dd.MM.yyyy"/>
+				<param name="exportMapping" type="map">
+					<!-- Hauptperson -->
+					<param name="Nachname" value="{:lastname_a_e1}" />
+					<param name="Vorname" value="{:firstname_a_e1}" />
+					<param name="Anrede" value="{:salutation_a_e1}" />
+					<param name="Sprache" value="{:languages_a_e1}" />
+					<param name="Geburtstag" value="{:birthday_a_e1}" />
+					<param name="Titel" value="{:title_a_e1}" />
+					<param name="Nationalität" value="{:nationality_a_e1}" />
+					<param name="Notizen" value="{:note_a_e1}" />
+					<!-- Adresse geschäftlich-->
+					<param name="Firma" value="{:company_a_e1}" />
+					<param name="Position" value="{:function_a_e1}" />
+					<param name="Straße geschäftlich" value="{:street_a_e1}" />
+					<param name="Ort geschäftlich" value="{:city_a_e1}" />
+					<param name="Postleitzahl geschäftlich" value="{:zipcode_a_e1}" />
+					<param name="Bundesland geschäftlich" value="{:state_a_e1}" />
+					<param name="Land geschäftlich" value="{:country_a_e1}" />
+					<param name="Telefon geschäftlich" value="{:fon_a_e1}" />
+					<param name="Mobiltelefon" value="{:mobil_a_e1}" />
+					<param name="Fax geschäftlich" value="{:fax_a_e1}" />
+					<param name="E-Mail-Adresse" value="{:mail_a_e1}" />
+					<param name="Webseite geschäftlich" value="{:url_a_e1}" />
+					<!-- Adresse privat-->
+					<param name="Straße privat" value="{:street_b_e1}" />
+					<param name="Ort privat" value="{:city_b_e1}" />
+					<param name="Postleitzahl privat" value="{:zipcode_b_e1}" />
+					<param name="Bundesland privat" value="{:state_b_e1}" />
+					<param name="Land privat" value="{:country_b_e1}" />
+					<param name="Telefon privat" value="{:fon_b_e1}" />
+					<param name="Fax privat" value="{:fax_b_e1}" />
+					<param name="E-Mail 2:Adresse" value="{:mail_b_e1}" />
+					<param name="Webseite privat" value="{:url_b_e1}" />
+					<!-- Adresse Lieferung -->
+					<param name="Straße Lieferung" value="{:street_c_e1}" />
+					<param name="Ort Lieferung" value="{:city_c_e1}" />
+					<param name="Postleitzahl Lieferung" value="{:zipcode_c_e1}" />
+					<param name="Bundesland Lieferung" value="{:state_c_e1}" />
+					<param name="Land Lieferung" value="{:country_c_e1}" />
+					<!-- "Kategorie" ? -->
+				</param>
+			</param>
+		</param>
+		
+		<param name="formatCSV_ISO-8859-15" type="map">
+			<param name="name" value="CSV-ISO-8859-15"/>
+			<param name="description" value="Im-/Export ISO-8859-15"/>
+			<param name="defaultExtension" value=".csv"/>
+			<param name="mimeType" value="text/csv;charset=ISO-8859-15"/>
+			<!--param name="icon"/-->
+			<param name="exporterClass" value="de.tarent.aa.veraweb.utils.GenericCSVExporter"/>
+			<param name="importerClass" value="de.tarent.aa.veraweb.utils.GenericCSVImporter"/>
+			<param name="properties" type="map">
+				<param name="remarks" type="array">
+					<value>						
+						Dieses Format ist für Im-/Exporte in MS-Office-Anwendungen geeignet, die den Zeichensatz ISO-8859-15 verwenden. 
+						Je nach Menge der exportierten Felder (insbesondere ist dies von der
+						Anzahl exportierter Dokumenttypen und Kategorien abhängig) kann es
+						passieren, dass MS Excel und OO Calc die exportierten Daten nicht
+						vollständig lesen können.
+					</value>
+				</param>
+				<param name="encoding" value="ISO-8859-15"/>
+				<param name="fieldSeparator" value=";"/>
+				<param name="textQualifier" value="&quot;"/>
+				<param name="exportMapping" type="map">
+					<param name="*" value="{:*}"/>
+					<param name="Kategorie *" value="{CAT:*}"/>
+					<param name="Ereignis *" value="{EVE:*}"/>
+					<param name="Dipl. Corps *" value="{COR:*}"/>
+					<param name="Dokumenttyp * (Hauptperson)" value="{DTM:*}"/>
+					<param name="Dokumenttyp * (Partner)" value="{DTP:*}"/>
+				</param>
+			</param>
+		</param>
+		
+		<param name="formatCSVPersdaten+Anschrift" type="map">
+			<param name="name" value="CSVPersdaten+Anschrift"/>
+			<param name="description" value="Comma-Separated-Values"/>
+			<param name="defaultExtension" value=".csv"/>
+			<param name="mimeType" value="text/csv;charset=UTF-8"/>
+			<!--param name="icon"/-->
+			<param name="exporterClass" value="de.tarent.aa.veraweb.utils.GenericCSVExporter"/>
+			<param name="importerClass" value="de.tarent.aa.veraweb.utils.GenericCSVImporter"/>
+			<param name="properties" type="map">
+				<param name="remarks" type="array">
+					<value>
+						Es werden nur die Felder aus den Karteireitern "Personendaten",  
+						"Anschriften" und deren untergeordneten Karteireitern exportiert.
+					</value>
+				</param>
+				<param name="encoding" value="UTF-8"/>
+				<param name="fieldSeparator" value=";"/>
+				<param name="textQualifier" value="&quot;"/>
+				<param name="exportMapping" type="map">
+					<param name="*" value="{:*}"/>
+				</param>
+			</param>
+		</param>
+
+		<param name="formatCSVPersdat+Anschrift+Doktyp" type="map">
+			<param name="name" value="CSVPersdat+Anschrift+Doktyp"/>
+			<param name="description" value="Comma-Separated-Values"/>
+			<param name="defaultExtension" value=".csv"/>
+			<param name="mimeType" value="text/csv;charset=UTF-8"/>
+			<!--param name="icon"/-->
+			<param name="exporterClass" value="de.tarent.aa.veraweb.utils.GenericCSVExporter"/>
+			<param name="importerClass" value="de.tarent.aa.veraweb.utils.GenericCSVImporter"/>
+			<param name="properties" type="map">
+				<param name="remarks" type="array">
+					<value>
+						Es werden nur die Felder aus den Karteireitern "Personendaten",  
+						"Anschriften", "Dokumenttypen" und deren untergeordneten
+						Karteireitern exportiert. 
+						Je nach Menge der exportierten Felder (insbesondere ist dies von der
+						Anzahl exportierter Dokumenttypen abhängig) kann es passieren, dass
+						MS Excel und OO Calc die exportierten Daten nicht vollständig lesen
+						können.
+					</value>
+				</param>
+				<param name="encoding" value="UTF-8"/>
+				<param name="fieldSeparator" value=";"/>
+				<param name="textQualifier" value="&quot;"/>
+				<param name="exportMapping" type="map">
+					<param name="*" value="{:*}"/>
+					<param name="Dokumenttyp * (Hauptperson)" value="{DTM:*}"/>
+					<param name="Dokumenttyp * (Partner)" value="{DTP:*}"/>
+				</param>
+			</param>
+		</param>
+		
+		<param name="formatCSVPersdat+Doktyp" type="map">
+			<param name="name" value="CSVPersdat+Doktyp"/>
+			<param name="description" value="Comma-Separated-Values"/>
+			<param name="defaultExtension" value=".csv"/>
+			<param name="mimeType" value="text/csv;charset=UTF-8"/>
+			<!--param name="icon"/-->
+			<param name="exporterClass" value="de.tarent.aa.veraweb.utils.GenericCSVExporter"/>
+			<param name="importerClass" value="de.tarent.aa.veraweb.utils.GenericCSVImporter"/>
+			<param name="properties" type="map">
+				<param name="remarks" type="array">
+					<value>
+						Es werden nur die Felder aus den Karteireitern "Personendaten", 
+						 "Dokumenttypen" und deren untergeordneten Karteireitern exportiert.		
+						Je nach Menge der exportierten Felder (insbesondere ist dies von der
+						Anzahl exportierter Dokumenttypen abhängig) kann es passieren, dass
+						MS Excel und OO Calc die exportierten Daten nicht vollständig lesen
+						können.
+					</value>
+				</param>
+				<param name="encoding" value="UTF-8"/>
+				<param name="fieldSeparator" value=";"/>
+				<param name="textQualifier" value="&quot;"/>
+				<param name="exportMapping" type="map">
+				<!--	<param name="*" value="{:*}"/> -->
+					<param name="lastname_a_e1" value="{:lastname_a_e1}" />
+					<param name="lastname_a_e2" value="{:lastname_a_e2}" />
+					<param name="lastname_a_e3" value="{:lastname_a_e3}" />
+					<param name="lastname_b_e1" value="{:lastname_b_e1}" />
+					<param name="lastname_b_e2" value="{:lastname_b_e2}" />
+					<param name="lastname_b_e3" value="{:lastname_b_e3}" />
+					<param name="firstname_a_e1" value="{:firstname_a_e1}" />
+					<param name="firstname_a_e2" value="{:firstname_a_e2}" />
+					<param name="firstname_a_e3" value="{:firstname_a_e3}" />
+					<param name="firstname_b_e1" value="{:firstname_b_e1}" />
+					<param name="firstname_b_e2" value="{:firstname_b_e2}" />
+					<param name="firstname_b_e3" value="{:firstname_b_e3}" />
+					<param name="id" value="{:id}" />
+					<param name="created" value="{:created}" />
+					<param name="createdby" value="{:createdby}" />
+					<param name="changed" value="{:changed}" />
+					<param name="changedby" value="{:changedby}" />
+					<param name="expire" value="{:expire}" />
+					<param name="importsource" value="{:importsource}" />
+					<param name="salutation_a_e1" value="{:salutation_a_e1}" />
+					<param name="salutation_a_e2" value="{:salutation_a_e2}" />
+					<param name="salutation_a_e3" value="{:salutation_a_e3}" />
+					<param name="salutation_b_e1" value="{:salutation_b_e1}" />
+					<param name="salutation_b_e2" value="{:salutation_b_e2}" />
+					<param name="salutation_b_e3" value="{:salutation_b_e3}" />
+					<param name="title_a_e1" value="{:title_a_e1}" />
+					<param name="title_a_e2" value="{:title_a_e2}" />
+					<param name="title_a_e3" value="{:title_a_e3}" />			
+					<param name="title_b_e1" value="{:title_b_e1}" />
+					<param name="title_b_e2" value="{:title_b_e2}" />
+					<param name="title_b_e3" value="{:title_b_e3}" />
+					<param name="domestic_a_e1" value="{:domestic_a_e1}" />
+					<param name="domestic_b_e1" value="{:domestic_b_e1}" />
+					<param name="sex_a_e1" value="{:sex_a_e1}" />
+					<param name="sex_b_e1" value="{:sex_b_e1}" />
+					<param name="birthday_a_e1" value="{:birthday_a_e1}" />
+					<!--
+						modified to include the new birthplace fields
+						cklein
+						2008-02-12
+					-->
+					<param name="birthplace_a_e1" value="{:birthplace_a_e1}" />
+					<param name="birthplace_a_e2" value="{:birthplace_a_e2}" />
+					<param name="birthplace_a_e3" value="{:birthplace_a_e3}" />
+					<param name="birthday_b_e1" value="{:birthday_b_e1}" />
+					<!--
+						prepared to include the new partner birthplace fields
+						cklein
+						2008-02-12
+					<param name="birthplace_b_e1" value="{:birthplace_b_e1}" />
+					<param name="birthplace_b_e2" value="{:birthplace_b_e2}" />
+					<param name="birthplace_b_e3" value="{:birthplace_b_e3}" />
+					-->
+					<param name="diplodate_a_e1" value="{:diplodate_a_e1}" />
+					<param name="languages_a_e1" value="{:languages_a_e1}" />
+					<param name="languages_b_e1" value="{:languages_b_e1}" />
+					<param name="nationality_a_e1" value="{:nationality_a_e1}" />
+					<param name="nationality_b_e1" value="{:nationality_b_e1}" />
+					<param name="noteorga_a_e1" value="{:noteorga_a_e1}" />
+					<param name="noteorga_b_e1" value="{:noteorga_b_e1}" />
+					<param name="iscompany" value="{:iscompany}" />
+					<param name="notehost_a_e1" value="{:notehost_a_e1}" />
+					<param name="notehost_b_e1" value="{:notehost_b_e1}" />	
+					<param name="Dokumenttyp * (Hauptperson)" value="{DTM:*}"/>
+					<param name="Dokumenttyp * (Partner)" value="{DTP:*}"/>
+				</param>
+			</param>
+		</param>
+
+		<param name="formatCSVPersdat+Doktyp1.0" type="map">
+			<param name="name" value="CSVPersdat+Doktyp 1.0"/>
+			<param name="description" value="Comma-Separated-Values"/>
+			<param name="defaultExtension" value=".csv"/>
+			<param name="mimeType" value="text/csv;charset=UTF-8"/>
+			<!--param name="icon"/-->
+			<param name="exporterClass" value="de.tarent.aa.veraweb.utils.GenericCSVExporter"/>
+			<param name="importerClass" value="de.tarent.aa.veraweb.utils.GenericCSVImporter"/>
+			<param name="properties" type="map">
+				<param name="remarks" type="array">
+					<value>
+						Es werden nur die Felder aus den Karteireitern "Personendaten", 
+						 "Dokumenttypen" und deren untergeordneten Karteireitern exportiert.		
+						Je nach Menge der exportierten Felder (insbesondere ist dies von der
+						Anzahl exportierter Dokumenttypen abhängig) kann es passieren, dass
+						MS Excel und OO Calc die exportierten Daten nicht vollständig lesen
+						können.
+					</value>
+				</param>
+				<param name="encoding" value="UTF-8"/>
+				<param name="fieldSeparator" value=";"/>
+				<param name="textQualifier" value="&quot;"/>
+				<param name="exportMapping" type="map">
+				<!--	<param name="*" value="{:*}"/> -->
+					<param name="lastname_a_e1" value="{:lastname_a_e1}" />
+					<param name="lastname_a_e2" value="{:lastname_a_e2}" />
+					<param name="lastname_a_e3" value="{:lastname_a_e3}" />
+					<param name="lastname_b_e1" value="{:lastname_b_e1}" />
+					<param name="lastname_b_e2" value="{:lastname_b_e2}" />
+					<param name="lastname_b_e3" value="{:lastname_b_e3}" />
+					<param name="firstname_a_e1" value="{:firstname_a_e1}" />
+					<param name="firstname_a_e2" value="{:firstname_a_e2}" />
+					<param name="firstname_a_e3" value="{:firstname_a_e3}" />
+					<param name="firstname_b_e1" value="{:firstname_b_e1}" />
+					<param name="firstname_b_e2" value="{:firstname_b_e2}" />
+					<param name="firstname_b_e3" value="{:firstname_b_e3}" />
+					<param name="id" value="{:id}" />
+					<param name="created" value="{:created}" />
+					<param name="createdby" value="{:createdby}" />
+					<param name="changed" value="{:changed}" />
+					<param name="changedby" value="{:changedby}" />
+					<param name="expire" value="{:expire}" />
+					<param name="importsource" value="{:importsource}" />
+					<param name="salutation_a_e1" value="{:salutation_a_e1}" />
+					<param name="salutation_a_e2" value="{:salutation_a_e2}" />
+					<param name="salutation_a_e3" value="{:salutation_a_e3}" />
+					<param name="salutation_b_e1" value="{:salutation_b_e1}" />
+					<param name="salutation_b_e2" value="{:salutation_b_e2}" />
+					<param name="salutation_b_e3" value="{:salutation_b_e3}" />
+					<param name="title_a_e1" value="{:title_a_e1}" />
+					<param name="title_a_e2" value="{:title_a_e2}" />
+					<param name="title_a_e3" value="{:title_a_e3}" />			
+					<param name="title_b_e1" value="{:title_b_e1}" />
+					<param name="title_b_e2" value="{:title_b_e2}" />
+					<param name="title_b_e3" value="{:title_b_e3}" />
+					<param name="domestic_a_e1" value="{:domestic_a_e1}" />
+					<param name="domestic_b_e1" value="{:domestic_b_e1}" />
+					<param name="sex_a_e1" value="{:sex_a_e1}" />
+					<param name="sex_b_e1" value="{:sex_b_e1}" />
+					<param name="birthday_a_e1" value="{:birthday_a_e1}" />
+					<param name="birthday_b_e1" value="{:birthday_b_e1}" />
+					<param name="diplodate_a_e1" value="{:diplodate_a_e1}" />
+					<param name="languages_a_e1" value="{:languages_a_e1}" />
+					<param name="languages_b_e1" value="{:languages_b_e1}" />
+					<param name="nationality_a_e1" value="{:nationality_a_e1}" />
+					<param name="nationality_b_e1" value="{:nationality_b_e1}" />
+					<param name="noteorga_a_e1" value="{:noteorga_a_e1}" />
+					<param name="noteorga_b_e1" value="{:noteorga_b_e1}" />
+					<param name="iscompany" value="{:iscompany}" />
+					<param name="notehost_a_e1" value="{:notehost_a_e1}" />
+					<param name="notehost_b_e1" value="{:notehost_b_e1}" />	
+					<param name="Dokumenttyp * (Hauptperson)" value="{DTM:*}"/>
+					<param name="Dokumenttyp * (Partner)" value="{DTP:*}"/>
+				</param>
+			</param>
+		</param>
+
+		<param name="formatCSVPersdat+Kategorien" type="map">
+			<param name="name" value="CSVPersdat+Kategorien"/>
+			<param name="description" value="Comma-Separated-Values"/>
+			<param name="defaultExtension" value=".csv"/>
+			<param name="mimeType" value="text/csv;charset=UTF-8"/>
+			<!--param name="icon"/-->
+			<param name="exporterClass" value="de.tarent.aa.veraweb.utils.GenericCSVExporter"/>
+			<param name="importerClass" value="de.tarent.aa.veraweb.utils.GenericCSVImporter"/>
+			<param name="properties" type="map">
+				<param name="remarks" type="array">
+					<value>
+						Es werden nur die Felder aus den Karteireitern "Personendaten",  
+						"Kategorien" und deren untergeordneten	Karteireitern exportiert .
+						Je nach Menge der exportierten Felder (insbesondere ist dies von der
+						Anzahl exportierter Kategorien abhängig) kann es passieren, dass MS
+						Excel und OO Calc die exportierten Daten nicht vollständig lesen können.
+					</value>
+				</param>
+				<param name="encoding" value="UTF-8"/>
+				<param name="fieldSeparator" value=";"/>
+				<param name="textQualifier" value="&quot;"/>
+				<param name="exportMapping" type="map">
+					<param name="*" value="{:*}"/>
+					<param name="Kategorie *" value="{CAT:*}"/>
+					<param name="Ereignis *" value="{EVE:*}"/>
+					<param name="Dipl. Corps *" value="{COR:*}"/>
+				</param>
+			</param>
+		</param>
+		
+		<!-- *** XML-Formate *** -->
+		<!-- XML-Formate ex- und importieren XML-Dateien gemäß einem VerA.web-eigenem XML-Dialekt;
+			 dieses Format wird insbesondere beim Datenaustausch über das ZKM (Zentrales
+			 Kommunikationsmodul, aka CCM = central communication module) genutzt. Hierzu sind
+			 die entsprechenden "format*"-Parameter wie folgt zu befüllen:
+			 
+			 - "exporterClass": "de.tarent.aa.veraweb.utils.XMLExporter".
+			 - "importerClass": "de.tarent.aa.veraweb.utils.XMLImporter".
+			 - "properties": folgende spezifische Eigenschaften kennen diese Klassen:
+				- "encoding": die Zeichenkodierung in der XML-Datei; zum Beispiel "UTF-8".
+				- "ccm-envelope": Flag, ob ein ZKM-kompatibler Rahmen um einen Export gelegt werden
+				  soll; bei ZKM-Nutzung "true", sonst "false".
+				- "ccm-application": die Applikationsbezeichnung für VerA.web im ZKM,
+				  zum Beispiel "veraweb".
+				- "ccm-endpoint": das Kürzel für den lokalen Server im ZKM für Absenderangaben,
+				  zum Beispiel "666".
+				- "ccm-receiver": das Kürzel für den fernen Server im ZKM für Zielangaben;
+				  dieses Property wird aber gemeinhin mittels eines "choices"-Eintrags vom
+				  Benutzer eingebbar gemacht.
+				- "ccm-outgoing-folder": das Verzeichnis für ZKM-Exporte; Default ist
+				  "/var/spool/ccm/in/".
+		 -->
+		
+		<param name="formatXML" type="map">
+			<param name="name" value="XML"/>
+			<param name="description" value="VerA.web-XML"/>
+			<param name="defaultExtension" value=".xml"/>
+			<param name="mimeType" value="text/xml;charset=UTF-8"/>
+			<param name="mimeType" value="application/veraweb-xml;charset=UTF-8"/>
+			<!--param name="icon"/-->
+			<param name="exporterClass" value="de.tarent.aa.veraweb.utils.XMLExporter"/>
+			<param name="importerClass" value="de.tarent.aa.veraweb.utils.XMLImporter"/>
+			<param name="properties" type="map">
+				<param name="encoding" value="UTF-8"/>
+			</param>
+		</param>
+
+		<param name="formatCCM" type="map">
+			<param name="name" value="ZKM"/>
+			<param name="description" value="VerA.web-XML über das Zentrale Kommunikationsmodul"/>
+			<param name="defaultExtension" value=".xml"/>
+			<param name="mimeType" value="text/xml;charset=UTF-8"/>
+			<param name="mimeType" value="application/veraweb-xml;charset=UTF-8"/>
+			<!--param name="icon"/-->
+			<param name="exporterClass" value="de.tarent.aa.veraweb.utils.XMLExporter"/>
+			<param name="importerClass" value="de.tarent.aa.veraweb.utils.XMLImporter"/>
+			<param name="properties" type="map">
+				<param name="choices" type="map">
+					<param name="ccm-receiver" type="map">
+						<param name="label" value="Ziel (ZKM-Kürzel)"/>
+						<param name="default" value="---"/>
+					</param>
+				</param>
+				<param name="remarks" type="array">
+					<value>
+						Die Exportdatei wird sowohl im ZKM-Ausgangsordner abgelegt
+						als auch Ihnen zur Kontrolle zum Herunterladen angeboten.
+						Das Herunterladens können Sie bedenkenlos abbrechen.
+					</value>
+				</param>
+				<param name="encoding" value="UTF-8"/>
+				<param name="ccm-envelope" value="true"/>
+				<param name="ccm-application" value="veraweb"/>
+				<param name="ccm-endpoint" value="666"/>
+				<param name="ccm-outgoing-folder" value="C:\"/>
+			</param>
+		</param>
+		
+		<!-- *** MAdLAN-Formate *** -->
+		<!-- MAdLAN-Formate ex- und importieren MAdLAN-kompatible Office-Exporte; sie sind im
+			 Wesentlichen für die Altdatenübernahme gedacht. Die entsprechenden "format*"-Parameter
+			 sind wie folgt zu befüllen:
+			 
+			 - "exporterClass": "de.tarent.aa.veraweb.utils.MAdLANExporter".
+			 - "importerClass": "de.tarent.aa.veraweb.utils.MAdLANImporter".
+			 - "properties": folgende spezifische Eigenschaften kennen diese Klassen:
+				- "encodingA": Hier wird die Zeichenkodierung der nicht-kyrillischen Spalteninhalte
+				  (vergleiche "kyrillicFields" unten) eingestellt. Möglich sind die Werte "balt",
+				  "baltic", "cyrext", "cyrillic", "east", "greek", "turasb", "turkish" und "west".
+				  Für die eigentliche MAdLAN-Übernahme sinnvoll sind "baltic","east", "turkish" und
+				  "west". Diese Auswahl wird gemeinhin mittels eines "choices"-Eintrags dem Benutzer
+				  beim Ex- oder Import überlassen.
+				- "encodingB": Hier wird die Zeichenkodierung der kyrillischen Spalteninhalte
+				  (vergleiche "kyrillicFields" unten) eingestellt. Möglich sind die Werte "balt",
+				  "baltic", "cyrext", "cyrillic", "east", "greek", "turasb", "turkish" und "west".
+				  Für die eigentliche MAdLAN-Übernahme sinnvoll ist "cyrillic". Diese Auswahl kann
+				  mittels eines "choices"-Eintrags dem Benutzer beim Ex- oder Import überlassen werden.
+				- "madlanFileEncoding": Hier wird die grundsätzliche Zeichenkodierung (die Kodierung
+				  selbst der Spaltenüberschriften und eine Vorumsetzung, auf der das Mapping für
+				  "encodingA" und "encodingB" aufbaut) eingestellt. Dies sollte grundsätzlich
+				  "ISO-8859-1" sein.
+				- "fieldMapping": die Abbildung von MAdLAN-Bezeichnern auf Import-Bean-Feldnamen;
+				  statt eines MAdLAN-Bezeichners kann auch eine Konstante (markiert durch einen
+				  führenden Doppelpunkt) stehen; Import-Bean-Feldnamen können um ein Doppelpunkt
+				  und einen 0-basierten Index ergänzt werden.
+				- "textfieldMapping": die Nutzung der Adressfreitextfelder nach dem Muster:
+
+					<param name="n:Doctype" value="NAME_DES_DOKUMENTTYPS"/>
+					<param name="n:Person" value="IMPORTFELD_PERSON"/>
+					<param name="n:Partner" value="IMPORTFELD_PARTNER"/>
+					<param name="n:Join" value="VERKNÜPFUNGSWORT"/>
+
+				- "kyrillicFields": die Liste der MAdLAN-Bezeichner mit kyrillischen Feldinhalt,
+				  also der Spalten, die in "encodingB" interpretiert werden sollen.
+				- "importRequiredFields": die Liste der zwingend notwendigen MAdLAN-Felder.
+				- "setNullFields": die Liste der Import-Bean-Felder, die bei Leerstring-Eingabe
+				  auf null gesetzt werden sollen.
+				- "fitDateFields": die Liste der Felder, deren Datumsinhalte gegebenenfalls in das
+				  20. oder 21. Jahrhundert gehoben werden müssen.
+				- "ignorePersonFields": die Liste der Bean-Felder, die beim Befüllen einer Person
+				  Bestands-Bean aus einer ImportPerson Import-Bean nicht übernommen werden sollen.
+		 -->
+
+		<param name="formatMAdLANPerson" type="map">
+			<param name="name" value="MAdLAN-Personen"/>
+			<param name="description" value="MAdLAN-Personen-Import"/>
+			<param name="defaultExtension" value=".madlan"/>
+			<param name="mimeType" value="text/csv"/>
+			<!--param name="icon"/-->
+			<param name="exporterClass" value="de.tarent.aa.veraweb.utils.MAdLANExporter"/>
+			<param name="importerClass" value="de.tarent.aa.veraweb.utils.MAdLANImporter"/>
+			<param name="properties" type="map">
+				<param name="choices" type="map">
+					<param name="encodingA" type="map">
+						<param name="label" value="Encoding"/>
+						<param name="select" type="map">
+							<param name="Baltic" value="Baltisch"/>
+							<param name="East" value="Östlich"/>
+							<param name="Turkish" value="Türkisch"/>
+							<param name="West" value="Westlich"/>
+							<param name="Cyrillic" value="Kyrillisch"/>
+						</param>
+						<param name="default" value="West"/>
+					</param>
+					<param name="encodingB" type="map">
+						<param name="label" value="Encoding (kyrillisch)"/>
+						<param name="select" type="map">
+							<param name="Baltic" value="Baltisch"/>
+							<param name="East" value="Östlich"/>
+							<param name="Turkish" value="Türkisch"/>
+							<param name="West" value="Westlich"/>
+							<param name="Cyrillic" value="Kyrillisch"/>
+						</param>
+						<param name="default" value="Cyrillic"/>
+					</param>
+				</param>
+				<!-- Verwendetes Encoding für die Madlan_datei. Auskommentieren für Standardzeichensatz -->
+				<!--<param name="madlanFileEncoding" value="ISO-8859-1"/>-->
+
+				<!-- Definition der Abbildung MAdLAN-Personen-Felder -> ImportPerson-Bean-Felder[:0-basierter Index] -->
+				<param name="fieldMapping" type="map">
+					<!-- Hauptperson -->
+					<param name="Name" value="lastname_a_e1"/>
+					<param name="Vorname" value="firstname_a_e1:0"/>
+					<param name="Vatername" value="firstname_a_e1:1"/>
+					<param name="Titel" value="title_a_e1"/>
+					<param name="Anrede" value="salutation_a_e1"/>
+					<param name="Sprache" value="languages_a_e1"/>
+					<param name="Gebdat" value="birthday_a_e1"/>
+					<param name="Region" value="note_a_e1"/> <!-- Als "letztes" in Feld Bemerkung -->
+					<param name="Staat" value="nationality_a_e1"/>
+					<param name="KName" value="lastname_a_e2"/>
+					<param name="KVorname" value="firstname_a_e2:0"/>
+					<param name="KVatername" value="firstname_a_e2:1"/>
+					<param name="KTitel" value="title_a_e2"/>
+					<param name="KAnrede" value="salutation_a_e2"/>
+					
+					<!-- Partner -->
+					<param name="Partner" value="lastname_b_e1"/>
+					<param name="KPartner" value="lastname_b_e2"/>
+					
+					<!-- Adresse -->
+					<param name="Funktion" value="function_a_e1"/>
+					<param name="Firma" value="company_a_e1"/>
+					<param name="Str" value="street_a_e1"/>
+					<param name="Ort" value="city_a_e1"/>
+					<param name="Telefon" value="fon_a_e1"/>
+					<param name="Fax" value="fax_a_e1"/>
+					<param name="Telex" value="mail_a_e1"/>
+					<param name="PTelefon" value="fon_a_e1"/>
+					<param name="KFunktion" value="function_a_e2"/>
+					
+					<!-- Bemerkungen -->
+					<param name="Info" value="note_a_e1:0"/>
+					<param name="Info1" value="notehost_a_e1"/>
+					<param name="Info2" value="noteorga_a_e1"/>
+					<param name="Gruppe" value="category"/> <!-- Kategorie - Kategorien dürfen direkt beim Personenimport angelegt werden => fachl. Für Madlan-Import bevorzugte Lösung; machbar, Konsequenzen? -->
+					<param name="Anlass" value="occasion"/> <!-- Ereignis - Entspricht Kategorie mit Zusatzmerkmal -->
+					
+					<!-- Adressen -->
+					<param name="Adr" value="textfield_1"/> <!-- Freitextfeld zum Dokumenttyp - Adresse 1 -->
+					<param name="PAdr" value="textfield_2"/> <!-- Freitextfeld zum Dokumenttyp - Adresse 2 -->
+					<param name="KAdr" value="textfield_3"/> <!-- Freitextfeld zum Dokumenttyp - Adresse kyrillisch -->
+					
+					<!-- Madlan-Felder, die verworfen werden
+					<param name="Etikett" value=""/> - unnötig, denn in VerA.Web haben wir doch die Adresszuordnung für den entsprechenden Dokumenttypen festgelegt
+					-->
+				</param>
+				<!-- Nutzung der Adressfreitextfelder -->
+				<param name="textfieldMapping" type="map">
+					<!-- Muster:
+					<param name="n:Doctype" value="NAME_DES_DOKUMENTTYPS"/>
+					<param name="n:Person" value="IMPORTFELD_PERSON"/>
+					<param name="n:Partner" value="IMPORTFELD_PARTNER"/>
+					<param name="n:Join" value="VERKNÜPFUNGSWORT"/>
+					-->
+					
+					<param name="1:Doctype" value="ehem. MadLAN Adresse 1"/>
+					<param name="1:Person" value="textfield_1"/>
+		
+					<param name="2:Doctype" value="ehem. MadLAN Adresse 2"/>
+					<param name="2:Person" value="textfield_2"/>
+		
+					<param name="3:Doctype" value="ehem. MadLAN Adresse kyrillisch"/>
+					<param name="3:Person" value="textfield_3"/>
+				</param>
+				<!-- Liste der kyrillischen MAdLAN-Felder -->
+				<param name="kyrillicFields" type="array">
+					<value>KName</value>
+					<value>KVorname</value>
+					<value>KPartner</value>
+					<value>KAnrede</value>
+					<value>KTitel</value>
+					<value>KFunktion</value>
+					<value>KVatername</value>
+					<value>KAdr</value>
+				</param>
+				<!-- Liste der zwingend erforderlichen ImportPerson-Felder -->
+				<param name="importRequiredFields" type="array">
+					<value>lastname_a_e1</value>
+				</param>
+				<!-- Liste der ImportPerson-Felder, die  auf NULL gesetzt werden sollen wenn das Datenfeld einem Leerstring entspricht. -->
+				<param name="setNullFields" type="array">
+					<value>lastname_a_e1</value>
+					<value>firstname_a_e1</value>
+					<value>title_a_e1</value>
+					<value>salutation_a_e1</value>
+					<value>languages_a_e1</value>
+					<value>birthday_a_e1</value>
+					<value>note_a_e1</value>
+					<value>lastname_a_e2</value>
+					<value>firstname_a_e2</value>
+					<value>title_a_e2</value>
+					<value>salutation_a_e2</value>
+		
+					<value>lastname_b_e1</value>
+					<value>lastname_b_e2</value>
+					
+					<value>function_a_e1</value>
+					<value>company_a_e1</value>
+					<value>street_a_e1</value>
+					<value>city_a_e1</value>
+					<value>fon_a_e1</value>
+					<value>mail_a_e1</value>
+					<value>fax_a_e1</value>
+					<value>function_a_e2</value>
+		
+					<value>duplicates</value>
+				</param>
+				<!-- Name der Datum-Felder, bei denen Jahreszahlen<100 dem Jahrhundert 1900 zugeordnet werden sollen -->
+				<param name="fitDateFields" type="array">
+					<value>birthday_a_e1</value>
+				</param>
+				<!-- Beim Festschreiben eines Import-Datensatzes werden alle Felder der neuen Datensätze mit gleich benannten Feldern des Import-Datensatzes gefüllt.
+				        Es ist nötig, dass dabei einige Felder nicht übertragen werden (wie z.B. der Primärschlüssel).
+				        Diese Felder können in den folgenden zwei XML-Elementen spezifiziert werden. -->
+				<param name="ignorePersonFields" type="array">
+					<value>id</value>
+					<value>contact</value>
+					<value>saveunder</value>
+					<value>modified</value>
+					<value>namefilter</value>
+				</param>
+			</param>
+		</param>
+
+		<param name="formatMAdLANFirma" type="map">
+			<param name="name" value="MAdLAN-Firmen"/>
+			<param name="description" value="MAdLAN-Firmen-Import"/>
+			<param name="defaultExtension" value=".madlan"/>
+			<param name="mimeType" value="text/csv"/>
+			<!--param name="icon"/-->
+			<param name="exporterClass" value="de.tarent.aa.veraweb.utils.MAdLANExporter"/>
+			<param name="importerClass" value="de.tarent.aa.veraweb.utils.MAdLANImporter"/>
+			<param name="properties" type="map">
+				<param name="choices" type="map">
+					<param name="encodingA" type="map">
+						<param name="label" value="Encoding"/>
+						<param name="select" type="map">
+							<param name="Baltic" value="Baltisch"/>
+							<param name="East" value="Östlich"/>
+							<param name="Turkish" value="Türkisch"/>
+							<param name="West" value="Westlich"/>
+							<param name="Cyrillic" value="Kyrillisch"/>
+						</param>
+						<param name="default" value="West"/>
+					</param>
+					<param name="encodingB" type="map">
+						<param name="label" value="Encoding (kyrillisch)"/>
+						<param name="select" type="map">
+							<param name="Baltic" value="Baltisch"/>
+							<param name="East" value="Östlich"/>
+							<param name="Turkish" value="Türkisch"/>
+							<param name="West" value="Westlich"/>
+							<param name="Cyrillic" value="Kyrillisch"/>
+						</param>
+						<param name="default" value="Cyrillic"/>
+					</param>
+				</param>
+				<!-- Verwendetes Encoding für die Madlan_datei. Auskommentieren für Standardzeichensatz -->
+				<!--<param name="madlanFileEncoding" value="ISO-8859-1"/>-->
+			
+				<!-- Definition der Abbildung MAdLAN-Firmen-Felder -> ImportPerson-Bean-Felder[:0-basierter Index] -->
+				<param name="fieldMapping" type="map">
+					<param name=":t" value="iscompany"/>
+					<param name="Firma" value="lastname_a_e1"/>
+					<param name="FGruppe" value="category"/>
+					<param name="Telefon" value="fon_a_e1"/>
+					<param name="Fax" value="fax_a_e1"/>
+					<param name="EMail" value="mail_a_e1"/>
+					<param name="Strasse" value="street_a_e1"/>
+					<param name="Ort" value="city_a_e1"/>
+					<param name="Adresse" value="textfield_1"/>
+					<param name="Info" value="note_a_e1:0"/>
+					<param name="KyrAdresse" value="textfield_3"/>
+				</param>
+				<!-- Nutzung der Adressfreitextfelder -->
+				<param name="textfieldMapping" type="map">
+					<!-- Muster:
+					<param name="n:Doctype" value="NAME_DES_DOKUMENTTYPS"/>
+					<param name="n:Person" value="IMPORTFELD_PERSON"/>
+					<param name="n:Partner" value="IMPORTFELD_PARTNER"/>
+					<param name="n:Join" value="VERKNÜPFUNGSWORT"/>
+					-->
+					
+					<param name="1:Doctype" value="ehem. MadLAN Adresse 1"/>
+					<param name="1:Person" value="textfield_1"/>
+		
+					<param name="2:Doctype" value="ehem. MadLAN Adresse 2"/>
+					<param name="2:Person" value="textfield_2"/>
+		
+					<param name="3:Doctype" value="ehem. MadLAN Adresse kyrillisch"/>
+					<param name="3:Person" value="textfield_3"/>
+				</param>
+				<!-- Liste der kyrillischen MAdLAN-Felder -->
+				<param name="kyrillicFields" type="array">
+					<value>KyrAdresse</value>
+				</param>
+				<!-- Liste der zwingend erforderlichen ImportPerson-Felder -->
+				<param name="importRequiredFields" type="array">
+					<value>lastname_a_e1</value>
+					<value>note_a_e1</value>
+					<value>street_a_e1</value>
+					<value>city_a_e1</value>
+					<value>fon_a_e1</value>
+					<value>fax_a_e1</value>
+				</param>
+				<!-- Liste der ImportPerson-Felder, die  auf NULL gesetzt werden sollen wenn das Datenfeld einem Leerstring entspricht. -->
+				<param name="setNullFields" type="array">
+					<value>lastname_a_e1</value>
+					<value>firstname_a_e1</value>
+					<value>title_a_e1</value>
+					<value>salutation_a_e1</value>
+					<value>languages_a_e1</value>
+					<value>birthday_a_e1</value>
+					<value>note_a_e1</value>
+					<value>lastname_a_e2</value>
+					<value>firstname_a_e2</value>
+					<value>title_a_e2</value>
+					<value>salutation_a_e2</value>
+		
+					<value>lastname_b_e1</value>
+					<value>lastname_b_e2</value>
+					
+					<value>function_a_e1</value>
+					<value>company_a_e1</value>
+					<value>street_a_e1</value>
+					<value>city_a_e1</value>
+					<value>country_a_e1</value>
+					<value>fon_a_e1</value>
+					<value>mail_a_e1</value>
+					<value>fax_a_e1</value>
+					<value>function_a_e2</value>
+		
+					<value>duplicates</value>
+				</param>
+				<!-- Beim Festschreiben eines Import-Datensatzes werden alle Felder der neuen Datensätze mit gleich benannten Feldern des Import-Datensatzes gefüllt.
+				        Es ist nötig, dass dabei einige Felder nicht übertragen werden (wie z.B. der Primärschlüssel).
+				        Diese Felder können in den folgenden zwei XML-Elementen spezifiziert werden. -->
+				<param name="ignorePersonFields" type="array">
+					<value>id</value>
+					<value>contact</value>
+					<value>saveunder</value>
+					<value>modified</value>
+					<value>namefilter</value>
+				</param>
+			</param>
+		</param>
+	</params>
+</tcModuleConfig>
