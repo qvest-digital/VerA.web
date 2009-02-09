@@ -147,7 +147,6 @@ public class PersonDuplicateSearchWorker extends PersonListWorker
 	protected void extendSubselect( OctopusContext cntx, Database database, Select subselect )
 	{
 		subselect.from( "veraweb.tperson person2" );
-//		subselect.from( "veraweb.tperson_cross_product" );
 		subselect.whereAnd(
 			Where.and(
 				Expr.equal( "tperson.fk_orgunit", ( ( PersonalConfigAA ) cntx.personalConfig() ).getOrgUnitId() ),
@@ -156,40 +155,15 @@ public class PersonDuplicateSearchWorker extends PersonListWorker
 		).whereAnd(
 			new RawClause( "tperson.pk!=person2.pk" )
 		).whereAnd(
-			Where.or(
-				Where.or(
-					Where.and(
-						Where.and(
-							new RawClause( "tperson.firstname_a_e1=person2.firstname_a_e1" ),
-							new RawClause( "tperson.lastname_a_e1=person2.lastname_a_e1" )
-						),
-						Where.and(
-							new RawClause( "tperson.lastname_a_e1<>''" ),
-							new RawClause( "tperson.firstname_a_e1<>''" )
-						)
-					),
-					Where.and(
-						Where.and(
-							new RawClause( "tperson.firstname_a_e2=person2.firstname_a_e2" ),
-							new RawClause( "tperson.lastname_a_e2=person2.lastname_a_e2" )
-						),
-						Where.and(
-							new RawClause( "tperson.lastname_a_e2<>''" ),
-							new RawClause( "tperson.firstname_a_e2<>''" )
-						)
-					)
-				),
 				Where.and(
-					Where.and(
-						new RawClause( "tperson.firstname_a_e2=person2.firstname_a_e2" ),
-						new RawClause( "tperson.lastname_a_e2=person2.lastname_a_e2" )
-					),
-					Where.and(
-						new RawClause( "tperson.lastname_a_e2<>''" ),
-						new RawClause( "tperson.firstname_a_e2<>''" )
-					)
+						new RawClause( "tperson.firstname_a_e1=person2.firstname_a_e1" ),
+						new RawClause( "tperson.lastname_a_e1=person2.lastname_a_e1" )
 				)
-			)
+		).whereAnd(
+				Where.and(
+						new RawClause( "tperson.lastname_a_e1<>''" ),
+						new RawClause( "tperson.firstname_a_e1<>''" )
+					)
 		);
 	}
 
