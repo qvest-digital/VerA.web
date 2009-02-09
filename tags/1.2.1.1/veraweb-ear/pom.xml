@@ -195,7 +195,7 @@
 		<dependency>
 			<groupId>org.evolvis.veraweb</groupId>
 			<artifactId>veraweb-war</artifactId>
-			<version>1.2.1</version>
+			<version>1.2.1.1</version>
 			<type>war</type>
 		</dependency>
 	</dependencies>
