@@ -31,6 +31,7 @@
 package de.tarent.aa.veraweb.worker;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -218,5 +219,34 @@ public class OrgUnitListWorker extends ListWorkerVeraWeb {
 				database.getCount("User").where(where)));
 		
 		return missingorgunit;
+	}
+	
+	@Override
+    protected boolean removeBean(OctopusContext cntx, Bean bean) throws BeanException, IOException
+	{
+		try
+		{
+			super.removeBean( cntx, bean );
+		}
+		catch( BeanException e )
+		{
+			if ( e.getCause().getMessage().indexOf( "Fremdschlüssel-Constraint" ) > 0 )
+			{
+				List< String > errors = ( List< String > ) cntx.getContextField( OUTPUT_saveListErrors );
+				if  ( errors == null )
+				{
+					errors = new ArrayList< String >();
+				}
+				Database database = getDatabase(cntx);
+				bean = database.getBean( BEANNAME, ( ( OrgUnit ) bean ).id ); 
+				errors.add( "Der ausgewählte Mandant mit dem Namen '" + ( ( OrgUnit ) bean ).name + "' ist noch einzelnen Arbeitsbereichen zugeordnet und kann nicht gelöscht werden." );
+				cntx.setContent( OUTPUT_saveListErrors, errors );
+			}
+			else
+			{
+				throw e;
+			}
+		}
+		return true;
 	}
 }
