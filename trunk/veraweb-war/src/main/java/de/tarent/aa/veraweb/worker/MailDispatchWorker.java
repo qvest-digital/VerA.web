@@ -60,7 +60,9 @@ import de.tarent.dblayer.sql.statement.Select;
 import de.tarent.octopus.PersonalConfigAA;
 import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.beans.Database;
+import de.tarent.octopus.beans.ExecutionContext;
 import de.tarent.octopus.beans.Request;
+import de.tarent.octopus.beans.TransactionContext;
 import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
 import de.tarent.octopus.beans.veraweb.RequestVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
@@ -311,6 +313,7 @@ public class MailDispatchWorker implements Runnable {
 	public void sendMail(OctopusContext cntx) throws BeanException, IOException {
 		Request request = new RequestVeraWeb(cntx);
 		Database database = new DatabaseVeraWeb(cntx);
+		TransactionContext context  =database.getTransactionContext();
 		Mailinglist mailinglist = (Mailinglist)cntx.contentAsObject("mailinglist");
 		MailDraft mail = (MailDraft)request.getBean("MailDraft", "mail");
 		List selection = (List)cntx.contentAsObject("listselection");
@@ -331,27 +334,33 @@ public class MailDispatchWorker implements Runnable {
 		outbox.subject = mail.subject;
 		outbox.lastupdate = new Timestamp(System.currentTimeMillis());
 		
-		int savedMails = 0;
-		for (Iterator it = database.getList(select, database).iterator(); it.hasNext(); ) {
-			Map data = (Map)it.next();
-			Person person = (Person)database.getBean("Person", (Integer)data.get("person"));
-			
-			outbox.text = getMailText(mail.text, getPersonFacade(cntx, database, freitextfeld, person));
-			outbox.to = (String)data.get("address");
-			
-			try {
-				database.execute(database.getInsert(outbox));
-				savedMails++;
-			} catch (BeanException e) {
-				logger.error("Fehler beim anlegen einer eMail.", e);
-			} catch (IOException e) {
-				logger.error("Fehler beim anlegen einer eMail.", e);
+		try {
+			int savedMails = 0;
+			for (Iterator it = database.getList(select, context).iterator(); it.hasNext(); ) {
+				Map data = (Map)it.next();
+				Person person = (Person)database.getBean("Person", (Integer)data.get("person"), context);
+				
+				outbox.text = getMailText(mail.text, getPersonFacade(cntx, database, context, freitextfeld, person));
+				outbox.to = (String)data.get("address");
+				
+				try {
+					context.execute(database.getInsert(outbox));
+	//				database.execute(database.getInsert(outbox));
+					savedMails++;
+				} catch (BeanException e) {
+					logger.error("Fehler beim anlegen einer eMail.", e);
+				} catch (IOException e) {
+					logger.error("Fehler beim anlegen einer eMail.", e);
+				}
 			}
+			context.commit();
+			Map result = new HashMap();
+			result.put("count", new Integer(savedMails));
+			cntx.setContent("maildispatchParams", result);
+		} finally {
+			context.rollBack();
 		}
 		
-		Map result = new HashMap();
-		result.put("count", new Integer(savedMails));
-		cntx.setContent("maildispatchParams", result);
 	}
 
 	protected PersonDoctypeFacade getPersonFacade(OctopusContext cntx, Database database, Integer doctypeId, Person person) throws BeanException {
@@ -373,6 +382,43 @@ public class MailDispatchWorker implements Runnable {
 				where(Expr.equal("tdoctype.pk", doctypeId));
 		
 		for (Iterator it = database.getList(select, database).iterator(); it.hasNext(); ) {
+			Map data = (Map)it.next();
+			addresstype = (Integer)data.get("at2");
+			locale = (Integer)data.get("l2");
+			if (addresstype != null && locale != null) {
+				facade.setFacade(addresstype, locale, true);
+				return facade;
+			}
+			addresstype = (Integer)data.get("at1");
+			locale = (Integer)data.get("l1");
+			if (addresstype != null && locale != null) {
+				facade.setFacade(addresstype, locale, true);
+				return facade;
+			}
+		}
+		facade.setFacade(null, null, true);
+		return facade;
+	}
+	
+	protected PersonDoctypeFacade getPersonFacade(OctopusContext cntx, Database database, ExecutionContext context, Integer doctypeId, Person person) throws BeanException {
+		PersonDoctypeFacade facade = new PersonDoctypeFacade(cntx, person);
+		if (doctypeId == null) {
+			facade.setFacade(null, null, true);
+			return facade;
+		}
+		
+		Integer addresstype, locale;
+		Select select = SQL.Select( context ).
+				from("veraweb.tdoctype").
+				selectAs("tdoctype.addresstype", "at1").
+				selectAs("tdoctype.locale", "l1").
+				selectAs("tperson_doctype.addresstype", "at2").
+				selectAs("tperson_doctype.locale", "l2").
+				joinLeftOuter("veraweb.tperson_doctype", "fk_doctype = tdoctype.pk AND " +
+						"fk_person", person.id.toString()).
+				where(Expr.equal("tdoctype.pk", doctypeId));
+		
+		for (Iterator it = database.getList(select, context).iterator(); it.hasNext(); ) {
 			Map data = (Map)it.next();
 			addresstype = (Integer)data.get("at2");
 			locale = (Integer)data.get("l2");
