@@ -130,7 +130,7 @@ public class WorkAreaWorker extends StammdatenWorker
 				}
 				Database database = getDatabase(cntx);
 				bean = database.getBean( "WorkArea", ( ( WorkArea ) bean ).id ); 
-				errors.add( "Der ausgewählte Arbeitsbereich mit dem Namen '" + ( ( WorkArea ) bean ).name + " ist noch einzelnen Personen zugeordnet und kann nicht gelöscht werden." );
+				errors.add( "Der ausgewählte Arbeitsbereich mit dem Namen '" + ( ( WorkArea ) bean ).name + "' ist noch einzelnen Personen zugeordnet und kann nicht gelöscht werden." );
 				cntx.setContent( OUTPUT_saveListErrors, errors );
 			}
 			else
@@ -150,5 +150,17 @@ public class WorkAreaWorker extends StammdatenWorker
 		// with individual workareas being assigned to one or multiple users.
 		select.where( Expr.greater( "pk", 0 ) );
 		select.where( Expr.equal( "fk_orgunit", ( ( PersonalConfigAA ) cntx.personalConfig() ).getOrgUnitId() ) );
+	}
+	
+	@Override
+	public void getAll(OctopusContext cntx) throws BeanException, IOException 
+	{
+		super.getAll(cntx);
+		
+		Integer count = cntx.requestAsInteger( "count" );
+		if ( count != null )
+		{
+			cntx.setContent( "count", count );
+		}
 	}
 }
