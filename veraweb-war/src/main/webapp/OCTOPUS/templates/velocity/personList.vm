@@ -32,6 +32,8 @@
 <input type="hidden" name="doRemove" value="true">
 <input type="hidden" name="categoryAssignmentAction" value="">
 <input type="hidden" name="categoryAssignmentId" value="">
+<input type="hidden" name="workareaAssignmentAction" value="">
+<input type="hidden" name="workareaAssignmentId" value="">
 
 <table class="tab" border="0" cellspacing="0" cellpadding="0"><tr>
 	<td class="tableft">&nbsp;</td>
@@ -468,7 +470,8 @@
 	#end
 #end
 <input type="hidden" id="remove-person" name="remove-person" value="false">
-<script language="JavaScript">
+<script language="JavaScript" type="text/javascript">
+<!--
 	function removePerson() {
 #if($isUser)
 		var person = confirm('Markierte Person wirklich entfernen?');
@@ -516,7 +519,31 @@
 			alert( "Wählen Sie bitte zunächst eine oder mehrere Personen aus." );
 		}
 	}
+	
+	function unassignWorkarea()
+	{
+		if ( hasSelection() )
+		{
+			selectPersonWorkarea( "${paths.staticWeb}do/popupUnassignPersonWorkarea?count=" + selectedCount );
+		}
+		else
+		{
+			alert( "Wählen Sie bitte zunächst eine oder mehrere Personen aus." );
+		}
+	}
 
+	function assignWorkarea()
+	{
+		if ( hasSelection() )
+		{
+			selectPersonWorkarea( "${paths.staticWeb}do/popupAssignPersonWorkarea?count=" + selectedCount );
+		}
+		else
+		{
+			alert( "Wählen Sie bitte zunächst eine oder mehrere Personen aus." );
+		}
+	}
+-->
 </script>
 
 #if($list && $list.size() > 0 )
@@ -533,8 +560,11 @@
 #end
 <input type="button" name="assignCategory" value="Kategorien zuordnen" #if($isUser && $list && $list.size() > 0) class="button" onClick="assignCategories();" #else class="buttondisabled" disabled="disabled" #end style="width:140px;">&nbsp;
 <input type="button" name="unassignCategory" value="Kategorien entfernen" #if($isUser && $list && $list.size() > 0) class="button" onClick="unassignCategories();" #else class="buttondisabled" disabled="disabled" #end style="width:140px;">
-
-<input type="button" class="cancel" name="cancel" value="Zur&uuml;ck" onclick="window.location.href='ShowPersonSearch';"> &nbsp;
+			
+<input type="button" name="assignWorkareas" value="Arbeitsbereich zuordnen" #if($isUser && $list && $list.size() > 0) class="button" onClick="assignWorkarea();" #else onClick="alert(0); assignWorkarea();" class="buttondisabled" disabled="disabled" #end style="width:152px; margin-left: 5px;">&nbsp;
+<input type="button" name="unassignWorkareas" value="Arbeitsbereich entfernen" #if($isUser && $list && $list.size() > 0) class="button" onClick="unassignWorkarea();" #else class="buttondisabled" disabled="disabled" #end style="width:152px;">
+			
+<input type="button" class="cancel" name="cancel" value="Zur&uuml;ck" onclick="window.location.href='ShowPersonSearch';" style="margin-left: 5px;"> &nbsp;
 
 
 #end

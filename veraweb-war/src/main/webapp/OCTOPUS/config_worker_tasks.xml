@@ -1564,6 +1564,54 @@
 				<param name="ContentType" value="text/html;charset=UTF-8"/>
 			</response>
 		</task>
+		
+		<task name="popupAssignPersonWorkarea" access="public" groups="StandardFieldsReader">
+			<description>
+				Zeigt ein Popup zur Auswahl eines Arbeitsbereiches an.
+			</description>
+			<doTask name="Load"/>
+			<action name="getAll" worker="WorkAreaWorker"/>
+			<param name="assignmentAction" value="assign"/>
+			<response type="velocity" name="popupSelectWorkArea">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+
+		<task name="popupUnassignPersonWorkarea" access="public" groups="StandardFieldsReader">
+			<description>
+				Zeigt ein Popup zur Auswahl eines Arbeitsbereiches an.
+			</description>
+			<doTask name="Load"/>
+			<action name="getAll" worker="WorkAreaWorker"/>
+			<param name="assignmentAction" value="unassign"/>
+			<response type="velocity" name="popupSelectWorkArea">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+
+		<task name="popupAssignGuestWorkarea" access="public" groups="StandardFieldsReader">
+			<description>
+				Zeigt ein Popup zur Auswahl eines Arbeitsbereiches an.
+			</description>
+			<doTask name="Load"/>
+			<action name="getAll" worker="WorkAreaWorker"/>
+			<param name="assignmentAction" value="assign"/>
+			<response type="velocity" name="popupSelectWorkArea">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+
+		<task name="popupUnassignGuestWorkarea" access="public" groups="StandardFieldsReader">
+			<description>
+				Zeigt ein Popup zur Auswahl eines Arbeitsbereiches an.
+			</description>
+			<doTask name="Load"/>
+			<action name="getAll" worker="WorkAreaWorker"/>
+			<param name="assignmentAction" value="unassign"/>
+			<response type="velocity" name="popupSelectWorkArea">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>		
 
 		<!-- Umsetzung Vertretungen -->
 		<task name="Proxy" access="public" groups="InPerson">
