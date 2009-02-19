@@ -32,6 +32,10 @@ function selectPersonCategory(url) {
 	openPopup('function', url, 320, 220, "status=no,resizable=yes,scrollbars=yes,dependent=yes,alwaysRaised=yes");
 }
 
+function selectPersonWorkarea(url) {
+	openPopup('function', url, 320, 220, "status=no,resizable=yes,scrollbars=yes,dependent=yes,alwaysRaised=yes");
+}
+
 function selectGuestCategory(url) {
 	openPopup('function', url, 320, 220, "status=no,resizable=yes,scrollbars=yes,dependent=yes,alwaysRaised=yes");
 }
