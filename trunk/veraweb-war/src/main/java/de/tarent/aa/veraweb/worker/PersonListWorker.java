@@ -31,6 +31,7 @@ package de.tarent.aa.veraweb.worker;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -123,9 +124,11 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 	@Override
 	public void saveList(OctopusContext cntx) throws BeanException, IOException
 	{
+		String categoryAssignmentAction = cntx.requestAsString( "categoryAssignmentAction" );
+		String workareaAssignmentAction = cntx.requestAsString( "workareaAssignmentAction" );
+		
 		// does the user request categories to be assigned or unassigned?
-		String assignmentAction = cntx.requestAsString( "categoryAssignmentAction" );
-		if ( assignmentAction != null && assignmentAction.length() > 0 )
+		if ( categoryAssignmentAction != null && categoryAssignmentAction.length() > 0 )
 		{
 			Database database = getDatabase(cntx);
 			TransactionContext context = database.getTransactionContext();
@@ -137,7 +140,7 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 			while( iter.hasNext() )
 			{
 				Integer personId = ( Integer ) iter.next();
-				if ( "assign".compareTo( assignmentAction ) == 0 && categoryId.intValue() > 0 )
+				if ( "assign".compareTo( categoryAssignmentAction ) == 0 && categoryId.intValue() > 0 )
 				{
 					category = personCategoryWorker.addCategoryAssignment( cntx, categoryId, personId, database, false );
 					if(category != null)
@@ -161,9 +164,95 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 			context.commit();
 			cntx.setSession( "selection" + BEANNAME, selection );
 		}
+		
+		// does the user request workareas to be assigned or unassigned?
+		else if(workareaAssignmentAction != null && workareaAssignmentAction.length() > 0)
+		{
+			Database database = getDatabase(cntx);
+			List<Integer> selection = getSelection(cntx, getCount(cntx, database));
+			if(!selection.isEmpty())
+			{
+				Integer workareaId = cntx.requestAsInteger( "workareaAssignmentId" );
+				if("assign".compareTo(workareaAssignmentAction) == 0)
+				{
+					assignWorkArea(cntx, selection, workareaId);
+				}
+				else if ("unassign".compareTo(workareaAssignmentAction) == 0)
+				{
+					unassignWorkArea(cntx, selection, workareaId);
+				}
+				cntx.setSession( "selection" + BEANNAME, Collections.emptyList() );
+			}
+		}
 		else
 		{
 			super.saveList(cntx);
+		}
+	}
+	
+	/**
+	 * Entfernt die Zuordnungen von Arbeitsbereichen der übergebenen Personen (IDs).
+	 * 
+	 * @param cntx Octopus-Context
+	 * @param personIds Liste von Personen IDs für die das entfernen der Zuordnung gilt
+	 * @param workAreaId ID des Arbeitsbereiches deren Zuordnung entfernt werden soll
+	 * @throws BeanException
+	 * @throws IOException
+	 */
+	public void unassignWorkArea(OctopusContext cntx, List<Integer> personIds, Integer workAreaId) throws BeanException, IOException
+	{
+		Database database = getDatabase(cntx);
+		TransactionContext context = database.getTransactionContext();
+		
+		try
+		{
+			for(Integer personId : personIds)
+			{
+				Person person = (Person) database.getBean(BEANNAME, personId);
+				if(person.workarea.intValue() == workAreaId.intValue() || workAreaId.intValue() == 0)
+				{
+					person.workarea = new Integer(0);
+					database.saveBean(person, context, false);
+				}
+			}
+			context.commit();
+		}
+		finally
+		{
+			context.rollBack();
+		}
+	}
+	
+	/**
+	 * Ordnet den übergebenen Arbeitsbereich der Liste von Personen hinzu.
+	 * 
+	 * @param cntx OctopusContext
+	 * @param personIds Liste von Personen IDs für die die neue Zuordnung gilt
+	 * @param workAreaId ID des Arbeitsbereiches der zugeordnet werden soll
+	 * @throws BeanException
+	 * @throws IOException
+	 */
+	public void assignWorkArea(OctopusContext cntx, List<Integer> personIds, Integer workAreaId) throws BeanException, IOException
+	{
+		Database database = getDatabase(cntx);
+		TransactionContext context = database.getTransactionContext();
+		
+		try 
+		{
+			for(Integer personId : personIds)
+			{
+				Person person = (Person) database.getBean(BEANNAME, personId);
+				if(person.workarea != workAreaId)
+				{
+					person.workarea = workAreaId;
+					database.saveBean(person, context, false);
+				}
+			}
+			context.commit();
+		} 
+		finally 
+		{
+			context.rollBack();
 		}
 	}
 
