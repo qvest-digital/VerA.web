@@ -50,11 +50,11 @@ public class DatabaseHelper {
 	public static final String LOWER_POST = ")";
 
 	/**
-	 * Gibt eine Where-Clause zurück, die den übergebenen Suchbegriff
-	 * (<code>search</code>) in allen übergebenen Spalten (<code>column</code>)
-	 * sucht. Wenn im übergebenem Suchbegriff ein * oder ? vorkommt wird
-	 * ein entsprechendes SQL LIKE mit % und _ verwendet. Mehere Spalten werden
-	 * werden mit ORs verknüpft.
+	 * Gibt eine Where-Clause zurÃ¼ck, die den Ã¼bergebenen Suchbegriff
+	 * (<code>search</code>) in allen Ã¼bergebenen Spalten (<code>column</code>)
+	 * sucht. Wenn im Ã¼bergebenem Suchbegriff ein * oder ? vorkommt wird
+	 * ein entsprechendes SQL LIKE mit % und _ verwendet, sofern die Zeichen nicht
+	 * mit einem \ escaped wurden. Mehere Spalten werden mit ORs verknÃ¼pft.
 	 * 
 	 * @param search Suchbegriff
 	 * @param column Liste mit Spaltennamen
@@ -69,6 +69,7 @@ public class DatabaseHelper {
 						UPPER_PRE + Format.format(search) + UPPER_POST)));
 		} else {
 			search = search.replaceAll("[*]", "%").replaceAll("[?]", "_");
+			search = search.replaceAll("\\\\%", "*").replaceAll("\\\\_", "?");
 			for (int i = 0; i < column.length; i++)
 				list.addOr(Expr.like(
 						UPPER_PRE + column[i] + UPPER_POST, new RawClause(
@@ -78,7 +79,7 @@ public class DatabaseHelper {
 	}
 
 	/**
-	 * Gibt eine Order-Clause zurück, schaut jeweils nach der Spalte ob
+	 * Gibt eine Order-Clause zurï¿½ck, schaut jeweils nach der Spalte ob
 	 * der Wert ASC oder DESC ist und wendet dieses Attribut entsprechend an.
 	 * 
 	 * @param list
