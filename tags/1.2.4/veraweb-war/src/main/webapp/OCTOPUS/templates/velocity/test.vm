@@ -1,0 +1,56 @@
+<h1>test.vm</h1>
+
+<form>
+
+$list
+$listParams
+
+--<br><br>
+
+<strong>Beans aus dem Octopus Request</strong><br><br>
+$addr1<br><br>
+$list1<br><br>
+
+<strong>Beans aus der Datenbank</strong><br><br>
+$addr2<br><br>
+$list2<br><br>
+<br>
+
+	<strong>Eine Adresse:</strong><br><br>
+ID: <input type="text" name="id" value="$!message.text($addr1.id)"><br>
+	Block 1: <input type="text" name="addressblock1" value="$!message.text($addr1.addressblock1)"><br>
+			Block 2: <input type="text" name="addressblock2" value="$!message.text($addr1.addressblock2)"><br>
+					Block 3: <input type="text" name="addressblock3" value="$!message.text($addr1.addressblock3)"><br>
+			Block 4: <input type="text" name="addressblock4" value="$!message.text($addr1.addressblock4)"><br>
+			Block 5: <input type="text" name="addressblock5" value="$!message.text($addr1.addressblock5)"><br>
+			Block 6: <input type="text" name="addressblock6" value="$!message.text($addr1.addressblock6)"><br>
+<br><br>
+		
+	<strong>Adress-Liste:</strong><br><br>
+<input type="hidden" name="list" value="1-">
+	<input type="hidden" name="list" value="2-">
+	<input type="hidden" name="list" value="3-">
+
+<input type="text" name="1-addressblock1" value=""><br>
+	<input type="text" name="2-addressblock1" value=""><br>
+	<input type="text" name="3-addressblock1" value=""><br>
+	<br>
+	
+	<input type="submit" value="Abschicken">
+</form>
+
+-- output<br><br>
+
+$onebean<br>
+$onebean.getErrors()<br><br>
+
+$select
+
+<br><br>
+
+#foreach($bean in $beanlist)
+	$velocityCount - $bean<br>
+#end
+
+<br><br>
+-- ende
