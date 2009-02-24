@@ -5,7 +5,7 @@
 	<groupId>org.evolvis.veraweb</groupId>
 	<artifactId>veraweb-ear</artifactId>
 	<packaging>ear</packaging>
-	<version>1.2.4-SNAPSHOT</version>
+	<version>1.2.4</version>
 
 	<name>veraweb-evolvis-ear</name>
 	<description>Veranstaltungsmanagment veraweb</description>
@@ -150,7 +150,7 @@
 				<artifactId>maven-ear-plugin</artifactId>
 
 				<configuration>
-					<finalName>veraweb.ear</finalName>
+					<finalName>veraweb</finalName>
 
 					<archive>
 						<manifestEntries>
@@ -195,7 +195,7 @@
 		<dependency>
 			<groupId>org.evolvis.veraweb</groupId>
 			<artifactId>veraweb-war</artifactId>
-			<version>1.2.2-SNAPSHOT</version>
+			<version>${project.version}</version>
 			<type>war</type>
 		</dependency>
 	</dependencies>
