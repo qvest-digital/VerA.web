@@ -1,0 +1,35 @@
+#if($listparam.count > 0 && $liststarts)
+
+<table cellspacing="0" cellpadding="0" style="width: 100%; margin-bottom: 10px;"><tr><td>
+<div class="listnavidirect">
+	Direkteinsprung:
+	<a href="javascript:navigateList('A');">A</a>
+	<a href="javascript:navigateList('B');">B</a>
+	<a href="javascript:navigateList('C');">C</a>
+	<a href="javascript:navigateList('D');">D</a>
+	<a href="javascript:navigateList('E');">E</a>
+	<a href="javascript:navigateList('F');">F</a>
+	<a href="javascript:navigateList('G');">G</a>
+	<a href="javascript:navigateList('H');">H</a>
+	<a href="javascript:navigateList('I');">I</a>
+	<a href="javascript:navigateList('J');">J</a>
+	<a href="javascript:navigateList('K');">K</a>
+	<a href="javascript:navigateList('L');">L</a>
+	<a href="javascript:navigateList('M');">M</a>
+	<a href="javascript:navigateList('N');">N</a>
+	<a href="javascript:navigateList('O');">O</a>
+	<a href="javascript:navigateList('P');">P</a>
+	<a href="javascript:navigateList('Q');">Q</a>
+	<a href="javascript:navigateList('R');">R</a>
+	<a href="javascript:navigateList('S');">S</a>
+	<a href="javascript:navigateList('T');">T</a>
+	<a href="javascript:navigateList('U');">U</a>
+	<a href="javascript:navigateList('V');">V</a>
+	<a href="javascript:navigateList('W');">W</a>
+	<a href="javascript:navigateList('X');">X</a>
+	<a href="javascript:navigateList('Y');">Y</a>
+	<a href="javascript:navigateList('Z');">Z</a>
+</div>
+</td></tr></table>
+
+#end

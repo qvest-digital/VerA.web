@@ -1,0 +1,103 @@
+#if($octopusConfig.personalConfig.role)
+ #set($title = "mit der Rolle $octopusConfig.personalConfig.role")
+#elseif($octopusConfig.personalConfig.roles)
+ #set($title = "mit verf&uuml;gbaren Rollen $octopusConfig.personalConfig.roles")
+#else
+ #set($title = "ohne Rolleninformationen")
+#end
+#set($title = "Sie wurden erfolgreich $title am System angemeldet.")
+##foreach($gg in $octopusConfig.personalConfig.userGroups)
+##set($title = "$title $gg")
+##end
+#parse("inc/header.vm")	
+
+<table class="tab" border="0" cellspacing="0" cellpadding="0"><tr>
+	<td class="tableft">&nbsp;</td>
+	<td class="tabactiv"><span class="tabactiv">Willkommen</span></td>
+	<td class="tabright">&nbsp;</td>
+</tr></table>
+
+#openContent()
+#openContentSection()
+
+#if($errors && $errors.size() > 0)
+<div style="margin: 10px 0px 10px 0px; padding: 10px 10px 10px 10px; background-color: #ffffff; border: 2px solid #ff0000;">
+	#foreach($error in $errors)
+		$error<br>
+	#end
+	<br>
+	Es kann zu unerwarteten Fehlern kommen. Bitte wenden Sie sich an Ihren Administrator.
+</div>
+#end
+
+<strong>Willkommen beim Veranstaltungsmanagement des Ausw&auml;rtigen Amtes</strong>
+<br><br>
+
+#if($grants.isUser())
+##<P>
+##	Hallo $!{octopusConfig.personalConfig.userGivenName} $!{octopusConfig.personalConfig.userLastName}.
+##</P>
+<BR>
+ #if($grants.mayReadStandardFields() || $grants.mayReadRemarkFields())
+<P>
+	Sie haben hier die M&ouml;glichkeit,
+  #if($grants.mayReadStandardFields())
+	Stammdaten von
+  #end
+  #if($grants.mayReadRemarkFields())
+   #if($grants.mayReadStandardFields())
+	und
+   #end
+	Bemerkungen zu
+  #end
+	Personen und Veranstaltungen
+  #if($grants.mayWrite())
+	anzuzeigen, zu
+   #if($grants.mayExport())
+	ex- und
+   #end
+	importieren, zu bearbeiten und zu l&ouml;schen.
+  #elseif($grants.mayExport())
+	anzuzeigen und zu exportieren.
+  #else
+	anzuzeigen.
+  #end
+</P>
+ #end
+ #if($grants.isPartialAdmin() || $grants.isAdmin())
+<P>
+	Weiterhin k&ouml;nnen Sie
+  #if($grants.isPartialAdmin())
+	mandantenspezifische
+  #end
+  #if($grants.isAdmin())
+   #if($grants.isPartialAdmin())
+	und
+   #end
+	globale
+  #end
+	Einstellungen einsehen und bearbeiten.
+</P>
+ #end
+<P>
+	Sollten Sie weitere Informationen ben&ouml;tigen, finden Sie diese
+	links im Men&uuml unter dem Men&uuml;punkt "Hilfe".
+</P>
+#elseif($octopusConfig.personalConfig.roles)
+ #parse("inc/role-chooser.vm")
+#else
+<P>
+	Zu Ihrer Anmeldung existieren keine Rollen, unter denen Sie in VerA.web
+	agieren k&ouml;nnen. Bitte melden Sie sich ab und mit einer
+	Benutzer- oder Rollenkennung erneut an, die in VerA.web nutzbar ist.
+</P>
+#end
+
+#closeContentSection()
+#closeContent()
+<hr class="footline">
+
+<!--
+$responseParams
+-->
+#parse("inc/footer.vm")
