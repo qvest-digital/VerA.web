@@ -141,8 +141,8 @@ public class PersonDetailWorker implements PersonConstants {
 		Calendar cal = Calendar.getInstance();
 		cal.setTime( d );
 		map.put( "begin", "01." + ( cal.get( Calendar.MONTH ) + 1 ) + "." + cal.get( Calendar.YEAR ) );
-		cal.setTime( new Date() );
-		map.put( "end", cal.get( Calendar.DAY_OF_MONTH ) + "." + ( cal.get( Calendar.MONTH ) + 1 ) + "." + cal.get( Calendar.YEAR ) );
+//		cal.setTime( new Date() );
+//		map.put( "end", cal.get( Calendar.DAY_OF_MONTH ) + "." + ( cal.get( Calendar.MONTH ) + 1 ) + "." + cal.get( Calendar.YEAR ) );
 
 		return person;
 	}
