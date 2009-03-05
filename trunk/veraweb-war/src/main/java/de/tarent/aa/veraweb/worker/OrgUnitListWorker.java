@@ -247,7 +247,7 @@ public class OrgUnitListWorker extends ListWorkerVeraWeb {
 				}
 				Database database = getDatabase(cntx);
 				bean = database.getBean( BEANNAME, ( ( OrgUnit ) bean ).id ); 
-				errors.add( "Der ausgewählte Mandant mit dem Namen '" + ( ( OrgUnit ) bean ).name + "' ist noch einzelnen Arbeitsbereichen zugeordnet und kann nicht gelöscht werden." );
+				errors.add( "Der ausgewählte Mandant mit dem Namen '" + ( ( OrgUnit ) bean ).name + "' ist noch einzelnen Arbeitsbereichen zugeordnet und kann nicht gelöscht werden. Bitte löschen Sie zunächst alle dem Mandanten zugeordneten Arbeitsbereiche." );
 				cntx.setContent( OUTPUT_saveListErrors, errors );
 			}
 			else
