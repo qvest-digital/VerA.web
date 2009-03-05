@@ -153,7 +153,10 @@ public class PersonDuplicateSearchWorker extends PersonListWorker
 				Expr.equal( "tperson.deleted", PersonConstants.DELETED_FALSE )
 			)
 		).whereAnd(
-			new RawClause( "tperson.pk!=person2.pk" )
+			Where.and(
+					new RawClause( "tperson.pk!=person2.pk" ),
+					new RawClause( "tperson.fk_orgunit=person2.fk_orgunit" )
+			)
 		).whereAnd(
 				Where.and(
 						new RawClause( "tperson.firstname_a_e1=person2.firstname_a_e1" ),
