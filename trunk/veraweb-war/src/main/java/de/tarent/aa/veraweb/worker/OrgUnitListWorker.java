@@ -230,7 +230,15 @@ public class OrgUnitListWorker extends ListWorkerVeraWeb {
 		}
 		catch( BeanException e )
 		{
-			if ( e.getCause().getMessage().indexOf( "Fremdschlüssel-Constraint" ) > 0 )
+			if
+			(
+				(
+					e.getCause().getMessage().indexOf( "Fremdschlüssel-Constraint" ) > 0
+				)
+				|| ( 
+					e.getCause().getMessage().indexOf( "foreign key constraint" ) > 0
+				)
+			)
 			{
 				List< String > errors = ( List< String > ) cntx.getContextField( OUTPUT_saveListErrors );
 				if  ( errors == null )
