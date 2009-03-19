@@ -56,6 +56,7 @@ CREATE OR REPLACE FUNCTION serv_verawebschema(int4) RETURNS varchar AS
  *  2008-03-27  cklein: typo in upgrade path for tperson caused upgrade to fail when called a second time (tperson_fkey_workarea was created twice or multiple times)
  *                      missing drop sequence in upgrade path for timportperson
  *  2008-12-22  add: new state column to tperson and dependent tables
+ *  2009-03-19  cklein: added state columns to timportperson by using the drop mechanism based on availability of either of the new state columns
  * </changelog>
  * ----------------------------------------------------------- */
 
@@ -1961,7 +1962,7 @@ END;\'
 	--DROP falls veraltete Variante erkannt an Spalte ssalutation
 	vint := 0;
 	SELECT count(*) INTO vint FROM information_schema.columns
-		WHERE table_schema = \'veraweb\' AND table_name = \'timportperson\' AND column_name = \'fk_workarea\';
+		WHERE table_schema = \'veraweb\' AND table_name = \'timportperson\' AND column_name = \'state_a_e1\';
 	IF vint = 0 THEN
 		vmsg := \'begin.dropTABLE.timportperson\';
 		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
