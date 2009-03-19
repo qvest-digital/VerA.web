@@ -38,11 +38,13 @@
 		#closeContentSection()
 		<hr class="contentsection"/>
 		#openContentSection()
+
+## fixing issue 1525, consolidating display to a single display scheme
 			<div style="cursor: pointer;" onclick="if (returnCompany('${paths.staticWeb}do/', '$bean.id')) closePopup();">
 				#if($bean.company_a_e1.length() > 0)
 						$!message.plain($bean.company_a_e1)
-				#elseif($bean.lastname_a_e1.length() > 0)
-					<a href="#">$!message.plain($bean.lastname_a_e1)</a>
+##				#elseif($bean.lastname_a_e1.length() > 0)
+##					<a href="#">$!message.plain($bean.lastname_a_e1)</a>
 				#else
 					&nbsp;
 				#end
