@@ -165,16 +165,44 @@ public class PersonGuestListWorker extends PersonListWorker {
 			invitepartner = new ArrayList();
 			selectreserve = new ArrayList();
 			
-			for(int i = 0; i < ids.size(); i++) {
-				if(event.invitationtype.intValue() != EventConstants.TYPE_NURPARTNER)
-					invitemain.add(Integer.valueOf((String) ids.get(i)));
-				if (event.invitationtype.intValue() != EventConstants.TYPE_OHNEPARTNER || event.invitationtype.intValue() == EventConstants.TYPE_NURPARTNER) {
-					Integer invitePartner = database.getCount(database.getCount(BEANNAME)
-							.where(Expr.equal("pk", ids.get(i))).whereAnd(Where.or(
-									Expr.greater("lastname_b_e1", ""),
-									Expr.greater("firstname_b_e1", ""))));
-					if(invitePartner > 0)
-						invitepartner.add(Integer.valueOf((String) ids.get(i)));
+			Select select = database.getSelectIds(database.createBean(BEANNAME));
+			if (search.categoriesSelection != null && search.categorie2 != null) {
+				select.joinLeftOuter("veraweb.tperson_categorie AS cat1", "tperson.pk", "cat1.fk_person");
+				select.joinLeftOuter("veraweb.tperson_categorie AS cat2", "tperson.pk", "cat2.fk_person");
+				select.selectAs("cat1.fk_categorie", "category");
+			} else if (search.categoriesSelection != null) {
+				select.joinLeftOuter("veraweb.tperson_categorie AS cat1", "tperson.pk", "cat1.fk_person");
+				select.selectAs("cat1.fk_categorie", "category");
+			} else if (search.categorie2 != null) {
+				select.joinLeftOuter("veraweb.tperson_categorie AS cat2", "tperson.pk", "cat2.fk_person");
+				select.selectAs("cat2.fk_categorie", "category");
+			} else {
+				select.selectAs("NULL", "category");
+			}
+			Clause clause = getPersonListFilter(cntx);
+			if (event.invitationtype.intValue() != EventConstants.TYPE_NURPARTNER) {
+				select.where(Where.and(clause, Where.or(
+						Expr.greater("lastname_a_e1", ""),
+						Expr.greater("firstname_a_e1", ""))));
+				for (Iterator it = database.getList(select, database).iterator(); it.hasNext(); ) {
+					invitemain.add(((Map)it.next()).get("id"));
+				}
+			}
+			/*
+			 * modified to support searching for persons that have no categories assigned as per change request for version 1.2.0
+			 * cklein
+			 * 2008-02-26
+			 */
+			if ( search.categoriesSelection.size() == 1 && ( ( Integer ) search.categoriesSelection.get( 0 ) ).intValue() == 0 )
+			{
+				select.whereAnd( Expr.isNull( "cat1.fk_person" ) );
+			}
+			if (event.invitationtype.intValue() != EventConstants.TYPE_OHNEPARTNER) {
+				select.where(Where.and(clause, Where.or(
+						Expr.greater("lastname_b_e1", ""),
+						Expr.greater("firstname_b_e1", ""))));
+				for (Iterator it = database.getList(select, database).iterator(); it.hasNext(); ) {
+					invitepartner.add(((Map)it.next()).get("id"));
 				}
 			}
 		} else {
