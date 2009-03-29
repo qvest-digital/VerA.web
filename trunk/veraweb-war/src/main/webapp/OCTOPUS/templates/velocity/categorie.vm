@@ -5,6 +5,12 @@
 ## cklein
 ## 2008-02-21
 
+##
+## fixing issue 1584 where non admins could still choose select all or unselect all
+## which then will result in a javascript exception since the hidden selectAll formfield
+## is not rendered as part of the document
+##
+#set($disableListSelect = false)
 #if($grants.isAdmin() || $grants.isPartialAdmin())
 <script type="text/javascript">
 	function askResort() {
@@ -48,6 +54,8 @@ setModified(id);
 disableOtherBeans(id);
 }
 </script>
+#else
+#set($disableListSelect = true)
 #end
 
 <form id="formlist" name="formlist" action="Categorie" method="POST" #if($grants.isAdmin() || $grants.isPartialAdmin())onsubmit="return askResort();"#end>
