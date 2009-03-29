@@ -40,6 +40,8 @@
 		#end
 	#end
 
+#set($mainShown=false)
+#set($partnerShown=false)
 <table class="kategorie">
 	#if($showMain && $bean.invitationtype != 3)
 		#if($bean.invitationstatus == 1)#set($z = $z + 1)
@@ -47,6 +49,7 @@
 		#elseif($bean.invitationstatus == 3)#set($t = $t + 1)
 		#else#set($o = $o + 1)
 		#end
+		#set($mainShown=true)
 	<tr>
 		<td class="kategorieNo">
     		#if($bean.ishost && $bean.ishost == 1)
@@ -115,11 +118,6 @@
 		<td class="kategorieTeilnahme"><img src="${paths.staticWeb}images/checkbox_off.gif" alt="Aus"></td>
 		#end
 	</tr>
-	<tr>
-		<td class="kategorieNo">&nbsp;</td>
-		<td class="kategorieSpace">&nbsp;</td>
-		<td colspan="3" style="vertical-align: middle;"><hr class="kategorie" /></td>
-	</tr>
 	#end
 	#if($showPartner && $bean.invitationtype != 2)
 		#if($bean.invitationstatus_p == 1)#set($z = $z + 1)
@@ -127,6 +125,7 @@
 		#elseif($bean.invitationstatus_p == 3)#set($t = $t + 1)
 		#else#set($o = $o + 1)
 		#end
+		#set($partnerShown=true)
 	<tr>
 		<td class="kategorieNo">$!bean.orderno_p</td>
 		<td class="kategorieSpace">&nbsp;</td>
@@ -170,6 +169,8 @@
 		<td class="kategorieTeilnahme"><img src="${paths.staticWeb}images/checkbox_off.gif" alt="Aus"></td>
 		#end
 	</tr>
+	#end
+	#if($mainShown || $partnerShown)
 	<tr>
 		<td class="kategorieNo">&nbsp;</td>
 		<td class="kategorieSpace">&nbsp;</td>
