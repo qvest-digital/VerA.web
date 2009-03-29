@@ -68,8 +68,17 @@ public class DatabaseHelper {
 						UPPER_PRE + column[i] + UPPER_POST, new RawClause(
 						UPPER_PRE + Format.format(search) + UPPER_POST)));
 		} else {
+			// fixing logic here, if the user enters % or _ we must escape them
+			// first, using the standard escape character
+			search = search.replaceAll("[%]", "\\%").replaceAll("[_]", "\\_");
+			// next, if the user uses escaped versions of * or ? we must 
+			// replace them so that the later replacement of * and ? wildcards
+			// will not affect the search pattern entered by the user
+			search = search.replaceAll("\\\\*", "{ASTERISK}").replaceAll("\\\\?", "{QUOT}");
+			// now we can safely replace all occurrences of * and ?
 			search = search.replaceAll("[*]", "%").replaceAll("[?]", "_");
-			search = search.replaceAll("\\\\%", "*").replaceAll("\\\\_", "?");
+			// change back replacements for escaped versions of * and ?
+			search = search.replaceAll("[{]ASTERISK[}]", "*").replaceAll("[{]QUOT[}]", "?");
 			for (int i = 0; i < column.length; i++)
 				list.addOr(Expr.like(
 						UPPER_PRE + column[i] + UPPER_POST, new RawClause(
