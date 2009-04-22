@@ -227,18 +227,7 @@ public class CategorieWorker extends StammdatenWorker {
 	@Override
     public void saveList(OctopusContext cntx) throws BeanException, IOException
 	{
-		TcPersonalConfig pConfig = cntx.personalConfig();
-		if (
-			pConfig.isUserInGroup( PersonalConfigAA.GROUP_ADMIN ) ||
-			pConfig.isUserInGroup( PersonalConfigAA.GROUP_ADMIN )
-		)
-		{
-			super.saveList( cntx );
-		}
-		else
-		{
-	        throw new BeanException( "Sie besitzen keine Berechtigung, Änderungen an den Kategorien zu speichern." );
-		}
+		super.saveList( cntx );
 	}
 
 	@Override
