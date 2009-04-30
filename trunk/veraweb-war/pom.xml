@@ -312,7 +312,7 @@
 		<dependency>
 			<groupId>de.tarent.libraries</groupId>
 			<artifactId>tarent-database</artifactId>
-			<version>1.5.2</version>
+			<version>1.5.4</version>
 		</dependency>
 
 		<dependency>
