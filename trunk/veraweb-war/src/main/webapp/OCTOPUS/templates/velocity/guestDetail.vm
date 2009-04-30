@@ -239,7 +239,7 @@
 </td></tr></table>
 
     <input type="button" name="save" value="Speichern" #if($grants.mayWrite()) class="button" onclick="askPreSave()" #else class="buttondisabled" disabled #end> &nbsp;
-    <input type="button" name="refresh" value="Neu laden" class="button" onclick="window.location.href='ReloadGuestData?guest-id=$!guest.id';"> &nbsp;
+    <input type="button" name="refresh" value="Neu laden" #if($grants.mayWrite()) class="button" onclick="window.location.href='ReloadGuestData?guest-id=$!guest.id';" #else class="buttondisabled" disabled #end> &nbsp;
     <input type="button" name="persondata" value="Stammdaten" title="Personenstammdaten bearbeiten" onclick="window.location.href='ShowPerson?id=$guest.person&action=event';" class="button"> &nbsp;
     <input type="button" name="cancel" value="Listenansicht" title="Zur&uuml;ck zu der G&auml;steliste" class="reset" onclick="window.location.href='ShowGuestList';"> &nbsp;
 
