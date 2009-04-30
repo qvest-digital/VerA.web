@@ -719,7 +719,7 @@ public class DB {
 		} catch (SQLException e) {
 			throw new SQLStatementException(e, sql);
 		} finally {
-			close(statement);
+			closeAll(statement);
 		}
 		return result;
 	}
