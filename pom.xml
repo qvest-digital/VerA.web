@@ -32,7 +32,7 @@
 		The version of the project under development, e.g.
 		1.1, 1.2, 2.0-SNAPSHOT 
 	-->
-	<version>1.5.4-SNAPSHOT</version>
+	<version>1.5.4</version>
 
 	<url>http://tarentdatabase.evolvis.org/</url>
 
@@ -49,8 +49,8 @@
 	</organization>
 
 	<scm>
-		<url>http://evolvis.org/plugins/scmsvn/viewcvs.php/trunk/?root=tarentdatabase</url>
-		<connection>scm:svn:svn+ssh://maven@svn.evolvis.org/svnroot/tarentdatabase/trunk</connection>
+		<url>http://evolvis.org/plugins/scmsvn/viewcvs.php/tags/?root=tarentdatabase/tarent-database-1.5.4</url>
+		<connection>scm:svn:svn+ssh://maven@svn.evolvis.org/svnroot/tarentdatabase/tags/tarent-database-1.5.4</connection>
 	</scm>
 
 	<repositories>
