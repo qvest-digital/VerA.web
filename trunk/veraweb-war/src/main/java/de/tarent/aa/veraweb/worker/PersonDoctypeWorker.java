@@ -132,17 +132,18 @@ public class PersonDoctypeWorker extends ListWorkerVeraWeb {
 		} else {
 			super.saveBean(cntx, bean);
 		}
-		
+
 		WorkerFactory.getPersonDetailWorker(cntx).updatePerson(cntx, null, personDoctype.person);
 	}
 
 	//
     // Octopus-Aktionen
     //
-    /** Octopus-Eingabeparameter f�r die Aktion {@link #showDetail(OctopusContext, Integer, Integer)} */
-	public static final String INPUT_showDetail[] = { "persondoctype-id", "persondoctype-doctype" };
-    /** Octopus-Eingabeparameterzwang f�r die Aktion {@link #showDetail(OctopusContext, Integer, Integer)} */
-	public static final boolean MANDATORY_showDetail[] = { false, false };
+	// 2009-05-07 removed second parameter as it was redundant as part of fixing issue #1528, made parameter mandatory
+    /** Octopus-Eingabeparameter f�r die Aktion {@link #showDetail(OctopusContext, Integer)} */
+	public static final String INPUT_showDetail[] = { "persondoctype-id" };
+    /** Octopus-Eingabeparameterzwang f�r die Aktion {@link #showDetail(OctopusContext, Integer)} */
+	public static final boolean MANDATORY_showDetail[] = { true };
 	/**
 	 * <p>
 	 * L�dt eine Person-Dokumententyp-Verkn�pfung und stellt diese
@@ -162,7 +163,8 @@ public class PersonDoctypeWorker extends ListWorkerVeraWeb {
 	 * @throws BeanException
 	 * @throws IOException
 	 */
-	public void showDetail(OctopusContext cntx, Integer id, Integer doctype) throws BeanException, IOException {
+	// 2009-05-07 removed second parameter as it was redundant as part of fixing issue #1528
+	public void showDetail(OctopusContext cntx, Integer id) throws BeanException, IOException {
 		Database database = new DatabaseVeraWeb(cntx);
 		Person person = (Person)cntx.contentAsObject("person");
 		
@@ -172,15 +174,9 @@ public class PersonDoctypeWorker extends ListWorkerVeraWeb {
 		select.selectAs("tdoctype.docname", "name");
 		select.selectAs("tdoctype.addresstype", "doctypeAddresstype");
 		select.selectAs("tdoctype.locale", "doctypeLocale");
-		
-		if (id != null) {
-			select.join("veraweb.tdoctype", "fk_doctype", "tdoctype.pk");
-			select.where(Expr.equal("tperson_doctype.pk", id));
-		} else {
-			select.join(new Join(Join.RIGHT_OUTER, "veraweb.tdoctype", new RawClause(
-					"tperson_doctype.fk_doctype = tdoctype.pk AND tperson_doctype.fk_person = " + person.id)));
-			select.where(Expr.equal("tdoctype.pk", doctype));
-		}
+	
+		select.join("veraweb.tdoctype", "fk_doctype", "tdoctype.pk");
+		select.where(Expr.equal("tperson_doctype.pk", id));
 		
 		PersonDoctype personDoctype = (PersonDoctype)database.getBean("PersonDoctype", select);
 		if (personDoctype == null) {
@@ -246,6 +242,69 @@ public class PersonDoctypeWorker extends ListWorkerVeraWeb {
         } finally {
             context.rollBack();
         }
+    }
+
+	// 2009-05-07 introduced as part of fixing issue #1528, made parameter mandatory
+    public static final String INPUT_createOne[] =  { "doctype-id" };
+	public static final boolean MANDATORY_createOne[] = { true };
+    public void createOne(OctopusContext cntx, Integer id) throws BeanException, IOException
+    {
+		Database database = new DatabaseVeraWeb(cntx);
+		Person person = (Person)cntx.contentAsObject("person");
+
+		Select select = database.getSelect("PersonDoctype");
+		select.selectAs("tdoctype.pk", "doctype");
+		select.selectAs("tdoctype.pk", "doctypeId");
+		select.selectAs("tdoctype.docname", "name");
+		select.selectAs("tdoctype.addresstype", "doctypeAddresstype");
+		select.selectAs("tdoctype.locale", "doctypeLocale");
+		select.join("veraweb.tdoctype", "fk_doctype", "tdoctype.pk");
+		select.where(Expr.equal("tdoctype.pk", id));
+		select.whereAnd(Expr.equal("tperson_doctype.fk_person", person.id ));
+
+		PersonDoctype personDoctype = (PersonDoctype)database.getBean("PersonDoctype", select);
+		if ( personDoctype == null )
+		{
+			Select select2 = database.getSelect("Doctype");
+			select2.selectAs("tdoctype.pk", "doctype");
+			select2.selectAs("tdoctype.pk", "doctypeId");
+			select2.selectAs("tdoctype.docname", "name");
+			select2.selectAs("tdoctype.addresstype", "doctypeAddresstype");
+			select2.selectAs("tdoctype.locale", "doctypeLocale");
+			select2.where(Expr.equal("tdoctype.pk", id));
+
+			Doctype doctype = (Doctype)database.getBean("Doctype", select2);
+
+			if ( doctype != null )
+			{
+				personDoctype = new PersonDoctype();
+				// found a non existing person doctype, now create it
+				personDoctype.addresstype = doctype.addresstype;
+				personDoctype.locale = doctype.locale;
+				personDoctype.doctype = doctype.id;
+				personDoctype.doctypeAddresstype = doctype.addresstype;
+				personDoctype.doctypeLocale = doctype.locale;
+				personDoctype.name = doctype.name;
+	
+				PersonDoctypeFacade helper = new PersonDoctypeFacade(cntx, person);
+				Integer flags = doctype.flags;
+				if (flags == null || flags.intValue() != Doctype.FLAG_NO_FREITEXT) {
+					personDoctype.textfield = helper.getFreitext(
+							personDoctype.doctype, personDoctype.addresstype, personDoctype.locale, true);
+					personDoctype.textfieldPartner = helper.getFreitext(
+							personDoctype.doctype, personDoctype.addresstype, personDoctype.locale, false);
+					personDoctype.textfieldJoin = helper.getFreitextVerbinder(
+							personDoctype.doctype, personDoctype.addresstype, personDoctype.locale);
+				} else {
+					personDoctype.textfield = "";
+					personDoctype.textfieldPartner = "";
+					personDoctype.textfieldJoin = "";
+				}
+				personDoctype.person = person.id;
+	
+				database.saveBean( personDoctype );
+			}
+		}
     }
 
 	//
