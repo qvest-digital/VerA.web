@@ -3,11 +3,11 @@
 
 <input type="hidden" name="persondoctype-id" value="$!persondoctype.id">
 <input type="hidden" name="persondoctype-person" value="$!persondoctype.person">
-<input type="hidden" name="persondoctype-doctype" value="$!persondoctype.doctypeId">
+<input type="hidden" name="persondoctype-doctype" value="$!persondoctype.doctype">
 
 <table class="form"><tr>
 	<td class="label">Dokument-ID:</td>
-	<td class="value"><input type="text" name="showdoctype" value="$!message.text($persondoctype.doctypeId)" class="id" readonly></td>
+	<td class="value"><input type="text" name="showdoctype" value="$!message.text($persondoctype.doctype)" class="id" readonly></td>
 </tr><tr>
 	<td class="label">Dokument-Name:</td>
 	<td class="value"><input type="text" name="persondoctype-name" value="$!message.text($persondoctype.name)" class="textdisabled" readonly></td>
