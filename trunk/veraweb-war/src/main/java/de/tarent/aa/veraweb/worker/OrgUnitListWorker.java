@@ -38,13 +38,16 @@ import java.util.List;
 import java.util.Map;
 
 import de.tarent.aa.veraweb.beans.OrgUnit;
+import de.tarent.aa.veraweb.beans.WorkArea;
 import de.tarent.dblayer.sql.clause.Clause;
 import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.clause.RawClause;
 import de.tarent.dblayer.sql.clause.Where;
+import de.tarent.dblayer.sql.statement.Delete;
 import de.tarent.octopus.beans.Bean;
 import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.beans.Database;
+import de.tarent.octopus.beans.TransactionContext;
 import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
 import de.tarent.octopus.beans.veraweb.ListWorkerVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
@@ -221,40 +224,40 @@ public class OrgUnitListWorker extends ListWorkerVeraWeb {
 		return missingorgunit;
 	}
 	
+	/*
+	 * 2009-05-12 cklein
+	 * 
+	 * fixed as part of issue #1530 - deletion of orgunits and cascaded deletion of both workareas and person to workarea assignments
+	 * 									note that in expectance of a major overhaul of the way that workareas are handled, the sql datamodel
+	 * 									will not be changed now.
+	 */
 	@Override
     protected boolean removeBean(OctopusContext cntx, Bean bean) throws BeanException, IOException
 	{
+		Database database = new DatabaseVeraWeb( cntx );
+		TransactionContext context = database.getTransactionContext();
+
 		try
 		{
-			super.removeBean( cntx, bean );
+			// first remove all workArea assignments from all persons
+			WorkAreaWorker.removeAllWorkAreasFromOrgUnit( cntx, context, ( ( OrgUnit ) bean ).id );
+			Delete stmt = database.getDelete( "OrgUnit" );
+			stmt.byId( "pk",  ( ( OrgUnit ) bean ).id  );
+			context.execute( stmt );
+			context.commit();
 		}
-		catch( BeanException e )
+		catch ( BeanException e )
 		{
-			if
-			(
-				(
-					e.getCause().getMessage().indexOf( "Fremdschlüssel-Constraint" ) > 0
-				)
-				|| ( 
-					e.getCause().getMessage().indexOf( "foreign key constraint" ) > 0
-				)
-			)
-			{
-				List< String > errors = ( List< String > ) cntx.getContextField( OUTPUT_saveListErrors );
-				if  ( errors == null )
-				{
-					errors = new ArrayList< String >();
-				}
-				Database database = getDatabase(cntx);
-				bean = database.getBean( BEANNAME, ( ( OrgUnit ) bean ).id ); 
-				errors.add( "Der ausgewählte Mandant mit dem Namen '" + ( ( OrgUnit ) bean ).name + "' ist noch einzelnen Arbeitsbereichen zugeordnet und kann nicht gelöscht werden. Bitte löschen Sie zunächst alle dem Mandanten zugeordneten Arbeitsbereiche." );
-				cntx.setContent( OUTPUT_saveListErrors, errors );
-			}
-			else
-			{
-				throw e;
-			}
+			context.rollBack();
+			ArrayList errors = new ArrayList();
+			errors.add( "Der Mandant konnte in dieser Transaktion nicht vollständig gelöscht werden. Eventuell hat ein anderer Anwender diesem Mandanten gerade einen neuen Arbeitsbereich hinzugefügt?" );
+			cntx.setContent( OUTPUT_saveListErrors, errors );
 		}
+		catch ( Exception e )
+		{
+			throw new RuntimeException( e );
+		}
+
 		return true;
 	}
 }

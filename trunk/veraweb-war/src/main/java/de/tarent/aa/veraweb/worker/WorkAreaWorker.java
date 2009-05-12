@@ -27,17 +27,24 @@
 package de.tarent.aa.veraweb.worker;
 
 import java.io.IOException;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 import de.tarent.aa.veraweb.beans.WorkArea;
+import de.tarent.dblayer.engine.Result;
 import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.clause.Order;
+import de.tarent.dblayer.sql.statement.Delete;
 import de.tarent.dblayer.sql.statement.Select;
+import de.tarent.dblayer.sql.statement.Update;
 import de.tarent.octopus.PersonalConfigAA;
 import de.tarent.octopus.beans.Bean;
 import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.beans.Database;
+import de.tarent.octopus.beans.TransactionContext;
+import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
 
 /**
@@ -113,32 +120,67 @@ public class WorkAreaWorker extends StammdatenWorker
 	}
 
 	@Override
+	/*
+	 * 2009-05-12 cklein
+	 * 
+	 * fixed as part of issue #1530 - deletion of workareas and automatic unassignment from existing persons
+	 */
     protected boolean removeBean(OctopusContext cntx, Bean bean) throws BeanException, IOException
 	{
 		try
 		{
-			super.removeBean( cntx, bean );
+			Database database = new DatabaseVeraWeb( cntx );
+			TransactionContext context = database.getTransactionContext();
+			// first remove all workArea assignments from all persons
+			PersonListWorker.unassignWorkArea( context, ( ( WorkArea ) bean ).id );
+			context.commit();
+			Delete stmt = database.getDelete( "WorkArea" );
+			stmt.byId( "pk",  ( ( WorkArea ) bean ).id  );
+			context.execute( stmt );
+			context.commit();
 		}
-		catch( BeanException e )
+		catch ( BeanException e )
 		{
-			if ( e.getCause().getMessage().indexOf( "Fremdschlüssel-Constraint" ) > 0 )
+			cntx.setContent( OUTPUT_saveListErrors , "Der Arbeitsbereich konnte nicht gelöscht werden." );
+			cntx.setContentError( e );
+		}
+		catch ( Exception e )
+		{
+			throw new RuntimeException( e );
+		}
+
+		return true;
+	}
+
+	/*
+	 * 2009-05-12 cklein
+	 * 
+	 * introduced as part of fix for issue #1530 - deletion of orgunits and automatic deletion of associated work areas. will not commit itself.
+	 */
+	@SuppressWarnings("unchecked")
+	public static void removeAllWorkAreasFromOrgUnit( OctopusContext cntx, TransactionContext context, Integer orgUnitId ) throws BeanException, IOException
+	{
+		Select stmt = context.getDatabase().getSelect( "WorkArea" );
+		stmt.select( "pk" );
+		stmt.where( Expr.equal( "fk_orgunit", orgUnitId ) );
+
+		try
+		{
+			ResultSet beans = ( ResultSet ) ( ( Result ) stmt.execute() ).resultSet();
+			while ( beans.next() )
 			{
-				List< String > errors = ( List< String > ) cntx.getContextField( OUTPUT_saveListErrors );
-				if  ( errors == null )
-				{
-					errors = new ArrayList< String >();
-				}
-				Database database = getDatabase(cntx);
-				bean = database.getBean( "WorkArea", ( ( WorkArea ) bean ).id ); 
-				errors.add( "Der ausgewählte Arbeitsbereich mit dem Namen '" + ( ( WorkArea ) bean ).name + "' ist noch einzelnen Personen zugeordnet und kann nicht gelöscht werden." );
-				cntx.setContent( OUTPUT_saveListErrors, errors );
-			}
-			else
-			{
-				throw e;
+				// first remove all workArea assignments from all persons
+				PersonListWorker.unassignWorkArea( context, beans.getInt( "pk" ) );
+				Delete delstmt = context.getDatabase().getDelete( "WorkArea" );
+				delstmt.byId( "pk",  beans.getInt( "pk" ) );
+				context.execute( delstmt );
 			}
 		}
-		return true;
+		catch ( SQLException e )
+		{
+			// should never happen
+			throw new RuntimeException( e );
+		}
 	}
 
 	@Override
