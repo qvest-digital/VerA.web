@@ -110,7 +110,8 @@ public class GuestListWorker extends ListWorkerVeraWeb {
 			context.commit();
 			cntx.setSession( "selection" + BEANNAME, selection );
 		}
-		
+/*
+ * currently disabled as part of fix to issue #1530
 		// does the user request workareas to be assigned or unassigned?
 		else if(workareaAssignmentAction != null && workareaAssignmentAction.length() > 0)
 		{
@@ -130,6 +131,7 @@ public class GuestListWorker extends ListWorkerVeraWeb {
 				cntx.setSession( "selection" + BEANNAME, Collections.emptyList() );
 			}
 		}
+*/
 		else
 		{
 			super.saveList( cntx );
@@ -144,8 +146,12 @@ public class GuestListWorker extends ListWorkerVeraWeb {
 	 * @param workAreaId ID des Arbeitsbereiches deren Zuordnung entfernt werden soll
 	 * @throws BeanException
 	 * @throws IOException
+	 * 
 	 */
-	public void unassignWorkArea(OctopusContext cntx, List<Integer> guestIds, Integer workAreaId) throws BeanException, IOException
+    /*
+     * currently made private (disabled) as part of fix to issue #1530
+     */
+	private void unassignWorkArea(OctopusContext cntx, List<Integer> guestIds, Integer workAreaId) throws BeanException, IOException
 	{
 		Database database = getDatabase(cntx);
 		TransactionContext context = database.getTransactionContext();
@@ -179,7 +185,10 @@ public class GuestListWorker extends ListWorkerVeraWeb {
 	 * @throws BeanException
 	 * @throws IOException
 	 */
-	public void assignWorkArea(OctopusContext cntx, List<Integer> guestIds, Integer workAreaId) throws BeanException, IOException
+	/*
+     * currently made private (disabled) as part of fix to issue #1530
+     */
+	private void assignWorkArea(OctopusContext cntx, List<Integer> guestIds, Integer workAreaId) throws BeanException, IOException
 	{
 		Database database = getDatabase(cntx);
 		TransactionContext context = database.getTransactionContext();
