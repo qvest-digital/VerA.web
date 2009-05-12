@@ -705,9 +705,13 @@
 			</response>
 		</task>
 		
-		<task name="CreatePersonDoctype" access="public" groups="Writer">
+		<!-- 
+			2009-05-07 c.klein
+			refactor-renamed as part of fix for issue #1528
+		-->
+		<task name="CreateAllPersonDoctypes" access="public" groups="Writer">
 			<description>
-				Dieser Task zeigt die zu einer Person gehörigen Dokumenten-Typen an.
+				Dieser Task erzeugt alle noch nicht vorhandenen Dokumenten-Typen einer Person.
 			</description>
 			<contract>
 				<input name="id" type="xsd:string" optional="t" description="ID der Person; wenn leer, wird diese aus der Session geladen."/>
@@ -721,7 +725,27 @@
 				<param name="ContentType" value="text/html;charset=UTF-8"/>
 			</response>
 		</task>
-		
+
+		<!-- 
+			2009-05-07 c.klein
+			introduced as part of fix for issue #1528
+		-->
+		<task name="CreatePersonDoctype" access="public" groups="Writer">
+			<description>
+				Dieser Task erzeugt einen Dokumenten-Typen für eine Person.
+			</description>
+			<contract>
+				<input name="id" type="xsd:string" optional="t" description="ID der Person; wenn leer, wird diese aus der Session geladen."/>
+			</contract>
+			<doTask name="Load"/>
+			<action name="showDetail" worker="PersonDetailWorker" />
+			<action name="createOne" worker="PersonDoctypeWorker" />
+			<action name="showList" worker="PersonDoctypeWorker" />
+			<response type="velocity" name="personDoctype">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+
 		<task name="SavePersonDoctype" access="public" groups="Writer">
 			<description>
 				Dieser Task zeigt die zu einer Person gehörigen Dokumenten-Typen an.

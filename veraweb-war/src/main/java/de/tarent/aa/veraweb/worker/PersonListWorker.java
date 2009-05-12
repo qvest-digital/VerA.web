@@ -29,6 +29,7 @@
 package de.tarent.aa.veraweb.worker;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -58,12 +59,14 @@ import de.tarent.dblayer.sql.clause.Where;
 import de.tarent.dblayer.sql.clause.WhereList;
 import de.tarent.dblayer.sql.statement.Delete;
 import de.tarent.dblayer.sql.statement.Select;
+import de.tarent.dblayer.sql.statement.Update;
 import de.tarent.octopus.PersonalConfigAA;
 import de.tarent.octopus.beans.Bean;
 import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.beans.BeanFactory;
 import de.tarent.octopus.beans.Database;
 import de.tarent.octopus.beans.TransactionContext;
+import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
 import de.tarent.octopus.beans.veraweb.ListWorkerVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
 
@@ -254,6 +257,20 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 		{
 			context.rollBack();
 		}
+	}
+
+	/*
+	 * 2009-05-12 cklein
+	 * introduced as part of fix for issue #1530 - removal of orgunits, and subsequently also individual workareas
+	 * 
+	 * unassigns from all persons the given workArea. Will not commit the query as this is left to the caller.
+	 */
+	public static void unassignWorkArea( TransactionContext context, Integer workAreaId ) throws BeanException, IOException
+	{
+		Update stmt = context.getDatabase().getUpdate( "Person" );
+		stmt.update( "tperson.fk_workarea", 0 );
+		stmt.where( Expr.equal( "tperson.fk_workarea", workAreaId ) );
+		context.execute( stmt );
 	}
 
 	public Select prepareShowList( OctopusContext cntx, Database database ) throws BeanException, IOException
