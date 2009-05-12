@@ -385,6 +385,11 @@ public class GuestWorker {
      * @param invitationtype Gibt an ob dieser Gast mit/ohne Partner eingeladen werden soll.
      * @param ishost Gibt an ob dieser Gast gleichzeitig Gastgeber ist.
      */
+	/*
+	 * 2009-05-12 cklein
+	 * 
+	 * fixed as part of issue #1531 - personCategorie was always null due to malformed query
+	 */
 	protected boolean saveGuest(OctopusContext cntx, Database database, ExecutionContext context, Event event, Integer guestId, Integer personId, Integer categoryId, Boolean reserve, Integer invitationtype, Boolean ishost) throws BeanException, IOException {
 		if (event == null) return false;
 		
@@ -436,7 +441,7 @@ public class GuestWorker {
 			if (personId != null && categoryId != null) {
 				PersonCategorie personCategorie = new PersonCategorie();
 				personCategorie.person = personId;
-				personCategorie.id = categoryId;
+				personCategorie.categorie = categoryId;
 				personCategorie = (PersonCategorie)
 						database.getBean("PersonCategorie",
 						database.getSelect(personCategorie).where(
