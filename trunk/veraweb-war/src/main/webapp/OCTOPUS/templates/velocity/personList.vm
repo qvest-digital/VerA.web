@@ -227,18 +227,29 @@
 		<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}&person-category=' + document.getElementById('$!{bean.id}-category').value;">$!message.plain($bean.function_a_e1)</td>
 		<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}&person-category=' + document.getElementById('$!{bean.id}-category').value;">$!message.plain($bean.company_a_e1)</td>
 		<td class="list">
-			<select name="$!{bean.id}-category" id="$!{bean.id}-category" class="combobox" style="width: 135px;">
-			<option value="">keine</option>
+			## 2009-05-13 cklein
+			## fixes issue #1531
 			#set($cats = $personCategorie.getList($bean.id))
 			#set($size = $cats.size())
-			#if($invitecategory.containsKey($bean.id))
-				#set($last = $invitecategory.get($bean.id))
-				##in $last ist jetzt oft null drin?
+			#set( $found=0 )
+			#if( $search.categoriesSelection.size() == 1 )
+				#foreach( $cat in $cats )
+					#if( $search.categoriesSelection.get( 0 ) == $cat.categorie )
+						#set( $found=$cat.categorie )
+					#end
+				#end			
+			#end
+			<select name="$!{bean.id}-category" id="$!{bean.id}-category" class="combobox" style="width: 135px;">
+			#if( $size == 0 || ( $size > 1 && $search.categoriesSelection.size() > 1 ) || ( $search.categoriesSelection.size() == 1 && $found == 0 ) )
+				<option value="" selected>keine</option>
 			#else
-				#set($last = 0)
+				<option value="">keine</option>
+			#end
+			#if( $size == 1 )
+				#set( $found = $cats.get( 0 ).categorie )
 			#end
 			#foreach($cat in $cats)
-				<option value="$!cat.categorie" #if($cat.categorie == $last || $size == 1) selected #end>$!cat.name</option>
+				<option value="$!cat.categorie" #if($cat.categorie == $found || $size == 1) selected #end>$!cat.name</option>
 			#end
 			</select>
 		</td>
