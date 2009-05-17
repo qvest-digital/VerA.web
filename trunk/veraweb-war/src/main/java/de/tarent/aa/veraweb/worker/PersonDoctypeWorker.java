@@ -303,6 +303,8 @@ public class PersonDoctypeWorker extends ListWorkerVeraWeb {
 				personDoctype.person = person.id;
 	
 				database.saveBean( personDoctype );
+
+				cntx.setContent( "persondoctype-id", personDoctype.id );
 			}
 		}
     }

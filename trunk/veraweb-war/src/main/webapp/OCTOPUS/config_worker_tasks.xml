@@ -740,10 +740,7 @@
 			<doTask name="Load"/>
 			<action name="showDetail" worker="PersonDetailWorker" />
 			<action name="createOne" worker="PersonDoctypeWorker" />
-			<action name="showList" worker="PersonDoctypeWorker" />
-			<response type="velocity" name="personDoctype">
-				<param name="ContentType" value="text/html;charset=UTF-8"/>
-			</response>
+			<doTask name="ShowPersonDoctype"/>
 		</task>
 
 		<task name="SavePersonDoctype" access="public" groups="Writer">
