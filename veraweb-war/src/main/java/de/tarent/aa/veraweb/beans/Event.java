@@ -30,6 +30,7 @@ package de.tarent.aa.veraweb.beans;
 
 import java.sql.Timestamp;
 
+import de.tarent.aa.veraweb.utils.DateHelper;
 import de.tarent.octopus.PersonalConfigAA;
 import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.server.OctopusContext;
@@ -70,6 +71,12 @@ public class Event extends AbstractHistoryBean implements OrgUnitDependent {
 			addError("Die Veranstaltung kann nicht gespeichert werden. Vergeben Sie bitte eine Kurzbezeichnung.");
 		if (begin == null)
 			addError("Sie müssen den Beginn der Veranstaltung im Format TT.MM.JJJJ sowie SS.MM angeben.");
+
+		/*
+		 * 2009-05-17 cklein
+		 * temporarily fixes issue #1529 until i gain access to the old octopus repository
+		 */
+		DateHelper.temporary_fix_translateErrormessageEN2DE( this.getErrors() );
 	}
 
     /**

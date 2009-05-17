@@ -35,6 +35,7 @@ import de.tarent.aa.veraweb.beans.facade.PersonAddressFacade;
 import de.tarent.aa.veraweb.beans.facade.PersonConstants;
 import de.tarent.aa.veraweb.beans.facade.PersonMemberFacade;
 import de.tarent.aa.veraweb.utils.AddressHelper;
+import de.tarent.aa.veraweb.utils.DateHelper;
 import de.tarent.octopus.PersonalConfigAA;
 import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.server.OctopusContext;
@@ -310,6 +311,12 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 				(company_a_e1 != null && company_a_e1.length() != 0))) {
 			addError("Sie müssen einen Vornamen, einen Nachnamen oder eine Firma angeben.");
 		}
+
+		/*
+		 * 2009-05-17 cklein
+		 * temporarily fixes issue #1529 until i gain access to the old octopus repository
+		 */
+		DateHelper.temporary_fix_translateErrormessageEN2DE( this.getErrors() );
 	}
 
 	/**

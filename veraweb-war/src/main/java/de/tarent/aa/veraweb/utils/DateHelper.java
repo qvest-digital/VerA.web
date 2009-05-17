@@ -28,6 +28,7 @@ package de.tarent.aa.veraweb.utils;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -129,6 +130,32 @@ public class DateHelper {
 		return date != null && ((date.getTime() / 1000) % 60) == 0;
 	}
 
+	/**
+	 * 2009-05-17 cklein
+	 * Introducing this temporary fix here. Normally this should have gone into
+	 * octopus, however, I currently do not have access to the old/new cvsroot.
+	 * Temporarily fixes issue #1529.
+	 * @param errors
+	 */
+	static public void temporary_fix_translateErrormessageEN2DE(List< String > errors)
+	{
+		List< String > found = new ArrayList< String >();
+		for( String err : errors )
+		{
+			if ( err.contains( "is not a valid date" ) )
+			{
+				found.add( err );
+				break;
+			}
+		}
+
+		for ( String err : found )
+		{
+			errors.remove( err );
+			errors.add( err.substring( 0, err.indexOf( ' ' ) ).concat( " ist kein gültiges Datum. Bitte verwenden Sie das Eingabeformat TT-MM-JJJJ.") );
+		}
+	}
+	
 	/** Deutsches Datumsformat */
     private static final DateFormat TIME_FORMAT_DE = new SimpleDateFormat("H:m");
 
