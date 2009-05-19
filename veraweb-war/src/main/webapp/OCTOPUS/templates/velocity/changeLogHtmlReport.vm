@@ -49,7 +49,9 @@
 						#set( $task="ShowEvent" )
 						#set( $params="?id=${entry.objectid}" )
 					#end
-					<a href="${paths.staticWeb}do/${task}${params}" target="_blank">
+					#if ( ! $octopusConfig.personalConfig.getUserName().equals( "System User" ) && $octopusConfig.personalConfig.getVerawebId() != -1 )
+						<a href="${paths.staticWeb}do/${task}${params}" target="_blank">
+					#end
 				#end
 				#set( $len=50 )
 				#set( $ellipsis="" )
@@ -62,7 +64,9 @@
 				#end
 				$!message.plain( $entry.objectname.substring( 0, $len ) )$ellipsis
 				#if( $entry.op == "insert" || $entry.op == "update" || ( $entry.op == "delete" && $entry.attributes != "*" ) )
-					</a>
+					#if ( ! $octopusConfig.personalConfig.getUserName().equals( "System User" ) && $octopusConfig.personalConfig.getVerawebId() != -1 )
+						</a>
+					#end
 				#end				
 				</td>
 				<td>$!message.plain( $entry.op )</td>
