@@ -294,11 +294,14 @@ public class LoginManagerLDAPAA extends LoginManagerLDAPGeneric implements Login
                 pConfig.setUserID(new Integer(-1));
                 pConfig.setUserLastName("Manager");
                 pConfig.setUserName("System Manager");
+                pConfig.setUserGroups(new String[]{PersonalConfigAA.GROUP_SYSTEM_USER});
+                /*
                 pConfig.setUserGroups(new String[]{PersonalConfigAA.GROUP_ADMIN,
                         PersonalConfigAA.GROUP_PARTIAL_ADMIN, PersonalConfigAA.GROUP_WRITE,
                         PersonalConfigAA.GROUP_READ_REMARKS, PersonalConfigAA.GROUP_EXPORT,
                         PersonalConfigAA.GROUP_READ_STANDARD, PersonalConfig.GROUP_USER,
                         PersonalConfigAA.GROUP_IN_PERSON});
+                */
                 pConfig.userLoggedIn(tcRequest.getPasswordAuthentication().getUserName());
                 aaConfig.setRole(tcRequest.getPasswordAuthentication().getUserName());
                 aaConfig.setRoles(null);

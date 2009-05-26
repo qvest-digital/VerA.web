@@ -38,7 +38,7 @@ import de.tarent.octopus.config.TcPersonalConfig;
 
 /**
  * Diese Klasse stellt die Implementierung von {@link de.tarent.octopus.server.PersonalConfig}
- * für das Auswärtige Amt dar.
+ * fï¿½r das Auswï¿½rtige Amt dar.
  * 
  * @author mikel
  */
@@ -48,27 +48,29 @@ public class PersonalConfigAA extends TcPersonalConfig {
     //
     /** Gruppe der Benutzer, die als Vertreter angemeldet sind */
     public final static String GROUP_BY_PROXY = "ByProxy";
-    /** Gruppe der Benutzer, die persönlich (also nicht als Vertreter) angemeldet sind */
+    /** Gruppe der Benutzer, die persï¿½nlich (also nicht als Vertreter) angemeldet sind */
     public final static String GROUP_IN_PERSON = "InPerson";
     /** Gruppe der Benutzer, deren AA-Rolle nach Login nicht klar ist */
     public final static String GROUP_UNCLEAR_ROLE = "Unclear";
-    /** Gruppe der Benutzer, deren (gewählte) Rollen nicht autorisiert sind */
+    /** Gruppe der Benutzer, deren (gewï¿½hlte) Rollen nicht autorisiert sind */
     public final static String GROUP_UNAUTHORIZED = "Unauthorized";
-    /** Gruppe der Benutzer, die die Standardfelder lesen dürfen */
+    /** Gruppe der Benutzer, die die Standardfelder lesen dï¿½rfen */
     public final static String GROUP_READ_STANDARD = "StandardFieldsReader";
-    /** Gruppe der Benutzer, die die limitierten Bemerkungsfelder lesen dürfen */
+    /** Gruppe der Benutzer, die die limitierten Bemerkungsfelder lesen dï¿½rfen */
     public final static String GROUP_READ_REMARKS = "RemarkFieldsReader";
-    /** Gruppe der Benutzer, die exportieren dürfen */
+    /** Gruppe der Benutzer, die exportieren dï¿½rfen */
     public final static String GROUP_EXPORT = "Exporter";
-    /** Gruppe der Benutzer, die schreiben dürfen, abhängig von ihren Leserechten. */
+    /** Gruppe der Benutzer, die schreiben dï¿½rfen, abhï¿½ngig von ihren Leserechten. */
     public final static String GROUP_WRITE = "Writer";
     /** Gruppe der Teiladministratoren */
     public final static String GROUP_PARTIAL_ADMIN = "PartialAdmin";
     /** Gruppe der Volladministratoren */
     public final static String GROUP_ADMIN = GROUP_ADMINISTRATOR;
+    /** Gruppe der Systemuser */
+    public final static String GROUP_SYSTEM_USER = "SystemUser";
     
     //
-    // Überschreibungen von TcPersonalConfig
+    // ï¿½berschreibungen von TcPersonalConfig
     //
     /**
      * @see de.tarent.octopus.config.TcPersonalConfig#setUserGroups(java.lang.String[], java.lang.String)
@@ -166,7 +168,7 @@ public class PersonalConfigAA extends TcPersonalConfig {
     }
     
     /**
-     * Dieses Attribut stellt die verfügbaren AA-Rollen der Anmeldung dar.
+     * Dieses Attribut stellt die verfï¿½gbaren AA-Rollen der Anmeldung dar.
      * 
      * @return AA-Rollen der Anmeldung
      */
@@ -175,7 +177,7 @@ public class PersonalConfigAA extends TcPersonalConfig {
     }
     
     /**
-     * Dieses Attribut stellt die verfügbaren AA-Rollen der Anmeldung dar.
+     * Dieses Attribut stellt die verfï¿½gbaren AA-Rollen der Anmeldung dar.
      * 
      * @param roles AA-Rollen der Anmeldung
      */
@@ -184,7 +186,7 @@ public class PersonalConfigAA extends TcPersonalConfig {
     }
 
     /**
-     * Diese berechnete Attribut liefert die Rolle gegebenenfalls ergänzt um
+     * Diese berechnete Attribut liefert die Rolle gegebenenfalls ergï¿½nzt um
      * Vertretungsinformationen.
      * 
      * @return "Rolle" oder "Rolle (i.V. Vertreter)"
@@ -195,7 +197,7 @@ public class PersonalConfigAA extends TcPersonalConfig {
     
     /**
      * Diese Methode liefert eine {@link Grants}-Instanz passend zu den 
-     * Benutzergruppen der persönlichen Konfiguration. 
+     * Benutzergruppen der persï¿½nlichen Konfiguration. 
      * 
      * @return {@link Grants} des Benutzers
      */
@@ -209,7 +211,7 @@ public class PersonalConfigAA extends TcPersonalConfig {
     // innere Klassen
     //
     /**
-     * Diese Klasse implementiert {@link Grants} auf Basis der in der persönlichen
+     * Diese Klasse implementiert {@link Grants} auf Basis der in der persï¿½nlichen
      * Konfiguration gehaltenen Octopus-Benutzergruppen. 
      */
     class AAGrants implements Grants {
@@ -232,6 +234,8 @@ public class PersonalConfigAA extends TcPersonalConfig {
         public boolean isPartialAdmin()         { return partialAdmin; }
         /** @see Grants#isAdmin() */
         public boolean isAdmin()                { return admin; }
+        /** @see Grants#isSystemUser() */
+        public boolean isSystemUser()           { return systemUser; }
         
         //
         // Konstruktor
@@ -249,6 +253,7 @@ public class PersonalConfigAA extends TcPersonalConfig {
             write = isUserInGroup(GROUP_WRITE);
             partialAdmin = isUserInGroup(GROUP_PARTIAL_ADMIN);
             admin = isUserInGroup(GROUP_ADMIN);
+            systemUser = isUserInGroup(GROUP_SYSTEM_USER);
         }
         
         //
@@ -262,6 +267,7 @@ public class PersonalConfigAA extends TcPersonalConfig {
         final boolean write;
         final boolean partialAdmin;
         final boolean admin;
+        final boolean systemUser;
     }
     
     //

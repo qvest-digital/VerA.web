@@ -33,6 +33,7 @@ package de.tarent.aa.veraweb.beans;
 import de.tarent.octopus.PersonalConfigAA;
 import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.server.OctopusContext;
+import de.tarent.octopus.server.PersonalConfig;
 
 /**
  * Diese Bohne stellt Benutzer mit ihren Berechtigungen dar. 
@@ -74,14 +75,15 @@ public class User extends AbstractBean implements OrgUnitDependent {
     /**
      * Diese Methode testet, ob im aktuellen Kontext diese Bohne geschrieben
      * werden darf.<br>
-     * Test ist, ob der Benutzer Mandanten-Administrator ist.
+     * Test ist, ob der Benutzer Mandanten-Administrator oder der SystemUser ist.
      * 
      * @param cntx Octopus-Kontext
      * @throws BeanException Wenn im angegebenen Kontext diese Bohne nicht geschrieben werden darf.
      */
     @Override
-    public void checkWrite(OctopusContext cntx) throws BeanException {
-        checkGroup(cntx, PersonalConfigAA.GROUP_PARTIAL_ADMIN);
+    public void checkWrite(OctopusContext cntx) throws BeanException
+    {
+		checkGroups( cntx, new String[] { PersonalConfigAA.GROUP_PARTIAL_ADMIN, PersonalConfigAA.GROUP_SYSTEM_USER } );
     }
 
     //
