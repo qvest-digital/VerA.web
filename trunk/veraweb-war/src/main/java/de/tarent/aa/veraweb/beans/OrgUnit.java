@@ -44,7 +44,7 @@ import de.tarent.octopus.server.OctopusContext;
  * @author mikel
  */
 public class OrgUnit extends AbstractBean {
-    /** Primärschlüssel */
+    /** Primï¿½rschlï¿½ssel */
     public Integer id;
     /** Mandantenname */
     public String name;
@@ -72,7 +72,8 @@ public class OrgUnit extends AbstractBean {
      * @see de.tarent.aa.veraweb.beans.AbstractBean#checkWrite(de.tarent.octopus.server.OctopusContext)
      */
     @Override
-    public void checkWrite(OctopusContext cntx) throws BeanException {
-        checkGroup(cntx, PersonalConfigAA.GROUP_ADMIN);
+    public void checkWrite(OctopusContext cntx) throws BeanException
+    {
+    	checkGroups( cntx, new String[] { PersonalConfigAA.GROUP_ADMIN, PersonalConfigAA.GROUP_SYSTEM_USER } );
     }
 }

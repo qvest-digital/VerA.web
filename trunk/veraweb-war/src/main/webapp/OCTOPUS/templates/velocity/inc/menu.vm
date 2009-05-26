@@ -46,7 +46,7 @@
 ## modified in order to make categories available to all users for viewing as per change request for version 1.2.0
 ## cklein
 ## 2008-02-21
-#if($grants.isUser())
+#if($grants.isUser() || $grants.isSystemUser())
 <div class="menusection">
 	<strong class="menutitle">Verwaltung</strong>
 #if($grants.isAdmin() || $grants.isPartialAdmin())
@@ -56,7 +56,9 @@
   #if($grants.isAdmin())
 	<a href="${paths.staticWeb}do/Doctype?start=0" class="menulink">Dokumenttypen</a>
   #end
+#if($grants.isUser())
 	<a href="${paths.staticWeb}do/Categorie?start=0" class="menulink">Kategorien</a>
+#end
 #if($grants.isAdmin() || $grants.isPartialAdmin())
 	<a href="${paths.staticWeb}do/Color" class="menulink">Farben</a>
 #end
@@ -70,8 +72,12 @@
 #end
   #if($grants.isAdmin())
 	<a href="${paths.staticWeb}do/WorkArea?start=0" class="menulink">Arbeitsbereiche</a>
+  #end
+  #if($grants.isAdmin() || $grants.isSystemUser())
 	<a href="${paths.staticWeb}do/Orgunit?start=0" class="menulink">Mandanten</a>
 	<a href="${paths.staticWeb}do/AllUser?start=0" class="menulink">Benutzer</a>
+  #end
+  #if($grants.isAdmin())
 	<a href="${paths.staticWeb}do/AllProxy?start=0" class="menulink">Stellvertretungen</a>
 	<a href="${paths.staticWeb}do/ChangeLogReport" class="menulink">Reports</a>
   #end
@@ -81,7 +87,7 @@
   #end
 </div>
  #end
-
+ 
 <div class="menusection">
 	<strong class="menutitle">Benutzer</strong>
  #if($grants.isUser())

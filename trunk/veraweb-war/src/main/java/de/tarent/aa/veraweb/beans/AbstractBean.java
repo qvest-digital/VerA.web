@@ -32,7 +32,7 @@ import de.tarent.octopus.server.OctopusContext;
 import de.tarent.octopus.server.PersonalConfig;
 
 /**
- * Diese Klasse stellt eine abstrakte Basis für Beans auf Basis der
+ * Diese Klasse stellt eine abstrakte Basis fï¿½r Beans auf Basis der
  * {@link de.tarent.octopus.beans.MapBean} dar.
  * 
  * @author christoph
@@ -63,10 +63,10 @@ public abstract class AbstractBean extends MapBean {
 	}
 
     /**
-     * Diese Methode leert beschränkte Felder.<br>
-     * Achtung: Bei Benutzern, die diese Bean auch schreiben dürfen
+     * Diese Methode leert beschrï¿½nkte Felder.<br>
+     * Achtung: Bei Benutzern, die diese Bean auch schreiben dï¿½rfen
      * (siehe {@link #checkWrite(OctopusContext)}), sollte die Bean hier nicht
-     * verändert werden. 
+     * verï¿½ndert werden. 
      * 
      * @param cntx Octopus-Kontext
      * @throws BeanException bei Problemen mit der Bean
@@ -75,7 +75,7 @@ public abstract class AbstractBean extends MapBean {
     }
     
 	/**
-	 * Diese Methode testet, ob im aktuellen Kontext der User der übergebenen
+	 * Diese Methode testet, ob im aktuellen Kontext der User der ï¿½bergebenen
 	 * Gruppe zugeordenet ist.
 	 * 
 	 * @param cntx
@@ -88,5 +88,35 @@ public abstract class AbstractBean extends MapBean {
 			throw new BeanException("No personal config");
 		if (!personalConfig.isUserInGroup(group))
 			throw new BeanException("Only group " + group + " may write " + getClass().getName());
+	}
+
+	/**
+	 * Checks whether the user is a member of either of the specified groups.
+	 * 
+	 * @param cntx
+	 * @param groups
+	 * 
+	 * @throws BeanException
+	 */
+	protected void checkGroups(OctopusContext cntx, String... groups) throws BeanException
+	{
+		PersonalConfig personalConfig = ( cntx != null ) ? cntx.personalConfig() : null;
+		if ( personalConfig == null )
+		{
+			throw new BeanException( "No personal config" );
+		}
+		Boolean found = Boolean.FALSE;
+		for ( String group : groups )
+		{
+			found = personalConfig.isUserInGroup( group );
+			if ( found )
+			{
+				break;
+			}
+		}
+		if ( ! found )
+		{
+			throw new BeanException( "Only groups " + groups.toString() + " may write " + getClass().getName() );
+		}
 	}
 }

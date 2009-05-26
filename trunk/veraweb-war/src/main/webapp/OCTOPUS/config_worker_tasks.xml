@@ -150,7 +150,7 @@
 			<doTask name="ShowLogin" />
 		</task>
 		
-		<task name="default" access="public" groups="User,Unclear,Unauthorized">
+		<task name="default" access="public" groups="User,Unclear,Unauthorized,SystemUser">
 			<description>Der Default Task</description>
 			<contract>
 				<input name="username" type="xsd:string" optional="f" description="Benutzername"/>
@@ -199,7 +199,7 @@
 			</response>
 		</task>
 
-		<task name="Main" access="public" groups="User">
+		<task name="Main" access="public" groups="User,SystemUser">
 			<description>
 				Dieser Task zeigt den Hauptdialog an.
 			</description>
@@ -211,7 +211,7 @@
 			</response>
 		</task>
 
-		<task name="Info" access="public" groups="User,Unclear,Unauthorized">
+		<task name="Info" access="public" groups="User,Unclear,Unauthorized,SystemUser">
 			<description>
 				Dieser Task zeigt den Infodialog an.
 			</description>
@@ -224,7 +224,7 @@
 		</task>
 		
 		<!-- LOAD DATA -->
-		<task name="Load" access="private" groups="User">
+		<task name="Load" access="private" groups="User,SystemUser">
 			<description>
 				Lädt Daten die von allen Templates benötigt werden.
 				u.a. ResourceBundles oder Zugriffsberechtigungsflags.
@@ -236,13 +236,13 @@
 			<action name="load" worker="UserConfigWorker"/>
 		</task>
 		
-		<task name="LoadStammdaten" access="private" groups="User">
+		<task name="LoadStammdaten" access="private" groups="User,SystemUser">
 			<description>Alle Worker die für die Stammdaten benötigt werden, z.B. Berechtigungen setzten.</description>
 			<doTask name="Load"/>
 		</task>
 		
 		<!-- Umsetzung STAMMDATEN -->
-		<task name="Color" access="public" groups="Administrator,PartialAdmin">
+		<task name="Color" access="public" groups="Administrator,PartialAdmin,SystemUser">
 			<doTask name="LoadStammdaten"/>
 			<action name="saveList" worker="ColorWorker" />
 			<action name="showList" worker="ColorWorker" />
@@ -1716,7 +1716,7 @@
 			</response>
 		</task>
 
-		<task name="AllUser" access="public" groups="Administrator">
+		<task name="AllUser" access="public" groups="Administrator,SystemUser">
 			<description>
 				Dieser Task zeigt alle Benutzer an.
 				Werden dem Task Benutzerdaten übergeben, so wird zuvor versucht,
@@ -1737,7 +1737,7 @@
 
 		<!-- Umsetzung Mandanten -->
 
-		<task name="Orgunit" access="public" groups="Administrator">
+		<task name="Orgunit" access="public" groups="Administrator,SystemUser">
 			<description>
 				Dieser Task zeigt alle Mandanten an.
 				Werden dem Task Benutzerdaten übergeben, so wird zuvor versucht,

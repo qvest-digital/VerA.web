@@ -49,9 +49,7 @@
 						#set( $task="ShowEvent" )
 						#set( $params="?id=${entry.objectid}" )
 					#end
-					#if ( ! $octopusConfig.personalConfig.getUserName().equals( "System User" ) && $octopusConfig.personalConfig.getVerawebId() != -1 )
-						<a href="${paths.staticWeb}do/${task}${params}" target="_blank">
-					#end
+					<a href="${paths.staticWeb}do/${task}${params}" target="_blank">
 				#end
 				#set( $len=50 )
 				#set( $ellipsis="" )
