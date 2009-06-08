@@ -549,16 +549,19 @@ public class PersonDetailWorker implements PersonConstants {
 				// is this a new record?
 				if ( person.id == null )
 				{
-					// since this is a new person and since we must return null in order to 
-					// have the view rendered with all fields disabled, we transfer the errors from the
+					/*
+					 * 2009-06-08 cklein
+					 * fixing issue with new persons losing all state and data
+					 * when entering an invalid date and trying to store the person
+					 * part of fix to issue #1529, as it first showed up when testing
+					 * the fixes to that issue
+					 */
+					// we transfer the errors from the
 					// person to the template parameter newPersonErrors
 					cntx.setContent( "newPersonErrors", person.getErrors() );
-					return null;
 				}
-				else
-				{
-					return person;
-				}
+
+				return person;
 			}
 
 			if (cntx.requestAsBoolean("forcedupcheck").booleanValue())
