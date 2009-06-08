@@ -145,7 +145,6 @@ public class DateHelper {
 			if ( err.contains( "is not a valid date" ) )
 			{
 				found.add( err );
-				break;
 			}
 		}
 
