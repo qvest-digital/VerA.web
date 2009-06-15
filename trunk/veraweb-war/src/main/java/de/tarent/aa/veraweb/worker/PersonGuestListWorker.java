@@ -170,7 +170,7 @@ public class PersonGuestListWorker extends PersonListWorker {
 				select.joinLeftOuter("veraweb.tperson_categorie AS cat1", "tperson.pk", "cat1.fk_person");
 				select.joinLeftOuter("veraweb.tperson_categorie AS cat2", "tperson.pk", "cat2.fk_person");
 				select.selectAs("cat1.fk_categorie", "category");
-			} else if (search.categoriesSelection != null) {
+			} else if (search.categoriesSelection != null  && !cntx.getTaskName().equals("AddPersonToEventList")) {
 				select.joinLeftOuter("veraweb.tperson_categorie AS cat1", "tperson.pk", "cat1.fk_person");
 				select.selectAs("cat1.fk_categorie", "category");
 			} else if (search.categorie2 != null) {
