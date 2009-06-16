@@ -16,7 +16,7 @@ CREATE OR REPLACE FUNCTION serv_verawebschema(int4) RETURNS varchar AS
 '
 /* ------------------------------------------------------------ 
  * <name> serv_verawebschema </name>                             
- * <date> 2008-12-22 </date>
+ * <date> 2009-06-15 </date>
  * <param>
  * 	mode:	0=log changes only, 1=do changes (and log)
  * </param>
@@ -70,7 +70,7 @@ DECLARE
 
 BEGIN
 	--##### please set vversion to current date
-	vversion := \'2008-12-22\';
+	vversion := \'2009-06-15\';
 	--#####
 	
 	vrecno := 0;
