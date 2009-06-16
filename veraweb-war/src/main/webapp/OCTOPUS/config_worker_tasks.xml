@@ -1271,6 +1271,7 @@
 			<action name="getSearch" worker="GuestListWorker"/>
 			<action name="getEvent" worker="GuestListWorker" />
 			<status equals="noevent"><doTask name="CreateEvent"/></status>
+			<action name="getSelection" worker="PersonListWorker"/>
 			<action name="extendGuestSelection" worker="PersonGuestListWorker"/>
 			<doTask name="SearchPerson"/>
 		</task>
