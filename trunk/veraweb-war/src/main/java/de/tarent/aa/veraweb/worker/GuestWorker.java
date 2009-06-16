@@ -109,20 +109,6 @@ public class GuestWorker {
 				invite = addGuest(cntx, database, context, event, id, category, Boolean.valueOf(reserve), invitationtype, Boolean.FALSE);
 				if (invite) invited++; else notInvited++;
 			}
-			size = invitepartner.size();
-			for (int i = 0; i < size; i++) {
-				id = (Integer)invitepartner.get(i);
-				main = invitemain.indexOf(id) != -1;
-				reserve = selectreserve.indexOf(id) != -1;
-				
-				if (!main) {
-					category = (Integer)invitecategory.get(id);
-					if (category != null && category.intValue() == 0) category = null;
-					invitationtype = new Integer(EventConstants.TYPE_NURPARTNER);
-					invite = addGuest(cntx, database, context, event, id, category, Boolean.valueOf(reserve), invitationtype, Boolean.FALSE);
-					if (invite) invited++; else notInvited++;
-				}
-			}
 			
 			cntx.setContent("invited", new Integer(invited));
 			cntx.setContent("notInvited", new Integer(notInvited));

@@ -79,10 +79,13 @@ public class PersonGuestListWorker extends PersonListWorker {
 		Database database = getDatabase(cntx);
 		Event event = (Event)cntx.contentAsObject("event");
 		PersonSearch search = getSearch(cntx);
-		
+		// IDs der sichtbaren Personen
 		List ids = (List)BeanFactory.transform(cntx.requestAsObject(INPUT_LIST), List.class);
-		List invitemain = getSelection(cntx, null);
+		// IDs der selektierten Personen
+		List invitemain = (List)cntx.sessionAsObject("selectionPerson");
+		// IDs der Personen mit Partner
 		List invitepartner = (List)cntx.sessionAsObject("addguest-invitepartner");
+		// IDs der Personen deren Reserve selektiert ist
 		List selectreserve = (List)cntx.sessionAsObject("addguest-selectreserve");
 		Map invitecategory = (Map)cntx.sessionAsObject("addguest-invitecategory");
 		
@@ -98,7 +101,7 @@ public class PersonGuestListWorker extends PersonListWorker {
 				select.joinLeftOuter("veraweb.tperson_categorie AS cat1", "tperson.pk", "cat1.fk_person");
 				select.joinLeftOuter("veraweb.tperson_categorie AS cat2", "tperson.pk", "cat2.fk_person");
 				select.selectAs("cat1.fk_categorie", "category");
-			} else if (search.categoriesSelection != null) {
+			} else if (search.categoriesSelection != null && search.categoriesSelection.size() > 0) {
 				select.joinLeftOuter("veraweb.tperson_categorie AS cat1", "tperson.pk", "cat1.fk_person");
 				select.selectAs("cat1.fk_categorie", "category");
 			} else if (search.categorie2 != null) {
@@ -161,7 +164,6 @@ public class PersonGuestListWorker extends PersonListWorker {
 			selectreserve = new ArrayList();
 		} else if (cntx.requestAsBoolean(INPUT_SELECTALL).booleanValue()) {
 			// Alle IDs aus der Datenbank in die Liste kopieren.
-			invitemain = new ArrayList();
 			invitepartner = new ArrayList();
 			selectreserve = new ArrayList();
 			
@@ -170,7 +172,7 @@ public class PersonGuestListWorker extends PersonListWorker {
 				select.joinLeftOuter("veraweb.tperson_categorie AS cat1", "tperson.pk", "cat1.fk_person");
 				select.joinLeftOuter("veraweb.tperson_categorie AS cat2", "tperson.pk", "cat2.fk_person");
 				select.selectAs("cat1.fk_categorie", "category");
-			} else if (search.categoriesSelection != null  && !cntx.getTaskName().equals("AddPersonToEventList")) {
+			} else if (search.categoriesSelection != null && search.categoriesSelection.size() > 0) {
 				select.joinLeftOuter("veraweb.tperson_categorie AS cat1", "tperson.pk", "cat1.fk_person");
 				select.selectAs("cat1.fk_categorie", "category");
 			} else if (search.categorie2 != null) {
@@ -184,9 +186,6 @@ public class PersonGuestListWorker extends PersonListWorker {
 				select.where(Where.and(clause, Where.or(
 						Expr.greater("lastname_a_e1", ""),
 						Expr.greater("firstname_a_e1", ""))));
-				for (Iterator it = database.getList(select, database).iterator(); it.hasNext(); ) {
-					invitemain.add(((Map)it.next()).get("id"));
-				}
 			}
 			/*
 			 * modified to support searching for persons that have no categories assigned as per change request for version 1.2.0
