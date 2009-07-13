@@ -1959,7 +1959,7 @@ END;\'
 	---------------------------</TABLE>
 	
 	---------------------------<TABLE>
-	--DROP falls veraltete Variante erkannt an Spalte ssalutation
+	--DROP falls veraltete Variante erkannt an Spalte state_a_e1
 	vint := 0;
 	SELECT count(*) INTO vint FROM information_schema.columns
 		WHERE table_schema = \'veraweb\' AND table_name = \'timportperson\' AND column_name = \'state_a_e1\';
