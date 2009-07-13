@@ -196,7 +196,7 @@ public class LoginManagerLDAPAA extends LoginManagerLDAPGeneric implements Login
         // http://www.ietf.org/internet-drafts/draft-ietf-ldapbis-authmeth-18.txt
         // Clients SHOULD disallow an empty password input to a Name/Password Authentication user interface.
         if (origAuth != null && (origAuth.getPassword() == null || origAuth.getPassword().length == 0))
-            throw new TcSecurityException("Leere Passw�rter sind nicht zul�ssig.");
+            throw new TcSecurityException("Leere Passwörter sind nicht zulässig.");
         try {
         	/* the password authentication returned by TcRequest contains the fully
         	 * qualified username. This will break with the current implementation
@@ -268,7 +268,7 @@ public class LoginManagerLDAPAA extends LoginManagerLDAPGeneric implements Login
                             // bereits korrekt auf die erste vom LDAP gelieferte uid gesetzt sein, also
                             // auf die uid, die auch von getAARoles zur Bearbeitung geliefert wird.
                             if (aaConfig.getRole() == null) {
-                                logger.warning("Rolle nicht aus uid gesetzt, Pr�frolle wird genutzt.");
+                                logger.warning("Rolle nicht aus uid gesetzt, Prüfrolle wird genutzt.");
                                 aaConfig.setRole(newAuth.getUserName());
                             }
                             aaConfig.setRoles(null);

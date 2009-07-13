@@ -33,9 +33,9 @@
 		function send()
 		{
 #if( $assignmentAction == "assign" )
-			doit = confirm( "Wollen Sie ${count} Personen bzw. Gäste dem ausgewähltem Arbeitsbereich zuordnen?" );
+			doit = confirm( "Wollen Sie ${count} Personen bzw. Gästen den ausgewählten Arbeitsbereich zuordnen?" );
 #else
-			doit = confirm( "Wollen Sie ${count} Personen bzw. Gäste aus dem ausgewähltem Arbeitsbereich entfernen?" );
+			doit = confirm( "Wollen Sie die Zuordnung von ${count} Personen bzw. Gästen zum ausgewählten Arbeitsbereich aufheben?" );
 #end
 			if ( doit )
 			{
