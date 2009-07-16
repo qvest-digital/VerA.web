@@ -481,11 +481,17 @@ public class DataExchangeWorker {
         	outerWhere.addAnd(Expr.equal("tperson.fk_orgunit", orgUnit));
         }
        	
-        if (event == null) {
+		/*
+		 * cklein 2009-07-16: fixes issue 1815 - although option "Alle" yielded no return value
+		 * the octopus version in use made it a valid integer object of value 0, which broke
+		 * existing code relying on the fact that the request parameter would be null.
+		 * Keine is now equals to -1.
+		 */
+        if (event == null || event.intValue() == 0) {
         	outerWhere.addAnd(Expr.in(
         			database.getProperty(samplePerson, "id"),
         			new RawClause('(' + inner.toString() + ')')));
-        } else if (event.intValue() == 0) {
+        } else if (event.intValue() == -1) {
         	outerWhere.addAnd(new RawClause("NOT " + Expr.in(
         			database.getProperty(samplePerson, "id"),
                     new RawClause('(' + inner.toString() + ')')).clauseToString()));
@@ -533,11 +539,17 @@ public class DataExchangeWorker {
         	outerWhere.addAnd(Expr.equal("tperson.fk_orgunit", orgUnit));
         }
        	
-        if (category == null) {
+		/*
+		 * cklein 2009-07-16: fixes issue 1815 - although option "Alle" yielded no return value
+		 * the octopus version in use made it a valid integer object of value 0, which broke
+		 * existing code relying on the fact that the request parameter would be null.
+		 * Keine is now equals to -1.
+		 */
+        if (category == null || category.intValue() == 0) {
             outerWhere.addAnd(Expr.in(
             		database.getProperty(samplePerson, "id"),
             		new RawClause('(' + inner.toString() + ')')));
-        } else if (category.intValue() == 0) {
+        } else if (category.intValue() == -1) {
             outerWhere.addAnd(new RawClause("NOT " + Expr.in(
             		database.getProperty(samplePerson, "id"),
             		new RawClause('(' + inner.toString() + ')')).clauseToString()));
