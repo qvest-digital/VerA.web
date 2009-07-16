@@ -17,8 +17,14 @@
 	<td class="label"><label for="exportFilterEvent">Veranstaltung:</label></td>
 	<td class="value" align="right">
 		<select id="exportEvent" name="exportEvent" class="combobox">
-			<option value="">Alle</option>
-			<option value="0">Keine</option>
+		
+		#
+		# cklein 2009-07-16: fixes issue 1815 - although option "Alle" yielded no return value
+		# the octopus version in use made it a valid integer object of value 0, which broke
+		# existing code relying on the fact that the request parameter would be null. 
+		#
+			<option value="0">Alle</option>
+			<option value="-1">Keine</option>
 #foreach($event in $allEvent)
 			<option value="$!event.id">$!message.text($event.shortname)</option>
 #end
@@ -29,8 +35,13 @@
 	<td class="label"><label for="exportFilterCategory">Kategorie:</label></td>
 	<td class="value" align="right">
 		<select name="exportCategory" id="exportCategory" class="combobox">
-			<option value="">Alle</option>
-			<option value="0">ohne</option>
+		#
+		# cklein 2009-07-16: fixes issue 1815 - although option "Alle" yielded no return value
+		# the octopus version in use made it a valid integer object of value 0, which broke
+		# existing code relying on the fact that the request parameter would be null. 
+		#
+			<option value="0">Alle</option>
+			<option value="-1">ohne</option>
 #foreach($category in $allCategorie)
 			<option value="$!category.id">$!message.text($category.name)</option>
 #end
