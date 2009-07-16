@@ -1,0 +1,186 @@
+#set($title = "Stammdaten - Dokumenttypen")
+#parse("inc/header.vm")	
+
+<form id="formlist" name="formlist" action="Doctype" method="POST">
+
+<table class="tab" border="0" cellspacing="0" cellpadding="0"><tr>
+	<td class="tableft">&nbsp;</td>
+	<td class="tabactiv"><span class="tabactiv">Dokumenttypen</span></td>
+	<td class="tabright">&nbsp;</td>
+</tr></table>
+
+#openContent()
+#openContentSection()
+
+#if($listerrors.size() > 0)
+<div style="margin: 10px 0px 10px 0px; padding: 10px 10px 10px 10px; background-color: #ffffff; border: 2px solid #ff0000;">
+	#foreach($error in $listerrors)
+		$error<br>
+	#end
+</div>
+#end
+
+<input type="hidden" name="start" value="">
+<input type="hidden" name="selectAll" value="false">
+<input type="hidden" name="selectNone" value="false">
+<input type="hidden" name="doInsert" value="true">
+<input type="hidden" name="doUpdate" value="true">
+<input type="hidden" name="doRemove" value="true">
+
+#foreach($bean in $list)
+<input type="hidden" name="list" value="$bean.id">
+#end
+<table class="list">
+	<tr class="list1">
+		<th class="list" style="width: 20px;">&nbsp;</th>
+		<th class="list" style="width: 60px;">ID</th>
+		<th class="list">Bezeichnung</th>
+		<th class="list" style="width: 100px;">Adress-Typ</th>
+		<th class="list" style="width: 100px;">Zeichensatz</th>
+		<th class="list" style="width: 100px;">Format</th>
+		<th class="list" style="width: 20px; text-align: center;"><div title="Eigenes Dokument f&uuml;r Partner">DP</div></th>
+		<th class="list" style="width: 50px;" title="Sortierreihenfolge">Sortier.</th>
+		<th class="list" style="width: 50px;">Kennz.</th>
+		<th class="list" style="width: 20px; text-align: center;"><div title="Gastgeber mit Ausgeben">GA</div></th>
+		<th class="list" style="width: 20px; text-align: center;"><div title="Ist Standard f&uuml;r Steuerdatei">SD</div></th>
+	</tr>
+	<tr class="list2">
+		<td class="list"><input type="hidden" id="add-modified" name="add-modified" value="false"><input type="checkbox" name="add-select" value="true" class="checkbox" style="display: none;"></td>
+		<td class="list"><input type="hidden" name="add-id" value=""><em>neu</em></td>
+		<td class="list"><input type="text" name="add-name" value="" class="text" style="width: 96%;" onchange="setModified('add')"></td>
+		<td class="list">
+			<select name="add-addresstype" class="combobox" style="width: 97%;" onchange="setModified('add')">
+				<option value="1">$!config.business</option>
+				<option value="2">$!config.private</option>
+				<option value="3">$!config.other</option>
+			</select>
+		</td>
+		<td class="list">
+			<select name="add-locale" class="combobox" style="width: 97%;" onchange="setModified('add')">
+				<option value="1">$!config.latin</option>
+				<option value="2">$!config.extra1</option>
+				<option value="3">$!config.extra2</option>
+			</select>
+		</td>
+		<td class="list">
+			<select name="add-format" class="combobox" style="width: 97%;" onchange="setModified('add')">
+				<option value="sxc-document">OOo 1.1</option>
+				<option value="ods-document">OOo 2.0</option>
+			</select>
+		</td>
+		<td class="list"><input type="checkbox" name="add-partner" value="true" class="checkbox" title="Eigenes Dokument f&uuml;r Partner" onchange="setModified('add')"></td>
+		<td class="list"><input type="text" name="add-sortorder" value="" class="text" style="width: 40px;" onchange="setModified('add')"></td>
+		<td class="list"><input type="text" name="add-flags" value="" class="text" style="width: 40px;" onchange="setModified('add')"></td>
+		<td class="list"><input type="checkbox" name="add-host" value="true" class="checkbox" title="Gastgeber mit Ausgeben" onchange="setModified('add')" checked></td>
+		<td class="list"><input type="checkbox" name="add-isdefault" value="true" class="checkbox" title="Ist Standard f&uuml;r Steuerdatei" onchange="setModified('add')"; onlyOneStandard('add');></td>
+	</tr>
+	#foreach($bean in $list)
+	#if ($velocityCount % 2 == 1)
+		#set($class = "list1")
+	#else
+		#set($class = "list2")
+	#end
+	<tr class="$class">
+		<td class="list"><input type="hidden" id="${bean.id}-modified" name="${bean.id}-modified" value="false"><input type="checkbox" name="${bean.id}-select" value="true" class="checkbox" #if($listselection.indexOf($bean.id) != -1) checked#end></td>
+		<td class="list"><input type="hidden" name="${bean.id}-id" value="$!bean.id">$!bean.id</td>
+		<td class="list"><input type="text" name="${bean.id}-name" value="$!message.text($bean.name)" class="text" style="width: 96%;" onchange="setModified('$!bean.id')"></td>
+		<td class="list">
+			<select name="${bean.id}-addresstype" class="combobox" style="width: 97%;" onchange="setModified('$!bean.id')">
+				<option value="1"#if($bean.addresstype == 1) selected#end>$!config.business</option>
+				<option value="2"#if($bean.addresstype == 2) selected#end>$!config.private</option>
+				<option value="3"#if($bean.addresstype == 3) selected#end>$!config.other</option>
+			</select>
+		</td>
+		<td class="list">
+			<select name="${bean.id}-locale" class="combobox" style="width: 97%;" onchange="setModified('$!bean.id')">
+				<option value="1"#if($bean.locale == 1) selected#end>$!config.latin</option>
+				<option value="2"#if($bean.locale == 2) selected#end>$!config.extra1</option>
+				<option value="3"#if($bean.locale == 3) selected#end>$!config.extra2</option>
+			</select>
+		</td>
+		<td class="list">
+			<select name="${bean.id}-format" class="combobox" style="width: 97%;" onchange="setModified('$!bean.id')">
+				<option value="sxc-document"#if($bean.format == "sxc-document") selected #end>OOo 1.1</option>
+				<option value="ods-document"#if($bean.format == "ods-document") selected #end>OOo 2.0</option>
+			</select>
+		</td>
+		<td class="list"><input type="checkbox" name="${bean.id}-partner" value="true" #if($bean.partner) checked #end class="checkbox" title="Eigenes Dokument f&uuml;r Partner" onchange="setModified('$!bean.id')"></td>
+		<td class="list"><input type="text" name="${bean.id}-sortorder" value="$!message.text($bean.sortorder)" class="text" style="width: 40px;" onchange="setModified('$!bean.id')"></td>
+		<td class="list"><input type="text" name="${bean.id}-flags" value="$!message.text($bean.flags)" class="text" style="width: 40px;" onchange="setModified('$!bean.id')"></td>
+		<td class="list"><input type="checkbox" name="${bean.id}-host" value="true" #if($bean.host) checked #end class="checkbox" title="Gastgeber mit Ausgeben" onchange="setModified('$!bean.id')"></td>
+		<td class="list"><input type="checkbox" name="${bean.id}-isdefault" value="true" #if($bean.isdefault) checked #end class="checkbox" title="Ist Standard f&uuml;r Steuerdatei" onchange="setModified('$!bean.id'); onlyOneStandard('$!bean.id');"></td>
+	</tr>
+	#end
+</table>
+
+<table class="list" style="margin-top: 15px;">
+	<tr class="list2warn" style="height: 20px;">
+		<td class="list2warn" style="text-align: center; width: 100px;"><strong>Format</strong></td>
+		<td class="list1warn">
+			OOo 1.1 steht f&uuml;r OpenOffice 1.1 (sxc-Datei) und OOo 2.0 f&uuml;r OpenOffice 2.0 (ods-Datei).
+		</td>
+	</tr>
+</table>
+<table class="list" style="margin-top: 3px;">
+	<tr class="list2warn" style="height: 20px;">
+		<td class="list2warn" style="text-align: center; width: 100px;"><strong>Kennzeichen</strong></td>
+		<td class="list1warn">
+			Kennz. 50 und 99 werden autom. neuen Veranstaltungen hinzugef&uuml;gt. Beim Kennz. 50 wird kein Freitextfeld erzeugt.
+		</td>
+	</tr>
+</table>
+
+#if ($listparam.count == 0)
+	<br>Keine Daten gefunden.
+#end
+
+<div id="fixme" class="fixme1"><div class="fixme2"><div class="fixme3">
+
+	#parse("inc/list-navi.vm")
+	#parse("inc/list-direct.vm")
+
+##Rueckfrage beim Loeschen
+<script type="text/javascript">
+	function askDelete() {
+	htmlConfirm('Wirklich L&ouml;schen?', new Array('Ja', 'Nein'), new Array("askDeleteYes();", "askDeleteNo();"));
+} 
+function askDeleteYes() {
+	hideDialogs();
+	document.getElementById('presave').name='remove'
+	document.getElementById('formlist').submit();
+}
+function askDeleteNo() {
+	hideDialogs();
+	showComboboxes();
+}
+</script>
+	<input type="hidden" name="egal" value="egal" id="presave">
+	<input type="submit" name="save" value="Speichern" #if($grants.isAdmin()) class="submit" #else class="buttondisabled" disabled #end> &nbsp;
+	<input type="button" name="remove" onclick="askDelete()"  value="L&ouml;schen" title="markierte Eintr&auml;ge entfernen" #if($grants.isAdmin()) class="submit" #else class="buttondisabled" disabled #end> &nbsp;
+
+</div></div></div>
+
+#closeContentSection()
+#closeContent()
+
+</form>
+
+<script type="text/javascript">
+	function onlyOneStandard(name) {
+		var frm = document.getElementById('formlist');
+		var fields = frm.elements;
+    	for (var i = 0; i < fields.length; i++) {
+    		if (fields[i].type == 'checkbox' && fields[i].name.indexOf('-isdefault') != -1) {
+				if (fields[i].name.indexOf(name) != 0) {
+					fields[i].checked = false;
+				}
+    		}
+		}
+	}
+</script>
+<script type="text/javascript">
+#if(!$grants.isAdmin())
+	disableForm(document.getElementById('formlist'));
+#end
+</script>
+#parse("inc/footer.vm")
