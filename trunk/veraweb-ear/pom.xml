@@ -5,7 +5,7 @@
 	<groupId>org.evolvis.veraweb</groupId>
 	<artifactId>veraweb-ear</artifactId>
 	<packaging>ear</packaging>
-	<version>1.2.6-SNAPSHOT</version>
+	<version>1.2.6</version>
 
 	<name>veraweb-evolvis-ear</name>
 	<description>Veranstaltungsmanagment veraweb</description>
