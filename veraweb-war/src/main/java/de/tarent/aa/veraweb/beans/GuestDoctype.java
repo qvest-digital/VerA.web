@@ -36,19 +36,19 @@ import de.tarent.octopus.server.OctopusContext;
 
 /**
  * Diese Bean stellt einen Eintrag der Tabelle veraweb.tguest_doctype dar,
- * eine Auflistung von Gästen und Dokumenttypen mit Daten für die Dokumente.
+ * eine Auflistung von Gï¿½sten und Dokumenttypen mit Daten fï¿½r die Dokumente.
  * 
  * @author christoph
  * @author mikel
  */
 public class GuestDoctype extends AbstractBean {
-    /** Primärschlüssel */
+    /** Primï¿½rschlï¿½ssel */
 	public Integer id;
-    /** Fremdschlüssel {@link Guest Gast} */
+    /** Fremdschlï¿½ssel {@link Guest Gast} */
 	public Integer guest;
-    /** Fremdschlüssel {@link Doctype Dokumenttyp} */
+    /** Fremdschlï¿½ssel {@link Doctype Dokumenttyp} */
 	public Integer doctype;
-    /** 1=Privat 2=Geschäftlich 3=Weitere */
+    /** 1=Privat 2=Geschï¿½ftlich 3=Weitere */
 	public Integer addresstype;
     /** 1=Latein 2=Z1 3=Z2 */
 	public Integer locale;
@@ -72,7 +72,7 @@ public class GuestDoctype extends AbstractBean {
 	public String zipcode;
     /** Adressfeld Stadt */
 	public String city;
-    /** Adressfeld Straße */
+    /** Adressfeld Straï¿½e */
 	public String street;
     /** Adressfeld Land */
 	public String country;
@@ -132,4 +132,106 @@ public class GuestDoctype extends AbstractBean {
     public void checkWrite(OctopusContext cntx) throws BeanException {
         checkGroup(cntx, PersonalConfigAA.GROUP_WRITE);
     }
+
+	@Override
+	public void verify() throws BeanException
+	{
+		super.verify();
+		if ( city.length() > 100 )
+		{
+			addError( "Der Name der Stadt darf maximal 100 Zeichen lang sein." );
+		}
+		if ( company.length() > 250 )
+		{
+			addError( "Der Name der Firma darf maximal 250 Zeichen lang sein." );
+		}
+		if ( country.length() > 100 )
+		{
+			addError( "Der Name des Landes darf maximal 100 Zeichen lang sein." );
+		}
+		if ( fax.length() > 100 )
+		{
+			addError( "Die Faxnummer darf maximal 100 Zeichen lang sein." );
+		}
+		if ( firstname.length() > 100 )
+		{
+			addError( "Der Vorname darf maximal 100 Zeichen lang sein." );
+		}
+		if ( lastname.length() > 100 )
+		{
+			addError( "Der Nachname darf maximal 100 Zeichen lang sein." );
+		}
+		if ( firstname_p.length() > 100 )
+		{
+			addError( "Der Vorname des Partners darf maximal 100 Zeichen lang sein." );
+		}
+		if ( lastname_p.length() > 100 )
+		{
+			addError( "Der Nachname des Partners darf maximal 100 Zeichen lang sein." );
+		}
+		if ( fon.length() > 100 )
+		{
+			addError( "Die Telefonnummer darf maximal 100 Zeichen lang sein." );
+		}
+		if ( function.length() > 250 )
+		{
+			addError( "Die Funktionsbezeichnung darf maximal 250 Zeichen lang sein." );
+		}
+		if ( mail.length() > 250 )
+		{
+			addError( "Die E-Mail Addresse darf maximal 250 Zeichen lang sein." );
+		}
+		if ( mobil.length() > 100 )
+		{
+			addError( "Die Mobilfunknummer darf maximal 100 Zeichen lang sein." );
+		}
+		if ( pobox.length() > 50 )
+		{
+			addError( "Die P.O. Box Nummer darf maximal 50 Zeichen lang sein." );
+		}
+		if ( poboxzipcode.length() > 50 )
+		{
+			addError( "Die Postleitzahl zur P.O. Box darf maximal 50 Zeichen lang sein." );
+		}
+		if ( salutation.length() > 50 )
+		{
+			addError( "Die Anrede darf maximal 50 Zeichen lang sein." );
+		}
+		if ( salutation_p.length() > 50 )
+		{
+			addError( "Die Anrede des Partners darf maximal 50 Zeichen lang sein." );
+		}
+		if ( street.length() > 100 )
+		{
+			addError( "Der StraÃŸenname darf maximal 100 Zeichen lang sein." );
+		}
+		if ( suffix1.length() > 100 )
+		{
+			addError( "Das erste Suffix darf maximal 100 Zeichen lang sein." );
+		}
+		if ( suffix2.length() > 100 )
+		{
+			addError( "Das zweite Suffix darf maximal 100 Zeichen lang sein." );
+		}
+		if ( textjoin.length() > 50 )
+		{
+			addError( "Der Verbinder darf maximal 50 Zeichen lang sein." );
+		}
+		if ( titel.length() > 250 )
+		{
+			addError( "Die Titelbezeichnung darf maximal 250 Zeichen lang sein." );
+		}
+		if ( titel_p.length() > 250 )
+		{
+			addError( "Die Titelbezeichnung des Partners darf maximal 250 Zeichen lang sein." );
+		}
+		if ( www.length() > 250 )
+		{
+			addError( "Die WWW URL darf maximal 250 Zeichen lang sein." );
+		}
+		if ( zipcode.length() > 250 )
+		{
+			addError( "Die Postleitzahl darf maximal 50 Zeichen lang sein." );
+		}
+	}
 }
