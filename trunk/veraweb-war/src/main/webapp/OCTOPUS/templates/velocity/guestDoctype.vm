@@ -129,7 +129,7 @@
 	<td class="value"><textarea rows="3" cols="20" id="guestdoctype-textfield" name="guestdoctype-textfield" class="text">$!message.textarea($guestdoctype.textfield)</textarea></td>
 </tr><tr>
 	<td class="label">Verbinder:</td>
-	<td class="value"><input type="text" id="guestdoctype-textjoin" name="guestdoctype-textjoin" value="$!message.text($guestdoctype.textjoin)" class="text"></td>
+	<td class="value"><input type="text" id="guestdoctype-textjoin" name="guestdoctype-textjoin" maxlength="50" value="$!message.text($guestdoctype.textjoin)" class="text"></td>
 </tr><tr>
 	<td class="label">Freitextfeld (Partner):</td>
 	<td class="value"><textarea rows="3" cols="20" id="guestdoctype-textfield_p" name="guestdoctype-textfield_p" class="text">$!message.textarea($guestdoctype.textfield_p)</textarea></td>
@@ -159,93 +159,93 @@
 
 <table class="form"><tr>
 	<td class="label" style="width: 19%;">Anrede:</td>
-	<td class="value"><input type="text" id="guestdoctype-salutation" name="guestdoctype-salutation" value="$!message.text($guestdoctype.salutation)" class="text"></td>
+	<td class="value"><input type="text" id="guestdoctype-salutation" maxlength="50" name="guestdoctype-salutation" value="$!message.text($guestdoctype.salutation)" class="text"></td>
 </tr><tr>
 	<td class="label">Akad. Titel:</td>
-	<td class="value"><input type="text" id="guestdoctype-titel" name="guestdoctype-titel" value="$!message.text($guestdoctype.titel)" class="text"></td>
+	<td class="value"><input type="text" id="guestdoctype-titel" maxlength="250" name="guestdoctype-titel" value="$!message.text($guestdoctype.titel)" class="text"></td>
 </tr><tr>
 	<td class="label">Vorname:</td>
-	<td class="value"><input type="text" id="guestdoctype-firstname" name="guestdoctype-firstname" value="$!message.text($guestdoctype.firstname)" class="text"></td>
+	<td class="value"><input type="text" id="guestdoctype-firstname" maxlength="100" name="guestdoctype-firstname" value="$!message.text($guestdoctype.firstname)" class="text"></td>
 </tr><tr>
 	<td class="label">Nachname:</td>
-	<td class="value"><input type="text" id="guestdoctype-lastname" name="guestdoctype-lastname" value="$!message.text($guestdoctype.lastname)" class="text"></td>
+	<td class="value"><input type="text" id="guestdoctype-lastname" maxlength="100" name="guestdoctype-lastname" value="$!message.text($guestdoctype.lastname)" class="text"></td>
 </tr><tr>
 	<td class="label">Funktion / Amtsbez.:</td>
-	<td class="value"><input type="text" id="guestdoctype-function" name="guestdoctype-function" value="$!message.text($guestdoctype.function)" class="text"></td>
+	<td class="value"><input type="text" id="guestdoctype-function" maxlength="250" name="guestdoctype-function" value="$!message.text($guestdoctype.function)" class="text"></td>
 </tr><tr>
 	<td class="label">Firma / Institution:</td>
-	<td class="value"><input type="text" id="guestdoctype-company" name="guestdoctype-company" value="$!message.text($guestdoctype.company)" class="text"></td>
+	<td class="value"><input type="text" id="guestdoctype-company" maxlength="250" name="guestdoctype-company" value="$!message.text($guestdoctype.company)" class="text"></td>
 </tr></table>
 
 <hr class="contentsection"/>
 
 <table class="form"><tr>
 	<td class="label" style="width: 19%;">Anrede (Partner):</td>
-	<td class="value"><input type="text" id="guestdoctype-salutation_p" name="guestdoctype-salutation_p" value="$!message.text($guestdoctype.salutation_p)" class="text"></td>
+	<td class="value"><input type="text" id="guestdoctype-salutation_p" maxlength="50" name="guestdoctype-salutation_p" value="$!message.text($guestdoctype.salutation_p)" class="text"></td>
 </tr><tr>
 	<td class="label">Akad. Titel (Partner):</td>
-	<td class="value"><input type="text" id="guestdoctype-titel_p" name="guestdoctype-titel_p" value="$!message.text($guestdoctype.titel_p)" class="text"></td>
+	<td class="value"><input type="text" id="guestdoctype-titel_p" maxlength="250" name="guestdoctype-titel_p" value="$!message.text($guestdoctype.titel_p)" class="text"></td>
 </tr><tr>
 	<td class="label">Vorname (Partner):</td>
-	<td class="value"><input type="text" id="guestdoctype-firstname_p" name="guestdoctype-firstname_p" value="$!message.text($guestdoctype.firstname_p)" class="text"></td>
+	<td class="value"><input type="text" id="guestdoctype-firstname_p"maxlength="100" name="guestdoctype-firstname_p" value="$!message.text($guestdoctype.firstname_p)" class="text"></td>
 </tr><tr>
 	<td class="label">Nachname (Partner):</td>
-	<td class="value"><input type="text" id="guestdoctype-lastname_p" name="guestdoctype-lastname_p" value="$!message.text($guestdoctype.lastname_p)" class="text"></td>
+	<td class="value"><input type="text" id="guestdoctype-lastname_p" maxlength="100" name="guestdoctype-lastname_p" value="$!message.text($guestdoctype.lastname_p)" class="text"></td>
 </tr></table>
 
 <hr class="contentsection" />
 
 <table class="form"><tr>
 	<td class="label" style="width: 19%;">Stra&szlig;e:</td>
-	<td class="value"><input type="text" id="guestdoctype-street" name="guestdoctype-street" value="$!message.text($guestdoctype.street)" class="text"></td>
+	<td class="value"><input type="text" maxlength="100" id="guestdoctype-street" name="guestdoctype-street" value="$!message.text($guestdoctype.street)" class="text"></td>
 </tr><tr>
 	<td class="label"><label for="guestdoctype-zipcode">PLZ</label> / <label for="guestdoctype-city">Ort:</label></td>
 	<td class="value">
 		<table class="form" border="0" cellpadding="0" cellspacing="0"><tr>
-			<td class="value" style="width: 60px;"><input type="text" id="guestdoctype-zipcode" name="guestdoctype-zipcode" value="$!message.text($guestdoctype.zipcode)" class="text"></td>
+			<td class="value" style="width: 60px;"><input type="text" id="guestdoctype-zipcode" maxlength="50" name="guestdoctype-zipcode" value="$!message.text($guestdoctype.zipcode)" class="text"></td>
 			<td class="value" style="width: 10px;">&nbsp;</td>
-			<td class="value"><input type="text" id="guestdoctype-city" name="guestdoctype-city" value="$!message.text($guestdoctype.city)" class="text"></td>
+			<td class="value"><input type="text" id="guestdoctype-city" name="guestdoctype-city" maxlength="100" value="$!message.text($guestdoctype.city)" class="text"></td>
 		</tr></table>
 	</td>
 </tr><tr>
 	<td class="label"><label for="guestdoctype-poboxzipcode">Postfach PLZ</label> / <label for="guestdoctype-pobox">Nummer:</label></td>
 	<td class="value">
 		<table class="form" border="0" cellpadding="0" cellspacing="0"><tr>
-			<td class="value" style="width: 60px;"><input type="text" id="guestdoctype-poboxzipcode" name="guestdoctype-poboxzipcode" value="$!message.text($guestdoctype.poboxzipcode)" class="text"></td>
+			<td class="value" style="width: 60px;"><input type="text" id="guestdoctype-poboxzipcode" maxlength="50" name="guestdoctype-poboxzipcode" value="$!message.text($guestdoctype.poboxzipcode)" class="text"></td>
 			<td class="value" style="width: 10px;">&nbsp;</td>
-			<td class="value"><input type="text" id="guestdoctype-pobox" name="guestdoctype-pobox" value="$!message.text($guestdoctype.pobox)" class="text"></td>
+			<td class="value"><input type="text" id="guestdoctype-pobox" name="guestdoctype-pobox" maxlength="50" value="$!message.text($guestdoctype.pobox)" class="text"></td>
 		</tr></table>
 	</td>
 </tr><tr>
 	<td class="label">$!config.suffix1:</td>
-	<td class="value"><input type="text" id="guestdoctype-suffix1" name="guestdoctype-suffix1" value="$!message.text($guestdoctype.suffix1)" class="text"></td>
+	<td class="value"><input type="text" id="guestdoctype-suffix1" maxlength="100" name="guestdoctype-suffix1" value="$!message.text($guestdoctype.suffix1)" class="text"></td>
 </tr><tr>
 	<td class="label">$!config.suffix2:</td>
-	<td class="value"><input type="text" id="guestdoctype-suffix2" name="guestdoctype-suffix2" value="$!message.text($guestdoctype.suffix2)" class="text"></td>
+	<td class="value"><input type="text" id="guestdoctype-suffix2" maxlength="100" name="guestdoctype-suffix2" value="$!message.text($guestdoctype.suffix2)" class="text"></td>
 </tr><tr>
 	<td class="label">Land:</td>
-	<td class="value"><input type="text" id="guestdoctype-country" name="guestdoctype-country" value="$!message.text($guestdoctype.country)" class="text"></td>
+	<td class="value"><input type="text" id="guestdoctype-country" maxlength="100" name="guestdoctype-country" value="$!message.text($guestdoctype.country)" class="text"></td>
 </tr></table>
 
 <hr class="contentsection" />
 
 <table class="form"><tr>
 	<td class="label" style="width: 19%;">Telefon:</td>
-	<td class="value"><input type="text" id="guestdoctype-fon" name="guestdoctype-fon" value="$!message.text($guestdoctype.fon)" class="text"></td>
+	<td class="value"><input type="text" id="guestdoctype-fon" maxlength="100" name="guestdoctype-fon" value="$!message.text($guestdoctype.fon)" class="text"></td>
 </tr><tr>
 	<td class="label">Fax:</td>
-	<td class="value"><input type="text" id="guestdoctype-fax" name="guestdoctype-fax" value="$!message.text($guestdoctype.fax)" class="text"></td>
+	<td class="value"><input type="text" id="guestdoctype-fax" maxlength="100" name="guestdoctype-fax" value="$!message.text($guestdoctype.fax)" class="text"></td>
 </tr><tr>
 ## added mailto: link as per change request for version 1.2.0
 ## cklein 2008-02-21
 	<td class="label"><label style="float:left;" for="person-mail$ext">E-Mail:</label>#if($email && $email.length()>0)<a style="float:right;" href="mailto:$!message.text($email)"><img src="${paths.staticWeb}images/email.gif"></a>#end</label></td>
-	<td class="value"><input type="text" id="guestdoctype-mail" name="guestdoctype-mail" value="$!message.text($guestdoctype.mail)" class="text"></td>
+	<td class="value"><input type="text" maxlength="250" id="guestdoctype-mail" name="guestdoctype-mail" value="$!message.text($guestdoctype.mail)" class="text"></td>
 </tr><tr>
 	<td class="label">www:</td>
-	<td class="value"><input type="text" id="guestdoctype-www" name="guestdoctype-www" value="$!message.text($guestdoctype.www)" class="text"></td>
+	<td class="value"><input type="text" maxlength="250" id="guestdoctype-www" name="guestdoctype-www" value="$!message.text($guestdoctype.www)" class="text"></td>
 </tr><tr>
 	<td class="label">Mobil:</td>
-	<td class="value"><input type="text" id="guestdoctype-mobil" name="guestdoctype-mobil" value="$!message.text($guestdoctype.mobil)" class="text"></td>
+	<td class="value"><input type="text" maxlength="100" id="guestdoctype-mobil" name="guestdoctype-mobil" value="$!message.text($guestdoctype.mobil)" class="text"></td>
 </tr></table>
 
 #else

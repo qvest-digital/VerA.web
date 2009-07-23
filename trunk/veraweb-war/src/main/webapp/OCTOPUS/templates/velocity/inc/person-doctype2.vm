@@ -19,7 +19,7 @@
 	<td class="value"><textarea rows="4" cols="20" name="persondoctype-textfieldPartner" #if($grants.mayWrite()) class="text" #else class="textdisabled" readonly #end>$!message.textarea($persondoctype.textfieldPartner)</textarea></td>
 </tr><tr>
 	<td class="label">Verbinder:</td>
-	<td class="value"><input type="text" name="persondoctype-textfieldJoin" value="$!message.text($persondoctype.textfieldJoin)" #if($grants.mayWrite()) class="text" #else class="textdisabled" readonly #end></td>
+	<td class="value"><input type="text" maxlength="50" name="persondoctype-textfieldJoin" value="$!message.text($persondoctype.textfieldJoin)" #if($grants.mayWrite()) class="text" #else class="textdisabled" readonly #end></td>
 </tr><tr>
 	<td class="label">Anschrift:</td>
 	<td class="value">

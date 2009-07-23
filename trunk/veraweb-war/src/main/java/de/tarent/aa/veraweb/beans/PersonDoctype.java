@@ -38,12 +38,12 @@ import de.tarent.octopus.server.OctopusContext;
 /**
  * <p>
  * Diese Bean stellt einen Eintrag der Tabelle veraweb.tperson_doctype dar,
- * eine Auflistung von Personen und Dokumenttypen mit Daten für die Dokumente.
+ * eine Auflistung von Personen und Dokumenttypen mit Daten fï¿½r die Dokumente.
  * </p>
  * 
  * <p>
  * <strong>Achtung - Verwendung in Datenbank-Worker:</strong>
- * Die Verknüpfung mit entsprechendem {@link Doctype Dokumenttyp}
+ * Die Verknï¿½pfung mit entsprechendem {@link Doctype Dokumenttyp}
  * muss in dem entsprechendem Worker per Join auf <em>veraweb.tdoctype</em>
  * erfolgen. Siehe {@link de.tarent.aa.veraweb.worker.PersonDetailWorker}
  * </p>
@@ -54,24 +54,24 @@ import de.tarent.octopus.server.OctopusContext;
  * @author mikel
  */
 public class PersonDoctype extends AbstractBean {
-    /** Primärschlüssel */
+    /** Primï¿½rschlï¿½ssel */
 	public Integer id;
     /** Dokumentname */
 	public String name;
 	
-    /** Fremdschlüssel {@link Person} */
+    /** Fremdschlï¿½ssel {@link Person} */
 	public Integer person;
 	
-    /** Fremdschlüssel {@link Doctype Dokumenttyp} */
+    /** Fremdschlï¿½ssel {@link Doctype Dokumenttyp} */
 	public Integer doctype;
 	/** Doctype ID */
 	public Integer doctypeId;
-    /** {@link Doctype Dokumenttyp}: 1=Privat 2=Geschäftlich 3=Weitere */
+    /** {@link Doctype Dokumenttyp}: 1=Privat 2=Geschï¿½ftlich 3=Weitere */
 	public Integer doctypeAddresstype;
     /** {@link Doctype Dokumenttyp}: 1=Latein 2=Z1 3=Z2 */
 	public Integer doctypeLocale;
 	
-    /** 1=Privat 2=Geschäftlich 3=Weitere */
+    /** 1=Privat 2=Geschï¿½ftlich 3=Weitere */
 	public Integer addresstype;
     /** 1=Latein 2=Z1 3=Z2 */
 	public Integer locale;
@@ -111,9 +111,9 @@ public class PersonDoctype extends AbstractBean {
     }
 
     /**
-     * Überprüft das Bean auf innere Vollständigkeit und stellt sie gegebenenfalls her.
+     * ï¿½berprï¿½ft das Bean auf innere Vollstï¿½ndigkeit und stellt sie gegebenenfalls her.
      * 
-     * @throws BeanException bei Unvollständigkeit
+     * @throws BeanException bei Unvollstï¿½ndigkeit
      */
     @Override
     public void verify() throws BeanException {
@@ -121,5 +121,9 @@ public class PersonDoctype extends AbstractBean {
             addresstype = new Integer(PersonConstants.ADDRESSTYPE_BUSINESS);
         if (locale == null)
             locale = new Integer(PersonConstants.LOCALE_LATIN);
+		if ( textfieldJoin.length() > 50 )
+		{
+			addError( "Der Verbinder darf maximal 50 Zeichen lang sein." );
+		}
     }
 }
