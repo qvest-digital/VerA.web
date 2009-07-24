@@ -62,9 +62,11 @@ public class DateHelper {
 				/* fixed bug #1020
 				 * throwing NPE here lead to the fact that the person record can no longer be copied
 				 */
+				/*
 				time.set(Calendar.HOUR_OF_DAY, 0);
 				time.set(Calendar.MINUTE, 0);
-				time.set(Calendar.SECOND, 30);
+				time.set(Calendar.SECOND, 0);
+				*/
 			} else if (input.indexOf(":") != -1) {
 				String tokens[] = input.split("\\:");
 				if (tokens.length == 2) {
@@ -106,10 +108,13 @@ public class DateHelper {
 		
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(date);
-		calendar.set(Calendar.HOUR_OF_DAY, time.get(Calendar.HOUR_OF_DAY));
-		calendar.set(Calendar.MINUTE, time.get(Calendar.MINUTE));
-		calendar.set(Calendar.SECOND, time.get(Calendar.SECOND));
-		calendar.set(Calendar.MILLISECOND, 0);
+		if ( input != null )
+		{
+			calendar.set(Calendar.HOUR_OF_DAY, time.get(Calendar.HOUR_OF_DAY));
+			calendar.set(Calendar.MINUTE, time.get(Calendar.MINUTE));
+			calendar.set(Calendar.SECOND, time.get(Calendar.SECOND));
+			calendar.set(Calendar.MILLISECOND, 0);
+		}
 		date.setTime(calendar.getTimeInMillis());
 	}
 

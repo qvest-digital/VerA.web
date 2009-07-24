@@ -98,6 +98,11 @@ public class PersonDupcheckWorker extends ListWorkerVeraWeb {
 		Person person = (Person)cntx.sessionAsObject("dupcheck-person");
 		if (cntx.requestContains("id")) {
 			person = (Person)request.getBean("Person", "person");
+			/*
+			 * fixes issue 1865
+			 * must add time information from person-diplotime_a_e1
+			 */
+			DateHelper.addTimeToDate(person.diplodate_a_e1, cntx.requestAsString("person-diplotime_a_e1"), person.getErrors());
 		}
 		AddressHelper.checkPersonSalutation(person, database, database.getTransactionContext());
 		cntx.setContent("person", person);
