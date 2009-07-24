@@ -485,7 +485,11 @@ public class AddressHelper implements PersonConstants {
      */
 	public static void clearAddressData(PersonMemberFacade facade) {
 		facade.setBirthday(null);
-		facade.setDiplodate(null);
+		/*
+		 * issue 1865
+		 * will now be copied, too 
+		 */
+		//facade.setDiplodate(null);
 		facade.setDomestic(null);
 		facade.setFirstname(null);
 		facade.setLanguages(null);
