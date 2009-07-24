@@ -159,7 +159,14 @@ public class PersonReplaceWorker extends PersonListWorker {
 		
 		Integer start = getStart(cntx);
 		Integer limit = getLimit(cntx);
-		Integer count = getCount(cntx, database);
+		/*
+		 * fixes issue 1889
+		 * make this a dry run, since we actually will not replace anything right now
+		 * otherwise countData will return the wrong number of search results (0)
+		 * somehow getCount() was not building the same query as countData does
+		 */
+		cntx.setContent( "snr-dry-run", true );
+		Integer count = countData(cntx);
 		Map param = getParamMap(start, limit, count);
 		
 		Select select = getSelect(database);
@@ -339,7 +346,7 @@ public class PersonReplaceWorker extends PersonListWorker {
 		select.select( "COUNT(DISTINCT(tperson.pk))" );
 		WhereList where = new WhereList();
 
-		if ("replace".equals(cntx.contentAsString("snr-action"))) {
+		if ("replace".equals(cntx.contentAsString("snr-action")) && ! cntx.contentContains( "snr-dry-run" )) {
 			List selection = getSelection(cntx, null);
 			if (selection == null || selection.size() == 0)
 				return new Integer(0);
