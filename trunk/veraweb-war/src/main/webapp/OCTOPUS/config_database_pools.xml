@@ -18,10 +18,10 @@
 				Database type and JDBC class configuration
 				-->
 				<param name="targetDBType" value="postgres" />
-				<param name="dataSourceClass" value="org.postgresql.jdbc3.Jdbc3SimpleDataSource" />
-				
+				<param name="dataSourceClass" value="org.postgresql.jdbc3.Jdbc3PoolingDataSource" />
+
 				<!-- pool tracing - only for debugging -->
-				<param name="debugPoolClass" value="de.tarent.dblayer.debug.PoolProxy" />
+				<!-- <param name="debugPoolClass" value="de.tarent.dblayer.debug.PoolProxy" /> -->
 				
 				<!--
 				Backend configuration
@@ -38,7 +38,7 @@
 				if no connection becomes available within this time. 
 				Default: 40 
 				-->
-				<param name="poolMaxActive" value="40" />
+				<param name="poolMaxActive" value="100" />
 				
 				<!--
 				Maximum time to wait for a free connection.
@@ -62,7 +62,7 @@
 				The time im ms to wait before checking for old connectoins to remove in ms.
 				Default: 10000
 				-->
-				<param name="poolTimeBetweenEvictionRuns" value="10000" />
+				<param name="poolTimeBetweenEvictionRuns" value="3000" />
 				
 				<!--
 				An connection which is idle for this time will be removed from the pool in ms.
