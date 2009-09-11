@@ -5,7 +5,7 @@
 	<groupId>org.evolvis.veraweb</groupId>
 	<artifactId>veraweb-war</artifactId>
 	<packaging>war</packaging>
-	<version>1.2.8-SNAPSHOT</version>
+	<version>1.2.8</version>
 
 	<name>veraweb-evolvis-war</name>
 	<description>Veranstaltungsmanagment veraweb</description>
