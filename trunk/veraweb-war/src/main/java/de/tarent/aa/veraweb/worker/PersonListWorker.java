@@ -29,21 +29,21 @@
 package de.tarent.aa.veraweb.worker;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import de.tarent.aa.veraweb.beans.Person;
 import de.tarent.aa.veraweb.beans.PersonCategorie;
 import de.tarent.aa.veraweb.beans.PersonSearch;
 import de.tarent.aa.veraweb.beans.facade.PersonConstants;
 import de.tarent.aa.veraweb.utils.DatabaseHelper;
+import de.tarent.dblayer.helper.ResultMap;
 import de.tarent.dblayer.sql.Escaper;
 import de.tarent.dblayer.sql.Format;
 import de.tarent.dblayer.sql.Join;
@@ -66,7 +66,6 @@ import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.beans.BeanFactory;
 import de.tarent.octopus.beans.Database;
 import de.tarent.octopus.beans.TransactionContext;
-import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
 import de.tarent.octopus.beans.veraweb.ListWorkerVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
 
@@ -121,7 +120,27 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 		Map param = ( Map )cntx.contentAsObject( OUTPUT_showListParams );
 		select.Limit(new Limit((Integer)param.get("limit"), (Integer)param.get("start")));
 		cntx.setContent( OUTPUT_getSelection, getSelection( cntx, ( Integer ) param.get( "count" ) ) );
-		return getResultList( database, select );
+		
+		/*
+		 * cklein 2009-09-16
+		 * Temporary workaround for NPE Exception in Conjunction with temporary Connection Pooling Fix in tarent-database
+		 * Somehow the resultlist returned by getResultList or its underlying ResultSet will be NULL when entering the view
+		 * although, upon exiting this method the first time that it is called, will return the correct resultlist with at most
+		 * 10 entries in the underlying resultset as is defined by the query.
+		 */
+		ArrayList< Map > result = new ArrayList< Map >();
+		List resultList = getResultList( database, select );
+		for ( int i = 0; i < resultList.size(); i++ )
+		{
+			HashMap< String, Object > tmp = new HashMap< String, Object >();
+			Set< String > keys = ( ( ResultMap ) resultList.get( i ) ).keySet();
+			for ( String key : keys )
+			{
+				tmp.put( key, ( ( ResultMap ) resultList.get( i ) ).get( key ) );
+			}
+			result.add( ( Map ) tmp );
+		}
+		return result;
 	}
 
 	@Override
@@ -145,7 +164,7 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 				Integer personId = ( Integer ) iter.next();
 				if ( "assign".compareTo( categoryAssignmentAction ) == 0 && categoryId.intValue() > 0 )
 				{
-					category = personCategoryWorker.addCategoryAssignment( cntx, categoryId, personId, database, false );
+					category = personCategoryWorker.addCategoryAssignment( cntx, categoryId, personId, database, context, false );
 					if(category != null)
 					{
 						database.saveBean(category, context, false);
@@ -155,16 +174,24 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 				{
 					if ( categoryId.intValue() == 0 )
 					{
-						personCategoryWorker.removeAllCategoryAssignments( cntx, personId, database );
+						personCategoryWorker.removeAllCategoryAssignments( cntx, personId, database, context );
 					}
 					else
 					{
-						personCategoryWorker.removeCategoryAssignment( cntx, categoryId, personId, database );
+						personCategoryWorker.removeCategoryAssignment( cntx, categoryId, personId, database, context );
 					}
 				}
 				iter.remove();
 			}
-			context.commit();
+			try
+			{
+				context.commit();
+			}
+			catch ( BeanException e )
+			{
+				context.rollBack();
+				throw e;
+			}
 			cntx.setSession( "selection" + BEANNAME, selection );
 		}
 		
@@ -184,7 +211,8 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 				{
 					unassignWorkArea(cntx, selection, workareaId);
 				}
-				cntx.setSession( "selection" + BEANNAME, Collections.emptyList() );
+				selection.clear();
+				cntx.setSession( "selection" + BEANNAME, selection );
 			}
 		}
 		else
@@ -206,21 +234,12 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 	{
 		Database database = getDatabase(cntx);
 		TransactionContext context = database.getTransactionContext();
-		
+		PersonListWorker.unassignWorkArea( context, workAreaId, personIds );
 		try
 		{
-			for(Integer personId : personIds)
-			{
-				Person person = (Person) database.getBean(BEANNAME, personId);
-				if(person.workarea.intValue() == workAreaId.intValue() || workAreaId.intValue() == 0)
-				{
-					person.workarea = new Integer(0);
-					database.saveBean(person, context, false);
-				}
-			}
 			context.commit();
 		}
-		finally
+		catch ( Exception e )
 		{
 			context.rollBack();
 		}
@@ -239,21 +258,12 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 	{
 		Database database = getDatabase(cntx);
 		TransactionContext context = database.getTransactionContext();
-		
-		try 
+		PersonListWorker.assignWorkArea( context, workAreaId, personIds );
+		try
 		{
-			for(Integer personId : personIds)
-			{
-				Person person = (Person) database.getBean(BEANNAME, personId);
-				if(person.workarea != workAreaId)
-				{
-					person.workarea = workAreaId;
-					database.saveBean(person, context, false);
-				}
-			}
 			context.commit();
-		} 
-		finally 
+		}
+		catch ( Exception e )
 		{
 			context.rollBack();
 		}
@@ -265,11 +275,26 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 	 * 
 	 * unassigns from all persons the given workArea. Will not commit the query as this is left to the caller.
 	 */
-	public static void unassignWorkArea( TransactionContext context, Integer workAreaId ) throws BeanException, IOException
+	public static void unassignWorkArea( TransactionContext context, Integer workAreaId, List<Integer> personIds ) throws BeanException, IOException
 	{
 		Update stmt = context.getDatabase().getUpdate( "Person" );
 		stmt.update( "tperson.fk_workarea", 0 );
 		stmt.where( Expr.equal( "tperson.fk_workarea", workAreaId ) );
+		if ( personIds != null && personIds.size() > 0 )
+		{
+			stmt.whereAnd( Expr.in( "tperson.pk", personIds ) );
+		}
+		context.execute( stmt );
+	}
+
+	public static void assignWorkArea( TransactionContext context, Integer workAreaId, List<Integer> personIds ) throws BeanException, IOException
+	{
+		Update stmt = context.getDatabase().getUpdate( "Person" );
+		stmt.update( "tperson.fk_workarea", workAreaId );
+		if ( personIds != null && personIds.size() > 0 )
+		{
+			stmt.whereAnd( Expr.in( "tperson.pk", personIds ) );
+		}
 		context.execute( stmt );
 	}
 

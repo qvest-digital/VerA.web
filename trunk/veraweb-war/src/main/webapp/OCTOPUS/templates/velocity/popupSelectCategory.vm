@@ -55,9 +55,9 @@
 			if( window.innerWidth < newWidth )
 			{
 				// add fixed margins + paddings
-				newWidth += 60;
+				newWidth += 100;
 			}
-			window.resizeTo( newWidth, window.innerHeight );
+			window.resizeTo( newWidth, document.body.offsetHeight + 20 );
 		}
 	</script>
 </head>

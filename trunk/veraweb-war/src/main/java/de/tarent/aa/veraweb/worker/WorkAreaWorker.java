@@ -132,7 +132,7 @@ public class WorkAreaWorker extends StammdatenWorker
 			Database database = new DatabaseVeraWeb( cntx );
 			TransactionContext context = database.getTransactionContext();
 			// first remove all workArea assignments from all persons
-			PersonListWorker.unassignWorkArea( context, ( ( WorkArea ) bean ).id );
+			PersonListWorker.unassignWorkArea( context, ( ( WorkArea ) bean ).id, null );
 			context.commit();
 			Delete stmt = database.getDelete( "WorkArea" );
 			stmt.byId( "pk",  ( ( WorkArea ) bean ).id  );
@@ -170,7 +170,7 @@ public class WorkAreaWorker extends StammdatenWorker
 			while ( beans.next() )
 			{
 				// first remove all workArea assignments from all persons
-				PersonListWorker.unassignWorkArea( context, beans.getInt( "pk" ) );
+				PersonListWorker.unassignWorkArea( context, beans.getInt( "pk" ), null );
 				Delete delstmt = context.getDatabase().getDelete( "WorkArea" );
 				delstmt.byId( "pk",  beans.getInt( "pk" ) );
 				context.execute( delstmt );

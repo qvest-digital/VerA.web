@@ -26,6 +26,7 @@
 /* $Id: DateHelper.java,v 1.1 2007/06/20 11:56:52 christoph Exp $ */
 package de.tarent.aa.veraweb.utils;
 
+import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -52,7 +53,7 @@ public class DateHelper {
      * @param errors Liste, in die gegebenenfalls eine Fehlermeldung eingetragen
      *  wird; falls <code>null</code>, so wird kein Fehlereintrag versucht.
      */
-	static public void addTimeToDate(Date date, String input, List errors) {
+	static public void addTimeToDate(Timestamp date, String input, List errors) {
 		if (date == null)
 			return;
 		

@@ -25,8 +25,8 @@
 
 package de.tarent.aa.veraweb.utils;
 
+import java.sql.Timestamp;
 import java.util.Calendar;
-import java.util.Date;
 
 import junit.framework.TestCase;
 
@@ -62,7 +62,7 @@ public class DateHelperTest extends TestCase {
 	}
 
 	private void assertTime(String input, int h, int m, int s) {
-		Date date = new Date();
+		Timestamp date = new Timestamp(Calendar.getInstance().getTimeInMillis());
 		DateHelper.addTimeToDate(date, input, null);
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(date);

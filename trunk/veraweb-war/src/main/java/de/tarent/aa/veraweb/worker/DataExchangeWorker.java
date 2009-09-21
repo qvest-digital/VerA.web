@@ -37,12 +37,17 @@ import java.io.OutputStream;
 import java.io.PipedInputStream;
 import java.io.PipedOutputStream;
 import java.io.PrintWriter;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
@@ -58,7 +63,9 @@ import de.tarent.aa.veraweb.utils.OctopusHelper;
 import de.tarent.aa.veraweb.utils.VerawebDigester;
 import de.tarent.data.exchange.ExchangeFormat;
 import de.tarent.data.exchange.Exchanger;
+import de.tarent.dblayer.engine.Result;
 import de.tarent.dblayer.sql.clause.Expr;
+import de.tarent.dblayer.sql.clause.Order;
 import de.tarent.dblayer.sql.clause.RawClause;
 import de.tarent.dblayer.sql.clause.WhereList;
 import de.tarent.dblayer.sql.statement.Select;
@@ -468,9 +475,7 @@ public class DataExchangeWorker {
         Bean samplePerson = database.createBean("Person");
         Bean sampleGuest = database.createBean("Guest");
         
-        Select outer = new Select(false).
-				from(database.getProperty(samplePerson, "table")).
-				selectAs(database.getProperty(samplePerson, "id"), "id");
+        Select outer = database.getSelect( "Person" );
         Select inner = new Select(false).
         		from(database.getProperty(sampleGuest, "table")).
         		selectAs(database.getProperty(sampleGuest, "person"), "person");
@@ -483,9 +488,9 @@ public class DataExchangeWorker {
        	
 		/*
 		 * cklein 2009-07-16: fixes issue 1815 - although option "Alle" yielded no return value
-		 * the octopus version in use made it a valid integer object of value 0, which broke
+		 * jetty used for testing made it a valid integer object of value 0, which broke
 		 * existing code relying on the fact that the request parameter would be null.
-		 * Keine is now equals to -1.
+		 * Keine/None now equals -1.
 		 */
         if (event == null || event.intValue() == 0) {
         	outerWhere.addAnd(Expr.in(
@@ -526,9 +531,7 @@ public class DataExchangeWorker {
         Bean samplePerson = database.createBean("Person");
         Bean samplePersonCategory = database.createBean("PersonCategorie");
         
-        Select outer = new Select(false).
-				from(database.getProperty(samplePerson, "table")).
-				selectAs(database.getProperty(samplePerson, "id"), "id");
+        Select outer = database.getSelect( samplePerson );
         Select inner = new Select(false).
         		from(database.getProperty(samplePersonCategory, "table")).
         		selectAs(database.getProperty(samplePersonCategory, "person"), "person");
@@ -541,9 +544,9 @@ public class DataExchangeWorker {
        	
 		/*
 		 * cklein 2009-07-16: fixes issue 1815 - although option "Alle" yielded no return value
-		 * the octopus version in use made it a valid integer object of value 0, which broke
+		 * the jetty used for testing made it a valid integer object of value 0, which broke
 		 * existing code relying on the fact that the request parameter would be null.
-		 * Keine is now equals to -1.
+		 * Keine/None now equals -1.
 		 */
         if (category == null || category.intValue() == 0) {
             outerWhere.addAnd(Expr.in(
@@ -562,7 +565,7 @@ public class DataExchangeWorker {
             		new RawClause('(' + inner.toString() + ')')));
         }
         
-        exportSelect(database, outer.where(outerWhere), exporter);
+        exportSelect(database, outer.where(outerWhere).orderBy( Order.asc( "tperson.pk" ) ), exporter);
     }
     
     /**
@@ -577,10 +580,7 @@ public class DataExchangeWorker {
         assert exporter != null;
         Bean samplePerson = database.createBean("Person");
         
-        Select outer = new Select(false).
-        		from(database.getProperty(samplePerson, "table")).
-        		selectAs(database.getProperty(samplePerson, "id"), "id");
-        
+        Select outer = database.getSelect( "Person" );
         WhereList outerWhere = new WhereList();
         outerWhere.addAnd(Expr.equal("deleted", PersonConstants.DELETED_FALSE));
         if (orgUnit != null) {
@@ -603,9 +603,28 @@ public class DataExchangeWorker {
         assert select != null;
         assert exporter != null;
         
-       	for (Iterator it = database.getBeanList( "Person", select ).iterator(); it.hasNext(); ) {
-       		Person person = (Person)database.getBean("Person", (Integer)((Map)it.next()).get("id"));
-       		exporter.exportPerson(person);
+        try
+        {
+        	ResultSet rs =  ( ResultSet ) ( ( Result ) select.execute() ).resultSet();
+        	ResultSetMetaData rsm = rs.getMetaData();
+        	Set< String > keys = new HashSet< String >();
+    		for ( int i = 1; i <= rsm.getColumnCount(); i++ )
+    		{
+    			keys.add( rsm.getColumnName( i ) );
+    		}
+        	while ( rs.next() )
+        	{
+        		Person person = new Person();
+	       		for ( String key : keys )
+	       		{
+	       			person.setField( key, rs.getObject( key ) );
+	       		}
+	       		exporter.exportPerson(person);
+	        }
+        }
+        catch ( SQLException e )
+        {
+        	throw new BeanException( e.getMessage(), e );
         }
     }
     
