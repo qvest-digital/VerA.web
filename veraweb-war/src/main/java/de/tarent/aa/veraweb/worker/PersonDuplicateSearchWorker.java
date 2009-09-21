@@ -5,13 +5,16 @@ package de.tarent.aa.veraweb.worker;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import de.tarent.aa.veraweb.beans.Person;
 import de.tarent.aa.veraweb.beans.PersonSearch;
 import de.tarent.aa.veraweb.beans.facade.PersonConstants;
+import de.tarent.dblayer.helper.ResultMap;
 import de.tarent.dblayer.sql.Escaper;
 import de.tarent.dblayer.sql.SyntaxErrorException;
 import de.tarent.dblayer.sql.clause.Expr;
@@ -61,8 +64,27 @@ public class PersonDuplicateSearchWorker extends PersonListWorker
 		this.extendWhere(cntx, select);
 		this.extendLimit( cntx, select );
 		select.orderBy( Order.asc( "lastname_a_e1" ).andAsc( "firstname_a_e1" ) );
-
-		return getResultList(database, select);
+		
+		/*
+		 * cklein 2009-09-17
+		 * Temporary workaround for NPE Exception in Conjunction with temporary Connection Pooling Fix in tarent-database
+		 * Somehow the resultlist returned by getResultList or its underlying ResultSet will be NULL when entering the view
+		 * although, upon exiting this method the first time that it is called, will return the correct resultlist with at most
+		 * 10 entries in the underlying resultset as is defined by the query.
+		 */
+		ArrayList< Map > result = new ArrayList< Map >();
+		List resultList = getResultList( database, select );
+		for ( int i = 0; i < resultList.size(); i++ )
+		{
+			HashMap< String, Object > tmp = new HashMap< String, Object >();
+			Set< String > keys = ( ( ResultMap ) resultList.get( i ) ).keySet();
+			for ( String key : keys )
+			{
+				tmp.put( key, ( ( ResultMap ) resultList.get( i ) ).get( key ) );
+			}
+			result.add( ( Map ) tmp );
+		}
+		return result;
 	}
 
 	@Override
@@ -102,35 +124,6 @@ public class PersonDuplicateSearchWorker extends PersonListWorker
 
 		Integer i = database.getCount(select);
 		return new Integer(i.intValue() - (i.intValue() % getLimit(cntx).intValue()));
-	}
-
-	@Override
-	public List getSelection(OctopusContext cntx, Integer count) throws BeanException, IOException
-	{
-		List result = null;
-
-		boolean doSelectAll = cntx.requestAsBoolean( this.INPUT_SELECTALL ).booleanValue();
-		if ( doSelectAll )
-		{
-			// code in part duplicated from BeanListWorker.getSelection()
-			result = new ArrayList( count != null ? count.intValue() : 10 );
-			Database database = getDatabase( cntx );
-			Select select = this.getSelect( database );
-			Person template = new Person();
-	        select.selectAs( database.getProperty( template, "id" ), "id" );
-			this.extendWhere( cntx, select );
-			this.extendLimit( cntx, select );
-			for ( Iterator it = database.getList( select, database ).iterator(); it.hasNext(); )
-			{
-				result.add( ( ( Map ) it.next() ).get( "id" ) );
-			}
-		}
-		else
-		{
-			result = super.getSelection( cntx, count );
-		}
-
-		return result;
 	}
 
 	@Override

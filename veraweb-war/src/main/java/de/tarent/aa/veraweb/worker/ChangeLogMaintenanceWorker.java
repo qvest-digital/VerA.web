@@ -29,10 +29,8 @@
 package de.tarent.aa.veraweb.worker;
 
 import java.io.IOException;
-import java.sql.Connection;
 import java.sql.Date;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
@@ -41,8 +39,6 @@ import java.util.Map;
 import org.apache.log4j.Logger;
 
 import de.tarent.aa.veraweb.beans.Duration;
-import de.tarent.dblayer.engine.DB;
-import de.tarent.dblayer.sql.SQL;
 import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.statement.Delete;
 import de.tarent.octopus.beans.BeanException;
@@ -192,6 +188,5 @@ public class ChangeLogMaintenanceWorker implements Runnable {
 		Delete delete = db.getDelete( "ChangeLogEntry" );
 		delete.where( Expr.lessOrEqual( "date", d.toString() ) );
 		delete.execute();
-		DB.getConnection( db ).close();
 	}
 }

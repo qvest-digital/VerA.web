@@ -40,6 +40,7 @@ import de.tarent.dblayer.sql.statement.Select;
 import de.tarent.octopus.beans.Bean;
 import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.beans.Database;
+import de.tarent.octopus.beans.ExecutionContext;
 import de.tarent.octopus.beans.TransactionContext;
 import de.tarent.octopus.beans.veraweb.ListWorkerVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
@@ -99,14 +100,14 @@ public class PersonCategorieWorker extends ListWorkerVeraWeb {
 		WorkerFactory.getPersonDetailWorker(cntx).updatePerson(cntx, null, ((PersonCategorie)bean).person);
 	}
 
-	public void addCategoryAssignment( OctopusContext cntx, Integer categoryId, Integer personId, Database database ) throws BeanException, IOException
+	public void addCategoryAssignment( OctopusContext cntx, Integer categoryId, Integer personId, Database database, ExecutionContext context ) throws BeanException, IOException
 	{
-		addCategoryAssignment(cntx, categoryId, personId, database, true);
+		addCategoryAssignment(cntx, categoryId, personId, database, context, true);
 	}
 	
-	public PersonCategorie addCategoryAssignment( OctopusContext cntx, Integer categoryId, Integer personId, Database database, boolean save ) throws BeanException, IOException
+	public PersonCategorie addCategoryAssignment( OctopusContext cntx, Integer categoryId, Integer personId, Database database, ExecutionContext context, boolean save ) throws BeanException, IOException
 	{
-		Categorie category = ( Categorie ) database.getBean( "Categorie", categoryId );
+		Categorie category = ( Categorie ) database.getBean( "Categorie", categoryId, context == null ? database : context);
 		if ( category != null )
 		{
 			Select select = database.getCount( "PersonCategorie" );
@@ -127,28 +128,23 @@ public class PersonCategorieWorker extends ListWorkerVeraWeb {
 		return null;
 	}
 
-	public void removeAllCategoryAssignments( OctopusContext cntx, Integer personId, Database database ) throws BeanException, IOException
+	public void removeAllCategoryAssignments( OctopusContext cntx, Integer personId, Database database, ExecutionContext context ) throws BeanException, IOException
 	{
-		TransactionContext context = database.getTransactionContext();
 		try
 		{
 			DB.update(context,
 				SQL.Delete( context ).from( "veraweb.tperson_categorie" ).where( Expr.equal( "fk_person", personId ) )
 			);
-			context.commit();
 		}
 		catch( SQLException e )
 		{
 			throw new BeanException( "Die Kategoriezuweisungen konnte nicht aufgehoben werden.", e );
 		}
-		finally {
-			context.rollBack();
-		}
 	}
 
-	public void removeCategoryAssignment( OctopusContext cntx, Integer categoryId, Integer personId, Database database ) throws BeanException, IOException
+	public void removeCategoryAssignment( OctopusContext cntx, Integer categoryId, Integer personId, Database database, ExecutionContext context ) throws BeanException, IOException
 	{
-		Categorie category = ( Categorie ) database.getBean( "Categorie", categoryId );
+		Categorie category = ( Categorie ) database.getBean( "Categorie", categoryId, context == null ? database : context );
 		if ( category != null )
 		{
 			Select select = database.getSelect( "PersonCategorie" );
@@ -157,7 +153,7 @@ public class PersonCategorieWorker extends ListWorkerVeraWeb {
 			PersonCategorie personCategory = ( PersonCategorie ) database.getBean( "PersonCategorie", select );
 			if ( personCategory != null )
 			{
-				database.removeBean( personCategory );
+				database.removeBean( personCategory, context == null ? database : context );
 			}
 		}
 	}
