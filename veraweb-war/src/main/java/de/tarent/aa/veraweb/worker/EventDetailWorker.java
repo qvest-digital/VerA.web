@@ -364,7 +364,8 @@ public class EventDetailWorker {
 			cntx.setContent("event-endhastime", Boolean.valueOf(DateHelper.isTimeInDate(event.end)));
 
 			context.commit();
-		} finally
+		} 
+		catch ( BeanException e )
 		{
 			context.rollBack();
 		}

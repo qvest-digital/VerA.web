@@ -113,7 +113,9 @@ public class GuestWorker {
 			cntx.setContent("invited", new Integer(invited));
 			cntx.setContent("notInvited", new Integer(notInvited));
 			context.commit();
-		} finally {
+		} 
+		catch ( BeanException e )
+		{
 			context.rollBack();
 		}
 	}
@@ -164,7 +166,9 @@ public class GuestWorker {
 			cntx.setContent("notInvited", new Integer(notInvited));
 
 			context.commit();
-		} finally {
+		} 
+		catch ( BeanException e )
+		{
 			context.rollBack();
 		}
 	}
@@ -200,7 +204,7 @@ public class GuestWorker {
 					Select select = database.getSelect("PersonCategorie")
 					.where(Expr.equal("fk_person", person.id))
 					.orderBy(null); //TODO beans.property von PersonCategorie ist nicht korrekt!
-					List list = database.getBeanList("PersonCategorie",select);
+					List list = database.getBeanList("PersonCategorie",select, context);
 					if (list.size() == 1)
 					{
 						catId = ((PersonCategorie)list.get(0)).id;
@@ -225,7 +229,8 @@ public class GuestWorker {
 			cntx.setContent("notInvited", new Integer(notInvited));
 
 			context.commit();
-		} finally
+		} 
+		catch ( BeanException e )
 		{
 			context.rollBack();
 		}
@@ -250,7 +255,9 @@ public class GuestWorker {
 				cntx.setStatus("showDoctype");
 			}
 			context.commit();
-		} finally {
+		} 
+		catch ( BeanException e )
+		{
 			context.rollBack();
 		}
 	}
@@ -286,7 +293,9 @@ public class GuestWorker {
 				}
 			}
 			context.commit();
-		} finally {
+		} 
+		catch ( BeanException e )
+		{
 			context.rollBack();
 		}
 	}
@@ -387,7 +396,7 @@ public class GuestWorker {
 		if (guestId == null) {
 			if (database.getCount(database.getCount("Guest").where(Where.and(
 					Expr.equal("fk_event", event.id),
-					Expr.equal("fk_person", personId)))).intValue() > 0)
+					Expr.equal("fk_person", personId))), context).intValue() > 0)
 				return false;
 		}
 		
@@ -435,7 +444,7 @@ public class GuestWorker {
 						select("tcategorie.rank").
 						select("tcategorie.catname").
 						joinLeftOuter("veraweb.tcategorie",
-								"tperson_categorie.fk_categorie", "tcategorie.pk"));
+								"tperson_categorie.fk_categorie", "tcategorie.pk"), context );
 				
 				if (personCategorie != null) {
 					guest.category = personCategorie.categorie;

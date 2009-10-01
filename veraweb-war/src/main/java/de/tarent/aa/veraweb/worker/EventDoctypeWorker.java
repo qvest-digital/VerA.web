@@ -99,7 +99,9 @@ public class EventDoctypeWorker extends ListWorkerVeraWeb {
 				worker.refreshDoctypes(cntx, database, context, (Integer)((Map)it.next()).get("id"));
 			}
 			context.commit();
-		} finally {
+		} 
+		catch ( BeanException e )
+		{
 			context.rollBack();
 		}
 	}

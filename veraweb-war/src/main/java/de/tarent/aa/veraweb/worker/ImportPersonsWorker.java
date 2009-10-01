@@ -252,9 +252,12 @@ public class ImportPersonsWorker {
             cntx.setContent(FIELD_IMPORTED_COUNT, new Integer(dsCount));
             cntx.setContent("cleanupOrgunits", cleanupOrgunits);
             
-			return importStoredRecord(cntx, importId);
-		} finally {
+    		return importStoredRecord(cntx, importId);
+		} 
+		catch ( BeanException e )
+		{
 			context.rollBack();
+			throw e;
 		}
 	}
 	

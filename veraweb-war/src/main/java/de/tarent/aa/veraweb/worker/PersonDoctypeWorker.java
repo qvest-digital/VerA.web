@@ -239,7 +239,9 @@ public class PersonDoctypeWorker extends ListWorkerVeraWeb {
         try {
             createPersonDoctype(cntx, database, context, person);
             context.commit();
-        } finally {
+        } 
+        catch ( BeanException e )
+        {
             context.rollBack();
         }
     }
