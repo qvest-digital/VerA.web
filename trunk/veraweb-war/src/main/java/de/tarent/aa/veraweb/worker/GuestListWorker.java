@@ -95,7 +95,7 @@ public class GuestListWorker extends ListWorkerVeraWeb {
 			Iterator iter = selection.iterator();
 			while( iter.hasNext() )
 			{
-				Guest guest = ( Guest ) database.getBean( "Guest", ( Integer ) iter.next() );
+				Guest guest = ( Guest ) database.getBean( "Guest", ( Integer ) iter.next(), context );
 				if ( "assign".compareTo( categoryAssignmentAction ) == 0 && categoryId.intValue() > 0 )
 				{
 					guest.category = categoryId;
@@ -170,7 +170,7 @@ public class GuestListWorker extends ListWorkerVeraWeb {
 			}
 			context.commit();
 		}
-		finally
+		catch ( BeanException e )
 		{
 			context.rollBack();
 		}

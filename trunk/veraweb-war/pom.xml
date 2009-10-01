@@ -248,6 +248,12 @@
 
 	<dependencies>
 		<dependency>
+			<groupId>de.tarent.libraries</groupId>
+			<artifactId>tarent-database</artifactId>
+			<version>1.5.4</version>
+		</dependency>
+
+		<dependency>
 			<groupId>de.tarent.octopus</groupId>
 			<artifactId>octopus-core</artifactId>
 			<version>1.6.2</version>
@@ -310,15 +316,9 @@
 		</dependency>
 
 		<dependency>
-			<groupId>de.tarent.libraries</groupId>
-			<artifactId>tarent-database</artifactId>
-			<version>1.5.4</version>
-		</dependency>
-
-		<dependency>
 			<groupId>postgresql</groupId>
 			<artifactId>postgresql</artifactId>
-			<version>7.4.1-jdbc3</version>
+			<version>8.3-603.jdbc3</version>
 		</dependency>
 
 		<dependency>

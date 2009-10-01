@@ -170,8 +170,7 @@ public class PersonExportWorker extends PersonListWorker {
         				}
         			}
         			/*
-        			 * fixing long standing bug
-        			 * there were typos here that resulted in that memberBEx and addressEx remained null
+        			 * fixing typos here that resulted in that memberBEx and addressEx remained null
         			 * cklein 2008-03-26
         			 */
         			if (memberAEx == null) memberAEx = "_a_e1";
@@ -209,8 +208,7 @@ public class PersonExportWorker extends PersonListWorker {
         			
         			// Export-Select ausf�hren
         			/*
-        			 * fixing long standing bug
-        			 * exportSelect tries to access the current octopus context which tries to get itself
+        			 * fixing exportSelect tries to access the current octopus context which tries to get itself
         			 * from the thread local map of this thread which is not an octopus controlled thread
         			 * cklein 2008-03-26
         			 */
@@ -755,7 +753,10 @@ public class PersonExportWorker extends PersonListWorker {
 		spreadSheet.addCell(person.get("company" + addressEx));
 		spreadSheet.addCell(person.get("pobox" + addressEx));
 		spreadSheet.addCell(person.get("poboxzipcode" + addressEx));
-		
+
+		// fixing bug here, workarea cell was missing
+
+		spreadSheet.addCell(null);
 		//
 		// Kategorie spezifische Daten, wenn nach Kategorie gefilter wurde.
 		//

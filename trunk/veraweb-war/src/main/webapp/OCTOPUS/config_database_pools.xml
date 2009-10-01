@@ -62,13 +62,13 @@
 				The time im ms to wait before checking for old connectoins to remove in ms.
 				Default: 10000
 				-->
-				<param name="poolTimeBetweenEvictionRuns" value="3000" />
+				<param name="poolTimeBetweenEvictionRuns" value="80000" />
 				
 				<!--
 				An connection which is idle for this time will be removed from the pool in ms.
 				Default: 30000
 				-->
-				<param name="poolMinEvictableIdleTime" value="30000" />
+				<param name="poolMinEvictableIdleTime" value="100000" />
 			</param>
 		</param>
 	</params>

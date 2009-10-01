@@ -235,13 +235,13 @@ public class DatabaseVeraWeb extends Database {
     }
 
 	public Connection getDefaultConnection() throws SQLException {
-		if(defaultcon==null||defaultcon.isClosed()){
+//		if(defaultcon==null||defaultcon.isClosed()){
 			defaultcon = getPool().getConnection();
             if (Context.getActive() != null)
                 Context.getActive().addCleanupCode(new DBConnectionCloser(defaultcon));
             else
             	logger.log(Level.WARNING, getClass().getName() + " - getDefaultConnection(): No active context set.");
-		}
+//		}
 		return defaultcon;
 	}
 	
