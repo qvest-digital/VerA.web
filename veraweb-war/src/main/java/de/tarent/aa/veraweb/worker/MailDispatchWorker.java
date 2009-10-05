@@ -357,7 +357,9 @@ public class MailDispatchWorker implements Runnable {
 			Map result = new HashMap();
 			result.put("count", new Integer(savedMails));
 			cntx.setContent("maildispatchParams", result);
-		} finally {
+		} 
+		catch ( BeanException e )
+		{
 			context.rollBack();
 		}
 		
