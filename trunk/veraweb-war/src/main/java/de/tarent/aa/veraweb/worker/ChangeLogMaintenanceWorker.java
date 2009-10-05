@@ -147,7 +147,6 @@ public class ChangeLogMaintenanceWorker implements Runnable {
 				try
 				{
 					this.purgeChangeLog();
-					throw new Exception();
 				}
 				catch ( Exception e )
 				{
