@@ -113,7 +113,7 @@ public class GuestWorker {
 			cntx.setContent("invited", new Integer(invited));
 			cntx.setContent("notInvited", new Integer(notInvited));
 			context.commit();
-		} 
+		}
 		catch ( BeanException e )
 		{
 			context.rollBack();
@@ -133,7 +133,7 @@ public class GuestWorker {
 		Database database = new DatabaseVeraWeb(cntx);
 		TransactionContext context = database.getTransactionContext();
 		Event event = (Event)cntx.contentAsObject("event");
-		logger.debug("F�ge G�ste der Veranstaltung #" + eventId + " der Verstanstaltung #" + event.id + " hinzu.");
+		logger.debug("Füge Gäste der Veranstaltung #" + eventId + " der Verstanstaltung #" + event.id + " hinzu.");
 
 		try {
 			List list = database.getList(SQL.Select( database ).
@@ -166,7 +166,7 @@ public class GuestWorker {
 			cntx.setContent("notInvited", new Integer(notInvited));
 
 			context.commit();
-		} 
+		}
 		catch ( BeanException e )
 		{
 			context.rollBack();
@@ -229,7 +229,7 @@ public class GuestWorker {
 			cntx.setContent("notInvited", new Integer(notInvited));
 
 			context.commit();
-		} 
+		}
 		catch ( BeanException e )
 		{
 			context.rollBack();
@@ -255,7 +255,7 @@ public class GuestWorker {
 				cntx.setStatus("showDoctype");
 			}
 			context.commit();
-		} 
+		}
 		catch ( BeanException e )
 		{
 			context.rollBack();
@@ -293,7 +293,7 @@ public class GuestWorker {
 				}
 			}
 			context.commit();
-		} 
+		}
 		catch ( BeanException e )
 		{
 			context.rollBack();
