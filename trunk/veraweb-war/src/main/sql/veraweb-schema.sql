@@ -57,6 +57,7 @@ CREATE OR REPLACE FUNCTION serv_verawebschema(int4) RETURNS varchar AS
  *                      missing drop sequence in upgrade path for timportperson
  *  2008-12-22  add: new state column to tperson and dependent tables
  *  2009-03-19  cklein: added state columns to timportperson by using the drop mechanism based on availability of either of the new state columns
+ *  2009-10-16  cklein: fixed bug in tguest schema where the language/language_p attribute was smaller in size than that of tperson, now tperson and tguest have similar sized language attributes of 250 chars each
  * </changelog>
  * ----------------------------------------------------------- */
 
@@ -70,7 +71,7 @@ DECLARE
 
 BEGIN
 	--##### please set vversion to current date
-	vversion := \'2009-06-15\';
+	vversion := \'2009-10-16\';
 	--#####
 	
 	vrecno := 0;
@@ -894,7 +895,7 @@ END;\'
 			  orderno int4 DEFAULT 0,
 			  notehost text,
 			  noteorga text,
-			  language varchar(100),
+			  language varchar(250),
 			  gender varchar(1) NOT NULL,
 			  nationality varchar(100),
 			  domestic_a varchar(1) NOT NULL DEFAULT \'t\'::character varying,
@@ -904,7 +905,7 @@ END;\'
 			  orderno_p int4 DEFAULT 0,
 			  notehost_p text,
 			  noteorga_p text,
-			  language_p varchar(100),
+			  language_p varchar(250),
 			  gender_p varchar(1) NOT NULL,
 			  nationality_p varchar(100),
 			  domestic_b varchar(1) NOT NULL DEFAULT \'t\'::character varying,
@@ -1019,6 +1020,34 @@ END;\'
 		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
 	END IF;
 	
+	--ALTER TABLE veraweb.tguest ALTER COLUMN language varchar(100) to varchar(250);
+	vint := 0;
+	SELECT count(*) INTO vint FROM information_schema.columns WHERE
+		table_schema = \'veraweb\' AND table_name = \'tguest\' AND column_name = \'language\' AND udt_name = \'varchar\';
+	IF vint = 1 THEN
+		vmsg := \'begin.change.tguest.language from varchar(100) to varchar(250)\';
+		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
+		IF $1 = 1 THEN
+			ALTER TABLE veraweb.tguest ALTER COLUMN language type varchar(250);
+		END IF;
+		vmsg := \'end.change.tguest.language from varchar(100) to varchar(250)\';
+		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
+	END IF;
+
+	--ALTER TABLE veraweb.tguest ALTER COLUMN language_p varchar(100) to varchar(250);
+	vint := 0;
+	SELECT count(*) INTO vint FROM information_schema.columns WHERE
+		table_schema = \'veraweb\' AND table_name = \'tguest\' AND column_name = \'language_p\' AND udt_name = \'varchar\';
+	IF vint = 1 THEN
+		vmsg := \'begin.change.tguest.language_p from varchar(100) to varchar(250)\';
+		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
+		IF $1 = 1 THEN
+			ALTER TABLE veraweb.tguest ALTER COLUMN language_p type varchar(250);
+		END IF;
+		vmsg := \'end.change.tguest.language_p from varchar(100) to varchar(250)\';
+		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
+	END IF;
+
 	--ALTER TABLE veraweb.tguest ADD COLUMN domestic_b varchar(1);
 	vint := 0;
 	SELECT count(*) INTO vint FROM information_schema.columns WHERE
