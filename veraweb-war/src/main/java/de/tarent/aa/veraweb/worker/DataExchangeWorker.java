@@ -275,7 +275,7 @@ public class DataExchangeWorker {
         // Zun�chst mal die ben�tigten Objekte erstellen
         ExchangeFormat format = getExchangeFormat(moduleConfig.getParams(), formatKey, cntx.getRequestObject().getRequestParameters());
         if (format == null)
-            throw new TcContentProzessException("Unbekannter Importformatschl�ssel '" +  formatKey + "'.");
+            throw new TcContentProzessException("Unbekannter Importformatschlüssel '" +  formatKey + "'.");
         if (importSource == null || importSource.length() == 0) {
         	Map status = new HashMap();
         	status.put("invalidData", "importSource");
@@ -323,7 +323,7 @@ public class DataExchangeWorker {
 	            if (orgUnit == null || orgUnit.intValue() == 0 || !aaConfig.isUserInGroup(PersonalConfigAA.GROUP_ADMIN))
 	                orgUnit = aaConfig.getOrgUnitId();
 	        } else
-	            throw new TcContentProzessException("Missing user information");
+	            throw new TcContentProzessException("Fehlende Benutzerinformation.");
 	        
 	        Importer importer = createImporter(format, context, istream);
 	        Import importInstance = createImport(context, formatKey, importSource, orgUnit);

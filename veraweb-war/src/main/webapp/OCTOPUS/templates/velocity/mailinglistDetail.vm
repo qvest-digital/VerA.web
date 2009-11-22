@@ -84,11 +84,11 @@ function openNewEmail() {
 <script type="text/javascript">
 #if($maildispatchParams && $maildispatchParams.count)
 #if($maildispatchParams.count == 0)
-	alert('Es wurde keine E-Mail zum versenden gespeichert.');
+	alert('Es wurde keine E-Mail zum Versenden gespeichert.');
 #elseif($maildispatchParams.count == 1)
-	alert('Es wurde eine E-Mail zum versenden gespeichert. Diese wird nun automatisch versendet.');
+	alert('Es wurde eine E-Mail zum Versenden gespeichert. Diese wird nun automatisch versendet.');
 #else
-	alert('Es wurden $maildispatchParams.count E-Mails zum versenden gespeichert. Diese werden nun automatisch versendet.');
+	alert('Es wurden $maildispatchParams.count E-Mails zum Versenden gespeichert. Diese werden nun automatisch versendet.');
 #end
 #end
 </script>
