@@ -33,9 +33,17 @@
 		function send()
 		{
 #if( $assignmentAction == "assign" )
+#if( $count == 1 )
+			doit = confirm( "Wollen Sie diese Person bzw. diesen Gast der ausgewählten Kategorie zuordnen?" );
+#else
 			doit = confirm( "Wollen Sie ${count} Personen bzw. Gäste der ausgewählten Kategorie zuordnen?" );
+#end
+#else
+#if( $count == 1)
+			doit = confirm( "Wollen Sie diese Personen bzw. diesen Gast aus der ausgewählten Kategorie entfernen?" );
 #else
 			doit = confirm( "Wollen Sie ${count} Personen bzw. Gäste aus der ausgewählten Kategorie entfernen?" );
+#end
 #end
 			if ( doit )
 			{
@@ -103,7 +111,7 @@
 	<tr style="height: 20px;">
 		<td class="list2warn" style="text-align: center; width: 60px;"><strong>Hinweis</strong></td>
 		<td class="list1warn">
-			Sie haben ${count} Personen ausgewählt. Abhängig von der Anzahl
+			Sie haben ${count} Person(en) ausgewählt. Abhängig von der Anzahl
 			der ausgewählten Personen kann die Aktion eine gewisse Zeit in Anspruch nehmen.
 		</td>
 	</tr>

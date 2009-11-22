@@ -178,8 +178,7 @@ public class WorkAreaWorker extends StammdatenWorker
 		}
 		catch ( SQLException e )
 		{
-			// should never happen
-			throw new RuntimeException( e );
+			throw new BeanException( "Die dem Mandanten zugeordneten Arbeitsbereiche konnten nicht entfernt werden.", e );
 		}
 	}
 

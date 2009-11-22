@@ -1752,7 +1752,7 @@
 			</response>
 		</task>
 
-		<task name="OrgunitCleanup" access="public" groups="Administrator">
+		<task name="OrgunitCleanup" access="public" groups="Administrator,SystemUser">
 			<description>
 				Dieser Task zeigt Mandanten-unabhängige Daten an und
 				bietet dem Admin die Möglichkeit diese einem bestehenden

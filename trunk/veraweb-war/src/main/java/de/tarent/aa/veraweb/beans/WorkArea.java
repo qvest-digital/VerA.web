@@ -69,7 +69,7 @@ public class WorkArea extends AbstractBean
     @Override
     public void checkRead( OctopusContext cntx ) throws BeanException
     {
-        checkGroup( cntx, PersonalConfigAA.GROUP_READ_STANDARD );
+        checkGroups( cntx, new String[] {PersonalConfigAA.GROUP_READ_STANDARD, PersonalConfigAA.GROUP_SYSTEM_USER} );
     }
 
    /**
@@ -81,8 +81,8 @@ public class WorkArea extends AbstractBean
     * @see de.tarent.aa.veraweb.beans.AbstractBean#checkWrite(de.tarent.octopus.server.OctopusContext)
     */
    @Override
-public void checkWrite( OctopusContext cntx ) throws BeanException
+   public void checkWrite( OctopusContext cntx ) throws BeanException
    {
-       checkGroup( cntx, PersonalConfigAA.GROUP_ADMIN );
+       checkGroups( cntx, new String[] {PersonalConfigAA.GROUP_ADMIN, PersonalConfigAA.GROUP_SYSTEM_USER} );
    }
 }

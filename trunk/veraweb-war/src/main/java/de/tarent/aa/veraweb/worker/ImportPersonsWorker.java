@@ -428,7 +428,7 @@ public class ImportPersonsWorker {
             this.join = join;
             doctype = (Doctype) database.getBean("Doctype", database.getSelect("Doctype").where(Expr.equal("docname", doctypeName)), context);
             if (doctype == null)
-                logger.warn("F�r den Import konfigurierten Dokumenttyp '" + doctypeName + "' nicht gefunden.");
+                logger.warn("Für den Import konfigurierten Dokumenttyp '" + doctypeName + "' nicht gefunden.");
         }
         //
         // Methoden
