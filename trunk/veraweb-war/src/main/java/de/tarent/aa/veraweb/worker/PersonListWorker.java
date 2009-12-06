@@ -312,15 +312,14 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 	}
 	
 	protected void extendColumns(OctopusContext cntx, Select select) throws BeanException, IOException {
-		select.selectAs( "workarea.name", "workarea_name" );
+		select.selectAs( "tworkarea.name", "workarea_name" );
 		//select.orderBy( Order.asc( "workarea_name" ) );
 
 		/*
 		 * modified to support workarea display in the search result list as per change request for version 1.2.0
 		 * cklein 2008-02-12
 		 */
-		select.from( "veraweb.tworkarea workarea" );
-		select.whereAnd( new RawClause( "workarea.pk=tperson.fk_workarea" ) );
+		select.join( "veraweb.tworkarea", "tworkarea.pk", "tperson.fk_workarea" );
 	}
 
 	protected void extendWhere(OctopusContext cntx, Select select) throws BeanException
@@ -337,8 +336,7 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 		this.extendSelectByMultipleCategorySearch( cntx, search, select );
 		if ( search.categorie2 != null )
 		{
-			select.from( "veraweb.tperson_categorie cat2" );
-			select.whereAnd( new RawClause( "tperson.pk=cat2.fk_person" ) );
+			select.join( "veraweb.tperson_categorie cat2", "cat2.fk_person", "tperson.pk" );
 		}
 	}
 
@@ -369,6 +367,7 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 				}
 				if ( isOr )
 				{
+					// FIXME does not work, misses join on tperson_categorie
 					// any of the selected categories (OR clause)
 					select.whereAnd( new RawClause( "tperson.pk=cat1.fk_person" ) );
 					select.whereAnd( Expr.in( "cat1.fk_categorie", search.categoriesSelection) );
@@ -381,13 +380,8 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 					while( iter.hasNext() )
 					{
 						String alias = "cat" + count;
-						select.from( "veraweb.tperson_categorie " + alias );
-						select.whereAnd(
-							Where.and(
-								new RawClause( "tperson.pk=" + alias + ".fk_person" ),
-								new RawClause( alias + ".fk_categorie=" + iter.next() )
-							)
-						);
+						select.joinLeftOuter( "veraweb.tperson_categorie " + alias, "tperson.pk", alias + ".fk_person" );
+						select.whereAnd( new RawClause( alias + ".fk_categorie=" + iter.next() ) );
 						count++;
 					}
 				}
