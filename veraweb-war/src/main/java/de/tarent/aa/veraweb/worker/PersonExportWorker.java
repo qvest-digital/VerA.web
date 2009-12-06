@@ -196,10 +196,8 @@ public class PersonExportWorker extends PersonListWorker {
         			extendColumns(cntx, select);
         			extendWhere(cntx, select);
         			
-        			select.from("veraweb.tperson_doctype");
-        			select.whereAnd( new RawClause( "tperson.pk=tperson_doctype.fk_person" +
-        					" AND tperson_doctype.fk_doctype = " + doctype.id ) );
-        			select.whereAnd(Expr.equalColumns("workarea.pk", "tperson.fk_workarea"));
+        			select.joinLeftOuter("veraweb.tperson_doctype", "tperson_doctype.fk_person", "tperson.pk");
+        			select.whereAnd( new RawClause( "tperson_doctype.fk_doctype = " + doctype.id ) );
         			select.select("textfield");
         			select.select("textfield_p");
         			select.select("textjoin");
