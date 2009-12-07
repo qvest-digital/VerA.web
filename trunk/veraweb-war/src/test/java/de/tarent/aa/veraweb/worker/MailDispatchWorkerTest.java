@@ -58,7 +58,8 @@ public class MailDispatchWorkerTest extends TestCase {
 		Person person = new Person();
 		for (Iterator it = person.keySet().iterator(); it.hasNext(); ) {
 			String key = (String)it.next();
-			person.put(key, key);
+			if ( key.contains( "name" ) )
+				person.put(key, key);
 		}
 		return person;
 	}
