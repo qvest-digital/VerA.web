@@ -428,7 +428,7 @@ public class PersonDetailWorker implements PersonConstants {
 				if ( ((PersonDoctype)doctype).textfieldJoin != null && ((PersonDoctype)doctype).textfieldJoin.length() > 0 )
 					buffer.append(((PersonDoctype)doctype).textfieldJoin).append(nl);
 				if ( ((PersonDoctype)doctype).textfieldPartner != null && ((PersonDoctype)doctype).textfieldPartner.length() > 0 )
-				buffer.append(((PersonDoctype)doctype).textfieldPartner).append(nl).append(nl);
+					buffer.append(((PersonDoctype)doctype).textfieldPartner).append(nl).append(nl);
 			} else {
 				buffer.append(helper.getFreitext(freitextfeld, addresstype, locale, true)).append(nl);
 				buffer.append(helper.getFreitextVerbinder(freitextfeld, addresstype, locale)).append(nl);
