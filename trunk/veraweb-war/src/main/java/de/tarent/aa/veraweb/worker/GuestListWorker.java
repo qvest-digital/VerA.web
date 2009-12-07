@@ -387,33 +387,44 @@ public class GuestListWorker extends ListWorkerVeraWeb {
 		
 		// Entsprechende G�ste und Personen l�schen
 		Guest guest = new Guest();
-		for (Iterator it = database.getList(select, database).iterator(); it.hasNext(); ) {
-			Map data = (Map)it.next();
-			guest.id = (Integer)data.get("guest");
-			if (removeBean(cntx, guest)) {
-				count++;
+		try
+		{
+			TransactionContext context = database.getTransactionContext();
+			for (Iterator it = database.getList(select, context).iterator(); it.hasNext(); ) {
+				Map data = (Map)it.next();
+				guest.id = (Integer)data.get("guest");
+				if (removeBean(cntx, guest)) {
+					count++;
+				}
+				if ("t".equals(data.get("deleted"))) {
+					personDetailWorker.removePerson(cntx, context, (Integer)data.get("person"));
+				}
 			}
-			if ("t".equals(data.get("deleted"))) {
-				personDetailWorker.removePerson(cntx, database, (Integer)data.get("person"));
+			// TODO updates Event, change must be logged
+			// TODO should be refactor-moved to Event
+			Event event = (Event)cntx.contentAsObject("event");
+			boolean noHost = 0 ==
+					database.getCount(
+					database.getCount("Guest").where(Where.and(
+							Expr.equal("fk_event", event.id),
+							Expr.equal("ishost", new Integer(1))))).intValue();
+			if (noHost) {
+				database.execute(SQL.Update( database ).
+						table("veraweb.tevent").
+						update("fk_host", null).
+						update("hostname", null).
+						where(Expr.equal("pk", event.id)));
 			}
-		}
-		selection.clear();
+			
+			context.commit();
 
-		// TODO updates Event, change must be logged
-		// TODO should be refactor-moved to Event
-		Event event = (Event)cntx.contentAsObject("event");
-		boolean noHost = 0 ==
-				database.getCount(
-				database.getCount("Guest").where(Where.and(
-						Expr.equal("fk_event", event.id),
-						Expr.equal("ishost", new Integer(1))))).intValue();
-		if (noHost) {
-			database.execute(SQL.Update( database ).
-					table("veraweb.tevent").
-					update("fk_host", null).
-					update("hostname", null).
-					where(Expr.equal("pk", event.id)));
+			selection.clear();
 		}
+		catch( BeanException e )
+		{
+			throw new BeanException( "Die ausgewählten Gäste konnten nicht gelöscht werden.", e );
+		}
+
 		return count;
 	}
 
@@ -470,9 +481,8 @@ public class GuestListWorker extends ListWorkerVeraWeb {
 		clogger.logUpdate( cntx.personalConfig().getLoginname(), guestOld, guest );
 	}
 
-	protected boolean removeBean(OctopusContext cntx, Bean bean) throws BeanException, IOException {
-		Database database = getDatabase(cntx);
-		TransactionContext context = database.getTransactionContext();
+	protected boolean removeBean(OctopusContext cntx, TransactionContext context, Bean bean) throws BeanException, IOException {
+		Database database = context.getDatabase();
 		/*
 		 * modified to support change logging
 		 * cklein 2008-02-12
