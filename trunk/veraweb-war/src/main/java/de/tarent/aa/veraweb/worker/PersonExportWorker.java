@@ -29,6 +29,7 @@ package de.tarent.aa.veraweb.worker;
 import java.io.IOException;
 import java.io.PipedInputStream;
 import java.io.PipedOutputStream;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -47,6 +48,7 @@ import de.tarent.aa.veraweb.utils.ExportHelper;
 import de.tarent.aa.veraweb.utils.OctopusHelper;
 import de.tarent.commons.spreadsheet.export.SpreadSheet;
 import de.tarent.commons.spreadsheet.export.SpreadSheetFactory;
+import de.tarent.dblayer.helper.ResultList;
 import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.clause.RawClause;
 import de.tarent.dblayer.sql.clause.Where;
@@ -370,53 +372,61 @@ public class PersonExportWorker extends PersonListWorker {
      * @param addressEx Attributschl�sselsuffix der Adressdaten
      */
 	protected void exportSelect(SpreadSheet spreadSheet, Database database, Grants grants, Doctype doctype, Select select, Map data, String memberAEx, String memberBEx, String addressEx) throws BeanException {
-		for (Iterator it = database.getBeanList("Person", select).iterator(); it.hasNext(); ) {
-			Map person = (Map)it.next();
-			
-			boolean showA =
-				(person.get("lastname_a_e1") != null && ((String)person.get("lastname_a_e1")).length() != 0) ||
-				(person.get("lastname_a_e2") != null && ((String)person.get("lastname_a_e2")).length() != 0) ||
-				(person.get("lastname_a_e3") != null && ((String)person.get("lastname_a_e3")).length() != 0) ||
-				(person.get("firstname_a_e1") != null && ((String)person.get("firstname_a_e1")).length() != 0) ||
-				(person.get("firstname_a_e2") != null && ((String)person.get("firstname_a_e2")).length() != 0) ||
-				(person.get("firstname_a_e3") != null && ((String)person.get("firstname_a_e3")).length() != 0);
-			boolean showB =
-				(person.get("lastname_b_e1") != null && ((String)person.get("lastname_b_e1")).length() != 0) ||
-				(person.get("lastname_b_e2") != null && ((String)person.get("lastname_b_e2")).length() != 0) ||
-				(person.get("lastname_b_e3") != null && ((String)person.get("lastname_b_e3")).length() != 0) ||
-				(person.get("firstname_b_e1") != null && ((String)person.get("firstname_b_e1")).length() != 0) ||
-				(person.get("firstname_b_e2") != null && ((String)person.get("firstname_b_e2")).length() != 0) ||
-				(person.get("firstname_b_e3") != null && ((String)person.get("firstname_b_e3")).length() != 0);
-			boolean showRemarks = grants.mayReadRemarkFields();
-			
-			if (doctype.partner != null && doctype.partner.booleanValue()) {
-				// Eigenes Dokument
-				if (showA) {
-					spreadSheet.openRow();
-					exportOnlyPerson(spreadSheet, showA, showB, showRemarks, person, data, memberAEx, memberBEx, addressEx);
-					spreadSheet.closeRow();
-				}
-				if (showB) {
-					spreadSheet.openRow();
-					exportOnlyPartner(spreadSheet, showA, showB, showRemarks, person, data, memberAEx, memberBEx, addressEx);
-					spreadSheet.closeRow();
-				}
-			} else {
-				// Gleiches Dokument
-				if (showA && showB) {
-					spreadSheet.openRow();
-					exportBothInOneLine(spreadSheet, showA, showB, showRemarks, person, data, memberAEx, memberBEx, addressEx);
-					spreadSheet.closeRow();
-				} else if (showA) {
-					spreadSheet.openRow();
-					exportOnlyPerson(spreadSheet, showA, showB, showRemarks, person, data, memberAEx, memberBEx, addressEx);
-					spreadSheet.closeRow();
-				} else if (showB) {
-					spreadSheet.openRow();
-					exportOnlyPartner(spreadSheet, showA, showB, showRemarks, person, data, memberAEx, memberBEx, addressEx);
-					spreadSheet.closeRow();
+		try
+		{
+			for (Iterator it = ( new ResultList( select.executeSelect( database ).resultSet() ) ).iterator(); it.hasNext(); ) {
+				Map person = (Map)it.next();
+				
+				boolean showA =
+					(person.get("lastname_a_e1") != null && ((String)person.get("lastname_a_e1")).length() != 0) ||
+					(person.get("lastname_a_e2") != null && ((String)person.get("lastname_a_e2")).length() != 0) ||
+					(person.get("lastname_a_e3") != null && ((String)person.get("lastname_a_e3")).length() != 0) ||
+					(person.get("firstname_a_e1") != null && ((String)person.get("firstname_a_e1")).length() != 0) ||
+					(person.get("firstname_a_e2") != null && ((String)person.get("firstname_a_e2")).length() != 0) ||
+					(person.get("firstname_a_e3") != null && ((String)person.get("firstname_a_e3")).length() != 0);
+	
+				boolean showB =
+					(person.get("lastname_b_e1") != null && ((String)person.get("lastname_b_e1")).length() != 0) ||
+					(person.get("lastname_b_e2") != null && ((String)person.get("lastname_b_e2")).length() != 0) ||
+					(person.get("lastname_b_e3") != null && ((String)person.get("lastname_b_e3")).length() != 0) ||
+					(person.get("firstname_b_e1") != null && ((String)person.get("firstname_b_e1")).length() != 0) ||
+					(person.get("firstname_b_e2") != null && ((String)person.get("firstname_b_e2")).length() != 0) ||
+					(person.get("firstname_b_e3") != null && ((String)person.get("firstname_b_e3")).length() != 0);
+				boolean showRemarks = grants.mayReadRemarkFields();
+				
+				if (doctype.partner != null && doctype.partner.booleanValue()) {
+					// Eigenes Dokument
+					if (showA) {
+						spreadSheet.openRow();
+						exportOnlyPerson(spreadSheet, showA, showB, showRemarks, person, data, memberAEx, memberBEx, addressEx);
+						spreadSheet.closeRow();
+					}
+					if (showB) {
+						spreadSheet.openRow();
+						exportOnlyPartner(spreadSheet, showA, showB, showRemarks, person, data, memberAEx, memberBEx, addressEx);
+						spreadSheet.closeRow();
+					}
+				} else {
+					// Gleiches Dokument
+					if (showA && showB) {
+						spreadSheet.openRow();
+						exportBothInOneLine(spreadSheet, showA, showB, showRemarks, person, data, memberAEx, memberBEx, addressEx);
+						spreadSheet.closeRow();
+					} else if (showA) {
+						spreadSheet.openRow();
+						exportOnlyPerson(spreadSheet, showA, showB, showRemarks, person, data, memberAEx, memberBEx, addressEx);
+						spreadSheet.closeRow();
+					} else if (showB) {
+						spreadSheet.openRow();
+						exportOnlyPartner(spreadSheet, showA, showB, showRemarks, person, data, memberAEx, memberBEx, addressEx);
+						spreadSheet.closeRow();
+					}
 				}
 			}
+		}
+		catch( SQLException e )
+		{
+			throw new BeanException( "Der Export kann nicht ausgeführt werden.", e );
 		}
 	}
 
