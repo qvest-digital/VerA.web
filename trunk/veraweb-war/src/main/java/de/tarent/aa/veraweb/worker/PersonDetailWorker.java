@@ -423,8 +423,11 @@ public class PersonDetailWorker implements PersonConstants {
 			
 			// freitextfelder und verbinder
 			if (doctype instanceof PersonDoctype) {
-				buffer.append(((PersonDoctype)doctype).textfield).append(nl);
-				buffer.append(((PersonDoctype)doctype).textfieldJoin).append(nl);
+				if ( ((PersonDoctype)doctype).textfield != null && ((PersonDoctype)doctype).textfield.length() > 0 )
+					buffer.append(((PersonDoctype)doctype).textfield).append(nl);
+				if ( ((PersonDoctype)doctype).textfieldJoin != null && ((PersonDoctype)doctype).textfieldJoin.length() > 0 )
+					buffer.append(((PersonDoctype)doctype).textfieldJoin).append(nl);
+				if ( ((PersonDoctype)doctype).textfieldPartner != null && ((PersonDoctype)doctype).textfieldPartner.length() > 0 )
 				buffer.append(((PersonDoctype)doctype).textfieldPartner).append(nl).append(nl);
 			} else {
 				buffer.append(helper.getFreitext(freitextfeld, addresstype, locale, true)).append(nl);
