@@ -359,9 +359,8 @@ public class ImportPersonsWorker {
                 Doctype doctype = (Doctype) database.getBean("Doctype",
                         database.getSelect("Doctype").where(Expr.equal("docname", name)), context);
                 if (doctype == null) {
-                    doctype = (Doctype) database.createBean("Doctype");
-                    doctype.name = name;
-                    database.saveBean(doctype, context, true);
+                	logger.warn( "Der Dokumenttyp '" + name + "' existiert nicht mehr und wird nicht importiert." );
+                    continue;
                 }
                 PersonDoctype personDoctype = (PersonDoctype) database.createBean("PersonDoctype");
                 personDoctype.doctype = doctype.id;
