@@ -125,7 +125,7 @@ public class PersonDetailWorker implements PersonConstants {
 		 * added for support of direct search result list navigation, see below
 		 * cklein 2008-03-12
 		 */
-		this.restoreNavigation( cntx, person, database, false );
+		this.restoreNavigation( cntx, person, database );
 		
 		/*
 		 * modified to support a direct statistics access from the detail view as per the change request for version 1.2.0
@@ -147,7 +147,7 @@ public class PersonDetailWorker implements PersonConstants {
 		return person;
 	}
 
-	protected void restoreNavigation( OctopusContext cntx, Person person, Database database, boolean navigateToLast ) throws BeanException, IOException
+	protected void restoreNavigation( OctopusContext cntx, Person person, Database database ) throws BeanException, IOException
 	{
 		/*
 		 * modified to support direct search result list navigation as per the change request for version 1.2.0
@@ -155,37 +155,34 @@ public class PersonDetailWorker implements PersonConstants {
 		 * 2008-02-21
 		 */
 		Integer offset = cntx.requestAsInteger( "offset" );
+		Integer originalPersonId = cntx.requestAsInteger( "originalPersonId" );
 
 		Select select = null;
 		PersonListWorker plworker = WorkerFactory.getPersonListWorker(cntx);
-		if ( offset != null )
-		{
-			select = plworker.prepareShowList( cntx, database );
-		}
+		select = plworker.prepareShowList( cntx, database );
+
 		Map params = ( Map ) cntx.contentAsObject( PersonListWorker.OUTPUT_showListParams );
 		Integer count = ( Integer ) params.get( "count" );
+//		Integer limit = ( Integer ) cntx.sessionAsObject( "limitperson" );
 
-		/* a new record was added by copying an existing, we move the offset to the last search list result entry
+		/* a new record was added by copying an existing, we move the offset to the search list result entry matching the person
 		 * in order to prevent false positives, i.e. the copied record does no longer match the search criteria,
 		 * we will first try to find the person in the database, if it is not available, then we will fall back
 		 * to the original person that was copied
 		 * cklein 2008-03-12
 		 */
-		if ( navigateToLast )
+		if ( originalPersonId != null && originalPersonId > 0 )
 		{
-			select.Limit( new Limit( 1, count.intValue() - 1 ) );
-			Person tmp = ( Person ) database.getBean( "Person", select );
-			if ( tmp != null && tmp.id.compareTo( person.id ) == 0 )
+			List< Person > tmp = ( List< Person > ) database.getBeanList( "Person", select );
+			offset = 0;
+			for ( Person b : tmp )
 			{
-				// adjust the offset to point to the newly created 
-				offset = new Integer( count.intValue() - 1 );
-			}
-			else
-			{
-				/* unset offset so that the navigation will be removed from the page, since the currently displayed
-				 * person record does not match the current offset (the copied person is not part of the search result list
-				 */
-				offset = null;
+				if ( b.id.compareTo( person.id ) == 0 )
+				{
+					// found, offset is adjusted so as to point to the newly created person record
+					break;
+				}
+				offset++;
 			}
 		}
 
@@ -204,8 +201,6 @@ public class PersonDetailWorker implements PersonConstants {
 			if ( offset > 0 )
 			{
 				// previous
-				select.Limit( new Limit( 1, offset - 1 ) );
-				// velocity makes it rather complicated
 				entry = new HashMap< String, Object >();
 				entry.put( "person", database.getBean( "Person", select ) );
 				entry.put( "offset", new Integer( offset.intValue() - 1 ) );
@@ -233,7 +228,6 @@ public class PersonDetailWorker implements PersonConstants {
 			if ( offset < count - 1 )
 			{
 				// next
-				select.Limit( new Limit( 1, offset + 1 ) );
 				entry = new HashMap< String, Object >();
 				entry.put( "person", database.getBean( "Person", select ) );
 				entry.put( "offset", new Integer( offset.intValue() + 1 ) );
@@ -532,6 +526,8 @@ public class PersonDetailWorker implements PersonConstants {
 		Database database = new DatabaseVeraWeb(cntx);
 		TransactionContext context = database.getTransactionContext();
 
+		Integer originalPersonId = cntx.requestAsInteger("originalPersonId");
+
 		try {
 			if (person == null) {
 				Request request = new RequestVeraWeb(cntx); 
@@ -569,10 +565,11 @@ public class PersonDetailWorker implements PersonConstants {
 				return person;
 			}
 
-			/* fix for bug 1011
+			/* person was copied
+			 * fix for bug 1011
 			 * cklein 2008-03-12
 			 */
-			if ( cntx.requestContains( "originalPersonId" ) )
+			if ( originalPersonId != null && originalPersonId > 0 )
 			{
 				person.setModified( true );
 			}
@@ -647,7 +644,6 @@ public class PersonDetailWorker implements PersonConstants {
 
 					//Bug 1592 Wenn die person kopiert wurde, dann die Kategorien der
 					//original Person an neue Person kopieren
-					Integer originalPersonId = cntx.requestAsInteger("originalPersonId");
 					if (originalPersonId != null && originalPersonId.intValue() != 0)
 					{
 						copyCategories(originalPersonId, person.id,  database,  context);
@@ -679,19 +675,17 @@ public class PersonDetailWorker implements PersonConstants {
 			context.commit();
 
 			cntx.setContent("person-diplodatetime", Boolean.valueOf(DateHelper.isTimeInDate(person.diplodate_a_e1)));
-
-			/* fixing bug #1020: in case of rollback the below operation fails due to the fact that the person record was not created
-			 * 
-			 * fixing a bug: navigation was lost on save
-			 * added for support of direct search result list navigation, see below
-			 * cklein 2008-03-12
-			 */
-			this.restoreNavigation( cntx, person, database, cntx.requestContains( "originalPersonId" ) );
 		} 
 		catch( BeanException e )
 		{
 			context.rollBack();
 		}
+
+		/* fixing bug: navigation was lost on save
+		 * added for support of direct search result list navigation, see below
+		 * cklein 2008-03-12
+		 */
+		this.restoreNavigation( cntx, person, database );
 		
 		return person;
 	}
@@ -907,20 +901,22 @@ public class PersonDetailWorker implements PersonConstants {
 	 * @throws BeanException inkl. Datenbank-Fehler
 	 * @throws IOException
 	 */
-	void removePerson(OctopusContext cntx, Database database, Integer personid) throws BeanException, IOException {
+	void removePerson(OctopusContext cntx, TransactionContext context, Integer personid) throws BeanException, IOException {
+		Database database = context.getDatabase();
+		
 		// Gibt an ob diese Person noch einer Veranstaltung zugeordnet ist.
 		boolean hasEvent =
 				database.getCount(
 				database.getCount("Guest").
-				where(Expr.equal("fk_person", personid))).intValue() != 0;
+				where(Expr.equal("fk_person", personid)), context).intValue() != 0;
 
-		Person oldPerson = ( Person ) database.getBean( "Person", personid );
+		Person oldPerson = ( Person ) database.getBean( "Person", personid, context );
 		if (hasEvent) {
 			// Datenbank-Eintrag auf Gel�scht setzten.
 			if (logger.isEnabledFor(Priority.DEBUG)) {
 				logger.log(Priority.DEBUG, "Person löschen: Person #" + personid + " wird als gelöscht markiert.");
 			}
-			database.execute(SQL.Update( database ).
+			context.execute(SQL.Update( database ).
 					table("veraweb.tperson").
 					update("deleted", PersonConstants.DELETED_TRUE).
 					where(Expr.equal("pk", personid)));
@@ -930,19 +926,19 @@ public class PersonDetailWorker implements PersonConstants {
 				logger.log(Priority.DEBUG, "Person löschen: Person #" + personid + " wird vollständig gelöscht.");
 			}
 			
-			database.execute(SQL.Delete( database ).
+			context.execute(SQL.Delete( database ).
 					from("veraweb.tperson_categorie").
 					where(Expr.equal("fk_person", personid)));
-			database.execute(SQL.Delete( database ).
+			context.execute(SQL.Delete( database ).
 					from("veraweb.tperson_doctype").
 					where(Expr.equal("fk_person", personid)));
-			database.execute(SQL.Delete( database ).
+			context.execute(SQL.Delete( database ).
 					from("veraweb.tperson_mailinglist").
 					where(Expr.equal("fk_person", personid)));
-			database.execute(SQL.Delete( database ).
+			context.execute(SQL.Delete( database ).
 					from("veraweb.tperson").
 					where(Expr.equal("pk", personid)));
-			database.execute(SQL.Update( database ).
+			context.execute(SQL.Update( database ).
 					table("veraweb.tevent").
 					update("fk_host", null).
 					update("hostname", null).
@@ -953,10 +949,10 @@ public class PersonDetailWorker implements PersonConstants {
 		 * modified to support change logging
 		 * cklein 2008-02-12
 		 */
-		BeanChangeLogger clogger = new BeanChangeLogger( database );
+		BeanChangeLogger clogger = new BeanChangeLogger( database, context );
 		if ( hasEvent )
 		{
-			Person newPerson = ( Person ) database.getBean( "Person", personid );
+			Person newPerson = ( Person ) database.getBean( "Person", personid, context );
 			clogger.logUpdate( cntx.personalConfig().getLoginname(), oldPerson, newPerson );
 		}
 		else

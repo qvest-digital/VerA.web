@@ -29,6 +29,7 @@
 package de.tarent.aa.veraweb.worker;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -555,18 +556,27 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 		
 		/** L�scht Personen aus VerA.Web */
 		if ((user || admin) && !selectionRemove.isEmpty() && getContextAsBoolean(cntx, "remove-person")) {
-			PersonDetailWorker personDetailWorker = WorkerFactory.getPersonDetailWorker(cntx);
-			for (Iterator it = selectionRemove.iterator(); it.hasNext(); ) {
-				Integer id = (Integer)it.next();
+			try
+			{
+				TransactionContext context = database.getTransactionContext();
+				PersonDetailWorker personDetailWorker = WorkerFactory.getPersonDetailWorker(cntx);
+				for (Iterator it = selectionRemove.iterator(); it.hasNext(); ) {
+					Integer id = (Integer)it.next();
 
-				/*
-				 * updated to reflect interface changes on removePerson
-				 * cklein 2008-02-12
-				 */
-				personDetailWorker.removePerson( cntx, database, id );
-				it.remove();
-				selection.remove( id );
-				count++;
+					/*
+					 * updated to reflect interface changes on removePerson
+					 * cklein 2008-02-12
+					 */
+					personDetailWorker.removePerson( cntx, context, id );
+					it.remove();
+					selection.remove( id );
+					count++;
+				}
+				context.commit();
+			}
+			catch( BeanException e )
+			{
+				throw new BeanException( "Die ausgewählten Personen konnten nicht gelöscht werden.", e );
 			}
 		}
 
