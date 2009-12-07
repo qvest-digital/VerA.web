@@ -250,7 +250,7 @@
 		<dependency>
 			<groupId>de.tarent.libraries</groupId>
 			<artifactId>tarent-database</artifactId>
-			<version>1.5.4-verawebpl1</version>
+			<version>1.5.4-verawebpl2</version>
 		</dependency>
 
 		<dependency>
@@ -281,7 +281,7 @@
 		<dependency>
 			<groupId>de.tarent.octopus</groupId>
 			<artifactId>octopus-ext-beans</artifactId>
-			<version>1.6.2-verawebpl1</version>
+			<version>1.6.2-verawebpl2</version>
 
 			<exclusions>
 				<exclusion>
