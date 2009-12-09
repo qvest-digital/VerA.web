@@ -112,9 +112,13 @@
 </div>
 
 #else
-
 <div class="menusection">
+#if( $status.exception )
+	<strong class="menutitle">Menü</strong>
+	<a href="${paths.staticWeb}do/">Startseite</a>
+#else
 	<strong class="menutitle">Benutzer</strong>
 	<a href="${paths.staticWeb}do/ShowLogin" target="_top" class="menulink">Anmelden</a>
+#end
 </div>
 #end
