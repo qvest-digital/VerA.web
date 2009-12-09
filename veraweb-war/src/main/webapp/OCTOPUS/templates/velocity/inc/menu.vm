@@ -113,7 +113,7 @@
 
 #else
 <div class="menusection">
-#if( $status.exception )
+#if( $status.exception && $octopusRequest.task != "ShowLogin" && $octopusRequest.task != "default" )
 	<strong class="menutitle">Menü</strong>
 	<a href="${paths.staticWeb}do/">Startseite</a>
 #else
