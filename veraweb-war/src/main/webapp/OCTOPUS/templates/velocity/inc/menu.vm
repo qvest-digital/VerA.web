@@ -113,7 +113,8 @@
 
 #else
 <div class="menusection">
-#if( $status.exception && $octopusRequest.task != "ShowLogin" && $octopusRequest.task != "default" )
+## semi fix here: the exception is also thrown when a user accesses parts of the application while not having the permissions to access these
+#if( ! $status.exception.toString().contains( "de.tarent.octopus.security.TcSecurityException" ) && $status.exception && $octopusRequest.task != "ShowLogin" && $octopusRequest.task != "default" )
 	<strong class="menutitle">Menü</strong>
 	<a href="${paths.staticWeb}do/">Startseite</a>
 #else
