@@ -58,6 +58,7 @@ CREATE OR REPLACE FUNCTION serv_verawebschema(int4) RETURNS varchar AS
  *  2008-12-22  add: new state column to tperson and dependent tables
  *  2009-03-19  cklein: added state columns to timportperson by using the drop mechanism based on availability of either of the new state columns
  *  2009-10-16  cklein: fixed bug in tguest schema where the language/language_p attribute was smaller in size than that of tperson, now tperson and tguest have similar sized language attributes of 250 chars each
+ *  2009-12-13	cklein: fixed bug that caused imports from associating wrong document types a/o categories with newly imported person records. will now drop all import tables on schema upgrade and not only the timportperson table.
  * </changelog>
  * ----------------------------------------------------------- */
 
@@ -71,7 +72,7 @@ DECLARE
 
 BEGIN
 	--##### please set vversion to current date
-	vversion := \'2009-10-16\';
+	vversion := \'2009-12-13\';
 	--#####
 	
 	vrecno := 0;
@@ -2090,6 +2091,26 @@ END;\'
 	
 	---------------------------<TABLE>
 	vint := 0;
+	SELECT count(*) INTO vint FROM information_schema.columns
+		WHERE table_schema = \'veraweb\' AND table_name = \'timportperson\' AND column_name = \'state_a_e1\';
+	IF vint = 0 THEN
+		vmsg := \'begin.dropTABLE.timportperson_categorie\';
+		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
+		IF $1 = 1 THEN
+			-- CAN DROP ONLY IF EXISTS (PostgreSQL 8.2 added this feature)
+			-- INSTALLATION CHOKES HERE IN NEW/VANILLA SETUPS... 
+			SELECT count(*) INTO vint FROM pg_class WHERE relname = \'timportperson_categorie\';
+			IF vint = 1 THEN
+				vmsg := \'really dropping table timportperson_categorie - because table is present\';
+				DROP TABLE veraweb.timportperson_categorie CASCADE;
+			ELSE
+				vmsg := \'not dropping table timportperson_categorie - because table is not even present\';
+			END IF;
+		END IF;
+		vmsg := \'end.dropTABLE.timportperson_categorie\';
+		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
+	END IF;
+	vint := 0;
 	SELECT count(*) INTO vint FROM information_schema.tables 
 		WHERE table_schema = \'veraweb\' AND table_name = \'timportperson_categorie\';
 	IF vint = 0 THEN
@@ -2117,6 +2138,26 @@ END;\'
 	
 	
 	---------------------------<TABLE>
+	vint := 0;
+	SELECT count(*) INTO vint FROM information_schema.columns
+		WHERE table_schema = \'veraweb\' AND table_name = \'timportperson\' AND column_name = \'state_a_e1\';
+	IF vint = 0 THEN
+		vmsg := \'begin.dropTABLE.timportperson_doctype\';
+		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
+		IF $1 = 1 THEN
+			-- CAN DROP ONLY IF EXISTS (PostgreSQL 8.2 added this feature)
+			-- INSTALLATION CHOKES HERE IN NEW/VANILLA SETUPS... 
+			SELECT count(*) INTO vint FROM pg_class WHERE relname = \'timportperson_doctype\';
+			IF vint = 1 THEN
+				vmsg := \'really dropping table timportperson_doctype - because table is present\';
+				DROP TABLE veraweb.timportperson_doctype CASCADE;
+			ELSE
+				vmsg := \'not dropping table timportperson_doctype - because table is not even present\';
+			END IF;
+		END IF;
+		vmsg := \'end.dropTABLE.timportperson_doctype\';
+		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
+	END IF;
 	vint := 0;
 	SELECT count(*) INTO vint FROM information_schema.tables 
 		WHERE table_schema = \'veraweb\' AND table_name = \'timportperson_doctype\';
