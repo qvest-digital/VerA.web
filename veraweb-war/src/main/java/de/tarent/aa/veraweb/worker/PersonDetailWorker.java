@@ -31,6 +31,7 @@
 package de.tarent.aa.veraweb.worker;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.Date;
@@ -47,15 +48,19 @@ import de.tarent.aa.veraweb.beans.Doctype;
 import de.tarent.aa.veraweb.beans.Person;
 import de.tarent.aa.veraweb.beans.PersonCategorie;
 import de.tarent.aa.veraweb.beans.PersonDoctype;
+import de.tarent.aa.veraweb.beans.PersonSearch;
 import de.tarent.aa.veraweb.beans.facade.PersonAddressFacade;
 import de.tarent.aa.veraweb.beans.facade.PersonConstants;
 import de.tarent.aa.veraweb.beans.facade.PersonDoctypeFacade;
 import de.tarent.aa.veraweb.beans.facade.PersonMemberFacade;
 import de.tarent.aa.veraweb.utils.AddressHelper;
 import de.tarent.aa.veraweb.utils.DateHelper;
+import de.tarent.dblayer.helper.ResultList;
 import de.tarent.dblayer.sql.SQL;
+import de.tarent.dblayer.sql.SyntaxErrorException;
 import de.tarent.dblayer.sql.clause.Expr;
-import de.tarent.dblayer.sql.clause.Limit;
+import de.tarent.dblayer.sql.clause.Order;
+import de.tarent.dblayer.sql.clause.RawClause;
 import de.tarent.dblayer.sql.clause.Where;
 import de.tarent.dblayer.sql.statement.Insert;
 import de.tarent.dblayer.sql.statement.Select;
@@ -141,6 +146,7 @@ public class PersonDetailWorker implements PersonConstants {
 		Calendar cal = Calendar.getInstance();
 		cal.setTime( d );
 		map.put( "begin", "01." + ( cal.get( Calendar.MONTH ) + 1 ) + "." + cal.get( Calendar.YEAR ) );
+// previously disabled due to the fact that the stats reach "out to near infinite time" in the future
 //		cal.setTime( new Date() );
 //		map.put( "end", cal.get( Calendar.DAY_OF_MONTH ) + "." + ( cal.get( Calendar.MONTH ) + 1 ) + "." + cal.get( Calendar.YEAR ) );
 
@@ -149,44 +155,42 @@ public class PersonDetailWorker implements PersonConstants {
 
 	protected void restoreNavigation( OctopusContext cntx, Person person, Database database ) throws BeanException, IOException
 	{
-		/*
-		 * modified to support direct search result list navigation as per the change request for version 1.2.0
-		 * cklein
-		 * 2008-02-21
-		 */
-		Integer offset = cntx.requestAsInteger( "offset" );
-		Integer originalPersonId = cntx.requestAsInteger( "originalPersonId" );
+		String action = cntx.requestAsString( "action" );
+		Integer personId = cntx.requestAsInteger( "id" );
 
-		Select select = null;
-		PersonListWorker plworker = WorkerFactory.getPersonListWorker(cntx);
-		select = plworker.prepareShowList( cntx, database );
-
-		Map params = ( Map ) cntx.contentAsObject( PersonListWorker.OUTPUT_showListParams );
-		Integer count = ( Integer ) params.get( "count" );
-//		Integer limit = ( Integer ) cntx.sessionAsObject( "limitperson" );
-
-		/* a new record was added by copying an existing, we move the offset to the search list result entry matching the person
-		 * in order to prevent false positives, i.e. the copied record does no longer match the search criteria,
-		 * we will first try to find the person in the database, if it is not available, then we will fall back
-		 * to the original person that was copied
-		 * cklein 2008-03-12
-		 */
-		if ( originalPersonId != null && originalPersonId > 0 )
+		// now get the proper select from the workers based on 
+		// the optionally defined action parameter
+		Person sample = new Person();
+		Select select = database.getSelectIds( sample );
+		if ( "duplicateSearch".equals( action ) )
 		{
-			List< Person > tmp = ( List< Person > ) database.getBeanList( "Person", select );
-			offset = 0;
-			for ( Person b : tmp )
-			{
-				if ( b.id.compareTo( person.id ) == 0 )
-				{
-					// found, offset is adjusted so as to point to the newly created person record
-					break;
-				}
-				offset++;
-			}
+			// must navigate through all persons matching duplicate search query filter
+			PersonDuplicateSearchWorker w = WorkerFactory.getPersonDuplicateSearchWorker( cntx );
+			// replaces the original select as it is very similar
+			select = w.getSelect( database );
+			w.extendWhere( cntx, select );
+			select.clearColumnSelection();
+			select.selectAs( "tperson.pk", "id" );
+			select.select( "tperson.lastname_a_e1" );
+			select.select( "tperson.firstname_a_e1" );
+			select.orderBy( Order.asc( "tperson.lastname_a_e1" ).andAsc( "tperson.firstname_a_e1" ) );
+		}
+		else if ( action == null || action.length() == 0 )
+		{
+			// standard person list
+			// must navigate through all persons matching current search query filter
+			PersonListWorker w = WorkerFactory.getPersonListWorker( cntx );
+			PersonSearch s = w.getSearch( cntx );
+			w.extendWhere( cntx, select );
+
+			// part replication of the worker's behaviour
+			select.setDistinct( s.categoriesSelection != null || s.categorie2 != null );
+			select.select( "tperson.lastname_a_e1" );
+			select.select( "tperson.firstname_a_e1" );
+			select.orderBy( Order.asc( "tperson.lastname_a_e1" ).andAsc( "tperson.firstname_a_e1" ) );
 		}
 
-		if ( offset != null )
+		try
 		{
 			Map< String, Map< String, Object > > navigation = new HashMap< String, Map< String, Object > >();
 			Map< String, Object > entry = null;
@@ -194,71 +198,91 @@ public class PersonDetailWorker implements PersonConstants {
 			// setup current
 			entry = new HashMap< String, Object >();
 			entry.put( "person", person );
-			entry.put( "offset", offset );
 			navigation.put( "current", entry );
 
-			// first and previous
-			if ( offset > 0 )
+			ResultList result = new ResultList( select.executeSelect( database ).resultSet() );
+
+			int size = result.size();
+			int i;
+			for ( i = 0; i < size; i++ )
 			{
-				// previous
-				entry = new HashMap< String, Object >();
-				entry.put( "person", database.getBean( "Person", select ) );
-				entry.put( "offset", new Integer( offset.intValue() - 1 ) );
-				navigation.put( "previous", entry );
-				if ( offset > 0 )
+				Map cur = ( Map ) result.get( i );
+				if ( cur.get( "id" ).equals( personId ) )
 				{
-					// first
-					select.Limit( new Limit( 1, 0 ) );
-					entry = new HashMap< String, Object >();
-					entry.put( "person", database.getBean( "Person", select ) );
-					entry.put( "offset", new Integer( 0 ) );
-					navigation.put( "first", entry );
-				}
-				else
-				{
-					navigation.put( "first", null );
+					break;
 				}
 			}
-			else
+			Map first = null;
+			Map previous = null;
+			if ( i > 0 )
 			{
-				navigation.put( "first", null );
-				navigation.put( "previous", null );
+				first = copyPersonMap( ( Map ) result.get( 0 ) );
+				previous = copyPersonMap( ( Map ) result.get( i - 1 ) );
 			}
-			// next and last
-			if ( offset < count - 1 )
+
+			Map fentry = null;
+			if ( first != null )
 			{
-				// next
-				entry = new HashMap< String, Object >();
-				entry.put( "person", database.getBean( "Person", select ) );
-				entry.put( "offset", new Integer( offset.intValue() + 1 ) );
-				navigation.put( "next", entry );
-				if ( offset < count - 1 )
-				{
-					// last
-					select.Limit( new Limit( 1, count - 1 ) );
-					entry = new HashMap< String, Object >();
-					entry.put( "person", database.getBean( "Person", select ) );
-					entry.put( "offset", new Integer( count.intValue() - 1 ) );
-					navigation.put( "last", entry );
-				}
-				else
-				{
-					navigation.put( "last", null );
-				}
+				fentry = new HashMap< String, Object >();
+				fentry.put( "person", first );
 			}
-			else
+			navigation.put( "first", fentry );
+
+			Map pentry = null;
+			if ( previous != null )
 			{
-				navigation.put( "next", null );
-				navigation.put( "last", null );
+				pentry = new HashMap< String, Object >();
+				pentry.put( "person", previous );
 			}
+			navigation.put( "previous", pentry );
+
+			Map next = null;
+			Map last = null;
+			if ( i < size - 1 )
+			{
+				next = copyPersonMap( ( Map ) result.get( i + 1 ) );
+				last = copyPersonMap( ( Map ) result.get( size - 1 ) );
+			}
+
+			Map nentry = null;
+			if ( next != null )
+			{
+				nentry = new HashMap< String, Object >();
+				nentry.put( "person", next );
+			}
+			navigation.put( "next", nentry );
+
+			Map lentry = null;
+			if ( last != null )
+			{
+				lentry = new HashMap< String, Object >();
+				lentry.put( "person", last );
+			}
+			navigation.put( "last", lentry );
+
+			Map< String, Object > meta = new HashMap< String, Object >();
+			meta.put( "action", action );
+			meta.put( "offset", new Integer( i + 1 ) );
+			meta.put( "count", new Integer( size ) );
+			navigation.put( "meta", meta );
 			cntx.setContent( "navigation", navigation );
 		}
-		else
+		catch ( SQLException e )
 		{
-			cntx.setContent( "navigation", ( Map ) null );
+			throw new BeanException( "Unexpected exception occurred: ", e );
 		}
 	}
-	
+
+	private Map< String, Object > copyPersonMap( Map< String, Object > personMap )
+	{
+		Map< String, Object > result = new HashMap< String, Object >();
+		for ( String key : personMap.keySet() )
+		{
+			result.put( key, personMap.get( key ) );
+		}
+		return result;
+	}
+
     /** Eingabe-Parameter der Octopus-Aktion {@link #copyPerson(OctopusContext, Integer)} */
 	public static final String INPUT_copyPerson[] = { "id" };
     /** Eingabe-Parameterzwang der Octopus-Aktion {@link #copyPerson(OctopusContext, Integer)} */
@@ -677,6 +701,9 @@ public class PersonDetailWorker implements PersonConstants {
 			}
 			context.commit();
 
+			// must reset the originalPersonId here, otherwise restoreNavigation will fail
+			cntx.setContent("originalPersonId", ( Integer ) null);
+
 			cntx.setContent("person-diplodatetime", Boolean.valueOf(DateHelper.isTimeInDate(person.diplodate_a_e1)));
 		} 
 		catch( BeanException e )
@@ -689,7 +716,7 @@ public class PersonDetailWorker implements PersonConstants {
 		 * cklein 2008-03-12
 		 */
 		this.restoreNavigation( cntx, person, database );
-		
+
 		return person;
 	}
 

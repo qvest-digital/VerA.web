@@ -6,7 +6,6 @@ package de.tarent.aa.veraweb.worker;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -65,7 +64,7 @@ public class PersonDuplicateSearchWorker extends PersonListWorker
 		this.extendLimit( cntx, select );
 		select.orderBy( Order.asc( "lastname_a_e1" ).andAsc( "firstname_a_e1" ) );
 		
-		/*
+		/* FIXME remove this temporary fix ASAP
 		 * cklein 2009-09-17
 		 * Temporary workaround for NPE Exception in Conjunction with temporary Connection Pooling Fix in tarent-database
 		 * Somehow the resultlist returned by getResultList or its underlying ResultSet will be NULL when entering the view
