@@ -381,7 +381,7 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
     	/* check for partner latin */
     	PartnerLatin p = ( PartnerLatin ) this.getMemberFacade( new Integer( MEMBER_PARTNER ), new Integer( LOCALE_LATIN ) );
     	PartnerExtra1 p1 = ( PartnerExtra1 ) this.getMemberFacade( new Integer( MEMBER_PARTNER ), new Integer( LOCALE_EXTRA1 ) );
-    	PartnerExtra1 p2 = ( PartnerExtra1 ) this.getMemberFacade( new Integer( MEMBER_PARTNER ), new Integer( LOCALE_EXTRA2 ) );
+    	PartnerExtra2 p2 = ( PartnerExtra2 ) this.getMemberFacade( new Integer( MEMBER_PARTNER ), new Integer( LOCALE_EXTRA2 ) );
     	// partner is always expected to have a lastname or a firstname
     	return
     	( 
