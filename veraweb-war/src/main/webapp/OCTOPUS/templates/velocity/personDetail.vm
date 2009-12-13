@@ -1,7 +1,8 @@
-#if($person && $person && $person.id)
+#if($person && $person.id)
 #set($title = "Person bearbeiten: $!message.plain($person.MainLatin.SaveAs)")
 #parse("inc/header.vm")
 #else
+#set($isNewPerson = 1)
 #set($title = "Neue Person anlegen")
 #parse("inc/header.vm")
 #end
@@ -42,11 +43,6 @@
 <input type="hidden" id="personMemberTab" name="personMemberTab" value="1">
 <input type="hidden" id="personAddresstypeTab" name="personAddresstypeTab" value="1">
 <input type="hidden" id="personLocaleTab" name="personLocaleTab" value="1">
-
-## modified in order to not loose the current person navigation offset
-## part of change request for version 1.2.0 (direct search result navigation from the person detail pages)
-## cklein 2008-03-12
-<input type="hidden" id="offset" name="offset" value="${navigation.current.offset}">
 
 #if ($person && $person.id)
 <input type="hidden" name="person-nodupcheck" value="true">
@@ -419,6 +415,11 @@
 		zeichensatz = $userConfig.personLocaleTab; /* userconfig */
 	#elseif($config.personLocaleTab)
 		zeichensatz = $config.personLocaleTab; /* config */
+	#end
+	
+	## fix for issue #1890
+	#if ($isNewPerson)
+		zeichensatz = 1;
 	#end
 	
 	#if($personTab && $personTab == 2)
