@@ -40,6 +40,8 @@ import de.tarent.dblayer.sql.clause.RawClause;
 import de.tarent.dblayer.sql.statement.Select;
 import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.beans.Database;
+import de.tarent.octopus.beans.TransactionContext;
+import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
 import de.tarent.octopus.beans.veraweb.ListWorkerVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
 
@@ -86,13 +88,13 @@ public class MailDraftWorker extends ListWorkerVeraWeb {
 	 * Updatet ausschlie�lich den Namen der in der Liste angezeigt wird.
 	 */
 	@Override
-    protected int updateBeanList(OctopusContext cntx, List errors, List beanlist) throws BeanException, IOException {
+    protected int updateBeanList(OctopusContext cntx, List errors, List beanlist, TransactionContext context) throws BeanException, IOException {
 		int count = 0;
 		for (Iterator it = beanlist.iterator(); it.hasNext(); ) {
 			MailDraft mailDraft = (MailDraft)it.next();
 			if (mailDraft.isModified()) {
-				Database db = getDatabase(cntx);
-				db.execute(
+				Database db = context.getDatabase();
+				context.execute(
 						SQL.Update( db ).
 						table("veraweb.tmaildraft").
 						update("name", mailDraft.name).
@@ -151,8 +153,18 @@ public class MailDraftWorker extends ListWorkerVeraWeb {
 	public MailDraft saveDetail(OctopusContext cntx, Boolean save) throws BeanException, IOException {
 		if (save != null && save.booleanValue()) {
 			MailDraft mailDraft = (MailDraft)getRequest(cntx).getBean("MailDraft", "maildraft");
+			TransactionContext context = ( new DatabaseVeraWeb(cntx) ).getTransactionContext();
 			if (mailDraft.isCorrect()) {
-				saveBean(cntx, mailDraft);
+				try
+				{
+					saveBean(cntx, mailDraft, context);
+					context.commit();
+				}
+				catch ( Throwable e )
+				{
+					context.rollBack();
+					throw new BeanException( "Der Maildraft konnte nicht gespeichert werden.", e );
+				}
 			}
 			return mailDraft;
 		}

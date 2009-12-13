@@ -40,7 +40,6 @@ import de.tarent.dblayer.sql.statement.Select;
 import de.tarent.octopus.beans.Bean;
 import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.beans.Database;
-import de.tarent.octopus.beans.ExecutionContext;
 import de.tarent.octopus.beans.TransactionContext;
 import de.tarent.octopus.beans.veraweb.ListWorkerVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
@@ -95,17 +94,17 @@ public class PersonCategorieWorker extends ListWorkerVeraWeb {
 	}
 
 	@Override
-    protected void saveBean(OctopusContext cntx, Bean bean) throws BeanException, IOException {
-		super.saveBean(cntx, bean);
+    protected void saveBean(OctopusContext cntx, Bean bean, TransactionContext context) throws BeanException, IOException {
+		super.saveBean(cntx, bean, context);
 		WorkerFactory.getPersonDetailWorker(cntx).updatePerson(cntx, null, ((PersonCategorie)bean).person);
 	}
 
-	public void addCategoryAssignment( OctopusContext cntx, Integer categoryId, Integer personId, Database database, ExecutionContext context ) throws BeanException, IOException
+	public void addCategoryAssignment( OctopusContext cntx, Integer categoryId, Integer personId, Database database, TransactionContext context ) throws BeanException, IOException
 	{
 		addCategoryAssignment(cntx, categoryId, personId, database, context, true);
 	}
 	
-	public PersonCategorie addCategoryAssignment( OctopusContext cntx, Integer categoryId, Integer personId, Database database, ExecutionContext context, boolean save ) throws BeanException, IOException
+	public PersonCategorie addCategoryAssignment( OctopusContext cntx, Integer categoryId, Integer personId, Database database, TransactionContext context, boolean save ) throws BeanException, IOException
 	{
 		Categorie category = ( Categorie ) database.getBean( "Categorie", categoryId, context == null ? database : context);
 		if ( category != null )
@@ -121,28 +120,28 @@ public class PersonCategorieWorker extends ListWorkerVeraWeb {
 				personCategory.person = personId;
 				personCategory.rank = category.rank;
 				if(save)
-					this.saveBean( cntx, personCategory );
+					this.saveBean( cntx, personCategory, context );
 				return personCategory;
 			}
 		}
 		return null;
 	}
 
-	public void removeAllCategoryAssignments( OctopusContext cntx, Integer personId, Database database, ExecutionContext context ) throws BeanException, IOException
+	public void removeAllCategoryAssignments( OctopusContext cntx, Integer personId, Database database, TransactionContext context ) throws BeanException, IOException
 	{
 		try
 		{
-			DB.update(context,
-				SQL.Delete( context ).from( "veraweb.tperson_categorie" ).where( Expr.equal( "fk_person", personId ) )
+			context.execute( 
+				SQL.Delete( database ).from( "veraweb.tperson_categorie" ).where( Expr.equal( "fk_person", personId ) )
 			);
 		}
-		catch( SQLException e )
+		catch( BeanException e )
 		{
 			throw new BeanException( "Die Kategoriezuweisungen konnte nicht aufgehoben werden.", e );
 		}
 	}
 
-	public void removeCategoryAssignment( OctopusContext cntx, Integer categoryId, Integer personId, Database database, ExecutionContext context ) throws BeanException, IOException
+	public void removeCategoryAssignment( OctopusContext cntx, Integer categoryId, Integer personId, Database database, TransactionContext context ) throws BeanException, IOException
 	{
 		Categorie category = ( Categorie ) database.getBean( "Categorie", categoryId, context == null ? database : context );
 		if ( category != null )
@@ -150,10 +149,10 @@ public class PersonCategorieWorker extends ListWorkerVeraWeb {
 			Select select = database.getSelect( "PersonCategorie" );
 			select.where( Expr.equal( "fk_person", personId ) );
 			select.whereAnd( Expr.equal( "fk_categorie", categoryId ) );
-			PersonCategorie personCategory = ( PersonCategorie ) database.getBean( "PersonCategorie", select );
+			PersonCategorie personCategory = ( PersonCategorie ) database.getBean( "PersonCategorie", select, context );
 			if ( personCategory != null )
 			{
-				database.removeBean( personCategory, context == null ? database : context );
+				database.removeBean( personCategory, context );
 			}
 		}
 	}

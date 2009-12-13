@@ -39,12 +39,13 @@ import de.tarent.octopus.PersonalConfigAA;
 import de.tarent.octopus.beans.Bean;
 import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.beans.Database;
+import de.tarent.octopus.beans.TransactionContext;
 import de.tarent.octopus.beans.veraweb.ListWorkerVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
 
 /**
  * Testet ob bereits ein Stammdaten-Eintrag mit dem selben Namen existiert.
- * Bietet zusätzlich einen Task für Direkteinsprungsmarken an.
+ * Bietet zusï¿½tzlich einen Task fï¿½r Direkteinsprungsmarken an.
  */
 public class StammdatenWorker extends ListWorkerVeraWeb {
     //
@@ -94,10 +95,10 @@ public class StammdatenWorker extends ListWorkerVeraWeb {
 	}
 
 	@Override
-    protected int insertBean(OctopusContext cntx, List errors, Bean bean) throws BeanException, IOException {
+    protected int insertBean(OctopusContext cntx, List errors, Bean bean, TransactionContext context) throws BeanException, IOException {
 		int count = 0;
 		if (bean.isModified() && bean.isCorrect()) {
-			Database database = getDatabase(cntx);
+			Database database = context.getDatabase();
 			
 			String orgunit = database.getProperty(bean, "orgunit");
 			Clause clause = Expr.equal(
@@ -110,11 +111,11 @@ public class StammdatenWorker extends ListWorkerVeraWeb {
 			Integer exist =
 					database.getCount(
 					database.getCount(bean).
-					where(clause));
+					where(clause),context);
 			if (exist.intValue() != 0) {
 				errors.add("Es existiert bereits ein Stammdaten-Eintrag unter dem Namen '" + bean.getField("name") + "'.");
 			} else {
-				count += super.insertBean(cntx, errors, bean);
+				count += super.insertBean(cntx, errors, bean, context);
 			}
 		}
 		return count;

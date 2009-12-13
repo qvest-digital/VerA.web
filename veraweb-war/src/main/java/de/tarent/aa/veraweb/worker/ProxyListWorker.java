@@ -52,12 +52,13 @@ import de.tarent.octopus.PersonalConfigAA;
 import de.tarent.octopus.beans.Bean;
 import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.beans.Database;
+import de.tarent.octopus.beans.TransactionContext;
 import de.tarent.octopus.beans.veraweb.ListWorkerVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
 
 /**
  * Diese Octopus-Worker-Klasse stellt Operationen zur Anzeige
- * von Stellvertreterlisten zur Verfügung. Details bitte dem
+ * von Stellvertreterlisten zur Verfï¿½gung. Details bitte dem
  * {@link de.tarent.octopus.beans.veraweb.ListWorkerVeraWeb}
  * entnehmen.
  * 
@@ -65,11 +66,11 @@ import de.tarent.octopus.server.OctopusContext;
  */
 public class ProxyListWorker extends ListWorkerVeraWeb {
     //
-    // öffentliche Konstanten
+    // ï¿½ffentliche Konstanten
     //
     /** Parameter: Wer wird vertreten? */
     public final static String PARAM_PROXIES_FOR = "proxiesFor";
-    /** Parameter: Vertretung gültig wann? */
+    /** Parameter: Vertretung gï¿½ltig wann? */
     public final static String PARAM_PROXIES_VALID = "proxiesValid";
     /** Parameter: Wer vertritt? */
     public final static String PARAM_PROXY = "proxy";
@@ -78,17 +79,17 @@ public class ProxyListWorker extends ListWorkerVeraWeb {
     /** Parameter: List von Proxy-Beans */
     public final static String PARAM_LIST = "list";
     
-    /** Parameterwert: Vertreter für beliebige Benutzer */
+    /** Parameterwert: Vertreter fï¿½r beliebige Benutzer */
     public final static String PARAM_PROXIES_FOR_VALUE_ALL = "all";
-    /** Parameterwert: Vertreter für Benutzer des gleichen Mandanten */
+    /** Parameterwert: Vertreter fï¿½r Benutzer des gleichen Mandanten */
     public final static String PARAM_PROXIES_FOR_VALUE_OU = "ou";
-    /** Parameterwert: Vertreter für die angemeldete Rolle */
+    /** Parameterwert: Vertreter fï¿½r die angemeldete Rolle */
     public final static String PARAM_PROXIES_FOR_VALUE_SELF = "self";
-    /** Parameterwert: Vertretungsgültigkeit ignorieren */
+    /** Parameterwert: Vertretungsgï¿½ltigkeit ignorieren */
     public final static String PARAM_PROXIES_VALID_VALUE_IGNORE = "ignore";
-    /** Parameterwert: Vertretung muss jetzt gültig sein */
+    /** Parameterwert: Vertretung muss jetzt gï¿½ltig sein */
     public final static String PARAM_PROXIES_VALID_VALUE_NOW = "now";
-    /** Parameterwert: Vertretung muss zukünftig gültig sein */
+    /** Parameterwert: Vertretung muss zukï¿½nftig gï¿½ltig sein */
     public final static String PARAM_PROXIES_VALID_VALUE_FUTURE = "future";
     /** Parameterwert: Vertretung durch beliebige Rollen */
     public final static String PARAM_PROXY_VALUE_ALL = "all";
@@ -108,12 +109,12 @@ public class ProxyListWorker extends ListWorkerVeraWeb {
     }
 
     //
-    // statische öffentliche Methoden
+    // statische ï¿½ffentliche Methoden
     //
     /**
-     * Methode für das Erweitern des Select-Statements um Spalten.<br>
+     * Methode fï¿½r das Erweitern des Select-Statements um Spalten.<br>
      * Hier wird <code>veraweb.tuser.username</code> als <code>userRole</code>
-     * eingefügt. 
+     * eingefï¿½gt. 
      * 
      * @param select zu erweiterndes Select-Statement
      */
@@ -127,20 +128,20 @@ public class ProxyListWorker extends ListWorkerVeraWeb {
     //
     // Broker-Aktionen
     //
-    /** Eingabeparameter für Aktion {@link #uniqueProxiedFilter(List, String)} */
+    /** Eingabeparameter fï¿½r Aktion {@link #uniqueProxiedFilter(List, String)} */
     public static final String[] INPUT_uniqueProxiedFilter = {PARAM_LIST, PARAM_PROXIES_VALID};
-    /** Eingabeparameterzwang für Aktion {@link #uniqueProxiedFilter(List, String)} */
+    /** Eingabeparameterzwang fï¿½r Aktion {@link #uniqueProxiedFilter(List, String)} */
     public static final boolean[] MANDATORY_uniqueProxiedFilter = {true, false};
-    /** Ausgabeparameter für Aktion {@link #uniqueProxiedFilter(List, String)} */
+    /** Ausgabeparameter fï¿½r Aktion {@link #uniqueProxiedFilter(List, String)} */
     public static final String OUTPUT_uniqueProxiedFilter = PARAM_LIST;
     /**
      * Diese Aktion filtert aus der in {@link #PARAM_LIST "list"} enthaltenen
      * Stellvertretungen so, dass je vertretener Rolle nur eine Bean vorhanden
-     * ist. Hierbei wird das Vertretungsgültigkeitsflag interpretiert, wenn es
+     * ist. Hierbei wird das Vertretungsgï¿½ltigkeitsflag interpretiert, wenn es
      * entschieden werden muss, welche Vertretungsregelung genommen werden soll. 
      * 
      * @param proxies Liste mit {@link de.tarent.aa.veraweb.beans.Proxy}-Instanzen
-     * @param proxiesValid Parameter, der über Relevanz der Gültigkeitszeit entscheidet.
+     * @param proxiesValid Parameter, der ï¿½ber Relevanz der Gï¿½ltigkeitszeit entscheidet.
      * @return eine neue Liste mit den hinreichend eindeutigen {@link de.tarent.aa.veraweb.beans.Proxy}-Instanzen
      */
     public List uniqueProxiedFilter(List proxies, String proxiesValid) {
@@ -181,9 +182,9 @@ public class ProxyListWorker extends ListWorkerVeraWeb {
     // Klasse ListWorkerVeraWeb
     //
     /**
-     * Methode für das Erweitern des ListWorkerVeraWeb-Select-Statements um Spalten.<br>
+     * Methode fï¿½r das Erweitern des ListWorkerVeraWeb-Select-Statements um Spalten.<br>
      * Hier wird <code>veraweb.tuser.username</code> als <code>userRole</code>
-     * eingefügt. 
+     * eingefï¿½gt. 
      * 
      * @param cntx Octopus-Context
      * @param select Select-Statement
@@ -204,7 +205,7 @@ public class ProxyListWorker extends ListWorkerVeraWeb {
     }
 
     /**
-     * Methode für das Erweitern des Select-Statements um Bedingungen.<br>
+     * Methode fï¿½r das Erweitern des Select-Statements um Bedingungen.<br>
      * Hier werden die Parameter {@link #PARAM_PROXIES_FOR "proxiesFor"},
      * {@link #PARAM_PROXIES_VALID "proxiesValid"} und {@link #PARAM_PROXY "proxy"}
      * ausgewertet.<br>
@@ -230,12 +231,12 @@ public class ProxyListWorker extends ListWorkerVeraWeb {
         String proxyValid = cntx.contentAsString(PARAM_PROXIES_VALID);
         String proxy = cntx.contentAsString(PARAM_PROXY);
         WhereList list = new WhereList();
-        // TODO: Je nach Benutzergruppe passende Einschränkung machen
+        // TODO: Je nach Benutzergruppe passende Einschrï¿½nkung machen
         //
-        // proxiesValid: Gültig wann?
+        // proxiesValid: Gï¿½ltig wann?
         //
         if (PARAM_PROXIES_VALID_VALUE_IGNORE.equals(proxyValid)) {
-            // Gültigkeit ignorieren
+            // Gï¿½ltigkeit ignorieren
         } else if (PARAM_PROXIES_VALID_VALUE_FUTURE.equals(proxyValid)) {
             list.addAnd(Where.or(Expr.isNull("validtill"), Expr.greaterOrEqual("validtill", new Function("now"))));
         } else /*if (PARAM_PROXIES_VALID_VALUE_NOW.equals(proxyValid))*/ { // Default: "now"
@@ -246,7 +247,7 @@ public class ProxyListWorker extends ListWorkerVeraWeb {
         // proxy: Wer vertritt?
         //
         if (PARAM_PROXY_VALUE_ALL.equals(proxy)) {
-            // alle Stellvertretenden, keine Einschränkung
+            // alle Stellvertretenden, keine Einschrï¿½nkung
         } else if (PARAM_PROXY_VALUE_OU.equals(proxy)) {
             if (pCfg == null || pCfg.getOrgUnitId() == null)
                 list.addAnd(new RawClause("proxy IN (SELECT username FROM veraweb.tuser WHERE fk_orgunit IS NULL)"));
@@ -268,7 +269,7 @@ public class ProxyListWorker extends ListWorkerVeraWeb {
         //
         // (Da nicht immer zuvor extendColumns aufgerufen wird, kann nicht vom gejointen tuser ausgegangen werden -> Subselects)
         if (PARAM_PROXIES_FOR_VALUE_ALL.equals(proxiesFor)) {
-            // Stellvertreter aller Benutzer, keine Einschränkung
+            // Stellvertreter aller Benutzer, keine Einschrï¿½nkung
         } else if (PARAM_PROXIES_FOR_VALUE_OU.equals(proxiesFor)) {
             if (pCfg == null || pCfg.getOrgUnitId() == null)
                 list.addAnd(new RawClause("fk_user IN (SELECT pk FROM veraweb.tuser WHERE fk_orgunit IS NULL)"));
@@ -287,7 +288,7 @@ public class ProxyListWorker extends ListWorkerVeraWeb {
     }
 
 	@Override
-    protected void saveBean(OctopusContext cntx, Bean bean) throws BeanException, IOException {
+    protected void saveBean(OctopusContext cntx, Bean bean, TransactionContext context) throws BeanException, IOException {
 		Proxy proxy = (Proxy)bean;
 		if (proxy.validFrom != null) {
 			Calendar calendar = Calendar.getInstance();
@@ -307,11 +308,11 @@ public class ProxyListWorker extends ListWorkerVeraWeb {
 			calendar.set(Calendar.MILLISECOND, 0);
 			proxy.validTill.setTime(calendar.getTimeInMillis());
 		}
-		super.saveBean(cntx, bean);
+		super.saveBean(cntx, bean, context);
 	}
     
     //
-    // geschützte Hilfsmethoden
+    // geschï¿½tzte Hilfsmethoden
     //
     static boolean containsNow(Timestamp from, Timestamp till) {
         Timestamp now = new Timestamp(System.currentTimeMillis());

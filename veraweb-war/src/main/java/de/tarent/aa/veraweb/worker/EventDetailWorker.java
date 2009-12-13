@@ -279,7 +279,7 @@ public class EventDetailWorker {
 					}
 					if (saveLocation)
 					{
-						WorkerFactory.getLocationWorker(cntx).insertBean(cntx, errors, location);
+						WorkerFactory.getLocationWorker(cntx).insertBean(cntx, errors, location, context);
 					}
 				}
 
@@ -323,7 +323,7 @@ public class EventDetailWorker {
 					Guest hostToRemove = (Guest) database.getBean("Guest", sel);
 					if (hostToRemove != null && hostToRemove.id != null)
 					{
-						WorkerFactory.getGuestListWorker(cntx).removeBean(cntx, hostToRemove);
+						WorkerFactory.getGuestListWorker(cntx).removeBean(cntx, hostToRemove, context);
 					}
 
 					// context.execute(SQL.Update(database).
@@ -368,6 +368,8 @@ public class EventDetailWorker {
 		catch ( BeanException e )
 		{
 			context.rollBack();
+			// must report error to user
+			throw new BeanException( "Die Eventdetails konnten nicht gespeichert werden.", e );
 		}
 	}
 

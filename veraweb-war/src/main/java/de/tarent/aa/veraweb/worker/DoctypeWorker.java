@@ -41,6 +41,7 @@ import de.tarent.dblayer.sql.statement.Select;
 import de.tarent.octopus.beans.Bean;
 import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.beans.Database;
+import de.tarent.octopus.beans.TransactionContext;
 import de.tarent.octopus.server.OctopusContext;
 
 /**
@@ -90,30 +91,30 @@ public class DoctypeWorker extends StammdatenWorker {
 	}
 
 	@Override
-    protected void saveBean(OctopusContext cntx, Bean bean) throws BeanException, IOException {
+    protected void saveBean(OctopusContext cntx, Bean bean, TransactionContext context) throws BeanException, IOException {
 		Doctype doctype = (Doctype)bean;
 		Boolean isdefault = doctype.isdefault;
-		Database database = getDatabase(cntx);
+		Database database = context.getDatabase();
 		if (isdefault != null && isdefault.booleanValue()) {
-			database.execute(SQL.Update( database ).
+			context.execute(SQL.Update( database ).
 					table("veraweb.tdoctype").
 					update("isdefault", Boolean.FALSE));
 		}
 		if (doctype.id != null && doctype.flags != null && doctype.flags.intValue() == 50) {
 			Doctype old = (Doctype)database.getBean(BEANNAME, doctype.id);
 			if (old.flags == null || old.flags.intValue() != 50) {
-				database.execute(database.getUpdate("GuestDoctype").
+				context.execute(database.getUpdate("GuestDoctype").
 						update("textfield", "").
 						update("textfield_p", "").
 						update("textjoin", "").
 						where(Expr.equal("fk_doctype", doctype.id)));
-				database.execute(database.getUpdate("PersonDoctype").
+				context.execute(database.getUpdate("PersonDoctype").
 						update("textfield", "").
 						update("textfield_p", "").
 						update("textjoin", "").
 						where(Expr.equal("fk_doctype", doctype.id)));
 			}
 		}
-		super.saveBean(cntx, bean);
+		super.saveBean(cntx, bean, context);
 	}
 }

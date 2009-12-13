@@ -87,7 +87,7 @@ public class OrgUnitListWorker extends ListWorkerVeraWeb {
      * @throws IOException
      */
     @Override
-    protected int insertBean(OctopusContext cntx, List errors, Bean bean) throws BeanException, IOException {
+    protected int insertBean(OctopusContext cntx, List errors, Bean bean, TransactionContext context) throws BeanException, IOException {
     	int count = 0;
         if (bean.isModified() && bean.isCorrect()) {
             if (bean instanceof OrgUnit) {
@@ -96,16 +96,16 @@ public class OrgUnitListWorker extends ListWorkerVeraWeb {
                     errors.add("Einzufügender Mandant darf keine ID haben");
                     return count;
                 }
-                Database database = new DatabaseVeraWeb(cntx);
+                Database database = context.getDatabase();
                 OrgUnit dupBean = (OrgUnit) database.getBean("OrgUnit",
                         database.getSelect("OrgUnit").
-                        where(Expr.equal("unitname", orgunitBean.name)));
+                        where(Expr.equal("unitname", orgunitBean.name)), context);
                 if (dupBean != null) {
                     errors.add("Einzufügender Mandant " + orgunitBean.name + " existiert bereits.");
                     return count;
                 }
             }
-            saveBean(cntx, bean);
+            saveBean(cntx, bean, context);
             count++;
         }
         return count;
@@ -124,7 +124,7 @@ public class OrgUnitListWorker extends ListWorkerVeraWeb {
      * @throws IOException
      */
     @Override
-    protected int updateBeanList(OctopusContext cntx, List errors, List beanlist) throws BeanException, IOException {
+    protected int updateBeanList(OctopusContext cntx, List errors, List beanlist, TransactionContext context) throws BeanException, IOException {
     	int count = 0;
         for (Iterator it = beanlist.iterator(); it.hasNext(); ) {
             Bean bean = (Bean)it.next();
@@ -135,18 +135,18 @@ public class OrgUnitListWorker extends ListWorkerVeraWeb {
                         errors.add("Zu aktualisierender Mandant " + orgunitBean.name + " muss eine ID haben");
                         continue;
                     }
-                    Database database = new DatabaseVeraWeb(cntx);
+                    Database database = context.getDatabase();
                     OrgUnit dupBean = (OrgUnit) database.getBean("OrgUnit",
                             database.getSelect("OrgUnit").
                             where(Where.and(
                                     Expr.equal("unitname", orgunitBean.name),
-                                    Expr.notEqual("pk", orgunitBean.id))));
+                                    Expr.notEqual("pk", orgunitBean.id))), context);
                     if (dupBean != null) {
                         errors.add("Ein Mandant mit Namen " + orgunitBean.name + " existiert bereits.");
                         continue;
                     }
                 }
-                saveBean(cntx, bean);
+                saveBean(cntx, bean, context);
                 count++;
             } else if (bean.isModified()) {
                 errors.addAll(bean.getErrors());
@@ -232,32 +232,15 @@ public class OrgUnitListWorker extends ListWorkerVeraWeb {
 	 * 									will not be changed now.
 	 */
 	@Override
-    protected boolean removeBean(OctopusContext cntx, Bean bean) throws BeanException, IOException
+    protected boolean removeBean(OctopusContext cntx, Bean bean, TransactionContext context) throws BeanException, IOException
 	{
-		Database database = new DatabaseVeraWeb( cntx );
-		TransactionContext context = database.getTransactionContext();
+		Database database = context.getDatabase();
 
-		try
-		{
-			// first remove all workArea assignments from all persons
-			WorkAreaWorker.removeAllWorkAreasFromOrgUnit( cntx, context, ( ( OrgUnit ) bean ).id );
-			Delete stmt = database.getDelete( "OrgUnit" );
-			stmt.byId( "pk",  ( ( OrgUnit ) bean ).id  );
-			context.execute( stmt );
-			context.commit();
-		}
-		catch ( BeanException e )
-		{
-			context.rollBack();
-			ArrayList errors = new ArrayList();
-			errors.add( "Der Mandant konnte in dieser Transaktion nicht vollständig gelöscht werden. Eventuell hat ein anderer Anwender diesem Mandanten gerade einen neuen Arbeitsbereich hinzugefügt?" );
-			cntx.setContent( OUTPUT_saveListErrors, errors );
-		}
-		catch ( Exception e )
-		{
-			throw new RuntimeException( e );
-		}
-
+		// first remove all workArea assignments from all persons
+		WorkAreaWorker.removeAllWorkAreasFromOrgUnit( cntx, context, ( ( OrgUnit ) bean ).id );
+		Delete stmt = database.getDelete( "OrgUnit" );
+		stmt.byId( "pk",  ( ( OrgUnit ) bean ).id  );
+		context.execute( stmt );
 		return true;
 	}
 }

@@ -33,11 +33,13 @@ import java.sql.Timestamp;
 
 import de.tarent.aa.veraweb.beans.MailOutbox;
 import de.tarent.octopus.beans.BeanException;
+import de.tarent.octopus.beans.TransactionContext;
+import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
 import de.tarent.octopus.beans.veraweb.ListWorkerVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
 
 /**
- * Dieser Octopus-Worker repräsentiert eine Übersichtsseite
+ * Dieser Octopus-Worker reprï¿½sentiert eine ï¿½bersichtsseite
  * sowie die Detailseiten zu eMail-Vorlagen.
  * Siehe Task MailDraftList und MailDraftDetail.<br><br>
  * 
@@ -58,15 +60,15 @@ public class MailOutboxWorker extends ListWorkerVeraWeb {
     //
     // Octopus-Aktionen
     //
-	/** Octopus-Eingabe-Parameter für {@link #showDetail(OctopusContext, Integer, MailOutbox)} */
+	/** Octopus-Eingabe-Parameter fï¿½r {@link #showDetail(OctopusContext, Integer, MailOutbox)} */
 	public static final String INPUT_showDetail[] = { "id", "mailoutbox" };
-	/** Octopus-Eingabe-Parameterzwang für {@link #showDetail(OctopusContext, Integer, MailOutbox)} */
+	/** Octopus-Eingabe-Parameterzwang fï¿½r {@link #showDetail(OctopusContext, Integer, MailOutbox)} */
 	public static final boolean MANDATORY_showDetail[] = { false, false };
-	/** Octopus-Ausgabe-Parameter für {@link #showDetail(OctopusContext, Integer, MailOutbox)} */
+	/** Octopus-Ausgabe-Parameter fï¿½r {@link #showDetail(OctopusContext, Integer, MailOutbox)} */
 	public static final String OUTPUT_showDetail = "mailoutbox";
 	/**
-	 * Lädt eine eMail aus dem Postausgang und stellt
-	 * diesen in den Content, wenn eine ID übergeben wurde
+	 * Lï¿½dt eine eMail aus dem Postausgang und stellt
+	 * diesen in den Content, wenn eine ID ï¿½bergeben wurde
 	 * und sich noch keine eMail im Content befindet.
 	 * 
 	 * @param cntx Octopus-Context
@@ -83,15 +85,15 @@ public class MailOutboxWorker extends ListWorkerVeraWeb {
 		return null;
 	}
 
-	/** Octopus-Eingabe-Parameter für {@link #saveDetail(OctopusContext, Boolean)} */
+	/** Octopus-Eingabe-Parameter fï¿½r {@link #saveDetail(OctopusContext, Boolean)} */
 	public static final String INPUT_saveDetail[] = { "save" };
-	/** Octopus-Eingabe-Parameterzwang für {@link #saveDetail(OctopusContext, Boolean)} */
+	/** Octopus-Eingabe-Parameterzwang fï¿½r {@link #saveDetail(OctopusContext, Boolean)} */
 	public static final boolean MANDATORY_saveDetail[] = { false };
-	/** Octopus-Ausgabe-Parameter für {@link #saveDetail(OctopusContext, Boolean)} */
+	/** Octopus-Ausgabe-Parameter fï¿½r {@link #saveDetail(OctopusContext, Boolean)} */
 	public static final String OUTPUT_saveDetail = "mailoutbox";
 	/**
-	 * Speichert die übergebenen eMail im Postausgang und setzt
-	 * den Status auf 'zu versenden' zurück.
+	 * Speichert die ï¿½bergebenen eMail im Postausgang und setzt
+	 * den Status auf 'zu versenden' zurï¿½ck.
 	 * 
 	 * @param cntx Octopus-Context
 	 * @param save Gibt an ob eMail-Entwurf gespeichert werden soll.
@@ -114,7 +116,17 @@ public class MailOutboxWorker extends ListWorkerVeraWeb {
 			}
 			
 			if (mailOutbox.isCorrect()) {
-				saveBean(cntx, mailOutbox);
+				TransactionContext context = ( new DatabaseVeraWeb(cntx) ).getTransactionContext();
+				try
+				{
+					saveBean(cntx, mailOutbox, context);
+					context.commit();
+				}
+				catch ( BeanException e )
+				{
+					context.rollBack();
+					throw new BeanException( "Die E-Mail konnte nicht fÃ¼r den Versand vorbereitet werden.", e );
+				}
 			}
 			return mailOutbox;
 		}

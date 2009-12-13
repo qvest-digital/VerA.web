@@ -42,7 +42,7 @@ import de.tarent.aa.veraweb.beans.Duration;
 import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.statement.Delete;
 import de.tarent.octopus.beans.BeanException;
-import de.tarent.octopus.beans.Database;
+import de.tarent.octopus.beans.TransactionContext;
 import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
 
@@ -183,9 +183,18 @@ public class ChangeLogMaintenanceWorker implements Runnable {
 		c.add( Calendar.DAY_OF_MONTH, -1 * this.retentionPolicy.days );
 		Date d = new Date( c.getTimeInMillis() );
 
-		Database db = new DatabaseVeraWeb( this.cntx );
-		Delete delete = db.getDelete( "ChangeLogEntry" );
-		delete.where( Expr.lessOrEqual( "date", d.toString() ) );
-		delete.execute();
+		TransactionContext context = ( new DatabaseVeraWeb( this.cntx ) ).getTransactionContext();
+		try
+		{
+			Delete delete = context.getDatabase().getDelete( "ChangeLogEntry" );
+			delete.where( Expr.lessOrEqual( "date", d.toString() ) );
+			context.execute( delete );
+			context.commit();
+		}
+		catch ( Throwable e )
+		{
+			context.rollBack();
+			logger.trace( "Das Changelog konnte nicht gelöscht werden.", e );
+		}
 	}
 }

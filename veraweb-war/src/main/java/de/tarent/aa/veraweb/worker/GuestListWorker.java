@@ -393,7 +393,7 @@ public class GuestListWorker extends ListWorkerVeraWeb {
 			for (Iterator it = database.getList(select, context).iterator(); it.hasNext(); ) {
 				Map data = (Map)it.next();
 				guest.id = (Integer)data.get("guest");
-				if (removeBean(cntx, guest)) {
+				if (removeBean(cntx, guest, context)) {
 					count++;
 				}
 				if ("t".equals(data.get("deleted"))) {
@@ -481,7 +481,7 @@ public class GuestListWorker extends ListWorkerVeraWeb {
 		clogger.logUpdate( cntx.personalConfig().getLoginname(), guestOld, guest );
 	}
 
-	protected boolean removeBean(OctopusContext cntx, TransactionContext context, Bean bean) throws BeanException, IOException {
+	protected boolean removeBean(OctopusContext cntx, Bean bean, TransactionContext context) throws BeanException, IOException {
 		Database database = context.getDatabase();
 		/*
 		 * modified to support change logging

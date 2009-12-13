@@ -242,11 +242,11 @@ public class MailDispatchWorker implements Runnable {
 			dispatcher.send(from, to, subject, text);
 			deleteMail(id);
 		} catch (Exception e) {
-			logger.error("Es ist ein Fehler beim versenden einer eMail aufgetreten.", e);
+			logger.error("Es ist ein Fehler beim versenden einer E-Mail aufgetreten.", e);
 			try {
 				updateMail(id, MailOutbox.STATUS_ERROR, e.getLocalizedMessage());
 			} catch (SQLException e1) {
-				logger.error("Es ist ein Fehler beim versenden einer eMail aufgetreten.", e);
+				logger.error("Es ist ein Fehler beim versenden einer E-Mail aufgetreten.", e);
 			}
 		}
 	}
@@ -348,9 +348,9 @@ public class MailDispatchWorker implements Runnable {
 	//				database.execute(database.getInsert(outbox));
 					savedMails++;
 				} catch (BeanException e) {
-					logger.error("Fehler beim anlegen einer eMail.", e);
+					logger.error("Fehler beim anlegen einer E-Mail.", e);
 				} catch (IOException e) {
-					logger.error("Fehler beim anlegen einer eMail.", e);
+					logger.error("Fehler beim anlegen einer E-Mail.", e);
 				}
 			}
 			context.commit();
@@ -486,7 +486,7 @@ public class MailDispatchWorker implements Runnable {
 	protected String getMailAddress(OctopusContext cntx) {
 		String from = cntx.personalConfig().getEmail();
 		if (from != null && from.length() != 0) {
-			logger.info("Verwende eMail-Adresse aus dem LDAP: " + from);
+			logger.info("Verwende E-Mail-Adresse aus dem LDAP: " + from);
 			return from;
 		}
 		
@@ -495,7 +495,7 @@ public class MailDispatchWorker implements Runnable {
 		if (from.indexOf("$role") != -1) {
 			from = from.replaceAll("(\\$role)", ((PersonalConfigAA)cntx.personalConfig()).getRole());
 		}
-		logger.info("Verwende eMail-Adresse aus der Konfigurationsdatei: " + from);
+		logger.info("Verwende E-Mail-Adresse aus der Konfigurationsdatei: " + from);
 		return from;
 	}
 }

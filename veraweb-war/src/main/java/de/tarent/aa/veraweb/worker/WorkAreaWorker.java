@@ -38,13 +38,11 @@ import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.clause.Order;
 import de.tarent.dblayer.sql.statement.Delete;
 import de.tarent.dblayer.sql.statement.Select;
-import de.tarent.dblayer.sql.statement.Update;
 import de.tarent.octopus.PersonalConfigAA;
 import de.tarent.octopus.beans.Bean;
 import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.beans.Database;
 import de.tarent.octopus.beans.TransactionContext;
-import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
 
 /**
@@ -67,7 +65,7 @@ public class WorkAreaWorker extends StammdatenWorker
 	}
 
 	@Override
-	protected void saveBean( OctopusContext cntx, Bean bean ) throws BeanException, IOException
+	protected void saveBean( OctopusContext cntx, Bean bean, TransactionContext context ) throws BeanException, IOException
 	{
 		WorkArea workArea = ( WorkArea ) bean;
 
@@ -87,7 +85,7 @@ public class WorkAreaWorker extends StammdatenWorker
 		}
 		else
 		{
-			super.saveBean(cntx, bean);
+			super.saveBean(cntx, bean, context);
 		}
 	}
 
@@ -125,30 +123,14 @@ public class WorkAreaWorker extends StammdatenWorker
 	 * 
 	 * fixed as part of issue #1530 - deletion of workareas and automatic unassignment from existing persons
 	 */
-    protected boolean removeBean(OctopusContext cntx, Bean bean) throws BeanException, IOException
+    protected boolean removeBean( OctopusContext cntx, Bean bean, TransactionContext context ) throws BeanException, IOException
 	{
-		try
-		{
-			Database database = new DatabaseVeraWeb( cntx );
-			TransactionContext context = database.getTransactionContext();
-			// first remove all workArea assignments from all persons
-			PersonListWorker.unassignWorkArea( context, ( ( WorkArea ) bean ).id, null );
-			context.commit();
-			Delete stmt = database.getDelete( "WorkArea" );
-			stmt.byId( "pk",  ( ( WorkArea ) bean ).id  );
-			context.execute( stmt );
-			context.commit();
-		}
-		catch ( BeanException e )
-		{
-			cntx.setContent( OUTPUT_saveListErrors , "Der Arbeitsbereich konnte nicht gelöscht werden." );
-			cntx.setContentError( e );
-		}
-		catch ( Exception e )
-		{
-			throw new RuntimeException( e );
-		}
-
+		Database database = context.getDatabase();
+		// first remove all workArea assignments from all persons
+		PersonListWorker.unassignWorkArea( context, ( ( WorkArea ) bean ).id, null );
+		Delete stmt = database.getDelete( "WorkArea" );
+		stmt.byId( "pk",  ( ( WorkArea ) bean ).id  );
+		context.execute( stmt );
 		return true;
 	}
 

@@ -44,6 +44,7 @@ import de.tarent.octopus.beans.Bean;
 import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.beans.BeanFactory;
 import de.tarent.octopus.beans.Database;
+import de.tarent.octopus.beans.TransactionContext;
 import de.tarent.octopus.beans.veraweb.ListWorkerVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
 
@@ -206,7 +207,7 @@ public class ChangeLogReportsWorker extends ListWorkerVeraWeb
 	}
 
 	@Override
-    protected void saveBean(OctopusContext cntx, Bean bean) throws BeanException, IOException
+    protected void saveBean( OctopusContext cntx, Bean bean, TransactionContext context ) throws BeanException, IOException
 	{
 		throw new RuntimeException( "Change log entries cannot be modified. Not implemented." );
 	}
