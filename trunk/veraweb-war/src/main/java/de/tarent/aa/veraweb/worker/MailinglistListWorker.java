@@ -36,11 +36,12 @@ import de.tarent.dblayer.sql.statement.Select;
 import de.tarent.octopus.PersonalConfigAA;
 import de.tarent.octopus.beans.Bean;
 import de.tarent.octopus.beans.BeanException;
+import de.tarent.octopus.beans.TransactionContext;
 import de.tarent.octopus.beans.veraweb.ListWorkerVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
 
 /**
- * Dieser Octopus-Worker stellt eine Übersichtsliste aller Verteiler bereit.
+ * Dieser Octopus-Worker stellt eine ï¿½bersichtsliste aller Verteiler bereit.
  * 
  * @author Hendrik, Christoph Jerolimov
  * @version $Revision: 1.1 $
@@ -78,8 +79,8 @@ public class MailinglistListWorker extends ListWorkerVeraWeb {
 	}
 
 	@Override
-    protected void saveBean(OctopusContext cntx, Bean bean) throws BeanException, IOException {
+    protected void saveBean(OctopusContext cntx, Bean bean, TransactionContext context) throws BeanException, IOException {
 		((Mailinglist)bean).orgunit = ((PersonalConfigAA)(cntx.personalConfig())).getOrgUnitId();
-		super.saveBean(cntx, bean);
+		super.saveBean(cntx, bean, context);
 	}
 }

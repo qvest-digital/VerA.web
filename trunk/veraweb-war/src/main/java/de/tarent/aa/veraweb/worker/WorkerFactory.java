@@ -77,7 +77,17 @@ public class WorkerFactory {
 		return (PersonDoctypeWorker)getWorker(cntx, "PersonDoctypeWorker");
 	}
 
-    /**
+	/**
+     * Diese Methode liefert den Worker namens "PersonDuplicateSearchWorker".
+     * 
+     * @param cntx Octopus-Kontext
+     * @return {@link PersonDuplicateSearchWorker}-Instanz des Moduls
+     */
+	static public PersonDuplicateSearchWorker getPersonDuplicateSearchWorker(OctopusContext cntx) {
+		return (PersonDuplicateSearchWorker)getWorker(cntx, "PersonDuplicateSearchWorker");
+	}
+
+	/**
      * Diese Methode liefert den Worker namens "PersonListWorker".
      * 
      * @param cntx Octopus-Kontext

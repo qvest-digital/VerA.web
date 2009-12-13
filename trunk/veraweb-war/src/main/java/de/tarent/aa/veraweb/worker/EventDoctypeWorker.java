@@ -83,26 +83,17 @@ public class EventDoctypeWorker extends ListWorkerVeraWeb {
 	}
 
 	@Override
-    protected void saveBean(OctopusContext cntx, Bean bean) throws BeanException, IOException {
-		super.saveBean(cntx, bean);
+    protected void saveBean(OctopusContext cntx, Bean bean, TransactionContext context) throws BeanException, IOException {
 		
-		Database database = getDatabase(cntx);
-		TransactionContext context = database.getTransactionContext();
-		
-		try {
-			List list =
-					database.getList(
-					database.getSelectIds(new Guest()).
-					where(Expr.equal("fk_event", ((EventDoctype)bean).event)), database);
-			GuestWorker worker = WorkerFactory.getGuestWorker(cntx);
-			for (Iterator it = list.iterator(); it.hasNext(); ) {
-				worker.refreshDoctypes(cntx, database, context, (Integer)((Map)it.next()).get("id"));
-			}
-			context.commit();
-		} 
-		catch ( BeanException e )
-		{
-			context.rollBack();
+		Database database = context.getDatabase();
+		super.saveBean(cntx, bean, context);
+		List list =
+				database.getList(
+				database.getSelectIds(new Guest()).
+				where(Expr.equal("fk_event", ((EventDoctype)bean).event)), context);
+		GuestWorker worker = WorkerFactory.getGuestWorker(cntx);
+		for (Iterator it = list.iterator(); it.hasNext(); ) {
+			worker.refreshDoctypes(cntx, database, context, (Integer)((Map)it.next()).get("id"));
 		}
 	}
 

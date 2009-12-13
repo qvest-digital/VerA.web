@@ -38,6 +38,7 @@ import de.tarent.dblayer.sql.statement.Select;
 import de.tarent.octopus.PersonalConfigAA;
 import de.tarent.octopus.beans.Bean;
 import de.tarent.octopus.beans.BeanException;
+import de.tarent.octopus.beans.TransactionContext;
 import de.tarent.octopus.server.OctopusContext;
 
 /**
@@ -73,8 +74,8 @@ public class LocationWorker extends StammdatenWorker {
 	}
 
 	@Override
-    protected void saveBean(OctopusContext cntx, Bean bean) throws BeanException, IOException {
+    protected void saveBean(OctopusContext cntx, Bean bean, TransactionContext context) throws BeanException, IOException {
 		((Location)bean).orgunit = ((PersonalConfigAA)(cntx.personalConfig())).getOrgUnitId();
-		super.saveBean(cntx, bean);
+		super.saveBean(cntx, bean, context);
 	}
 }

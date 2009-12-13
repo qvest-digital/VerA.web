@@ -54,6 +54,7 @@ import de.tarent.octopus.beans.Bean;
 import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.beans.BeanListWorker;
 import de.tarent.octopus.beans.Database;
+import de.tarent.octopus.beans.TransactionContext;
 import de.tarent.octopus.beans.veraweb.BeanChangeLogger;
 import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
 import de.tarent.octopus.beans.veraweb.ListWorkerVeraWeb;
@@ -202,10 +203,10 @@ public class EventListWorker extends ListWorkerVeraWeb {
 	 * siehe Anwendungsfall: UC.VERA.LOESCH
 	 */
 	@Override
-    protected int removeSelection(OctopusContext cntx, List errors, List selection) throws BeanException, IOException {
+    protected int removeSelection(OctopusContext cntx, List errors, List selection, TransactionContext context) throws BeanException, IOException {
 		int count = 0;
 		if (selection == null || selection.size() == 0) return count;
-		Database database = new DatabaseVeraWeb(cntx);
+		Database database = context.getDatabase();
 		Map questions = new HashMap();
 		
 		Calendar notExpire = Calendar.getInstance();
@@ -216,7 +217,7 @@ public class EventListWorker extends ListWorkerVeraWeb {
 				database.getSelect("Event").
 				where(Where.and(
 						Expr.greaterOrEqual("datebegin", notExpire.getTime()),
-						Expr.in("pk", selection))));
+						Expr.in("pk", selection))), context);
 		List removeExpireEvents = new ArrayList();
 		for (Iterator it = eventIsNotExpire.iterator(); it.hasNext(); ) {
 			Event event = (Event)it.next();
@@ -241,10 +242,10 @@ public class EventListWorker extends ListWorkerVeraWeb {
 		Select select = database.getSelectIds(event).where(clause);
 		
 		Map data;
-		for (Iterator it = database.getList(select, database).iterator(); it.hasNext(); ) {
+		for (Iterator it = database.getList(select, context).iterator(); it.hasNext(); ) {
 			data = (Map)it.next();
 			event.id = (Integer)data.get("id");
-			if (removeBean(cntx, event)) {
+			if (removeBean(cntx, event, context)) {
 				selection.remove(event.id);
 				count++;
 			}
@@ -256,11 +257,11 @@ public class EventListWorker extends ListWorkerVeraWeb {
 	 * L�scht Veranstaltungen und die zugeordneten G�ste.
 	 */
 	@Override
-    protected boolean removeBean(OctopusContext cntx, Bean bean) throws BeanException, IOException {
-		Database database = new DatabaseVeraWeb(cntx);
+    protected boolean removeBean(OctopusContext cntx, Bean bean, TransactionContext context) throws BeanException, IOException {
+		Database database = context.getDatabase();
 		
 		Event event = (Event)bean;
-		database.execute(
+		context.execute(
 				SQL.Delete( database ).
 				from("veraweb.tguest_doctype").
 				where(Expr.in("fk_guest",
@@ -268,18 +269,18 @@ public class EventListWorker extends ListWorkerVeraWeb {
 						from("veraweb.tguest").
 						selectAs("pk", "id").
 						where(Expr.equal("fk_event", event.id)))));
-		database.execute(
+		context.execute(
 				SQL.Delete( database ).
 				from("veraweb.tguest").
 				where(Expr.equal("fk_event", event.id)));
-		database.execute(PersonListWorker.getPersonClear( database ));
+		context.execute(PersonListWorker.getPersonClear( database ));
 		
-		database.execute(
+		context.execute(
 				SQL.Delete( database ).
 				from("veraweb.tevent_doctype").
 				where(Expr.equal("fk_event", event.id)));
 
-		boolean result = super.removeBean(cntx, bean);
+		boolean result = super.removeBean(cntx, bean, context);
 		if ( result )
 		{
 			BeanChangeLogger clogger = new BeanChangeLogger( database );

@@ -44,6 +44,7 @@ import de.tarent.octopus.PersonalConfigAA;
 import de.tarent.octopus.beans.Bean;
 import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.beans.Database;
+import de.tarent.octopus.beans.TransactionContext;
 import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
 import de.tarent.octopus.beans.veraweb.ListWorkerVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
@@ -178,7 +179,7 @@ public class UserListWorker extends ListWorkerVeraWeb {
      * @throws IOException
      */
     @Override
-    protected int insertBean(OctopusContext cntx, List errors, Bean bean) throws BeanException, IOException {
+    protected int insertBean(OctopusContext cntx, List errors, Bean bean, TransactionContext context ) throws BeanException, IOException {
     	int count = 0;
         if (bean.isModified() && bean.isCorrect()) {
             if (bean instanceof User) {
@@ -190,9 +191,9 @@ public class UserListWorker extends ListWorkerVeraWeb {
                 Database database = new DatabaseVeraWeb(cntx);
                 User dupBean = (User) database.getBean("User",
                         database.getSelect("User").
-                        where(Expr.equal("username", userBean.name)));
+                        where(Expr.equal("username", userBean.name)), context);
                 if (dupBean != null) {
-                    OrgUnit ou = (OrgUnit) database.getBean("OrgUnit", dupBean.orgunit);
+                    OrgUnit ou = (OrgUnit) database.getBean("OrgUnit", dupBean.orgunit, context);
                     if (ou != null) {
                         errors.add("Einzufügender Benutzer ist bereits dem Mandanten " + ((ou.name != null && ou.name.length() > 0) ? ou.name : ou.id.toString()) + " zugeordnet.");
                     } else {
@@ -201,7 +202,7 @@ public class UserListWorker extends ListWorkerVeraWeb {
                     return count;
                 }
             }
-            saveBean(cntx, bean);
+            saveBean(cntx, bean, context);
             count++;
         }
         return count;
@@ -220,15 +221,15 @@ public class UserListWorker extends ListWorkerVeraWeb {
      * @throws IOException
      */
    @Override
-protected boolean removeBean(OctopusContext cntx, Bean bean) throws BeanException, IOException {
+protected boolean removeBean(OctopusContext cntx, Bean bean, TransactionContext context) throws BeanException, IOException {
 	    if (bean != null && ((User)bean).id != null) {
 		    Proxy proxy = new Proxy();
 		    proxy.user = ((User)bean).id;
-	    	Database database = getDatabase(cntx);
-	    	database.execute(
+		    Database database = context.getDatabase();
+	    	context.execute(
 	    			database.getDelete("Proxy").where(
 	    			database.getWhere(proxy)));
 	    }
-    	return super.removeBean(cntx, bean);
+    	return super.removeBean(cntx, bean, context);
     }
 }

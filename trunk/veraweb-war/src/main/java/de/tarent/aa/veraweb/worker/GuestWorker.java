@@ -117,6 +117,7 @@ public class GuestWorker {
 		catch ( BeanException e )
 		{
 			context.rollBack();
+			throw new BeanException( "Die Gäste konnten nicht auf die Gästeliste gesetzt werden.", e );
 		}
 	}
 
@@ -170,6 +171,7 @@ public class GuestWorker {
 		catch ( BeanException e )
 		{
 			context.rollBack();
+			throw new BeanException( "Die Gäste aus der Gästelist konnten nicht übernommen werden.", e );
 		}
 	}
 
@@ -233,6 +235,7 @@ public class GuestWorker {
 		catch ( BeanException e )
 		{
 			context.rollBack();
+			throw new BeanException( "Die Person konnte nicht auf die Gästeliste gesetzt werden.", e );
 		}
 	}
 
@@ -259,6 +262,7 @@ public class GuestWorker {
 		catch ( BeanException e )
 		{
 			context.rollBack();
+			throw new BeanException( "Die Daten der Person konnten nicht aktualisiert werden.", e );
 		}
 	}
 
@@ -297,6 +301,7 @@ public class GuestWorker {
 		catch ( BeanException e )
 		{
 			context.rollBack();
+			throw new BeanException( "Die Personendaten konnten aktualisiert werden.", e );
 		}
 	}
 

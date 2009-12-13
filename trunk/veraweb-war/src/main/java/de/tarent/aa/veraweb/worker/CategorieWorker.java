@@ -45,6 +45,7 @@ import de.tarent.octopus.PersonalConfigAA;
 import de.tarent.octopus.beans.Bean;
 import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.beans.Database;
+import de.tarent.octopus.beans.TransactionContext;
 import de.tarent.octopus.config.TcPersonalConfig;
 import de.tarent.octopus.server.OctopusContext;
 
@@ -231,25 +232,25 @@ public class CategorieWorker extends StammdatenWorker {
 	}
 
 	@Override
-    protected int insertBean(OctopusContext cntx, List errors, Bean bean) throws BeanException, IOException
+    protected int insertBean(OctopusContext cntx, List errors, Bean bean, TransactionContext context) throws BeanException, IOException
 	{
 		int count = 0;
 		if (bean.isModified() && bean.isCorrect())
 		{
-			Database database = getDatabase(cntx);
+			Database database = context.getDatabase();
 
 			Clause sameOrgunit = getWhere(cntx);
 			Clause sameName = Expr.equal(database.getProperty(bean, "name"), bean.getField("name"));
 			Clause sameCategorie = sameOrgunit == null ? sameName : Where.and(sameOrgunit, sameName);
 
-			Integer exist = database.getCount(database.getCount(bean).where(sameCategorie));
+			Integer exist = database.getCount(database.getCount(bean).where(sameCategorie),context);
 
 			if (exist.intValue() != 0)
 			{
 				errors.add("Es existiert bereits ein Stammdaten-Eintrag unter dem Namen '" + bean.getField("name") + "'.");
 			} else
 			{
-				saveBean(cntx, bean);
+				saveBean(cntx, bean, context);
 				count++;
 			}
 		} else if (bean.isModified() && !bean.isCorrect())
@@ -269,15 +270,14 @@ public class CategorieWorker extends StammdatenWorker {
 	 * @param bean
 	 * @throws BeanException
 	 */
-	protected void incorporateBean(OctopusContext cntx, Categorie bean) throws BeanException
+	protected void incorporateBean(OctopusContext cntx, Categorie bean, TransactionContext context) throws BeanException
 	{
 		assert bean != null; 
 		assert cntx != null;
 		
 		if (bean.rank != null)
 		{
-			Database database = getDatabase(cntx);
-			database.execute(SQL.Update( database ).
+			context.execute(SQL.Update( context.getDatabase() ).
 				table("veraweb.tcategorie").
 				update("rank", new RawClause("rank + 1")).
 				where(Expr.greaterOrEqual("rank", bean.rank)));
@@ -286,30 +286,30 @@ public class CategorieWorker extends StammdatenWorker {
 	
 	
 	@Override
-    protected void saveBean(OctopusContext cntx, Bean bean) throws BeanException, IOException
+    protected void saveBean(OctopusContext cntx, Bean bean, TransactionContext context) throws BeanException, IOException
 	{
 		((Categorie) bean).orgunit = ((PersonalConfigAA) (cntx.personalConfig())).getOrgUnitId();
 		if (bean.isModified() && bean.isCorrect())
 		{
 			if (((Categorie) bean).rank != null && cntx.requestAsBoolean("resort").booleanValue())
 			{
-				incorporateBean(cntx, (Categorie) bean);
+				incorporateBean(cntx, (Categorie) bean, context);
 			}
 		}
-		super.saveBean(cntx, bean);
+		super.saveBean(cntx, bean, context);
 	}
 
 	@Override
-    protected int removeSelection(OctopusContext cntx, List errors, List selection) throws BeanException, IOException {
-		int count = super.removeSelection(cntx, errors, selection);
-		
-		Database db = getDatabase(cntx);
-		db.execute(
-				SQL.Delete( db ).
+    protected int removeSelection(OctopusContext cntx, List errors, List selection, TransactionContext context) throws BeanException, IOException {
+		int count = super.removeSelection(cntx, errors, selection, context);
+
+		// now remove all stale person category assignments
+		context.execute(
+			SQL.Delete( context.getDatabase() ).
 				from("veraweb.tperson_categorie").
 				where(new RawClause("fk_categorie NOT IN (" +
 				"SELECT pk FROM veraweb.tcategorie)")));
-		
+
 		return count;
 	}
 }
