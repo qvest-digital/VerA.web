@@ -24,7 +24,7 @@
 
 #if($status && $status.code && $status.code == "noevent")
 <div style="margin: 10px 0px 10px 0px; padding: 10px 10px 10px 10px; background-color: #ffffff; border: 2px solid #ff0000;">
-	Die Veranstaltung an der Sie gerade gearbeitet haben wurde von einem anderen Anweder gel&ouml;scht.
+	Die Veranstaltung, an der Sie gerade gearbeitet haben, wurde von einem anderen Anwender gel&ouml;scht.
 	Sie k&ouml;nnen nun eine neue Veranstaltung anlegen oder anderweitig mit VerA.web arbeiten.
 </div>
 #end

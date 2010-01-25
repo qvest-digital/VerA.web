@@ -58,7 +58,7 @@
 		<td class="list2warn" style="text-align: center; width: 100px;"><strong>Hinweis</strong></td>
 
 		<td class="list1warn" style="padding-left: 8px;">
-			Die Erzeugung des Berichtes kann, abhängig vom ausgewähltem Zeitraum und der Menge an verfügbaren Daten, recht lange dauern.
+			Abhängig vom ausgewählten Zeitraum und der daraus resultierenden Anzahl Daten, kann die Erzeugung des Berichts relativ lange dauern.<br/>Haben Sie bitte ein wenig Geduld.
 		</td>
 	</tr>
 </tbody></table>

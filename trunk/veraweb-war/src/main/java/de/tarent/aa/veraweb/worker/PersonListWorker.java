@@ -29,7 +29,6 @@
 package de.tarent.aa.veraweb.worker;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -122,7 +121,7 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 		select.Limit(new Limit((Integer)param.get("limit"), (Integer)param.get("start")));
 		cntx.setContent( OUTPUT_getSelection, getSelection( cntx, ( Integer ) param.get( "count" ) ) );
 		
-		/*
+		/* FIXME remove this temporary fix ASAP
 		 * cklein 2009-09-16
 		 * Temporary workaround for NPE Exception in Conjunction with temporary Connection Pooling Fix in tarent-database
 		 * Somehow the resultlist returned by getResultList or its underlying ResultSet will be NULL when entering the view
@@ -485,8 +484,8 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 		}
 		/** User d�rfen immer nur eine Person gleichzeitig l�schen. */
 		if (user && selectionRemove.size() > 1) {
-			errors.add("Sie dürfen immer nur eine Person gleichzeitig löschen.\n" +
-					"Bitte markieren sie nur einen Eintrag oder wenden Sie sich an Ihren Administrator.");
+			errors.add("Sie dürfen immer nur eine Person löschen.\n" +
+					"Bitte markieren Sie nur einen Eintrag, oder wenden Sie sich an Ihren Administrator.");
 			return count;
 		}
 		

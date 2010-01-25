@@ -158,8 +158,8 @@ public class EventDetailWorker {
 				{
 					if (!cntx.requestAsBoolean("event-samename").booleanValue())
 					{
-						questions.put("event-samename", "Es existiert bereits eine Verstaltung mit diesem Namen '" + event.shortname
-							+ "', trotzdem speichern?");
+						questions.put("event-samename", "Eine Verstaltung mit dem Namen '" + event.shortname
+							+ "' existiert bereits. Möchten Sie die neue Veranstaltung dennoch speichern?");
 					}
 					else
 					{
