@@ -1,0 +1,90 @@
+#set($title = "Status des Importvorgangs")
+#parse("inc/header.vm")
+
+<table class="tab" border="0" cellspacing="0" cellpadding="0"><tr>
+	<td class="tableft">&nbsp;</td>
+	<td class="tabactiv"><span class="tabactiv">Import</span></td>
+	<td class="tabright">&nbsp;</td>
+</tr></table>
+
+#openContent()
+#openContentSection()
+
+<table class="form"><tr>
+	<td class="label"><label for="id">Import-ID:</label></td>
+	<td class="value"><input type="text" name="id" value="$!message.text($importStatus.id)" id="id" class="id" readonly></td>
+</tr><tr>
+	<td class="label">&nbsp;</td>
+	<td class="value">
+		<hr class="contentsection">
+	</td>
+</tr><tr>
+	<td class="label"><label for="id">Datens&auml;tze Insgesamt:</label></td>
+	<td class="value"><input type="text" name="ds_count" value="$!importStatus.dsCount" id="id" class="id" readonly></td>
+</tr><tr>
+	<td class="label"><label for="id">Anzahl Duplikate:</label></td>
+	<td class="value"><input type="text" name="dup_count" value="$!importStatus.dupCount" id="id" class="id" readonly></td>
+</tr><tr>
+	<td class="label"><label for="id">Datens&auml;tze speicherbar:</label></td>
+	<td class="value"><input type="text" name="save_count" value="$!importStatus.saveCount" id="id" class="id" readonly></td>
+#if($importStatus.igCount  && $importStatus.igCount != 0)
+</tr><tr>
+	<td class="label"><label for="id">Ignorierte Fehlerdatens&auml;tze:</label></td>
+	<td class="value"><input type="text" name="ig_count" value="$!importStatus.igCount" id="id" class="id" readonly></td>
+#end
+</tr><tr>
+	<td class="label">&nbsp;</td>
+	<td class="value">
+		<hr class="contentsection">
+	</td>
+</tr><tr>
+	<td class="label">&nbsp;</td>
+	<td class="value">
+	
+<table cellpadding="0" cellspacing="0" border="0">
+<tr><td>
+#if($importStatus.saveCount  && $importStatus.saveCount != 0)
+<form action="ImportPersonsFinalise" method="post">
+<input type="hidden" name="importId" value="$!importStatus.id">
+<input type="submit" class="submit" value="Speichern" onclick="htmlWait();">&nbsp;&nbsp;&nbsp;
+</form>
+#else
+<input type="button" class="buttondisabled" value="Speichern" disabled>&nbsp;&nbsp;&nbsp;
+#end
+</td><td>
+#if($importStatus.dupCount && $importStatus.dupCount != 0)
+<form action="ImportPersonsEditDuplicates" method="post">
+<input type="hidden" name="importId" value="$!importStatus.id">
+#set($saveCount = $!importStatus.saveCount - $!importStatus.dsCount + $!importStatus.dupCount)
+<input type="hidden" name="saveCount" value="$saveCount">
+<input type="hidden" name="start" value="0">
+<input type="submit" class="submit" value="Duplikate"> &nbsp;
+<input type="button" class="button" value="Zur&uuml;ck" onclick="window.location.href='ImportPersons';">
+</form>
+#else
+<input type="button" class="buttondisabled" value="Duplikate" disabled> 
+#end
+</td>
+</tr>
+</table>
+
+	</td>
+</tr></table>
+
+#closeContentSection()
+#closeContent()
+<hr class="footline">
+
+#if($imported)
+<script type="text/javascript">
+ #if($imported == 0)
+	alert('Sie haben keinen Datensatz importiert.');
+ #elseif($imported == 1)
+	alert('Sie haben einen Datensatz importiert.');
+ #elseif($imported > 1)
+	alert('Sie haben $imported Datensätze importiert.');
+ #end
+</script>
+#end
+
+#parse("inc/footer.vm")

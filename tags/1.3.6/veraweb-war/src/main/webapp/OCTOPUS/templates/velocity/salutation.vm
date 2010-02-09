@@ -1,0 +1,113 @@
+#set($title = "Stammdaten - Anreden")
+#parse("inc/header.vm")
+
+<form id="formlist" name="formlist" action="Salutation" method="POST">
+<input type="hidden" name="doInsert" value="true">
+<input type="hidden" name="doUpdate" value="true">
+<input type="hidden" name="doRemove" value="true">
+<input type="hidden" name="start" value="">
+<input type="hidden" name="selectAll" value="false">
+<input type="hidden" name="selectNone" value="false">
+
+<table class="tab" border="0" cellspacing="0" cellpadding="0"><tr>
+	<td class="tableft">&nbsp;</td>
+	<td class="tabactiv"><span class="tabactiv">Anreden</span></td>
+	<td class="tabright">&nbsp;</td>
+</tr></table>
+
+#openContent()
+#openContentSection()
+
+#if($listerrors.size() > 0)
+<div style="margin: 10px 0px 10px 0px; padding: 10px 10px 10px 10px; background-color: #ffffff; border: 2px solid #ff0000;">
+	#foreach($error in $listerrors)
+		$error<br>
+	#end
+</div>
+#end
+
+#foreach($bean in $list)
+<input type="hidden" name="list" value="$bean.id">
+#end
+<table class="list">
+	<tr class="list1">
+		<th class="list" style="width: 20px;">&nbsp;</th>
+		<th class="list" style="width: 60px;">ID</th>
+		<th class="list">Stammform</th>
+		<th class="list" style="width: 120px;">Geschlecht</th>
+		<th class="list" style="width: 80px;">&nbsp;</th>
+	</tr>
+	<tr class="list2">
+		<td class="list"><input type="hidden" id="add-modified" name="add-modified" value="false"><input type="checkbox" name="add-select" value="true" class="checkbox" style="display: none;"></td>
+		<td class="list"><input type="hidden" name="add-id" value=""><em>neu</em></td>
+		<td class="list"><input type="text" name="add-name" value="" class="text" onchange="setModified('add')"></td>
+		<td class="list">
+			<select name="add-gender" class="combobox" style="width: 97%;" onchange="setModified('add')">
+				<option value="M">M&auml;nnlich</option>
+				<option value="F">Weiblich</option>
+			</select>
+		</td>
+		<td class="list">&nbsp;</td>
+	</tr>
+	#foreach($bean in $list)
+	#if ($velocityCount % 2 == 1)
+		#set($class = "list1")
+	#else
+		#set($class = "list2")
+	#end
+	<tr class="$class">
+		<td class="list"><input type="hidden" id="${bean.id}-modified" name="${bean.id}-modified" value="false"><input type="checkbox" name="${bean.id}-select" value="true" class="checkbox" #if($listselection.indexOf($bean.id) != -1) checked#end></td>
+		<td class="list"><input type="hidden" name="${bean.id}-id" value="$!bean.id">$!bean.id</td>
+		<td class="list"><input type="text" name="${bean.id}-name" value="$!message.text($bean.name)" class="text" onchange="setModified('$!bean.id')"></td>
+		<td class="list">
+			<select name="${bean.id}-gender" class="combobox" style="width: 97%;" onchange="setModified('$!bean.id')">
+				<option value="M">M&auml;nnlich</option>
+				<option value="F" #if($bean.gender && $bean.gender == "F") selected#end>Weiblich</option>
+			</select>
+		</td>
+		<td class="list"><a href="SalutationDoctype?start=0&id=${bean.id}">bearbeiten</a></td>
+	</tr>
+	#end
+</table>
+
+#if ($listparam.count == 0)
+	<br>Keine Daten gefunden.
+#end
+
+<div id="fixme" class="fixme1"><div class="fixme2"><div class="fixme3">
+
+	#parse("inc/list-navi.vm")
+	#parse("inc/list-direct.vm")
+
+##Rueckfrage beim Loeschen
+<script type="text/javascript">
+function askDelete() {
+	htmlConfirm('Wirklich L&ouml;schen?', new Array('Ja', 'Nein'), new Array("askDeleteYes();", "askDeleteNo();"));
+} 
+function askDeleteYes() {
+	hideDialogs();
+	document.getElementById('presave').name='remove'
+	document.getElementById('formlist').submit();
+}
+function askDeleteNo() {
+	hideDialogs();
+	showComboboxes();
+}
+</script>
+	<input type="hidden" name="egal" value="egal" id="presave">
+	<input type="submit" name="save" value="Speichern" #if($grants.isAdmin()) class="submit" #else class="buttondisabled" disabled #end> &nbsp;
+	<input type="button" name="remove" onclick="askDelete()"  value="L&ouml;schen" title="markierte Eintr&auml;ge entfernen" #if($grants.isAdmin()) class="submit" #else class="buttondisabled" disabled #end> &nbsp;
+
+</div></div></div>
+
+#closeContentSection()
+#closeContent()
+
+</form>
+</script>
+<script type="text/javascript">
+#if(!$grants.isAdmin())
+	disableForm(document.getElementById('formlist'));
+#end
+</script>
+#parse("inc/footer.vm")

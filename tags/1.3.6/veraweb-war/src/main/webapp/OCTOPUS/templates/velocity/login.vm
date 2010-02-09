@@ -1,0 +1,69 @@
+#set($title = "Sie sind nicht am System angemeldet.")
+#parse("inc/header.vm")	
+
+<form action="default" method="post" target="_top" onsubmit="if(document.getElementById('loginasproxy').checked) { this.action = 'LoginAsProxy'; this.task.value = 'LoginAsProxy'; }">
+
+<table class="tab" border="0" cellspacing="0" cellpadding="0"><tr>
+	<td class="tableft">&nbsp;</td>
+	<td class="tabactiv"><span class="tabactiv">Login</span></td>
+	<td class="tabright">&nbsp;</td>
+</tr></table>
+
+#openContent()
+#openContentSection()
+
+<table class="form"><tr>
+	<td class="label"><label for="username">Benutzername:</label></td>
+	<td class="value"><input type="text" name="username" id="username" class="text" style="width: 240px;"></td>
+</tr><tr>
+	<td class="label"><label for="password">Passwort:</label></td>
+	<td class="value"><input type="password" name="password" id="password" class="text" style="width: 240px;"></td>
+</tr><tr style="height: 40px;">
+	<td class="label">&nbsp;</td>
+	<td class="value">
+##		<hr class="contentsection">
+		<table class="form"><tr>
+			<td class="value" style="width: 24px;">
+				<input type="checkbox" id="loginasproxy" name="loginasproxy" value="true">
+			</td><td class="value">
+				<label for="loginasproxy">In Vertretung anmelden</label>
+			</td>
+		</tr></table>
+##		<hr class="contentsection">
+	</td>
+</tr><tr>
+	<td class="label">&nbsp;</td>
+	<td class="value">
+		<input name="submit" type="submit" value="Anmelden" class="submit"> &nbsp;
+		<input name="cancel" type="reset"  value="Felder leeren" class="reset">
+	</td>
+</tr></table>
+
+<table class="list" style="margin-top: 15px;">
+	<tr class="list2warn" style="height: 18px;">
+		<td class="list2warn" style="text-align: center; width: 100px;"><strong>Hinweis</strong></td>
+		<td class="list1warn" style="padding-left: 8px;">
+			Bitte verwenden Sie Ihr Organisationskennzeichen
+			oder <em>Vorname.Nachname</em> als Benutzernamen.
+		</td>
+	</tr>
+</table>
+
+<input name="task" type="hidden" value="default">
+
+#if($responseParams.message && $octopusRequest.task != "Main" && $octopusRequest.task != "ShowLogin")
+<div style="margin: 10px 0px 10px 0px; padding: 10px 10px 10px 10px; background-color: #ffffff; border: 2px solid #ff0000;">
+	Es ist ein Fehler bei der Anmeldung aufgetreten. Bitte &uuml;berpr&uuml;fen Sie Ihren Benutzernamen und Ihr Passwort.
+</div>
+#end
+
+#closeContentSection()
+#closeContent()
+
+</form>
+<hr class="footline">
+
+<!--
+$responseParams
+-->
+#parse("inc/footer.vm")

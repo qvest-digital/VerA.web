@@ -1,0 +1,96 @@
+<table class="form" border="0" cellspacing="0" cellpadding="0" style="width: 99%;"><tr>
+	<td class="value" style="vertical-align: top; width: 54%;">
+
+<table class="form"><tr>
+	<td class="label"><label for="showid">Personen-ID:</label></td>
+	<td class="value"><input type="text" id="showid" name="showid" #if($person.id) value="$!message.text($person.id)" #else value="" #end class="id" readonly style="width: 80px;"></td>
+</tr><tr>
+	<td class="label"><label for="person-created">Erfasst am </label><label for="person-createdby">/ von:</label></td>
+	<td class="value">
+	
+<table class="form" cellspacing="0" cellpadding="0"><tr>
+	<td class="value" style="width: 90px;">
+	#if($person.created) 
+		<input type="text" id="person-created" name="person-created" value="$!message.date("DATE", $person.created)" class="datedisabled" readonly style="width: 80px;">
+	#else
+		<input type="text" id="showcreated" name="showcreated" value="" class="datedisabled" readonly style="width: 80px;">
+	#end
+	</td>
+	<td class="value">
+	#if($person.createdby)
+		<input type="text" id="person-createdby" name="person-createdby" value="$!message.text($person.createdby)" class="datedisabled" readonly style="width: 80%;">
+	#else
+		<input type="text" id="showcreatedby" name="showcreatedby" value="" class="datedisabled" readonly style="width: 80%;">
+		<input type="hidden" id="" name="" value="">
+	#end
+	</td>
+</tr></table>
+	
+	</td>
+</tr><tr>
+	<td class="label"><label for="person-changed">Zuletzt ge&auml;ndert am </label><label for="person-changedby">/ von:</label></td>
+	<td class="value">
+
+<table class="form" cellspacing="0" cellpadding="0"><tr>
+	<td class="value" style="width: 90px;">
+	#if($person.changed)
+		<input type="text" id="person-changed" name="person-changed" value="$!message.date("DATE", $person.changed)" class="datedisabled" readonly style="width: 80px;">
+	#else
+		<input type="text" id="showchanged" name="showchanged" value="" class="datedisabled" readonly style="width: 80px;">
+		<input type="hidden" id="" name="" value="">
+	#end
+	</td>
+	<td class="value">
+	#if($person.changedby)
+		<input type="text" id="person-changedby" name="person-changedby" value="$!message.text($person.changedby)" class="datedisabled" readonly style="width: 80%;">
+	#else
+		<input type="text" id="showchangedby" name="showchangedby" value="" class="datedisabled" readonly style="width: 80%;">
+		<input type="hidden" id="" name="" value="">
+	#end
+	</td>
+</tr></table>
+		
+	</td>
+</tr><tr>
+	<td class="label">G&uuml;ltig bis:</td>
+	<td class="value">
+		<nobr>
+		<input type="text" name="person-expire" value="$!message.date("DATE", $person.expire)" id="person-expire" class="date" style="width: 80px;" onchange="setModified();">
+		#if($grants.mayWrite())
+		<span id="show-expire"><img src="${paths.staticWeb}images/calendar.gif" alt="Datum ausw&auml;hlen" title="Datum ausw&auml;hlen"></span>
+		<script type="text/javascript">
+		    Calendar.setup({
+				inputField     :    "person-expire",
+				button         :    "show-expire",
+				ifFormat       :    "%d.%m.%Y",
+				showsTime      :    false
+			});
+		</script>
+		#end
+		</nobr>
+	</td>
+</tr><tr>
+	<td class="label"><label for="person-iscompany">Ist Firma:</label></td>
+	<td class="value"><input type="checkbox" id="person-iscompany" name="person-iscompany" value="t" class="checkbox" #if($person.iscompany && $person.iscompany == "t") checked #end onchange="setModified();"></td>
+</tr></table>
+
+	</td>
+	<td class="value" style="vertical-align: top; width: 1%;">&nbsp;</td>
+	<td class="value" style="vertical-align: top;">
+		#if($doctype)
+		Freifeld-Vorschau f&uuml;r &quot;$!{doctype.name}&quot;:<br>
+		#if($doctype.textfield)
+			<textarea rows="6" cols="20" id="d8" name="freitextfeld" class="textdisabled" readonly>$!message.textarea($doctype.textfield)</textarea>
+		#elseif(!$person)
+			<textarea rows="6" cols="20" id="d8" name="freitextfeld" class="textdisabled" readonly></textarea>
+		#else
+			<textarea rows="6" cols="20" id="d8" name="freitextfeld" class="textdisabled" readonly style="color: #ff8080;">Zu dieser Person wurde das entsprechende Vorschaufeld noch nicht erzeugt.</textarea>
+		#end
+		#else
+		<div style="margin: 10px 0px 10px 0px; padding: 10px 10px 10px 10px; background-color: #ffffff; border: 2px solid #ff0000;">
+			Es wurde kein Dokumenttyp zur Vorschauanzeige konfiguriert.
+			Dies ist &uuml;ber den Men&uuml;punkt Verwaltung &gt; Einstellungen m&ouml;glich.
+		</div>
+		#end
+	</td>
+</tr></table>
