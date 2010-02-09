@@ -1,0 +1,120 @@
+#set($title = "E-Mail an Verteiler schreiben: $!message.text($mailinglist.name)")
+#parse("inc/header.vm")
+
+<form id="formlist" name="formlist" action="MailinglistWrite" method="POST">
+<input type="hidden" id="loaddraft" name="loaddraft" value="false">
+<input type="hidden" id="savedraft" name="savedraft" value="false">
+
+<table class="tab" border="0" cellspacing="0" cellpadding="0"><tr>
+	<td class="tableft">&nbsp;</td>
+	<td class="tabactiv"><span class="tabactiv">E-Mail schreiben</span></td>
+	<td class="tabright">&nbsp;</td>
+</tr></table>
+
+#openContent()
+#openContentSection()
+
+#if($errors.size() > 0)
+<div style="margin: 10px 0px 10px 0px; padding: 10px 10px 10px 10px; background-color: #ffffff; border: 2px solid #ff0000;">
+	$errors.get(0)<br>
+##	#foreach($error in $errors)
+##		$error<br>
+##	#end
+</div>
+#end
+
+<input type="hidden" name="mail-id" value="$!mail.id">
+
+<h1>E-Mail Entw&uuml;rfe</h1>
+
+<table class="form"><tr>
+	#set($loadable = false)
+	<td class="label"><label for="mail-draft">Laden:</label></td>
+	<td class="value">
+		<select id="mail-draft" name="mail-draft" class="combobox">
+		#foreach($draft in $allMailDraft)
+			#set($loadable = true)
+			<option value="$!draft.id" #if($mail.id && $mail.id == $draft.id) selected #end>$!draft.name</option>
+		#end
+		#if(!$loadable)
+			<option value="" style="color: #808080;">keine Vorlagen vorhanden</option>
+		#end
+		</select>
+	</td>
+	<td class="value" style="width: 130px; text-align: right;">
+		<input type="button" name="" value="Laden" #if($loadable) class="button" #else disabled class="buttondisabled" #end onclick="document.getElementById('loaddraft').value='true'; document.getElementById('formlist').submit();">
+	</td>
+</tr><tr>
+	<td class="label"><label for="mail-name">Speichern:</label></td>
+	<td class="value"><input type="text" id="mail-name" name="mail-name" value="$!message.text($mail.name)" class="text"></td>
+	<td class="value" style="width: 130px; text-align: right;">
+		<input type="button" name="savedraft" value="Speichern" class="button" onclick="document.getElementById('savedraft').value='true'; document.getElementById('formlist').submit();">
+	</td>
+</tr></table><br>
+
+
+<h1>E-Mail schreiben</h1>
+
+<table class="form"><tr>
+	<td class="label"><label for="mail-subject">Betreff:</label></td>
+	<td class="value"><input type="text" id="mail-subject" name="mail-subject" value="$!message.text($mail.subject)"  class="text"></td>
+</tr><tr>
+	<td class="label"><label for="mail-text">Text:</label></td>
+	<td class="value"><textarea cols="20" rows="20" id="mail-text" name="mail-text" class="text">$!message.textarea($mail.text)</textarea></td>
+</tr><tr>
+	<td class="label"><label for="platzhalter">Platzhalter:</label></td>
+	<td class="value">
+		<table class="form" cellspacing="0" cellpadding="0"><tr>
+			<td class="value">
+				<select id="platzhalter" name="platzhalter" class="combobox">
+					<option value="firstname">Vorname</option>
+					<option value="lastname">Nachname</option>
+					<option value="salutation">Anrede</option>
+					<option value="title">Akad. Titel</option>
+					<option value="function">Amtsbez./Funktion</option>
+					<option value="company">Firma/Institution</option>
+					<option value="street">Stra&szlig;e</option>
+					<option value="zipcode">PLZ</option>
+					<option value="city">Ort</option>
+					<option value="country">Land</option>
+					<option value="poboxzipcode">Postfach-PLZ</option>
+					<option value="pobox">Postfach-Nummer</option>
+					<option value="suffix1">$!config.suffix1</option>
+					<option value="suffix2">$!config.suffix2</option>
+					<option value="phone">Telefon</option>
+					<option value="fax">Fax</option>
+					<option value="mobile">Mobil</option>
+					<option value="email">E-Mail</option>
+					<option value="url">www</option>
+				</select>&nbsp;
+			</td>
+			<td class="value" style="width: 10px;">&nbsp;&nbsp;&nbsp;</td>
+			<td class="value" style="width: 130px;"><input type="button" name="add" value="Hinzuf&uuml;gen" class="button" onclick="addPlatzhalter(this);"></td>
+		</tr></table>
+	</td>
+</tr></table>
+
+<div id="fixme" class="fixme1"><div class="fixme2"><div class="fixme3">
+
+	<input type="button" name="send" value="Senden" class="button" onclick="document.getElementById('formlist').action='MailinglistSend'; document.getElementById('formlist').submit();"> &nbsp;
+	<input type="reset"  name="clear"  value="Zur&uuml;cksetzen" class="reset"> &nbsp;
+	<input type="button" name="cancel" value="Zur&uuml;ck" class="button" onclick="window.location.href='ShowMailinglistDetail';"> &nbsp;
+
+</div></div></div>
+
+#closeContentSection()
+#closeContent()
+
+</form>
+
+<script type="text/javascript">
+	function addPlatzhalter(s) {
+		var sel = document.getElementById('platzhalter');
+		var text = sel.options[sel.selectedIndex].value;
+		if (text.length > 0) {
+			insertAtCursor(document.getElementById('mail-text'), '<' + text + '>');
+		}
+	}
+</script>
+
+#parse("inc/footer.vm")
