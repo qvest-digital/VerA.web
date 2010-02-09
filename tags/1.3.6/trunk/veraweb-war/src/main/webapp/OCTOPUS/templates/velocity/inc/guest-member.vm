@@ -1,0 +1,65 @@
+
+<table class="form"><tr>
+	<td class="label">Status der Einladung:</td>
+	<td class="value">
+		<select id="guest-invitationstatus$ext" name="guest-invitationstatus$ext" class="combobox">
+			<option value="0" #if(0 == $facade.InvitationStatus) selected#end>Offen</option>
+			<option value="1" #if(1 == $facade.InvitationStatus) selected#end>Zusage</option>
+			<option value="2" #if(2 == $facade.InvitationStatus) selected#end>Absage</option>
+			<option value="3" #if(3 == $facade.InvitationStatus) selected#end>Teilgenommen</option>
+		</select>
+	</td>
+</tr><tr>
+	<td class="label">Tisch-Nummer:</td>
+	<td class="value"><input type="text" id="guest-tableno$ext" name="guest-tableno$ext" value="$!message.text($facade.TableNo)" class="text"></td>
+</tr><tr>
+	<td class="label">Platz-Nummer:</td>
+	<td class="value"><input type="text" id="guest-seatno$ext" name="guest-seatno$ext" value="$!message.text($facade.SeatNo)" class="text"></td>
+</tr><tr>
+	<td class="label">Laufende Nummer:</td>
+	<td class="value"><input type="text" id="showguest-orderno$ext" name="showguest-orderno$ext" value="$!message.text($facade.OrderNo)" readonly class="textdisabled"></td>
+</tr><tr>
+	<td class="label">Farbe:</td>
+	<td class="value">
+		<input type="hidden" name="guest-fk_color$ext" value="$!facade.ColorFK">
+		<input type="text" name="showguest-color$ext" value="$!message.text($facade.Color)" readonly class="textdisabled">
+	</td>
+</tr><tr>
+	<td class="label">Inland:</td>
+	<td class="value">
+		<nobr>
+		#if ($facade.Domestic && $facade.Domestic == "f")
+			<input type="radio" name="guest-domestic$ext" value="t" id="guest-domestic${ext}-t"><label for="guest-domestic${ext}-t"> Ja</label>
+			<input type="radio" name="guest-domestic$ext" value="f" id="guest-domestic${ext}-f" checked><label for="guest-domestic${ext}-f"> Nein</label>
+		#else
+			<input type="radio" name="guest-domestic$ext" value="t" id="guest-domestic${ext}-t" checked><label for="guest-domestic${ext}-t"> Ja</label>
+			<input type="radio" name="guest-domestic$ext" value="f" id="guest-domestic${ext}-f"><label for="guest-domestic${ext}-f"> Nein</label>
+		#end
+		</nobr>
+	</td>
+</tr><tr>
+	<td class="label">Sprachen:</td>
+	<td class="value"><input type="text" id="guest-language$ext" name="guest-language$ext" value="$!message.text($facade.Languages)" class="text"></td>
+</tr><tr>
+	<td class="label">Geschlecht:</td>
+	<td class="value">
+		<nobr>
+		#if ($facade.Sex && $facade.Sex == "f")
+			<input type="radio" name="guest-sex$ext" value="m" id="guest-sex${ext}-m"><label for="guest-sex${ext}-m"> M&auml;nnlich</label>
+			<input type="radio" name="guest-sex$ext" value="f" id="guest-sex${ext}-f" checked><label for="guest-sex${ext}-f"> Weiblich</label>
+		#else
+			<input type="radio" name="guest-sex$ext" value="m" id="guest-sex${ext}-m" checked><label for="guest-sex${ext}-m"> M&auml;nnlich</label>
+			<input type="radio" name="guest-sex$ext" value="f" id="guest-sex${ext}-f"><label for="guest-sex${ext}-f"> Weiblich</label>
+		#end
+		</nobr>
+	</td>
+</tr><tr>
+	<td class="label">Nationalit&auml;t/Staats.:</td>
+	<td class="value"><input type="text" id="guest-nationality$ext" name="guest-nationality$ext" value="$!message.text($facade.Nationality)" class="text"></td>
+</tr><tr>
+	<td class="label">Hinweis Gastgeber:</td>
+	<td class="value"><textarea rows="4" cols="20" id="guest-notehost$ext" name="guest-notehost$ext" #if($grants.mayReadRemarkFields()) class="text">$!message.textarea($facade.NoteHost)#else class="textdisabled" disabled="true">#end</textarea></td>
+</tr><tr>
+	<td class="label">Hinweis Orgateam:</td>
+	<td class="value"><textarea rows="4" cols="20" id="guest-noteorga$ext" name="guest-noteorga$ext" #if($grants.mayReadRemarkFields()) class="text">$!message.textarea($facade.NoteOrga)#else class="textdisabled" disabled="true">#end</textarea></td>
+</tr></table>

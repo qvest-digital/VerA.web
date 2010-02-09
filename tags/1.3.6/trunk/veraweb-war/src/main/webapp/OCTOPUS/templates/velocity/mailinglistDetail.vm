@@ -1,0 +1,96 @@
+#set($title = "Verteilerliste: $!mailinglist.name")
+#parse("inc/header.vm")
+
+<script type="text/javascript">
+<!--
+function openNewEmail() {
+	var check = confirm("E-Mail aus Verteiler erstellen?");
+	if (check == true) {
+#foreach ($address in $mailAddresses)
+		window.location.href = "$!address";
+#end
+	}
+}
+//-->
+</script>
+
+<form id="formlist" name="formlist" action="ShowMailinglistDetail" method="POST">
+<input type="hidden" name="start" value="">
+<input type="hidden" name="selectAll" value="false">
+<input type="hidden" name="selectNone" value="false">
+<input type="hidden" name="doRemove" value="true">
+
+<table class="tab" border="0" cellspacing="0" cellpadding="0"><tr>
+	<td class="tableft">&nbsp;</td>
+	<td class="tabactiv"><span class="tabactiv">Adressen</span></td>
+	<td class="tabright">&nbsp;</td>
+</tr></table>
+
+#openContent()
+#openContentSection()
+
+<input type="hidden" name="id" value="$!id">
+
+#foreach($bean in $list)
+<input type="hidden" name="list" value="$bean.id">
+#end
+<table class="list">
+	<tr class="list1" style="height: 20px;">
+		<th class="list" style="width: 20px;">&nbsp;</th>
+		<th class="list">Name</th>
+		<th class="list">Vorname</th>
+		<th class="list">Adresse</th>
+	</tr>
+	#foreach($bean in $list)
+	#if ($velocityCount % 2 == 0)
+		#set($class = "list1")
+	#else
+		#set($class = "list2")
+	#end
+	<tr class="$class">
+		<td class="list"><input type="checkbox" name="${bean.id}-select" value="true" class="checkbox" #if($listselection.indexOf($bean.id) != -1) checked#end></td>
+		<td class="list"><input type="hidden" name="${bean.id}-id" value="$bean.id">$!bean.lastname</td>
+		<td class="list">$!bean.firstname</td>
+		<td class="list"><a href="mailto:?bcc=$!bean.address">$!bean.address</a></td>
+	</tr>
+	#end
+</table>
+
+#if($grants.mayReadStandardFields())
+	<br>
+	<a href="javascript:openNewEmail();">E-Mail-Client aufrufen</a>
+#end
+
+#if ($listparam.count == 0)
+	<br><br>Keine Daten gefunden.
+#end
+
+<div id="fixme" class="fixme1"><div class="fixme2"><div class="fixme3">
+
+	#parse("inc/list-navi.vm")
+	#parse("inc/list-direct.vm")
+
+	<input type="submit" name="remove" value="L&ouml;schen" onclick="submit();" title="markierte Adressen aus dem Verteiler l&ouml;schen" #if($grants.mayWrite()) class="button" #else class="buttondisabled" disabled #end> &nbsp;
+	<input type="button" name="send"   value="Versenden"    onclick="window.location.href='MailinglistWrite';" title="an alle Adressen versenden" #if($grants.mayReadStandardFields()) class="button" #else class="buttondisabled" disabled #end> &nbsp;
+	<input type="button" name="cancel" value="Zur&uuml;ck"  onclick="window.location.href='ShowMailinglistList';" title="Zur&uuml;ck zu der Verteiler-Ansicht" class="button"> &nbsp;
+
+</div></div></div>
+
+#closeContentSection()
+#closeContent()
+
+</form>
+
+<script type="text/javascript">
+#if($maildispatchParams && $maildispatchParams.count)
+#if($maildispatchParams.count == 0)
+	alert('Es wurde keine E-Mail zum Versenden gespeichert.');
+#elseif($maildispatchParams.count == 1)
+	alert('Es wurde eine E-Mail zum Versenden gespeichert. Diese wird nun automatisch versendet.');
+#else
+	alert('Es wurden $maildispatchParams.count E-Mails zum Versenden gespeichert. Diese werden nun automatisch versendet.');
+#end
+#end
+</script>
+
+#parse("inc/footer.vm")

@@ -1,0 +1,348 @@
+#set($title = "G&auml;steliste f&uuml;r Veranstaltung: $!message.plain($event.shortname)")
+#parse("inc/header.vm")
+
+<table class="tab" border="0" cellspacing="0" cellpadding="0"><tr>
+	<td class="tableft">&nbsp;</td>
+	<td class="tabinactiv"><a href="ShowGuestList" class="tabinactiv">G&auml;steliste</a></td>
+	<td class="tabactiv"><span class="tabactiv">Gast-Details</span></td>
+	<td class="tabinactiv"><a href="ShowGuestDoctype" class="tabinactiv">Dokumenttypen</a></td>
+	<td class="tabright">&nbsp;</td>
+</tr></table>
+
+#openContent()
+#openContentSection()
+
+<table class="form"><tr>
+	<td class="label" style="width: 19%;"><strong>Veranstaltung:</strong></td>
+	<td class="value" style="width: 31%;"><input type="text" id="event-shortname" name="event-shortname" value="$!message.text($event.shortname)" class="textdisabled" style="width: 90%;" readonly title="Veranstaltungs-ID: $!event.id"></td>
+	<td class="label" style="width: 19%;">Einladungsart:</td>
+	#if ($event.invitationtype == 2)
+	<td class="value" style="width: 31%;"><input type="text" id="event-invitationtype" name="event-invitationtype" value="Ohne Partner" class="textdisabled" style="width: 90%;" readonly></td>
+	#elseif ($event.invitationtype == 3)
+	<td class="value" style="width: 31%;"><input type="text" id="event-invitationtype" name="event-invitationtype" value="Nur Partner" class="textdisabled" style="width: 90%;" readonly></td>
+	#else
+	<td class="value" style="width: 31%;"><input type="text" id="event-invitationtype" name="event-invitationtype" value="Mit Partner" class="textdisabled" style="width: 90%;" readonly></td>
+	#end
+</tr><tr>
+	<td class="label" style="width: 19%;">Datum:</td>
+	<td class="value" style="width: 31%;"><input type="text" id="event-begin" name="event-begin" value="$!message.date("DATE_TIME", $event.begin)" class="textdisabled" style="width: 90%;" readonly></td>
+	<td class="label" style="width: 19%;">Max. Anzahl G&auml;ste:</td>
+	<td class="value" style="width: 31%;"><input type="text" id="event-maxguest" name="event-maxguest" value="$!message.text($event.maxguest)" class="intdisabled" readonly></td>
+</tr></table>
+
+<hr class="contentsection" />
+
+<table class="form"><tr>
+	## Bug 1591 im Kopf nicht die Stammdaten anzeigen
+	#if($showGuestListData)
+		#if ($guestListData.firstname && $guestListData.firstname.length() > 0 && $guestListData.lastname && $guestListData.lastname.length() > 0)
+			#set($name = "$!guestListData.firstname $!guestListData.lastname")
+		#else
+			#set($name = "$!guestListData.firstname$!guestListData.lastname")
+		#end
+		#set($email = "$!guestListData.mail")
+		#if ($guestListData.firstname_p && $guestListData.firstname_p.length() > 0 && $guestListData.lastname_p && $guestListData.lastname_p.length() > 0)
+			#set($name_p = "$!guestListData.firstname_p $!guestListData.lastname_p")
+		#else
+			#set($name_p = "$!guestListData.firstname_p$!guestListData.lastname_p")
+		#end
+		#set($funktion = "$!guestListData.function")
+	#else
+		#set($facade = $main)
+		#if($facade.Firstname && $facade.Firstname.length() > 0 && $facade.Lastname && $facade.Lastname.length() > 0)
+			#set($name = "$!facade.Firstname $!facade.Lastname")
+		#else
+			#set($name = "$!facade.Firstname$!facade.Lastname")
+		#end
+		#set($email = "$!address.EMail")
+		#set($facade = $partner)
+		#if($facade.Firstname && $facade.Firstname.length() > 0 && $facade.Lastname && $facade.Lastname.length() > 0)
+			#set($name_p = "$!facade.Firstname $!facade.Lastname")
+		#else
+			#set($name_p = "$!facade.Firstname$!facade.Lastname")
+		#end
+		#set($funktion = "$!address.Function")
+	#end
+
+	<td class="label" style="width: 19%;"><strong>Gast:</strong></td>
+	<td class="value" style="width: 31%;"><input type="text" id="person-main" name="person-main" value="$!message.text($name)" class="textdisabled" style="width: 90%;" readonly></td>
+	<td class="label" style="width: 19%;">E-Mail-Adresse:</td>
+	<td class="value" style="width: 31%;"><input type="text" id="person-mail" name="person-mail" value="$!message.text($email)" class="textdisabled" style="width: 90%;" readonly></td>
+</tr><tr>
+	
+	<td class="label" style="width: 19%;">Partner:</td>
+	<td class="value" style="width: 31%;"><input type="text" id="person-partner" name="person-partner" value="$!message.text($name_p)" class="textdisabled" style="width: 90%;" readonly></td>
+	<td class="label" style="width: 19%;">Laufende Nummer:</td>
+	<td class="value" style="width: 31%;""><input type="text" id="guest-orderno_a" name="guest-orderno_a" value="#if($guest.orderno_a)$!guest.orderno_a#else$!guest.orderno_b#end" class="intdisabled" readonly></td>
+</tr><tr>
+	<td class="label" style="width: 19%;">Funktion:</td>
+	<td class="value" style="width: 31%;"><input type="text" id="person-function" name="person-function" value="$!message.text($funktion)" class="textdisabled" style="width: 90%;" readonly></td>
+	<td class="label" style="width: 19%;">&nbsp;</td>
+	<td class="value" style="width: 31%;"">&nbsp;</td>
+</tr></table>
+
+<hr class="contentsection" />
+
+#closeContentSection()
+
+
+<div id="subtab-detail-block">
+	<table class="subtab" border="0" cellspacing="0" cellpadding="0"><tr>
+		<td class="subtableft">&nbsp;</td>
+		<td class="subtab" id="detail-1-tab"><a href="javascript:showTab('detail-1');" id="detail-1-link" class="subtab">Allgemein</a></td>
+		<td class="subtab" id="detail-2-tab"><a href="javascript:showTab('detail-2');" id="detail-2-link" class="subtab">$!config.main</a></td>
+## partner tab now renders inactive if there is no partner defined or none has been invited
+## for existing guests, newly created guests will render the tab active
+## as per change request for version 1.2.0
+## cklein 2008-02-15
+              <td #if( ( $guest.getIsPartnerInvited() && $person.getHasPartner() ) || $octopusRequest.task == "CreatePerson" ) class="subtab" #else class="tabdisabled" #end id="detail-3-tab"><a href="javascript:showTab('detail-3');" id="detail-3-link" class="subtab">$!config.partner</a></td>
+##            <td class="subtab" id="detail-3-tab"><a href="javascript:showTab('detail-3');" id="detail-3-link" class="subtab">$!config.partner</a></td>
+		<td class="subtabcenter">&nbsp;</td>
+	</tr></table>
+</div>
+
+<form id="GuestForm" name="GuestForm" action="SaveGuestDetail" method="post">
+<input type="hidden" name="id" value="$!guest.id">
+<input type="hidden" name="guest-id" value="$!guest.id">
+<input type="hidden" name="guest-event" value="$!guest.event">
+<input type="hidden" name="guest-person" value="$!guest.person">
+<input type="hidden" name="guest-orderno_a" value="$!guest.orderno_a">
+<input type="hidden" name="guest-orderno_b" value="$!guest.orderno_b">
+<input type="hidden" name="categorie-modified" id="categorie-modified" value="false">
+<input type="hidden" name="fetchRankFromMasterData" id="fetchRankFromMasterData" value="false">
+
+
+#openContentBlock("detail-1-block")
+	<table class="form"><tr>
+		<td class="label">Einladungsart:</td>
+		<td class="value">
+			<select id="guest-invitationtype" name="guest-invitationtype" class="combobox" onchange="setGuestInvitationtype(this.value);">
+				<option value="1"#if($guest.invitationtype && $guest.invitationtype == 1) selected#end>Mit Partner</option>
+				<option value="2"#if($guest.invitationtype && $guest.invitationtype == 2) selected#end>Ohne Partner</option>
+				<option value="3"#if($guest.invitationtype && $guest.invitationtype == 3) selected#end>Nur Partner</option>
+			</select>
+		</td>
+	</tr><tr>
+		<td class="label">Kategorie:</td>
+		<td class="value">
+			<select name="guest-category" class="combobox" onchange="setModified('categorie')">
+				<option value="">Keine</option>
+				#foreach($category in $allCategorie)
+				<option value="$category.id" #if($guest.category == $category.id) selected#end>$category.name</option>
+				#end
+			</select>
+		</td>
+	</tr><tr>
+		<td class="label">Rang:</td>
+		<td class="value"><input type="text" id="guest-rank" name="guest-rank" value="$!message.text($guest.rank)" class="text"></td>
+	</tr><tr>
+		<td class="label">Reserve:</td>
+		<td class="value"><input type="checkbox" id="guest-reserve" name="guest-reserve" value="true" #if($guest.reserve) checked#end class="checkbox"></td>
+	</tr><tr>
+		<td class="label">Ist Gastgeber:</td>
+		<td class="value">
+			#if($guest.ishost == 1)
+				<input type="checkbox" name="showguest-ishost" value="true" checked readonly disabled>
+				<input type="hidden" name="guest-ishost" value="1">
+			#else
+				<input type="checkbox" name="showguest-ishost" value="false" readonly disabled>
+				<input type="hidden" name="guest-ishost" value="0">
+			#end
+		</td>
+	</tr></table>
+#closeContentBlock()
+
+
+#openContentBlock("detail-2-block")
+<div id="detail-2-data-block" #if($guest.invitationtype == 3) style="display: none;"#end>
+#set($ext = "_a")
+#set($facade = $guest.Main)
+#parse("inc/guest-member.vm")
+</div>
+<div id="detail-2-reload-block" #if($guest.invitationtype != 3) style="display: none;"#end>
+	<table class="list">
+		<tr style="height: 20px;">
+			<td class="list2error" style="text-align: center; width: 60px;"><strong>Info</strong></td>
+			<td class="list1error">
+				Dieser Gast wurde ohne $!config.main eingeladen.
+				M&ouml;chten Sie diese jetzt <a href="javascript:setGuestInvitationtype(1);">nachtr&auml;glich einladen</a>?
+			</td>
+		</tr>
+	</table>
+</div>
+#closeContentBlock()
+
+#openContentBlock("detail-3-block")
+<div id="detail-3-data-block" #if($guest.invitationtype == 2) style="display: none;"#end>
+#set($ext = "_b")
+#set($facade = $guest.Partner)
+#parse("inc/guest-member.vm")
+</div>
+<div id="detail-3-reload-block" #if($guest.invitationtype != 2) style="display: none;"#end>
+	<table class="list">
+		<tr style="height: 20px;">
+			<td class="list2error" style="text-align: center; width: 60px;"><strong>Info</strong></td>
+			<td class="list1error">
+				Dieser Gast wurde ohne $!config.partner eingeladen.
+				M&ouml;chten Sie diesen jetzt <a href="javascript:setGuestInvitationtype(1);">nachtr&auml;glich einladen</a>?
+			</td>
+		</tr>
+	</table>
+</div>
+#closeContentBlock()
+
+#openContentSection()
+
+#if($person.deleted == "t")
+<table class="list" style="margin-top: 15px;">
+	<tr style="height: 20px;">
+		<td class="list2error" style="text-align: center; width: 60px;"><strong>Hinweis</strong></td>
+		<td class="list1error">
+			Die Stammdaten dieses Gastes wurden gel&ouml;scht,
+			Sie k&ouml;nnen nur Daten im Rahmen dieser Veranstaltung bearbeiten.
+		</td>
+	</tr>
+</table>
+#else
+<table class="list" style="margin-top: 15px;">
+	<tr style="height: 20px;">
+		<td class="list2warn" style="text-align: center; width: 60px;"><strong>Hinweis</strong></td>
+		<td class="list1warn">
+			Sie bearbeiten hier ausschlie&szlig;lich Personendaten im Rahmen der aktuellen
+			Veranstaltung, <i>keine</i> grundlegenden Stammdaten.
+		</td>
+	</tr>
+</table>
+#end
+
+<div id="fixme" class="fixme1"><div class="fixme2"><div class="fixme3">
+
+<table cellspacing="0" cellpadding="0" style="width: 100%; margin-bottom: 5px;"><tr><td>
+<span class="listnavitext" style="margin-right: 15px;">Gast $search.offset von $search.count</span>
+
+#set($offset = $search.offset - 1)
+#if ($offset <= 0)
+	<a class="listnavilinkinactiv" title="Erster Gast">&laquo;&laquo;</a>
+	<a class="listnavilinkinactiv" title="Vorheriger Gast">&laquo;</a>
+#else
+	<a href="javascript:window.location.href='ShowGuestDetail?offset=1&tab=detail-' + detail;" class="listnavilink" title="Erster Gast">&laquo;&laquo;</a>
+	<a href="javascript:window.location.href='ShowGuestDetail?offset=$offset&tab=detail-' + detail;" class="listnavilink" title="Vorheriger Gast">&laquo;</a>
+#end
+#set($offset = $search.offset + 1)
+#if ($offset > $search.count)
+	<a class="listnavilinkinactiv" title="N&auml;chster Gast">&raquo;</a>
+	<a class="listnavilinkinactiv" title="Letzter Gast">&raquo;&raquo;</a>
+#else
+	<a href="javascript:window.location.href='ShowGuestDetail?offset=$offset&tab=detail-' + detail;" class="listnavilink" title="N&auml;chster Gast">&raquo;</a>
+	<a href="javascript:window.location.href='ShowGuestDetail?offset=$search.count&tab=detail-' + detail;" class="listnavilink" title="Letzter Gast">&raquo;&raquo;</a>
+#end
+</td></tr></table>
+
+    <input type="button" name="save" value="Speichern" #if($grants.mayWrite()) class="button" onclick="if ( validateGuestData() ) { return askPreSave(); } else { return false; }" #else class="buttondisabled" disabled #end> &nbsp;
+    <input type="button" name="refresh" value="Neu laden" #if($grants.mayWrite()) class="button" onclick="window.location.href='ReloadGuestData?guest-id=$!guest.id';" #else class="buttondisabled" disabled #end> &nbsp;
+    <input type="button" name="persondata" value="Stammdaten" title="Personenstammdaten bearbeiten" onclick="window.location.href='ShowPerson?id=$guest.person&action=event';" class="button"> &nbsp;
+    <input type="button" name="cancel" value="Listenansicht" title="Zur&uuml;ck zu der G&auml;steliste" class="reset" onclick="window.location.href='ShowGuestList';"> &nbsp;
+
+</div></div></div>
+
+#closeContentSection()
+
+</form>
+
+#closeContent()
+
+<script type="text/javascript" src="${paths.staticWeb}scripts/guest-detail-tabs.js"></script>
+<script type="text/javascript">
+	function setGuestInvitationtype(type) {
+		if (type == 1) {
+			changeBlock('detail-2-data', new Array('detail-2-reload'));
+			changeBlock('detail-3-data', new Array('detail-3-reload'));
+			document.getElementById('guest-invitationtype').value = 1;
+		} else if (type == 2) {
+			changeBlock('detail-2-data', new Array('detail-2-reload'));
+			changeBlock('detail-3-reload', new Array('detail-3-data'));
+			document.getElementById('guest-invitationtype').value = 2;
+		} else if (type == 3) {
+			changeBlock('detail-2-reload', new Array('detail-2-data'));
+			changeBlock('detail-3-data', new Array('detail-3-reload'));
+			document.getElementById('guest-invitationtype').value = 3;
+		}
+	}
+	
+#if(!$grants.mayWrite())
+	disableForm(document.getElementById('GuestForm'));
+#end
+	
+	showTab(getTabParameter('detail-1'));
+	
+##wenn andere Kategorie ausgewaehlt wird, evtl. Rang aus Stammdaten laden
+	function askPreSave() {
+		if (isModified('categorie') && document.getElementById('guest-rank').value == '') {
+  			htmlConfirm('Soll der Rang der Kategorie aus den Stammdaten &uuml;bernommen werden?', new Array('Ja', 'Nein'), new Array("saveDocWithMasterDataRank('true');", "saveDocWithMasterDataRank('false');"));
+		}
+		else {
+			saveDocWithMasterDataRank('false');
+		}
+	} 
+	
+	function trim( s )
+	{
+		var i = 0;
+		var begin = -1;
+		var end = -1;
+		while ( i < s.length && ( s.charAt( i ) == ' ' || s.charAt( i ) == '\t' ) )
+		{
+			i++;
+		}
+		begin = i;
+		i = s.length -1;
+		while ( i > begin && ( s.charAt( i ) == ' ' || s.charAt( i ) == '\t' ) )
+		{
+			i--;
+		}
+		end = i + 1;
+//		window.alert( begin + " " + ( end - begin ) + "'" + s.substr( begin, end - begin ) + "'" );
+		return s.substr( begin, end - begin ); 
+	}
+	
+	function validateGuestData()
+	{
+		var check = new Array( 'guest-tableno_a', 'guest-tableno_b', 'guest-seatno_a', 'guest-seatno_b' );
+		var msgs = new Array( 'Tischnummer der Hauptperson', 'Tischnummer des Partners', 'Platznummer der Hauptperson', 'Platznummer des Partners' );
+		var regexp = /^\d+$/;
+		var msg = "";
+		var i = 0;
+		for ( i = 0; i < check.length; i++ )
+		{
+			var val = trim( document.getElementById( check[ i ] ).value );
+			if ( val.length > 0 )
+			{
+				document.getElementById( check[ i ] ).value = val;
+				if ( ! regexp.test( val ) )
+				{
+					if ( msg.length > 0 )
+					{
+						msg += ',\r\n';
+					}
+					msg += '\t' + msgs[ i ];
+				}
+			}
+		}
+
+		if ( msg.length > 0 )
+		{
+			window.alert( "In den folgenden Feldern wird\r\neine numerische Angabe erwartet:\r\n\r\n" + msg );
+			return false;
+		}
+		return true;
+	}
+
+	function saveDocWithMasterDataRank(fetchRankFromMasterData) {
+		hideDialogs();
+		showComboboxes();
+		document.getElementById('fetchRankFromMasterData').value=fetchRankFromMasterData;
+		document.getElementById('GuestForm').submit();
+	}
+</script>
+
+#parse("inc/footer.vm")
