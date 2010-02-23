@@ -1328,7 +1328,7 @@ END;\'
 			  CONSTRAINT tworkarea_pkey PRIMARY KEY (pk),
 			  CONSTRAINT tworkarea_fkey_orgunit FOREIGN KEY (fk_orgunit) REFERENCES veraweb.torgunit (pk) ON UPDATE RESTRICT ON DELETE RESTRICT
 			) WITH OIDS;
-			ALTER TABLE veraweb.tworkarea ALTER COLUMN pk SET DEFAULT nextval(\'veraweb.tworkarea_pk_seq\'::regclass);
+			ALTER TABLE veraweb.tworkarea ALTER COLUMN pk SET DEFAULT nextval(\'veraweb.tworkarea_pk_seq\'::text);
 		END IF;
 		vmsg := \'end.createTABLE.tworkarea\';
 		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
@@ -1369,8 +1369,9 @@ END;\'
 	-------- cklein 2008-02-20
 	-------- added NOT NULL constraint
 	-------- cklein 2008-03-14
-              fk_workarea int4 NOT NULL,
-			  
+	-------- added default value
+                          fk_workarea int4 NOT NULL DEFAULT 0,
+
 			  -- Hauptperson, Latein
 			  salutation_a_e1 varchar(50),
 			  fk_salutation_a_e1 int4,
@@ -1674,7 +1675,7 @@ END;\'
 			vmsg := \'begin.addcolumn.tperson.fk_workarea\';
 			INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
 			IF $1 = 1 THEN
-				ALTER TABLE veraweb.tperson ADD COLUMN fk_workarea int4;
+				ALTER TABLE veraweb.tperson ADD COLUMN fk_workarea int4 NOT NULL DEFAULT 0;
 			END IF;
 			vmsg := \'end.addcolumn.tperson.fk_workarea\';
 			INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
