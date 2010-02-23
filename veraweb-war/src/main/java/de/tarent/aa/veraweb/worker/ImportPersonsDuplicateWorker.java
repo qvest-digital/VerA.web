@@ -49,6 +49,7 @@ import de.tarent.dblayer.sql.statement.Select;
 import de.tarent.dblayer.sql.statement.Update;
 import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.beans.Database;
+import de.tarent.octopus.beans.TransactionContext;
 import de.tarent.octopus.beans.veraweb.ListWorkerVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
 
@@ -134,36 +135,48 @@ public class ImportPersonsDuplicateWorker extends ListWorkerVeraWeb {
     public void saveList(OctopusContext cntx) throws BeanException, IOException {
 		if (cntx.requestContains(INPUT_BUTTON_SAVE)) {
 			Database database = getDatabase(cntx);
+			TransactionContext context = database.getTransactionContext();
+
 			ImportPerson sample = new ImportPerson();
 			Long importId = new Long(cntx.requestAsString("importId"));
-			
-			// Entfernt alle markierungen in der Datenbank.
-			Update update = SQL.Update( database );
-			update.table(database.getProperty(sample, "table"));
-			update.update("dupcheckstatus", ImportPerson.FALSE);
-			update.where(Where.and(
-					Expr.equal("deleted", PersonConstants.DELETED_FALSE),
-					Expr.equal("fk_import", importId)));
-			database.execute(update);
-			
-			// Markierungen wieder setzten.
-			List selection = getSelection(cntx, null);
-			if (selection != null && selection.size() > 0) {
-				update = SQL.Update( database );
+
+			try
+			{
+				// Entfernt alle markierungen in der Datenbank.
+				Update update = SQL.Update( context );
 				update.table(database.getProperty(sample, "table"));
-				update.update("dupcheckstatus", ImportPerson.TRUE);
-				update.where(Where.and(Where.and(
+				update.update("dupcheckstatus", ImportPerson.FALSE);
+				update.where(Where.and(
 						Expr.equal("deleted", PersonConstants.DELETED_FALSE),
-						Expr.equal("fk_import", importId)),
-						Expr.in("pk", selection)));
-				database.execute(update);
-			}
-			
-			cntx.setContent("countUpdate",
-					database.getCount(
-					database.getCount(sample).where(Where.and(
+						Expr.equal("fk_import", importId)));
+				context.execute(update);
+				
+				// Markierungen wieder setzten.
+				List selection = getSelection(cntx, null);
+				if (selection != null && selection.size() > 0) {
+					update = SQL.Update( context );
+					update.table(database.getProperty(sample, "table"));
+					update.update("dupcheckstatus", ImportPerson.TRUE);
+					update.where(Where.and(Where.and(
 							Expr.equal("deleted", PersonConstants.DELETED_FALSE),
-							Expr.equal("fk_import", importId)))));
+							Expr.equal("fk_import", importId)),
+							Expr.in("pk", selection)));
+					context.execute(update);
+				}
+				context.commit();
+
+				cntx.setContent("countUpdate",
+						database.getCount(
+						database.getCount(sample).where(Where.and(
+								Expr.equal("deleted", PersonConstants.DELETED_FALSE),
+								Expr.equal("fk_import", importId)))));
+			}
+			catch(BeanException e)
+			{
+				// failed to commit
+				context.rollBack();
+				throw new BeanException("Die Änderungen an der Duplikatliste konnten nicht übernommen werden.", e);
+			}
 		}
 	}
 
