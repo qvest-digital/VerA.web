@@ -157,13 +157,17 @@ public class PersonDetailWorker implements PersonConstants {
 	{
 		String action = cntx.requestAsString( "action" );
 		Integer personId = cntx.requestAsInteger( "id" );
-
+		
 		// now get the proper select from the workers based on 
 		// the optionally defined action parameter
 		Person sample = new Person();
 		Select select = database.getSelectIds( sample );
 		if ( "duplicateSearch".equals( action ) )
 		{
+			//add the action and personId once again to the context
+			cntx.setContent("action", action);
+			cntx.setContent("id", personId);
+			
 			// must navigate through all persons matching duplicate search query filter
 			PersonDuplicateSearchWorker w = WorkerFactory.getPersonDuplicateSearchWorker( cntx );
 			// replaces the original select as it is very similar
@@ -346,6 +350,12 @@ public class PersonDetailWorker implements PersonConstants {
 		cntx.setContent("person", person);
 		cntx.setContent("person-diplodatetime", Boolean.valueOf(DateHelper.isTimeInDate(person.diplodate_a_e1)));
 		cntx.setContent("originalPersonId", cntx.requestAsInteger("originalPersonId"));
+
+		/*
+		 * added for support of direct search result list navigation, see below
+		 * cklein 2008-03-12
+		 */
+		this.restoreNavigation( cntx, person, database );
 	}
 
     /** Eingabe-Parameter der Octopus-Aktion {@link #showTestPerson(OctopusContext)} */
@@ -705,17 +715,18 @@ public class PersonDetailWorker implements PersonConstants {
 			cntx.setContent("originalPersonId", ( Integer ) null);
 
 			cntx.setContent("person-diplodatetime", Boolean.valueOf(DateHelper.isTimeInDate(person.diplodate_a_e1)));
+
+			/*
+			 * added for support of direct search result list navigation, see below
+			 * cklein 2008-03-12
+			 */
+			this.restoreNavigation( cntx, person, database );
 		} 
 		catch( BeanException e )
 		{
 			context.rollBack();
+			throw new BeanException("Die Person konnte nicht gespeichert werden.", e);
 		}
-
-		/* fixing bug: navigation was lost on save
-		 * added for support of direct search result list navigation, see below
-		 * cklein 2008-03-12
-		 */
-		this.restoreNavigation( cntx, person, database );
 
 		return person;
 	}
