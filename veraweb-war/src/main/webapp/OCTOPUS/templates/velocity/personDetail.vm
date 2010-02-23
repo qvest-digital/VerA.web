@@ -44,6 +44,9 @@
 <input type="hidden" id="personAddresstypeTab" name="personAddresstypeTab" value="1">
 <input type="hidden" id="personLocaleTab" name="personLocaleTab" value="1">
 
+##new cf. issue #2091
+<input type="hidden" id="action" name="action" value="$action">
+
 #if ($person && $person.id)
 <input type="hidden" name="person-nodupcheck" value="true">
 #end
@@ -286,7 +289,7 @@
     <input type="button" value="Statistik" name="statistics" 	#if($person && $person.id) class="button" onclick="window.open( '${paths.staticWeb}do/StatistikExport?id=$!person.id' );" #else disabled="disabled" class="buttondisabled" #end> &nbsp;
 
 	#if( $action == "duplicateSearch" )
-		<input type="button" name="cancel" class="button" value="Listenansicht" onclick="if (checkModified()) { window.location.href='${paths.staticWeb}do/PersonDuplicateSearch'; }"> &nbsp;
+		<input type="button" name="cancel" class="button" value="Duplikatsuche" onclick="if (checkModified()) { window.location.href='${paths.staticWeb}do/PersonDuplicateSearch'; }"> &nbsp;
 	#else
 	    <input type="button" name="cancel" class="button" value="Listenansicht" onclick="if (checkModified()) { window.location.href='${paths.staticWeb}do/SearchPerson?action=person'; }"> &nbsp;
 	#end
