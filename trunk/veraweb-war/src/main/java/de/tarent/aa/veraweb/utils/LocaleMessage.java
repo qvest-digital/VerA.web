@@ -231,15 +231,12 @@ public class LocaleMessage {
 				}
 				else
 				{
-					// we do not want a return value
-					calendar = null;
+					// we do not want a default return value
+					return null;
 				}
 			}
-			if ( calendar != null )
-			{
-				return new SimpleDateFormat(bundle.getString(key), locale).format(calendar.getTime());
-			}
-			return null;
+			// FIXME throws missing resource exception most of the time
+			return new SimpleDateFormat(bundle.getString(key), locale).format(calendar.getTime());
 		} catch (MissingResourceException e) {
 			return null;
 		} catch (NumberFormatException e) {
