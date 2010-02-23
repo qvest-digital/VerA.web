@@ -81,7 +81,7 @@
 			<td class="label">Geburtsdatum:</td>
 			<td class="value">
 				<nobr>
-				<input type="text" name="person-birthday$ext" value="$!message.date("DATE", $facade.Birthday)" id="person-birthday$ext" class="date" style="width: 80px;" onchange="setModified();">
+				<input type="text" name="person-birthday$ext" value="$!message.date("DATE", $facade.Birthday, false)" id="person-birthday$ext" class="date" style="width: 80px;" onchange="setModified();">
 				#if($grants.mayWrite())
 				<span id="show-birthday$ext"><img src="${paths.staticWeb}images/calendar.gif" alt="Datum ausw&auml;hlen" title="Datum ausw&auml;hlen"></span>
 				<script type="text/javascript">
@@ -104,7 +104,7 @@
 			<td class="label">Akkreditierungsdatum:</td>
 			<td class="value">
 				<nobr>
-				<input type="text" name="person-diplodate$ext" value="$!message.date("DATE", $facade.Diplodate)" id="person-diplodate$ext" class="date" style="width: 80px;" onchange="setModified();">
+				<input type="text" name="person-diplodate$ext" value="$!message.date("DATE", $facade.Diplodate, false)" id="person-diplodate$ext" class="date" style="width: 80px;" onchange="setModified();">
 				#if($grants.mayWrite())
 				<span id="show-diplodate$ext"><img src="${paths.staticWeb}images/calendar.gif" alt="Datum ausw&auml;hlen" title="Datum ausw&auml;hlen"></span> &nbsp; um &nbsp;
 				<script type="text/javascript">

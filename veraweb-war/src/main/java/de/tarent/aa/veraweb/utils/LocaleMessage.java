@@ -42,7 +42,7 @@ import java.util.ResourceBundle;
 
 /**
  * Diese Klasse holt (potentiell lokalisiert) ausgelagerte Mitteilungen; diese
- * können so roh oder mittels {@link MessageFormat} mit Parametern gefüllt
+ * kï¿½nnen so roh oder mittels {@link MessageFormat} mit Parametern gefï¿½llt
  * abgefragt werden.  
  * 
  * @author christoph
@@ -55,7 +55,7 @@ public class LocaleMessage {
 	protected ResourceBundle bundle;
 
     /**
-     * Dieser Konstruktor bekommt die zu benutzende {@link Locale} übergeben.
+     * Dieser Konstruktor bekommt die zu benutzende {@link Locale} ï¿½bergeben.
      */
 	public LocaleMessage(Locale locale) {
 		this.locale = locale;
@@ -65,7 +65,7 @@ public class LocaleMessage {
     /**
      * Diese Methode liefert eine Bundle-Mitteilung roh. 
      * 
-     * @param key Schlüssel der Bundle-Mitteilung
+     * @param key Schlï¿½ssel der Bundle-Mitteilung
      * @return passende Bundle-Mitteilung oder <code>null</code>.
      */
 	public Object get(String key) {
@@ -77,10 +77,10 @@ public class LocaleMessage {
 	}
 
     /**
-     * Diese Methode liefert eine Bundle-Mitteilung als ein Format für
+     * Diese Methode liefert eine Bundle-Mitteilung als ein Format fï¿½r
      * {@link MessageFormat} interpretiert mit einem Parameter ausgewertet.
      * 
-     * @param key Schlüssel der Bundle-Mitteilung
+     * @param key Schlï¿½ssel der Bundle-Mitteilung
      * @param arg0 {@link MessageFormat}-Parameter
      * @return passend interpretierte Bundle-Mitteilung oder <code>null</code>.
      */
@@ -93,10 +93,10 @@ public class LocaleMessage {
 	}
 
     /**
-     * Diese Methode liefert eine Bundle-Mitteilung als ein Format für
+     * Diese Methode liefert eine Bundle-Mitteilung als ein Format fï¿½r
      * {@link MessageFormat} interpretiert mit zwei Parametern ausgewertet.
      * 
-     * @param key Schlüssel der Bundle-Mitteilung
+     * @param key Schlï¿½ssel der Bundle-Mitteilung
      * @param arg0 erster {@link MessageFormat}-Parameter
      * @param arg1 zweiter {@link MessageFormat}-Parameter
      * @return passend interpretierte Bundle-Mitteilung oder <code>null</code>.
@@ -110,10 +110,10 @@ public class LocaleMessage {
 	}
 
     /**
-     * Diese Methode liefert eine Bundle-Mitteilung als ein Format für
+     * Diese Methode liefert eine Bundle-Mitteilung als ein Format fï¿½r
      * {@link MessageFormat} interpretiert mit drei Parametern ausgewertet.
      * 
-     * @param key Schlüssel der Bundle-Mitteilung
+     * @param key Schlï¿½ssel der Bundle-Mitteilung
      * @param arg0 erster {@link MessageFormat}-Parameter
      * @param arg1 zweiter {@link MessageFormat}-Parameter
      * @param arg2 dritter {@link MessageFormat}-Parameter
@@ -128,10 +128,10 @@ public class LocaleMessage {
 	}
 
     /**
-     * Diese Methode liefert eine Bundle-Mitteilung als ein Format für
+     * Diese Methode liefert eine Bundle-Mitteilung als ein Format fï¿½r
      * {@link MessageFormat} interpretiert mit vier Parametern ausgewertet.
      * 
-     * @param key Schlüssel der Bundle-Mitteilung
+     * @param key Schlï¿½ssel der Bundle-Mitteilung
      * @param arg0 erster {@link MessageFormat}-Parameter
      * @param arg1 zweiter {@link MessageFormat}-Parameter
      * @param arg2 dritter {@link MessageFormat}-Parameter
@@ -147,15 +147,15 @@ public class LocaleMessage {
 	}
 
     /**
-     * Diese Methode liefert eine Bundle-Mitteilung als ein Format für
-     * {@link MessageFormat} interpretiert mit fünf Parametern ausgewertet.
+     * Diese Methode liefert eine Bundle-Mitteilung als ein Format fï¿½r
+     * {@link MessageFormat} interpretiert mit fï¿½nf Parametern ausgewertet.
      * 
-     * @param key Schlüssel der Bundle-Mitteilung
+     * @param key Schlï¿½ssel der Bundle-Mitteilung
      * @param arg0 erster {@link MessageFormat}-Parameter
      * @param arg1 zweiter {@link MessageFormat}-Parameter
      * @param arg2 dritter {@link MessageFormat}-Parameter
      * @param arg3 vierter {@link MessageFormat}-Parameter
-     * @param arg4 fünfter {@link MessageFormat}-Parameter
+     * @param arg4 fï¿½nfter {@link MessageFormat}-Parameter
      * @return passend interpretierte Bundle-Mitteilung oder <code>null</code>.
      */
 	public Object get(String key, Object arg0, Object arg1, Object arg2, Object arg3, Object arg4) {
@@ -205,13 +205,18 @@ public class LocaleMessage {
     /**
      * Encodet ein Datum zur direkten Darstellung in HTML-Textarea-Feldern.
      * 
-     * @param key Bundle-Schlüssel des zu benutzenden {@link SimpleDateFormat}-Formats.
+     * @param key Bundle-Schlï¿½ssel des zu benutzenden {@link SimpleDateFormat}-Formats.
      * @param arg0 Darzustellendes Datum als {@link Date}- oder {@link Long}-Instanz.
      *  Bei anderen Klassen wird die Stringdarstellung genommen und als {@link Long}
      *  interpretiert.
      * @return Encodetes Datum oder <code>null</code>
      */
 	public Object date(String key, Object arg0) {
+		return this.date(key, arg0, true);
+	}
+
+	public Object date(String key, Object arg0, boolean doInsertDefault)
+	{
 		try {
 			Calendar calendar = Calendar.getInstance(locale);
 			if (arg0 instanceof Date) {
@@ -219,9 +224,22 @@ public class LocaleMessage {
 			} else if (arg0 instanceof Long) {
 				calendar.setTimeInMillis(((Long)arg0).longValue());
 			} else {
-				calendar.setTimeInMillis(new Long(arg0.toString()).longValue());
+				// cf. issue #2168
+				if ( doInsertDefault )
+				{
+					calendar.setTimeInMillis(new Long(arg0.toString()).longValue());
+				}
+				else
+				{
+					// we do not want a return value
+					calendar = null;
+				}
 			}
-			return new SimpleDateFormat(bundle.getString(key), locale).format(calendar.getTime());
+			if ( calendar != null )
+			{
+				return new SimpleDateFormat(bundle.getString(key), locale).format(calendar.getTime());
+			}
+			return null;
 		} catch (MissingResourceException e) {
 			return null;
 		} catch (NumberFormatException e) {
@@ -245,13 +263,13 @@ public class LocaleMessage {
 //			.replaceAll("'", "&apos;")
 			.replaceAll("<", "&lt;")
 			.replaceAll(">", "&gt;");
-//			.replaceAll("ä", "&auml;")
-//			.replaceAll("Ä", "&Auml;")
-//			.replaceAll("ü", "&uuml;")
-//			.replaceAll("Ü", "&Uuml;")
-//			.replaceAll("ö", "&ouml;")
-//			.replaceAll("Ö", "&Ouml;")
-//			.replaceAll("ß", "&szlig;");
+//			.replaceAll("ï¿½", "&auml;")
+//			.replaceAll("ï¿½", "&Auml;")
+//			.replaceAll("ï¿½", "&uuml;")
+//			.replaceAll("ï¿½", "&Uuml;")
+//			.replaceAll("ï¿½", "&ouml;")
+//			.replaceAll("ï¿½", "&Ouml;")
+//			.replaceAll("ï¿½", "&szlig;");
 	}
 
 	/**
@@ -267,13 +285,13 @@ public class LocaleMessage {
 //			.replaceAll("&apos;", "'")
 			.replaceAll("&lt;", "<")
 			.replaceAll("&gt;", ">")
-//			.replaceAll("&auml;", "ä")
-//			.replaceAll("&Auml;", "Ä")
-//			.replaceAll("&uuml;", "ü")
-//			.replaceAll("&Uuml;", "Ü")
-//			.replaceAll("&ouml;", "ö")
-//			.replaceAll("&Ouml;", "Ö")
-//			.replaceAll("&szlig;", "ß")
+//			.replaceAll("&auml;", "ï¿½")
+//			.replaceAll("&Auml;", "ï¿½")
+//			.replaceAll("&uuml;", "ï¿½")
+//			.replaceAll("&Uuml;", "ï¿½")
+//			.replaceAll("&ouml;", "ï¿½")
+//			.replaceAll("&Ouml;", "ï¿½")
+//			.replaceAll("&szlig;", "ï¿½")
             .replaceAll("&amp;", "&")
 			.replaceAll("<br>", "\n");
 	}
