@@ -47,6 +47,7 @@ Elmar Geese, CEO tarent GmbH
     <param name="defaultResponseType" value="velocity"/>
     <param name="defaultErrorDescriptionName" value="defaultErrorPage"/>
 
+<!-- FIXME default encoding for octopus is set here -->
     <param name="defaultEncoding" value="ISO-8859-1"/>
     <param name="defaultContentType" value="text/html"/>
 
