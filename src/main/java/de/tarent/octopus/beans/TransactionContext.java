@@ -106,7 +106,7 @@ public class TransactionContext implements ExecutionContext {
             logger.fine("Executing " + sql);
         try {
             ensureValidConnection();
-            statement.execute(sql.statementToString());
+            connection.createStatement().execute(sql.statementToString());
         } catch (SQLException e) {
             throw new BeanException("Fehler beim Ausführen eines Transaktion-Statements", e);
         }
@@ -210,10 +210,9 @@ public class TransactionContext implements ExecutionContext {
      * Datenbankverbindung bereit liegt, deren AutoCommit deaktiviert ist.
      */
     void ensureValidConnection() throws SQLException {
-        if (connection == null) {
+        if (connection == null || connection.isClosed()) {
             connection = DB.getConnection(database.getPoolName());
             connection.setAutoCommit(false);
-            statement = connection.createStatement();
         }
     }
     
@@ -238,18 +237,20 @@ public class TransactionContext implements ExecutionContext {
         if (connection == null)
             return;
         try {
-        	statement.close();
             if (commit)
                 connection.commit();
             else
                 connection.rollback();
-        } finally {
-            try {
+        }
+        catch ( SQLException e )
+        {
+        	try {
                 connection.close();
-            } catch (SQLException e) {
+            } catch (SQLException e1) {
                 logger.log(Level.WARNING, "Fehler beim abschließenden Schließen einer Transaktionsverbindung", e);
             }
             connection = null;
+            throw e;
         }
     }
     
@@ -260,8 +261,6 @@ public class TransactionContext implements ExecutionContext {
     final Database database;
     /** Die Datenbankverbindung, auf der wir arbeiten; später eventuell nicht mehr eine eigene */
     Connection connection = null;
-    /** Die Datenbankverbindung, auf der wir arbeiten; später eventuell nicht mehr eine eigene */
-    java.sql.Statement statement = null;
     /** Logger dieser Klasse */
     final static Logger logger = Logger.getLogger("de.tarent.dblayer");
 }

@@ -30,6 +30,7 @@ package de.tarent.octopus.beans;
 
 import java.io.IOException;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -38,12 +39,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
+import de.tarent.dblayer.helper.ResultList;
 import de.tarent.dblayer.sql.Statement;
 import de.tarent.dblayer.sql.clause.Limit;
 import de.tarent.dblayer.sql.clause.Where;
 import de.tarent.dblayer.sql.statement.Select;
 import de.tarent.octopus.server.OctopusContext;
-import de.tarent.dblayer.helper.ResultList;
 
 /**
  * Abstrakter Worker der Seitenweise Listen von Datenbankinhalten darstallen
@@ -282,22 +283,31 @@ public abstract class BeanListWorker {
 		if (!cntx.requestContains(INPUT_BUTTON_REMOVE)) {
 			doRemove = false;
 		}
-		
-		Request request = getRequest(cntx);
-		if (doInsert) {
-			int count = insertBean(cntx, errors, request.getBean(BEANNAME, INPUT_ADD));
-			cntx.setContent("countInsert", new Integer(count));
+		TransactionContext context = getDatabase( cntx ).getTransactionContext();
+		try
+		{
+			Request request = getRequest(cntx);
+			if (doInsert) {
+				int count = insertBean(cntx, errors, request.getBean(BEANNAME, INPUT_ADD), context);
+				cntx.setContent("countInsert", new Integer(count));
+			}
+			if (doUpdate) {
+				int count = updateBeanList(cntx, errors, request.getBeanList(BEANNAME, INPUT_LIST), context);
+				cntx.setContent("countUpdate", new Integer(count));
+			}
+			if (doRemove) {
+				int count = removeSelection(cntx, errors, getSelection(cntx, null), context);
+				cntx.setContent("countRemove", new Integer(count));
+			}
+			if (!errors.isEmpty()) {
+				cntx.setContent(OUTPUT_saveListErrors, errors);
+			}
+			context.commit();
 		}
-		if (doUpdate) {
-			int count = updateBeanList(cntx, errors, request.getBeanList(BEANNAME, INPUT_LIST));
-			cntx.setContent("countUpdate", new Integer(count));
-		}
-		if (doRemove) {
-			int count = removeSelection(cntx, errors, getSelection(cntx, null));
-			cntx.setContent("countRemove", new Integer(count));
-		}
-		if (!errors.isEmpty()) {
-			cntx.setContent(OUTPUT_saveListErrors, errors);
+		catch( Throwable e )
+		{
+			context.rollBack();
+			throw new BeanException( "Die Änderungen an der Datenliste konnten nicht gespeichert werden.", e );
 		}
 	}
 
@@ -317,10 +327,10 @@ public abstract class BeanListWorker {
 	 * @throws BeanException
 	 * @throws IOException
 	 */
-	protected int insertBean(OctopusContext cntx, List errors, Bean bean) throws BeanException, IOException {
+	protected int insertBean(OctopusContext cntx, List errors, Bean bean, TransactionContext context) throws BeanException, IOException {
 		int count = 0;
 		if (bean.isModified() && bean.isCorrect()) {
-			saveBean(cntx, bean);
+			saveBean(cntx, bean, context);
 			count++;
 		}
 		return count;
@@ -340,15 +350,16 @@ public abstract class BeanListWorker {
 	 * @param cntx
 	 * @param errors Liste in die Warnungen als Strings hinzugefügt werden können.
 	 * @param beanlist
+	 * @param context
 	 * @throws BeanException
 	 * @throws IOException
 	 */
-	protected int updateBeanList(OctopusContext cntx, List errors, List beanlist) throws BeanException, IOException {
+	protected int updateBeanList(OctopusContext cntx, List errors, List beanlist, TransactionContext context) throws BeanException, IOException {
 		int count = 0;
 		for (Iterator it = beanlist.iterator(); it.hasNext(); ) {
 			Bean bean = (Bean)it.next();
 			if (bean.isModified() && bean.isCorrect()) {
-				saveBean(cntx, bean);
+				saveBean(cntx, bean, context);
 				count++;
 			} else if (!bean.isModified()) {
 				errors.addAll(bean.getErrors());
@@ -370,15 +381,16 @@ public abstract class BeanListWorker {
 	 * @param cntx
 	 * @param errors Liste in die Warnungen als Strings hinzugefügt werden können.
 	 * @param selection
+	 * @param context
 	 * @throws BeanException
 	 * @throws IOException
 	 */
-	protected int removeSelection(OctopusContext cntx, List errors, List selection) throws BeanException, IOException {
+	protected int removeSelection(OctopusContext cntx, List errors, List selection, TransactionContext context) throws BeanException, IOException {
 		int count = 0;
 		Bean bean = getRequest(cntx).createBean(BEANNAME);
 		for (Iterator it = selection.iterator(); it.hasNext(); ) {
 			bean.setField("id", it.next());
-			if (removeBean(cntx, bean)) {
+			if (removeBean(cntx, bean, context)) {
 				it.remove();
 				count++;
 			}
@@ -423,15 +435,16 @@ public abstract class BeanListWorker {
 	 * Methode die von abgeleiteten Klassen überschrieben werden kann,
 	 * um ggf. abhängige Datenbankeinträge ebenfalls zu löschen.<br><br>
 	 * 
-	 * Standardimplemtierung: <code>getDatabase(cntx).removeBean(bean);</code>
+	 * Standardimplemtierung: <code>getDatabase(cntx).removeBean(bean, context);</code>
 	 * 
 	 * @param cntx
 	 * @param bean
+	 * @param context
 	 * @throws BeanException
 	 * @throws IOException
 	 */
-	protected boolean removeBean(OctopusContext cntx, Bean bean) throws BeanException, IOException {
-		getDatabase(cntx).removeBean(bean);
+	protected boolean removeBean(OctopusContext cntx, Bean bean, TransactionContext context) throws BeanException, IOException {
+		context.getDatabase().removeBean(bean,context);
 		return true;
 	}
 
@@ -439,15 +452,18 @@ public abstract class BeanListWorker {
 	 * Methode die von abgeleiteten Klassen überschrieben werden kann,
 	 * um abhängige Datenbankeinträge ebenfalls zu aktuallisieren.<br><br>
 	 * 
-	 * Standardimplemtierung: <code>getDatabase(cntx).saveBean(bean);</code>
+	 * Die Implementierung wurde dahingehend geändert, dass nun ein ExecutionContext
+	 * übergeben werden muss, in dessen Kontext die Anfrage an die Datenbank gestellt wird.
+	 * Dies kann z.B. eine Database sein, oder aber ein TransactionContext.
 	 * 
 	 * @param cntx
 	 * @param bean
+	 * @param context
 	 * @throws BeanException
 	 * @throws IOException
 	 */
-	protected void saveBean(OctopusContext cntx, Bean bean) throws BeanException, IOException {
-		getDatabase(cntx).saveBean(bean);
+	protected void saveBean(OctopusContext cntx, Bean bean, TransactionContext context) throws BeanException, IOException {
+		context.getDatabase().saveBean( bean, context, bean.isModified() );
 	}
 
 	/**
