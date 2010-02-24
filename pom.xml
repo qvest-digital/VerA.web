@@ -213,7 +213,7 @@
 	<!-- the dependencies that are required for this project -->
 	<dependencies>
 		<dependency>
-			<groupId>de.tarent.utils</groupId>
+			<groupId>de.tarent.libraries</groupId>
 			<artifactId>tarent-database</artifactId>
 			<version>1.5.4verawebpl3</version>
 		</dependency>
