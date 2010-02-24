@@ -27,10 +27,12 @@ package de.tarent.dblayer.engine;
 
 
 import java.lang.reflect.Method;
+import java.lang.reflect.Proxy;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Map;
+import java.util.WeakHashMap;
 
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
@@ -42,6 +44,7 @@ import org.apache.commons.dbcp.PoolingDataSource;
 import org.apache.commons.pool.impl.GenericObjectPool;
 
 import de.tarent.commons.logging.LogFactory;
+import de.tarent.dblayer.engine.proxy.ConnectionProxyInvocationHandler;
 import de.tarent.dblayer.resource.Resources;
 
 /**
@@ -60,6 +63,7 @@ public class DBPool implements Pool {
     private DataSource dataSource;
 
     boolean useOldJDBC2Connection = false;
+    boolean useJNDI = false;
     String jdbc2ConnectionString = null;    
     
     /**
@@ -98,6 +102,7 @@ public class DBPool implements Pool {
             }
             else if(null != getProperty(USE_JNDI) && (new Boolean(getProperty(USE_JNDI).trim())).booleanValue()){
                 // configure the JNDI DataSource 
+            	useJNDI = true;
                 InitialContext ctx = new InitialContext();
                 dataSource = (DataSource)ctx.lookup(getProperty(JNDI_NAME));
                 ctx.close();
@@ -118,7 +123,7 @@ public class DBPool implements Pool {
                 new PoolableConnectionFactory(connectionFactory, connectionPool, null, null, false, true);
             
                 dataSource = new PoolingDataSource(connectionPool);
-                ((PoolingDataSource)dataSource).setAccessToUnderlyingConnectionAllowed(true);
+//                ((PoolingDataSource)dataSource).setAccessToUnderlyingConnectionAllowed(true);
             }                
         } catch (Exception e) {
 			logger.error(Resources.getInstance().get("ERROR_INIT_POOL"), e);
@@ -139,19 +144,55 @@ public class DBPool implements Pool {
 		}
 	}
 
+	private Connection con;
 	/* (non-Javadoc)
 	 * @see de.tarent.dblayer.engine.Pool#getConnection()
 	 */
 	public Connection getConnection() throws SQLException {
-        if (useOldJDBC2Connection) {
-            logger.trace("using jdbc2ConnectionString instead of pooling for creation." );
-            if (null != getProperty(USER))
-                return DriverManager.getConnection(jdbc2ConnectionString, getProperty(USER), getProperty(PASSWORD));
-            else
-                return DriverManager.getConnection(jdbc2ConnectionString);
-        }
-        logger.trace("Connection requested from pool." );
-		return dataSource.getConnection();
+		Connection result = null;
+
+		if ( useOldJDBC2Connection )
+		{
+			logger.trace("using jdbc2ConnectionString instead of pooling for creation." );
+			result = con;
+			if ( result == null || result.isClosed() )
+			{
+				if (null != getProperty(USER))
+					con = DriverManager.getConnection(jdbc2ConnectionString, getProperty(USER), getProperty(PASSWORD));
+				else
+					con = DriverManager.getConnection(jdbc2ConnectionString);
+				result = con;
+			}
+		}
+		else if ( useJNDI )
+		{
+			logger.trace("using JNDI dataSource instead of pooling for creation." );
+			result = con;
+			if ( result == null || result.isClosed() )
+			{
+				con = dataSource.getConnection();
+				result = con;
+			}
+		}
+		else
+		{
+			try
+			{
+				result = con;
+				if ( result == null || result.isClosed() )
+				{
+					result = ( Connection ) this.dataSource.getConnection();
+					con = result;
+				}
+			}
+			catch ( Exception e )
+			{
+				throw new SQLException( "Unhandled exception.", e );
+			}
+		}
+
+		logger.trace("Connection requested from pool." );
+		return ( Connection ) Proxy.newProxyInstance( this.getClass().getClassLoader(), new Class[] { Connection.class }, new ConnectionProxyInvocationHandler( result ) );
 	}
 
     protected void configurePool(GenericObjectPool pool, Map properties) {

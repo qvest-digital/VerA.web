@@ -25,10 +25,12 @@
 
 package de.tarent.dblayer.engine;
 
+import java.lang.reflect.Proxy;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import de.tarent.commons.logging.LogFactory;
+import de.tarent.dblayer.engine.proxy.ResultSetProxyInvocationHandler;
 import de.tarent.dblayer.sql.Statement;
 
 /**
@@ -73,7 +75,7 @@ public class Result {
 	}
 
 	public ResultSet resultSet() {
-		return result;
+		return ( ResultSet ) Proxy.newProxyInstance( this.getClass().getClassLoader(), new Class[] { ResultSet.class }, new ResultSetProxyInvocationHandler( result ) );
 	}
 
     /**
@@ -103,6 +105,7 @@ public class Result {
 			statement.close();
             statementIsClosed = true;
             statement = null;
+            this.result = null;
 		} catch (SQLException e) {
             logger.warn("Error on closing connection", e);
 		}
@@ -117,6 +120,7 @@ public class Result {
         else 
             DB.closeAll(statement);
         statementIsClosed = true;
+        this.result = null;
         connection = null;
         statement = null;
     }

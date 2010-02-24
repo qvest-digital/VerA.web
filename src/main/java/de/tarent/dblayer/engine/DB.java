@@ -41,6 +41,19 @@ import de.tarent.dblayer.sql.SQL;
 import de.tarent.dblayer.sql.SQLStatementException;
 import de.tarent.dblayer.sql.statement.Insert;
 
+
+/*
+ * 2009-10-04 cklein, tarent-database-1.5.4
+ * 
+ * This version incorporates temporary fixes to a major problem where underlying
+ * resultsets will be prematurely closed when OCTOPUS makes the transition from
+ * controller execution to view rendering.
+ * 
+ * In order to fix this, all close() Statements on either the pool or the underlying
+ * statements or resultsets have been disabled. This should result in no problem
+ * whatsoever, since after GC of the controller and the view all of the resultset
+ * instances should be GC'ed, too.
+ */
 /**
  * This class ist is responsible for maniging the database pools and executing statements.
  * 
@@ -457,6 +470,7 @@ public class DB {
 	static public void closeStatement(ResultSet resultSet) throws SQLException {
 		if (resultSet != null)
 			close(resultSet.getStatement());
+			;;
 	}
 
 	/**
@@ -498,9 +512,9 @@ public class DB {
 	static public void closeAll(Statement statement) {
 		try {
 			if (statement != null) {
-				Connection con = statement.getConnection();
+				//Connection con = statement.getConnection();
 				statement.close();
-				close(con);
+				//close(con);
 				logger.trace("closed statement");
 			} 
 			else 
@@ -823,7 +837,7 @@ public class DB {
 			res = DB.getResultSet(dbx, statement); 
 			empty = !res.next();
 		} finally {
-			DB.closeStatement(res);
+		DB.closeStatement(res);
 		}
 		return empty;
 	}
