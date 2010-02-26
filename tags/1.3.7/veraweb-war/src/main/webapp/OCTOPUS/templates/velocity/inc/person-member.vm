@@ -1,0 +1,173 @@
+
+<table class="form"><tr>
+	<td class="value" style="width: 50%;">
+		<table class="form"><tr>
+			<td class="label"><label for="person-salutation$ext">Anrede:</label></td>
+			<td class="value">
+				#set($sel = false)
+				<select id="person-salutation$ext" name="person-salutation$ext" class="combobox" style="width: 97%;" onchange="setModified(); setSex('person-salutation$ext', 'person-sex${ext}');">
+				#if($ext == "_a_e1" || $ext == "_a_e2" || $ext == "_a_e3")
+					#foreach($s in $allSalutation)
+						<option value="$!s.id" #if(($s.id == $facade.SalutationFK) || ($s.name == $facade.Salutation) || ((!$facade || !$facade.Salutation) && $s.name == $config.anrede)) selected #set($sel = true)#end>$!message.text($s.name)</option>
+					#end
+				#else
+					#foreach($s in $allSalutation)
+						<option value="$!s.id" #if(($s.id == $facade.SalutationFK) || ($s.name == $facade.Salutation) || ((!$facade || !$facade.Salutation) && $s.name == $config.anrede_p)) selected #set($sel = true)#end>$!message.text($s.name)</option>
+					#end
+				#end
+				#if(!$facade.SalutationFK)
+				<option value="$!facade.Salutation"#if(!$sel) selected #set($sel = true)#end>$!message.text($facade.Salutation)</option>
+				#end
+				<option value=""#if(!$sel) selected #end></option>
+				</select>
+			</td>
+		</tr></table>
+	</td>
+	<td class="value" style="width: 10px;">&nbsp;</td>
+	<td class="value" style="width: 50%;">
+		<table class="form"><tr>
+			<td class="label"><label for="person-title$ext">Akad. Titel:</label></td>
+			<td class="value"><input type="text" id="person-title$ext" name="person-title$ext" value="$!message.text($facade.Title)" class="text" style="width: 95%;" onchange="setModified();"></td>
+		</tr></table>
+	</td>
+</tr></table>
+
+<table class="form"><tr>
+	<td class="label"><label for="person-firstname$ext">Vorname:</label></td>
+	<td class="value"><input type="text" id="person-firstname$ext" name="person-firstname$ext" value="$!message.text($facade.Firstname)" class="text" onchange="setModified();"></td>
+</tr><tr>
+	<td class="label"><label for="person-lastname$ext">Nachname:</label></td>
+	<td class="value"><input type="text" id="person-lastname$ext" name="person-lastname$ext" value="$!message.text($facade.Lastname)" class="text" onchange="setModified();"></td>
+</tr></table>
+
+#if($ext == "_a_e1" || $ext == "_b_e1")
+<table class="form" style="width: 99%;"><tr>
+	<td class="value" style="width: 50%;">
+		<table class="form"><tr>
+			<td class="label">Inland:</td>
+			<td class="value">
+			<nobr>
+			#if ($facade.Domestic && $facade.Domestic == "f")
+				<input type="radio" name="person-domestic$ext" value="t" id="person-domestic${ext}-t"><label for="person-domestic${ext}-t" onchange="setModified();"> Ja</label>
+				<input type="radio" name="person-domestic$ext" value="f" id="person-domestic${ext}-f" checked><label for="person-domestic${ext}-f" onchange="setModified();"> Nein</label>
+			#else
+				<input type="radio" name="person-domestic$ext" value="t" id="person-domestic${ext}-t" checked><label for="person-domestic${ext}-t" onchange="setModified();"> Ja</label>
+				<input type="radio" name="person-domestic$ext" value="f" id="person-domestic${ext}-f"><label for="person-domestic${ext}-f" onchange="setModified();"> Nein</label>
+			#end
+			</nobr>
+			</td>
+		</tr></table>
+	</td>
+	<td class="value" style="width: 10px;">&nbsp;</td>
+	<td class="value" style="width: 50%;">
+		<table class="form"><tr>
+			<td class="label">Geschlecht:</td>
+			<td class="value">
+			<nobr>
+			#if ($facade.Sex && $facade.Sex == "f")
+				<input type="radio" name="person-sex$ext" value="m" id="person-sex${ext}-m"><label for="person-sex${ext}-m" onchange="setModified();"> M&auml;nnlich</label>
+				<input type="radio" name="person-sex$ext" value="f" id="person-sex${ext}-f" checked><label for="person-sex${ext}-f" onchange="setModified();"> Weiblich</label>
+			#else
+				<input type="radio" name="person-sex$ext" value="m" id="person-sex${ext}-m" checked><label for="person-sex${ext}-m" onchange="setModified();"> M&auml;nnlich</label>
+				<input type="radio" name="person-sex$ext" value="f" id="person-sex${ext}-f"><label for="person-sex${ext}-f" onchange="setModified();"> Weiblich</label>
+			#end
+			</nobr>
+			</td>
+		</tr></table>
+	</td>
+</tr><tr>
+	<td class="value" style="width: 50%;">
+		<table class="form"><tr>
+			<td class="label">Geburtsdatum:</td>
+			<td class="value">
+				<nobr>
+				<input type="text" name="person-birthday$ext" value="$!message.date("DATE", $facade.Birthday, false)" id="person-birthday$ext" class="date" style="width: 80px;" onchange="setModified();">
+				#if($grants.mayWrite())
+				<span id="show-birthday$ext"><img src="${paths.staticWeb}images/calendar.gif" alt="Datum ausw&auml;hlen" title="Datum ausw&auml;hlen"></span>
+				<script type="text/javascript">
+				    Calendar.setup({
+						inputField     :    "person-birthday$ext",
+						button         :    "show-birthday$ext",
+						ifFormat       :    "%d.%m.%Y",
+						showsTime      :    false
+					});
+				</script>
+				#end
+				</nobr>
+			</td>
+		</tr></table>
+	</td>
+	<td class="value" style="width: 10px;">&nbsp;</td>
+	<td class="value" style="width: 50%;">
+		#if($ext == "_a_e1")
+		<table class="form"><tr>
+			<td class="label">Akkreditierungsdatum:</td>
+			<td class="value">
+				<nobr>
+				<input type="text" name="person-diplodate$ext" value="$!message.date("DATE", $facade.Diplodate, false)" id="person-diplodate$ext" class="date" style="width: 80px;" onchange="setModified();">
+				#if($grants.mayWrite())
+				<span id="show-diplodate$ext"><img src="${paths.staticWeb}images/calendar.gif" alt="Datum ausw&auml;hlen" title="Datum ausw&auml;hlen"></span> &nbsp; um &nbsp;
+				<script type="text/javascript">
+				    Calendar.setup({
+						inputField     :    "person-diplodate$ext",
+						button         :    "show-diplodate$ext",
+						ifFormat       :    "%d.%m.%Y",
+						showsTime      :    false
+					});
+				</script>
+				#end
+				<input type="text" name="person-diplotime${ext}" id="person-diplotime${ext}" #if($person-diplodatetime) value="$!message.date("TIME", $facade.Diplodate)" #else value="" #end class="date" style="width: 40px;" onchange="setModified();"> Uhr
+				</nobr>
+			</td>
+		</tr></table>
+		#else
+			&nbsp;
+		#end
+	</td>
+</tr></table>
+#end
+
+#if ( $ext == "_a_e1" || $ext == "_a_e2" || $ext == "_a_e3" )
+<table class="form"><tr>
+	<td class="label"><label for="person-birthplace$ext">Geburtsort:</label></td>
+	<td class="value"><input type="text" name="person-birthplace$ext" value="$!message.text($facade.Birthplace)" id="person-birthplace$ext" class="text" onchange="setModified();"></td>
+</tr></table>
+#end
+
+#if ( $ext == "_a_e1" )
+<table class="form"><tr>
+	<td class="label">Arbeitsbereich:</td>
+	<td class="value">
+		<select name="workarea-id" class="combobox" onchange="setModified('workarea')">
+			<option value="">Kein Arbeitsbereich</option>
+			#foreach($workArea in $allWorkArea)
+				<option value="$workArea.id" #if( $person.workarea == $workArea.id ) selected#end>$workArea.name</option>
+			#end
+		</select>
+	</td>
+</tr></table>
+#end
+
+#if ( $ext == "_a_e1" || $ext == "_b_e1" )
+<table class="form"><tr>
+	<td class="label"><label for="person-languages$ext">Sprachen:</label></td>
+	<td class="value"><input type="text" id="person-languages$ext" name="person-languages$ext" value="$!message.text($facade.Languages)" class="text" onchange="setModified();"></td>
+</tr><tr>
+	<td class="label"><label for="person-nationality$ext">Nationalit&auml;t/Staatsangeh.:</label></td>
+	<td class="value"><input type="text" id="person-nationality$ext" name="person-nationality$ext" value="$!message.text($facade.Nationality)" class="text" onchange="setModified();"></td>
+</tr><tr>
+	<td class="label"><label for="person-note$ext">Bemerkung:</label></td>
+	<td class="value"><textarea rows="3" cols="20" id="person-note$ext" name="person-note$ext" onchange="setModified();" #if($grants.mayReadRemarkFields()) class="text">$!message.textarea($facade.Note)#else class="textdisabled" disabled="true">#end</textarea></td>
+</tr></table>
+
+<table class="form"><tr>
+	<td class="label"><label for="person-noteorga$ext">Hinweis f&uuml;r Orga:</label></td>
+	<td class="value"><textarea rows="3" cols="20" id="person-noteorga$ext" name="person-noteorga$ext" onchange="setModified();" #if($grants.mayReadRemarkFields()) class="text">$!message.textarea($facade.NoteOrga)#else class="textdisabled" disabled="true">#end</textarea></td>
+</tr><tr>
+	<td class="label"><label for="person-notehost$ext">Hinweis f&uuml;r Gastgeber:</label></td>
+	<td class="value"><textarea rows="3" cols="20" id="person-notehost$ext" name="person-notehost$ext" onchange="setModified();" #if($grants.mayReadRemarkFields()) class="text">$!message.textarea($facade.NoteHost)#else class="textdisabled" disabled="true">#end</textarea></td>
+</tr><tr>
+	<td class="label"><label for="person-showimportsource">Datenherkunft:</label></td>
+	<td class="value"><input type="text" id="person-showimportsource" name="person-showimportsource" value="$!message.text($person.importsource)" readonly class="textdisabled"></td>
+</tr></table>
+#end

@@ -1,0 +1,95 @@
+#set($title = "Person speichern - Duplikat-Pr&uuml;fung")
+#parse("inc/header.vm")
+
+<form id="formlist" name="formlist" action="SavePerson" method="POST">
+<input type="hidden" name="start" value="">
+<input type="hidden" name="selectAll" value="false">
+<input type="hidden" name="selectNone" value="false">
+
+##new cf. issue #2091
+<input type="hidden" name="action" value="$action">
+<input type="hidden" name="id" value="$id">
+
+<table class="tab" border="0" cellspacing="0" cellpadding="0"><tr>
+	<td class="tableft">&nbsp;</td>
+	<td class="tabactiv"><span class="tabactiv">Suchergebnis</span></td>
+	<td class="tabright">&nbsp;</td>
+</tr></table>
+
+#openContent()
+#openContentSection()
+
+#foreach($bean in $list)
+<input type="hidden" name="list" value="$bean.id">
+#end
+<table class="list">
+	<tr class="list1" style="height: 20px;">
+		<th class="list">ID</th>
+		<th class="list">Name</th>
+		<th class="list">Vorname</th>
+		<th class="list">Amtsbezeichnung</th>
+		<th class="list">Firma / Institution</th>
+		<th class="list">Stra&szlig;e</th>
+		<th class="list">PLZ</th>
+		<th class="list">Ort</th>
+		<th class="list" style="width: 80px;">&nbsp;</th>
+	</tr>
+	<tr class="list2" style="height: 20px;">
+		<td class="list"><em>neu</em></td>
+		##additional parameters action cf. issue #2091
+		<td class="list" style="cursor: pointer;" onclick="window.location.href='SavePerson?saveperson=true&person-nodupcheck=true&originalPersonId=$!originalPersonId&action=$!action';">$!person.lastname_a_e1</td>
+		<td class="list" style="cursor: pointer;" onclick="window.location.href='SavePerson?saveperson=true&person-nodupcheck=true&originalPersonId=$!originalPersonId&action=$!action';">$!person.firstname_a_e1</td>
+		<td class="list" style="cursor: pointer;" onclick="window.location.href='SavePerson?saveperson=true&person-nodupcheck=true&originalPersonId=$!originalPersonId&action=$!action';">$!person.function_a_e1</td>
+		<td class="list" style="cursor: pointer;" onclick="window.location.href='SavePerson?saveperson=true&person-nodupcheck=true&originalPersonId=$!originalPersonId&action=$!action';">$!person.company_a_e1</td>
+		<td class="list" style="cursor: pointer;" onclick="window.location.href='SavePerson?saveperson=true&person-nodupcheck=true&originalPersonId=$!originalPersonId&action=$!action';">$!person.street_a_e1</td>
+		<td class="list" style="cursor: pointer;" onclick="window.location.href='SavePerson?saveperson=true&person-nodupcheck=true&originalPersonId=$!originalPersonId&action=$!action';">$!person.zipcode_a_e1</td>
+		<td class="list" style="cursor: pointer;" onclick="window.location.href='SavePerson?saveperson=true&person-nodupcheck=true&originalPersonId=$!originalPersonId&action=$!action';">$!person.city_a_e1</td>
+		<td class="list"><a href="SavePerson?saveperson=true&person-nodupcheck=true&originalPersonId=$!originalPersonId&action=$!action">anlegen</a></td>
+	</tr>
+	#foreach($bean in $list)
+	#if ($velocityCount % 2 == 0)
+		#set($class = "list2")
+	#else
+		#set($class = "list1")
+	#end
+	<tr class="$class" style="height: 20px;">
+		##additional parameters action cf. issue #2091
+		<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!action';"><input type="hidden" name="${bean.id}-id" value="$bean.id"><a href="ShowPerson?id=$!{bean.id}&action=$!action">$!{bean.id}</a></td>
+		<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!action';">$!bean.lastname_a_e1</td>
+		<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!action';">$!bean.firstname_a_e1</td>
+		<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!action';">$!bean.function_a_e1</td>
+		<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!action';">$!bean.company_a_e1</td>
+		<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!action';">$!bean.street_a_e1</td>
+		<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!action';">$!bean.zipcode_a_e1</td>
+		<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!action';">$!bean.city_a_e1</td>
+		<td class="list" style="cursor: pointer;"><a href="ShowPerson?id=$!{bean.id}&action=$!action">&uuml;bernehmen</a></td>
+	</tr>
+	#end
+</table>
+
+#set($disableListSelect = true)
+#if ($listparam.count == 0)
+	<br>Keine Daten gefunden.
+#end
+
+<div>
+<div id="fixme" class="fixme1"><div class="fixme2"><div class="fixme3">
+
+#if($action == "guest")
+	<input type="submit" class="submit" name="add" value="Hinzuf&uuml;gen" title="Ausgew&auml;hlte Personen zur Veranstaltung hinzuf&uuml;gen."> &nbsp;
+	<input type="button" class="button" name="newperson" value="Person erfassen" onclick="window.location.href='ShowPerson';"> &nbsp;
+	<input type="button" class="cancel" name="cancel" value="Zur&uuml;ck" onclick="window.location.href='ShowGuestList';"> &nbsp;
+#else
+	<input type="button" class="button" name="newperson" value="Duplikat anlegen" onclick="window.location.href='SavePerson?saveperson=true&person-nodupcheck=true&originalPersonId=$!originalPersonId';"> &nbsp;
+	<input type="button" class="cancel" name="cancel" value="Zur&uuml;ck" onclick="window.location.href='PersonDupcheckCancel';"> &nbsp;
+#end
+
+</div></div></div>
+</div>
+
+#closeContentSection()
+#closeContent()
+
+</form>
+
+#parse("inc/footer.vm")

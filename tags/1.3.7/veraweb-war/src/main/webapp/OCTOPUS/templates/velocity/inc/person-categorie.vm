@@ -1,0 +1,111 @@
+#if($listerrors && $listerrors.size() > 0)
+<div style="margin: 10px 0px 10px 0px; padding: 10px 10px 10px 10px; background-color: #ffffff; border: 2px solid #ff0000;">
+	<ul style="margin: 0px 0px 0px -10px;">
+	#foreach($error in $listerrors)
+		<li style="margin: 5px 0px 0px -5px;">$error</li>
+	#end
+	</ul>
+</div>
+#end
+
+<input type="hidden" name="doInsert" value="true">
+<input type="hidden" name="doUpdate" value="true">
+<input type="hidden" name="doRemove" value="true">
+
+#foreach($bean in $list)
+<input type="hidden" name="list" value="$bean.id">
+#end
+
+<table class="list" style="width: 99%;">
+	<tr class="list1" style="height: 20px;">
+		<th class="list" style="width: 20px;">&nbsp;</th>
+		<th class="list" style="width: 80px;">ID</th>
+		<th class="list" colspan="2">Kategorien und Ereignisse</th>
+		<th class="list" style="width: 160px;">Rang</th>
+	</tr>
+	<tr class="list2">
+		<td class="list2"><input type="hidden" id="add-modified" name="add-modified" value="false"><input type="checkbox" name="add-select" value="true" class="checkbox" style="display: none;"></td>
+		<td class="list2"><input type="hidden" name="add-id" value=""><input type="hidden" name="add-person" value="$!person.id"><em>neu</em></td>
+		<td class="list2" colspan="2">
+			<select id="add-categorie" name="add-categorie" class="combobox" style="width: 99%;" onchange="setModified('add')">
+			<option value="">Bitte ausw&auml;hlen:</option>
+			#foreach($categorie in $allCategorie)
+				<option value="$!categorie.id">$!categorie.name</option>
+			#end
+			</select>
+		</td>
+		<td class="list2"><input type="text" name="add-rank" value="$!message.text($bean.rank)" class="text" style="width: 97%;" onchange="setModified('add')"></td>
+	</tr>
+	#foreach($bean in $list)
+	#if($bean.flags != 1)
+	#if ($velocityCount % 2 == 1)
+		#set($class = "list1")
+	#else
+		#set($class = "list2")
+	#end
+	#else
+	#if ($velocityCount % 2 == 1)
+		#set($class = "list1info")
+	#else
+		#set($class = "list2info")
+	#end
+	#end
+	<tr class="$class">
+		<td class="list"><input type="hidden" id="${bean.id}-modified" name="${bean.id}-modified" value="false"><input type="checkbox" name="${bean.id}-select" value="true" class="checkbox" #if($listselection.indexOf($bean.id) != -1) checked#end></td>
+		<td class="list"><input type="hidden" name="${bean.id}-id" value="$!bean.id"><input type="hidden" name="${bean.id}-person" value="$!bean.person"><input type="hidden" name="${bean.id}-categorie" value="$!bean.categorie">$!{bean.id}</td>
+		<td class="list">$!bean.name</td>
+		<td class="list" style="width: 80px;">
+			#if($bean.flags == 99)<small>Dipl.&nbsp;Corps</small>
+			#elseif($bean.flags == 1)<small>Ereignis</small>
+			#else <small>Kategorie</small> #end
+		</td>
+		<td class="list"><input type="text" name="${bean.id}-rank" value="$!message.text($bean.rank)" class="text" style="width: 97%;" onchange="setModified('$!bean.id')"></td>
+	</tr>
+	#end
+</table>
+<br>
+
+<table class="list" style="width: 99%;">
+	<tr style="height: 20px;">
+		<td class="list2info" style="text-align: center; width: 60px;"><strong>Hinweis</strong></td>
+		<td class="list1info">
+			Bei gr&uuml;n hinterlegten Eintr&auml;gen handelt es sich um wiederkehrende Ereignisse.
+		</td>
+	</tr>
+</table>
+
+#if ($listparam.count == 0)
+	<br>Keine Daten gefunden.
+#end
+
+<div>
+<div id="fixme" class="fixme1"><div class="fixme2"><div class="fixme3">
+
+	#parse("inc/list-navi.vm")
+	#parse("inc/list-direct.vm")
+
+#if($action == "guest")
+    <input type="submit" name="save" value="Speichern" #if($grants.mayWrite()) class="button" #else class="buttondisabled" disabled #end> &nbsp;
+    <input type="submit" name="remove" value="L&ouml;schen" title="markierte Eintr&auml;ge entfernen" #if($grants.mayWrite()) class="button" #else class="buttondisabled" disabled #end> &nbsp;
+    #if($person)
+    <input type="button" name="add" value="&Uuml;bernehmen" title="Gast direkt in G&auml;steliste &uuml;bernehmen" onclick="addToGuestList();" #if($grants.mayWrite()) class="button" #else class="buttondisabled" disabled #end> &nbsp;
+    <input type="button" name="cancel" class="button" value="Zur&uuml;ck" title="Zur&uuml;ck zur Personenliste" onclick="window.location.href='AddPersonToEventList';"> &nbsp;
+    #else
+    <input type="button" name="cancel" class="button" value="Zur&uuml;ck" title="Zur&uuml;ck zur Personenliste" onclick="window.location.href='AddPersonToEventList';"> &nbsp;
+    #end
+#elseif($action == "host")
+    <input type="submit" name="save" value="Speichern" #if($grants.mayWrite()) class="button" #else class="buttondisabled" disabled #end> &nbsp;
+    <input type="submit" name="remove" value="L&ouml;schen" title="markierte Eintr&auml;ge entfernen" #if($grants.mayWrite()) class="button" #else class="buttondisabled" disabled #end> &nbsp;
+    <input type="button" name="cancel" class="button" value="Zur&uuml;ck" onclick="window.location.href='${paths.staticWeb}do/SetHostToEventList';">
+#elseif($action == "event")
+    <input type="submit" name="save" value="Speichern" #if($grants.mayWrite()) class="button" #else class="buttondisabled" disabled #end> &nbsp;
+    <input type="submit" name="remove" value="L&ouml;schen" title="markierte Eintr&auml;ge entfernen" #if($grants.mayWrite()) class="button" #else class="buttondisabled" disabled #end> &nbsp;
+    <input type="button" name="cancel" class="button" value="Zur&uuml;ck" onclick="window.location.href='${paths.staticWeb}do/ShowGuestDetail';">
+#else
+    <input type="submit" name="save" value="Speichern" #if($grants.mayWrite()) class="button" #else class="buttondisabled" disabled #end> &nbsp;
+    <input type="submit" name="remove" value="L&ouml;schen" title="markierte Eintr&auml;ge entfernen" #if($grants.mayWrite()) class="button" #else class="buttondisabled" disabled #end> &nbsp;
+    <input type="button" name="cancel" class="button" value="Zur&uuml;ck" onclick="window.location.href='${paths.staticWeb}do/SearchPerson?action=person';"> &nbsp;
+#end
+
+</div></div></div>
+</div>

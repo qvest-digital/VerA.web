@@ -1,0 +1,239 @@
+#if($action == "guest")
+#set($title = "Gast suchen - Veranstaltung: $!message.plain($event.shortname)")
+#parse("inc/header.vm")
+#elseif($action == "host")
+#set($title = "Gastgeber suchen - Veranstaltung: $!message.plain($event.shortname)")
+#parse("inc/header.vm")
+#elseif($action == "statistikGuest")
+#set($title = "Gast suchen")
+#parse("inc/header.vm")
+#elseif($action == "statistikHost")
+#set($title = "Gastgeber suchen")
+#parse("inc/header.vm")
+#else
+#set($title = "Person suchen")
+#parse("inc/header.vm")
+#end
+
+#if($action == "guest")
+	#set($formurl = "AddPersonToEventList")
+#elseif($action == "host")
+	#set($formurl = "SetHostToEventList")
+#else
+	#set($formurl = "SearchPerson")
+#end
+
+<form action="$formurl" method="post">
+<input type="hidden" name="start" value="0">
+<input type="hidden" name="selectAll" value="false">
+<input type="hidden" name="selectNone" value="true">
+
+#if($action == "statistikHost")
+<input type="hidden" name="onlyhosts" id="onlyhosts" value="true">
+#end
+
+<table class="tab" border="0" cellspacing="0" cellpadding="0"><tr>
+	<td class="tableft">&nbsp;</td>
+	<td class="tabactiv"><span class="tabactiv">Suche</span></td>
+	<td class="tabright">&nbsp;</td>
+</tr></table>
+
+#openContent()
+#openContentSection()
+
+<input type="hidden" name="search" value="reset">
+<table class="form"><tr>
+	<td class="label"><label for="firstname">Vorname:</label></td>
+	<td class="value"><input type="text" name="firstname" id="firstname" value="$!message.text($search.firstname)" class="text"></td>
+</tr><tr>
+	<td class="label"><label for="lastname">Nachname:</label></td>
+	<td class="value"><input type="text" name="lastname" id="lastname" value="$!message.text($search.lastname)" class="text"></td>
+</tr><tr>
+	<td class="label"><label for="function">Amtsbez./Funktion:</label></td>
+	<td class="value"><input type="text" name="function" id="function" value="$!message.text($search.function)" class="text"></td>
+</tr><tr>
+	<td class="label"><label for="company">Firma/Institution:</label></td>
+	<td class="value"><input type="text" name="company" id="company" value="$!message.text($search.company)" class="text"></td>
+</tr><tr>
+	<td class="label"><label for="street">Stra&szlig;e:</label></td>
+	<td class="value"><input type="text" name="street" id="street" value="$!message.text($search.street)" class="text"></td>
+</tr><tr>
+	<td class="label"><label for="zipcode">PLZ:</label></td>
+	<td class="value"><input type="text" name="zipcode" id="zipcode" value="$!message.text($search.zipcode)" class="text"></td>
+</tr><tr>
+	<td class="label"><label for="zipcode">Bundesland:</label></td>
+	<td class="value"><input type="text" name="state" id="state" value="$!message.text($search.state)" class="text"></td>
+</tr><tr>
+	<td class="label"><label for="city">Ort:</label></td>
+	<td class="value"><input type="text" name="city" id="city" value="$!message.text($search.city)" class="text"></td>
+</tr><tr>
+	<td class="label"><label for="country">Land:</label></td>
+	<td class="value"><input type="text" name="country" id="country" value="$!message.text($search.country)" class="text"></td>
+</tr>
+<tr>
+	<td class="label" style="vertical-align:top;"><label for="categorie">Kategorie:</label></td>
+	<td class="value">
+		<select name="categoriesSelection" id="categorie" class="list" size="8" multiple="multiple" onChange="ensureCorrectSelection( this );">
+		<option value="" #if( ! $search.categoriesSearch || ( $search.categoriesSelection && $search.categoriesSelection.size() == 0 ) ) selected #end>Alle</option>
+		<option value="0" #if( $search.categoriesSelection && $search.categoriesSelection.size() == 1 && $search.categoriesSelection.get(0).intValue() == 0 ) selected #end>Keine Kategorie zugeordnet</option>
+		#foreach($categorie in $allCategorie)
+			#if((!$categorie.flags) || ($categorie.flags != 1))
+			<option value="$!categorie.id" #if($search.categoriesSelection && $search.categoriesSelection.contains( $categorie.id )) selected #end>$!categorie.name</option>
+			#end
+		#end
+		</select>
+	</td>
+</tr><tr>
+	<td class="label"><label for="workarea">Arbeitsbereich:</label></td>
+	<td class="value">
+		<select name="workarea" id="workarea" class="combobox">
+		<option value="">Alle</option>
+		<option value="0">Kein Arbeitsbereich zugeordnet</option>
+		#foreach($workArea in $allWorkArea)
+			<option value="$!workArea.id" #if($search.workarea == $!workArea.id) selected #end>$!workArea.name</option>
+		#end
+		</select>
+	</td>
+</tr><tr>
+	<td class="label"><label for="categorie2">Ereignis</label></td>
+	<td class="value">
+		<select name="categorie2" id="categorie2" class="combobox">
+		<option value="">Alle</option>
+		#foreach($categorie in $allCategorie)
+			#if($categorie.flags == 1)
+			<option value="$!categorie.id" #if($search.categorie2 == $!categorie.id) selected #end>$!categorie.name</option>
+			#end
+		#end
+		</select>
+	</td>
+</tr><tr>
+	<td class="label"><label for="iscompany">Ist Firma:</label></td>
+	<td class="value"><input type="checkbox" name="iscompany" id="iscompany" value="true" class="checkbox" #if($search.iscompany) checked #end></td>
+</tr><tr>
+	<td class="label"><label for="datenherkunft">Datenherkunft:</label></td>
+	<td class="value"><input type="text" name="importsource" id="importsource" value="$!message.text($search.importsource)" class="text"></td>
+</tr><tr>
+	<td class="label">&nbsp;</td>
+	<td class="value">
+		<hr class="contentsection">
+	</td>
+</tr><tr>
+	<td class="label">G&uuml;ltigkeitsdatum:</td>
+	<td class="value">
+		<select name="validtype" id="validtype" class="combobox">
+			<option value="1" #if($search.validtype == 1) selected #end>bis zu diesem Datum</option>
+			<option value="2" #if($search.validtype == 2) selected #end>ab diesem Datum</option>
+			<option value="3" #if($search.validtype == 3) selected #end>an genau diesem Datum</option>
+		</select>
+	</td>
+</tr><tr>
+	<td class="label">&nbsp;</td>
+	<td class="value">
+		<input type="text" name="validdate" value="$!message.date("DATE", $search.validdate)" id="validdate" class="date" style="width: 90px;">
+		<span id="showGueltigDate"><img src="${paths.staticWeb}images/calendar.gif" alt="Datum ausw&auml;hlen" title="Datum ausw&auml;hlen"></span>
+		<script type="text/javascript">
+		    Calendar.setup({
+				inputField     :    "validdate",
+				button         :    "showGueltigDate",
+				ifFormat       :    "%d.%m.%Y",
+				showsTime      :    false
+			});
+		</script>
+	</td>
+</tr></table><br>
+
+<table class="list">
+	<tr style="height: 20px;">
+		<td class="list2warn" style="text-align: center; width: 60px;"><strong>Hinweis</strong></td>
+		<td class="list1warn">
+			Sie k&ouml;nnen bei der Suche sogenannte Platzhalter verwenden,
+			der * steht f&uuml;r mehrere und das ? f&uuml;r einzelne Zeichen.
+		</td>
+	</tr>
+	<tr>
+		<td class="list2warn">&nbsp;</td>
+		<td class="list1warn">
+			Die Suche unterstützt nun auch die Mehrfachsuche nach Kategorien. Um mehrere Kategorien auszuwählen,
+			halten Sie bitte die Maustaste gedrückt und ziehen Sie den Mauszeiger über die in der Suche zu
+			berücksichtigenden Kategorien. Alternativ können Sie bei gedrückter STRG-Taste mit der linken Maustaste
+			auf die zu berücksichtigenden Kategorien klicken.
+			Beachten Sie bitte, dass die beiden Pseudokategorien "Alle" und "Keine" nicht zusammen mit anderen
+			Kategorien ausgewählt werden können.
+		</td>
+	</tr>
+</table>
+
+<div id="fixme" class="fixme1"><div class="fixme2"><div class="fixme3">
+
+#if($action == "guest")
+	<input type="submit" class="submit" name="search" value="Suche starten"> &nbsp;
+	<input type="button" class="reset"  name="reset"  value="Felder leeren" onclick="clearForm();"> &nbsp;
+	<input type="button" class="cancel" name="cancel" value="Zur&uuml;ck"   onclick="window.location.href='ShowGuestList';"> &nbsp;
+#elseif($action == "host")
+	<input type="submit" class="submit" name="search" value="Suche starten"> &nbsp;
+	<input type="button" class="reset"  name="reset"  value="Felder leeren" onclick="clearForm();"> &nbsp;
+	<input type="button" class="cancel" name="cancel" value="Zur&uuml;ck"   onclick="window.location.href='SetHostToEventDetail';"> &nbsp;
+#elseif($action == "statistikGuest")
+	<input type="submit" class="submit" name="search" value="Suche starten"> &nbsp;
+	<input type="button" class="reset"  name="reset"  value="Felder leeren" onclick="clearForm();"> &nbsp;
+	<input type="button" class="cancel" name="cancel" value="Zur&uuml;ck"   onclick="window.location.href='Statistik';"> &nbsp;
+#elseif($action == "statistikHost")
+	<input type="submit" class="submit" name="search" value="Suche starten"> &nbsp;
+	<input type="button" class="reset"  name="reset"  value="Felder leeren" onclick="clearForm();"> &nbsp;
+	<input type="button" class="cancel" name="cancel" value="Zur&uuml;ck"   onclick="window.location.href='Statistik';"> &nbsp;
+#else
+	<input type="submit" class="submit" name="search" value="Suche starten"> &nbsp;
+	<input type="button"  class="reset" name="cancel" value="Felder leeren" onclick="clearForm();"> &nbsp;
+#end
+
+</div></div></div>
+
+<script type="text/javascript">
+	function clearForm() {
+		document.getElementById('firstname').value = '';
+		document.getElementById('lastname').value = '';
+		document.getElementById('function').value = '';
+		document.getElementById('company').value = '';
+		document.getElementById('street').value = '';
+		document.getElementById('zipcode').value = '';
+		document.getElementById('city').value = '';
+		document.getElementById('country').value = '';
+		document.getElementById('importsource').value = '';
+		document.getElementById('validdate').value = '';
+		document.getElementById('state').value = '';
+		document.getElementById('workarea').value = '';
+		
+		document.getElementById('categorie').selectedIndex = 0;
+		document.getElementById('categorie2').selectedIndex = 0;
+		document.getElementById('validtype').selectedIndex = 0;
+		document.getElementById('iscompany').checked = false;
+	}
+
+	function ensureCorrectSelection( elt )
+	{
+		var deselectionStart = elt.options[ 0 ].selected ? 1 : 0;
+		var deselectionSkip = deselectionStart == 1 ? 0 : ( elt.options[ 1 ].selected ? 1 : -1 );
+		for( var i=0; i < elt.options.length; i++ )
+		{
+			// on select ALL or NONE we must skip the element's option
+			// we also skip the element's option in case that it is one of the multi-selectable ones
+			// not equal to either ALL or NONE
+			if ( i == deselectionSkip || deselectionSkip == -1 )
+			{
+				continue;
+			}
+			// we deselect all beginning with deselectionStart
+			if ( i >= deselectionStart )
+			{
+				elt.options[ i ].selected = false;
+			}
+		}
+	}
+</script>
+
+#closeContentSection()
+#closeContent()
+
+</form>
+
+#parse("inc/footer.vm")
