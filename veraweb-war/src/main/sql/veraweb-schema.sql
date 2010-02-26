@@ -72,7 +72,7 @@ DECLARE
 
 BEGIN
 	--##### please set vversion to current date
-	vversion := \'2009-12-13\';
+	vversion := \'2010-02-26\';
 	--#####
 	
 	vrecno := 0;
