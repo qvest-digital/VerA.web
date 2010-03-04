@@ -102,14 +102,27 @@ public class GuestWorker {
 				id = (Integer)invitemain.get(i);
 				partner = invitepartner.indexOf(id) != -1;
 				reserve = selectreserve.indexOf(id) != -1;
-				
+
 				category = (Integer)invitecategory.get(id);
 				if (category != null && category.intValue() == 0) category = null;
 				invitationtype = new Integer(partner ? EventConstants.TYPE_MITPARTNER : EventConstants.TYPE_OHNEPARTNER);
 				invite = addGuest(cntx, database, context, event, id, category, Boolean.valueOf(reserve), invitationtype, Boolean.FALSE);
 				if (invite) invited++; else notInvited++;
+
+				// temporary fix for OutOfMemoryCondition, 
+				// we will enforce a garbage collection here
+				// every 100 guests
+				if ( i % 100 == 0 )
+				{
+					System.gc();
+				}
 			}
-			
+
+			// temporary fix for OutOfMemoryCondition,
+			// we will enforce a garbage collection here
+			// so that remaining temporary objects get collected
+			System.gc();
+
 			cntx.setContent("invited", new Integer(invited));
 			cntx.setContent("notInvited", new Integer(notInvited));
 			context.commit();
@@ -118,6 +131,12 @@ public class GuestWorker {
 		{
 			context.rollBack();
 			throw new BeanException( "Die Gäste konnten nicht auf die Gästeliste gesetzt werden.", e );
+		}
+		catch ( OutOfMemoryError e )
+		{
+			context.rollBack();
+			// just rethrow
+			throw e;
 		}
 	}
 
