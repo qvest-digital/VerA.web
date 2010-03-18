@@ -428,8 +428,8 @@ public class GuestListWorker extends ListWorkerVeraWeb {
 		return count;
 	}
 
-	protected void saveBean(OctopusContext cntx, Bean bean) throws BeanException, IOException {
-		Database database = getDatabase(cntx);
+	protected void saveBean(OctopusContext cntx, Bean bean, TransactionContext context) throws BeanException, IOException {
+		Database database = context.getDatabase();
 		Guest guest = (Guest)bean;
 		guest.updateHistoryFields(null, ((PersonalConfigAA)cntx.personalConfig()).getRoleWithProxy());
 
@@ -471,13 +471,13 @@ public class GuestListWorker extends ListWorkerVeraWeb {
 				update.update("orderno_p", null);
 		}
 		
-		database.execute(update);
+		context.execute(update);
 		
 		/*
 		 * modified to support change logging
 		 * cklein 2008-02-12
 		 */
-		BeanChangeLogger clogger = new BeanChangeLogger( database );
+		BeanChangeLogger clogger = new BeanChangeLogger( database, context );
 		clogger.logUpdate( cntx.personalConfig().getLoginname(), guestOld, guest );
 	}
 
@@ -504,7 +504,6 @@ public class GuestListWorker extends ListWorkerVeraWeb {
 		context.execute(SQL.Delete( database ).
 				from("veraweb.tguest").
 				where(Expr.equal("pk", ((Guest)bean).id)));
-		context.commit();
 		
 		return true;
 	}
