@@ -26,6 +26,9 @@
 package de.tarent.aa.veraweb.worker;
 
 import java.io.IOException;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.text.MessageFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -45,8 +48,12 @@ import de.tarent.aa.veraweb.beans.facade.EventConstants;
 import de.tarent.aa.veraweb.beans.facade.PersonAddressFacade;
 import de.tarent.aa.veraweb.beans.facade.PersonMemberFacade;
 import de.tarent.aa.veraweb.utils.GuestSerialNumber;
-import de.tarent.dblayer.sql.SQL;
+import de.tarent.dblayer.engine.DB;
+import de.tarent.dblayer.engine.Result;
+import de.tarent.dblayer.sql.Join;
 import de.tarent.dblayer.sql.clause.Expr;
+import de.tarent.dblayer.sql.clause.RawClause;
+import de.tarent.dblayer.sql.clause.StatementList;
 import de.tarent.dblayer.sql.clause.Where;
 import de.tarent.dblayer.sql.statement.Insert;
 import de.tarent.dblayer.sql.statement.Select;
@@ -81,6 +88,11 @@ public class GuestWorker {
 	 * @throws BeanException
 	 * @throws IOException
 	 */
+	String COUNT_INVITED_NOT_INVITED_2_PATTERN = "";
+	String ADD_PERSONS_TO_GUESTLIST_PATTERN = "";
+	String UPDATE_GUEST_INVITATION_STATUS_PATTERN = "";
+	String UPDATE_GUEST_DOCUMENT_TYPES_2_PATTERN = "";
+
 	public void addGuestList(OctopusContext cntx) throws BeanException, IOException {
 		Database database = new DatabaseVeraWeb(cntx);
 		TransactionContext context = database.getTransactionContext();
@@ -125,6 +137,8 @@ public class GuestWorker {
 
 			cntx.setContent("invited", new Integer(invited));
 			cntx.setContent("notInvited", new Integer(notInvited));
+			// prevent alert message in case of invited == 0 and notinvited == 0
+			cntx.setContent("doNotAlert", true);
 			context.commit();
 		}
 		catch ( BeanException e )
@@ -149,48 +163,148 @@ public class GuestWorker {
 	 * @throws BeanException
 	 * @throws IOException
 	 */
-	public void addEvent(OctopusContext cntx, Integer eventId) throws BeanException, IOException {
+	protected static final String COUNT_INVITED_NOT_INVITED_PATTERN =
+		"select (select count(*) from tguest g left join tperson p on g.fk_person = p.pk "
+		+ "where g.fk_event = {1} and g.fk_person not in (select fk_person from tguest "
+		+ "where fk_event = {0}) and p.deleted = ''f'') as invited, "
+		+ "(select count(*) from tguest g left join tperson p on g.fk_person = p.pk "
+		+ "where g.fk_event = {1} and (g.fk_person in (select fk_person from tguest "
+		+ "where fk_event = {0}) or (g.fk_person in (select fk_person from tguest "
+		+ "where fk_event = {0} and p.deleted=''f'')))) as notinvited;";
+	protected static final MessageFormat COUNT_INVITED_NOT_INVITED_FORMAT = new java.text.MessageFormat(COUNT_INVITED_NOT_INVITED_PATTERN);
+
+	protected static final String ADD_FROM_EVENT_PATTERN = 
+		"insert into tguest ( fk_person, fk_event, fk_category, fk_color, invitationtype, invitationstatus, "
+		+ "ishost, diplodate, rank, reserve, tableno, seatno, orderno, notehost, noteorga, \"language\", "
+		+ "gender, nationality, domestic_a, invitationstatus_p, tableno_p, seatno_p, orderno_p, notehost_p, "
+		+ "noteorga_p, language_p, gender_p, nationality_p, domestic_b, fk_color_p, createdby, created ) "
+		+ "select p.pk as fk_person, {0} as fk_event, g.fk_category as fk_category, g.fk_color "
+		+ "as fk_color, g.invitationtype as invitationtype, 0 as invitationstatus, "
+		+ "g.ishost as ishost, p.diplodate_a_e1 as diplodate, g.rank as rank, g.reserve as reserve, "
+		+ "g.tableno as tableno, g.seatno as seatno, g.orderno as orderno, p.notehost_a_e1 as notehost, "
+		+ "p.noteorga_a_e1 as noteorga, p.languages_a_e1 as \"language\", p.sex_a_e1 as gender, "
+		+ "p.nationality_a_e1 as nationality, p.domestic_a_e1 as domestic_a, 0 as "
+		+ "invitationstatus_p, g.tableno_p as tableno_p, g.seatno_p as seatno_p, g.orderno_p as orderno_p, "
+		+ "p.notehost_b_e1 as notehost_p, p.noteorga_b_e1 as noteorga_p, p.languages_b_e1 as language_p, "
+		+ "p.sex_b_e1 as gender_p, p.nationality_b_e1 as nationality_p, p.domestic_b_e1 as domestic_b, "
+		+ "g.fk_color_p as fk_color_p, ''{1}'' as createdby, current_timestamp as created from tperson p "
+		+ "left join tguest g on p.pk = g.fk_person and g.fk_event = {2} "
+		+ "where p.pk in (select g.fk_person from tguest g "
+		+ "where g.fk_event = {2}) and p.deleted=''f'' and p.pk not in (select g.fk_person from tguest g "
+		+ "where g.fk_event = {0});";
+	protected static final MessageFormat ADD_FROM_EVENT_FORMAT = new java.text.MessageFormat(ADD_FROM_EVENT_PATTERN);
+
+	protected static final String UPDATE_GUEST_DOCUMENT_TYPES_PATTERN = 
+		"delete from tguest_doctype where fk_guest in ( select g.pk from tguest g "
+		+ "where g.fk_event = {0} ); "
+		+ "insert into tguest_doctype ( fk_guest, fk_doctype, addresstype, locale, "
+		+ "textfield, textfield_p, textjoin, salutation, titel, \"function\", firstname, "
+		+ "lastname, zipcode, city, street, country, suffix1, suffix2, salutation_p, "
+		+ "titel_p, firstname_p, lastname_p, fon, fax, mail, www, mobil, company, "
+		+ "pobox, poboxzipcode, state) "
+		+ "select distinct on (d.fk_doctype,g.pk) "
+		+ "g.pk as fk_guest, d.fk_doctype as fk_doctype, d.addresstype as addresstype, "
+		+ "d.locale as locale, d.textfield as textfield, d.textfield_p as textfield_p, "
+		+ "d.textjoin as textjoin, (CASE WHEN d.locale = 1 THEN sa1.salutation "
+		+ "WHEN d.locale = 2 THEN sa2.salutation WHEN d.locale = 3 THEN sa3.salutation "
+		+ "ELSE '''' END) as salutation, (CASE WHEN d.locale = 1 THEN p.function_a_e1 "
+		+ "WHEN d.locale = 2 THEN p.function_a_e2 WHEN d.locale = 3 THEN p.function_a_e3 "
+		+ "ELSE '''' END) as \"function\", (CASE WHEN d.locale = 1 THEN p.title_a_e1 "
+		+ "WHEN d.locale = 2 THEN p.title_a_e2 WHEN d.locale = 3 THEN p.title_a_e3 "
+		+ "ELSE '''' END) as titel, (CASE WHEN d.locale = 1 THEN p.firstname_a_e1 "
+		+ "WHEN d.locale = 2 THEN p.firstname_a_e2 WHEN d.locale = 3 THEN p.firstname_a_e3 "
+		+ "ELSE '''' END) as firstname, (CASE WHEN d.locale = 1 THEN p.lastname_a_e1 "
+		+ "WHEN d.locale = 2 THEN p.lastname_a_e2 WHEN d.locale = 3 THEN p.lastname_a_e3 "
+		+ "ELSE '''' END) as lastname, (CASE WHEN d.locale = 1 THEN p.zipcode_a_e1 "
+		+ "WHEN d.locale = 2 THEN p.zipcode_a_e2 WHEN d.locale = 3 THEN p.zipcode_a_e3 "
+		+ "ELSE '''' END) as zipcode, (CASE WHEN d.locale = 1 THEN p.city_a_e1 "
+		+ "WHEN d.locale = 2 THEN p.city_a_e2 WHEN d.locale = 3 THEN p.city_a_e3 "
+		+ "ELSE '''' END) as city, (CASE WHEN d.locale = 1 THEN p.street_a_e1 "
+		+ "WHEN d.locale = 2 THEN p.street_a_e2 WHEN d.locale = 3 THEN p.street_a_e3 "
+		+ "ELSE '''' END) as street, (CASE WHEN d.locale = 1 THEN p.country_a_e1 "
+		+ "WHEN d.locale = 2 THEN p.country_a_e2 WHEN d.locale = 3 THEN p.country_a_e3 "
+		+ "ELSE '''' END) as country, (CASE WHEN d.locale = 1 THEN p.suffix1_a_e1 "
+		+ "WHEN d.locale = 2 THEN p.suffix1_a_e2 WHEN d.locale = 3 THEN p.suffix1_a_e3 "
+		+ "ELSE '''' END) as suffix1, (CASE WHEN d.locale = 1 THEN p.suffix2_a_e1 "
+		+ "WHEN d.locale = 2 THEN p.suffix2_a_e2 WHEN d.locale = 3 THEN p.suffix2_a_e3 "
+		+ "ELSE '''' END) as suffix2, (CASE WHEN d.locale = 1 THEN sb1.salutation "
+		+ "WHEN d.locale = 2 THEN sb2.salutation WHEN d.locale = 3 THEN sb3.salutation "
+		+ "ELSE '''' END) as salutation_p, (CASE WHEN d.locale = 1 THEN p.title_b_e1 "
+		+ "WHEN d.locale = 2 THEN p.title_b_e2 WHEN d.locale = 3 THEN p.title_b_e3 "
+		+ "ELSE '''' END) as titel_p, (CASE WHEN d.locale = 1 THEN p.firstname_b_e1 "
+		+ "WHEN d.locale = 2 THEN p.firstname_b_e2 WHEN d.locale = 3 THEN p.firstname_b_e3 "
+		+ "ELSE '''' END) as firstname_p, (CASE WHEN d.locale = 1 THEN p.lastname_b_e1 "
+		+ "WHEN d.locale = 2 THEN p.lastname_b_e2 WHEN d.locale = 3 THEN p.lastname_b_e3 "
+		+ "ELSE '''' END) as lastname_p, (CASE WHEN d.locale = 1 THEN p.fon_a_e1 "
+		+ "WHEN d.locale = 2 THEN p.fon_a_e2 WHEN d.locale = 3 THEN p.fon_a_e3 ELSE '''' "
+		+ "END) as fon, (CASE WHEN d.locale = 1 THEN p.fax_a_e1 WHEN d.locale = 2 THEN p.fax_a_e2 "
+		+ "WHEN d.locale = 3 THEN p.fax_a_e3 ELSE '''' END) as fax, (CASE WHEN d.locale = 1 "
+		+ "THEN p.mail_a_e1 WHEN d.locale = 2 THEN p.mail_a_e2 WHEN d.locale = 3 THEN p.mail_a_e3 "
+		+ "ELSE '''' END) as mail, (CASE WHEN d.locale = 1 THEN p.url_a_e1 WHEN d.locale = 2 "
+		+ "THEN p.url_a_e2 WHEN d.locale = 3 THEN p.url_a_e3 ELSE '''' END) as www, "
+		+ "(CASE WHEN d.locale = 1 THEN p.mobil_a_e1 WHEN d.locale = 2 THEN p.mobil_a_e2 "
+		+ "WHEN d.locale = 3 THEN p.mobil_a_e3 ELSE '''' END) as mobil, (CASE WHEN d.locale = 1 "
+		+ "THEN p.company_a_e1 WHEN d.locale = 2 THEN p.company_a_e2 WHEN d.locale = 3 THEN "
+		+ "p.company_a_e3 ELSE '''' END) as company, (CASE WHEN d.locale = 1 THEN p.pobox_a_e1 "
+		+ "WHEN d.locale = 2 THEN p.pobox_a_e2 WHEN d.locale = 3 THEN p.pobox_a_e3 ELSE '''' "
+		+ "END) as pobox, (CASE WHEN d.locale = 1 THEN p.poboxzipcode_a_e1 WHEN d.locale = 2 "
+		+ "THEN p.poboxzipcode_a_e2 WHEN d.locale = 3 THEN p.poboxzipcode_a_e3 ELSE '''' "
+		+ "END) as poboxzipcode, (CASE WHEN d.locale = 1 THEN p.state_a_e1 WHEN d.locale = 2 "
+		+ "THEN p.state_a_e2 WHEN d.locale = 3 THEN p.state_a_e3 ELSE '''' END) as state "
+		+ "from tguest g left join tevent_doctype ed on ed.fk_event = g.fk_event "
+		+ "left join tperson_doctype d on d.fk_person = g.fk_person left join tperson p on p.pk "
+		+ "= g.fk_person left join tsalutation sa1 on p.fk_salutation_a_e1 = sa1.pk "
+		+ "left join tsalutation sa2 on p.fk_salutation_a_e2 = sa2.pk left join tsalutation sa3 "
+		+ "on p.fk_salutation_a_e3 = sa3.pk left join tsalutation sb1 on p.fk_salutation_b_e1 = sb1.pk "
+		+ "left join tsalutation sb2 on p.fk_salutation_b_e2 = sb2.pk left join tsalutation sb3 on "
+		+ "p.fk_salutation_b_e3 = sb3.pk where g.fk_event = {0};";
+	protected static final MessageFormat UPDATE_GUEST_DOCUMENT_TYPES_FORMAT = new java.text.MessageFormat(UPDATE_GUEST_DOCUMENT_TYPES_PATTERN);
+
+	public void addEvent(OctopusContext cntx, Integer eventId) throws BeanException, IOException
+	{
 		Database database = new DatabaseVeraWeb(cntx);
 		TransactionContext context = database.getTransactionContext();
-		Event event = (Event)cntx.contentAsObject("event");
-		logger.debug("Füge Gäste der Veranstaltung #" + eventId + " der Verstanstaltung #" + event.id + " hinzu.");
+		try
+		{
+			Event event = ( Event ) cntx.contentAsObject( "event" );
+			logger.debug( "Füge Gäste der Veranstaltung #" + eventId + " der Verstanstaltung #" + event.id + " hinzu." );
+			String sql = COUNT_INVITED_NOT_INVITED_FORMAT.format( new Object[] { event.id, eventId } );
+			Result res = DB.result( context, sql );
 
-		try {
-			List list = database.getList(SQL.Select( database ).
-					from("veraweb.tguest").
-					select("fk_person").
-					select("fk_category").
-					select("reserve").
-					select("invitationtype").
-					where(Where.and(
-							Expr.equal("fk_event", eventId),
-							Expr.isNotNull("fk_person"))), database);
-			int invited = 0;
-			int notInvited = 0;
-			boolean invite;
-			for (Iterator it = list.iterator(); it.hasNext(); ) {
-				Map data = (Map)it.next();
-				invite = addGuest(cntx, database, context, event,
-						(Integer)data.get("fk_person"),
-						(Integer)data.get("fk_category"),
-						Boolean.valueOf(data.get("reserve") != null && ((Integer)data.get("reserve")).intValue() != 0),
-						// Aus alter Veranstaltung �bernehmen
-						//(Integer)data.get("invitationtype"),
-						// Veranstaltungs-Standard �bernehmen
-						event.invitationtype,
-						Boolean.FALSE);
-				if (invite) invited++; else notInvited++;
+			ResultSet rs = res.resultSet();
+			rs.first();
+			cntx.setContent( "invited", new Integer( rs.getInt( "invited" ) ) );
+			cntx.setContent( "notInvited", new Integer( rs.getInt( "notinvited" ) ) );
+			rs.close();
+
+			// not optimized due to dynamic creation of doctype content from configuration
+			// must still instantiate person beans from database, which may lead to destabilization
+			// of the system once more
+			List<Person> persons = database.getBeanList( "Person", database.getSelect( "Person" ).
+				join( new Join( Join.LEFT_OUTER, "veraweb.tguest", new RawClause( "tguest.fk_person = tperson.pk" ) ) ).
+				where( new RawClause( "tguest.fk_event = " + eventId
+					+ " and tguest.fk_person not in (select fk_person from tguest where fk_event = " + event.id
+					+ ") and tperson.deleted = 'f'"
+			)));
+
+			for ( Person person : persons )
+			{
+				PersonDoctypeWorker.createPersonDoctype(cntx, database, context, person );
 			}
-
-			cntx.setContent("invited", new Integer(invited));
-			cntx.setContent("notInvited", new Integer(notInvited));
-
 			context.commit();
+
+			sql = ADD_FROM_EVENT_FORMAT.format( new Object[] { event.id, ( ( PersonalConfigAA ) cntx.personalConfig() ).getRoleWithProxy(), eventId } );
+			DB.insert( context, sql );
+			context.commit();
+
+			sql = UPDATE_GUEST_DOCUMENT_TYPES_FORMAT.format( new Object[] { event.id } );
+			context.commit();
+			DB.insert( context, sql );
 		}
-		catch ( BeanException e )
+		catch ( SQLException e )
 		{
 			context.rollBack();
-			throw new BeanException( "Die Gäste aus der Gästelist konnten nicht übernommen werden.", e );
+			throw new BeanException( "Die Gäste aus der Gästeliste konnten nicht übernommen werden.", e );
 		}
 	}
 
@@ -413,7 +527,7 @@ public class GuestWorker {
 		if (event == null) return false;
 		
 		if (guestId == null) {
-			logger.debug("F�ge Person #" + personId + " der Veranstaltung #" + event.id + " hinzu.");
+			logger.debug("Füge Person #" + personId + " der Veranstaltung #" + event.id + " hinzu.");
 		}
 		
 		// Keinen neuen Gast hinzuf�gen wenn diese Person bereits zugeordnet war.
@@ -555,10 +669,10 @@ public class GuestWorker {
 					(person == null || person.id == null ? "null" : person.id.toString()) + ")");
 			return;
         }
-		logger.debug("Aktuallisiere Dokumententypen der Person #" + person.id + ".");
+		logger.debug("Aktualisiere Dokumententypen der Person #" + person.id + ".");
 		PersonDoctypeWorker.createPersonDoctype(cntx, database, context, person);
 		
-		logger.debug("Aktuallisiere Dokumententypen des von Gast #" + guest.id + ".");
+		logger.debug("Aktualisiere Dokumententypen des Gast #" + guest.id + ".");
 		
         Select select = database.getSelect("PersonDoctype").where(Expr.equal("fk_person", guest.person));
 		select.selectAs("tperson_doctype.fk_doctype", "doctype");
