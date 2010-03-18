@@ -126,7 +126,7 @@
 <input type="hidden" name="start" value="">
 <input type="hidden" name="selectAll" value="false">
 <input type="hidden" name="selectNone" value="false">
-<input type="hidden" name="doInsert" value="true">
+<input type="hidden" name="doInsert" value="false">
 <input type="hidden" name="doUpdate" value="true">
 <input type="hidden" name="doRemove" value="true">
 <input type="hidden" name="categoryAssignmentAction" value="">
@@ -498,7 +498,7 @@
 		document.getElementById('search-listorder').value = column;
 		document.getElementById('guestListFilter').submit();
 	}
-#if($invited && $invited == 0 && $notInvited && $notInvited == 0)
+#if($invited && $invited == 0 && $notInvited && $notInvited == 0 && ! $doNotAlert)
 	alert('Sie haben keine Person ausgewählt.');
 #elseif($notInvited)
 #if($notInvited == 1)
