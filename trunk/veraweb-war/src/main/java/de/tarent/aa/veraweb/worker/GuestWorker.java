@@ -47,7 +47,9 @@ import de.tarent.aa.veraweb.beans.PersonDoctype;
 import de.tarent.aa.veraweb.beans.facade.EventConstants;
 import de.tarent.aa.veraweb.beans.facade.PersonAddressFacade;
 import de.tarent.aa.veraweb.beans.facade.PersonMemberFacade;
+import de.tarent.aa.veraweb.utils.AddressHelper;
 import de.tarent.aa.veraweb.utils.GuestSerialNumber;
+import de.tarent.commons.ui.ColorHelper;
 import de.tarent.dblayer.engine.DB;
 import de.tarent.dblayer.engine.Result;
 import de.tarent.dblayer.sql.Join;
@@ -88,60 +90,158 @@ public class GuestWorker {
 	 * @throws BeanException
 	 * @throws IOException
 	 */
-	String COUNT_INVITED_NOT_INVITED_2_PATTERN = "";
-	String ADD_PERSONS_TO_GUESTLIST_PATTERN = "";
-	String UPDATE_GUEST_INVITATION_STATUS_PATTERN = "";
-	String UPDATE_GUEST_DOCUMENT_TYPES_2_PATTERN = "";
+	protected static final String COUNT_INVITED_NOT_INVITED_2_PATTERN = 
+		"select (select count(*) from tperson p where p.pk not in (select fk_person from tguest "
+		+ "where fk_event = {0}) and p.deleted = ''f'' and p.pk in ({1})) as invited, "
+		+ "(select count(*) from tguest g left join tperson p on g.fk_person = p.pk "
+		+ "where g.fk_event = {0} and (g.fk_person in ({1}) or (g.fk_person in ({1})"
+		+ "and p.deleted=''f''))) as notinvited;";
+	protected static final MessageFormat COUNT_INVITED_NOT_INVITED_2_FORMAT = new MessageFormat(COUNT_INVITED_NOT_INVITED_2_PATTERN);
 
-	public void addGuestList(OctopusContext cntx) throws BeanException, IOException {
+	protected static final String ADD_PERSONS_TO_GUESTLIST_PATTERN =
+		"insert into tguest ( fk_person, fk_event, fk_category, fk_color, invitationtype, invitationstatus, "
+		+ "ishost, diplodate, rank, reserve, tableno, seatno, orderno, notehost, noteorga, \"language\", "
+		+ "gender, nationality, domestic_a, invitationstatus_p, tableno_p, seatno_p, orderno_p, notehost_p, "
+		+ "noteorga_p, language_p, gender_p, nationality_p, domestic_b, fk_color_p, createdby, created ) "
+		+ "select p.pk as fk_person, {0} as fk_event, 0 as fk_category, "
+		+ "(CASE WHEN p.domestic_a_e1 = ''f'' THEN CASE WHEN p.sex_a_e1 = ''f'' THEN 3 ELSE 4 END ELSE CASE WHEN p.sex_a_e1 =''f'' THEN 1 ELSE 2 END END) as fk_color, "
+		+ "0 as invitationtype, 0 as invitationstatus, 0 as ishost, p.diplodate_a_e1 as diplodate, 0 as rank, 0 as reserve, "
+		+ "0 as tableno, 0 as seatno, 0 as orderno, p.notehost_a_e1 as notehost, "
+		+ "p.noteorga_a_e1 as noteorga, p.languages_a_e1 as \"language\", p.sex_a_e1 as gender, "
+		+ "p.nationality_a_e1 as nationality, p.domestic_a_e1 as domestic_a, 0 as "
+		+ "invitationstatus_p, 0 as tableno_p, 0 as seatno_p, 0 as orderno_p, "
+		+ "p.notehost_b_e1 as notehost_p, p.noteorga_b_e1 as noteorga_p, p.languages_b_e1 as language_p, "
+		+ "p.sex_b_e1 as gender_p, p.nationality_b_e1 as nationality_p, p.domestic_b_e1 as domestic_b, "
+		+ "(CASE WHEN p.domestic_b_e1 = ''f'' THEN CASE WHEN p.sex_b_e1 = ''f'' THEN 3 ELSE 4 END ELSE CASE WHEN p.sex_b_e1 =''f'' THEN 1 ELSE 2 END END) as fk_color_p, "
+		+ "''{1}'' as createdby, current_timestamp as created from tperson p "
+		+ "where p.pk in ({2}) and p.deleted=''f'' and p.pk not in (select g.fk_person from tguest g "
+		+ "where g.fk_event = {0});";
+	protected static final MessageFormat ADD_PERSONS_TO_GUESTLIST_FORMAT = new MessageFormat(ADD_PERSONS_TO_GUESTLIST_PATTERN);
+
+	protected static final String UPDATE_PERSON_TO_GUEST_LIST_PATTERN =
+		"update tguest set fk_category={0}, invitationtype={1}, "
+		+ "rank=(select rank from tperson_categorie where pk={0}), reserve={2} "
+		+ "where fk_person={3} and fk_event={4};";
+	protected static final MessageFormat UPDATE_PERSON_TO_GUEST_LIST_FORMAT = new MessageFormat(UPDATE_PERSON_TO_GUEST_LIST_PATTERN);
+
+	private String listToIdListString(List list)
+	{
+		StringBuffer result = new StringBuffer();
+		
+		for ( int i = 0; i < list.size(); i++ )
+		{
+			result.append( list.get( i ) );
+			result.append( ',' );
+		}
+		if ( result.length() > 0 )
+		{
+			result.setLength( result.length() - 1 );
+		}
+
+		return result.toString();
+	}
+
+	public void addGuestList(OctopusContext cntx) throws BeanException, IOException
+	{
 		Database database = new DatabaseVeraWeb(cntx);
 		TransactionContext context = database.getTransactionContext();
-		
-		try {
-			Event event = (Event)cntx.contentAsObject("event");
-			List invitemain = (List)cntx.sessionAsObject("selectionPerson");
-			List invitepartner = (List)cntx.sessionAsObject("addguest-invitepartner");
-			List selectreserve = (List)cntx.sessionAsObject("addguest-selectreserve");
-			Map invitecategory = (Map)cntx.sessionAsObject("addguest-invitecategory");
-			if (invitecategory == null) invitecategory = new HashMap();
-			
-			int size = invitemain.size();
-			int invited = 0;
-			int notInvited = 0;
-			boolean main, partner, reserve, invite;
-			Integer id, invitationtype, category;
-			for (int i = 0; i < size; i++) {
-				id = (Integer)invitemain.get(i);
-				partner = invitepartner.indexOf(id) != -1;
-				reserve = selectreserve.indexOf(id) != -1;
 
-				category = (Integer)invitecategory.get(id);
-				if (category != null && category.intValue() == 0) category = null;
-				invitationtype = new Integer(partner ? EventConstants.TYPE_MITPARTNER : EventConstants.TYPE_OHNEPARTNER);
-				invite = addGuest(cntx, database, context, event, id, category, Boolean.valueOf(reserve), invitationtype, Boolean.FALSE);
-				if (invite) invited++; else notInvited++;
-
-				// temporary fix for OutOfMemoryCondition, 
-				// we will enforce a garbage collection here
-				// every 100 guests
-				if ( i % 100 == 0 )
-				{
-					System.gc();
-				}
+		try
+		{
+			Event event = ( Event ) cntx.contentAsObject( "event" );
+			List invitemain = ( List ) cntx.sessionAsObject( "selectionPerson" );
+			List invitepartner = ( List )cntx.sessionAsObject( "addguest-invitepartner" );
+			List selectreserve = ( List ) cntx.sessionAsObject( "addguest-selectreserve" );
+			Map invitecategory = ( Map ) cntx.sessionAsObject( "addguest-invitecategory" );
+			if ( invitecategory == null )
+			{
+				invitecategory = new HashMap();
 			}
 
-			// temporary fix for OutOfMemoryCondition,
-			// we will enforce a garbage collection here
-			// so that remaining temporary objects get collected
-			System.gc();
+			String personIds = this.listToIdListString( invitemain );
+			String sql = COUNT_INVITED_NOT_INVITED_2_FORMAT.format( new Object[] { event.id.toString(), personIds } );
+			Result res = DB.result( context, sql );
 
-			cntx.setContent("invited", new Integer(invited));
-			cntx.setContent("notInvited", new Integer(notInvited));
+			ResultSet rs = res.resultSet();
+			rs.first();
+			cntx.setContent( "invited", new Integer( rs.getInt( "invited" ) ) );
+			cntx.setContent( "notInvited", new Integer( rs.getInt( "notinvited" ) ) );
+			rs.close();
+
+			// prepare third step, fill in missing data into guest tupels
+			StringBuffer sql3 = new StringBuffer();
+			try
+			{
+				// not optimized due to dynamic creation of doctype content from configuration
+				// must still instantiate person beans from database, which may lead to destabilization
+				// of the system once more
+				List<Person> persons = database.getBeanList( "Person", database.getSelect( "Person" ).
+					where( new RawClause( "tperson.pk in (" + personIds + ") and tperson.deleted='f'"
+						+ " and tperson.pk not in (select fk_person from tguest where fk_event = " + event.id + ")"
+				)));
+	
+				for ( int i = 0; i < persons.size(); i++ )
+				{
+					Person person = persons.get( i );
+					PersonDoctypeWorker.createPersonDoctype(cntx, database, context, person );
+	
+					Integer fk_category = ( Integer ) invitecategory.get( person.id );
+					if ( fk_category != null && fk_category.intValue() == 0 )
+					{
+						fk_category = null;
+					}
+
+					sql3.append( UPDATE_PERSON_TO_GUEST_LIST_FORMAT.format( new Object[] {
+						fk_category != null ? fk_category.toString() : null, new Integer( invitepartner.indexOf( person.id ) != -1 ? EventConstants.TYPE_MITPARTNER : EventConstants.TYPE_OHNEPARTNER ),
+						( selectreserve.indexOf( person.id ) != -1 ) ? 1 : 0, person.id.toString(), event.id.toString()
+					} ) );
+					sql3.append( ';' );
+				}
+				context.commit();
+			}
+			catch( BeanException e )
+			{
+				// will silently fail here as the following transaction
+				// must be run under all cases, even if individual
+				// person document types have not been updated
+				logger.warn( "Transaktion fehlgeschlagen. Die Dokumenttypen der Personen wurden nicht aktualisiert.", e );
+			}
+			catch( OutOfMemoryError e )
+			{
+				// will silently fail here as the following transaction
+				// must be run under all cases, even if individual
+				// person document types have not been updated
+
+				// enforce garbage collection so that the following code
+				// may continue
+				logger.fatal( "Nicht genügend Speicher. Forciere Garbage-Collection.", e );
+				System.gc();
+			}
+
+			// second step, create guest tupels
+			sql = ADD_PERSONS_TO_GUESTLIST_FORMAT.format( new Object[] { event.id.toString(), ( ( PersonalConfigAA ) cntx.personalConfig() ).getRoleWithProxy(), personIds } );
+			DB.insert( context, sql );
+			context.commit();
+
+			if ( sql3.length() > 0 )
+			{
+				DB.insert( context, sql3.toString() );
+				context.commit();
+			}
+
+			sql = UPDATE_GUEST_DOCUMENT_TYPES_FORMAT.format( new Object[] { event.id.toString() } );
+			context.commit();
+			DB.insert( context, sql );
+
 			// prevent alert message in case of invited == 0 and notinvited == 0
 			cntx.setContent("doNotAlert", true);
-			context.commit();
 		}
 		catch ( BeanException e )
+		{
+			context.rollBack();
+			throw new BeanException( "Die Gäste konnten nicht auf die Gästeliste gesetzt werden.", e );
+		}
+		catch ( SQLException e )
 		{
 			context.rollBack();
 			throw new BeanException( "Die Gäste konnten nicht auf die Gästeliste gesetzt werden.", e );
@@ -171,7 +271,7 @@ public class GuestWorker {
 		+ "where g.fk_event = {1} and (g.fk_person in (select fk_person from tguest "
 		+ "where fk_event = {0}) or (g.fk_person in (select fk_person from tguest "
 		+ "where fk_event = {0} and p.deleted=''f'')))) as notinvited;";
-	protected static final MessageFormat COUNT_INVITED_NOT_INVITED_FORMAT = new java.text.MessageFormat(COUNT_INVITED_NOT_INVITED_PATTERN);
+	protected static final MessageFormat COUNT_INVITED_NOT_INVITED_FORMAT = new MessageFormat(COUNT_INVITED_NOT_INVITED_PATTERN);
 
 	protected static final String ADD_FROM_EVENT_PATTERN = 
 		"insert into tguest ( fk_person, fk_event, fk_category, fk_color, invitationtype, invitationstatus, "
@@ -192,7 +292,7 @@ public class GuestWorker {
 		+ "where p.pk in (select g.fk_person from tguest g "
 		+ "where g.fk_event = {2}) and p.deleted=''f'' and p.pk not in (select g.fk_person from tguest g "
 		+ "where g.fk_event = {0});";
-	protected static final MessageFormat ADD_FROM_EVENT_FORMAT = new java.text.MessageFormat(ADD_FROM_EVENT_PATTERN);
+	protected static final MessageFormat ADD_FROM_EVENT_FORMAT = new MessageFormat(ADD_FROM_EVENT_PATTERN);
 
 	protected static final String UPDATE_GUEST_DOCUMENT_TYPES_PATTERN = 
 		"delete from tguest_doctype where fk_guest in ( select g.pk from tguest g "
@@ -258,7 +358,7 @@ public class GuestWorker {
 		+ "on p.fk_salutation_a_e3 = sa3.pk left join tsalutation sb1 on p.fk_salutation_b_e1 = sb1.pk "
 		+ "left join tsalutation sb2 on p.fk_salutation_b_e2 = sb2.pk left join tsalutation sb3 on "
 		+ "p.fk_salutation_b_e3 = sb3.pk where g.fk_event = {0};";
-	protected static final MessageFormat UPDATE_GUEST_DOCUMENT_TYPES_FORMAT = new java.text.MessageFormat(UPDATE_GUEST_DOCUMENT_TYPES_PATTERN);
+	protected static final MessageFormat UPDATE_GUEST_DOCUMENT_TYPES_FORMAT = new MessageFormat(UPDATE_GUEST_DOCUMENT_TYPES_PATTERN);
 
 	public void addEvent(OctopusContext cntx, Integer eventId) throws BeanException, IOException
 	{
@@ -268,7 +368,7 @@ public class GuestWorker {
 		{
 			Event event = ( Event ) cntx.contentAsObject( "event" );
 			logger.debug( "Füge Gäste der Veranstaltung #" + eventId + " der Verstanstaltung #" + event.id + " hinzu." );
-			String sql = COUNT_INVITED_NOT_INVITED_FORMAT.format( new Object[] { event.id, eventId } );
+			String sql = COUNT_INVITED_NOT_INVITED_FORMAT.format( new Object[] { event.id.toString(), eventId.toString() } );
 			Result res = DB.result( context, sql );
 
 			ResultSet rs = res.resultSet();
@@ -277,27 +377,48 @@ public class GuestWorker {
 			cntx.setContent( "notInvited", new Integer( rs.getInt( "notinvited" ) ) );
 			rs.close();
 
-			// not optimized due to dynamic creation of doctype content from configuration
-			// must still instantiate person beans from database, which may lead to destabilization
-			// of the system once more
-			List<Person> persons = database.getBeanList( "Person", database.getSelect( "Person" ).
-				join( new Join( Join.LEFT_OUTER, "veraweb.tguest", new RawClause( "tguest.fk_person = tperson.pk" ) ) ).
-				where( new RawClause( "tguest.fk_event = " + eventId
-					+ " and tguest.fk_person not in (select fk_person from tguest where fk_event = " + event.id
-					+ ") and tperson.deleted = 'f'"
-			)));
-
-			for ( Person person : persons )
+			try
 			{
-				PersonDoctypeWorker.createPersonDoctype(cntx, database, context, person );
+				// not optimized due to dynamic creation of doctype content from configuration
+				// must still instantiate person beans from database, which may lead to destabilization
+				// of the system once more
+				List<Person> persons = database.getBeanList( "Person", database.getSelect( "Person" ).
+					join( new Join( Join.LEFT_OUTER, "veraweb.tguest", new RawClause( "tguest.fk_person = tperson.pk" ) ) ).
+					where( new RawClause( "tguest.fk_event = " + eventId
+						+ " and tguest.fk_person not in (select fk_person from tguest where fk_event = " + event.id
+						+ ") and tperson.deleted = 'f'"
+				)));
+	
+				for ( Person person : persons )
+				{
+					PersonDoctypeWorker.createPersonDoctype(cntx, database, context, person );
+				}
+				context.commit();
 			}
-			context.commit();
+			catch( BeanException e )
+			{
+				// will silently fail here as the following transaction
+				// must be run under all cases, even if individual
+				// person document types have not been updated
+				logger.warn( "Transaktion fehlgeschlagen. Die Dokumenttypen der Personen wurden nicht aktualisiert.", e );
+			}
+			catch( OutOfMemoryError e )
+			{
+				// will silently fail here as the following transaction
+				// must be run under all cases, even if individual
+				// person document types have not been updated
 
-			sql = ADD_FROM_EVENT_FORMAT.format( new Object[] { event.id, ( ( PersonalConfigAA ) cntx.personalConfig() ).getRoleWithProxy(), eventId } );
+				// enforce garbage collection so that the following code
+				// may continue
+				logger.fatal( "Nicht genügend Speicher. Forciere Garbage-Collection.", e );
+				System.gc();
+			}
+
+			sql = ADD_FROM_EVENT_FORMAT.format( new Object[] { event.id.toString(), ( ( PersonalConfigAA ) cntx.personalConfig() ).getRoleWithProxy(), eventId.toString() } );
 			DB.insert( context, sql );
 			context.commit();
 
-			sql = UPDATE_GUEST_DOCUMENT_TYPES_FORMAT.format( new Object[] { event.id } );
+			sql = UPDATE_GUEST_DOCUMENT_TYPES_FORMAT.format( new Object[] { event.id.toString() } );
 			context.commit();
 			DB.insert( context, sql );
 		}
@@ -375,7 +496,7 @@ public class GuestWorker {
 	/** Octopus-Eingabe-Parameter f�r {@link #reloadData(OctopusContext, Integer)} */
 	public static final String INPUT_reloadData[] = { "guest-id" };
 	/**
-	 * Diese Octopus-Aktion aktuallisiert die Daten eines Gastes
+	 * Diese Octopus-Aktion aktualisiert die Daten eines Gastes
 	 * aus den Stammdaten und erzeugt die Dokumenttypen neu.
 	 */
 	public void reloadData(OctopusContext cntx, Integer guestId) throws BeanException, IOException {
