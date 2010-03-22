@@ -195,7 +195,7 @@ public class BeanChangeLogger {
 				o = this.database.getBean( "Person", ( ( Guest ) o ).person );
 			}
 			Person p = ( Person ) o;
-			result = p.lastname_a_e1 + ", " + p.firstname_a_e1; // lastname is mandatory, even for companies 
+			result = ( p.lastname_a_e1 != null ? p.lastname_a_e1 : "<Unbekannt>" ) + ", " + ( p.firstname_a_e1 != null ? p.firstname_a_e1 : "<Unbekannt>" ); // lastname is mandatory, even for companies 
 		}
 		if ( result == null || result.length() == 0 )
 		{
