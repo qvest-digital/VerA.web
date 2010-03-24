@@ -31,9 +31,11 @@ import java.sql.SQLException;
 import java.text.MessageFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
 
@@ -47,15 +49,12 @@ import de.tarent.aa.veraweb.beans.PersonDoctype;
 import de.tarent.aa.veraweb.beans.facade.EventConstants;
 import de.tarent.aa.veraweb.beans.facade.PersonAddressFacade;
 import de.tarent.aa.veraweb.beans.facade.PersonMemberFacade;
-import de.tarent.aa.veraweb.utils.AddressHelper;
 import de.tarent.aa.veraweb.utils.GuestSerialNumber;
-import de.tarent.commons.ui.ColorHelper;
 import de.tarent.dblayer.engine.DB;
 import de.tarent.dblayer.engine.Result;
 import de.tarent.dblayer.sql.Join;
 import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.clause.RawClause;
-import de.tarent.dblayer.sql.clause.StatementList;
 import de.tarent.dblayer.sql.clause.Where;
 import de.tarent.dblayer.sql.statement.Insert;
 import de.tarent.dblayer.sql.statement.Select;
@@ -100,17 +99,15 @@ public class GuestWorker {
 
 	protected static final String ADD_PERSONS_TO_GUESTLIST_PATTERN =
 		"insert into tguest ( fk_person, fk_event, fk_category, fk_color, invitationtype, invitationstatus, "
-		+ "ishost, diplodate, rank, reserve, tableno, seatno, orderno, notehost, noteorga, \"language\", "
-		+ "gender, nationality, domestic_a, invitationstatus_p, tableno_p, seatno_p, orderno_p, notehost_p, "
+		+ "ishost, diplodate, rank, reserve, notehost, noteorga, \"language\", "
+		+ "gender, nationality, domestic_a, invitationstatus_p, notehost_p, "
 		+ "noteorga_p, language_p, gender_p, nationality_p, domestic_b, fk_color_p, createdby, created ) "
 		+ "select p.pk as fk_person, {0} as fk_event, 0 as fk_category, "
 		+ "(CASE WHEN p.domestic_a_e1 = ''f'' THEN CASE WHEN p.sex_a_e1 = ''f'' THEN 3 ELSE 4 END ELSE CASE WHEN p.sex_a_e1 =''f'' THEN 1 ELSE 2 END END) as fk_color, "
 		+ "0 as invitationtype, 0 as invitationstatus, 0 as ishost, p.diplodate_a_e1 as diplodate, 0 as rank, 0 as reserve, "
-		+ "0 as tableno, 0 as seatno, 0 as orderno, p.notehost_a_e1 as notehost, "
-		+ "p.noteorga_a_e1 as noteorga, p.languages_a_e1 as \"language\", p.sex_a_e1 as gender, "
+		+ "p.notehost_a_e1 as notehost, p.noteorga_a_e1 as noteorga, p.languages_a_e1 as \"language\", p.sex_a_e1 as gender, "
 		+ "p.nationality_a_e1 as nationality, p.domestic_a_e1 as domestic_a, 0 as "
-		+ "invitationstatus_p, 0 as tableno_p, 0 as seatno_p, 0 as orderno_p, "
-		+ "p.notehost_b_e1 as notehost_p, p.noteorga_b_e1 as noteorga_p, p.languages_b_e1 as language_p, "
+		+ "invitationstatus_p, p.notehost_b_e1 as notehost_p, p.noteorga_b_e1 as noteorga_p, p.languages_b_e1 as language_p, "
 		+ "p.sex_b_e1 as gender_p, p.nationality_b_e1 as nationality_p, p.domestic_b_e1 as domestic_b, "
 		+ "(CASE WHEN p.domestic_b_e1 = ''f'' THEN CASE WHEN p.sex_b_e1 = ''f'' THEN 3 ELSE 4 END ELSE CASE WHEN p.sex_b_e1 =''f'' THEN 1 ELSE 2 END END) as fk_color_p, "
 		+ "''{1}'' as createdby, current_timestamp as created from tperson p "
@@ -124,21 +121,34 @@ public class GuestWorker {
 		+ "where fk_person={3} and fk_event={4};";
 	protected static final MessageFormat UPDATE_PERSON_TO_GUEST_LIST_FORMAT = new MessageFormat(UPDATE_PERSON_TO_GUEST_LIST_PATTERN);
 
-	private String listToIdListString(List list)
+	private String listToIdListString(List main, List partner, List reserve)
 	{
 		StringBuffer result = new StringBuffer();
-		
-		for ( int i = 0; i < list.size(); i++ )
+		Set<Integer> coalesced = new HashSet<Integer>();
+
+		/* coalesce all of main, partner and reserve into a single identity set
+		   this fixes an issue where the user can select either partner or reserve
+		   but not the main contact, which would result in the person not being
+		   invited.
+		 */
+		coalesced.addAll( main );
+		coalesced.addAll( partner );
+		coalesced.addAll( reserve );
+
+		Iterator< Integer > i = coalesced.iterator();
+		while ( i.hasNext() )
 		{
-			result.append( list.get( i ) );
+			result.append( i.next() );
 			result.append( ',' );
 		}
+
 		if ( result.length() > 0 )
 		{
 			result.setLength( result.length() - 1 );
+			return result.toString();
 		}
 
-		return result.toString();
+		return "NULL";
 	}
 
 	public void addGuestList(OctopusContext cntx) throws BeanException, IOException
@@ -158,7 +168,7 @@ public class GuestWorker {
 				invitecategory = new HashMap();
 			}
 
-			String personIds = this.listToIdListString( invitemain );
+			String personIds = this.listToIdListString( invitemain, invitepartner, selectreserve );
 			String sql = COUNT_INVITED_NOT_INVITED_2_FORMAT.format( new Object[] { event.id.toString(), personIds } );
 			Result res = DB.result( context, sql );
 
@@ -279,7 +289,7 @@ public class GuestWorker {
 		+ "gender, nationality, domestic_a, invitationstatus_p, tableno_p, seatno_p, orderno_p, notehost_p, "
 		+ "noteorga_p, language_p, gender_p, nationality_p, domestic_b, fk_color_p, createdby, created ) "
 		+ "select p.pk as fk_person, {0} as fk_event, g.fk_category as fk_category, g.fk_color "
-		+ "as fk_color, g.invitationtype as invitationtype, 0 as invitationstatus, "
+		+ "as fk_color, CASE WHEN {1} <> g.invitationtype AND {1} <> {2} THEN g.invitationtype ELSE {1} END as invitationtype, 0 as invitationstatus, "
 		+ "g.ishost as ishost, p.diplodate_a_e1 as diplodate, g.rank as rank, g.reserve as reserve, "
 		+ "g.tableno as tableno, g.seatno as seatno, g.orderno as orderno, p.notehost_a_e1 as notehost, "
 		+ "p.noteorga_a_e1 as noteorga, p.languages_a_e1 as \"language\", p.sex_a_e1 as gender, "
@@ -287,10 +297,10 @@ public class GuestWorker {
 		+ "invitationstatus_p, g.tableno_p as tableno_p, g.seatno_p as seatno_p, g.orderno_p as orderno_p, "
 		+ "p.notehost_b_e1 as notehost_p, p.noteorga_b_e1 as noteorga_p, p.languages_b_e1 as language_p, "
 		+ "p.sex_b_e1 as gender_p, p.nationality_b_e1 as nationality_p, p.domestic_b_e1 as domestic_b, "
-		+ "g.fk_color_p as fk_color_p, ''{1}'' as createdby, current_timestamp as created from tperson p "
-		+ "left join tguest g on p.pk = g.fk_person and g.fk_event = {2} "
+		+ "g.fk_color_p as fk_color_p, ''{3}'' as createdby, current_timestamp as created from tperson p "
+		+ "left join tguest g on p.pk = g.fk_person and g.fk_event = {4} "
 		+ "where p.pk in (select g.fk_person from tguest g "
-		+ "where g.fk_event = {2}) and p.deleted=''f'' and p.pk not in (select g.fk_person from tguest g "
+		+ "where g.fk_event = {4}) and p.deleted=''f'' and p.pk not in (select g.fk_person from tguest g "
 		+ "where g.fk_event = {0});";
 	protected static final MessageFormat ADD_FROM_EVENT_FORMAT = new MessageFormat(ADD_FROM_EVENT_PATTERN);
 
@@ -414,7 +424,7 @@ public class GuestWorker {
 				System.gc();
 			}
 
-			sql = ADD_FROM_EVENT_FORMAT.format( new Object[] { event.id.toString(), ( ( PersonalConfigAA ) cntx.personalConfig() ).getRoleWithProxy(), eventId.toString() } );
+			sql = ADD_FROM_EVENT_FORMAT.format( new Object[] { event.id.toString(), event.invitationtype, EventConstants.TYPE_OHNEPARTNER, ( ( PersonalConfigAA ) cntx.personalConfig() ).getRoleWithProxy(), eventId.toString() } );
 			DB.insert( context, sql );
 			context.commit();
 
@@ -578,7 +588,17 @@ public class GuestWorker {
 		if (event.begin.before(new Date()) && !cntx.requestAsBoolean("calc-serialno").booleanValue()) {
 			questions.put("calc-serialno", "Diese Veranstaltung liegt bereits in der Vergangenheit, möchten Sie trotzdem die Laufende-Nummer neu berechnen?");
 		} else {
-			new GuestSerialNumber.CalcSerialNumberImpl3(database, event).calcSerialNumber();
+			TransactionContext context = database.getTransactionContext();
+			try
+			{
+				( new GuestSerialNumber.CalcSerialNumberImpl3(context, event) ).calcSerialNumber();
+				context.commit();
+			}
+			catch ( BeanException e )
+			{
+				context.rollBack();
+				throw new BeanException( "Die laufende Nummer konnte nicht berechnet werden.", e );
+			}
 		}
 		if (!questions.isEmpty()) {
 			cntx.setContent("listquestions", questions);

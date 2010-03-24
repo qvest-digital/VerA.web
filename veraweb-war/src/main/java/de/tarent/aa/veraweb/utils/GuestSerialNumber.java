@@ -44,6 +44,7 @@ import de.tarent.dblayer.sql.statement.Select;
 import de.tarent.dblayer.sql.statement.Update;
 import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.beans.Database;
+import de.tarent.octopus.beans.ExecutionContext;
 
 /**
  * Diese Klasse sammelt Hilfsklassen zum Ermitteln laufender Nummern f�r G�ste. 
@@ -57,15 +58,15 @@ public class GuestSerialNumber {
      */
 	static public abstract class CalcSerialNumber {
 		protected int orderNo = 0;
-		protected Database database;
+		protected ExecutionContext context;
 		protected Event event;
 		
         /**
          * Dieser Konstruktor �bernimmt Datenbank und Veranstaltung zur
          * Benutzung bei der sp�teren Berechnung laufender G�stenummern. 
          */
-		public CalcSerialNumber(Database database, Event event) {
-			this.database = database;
+		public CalcSerialNumber(ExecutionContext context, Event event) {
+			this.context = context;
 			this.event = event;
 		}
 
@@ -77,12 +78,12 @@ public class GuestSerialNumber {
 		public abstract void calcSerialNumber() throws BeanException, IOException;
 		
 		protected void clearSerialNumber() throws BeanException {
-			Update update = SQL.Update( database ).
+			Update update = SQL.Update( context ).
 					table("veraweb.tguest").
 					update("orderno", null).
 					update("orderno_p", null).
 					where(Expr.equal("fk_event", event.id));
-			database.execute(update);
+			context.execute(update);
 		}
 		
 		protected void setSerialNumber(Map guest) throws BeanException, IOException {
@@ -117,7 +118,7 @@ public class GuestSerialNumber {
 				throw new IOException("wrong invitationtype");
 			}
 			
-			database.execute(SQL.Update( database ).
+			context.execute(SQL.Update( context ).
 					table("veraweb.tguest").
 					update("tguest.orderno", orderno_a).
 					update("tguest.orderno_p", orderno_b).
@@ -125,13 +126,13 @@ public class GuestSerialNumber {
 		}
 		
 		protected void setSerialNumber(Select select) throws BeanException, IOException {
-			for (Iterator it = database.getList(select, database).iterator(); it.hasNext(); ) {
+			for (Iterator it = context.getDatabase().getList(select, context).iterator(); it.hasNext(); ) {
 				setSerialNumber((Map)it.next());
 			}
 		}
 		
 		protected Select getSelect() {
-			return SQL.Select( database ).
+			return SQL.Select( context ).
 					from("veraweb.tguest").
 					selectAs("tguest.pk", "id").
 					selectAs("tguest.invitationtype", "invitationtype").
@@ -156,8 +157,8 @@ public class GuestSerialNumber {
          * Dieser Konstruktor �bernimmt Datenbank und Veranstaltung zur
          * Benutzung bei der sp�teren Berechnung laufender G�stenummern. 
          */
-		public CalcSerialNumberImpl2(Database database, Event event) {
-			super(database, event);
+		public CalcSerialNumberImpl2(ExecutionContext context, Event event) {
+			super(context, event);
 		}
 		
         /**
@@ -175,12 +176,12 @@ public class GuestSerialNumber {
 			clearSerialNumber();
 			calcSerialNumberForGuestRank();
 			
-			Select select = SQL.Select( database ).
+			Select select = SQL.Select( context ).
 					from("veraweb.tcategorie").
 					selectAs("pk", "id").
 					selectAs("flags", "flag").
 					orderBy(Order.asc("rank").andAsc("catname"));
-			for (Iterator it = database.getList(select, database).iterator(); it.hasNext(); ) {
+			for (Iterator it = context.getDatabase().getList(select, context).iterator(); it.hasNext(); ) {
 				Map map = (Map)it.next();
 				if (((Integer)map.get("flag")).intValue() == Categorie.FLAG_DIPLO_CORPS) {
 					calcSerialNumberForDiploCorp((Integer)map.get("id"));
@@ -267,8 +268,8 @@ public class GuestSerialNumber {
          * Dieser Konstruktor �bernimmt Datenbank und Veranstaltung zur
          * Benutzung bei der sp�teren Berechnung laufender G�stenummern. 
          */
-		public CalcSerialNumberImpl3(Database database, Event event) {
-			super(database, event);
+		public CalcSerialNumberImpl3(ExecutionContext context, Event event) {
+			super(context, event);
 		}
 		
         /**
