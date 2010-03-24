@@ -368,16 +368,16 @@ public class GuestListWorker extends ListWorkerVeraWeb {
 		return database.getList(select, database);
 	}
 
-	protected int removeSelection(OctopusContext cntx, List errors, List selection) throws BeanException, IOException {
+	protected int removeSelection(OctopusContext cntx, List errors, List selection, TransactionContext context) throws BeanException, IOException {
 		int count = 0;
 		PersonDetailWorker personDetailWorker = WorkerFactory.getPersonDetailWorker(cntx);
-		Database database = getDatabase(cntx);
+		Database database = context.getDatabase();
 		
 		if (selection == null || selection.size() == 0)
 			return count;
 		
 		// Abfrage ob auch entsprechende Person gel�scht werden soll.
-		Select select = SQL.Select( database ).
+		Select select = SQL.Select( context ).
 				from("veraweb.tguest").
 				selectAs("tguest.pk", "guest").
 				selectAs("tperson.pk", "person").
@@ -389,7 +389,6 @@ public class GuestListWorker extends ListWorkerVeraWeb {
 		Guest guest = new Guest();
 		try
 		{
-			TransactionContext context = database.getTransactionContext();
 			for (Iterator it = database.getList(select, context).iterator(); it.hasNext(); ) {
 				Map data = (Map)it.next();
 				guest.id = (Integer)data.get("guest");
@@ -409,7 +408,7 @@ public class GuestListWorker extends ListWorkerVeraWeb {
 							Expr.equal("fk_event", event.id),
 							Expr.equal("ishost", new Integer(1))))).intValue();
 			if (noHost) {
-				database.execute(SQL.Update( database ).
+				context.execute(SQL.Update( context).
 						table("veraweb.tevent").
 						update("fk_host", null).
 						update("hostname", null).
@@ -422,6 +421,7 @@ public class GuestListWorker extends ListWorkerVeraWeb {
 		}
 		catch( BeanException e )
 		{
+			context.rollBack();
 			throw new BeanException( "Die ausgewählten Gäste konnten nicht gelöscht werden.", e );
 		}
 

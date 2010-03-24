@@ -464,12 +464,12 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 	 * 
 	 * siehe Anwendungsfall: UC.PERSON.LOESCH
 	 */
-	protected int removeSelection(OctopusContext cntx, List errors, List selection) throws BeanException, IOException {
+	protected int removeSelection(OctopusContext cntx, List errors, List selection, TransactionContext context) throws BeanException, IOException {
 		int count = 0;
 		if (selection == null || selection.size() == 0) return count;
 		List selectionRemove = new ArrayList(selection);
 		
-		Database database = getDatabase(cntx);
+		Database database = context.getDatabase();
 		Map questions = new HashMap();
 		
 		List groups = Arrays.asList(cntx.personalConfig().getUserGroups());
@@ -557,7 +557,6 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 		if ((user || admin) && !selectionRemove.isEmpty() && getContextAsBoolean(cntx, "remove-person")) {
 			try
 			{
-				TransactionContext context = database.getTransactionContext();
 				PersonDetailWorker personDetailWorker = WorkerFactory.getPersonDetailWorker(cntx);
 				for (Iterator it = selectionRemove.iterator(); it.hasNext(); ) {
 					Integer id = (Integer)it.next();
@@ -575,6 +574,7 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 			}
 			catch( BeanException e )
 			{
+				context.rollBack();
 				throw new BeanException( "Die ausgewählten Personen konnten nicht gelöscht werden.", e );
 			}
 		}
