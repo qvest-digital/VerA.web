@@ -200,6 +200,7 @@ public class PersonGuestListWorker extends PersonListWorker {
 				select.where(Where.and(clause, Where.or(
 						Expr.greater("lastname_b_e1", ""),
 						Expr.greater("firstname_b_e1", ""))));
+				extendSelectByMultipleCategorySearch( cntx, search, select );
 				for (Iterator it = database.getList(select, database).iterator(); it.hasNext(); ) {
 					invitepartner.add(((Map)it.next()).get("id"));
 				}
