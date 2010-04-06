@@ -257,7 +257,7 @@ public class ImportPersonsWorker {
 		catch ( BeanException e )
 		{
 			context.rollBack();
-			throw e;
+			throw new BeanException( "Die Personendaten konnten nicht importiert werden.", e );
 		}
 	}
 	
