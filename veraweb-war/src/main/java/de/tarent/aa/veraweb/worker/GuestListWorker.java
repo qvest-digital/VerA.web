@@ -29,6 +29,8 @@
 package de.tarent.aa.veraweb.worker;
 
 import java.io.IOException;
+import java.sql.SQLException;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -42,6 +44,7 @@ import de.tarent.aa.veraweb.beans.GuestSearch;
 import de.tarent.aa.veraweb.beans.Person;
 import de.tarent.aa.veraweb.beans.facade.EventConstants;
 import de.tarent.aa.veraweb.utils.DatabaseHelper;
+import de.tarent.dblayer.engine.DB;
 import de.tarent.dblayer.sql.Escaper;
 import de.tarent.dblayer.sql.SQL;
 import de.tarent.dblayer.sql.clause.Expr;
@@ -368,6 +371,72 @@ public class GuestListWorker extends ListWorkerVeraWeb {
 		return database.getList(select, database);
 	}
 
+	/*
+
+	DELETE FROM tguest_doctype WHERE tguest.fk_guest IN ({0});
+
+    personIds = SELECT tperson.pk FROM tperson LEFT JOIN tguest ON tperson.pk = tguest.fk_person WHERE tguest.pk IN ({0}) AND tperson.deleted = ''t''; 
+
+	DELETE FROM tguest WHERE tguest.pk IN ({0});
+
+    COMMIT
+
+    personIds = SELECT tperson.pk FROM tperson WHERE tperson.pk NOT IN (SELECT DISTINCT tguest.fk_person FROM tguest) AND tperson.deleted = ''t''; 
+
+    DELETE FROM tperson WHERE tperson.deleted = ''t'' AND tperson.pk IN ({0}) AND tperson.pk NOT IN (SELECT DISTINCT tguest.fk_person FROM tguest)
+    DELETE FROM tperson_categorie WHERE tperson_categorie.fk_person IN ({0})
+    DELETE FROM tperson_doctype WHERE tperson_doctype.fk_person IN ({0})
+    DELETE FROM tperson_mailinglist WHERE tperson_mailinglist.fk_person IN ({0})
+    UPDATE tevent SET tevent.fk_host = NULL, tevent.hostname = NULL WHERE tevent.fk_host IN ({0}) 
+
+	 */
+
+	private final static String DELETE_ALL_STALE_GUEST_DOCTYPES = 
+		"DELETE FROM tguest_doctype WHERE fk_guest IN ({0})";
+	private final static MessageFormat DELETE_ALL_STALE_GUEST_DOCTYPES_FORMAT = new MessageFormat( DELETE_ALL_STALE_GUEST_DOCTYPES );
+
+	private final static String DELETE_ALL_STALE_GUESTS = 
+		"DELETE FROM tguest WHERE pk IN ({0})";
+	private final static MessageFormat DELETE_ALL_STALE_GUESTS_FORMAT = new MessageFormat( DELETE_ALL_STALE_GUESTS );
+
+	private final static String BULK_INSERT_CHANGELOG_ENTRIES = 
+		"INSERT INTO tchangelog (username, objname, objtype, objid, op, attributes, date) "
+		+ "SELECT DISTINCT "
+		+ "''{0}'' AS username, p.lastname_a_e1 || CASE WHEN p.firstname_a_e1 IS NOT NULL "
+		+ "THEN '', '' || p.firstname_a_e1 ELSE '''' END AS objname, "
+		+ "''de.tarent.aa.veraweb.beans.Guest'' AS objtype, g.pk AS objid, "
+		+ "''delete'' AS op, ''*'' AS attributes, NOW() AS date "
+		+ "FROM tperson p LEFT JOIN tguest g ON g.fk_person = p.pk "
+		+ "WHERE g.pk IN ({1})";
+	private final static MessageFormat BULK_INSERT_CHANGELOG_ENTRIES_FORMAT = new MessageFormat( BULK_INSERT_CHANGELOG_ENTRIES );
+
+	protected int removeSelection(OctopusContext cntx, List errors, List selection, TransactionContext context) throws BeanException, IOException
+	{
+		try
+		{
+			String ids = DatabaseHelper.listsToIdListString( new List[] { selection } );
+			DB.insert( context, DELETE_ALL_STALE_GUEST_DOCTYPES_FORMAT.format( new Object[] { ids } ) );
+			DB.insert( context, DELETE_ALL_STALE_GUESTS_FORMAT.format( new Object[] { ids } ) );
+			DB.insert( context, BULK_INSERT_CHANGELOG_ENTRIES_FORMAT.format( new Object[] { cntx.personalConfig().getLoginname(), ids }	) );
+			context.commit();
+		}
+		catch ( BeanException e )
+		{
+			context.rollBack();
+			throw new BeanException( "Das Löschen aller zum löschen markierten Gäste ist fehlgeschlagen.", e );
+		}
+		catch ( SQLException e )
+		{
+			context.rollBack();
+			throw new BeanException( "Das Löschen aller zum löschen markierten Personen ist fehlgeschlagen.", e );
+		}
+
+		PersonDetailWorker.removeAllDeletedPersonsHavingNoEvent( cntx, context );
+
+		return selection.size();
+	}
+
+/*	
 	protected int removeSelection(OctopusContext cntx, List errors, List selection, TransactionContext context) throws BeanException, IOException {
 		int count = 0;
 		PersonDetailWorker personDetailWorker = WorkerFactory.getPersonDetailWorker(cntx);
@@ -427,6 +496,7 @@ public class GuestListWorker extends ListWorkerVeraWeb {
 
 		return count;
 	}
+*/
 
 	protected void saveBean(OctopusContext cntx, Bean bean, TransactionContext context) throws BeanException, IOException {
 		Database database = context.getDatabase();

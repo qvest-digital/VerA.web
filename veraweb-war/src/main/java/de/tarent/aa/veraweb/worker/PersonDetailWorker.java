@@ -33,6 +33,7 @@ package de.tarent.aa.veraweb.worker;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.text.MessageFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -55,12 +56,11 @@ import de.tarent.aa.veraweb.beans.facade.PersonDoctypeFacade;
 import de.tarent.aa.veraweb.beans.facade.PersonMemberFacade;
 import de.tarent.aa.veraweb.utils.AddressHelper;
 import de.tarent.aa.veraweb.utils.DateHelper;
+import de.tarent.dblayer.engine.DB;
 import de.tarent.dblayer.helper.ResultList;
 import de.tarent.dblayer.sql.SQL;
-import de.tarent.dblayer.sql.SyntaxErrorException;
 import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.clause.Order;
-import de.tarent.dblayer.sql.clause.RawClause;
 import de.tarent.dblayer.sql.clause.Where;
 import de.tarent.dblayer.sql.statement.Insert;
 import de.tarent.dblayer.sql.statement.Select;
@@ -999,6 +999,66 @@ public class PersonDetailWorker implements PersonConstants {
 		else
 		{
 			clogger.logDelete( cntx.personalConfig().getLoginname(), oldPerson );
+		}
+	}
+
+	private final static String DELETE_ALL_STALE_PERSON_CATEGORIES = 
+		"DELETE FROM tperson_categorie WHERE fk_person IN "
+		+ "(SELECT pk FROM tperson WHERE deleted = 't' AND pk NOT IN "
+		+ "(SELECT DISTINCT fk_person FROM tguest))";
+
+	private final static String DELETE_ALL_STALE_PERSON_DOCTYPES = 
+		"DELETE FROM tperson_doctype WHERE fk_person IN "
+		+ "(SELECT pk FROM tperson WHERE deleted = 't' AND pk NOT IN "
+		+ "(SELECT DISTINCT fk_person FROM tguest))";
+
+	private final static String DELETE_ALL_STALE_PERSON_MAILINGLISTS = 
+		"DELETE FROM tperson_mailinglist WHERE fk_person IN "
+		+ "(SELECT pk FROM tperson WHERE deleted = 't' AND pk NOT IN "
+		+ "(SELECT DISTINCT fk_person FROM tguest))";
+
+	private final static String DELETE_ALL_STALE_PERSONS = 
+		"DELETE FROM tperson WHERE deleted = 't' AND pk NOT IN "
+		+ "(SELECT DISTINCT fk_person FROM tguest)";
+
+	private final static String UPDATE_ALL_STALE_EVENT_HOSTS = 
+		"UPDATE tevent SET fk_host = NULL, hostname = NULL WHERE "
+		+ "fk_host IN (SELECT pk FROM tperson WHERE deleted = 't' "
+		+ "AND pk NOT IN (SELECT DISTINCT fk_person FROM tguest))";
+
+	private final static String BULK_INSERT_CHANGELOG_ENTRIES = 
+		"INSERT INTO tchangelog (username, objname, objtype, objid, op, attributes, date) "
+		+ "SELECT DISTINCT "
+		+ "''{0}'' AS username, lastname_a_e1 || CASE WHEN firstname_a_e1 IS NOT NULL "
+		+ "THEN '', '' || firstname_a_e1 ELSE '''' END AS objname, "
+		+ "''de.tarent.aa.veraweb.beans.Person'' AS objtype, pk AS objid, "
+		+ "''delete'' AS op, ''*'' AS attributes, NOW() AS date "
+		+ "FROM tperson WHERE deleted = ''t'' AND pk NOT IN ("
+		+ "SELECT DISTINCT fk_person FROM tguest)";
+	private final static MessageFormat BULK_INSERT_CHANGELOG_ENTRIES_FORMAT = new MessageFormat( BULK_INSERT_CHANGELOG_ENTRIES );
+
+	static void removeAllDeletedPersonsHavingNoEvent(OctopusContext cntx, TransactionContext context) throws BeanException
+	{
+		try
+		{
+			DB.insert( context, DELETE_ALL_STALE_PERSON_CATEGORIES );
+			DB.insert( context, DELETE_ALL_STALE_PERSON_DOCTYPES );
+			DB.insert( context, DELETE_ALL_STALE_PERSON_MAILINGLISTS );
+			DB.insert( context, DELETE_ALL_STALE_PERSON_DOCTYPES );
+			DB.insert( context, DELETE_ALL_STALE_PERSONS );
+			DB.update( context, UPDATE_ALL_STALE_EVENT_HOSTS );
+			DB.insert( context, BULK_INSERT_CHANGELOG_ENTRIES_FORMAT.format( new Object[] { cntx.personalConfig().getLoginname() } ) );
+			context.commit();
+		}
+		catch ( BeanException e )
+		{
+			context.rollBack();
+			throw new BeanException( "Das Löschen aller zum löschen markierten Personen ist fehlgeschlagen.", e );
+		}
+		catch ( SQLException e )
+		{
+			context.rollBack();
+			throw new BeanException( "Das Löschen aller zum löschen markierten Personen ist fehlgeschlagen.", e );
 		}
 	}
 }

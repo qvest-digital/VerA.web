@@ -250,6 +250,23 @@ public class EventListWorker extends ListWorkerVeraWeb {
 				count++;
 			}
 		}
+
+		try
+		{
+			// will commit here so that the following call to 
+			// PersonDetailWorker.removeAllDeletedPersonsHavingNoEvent()
+			// succeeds
+			context.commit();
+		}
+		catch ( BeanException e )
+		{
+			context.rollBack();
+			throw new BeanException( "Die Veranstaltungen konnten nicht gelöscht werden.", e );
+		}
+
+		// must also remove all persons marked for deletion, when possible
+		PersonDetailWorker.removeAllDeletedPersonsHavingNoEvent( cntx, context );
+
 		return count;
 	}
 
