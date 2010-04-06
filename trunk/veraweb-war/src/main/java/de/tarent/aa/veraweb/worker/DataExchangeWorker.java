@@ -332,6 +332,9 @@ public class DataExchangeWorker {
 	        importer.importAll(digester);
 	        
         	context.commit();
+
+        	// force gc after import
+        	System.gc();
             return digester.getImportStats();
         } catch (Exception e) {
         	logger.error("Fehler beim Import aufgetreten.", e);

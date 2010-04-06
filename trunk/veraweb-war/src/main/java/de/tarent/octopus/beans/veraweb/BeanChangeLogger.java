@@ -106,6 +106,12 @@ public class BeanChangeLogger {
 	@SuppressWarnings("unchecked")
 	public void logUpdate( String username, Bean o, Bean n ) throws BeanException, IOException
 	{
+		// FIXME dirty hack due to some routines taking too much memory, resulting
+		// in null objects being passed
+		if ( o == null || n == null )
+		{
+			return;
+		}
 		if ( ! o.getClass().equals( n.getClass() ) )
 		{
 			throw new IllegalArgumentException( "Beans o and n must be of the same type." );
@@ -164,6 +170,12 @@ public class BeanChangeLogger {
 	 */
 	public void logInsert( String username, Bean o ) throws BeanException, IOException
 	{
+		// FIXME dirty hack due to some routines taking too much memory, resulting
+		// in null objects being passed
+		if ( o == null )
+		{
+			return;
+		}
 		ChangeLogEntry entry = this.createNewChangeLogEntryInstance( "insert", username, determineObjectName( o ), o.getClass().getName(), ( Integer ) o.getField( "id" ), "*" );
 		this.insertLogEntry( entry );
 	}
@@ -176,6 +188,12 @@ public class BeanChangeLogger {
 	 */
 	public void logDelete( String username, Bean o ) throws BeanException, IOException
 	{
+		// FIXME dirty hack due to some routines taking too much memory, resulting
+		// in null objects being passed
+		if ( o == null )
+		{
+			return;
+		}
 		ChangeLogEntry entry = this.createNewChangeLogEntryInstance( "delete", username, determineObjectName( o ), o.getClass().getName(), ( Integer ) o.getField( "id" ), "*" );
 		this.insertLogEntry( entry );
 	}

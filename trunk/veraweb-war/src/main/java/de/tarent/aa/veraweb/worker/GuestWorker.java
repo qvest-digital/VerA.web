@@ -49,6 +49,7 @@ import de.tarent.aa.veraweb.beans.PersonDoctype;
 import de.tarent.aa.veraweb.beans.facade.EventConstants;
 import de.tarent.aa.veraweb.beans.facade.PersonAddressFacade;
 import de.tarent.aa.veraweb.beans.facade.PersonMemberFacade;
+import de.tarent.aa.veraweb.utils.DatabaseHelper;
 import de.tarent.aa.veraweb.utils.GuestSerialNumber;
 import de.tarent.dblayer.engine.DB;
 import de.tarent.dblayer.engine.Result;
@@ -121,36 +122,6 @@ public class GuestWorker {
 		+ "where fk_person={3} and fk_event={4};";
 	protected static final MessageFormat UPDATE_PERSON_TO_GUEST_LIST_FORMAT = new MessageFormat(UPDATE_PERSON_TO_GUEST_LIST_PATTERN);
 
-	private String listToIdListString(List main, List partner, List reserve)
-	{
-		StringBuffer result = new StringBuffer();
-		Set<Integer> coalesced = new HashSet<Integer>();
-
-		/* coalesce all of main, partner and reserve into a single identity set
-		   this fixes an issue where the user can select either partner or reserve
-		   but not the main contact, which would result in the person not being
-		   invited.
-		 */
-		coalesced.addAll( main );
-		coalesced.addAll( partner );
-		coalesced.addAll( reserve );
-
-		Iterator< Integer > i = coalesced.iterator();
-		while ( i.hasNext() )
-		{
-			result.append( i.next() );
-			result.append( ',' );
-		}
-
-		if ( result.length() > 0 )
-		{
-			result.setLength( result.length() - 1 );
-			return result.toString();
-		}
-
-		return "NULL";
-	}
-
 	public void addGuestList(OctopusContext cntx) throws BeanException, IOException
 	{
 		Database database = new DatabaseVeraWeb(cntx);
@@ -168,7 +139,7 @@ public class GuestWorker {
 				invitecategory = new HashMap();
 			}
 
-			String personIds = this.listToIdListString( invitemain, invitepartner, selectreserve );
+			String personIds = DatabaseHelper.listsToIdListString( new List[] { invitemain, invitepartner, selectreserve } );
 			String sql = COUNT_INVITED_NOT_INVITED_2_FORMAT.format( new Object[] { event.id.toString(), personIds } );
 			Result res = DB.result( context, sql );
 
@@ -242,6 +213,8 @@ public class GuestWorker {
 			sql = UPDATE_GUEST_DOCUMENT_TYPES_FORMAT.format( new Object[] { event.id.toString() } );
 			context.commit();
 			DB.insert( context, sql );
+
+			// TODO bulk log guest create event
 
 			// prevent alert message in case of invited == 0 and notinvited == 0
 			cntx.setContent("doNotAlert", true);
@@ -431,6 +404,8 @@ public class GuestWorker {
 			sql = UPDATE_GUEST_DOCUMENT_TYPES_FORMAT.format( new Object[] { event.id.toString() } );
 			context.commit();
 			DB.insert( context, sql );
+
+			// TODO bulk log guest create event
 		}
 		catch ( SQLException e )
 		{
