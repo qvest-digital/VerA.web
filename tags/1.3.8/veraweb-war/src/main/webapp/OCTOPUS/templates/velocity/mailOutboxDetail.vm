@@ -1,0 +1,98 @@
+#if($mailoutbox && $mailoutbox.id)
+#set($title = "E-Mail bearbeiten")
+#else
+#set($title = "Neue E-Mail anlegen")
+#end
+#parse("inc/header.vm")
+
+<form id="formlist" name="formlist" action="" method="POST">
+<input type="hidden" name="save" value="true">
+
+<table class="tab" border="0" cellspacing="0" cellpadding="0"><tr>
+	<td class="tableft">&nbsp;</td>
+	<td class="tabactiv"><span class="tabactiv">Postausgang</span></td>
+	<td class="tabright">&nbsp;</td>
+</tr></table>
+
+#openContent()
+#openContentSection()
+
+#if($mailoutbox.errors.size() > 0 || $mailoutbox.status == $mailoutbox.STATUS_ERROR || ($mailoutbox.errortext && $mailoutbox.errortext.length() > 0))
+<div style="margin: 0px 0px 10px 0px; padding: 10px 10px 10px 10px; background-color: #ffffff; border: 2px solid #ff0000;">
+	#if($mailoutbox.errors.size() > 0)
+		$mailoutbox.errors.get(0)<br>
+	#end
+	#if($mailoutbox.status > 10 || ($mailoutbox.errortext && $mailoutbox.errortext.length() > 0))
+		Beim Versenden dieser E-Mail ist ein Fehler aufgetreten.
+		Sie k&ouml;nnen diese jetzt bearbeiten und erneut senden.
+	#end
+</div>
+#elseif($mailoutbox.status == 1)
+<div style="margin: 0px 0px 10px 0px; padding: 2px 3px 2px 3px; background-color: #ffffff; border: 2px solid #00ff00;">
+	Diese E-Mail wartet auf ihre Fertigstellung durch einen Benutzer.
+</div>
+#elseif($mailoutbox.status == 2)
+<div style="margin: 0px 0px 10px 0px; padding: 2px 3px 2px 3px; background-color: #ffffff; border: 2px solid #00ff00;">
+	Diese E-Mail wartet auf ihre Versendung.
+</div>
+#elseif($mailoutbox.status == 3)
+<div style="margin: 0px 0px 10px 0px; padding: 2px 3px 2px 3px; background-color: #ffffff; border: 2px solid #ff0000;">
+	Diese E-Mail wird gerade versendet und sollte <strong>nicht bearbeitet</strong> werden.
+</div>
+#elseif($mailoutbox.status == 4)
+<div style="margin: 0px 0px 10px 0px; padding: 2px 3px 2px 3px; background-color: #ffffff; border: 2px solid #ff0000;">
+	Diese E-Mail wurde bereits versendet und sollte <strong>nicht mehr bearbeitet</strong> werden.
+</div>
+#end
+
+<input type="hidden" name="mailoutbox-id" value="$!mailoutbox.id">
+
+<table class="form"><tr>
+	<td class="label"><label for="show-id">ID:</label></td>
+	<td class="value"><input type="text" id="show-id" name="show-id" value="$!message.text($mailoutbox.id)" class="id" readonly></td>
+</tr><tr>
+	<td class="label"><label for="mailoutbox-from">Von:</label></td>
+	<td class="value"><input type="text" id="mailoutbox-from" name="mailoutbox-from" value="$!message.text($mailoutbox.from)" class="text"></td>
+</tr><tr>
+	<td class="label"><label for="mailoutbox-to">An:</label></td>
+	<td class="value"><input type="text" id="mailoutbox-to" name="mailoutbox-to" value="$!message.text($mailoutbox.to)" class="text"></td>
+</tr><tr>
+	<td class="label"><label for="mailoutbox-subject">Betreff:</label></td>
+	<td class="value"><input type="text" id="mailoutbox-subject" name="mailoutbox-subject" value="$!message.text($mailoutbox.subject)" class="text"></td>
+</tr><tr>
+	<td class="label"><label for="mailoutbox-text">Text:</label></td>
+	<td class="value"><textarea cols="20" rows="20" id="mailoutbox-text" name="mailoutbox-text" class="text">$!message.textarea($mailoutbox.text)</textarea></td>
+#if($mailoutbox.status == $mailoutbox.STATUS_ERROR || ($mailoutbox.errortext && $mailoutbox.errortext.length() > 0))
+</tr><tr>
+	<td class="label">Fehlerbeschreibung:</td>
+	<td class="value">
+		<a id="show-errorlink" href="javascript:showBlock(document.getElementById('show-errortext')); hideBlock(document.getElementById('show-errorlink'));" style="display: block; margin: 5px 0px 5px 0px;">technische Fehlermeldung einblenden</a>
+		<div id="show-errortext" name="show-errortext" style="display: none; margin: 5px 0px 5px 0px;">
+		<a href="javascript:showBlock(document.getElementById('show-errorlink')); hideBlock(document.getElementById('show-errortext'));" style="display: block; margin: 5px 0px 5px 0px;">technische Fehlermeldung ausblenden</a>
+		$!message.plain($mailoutbox.errortext)
+		</div>
+	</td>
+#end
+</tr></table>
+
+#if ($listparam.count == 0)
+	<br>Keine Daten gefunden.
+#end
+
+<div id="fixme" class="fixme1"><div class="fixme2"><div class="fixme3">
+
+	#parse("inc/list-navi.vm")
+	#parse("inc/list-direct.vm")
+
+	<input type="submit" name="submit" value="Speichern" class="button"> &nbsp;
+	<input type="reset"  name="clear"  value="Zur&uuml;cksetzen" class="reset"> &nbsp;
+	<input type="button" name="cancel" value="Zur&uuml;ck" class="button" onclick="window.location.href='MailOutboxList';"> &nbsp;
+
+</div></div></div>
+
+#closeContentSection()
+#closeContent()
+
+</form>
+
+#parse("inc/footer.vm")

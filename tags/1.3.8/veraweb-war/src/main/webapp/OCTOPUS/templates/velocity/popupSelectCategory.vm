@@ -1,0 +1,126 @@
+## Popup zur Auswahl einer oder keiner Kategorie
+## cklein
+## 2008-02-28
+
+<html>
+
+<head>
+	<title>Wählen Sie eine oder keine Kategorie</title>
+	<link rel="stylesheet" type="text/css" href="${paths.staticWeb}styles/default.css" media="all">
+	<link rel="stylesheet" type="text/css" href="${paths.staticWeb}styles/screen.css" media="screen,projection" title="Ausw&auml;rtiges Amt Intranet-Stil">
+	<script type="text/javascript" src="/veraweb/scripts/dhtml-popup.js"></script>
+	<script type="text/javascript">
+		var oldState = { categoryId : null, actionName : null };
+
+		function selected( elt )
+		{
+			window.opener.document.forms[ "formlist" ].elements[ "categoryAssignmentId" ].value = elt.options[ elt.selectedIndex ].value;
+			window.opener.document.forms[ "formlist" ].elements[ "categoryAssignmentAction" ].value = "${assignmentAction}";
+		}
+
+		function restore()
+		{
+			window.opener.document.forms[ "formlist" ].elements[ "categoryAssignmentId" ].value = oldState.categoryId;
+			window.opener.document.forms[ "formlist" ].elements[ "categoryAssignmentAction" ].value = oldState.actionName;
+		}
+
+		function initialize()
+		{
+			oldState.categoryId = window.opener.document.forms[ "formlist" ].elements[ "categoryAssignmentId" ].value;
+			oldState.actionName = window.opener.document.forms[ "formlist" ].elements[ "categoryAssignmentAction" ].value;
+		}
+
+		function send()
+		{
+#if( $assignmentAction == "assign" )
+#if( $count == 1 )
+			doit = confirm( "Wollen Sie diese Person bzw. diesen Gast der ausgewählten Kategorie zuordnen?" );
+#else
+			doit = confirm( "Wollen Sie ${count} Personen bzw. Gäste der ausgewählten Kategorie zuordnen?" );
+#end
+#else
+#if( $count == 1)
+			doit = confirm( "Wollen Sie diese Personen bzw. diesen Gast aus der ausgewählten Kategorie entfernen?" );
+#else
+			doit = confirm( "Wollen Sie ${count} Personen bzw. Gäste aus der ausgewählten Kategorie entfernen?" );
+#end
+#end
+			if ( doit )
+			{
+				window.opener.document.forms[ "formlist" ].submit();
+			}
+		}
+		
+		function adjustSize()
+		{
+			var elt = document.getElementById( "category" );
+			var minWidth = 400;
+			var newWidth = elt ? elt.offsetWidth : minWidth;
+			if ( newWidth < minWidth )
+			{
+				newWidth = minWidth;
+			}
+			if( window.innerWidth < newWidth )
+			{
+				// add fixed margins + paddings
+				newWidth += 100;
+			}
+			window.resizeTo( newWidth, document.body.offsetHeight + 20 );
+		}
+	</script>
+</head>
+
+<body onload="adjustSize();">
+
+<form>
+<table class="tab" border="0" cellspacing="0" cellpadding="0"><tr><td class="tableft">&nbsp;</td></tr></table>
+
+<div class="content" id="content">
+	<div class="contentsection" style="padding:0 8;">
+		<strong>Wählen Sie eine Kategorie aus, welche Sie
+	#if( $assignmentAction == "assign" )
+		zuweisen
+	#else
+		entfernen
+	#end
+	möchten:</strong>
+	</div>
+	<div class="contentsection" style="padding:0 8;">
+	#if( $allCategorie.size() > 0 )
+		<label for="category">Kategorie:</label>
+		<select name="category" id="category" onChange="selected(this);">
+		<option value="">
+	#if( $assignmentAction == "unassign" )
+		<option value="0">Alle entfernen
+	#end
+		#foreach( $category in $allCategorie )
+		<option value="${category.id}">${category.name}
+		#end
+		</select>
+	#else
+	    Sie haben keine Kategorien konfiguriert. Diese können Sie im Verwaltungsbereich unter dem Punkt <em>Kategorien</em> definieren.
+	#end
+	</div>
+	<hr class="contentsection">
+	<div class="contentsection" style="padding:0 8;text-align: right;">
+		<input type="button" value="Abbrechen" onClick="restore();closePopup();">&nbsp;
+#if( $assignmentAction == "assign" && $allCategorie.size() > 0 )
+		<input type="button" value="Zuweisen" onClick="send();closePopup();">
+#elseif ( $allCategorie.size() > 0 )
+		<input type="button" value="Entfernen" onClick="send();closePopup();">
+#end
+	</div>
+</div>
+</form>
+
+<table class="list">
+	<tr style="height: 20px;">
+		<td class="list2warn" style="text-align: center; width: 60px;"><strong>Hinweis</strong></td>
+		<td class="list1warn">
+			Sie haben ${count} Person(en) ausgewählt. Abhängig von der Anzahl
+			der ausgewählten Personen kann die Aktion eine gewisse Zeit in Anspruch nehmen.
+		</td>
+	</tr>
+</table>
+</body>
+</html>

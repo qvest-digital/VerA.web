@@ -1,0 +1,171 @@
+#set($title = "Export von Personendaten")
+#parse("inc/header.vm")
+
+<table class="tab" border="0" cellspacing="0" cellpadding="0"><tr>
+	<td class="tableft">&nbsp;</td>
+	<td class="tabactiv"><span class="tabactiv">Export</span></td>
+	<td class="tabright">&nbsp;</td>
+</tr></table>
+
+#openContent()
+#openContentSection()
+
+<form action="ExportPersonsHandler/veraweb.export" name="formExport" method="post">
+<table class="form">
+<tr>
+	<td style="width: 20px;"><input type="radio" name="exportFilter" id="exportFilterEvent" value="event" onclick="return filterChanged()"></td>
+	<td class="label"><label for="exportFilterEvent">Veranstaltung:</label></td>
+	<td class="value" align="right">
+		<select id="exportEvent" name="exportEvent" class="combobox">
+		
+		#
+		# cklein 2009-07-16: fixes issue 1815 - although option "Alle" yielded no return value
+		# the octopus version in use made it a valid integer object of value 0, which broke
+		# existing code relying on the fact that the request parameter would be null. 
+		#
+			<option value="0">Alle</option>
+			<option value="-1">Keine</option>
+#foreach($event in $allEvent)
+			<option value="$!event.id">$!message.text($event.shortname)</option>
+#end
+		</select>
+	</td>
+</tr><tr>
+	<td style="width: 20px;"><input type="radio" name="exportFilter" id="exportFilterCategory" value="category" onclick="return filterChanged()"></td>
+	<td class="label"><label for="exportFilterCategory">Kategorie:</label></td>
+	<td class="value" align="right">
+		<select name="exportCategory" id="exportCategory" class="combobox">
+		#
+		# cklein 2009-07-16: fixes issue 1815 - although option "Alle" yielded no return value
+		# the octopus version in use made it a valid integer object of value 0, which broke
+		# existing code relying on the fact that the request parameter would be null. 
+		#
+			<option value="0">Alle</option>
+			<option value="-1">ohne</option>
+#foreach($category in $allCategorie)
+			<option value="$!category.id">$!message.text($category.name)</option>
+#end
+		</select>
+	</td>
+</tr><tr>
+	<td style="width: 20px;"></td>
+	<td class="label"><label for="format">Dateityp:</label></td>
+	<td class="value" align="right">
+		<select name="format" id="format" class="combobox" onchange="return formatChanged();">
+#foreach($formatKey in $formats.keySet())
+ #set($format = $formats.get($formatKey))
+			<option value="$formatKey">$format.name ($format.description)</option>
+#end
+		</select>
+	</td>
+</tr><tr xstyle="line-height: auto;">
+	<td style="width: 20px;"></td>
+	<td class="label"></td>
+	<td class="value">
+#set($style = '')
+#foreach($formatKey in $formats.keySet())
+ #set($format = $formats.get($formatKey))
+		<div $style id="format-$formatKey">
+  #if($format.properties.containsKey("choices"))
+   #set($choices = $format.properties.get("choices"))
+			<fieldset class="format"><legend>$format.name: weitere Optionen</legend>
+    			<table class="form" width="100%">
+   #foreach($choiceKey in $choices.keySet())
+    #set($choice = $choices.get($choiceKey))
+    				<tr>
+						<td class="label"><label for="format-${formatKey}-$choiceKey">$!choice.get("label"):</label></td>
+						<td class="value">
+    #set($default = $choice.get("default"))
+    #if($choice.containsKey("select"))
+     #set($select = $choice.get("select"))
+							<select name="format-${formatKey}-$choiceKey" id="format-${formatKey}-$choiceKey" class="combobox">
+     #foreach($selectKey in $select.keySet())
+								<option value="$selectKey"#if($selectKey==$default) selected#end>$select.get($selectKey)</option>
+     #end
+							</select>
+    #else
+    						<input type="text" name="format-${formatKey}-$choiceKey" id="format-${formatKey}-$choiceKey" value="$!default" class="text">
+    #end
+						</td>
+    				</tr>
+   #end
+    			</table>
+			</fieldset>
+  #end
+  #if($format.properties.containsKey("remarks"))
+   #set($remarks = $format.properties.get("remarks"))
+			<fieldset class="format">
+   #if($remarks.size() == 1)
+   				<legend>$format.name: Anmerkung</legend>
+   #else
+   				<legend>$format.name: Anmerkungen</legend>
+   #end
+   #foreach($remark in $remarks)
+				<p>$remark</p>
+   #end
+			</fieldset>
+  #end
+		</div>
+ #set($style = 'style="display:none;"')
+#end
+<script type="text/javascript">
+	function formatChanged() {
+#foreach($formatKey in $formats.keySet())
+		document.getElementById('format-$formatKey').style.display = 'none';
+#end
+		document.getElementById('format-' + document.formExport.format.options[document.formExport.format.options.selectedIndex].value).style.display = '';
+		return true;
+	}
+</script>
+	</td>
+</tr>
+<tr>
+	<td style="width: 20px;"></td>
+	<td class="label">&nbsp;</td>
+	<td class="value" colspan="3">
+		<input name="submit" type="submit" value="Starten" class="submit">
+	</td>
+</tr></table>
+
+## see DataExchangeWorker#export
+#if($domain && $domain == "all" && $grants.isAdmin())
+<table class="list" style="margin-top: 15px;">
+	<tr class="list2warn" style="height: 18px;">
+		<td class="list2warn" style="text-align: center; width: 100px;"><strong>Achtung</strong></td>
+		<td class="list1warn" style="padding-left: 8px;">
+			Sie sind als &quot;Voll-Administrator&quot; angemeldet und exportieren hiermit Mandanten&uuml;bergreifend.
+		</td>
+	</tr>
+</table>
+#else
+<table class="list" style="margin-top: 15px;">
+	<tr class="list2warn" style="height: 18px;">
+		<td class="list2warn" style="text-align: center; width: 100px;"><strong>Hinweis</strong></td>
+		<td class="list1warn" style="padding-left: 8px;">
+			Sie exportieren mit dieser Funktion ausschlie&szlig;lich Personen aus Ihrem aktuellen Mandanten.
+		</td>
+	</tr>
+</table>
+#end
+</form>
+<script type="text/javascript">
+	document.formExport.exportFilter[0].click();
+	function filterChanged() {
+		if (document.formExport.exportFilter[0].checked) {
+			document.getElementById("exportEvent").disabled = false;
+			document.getElementById("exportCategory").disabled = true;
+			document.getElementById("exportEvent").focus();
+		} else {
+			document.getElementById("exportEvent").disabled = true;
+			document.getElementById("exportCategory").disabled = false;
+			document.getElementById("exportCategory").focus();
+		}
+		return true;
+	}
+</script>
+
+#closeContentSection()
+#closeContent()
+<hr class="footline">
+
+#parse("inc/footer.vm")

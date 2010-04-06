@@ -1,0 +1,208 @@
+#set($title = "Import von Personendaten")
+#parse("inc/header.vm")
+
+<table class="tab" border="0" cellspacing="0" cellpadding="0"><tr>
+	<td class="tableft">&nbsp;</td>
+	<td class="tabactiv"><span class="tabactiv">Import</span></td>
+	<td class="tabright">&nbsp;</td>
+</tr></table>
+
+#openContent()
+#openContentSection()
+
+#if($errors.size() > 0 || $importStatus.invalidData)
+<div style="margin: 10px 0px 10px 0px; padding: 10px 10px 10px 10px; background-color: #ffffff; border: 2px solid #ff0000;">
+	#if($importStatus.invalidData == "importSource")
+		Sie haben keine Datenherkunft angegeben.
+	#elseif($importStatus.invalidData == "fileExtension")
+		#if($importStatus.fileextension == "ods")
+			Sie haben versucht eine StarOffice bzw. OpenOffice-Datei zu importieren.
+			Der direkte Import ist in der aktuellen Version von VerA.web leider nicht m&ouml;glich.
+			Bitte speichern Sie diese Datei zuerst mit Ihrem Tabellenkalkulationsprogramm als .csv-Datei ab.
+		#elseif($importStatus.fileextension == "sxc")
+			Sie haben versucht eine StarOffice bzw. OpenOffice-Datei zu importieren.
+			Der direkte Import ist in der aktuellen Version von VerA.web leider nicht m&ouml;glich.
+			Bitte speichern Sie diese Datei zuerst mit Ihrem Tabellenkalkulationsprogramm als .csv-Datei ab.
+		#elseif($importStatus.fileextension == "xls")
+			Sie haben versucht eine Microsoft Excel-Datei zu importieren.
+			Der direkte Import von Excel-Dokumenten ist in der aktuellen Version von VerA.web leider nicht m&ouml;glich.
+Bitte speichern Sie diese Datei zuerst mit Ihrem Tabellenkalkulationsprogramm als .csv-Datei ab.
+		#elseif($importStatus.fileextension == "pdf")
+			Sie haben versucht eine PDF-Datei zu importieren.
+			Dies ist in der aktuellen Version von VerA.web leider nicht m&ouml;glich.
+		#elseif($importStatus.fileextension == "zip")
+			Sie haben versucht eine ZIP-Datei zu importieren.
+			Dies ist in der aktuellen Version von VerA.web leider nicht m&ouml;glich.
+		#elseif($importStatus.fileextension == "exe")
+			Sie haben versucht eine EXE-Datei zu importieren.
+			Dies ist in der aktuellen Version von VerA.web leider nicht m&ouml;glich.
+		#else
+			Sie haben versucht eine Datei mit der Endung
+			$importStatus.fileextension zu importieren.
+			Dies ist in der aktuellen Version von VerA.web leider nicht m&ouml;glich.
+		#end
+	#elseif($importStatus.invalidData == "inputStream")
+		Sie haben keine Datei ausgew&auml;hlt oder diese war leer.
+	#elseif($importStatus.invalidData == "errorOnImport")
+		Es ist ein unerwarteter Fehler beim importieren einer Datei aufgetreten.<br>
+		Vermutlich befindet sich die Import-Datei nicht im vom System erwartem Format.<br><br>
+		
+		Fehlermeldung: <em>&quot;$message.plain($importStatus.message)&quot;</em> &nbsp;&nbsp;&nbsp;
+		(<a href="javascript:showBlock(document.getElementById('javastacktrace'));">Details anzeigen</a>)
+
+<pre id="javastacktrace" style="display: none;">
+
+$importStatus.exception
+</div>
+	
+	#end
+	
+	#foreach($error in $errors)
+		$error<br>
+	#end
+</div>
+#end
+
+##<h1>Neue Datei importieren</h1>
+<form action="ImportPersonsFile" method="post" enctype="multipart/form-data" name="formImport" id="formImport" >
+<table class="form">
+<tr>
+	<td class="label"><label for="importSource">Datenherkunft:</label></td>
+	<td class="value" align="right">
+	    <input type="text" name="importSource" id="importSource" value="$!message.text($importSource)" class="text">
+	</td>
+</tr>
+#if($grants && $grants.isAdmin() && $allOrgUnit)
+<tr style="height: 25px;">
+	<td class="label"><label for="orgUnit">Zielmandant:</label></td>
+	<td class="value" align="right">
+		<select name="orgUnit" id="orgUnit" class="combobox">
+ #foreach($orgunit in $allOrgUnit)
+			<option value="$orgunit.id" #if($octopusConfig.personalConfig.orgUnitId == $orgunit.id)selected#end>$orgunit.name</option>
+ #end
+		</select>
+	</td>
+</tr>
+#end
+<tr style="height: 25px;">
+	<td class="label"><label for="importfile">Import-Datei:</label></td>
+	<td class="value" align="right">
+	    <input name="importfile" id="importfile" type="file" size="30" maxlength="100000" accept="text/*" class="file">
+	</td>
+</tr>
+<tr style="height: 25px;">
+	<td class="label"><label for="format">Dateityp:</label></td>
+	<td class="value" align="right">
+		<select name="format" id="format" class="combobox" onchange="return formatChanged();">
+#foreach($formatKey in $formats.keySet())
+ #set($format = $formats.get($formatKey))
+			<option value="$formatKey">$format.name ($format.description)</option>
+#end
+		</select>
+	</td>
+</tr><tr xstyle="line-height: auto;">
+	<td class="label"></td>
+	<td class="value">
+#set($style = '')
+#foreach($formatKey in $formats.keySet())
+ #set($format = $formats.get($formatKey))
+		<div $style id="format-$formatKey">
+  #if($format.properties.containsKey("choices"))
+   #set($choices = $format.properties.get("choices"))
+			<fieldset class="format"><legend>$format.name: weitere Optionen</legend>
+    			<table class="form" width="100%">
+   #foreach($choiceKey in $choices.keySet())
+    #set($choice = $choices.get($choiceKey))
+    				<tr>
+						<td class="label"><label for="format-${formatKey}-$choiceKey">$!choice.get("label"):</label></td>
+						<td class="value">
+    #set($default = $choice.get("default"))
+    #if($choice.containsKey("select"))
+     #set($select = $choice.get("select"))
+							<select name="format-${formatKey}-$choiceKey" id="format-${formatKey}-$choiceKey" class="combobox">
+     #foreach($selectKey in $select.keySet())
+								<option value="$selectKey"#if($selectKey==$default) selected#end>$select.get($selectKey)</option>
+     #end
+							</select>
+    #else
+    						<input type="text" name="format-${formatKey}-$choiceKey" id="format-${formatKey}-$choiceKey" value="$!default" class="text">
+    #end
+						</td>
+    				</tr>
+   #end
+    			</table>
+			</fieldset>
+  #end
+		</div>
+ #set($style = 'style="display:none;"')
+#end
+<script type="text/javascript">
+	function formatChanged() {
+#foreach($formatKey in $formats.keySet())
+		document.getElementById('format-$formatKey').style.display = 'none';
+#end
+		document.getElementById('format-' + document.formImport.format.options[document.formImport.format.options.selectedIndex].value).style.display = '';
+		return true;
+	}
+</script>
+	</td>
+</tr>
+<tr>
+	<td class="label">&nbsp;</td>
+	<td class="value">
+		<input name="start" type="button" value="Starten" class="submit" onclick="askStart()">
+	</td>
+</tr></table>
+
+<table class="list" style="margin-top: 15px;">
+	<tr class="list2warn" style="height: 18px;">
+		<td class="list2warn" style="text-align: center; width: 100px;"><strong>Hinweis</strong></td>
+		<td class="list1warn" style="padding-left: 8px;">
+			Beim Import k&ouml;nnen Feldinhalte, die l&auml;nger als bei VerA.web
+			vorgesehen sind, gek&uuml;rzt &uuml;bernommen werden.
+		</td>
+	</tr>
+</table>
+</form>
+<script type="text/javascript">
+##Hinweis und Rueckfrage vor dem Import
+
+	function askStart() {
+		htmlConfirm('Alle Dokumenttypen der zu importierenden Personen m&uuml;ssen im System vorhanden sein. Soll der Import jetzt gestartet werden?', new Array('Ja', 'Nein'), new Array("askStartYes();", "askStartNo();"));
+	} 
+	function askStartYes() {
+		hideDialogs();
+		showComboboxes();
+		htmlWait();
+		document.getElementById('formImport').submit();
+	}
+	function askStartNo() {
+		hideDialogs();
+		showComboboxes();
+	}
+</script>
+
+##<!-- Bug 1362: Die Möglichkeit, einen bestehenden Exportvorgang zu laden, ist vom AA nicht gewünscht -->
+##<br>
+##<hr class="contentsection" />
+##<br>
+##<h1>Bestehenden Importvorgang laden</h1>
+##<form action="ImportPersonsStoredRecord" method="post" enctype="multipart/form-data">
+##<table class="form"><tr>
+##	<td class="label"><label for="importId">Import-ID:</label></td>
+##	<td class="value" align="right">
+##	    <input type="text" name="importId" id="importId" value="" class="text">
+##	</td>
+##</tr><tr>
+##	<td class="label">&nbsp;</td>
+##	<td class="value">
+##		<input name="submit" type="submit" value="Laden" class="submit">
+##	</td>
+##</tr></table>
+##</form>
+
+#closeContentSection()
+#closeContent()
+<hr class="footline">
+
+#parse("inc/footer.vm")
