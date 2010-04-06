@@ -25,7 +25,10 @@
 
 package de.tarent.aa.veraweb.utils;
 
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import de.tarent.dblayer.sql.Format;
 import de.tarent.dblayer.sql.clause.Clause;
@@ -125,5 +128,36 @@ public class DatabaseHelper {
 		} else {
 			return null;
 		}
+	}
+
+	public static String listsToIdListString(List[] lists)
+	{
+		StringBuffer result = new StringBuffer();
+		Set<Integer> coalesced = new HashSet<Integer>();
+
+		/* coalesce all of main, partner and reserve into a single identity set
+		   this fixes an issue where the user can select either partner or reserve
+		   but not the main contact, which would result in the person not being
+		   invited.
+		 */
+		for ( int i = 0; i < lists.length; i++ )
+		{
+			coalesced.addAll(lists[i]);
+		}
+
+		Iterator< Integer > i = coalesced.iterator();
+		while ( i.hasNext() )
+		{
+			result.append( i.next() );
+			result.append( ',' );
+		}
+
+		if ( result.length() > 0 )
+		{
+			result.setLength( result.length() - 1 );
+			return result.toString();
+		}
+
+		return "NULL";
 	}
 }
