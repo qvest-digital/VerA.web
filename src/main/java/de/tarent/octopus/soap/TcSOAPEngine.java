@@ -323,8 +323,11 @@ public class TcSOAPEngine {
      * @throws SAXException
      */
     private Map headerPartToMap(MessageElement headerPart) throws SAXException {
-    	// test if child elements are present, pretending no elements follow if the first child is a text node
-    	if (headerPart.getFirstChild().getNodeType() != Node.TEXT_NODE) {
+    	// test if child elements are present, pretending no elements follow if the first child is a text node 
+    	Node firstChild = headerPart.getFirstChild();
+    	if (firstChild == null)
+    		return null;
+    	if (firstChild.getNodeType() != Node.TEXT_NODE) {
     		List subheaderNodes = headerPart.getChildren();
     		List subheaderList= new ArrayList(subheaderNodes.size());
     		Iterator iter = subheaderNodes.iterator();
