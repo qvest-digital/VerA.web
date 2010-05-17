@@ -17,7 +17,7 @@
 #set($workarea = "")
 #foreach($bean in $guestlist)
 
-## cf. issue #2314 -- must not be grouped by categories
+## cf. issue #2207 -- must not be grouped by categories
 ##	#if(($bean && $bean.category && $bean.category != $category) || (!$bean.category))
 ##		#if(!$bean.category && $category != "")
 ##			#set($category = "")
