@@ -16,17 +16,19 @@
 #set($category = "")
 #set($workarea = "")
 #foreach($bean in $guestlist)
-	#if(($bean && $bean.category && $bean.category != $category) || (!$bean.category))
-		#if(!$bean.category && $category != "")
-			#set($category = "")
-			#set($workarea = "")
-			<div class="kategorie"><em>Keiner Kategorie zugeordnet</em></div>
-		#elseif($bean.category)
-			#set($category = $bean.category)
-			#set($workarea = "")
-			<div class="kategorie">$!message.plain($category)</div>
-		#end
-	#end
+
+## cf. issue #2314 -- must not be grouped by categories
+##	#if(($bean && $bean.category && $bean.category != $category) || (!$bean.category))
+##		#if(!$bean.category && $category != "")
+##			#set($category = "")
+##			#set($workarea = "")
+##			<div class="kategorie"><em>Keiner Kategorie zugeordnet</em></div>
+##		#elseif($bean.category)
+##			#set($category = $bean.category)
+##			#set($workarea = "")
+##			<div class="kategorie">$!message.plain($category)</div>
+##		#end
+##	#end
 
 	#if( $orderByWorkArea && ( $showMain && $bean.invitationtype != 3 || $showPartner && $bean.invitationtype != 2 ) )
 		#if( $bean.workarea_name != $workarea )
