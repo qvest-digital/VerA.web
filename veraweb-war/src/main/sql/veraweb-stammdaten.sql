@@ -1,5 +1,5 @@
-﻿--
--- $Id: veraweb-stammdaten.sql,v 1.9 2005/11/16 13:57:37 christoph Exp $
+--
+-- $Id$
 --
 -- FORMAT: UTF-8
 --

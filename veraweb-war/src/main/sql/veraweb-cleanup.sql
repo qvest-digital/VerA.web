@@ -1,5 +1,5 @@
 --
--- $Id: veraweb-schema.sql,v 1.31 2006/08/23 18:28:40 christoph Exp $
+-- $Id$
 --
 -- FORMAT: UTF-8
 --
