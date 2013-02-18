@@ -59,6 +59,8 @@ $serv_verawebschema$
  *  2009-03-19  cklein: added state columns to timportperson by using the drop mechanism based on availability of either of the new state columns
  *  2009-10-16  cklein: fixed bug in tguest schema where the language/language_p attribute was smaller in size than that of tperson, now tperson and tguest have similar sized language attributes of 250 chars each
  *  2009-12-13	cklein: fixed bug that caused imports from associating wrong document types a/o categories with newly imported person records. will now drop all import tables on schema upgrade and not only the timportperson table.
+ *  2013-02-18  tglase: use dollar quoting for functions to fix SQL syntax errors
+ *                      (why do we keep a changelog in the file instead of in CVS/SVN, anyway?)
  * </changelog>
  * ----------------------------------------------------------- */
 
