@@ -1,5 +1,5 @@
-﻿--
--- $Id: veraweb-change-owner.sql,v 1.1 2005/11/18 13:28:56 christoph Exp $
+--
+-- $Id$
 --
 -- FORMAT: UTF-8
 --
@@ -34,7 +34,7 @@ UPDATE pg_database SET datdba =
   WHERE datname = 'veraweb';
 
 -- Dieser Abschnitt ändert den Besitzer des Schemas "veraweb".
--- 
+--
 
 UPDATE pg_namespace SET nspowner =
   (SELECT usesysid FROM pg_user WHERE usename = 'veraweb')

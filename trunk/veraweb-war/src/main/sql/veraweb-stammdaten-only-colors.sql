@@ -1,5 +1,5 @@
-﻿--
--- $Id: veraweb-stammdaten-only-colors.sql,v 1.1 2005/11/16 13:57:37 christoph Exp $
+--
+-- $Id$
 --
 -- FORMAT: UTF-8
 --
