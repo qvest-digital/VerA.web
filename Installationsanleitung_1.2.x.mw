@@ -11,11 +11,11 @@ Die Releases beinhaltet sowohl eine WAR als auch eine EAR Version.
 Es werden, im Vergleich zur alten Version, keine weiteren Abhängigkeiten
 oder Änderungen am Applicationcontainer mehr benötigt.
 
-== Installation PostgreSql ==
+== Installation PostgreSQL ==
 
-Sie benötigen für den Betrieb von veraweb eine PostgreSql Datenbank in der Version 8.0 oder höher.
+Sie benötigen für den Betrieb von veraweb eine PostgreSQL Datenbank in der Version 8.0 oder höher.
 Installieren Sie diese über die Paketverwaltung Ihres Betriebssystem oder besuchen Sie die
-[http://www.postgresql.org/download/ Downloadseite von PostgreSql]. Hier finden Sie weitere
+[http://www.postgresql.org/download/ Downloadseite von PostgreSQL]. Hier finden Sie weitere
 [http://www.postgresql.org/docs/8.3/interactive/installation.html Allgemeine Informationen] sowie
 Informationen zur [http://www.postgresql.org/docs/8.3/interactive/install-win32.html Installation unter Windows].
 
@@ -44,13 +44,13 @@ Aktivieren Sie ggf. die Scriptsprache pgsql:
 
   postgres $ '''createlang --dbname=veraweb plpgsql'''
 
-Die nachfolgenden Schritte müssen dann mit dem Benutzer veraweb auf der Datenbank veraweb direkt ausgeführt werden.
-Verwenden Sie hierfür zum Beispiel den Grafischen PostgreSql Client pgAdmin.
+Die nachfolgenden Schritte müssen dann mit dem '''Benutzer veraweb''' auf der Datenbank veraweb direkt ausgeführt werden. [[#Konfiguration_Datenbank|Details]]
+Verwenden Sie hierfür zum Beispiel den graphischen PostgreSQL Client pgAdmin oder das mitgelieferte Kommandozeilentool psql.
 
 # Führen Sie anschließend das Script '''veraweb-schema.sql''' aus welches die nachfolgende Funktion anlegt.
 # Erstellen Sie mit der Funktion '''SELECT serv_verawebschema(1);''' das eigentliche Datenbankschema.
 # Fügen Sie die nötigen Stammdaten mit dem Script '''veraweb-stammdaten.sql''' ein.
-# Lesen Sie in der Tabelle '''veraweb.tuser''' Ihre Benutzer an.
+# Lesen Sie in der Tabelle '''veraweb.tuser''' Ihre Benutzer an (siehe [[#Konfiguration_Datenbank|unten]]).
 # Aktualisieren Sie alle veraweb Datenbank Sequenzen mit der Funktion '''SELECT veraweb.serv_build_sequences();'''
 
 == Installation LDAP ==
