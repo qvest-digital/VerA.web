@@ -11,58 +11,12 @@
 -- Die Datenbank innerhalb der dieses Script ausgefuehrt wird,
 -- muss dem Benutzer entsprechen der es ausfuehrt.
 --
+-- Usage: SELECT serv_verawebschema(0); -- log changes only
+-- Usage: SELECT serv_verawebschema(1); -- create or update schema
+--
 
 CREATE OR REPLACE FUNCTION serv_verawebschema(int4) RETURNS varchar AS
 $serv_verawebschema$
-/* ------------------------------------------------------------
- * <name> serv_verawebschema </name>
- * <date> 2009-06-15 </date>
- * <param>
- * 	mode:	0=log changes only, 1=do changes (and log)
- * </param>
- * <comment>
- * 	This is the ONLY official schema-source.
- * 	Creates or updates veraweb-Schema.
- *
- * 	SELECT serv_verawebschema(0);
- * 	SELECT serv_verawebschema(1);
- * </comment>
- * <changelog>
- *  2005-05-11  new: all
- *  2005-05-19  add: tguest um firstname, lastname, saveunder
- *                   und mail erweitert um die abhänigkeit von
- *                   tcontact vollständig aufzulösen.
- *  2005-06-01  add: timportperson um category und occasion
- *  2005-06-02  add: timportperson um textfield_1, textfield_2 und textfield_3
- *  2005-07-25  add: tproxy
- *  2005-08-02  add: tdoctype um (export-) format erweitert
- *  2005-08-11  change: zusammenführung von tcontact und tperson
- *  2005-08-24  change: addresstype angepasst (1=G, 2=P, 3=W)
- *  2005-08-25  add: tmaildraft und tmailoutbox zum versenden von emails
- *  2005-08-30  change: timportperson aus tperson generiert
- *  2005-08-31  add: tuser_config
- *  2005-09-01  add: timport
- *  2005-09-04  add: tmailinglist.fk_orgunit
- *  2005-09-15  add: timportperson_categorie, timportperson_doctype
- *  2006-01-06  change: timportperson.category und timportperson.occasion nun Typ varchar
- *  2006-01-20  add: tperson primary key constraint
- *  2006-01-24  add: indexes on tperson und tguest_doctype
- *  2006-02-17  add: indexes on tperson, tperson_doctype, tguest and tguest_doctype
- *  2008-02-11  cklein: added upgrade paths based on the change requests per the next version 1.2.0, incl. changes to tperson, tguest, new: tdata_change_log, tfield_of_work
- *  2008-02-20  cklein: reverted part of the previous changes, namely association of the workarea entity with the guest entity: this is actually to be associated with a tperson instead
- *  2008-03-06  cklein: fixed a few bugs: tworkarea table must be created prior to tperson table
- *  2008-03-14  cklein: adding not null constraint to tperson.fk_workarea, adding additional attribute objname to tchange_log
- *  2008-03-14	cklein: added foreign key constraint fk_orgunit to tworkarea
- *  2008-03-27  cklein: typo in upgrade path for tperson caused upgrade to fail when called a second time (tperson_fkey_workarea was created twice or multiple times)
- *                      missing drop sequence in upgrade path for timportperson
- *  2008-12-22  add: new state column to tperson and dependent tables
- *  2009-03-19  cklein: added state columns to timportperson by using the drop mechanism based on availability of either of the new state columns
- *  2009-10-16  cklein: fixed bug in tguest schema where the language/language_p attribute was smaller in size than that of tperson, now tperson and tguest have similar sized language attributes of 250 chars each
- *  2009-12-13	cklein: fixed bug that caused imports from associating wrong document types a/o categories with newly imported person records. will now drop all import tables on schema upgrade and not only the timportperson table.
- *  2013-02-18  tglase: use dollar quoting for functions to fix SQL syntax errors
- *                      (why do we keep a changelog in the file instead of in CVS/SVN, anyway?)
- * </changelog>
- * ----------------------------------------------------------- */
 
 DECLARE
 	vmsg varchar;
@@ -74,13 +28,12 @@ DECLARE
 
 BEGIN
 	--##### please set vversion to current date
-	vversion := '2010-02-26';
+	vversion := '2013-02-21';
 	--#####
 
 	vrecno := 0;
 	vstatus := 0;
 	vmsg := '';
-
 
 	---------------------------<INIT>
 	vint := 0;
@@ -95,14 +48,12 @@ BEGIN
 		GRANT ALL ON SCHEMA veraweb TO veraweb WITH GRANT OPTION;
 		COMMENT ON SCHEMA veraweb IS 'The veraweb namespace.
 
-		veraweb, Plattform-Independent Webservice-Based eventmanagement, Copyright (C) 2004-2008 tarent GmbH.
-		This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version of the License, or (at your option) any later version.
-		This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-		See the GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program; if not, write to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+		veraweb, platform independent webservice-based event management; Copyright © 2004-2008 tarent GmbH; Copyright © 2013 tarent solutions GmbH
 
-		tarent GmbH, hereby disclaims all copyright interest in the program veraweb (which makes passes at compilers) written by Tom Müller-Ackermann.
-
-		signature of Elmar Geese, 1 Januar 2005 Elmar Geese, CEO tarent GmbH';
+		This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.
+		This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+		You should have received a copy of the GNU General Public License along with this program; if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+		';
 	END IF;
 
 	-- TUPDATE ANLEGEN
