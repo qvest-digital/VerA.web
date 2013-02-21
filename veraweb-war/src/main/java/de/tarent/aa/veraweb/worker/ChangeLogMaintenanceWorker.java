@@ -24,7 +24,7 @@
  */
 
 /*
- * $Id: ChangeLogMaintenanceWorker.java,v 1.0 2008/2/22 14:40:00 cklein Exp $
+ * $Id$
  */
 package de.tarent.aa.veraweb.worker;
 

@@ -24,7 +24,7 @@
  */
 
 /*
- * $Id: LDAPUtil.java,v 1.1 2005/04/21 17:10:22 mikel Exp $
+ * $Id$
  * 
  * Created on 21.04.2005
  */

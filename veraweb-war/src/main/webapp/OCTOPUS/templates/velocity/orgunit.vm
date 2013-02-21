@@ -1,4 +1,4 @@
-## $Id: orgunit.vm,v 1.1 2007/06/20 11:56:50 christoph Exp $
+## $Id$
 #set($title = "Verwaltung - alle Mandanten")
 #parse("inc/header.vm")	
 <form id="formlist" name="formlist" action="$octopusRequest.task" method="POST">

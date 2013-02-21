@@ -4,7 +4,7 @@
 //                                                                          //
 /// ====================================================================== ///
 
-// $Id: server.policy,v 1.1.1.1 2004/03/25 21:44:34 codeshark-guest Exp $
+// $Id$
 
 grant {
    // Allow everything for now

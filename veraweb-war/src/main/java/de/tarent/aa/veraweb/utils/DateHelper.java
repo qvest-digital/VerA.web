@@ -23,7 +23,7 @@
  * Elmar Geese, CEO tarent GmbH.
  */
 
-/* $Id: DateHelper.java,v 1.1 2007/06/20 11:56:52 christoph Exp $ */
+/* $Id$ */
 package de.tarent.aa.veraweb.utils;
 
 import java.sql.Timestamp;

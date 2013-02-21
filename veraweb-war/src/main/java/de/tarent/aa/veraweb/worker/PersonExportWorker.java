@@ -23,7 +23,7 @@
  * Elmar Geese, CEO tarent GmbH.
  */
 
-/* $Id: PersonExportWorker.java,v 1.2 2007/10/25 11:05:12 christoph Exp $ */
+/* $Id$ */
 package de.tarent.aa.veraweb.worker;
 
 import java.io.IOException;

@@ -24,7 +24,7 @@
  */
 
 /*
- * $Id: Categorie.java,v 1.1 2007/06/20 11:56:51 christoph Exp $
+ * $Id$
  * Created on 23.02.2005
  */
 package de.tarent.aa.veraweb.beans;

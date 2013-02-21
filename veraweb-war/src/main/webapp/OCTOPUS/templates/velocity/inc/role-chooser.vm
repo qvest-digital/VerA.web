@@ -1,4 +1,4 @@
-## $Id: role-chooser.vm,v 1.1 2007/06/20 11:56:51 christoph Exp $
+## $Id$
 ## 
 ## Diese Template-Komponente dient der Auswahl einer Rolle bei einem
 ## Benutzer, der sich zwar authentisiert hat, dessen Authentisierung

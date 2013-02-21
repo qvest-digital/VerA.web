@@ -1,4 +1,4 @@
-## $Id: selectProxy.vm,v 1.1 2007/06/20 11:56:50 christoph Exp $
+## $Id$
 #set($title = "Anmelden als Stellvertreter.")
 #parse("inc/header.vm")	
 

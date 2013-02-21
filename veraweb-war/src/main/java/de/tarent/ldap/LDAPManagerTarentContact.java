@@ -24,7 +24,7 @@
  */
 
 /*
- * $Id: LDAPManagerTarentContact.java,v 1.9 2005/08/23 09:17:11 kirchner Exp $
+ * $Id$
  * 
  * Created on 14.04.2005
  */

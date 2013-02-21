@@ -1,4 +1,4 @@
-## $Id: proxy.vm,v 1.1 2007/06/20 11:56:50 christoph Exp $
+## $Id$
 #if($proxiesFor == 'ou')
 #set($title = "Verwaltung - alle Stellvertretungen im Mandanten")
 #elseif($proxiesFor == 'all')

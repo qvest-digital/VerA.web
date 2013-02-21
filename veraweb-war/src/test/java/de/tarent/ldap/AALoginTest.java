@@ -24,7 +24,7 @@
  */
 
 /*
- * $Id: AALoginTest.java,v 1.1 2007/06/20 11:56:53 christoph Exp $
+ * $Id$
  * 
  * Created on 19.04.2005
  */

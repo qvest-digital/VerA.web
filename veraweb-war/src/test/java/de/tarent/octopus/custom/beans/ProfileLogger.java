@@ -24,7 +24,7 @@
  */
 
 /*
- * $Id: ProfileLogger.java,v 1.1 2007/06/20 11:56:52 christoph Exp $
+ * $Id$
  * 
  * Created on 18.11.2005
  */

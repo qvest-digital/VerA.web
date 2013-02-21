@@ -24,7 +24,7 @@
  */
 
 /*
- * $Id: DataExchangeWorker.java,v 1.1 2007/06/20 11:56:51 christoph Exp $
+ * $Id$
  * 
  * Created on 10.06.2005
  */
