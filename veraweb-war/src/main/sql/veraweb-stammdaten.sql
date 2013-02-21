@@ -3,7 +3,7 @@
 --
 -- FORMAT: UTF-8
 --
--- Stammdaten-Script das Beispielhafte Farben, Dokumenttypen,
+-- Stammdaten-Script, das beispielhafte Farben, Dokumenttypen,
 -- Anreden und Veranstaltungsdaten in das VerA.Web - Schema einspielt.
 --
 
@@ -24,7 +24,7 @@ INSERT INTO veraweb.tcategorie (fk_event, fk_orgunit, catname, flags, rank) VALU
 INSERT INTO veraweb.tcategorie (fk_event, fk_orgunit, catname, flags, rank) VALUES (NULL, NULL, 'Weihnachten', 1, NULL);
 INSERT INTO veraweb.tcategorie (fk_event, fk_orgunit, catname, flags, rank) VALUES (NULL, NULL, 'Erste Klasse (gleicher Rang, sortiert nach Name)', 0, 10);
 INSERT INTO veraweb.tcategorie (fk_event, fk_orgunit, catname, flags, rank) VALUES (NULL, NULL, 'Zweite Klasse (gleicher Rang, sortiert nach Name)', 0, 10);
-INSERT INTO veraweb.tcategorie (fk_event, fk_orgunit, catname, flags, rank) VALUES (NULL, NULL, 'Nicht Raucher', 0, 30);
+INSERT INTO veraweb.tcategorie (fk_event, fk_orgunit, catname, flags, rank) VALUES (NULL, NULL, 'Nichtraucher', 0, 30);
 
 -- DELETE FROM veraweb.tdoctype;
 INSERT INTO veraweb.tdoctype (docname, addresstype, locale, sortorder, flags, isdefault, partner, host, format) VALUES ('Gästeliste', 0, 0, 0, 99, 0, 0, 0, 'ods-document');
