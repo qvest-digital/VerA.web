@@ -23,7 +23,7 @@
  * Elmar Geese, CEO tarent GmbH.
  */
 
-/* $Id: RequestVeraWeb.java,v 1.1 2007/06/20 11:56:52 christoph Exp $ */
+/* $Id$ */
 package de.tarent.octopus.beans.veraweb;
 
 import de.tarent.octopus.beans.BeanFactory;

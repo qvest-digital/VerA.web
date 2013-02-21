@@ -5,49 +5,49 @@
 		<artifactId>maven-stylus-skin</artifactId>
 		<version>1.0.1</version>
 	</skin>
-	
+
 	<bannerLeft>
 		<name>veraweb</name>
 		<src>images/veraweb-logo.png</src>
 		<href>http://veraweb.evolvis.org/</href>
 	</bannerLeft>
-	
+
 	<body>
 		<head>
 			<link rel="shortcut icon" type="image/x-icon" href="images/veraweb-favicon.ico" />
 		</head>
-		
+
 		<links>
-			<item name="evolvis" href="http://evolvis.org/" />
-			<item name="evolvis project homepage" href="http://evolvis.org/projects/veraweb/" />
+			<item name="evolvis" href="https://evolvis.org/" />
+			<item name="evolvis project homepage" href="https://evolvis.org/projects/veraweb/" />
 		</links>
-		
+
 		<menu name="${project.name}">
-			<item name="Product page" href="https://veraweb.tarent.com/" />
+			<item name="Product page" href="http://www.tarent.de/web/tarent/veraweb-auswaertiges-amt" />
 		</menu>
-		
+
 		<menu name="Dokumentation">
-			<item name="Wiki" href="https://wiki.evolvis.org/veraweb/" />
+			<item name="Wiki" href="https://evolvis.org/plugins/mediawiki/wiki/veraweb/index.php/Main_Page" />
 			<item name="Benutzerhandbuch (PDF)" href="doc/Benutzerhandbuch_1.2.pdf" />
 		</menu>
-		
+
 		<menu name="Supported by">
 			<item name="evolvis" href="http://evolvis.org/" />
 			<item name="tarent GmbH" href="http://www.tarent.de/" />
 			<item name="Auswaertiges Amt" href="http://www.auswaertiges-amt.de/" />
 		</menu>
-		
+
 		<menu ref="modules" />
-		
+
 		${reports}
-		
+
 		<menu name="Supported by">
-			<item name="evolvis" href="http://evolvis.org/" />
-			<item name="tarent GmbH" href="http://www.tarent.de/" />
+			<item name="evolvis" href="https://evolvis.org/" />
+			<item name="tarent solutions GmbH" href="http://www.tarent.de/" />
 		</menu>
-		
+
 		<menu name="">
-			<item name="Impressum" href="http://evolvis.org/impress/" />
+			<item name="Impressum" href="https://evolvis.org/impress/" />
 		</menu>
 	</body>
 </project>

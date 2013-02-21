@@ -24,7 +24,7 @@
  */
 
 /*
- * $Id: FieldMappingTest.java,v 1.1 2007/06/20 11:56:52 christoph Exp $
+ * $Id$
  * 
  * Created on 23.08.2005
  */

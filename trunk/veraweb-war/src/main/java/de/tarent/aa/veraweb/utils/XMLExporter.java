@@ -24,7 +24,7 @@
  */
 
 /*
- * $Id: XMLExporter.java,v 1.1 2007/06/20 11:56:52 christoph Exp $
+ * $Id$
  * 
  * Created on 09.06.2005
  */

@@ -24,7 +24,7 @@
  */
 
 /*
- * $Id: GenericCSVExporter.java,v 1.1 2007/06/20 11:56:52 christoph Exp $
+ * $Id$
  * 
  * Created on 22.08.2005
  */

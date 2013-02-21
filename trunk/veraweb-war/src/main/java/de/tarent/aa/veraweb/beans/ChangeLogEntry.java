@@ -24,7 +24,7 @@
  */
 
 /*
- * $Id: ChangeLogEntry.java,v 1.2 2008/02/12 12:00:00 cklein Exp $
+ * $Id$
  * 
  * Created on 12.02.2008
  */

@@ -23,7 +23,7 @@
  * Elmar Geese, CEO tarent GmbH.
  */
 
-/* $Id: WorkAreaWorker.java,v 1.0 2008/02/14 13:00:00 cklein Exp $ */
+/* $Id$ */
 package de.tarent.aa.veraweb.worker;
 
 import java.io.IOException;

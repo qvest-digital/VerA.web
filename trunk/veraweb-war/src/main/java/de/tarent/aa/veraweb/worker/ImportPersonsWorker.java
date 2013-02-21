@@ -24,7 +24,7 @@
  */
 
 /*
- * $Id: ImportPersonsWorker.java,v 1.1 2007/06/20 11:56:51 christoph Exp $
+ * $Id$
  */
 package de.tarent.aa.veraweb.worker;
 

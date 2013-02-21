@@ -24,7 +24,7 @@
  */
 
 /*
- * $Id: PersonalConfigAA.java,v 1.1 2007/06/20 11:56:53 christoph Exp $
+ * $Id$
  * 
  * Created on 20.04.2005
  */

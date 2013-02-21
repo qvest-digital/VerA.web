@@ -1,4 +1,4 @@
-## $Id: user.vm,v 1.1 2007/06/20 11:56:50 christoph Exp $
+## $Id$
 #if($domain == 'ou')
 #set($title = "Verwaltung - alle Benutzer im Mandanten")
 #elseif($domain == 'all')
