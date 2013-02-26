@@ -1,0 +1,62 @@
+## $Id$
+#set($title = "Anmelden als Stellvertreter.")
+#parse("inc/header.vm")	
+
+<form action="" method="post" target="_top">
+
+<table class="tab" border="0" cellspacing="0" cellpadding="0"><tr>
+	<td class="tableft">&nbsp;</td>
+	<td class="tabactiv"><span class="tabactiv">Stellvertretung</span></td>
+	<td class="tabright">&nbsp;</td>
+</tr></table>
+
+#openContent()
+#openContentSection()
+
+#if($errors && $errors.size() > 0)
+<div style="margin: 10px 0px 10px 0px; padding: 10px 10px 10px 10px; background-color: #ffffff; border: 2px solid #ff0000;">
+	#foreach($error in $errors)
+		$error<br>
+	#end
+	<br>
+	Es kann zu unerwarteten Fehlern kommen. Bitte wenden Sie sich an Ihren Administrator.
+</div>
+#end
+
+<strong>Willkommen beim Veranstaltungsmanagement des Ausw&auml;rtigen Amtes</strong>
+<br><br>
+
+<P>
+	
+</P>
+
+<table class="form"><tr>
+	<td colspan=2>Bitte w&auml;hlen Sie, wen Sie vertreten wollen.</td>
+</tr><tr>
+	<td class="label"><label for="proxyFor">Benutzerrolle:</label></td>
+	<td class="value">
+		<select name="proxyFor" id="fieldMapping" class="combobox">
+#foreach($proxy in $list)
+			<option value="$proxy.userRole">$proxy.userRole</option>
+#end
+		</select>
+	</td>
+</tr><tr>
+	<td class="label">&nbsp;</td>
+	<td class="value">
+		<input name="submit" type="submit" value="Vertreten" class="submit"> &nbsp;
+		<input name="cancel" type="reset"  value="Felder leeren" class="reset">
+	</td>
+</tr></table>
+
+<input name="task" type="hidden" value="LoginAsProxy">
+
+#closeContentSection()
+#closeContent()
+
+</form>
+
+<!--
+$responseParams
+-->
+#parse("inc/footer.vm")

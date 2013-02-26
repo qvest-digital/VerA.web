@@ -1,0 +1,72 @@
+#set($title = "E-Mail-Postausgang")
+#parse("inc/header.vm")
+
+<form id="formlist" name="formlist" action="" method="POST">
+<input type="hidden" name="start" value="">
+<input type="hidden" name="selectAll" value="false">
+<input type="hidden" name="selectNone" value="false">
+<input type="hidden" name="doRemove" value="true">
+
+<table class="tab" border="0" cellspacing="0" cellpadding="0"><tr>
+	<td class="tableft">&nbsp;</td>
+	<td class="tabactiv"><span class="tabactiv">Postausgang</span></td>
+	<td class="tabright">&nbsp;</td>
+</tr></table>
+
+#openContent()
+#openContentSection()
+
+#foreach($bean in $list)
+<input type="hidden" name="list" value="$bean.id">
+#end
+<table class="list">
+	<tr class="list1" style="height: 22px;">
+		<th class="list" style="width: 20px;">&nbsp;</th>
+		<th class="list" style="width: 100px;">Status</th>
+		<th class="list">Von</th>
+		<th class="list">An</th>
+		<th class="list">Betreff</th>
+	</tr>
+	#foreach($bean in $list)
+	#if ($velocityCount % 2 == 0)
+		#set($class = "list1")
+	#else
+		#set($class = "list2")
+	#end
+	<tr class="$class" style="height: 22px;" onmouseover="onMouseOverList(this);" onmouseout="onMouseOutList(this);">
+		<td class="list"><input type="hidden" name="${bean.id}-id" value="$bean.id"><input type="checkbox" name="${bean.id}-select" value="true" class="checkbox" #if($listselection.indexOf($bean.id) != -1) checked#end></td>
+		<td class="list" style="cursor: pointer;" onclick="window.location.href='MailOutboxDetail?id=$!{bean.id}';">
+			#if($bean.status == 1)Offen
+			#elseif($bean.status == 2)Wartet
+			#elseif($bean.status == 3)Wird versendet
+			#elseif($bean.status == 4)Gesendet
+			#elseif($bean.status > 10)<span style="font-weight: bold; color: #ff0000;">Fehler</span>
+			#else<em>unbekannt</em>
+			#end
+		</td>
+		<td class="list" style="cursor: pointer;" onclick="window.location.href='MailOutboxDetail?id=$!{bean.id}';">$!message.text($bean.from)</td>
+		<td class="list" style="cursor: pointer;" onclick="window.location.href='MailOutboxDetail?id=$!{bean.id}';">$!message.text($bean.to)</td>
+		<td class="list" style="cursor: pointer;" onclick="window.location.href='MailOutboxDetail?id=$!{bean.id}';">$!message.text($bean.subject)</td>
+	</tr>
+	#end
+</table>
+
+#if ($listparam.count == 0)
+	<br>Keine Daten gefunden.
+#end
+
+<div id="fixme" class="fixme1"><div class="fixme2"><div class="fixme3">
+
+	#parse("inc/list-navi.vm")
+	#parse("inc/list-direct.vm")
+
+	<input type="submit" name="remove" value="L&ouml;schen" class="button"> &nbsp;
+
+</div></div></div>
+
+#closeContentSection()
+#closeContent()
+
+</form>
+
+#parse("inc/footer.vm")

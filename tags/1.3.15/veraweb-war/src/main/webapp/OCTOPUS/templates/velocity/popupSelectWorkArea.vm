@@ -1,0 +1,126 @@
+## Popup zur Auswahl eines oder keines Arbeitsbereiches 
+## cklein
+## 2008-02-28
+
+<html>
+
+<head>
+	<title>Auswahl Arbeitsbereich</title>
+	<link rel="stylesheet" type="text/css" href="${paths.staticWeb}styles/default.css" media="all">
+	<link rel="stylesheet" type="text/css" href="${paths.staticWeb}styles/screen.css" media="screen,projection" title="Ausw&auml;rtiges Amt Intranet-Stil">
+	<script type="text/javascript" src="/veraweb/scripts/dhtml-popup.js"></script>
+	<script type="text/javascript">
+		var oldState = { workareaId : null, actionName : null };
+
+		function selected( elt )
+		{
+			window.opener.document.forms[ "formlist" ].elements[ "workareaAssignmentId" ].value = elt.options[ elt.selectedIndex ].value;
+			window.opener.document.forms[ "formlist" ].elements[ "workareaAssignmentAction" ].value = "${assignmentAction}";
+		}
+
+		function restore()
+		{
+			window.opener.document.forms[ "formlist" ].elements[ "workareaAssignmentId" ].value = oldState.workareaId;
+			window.opener.document.forms[ "formlist" ].elements[ "workareaAssignmentAction" ].value = oldState.actionName;
+		}
+
+		function initialize()
+		{
+			oldState.workareaId = window.opener.document.forms[ "formlist" ].elements[ "workareaAssignmentId" ].value;
+			oldState.actionName = window.opener.document.forms[ "formlist" ].elements[ "workareaAssignmentAction" ].value;
+		}
+
+		function send()
+		{
+#if( $assignmentAction == "assign" )
+#if( $count == 1 )
+			doit = confirm( "Wollen Sie diese Person bzw. diesen Gast dem ausgewählten Arbeitsbereich zuordnen?" );
+#else
+			doit = confirm( "Wollen Sie ${count} Personen bzw. Gäste dem ausgewählten Arbeitsbereich zuordnen?" );
+#end
+#else
+#if ( $count == 1 )
+			doit = confirm( "Wollen Sie die Zuordnung dieser Person bzw. diesem Gast zum ausgewählten Arbeitsbereich aufheben?" );
+#else
+			doit = confirm( "Wollen Sie die Zuordnung von ${count} Personen bzw. Gästen zum ausgewählten Arbeitsbereich aufheben?" );
+#end
+#end
+			if ( doit )
+			{
+				window.opener.document.forms[ "formlist" ].submit();
+			}
+		}
+		
+		function adjustSize()
+		{
+			var elt = document.getElementById( "workarea" );
+			var minWidth = 400;
+			var newWidth = elt ? elt.offsetWidth : minWidth;
+			if ( newWidth < minWidth )
+			{
+				newWidth = minWidth;
+			}
+			if( window.innerWidth < newWidth )
+			{
+				// add fixed margins + paddings
+				newWidth += 100;
+			}
+			window.resizeTo( newWidth, document.body.offsetHeight + 20 );
+		}
+	</script>
+</head>
+
+<body onload="adjustSize();">
+
+<form>
+<table class="tab" border="0" cellspacing="0" cellpadding="0"><tr><td class="tableft">&nbsp;</td></tr></table>
+
+<div class="content" id="content">
+	<div class="contentsection" style="padding:0 8;">
+		<strong>Wählen Sie einen Arbeitsbereich aus, welchen Sie 
+	#if( $assignmentAction == "assign" )
+		zuweisen
+	#else
+		entfernen
+	#end
+	    möchten:</strong>
+	</div>
+	<div class="contentsection" style="padding:0 8;">
+	#if( $allWorkArea.size() > 0 )
+		<label for="workarea">Arbeitsbereich:</label>
+		<select name="workarea" id="workarea" onChange="selected(this);">
+		<option value="">
+	#if( $assignmentAction == "unassign" )
+		<option value="0">Alle entfernen
+	#end
+		#foreach( $workarea in $allWorkArea )
+		<option value="${workarea.id}">${workarea.name}
+		#end
+		</select>
+	#else
+	    Sie haben keine Arbeitsbereiche konfiguriert. Diese können Sie im Verwaltungsbereich unter dem Punkt <em>Arbeitsbereiche</em> definieren.
+	#end
+	</div>
+	<hr class="contentsection">
+	<div class="contentsection" style="padding:0 8;text-align: right;">
+		<input type="button" value="Abbrechen" onClick="restore();closePopup();">&nbsp;
+#if( $assignmentAction == "assign" && $allWorkArea.size() > 0 )
+		<input type="button" value="Zuweisen" onClick="send();closePopup();">
+#elseif ( $allWorkArea.size() > 0 )
+		<input type="button" value="Entfernen" onClick="send();closePopup();">
+#end
+	</div>
+</div>
+</form>
+
+<table class="list">
+	<tr style="height: 20px;">
+		<td class="list2warn" style="text-align: center; width: 60px;"><strong>Hinweis</strong></td>
+		<td class="list1warn">
+			Sie haben ${count} Person(en) ausgewählt. Abhängig von der Anzahl
+			der ausgewählten Personen kann die Aktion eine gewisse Zeit in Anspruch nehmen.
+		</td>
+	</tr>
+</table>
+</body>
+</html>
