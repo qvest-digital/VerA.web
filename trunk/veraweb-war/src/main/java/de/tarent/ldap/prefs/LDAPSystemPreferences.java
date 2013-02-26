@@ -1,11 +1,12 @@
-/*
- * veraweb,
- * Veranstaltungsmanagment veraweb
- * Copyright (c) 2005-2007 tarent GmbH
+/**
+ * veraweb, platform independent webservice-based event management
+ * (Veranstaltungsmanagment VerA.web), is
+ * Copyright Â© 2004-2008 tarent GmbH
+ * Copyright Â© 2013 tarent solutions GmbH
  *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License,version 2
- * as published by the Free Software Foundation.
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License, version 2, as
+ * published by the Free Software Foundation.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -13,14 +14,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
- * 02110-1301, USA.
- *
- * tarent GmbH., hereby disclaims all copyright
- * interest in the program 'veraweb'
- * Signature of Elmar Geese, 21 November 2007
- * Elmar Geese, CEO tarent GmbH.
+ * along with this program.  If not, see: http://www.gnu.org/licenses/
  */
 package de.tarent.ldap.prefs;
 
@@ -48,9 +42,9 @@ import de.tarent.ldap.LDAPManager;
 public class LDAPSystemPreferences extends AbstractPreferences {
 	LDAPManager		ldm			= null;
 	Properties		properties	= new Properties();
-	//Map für key/value der Preferences
+	//Map fï¿½r key/value der Preferences
 	Map				cache		= new HashMap();
-	//Map für timestamp der Preferences
+	//Map fï¿½r timestamp der Preferences
 	Map				timestamp	= new HashMap();
 	private Boolean	deleted		= Boolean.FALSE;
 
@@ -64,14 +58,14 @@ public class LDAPSystemPreferences extends AbstractPreferences {
 	protected LDAPSystemPreferences(AbstractPreferences arg0, String arg1) {
 		super(arg0, arg1);
 		try {
-			// Daten in den Cache laden, wenn möglich
+			// Daten in den Cache laden, wenn mï¿½glich
 			syncSpi();
 		} catch (BackingStoreException e) {}
 	}
 
 	/**
 	 * Flush-Methode, die die cache-Map ins LDAP schreibt. Vorgehensweise: - Key
-	 * für Key wird als pref=key im LDAP gespeichert, value in das
+	 * fï¿½r Key wird als pref=key im LDAP gespeichert, value in das
 	 * Value-Attribut
 	 * 
 	 * @see java.util.prefs.AbstractPreferences#flushSpi()
@@ -81,7 +75,7 @@ public class LDAPSystemPreferences extends AbstractPreferences {
 		initLDM();
 		createPath();
 		String relativeold = adjustRelative();
-		//Alle Cache-Einträge schreiben
+		//Alle Cache-Eintrï¿½ge schreiben
 		Iterator it = cache.keySet().iterator();
 		try {
 			while (it.hasNext()) {
@@ -208,10 +202,10 @@ public class LDAPSystemPreferences extends AbstractPreferences {
 	}
 
 	/**
-	 * Löscht diese Preference aus dem LDAP, löscht also alle gespeicherten
-	 * Preferences, die mit diesem Knoten verbunden sind, und anschließend sich
-	 * selbst. Alle Operationen läufen nur im Cache ab, geschrieben wird erst
-	 * beim nächsten
+	 * Lï¿½scht diese Preference aus dem LDAP, lï¿½scht also alle gespeicherten
+	 * Preferences, die mit diesem Knoten verbunden sind, und anschlieï¿½end sich
+	 * selbst. Alle Operationen lï¿½ufen nur im Cache ab, geschrieben wird erst
+	 * beim nï¿½chsten
 	 * 
 	 * @see flushSpi()
 	 * @see java.util.prefs.AbstractPreferences#removeNodeSpi()
@@ -241,7 +235,7 @@ public class LDAPSystemPreferences extends AbstractPreferences {
 
 	/**
 	 * Zuerst werden alle neueren Daten geschrieben, danach der Cache komplett
-	 * gefüllt
+	 * gefï¿½llt
 	 * 
 	 * @see java.util.prefs.AbstractPreferences#syncSpi()
 	 */
@@ -282,10 +276,10 @@ public class LDAPSystemPreferences extends AbstractPreferences {
 			}
 		} catch (BackingStoreException e) {
 			//throw (e);
-			//Wir müssen nicht schreiben, daher Exception einfach ignorieren...
+			//Wir mï¿½ssen nicht schreiben, daher Exception einfach ignorieren...
 		} catch (LDAPException e) {
 			//throw new BackingStoreException(e);
-			//Wir müssen nicht schreiben, daher Exception einfach ignorieren...
+			//Wir mï¿½ssen nicht schreiben, daher Exception einfach ignorieren...
 		} finally {
 			ldm.setRelative(relativeOld);
 		}
@@ -350,7 +344,7 @@ public class LDAPSystemPreferences extends AbstractPreferences {
 	}
 
 	/**
-	 * Löscht eine Preference im LDAP, dazu wird ihr Cache-Wert auf null gesetzt
+	 * Lï¿½scht eine Preference im LDAP, dazu wird ihr Cache-Wert auf null gesetzt
 	 * 
 	 * @see java.util.prefs.AbstractPreferences#removeSpi(java.lang.String)
 	 */
@@ -379,13 +373,13 @@ public class LDAPSystemPreferences extends AbstractPreferences {
 				ldm.setRelative(relativeOld);
 			}
 		} catch (BackingStoreException e) {
-			// Nichts tun, Garantie fürs schreiben gibts erst beim Sync oder
+			// Nichts tun, Garantie fï¿½rs schreiben gibts erst beim Sync oder
 			// Flush
 		}
 	}
 
 	/**
-	 * Liest Settings aus dem LDAP... Zunächst wird geschaut, ob im Cache noch
+	 * Liest Settings aus dem LDAP... Zunï¿½chst wird geschaut, ob im Cache noch
 	 * etwas liegt, danach wird das LDAP befragt
 	 * 
 	 * @param key -
@@ -422,7 +416,7 @@ public class LDAPSystemPreferences extends AbstractPreferences {
 	 * Schreibt Daten in die Preferences, werden erstmal nur in den Cache
 	 * geschrieben, erst beim
 	 * 
-	 * @see flushSpi() werden Sie ins LDAP übertragen.
+	 * @see flushSpi() werden Sie ins LDAP ï¿½bertragen.
 	 * @param key -
 	 *            Der Key der Preference
 	 * @param value -
@@ -453,13 +447,13 @@ public class LDAPSystemPreferences extends AbstractPreferences {
 				ldm.setRelative(relativeOld);
 			}
 		} catch (BackingStoreException e) {
-			//Nichts tun, Garantie fürs schreiben gibts erst beim Sync oder
+			//Nichts tun, Garantie fï¿½rs schreiben gibts erst beim Sync oder
 			// Flush
 		}
 	}
 
 	/**
-	 * Liefert das Kind mit dem angegebenen Namen zurück
+	 * Liefert das Kind mit dem angegebenen Namen zurï¿½ck
 	 * 
 	 * @see java.util.prefs.AbstractPreferences#childSpi(java.lang.String)
 	 */

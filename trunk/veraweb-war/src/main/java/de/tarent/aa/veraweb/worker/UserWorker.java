@@ -1,11 +1,12 @@
-/*
- * veraweb,
- * Veranstaltungsmanagment veraweb
- * Copyright (c) 2005-2007 tarent GmbH
+/**
+ * veraweb, platform independent webservice-based event management
+ * (Veranstaltungsmanagment VerA.web), is
+ * Copyright Â© 2004-2008 tarent GmbH
+ * Copyright Â© 2013 tarent solutions GmbH
  *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License,version 2
- * as published by the Free Software Foundation.
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License, version 2, as
+ * published by the Free Software Foundation.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -13,20 +14,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
- * 02110-1301, USA.
- *
- * tarent GmbH., hereby disclaims all copyright
- * interest in the program 'veraweb'
- * Signature of Elmar Geese, 21 November 2007
- * Elmar Geese, CEO tarent GmbH.
- */
-
-/*
- * $Id$
- * 
- * Created on 29.07.2005
+ * along with this program.  If not, see: http://www.gnu.org/licenses/
  */
 package de.tarent.aa.veraweb.worker;
 
@@ -55,7 +43,7 @@ import de.tarent.octopus.server.OctopusContext;
  */
 public class UserWorker {
     //
-    // öffentliche Konstanten
+    // ï¿½ffentliche Konstanten
     //
     /** Parameter: Wer alles? */
     public final static String PARAM_DOMAIN = UserListWorker.PARAM_DOMAIN;
@@ -67,13 +55,13 @@ public class UserWorker {
     public final static String PARAM_DOMAIN_VALUE_UNASSIGNED = "unassigned";
 
     //
-    // öffentliche statische Methoden
+    // ï¿½ffentliche statische Methoden
     //
     /**
-     * Diese statische Hilfsmethode lädt einen VerA.web-Benutzer.
+     * Diese statische Hilfsmethode lï¿½dt einen VerA.web-Benutzer.
      * 
      * @param cntx Octopus-Kontext
-     * @param id Benutzer-ID; wenn <code>null</code>, so wird <code>null</code> zurückgeliefert.
+     * @param id Benutzer-ID; wenn <code>null</code>, so wird <code>null</code> zurï¿½ckgeliefert.
      * @return das passende {@link User}-Objekt oder <code>null</code>
      */
     public static User getUser(OctopusContext cntx, Integer id) throws BeanException, IOException {
@@ -85,17 +73,17 @@ public class UserWorker {
     //
     // Octopus-Aktionen
     //
-    /** Eingabeparameter für Aktion {@link #showDetail(OctopusContext, Integer)} */
+    /** Eingabeparameter fï¿½r Aktion {@link #showDetail(OctopusContext, Integer)} */
     public static final String[] INPUT_showDetail = {"id"};
-    /** Eingabeparameterzwang für Aktion {@link #showDetail(OctopusContext, Integer)} */
+    /** Eingabeparameterzwang fï¿½r Aktion {@link #showDetail(OctopusContext, Integer)} */
     public static final boolean[] MANDATORY_showDetail = {false};
-    /** Octopus-Ausgabe-Parameter für {@link #showDetail(OctopusContext, Integer)} */
+    /** Octopus-Ausgabe-Parameter fï¿½r {@link #showDetail(OctopusContext, Integer)} */
     public static final String OUTPUT_showDetail = "user";
     /**
-     * Diese Octopus-Aktion lädt einen VerA.web-Benutzer.
+     * Diese Octopus-Aktion lï¿½dt einen VerA.web-Benutzer.
      * 
      * @param cntx Octopus-Kontext
-     * @param id Benutzer-ID; wenn <code>null</code>, so wird <code>null</code> zurückgeliefert.
+     * @param id Benutzer-ID; wenn <code>null</code>, so wird <code>null</code> zurï¿½ckgeliefert.
      * @return das passende {@link User}-Objekt oder <code>null</code>
      * @throws BeanException
      * @throws IOException
@@ -104,14 +92,14 @@ public class UserWorker {
         return getUser(cntx, id);
     }
 
-    /** Eingabeparameter für Aktion {@link #showActiveUser(OctopusContext)} */
+    /** Eingabeparameter fï¿½r Aktion {@link #showActiveUser(OctopusContext)} */
     public static final String[] INPUT_showActiveUser = {};
-    /** Eingabeparameterzwang für Aktion {@link #showActiveUser(OctopusContext)} */
+    /** Eingabeparameterzwang fï¿½r Aktion {@link #showActiveUser(OctopusContext)} */
     public static final boolean[] MANDATORY_showActiveUser = {};
-    /** Octopus-Ausgabe-Parameter für {@link #showActiveUser(OctopusContext)} */
+    /** Octopus-Ausgabe-Parameter fï¿½r {@link #showActiveUser(OctopusContext)} */
     public static final String OUTPUT_showActiveUser = "user";
     /**
-     * Diese Aktion lädt den aktuell eingeloggten User.
+     * Diese Aktion lï¿½dt den aktuell eingeloggten User.
      * 
      * @param octx Octopus-Kontext
      * @return {@link User}-Objekt zum aktuell eingelogten Benutzer oder <code>null</code>
@@ -123,18 +111,18 @@ public class UserWorker {
         return aaConfig != null ? getUser(octx, aaConfig.getVerawebId()) : null;
     }
 
-    /** Eingabeparameter für Aktion {@link #showAARoleList(OctopusContext, String)} */
+    /** Eingabeparameter fï¿½r Aktion {@link #showAARoleList(OctopusContext, String)} */
     public static final String[] INPUT_showAARoleList = { PARAM_DOMAIN };
-    /** Eingabeparameterzwang für Aktion {@link #showAARoleList(OctopusContext, String)} */
+    /** Eingabeparameterzwang fï¿½r Aktion {@link #showAARoleList(OctopusContext, String)} */
     public static final boolean[] MANDATORY_showAARoleList = { false };
-    /** Octopus-Ausgabe-Parameter für {@link #showAARoleList(OctopusContext, String)} */
+    /** Octopus-Ausgabe-Parameter fï¿½r {@link #showAARoleList(OctopusContext, String)} */
     public static final String OUTPUT_showAARoleList = "roleList";
     /**
-     * Diese Aktion lädt eine Liste verfügbarer AA-Rollen.
+     * Diese Aktion lï¿½dt eine Liste verfï¿½gbarer AA-Rollen.
      * 
      * @param octx Octopus-Kontext
-     * @param domain Domäne der Rollen
-     * @return Liste verfügbarer AA-Rollen
+     * @param domain Domï¿½ne der Rollen
+     * @return Liste verfï¿½gbarer AA-Rollen
      * @throws TcSecurityException 
      * @throws IOException 
      * @throws BeanException 
@@ -146,7 +134,7 @@ public class UserWorker {
             if (domain != null && domain.length() > 0) {
                 Collection exclusions = null;
                 if (PARAM_DOMAIN_VALUE_ALL.equals(domain)) {
-                    // nichts auszuschließen
+                    // nichts auszuschlieï¿½en
                 } else if (PARAM_DOMAIN_VALUE_UNASSIGNED.equals(domain)) {
                     Database database = new DatabaseVeraWeb(octx);
                     List users = database.getList(database.getSelect("User"), database);

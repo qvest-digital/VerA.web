@@ -1,11 +1,12 @@
-/*
- * veraweb,
- * Veranstaltungsmanagment veraweb
- * Copyright (c) 2005-2007 tarent GmbH
+/**
+ * veraweb, platform independent webservice-based event management
+ * (Veranstaltungsmanagment VerA.web), is
+ * Copyright Â© 2004-2008 tarent GmbH
+ * Copyright Â© 2013 tarent solutions GmbH
  *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License,version 2
- * as published by the Free Software Foundation.
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License, version 2, as
+ * published by the Free Software Foundation.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -13,19 +14,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
- * 02110-1301, USA.
- *
- * tarent GmbH., hereby disclaims all copyright
- * interest in the program 'veraweb'
- * Signature of Elmar Geese, 21 November 2007
- * Elmar Geese, CEO tarent GmbH.
- */
-
-/* $Id$
- *
- * Created on 08.03.2005
+ * along with this program.  If not, see: http://www.gnu.org/licenses/
  */
 package de.tarent.aa.veraweb.worker;
 
@@ -36,8 +25,8 @@ import de.tarent.octopus.server.PersonalConfig;
 
 /**
  * Setzt Grant Bohne in den Content.
- * Wodrüber dann in Velocity entschieden wird
- * welche Menüpunkte ein/ausgeblendet werden sollen.
+ * Wodrï¿½ber dann in Velocity entschieden wird
+ * welche Menï¿½punkte ein/ausgeblendet werden sollen.
  */
 public class SecurityWorker {
     //
@@ -59,10 +48,10 @@ public class SecurityWorker {
 	}
     
     //
-    // geschützte Hilfsmethoden
+    // geschï¿½tzte Hilfsmethoden
     //
     /**
-     * Diese Methode holt die Grants aus der Session oder der persönlichen
+     * Diese Methode holt die Grants aus der Session oder der persï¿½nlichen
      * Konfiguration.
      * 
      * @param cntx Octopus-Kontext

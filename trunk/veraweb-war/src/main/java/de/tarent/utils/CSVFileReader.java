@@ -1,11 +1,12 @@
-/*
- * veraweb,
- * Veranstaltungsmanagment veraweb
- * Copyright (c) 2005-2007 tarent GmbH
+/**
+ * veraweb, platform independent webservice-based event management
+ * (Veranstaltungsmanagment VerA.web), is
+ * Copyright Â© 2004-2008 tarent GmbH
+ * Copyright Â© 2013 tarent solutions GmbH
  *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License,version 2
- * as published by the Free Software Foundation.
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License, version 2, as
+ * published by the Free Software Foundation.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -13,20 +14,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
- * 02110-1301, USA.
- *
- * tarent GmbH., hereby disclaims all copyright
- * interest in the program 'veraweb'
- * Signature of Elmar Geese, 21 November 2007
- * Elmar Geese, CEO tarent GmbH.
- */
-
-/*
- * $Id$
- * 
- * http://sourceforge.net/projects/csvfile
+ * along with this program.  If not, see: http://www.gnu.org/licenses/
  */
 package de.tarent.utils;
 
@@ -267,7 +255,7 @@ public class CSVFileReader extends CSVFile {
     }
 
     //
-    // öffentliche Methoden
+    // ï¿½ffentliche Methoden
     //
     /**
      * Split the next line of the input CSV file into fields.
@@ -318,7 +306,7 @@ public class CSVFileReader extends CSVFile {
 
     /**
      * Handles a quoted field.<br>
-     * TODO: Sehr empfindlich gegen Füllzeichen zwischen schließendem Quote und Feld- oder Zeilenende 
+     * TODO: Sehr empfindlich gegen Fï¿½llzeichen zwischen schlieï¿½endem Quote und Feld- oder Zeilenende 
      * 
      * @return index of next separator
      * @throws IOException 
@@ -368,7 +356,7 @@ public class CSVFileReader extends CSVFile {
     }
 
     //
-    // geschützte Member
+    // geschï¿½tzte Member
     //
     /**
      * The buffered reader linked to the CSV file to be read.

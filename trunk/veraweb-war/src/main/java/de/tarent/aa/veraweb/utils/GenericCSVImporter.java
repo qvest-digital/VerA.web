@@ -1,11 +1,12 @@
-/*
- * veraweb,
- * Veranstaltungsmanagment veraweb
- * Copyright (c) 2005-2007 tarent GmbH
+/**
+ * veraweb, platform independent webservice-based event management
+ * (Veranstaltungsmanagment VerA.web), is
+ * Copyright Â© 2004-2008 tarent GmbH
+ * Copyright Â© 2013 tarent solutions GmbH
  *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License,version 2
- * as published by the Free Software Foundation.
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License, version 2, as
+ * published by the Free Software Foundation.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -13,20 +14,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
- * 02110-1301, USA.
- *
- * tarent GmbH., hereby disclaims all copyright
- * interest in the program 'veraweb'
- * Signature of Elmar Geese, 21 November 2007
- * Elmar Geese, CEO tarent GmbH.
- */
-
-/*
- * $Id$
- * 
- * Created on 15.09.2005
+ * along with this program.  If not, see: http://www.gnu.org/licenses/
  */
 package de.tarent.aa.veraweb.utils;
 
@@ -75,22 +63,22 @@ public class GenericCSVImporter extends GenericCSVBase implements Importer {
     // Schnittstelle Importer
     //
     /**
-     * Diese Methode führt einen Import aus. Hierbei werden alle erkannten zu
-     * importierenden Personendatensätze und Zusätze nacheinander dem übergebenen 
-     * {@link ImportDigester} übergeben.
+     * Diese Methode fï¿½hrt einen Import aus. Hierbei werden alle erkannten zu
+     * importierenden Personendatensï¿½tze und Zusï¿½tze nacheinander dem ï¿½bergebenen 
+     * {@link ImportDigester} ï¿½bergeben.
      * 
-     * @param digester der {@link ImportDigester}, der die Datensätze weiter
+     * @param digester der {@link ImportDigester}, der die Datensï¿½tze weiter
      *  verarbeitet.
      * @throws IOException 
      * @see de.tarent.aa.veraweb.utils.Importer#importAll(de.tarent.aa.veraweb.utils.ImportDigester)
      */
     public void importAll(ImportDigester digester) throws IOException {
         if (exchangeFormat == null)
-            throw new IOException("Für einen Import muss ein Format angegeben sein.");
+            throw new IOException("Fï¿½r einen Import muss ein Format angegeben sein.");
         if (exchangeFormat.getProperties() == null)
-            throw new IOException("Für einen Import müssen in der Formatspezifikation die notwendigen Parameter angegeben sein.");
+            throw new IOException("Fï¿½r einen Import mï¿½ssen in der Formatspezifikation die notwendigen Parameter angegeben sein.");
         if (inputStream == null)
-            throw new IOException("Für einen Import muss ein Eingabedatenstrom angegeben sein.");
+            throw new IOException("Fï¿½r einen Import muss ein Eingabedatenstrom angegeben sein.");
 
         try {
             readProperties();
@@ -112,7 +100,7 @@ public class GenericCSVImporter extends GenericCSVBase implements Importer {
     }
 
     //
-    // geschützte Hilfsmethoden
+    // geschï¿½tzte Hilfsmethoden
     //
     /**
      * Diese Methode initialisiert den internen {@link CSVFileReader}.
@@ -125,7 +113,7 @@ public class GenericCSVImporter extends GenericCSVBase implements Importer {
     }
     
     /**
-     * Diese Methode liest die nächste Zeile als Kopfzeile mit den Spaltennamen ein.
+     * Diese Methode liest die nï¿½chste Zeile als Kopfzeile mit den Spaltennamen ein.
      * Diese werden lokal in {@link #headers} abgelegt. 
      * 
      * @throws IOException
@@ -136,11 +124,11 @@ public class GenericCSVImporter extends GenericCSVBase implements Importer {
     }
     
     /**
-     * Diese Methode importiert alle Datenzeilen der CSV-Datei in den übergebenen
-     * {@link ImportDigester}. Hierbei wird vorausgesetzt, dass die führende Zeile
+     * Diese Methode importiert alle Datenzeilen der CSV-Datei in den ï¿½bergebenen
+     * {@link ImportDigester}. Hierbei wird vorausgesetzt, dass die fï¿½hrende Zeile
      * mit den Spaltennamen schon mit {@link #readHeader()} eingelesen wurde.  
      * 
-     * @param digester der {@link ImportDigester}, der die Datensätze weiter
+     * @param digester der {@link ImportDigester}, der die Datensï¿½tze weiter
      *  verarbeitet.
      * @throws IOException
      * @throws BeanException
@@ -161,11 +149,11 @@ public class GenericCSVImporter extends GenericCSVBase implements Importer {
     /**
      * Diese Methode verarbeitet eine einzelne aufbereitete Zeile; das bedeutet, dass eine
      * entsprechende {@link ImportPerson} und gegebenenfalls {@link ImportPersonCategorie}-
-     * und {@link ImportPersonDoctype}-Instanzen erstellt werden und dem übergebenen
+     * und {@link ImportPersonDoctype}-Instanzen erstellt werden und dem ï¿½bergebenen
      * {@link ImportDigester} als neue Person weitergereicht werden.<br>
      * TODO: Timestamp-Format konfigurierbar machen
      * 
-     * @param digester der {@link ImportDigester}, der die Datensätze weiter
+     * @param digester der {@link ImportDigester}, der die Datensï¿½tze weiter
      *  verarbeitet.
      * @param row die aufbereitete CSV-Zeile
      * @throws BeanException
@@ -225,7 +213,7 @@ public class GenericCSVImporter extends GenericCSVBase implements Importer {
     }
     
     /**
-     * Diese Methode fügt der übergebenen Sammlung von Import-Extras eine neue
+     * Diese Methode fï¿½gt der ï¿½bergebenen Sammlung von Import-Extras eine neue
      * {@link ImportPersonCategorie} hinzu oder --- falls es schon eine unter
      * dem Namen gibt --- aktualisiert diese. 
      * 
@@ -248,7 +236,7 @@ public class GenericCSVImporter extends GenericCSVBase implements Importer {
         	if (rank.toUpperCase().equals(DEFAULT_RANK.toUpperCase())) {
         		rankNumber = null;
         	} else {
-//        		logger.warning("Ungültiger Kategorie-Rang beim Import einer CSV-Datei. Rang: " + rank);
+//        		logger.warning("Ungï¿½ltiger Kategorie-Rang beim Import einer CSV-Datei. Rang: " + rank);
         		return;
         	}
         }
@@ -276,7 +264,7 @@ public class GenericCSVImporter extends GenericCSVBase implements Importer {
     }
     
     /**
-     * Diese Methode fügt der übergebenen Sammlung von Import-Extras einen neuen
+     * Diese Methode fï¿½gt der ï¿½bergebenen Sammlung von Import-Extras einen neuen
      * {@link ImportPersonDoctype} hinzu oder --- falls es schon einen unter
      * dem Namen gibt --- aktualisiert diesen. 
      * 
@@ -305,7 +293,7 @@ public class GenericCSVImporter extends GenericCSVBase implements Importer {
     }
     
     /**
-     * Diese Methode fügt der übergebenen Sammlung von Import-Extras einen neuen
+     * Diese Methode fï¿½gt der ï¿½bergebenen Sammlung von Import-Extras einen neuen
      * {@link ImportPersonDoctype} hinzu oder --- falls es schon einen unter
      * dem Namen gibt --- aktualisiert diesen. 
      * 
@@ -334,7 +322,7 @@ public class GenericCSVImporter extends GenericCSVBase implements Importer {
     }
     
     //
-    // geschützte innere Klassen
+    // geschï¿½tzte innere Klassen
     //
     /**
      * Diese Klasse stellt eine CSV-Zeile als {@link de.tarent.data.exchange.FieldMapping.Entity}
@@ -345,10 +333,10 @@ public class GenericCSVImporter extends GenericCSVBase implements Importer {
         // Schnittstelle Entity
         //
         /**
-         * Diese Methode erlaubt das Abfragen von Daten zu einem bestimmten Schlüssel.
-         * Die Schlüssel sind die CSV-Spaltennamen.
+         * Diese Methode erlaubt das Abfragen von Daten zu einem bestimmten Schlï¿½ssel.
+         * Die Schlï¿½ssel sind die CSV-Spaltennamen.
          * 
-         * @param sourceKey Quellfeldschlüssel
+         * @param sourceKey Quellfeldschlï¿½ssel
          * @return Quellfeldwert als {@link String}; Werte unbekannter Felder werden
          *  als Leerstring <code>""</code> geliefert.
          */
@@ -358,11 +346,11 @@ public class GenericCSVImporter extends GenericCSVBase implements Importer {
         }
         
         //
-        // öffentliche Methoden
+        // ï¿½ffentliche Methoden
         //
         /**
-         * Diese Methode parse-t die übergebene Liste --- die aktuelle Zeile ---
-         * und legt die Werte unter dem zugehörigen Spaltennamen lokal ab.<br>
+         * Diese Methode parse-t die ï¿½bergebene Liste --- die aktuelle Zeile ---
+         * und legt die Werte unter dem zugehï¿½rigen Spaltennamen lokal ab.<br>
          * TODO: Warnung bei zu langen oder zu kurzen Zeilen
          * 
          * @param row Liste der Werte der aktuellen Zeile
@@ -378,14 +366,14 @@ public class GenericCSVImporter extends GenericCSVBase implements Importer {
         }
         
         //
-        // geschützte Member
+        // geschï¿½tzte Member
         //
         /** Hier werden die Zuordnungen der aktuellen Zeile gehalten */
         final Map rowMapping = new HashMap();
     }
     
     //
-    // geschützte Membervariablen
+    // geschï¿½tzte Membervariablen
     //
     /** CSV-Eingabe-Objekt */
     CSVFileReader csvReader = null;

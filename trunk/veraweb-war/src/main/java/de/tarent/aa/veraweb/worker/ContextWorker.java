@@ -1,11 +1,12 @@
-/*
- * veraweb,
- * Veranstaltungsmanagment veraweb
- * Copyright (c) 2005-2007 tarent GmbH
+/**
+ * veraweb, platform independent webservice-based event management
+ * (Veranstaltungsmanagment VerA.web), is
+ * Copyright Â© 2004-2008 tarent GmbH
+ * Copyright Â© 2013 tarent solutions GmbH
  *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License,version 2
- * as published by the Free Software Foundation.
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License, version 2, as
+ * published by the Free Software Foundation.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -13,20 +14,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
- * 02110-1301, USA.
- *
- * tarent GmbH., hereby disclaims all copyright
- * interest in the program 'veraweb'
- * Signature of Elmar Geese, 21 November 2007
- * Elmar Geese, CEO tarent GmbH.
- */
-
-/*
- * $Id$
- * 
- * Created on 07.03.2005
+ * along with this program.  If not, see: http://www.gnu.org/licenses/
  */
 package de.tarent.aa.veraweb.worker;
 
@@ -41,7 +29,7 @@ import de.tarent.octopus.server.OctopusContext;
 /**
  * Diese Klasse stellt einen Octopus-Worker dar, der Anwendungskontexte verwalten kann.
  * Anwendungskontexte bestehen aus einem Task und einer Menge Bezeichner mit zugeordneten
- * Objekten. Solche Kontexte können auf einen Stapel ge-PUSH-t und von ihm ge-POP-t werden.<br>
+ * Objekten. Solche Kontexte kï¿½nnen auf einen Stapel ge-PUSH-t und von ihm ge-POP-t werden.<br>
  * TODO: Fertig umsetzen
  * 
  * @author mikel
@@ -50,11 +38,11 @@ public class ContextWorker {
     //
     // Octopus-Aktionen
     //
-    /** Eingabe-Parameter für die Octopus-Aktion {@link #pop(OctopusContext, String)} */
+    /** Eingabe-Parameter fï¿½r die Octopus-Aktion {@link #pop(OctopusContext, String)} */
     public static final String[] INPUT_pop = {"contexts"};
-    /** Eingabe-Parameterzwang für die Octopus-Aktion {@link #pop(OctopusContext, String)} */
+    /** Eingabe-Parameterzwang fï¿½r die Octopus-Aktion {@link #pop(OctopusContext, String)} */
 	public static final boolean[] MANDATORY_pop = {false};
-    /** Ausgabe-Parameter für die Octopus-Aktion {@link #pop(OctopusContext, String)} */
+    /** Ausgabe-Parameter fï¿½r die Octopus-Aktion {@link #pop(OctopusContext, String)} */
 	public static final String OUTPUT_pop = "contexts";
     /**
      * Diese Octopus-Action holt den obersten Kontext aus der Serialisierung eines
@@ -78,24 +66,24 @@ public class ContextWorker {
 	    return contextsBuffer.toString();
 	}
 	
-    /** Eingabe-Parameter für die Octopus-Aktion {@link #push(OctopusContext, String, List)} */
+    /** Eingabe-Parameter fï¿½r die Octopus-Aktion {@link #push(OctopusContext, String, List)} */
     public static final String[] INPUT_push = {"contexts", "push"};
-    /** Eingabe-Parameterzwang für die Octopus-Aktion {@link #push(OctopusContext, String, List)} */
+    /** Eingabe-Parameterzwang fï¿½r die Octopus-Aktion {@link #push(OctopusContext, String, List)} */
 	public static final boolean[] MANDATORY_push = {false, false};
-    /** Ausgabe-Parameter für die Octopus-Aktion {@link #push(OctopusContext, String, List)} */
+    /** Ausgabe-Parameter fï¿½r die Octopus-Aktion {@link #push(OctopusContext, String, List)} */
 	public static final String OUTPUT_push = "contexts";
     /**
-     * Diese Octopus-Aktion legt einen neuen Kontext-Eintrag auf den übergebenen
-     * serialisierten Kontext-Stack. In diesem befinden sich der übergebene Taskname
-     * und die aktuellen Werte der Octopus-Content-Variablen unter den übergebenen
+     * Diese Octopus-Aktion legt einen neuen Kontext-Eintrag auf den ï¿½bergebenen
+     * serialisierten Kontext-Stack. In diesem befinden sich der ï¿½bergebene Taskname
+     * und die aktuellen Werte der Octopus-Content-Variablen unter den ï¿½bergebenen
      * Bezeichnern. 
      * 
      * @param oc Octopus-Kontext
      * @param contexts Serialisierung eines Kontext-Stacks
-     * @param data Liste, deren erster Eintrag als Taskname und deren weitere Einträge
+     * @param data Liste, deren erster Eintrag als Taskname und deren weitere Eintrï¿½ge
      *  als Bezeichner von Octopus-Content-Variablen interpretiert werden, deren Werte
      *  als Teil des Kontexts gesichert werden sollen.
-     * @return Serialisierung des Kontext-Stacks erweitert um den übergebenen Kontext.
+     * @return Serialisierung des Kontext-Stacks erweitert um den ï¿½bergebenen Kontext.
      * @throws TcContentProzessException
      */
 	public String push(OctopusContext oc, String contexts, List data) {
@@ -123,8 +111,8 @@ public class ContextWorker {
         // Konstruktoren
         //
         /**
-         * Dieser Konstruktor führt keine weiteren Initialisierungen durch; ein hiermit
-         * erstellter {@link ContextWorker.Context Kontext} muss noch befüllt werden,
+         * Dieser Konstruktor fï¿½hrt keine weiteren Initialisierungen durch; ein hiermit
+         * erstellter {@link ContextWorker.Context Kontext} muss noch befï¿½llt werden,
          * zum Beispiel mittels eines {@link #pop(StringBuffer)}-Aufrufs.
          */
 	    public Context() {
@@ -143,9 +131,9 @@ public class ContextWorker {
          * Dieser Konstruktor legt Kontext-Task und -Werte fest. 
          * 
          * @param oc Octopus-Kontext, aus dem Octopus-Content-Werte gelesen werden sollen.
-         * @param data Liste, deren erster Eintrag als Taskname und deren weitere Einträge
+         * @param data Liste, deren erster Eintrag als Taskname und deren weitere Eintrï¿½ge
          *  als Bezeichner von Octopus-Content-Variablen interpretiert werden, deren Werte
-         *  in den Kontext übernommen werden sollen.
+         *  in den Kontext ï¿½bernommen werden sollen.
          */
 	    public Context(OctopusContext oc, List data) {
 	        this();
@@ -163,14 +151,14 @@ public class ContextWorker {
 	        }
 	    }
 	    //
-        // öffentliche Methoden
+        // ï¿½ffentliche Methoden
         //
         /** Name des Kontext-Tasks  */
         public String getContextTask() {
             return context;
         }
         /**
-         * Diese Methode setzt im Content des übergebenen Octopus-Kontexts diesen
+         * Diese Methode setzt im Content des ï¿½bergebenen Octopus-Kontexts diesen
          * Kontext ein; dies betrifft einerseits die enthaltenen Werte, die unter
          * dem assoziierten Bezeichner gesetzt werden, und andererseits den Tasknamen,
          * der unter dem Bezeichner "context" dort abgelegt wird, so dass ein im
@@ -187,7 +175,7 @@ public class ContextWorker {
 	    /**
          * Diese Methode holt den obersten Kontext aus der Serialisierung eines
          * Kontext-Stacks und entfernt diesen aus der Serialisierung.<br>
-         * TODO: Werte übernehmen
+         * TODO: Werte ï¿½bernehmen
          * 
          * @param contexts Serialisierung eines Kontext-Stacks, wird um den obersten
          *  Eintrag verringert
@@ -208,9 +196,9 @@ public class ContextWorker {
 	        return new Context(context);
 	    }
         /**
-         * Diese Methode ergänzt die übergebene Serialisierung eines Kontext-Stacks
+         * Diese Methode ergï¿½nzt die ï¿½bergebene Serialisierung eines Kontext-Stacks
          * um diesen {@link ContextWorker.Context Kontext}.<br>
-         * TODO: Werte einfügen
+         * TODO: Werte einfï¿½gen
          * 
          * @param contexts Serialisierung eines Kontext-Stacks, wird um den diesen
          *  Eintrag erweitert

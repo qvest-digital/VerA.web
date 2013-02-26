@@ -1,11 +1,12 @@
-/*
- * veraweb,
- * Veranstaltungsmanagment veraweb
- * Copyright (c) 2005-2007 tarent GmbH
+/**
+ * veraweb, platform independent webservice-based event management
+ * (Veranstaltungsmanagment VerA.web), is
+ * Copyright Â© 2004-2008 tarent GmbH
+ * Copyright Â© 2013 tarent solutions GmbH
  *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License,version 2
- * as published by the Free Software Foundation.
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License, version 2, as
+ * published by the Free Software Foundation.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -13,20 +14,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
- * 02110-1301, USA.
- *
- * tarent GmbH., hereby disclaims all copyright
- * interest in the program 'veraweb'
- * Signature of Elmar Geese, 21 November 2007
- * Elmar Geese, CEO tarent GmbH.
- */
-
-/*
- * $Id$
- * 
- * Created on 14.06.2005
+ * along with this program.  If not, see: http://www.gnu.org/licenses/
  */
 package de.tarent.aa.veraweb.utils;
 
@@ -62,7 +50,7 @@ import de.tarent.octopus.beans.Database;
 import de.tarent.octopus.beans.DatabaseUtilizer;
 
 /**
- * Diese Klasse dient dem Erzeugen eines MAdLAN-CSV-Exports über den
+ * Diese Klasse dient dem Erzeugen eines MAdLAN-CSV-Exports ï¿½ber den
  * {@link ExchangeFormat}-Mechanismus.
  * 
  * @author mikel
@@ -186,7 +174,7 @@ public class MAdLANExporter implements Exporter, Exchanger, DatabaseUtilizer, Ma
     }
 
     /**
-     * Diese Methode fügt dem Export eine Beschreibung der übergebenen VerA.web-Person
+     * Diese Methode fï¿½gt dem Export eine Beschreibung der ï¿½bergebenen VerA.web-Person
      * hinzu.
      * 
      * @param person {@link Person}-Bean
@@ -209,7 +197,7 @@ public class MAdLANExporter implements Exporter, Exchanger, DatabaseUtilizer, Ma
     }
 
     //
-    // geschützte Methoden
+    // geschï¿½tzte Methoden
     //
     void writeHeader() {
         boolean first = true;
@@ -236,7 +224,7 @@ public class MAdLANExporter implements Exporter, Exchanger, DatabaseUtilizer, Ma
     }
     
     /**
-     * Diese Methode bereitet einen Wert oder einen Spaltennamen auf das Einfügen in
+     * Diese Methode bereitet einen Wert oder einen Spaltennamen auf das Einfï¿½gen in
      * die CSV-Datei vor. Dies bedeutet:
      * <ul>
      * <li><code>null</code> wird zu einem Leerstring
@@ -341,7 +329,7 @@ public class MAdLANExporter implements Exporter, Exchanger, DatabaseUtilizer, Ma
     void addSelectFormat(Map selectFormats, String doctypeName, String textfield, boolean partner) throws BeanException, IOException {
         Doctype doctype = (Doctype) db.getBean("Doctype", db.getSelect("Doctype").where(Expr.equal("docname", doctypeName)));
         if (doctype == null)
-            logger.warning("Für den Export konfigurierten Dokumenttyp '" + doctypeName + "' nicht gefunden.");
+            logger.warning("Fï¿½r den Export konfigurierten Dokumenttyp '" + doctypeName + "' nicht gefunden.");
         else {
             Select select = new Select(true).from("veraweb.tperson_doctype")
                 .selectAs(partner ? "textfield_p" : "textfield", "field")
@@ -356,16 +344,16 @@ public class MAdLANExporter implements Exporter, Exchanger, DatabaseUtilizer, Ma
     // Encoding-Hilfsmethoden
     //
     /**
-     * Diese Methode liefert zu einem Schlüssel ein Zeichenmapping.
-     * Die erlaubten Schlüssel sind {@link #CHARS_BALT}, {@link #CHARS_BALTIC},
+     * Diese Methode liefert zu einem Schlï¿½ssel ein Zeichenmapping.
+     * Die erlaubten Schlï¿½ssel sind {@link #CHARS_BALT}, {@link #CHARS_BALTIC},
      * {@link #CHARS_CYR_EXT}, {@link #CHARS_CYRILLIC}, {@link #CHARS_EAST},
      * {@link #CHARS_GREEK}, {@link #CHARS_LATIN}, {@link #CHARS_TUR_ASB},
      * {@link #CHARS_TURKISH} und {@link #CHARS_WEST}. Als Default wird
      * {@link #CHARS_LATIN} genommen. Dieses Zeichenmapping ist invers zu dem,
      * das {@link MadlanReader#getChars(String)} liefert.
      * 
-     * @param key Zeichenmappingschlüssel
-     * @param unmapped Wert für nicht zugeordnete Zeichen
+     * @param key Zeichenmappingschlï¿½ssel
+     * @param unmapped Wert fï¿½r nicht zugeordnete Zeichen
      * @return ein <code>char[]</code>.
      */
     public final static char[] getCharsInverted(String key, char unmapped) {
@@ -377,7 +365,7 @@ public class MAdLANExporter implements Exporter, Exchanger, DatabaseUtilizer, Ma
         for (int i = 0; i < orig.length; i++)
             if (orig[i] > max) max = orig[i];
 
-        // zu großes max abfangen??
+        // zu groï¿½es max abfangen??
         char[] invers = new char[max + 1];
         Arrays.fill(invers, unmapped);
         for (int i = orig.length - 1; i >= 0; i--)
@@ -386,7 +374,7 @@ public class MAdLANExporter implements Exporter, Exchanger, DatabaseUtilizer, Ma
     }
 
     //
-    // geschützte Member-Variablen
+    // geschï¿½tzte Member-Variablen
     //
     OutputStream os = null;
 

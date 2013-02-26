@@ -1,11 +1,12 @@
-/*
- * veraweb,
- * Veranstaltungsmanagment veraweb
- * Copyright (c) 2005-2007 tarent GmbH
+/**
+ * veraweb, platform independent webservice-based event management
+ * (Veranstaltungsmanagment VerA.web), is
+ * Copyright Â© 2004-2008 tarent GmbH
+ * Copyright Â© 2013 tarent solutions GmbH
  *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License,version 2
- * as published by the Free Software Foundation.
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License, version 2, as
+ * published by the Free Software Foundation.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -13,18 +14,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
- * 02110-1301, USA.
- *
- * tarent GmbH., hereby disclaims all copyright
- * interest in the program 'veraweb'
- * Signature of Elmar Geese, 21 November 2007
- * Elmar Geese, CEO tarent GmbH.
- */
-
-/*
- * $Id$
+ * along with this program.  If not, see: http://www.gnu.org/licenses/
  */
 package de.tarent.aa.veraweb.utils;
 
@@ -35,8 +25,8 @@ import org.apache.log4j.Logger;
 import de.tarent.octopus.server.OctopusContext;
 
 /**
- * Diese Klasse stellt statische Hilfsmethoden für Octopus-spezifische Aufgaben
- * zur Verfügung. 
+ * Diese Klasse stellt statische Hilfsmethoden fï¿½r Octopus-spezifische Aufgaben
+ * zur Verfï¿½gung. 
  * 
  * @author mikel
  */
@@ -45,7 +35,7 @@ public class OctopusHelper {
 	private static final Logger logger = Logger.getLogger(OctopusHelper.class);
 
 	/**
-	 * Gibt einen angeforderten Dateinamen zurück.
+	 * Gibt einen angeforderten Dateinamen zurï¿½ck.
 	 * 
 	 * module/task/filename.txt?parameter
 	 * filename.txt
@@ -86,8 +76,8 @@ public class OctopusHelper {
 
 	/**
 	 * Transformiert einen String in einen anderen Zeichensatz.
-	 * Wenn als Zeichensatz Parameter "default" übergeben wird, wird dieser
-	 * aus der Modul-Konfiguration geladen. Wenn stattdessen null übergeben
+	 * Wenn als Zeichensatz Parameter "default" ï¿½bergeben wird, wird dieser
+	 * aus der Modul-Konfiguration geladen. Wenn stattdessen null ï¿½bergeben
 	 * wird, wird der VM-Standard verwendet.
 	 * 
 	 * <code>new String(in.getBytes(encin), encout);</code>

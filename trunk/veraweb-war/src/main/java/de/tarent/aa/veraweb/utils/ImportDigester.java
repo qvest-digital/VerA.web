@@ -1,11 +1,12 @@
-/*
- * veraweb,
- * Veranstaltungsmanagment veraweb
- * Copyright (c) 2005-2007 tarent GmbH
+/**
+ * veraweb, platform independent webservice-based event management
+ * (Veranstaltungsmanagment VerA.web), is
+ * Copyright Â© 2004-2008 tarent GmbH
+ * Copyright Â© 2013 tarent solutions GmbH
  *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License,version 2
- * as published by the Free Software Foundation.
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License, version 2, as
+ * published by the Free Software Foundation.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -13,20 +14,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
- * 02110-1301, USA.
- *
- * tarent GmbH., hereby disclaims all copyright
- * interest in the program 'veraweb'
- * Signature of Elmar Geese, 21 November 2007
- * Elmar Geese, CEO tarent GmbH.
- */
-
-/*
- * $Id$
- * 
- * Created on 16.06.2005
+ * along with this program.  If not, see: http://www.gnu.org/licenses/
  */
 package de.tarent.aa.veraweb.utils;
 
@@ -39,7 +27,7 @@ import de.tarent.octopus.beans.BeanException;
 
 /**
  * Diese Schnittstelle stellt bei einem Import die Instanz dar, der ein
- * {@link Importer} neue Personendatensätze anliefert.  
+ * {@link Importer} neue Personendatensï¿½tze anliefert.  
  * 
  * @author mikel
  */
@@ -58,13 +46,13 @@ public interface ImportDigester {
     
     /**
      * Diese Methode wird von einem {@link Importer} zu jeder zu importierenden
-     * Person aufgerufen, übergeben wird die Person und eine Liste mit Beans,
-     * die Zusätze zur Person darstellen.<br>
-     * Falls Abhängigkeiten unter diesen Beans bestehen, stehen in der
-     * Liste die Beans, von der eine bestimmte Bean abhängt, vor dieser. 
+     * Person aufgerufen, ï¿½bergeben wird die Person und eine Liste mit Beans,
+     * die Zusï¿½tze zur Person darstellen.<br>
+     * Falls Abhï¿½ngigkeiten unter diesen Beans bestehen, stehen in der
+     * Liste die Beans, von der eine bestimmte Bean abhï¿½ngt, vor dieser. 
      * 
      * @param person eine {@link ImportPerson}-Instanz
-     * @param extras eine Liste mit Beans, die Zusätze zur Person darstellen; es
+     * @param extras eine Liste mit Beans, die Zusï¿½tze zur Person darstellen; es
      *  werden nur solche akzeptiert, die {@link ImportPersonExtra} implementieren.
      * @throws BeanException 
      * @throws IOException 

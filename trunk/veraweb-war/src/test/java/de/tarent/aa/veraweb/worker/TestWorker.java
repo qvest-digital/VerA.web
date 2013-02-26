@@ -1,11 +1,12 @@
-/*
- * veraweb,
- * Veranstaltungsmanagment veraweb
- * Copyright (c) 2005-2007 tarent GmbH
+/**
+ * veraweb, platform independent webservice-based event management
+ * (Veranstaltungsmanagment VerA.web), is
+ * Copyright Â© 2004-2008 tarent GmbH
+ * Copyright Â© 2013 tarent solutions GmbH
  *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License,version 2
- * as published by the Free Software Foundation.
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License, version 2, as
+ * published by the Free Software Foundation.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -13,20 +14,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
- * 02110-1301, USA.
- *
- * tarent GmbH., hereby disclaims all copyright
- * interest in the program 'veraweb'
- * Signature of Elmar Geese, 21 November 2007
- * Elmar Geese, CEO tarent GmbH.
- */
-
-/*
- * $Id$
- * 
- * Created on 24.11.2005
+ * along with this program.  If not, see: http://www.gnu.org/licenses/
  */
 package de.tarent.aa.veraweb.worker;
 
@@ -50,9 +38,9 @@ import de.tarent.octopus.server.OctopusContext;
  * @author mikel
  */
 public class TestWorker {
-    /** Octopus-Eingabe-Parameter für {@link #createPersonStatements(OctopusContext, Person, Integer)} */
+    /** Octopus-Eingabe-Parameter fï¿½r {@link #createPersonStatements(OctopusContext, Person, Integer)} */
     public static final String[] INPUT_createPersonStatements = { "person", "count" };
-    /** Octopus-Eingabe-Parameter-Pflicht für {@link #createPersonStatements(OctopusContext, Person, Integer)} */
+    /** Octopus-Eingabe-Parameter-Pflicht fï¿½r {@link #createPersonStatements(OctopusContext, Person, Integer)} */
     public static final boolean[] MANDATORY_createPersonStatements = { true, false };
     /**
      * Diese Octopus-Aktion erstellt Statements zu einer Person zu Profiling-Zwecken.
@@ -72,18 +60,18 @@ public class TestWorker {
         for (int i = 0; i < count.intValue(); i++) {
             database.getInsert(person);
         }
-        pLog.log("Person-Insert erzeugen, " + count + " Durchläufe");
+        pLog.log("Person-Insert erzeugen, " + count + " Durchlï¿½ufe");
     }
 
-    /** Octopus-Eingabe-Parameter für {@link #insertPerson(OctopusContext, Person, Integer)} */
+    /** Octopus-Eingabe-Parameter fï¿½r {@link #insertPerson(OctopusContext, Person, Integer)} */
     public static final String[] INPUT_insertPerson = { "person", "count" };
-    /** Octopus-Eingabe-Parameter-Pflicht für {@link #insertPerson(OctopusContext, Person, Integer)} */
+    /** Octopus-Eingabe-Parameter-Pflicht fï¿½r {@link #insertPerson(OctopusContext, Person, Integer)} */
     public static final boolean[] MANDATORY_insertPerson = { true, false };
     /**
-     * Diese Octopus-Aktion fügt eine Person in den Datenbestand zu Profiling-Zwecken ein.
+     * Diese Octopus-Aktion fï¿½gt eine Person in den Datenbestand zu Profiling-Zwecken ein.
      * 
      * @param cntx Octopus-Kontext
-     * @param person Person, die eingefügt werden soll.
+     * @param person Person, die eingefï¿½gt werden soll.
      * @throws IOException 
      * @throws BeanException 
      */
@@ -98,19 +86,19 @@ public class TestWorker {
             person.id = null;
             database.execute(database.getInsert(person));
         }
-        pLog.log("Person einfügen, " + count + " Durchläufe");
+        pLog.log("Person einfï¿½gen, " + count + " Durchlï¿½ufe");
     }
 
-    /** Octopus-Eingabe-Parameter für {@link #insertPersonTransaction(OctopusContext, Person, Integer)} */
+    /** Octopus-Eingabe-Parameter fï¿½r {@link #insertPersonTransaction(OctopusContext, Person, Integer)} */
     public static final String[] INPUT_insertPersonTransaction = { "person", "count" };
-    /** Octopus-Eingabe-Parameter-Pflicht für {@link #insertPersonTransaction(OctopusContext, Person, Integer)} */
+    /** Octopus-Eingabe-Parameter-Pflicht fï¿½r {@link #insertPersonTransaction(OctopusContext, Person, Integer)} */
     public static final boolean[] MANDATORY_insertPersonTransaction = { true, false };
     /**
-     * Diese Octopus-Aktion fügt eine Person in den Datenbestand zu Profiling-Zwecken ein.
-     * Diese Methode nutzt dafür einen Transaktionskontext.
+     * Diese Octopus-Aktion fï¿½gt eine Person in den Datenbestand zu Profiling-Zwecken ein.
+     * Diese Methode nutzt dafï¿½r einen Transaktionskontext.
      * 
      * @param cntx Octopus-Kontext
-     * @param person Person, die eingefügt werden soll.
+     * @param person Person, die eingefï¿½gt werden soll.
      * @throws IOException 
      * @throws BeanException 
      */
@@ -127,15 +115,15 @@ public class TestWorker {
             database.saveBean(person, context, false);
         }
         context.commit();
-        pLog.log("Person transaktionell einfügen, " + count + " Durchläufe");
+        pLog.log("Person transaktionell einfï¿½gen, " + count + " Durchlï¿½ufe");
     }
 
-    /** Octopus-Eingabe-Parameter für {@link #insertFullPerson(OctopusContext, Person, Integer)} */
+    /** Octopus-Eingabe-Parameter fï¿½r {@link #insertFullPerson(OctopusContext, Person, Integer)} */
     public static final String[] INPUT_insertFullPerson = { "person", "count" };
-    /** Octopus-Eingabe-Parameter-Pflicht für {@link #insertFullPerson(OctopusContext, Person, Integer)} */
+    /** Octopus-Eingabe-Parameter-Pflicht fï¿½r {@link #insertFullPerson(OctopusContext, Person, Integer)} */
     public static final boolean[] MANDATORY_insertFullPerson = { true, false };
     /**
-     * Diese Octopus-Aktion fügt eine Person in den Datenbestand zu Profiling-Zwecken ein.
+     * Diese Octopus-Aktion fï¿½gt eine Person in den Datenbestand zu Profiling-Zwecken ein.
      * 
      * @param cntx Octopus-Kontext
      * @throws IOException 
@@ -155,15 +143,15 @@ public class TestWorker {
             PersonDoctypeWorker.createPersonDoctype(cntx, database, context, person);
             context.commit();
         }
-        pLog.log("Person einfügen und Dokumenttypen erzeugen, " + count + " Durchläufe");
+        pLog.log("Person einfï¿½gen und Dokumenttypen erzeugen, " + count + " Durchlï¿½ufe");
     }
 
-    /** Octopus-Eingabe-Parameter für {@link #insertFullPersonTransaction(OctopusContext, Person, Integer)} */
+    /** Octopus-Eingabe-Parameter fï¿½r {@link #insertFullPersonTransaction(OctopusContext, Person, Integer)} */
     public static final String[] INPUT_insertFullPersonTransaction = { "person", "count" };
-    /** Octopus-Eingabe-Parameter-Pflicht für {@link #insertFullPersonTransaction(OctopusContext, Person, Integer)} */
+    /** Octopus-Eingabe-Parameter-Pflicht fï¿½r {@link #insertFullPersonTransaction(OctopusContext, Person, Integer)} */
     public static final boolean[] MANDATORY_insertFullPersonTransaction = { true, false };
     /**
-     * Diese Octopus-Aktion fügt eine Person in den Datenbestand zu Profiling-Zwecken ein.
+     * Diese Octopus-Aktion fï¿½gt eine Person in den Datenbestand zu Profiling-Zwecken ein.
      * 
      * @param cntx Octopus-Kontext
      * @throws IOException 
@@ -188,12 +176,12 @@ public class TestWorker {
         } finally {
         	context.rollBack();
         }
-        pLog.log("Person einfügen und Dokumenttypen transaktionell erzeugen, " + count + " Durchläufe");
+        pLog.log("Person einfï¿½gen und Dokumenttypen transaktionell erzeugen, " + count + " Durchlï¿½ufe");
     }
 
-    /** Octopus-Eingabe-Parameter für {@link #searchPerson(OctopusContext, nteger)} */
+    /** Octopus-Eingabe-Parameter fï¿½r {@link #searchPerson(OctopusContext, nteger)} */
     public static final String[] INPUT_searchPerson = { "count" };
-    /** Octopus-Eingabe-Parameter-Pflicht für {@link #searchPerson(OctopusContext, Integer)} */
+    /** Octopus-Eingabe-Parameter-Pflicht fï¿½r {@link #searchPerson(OctopusContext, Integer)} */
     public static final boolean[] MANDATORY_searchPerson = { false };
     /**
      * Diese Octopus-Aktion sucht zu Profiling zwecken nach einer Person.
@@ -216,6 +204,6 @@ public class TestWorker {
             		Expr.equal(database.getProperty(person, "lastname_a_e1"), person.lastname_a_e1)));
             database.getBean("Person", select);
         }
-        pLog.log("Personen gesucht, " + count + " Durchläufe");
+        pLog.log("Personen gesucht, " + count + " Durchlï¿½ufe");
     }
 }

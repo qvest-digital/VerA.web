@@ -1,11 +1,12 @@
-/*
- * veraweb,
- * Veranstaltungsmanagment veraweb
- * Copyright (c) 2005-2007 tarent GmbH
+/**
+ * veraweb, platform independent webservice-based event management
+ * (Veranstaltungsmanagment VerA.web), is
+ * Copyright Â© 2004-2008 tarent GmbH
+ * Copyright Â© 2013 tarent solutions GmbH
  *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License,version 2
- * as published by the Free Software Foundation.
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License, version 2, as
+ * published by the Free Software Foundation.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -13,20 +14,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
- * 02110-1301, USA.
- *
- * tarent GmbH., hereby disclaims all copyright
- * interest in the program 'veraweb'
- * Signature of Elmar Geese, 21 November 2007
- * Elmar Geese, CEO tarent GmbH.
- */
-
-/*
- * $Id$
- * 
- * Created on 26.07.2005
+ * along with this program.  If not, see: http://www.gnu.org/licenses/
  */
 package de.tarent.aa.veraweb.worker;
 
@@ -60,9 +48,9 @@ public class ProxyWorker {
     //
     // Octopus-Aktionen
     //
-    /** Eingabeparameter für Aktion {@link #select(OctopusContext, String)} */
+    /** Eingabeparameter fï¿½r Aktion {@link #select(OctopusContext, String)} */
     public static final String[] INPUT_select = {"proxyFor"};
-    /** Eingabeparameterzwang für Aktion {@link #select(OctopusContext, String)} */
+    /** Eingabeparameterzwang fï¿½r Aktion {@link #select(OctopusContext, String)} */
     public static final boolean[] MANDATORY_select = {false};
     /**
      * Diese Aktion setzt den aktuellen Benutzer als Stellvertreter der aktuellen
@@ -102,7 +90,7 @@ public class ProxyWorker {
     }
     
     //
-    // geschützte Hilfsmethoden
+    // geschï¿½tzte Hilfsmethoden
     //
     Proxy getApplicableProxyEntry(OctopusContext octx, String proxyFor) throws BeanException, IOException {
         Database database = new DatabaseVeraWeb(octx);
@@ -110,7 +98,7 @@ public class ProxyWorker {
         // Vertretungen einsammeln
         WhereList whereClause = new WhereList();
         if (pConfig == null)
-            return null; // keine persönliche Konfiguration -> keine Stellvertretung
+            return null; // keine persï¿½nliche Konfiguration -> keine Stellvertretung
         else if (pConfig.getRole() != null)
             whereClause.addAnd(Expr.equal("proxy", pConfig.getRole()));
         else if (pConfig.getRoles() != null)
@@ -135,7 +123,7 @@ public class ProxyWorker {
     }
     
     //
-    // geschützte Member
+    // geschï¿½tzte Member
     //
     private final static Logger logger = Logger.getLogger(ProxyWorker.class);
 }

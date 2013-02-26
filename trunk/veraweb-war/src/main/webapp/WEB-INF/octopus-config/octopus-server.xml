@@ -1,12 +1,15 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
-tarent-contact, Plattform-Independent Webservice-Based Contactmanagement
-Copyright (C) 2002 tarent GmbH
+veraweb, platform independent webservice-based event management
+(Veranstaltungsmanagment VerA.web), is
+Copyright Â© 2004-2008 tarent GmbH
+Copyright Â© 2013 tarent solutions GmbH
+tarent-contact, platform independent webservice-based contact management, is
+Copyright Â© 2002 tarent GmbH
 
-This program is free software; you can redistribute it and/or
-modify it under the terms of the GNU General Public License
-as published by the Free Software Foundation; either version 2
-of the License, or (at your option) any later version.
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License, version 2, as
+published by the Free Software Foundation.
 
 This program is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -14,15 +17,7 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
-
-tarent GmbH., hereby disclaims all copyright
-interest in the program 'tarent-contact'
-written
-by Sebastian Mancke and Michael Klink.
-signature of Elmar Geese, 1 June 2002
-Elmar Geese, CEO tarent GmbH
+along with this program.  If not, see: http://www.gnu.org/licenses/
 -->
 <!DOCTYPE tcConfig SYSTEM "octopus-server.dtd">
 
@@ -31,12 +26,12 @@ Elmar Geese, CEO tarent GmbH
 
   <application>    
     <!-- Schaltet die Verwendung der Sessions vom Servlet Container aus. 
-          true = Dummy Sessions werden für jeden Aufruf erneut angelegt.
+          true = Dummy Sessions werden fÃ¼r jeden Aufruf erneut angelegt.
           false = Normale Verwendung der HttpSessions
     -->
     <param name="omitSessions" value="false"/>
 
-    <!-- Pfadangaben müssen alle relativ zu '/WEB-INF/' Verzeichniss angegeben werden
+    <!-- Pfadangaben mÃ¼ssen alle relativ zu '/WEB-INF/' Verzeichniss angegeben werden
          und mit einem '/' enden. -->
     <param name="paths.templateRoot" value="templates/"/>
     <param name="paths.modules" value="modules/"/>
@@ -74,15 +69,14 @@ Elmar Geese, CEO tarent GmbH
 		***************************************************************************************************
 		* 
 		* Die Authorisierungs-Konfiguration kann jetzt direkt in den Modulen in der Sektion <loginManager> der
-		* config.xml realisiert werden. Die Einträge hier sind nur noch ein Fallback, für den Fall, 
+		* config.xml realisiert werden. Die EintrÃ¤ge hier sind nur noch ein Fallback, fÃ¼r den Fall, 
         * dass im Modul selber nichts vorhanden ist.
 		* 
 		***************************************************************************************************
 	-->
 
-    <!-- Default Login über xml- User Liste -->
+    <!-- Default Login Ã¼ber xml- User Liste -->
 	<param name="loginManagerClass" value="de.tarent.octopus.security.LoginManagerXML"/>
     <param name="userFile" value="user.xml"/>
   </loginManager>
 </tcConfig>
-

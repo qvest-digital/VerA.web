@@ -1,11 +1,12 @@
-/*
- * veraweb,
- * Veranstaltungsmanagment veraweb
- * Copyright (c) 2005-2007 tarent GmbH
+/**
+ * veraweb, platform independent webservice-based event management
+ * (Veranstaltungsmanagment VerA.web), is
+ * Copyright Â© 2004-2008 tarent GmbH
+ * Copyright Â© 2013 tarent solutions GmbH
  *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License,version 2
- * as published by the Free Software Foundation.
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License, version 2, as
+ * published by the Free Software Foundation.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -13,20 +14,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
- * 02110-1301, USA.
- *
- * tarent GmbH., hereby disclaims all copyright
- * interest in the program 'veraweb'
- * Signature of Elmar Geese, 21 November 2007
- * Elmar Geese, CEO tarent GmbH.
- */
-
-/*
- * $Id$
- * 
- * Created on 23.08.2005
+ * along with this program.  If not, see: http://www.gnu.org/licenses/
  */
 package de.tarent.data.exchange;
 
@@ -47,7 +35,7 @@ public class MappingException extends Exception {
     }
 
     /**
-     * Dieser Konstruktor erhält einen Fehlertext.
+     * Dieser Konstruktor erhï¿½lt einen Fehlertext.
      * 
      * @param message Fehlertext
      */
@@ -56,7 +44,7 @@ public class MappingException extends Exception {
     }
 
     /**
-     * Dieser Konstruktor erhält einen geschachtelten {@link Throwable}. 
+     * Dieser Konstruktor erhï¿½lt einen geschachtelten {@link Throwable}. 
      * 
      * @param cause geschachtelter {@link Throwable}
      */
@@ -65,7 +53,7 @@ public class MappingException extends Exception {
     }
 
     /**
-     * Dieser Konstruktor erhält einen Fehlertext und einen geschachtelten {@link Throwable}.
+     * Dieser Konstruktor erhï¿½lt einen Fehlertext und einen geschachtelten {@link Throwable}.
      * 
      * @param message Fehlertext
      * @param cause geschachtelter {@link Throwable}
@@ -75,8 +63,8 @@ public class MappingException extends Exception {
     }
     
     //
-    // geschützt Member
+    // geschï¿½tzt Member
     //
-    /** Serialisierungs-ID (um Eclipse glücklich zu machen) */
+    /** Serialisierungs-ID (um Eclipse glï¿½cklich zu machen) */
     private static final long serialVersionUID = 974345013719043419L;
 }

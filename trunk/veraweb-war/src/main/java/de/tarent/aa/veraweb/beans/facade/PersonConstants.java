@@ -1,11 +1,12 @@
-/*
- * veraweb,
- * Veranstaltungsmanagment veraweb
- * Copyright (c) 2005-2007 tarent GmbH
+/**
+ * veraweb, platform independent webservice-based event management
+ * (Veranstaltungsmanagment VerA.web), is
+ * Copyright Â© 2004-2008 tarent GmbH
+ * Copyright Â© 2013 tarent solutions GmbH
  *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License,version 2
- * as published by the Free Software Foundation.
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License, version 2, as
+ * published by the Free Software Foundation.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -13,32 +14,21 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
- * 02110-1301, USA.
- *
- * tarent GmbH., hereby disclaims all copyright
- * interest in the program 'veraweb'
- * Signature of Elmar Geese, 21 November 2007
- * Elmar Geese, CEO tarent GmbH.
- */
-
-/*
- * $Id$
+ * along with this program.  If not, see: http://www.gnu.org/licenses/
  */
 package de.tarent.aa.veraweb.beans.facade;
 
 /**
- * Diese Schnittstelle stellt Konstanten für {@link de.tarent.aa.veraweb.beans.Person}-
- * und {@link de.tarent.aa.veraweb.beans.Person}-Instanzen zur Verfügung.
+ * Diese Schnittstelle stellt Konstanten fï¿½r {@link de.tarent.aa.veraweb.beans.Person}-
+ * und {@link de.tarent.aa.veraweb.beans.Person}-Instanzen zur Verfï¿½gung.
  * 
  * @author christoph
  */
 public interface PersonConstants {
-	/** Person ist noch nicht als gelöscht markiert worden. */
+	/** Person ist noch nicht als gelï¿½scht markiert worden. */
 	public static final String DELETED_FALSE = "f";
 
-	/** Person wurde als gelöscht markiert. */
+	/** Person wurde als gelï¿½scht markiert. */
 	public static final String DELETED_TRUE = "t";
 
 	/** Person ist eine Privatperson. */
@@ -47,28 +37,28 @@ public interface PersonConstants {
 	/** Person ist eine Firma / Institution. */
 	public static final String ISCOMPANY_TRUE = "t";
 
-	/** Member ID für die Hauptperson */
+	/** Member ID fï¿½r die Hauptperson */
 	public static final int MEMBER_MAIN = 1;
 
-	/** Member ID für den Partner */
+	/** Member ID fï¿½r den Partner */
 	public static final int MEMBER_PARTNER = 2;
 
-	/** Adresstype ID für die geschäftliche Anschrift */
+	/** Adresstype ID fï¿½r die geschï¿½ftliche Anschrift */
 	public static final int ADDRESSTYPE_BUSINESS = 1;
 
-	/** Adresstype ID für die private Anschrift */
+	/** Adresstype ID fï¿½r die private Anschrift */
 	public static final int ADDRESSTYPE_PRIVATE = 2;
 
-	/** Adresstype ID für die weitere Anschrift */
+	/** Adresstype ID fï¿½r die weitere Anschrift */
 	public static final int ADDRESSTYPE_OTHER = 3;
 
-	/** Locale ID für den lateinischen Zeichensatz */
+	/** Locale ID fï¿½r den lateinischen Zeichensatz */
 	public static final int LOCALE_LATIN = 1;
 
-	/** Locale ID für den lateinischen Zeichensatz */
+	/** Locale ID fï¿½r den lateinischen Zeichensatz */
 	public static final int LOCALE_EXTRA1 = 2;
 
-	/** Locale ID für den lateinischen Zeichensatz */
+	/** Locale ID fï¿½r den lateinischen Zeichensatz */
 	public static final int LOCALE_EXTRA2 = 3;
 
 	/** Gibt an ob eine Person aus dem Inland kommt. */
@@ -77,7 +67,7 @@ public interface PersonConstants {
 	/** Gibt an ob eine Person aus dem Ausland kommt. */
 	public static final String DOMESTIC_AUSLAND = "f";
 
-	/** Gibt an ob eine Person männlich ist. */
+	/** Gibt an ob eine Person mï¿½nnlich ist. */
 	public static final String SEX_MALE = "m";
 
 	/** Gibt an ob eine Person weiblich ist. */
