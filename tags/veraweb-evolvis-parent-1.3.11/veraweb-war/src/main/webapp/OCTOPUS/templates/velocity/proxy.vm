@@ -1,0 +1,202 @@
+## $Id$
+#if($proxiesFor == 'ou')
+#set($title = "Verwaltung - alle Stellvertretungen im Mandanten")
+#elseif($proxiesFor == 'all')
+#set($title = "Verwaltung - alle Stellvertretungen")
+#elseif($proxiesFor == 'self')
+#set($title = "Einstellungen - pers&ouml;nliche Stellvertretungen")
+#else
+#set($title = "Stellvertretungen")
+#end
+#parse("inc/header.vm")	
+<form id="formlist" name="formlist" action="$octopusRequest.task" method="POST">
+
+<table class="tab" border="0" cellspacing="0" cellpadding="0"><tr>
+	<td class="tableft">&nbsp;</td>
+	<td class="tabactiv"><span class="tabactiv">Vertretungen</span></td>
+	<td class="tabright">&nbsp;</td>
+</tr></table>
+
+#openContent()
+#openContentSection()
+
+#if($listerrors && $listerrors.size() > 0)
+<div style="margin: 10px 0px 10px 0px; padding: 10px 10px 10px 10px; background-color: #ffffff; border: 2px solid #ff0000;">
+	#foreach($error in $listerrors)
+		$error<br>
+	#end
+</div>
+#end
+
+<input type="hidden" name="start" value="">
+<input type="hidden" name="selectAll" value="false">
+<input type="hidden" name="selectNone" value="false">
+<input type="hidden" name="doInsert" value="true">
+<input type="hidden" name="doUpdate" value="true">
+<input type="hidden" name="doRemove" value="true">
+#if($order)
+<input type="hidden" name="order" value="$order">
+#end
+
+#foreach($bean in $list)
+<input type="hidden" name="list" value="$bean.id">
+#end
+<fieldset class="filter"><legend>G&uuml;ltigkeitsfilter</legend>
+	<input type="radio" id="validityIgnore" name="proxiesValid" value="ignore" onclick="submit();" #if($proxiesValid && $proxiesValid=='ignore')checked#end><label for="validityIgnore"> alle Vertretungen</label>&nbsp;&nbsp;
+	<input type="radio" id="validityFuture" name="proxiesValid" value="future" onclick="submit();" #if((!$proxiesValid) || $proxiesValid=='future')checked#end><label for="validityFuture"> keine abgelaufenen Vertretungen</label>&nbsp;&nbsp;
+	<input type="radio" id="validityNow" name="proxiesValid" value="now" onclick="submit();" #if($proxiesValid && $proxiesValid=='now')checked#end><label for="validityNow"> nur aktuelle Vertretungen</label>
+</fieldset><br>
+
+<table class="list">
+	<tr class="list1" style="height: 20px;">
+		<th class="list" style="width: 20px;">&nbsp;</th>
+		<th class="list" style="width: 60px;">ID</th>
+#if($proxiesFor != 'self')
+ #if($proxiesFor != 'ou')
+		<th class="list"><a href="?order=orgunit#if($proxiesValid)&proxiesValid=$proxiesValid#end">Mandant</a></th>
+ #end
+		<th class="list"><a href="?order=userRole#if($proxiesValid)&proxiesValid=$proxiesValid#end">Rolle</a></th>
+#end
+		<th class="list"><a href="?order=proxy#if($proxiesValid)&proxiesValid=$proxiesValid#end">Vertreter</a></th>
+		<th class="list" style="width: 100px;"><a href="?order=validFrom#if($proxiesValid)&proxiesValid=$proxiesValid#end">G&uuml;ltig ab</a></th>
+		<th class="list" style="width: 100px;"><a href="?order=validTill#if($proxiesValid)&proxiesValid=$proxiesValid#end">G&uuml;ltig bis</a></th>
+	</tr>
+	<tr class="list2">
+		<td class="list"><input type="hidden" id="add-modified" name="add-modified" value="false"><input type="checkbox" name="add-select" value="true" class="checkbox" style="display: none;"></td>
+		<td class="list"><input type="hidden" name="add-id" value=""><em>neu</em></td>
+#if($proxiesFor != 'self')
+ #if($proxiesFor != 'ou')
+		<td class="list"></td>
+ #end
+		<td class="list">
+ #if($allUser)
+			<select id="add-user" name="add-user" class="combobox" style="width: 98%;" onchange="setModified('add')">
+				<option value="">Bitte ausw&auml;hlen</option>
+  #foreach($user in $allUser)
+				<option value="$user.id">$user.name</option>
+  #end
+			</select>
+ #else
+			<input type="text" name="add-user" value="" class="text" style="width: 96%;" onchange="setModified('add')">
+ #end
+		</td>
+#else
+		<input type="hidden" name="add-user" value="$!octopusConfig.personalConfig.verawebId">
+#end
+		<td class="list">
+#if($roleList)
+			<select id="add-proxy" name="add-proxy" class="combobox" style="width: 98%;" onchange="setModified('add')">
+				<option value="">Bitte ausw&auml;hlen</option>
+ #foreach($role in $roleList)
+				<option value="$role">$role</option>
+ #end
+			</select>
+#else
+			<input type="text" name="add-proxy" value="" class="text" style="width: 96%;" onchange="setModified('add')">
+#end
+		</td>
+		<td class="list">
+			<nobr>
+				<input type="text" name="add-validFrom" id="add-validFrom" value="" class="date" onchange="setModified('add')">
+				<span id="show-add-from"><img src="${paths.staticWeb}images/calendar.gif" alt="Datum ausw&auml;hlen" title="Datum ausw&auml;hlen"></span>
+				<script type="text/javascript">
+				    Calendar.setup({
+						inputField     :    "add-validFrom",
+						button         :    "show-add-from",
+						ifFormat       :    "%d.%m.%Y",
+						showsTime      :    false
+					});
+				</script>
+			</nobr>
+		</td>
+		<td class="list">
+			<nobr>
+				<input type="text" name="add-validTill" id="add-validTill" value="" class="date" onchange="setModified('add')">
+				<span id="show-add-till"><img src="${paths.staticWeb}images/calendar.gif" alt="Datum ausw&auml;hlen" title="Datum ausw&auml;hlen"></span>
+				<script type="text/javascript">
+				    Calendar.setup({
+						inputField     :    "add-validTill",
+						button         :    "show-add-till",
+						ifFormat       :    "%d.%m.%Y",
+						showsTime      :    false
+					});
+				</script>
+			</nobr>
+		</td>
+	</tr>
+	#foreach($bean in $list)
+	#if ($velocityCount % 2 == 1)
+		#set($class = "list1")
+	#else
+		#set($class = "list2")
+	#end
+	<tr class="$class">
+		<td class="list"><input type="hidden" id="${bean.id}-modified" name="${bean.id}-modified" value="false"><input type="checkbox" name="${bean.id}-select" value="true" class="checkbox" #if($listselection.indexOf($bean.id) != -1) checked#end></td>
+		<td class="list"><input type="hidden" name="${bean.id}-id" value="$!bean.id">$!{bean.id}<input type="hidden" name="${bean.id}-user" value="$!bean.user"></td>
+#if($proxiesFor != 'self')
+ #if($proxiesFor != 'ou')
+		<td class="list">
+  #if(!$bean.orgunit)
+			<i>no ou</i>
+  #elseif(!$mapOrgUnit.get($bean.orgunit))
+			<i>ou unknown</i>
+  #else
+			$!mapOrgUnit.get($bean.orgunit).name
+  #end
+		</td>
+ #end
+		<td class="list"><input type="text" name="${bean.id}-userRole" value="$!message.text($bean.userRole)" class="text" style="width: 96%;" onchange="setModified('$!bean.id')" readonly></td>
+#end
+		<td class="list"><input type="text" name="${bean.id}-proxy" value="$!message.text($bean.proxy)" class="text" style="width: 96%;" onchange="setModified('$!bean.id')" readonly></td>
+		<td class="list">
+			<nobr>
+				<input type="text" name="${bean.id}-validFrom" id="${bean.id}-validFrom" value="$!message.date("DATE", $bean.validFrom)" class="date" onchange="setModified('$!bean.id')">
+				<span id="show-${bean.id}-from"><img src="${paths.staticWeb}images/calendar.gif" alt="Datum ausw&auml;hlen" title="Datum ausw&auml;hlen"></span>
+				<script type="text/javascript">
+				    Calendar.setup({
+						inputField     :    "${bean.id}-validFrom",
+						button         :    "show-${bean.id}-from",
+						ifFormat       :    "%d.%m.%Y",
+						showsTime      :    false
+					});
+				</script>
+			</nobr>
+		</td>
+		<td class="list">
+			<nobr>
+				<input type="text" name="${bean.id}-validTill" id="${bean.id}-validTill" value="$!message.date("DATE", $bean.validTill)" class="date" onchange="setModified('$!bean.id')">
+				<span id="show-${bean.id}-till"><img src="${paths.staticWeb}images/calendar.gif" alt="Datum ausw&auml;hlen" title="Datum ausw&auml;hlen"></span>
+				<script type="text/javascript">
+				    Calendar.setup({
+						inputField     :    "${bean.id}-validTill",
+						button         :    "show-${bean.id}-till",
+						ifFormat       :    "%d.%m.%Y",
+						showsTime      :    false
+					});
+				</script>
+			</nobr>
+		</td>
+	</tr>
+	#end
+</table>
+
+#if ($listparam.count == 0)
+	<br>Keine Daten gefunden.
+#end
+
+<div id="fixme" class="fixme1"><div class="fixme2"><div class="fixme3">
+
+	#parse("inc/list-navi.vm")
+	#parse("inc/list-direct.vm")
+
+	<input type="submit" name="save" value="Speichern" class="submit"> &nbsp;
+	<input type="submit" name="remove" value="L&ouml;schen" class="button" title="markierte Eintr&auml;ge entfernen"> &nbsp;
+
+</div></div></div>
+
+#closeContentSection()
+#closeContent()
+
+</form>
+
+#parse("inc/footer.vm")

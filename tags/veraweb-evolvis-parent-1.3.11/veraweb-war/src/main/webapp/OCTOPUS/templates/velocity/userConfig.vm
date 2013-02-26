@@ -1,0 +1,143 @@
+#set($title = "Benutzer Einstellungen")
+#parse("inc/header.vm")	
+
+<form action="UserConfig" method="POST">
+
+<table class="tab" border="0" cellspacing="0" cellpadding="0"><tr>
+	<td class="tableft">&nbsp;</td>
+	<td class="tabactiv"><span class="tabactiv">Einstellungen</span></td>
+	<td class="tabright">&nbsp;</td>
+</tr></table>
+
+#openContent()
+#openContentSection()
+
+<h1>Standard Auswahl von Tabulatoren</h1>
+#if($userConfig.personTab && $userConfig.personTab == "1")
+	#set($personTab1 = true)#set($personTab2 = false)
+#elseif($userConfig.personTab && $userConfig.personTab == "2")
+	#set($personTab1 = false)#set($personTab2 = true)
+#elseif(!$config.personTab)
+	#set($personTab1 = true)#set($personTab2 = false)
+#else
+	#set($personTab1 = false)#set($personTab2 = true)
+#end
+#if($userConfig.personMemberTab && $userConfig.personMemberTab == "1")
+	#set($personMemberTab1 = true)#set($personMemberTab2 = false)
+#elseif($userConfig.personMemberTab && $userConfig.personMemberTab == "2")
+	#set($personMemberTab1 = false)#set($personMemberTab2 = true)
+#elseif(!$config.personMemberTab)
+	#set($personMemberTab1 = true)#set($personMemberTab2 = false)
+#else
+	#set($personMemberTab1 = false)#set($personMemberTab2 = true)
+#end
+#if($userConfig.personAddresstypeTab && $userConfig.personAddresstypeTab == "1")
+	#set($personAddresstypeTab1 = true)#set($personAddresstypeTab2 = false)#set($personAddresstypeTab3 = false)
+#elseif($userConfig.personAddresstypeTab && $userConfig.personAddresstypeTab == "2")
+	#set($personAddresstypeTab1 = false)#set($personAddresstypeTab2 = true)#set($personAddresstypeTab3 = false)
+#elseif($userConfig.personAddresstypeTab && $userConfig.personAddresstypeTab == "3")
+	#set($personAddresstypeTab1 = false)#set($personAddresstypeTab2 = false)#set($personAddresstypeTab3 = true)
+#elseif(!$config.personAddresstypeTab)
+	#set($personAddresstypeTab1 = true)#set($personAddresstypeTab2 = false)#set($personAddresstypeTab3 = false)
+#elseif($config.personAddresstypeTab == "2")
+	#set($personAddresstypeTab1 = false)#set($personAddresstypeTab2 = true)#set($personAddresstypeTab3 = false)
+#else
+	#set($personAddresstypeTab1 = false)#set($personAddresstypeTab2 = false)#set($personAddresstypeTab3 = true)
+#end
+#if($userConfig.personLocaleTab && $userConfig.personLocaleTab == "1")
+	#set($personLocaleTab1 = true)#set($personLocaleTab2 = false)#set($personLocaleTab3 = false)
+#elseif($userConfig.personLocaleTab && $userConfig.personLocaleTab == "2")
+	#set($personLocaleTab1 = false)#set($personLocaleTab2 = true)#set($personLocaleTab3 = false)
+#elseif($userConfig.personLocaleTab && $userConfig.personLocaleTab == "3")
+	#set($personLocaleTab1 = false)#set($personLocaleTab2 = false)#set($personLocaleTab3 = true)
+#elseif(!$config.personLocaleTab)
+	#set($personLocaleTab1 = true)#set($personLocaleTab2 = false)#set($personLocaleTab3 = false)
+#elseif($config.personLocaleTab == "2")
+	#set($personLocaleTab1 = false)#set($personLocaleTab2 = true)#set($personLocaleTab3 = false)
+#else
+	#set($personLocaleTab1 = false)#set($personLocaleTab2 = false)#set($personLocaleTab3 = true)
+#end
+<table class="form">
+	<tr>
+		<td class="label">Person-Dialog:</td>
+		<td class="value"><table class="list" style="width: 99%;"><tr class="list1">
+    		<td class="value" style="width: 20px;"><input type="radio" name="personTab" id="personTab1" value="1" #if($personTab1) checked #end></td>
+    		<td class="value" style="width:120px;"><label for="personTab1">&nbsp;Personendaten</label></td>
+    		<td class="value" style="width: 20px;"><input type="radio" name="personTab" id="personTab2" value="2" #if($personTab2) checked #end></td>
+    		<td class="value" style="width:120px;"><label for="personTab2">&nbsp;Anschriften</label></td>
+    		<td class="value">&nbsp;</td>
+		</tr></table></td>
+	</tr><tr>
+		<td class="value">&nbsp;</td>
+		<td class="value"><table class="list" style="width: 99%;"><tr class="list1">
+    		<td class="value" style="width: 20px;"><input type="radio" name="personMemberTab" id="personMemberTab1" value="1" #if($personMemberTab1) checked #end></td>
+    		<td class="value" style="width:120px;"><label for="personMemberTab1">&nbsp;Hauptperson</label></td>
+    		<td class="value" style="width: 20px;"><input type="radio" name="personMemberTab" id="personMemberTab2" value="2" #if($personMemberTab2) checked #end></td>
+    		<td class="value" style="width:120px;"><label for="personMemberTab2">&nbsp;Partner</label></td>
+    		<td class="value">&nbsp;</td>
+		</tr></table></td>
+	</tr><tr>
+		<td class="value">&nbsp;</td>
+		<td class="value"><table class="list" style="width: 99%;"><tr class="list1">
+    		<td class="value" style="width: 20px;"><input type="radio" name="personAddresstypeTab" id="personAddresstypeTab1" value="1" #if($personAddresstypeTab1) checked #end></td>
+    		<td class="value" style="width:120px;"><label for="personAddresstypeTab1">&nbsp;Gesch&auml;ftlich</label></td>
+    		<td class="value" style="width: 20px;"><input type="radio" name="personAddresstypeTab" id="personAddresstypeTab2" value="2" #if($personAddresstypeTab2) checked #end></td>
+    		<td class="value" style="width:120px;"><label for="personAddresstypeTab2">&nbsp;Privat</label></td>
+    		<td class="value" style="width: 20px;"><input type="radio" name="personAddresstypeTab" id="personAddresstypeTab3" value="3" #if($personAddresstypeTab3) checked #end></td>
+    		<td class="value" style="width:120px;"><label for="personAddresstypeTab3">&nbsp;Weitere</label></td>
+    		<td class="value">&nbsp;</td>
+		</tr></table></td>
+	</tr><tr>
+		<td class="value">&nbsp;</td>
+		<td class="value"><table class="list" style="width: 99%;"><tr class="list1">
+    		<td class="value" style="width: 20px;"><input type="radio" name="personLocaleTab" id="personLocaleTab1" value="1" #if($personLocaleTab1) checked #end></td>
+    		<td class="value" style="width:120px;"><label for="personLocaleTab1">&nbsp;Latein</label></td>
+    		<td class="value" style="width: 20px;"><input type="radio" name="personLocaleTab" id="personLocaleTab2" value="2" #if($personLocaleTab2) checked #end></td>
+    		<td class="value" style="width:120px;"><label for="personLocaleTab2">&nbsp;Zeichensatz 1</label></td>
+    		<td class="value" style="width: 20px;"><input type="radio" name="personLocaleTab" id="personLocaleTab3" value="3" #if($personLocaleTab3) checked #end></td>
+    		<td class="value" style="width:120px;"><label for="personLocaleTab3">&nbsp;Zeichensatz 2</label></td>
+    		<td class="value">&nbsp;</td>
+		</tr></table></td>
+	</tr>
+</table><br>
+
+<h1>Zus&auml;tzliche Felder in der G&auml;steliste</h1>
+<table class="form">
+	<tr>
+		<td class="label">G&auml;steliste:</td>
+		<td class="value"><table class="list" style="width: 99%;"><tr class="list1">
+    		<td class="value" style="width: 20px;"><input type="checkbox" name="guestListFunction" id="guestListFunction" value="true" #if($userConfig.guestListFunction) checked #end></td>
+    		<td class="value" style="width:120px;"><label for="guestListFunction">&nbsp;Funktion</label></td>
+    		<td class="value" style="width: 20px;"><input type="checkbox" name="guestListCity" id="guestListCity" value="true" #if($userConfig.guestListCity) checked #end></td>
+    		<td class="value" style="width:120px;"><label for="guestListCity">&nbsp;PLZ / Ort</label></td>
+    		<td class="value" style="width: 20px;"><input type="checkbox" name="guestListPhone" id="guestListPhone" value="true" #if($userConfig.guestListPhone) checked #end></td>
+    		<td class="value" style="width:120px;"><label for="guestListPhone">&nbsp;Telefon</label></td>
+    		<td class="value">&nbsp;</td>
+		</tr></table></td>
+	</tr>
+</table><br>
+
+<h1>Zus&auml;tzliche Felder in der Personenliste</h1>
+<table class="form">
+	<tr>
+		<td class="label">Personenliste:</td>
+		<td class="value"><table class="list" style="width: 99%;"><tr class="list1">
+    		<td class="value" style="width: 20px;"><input type="checkbox" name="personListState" id="personListState" value="true" #if($userConfig.personListState) checked #end></td>
+    		<td class="value" style="width:120px;"><label for="guestListFunction">&nbsp;Bundesland</label></td>
+    		<td class="value">&nbsp;</td>
+		</tr></table></td>
+	</tr>
+</table>
+
+<div id="fixme" class="fixme1"><div class="fixme2"><div class="fixme3">
+
+<input type="submit" name="save" value="Speichern" class="submit"> &nbsp;
+
+</div></div></div>
+
+#closeContentSection()
+#closeContent()
+
+</form>
+
+#parse("inc/footer.vm")

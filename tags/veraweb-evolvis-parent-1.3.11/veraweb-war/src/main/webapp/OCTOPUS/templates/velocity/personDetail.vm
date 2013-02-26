@@ -1,0 +1,445 @@
+#if($person && $person.id)
+#set($title = "Person bearbeiten: $!message.plain($person.MainLatin.SaveAs)")
+#parse("inc/header.vm")
+#else
+#set($isNewPerson = 1)
+#set($title = "Neue Person anlegen")
+#parse("inc/header.vm")
+#end
+
+#if($octopusRequest.task == "AddPersonToEventDetail")
+	<div style="margin: 10px 0px 0px 0px; padding: 2px 3px 2px 3px; background-color: #ffc080; border: 1px solid #ff8000;">
+		#if($invited == 1)
+			Diese Person wurde erfolgreich zur Veranstaltung &quot;$!message.plain($event.shortname)&quot; eingeladen.
+		#end
+		#if($notInvited == 1)
+			Diese Person wurde nicht eingeladen, da Sie bereits auf der G&auml;steliste stand.
+		#end
+	</div>
+#end
+
+<form id="PersonForm" name="PersonForm" action="${paths.staticWeb}do/SavePerson" method="post">
+<input type="hidden" name="id" value="$!person.id">
+<input type="hidden" name="person-id" value="$!person.id">
+<input type="hidden" name="person-orgunit" value="$!person.orgunit">
+<input type="hidden" name="person-deleted" #if($person.deleted && $person.deleted == "t") value="t" #else value="f" #end>
+<input type="hidden" name="person-importsource" value="$!person.importsource">
+#if($octopusRequest.task == "LoadPersonCompany" || $octopusRequest.forcedupcheck == "true")
+<input type="hidden" name="person-modified" id="modified" value="true">
+#else
+<input type="hidden" name="person-modified" id="modified" value="false">
+#end
+#if(!$person || $octopusRequest.task == "CreatePerson")
+<input type="hidden" name="forcedupcheck" id="forcedupcheck" value="true">
+#else
+<input type="hidden" name="forcedupcheck" id="forcedupcheck" value="false">
+#end
+<input type="hidden" id="saveperson" name="saveperson" value="true">
+<input type="hidden" id="company" name="company" value="">
+<input type="hidden" id="companyfield" name="companyfield" value="">
+<input type="hidden" id="inviteGuestReserve" name="inviteGuestReserve" value="false">
+<input type="hidden" id="inviteGuestPartner" name="inviteGuestPartner" value="false">
+<input type="hidden" id="personTab" name="personTab" value="1">
+<input type="hidden" id="personMemberTab" name="personMemberTab" value="1">
+<input type="hidden" id="personAddresstypeTab" name="personAddresstypeTab" value="1">
+<input type="hidden" id="personLocaleTab" name="personLocaleTab" value="1">
+
+##new cf. issue #2091
+<input type="hidden" id="action" name="action" value="$action">
+
+#if ($person && $person.id)
+<input type="hidden" name="person-nodupcheck" value="true">
+#end
+<input type="hidden" name="start" value="0">
+<input type="hidden" name="selectAll" value="false">
+<input type="hidden" name="selectNone" value="true">
+<input type="hidden" name="originalPersonId" value="$!originalPersonId">
+
+<table class="tab" border="0" cellspacing="0" cellpadding="0"><tr>
+	<td class="tableft">&nbsp;</td>
+	<td class="tabinactiv" id="person-tab"><a href="javascript:showTab('person');" id="person-link" class="tabinactiv">Personendaten</a></td>
+	<td class="tabinactiv" id="anschrift-tab"><a href="javascript:showTab('anschrift');" id="anschrift-link" class="tabinactiv">Anschriften</a></td>
+#if($person && $person && $person.id && $person.id)
+	<td class="tabinactiv"><a href="javascript:showDoctypes();" class="tabinactiv">Dokumenttypen</a></td>
+	<td class="tabinactiv"><a href="javascript:showCategories();" class="tabinactiv">Kategorien</a></td>
+#else
+	<td class="tabdisabled"><span class="tabdisabled">Dokumenttypen</span></td>
+	<td class="tabdisabled"><span class="tabdisabled">Kategorien</span></td>
+#end
+	<td class="tabright">&nbsp;</td>
+</tr></table>
+
+#openContent()
+
+#openContentSection()
+
+#if($person.deleted == "t")
+<table class="list">
+	<tr style="height: 20px;">
+		<td class="list2error" style="text-align: center; width: 60px;"><strong>Hinweis</strong></td>
+		<td class="list1error">
+			Diese Person wurde bereits als gel&ouml;scht markiert und wird beim Suchen nicht mehr angezeigt.
+		</td>
+	</tr>
+</table><br>
+#end
+
+#if($person)
+#set( $errors = $person.errors )
+#elseif($newPersonErrors)
+#set( $errors = $newPersonErrors )
+#end
+#if($errors.size() > 0)
+<div style="margin: 10px 0px 10px 0px; padding: 10px 10px 10px 10px; background-color: #ffffff; border: 2px solid #ff0000;">
+	$errors.get(0)<br>
+##	#foreach($error in $errors)
+##		$error<br>
+##	#end
+</div>
+#end
+
+#parse("inc/person-header.vm")
+
+#closeContentSection()
+
+<div id="subtab-person-block" style="display: none;">
+	<table class="subtab" border="0" cellspacing="0" cellpadding="0"><tr>
+		<td class="subtableft">&nbsp;</td>
+		<td class="subtab" id="person-1-tab"><a href="javascript:showTab('person-1');" id="person-1-link" class="subtab">$!config.main</a></td>
+
+## partner tab now renders inactive if there is no partner defined
+## for existing persons, newly created persons will render the tab active
+## as per change request for version 1.2.0
+## cklein 2008-02-15
+              <td  #if( $person.getHasPartner() || $octopusRequest.task == "CreatePerson" ) class="subtab" #else class="tabdisabled" #end id="person-2-tab"><a href="javascript:showTab('person-2');" id="person-2-link" class="subtab">$!config.partner</a></td>
+##            <td class="subtab" id="person-2-tab"><a href="javascript:showTab('person-2');" id="person-2-link" class="subtab">$!config.partner</a></td>
+		<td class="subtabcenter">&nbsp;</td>
+		<td class="subtab" id="person-zs1-tab" style="width: 100px;"><a href="javascript:showTab('person-zs1');" id="person-zs1-link" class="subtab">$!config.latin</a></td>
+		<td class="subtab" id="person-zs2-tab" style="width: 100px;"><a href="javascript:showTab('person-zs2');" id="person-zs2-link" class="subtab">$!config.extra1</a></td>
+		<td class="subtab" id="person-zs3-tab" style="width: 100px;"><a href="javascript:showTab('person-zs3');" id="person-zs3-link" class="subtab">$!config.extra2</a></td>
+		<td class="subtabright">&nbsp;</td>
+	</tr></table>
+</div>
+
+<div id="subtab-anschrift-block" style="display: none;">
+	<table class="subtab" border="0" cellspacing="0" cellpadding="0"><tr>
+		<td class="subtableft" style="width: 7px;">&nbsp;</td>
+		<td class="subtab" id="anschrift-1-tab"><a href="javascript:showTab('anschrift-1');" id="anschrift-1-link" class="subtab">$!config.business</a></td>
+		<td class="subtab" id="anschrift-2-tab"><a href="javascript:showTab('anschrift-2');" id="anschrift-2-link" class="subtab">$!config.private</a></td>
+		<td class="subtab" id="anschrift-3-tab"><a href="javascript:showTab('anschrift-3');" id="anschrift-3-link" class="subtab">$!config.other</a></td>
+		<td class="subtabcenter">&nbsp;</td>
+		<td class="subtab" id="anschrift-zs1-tab" style="width: 100px;"><a href="javascript:showTab('anschrift-zs1');" id="anschrift-zs1-link" class="subtab">$!config.latin</a></td>
+		<td class="subtab" id="anschrift-zs2-tab" style="width: 100px;"><a href="javascript:showTab('anschrift-zs2');" id="anschrift-zs2-link" class="subtab">$!config.extra1</a></td>
+		<td class="subtab" id="anschrift-zs3-tab" style="width: 100px;"><a href="javascript:showTab('anschrift-zs3');" id="anschrift-zs3-link" class="subtab">$!config.extra2</a></td>
+		<td class="subtabright">&nbsp;</td>
+	</tr></table>
+</div>
+
+#openContentBlock("person1-zs1-block")
+#set($ext = "_a_e1")
+#set($facade = $person.MainLatin)
+#parse("inc/person-member.vm")
+#closeContentBlock()
+
+#openContentBlock("person1-zs2-block")
+#set($ext = "_a_e2")
+#set($facade = $person.MainExtra1)
+#parse("inc/person-member.vm")
+#closeContentBlock()
+
+#openContentBlock("person1-zs3-block")
+#set($ext = "_a_e3")
+#set($facade = $person.MainExtra2)
+#parse("inc/person-member.vm")
+#closeContentBlock()
+
+#openContentBlock("person2-zs1-block")
+#set($ext = "_b_e1")
+#set($facade = $person.PartnerLatin)
+#parse("inc/person-member.vm")
+#closeContentBlock()
+
+#openContentBlock("person2-zs2-block")
+#set($ext = "_b_e2")
+#set($facade = $person.PartnerExtra1)
+#parse("inc/person-member.vm")
+#closeContentBlock()
+
+#openContentBlock("person2-zs3-block")
+#set($ext = "_b_e3")
+#set($facade = $person.PartnerExtra2)
+#parse("inc/person-member.vm")
+#closeContentBlock()
+
+#openContentBlock("anschrift1-zs1-block")
+#set($ext = "_a_e1")
+#set($facade = $person.BusinessLatin)
+#parse("inc/person-address.vm")
+#closeContentBlock()
+
+#openContentBlock("anschrift1-zs2-block")
+#set($ext = "_a_e2")
+#set($facade = $person.BusinessExtra1)
+#parse("inc/person-address.vm")
+#closeContentBlock()
+
+#openContentBlock("anschrift1-zs3-block")
+#set($ext = "_a_e3")
+#set($facade = $person.BusinessExtra2)
+#parse("inc/person-address.vm")
+#closeContentBlock()
+
+#openContentBlock("anschrift2-zs1-block")
+#set($ext = "_b_e1")
+#set($facade = $person.PrivateLatin)
+#parse("inc/person-address.vm")
+#closeContentBlock()
+
+#openContentBlock("anschrift2-zs2-block")
+#set($ext = "_b_e2")
+#set($facade = $person.PrivateExtra1)
+#parse("inc/person-address.vm")
+#closeContentBlock()
+
+#openContentBlock("anschrift2-zs3-block")
+#set($ext = "_b_e3")
+#set($facade = $person.PrivateExtra2)
+#parse("inc/person-address.vm")
+#closeContentBlock()
+
+#openContentBlock("anschrift3-zs1-block")
+#set($ext = "_c_e1")
+#set($facade = $person.OtherLatin)
+#parse("inc/person-address.vm")
+#closeContentBlock()
+
+#openContentBlock("anschrift3-zs2-block")
+#set($ext = "_c_e2")
+#set($facade = $person.OtherExtra1)
+#parse("inc/person-address.vm")
+#closeContentBlock()
+
+#openContentBlock("anschrift3-zs3-block")
+#set($ext = "_c_e3")
+#set($facade = $person.OtherExtra2)
+#parse("inc/person-address.vm")
+#closeContentBlock()
+
+<div id="fixme" class="fixme1"><div class="fixme2"><div class="fixme3">
+
+## modified to support direct search result navigation as per change request for version 1.2.0
+## cklein
+## 2008-02-22
+#if($navigation)
+	#parse("inc/person-navi.vm")
+#end
+
+#if($action == "guest")
+    #if($person && $person.id)
+    <input type="button" name="add" class="button" value="&Uuml;bernehmen" title="Gast direkt in G&auml;steliste &uuml;bernehmen" onclick="addToGuestList();"> &nbsp;
+    #end
+    <input type="submit" name="save" value="Speichern" #if($grants.mayWrite()) class="button" #else class="buttondisabled" disabled #end> &nbsp;
+    <input type="button" name="copy" value="Person kopieren" onclick="if (checkModified()) { copyPerson(); }" #if($grants.mayWrite()) class="button" #else class="buttondisabled" disabled #end> &nbsp;
+    <input type="button" name="export" class="button" value="Etikett erzeugen" onclick="exportPerson('${paths.staticWeb}do/', '$!person.id');"> &nbsp;
+    <input type="button" name="cancel" class="button" value="Zur&uuml;ck" title="Zur&uuml;ck zur Personenliste" onclick="if (checkModified()) { window.location.href='${paths.staticWeb}do/AddPersonToEventList'; }"> &nbsp;
+#elseif($action == "host")
+    #if($person && $person.id)
+    <input type="button" name="set" class="button" value="&Uuml;bernehmen" title="Person direkt als Gastgeber &uuml;bernehmen" onclick="window.location.href='${paths.staticWeb}do/SetHostToEventDetail?hostid=$!person.id';"> &nbsp;
+	#end
+    <input type="submit" name="save" value="Speichern" #if($grants.mayWrite()) class="button" #else class="buttondisabled" disabled #end> &nbsp;
+    <input type="button" name="copy" value="Person kopieren" onclick="if (checkModified()) { copyPerson(); }" #if($grants.mayWrite()) class="button" #else class="buttondisabled" disabled #end> &nbsp;
+    <input type="button" name="export" class="button" value="Etikett erzeugen" onclick="exportPerson('${paths.staticWeb}do/', '$!person.id');"> &nbsp;
+
+## modified to provide a direct statistic button as per change request for version 1.2.0
+## cklein
+## 2008-03-14
+    <input type="button" value="Statistik" name="statistics" 	#if($person && $person.id) class="button" onclick="window.open( '${paths.staticWeb}do/StatistikExport?id=$!person.id' );" #else disabled="disabled" class="buttondisabled" #end> &nbsp;
+
+    #if($person && $person.id)
+    <input type="button" name="cancel" class="button" value="Zur&uuml;ck" title="Zur&uuml;ck zur Personenliste" onclick="if (checkModified()) { window.location.href='${paths.staticWeb}do/SetHostToEventList'; }"> &nbsp;
+    #else
+    <input type="button" name="cancel" class="button" value="Zur&uuml;ck" onclick="if (checkModified()) { window.location.href='${paths.staticWeb}do/SetHostToEventList'; }"> &nbsp;
+    #end
+#elseif($action == "event")
+    <input type="submit" name="save" value="Speichern" #if($grants.mayWrite()) class="button" #else class="buttondisabled" disabled #end> &nbsp;
+    <input type="button" name="copy" value="Person kopieren" onclick="if (checkModified()) { copyPerson(); }" #if($grants.mayWrite()) class="button" #else class="buttondisabled" disabled #end> &nbsp;
+    <input type="button" name="export" class="button" value="Etikett erzeugen" onclick="exportPerson('${paths.staticWeb}do/', '$!person.id');"> &nbsp;
+
+## modified to provide a direct statistic button as per change request for version 1.2.0
+## cklein
+## 2008-03-14
+    <input type="button" value="Statistik" name="statistics" 	#if($person && $person.id) class="button" onclick="window.open( '${paths.staticWeb}do/StatistikExport?id=$!person.id' );" #else disabled="disabled" class="buttondisabled" #end> &nbsp;
+
+    <input type="button" name="cancel" class="button" value="Zur&uuml;ck" onclick="if (checkModified()) { window.location.href='${paths.staticWeb}do/ShowGuestDetail'; }"> &nbsp;
+#else
+    <input type="submit" name="save" value="Speichern" #if($grants.mayWrite()) class="button" #else class="buttondisabled" disabled #end> &nbsp;
+    <input type="button" name="copy" value="Person kopieren" onclick="if (checkModified()) { copyPerson(); }" #if($grants.mayWrite()) class="button" #else class="buttondisabled" disabled #end> &nbsp;
+	#if($person && $person.id)
+    <input type="button" name="export" class="button" value="Etikett erzeugen" onclick="exportPerson('${paths.staticWeb}do/', '$!person.id');"> &nbsp;
+	#if($grants.mayWrite())
+	<input type="button" name="event"  class="button" value="Veranstaltung..." title="Person einer Veranstaltung zuordnen" onclick="if (checkModified()) { window.location.href='${paths.staticWeb}do/ShowEventSearch?action=addperson'; }"> &nbsp;
+	#end
+	<input type="button" name="remove" value="L&ouml;schen" title="Aktuelle Person l&ouml;schen und zur Personenliste zur&uuml;ckkehren." onclick="if (checkModified()) { removePerson(); }" #if($grants.mayWrite()) class="button" #else class="buttondisabled" disabled #end> &nbsp;
+	#end
+
+## modified to disable the button in case that this is a new record
+## modified to provide a direct statistic button as per change request for version 1.2.0
+## cklein
+## 2008-02-21
+    <input type="button" value="Statistik" name="statistics" 	#if($person && $person.id) class="button" onclick="window.open( '${paths.staticWeb}do/StatistikExport?id=$!person.id' );" #else disabled="disabled" class="buttondisabled" #end> &nbsp;
+
+	#if( $action == "duplicateSearch" )
+		<input type="button" name="cancel" class="button" value="Duplikatsuche" onclick="if (checkModified()) { window.location.href='${paths.staticWeb}do/PersonDuplicateSearch'; }"> &nbsp;
+	#else
+	    <input type="button" name="cancel" class="button" value="Listenansicht" onclick="if (checkModified()) { window.location.href='${paths.staticWeb}do/SearchPerson?action=person'; }"> &nbsp;
+	#end
+#end
+
+</div></div></div>
+
+#closeContent()
+
+</form>
+
+<script type="text/javascript" src="${paths.staticWeb}scripts/person-detail-tabs.js"></script>
+<script type="text/javascript">
+#if($action == "guest")
+	function addToGuestList() {
+		htmlConfirm('Soll dieser Gast auf Platz gesetzt werden?', new Array('Ja', 'Nein'), new Array("addToGuestQuestX1('false');", "addToGuestQuestX1('true');"));
+	}
+	
+	function addToGuestQuestX1(answer) {
+		document.getElementById('inviteGuestReserve').value = answer;
+		htmlConfirm('Soll die Partnerin / der Partner mit eingeladen werden?', new Array('Ja', 'Nein'), new Array("addToGuestQuestX2('true');", "addToGuestQuestX2('false');"));
+	}
+	
+	function addToGuestQuestX2(answer) {
+		document.getElementById('inviteGuestPartner').value = answer;
+		htmlWait();
+		
+		var url = '${paths.staticWeb}do/AddPersonToEventGuestList';
+		url += '?list=$!{person.id}';
+		url += '&$!{person.id}-id=${person.id}';
+		url += '&$!{person.id}-select=true';
+		url += '&$!{person.id}-reserve='  + document.getElementById('inviteGuestReserve').value;
+		url += '&$!{person.id}-partner='  + document.getElementById('inviteGuestPartner').value;
+		url += '&$!{person.id}-category=$!octopusRequest.person-category';
+		window.location.href = url;
+	}
+#end
+	function copyPerson() {
+		document.getElementById('PersonForm').action = '${paths.staticWeb}do/CopyPerson';
+## fixed bug 1011, copying did not work due to below line
+## cklein 2008-03-11
+##		document.getElementById('PersonForm').id.value = '';
+		document.getElementById('PersonForm').originalPersonId.value = '$!person.id';
+		document.getElementById('PersonForm').submit();
+	}
+	
+	function removePerson() {
+		if (confirm('Aktuelle Person wirklich entfernen?')) {
+			window.location.href = '${paths.staticWeb}do/SearchPerson?doRemove=true&remove&remove-person=true&selectNone=true&list=$!{person.id}&$!{person.id}-select=true';
+		}
+	}
+
+	function showDoctypes() {
+		if (document.getElementById('modified').value == 'true') {
+    		document.getElementById('PersonForm').action = '${paths.staticWeb}do/ShowPersonDoctypeList';
+    		document.getElementById('PersonForm').submit();
+		} else {
+			window.location.href = '${paths.staticWeb}do/ShowPersonDoctypeList?id=$!person.id&offset=${navigation.current.offset}';
+		}
+	}
+	
+	function showCategories() {
+		if (document.getElementById('modified').value == 'true') {
+    		document.getElementById('PersonForm').action = '${paths.staticWeb}do/ShowPersonCategorieList';
+    		document.getElementById('PersonForm').submit();
+		} else {
+			window.location.href = '${paths.staticWeb}do/ShowPersonCategorieList?id=$!person.id&offset=${navigation.current.offset}';
+		}
+	}
+	
+	function setSex(salutation, sex) {
+		var s = document.getElementById(salutation);
+		var id = s.options[s.selectedIndex].value;
+		var g = '';
+		if (id == '') {}
+#foreach($s in $allSalutation)
+			else if (id == '$s.id') g = '$s.gender';
+#end
+		if (g == 'M' || g == 'm') {
+			if (document.getElementById(sex + '-m')) {
+				document.getElementById(sex + '-m').checked = true;
+			}
+		} else if (g == 'F' || g == 'f') {
+			if (document.getElementById(sex + '-f')) {
+				document.getElementById(sex + '-f').checked = true;
+			}
+		}
+	}
+	
+	#if(!$person)
+		setSex('person-salutation_a_e1', 'person-sex_a_e1');
+		setSex('person-salutation_b_e1', 'person-sex_b_e1');
+	#end
+	
+	#if($grants.mayWrite())
+		if (document.getElementById('forcedupcheck').value == 'true') {
+			disableForm(document.getElementById('PersonForm'));
+			hideBlock(document.getElementById("show-expire"));
+			hideBlock(document.getElementById("show-birthday_a_e1"));
+			hideBlock(document.getElementById("show-birthday_b_e1"));
+			hideBlock(document.getElementById("show-diplodate_a_e1"));
+			enableFormInput(document.getElementById('person-firstname_a_e1'));
+			enableFormInput(document.getElementById('person-lastname_a_e1'));
+		}
+	#else
+		disableForm(document.getElementById('PersonForm'));
+	#end
+	
+	#if($personMemberTab)
+		person = $personMemberTab; /* param */
+	#elseif($userConfig.personMemberTab)
+		person = $userConfig.personMemberTab; /* userconfig */
+	#elseif($config.personMemberTab)
+		person = $config.personMemberTab; /* config */
+	#end
+	#if($personAddresstypeTab)
+		anschrift = $personAddresstypeTab; /* param */
+	#elseif($userConfig.personAddresstypeTab)
+		anschrift = $userConfig.personAddresstypeTab; /* userconfig */
+	#elseif($config.personAddresstypeTab)
+		anschrift = $config.personAddresstypeTab; /* config */
+	#end
+	#if($personLocaleTab)
+		zeichensatz = $personLocaleTab; /* param */
+	#elseif($userConfig.personLocaleTab)
+		zeichensatz = $userConfig.personLocaleTab; /* userconfig */
+	#elseif($config.personLocaleTab)
+		zeichensatz = $config.personLocaleTab; /* config */
+	#end
+	
+	## fix for issue #1890
+	#if ($isNewPerson)
+		zeichensatz = 1;
+	#end
+	
+	#if($personTab && $personTab == 2)
+		showTab('person');
+	#elseif($personTab && $personTab == 3)
+		showTab('anschrift');
+	#elseif($userConfig.personTab == "1")
+		showTab('person');
+	#elseif($userConfig.personTab == "2")
+		showTab('anschrift');
+	#elseif($config.personTab == "1")
+		showTab('person');
+	#elseif($config.personTab == "2")
+		showTab('anschrift');
+	#else
+		showTab(getTabParameter('person'));
+	#end
+</script>
+
+#parse("inc/footer.vm")

@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>org.evolvis.veraweb</groupId>
+	<artifactId>veraweb-evolvis-parent</artifactId>
+	<packaging>pom</packaging>
+	<version>1.3.11</version>
+
+	<name>veraweb-evolvis-parent</name>
+	<description>Veranstaltungsmanagment VerA.web</description>
+
+	<inceptionYear>2005</inceptionYear>
+
+	<licenses>
+		<license>
+			<name>GNU General Public License</name>
+			<url>http://www.gnu.org/licenses/gpl-2.0.txt</url>
+		</license>
+	</licenses>
+
+	<url>http://veraweb.evolvis.org/</url>
+
+	<mailingLists>
+		<mailingList>
+			<name>veraweb-commits@lists.evolvis.org</name>
+		</mailingList>
+		<mailingList>
+			<name>veraweb-discussion@lists.evolvis.org</name>
+		</mailingList>
+	</mailingLists>
+
+	<organization>
+		<name>tarent solutions GmbH, Germany</name>
+		<url>http://www.tarent.de/</url>
+	</organization>
+
+	<scm>
+		<connection>
+			scm:svn:svn://evolvis.org/svnroot/veraweb/tags/veraweb-evolvis-parent-1.3.11
+		</connection>
+		<developerConnection>
+			scm:svn:svn+ssh://maven@evolvis.org/svnroot/veraweb/tags/veraweb-evolvis-parent-1.3.11
+		</developerConnection>
+		<url>
+			https://evolvis.org/scm/viewvc.php/tags/veraweb-evolvis-parent-1.3.11?root=veraweb
+		</url>
+	</scm>
+
+	<repositories>
+		<repository>
+			<id>evolvis-release-repository</id>
+			<name>evolvis.org release repository</name>
+			<url>http://maven-repo.evolvis.org/releases</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>evolvis-snapshot-repository</id>
+			<name>evolvis.org snapshot repository</name>
+			<url>http://maven-repo.evolvis.org/snapshots</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
+
+	<distributionManagement>
+		<repository>
+			<id>evolvis-release-repository</id>
+			<name>evolvis.org release repository</name>
+			<url>
+				scpexe://maven-repo.evolvis.org/var/www/maven_repo/releases
+			</url>
+		</repository>
+
+		<snapshotRepository>
+			<id>evolvis-snapshot-repository</id>
+			<name>evolvis.org snapshot repository</name>
+			<url>
+				scpexe://maven-repo.evolvis.org/var/www/maven_repo/snapshots
+			</url>
+		</snapshotRepository>
+
+		<site>
+			<id>evolvis-site-repository</id>
+			<name>evolvis.org site repository</name>
+			<url>
+				scpexe://maven@evolvis.org/site/veraweb/htdocs/maven-site
+			</url>
+		</site>
+	</distributionManagement>
+
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.5</source>
+					<target>1.5</target>
+					<encoding>UTF-8</encoding>
+				</configuration>
+			</plugin>
+			<plugin>
+				<inherited>false</inherited>
+				<groupId>com.mycila.maven-license-plugin</groupId>
+				<artifactId>maven-license-plugin</artifactId>
+				<version>1.9.0</version>
+				<configuration>
+					<basedir>${basedir}</basedir>
+					<header>${basedir}/LICENCE.hdr</header>
+					<quiet>false</quiet>
+					<failIfMissing>true</failIfMissing>
+					<aggregate>true</aggregate>
+					<includes>
+						<include>**/*.java</include>
+					</includes>
+					<useDefaultExcludes>true</useDefaultExcludes>
+					<useDefaultMapping>true</useDefaultMapping>
+					<encoding>UTF-8</encoding>
+					<strictCheck>true</strictCheck>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<modules>
+		<module>veraweb-war</module>
+		<module>veraweb-ear</module>
+	</modules>
+</project>
