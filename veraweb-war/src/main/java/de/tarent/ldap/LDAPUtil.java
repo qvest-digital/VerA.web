@@ -1,11 +1,12 @@
-/*
- * veraweb,
- * Veranstaltungsmanagment veraweb
- * Copyright (c) 2005-2007 tarent GmbH
+/**
+ * veraweb, platform independent webservice-based event management
+ * (Veranstaltungsmanagment VerA.web), is
+ * Copyright Â© 2004-2008 tarent GmbH
+ * Copyright Â© 2013 tarent solutions GmbH
  *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License,version 2
- * as published by the Free Software Foundation.
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License, version 2, as
+ * published by the Free Software Foundation.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -13,20 +14,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
- * 02110-1301, USA.
- *
- * tarent GmbH., hereby disclaims all copyright
- * interest in the program 'veraweb'
- * Signature of Elmar Geese, 21 November 2007
- * Elmar Geese, CEO tarent GmbH.
- */
-
-/*
- * $Id$
- * 
- * Created on 21.04.2005
+ * along with this program.  If not, see: http://www.gnu.org/licenses/
  */
 package de.tarent.ldap;
 
@@ -40,14 +28,14 @@ import javax.naming.directory.Attribute;
 import javax.naming.directory.Attributes;
 
 /**
- * Diese Klasse stellt statisch Utility-Funktionen für den LDAP-Kontext bereit.
+ * Diese Klasse stellt statisch Utility-Funktionen fï¿½r den LDAP-Kontext bereit.
  * 
  * @author mikel
  */
 public class LDAPUtil {
     /**
      * Diese Methode erzeugt aus einer {@link Attributes}-Sammlung eine {@link Map},
-     * deren Schlüssel die jeweilige Attribut-ID und deren Werte der jeweilige
+     * deren Schlï¿½ssel die jeweilige Attribut-ID und deren Werte der jeweilige
      * Attribut-Einzelwert oder eine Liste der jeweiligen Attributwerte sind. 
      * 
      * @param attribs LDAP-{@link Attributes}

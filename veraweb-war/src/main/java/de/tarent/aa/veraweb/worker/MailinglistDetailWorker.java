@@ -1,11 +1,12 @@
-/*
- * veraweb,
- * Veranstaltungsmanagment veraweb
- * Copyright (c) 2005-2007 tarent GmbH
+/**
+ * veraweb, platform independent webservice-based event management
+ * (Veranstaltungsmanagment VerA.web), is
+ * Copyright Â© 2004-2008 tarent GmbH
+ * Copyright Â© 2013 tarent solutions GmbH
  *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License,version 2
- * as published by the Free Software Foundation.
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License, version 2, as
+ * published by the Free Software Foundation.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -13,18 +14,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
- * 02110-1301, USA.
- *
- * tarent GmbH., hereby disclaims all copyright
- * interest in the program 'veraweb'
- * Signature of Elmar Geese, 21 November 2007
- * Elmar Geese, CEO tarent GmbH.
- */
-
-/*
- * $Id$
+ * along with this program.  If not, see: http://www.gnu.org/licenses/
  */
 package de.tarent.aa.veraweb.worker;
 
@@ -48,7 +38,7 @@ import de.tarent.octopus.beans.veraweb.ListWorkerVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
 
 /**
- * Dieser Octopus-Worker stellt die Übersichtliste eines Verteilers bereit.
+ * Dieser Octopus-Worker stellt die ï¿½bersichtliste eines Verteilers bereit.
  * 
  * @author Hendrik, Christoph Jerolimov
  * @version $Revision: 1.1 $
@@ -96,7 +86,7 @@ public class MailinglistDetailWorker extends ListWorkerVeraWeb {
 	public static final String INPUT_showDetail[] = {};
 	/**
      * Diese Octopus-Aktion schreibt die Details zur Mailinglist mit dem im
-     * Octopus-Request unter dem Schlüssel "id" angegebenen Primärschlüssel
+     * Octopus-Request unter dem Schlï¿½ssel "id" angegebenen Primï¿½rschlï¿½ssel
      * unter "mailinglist" in Octopus-Content und -Session.
      * 
      * @param cntx Octopus-Kontext
@@ -124,7 +114,7 @@ public class MailinglistDetailWorker extends ListWorkerVeraWeb {
 	public static final String INPUT_saveDetail[] = {};
 	/**
      * Diese Octopus-Aktion liest eine Mailinglist aus dem Octopus-Request,
-     * legt diese unter dem Schlüssel "mailinglist" in Octopus-Content und
+     * legt diese unter dem Schlï¿½ssel "mailinglist" in Octopus-Content und
      * -Session ab und testet sie auf Korrektheit. Falls sie korrekt ist,
      * wird sie in der Datenbank gespeichert, ansonsten wird der Status
      * "error" gesetzt.
@@ -156,13 +146,13 @@ public class MailinglistDetailWorker extends ListWorkerVeraWeb {
     /** Ausgabe-Parameter der Octopus-Aktion {@link #getAddressList(OctopusContext, Mailinglist, Integer)} */
 	public static final String OUTPUT_getAddressList = "mailAddresses";
 	/**
-     * Diese Octopus-Aktion liefert eine Liste mit mailto-URLs, die jeweils nicht länger als
-     * die übergebene Vorgabelänge sind, und die zusammengenommen alle Einträge der Mailinglist
+     * Diese Octopus-Aktion liefert eine Liste mit mailto-URLs, die jeweils nicht lï¿½nger als
+     * die ï¿½bergebene Vorgabelï¿½nge sind, und die zusammengenommen alle Eintrï¿½ge der Mailinglist
      * mit E-Mail-Adresse adressiert.
      * 
      * @param cntx Octopus-Kontext
      * @param mailinglist Mailingliste
-     * @param mailToUrlMaxSize Maximallänge einer mailto-URL
+     * @param mailToUrlMaxSize Maximallï¿½nge einer mailto-URL
      * @return Liste mit mailto-URLs zu der Mailingliste
      * @throws BeanException
      * @throws IOException
@@ -185,14 +175,14 @@ public class MailinglistDetailWorker extends ListWorkerVeraWeb {
 			String str = (String)(data).get("address");
 			
 			if (str != null && str.length() != 0) {
-				// Länge der URL darf nicht zu groß werden 
+				// Lï¿½nge der URL darf nicht zu groï¿½ werden 
 				if (mailToUrlMaxSize.intValue() != -1 && !first &&
 						addresses.length() + str.length() + 5 > mailToUrlMaxSize.intValue()) {
 					addressList.add(addresses.toString());
 					addresses = new StringBuffer();
 					first = true;
 				}
-				// eMail einfügen
+				// eMail einfï¿½gen
 				if (first) {
 					first = false;
 					addresses.append("mailto:?bcc=");

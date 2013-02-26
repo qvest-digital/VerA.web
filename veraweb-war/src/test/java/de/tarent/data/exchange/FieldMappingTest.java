@@ -1,11 +1,12 @@
-/*
- * veraweb,
- * Veranstaltungsmanagment veraweb
- * Copyright (c) 2005-2007 tarent GmbH
+/**
+ * veraweb, platform independent webservice-based event management
+ * (Veranstaltungsmanagment VerA.web), is
+ * Copyright Â© 2004-2008 tarent GmbH
+ * Copyright Â© 2013 tarent solutions GmbH
  *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License,version 2
- * as published by the Free Software Foundation.
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License, version 2, as
+ * published by the Free Software Foundation.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -13,20 +14,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
- * 02110-1301, USA.
- *
- * tarent GmbH., hereby disclaims all copyright
- * interest in the program 'veraweb'
- * Signature of Elmar Geese, 21 November 2007
- * Elmar Geese, CEO tarent GmbH.
- */
-
-/*
- * $Id$
- * 
- * Created on 23.08.2005
+ * along with this program.  If not, see: http://www.gnu.org/licenses/
  */
 package de.tarent.data.exchange;
 
@@ -65,7 +53,7 @@ public class FieldMappingTest extends TestCase {
 
     /**
      * (Erzeugung / Parsen der Parameter) Diese Testmethode testet, ob mehrfache
-     * Joker in einem FormatString zum Abbruch führen.
+     * Joker in einem FormatString zum Abbruch fï¿½hren.
      */
     public void testCreateDoubleJokerFail() {
         Set sources = createSources();
@@ -73,7 +61,7 @@ public class FieldMappingTest extends TestCase {
         description.put("*", "{:*} in {:*}");
         try {
             FieldMapping mapping = new FieldMapping(sources, description);
-            Assert.fail("FieldMapping " + mapping + " dürfte keine mehrfachen Joker akzeptieren");
+            Assert.fail("FieldMapping " + mapping + " dï¿½rfte keine mehrfachen Joker akzeptieren");
         } catch (MappingException e) {
             // Geklappt
         }
@@ -81,7 +69,7 @@ public class FieldMappingTest extends TestCase {
 
     /**
      * (Erzeugung / Parsen der Parameter) Diese Testmethode testet, ob mehrfache
-     * Joker in einem FormatString zum Abbruch führen.
+     * Joker in einem FormatString zum Abbruch fï¿½hren.
      */
     public void testCreateInnerJokerFail() {
         Set sources = createSources();
@@ -89,7 +77,7 @@ public class FieldMappingTest extends TestCase {
         description.put("Kategorie *", "{CAT:*essen}");
         try {
             FieldMapping mapping = new FieldMapping(sources, description);
-            Assert.fail("FieldMapping " + mapping + " dürfte keine inneren Joker akzeptieren");
+            Assert.fail("FieldMapping " + mapping + " dï¿½rfte keine inneren Joker akzeptieren");
         } catch (MappingException e) {
             // Geklappt
         }
@@ -119,7 +107,7 @@ public class FieldMappingTest extends TestCase {
         Set sources = new HashSet();
         sources.add(":vorname");
         sources.add(":nachname");
-        sources.add(":straße");
+        sources.add(":straï¿½e");
         sources.add(":ort");
         sources.add("CAT:Weihnachtsessen");
         sources.add("CAT:Mafia");
@@ -132,19 +120,19 @@ public class FieldMappingTest extends TestCase {
     Map createDescriptions() {
         Map descriptions = new HashMap();
         descriptions.put("*", "{:*} in {:ort}");
-        descriptions.put("Straße", "{:straße}");
+        descriptions.put("Straï¿½e", "{:straï¿½e}");
         descriptions.put("Kategorie *", "{CAT:*}");
         descriptions.put("Dokumenttyp * (Hauptperson)", "{DTM:*}");
         descriptions.put("Dokumenttyp * (Partner)", "{DTP:*}");
         return descriptions;
     }
     
-    /** erzeugt Auflösung von {@link #createDescriptions()} für {@link #createSources()} */
+    /** erzeugt Auflï¿½sung von {@link #createDescriptions()} fï¿½r {@link #createSources()} */
     Map createResolves() {
         Map expectedResolves = new HashMap();
         expectedResolves.put("vorname", "{:vorname} in {:ort}");
         expectedResolves.put("nachname", "{:nachname} in {:ort}");
-        expectedResolves.put("Straße", "{:straße}");
+        expectedResolves.put("Straï¿½e", "{:straï¿½e}");
         expectedResolves.put("Kategorie Weihnachtsessen", "{CAT:Weihnachtsessen}");
         expectedResolves.put("Kategorie Mafia", "{CAT:Mafia}");
         expectedResolves.put("Dokumenttyp Etikett (Hauptperson)", "{DTM:Etikett}");
@@ -159,7 +147,7 @@ public class FieldMappingTest extends TestCase {
                     return "Hans";
                 if (":nachname".equals(sourceKey))
                     return "Meier";
-                if (":straße".equals(sourceKey))
+                if (":straï¿½e".equals(sourceKey))
                     return "Optionsweg";
                 if (":ort".equals(sourceKey))
                     return "Backhausen";

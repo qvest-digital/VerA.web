@@ -1,11 +1,12 @@
-/*
- * veraweb,
- * Veranstaltungsmanagment veraweb
- * Copyright (c) 2005-2007 tarent GmbH
+/**
+ * veraweb, platform independent webservice-based event management
+ * (Veranstaltungsmanagment VerA.web), is
+ * Copyright Â© 2004-2008 tarent GmbH
+ * Copyright Â© 2013 tarent solutions GmbH
  *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License,version 2
- * as published by the Free Software Foundation.
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License, version 2, as
+ * published by the Free Software Foundation.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -13,18 +14,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
- * 02110-1301, USA.
- *
- * tarent GmbH., hereby disclaims all copyright
- * interest in the program 'veraweb'
- * Signature of Elmar Geese, 21 November 2007
- * Elmar Geese, CEO tarent GmbH.
- */
-
-/*
- * $Id$
+ * along with this program.  If not, see: http://www.gnu.org/licenses/
  */
 package de.tarent.aa.veraweb.beans;
 
@@ -40,7 +30,7 @@ import java.util.List;
  */
 public class ImportPerson extends Person {
     //
-    // öffentliche Membervariablen: Tabellenfelder über die von Person hinaus
+    // ï¿½ffentliche Membervariablen: Tabellenfelder ï¿½ber die von Person hinaus
     //
     /** Import, bei dem diese Personendaten von extern importiert wurden */
 	public Long fk_import;
@@ -53,31 +43,31 @@ public class ImportPerson extends Person {
 
     //  Kategorien & Freitexte
     
-    /** Kategorienliste, zeilenweise; für den MAdLAN-Import, ansonsten werden {@link ImportPersonCategorie}-Instanzen genutzt */
+    /** Kategorienliste, zeilenweise; fï¿½r den MAdLAN-Import, ansonsten werden {@link ImportPersonCategorie}-Instanzen genutzt */
     public String category;
-    /** Anlässsliste, zeilenweise; für den MAdLAN-Import, ansonsten werden {@link ImportPersonCategorie}-Instanzen genutzt */
+    /** Anlï¿½sssliste, zeilenweise; fï¿½r den MAdLAN-Import, ansonsten werden {@link ImportPersonCategorie}-Instanzen genutzt */
     public String occasion;
     
-    /** Freitextfeld 1; für den MAdLAN-Import, ansonsten werden {@link ImportPersonDoctype}-Instanzen genutzt */
+    /** Freitextfeld 1; fï¿½r den MAdLAN-Import, ansonsten werden {@link ImportPersonDoctype}-Instanzen genutzt */
     public String textfield_1;
-    /** Freitextfeld 2; für den MAdLAN-Import, ansonsten werden {@link ImportPersonDoctype}-Instanzen genutzt */
+    /** Freitextfeld 2; fï¿½r den MAdLAN-Import, ansonsten werden {@link ImportPersonDoctype}-Instanzen genutzt */
     public String textfield_2;
-    /** Freitextfeld 3; für den MAdLAN-Import, ansonsten werden {@link ImportPersonDoctype}-Instanzen genutzt */
+    /** Freitextfeld 3; fï¿½r den MAdLAN-Import, ansonsten werden {@link ImportPersonDoctype}-Instanzen genutzt */
     public String textfield_3;
 
     //
-    // öffentliche Konstanten
+    // ï¿½ffentliche Konstanten
     //
     /**
-     * Element-Trennzeichen, um eine Menge von Primärschlüsseln in einem
+     * Element-Trennzeichen, um eine Menge von Primï¿½rschlï¿½sseln in einem
      * Datenfeld (namentlich {@link #duplicates}) zu speichern.
      */
     public final static char PK_SEPERATOR_CHAR = ';';
     
-    /** DB-Integerwert für <code>true</code> für {@link #dupcheckaction} und {@link #dupcheckstatus} */
+    /** DB-Integerwert fï¿½r <code>true</code> fï¿½r {@link #dupcheckaction} und {@link #dupcheckstatus} */
     public final static Integer TRUE = new Integer(1);
 
-    /** DB-Integerwert für <code>false</code> für {@link #dupcheckaction} und {@link #dupcheckstatus} */
+    /** DB-Integerwert fï¿½r <code>false</code> fï¿½r {@link #dupcheckaction} und {@link #dupcheckstatus} */
     public final static Integer FALSE = new Integer(0);
 
     //
@@ -102,7 +92,7 @@ public class ImportPerson extends Person {
 	}
 
     //
-    // geschützte Member
+    // geschï¿½tzte Member
     //
     /** Duplikatliste; wird in {@link de.tarent.aa.veraweb.worker.ImportPersonsDuplicateWorker#showList(de.tarent.octopus.server.OctopusContext)} aus {@link #duplicates} zusammengestellt */
     private List dups;

@@ -1,11 +1,12 @@
-/*
- * veraweb,
- * Veranstaltungsmanagment veraweb
- * Copyright (c) 2005-2007 tarent GmbH
+/**
+ * veraweb, platform independent webservice-based event management
+ * (Veranstaltungsmanagment VerA.web), is
+ * Copyright Â© 2004-2008 tarent GmbH
+ * Copyright Â© 2013 tarent solutions GmbH
  *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License,version 2
- * as published by the Free Software Foundation.
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License, version 2, as
+ * published by the Free Software Foundation.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -13,26 +14,15 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
- * 02110-1301, USA.
- *
- * tarent GmbH., hereby disclaims all copyright
- * interest in the program 'veraweb'
- * Signature of Elmar Geese, 21 November 2007
- * Elmar Geese, CEO tarent GmbH.
- */
-
-/*
- * Created on 07.04.2005
+ * along with this program.  If not, see: http://www.gnu.org/licenses/
  */
 package de.tarent.aa.veraweb.beans;
 
 /**
- * Bean zum Filtern einer Gästeliste und navigieren
+ * Bean zum Filtern einer Gï¿½steliste und navigieren
  * innerhalb der Detailansicht.
  * 
- * Entspricht keiner Datenbank-Tabelle und wird ausschließlich
+ * Entspricht keiner Datenbank-Tabelle und wird ausschlieï¿½lich
  * in der Session gehalten oder aus dem Request geladen.
  */
 public class GuestSearch extends AbstractBean {
@@ -43,6 +33,6 @@ public class GuestSearch extends AbstractBean {
 	public Integer reserve;
 	/** Gibt an ob nach Offene / Zusagen / Absagen gefiltert werden soll. */
 	public Integer invitationstatus;
-	/** Gibt an in welcher Sortierreihenfolge die Gästeliste angezeigt werden soll.*/
+	/** Gibt an in welcher Sortierreihenfolge die Gï¿½steliste angezeigt werden soll.*/
 	public String listorder; // orderno, lastname, firstname, email
 }

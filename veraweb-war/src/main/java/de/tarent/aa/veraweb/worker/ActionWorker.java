@@ -1,11 +1,12 @@
-/*
- * veraweb,
- * Veranstaltungsmanagment veraweb
- * Copyright (c) 2005-2007 tarent GmbH
+/**
+ * veraweb, platform independent webservice-based event management
+ * (Veranstaltungsmanagment VerA.web), is
+ * Copyright Â© 2004-2008 tarent GmbH
+ * Copyright Â© 2013 tarent solutions GmbH
  *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License,version 2
- * as published by the Free Software Foundation.
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License, version 2, as
+ * published by the Free Software Foundation.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -13,18 +14,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
- * 02110-1301, USA.
- *
- * tarent GmbH., hereby disclaims all copyright
- * interest in the program 'veraweb'
- * Signature of Elmar Geese, 21 November 2007
- * Elmar Geese, CEO tarent GmbH.
- */
-
-/*
- * $Id$
+ * along with this program.  If not, see: http://www.gnu.org/licenses/
  */
 package de.tarent.aa.veraweb.worker;
 
@@ -38,15 +28,15 @@ import de.tarent.octopus.server.OctopusContext;
  * @author christoph
  */
 public class ActionWorker {
-    /** Octopus-Eingabe-Parameter für {@link #load(OctopusContext, String)} */
+    /** Octopus-Eingabe-Parameter fï¿½r {@link #load(OctopusContext, String)} */
 	public static final String[] INPUT_load = { "action" };
-    /** Octopus-Eingabepflicht-Parameter für {@link #load(OctopusContext, String)} */
+    /** Octopus-Eingabepflicht-Parameter fï¿½r {@link #load(OctopusContext, String)} */
 	public static final boolean[] MANDATORY_load = { false };
-    /** Octopus-Ausgabe-Parameter für {@link #load(OctopusContext, String)} */
+    /** Octopus-Ausgabe-Parameter fï¿½r {@link #load(OctopusContext, String)} */
 	public static final String OUTPUT_load = "action";
     /**
      * Diese Worker-Aktion ermittelt aus Request und Session die aktuelle
-     * Aktion, legt sie in der Session ab und gibt sie zurück.<br>
+     * Aktion, legt sie in der Session ab und gibt sie zurï¿½ck.<br>
      * TODO: action Parameter Hack entfernen, siehe eventDetail.vm,
      *       dort kann man sonst die form-action nicht setzten!!
      * 
@@ -66,15 +56,15 @@ public class ActionWorker {
 		return action;
 	}
 
-    /** Octopus-Eingabe-Parameter für {@link #remove(OctopusContext, String)} */
+    /** Octopus-Eingabe-Parameter fï¿½r {@link #remove(OctopusContext, String)} */
 	public static final String[] INPUT_remove = { "action" };
-    /** Octopus-Eingabepflicht-Parameter für {@link #remove(OctopusContext, String)} */
+    /** Octopus-Eingabepflicht-Parameter fï¿½r {@link #remove(OctopusContext, String)} */
 	public static final boolean[] MANDATORY_remove = { false };
-    /** Octopus-Ausgabe-Parameter für {@link #remove(OctopusContext, String)} */
+    /** Octopus-Ausgabe-Parameter fï¿½r {@link #remove(OctopusContext, String)} */
 	public static final String OUTPUT_remove = "action";
     /**
-     * Diese Methode löscht die aktuelle Aktion und ersetzt sie gegebenenfalls
-     * durch die übergebene. 
+     * Diese Methode lï¿½scht die aktuelle Aktion und ersetzt sie gegebenenfalls
+     * durch die ï¿½bergebene. 
      * 
      * @param cntx Octopus-Kontext
      * @param action optionaler Parameter "action"

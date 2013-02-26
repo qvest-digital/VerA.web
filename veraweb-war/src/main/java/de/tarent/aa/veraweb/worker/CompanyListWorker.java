@@ -1,11 +1,12 @@
-/*
- * veraweb,
- * Veranstaltungsmanagment veraweb
- * Copyright (c) 2005-2007 tarent GmbH
+/**
+ * veraweb, platform independent webservice-based event management
+ * (Veranstaltungsmanagment VerA.web), is
+ * Copyright Â© 2004-2008 tarent GmbH
+ * Copyright Â© 2013 tarent solutions GmbH
  *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License,version 2
- * as published by the Free Software Foundation.
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License, version 2, as
+ * published by the Free Software Foundation.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -13,18 +14,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
- * 02110-1301, USA.
- *
- * tarent GmbH., hereby disclaims all copyright
- * interest in the program 'veraweb'
- * Signature of Elmar Geese, 21 November 2007
- * Elmar Geese, CEO tarent GmbH.
- */
-
-/*
- * $Id$
+ * along with this program.  If not, see: http://www.gnu.org/licenses/
  */
 package de.tarent.aa.veraweb.worker;
 
@@ -48,7 +38,7 @@ import de.tarent.octopus.server.OctopusContext;
 
 /**
  * <p>
- * Diese Octopus-Worker-Klasse lädt eine Liste von Firmen,
+ * Diese Octopus-Worker-Klasse lï¿½dt eine Liste von Firmen,
  * diese werden in dem Popup zur Firmen-Auswahl angezeigt.
  * </p>
  * <p>
@@ -72,7 +62,7 @@ public class CompanyListWorker extends ListWorkerVeraWeb {
     // Oberklasse BeanListWorker
     //
 	/**
-	 * Schränkt das Suchergebnis auf nicht gelöschte Firmen ein.
+	 * Schrï¿½nkt das Suchergebnis auf nicht gelï¿½schte Firmen ein.
 	 */
 	@Override
     protected void extendWhere(OctopusContext cntx, Select select) throws BeanException, IOException {
@@ -110,7 +100,7 @@ public class CompanyListWorker extends ListWorkerVeraWeb {
 		return new Integer(i.intValue() - (i.intValue() % getLimit(cntx).intValue()));
 	}
 
-	/** Gibt die maximale Anzahl von Datensätzen pro Seite. */
+	/** Gibt die maximale Anzahl von Datensï¿½tzen pro Seite. */
 	protected Integer limit = new Integer(5);
 	@Override
     protected Integer getLimit(OctopusContext cntx) {
@@ -120,14 +110,14 @@ public class CompanyListWorker extends ListWorkerVeraWeb {
 	//
     // Octopus-Aktionen
     //
-	/** Octopus-Parameter für die Aktion {@link #copyCompanyData(OctopusContext, Integer, String)} */
+	/** Octopus-Parameter fï¿½r die Aktion {@link #copyCompanyData(OctopusContext, Integer, String)} */
 	public static final String INPUT_copyCompanyData[] = { "company", "companyfield" };
 	/**
-	 * Diese Worker-Aktion lädt einen Person Eintrag und kopiert
-	 * entsprechende Firmen-Daten in die aktuell geöffnete Person.
+	 * Diese Worker-Aktion lï¿½dt einen Person Eintrag und kopiert
+	 * entsprechende Firmen-Daten in die aktuell geï¿½ffnete Person.
 	 * 
 	 * @param cntx Octopus-Context
-	 * @param company Person-PK der Firma dessen Daten übernommen werden sollen.
+	 * @param company Person-PK der Firma dessen Daten ï¿½bernommen werden sollen.
 	 * @param companyfield Name des HTML-Firmenfeldes zu dem Firmendaten geladen werden sollen.
 	 * @throws BeanException
 	 * @throws IOException

@@ -1,11 +1,12 @@
-/*
- * veraweb,
- * Veranstaltungsmanagment veraweb
- * Copyright (c) 2005-2007 tarent GmbH
+/**
+ * veraweb, platform independent webservice-based event management
+ * (Veranstaltungsmanagment VerA.web), is
+ * Copyright Â© 2004-2008 tarent GmbH
+ * Copyright Â© 2013 tarent solutions GmbH
  *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License,version 2
- * as published by the Free Software Foundation.
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License, version 2, as
+ * published by the Free Software Foundation.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -13,20 +14,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
- * 02110-1301, USA.
- *
- * tarent GmbH., hereby disclaims all copyright
- * interest in the program 'veraweb'
- * Signature of Elmar Geese, 21 November 2007
- * Elmar Geese, CEO tarent GmbH.
- */
-
-/*
- * $Id$
- * 
- * Created on 04.08.2005
+ * along with this program.  If not, see: http://www.gnu.org/licenses/
  */
 package de.tarent.aa.veraweb.utils;
 
@@ -37,19 +25,19 @@ import de.tarent.octopus.exchange.ConfiguredExchangeFormat;
 import de.tarent.octopus.server.OctopusContext;
 
 /**
- * Diese Klasse enthält Hilfsmethoden für den Datenim- und -export.
+ * Diese Klasse enthï¿½lt Hilfsmethoden fï¿½r den Datenim- und -export.
  * 
  * @author mikel
  */
 public class DataExchangeHelper {
     /**
-     * Diese Methode liefert zu einem Schlüssel ein {@link ExchangeFormat}
-     * gemäß den Daten der Konfiguration des aktiven Octopus-Moduls. 
+     * Diese Methode liefert zu einem Schlï¿½ssel ein {@link ExchangeFormat}
+     * gemï¿½ï¿½ den Daten der Konfiguration des aktiven Octopus-Moduls. 
      * 
      * @param cntx Octopus-Kontext
-     * @param key Schlüssel des Parameters der Modulkonfiguration, in dem
+     * @param key Schlï¿½ssel des Parameters der Modulkonfiguration, in dem
      *  das gesuchte Format definiert ist.
-     * @return ein {@link ExchangeFormat} zum übergebenen Schlüssel oder
+     * @return ein {@link ExchangeFormat} zum ï¿½bergebenen Schlï¿½ssel oder
      *  <code>null</code>, falls der entsprechende Konfigurationseintrag
      *  nicht gefunden wird
      */
@@ -65,18 +53,18 @@ public class DataExchangeHelper {
     }
 
     /**
-     * Diese Methode liefert einen {@link Importer} für das Format zu dem
-     * übergebenen Schlüssel gemäß den Daten der Konfiguration des aktiven
+     * Diese Methode liefert einen {@link Importer} fï¿½r das Format zu dem
+     * ï¿½bergebenen Schlï¿½ssel gemï¿½ï¿½ den Daten der Konfiguration des aktiven
      * Octopus-Moduls.
      * 
      * @param cntx Octopus-Kontext
-     * @param key Schlüssel des Parameters der Modulkonfiguration, in dem
+     * @param key Schlï¿½ssel des Parameters der Modulkonfiguration, in dem
      *  das Format zum gesuchten Importer definiert ist.
-     * @return ein {@link Importer} zum übergebenen Schlüssel oder <code>null</code>,
-     *  falls die Konfigurationsdaten unvollständig sind
+     * @return ein {@link Importer} zum ï¿½bergebenen Schlï¿½ssel oder <code>null</code>,
+     *  falls die Konfigurationsdaten unvollstï¿½ndig sind
      * @throws ClassNotFoundException wenn die konfigurierte {@link Importer}-Klasse
      *  nicht gefunden wird
-     * @throws InstantiationException wenn es Probleme während des Erzeugens einer
+     * @throws InstantiationException wenn es Probleme wï¿½hrend des Erzeugens einer
      *  Instanz des {@link Importer}s gab.
      * @throws IllegalAccessException wenn Berechtigungsprobleme das Erzeugen einer
      *  {@link Importer}-Instanz verhindert haben.
@@ -93,18 +81,18 @@ public class DataExchangeHelper {
     }
     
     /**
-     * Diese Methode liefert einen {@link Exporter} für das Format zu dem
-     * übergebenen Schlüssel gemäß den Daten der Konfiguration des aktiven
+     * Diese Methode liefert einen {@link Exporter} fï¿½r das Format zu dem
+     * ï¿½bergebenen Schlï¿½ssel gemï¿½ï¿½ den Daten der Konfiguration des aktiven
      * Octopus-Moduls.
      * 
      * @param cntx Octopus-Kontext
-     * @param key Schlüssel des Parameters der Modulkonfiguration, in dem
+     * @param key Schlï¿½ssel des Parameters der Modulkonfiguration, in dem
      *  das Format zum gesuchten Exporter definiert ist.
-     * @return ein {@link Exporter} zum übergebenen Schlüssel oder <code>null</code>,
-     *  falls die Konfigurationsdaten unvollständig sind
+     * @return ein {@link Exporter} zum ï¿½bergebenen Schlï¿½ssel oder <code>null</code>,
+     *  falls die Konfigurationsdaten unvollstï¿½ndig sind
      * @throws ClassNotFoundException wenn die konfigurierte {@link Exporter}-Klasse
      *  nicht gefunden wird
-     * @throws InstantiationException wenn es Probleme während des Erzeugens einer
+     * @throws InstantiationException wenn es Probleme wï¿½hrend des Erzeugens einer
      *  Instanz des {@link Exporter}s gab.
      * @throws IllegalAccessException wenn Berechtigungsprobleme das Erzeugen einer
      *  {@link Exporter}-Instanz verhindert haben.

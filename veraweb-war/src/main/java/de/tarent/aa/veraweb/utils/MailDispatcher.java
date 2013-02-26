@@ -1,11 +1,12 @@
-/*
- * veraweb,
- * Veranstaltungsmanagment veraweb
- * Copyright (c) 2005-2007 tarent GmbH
+/**
+ * veraweb, platform independent webservice-based event management
+ * (Veranstaltungsmanagment VerA.web), is
+ * Copyright Â© 2004-2008 tarent GmbH
+ * Copyright Â© 2013 tarent solutions GmbH
  *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License,version 2
- * as published by the Free Software Foundation.
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License, version 2, as
+ * published by the Free Software Foundation.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -13,17 +14,8 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
- * 02110-1301, USA.
- *
- * tarent GmbH., hereby disclaims all copyright
- * interest in the program 'veraweb'
- * Signature of Elmar Geese, 21 November 2007
- * Elmar Geese, CEO tarent GmbH.
+ * along with this program.  If not, see: http://www.gnu.org/licenses/
  */
-
-/* $Id$ */
 package de.tarent.aa.veraweb.utils;
 
 import java.util.Date;
@@ -41,7 +33,7 @@ import javax.mail.internet.MailDateFormat;
 import com.sun.mail.smtp.SMTPMessage;
 
 /**
- * Klasse zum versenden von eMails über einen SMTP-Server.
+ * Klasse zum versenden von eMails ï¿½ber einen SMTP-Server.
  * 
  * @author Christoph Jerolimov
  */
@@ -69,8 +61,8 @@ public class MailDispatcher {
 
     /**
      * Diese Methode liefert eine Mail-Adresse zum Benutzer, in dessen Kontext
-     * dieses Programm läuft. Hierzu wird der Benutzername als Mailadresse in
-     * der Domäne tarent.de interpretiert.
+     * dieses Programm lï¿½uft. Hierzu wird der Benutzername als Mailadresse in
+     * der Domï¿½ne tarent.de interpretiert.
      * 
      * @return Mailadresse zum Benutzer in tarent.de
      */
@@ -84,9 +76,9 @@ public class MailDispatcher {
 
 	/** SMTP-Servername */
 	protected String host;
-	/** Benutzername zum versenden über SSMTP */
+	/** Benutzername zum versenden ï¿½ber SSMTP */
 	protected String username;
-	/** Passwort zum versenden über SSMTP */
+	/** Passwort zum versenden ï¿½ber SSMTP */
 	protected String password;
 
 	/**
@@ -97,14 +89,14 @@ public class MailDispatcher {
 	}
 
 	/**
-	 * Sendet eine eMail an die übergebene eMail-Adresse und dem übergebenem
+	 * Sendet eine eMail an die ï¿½bergebene eMail-Adresse und dem ï¿½bergebenem
 	 * Betreff und Text.
 	 * 
 	 * @param from Absender eMail-Adresse
-	 * @param to Empfänger eMail-Adresse
+	 * @param to Empfï¿½nger eMail-Adresse
 	 * @param subject Betreff
 	 * @param text Text
-	 * @throws AddressException Wenn Adresse ungültig ist
+	 * @throws AddressException Wenn Adresse ungï¿½ltig ist
 	 * @throws MessagingException Wenn beim Versenden ein Fehler aufgetreten ist.
 	 */
 	public void send(String from, String to, String subject, String text) throws AddressException, MessagingException {

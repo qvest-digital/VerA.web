@@ -1,11 +1,12 @@
-/*
- * veraweb,
- * Veranstaltungsmanagment veraweb
- * Copyright (c) 2005-2007 tarent GmbH
+/**
+ * veraweb, platform independent webservice-based event management
+ * (Veranstaltungsmanagment VerA.web), is
+ * Copyright Â© 2004-2008 tarent GmbH
+ * Copyright Â© 2013 tarent solutions GmbH
  *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License,version 2
- * as published by the Free Software Foundation.
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License, version 2, as
+ * published by the Free Software Foundation.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -13,20 +14,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
- * 02110-1301, USA.
- *
- * tarent GmbH., hereby disclaims all copyright
- * interest in the program 'veraweb'
- * Signature of Elmar Geese, 21 November 2007
- * Elmar Geese, CEO tarent GmbH.
- */
-
-/*
- * $Id$
- * 
- * Created on 31.05.2005
+ * along with this program.  If not, see: http://www.gnu.org/licenses/
  */
 package de.tarent.aa.veraweb.utils;
 
@@ -54,12 +42,12 @@ public class FieldMapping {
     // Konstruktoren
     //
     /**
-     * Dieser Konstruktor bekommt ein simples Mapping übergeben. Hierbei wird
+     * Dieser Konstruktor bekommt ein simples Mapping ï¿½bergeben. Hierbei wird
      * ein Quellfeld auf ein Zielfeld erweitert um Reihenfolgen- und Optionsangaben  
      * angebildet: <code>Zielfeldname[:0-basierter Index[:Optionen]]</code><br>
-     * Als Schlüssel kann statt eines Quellfelds auch ein Ausdruck <code>:Wert</code>
+     * Als Schlï¿½ssel kann statt eines Quellfelds auch ein Ausdruck <code>:Wert</code>
      * benutzt werden. Hierbei darf allerdings in Wert kein Ausdruck vorkommen, der
-     * in einer {@link MessageFormat}-Instanz Probleme bereiten könnte. 
+     * in einer {@link MessageFormat}-Instanz Probleme bereiten kï¿½nnte. 
      */
     public FieldMapping(Map mappingDescription) {
         assert mappingDescription != null;
@@ -81,7 +69,7 @@ public class FieldMapping {
                 targets.put(targetField, target = new ArrayList());
             target.add(info);
         }
-        // Quellfeldliste und Formate für Zielfelder erstellen
+        // Quellfeldliste und Formate fï¿½r Zielfelder erstellen
         Iterator itTargets = targets.entrySet().iterator();
         List orderedSources = new ArrayList();
         Set unorderedSources = new HashSet();
@@ -107,7 +95,7 @@ public class FieldMapping {
                         }
                     } catch(NumberFormatException nfe) {
                     }
-                    logger.warn("Ungültiger Index " + info[1] + " im Mapping von " + sourceField + "; Indexangabe wird ignoriert");
+                    logger.warn("Ungï¿½ltiger Index " + info[1] + " im Mapping von " + sourceField + "; Indexangabe wird ignoriert");
                 }
                 unorderedSources.add(sourceField);
             }
@@ -147,7 +135,7 @@ public class FieldMapping {
     }
     
     //
-    // öffentliche Methoden
+    // ï¿½ffentliche Methoden
     //
     /**
      * Diese Methode setzt die Namen der Spalten der einkommenden Zeilen.
@@ -221,11 +209,11 @@ public class FieldMapping {
     
     /**
      * Diese Methode liefert zu einer Sammlung von Zielfeldern die Menge
-     * der für sie benötigten Quellfelder. 
+     * der fï¿½r sie benï¿½tigten Quellfelder. 
      * 
      * @param targets Sammlung von Spaltennamen der betrachteten Zielfelder
-     * @return Menge der Spaltennamen der für die betrachteten Zielfelder
-     *  benötigten Quellfelder
+     * @return Menge der Spaltennamen der fï¿½r die betrachteten Zielfelder
+     *  benï¿½tigten Quellfelder
      */
     public Set getRequiredSources(Collection targets) {
         if (targets == null || targets.isEmpty())
@@ -244,9 +232,9 @@ public class FieldMapping {
      * Diese Methode liefert zu einem Quellfeld das Zielfeld, in dem es die
      * Hauptquelle ist, d.h. das erste Feld im Format.
      * 
-     * @param sourceField Spaltenname des Quellfelds, zu dem das Primärzielfeld
+     * @param sourceField Spaltenname des Quellfelds, zu dem das Primï¿½rzielfeld
      *  gesucht wird
-     * @return Spaltenname des Zielfelds, in dem das angegebene Quellfeld primär
+     * @return Spaltenname des Zielfelds, in dem das angegebene Quellfeld primï¿½r
      *  ist, oder <code>null</code>.
      */
     public String getPrimeTarget(String sourceField) {
@@ -255,7 +243,7 @@ public class FieldMapping {
     
     /**
      * Diese Methode liefert die Menge der Quellfelder, die in einem Zielfeld
-     * primär sind. 
+     * primï¿½r sind. 
      * 
      * @return Menge der Namen Hauptquellfelder
      */
@@ -264,7 +252,7 @@ public class FieldMapping {
     }
     
     //
-    // geschützte Member
+    // geschï¿½tzte Member
     //
     /** aktuelle Zeile in der Sortierung von {@link #sourceFields} */
     private Object[] row = null;
@@ -272,14 +260,14 @@ public class FieldMapping {
     private int[] formatToIncomingIndex = null;
     /** Liste der verwendeten Quellfelder in der Reihenfolge, die in den Formaten gefordert ist */
     private List sourceFields = new ArrayList();
-    /** Liste der verfügbaren Zielfelder */
+    /** Liste der verfï¿½gbaren Zielfelder */
     private List targetFields = new ArrayList();
-    /** Sets benötigter Quellfelder zu den verfügbaren Zielfeldern */
+    /** Sets benï¿½tigter Quellfelder zu den verfï¿½gbaren Zielfeldern */
     private Map targetRequiredFields = new HashMap();
-    /** MessageFormat-Instanzen zu den verfügbaren Zielfeldern */
+    /** MessageFormat-Instanzen zu den verfï¿½gbaren Zielfeldern */
     private Map targetFormats = new HashMap();
-    /** Zielfeld zu den verfügbaren Quellfeldern, in dem diese führend sind */
+    /** Zielfeld zu den verfï¿½gbaren Quellfeldern, in dem diese fï¿½hrend sind */
     private Map sourcePrimeTargets = new HashMap();
-    /** Logger für diese Klasse */
+    /** Logger fï¿½r diese Klasse */
     private final static Logger logger = Logger.getLogger(FieldMapping.class);
 }

@@ -1,11 +1,12 @@
-/*
- * veraweb,
- * Veranstaltungsmanagment veraweb
- * Copyright (c) 2005-2007 tarent GmbH
+/**
+ * veraweb, platform independent webservice-based event management
+ * (Veranstaltungsmanagment VerA.web), is
+ * Copyright Â© 2004-2008 tarent GmbH
+ * Copyright Â© 2013 tarent solutions GmbH
  *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License,version 2
- * as published by the Free Software Foundation.
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License, version 2, as
+ * published by the Free Software Foundation.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -13,19 +14,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
- * 02110-1301, USA.
- *
- * tarent GmbH., hereby disclaims all copyright
- * interest in the program 'veraweb'
- * Signature of Elmar Geese, 21 November 2007
- * Elmar Geese, CEO tarent GmbH.
- */
-
-/*
- * $Id$
- * Created on 21.02.2005
+ * along with this program.  If not, see: http://www.gnu.org/licenses/
  */
 package de.tarent.aa.veraweb.worker;
 
@@ -75,7 +64,7 @@ public class SystemWorker {
     /** Eingabe-Parameter der Octopus-Aktion {@link #closePool(OctopusContext)} */
 	public final static String INPUT_closePool[] = {};
     /**
-     * Diese Octopus-Aktion schließt den dblayer-DB-Pool dieses Moduls.
+     * Diese Octopus-Aktion schlieï¿½t den dblayer-DB-Pool dieses Moduls.
      * 
      * @param cntx Octopus-Kontext
      */
@@ -106,11 +95,11 @@ public class SystemWorker {
     // Hilfsmethoden
     //
     /**
-     * Diese Methode ändert den Pfad der Datei der übergebenen Log4J-Kategorie
-     * ab, indem der übergebene Pfad vorangestellt wird, wenn der bisherige Pfad
+     * Diese Methode ï¿½ndert den Pfad der Datei der ï¿½bergebenen Log4J-Kategorie
+     * ab, indem der ï¿½bergebene Pfad vorangestellt wird, wenn der bisherige Pfad
      * keinen Verzeichnisanteil hat.
      * 
-     * @param category abzuändernde Log4J-Kategorie
+     * @param category abzuï¿½ndernde Log4J-Kategorie
      * @param path zu benutzender Dateipfad
      */
 	protected void changeLogDir(Category category, String path) {

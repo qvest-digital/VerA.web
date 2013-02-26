@@ -1,11 +1,12 @@
-/*
- * veraweb,
- * Veranstaltungsmanagment veraweb
- * Copyright (c) 2005-2007 tarent GmbH
+/**
+ * veraweb, platform independent webservice-based event management
+ * (Veranstaltungsmanagment VerA.web), is
+ * Copyright Â© 2004-2008 tarent GmbH
+ * Copyright Â© 2013 tarent solutions GmbH
  *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License,version 2
- * as published by the Free Software Foundation.
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License, version 2, as
+ * published by the Free Software Foundation.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -13,20 +14,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
- * 02110-1301, USA.
- *
- * tarent GmbH., hereby disclaims all copyright
- * interest in the program 'veraweb'
- * Signature of Elmar Geese, 21 November 2007
- * Elmar Geese, CEO tarent GmbH.
- */
-
-/*
- * $Id$
- * 
- * Created on 14.06.2005
+ * along with this program.  If not, see: http://www.gnu.org/licenses/
  */
 package de.tarent.aa.veraweb.utils;
 
@@ -36,15 +24,15 @@ import de.tarent.aa.veraweb.beans.Person;
 import de.tarent.octopus.beans.BeanException;
 
 /**
- * Diese Schnittstelle ist für jede grundsätzliche Exportvariante umzusetzen.
+ * Diese Schnittstelle ist fï¿½r jede grundsï¿½tzliche Exportvariante umzusetzen.
  * 
  * @author mikel
  */
 public interface Exporter
 {
 	/**
-	 * Diese Methode wird zu jeder zu exportierenden Person aufgerufen, übergeben wird die Person als Zusammenstellung von
-	 * {@link Person}. Sie fügt dem Export eine Beschreibung der übergebenen VerA.web-Person hinzu.
+	 * Diese Methode wird zu jeder zu exportierenden Person aufgerufen, ï¿½bergeben wird die Person als Zusammenstellung von
+	 * {@link Person}. Sie fï¿½gt dem Export eine Beschreibung der ï¿½bergebenen VerA.web-Person hinzu.
 	 * 
 	 * @param person
 	 *          {@link Person}-Bean
@@ -69,24 +57,24 @@ public interface Exporter
 
 	/**
 	 * Obwohl ein Exporter die zu exportierenden Personen nicht selbst bestimmt (diese werden ihm durch
-	 * <code>exportPerson(Person)</code> übergeben), benötigt er evtl. schon Informationen zur Einschränkung auf einen
-	 * Mandanten. Z.B. muss beim CSV-Exporter schon vor <code>startExport()</code> auf einen Mandanten eingeschränkt
-	 * werden können, damit keine mandantenfremden Spaltenüberschriften erzeugt werden (Kategorien, die nicht zum
-	 * Mandanten gehören)
+	 * <code>exportPerson(Person)</code> ï¿½bergeben), benï¿½tigt er evtl. schon Informationen zur Einschrï¿½nkung auf einen
+	 * Mandanten. Z.B. muss beim CSV-Exporter schon vor <code>startExport()</code> auf einen Mandanten eingeschrï¿½nkt
+	 * werden kï¿½nnen, damit keine mandantenfremden Spaltenï¿½berschriften erzeugt werden (Kategorien, die nicht zum
+	 * Mandanten gehï¿½ren)
 	 * 
 	 * @param orgUnitId
-	 *          die MandantenID, auf die der Exporter beschränkt wird
+	 *          die MandantenID, auf die der Exporter beschrï¿½nkt wird
 	 */
 	public void setOrgUnitId(Integer orgUnitId);
 
 	/**
 	 * Obwohl ein Exporter die zu exportierenden Personen nicht selbst bestimmt (diese werden ihm durch
-	 * <code>exportPerson(Person)</code>) übergeben), benötigt er evtl. Informationen zur Einschränkung auf bestimmte
-	 * Kategorien. Z.B. muss beim CSV-Exporter schon vor <code>startExport()</code> auf die vom Benutzer im GUI gewählte
-	 * Kategorie eingeschränkt werden können, damit andere Kategorien nicht als Spaltenüberschriften erzeugt werden.
+	 * <code>exportPerson(Person)</code>) ï¿½bergeben), benï¿½tigt er evtl. Informationen zur Einschrï¿½nkung auf bestimmte
+	 * Kategorien. Z.B. muss beim CSV-Exporter schon vor <code>startExport()</code> auf die vom Benutzer im GUI gewï¿½hlte
+	 * Kategorie eingeschrï¿½nkt werden kï¿½nnen, damit andere Kategorien nicht als Spaltenï¿½berschriften erzeugt werden.
 	 * 
 	 * @param categoryId
-	 *          KategorieId, auf die der Exporter beschränkt wird. <code>Null</code> = alle Kategorien, 0 = keine
+	 *          KategorieId, auf die der Exporter beschrï¿½nkt wird. <code>Null</code> = alle Kategorien, 0 = keine
 	 *          Kategorie
 	 */
 	public void setCategoryId(Integer categoryId);

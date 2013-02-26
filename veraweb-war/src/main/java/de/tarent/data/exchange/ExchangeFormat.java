@@ -1,11 +1,12 @@
-/*
- * veraweb,
- * Veranstaltungsmanagment veraweb
- * Copyright (c) 2005-2007 tarent GmbH
+/**
+ * veraweb, platform independent webservice-based event management
+ * (Veranstaltungsmanagment VerA.web), is
+ * Copyright Â© 2004-2008 tarent GmbH
+ * Copyright Â© 2013 tarent solutions GmbH
  *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License,version 2
- * as published by the Free Software Foundation.
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License, version 2, as
+ * published by the Free Software Foundation.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -13,20 +14,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
- * 02110-1301, USA.
- *
- * tarent GmbH., hereby disclaims all copyright
- * interest in the program 'veraweb'
- * Signature of Elmar Geese, 21 November 2007
- * Elmar Geese, CEO tarent GmbH.
- */
-
-/*
- * $Id$
- * 
- * Created on 04.08.2005
+ * along with this program.  If not, see: http://www.gnu.org/licenses/
  */
 package de.tarent.data.exchange;
 
@@ -36,8 +24,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Diese Klasse stellt die Eigenschaften eines Datenaustauschformats für
- * Export- und Importimplementierungen zur Verfügung.
+ * Diese Klasse stellt die Eigenschaften eines Datenaustauschformats fï¿½r
+ * Export- und Importimplementierungen zur Verfï¿½gung.
  * 
  * @author mikel
  */
@@ -45,11 +33,11 @@ public class ExchangeFormat {
     //
     // Getter und Setter
     //
-    /** Das Standard-Suffix für Dateien dieses Formats. */
+    /** Das Standard-Suffix fï¿½r Dateien dieses Formats. */
     public String getDefaultExtension() {
         return defaultExtension;
     }
-    /** Das Standard-Suffix für Dateien dieses Formats. */
+    /** Das Standard-Suffix fï¿½r Dateien dieses Formats. */
     protected void setDefaultExtension(String defaultExtension) {
         this.defaultExtension = defaultExtension;
     }
@@ -171,7 +159,7 @@ public class ExchangeFormat {
     }
     
     //
-    // geschützte Member
+    // geschï¿½tzte Member
     //
     /** Der Name dieses Formats */
     String name = null;
@@ -189,7 +177,7 @@ public class ExchangeFormat {
     Class importerClass = null;
     /** Der MIME-Typ zu diesem Format */
     String mimeType = null;
-    /** Das Standard-Suffix für Dateien dieses Formats. */
+    /** Das Standard-Suffix fï¿½r Dateien dieses Formats. */
     String defaultExtension = null;
     /** Die speziellen Attribute dieses Formats */
     final Map properties = new HashMap();

@@ -1,11 +1,12 @@
-/*
- * veraweb,
- * Veranstaltungsmanagment veraweb
- * Copyright (c) 2005-2007 tarent GmbH
+/**
+ * veraweb, platform independent webservice-based event management
+ * (Veranstaltungsmanagment VerA.web), is
+ * Copyright Â© 2004-2008 tarent GmbH
+ * Copyright Â© 2013 tarent solutions GmbH
  *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License,version 2
- * as published by the Free Software Foundation.
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License, version 2, as
+ * published by the Free Software Foundation.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -13,20 +14,12 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
- * 02110-1301, USA.
- *
- * tarent GmbH., hereby disclaims all copyright
- * interest in the program 'veraweb'
- * Signature of Elmar Geese, 21 November 2007
- * Elmar Geese, CEO tarent GmbH.
+ * along with this program.  If not, see: http://www.gnu.org/licenses/
  */
-
 package de.tarent.aa.veraweb.beans.facade;
 
 /**
- * Definiert eine Member-Facade für einen Gast
+ * Definiert eine Member-Facade fï¿½r einen Gast
  * 
  * @author Michael Klink, Christoph Jerolimov
  */
@@ -46,22 +39,22 @@ public interface GuestMemberFacade extends EventConstants {
 	/** @return Laufende Nummer */
 	public Integer getOrderNo();
 
-	/** @return Bemerkung für die Orga */
+	/** @return Bemerkung fï¿½r die Orga */
 	public String getNoteOrga();
 
-	/** @return Bemerkung für den Gastgeber */
+	/** @return Bemerkung fï¿½r den Gastgeber */
 	public String getNoteHost();
 
 	/** @return Sprachen */
 	public String getLanguages();
 
-	/** @return Flag für {@link PersonConstants#SEX_MALE männlich} oder {@link PersonConstants#SEX_FEMALE weiblich} */
+	/** @return Flag fï¿½r {@link PersonConstants#SEX_MALE mï¿½nnlich} oder {@link PersonConstants#SEX_FEMALE weiblich} */
 	public String getSex();
 
-	/** @return Nationalität */
+	/** @return Nationalitï¿½t */
 	public String getNationality();
 
-	/** @return Flag für {@link PersonConstants#DOMESTIC_INLAND Inland} oder {@link PersonConstants#DOMESTIC_AUSLAND Ausland} */
+	/** @return Flag fï¿½r {@link PersonConstants#DOMESTIC_INLAND Inland} oder {@link PersonConstants#DOMESTIC_AUSLAND Ausland} */
 	public String getDomestic();
 
 	/** @return Farbe */
@@ -70,42 +63,42 @@ public interface GuestMemberFacade extends EventConstants {
 	/** @return Farbe */
 	public Integer getColorFK();
 
-	/** Ändert Einladungstyp */
+	/** ï¿½ndert Einladungstyp */
 	public void setInvitationType(Integer value);
 
-	/** Ändert Einlatungsstatus */
+	/** ï¿½ndert Einlatungsstatus */
 	public void setInvitationStatus(Integer value);
 
-	/** Ändert Tisch-Nummer */
+	/** ï¿½ndert Tisch-Nummer */
 	public void setTableNo(Integer value);
 
-	/** Ändert Sitz-Nummer */
+	/** ï¿½ndert Sitz-Nummer */
 	public void setSeatNo(Integer value);
 
-	/** Ändert Laufende Nummer */
+	/** ï¿½ndert Laufende Nummer */
 	public void setOrderNo(Integer value);
 
-	/** Ändert Bemerkung für die Orga */
+	/** ï¿½ndert Bemerkung fï¿½r die Orga */
 	public void setNoteOrga(String value);
 
-	/** Ändert Bemerkung für den Gastgeber */
+	/** ï¿½ndert Bemerkung fï¿½r den Gastgeber */
 	public void setNoteHost(String value);
 
-	/** Ändert Sprachen */
+	/** ï¿½ndert Sprachen */
 	public void setLanguages(String value);
 
-	/** Ändert Flag für {@link PersonConstants#SEX_MALE männlich} oder {@link PersonConstants#SEX_FEMALE weiblich} */
+	/** ï¿½ndert Flag fï¿½r {@link PersonConstants#SEX_MALE mï¿½nnlich} oder {@link PersonConstants#SEX_FEMALE weiblich} */
 	public void setSex(String value);
 
-	/** Ändert Nationalität */
+	/** ï¿½ndert Nationalitï¿½t */
 	public void setNationality(String value);
 
-	/** Ändert Flag für {@link PersonConstants#DOMESTIC_INLAND Inland} oder {@link PersonConstants#DOMESTIC_AUSLAND Ausland} */
+	/** ï¿½ndert Flag fï¿½r {@link PersonConstants#DOMESTIC_INLAND Inland} oder {@link PersonConstants#DOMESTIC_AUSLAND Ausland} */
 	public void setDomestic(String value);
 
-	/** Ändert Farbe */
+	/** ï¿½ndert Farbe */
 	public void setColor(String value);
 
-	/** Ändert Farbe */
+	/** ï¿½ndert Farbe */
 	public void setColorFK(Integer value);
 }

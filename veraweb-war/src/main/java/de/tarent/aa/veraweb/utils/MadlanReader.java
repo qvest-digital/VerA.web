@@ -1,11 +1,12 @@
-/*
- * veraweb,
- * Veranstaltungsmanagment veraweb
- * Copyright (c) 2005-2007 tarent GmbH
+/**
+ * veraweb, platform independent webservice-based event management
+ * (Veranstaltungsmanagment VerA.web), is
+ * Copyright Â© 2004-2008 tarent GmbH
+ * Copyright Â© 2013 tarent solutions GmbH
  *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License,version 2
- * as published by the Free Software Foundation.
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License, version 2, as
+ * published by the Free Software Foundation.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -13,20 +14,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
- * 02110-1301, USA.
- *
- * tarent GmbH., hereby disclaims all copyright
- * interest in the program 'veraweb'
- * Signature of Elmar Geese, 21 November 2007
- * Elmar Geese, CEO tarent GmbH.
- */
-
-/*
- * $Id$
- * 
- * Created on 17.03.2005
+ * along with this program.  If not, see: http://www.gnu.org/licenses/
  */
 package de.tarent.aa.veraweb.utils;
 
@@ -68,7 +56,7 @@ public class MadlanReader implements MadlanConstants {
     private final char[] mappingB;
     
     /**
-     * Dieser Konstruktor merkt sich die übergebenen kyrillisch zu interpretierenden Felder
+     * Dieser Konstruktor merkt sich die ï¿½bergebenen kyrillisch zu interpretierenden Felder
      * und initialisiert einen {@link StreamTokenizer} 
      * 
      * @param reader Eingangsdaten
@@ -96,7 +84,7 @@ public class MadlanReader implements MadlanConstants {
 	
 	/**
 	 * @return Die Feldnamen der Tabelle als {@link List}e von {@link String}s.
-	 *         Anzahl der Felder entspricht der Rückgabe von {@link #getReadRowsCount()}.
+	 *         Anzahl der Felder entspricht der Rï¿½ckgabe von {@link #getReadRowsCount()}.
 	 * @throws IOException
 	 */
 	public List getHeader() throws IOException {
@@ -124,8 +112,8 @@ public class MadlanReader implements MadlanConstants {
 	 * Liest eine Zeile der Tabelle ein. 
 	 * 
 	 * @return Die Feldwerte einer Zeile der Tabelle als {@link List}e von {@link String}s.
-	 *         Anzahl der Felder entspricht der Rückgabe von {@link #getReadRowsCount()}.
-	 *         Kann keine Zeile mehr gelesen werden, wird null zurückgegeben.
+	 *         Anzahl der Felder entspricht der Rï¿½ckgabe von {@link #getReadRowsCount()}.
+	 *         Kann keine Zeile mehr gelesen werden, wird null zurï¿½ckgegeben.
 	 * @throws IOException
 	 */
 	public List readRow() throws IOException {
@@ -155,7 +143,7 @@ public class MadlanReader implements MadlanConstants {
 		
 		int type;               //Typ des erkannten Tokens
 		int i = 0;              //Zeiger auf das aktuell betrachtete Feld 
-		boolean filled = false; //wurde in das aktuelle Feld schon ein Wert eingefügt ?
+		boolean filled = false; //wurde in das aktuelle Feld schon ein Wert eingefï¿½gt ?
 		while ((type = tokenizer.nextToken()) != StreamTokenizer.TT_EOL && 
 				type != StreamTokenizer.TT_EOF) { //Token lesen bis Zeile oder Datei endet
 			
@@ -180,7 +168,7 @@ public class MadlanReader implements MadlanConstants {
 					throw new RuntimeException(buffer.toString());
 				}
 			} else {
-				//Zeile noch nicht vollständig
+				//Zeile noch nicht vollstï¿½ndig
 				switch (type) {
 					case StreamTokenizer.TT_WORD:
 						if (filled)
@@ -192,7 +180,7 @@ public class MadlanReader implements MadlanConstants {
 						break;
 					case StreamTokenizer.TT_NUMBER:
 						assert false; //durch die Wahl der Wortzeichen (s.o.)
-									  // eigentlich nicht möglich
+									  // eigentlich nicht mï¿½glich
 					default:
 						char c = (char) tokenizer.ttype;
 						if (c == separatorChar) { //Feld fertig gelesen
@@ -295,7 +283,7 @@ public class MadlanReader implements MadlanConstants {
     /**
      * Hier wird festgelegt wie zu kurze Zeilen behandelt werden sollen.
      * Wird der Parameter auf true gesetzt, dann werden Zeilen mit weniger Feldern als im Header
-     * mit dem Wert {@link #emptyField} aufgefüllt. Ist der Wert false, wird ein Fehler erzeugt.
+     * mit dem Wert {@link #emptyField} aufgefï¿½llt. Ist der Wert false, wird ein Fehler erzeugt.
      * Standardwert ist true. 
      */
 	public boolean getFillShortenedRows() {
@@ -305,10 +293,10 @@ public class MadlanReader implements MadlanConstants {
 	/**
 	 * Hier wird festgelegt wie zu kurze Zeilen behandelt werden sollen.
 	 * Wird der Parameter auf true gesetzt, dann werden Zeilen mit weniger Feldern als im Header
-	 * mit dem Wert {@link #emptyField} aufgefüllt. Ist der Wert false, wird ein Fehler erzeugt.
+	 * mit dem Wert {@link #emptyField} aufgefï¿½llt. Ist der Wert false, wird ein Fehler erzeugt.
 	 * Standardwert ist true. 
 	 * 
-	 * @param fillShortenedRows Flag: Sollen zu kurze Zeilen aufgefüllt akzeptiert werden.
+	 * @param fillShortenedRows Flag: Sollen zu kurze Zeilen aufgefï¿½llt akzeptiert werden.
 	 */
 	public void setFillShortenedRows(boolean fillShortenedRows) {
 		this.fillShortenedRows = fillShortenedRows;
@@ -317,7 +305,7 @@ public class MadlanReader implements MadlanConstants {
     /**
      * Hier wird festgelegt wie zu lange Zeilen behandelt werden sollen.
      * Wird der Parameter auf true gesetzt, dann werden bei Zeilen mit mehr Feldern als im Header
-     * nur die zuerst stehenden Felder übernommen. Ist der Wert false, wird ein Fehler erzeugt.
+     * nur die zuerst stehenden Felder ï¿½bernommen. Ist der Wert false, wird ein Fehler erzeugt.
      * Standardwert ist true.
      */
 	public boolean getTrimExtendedRows() {
@@ -327,17 +315,17 @@ public class MadlanReader implements MadlanConstants {
 	/**
 	 * Hier wird festgelegt wie zu lange Zeilen behandelt werden sollen.
 	 * Wird der Parameter auf true gesetzt, dann werden bei Zeilen mit mehr Feldern als im Header
-	 * nur die zuerst stehenden Felder übernommen. Ist der Wert false, wird ein Fehler erzeugt.
+	 * nur die zuerst stehenden Felder ï¿½bernommen. Ist der Wert false, wird ein Fehler erzeugt.
 	 * Standardwert ist true.
 	 * 
-	 * @param trimExtendedRows Flag: sollen überlange Zeilen gekürzt akzeptiert werden.
+	 * @param trimExtendedRows Flag: sollen ï¿½berlange Zeilen gekï¿½rzt akzeptiert werden.
 	 */
 	public void setTrimExtendedRows(boolean trimExtendedRows) {
 		this.trimExtendedRows = trimExtendedRows;
 	}
 
     /**
-     * Liefert den {@link String} zum Auffüllen der Felder von zu kurzen Zeilen.
+     * Liefert den {@link String} zum Auffï¿½llen der Felder von zu kurzen Zeilen.
      * @see #fillShortenedRows
      */
 	public String getEmptyField() {
@@ -345,9 +333,9 @@ public class MadlanReader implements MadlanConstants {
 	}
     
 	/**
-	 * Legt den {@link String} zum Auffüllen der Felder von zu kurzen Zeilen fest.
+	 * Legt den {@link String} zum Auffï¿½llen der Felder von zu kurzen Zeilen fest.
 	 * @see #fillShortenedRows
-	 * @param emptyField {@link String} zum Auffüllen der Felder von zu kurzen Zeilen
+	 * @param emptyField {@link String} zum Auffï¿½llen der Felder von zu kurzen Zeilen
 	 */
 	public void setEmptyField(String emptyField) {
 		this.emptyField = emptyField;
@@ -387,14 +375,14 @@ public class MadlanReader implements MadlanConstants {
 	}
 
     /**
-     * Diese Methode liefert zu einem Schlüssel ein Zeichenmapping.
-     * Die erlaubten Schlüssel sind {@link #CHARS_BALT}, {@link #CHARS_BALTIC},
+     * Diese Methode liefert zu einem Schlï¿½ssel ein Zeichenmapping.
+     * Die erlaubten Schlï¿½ssel sind {@link #CHARS_BALT}, {@link #CHARS_BALTIC},
      * {@link #CHARS_CYR_EXT}, {@link #CHARS_CYRILLIC}, {@link #CHARS_EAST},
      * {@link #CHARS_GREEK}, {@link #CHARS_LATIN}, {@link #CHARS_TUR_ASB},
      * {@link #CHARS_TURKISH} und {@link #CHARS_WEST}. Als Default wird
      * {@link #CHARS_LATIN} genommen.  
      * 
-     * @param key Zeichenmappingschlüssel
+     * @param key Zeichenmappingschlï¿½ssel
      * @return ein <code>char[256]</code>.
      */
     public final static char[] getChars(String key) {

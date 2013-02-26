@@ -1,11 +1,12 @@
-/*
- * veraweb,
- * Veranstaltungsmanagment veraweb
- * Copyright (c) 2005-2007 tarent GmbH
+/**
+ * veraweb, platform independent webservice-based event management
+ * (Veranstaltungsmanagment VerA.web), is
+ * Copyright Â© 2004-2008 tarent GmbH
+ * Copyright Â© 2013 tarent solutions GmbH
  *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License,version 2
- * as published by the Free Software Foundation.
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License, version 2, as
+ * published by the Free Software Foundation.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -13,20 +14,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
- * 02110-1301, USA.
- *
- * tarent GmbH., hereby disclaims all copyright
- * interest in the program 'veraweb'
- * Signature of Elmar Geese, 21 November 2007
- * Elmar Geese, CEO tarent GmbH.
- */
-
-/*
- * $Id$
- * 
- * Created on 22.08.2005
+ * along with this program.  If not, see: http://www.gnu.org/licenses/
  */
 package de.tarent.data.exchange;
 
@@ -54,30 +42,30 @@ public class FieldMapping {
     // Konstruktor
     //
     /**
-     * Dieser Konstruktor bekommt die Menge der verfügbaren Quellfelder und
+     * Dieser Konstruktor bekommt die Menge der verfï¿½gbaren Quellfelder und
      * eine Abbildung Zielfeldname -> Formatstring mit Quellfeldreferenzen
-     * übergeben. Quellfeldreferenzen haben allgemein die Form <b>{</b>BEREICH<b>:</b>FELD<b>}</b>,
+     * ï¿½bergeben. Quellfeldreferenzen haben allgemein die Form <b>{</b>BEREICH<b>:</b>FELD<b>}</b>,
      * im VerA.web-Fall insbesondere:<br>
      * <ul>
-     * <li><b>{:</b>FELD<b>}</b> für Stammdaten von Personen
-     * <li><b>{CAT:</b>KATEGORIE<b>}</b> für Kategoriezugehörigkeiten von Personen
-     * <li><b>{EVE:</b>EREIGNIS<b>}</b> für Ereigniszugehörigkeiten von Personen
-     * <li><b>{COR:</b>DIPL. CORPS<b>}</b> für Dipl.Corps-Zugehörigkeiten von Personen
-     * <li><b>{DTM:</b>DOKUMENTTYP<b>}</b> für Dokumenttypfreitexte von Hauptpersonen
-     * <li><b>{DTP:</b>DOKUMENTTYP<b>}</b> für Dokumenttypfreitexte von Partnerpersonen
+     * <li><b>{:</b>FELD<b>}</b> fï¿½r Stammdaten von Personen
+     * <li><b>{CAT:</b>KATEGORIE<b>}</b> fï¿½r Kategoriezugehï¿½rigkeiten von Personen
+     * <li><b>{EVE:</b>EREIGNIS<b>}</b> fï¿½r Ereigniszugehï¿½rigkeiten von Personen
+     * <li><b>{COR:</b>DIPL. CORPS<b>}</b> fï¿½r Dipl.Corps-Zugehï¿½rigkeiten von Personen
+     * <li><b>{DTM:</b>DOKUMENTTYP<b>}</b> fï¿½r Dokumenttypfreitexte von Hauptpersonen
+     * <li><b>{DTP:</b>DOKUMENTTYP<b>}</b> fï¿½r Dokumenttypfreitexte von Partnerpersonen
      * </ul>
-     * Sonderfälle sind Benutzung von Jokern '*' im Bezeichner; hier ist nur eine
+     * Sonderfï¿½lle sind Benutzung von Jokern '*' im Bezeichner; hier ist nur eine
      * Quellfeldreferenz im Formatstring erlaubt, weiterhin muss im Zielfeld
      * ebenfalls ein Joker vorkommen. Solche Mappings werden interpretiert als
-     * eine Zuordnung für alle passenden bisher nicht zugeordneten Bezeichner
+     * eine Zuordnung fï¿½r alle passenden bisher nicht zugeordneten Bezeichner
      * zu einem Zielfald, in dem der Joker durch den Bezeichnernamen ersetzt
      * wird.<br>
-     * Im Falle konkurrierender Zuordnungen erhält die speziellere den Vorrang.
+     * Im Falle konkurrierender Zuordnungen erhï¿½lt die speziellere den Vorrang.
      * 
-     * @param availableSources verfügbare Quellen
+     * @param availableSources verfï¿½gbare Quellen
      * @param mappingDescription Abbildung Zielfeldnamen auf Formatstrings mit
      *  Quellfeldreferenzen
-     * @throws MappingException bei Problemen beim Auflösen der Mapping-Beschreibung
+     * @throws MappingException bei Problemen beim Auflï¿½sen der Mapping-Beschreibung
      * @throws NullPointerException falls ein Parameter <code>null</code> ist.
      */
     public FieldMapping(Set availableSources, Map mappingDescription) throws MappingException {
@@ -89,9 +77,9 @@ public class FieldMapping {
     /**
      * Dieser private Konstruktor wird von der Methode {@link #invert()} benutzt. 
      * 
-     * @param availableSources verfügbare Quellen
-     * @param availableTargets verfügbare Ziele
-     * @param resolvedMapping aufgelöstes (Joker-freies) Mapping
+     * @param availableSources verfï¿½gbare Quellen
+     * @param availableTargets verfï¿½gbare Ziele
+     * @param resolvedMapping aufgelï¿½stes (Joker-freies) Mapping
      */
     private FieldMapping(Set availableSources, Set availableTargets, Map resolvedMapping, Map mappingDescription) {
         if (availableTargets == null)
@@ -107,29 +95,29 @@ public class FieldMapping {
     //
     // Getter
     //
-    /** verfügbare Quellfelder */
+    /** verfï¿½gbare Quellfelder */
     public Set getSources() {
         return availableSources;
     }
     
-    /** verfügbare Zielfelder */
+    /** verfï¿½gbare Zielfelder */
     public Set getTargets() {
         return availableTargets;
     }
     
     //
-    // öffentliche Interfaces
+    // ï¿½ffentliche Interfaces
     //
     /**
-     * Diese Schnittstelle stellt Quellentitäten dar, aus deren Inhalten
+     * Diese Schnittstelle stellt Quellentitï¿½ten dar, aus deren Inhalten
      * {@link FieldMapping#resolve(String, Entity)} Zielfeldwerte erzeugt.
      */
     public interface Entity {
         /**
-         * Diese Methode holt den Wert eines Quellfeldes bezüglich eines
-         * Quellfeldschlüssels BEREICH<b>:</b>FELD.
+         * Diese Methode holt den Wert eines Quellfeldes bezï¿½glich eines
+         * Quellfeldschlï¿½ssels BEREICH<b>:</b>FELD.
          * 
-         * @param sourceKey Quellfeldschlüssel BEREICH<b>:</b>FELD 
+         * @param sourceKey Quellfeldschlï¿½ssel BEREICH<b>:</b>FELD 
          * @return Wert des beschriebenen Quellfelds
          * @see FieldMapping#FieldMapping(Set, Map)
          */
@@ -137,14 +125,14 @@ public class FieldMapping {
     }
     
     //
-    // öffentliche Methoden
+    // ï¿½ffentliche Methoden
     //
     /**
      * Diese Methode ermittelt den Wert eines Zielfelds basierend auf
-     * den Werten einer Entität.
+     * den Werten einer Entitï¿½t.
      * 
      * @param targetKey Zielfeldbezeichner
-     * @param entity Entität, der die Quellfeldwerte zu entnehmen sind
+     * @param entity Entitï¿½t, der die Quellfeldwerte zu entnehmen sind
      * @return ermittelter Zielfeldwert
      */
     public String resolve(String targetKey, Entity entity) {
@@ -165,11 +153,11 @@ public class FieldMapping {
     }
     
     /**
-     * Gibt ein entpackten Wert entsprechend des übergeben Mappings an,
+     * Gibt ein entpackten Wert entsprechend des ï¿½bergeben Mappings an,
      * z.B. wird aus <code>Kat *</code> und <code>Kat Sample</code>
-     * nur noch <code>Sample</code>. Beide Werte dürfen nicht null sein.
+     * nur noch <code>Sample</code>. Beide Werte dï¿½rfen nicht null sein.
      * 
-     * Gibt null zurück wenn der String <code>value</code> nicht auf
+     * Gibt null zurï¿½ck wenn der String <code>value</code> nicht auf
      * <code>mapping</code matchet.
      * 
      * @param mapping
@@ -192,11 +180,11 @@ public class FieldMapping {
     
     /**
      * Diese Methode liefert ein Fieldmapping, das zu diesem invers ist.<br>
-     * Hierbei sind gewisse Einschränkungen zu beachten, deren Verletzung zu
-     * ungeeigneten Mappings führt. Einerseits wird nur das erste Quellfeld
+     * Hierbei sind gewisse Einschrï¿½nkungen zu beachten, deren Verletzung zu
+     * ungeeigneten Mappings fï¿½hrt. Einerseits wird nur das erste Quellfeld
      * eines Mappings beachtet; weitere sollten also in einem weiteren Mapping
-     * führend vorkommen. Andererseits sollte jedes Quellfeld nur einmal führend
-     * vorkommen, um eine Eindeutigkeit zu gewährleisten. 
+     * fï¿½hrend vorkommen. Andererseits sollte jedes Quellfeld nur einmal fï¿½hrend
+     * vorkommen, um eine Eindeutigkeit zu gewï¿½hrleisten. 
      * 
      * @return ein Feldmapping, das zu diesem invers ist.
      */
@@ -214,15 +202,15 @@ public class FieldMapping {
 
     /**
      * Diese Methode erweitert das FieldMapping um Kategorien-Felder die im
-     * Header übergeben wurde, aber noch nicht in der Datenbank vorhanden sind
-     * und deswegen nicht in den {@link #availableSources} verfügbar waren.
+     * Header ï¿½bergeben wurde, aber noch nicht in der Datenbank vorhanden sind
+     * und deswegen nicht in den {@link #availableSources} verfï¿½gbar waren.
      * 
      * @param headers
      */
 	public void extendCategoryImport(List extensions) {
 		assert mappingDescription != null && resolvedMappings != null;
 		
-        // Map der aufgelösten Mappings
+        // Map der aufgelï¿½sten Mappings
         Map finalMappings = new HashMap();
         finalMappings.putAll(resolvedMappings);
         
@@ -257,25 +245,25 @@ public class FieldMapping {
 	}
 
 	//
-    // geschützte Hilfsmethoden
+    // geschï¿½tzte Hilfsmethoden
     //
     /**
-	 * Diese Methode ermittelt mittels der verfügbaren Quellfelder und der
+	 * Diese Methode ermittelt mittels der verfï¿½gbaren Quellfelder und der
 	 * allgemeinen Abbildungsbeschreibung (die im Konstruktor
-	 * {@link #FieldMapping(Set, Map)} übergeben wurden) die aufgelösten simplen
-	 * Abbildungen und die verfügbaren Zielfelder.
+	 * {@link #FieldMapping(Set, Map)} ï¿½bergeben wurden) die aufgelï¿½sten simplen
+	 * Abbildungen und die verfï¿½gbaren Zielfelder.
 	 * 
 	 * @param mappingDescription
 	 *            die zu parsende Abbildungsbeschreibung
 	 * @throws MappingException
-	 *             bei Problemen beim Auflösen der Mapping-Beschreibung
+	 *             bei Problemen beim Auflï¿½sen der Mapping-Beschreibung
 	 */
     void parseDescription(Map mappingDescription) throws MappingException {
         assert availableSources != null;
         assert mappingDescription != null;
-        // Menge der (bisher) unbenutzten Quellen --- wird für Joker-Auflösung genutzt
+        // Menge der (bisher) unbenutzten Quellen --- wird fï¿½r Joker-Auflï¿½sung genutzt
         Set unusedSources = new HashSet(availableSources);
-        // Map Präfixlänge vor Joker in Quellbezeichnern (Integer) -> Jokerzielfeldbezeichner --- wird für Joker-Auflösung genutzt
+        // Map Prï¿½fixlï¿½nge vor Joker in Quellbezeichnern (Integer) -> Jokerzielfeldbezeichner --- wird fï¿½r Joker-Auflï¿½sung genutzt
         Map targetsByPrefixLength = new HashMap();
         // Zielfeldbezeichner in targetsByPrefixLength einsortieren
         for (Iterator itMappingEntries = mappingDescription.entrySet().iterator(); itMappingEntries.hasNext(); ) {
@@ -288,9 +276,9 @@ public class FieldMapping {
                 targetsByPrefixLength.put(prefixLength, theseTargets = new HashSet());
             theseTargets.add(targetFieldKey);
         }
-        // Map der aufgelösten Mappings
+        // Map der aufgelï¿½sten Mappings
         Map finalMappings = new HashMap();
-        // Einfache (Joker-freie) Mappings übertragen
+        // Einfache (Joker-freie) Mappings ï¿½bertragen
         if (targetsByPrefixLength.containsKey(MINUS_ONE)) {
             for (Iterator itSimpleMappingTargets = ((Collection)targetsByPrefixLength.get(MINUS_ONE)).iterator(); itSimpleMappingTargets.hasNext(); ) {
                 String targetKey = itSimpleMappingTargets.next().toString();
@@ -298,7 +286,7 @@ public class FieldMapping {
             }
             targetsByPrefixLength.remove(MINUS_ONE);
         }
-        // Komplexe (Joker-behaftete) Mappings auflösen und übertragen
+        // Komplexe (Joker-behaftete) Mappings auflï¿½sen und ï¿½bertragen
         if (targetsByPrefixLength.size() > 0) {
             Integer[] lengths = (Integer[]) targetsByPrefixLength.keySet().toArray(new Integer[targetsByPrefixLength.size()]);
             Arrays.sort(lengths);
@@ -327,10 +315,10 @@ public class FieldMapping {
     
     /**
      * Diese Methode sucht zu einem Formatstring eine Referenz mit Joker
-     * und liefert hierzu das Anfangsstück zurück.
+     * und liefert hierzu das Anfangsstï¿½ck zurï¿½ck.
      * 
      * @param format dieser Formatstring wird auf Referenzen mit Joker durchsucht.
-     * @return Anfangsstück der Referenz bis exklusive dem Joker, sonst <code>null</code>.
+     * @return Anfangsstï¿½ck der Referenz bis exklusive dem Joker, sonst <code>null</code>.
      */
     private static String getJokerReferencePrefix(String format) {
         assert format != null;
@@ -348,12 +336,12 @@ public class FieldMapping {
      * Diese Methode hat eine doppelte Funktion; einerseits entfernt sie alle einfachen
      * (also nicht Joker-behafteten) Referenzen im Formatstring aus der Sammlung nicht
      * benutzter Referenzen, und andererseits liefert sie die Joker-Position in einer
-     * gegebenenfalls vorhandenen Joker-behafteten Referenz zurück.
+     * gegebenenfalls vorhandenen Joker-behafteten Referenz zurï¿½ck.
      * 
-     * @param unusedReferences Sammlung bisher nicht benutzter verfügbarere Referenzen
+     * @param unusedReferences Sammlung bisher nicht benutzter verfï¿½gbarere Referenzen
      * @param format zu behandelnder Formatstring
      * @return Joker-Position in der vorhandenen Joker-behafteten Referenz, sonst <code>-1</code>.
-     * @throws MappingException bei Problemen beim Auflösen der Mapping-Beschreibung
+     * @throws MappingException bei Problemen beim Auflï¿½sen der Mapping-Beschreibung
      */
     private static int removeReferences(Collection unusedReferences, String format) throws MappingException {
         int jokerPrefixLength = -1;
@@ -364,7 +352,7 @@ public class FieldMapping {
             if (jokerIndex < 0)
                 unusedReferences.remove(ref);
             else if (jokerIndex != ref.length() - 1) 
-                throw new MappingException("es werden nur endständige Joker im Formatstring unterstützt");
+                throw new MappingException("es werden nur endstï¿½ndige Joker im Formatstring unterstï¿½tzt");
             else if (jokerPrefixLength < 0)
                 jokerPrefixLength = jokerIndex;
             else
@@ -374,13 +362,13 @@ public class FieldMapping {
     }
     
     /**
-     * Diese Methode fügt den einfachen Mappings eines hinzu, das dem übergebenen mit
-     * Joker behafteten nach Ersetzung mittels der übergebenen Quelle entspricht. 
+     * Diese Methode fï¿½gt den einfachen Mappings eines hinzu, das dem ï¿½bergebenen mit
+     * Joker behafteten nach Ersetzung mittels der ï¿½bergebenen Quelle entspricht. 
      * 
-     * @param resolvedMappings {@link Map} der aufgelösten einfachen Mappings
+     * @param resolvedMappings {@link Map} der aufgelï¿½sten einfachen Mappings
      * @param targetPattern Zielreferenz mit Joker
      * @param formatPattern Formatstring mit Joker-behafteter Quellreferenz
-     * @param source Quellfeld zur Auflösung der Joker.
+     * @param source Quellfeld zur Auflï¿½sung der Joker.
      */
     private static void addResolvedMapping(Map resolvedMappings, String targetPattern, String formatPattern, String source) {
         assert formatPattern != null;
@@ -399,14 +387,14 @@ public class FieldMapping {
                 targetPattern = targetPattern.replaceAll("\\*", source);
                 Object former = resolvedMappings.put(targetPattern, buffer.toString());
                 if (former != null)
-                    logger.warning("Ersetze altes Format '" + former + "' für '" + targetPattern + "' durch '" + buffer.toString() + "'.");
+                    logger.warning("Ersetze altes Format '" + former + "' fï¿½r '" + targetPattern + "' durch '" + buffer.toString() + "'.");
                 return;
             }
         }
     }
     
     //
-    // geschützte Member
+    // geschï¿½tzte Member
     //
     final Set availableSources;
     final Map mappingDescription;

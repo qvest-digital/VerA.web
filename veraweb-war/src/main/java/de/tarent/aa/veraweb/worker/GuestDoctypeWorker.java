@@ -1,11 +1,12 @@
-/*
- * veraweb,
- * Veranstaltungsmanagment veraweb
- * Copyright (c) 2005-2007 tarent GmbH
+/**
+ * veraweb, platform independent webservice-based event management
+ * (Veranstaltungsmanagment VerA.web), is
+ * Copyright Â© 2004-2008 tarent GmbH
+ * Copyright Â© 2013 tarent solutions GmbH
  *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License,version 2
- * as published by the Free Software Foundation.
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License, version 2, as
+ * published by the Free Software Foundation.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -13,18 +14,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
- * 02110-1301, USA.
- *
- * tarent GmbH., hereby disclaims all copyright
- * interest in the program 'veraweb'
- * Signature of Elmar Geese, 21 November 2007
- * Elmar Geese, CEO tarent GmbH.
- */
-
-/* 
- * $Id$
+ * along with this program.  If not, see: http://www.gnu.org/licenses/
  */
 package de.tarent.aa.veraweb.worker;
 
@@ -87,8 +77,8 @@ public class GuestDoctypeWorker {
     /** Octopus-Eingabeparameter der Aktion {@link #saveDetail(OctopusContext)} */
     public static final String INPUT_saveDetail[] = {};
     /**
-     * Diese Octopus-Aktion liest aus dem Request eine Gästedokumenttyp-Bean mit
-     * Präfix "guestdoctype" und speichert sie in der Datenbank.
+     * Diese Octopus-Aktion liest aus dem Request eine Gï¿½stedokumenttyp-Bean mit
+     * Prï¿½fix "guestdoctype" und speichert sie in der Datenbank.
      * 
      * @param cntx
      * @throws BeanException
@@ -122,7 +112,7 @@ public class GuestDoctypeWorker {
 	}
 
     //
-    // geschützte Hilfsmethoden
+    // geschï¿½tzte Hilfsmethoden
     //
     /**
      * Diese Methode ermittelt die Veranstaltungsdokumenttypen zu der angegebenen
@@ -130,7 +120,7 @@ public class GuestDoctypeWorker {
      * 
      * @param database Datenbank
      * @param event Veranstaltung
-     * @return Liste zugehöriger {@link EventDoctype}-Beans 
+     * @return Liste zugehï¿½riger {@link EventDoctype}-Beans 
      */
 	protected static List getEventDoctypeList(Database database, Integer event) throws BeanException, IOException {
 		Select select = database.getSelect("EventDoctype");
@@ -142,13 +132,13 @@ public class GuestDoctypeWorker {
 	}
 
     /**
-     * Diese Methode holt zu einem Gast und einem Dokumenttyp den zugehörigen
+     * Diese Methode holt zu einem Gast und einem Dokumenttyp den zugehï¿½rigen
      * Gastdokumenttyp.
      * 
      * @param database Datenbank
      * @param guest Gast
      * @param doctype Dokumenttyp-ID
-     * @return zugehörige {@link GuestDoctype}-Bohne.
+     * @return zugehï¿½rige {@link GuestDoctype}-Bohne.
      */
 	protected static GuestDoctype getGuestDoctype(Database database, Guest guest, Integer doctype) throws BeanException, IOException {
 		Select select = database.getSelect("GuestDoctype");
@@ -167,16 +157,16 @@ public class GuestDoctypeWorker {
 
     /**
      * Diese Methode ermittelt aus Request oder alternativ Session den aktuellen
-     * Dokumenttyp "doctype-id", prüft anhand der übergebenen Liste der IDs der
-     * verfügbaren Dokumenttypen, ob er im aktuellen Kontext erlaubt ist; falls
+     * Dokumenttyp "doctype-id", prï¿½ft anhand der ï¿½bergebenen Liste der IDs der
+     * verfï¿½gbaren Dokumenttypen, ob er im aktuellen Kontext erlaubt ist; falls
      * keiner angegeben war, wird der erste der Liste genommen.<br>
      * Der ermittelte Dokumenttyp wird in die Session eingetragen.<br>
      * TODO: ggfs auch im Content nachschauen<br>
      * TODO: wenn "doctype-id" nicht in der Liste, soll dann wirklich <code>null</code> oder besser der erste der Liste geliefert werden?
      * 
      * @param cntx
-     * @param availableDoctypes Liste von Integern, IDs verfügbarer Dokumenttypen
-     * @return ID des ausgewählten "aktuellen" Dokumenttyps
+     * @param availableDoctypes Liste von Integern, IDs verfï¿½gbarer Dokumenttypen
+     * @return ID des ausgewï¿½hlten "aktuellen" Dokumenttyps
      */
 	protected static Integer getDoctype(OctopusContext cntx, List availableDoctypes) {
 		// doctype aus request bzw. session laden.
@@ -185,7 +175,7 @@ public class GuestDoctypeWorker {
 			doctype = (Integer)cntx.sessionAsObject("doctype-id");
 		}
 		
-		// prüfen ob doctype verfügbar ist.
+		// prï¿½fen ob doctype verfï¿½gbar ist.
 		if (doctype != null) {
 			boolean available = false;
 			for (Iterator it = availableDoctypes.iterator(); it.hasNext(); ) {

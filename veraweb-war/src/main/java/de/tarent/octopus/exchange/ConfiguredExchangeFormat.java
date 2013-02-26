@@ -1,11 +1,12 @@
-/*
- * veraweb,
- * Veranstaltungsmanagment veraweb
- * Copyright (c) 2005-2007 tarent GmbH
+/**
+ * veraweb, platform independent webservice-based event management
+ * (Veranstaltungsmanagment VerA.web), is
+ * Copyright Â© 2004-2008 tarent GmbH
+ * Copyright Â© 2013 tarent solutions GmbH
  *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License,version 2
- * as published by the Free Software Foundation.
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License, version 2, as
+ * published by the Free Software Foundation.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -13,20 +14,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
- * 02110-1301, USA.
- *
- * tarent GmbH., hereby disclaims all copyright
- * interest in the program 'veraweb'
- * Signature of Elmar Geese, 21 November 2007
- * Elmar Geese, CEO tarent GmbH.
- */
-
-/*
- * $Id$
- * 
- * Created on 04.08.2005
+ * along with this program.  If not, see: http://www.gnu.org/licenses/
  */
 package de.tarent.octopus.exchange;
 
@@ -40,7 +28,7 @@ import de.tarent.data.exchange.ExchangeFormat;
 
 /**
  * Diese Klasse stellt die Eigenschaften eines Datenaustauschformats
- * für Export- und Importimplementierungen zur Verfügung, die aus einer
+ * fï¿½r Export- und Importimplementierungen zur Verfï¿½gung, die aus einer
  * {@link Map}, wie sie aus Octopus-Konfigurationen gelesen werden,
  * initialisiert werden.
  * 
@@ -51,9 +39,9 @@ public class ConfiguredExchangeFormat extends ExchangeFormat {
     // Konstruktor
     //
     /**
-     * Dieser Konstruktor bekommt eine {@link Map} übergeben, wie sie aus
+     * Dieser Konstruktor bekommt eine {@link Map} ï¿½bergeben, wie sie aus
      * einer Octopus-Konfiguration eingelesen wird, und initialisiert daraus
-     * die {@link ExchangeFormat}-Attribute. Hierzu werden als Schlüssel die
+     * die {@link ExchangeFormat}-Attribute. Hierzu werden als Schlï¿½ssel die
      * Konstanten <code>PARAM_*</code> dieser Klasse benutzt.
      * 
      * @param configuration {@link Map}, aus der die Attribute dieses Formats gelesen werden.
@@ -65,11 +53,11 @@ public class ConfiguredExchangeFormat extends ExchangeFormat {
     }
     
     //
-    // öffentliche Hilfsmethoden
+    // ï¿½ffentliche Hilfsmethoden
     //
     /**
-     * Diese Methode fügt den über die ürsprüngliche Konfiguration vorgegebenen Parametern
-     * weitere hinzu, die etwa über Benutzereingabe oder sonstige Umstände bestimmt werden.
+     * Diese Methode fï¿½gt den ï¿½ber die ï¿½rsprï¿½ngliche Konfiguration vorgegebenen Parametern
+     * weitere hinzu, die etwa ï¿½ber Benutzereingabe oder sonstige Umstï¿½nde bestimmt werden.
      * 
      * @param data {@link Map} mit weiteren Format-Properties
      */
@@ -81,31 +69,31 @@ public class ConfiguredExchangeFormat extends ExchangeFormat {
     //
     // Konstanten
     //
-    /** Parameterschlüssel für den Name dieses Formats */
+    /** Parameterschlï¿½ssel fï¿½r den Name dieses Formats */
     public final static String PARAM_NAME = "name";
-    /** Parameterschlüssel für die Beschreibung dieses Formats */
+    /** Parameterschlï¿½ssel fï¿½r die Beschreibung dieses Formats */
     public final static String PARAM_DESCRIPTION = "description";
-    /** Parameterschlüssel für die URL zu einem Icon zu diesem Format */
+    /** Parameterschlï¿½ssel fï¿½r die URL zu einem Icon zu diesem Format */
     public final static String PARAM_ICON = "icon";
-    /** Parameterschlüssel für den Namen der {@link de.tarent.aa.veraweb.utils.Exporter}-Klasse zu diesem Format */
+    /** Parameterschlï¿½ssel fï¿½r den Namen der {@link de.tarent.aa.veraweb.utils.Exporter}-Klasse zu diesem Format */
     public final static String PARAM_EXPORTER_CLASS = "exporterClass";
-    /** Parameterschlüssel für den Namen der {@link de.tarent.aa.veraweb.utils.Importer}-Klasse zu diesem Format */
+    /** Parameterschlï¿½ssel fï¿½r den Namen der {@link de.tarent.aa.veraweb.utils.Importer}-Klasse zu diesem Format */
     public final static String PARAM_IMPORTER_CLASS = "importerClass";
-    /** Parameterschlüssel für den MIME-Typ zu diesem Format */
+    /** Parameterschlï¿½ssel fï¿½r den MIME-Typ zu diesem Format */
     public final static String PARAM_MIME_TYPE = "mimeType";
-    /** Parameterschlüssel für das Standard-Suffix für Dateien dieses Formats */
+    /** Parameterschlï¿½ssel fï¿½r das Standard-Suffix fï¿½r Dateien dieses Formats */
     public final static String PARAM_DEFAULT_EXTENSION = "defaultExtension";
-    /** Parameterschlüssel für die speziellen Attribute dieses Formats */
+    /** Parameterschlï¿½ssel fï¿½r die speziellen Attribute dieses Formats */
     public final static String PARAM_PROPERTIES = "properties";
 
     //
-    // geschützte Hilfsmethoden
+    // geschï¿½tzte Hilfsmethoden
     //
     /**
-     * Diese Methode liest aus der übergebenen {@link Map} die Daten des Formats.
-     * Als Schlüssel werden die Konstanten <code>PARAM_*</code> benutzt.
+     * Diese Methode liest aus der ï¿½bergebenen {@link Map} die Daten des Formats.
+     * Als Schlï¿½ssel werden die Konstanten <code>PARAM_*</code> benutzt.
      * 
-     * @param configuration {@link Map} mit Konfigurationseinträgen nach Octopus-Art
+     * @param configuration {@link Map} mit Konfigurationseintrï¿½gen nach Octopus-Art
      */
     void readConfiguration(Map configuration) {
         assert configuration != null;
@@ -131,7 +119,7 @@ public class ConfiguredExchangeFormat extends ExchangeFormat {
      * Diese Methode dient der sicheren Umsetzung {@link Object} nach {@link String},
      * bei der <code>null</code> erhalten bleibt.
      * 
-     * @param o in einen {@link String} zu überführendes Objekt.
+     * @param o in einen {@link String} zu ï¿½berfï¿½hrendes Objekt.
      * @return Stringdarstellung des Parameters
      */
     final static String toString(Object o) {
@@ -139,7 +127,7 @@ public class ConfiguredExchangeFormat extends ExchangeFormat {
     }
     
     //
-    // geschützte Member
+    // geschï¿½tzte Member
     //
     /** Logger der Klasse */
     static Logger logger = Logger.getLogger(ConfiguredExchangeFormat.class.getName());

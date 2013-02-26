@@ -1,11 +1,12 @@
-/*
- * veraweb,
- * Veranstaltungsmanagment veraweb
- * Copyright (c) 2005-2007 tarent GmbH
+/**
+ * veraweb, platform independent webservice-based event management
+ * (Veranstaltungsmanagment VerA.web), is
+ * Copyright Â© 2004-2008 tarent GmbH
+ * Copyright Â© 2013 tarent solutions GmbH
  *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License,version 2
- * as published by the Free Software Foundation.
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License, version 2, as
+ * published by the Free Software Foundation.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -13,44 +14,31 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
- * 02110-1301, USA.
- *
- * tarent GmbH., hereby disclaims all copyright
- * interest in the program 'veraweb'
- * Signature of Elmar Geese, 21 November 2007
- * Elmar Geese, CEO tarent GmbH.
- */
-
-/*
- * $Id$
- * 
- * Created on 09.11.2005
+ * along with this program.  If not, see: http://www.gnu.org/licenses/
  */
 package de.tarent.aa.veraweb.utils;
 
 /**
- * Diese Schnittstelle enthält Konstanten für das Behandeln von
+ * Diese Schnittstelle enthï¿½lt Konstanten fï¿½r das Behandeln von
  * MAdLAN-Office-Steuerdateien. 
  * 
  * @author mikel
  */
 public interface MadlanConstants {
     //
-    // Property-Bezeichner und -Defaults für die MAdLAN-Formate
+    // Property-Bezeichner und -Defaults fï¿½r die MAdLAN-Formate
     //
-    /** Property-Schlüssel für die Liste der kyrillischen Felder */
+    /** Property-Schlï¿½ssel fï¿½r die Liste der kyrillischen Felder */
     public final static String KEY_KYRILLIC_FIELDS = "kyrillicFields";
     
-    /** Property-Schlüssel für das Zeichen-Mapping A (normale Felder) */
+    /** Property-Schlï¿½ssel fï¿½r das Zeichen-Mapping A (normale Felder) */
     public final static String KEY_MAPPING_A = "encodingA";
     
-    /** Property-Schlüssel für das Zeichen-Mapping B (kyrillische Felder) */
+    /** Property-Schlï¿½ssel fï¿½r das Zeichen-Mapping B (kyrillische Felder) */
     public final static String KEY_MAPPING_B = "encodingB";
     
     //
-    // Schlüssel für die verschiedenen möglichen Zeichenencodings
+    // Schlï¿½ssel fï¿½r die verschiedenen mï¿½glichen Zeichenencodings
     // (Diese wurden an AAKonv.INI des Textkonverters des AA orientiert.)
     //
     /** Zeichensatz: Baltisch (BaltRoman, BaltHelv) */
@@ -65,7 +53,7 @@ public interface MadlanConstants {
     /** Zeichensatz: Kyrillisch (CyrillicRoman, CyrillicHlv) */
     public final static String CHARS_CYRILLIC = "cyrillic";
 
-    /** Zeichensatz: Östlich (EastRoman, EastHlv) */
+    /** Zeichensatz: ï¿½stlich (EastRoman, EastHlv) */
     public final static String CHARS_EAST = "east";
 
     /** Zeichensatz: Griechisch (GreekRoman, GreekHlv) */
@@ -74,7 +62,7 @@ public interface MadlanConstants {
     /** Zeichensatz: Turkmenistan? (TurAsbRoman, TurAsbHlv) */
     public final static String CHARS_TUR_ASB = "turasb";
 
-    /** Zeichensatz: Türkisch (TurkishRoman, TurkishHlv) */
+    /** Zeichensatz: Tï¿½rkisch (TurkishRoman, TurkishHlv) */
     public final static String CHARS_TURKISH = "turkish";
 
     /** Zeichensatz: Westlich (WestRoman, WestHlv) */
@@ -88,7 +76,7 @@ public interface MadlanConstants {
     // (Diese wurden an AAKonv.INI des Textkonverters des AA orientiert.)
     //
     /**
-     * Baltische Zeichentabelle aus AAConv.ini: [Balt] für BaltRoman, BaltHelv
+     * Baltische Zeichentabelle aus AAConv.ini: [Balt] fï¿½r BaltRoman, BaltHelv
      */
     final static char[] charsBalt = {
           0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14, 15,
@@ -119,7 +107,7 @@ public interface MadlanConstants {
     };
     
     /**
-     * Baltische Zeichentabelle aus AAConv.ini: [Baltic] für BalticRoman, BalticHlv
+     * Baltische Zeichentabelle aus AAConv.ini: [Baltic] fï¿½r BalticRoman, BalticHlv
      */
     final static char[] charsBaltic = {
          0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14, 15,
@@ -150,7 +138,7 @@ public interface MadlanConstants {
     };
     
     /**
-     * Kyrillische Zeichentabelle aus AAConv.ini: [CyrExt] für CyrExtRoman, CyrExtHlv
+     * Kyrillische Zeichentabelle aus AAConv.ini: [CyrExt] fï¿½r CyrExtRoman, CyrExtHlv
      */
     final static char[] charsCyrExt = {
          0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14, 15,
@@ -194,7 +182,7 @@ public interface MadlanConstants {
     };
     
     /**
-     * Kyrillische Zeichentabelle aus AAConv.ini: [Cyrillic] für CyrillicRoman, CyrillicHlv
+     * Kyrillische Zeichentabelle aus AAConv.ini: [Cyrillic] fï¿½r CyrillicRoman, CyrillicHlv
      */
     final static char[] charsCyrillic = {
          0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14, 15,
@@ -234,7 +222,7 @@ public interface MadlanConstants {
     };
     
     /**
-     * Osteuropäische Zeichentabelle aus AAConv.ini: [East] für EastRoman, EastHlv
+     * Osteuropï¿½ische Zeichentabelle aus AAConv.ini: [East] fï¿½r EastRoman, EastHlv
      */
     final static char[] charsEast = {
          0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14, 15,
@@ -268,7 +256,7 @@ public interface MadlanConstants {
     };
     
     /**
-     * Grieschiche Zeichentabelle aus AAConv.ini: [Greek] für GreekRoman, GreekHlv
+     * Grieschiche Zeichentabelle aus AAConv.ini: [Greek] fï¿½r GreekRoman, GreekHlv
      */
     final static char[] charsGreek = {
          0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14, 15,
@@ -299,7 +287,7 @@ public interface MadlanConstants {
     };
     
     /**
-     * Turkmenische (?) Zeichentabelle aus AAConv.ini: [TurAsb] für TurAsbRoman, TurAsbHlv
+     * Turkmenische (?) Zeichentabelle aus AAConv.ini: [TurAsb] fï¿½r TurAsbRoman, TurAsbHlv
      */
     final static char[] charsTurAsb = {
          0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14, 15,
@@ -330,7 +318,7 @@ public interface MadlanConstants {
     };
     
     /**
-     * Türkische Zeichentabelle aus AAConv.ini: [Turkish] für TurkishRoman, TurkishHlv
+     * Tï¿½rkische Zeichentabelle aus AAConv.ini: [Turkish] fï¿½r TurkishRoman, TurkishHlv
      */
     final static char[] charsTurkish = {
          0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14, 15,
@@ -361,7 +349,7 @@ public interface MadlanConstants {
     };
     
     /**
-     * Westeuropäische Zeichentabelle aus AAConv.ini: [West] für WestRoman, WestHlv
+     * Westeuropï¿½ische Zeichentabelle aus AAConv.ini: [West] fï¿½r WestRoman, WestHlv
      */
     final static char[] charsWest = {
         0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14, 15,

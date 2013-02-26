@@ -1,11 +1,12 @@
-/*
- * veraweb,
- * Veranstaltungsmanagment veraweb
- * Copyright (c) 2005-2007 tarent GmbH
+/**
+ * veraweb, platform independent webservice-based event management
+ * (Veranstaltungsmanagment VerA.web), is
+ * Copyright Â© 2004-2008 tarent GmbH
+ * Copyright Â© 2013 tarent solutions GmbH
  *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License,version 2
- * as published by the Free Software Foundation.
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License, version 2, as
+ * published by the Free Software Foundation.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -13,20 +14,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
- * 02110-1301, USA.
- *
- * tarent GmbH., hereby disclaims all copyright
- * interest in the program 'veraweb'
- * Signature of Elmar Geese, 21 November 2007
- * Elmar Geese, CEO tarent GmbH.
- */
-
-/*
- * $Id$
- * 
- * Created on 01.09.2005
+ * along with this program.  If not, see: http://www.gnu.org/licenses/
  */
 package de.tarent.aa.veraweb.utils;
 
@@ -49,7 +37,7 @@ import de.tarent.data.exchange.Exchanger;
 import de.tarent.octopus.beans.BeanException;
 
 /**
- * Diese Klasse dient dem Import eines MAdLAN-CSV-Exports über den
+ * Diese Klasse dient dem Import eines MAdLAN-CSV-Exports ï¿½ber den
  * {@link ExchangeFormat}-Mechanismus.
  * 
  * @author mikel
@@ -122,38 +110,38 @@ public class MAdLANImporter implements Importer, Exchanger {
     // Schnittstelle Importer
     //
     /**
-     * Diese Methode führt einen Import aus. Hierbei werden alle erkannten zu
-     * importierenden Personendatensätze und Zusätze nacheinander dem übergebenen 
-     * {@link ImportDigester} übergeben.
+     * Diese Methode fï¿½hrt einen Import aus. Hierbei werden alle erkannten zu
+     * importierenden Personendatensï¿½tze und Zusï¿½tze nacheinander dem ï¿½bergebenen 
+     * {@link ImportDigester} ï¿½bergeben.
      * 
-     * @param digester der {@link ImportDigester}, der die Datensätze weiter
+     * @param digester der {@link ImportDigester}, der die Datensï¿½tze weiter
      *  verarbeitet.
      * @see de.tarent.aa.veraweb.utils.Importer#importAll(de.tarent.aa.veraweb.utils.ImportDigester)
      */
     public void importAll(ImportDigester digester) throws IOException {
         if (format == null)
-            throw new IOException("Für einen Import muss ein Format angegeben sein.");
+            throw new IOException("Fï¿½r einen Import muss ein Format angegeben sein.");
         if (format.getProperties() == null)
-            throw new IOException("Für einen Import müssen in der Formatspezifikation die MAdLAN-Parameter angegeben sein.");
+            throw new IOException("Fï¿½r einen Import mï¿½ssen in der Formatspezifikation die MAdLAN-Parameter angegeben sein.");
         if (inputStream == null)
-            throw new IOException("Für einen Import muss ein Eingabedatenstrom angegeben sein.");
+            throw new IOException("Fï¿½r einen Import muss ein Eingabedatenstrom angegeben sein.");
         
         String madlanFileEncoding = (String) format.getProperties().get("madlanFileEncoding");
         if (madlanFileEncoding == null || madlanFileEncoding.length() == 0)
             madlanFileEncoding = "ISO-8859-1"; // Einbettung Latin-1 in Unicode
         Reader reader = new InputStreamReader(inputStream, madlanFileEncoding);
         
-        //Teste die Gültigkeit der Konfiguration
+        //Teste die Gï¿½ltigkeit der Konfiguration
         List requiredFields = (List) format.getProperties().get("importRequiredFields");
         List fitDateFields = (List)format.getProperties().get("fitDateFields");
         List setNullFields = (List) format.getProperties().get("setNullFields");
         Map rawMadlanFieldMapping = (Map) format.getProperties().get("fieldMapping");
         if (rawMadlanFieldMapping == null)
-            throw new IOException("Es wurde keine gültige Feldzuordnung angegeben.");
+            throw new IOException("Es wurde keine gï¿½ltige Feldzuordnung angegeben.");
         FieldMapping mapping = new FieldMapping(rawMadlanFieldMapping);
         Object test = isSubset(mapping.getTargetFields(), requiredFields);
         if (test != null)
-            throw new IOException("Datenbankfeld \""+test+"\" wird benötigt, fehlt aber in der konfigurierten Mapping-Definition.");
+            throw new IOException("Datenbankfeld \""+test+"\" wird benï¿½tigt, fehlt aber in der konfigurierten Mapping-Definition.");
         test = isSubset((new ImportPerson()).getFields(), mapping.getTargetFields());
         if (test != null)
             throw new IOException("Datenbankfeld \""+test+"\" wird in der Mapping-Definition beschrieben, fehlt aber in den "+ImportPerson.class.getName()+"-Bean-Parametern.");
@@ -164,20 +152,20 @@ public class MAdLANImporter implements Importer, Exchanger {
         logger.info("Madlan-Header: " + header);
         mapping.setIncomingSourceFields(header);
         
-        //Teste die Gültigkeit der MAdLAN-Datei
+        //Teste die Gï¿½ltigkeit der MAdLAN-Datei
         test = isSubset(header, mapping.getRequiredSources(requiredFields));
         if (test != null)
-            throw new IOException("Importfeld \"" + test + "\" wird benötigt, fehlt aber in der Madlan-Datei.");
+            throw new IOException("Importfeld \"" + test + "\" wird benï¿½tigt, fehlt aber in der Madlan-Datei.");
         
         try {
             digester.startImport();
-            //Weiter mit dem Parsen (Iteration über die Datensätze in der Matlan-Datei).
+            //Weiter mit dem Parsen (Iteration ï¿½ber die Datensï¿½tze in der Matlan-Datei).
             List row;
             while ((row = mr.readRow()) != null) {
                 //erzeuge neues Datensatz-Bean und setze Import-Identifikation
                 ImportPerson importPerson = new ImportPerson();
                 
-                //setze Feldwerte und führe Abbildung der Feldbezeichner durch
+                //setze Feldwerte und fï¿½hre Abbildung der Feldbezeichner durch
                 mapping.setRow(row);
                 Iterator it = mapping.getTargetFields().iterator();
                 while (it.hasNext()) {
@@ -185,7 +173,7 @@ public class MAdLANImporter implements Importer, Exchanger {
                     importPerson.setField(key, mapping.getValue(key));
                 }
                 
-                //Struktur eines Datumfelds wenn gewünscht anpassen
+                //Struktur eines Datumfelds wenn gewï¿½nscht anpassen
                 if (fitDateFields != null) {
                     it = fitDateFields.iterator();
                     while (it.hasNext()) {
@@ -195,7 +183,7 @@ public class MAdLANImporter implements Importer, Exchanger {
                     }
                 }
                 
-                //leere Felder wenn gewünscht auf NULL setzen
+                //leere Felder wenn gewï¿½nscht auf NULL setzen
                 if (setNullFields != null) {
                     it = setNullFields.iterator();
                     while (it.hasNext()) {
@@ -252,7 +240,7 @@ public class MAdLANImporter implements Importer, Exchanger {
     }
 
     //
-    // geschützte Hilfsmethoden
+    // geschï¿½tzte Hilfsmethoden
     //
     /**
      * Diese Methode testet, ob eine Menge Teilmenge einer anderen Menge ist.
@@ -290,7 +278,7 @@ public class MAdLANImporter implements Importer, Exchanger {
     }
     
     //
-    // geschützte Member
+    // geschï¿½tzte Member
     //
     /** Das zu verwendende Austauschformat */
     ExchangeFormat format = null;
