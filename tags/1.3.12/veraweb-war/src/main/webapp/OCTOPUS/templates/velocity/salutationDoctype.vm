@@ -1,0 +1,85 @@
+#set($title = "Stammdaten - Anrede: $!salutation.name")
+#parse("inc/header.vm")
+
+<form id="formlist" name="formlist" action="SalutationDoctype" method="POST">
+
+<table class="tab" border="0" cellspacing="0" cellpadding="0"><tr>
+	<td class="tableft">&nbsp;</td>
+	<td class="tabactiv"><span class="tabactiv">Anreden</span></td>
+	<td class="tabright">&nbsp;</td>
+</tr></table>
+
+#openContent()
+#openContentSection()
+
+<input type="hidden" name="id" value="$!salutation.id">
+<input type="hidden" name="start" value="">
+<input type="hidden" name="selectAll" value="false">
+<input type="hidden" name="selectNone" value="false">
+<input type="hidden" name="doInsert" value="true">
+<input type="hidden" name="doUpdate" value="true">
+<input type="hidden" name="doRemove" value="true">
+
+#foreach($bean in $list)
+<input type="hidden" name="list" value="$bean.id">
+#end
+<table class="list">
+	<tr class="list1">
+		<th class="list" style="width: 20px;">&nbsp;</th>
+		<th class="list" style="width: 60px;">ID</th>
+		<th class="list">Bezeichnung</th>
+		<th class="list" style="width: 260px;">Dokumententyp</th>
+	</tr>
+#if ($allDoctype.iterator().hasNext())
+	<tr class="list2">
+		<td class="list"><input type="hidden" id="add-modified" name="add-modified" value="false"><input type="checkbox" name="add-select" value="true" class="checkbox" style="display: none;"></td>
+		<td class="list"><input type="hidden" name="add-id" value=""><input type="hidden" name="add-salutation" value="$!salutation.id"><em>neu</em></td>
+		<td class="list"><input type="text" name="add-text" value="" class="text" onchange="setModified('add')"></td>
+		<td class="list">
+			<select id="add-doctype" name="add-doctype" class="combobox" style="width: 97%;" onchange="setModified('add')">
+				#foreach($doctype in $allDoctype)
+				<option value="$doctype.id">$!message.text($doctype.name)</option>
+				#end
+			</select>
+		</td>
+	</tr>
+#end
+	#foreach($bean in $list)
+	#if ($velocityCount % 2 == 1)
+		#set($class = "list1")
+	#else
+		#set($class = "list2")
+	#end
+	<tr class="$class">
+		<td class="list"><input type="hidden" id="${bean.id}-modified" name="${bean.id}-modified" value="false"><input type="checkbox" name="${bean.id}-select" value="true" class="checkbox" #if($listselection.indexOf($bean.id) != -1) checked#end></td>
+		<td class="list"><input type="hidden" name="${bean.id}-id" value="$!bean.id"><input type="hidden" name="${bean.id}-salutation" value="$!salutation.id">$!bean.id</td>
+		<td class="list"><input type="text" name="${bean.id}-text" value="$!message.text($bean.text)" class="text" onchange="setModified('$!bean.id')"></td>
+		<td class="list">
+			<input type="hidden" name="${bean.id}-doctype" value="$!bean.doctype">
+			<input type="text" name="${bean.id}-name" value="$!message.text($bean.name)" class="textdisabled" style="width: 97%;" readonly>
+		</td>
+	</tr>
+	#end
+</table>
+
+#if ($listparam.count == 0)
+	<br>Keine Daten gefunden.
+#end
+
+<div id="fixme" class="fixme1"><div class="fixme2"><div class="fixme3">
+
+	#parse("inc/list-navi.vm")
+	#parse("inc/list-direct.vm")
+
+	<input type="submit" name="save" value="Speichern" class="submit"> &nbsp;
+	<input type="submit" name="remove" value="L&ouml;schen" class="button" title="markierte Eintr&auml;ge entfernen"> &nbsp;
+	<input type="button" name="cancel" value="Zur&uuml;ck" class="button" onclick="window.location.href='Salutation';"> &nbsp;
+
+</div></div></div>
+
+#closeContentSection()
+#closeContent()
+
+</form>
+
+#parse("inc/footer.vm")

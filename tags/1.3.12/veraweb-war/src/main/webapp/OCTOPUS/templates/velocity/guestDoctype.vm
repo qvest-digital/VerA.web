@@ -1,0 +1,318 @@
+#set($title = "G&auml;steliste f&uuml;r Veranstaltung: $!message.plain($event.shortname)")
+#parse("inc/header.vm")
+
+<table class="tab" border="0" cellspacing="0" cellpadding="0"><tr>
+	<td class="tableft">&nbsp;</td>
+	<td class="tabinactiv"><a href="ShowGuestList" class="tabinactiv">G&auml;steliste</a></td>
+	<td class="tabinactiv"><a href="ShowGuestDetail" class="tabinactiv">Gast-Details</a></td>
+	<td class="tabactiv"><span class="tabactiv">Dokumenttypen</span></td>
+	<td class="tabright">&nbsp;</td>
+</tr></table>
+
+#openContent()
+#openContentSection()
+
+<table class="form"><tr>
+	<td class="label" style="width: 19%;"><strong>Veranstaltung:</strong></td>
+	<td class="value" style="width: 31%;"><input type="text" id="event-shortname" name="event-shortname" value="$!message.text($event.shortname)" class="textdisabled" style="width: 90%;" readonly title="Veranstaltungs-ID: $!event.id"></td>
+	<td class="label" style="width: 19%;">Einladungsart:</td>
+	#if ($event.invitationtype == 2)
+	<td class="value" style="width: 31%;"><input type="text" id="event-invitationtype" name="event-invitationtype" value="Ohne Partner" class="textdisabled" style="width: 90%;" readonly></td>
+	#elseif ($event.invitationtype == 3)
+	<td class="value" style="width: 31%;"><input type="text" id="event-invitationtype" name="event-invitationtype" value="Nur Partner" class="textdisabled" style="width: 90%;" readonly></td>
+	#else
+	<td class="value" style="width: 31%;"><input type="text" id="event-invitationtype" name="event-invitationtype" value="Mit Partner" class="textdisabled" style="width: 90%;" readonly></td>
+	#end
+</tr><tr>
+	<td class="label" style="width: 19%;">Datum:</td>
+	<td class="value" style="width: 31%;"><input type="text" id="event-begin" name="event-begin" value="$!message.date("DATE_TIME", $event.begin)" class="textdisabled" style="width: 90%;" readonly></td>
+	<td class="label" style="width: 19%;">Max. Anzahl G&auml;ste:</td>
+	<td class="value" style="width: 31%;"><input type="text" id="event-maxguest" name="event-maxguest" value="$!message.text($event.maxguest)" class="intdisabled" readonly></td>
+</tr></table>
+
+<hr class="contentsection" />
+
+<table class="form"><tr>
+## Bug 1591 im Kopf nicht die Stammdaten anzeigen
+	#if($showGuestListData)
+		#if ($guestListData.firstname && $guestListData.firstname.length() > 0 && $guestListData.lastname && $guestListData.lastname.length() > 0)
+			#set($name = "$!guestListData.firstname $!guestListData.lastname")
+		#else
+			#set($name = "$!guestListData.firstname$!guestListData.lastname")
+		#end
+		#set($email = "$!guestListData.mail")
+		#if ($guestListData.firstname_p && $guestListData.firstname_p.length() > 0 && $guestListData.lastname_p && $guestListData.lastname_p.length() > 0)
+			#set($name_p = "$!guestListData.firstname_p $!guestListData.lastname_p")
+		#else
+			#set($name_p = "$!guestListData.firstname_p$!guestListData.lastname_p")
+		#end
+		#set($funktion = "$!guestListData.function")
+	#else
+		#set($facade = $main)
+		#if($facade.Firstname && $facade.Firstname.length() > 0 && $facade.Lastname && $facade.Lastname.length() > 0)
+			#set($name = "$!facade.Firstname $!facade.Lastname")
+		#else
+			#set($name = "$!facade.Firstname$!facade.Lastname")
+		#end
+		#set($email = "$!address.EMail")
+		#set($facade = $partner)
+		#if($facade.Firstname && $facade.Firstname.length() > 0 && $facade.Lastname && $facade.Lastname.length() > 0)
+			#set($name_p = "$!facade.Firstname $!facade.Lastname")
+		#else
+			#set($name_p = "$!facade.Firstname$!facade.Lastname")
+		#end
+		#set($funktion = "$!address.Function")
+	#end
+	
+	<td class="label" style="width: 19%;"><strong>Gast:</strong></td>
+	<td class="value" style="width: 31%;"><input type="text" id="person-main" name="person-main" value="$!message.text($name)" class="textdisabled" style="width: 90%;" readonly></td>
+## added mailto: link as per change request for version 1.2.0
+## cklein 2008-03-03
+	<td class="label"><label style="float:left;" for="person-mail$ext">E-Mail:</label>#if($email && $email.length()>0)<a style="float:right;" href="mailto:$!message.text($email)"><img src="${paths.staticWeb}images/email.gif"></a>#end</label></td>
+	<td class="value" style="width: 31%;"><input type="text" id="person-mail" name="person-mail" value="$!message.text($email)" class="textdisabled" style="width: 90%;" readonly></td>
+</tr><tr>
+	
+	<td class="label" style="width: 19%;">Partner:</td>
+	<td class="value" style="width: 31%;"><input type="text" id="person-partner" name="person-partner" value="$!message.text($name_p)" class="textdisabled" style="width: 90%;" readonly></td>
+	<td class="label" style="width: 19%;">Laufende Nummer:</td>
+	<td class="value" style="width: 31%;""><input type="text" id="guest-orderno_a" name="guest-orderno_a" value="#if($guest.orderno_a)$!guest.orderno_a#else$!guest.orderno_b#end" class="intdisabled" readonly></td>
+</tr><tr>
+	<td class="label" style="width: 19%;">Funktion:</td>
+	<td class="value" style="width: 31%;"><input type="text" id="person-function" name="person-function" value="$!message.text($funktion)" class="textdisabled" style="width: 90%;" readonly></td>
+	<td class="label" style="width: 19%;">&nbsp;</td>
+	<td class="value" style="width: 31%;"">&nbsp;</td>
+</tr></table>
+
+<hr class="contentsection" />
+
+#if (!$allDoctype || $allDoctype.size() != 0)
+<form action="ShowGuestDoctype" method="get">
+<table class="form"><tr>
+	<td class="label" style="width: 19%;"><strong>Dokumenttyp:</strong></td>
+	<td class="value" style="width: 81%;">
+		<select id="doctype-id" name="doctype-id" class="combobox" style="width: 99%;" onChange="submit();">
+			#foreach($doc in $allDoctype)
+			<option value="$!doc.doctype" #if($doc.doctype == $guestdoctype.doctype) selected#end>$!message.text($doc.name)</option>
+			#end
+		</select>
+	</td>
+</tr></table>
+</form>
+#end
+
+#if ($guestdoctype && $guestdoctype.id)
+<form id="ReloadGuestDoctypeForm" action="SaveGuestDoctype" method="post">
+<input type="hidden" name="create" value="true">
+<input type="hidden" name="guestdoctype-id" value="$!guestdoctype.id">
+<input type="hidden" name="guestdoctype-guest" value="$!guestdoctype.guest">
+<input type="hidden" name="guestdoctype-doctype" value="$!guestdoctype.doctype">
+<input type="hidden" name="guestdoctype-person" value="$!guestdoctype.person">
+
+<input type="hidden" id="reloadguestdoctype-addresstype" name="guestdoctype-addresstype" value="$!guestdoctype.addresstype">
+<input type="hidden" id="reloadguestdoctype-locale" name="guestdoctype-locale" value="$!guestdoctype.locale">
+
+<hr class="contentsection" style="height: 2px; border-top: 2px solid #80A7E0; color: #80A7E0" />
+</form>
+
+<form id="GuestForm" name="GuestForm" action="SaveGuestDoctype" method="post">
+
+<input type="hidden" name="guestdoctype-id" value="$!guestdoctype.id">
+<input type="hidden" name="guestdoctype-guest" value="$!guestdoctype.guest">
+<input type="hidden" name="guestdoctype-doctype" value="$!guestdoctype.doctype">
+<input type="hidden" name="guestdoctype-person" value="$!guestdoctype.person">
+
+<input type="hidden" name="guestdoctype-addresstype" value="$!guestdoctype.addresstype">
+<input type="hidden" name="guestdoctype-locale" value="$!guestdoctype.locale">
+
+<table class="form"><tr>
+	<td class="label" style="width: 19%;">Freitextfeld:</td>
+	<td class="value"><textarea rows="3" cols="20" id="guestdoctype-textfield" name="guestdoctype-textfield" class="text">$!message.textarea($guestdoctype.textfield)</textarea></td>
+</tr><tr>
+	<td class="label">Verbinder:</td>
+	<td class="value"><input type="text" id="guestdoctype-textjoin" name="guestdoctype-textjoin" maxlength="50" value="$!message.text($guestdoctype.textjoin)" class="text"></td>
+</tr><tr>
+	<td class="label">Freitextfeld (Partner):</td>
+	<td class="value"><textarea rows="3" cols="20" id="guestdoctype-textfield_p" name="guestdoctype-textfield_p" class="text">$!message.textarea($guestdoctype.textfield_p)</textarea></td>
+</tr></table>
+
+<hr class="contentsection" style="height: 2px; border-top: 2px solid #80A7E0; color: #80A7E0" />
+
+<table class="form"><tr>
+	<td class="label" style="width: 19%;">&nbsp;</td>
+	<td class="value" style="width: 25%;">
+		<select id="select-addresstype" name="select-addresstype" class="combobox" style="width: 95%;">
+			<option value="1" #if($guestdoctype.addresstype == 1) selected#end>$!config.business</option>
+			<option value="2" #if($guestdoctype.addresstype == 2) selected#end>$!config.private</option>
+			<option value="3" #if($guestdoctype.addresstype == 3) selected#end>$!config.other</option>
+		</select>
+	</td>
+	<td class="value" style="width: 25%;">
+		<select id="select-locale" name="select-locale" class="combobox" style="width: 95%;">
+			<option value="1" #if($guestdoctype.locale == 1) selected#end>$!config.latin</option>
+			<option value="2" #if($guestdoctype.locale == 2) selected#end>$!config.extra1</option>
+			<option value="3" #if($guestdoctype.locale == 3) selected#end>$!config.extra2</option>
+		</select>
+	</td>
+	<td class="value"><input type="button" name="create" value="Neu laden" class="button" style="" onclick="reloadGuestDoctype();"></td>
+</tr></table>
+
+
+<table class="form"><tr>
+	<td class="label" style="width: 19%;">Anrede:</td>
+	<td class="value"><input type="text" id="guestdoctype-salutation" maxlength="50" name="guestdoctype-salutation" value="$!message.text($guestdoctype.salutation)" class="text"></td>
+</tr><tr>
+	<td class="label">Akad. Titel:</td>
+	<td class="value"><input type="text" id="guestdoctype-titel" maxlength="250" name="guestdoctype-titel" value="$!message.text($guestdoctype.titel)" class="text"></td>
+</tr><tr>
+	<td class="label">Vorname:</td>
+	<td class="value"><input type="text" id="guestdoctype-firstname" maxlength="100" name="guestdoctype-firstname" value="$!message.text($guestdoctype.firstname)" class="text"></td>
+</tr><tr>
+	<td class="label">Nachname:</td>
+	<td class="value"><input type="text" id="guestdoctype-lastname" maxlength="100" name="guestdoctype-lastname" value="$!message.text($guestdoctype.lastname)" class="text"></td>
+</tr><tr>
+	<td class="label">Funktion / Amtsbez.:</td>
+	<td class="value"><input type="text" id="guestdoctype-function" maxlength="250" name="guestdoctype-function" value="$!message.text($guestdoctype.function)" class="text"></td>
+</tr><tr>
+	<td class="label">Firma / Institution:</td>
+	<td class="value"><input type="text" id="guestdoctype-company" maxlength="250" name="guestdoctype-company" value="$!message.text($guestdoctype.company)" class="text"></td>
+</tr></table>
+
+<hr class="contentsection"/>
+
+<table class="form"><tr>
+	<td class="label" style="width: 19%;">Anrede (Partner):</td>
+	<td class="value"><input type="text" id="guestdoctype-salutation_p" maxlength="50" name="guestdoctype-salutation_p" value="$!message.text($guestdoctype.salutation_p)" class="text"></td>
+</tr><tr>
+	<td class="label">Akad. Titel (Partner):</td>
+	<td class="value"><input type="text" id="guestdoctype-titel_p" maxlength="250" name="guestdoctype-titel_p" value="$!message.text($guestdoctype.titel_p)" class="text"></td>
+</tr><tr>
+	<td class="label">Vorname (Partner):</td>
+	<td class="value"><input type="text" id="guestdoctype-firstname_p"maxlength="100" name="guestdoctype-firstname_p" value="$!message.text($guestdoctype.firstname_p)" class="text"></td>
+</tr><tr>
+	<td class="label">Nachname (Partner):</td>
+	<td class="value"><input type="text" id="guestdoctype-lastname_p" maxlength="100" name="guestdoctype-lastname_p" value="$!message.text($guestdoctype.lastname_p)" class="text"></td>
+</tr></table>
+
+<hr class="contentsection" />
+
+<table class="form"><tr>
+	<td class="label" style="width: 19%;">Stra&szlig;e:</td>
+	<td class="value"><input type="text" maxlength="100" id="guestdoctype-street" name="guestdoctype-street" value="$!message.text($guestdoctype.street)" class="text"></td>
+</tr><tr>
+	<td class="label"><label for="guestdoctype-zipcode">PLZ</label> / <label for="guestdoctype-city">Ort:</label></td>
+	<td class="value">
+		<table class="form" border="0" cellpadding="0" cellspacing="0"><tr>
+			<td class="value" style="width: 60px;"><input type="text" id="guestdoctype-zipcode" maxlength="50" name="guestdoctype-zipcode" value="$!message.text($guestdoctype.zipcode)" class="text"></td>
+			<td class="value" style="width: 10px;">&nbsp;</td>
+			<td class="value"><input type="text" id="guestdoctype-city" name="guestdoctype-city" maxlength="100" value="$!message.text($guestdoctype.city)" class="text"></td>
+		</tr></table>
+	</td>
+</tr><tr>
+	<td class="label"><label for="guestdoctype-poboxzipcode">Postfach PLZ</label> / <label for="guestdoctype-pobox">Nummer:</label></td>
+	<td class="value">
+		<table class="form" border="0" cellpadding="0" cellspacing="0"><tr>
+			<td class="value" style="width: 60px;"><input type="text" id="guestdoctype-poboxzipcode" maxlength="50" name="guestdoctype-poboxzipcode" value="$!message.text($guestdoctype.poboxzipcode)" class="text"></td>
+			<td class="value" style="width: 10px;">&nbsp;</td>
+			<td class="value"><input type="text" id="guestdoctype-pobox" name="guestdoctype-pobox" maxlength="50" value="$!message.text($guestdoctype.pobox)" class="text"></td>
+		</tr></table>
+	</td>
+</tr><tr>
+	<td class="label">$!config.suffix1:</td>
+	<td class="value"><input type="text" id="guestdoctype-suffix1" maxlength="100" name="guestdoctype-suffix1" value="$!message.text($guestdoctype.suffix1)" class="text"></td>
+</tr><tr>
+	<td class="label">$!config.suffix2:</td>
+	<td class="value"><input type="text" id="guestdoctype-suffix2" maxlength="100" name="guestdoctype-suffix2" value="$!message.text($guestdoctype.suffix2)" class="text"></td>
+</tr><tr>
+	<td class="label">Land:</td>
+	<td class="value"><input type="text" id="guestdoctype-country" maxlength="100" name="guestdoctype-country" value="$!message.text($guestdoctype.country)" class="text"></td>
+</tr></table>
+
+<hr class="contentsection" />
+
+<table class="form"><tr>
+	<td class="label" style="width: 19%;">Telefon:</td>
+	<td class="value"><input type="text" id="guestdoctype-fon" maxlength="100" name="guestdoctype-fon" value="$!message.text($guestdoctype.fon)" class="text"></td>
+</tr><tr>
+	<td class="label">Fax:</td>
+	<td class="value"><input type="text" id="guestdoctype-fax" maxlength="100" name="guestdoctype-fax" value="$!message.text($guestdoctype.fax)" class="text"></td>
+</tr><tr>
+## added mailto: link as per change request for version 1.2.0
+## cklein 2008-02-21
+	<td class="label"><label style="float:left;" for="person-mail$ext">E-Mail:</label>#if($email && $email.length()>0)<a style="float:right;" href="mailto:$!message.text($email)"><img src="${paths.staticWeb}images/email.gif"></a>#end</label></td>
+	<td class="value"><input type="text" maxlength="250" id="guestdoctype-mail" name="guestdoctype-mail" value="$!message.text($guestdoctype.mail)" class="text"></td>
+</tr><tr>
+	<td class="label">www:</td>
+	<td class="value"><input type="text" maxlength="250" id="guestdoctype-www" name="guestdoctype-www" value="$!message.text($guestdoctype.www)" class="text"></td>
+</tr><tr>
+	<td class="label">Mobil:</td>
+	<td class="value"><input type="text" maxlength="100" id="guestdoctype-mobil" name="guestdoctype-mobil" value="$!message.text($guestdoctype.mobil)" class="text"></td>
+</tr></table>
+
+#else
+
+<div style="margin: 10px 0px 10px 0px; padding: 10px 10px 10px 10px; background-color: #ffffff; border: 2px solid #ff0000;">
+	Bitte &uuml;berpr&uuml;fen Sie ob dieser Veranstaltung
+	bereits Dokumenttypen zugeordnet sind. Sollte dies der
+	Fall sein m&uuml;ssen Sie die Dokumenttypen f&uuml;r diesen
+	Gast neu erzeugen, klicken Sie hierzu auf &quot;Neu Laden&quot;.
+</div>
+
+#end
+
+<div>
+<div id="fixme" class="fixme1"><div class="fixme2"><div class="fixme3">
+	
+<table cellspacing="0" cellpadding="0" style="width: 100%; margin-bottom: 5px;"><tr><td>
+<span class="listnavitext" style="margin-right: 15px;">Gast $search.offset von $search.count</span>
+
+#set($offset = $search.offset - 1)
+#if ($offset <= 0)
+	<a class="listnavilinkinactiv" title="Erster Gast">&laquo;&laquo;</a>
+	<a class="listnavilinkinactiv" title="Vorheriger Gast">&laquo;</a>
+#else
+	<a href="ShowGuestDoctype?offset=1" class="listnavilink" title="Erster Gast">&laquo;&laquo;</a>
+	<a href="ShowGuestDoctype?offset=$offset" class="listnavilink" title="Vorheriger Gast">&laquo;</a>
+#end
+#set($offset = $search.offset + 1)
+#if ($offset > $search.count)
+	<a class="listnavilinkinactiv" title="N&auml;chster Gast">&raquo;</a>
+	<a class="listnavilinkinactiv" title="Letzter Gast">&raquo;&raquo;</a>
+#else
+	<a href="ShowGuestDoctype?offset=$offset" class="listnavilink" title="N&auml;chster Gast">&raquo;</a>
+	<a href="ShowGuestDoctype?offset=$search.count" class="listnavilink" title="Letzter Gast">&raquo;&raquo;</a>
+#end
+</td></tr></table>
+
+    <input type="submit" name="save" value="Speichern" #if($grants.mayWrite()) class="button" #else class="buttondisabled" disabled #end> &nbsp;
+    <input type="button" name="refresh" value="Neu laden" class="button" onclick="window.location.href='ReloadGuestData?guest-id=$!guest.id&show=doctype';"> &nbsp;
+    <input type="button" name="persondata" value="Stammdaten" title="Personenstammdaten bearbeiten" onclick="window.location.href='ShowPerson?id=$guest.person&action=event';" class="button"> &nbsp;
+    <input type="button" name="cancel" value="Zur&uuml;ck" title="Zur&uuml;ck zu den Veranstaltungdetails" class="reset" onclick="window.location.href='ShowGuestList';"> &nbsp;
+
+</div></div></div>
+</div>
+
+</form>
+
+#closeContentSection()
+#closeContent()
+
+</form>
+
+<script type="text/javascript">
+	function reloadGuestDoctype() {
+		var sa = document.getElementById('select-addresstype');
+		var sl = document.getElementById('select-locale');
+		var ra = document.getElementById('reloadguestdoctype-addresstype');
+		var rl = document.getElementById('reloadguestdoctype-locale');
+		
+		ra.value = sa[sa.selectedIndex].value;
+		rl.value = sl[sl.selectedIndex].value;
+		document.getElementById('ReloadGuestDoctypeForm').submit();
+	}
+
+#if(!$grants.mayWrite())
+	disableForm(document.getElementById('GuestForm'));
+#end
+</script>
+
+#parse("inc/footer.vm")

@@ -1,0 +1,26 @@
+<html>
+<head>
+	<title>AJAX autocompletion example</title>
+	<script>
+		var onloads = new Array();
+		function bodyOnLoad() {
+			for (var i = 0 ; i < onloads.length ; i++) {
+				onloads[i]();
+			}
+		}
+   </script>
+	<script type="text/javascript" src="openrico/rico.js"></script>
+	<script type="text/javascript" src="openrico/prototyp.js"></script>
+	<script type="text/javascript" src="openrico/util.js"></script>
+	<script type="text/javascript" src="openrico/formLetter.js"></script>
+	<script type="text/javascript" src="openrico/formLetterUpdater.js"></script>
+</head>
+<body onload="bodyOnLoad();">
+	
+	
+	<form>
+		<input type="text" id="inputAC" name="inputAC" onkeyup="autocomplete_precheck( this, event );" />
+	</form>
+
+</body>
+</html>

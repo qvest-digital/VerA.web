@@ -1,0 +1,78 @@
+## ChangeLogReport Settings Editor
+##
+## @author Carsten Klein
+## @since 1.2.0
+
+#parse("inc/header.vm")
+
+<form action="ShowChangeLogReport" method="post" target="_blank" onSubmit="location.reload();return true;">
+
+<table class="tab" border="0" cellspacing="0" cellpadding="0"><tr>
+	<td class="tableft">&nbsp;</td>
+	<td class="tabactiv"><span class="tabactiv">Reporteinstellungen</span></td>
+	<td class="tabright">&nbsp;</td>
+</tr></table>
+
+#openContent()
+#openContentSection()
+
+#if($noLogDataAvailableMessage)
+<div style="margin: 10px 0px 10px 0px; padding: 10px 10px 10px 10px; background-color: #ffffff; border: 2px solid #ff0000;">
+	$noLogDataAvailableMessage
+</div>
+#end
+
+<input type="hidden" name="search" value="reset">
+<table class="form"><tr>
+	<td class="label"><label for="begin">Datum Beginn:</label></td>
+	<td class="value">
+		<input type="text" name="begin" value="${begin}" id="begin" class="date">
+		<span id="show-begin"><img src="${paths.staticWeb}images/calendar.gif" alt="Datum ausw&auml;hlen" title="Datum ausw&auml;hlen"></span>
+		<script type="text/javascript">
+		    Calendar.setup({
+				inputField     :    "begin",
+				button         :    "show-begin",
+				ifFormat       :    "%d.%m.%Y",
+				showsTime      :    false
+			});
+		</script>
+	</td>
+</tr><tr>
+	<td class="label"><label for="end">Datum Ende:</label></td>
+	<td class="value">
+		<input type="text" name="end" value="${end}" id="end" class="date">
+		<span id="show-end"><img src="${paths.staticWeb}images/calendar.gif" alt="Datum ausw&auml;hlen" title="Datum ausw&auml;hlen"></span>
+		<script type="text/javascript">
+		    Calendar.setup({
+				inputField     :    "end",
+				button         :    "show-end",
+				ifFormat       :    "%d.%m.%Y",
+				showsTime      :    false
+			});
+		</script>
+	</td>
+</tr></table><br>
+
+<table class="list" style="margin-top: 15px;">
+	<tbody><tr class="list2warn" style="height: 18px;">
+		<td class="list2warn" style="text-align: center; width: 100px;"><strong>Hinweis</strong></td>
+
+		<td class="list1warn" style="padding-left: 8px;">
+			Abhängig vom ausgewählten Zeitraum und der daraus resultierenden Anzahl Daten, kann die Erzeugung des Berichts relativ lange dauern.<br/>Haben Sie bitte ein wenig Geduld.
+		</td>
+	</tr>
+</tbody></table>
+
+<div id="fixme" class="fixme1"><div class="fixme2"><div class="fixme3">
+
+	<input type="submit" class="submit" value="Report erzeugen"> &nbsp;
+	<input type="reset"  class="reset" value="Felder zurücksetzen"> &nbsp;
+
+</div></div></div>
+
+#closeContentSection()
+#closeContent()
+
+</form>
+
+#parse("inc/footer.vm")

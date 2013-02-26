@@ -1,0 +1,216 @@
+#set($title = "Steuerdatei erzeugen f&uuml;r Veranstaltung: $!message.plain($event.shortname)")
+#parse("inc/header.vm")
+
+<table class="tab" border="0" cellspacing="0" cellpadding="0"><tr>
+	<td class="tableft">&nbsp;</td>
+	<td class="tabactiv"><span class="tabactiv">Steuerdatei</span></td>
+	<td class="tabright">&nbsp;</td>
+</tr></table>
+
+#openContent()
+#openContentSection()
+
+<table class="form"><tr>
+	<td class="label" style="width: 19%;"><strong>Veranstaltung:</strong></td>
+	<td class="value" style="width: 31%;"><input type="text" id="event-shortname" name="event-shortname" value="$!message.text($event.shortname)" class="textdisabled" style="width: 90%;" readonly title="Veranstaltungs-ID: $!event.id"></td>
+	<td class="label" style="width: 19%;">Einladungsart:</td>
+	#if ($event.invitationtype == 2)
+	<td class="value" style="width: 31%;"><input type="text" id="event-invitationtype" name="event-invitationtype" value="Ohne Partner" class="textdisabled" style="width: 90%;" readonly></td>
+	#elseif ($event.invitationtype == 3)
+	<td class="value" style="width: 31%;"><input type="text" id="event-invitationtype" name="event-invitationtype" value="Nur Partner" class="textdisabled" style="width: 90%;" readonly></td>
+	#else
+	<td class="value" style="width: 31%;"><input type="text" id="event-invitationtype" name="event-invitationtype" value="Mit Partner" class="textdisabled" style="width: 90%;" readonly></td>
+	#end
+</tr><tr>
+	<td class="label" style="width: 19%;">Datum:</td>
+	<td class="value" style="width: 31%;"><input type="text" id="event-begin" name="event-begin" value="$!message.date("DATE_TIME", $event.begin)" class="textdisabled" style="width: 90%;" readonly></td>
+	<td class="label" style="width: 19%;">Max. Anzahl G&auml;ste:</td>
+	<td class="value" style="width: 31%;"><input type="text" id="event-maxguest" name="event-maxguest" value="$!message.text($event.maxguest)" class="intdisabled" readonly></td>
+</tr></table>
+
+<hr class="contentsection" />
+
+#if($exportCalc)
+
+<form id="ExportForm" action="ShowExportGuestDoctype" method="post">
+
+<table class="form"><tr>
+	<td class="label" style="width: 19%;"><strong>Dokumenttyp:</strong></td>
+	<td class="value" style="width: 81%;">
+		<select name="doctype" class="combobox" onChange="document.getElementById('ExportForm').action='ShowExportGuestDoctype'; submit();">
+			#foreach($bean in $allEventDoctype)
+			<option value="$!bean.doctype" #if($bean.doctype == $exportCalc.doctype) selected#end>$!bean.name</option>
+			#end
+		</select>
+	</td>
+</tr></table>
+
+<hr class="contentsection" />
+
+<table class="form"><tr>
+	<td class="label" style="width: 19%;">Ausgew&auml;hlte G&auml;ste:</td>
+	<td class="value"><input type="text" name="total" value="$!exportCalc.total" class="id" readonly></td>
+</tr><tr>
+	<td class="label" style="width: 19%;">Exportierf&auml;hige G&auml;ste:</td>
+	<td class="value"><input type="text" name="available" value="$!exportCalc.available" class="id" readonly></td>
+#if($exportCalc.total > $exportCalc.available)
+#set($diff = $exportCalc.total - $exportCalc.available)
+</tr><tr>
+	<td class="label" style="width: 19%;">Unvollst&auml;ndige G&auml;ste:</td>
+	<td class="value"><input type="text" name="diff" value="$!diff" class="id" readonly style="color: #ff0000;"></td>
+#end
+</tr></table><br>
+
+<table class="form"><tr>
+	<td class="label" style="width: 19%;">Sortierung:</td>
+	<td class="value">
+		<select name="sort1" class="combobox">
+#if($search.listorder == "lastname_a_e1" || $search.listorder == "firstname_a_e1" || $search.listorder == "mail_a_e1")
+			<option value="orderno">Laufende Nummer</option>
+			<option value="name" selected>Name</option>
+			<option value="country">Land</option>
+			<option value="zipcode">PLZ</option>
+			<option value="category">Kategorie</option>
+			<option value="rank">Rang</option>
+			<option value="table">Tisch</option>
+## modified to support workareas as per change request for version 1.2.0
+## cklein
+## 2008-02-26
+			<option value="workareaname">Arbeitsbereich</option>
+#else
+			<option value="orderno">Laufende Nummer</option>
+			<option value="name">Name</option>
+			<option value="country">Land</option>
+			<option value="zipcode">PLZ</option>
+			<option value="category">Kategorie</option>
+			<option value="rank">Rang</option>
+			<option value="table">Tisch</option>
+## modified to support workareas as per change request for version 1.2.0
+## cklein
+## 2008-02-26
+			<option value="workareaname">Arbeitsbereich</option>
+#end
+		</select>
+	</td>
+</tr><tr>
+	<td class="label" style="width: 19%;">&nbsp;</td>
+	<td class="value">
+		<select name="sort2" class="combobox">
+			<option value=""></option>
+#if($search.listorder == "lastname_a_e1" || $search.listorder == "firstname_a_e1" || $search.listorder == "mail_a_e1")
+			<option value="orderno">Laufende Nummer</option>
+			<option value="name">Name</option>
+			<option value="country">Land</option>
+			<option value="zipcode">PLZ</option>
+			<option value="category" selected>Kategorie</option>
+			<option value="rank">Rang</option>
+			<option value="table">Tisch</option>
+## modified to support workareas as per change request for version 1.2.0
+## cklein
+## 2008-02-26
+			<option value="workareaname">Arbeitsbereich</option>
+#else
+			<option value="orderno">Laufende Nummer</option>
+			<option value="name" selected>Name</option>
+			<option value="country">Land</option>
+			<option value="zipcode">PLZ</option>
+			<option value="category">Kategorie</option>
+			<option value="rank">Rang</option>
+			<option value="table">Tisch</option>
+## modified to support workareas as per change request for version 1.2.0
+## cklein
+## 2008-02-26
+			<option value="workareaname">Arbeitsbereich</option>
+#end
+		</select>
+	</td>
+</tr><tr>
+	<td class="label" style="width: 19%;">&nbsp;</td>
+	<td class="value">
+		<select name="sort3" class="combobox">
+#if($search.listorder == "lastname_a_e1" || $search.listorder == "firstname_a_e1" || $search.listorder == "mail_a_e1")
+			<option value=""></option>
+			<option value="orderno">Laufende Nummer</option>
+			<option value="name">Name</option>
+			<option value="country">Land</option>
+			<option value="zipcode">PLZ</option>
+			<option value="category">Kategorie</option>
+			<option value="rank" selected>Rang</option>
+			<option value="table">Tisch</option>
+## modified to support workareas as per change request for version 1.2.0
+## cklein
+## 2008-02-26
+			<option value="workareaname">Arbeitsbereich</option>
+#else
+			<option value="" selected></option>
+			<option value="orderno">Laufende Nummer</option>
+			<option value="name">Name</option>
+			<option value="country">Land</option>
+			<option value="zipcode">PLZ</option>
+			<option value="category">Kategorie</option>
+			<option value="rank">Rang</option>
+			<option value="table">Tisch</option>
+## modified to support workareas as per change request for version 1.2.0
+## cklein
+## 2008-02-26
+			<option value="workareaname">Arbeitsbereich</option>
+#end
+		</select>
+	</td>
+</tr></table><br>
+
+<table class="list">
+	<tr style="height: 20px;">
+		<td class="list2warn" style="text-align: center; width: 60px;"><strong>Hinweis</strong></td>
+		<td class="list1warn">
+			Sollten Sie in der G&auml;steliste eine Filterung getroffen haben, werden nur die
+			ausgew&auml;hlten G&auml;ste exportiert.
+		</td>
+	</tr>
+</table>
+
+#if($exportCalc.total > $exportCalc.available)
+<div style="margin: 10px 0px 10px 0px; padding: 10px 10px 10px 10px; background-color: #ffffff; border: 2px solid #ff0000;">
+#if ($diff == 1)
+<strong>Ein Gast</strong> kann <strong>nicht exportiert</strong> werden,
+weil zu dieser Person keine entsprechenden Dokumenttyp
+spezifische Daten gespeichert worden sind.
+#else
+<strong>$!diff G&auml;ste</strong> k&ouml;nnen <strong>nicht exportiert</strong> werden,
+weil nicht zu jeder Person entsprechende Dokumenttyp
+spezifische Daten gespeichert worden sind.
+#end
+</div>
+#end
+
+<div>
+<div id="fixme" class="fixme1"><div class="fixme2"><div class="fixme3">
+
+<input type="button" name="export" value="Exportieren" class="submit" onclick="document.getElementById('ExportForm').action='ExportGuestDoctype/export.${extension}'; submit();"> &nbsp;
+<input type="button" name="cancel" value="Zur&uuml;ck" class="cancel" onclick="window.location.href='ShowGuestList';"> &nbsp;
+
+</div></div></div>
+</div>
+
+</form>
+
+#else
+
+<div style="margin: 20px 0px 10px 0px; padding: 10px 10px 10px 10px; background-color: #ffffff; border: 2px solid #ff0000;">
+Der Veranstaltung wurden noch keine Dokumenttypen zugeordnet.
+</div>
+
+<div>
+<div id="fixme" class="fixme1"><div class="fixme2"><div class="fixme3">
+
+<input type="button" name="cancel" value="Zur&uuml;ck" class="cancel" onclick="window.location.href='ShowGuestList';"> &nbsp;
+
+</div></div></div>
+</div>
+
+#end
+
+#closeContentSection()
+#closeContent()
+
+#parse("inc/footer.vm")

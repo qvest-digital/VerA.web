@@ -1,0 +1,167 @@
+## $Id$
+#if($domain == 'ou')
+#set($title = "Verwaltung - alle Benutzer im Mandanten")
+#elseif($domain == 'all')
+#set($title = "Verwaltung - alle Benutzer")
+#else
+#set($title = "Benutzer")
+#end
+#parse("inc/header.vm")	
+<form id="formlist" name="formlist" action="$octopusRequest.task" method="POST">
+
+<table class="tab" border="0" cellspacing="0" cellpadding="0"><tr>
+	<td class="tableft">&nbsp;</td>
+	<td class="tabactiv"><span class="tabactiv">Benutzer</span></td>
+	<td class="tabright">&nbsp;</td>
+</tr></table>
+
+#openContent()
+#openContentSection()
+
+#if($listerrors && $listerrors.size() > 0)
+<div style="margin: 10px 0px 10px 0px; padding: 10px 10px 10px 10px; background-color: #ffffff; border: 2px solid #ff0000;">
+	#foreach($error in $listerrors)
+		$error<br>
+	#end
+</div>
+#end
+
+<input type="hidden" name="start" value="">
+<input type="hidden" name="selectAll" value="false">
+<input type="hidden" name="selectNone" value="false">
+<input type="hidden" name="doInsert" value="true">
+<input type="hidden" name="doUpdate" value="true">
+<input type="hidden" name="doRemove" value="true">
+#if($order)
+<input type="hidden" name="order" value="$order">
+#end
+
+#foreach($bean in $list)
+<input type="hidden" name="list" value="$bean.id">
+#end
+<table class="list">
+	<tr class="list1" style="height: 20px;">
+		<th class="list" style="width: 20px;">&nbsp;</th>
+		<th class="list" style="width: 60px;">ID</th>
+#if($domain == 'all')
+		<th class="list"><a href="?order=orgunit">Mandant</a></th>
+#end
+		<th class="list"><a href="?order=name">Rolle</a></th>
+		<th class="list"><a href="?order=role">Status</a></th>
+	</tr>
+	<tr class="list2">
+		<td class="list"><input type="hidden" id="add-modified" name="add-modified" value="false"><input type="checkbox" name="add-select" value="true" class="checkbox" style="display: none;"></td>
+		<td class="list"><input type="hidden" name="add-id" value=""><em>neu</em></td>
+#if($domain == 'all')
+		<td class="list">
+ #if($allOrgUnit)
+			<select id="add-orgunit" name="add-orgunit" class="combobox" style="width: 98%;" onchange="setModified('add')">
+				<option value="">Bitte ausw&auml;hlen</option>
+  #foreach($orgunit in $allOrgUnit)
+				<option value="$orgunit.id">$orgunit.name</option>
+  #end
+			</select>
+ #else
+			<input type="text" name="add-orgunit" value="" class="text" style="width: 96%;" onchange="setModified('add')">
+ #end
+		</td>
+#else
+		<input type="hidden" name="add-orgunit" value="$!octopusConfig.personalConfig.orgUnitId">
+#end
+		<td class="list">
+#if($roleList)
+			<select id="add-name" name="add-name" class="combobox" style="width: 98%;" onchange="setModified('add')">
+				<option value="">Bitte ausw&auml;hlen</option>
+ #foreach($role in $roleList)
+				<option value="$role">$role</option>
+ #end
+			</select>
+#else
+			<input type="text" name="add-name" value="" class="text" style="width: 96%;" onchange="setModified('add')">
+#end
+		</td>
+		<td class="list">
+			<select id="add-role" name="add-role" class="combobox" style="width: 98%;" onchange="setModified('add')">
+				<option value="">Bitte ausw&auml;hlen</option>
+				<option value="1">Lesen eingeschr&auml;nkt</option>
+				<option value="2">Lesen uneingeschr&auml;nkt</option>
+				<option value="6">Lesen und Schreiben eingeschr&auml;nkt</option>
+				<option value="3">Lesen und Schreiben uneingeschr&auml;nkt</option>
+				<option value="4">Mandant Administrieren</option>
+#if($domain == 'all')
+				<option value="5">Administrieren</option>
+#end
+			</select>
+		</td>
+	</tr>
+#foreach($bean in $list)
+ #if ($velocityCount % 2 == 1)
+  #set($class = "list1")
+ #else
+  #set($class = "list2")
+ #end
+	<tr class="$class">
+ #if(!$bean.role || 5 != $bean.role || $domain == 'all')
+		<td class="list"><input type="hidden" id="${bean.id}-modified" name="${bean.id}-modified" value="false"><input type="checkbox" name="${bean.id}-select" value="true" class="checkbox" #if($listselection.indexOf($bean.id) != -1) checked#end></td>
+		<td class="list"><input type="hidden" name="${bean.id}-id" value="$!bean.id">$!{bean.id}</td>
+  #if($domain == 'all')
+		<td class="list">
+   #if($allOrgUnit)
+			<select id="${bean.id}-orgunit" name="${bean.id}-orgunit" class="combobox" style="width: 98%;" onchange="setModified('${bean.id}')">
+				<option value="">Bitte ausw&auml;hlen</option>
+    #foreach($orgunit in $allOrgUnit)
+				<option value="$orgunit.id" #if($orgunit.id==$bean.orgunit)selected#end>$orgunit.name</option>
+    #end
+			</select>
+   #else
+			<input type="text" name="${bean.id}-orgunit" value="$!message.text($bean.orgunit)" class="text" style="width: 96%;" onchange="setModified('${bean.id}')">
+   #end
+		</td>
+  #else
+		<input type="hidden" name="${bean.id}-orgunit" value="$bean.orgunit">
+  #end
+		<td class="list"><input type="text" name="${bean.id}-name" value="$!message.text($bean.name)" class="textdisabled" style="width: 96%;" readonly></td>
+		<td class="list">
+			<select id="${bean.id}-role" name="${bean.id}-role" class="combobox" style="width: 98%;" onchange="setModified('${bean.id}')">
+				<option value="">inaktiv</option>
+				<option value="1" #if(1==$bean.role)selected#end>Lesen eingeschr&auml;nkt</option>
+				<option value="2" #if(2==$bean.role)selected#end>Lesen uneingeschr&auml;nkt</option>
+				<option value="6" #if(6==$bean.role)selected#end>Lesen und Schreiben eingeschr&auml;nkt</option>
+				<option value="3" #if(3==$bean.role)selected#end>Lesen und Schreiben uneingeschr&auml;nkt</option>
+				<option value="4" #if(4==$bean.role)selected#end>Mandant Administrieren</option>
+  #if($domain == 'all')
+				<option value="5" #if(5==$bean.role)selected#end>Administrieren</option>
+  #end
+			</select>
+		</td>
+ #else
+		<td class="list"><input type="hidden" id="${bean.id}-modified" name="${bean.id}-modified" value="false"><input type="checkbox" name="${bean.id}-select" value="true" class="checkbox" disabled></td>
+		<td class="list"><input type="hidden" name="${bean.id}-id" value="$!bean.id">$!{bean.id}</td>
+		<input type="hidden" name="${bean.id}-orgunit" value="$bean.orgunit">
+		<td class="list"><input type="text" name="${bean.id}-name" value="$!message.text($bean.name)" class="text" style="width: 96%;" readonly></td>
+		<td class="list"><input type="hidden" name="${bean.id}-role" value="5"><input type="text" name="${bean.id}-role-text" value="Administrieren" class="text" style="width: 96%;" readonly></td>
+ #end
+	</tr>
+#end
+</table>
+
+#if ($listparam.count == 0)
+	<br>Keine Daten gefunden.
+#end
+
+<div id="fixme" class="fixme1"><div class="fixme2"><div class="fixme3">
+
+	#parse("inc/list-navi.vm")
+	#parse("inc/list-direct.vm")
+
+	<input type="submit" name="save" value="Speichern" class="submit"> &nbsp;
+	<input type="submit" name="remove" value="L&ouml;schen" class="button" title="markierte Eintr&auml;ge entfernen"> &nbsp;
+
+</div></div></div>
+
+#closeContentSection()
+#closeContent()
+
+</form>
+
+#parse("inc/footer.vm")

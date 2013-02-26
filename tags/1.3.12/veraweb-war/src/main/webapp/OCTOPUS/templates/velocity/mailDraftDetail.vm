@@ -1,0 +1,106 @@
+#if($maildraft && $maildraft.id)
+#set($title = "E-Mail-Vorlage bearbeiten: $!message.text($maildraft.name)")
+#else
+#set($title = "Neue E-Mail-Vorlage anlegen")
+#end
+#parse("inc/header.vm")
+
+<form id="formlist" name="formlist" action="" method="POST">
+<input type="hidden" name="save" value="true">
+
+<table class="tab" border="0" cellspacing="0" cellpadding="0"><tr>
+	<td class="tableft">&nbsp;</td>
+	<td class="tabactiv"><span class="tabactiv">E-Mail-Vorlage</span></td>
+	<td class="tabright">&nbsp;</td>
+</tr></table>
+
+#openContent()
+#openContentSection()
+
+#if($maildraft.errors.size() > 0)
+<div style="margin: 10px 0px 10px 0px; padding: 10px 10px 10px 10px; background-color: #ffffff; border: 2px solid #ff0000;">
+	$maildraft.errors.get(0)<br>
+##	#foreach($error in $event.errors)
+##		$error<br>
+##	#end
+</div>
+#end
+
+<input type="hidden" name="maildraft-id" value="$!maildraft.id">
+
+<table class="form"><tr>
+	<td class="label"><label for="show-id">ID:</label></td>
+	<td class="value"><input type="text" id="show-id" name="show-id" value="$!message.text($maildraft.id)" class="id" readonly></td>
+</tr><tr>
+	<td class="label"><label for="maildraft-name">Name:</label></td>
+	<td class="value"><input type="text" id="maildraft-name" name="maildraft-name" value="$!message.text($maildraft.name)" class="text"></td>
+</tr><tr>
+	<td class="label"><label for="maildraft-subject">Betreff:</label></td>
+	<td class="value"><input type="text" id="maildraft-subject" name="maildraft-subject" value="$!message.text($maildraft.subject)"  class="text"></td>
+</tr><tr>
+	<td class="label"><label for="maildraft-text">Text:</label></td>
+	<td class="value"><textarea cols="20" rows="20" id="maildraft-text" name="maildraft-text" class="text">$!message.textarea($maildraft.text)</textarea></td>
+</tr><tr>
+	<td class="label"><label for="platzhalter">Platzhalter:</label></td>
+	<td class="value">
+		<table class="form" cellspacing="0" cellpadding="0"><tr>
+			<td class="value">
+				<select id="platzhalter" name="platzhalter" class="combobox">
+					<option value="firstname">Vorname</option>
+					<option value="lastname">Nachname</option>
+					<option value="salutation">Anrede</option>
+					<option value="title">Akad. Titel</option>
+					<option value="function">Amtsbez./Funktion</option>
+					<option value="company">Firma/Institution</option>
+					<option value="street">Stra&szlig;e</option>
+					<option value="zipcode">PLZ</option>
+					<option value="city">Ort</option>
+					<option value="country">Land</option>
+					<option value="poboxzipcode">Postfach-PLZ</option>
+					<option value="pobox">Postfach-Nummer</option>
+					<option value="suffix1">$!config.suffix1</option>
+					<option value="suffix2">$!config.suffix2</option>
+					<option value="phone">Telefon</option>
+					<option value="fax">Fax</option>
+					<option value="mobile">Mobil</option>
+					<option value="email">E-Mail</option>
+					<option value="url">www</option>
+				</select>&nbsp;
+			</td>
+			<td class="value" style="width: 10px;">&nbsp;&nbsp;&nbsp;</td>
+			<td class="value" style="width: 130px;"><input type="button" name="add" value="Hinzuf&uuml;gen" class="button" onclick="addPlatzhalter(this);"></td>
+		</tr></table>
+	</td>
+</tr></table>
+
+#if ($listparam.count == 0)
+	<br>Keine Daten gefunden.
+#end
+
+<div id="fixme" class="fixme1"><div class="fixme2"><div class="fixme3">
+
+	#parse("inc/list-navi.vm")
+	#parse("inc/list-direct.vm")
+
+	<input type="submit" name="submit" value="Speichern" class="button"> &nbsp;
+	<input type="reset"  name="clear"  value="Zur&uuml;cksetzen" class="reset"> &nbsp;
+	<input type="button" name="cancel" value="Zur&uuml;ck" class="button" onclick="window.location.href='MailDraftList';"> &nbsp;
+
+</div></div></div>
+
+#closeContentSection()
+#closeContent()
+
+</form>
+
+<script type="text/javascript">
+	function addPlatzhalter(s) {
+		var sel = document.getElementById('platzhalter');
+		var text = sel.options[sel.selectedIndex].value;
+		if (text.length > 0) {
+			insertAtCursor(document.getElementById('maildraft-text'), '<' + text + '>');
+		}
+	}
+</script>
+
+#parse("inc/footer.vm")
