@@ -1,0 +1,139 @@
+#set($title = "Suchen &amp; Ersetzen")
+#parse("inc/header.vm")
+
+<form id="formlist" name="formlist" action="CountReplaceAllPerson" method="POST">
+<input type="hidden" name="start" value="0">
+<input type="hidden" name="selectAll" value="false">
+<input type="hidden" name="selectNone" value="true">
+
+#if($snr-action == "replace" || $snr-action == "replaceAll")
+<div style="margin: 10px 0px 0px 0px; padding: 2px 3px 2px 3px; background-color: #ffc080; border: 1px solid #ff8000;">
+	#if(!$snr-count)
+		Ihre Suche muss aus mindestens zwei Buchstaben und einem Feld bestehen.
+	#elseif($snr-count == 0)
+		Es wurde kein Datensatz ersetzt.
+	#elseif($snr-count == 1)
+		Es wurde ein Datensatz ersetzt.
+	#else
+		Es wurden $!snr-count Datens&auml;tze ersetzt.
+	#end
+</div>
+#elseif($snr-action == "count")
+<div style="margin: 10px 0px 0px 0px; padding: 2px 3px 2px 3px; background-color: #ffc080; border: 1px solid #ff8000;">
+	#if(!$snr-count)
+		Ihre Suche muss aus mindestens zwei Buchstaben und einem Feld bestehen.
+	#elseif($snr-count == 0)
+		Es wurde kein Datensatz gefunden.
+	#elseif($snr-count == 1)
+		Es wurde ein Datensatz gefunden.
+	#else
+		Es wurden $!snr-count Datens&auml;tze gefunden.
+	#end
+</div>
+#end
+
+<table class="tab" border="0" cellspacing="0" cellpadding="0"><tr>
+	<td class="tableft">&nbsp;</td>
+	<td class="tabactiv"><span class="tabactiv">Suchen &amp; Ersetzen</span></td>
+	<td class="tabright">&nbsp;</td>
+</tr></table>
+
+#openContent()
+#openContentSection()
+
+##<h1>Suchen &amp; Ersetzen</h1>
+
+<table class="form"><tr>
+	<td class="label"><label for="snr-search">Suchen:</label></td>
+	<td class="value"><input type="text" name="snr-search" id="snr-search" value="$!message.text($replace-request.search)" class="text"></td>
+</tr><tr>
+	<td class="label"><label for="snr-replace">Ersetzen:</label></td>
+	<td class="value"><input type="text" name="snr-replace" id="snr-replace" value="$!message.text($replace-request.replace)" class="text"></td>
+</tr><tr>
+	<td class="label">&nbsp;</td>
+	<td class="value"><hr class="contentsection"></td>
+</tr><tr>
+	<td class="label">In folgenden Feldern:</td>
+	<td class="value">
+		<table class="form"><tr>
+			<td class="value" style="width: 20px;"><input type="checkbox" id="snr-group01" name="snr-group01" value="true" #if($replace-request.snr-group01) checked#end></td>
+			<td class="value" style="width:100px;"><label for="snr-group01" title="Vorname der Hauptperson und des Partners">Vorname</label></td>
+			<td class="value" style="width: 20px;"><input type="checkbox" id="snr-group02" name="snr-group02" value="true" #if($replace-request.snr-group02) checked#end></td>
+			<td class="value" style="width:100px;"><label for="snr-group02" title="Nachname der Hauptperson und des Partners">Nachname</label></td>
+			<td class="value" style="width: 20px;"><input type="checkbox" id="snr-group04" name="snr-group04" value="true" #if($replace-request.snr-group04) checked#end></td>
+			<td class="value" style="width:100px;"><label for="snr-group04" title="Anrede und Titel">Anrede / Titel</label></td>
+			<td class="value" style="width: 20px;"><input type="checkbox" id="snr-group20" name="snr-group20" value="true" #if($replace-request.snr-group20) checked#end></td>
+			<td class="value"                     ><label for="snr-group20" title="Freitextfelder">Freitextfelder</label></td>
+		</tr></table>
+	</td>
+</tr><tr>
+	<td class="label">&nbsp;</td>
+	<td class="value">
+		<table class="form"><tr>
+			<td class="value" style="width: 20px;"><input type="checkbox" id="snr-group03" name="snr-group03" value="true" #if($replace-request.snr-group03) checked#end></td>
+			<td class="value" style="width:100px;"><label for="snr-group03" title="Amtsbezeichnung / Funktion">Amtsbezeichn.</label></td>
+			<td class="value" style="width: 20px;"><input type="checkbox" id="snr-group05" name="snr-group05" value="true" #if($replace-request.snr-group05) checked#end></td>
+			<td class="value" style="width:100px;"><label for="snr-group05" title="Firma / Institution">Institution</label></td>
+			<td class="value" style="width: 20px;"><input type="checkbox" id="snr-group06" name="snr-group06" value="true" #if($replace-request.snr-group06) checked#end></td>
+			<td class="value" style="width:100px;"><label for="snr-group06" title="Stra&szlig;e, Adresszusatz und Land">Adresse</label></td>
+			<td class="value" style="width: 20px;"><input type="checkbox" id="snr-group07" name="snr-group07" value="true" #if($replace-request.snr-group07) checked#end></td>
+			<td class="value"                     ><label for="snr-group07" title="PLZ / Ort und PLZ / Postfach">PLZ / Ort</label></td>
+		</tr></table>
+	</td>
+</tr><tr>
+	<td class="label">&nbsp;</td>
+	<td class="value">
+		<table class="form"><tr>
+			<td class="value" style="width: 20px;"><input type="checkbox" id="snr-group08" name="snr-group08" value="true" #if($replace-request.snr-group08) checked#end></td>
+			<td class="value" style="width:100px;"><label for="snr-group08" title="Telefon, Telefax und Mobiltelefon">Telefon / Fax</label></td>
+			<td class="value" style="width: 20px;"><input type="checkbox" id="snr-group09" name="snr-group09" value="true" #if($replace-request.snr-group09) checked#end></td>
+			<td class="value" style="width:100px;"><label for="snr-group09" title="E-Mail-Adresse">E-Mail</label></td>
+			<td class="value" style="width: 20px;"><input type="checkbox" id="snr-group10" name="snr-group10" value="true" #if($replace-request.snr-group10) checked#end></td>
+			<td class="value"                     ><label for="snr-group10" title="Internet-Adresse">www</label></td>
+		</tr></table>
+	</td>
+</tr></table><br>
+
+<table class="list">
+	<tr style="height: 20px;">
+		<td class="list2warn" style="text-align: center; width: 60px;"><strong>Hinweis</strong></td>
+		<td class="list1warn">
+			Wenn Sie den Platzhalter * verwenden, werden auch Teilst&uuml;cke ersetzt,
+			sonst nur vollst&auml;ndige Datenfelder.
+		</td>
+	</tr>
+</table>
+
+<div id="fixme" class="fixme1"><div class="fixme2"><div class="fixme3">
+
+<input type="submit" class="button" name="count"      value="Z&auml;hlen"   onclick="document.getElementById('formlist').action='CountReplaceAllPerson'; document.getElementById('formlist').submit();"> &nbsp;
+<input type="button" class="button" name="replace"    value="Ersetzen"      onclick="document.getElementById('formlist').action='ShowReplacePersonList'; document.getElementById('formlist').submit();"> &nbsp;
+<input type="button" class="button" name="replaceall" value="Alle ersetzen" onclick="document.getElementById('formlist').action='SaveReplaceAllPerson';  document.getElementById('formlist').submit();"> &nbsp;
+<input type="button" class="button" name="cancel"     value="Felder leeren" onclick="clearFields();"> &nbsp;
+
+</div></div></div>
+
+#closeContentSection()
+#closeContent()
+
+</form>
+
+<script type="text/javascript">
+	function clearFields() {
+		document.getElementById('snr-search').value = '';
+		document.getElementById('snr-replace').value = '';
+		document.getElementById('snr-group01').checked = false;
+		document.getElementById('snr-group02').checked = false;
+		document.getElementById('snr-group03').checked = false;
+		document.getElementById('snr-group04').checked = false;
+		document.getElementById('snr-group05').checked = false;
+		document.getElementById('snr-group06').checked = false;
+		document.getElementById('snr-group07').checked = false;
+		document.getElementById('snr-group08').checked = false;
+		document.getElementById('snr-group09').checked = false;
+		document.getElementById('snr-group10').checked = false;
+		document.getElementById('snr-group20').checked = false;
+	}
+</script>
+
+#parse("inc/footer.vm")

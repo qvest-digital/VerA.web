@@ -1,0 +1,37 @@
+## $Id$
+## 
+## Diese Template-Komponente dient der Auswahl einer Rolle bei einem
+## Benutzer, der sich zwar authentisiert hat, dessen Authentisierung
+## ihm aber die Benutzung von VerA.web in verschiedenen Rollen erlaubt.
+##
+## Voraussetzung also: $octopusConfig.personalConfig.roles nicht null
+##
+<p>
+Sie m&uuml;ssen die Rolle angeben, unter der Sie VerA.web nutzen m&ouml;chten.
+Bitte w&auml;hlen Sie:
+</p>
+<br/>
+<form action="login" method="post" target="_top">
+	<!--input name="task" value="chooseRole" type="hidden"/-->
+	<table class="form">
+		<tr>
+			<td class="label"><label for="username">Rolle:</label></td>
+			<td class="value">
+				<select id="role" name="username" class="combobox" style="width: 60%;">
+#foreach($s in $octopusConfig.personalConfig.roles)
+					<option value="$!s">$!s</option>
+#end
+				</select>
+			</td>
+		</tr><tr>
+			<td class="label"><label for="password">Passwort:</label></td>
+			<td class="value"><input type="password" name="password" value="$!octopusRequest.get("password")" id="password" class="text" style="width: 60%;"></td>
+		</tr><tr>
+			<td class="label">&nbsp;</td>
+			<td class="value">
+				<input name="submit" type="submit" value="Ausw&auml;hlen" class="submit"> &nbsp;
+				<input name="cancel" type="reset"  value="Zur&uuml;cksetzen" class="reset">
+			</td>
+		</tr>
+	</table>
+</form>

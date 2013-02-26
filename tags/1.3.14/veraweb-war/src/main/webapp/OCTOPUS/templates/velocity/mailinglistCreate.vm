@@ -1,0 +1,51 @@
+#set($title = "Verteiler erstellen - Veranstaltung: $!event.shortname")
+#parse("inc/header.vm")
+
+<form action="SaveMailinglist" name="mailinglists" method="POST" onsubmit="htmlWait();">
+<table class="tab" border="0" cellspacing="0" cellpadding="0"><tr>
+	<td class="tableft">&nbsp;</td>
+	<td class="tabactiv"><span class="tabactiv">Verteiler</span></td>
+	<td class="tabright">&nbsp;</td>
+</tr></table>
+
+#openContent()
+#openContentSection()
+
+#if($mailinglist.errors.size() > 0)
+<div style="margin: 10px 0px 10px 0px; padding: 10px 10px 10px 10px; background-color: #ffffff; border: 2px solid #ff0000;">
+	$mailinglist.errors.get(0)<br>
+##	#foreach($error in $mailinglist.errors)
+##		$error<br>
+##	#end
+</div>
+#end
+
+Sie erstellen einen neuen Verteiler aus der Veranstaltung &quot;$!message.plain($event.shortname)&quot; mit
+#if($mailinglistParams.count == 1)
+	einer Person.
+#else
+	$!mailinglistParams.count Personen.
+#end
+<br><br>
+
+<input type="hidden" name="mailinglist-event" value="$!event.id">
+<table class="form"><tr>
+	<td class="label"><label for="mailinglist-name">Name:</label></td>
+	<td class="value"><input type="text" name="mailinglist-name" value="$!message.text($mailinglist.name)" id="mailinglist-name" class="text" maxlength="50"></td>
+</tr></table>
+
+<div>
+<div id="fixme" class="fixme1"><div class="fixme2"><div class="fixme3">
+
+<input type="submit" name="save" class="button" value="Speichern"> &nbsp;
+<input type="button" name="cancel" class="button" value="Zur&uuml;ck" onclick="window.location.href='ShowGuestList';"> &nbsp;
+
+</div></div></div>
+</div>
+
+</form>
+
+#closeContentSection()
+#closeContent()
+
+#parse("inc/footer.vm")

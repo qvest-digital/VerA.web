@@ -1,0 +1,146 @@
+#set($title = "Hilfe - Info &uuml;ber VerA.web")
+#parse("inc/header.vm")	
+
+<form action="Main" method="POST">
+
+<table class="tab" border="0" cellspacing="0" cellpadding="0"><tr>
+	<td class="tableft">&nbsp;</td>
+	<td class="tabactiv"><span class="tabactiv">Info &uuml;ber...</span></td>
+	<td class="tabright">&nbsp;</td>
+</tr></table>
+
+#openContent()
+#openContentSection()
+
+#if($errors && $errors.size() > 0)
+<div style="margin: 10px 0px 10px 0px; padding: 10px 10px 10px 10px; background-color: #ffffff; border: 2px solid #ff0000;">
+	#foreach($error in $errors)
+		$error<br>
+	#end
+	<br>
+	Es kann zu unerwarteten Fehlern kommen. Bitte wenden Sie sich an Ihren Administrator.
+</div>
+#end
+
+<h1>VerA.web</h1>
+#if($properties)
+<table class="form">
+	<tr>
+		<td class="label">Version:</td>
+		<td class="value">$properties.getString("version")</td>
+	</tr><tr>
+		<td class="label">Build:</td>
+		<td class="value">$properties.getString("build")</td>
+	</tr>
+</table>
+<br>
+#else
+<p><i>Informationen nicht verf&uuml;gbar</i></p>
+#end
+
+<h1>Datenbank</h1>
+<table class="form">
+	<tr>
+		<td class="label">Version:</td>
+		<td class="value">
+#if($config && $config.get("SCHEMA_VERSION"))
+			$config.get("SCHEMA_VERSION")
+#else
+			<i style="color: red;">nicht verf&uuml;gbar</i>
+#end
+		</td>
+	</tr><tr>
+		<td class="label">Zeichensatz:</td>
+		<td class="value">
+#if($LC_CTYPE)
+			LC_CTYPE = $LC_CTYPE
+#else
+			<i style="color: red;">nicht verf&uuml;gbar</i>
+#end
+		</td>
+	</tr><tr>
+		<td class="label">&nbsp;</td>
+		<td class="value">
+#if($LC_COLLATE)
+			LC_COLLATE = $LC_COLLATE
+#else
+			<i style="color: red;">nicht verf&uuml;gbar</i>
+#end
+		</td>
+	</tr>
+</table>
+<br>
+
+
+<h1>Benutzer</h1>
+
+<table class="form">
+	<tr>
+		<td class="label">Login:</td>
+		<td class="value">$!octopusConfig.personalConfig.userLogin</td>
+	</tr><tr>
+		<td class="label">Rolle:</td>
+		<td class="value">
+#if($octopusConfig.personalConfig.role)
+			$octopusConfig.personalConfig.role
+#else
+			<i>nicht gew&auml;hlt</i>
+#end
+		</td>
+	</tr>
+	<tr>
+		<td class="label">Mandant:</td>
+		<td class="value">
+#if($orgUnit.id != 0)
+			$orgUnit.name
+#else
+			<i>nicht gew&auml;hlt</i>
+#end
+		</td>
+	</tr>
+#if($octopusConfig.personalConfig.proxy)
+	<tr>
+		<td class="label">vertreten durch:</td>
+		<td class="value">$octopusConfig.personalConfig.proxy</td>
+	</tr>
+#end
+#if($octopusConfig.personalConfig.roles)
+	<tr>
+		<td class="label">verf&uuml;gbare Rollen:</td>
+		<td class="value">
+ #foreach($gg in $octopusConfig.personalConfig.roles)
+ $gg
+ #end
+		</td>
+	</tr>
+#end
+	<tr>
+		<td class="label">Gruppen:</td>
+		<td class="value">
+#foreach($gg in $octopusConfig.personalConfig.userGroups)
+ $gg
+#end
+		</td>
+	</tr>
+	<tr>
+		<td class="label">E-Mail:</td>
+		<td class="value">
+#if($octopusConfig.personalConfig.userEmail)
+			$!octopusConfig.personalConfig.userEmail
+#else
+			<i>nicht verf&uuml;gbar</i>
+#end
+		</td>
+	</tr>
+</table>
+
+#closeContentSection()
+#closeContent()
+<hr class="footline">
+
+</form>
+
+<!--
+$responseParams
+-->
+#parse("inc/footer.vm")

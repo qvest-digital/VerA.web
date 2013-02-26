@@ -1,0 +1,125 @@
+#if($grants && $grants.isAuthenticated())
+ #if($grants.mayReadStandardFields() || $grants.mayReadRemarkFields())
+<div class="menusection">
+	<strong class="menutitle">Personen</strong>
+  #if($grants.mayWrite())
+	<a href="${paths.staticWeb}do/ShowPersonSearch?action=person&search=clear" class="menulink">Bearbeiten</a>
+	<a href="${paths.staticWeb}do/CreatePerson?action=person" class="menulink">Neu</a>
+  #else
+	<a href="${paths.staticWeb}do/ShowPersonSearch?action=person" class="menulink">Anzeigen</a>
+  #end
+</div>
+
+<div class="menusection">
+	<strong class="menutitle">Veranstaltungen</strong>
+  #if($grants.mayWrite())
+	<a href="${paths.staticWeb}do/ShowEventSearch?action=event" class="menulink">Bearbeiten</a>
+	<a href="${paths.staticWeb}do/CreateEvent?action=event" class="menulink">Neu</a>
+  #else
+	<a href="${paths.staticWeb}do/ShowEventSearch?action=event" class="menulink">Anzeigen</a>
+  #end
+</div>
+ #end
+
+ #if($grants.isUser())
+<div class="menusection">
+	<strong class="menutitle">Extras</strong>
+  #if($grants.mayWrite())
+	<a href="${paths.staticWeb}do/ShowReplacePerson" class="menulink">Suchen &amp; Ersetzen</a>
+  #end
+	<a href="${paths.staticWeb}do/ShowMailinglistList" class="menulink">Verteiler</a>
+  #if($grants.mayExport())
+	<a href="${paths.staticWeb}do/Statistik" class="menulink">Statistiken</a>
+  #end
+  #if($grants.mayWrite())
+	<a href="${paths.staticWeb}do/PersonDuplicateSearch" class="menulink">Duplikatsuche</a>
+  #end
+  #if($grants.mayWrite())
+	<a href="${paths.staticWeb}do/ImportPersons" class="menulink">Personen-Import</a>
+  #end
+  #if($grants.mayExport())
+	<a href="${paths.staticWeb}do/ExportPersons" class="menulink">Personen-Export</a>
+  #end
+</div>
+ #end
+
+## modified in order to make categories available to all users for viewing as per change request for version 1.2.0
+## cklein
+## 2008-02-21
+#if($grants.isUser() || $grants.isSystemUser())
+<div class="menusection">
+	<strong class="menutitle">Verwaltung</strong>
+#if($grants.isAdmin() || $grants.isPartialAdmin())
+	<a href="${paths.staticWeb}do/Config" class="menulink">Einstellungen</a>
+	<a href="${paths.staticWeb}do/Location?start=0" class="menulink">Veranstaltungsorte</a>
+#end
+  #if($grants.isAdmin())
+	<a href="${paths.staticWeb}do/Doctype?start=0" class="menulink">Dokumenttypen</a>
+  #end
+#if($grants.isUser())
+	<a href="${paths.staticWeb}do/Categorie?start=0" class="menulink">Kategorien</a>
+#end
+#if($grants.isAdmin() || $grants.isPartialAdmin())
+	<a href="${paths.staticWeb}do/Color" class="menulink">Farben</a>
+#end
+  #if($grants.isAdmin())
+	<a href="${paths.staticWeb}do/Salutation?start=0" class="menulink">Anreden</a>
+  #end
+#if($grants.isAdmin() || $grants.isPartialAdmin())
+	<a href="${paths.staticWeb}do/Function?start=0&limit=5" class="menulink">Funktionen/Amtsbez.</a>
+	<a href="${paths.staticWeb}do/MailDraftList?start=0" class="menulink">E-Mail-Vorlagen</a>
+	<a href="${paths.staticWeb}do/MailOutboxList?start=0" class="menulink">E-Mail-Postausgang</a>
+#end
+  #if($grants.isAdmin())
+	<a href="${paths.staticWeb}do/WorkArea?start=0" class="menulink">Arbeitsbereiche</a>
+  #end
+  #if($grants.isAdmin() || $grants.isSystemUser())
+	<a href="${paths.staticWeb}do/Orgunit?start=0" class="menulink">Mandanten</a>
+	<a href="${paths.staticWeb}do/AllUser?start=0" class="menulink">Benutzer</a>
+  #end
+  #if($grants.isAdmin())
+	<a href="${paths.staticWeb}do/AllProxy?start=0" class="menulink">Stellvertretungen</a>
+	<a href="${paths.staticWeb}do/ChangeLogReport" class="menulink">Reports</a>
+  #end
+  #if($grants.isPartialAdmin() && ! $grants.isAdmin())
+	<a href="${paths.staticWeb}do/OUUser?start=0" class="menulink">Benutzer</a>
+	<a href="${paths.staticWeb}do/OUProxy?start=0" class="menulink">Stellvertretungen</a>
+  #end
+</div>
+ #end
+ 
+<div class="menusection">
+	<strong class="menutitle">Benutzer</strong>
+ #if($grants.isUser())
+	<a href="${paths.staticWeb}do/UserConfig" class="menulink">Einstellungen</a>
+  #if(!$octopusConfig.personalConfig.proxy)
+	<a href="${paths.staticWeb}do/Proxy" class="menulink">Vertretungen</a>
+  #end
+ #elseif(!$octopusConfig.personalConfig.role)
+	<a href="${paths.staticWeb}do/default" class="menulink">Rolle w&auml;hlen</a>
+ #end
+	<a href="${paths.staticWeb}do/logout" target="_top" class="menulink">Abmelden</a>
+</div>
+
+<div class="menusection">
+	<strong class="menutitle">Hilfe</strong>
+#if($config.helplink)
+	<a href="${paths.staticWeb}$config.helplink" class="menulink" #if($config.helptarget) target="$config.helptarget" #end>Hilfe</a>
+#else
+	<span class="menulink" title="Die Hilfe wurde noch nicht hinterlegt." style="cursor: default;">Hilfe</span>
+#end
+	<a href="${paths.staticWeb}do/Info" class="menulink">Info</a>
+</div>
+
+#else
+<div class="menusection">
+## semi fix here: the exception is also thrown when a user accesses parts of the application while not having the permissions to access these
+#if( ! $status.exception.toString().contains( "de.tarent.octopus.security.TcSecurityException" ) && $status.exception && $octopusRequest.task != "ShowLogin" && $octopusRequest.task != "default" )
+	<strong class="menutitle">Menü</strong>
+	<a href="${paths.staticWeb}do/">Startseite</a>
+#else
+	<strong class="menutitle">Benutzer</strong>
+	<a href="${paths.staticWeb}do/ShowLogin" target="_top" class="menulink">Anmelden</a>
+#end
+</div>
+#end

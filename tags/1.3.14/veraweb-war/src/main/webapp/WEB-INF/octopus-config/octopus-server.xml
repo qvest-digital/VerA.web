@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+veraweb, platform independent webservice-based event management
+(Veranstaltungsmanagment VerA.web), is
+Copyright © 2004-2008 tarent GmbH
+Copyright © 2013 tarent solutions GmbH
+tarent-contact, platform independent webservice-based contact management, is
+Copyright © 2002 tarent GmbH
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License, version 2, as
+published by the Free Software Foundation.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see: http://www.gnu.org/licenses/
+-->
+<!DOCTYPE tcConfig SYSTEM "octopus-server.dtd">
+
+<!-- Hauptkonfiguration von tarent:config -->
+<tcConfig>
+
+  <application>    
+    <!-- Schaltet die Verwendung der Sessions vom Servlet Container aus. 
+          true = Dummy Sessions werden für jeden Aufruf erneut angelegt.
+          false = Normale Verwendung der HttpSessions
+    -->
+    <param name="omitSessions" value="false"/>
+
+    <!-- Pfadangaben müssen alle relativ zu '/WEB-INF/' Verzeichniss angegeben werden
+         und mit einem '/' enden. -->
+    <param name="paths.templateRoot" value="templates/"/>
+    <param name="paths.modules" value="modules/"/>
+
+    <!-- Angabe des Stammverzeichnisses der statischen Ressourcen, absolut bezogen auf den Server, also z.B. / -->
+    <param name="paths.webRoot" value="/"/>
+	
+    <param name="defaultResponseType" value="velocity"/>
+    <param name="defaultErrorDescriptionName" value="defaultErrorPage"/>
+
+<!-- <param name="defaultEncoding" value="ISO-8859-1"/> -->
+    <param name="defaultEncoding" value="UTF-8"/>
+    <param name="defaultContentType" value="text/html"/>
+
+	<!-- Velocity-Config (Pfade relativ zu modules Verzeichnis) -->
+	<param name="velocity.log.system.class" value="de.tarent.octopus.response.TcVelocityResponseLogger"/>
+	<param name="velocity.macro.library" value="global.vm"/>
+	<param name="velocity.macro.permissions.allow.inline" value="true"/>
+	<param name="velocity.macro.permissions.allow.inline.to.replace.global" value="true"/>
+	<param name="velocity.macro.permissions.allow.inline.local.scope" value="false"/>
+	<param name="velocity.macro.context.localscope" value="false"/>
+	
+    <!-- Angabe eines Default Moduls -->
+
+     <param name="defaultModule" value="veraweb"/>
+     <!-- Module, die automatsich geladen werden sollen. Space-separiert bei mehreren Modulen 
+     <param name="preloadModules" value=""/>
+     -->
+	 <!-- Optional JMX connector - only use on Java 1.5 and Tomcat 5.5 -->
+     <param name="jmxenabled" value="false"/>	 
+  </application>
+  
+  <loginManager>
+	<!--
+		***************************************************************************************************
+		* 
+		* Die Authorisierungs-Konfiguration kann jetzt direkt in den Modulen in der Sektion <loginManager> der
+		* config.xml realisiert werden. Die Einträge hier sind nur noch ein Fallback, für den Fall, 
+        * dass im Modul selber nichts vorhanden ist.
+		* 
+		***************************************************************************************************
+	-->
+
+    <!-- Default Login über xml- User Liste -->
+	<param name="loginManagerClass" value="de.tarent.octopus.security.LoginManagerXML"/>
+    <param name="userFile" value="user.xml"/>
+  </loginManager>
+</tcConfig>

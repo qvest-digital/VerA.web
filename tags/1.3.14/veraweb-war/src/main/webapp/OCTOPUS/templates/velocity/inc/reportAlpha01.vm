@@ -1,0 +1,238 @@
+
+#set($showMain = true)
+#set($showPartner = true)
+
+<table class="kategorie">
+	<tr>
+		<td class="kategorieNo">&nbsp;</td>
+		<td class="kategorieName">&nbsp;</td>
+		<td class="kategorieZusage"><nobr><strong>Zusage</strong></nobr></td>
+		<td class="kategorieAbsage"><nobr><strong>Absage</strong></nobr></td>
+		<td class="kategorieTeilnahme"><nobr><strong>Teilnahme</strong></nobr></td>
+	</tr>
+</table>
+
+#set($o = 0)#set($z = 0)#set($a = 0)#set( $t = 0 )
+#set($category = "")
+#set($workarea = "")
+#foreach($bean in $guestlist)
+
+## cf. issue #2207 -- must not be grouped by categories
+##	#if(($bean && $bean.category && $bean.category != $category) || (!$bean.category))
+##		#if(!$bean.category && $category != "")
+##			#set($category = "")
+##			#set($workarea = "")
+##			<div class="kategorie"><em>Keiner Kategorie zugeordnet</em></div>
+##		#elseif($bean.category)
+##			#set($category = $bean.category)
+##			#set($workarea = "")
+##			<div class="kategorie">$!message.plain($category)</div>
+##		#end
+##	#end
+
+	#if( $orderByWorkArea && ( $showMain && $bean.invitationtype != 3 || $showPartner && $bean.invitationtype != 2 ) )
+		#if( $bean.workarea_name != $workarea )
+			#if( $bean.workarea_name == "Kein Arbeitsbereich" && $workarea != "" )
+				#set($workarea = "")
+				<div class="kategorie" style="margin-left: 1em;"><em>Keinem Arbeitsbereich zugeordnet</em></div>
+			#else
+				#set($workarea = $bean.workarea_name)
+				<div class="kategorie" style="margin-left: 1em;">$!message.plain($workarea)</div>
+			#end
+		#end
+	#end
+
+#set($mainShown=false)
+#set($partnerShown=false)
+<table class="kategorie">
+	#if($showMain && $bean.invitationtype != 3)
+		#if($bean.invitationstatus == 1)#set($z = $z + 1)
+		#elseif($bean.invitationstatus == 2)#set($a = $a + 1)
+		#elseif($bean.invitationstatus == 3)#set($t = $t + 1)
+		#else#set($o = $o + 1)
+		#end
+		#set($mainShown=true)
+	<tr>
+		<td class="kategorieNo">
+    		#if($bean.ishost && $bean.ishost == 1)
+    			<em>G</em>
+			#elseif($bean.reserve == 1)
+				<em>Reserve<em>
+    		#else
+    			$!bean.orderno
+    		#end
+		</td>
+		<td class="kategorieSpace">&nbsp;</td>
+		<td class="kategorieName">
+			#if($bean.showdoctype)
+				<strong>
+    				$!message.plain($bean.lastname_a_gd)#if($bean.lastname_a_gd.length() > 0 && ($bean.title_a_gd.length() > 0 || $bean.firstname_a_gd.length() > 0)), #end
+    				$!message.plain($bean.title_a_gd)
+    				$!message.plain($bean.firstname_a_gd)
+				</strong>
+				#if($bean.function_a_gd.length() > 0 || $bean.company_a_gd.length() > 0)
+					<br>$!message.plain($bean.function_a_gd)
+					#if($bean.function_a_gd.length() > 0 && $bean.company_a_gd.length() > 0) - #end
+					$!message.plain($bean.company_a_gd)
+				#end
+			#else
+				<strong>
+    				$!message.plain($bean.lastname_a_e1)#if($bean.lastname_a_e1.length() > 0 && ($bean.title_a_e1.length() > 0 || $bean.firstname_a_e1.length() > 0)), #end
+    				$!message.plain($bean.title_a_e1)
+    				$!message.plain($bean.firstname_a_e1)
+				</strong>
+				#if($bean.function_a_e1.length() > 0 || $bean.company_a_e1.length() > 0)
+					<br>$!message.plain($bean.function_a_e1)
+					#if($bean.function_a_e1.length() > 0 && $bean.company_a_e1.length() > 0) - #end
+					$!message.plain($bean.company_a_e1)
+				#end
+			#end
+			#if($bean.textfield && $bean.textfield.length() > 0)
+				<br>$!message.plain($bean.textfield)
+			#end
+			#if($bean.notehost && $bean.notehost.length() > 0)
+				<br>$!message.plain($bean.notehost)
+			#end
+			
+			#if($bean.invitationtype == 2)
+			#if($bean.showdoctype && ($bean.fon_a_gd.length() > 0 || $bean.fon_b_e1.length() > 0 || $bean.mobil_a_gd.length() > 0))
+			<table cellspacing="0" cellpadding="0" border="0" class="kategorie">
+				<tr>
+					<td class="kategorieName" style="width: 33%;"><em>Telefonnr.: $!message.plain($bean.fon_a_gd)</em></td>
+					<td class="kategorieName" style="width: 33%;"><em>Privat: $!message.plain($bean.fon_b_e1)</em></td>
+					<td class="kategorieName" style="width: 34%;"><em>Mobiltelefon: $!message.plain($bean.mobil_a_gd)</em></td>
+				</tr>
+			</table>
+			#elseif(!$bean.showdoctype && ($bean.fon_a_e1.length() > 0 || $bean.fon_b_e1.length() > 0 || $bean.mobil_a_e1.length() > 0))
+			<table cellspacing="0" cellpadding="0" border="0" class="kategorie">
+				<tr>
+					<td class="kategorieName" style="width: 33%;"><em>Tel. dienstlich: $!message.plain($bean.fon_a_e1)</em></td>
+					<td class="kategorieName" style="width: 33%;"><em>Tel. privat: $!message.plain($bean.fon_b_e1)</em></td>
+					<td class="kategorieName" style="width: 34%;"><em>Tel. mobil: $!message.plain($bean.mobil_a_e1)</em></td>
+				</tr>
+			</table>
+			#end
+			#end
+			
+		</td>
+		#if($bean.invitationstatus == 1)
+		<td class="kategorieZusage"><img src="${paths.staticWeb}images/checkbox_on.gif" alt="An"></td>
+		#else
+		<td class="kategorieZusage"><img src="${paths.staticWeb}images/checkbox_off.gif" alt="Aus"></td>
+		#end
+		#if($bean.invitationstatus == 2)
+		<td class="kategorieAbsage"><img src="${paths.staticWeb}images/checkbox_on.gif" alt="An"></td>
+		#else
+		<td class="kategorieAbsage"><img src="${paths.staticWeb}images/checkbox_off.gif" alt="Aus"></td>
+		#end
+		#if($bean.invitationstatus == 3)
+		<td class="kategorieTeilnahme"><img src="${paths.staticWeb}images/checkbox_on.gif" alt="An"></td>
+		#else
+		<td class="kategorieTeilnahme"><img src="${paths.staticWeb}images/checkbox_off.gif" alt="Aus"></td>
+		#end
+	</tr>
+	#end
+	#if($showPartner && $bean.invitationtype != 2)
+		#if($bean.invitationstatus_p == 1)#set($z = $z + 1)
+		#elseif($bean.invitationstatus_p == 2)#set($a = $a + 1)
+		#elseif($bean.invitationstatus_p == 3)#set($t = $t + 1)
+		#else#set($o = $o + 1)
+		#end
+		#set($partnerShown=true)
+	<tr>
+		<td class="kategorieNo">$!bean.orderno_p</td>
+		<td class="kategorieSpace">&nbsp;</td>
+		<td class="kategorieName">
+			<strong>
+			#if($bean.showdoctype)
+				$!message.plain($bean.lastname_b_gd)#if($bean.lastname_b_gd.length() > 0 && ($bean.title_b_gd.length() > 0 || $bean.firstname_b_gd.length() > 0)), #end
+				$!message.plain($bean.title_b_gd)
+				$!message.plain($bean.firstname_b_gd)
+			#else
+				$!message.plain($bean.lastname_b_e1)#if($bean.lastname_b_e1.length() > 0 && ($bean.title_b_e1.length() > 0 || $bean.firstname_b_e1.length() > 0)), #end
+				$!message.plain($bean.title_b_e1)
+				$!message.plain($bean.firstname_b_e1)
+			#end
+			</strong>
+			#if($bean.textfield_p && $bean.textfield_p.length() > 0)
+				<br>$!message.plain($bean.textfield_p)
+			#end
+			#if($bean.notehost_p && $bean.notehost_p.length() > 0)
+				<br>$!message.plain($bean.notehost_p)
+			#end
+			
+			
+			#if($bean.showdoctype && ($bean.fon_a_gd.length() > 0 || $bean.fon_b_e1.length() > 0 || $bean.mobil_a_gd.length() > 0))
+			<table cellspacing="0" cellpadding="0" border="0" class="kategorie">
+				<tr>
+					<td class="kategorieName" style="width: 33%;"><em>Telefonnr.: $!message.plain($bean.fon_a_gd)</em></td>
+					<td class="kategorieName" style="width: 33%;"><em>Privat: $!message.plain($bean.fon_b_e1)</em></td>
+					<td class="kategorieName" style="width: 34%;"><em>Mobiltelefon: $!message.plain($bean.mobil_a_gd)</em></td>
+				</tr>
+			</table>
+			#elseif(!$bean.showdoctype && ($bean.fon_a_e1.length() > 0 || $bean.fon_b_e1.length() > 0 || $bean.mobil_a_e1.length() > 0))
+			<table cellspacing="0" cellpadding="0" border="0" class="kategorie">
+				<tr>
+					<td class="kategorieName" style="width: 33%;"><em>Tel. dienstlich: $!message.plain($bean.fon_a_e1)</em></td>
+					<td class="kategorieName" style="width: 33%;"><em>Tel. privat: $!message.plain($bean.fon_b_e1)</em></td>
+					<td class="kategorieName" style="width: 34%;"><em>Tel. mobil: $!message.plain($bean.mobil_a_e1)</em></td>
+				</tr>
+			</table>
+			#end
+			
+			
+		</td>
+		#if($bean.invitationstatus_p == 1)
+		<td class="kategorieZusage"><img src="${paths.staticWeb}images/checkbox_on.gif" alt="An"></td>
+		#else
+		<td class="kategorieZusage"><img src="${paths.staticWeb}images/checkbox_off.gif" alt="Aus"></td>
+		#end
+		#if($bean.invitationstatus_p == 2)
+		<td class="kategorieAbsage"><img src="${paths.staticWeb}images/checkbox_on.gif" alt="An"></td>
+		#else
+		<td class="kategorieAbsage"><img src="${paths.staticWeb}images/checkbox_off.gif" alt="Aus"></td>
+		#end
+		#if($bean.invitationstatus_p == 3)
+		<td class="kategorieTeilnahme"><img src="${paths.staticWeb}images/checkbox_on.gif" alt="An"></td>
+		#else
+		<td class="kategorieTeilnahme"><img src="${paths.staticWeb}images/checkbox_off.gif" alt="Aus"></td>
+		#end
+	</tr>
+	#end
+	#if($mainShown || $partnerShown)
+	<tr>
+		<td class="kategorieNo">&nbsp;</td>
+		<td class="kategorieSpace">&nbsp;</td>
+		<td colspan="3" style="vertical-align: middle;"><hr class="kategorie" /></td>
+	</tr>
+	#end
+</table>
+#end
+
+<table style="width: 100%;">
+    <tr>
+        <td style="text-align: right;"><h2 style="text-align: right;">G&auml;steanzahl (Offen):</h2></td>
+        <td style="width: 15px;">&nbsp;</td>
+        <td style="width: 100px"><h3 style="text-align: left;">$o</h3></td>
+    </tr>
+    <tr>
+        <td style="text-align: right;"><h2 style="text-align: right;">G&auml;steanzahl (Zusagen):</h2></td>
+        <td style="width: 15px;">&nbsp;</td>
+        <td style="width: 100px"><h3 style="text-align: left;">$z</h3></td>
+    </tr>
+    <tr>
+        <td style="text-align: right;"><h2 style="text-align: right;">G&auml;steanzahl (Absagen):</h2></td>
+        <td style="width: 15px;">&nbsp;</td>
+        <td style="width: 100px"><h3 style="text-align: left;">$a</h3></td>
+    </tr>
+    <tr>
+        <td style="text-align: right;"><h2 style="text-align: right;">G&auml;steanzahl (Teilnahmen):</h2></td>
+        <td style="width: 15px;">&nbsp;</td>
+        <td style="width: 100px"><h3 style="text-align: left;">$t</h3></td>
+    </tr>
+   	<tr>
+  		<td style="text-align: right;"><h2 style="text-align: right;">G&auml;steanzahl (Gesamt):</h2></td>
+   		<td style="width: 15px;">&nbsp;</td>
+  		<td style="width: 100px"><h3 style="text-align: left;">#set($g = $o + $z + $a + $t)$g</h3></td>
+  	</tr>
+</table>
