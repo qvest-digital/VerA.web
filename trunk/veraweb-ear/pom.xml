@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>org.evolvis.veraweb</groupId>
 	<artifactId>veraweb-ear</artifactId>
 	<packaging>ear</packaging>
-	<version>1.3.9-SNAPSHOT</version>
+	<version>1.3.9</version>
 
 	<name>veraweb-evolvis-ear</name>
 	<description>Veranstaltungsmanagment VerA.web</description>
@@ -37,13 +37,13 @@
 
 	<scm>
 		<connection>
-			scm:svn:svn://evolvis.org/svnroot/veraweb/trunk/veraweb-ear
+			scm:svn:svn://evolvis.org/svnroot/veraweb/tags/veraweb-evolvis-parent-1.3.9/veraweb-ear
 		</connection>
 		<developerConnection>
-			scm:svn:svn+ssh://maven@evolvis.org/svnroot/veraweb/trunk/veraweb-ear
+			scm:svn:svn+ssh://maven@evolvis.org/svnroot/veraweb/tags/veraweb-evolvis-parent-1.3.9/veraweb-ear
 		</developerConnection>
 		<url>
-			https://evolvis.org/scm/viewvc.php/?root=veraweb
+			https://evolvis.org/scm/viewvc.php/tags/veraweb-evolvis-parent-1.3.9?root=veraweb
 		</url>
 	</scm>
 
