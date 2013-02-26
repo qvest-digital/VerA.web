@@ -1,0 +1,50 @@
+#set($title = "Cleanup")
+#parse("inc/header.vm")	
+
+<table class="tab" border="0" cellspacing="0" cellpadding="0"><tr>
+	<td class="tableft">&nbsp;</td>
+	<td class="tabactiv"><span class="tabactiv">Cleanup</span></td>
+	<td class="tabright">&nbsp;</td>
+</tr></table>
+
+#openContent()
+#openContentSection()
+
+#if($cleanup && $cleanup.size() > 0)
+	#if($cleanupdone)
+		<div style="margin-top: 10px; font-size: 14px; font-family: Arial;">
+			Folgende Aktionen <strong>WURDEN</strong> durchgef&uuml;hrt:</strong>
+		</div>
+	#else
+		<div style="margin-top: 10px; font-size: 14px; font-family: Arial;">
+			Folgende Aktionen <strong>K&Ouml;NNEN</strong> durchgef&uuml;hrt:</strong>
+		</div>
+	#end
+	<ul>
+	#foreach($c in $cleanup)
+		<li>$c</li>
+	#end
+	</ul>
+	
+	#if($cleanupdone)
+		<br>
+		<a href="${paths.staticWeb}do/Cleanup">Aktuallisieren</a>
+	#else
+		<br>
+		<a href="${paths.staticWeb}do/Cleanup">Aktuallisieren</a> &nbsp; | &nbsp;
+		<a href="${paths.staticWeb}do/Cleanup?force=true">Cleanup jetzt unwiderruflich durchf&uuml;hren.</a>
+	#end
+#else
+	Es sind derzeit keine Cleanups m&ouml;glich / n&ouml;tig.
+	<br><br>
+	<a href="${paths.staticWeb}do/Cleanup">Aktuallisieren</a>
+#end
+
+#closeContentSection()
+#closeContent()
+<hr class="footline">
+
+<!--
+$responseParams
+-->
+#parse("inc/footer.vm")

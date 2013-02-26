@@ -1,0 +1,74 @@
+
+<table class="form" border="0"><tr>
+	<td class="label"><label for="person-function$ext">Amtsbez./Funktion:</label></td>
+	<td class="value">
+		<table class="form" cellspacing="0" cellpadding="0"><tr>
+			<td class="value">
+				<textarea rows="2" col="20" id="person-function$ext" name="person-function$ext" class="text" onchange="setModified();">$!message.textarea($facade.Function)</textarea>
+			</td>
+			<td class="value" style="width: 10px;">&nbsp;</td>
+			<td class="value" style="width: 120px;"><em>Aus Stammdaten:</em><br><a href="javascript:selectFunction('${paths.staticWeb}do/', 'person-function$ext');">&Uuml;bernehmen</a></td>
+		</tr></table>
+	</td>
+</tr><tr>
+	<td class="label"><label for="person-company$ext">Firma/Institution:</label></td>
+	<td class="value">
+		<table class="form" cellspacing="0" cellpadding="0"><tr>
+			<td class="value">
+				<input type="text" id="person-company$ext" name="person-company$ext" value="$!message.text($facade.Company)" class="text" onchange="setModified();">
+			</td>
+			<td class="value" style="width: 10px;">&nbsp;</td>
+			<td class="value" style="width: 120px;"><a href="javascript:selectCompany('${paths.staticWeb}do/', 'person-company$ext');">&Uuml;bernehmen</a></td>
+		</tr></table>
+	</td>
+</tr><tr>
+	<td class="label"><label for="person-street$ext">Stra&szlig;e:</label></td>
+	<td class="value"><input type="text" id="person-street$ext" name="person-street$ext" value="$!message.text($facade.Street)" class="text" onchange="setModified();"></td>
+</tr><tr>
+	<td class="label"><label for="person-zipcode$ext">PLZ</label> / <label for="person-city$ext">Ort:</label></td>
+	<td class="value">
+		<table class="form" cellpadding="0" cellspaceing="0"><tr>
+			<td class="value" style="width: 60px;"><input type="text" id="person-zipcode$ext" name="person-zipcode$ext" value="$!message.text($facade.ZipCode)" class="text" onchange="setModified();"></td>
+			<td class="value" style="width: 10px;">&nbsp;</td>
+			<td class="value"><input type="text" id="person-city$ext" name="person-city$ext" value="$!message.text($facade.City)" class="text" style="width: 98%;" onchange="setModified();"></td>
+		</tr></table>
+	</td>
+</tr><tr>
+	<td class="label"><label for="person-state$ext">Bundesland:</label></td>
+	<td class="value"><input type="text" id="person-state$ext" name="person-state$ext" value="$!message.text($facade.State)" class="text" onchange="setModified();"></td>
+</tr><tr>
+	<td class="label"><label for="person-country$ext">Land:</label></td>
+	<td class="value"><input type="text" id="person-country$ext" name="person-country$ext" value="$!message.text($facade.Country)" class="text" onchange="setModified();"></td>
+</tr><tr>
+	<td class="label"><label for="person-poboxzipcode$ext">PLZ</label> / <label for="person-pobox$ext">Postfach:</label></td>
+	<td class="value">
+		<table class="form" cellpadding="0" cellspaceing="0"><tr>
+			<td class="value" style="width: 60px;"><input type="text" id="person-poboxzipcode$ext" name="person-poboxzipcode$ext" value="$!message.text($facade.POBoxZipCode)" class="text" onchange="setModified();"></td>
+			<td class="value" style="width: 10px;">&nbsp;</td>
+			<td class="value"><input type="text" id="person-pobox$ext" name="person-pobox$ext" value="$!message.text($facade.POBox)" class="text" style="width: 98%;" onchange="setModified();"></td>
+		</tr></table>
+	</td>
+</tr><tr>
+	<td class="label"><label for="person-suffix1$ext">$!config.suffix1:</label></td>
+	<td class="value"><input type="text" id="person-suffix1$ext" name="person-suffix1$ext" value="$!message.text($facade.Suffix1)" class="text" onchange="setModified();"></td>
+</tr><tr>
+	<td class="label"><label for="person-suffix2$ext">$!config.suffix2:</label></td>
+	<td class="value"><input type="text" id="person-suffix2$ext" name="person-suffix2$ext" value="$!message.text($facade.Suffix2)" class="text" onchange="setModified();"></td>
+</tr><tr>
+	<td class="label"><label for="person-fon$ext">Telefon:</label></td>
+	<td class="value"><input type="text" id="person-fon$ext" name="person-fon$ext" value="$!message.text($facade.Phone)" class="text" onchange="setModified();"></td>
+</tr><tr>
+	<td class="label"><label for="person-fax$ext">Fax:</label></td>
+	<td class="value"><input type="text" id="person-fax$ext" name="person-fax$ext" value="$!message.text($facade.Fax)" class="text" onchange="setModified();"></td>
+</tr><tr>
+## added mailto: link as per change request for version 1.2.0
+## cklein 2008-02-21
+	<td class="label"><label style="float:left;" for="person-mail$ext">E-Mail:</label>#if($facade.EMail && $facade.EMail.length()>0)<a style="float:right;" href="mailto:$!message.text($facade.EMail)"><img src="${paths.staticWeb}images/email.gif"></a>#end</label></td>
+	<td class="value"><input type="text" id="person-mail$ext" name="person-mail$ext" value="$!message.text($facade.EMail)" class="text" onchange="setModified();"></td>
+</tr><tr>
+	<td class="label"><label for="person-mobil$ext">Mobil:</label></td>
+	<td class="value"><input type="text" id="person-mobil$ext" name="person-mobil$ext" value="$!message.text($facade.Mobile)" class="text" onchange="setModified();"></td>
+</tr><tr>
+	<td class="label"><label for="person-url$ext">www:</label></td>
+	<td class="value"><input type="text" id="person-url$ext" name="person-url$ext" value="$!message.text($facade.Url)" class="text" onchange="setModified();"></td>
+</tr></table>

@@ -1,0 +1,83 @@
+## $Id$
+#set($title = "Verwaltung - alle Mandanten")
+#parse("inc/header.vm")	
+
+#if($missingorgunit.result == "done")
+<div style="margin: 10px 0px 0px 0px; padding: 2px 3px 2px 3px; background-color: #ffc080; border: 1px solid #ff8000;">
+	Alle Datens&auml;tze wurden erfolgreich einem Mandanten zugeordnet.
+</div>
+#end
+
+<table class="tab" border="0" cellspacing="0" cellpadding="0"><tr>
+	<td class="tableft">&nbsp;</td>
+	<td class="tabinactiv"><a href="Orgunit" class="tabinactiv">Mandanten</a></td>
+	<td class="tabactiv"><span class="tabactiv">Datenbank</span></td>
+	<td class="tabright">&nbsp;</td>
+</tr></table>
+
+#openContent()
+#openContentSection()
+
+<form action="$octopusRequest.task" method="POST">
+
+<h1>Nicht Mandanten zugeordnete Daten</h1>
+
+<table class="form"><tr>
+	<td class="label">Personen:</td>
+	<td class="value"><input type="text" value="$!message.text($missingorgunit.person)" class="intdisabled" readonly></td>
+</tr><tr>
+	<td class="label">Veranstaltungen:</td>
+	<td class="value"><input type="text" value="$!message.text($missingorgunit.event)" class="intdisabled" readonly</td>
+</tr><tr>
+	<td class="label">Import Vorg&auml;nge:</td>
+	<td class="value"><input type="text" value="$!message.text($missingorgunit.import)" class="intdisabled" readonly</td>
+</tr><tr>
+	<td class="label">Import Personen:</td>
+	<td class="value"><input type="text" value="$!message.text($missingorgunit.importperson)" class="intdisabled" readonly</td>
+</tr><tr>
+	<td class="label">Veranstaltungsorte:</td>
+	<td class="value"><input type="text" value="$!message.text($missingorgunit.location)" class="intdisabled" readonly</td>
+</tr><tr>
+	<td class="label">Verteiler:</td>
+	<td class="value"><input type="text" value="$!message.text($missingorgunit.mailinglist)" class="intdisabled" readonly</td>
+</tr><tr>
+	<td class="label">Kategorien:</td>
+	<td class="value"><input type="text" value="$!message.text($missingorgunit.category)" class="intdisabled" readonly</td>
+</tr><tr>
+	<td class="label">Benutzer:</td>
+	<td class="value"><input type="text" value="$!message.text($missingorgunit.user)" class="intdisabled" readonly</td>
+</tr></table><br>
+
+<h1>Mandanten zuordnen</h1>
+#if(!$allOrgUnit || $allOrgUnit.size() == 0)
+	<div style="margin: 10px 0px 10px 0px; padding: 10px 10px 10px 10px; background-color: #ffffff; border: 2px solid #ff0000;">
+		Es existiert noch kein Mandant.
+	</div>
+#else
+<table class="form"><tr>
+	<td class="label">Mandant:</td>
+	<td class="value">
+		<select name="orgunit" class="combobox">
+		#foreach($m in $allOrgUnit)
+			<option value="$!m.id">$!m.name</option>
+		#end
+		</select>
+	</td>
+</tr></table>
+
+<div>
+<div id="fixme" class="fixme1"><div class="fixme2"><div class="fixme3">
+
+<input type="submit" name="submit" value="Zuordnen" class="submit">
+
+</div></div></div>
+</div>
+
+#end
+
+</form>
+
+#closeContentSection()
+#closeContent()
+
+#parse("inc/footer.vm")
