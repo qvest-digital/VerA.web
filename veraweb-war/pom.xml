@@ -154,6 +154,7 @@
 				</configuration>
 			</plugin>
 
+<!--
 			<plugin>
 				<artifactId>maven-site-plugin</artifactId>
 
@@ -164,6 +165,7 @@
 					<outputEncoding>UTF-8</outputEncoding>
 				</configuration>
 			</plugin>
+-->
 
 			<plugin>
 				<groupId>org.mortbay.jetty</groupId>
@@ -291,60 +293,4 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
-
-	<reporting>
-		<plugins>
-			<plugin>
-				<artifactId>
-					maven-project-info-reports-plugin
-				</artifactId>
-
-				<configuration>
-					<charset>UTF-8</charset>
-					<encoding>UTF-8</encoding>
-				</configuration>
-			</plugin>
-
-			<plugin>
-				<artifactId>maven-jxr-plugin</artifactId>
-
-				<configuration>
-					<charset>UTF-8</charset>
-					<encoding>UTF-8</encoding>
-				</configuration>
-			</plugin>
-
-			<plugin>
-				<artifactId>maven-changes-plugin</artifactId>
-
-				<configuration>
-					<charset>UTF-8</charset>
-					<encoding>UTF-8</encoding>
-				</configuration>
-			</plugin>
-
-			<plugin>
-				<artifactId>maven-surefire-report-plugin</artifactId>
-
-				<configuration>
-					<charset>UTF-8</charset>
-					<encoding>UTF-8</encoding>
-				</configuration>
-			</plugin>
-
-			<plugin>
-				<artifactId>maven-javadoc-plugin</artifactId>
-
-				<configuration>
-					<source>1.5</source>
-					<target>1.5</target>
-					<charset>UTF-8</charset>
-					<encoding>UTF-8</encoding>
-					<minmemory>128m</minmemory>
-					<maxmemory>256m</maxmemory>
-					<show>package</show>
-				</configuration>
-			</plugin>
-		</plugins>
-	</reporting>
 </project>
