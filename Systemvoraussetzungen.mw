@@ -36,4 +36,4 @@ Vorrausgesetzt wird die Servlet API 2.4 oder höher.
 
 * Sun Java 5 JRE, JBoss Application Server 4.2, PostgreSQL 8.0
 
-* Sun Java 5 JRE, Maven 2 Jetty Integration, PostgreSQL 8.0
+* Sun Java 5 JRE, Maven 3 Jetty Integration, PostgreSQL 8.0
