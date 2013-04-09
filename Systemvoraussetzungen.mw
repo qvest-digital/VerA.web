@@ -22,7 +22,7 @@
 
 * beliebigen Java Webapplication Container, z.B. Apache Tomcat (Details siehte unten.)
 
-* Apache Maven 2
+* Apache Maven 3
 
 == Webapplication Container ==
 
