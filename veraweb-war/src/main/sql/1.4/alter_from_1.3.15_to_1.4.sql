@@ -6,6 +6,10 @@ CREATE TABLE veraweb.ttask (
 	enddate timestamptz,
 	degree_of_completion integer DEFAULT 0,
 	priority integer,
-	fk_person integer references tperson (pk) ,
+	fk_person integer references tperson (pk),
+	createdby varchar(50),
+	changedby varchar(50),
+	created timestamptz,
+	changed timestamptz,
 	CONSTRAINT ttask_pkey PRIMARY KEY (pk)
 ) WITH OIDS;
