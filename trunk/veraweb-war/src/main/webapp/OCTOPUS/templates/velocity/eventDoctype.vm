@@ -7,6 +7,7 @@
 	<td class="tableft">&nbsp;</td>
 	<td class="tabinactiv"><a href="ShowEvent?id=$!event.id" class="tabinactiv">Allgemein</a></td>
 	<td class="tabactiv"><span class="tabactiv">Dokumententypen</span></td>
+	<td class="tabinactiv"><a href="${paths.staticWeb}do/ShowEventTasks?id=$!event.id" class="tabinactiv">Aufgaben</a></td>
 	<td class="tabright">&nbsp;</td>
 </tr></table>
 
