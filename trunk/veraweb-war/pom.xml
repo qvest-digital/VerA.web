@@ -171,6 +171,26 @@
 					<downloadJavadocs>true</downloadJavadocs>
 				</configuration>
 			</plugin>
+			
+			<!-- Add second source folder to distinguish new code from legacy code in sonar. -->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>add-source</goal>
+						</goals>
+						<configuration>
+							<sources>
+								<source>src/main/java2</source>
+							</sources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>			
+			
 		</plugins>
 	</build>
 
