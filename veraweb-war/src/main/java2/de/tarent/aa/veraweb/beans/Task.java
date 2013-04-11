@@ -20,6 +20,7 @@
 package de.tarent.aa.veraweb.beans;
 
 import java.sql.Timestamp;
+import java.util.Date;
 
 import de.tarent.octopus.PersonalConfigAA;
 import de.tarent.octopus.beans.BeanException;
@@ -299,7 +300,7 @@ public class Task extends AbstractHistoryBean {
     @Override
     public void verify() throws BeanException {
         if (enddate != null) {
-            if (enddate != null) {
+            if (enddate.before(new Date())) {
                 addError("Die Aufgabe kann nicht gespeichert werden. Das Enddatum muss in der Zukunft liegen.");
             } else if (startdate == null) {
                 addError("Die Aufgabe kann nicht gespeichert werden. Bitte geben Sie neben dem Enddatum auch ein "
@@ -308,7 +309,7 @@ public class Task extends AbstractHistoryBean {
                 addError("Die Aufgabe kann nicht gespeichert werden. Das Startdatum muss vor dem Enddatum liegen.");
             }
         }
-        if (title == null || title.length() == 0) {
+        if (title == null || title.trim().length() == 0) {
             addError("Die Aufgabe kann nicht gespeichert werden. Vergeben Sie bitte einen Titel.");
         }
     }
