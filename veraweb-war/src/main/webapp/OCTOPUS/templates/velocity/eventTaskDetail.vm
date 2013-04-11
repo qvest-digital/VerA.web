@@ -1,0 +1,88 @@
+#if($task && $task.id)
+#set($title = "Aufgabe bearbeiten: $!message.plain($event.shortname)")
+#parse("inc/header.vm")
+#else
+#set($title = "Neue Aufgabe erstellen")
+#parse("inc/header.vm")
+#end
+
+<form id="formlist" name="formlist" action="" method="POST">
+<input type="hidden" id="a" name="a" value="">
+<input type="hidden" id="modified" name="event-modified" value="false">
+<input type="hidden" name="saveevent" value="true">
+<input type="hidden" name="search" value="clear">
+
+<table class="tab" border="0" cellspacing="0" cellpadding="0"><tr>
+	<td class="tableft">&nbsp;</td>
+	<td class="tabinactiv"><a href="ShowEvent?id=$!event.id" class="tabinactiv">Allgemein</a></td>
+	<td class="tabinactiv"><a href="${paths.staticWeb}do/ShowEventDoctype?id=$!eventId" class="tabinactiv">Dokumententypen</a></td>
+	<td class="tabactiv"><a href="${paths.staticWeb}do/ShowEventTasks?id=$!eventId" class="tabinactiv">Aufgaben</a></td>
+	<td class="tabright">&nbsp;</td>
+</tr></table>
+
+#openContent()
+#openContentSection()
+
+
+#if($event.errors.size() > 0)
+<div style="width: 99%; background-color: #ffffff;">
+<div style="margin: 10px 0px 10px 0px; padding: 10px 10px 10px 10px; background-color: #ffffff; border: 2px solid #ff0000;">
+	$event.errors.get(0)<br>
+##	#foreach($error in $event.errors)
+##		$error<br>
+##	#end
+</div>
+</div>
+#elseif($listquestions && $listquestions.size() > 0)
+<div style="width: 99%; background-color: #ffffff;">
+<div style="margin: 10px 0px 10px 0px; padding: 10px 10px 10px 10px; background-color: #ffffff; border: 2px solid #00ff00;">
+	<strong>Bitte best&auml;tigen Sie das Speichern dieser Aufgabe</strong><br>
+	<table class="form" style="margin: 5px 0px 0px 0px;">
+	#foreach($quest in $listquestions.entrySet())
+		<tr>
+			<td class="value"><input type="hidden" name="$quest.key" value="true">$!message.plain($quest.value)</td>
+		</tr>
+		#set($save = true)
+	#end
+	</table><br>
+
+	#if($save)
+	<input type="submit" class="button" name="remove" value="Ja" title="Speichern"> &nbsp;
+	#end
+	<input type="button" class="cancel" name="cancel" value="Nein" onclick="window.location.href='ShowEvent?id=$!event.id';"> &nbsp;
+</div>
+</div>
+#end
+
+<input type="hidden" name="event-id" value="$!event.id">
+<input type="hidden" name="event-orgunit" value="$!event.orgunit">
+
+<table class="form">
+	<tr>
+		<td class="label"><label for="id">Aufgaben-ID:</label></td>
+		<td class="value"><input type="text" name="id" value="$!message.text($task.id)" id="id" class="id" readonly></td>
+	</tr>
+	
+	<!-- TODO add fields -->
+	
+</table>
+
+<div id="fixme" class="fixme1"><div class="fixme2"><div class="fixme3">
+
+#if($event && $event.id)
+	<input type="submit" name="save" value="Speichern" onclick="document.getElementById('formlist').action='SaveEvent';" #if($grants.mayWrite()) class="button" #else class="buttondisabled" disabled #end> &nbsp;
+	<input type="button" name="guestlist" class="button" value="Zur G&auml;steliste" onclick="window.location.href='ShowGuestList?search-event=$!event.id&start=0&selectNone=true';"> &nbsp;
+	<input type="button" name="cancel" class="button" value="Zur&uuml;ck" title="Zur Suche" onclick="window.location.href='${paths.staticWeb}do/ShowEventTasks?id=$!eventId';"> &nbsp;
+#else
+    <input type="submit" name="save" value="Speichern" onclick="document.getElementById('formlist').action='SaveEvent';" #if($grants.mayWrite()) class="button" #else class="buttondisabled" disabled #end> &nbsp;
+    <input type="button" name="cancel" class="button" value="Zur&uuml;ck" title="Zur Suche" onclick="if (checkModified()) { window.location.href='${paths.staticWeb}do/ShowEventTasks?id=$!eventId'; }"> &nbsp;
+#end
+
+</div></div></div>
+
+#closeContentSection()
+#closeContent()
+
+</form>
+
+#parse("inc/footer.vm")

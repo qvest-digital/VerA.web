@@ -1142,15 +1142,25 @@
 			<response type="velocity" name="eventTasks">
 				<param name="ContentType" value="text/html;charset=UTF-8"/>
 			</response>
+		</task>		
+		
+		<task name="CreateEventTask" access="public" groups="Writer">
+			<description>
+				Dieser Task erzeugt eine neue Aufgabe
+			</description>
+			<doTask name="Load"/>
+			<response type="velocity" name="eventTaskDetail">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
 		</task>
 		
-		<task name="EditEventTask" access="public" groups="StandardFieldsReader">
+		<task name="ShowEventTask" access="public" groups="StandardFieldsReader">
 			<description>
 				Dieser Task zeigt eine Aufgabe einer Veranstaltung an.
 			</description>
 			<doTask name="Load"/>
 			<action name="getTask" worker="EventTaskWorker" />
-			<response type="velocity" name="eventTaskEdit">
+			<response type="velocity" name="eventTaskDetail">
 				<param name="ContentType" value="text/html;charset=UTF-8"/>
 			</response>
 		</task>		
