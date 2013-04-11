@@ -8,7 +8,8 @@ import de.tarent.octopus.server.OctopusContext;
 /**
  * Functions needed by webapp to handle event tasks.
  */
-public class EventTaskWorker {
+public class EventTaskListWorker {
+	
 	
     public static final String[] INPUT_getTasks = {"id"};
 	public static final boolean[] MANDATORY_getTasks = {true};
@@ -27,22 +28,5 @@ public class EventTaskWorker {
 		return new ArrayList<Object>();
 	}
 
-    public static final String[] INPUT_getTask = {"eventId", "id"};
-	public static final boolean[] MANDATORY_getTask = {true, true};
-	public static final String OUTPUT_getTask = "task";
-
-	/**
-	 * Load and return task with the given id. 
-	 * 
-	 * @param oc
-	 * @param eventId
-	 * @param id
-	 * @return
-	 */
-	public Object getTask(OctopusContext oc, String eventId, String id) {
-		oc.setContent("eventId", eventId);
-		// TODO load and return task with given id
-		return "task1";
-	}	
 
 }
