@@ -18,12 +18,12 @@ import org.openqa.selenium.WebDriver;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import cucumber.runtime.ScenarioResult;
-import de.deutschepost.e42.dnsa.cucumber.env.GlobalConfig;
-import de.deutschepost.e42.dnsa.cucumber.env.StartAndShutdownHook;
-import de.deutschepost.e42.dnsa.cucumber.env.Utils;
-import de.deutschepost.e42.dnsa.cucumber.env.event.HandlerAfter;
-import de.deutschepost.e42.dnsa.cucumber.env.event.HandlerStop;
-import de.deutschepost.e42.dnsa.cucumber.formatter.RuntimeInfoCatcher;
+import de.tarent.aa.veraweb.cucumber.env.GlobalConfig;
+import de.tarent.aa.veraweb.cucumber.env.StartAndShutdownHook;
+import de.tarent.aa.veraweb.cucumber.env.Utils;
+import de.tarent.aa.veraweb.cucumber.env.event.HandlerAfter;
+import de.tarent.aa.veraweb.cucumber.env.event.HandlerStop;
+import de.tarent.aa.veraweb.cucumber.formatter.RuntimeInfoCatcher;
 
 /**
  * This class represents a hook. They take a screenshot after a step failed.
