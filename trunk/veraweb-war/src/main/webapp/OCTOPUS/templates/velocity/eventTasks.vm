@@ -1,11 +1,11 @@
 #set($title = "Aufgaben")
 #parse("inc/header.vm")
 
-<form id="formlist" name="formlist" action="TODO" method="POST" onsubmit="htmlWait();">
+<form id="formlist" name="formlist" action="ShowEventTask" method="POST" onsubmit="htmlWait();">
 
 <table class="tab" border="0" cellspacing="0" cellpadding="0"><tr>
 	<td class="tableft">&nbsp;</td>
-	<td class="tabinactiv"><a href="ShowEvent?id=$!event.id" class="tabinactiv">Allgemein</a></td>
+	<td class="tabinactiv"><a href="ShowEvent?id=$!eventId" class="tabinactiv">Allgemein</a></td>
 	<td class="tabinactiv"><a href="${paths.staticWeb}do/ShowEventDoctype?id=$!eventId" class="tabinactiv">Dokumententypen</a></td>
 	<td class="tabactiv"><a href="${paths.staticWeb}do/ShowEventTasks?id=$!eventId" class="tabinactiv">Aufgaben</a></td>
 	<td class="tabright">&nbsp;</td>
@@ -14,7 +14,7 @@
 #openContent()
 #openContentSection()
 
-<input type="hidden" name="id" value="$!event.id">
+<input type="hidden" name="eventId" value="$!eventId">
 
 <input type="hidden" name="start" value="">
 <input type="hidden" name="selectAll" value="false">
@@ -51,7 +51,7 @@
 		<td class="list">30%</td>
 		<td class="list">Klaus Meier, Fred Feuerstein</td>
 		<td class="list">3</td>
-		<td class="list"><a href="${paths.staticWeb}do/EditEventTask?eventId=$!eventId&id=5">bearbeiten</a></td>
+		<td class="list"><a href="${paths.staticWeb}do/ShowEventTask?eventId=$!eventId&id=5">bearbeiten</a></td>
 	</tr>
 </table>
 
@@ -64,7 +64,7 @@
 	#parse("inc/list-navi.vm")
 	#parse("inc/list-direct.vm")
 
-	<input type="submit" name="save" value="Neu" #if($grants.mayWrite()) class="button" #else class="buttondisabled" disabled #end> &nbsp;
+	<input type="button" name="new" value="Neu" #if($grants.mayWrite()) class="button" #else class="buttondisabled" disabled #end onclick="window.location.href='CreateEventTask';"> &nbsp;
 	<input type="submit" name="remove" value="L&ouml;schen" title="markierte Eintr&auml;ge entfernen" #if($grants.mayWrite()) class="button" #else class="buttondisabled" disabled #end> &nbsp;
 	<input type="button" name="guestlist" class="button" value="Zur G&auml;steliste" onclick="window.location.href='ShowGuestList?search-event=$!event.id&start=0&selectNone=true';"> &nbsp;
 	<input type="button" name="cancel" class="button" value="Zur&uuml;ck" title="Zur Suche" onclick="window.location.href='SearchEvent';"> &nbsp;
