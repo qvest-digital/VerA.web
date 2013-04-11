@@ -8,10 +8,10 @@ import javax.annotation.PostConstruct;
 import cucumber.annotation.After;
 import cucumber.annotation.Before;
 import cucumber.runtime.ScenarioResult;
-import de.deutschepost.e42.dnsa.cucumber.env.event.HandlerAfter;
-import de.deutschepost.e42.dnsa.cucumber.env.event.HandlerBefore;
-import de.deutschepost.e42.dnsa.cucumber.env.event.HandlerStart;
-import de.deutschepost.e42.dnsa.cucumber.env.event.HandlerStop;
+import de.tarent.aa.veraweb.cucumber.env.event.HandlerAfter;
+import de.tarent.aa.veraweb.cucumber.env.event.HandlerBefore;
+import de.tarent.aa.veraweb.cucumber.env.event.HandlerStart;
+import de.tarent.aa.veraweb.cucumber.env.event.HandlerStop;
 import de.tarent.cucumber.datamanager.DataManager;
 
 /**

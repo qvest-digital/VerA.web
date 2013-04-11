@@ -11,7 +11,8 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
-import de.deutschepost.e42.dnsa.selenium.RemoteWebDriverWithScreenshotFunctionality;
+import de.tarent.aa.veraweb.cucumber.env.hook.SeleniumCloser;
+import de.tarent.aa.veraweb.selenium.RemoteWebDriverWithScreenshotFunctionality;
 
 /**
  * Factory for Selenium's {@link WebDriver} instances.

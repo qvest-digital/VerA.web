@@ -6,10 +6,10 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import de.deutschepost.e42.dnsa.cucumber.env.GlobalConfig;
-import de.deutschepost.e42.dnsa.cucumber.env.StartAndShutdownHook;
-import de.deutschepost.e42.dnsa.cucumber.env.Utils;
-import de.deutschepost.e42.dnsa.cucumber.env.event.HandlerStop;
+import de.tarent.aa.veraweb.cucumber.env.GlobalConfig;
+import de.tarent.aa.veraweb.cucumber.env.StartAndShutdownHook;
+import de.tarent.aa.veraweb.cucumber.env.Utils;
+import de.tarent.aa.veraweb.cucumber.env.event.HandlerStop;
 
 /**
  * This class represents a hook. They zip all test results to a separate zip-file.
