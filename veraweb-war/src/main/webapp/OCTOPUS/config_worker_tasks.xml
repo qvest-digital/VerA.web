@@ -63,7 +63,8 @@
 		<worker name="EventListWorker" implementation="de.tarent.aa.veraweb.worker.EventListWorker" singleton="true" factory="reflected" />
 		<worker name="EventDetailWorker" implementation="de.tarent.aa.veraweb.worker.EventDetailWorker" singleton="true" factory="reflected" />
 		<worker name="EventDoctypeWorker" implementation="de.tarent.aa.veraweb.worker.EventDoctypeWorker" singleton="true" factory="reflected" />
-		<worker name="EventTaskWorker" implementation="de.tarent.aa.veraweb.worker.EventTaskWorker" singleton="true" factory="reflected" />
+		<worker name="EventTaskListWorker" implementation="de.tarent.aa.veraweb.worker.EventTaskListWorker" singleton="true" factory="reflected" />
+		<worker name="EventTaskDetailWorker" implementation="de.tarent.aa.veraweb.worker.EventTaskDetailWorker" singleton="true" factory="reflected" />
 		<worker name="GuestWorker" implementation="de.tarent.aa.veraweb.worker.GuestWorker" singleton="true" factory="reflected" />
 		<worker name="GuestListWorker" implementation="de.tarent.aa.veraweb.worker.GuestListWorker" singleton="true" factory="reflected" />
 		<worker name="GuestDetailWorker" implementation="de.tarent.aa.veraweb.worker.GuestDetailWorker" singleton="true" factory="reflected" />
@@ -1138,7 +1139,7 @@
 				Dieser Task zeigt die Aufgaben zu einer Veranstaltung an.
 			</description>
 			<doTask name="Load"/>
-			<action name="getTasks" worker="EventTaskWorker" />
+			<action name="getTasks" worker="EventTaskListWorker" />
 			<response type="velocity" name="eventTasks">
 				<param name="ContentType" value="text/html;charset=UTF-8"/>
 			</response>
@@ -1159,11 +1160,23 @@
 				Dieser Task zeigt eine Aufgabe einer Veranstaltung an.
 			</description>
 			<doTask name="Load"/>
-			<action name="getTask" worker="EventTaskWorker" />
+			<action name="getTask" worker="EventTaskDetailWorker" />
 			<response type="velocity" name="eventTaskDetail">
 				<param name="ContentType" value="text/html;charset=UTF-8"/>
 			</response>
 		</task>		
+		
+		<task name="SaveEventTask" access="public" groups="Writer">
+			<description>
+				Dieser Task speichert eine Aufgabe einer Veranstaltung.
+			</description>
+			<doTask name="Load"/>
+			<action name="getAll" worker="LocationWorker" />
+			<action name="saveDetail" worker="EventTaskDetailWorker" />
+			<response type="velocity" name="eventTaskDetail">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
 		
 		<!-- Umsetzung GAESTELISTE -->
 		<task name="ShowGuestList" access="public" groups="StandardFieldsReader">
