@@ -27,6 +27,7 @@ import de.tarent.aa.veraweb.beans.ChangeLogEntry;
 import de.tarent.aa.veraweb.beans.Event;
 import de.tarent.aa.veraweb.beans.Guest;
 import de.tarent.aa.veraweb.beans.Person;
+import de.tarent.aa.veraweb.beans.Task;
 import de.tarent.dblayer.sql.statement.Insert;
 import de.tarent.octopus.beans.Bean;
 import de.tarent.octopus.beans.BeanException;
@@ -200,14 +201,21 @@ public class BeanChangeLogger {
 			if ( o instanceof Guest )
 			{
 				o = this.database.getBean( "Person", ( ( Guest ) o ).person );
-			}
-			Person p = ( Person ) o;
-			if ( p != null )
-			{
-				result = p.lastname_a_e1; // lastname is mandatory, even for companies
-				if ( p.firstname_a_e1 != null )
+			} 
+			if ( o instanceof Person ) {
+				Person p = ( Person ) o;
+				if ( p != null )
 				{
-					result += ", " + p.firstname_a_e1; 
+					result = p.lastname_a_e1; // lastname is mandatory, even for companies
+					if ( p.firstname_a_e1 != null )
+					{
+						result += ", " + p.firstname_a_e1; 
+					}
+				}
+			} else if (o instanceof Task) {
+				Task task = (Task) o;
+				if (task != null) {
+					result = task.title; // title is mandatory
 				}
 			}
 		}
