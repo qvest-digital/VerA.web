@@ -18,7 +18,7 @@
 	<!--bean class="de.deutschepost.e42.dnsa.cucumber.env.hook.DatabaseInitializer" /-->
 
 	<!-- Initialize important hooks. -->
-	<bean class="de.tarent.aa.verawebcucumber.env.StartAndShutdownHook" scope="singleton"/>
+	<bean class="de.tarent.aa.veraweb.cucumber.env.StartAndShutdownHook" scope="singleton"/>
 
     <import resource="classpath*:/applicationContext.xml"/>
 </beans>
