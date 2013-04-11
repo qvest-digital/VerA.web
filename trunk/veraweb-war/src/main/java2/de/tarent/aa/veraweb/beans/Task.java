@@ -36,57 +36,57 @@ public class Task extends AbstractHistoryBean {
     /**
      * PK.
      */
-    private Integer id;
+	public Integer id;
 
     /**
      * Title.
      */
-    private String title;
+    public String title;
 
     /**
      * Description.
      */
-    private String description;
+    public String description;
 
     /**
      * Start date.
      */
-    private Timestamp startdate;
+    public Timestamp startdate;
 
     /**
      * End date.
      */
-    private Timestamp enddate;
+    public Timestamp enddate;
 
     /**
      * Degree of completion.
      */
-    private Integer degreeofcompletion;
+    public Integer degreeofcompletion;
 
     /**
      * Priority.
      */
-    private Integer priority;
+    public Integer priority;
 
     /**
      * Created by.
      */
-    private String createdby;
+    public String createdby;
 
     /**
      * Changed by.
      */
-    private String changedby;
+    public String changedby;
 
     /**
      * Created date.
      */
-    private Timestamp created;
+    public Timestamp created;
 
     /**
      * Changed date.
      */
-    private Timestamp changed;
+    public Timestamp changed;
 
     /**
      * Get id.
