@@ -6,13 +6,13 @@ CREATE SEQUENCE veraweb.ttask_pk_seq INCREMENT 1 MINVALUE 1 MAXVALUE 92233720368
 
 CREATE TABLE veraweb.ttask (
 	pk INTEGER DEFAULT nextval('ttask_pk_seq') NOT NULL,
-	fk_event Integer NOT NULL references tevent (pk),
 	title VARCHAR(100) NOT NULL,
 	description VARCHAR(1000),
 	startdate TIMESTAMP WITH TIME ZONE,
 	enddate TIMESTAMP WITH TIME ZONE,
 	degree_of_completion INTEGER DEFAULT 0,
 	priority INTEGER,
+	fk_event INTEGER NOT NULL REFERENCES tevent (pk),
 	fk_person INTEGER REFERENCES tperson (pk),
 	createdby VARCHAR(50),
 	changedby VARCHAR(50),
