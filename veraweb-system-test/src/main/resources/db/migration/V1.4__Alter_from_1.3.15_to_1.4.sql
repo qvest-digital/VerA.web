@@ -12,6 +12,7 @@ CREATE TABLE veraweb.ttask (
 	enddate TIMESTAMP WITH TIME ZONE,
 	degree_of_completion INTEGER DEFAULT 0,
 	priority INTEGER,
+	fk_event INTEGER NOT NULL REFERENCES tevent (pk),
 	fk_person INTEGER REFERENCES tperson (pk),
 	createdby VARCHAR(50),
 	changedby VARCHAR(50),
