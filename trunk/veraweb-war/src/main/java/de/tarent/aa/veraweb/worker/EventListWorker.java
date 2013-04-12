@@ -296,9 +296,9 @@ public class EventListWorker extends ListWorkerVeraWeb {
 		return result;
 	}
 
-    /** Octopus-Eingabe-Parameter f�r {@link #getSearch(OctopusContext)} */
+    /** Octopus-Eingabe-Parameter für {@link #getSearch(OctopusContext)} */
 	public static final String INPUT_getSearch[] = {};
-    /** Octopus-Ausgabe-Parameter f�r {@link #getSearch(OctopusContext)} */
+    /** Octopus-Ausgabe-Parameter für {@link #getSearch(OctopusContext)} */
 	public static final String OUTPUT_getSearch = "search";
 
 	/**
