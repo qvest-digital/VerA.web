@@ -79,26 +79,6 @@ public class GlobalConfig {
 	private String verawebBaseUrl;
 
 	/**
-	 * Host name of the database for application 'VerA.web'.
-	 */
-	private String verawebDbHost;
-
-	/**
-	 * User name of the database for application 'VerA.web'.
-	 */
-	private String verawebDbUsername;
-
-	/**
-	 * Password of the database for application 'VerA.web'.
-	 */
-	private String verawebDbPassword;
-
-	/**
-	 * Name of the database for application 'VerA.web'.
-	 */
-	private String verawebDbName;
-
-	/**
 	 * Constructor.
 	 */
 	public GlobalConfig() {
@@ -349,82 +329,6 @@ public class GlobalConfig {
 	 */
 	public void setVerawebBaseUrl(final String verawebBaseUrl) {
 		this.verawebBaseUrl = verawebBaseUrl;
-	}
-
-	/**
-	 * Get the {@link #verawebDbHost}.
-	 * 
-	 * @return the {@link #verawebDbHost}.
-	 */
-	public String getVerawebDbHost() {
-		return verawebDbHost;
-	}
-
-	/**
-	 * Set the {@link #verawebDbHost}.
-	 * 
-	 * @param verawebDbHost
-	 *            the {@link String} to set.
-	 */
-	public void setVerawebDbHost(final String verawebDbHost) {
-		this.verawebDbHost = verawebDbHost;
-	}
-
-	/**
-	 * Get the {@link #verawebDbUsername}.
-	 * 
-	 * @return the {@link #verawebDbUsername}.
-	 */
-	public String getVerawebDbUsername() {
-		return verawebDbUsername;
-	}
-
-	/**
-	 * Set the {@link #verawebDbUsername}.
-	 * 
-	 * @param dnsaDbUsername
-	 *            the {@link String} to set.
-	 */
-	public void setVerawebDbUsername(final String verawebDbUsername) {
-		this.verawebDbUsername = verawebDbUsername;
-	}
-
-	/**
-	 * Get the {@link #verawebDbPassword}.
-	 * 
-	 * @return the {@link #verawebDbPassword}.
-	 */
-	public String getVerawebDbPassword() {
-		return verawebDbPassword;
-	}
-
-	/**
-	 * Set the {@link #verawebDbPassword}.
-	 * 
-	 * @param dnsaDbPassword
-	 *            the {@link String} to set.
-	 */
-	public void setVerawebDbPassword(final String verawebDbPassword) {
-		this.verawebDbPassword = verawebDbPassword;
-	}
-
-	/**
-	 * Get the {@link #verawebDbName}.
-	 * 
-	 * @return the {@link #verawebDbName}.
-	 */
-	public String getVerawebDbName() {
-		return verawebDbName;
-	}
-
-	/**
-	 * Set the {@link #verawebDbName}.
-	 * 
-	 * @param dnsaDbName
-	 *            the {@link String} to set.
-	 */
-	public void setVerawebDbName(final String verawebDbName) {
-		this.verawebDbName = verawebDbName;
 	}
 
 }
