@@ -40,10 +40,6 @@
 		<property name="sleepUnit" value="SECONDS" />
 		<property name="newSessionPerFeature" value="${new.session.per.feature}" />
 		<property name="verawebBaseUrl" value="${veraweb.baseUrl}" />
-		<property name="verawebDbHost" value="${veraweb.db.host}" />
-		<property name="verawebDbUsername" value="${veraweb.db.username}" />
-		<property name="verawebDbPassword" value="${veraweb.db.username}" />
-		<property name="verawebDbName" value="${veraweb.db.name}" />
 	</bean>
 
 	<bean id="seleniumFactory" class="de.tarent.aa.veraweb.cucumber.env.SeleniumFactory" />
@@ -64,6 +60,36 @@
 
 	<!-- You can put your spring-code below! -->
 
+	<context:component-scan base-package="de.tarent.aa.veraweb" annotation-config="true" />
+
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="${veraweb.db.driver}" />
+		<property name="url" value="${veraweb.db.url}" />
+		<property name="username" value="${veraweb.db.username}" />
+		<property name="password" value="${veraweb.db.password}" />
+	</bean>
+
+	<bean class="com.googlecode.flyway.core.Flyway">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+
+	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="persistenceUnitName" value="jpa-persistence" />
+		<property name="jpaVendorAdapter">
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+				<property name="showSql" value="false" />
+				<property name="databasePlatform" value="org.hibernate.dialect.PostgreSQLDialect" />
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="entityManagerFactory" />
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<tx:annotation-driven transaction-manager="transactionManager" />
 
 
 </beans>
