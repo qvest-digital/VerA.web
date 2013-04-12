@@ -38,6 +38,11 @@ public class Task extends AbstractHistoryBean {
      */
 	public Integer id;
 
+	/**
+	 * fk_event.
+	 */
+	public Integer fk_event;
+	
     /**
      * Title.
      */
@@ -106,6 +111,27 @@ public class Task extends AbstractHistoryBean {
     public void setId(final Integer id) {
         this.id = id;
     }
+    
+    /**
+     * Get fk_event
+     * 
+     * @param eventId
+     * 
+     */
+    public Integer getEventId() {
+        return this.fk_event;
+    }
+    
+    /**
+     * Set fk_event
+     * 
+     * @param fk_event
+     * 
+     */
+    public void setEventId(final Integer eventId) {
+        this.fk_event = eventId;
+    }
+    
 
     /**
      * Get title.
