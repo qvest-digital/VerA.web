@@ -1,58 +1,67 @@
+# language: de
+
 Funktionalität: Als User mit entsprechenden Rechte möchte ich eine Aufgabenliste zu einer Veranstaltung sehen und aus dieser Sicht die Aufgabe löschen können. 
 
 Grundlage: Ich bin als Administrator angemeldet und bin in der Übersicht aller Veranstaltungen und habe mind. eine Veranstaltung angelegt
-Angenommen ich bin als Administrator angemeldet
-und ich bin in der Übersicht aller Veranstaltungen
-und ich habe mindestens eine Veranstaltung angelegt
+	Angenommen ich bin als Administrator angemeldet
+	 Und ich bin in der Übersicht aller Veranstaltungen
+	 Und ich habe mindestens eine Veranstaltung angelegt
+
 
 Szenario: Liste mit Aufgaben - Tabelle
-Angenommen ich betrachte eine Veranstaltung mit folgenden Aufgaben
-| ID	| Titel 	| Start 	 | Ende 		| Fertigstellungsgrad	| 	Verantwortliche						| Priorität | 
-| 1		| Aufgabe 1 | 12.04.2013 | 13.04.2013 	| 		10% 			| 	Fred Feuerstein						|	 1		|
-| 2		| Aufgabe 2 | 13.04.2013 | 14.04.2013 	| 		20% 			|	Barny Geröllheimer					|	 2		|
-| 3 	| Aufgabe 3 | 14.04.2013 | 15.04.2013 	| 		30% 			| 	Fred Feuerstein, Barny Geröllheimer	| 	 3		|
-| 4 	| Aufgabe 4 | 15.04.2013 | 16.04.2013 	| 		40% 			| 	Fred Feuerstein						| 	 4		|
-| 5 	| Aufgabe 5 | 16.04.2013 | 17.04.2013 	| 		50% 			| 	Barny Geröllheimer					|	 5 		|
-Wenn ich den Reiter "Aufgaben" aufrufe
-Dann sehe ich folgende Tabelle
-|  			| ID	| Titel			| Start 	 | Ende 		| Fertigstellungsgrad 	| Verantwortliche 	| Priorität | 
-| Checkbox 	| 1 	| Aufgabe 1 	| 12.04.2013 | 13.04.2013 	| 		10% 			| 							| 	1	 	|
-| Checkbox 	| 2 	| Aufgabe 2 	| 13.04.2013 | 14.04.2013 	| 		20% 			|							| 	2 		|
-| Checkbox 	| 3 	| Aufgabe 3 	| 14.04.2013 | 15.04.2013 	| 		30%			 	| 							|	3		|
-| Checkbox 	| 4 	| Aufgabe 4 	| 15.04.2013 | 16.04.2013 	| 		40%				|							| 	4		|
-| Checkbox 	| 5 	| Aufgabe 5 	| 16.04.2013 | 17.04.2013 	| 		50% 			|							|	5 		|
+	Angenommen es existieren die Personen:
+		|  Vorname	| Nachname 		 | 
+		|  Valle 	| but 			|				  
+	 Und ich betrachte eine Veranstaltung mit folgenden Aufgaben:
+		| ID	| Titel 	| Start 	 | Ende 		| Fertigstellungsgrad	| 	Verantwortliche						| Priorität | 
+		| 1		| Aufgabe 1 | 12.04.2013 | 13.04.2013 	| 		10% 			| 	Valle								|	 1		|
+		| 2		| Aufgabe 2 | 13.04.2013 | 14.04.2013 	| 		20% 			|	Barny Geröllheimer					|	 2		|
+		| 3 	| Aufgabe 3 | 14.04.2013 | 15.04.2013 	| 		30% 			| 	Fred Feuerstein, Barny Geröllheimer	| 	 3		|
+		| 4 	| Aufgabe 4 | 15.04.2013 | 16.04.2013 	| 		40% 			| 	Fred Feuerstein						| 	 4		|
+		| 5 	| Aufgabe 5 | 16.04.2013 | 17.04.2013 	| 		50% 			| 	Barny Geröllheimer					|	 5 		|
+	Wenn ich den Reiter "Aufgaben" aufrufe
+	Dann sehe ich folgende Tabelle:
+		|  			| ID	| Titel			| Start 	 | Ende 		| Fertigstellungsgrad 	| Verantwortliche 	| Priorität | 
+		| Checkbox 	| 1 	| Aufgabe 1 	| 12.04.2013 | 13.04.2013 	| 		10% 			| 							| 	1	 	|
+		| Checkbox 	| 2 	| Aufgabe 2 	| 13.04.2013 | 14.04.2013 	| 		20% 			|							| 	2 		|
+		| Checkbox 	| 3 	| Aufgabe 3 	| 14.04.2013 | 15.04.2013 	| 		30%			 	| 							|	3		|
+		| Checkbox 	| 4 	| Aufgabe 4 	| 15.04.2013 | 16.04.2013 	| 		40%				|							| 	4		|
+		| Checkbox 	| 5 	| Aufgabe 5 	| 16.04.2013 | 17.04.2013 	| 		50% 			|							|	5 		|
+
 
 Szenario: Ich bearbeite eine vorhandene Aufgabe
-Angenommen ich betrachte eine Veranstaltung mit folgenden Aufgaben
-| ID	| Titel 	| Start 	 | Ende 		| Fertigstellungsgrad	| Verantwortliche			| Priorität | 
-| 1		| Aufgabe 1 | 12.04.2013 | 13.04.2013 	| 		10% 			| 							|	 1		|
-| 2		| Aufgabe 2 | 13.04.2013 | 14.04.2013 	| 		20% 			|							|	 2		|
-Und ich rufe den Reiter "Aufgaben" auf
-Wenn ich auf den ersten Eintrag der Liste klicke
-Dann sehe ich die Detailansicht der Aufgabe
-und ich sehe folgende Felder
-| ID	| Titel 	| Beschreibung				|	Start 	 	| um	|	Ende 			| um 	|Fertigstellungsgrad	| Verantwortliche			| Priorität | 
-| 1		| Aufgabe 1 | Beschreibung Aufgabe 1	|	12.04.2013 	| 		|	13.04.2013 		| 		|		10% 			| 							|	 1		|
+	Angenommen ich betrachte eine Veranstaltung mit folgenden Aufgaben
+		| ID	| Titel 	| Start 	 | Ende 		| Fertigstellungsgrad	| Verantwortliche			| Priorität | 
+		| 1		| Aufgabe 1 | 12.04.2013 | 13.04.2013 	| 		10% 			| 							|	 1		|
+		| 2		| Aufgabe 2 | 13.04.2013 | 14.04.2013 	| 		20% 			|							|	 2		|
+	Und ich rufe den Reiter "Aufgaben" auf
+	Wenn ich auf den ersten Eintrag der Liste klicke
+	Dann sehe ich die Detailansicht der Aufgabe
+	 Und ich sehe folgende Felder
+		| ID	| Titel 	| Beschreibung				|	Start 	 	| um (Start) |	Ende 			| umEnde 	|Fertigstellungsgrad	| Verantwortliche			| Priorität | 
+		| 1		| Aufgabe 1 | Beschreibung Aufgabe 1	|	12.04.2013 	| 		 |	13.04.2013 		| 		|		10% 			| 							|	 1		|
 
 
 Szenario: Ich prüfe den Button Neu
-Angenommen ich betrachte eine Veranstaltung mit folgenden Aufgaben
-| ID 	| Titel 	| Start 	 | Ende			| Fertigstellungsgrad 	| Verantwortliche 	| Priorität | 
-| 1 	| Aufgabe 1 | 12.04.2013 | 13.04.2013 	| 		10%				| 							| 	1		|
-Und ich rufe den Reiter "Aufgaben" auf
-Wenn ich auf "Neu" klicke
-Dann sehe ich "Neue Aufgabe erstellen"
-Und ich sehe folgende Felder
-| Aufgaben-ID:	| Kurzbezeichnung:	|	Beschreibung:	|	Beginn:	|	um	|	Ende:	|	um	|	Verantwortliche:	|	Fertigstellung:	|	Priorität:	|
+	Angenommen ich betrachte eine Veranstaltung mit folgenden Aufgaben
+	| ID 	| Titel 	| Start 	 | Ende			| Fertigstellungsgrad 	| Verantwortliche 	| Priorität | 
+	| 1 	| Aufgabe 1 | 12.04.2013 | 13.04.2013 	| 		10%				| 							| 	1		|
+	Und ich rufe den Reiter "Aufgaben" auf
+	Wenn ich auf "Neu" klicke
+	Dann sehe ich "Neue Aufgabe erstellen"
+	 Und ich sehe folgende Felder
+		| Aufgaben-ID:	| Kurzbezeichnung:	|	Beschreibung:	|	Beginn:	|	um	|	Ende:	|	um	|	Verantwortliche:	|	Fertigstellung:	|	Priorität:	|
+
 
 Szenario: Beim Löschen einer Aufgabe erwarte ich eine Löschbestätigung
-Angenommen ich betrachte eine Veranstaltung mit folgenden Aufgaben
-| ID 	| Titel 	| Start	 	 | Ende 		| Fertigstellungsgrad 	| Verantwortliche 	| Priorität	| 
-| 1 	| Aufgabe 1 | 12.04.2013 | 13.04.2013 	| 		10% 			|					| 	1		|
-Und ich rufe den Reiter "Aufgaben" auf
-Und ich wähle die Checkbox zur Aufgabe aus
-Wenn ich auf "Löschen" klicke
-Dann sehe ich eine Rückfrage zur Bestätigung des Löschens einer Aufgabe
+	Angenommen ich betrachte eine Veranstaltung mit folgenden Aufgaben
+		| ID 	| Titel 	| Start	 	 | Ende 		| Fertigstellungsgrad 	| Verantwortliche 	| Priorität	| 
+		| 1 	| Aufgabe 1 | 12.04.2013 | 13.04.2013 	| 		10% 			|					| 	1		|
+	Und ich rufe den Reiter "Aufgaben" auf
+	Und ich wähle die Checkbox zur Aufgabe aus
+	Wenn ich auf "Löschen" klicke
+	Dann sehe ich eine Rückfrage zur Bestätigung des Löschens einer Aufgabe
+
 
 Szenario:  Löschen einer Aufgabe nur nach Bestätigung einer Rückfrage möglich
 Angenommen ich betrachte eine Veranstaltung mit folgenden Aufgaben
