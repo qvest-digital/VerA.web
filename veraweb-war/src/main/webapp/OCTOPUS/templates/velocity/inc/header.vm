@@ -58,7 +58,7 @@
     		<td class="logo2">&nbsp;</td>
 		</tr><tr>
     		<td class="headerkennung"><img src="${paths.staticWeb}images/veraweb-head02.png" width="150" height="30" alt="Veraweb"/></td>
-    		<td class="headertitle"><strong class="headertitle">$!title</strong></td>
+    		<td class="headertitle" id="header.title"><strong class="headertitle">$!title</strong></td>
 		</tr></table>
 		
 		<table class="content"><tr>
