@@ -48,3 +48,29 @@ Abschließend müssen die Sequenzen aktualisiert werden; dann kann der PostgreSQ
 
  veraweb=> SELECT veraweb.serv_build_sequences();
  veraweb=> \quit
+
+=== Apache-Konfiguration ===
+
+Zunächst muß eine SSL-Konfiguration durchgeführt werden, welche site-spezifisch ist; idealerweise im Debian wheezy Standard-SSL-vhost:
+ $ sudo a2ensite default-ssl
+
+Dann muß der Nicht-SSL-vhost auf den SSL-vhost umleiten:
+ RedirectMatch 301 . https://veraweb.lan.tarent.de/veraweb/
+
+Der SSL-vhost muß auch eine Weiterleitung erhalten, allerdings nur konditional:
+ RedirectMatch 301 ^/*$ https://veraweb.lan.tarent.de/veraweb/
+
+Desweiteren muß mod_jk dazu angehalten werden, mit dem Tomcat zu sprechen; die Debian-Standardeinstellungen reichen schon fast, bis auf:
+ JkMount /?* ajp13_worker
+
+=== Tomcat-Konfiguration ===
+
+Die '''veraweb.war''' muß ins Verzeichnis '''/var/lib/tomcat7/webapps/''' kopiert werden:
+ $ cd /var/lib/tomcat7/webapps
+ $ sudo cp /path/to/veraweb-*.war veraweb.war
+
+Der durch Debian bereits gestartete Tomcat ist so lieb, die für uns sofort zu entpacken, sodaß wir LDAP konfigurieren können. Ein '''lynx http://127.0.0.1:8080/veraweb/''' sollte bereits die Loginmaske zeigen.
+
+=== LDAP-Konfiguration ===
+
+In '''/var/lib/tomcat7/webapps/veraweb/OCTOPUS/config_ldap_access.xml''' findet sich die entsprechende Konfiguration; die Parameter '''ldapurl''', '''ldapbasedn''', '''ldaprelative''' sind mindestens anzupassen; '''ldappwd''' ist bei anonymem Bind nicht nötig.
