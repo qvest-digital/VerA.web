@@ -1,6 +1,5 @@
 package de.tarent.aa.veraweb.db.entity;
 
-import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -21,7 +20,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "torgunit")
-public class Orgunit implements Serializable {
+public class Orgunit extends AbstractEntity {
 
     /**
      * Generated Serial id.
@@ -42,15 +41,32 @@ public class Orgunit implements Serializable {
      */
     @Column(name = "unitname")
     private String unitname;
-    
+
+    /**
+     * Set of users in this organization unit.
+     */
     @OneToMany(mappedBy = "orgunit", fetch = FetchType.LAZY)
     private Set<User> users;
+
+    /**
+     * Set of events in this organization unit.
+     */
+    @OneToMany(mappedBy = "orgunit", fetch = FetchType.LAZY)
+    private Set<Event> events;
+    
+    /**
+     * Set of events in this organization unit.
+     */
+    @OneToMany(mappedBy = "orgunit", fetch = FetchType.LAZY)
+    private Set<Person> persons;
 
     /**
      * Default constructor.
      */
     public Orgunit() {
         users = new HashSet<User>();
+        events = new HashSet<Event>();
+        persons = new HashSet<Person>();
     }
 
     /**
@@ -108,5 +124,43 @@ public class Orgunit implements Serializable {
      */
     public void setUsers(Set<User> users) {
         this.users = users;
+    }
+
+    /**
+     * Get events.
+     * 
+     * @return the events
+     */
+    public Set<Event> getEvents() {
+        return events;
+    }
+
+    /**
+     * 
+     * Set events.
+     * 
+     * @param events
+     *            the events to set
+     */
+    public void setEvents(Set<Event> events) {
+        this.events = events;
+    }
+
+    /**
+     * Get persons.
+     * 
+     * @return the persons
+     */
+    public Set<Person> getPersons() {
+        return persons;
+    }
+
+    /**
+     * Set persons.
+     * 
+     * @param persons the persons to set
+     */
+    public void setPersons(Set<Person> persons) {
+        this.persons = persons;
     }
 }

@@ -1,7 +1,5 @@
 package de.tarent.aa.veraweb.db.entity;
 
-import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -21,7 +19,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "tuser")
-public class User implements Serializable {
+public class User extends AbstractEntity {
 
     public static final String DEFAULT_VERAWEB_ADMIN = "verawebadmin";
 
@@ -51,12 +49,12 @@ public class User implements Serializable {
     @Column(name = "role")
     private Integer role;
 
-     /**
+    /**
      * User's assigned organization unit.
      */
-     @ManyToOne(fetch = FetchType.LAZY)
-     @JoinColumn(name = "fk_orgunit", referencedColumnName = "pk")
-     private Orgunit orgunit;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "fk_orgunit", referencedColumnName = "pk")
+    private Orgunit orgunit;
 
     /**
      * Default constructor.
