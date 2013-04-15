@@ -12,3 +12,39 @@ Kurzzusammenfassung Schnellinstallation VerA.web
 * Im [https://evolvis.org/frs/?group_id=17 File Release System] alle zu einer Version, z.B. das veraweb 1.3.15 Release, zugehörigen Dateien herunterladen
 
 == Installation ==
+
+Als normaler User mit sudo(8)-Rechten werden die folgenden Schritte ausgeführt.
+
+=== Datenbanksetup ===
+
+Wechsel zum PostgreSQL-Admin und Anlegen von VerA.web-Benutzer und Datenbank:
+
+ $ sudo -u postgres createuser --no-superuser --no-createdb --no-createrole --pwprompt veraweb
+ $ sudo -u postgres createdb --encoding=UTF-8 --owner=veraweb veraweb
+
+Als DB-User „veraweb“ die Funktion zum Anlegen des Datenbankschemas importieren und dann ausführen:
+
+ $ psql -U veraweb -h 127.0.0.1 -W veraweb
+ veraweb=> \i veraweb-schema.sql
+ veraweb=> SELECT serv_verawebschema(1);
+
+Die Ausgabe von vielen Warnungen, daß Indizēs implizit angelegt werden, kann ignoriert werden; am Ende sollte die Ausgabe ähnlich der folgenden sein:
+
+ PL/pgSQL function "serv_verawebschema" line 2415 at SQL statement
+       serv_verawebschema       
+ -------------------------------
+  2013-04-15 12:45:10.358873+02
+ (1 row)
+
+Nun sind die Standardstammdaten zu importieren:
+
+ veraweb=> \i veraweb-stammdaten.sql
+
+Als nächstes muß mindestens ein Nutzer mit administrativen Rechten angelegt werden; als Benutzername soll der LDAP Unix-Username (hier: vnnnnn) verwendet werden.
+
+ veraweb=> INSERT INTO tuser (username, role) VALUES ('vnnnnn', 5);
+
+Abschließend müssen die Sequenzen aktualisiert werden; dann kann der PostgreSQL-Client beendet werden:
+
+ veraweb=> SELECT veraweb.serv_build_sequences();
+ veraweb=> \quit
