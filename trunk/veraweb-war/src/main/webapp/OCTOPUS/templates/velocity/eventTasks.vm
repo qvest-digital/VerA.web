@@ -37,24 +37,22 @@
 		<th class="list">Status</th>
 		<th class="list">Verantwortliche</th>
 		<th class="list">Priorit&auml;t</th>
-		<th class="list"></th>
 	</tr>
 	<tr class="list2">
 #foreach($bean in $list)
 		<td class="list">			
 			<input type="checkbox" name="add-select" value="true" class="checkbox">
 		</td>
-		<td class="list">$bean.id</td>
-		<td class="list">$bean.title</td>
-		<td class="list">$bean.startdate</td>
-		<td class="list">$bean.enddate</td>
-		<td class="list">$bean.degreeofcompletion</td>
-		<td class="list">$bean.person</td>
-		<td class="list">$bean.priority</td>
-		<td class="list"><a href="${paths.staticWeb}do/ShowEventTask?taskId=$!taskId&id=$bean.id">bearbeiten</a></td>
+		<td class="list">$!bean.id</td>
+		<td class="list">$!bean.title</td>
+		<td class="list">$!bean.startdate</td>
+		<td class="list">$!bean.enddate</td>
+		<td class="list">$!bean.degreeofcompletion</td>
+		<td class="list">$!bean.person</td>
+		<td class="list">$!bean.priority</td>
 	</tr>
-</table>
 #end
+</table>
 
 #if ($listparam.count == 0)
 	<br>Keine Daten gefunden.
