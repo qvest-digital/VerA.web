@@ -19,5 +19,5 @@ Szenario: Ich melde mich mit falschem Passwort in der Rolle als Administrator an
 Szenario: Ich melde mich erfolgreich in der Rolle als Administrator an
 	Angenommen ich bin nicht angemeldet
 	Wenn ich "gültige Anmeldedaten" eingebe
-		Und ich auf "Anmelden" klicke
+	 Und ich auf "Anmelden" klicke
 	Dann sehe ich die Meldung "Sie wurden erfolgreich mit der Rolle administrator am System angemeldet."
