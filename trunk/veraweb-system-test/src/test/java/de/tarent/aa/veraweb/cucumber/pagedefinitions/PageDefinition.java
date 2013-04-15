@@ -21,6 +21,7 @@ public enum PageDefinition {
 	 * Anmeldungsseite 
 	 */
 	ANMELDUNGSSEITE("ShowLogin",
+	        new ElementDefinition("Header-Titel", "header.title"),
 			new ElementDefinition("Benutzername-Feld", "input.username"),
 			new ElementDefinition("Passwort-Feld", "input.password"),
 			new ElementDefinition("In Vertretung Anmelden-Checkbox", "input.loginasproxy", false),
@@ -28,6 +29,19 @@ public enum PageDefinition {
 			new ElementDefinition("FelderLeeren-Button", "button.clearFields"),
 			new ElementDefinition("Infobox-Titel", "text.infoTitle"),
 			new ElementDefinition("Infobox-Text", "text.infoText")),
+			
+	/** 
+     * Anmeldungsseite 
+     */
+    ABMELDUNGSSEITE("logout",
+            new ElementDefinition("Header-Titel", "header.title"),
+            new ElementDefinition("Benutzername-Feld", "input.username"),
+            new ElementDefinition("Passwort-Feld", "input.password"),
+            new ElementDefinition("In Vertretung Anmelden-Checkbox", "input.loginasproxy", false),
+            new ElementDefinition("Anmelden-Button", "button.login"),
+            new ElementDefinition("FelderLeeren-Button", "button.clearFields"),
+            new ElementDefinition("Infobox-Titel", "text.infoTitle"),
+            new ElementDefinition("Infobox-Text", "text.infoText")),
 
 	/** 
 	 * Aufgabenübersichtsseite 
