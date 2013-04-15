@@ -71,7 +71,7 @@ Die '''veraweb.war''' muß ins Verzeichnis '''/var/lib/tomcat7/webapps/''' kopie
 
 Der durch Debian bereits gestartete Tomcat ist so lieb, die für uns sofort zu entpacken, sodaß wir LDAP konfigurieren können. Ein '''lynx http://127.0.0.1:8080/veraweb/''' sollte bereits die Loginmaske zeigen.
 
-Damit der Tomcat auch vom Apachen angesprochen werden kann, muß in '''/etc/tomcat7/server.xml''' noch folgender Abschnitt durch '<!--' und '-->' auskommentiert werden:
+Damit der Tomcat auch vom Apachen angesprochen werden kann, muß in '''/etc/tomcat7/server.xml''' noch folgender Abschnitt <nowiki>durch '<!--' und '-->' auskommentiert</nowiki> werden:
      <Connector port="8080" protocol="HTTP/1.1"  
                 connectionTimeout="20000"
                 URIEncoding="UTF-8"
