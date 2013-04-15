@@ -43,7 +43,7 @@
         <new.session.per.feature>false</new.session.per.feature>
         <cucumber.args>--tags ~@wip</cucumber.args>
         
-        <veraweb.baseUrl>http://veraweb.lan.tarent.de:8080/verweb/do/</veraweb.baseUrl>
+        <veraweb.baseUrl>http://veraweb.lan.tarent.de/verweb/do/</veraweb.baseUrl>
         <veraweb.db.driver>org.postgresql.Driver</veraweb.db.driver>
         <veraweb.db.url>jdbc:postgresql://veraweb.lan.tarent.de:5432/veraweb</veraweb.db.url>
         <veraweb.db.username>veraweb</veraweb.db.username>

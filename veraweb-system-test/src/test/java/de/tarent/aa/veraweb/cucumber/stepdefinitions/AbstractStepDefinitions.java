@@ -150,7 +150,7 @@ public abstract class AbstractStepDefinitions {
 	protected void whenNavigateToPage(PageDefinition pageDefinition) {
 		if (pageDefinition.url == null) {
 			throw new IllegalArgumentException("The given pageDefinition " + pageDefinition
-					+ " has no URL an can therefor not be accessed directly!");
+					+ " has no URL an can therefore not be accessed directly!");
 		}
 		driver.get(config.getVerawebBaseUrl() + "/" + pageDefinition.url);
 
