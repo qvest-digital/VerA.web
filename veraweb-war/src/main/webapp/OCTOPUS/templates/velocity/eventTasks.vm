@@ -24,6 +24,7 @@
 
 #foreach($bean in $list)
 <input type="hidden" name="list" value="$bean.id">
+
 #end
 
 
@@ -38,18 +39,23 @@
 		<th class="list">Verantwortliche</th>
 		<th class="list">Priorit&auml;t</th>
 	</tr>
-	<tr class="list2">
-#foreach($bean in $list)
+#foreach($bean in $list)	
+	#if ($velocityCount % 2 == 0)
+		#set($class = "list1")
+	#else
+		#set($class = "list2")
+	#end
+	<tr class="$class" style="height: 20px;" onmouseover="onMouseOverList(this);" onmouseout="onMouseOutList(this);">
 		<td class="list">			
 			<input type="checkbox" name="add-select" value="true" class="checkbox">
 		</td>
-		<td class="list">$!bean.id</td>
-		<td class="list">$!bean.title</td>
-		<td class="list">$!bean.startdate</td>
-		<td class="list">$!bean.enddate</td>
-		<td class="list">$!bean.degreeofcompletion</td>
-		<td class="list">$!bean.person</td>
-		<td class="list">$!bean.priority</td>
+		<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowEventTask?id=$!{bean.id}&eventId=$!{bean.eventId}';">$!bean.id</td>
+		<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowEventTask?id=$!{bean.id}&eventId=$!{bean.eventId};'">$!bean.title</td>
+		<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowEventTask?id=$!{bean.id}&eventId=$!{bean.eventId}';">$!bean.startdate</td>
+		<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowEventTask?id=$!{bean.id}&eventId=$!{bean.eventId}';">$!bean.enddate</td>
+		<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowEventTask?id=$!{bean.id}&eventId=$!{bean.eventId}';">$!bean.degreeofcompletion</td>
+		<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowEventTask?id=$!{bean.id}&eventId=$!{bean.eventId}';">$!bean.person</td>
+		<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowEventTask?id=$!{bean.id}&eventId=$!{bean.eventId}';">$!bean.priority</td>
 	</tr>
 #end
 </table>
@@ -65,7 +71,6 @@
 
 	<input type="button" name="new" value="Neu" #if($grants.mayWrite()) class="button" #else class="buttondisabled" disabled #end onclick="window.location.href='CreateEventTask?eventId=$!id';"> &nbsp;
 	<input type="submit" name="remove" value="L&ouml;schen" title="markierte Eintr&auml;ge entfernen" #if($grants.mayWrite()) class="button" #else class="buttondisabled" disabled #end> &nbsp;
-	<input type="button" name="guestlist" class="button" value="Zur G&auml;steliste" onclick="window.location.href='ShowGuestList?search-event=$!id&start=0&selectNone=true';"> &nbsp;
 	<input type="button" name="cancel" class="button" value="Zur&uuml;ck" title="Zur Suche" onclick="window.location.href='SearchEvent';"> &nbsp;
 
 </div></div></div>
