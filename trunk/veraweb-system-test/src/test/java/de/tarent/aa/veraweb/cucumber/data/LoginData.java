@@ -4,9 +4,9 @@ import de.tarent.aa.veraweb.cucumber.utils.NameUtil;
 
 public enum LoginData {
 
-    GUELTIGE_ANMELDEDATEN("system", "manager"),
-    UNGUELTIGE_ANMELDEDATEN_FALSCHER_BENUTZER("unknown", "manager"),
-    UNGUELTIGE_ANMELDEDATEN_FALSCHES_PASSWORT("system", "unknown");
+    GUELTIGE_ANMELDEDATEN("administrator", "mySecret2$"),
+    UNGUELTIGE_ANMELDEDATEN_FALSCHER_BENUTZER("falscherUser", "mySecret2$"),
+    UNGUELTIGE_ANMELDEDATEN_FALSCHES_PASSWORT("administrator", "falschesPasswort");
 
     public final String user;
 
