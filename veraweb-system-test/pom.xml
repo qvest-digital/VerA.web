@@ -361,7 +361,7 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
-	            <veraweb.baseUrl>http://localhost:8080/verweb/do/</veraweb.baseUrl>
+	            <veraweb.baseUrl>http://localhost:8080/veraweb/do/</veraweb.baseUrl>
 		        <veraweb.db.url>jdbc:postgresql://localhost:5432/veraweb</veraweb.db.url>
 		        <selenium.mode>FF</selenium.mode>
                 <!-- selenium.server.host>localhost</selenium.server.host-->
