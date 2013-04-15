@@ -55,6 +55,7 @@
 #end
 
 <input type="hidden" name="task-id" value="$!task.id">
+<input type="hidden" name="event-id" value="$!eventId">
 
 <table class="form">
 	<tr>
