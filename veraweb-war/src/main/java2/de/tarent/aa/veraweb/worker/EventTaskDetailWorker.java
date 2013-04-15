@@ -13,7 +13,7 @@ import de.tarent.octopus.beans.Database;
 import de.tarent.octopus.beans.Request;
 import de.tarent.octopus.beans.TransactionContext;
 import de.tarent.octopus.beans.veraweb.BeanChangeLogger;
-import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
+import de.tarent.octopus.beans.veraweb.DatabaseVeraWebFactory;
 import de.tarent.octopus.beans.veraweb.RequestVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
 
@@ -21,6 +21,16 @@ import de.tarent.octopus.server.OctopusContext;
  * Functions needed by webapp to handle event tasks.
  */
 public class EventTaskDetailWorker {
+	
+	private final DatabaseVeraWebFactory databaseVeraWebFactory;
+
+	public EventTaskDetailWorker(DatabaseVeraWebFactory databaseVeraWebFactory) {
+		this.databaseVeraWebFactory = databaseVeraWebFactory;
+	}
+	
+	public EventTaskDetailWorker() {
+		this(new DatabaseVeraWebFactory());
+	}
 
 	public static final String[] INPUT_getTask = { "eventId", "id" };
 	public static final boolean[] MANDATORY_getTask = { true, false };
@@ -56,7 +66,7 @@ public class EventTaskDetailWorker {
 			return;
 
 		Request request = new RequestVeraWeb(cntx);
-		Database database = new DatabaseVeraWeb(cntx);
+		Database database = databaseVeraWebFactory.createDatabaseVeraWeb(cntx);
 		TransactionContext context = database.getTransactionContext();
 
 		try {
