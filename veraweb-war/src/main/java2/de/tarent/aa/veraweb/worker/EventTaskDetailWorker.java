@@ -21,7 +21,7 @@ import de.tarent.octopus.server.OctopusContext;
  * Functions needed by webapp to handle event tasks.
  */
 public class EventTaskDetailWorker {
-	
+
 	private final DatabaseVeraWebFactory databaseVeraWebFactory;
 
 	public EventTaskDetailWorker(DatabaseVeraWebFactory databaseVeraWebFactory) {
@@ -31,11 +31,14 @@ public class EventTaskDetailWorker {
 	public EventTaskDetailWorker() {
 		this(new DatabaseVeraWebFactory());
 	}
-
+	
 	public static final String[] INPUT_getTask = { "eventId", "id" };
 	public static final boolean[] MANDATORY_getTask = { true, false };
 	public static final String OUTPUT_getTask = "task";
 
+	
+	public static final String[] INPUT_setEventTaskId = {"eventId"};
+	public static final String OUTPUT_setEventTaskId = "eventId";
 	/**
 	 * Load and return task with the given id.
 	 * 
@@ -44,14 +47,27 @@ public class EventTaskDetailWorker {
 	 * @param id
 	 * @return
 	 */
-	public Task getTask(OctopusContext oc, String eventId, String id) {
-		oc.setContent("eventId", eventId);
-		if (id == null) {
-			return null;
-		} else {
-			// TODO load and return task with given id
-			return new Task();
-		}
+    public Task getTask(OctopusContext oc, String eventId, String id) {
+        oc.setContent("eventId", eventId);
+        if (id == null) {
+            return null;
+        } else {
+            // TODO load and return task with given id
+            return new Task();
+        }
+    }
+	
+	/**
+	 * Assigns the eventId from the task list to a new created task to link
+	 * the task to the event
+	 * 
+	 * @param cntx
+	 * @param eventId
+	 * @return eventId
+	 */
+	public String setEventTaskId(OctopusContext cntx, String eventId) {
+	    cntx.setContent("eventId", eventId);
+	    return eventId;
 	}
 
 
@@ -64,10 +80,10 @@ public class EventTaskDetailWorker {
 			throws BeanException, IOException {
 		if (savetask == null || !savetask.booleanValue())
 			return;
-
+		   
 		Request request = new RequestVeraWeb(cntx);
 		Database database = databaseVeraWebFactory.createDatabaseVeraWeb(cntx);
-		TransactionContext context = database.getTransactionContext();
+		TransactionContext context = database.getTransactionContext();	  		
 
 		try {
 			Task task = (Task) cntx.contentAsObject("task");
@@ -95,6 +111,11 @@ public class EventTaskDetailWorker {
 					
 					Insert insert = database.getInsert(task);
 					insert.insert("pk", task.getId());
+					
+					String strEventId = (String) cntx.getContextField("event-id");
+					Integer eventId = Integer.valueOf(strEventId);
+					insert.insert("fk_event", eventId);
+					
 					if (!((PersonalConfigAA) cntx.personalConfig()).getGrants()
 							.mayReadRemarkFields()) {
 						insert.remove("note");
