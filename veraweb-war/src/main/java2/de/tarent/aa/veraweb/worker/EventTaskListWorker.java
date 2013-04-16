@@ -42,6 +42,7 @@ public class EventTaskListWorker extends ListWorkerVeraWeb {
     public List<Task> showList(OctopusContext cntx) throws IOException, BeanException {
         List<Task> list = super.showList(cntx);
 
+        cntx.setContent("id", cntx.requestAsString("id"));
         
         Database database = new DatabaseVeraWeb(cntx);
         
