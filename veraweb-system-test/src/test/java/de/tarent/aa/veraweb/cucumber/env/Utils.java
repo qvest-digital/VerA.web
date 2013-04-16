@@ -10,6 +10,8 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
 import org.apache.commons.codec.binary.Base64;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
 import com.thoughtworks.selenium.Selenium;
 
@@ -21,6 +23,8 @@ import com.thoughtworks.selenium.Selenium;
  * 
  */
 public class Utils {
+    
+    public static DateTimeFormatter DEFAULT_DATETIME_FORMATTER = DateTimeFormat.forPattern("dd.MM.yyyy");
 
     /**
      * Generate output path.
