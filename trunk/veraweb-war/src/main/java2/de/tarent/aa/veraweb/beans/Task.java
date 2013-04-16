@@ -69,6 +69,17 @@ public class Task extends AbstractHistoryBean {
     public Integer degreeofcompletion;
 
     /**
+     * Person
+     */
+    public Integer personId;
+    
+    
+    /**
+     * Name of person
+     */
+    public String personName;
+    
+    /**
      * Priority.
      */
     public Integer priority;
@@ -227,7 +238,44 @@ public class Task extends AbstractHistoryBean {
     public void setDegreeofcompletion(final Integer degreeofcompletion) {
         this.degreeofcompletion = degreeofcompletion;
     }
+    
+    
+    /**
+     * Get person responsible.
+     * 
+     * @return 
+     */
+    public Integer getPersonId() {
+        return this.personId;
+    }
+    
+    /**
+     * Set person id
+     * 
+     * @param personId
+     */
+    public void setPersonId(final Integer personId) {
+        this.personId = personId;
+    }
 
+    /**
+     * Get person name
+     * 
+     * @return personName
+     */
+    public String getPersonName() {
+        return this.personName;
+    }
+    
+    /**
+     * Set person name
+     * 
+     * @param personName
+     */
+    public void setPersonName(String personName) {
+        this.personName = personName;
+    }
+    
     /**
      * Get priority.
      * 

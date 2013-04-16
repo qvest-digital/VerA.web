@@ -1139,7 +1139,6 @@
 				Dieser Task zeigt die Aufgaben zu einer Veranstaltung an.
 			</description>
 			<doTask name="Load"/>
-			<action name="getTasks" worker="EventTaskListWorker" />
 			<action name="showList" worker="EventTaskListWorker" />
 			<response type="velocity" name="eventTasks">
 				<param name="ContentType" value="text/html;charset=UTF-8"/>

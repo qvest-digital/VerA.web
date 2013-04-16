@@ -36,7 +36,7 @@
 		<th class="list">Start</th>
 		<th class="list">Ende</th>
 		<th class="list">Status</th>
-		<th class="list">Verantwortliche</th>
+		<th class="list">Verantwortlicher</th>
 		<th class="list">Priorit&auml;t</th>
 	</tr>
 #foreach($bean in $list)	
@@ -51,10 +51,10 @@
 		</td>
 		<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowEventTask?id=$!{bean.id}&eventId=$!{bean.eventId}'">$!bean.id</td>
 		<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowEventTask?id=$!{bean.id}&eventId=$!{bean.eventId}'">$!bean.title</td>
-		<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowEventTask?id=$!{bean.id}&eventId=$!{bean.eventId}'">$!bean.startdate</td>
-		<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowEventTask?id=$!{bean.id}&eventId=$!{bean.eventId}'">$!bean.enddate</td>
-		<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowEventTask?id=$!{bean.id}&eventId=$!{bean.eventId}'">$!bean.degreeofcompletion</td>
-		<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowEventTask?id=$!{bean.id}&eventId=$!{bean.eventId}'">$!bean.person</td>
+		<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowEventTask?id=$!{bean.id}&eventId=$!{bean.eventId}'">$!message.date("DATE_TIME",$bean.startdate)</td>
+		<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowEventTask?id=$!{bean.id}&eventId=$!{bean.eventId}'">$!message.date("DATE_TIME",$bean.enddate)</td>
+		<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowEventTask?id=$!{bean.id}&eventId=$!{bean.eventId}'">$!bean.degreeofcompletion%</td>
+		<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowEventTask?id=$!{bean.id}&eventId=$!{bean.eventId}'">$!bean.personName</td>
 		<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowEventTask?id=$!{bean.id}&eventId=$!{bean.eventId}'">$!bean.priority</td>
 	</tr>
 #end
