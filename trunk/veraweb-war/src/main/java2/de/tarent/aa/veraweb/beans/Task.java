@@ -41,7 +41,7 @@ public class Task extends AbstractHistoryBean {
 	/**
 	 * fk_event.
 	 */
-	public Integer fk_event;
+	public Integer eventId;
 	
     /**
      * Title.
@@ -119,7 +119,7 @@ public class Task extends AbstractHistoryBean {
      * 
      */
     public Integer getEventId() {
-        return this.fk_event;
+        return this.eventId;
     }
     
     /**
@@ -129,7 +129,7 @@ public class Task extends AbstractHistoryBean {
      * 
      */
     public void setEventId(final Integer eventId) {
-        this.fk_event = eventId;
+        this.eventId = eventId;
     }
     
 
