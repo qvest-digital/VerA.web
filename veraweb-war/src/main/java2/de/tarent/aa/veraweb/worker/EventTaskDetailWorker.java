@@ -96,7 +96,7 @@ public class EventTaskDetailWorker {
 						cntx.requestAsString("task-endtime"), task.getErrors());
 			}
 
-			Event oldEvent = (Event) database.getBean("Task", task.getId(),
+			Task oldTask = (Task) database.getBean("Task", task.getId(),
 					context);
 
 			/** Veranstaltung speichern */
@@ -130,7 +130,7 @@ public class EventTaskDetailWorker {
 					context.execute(update);
 
 					clogger.logUpdate(cntx.personalConfig().getLoginname(),
-							oldEvent, task);
+							oldTask, task);
 				}
 			} else {
 				cntx.setStatus("notsaved");
