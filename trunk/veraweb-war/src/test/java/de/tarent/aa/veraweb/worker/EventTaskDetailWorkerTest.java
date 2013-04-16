@@ -67,12 +67,12 @@ public class EventTaskDetailWorkerTest extends TestCase {
 		t.setEnddate(new Timestamp(DATE_FORMAT.parse("26.12.2911 09:34").getTime()));
 		t.setChanged(new Timestamp(new Date().getTime()));
 		t.setModified(true);
-		
+
 		// verify that exact one insert of the task has been executed
 		verify(context).execute(insert);
 		verify(dbv).getInsert(argThat(new TaskArgumentMarcher(t)));
 	}
-	
+
 	private final static SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd.MM.yyyy HH:mm");
 
 	private static void putTaskInContextRequest(OctopusContext cntx, String id, String title, String startdate,
@@ -95,29 +95,28 @@ public class EventTaskDetailWorkerTest extends TestCase {
 		doReturn(starttime).when(cntx).requestAsString("task-starttime");
 		doReturn(endtime).when(cntx).requestAsString("task-endtime");
 	}
-	
+
 	class TaskArgumentMarcher extends ArgumentMatcher<Bean> {
 
 		private final Task task;
-		
+
 		public TaskArgumentMarcher(Task task) {
 			this.task = task;
 		}
-		
+
 		@Override
 		public boolean matches(Object taskObj) {
 			if (!(taskObj instanceof Task)) {
 				return false;
 			}
 			Task tsk = (Task) taskObj;
+			// changed time is not equal but should be similar => assume max 1 second difference
 			Timestamp b = task.getChanged();
 			Timestamp a = tsk.getChanged();
-			if (a.getTime() < b.getTime() -1000) {
+			if (Math.abs(a.getTime() - b.getTime()) > 1000) {
 				return false;
 			}
-			if (a.getTime() > b.getTime()+1000) {
-				return false;
-			}
+			// temporary remove changed property for equality check
 			tsk.setChanged(null);
 			task.setChanged(null);
 			boolean equal = tsk.equals(task);
@@ -126,5 +125,5 @@ public class EventTaskDetailWorkerTest extends TestCase {
 			return equal;
 		}
 	}
-	
+
 }
