@@ -16,7 +16,7 @@ import cucumber.junit.Cucumber;
 features = { "classpath:features/" },
 
 // this code will be run only scenarios which annotated with "@wip"
-tags = { "~@wip" },
+tags = { "@wip" },
 
 // DO NOT REMOVE THIS FORMATTER!
 format = { "de.tarent.aa.veraweb.cucumber.formatter.RuntimeInfoCatcher" })
