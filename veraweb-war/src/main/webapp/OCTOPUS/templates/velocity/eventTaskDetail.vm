@@ -6,8 +6,12 @@
 #parse("inc/header.vm")
 #end
 
+#if(!$eventId)
+#set($eventId = $task.eventId)
+#end
+
 <form id="formlist" name="formlist" action="" method="POST">
-<input type="hidden" id="a" name="a" value="">
+<input type="hidden" id="a" name="a" value="taskReferencePerson">
 <input type="hidden" id="modified" name="task-modified" value="false">
 <input type="hidden" name="savetask" value="true">
 <input type="hidden" name="search" value="clear">
@@ -130,7 +134,7 @@
 				<td class="value" style="width: 6px;">&nbsp;</td>
 				<td class="value" style="width: 130px;">
 					#if($grants.mayWrite())
-					<a href="javascript:void(0)">Suchen</a> |
+					<a href="SetReferencePersonToEventTask?a=taskReferencePerson">Suchen</a> |
 					<a href="javascript:removeHost(); setModified(); document.getElementById('formlist').action='SaveEvent'; document.getElementById('formlist').submit();">Entfernen</a>
 					#else
 					Suchen |
