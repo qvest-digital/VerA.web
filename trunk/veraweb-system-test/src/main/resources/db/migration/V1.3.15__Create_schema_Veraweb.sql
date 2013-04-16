@@ -50,7 +50,7 @@ CREATE TABLE veraweb.tcategorie (
     flags INTEGER DEFAULT 0,
     rank INTEGER DEFAULT 0,
     CONSTRAINT tcategorie_pkey PRIMARY KEY (pk)
-);
+) WITH OIDS;
 
 /* ---------------------------------------------------------------------- */
 /* Add table "tchangelog"                                                 */
@@ -66,7 +66,7 @@ CREATE TABLE veraweb.tchangelog (
     attributes TEXT  NOT NULL,
     date TIMESTAMP WITH TIME ZONE,
     CONSTRAINT tchangelog_pkey PRIMARY KEY (pk)
-);
+) WITH OIDS;
 
 CREATE INDEX tchangelog_date_index ON veraweb.tchangelog (date);
 CREATE INDEX tchangelog_username_index ON veraweb.tchangelog (username);
@@ -82,7 +82,7 @@ CREATE TABLE veraweb.tcolor (
     locale INTEGER DEFAULT 0  NOT NULL,
     rgb INTEGER  NOT NULL,
     CONSTRAINT tcolor_pkey PRIMARY KEY (pk)
-);
+) WITH OIDS;
 
 /* ---------------------------------------------------------------------- */
 /* Add table "tconfig"                                                    */
@@ -93,7 +93,7 @@ CREATE TABLE veraweb.tconfig (
     cname VARCHAR(100)  NOT NULL,
     cvalue VARCHAR(300)  NOT NULL,
     CONSTRAINT tconfig_pkey PRIMARY KEY (pk)
-);
+) WITH OIDS;
 
 /* ---------------------------------------------------------------------- */
 /* Add table "tdoctype"                                                   */
@@ -111,7 +111,7 @@ CREATE TABLE veraweb.tdoctype (
     host INTEGER DEFAULT 1  NOT NULL,
     format VARCHAR(20)  NOT NULL,
     CONSTRAINT tdoctype_pkey PRIMARY KEY (pk)
-);
+) WITH OIDS;
 
 /* ---------------------------------------------------------------------- */
 /* Add table "tevent"                                                     */
@@ -136,7 +136,7 @@ CREATE TABLE veraweb.tevent (
     created TIMESTAMP WITH TIME ZONE,
     changed TIMESTAMP WITH TIME ZONE,
     CONSTRAINT tevent_pkey PRIMARY KEY (pk)
-);
+) WITH OIDS;
 
 /* ---------------------------------------------------------------------- */
 /* Add table "tevent_doctype"                                             */
@@ -147,7 +147,7 @@ CREATE TABLE veraweb.tevent_doctype (
     fk_event INTEGER DEFAULT 0  NOT NULL,
     fk_doctype INTEGER DEFAULT 0  NOT NULL,
     CONSTRAINT tevent_doctype_pkey PRIMARY KEY (pk)
-);
+) WITH OIDS;
 
 /* ---------------------------------------------------------------------- */
 /* Add table "tfunction"                                                  */
@@ -200,7 +200,7 @@ CREATE TABLE veraweb.tguest (
     created TIMESTAMP WITH TIME ZONE,
     changed TIMESTAMP WITH TIME ZONE,
     CONSTRAINT tguest_pkey PRIMARY KEY (pk)
-);
+) WITH OIDS;
 
 CREATE INDEX tguest_fk_person_index ON veraweb.tguest (fk_person);
 
@@ -246,7 +246,7 @@ CREATE TABLE veraweb.tguest_doctype (
     pobox VARCHAR(50),
     poboxzipcode VARCHAR(50),
     CONSTRAINT tguest_doctype_pkey PRIMARY KEY (pk)
-);
+) WITH OIDS;
 
 CREATE INDEX tguest_doctype_fk_index ON veraweb.tguest_doctype (fk_guest,fk_doctype);
 
@@ -266,7 +266,7 @@ CREATE TABLE veraweb.timport (
     importsource VARCHAR(250),
     importformat VARCHAR(250),
     CONSTRAINT timport_pkey PRIMARY KEY (pk)
-);
+) WITH OIDS;
 
 /* ---------------------------------------------------------------------- */
 /* Add table "timportperson"                                              */
@@ -490,7 +490,7 @@ CREATE TABLE veraweb.timportperson (
     textfield_3 TEXT,
     pk INTEGER DEFAULT nextval(('veraweb.timportperson_pk_seq'))  NOT NULL,
     CONSTRAINT timportperson_pkey PRIMARY KEY (pk)
-);
+) WITH OIDS;
 
 /* ---------------------------------------------------------------------- */
 /* Add table "timportperson_categorie"                                    */
@@ -503,7 +503,7 @@ CREATE TABLE veraweb.timportperson_categorie (
     flags INTEGER DEFAULT 0,
     rank INTEGER DEFAULT 0,
     CONSTRAINT timportperson_categorie_pkey PRIMARY KEY (pk)
-);
+) WITH OIDS;
 
 /* ---------------------------------------------------------------------- */
 /* Add table "timportperson_doctype"                                      */
@@ -517,7 +517,7 @@ CREATE TABLE veraweb.timportperson_doctype (
     textfield_p TEXT,
     textjoin VARCHAR(50),
     CONSTRAINT timportperson_doctype_pkey PRIMARY KEY (pk)
-);
+) WITH OIDS;
 
 /* ---------------------------------------------------------------------- */
 /* Add table "tlocation"                                                  */
@@ -528,7 +528,7 @@ CREATE TABLE veraweb.tlocation (
     fk_orgunit INTEGER DEFAULT 0,
     locationname VARCHAR(200)  NOT NULL,
     CONSTRAINT tlocation_pkey PRIMARY KEY (pk)
-);
+) WITH OIDS;
 
 /* ---------------------------------------------------------------------- */
 /* Add table "tmaildraft"                                                 */
@@ -544,7 +544,7 @@ CREATE TABLE veraweb.tmaildraft (
     changedby VARCHAR(50),
     changed TIMESTAMP WITH TIME ZONE,
     CONSTRAINT tmaildraft_pkey PRIMARY KEY (pk)
-);
+) WITH OIDS;
 
 /* ---------------------------------------------------------------------- */
 /* Add table "tmailinglist"                                               */
@@ -559,7 +559,7 @@ CREATE TABLE veraweb.tmailinglist (
     createdby VARCHAR(50),
     fk_user INTEGER,
     CONSTRAINT tmailinglist_pkey PRIMARY KEY (pk)
-);
+) WITH OIDS;
 
 /* ---------------------------------------------------------------------- */
 /* Add table "tmailoutbox"                                                */
@@ -575,7 +575,7 @@ CREATE TABLE veraweb.tmailoutbox (
     lastupdate TIMESTAMP WITH TIME ZONE,
     errortext VARCHAR(200),
     CONSTRAINT tmailoutbox_pkey PRIMARY KEY (pk)
-);
+) WITH OIDS;
 
 /* ---------------------------------------------------------------------- */
 /* Add table "torgunit"                                                   */
@@ -587,7 +587,7 @@ CREATE TABLE veraweb.torgunit (
     folderxman VARCHAR(100),
     fk_folderxman INTEGER,
     CONSTRAINT torgunit_pkey PRIMARY KEY (pk)
-);
+) WITH OIDS;
 
 /* ---------------------------------------------------------------------- */
 /* Add table "tperson_categorie"                                          */
@@ -599,7 +599,7 @@ CREATE TABLE veraweb.tperson_categorie (
     fk_categorie INTEGER DEFAULT 0  NOT NULL,
     rank INTEGER DEFAULT 0,
     CONSTRAINT tperson_categorie_pkey PRIMARY KEY (pk)
-);
+) WITH OIDS;
 
 /* ---------------------------------------------------------------------- */
 /* Add table "tperson_doctype"                                            */
@@ -615,7 +615,7 @@ CREATE TABLE veraweb.tperson_doctype (
     textfield_p TEXT,
     textjoin VARCHAR(50),
     CONSTRAINT tperson_doctype_pkey PRIMARY KEY (pk)
-);
+) WITH OIDS;
 
 CREATE INDEX tperson_doctype_fk_person_index ON veraweb.tperson_doctype (fk_person);
 
@@ -629,7 +629,7 @@ CREATE TABLE veraweb.tperson_mailinglist (
     fk_mailinglist INTEGER DEFAULT 0  NOT NULL,
     address VARCHAR(250),
     CONSTRAINT tperson_mailinglist_pkey PRIMARY KEY (pk)
-);
+) WITH OIDS;
 
 /* ---------------------------------------------------------------------- */
 /* Add table "tresult"                                                    */
@@ -639,7 +639,7 @@ CREATE TABLE veraweb.tresult (
     id INTEGER DEFAULT nextval('tresult_id_seq')  NOT NULL,
     value VARCHAR(1000),
     CONSTRAINT tresult_pkey PRIMARY KEY (id)
-);
+) WITH OIDS;
 
 COMMENT ON TABLE veraweb.tresult IS 'VerA.Web: System-Tabelle';
 
@@ -652,7 +652,7 @@ CREATE TABLE veraweb.tsalutation (
     salutation VARCHAR(100)  NOT NULL,
     gender VARCHAR(1),
     CONSTRAINT tsalutation_pkey PRIMARY KEY (pk)
-);
+) WITH OIDS;
 
 /* ---------------------------------------------------------------------- */
 /* Add table "tsalutation_doctype"                                        */
@@ -664,7 +664,7 @@ CREATE TABLE veraweb.tsalutation_doctype (
     fk_doctype INTEGER DEFAULT 0  NOT NULL,
     salutation VARCHAR(100),
     CONSTRAINT tsalutation_doctype_pkey PRIMARY KEY (pk)
-);
+) WITH OIDS;
 
 /* ---------------------------------------------------------------------- */
 /* Add table "tupdate"                                                    */
@@ -675,7 +675,7 @@ CREATE TABLE veraweb.tupdate (
     date VARCHAR(50),
     value VARCHAR(1000),
     CONSTRAINT tupdate_pkey PRIMARY KEY (id)
-);
+) WITH OIDS;
 
 COMMENT ON TABLE veraweb.tupdate IS 'VerA.Web: System-Tabelle';
 
@@ -689,7 +689,7 @@ CREATE TABLE veraweb.tuser (
     username VARCHAR(100)  NOT NULL,
     role INTEGER,
     CONSTRAINT tuser_pkey PRIMARY KEY (pk)
-);
+) WITH OIDS;
 
 /* ---------------------------------------------------------------------- */
 /* Add table "tuser_config"                                               */
@@ -701,7 +701,7 @@ CREATE TABLE veraweb.tuser_config (
     name VARCHAR(100)  NOT NULL,
     value VARCHAR(300)  NOT NULL,
     CONSTRAINT tuser_config_pkey PRIMARY KEY (pk)
-);
+) WITH OIDS;
 
 /* ---------------------------------------------------------------------- */
 /* Add table "tworkarea"                                                  */
@@ -712,7 +712,7 @@ CREATE TABLE veraweb.tworkarea (
     name VARCHAR(250)  NOT NULL,
     fk_orgunit INTEGER,
     CONSTRAINT tworkarea_pkey PRIMARY KEY (pk)
-);
+) WITH OIDS;
 
 /* ---------------------------------------------------------------------- */
 /* Add table "tperson"                                                    */
@@ -926,7 +926,7 @@ CREATE TABLE veraweb.tperson (
     mail_c_e3 VARCHAR(250),
     url_c_e3 VARCHAR(250),
     CONSTRAINT tperson_pkey PRIMARY KEY (pk)
-);
+) WITH OIDS;
 
 CREATE INDEX tperson_bothnames_a_e1_index ON veraweb.tperson (lastname_a_e1,firstname_a_e1);
 
@@ -965,7 +965,7 @@ CREATE TABLE veraweb.tproxy (
     validfrom TIMESTAMP WITH TIME ZONE,
     validtill TIMESTAMP WITH TIME ZONE,
     CONSTRAINT tproxy_pkey PRIMARY KEY (pk)
-);
+) WITH OIDS;
 
 /* ---------------------------------------------------------------------- */
 /* Foreign key constraints                                                */
@@ -1059,3 +1059,11 @@ LANGUAGE 'plpgsql' IMMUTABLE;
 /* ---------------------------------------------------------------------- */
 
 INSERT INTO veraweb.tconfig (cvalue, cname) VALUES ('2013-02-21', 'SCHEMA_VERSION');
+
+
+/* ---------------------------------------------------------------------- */
+/* Set default workarea                                                   */
+/* ---------------------------------------------------------------------- */
+
+INSERT INTO veraweb.tworkarea (name) VALUES('Kein');
+UPDATE veraweb.tworkarea SET pk = 0 WHERE name = 'Kein';
