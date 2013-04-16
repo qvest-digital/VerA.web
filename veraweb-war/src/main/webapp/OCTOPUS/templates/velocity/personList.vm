@@ -16,6 +16,9 @@
 #elseif($action == "duplicateSearch")
 #set($title = "Duplikatsuche")
 #parse("inc/header.vm")
+#elseif($action == "taskReferencePerson")
+#set($title = "Verantwortlichen f&uuml;r Aufgabe ausw&auml;hlen")
+#parse("inc/header.vm")
 #else
 #if(($listerrors && $listerrors.size() > 0) || ($listquestions && $listquestions.size() > 0))
 #set($title = "Person l&ouml;schen")
@@ -286,6 +289,25 @@
 		<td class="list" style="cursor: pointer;" onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($bean.city_a_e1)</td>
 		#if($userConfig.personListState)<td class="list" style="cursor: pointer;" onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($bean.state_a_e1)</td>#end
 	</tr>
+	#elseif($action == "taskReferencePerson")
+		#if($taskId && $taskId != "")
+			#set($clickUrl = "ShowEventTask?refPersId=$!{bean.id}&id=$!taskId");
+		#else
+			#set($clickUrl = "CreateEventTask?refPersId=$!{bean.id}&eventId=$!eventId");
+		#end
+			
+		<tr class="$class" style="height: 22px;" onmouseover="onMouseOverList(this);" onmouseout="onMouseOutList(this);">
+			<td class="list" style="cursor: pointer;" onclick="window.location.href='$clickUrl';"><input type="hidden" name="${bean.id}-id" value="$bean.id">$!{bean.id}</td>
+			<td class="list" style="cursor: pointer;" onclick="window.location.href='$clickUrl';">$!message.plain($bean.lastname_a_e1)</td>
+			<td class="list" style="cursor: pointer;" onclick="window.location.href='$clickUrl';">$!message.plain($bean.firstname_a_e1)</td>
+			<td class="list" style="cursor: pointer;" onclick="window.location.href='$clickUrl';">$!message.plain($bean.function_a_e1)</td>
+			<td class="list" style="cursor: pointer;" onclick="window.location.href='$clickUrl';">$!message.plain($bean.company_a_e1)</td>
+			<td class="list" style="cursor: pointer;" onclick="window.location.href='$clickUrl';">$!message.plain($bean.street_a_e1)</td>
+			<td class="list" style="cursor: pointer;" onclick="window.location.href='$clickUrl';">$!message.plain($bean.zipcode_a_e1)</td>
+			<td class="list" style="cursor: pointer;" onclick="window.location.href='$clickUrl';">$!message.plain($bean.city_a_e1)</td>
+			#if($userConfig.personListState)<td class="list" style="cursor: pointer;" onclick="window.location.href='$clickUrl';">$!message.plain($bean.state_a_e1)</td>#end
+		</tr>
+		
 	#elseif($action == "duplicateSearch" )
 
 	## modified for duplicate search as per change request for version 1.2.0

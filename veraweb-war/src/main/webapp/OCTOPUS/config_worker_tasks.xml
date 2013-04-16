@@ -1178,6 +1178,23 @@
 				<param name="ContentType" value="text/html;charset=UTF-8"/>
 			</response>
 		</task>
+				
+		<task name="SetReferencePersonToEventTask" access="public" groups="Writer">
+			<description>
+				Suchmaske zur Auswahl einen verantwortliche Person für eine Veranstaltungsaufgabe.
+			</description>
+			
+			<action name="copyTaskAndEventId" worker="EventTaskDetailWorker" />
+			<doTask name="ShowPersonSearch"/>
+		</task>		
+		
+		<task name="SetReferencePersonToEventTaskList" access="public" groups="Writer">
+			<description>
+				Auswahl einen verantwortliche Person für eine Veranstaltungsaufgabe.
+			</description>
+			<action name="copyTaskAndEventId" worker="EventTaskDetailWorker" />
+			<doTask name="SearchPerson"/>
+		</task>
 		
 		<!-- Umsetzung GAESTELISTE -->
 		<task name="ShowGuestList" access="public" groups="StandardFieldsReader">
