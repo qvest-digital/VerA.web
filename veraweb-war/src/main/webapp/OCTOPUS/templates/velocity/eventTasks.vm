@@ -49,13 +49,13 @@
 		<td class="list">			
 			<input type="checkbox" name="add-select" value="true" class="checkbox">
 		</td>
-		<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowEventTask?id=$!{bean.id}&eventId=$!{bean.eventId}';">$!bean.id</td>
-		<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowEventTask?id=$!{bean.id}&eventId=$!{bean.eventId};'">$!bean.title</td>
-		<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowEventTask?id=$!{bean.id}&eventId=$!{bean.eventId}';">$!bean.startdate</td>
-		<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowEventTask?id=$!{bean.id}&eventId=$!{bean.eventId}';">$!bean.enddate</td>
-		<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowEventTask?id=$!{bean.id}&eventId=$!{bean.eventId}';">$!bean.degreeofcompletion</td>
-		<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowEventTask?id=$!{bean.id}&eventId=$!{bean.eventId}';">$!bean.person</td>
-		<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowEventTask?id=$!{bean.id}&eventId=$!{bean.eventId}';">$!bean.priority</td>
+		<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowEventTask?id=$!{bean.id}&eventId=$!{bean.eventId}'">$!bean.id</td>
+		<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowEventTask?id=$!{bean.id}&eventId=$!{bean.eventId}'">$!bean.title</td>
+		<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowEventTask?id=$!{bean.id}&eventId=$!{bean.eventId}'">$!bean.startdate</td>
+		<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowEventTask?id=$!{bean.id}&eventId=$!{bean.eventId}'">$!bean.enddate</td>
+		<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowEventTask?id=$!{bean.id}&eventId=$!{bean.eventId}'">$!bean.degreeofcompletion</td>
+		<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowEventTask?id=$!{bean.id}&eventId=$!{bean.eventId}'">$!bean.person</td>
+		<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowEventTask?id=$!{bean.id}&eventId=$!{bean.eventId}'">$!bean.priority</td>
 	</tr>
 #end
 </table>
