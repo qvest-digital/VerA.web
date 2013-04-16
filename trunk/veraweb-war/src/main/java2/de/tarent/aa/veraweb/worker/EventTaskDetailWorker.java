@@ -113,8 +113,10 @@ public class EventTaskDetailWorker {
 					insert.insert("pk", task.getId());
 					
 					String strEventId = (String) cntx.getContextField("event-id");
-					Integer eventId = strEventId == null ? null : Integer.valueOf(strEventId);
-					insert.insert("fk_event", eventId);
+					if (strEventId != null && strEventId.trim().length() > 0) {
+						Integer eventId = Integer.valueOf(strEventId);
+						insert.insert("fk_event", eventId);
+					}
 					
 					if (!((PersonalConfigAA) cntx.personalConfig()).getGrants()
 							.mayReadRemarkFields()) {
