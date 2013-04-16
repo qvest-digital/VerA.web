@@ -4,7 +4,7 @@ import de.tarent.aa.veraweb.cucumber.utils.NameUtil;
 
 public enum AufgabeData {
 	
-	AUFGABE_DETAILANSICHT("Text_Kurzbezeichnung", "Text_Beschreibung", "12.04.2013", "13.04.2013", "10%", "1");
+	AUFGABE_DETAILANSICHT("Aufgabe 1", "Text_Beschreibung", "12.04.2013", "13.04.2013", "10%", "1");
 	
 	public final String kurzbezeichnung;
 	
