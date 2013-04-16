@@ -4,7 +4,73 @@ import de.tarent.aa.veraweb.cucumber.utils.NameUtil;
 
 public enum AufgabeData {
 	
-	AUFGABE_DETAILANSICHT("Aufgabe 1", "Text_Beschreibung", "12.04.2013", "13.04.2013", "10%", "1");
+	AUFGABE_DETAILANSICHT("Aufgabe 1", "Beschreibung 1", "12.04.2013", "13.04.2013", "10", "1"),
+	TITEL_MIT_LEEREM_PFLICHTFELD("", "Beschreibung 1", "12.04.2013", "13.04.2013", "10", "1"),
+	TITEL_MIT_EINHUNDERTNEUN_ZEICHEN_TEXT("Dies ist ein Text mit 109 Zeichen. Dies ist ein Text mit 109 Zeichen. Dies ist ein Text mit 109 Zeichen Ende.","Text_Beschreibung", "12.04.2013", "13.04.2013", "10", "1"),
+	TITEL_MIT_HUNDERT_ZEICHEN_TEXT("Dies ist ein Text mit 100 Zeichen. Dies ist ein Text mit 100 Zeichen. Dies ist ein Text mit 100Ende.", "Text_Beschreibung", "12.04.2013", "13.04.2013", "10", "1"),
+	TITEL_MIT_NEUNUNDNEUNZIG_ZEICHEN_TEXT("Dies ist ein Text mit 99 Zeichen. Dies ist ein Text mit 99 Zeichen. Dies ist ein Text mit 99 ZEnde.","Text_Beschreibung", "12.04.2013", "13.04.2013", "10", "1" ),
+	TITEL_MIT_SONDERZEICHEN("Dies ist ein Text mit 100 Zeichen und Sonderzeichen !“§$%&/()=?<*+->. Dies ist ein Text mit 100 Zei.","Text_Beschreibung", "12.04.2013", "13.04.2013", "10", "1"),
+	TITEL_MIT_JAVASCRIPT("<script type=\"text/javascript\">alert(\"huhu\")</script>","Text_Beschreibung", "12.04.2013", "13.04.2013", "10", "1"),
+	BESCHREIBUNG_MIT_LEEREM_FELD("Aufgabe 1", "", "12.04.2013", "13.04.2013", "10", "1"),
+	BESCHREIBUNG_MIT_NEUNHUNDERTNEUNUNDNEUNZIG_ZEICHEN_TEXT("Aufgabe 1", 
+			"Dies ist ein Text mit 999 Zeichen. Dies ist ein Text mit 999 Zeichen. " +
+			"Dies ist ein Text mit 999 Zeichen. Dies ist ein Text mit 999 Zeichen. " +
+			"Dies ist ein Text mit 999 Zeichen. Dies ist ein Text mit 999 Zeichen. " +
+			"Dies ist ein Text mit 999 Zeichen. Dies ist ein Text mit 999 Zeichen. " +
+			"Dies ist ein Text mit 999 Zeichen. Dies ist ein Text mit 999 Zeichen. " +
+			"Dies ist ein Text mit 999 Zeichen. Dies ist ein Text mit 999 Zeichen. " +
+			"Dies ist ein Text mit 999 Zeichen. Dies ist ein Text mit 999 Zeichen. " +
+			"Dies ist ein Text mit 999 Zeichen. Dies ist ein Text mit 999 Zeichen. " +
+			"Dies ist ein Text mit 999 Zeichen. Dies ist ein Text mit 999 Zeichen. " +
+			"Dies ist ein Text mit 999 Zeichen. Dies ist ein Text mit 999 Zeichen. " +
+			"Dies ist ein Text mit 999 Zeichen. Dies ist ein Text mit 999 Zeichen. " +
+			"Dies ist ein Text mit 999 Zeichen. Dies ist ein Text mit 999 Zeichen. " +
+			"Dies ist ein Text mit 999 Zeichen. Dies ist ein Text mit 999 Zeichen. " +
+			"Dies ist ein Text mit 999 Zeichen. Dies ist ein Text mit 999 Zeichen. Dies ist ein Text.",	"12.04.2013", "13.04.2013", "10", "1"),
+	BESCHREIBUNG_MIT_EINTAUSEND_ZEICHEN_TEXT("Aufgabe 1",
+			"Dies ist ein Text mit 1000 Zeichen. Dies ist ein Text mit 1000 Zeichen. " +
+			"Dies ist ein Text mit 1000 Zeichen. Dies ist ein Text mit 1000 Zeichen. " +
+			"Dies ist ein Text mit 1000 Zeichen. Dies ist ein Text mit 1000 Zeichen. " +
+			"Dies ist ein Text mit 1000 Zeichen. Dies ist ein Text mit 1000 Zeichen. " +
+			"Dies ist ein Text mit 1000 Zeichen. Dies ist ein Text mit 1000 Zeichen. " +
+			"Dies ist ein Text mit 1000 Zeichen. Dies ist ein Text mit 1000 Zeichen. " +
+			"Dies ist ein Text mit 1000 Zeichen. Dies ist ein Text mit 1000 Zeichen. " +
+			"Dies ist ein Text mit 1000 Zeichen. Dies ist ein Text mit 1000 Zeichen. " +
+			"Dies ist ein Text mit 1000 Zeichen. Dies ist ein Text mit 1000 Zeichen. " +
+			"Dies ist ein Text mit 1000 Zeichen. Dies ist ein Text mit 1000 Zeichen. " +
+			"Dies ist ein Text mit 1000 Zeichen. Dies ist ein Text mit 1000 Zeichen. " +
+			"Dies ist ein Text mit 1000 Zeichen. Dies ist ein Text mit 1000 Zeichen. " +
+			"Dies ist ein Text mit 1000 Zeichen. Dies ist ein Text mit 1000 Zeichen. " +
+			"Dies ist ein Text mit 1000 Zeichen. Dies ist ein Text mit 1000Z.", "12.04.2013", "13.04.2013", "10", "1" ),
+	BESCHREIBUNG_MIT_EINTAUSENDUNDEINUNDZWANZIG_ZEICHEN_TEXT("Aufgabe 1", 
+			"Dies ist ein Text mit 1021 Zeichen. Dies ist ein Text mit 1021 Zeichen. " +
+			"Dies ist ein Text mit 1021 Zeichen. Dies ist ein Text mit 1021 Zeichen. " +
+			"Dies ist ein Text mit 1021 Zeichen. Dies ist ein Text mit 1021 Zeichen. " +
+			"Dies ist ein Text mit 1021 Zeichen. Dies ist ein Text mit 1021 Zeichen. " +
+			"Dies ist ein Text mit 1021 Zeichen. Dies ist ein Text mit 1021 Zeichen. " +
+			"Dies ist ein Text mit 1021 Zeichen. Dies ist ein Text mit 1021 Zeichen. " +
+			"Dies ist ein Text mit 1021 Zeichen. Dies ist ein Text mit 1021 Zeichen. " +
+			"Dies ist ein Text mit 1021 Zeichen. Dies ist ein Text mit 1021 Zeichen. " +
+			"Dies ist ein Text mit 1021 Zeichen. Dies ist ein Text mit 1021 Zeichen. " +
+			"Dies ist ein Text mit 1021 Zeichen. Dies ist ein Text mit 1021 Zeichen. " +
+			"Dies ist ein Text mit 1021 Zeichen. Dies ist ein Text mit 1021 Zeichen. " +
+			"Dies ist ein Text mit 1021 Zeichen. Dies ist ein Text mit 1021 Zeichen. " +
+			"Dies ist ein Text mit 1021 Zeichen. Dies ist ein Text mit 1021 Zeichen. " +
+			"Dies ist ein Text mit 1021 Zeichen. Dies ist ein Text mit 1021 Zeichen. Dies ist ein.", "12.04.2013", "13.04.2013", "10", "1"),
+	BESCHREIBUNG_MIT_SONDERZEICHEN("Aufgabe1", "Dies ist ein Text mit 100 Zeichen und Sonderzeichen !“§$%&/()=?<*+->. Dies ist ein Text mit 100 Zei.", "12.04.2013", "13.04.2013", "10", "1"),
+	BESCHREIBUNG_MIT_JAVASCRIPT("<script type=\"text/javascript\">alert(\"huhu\")</script>","Text_Beschreibung", "12.04.2013", "13.04.2013", "10", "1"),
+	STARTDATUM_MIT_LEEREM_FELD("Aufgabe 1", "Text_Beschreibung", "", "13.04.2013", "10", "1"),
+	STARTDATUM_VALIDE("Aufgabe 1", "Beschreibung 1", "11.4.2013", "13.04.2013", "10", "1"),
+	STARTDATUM_MIT_SONDERZEICHEN("Aufgabe 1", "Beschreibung 1","§$%/()=","13.04.2013", "10", "1"),
+	STARTDATUM_MIT_JAVASCRIPT("Aufgabe 1", "Beschreibung 1","<script type=\"text/javascript\">alert(\"huhu\")</script>","13.04.2013", "10", "1"),
+	STARTDATUM_MIT_MONATSNAME("Aufgabe 1", "Beschreibung 1","12. April 2013","13.04.2013", "10", "1"),
+	ENDDATUM_MIT_LEEREM_FELD("Aufgabe 1", "Text_Beschreibung", "12.04.2013", "", "10", "1"),
+	ENDDATUM_VALIDE("Aufgabe 1", "Beschreibung 1", "12.4.2013", "14.04.2013", "10", "1"),
+	ENDDATUM_MIT_SONDERZEICHEN("Aufgabe 1", "Beschreibung 1", "12.04.2013", "§$%/()=","10", "1"),
+	ENDDATUM_MIT_JAVASCRIPT("Aufgabe 1", "Beschreibung 1", "12.04.2013","<script type=\"text/javascript\">alert(\"huhu\")</script>", "10", "1"),
+	ENDDATUM_MIT_MONATSNAME("Aufgabe 1", "Beschreibung 1", "12.04.2013", "13. April 2013", "10", "1"),
+	FERTIGSTELLUNG_GEANDERT("Aufgabe 1", "Beschreibung 1", "12.04.2013", "13.04.2013", "50", "1"),
+	PRIORITAET_GEANDERT("Aufgabe 1", "Beschreibung 1", "12.04.2013", "13.04.2013", "10", "6");
 	
 	public final String kurzbezeichnung;
 	
