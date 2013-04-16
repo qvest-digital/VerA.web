@@ -86,7 +86,7 @@ public class EventTaskDetailWorkerTest extends TestCase {
 		doReturn(priority).when(cntx).requestAsObject("task-priority");
 		doReturn(description).when(cntx).requestAsObject("task-description");
 		doReturn(degreeofcompletion).when(cntx).requestAsObject("task-degreeofcompletion");
-		doReturn(fk_event).when(cntx).requestAsObject("task-fk_event");
+		doReturn(fk_event).when(cntx).requestAsObject("task-eventId");
 		doReturn(changedby).when(cntx).requestAsObject("task-changedby");
 		doReturn(createdby).when(cntx).requestAsObject("task-createdby");
 		doReturn(enddate).when(cntx).requestAsObject("task-enddate");

@@ -11,6 +11,7 @@
 <input type="hidden" id="modified" name="task-modified" value="false">
 <input type="hidden" name="savetask" value="true">
 <input type="hidden" name="search" value="clear">
+<input type="hidden" name="task-eventId" value="$!eventId">
 
 <table class="tab" border="0" cellspacing="0" cellpadding="0"><tr>
 	<td class="tableft">&nbsp;</td>

@@ -112,12 +112,6 @@ public class EventTaskDetailWorker {
 					Insert insert = database.getInsert(task);
 					insert.insert("pk", task.getId());
 					
-					String strEventId = (String) cntx.getContextField("event-id");
-					if (strEventId != null && strEventId.trim().length() > 0) {
-						Integer eventId = Integer.valueOf(strEventId);
-						insert.insert("fk_event", eventId);
-					}
-					
 					if (!((PersonalConfigAA) cntx.personalConfig()).getGrants()
 							.mayReadRemarkFields()) {
 						insert.remove("note");
