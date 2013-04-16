@@ -134,7 +134,7 @@
 				<td class="value" style="width: 6px;">&nbsp;</td>
 				<td class="value" style="width: 130px;">
 					#if($grants.mayWrite())
-					<a href="SetReferencePersonToEventTask?a=taskReferencePerson">Suchen</a> |
+					<a href="SetReferencePersonToEventTask?a=taskReferencePerson&taskId=$!task.id&eventId=$!eventId">Suchen</a> |
 					<a href="javascript:removeHost(); setModified(); document.getElementById('formlist').action='SaveEvent'; document.getElementById('formlist').submit();">Entfernen</a>
 					#else
 					Suchen |

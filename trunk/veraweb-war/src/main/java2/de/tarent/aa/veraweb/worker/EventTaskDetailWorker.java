@@ -33,7 +33,7 @@ public class EventTaskDetailWorker {
 	}
 	
 	public static final String[] INPUT_getTask = { "eventId", "id" };
-	public static final boolean[] MANDATORY_getTask = { true, false };
+	public static final boolean[] MANDATORY_getTask = { false, false };
 	public static final String OUTPUT_getTask = "task";
 
 	
@@ -57,6 +57,16 @@ public class EventTaskDetailWorker {
         }
     }
 	
+    
+
+	public static final String[] INPUT_copyTaskAndEventId = { "eventId", "taskId" };
+	public static final boolean[] MANDATORY_copyTaskAndEventId = { false, false };
+	
+    public void copyTaskAndEventId(OctopusContext oc, String eventId, String taskId) {
+        oc.setContent("eventId", eventId);
+        oc.setContent("taskId", taskId);
+    }
+    
 	/**
 	 * Assigns the eventId from the task list to a new created task to link
 	 * the task to the event

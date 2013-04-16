@@ -10,6 +10,9 @@
 #elseif($action == "statistikHost")
 #set($title = "Gastgeber suchen")
 #parse("inc/header.vm")
+#elseif($action == "taskReferencePerson")
+#set($title = "Verantwortlichen f&uuml;r Aufgabe suchen")
+#parse("inc/header.vm")
 #else
 #set($title = "Person suchen")
 #parse("inc/header.vm")
@@ -19,6 +22,8 @@
 	#set($formurl = "AddPersonToEventList")
 #elseif($action == "host")
 	#set($formurl = "SetHostToEventList")
+#elseif($action == "taskReferencePerson")
+	#set($formurl = "SetReferencePersonToEventTaskList")
 #else
 	#set($formurl = "SearchPerson")
 #end
@@ -27,6 +32,11 @@
 <input type="hidden" name="start" value="0">
 <input type="hidden" name="selectAll" value="false">
 <input type="hidden" name="selectNone" value="true">
+
+#if($action == "taskReferencePerson")
+<input type="hidden" name="eventId" value="$!eventId">
+<input type="hidden" name="taskId" value="$!taskId">
+#end
 
 #if($action == "statistikHost")
 <input type="hidden" name="onlyhosts" id="onlyhosts" value="true">
