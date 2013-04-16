@@ -98,7 +98,7 @@
  #elseif(!$octopusConfig.personalConfig.role)
 	<a href="${paths.staticWeb}do/default" class="menulink">Rolle w&auml;hlen</a>
  #end
-	<a href="${paths.staticWeb}do/logout" target="_top" class="menulink">Abmelden</a>
+	<a href="${paths.staticWeb}do/logout" target="_top" class="menulink" id ="menu.logout">Abmelden</a>
 </div>
 
 <div class="menusection">
