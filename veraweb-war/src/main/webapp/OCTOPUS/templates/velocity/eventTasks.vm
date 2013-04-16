@@ -47,7 +47,7 @@
 	#end
 	<tr class="$class" style="height: 20px;" onmouseover="onMouseOverList(this);" onmouseout="onMouseOutList(this);">
 		<td class="list">			
-			<input type="checkbox" name="add-select" value="true" class="checkbox">
+			<input type="checkbox" id="add-select" name="add-select" value="true" class="checkbox">
 		</td>
 		<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowEventTask?id=$!{bean.id}&eventId=$!{bean.eventId}'">$!bean.id</td>
 		<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowEventTask?id=$!{bean.id}&eventId=$!{bean.eventId}'">$!bean.title</td>
@@ -69,9 +69,9 @@
 	#parse("inc/list-navi.vm")
 	#parse("inc/list-direct.vm")
 
-	<input type="button" name="new" value="Neu" #if($grants.mayWrite()) class="button" #else class="buttondisabled" disabled #end onclick="window.location.href='CreateEventTask?eventId=$!id';"> &nbsp;
-	<input type="submit" name="remove" value="L&ouml;schen" title="markierte Eintr&auml;ge entfernen" #if($grants.mayWrite()) class="button" #else class="buttondisabled" disabled #end> &nbsp;
-	<input type="button" name="cancel" class="button" value="Zur&uuml;ck" title="Zur Suche" onclick="window.location.href='SearchEvent';"> &nbsp;
+	<input type="button" id="new" name="new" value="Neu" #if($grants.mayWrite()) class="button" #else class="buttondisabled" disabled #end onclick="window.location.href='CreateEventTask?eventId=$!id';"> &nbsp;
+	<input type="submit" id="remove" name="remove" value="L&ouml;schen" title="markierte Eintr&auml;ge entfernen" #if($grants.mayWrite()) class="button" #else class="buttondisabled" disabled #end> &nbsp;
+	<input type="button" id="cancel" name="cancel" class="button" value="Zur&uuml;ck" title="Zur Suche" onclick="window.location.href='SearchEvent';"> &nbsp;
 
 </div></div></div>
 
