@@ -130,7 +130,7 @@
 				<td class="value" style="width: 6px;">&nbsp;</td>
 				<td class="value" style="width: 130px;">
 					#if($grants.mayWrite())
-					<a href="javascript:document.getElementById('formlist').action='SetHostToEventSearch'; document.getElementById('a').value='host'; document.getElementById('formlist').submit();">Suchen</a> |
+					<a href="javascript:void(0)">Suchen</a> |
 					<a href="javascript:removeHost(); setModified(); document.getElementById('formlist').action='SaveEvent'; document.getElementById('formlist').submit();">Entfernen</a>
 					#else
 					Suchen |
@@ -195,5 +195,15 @@
 #closeContent()
 
 </form>
+
+<script type="text/javascript">
+$(function () { // on dom ready
+	$("a").click(function (e) {
+		if (!checkModified()) {
+			e.preventDefault(); // do not follow link
+		}
+	});
+});
+</script>
 
 #parse("inc/footer.vm")
