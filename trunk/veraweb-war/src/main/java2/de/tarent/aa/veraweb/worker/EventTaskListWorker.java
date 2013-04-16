@@ -49,7 +49,9 @@ public class EventTaskListWorker extends ListWorkerVeraWeb {
             Person person = (Person) database.getBean("Person", task.getPersonId());
             // Select statement bauen um  person mit 'personId' aus der db zu holen
             
-            task.setPersonName(person.lastname_a_e1 + ", " + person.firstname_a_e1);
+            if(person != null){
+                task.setPersonName(person.lastname_a_e1 + ", " + person.firstname_a_e1);
+            }
         }
         
         return list;
