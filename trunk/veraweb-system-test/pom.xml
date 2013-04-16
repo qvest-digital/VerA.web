@@ -41,7 +41,7 @@
         <druckansicht.path>${result.content.path}/druckansichten/</druckansicht.path>
         <result.content.zip.path>resultContent.zip</result.content.zip.path>
         <new.session.per.feature>false</new.session.per.feature>
-        <cucumber.args>--tags ~@wip</cucumber.args>
+        <cucumber.tags>@wip</cucumber.tags>
         
         <veraweb.baseUrl>http://veraweb.lan.tarent.de/veraweb/do/</veraweb.baseUrl>
         <veraweb.db.driver>org.postgresql.Driver</veraweb.db.driver>
@@ -337,6 +337,8 @@
                                       <arg value="--glue" />
                                       <arg value="de.tarent.aa.veraweb.cucumber" />
                                       <arg value="${basedir}" />
+                                      <arg value="--tags" />
+                                      <arg value="${cucumber.tags}" />
 
                                       <!-- This is a systemproperty used by the de.tarent.cucumber.RuntimeInfoCatcher -->
                                       <sysproperty key="tarent.cucumber.colored" value="${cucumber.out.colored}" />
@@ -361,7 +363,7 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
-	            <veraweb.baseUrl>http://localhost:8080/veraweb/do/</veraweb.baseUrl>
+	            <veraweb.baseUrl>http://vbut-dev.lan.tarent.de:8080/veraweb/do/</veraweb.baseUrl>
 		        <veraweb.db.url>jdbc:postgresql://localhost:5432/veraweb</veraweb.db.url>
 		        <selenium.mode>FF</selenium.mode>
                 <!-- selenium.server.host>localhost</selenium.server.host-->
