@@ -12,7 +12,13 @@ public class NavigationStepDefinitions extends AbstractStepDefinitions {
     }
     
     @Angenommen("^ich bin (?:nicht angemeldet|abgemeldet)$")
-    public void whenClickElement() {
+    public void whenUserLoggedOut() {
+        whenNavigateToPage(PageDefinition.ABMELDUNGSSEITE);
+    }
+    
+    @Angenommen("^ich befinde mich auf der Detailansicht der Veranstaltung \"([^\"]+)\"$")
+    public void whenNavigateToDetailViewOfEvent(String eventName) {
+        whenClickElement(page.elementForName("Veranstaltung bearbeiten"));
         whenNavigateToPage(PageDefinition.ABMELDUNGSSEITE);
     }
 

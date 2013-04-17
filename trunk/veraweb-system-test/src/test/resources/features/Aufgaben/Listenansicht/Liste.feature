@@ -4,22 +4,22 @@ Funktionalität: Als User mit entsprechenden Rechte möchte ich eine Aufgabenlis
 
 Grundlage: Ich bin als Administrator angemeldet und bin in der Übersicht aller Veranstaltungen und habe mind. eine Veranstaltung angelegt
 	Angenommen ich bin als Administrator angemeldet
-	 Und ich bin in der Übersicht aller Veranstaltungen
 
 
+@wip
 Szenario: Liste mit Aufgaben - Tabelle
 	Angenommen es existieren die Personen:
 		|  Vorname	| Nachname 		| 
 		|  Fred 	| Feuerstein	|
 		|  Barny	| Geröllheimer	| 
-	 Und es existiert eine Veranstaltung
-	 Und die Veranstaltung hat folgende Aufgaben:
-		| ID	| Titel 	| Start 	 | Ende 		| Fertigstellungsgrad	| 	Verantwortliche	| Priorität | 
-		| 1		| Aufgabe 1 | 12.04.2013 | 13.04.2013 	| 		10	 			| 	Fred			|	 1		|
-		| 2		| Aufgabe 2 | 13.04.2013 | 14.04.2013 	| 		20 				|	Barny			|	 2		|
-		| 3 	| Aufgabe 3 | 14.04.2013 | 15.04.2013 	| 		30 				| 	Fred, Barny		| 	 3		|
-		| 4 	| Aufgabe 4 | 15.04.2013 | 16.04.2013 	| 		40 				| 	Fred			| 	 4		|
-		| 5 	| Aufgabe 5 | 16.04.2013 | 17.04.2013 	| 		50 				| 	Barny			|	 5 		|
+	 Und es existiert eine Veranstaltung "Feier" mit folgenden Aufgaben:
+		| ID	| Titel 	| Start 	 | Ende 		| Fertigstellungsgrad	| 	Verantwortlicher	| Priorität | 
+		| 1		| Aufgabe 1 | 12.04.2013 | 13.04.2013 	| 		10	 			| 	Fred				|	 1		|
+		| 2		| Aufgabe 2 | 13.04.2013 | 14.04.2013 	| 		20 				|	Barny				|	 2		|
+		| 3 	| Aufgabe 3 | 14.04.2013 | 15.04.2013 	| 		30 				| 	Fred				| 	 3		|
+		| 4 	| Aufgabe 4 | 15.04.2013 | 16.04.2013 	| 		40 				| 	Fred				| 	 4		|
+		| 5 	| Aufgabe 5 | 16.04.2013 | 17.04.2013 	| 		50 				| 	Barny				|	 5 		|
+	 Und ich befinde mich auf der Detailansicht der Veranstaltung "Feier"
 	Wenn ich den Reiter "Aufgaben" aufrufe
 	Dann sehe ich folgende Tabelle:
 		| CheckboxOhneBezeichnung	| ID	| Titel			| Start 	 | Ende 		| Fertigstellungsgrad 	|	Verantwortliche | Priorität | 

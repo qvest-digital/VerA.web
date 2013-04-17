@@ -1,6 +1,7 @@
 package de.tarent.aa.veraweb.db.entity;
 
 import java.sql.Timestamp;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,8 +11,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+
+import org.joda.time.DateMidnight;
 
 /**
  * Entity 'Event'.
@@ -71,7 +75,7 @@ public class Event extends AbstractEntity {
      * Indicator for inviting host partner.
      */
     @Column(name = "invitehostpartner")
-    private Boolean inviteHostPartner;
+    private Integer inviteHostPartner;
 
     /**
      * Host name.
@@ -119,7 +123,7 @@ public class Event extends AbstractEntity {
      * Update date.
      */
     @Column(name = "changed")
-    private String changed;
+    private Timestamp changed;
 
     /**
      * Event's assigned organization unit.
@@ -134,6 +138,12 @@ public class Event extends AbstractEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fk_host", referencedColumnName = "pk")
     private Person host;
+    
+    /**
+     * Event's assigned tasks.
+     */
+    @OneToMany(mappedBy = "event", fetch = FetchType.LAZY)
+    private Set<Task> tasks;
 
     /**
      * Default constructor.
@@ -251,7 +261,7 @@ public class Event extends AbstractEntity {
      * @param endDate
      *            the endDate to set
      */
-    public void setDateEnd(Timestamp endDate) {
+    public void setEndDate(Timestamp endDate) {
         this.endDate = endDate;
     }
 
@@ -260,7 +270,7 @@ public class Event extends AbstractEntity {
      * 
      * @return the inviteHostPartner
      */
-    public Boolean getInviteHostPartner() {
+    public Integer getInviteHostPartner() {
         return inviteHostPartner;
     }
 
@@ -270,7 +280,7 @@ public class Event extends AbstractEntity {
      * @param inviteHostPartner
      *            the inviteHostPartner to set
      */
-    public void setInviteHostPartner(Boolean inviteHostPartner) {
+    public void setInviteHostPartner(Integer inviteHostPartner) {
         this.inviteHostPartner = inviteHostPartner;
     }
 
@@ -412,7 +422,7 @@ public class Event extends AbstractEntity {
      * 
      * @return the changed
      */
-    public String getChanged() {
+    public Timestamp getChanged() {
         return changed;
     }
 
@@ -422,7 +432,7 @@ public class Event extends AbstractEntity {
      * @param changed
      *            the changed to set
      */
-    public void setChanged(String changed) {
+    public void setChanged(Timestamp changed) {
         this.changed = changed;
     }
 
@@ -463,6 +473,36 @@ public class Event extends AbstractEntity {
      */
     public void setHost(Person host) {
         this.host = host;
+    }
+
+    /**
+     * @return the tasks
+     */
+    public Set<Task> getTasks() {
+        return tasks;
+    }
+
+    /**
+     * @param tasks the tasks to set
+     */
+    public void setTasks(Set<Task> tasks) {
+        this.tasks = tasks;
+    }
+    
+    public static Event fillEmptyMandatoryFields(final Event event) {
+        if (event.getStartDate() == null) {
+            event.setStartDate(new Timestamp(DateMidnight.now().minus(1).getMillis()));
+        }
+        if (event.getEndDate() == null) {
+            event.setEndDate(new Timestamp(DateMidnight.now().plus(1).getMillis()));
+        }
+        if (event.getInvitationType() == null) {
+            event.setInvitationType(Integer.valueOf(1));
+        }
+        if (event.getLocation() == null) {
+            event.setLocation(String.valueOf(""));
+        }
+        return event;
     }
 
 }
