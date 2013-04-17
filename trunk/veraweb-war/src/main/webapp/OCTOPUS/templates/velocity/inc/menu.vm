@@ -3,20 +3,20 @@
 <div class="menusection">
 	<strong class="menutitle">Personen</strong>
   #if($grants.mayWrite())
-	<a href="${paths.staticWeb}do/ShowPersonSearch?action=person&search=clear" class="menulink">Bearbeiten</a>
-	<a href="${paths.staticWeb}do/CreatePerson?action=person" class="menulink">Neu</a>
+	<a id="menu.searchPerson" href="${paths.staticWeb}do/ShowPersonSearch?action=person&search=clear" class="menulink">Bearbeiten</a>
+	<a id="menu.newPerson" href="${paths.staticWeb}do/CreatePerson?action=person" class="menulink">Neu</a>
   #else
-	<a href="${paths.staticWeb}do/ShowPersonSearch?action=person" class="menulink">Anzeigen</a>
+	<a id="menu.searchPerson" href="${paths.staticWeb}do/ShowPersonSearch?action=person" class="menulink">Anzeigen</a>
   #end
 </div>
 
 <div class="menusection">
 	<strong class="menutitle">Veranstaltungen</strong>
   #if($grants.mayWrite())
-	<a href="${paths.staticWeb}do/ShowEventSearch?action=event" class="menulink">Bearbeiten</a>
-	<a href="${paths.staticWeb}do/CreateEvent?action=event" class="menulink">Neu</a>
+	<a id="menu.searchEvent" href="${paths.staticWeb}do/ShowEventSearch?action=event" class="menulink">Bearbeiten</a>
+	<a id="menu.newEvent" href="${paths.staticWeb}do/CreateEvent?action=event" class="menulink">Neu</a>
   #else
-	<a href="${paths.staticWeb}do/ShowEventSearch?action=event" class="menulink">Anzeigen</a>
+	<a id="menu.searchEvent" href="${paths.staticWeb}do/ShowEventSearch?action=event" class="menulink">Anzeigen</a>
   #end
 </div>
  #end
@@ -91,14 +91,14 @@
 <div class="menusection">
 	<strong class="menutitle">Benutzer</strong>
  #if($grants.isUser())
-	<a href="${paths.staticWeb}do/UserConfig" class="menulink">Einstellungen</a>
+	<a id="menu.userConfig" href="${paths.staticWeb}do/UserConfig" class="menulink">Einstellungen</a>
   #if(!$octopusConfig.personalConfig.proxy)
-	<a href="${paths.staticWeb}do/Proxy" class="menulink">Vertretungen</a>
+	<a id="menu.proxy" href="${paths.staticWeb}do/Proxy" class="menulink">Vertretungen</a>
   #end
  #elseif(!$octopusConfig.personalConfig.role)
 	<a href="${paths.staticWeb}do/default" class="menulink">Rolle w&auml;hlen</a>
  #end
-	<a href="${paths.staticWeb}do/logout" target="_top" class="menulink" id ="menu.logout">Abmelden</a>
+	<a id ="menu.logout" href="${paths.staticWeb}do/logout" target="_top" class="menulink">Abmelden</a>
 </div>
 
 <div class="menusection">
