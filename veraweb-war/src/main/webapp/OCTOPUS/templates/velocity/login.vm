@@ -52,7 +52,7 @@
 <input name="task" type="hidden" value="default">
 
 #if($responseParams.message && $octopusRequest.task != "Main" && $octopusRequest.task != "ShowLogin")
-<div style="margin: 10px 0px 10px 0px; padding: 10px 10px 10px 10px; background-color: #ffffff; border: 2px solid #ff0000;">
+<div id="text.error" style="margin: 10px 0px 10px 0px; padding: 10px 10px 10px 10px; background-color: #ffffff; border: 2px solid #ff0000;">
 	Es ist ein Fehler bei der Anmeldung aufgetreten. Bitte &uuml;berpr&uuml;fen Sie Ihren Benutzernamen und Ihr Passwort.
 </div>
 #end
