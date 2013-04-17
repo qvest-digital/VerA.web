@@ -1161,7 +1161,8 @@
 				Dieser Task zeigt eine Aufgabe einer Veranstaltung an.
 			</description>
 			<doTask name="Load"/>
-			<action name="getTask" worker="EventTaskDetailWorker" />
+			<action name="getAll" worker="LocationWorker" />
+			<action name="showDetail" worker="EventTaskDetailWorker" />
 			<response type="velocity" name="eventTaskDetail">
 				<param name="ContentType" value="text/html;charset=UTF-8"/>
 			</response>
