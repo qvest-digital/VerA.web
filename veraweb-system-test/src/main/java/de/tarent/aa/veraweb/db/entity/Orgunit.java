@@ -21,6 +21,8 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "torgunit")
 public class Orgunit extends AbstractEntity {
+    
+    public static Long DEFAULT_ORGUNIT_ID = 1L;
 
     /**
      * Generated Serial id.
