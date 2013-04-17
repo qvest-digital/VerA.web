@@ -13,7 +13,7 @@ Grundlage: Ich bin als Administrator angemeldet und bin in der Aufgabenliste ein
 	 	| Veranstaltung 1 | 31.12.2013 |
 	 Und die Veranstaltung hat folgende Aufgaben:
 		| ID	| Titel 	| Beschreibung	 | Start 	  | Ende 		| Fertigstellungsgrad	| Verantwortliche	 | Priorität | 
-		| 1		| Aufgabe 1 | Beschreibung 1 | 12.04.2013 | 13.04.2013 	| 		0				| Barny Geröllheimer | 1			|
+		| 1		| Aufgabe 1 | Beschreibung 1 | 12.04.2013 | 13.04.2013 	| 		0				| Barny Geröllheimer | 1		 |
 	 Und ich bin in der Übersicht aller Aufgaben der Veranstaltung	 
 	 
 
