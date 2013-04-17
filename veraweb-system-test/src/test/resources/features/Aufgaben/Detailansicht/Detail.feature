@@ -30,7 +30,7 @@ Szenariogrundriss: Ich bearbeite das Pflichtfeld Titel
 		| "Titel mit hundert Zeichen Text"			|	Aufgabe erfolgreich geändert		|
 		| "Titel mit neunundneunzig Zeichen Text"	|	Aufgabe erfolgreich geändert		|
 		| "Titel mit Sonderzeichen"					|	Aufgabe erfolgreich geändert		|
-		| "Titel mit Javascript"					|	Aufgabe erfolgreich geändert		| #muss noch geklärt werden
+ #muss noch geklärt werden		| "Titel mit Javascript"					|	Aufgabe erfolgreich geändert		|
 	 
 
 Szenariogrundriss: Ich bearbeite das Feld Beschreibung
@@ -95,7 +95,7 @@ Szenariogrundriss: Ich bearbeite das Feld Priorität
 	Angenommen ich klicke auf die Aufgabe mit der ID 1
 	 Und ich sehe "Detailansicht Aufgabe"
 	 Und ich sehe "Aufgabe Detailansicht"
-	 UUnd ich fülle die Maske mit <Testdaten> aus
+	 Und ich fülle die Maske mit <Testdaten> aus
 	Wenn ich auf "Speichern" klicke
 	Dann sehe ich die <Meldung>:
 		| Testdaten							|	Meldung								|
