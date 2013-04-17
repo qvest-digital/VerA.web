@@ -12,10 +12,11 @@
 
 <form id="formlist" name="formlist" action="" method="POST">
 <input type="hidden" id="a" name="a" value="taskReferencePerson">
-<input type="hidden" id="modified" name="task-modified" value="false">
+<input type="hidden" id="modified" name="task-modified" value= #if (($refPerson.id && !$task.personId) || $refPerson.id != $task.personId) "true" #else "false" #end>
 <input type="hidden" name="savetask" value="true">
 <input type="hidden" name="search" value="clear">
 <input type="hidden" name="task-eventId" value="$!eventId">
+<input type="hidden" name="task-personId" value="$!refPerson.id">
 
 <table class="tab" border="0" cellspacing="0" cellpadding="0"><tr>
 	<td class="tableft">&nbsp;</td>
@@ -129,7 +130,7 @@
 		<td class="value">
 			<table class="form"><tr>
 				<td class="value">
-					<input type="text" id="task-reference-person" name="task-reference-person" value="$!message.text($task.person)" class="textdisabled" readonly>
+					<input type="text" id="task-reference-person" name="task-reference-person" value="$!message.text($refPerson.firstname_a_e1) $!message.text($refPerson.lastname_a_e1)" class="textdisabled" readonly>
 				</td>
 				<td class="value" style="width: 6px;">&nbsp;</td>
 				<td class="value" style="width: 130px;">
