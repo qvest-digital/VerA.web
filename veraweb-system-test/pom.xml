@@ -41,7 +41,7 @@
         <druckansicht.path>${result.content.path}/druckansichten/</druckansicht.path>
         <result.content.zip.path>resultContent.zip</result.content.zip.path>
         <new.session.per.feature>false</new.session.per.feature>
-        <cucumber.tags>@wip</cucumber.tags>
+        <cucumber.tags>~@wip</cucumber.tags>
         
         <veraweb.baseUrl>http://veraweb.lan.tarent.de/veraweb/do/</veraweb.baseUrl>
         <veraweb.db.driver>org.postgresql.Driver</veraweb.db.driver>
