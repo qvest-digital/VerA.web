@@ -1,5 +1,5 @@
 #if($task && $task.id)
-#set($title = "Aufgabe bearbeiten: $!message.plain($event.shortname)")
+#set($title = "Aufgabe bearbeiten: $!message.plain($task.shortname)")
 #parse("inc/header.vm")
 #else
 #set($title = "Neue Aufgabe erstellen")

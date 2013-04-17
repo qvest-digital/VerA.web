@@ -13,6 +13,7 @@ import de.tarent.octopus.beans.Database;
 import de.tarent.octopus.beans.Request;
 import de.tarent.octopus.beans.TransactionContext;
 import de.tarent.octopus.beans.veraweb.BeanChangeLogger;
+import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
 import de.tarent.octopus.beans.veraweb.DatabaseVeraWebFactory;
 import de.tarent.octopus.beans.veraweb.RequestVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
@@ -31,12 +32,7 @@ public class EventTaskDetailWorker {
 	public EventTaskDetailWorker() {
 		this(new DatabaseVeraWebFactory());
 	}
-	
-	public static final String[] INPUT_getTask = { "eventId", "id" };
-	public static final boolean[] MANDATORY_getTask = { false, false };
-	public static final String OUTPUT_getTask = "task";
 
-	
 	public static final String[] INPUT_setEventTaskId = {"eventId"};
 	public static final String OUTPUT_setEventTaskId = "eventId";
 	/**
@@ -78,6 +74,17 @@ public class EventTaskDetailWorker {
 	public String setEventTaskId(OctopusContext cntx, String eventId) {
 	    cntx.setContent("eventId", eventId);
 	    return eventId;
+	}
+	
+	public static final String[] INPUT_showDetail = { "eventId", "id" };
+	public static final boolean[] MANDATORY_showDetail = { false, false };
+	public static final String OUTPUT_showDetail = "task";
+	
+	public Task showDetail(OctopusContext context, Integer eventId, Integer id) throws BeanException, IOException{
+		if(eventId != null){
+			setEventTaskId(context, String.valueOf(eventId));
+		}
+		return getTaskFromDB(context, id);
 	}
 
 
@@ -122,6 +129,12 @@ public class EventTaskDetailWorker {
 					Insert insert = database.getInsert(task);
 					insert.insert("pk", task.getId());
 					
+					String strEventId = (String) cntx.getContextField("event-id");
+					if (strEventId != null && strEventId.trim().length() > 0) {
+						Integer eventId = Integer.valueOf(strEventId);
+						insert.insert("fk_event", eventId);
+					}
+					
 					if (!((PersonalConfigAA) cntx.personalConfig()).getGrants()
 							.mayReadRemarkFields()) {
 						insert.remove("note");
@@ -139,8 +152,7 @@ public class EventTaskDetailWorker {
 					}
 					context.execute(update);
 
-					clogger.logUpdate(cntx.personalConfig().getLoginname(),
-							oldTask, task);
+					clogger.logUpdate(cntx.personalConfig().getLoginname(), oldTask, task);
 				}
 			} else {
 				cntx.setStatus("notsaved");
@@ -158,6 +170,22 @@ public class EventTaskDetailWorker {
 			throw new BeanException(
 					"Die Taskdetails konnten nicht gespeichert werden.", e);
 		}
+	}
+
+	static public Task getTaskFromDB(OctopusContext context, Integer id) throws BeanException, IOException {
+		if(id == null){
+			return null;
+		}
+		
+		Database database = new DatabaseVeraWeb(context);
+		Task task = (Task) database.getBean("Task", id);
+		
+		if(task != null){
+			context.setContent("task-starthastime", Boolean.valueOf(DateHelper.isTimeInDate(task.startdate)));
+			context.setContent("task-endhastime", Boolean.valueOf(DateHelper.isTimeInDate(task.enddate)));
+		}
+		
+		return task;
 	}
 
 }
