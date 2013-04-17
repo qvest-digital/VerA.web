@@ -28,7 +28,7 @@ Szenariogrundriss: Ich lege eine neue Aufgabe an
 		| "Titel mit hundert Zeichen Text"								|	Aufgabe erfolgreich angelegt		|
 		| "Titel mit neunundneunzig Zeichen Text"						|	Aufgabe erfolgreich angelegt		|
 		| "Titel mit Sonderzeichen"										|	Aufgabe erfolgreich angelegt		|
-		| "Titel mit Javascript"										|	Aufgabe erfolgreich angelegt		| #muss noch geklärt werden	 
+#muss noch geklärt werden		| "Titel mit Javascript"										|	Aufgabe erfolgreich angelegt		|	 
 		| "Beschreibung mit leerem Feld"								|	Aufgabe erfolgreich angelegt		|
 		| "Beschreibung mit neunhundertneunundneunzig Zeichen Text"		|	Aufgabe erfolgreich angelegt		|
 		| "Beschreibung mit eintausend Zeichen Text"					|	Aufgabe erfolgreich angelegt		|
