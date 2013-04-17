@@ -203,7 +203,7 @@
 
 <script type="text/javascript">
 $(function () { // on dom ready
-	$("a").click(function (e) {
+	$("a").not("#linkRemoveRefPerson").click(function (e) {
 		if (!checkModified()) {
 			e.preventDefault(); // do not follow link
 		}
