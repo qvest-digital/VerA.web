@@ -136,7 +136,7 @@
 				<td class="value" style="width: 130px;">
 					#if($grants.mayWrite())
 					<a href="SetReferencePersonToEventTask?a=taskReferencePerson&taskId=$!task.id&eventId=$!eventId">Suchen</a> |
-					<a href="javascript:removeHost(); setModified(); document.getElementById('formlist').action='SaveEvent'; document.getElementById('formlist').submit();">Entfernen</a>
+					<a href="#" id="linkRemoveRefPerson">Entfernen</a>
 					#else
 					Suchen |
 					Entfernen
@@ -207,6 +207,11 @@ $(function () { // on dom ready
 		if (!checkModified()) {
 			e.preventDefault(); // do not follow link
 		}
+	});
+	$("#linkRemoveRefPerson").click(function () {
+		$("#task-reference-person").val("");
+		$("input[name='task-personId']").val("");
+		$("input[name='task-modified']").val("true");
 	});
 });
 </script>
