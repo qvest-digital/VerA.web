@@ -3,6 +3,7 @@ package de.tarent.aa.veraweb.worker;
 import java.io.IOException;
 
 import de.tarent.aa.veraweb.beans.Event;
+import de.tarent.aa.veraweb.beans.Person;
 import de.tarent.aa.veraweb.beans.Task;
 import de.tarent.aa.veraweb.utils.DateHelper;
 import de.tarent.dblayer.sql.statement.Insert;
@@ -55,6 +56,19 @@ public class EventTaskDetailWorker {
 	
     
 
+	public static final String[] INPUT_loadReferencePerson = { "refPersId" };
+	public static final boolean[] MANDATORY_loadReferencePerson = { false };
+	
+    public void loadReferencePerson(OctopusContext cntx, String refPersId) throws BeanException, IOException {		
+		if (refPersId == null || refPersId.trim().length() == 0) {
+			return;
+		};
+		
+		Integer pk = Integer.parseInt(refPersId);
+
+		cntx.getContentObject().setField("refPerson", getPersonFromDB(cntx, pk));
+    }
+
 	public static final String[] INPUT_copyTaskAndEventId = { "eventId", "taskId" };
 	public static final boolean[] MANDATORY_copyTaskAndEventId = { false, false };
 	
@@ -84,7 +98,14 @@ public class EventTaskDetailWorker {
 		if(eventId != null){
 			setEventTaskId(context, String.valueOf(eventId));
 		}
-		return getTaskFromDB(context, id);
+		Task task = getTaskFromDB(context, id);
+		
+		if (task != null && task.personId != null) {
+			Person person = getPersonFromDB(context, task.personId);
+			context.getContentObject().setField("refPerson", person);
+		};
+		
+		return task;
 	}
 
 
@@ -129,12 +150,6 @@ public class EventTaskDetailWorker {
 					Insert insert = database.getInsert(task);
 					insert.insert("pk", task.getId());
 					
-					String strEventId = (String) cntx.getContextField("event-id");
-					if (strEventId != null && strEventId.trim().length() > 0) {
-						Integer eventId = Integer.valueOf(strEventId);
-						insert.insert("fk_event", eventId);
-					}
-					
 					if (!((PersonalConfigAA) cntx.personalConfig()).getGrants()
 							.mayReadRemarkFields()) {
 						insert.remove("note");
@@ -162,6 +177,11 @@ public class EventTaskDetailWorker {
 					Boolean.valueOf(DateHelper.isTimeInDate(task.getStartdate())));
 			cntx.setContent("task-endhastime",
 					Boolean.valueOf(DateHelper.isTimeInDate(task.getEnddate())));
+			
+			if (task != null && task.personId != null) {
+				Person person = getPersonFromDB(cntx, task.personId);
+				cntx.getContentObject().setField("refPerson", person);
+			};
 
 			context.commit();
 		} catch (BeanException e) {
@@ -186,6 +206,17 @@ public class EventTaskDetailWorker {
 		}
 		
 		return task;
+	}
+
+	static public Person getPersonFromDB(OctopusContext context, Integer id) throws BeanException, IOException {
+		if(id == null){
+			return null;
+		}
+		
+		Database database = new DatabaseVeraWeb(context);
+		Person person = (Person) database.getBean("Person", id);
+		
+		return person;
 	}
 
 }

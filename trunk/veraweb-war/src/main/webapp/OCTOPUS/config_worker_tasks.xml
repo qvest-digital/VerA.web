@@ -1151,6 +1151,7 @@
 			</description>
 			<doTask name="Load"/>
 			<action name="setEventTaskId" worker="EventTaskDetailWorker" />
+			<action name="loadReferencePerson" worker="EventTaskDetailWorker" />
 			<response type="velocity" name="eventTaskDetail">
 				<param name="ContentType" value="text/html;charset=UTF-8"/>
 			</response>
@@ -1163,6 +1164,7 @@
 			<doTask name="Load"/>
 			<action name="getAll" worker="LocationWorker" />
 			<action name="showDetail" worker="EventTaskDetailWorker" />
+			<action name="loadReferencePerson" worker="EventTaskDetailWorker" />
 			<response type="velocity" name="eventTaskDetail">
 				<param name="ContentType" value="text/html;charset=UTF-8"/>
 			</response>
