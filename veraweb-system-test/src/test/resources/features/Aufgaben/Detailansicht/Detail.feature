@@ -113,7 +113,7 @@ Szenario: Die Änderungen einer Aufgabe werden in der Aufgabenliste angezeigt
 	Wenn ich auf "Zurück" klicke
 	Dann sieht die Tabelle folgendermaßen aus:
 	| CheckboxOhneBezeichnung	| ID		| Titel			 | Start 	  | Ende 		| Fertigstellungsgrad 	| Verantwortliche | Priorität | 
-	| 1							| Aufgabe 2 | Beschreibung 2 | 15.04.2013 | 16.04.2013 	| 20   					| Fred Feuerstein | 3		  |
+	| Checkbox					| 1			| Aufgabe 2 	 | 15.04.2013 | 16.04.2013 	| 20   					| Fred Feuerstein | 3		  |
 
 
 Szenario: ich prüfe die Weiterleitung auf die Personensuche
