@@ -19,7 +19,12 @@ public class NavigationStepDefinitions extends AbstractStepDefinitions {
     @Angenommen("^ich befinde mich auf der Detailansicht der Veranstaltung \"([^\"]+)\"$")
     public void whenNavigateToDetailViewOfEvent(String eventName) {
         whenClickElement(page.elementForName("Veranstaltung bearbeiten"));
-        whenNavigateToPage(PageDefinition.ABMELDUNGSSEITE);
+        
+        page = PageDefinition.VERANSTALTUNG_SUCHEN;
+        whenFillField(eventName, page.elementForName("Kurzbeschreibung-Feld"));
+        whenClickElement(page.elementForName("Suche starten"));
+        
+        
     }
 
 }

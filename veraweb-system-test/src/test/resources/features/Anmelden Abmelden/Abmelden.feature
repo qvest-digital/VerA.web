@@ -1,6 +1,7 @@
 # language: de
 Funktionalität: Ich möchte mich als User abmelden
 
+
 Szenario: Ich möchte mich abmelden
 	Angenommen ich bin als User angemeldet
 	Wenn ich auf "Abmelden" klicke

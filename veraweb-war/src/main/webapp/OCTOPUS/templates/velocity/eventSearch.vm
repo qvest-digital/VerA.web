@@ -30,7 +30,7 @@
 <input type="hidden" name="search" value="reset">
 <table class="form"><tr>
 	<td class="label"><label for="shortname">Kurzbezeichnung:</label></td>
-	<td class="value"><input type="text" name="shortname" id="shortname" value="" class="text"></td>
+	<td class="value"><input type="text" name="shortname" id="input.shortname" value="" class="text"></td>
 </tr><tr>
 	<td class="label"><label for="begin">Datum Beginn:</label></td>
 	<td class="value">
@@ -83,15 +83,15 @@
 <div id="fixme" class="fixme1"><div class="fixme2"><div class="fixme3">
 
 #if($action == "guest")
-	<input type="submit" class="submit" value="Suche starten"> &nbsp;
+	<input id="button.startSearch" type="submit" class="submit" value="Suche starten"> &nbsp;
 	<input type="reset"  class="reset" value="Felder leeren"> &nbsp;
 	<input type="button" class="cancel"  name="cancel" value="Zur&uuml;ck" onclick="window.location.href='ShowGuestList';"> &nbsp;
 #elseif($action == "addperson")
-	<input type="submit" class="submit" value="Suche starten"> &nbsp;
+	<input id="button.startSearch" type="submit" class="submit" value="Suche starten"> &nbsp;
 	<input type="reset"  class="reset" value="Felder leeren"> &nbsp;
 	<input type="button" class="cancel"  name="cancel" value="Zur&uuml;ck" onclick="window.location.href='ShowPerson';"> &nbsp;
 #else
-	<input type="submit" class="submit" value="Suche starten"> &nbsp;
+	<input id="button.startSearch" type="submit" class="submit" value="Suche starten"> &nbsp;
 	<input type="reset"  class="reset" value="Felder leeren"> &nbsp;
 #end
 
