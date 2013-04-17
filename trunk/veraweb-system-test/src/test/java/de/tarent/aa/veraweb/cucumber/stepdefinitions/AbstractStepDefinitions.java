@@ -148,11 +148,13 @@ public abstract class AbstractStepDefinitions {
         boolean allRequiredFound = true;
         StringBuilder messageBuilder = new StringBuilder();
         for (ElementDefinition elementDefinition : elementDefinitions) {
-            try {
-                findPageElement(elementDefinition);
-            } catch (NoSuchElementException e) {
-                messageBuilder.append(String.format("\n - \"%1$s\" %2$s.", elementDefinition, elementDefinition.by));
-                allRequiredFound = !elementDefinition.required;
+            if (elementDefinition.required) {
+                try {
+                    findPageElement(elementDefinition);
+                } catch (NoSuchElementException e) {
+                    messageBuilder.append(String.format("\n - \"%1$s\" %2$s.", elementDefinition, elementDefinition.by));
+                    allRequiredFound = false;
+                }
             }
         }
 

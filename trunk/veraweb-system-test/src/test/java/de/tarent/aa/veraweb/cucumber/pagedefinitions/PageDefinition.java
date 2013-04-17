@@ -1,9 +1,6 @@
 package de.tarent.aa.veraweb.cucumber.pagedefinitions;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import de.tarent.aa.veraweb.cucumber.env.GlobalConfig;
@@ -21,6 +18,7 @@ public enum PageDefinition {
 	 * Anmeldungsseite 
 	 */
 	ANMELDUNGSSEITE("ShowLogin",
+	        new ElementDefinition("Header-Titel", "header.title"),
 			new ElementDefinition("Benutzername-Feld", "input.username", HtmlType.INPUT),
 			new ElementDefinition("Passwort-Feld", "input.password", HtmlType.INPUT),
 			new ElementDefinition("In Vertretung Anmelden-Checkbox", "input.loginasproxy", HtmlType.CHECKBOX),
@@ -34,6 +32,7 @@ public enum PageDefinition {
      * Anmeldungsseite 
      */
     ABMELDUNGSSEITE("logout",
+            new ElementDefinition("Header-Titel", "header.title"),
             new ElementDefinition("Benutzername-Feld", "input.username", HtmlType.INPUT),
             new ElementDefinition("Passwort-Feld", "input.password", HtmlType.INPUT),
             new ElementDefinition("In Vertretung Anmelden-Checkbox", "input.loginasproxy", HtmlType.CHECKBOX),
@@ -46,18 +45,19 @@ public enum PageDefinition {
     /** 
      * Anmeldungsseite 
      */
-    STARTSEITE_ANGEMELDET("default"),
+    STARTSEITE_ANGEMELDET("default",
+            new ElementDefinition("Abmelden", "menu.logout"),
+            new ElementDefinition("Person bearbeiten", "menu.searchPerson"),
+            new ElementDefinition("Person Neu", "menu.newPerson"),
+            new ElementDefinition("Veranstaltung bearbeiten", "menu.searchEvent"),
+	        new ElementDefinition("Veranstaltung Neu", "menu.newEvent")),
             
     /** 
      * Veranstaltung suchen
      */
     VERANSTALTUNG_SUCHEN(
-            new ElementDefinition("Header-Titel", "header.title"),
-            new ElementDefinition("Kurzbeschreibung", "menu.logout"),
-            new ElementDefinition("Person bearbeiten", "menu.searchPerson"),
-            new ElementDefinition("Person Neu", "menu.newPerson"),
-            new ElementDefinition("Veranstaltung bearbeiten", "menu.searchEvent"),
-            new ElementDefinition("Veranstaltung Neu", "menu.newEvent")),
+            new ElementDefinition("Kurzbeschreibung-Feld", "input.shortname", HtmlType.INPUT),
+            new ElementDefinition("Suche starten", "button.startSearch")),
 
 	/** 
 	 * Aufgabenübersichtsseite 
@@ -98,16 +98,8 @@ public enum PageDefinition {
 
 	private PageDefinition(String url, ElementDefinition... elements) {
 		this.url = url;
-		
-		List<ElementDefinition> list = new ArrayList<ElementDefinition>();
-		Collections.addAll(list, elements);
-		addHeaderElements(list);
-		addMenuPersonElements(list);
-		addMenuEventElements(list);
-		addMenuUserElements(list);
-
-		this.elements = list.toArray(new ElementDefinition[list.size()]);
-		for (ElementDefinition element : elements) {
+		this.elements = elements;
+		for (ElementDefinition element : this.elements) {
 			ElementDefinition previous = this.elementMap.put(element.name, element);
 			if (previous != null) {
 				throw new IllegalArgumentException(String.format(
@@ -131,28 +123,4 @@ public enum PageDefinition {
 		}
 		return this.elementMap.get(elementName);
 	}
-	
-	/* ------------------- Default {@link ElementDefinition}s contained in each PageDefinition. ----------------------*/
-	
-	private void addHeaderElements(List<ElementDefinition> list) {
-	    list.add(new ElementDefinition("Header-Titel", "header.title"));
-	}
-	
-	private void addMenuPersonElements(List<ElementDefinition> list) {
-	    list.add(new ElementDefinition("Person bearbeiten", "menu.searchPerson"));
-	    list.add(new ElementDefinition("Person Neu", "menu.newPerson"));
-    }
-	
-	private void addMenuEventElements(List<ElementDefinition> list) {
-	    list.add(new ElementDefinition("Veranstaltung bearbeiten", "menu.searchEvent"));
-	    list.add(new ElementDefinition("Veranstaltung Neu", "menu.newEvent"));
-    }
-	
-	private void addMenuUserElements(List<ElementDefinition> list) {
-        list.add(new ElementDefinition("Einstellungen", "menu.userConfig"));
-        list.add(new ElementDefinition("Vertretungen", "menu.proxy"));
-        list.add(new ElementDefinition("Admelden", "menu.logout"));
-    }
-	
-	/* ---------------------------------------------------------------------------------------------------------------*/
 }
