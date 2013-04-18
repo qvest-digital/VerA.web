@@ -5,7 +5,6 @@ Funktionalität: Als User mit entsprechenden Rechte möchte ich eine Aufgabenlis
 Grundlage: Ich bin als Administrator angemeldet und bin in der Übersicht aller Veranstaltungen und habe mind. eine Veranstaltung angelegt
 	Angenommen ich bin als Administrator angemeldet
 
-@wip
 Szenario: Liste mit Aufgaben - Tabelle
 	Angenommen es existieren die Personen:
 		|  Vorname	| Nachname 		| 
