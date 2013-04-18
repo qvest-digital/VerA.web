@@ -26,7 +26,7 @@ Szenariogrundriss: Ich bearbeite das Pflichtfeld Titel
 	Dann sehe ich <Meldung>:
 		| Testdaten									|	Meldung								|
 		| "Titel mit leerem Pflichtfeld"			|	Pflichtfeld muss ausgefüllt sein	|
-		| "Titel mit einhundertneun Zeichen Text"	|	Aufgabe nicht erfolgreich geändert	|
+		| "Titel mit einhundertneun Zeichen Text"	|	Maximale Zeichenlänge überschritten	|
 		| "Titel mit hundert Zeichen Text"			|	Aufgabe erfolgreich geändert		|
 		| "Titel mit neunundneunzig Zeichen Text"	|	Aufgabe erfolgreich geändert		|
 		| "Titel mit Sonderzeichen"					|	Aufgabe erfolgreich geändert		|
@@ -44,9 +44,9 @@ Szenariogrundriss: Ich bearbeite das Feld Beschreibung
 		| "Beschreibung mit leerem Feld"								|	Aufgabe erfolgreich geändert		|
 		| "Beschreibung mit neunhundertneunundneunzig Zeichen Text"		|	Aufgabe erfolgreich geändert		|
 		| "Beschreibung mit eintausend Zeichen Text"					|	Aufgabe erfolgreich geändert		|
-		| "Beschreibung mit eintausendundeinundzwanzig Zeichen Text"	|	Aufgabe nicht erfolgreich geändert	|
+		| "Beschreibung mit eintausendundeinundzwanzig Zeichen Text"	|	Maximale Zeichenlänge überschritten	|
 		| "Beschreibung mit Sonderzeichen"								|	Aufgabe erfolgreich geändert		|
-		| "Beschreibung mit Javascript"									|	Aufgabe erfolgreich geändert		|
+		| "Beschreibung mit Javascript"									|	Aufgabe erfolgreich geändert		|#muss noch geklärt werden
 
 
 Szenariogrundriss: Ich bearbeite das Feld Startdatum
@@ -57,11 +57,11 @@ Szenariogrundriss: Ich bearbeite das Feld Startdatum
 	Wenn ich auf "Speichern" klicke
 	Dann sehe ich <Meldung>:
 		| Testdaten							|	Meldung								|
-		| "Startdatum mit leerem Feld"		|	Aufgabe nicht erfolgreich geändert	|
+		| "Startdatum mit leerem Feld"		|	Valide Daten dd.mm.yyyy eingeben	|
 		| "Startdatum valide"				|	Aufgabe erfolgreich geändert		|
-		| "Startdatum mit Sonderzeichen"	|	Aufgabe nicht erfolgreich geändert	|
-		| "Startdatum mit Javascript"		|	Aufgabe nicht erfolgreich geändert	|
-		| "Startdatum mit Monatsname"		|	Aufgabe nicht erfolgreich geändert	|
+		| "Startdatum mit Sonderzeichen"	|	Valide Daten dd.mm.yyyy eingeben	|
+		| "Startdatum mit Javascript"		|	Valide Daten dd.mm.yyyy eingeben	|
+		| "Startdatum mit Monatsname"		|	Valide Daten dd.mm.yyyy eingeben	|
 		 
 	 
 Szenariogrundriss: Ich bearbeite das Feld Enddatum
@@ -72,11 +72,11 @@ Szenariogrundriss: Ich bearbeite das Feld Enddatum
 	Wenn ich auf "Speichern" klicke
 	Dann sehe ich <Meldung>:
 		| Testdaten							|	Meldung								|
-		| "Enddatum mit leerem Feld"		|	Aufgabe nicht erfolgreich geändert	|
+		| "Enddatum mit leerem Feld"		|	Aufgabe erfolgreich geändert		|# muss noch geklärt werden - kann das Enddatum wirklich offen bleiben nach der Bearbeitung?	
 		| "Enddatum valide"					|	Aufgabe erfolgreich geändert		|
-		| "Enddatum mit Sonderzeichen"		|	Aufgabe nicht erfolgreich geändert	|
-		| "Enddatum mit Javascript"			|	Aufgabe nicht erfolgreich geändert	|
-		| "Enddatum mit Monatsname"			|	Aufgabe nicht erfoglreich genändert	|
+		| "Enddatum mit Sonderzeichen"		|	Valide Daten dd.mm.yyyy eingeben	|
+		| "Enddatum mit Javascript"			|	Valide Daten dd.mm.yyyy eingeben	|
+		| "Enddatum mit Monatsname"			|	Valide Daten dd.mm.yyyy eingeben	|
 
 
 Szenariogrundriss: Ich bearbeite das Feld Fertigstellung
@@ -150,176 +150,8 @@ Szenario: Ich füge eine verantwortliche Person hinzu
 Szenario: Ich entferne eine verantwortliche Person
 	Angenommen ich klicke auf die Aufgabe mit der ID 1
 	Wenn ich auf "Entfernen" klicke
-	Dann sehe ich "Barny Gerölheimer" nicht
-	
-	
-	
-	
-	 
+	Dann sehe ich "Barny Geröllheimer" nicht
 	
 
 		
 # Es fehlt noch das Springen zwischen den Reitern
-
-
-#
-# Wenn das mit den Szenariogrundrissen oben so okay ist, dann können diese Szenarien gelöscht werden!
-#
-#Szenario: Ich bearbeite eine Aufgabe lasse das Pflichtfeld Titel leer 
-#	Angenommen ich klicke auf die Aufgabe mit der ID 1
-#	 Und ich sehe "Detailansicht Aufgabe"
-#	 Und ich sehe "Aufgabe Detailansicht"
-#	 Und ich "Titel mit leerem Pflichtfeld" eingebe
-#	Wenn ich auf "Speichern" klicke
-#	#Im Moment nicht feststellbar, welche Maske und welche Fehlermeldung dann angezeigt wird
-#	Dann sehe ich ... 
-	 
-
-#Szenario: Ich bearbeite eine Aufgabe und gebe 109 Zeichen in das Pflichtfeld Titel ein
-#	Angenommen ich klicke auf die Aufgabe mit der ID 1
-#	 Und ich sehe "Detailansicht Aufgabe"
-#	 Und ich sehe "Aufgabe Detailansicht"
-#	 Und ich "Titel mit einhundertneun Zeichen Text" eingebe
-#	Wenn ich auf "Speichern" klicke
-#	#Im Moment nicht feststellbar, welche Maske und welche Fehlermeldung dann angezeigt wird
-#	Dann sehe ich ... 	 
-	
-	
-#Szenario: Ich bearbeite eine Aufgabe und gebe 100 Zeichen in das Pflichtfeld Titel ein
-#	Angenommen ich klicke auf die Aufgabe mit der ID 1
-#	 Und ich sehe "Detailansicht Aufgabe"
-#	 Und ich sehe "Aufgabe Detailansicht"
-#	 Und ich "Titel mit hundert Zeichen Text" eingebe
-#	Wenn ich auf "Speichern" klicke
-#	#Im Moment nicht feststellbar, welche Maske und welche Fehlermeldung dann angezeigt wird
-#	Dann sehe ich ... 	
-
-
-#Szenario: Ich bearbeite eine Aufgabe und gebe 99 Zeichen in das Pflichtfeld Titel ein
-#	Angenommen ich klicke auf die Aufgabe mit der ID 1
-#	 Und ich sehe "Detailansicht Aufgabe"
-#	 Und ich sehe "Aufgabe Detailansicht"
-#	 Und ich "Titel mit neunundneunzig Zeichen Text" eingebe
-#	Wenn ich auf "Speichern" klicke
-#	#Im Moment nicht feststellbar, welche Maske und welche Fehlermeldung dann angezeigt wird
-#	Dann sehe ich ... 
-
-
-#Szenario: Ich bearbeite eine Aufgabe und gebe 100 Zeichen und Sonderzeichen in das Pflichtfeld Titel ein
-#	Angenommen ich klicke auf die Aufgabe mit der ID 1
-#	 Und ich sehe "Detailansicht Aufgabe"
-#	 Und ich sehe "Aufgabe Detailansicht"
-#	 Und ich "Titel mit Sonderzeichen" eingebe
-#	Wenn ich auf "Speichern" klicke
-#	#Im Moment nicht feststellbar, welche Maske und welche Fehlermeldung dann angezeigt wird
-#	Dann sehe ich ... 	 
-	
-
-#Szenario: Ich bearbeite eine Aufgabe und gebe JavaScript in das Pflichtfeld Titel ein
-#	Angenommen ich klicke auf die Aufgabe mit der ID 1
-#	 Und ich sehe "Detailansicht Aufgabe"
-#	 Und ich sehe "Aufgabe Detailansicht"
-#	 Und ich "Titel mit Javascript" eingebe
-#	Wenn ich auf "Speichern" klicke
-#	#Im Moment nicht feststellbar, welche Maske und welche Fehlermeldung dann angezeigt wird
-#	Dann sehe ich ... 	
-	
-
-#Szenario: Ich bearbeite eine Aufgabe und lasse das Feld Beschreibung leer
-#	Angenommen ich klicke auf die Aufgabe mit der ID 1
-#	 Und ich sehe "Detailansicht Aufgabe"
-#	 Und ich sehe "Aufgabe Detailansicht"
-#	 Und ich "Beschreibung mit leerem Feld" eingebe
-#	Wenn ich auf "Speichern" klicke
-#	#Im Moment nicht feststellbar, welche Maske und welche Fehlermeldung dann angezeigt wird
-#	Dann sehe ich ... 	
-	
-
-#Szenario: Ich bearbeite eine Aufgabe und gebe 999 Zeichen in Feld Beschreibung ein
-#	Angenommen ich klicke auf die Aufgabe mit der ID 1
-#	 Und ich sehe "Detailansicht Aufgabe"
-#	 Und ich sehe "Aufgabe Detailansicht"
-#	 Und ich "Beschreibung mit neunhundertneunundneunzig Zeichen Text" eingebe
-#	Wenn ich auf "Speichern" klicke
-#	#Im Moment nicht feststellbar, welche Maske und welche Fehlermeldung dann angezeigt wird
-#	Dann sehe ich ... 	
-	
-	
-#Szenario: Ich bearbeite eine Aufgabe und gebe 1000 Zeichen in Feld Beschreibung ein
-#	Angenommen ich klicke auf die Aufgabe mit der ID 1
-#	 Und ich sehe "Detailansicht Aufgabe"
-#	 Und ich sehe "Aufgabe Detailansicht"
-#	 Und ich "Beschreibung mit eintausend Zeichen Text" eingebe
-#	Wenn ich auf "Speichern" klicke
-#	#Im Moment nicht feststellbar, welche Maske und welche Fehlermeldung dann angezeigt wird
-#	Dann sehe ich ... 	
-	
-	
-#Szenario: Ich bearbeite eine Aufgabe und gebe 1021 Zeichen in Feld Beschreibung ein
-#	Angenommen ich klicke auf die Aufgabe mit der ID 1
-#	 Und ich sehe "Detailansicht Aufgabe"
-#	 Und ich sehe "Aufgabe Detailansicht"
-#	 Und ich "Beschreibung mit eintausendundeinundzwanzig Zeichen Text" eingebe
-#	Wenn ich auf "Speichern" klicke
-#	#Im Moment nicht feststellbar, welche Maske und welche Fehlermeldung dann angezeigt wird
-#	Dann sehe ich ... 	
-	
-
-#Szenario: Ich bearbeite eine Aufgabe und gebe 100 Zeichen und Sonderzeichen in das Feld Beschreibung ein
-#	Angenommen ich klicke auf die Aufgabe mit der ID 1
-#	 Und ich sehe "Detailansicht Aufgabe"
-#	 Und ich sehe "Aufgabe Detailansicht"
-#	 Und ich "Beschreibung mit Sonderzeichen" eingebe
-#	Wenn ich auf "Speichern" klicke
-#	#Im Moment nicht feststellbar, welche Maske und welche Fehlermeldung dann angezeigt wird
-#	Dann sehe ich ... 	
-	
-	
-#Szenario: Ich bearbeite eine Aufgabe und gebe JavaScript in das Feld Beschreibung ein
-#	Angenommen ich klicke auf die Aufgabe mit der ID 1
-#	 Und ich sehe "Detailansicht Aufgabe"
-#	 Und ich sehe "Aufgabe Detailansicht"
-#	 Und ich "Beschreibung mit Javascript" eingebe
-#	Wenn ich auf "Speichern" klicke
-#	#Im Moment nicht feststellbar, welche Maske und welche Fehlermeldung dann angezeigt wird
-#	Dann sehe ich ... 
-	
-	
-#Szenario: Ich bearbeite eine Aufgabe und lasse das Feld Startdatum leer
-#	Angenommen ich klicke auf die Aufgabe mit der ID 1
-#	 Und ich sehe "Detailansicht Aufgabe"
-#	 Und ich sehe "Aufgabe Detailansicht"
-#	 Und ich "Startdatum mit leerem Feld" eingebe
-#	Wenn ich auf "Speichern" klicke
-#	#Im Moment nicht feststellbar, welche Maske und welche Fehlermeldung dann angezeigt wird
-#	Dann sehe ich ... 	
-	
-
-#Szenario: Ich bearbeite eine Aufgabe und gebe ein valides Datum in Feld Startdatum ein
-#	Angenommen ich klicke auf die Aufgabe mit der ID 1
-#	 Und ich sehe "Detailansicht Aufgabe"
-#	 Und ich sehe "Aufgabe Detailansicht"
-#	 Und ich "Startdatum valide" eingebe
-#	Wenn ich auf "Speichern" klicke
-#	#Im Moment nicht feststellbar, welche Maske und welche Fehlermeldung dann angezeigt wird
-#	Dann sehe ich ... 	
-
-	
-#Szenario: Ich bearbeite eine Aufgabe und gebe ein valides Datum in Feld Enddatum ein
-#	Angenommen ich klicke auf die Aufgabe mit der ID 1
-#	 Und ich sehe "Detailansicht Aufgabe"
-#	 Und ich sehe "Aufgabe Detailansicht"
-#	 Und ich "Enddatum valide" eingebe
-#	Wenn ich auf "Speichern" klicke
-#	#Im Moment nicht feststellbar, welche Maske und welche Fehlermeldung dann angezeigt wird
-#	Dann sehe ich ... 	
-
-
-#Szenario: Ich bearbeite eine Aufgabe und gebe Javascript in Feld Enddatum ein
-#	Angenommen ich klicke auf die Aufgabe mit der ID 1
-#	 Und ich sehe "Detailansicht Aufgabe"
-#	 Und ich sehe "Aufgabe Detailansicht"
-#	 Und ich "Enddatum mit Javascript" eingebe
-#	Wenn ich auf "Speichern" klicke
-#	#Im Moment nicht feststellbar, welche Maske und welche Fehlermeldung dann angezeigt wird
-#	Dann sehe ich ... 	
