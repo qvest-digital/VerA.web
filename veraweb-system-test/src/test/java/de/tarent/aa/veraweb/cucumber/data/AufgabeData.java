@@ -129,7 +129,7 @@ public enum AufgabeData {
                 PageDefinition.AUFGABEDETAILSEITE.elementForName("Enddatum-Feld"));
         valuesForPageFields.put(endeZeit,
                 PageDefinition.AUFGABEDETAILSEITE.elementForName("Endzeit-Feld"));
-        valuesForPageFields.put(verantwortlicher, PageDefinition.AUFGABEDETAILSEITE.elementForName("Enddatum-Feld"));
+        valuesForPageFields.put(verantwortlicher, PageDefinition.AUFGABEDETAILSEITE.elementForName("Veranwortliche Person-Feld"));
         valuesForPageFields.put(fertigstellung, PageDefinition.AUFGABEDETAILSEITE.elementForName("Fortschrittsgrad-Feld"));
         valuesForPageFields.put(prioritaet, PageDefinition.AUFGABEDETAILSEITE.elementForName("Priorität-Feld"));
     }
