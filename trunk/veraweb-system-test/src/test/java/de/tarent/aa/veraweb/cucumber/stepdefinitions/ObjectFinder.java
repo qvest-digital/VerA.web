@@ -1,5 +1,6 @@
 package de.tarent.aa.veraweb.cucumber.stepdefinitions;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
@@ -11,9 +12,8 @@ import org.openqa.selenium.WebElement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import de.tarent.aa.veraweb.cucumber.env.GlobalConfig;
+import de.tarent.aa.veraweb.cucumber.env.Utils;
 import de.tarent.aa.veraweb.db.entity.Task;
-import de.tarent.aa.veraweb.selenium.AdvancedWebDriver;
 
 /**
  * Helper class for finding Objects in tables in the webinterface
@@ -25,13 +25,7 @@ import de.tarent.aa.veraweb.selenium.AdvancedWebDriver;
 public class ObjectFinder {
 
     @Autowired
-    private GlobalConfig config;
-
-    @Autowired
     private WebDriver driver;
-
-    @Autowired
-    private AdvancedWebDriver advancedBrowser;
 
     protected void checkForObjects(List<?> objectData) {
         List<WebElement> resultingObjectDataRows = driver.findElements(By.xpath("//table[@class='list']/tbody/tr"));
@@ -43,8 +37,6 @@ public class ObjectFinder {
                 foundObjects = checkForSingleObject(resultingObjectDataRows, foundObjects, object, i);
             }
         }
-
-        // assertTrue(foundObjects == objectData.size());
     }
 
     private int checkForSingleObject(List<WebElement> resultingObjectDataRows, int foundObjects, Object object, int i) {
@@ -60,22 +52,39 @@ public class ObjectFinder {
         if (tempTaskRow == null || tempTaskRow.isEmpty()) {
             fail("No table rows found");
         }
-        if (tempTaskRow.get(0).findElement(By.id("add-select")).isSelected() == task.getToDeleteSelected()
-                .booleanValue()
-                && tempTaskRow.get(1).getText().equals(String.valueOf(task.getId()))
-                && tempTaskRow.get(2).getText().equals(task.getTitle())
-                && tempTaskRow.get(3).getText().equals(task.getStartDate())
-                && tempTaskRow.get(4).getText().equals(task.getEndDate())
-                && tempTaskRow.get(5).getText().equals(String.valueOf(task.getDegreeOfCompletion()))
-                && tempTaskRow
-                        .get(6)
-                        .getText()
-                        .equals(task.getResponsiblePerson().getLastName() + ", "
-                                + task.getResponsiblePerson().getFirstName())
-                && tempTaskRow.get(7).getText().equals(String.valueOf(task.getPriority()))) {
-            foundTasks++;
+
+        boolean chkBoxSelected = tempTaskRow.get(0).findElement(By.id("add-select")).isSelected();
+        if (chkBoxSelected != task.getToDeleteSelected().booleanValue()) {
+            fail("Zelleneintag stimmt nicht überein: " + chkBoxSelected + " != " + task.getToDeleteSelected());
         }
-        return foundTasks;
+        if (!tempTaskRow.get(1).getText().equals(String.valueOf(task.getId()))) {
+            fail("Zelleneintag stimmt nicht überein: " + tempTaskRow.get(1).getText() + " != " + task.getId());
+        }
+        if (!tempTaskRow.get(2).getText().equals(task.getTitle())) {
+            fail("Zelleneintag stimmt nicht überein: " + tempTaskRow.get(2).getText() + " != " + task.getTitle());
+        }
+        String startDate = Utils.formatVerawebDate(task.getStartDate());
+        if (!tempTaskRow.get(3).getText().equals(startDate)) {
+            fail("Zelleneintag stimmt nicht überein: " + tempTaskRow.get(3).getText() + " != " + startDate);
+        }
+        String endDate = Utils.formatVerawebDate(task.getEndDate());
+        if (!tempTaskRow.get(4).getText().equals(endDate)) {
+            fail("Zelleneintag stimmt nicht überein: " + tempTaskRow.get(4).getText() + " != " + endDate);
+        }
+        if (!tempTaskRow.get(5).getText().equals(String.valueOf(task.getDegreeOfCompletion()) + "%")) {
+            fail("Zelleneintag stimmt nicht überein: " + tempTaskRow.get(5).getText() + " != "
+                    + task.getDegreeOfCompletion());
+        }
+        String responsiblePersonName = task.getResponsiblePerson().getLastName() + ", "
+                + task.getResponsiblePerson().getFirstName();
+        if (!tempTaskRow.get(6).getText().equals(responsiblePersonName)) {
+            fail("Zelleneintag stimmt nicht überein: " + tempTaskRow.get(6).getText() + " != " + responsiblePersonName);
+        }
+        if (!tempTaskRow.get(7).getText().equals(String.valueOf(task.getPriority()))) {
+            fail("Zelleneintag stimmt nicht überein: " + tempTaskRow.get(7).getText() + " != " + task.getPriority());
+        }
+
+        return ++foundTasks;
     }
 
 }

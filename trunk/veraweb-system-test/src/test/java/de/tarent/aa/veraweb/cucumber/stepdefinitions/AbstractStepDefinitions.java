@@ -97,7 +97,7 @@ public abstract class AbstractStepDefinitions {
      *            the {@link DateMidnight} the field should be filled with.
      */
     protected void whenFillField(DateMidnight date, ElementDefinition elementDefinition) {
-        whenFillField(date.toString(Utils.DEFAULT_DATE_FORMATTER), elementDefinition);
+        whenFillField(date.toString(Utils.DEFAULT_DATETIME_FORMATTER), elementDefinition);
     }
 
     /**

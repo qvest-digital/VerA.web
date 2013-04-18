@@ -306,6 +306,7 @@ public class EntityMapping {
         
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.DAY_OF_MONTH, Integer.parseInt(days));
+        cal.set(Calendar.MILLISECOND, 0);
         
         if (hours == null || minutes == null) {
             cal.set(Calendar.HOUR_OF_DAY, 0);

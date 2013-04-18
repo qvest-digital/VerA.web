@@ -121,11 +121,11 @@ public enum AufgabeData {
         valuesForPageFields = new HashMap<String, ElementDefinition>();
         valuesForPageFields.put(kurzbezeichnung, PageDefinition.ANMELDUNGSSEITE.elementForName("Kurzbeschreibung-Feld"));
         valuesForPageFields.put(beschreibung, PageDefinition.ANMELDUNGSSEITE.elementForName("Beschreibung-Feld"));
-        valuesForPageFields.put(beginn.toString(Utils.DEFAULT_DATE_FORMATTER),
+        valuesForPageFields.put(beginn.toString(Utils.DEFAULT_DATETIME_FORMATTER),
                 PageDefinition.ANMELDUNGSSEITE.elementForName("Startdatum-Feld"));
         valuesForPageFields.put(beginnZeit,
                 PageDefinition.ANMELDUNGSSEITE.elementForName("Startzeit-Feld"));
-        valuesForPageFields.put(ende.toString(Utils.DEFAULT_DATE_FORMATTER),
+        valuesForPageFields.put(ende.toString(Utils.DEFAULT_DATETIME_FORMATTER),
                 PageDefinition.ANMELDUNGSSEITE.elementForName("Enddatum-Feld"));
         valuesForPageFields.put(endeZeit,
                 PageDefinition.ANMELDUNGSSEITE.elementForName("Endzeit-Feld"));

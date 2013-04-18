@@ -42,6 +42,7 @@ public class NavigationStepDefinitions extends AbstractStepDefinitions {
     }
 
     @Wenn("^ich den Reiter \"([^\"]+)\" aufrufe$")
+    @Angenommen("^ich rufe den Reiter \"([^\"]+)\" auf$")
     public void whenNavigateToTab(String tabName) {
         whenClickElement(page.elementForName(tabName));
     }

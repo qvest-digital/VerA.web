@@ -30,13 +30,13 @@ Szenario: Liste mit Aufgaben - Tabelle
 
 
 Szenario: Beim Löschen einer Aufgabe erwarte ich eine Löschbestätigung
-	Angenommen es existiert eine Veranstaltung 
-	 Und die Veranstaltung hat folgende Aufgaben:
-		| ID	| Titel 	| Start 	 | Ende 		| Fertigstellungsgrad	| Priorität | 
-		| 1		| Aufgabe 1 | 12.04.2013 | 13.04.2013 	| 		10	 			|	 1		|
+	Angenommen es existiert eine Veranstaltung "Feier" mit folgenden Aufgaben:
+		|	ID	|	Titel		|	Start		|	Ende 		|	Fertigstellungsgrad	|	Priorität	| 
+		|	1	|	Aufgabe 1	|	heute(-1)	|	heute(+1)	|	10					|	1			|
+	 Und ich befinde mich auf der Detailansicht der Veranstaltung "Feier"
 	 Und ich rufe den Reiter "Aufgaben" auf
-	 Und ich wähle die Checkbox zur Aufgabe mit der ID 1 aus
-	Wenn ich auf "Löschen" klicke
+	Wenn ich die Checkbox zur Aufgabe "Aufgabe 1" auswähle
+	 Und ich auf "Löschen" klicke
 	Dann sehe ich eine Rückfrage zur Bestätigung des Löschens einer Aufgabe
 
 
