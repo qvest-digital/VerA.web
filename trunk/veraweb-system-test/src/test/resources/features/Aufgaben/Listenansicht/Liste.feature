@@ -6,7 +6,6 @@ Grundlage: Ich bin als Administrator angemeldet und bin in der Übersicht aller 
 	Angenommen ich bin als Administrator angemeldet
 
 
-@wip
 Szenario: Liste mit Aufgaben - Tabelle
 	Angenommen es existieren die Personen:
 		|  Vorname	| Nachname 		| 
@@ -23,11 +22,11 @@ Szenario: Liste mit Aufgaben - Tabelle
 	Wenn ich den Reiter "Aufgaben" aufrufe
 	Dann sehe ich folgende Tabelle:
 		| CheckboxOhneBezeichnung	| ID	| Titel			| Start 	 | Ende 		| Fertigstellungsgrad 	|	Verantwortliche | Priorität | 
-		| Checkbox 					| 1 	| Aufgabe 1 	| 12.04.2013 | 13.04.2013 	| 		10				| 	Fred			| 	1	 	|
-		| Checkbox 					| 2 	| Aufgabe 2 	| 13.04.2013 | 14.04.2013 	| 		20	 			|	Barny			| 	2 		|
-		| Checkbox 					| 3 	| Aufgabe 3 	| 14.04.2013 | 15.04.2013 	| 		30			 	| 	Fred, Barny		|	3		|
-		| Checkbox 					| 4 	| Aufgabe 4 	| 15.04.2013 | 16.04.2013 	| 		40				|	Fred			| 	4		|
-		| Checkbox 					| 5 	| Aufgabe 5 	| 16.04.2013 | 17.04.2013 	| 		50	 			|	Barny			|	5 		|
+		| nein 						| 1 	| Aufgabe 1 	| 12.04.2013 | 13.04.2013 	| 		10				| 	Fred			| 	1	 	|
+		| nein 						| 2 	| Aufgabe 2 	| 13.04.2013 | 14.04.2013 	| 		20	 			|	Barny			| 	2 		|
+		| nein 						| 3 	| Aufgabe 3 	| 14.04.2013 | 15.04.2013 	| 		30			 	| 	Fred			|	3		|
+		| nein 						| 4 	| Aufgabe 4 	| 15.04.2013 | 16.04.2013 	| 		40				|	Fred			| 	4		|
+		| nein 						| 5 	| Aufgabe 5 	| 16.04.2013 | 17.04.2013 	| 		50	 			|	Barny			|	5 		|
 
 
 Szenario: Ich bearbeite eine vorhandene Aufgabe
