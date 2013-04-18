@@ -58,7 +58,7 @@ public class ObjectFinder {
 
     private int checkIfTaskFound(int foundTasks, Task task, List<WebElement> tempTaskRow) {
         if (tempTaskRow == null || tempTaskRow.isEmpty()) {
-            fail("No table rows not found");
+            fail("No table rows found");
         }
         if (tempTaskRow.get(0).findElement(By.id("add-select")).isSelected() == task.getToDeleteSelected()
                 .booleanValue()

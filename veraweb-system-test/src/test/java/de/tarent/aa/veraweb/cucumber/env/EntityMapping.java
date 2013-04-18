@@ -7,6 +7,7 @@ import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -14,6 +15,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.PropertyUtils;
@@ -242,7 +245,7 @@ public class EntityMapping {
             } else if (Date.class.equals(fieldType)) {
                 value = parseDate(stringValue);
             } else if (Timestamp.class.equals(fieldType)) {
-                value = parseDate(stringValue);
+                value = parseTimestamp(stringValue);
             } else if (Integer.class.equals(fieldType)) {
                 value = Integer.valueOf(stringValue.replace(".", ""));
             } else if (Long.class.equals(fieldType)) {
@@ -282,8 +285,39 @@ public class EntityMapping {
      *             exception
      */
     public static Timestamp parseTimestamp(String dateString) throws ParseException {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
-        return new Timestamp(sdf.parse(dateString).getTime());
+        Pattern regex = Pattern.compile("^heute\\(([-+]{0,1})(\\d)\\)(\\s\\d{1,2}(?::\\d\\d)?){0,1}$");
+        Matcher matcher = regex.matcher(dateString);
+        
+        String prefix = null;
+        String days = null;
+        String hours = null;
+        String minutes = null;
+        if (matcher.matches()) {
+            prefix = matcher.group(1);
+            days = matcher.group(2);
+            if ("-".equals(prefix)) {
+                days = prefix + days;
+            }
+            if (matcher.groupCount() > 3) {
+                hours = matcher.group(3);
+                minutes = matcher.group(4);
+            }
+        }
+        
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DAY_OF_MONTH, Integer.parseInt(days));
+        
+        if (hours == null || minutes == null) {
+            cal.set(Calendar.HOUR_OF_DAY, 0);
+            cal.set(Calendar.MINUTE, 0);
+            cal.set(Calendar.SECOND, 30);
+        } else {
+            cal.set(Calendar.HOUR_OF_DAY, Integer.valueOf(hours).intValue());
+            cal.set(Calendar.MINUTE, Integer.valueOf(minutes).intValue());
+            cal.set(Calendar.SECOND, 0);
+        }
+        
+        return new Timestamp(cal.getTimeInMillis());
     }
 
     /**

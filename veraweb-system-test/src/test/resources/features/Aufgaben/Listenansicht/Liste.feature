@@ -5,61 +5,28 @@ Funktionalität: Als User mit entsprechenden Rechte möchte ich eine Aufgabenlis
 Grundlage: Ich bin als Administrator angemeldet und bin in der Übersicht aller Veranstaltungen und habe mind. eine Veranstaltung angelegt
 	Angenommen ich bin als Administrator angemeldet
 
-
+@wip
 Szenario: Liste mit Aufgaben - Tabelle
 	Angenommen es existieren die Personen:
 		|  Vorname	| Nachname 		| 
 		|  Fred 	| Feuerstein	|
 		|  Barny	| Geröllheimer	| 
 	 Und es existiert eine Veranstaltung "Feier" mit folgenden Aufgaben:
-		| ID	| Titel 	| Start 	 | Ende 		| Fertigstellungsgrad	| 	Verantwortlicher	| Priorität | 
-		| 1		| Aufgabe 1 | 12.04.2013 | 13.04.2013 	| 		10	 			| 	Fred				|	 1		|
-		| 2		| Aufgabe 2 | 13.04.2013 | 14.04.2013 	| 		20 				|	Barny				|	 2		|
-		| 3 	| Aufgabe 3 | 14.04.2013 | 15.04.2013 	| 		30 				| 	Fred				| 	 3		|
-		| 4 	| Aufgabe 4 | 15.04.2013 | 16.04.2013 	| 		40 				| 	Fred				| 	 4		|
-		| 5 	| Aufgabe 5 | 16.04.2013 | 17.04.2013 	| 		50 				| 	Barny				|	 5 		|
+		|	ID	|	Titel		|	Start 	 		|	Ende 			|	Fertigstellungsgrad	| 	Verantwortlicher	|	Priorität	| 
+		|	1	|	Aufgabe 1	|	heute(-1)  		|	heute(+1) 		| 	10	 				| 	Fred				|	 1			|
+		|	2	|	Aufgabe 2	|	heute(-2)  		|	heute(+2) 		| 	20 					|	Barny				|	 2			|
+		|	3 	|	Aufgabe 3	|	heute(-3)  		|	heute(+3) 		| 	30 					| 	Fred				| 	 3			|
+		|	4 	|	Aufgabe 4	|	heute(-4) 8:12	|	heute(+4) 9		| 	40 					| 	Fred				| 	 4			|
+		|	5 	|	Aufgabe 5	|	heute(-5) 13:13 |	heute(+5) 20	|	50 					| 	Barny				|	 5 			|
 	 Und ich befinde mich auf der Detailansicht der Veranstaltung "Feier"
 	Wenn ich den Reiter "Aufgaben" aufrufe
 	Dann sehe ich eine Tabelle mit folgenenden Aufgaben:
-		| CheckboxOhneBezeichnung	| ID	| Titel			| Start 	 | Ende 		| Fertigstellungsgrad 	|	Verantwortlicher | Priorität | 
-		| nein 						| 1 	| Aufgabe 1 	| 12.04.2013 | 13.04.2013 	| 		10				| 	Fred			| 	1	 	|
-		| nein 						| 2 	| Aufgabe 2 	| 13.04.2013 | 14.04.2013 	| 		20	 			|	Barny			| 	2 		|
-		| nein 						| 3 	| Aufgabe 3 	| 14.04.2013 | 15.04.2013 	| 		30			 	| 	Fred			|	3		|
-		| nein 						| 4 	| Aufgabe 4 	| 15.04.2013 | 16.04.2013 	| 		40				|	Fred			| 	4		|
-		| nein 						| 5 	| Aufgabe 5 	| 16.04.2013 | 17.04.2013 	| 		50	 			|	Barny			|	5 		|
-
-
-Szenario: Ich bearbeite eine vorhandene Aufgabe
-	Angenommen es existiert eine Veranstaltung 
-	 Und die Veranstaltung hat folgende Aufgaben:
-		| ID	| Titel 	| Start 	 | Ende 		| Fertigstellungsgrad	| Priorität | 
-		| 1		| Aufgabe 1 | 12.04.2013 | 13.04.2013 	| 		10	 			|	 1		|
-		| 2		| Aufgabe 2 | 13.04.2013 | 14.04.2013 	| 		20				|	 2		|
-	 Und ich rufe den Reiter "Aufgaben" auf
-	Wenn ich auf die Aufgabe mit der ID 1 klicke
-	Dann sehe ich "Detailansicht Aufgabe"
-	 Und ich sehe "Aufgabe Detailansicht"
-
-
-Szenario: Ich prüfe den Button Neu
-	Angenommen es existiert eine Veranstaltung 
-	 Und die Veranstaltung hat folgende Aufgaben:
-		| ID	| Titel 	| Start 	 | Ende 		| Fertigstellungsgrad	| Priorität | 
-		| 1		| Aufgabe 1 | 12.04.2013 | 13.04.2013 	| 		10	 			|	 1		|
-	 Und ich rufe den Reiter "Aufgaben" auf
-	Wenn ich auf "Neu" klicke
-	Dann sehe ich "Neue Aufgabe erstellen"
-	 Und ich sehe folgende Felder:
-		| Aufgaben-ID:			|	 
-		| Kurzbezeichnung:		|
-		|	Beschreibung:		|
-		|	Beginn:				|
-		|	um					|
-		|	Ende:				|
-		|	um					|
-		|	Verantwortliche:	|
-		|	Fertigstellung:		|
-		|	Priorität:			|
+		|	CheckboxOhneBezeichnung	|	ID	|	Titel		|	Start 			|	Ende 			|	Fertigstellungsgrad |	Verantwortlicher	| Priorität	| 
+		|	nein 					|	1 	|	Aufgabe 1 	|	heute(-1)		|	heute(+1)		|	10					| 	Fred				| 	1	 	|
+		|	nein 					|	2 	|	Aufgabe 2 	|	heute(-2)		|	heute(+2)		|	20	 				|	Barny				| 	2 		|
+		|	nein 					|	3	|	Aufgabe 3 	|	heute(-3)		|	heute(+3)		|	30			 		| 	Fred				|	3		|
+		|	nein 					|	4	|	Aufgabe 4 	|	heute(-4) 8:12	|	heute(+4) 9		|	40					|	Fred				| 	4		|
+		|	nein 					|	5	|	Aufgabe 5	|	heute(-5) 13:13	|	heute(+5) 20	|	50	 				|	Barny				|	5 		|
 
 
 Szenario: Beim Löschen einer Aufgabe erwarte ich eine Löschbestätigung
