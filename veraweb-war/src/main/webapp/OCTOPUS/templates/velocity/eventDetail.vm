@@ -16,7 +16,7 @@
 	<td class="tableft">&nbsp;</td>
 	<td class="tabactiv"><span class="tabactiv">Allgemein</span></td>
 	<td class="tabinactiv"><a href="javascript:showDoctypes();" class="tabinactiv">Dokumententypen</a></td>
-	<td class="tabinactiv"><a href="${paths.staticWeb}do/ShowEventTasks?id=$!event.id" class="tabinactiv">Aufgaben</a></td>
+	<td class="tabinactiv"><a id="tab.tasks" href="${paths.staticWeb}do/ShowEventTasks?id=$!event.id" class="tabinactiv">Aufgaben</a></td>
 	<td class="tabright">&nbsp;</td>
 </tr></table>
 
