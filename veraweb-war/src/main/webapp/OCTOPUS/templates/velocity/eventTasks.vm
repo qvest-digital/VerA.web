@@ -22,6 +22,19 @@
 #openContent()
 #openContentSection()
 
+<input type="hidden" id="remove-task" name="remove-task" value="false">
+
+<script language="JavaScript" type="text/javascript">
+<!--
+	function removeTask() {
+		var task = confirm('Markierte Aufgabe(n) wirklich entfernen?');
+		
+		document.getElementById('remove-task').value = task;
+		return task;
+	}
+-->
+</script>
+
 #if(($listerrors && $listerrors.size() > 0) || ($listquestions && $listquestions.size() > 0))
 #set($save = false)
 
@@ -121,7 +134,7 @@
 	#parse("inc/list-direct.vm")
 
 	<input type="button" id="new" name="new" value="Neu" #if($grants.mayWrite()) class="button" #else class="buttondisabled" disabled #end onclick="window.location.href='CreateEventTask?eventId=$!id';"> &nbsp;
-	<input type="submit" id="remove" name="remove" value="L&ouml;schen" title="markierte Eintr&auml;ge entfernen" #if($grants.mayWrite()) class="button" #else class="buttondisabled" disabled #end> &nbsp;
+	<input type="submit" id="remove" name="remove" value="L&ouml;schen" title="markierte Eintr&auml;ge entfernen" #if($grants.mayWrite()) class="button" #else class="buttondisabled" disabled #end onclick="return removeTask();"> &nbsp;
 	<input type="button" id="cancel" name="cancel" class="button" value="Zur&uuml;ck" title="Zur Suche" onclick="window.location.href='SearchEvent';"> &nbsp;
 
 </div></div></div>
