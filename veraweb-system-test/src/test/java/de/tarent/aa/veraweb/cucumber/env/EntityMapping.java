@@ -32,7 +32,7 @@ import de.tarent.aa.veraweb.db.entity.Person;
 public class EntityMapping {
 
     public static String SEPARATOR = "\\.";
-    
+
     /**
      * Cucumber mapping for entity {@link Person}.
      */
@@ -42,13 +42,14 @@ public class EntityMapping {
         person.put("vorname", "firstName");
         person.put("nachname", "lastName");
     }
-    
+
     /**
      * Cucumber mapping for entity {@link Person}.
      */
     public static Map<String, String> task;
     static {
         task = new HashMap<String, String>();
+        task.put("checkboxohnebezeichnung", "toDeleteSelected");
         task.put("id", "id");
         task.put("titel", "title");
         task.put("beschreibung", "description");
@@ -226,7 +227,11 @@ public class EntityMapping {
      */
     public static void setPropertyValue(final Object o, final String fieldName, final String stringValue)
             throws ParseException, IllegalAccessException, InvocationTargetException {
-        Class<?> fieldType = FieldUtils.getField(o.getClass(), fieldName, true).getType();
+        Field field = FieldUtils.getField(o.getClass(), fieldName, true);
+        if (field == null) {
+            throw new NullPointerException("Field '" + fieldName + "' not found!");
+        }
+        Class<?> fieldType = field.getType();
 
         Object value;
 

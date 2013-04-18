@@ -58,6 +58,12 @@ public enum PageDefinition {
     VERANSTALTUNG_SUCHEN(
             new ElementDefinition("Kurzbeschreibung-Feld", "input.shortname", HtmlType.INPUT),
             new ElementDefinition("Suche starten", "button.startSearch")),
+            
+    /** 
+     * Veranstaltung Detailansicht
+     */
+    VERANSTALTUNG_DETAILANSICHT(
+            new ElementDefinition("Aufgaben", "tab.tasks")),
 
 	/** 
 	 * Aufgabenübersichtsseite 

@@ -16,13 +16,14 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 
 import org.hibernate.LazyInitializationException;
 
 /**
  * 
  * @author Valentin But (v.but@tarent.de), tarent solutions GmbH
- *
+ * 
  */
 @MappedSuperclass
 public abstract class AbstractEntity implements Serializable {
@@ -31,8 +32,24 @@ public abstract class AbstractEntity implements Serializable {
      * Generated serial id.
      */
     private static final long serialVersionUID = 2385997781356544101L;
-    
-    
+
+    @Transient
+    private Boolean toDeleteSelected = Boolean.FALSE;
+
+    /**
+     * @return the toDelete
+     */
+    public Boolean getToDeleteSelected() {
+        return toDeleteSelected;
+    }
+
+    /**
+     * @param toDelete the toDelete to set
+     */
+    public void setToDeleteSelected(Boolean toDeleteSelected) {
+        this.toDeleteSelected = toDeleteSelected;
+    }
+
     /**
      * Needed by hashCode() and equals().
      */
@@ -70,7 +87,7 @@ public abstract class AbstractEntity implements Serializable {
             return getId().equals(((AbstractEntity) obj).getId());
         }
     }
-    
+
     /**
      * Returns the current value of the given field of this object by calling a getter. This is needed to get values of
      * private fields.
@@ -182,7 +199,7 @@ public abstract class AbstractEntity implements Serializable {
             ManyToMany anManyToMany = field.getAnnotation(ManyToMany.class);
 
             Class<?> type = field.getType();
-            String name = field.getName(); 
+            String name = field.getName();
             try {
                 if (anColumn != null) {
                     if (!"pk".equals(name)) {
@@ -227,9 +244,9 @@ public abstract class AbstractEntity implements Serializable {
             }
         }
 
-//        // append PersistenceObject properties
-//        builder.append(", ").append("created").append('=').append(noPersistenceObjectToString(obj.created));
-//        builder.append(", ").append("changed").append('=').append(noPersistenceObjectToString(obj.changed));
+        // // append PersistenceObject properties
+        // builder.append(", ").append("created").append('=').append(noPersistenceObjectToString(obj.created));
+        // builder.append(", ").append("changed").append('=').append(noPersistenceObjectToString(obj.changed));
         // append single non null entity properties
         indent = indent + INDENT_TO_STRING;
         if (fieldsSingle != null) {

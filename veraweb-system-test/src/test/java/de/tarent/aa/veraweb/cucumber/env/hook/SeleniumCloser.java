@@ -16,7 +16,7 @@ import de.tarent.aa.veraweb.cucumber.env.event.HandlerStop;
 public class SeleniumCloser implements HandlerStop, HandlerAfter {
 
     @Autowired
-    WebDriver driver;
+    private WebDriver driver;
 
     @Autowired
     private GlobalConfig config;
