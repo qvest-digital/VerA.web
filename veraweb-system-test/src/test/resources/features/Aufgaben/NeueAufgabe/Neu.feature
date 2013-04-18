@@ -45,6 +45,8 @@ Szenariogrundriss: Ich lege eine neue Aufgabe an
 		| "Enddatum mit Sonderzeichen"									|	Valide Daten dd.mm.yyyy eingeben			|
 		| "Enddatum mit Javascript"										|	Valide Daten dd.mm.yyyy eingeben			|
 		| "Enddatum mit Monatsname"										|	Valide Daten dd.mm.yyyy eingeben			|
+		| "Enddatum vor Startdatum"										|	Startdatum muss vor Enddatum liegen			|
+		| "Enddatum in Vergangenheit"									|	Enddatum muss in Zukunft liegen				|
 		| "FERTIGSTELLUNG_GEANDERT_10"									|	Aufgabe erfolgreich angelegt				|
 		| "FERTIGSTELLUNG_GEANDERT_50"									|	Aufgabe erfolgreich angelegt				|
 		| "FERTIGSTELLUNG_GEANDERT_90"									|	Aufgabe erfolgreich angelegt				|
@@ -63,5 +65,11 @@ Szenario: Ich lege eine neue Aufgabe an und teste die Weiterleitung zur Verantwo
 	Dann sehe ich "Neue Aufgabe erstellen"
 	 Und ich sehe "Aufgabe Detailansicht"
 	 Und ich sehe als verantwortliche Person "Fred Feuerstein"
+	 
+	 
+Szenario: Ich lege eine neue Aufgabe an und teste, ob das Startdatum hintern dem Enddatum liegen kann
+	Angenommen ich klicke auf "Neu"
+	 Und ich sehe "Neue Aufgabe erstellen"
+ 
 
 	
