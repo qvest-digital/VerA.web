@@ -12,6 +12,9 @@ import de.tarent.aa.veraweb.cucumber.env.StartAndShutdownHook;
 import de.tarent.aa.veraweb.cucumber.env.Utils;
 import de.tarent.aa.veraweb.cucumber.env.event.HandlerAfter;
 import de.tarent.aa.veraweb.cucumber.env.event.HandlerStart;
+import de.tarent.aa.veraweb.db.dao.EventDao;
+import de.tarent.aa.veraweb.db.dao.PersonDao;
+import de.tarent.aa.veraweb.db.dao.TaskDao;
 
 public class DatabaseInitializer implements HandlerStart, HandlerAfter {
     
@@ -20,6 +23,15 @@ public class DatabaseInitializer implements HandlerStart, HandlerAfter {
 
     @Autowired
     private Flyway flyway;
+    
+    @Autowired
+    private TaskDao taskDao;
+    
+    @Autowired
+    private EventDao eventDao;
+    
+    @Autowired
+    private PersonDao personDao;
 
     public DatabaseInitializer() {
         // register me
@@ -83,6 +95,8 @@ public class DatabaseInitializer implements HandlerStart, HandlerAfter {
      *             exception
      */
     private void cleanUpDB() throws Exception {
-        //
+        taskDao.deleteAll();
+        eventDao.deleteAll();
+        personDao.deleteAll();
     }
 }
