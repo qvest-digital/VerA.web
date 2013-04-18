@@ -92,7 +92,11 @@ public enum AufgabeData {
 
     public final DateMidnight beginn;
 
+    public final String beginnZeit;
+
     public final DateMidnight ende;
+    
+    public final String endeZeit;
     
     public final String verantwortlicher;
 
@@ -102,12 +106,14 @@ public enum AufgabeData {
 
     public final Map<String, ElementDefinition> valuesForPageFields;
 
-    private AufgabeData(String kurzbezeichnung, String beschreibung, DateMidnight beginn, DateMidnight ende, String verantwortlicher,
+    private AufgabeData(String kurzbezeichnung, String beschreibung, DateMidnight beginn,String beginnZeit, DateMidnight ende, String endeZeit, String verantwortlicher,
             String fertigstellung, String prioritaet) {
         this.kurzbezeichnung = kurzbezeichnung;
         this.beschreibung = beschreibung;
         this.beginn = beginn;
+        this.beginnZeit = beginnZeit;
         this.ende = ende;
+        this.endeZeit = endeZeit;
         this.verantwortlicher = verantwortlicher;
         this.fertigstellung = fertigstellung;
         this.prioritaet = prioritaet;
@@ -115,13 +121,24 @@ public enum AufgabeData {
         valuesForPageFields = new HashMap<String, ElementDefinition>();
         valuesForPageFields.put(kurzbezeichnung, PageDefinition.ANMELDUNGSSEITE.elementForName("Kurzbeschreibung-Feld"));
         valuesForPageFields.put(beschreibung, PageDefinition.ANMELDUNGSSEITE.elementForName("Beschreibung-Feld"));
-        valuesForPageFields.put(beginn.toString(Utils.DEFAULT_DATETIME_FORMATTER),
+        valuesForPageFields.put(beginn.toString(Utils.DEFAULT_DATE_FORMATTER),
                 PageDefinition.ANMELDUNGSSEITE.elementForName("Startdatum-Feld"));
-        valuesForPageFields.put(ende.toString(Utils.DEFAULT_DATETIME_FORMATTER),
+        valuesForPageFields.put(beginnZeit,
+                PageDefinition.ANMELDUNGSSEITE.elementForName("Startzeit-Feld"));
+        valuesForPageFields.put(ende.toString(Utils.DEFAULT_DATE_FORMATTER),
                 PageDefinition.ANMELDUNGSSEITE.elementForName("Enddatum-Feld"));
+        valuesForPageFields.put(endeZeit,
+                PageDefinition.ANMELDUNGSSEITE.elementForName("Endzeit-Feld"));
         valuesForPageFields.put(verantwortlicher, PageDefinition.ANMELDUNGSSEITE.elementForName("Enddatum-Feld"));
         valuesForPageFields.put(fertigstellung, PageDefinition.ANMELDUNGSSEITE.elementForName("Fortschrittsgrad-Feld"));
         valuesForPageFields.put(prioritaet, PageDefinition.ANMELDUNGSSEITE.elementForName("Priorität-Feld"));
+    }
+    
+
+    private AufgabeData(String kurzbezeichnung, String beschreibung, DateMidnight beginn, DateMidnight ende,  String verantwortlicher,
+            String fertigstellung, String prioritaet) {
+    	this(kurzbezeichnung, beschreibung, beginn,"", ende, "", verantwortlicher,
+                fertigstellung,  prioritaet);
     }
 
     public static AufgabeData forName(String name) {

@@ -77,9 +77,11 @@ public enum PageDefinition {
      */
     AUFGABEDETAILSEITE(
             new ElementDefinition("Kurzbeschreibung-Feld", "input.title"),
-            new ElementDefinition("Beschreibung-Feld", "input.description", HtmlType.INPUT),
-            new ElementDefinition("Startdatum-Feld", "input.startdate", HtmlType.INPUT),
-            new ElementDefinition("Enddatum-Feld", "input.enddate", HtmlType.INPUT),
+            new ElementDefinition("Beschreibung-Feld", "input.description", HtmlType.TEXTAREA),
+            new ElementDefinition("Startdatum-Feld", "task-startdate", HtmlType.INPUT),
+            new ElementDefinition("Startzeit-Feld", "task-starttime", HtmlType.INPUT),
+            new ElementDefinition("Enddatum-Feld", "task-enddate", HtmlType.INPUT),
+            new ElementDefinition("Endzeit-Feld", "task-endtime", HtmlType.INPUT),
             new ElementDefinition("Fortschrittsgrad-Feld", "input.degreeOfCompletion", HtmlType.SELECT),
             new ElementDefinition("Priorität-Feld", "input.priority", HtmlType.SELECT),
             new ElementDefinition("Veranwortliche Person-Feld", "input.responsiblePerson", HtmlType.INPUT),
