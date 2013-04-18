@@ -186,12 +186,12 @@
 <div id="fixme" class="fixme1"><div class="fixme2"><div class="fixme3">
 
 #if($event && $event.id)
-	<input type="submit" name="save" value="Speichern" onclick="document.getElementById('formlist').action='SaveEventTask';" #if($grants.mayWrite()) class="button" #else class="buttondisabled" disabled #end> &nbsp;
+	<input id="button.save" type="submit" name="save" value="Speichern" onclick="document.getElementById('formlist').action='SaveEventTask';" #if($grants.mayWrite()) class="button" #else class="buttondisabled" disabled #end> &nbsp;
 	<input type="button" name="guestlist" class="button" value="Zur G&auml;steliste" onclick="window.location.href='ShowGuestList?search-event=$!event.id&start=0&selectNone=true';"> &nbsp;
-	<input type="button" name="cancel" class="button" value="Zur&uuml;ck" title="Zur Suche" onclick="window.location.href='${paths.staticWeb}do/ShowEventTasks?id=$!eventId';"> &nbsp;
+	<input id="button.back" type="button" name="cancel" class="button" value="Zur&uuml;ck" title="Zur Suche" onclick="window.location.href='${paths.staticWeb}do/ShowEventTasks?id=$!eventId';"> &nbsp;
 #else
-    <input type="submit" name="save" value="Speichern" onclick="document.getElementById('formlist').action='SaveEventTask';" #if($grants.mayWrite()) class="button" #else class="buttondisabled" disabled #end> &nbsp;
-    <input type="button" name="cancel" class="button" value="Zur&uuml;ck" title="Zur Suche" onclick="if (checkModified()) { window.location.href='${paths.staticWeb}do/ShowEventTasks?id=$!eventId'; }"> &nbsp;
+    <input id="button.save" type="submit" name="save" value="Speichern" onclick="document.getElementById('formlist').action='SaveEventTask';" #if($grants.mayWrite()) class="button" #else class="buttondisabled" disabled #end> &nbsp;
+    <input id="button.back" type="button" name="cancel" class="button" value="Zur&uuml;ck" title="Zur Suche" onclick="if (checkModified()) { window.location.href='${paths.staticWeb}do/ShowEventTasks?id=$!eventId'; }"> &nbsp;
 #end
 
 </div></div></div>
