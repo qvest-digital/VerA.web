@@ -24,7 +24,9 @@ import com.thoughtworks.selenium.Selenium;
  */
 public class Utils {
     
-    public static DateTimeFormatter DEFAULT_DATETIME_FORMATTER = DateTimeFormat.forPattern("dd.MM.yyyy");
+    public static DateTimeFormatter DEFAULT_DATE_FORMATTER = DateTimeFormat.forPattern("dd.MM.yyyy");
+    public static DateTimeFormatter DEFAULT_TIMESTAMP_FORMATTER = DateTimeFormat.forPattern("dd.MM.yyyy H:mm");
+    
 
     /**
      * Generate output path.
