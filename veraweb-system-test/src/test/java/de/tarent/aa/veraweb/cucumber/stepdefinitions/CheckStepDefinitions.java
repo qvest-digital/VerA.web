@@ -9,10 +9,15 @@ import cucumber.annotation.de.Und;
 import cucumber.table.DataTable;
 import de.tarent.aa.veraweb.cucumber.env.EntityMapping;
 import de.tarent.aa.veraweb.cucumber.pagedefinitions.PageDefinition;
+import de.tarent.aa.veraweb.db.dao.PersonDao;
+import de.tarent.aa.veraweb.db.entity.Person;
 import de.tarent.aa.veraweb.db.entity.Task;
 
 public class CheckStepDefinitions extends AbstractStepDefinitions {
 
+    @Autowired
+    private PersonDao personDao;
+    
     @Autowired
     private ObjectFinder objectFinder;
 
@@ -30,6 +35,12 @@ public class CheckStepDefinitions extends AbstractStepDefinitions {
     @Dann("^sehe ich eine Tabelle mit folgenenden Aufgaben:$")
     public void thenTableWithTasksIsPresent(DataTable data) throws Exception {
         List<Task> tasks = EntityMapping.createEntities(data, Task.class);
+        for (Task task : tasks) {
+            if (task.getResponsiblePerson() != null && task.getResponsiblePerson().getFirstName() != null) {
+                Person personDB = personDao.getPersonByFirstname(task.getResponsiblePerson().getFirstName());
+                task.setResponsiblePerson(personDB);
+            }
+        }
         objectFinder.checkForObjects(tasks);
     }
 

@@ -1,6 +1,5 @@
 package de.tarent.aa.veraweb.cucumber.stepdefinitions;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
@@ -19,6 +18,8 @@ import de.tarent.aa.veraweb.db.entity.Task;
  * Helper class for finding Objects in tables in the webinterface
  * 
  * @author Dino Omanovic (d.omanovic@tarent.de), tarent solutions GmbH
+ * @author Valentin But (v.but@tarent.de), tarent solutions GmbH
+ * 
  */
 
 @Component(value = "ObjectFinder")
@@ -30,25 +31,24 @@ public class ObjectFinder {
     protected void checkForObjects(List<?> objectData) {
         List<WebElement> resultingObjectDataRows = driver.findElements(By.xpath("//table[@class='list']/tbody/tr"));
 
-        int foundObjects = 0;
-
+        int i = 1;
         for (Object object : objectData) {
-            for (int i = 0; i < resultingObjectDataRows.size(); i++) {
-                foundObjects = checkForSingleObject(resultingObjectDataRows, foundObjects, object, i);
+            checkForSingleObject(resultingObjectDataRows, object, i);
+            if (i < resultingObjectDataRows.size()) {
+                i++;
             }
         }
     }
 
-    private int checkForSingleObject(List<WebElement> resultingObjectDataRows, int foundObjects, Object object, int i) {
+    private void checkForSingleObject(List<WebElement> resultingObjectDataRows, Object object, int i) {
         List<WebElement> tempObjectRow = new ArrayList<WebElement>();
-        tempObjectRow.addAll(resultingObjectDataRows.get(i).findElements(By.xpath("//td[@class='list']")));
+        tempObjectRow.addAll(resultingObjectDataRows.get(i).findElements(By.xpath(".//td[@class='list']")));
         if (Task.class.isInstance(object)) {
-            foundObjects = checkIfTaskFound(foundObjects, (Task) object, tempObjectRow);
+            checkIfTaskFound((Task) object, tempObjectRow);
         }
-        return foundObjects;
     }
 
-    private int checkIfTaskFound(int foundTasks, Task task, List<WebElement> tempTaskRow) {
+    private void checkIfTaskFound(Task task, List<WebElement> tempTaskRow) {
         if (tempTaskRow == null || tempTaskRow.isEmpty()) {
             fail("No table rows found");
         }
@@ -83,8 +83,6 @@ public class ObjectFinder {
         if (!tempTaskRow.get(7).getText().equals(String.valueOf(task.getPriority()))) {
             fail("Zelleneintag stimmt nicht überein: " + tempTaskRow.get(7).getText() + " != " + task.getPriority());
         }
-
-        return ++foundTasks;
     }
 
 }
