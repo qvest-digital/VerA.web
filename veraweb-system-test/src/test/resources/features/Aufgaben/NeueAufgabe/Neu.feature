@@ -2,7 +2,7 @@
 
 Funktionalität: Als User mit entsprechenden Rechte möchte ich eine neue Aufgabe anlegen können.
 
-Grundlage: Ich bin als Administrator angemeldet und habe mind. eine Veranstaltung angelegt und bin in der Aufgabenliste einer Veranstaltungen 
+Grundlage: Ich bin als Administrator angemeldet und habe mind. eine Veranstaltung angelegt und bin in der Aufgabenliste einer Veranstaltung 
 	Angenommen ich bin als Administrator angemeldet
 	 Und es existieren die Personen:
 		|  Vorname	| Nachname 		| 
@@ -20,7 +20,7 @@ Szenariogrundriss: Ich lege eine neue Aufgabe an
 	 Und ich fülle die Maske mit <Testdaten> aus
 	Aber ohne "Verantwortlicher"
 	Wenn ich auf "Speichern" klicke
-	Dann sehe ich <Meldung>:
+	Dann sehe ich <Meldung>
 		| Testdaten														|	Meldung								|
 		| "Aufgabe mit leeren Feldern"									|	Aufgabe nicht erfolgreich angelegt	|
 		| "Titel mit leerem Pflichtfeld"								|	Pflichtfeld muss ausgefüllt sein	|
@@ -28,7 +28,7 @@ Szenariogrundriss: Ich lege eine neue Aufgabe an
 		| "Titel mit hundert Zeichen Text"								|	Aufgabe erfolgreich angelegt		|
 		| "Titel mit neunundneunzig Zeichen Text"						|	Aufgabe erfolgreich angelegt		|
 		| "Titel mit Sonderzeichen"										|	Aufgabe erfolgreich angelegt		|
-#muss noch geklärt werden		| "Titel mit Javascript"										|	Aufgabe erfolgreich angelegt		|	 
+		| "Titel mit Javascript"										|	Aufgabe erfolgreich angelegt		|#muss noch geklärt werden		 
 		| "Beschreibung mit leerem Feld"								|	Aufgabe erfolgreich angelegt		|
 		| "Beschreibung mit neunhundertneunundneunzig Zeichen Text"		|	Aufgabe erfolgreich angelegt		|
 		| "Beschreibung mit eintausend Zeichen Text"					|	Aufgabe erfolgreich angelegt		|
