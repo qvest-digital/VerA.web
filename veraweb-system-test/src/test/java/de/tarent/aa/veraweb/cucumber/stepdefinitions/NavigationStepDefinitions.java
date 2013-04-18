@@ -19,6 +19,7 @@ public class NavigationStepDefinitions extends AbstractStepDefinitions {
     protected WebDriver driver;
 
     @Wenn("^ich auf \"([^\"]+)\" klicke$")
+    @Angenommen("^ich klicke auf \"([^\"]+)\"$")
     public void whenClickElement(String name) {
         whenClickElement(page.elementForName(name));
     }
