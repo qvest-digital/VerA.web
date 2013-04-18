@@ -285,7 +285,7 @@ public class EntityMapping {
      *             exception
      */
     public static Timestamp parseTimestamp(String dateString) throws ParseException {
-        Pattern regex = Pattern.compile("^heute\\(([-+]{0,1})(\\d)\\)(\\s\\d{1,2}(?::\\d\\d)?){0,1}$");
+        Pattern regex = Pattern.compile("^heute\\(([-+]{0,1})(\\d)\\)(\\s\\d{1,2}(?::\\d\\d)?){0,1}(?:\\sUhr)?$");
         Matcher matcher = regex.matcher(dateString);
         
         String prefix = null;
