@@ -21,36 +21,36 @@ Szenariogrundriss: Ich lege eine neue Aufgabe an
 	Aber ohne "Verantwortlicher"
 	Wenn ich auf "Speichern" klicke
 	Dann sehe ich <Meldung>
-		| Testdaten														|	Meldung								|
-		| "Aufgabe mit leeren Feldern"									|	Aufgabe nicht erfolgreich angelegt	|
-		| "Titel mit leerem Pflichtfeld"								|	Pflichtfeld muss ausgefüllt sein	|
-		| "Titel mit einhundertneun Zeichen Text"						|	Aufgabe nicht erfolgreich angelegt	|
-		| "Titel mit hundert Zeichen Text"								|	Aufgabe erfolgreich angelegt		|
-		| "Titel mit neunundneunzig Zeichen Text"						|	Aufgabe erfolgreich angelegt		|
-		| "Titel mit Sonderzeichen"										|	Aufgabe erfolgreich angelegt		|
-		| "Titel mit Javascript"										|	Aufgabe erfolgreich angelegt		|#muss noch geklärt werden		 
-		| "Beschreibung mit leerem Feld"								|	Aufgabe erfolgreich angelegt		|
-		| "Beschreibung mit neunhundertneunundneunzig Zeichen Text"		|	Aufgabe erfolgreich angelegt		|
-		| "Beschreibung mit eintausend Zeichen Text"					|	Aufgabe erfolgreich angelegt		|
-		| "Beschreibung mit eintausendundeinundzwanzig Zeichen Text"	|	Aufgabe nicht erfolgreich angelegt	|
-		| "Beschreibung mit Sonderzeichen"								|	Aufgabe erfolgreich angelegt		|
-		| "Beschreibung mit Javascript"									|	Aufgabe erfolgreich angelegt		|
-		| "Startdatum mit leerem Feld"									|	Aufgabe nicht erfolgreich angelegt	|
-		| "Startdatum valide"											|	Aufgabe erfolgreich angelegt		|
-		| "Startdatum mit Sonderzeichen"								|	Aufgabe nicht erfolgreich angelegt	|
-		| "Startdatum mit Javascript"									|	Aufgabe nicht erfolgreich angelegt	|
-		| "Startdatum mit Monatsname"									|	Aufgabe nicht erfolgreich angelegt	|
-		| "Enddatum mit leerem Feld"									|	Aufgabe nicht erfolgreich angelegt	|
-		| "Enddatum valide"												|	Aufgabe erfolgreich angelegt		|
-		| "Enddatum mit Sonderzeichen"									|	Aufgabe nicht erfolgreich angelegt	|
-		| "Enddatum mit Javascript"										|	Aufgabe nicht erfolgreich angelegt	|
-		| "Enddatum mit Monatsname"										|	Aufgabe nicht erfoglreich angelegt	|
-		| "FERTIGSTELLUNG_GEANDERT_10"									|	Aufgabe erfolgreich angelegt		|
-		| "FERTIGSTELLUNG_GEANDERT_50"									|	Aufgabe erfolgreich angelegt		|
-		| "FERTIGSTELLUNG_GEANDERT_90"									|	Aufgabe erfolgreich angelegt		|
-		| "PRIORITAET_GEANDERT_2"										|	Aufgabe erfolgreich angelegt		|
-		| "PRIORITAET_GEANDERT_4" 										|	Aufgabe erfolgreich angelegt		|
-		| "PRIORITAET_GEANDERT_6"										|	Aufgabe erfolgreich angelegt		|
+		| Testdaten														|	Meldung										|
+		| "Aufgabe mit leeren Feldern"									|	Pflichtfeld "Titel" muss ausgefüllt sein	|
+		| "Titel mit leerem Pflichtfeld"								|	Pflichtfeld "Titel" muss ausgefüllt sein	|
+		| "Titel mit einhundertneun Zeichen Text"						|	Maximale Zeichenlänge überschritten			|
+		| "Titel mit hundert Zeichen Text"								|	Aufgabe erfolgreich angelegt				|
+		| "Titel mit neunundneunzig Zeichen Text"						|	Aufgabe erfolgreich angelegt				|
+		| "Titel mit Sonderzeichen"										|	Aufgabe erfolgreich angelegt				|
+		| "Titel mit Javascript"										|	Aufgabe erfolgreich angelegt				|#muss noch geklärt werden		 
+		| "Beschreibung mit leerem Feld"								|	Aufgabe erfolgreich angelegt				|
+		| "Beschreibung mit neunhundertneunundneunzig Zeichen Text"		|	Aufgabe erfolgreich angelegt				|
+		| "Beschreibung mit eintausend Zeichen Text"					|	Aufgabe erfolgreich angelegt				|
+		| "Beschreibung mit eintausendundeinundzwanzig Zeichen Text"	|	Maximale Zeichenlänge überschritten			|
+		| "Beschreibung mit Sonderzeichen"								|	Aufgabe erfolgreich angelegt				|
+		| "Beschreibung mit Javascript"									|	Aufgabe erfolgreich angelegt				|
+		| "Startdatum mit leerem Feld"									|	Aufgabe erfolgreich angelegt				|
+		| "Startdatum valide"											|	Aufgabe erfolgreich angelegt				|
+		| "Startdatum mit Sonderzeichen"								|	Valide Daten dd.mm.yyyy eingeben			|
+		| "Startdatum mit Javascript"									|	Valide Daten dd.mm.yyyy eingeben			|
+		| "Startdatum mit Monatsname"									|	Valide Daten dd.mm.yyyy eingeben			|
+		| "Enddatum mit leerem Feld"									|	Aufgabe erfolgreich angelegt				|
+		| "Enddatum valide"												|	Aufgabe erfolgreich angelegt				|
+		| "Enddatum mit Sonderzeichen"									|	Valide Daten dd.mm.yyyy eingeben			|
+		| "Enddatum mit Javascript"										|	Valide Daten dd.mm.yyyy eingeben			|
+		| "Enddatum mit Monatsname"										|	Valide Daten dd.mm.yyyy eingeben			|
+		| "FERTIGSTELLUNG_GEANDERT_10"									|	Aufgabe erfolgreich angelegt				|
+		| "FERTIGSTELLUNG_GEANDERT_50"									|	Aufgabe erfolgreich angelegt				|
+		| "FERTIGSTELLUNG_GEANDERT_90"									|	Aufgabe erfolgreich angelegt				|
+		| "PRIORITAET_GEANDERT_2"										|	Aufgabe erfolgreich angelegt				|
+		| "PRIORITAET_GEANDERT_4" 										|	Aufgabe erfolgreich angelegt				|
+		| "PRIORITAET_GEANDERT_6"										|	Aufgabe erfolgreich angelegt				|
 	
 
 Szenario: Ich lege eine neue Aufgabe an und teste die Weiterleitung zur Verantwortlichen-Suchmaske und zurück
