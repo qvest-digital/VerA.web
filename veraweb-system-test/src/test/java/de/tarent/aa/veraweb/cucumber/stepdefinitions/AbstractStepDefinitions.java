@@ -10,11 +10,13 @@ import org.joda.time.DateMidnight;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import de.tarent.aa.veraweb.cucumber.env.GlobalConfig;
 import de.tarent.aa.veraweb.cucumber.env.Utils;
 import de.tarent.aa.veraweb.cucumber.pagedefinitions.ElementDefinition;
+import de.tarent.aa.veraweb.cucumber.pagedefinitions.HtmlType;
 import de.tarent.aa.veraweb.cucumber.pagedefinitions.PageDefinition;
 import de.tarent.aa.veraweb.cucumber.utils.NameUtil;
 import de.tarent.aa.veraweb.selenium.AdvancedWebDriver;
@@ -74,8 +76,12 @@ public abstract class AbstractStepDefinitions {
      */
     protected void whenFillField(String value, ElementDefinition elementDefinition) {
         WebElement element = findPageElement(elementDefinition);
-        element.clear();
-        element.sendKeys(value);
+        if (elementDefinition.type == HtmlType.SELECT){
+        	new Select(element).selectByVisibleText(value);
+        } else {
+        	element.clear();
+            element.sendKeys(value);
+        }        
     }
 
     /**
