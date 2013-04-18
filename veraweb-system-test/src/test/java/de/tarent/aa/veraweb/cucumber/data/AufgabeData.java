@@ -14,7 +14,7 @@ public enum AufgabeData {
 
     AUFGABE_DETAILANSICHT("Aufgabe 1", "Beschreibung 1", DateMidnight.now().minus(1), DateMidnight.now().plus(1), "Barny Geröllheimer",	"10", "1"),
 //  AUFGABE_MIT_LEEREN_FELDERN("", "", , , "", "", ""),
-	AUFGABE_DETAILANSICHT_GEÄNDERT("Aufgabe 2", "Beschreibung 2", DateMidnight.now().minus(1), DateMidnight.now().plus(1), "Fred Feuerstein", "20", "3"),
+    AUFGABE_DETAILANSICHT_GEAENDERT("Aufgabe 2", "Beschreibung 2", DateMidnight.now().minus(1), DateMidnight.now().plus(1), "Fred Feuerstein", "20%", "3"),
 	TITEL_MIT_LEEREM_PFLICHTFELD("", "Beschreibung 1", DateMidnight.now().minus(1), DateMidnight.now().plus(1), "Barny Geröllheimer", "10", "1"),
 	TITEL_MIT_EINHUNDERTNEUN_ZEICHEN_TEXT("Dies ist ein Text mit 109 Zeichen. Dies ist ein Text mit 109 Zeichen. Dies ist ein Text mit 109 Zeichen Ende.","Text_Beschreibung", DateMidnight.now().minus(1), DateMidnight.now().plus(1), "Barny Geröllheimer", "10", "1"),
 	TITEL_MIT_HUNDERT_ZEICHEN_TEXT("Dies ist ein Text mit 100 Zeichen. Dies ist ein Text mit 100 Zeichen. Dies ist ein Text mit 100Ende.", "Text_Beschreibung", DateMidnight.now().minus(1), DateMidnight.now().plus(1), "Barny Geröllheimer", "10", "1"),
@@ -119,19 +119,19 @@ public enum AufgabeData {
         this.prioritaet = prioritaet;
 
         valuesForPageFields = new HashMap<String, ElementDefinition>();
-        valuesForPageFields.put(kurzbezeichnung, PageDefinition.ANMELDUNGSSEITE.elementForName("Kurzbeschreibung-Feld"));
-        valuesForPageFields.put(beschreibung, PageDefinition.ANMELDUNGSSEITE.elementForName("Beschreibung-Feld"));
+        valuesForPageFields.put(kurzbezeichnung, PageDefinition.AUFGABEDETAILSEITE.elementForName("Kurzbeschreibung-Feld"));
+        valuesForPageFields.put(beschreibung, PageDefinition.AUFGABEDETAILSEITE.elementForName("Beschreibung-Feld"));
         valuesForPageFields.put(beginn.toString(Utils.DEFAULT_DATETIME_FORMATTER),
-                PageDefinition.ANMELDUNGSSEITE.elementForName("Startdatum-Feld"));
+                PageDefinition.AUFGABEDETAILSEITE.elementForName("Startdatum-Feld"));
         valuesForPageFields.put(beginnZeit,
-                PageDefinition.ANMELDUNGSSEITE.elementForName("Startzeit-Feld"));
+                PageDefinition.AUFGABEDETAILSEITE.elementForName("Startzeit-Feld"));
         valuesForPageFields.put(ende.toString(Utils.DEFAULT_DATETIME_FORMATTER),
-                PageDefinition.ANMELDUNGSSEITE.elementForName("Enddatum-Feld"));
+                PageDefinition.AUFGABEDETAILSEITE.elementForName("Enddatum-Feld"));
         valuesForPageFields.put(endeZeit,
-                PageDefinition.ANMELDUNGSSEITE.elementForName("Endzeit-Feld"));
-        valuesForPageFields.put(verantwortlicher, PageDefinition.ANMELDUNGSSEITE.elementForName("Enddatum-Feld"));
-        valuesForPageFields.put(fertigstellung, PageDefinition.ANMELDUNGSSEITE.elementForName("Fortschrittsgrad-Feld"));
-        valuesForPageFields.put(prioritaet, PageDefinition.ANMELDUNGSSEITE.elementForName("Priorität-Feld"));
+                PageDefinition.AUFGABEDETAILSEITE.elementForName("Endzeit-Feld"));
+        valuesForPageFields.put(verantwortlicher, PageDefinition.AUFGABEDETAILSEITE.elementForName("Enddatum-Feld"));
+        valuesForPageFields.put(fertigstellung, PageDefinition.AUFGABEDETAILSEITE.elementForName("Fortschrittsgrad-Feld"));
+        valuesForPageFields.put(prioritaet, PageDefinition.AUFGABEDETAILSEITE.elementForName("Priorität-Feld"));
     }
     
 
