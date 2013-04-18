@@ -30,7 +30,7 @@ Szenariogrundriss: Ich bearbeite das Pflichtfeld Titel
 		| "Titel mit hundert Zeichen Text"			|	Aufgabe erfolgreich geändert		|
 		| "Titel mit neunundneunzig Zeichen Text"	|	Aufgabe erfolgreich geändert		|
 		| "Titel mit Sonderzeichen"					|	Aufgabe erfolgreich geändert		|
- #muss noch geklärt werden		| "Titel mit Javascript"					|	Aufgabe erfolgreich geändert		|
+		| "Titel mit Javascript"					|	Aufgabe erfolgreich geändert		| #muss noch geklärt werden	
 	 
 
 Szenariogrundriss: Ich bearbeite das Feld Beschreibung
