@@ -36,7 +36,7 @@
 		<property name="screenshotPath" value="${screenshot.path}" />
 		<property name="resultContentPath" value="${result.content.path}" />
 		<property name="resultContentZipPath" value="${result.content.zip.path}" />
-		<property name="sleepTime" value="3" />
+		<property name="sleepTime" value="10" />
 		<property name="sleepUnit" value="SECONDS" />
 		<property name="newSessionPerFeature" value="${new.session.per.feature}" />
 		<property name="verawebBaseUrl" value="${veraweb.baseUrl}" />
