@@ -76,17 +76,18 @@ public enum PageDefinition {
      * Aufgabendetailseite
      */
     AUFGABEDETAILSEITE(
-            new ElementDefinition("Kurzbeschreibung-Feld", "input.title"),
-            new ElementDefinition("Beschreibung-Feld", "input.description", HtmlType.TEXTAREA),
+            new ElementDefinition("Kurzbeschreibung-Feld", "task-title", HtmlType.INPUT),
+            new ElementDefinition("Beschreibung-Feld", "task-description", HtmlType.TEXTAREA),
             new ElementDefinition("Startdatum-Feld", "task-startdate", HtmlType.INPUT),
             new ElementDefinition("Startzeit-Feld", "task-starttime", HtmlType.INPUT),
             new ElementDefinition("Enddatum-Feld", "task-enddate", HtmlType.INPUT),
             new ElementDefinition("Endzeit-Feld", "task-endtime", HtmlType.INPUT),
-            new ElementDefinition("Fortschrittsgrad-Feld", "input.degreeOfCompletion", HtmlType.SELECT),
-            new ElementDefinition("Priorität-Feld", "input.priority", HtmlType.SELECT),
-            new ElementDefinition("Veranwortliche Person-Feld", "input.responsiblePerson", HtmlType.INPUT),
+            new ElementDefinition("Fortschrittsgrad-Feld", "task-degreeofcompletion", HtmlType.SELECT),
+            new ElementDefinition("Priorität-Feld", "task-priority", HtmlType.SELECT),
+            new ElementDefinition("Veranwortliche Person-Feld", "task-reference-person", HtmlType.INPUT),
             new ElementDefinition("Speichern-Button", "button.save"),
-            new ElementDefinition("Zurück-Button", "button.back"));
+            new ElementDefinition("Zurück-Button", "button.back"),
+	        new ElementDefinition("Header-Titel", "header.title"));
 	
 
 	/** 
