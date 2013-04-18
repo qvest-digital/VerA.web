@@ -6,6 +6,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
@@ -24,8 +27,9 @@ import com.thoughtworks.selenium.Selenium;
  */
 public class Utils {
     
-    public static DateTimeFormatter DEFAULT_DATE_FORMATTER = DateTimeFormat.forPattern("dd.MM.yyyy");
-    public static DateTimeFormatter DEFAULT_TIMESTAMP_FORMATTER = DateTimeFormat.forPattern("dd.MM.yyyy H:mm");
+    public static DateTimeFormatter DEFAULT_DATETIME_FORMATTER = DateTimeFormat.forPattern("dd.MM.yyyy");
+    public static SimpleDateFormat DEFAULT_DATE_FORMATTER = new SimpleDateFormat("dd.MM.yyyy");
+    public static SimpleDateFormat DEFAULT_DATE_WITH_TIME_FORMATTER = new SimpleDateFormat("dd.MM.yyyy H:mm");
     
 
     /**
@@ -247,5 +251,17 @@ public class Utils {
         long millis = timeInMillis % 1000;
 
         return (minutes < 10 ? "0" : "") + minutes + ":" + (seconds < 10 ? "0" : "") + seconds + "." + millis + "s";
+    }
+    
+    public static String formatVerawebDate(Timestamp timestamp) {
+        if (isTimeInDate(timestamp)) {
+            return DEFAULT_DATE_WITH_TIME_FORMATTER.format(timestamp);
+        } else {
+            return DEFAULT_DATE_FORMATTER.format(timestamp);
+        }
+    }
+    
+    private static boolean isTimeInDate(Date date) {
+        return date != null && ((date.getTime() / 1000) % 60) == 0;
     }
 }

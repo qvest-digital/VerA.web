@@ -11,4 +11,9 @@ public class FormStepDefinitions extends AbstractStepDefinitions {
         LoginData loginData = LoginData.forName(NameUtil.nameToEnumName(name));
         whenFillFields(loginData.valuesForPageFields);
     }
+    
+    @Wenn("^ich die Checkbox zur Aufgabe \"([^\"]+)\" auswähle$")
+    public void whenClickCheckboxInTable(String name) {
+        
+    }
 }
