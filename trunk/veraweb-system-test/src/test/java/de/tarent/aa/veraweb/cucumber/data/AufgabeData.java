@@ -13,6 +13,7 @@ import de.tarent.aa.veraweb.cucumber.utils.NameUtil;
 public enum AufgabeData {
 
     AUFGABE_DETAILANSICHT("Aufgabe 1", "Beschreibung 1", DateMidnight.now().minus(1), DateMidnight.now().plus(1), "Barny Geröllheimer",	"10", "1");
+//  AUFGABE_MIT_LEEREN_FELDERN("", "", "", "", "", "", "")
 //	AUFGABE_DETAILANSICHT_GEÄNDERT("Aufgabe 2", "Beschreibung 2", "15.04.2013", "16.04.2013", "Fred Feuerstein", "20", "3"),
 //	TITEL_MIT_LEEREM_PFLICHTFELD("", "Beschreibung 1", "12.04.2013", "13.04.2013", "Barny Geröllheimer", "10", "1"),
 //	TITEL_MIT_EINHUNDERTNEUN_ZEICHEN_TEXT("Dies ist ein Text mit 109 Zeichen. Dies ist ein Text mit 109 Zeichen. Dies ist ein Text mit 109 Zeichen Ende.","Text_Beschreibung", "12.04.2013", "13.04.2013", "Barny Geröllheimer", "10", "1"),
