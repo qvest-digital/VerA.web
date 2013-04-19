@@ -22,8 +22,6 @@ package de.tarent.aa.veraweb.beans;
 import java.sql.Timestamp;
 import java.util.Date;
 
-import de.tarent.aa.veraweb.beans.AbstractBean;
-import de.tarent.aa.veraweb.beans.AbstractHistoryBean;
 import de.tarent.octopus.PersonalConfigAA;
 import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.server.OctopusContext;
@@ -38,13 +36,13 @@ public class Task extends AbstractHistoryBean {
     /**
      * PK.
      */
-	public Integer id;
+    public Integer id;
 
-	/**
-	 * fk_event.
-	 */
-	public Integer eventId;
-	
+    /**
+     * fk_event.
+     */
+    public Integer eventId;
+
     /**
      * Title.
      */
@@ -74,13 +72,12 @@ public class Task extends AbstractHistoryBean {
      * Person
      */
     public Integer personId;
-    
-    
+
     /**
      * Name of person
      */
     public String personName;
-    
+
     /**
      * Priority.
      */
@@ -124,7 +121,7 @@ public class Task extends AbstractHistoryBean {
     public void setId(final Integer id) {
         this.id = id;
     }
-    
+
     /**
      * Get fk_event
      * 
@@ -134,7 +131,7 @@ public class Task extends AbstractHistoryBean {
     public Integer getEventId() {
         return this.eventId;
     }
-    
+
     /**
      * Set fk_event
      * 
@@ -144,7 +141,6 @@ public class Task extends AbstractHistoryBean {
     public void setEventId(final Integer eventId) {
         this.eventId = eventId;
     }
-    
 
     /**
      * Get title.
@@ -240,17 +236,16 @@ public class Task extends AbstractHistoryBean {
     public void setDegreeofcompletion(final Integer degreeofcompletion) {
         this.degreeofcompletion = degreeofcompletion;
     }
-    
-    
+
     /**
      * Get person responsible.
      * 
-     * @return 
+     * @return
      */
     public Integer getPersonId() {
         return this.personId;
     }
-    
+
     /**
      * Set person id
      * 
@@ -268,7 +263,7 @@ public class Task extends AbstractHistoryBean {
     public String getPersonName() {
         return this.personName;
     }
-    
+
     /**
      * Set person name
      * 
@@ -277,7 +272,7 @@ public class Task extends AbstractHistoryBean {
     public void setPersonName(String personName) {
         this.personName = personName;
     }
-    
+
     /**
      * Get priority.
      * 
@@ -388,7 +383,7 @@ public class Task extends AbstractHistoryBean {
         if (title == null || title.trim().length() == 0) {
             addError("Die Aufgabe kann nicht gespeichert werden. Vergeben Sie bitte einen Titel.");
         }
-        if(description.length() > 1000) {
+        if (description != null && description.length() > 1000) {
             addError("Die Aufgabe kann nicht gespeichert werden. Das Feld Beschreibung darf nicht mehr als 1000 Zeichen besitzen.");
         }
     }
