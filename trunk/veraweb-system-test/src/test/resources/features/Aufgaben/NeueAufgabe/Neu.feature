@@ -1,6 +1,6 @@
 # language: de
-
 Funktionalität: Als User mit entsprechenden Rechte möchte ich eine neue Aufgabe anlegen können.
+
 
 Grundlage: Ich bin als Administrator angemeldet und habe mind. eine Veranstaltung angelegt und bin in der Aufgabenliste einer Veranstaltung 
 	Angenommen ich bin als Administrator angemeldet
@@ -8,10 +8,11 @@ Grundlage: Ich bin als Administrator angemeldet und habe mind. eine Veranstaltun
 		|  Vorname	| Nachname 		| 
 		|  Fred 	| Feuerstein	|
 		|  Barny	| Geröllheimer	| 
-	 Und es existiert die Veranstaltung:
-	 	| Name  		  | Beginn 	   |
-	 	| Veranstaltung 1 | 31.12.2013 |
-	 Und ich bin in der Übersicht aller Aufgaben der Veranstaltung
+	 Und es existiert eine Veranstaltung "Veranstaltung 1" mit folgenden Aufgaben:
+		| ID	| Titel 	| Beschreibung	 | Start 	  | Ende 		| Fertigstellungsgrad	| Verantwortlicher	 | Priorität | 
+		| 1		| Aufgabe 1 | Beschreibung 1 | heute(+1) | heute(+2) 	| 		0				| Barny  | 1		 |
+	 Und ich bin in der Übersicht aller Aufgaben der Veranstaltung "Veranstaltung 1"
+	 
 	 
 	 
 Szenariogrundriss: Ich lege eine neue Aufgabe an
@@ -21,6 +22,8 @@ Szenariogrundriss: Ich lege eine neue Aufgabe an
 	Aber ohne "Verantwortlicher"
 	Wenn ich auf "Speichern" klicke
 	Dann sehe ich <Meldung>
+	
+	Beispiele:
 		| Testdaten														|	Meldung										|
 		| "Aufgabe mit leeren Feldern"									|	Pflichtfeld "Titel" muss ausgefüllt sein	|
 		| "Titel mit leerem Pflichtfeld"								|	Pflichtfeld "Titel" muss ausgefüllt sein	|
@@ -28,7 +31,7 @@ Szenariogrundriss: Ich lege eine neue Aufgabe an
 		| "Titel mit hundert Zeichen Text"								|	Aufgabe erfolgreich angelegt				|
 		| "Titel mit neunundneunzig Zeichen Text"						|	Aufgabe erfolgreich angelegt				|
 		| "Titel mit Sonderzeichen"										|	Aufgabe erfolgreich angelegt				|
-#muss noch geklärt werden		| "Titel mit Javascript"										|	Aufgabe erfolgreich angelegt				|		 
+		| "Titel mit Javascript"										|	Aufgabe erfolgreich angelegt				|		 
 		| "Beschreibung mit leerem Feld"								|	Aufgabe erfolgreich angelegt				|
 		| "Beschreibung mit neunhundertneunundneunzig Zeichen Text"		|	Aufgabe erfolgreich angelegt				|
 		| "Beschreibung mit eintausend Zeichen Text"					|	Aufgabe erfolgreich angelegt				|
@@ -53,6 +56,7 @@ Szenariogrundriss: Ich lege eine neue Aufgabe an
 		| "PRIORITAET_GEANDERT_2"										|	Aufgabe erfolgreich angelegt				|
 		| "PRIORITAET_GEANDERT_4" 										|	Aufgabe erfolgreich angelegt				|
 		| "PRIORITAET_GEANDERT_6"										|	Aufgabe erfolgreich angelegt				|
+#muss noch geklärt werden
 	
 
 Szenario: Ich lege eine neue Aufgabe an und teste die Weiterleitung zur Verantwortlichen-Suchmaske und zurück
