@@ -43,17 +43,18 @@ Szenario: Beim Löschen einer Aufgabe erwarte ich eine Löschbestätigung
 
 Szenario:  Löschen einer Aufgabe nur nach Bestätigung einer Rückfrage möglich
 	Angenommen es existiert eine Veranstaltung "Feier" mit folgenden Aufgaben:
-		| ID	| Titel 	| Start 	 | Ende 		| Fertigstellungsgrad	| Priorität | 
-		| 1		| Aufgabe 1 | 12.04.2013 | 13.04.2013 	| 		10	 			|	1		|
-		| 2 	| Aufgabe 2 | 13.04.2013 | 14.04.2013 	| 		20 				|  	2 		|
-		| 3 	| Aufgabe 3 | 14.04.2013 | 15.04.2013 	| 		30 				|  	3 		|
-		| 4 	| Aufgabe 4 | 15.04.2013 | 16.04.2013 	| 		40 				| 	4 		|
-		| 5 	| Aufgabe 5 | 16.04.2013 | 17.04.2013 	| 		50 				| 	5 		|
+		|	ID	|	Titel 		|	Start 		|	Ende 		| 	Fertigstellungsgrad	|	Priorität	| 
+		|	1	|	Aufgabe 1	|	heute(-1)	|	heute(+1) 	| 	10	 				|	1			|
+		|	2 	|	Aufgabe 2	|	heute(-2)	|	heute(+2) 	| 	20 					|  	2 			|
+		|	3 	|	Aufgabe 3	|	heute(-3)	|	heute(+3) 	| 	30 					|  	3 			|
+		|	4 	|	Aufgabe 4	|	heute(-4)	|	heute(+4) 	| 	40 					| 	4 			|
+		|	5 	|	Aufgabe 5	|	heute(-5)	|	heute(+5) 	| 	50 					| 	5 			|
+	 Und ich befinde mich auf der Detailansicht der Veranstaltung "Feier"
 	 Und ich rufe den Reiter "Aufgaben" auf
-	 Und ich wähle die Checkbox zur Aufgabe mit der ID 1 aus
+	 Und ich wähle die Checkbox zur Aufgabe "Aufgabe 1" aus
 	 Und ich klicke auf "Löschen"
 	Wenn ich die Rückfrage mit "Ja" beantworte
-	Dann wird die Aufgabe gelöscht
+	Dann wird die Aufgabe "Aufgabe 1" gelöscht
 	 Und ich sehe eine Meldung für Löschung eines Datensatzes
 	 Und ich sehe folgende Tabelle:
 		| ID	| Titel 	| Start 	 | Ende 		| Fertigstellungsgrad 	|  Priorität 	|

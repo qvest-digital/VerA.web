@@ -128,14 +128,14 @@ public class Event extends AbstractEntity {
     /**
      * Event's assigned organization unit.
      */
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne()
     @JoinColumn(name = "fk_orgunit", referencedColumnName = "pk")
     private Orgunit orgunit;
 
     /**
      * Event's assigned host.
      */
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne()
     @JoinColumn(name = "fk_host", referencedColumnName = "pk")
     private Person host;
     

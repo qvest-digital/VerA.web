@@ -1,6 +1,7 @@
 package de.tarent.aa.veraweb.cucumber.stepdefinitions;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 import java.util.List;
 
@@ -13,6 +14,7 @@ import cucumber.table.DataTable;
 import de.tarent.aa.veraweb.cucumber.env.EntityMapping;
 import de.tarent.aa.veraweb.cucumber.pagedefinitions.PageDefinition;
 import de.tarent.aa.veraweb.db.dao.PersonDao;
+import de.tarent.aa.veraweb.db.dao.TaskDao;
 import de.tarent.aa.veraweb.db.entity.Person;
 import de.tarent.aa.veraweb.db.entity.Task;
 
@@ -20,7 +22,10 @@ public class CheckStepDefinitions extends AbstractStepDefinitions {
 
     @Autowired
     private PersonDao personDao;
-    
+
+    @Autowired
+    private TaskDao taskDao;
+
     @Autowired
     private ObjectFinder objectFinder;
 
@@ -52,5 +57,11 @@ public class CheckStepDefinitions extends AbstractStepDefinitions {
         Alert alert = driver.switchTo().alert();
         assertEquals(alert.getText(), "Markierte " + name + "(n) wirklich entfernen?");
         alert.dismiss();
+    }
+
+    @Dann("wird die Aufgabe \"([^\"]+)\" gelöscht")
+    public void thenTaskIsDeleted(String taskTitle) throws Exception {
+        Task task = taskDao.getTask(taskTitle);
+        assertNull("Task should be deleted!", task);
     }
 }

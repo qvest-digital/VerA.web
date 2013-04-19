@@ -29,6 +29,7 @@ public class FormStepDefinitions extends AbstractStepDefinitions {
     }
 
     @Wenn("^ich die Checkbox zur ([^\"]+) \"([^\"]+)\" auswähle$")
+    @Angenommen("^ich wähle die Checkbox zur ([^\"]+) \"([^\"]+)\" aus$")
     public void whenClickCheckboxInTable(String element, String taskName) {
         List<WebElement> resultingObjectDataRows = driver.findElements(By.xpath("//table[@class='list']/tbody/tr"));
 

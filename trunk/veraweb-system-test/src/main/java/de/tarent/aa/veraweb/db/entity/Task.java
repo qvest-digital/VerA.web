@@ -4,12 +4,13 @@ import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -21,8 +22,11 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "ttask")
+@NamedQueries({ @NamedQuery(name = Task.GET_TASK_BY_TITLE, query = "SELECT t FROM Task t WHERE t.title = :title") })
 public class Task extends AbstractEntity {
 
+    public static final String GET_TASK_BY_TITLE = "getTaskByTitle";
+    
     /**
      * Generated Serial id.
      */
@@ -100,14 +104,14 @@ public class Task extends AbstractEntity {
     /**
      * Task's assigned event.
      */
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne()
     @JoinColumn(name = "fk_event", referencedColumnName = "pk")
     private Event event;
     
     /**
      * Responsible person for the task.
      */
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne()
     @JoinColumn(name = "fk_person", referencedColumnName = "pk")
     private Person responsiblePerson;
     

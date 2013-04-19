@@ -1,5 +1,8 @@
 package de.tarent.aa.veraweb.cucumber.stepdefinitions;
 
+import static org.junit.Assert.fail;
+
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -47,6 +50,18 @@ public class NavigationStepDefinitions extends AbstractStepDefinitions {
     public void whenNavigateToTab(String tabName) {
         whenClickElement(page.elementForName(tabName));
         page = page.elementForName(tabName).nextPageDefinition;
+    }
+    
+    @Wenn("^ich die Rückfrage mit \"([^\"]+)\" beantworte$")
+    public void thenConfirmationDialogIsPresent(String confirmation) throws Exception {
+        Alert alert = driver.switchTo().alert();
+        if ("JA".equals(confirmation.trim().toUpperCase())) {
+            alert.accept();
+        } else if ("NEIN".equals(confirmation.trim().toUpperCase())) {
+            alert.dismiss();
+        } else {
+            fail("Confirmation response '" + confirmation + "' is undefined!");
+        }
     }
 
 }
