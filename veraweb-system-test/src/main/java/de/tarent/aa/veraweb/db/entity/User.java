@@ -2,7 +2,6 @@ package de.tarent.aa.veraweb.db.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -52,7 +51,7 @@ public class User extends AbstractEntity {
     /**
      * User's assigned organization unit.
      */
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne()
     @JoinColumn(name = "fk_orgunit", referencedColumnName = "pk")
     private Orgunit orgunit;
 

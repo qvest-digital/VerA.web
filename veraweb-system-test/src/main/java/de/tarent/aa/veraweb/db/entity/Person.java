@@ -84,7 +84,7 @@ public class Person extends AbstractEntity {
     /**
      * Person's assigned organization unit.
      */
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne()
     @JoinColumn(name = "fk_orgunit", referencedColumnName = "pk")
     private Orgunit orgunit;
 
