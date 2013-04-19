@@ -63,6 +63,7 @@ public enum PageDefinition {
 	 * Aufgabenübersichtsseite 
 	 */
 	AUFGABENUEBERSICHTSEITE(
+	        new ElementDefinition("Infobox", "text.info"),
 	        new ElementDefinition("Löschen", "remove"),
             new ElementDefinition("Zurück", "cancel")),
             
