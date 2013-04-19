@@ -1,4 +1,4 @@
-package de.tarent.veraweb.worker;
+package de.tarent.aa.veraweb.worker;
 
 import java.io.IOException;
 import java.security.acl.LastOwnerException;
@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import de.tarent.aa.veraweb.beans.Person;
+import de.tarent.aa.veraweb.beans.Task;
 import de.tarent.dblayer.sql.clause.Clause;
 import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.clause.WhereList;
@@ -17,7 +18,6 @@ import de.tarent.octopus.beans.TransactionContext;
 import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
 import de.tarent.octopus.beans.veraweb.ListWorkerVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
-import de.tarent.veraweb.beans.Task;
 
 /**
  * Functions needed by webapp to handle event tasks.
