@@ -1,9 +1,11 @@
 # language: de
 
+
 Funktionalität: Als User mit entsprechenden Rechte möchte ich eine Aufgabenliste zu einer Veranstaltung sehen und aus dieser Sicht die Aufgabe löschen können. 
 
 Grundlage: Ich bin als Administrator angemeldet und bin in der Übersicht aller Veranstaltungen und habe mind. eine Veranstaltung angelegt
 	Angenommen ich bin als Administrator angemeldet
+
 
 Szenario: Liste mit Aufgaben - Tabelle
 	Angenommen es existieren die Personen:
@@ -11,21 +13,21 @@ Szenario: Liste mit Aufgaben - Tabelle
 		|  Fred 	| Feuerstein	|
 		|  Barny	| Geröllheimer	| 
 	 Und es existiert eine Veranstaltung "Feier" mit folgenden Aufgaben:
-		|	ID	|	Titel		|	Start 	 		|	Ende 			|	Fertigstellungsgrad	| 	Verantwortlicher	|	Priorität	| 
-		|	1	|	Aufgabe 1	|	heute(-1)  		|	heute(+1) 		| 	10	 				| 	Fred				|	 1			|
-		|	2	|	Aufgabe 2	|	heute(-2)  		|	heute(+2) 		| 	20 					|	Barny				|	 2			|
-		|	3 	|	Aufgabe 3	|	heute(-3)  		|	heute(+3) 		| 	30 					| 	Fred				| 	 3			|
-		|	4 	|	Aufgabe 4	|	heute(-4) 8:12	|	heute(+4) 9		| 	40 					| 	Fred				| 	 4			|
-		|	5 	|	Aufgabe 5	|	heute(-5) 13:13 |	heute(+5) 20	|	50 					| 	Barny				|	 5 			|
+		|	ID	|	Titel		|	Start 	 			|	Ende 			|	Fertigstellungsgrad	| 	Verantwortlicher	|	Priorität	| 
+		|	1	|	Aufgabe 1	|	heute(-1)  			|	heute(+1) 		| 	10	 				| 	Fred				|	 1			|
+		|	2	|	Aufgabe 2	|	heute(-2)  			|	heute(+2) 		| 	20 					|	Barny				|	 2			|
+		|	3 	|	Aufgabe 3	|	heute(-3) 3:23 Uhr	|	heute(+3) 7 Uhr	| 	30 					| 	Fred				| 	 3			|
+		|	4 	|	Aufgabe 4	|	heute(-4) 8:12		|	heute(+4) 9		| 	40 					| 	Fred				| 	 4			|
+		|	5 	|	Aufgabe 5	|	heute(-5) 13:13 	|	heute(+5) 20	|	50 					| 	Barny				|	 5 			|
 	 Und ich befinde mich auf der Detailansicht der Veranstaltung "Feier"
 	Wenn ich den Reiter "Aufgaben" aufrufe
 	Dann sehe ich eine Tabelle mit folgenenden Aufgaben:
-		|	CheckboxOhneBezeichnung	|	ID	|	Titel		|	Start 			|	Ende 			|	Fertigstellungsgrad |	Verantwortlicher	| Priorität	| 
-		|	nein 					|	1 	|	Aufgabe 1 	|	heute(-1)		|	heute(+1)		|	10					| 	Fred				| 	1	 	|
-		|	nein 					|	2 	|	Aufgabe 2 	|	heute(-2)		|	heute(+2)		|	20	 				|	Barny				| 	2 		|
-		|	nein 					|	3	|	Aufgabe 3 	|	heute(-3)		|	heute(+3)		|	30			 		| 	Fred				|	3		|
-		|	nein 					|	4	|	Aufgabe 4 	|	heute(-4) 8:12	|	heute(+4) 9		|	40					|	Fred				| 	4		|
-		|	nein 					|	5	|	Aufgabe 5	|	heute(-5) 13:13	|	heute(+5) 20	|	50	 				|	Barny				|	5 		|
+		|	CheckboxOhneBezeichnung	|	ID	|	Titel		|	Start 				|	Ende 			|	Fertigstellungsgrad |	Verantwortlicher	| Priorität	| 
+		|	nein 					|	1 	|	Aufgabe 1 	|	heute(-1)			|	heute(+1)		|	10					| 	Fred				| 	1	 	|
+		|	nein 					|	2 	|	Aufgabe 2 	|	heute(-2)			|	heute(2)		|	20	 				|	Barny				| 	2 		|
+		|	nein 					|	3	|	Aufgabe 3 	|	heute(-3) 3:23 Uhr	|	heute(+3) 7 Uhr	|	30			 		| 	Fred				|	3		|
+		|	nein 					|	4	|	Aufgabe 4 	|	heute(-4) 8:12		|	heute(+4) 9		|	40					|	Fred				| 	4		|
+		|	nein 					|	5	|	Aufgabe 5	|	heute(-5) 13:13		|	heute(+5) 20	|	50	 				|	Barny				|	5 		|
 
 
 Szenario: Beim Löschen einer Aufgabe erwarte ich eine Löschbestätigung
@@ -40,8 +42,7 @@ Szenario: Beim Löschen einer Aufgabe erwarte ich eine Löschbestätigung
 
 
 Szenario:  Löschen einer Aufgabe nur nach Bestätigung einer Rückfrage möglich
-	Angenommen es existiert eine Veranstaltung 
-	 Und die Veranstaltung hat folgende Aufgaben:
+	Angenommen es existiert eine Veranstaltung "Feier" mit folgenden Aufgaben:
 		| ID	| Titel 	| Start 	 | Ende 		| Fertigstellungsgrad	| Priorität | 
 		| 1		| Aufgabe 1 | 12.04.2013 | 13.04.2013 	| 		10	 			|	1		|
 		| 2 	| Aufgabe 2 | 13.04.2013 | 14.04.2013 	| 		20 				|  	2 		|
@@ -121,8 +122,7 @@ Szenario: Ich prüfe den Button Zurück
 
 
 Szenariogrundriss: Man kann alle Aufgaben aus- und abwählen 
-	Angenommen es existiert eine Veranstaltung 
-	 Und die Veranstaltung hat folgende Aufgaben:
+	Angenommen es existiert eine Veranstaltung "Feier" mit den folgenden Aufgaben:
 		| ID 	| Titel 	| Start 	 | Ende			| Fertigstellungsgrad 	| Priorität | 
 		| 1 	| Aufgabe 1 | 12.04.2013 | 13.04.2013 	| 		10				|  	1		|
 		| 2 	| Aufgabe 2 | 13.04.2013 | 14.04.2013 	| 		20	 			|  	2		|

@@ -1,7 +1,10 @@
 package de.tarent.aa.veraweb.cucumber.stepdefinitions;
 
+import static org.junit.Assert.assertEquals;
+
 import java.util.List;
 
+import org.openqa.selenium.Alert;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import cucumber.annotation.de.Dann;
@@ -44,4 +47,10 @@ public class CheckStepDefinitions extends AbstractStepDefinitions {
         objectFinder.checkForObjects(tasks);
     }
 
+    @Dann("^sehe ich eine Rückfrage zur Bestätigung des Löschens einer ([^\"]+)$")
+    public void thenConfirmationDialogIsPresent(String name) throws Exception {
+        Alert alert = driver.switchTo().alert();
+        assertEquals(alert.getText(), "Markierte " + name + "(n) wirklich entfernen?");
+        alert.dismiss();
+    }
 }
