@@ -104,7 +104,7 @@
 			<input type="checkbox" id="add-select" name="${bean.id}-select" value="true" class="checkbox" #if($listselection.indexOf($bean.id) != -1) checked#end>			
 		</td>
 		<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowEventTask?id=$!{bean.id}&eventId=$!{bean.eventId}'">$!bean.id</td>
-		<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowEventTask?id=$!{bean.id}&eventId=$!{bean.eventId}'">$!bean.title</td>
+		<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowEventTask?id=$!{bean.id}&eventId=$!{bean.eventId}'">$!message.plain($!bean.title)</td>
 		#if ($bean.startdate.Seconds == 30)
 				<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowEventTask?id=$!{bean.id}&eventId=$!{bean.eventId}'">$!message.date("DATE",$bean.startdate)</td>
 		#else
