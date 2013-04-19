@@ -27,13 +27,13 @@ import de.tarent.aa.veraweb.beans.ChangeLogEntry;
 import de.tarent.aa.veraweb.beans.Event;
 import de.tarent.aa.veraweb.beans.Guest;
 import de.tarent.aa.veraweb.beans.Person;
-import de.tarent.aa.veraweb.beans.Task;
 import de.tarent.dblayer.sql.statement.Insert;
 import de.tarent.octopus.beans.Bean;
 import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.beans.Database;
 import de.tarent.octopus.beans.ExecutionContext;
 import de.tarent.octopus.beans.TransactionContext;
+import de.tarent.veraweb.beans.Task;
 
 /**
  * The class BeanChangeLogger represents a facility

@@ -17,11 +17,13 @@
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
-package de.tarent.aa.veraweb.beans;
+package de.tarent.veraweb.beans;
 
 import java.sql.Timestamp;
 import java.util.Date;
 
+import de.tarent.aa.veraweb.beans.AbstractBean;
+import de.tarent.aa.veraweb.beans.AbstractHistoryBean;
 import de.tarent.octopus.PersonalConfigAA;
 import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.server.OctopusContext;

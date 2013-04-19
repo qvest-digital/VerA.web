@@ -14,7 +14,6 @@ import junit.framework.TestCase;
 import org.mockito.ArgumentMatcher;
 
 import de.tarent.aa.veraweb.beans.Grants;
-import de.tarent.aa.veraweb.beans.Task;
 import de.tarent.dblayer.sql.statement.Insert;
 import de.tarent.octopus.PersonalConfigAA;
 import de.tarent.octopus.beans.Bean;
@@ -24,6 +23,8 @@ import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
 import de.tarent.octopus.beans.veraweb.DatabaseVeraWebFactoryMock;
 import de.tarent.octopus.request.TcRequest;
 import de.tarent.octopus.server.OctopusContext;
+import de.tarent.veraweb.beans.Task;
+import de.tarent.veraweb.worker.EventTaskDetailWorker;
 
 public class EventTaskDetailWorkerTest extends TestCase {
 
