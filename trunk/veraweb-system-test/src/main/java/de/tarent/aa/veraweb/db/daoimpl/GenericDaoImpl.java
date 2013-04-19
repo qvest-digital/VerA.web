@@ -135,7 +135,7 @@ public abstract class GenericDaoImpl<T extends Serializable, PK extends Serializ
         if (LOG.isDebugEnabled()) {
             LOG.debug("executing count for entity " + getTableName());
         }
-        Query q = em.createQuery("SELECT COUNT (x) FROM " + getTableName() + " x", entityType);
+        Query q = em.createQuery("SELECT COUNT (x) FROM " + getTableName() + " x", Long.class);
         return (Long) q.getSingleResult();
     }
 

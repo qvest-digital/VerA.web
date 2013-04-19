@@ -194,6 +194,9 @@ public abstract class AbstractStepDefinitions {
      */
     protected void whenClickElement(ElementDefinition elementDefinition) {
         findPageElement(elementDefinition).click();
+        if (elementDefinition.nextPageDefinition != null) {
+            page = elementDefinition.nextPageDefinition;
+        }
     }
 
     /**

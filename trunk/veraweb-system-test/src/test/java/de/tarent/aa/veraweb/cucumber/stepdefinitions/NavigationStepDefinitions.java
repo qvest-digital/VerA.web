@@ -9,6 +9,7 @@ import org.openqa.selenium.WebElement;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import cucumber.annotation.de.Angenommen;
+import cucumber.annotation.de.Und;
 import cucumber.annotation.de.Wenn;
 import de.tarent.aa.veraweb.cucumber.pagedefinitions.PageDefinition;
 import de.tarent.aa.veraweb.selenium.AdvancedWebDriver;
@@ -49,11 +50,10 @@ public class NavigationStepDefinitions extends AbstractStepDefinitions {
     @Angenommen("^ich rufe den Reiter \"([^\"]+)\" auf$")
     public void whenNavigateToTab(String tabName) {
         whenClickElement(page.elementForName(tabName));
-        page = page.elementForName(tabName).nextPageDefinition;
     }
     
     @Wenn("^ich die Rückfrage mit \"([^\"]+)\" beantworte$")
-    public void thenConfirmationDialogIsPresent(String confirmation) throws Exception {
+    public void whenConfirmationDialog(String confirmation) throws Exception {
         Alert alert = driver.switchTo().alert();
         if ("JA".equals(confirmation.trim().toUpperCase())) {
             alert.accept();
@@ -62,6 +62,12 @@ public class NavigationStepDefinitions extends AbstractStepDefinitions {
         } else {
             fail("Confirmation response '" + confirmation + "' is undefined!");
         }
+        Thread.sleep(1000L);
+    }
+    
+    @Und("^ich betrachte die \"([^\"]+)\" der (?:[^\"]+)liste$")
+    public void whenNavigateToTablePage(String elementName) {
+        whenClickElement(page.elementForName(elementName));
     }
 
 }
