@@ -58,14 +58,30 @@ public enum PageDefinition {
     VERANSTALTUNG_SUCHEN(
             new ElementDefinition("Kurzbeschreibung-Feld", "input.shortname", HtmlType.INPUT),
             new ElementDefinition("Suche starten", "button.startSearch")),
+            
+    /** 
+     * Veranstaltung suchen
+     */
+    VERANSTALTUNG_AUSWAEHLEN(
+            new ElementDefinition("Header-Titel", "header.title")),
 
 	/** 
 	 * Aufgabenübersichtsseite 
 	 */
 	AUFGABENUEBERSICHTSEITE(
 	        new ElementDefinition("Infobox", "text.info"),
+	        new ElementDefinition("Listen-Info", "listnavitext"),
+	        new ElementDefinition("Erste Seite", "page-first"),
+	        new ElementDefinition("Vorherige Seite", "page-previous"),
+	        new ElementDefinition("Seite 1", "page-1"),
+	        new ElementDefinition("Seite 2", "page-2"),
+	        new ElementDefinition("Seite 3", "page-3"),
+	        new ElementDefinition("Nächste Seite", "page-next"),
+	        new ElementDefinition("Letzte Seite", "page-last"),
+	        new ElementDefinition("Alle markieren", "checkAll"),
+	        new ElementDefinition("Alle demarkieren", "uncheckAll"),
 	        new ElementDefinition("Löschen", "remove"),
-            new ElementDefinition("Zurück", "cancel")),
+            new ElementDefinition("Zurück", "cancel", VERANSTALTUNG_AUSWAEHLEN)),
             
     /** 
      * Veranstaltung Detailansicht

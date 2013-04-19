@@ -75,10 +75,13 @@ public class ObjectFinder {
             fail("Zelleneintag stimmt nicht überein: " + tempTaskRow.get(5).getText() + " != "
                     + task.getDegreeOfCompletion());
         }
-        String responsiblePersonName = task.getResponsiblePerson().getLastName() + ", "
-                + task.getResponsiblePerson().getFirstName();
-        if (!tempTaskRow.get(6).getText().equals(responsiblePersonName)) {
-            fail("Zelleneintag stimmt nicht überein: " + tempTaskRow.get(6).getText() + " != " + responsiblePersonName);
+        if (task.getResponsiblePerson() != null) {
+            String responsiblePersonName = task.getResponsiblePerson().getLastName() + ", "
+                    + task.getResponsiblePerson().getFirstName();
+            if (!tempTaskRow.get(6).getText().equals(responsiblePersonName)) {
+                fail("Zelleneintag stimmt nicht überein: " + tempTaskRow.get(6).getText() + " != "
+                        + responsiblePersonName);
+            }
         }
         if (!tempTaskRow.get(7).getText().equals(String.valueOf(task.getPriority()))) {
             fail("Zelleneintag stimmt nicht überein: " + tempTaskRow.get(7).getText() + " != " + task.getPriority());
