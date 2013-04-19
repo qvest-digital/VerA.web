@@ -3,8 +3,11 @@
 
 Funktionalität: Als User mit entsprechenden Rechte möchte ich eine Aufgabenliste zu einer Veranstaltung sehen und aus dieser Sicht die Aufgabe löschen können. 
 
+
+
 Grundlage: Ich bin als Administrator angemeldet und bin in der Übersicht aller Veranstaltungen und habe mind. eine Veranstaltung angelegt
 	Angenommen ich bin als Administrator angemeldet
+
 
 
 Szenario: Liste mit Aufgaben - Tabelle
@@ -30,6 +33,7 @@ Szenario: Liste mit Aufgaben - Tabelle
 		|	nein 					|	5	|	Aufgabe 5	|	heute(-5) 13:13		|	heute(+5) 20	|	50	 				|	Barny				|	5 		|
 
 
+
 Szenario: Beim Löschen einer Aufgabe erwarte ich eine Löschbestätigung
 	Angenommen es existiert eine Veranstaltung "Feier" mit folgenden Aufgaben:
 		|	ID	|	Titel		|	Start		|	Ende 		|	Fertigstellungsgrad	|	Priorität	| 
@@ -39,6 +43,7 @@ Szenario: Beim Löschen einer Aufgabe erwarte ich eine Löschbestätigung
 	Wenn ich die Checkbox zur Aufgabe "Aufgabe 1" auswähle
 	 Und ich auf "Löschen" klicke
 	Dann sehe ich eine Rückfrage zur Bestätigung des Löschens einer Aufgabe
+
 
 
 Szenario:  Löschen einer Aufgabe nur nach Bestätigung einer Rückfrage möglich
@@ -55,13 +60,14 @@ Szenario:  Löschen einer Aufgabe nur nach Bestätigung einer Rückfrage möglic
 	 Und ich klicke auf "Löschen"
 	Wenn ich die Rückfrage mit "Ja" beantworte
 	Dann wird die Aufgabe "Aufgabe 1" gelöscht
-	 Und ich sehe eine Meldung für Löschung eines Datensatzes
-	 Und ich sehe folgende Tabelle:
-		| ID	| Titel 	| Start 	 | Ende 		| Fertigstellungsgrad 	|  Priorität 	|
-		| 2 	| Aufgabe 2 | 13.04.2013 | 14.04.2013 	| 		20	 			|  	2 			|
-		| 3 	| Aufgabe 3 | 14.04.2013 | 15.04.2013 	| 		30				|  	3 			|
-		| 4 	| Aufgabe 4 | 15.04.2013 | 16.04.2013 	| 		40	 			|  	4 			|
-		| 5 	| Aufgabe 5 | 16.04.2013 | 17.04.2013 	| 		50	 			| 	5 			|
+	 Und ich sehe als "Infobox" die Meldung "Es wurde ein Datensatz gelöscht."
+	 Und ich sehe eine Tabelle mit folgenenden Aufgaben:
+		|	ID	|	Titel 		|	Start		|	Ende 		|	Fertigstellungsgrad	|	Priorität	|
+		|	2 	|	Aufgabe 2	|	heute(-2)	|	heute(+2) 	| 	20	 				|  	2 			|
+		|	3 	|	Aufgabe 3	|	heute(-3)	|	heute(+3) 	| 	30					|  	3 			|
+		|	4 	|	Aufgabe 4	|	heute(-4)	|	heute(+4) 	| 	40	 				|  	4 			|
+		|	5 	|	Aufgabe 5	|	heute(-5)	|	heute(+5) 	| 	50	 				| 	5 			|
+
 
 
 Szenario:  Löschen aller Aufgaben nur nach Bestätigung einer Rückfrage möglich

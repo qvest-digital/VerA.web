@@ -36,11 +36,11 @@ public class CheckStepDefinitions extends AbstractStepDefinitions {
 
     @Dann("^sehe ich als \"([^\"]+)\" die Meldung \"([^\"]+)\"$")
     @Und("^ich sehe als \"([^\"]+)\" die Meldung \"([^\"]+)\"$")
-    public void thenElementTextEquals(String elementName, String expectedText) {
+    public void thenSpecifiedInformationTextEquals(String elementName, String expectedText) {
         thenElementTextEquals(page.elementForName(elementName), expectedText);
     }
 
-    @Dann("^sehe ich eine Tabelle mit folgenenden Aufgaben:$")
+    @Dann("^(?:sehe ich|ich sehe) eine Tabelle mit folgenenden Aufgaben:$")
     public void thenTableWithTasksIsPresent(DataTable data) throws Exception {
         List<Task> tasks = EntityMapping.createEntities(data, Task.class);
         for (Task task : tasks) {

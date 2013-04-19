@@ -72,7 +72,7 @@
 
 #if($octopusRequest.task != "ShowPersonCategorieList")
 #if($countInsert && $countInsert > 0)
-	<div style="margin: 10px 0px 0px 0px; padding: 2px 3px 2px 3px; background-color: #ffc080; border: 1px solid #ff8000;">
+	<div id="text.info" style="margin: 10px 0px 0px 0px; padding: 2px 3px 2px 3px; background-color: #ffc080; border: 1px solid #ff8000;">
 		#if($countInsert == 0)
 			Es wurde kein neuer Datensatz angelegt.
 		#elseif($countInsert == 1)
@@ -83,7 +83,7 @@
 	</div>
 #end
 #if($countUpdate && $countUpdate > 0)
-	<div style="margin: 10px 0px 0px 0px; padding: 2px 3px 2px 3px; background-color: #ffc080; border: 1px solid #ff8000;">
+	<div id="text.info" style="margin: 10px 0px 0px 0px; padding: 2px 3px 2px 3px; background-color: #ffc080; border: 1px solid #ff8000;">
 		#if($countUpdate == 0)
 			Es wurde kein Datensatz ge&auml;ndert.
 		#elseif($countUpdate == 1)
@@ -94,7 +94,7 @@
 	</div>
 #end
 #if($countRemove)
-	<div style="margin: 10px 0px 0px 0px; padding: 2px 3px 2px 3px; background-color: #ffc080; border: 1px solid #ff8000;">
+	<div id="text.info" style="margin: 10px 0px 0px 0px; padding: 2px 3px 2px 3px; background-color: #ffc080; border: 1px solid #ff8000;">
 		#if($countRemove == 0)
 			Es wurde kein Datensatz gel&ouml;scht.
 		#elseif($countRemove == 1)
