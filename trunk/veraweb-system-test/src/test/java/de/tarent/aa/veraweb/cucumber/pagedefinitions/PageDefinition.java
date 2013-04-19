@@ -58,19 +58,19 @@ public enum PageDefinition {
     VERANSTALTUNG_SUCHEN(
             new ElementDefinition("Kurzbeschreibung-Feld", "input.shortname", HtmlType.INPUT),
             new ElementDefinition("Suche starten", "button.startSearch")),
-            
-    /** 
-     * Veranstaltung Detailansicht
-     */
-    VERANSTALTUNG_DETAILANSICHT(
-            new ElementDefinition("Aufgaben", "tab.tasks")),
 
 	/** 
 	 * Aufgabenübersichtsseite 
 	 */
 	AUFGABENUEBERSICHTSEITE(
-	        new ElementDefinition("Löschen-Button", "button.delete"),
-            new ElementDefinition("Zurück-Button", "button.back")),
+	        new ElementDefinition("Löschen", "remove"),
+            new ElementDefinition("Zurück", "cancel")),
+            
+    /** 
+     * Veranstaltung Detailansicht
+     */
+    VERANSTALTUNG_DETAILANSICHT(
+            new ElementDefinition("Aufgaben", "tab.tasks", AUFGABENUEBERSICHTSEITE)),
 	        
     /** 
      * Aufgabendetailseite

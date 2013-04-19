@@ -34,6 +34,11 @@ public class ElementDefinition {
     public final HtmlType type;
 
     /**
+     * The next page definition.
+     */
+    public PageDefinition nextPageDefinition;
+
+    /**
      * Standard constructor.
      * 
      * @param name
@@ -46,11 +51,28 @@ public class ElementDefinition {
      * @param type
      *            the {@link #type} {@link HtmlType}.
      */
-    public ElementDefinition(final String name, final String idOrName, final boolean required, final HtmlType type) {
+    public ElementDefinition(final String name, final String idOrName, final boolean required, final HtmlType type,
+            final PageDefinition nextPageDefinition) {
         this.name = name;
         this.by = new ByIdOrName(idOrName);
         this.required = required;
         this.type = type;
+        this.nextPageDefinition = nextPageDefinition;
+    }
+
+    /**
+     * Convenience constructor (sets {@link #required} to {@code true} and {@link #type} to {@code null}).
+     * 
+     * @param name
+     *            the {@link #name} {@link String}.
+     * @param idOrName
+     *            the elemet's ID or name attribute value. Will be used to create the element's {@link #by} object to
+     *            find the actual element on an actual page.
+     * @param required
+     *            the {@link #required} {@link Boolean}.
+     */
+    public ElementDefinition(final String name, final String idOrName, final PageDefinition nextPageDefinition) {
+        this(name, idOrName, true, null, nextPageDefinition);
     }
 
     /**
@@ -65,7 +87,7 @@ public class ElementDefinition {
      *            the {@link #required} {@link Boolean}.
      */
     public ElementDefinition(final String name, final String idOrName, final boolean required) {
-        this(name, idOrName, required, null);
+        this(name, idOrName, required, null, null);
     }
 
     /**
@@ -80,11 +102,12 @@ public class ElementDefinition {
      *            the {@link #type} {@link HtmlType}.
      */
     public ElementDefinition(final String name, final String idOrName, final HtmlType type) {
-        this(name, idOrName, true, type);
+        this(name, idOrName, true, type, null);
     }
 
     /**
-     * Convenience constructor (sets {@link #required} to {@code true} and {@link #type} to {@code null}).
+     * Convenience constructor (sets {@link #required} to {@code true} and {@link #type} to {@code null} and
+     * {@link #nextPageDefinition} to {@code null}).
      * 
      * @param name
      *            the {@link #name} {@link String}.
@@ -93,7 +116,7 @@ public class ElementDefinition {
      *            find the actual element on an actual page.
      */
     public ElementDefinition(final String name, final String idOrName) {
-        this(name, idOrName, true, null);
+        this(name, idOrName, true, null, null);
     }
 
     @Override
