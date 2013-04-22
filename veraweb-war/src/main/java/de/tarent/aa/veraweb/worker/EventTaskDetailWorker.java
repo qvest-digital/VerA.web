@@ -116,8 +116,9 @@ public class EventTaskDetailWorker {
 
 	public void saveDetail(OctopusContext cntx, Boolean savetask)
 			throws BeanException, IOException {
-		if (savetask == null || !savetask.booleanValue())
+		if (savetask == null || !savetask.booleanValue()) {
 			return;
+		}
 		   
 		Request request = new RequestVeraWeb(cntx);
 		Database database = databaseVeraWebFactory.createDatabaseVeraWeb(cntx);

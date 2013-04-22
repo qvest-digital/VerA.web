@@ -78,7 +78,9 @@ public class EventTaskListWorker extends ListWorkerVeraWeb {
     protected int removeSelection(OctopusContext cntx, List errors, List selection, TransactionContext context) throws BeanException, IOException {
        
         int count = 0;
-        if (selection == null || selection.size() == 0) return count;
+        if (selection == null || selection.size() == 0) {
+        	return count;
+        }
         Database database = context.getDatabase();
 
         Task task = (Task)database.createBean("Task");
