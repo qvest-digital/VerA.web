@@ -185,6 +185,7 @@
 						<configuration>
 							<sources>
 								<source>src/main/java2</source>
+								<source>src/main/javaOld</source>
 							</sources>
 						</configuration>
 					</execution>
