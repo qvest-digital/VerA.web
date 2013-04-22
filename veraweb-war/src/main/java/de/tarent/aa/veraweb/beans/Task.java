@@ -418,21 +418,4 @@ public class Task extends AbstractHistoryBean {
         checkGroup(cntx, PersonalConfigAA.GROUP_WRITE);
     }
 
-    /**
-     * Clear restricted fields.
-     * 
-     * @param cntx
-     *            Octopus context
-     * @throws BeanException
-     *             thrown exception in case of occurred bean errors
-     * @see de.tarent.aa.veraweb.beans.AbstractBean#clearRestrictedFields(de.tarent.octopus.server.OctopusContext)
-     */
-    @Override
-    public void clearRestrictedFields(final OctopusContext cntx) throws BeanException {
-        // PersonalConfig personalConfig = cntx != null ? cntx.personalConfig() : null;
-        // if (personalConfig == null || !personalConfig.isUserInGroup(PersonalConfigAA.GROUP_READ_REMARKS)) {
-        // note = null;
-        // }
-        super.clearRestrictedFields(cntx);
-    }
 }
