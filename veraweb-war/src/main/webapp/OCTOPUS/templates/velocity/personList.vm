@@ -487,6 +487,17 @@
 
 <input type="button" class="cancel"  name="cancel" value="Zur&uuml;ck" onclick="window.location.href='Statistik';"> &nbsp;
 
+
+#elseif($action == "taskReferencePerson")
+
+	#if($taskId && $taskId != "")
+		#set($cancelUrl = "ShowEventTask?id=$!taskId")
+	#else
+		#set($cancelUrl = "CreateEventTask?eventId=$!eventId")
+	#end
+
+<input type="button" class="cancel"  name="cancel" value="Zur&uuml;ck" onclick="window.location.href='$cancelUrl';"> &nbsp;
+
 #elseif($action == "replace")
 
 <input type="submit" class="button"  name="replace" value="Ersetzen"    onclick="document.getElementById('formlist').action='SaveReplacePersonList';"> &nbsp;
