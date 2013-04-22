@@ -143,7 +143,7 @@ public class EventTaskDetailWorker {
 				BeanChangeLogger clogger = new BeanChangeLogger(database,
 						context);
 				if (task.getId() == null) {
-					cntx.setContent("countInsert", new Integer(1));
+					cntx.setContent("countInsert", Integer.valueOf(1));
 					database.getNextPk(task, context);
 
 					task.updateHistoryFields(null, ((PersonalConfigAA)cntx.personalConfig()).getRoleWithProxy());
@@ -160,7 +160,7 @@ public class EventTaskDetailWorker {
 					clogger.logInsert(cntx.personalConfig().getLoginname(),
 							task);
 				} else {
-					cntx.setContent("countUpdate", new Integer(1));
+					cntx.setContent("countUpdate", Integer.valueOf(1));
 					Update update = database.getUpdate(task);
 					if (!((PersonalConfigAA) cntx.personalConfig()).getGrants()
 							.mayReadRemarkFields()) {
