@@ -180,6 +180,7 @@ public class MailinglistWorker {
 				selectAs(personFax, "fax2").
 				selectAs("tperson.mail_a_e1", "mail3").
 				selectAs("tperson.fax_a_e1", "fax3").
+				joinLeftOuter("veraweb.tguest_doctype", "tguest.pk", "tguest_doctype.fk_guest").
 				joinLeftOuter("veraweb.tperson", "tperson.pk", "tguest.fk_person");
 		if (doctype != null) {
 			select.selectAs("tguest_doctype.pk IS NOT NULL", "hasguestdoctype");
