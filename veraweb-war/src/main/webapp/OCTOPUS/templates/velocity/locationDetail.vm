@@ -65,7 +65,7 @@
 	
 	<tr>
 		<td class="label"><label for="location-contact-person">Ansprechpartner:</label></td>
-		<td class="value"><input type="text" name="location-contact-person" value="$!message.text($location.contact_person)" id="location-contact-person" class="text" maxlength="100" onchange="setModified();"></td>
+		<td class="value"><input type="text" name="location-contact-person" value="$!message.text($location.contactperson)" id="location-contact-person" class="text" maxlength="100" onchange="setModified();"></td>
 	</tr>
 	
 	<tr>
@@ -74,8 +74,8 @@
 	</tr>
 	
 	<tr>
-		<td class="label"><label for="location-strasse">Stra&szlig;e:</label></td>
-		<td class="value"><input type="text" name="location-strasse" value="$!message.text($location.strasse)" id="location-strasse" class="text" maxlength="100" onchange="setModified();"></td>
+		<td class="label"><label for="location-address">Stra&szlig;e:</label></td>
+		<td class="value"><input type="text" name="location-address" value="$!message.text($location.address)" id="location-address" class="text" maxlength="100" onchange="setModified();"></td>
 	</tr>
 	
 	<tr>
@@ -90,22 +90,22 @@
 	
 	<tr>
 		<td class="label"><label for="location-call-number">Telefonnummer:</label></td>
-		<td class="value"><input type="text" name="location-call-number" value="$!message.text($location.call_number)" id="location-call-number" class="text" maxlength="100" onchange="setModified();"></td>
+		<td class="value"><input type="text" name="location-call-number" value="$!message.text($location.callnumber)" id="location-call-number" class="text" maxlength="100" onchange="setModified();"></td>
 	</tr>
 	
 	<tr>
-		<td class="label"><label for="location-fax-address">Faxnummer:</label></td>
-		<td class="value"><input type="text" name="location-fax-number" value="$!message.text($location.fax_number)" id="location-fax-number" class="text" maxlength="100" onchange="setModified();"></td>
+		<td class="label"><label for="location-fax-number">Faxnummer:</label></td>
+		<td class="value"><input type="text" name="location-fax-number" value="$!message.text($location.faxnumber)" id="location-fax-number" class="text" maxlength="100" onchange="setModified();"></td>
 	</tr>
 	
 	<tr>
 		<td class="label"><label for="location-email-address">E-Mail-Adresse:</label></td>
-		<td class="value"><input type="text" name="location-email-address" value="$!message.text($location.email_address)" id="location-email-address" class="text" maxlength="100" onchange="setModified();"></td>
+		<td class="value"><input type="text" name="location-email-address" value="$!message.text($location.email)" id="location-email-address" class="text" maxlength="100" onchange="setModified();"></td>
 	</tr>
 	
 	<tr>
 		<td class="label"><label for="location-call-number">Telefonnummer:</label></td>
-		<td class="value"><input type="text" name="location-call-number" value="$!message.text($location.call_number)" id="location-call-number" class="text" maxlength="100" onchange="setModified();"></td>
+		<td class="value"><input type="text" name="location-call-number" value="$!message.text($location.callnumber)" id="location-call-number" class="text" maxlength="100" onchange="setModified();"></td>
 	</tr>
 
 	<tr>
@@ -120,12 +120,12 @@
 	
 	<tr>
 		<td class="label"><label for="location-gps-data">GPS-Daten:</label></td>
-		<td class="value"><input type="text" name="location-gps-data" value="$!message.text($location.gps_data)" id="location-gps-data" class="text" maxlength="100" onchange="setModified();"></td>
+		<td class="value"><input type="text" name="location-gps-data" value="$!message.text($location.gpsdata)" id="location-gps-data" class="text" maxlength="100" onchange="setModified();"></td>
 	</tr>
 	
 	<tr>
 		<td class="label"><label for="location-room-number">Raumnummer:</label></td>
-		<td class="value"><input type="text" name="location-room-number" value="$!message.text($location.room_number)" id="location-room-number" class="text" maxlength="100" onchange="setModified();"></td>
+		<td class="value"><input type="text" name="location-room-number" value="$!message.text($location.roomnumber)" id="location-room-number" class="text" maxlength="100" onchange="setModified();"></td>
 	</tr>
 	
 </table>
