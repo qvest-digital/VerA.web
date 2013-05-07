@@ -62,6 +62,7 @@
 	#parse("inc/list-navi.vm")
 	#parse("inc/list-direct.vm")
 
+	<input type="button" id="new" name="new" value="Neu" #if($grants.mayWrite()) class="button" #else class="buttondisabled" disabled #end onclick="window.location.href='CreateLocation';"> &nbsp;
 	<input type="submit" name="save" value="Speichern" class="submit"> &nbsp;
 	<input type="submit" name="remove" value="L&ouml;schen" class="button" title="markierte Eintr&auml;ge entfernen"> &nbsp;
 
