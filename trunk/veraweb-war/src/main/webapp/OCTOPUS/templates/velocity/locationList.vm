@@ -1,0 +1,88 @@
+#set($title = "Stammdaten - Veranstaltungsorte")
+#parse("inc/header.vm")	
+
+<form id="formlist" name="formlist" action="Location" method="POST">
+    <input type="hidden" name="doRemove" value="true">
+    <input type="hidden" name="start" value="">
+    <input type="hidden" name="selectAll" value="false">
+    <input type="hidden" name="selectNone" value="false">
+
+    <table class="tab" border="0" cellspacing="0" cellpadding="0">
+		<tr>
+        	<td class="tableft">&nbsp;</td>
+        	<td class="tabactiv"><span class="tabactiv">Veranstaltungsorte</span></td>
+        	<td class="tabright">&nbsp;</td>
+		</tr>
+	</table>
+
+    #openContent()
+    #openContentSection()
+    
+    #if($listerrors.size() > 0)
+        <div style="margin: 10px 0px 10px 0px; padding: 10px 10px 10px 10px; background-color: #ffffff; border: 2px solid #ff0000;">
+        	#foreach($error in $listerrors)
+        		$error<br>
+        	#end
+        </div>
+    #end
+
+    #foreach($bean in $list)
+		<input type="hidden" name="list" value="$bean.id">
+    #end
+    <table class="list">
+    	<tr class="list1">
+    		<th class="list" style="width: 20px;">&nbsp;</th>
+    		<th class="list" style="width: 60px;">ID</th>
+    		<th class="list">Titel</th>
+    		<th class="list">Ansprechpartner</th>
+    		<th class="list">Stra&szlig;e</th>
+    		<th class="list">PLZ</th>
+    		<th class="list">Ort</th>
+    		<th class="list">Telefon</th>
+    		<th class="list">Fax</th>
+    		<th class="list">E-Mail</th>
+    		<th class="list">Bemerkung</th>
+    		<th class="list">URL</th>
+    		<th class="list">GPS-Daten</th>
+    		<th class="list">Raumnummer</th>
+    	</tr>
+    	#foreach($bean in $list)
+    		<tr class="$class" style="height: 20px;" onmouseover="onMouseOverList(this);" onmouseout="onMouseOutList(this);">
+    			<td class="list"><input type="checkbox" id="remove-select" name="${bean.id}-select" value="true" class="checkbox" #if($listselection.indexOf($bean.id) != -1) checked#end></td>
+    			<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowLocation?id=$!{bean.id}'">$!bean.id</td>
+    			<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowLocation?id=$!{bean.id}'">$!message.plain($!bean.name)</td>
+    			<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowLocation?id=$!{bean.id}'"></td>
+    			<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowLocation?id=$!{bean.id}'"></td>
+    			<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowLocation?id=$!{bean.id}'"></td>
+    			<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowLocation?id=$!{bean.id}'"></td>
+    			<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowLocation?id=$!{bean.id}'"></td>
+    			<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowLocation?id=$!{bean.id}'"></td>
+    			<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowLocation?id=$!{bean.id}'"></td>
+    			<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowLocation?id=$!{bean.id}'"></td>
+    			<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowLocation?id=$!{bean.id}'"></td>
+    			<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowLocation?id=$!{bean.id}'"></td>
+    			<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowLocation?id=$!{bean.id}'"></td>
+        	</tr>
+    	#end
+    </table>
+    #if ($listparam.count == 0)
+    	<br>Keine Daten gefunden.
+    #end
+
+    <div id="fixme" class="fixme1">
+		<div class="fixme2">
+			<div class="fixme3">
+            	#parse("inc/list-navi.vm")
+            	#parse("inc/list-direct.vm")
+            	<input type="button" id="new" name="new" value="Neu" #if($grants.mayWrite()) class="button" #else class="buttondisabled" disabled #end onclick="window.location.href='CreateLocation';"> &nbsp;
+            	<input type="submit" id="remove" name="remove" value="L&ouml;schen" class="button" title="markierte Eintr&auml;ge entfernen"> &nbsp;
+    		</div>
+		</div>
+	</div>
+
+    #closeContentSection()
+    #closeContent()
+
+</form>
+
+#parse("inc/footer.vm")

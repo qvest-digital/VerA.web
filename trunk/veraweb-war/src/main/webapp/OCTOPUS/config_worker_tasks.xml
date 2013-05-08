@@ -268,7 +268,7 @@
 			<action name="saveList" worker="LocationWorker" />
 			<action name="showList" worker="LocationWorker" />
 			<param name="liststarts" value="true"/>
-			<response type="velocity" name="location">
+			<response type="velocity" name="locationList">
 				<param name="ContentType" value="text/html;charset=UTF-8"/>
 			</response>
 		</task>
