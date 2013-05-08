@@ -21,7 +21,23 @@ CREATE TABLE veraweb.ttask (
 	CONSTRAINT ttask_pkey PRIMARY KEY (pk)
 ) WITH OIDS;
 
+/* ---------------------------------------------------------------------- */
+/* Alter table "tlocation"                                                */
+/* ---------------------------------------------------------------------- */
 
+ALTER TABLE veraweb.tlocation ADD COLUMN 
+	contactperson VARCHAR(250),
+	ADD COLUMN address VARCHAR(250),
+	ADD COLUMN zip CHARACTER(5),
+	ADD COLUMN location VARCHAR(100),  
+	ADD COLUMN callnumber VARCHAR(50),
+	ADD COLUMN faxnumber VARCHAR(50),
+	ADD COLUMN email VARCHAR(100),
+	ADD COLUMN comment VARCHAR(1000),
+	ADD COLUMN url VARCHAR(250),
+	ADD COLUMN gpsdata VARCHAR(1000),
+	ADD COLUMN roomnumber VARCHAR(250);
+	
 /* ---------------------------------------------------------------------- */
 /* Update schema version                                                  */
 /* ---------------------------------------------------------------------- */
