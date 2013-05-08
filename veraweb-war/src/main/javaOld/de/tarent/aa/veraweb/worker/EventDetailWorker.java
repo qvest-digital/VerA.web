@@ -257,6 +257,7 @@ public class EventDetailWorker {
 				{
 					Location location = new Location();
 					location.name = event.location;
+					location.orgunit = event.orgunit;
 					location.setModified(true);
 					try
 					{
@@ -269,7 +270,7 @@ public class EventDetailWorker {
 					}
 					if (saveLocation)
 					{
-						WorkerFactory.getLocationWorker(cntx).insertBean(cntx, errors, location, context);
+						WorkerFactory.getLocationListWorker(cntx).insertBean(cntx, errors, location, context);
 					}
 				}
 

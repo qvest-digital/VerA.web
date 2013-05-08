@@ -75,7 +75,7 @@
 		<!-- Stammdaten-Worker -->
 		<worker name="ColorWorker" implementation="de.tarent.aa.veraweb.worker.ColorWorker" singleton="true" factory="reflected" />
 		<worker name="FunctionWorker" implementation="de.tarent.aa.veraweb.worker.FunctionWorker" singleton="true" factory="reflected" />
-		<worker name="LocationWorker" implementation="de.tarent.aa.veraweb.worker.LocationWorker" singleton="true" factory="reflected" />
+		<worker name="LocationListWorker" implementation="de.tarent.aa.veraweb.worker.LocationListWorker" singleton="true" factory="reflected" />
 		<worker name="DoctypeWorker" implementation="de.tarent.aa.veraweb.worker.DoctypeWorker" singleton="true" factory="reflected" />
 		<worker name="CategorieWorker" implementation="de.tarent.aa.veraweb.worker.CategorieWorker" singleton="true" factory="reflected" />
 		<worker name="SalutationWorker" implementation="de.tarent.aa.veraweb.worker.SalutationWorker" singleton="true" factory="reflected" />
@@ -265,8 +265,8 @@
 		
 		<task name="Location" access="public" groups="Administrator,PartialAdmin">
 			<doTask name="LoadStammdaten"/>
-			<action name="saveList" worker="LocationWorker" />
-			<action name="showList" worker="LocationWorker" />
+			<action name="saveList" worker="LocationListWorker" />
+			<action name="showList" worker="LocationListWorker" />
 			<param name="liststarts" value="true"/>
 			<response type="velocity" name="locationList">
 				<param name="ContentType" value="text/html;charset=UTF-8"/>
@@ -1110,7 +1110,7 @@
 				Dieser Task zeigt eine Veranstaltung an.
 			</description>
 			<doTask name="Load"/>
-			<action name="getAll" worker="LocationWorker" />
+			<action name="getAll" worker="LocationListWorker" />
 			<response type="velocity" name="eventDetail">
 				<param name="ContentType" value="text/html;charset=UTF-8"/>
 			</response>
@@ -1121,7 +1121,7 @@
 				Dieser Task zeigt eine Veranstaltung an.
 			</description>
 			<doTask name="Load"/>
-			<action name="getAll" worker="LocationWorker" />
+			<action name="getAll" worker="LocationListWorker" />
 			<action name="showDetail" worker="EventDetailWorker" />
 			<response type="velocity" name="eventDetail">
 				<param name="ContentType" value="text/html;charset=UTF-8"/>
@@ -1133,7 +1133,7 @@
 				Dieser Task speichert eine Veranstaltung.
 			</description>
 			<doTask name="Load"/>
-			<action name="getAll" worker="LocationWorker" />
+			<action name="getAll" worker="LocationListWorker" />
 			<action name="saveDetail" worker="EventDetailWorker" />
 			<response type="velocity" name="eventDetail">
 				<param name="ContentType" value="text/html;charset=UTF-8"/>
@@ -1189,7 +1189,7 @@
 				Dieser Task zeigt eine Aufgabe einer Veranstaltung an.
 			</description>
 			<doTask name="Load"/>
-			<action name="getAll" worker="LocationWorker" />
+			<action name="getAll" worker="LocationListWorker" />
 			<action name="showDetail" worker="EventTaskDetailWorker" />
 			<action name="loadReferencePerson" worker="EventTaskDetailWorker" />
 			<response type="velocity" name="eventTaskDetail">
@@ -1202,7 +1202,7 @@
 				Dieser Task speichert eine Aufgabe einer Veranstaltung.
 			</description>
 			<doTask name="Load"/>
-			<action name="getAll" worker="LocationWorker" />
+			<action name="getAll" worker="LocationListWorker" />
 			<action name="saveDetail" worker="EventTaskDetailWorker" />
 			<response type="velocity" name="eventTaskDetail">
 				<param name="ContentType" value="text/html;charset=UTF-8"/>
