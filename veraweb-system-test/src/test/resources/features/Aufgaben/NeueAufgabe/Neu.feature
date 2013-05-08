@@ -10,7 +10,7 @@ Grundlage: Ich bin als Administrator angemeldet und habe mind. eine Veranstaltun
 		|  Barny	| Geröllheimer	| 
 	 Und es existiert eine Veranstaltung "Veranstaltung 1" mit folgenden Aufgaben:
 		| ID	| Titel 	| Beschreibung	 | Start 	  | Ende 		| Fertigstellungsgrad	| Verantwortlicher	 | Priorität | 
-		| 1		| Aufgabe 1 | Beschreibung 1 | heute(+1) | heute(+2) 	| 		0				| Barny  | 1		 |
+		| 1		| Aufgabe 1 | Beschreibung 1 | heute(+1)  | heute(+2) 	| 		0				| Barny  			 | 1		 |
 	 Und ich bin in der Übersicht aller Aufgaben der Veranstaltung "Veranstaltung 1"
 	 
 	 

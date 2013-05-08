@@ -79,6 +79,8 @@ public enum AufgabeData {
 //	ENDDATUM_MIT_SONDERZEICHEN("Aufgabe 1", "Beschreibung 1", "12.04.2013", "§$%/()=", "Barny Geröllheimer", "10", "1"),
 //	ENDDATUM_MIT_JAVASCRIPT("Aufgabe 1", "Beschreibung 1", "12.04.2013","<script type=\"text/javascript\">alert(\"huhu\")</script>", "Barny Geröllheimer", "10", "1"),
 //	ENDDATUM_MIT_MONATSNAME("Aufgabe 1", "Beschreibung 1", "12.04.2013", "13. April 2013", "Barny Geröllheimer", "10", "1"),
+	ENDDATUM_VOR_STARTDATUM("Aufgabe 1", "Beschreibung 1", DateMidnight.now().plus(2), DateMidnight.now().plus(1), "Barny Geröllheimer", "10", "1"),
+	ENDDATUM_IN_VERGANGENHEIT("Aufgabe 1", "Beschreibung 1", DateMidnight.now().minus(1), DateMidnight.now().minus(2), "Barny Geröllheimer", "10", "1"),
 	FERTIGSTELLUNG_GEANDERT_10("Aufgabe 1", "Beschreibung 1",DateMidnight.now().minus(1), DateMidnight.now().plus(1), "Barny Geröllheimer", "10", "1"),
 	FERTIGSTELLUNG_GEANDERT_50("Aufgabe 1", "Beschreibung 1", DateMidnight.now().minus(1), DateMidnight.now().plus(1), "Barny Geröllheimer", "50", "1"),
 	FERTIGSTELLUNG_GEANDERT_90("Aufgabe 1", "Beschreibung 1", DateMidnight.now().minus(1), DateMidnight.now().plus(1), "Barny Geröllheimer", "90", "1"),
