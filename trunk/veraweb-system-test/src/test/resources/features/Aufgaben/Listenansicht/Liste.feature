@@ -1,5 +1,5 @@
 # language: de
-Funktionalität: Als User mit entsprechenden Rechte möchte ich eine Aufgabenliste zu einer Veranstaltung sehen und aus dieser Sicht die Aufgabe löschen können. 
+Funktionalität: Als User mit entsprechenden Rechten möchte ich eine Aufgabenliste zu einer Veranstaltung sehen und aus dieser Sicht die Aufgabe löschen können. 
 
 
 
