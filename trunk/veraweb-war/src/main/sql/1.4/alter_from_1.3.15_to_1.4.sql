@@ -42,4 +42,4 @@ ALTER TABLE veraweb.tlocation ADD COLUMN
 /* Update schema version                                                  */
 /* ---------------------------------------------------------------------- */
 
-UPDATE veraweb.tconfig SET cvalue = '2013-04-12' WHERE cname = 'SCHEMA_VERSION';
+UPDATE veraweb.tconfig SET cvalue = '2013-05-08' WHERE cname = 'SCHEMA_VERSION';
