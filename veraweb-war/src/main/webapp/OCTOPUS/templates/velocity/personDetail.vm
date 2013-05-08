@@ -393,6 +393,8 @@
 			hideBlock(document.getElementById("show-diplodate_a_e1"));
 			enableFormInput(document.getElementById('person-firstname_a_e1'));
 			enableFormInput(document.getElementById('person-lastname_a_e1'));
+			enableFormCheckbox(document.getElementById('person-iscompany'));
+			enableFormInput(document.getElementById('person-company_a_e1'));
 		}
 	#else
 		disableForm(document.getElementById('PersonForm'));

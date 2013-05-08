@@ -551,6 +551,10 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 			return salutation_a_e1;
 		}
 
+		public String getCompany() {
+			return company_a_e1;
+		}
+		
 		public Integer getSalutationFK() {
 			return fk_salutation_a_e1;
 		}
@@ -617,6 +621,11 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 			return notehost_a_e1;
 		}
 
+
+		public void setCompany(String value) {
+			company_a_e1 = value;
+		}
+		
 		public void setSalutation(String value) {
 			salutation_a_e1 = value;
 		}
@@ -741,6 +750,15 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 		public void setLastname(String value) {
 			lastname_a_e2 = value;
 		}
+
+		public String getCompany() {
+			return company_a_e2;
+		}
+
+		public void setCompany(String value) {
+			company_a_e2 = value;
+			
+		}
 	}
 
 	/**
@@ -795,6 +813,15 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 
 		public void setLastname(String value) {
 			lastname_a_e3 = value;
+		}
+
+		public String getCompany() {
+			return company_a_e3;
+		}
+
+		public void setCompany(String value) {
+			company_a_e3 = value;
+			
 		}
 	}
 
@@ -943,6 +970,14 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
         public void setNoteHost(String value) {
 			notehost_b_e1 = value;
 		}
+
+		public String getCompany() {
+			return company_b_e1;
+		}
+
+		public void setCompany(String value) {
+			company_b_e1 = value;			
+		}
 	}
 
 	/**
@@ -1000,6 +1035,14 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 		public void setLastname(String value) {
 			lastname_b_e2 = value;
 		}
+
+		public String getCompany() {
+			return company_b_e2;
+		}
+
+		public void setCompany(String value) {
+			company_b_e2 = value;
+		}
 	}
 
 	/**
@@ -1056,6 +1099,14 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 
 		public void setLastname(String value) {
 			lastname_b_e3 = value;
+		}
+
+		public String getCompany() {
+			return company_b_e3;
+		}
+
+		public void setCompany(String value) {
+			company_b_e3 = value;
 		}
 	}
 

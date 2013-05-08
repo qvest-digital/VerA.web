@@ -33,6 +33,9 @@ public interface PersonMemberFacade {
 	/** @return Anrede-ID */
 	public Integer getSalutationFK();
 
+	/** @return Firma/Institution */
+	public String getCompany();
+	
 	/** @return Akad. Titel */
 	public String getTitle();
 
@@ -71,6 +74,8 @@ public interface PersonMemberFacade {
 
 	/** @return Bemerkung f�r den Gastgeber */
 	public String getNoteHost();
+	
+	public void setCompany(String value);
 
 	/** �ndert Anrede */
 	public void setSalutation(String value);
