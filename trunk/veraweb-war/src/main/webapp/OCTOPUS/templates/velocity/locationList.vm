@@ -51,17 +51,17 @@
     			<td class="list"><input type="checkbox" id="remove-select" name="${bean.id}-select" value="true" class="checkbox" #if($listselection.indexOf($bean.id) != -1) checked#end></td>
     			<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowLocation?id=$!{bean.id}'">$!bean.id</td>
     			<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowLocation?id=$!{bean.id}'">$!message.plain($!bean.name)</td>
-    			<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowLocation?id=$!{bean.id}'"></td>
-    			<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowLocation?id=$!{bean.id}'"></td>
-    			<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowLocation?id=$!{bean.id}'"></td>
-    			<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowLocation?id=$!{bean.id}'"></td>
-    			<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowLocation?id=$!{bean.id}'"></td>
-    			<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowLocation?id=$!{bean.id}'"></td>
-    			<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowLocation?id=$!{bean.id}'"></td>
-    			<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowLocation?id=$!{bean.id}'"></td>
-    			<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowLocation?id=$!{bean.id}'"></td>
-    			<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowLocation?id=$!{bean.id}'"></td>
-    			<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowLocation?id=$!{bean.id}'"></td>
+    			<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowLocation?id=$!{bean.id}'">$!bean.contactperson</td>
+    			<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowLocation?id=$!{bean.id}'">$!bean.address</td>
+    			<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowLocation?id=$!{bean.id}'">$!bean.zip</td>
+    			<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowLocation?id=$!{bean.id}'">$!bean.location</td>
+    			<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowLocation?id=$!{bean.id}'">$!bean.callnumber</td>
+    			<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowLocation?id=$!{bean.id}'">$!bean.faxnumber</td>
+    			<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowLocation?id=$!{bean.id}'">$!bean.email</td>
+    			<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowLocation?id=$!{bean.id}'">$!bean.comment</td>
+    			<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowLocation?id=$!{bean.id}'">$!bean.url</td>
+    			<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowLocation?id=$!{bean.id}'">$!bean.gpsdata</td>
+    			<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowLocation?id=$!{bean.id}'">$!bean.roomnumber</td>
         	</tr>
     	#end
     </table>
