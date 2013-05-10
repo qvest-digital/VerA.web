@@ -6,15 +6,12 @@
 #parse("inc/header.vm")
 #end
 
-#if(!$locationId)
-#set($locationtId = $location.id)
-#end
-
 <form id="formlist" name="formlist" action="" method="POST">
 <input type="hidden" name="savelocation" value="true">
 <input type="hidden" name="search" value="clear">
 
-<input type="hidden" name="location-id" value="$!locationId">
+<input type="hidden" name="location-id" value="$!location.id">
+<input type="hidden" name="location-orgunit" value="$!location.orgunit">
 
 
 <table class="tab" border="0" cellspacing="0" cellpadding="0"><tr>
@@ -63,14 +60,15 @@
 		<td class="value"><input type="text" name="id" value="$!message.text($location.id)" id="id" class="id" readonly></td>
 	</tr>
 	
-	<tr>
-		<td class="label"><label for="location-contact-person">Ansprechpartner:</label></td>
-		<td class="value"><input type="text" name="location-contact-person" value="$!message.text($location.contactperson)" id="location-contact-person" class="text" maxlength="100" onchange="setModified();"></td>
-	</tr>
 	
 	<tr>
 		<td class="label"><label for="location-title">Beschreibung/Titel:</label></td>
-		<td class="value"><input type="text" name="location-title" value="$!message.text($location.title)" id="location-title" class="text" maxlength="100" onchange="setModified();"></td>
+		<td class="value"><input type="text" name="location-name" value="$!message.text($location.name)" id="location-name" class="text" maxlength="100" onchange="setModified();"></td>
+	</tr>
+	
+	<tr>
+		<td class="label"><label for="location-contactperson">Ansprechpartner:</label></td>
+		<td class="value"><input type="text" name="location-contactperson" value="$!message.text($location.contactperson)" id="location-contact-person" class="text" maxlength="100" onchange="setModified();"></td>
 	</tr>
 	
 	<tr>
@@ -90,24 +88,19 @@
 	
 	<tr>
 		<td class="label"><label for="location-call-number">Telefonnummer:</label></td>
-		<td class="value"><input type="text" name="location-call-number" value="$!message.text($location.callnumber)" id="location-call-number" class="text" maxlength="100" onchange="setModified();"></td>
+		<td class="value"><input type="text" name="location-callnumber" value="$!message.text($location.callnumber)" id="location-callnumber" class="text" maxlength="100" onchange="setModified();"></td>
 	</tr>
 	
 	<tr>
 		<td class="label"><label for="location-fax-number">Faxnummer:</label></td>
-		<td class="value"><input type="text" name="location-fax-number" value="$!message.text($location.faxnumber)" id="location-fax-number" class="text" maxlength="100" onchange="setModified();"></td>
+		<td class="value"><input type="text" name="location-faxnumber" value="$!message.text($location.faxnumber)" id="location-faxnumber" class="text" maxlength="100" onchange="setModified();"></td>
 	</tr>
 	
 	<tr>
 		<td class="label"><label for="location-email-address">E-Mail-Adresse:</label></td>
-		<td class="value"><input type="text" name="location-email-address" value="$!message.text($location.email)" id="location-email-address" class="text" maxlength="100" onchange="setModified();"></td>
+		<td class="value"><input type="text" name="location-email" value="$!message.text($location.email)" id="location-email" class="text" maxlength="100" onchange="setModified();"></td>
 	</tr>
 	
-	<tr>
-		<td class="label"><label for="location-call-number">Telefonnummer:</label></td>
-		<td class="value"><input type="text" name="location-call-number" value="$!message.text($location.callnumber)" id="location-call-number" class="text" maxlength="100" onchange="setModified();"></td>
-	</tr>
-
 	<tr>
 		<td class="label"><label for="location-comment">Bemerkungsfeld:</label></td>
 		<td class="value"><textarea rows="4" cols="20" name="location-comment" id="location-comment" class="text" onchange="setModified();">$!message.textarea($location.comment)</textarea></td>
@@ -120,12 +113,12 @@
 	
 	<tr>
 		<td class="label"><label for="location-gps-data">GPS-Daten:</label></td>
-		<td class="value"><input type="text" name="location-gps-data" value="$!message.text($location.gpsdata)" id="location-gps-data" class="text" maxlength="100" onchange="setModified();"></td>
+		<td class="value"><input type="text" name="location-gpsdata" value="$!message.text($location.gpsdata)" id="location-gpsdata" class="text" maxlength="100" onchange="setModified();"></td>
 	</tr>
 	
 	<tr>
-		<td class="label"><label for="location-room-number">Raumnummer:</label></td>
-		<td class="value"><input type="text" name="location-room-number" value="$!message.text($location.roomnumber)" id="location-room-number" class="text" maxlength="100" onchange="setModified();"></td>
+		<td class="label"><label for="location-roomnumber">Raumnummer:</label></td>
+		<td class="value"><input type="text" name="location-roomnumber" value="$!message.text($location.roomnumber)" id="location-roomnumber" class="text" maxlength="100" onchange="setModified();"></td>
 	</tr>
 	
 </table>
@@ -133,7 +126,7 @@
 <div id="fixme" class="fixme1"><div class="fixme2"><div class="fixme3">
 
 <input id="button.save" type="submit" name="save" value="Speichern" onclick="document.getElementById('formlist').action='SaveLocation';" #if($grants.mayWrite()) class="button" #else class="buttondisabled" disabled #end> &nbsp;
-<input id="button.back" type="button" name="cancel" class="button" value="Zur&uuml;ck" title="Zur Suche" onclick="if (checkModified()) { window.location.href='${paths.staticWeb}do/ShowEventTasks?id=$!eventId'; }"> &nbsp;
+<input id="button.back" type="button" name="cancel" class="button" value="Zur&uuml;ck" title="Zur Suche" onclick="window.location.href='${paths.staticWeb}do/Location?start=0';"> &nbsp; &nbsp;
 
 
 </div></div></div>

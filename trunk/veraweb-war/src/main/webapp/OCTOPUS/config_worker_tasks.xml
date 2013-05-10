@@ -76,6 +76,7 @@
 		<worker name="ColorWorker" implementation="de.tarent.aa.veraweb.worker.ColorWorker" singleton="true" factory="reflected" />
 		<worker name="FunctionWorker" implementation="de.tarent.aa.veraweb.worker.FunctionWorker" singleton="true" factory="reflected" />
 		<worker name="LocationListWorker" implementation="de.tarent.aa.veraweb.worker.LocationListWorker" singleton="true" factory="reflected" />
+		<worker name="LocationDetailWorker" implementation="de.tarent.aa.veraweb.worker.LocationDetailWorker" singleton="true" factory="reflected" />
 		<worker name="DoctypeWorker" implementation="de.tarent.aa.veraweb.worker.DoctypeWorker" singleton="true" factory="reflected" />
 		<worker name="CategorieWorker" implementation="de.tarent.aa.veraweb.worker.CategorieWorker" singleton="true" factory="reflected" />
 		<worker name="SalutationWorker" implementation="de.tarent.aa.veraweb.worker.SalutationWorker" singleton="true" factory="reflected" />
@@ -277,10 +278,19 @@
 			<description>
 				Dieser Task erzeugt einen neuen Veranstaltungsort
 			</description>
-			<doTask name="Load"/>
-			<!--
-			<action name="setEventTaskId" worker="EventTaskDetailWorker" />
-			<action name="loadReferencePerson" worker="EventTaskDetailWorker" /> -->
+			<doTask name="LoadStammdaten"/>			
+			<action name="showDetail" worker="LocationDetailWorker" />
+			<response type="velocity" name="locationDetail">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+		
+		<task name="ShowLocation" access="public" groups="Writer">
+			<description>
+				Dieser Task erzeugt einen neuen Veranstaltungsort
+			</description>
+			<doTask name="LoadStammdaten"/>			
+			<action name="showDetail" worker="LocationDetailWorker" />
 			<response type="velocity" name="locationDetail">
 				<param name="ContentType" value="text/html;charset=UTF-8"/>
 			</response>
@@ -290,10 +300,8 @@
 			<description>
 				Dieser Task speichert einen Veranstaltungsort
 			</description>
-			<doTask name="Load"/>
-			<!--
-			<action name="setEventTaskId" worker="EventTaskDetailWorker" />
-			<action name="loadReferencePerson" worker="EventTaskDetailWorker" /> -->
+			<doTask name="LoadStammdaten"/>
+			<action name="saveDetail" worker="LocationDetailWorker" />			
 			<response type="velocity" name="locationDetail">
 				<param name="ContentType" value="text/html;charset=UTF-8"/>
 			</response>
