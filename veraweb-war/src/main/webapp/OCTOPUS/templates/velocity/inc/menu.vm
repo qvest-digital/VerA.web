@@ -13,14 +13,14 @@
 						#end
 						#if($grants.isUser())
 							#if($grants.mayWrite())
-								<li><a href="${paths.staticWeb}do/ShowReplacePerson">Suchen &amp; Ersetzen</a></li>
-            					<li><a href="${paths.staticWeb}do/PersonDuplicateSearch">Duplikatsuche</a></li>
+								<li><a id="menu.searchReplace" href="${paths.staticWeb}do/ShowReplacePerson">Suchen &amp; Ersetzen</a></li>
+            					<li><a id="menu.searchDuplicate" href="${paths.staticWeb}do/PersonDuplicateSearch">Duplikatsuche</a></li>
 							#end
 							#if($grants.mayExport())
-								<li><a href="${paths.staticWeb}do/ExportPersons">Personenexport</a></li>
+								<li><a id="menu.exportPerson" href="${paths.staticWeb}do/ExportPersons">Personenexport</a></li>
 							#end
 							#if($grants.mayWrite())
-								<li><a href="${paths.staticWeb}do/ImportPersons">Personenimport</a></li>
+								<li><a id="menu.importPerson"href="${paths.staticWeb}do/ImportPersons">Personenimport</a></li>
 							#end
 						#end
     				</ul>
@@ -34,9 +34,9 @@
         					<li><a id="menu.newEvent" href="${paths.staticWeb}do/CreateEvent?action=event">Neue Veranstaltung</a></li>
 						#end
 						#if($grants.isUser())
-        					<li><a href="${paths.staticWeb}do/ShowMailinglistList">Verteiler</a></li>
+        					<li><a id="menu.mailingList" href="${paths.staticWeb}do/ShowMailinglistList">Verteiler</a></li>
     						#if($grants.mayExport())
-    							<li><a href="${paths.staticWeb}do/Statistik">Statistiken</a></li>
+    							<li><a id="menu.statistic" href="${paths.staticWeb}do/Statistik">Statistiken</a></li>
     						#end
 						#end
     				</ul>
@@ -51,7 +51,7 @@
 							<li><a id="menu.proxy" href="${paths.staticWeb}do/Proxy">Vertretungen</a></li>
 						#end
 					#elseif(!$octopusConfig.personalConfig.role)
-						<li><a href="${paths.staticWeb}do/default">Rolle w&auml;hlen</a></li>
+						<li><a id="menu.chooseRole" href="${paths.staticWeb}do/default">Rolle w&auml;hlen</a></li>
 					#end
 					<li><a id="menu.info" href="${paths.staticWeb}do/Info">Info</a></li>
 				</ul>
@@ -61,38 +61,38 @@
     				<span>Administration</span>
     				<ul>
 						#if($grants.isAdmin() || $grants.isPartialAdmin())
-							<li><a href="${paths.staticWeb}do/Location?start=0">Veranstaltungsorte</a></li>
+							<li><a id="menu.location" href="${paths.staticWeb}do/Location?start=0">Veranstaltungsorte</a></li>
 						#end
 						#if($grants.isAdmin())
-							<li><a href="${paths.staticWeb}do/Doctype?start=0">Dokumenttypen</a></li>
+							<li><a id="menu.doctype" href="${paths.staticWeb}do/Doctype?start=0">Dokumenttypen</a></li>
 						#end
 						#if($grants.isUser())
-							<li><a href="${paths.staticWeb}do/Categorie?start=0">Kategorien</a></li>
+							<li><a id="menu.category" href="${paths.staticWeb}do/Categorie?start=0">Kategorien</a></li>
 						#end
 						#if($grants.isAdmin() || $grants.isPartialAdmin())
-							<li><a href="${paths.staticWeb}do/Color">Farben</a></li>
+							<li><a id="menu.color" href="${paths.staticWeb}do/Color">Farben</a></li>
 						#end
 						#if($grants.isAdmin())
-							<li><a href="${paths.staticWeb}do/Salutation?start=0">Anreden</a></li>
+							<li><a id="menu.salutation" href="${paths.staticWeb}do/Salutation?start=0">Anreden</a></li>
 						#end
 						#if($grants.isAdmin() || $grants.isPartialAdmin())
-        					<li><a href="${paths.staticWeb}do/Function?start=0&limit=5">Funktionen/Amtsbezeichnungen</a></li>
-        					<li><a href="${paths.staticWeb}do/MailDraftList?start=0">E-Mail-Vorlagen</a></li>
-        					<li><a href="${paths.staticWeb}do/MailOutboxList?start=0">E-Mail-Postausgang</a></li>
+        					<li><a id="menu.function" href="${paths.staticWeb}do/Function?start=0&limit=5">Funktionen/Amtsbezeichnungen</a></li>
+        					<li><a id="menu.mailDraft" href="${paths.staticWeb}do/MailDraftList?start=0">E-Mail-Vorlagen</a></li>
+        					<li><a id="menu.mailOutbox" href="${paths.staticWeb}do/MailOutboxList?start=0">E-Mail-Postausgang</a></li>
 						#end
 						#if($grants.isAdmin() || $grants.isSystemUser())
-        					<li><a href="${paths.staticWeb}do/Orgunit?start=0">Mandanten</a></li>
-        					<li><a href="${paths.staticWeb}do/AllUser?start=0">Benutzer</a></li>
+        					<li><a id="menu.orgunit" href="${paths.staticWeb}do/Orgunit?start=0">Mandanten</a></li>
+        					<li><a id="menu.allUser" href="${paths.staticWeb}do/AllUser?start=0">Benutzer</a></li>
 						#end
 						#if($grants.isAdmin())
-							<li><a href="${paths.staticWeb}do/AllProxy?start=0">Stellvertretungen</a></li>
-							<li><a href="${paths.staticWeb}do/ChangeLogReport">Reports</a></li>
+							<li><a id="menu.allProxy" href="${paths.staticWeb}do/AllProxy?start=0">Stellvertretungen</a></li>
+							<li><a id="menu.reports" href="${paths.staticWeb}do/ChangeLogReport">Reports</a></li>
 						#elseif($grants.isPartialAdmin())
-							<li><a href="${paths.staticWeb}do/OUUser?start=0">Benutzer</a></li>
-							<li><a href="${paths.staticWeb}do/OUProxy?start=0">Stellvertretungen</a></li>
+							<li><a id="menu.user" href="${paths.staticWeb}do/OUUser?start=0">Benutzer</a></li>
+							<li><a id="menu.proxy" href="${paths.staticWeb}do/OUProxy?start=0">Stellvertretungen</a></li>
 						#end
 						#if($grants.isAdmin() || $grants.isPartialAdmin())
-							<li><a href="${paths.staticWeb}do/Config">Programmeinstellungen</a></li>
+							<li><a id="menu.config" href="${paths.staticWeb}do/Config">Programmeinstellungen</a></li>
 						#end
     				</ul>
     			</li>
@@ -100,18 +100,15 @@
 		</ul>
 	</nav>
 	
-###else
-##	
-##	<div class="menusection">
-##    ## semi fix here: the exception is also thrown when a user accesses parts of the application while not having the permissions to access these
-##    #if( ! $status.exception.toString().contains( "de.tarent.octopus.security.TcSecurityException" ) && $status.exception && $octopusRequest.task != "ShowLogin" && $octopusRequest.task != "default" )
-##    	<strong class="menutitle">Menü</strong>
-##    	<a href="${paths.staticWeb}do/">Startseite</a>
-##   #else
-##    	<strong class="menutitle">Benutzer</strong>
-##    	<a href="${paths.staticWeb}do/ShowLogin" target="_top" class="menulink">Anmelden</a>
-##    #end
-##    </div>
+#else
+	
+	<nav id="nav" class="gray-gradient grayBorder box-shadow marginBottom10">
+		<ul>
+			<li class="active">
+				<span>Anmelden</span>
+			</li>
+		</ul>
+	</nav>
 	
 #end
 
