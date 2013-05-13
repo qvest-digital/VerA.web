@@ -32,23 +32,23 @@
 		<div id="container">
         	<header id="header">
         		<a href="${paths.staticWeb}do/" title="Zur Startseite" class="noBorder"><img src="${paths.staticWeb}images/veraweb_logo.png"></a>
-        			<div id="topNav"> 			
-        				<ul>
-							#if($config.helplink)
-								<li><a href="${paths.staticWeb}$config.helplink" #if($config.helptarget) target="$config.helptarget" #end>Hilfe</a></li>
-							#else
-								<li title="Die Hilfe wurde noch nicht hinterlegt.">Hilfe</li>
-							#end
-        					<li><a id="menu.logout" href="${paths.staticWeb}do/logout" class="noBorder"> <span class="borderBottom">Abmelden</span> <img src="${paths.staticWeb}images/logout.png" alt="Logout icon" title="Logout" style="vertical-align:middle;" /></a></li>
-        				</ul>
-        			</div>
 					#if($grants && $grants.isAuthenticated())
+            			<div id="topNav"> 			
+            				<ul>
+    							#if($config.helplink)
+    								<li><a href="${paths.staticWeb}$config.helplink" #if($config.helptarget) target="$config.helptarget" #end>Hilfe</a></li>
+    							#else
+    								<li title="Die Hilfe wurde noch nicht hinterlegt.">Hilfe</li>
+    							#end
+            					<li><a id="menu.logout" href="${paths.staticWeb}do/logout" class="noBorder"> <span class="borderBottom">Abmelden</span> <img src="${paths.staticWeb}images/logout.png" alt="Logout icon" title="Logout" style="vertical-align:middle;" /></a></li>
+            				</ul>
+            			</div>
             			<div id="user">
-            				<strong>Benutzer:</strong> khapke (<a href="">Rolle</a>) / <strong>In Vertretung f&uuml;r:</strong> tfriede
+            				<strong>Benutzer:</strong> $octopusConfig.personalConfig.userName#if($octopusConfig.personalConfig.proxy) / <strong>In Vertretung f&uuml;r:</strong> $octopusConfig.personalConfig.role #end
             			</div>
 					#end
         	</header>
-            	
+            
 			#parse("inc/menu.vm")					
 
             #if($octopusRequest.task != "ShowPersonCategorieList")
