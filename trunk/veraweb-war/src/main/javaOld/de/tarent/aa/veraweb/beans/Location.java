@@ -218,7 +218,7 @@ public class Location extends AbstractBean implements OrgUnitDependent, Comparab
 		if (name == null || name.length() == 0)
 			addError("Der Veranstaltungsort kann nicht gespeichert werden. Vergeben Sie Bitte einen Titel.");
 		
-		if(comment.length() > 1000) {
+		if(comment != null && comment.length() > 1000) {
 		    addError("Der Inhalt des Bemerkungsfelds darf maximal 1000 Zeichen lang sein.");
 		}
 	}
