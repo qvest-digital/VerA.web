@@ -354,7 +354,7 @@ nav li:hover li:last-child, #nav li:hover li:last-child{
 }
 
 nav span, #nav span {
-    background-image: url("../img/nav_arrow.png");
+    background-image: url("../images/nav_arrow.png");
     background-position: right center;
     background-repeat: no-repeat;
     border-bottom: 0 none;
@@ -369,7 +369,7 @@ nav .active, #nav .active {
 }
 
 nav .active span, #nav .active span {
-    background-image: url("../img/nav_arrow_active.png");
+    background-image: url("../images/nav_arrow_active.png");
 }
 
 nav a, #nav a {
