@@ -28,7 +28,7 @@ CREATE TABLE veraweb.ttask (
 ALTER TABLE veraweb.tlocation ADD COLUMN 
 	contactperson VARCHAR(250),
 	ADD COLUMN address VARCHAR(250),
-	ADD COLUMN zip CHARACTER(5),
+	ADD COLUMN zip VARCHAR(50),
 	ADD COLUMN location VARCHAR(100),  
 	ADD COLUMN callnumber VARCHAR(50),
 	ADD COLUMN faxnumber VARCHAR(50),
