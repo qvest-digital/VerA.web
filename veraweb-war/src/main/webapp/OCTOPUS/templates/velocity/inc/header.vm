@@ -1,4 +1,4 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3c.org/TR/1999/REC-html401-19991224/loose.dtd">
+<!DOCTYPE HTML>
 <html>
 	<head>
 		<title>VerA.web - $!title</title>
@@ -24,88 +24,67 @@
 		<script type="text/javascript" src="${paths.staticWeb}scripts/WCH.js"></script>
 ##		<![endif]-->
 ##		Style
-		<link rel="stylesheet" type="text/css" href="${paths.staticWeb}styles/default.css" media="all">
-		<link rel="stylesheet" type="text/css" href="${paths.staticWeb}styles/screen.css" media="screen,projection" title="Ausw&auml;rtiges Amt Intranet-Stil">
-##		Style for fix Position (bottom right)
-		<style type="text/css">
-			/* IE 5.0/Win and other lesser browsers will use this */
-			#fixme {
-				position: absolute; right: 12px; bottom: 0px;
-				left: 173px;
-			}
-			/* used by Netscape6+/Mozilla, Opera 5+, Konqueror, Safari, OmniWeb 4.5+, ICEbrowser */
-			div > div#fixme, td > div#fixme {
-				position: fixed;
-			}
-		</style>
-		<!--[if gte IE 5.5]>
-		<![if lt IE 7]>
-		<style type="text/css">
-			/* IE5.5+/Win - this is more specific than the IE 5.0 version */
-			div#fixme {
-				top: expression((fixLayer() + 0 - fixme.offsetHeight + (document.documentElement.clientHeight ? document.documentElement.clientHeight : document.body.clientHeight) + (ignoreMe = document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop)) + 'px');
-				left: 173px;
-				width: expression((fixLayer() + -185 + (document.documentElement.clientWidth ? document.documentElement.clientWidth : document.body.clientWidth)) + 'px');
-				right: auto;
-				bottom: auto;
-			}
-		</style>
-		<![endif]>
-		<![endif]-->
+	    <link rel="stylesheet" type="text/css" href="${paths.staticWeb}styles/style.css" media="all" />
+		<!--link rel="stylesheet" type="text/css" href="${paths.staticWeb}styles/default.css" media="all"-->
+		<!--link rel="stylesheet" type="text/css" href="${paths.staticWeb}styles/screen.css" media="screen,projection" title="Ausw&auml;rtiges Amt Intranet-Stil"-->
 	</head>
 	<body>
-		<table class="header"><tr>
-    		<td class="logo1"><img src="${paths.staticWeb}images/veraweb-head01.png" width="150" height="70" alt="Veraweb"/></td>
-    		<td class="logo2">&nbsp;</td>
-		</tr><tr>
-    		<td class="headerkennung"><img src="${paths.staticWeb}images/veraweb-head02.png" width="150" height="30" alt="Veraweb"/></td>
-    		<td class="headertitle" id="header.title"><strong class="headertitle">$!title</strong></td>
-		</tr></table>
-		
-		<table class="content"><tr>
-			<td class="menu">
-				<div class="menu">
-					#parse("inc/menu.vm")					
-				</div>
-			</td>
-			<td class="content">
+		<div id="container">
+        	<header id="header">
+        		<a href="${paths.staticWeb}do/" title="Zur Startseite" class="noBorder"><img src="${paths.staticWeb}images/veraweb_logo.png"></a>
+        			<div id="topNav"> 			
+        				<ul>
+							#if($config.helplink)
+								<li><a href="${paths.staticWeb}$config.helplink" #if($config.helptarget) target="$config.helptarget" #end>Hilfe</a></li>
+							#else
+								<li title="Die Hilfe wurde noch nicht hinterlegt.">Hilfe</li>
+							#end
+        					<li><a id="menu.logout" href="${paths.staticWeb}do/logout" class="noBorder"> <span class="borderBottom">Abmelden</span> <img src="${paths.staticWeb}images/logout.png" alt="Logout icon" title="Logout" style="vertical-align:middle;" /></a></li>
+        				</ul>
+        			</div>
+					#if($grants && $grants.isAuthenticated())
+            			<div id="user">
+            				<strong>Benutzer:</strong> khapke (<a href="">Rolle</a>) / <strong>In Vertretung f&uuml;r:</strong> tfriede
+            			</div>
+					#end
+        	</header>
+            	
+			#parse("inc/menu.vm")					
 
-#if($octopusRequest.task != "ShowPersonCategorieList")
-#if($countInsert && $countInsert > 0)
-	<div id="text.info" style="margin: 10px 0px 0px 0px; padding: 2px 3px 2px 3px; background-color: #ffc080; border: 1px solid #ff8000;">
-		#if($countInsert == 0)
-			Es wurde kein neuer Datensatz angelegt.
-		#elseif($countInsert == 1)
-			Es wurde ein neuer Datensatz angelegt.
-		#else
-			Es wurden $countInsert neue Datens&auml;tze angelegt.
-		#end
-	</div>
-#end
-#if($countUpdate && $countUpdate > 0)
-	<div id="text.info" style="margin: 10px 0px 0px 0px; padding: 2px 3px 2px 3px; background-color: #ffc080; border: 1px solid #ff8000;">
-		#if($countUpdate == 0)
-			Es wurde kein Datensatz ge&auml;ndert.
-		#elseif($countUpdate == 1)
-			Es wurde ein Datensatz ge&auml;ndert.
-		#else
-			Es wurden $countUpdate Datens&auml;tze ge&auml;ndert.
-		#end
-	</div>
-#end
-#if($countRemove)
-	<div id="text.info" style="margin: 10px 0px 0px 0px; padding: 2px 3px 2px 3px; background-color: #ffc080; border: 1px solid #ff8000;">
-		#if($countRemove == 0)
-			Es wurde kein Datensatz gel&ouml;scht.
-		#elseif($countRemove == 1)
-			Es wurde ein Datensatz gel&ouml;scht.
-		#else
-			Es wurden $countRemove Datens&auml;tze gel&ouml;scht.
-		#end
-	</div>
-#end
-#end
+            #if($octopusRequest.task != "ShowPersonCategorieList")
+            #if($countInsert && $countInsert > 0)
+            	<div id="text.info" style="margin: 10px 0px 0px 0px; padding: 2px 3px 2px 3px; background-color: #ffc080; border: 1px solid #ff8000;">
+            		#if($countInsert == 0)
+            			Es wurde kein neuer Datensatz angelegt.
+            		#elseif($countInsert == 1)
+            			Es wurde ein neuer Datensatz angelegt.
+            		#else
+            			Es wurden $countInsert neue Datens&auml;tze angelegt.
+            		#end
+            	</div>
+            #end
+            #if($countUpdate && $countUpdate > 0)
+            	<div id="text.info" style="margin: 10px 0px 0px 0px; padding: 2px 3px 2px 3px; background-color: #ffc080; border: 1px solid #ff8000;">
+            		#if($countUpdate == 0)
+            			Es wurde kein Datensatz ge&auml;ndert.
+            		#elseif($countUpdate == 1)
+            			Es wurde ein Datensatz ge&auml;ndert.
+            		#else
+            			Es wurden $countUpdate Datens&auml;tze ge&auml;ndert.
+            		#end
+            	</div>
+            #end
+            #if($countRemove)
+            	<div id="text.info" style="margin: 10px 0px 0px 0px; padding: 2px 3px 2px 3px; background-color: #ffc080; border: 1px solid #ff8000;">
+            		#if($countRemove == 0)
+            			Es wurde kein Datensatz gel&ouml;scht.
+            		#elseif($countRemove == 1)
+            			Es wurde ein Datensatz gel&ouml;scht.
+            		#else
+            			Es wurden $countRemove Datens&auml;tze gel&ouml;scht.
+            		#end
+            	</div>
+            #end
+            #end
+	
 
-#if(false)
-	</td></tr></table></body></html>
-#end
