@@ -1,0 +1,816 @@
+/*
+*
+* Inhalt
+*
+* 1. reset
+* 2. general
+* 	2.1 headings
+* 	2.2 links
+* 	2.3 lists
+* 		2.3.1 paging
+*	2.4 misc
+* 3. header
+*	3.1 Logo
+*	3.2 description text
+*	3.3 user text
+* 4. navigation
+* 5. infoboxes
+* 6. content
+*	6.1 tabs
+* 7. footer
+* 8. forms
+* 9. tables
+*	9.1 CSS tables
+*
+*
+* Colors:
+* dark gray: #1b1b1b (font color)
+* dark red: #8b0f0f (font color)
+* medium gray: #7d7d7d (tab font)
+* gradient nav and th: #fcfcfc (top) #dddddd (bottom)
+* nav active, border: #bdbdbd (medium gray)
+* gradient buttons: #e7e7e7 (top), #b5b5b5 (bottom)
+* cream: #f9f9f9 (background color of boxes)
+*
+*
+*/
+
+/************* =1. reset *************/
+
+* {
+	padding:0; 
+	margin:0;
+}
+
+header, footer, nav {  
+	display: block;  
+}
+
+/************* End reset *************/
+
+/************* =2. general *************/
+
+html, body {
+	height:100%
+}
+
+body {
+    background-color: #E9E9E9;
+    color: #1B1B1B;
+    font-family: verdana,arial,sans-serif;
+    font-size: 15px;
+    line-height: 1.2em;
+}
+
+p {
+	margin-bottom: 5px;
+}
+
+/************* =2.1 headings *************/
+
+h1, h2, h3 {
+    margin-bottom: 30px;
+}
+
+h1 {
+    font-size: 1.4em;
+}
+
+h2 {
+    font-size: 1.3em;
+}
+
+/************* End headings *************/
+
+/************* =2.2 links *************/
+
+a, .borderBottom {
+    border-bottom: 1px solid #8B0F0F;
+    color: #1B1B1B;
+    text-decoration: none;
+}
+
+a:visited { font-weight:bold; }  
+
+a:hover,
+a:active,
+a:focus { color: #8B0F0F }  
+
+a.noBorder {
+	border: none;
+}
+
+
+/************* End links *************/
+
+/************* =2.3 lists *************/
+
+ul {
+
+}
+
+ul.inline, ul.inline li {display:inline;}
+
+ul.alphabet li {
+    border-right: 1px solid;
+    padding-right: 5px;
+}
+
+/************* =2.3.1 paging *************/
+
+
+.paging ul {
+	display:inline;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	text-align: center;
+}
+
+.paging ul li {
+    margin: 0;
+    list-style: none;
+    display: inline;
+    color: #1b1b1b;
+    border-right: 1px solid #b2b2b2;
+    padding: 0 0.5em;
+}
+
+.paging ul li:first-child {
+    border-right: none;
+    padding: 0;
+}
+
+.paging ul li:last-child {
+    border-right: none;
+    padding: 0;
+}
+
+.paging ul li:nth-of-type(2) {
+    border-right: none;
+}
+
+.paging ul li:nth-last-of-type(2) {
+    border-right: none;
+}
+
+.paging ul li:nth-last-of-type(3) {
+    border-right: none;
+}
+
+.paging .img a {
+    border:none;
+}
+
+.paging .img {
+    padding: 0;
+    vertical-align: top;
+}
+
+.paging .img.inactive  img {
+	border:1px solid #BDBDBD;
+}
+
+
+/************* End paging *************/
+
+/************* End lists *************/
+
+/************* =2.4 misc *************/
+
+.gray-gradient {
+    background: linear-gradient(top, #fcfcfc, #dddddd);
+    background: -moz-linear-gradient(top, #fcfcfc, #dddddd);
+    background: -ms-linear-gradient(top, #fcfcfc, #dddddd);
+    background: -o-linear-gradient(top, #fcfcfc, #dddddd);
+    background: -webkit-linear-gradient(top, #fcfcfc, #dddddd);
+}
+
+.box-shadow {
+	box-shadow: 0 1px 2px #d0d0d0;
+	-moz-box-shadow: 0 1px 2px #d0d0d0;
+	-o-box-shadow: 0 1px 2px #d0d0d0;
+	-khtml-box-shadow: 0 1px 2px #d0d0d0;
+	-webkit-box-shadow: 0 1px 2px #d0d0d0;
+}
+
+.textCenter {
+	text-align:center;
+}
+
+.textRight {
+	text-align:right;
+}
+
+.floatRight {
+	float: right;
+}
+
+.noFloat {
+	float: none !important;
+}
+
+.grayBorder {
+    border: 1px solid #bdbdbd;
+}
+
+.marginBottom10 {
+	margin-bottom: 10px;
+}
+
+.marginBottom20 {
+	margin-bottom: 20px;
+}
+
+.clear {clear:both;}
+
+.clickable {cursor: pointer;}
+
+.notBold {font-weight:normal}
+
+/************* End misc *************/
+
+/************* End general *************/
+
+
+/************* =3. header *************/
+
+header, 
+#header  /* for IE8 */ {
+    height: 88px;
+    position: relative;
+}
+
+#topNav {
+    position: absolute;
+    right: -5px;
+    top: 10px;
+}
+
+#topNav li {
+    border-left: 1px solid;
+    display: inline;
+    padding: 0 5px 0 10px;
+}
+
+#topNav li:first-child {
+    border-left: none;
+}
+
+#user {
+    bottom: 10px;
+    position: absolute;
+    right: 0;
+}
+
+/************* =3.2 Logo *************/
+
+hgroup {
+
+}
+
+header h1 {
+
+}
+
+header h2 {
+
+}
+
+
+/************* End Logo *************/
+
+/************* =3.3 description text *************/
+
+header #description {
+
+}
+
+/************* End description text *************/
+
+/************* =3.3 user text *************/
+
+header #user {
+
+}
+
+/************* End user text *************/
+
+/************* End header *************/
+
+
+/************* =4. navigation *************/
+
+nav,
+#nav /* for IE8 */ {
+    border-width: 1px 0;
+    height: 35px;
+    left: -30px;
+    padding-left: 30px;
+    padding-right: 30px;
+    position: relative;
+    width: 100%;
+}
+
+nav ul, #nav ul {
+    list-style-type: none;
+}
+
+nav li, #nav li {
+    border-right: 1px solid #B2B2B2;
+    display: inline-block;
+    line-height: 35px;
+    padding: 0 15px;
+    position: relative;
+}
+
+nav li ul, #nav li ul {
+    display: none;
+}
+
+nav li:hover ul, #nav li:hover ul {
+    background-color: #FFFFFF;
+    border: 1px solid #bdbdbd;
+    display: block;
+    left: 15px;
+    padding: 1px;
+    position: absolute;
+    top: 30px;
+    width: 270px;
+    z-index: 2;
+}
+
+nav li:hover li, #nav li:hover li {
+    border-bottom: 1px solid #8b0f0f;
+    border-right: none;
+    display: block;
+    margin-left: 10px;
+    margin-right: 10px;
+    padding-left:0;
+}
+
+nav li:hover li:last-child, #nav li:hover li:last-child{
+    border-bottom: none;
+}
+
+nav span, #nav span {
+    background-image: url("../img/nav_arrow.png");
+    background-position: right center;
+    background-repeat: no-repeat;
+    border-bottom: 0 none;
+    color: #8B0F0F;
+    font-weight: bold;
+    padding-right: 20px;
+    text-decoration: none;
+}
+
+nav .active, #nav .active {
+    background-color: #BDBDBD;
+}
+
+nav .active span, #nav .active span {
+    background-image: url("../img/nav_arrow_active.png");
+}
+
+nav a, #nav a {
+	border: none;
+	display:block;
+	width:100%;
+}
+
+
+
+/************* End navigation *************/
+
+
+/************* =5 infoboxes *************/
+
+.infobox {
+ 
+ }
+
+/************* End infoboxes *************/
+
+
+/************* =6 content *************/
+
+#container {
+    background-color: #FFFFFF;
+    -webkit-box-shadow: 0 0 10px #C8C8C8;
+    -moz-box-shadow: 0 0 10px #C8C8C8;
+    box-shadow: 0 0 10px #C8C8C8;
+    font-size: 0.93em;
+    height: auto;
+    margin: auto;
+    max-width: 1200px;
+    min-height: 100%;
+    padding: 0 30px;
+    position: relative;
+    width: 90%;
+}
+
+
+#content_container {
+    padding-bottom: 40px;
+}
+
+.contentBox, 
+.contentBoxColored, 
+.hinweis {
+	padding: 20px;
+}
+
+.contentBoxColored {
+	background-color: #f9f9f9 !important;
+}
+
+.hinweis {
+	background-color: white;	
+	padding: 20px;
+}
+
+#actionPanel {
+	
+}
+
+#buttonPanel-top {
+}
+
+#main_content {
+}
+
+hr {border-top:1px solid #8b0f0f; }
+
+#peopleTop > .table > .tableRow > .tableCell {
+	background-color: #f9f9f9;
+    border: 1px solid #bdbdbd;	
+}
+
+#peopleTop > .table > .tableRow > .tableCell:nth-child(2) {
+	background-color: #fff;
+    border: none;
+    width:20px;	
+}
+
+#peopleTop > .table > .tableRow > .tableCell .tableCell {
+	padding: 20px;
+	}
+	
+#peopleTop > .table > .tableRow > .tableCell {
+	padding-bottom: 0;
+}
+
+#peopleTop > .table > .tableRow > .tableCell .tableCell:last-child {
+}	
+
+/************* =6.1 tabs *************/
+
+#main_content.tabs {
+    padding: 0;
+    font-weight: bold;
+}
+
+.tabs a {
+	border: none;
+	color: #7d7d7d;
+}
+
+.tabs li.active {
+    background-color: #F9F9F9;
+}
+
+.tabs li.active a {
+    color: #1b1b1b;
+}
+
+#tabsMain ul {
+    border-left: 1px solid #BDBDBD;
+    display: inline-block;
+    height: 40px;
+    margin-left: 185px;
+}
+
+#tabsMain li {
+    border-right: 1px solid #BDBDBD;
+    display: inline-block;
+    line-height: 40px;
+    padding: 0 15px;
+}
+
+#tabsMain li.active {
+    height: 41px;
+}
+
+
+#tabsSub {
+	width:185px;
+	float:left;
+}
+
+#tabsSub ul {
+	list-style-type: none;
+}
+
+#tabsSub li {
+    border-top: 1px solid #BDBDBD;
+    height: 40px;
+    line-height: 40px;
+    padding: 0 0 0 20px;
+}
+
+#tabsSub li.active {
+	width: 166px;
+	}
+
+#tabsContent {
+    border-top: 1px solid #BDBDBD;
+}
+
+#tabsSub + #tabsContent {
+    border-left: 1px solid #BDBDBD;
+    -webkit-box-shadow: -3px 0 3px #D0D0D0;
+    -moz-box-shadow: -3px 0 3px #D0D0D0;
+    box-shadow: -3px 0 3px #D0D0D0;
+    margin-left: 185px;
+}
+
+#tabsContent #buttonPanel-bottom {
+    display: block;
+}
+
+#tabsContent h3 {
+	color: #8B0F08;
+}
+
+tr.repeat {
+	background-color: #D0F0D0 !important;
+}
+
+
+#CharSet {
+	padding:10px 20px 0;
+}
+/************* =End tabs *************/
+
+/************* End content *************/
+
+
+/************* =7 footer *************/
+
+footer,
+#footer /* IE8 */ {
+    bottom: 0;
+    height: 40px;
+    line-height: 40px;
+    position: absolute;
+    text-align: center;
+    width: 100%;
+}
+
+/************* End footer *************/
+
+/************* =8. forms *****************/
+
+#buttonPanel-top + form {
+    float: left;
+    width: 100%;
+}
+
+input, select {
+    font-size: inherit;
+}
+
+input.small50px {
+	width: 50px;
+}
+
+select{
+    background: none repeat scroll 0 0 white;
+    border: 1px solid #ABADB3;
+    padding: 1px;
+}
+
+select option {
+    padding: 0 10px 0 0;
+}
+
+input[type="button"],
+input[type="submit"],
+input[type="reset"],
+button {
+	background: none repeat scroll 0 0 white;
+	border: 1px solid #BDBDBD;
+	background-image: -webkit-linear-gradient(bottom, #afafaf, white);
+	background-image: -moz-linear-gradient(bottom, #afafaf, white);
+	background-image: -o-linear-gradient(bottom, #afafaf, white);
+	background-image: -webkit-gradient(linear, 0 100%, 0 0, from(#afafaf), to(white));
+	background-image: linear-gradient(bottom, #afafaf, white);
+    padding: 1px 5px;	
+    cursor: pointer;	
+}
+
+textarea {
+    min-height: 50px;
+    resize: vertical;
+}
+
+.tableCell input,
+.tableCell select,
+.tableCell textarea,
+#CharSet select {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+    margin-bottom: 5px;	
+	width:100%;
+}
+
+
+.tableCell .datepicker {
+	width:30%;
+}
+
+input[type=radio],
+input[type=checkbox] {   
+	margin-bottom: 0;
+    vertical-align: sub;
+}
+
+label {
+	display: block;
+    font-weight: bold;
+}
+
+.inlineLabel label,
+.inlineInput {
+	display:inline;
+}
+
+.inlineLabel input:last-child {
+	float:right;
+}
+
+#actionPanel input:last-child {
+	float:none;
+}
+
+/* #peopleSearch_form label,
+#peopleAdd_form strong,
+#peopleAdd_form label {
+    display: block;
+} */
+
+#peopleSearch_form label:after {
+	content:":";
+}
+
+fieldset {
+    border-width: 1px 0 0;
+    padding-top: 20px;
+    position: relative;
+}
+
+#peopleSearch_form fieldset {
+	margin-bottom:60px;
+}
+
+legend {
+    color: #8b0f0f;
+    font-size: 1.1em;
+    font-weight: bold;
+    left: 20px;
+    padding: 0 10px;
+    position: absolute;
+    top: -10px;
+}
+
+.contentBoxColored legend {
+	background-color: #f9f9f9;
+}
+
+.disabled {
+	opacity:0.3;
+}
+
+.mainButton,
+input.active {
+	color: #8b0f08;
+/* 	background-image: -webkit-linear-gradient(bottom, #b5b5b5, #e7e7e7) !important;
+	background-image: -moz-linear-gradient(bottom, #b5b5b5, #e7e7e7) !important;
+	background-image: -o-linear-gradient(bottom, #b5b5b5, #e7e7e7) !important;
+	background-image: -webkit-gradient(linear, 0 100%, 0 0, from(#b5b5b5), to(#e7e7e7)) !important;
+	background-image: linear-gradient(bottom, #b5b5b5, #e7e7e7) !important; */
+}
+
+.mainButton {
+	height:29px;	
+}
+
+input.active {
+	background:#d2d2d2;
+	font-weight: bold;	
+}
+
+.addButton {
+	text-align:right;
+}
+
+.addButton input {
+	width: auto;
+}
+/************* End forms *****************/
+
+
+/************* =9. tables *****************/
+
+table {
+	border-collapse: collapse;
+    margin: 20px 0;
+    width: 100%;
+}
+
+tr, td, th {
+    border: 1px solid #A0A0A0;
+}
+
+tr {
+    background-color: #fafafa;
+}
+
+tr:nth-child(even) {
+	background-color: #e5e5e5;
+}
+
+tr.colspan {
+	background:none;
+}
+
+th {
+	color: #8b0f0f;
+	background-color: #fff;
+	background-image: -webkit-linear-gradient(bottom, #e5e5e5 50%, white); /* Chrome10+, Safari5.1+ */
+	background-image: -moz-linear-gradient(bottom, #e5e5e5 50%, white); /* Mozilla/Gecko (Firefox etc) */
+	background-image: -o-linear-gradient(bottom, #e5e5e5 50%, white); /* Opera 11.10+ */
+	background-image: -webkit-gradient(linear, 0 100%, 0 0, color-stop(0.5, #e5e5e5), to(white)); /* WebKit (Safari, Chrome, etc.) */
+	background-image: -ms-linear-gradient(bottom, #e5e5e5 50%, white); /* IE10+ */
+	background-image: linear-gradient(bottom, #e5e5e5 50%, white); /* W3C working draft */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e5e5e5',GradientType=0 ); /* IE6-9 */
+}
+
+td, th {
+    padding: 10px;
+    text-align: left;
+    vertical-align: top;
+}
+
+.smallCell {
+	padding:10px 5px;
+	width:14px;
+}
+
+/************* =8.1 CSS tables *****************/
+
+.table {display:table;}
+
+.tableRow {display:table-row;}
+
+.tableCell {
+    display: table-cell;
+    padding-bottom: 5px;
+    padding-right: 20px;
+    vertical-align: top;    
+}
+
+#peopleAdd_form .tableCell {
+	padding-bottom: 10px;
+}
+
+.tableCell:last-child {
+    padding-right: 0;
+}
+
+.width5, #tabsContent .width5 {width: 5%;}
+
+.width10, #tabsContent .width10 {width: 10%;} .width15, #tabsContent .width15 {width: 15%;} 
+
+.width20, #tabsContent .width20 {width: 20%;} .width25, #tabsContent .width25 {width: 25%;}
+
+.width30, #tabsContent .width30 {width: 30%;} .width35, #tabsContent .width35 {width: 35%;}
+
+.width40, #tabsContent .width40 {width: 40%;} .width45, #tabsContent .width45 {width: 45%;}
+
+.width50, #tabsContent .width50 {width: 50%;} .width55, #tabsContent .width55 {width: 55%;}
+
+.width60, #tabsContent .width60 {width: 60%;} .width65, #tabsContent .width65 {width: 65%;}
+
+.width70, #tabsContent .width70 {width: 70%;} .width75, #tabsContent .width75 {width: 75%;}
+
+.width80, #tabsContent .width80 {width: 80%;} .width85, #tabsContent .width85 {width: 85%;}
+
+.width90, #tabsContent .width90 {width: 90%;} .width95, #tabsContent .width95 {width: 95%;}
+
+.width100, #tabsContent .width100 {width: 100%;}
+
+/************* End CSS tables *****************/
+
+/************* End tables *****************/

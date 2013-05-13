@@ -1,4 +1,4 @@
-#set($title = "Sie sind nicht am System angemeldet.")
+#set($title = "Anmelden")
 #parse("inc/header.vm")	
 
 <form action="default" method="post" target="_top" onsubmit="if(document.getElementById('loginasproxy').checked) { this.action = 'LoginAsProxy'; this.task.value = 'LoginAsProxy'; }">
