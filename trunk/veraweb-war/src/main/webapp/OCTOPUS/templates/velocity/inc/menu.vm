@@ -1,6 +1,6 @@
 
-#if($grants && $grants.isAuthenticated())
-	<nav id="nav" class="gray-gradient grayBorder box-shadow marginBottom10">
+<nav id="nav" class="gray-gradient grayBorder box-shadow marginBottom10">
+	#if($grants && $grants.isAuthenticated())
 		<ul>
 			#if($grants.mayReadStandardFields() || $grants.mayReadRemarkFields())
                 <li class="active">
@@ -98,17 +98,6 @@
     			</li>
 			#end
 		</ul>
-	</nav>
-	
-#else
-	
-	<nav id="nav" class="gray-gradient grayBorder box-shadow marginBottom10">
-		<ul>
-			<li class="active">
-				<span>Anmelden</span>
-			</li>
-		</ul>
-	</nav>
-	
-#end
+	#end
+</nav>
 
