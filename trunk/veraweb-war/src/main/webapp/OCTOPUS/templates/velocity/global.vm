@@ -8,13 +8,13 @@
 
 #macro(openContentSection)
 <div class="contentsection">
-	<table class="form" cellpadding="0" cellspacing="0" border="0">
-	<tr><td style="width: 10px;">&nbsp;</td><td>
+	<!-- <table class="form" cellpadding="0" cellspacing="0" border="0">
+	<tr><td style="width: 10px;">&nbsp;</td><td> -->
 #end
 
 #macro(closeContentSection)
-	</td><td style="width: 10px;">&nbsp;</td></tr>
-	</table>
+	<!-- </td><td style="width: 10px;">&nbsp;</td></tr>
+	</table> -->
 </div>
 #end
 

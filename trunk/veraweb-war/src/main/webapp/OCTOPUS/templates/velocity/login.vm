@@ -33,7 +33,7 @@
 	<input type="reset" class="mainButton" value="Felder leeren" name="cancel" id="button.clearFields">				
 </div>
 
-<div class="contentBoxColored hinweis grayBorder margin20">
+<div class="contentBoxColored hinweis grayBorder marginTop20">
 	<strong>Hinweis</strong>
 	<p>Bitte verwenden Sie Ihr Organisationskennzeichen oder <strong>Vorname.Nachname</strong> als Benutzernamen.</p>
 </div>	
