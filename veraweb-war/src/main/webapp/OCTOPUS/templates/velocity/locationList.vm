@@ -18,13 +18,30 @@
     #openContent()
     #openContentSection()
     
-    #if($listerrors.size() > 0)
-        <div style="margin: 10px 0px 10px 0px; padding: 10px 10px 10px 10px; background-color: #ffffff; border: 2px solid #ff0000;">
-        	#foreach($error in $listerrors)
-        		$error<br>
-        	#end
-        </div>
-    #end
+#if($listerrors.size() > 0)
+	<div style="margin: 10px 0px 10px 0px; padding: 10px 10px 10px 10px; background-color: #ffffff; border: 2px solid #ff0000;">
+	#foreach($error in $listerrors)
+    	$error<br>
+	#end
+    </div>
+#elseif($listquestions && $listquestions.size() > 0)
+	<div style="margin: 10px 0px 10px 0px; padding: 10px 10px 10px 10px; background-color: #ffffff; border: 2px solid #00ff00;">
+		<strong>Bitte best&auml;tigen Sie das L&ouml;schen von Veranstaltungsorten</strong><br>
+		<table class="form" style="margin: 5px 0px 0px 0px;">
+		#foreach($quest in $listquestions.entrySet())
+			<tr>
+				<td class="value"><input type="hidden" name="$quest.key" value="true">$quest.value</td>
+			</tr>
+			#set($save = true)
+		#end
+		</table><br />
+
+	#if($save)
+		<input type="submit" class="button" name="remove" value="Ja" title="Markierte Veranstaltungsorte l&ouml;schen"> &nbsp;
+	#end
+		<input type="button" class="cancel" name="cancel" value="Nein" onclick="window.location.href='Location';"> &nbsp;
+	</div>
+#end
 
     #foreach($bean in $list)
 		<input type="hidden" name="list" value="$bean.id">

@@ -72,7 +72,7 @@ public class EventTaskListWorker extends ListWorkerVeraWeb {
     }
     
     /**
-     * Überprüft ob eine Aufgabe nicht mindestens ein Jahr in der
+     * Bestimmt ob eine Aufgabe aufgrund bestimmter Kriterien gelöscht wird oder nicht.
      */
     @Override
     protected int removeSelection(OctopusContext cntx, List errors, List selection, TransactionContext context) throws BeanException, IOException {
