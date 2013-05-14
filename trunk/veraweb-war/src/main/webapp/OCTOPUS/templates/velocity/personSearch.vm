@@ -34,7 +34,7 @@
 
 
     <div id="breadcrumb" class="textRight">
-        <strong>Sie sind hier:</strong> <span><a href="index.html">Home</a> > Personen > Personensuche</span>
+        <strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/">Home</a> > Personen > Personensuche</span>
     </div>
 
     <h1>Personensuche</h1>
@@ -53,6 +53,7 @@
             <input type="hidden" name="start" value="0">
             <input type="hidden" name="selectAll" value="false">
             <input type="hidden" name="selectNone" value="true">
+			<input type="hidden" name="search" value="reset">
 
             #if($action == "taskReferencePerson")
                 <input type="hidden" name="eventId" value="$!eventId">
