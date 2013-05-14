@@ -22,6 +22,7 @@ package de.tarent.aa.veraweb.beans;
 import java.sql.Timestamp;
 import java.util.Date;
 
+import de.tarent.aa.veraweb.utils.DateHelper;
 import de.tarent.octopus.PersonalConfigAA;
 import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.server.OctopusContext;
@@ -386,6 +387,7 @@ public class Task extends AbstractHistoryBean {
         if (description != null && description.length() > 1000) {
             addError("Die Aufgabe kann nicht gespeichert werden. Das Feld Beschreibung darf nicht mehr als 1000 Zeichen besitzen.");
         }
+        DateHelper.temporary_fix_translateErrormessageEN2DE( this.getErrors() );
     }
 
     /**
