@@ -88,23 +88,23 @@ var showTab = function (name) {
     $('#personLocaleTab').val(zeichensatz);
 	
 	if (tab === 1) {
-		changeTab('default', new Array('person', 'anschrift'));
-		changeBlock(null, new Array('subtab-person', 'subtab-anschrift'));
+		changeTab('default', ['person', 'anschrift']);
+		changeBlock(null, ['subtab-person', 'subtab-anschrift']);
 		changeBlock('default', allblocks);
 	} else if (tab === 2) {
-		changeTab('person', new Array('default', 'anschrift'));
+		changeTab('person', ['default', 'anschrift']);
 		changeTab(null, allsubtabs);
 		changeTab('person-' + person);
 		changeTab('person-zs' + zeichensatz);
-		changeBlock('subtab-person', new Array('subtab-anschrift'));
+		changeBlock('subtab-person', ['subtab-anschrift']);
 		changeBlock('person' + person + '-zs' + zeichensatz, allblocks);
 	} else if (tab === 3) {
 		changeBlock(null, allblocks);
-		changeTab('anschrift', new Array('default', 'person'));
+		changeTab('anschrift', ['default', 'person']);
 		changeTab(null, allsubtabs);
 		changeTab('anschrift-' + anschrift);
 		changeTab('anschrift-zs' + zeichensatz);
-		changeBlock('subtab-anschrift', new Array('subtab-person'));
+		changeBlock('subtab-anschrift', ['subtab-person']);
 		changeBlock('anschrift' + anschrift + '-zs' + zeichensatz);
 	}
 };
