@@ -2,8 +2,8 @@
 	<td class="value" style="width: 50%;">
 		<table class="form">
 		<tr id="company-row" style="display:none"> 
-			<td class="label"><label for="person-company$ext">Firma/Institution:</label></td>
-			<td class="value"><input type="text" id="person-company$ext" name="person-company$ext" value="$!message.text($facade.Company)" class="text" onchange="setModified();"></td>
+			<td class="label"><label for="person-company-ignore$ext">Firma/Institution:</label></td>
+			<td class="value"><input type="text" id="person-company-ignore$ext" name="person-company-ignore$ext" value="$!message.text($facade.Company)" class="text" onchange="setModified();"></td>
 		</tr>
 		<tr>
 			<td class="label"><label for="person-salutation$ext">Anrede:</label></td>
