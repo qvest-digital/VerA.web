@@ -57,7 +57,7 @@
 		<nobr>
 		<input type="text" name="person-expire" value="$!message.date("DATE", $person.expire)" id="person-expire" class="date" style="width: 80px;" onchange="setModified();">
 		#if($grants.mayWrite())
-		<span id="show-expire"><img src="${paths.staticWeb}images/calendar.png" alt="Datum ausw&auml;hlen" title="Datum ausw&auml;hlen"></span>
+		<span id="show-expire" class="datepickerContainer"><img src="${paths.staticWeb}images/calendar.png" alt="Datum ausw&auml;hlen" title="Datum ausw&auml;hlen"></span>
 		<script type="text/javascript">
 		    Calendar.setup({
 				inputField     :    "person-expire",

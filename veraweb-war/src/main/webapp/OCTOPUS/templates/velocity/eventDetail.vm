@@ -75,7 +75,7 @@
 		<nobr>
 		<input type="text" name="event-begin" id="event-begin" value="$!message.date("DATE", $event.begin)" class="date" style="width: 80px;" onchange="setModified();">
 		#if($grants.mayWrite())
-		<span id="show-begin"><img src="${paths.staticWeb}images/calendar.png" alt="Datum ausw&auml;hlen" title="Datum ausw&auml;hlen"></span> &nbsp; um &nbsp;
+		<span id="show-begin" class="datepickerContainer"><img src="${paths.staticWeb}images/calendar.png" alt="Datum ausw&auml;hlen" title="Datum ausw&auml;hlen"></span> &nbsp; um &nbsp;
 		<script type="text/javascript">
 			function changeDateStart(calendar, date) {
 				var start = document.getElementById('event-begin');
@@ -101,7 +101,7 @@
 		<nobr>
 		<input type="text" name="event-end" id="event-end" value="$!message.date("DATE", $event.end)" class="date" style="width: 80px;" onchange="setModified();">
 		#if($grants.mayWrite())
-		<span id="show-end"><img src="${paths.staticWeb}images/calendar.png" alt="Datum ausw&auml;hlen" title="Datum ausw&auml;hlen"></span> &nbsp; um &nbsp;
+		<span id="show-end" class="datepickerContainer"><img src="${paths.staticWeb}images/calendar.png" alt="Datum ausw&auml;hlen" title="Datum ausw&auml;hlen"></span> &nbsp; um &nbsp;
 		<script type="text/javascript">
 		    Calendar.setup({
 				inputField     :    "event-end",

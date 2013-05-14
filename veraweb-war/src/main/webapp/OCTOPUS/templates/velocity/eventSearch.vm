@@ -35,7 +35,7 @@
 	<td class="label"><label for="begin">Datum Beginn:</label></td>
 	<td class="value">
 		<input type="text" name="begin" value="" id="begin" class="date">
-		<span id="show-begin"><img src="${paths.staticWeb}images/calendar.png" alt="Datum ausw&auml;hlen" title="Datum ausw&auml;hlen"></span>
+		<span id="show-begin" class="datepickerContainer"><img src="${paths.staticWeb}images/calendar.png" alt="Datum ausw&auml;hlen" title="Datum ausw&auml;hlen"></span>
 		<script type="text/javascript">
 		    Calendar.setup({
 				inputField     :    "begin",

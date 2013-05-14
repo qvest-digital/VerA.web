@@ -89,7 +89,7 @@
 				<nobr>
 				<input type="text" name="person-birthday$ext" value="$!message.date("DATE", $facade.Birthday, false)" id="person-birthday$ext" class="date" style="width: 80px;" onchange="setModified();">
 				#if($grants.mayWrite())
-				<span id="show-birthday$ext"><img src="${paths.staticWeb}images/calendar.png" alt="Datum ausw&auml;hlen" title="Datum ausw&auml;hlen"></span>
+				<span id="show-birthday$ext" class="datepickerContainer"><img src="${paths.staticWeb}images/calendar.png" alt="Datum ausw&auml;hlen" title="Datum ausw&auml;hlen"></span>
 				<script type="text/javascript">
 				    Calendar.setup({
 						inputField     :    "person-birthday$ext",
@@ -112,7 +112,7 @@
 				<nobr>
 				<input type="text" name="person-diplodate$ext" value="$!message.date("DATE", $facade.Diplodate, false)" id="person-diplodate$ext" class="date" style="width: 80px;" onchange="setModified();">
 				#if($grants.mayWrite())
-				<span id="show-diplodate$ext"><img src="${paths.staticWeb}images/calendar.png" alt="Datum ausw&auml;hlen" title="Datum ausw&auml;hlen"></span> &nbsp; um &nbsp;
+				<span id="show-diplodate$ext" class="datepickerContainer"><img src="${paths.staticWeb}images/calendar.png" alt="Datum ausw&auml;hlen" title="Datum ausw&auml;hlen"></span> &nbsp; um &nbsp;
 				<script type="text/javascript">
 				    Calendar.setup({
 						inputField     :    "person-diplodate$ext",
