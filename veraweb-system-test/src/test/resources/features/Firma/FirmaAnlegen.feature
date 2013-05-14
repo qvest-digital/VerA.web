@@ -6,8 +6,9 @@ Grundlage: Ich bin als Administrator angemeldet und bin in der Maske Neue Person
 	 Und ich sehe "Neue Person anlegen" 
 	 
 
-Szenariogrundriss: Ich lege eine neue Firma an
+Szenariogrundriss: Ich lege eine neue Firma ohne dedizierten Personenbezug an
 	Angenommen ich bin im Reiter "Personendaten"
+	 Und ich wähle die Checkbox "Ist Firma" aus
 	 Und ich fülle die Maske mit <Testdaten> aus
 	Aber ohne "Vorname"
 	Aber ohne "Nachname"
@@ -15,5 +16,5 @@ Szenariogrundriss: Ich lege eine neue Firma an
 	Dann sehe ich <Meldung>
 	
 	Beispiele:
-		| Testdaten														|	Meldung										|
-		
+		| 	Testdaten									|	Meldung						|
+		| 	"Neue Firma ohne Personenbezug"				|	Firma erfolgreich angelegt	|
