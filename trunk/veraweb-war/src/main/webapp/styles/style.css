@@ -644,12 +644,12 @@ textarea {
 	width:30%;
 }
 
-#showGueltigDate {
+.datepickerContainer {
     margin-left: -5px;
     vertical-align: top;
 }
 
-#showGueltigDate img {
+.datepickerContainer img {
     width: 21px;
 }
 
