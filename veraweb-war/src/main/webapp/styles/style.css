@@ -644,6 +644,15 @@ textarea {
 	width:30%;
 }
 
+#showGueltigDate {
+    margin-left: -5px;
+    vertical-align: top;
+}
+
+#showGueltigDate img {
+    width: 21px;
+}
+
 input[type=radio],
 input[type=checkbox] {   
 	margin-bottom: 0;

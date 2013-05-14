@@ -19,7 +19,7 @@
 	<td class="label">Zeitrahmen-Beginn:</td>
 	<td class="value">
 		<input type="text" name="begin" value="" id="begin" class="date" style="width: 90px;">
-		<span id="showBegin"><img src="${paths.staticWeb}images/calendar.gif" alt="Datum ausw&auml;hlen" title="Datum ausw&auml;hlen"></span>
+		<span id="showBegin"><img src="${paths.staticWeb}images/calendar.png" alt="Datum ausw&auml;hlen" title="Datum ausw&auml;hlen"></span>
 		<script type="text/javascript">
 		    Calendar.setup({
 				inputField     :    "begin",
@@ -35,7 +35,7 @@
 	<td class="label">Zeitrahmen-Ende:</td>
 	<td class="value">
 		<input type="text" name="end" value="" id="end" class="date" style="width: 90px;">
-		<span id="showEnd"><img src="${paths.staticWeb}images/calendar.gif" alt="Datum ausw&auml;hlen" title="Datum ausw&auml;hlen"></span>
+		<span id="showEnd"><img src="${paths.staticWeb}images/calendar.png" alt="Datum ausw&auml;hlen" title="Datum ausw&auml;hlen"></span>
 		<script type="text/javascript">
 		    Calendar.setup({
 				inputField     :    "end",

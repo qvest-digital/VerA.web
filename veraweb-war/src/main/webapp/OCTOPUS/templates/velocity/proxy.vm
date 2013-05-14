@@ -98,7 +98,7 @@
 		<td class="list">
 			<nobr>
 				<input type="text" name="add-validFrom" id="add-validFrom" value="" class="date" onchange="setModified('add')">
-				<span id="show-add-from"><img src="${paths.staticWeb}images/calendar.gif" alt="Datum ausw&auml;hlen" title="Datum ausw&auml;hlen"></span>
+				<span id="show-add-from"><img src="${paths.staticWeb}images/calendar.png" alt="Datum ausw&auml;hlen" title="Datum ausw&auml;hlen"></span>
 				<script type="text/javascript">
 				    Calendar.setup({
 						inputField     :    "add-validFrom",
@@ -112,7 +112,7 @@
 		<td class="list">
 			<nobr>
 				<input type="text" name="add-validTill" id="add-validTill" value="" class="date" onchange="setModified('add')">
-				<span id="show-add-till"><img src="${paths.staticWeb}images/calendar.gif" alt="Datum ausw&auml;hlen" title="Datum ausw&auml;hlen"></span>
+				<span id="show-add-till"><img src="${paths.staticWeb}images/calendar.png" alt="Datum ausw&auml;hlen" title="Datum ausw&auml;hlen"></span>
 				<script type="text/javascript">
 				    Calendar.setup({
 						inputField     :    "add-validTill",
@@ -151,7 +151,7 @@
 		<td class="list">
 			<nobr>
 				<input type="text" name="${bean.id}-validFrom" id="${bean.id}-validFrom" value="$!message.date("DATE", $bean.validFrom)" class="date" onchange="setModified('$!bean.id')">
-				<span id="show-${bean.id}-from"><img src="${paths.staticWeb}images/calendar.gif" alt="Datum ausw&auml;hlen" title="Datum ausw&auml;hlen"></span>
+				<span id="show-${bean.id}-from"><img src="${paths.staticWeb}images/calendar.png" alt="Datum ausw&auml;hlen" title="Datum ausw&auml;hlen"></span>
 				<script type="text/javascript">
 				    Calendar.setup({
 						inputField     :    "${bean.id}-validFrom",
@@ -165,7 +165,7 @@
 		<td class="list">
 			<nobr>
 				<input type="text" name="${bean.id}-validTill" id="${bean.id}-validTill" value="$!message.date("DATE", $bean.validTill)" class="date" onchange="setModified('$!bean.id')">
-				<span id="show-${bean.id}-till"><img src="${paths.staticWeb}images/calendar.gif" alt="Datum ausw&auml;hlen" title="Datum ausw&auml;hlen"></span>
+				<span id="show-${bean.id}-till"><img src="${paths.staticWeb}images/calendar.png" alt="Datum ausw&auml;hlen" title="Datum ausw&auml;hlen"></span>
 				<script type="text/javascript">
 				    Calendar.setup({
 						inputField     :    "${bean.id}-validTill",
