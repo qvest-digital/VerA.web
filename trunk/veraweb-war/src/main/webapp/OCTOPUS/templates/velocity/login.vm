@@ -3,51 +3,41 @@
 
 <form action="default" method="post" target="_top" onsubmit="if(document.getElementById('loginasproxy').checked) { this.action = 'LoginAsProxy'; this.task.value = 'LoginAsProxy'; }">
 
-<table class="tab" border="0" cellspacing="0" cellpadding="0"><tr>
-	<td class="tableft">&nbsp;</td>
-	<td class="tabactiv"><span class="tabactiv">Login</span></td>
-	<td class="tabright">&nbsp;</td>
-</tr></table>
+<h1 class="marginTop25">Login</h1>
 
 #openContent()
 #openContentSection()
 
-<table class="form"><tr>
-	<td class="label"><label for="username">Benutzername:</label></td>
-	<td class="value"><input type="text" name="username" id="input.username" class="text" style="width: 240px;"></td>
-</tr><tr>
-	<td class="label"><label for="password">Passwort:</label></td>
-	<td class="value"><input type="password" name="password" id="input.password" class="text" style="width: 240px;"></td>
-</tr><tr style="height: 40px;">
-	<td class="label">&nbsp;</td>
-	<td class="value">
-##		<hr class="contentsection">
-		<table class="form"><tr>
-			<td class="value" style="width: 24px;">
-				<input type="checkbox" id="loginasproxy" name="input.loginasproxy" value="true">
-			</td><td class="value">
-				<label for="loginasproxy">In Vertretung anmelden</label>
-			</td>
-		</tr></table>
-##		<hr class="contentsection">
-	</td>
-</tr><tr>
-	<td class="label">&nbsp;</td>
-	<td class="value">
-		<input id="button.login" name="submit" type="submit" value="Anmelden" class="submit"> &nbsp;
-		<input id="button.clearFields" name="cancel" type="reset"  value="Felder leeren" class="reset">
-	</td>
-</tr></table>
+<div class="table">
+    <div class="tableRow">
+        <div class="tableCell">
+        	<label for="input.username">Benutzername:</label>
+        	<input type="text" id="input.username" name="username">
+        </div>
+    </div>
+    <div class="tableRow">
+        <div class="tableCell">
+        	<label for="input.password">Passwort:</label>
+        	<input type="password" id="input.password" name="password">
+        </div>
+    </div>
+    <div class="tableRow">
+        <div class="tableCell inlineLabel">
+        	<label for="loginasproxy">In Vertretung anmelden</label> <input type="checkbox" value="true" name="input.loginasproxy" class="noFloat" id="loginasproxy">
+        </div>
+    </div>
+</div>
 
-<table class="list" style="margin-top: 15px;">
-	<tr class="list2warn" style="height: 18px;">
-		<td class="list2warn" style="text-align: center; width: 100px;" id="text.infoTitle"><strong>Hinweis</strong></td>
-		<td class="list1warn" style="padding-left: 8px;" id="text.infoText">
-			Bitte verwenden Sie Ihr Organisationskennzeichen
-			oder <em>Vorname.Nachname</em> als Benutzernamen.
-		</td>
-	</tr>
-</table>
+<div id="buttonPanel-bottom" class="marginTop5">
+	<input type="submit" class="mainButton" value="Anmelden" name="submit" id="button.login">
+	<input type="reset" class="mainButton" value="Felder leeren" name="cancel" id="button.clearFields">				
+</div>
+
+<div class="contentBoxColored hinweis grayBorder margin20">
+	<strong>Hinweis</strong>
+	<p>Bitte verwenden Sie Ihr Organisationskennzeichen oder <strong>Vorname.Nachname</strong> als Benutzernamen.</p>
+</div>	
+
 
 <input name="task" type="hidden" value="default">
 
@@ -61,7 +51,6 @@
 #closeContent()
 
 </form>
-<hr class="footline">
 
 <!--
 $responseParams

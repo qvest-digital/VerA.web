@@ -136,24 +136,14 @@ ul.alphabet li {
     padding: 0 0.5em;
 }
 
-.paging ul li:first-child {
+.paging ul li:first-child,
+.paging ul li:last-child  {
     border-right: none;
     padding: 0;
 }
 
-.paging ul li:last-child {
-    border-right: none;
-    padding: 0;
-}
-
-.paging ul li:nth-of-type(2) {
-    border-right: none;
-}
-
-.paging ul li:nth-last-of-type(2) {
-    border-right: none;
-}
-
+.paging ul li:nth-of-type(2),
+.paging ul li:nth-last-of-type(2),
 .paging ul li:nth-last-of-type(3) {
     border-right: none;
 }
@@ -214,12 +204,36 @@ ul.alphabet li {
     border: 1px solid #bdbdbd;
 }
 
+.marginTop5 {
+	margin-top: 5px;
+}
+
+.marginTop10 {
+	margin-top: 10px;
+}
+
+.marginTop20 {
+	margin-top: 20px;
+}
+
+.marginTop25 {
+	margin-top: 25px;
+}
+
+.marginBottom5 {
+	margin-bottom: 5px;
+}
+
 .marginBottom10 {
 	margin-bottom: 10px;
 }
 
 .marginBottom20 {
 	margin-bottom: 20px;
+}
+
+.marginBottom25 {
+	margin-bottom: 25px;
 }
 
 .clear {clear:both;}
