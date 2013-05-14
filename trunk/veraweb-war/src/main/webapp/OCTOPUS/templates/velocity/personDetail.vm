@@ -453,9 +453,11 @@
 
 
 $(function () {
-
 	var company1 = $("#person-company-ignore_a_e1");
 	var company2 = $("#person-company_a_e1");
+	
+	company1.val(company2.val());
+	
 	company1.change(function (e){
 		company2.val(company1.val());
 	});
@@ -464,9 +466,9 @@ $(function () {
 	});
 
   if($("#person-iscompany").is(":checked")){
-   	$('#company-row').show();
+   		$('#company-row').show();
     } else {
-	$('#company-row').hide();
+    	$('#company-row').hide();
     }
 });
 </script>
