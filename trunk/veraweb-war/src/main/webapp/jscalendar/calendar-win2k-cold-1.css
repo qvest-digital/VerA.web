@@ -15,15 +15,14 @@
 }
 
 .calendar table {
-  border-top: 1px solid #000;
-  border-right: 1px solid #fff;
-  border-bottom: 1px solid #fff;
-  border-left: 1px solid #000;
-  font-size: 11px;
-  color: #000;
-  cursor: default;
-  background: #c8d0d4;
-  font-family: tahoma,verdana,sans-serif;
+    background: none repeat scroll 0 0 #C8D0D4;
+/*     border-color: #000000 #FFFFFF #FFFFFF #000000;
+    border-style: solid;
+    border-width: 1px; */
+    color: #000000;
+    cursor: default;
+    font-size: 11px;
+    margin: 0;
 }
 
 /* Header part -- contains navigation buttons and day names. */
@@ -57,14 +56,14 @@
 }
 
 .calendar thead .name { /* Cells <TD> containing the day names */
-  border-bottom: 1px solid #000;
-  padding: 2px;
-  text-align: center;
-  background: #e8f0f4;
+    background: none repeat scroll 0 0 #C1C1C1;
+    border-bottom: 1px solid #000000;
+    padding: 2px;
+    text-align: center;
 }
 
 .calendar thead .weekend { /* How a weekend day name shows in header */
-  color: #f00;
+  color: #8b0f0f;
 }
 
 .calendar thead .hilite { /* How do the buttons in header appear when hover */
@@ -89,7 +88,7 @@
 
 .calendar tbody .day { /* Cells <TD> containing month days dates */
   width: 2em;
-  text-align: right;
+  text-align: center;
   padding: 2px 4px 2px 2px;
 }
 .calendar tbody .day.othermonth {
@@ -101,9 +100,9 @@
 }
 
 .calendar table .wn {
-  padding: 2px 3px 2px 2px;
-  border-right: 1px solid #000;
-  background: #e8f4f0;
+    background: none repeat scroll 0 0 #C1C1C1;
+    border-right: 1px solid #000000;
+    padding: 2px 3px 2px 2px;
 }
 
 .calendar tbody .rowhilite td {
@@ -135,12 +134,13 @@
 }
 
 .calendar tbody td.weekend { /* Cells showing weekend days */
-  color: #f00;
+  color: #8b0f0f;
 }
 
 .calendar tbody td.today { /* Cell showing today date */
-  font-weight: bold;
-  color: #00f;
+    border: 1px solid #8B0F0F;
+    color: #8B0F0F;
+    font-weight: bold;
 }
 
 .calendar tbody .disabled { color: #999; }
@@ -159,12 +159,10 @@
 }
 
 .calendar tfoot .ttip { /* Tooltip (status bar) cell <TD> */
-  background: #e8f0f4;
-  padding: 1px;
-  border: 1px solid #000;
-  background: #788084;
-  color: #fff;
-  text-align: center;
+    background: none repeat scroll 0 0 #788084;
+    color: #FFFFFF;
+    padding: 1px;
+    text-align: center;
 }
 
 .calendar tfoot .hilite { /* Hover style for buttons in footer */
