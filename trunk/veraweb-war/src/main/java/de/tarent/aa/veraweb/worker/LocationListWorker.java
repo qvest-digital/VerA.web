@@ -20,7 +20,11 @@
 package de.tarent.aa.veraweb.worker;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import de.tarent.aa.veraweb.beans.Location;
 import de.tarent.dblayer.sql.clause.Clause;
@@ -57,6 +61,71 @@ public class LocationListWorker extends ListWorkerVeraWeb {
     @Override
     protected void extendAll(final OctopusContext cntx, final Select select) throws BeanException, IOException {
         select.where(Expr.equal("tlocation.fk_orgunit", ((PersonalConfigAA) (cntx.personalConfig())).getOrgUnitId()));
+    }
+    
+    /**
+     * Bestimmt ob ein Veranstaltungsort aufgrund bestimmter Kriterien gelöscht wird oder nicht
+     */
+    @Override
+    protected int removeSelection(OctopusContext cntx, List errors, List selection, TransactionContext context) throws BeanException, IOException {
+       
+        int count = 0;
+        if (selection == null || selection.size() == 0) {
+            return count;
+        }
+        Database database = context.getDatabase();
+        Map questions = new HashMap();
+
+        Location location = (Location)database.createBean("Location");
+        Clause clause = Expr.in("pk", selection);
+        Select select = database.getSelect("Location").where(clause);
+        
+        List removeLocations = new ArrayList();
+        
+        List locationList =
+                database.getBeanList("Location", select);
+        
+        for (Iterator it = locationList.iterator(); it.hasNext(); ) {
+            location = (Location)it.next();
+        
+            if (cntx.requestAsBoolean("remove-location" + location.id).booleanValue()) {
+                removeLocations.add(location.id);
+            } else {
+                questions.put("remove-location" + location.id, "Soll der Veranstaltungsort '" + location.name + "' wirklich gelöscht werden?");
+            }
+        }
+
+        if (!questions.isEmpty()) {
+            cntx.setContent("listquestions", questions);
+        }
+        
+        if (removeLocations.size() > 0) {
+            clause = Where.or(clause, Expr.in("pk", removeLocations));
+        }
+        
+        select = database.getSelectIds(location).where(clause);
+
+        if(!removeLocations.isEmpty()) {
+            try
+            {
+                Map data;
+                for (Iterator it = database.getList(select, context).iterator(); it.hasNext(); ) {
+                    data = (Map)it.next();
+                    location.id = (Integer)data.get("id");
+                    if (removeBean(cntx, location, context)) {
+                        selection.remove(location.id);
+                        count++;
+                    }
+                }
+                context.commit();
+            }
+            catch ( BeanException e )
+            {
+                context.rollBack();
+                throw new BeanException( "Der Veranstaltungsort konnten nicht gelöscht werden.", e );
+            }
+        }
+        return count; 
     }
 
     /**
