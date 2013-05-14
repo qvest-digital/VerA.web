@@ -487,7 +487,7 @@ Calendar.calDragIt = function (ev) {
 	if (WCH) {
 		cal.element.style.zIndex = 2;
 		cal.element.style.position = "absolute";
-		cal.element.style.border = "1px solid green";
+		cal.element.style.border = "none";
 		WCH.Apply(cal.element);
 	}
 	
@@ -517,7 +517,7 @@ Calendar.calDragEnd = function (ev) {
 	if (WCH) {
 		cal.element.style.zIndex = 2;
 		cal.element.style.position = "absolute";
-		cal.element.style.border = "1px solid green";
+		cal.element.style.border = "none";
 		WCH.Apply(cal.element);
 	}
 };
@@ -988,7 +988,7 @@ Calendar.prototype.create = function (_par) {
 	if (WCH) {
 		this.element.style.zIndex = 2;
 		this.element.style.position = "absolute";
-		this.element.style.border = "1px solid green";
+		this.element.style.border = "none";
 		WCH.Apply(this.element);
 	}
 };
@@ -1382,7 +1382,7 @@ Calendar.prototype.show = function () {
 	if (WCH) {
 		this.element.style.zIndex = 2;
 		this.element.style.position = "absolute";
-		this.element.style.border = "1px solid green";
+		this.element.style.border = "none";
 		WCH.Apply(this.element);
 	}
 };

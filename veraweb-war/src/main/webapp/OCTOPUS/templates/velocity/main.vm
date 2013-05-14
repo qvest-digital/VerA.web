@@ -11,12 +11,6 @@
 ##end
 #parse("inc/header.vm")	
 
-<table class="tab" border="0" cellspacing="0" cellpadding="0"><tr>
-	<td class="tableft">&nbsp;</td>
-	<td class="tabactiv"><span class="tabactiv">Willkommen</span></td>
-	<td class="tabright">&nbsp;</td>
-</tr></table>
-
 #openContent()
 #openContentSection()
 
@@ -30,15 +24,14 @@
 </div>
 #end
 
-<strong>Willkommen beim Veranstaltungsmanagement des Ausw&auml;rtigen Amtes</strong>
-<br><br>
+<h1 class="marginTop25">Willkommen beim Veranstaltungsmanagement des Ausw&auml;rtigen Amtes</h1>
 
 #if($grants.isUser())
 ##<P>
 ##	Hallo $!{octopusConfig.personalConfig.userGivenName} $!{octopusConfig.personalConfig.userLastName}.
 ##</P>
-<BR>
- #if($grants.mayReadStandardFields() || $grants.mayReadRemarkFields())
+
+#if($grants.mayReadStandardFields() || $grants.mayReadRemarkFields())
 <P>
 	Sie haben hier die M&ouml;glichkeit,
   #if($grants.mayReadStandardFields())
@@ -95,7 +88,6 @@
 
 #closeContentSection()
 #closeContent()
-<hr class="footline">
 
 <!--
 $responseParams
