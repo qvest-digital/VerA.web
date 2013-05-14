@@ -1,3 +1,4 @@
+#set($activeMenu = "Veranstaltungen")
 #set($title = "Veranstaltung bearbeiten: $!message.plain($event.shortname)")
 #parse("inc/header.vm")
 

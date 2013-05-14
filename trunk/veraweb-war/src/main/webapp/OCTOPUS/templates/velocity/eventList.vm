@@ -1,3 +1,5 @@
+#set($activeMenu = "Veranstaltungen")
+
 #if($action == "guest")
 #set($title = "Veranstaltung ausw&auml;hlen - Veranstaltung: $!message.plain($event.shortname)")
 #elseif($action == "addperson")

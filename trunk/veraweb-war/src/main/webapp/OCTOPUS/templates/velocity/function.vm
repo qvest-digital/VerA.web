@@ -1,3 +1,4 @@
+#set($activeMenu = "Administration")
 #set($title = "Stammdaten - Funktion/Amtsbezeichnung")
 #parse("inc/header.vm")	
 

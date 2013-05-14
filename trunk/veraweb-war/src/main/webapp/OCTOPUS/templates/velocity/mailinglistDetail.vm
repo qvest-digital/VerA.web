@@ -1,3 +1,4 @@
+#set($activeMenu = "Verwaltung")
 #set($title = "Verteilerliste: $!mailinglist.name")
 #parse("inc/header.vm")
 

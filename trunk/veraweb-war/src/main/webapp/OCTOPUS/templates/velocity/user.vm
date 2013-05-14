@@ -1,3 +1,5 @@
+#set($activeMenu = "Administration")
+
 ## $Id$
 #if($domain == 'ou')
 #set($title = "Verwaltung - alle Benutzer im Mandanten")

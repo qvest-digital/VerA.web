@@ -3,6 +3,7 @@
 ## @author Carsten Klein
 ## @since 1.2.0
 
+#set($activeMenu = "Administration")
 #parse("inc/header.vm")
 
 <form action="ShowChangeLogReport" method="post" target="_blank" onSubmit="location.reload();return true;">

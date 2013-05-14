@@ -1,3 +1,4 @@
+#set($activeMenu = "Veranstaltungen")
 #set($title = "Aufgaben")
 #parse("inc/header.vm")
 

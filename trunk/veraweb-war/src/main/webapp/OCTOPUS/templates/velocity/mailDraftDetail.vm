@@ -1,3 +1,4 @@
+#set($activeMenu = "Administration")
 #if($maildraft && $maildraft.id)
 #set($title = "E-Mail-Vorlage bearbeiten: $!message.text($maildraft.name)")
 #else

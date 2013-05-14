@@ -1,3 +1,4 @@
+#set($activeMenu = "Administration")
 #set($title = "Allgemeine Einstellungen")
 #parse("inc/header.vm")	
 

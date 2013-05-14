@@ -1,12 +1,16 @@
 ## $Id$
 #if($proxiesFor == 'ou')
-#set($title = "Verwaltung - alle Stellvertretungen im Mandanten")
+	#set($activeMenu = "Administration")
+	#set($title = "Verwaltung - alle Stellvertretungen im Mandanten")
 #elseif($proxiesFor == 'all')
-#set($title = "Verwaltung - alle Stellvertretungen")
+	#set($activeMenu = "Administration")
+	#set($title = "Verwaltung - alle Stellvertretungen")
 #elseif($proxiesFor == 'self')
-#set($title = "Einstellungen - pers&ouml;nliche Stellvertretungen")
+	#set($activeMenu = "Verwaltung")
+	#set($title = "Einstellungen - pers&ouml;nliche Stellvertretungen")
 #else
-#set($title = "Stellvertretungen")
+	#set($activeMenu = "Administration")
+	#set($title = "Stellvertretungen")
 #end
 #parse("inc/header.vm")	
 <form id="formlist" name="formlist" action="$octopusRequest.task" method="POST">

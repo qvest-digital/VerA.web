@@ -1,3 +1,4 @@
+#set($activeMenu = "Administration")
 #set($title = "Stammdaten - Veranstaltungsorte")
 #parse("inc/header.vm")	
 
