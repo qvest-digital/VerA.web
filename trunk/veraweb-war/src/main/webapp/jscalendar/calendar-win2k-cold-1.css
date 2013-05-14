@@ -30,10 +30,10 @@
 .calendar .button { /* "<<", "<", ">", ">>" buttons have this class */
   text-align: center;
   padding: 1px;
-  border-top: 1px solid #fff;
+/*   border-top: 1px solid #fff;
   border-right: 1px solid #000;
   border-bottom: 1px solid #000;
-  border-left: 1px solid #fff;
+  border-left: 1px solid #fff; */
 }
 
 .calendar .nav {
@@ -43,7 +43,7 @@
 .calendar thead .title { /* This holds the current "month, year" */
   font-weight: bold;
   padding: 1px;
-  border: 1px solid #000;
+  /* border: 1px solid #000; */
   background: #788084;
   color: #fff;
   text-align: center;
@@ -146,7 +146,8 @@
 .calendar tbody .disabled { color: #999; }
 
 .calendar tbody .emptycell { /* Empty cells (the best is to hide them) */
-  visibility: hidden;
+    padding: 2px 4px 2px 2px;
+    visibility: hidden;
 }
 
 .calendar tbody .emptyrow { /* Empty row (some months need less than 6 rows) */
