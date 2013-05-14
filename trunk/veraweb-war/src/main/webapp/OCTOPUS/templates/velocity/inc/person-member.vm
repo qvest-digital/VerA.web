@@ -1,12 +1,3 @@
-<script type="text/javascript">
-$("#person-iscompany").unbind('click').click(function() {
-   if(this.checked) {
-		$('#company-row').show();
-    } else {
-		$('#company-row').hide();
-    }
-});
-</script>
 <table class="form"><tr>
 	<td class="value" style="width: 50%;">
 		<table class="form">

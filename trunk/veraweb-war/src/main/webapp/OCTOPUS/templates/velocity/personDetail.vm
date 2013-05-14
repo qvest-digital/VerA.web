@@ -442,6 +442,33 @@
 	#else
 		showTab(getTabParameter('person'));
 	#end
+
+	$("#person-iscompany").click(function() {
+   if(this.checked) {
+		$('#company-row').show();
+    } else {
+		$('#company-row').hide();
+    }
+});
+
+
+$(function () {
+
+	var company1 = $("#person-company-ignore_a_e1");
+	var company2 = $("#person-company_a_e1");
+	company1.change(function (e){
+		company2.val(company1.val());
+	});
+	company2.change(function (e){
+		company1.val(company2.val());
+	});
+
+  if($("#person-iscompany").is(":checked")){
+   	$('#company-row').show();
+    } else {
+	$('#company-row').hide();
+    }
+});
 </script>
 
 #parse("inc/footer.vm")
