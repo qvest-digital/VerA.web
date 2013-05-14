@@ -1,3 +1,4 @@
+#set($activeMenu = "Administration")
 ## $Id$
 #set($title = "Verwaltung - alle Mandanten")
 #parse("inc/header.vm")	

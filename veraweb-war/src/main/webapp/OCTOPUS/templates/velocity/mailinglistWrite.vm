@@ -1,3 +1,4 @@
+#set($activeMenu = "Verwaltung")
 #set($title = "E-Mail an Verteiler schreiben: $!message.text($mailinglist.name)")
 #parse("inc/header.vm")
 

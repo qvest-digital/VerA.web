@@ -1,3 +1,4 @@
+#set($activeMenu = "Administration")
 #set($title = "Stammdaten - Kategorien")
 #parse("inc/header.vm")	
 

@@ -1,3 +1,4 @@
+#set($activeMenu = "Verwaltung")
 #set($title = "Benutzer Einstellungen")
 #parse("inc/header.vm")	
 

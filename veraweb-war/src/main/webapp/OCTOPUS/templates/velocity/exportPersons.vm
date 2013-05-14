@@ -1,3 +1,4 @@
+#set($activeMenu = "Personen")
 #set($title = "Export von Personendaten")
 #parse("inc/header.vm")
 

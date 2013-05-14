@@ -1,3 +1,4 @@
+#set($activeMenu = "Verwaltung")
 #set($title = "Hilfe - Info &uuml;ber VerA.web")
 #parse("inc/header.vm")	
 

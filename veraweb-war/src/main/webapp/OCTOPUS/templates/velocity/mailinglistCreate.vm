@@ -1,3 +1,4 @@
+#set($activeMenu = "Verwaltung")
 #set($title = "Verteiler erstellen - Veranstaltung: $!event.shortname")
 #parse("inc/header.vm")
 

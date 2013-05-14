@@ -1,3 +1,4 @@
+#set($activeMenu = "Administration")
 #if($mailoutbox && $mailoutbox.id)
 #set($title = "E-Mail bearbeiten")
 #else

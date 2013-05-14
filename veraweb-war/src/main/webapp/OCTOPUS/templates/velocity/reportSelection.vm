@@ -1,3 +1,4 @@
+#set($activeMenu = "Veranstaltungen")
 #set($title = "G&auml;steliste erstellen f&uuml;r Veranstaltung: $!event.shortname")
 #parse("inc/header.vm")
 

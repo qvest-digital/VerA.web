@@ -1,3 +1,4 @@
+#set($activeMenu = "Administration")
 #set($title = "E-Mail-Vorlagen")
 #parse("inc/header.vm")
 

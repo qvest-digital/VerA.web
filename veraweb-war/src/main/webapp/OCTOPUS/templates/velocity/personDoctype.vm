@@ -1,3 +1,4 @@
+#set($activeMenu = "Personen")
 #if($person && $person)
 #set($title = "Person bearbeiten: $!message.plain($person.MainLatin.SaveAs)")
 #parse("inc/header.vm")

@@ -1,3 +1,4 @@
+#set($activeMenu = "Personen")
 #set($title = "Import von Personendaten")
 #parse("inc/header.vm")
 
@@ -182,7 +183,7 @@ $importStatus.exception
 	}
 </script>
 
-##<!-- Bug 1362: Die Möglichkeit, einen bestehenden Exportvorgang zu laden, ist vom AA nicht gewünscht -->
+##<!-- Bug 1362: Die Mï¿½glichkeit, einen bestehenden Exportvorgang zu laden, ist vom AA nicht gewï¿½nscht -->
 ##<br>
 ##<hr class="contentsection" />
 ##<br>

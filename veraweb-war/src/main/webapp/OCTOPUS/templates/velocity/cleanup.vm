@@ -1,3 +1,4 @@
+#set($activeMenu = "Administration")
 #set($title = "Cleanup")
 #parse("inc/header.vm")	
 

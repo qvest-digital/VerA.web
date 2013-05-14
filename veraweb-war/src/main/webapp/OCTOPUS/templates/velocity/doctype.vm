@@ -1,3 +1,4 @@
+#set($activeMenu = "Administration")
 #set($title = "Stammdaten - Dokumenttypen")
 #parse("inc/header.vm")	
 

@@ -1,3 +1,5 @@
+#set($activeMenu = "Veranstaltungen")
+
 #if($task && $task.id)
 #set($title = "Aufgabe bearbeiten: $!message.plain($task.shortname)")
 #parse("inc/header.vm")

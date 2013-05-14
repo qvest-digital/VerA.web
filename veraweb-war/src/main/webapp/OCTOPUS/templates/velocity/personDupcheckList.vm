@@ -1,3 +1,4 @@
+#set($activeMenu = "Personen")
 #set($title = "Person speichern - Duplikat-Pr&uuml;fung")
 #parse("inc/header.vm")
 

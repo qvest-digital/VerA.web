@@ -1,3 +1,4 @@
+#set($activeMenu = "Veranstaltungen")
 #set($title = "Statistik erstellen")
 #parse("inc/header.vm")
 
