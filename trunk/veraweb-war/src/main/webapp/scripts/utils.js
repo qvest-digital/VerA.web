@@ -65,6 +65,16 @@ function navigateList(start) {
 	}
 }
 
+function navigateLimit(limit) {
+	var form = document.getElementById('formlist');
+	if (form && form.elements['limit']) {
+		form.elements['limit'].value = limit;
+		form.submit();
+	} else {
+		alert('form or field start NOT FOUND!');
+	}
+}
+
 function navigateSelectAll() {
 	var form = document.getElementById('formlist');
 	if (form && form.elements['selectAll']) {
