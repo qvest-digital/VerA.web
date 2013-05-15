@@ -169,7 +169,7 @@ ul.alphabet li {
 
 /************* =2.4 misc *************/
 
-.gray-gradient {
+.inactive, .gray-gradient {
     background: linear-gradient(top, #fcfcfc, #dddddd);
     background: -moz-linear-gradient(top, #fcfcfc, #dddddd);
     background: -ms-linear-gradient(top, #fcfcfc, #dddddd);
@@ -448,7 +448,7 @@ nav a, #nav a {
 	
 }
 
-#buttonPanel-top {
+.buttonPanel-top {
 }
 
 #main_content {
@@ -510,6 +510,7 @@ hr {border-top:1px solid #8b0f0f; }
     display: inline-block;
     line-height: 40px;
     padding: 0 15px;
+    cursor: pointer;
 }
 
 #tabsMain li.active {
@@ -517,31 +518,32 @@ hr {border-top:1px solid #8b0f0f; }
 }
 
 
-#tabsSub {
+.tabsSub {
 	width:185px;
 	float:left;
 }
 
-#tabsSub ul {
+.tabsSub ul {
 	list-style-type: none;
 }
 
-#tabsSub li {
+.tabsSub li {
     border-top: 1px solid #BDBDBD;
     height: 40px;
     line-height: 40px;
     padding: 0 0 0 20px;
+    cursor: pointer;
 }
 
-#tabsSub li.active {
+.tabsSub li.active {
 	width: 166px;
 	}
 
-#tabsContent {
+.tabsContent {
     border-top: 1px solid #BDBDBD;
 }
 
-#tabsSub + #tabsContent {
+.tabsSub + .tabsContent {
     border-left: 1px solid #BDBDBD;
     -webkit-box-shadow: -3px 0 3px #D0D0D0;
     -moz-box-shadow: -3px 0 3px #D0D0D0;
@@ -549,11 +551,11 @@ hr {border-top:1px solid #8b0f0f; }
     margin-left: 185px;
 }
 
-#tabsContent #buttonPanel-bottom {
+.tabsContent #buttonPanel-bottom {
     display: block;
 }
 
-#tabsContent h3 {
+.tabsContent h3 {
 	color: #8B0F08;
 }
 
@@ -562,7 +564,7 @@ tr.repeat {
 }
 
 
-#CharSet {
+.CharSet {
 	padding:10px 20px 0;
 }
 /************* =End tabs *************/
@@ -586,7 +588,7 @@ footer,
 
 /************* =8. forms *****************/
 
-#buttonPanel-top + form {
+.buttonPanel-top + form {
     float: left;
     width: 100%;
 }
@@ -632,7 +634,7 @@ textarea {
 .tableCell input,
 .tableCell select,
 .tableCell textarea,
-#CharSet select {
+.CharSet select {
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
@@ -813,27 +815,27 @@ td, th {
     padding-right: 0;
 }
 
-.width5, #tabsContent .width5 {width: 5%;}
+.width5, .tabsContent .width5 {width: 5%;}
 
-.width10, #tabsContent .width10 {width: 10%;} .width15, #tabsContent .width15 {width: 15%;} 
+.width10, .tabsContent .width10 {width: 10%;} .width15, .tabsContent .width15 {width: 15%;}
 
-.width20, #tabsContent .width20 {width: 20%;} .width25, #tabsContent .width25 {width: 25%;}
+.width20, .tabsContent .width20 {width: 20%;} .width25, .tabsContent .width25 {width: 25%;}
 
-.width30, #tabsContent .width30 {width: 30%;} .width35, #tabsContent .width35 {width: 35%;}
+.width30, .tabsContent .width30 {width: 30%;} .width35, .tabsContent .width35 {width: 35%;}
 
-.width40, #tabsContent .width40 {width: 40%;} .width45, #tabsContent .width45 {width: 45%;}
+.width40, .tabsContent .width40 {width: 40%;} .width45, .tabsContent .width45 {width: 45%;}
 
-.width50, #tabsContent .width50 {width: 50%;} .width55, #tabsContent .width55 {width: 55%;}
+.width50, .tabsContent .width50 {width: 50%;} .width55, .tabsContent .width55 {width: 55%;}
 
-.width60, #tabsContent .width60 {width: 60%;} .width65, #tabsContent .width65 {width: 65%;}
+.width60, .tabsContent .width60 {width: 60%;} .width65, .tabsContent .width65 {width: 65%;}
 
-.width70, #tabsContent .width70 {width: 70%;} .width75, #tabsContent .width75 {width: 75%;}
+.width70, .tabsContent .width70 {width: 70%;} .width75, .tabsContent .width75 {width: 75%;}
 
-.width80, #tabsContent .width80 {width: 80%;} .width85, #tabsContent .width85 {width: 85%;}
+.width80, .tabsContent .width80 {width: 80%;} .width85, .tabsContent .width85 {width: 85%;}
 
-.width90, #tabsContent .width90 {width: 90%;} .width95, #tabsContent .width95 {width: 95%;}
+.width90, .tabsContent .width90 {width: 90%;} .width95, .tabsContent .width95 {width: 95%;}
 
-.width100, #tabsContent .width100 {width: 100%;}
+.width100, .tabsContent .width100 {width: 100%;}
 
 /************* End CSS tables *****************/
 
