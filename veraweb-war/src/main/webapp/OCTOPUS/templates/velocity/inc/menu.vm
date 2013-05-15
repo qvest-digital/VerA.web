@@ -9,7 +9,7 @@
                 <li #if ($activeMenu == "Personen") class="active" #end >
     				<span>Personen</span>
     				<ul>
-    					<li><a id="menu.overviewPerson" href="${paths.staticWeb}do/SearchPerson?search=reset">Personen&uuml;bersicht</a></li>
+    					<li><a id="menu.overviewPerson" href="${paths.staticWeb}do/SearchPerson?action=person&search=reset">Personen&uuml;bersicht</a></li>
     					#if($grants.mayWrite())
         					<li><a id="menu.searchPerson" href="${paths.staticWeb}do/ShowPersonSearch?action=person&search=clear">Personensuche</a></li>
         					<li><a id="menu.newPerson" href="${paths.staticWeb}do/CreatePerson?action=person">Neue Person</a></li>
@@ -30,7 +30,7 @@
     			</li><li #if ($activeMenu == "Veranstaltungen") class="active" #end >
     				<span>Veranstaltungen</span>
     				<ul>
-    					<li><a id="menu.overviewEvent" href="${paths.staticWeb}do/SearchEvent?search=reset">Veranstaltungs&uuml;bersicht</a></li>
+    					<li><a id="menu.overviewEvent" href="${paths.staticWeb}do/SearchEvent?action=event&search=reset">Veranstaltungs&uuml;bersicht</a></li>
     					#if($grants.mayWrite())
         					<li><a id="menu.searchEvent" href="${paths.staticWeb}do/ShowEventSearch?action=event">Veranstaltungssuche</a></li>
         					<li><a id="menu.newEvent" href="${paths.staticWeb}do/CreateEvent?action=event">Neue Veranstaltung</a></li>
