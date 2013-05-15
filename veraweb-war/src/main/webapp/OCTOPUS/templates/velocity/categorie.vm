@@ -107,7 +107,7 @@ disableOtherBeans(id);
 		<th class="list" style="width: 20px;">&nbsp;</th>
 		<th class="list" style="width: 60px;">ID</th>
 #end
-		<th class="list"><a href="?order=name">Bezeichnung</a></th>
+		<th class="list"><a href="?order=name">Bezeichnung*</a></th>
 		<th class="list" style="width: 100px;"><a href="?order=flags">Kennzeichen</a></th>
 		<th class="list" style="width: 100px;"><a href="?order=rank">Rang</a></th>
 		<th class="list">Nur f&uuml;r Veranstaltung</th>

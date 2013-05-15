@@ -72,7 +72,7 @@
 	</tr>
 	
 	<tr>
-		<td class="label"><label for="task-title">Kurzbezeichnung:</label></td>
+		<td class="label"><label for="task-title">Kurzbezeichnung*:</label></td>
 		<td class="value"><input type="text" name="task-title" value="$!message.text($task.title)" id="task-title" class="text" maxlength="100" onchange="setModified();"></td>
 	</tr>
 	

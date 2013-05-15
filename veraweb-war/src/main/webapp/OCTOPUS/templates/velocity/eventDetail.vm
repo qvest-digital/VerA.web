@@ -69,10 +69,10 @@
 	<td class="label"><label for="id">Veranstaltungs-ID:</label></td>
 	<td class="value"><input type="text" name="id" value="$!message.text($event.id)" id="id" class="id" readonly></td>
 </tr><tr>
-	<td class="label"><label for="event-shortname">Kurzbezeichnung:</label></td>
+	<td class="label"><label for="event-shortname">Kurzbezeichnung*:</label></td>
 	<td class="value"><input type="text" name="event-shortname" value="$!message.text($event.shortname)" id="event-shortname" class="text" maxlength="50" onchange="setModified();"></td>
 </tr><tr>
-	<td class="label"><label for="event-begin">Beginn:</label></td>
+	<td class="label"><label for="event-begin">Beginn*:</label></td>
 	<td class="value">
 		<nobr>
 		<input type="text" name="event-begin" id="event-begin" value="$!message.date("DATE", $event.begin)" class="date" style="width: 80px;" onchange="setModified();">

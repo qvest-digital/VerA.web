@@ -35,7 +35,7 @@
 	<tr class="list1">
 		<th class="list" style="width: 20px;">&nbsp;</th>
 		<th class="list" style="width: 60px;">ID</th>
-		<th class="list">Bezeichnung</th>
+		<th class="list">Bezeichnung*</th>
 		<th class="list" style="width: 100px;">Adress-Typ</th>
 		<th class="list" style="width: 100px;">Zeichensatz</th>
 		<th class="list" style="width: 100px;">Format</th>

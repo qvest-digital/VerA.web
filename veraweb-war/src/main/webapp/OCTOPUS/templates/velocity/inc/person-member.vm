@@ -2,7 +2,7 @@
 	<td class="value" style="width: 50%;">
 		<table class="form">
 		<tr id="company-row" style="display:none"> 
-			<td class="label"><label for="person-company-ignore$ext">Firma/Institution:</label></td>
+			<td class="label"><label for="person-company-ignore$ext">Firma/Institution*:</label></td>
 			<td class="value"><input type="text" id="person-company-ignore$ext" name="person-company-ignore$ext" value="$!message.text($facade.Company)" class="text" onchange="setModified();"></td>
 		</tr>
 		<tr>
@@ -37,11 +37,11 @@
 </tr></table>
 
 <table class="form"><tr>
-	<td class="label"><label for="person-firstname$ext">Vorname:</label></td>
+	<td class="label"><label for="person-firstname$ext">Vorname*:</label></td>
 	<td class="value"><input type="text" id="person-firstname$ext" name="person-firstname$ext" value="$!message.text($facade.Firstname)" class="text" onchange="setModified();"></td>
 </tr>
 <tr>
-	<td class="label"><label for="person-lastname$ext">Nachname:</label></td>
+	<td class="label"><label for="person-lastname$ext">Nachname*:</label></td>
 	<td class="value"><input type="text" id="person-lastname$ext" name="person-lastname$ext" value="$!message.text($facade.Lastname)" class="text" onchange="setModified();"></td>
 </tr>
 </table>

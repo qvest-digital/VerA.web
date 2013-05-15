@@ -59,9 +59,9 @@
  #if($proxiesFor != 'ou')
 		<th class="list"><a href="?order=orgunit#if($proxiesValid)&proxiesValid=$proxiesValid#end">Mandant</a></th>
  #end
-		<th class="list"><a href="?order=userRole#if($proxiesValid)&proxiesValid=$proxiesValid#end">Rolle</a></th>
+		<th class="list"><a href="?order=userRole#if($proxiesValid)&proxiesValid=$proxiesValid#end">Rolle*</a></th>
 #end
-		<th class="list"><a href="?order=proxy#if($proxiesValid)&proxiesValid=$proxiesValid#end">Vertreter</a></th>
+		<th class="list"><a href="?order=proxy#if($proxiesValid)&proxiesValid=$proxiesValid#end">Vertreter*</a></th>
 		<th class="list" style="width: 100px;"><a href="?order=validFrom#if($proxiesValid)&proxiesValid=$proxiesValid#end">G&uuml;ltig ab</a></th>
 		<th class="list" style="width: 100px;"><a href="?order=validTill#if($proxiesValid)&proxiesValid=$proxiesValid#end">G&uuml;ltig bis</a></th>
 	</tr>

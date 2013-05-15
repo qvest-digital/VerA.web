@@ -63,7 +63,7 @@
 	
 	
 	<tr>
-		<td class="label"><label for="location-title">Beschreibung/Titel:</label></td>
+		<td class="label"><label for="location-title">Beschreibung/Titel*:</label></td>
 		<td class="value"><input type="text" name="location-name" value="$!message.text($location.name)" id="location-name" class="text" maxlength="200" onchange="setModified();"></td>
 	</tr>
 	
