@@ -46,7 +46,7 @@
 		<input type="button" name="" value="Laden" #if($loadable) class="button" #else disabled class="buttondisabled" #end onclick="document.getElementById('loaddraft').value='true'; document.getElementById('formlist').submit();">
 	</td>
 </tr><tr>
-	<td class="label"><label for="mail-name">Speichern:</label></td>
+	<td class="label"><label for="mail-name">Speichern*:</label></td>
 	<td class="value"><input type="text" id="mail-name" name="mail-name" value="$!message.text($mail.name)" class="text"></td>
 	<td class="value" style="width: 130px; text-align: right;">
 		<input type="button" name="savedraft" value="Speichern" class="button" onclick="document.getElementById('savedraft').value='true'; document.getElementById('formlist').submit();">

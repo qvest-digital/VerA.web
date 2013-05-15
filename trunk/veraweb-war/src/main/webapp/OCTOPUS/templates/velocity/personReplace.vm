@@ -54,7 +54,7 @@
 	<td class="label">&nbsp;</td>
 	<td class="value"><hr class="contentsection"></td>
 </tr><tr>
-	<td class="label">In folgenden Feldern:</td>
+	<td class="label">In folgenden Feldern*:</td>
 	<td class="value">
 		<table class="form"><tr>
 			<td class="value" style="width: 20px;"><input type="checkbox" id="snr-group01" name="snr-group01" value="true" #if($replace-request.snr-group01) checked#end></td>
