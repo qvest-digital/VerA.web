@@ -461,7 +461,10 @@
 	#else
 		showTab(getTabParameter('person'));
 	#end
-
+	
+	
+	//Show the company row (Firma/Institution) in the person detail view if the "Ist Firma" 
+	//checkbox was checked.
 	$("#person-iscompany").click(function() {
    if(this.checked) {
 		$('#company-row').show();
@@ -472,19 +475,24 @@
 
 
 $(function () {
-	var company1 = $("#person-company-ignore_a_e1");
-	var company2 = $("#person-company_a_e1");
+	//The field person-company-ignore does exist only in order to be able to set the company
+	//name at start and show the company name in the person detail view. It's only the 
+	//reference to the field person-company in the Tab Anschriften-->Geschaeftlich
+	var company_ignore = $("#person-company-ignore_a_e1");
+	var company_geschaeftlich = $("#person-company_a_e1");
 	
-	company1.val(company2.val());
+	company_ignore.val(company_geschaeftlich.val());
 	
-	company1.change(function (e){
-		company2.val(company1.val());
+	company_ignore.change(function (e){
+		company_geschaeftlich.val(company_ignore.val());
 	});
-	company2.change(function (e){
-		company1.val(company2.val());
+	company_geschaeftlich.change(function (e){
+		company_ignore.val(company_geschaeftlich.val());
 	});
 
-  if($("#person-iscompany").is(":checked")){
+	//Show the company row (Firma/Institution) on load in the person detail view only if "Ist Firma" 
+	//checkbox was checked.
+	if($("#person-iscompany").is(":checked")){
    		$('#company-row').show();
     } else {
     	$('#company-row').hide();
