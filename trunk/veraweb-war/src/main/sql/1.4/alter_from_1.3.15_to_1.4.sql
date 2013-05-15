@@ -2,7 +2,10 @@
 /* Add table "ttask" with related sequence                                */
 /* ---------------------------------------------------------------------- */
 
-CREATE SEQUENCE veraweb.ttask_pk_seq INCREMENT 1 MINVALUE 1 MAXVALUE 9223372036854775807 START 1 CACHE 1;
+CREATE SEQUENCE ttask_pk_seq INCREMENT 1 MINVALUE 1 MAXVALUE 9223372036854775807 START 1 CACHE 1;
+
+ALTER TABLE ttask_pk_seq
+  OWNER TO veraweb;
 
 CREATE TABLE veraweb.ttask (
 	pk INTEGER DEFAULT nextval('ttask_pk_seq') NOT NULL,
@@ -12,8 +15,8 @@ CREATE TABLE veraweb.ttask (
 	enddate TIMESTAMP WITH TIME ZONE,
 	degree_of_completion INTEGER DEFAULT 0,
 	priority INTEGER,
-	fk_event INTEGER NOT NULL REFERENCES tevent (pk),
-	fk_person INTEGER REFERENCES tperson (pk),
+	fk_event INTEGER NOT NULL REFERENCES veraweb.tevent (pk),
+	fk_person INTEGER REFERENCES veraweb.tperson (pk),
 	createdby VARCHAR(50),
 	changedby VARCHAR(50),
 	created TIMESTAMP WITH TIME ZONE,
