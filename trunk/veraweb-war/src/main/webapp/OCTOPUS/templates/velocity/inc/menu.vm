@@ -78,6 +78,9 @@
         					<li><a id="menu.mailDraft" href="${paths.staticWeb}do/MailDraftList?start=0">E-Mail-Vorlagen</a></li>
         					<li><a id="menu.mailOutbox" href="${paths.staticWeb}do/MailOutboxList?start=0">E-Mail-Postausgang</a></li>
 						#end
+						#if($grants.isAdmin())
+							<li><a id="menu.workarea" href="${paths.staticWeb}do/WorkArea?start=0">Arbeitsbereiche</a></li>
+						#end
 						#if($grants.isAdmin() || $grants.isSystemUser())
         					<li><a id="menu.orgunit" href="${paths.staticWeb}do/Orgunit?start=0">Mandanten</a></li>
         					<li><a id="menu.allUser" href="${paths.staticWeb}do/AllUser?start=0">Benutzer</a></li>
