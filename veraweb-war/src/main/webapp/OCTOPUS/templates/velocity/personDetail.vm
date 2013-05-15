@@ -1,11 +1,29 @@
-#set($activeMenu = "Personen")
 #if($person && $person.id)
-#set($title = "Person bearbeiten: $!message.plain($person.MainLatin.SaveAs)")
-#parse("inc/header.vm")
+	
+	#set($activeMenu = "Personen")
+    #set($title = "Person bearbeiten: $!message.plain($person.MainLatin.SaveAs)")
+    #parse("inc/header.vm")
+	
 #else
-#set($isNewPerson = 1)
-#set($title = "Neue Person anlegen")
-#parse("inc/header.vm")
+	
+	#if($action == "guest")
+    	#set($activeMenu = "Veranstaltungen")
+    #elseif($action == "host")
+    	#set($activeMenu = "Veranstaltungen")
+    #elseif($action == "statistikGuest")
+    	#set($activeMenu = "Veranstaltungen")
+    #elseif($action == "statistikHost")
+    	#set($activeMenu = "Veranstaltungen")
+    #elseif($action == "taskReferencePerson")
+    	#set($activeMenu = "Veranstaltungen")
+    #else
+    	#set($activeMenu = "Personen")
+    #end
+	
+    #set($isNewPerson = 1)
+    #set($title = "Neue Person anlegen")
+	#parse("inc/header.vm")
+	
 #end
 
 #if($octopusRequest.task == "AddPersonToEventDetail")
