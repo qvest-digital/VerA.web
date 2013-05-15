@@ -1,3 +1,7 @@
+### As there is a minor styling bug in Firefox, which adds a non-removable space 
+### between <li>s, it is necessary to write </li><li> right next to each other in the code. 
+### Please don't change that!  
+
 <nav id="nav" class="gray-gradient grayBorder box-shadow marginBottom10">
 	#if($grants && $grants.isAuthenticated())
 		<ul>
@@ -23,8 +27,7 @@
 							#end
 						#end
     				</ul>
-    			</li>
-    			<li #if ($activeMenu == "Veranstaltungen") class="active" #end >
+    			</li><li #if ($activeMenu == "Veranstaltungen") class="active" #end >
     				<span>Veranstaltungen</span>
     				<ul>
     					<li><a id="menu.overviewEvent" href="${paths.staticWeb}do/SearchEvent?search=reset">Veranstaltungs&uuml;bersicht</a></li>
@@ -39,9 +42,7 @@
     						#end
 						#end
     				</ul>
-    			</li>
-			#end
-			<li #if ($activeMenu == "Verwaltung") class="active" #end >
+    			</li>#end<li #if ($activeMenu == "Verwaltung") class="active" #end >
 				<span>Verwaltung</span>
 				<ul>
 					#if($grants.isUser())
@@ -54,9 +55,7 @@
 					#end
 					<li><a id="menu.info" href="${paths.staticWeb}do/Info">Info</a></li>
 				</ul>
-			</li>
-			#if($grants.isUser() || $grants.isSystemUser())
-    			<li #if ($activeMenu == "Administration") class="active" #end >
+			</li>#if($grants.isUser() || $grants.isSystemUser())<li #if ($activeMenu == "Administration") class="active" #end >
     				<span>Administration</span>
     				<ul>
 						#if($grants.isAdmin() || $grants.isPartialAdmin())

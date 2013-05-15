@@ -149,7 +149,8 @@ ul.alphabet li {
 }
 
 .paging .img a {
-    border:none;
+    border: medium none;
+    vertical-align: inherit;
 }
 
 .paging .img {
