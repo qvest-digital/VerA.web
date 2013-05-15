@@ -296,7 +296,11 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
     public void verify() throws BeanException {
 		AddressHelper.checkPerson(this);
 		
-		if (!(
+		if (iscompany != null && iscompany.equals(PersonConstants.ISCOMPANY_TRUE)) {
+		    if (company_a_e1 == null || company_a_e1.trim().equals("")) {
+		        addError("Sie müssen einen Namen für die Firma/Institution angeben.");
+		    }
+		} else if (!(
 				(firstname_a_e1 != null && firstname_a_e1.length() != 0) ||
 				(lastname_a_e1 != null && lastname_a_e1.length() != 0) ||
 				(company_a_e1 != null && company_a_e1.length() != 0))) {
