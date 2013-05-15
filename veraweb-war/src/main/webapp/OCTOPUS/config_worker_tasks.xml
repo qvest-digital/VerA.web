@@ -680,7 +680,7 @@
 				<action name="saveDetail" worker="PersonDetailWorker" />
 				<status equals="notcorrect">
 					<doTask name="ShowPerson"/>
-			</status>
+				</status>
 			</status>
 		</task>
 		

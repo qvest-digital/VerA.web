@@ -20,6 +20,7 @@
 package de.tarent.aa.veraweb.worker;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import de.tarent.aa.veraweb.beans.Person;
@@ -60,7 +61,7 @@ public class PersonDupcheckWorker extends ListWorkerVeraWeb {
 	@Override
     protected void extendWhere(OctopusContext cntx, Select select) throws BeanException, IOException {
 		Person person = (Person)cntx.contentAsObject("person");
-		select.where(getDuplicateExpr(cntx, person));
+		select.where(getDuplicateExprPerson(cntx, person));
 	}
 
 	//
@@ -76,8 +77,8 @@ public class PersonDupcheckWorker extends ListWorkerVeraWeb {
      * legt sie und ihr Akkreditierungsdatum unter "person" bzw. "person-diplodatetime"
      * in den Octopus-Content und testet das �bergebene Flag. Ist es
      * <code>true</code>, so wird der Eintrag in der Octopus-Session unter
-     * "dupcheck-person" gel�scht. Ansonsten wird dieser auf die eingelesene
-     * Person gesetzt und ein Duplikats-Check durchgef�hrt; falls dieser Duplikate
+     * "dupcheck-person" geloescht. Ansonsten wird dieser auf die eingelesene
+     * Person gesetzt und ein Duplikats-Check durchgefuehrt; falls dieser Duplikate
      * zur Person findet, wird der Status "dupcheck" gesetzt. 
      * 
      * @param cntx Octopus-Kontext
@@ -105,10 +106,18 @@ public class PersonDupcheckWorker extends ListWorkerVeraWeb {
 			cntx.setSession("dupcheck-person", null);
 			return;
 		}
-		cntx.setSession("dupcheck-person", person);
+		cntx.setSession("dupcheck-person", person);		
+		
+		String isCompany = cntx.requestAsString("person-iscompany");
 		
 		Select select = database.getCount("Person");
-		select.where(getDuplicateExpr(cntx, person));
+		
+		if(isCompany != null && isCompany.equals("t")){
+			select.where(getDuplicateExprCompany(cntx, person));			
+		} else {
+			select.where(getDuplicateExprPerson(cntx, person));
+		}
+		
 		if (database.getCount(select).intValue() != 0) {
 			cntx.setStatus("dupcheck");
 		}
@@ -122,20 +131,38 @@ public class PersonDupcheckWorker extends ListWorkerVeraWeb {
     @Override
     public List showList(OctopusContext cntx) throws BeanException, IOException
 	{
-		//Bug 1592 
-    	cntx.setContent("originalPersonId", cntx.requestAsInteger("originalPersonId"));
-		return super.showList(cntx);
+    	//Specific handling to differ between company and person dupcheck.
+    	String isCompany = cntx.requestAsString("person-iscompany");
+    	
+    	if(isCompany != null && isCompany.equals("t")){
+        	Person person = (Person)cntx.sessionAsObject("dupcheck-person");
+        	Database database = new DatabaseVeraWeb(cntx);
+        	Select select = database.getSelect("Person");
+        	return database.getBeanList("Person", select.where(getDuplicateExprCompany(cntx, person)));
+    	} else {
+//    		Bug 1592 
+        	cntx.setContent("originalPersonId", cntx.requestAsInteger("originalPersonId"));
+    		return super.showList(cntx);
+    	}
 	}
 
 	//
-    // gesch�tzte Hilfsmethoden
+    // geschuetzte Hilfsmethoden
     //
-	protected Clause getDuplicateExpr(OctopusContext cntx, Person person) {
+	protected Clause getDuplicateExprPerson(OctopusContext cntx, Person person) {
 		Clause clause = Where.and(
 				Expr.equal("fk_orgunit", ((PersonalConfigAA)cntx.personalConfig()).getOrgUnitId()),
 				Expr.equal("deleted", PersonConstants.DELETED_FALSE));
 		String ln = person == null || person.lastname_a_e1 == null ? "" : person.lastname_a_e1;
 		String fn = person == null || person.firstname_a_e1 == null ? "" : person.firstname_a_e1;
 		return Where.and(clause, Where.and(Expr.equal("lastname_a_e1", ln), Expr.equal("firstname_a_e1", fn)));
+	}
+	
+	protected Clause getDuplicateExprCompany(OctopusContext cntx, Person person) {
+		Clause clause = Where.and(
+				Expr.equal("fk_orgunit", ((PersonalConfigAA)cntx.personalConfig()).getOrgUnitId()),
+				Expr.equal("deleted", PersonConstants.DELETED_FALSE));
+		String companyName = person == null || person.company_a_e1 == null ? "" : person.company_a_e1;
+		return Where.and(clause, Expr.equal("company_a_e1", companyName));
 	}
 }
