@@ -801,6 +801,7 @@ th {
 	 */
 	background-image: url(../images/th_bg.png);
 	background-repeat:repeat-x;	 
+    background-size: 1px 100%;	
 }
 
 td, th {
