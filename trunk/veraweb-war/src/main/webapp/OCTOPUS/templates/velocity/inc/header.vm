@@ -31,7 +31,7 @@
 	<body>
 		<div id="container">
         	<header id="header">
-        		<a href="${paths.staticWeb}do/" title="Zur Startseite" class="noBorder"><img src="${paths.staticWeb}images/veraweb_logo.png"></a>
+        		<a href="${paths.staticWeb}do/" title="Zur Startseite" class="noBorder"><img src="${paths.staticWeb}images/veraweb_logo.png" alt="VerA.web Logo"></a>
 					#if($grants && $grants.isAuthenticated())
             			<div id="topNav"> 			
             				<ul>

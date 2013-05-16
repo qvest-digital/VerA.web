@@ -248,6 +248,8 @@ ul.alphabet li {
 
 .notBold {font-weight:normal}
 
+.noDisplay {display:none;}
+
 /************* End misc *************/
 
 /************* End general *************/
@@ -333,6 +335,7 @@ nav,
 }
 
 nav ul, #nav ul {
+    border-left: 1px solid #B2B2B2;
     list-style-type: none;
 }
 
