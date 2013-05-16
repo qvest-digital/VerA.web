@@ -209,7 +209,7 @@ function enableFormCheckbox(fld) {
 }
 
 function onMouseOverList(line) {
-	line.style.backgroundColor = '#ffff80';
+	line.style.backgroundColor = '#ffffc3';
 }
 
 function onMouseOutList(line) {
