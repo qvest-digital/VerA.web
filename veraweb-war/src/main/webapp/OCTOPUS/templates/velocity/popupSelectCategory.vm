@@ -102,7 +102,7 @@
 		#end
 
 
-	<div class="textRight" id="buttonPanel-bottom">
+	<div class="textRight marginTop5" id="buttonPanel-bottom">
 		<input type="button" value="Abbrechen" onClick="restore();closePopup();">
 		#if( $assignmentAction == "assign" && $allCategorie.size() > 0 )
 				<input type="button" value="Zuweisen" onClick="send();closePopup();">

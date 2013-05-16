@@ -661,6 +661,10 @@ textarea {
 	width:30%;
 }
 
+.calendarContainer {
+	position:relative;
+}
+
 .datepickerContainer {
     margin-left: -5px;
     vertical-align: top;

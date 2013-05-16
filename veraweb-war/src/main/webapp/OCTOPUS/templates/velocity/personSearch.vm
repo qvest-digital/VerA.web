@@ -157,26 +157,26 @@
                         <div class="tableCell width30">
                             <label for="workarea">Arbeitsbereich</label>
 
-<select name="workarea" id="workarea" class="combobox">
-<option value="">Alle</option>
-<option value="0">Kein Arbeitsbereich zugeordnet</option>
-#foreach($workArea in $allWorkArea)
-    <option value="$!workArea.id" #if($search.workarea == $!workArea.id) selected #end>$!workArea.name</option>
-#end
-</select>
+							<select name="workarea" id="workarea" class="combobox">
+							<option value="">Alle</option>
+							<option value="0">Kein Arbeitsbereich zugeordnet</option>
+							#foreach($workArea in $allWorkArea)
+							    <option value="$!workArea.id" #if($search.workarea == $!workArea.id) selected #end>$!workArea.name</option>
+							#end
+							</select>
 
                         </div>
                         <div class="tableCell width30">
                             <label for="categorie2">Ereignis</label>
 
-<select name="categorie2" id="categorie2" class="combobox">
-<option value="">Alle</option>
-#foreach($categorie in $allCategorie)
-    #if($categorie.flags == 1)
-    <option value="$!categorie.id" #if($search.categorie2 == $!categorie.id) selected #end>$!categorie.name</option>
-    #end
-#end
-</select>
+							<select name="categorie2" id="categorie2" class="combobox">
+							<option value="">Alle</option>
+							#foreach($categorie in $allCategorie)
+							    #if($categorie.flags == 1)
+							    <option value="$!categorie.id" #if($search.categorie2 == $!categorie.id) selected #end>$!categorie.name</option>
+							    #end
+							#end
+							</select>
 
                         </div>
                     </div>
@@ -193,20 +193,18 @@
                                 <option value="3" #if($search.validtype == 3) selected #end>an genau diesem Datum</option>
                             </select>
 
-
-		<input type="date" name="validdate" value="$!message.date("DATE", $search.validdate)" id="validdate" class="date datepicker" style="width: 90px;">
-		<span id="showGueltigDate" class="datepickerContainer"><img src="${paths.staticWeb}images/calendar.png" alt="Datum ausw&auml;hlen" title="Datum ausw&auml;hlen"></span>
-		<script type="text/javascript">
-		    Calendar.setup({
-				inputField     :    "validdate",
-				button         :    "showGueltigDate",
-				ifFormat       :    "%d.%m.%Y",
-				showsTime      :    false
-			});
-		</script>
-
-
-
+							<div class="calendarContainer">
+								<input type="date" name="validdate" value="$!message.date("DATE", $search.validdate)" id="validdate" class="date datepicker" style="width: 90px;">
+								<span id="showGueltigDate" class="datepickerContainer"><img src="${paths.staticWeb}images/calendar.png" alt="Datum ausw&auml;hlen" title="Datum ausw&auml;hlen"></span>
+								<script type="text/javascript">
+								    Calendar.setup({
+										inputField     :    "validdate",
+										button         :    "showGueltigDate",
+										ifFormat       :    "%d.%m.%Y",
+										showsTime      :    false
+									});
+								</script>
+							</div>
                         </div>
                         <div class="tableCell width30"></div>
                     </div>

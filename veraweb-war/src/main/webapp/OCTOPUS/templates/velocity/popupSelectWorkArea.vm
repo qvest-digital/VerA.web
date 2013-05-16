@@ -98,7 +98,7 @@
 	    Sie haben keine Arbeitsbereiche konfiguriert. Diese können Sie im Verwaltungsbereich unter dem Punkt <em>Arbeitsbereiche</em> definieren.
 	#end
 
-	<div class="textRight" id="buttonPanel-bottom">
+	<div class="textRight marginTop5" id="buttonPanel-bottom">
 		<input type="button" value="Abbrechen" onClick="restore();closePopup();">
 		#if( $assignmentAction == "assign" && $allWorkArea.size() > 0 )
 				<input type="button" value="Zuweisen" onClick="send();closePopup();">
