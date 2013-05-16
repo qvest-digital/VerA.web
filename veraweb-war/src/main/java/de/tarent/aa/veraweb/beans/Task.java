@@ -382,7 +382,7 @@ public class Task extends AbstractHistoryBean {
             }
         }
         if (title == null || title.trim().length() == 0) {
-            addError("Die Aufgabe kann nicht gespeichert werden. Vergeben Sie bitte einen Titel.");
+            addError("Die Aufgabe kann nicht gespeichert werden. Vergeben Sie bitte eine Kurzbezeichnung.");
         }
         if (description != null && description.length() > 1000) {
             addError("Die Aufgabe kann nicht gespeichert werden. Das Feld Beschreibung darf nicht mehr als 1000 Zeichen besitzen.");
