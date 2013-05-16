@@ -5,9 +5,9 @@
 <html>
 
 <head>
-	<title>Auswahl Arbeitsbereich</title>
+	<title>Arbeitsbereiche</title>
 	<link rel="stylesheet" type="text/css" href="${paths.staticWeb}styles/default.css" media="all">
-	<link rel="stylesheet" type="text/css" href="${paths.staticWeb}styles/screen.css" media="screen,projection" title="Ausw&auml;rtiges Amt Intranet-Stil">
+	<link rel="stylesheet" type="text/css" href="${paths.staticWeb}styles/style.css" media="all" />
 	<script type="text/javascript" src="/veraweb/scripts/dhtml-popup.js"></script>
 	<script type="text/javascript">
 		var oldState = { workareaId : null, actionName : null };
@@ -70,22 +70,19 @@
 	</script>
 </head>
 
-<body onload="adjustSize();">
+<body onload="adjustSize();" id="popUp">
 
 <form>
-<table class="tab" border="0" cellspacing="0" cellpadding="0"><tr><td class="tableft">&nbsp;</td></tr></table>
 
-<div class="content" id="content">
-	<div class="contentsection" style="padding:0 8;">
-		<strong>Wählen Sie einen Arbeitsbereich aus, welchen Sie 
+<div class="contentBoxColored grayBorder">
+		<h2>Wählen Sie einen Arbeitsbereich aus, welchen Sie 
 	#if( $assignmentAction == "assign" )
 		zuweisen
 	#else
 		entfernen
 	#end
-	    möchten:</strong>
-	</div>
-	<div class="contentsection" style="padding:0 8;">
+	    möchten:</h2>
+
 	#if( $allWorkArea.size() > 0 )
 		<label for="workarea">Arbeitsbereich:</label>
 		<select name="workarea" id="workarea" onChange="selected(this);">
@@ -100,27 +97,23 @@
 	#else
 	    Sie haben keine Arbeitsbereiche konfiguriert. Diese können Sie im Verwaltungsbereich unter dem Punkt <em>Arbeitsbereiche</em> definieren.
 	#end
-	</div>
-	<hr class="contentsection">
-	<div class="contentsection" style="padding:0 8;text-align: right;">
-		<input type="button" value="Abbrechen" onClick="restore();closePopup();">&nbsp;
-#if( $assignmentAction == "assign" && $allWorkArea.size() > 0 )
-		<input type="button" value="Zuweisen" onClick="send();closePopup();">
-#elseif ( $allWorkArea.size() > 0 )
-		<input type="button" value="Entfernen" onClick="send();closePopup();">
-#end
+
+	<div class="textRight" id="buttonPanel-bottom">
+		<input type="button" value="Abbrechen" onClick="restore();closePopup();">
+		#if( $assignmentAction == "assign" && $allWorkArea.size() > 0 )
+				<input type="button" value="Zuweisen" onClick="send();closePopup();">
+		#elseif ( $allWorkArea.size() > 0 )
+				<input type="button" value="Entfernen" onClick="send();closePopup();">
+		#end
 	</div>
 </div>
 </form>
 
-<table class="list">
-	<tr style="height: 20px;">
-		<td class="list2warn" style="text-align: center; width: 60px;"><strong>Hinweis</strong></td>
-		<td class="list1warn">
-			Sie haben ${count} Person(en) ausgewählt. Abhängig von der Anzahl
-			der ausgewählten Personen kann die Aktion eine gewisse Zeit in Anspruch nehmen.
-		</td>
-	</tr>
-</table>
+<div class="contentBoxColored hinweis grayBorder marginTop10">
+	<strong>Hinweis</strong><br>
+	Sie haben ${count} Person(en) ausgewählt. Abhängig von der Anzahl
+	der ausgewählten Personen kann die Aktion eine gewisse Zeit in Anspruch nehmen.
+</div>
+
 </body>
 </html>
