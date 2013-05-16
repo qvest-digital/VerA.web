@@ -9,7 +9,7 @@
                 <li #if ($activeMenu == "Personen") class="active" #end >
     				<span>Personen</span>
     				<ul>
-    					<li><a id="menu.overviewPerson" href="${paths.staticWeb}do/SearchPerson?action=person&search=reset">Personen&uuml;bersicht</a></li>
+    					<li><a id="menu.overviewPerson" href="${paths.staticWeb}do/SearchPerson?action=person&search=reset&findAll=true">Personen&uuml;bersicht</a></li>
     					#if($grants.mayWrite())
         					<li><a id="menu.searchPerson" href="${paths.staticWeb}do/ShowPersonSearch?action=person&search=clear">Personensuche</a></li>
         					<li><a id="menu.newPerson" href="${paths.staticWeb}do/CreatePerson?action=person">Neue Person</a></li>

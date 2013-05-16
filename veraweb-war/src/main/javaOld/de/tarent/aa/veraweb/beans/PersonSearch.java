@@ -45,6 +45,7 @@ public class PersonSearch extends AbstractBean {
 	public Integer validtype;
 	public Date validdate;
 	public Boolean onlyhosts;
+	public Boolean findAll;
 
     /**
      * Diese Methode testet, ob im aktuellen Kontext diese Bohne gelesen werden

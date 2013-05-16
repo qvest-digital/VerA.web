@@ -659,9 +659,13 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 	protected Clause getPersonListFilter(OctopusContext cntx) throws BeanException {
 		WhereList list = new WhereList();
 		addPersonListFilter(cntx, list);
-		return Where.and(
-				Expr.equal("tperson.fk_orgunit", ((PersonalConfigAA)cntx.personalConfig()).getOrgUnitId()),
-				list);
+		
+		Where orgunitFilter = Expr.equal("tperson.fk_orgunit", ((PersonalConfigAA)cntx.personalConfig()).getOrgUnitId());
+		if (list.size() == 0) {
+		    return orgunitFilter;
+		} else {
+		    return Where.and(orgunitFilter, list);
+		}
 	}
 
 	/**
@@ -674,6 +678,11 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 	 */
 	private void addPersonListFilter(OctopusContext cntx, WhereList list) throws BeanException {
 		PersonSearch search = getSearch(cntx);
+		
+		if (search.findAll != null && search.findAll.booleanValue()) {
+		    return;
+		}
+		
 		list.addAnd(Expr.equal("tperson.deleted", PersonConstants.DELETED_FALSE));
 
 		/*
