@@ -85,16 +85,16 @@
 <div id="fixme" class="fixme1"><div class="fixme2"><div class="fixme3">
 
 #if($action == "guest")
-	<input id="button.startSearch" type="submit" class="submit" value="Suche starten"> &nbsp;
-	<input type="reset"  class="reset" value="Felder leeren"> &nbsp;
-	<input type="button" class="cancel"  name="cancel" value="Zur&uuml;ck" onclick="window.location.href='ShowGuestList';"> &nbsp;
+	<input id="button.startSearch" type="submit" class="submit" value="Suche starten"> 
+	<input type="reset"  class="reset" value="Felder leeren"> 
+	<input type="button" class="cancel"  name="cancel" value="Zur&uuml;ck" onclick="window.location.href='ShowGuestList';">
 #elseif($action == "addperson")
-	<input id="button.startSearch" type="submit" class="submit" value="Suche starten"> &nbsp;
-	<input type="reset"  class="reset" value="Felder leeren"> &nbsp;
-	<input type="button" class="cancel"  name="cancel" value="Zur&uuml;ck" onclick="window.location.href='ShowPerson';"> &nbsp;
+	<input id="button.startSearch" type="submit" class="submit" value="Suche starten"> 
+	<input type="reset"  class="reset" value="Felder leeren">
+	<input type="button" class="cancel"  name="cancel" value="Zur&uuml;ck" onclick="window.location.href='ShowPerson';"> 
 #else
-	<input id="button.startSearch" type="submit" class="submit" value="Suche starten"> &nbsp;
-	<input type="reset"  class="reset" value="Felder leeren"> &nbsp;
+	<input id="button.startSearch" type="submit" class="submit" value="Suche starten">
+	<input type="reset"  class="reset" value="Felder leeren">
 #end
 
 </div></div></div>
