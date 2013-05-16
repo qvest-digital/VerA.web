@@ -483,6 +483,14 @@ hr {border-top:1px solid #8b0f0f; }
 #peopleTop > .table > .tableRow > .tableCell .tableCell:last-child {
 }	
 
+#popUp {
+	padding:20px;
+}
+
+#popUp h2 {
+	margin-bottom:10px;
+}
+
 /************* =6.1 tabs *************/
 
 #main_content.tabs {
