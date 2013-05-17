@@ -501,17 +501,8 @@ hr {border-top:1px solid #8b0f0f; }
     font-weight: bold;
 }
 
-.tabs a {
-	border: none;
-	color: #7d7d7d;
-}
-
 .tabs li.active {
     background-color: #F9F9F9;
-}
-
-.tabs li.active a {
-    color: #1b1b1b;
 }
 
 #tabsMain ul {
@@ -533,6 +524,10 @@ hr {border-top:1px solid #8b0f0f; }
     height: 41px;
 }
 
+#tabsMain li.inactive,
+.tabsSub li.inactive {
+color:#7D7D7D
+}
 
 .tabsSub {
 	width:185px;
