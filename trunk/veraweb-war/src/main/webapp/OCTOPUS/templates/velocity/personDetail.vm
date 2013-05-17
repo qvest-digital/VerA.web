@@ -156,7 +156,7 @@
             	#if($grants.mayWrite())
     				<input type="button" name="event" class="mainButton" value="Einer Veranstaltung hinzufügen" title="Person einer Veranstaltung zuordnen" onclick="if (checkModified()) { window.location.href='${paths.staticWeb}do/ShowEventSearch?action=addperson'; }">
             	#end
-            	<input type="button" name="remove" class="mainButton" value="Person L&ouml;schen" title="Aktuelle Person l&ouml;schen und zur Personenliste zur&uuml;ckkehren." onclick="if (checkModified()) { removePerson(); }" #if(!$grants.mayWrite()) disabled #end>
+            	<input type="button" name="remove" class="mainButton" value="Person l&ouml;schen" title="Aktuelle Person l&ouml;schen und zur Personenliste zur&uuml;ckkehren." onclick="if (checkModified()) { removePerson(); }" #if(!$grants.mayWrite()) disabled #end>
         	#end
         
             ## modified to disable the button in case that this is a new record
