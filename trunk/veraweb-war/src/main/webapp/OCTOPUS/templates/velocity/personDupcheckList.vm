@@ -29,7 +29,7 @@
 		<th>Stra&szlig;e</th>
 		<th>PLZ</th>
 		<th>Ort</th>
-		<th class="textCenter">Weiteres Vorgehen</th>
+		<th class="textCenter smallCell">Weiteres Vorgehen</th>
 	</tr>
 	<tr>
 		<td class="textCenter"><em>neu</em></td>
@@ -59,7 +59,7 @@
 		<td style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!action';">$!bean.street_a_e1</td>
 		<td style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!action';">$!bean.zipcode_a_e1</td>
 		<td style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!action';">$!bean.city_a_e1</td>
-		<td class="textCenter"><a href="ShowPerson?id=$!{bean.id}&action=$!action" class="noBorder"><img src="${paths.staticWeb}images/edit.png" alt="Existierenden Eintrag &uuml;bernehmen" title="Existierenden Eintrag &uuml;bernehmen"></a></td>
+		<td class="textCenter"><a href="ShowPerson?id=$!{bean.id}&action=$!action" class="noBorder"><img src="${paths.staticWeb}images/edit.png" alt="Existierenden Eintrag bearbeiten" title="Existierenden Eintrag bearbeiten"></a></td>
 	</tr>
 	#end
 </table>
@@ -77,7 +77,7 @@
 	<input type="button" class="cancel" name="cancel" value="Zur&uuml;ck" onclick="window.location.href='ShowGuestList';"> &nbsp;
 #else
 	<!-- <input type="button" class="button" name="newperson" value="Duplikat anlegen" onclick="window.location.href='SavePerson?saveperson=true&person-nodupcheck=true&originalPersonId=$!originalPersonId';"> --> &nbsp;
-	<input type="button" name="cancel" value="Zur&uuml;ck" onclick="window.location.href='PersonDupcheckCancel';" class="mainButton">
+	<input type="button" name="cancel" value="Abbrechen &amp; zur&uuml;ck" onclick="window.location.href='PersonDupcheckCancel';" class="mainButton">
 #end
 
 </div></div></div>
