@@ -11,8 +11,6 @@
 *	2.4 misc
 * 3. header
 *	3.1 Logo
-*	3.2 description text
-*	3.3 user text
 * 4. navigation
 * 5. infoboxes
 * 6. content
@@ -262,6 +260,8 @@ ul.alphabet li {
 
 .noDisplay {display:none;}
 
+.autoWidth {width:auto !important;}
+
 /************* End misc *************/
 
 /************* End general *************/
@@ -313,22 +313,6 @@ header h2 {
 
 
 /************* End Logo *************/
-
-/************* =3.3 description text *************/
-
-header #description {
-
-}
-
-/************* End description text *************/
-
-/************* =3.3 user text *************/
-
-header #user {
-
-}
-
-/************* End user text *************/
 
 /************* End header *************/
 
@@ -420,10 +404,12 @@ nav a, #nav a {
 
 /************* =5 infoboxes *************/
 
-.infobox {
- 
- }
-
+.info {
+    background-color: #FFFFFF;
+    border: 2px solid #8B0F0F;
+    min-height: 100%;
+    padding: 10px;
+}
 /************* End infoboxes *************/
 
 
@@ -462,13 +448,6 @@ nav a, #nav a {
 .hinweis {
 	background-color: white;	
 	padding: 20px;
-}
-
-.info {
-    background-color: #FFFFFF;
-    border: 2px solid #8B0F0F;
-    min-height: 100%;
-    padding: 10px;
 }
 
 #main_content {
@@ -524,6 +503,11 @@ hr {border-top:1px solid #8b0f0f; }
     margin-left: 185px;
 }
 
+.event #tabsMain ul {
+    border-left: 0 none;
+    margin-left: 0;
+}
+
 #tabsMain li {
     border-right: 1px solid #BDBDBD;
     display: inline-block;
@@ -577,6 +561,7 @@ color:#7D7D7D
     box-shadow: -3px 0 3px #D0D0D0;
     margin-left: 185px;
 }
+
 
 .tabsContent #buttonPanel-bottom {
     display: block;
@@ -795,6 +780,14 @@ tr {
     background-color: #fafafa;
 }
 
+tr:hover {
+	    background-color: #ffffc3 !important;
+}
+
+tr:hover th {
+	    background-color: none !important;
+}
+
 tr:nth-child(even) {
 	background-color: #e5e5e5;
 }
@@ -855,7 +848,7 @@ td, th {
 
 .width5, .tabsContent .width5 {width: 5%;}
 
-.width10, .tabsContent .width10 {width: 10%;} .width15, .tabsContent .width15 {width: 15%;}
+.width10, .tabsContent .width10 {width: 10%;} .width15, .tabsContent .width15 {width: 15% !important;}
 
 .width20, .tabsContent .width20 {width: 20%;} .width25, .tabsContent .width25 {width: 25%;}
 

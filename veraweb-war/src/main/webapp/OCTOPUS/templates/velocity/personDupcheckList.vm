@@ -31,7 +31,7 @@
 		<th>Ort</th>
 		<th class="textCenter smallCell">Weiteres Vorgehen</th>
 	</tr>
-	<tr onmouseover="onMouseOverList(this);" onmouseout="onMouseOutList(this);">
+	<tr>
 		<td class="textCenter"><em>neu</em></td>
 		##additional parameters action cf. issue #2091
 		<td style="cursor: pointer;" onclick="window.location.href='SavePerson?saveperson=true&person-nodupcheck=true&originalPersonId=$!originalPersonId&action=$!action';">$!person.lastname_a_e1</td>
@@ -49,7 +49,7 @@
 	#else
 		#set($class = "list1")
 	#end
-	<tr class="$class" onmouseover="onMouseOverList(this);" onmouseout="onMouseOutList(this);">
+	<tr class="$class">
 		##additional parameters action cf. issue #2091
 		<td class="textCenter" style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!action';"><input type="hidden" name="${bean.id}-id" value="$bean.id"><a href="ShowPerson?id=$!{bean.id}&action=$!action">$!{bean.id}</a></td>
 		<td style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!action';">$!bean.lastname_a_e1</td>
