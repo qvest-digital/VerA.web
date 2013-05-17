@@ -106,10 +106,18 @@
 	</div>
 	
 	<h1>$title</h1>
-	
-	
-	
-	#if($action == "guest")
+
+    #if($isNewPerson)
+
+    <div class="contentBoxColored hinweis grayBorder marginBottom20">
+        <strong>Hinweis</strong>
+        <p>Bitte geben Sie zunächst den <strong>Vor- und Nachnamen</strong> an und <strong>speichern</strong> die Person.
+            Bei Firmen wählen Sie die Checkbox <strong>"Ist Firma"</strong> und tragen dann den Firmennamen ein. Das System prüft Ihre Angaben daraufhin auf Duplikate. Liegt kein Duplikat vor, können Sie weitere Daten eingeben</p>
+    </div>
+    #end
+
+
+    #if($action == "guest")
 		
 		<span class="buttonPanel-top textRight floatRight marginBottom20">
 			#if($person && $person.id)
