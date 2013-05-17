@@ -435,8 +435,12 @@
 	$("#person-iscompany").click(function() {
        if(this.checked) {
     		$('#company-row').show();
+			$('label[for=person-firstname_a_e1]').html('Vorname');
+			$('label[for=person-lastname_a_e1]').html('Nachname');
         } else {
     		$('#company-row').hide();
+			$('label[for=person-firstname_a_e1]').html('Vorname*');
+			$('label[for=person-lastname_a_e1]').html('Nachname*');
         }
 	});
 
