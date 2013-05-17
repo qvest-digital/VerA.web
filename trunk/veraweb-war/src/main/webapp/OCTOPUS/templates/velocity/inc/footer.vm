@@ -7,7 +7,7 @@
 						e2.innerHTML = e1.innerHTML;
 					}
 				</script>
-			<div class="clear"></div>
+
 			<footer id="footer"><img src="${paths.staticWeb}images/tarent_logo.png" alt="tarent Logo" title="tarent AG" /></footer>
 		</div>
 	</body>
