@@ -12,59 +12,81 @@
 #end
 #end
 
-<table class="list" style="width: 99%;">
-	<tr class="list1" style="height: 20px;">
-		<th class="list" style="width: 20px;">&nbsp;</th>
-		<th class="list">Dokumenttyp</th>
-		<th class="list" style="width: 140px;">Anschrift</th>
-		<th class="list" style="width: 140px;">Zeichensatz</th>
-		<th class="list" style="width: 100px;">&nbsp;</th>
-	</tr>
+<span class="buttonPanel-top textRight floatRight marginBottom20">
+#if($action == "guest")
+    <input type="submit" name="remove" value="Ausgewählte löschen" title="Markierte Eintr&auml;ge entfernen" #if($grants.mayWrite()) class="button mainButton" #else class="buttondisabled mainButton" disabled #end> &nbsp;
+    <input type="button" name="create" value="Ausgewählte erzeugen" onclick="window.location.href='${paths.staticWeb}do/CreateAllPersonDoctypes?id=$!person.id';" #if($grants.mayWrite()) class="button mainButton" #else class="buttondisabled mainButton" disabled #end> &nbsp;
+#elseif($action == "host")
+    <input type="submit" name="remove" value="Ausgewählte löschen" title="Markierte Eintr&auml;ge entfernen" #if($grants.mayWrite()) class="button mainButton" #else class="buttondisabled mainButton" disabled #end> &nbsp;
+    <input type="button" name="create" value="Ausgewählte erzeugen" onclick="window.location.href='${paths.staticWeb}do/CreateAllPersonDoctypes?id=$!person.id';" #if($grants.mayWrite()) class="button mainButton" #else class="buttondisabled mainButton" disabled #end> &nbsp;
+#elseif($action == "event")
+    <input type="submit" name="remove" value="Ausgewählte löschen" title="Markierte Eintr&auml;ge entfernen" #if($grants.mayWrite()) class="button mainButton" #else class="buttondisabled mainButton" disabled #end> &nbsp;
+    <input type="button" name="create" value="Ausgewählte erzeugen" onclick="window.location.href='${paths.staticWeb}do/CreateAllPersonDoctypes?id=$!person.id';" #if($grants.mayWrite()) class="button mainButton" #else class="buttondisabled mainButton" disabled #end> &nbsp;
+#else
+    <input type="submit" name="remove" value="Ausgewählte löschen" title="Markierte Eintr&auml;ge entfernen" #if($grants.mayWrite()) class="button mainButton" #else class="buttondisabled mainButton" disabled #end> &nbsp;
+    <input type="button" name="create" value="Ausgewählte erzeugen" onclick="window.location.href='${paths.staticWeb}do/CreateAllPersonDoctypes?id=$!person.id';" #if($grants.mayWrite()) class="button mainButton" #else class="buttondisabled mainButton" disabled #end> &nbsp;
+#end
+</span>
+
+<br /><br />
+
+	<table>
+		<tr>
+			<th class="textCenter smallCell">	
+			
+			<input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" onChange="selectionChange( this );" #if($listselection.size() == $listparam.count) checked#end title="Alle (de)markieren"/></th>
+			<th class="width90">Dokumenttyp</th>
+			<th>Anschrift</th>
+			<th>Zeichensatz</th>
+			<th class="smallCell">Bearbeiten</th>
+		</tr>
 	#foreach($bean in $list)
 	#if ($velocityCount % 2 == 1)
 		#set($class = "list2")
 	#else
 		#set($class = "list1")
 	#end
-	<tr class="$class">
-		<td class="list"><input type="hidden" id="${bean.id}-modified" name="${bean.id}-modified" value="false"><input type="checkbox" name="${bean.id}-select" value="true" class="checkbox" #if($listselection.indexOf($bean.id) != -1) checked#end></td>
-		#if($bean.id)
-		<td class="list" style="cursor: pointer;" #if($bean.id) onclick="window.location.href='${paths.staticWeb}do/ShowPersonDoctype?persondoctype-id=$!bean.id';"#else onclick="window.location.href='${paths.staticWeb}do/CreatePersonDoctype?doctype-id=$!bean.doctypeId';"#end><input type="hidden" name="${bean.id}-id" value="$!bean.id"><input type="hidden" name="${bean.id}-person" value="$!bean.person">$!bean.name</td>
-		#else
-		<td class="list" style="cursor: pointer;" #if($bean.id) onclick="window.location.href='${paths.staticWeb}do/ShowPersonDoctype?persondoctype-id=$!bean.id';"#else onclick="window.location.href='${paths.staticWeb}do/CreatePersonDoctype?doctype-id=$!bean.doctypeId';"#end><input type="hidden" name="${bean.id}-id" value="$!bean.id"><input type="hidden" name="${bean.id}-person" value="$!bean.person">$!bean.name</td>
-		#end
-		<td class="list">
-			<select id="${bean.id}-addresstype" name="${bean.id}-addresstype" class="combobox" style="width: 99%;" onchange="setModified('${bean.id}')" #if(!$bean.id) disabled #end>
-			#if($bean.addresstype && $bean.addresstype != 0)
-				<option value="1" #if($bean.addresstype == 1) selected#end>$!config.business</option>
-				<option value="2" #if($bean.addresstype == 2) selected#end>$!config.private</option>
-				<option value="3" #if($bean.addresstype == 3) selected#end>$!config.other</option>
-			#else
-				<option value="1" #if($bean.doctypeAddresstype == 1) selected#end>$!config.business</option>
-				<option value="2" #if($bean.doctypeAddresstype == 2) selected#end>$!config.private</option>
-				<option value="3" #if($bean.doctypeAddresstype == 3) selected#end>$!config.other</option>
-			#end
-			</select>
-		</td>
-		<td class="list">
-			<select id="${bean.id}-locale" name="${bean.id}-locale" class="combobox" style="width: 99%;" onchange="setModified('${bean.id}')" #if(!$bean.id) disabled #end>
-				#if($bean.locale && $bean.locale != 0)
-				<option value="1" #if($bean.locale == 1) selected#end>$!config.latin</option>
-				<option value="2" #if($bean.locale == 2) selected#end>$!config.extra1</option>
-				<option value="3" #if($bean.locale == 3) selected#end>$!config.extra2</option>
+		<tr class="$class" onmouseover="onMouseOverList(this);" onmouseout="onMouseOutList(this)";>
+			<td class="textCenter smallCell">
+				<input type="hidden" id="${bean.id}-modified" name="${bean.id}-modified" value="false">
+				<input type="checkbox" name="${bean.id}-select" value="true" onChange="selectionChange( this );" #if($listselection.indexOf($bean.id) != -1) checked#end></td>
+			</td>
+			
+			<td class="clickable list" style="cursor: pointer;" #if($bean.id) onclick="window.location.href='${paths.staticWeb}do/ShowPersonDoctype?persondoctype-id=$!bean.id';"#else onclick="window.location.href='${paths.staticWeb}do/CreatePersonDoctype?doctype-id=$!bean.doctypeId';"#end>
+			<input type="hidden" name="${bean.id}-id" value="$!bean.id"><input type="hidden" name="${bean.id}-person" value="$!bean.person">$!bean.name</td>
+			
+			<td class="list">
+				<select id="${bean.id}-addresstype" name="${bean.id}-addresstype" class="combobox" style="width: 99%;" onchange="setModified('${bean.id}')" #if(!$bean.id) disabled #end>
+				#if($bean.addresstype && $bean.addresstype != 0)
+					<option value="1" #if($bean.addresstype == 1) selected#end>$!config.business</option>
+					<option value="2" #if($bean.addresstype == 2) selected#end>$!config.private</option>
+					<option value="3" #if($bean.addresstype == 3) selected#end>$!config.other</option>
 				#else
-				<option value="1" #if($bean.doctypeLocale == 1) selected#end>$!config.latin</option>
-				<option value="2" #if($bean.doctypeLocale == 2) selected#end>$!config.extra1</option>
-				<option value="3" #if($bean.doctypeLocale == 3) selected#end>$!config.extra2</option>
+					<option value="1" #if($bean.doctypeAddresstype == 1) selected#end>$!config.business</option>
+					<option value="2" #if($bean.doctypeAddresstype == 2) selected#end>$!config.private</option>
+					<option value="3" #if($bean.doctypeAddresstype == 3) selected#end>$!config.other</option>
 				#end
-			</select>
-		</td>
+				</select>
+			</td>
+			<td class="list">
+				<select id="${bean.id}-locale" name="${bean.id}-locale" class="combobox" style="width: 99%;" onchange="setModified('${bean.id}')" #if(!$bean.id) disabled #end>
+					#if($bean.locale && $bean.locale != 0)
+					<option value="1" #if($bean.locale == 1) selected#end>$!config.latin</option>
+					<option value="2" #if($bean.locale == 2) selected#end>$!config.extra1</option>
+					<option value="3" #if($bean.locale == 3) selected#end>$!config.extra2</option>
+					#else
+					<option value="1" #if($bean.doctypeLocale == 1) selected#end>$!config.latin</option>
+					<option value="2" #if($bean.doctypeLocale == 2) selected#end>$!config.extra1</option>
+					<option value="3" #if($bean.doctypeLocale == 3) selected#end>$!config.extra2</option>
+					#end
+				</select>
+			</td>
 		#if($bean.id)
-		<td class="list">
+		<td class="textCenter smallCell list">
 		## 2009-05-07 c.klein
 		## refactored parameterization as part of fix for issue #1528
 			#if($grants.mayWrite())
-			<a href="${paths.staticWeb}do/ShowPersonDoctype?persondoctype-id=$!bean.id">bearbeiten</a>
+			<a href="${paths.staticWeb}do/ShowPersonDoctype?persondoctype-id=$!bean.id"><img src="img/edit.png" alt="icon" /></a>
 			#else
 			<a href="${paths.staticWeb}do/ShowPersonDoctype?persondoctype-id=$!bean.id">anschauen</a>
 			#end
@@ -86,48 +108,26 @@
 		#end
 	</tr>
 	#end
+	#set($itemName = "Dokumenttypen")
+	#parse("inc/list-navi-new.vm")
 </table>
+
+## Handler für SelectAll Toggling 
+		<script>
+			$(function(){
+                $('#toggleAllSelect').change(function(){
+                    if ($(this).is(':checked')) {
+						navigateSelectAll();
+                    } else {
+						navigateSelectNone();
+                    }
+                });
+            });
+		</script>
 
 #if ($listparam.count == 0)
 	<br>Keine Daten gefunden.
 #end
 
-<div>
-<div id="fixme" class="fixme1"><div class="fixme2"><div class="fixme3">
-
-	#parse("inc/list-navi.vm")
-	#parse("inc/list-direct.vm")
-
-#if($action == "guest")
-    <input type="submit" name="save" value="Speichern" #if($grants.mayWrite()) class="button" #else class="buttondisabled" disabled #end> &nbsp;
-    <input type="submit" name="remove" value="L&ouml;schen" title="markierte Eintr&auml;ge entfernen" #if($grants.mayWrite()) class="button" #else class="buttondisabled" disabled #end> &nbsp;
-## 2009-05-07 cklein
-## refactor-renamed to CreateAllPersonDoctypes as part of issue #1528
-    <input type="button" name="create" value="Alle erzeugen" onclick="window.location.href='${paths.staticWeb}do/CreateAllPersonDoctypes?id=$!person.id';" #if($grants.mayWrite()) class="button" #else class="buttondisabled" disabled #end> &nbsp;
-    #if($person)
-    <input type="button" name="add" value="&Uuml;bernehmen" title="Gast direkt in G&auml;steliste &uuml;bernehmen" onclick="addToGuestList();" #if($grants.mayWrite()) class="button" #else class="buttondisabled" disabled #end> &nbsp;
-    <input type="button" name="cancel" class="button" value="Zur&uuml;ck" title="Zur&uuml;ck zur Personenliste" onclick="window.location.href='AddPersonToEventList';"> &nbsp;
-    #else
-    <input type="button" name="cancel" class="button" value="Zur&uuml;ck" title="Zur&uuml;ck zur Personenliste" onclick="window.location.href='AddPersonToEventList';"> &nbsp;
-    #end
-#elseif($action == "host")
-    <input type="submit" name="save" value="Speichern" #if($grants.mayWrite()) class="button" #else class="buttondisabled" disabled #end> &nbsp;
-    <input type="submit" name="remove" value="L&ouml;schen" title="markierte Eintr&auml;ge entfernen" #if($grants.mayWrite()) class="button" #else class="buttondisabled" disabled #end> &nbsp;
-    <input type="button" name="create" value="Alle erzeugen" onclick="window.location.href='${paths.staticWeb}do/CreateAllPersonDoctypes?id=$!person.id';" #if($grants.mayWrite()) class="button" #else class="buttondisabled" disabled #end> &nbsp;
-    <input type="button" name="cancel" class="button" value="Zur&uuml;ck" onclick="window.location.href='${paths.staticWeb}do/SetHostToEventList';">
-#elseif($action == "event")
-    <input type="submit" name="save" value="Speichern" #if($grants.mayWrite()) class="button" #else class="buttondisabled" disabled #end> &nbsp;
-    <input type="submit" name="remove" value="L&ouml;schen" title="markierte Eintr&auml;ge entfernen" #if($grants.mayWrite()) class="button" #else class="buttondisabled" disabled #end> &nbsp;
-    <input type="button" name="create" value="Alle erzeugen" onclick="window.location.href='${paths.staticWeb}do/CreateAllPersonDoctypes?id=$!person.id';" #if($grants.mayWrite()) class="button" #else class="buttondisabled" disabled #end> &nbsp;
-    <input type="button" name="cancel" class="button" value="Zur&uuml;ck" onclick="window.location.href='${paths.staticWeb}do/ShowGuestDetail';">
-#else
-    <input type="submit" name="save" value="Speichern" #if($grants.mayWrite()) class="button" #else class="buttondisabled" disabled #end> &nbsp;
-    <input type="submit" name="remove" value="L&ouml;schen" title="markierte Eintr&auml;ge entfernen" #if($grants.mayWrite()) class="button" #else class="buttondisabled" disabled #end> &nbsp;
-    <input type="button" name="create" value="Alle erzeugen" onclick="window.location.href='${paths.staticWeb}do/CreateAllPersonDoctypes?id=$!person.id';" #if($grants.mayWrite()) class="button" #else class="buttondisabled" disabled #end> &nbsp;
-    <input type="button" name="cancel" class="button" value="Zur&uuml;ck" onclick="window.location.href='${paths.staticWeb}do/SearchPerson?action=person';"> &nbsp;
-#end
-
-</div></div></div>
-</div>
 
 </form>

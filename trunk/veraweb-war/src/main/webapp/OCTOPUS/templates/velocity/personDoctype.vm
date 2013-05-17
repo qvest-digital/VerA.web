@@ -1,41 +1,12 @@
-#set($activeMenu = "Personen")
-#if($person && $person)
-#set($title = "Person bearbeiten: $!message.plain($person.MainLatin.SaveAs)")
-#parse("inc/header.vm")
-#else
-#set($title = "Neue Person anlegen")
-#parse("inc/header.vm")
-#end
-
-<table class="tab" border="0" cellspacing="0" cellpadding="0"><tr>
-	<td class="tableft">&nbsp;</td>
-	<td class="tabinactiv"><a href="ShowPerson?id=$!person.id&tab=person&offset=${navigation.current.offset}" class="tabinactiv">Personendaten</a></td>
-	<td class="tabinactiv"><a href="ShowPerson?id=$!person.id&tab=anschrift&offset=${navigation.current.offset}" class="tabinactiv">Anschriften</a></td>
-#if($person && $person && $person.id && $person.id)
-	<td class="tabactiv"><a href="ShowPersonDoctypeList?id=$!person.id&offset=${navigation.current.offset}" class="tabactiv">Dokumenttypen</a></td>
-	<td class="tabinactiv"><a href="ShowPersonCategorieList?id=$!person.id&offset=${navigation.current.offset}" class="tabinactiv">Kategorien</a></td>
-#else
-	<td class="tabdisabled"><span class="tabdisabled">Dokumenttypen</span></td>
-	<td class="tabdisabled"><span class="tabdisabled">Kategorien</span></td>
-#end
-	<td class="tabright">&nbsp;</td>
-</tr></table>
-
-#openContent()
-
-#openContentSection()
-#parse("inc/person-header.vm")
 #closeContentSection()
 
 #openContentSection()
 
-<div vera-content="dokumenttypen" class="contentBoxColored tabsContent">
 #if($persondoctype)
 #parse("inc/person-doctype2.vm")
 #else
 #parse("inc/person-doctype.vm")
 #end
-</div>
 
 #closeContentSection()
 
@@ -73,5 +44,3 @@
 	disableFormCheckbox(document.getElementById('person-iscompany'));
 	hideBlock(document.getElementById('show-expire'));
 </script>
-
-#parse("inc/footer.vm")
