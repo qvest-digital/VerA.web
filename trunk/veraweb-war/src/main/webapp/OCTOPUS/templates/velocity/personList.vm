@@ -111,7 +111,7 @@
         					<option title="Ausgew&auml;hlte Personen zur Veranstaltung hinzuf&uuml;gen.">&Uuml;bernehmen</option>
         				</select>
         			</label>
-        			<input type="button" value="Durchführen" id="button.execute" name="button.execute" />
+        			<input type="button" value="Durchf&uuml;hren" title="Gew&auml;hlte Aktion durchf&uuml;hren" id="button.execute" name="button.execute" />
 					(Für ausgewählte Einträge)
         		</span>
 			#else
@@ -348,8 +348,8 @@
 		</script>
 		
 		<span id="buttonPanel-top" class="textRight floatRight">
-			<input type="button" id="button.searchPerson" name="button.searchPerson" value="Personen suchen" class="mainButton" onclick="window.location.href='ShowPersonSearch?search=clear';" />
-			<input type="button" id="button.newPerson" name="button.newPerson" value="Neue Person anlegen" class="mainButton" onclick="window.location.href='CreatePerson';" />
+			<input type="button" id="button.searchPerson" name="button.searchPerson" value="Personen suchen" title="Personen suchen" class="mainButton" onclick="window.location.href='ShowPersonSearch?search=clear';" />
+			<input type="button" id="button.newPerson" name="button.newPerson" value="Neue Person anlegen" title="Neue Person anlegen" class="mainButton" onclick="window.location.href='CreatePerson';" />
 		</span>
 		
 		
