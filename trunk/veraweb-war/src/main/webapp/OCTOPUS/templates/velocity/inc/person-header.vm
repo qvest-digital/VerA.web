@@ -40,9 +40,9 @@
 									<textarea id="d8" name="freitextfeld" style="height:88px; color: #ff8080;" disabled>Zu dieser Person wurde das entsprechende Vorschaufeld noch nicht erzeugt.</textarea>
 								#end
 							#else
-                				<div style="margin: 10px 0px 10px 0px; padding: 10px 10px 10px 10px; background-color: #ffffff; border: 2px solid #ff0000;">
+                				<div class="info">
                         			Es wurde kein Dokumenttyp zur Vorschauanzeige konfiguriert.
-                        			Dies ist &uuml;ber den Men&uuml;punkt Verwaltung &gt; Einstellungen m&ouml;glich.
+                        			Dies ist &uuml;ber den Men&uuml;punkt Administration &gt; Programmeinstellungen m&ouml;glich.
                         		</div>
                 			#end
                         </div>

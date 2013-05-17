@@ -95,7 +95,7 @@
 		#end
 		</select>
 	#else
-	    Sie haben keine Arbeitsbereiche konfiguriert. Diese können Sie im Verwaltungsbereich unter dem Punkt <em>Arbeitsbereiche</em> definieren.
+	    Sie haben keine Arbeitsbereiche konfiguriert. Diese können Sie im Administrationsbereich unter dem Punkt <em>Arbeitsbereiche</em> definieren.
 	#end
 
 	<div class="textRight marginTop5" id="buttonPanel-bottom">

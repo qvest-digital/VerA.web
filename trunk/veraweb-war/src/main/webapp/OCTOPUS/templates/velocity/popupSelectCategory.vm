@@ -98,7 +98,7 @@
 			#end
 			</select>
 		#else
-		    Sie haben keine Kategorien konfiguriert. Diese können Sie im Verwaltungsbereich unter dem Punkt <em>Kategorien</em> definieren.
+		    Sie haben keine Kategorien konfiguriert. Diese können Sie im Administrationsbereich unter dem Punkt <em>Kategorien</em> definieren.
 		#end
 
 
