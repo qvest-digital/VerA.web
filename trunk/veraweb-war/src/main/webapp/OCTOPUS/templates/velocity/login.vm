@@ -5,9 +5,6 @@
 
 <h1 class="marginTop25">Login</h1>
 
-#openContent()
-#openContentSection()
-
 <div class="table">
     <div class="tableRow">
         <div class="tableCell">
@@ -46,9 +43,6 @@
 	Es ist ein Fehler bei der Anmeldung aufgetreten. Bitte &uuml;berpr&uuml;fen Sie Ihren Benutzernamen und Ihr Passwort.
 </div>
 #end
-
-#closeContentSection()
-#closeContent()
 
 </form>
 
