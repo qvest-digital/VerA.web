@@ -9,7 +9,7 @@
 		
         <div class="tableRow">
 			
-            <div class="tableCell width50 #if(!$grants.mayWrite()) disabled#end">
+            <div class="tableCell width50 inlineLabel #if(!$grants.mayWrite()) disabled#end">
 				#if($ext == "_a_e1")
                     <label for="person-iscompany">Ist Firma</label>
                     <input type="checkbox" id="person-iscompany" name="person-iscompany" value="t" class="noFloat" #if($person.iscompany && $person.iscompany == "t") checked #end onchange="setModified();" #if(!$grants.mayWrite()) readonly="true"#end/>
