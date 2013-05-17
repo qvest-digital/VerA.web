@@ -28,11 +28,15 @@
 #closeContentSection()
 
 #openContentSection()
+
+<div vera-content="dokumenttypen" class="contentBoxColored tabsContent">
 #if($persondoctype)
 #parse("inc/person-doctype2.vm")
 #else
 #parse("inc/person-doctype.vm")
 #end
+</div>
+
 #closeContentSection()
 
 #closeContent()
