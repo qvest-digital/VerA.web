@@ -253,6 +253,16 @@
         #parse("inc/person-member.vm")
 		
 	</div>
+	
+	<div vera-content="anschriften" class="contentBoxColored tabsContent">
+		
+		#set($extEncoding = "$extEncoding1")
+        #set($ext = "_a$extEncoding")
+		#set($facade = $person.BusinessLatin)
+		
+		<label for="person-company$ext">Firma/Institution:</label>
+		<input type="text" id="person-company$ext" name="person-company$ext" value="$!message.text($facade.Company)" class="text" onchange="setModified();">
+	</div>
     
 	#**
     #openContentBlock("anschrift1-zs1-block")
