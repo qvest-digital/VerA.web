@@ -64,9 +64,15 @@
 						#if($grants.isAdmin())
 							<li><a id="menu.workarea" href="${paths.staticWeb}do/WorkArea?start=0">Arbeitsbereiche</a></li>
 						#end
-						#if($grants.isAdmin() || $grants.isSystemUser())					
-        					<li><a id="menu.allUser" href="${paths.staticWeb}do/AllUser?start=0">Benutzer</a></li>
-        				#end
+						#if($grants.isAdmin())				
+							<li><a id="menu.allUser" href="${paths.staticWeb}do/AllUser?start=0">Benutzer</a></li>	
+    					#else
+							#if($grants.isSystemUser())
+								<li><a id="menu.allUser" href="${paths.staticWeb}do/AllUser?start=0">Benutzer</a></li>	
+							#elseif($grants.isPartialAdmin())
+    							<li><a id="menu.user" href="${paths.staticWeb}do/OUUser?start=0">Benutzer</a></li>
+    						#end
+						#end
 						#if($grants.isAdmin())
 							<li><a id="menu.doctype" href="${paths.staticWeb}do/Doctype?start=0">Dokumenttypen</a></li>
 						#end
@@ -88,15 +94,16 @@
 						#if($grants.isAdmin() || $grants.isSystemUser())
         					<li><a id="menu.orgunit" href="${paths.staticWeb}do/Orgunit?start=0">Mandanten</a></li>
 						#end
-						#if($grants.isAdmin())
-							<li><a id="menu.reports" href="${paths.staticWeb}do/ChangeLogReport">Reports</a></li>
-							<li><a id="menu.allProxy" href="${paths.staticWeb}do/AllProxy?start=0">Stellvertretungen</a></li>
-						#elseif($grants.isPartialAdmin())
-							<li><a id="menu.user" href="${paths.staticWeb}do/OUUser?start=0">Benutzer</a></li>
-							<li><a id="menu.proxy" href="${paths.staticWeb}do/OUProxy?start=0">Stellvertretungen</a></li>
-						#end
 						#if($grants.isAdmin() || $grants.isPartialAdmin())
 							<li><a id="menu.config" href="${paths.staticWeb}do/Config">Programmeinstellungen</a></li>
+						#end
+						#if($grants.isAdmin())
+							<li><a id="menu.reports" href="${paths.staticWeb}do/ChangeLogReport">Reports</a></li>
+						#end
+						#if($grants.isAdmin())
+							<li><a id="menu.allProxy" href="${paths.staticWeb}do/AllProxy?start=0">Stellvertretungen</a></li>
+						#elseif($grants.isPartialAdmin())
+    						<li><a id="menu.proxy" href="${paths.staticWeb}do/OUProxy?start=0">Stellvertretungen</a></li>
 						#end
 						#if($grants.isAdmin() || $grants.isPartialAdmin())
 							<li><a id="menu.location" href="${paths.staticWeb}do/Location?start=0">Veranstaltungsorte</a></li>
