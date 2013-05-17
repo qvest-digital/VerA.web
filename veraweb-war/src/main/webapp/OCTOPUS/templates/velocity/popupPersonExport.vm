@@ -4,7 +4,7 @@
 		<title>Personen-Etikett</title>
 		## Style
 		<link rel="stylesheet" type="text/css" href="${paths.staticWeb}styles/default.css" media="all">
-		<link rel="stylesheet" type="text/css" href="${paths.staticWeb}styles/screen.css" media="screen,projection" title="Ausw&auml;rtiges Amt Intranet-Stil">
+	    <link rel="stylesheet" type="text/css" href="${paths.staticWeb}styles/style.css" media="all" />
 		## Utils
 		<script type="text/javascript" src="${paths.staticWeb}scripts/utils.js"></script>
 		## Tabs und Popups
@@ -22,28 +22,15 @@
 	</head>
 	<body onload="selectAll(document.getElementById('exportText'));">
 		<form action="" method="post">
-		<table class="tab" border="0" cellspacing="0" cellpadding="0"><tr>
-			<td class="tableft">&nbsp;</td>
-		</tr></table>
-		
-		#openContent()
-		#openContentSection()
+		<div class="contentBoxColored grayBorder padding20">
+			<strong>Markieren und kopieren Sie folgendes Adress-Etikett:</strong>
+	
+			<textarea class="width100" style="height:150px" id="exportText" name="exportText">$!message.textarea($personExport)</textarea>
 			
-			Markieren und kopieren Sie folgendes Adress-Etikett:
-			<br><br>
-			
-			<textarea name="exportText" id="exportText" class="text" style="height: 240px;">$!message.textarea($personExport)</textarea>
-			
-		#closeContentSection()
-		
-		<hr class="contentsection"/>
-			
-		#openContentSection()
-			<div style="text-align: right">
-			<input type="button" value="Schlie&szlig;en"  class="cancel" onclick="closePopup();">
+			<div id="buttonPanel-bottom" class="textRight">
+				<input type="button" value="Schlie&szlig;en"  onclick="closePopup();">
 			</div>
-		#closeContentSection()
-		#closeContent()
+		</div>
 		</form>
 	</body>
 </html>
