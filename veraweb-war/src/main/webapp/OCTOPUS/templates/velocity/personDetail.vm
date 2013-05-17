@@ -26,6 +26,8 @@
 	
 #end
 
+<div id="content_container"> 
+
 #if($octopusRequest.task == "AddPersonToEventDetail")
 	<div style="margin: 10px 0px 0px 0px; padding: 2px 3px 2px 3px; background-color: #ffc080; border: 1px solid #ff8000;">
 		#if($invited == 1)
@@ -147,7 +149,7 @@
 		
     #else
 		
-		<span class="buttonPanel-top textRight floatRight marginBottom20">
+		<div class="buttonPanel-top textRight marginBottom20">
             <input type="button" name="copy" class="mainButton" value="Person kopieren" onclick="if (checkModified()) { copyPerson(); }" #if(!$grants.mayWrite()) disabled #end>
         	#if($person && $person.id)
 				<input type="button" name="export" class="mainButton" value="Etikett erzeugen" onclick="exportPerson('${paths.staticWeb}do/', '$!person.id');">
@@ -164,7 +166,7 @@
 			#if($person && $person.id)
 				<input type="button" value="Statistik" name="statistics" class="mainButton" onclick="window.open( '${paths.staticWeb}do/StatistikExport?id=$!person.id' );">
 			#end
-		</span>
+		</div>
 		
     #end
 	
@@ -359,7 +361,8 @@
     	#parse("inc/person-navi.vm")
     #end
 </form>
-
+<div class="clear"></div>
+</div>
 
 <script type="text/javascript">
 

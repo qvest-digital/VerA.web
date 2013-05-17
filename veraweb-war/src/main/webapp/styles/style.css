@@ -452,11 +452,11 @@ nav a, #nav a {
 	padding: 20px;
 }
 
-#actionPanel {
-	
-}
-
-.buttonPanel-top {
+.info {
+    background-color: #FFFFFF;
+    border: 2px solid #8B0F0F;
+    min-height: 100%;
+    padding: 10px;
 }
 
 #main_content {
