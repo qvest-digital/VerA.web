@@ -15,9 +15,6 @@
 	
 		<h1 class="paddingTop20">Vorhandene Duplikate</h1>
 	
-		#openContent()
-		#openContentSection()
-	
 		#foreach($bean in $list)
 		<input type="hidden" name="list" value="$bean.id">
 		#end
@@ -83,13 +80,8 @@
 		#end
 	
 	</div>
-<!-- 	</div></div>
-	</div> -->
-
 			
 	</form><div class="clear"></div>
 </div>
 
 #parse("inc/footer.vm")
-#closeContentSection()
-#closeContent()
