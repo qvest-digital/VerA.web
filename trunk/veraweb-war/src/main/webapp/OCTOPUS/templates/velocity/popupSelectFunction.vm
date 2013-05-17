@@ -28,19 +28,20 @@
 		
 				<div class="contentBoxColored grayBorder">
 					<h2>Bitte w&auml;hlen Sie eine Amtsbezeichnung / Funktion aus:</h2>
+					<ul class="text">
 					
 						#foreach($bean in $list)
 
 									<div id="function_$bean.id" style="display: none;">$!message.textarea($bean.name)</div>
-									<div style="cursor: pointer;" onclick="if (returnFunction('${paths.staticWeb}do/', '$bean.id')) closePopup();">
+									<li onclick="if (returnFunction('${paths.staticWeb}do/', '$bean.id')) closePopup();">
 										#if($bean.name && $bean.name.length() > 0)
 											<a href="#">$!message.plain($bean.name)</a>
 										#else
 											&nbsp;
 										#end
-									</div>
+									</li>
 						#end
-				
+					</ul>
 						#set($disableListSelect = true)
 						#if ($listparam.count > 0)
 							#parse("inc/list-navi.vm")

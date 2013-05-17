@@ -29,11 +29,12 @@
         <div class="contentBoxColored grayBorder">
 
 			<h2>Bitte w&auml;hlen Sie eine Firma / Institution aus:</h2>
+			<ul class="text">
 			
 			#foreach($bean in $list)
 			
 			## fixing issue 1525, consolidating display to a single display scheme
-						<div style="cursor: pointer;" onclick="if (returnCompany('${paths.staticWeb}do/', '$bean.id')) closePopup();">
+						<li onclick="if (returnCompany('${paths.staticWeb}do/', '$bean.id')) closePopup();">
 							#if($bean.company_a_e1.length() > 0)
 									$!message.plain($bean.company_a_e1)
 			##				#elseif($bean.lastname_a_e1.length() > 0)
@@ -41,8 +42,9 @@
 							#else
 								&nbsp;
 							#end
-						</div>
+						</li>
 			#end
+			</ul>
 
 			#set($disableListSelect = true)
 			#if ($listparam.count > 0)
@@ -56,7 +58,7 @@
 				<input type="button" value="Schlie&szlig;en" onclick="closePopup();">
 			</div>
 		
-		</div>>
+		</div>
 		</form>
 	</body>
 </html>
