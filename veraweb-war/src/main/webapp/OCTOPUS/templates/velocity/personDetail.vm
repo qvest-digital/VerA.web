@@ -158,8 +158,8 @@
     #else
 		
 		<div class="buttonPanel-top textRight marginBottom20">
-            <input type="button" name="copy" class="mainButton" value="Person kopieren" title="Aktuelle Person kopieren" onclick="if (checkModified()) { copyPerson(); }" #if(!$grants.mayWrite()) disabled #end>
-        	#if($person && $person.id)
+			#if($person && $person.id)
+				<input type="button" name="copy" class="mainButton" value="Person kopieren" title="Aktuelle Person kopieren" onclick="if (checkModified()) { copyPerson(); }" #if(!$grants.mayWrite()) disabled #end>
 				<input type="button" name="export" class="mainButton" value="Etikett erzeugen" title="Etikett f&uuml;r aktuelle Person erzeugen" onclick="exportPerson('${paths.staticWeb}do/', '$!person.id');">
             	#if($grants.mayWrite())
     				<input type="button" name="event" class="mainButton" value="Einer Veranstaltung zuordnen" title="Aktuelle Person einer Veranstaltung zuordnen" onclick="if (checkModified()) { window.location.href='${paths.staticWeb}do/ShowEventSearch?action=addperson'; }">
