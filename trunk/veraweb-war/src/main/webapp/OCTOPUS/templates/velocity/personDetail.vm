@@ -340,10 +340,11 @@
 
 	</div>
     
-    
+    #**
 	<div vera-content="dokumenttypen" class="contentBoxColored tabsContent" style="border:1px solid #000000;">
 		#parse("personDoctype.vm")
 	</div> 
+	*#
     
 	#**
     #openContentBlock("anschrift1-zs1-block")
