@@ -2,6 +2,8 @@
 #set($title = "Person speichern - Duplikat-Pr&uuml;fung")
 #parse("inc/header.vm")
 
+<div id="content_container">
+
 <form id="formlist" name="formlist" action="SavePerson" method="POST">
 <input type="hidden" name="start" value="">
 <input type="hidden" name="selectAll" value="false">
@@ -87,5 +89,6 @@
 #closeContent()
 
 </form>
+</div>
 
 #parse("inc/footer.vm")
