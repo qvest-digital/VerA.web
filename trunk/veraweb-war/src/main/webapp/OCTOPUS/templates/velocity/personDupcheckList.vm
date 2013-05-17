@@ -31,7 +31,7 @@
 		<th>Ort</th>
 		<th class="textCenter smallCell">Weiteres Vorgehen</th>
 	</tr>
-	<tr>
+	<tr onmouseover="onMouseOverList(this);" onmouseout="onMouseOutList(this);">
 		<td class="textCenter"><em>neu</em></td>
 		##additional parameters action cf. issue #2091
 		<td style="cursor: pointer;" onclick="window.location.href='SavePerson?saveperson=true&person-nodupcheck=true&originalPersonId=$!originalPersonId&action=$!action';">$!person.lastname_a_e1</td>
@@ -49,7 +49,7 @@
 	#else
 		#set($class = "list1")
 	#end
-	<tr class="$class">
+	<tr class="$class" onmouseover="onMouseOverList(this);" onmouseout="onMouseOutList(this);">
 		##additional parameters action cf. issue #2091
 		<td class="textCenter" style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!action';"><input type="hidden" name="${bean.id}-id" value="$bean.id"><a href="ShowPerson?id=$!{bean.id}&action=$!action">$!{bean.id}</a></td>
 		<td style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!action';">$!bean.lastname_a_e1</td>
@@ -72,12 +72,12 @@
 <div class="textRight">
 
 #if($action == "guest")
-	<input type="submit" class="submit" name="add" value="Hinzuf&uuml;gen" title="Ausgew&auml;hlte Personen zur Veranstaltung hinzuf&uuml;gen."> &nbsp;
-	<input type="button" class="button" name="newperson" value="Person erfassen" onclick="window.location.href='ShowPerson';"> &nbsp;
-	<input type="button" class="cancel" name="cancel" value="Zur&uuml;ck" onclick="window.location.href='ShowGuestList';"> &nbsp;
+	<input type="submit" class="submit" name="add" value="Hinzuf&uuml;gen" title="Ausgew&auml;hlte Personen zur Veranstaltung hinzuf&uuml;gen."> 
+	<input type="button" class="button" name="newperson" value="Person erfassen" title="Person erfassen" onclick="window.location.href='ShowPerson';">
+	<input type="button" class="cancel" name="cancel" value="Zur&uuml;ck" title="Zur&uuml;ck" onclick="window.location.href='ShowGuestList';">
 #else
-	<!-- <input type="button" class="button" name="newperson" value="Duplikat anlegen" onclick="window.location.href='SavePerson?saveperson=true&person-nodupcheck=true&originalPersonId=$!originalPersonId';"> --> &nbsp;
-	<input type="button" name="cancel" value="Abbrechen &amp; zur&uuml;ck" onclick="window.location.href='PersonDupcheckCancel';" class="mainButton">
+	<!-- <input type="button" class="button" name="newperson" value="Duplikat anlegen" onclick="window.location.href='SavePerson?saveperson=true&person-nodupcheck=true&originalPersonId=$!originalPersonId';"> -->
+	<input type="button" name="cancel" value="Abbrechen &amp; zur&uuml;ck"  title="Abbrechen &amp; zur&uuml;ck" onclick="window.location.href='PersonDupcheckCancel';" class="mainButton">
 #end
 
 </div></div></div>
