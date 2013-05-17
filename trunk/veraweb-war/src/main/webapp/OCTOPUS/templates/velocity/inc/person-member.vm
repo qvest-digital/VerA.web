@@ -233,8 +233,8 @@
 				
             <div class="tableCell width50">
 				#if ( !$createNewPerson && ($ext == "_a_e1" || $ext == "_b_e1") )
-                    <label for="person-showimportsource">Datenherkunft</label><br/>
-					$!message.text($person.importsource)
+                    <strong>Datenherkunft</strong><br/>
+					#if(!$person.importsource || $person.importsource == '')-#else$!message.text($person.importsource)#end
 				#end
 			</div>
 			
