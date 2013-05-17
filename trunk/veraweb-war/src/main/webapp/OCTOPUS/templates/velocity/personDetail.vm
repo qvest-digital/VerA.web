@@ -204,8 +204,8 @@
     	<hr />
     	
     	<div class="CharSet">
-    		<label for="">Zeichensatz</label>
-    		<select vera-select name="encoding" id="">
+    		<label>Zeichensatz</label>
+    		<select vera-select name="encoding" id="encoding">
     		      <option value="$extEncoding1" selected="selected">Latein</option>
     		      <option value="$extEncoding2">Zeichensatz 1</option>
     		      <option value="$extEncoding3">Zeichensatz 2</option>
@@ -254,14 +254,82 @@
 		
 	</div>
 	
+	<div class="tabsSub" vera-content="anschriften">
+        <ul class="marginBottom20" vera-tab-group>
+            <li vera-tab="geschaeftlich" vera-tab-default>Geschäftlich</li>
+            <li vera-tab="privat">Privat</li>
+            <li vera-tab="weitere">Weitere</li>
+        </ul>
+
+        <hr />
+
+        <div class="CharSet">
+            <label>Zeichensatz</label>
+			<select vera-select name="encoding" id="encoding">
+    		      <option value="$extEncoding1" selected="selected">Latein</option>
+    		      <option value="$extEncoding2">Zeichensatz 1</option>
+    		      <option value="$extEncoding3">Zeichensatz 2</option>
+    		</select>
+        </div>
+    </div>
+	
 	<div vera-content="anschriften" class="contentBoxColored tabsContent">
 		
+		#set($addressType = "geschaeftlich")
 		#set($extEncoding = "$extEncoding1")
         #set($ext = "_a$extEncoding")
-		#set($facade = $person.BusinessLatin)
+        #set($facade = $person.BusinessLatin)
+        #parse("inc/person-address.vm")
 		
-		<label for="person-company$ext">Firma/Institution:</label>
-		<input type="text" id="person-company$ext" name="person-company$ext" value="$!message.text($facade.Company)" class="text" onchange="setModified();">
+		#set($addressType = "geschaeftlich")
+		#set($extEncoding = "$extEncoding2")
+        #set($ext = "_a$extEncoding")
+        #set($facade = $person.BusinessExtra1)
+        #parse("inc/person-address.vm")
+		
+		#set($addressType = "geschaeftlich")
+		#set($extEncoding = "$extEncoding3")
+        #set($ext = "_a$extEncoding")
+        #set($facade = $person.BusinessExtra2)
+        #parse("inc/person-address.vm")
+		
+		#set($addressType = "privat")
+		#set($extEncoding = "$extEncoding1")
+        #set($ext = "_b$extEncoding")
+        #set($facade = $person.PrivateLatin)
+        #parse("inc/person-address.vm")
+		
+		#set($addressType = "privat")
+		#set($extEncoding = "$extEncoding2")
+        #set($ext = "_b$extEncoding")
+        #set($facade = $person.PrivateExtra1)
+        #parse("inc/person-address.vm")
+		
+		#set($addressType = "privat")
+		#set($extEncoding = "$extEncoding3")
+        #set($ext = "_b$extEncoding")
+        #set($facade = $person.PrivateExtra2)
+        #parse("inc/person-address.vm")
+		
+		#set($addressType = "weitere")
+		#set($extEncoding = "$extEncoding1")
+        #set($ext = "_c$extEncoding")
+        #set($facade = $person.OtherLatin)
+        #parse("inc/person-address.vm")
+		
+		#set($addressType = "weitere")
+		#set($extEncoding = "$extEncoding2")
+        #set($ext = "_c$extEncoding")
+        #set($facade = $person.OtherExtra1)
+        #parse("inc/person-address.vm")
+		
+		#set($addressType = "weitere")
+		#set($extEncoding = "$extEncoding3")
+        #set($ext = "_c$extEncoding")
+        #set($facade = $person.OtherExtra2)
+        #parse("inc/person-address.vm")
+		
+
 	</div>
     
 	#**
