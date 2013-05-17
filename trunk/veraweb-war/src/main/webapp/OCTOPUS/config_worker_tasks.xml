@@ -672,6 +672,9 @@
 			</contract>
 			<doTask name="Load"/>
 			<action name="prepareSaveDetail" worker="PersonDetailWorker" />
+			<status equals="notcorrect">
+				<doTask name="ShowPerson"/>
+			</status>
 			<status equals="saveperson">
 				<action name="check" worker="PersonDupcheckWorker" />
 				<status equals="dupcheck">
