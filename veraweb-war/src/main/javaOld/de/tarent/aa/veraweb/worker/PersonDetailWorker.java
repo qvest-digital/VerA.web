@@ -515,10 +515,26 @@ public class PersonDetailWorker implements PersonConstants {
      * ist, wird der Status "saveperson" gesetzt.
 	 * 
 	 * @param cntx Octopus-Kontext
+	 * @throws BeanException 
 	 */
-	public void prepareSaveDetail(OctopusContext cntx, Boolean saveperson) {
+	public void prepareSaveDetail(OctopusContext cntx, Boolean saveperson) throws BeanException {
 		if (saveperson != null && saveperson.booleanValue()) {
-			cntx.setStatus("saveperson");
+			Request request = new RequestVeraWeb(cntx);
+			Person person = (Person)request.getBean("Person", "person");
+			if(person != null){
+				
+				person.verify();
+				
+				if(!person.isCorrect())	{
+					
+					if ( person.id == null ){
+						cntx.setContent( "newPersonErrors", person.getErrors() );
+					}
+					
+				} else {
+					cntx.setStatus("saveperson");
+				}
+			}
 		}
 	}
 
