@@ -9,15 +9,23 @@
 		
         <div class="tableRow">
 			
-            <div class="tableCell width50 inlineLabel #if(!$grants.mayWrite()) disabled#end">
-                <label for="person-iscompany">Ist Firma</label>
-                <input type="checkbox" id="person-iscompany" name="person-iscompany" value="t" class="noFloat" #if($person.iscompany && $person.iscompany == "t") checked #end onchange="setModified();"/>
+            <div class="tableCell width50 #if(!$grants.mayWrite()) disabled#end">
+				#if($ext == "_a_e1")
+                    <label for="person-iscompany">Ist Firma</label>
+                    <input type="checkbox" id="person-iscompany" name="person-iscompany" value="t" class="noFloat" #if($person.iscompany && $person.iscompany == "t") checked #end onchange="setModified();"/>
+				#end
             </div>
+			<div class="tableCell width50"></div>
 			
-			<div class="tableCell width50 #if(!$grants.mayWrite() || $ext != "_a_e1") disabled#end" id="company-row" style="display:none">
-                <label for="person-company-ignore$ext">Firma/Institution*</label>
+        </div>
+		
+		<div class="tableRow">
+			
+            <div class="tableCell width50 #if(!$grants.mayWrite() || $ext != "_a_e1") disabled#end" id="company-row" style="display:none">
+                 <label for="person-company-ignore$ext">Firma/Institution*</label>
                 <input type="text" id="person-company-ignore$ext" name="person-company-ignore$ext" maxlength="250" value="$!message.text($facade.Company)" onchange="setModified();"/>
-			</div>
+            </div>	
+			<div class="tableCell width50"></div>
 			
         </div>
 		
@@ -58,16 +66,6 @@
             		</script>
             	#end
             </div>
-			
-			<script type="text/javascript">
-				function updateExpiredDate(newdate) {
-            		document.getElementById('person-expire').value = newdate;
-					var inputs = document.getElementsByClassName('personExpiredDate');
-					for (var i = 0; i < inputs.length; i++) {
-						inputs[i].value = newdate;
-                	}
-            	}
-			</script>
 			
         </div>
 		
