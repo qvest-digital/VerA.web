@@ -537,6 +537,9 @@
 			<action name="getAll" worker="WorkAreaWorker"/>
 			<action name="showDetail" worker="PersonDetailWorker" />
 			<action name="getDoctype" worker="PersonDetailWorker" />
+			<action name="saveList" worker="PersonDoctypeWorker" />
+			<action name="showList" worker="PersonDoctypeWorker" />
+			
 			<response type="velocity" name="personDetail">
 				<param name="ContentType" value="text/html;charset=UTF-8"/>
 			</response>
