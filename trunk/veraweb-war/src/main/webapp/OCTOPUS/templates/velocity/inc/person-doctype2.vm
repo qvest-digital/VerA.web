@@ -5,24 +5,36 @@
 <input type="hidden" name="persondoctype-person" value="$!persondoctype.person">
 <input type="hidden" name="persondoctype-doctype" value="$!persondoctype.doctype">
 
-<table class="form"><tr>
-	<td class="label">Dokument-ID:</td>
-	<td class="value"><input type="text" name="showdoctype" value="$!message.text($persondoctype.doctype)" class="id" readonly></td>
-</tr><tr>
-	<td class="label">Dokument-Name:</td>
-	<td class="value"><input type="text" name="persondoctype-name" value="$!message.text($persondoctype.name)" class="textdisabled" readonly></td>
-</tr><tr>
-	<td class="label">Freitextfeld:</td>
-	<td class="value"><textarea rows="4" cols="20" name="persondoctype-textfield" #if($grants.mayWrite()) class="text" #else class="textdisabled" readonly #end>$!message.textarea($persondoctype.textfield)</textarea></td>
-</tr><tr>
-	<td class="label">Partner Freitextfeld:</td>
-	<td class="value"><textarea rows="4" cols="20" name="persondoctype-textfieldPartner" #if($grants.mayWrite()) class="text" #else class="textdisabled" readonly #end>$!message.textarea($persondoctype.textfieldPartner)</textarea></td>
-</tr><tr>
-	<td class="label">Verbinder:</td>
-	<td class="value"><input type="text" maxlength="50" name="persondoctype-textfieldJoin" value="$!message.text($persondoctype.textfieldJoin)" #if($grants.mayWrite()) class="text" #else class="textdisabled" readonly #end></td>
-</tr><tr>
-	<td class="label">Anschrift:</td>
-	<td class="value">
+<div id="tabsContent" class="contentBoxColored">
+	<h3>Dokumenttyp bearbeiten</h3>				
+	<div class="table width100">
+		<div class="tableRow notBold">
+			<div class="tableCell width50">
+				<strong>Dokument-ID:</strong>$!message.text($persondoctype.doctype)
+			</div>
+			<div class="tableCell width50">
+				<strong>Dokument-Name:</strong>$!message.text($persondoctype.name)							
+			</div>
+		</div>
+	</div>
+	<div class="table width100">
+		<div class="tableRow">
+			<div class="tableCell width50">
+				<label for="persondoctype-textfield">Freitextfeld:</label>
+				<textarea id="persondoctype-textfield" name="persondoctype-textfield" #if($grants.mayWrite()) class="text" #else class="textdisabled" readonly #end>$!message.textarea($persondoctype.textfield)</textarea>	
+			</div>
+			<div class="tableCell width50">
+				<label for="persondoctype-textfieldPartner">Partner Freitextfeld:</label>	
+				<textarea id="persondoctype-textfieldPartner" name="persondoctype-textfieldPartner" #if($grants.mayWrite()) class="text" #else class="textdisabled" readonly #end>$!message.textarea($persondoctype.textfieldPartner)</textarea>													
+			</div>
+		</div>
+		<div class="tableRow">
+		<div class="tableCell width50">
+			<label for="persondoctype-textfieldJoin">Verbinder:</label>
+			<input type="text" id="persondoctype-textfieldJoin" name="persondoctype-textfieldJoin" value="$!message.text($persondoctype.textfieldJoin)" #if($grants.mayWrite()) class="text" #else class="textdisabled" readonly #end></textarea>				
+		</div>
+	<div class="tableCell width50">
+		<label for="persondoctype-addresstype">Anschrift:</label>
 		#if($grants.mayWrite())
 		<select id="persondoctype-addresstype" name="persondoctype-addresstype" class="combobox">
 			<option value="1" #if($persondoctype.addresstype && $persondoctype.addresstype == 1) selected#end>$!config.business</option>
@@ -37,11 +49,13 @@
 		#elseif($persondoctype.addresstype && $persondoctype.addresstype == 3)
 		$!config.other
 		#end
-		#end
-	</td>
-</tr><tr>
-	<td class="label">Zeichensatz:</td>
-	<td class="value">
+		#end											
+	</div>
+</div>	
+						
+<div class="tableRow">
+	<div class="tableCell width50">
+		<label for="">Zeichensatz:</label>	
 		#if($grants.mayWrite())
 		<select id="persondoctype-locale" name="persondoctype-locale" class="combobox">
 			<option value="1" #if($persondoctype.locale && $persondoctype.locale == 1) selected#end>$!config.latin</option>
@@ -56,36 +70,37 @@
 		#elseif($persondoctype.locale && $persondoctype.locale == 3)
 		$!config.extra2
 		#end
-		#end
-	</td>
-</tr></table>
-
-<div>
-<div id="fixme" class="fixme1"><div class="fixme2"><div class="fixme3">
-
+		#end					
+	</div>
+	<div class="tableCell width50">&nbsp;</div>
+	</div>									
+</div>
+					
+<span id="buttonPanel-bottom" class="textRight">
 #if($action == "guest")
-<input type="submit" name="save" value="Speichern" #if($grants.mayWrite()) class="button" #else class="buttondisabled" disabled #end> &nbsp;
-<input type="button" name="cancel" value="Zur&uuml;ck" class="button" onclick="window.location.href='${paths.staticWeb}do/ShowPersonDoctypeList?id=$!person.id';"> &nbsp;
+<input type="submit" name="save" value="Dokumenttyp speichern" #if($grants.mayWrite()) class="button mainButton" #else class="buttondisabled mainButton" disabled #end> &nbsp;
+<input type="button" name="cancel" value="Zur&uuml;ck" class="button mainButton" onclick="window.location.href='${paths.staticWeb}do/ShowPersonDoctypeList?id=$!person.id';"> &nbsp;
 #if($person)
-<input type="button" name="add" value="&Uuml;bernehmen" title="Gast direkt in G&auml;steliste &uuml;bernehmen" onclick="addToGuestList();" #if($grants.mayWrite()) class="button" #else class="buttondisabled" disabled #end> &nbsp;
-<input type="button" name="cancel" class="button" value="Zur&uuml;ck" title="Zur&uuml;ck zur Personenliste" onclick="window.location.href='AddPersonToEventList';"> &nbsp;
+<input type="button" name="add" value="&Uuml;bernehmen" title="Gast direkt in G&auml;steliste &uuml;bernehmen" onclick="addToGuestList();" #if($grants.mayWrite()) class="button mainButton" #else class="buttondisabled mainButton" disabled #end> &nbsp;
+<input type="button" name="cancel" class="button mainButton" value="Zur&uuml;ck" title="Zur&uuml;ck zur Personenliste" onclick="window.location.href='AddPersonToEventList';"> &nbsp;
 #else
-<input type="button" name="cancel" class="button" value="Zur&uuml;ck" title="Zur&uuml;ck zur Personenliste" onclick="window.location.href='AddPersonToEventList';"> &nbsp;
+<input type="button" name="cancel" class="button mainButton" value="Zur&uuml;ck" title="Zur&uuml;ck zur Personenliste" onclick="window.location.href='AddPersonToEventList';"> &nbsp;
 #end
 #elseif($action == "host")
-<input type="submit" name="save" value="Speichern" #if($grants.mayWrite()) class="button" #else class="buttondisabled" disabled #end> &nbsp;
-<input type="button" name="cancel" value="Zur&uuml;ck" class="button" onclick="window.location.href='${paths.staticWeb}do/ShowPersonDoctypeList?id=$!person.id';"> &nbsp;
-<input type="button" name="cancel" class="button" value="Abbrechen" onclick="window.location.href='${paths.staticWeb}do/SetHostToEventList';">
+<input type="submit" name="save" value="Dokumenttyp speichern" #if($grants.mayWrite()) class="mainButton" #else class="buttondisabled" disabled #end> &nbsp;
+<input type="button" name="cancel" value="Zur&uuml;ck" class="button mainButton" onclick="window.location.href='${paths.staticWeb}do/ShowPersonDoctypeList?id=$!person.id';"> &nbsp;
+<input type="button" name="cancel" class="mainButton" value="Abbrechen" onclick="window.location.href='${paths.staticWeb}do/SetHostToEventList';">
 #elseif($action == "event")
-<input type="submit" name="save" value="Speichern" #if($grants.mayWrite()) class="button" #else class="buttondisabled" disabled #end> &nbsp;
-<input type="button" name="cancel" value="Zur&uuml;ck" class="button" onclick="window.location.href='${paths.staticWeb}do/ShowPersonDoctypeList?id=$!person.id';"> &nbsp;
-<input type="button" name="cancel" class="button" value="Abbrechen" onclick="window.location.href='${paths.staticWeb}do/ShowGuestDetail';">
+<input type="submit" name="save" value="Dokumenttyp speichern" #if($grants.mayWrite()) class="button" #else class="buttondisabled mainButton" disabled #end> &nbsp;
+<input type="button" name="cancel" value="Zur&uuml;ck" class="button mainButton" onclick="window.location.href='${paths.staticWeb}do/ShowPersonDoctypeList?id=$!person.id';"> &nbsp;
+<input type="button" name="cancel" class="button mainButton" value="Abbrechen" onclick="window.location.href='${paths.staticWeb}do/ShowGuestDetail';">
 #else
-<input type="submit" name="save" value="Speichern" #if($grants.mayWrite()) class="button" #else class="buttondisabled" disabled #end> &nbsp;
-<input type="button" name="cancel" value="Zur&uuml;ck" class="button" onclick="window.location.href='${paths.staticWeb}do/ShowPersonDoctypeList?id=$!person.id';"> &nbsp;
+<input type="submit" name="save" value="Dokumenttyp speichern" #if($grants.mayWrite()) class="button mainButton" #else class="buttondisabled mainButton" disabled #end> &nbsp;
+<input type="button" name="cancel" value="Zur&uuml;ck" class="button mainButton" onclick="window.location.href='${paths.staticWeb}do/ShowPersonDoctypeList?id=$!person.id';"> &nbsp;
 #end
-
-</div></div></div>
+				
+</span>				
 </div>
+
 
 </form>
