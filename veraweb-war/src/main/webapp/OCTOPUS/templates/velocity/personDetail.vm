@@ -206,9 +206,9 @@
     	<div class="CharSet">
     		<label>Zeichensatz</label>
     		<select vera-select name="encoding" id="encoding">
-    		      <option value="$extEncoding1" selected="selected">Latein</option>
-    		      <option value="$extEncoding2">Zeichensatz 1</option>
-    		      <option value="$extEncoding3">Zeichensatz 2</option>
+    		      <option value="person$extEncoding1" selected="selected">Latein</option>
+    		      <option value="person$extEncoding2">Zeichensatz 1</option>
+    		      <option value="person$extEncoding3">Zeichensatz 2</option>
     		</select>
     	</div>
     </div>
@@ -266,9 +266,9 @@
         <div class="CharSet">
             <label>Zeichensatz</label>
 			<select vera-select name="encoding" id="encoding">
-    		      <option value="$extEncoding1" selected="selected">Latein</option>
-    		      <option value="$extEncoding2">Zeichensatz 1</option>
-    		      <option value="$extEncoding3">Zeichensatz 2</option>
+    		      <option value="address$extEncoding1" selected="selected">Latein</option>
+    		      <option value="address$extEncoding2">Zeichensatz 1</option>
+    		      <option value="address$extEncoding3">Zeichensatz 2</option>
     		</select>
         </div>
     </div>
