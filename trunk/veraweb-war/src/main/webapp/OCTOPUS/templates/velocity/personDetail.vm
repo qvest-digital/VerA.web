@@ -428,25 +428,7 @@
 	#if(!$person)
 		setSex('person-salutation_a_e1', 'person-sex_a_e1');
 		setSex('person-salutation_b_e1', 'person-sex_b_e1');
-	#end
-	
-	/*
-	#if($grants.mayWrite())
-		if (document.getElementById('forcedupcheck').value == 'true') {
-			disableForm(document.getElementById('PersonForm'));
-			hideBlock(document.getElementById("show-expire"));
-			hideBlock(document.getElementById("show-birthday_a_e1"));
-			hideBlock(document.getElementById("show-birthday_b_e1"));
-			hideBlock(document.getElementById("show-diplodate_a_e1"));
-			enableFormInput(document.getElementById('person-firstname_a_e1'));
-			enableFormInput(document.getElementById('person-lastname_a_e1'));
-			enableFormCheckbox(document.getElementById('person-iscompany'));
-			enableFormInput(document.getElementById('person-company-ignore_a_e1'));
-		}
-	#else
-		disableForm(document.getElementById('PersonForm'));
-	#end
-	*/	
+	#end	
 	
 	//Show the company row (Firma/Institution) in the person detail view if the "Ist Firma" 
 	//checkbox was checked.
@@ -482,6 +464,14 @@
         	$('#company-row').hide();
         }
     });
+	
+	function updateExpiredDate(newdate) {
+		document.getElementById('person-expire').value = newdate;
+		var inputs = document.getElementsByClassName('personExpiredDate');
+		for (var i = 0; i < inputs.length; i++) {
+			inputs[i].value = newdate;
+    	}
+	}
 	
 	
 </script>
