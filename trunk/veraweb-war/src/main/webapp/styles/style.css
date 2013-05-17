@@ -546,6 +546,10 @@ color:#7D7D7D
     cursor: pointer;
 }
 
+.tabsSub li:last-of-type {
+	border-bottom:1px solid #BDBDBD;
+}
+
 .tabsSub li.active {
 	width: 166px;
 	}
