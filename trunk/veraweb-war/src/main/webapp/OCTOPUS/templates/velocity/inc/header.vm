@@ -22,6 +22,7 @@
 ##		WCH - Windowed Controls Hider (http://www.aplus.co.yu/wch/intro/)
 ##		<!--[if IE]>
 		<script type="text/javascript" src="${paths.staticWeb}scripts/WCH.js"></script>
+		<script type="text/javascript" src="${paths.staticWeb}scripts/vera-tabs.js"></script>
 ##		<![endif]-->
 ##		Style
 	    <link rel="stylesheet" type="text/css" href="${paths.staticWeb}styles/style.css" media="all" />
