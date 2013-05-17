@@ -89,7 +89,7 @@
 	#else
 		#set($class = "list2")
 	#end
-	<tr class="$class" style="height: 20px;" onmouseover="onMouseOverList(this);" onmouseout="onMouseOutList(this);">
+	<tr class="$class">
 #if($action == "guest")
 		<td class="list" style="cursor: pointer;" onclick="window.location.href='AddEventToEventGuestList?id=$!{bean.id}';"><input type="hidden" name="${bean.id}-id" value="$bean.id">$!{bean.id}</td>
 		<td class="list" style="cursor: pointer;" onclick="window.location.href='AddEventToEventGuestList?id=$!{bean.id}';">$!message.plain($bean.shortname)</td>

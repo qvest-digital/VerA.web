@@ -457,7 +457,7 @@
             
             	#foreach($bean in $list)
                 	#if($action == "guest")
-                    	<tronmouseover="onMouseOverList(this);" onmouseout="onMouseOutList(this);">
+                    	<tr>
                     		#set($hasA = $bean.lastname_a_e1.length() > 0 || $bean.firstname_a_e1.length() > 0)
                     		#set($hasB = $bean.lastname_b_e1.length() > 0 || $bean.firstname_b_e1.length() > 0)
                     		
@@ -524,7 +524,7 @@
                     		</td>
                     	</tr>
                 	#elseif($action == "host")
-                    	<tr onmouseover="onMouseOverList(this);" onmouseout="onMouseOutList(this);">
+                    	<tr>
                     		<td style="cursor: pointer;" onclick="window.location.href='SetHostToEventDetail?hostid=$!{bean.id}';"><input type="hidden" name="${bean.id}-id" value="$bean.id">$!{bean.id}</td>
                     		<td style="cursor: pointer;" onclick="window.location.href='SetHostToEventDetail?hostid=$!{bean.id}';">$!message.plain($bean.lastname_a_e1)</td>
                     		<td style="cursor: pointer;" onclick="window.location.href='SetHostToEventDetail?hostid=$!{bean.id}';">$!message.plain($bean.firstname_a_e1)</td>
@@ -536,7 +536,7 @@
                     		#if($userConfig.personListState)<td style="cursor: pointer;" onclick="window.location.href='SetHostToEventDetail?hostid=$!{bean.id}';">$!message.plain($bean.state_a_e1)</td>#end
                     	</tr>
                 	#elseif($action == "statistikHost")
-                    	<tr onmouseover="onMouseOverList(this);" onmouseout="onMouseOutList(this);">
+                    	<tr>
                     		<td style="cursor: pointer;" onclick="window.open('StatistikExport?id=$!{bean.id}');"><input type="hidden" name="${bean.id}-id" value="$bean.id">$!{bean.id}</td>
                     		<td style="cursor: pointer;" onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($bean.lastname_a_e1)</td>
                     		<td style="cursor: pointer;" onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($bean.firstname_a_e1)</td>
@@ -548,7 +548,7 @@
                     		#if($userConfig.personListState)<td style="cursor: pointer;" onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($bean.state_a_e1)</td>#end
                     	</tr>
                 	#elseif($action == "statistikGuest")
-                    	<tr onmouseover="onMouseOverList(this);" onmouseout="onMouseOutList(this);">
+                    	<tr>
                     		<td style="cursor: pointer;" onclick="window.open('StatistikExport?id=$!{bean.id}');"><input type="hidden" name="${bean.id}-id" value="$bean.id">$!{bean.id}</td>
                     		<td style="cursor: pointer;" onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($bean.lastname_a_e1)</td>
                     		<td style="cursor: pointer;" onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($bean.firstname_a_e1)</td>
@@ -566,7 +566,7 @@
                 			#set($clickUrl = "CreateEventTask?refPersId=$!{bean.id}&eventId=$!eventId")
                 		#end
                 			
-                		<tr onmouseover="onMouseOverList(this);" onmouseout="onMouseOutList(this);">
+                		<tr>
                 			<td style="cursor: pointer;" onclick="window.location.href='$clickUrl';"><input type="hidden" name="${bean.id}-id" value="$bean.id">$!{bean.id}</td>
                 			<td style="cursor: pointer;" onclick="window.location.href='$clickUrl';">$!message.plain($bean.lastname_a_e1)</td>
                 			<td style="cursor: pointer;" onclick="window.location.href='$clickUrl';">$!message.plain($bean.firstname_a_e1)</td>
@@ -583,7 +583,7 @@
                     	## modified for duplicate search as per change request for version 1.2.0
                     	## cklein
                     	## 2008-02-27
-                    	<tr onmouseover="onMouseOverList(this);" onmouseout="onMouseOutList(this);">
+                    	<tr>
                     	
                     	## fixing bug 1037
                     	## 2008-03-25 cklein
@@ -602,7 +602,7 @@
                     		#if($userConfig.personListState)<td style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!{action}';">$!message.plain($bean.state_a_e1)</td>#end
                     	</tr>	
                 	#else
-                    	<tr onmouseover="onMouseOverList(this);" onmouseout="onMouseOutList(this);">
+                    	<tr>
                     		<td><input type="checkbox" name="${bean.id}-select" value="true" onChange="selectionChange( this );" #if($listselection.indexOf($bean.id) != -1) checked#end></td>
                     		<td style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}';"><input type="hidden" name="${bean.id}-id" value="$bean.id">$!{bean.id}</td>
                     		<td style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}';">$!message.plain($bean.workarea_name)</td>
