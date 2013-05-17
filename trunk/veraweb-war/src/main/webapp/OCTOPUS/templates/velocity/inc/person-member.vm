@@ -3,7 +3,7 @@
 	#set($createNewPerson = 'true')
 #end
 
-<div vera-content="$personPartner $extEncoding">
+<div vera-content="$personPartner person$extEncoding">
 	
     <div class="table width100">
 		

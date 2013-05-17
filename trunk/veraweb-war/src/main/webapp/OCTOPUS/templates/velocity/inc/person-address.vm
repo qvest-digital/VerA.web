@@ -1,5 +1,5 @@
 
-<div vera-content="$addressType $extEncoding">
+<div vera-content="$addressType address$extEncoding">
 	<div class="table width100">
 		
 		<div class="tableRow">
