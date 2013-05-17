@@ -242,6 +242,18 @@ ul.alphabet li {
 	margin-bottom: 25px;
 }
 
+.paddingTop10 {
+	padding-top:10px;
+}
+
+.paddingTop15 {
+	padding-top:15px;
+}
+
+.paddingTop20 {
+	padding-top:20px;
+}
+
 .clear {clear:both;}
 
 .clickable {cursor: pointer;}
