@@ -721,6 +721,10 @@ fieldset {
 	margin-bottom:60px;
 }
 
+#peopleSearch_form fieldset:last-of-type {
+	margin-bottom:15px;
+}
+
 legend {
     color: #8b0f0f;
     font-size: 1.1em;
