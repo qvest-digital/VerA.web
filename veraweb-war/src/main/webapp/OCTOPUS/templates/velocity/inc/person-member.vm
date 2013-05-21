@@ -52,7 +52,7 @@
             </div>
 			
 			<div class="tableCell width50 #if(!$grants.mayWrite() || $createNewPerson) disabled#end">
-                <label>G&uuml;ltig bis</label>
+                <label for="person-expire$ext">G&uuml;ltig bis</label>
                 <input type="text" name="person-expire$ext" id="person-expire$ext" value="$!message.date("DATE", $person.expire)" class="datepicker personExpiredDate" onchange="setModified(); updateExpiredDate(this.value);" #if(!$grants.mayWrite() || $createNewPerson) readonly="true"#end/>
 				#if($grants.mayWrite() && !$createNewPerson)
             		<span id="show-expire$ext" class="datepickerContainer"><img src="${paths.staticWeb}images/calendar.png" alt="Datum ausw&auml;hlen" title="Datum ausw&auml;hlen"/></span>
@@ -78,7 +78,7 @@
 			
 			<div class="tableCell width50 #if(!$grants.mayWrite() || $createNewPerson) disabled#end">
 				#if($ext == "_a_e1" || $ext == "_b_e1")
-                    <label>Geburtsdatum</label>
+                    <label for="person-birthday$ext">Geburtsdatum</label>
     				<input type="text" name="person-birthday$ext" value="$!message.date("DATE", $facade.Birthday, false)" id="person-birthday$ext" class="datepicker" onchange="setModified();" #if(!$grants.mayWrite() || $createNewPerson) readonly="true"#end/>
     				#if($grants.mayWrite() && !$createNewPerson)
         				<span id="show-birthday$ext" class="datepickerContainer"><img src="${paths.staticWeb}images/calendar.png" alt="Datum ausw&auml;hlen" title="Datum ausw&auml;hlen"/></span>
@@ -156,8 +156,8 @@
 			
             <div class="tableCell width50 #if(!$grants.mayWrite() || $createNewPerson) disabled#end">
 				#if($ext == "_a_e1")
-                    <label>Arbeitsbereich</label>
-                    <select name="workarea-id" onchange="setModified('workarea')" #if(!$grants.mayWrite() || $createNewPerson) disabled="true"#end>
+                    <label for="workarea-id">Arbeitsbereich</label>
+                    <select name="workarea-id" id="workarea-id" onchange="setModified('workarea')" #if(!$grants.mayWrite() || $createNewPerson) disabled="true"#end>
 						<option value="">Kein Arbeitsbereich</option>
             			#foreach($workArea in $allWorkArea)
             				<option value="$workArea.id" #if($person.workarea == $workArea.id) selected#end>$workArea.name</option>
@@ -192,7 +192,7 @@
 			
             <div class="tableCell width50 #if(!$grants.mayWrite() || $createNewPerson) disabled#end">
 				#if($ext == "_a_e1" || $ext == "_b_e1")
-                    <label>Akkreditierungsdatum</label>
+                    <label for="person-diplodate$ext">Akkreditierungsdatum</label>
                     <input type="text" name="person-diplodate$ext" value="$!message.date("DATE", $facade.Diplodate, false)" id="person-diplodate$ext" onchange="setModified();" class="datepicker" #if(!$grants.mayWrite() || $createNewPerson) readonly="true"#end/>
     				#if($grants.mayWrite() && !$createNewPerson)
         				<span id="show-diplodate$ext" class="datepickerContainer"><img src="${paths.staticWeb}images/calendar.png" alt="Datum ausw&auml;hlen" title="Datum ausw&auml;hlen"/></span> &nbsp; um &nbsp;

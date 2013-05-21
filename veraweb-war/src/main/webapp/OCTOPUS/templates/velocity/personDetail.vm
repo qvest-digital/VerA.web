@@ -212,7 +212,7 @@
     	<hr />
     	
     	<div class="CharSet">
-    		<label>Zeichensatz</label>
+    		<label for="encoding">Zeichensatz</label>
     		<select vera-select name="encoding" id="encoding">
     		      <option value="person$extEncoding1" selected="selected">Latein</option>
     		      <option value="person$extEncoding2">Zeichensatz 1</option>
@@ -272,7 +272,7 @@
         <hr />
 
         <div class="CharSet">
-            <label>Zeichensatz</label>
+            <label for="encoding">Zeichensatz</label>
 			<select vera-select name="encoding" id="encoding">
     		      <option value="address$extEncoding1" selected="selected">Latein</option>
     		      <option value="address$extEncoding2">Zeichensatz 1</option>
