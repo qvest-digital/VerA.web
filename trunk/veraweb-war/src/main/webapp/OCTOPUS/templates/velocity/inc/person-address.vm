@@ -18,7 +18,7 @@
 			
             <div class="tableCell width50 #if($createNewPerson) disabled#end">
                 <label for="person-company$ext">Firma/Institution</label>
-                <input type="text" id="person-company$ext" name="person-company$ext" value="$!message.text($facade.Company)" onchange="setModified();" #if($createNewPerson) disabled="true"#end/>
+                <input type="text" id="person-company$ext" name="person-company$ext" value="$!message.text($facade.Company)" onchange="setModified();" #if($createNewPerson) readonly="true"#end/>
                 <div class="addButton">
                     <input type="button" value="Aus Stammdaten hinzufügen" onclick="selectCompany('${paths.staticWeb}do/', 'person-company$ext');" #if($createNewPerson) disabled="true"#end/>
                 </div>
