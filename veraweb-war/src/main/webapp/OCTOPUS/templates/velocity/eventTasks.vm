@@ -15,7 +15,7 @@
 <table class="tab" border="0" cellspacing="0" cellpadding="0"><tr>
 	<td class="tableft">&nbsp;</td>
 	<td class="tabinactiv"><a href="ShowEvent?id=$!id" class="tabinactiv">Allgemein</a></td>
-	<td class="tabinactiv"><a href="${paths.staticWeb}do/ShowEventDoctype?id=$!id" class="tabinactiv">Dokumententypen</a></td>
+	<td class="tabinactiv"><a href="${paths.staticWeb}do/ShowEventDoctype?id=$!id" class="tabinactiv">Dokumenttypen</a></td>
 	<td class="tabactiv"><a id="tab.tasks" href="${paths.staticWeb}do/ShowEventTasks?id=$!id" class="tabinactiv">Aufgaben</a></td>
 	<td class="tabright">&nbsp;</td>
 </tr></table>

@@ -7,7 +7,7 @@
 <table class="tab" border="0" cellspacing="0" cellpadding="0"><tr>
 	<td class="tableft">&nbsp;</td>
 	<td class="tabinactiv"><a href="ShowEvent?id=$!event.id" class="tabinactiv">Allgemein</a></td>
-	<td class="tabactiv"><span class="tabactiv">Dokumententypen</span></td>
+	<td class="tabactiv"><span class="tabactiv">Dokumenttypen</span></td>
 	<td class="tabinactiv"><a id="tab.tasks" href="${paths.staticWeb}do/ShowEventTasks?id=$!event.id" class="tabinactiv">Aufgaben</a></td>
 	<td class="tabright">&nbsp;</td>
 </tr></table>
