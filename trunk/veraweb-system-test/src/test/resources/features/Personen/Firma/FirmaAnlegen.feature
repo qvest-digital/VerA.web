@@ -16,9 +16,10 @@ Szenariogrundriss: Ich lege eine neue Firma ohne dedizierten Personenbezug an
 	Dann sehe ich <Meldung>
 	
 	Beispiele:
-		| 	Testdaten									|	Meldung						|
-		| 	"Neue Firma ohne Personenbezug"				|	Firma erfolgreich angelegt	|
-		
+		| 	Testdaten							|	Meldung													 |
+		| 	"Neue Firma ohne Personenbezug"		|	Firma erfolgreich angelegt								 |
+		|	"Neue Firma ohne Pflichtfeld"		|	Sie müssen einen Namen für die Firma/Institution angeben |
+				
 
 Szenario: Checkbox aktiviert neues Feld	
 Beim Auswählen von "ist Firma" erscheint ein neues Feld "Firma/Institution 
@@ -27,6 +28,7 @@ Beim Auswählen von "ist Firma" erscheint ein neues Feld "Firma/Institution
 	 Und ich sehe kein Feld "Firma/Institution"
 	Wenn ich die Checkbox "Ist Firma" auswähle
 	Dann sehe ich das Feld "Firma/Institution"
+	
 	
 Szenario: Referenzierung Firma
 Der Eintrag in dieses Feld referenziert auf das Feld "Firma/Institution" unter Anschrift Geschäftlich	
