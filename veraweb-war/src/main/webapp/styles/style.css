@@ -15,6 +15,7 @@
 * 5. infoboxes
 * 6. content
 *	6.1 tabs
+*	6.2 Messages
 * 7. footer
 * 8. forms
 * 9. tables
@@ -596,6 +597,18 @@ tr.repeat {
 	padding:10px 20px 0;
 }
 /************* =End tabs *************/
+
+/************ =6.2 Messages ***********/
+
+.msg  {
+    background-color: #FFDFAF;
+    border: 1px solid #BDBDBD;
+    padding: 10px 20px;
+}
+
+.error {}
+
+/************ End Messages ***********/
 
 /************* End content *************/
 
