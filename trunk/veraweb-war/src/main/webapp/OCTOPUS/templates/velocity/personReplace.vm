@@ -10,44 +10,10 @@
 
 	<h1>Personen suchen & ersetzen</h1>
 
-		<div class="hinweis contentBoxColored grayBorder marginBottom20">
-				<strong>
-					Hinweis
-				</strong>
-				<p>Wenn Sie den Platzhalter * verwenden, werden auch Teilstücke ersetzt, sonst nur vollständige Datenfelder. </p>
-		</div>
-
-
 	<form id="formlist" name="formlist" action="CountReplaceAllPerson" method="POST">
 	<input type="hidden" name="start" value="0">
 	<input type="hidden" name="selectAll" value="false">
 	<input type="hidden" name="selectNone" value="true">
-	
-	#if($snr-action == "replace" || $snr-action == "replaceAll")
-	<div style="margin: 10px 0px 0px 0px; padding: 2px 3px 2px 3px; background-color: #ffc080; border: 1px solid #ff8000;">
-		#if(!$snr-count)
-			Ihre Suche muss aus mindestens zwei Buchstaben und einem Feld bestehen.
-		#elseif($snr-count == 0)
-			Es wurde kein Datensatz ersetzt.
-		#elseif($snr-count == 1)
-			Es wurde ein Datensatz ersetzt.
-		#else
-			Es wurden $!snr-count Datens&auml;tze ersetzt.
-		#end
-	</div>
-	#elseif($snr-action == "count")
-	<div style="margin: 10px 0px 0px 0px; padding: 2px 3px 2px 3px; background-color: #ffc080; border: 1px solid #ff8000;">
-		#if(!$snr-count)
-			Ihre Suche muss aus mindestens zwei Buchstaben und einem Feld bestehen.
-		#elseif($snr-count == 0)
-			Es wurde kein Datensatz gefunden.
-		#elseif($snr-count == 1)
-			Es wurde ein Datensatz gefunden.
-		#else
-			Es wurden $!snr-count Datens&auml;tze gefunden.
-		#end
-	</div>
-	#end
 
 	<div id="main_content" class="contentBoxColored grayBorder marginBottom20">
 			<div class="table width20 marginBottom10">
@@ -65,9 +31,9 @@
 				</div>		
 			</div>
 			
-			<strong>In folgenden Feldern*:</strong>
+			<p><strong>In folgenden Feldern*:</strong></p>
 			
-			<div class="table">
+			<div class="table inlineLabel marginBottom20">
 				<div class="tableRow">
 					<div class="tableCell"><input type="checkbox" id="snr-group01" name="snr-group01" value="true" #if($replace-request.snr-group01) checked#end> <label for="snr-group01" title="Vorname der Hauptperson und des Partners">Vorname</label></div>
 					<div class="tableCell"><input type="checkbox" id="snr-group02" name="snr-group02" value="true" #if($replace-request.snr-group02) checked#end> <label for="snr-group02" title="Nachname der Hauptperson und des Partners">Nachname</label></div>
@@ -88,6 +54,31 @@
 				</div>
 			</div>					
 
+			#if($snr-action == "replace" || $snr-action == "replaceAll")
+				<div class="marginBottom20 marginTop10 msg">
+					#if(!$snr-count)
+						Ihre Suche muss aus mindestens zwei Buchstaben bestehen und Sie müssen ein Feld ausgewählt haben.
+					#elseif($snr-count == 0)
+						Es wurde kein Datensatz ersetzt.
+					#elseif($snr-count == 1)
+						Es wurde ein Datensatz ersetzt.
+					#else
+						Es wurden $!snr-count Datens&auml;tze ersetzt.
+					#end
+				</div>
+				#elseif($snr-action == "count")
+				<div class="marginBottom20 marginTop10 msg">
+					#if(!$snr-count)
+						Ihre Suche muss aus mindestens zwei Buchstaben bestehen und Sie müssen ein Feld ausgewählt haben.
+					#elseif($snr-count == 0)
+						Es wurde kein Datensatz gefunden.
+					#elseif($snr-count == 1)
+						Es wurde ein Datensatz gefunden.
+					#else
+						Es wurden $!snr-count Datens&auml;tze gefunden.
+					#end
+				</div>
+			#end
 
 			<div id="buttonPanel-bottom">
 				<input type="submit" class="mainButton" name="count" value="Suchen" onclick="document.getElementById('formlist').action='CountReplaceAllPerson'; document.getElementById('formlist').submit();">
@@ -95,6 +86,12 @@
 				<input type="button" class="mainButton" name="replaceall" value="Alle ersetzen" onclick="document.getElementById('formlist').action='SaveReplaceAllPerson';  document.getElementById('formlist').submit();">
 				<input type="button" class="mainButton" name="cancel" value="Felder leeren" onclick="clearFields();">		
 			</div>
+		</div>
+		<div class="hinweis contentBoxColored grayBorder marginTop20">
+				<strong>
+					Hinweis
+				</strong>
+				<p>Wenn Sie den Platzhalter * verwenden, werden auch Teilstücke ersetzt, sonst nur vollständige Datenfelder. </p>
 		</div>
 	</form>
 </div>
