@@ -194,7 +194,7 @@
                             </select>
 
 							<div class="calendarContainer">
-								<input type="date" name="validdate" value="$!message.date("DATE", $search.validdate)" id="validdate" class="date datepicker" style="width: 90px;">
+								<input type="date" name="validdate" value="$!message.date("DATE", $search.validdate)" id="validdate" class="datepicker">
 								<span id="showGueltigDate" class="datepickerContainer"><img src="${paths.staticWeb}images/calendar.png" alt="Datum ausw&auml;hlen" title="Datum ausw&auml;hlen"></span>
 								<script type="text/javascript">
 								    Calendar.setup({
