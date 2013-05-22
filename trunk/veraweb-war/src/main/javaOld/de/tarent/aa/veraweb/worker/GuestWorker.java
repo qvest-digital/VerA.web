@@ -773,16 +773,16 @@ public class GuestWorker {
      */
     protected void refreshDoctypes(OctopusContext cntx, Database database, ExecutionContext context, Guest guest, Person person) throws BeanException, IOException {
         if (guest == null || person == null) {
-			logger.warn("Aktuallisieren der Dokumententypen von Gast #" +
+			logger.warn("Aktualisieren der Dokumenttypen von Gast #" +
 					(guest == null || guest.id == null ? "null" : guest.id.toString()) +
 					" nicht möglich. (Person #" +
 					(person == null || person.id == null ? "null" : person.id.toString()) + ")");
 			return;
         }
-		logger.debug("Aktualisiere Dokumententypen der Person #" + person.id + ".");
+		logger.debug("Aktualisiere Dokumenttypen der Person #" + person.id + ".");
 		PersonDoctypeWorker.createPersonDoctype(cntx, database, context, person);
 		
-		logger.debug("Aktualisiere Dokumententypen des Gast #" + guest.id + ".");
+		logger.debug("Aktualisiere Dokumenttypen des Gast #" + guest.id + ".");
 		
         Select select = database.getSelect("PersonDoctype").where(Expr.equal("fk_person", guest.person));
 		select.selectAs("tperson_doctype.fk_doctype", "doctype");

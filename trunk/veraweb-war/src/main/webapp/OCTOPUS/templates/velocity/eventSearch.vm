@@ -15,93 +15,96 @@
 	#set($formurl = "SearchEvent")
 #end
 
-<form action="$formurl" method="post">
-<input type="hidden" name="start" value="0">
-<input type="hidden" name="selectAll" value="false">
-<input type="hidden" name="selectNone" value="true">
+<div id="content_container">
+	<div id="breadcrumb" class="textRight">
+		<strong>Sie sind hier:</strong> <span><a href="index.html">Home</a> > Veranstaltungen > Veranstaltungssuche</span>
+	</div>
+		
+	<h1>Veranstaltungssuche</h1>
+	
+	<div class="contentBoxColored hinweis grayBorder marginBottom20">
+		<strong>Hinweis</strong>
+		<p>Sie können bei der Suche sogenannte Platzhalter verwenden, der * steht für mehrere und das ? für einzelne Zeichen. </p>
+	</div>		
 
-<table class="tab" border="0" cellspacing="0" cellpadding="0"><tr>
-	<td class="tableft">&nbsp;</td>
-	<td class="tabactiv"><span class="tabactiv">Suche</span></td>
-	<td class="tabright">&nbsp;</td>
-</tr></table>
+	<form action="$formurl" method="post">
+	<input type="hidden" name="start" value="0">
+	<input type="hidden" name="selectAll" value="false">
+	<input type="hidden" name="selectNone" value="true">
 
-#openContent()
-#openContentSection()
+	<input type="hidden" name="search" value="reset">
+	
+	<div id="main_content" class="contentBoxColored grayBorder marginBottom20">
 
-<input type="hidden" name="search" value="reset">
-<table class="form"><tr>
-	<td class="label"><label for="shortname">Kurzbezeichnung:</label></td>
-	<td class="value"><input type="text" name="shortname" id="input.shortname" value="" class="text"></td>
-</tr><tr>
-	<td class="label"><label for="begin">Datum Beginn:</label></td>
-	<td class="value">
-		<input type="text" name="begin" value="" id="begin" class="date">
-		<span id="show-begin" class="datepickerContainer"><img src="${paths.staticWeb}images/calendar.png" alt="Datum ausw&auml;hlen" title="Datum ausw&auml;hlen"></span>
-		<script type="text/javascript">
-		    Calendar.setup({
-				inputField     :    "begin",
-				button         :    "show-begin",
-				ifFormat       :    "%d.%m.%Y",
-				showsTime      :    false
-			});
-		</script>
-	</td>
-</tr><tr>
-	<td class="label"><label for="eventname">Name:</label></td>
-	<td class="value"><textarea rows="4" cols="20" name="eventname" id="eventname" value="" class="text"></textarea></td>
-</tr><tr>
-	<td class="label"><label for="hostname">Gastgeber:</label></td>
-	<td class="value"><input type="text" name="hostname" id="hostname" value="" class="text"></td>
-</tr><tr>
-	<td class="label"><label for="location">Veranstaltungsort:</label></td>
-	<td class="value"><input type="text" name="location" id="location" value="" class="text"></td>
-</tr><tr>
-	<td class="label">&nbsp;</td>
-	<td class="value">
-		<hr class="contentsection">
-		<table class="form"><tr>
-			<td class="value" style="width: 24px;">
-				<input type="checkbox" id="current" name="current" value="true" checked>
-			</td><td class="value">
-				<label for="current">Nur in zuk&uuml;nftigen Veranstaltungen suchen</label>
-			</td>
-		</tr></table>
-	</td>
-</tr></table><br>
-
-##<br><a href="SearchEvent?search=current">Aktuelle Veranstaltungen anzeigen</a><br><br>
-
-<table class="list">
-	<tr style="height: 20px;">
-		<td class="list2warn" style="text-align: center; width: 60px;"><strong>Hinweis</strong></td>
-		<td class="list1warn">
-			Sie k&ouml;nnen bei der Suche sogenannte Platzhalter verwenden,
-			der * steht f&uuml;r mehrere und das ? f&uuml;r einzelne Zeichen.
-		</td>
-	</tr>
-</table>
-
-<div id="fixme" class="fixme1"><div class="fixme2"><div class="fixme3">
-
-#if($action == "guest")
-	<input id="button.startSearch" type="submit" class="submit" value="Suche starten"> 
-	<input type="reset"  class="reset" value="Felder leeren"> 
-	<input type="button" class="cancel"  name="cancel" value="Zur&uuml;ck" onclick="window.location.href='ShowGuestList';">
-#elseif($action == "addperson")
-	<input id="button.startSearch" type="submit" class="submit" value="Suche starten"> 
-	<input type="reset"  class="reset" value="Felder leeren">
-	<input type="button" class="cancel"  name="cancel" value="Zur&uuml;ck" onclick="window.location.href='ShowPerson';"> 
-#else
-	<input id="button.startSearch" type="submit" class="submit" value="Suche starten">
-	<input type="reset"  class="reset" value="Felder leeren">
-#end
-
-</div></div></div>
-
-#closeContentSection()
-#closeContent()
+			<h2>Suche</h2>
+			
+			<form action="" id="eventSearch_form">
+				<fieldset style="border: none; padding-top: 0;">
+					<legend class="noDisplay">Veranstaltung</legend>
+					
+					<div class="table width100">
+						<div class="tableRow">
+							<div class="tableCell width30">
+								<label for="shortname">Kurzbezeichnung:</label>
+								<input type="text" name="shortname" id="input.shortname" value="">					
+							</div>
+							<div class="tableCell width30">
+								<label for="begin">Datum (Beginn):</label>
+								<div class="calenderContainer">
+									<input type="text" name="begin" value="" id="begin" class="date">
+									<span id="show-begin" class="datepickerContainer"><img src="${paths.staticWeb}images/calendar.png" alt="Datum ausw&auml;hlen" title="Datum ausw&auml;hlen"></span>
+									<script type="text/javascript">
+									    Calendar.setup({
+											inputField     :    "begin",
+											button         :    "show-begin",
+											ifFormat       :    "%d.%m.%Y",
+											showsTime      :    false
+										});
+									</script>
+								</div>					
+							</div>
+							<div class="tableCell width30">
+								<label for="eventname">Name:</label>
+								<textarea name="eventname" id="eventname" value=""></textarea>
+							</div>
+						</div>
+						<div class="tableRow">
+							<div class="tableCell width30">
+								<label for="hostname">Gastgeber:</label>
+								<input type="text" name="hostname" id="hostname" value="">					
+							</div>
+							<div class="tableCell width30">
+								<label for="location">Veranstaltungsort:</label>
+								<input type="text" name="location" id="location" value="">				
+							</div>
+							<div class="tableCell width30">
+								<label for="current">Nur in zuk&uuml;nftigen Veranstaltungen suchen</label>
+								<input type="checkbox" id="current" name="current" value="true" checked>
+							</div>
+						</div>
+					</div>
+				</fieldset>		
+				
+				<div id="buttonPanel-bottom" class="textRight">			
+					#if($action == "guest")
+						<input id="button.startSearch" type="submit" class="mainButton" value="Suchen"> 
+						<input type="reset"  class="mainButton" value="Felder leeren"> 
+						<input type="button" class="mainButton"  name="cancel" value="Zur&uuml;ck" onclick="window.location.href='ShowGuestList';">
+					#elseif($action == "addperson")
+						<input id="button.startSearch" type="submit" class="mainButton" value="Suchen"> 
+						<input type="reset"  class="mainButton" value="Felder leeren">
+						<input type="button" class="mainButton"  name="cancel" value="Zur&uuml;ck" onclick="window.location.href='ShowPerson';"> 
+					#else
+						<input id="button.startSearch" type="submit" class="mainButton" value="Suchen">
+						<input type="reset"  class="mainButton" value="Felder leeren">
+					#end			
+				</div>				
+			</form>
+		</div>	
+	
+	
+		##<br><a href="SearchEvent?search=current">Aktuelle Veranstaltungen anzeigen</a><br><br>
 
 </form>
-
+</div>
 #parse("inc/footer.vm")
