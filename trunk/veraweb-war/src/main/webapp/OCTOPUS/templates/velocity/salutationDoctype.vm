@@ -29,7 +29,7 @@
 		<th class="list" style="width: 20px;">&nbsp;</th>
 		<th class="list" style="width: 60px;">ID</th>
 		<th class="list">Bezeichnung</th>
-		<th class="list" style="width: 260px;">Dokumententyp</th>
+		<th class="list" style="width: 260px;">Dokumenttyp</th>
 	</tr>
 #if ($allDoctype.iterator().hasNext())
 	<tr class="list2">

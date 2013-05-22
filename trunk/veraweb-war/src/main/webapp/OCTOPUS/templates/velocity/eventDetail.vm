@@ -17,7 +17,7 @@
 <table class="tab" border="0" cellspacing="0" cellpadding="0"><tr>
 	<td class="tableft">&nbsp;</td>
 	<td class="tabactiv"><span class="tabactiv">Allgemein</span></td>
-	<td class="tabinactiv"><a href="javascript:showDoctypes();" class="tabinactiv">Dokumententypen</a></td>
+	<td class="tabinactiv"><a href="javascript:showDoctypes();" class="tabinactiv">Dokumenttypen</a></td>
 	<td class="tabinactiv"><a id="tab.tasks" href=#if ($event.id) "${paths.staticWeb}do/ShowEventTasks?id=$!event.id" #else "#" #end class="tabinactiv">Aufgaben</a></td>
 	<td class="tabright">&nbsp;</td>
 </tr></table>

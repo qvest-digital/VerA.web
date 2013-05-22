@@ -55,7 +55,7 @@ public class Doctype extends AbstractBean {
 	public Boolean isdefault;
 	/**
      * format varchar(20) NOT NULL:
-	 * Gibt das Export-Format dieses Dokumententypes an.
+	 * Gibt das Export-Format dieses Dokumenttypes an.
 	 * Vgl. de.tarent.aa.veraweb.export.SpreadSheetHelper#getSpreadSheet(String)
 	 */
 	public String format;

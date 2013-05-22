@@ -1156,7 +1156,7 @@
 		
 		<task name="ShowEventDoctype" access="public" groups="StandardFieldsReader">
 			<description>
-				Dieser Task zeigt die Dokumententypen zu einer Veranstaltung an.
+				Dieser Task zeigt die Dokumenttypen zu einer Veranstaltung an.
 			</description>
 			<doTask name="Load"/>
 			<action name="saveDetail" worker="EventDetailWorker" />

@@ -58,7 +58,7 @@ import de.tarent.octopus.response.TcBinaryResponseEngine;
 import de.tarent.octopus.server.OctopusContext;
 
 /**
- * Diese Octopus-Worker-Klasse exportiert Dokumententypen einer G�steliste
+ * Diese Octopus-Worker-Klasse exportiert Dokumenttypen einer G�steliste
  * in ein OpenDocument-SpreadSheet.
  * 
  * @author Christoph

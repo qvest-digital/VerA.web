@@ -140,7 +140,7 @@ public class PersonDoctypeWorker extends ListWorkerVeraWeb {
 	public static final boolean MANDATORY_showDetail[] = { true };
 	/**
 	 * <p>
-	 * L�dt eine Person-Dokumententyp-Verkn�pfung und stellt diese
+	 * L�dt eine Person-Dokumenttyp-Verkn�pfung und stellt diese
 	 * als <code>persondoctype</code> in den Content.
 	 * </p>
 	 * 
