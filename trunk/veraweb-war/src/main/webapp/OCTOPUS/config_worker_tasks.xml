@@ -660,6 +660,7 @@
 			<action name="getAll" worker="SalutationWorker"/>
 			<action name="getAll" worker="WorkAreaWorker"/>
 			<action name="getDoctype" worker="PersonDetailWorker" />
+			<action name="saveList" worker="PersonDoctypeWorker" />
 			<action name="showList" worker="PersonDoctypeWorker" />
 			<param name="docnavigation" value="PersonData"/>
 			<response type="velocity" name="personDetail">
