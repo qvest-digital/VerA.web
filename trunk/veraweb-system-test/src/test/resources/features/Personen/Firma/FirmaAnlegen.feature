@@ -18,3 +18,7 @@ Szenariogrundriss: Ich lege eine neue Firma ohne dedizierten Personenbezug an
 	Beispiele:
 		| 	Testdaten									|	Meldung						|
 		| 	"Neue Firma ohne Personenbezug"				|	Firma erfolgreich angelegt	|
+	
+	
+		
+//Firma mit Pflichtfeld-Prüfung anlegen
