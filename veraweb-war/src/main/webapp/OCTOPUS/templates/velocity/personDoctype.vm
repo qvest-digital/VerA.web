@@ -1,16 +1,9 @@
-#closeContentSection()
 
-#openContentSection()
-
-#if($persondoctype)
+#if($docnavigation == "PersonDoctype")
 #parse("inc/person-doctype2.vm")
 #else
 #parse("inc/person-doctype.vm")
 #end
-
-#closeContentSection()
-
-#closeContent()
 
 <input type="hidden" id="inviteGuestReserve" name="inviteGuestReserve" value="false">
 <input type="hidden" id="inviteGuestPartner" name="inviteGuestPartner" value="false">
