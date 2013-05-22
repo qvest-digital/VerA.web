@@ -23,7 +23,7 @@
 	<td class="label"><label for="id">Datens&auml;tze Insgesamt:</label></td>
 	<td class="value"><input type="text" name="ds_count" value="$!importStatus.dsCount" id="id" class="id" readonly></td>
 </tr><tr>
-	<td class="label"><label for="id">Anzahl Duplikate:</label></td>
+	<td class="label"><label for="id">Anzahl Dubletten:</label></td>
 	<td class="value"><input type="text" name="dup_count" value="$!importStatus.dupCount" id="id" class="id" readonly></td>
 </tr><tr>
 	<td class="label"><label for="id">Datens&auml;tze speicherbar:</label></td>
@@ -59,11 +59,11 @@
 #set($saveCount = $!importStatus.saveCount - $!importStatus.dsCount + $!importStatus.dupCount)
 <input type="hidden" name="saveCount" value="$saveCount">
 <input type="hidden" name="start" value="0">
-<input type="submit" class="submit" value="Duplikate"> &nbsp;
+<input type="submit" class="submit" value="Dubletten"> &nbsp;
 <input type="button" class="button" value="Zur&uuml;ck" onclick="window.location.href='ImportPersons';">
 </form>
 #else
-<input type="button" class="buttondisabled" value="Duplikate" disabled> 
+<input type="button" class="buttondisabled" value="Dubletten" disabled> 
 #end
 </td>
 </tr>

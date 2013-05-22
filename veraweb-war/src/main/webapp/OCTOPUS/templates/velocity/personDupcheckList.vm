@@ -1,5 +1,5 @@
 #set($activeMenu = "Personen")
-#set($title = "Person speichern - Duplikat-Pr&uuml;fung")
+#set($title = "Person speichern - Dubletten-Pr&uuml;fung")
 #parse("inc/header.vm")
 
 <div id="content_container">
@@ -13,7 +13,7 @@
 		<input type="hidden" name="action" value="$action">
 		<input type="hidden" name="id" value="$id">
 	
-		<h1 class="paddingTop20">Vorhandene Duplikate</h1>
+		<h1 class="paddingTop20">Vorhandene Dubletten</h1>
 	
 		#foreach($bean in $list)
 		<input type="hidden" name="list" value="$bean.id">
@@ -65,7 +65,7 @@
 	
 		#set($disableListSelect = true)
 		#if ($listparam.count == 0)
-			<br>Es wurden keine Duplikate gefunden.
+			<br>Es wurden keine Dubletten gefunden.
 		#end
 	
 	<div class="textRight">
@@ -75,7 +75,7 @@
 			<input type="button" class="button" name="newperson" value="Person erfassen" title="Person erfassen" onclick="window.location.href='ShowPerson';">
 			<input type="button" class="cancel" name="cancel" value="Zur&uuml;ck" title="Zur&uuml;ck" onclick="window.location.href='ShowGuestList';">
 		#else
-			<!-- <input type="button" class="button" name="newperson" value="Duplikat anlegen" onclick="window.location.href='SavePerson?saveperson=true&person-nodupcheck=true&originalPersonId=$!originalPersonId';"> -->
+			<!-- <input type="button" class="button" name="newperson" value="Dubletten anlegen" onclick="window.location.href='SavePerson?saveperson=true&person-nodupcheck=true&originalPersonId=$!originalPersonId';"> -->
 			<input type="button" name="cancel" value="Abbrechen &amp; zur&uuml;ck"  title="Abbrechen &amp; zur&uuml;ck" onclick="window.location.href='PersonDupcheckCancel';" class="mainButton">
 		#end
 	

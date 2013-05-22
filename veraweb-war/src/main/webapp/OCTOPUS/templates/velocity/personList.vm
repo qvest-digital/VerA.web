@@ -20,7 +20,7 @@
     #parse("inc/header.vm")
 #elseif($action == "duplicateSearch")
 	#set($activeMenu = "Personen")
-    #set($title = "Duplikatsuche")
+    #set($title = "Dublettensuche")
     #parse("inc/header.vm")
 #elseif($action == "taskReferencePerson")
 	#set($activeMenu = "Veranstaltungen")
