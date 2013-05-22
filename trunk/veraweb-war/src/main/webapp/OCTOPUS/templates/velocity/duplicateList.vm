@@ -1,5 +1,5 @@
 #set($activeMenu = "Personen")
-#set($title = "Duplikate &uuml;bernehmen")
+#set($title = "Dubletten &uuml;bernehmen")
 #parse("inc/header.vm")
 
 <form id="formlist" name="formlist" action="ImportPersonsEditDuplicates" method="POST">
@@ -11,7 +11,7 @@
 
 <table class="tab" border="0" cellspacing="0" cellpadding="0"><tr>
 	<td class="tableft">&nbsp;</td>
-	<td class="tabactiv"><span class="tabactiv">Duplikate</span></td>
+	<td class="tabactiv"><span class="tabactiv">Dubletten</span></td>
 	<td class="tabright">&nbsp;</td>
 </tr></table>
 
@@ -84,7 +84,7 @@
 	#end
 </table><br>
 
-Anzahl zu speichernde Duplikate: $!listselection.size()
+Anzahl zu speichernder Dubletten: $!listselection.size()
 
 #if ($listparam.count == 0)
 	<br><br>Keine Daten gefunden.

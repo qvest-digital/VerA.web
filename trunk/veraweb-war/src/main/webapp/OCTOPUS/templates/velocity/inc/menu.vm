@@ -17,7 +17,7 @@
 						#if($grants.isUser())
 							#if($grants.mayWrite())
 								<li><a id="menu.searchReplace" href="${paths.staticWeb}do/ShowReplacePerson">Suchen &amp; Ersetzen</a></li>
-            					<li><a id="menu.searchDuplicate" href="${paths.staticWeb}do/PersonDuplicateSearch">Duplikatsuche</a></li>
+            					<li><a id="menu.searchDuplicate" href="${paths.staticWeb}do/PersonDuplicateSearch">Dublettensuche</a></li>
 							#end
 							#if($grants.mayExport())
 								<li><a id="menu.exportPerson" href="${paths.staticWeb}do/ExportPersons">Personenexport</a></li>

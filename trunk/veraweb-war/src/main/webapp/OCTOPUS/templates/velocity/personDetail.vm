@@ -112,7 +112,7 @@
     <div class="contentBoxColored hinweis grayBorder marginBottom20">
         <strong>Hinweis</strong>
         <p>Bitte geben Sie zunächst den <strong>Vor- und Nachnamen</strong> an und <strong>speichern</strong> die Person.
-            Bei Firmen wählen Sie die Checkbox <strong>"Ist Firma"</strong> und tragen dann den Firmennamen ein. Das System prüft Ihre Angaben daraufhin auf Duplikate. Liegt kein Duplikat vor, können Sie weitere Daten eingeben</p>
+            Bei Firmen wählen Sie die Checkbox <strong>"Ist Firma"</strong> und tragen dann den Firmennamen ein. Das System prüft Ihre Angaben daraufhin auf Dubletten. Liegt keine Dublette vor, können Sie weitere Daten eingeben</p>
     </div>
     #end
 
@@ -440,7 +440,7 @@
 		<span id="buttonPanel-bottom" class="textRight floatRight">
             <input type="submit" name="save" class="mainButton" value="Person speichern" title="Person speichern" #if(!$grants.mayWrite()) disabled #end>
         	#if( $action == "duplicateSearch" )
-        		<input type="button" name="cancel" class="mainButton" value="Zur Duplikatsuche" title="Zur Duplikatsuche" onclick="if (checkModified()) { window.location.href='${paths.staticWeb}do/PersonDuplicateSearch'; }">
+        		<input type="button" name="cancel" class="mainButton" value="Zur Dublettensuche" title="Zur Dublettensuche" onclick="if (checkModified()) { window.location.href='${paths.staticWeb}do/PersonDuplicateSearch'; }">
         	#else
         	    <input type="button" name="cancel" class="mainButton" value="Zur Personen&uuml;bersicht" title="Zur Personen&uuml;bersicht" onclick="if (checkModified()) { window.location.href='${paths.staticWeb}do/SearchPerson?action=person'; }">
     		#end

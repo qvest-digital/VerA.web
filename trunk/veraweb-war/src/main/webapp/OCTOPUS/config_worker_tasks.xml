@@ -671,7 +671,7 @@
 			</description>
 			<contract>
 				<input name="id" type="xsd:string" optional="f" description="ID der Person"/>
-				<input name="person-nodupcheck" type="xsd:string" optional="t" description="Flag: Kein Duplikatscheck"/>
+				<input name="person-nodupcheck" type="xsd:string" optional="t" description="Flag: Kein Dublettenscheck"/>
 			</contract>
 			<doTask name="Load"/>
 			<action name="prepareSaveDetail" worker="PersonDetailWorker" />
@@ -692,7 +692,7 @@
 		
 		<task name="PersonDupcheck" access="public" groups="Writer">
 			<description>
-				Dieser Task zeigt einen Vergleich zwischen zwei oder mehr Personen-Duplikaten an.
+				Dieser Task zeigt einen Vergleich zwischen zwei oder mehr Personen-Dubletten an.
 			</description>
 			<doTask name="Load"/>
 			<action name="showList" worker="PersonDupcheckWorker" />
@@ -703,7 +703,7 @@
 		
 		<task name="PersonDupcheckCancel" access="public" groups="Writer">
 			<description>
-				Dieser Task zeigt einen Vergleich zwischen zwei oder mehr Personen-Duplikaten an.
+				Dieser Task zeigt einen Vergleich zwischen zwei oder mehr Personen-Dubletten an.
 			</description>
 			<doTask name="Load"/>
 			<action name="check" worker="PersonDupcheckWorker" />
@@ -944,7 +944,7 @@
 		
 		<task name="ImportPersonsEditDuplicates" access="public" groups="Writer">
 			<description>
-				Dieser Task ermöglicht die Bearbeitung der Duplikat-Datensätze von einem Importvorgang.
+				Dieser Task ermöglicht die Bearbeitung der Dubletten-Datensätze von einem Importvorgang.
 			</description>
 			<doTask name="Load"/>
 			<action name="saveList" worker="ImportPersonsDuplicateWorker" />
