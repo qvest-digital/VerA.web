@@ -21,7 +21,7 @@
 <input type="hidden" name="selectNone" value="false">
 <input type="hidden" name="doRemove" value="true">
 
-<h1>Suchergebnis: Veranstaltungen<h1>
+<h1>Suchergebnis: Veranstaltungen</h1>
 
 
 #if($listerrors && $listerrors.size() > 0)
@@ -67,9 +67,9 @@
 <input type="hidden" name="list" value="$bean.id">
 #end
 <table>
-	<tr class="list1" style="height: 20px;">
+	<tr>
 #if($action != "guest" && $action != "addperson")
-		<th style="width: 20px;">&nbsp;</th>
+		<th class="smallCell textCenter">&nbsp;</th>
 #end
 		<th class="smallCell textCenter">ID</th>
 		<th>Name</th>
@@ -85,7 +85,7 @@
 	#end
 	<tr class="$class">
 		#if($action == "guest")
-				<td style="cursor: pointer;" onclick="window.location.href='AddEventToEventGuestList?id=$!{bean.id}';"><input type="hidden" name="${bean.id}-id" value="$bean.id">$!{bean.id}</td>
+				<td style="cursor: pointer;" onclick="window.location.href='AddEventToEventGuestList?id=$!{bean.id}';" class="textCenter"><input type="hidden" name="${bean.id}-id" value="$bean.id">$!{bean.id}</td>
 				<td style="cursor: pointer;" onclick="window.location.href='AddEventToEventGuestList?id=$!{bean.id}';">$!message.plain($bean.shortname)</td>
 		#if ($bean.begin.Seconds == 30)
 				<td style="cursor: pointer;" onclick="window.location.href='AddEventToEventGuestList?id=$!{bean.id}';">$!message.date("DATE", $bean.begin)</td>
@@ -95,7 +95,7 @@
 				<td style="cursor: pointer;" onclick="window.location.href='AddEventToEventGuestList?id=$!{bean.id}';">$!message.plain($bean.hostname)</td>
 				<td style="cursor: pointer;" onclick="window.location.href='AddEventToEventGuestList?id=$!{bean.id}';">$!message.plain($bean.location)</td>
 		#elseif($action == "addperson")
-				<td style="cursor: pointer;" onclick="window.location.href='AddPersonToEventDetail?event-id=$!{bean.id}&action=person';"><input type="hidden" name="${bean.id}-id" value="$bean.id">$!{bean.id}</td>
+				<td style="cursor: pointer;" onclick="window.location.href='AddPersonToEventDetail?event-id=$!{bean.id}&action=person';" class="textCenter"><input type="hidden" name="${bean.id}-id" value="$bean.id">$!{bean.id}</td>
 				<td style="cursor: pointer;" onclick="window.location.href='AddPersonToEventDetail?event-id=$!{bean.id}&action=person';">$!message.plain($bean.shortname)</td>
 		#if ($bean.begin.Seconds == 30)
 				<td style="cursor: pointer;" onclick="window.location.href='AddPersonToEventDetail?event-id=$!{bean.id}&action=person';">$!message.date("DATE", $bean.begin)</td>
@@ -105,8 +105,8 @@
 				<td style="cursor: pointer;" onclick="window.location.href='AddPersonToEventDetail?event-id=$!{bean.id}&action=person';">$!message.plain($bean.hostname)</td>
 				<td style="cursor: pointer;" onclick="window.location.href='AddPersonToEventDetail?event-id=$!{bean.id}&action=person';">$!message.plain($bean.location)</td>
 		#else
-				<td><input type="checkbox" name="${bean.id}-select" value="true" class="checkbox" #if($listselection.indexOf($bean.id) != -1) checked#end></td>
-				<td style="cursor: pointer;" onclick="window.location.href='ShowEvent?id=$!{bean.id}';"><input type="hidden" name="${bean.id}-id" value="$bean.id">$!{bean.id}</td>
+				<td class="textCenter"><input type="checkbox" name="${bean.id}-select" value="true" #if($listselection.indexOf($bean.id) != -1) checked#end></td>
+				<td style="cursor: pointer;" onclick="window.location.href='ShowEvent?id=$!{bean.id}';" class="textCenter"><input type="hidden" name="${bean.id}-id" value="$bean.id">$!{bean.id}</td>
 				<td style="cursor: pointer;" onclick="window.location.href='ShowEvent?id=$!{bean.id}';">$!message.plain($bean.shortname)</td>
 		#if ($bean.begin.Seconds == 30)
 				<td style="cursor: pointer;" onclick="window.location.href='ShowEvent?id=$!{bean.id}';">$!message.date("DATE", $bean.begin)</td>
@@ -135,7 +135,7 @@
 			<input type="button" name="cancel" value="Zur&uuml;ck zur Veranstaltungssuche" onclick="window.location.href='ShowEventSearch';"> 
 		#else
 			<input type="submit" name="remove" value="L&ouml;schen" title="markierte Veranstaltungen l&ouml;schen" #* onclick="return confirm('Markierte Veranstaltungen wirklich l&ouml;schen?');" *# #if($grants.mayWrite()) class="button" #else class="buttondisabled" disabled #end> &nbsp;
-			<input type="button" name="cancel" value="Zur&uuml;ck zur Veranstaltungssuche" onclick="window.location.href='ShowEventSearch';"> ;
+			<input type="button" name="cancel" value="Zur&uuml;ck zur Veranstaltungssuche" onclick="window.location.href='ShowEventSearch';">
 		#end
 	</div>
 
