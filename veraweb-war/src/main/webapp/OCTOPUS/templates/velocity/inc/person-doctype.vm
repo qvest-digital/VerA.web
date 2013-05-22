@@ -1,4 +1,4 @@
-<form id="formlist" name="formlist" action="${paths.staticWeb}do/ShowPersonDoctypeList" method="post">
+
 <input type="hidden" name="id" value="$!person.id">
 <input type="hidden" name="start" value="">
 <input type="hidden" name="selectAll" value="false">
@@ -28,13 +28,12 @@
 #end
 </span>
 
-<br /><br />
 
 	<table>
 		<tr>
 			<th class="textCenter smallCell">	
 			
-			<input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" onChange="selectionChange( this );" #if($listselection.size() == $listparam.count) checked#end title="Alle (de)markieren"/></th>
+			<input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" #if($listselection.size() == $listparam.count) checked#end title="Alle (de)markieren"/></th>
 			<th class="width90">Dokumenttyp</th>
 			<th>Anschrift</th>
 			<th>Zeichensatz</th>
@@ -98,7 +97,7 @@
 			#if($grants.mayWrite())
 ## 2009-05-07 cklein
 ## introduced createOne as part of issue #1528
-			<a href="${paths.staticWeb}do/CreatePersonDoctype?doctype-id=$!bean.doctypeId">erzeugen</a>
+			<a href="${paths.staticWeb}do/CreatePersonDoctype?doctype-id=$!bean.doctypeId&id=$!person.id">erzeugen</a>
 ## 2009-05-07 cklein
 ## non existing doctypes cannot be viewed as part of issue #1528
 ##			#else
@@ -130,4 +129,4 @@
 #end
 
 
-</form>
+#*</form>*#
