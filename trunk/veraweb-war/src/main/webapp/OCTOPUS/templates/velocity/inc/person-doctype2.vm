@@ -1,4 +1,4 @@
-<form id="PersonForm" name="PersonForm" action="${paths.staticWeb}do/SavePersonDoctype" method="post">
+
 <input type="hidden" name="id" value="$!person.id">
 
 <input type="hidden" name="persondoctype-id" value="$!persondoctype.id">
