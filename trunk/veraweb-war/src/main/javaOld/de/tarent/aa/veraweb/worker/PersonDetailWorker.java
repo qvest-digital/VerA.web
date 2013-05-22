@@ -529,6 +529,7 @@ public class PersonDetailWorker implements PersonConstants {
                     
                     if ( person.id == null ){
                         cntx.setContent( "newPersonErrors", person.getErrors() );
+                        cntx.setContent( "person-iscompany", PersonConstants.ISCOMPANY_TRUE );
                     }
                     
                 } else {
