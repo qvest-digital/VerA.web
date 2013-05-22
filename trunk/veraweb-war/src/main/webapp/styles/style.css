@@ -208,6 +208,10 @@ ul.alphabet li {
     border: 1px solid #bdbdbd;
 }
 
+.marginTop0 {
+	margin-top: 0px;
+}
+
 .marginTop5 {
 	margin-top: 5px;
 }
@@ -250,6 +254,18 @@ ul.alphabet li {
 
 .paddingTop20 {
 	padding-top:20px;
+}
+
+.paddingBottom10 {
+	padding-bottom:10px;
+}
+
+.paddingBottom15 {
+	padding-bottom:15px;
+}
+
+.paddingBottom20 {
+	padding-bottom:20px !important;
 }
 
 .clear {clear:both;}
@@ -713,15 +729,12 @@ label {
 
 fieldset {
     border-width: 1px 0 0;
+	margin-bottom:60px;
     padding-top: 20px;
     position: relative;
 }
 
-#peopleSearch_form fieldset {
-	margin-bottom:60px;
-}
-
-#peopleSearch_form fieldset:last-of-type {
+fieldset:last-of-type {
 	margin-bottom:15px;
 }
 
