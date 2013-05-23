@@ -127,7 +127,7 @@
     		<li vera-tab="personendaten" vera-tab-default>Persondendaten
     		</li><li vera-tab="anschriften">Anschriften
     		</li><li class="inactive" id="dokumenttypen">Dokumenttypen
-    		</li><li vera-tab="kategorien" onclick="showCategories();">Kategorien</li>
+    		</li><li class="inactive" onclick="showCategories();">Kategorien</li>
     	</ul>
     </div>
     
