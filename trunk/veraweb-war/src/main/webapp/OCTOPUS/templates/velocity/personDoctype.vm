@@ -1,77 +1,489 @@
-#set($activeMenu = "Personen")
-#if($person && $person)
-#set($title = "Person bearbeiten: $!message.plain($person.MainLatin.SaveAs)")
-#parse("inc/header.vm")
+#if($person && $person.id)
+	
+	#set($activeMenu = "Personen")
+    #set($title = "Person bearbeiten: $!message.plain($person.MainLatin.SaveAs)")
+    #parse("inc/header.vm")
+	
 #else
-#set($title = "Neue Person anlegen")
-#parse("inc/header.vm")
+	
+	#if($action == "guest")
+    	#set($activeMenu = "Veranstaltungen")
+    #elseif($action == "host")
+    	#set($activeMenu = "Veranstaltungen")
+    #elseif($action == "statistikGuest")
+    	#set($activeMenu = "Veranstaltungen")
+    #elseif($action == "statistikHost")
+    	#set($activeMenu = "Veranstaltungen")
+    #elseif($action == "taskReferencePerson")
+    	#set($activeMenu = "Veranstaltungen")
+    #else
+    	#set($activeMenu = "Personen")
+    #end
+	
+    #set($isNewPerson = 1)
+    #set($title = "Neue Person anlegen")
+	#parse("inc/header.vm")
+	
 #end
 
-<table class="tab" border="0" cellspacing="0" cellpadding="0"><tr>
-	<td class="tableft">&nbsp;</td>
-	<td class="tabinactiv"><a href="ShowPerson?id=$!person.id&tab=person&offset=${navigation.current.offset}" class="tabinactiv">Personendaten</a></td>
-	<td class="tabinactiv"><a href="ShowPerson?id=$!person.id&tab=anschrift&offset=${navigation.current.offset}" class="tabinactiv">Anschriften</a></td>
-#if($person && $person && $person.id && $person.id)
-	<td class="tabactiv"><a href="ShowPersonDoctypeList?id=$!person.id&offset=${navigation.current.offset}" class="tabactiv">Dokumenttypen</a></td>
-	<td class="tabinactiv"><a href="ShowPersonCategorieList?id=$!person.id&offset=${navigation.current.offset}" class="tabinactiv">Kategorien</a></td>
-#else
-	<td class="tabdisabled"><span class="tabdisabled">Dokumenttypen</span></td>
-	<td class="tabdisabled"><span class="tabdisabled">Kategorien</span></td>
+<div id="content_container"> 
+
+#if($octopusRequest.task == "AddPersonToEventDetail")
+	<div style="margin: 10px 0px 0px 0px; padding: 2px 3px 2px 3px; background-color: #ffc080; border: 1px solid #ff8000;">
+		#if($invited == 1)
+			Diese Person wurde erfolgreich zur Veranstaltung &quot;$!message.plain($event.shortname)&quot; eingeladen.
+		#end
+		#if($notInvited == 1)
+			Diese Person wurde nicht eingeladen, da Sie bereits auf der G&auml;steliste stand.
+		#end
+	</div>
 #end
-	<td class="tabright">&nbsp;</td>
-</tr></table>
 
-#openContent()
+<form id="PersonForm" name="PersonForm" action="${paths.staticWeb}do/SavePerson" method="post">
+    <input type="hidden" name="id" value="$!person.id">
+    <input type="hidden" name="person-id" value="$!person.id">
+    <input type="hidden" name="person-orgunit" value="$!person.orgunit">
+    <input type="hidden" name="person-deleted" #if($person.deleted && $person.deleted == "t") value="t" #else value="f" #end>
+    <input type="hidden" name="person-importsource" value="$!person.importsource">
+    #if($octopusRequest.task == "LoadPersonCompany" || $octopusRequest.forcedupcheck == "true")
+		<input type="hidden" name="person-modified" id="modified" value="true">
+    #else
+		<input type="hidden" name="person-modified" id="modified" value="false">
+    #end
+    #if(!$person || $octopusRequest.task == "CreatePerson")
+		<input type="hidden" name="forcedupcheck" id="forcedupcheck" value="true">
+    #else
+		<input type="hidden" name="forcedupcheck" id="forcedupcheck" value="false">
+    #end
+    <input type="hidden" id="saveperson" name="saveperson" value="true">
+    <input type="hidden" id="company" name="company" value="">
+    <input type="hidden" id="companyfield" name="companyfield" value="">
+    <input type="hidden" id="inviteGuestReserve" name="inviteGuestReserve" value="false">
+    <input type="hidden" id="inviteGuestPartner" name="inviteGuestPartner" value="false">
+    
+    ##new cf. issue #2091
+    <input type="hidden" id="action" name="action" value="$action">
+    
+    #if ($person && $person.id)
+    <input type="hidden" name="person-nodupcheck" value="true">
+    #end
+    <input type="hidden" name="start" value="0">
+    <input type="hidden" name="selectAll" value="false">
+    <input type="hidden" name="selectNone" value="true">
+    <input type="hidden" name="originalPersonId" value="$!originalPersonId">
+		
+	<input type="hidden" name="person-expire" id="person-expire" value="$!message.date("DATE", $person.expire)">
 
-#openContentSection()
-#parse("inc/person-header.vm")
-#closeContentSection()
 
-#openContentSection()
+    #if($person.deleted == "t")
+        <table class="list">
+        	<tr style="height: 20px;">
+        		<td class="list2error" style="text-align: center; width: 60px;"><strong>Hinweis</strong></td>
+        		<td class="list1error">
+        			Diese Person wurde bereits als gel&ouml;scht markiert und wird beim Suchen nicht mehr angezeigt.
+        		</td>
+        	</tr>
+        </table><br>
+    #end
 
-<div vera-content="dokumenttypen" class="contentBoxColored tabsContent">
-#if($persondoctype)
-#parse("inc/person-doctype2.vm")
-#else
-#parse("inc/person-doctype.vm")
+    #if($person)
+		#set( $errors = $person.errors )
+    #elseif($newPersonErrors)
+		#set( $errors = $newPersonErrors )
+    #end
+    #if($errors.size() > 0)
+        <div style="margin: 10px 0px 10px 0px; padding: 10px 10px 10px 10px; background-color: #ffffff; border: 2px solid #ff0000;">
+        	$errors.get(0)<br>
+            ##	#foreach($error in $errors)
+            ##		$error<br>
+            ##	#end
+        </div>
+	#end
+	
+
+	<div id="breadcrumb" class="textRight">
+		<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Personen > #if($person && $person.id)Person bearbeiten#else Person anlegen#end</span>
+	</div>
+	
+	<h1>$title</h1>
+
+    #if($isNewPerson)
+
+    <div class="contentBoxColored hinweis grayBorder marginBottom20">
+        <strong>Hinweis</strong>
+        <p>Bitte geben Sie zunächst den <strong>Vor- und Nachnamen</strong> an und <strong>speichern</strong> die Person.
+            Bei Firmen wählen Sie die Checkbox <strong>"Ist Firma"</strong> und tragen dann den Firmennamen ein. Das System prüft Ihre Angaben daraufhin auf Dubletten. Liegt keine Dublette vor, können Sie weitere Daten eingeben</p>
+    </div>
+    #end	
+
+#if(!$isNewPerson)
+	#parse("inc/person-header.vm")
 #end
+
+<div id="main_content" class="tabs contentBox grayBorder marginBottom20">
+
+    <div id="tabsMain">
+    	<ul class="gray-gradient" vera-tab-group> <!-- Bitte das End-tag der <li>s immer mit in die nächste Zeile nehmen (verhindert Mozilla styling bug) -->
+    		<li vera-tab="personendaten" vera-tab-default>Persondendaten
+    		</li><li vera-tab="anschriften">Anschriften
+    		</li><li class="inactive" id="dokumenttypen">Dokumenttypen
+    		</li><li class="inactive" onclick="showCategories();">Kategorien</li>
+    	</ul>
+    </div>
+    
+	#set($extEncoding1 = "_e1")
+	#set($extEncoding2 = "_e2")
+	#set($extEncoding3 = "_e3")
+	
+    <div class="tabsSub" vera-content="personendaten">
+    	<ul class="marginBottom20" vera-tab-group>
+    		<li vera-tab="hauptperson" vera-tab-default>Hauptperson</li>
+    		<li vera-tab="partner">Partner</li>
+    	</ul>	
+    	
+    	<hr />
+    	
+    	<div class="CharSet">
+    		<label for="encoding">Zeichensatz</label>
+    		<select vera-select name="encoding" id="encoding">
+    		      <option value="person$extEncoding1" selected="selected">Latein</option>
+    		      <option value="person$extEncoding2">Zeichensatz 1</option>
+    		      <option value="person$extEncoding3">Zeichensatz 2</option>
+    		</select>
+    	</div>
+    </div>
+
+
+	<div vera-content="personendaten" class="contentBoxColored tabsContent">
+
+		#set($personPartner = "hauptperson")
+		#set($extEncoding = "$extEncoding1")
+        #set($ext = "_a$extEncoding")
+        #set($facade = $person.MainLatin)
+        #parse("inc/person-member.vm")
+        
+		#set($personPartner = "hauptperson")
+		#set($extEncoding = "$extEncoding2")
+        #set($ext = "_a$extEncoding")
+        #set($facade = $person.MainExtra1)
+        #parse("inc/person-member.vm")
+        
+		#set($personPartner = "hauptperson")
+		#set($extEncoding = "$extEncoding3")
+        #set($ext = "_a$extEncoding")
+        #set($facade = $person.MainExtra2)
+        #parse("inc/person-member.vm")
+        
+		#set($personPartner = "partner")
+		#set($extEncoding = "$extEncoding1")
+        #set($ext = "_b$extEncoding")
+        #set($facade = $person.PartnerLatin)
+        #parse("inc/person-member.vm")
+        
+		#set($personPartner = "partner")
+		#set($extEncoding = "$extEncoding2")
+        #set($ext = "_b$extEncoding")
+        #set($facade = $person.PartnerExtra1)
+        #parse("inc/person-member.vm")
+        
+		#set($personPartner = "partner")
+		#set($extEncoding = "$extEncoding3")
+        #set($ext = "_b$extEncoding")
+        #set($facade = $person.PartnerExtra2)
+        #parse("inc/person-member.vm")
+		
+	</div>
+	
+	<div class="tabsSub" vera-content="anschriften">
+        <ul class="marginBottom20" vera-tab-group>
+            <li vera-tab="geschaeftlich" vera-tab-default>Geschäftlich</li>
+            <li vera-tab="privat">Privat</li>
+            <li vera-tab="weitere">Weitere</li>
+        </ul>
+
+        <hr />
+
+        <div class="CharSet">
+            <label for="encoding">Zeichensatz</label>
+			<select vera-select name="encoding" id="encoding">
+    		      <option value="address$extEncoding1" selected="selected">Latein</option>
+    		      <option value="address$extEncoding2">Zeichensatz 1</option>
+    		      <option value="address$extEncoding3">Zeichensatz 2</option>
+    		</select>
+        </div>
+    </div>
+	
+	<div vera-content="anschriften" class="contentBoxColored tabsContent">
+		
+		#set($addressType = "geschaeftlich")
+		#set($extEncoding = "$extEncoding1")
+        #set($ext = "_a$extEncoding")
+        #set($facade = $person.BusinessLatin)
+        #parse("inc/person-address.vm")
+		
+		#set($addressType = "geschaeftlich")
+		#set($extEncoding = "$extEncoding2")
+        #set($ext = "_a$extEncoding")
+        #set($facade = $person.BusinessExtra1)
+        #parse("inc/person-address.vm")
+		
+		#set($addressType = "geschaeftlich")
+		#set($extEncoding = "$extEncoding3")
+        #set($ext = "_a$extEncoding")
+        #set($facade = $person.BusinessExtra2)
+        #parse("inc/person-address.vm")
+		
+		#set($addressType = "privat")
+		#set($extEncoding = "$extEncoding1")
+        #set($ext = "_b$extEncoding")
+        #set($facade = $person.PrivateLatin)
+        #parse("inc/person-address.vm")
+		
+		#set($addressType = "privat")
+		#set($extEncoding = "$extEncoding2")
+        #set($ext = "_b$extEncoding")
+        #set($facade = $person.PrivateExtra1)
+        #parse("inc/person-address.vm")
+		
+		#set($addressType = "privat")
+		#set($extEncoding = "$extEncoding3")
+        #set($ext = "_b$extEncoding")
+        #set($facade = $person.PrivateExtra2)
+        #parse("inc/person-address.vm")
+		
+		#set($addressType = "weitere")
+		#set($extEncoding = "$extEncoding1")
+        #set($ext = "_c$extEncoding")
+        #set($facade = $person.OtherLatin)
+        #parse("inc/person-address.vm")
+		
+		#set($addressType = "weitere")
+		#set($extEncoding = "$extEncoding2")
+        #set($ext = "_c$extEncoding")
+        #set($facade = $person.OtherExtra1)
+        #parse("inc/person-address.vm")
+		
+		#set($addressType = "weitere")
+		#set($extEncoding = "$extEncoding3")
+        #set($ext = "_c$extEncoding")
+        #set($facade = $person.OtherExtra2)
+        #parse("inc/person-address.vm")
+		
+
+	</div>
+	
+
 </div>
 
-#closeContentSection()
 
-#closeContent()
-
-<input type="hidden" id="inviteGuestReserve" name="inviteGuestReserve" value="false">
-<input type="hidden" id="inviteGuestPartner" name="inviteGuestPartner" value="false">
-<script type="text/javascript">
-	function addToGuestList() {
-		htmlConfirm('Soll dieser Gast auf Platz gesetzt werden?', new Array('Ja', 'Nein'), new Array("addToGuestQuestX1('false');", "addToGuestQuestX1('true');"));
-	}
-	
-	function addToGuestQuestX1(answer) {
-		document.getElementById('inviteGuestReserve').value = answer;
-		htmlConfirm('Soll die Partnerin / der Partner mit eingeladen werden?', new Array('Ja', 'Nein'), new Array("addToGuestQuestX2('true');", "addToGuestQuestX2('false');"));
-	}
-	
-	function addToGuestQuestX2(answer) {
-		document.getElementById('inviteGuestPartner').value = answer;
-		htmlWait();
+## modified to support direct search result navigation as per change request for version 1.2.0
+## cklein
+## 2008-02-22
+    #if($action == "guest")
 		
-		var url = '${paths.staticWeb}do/AddPersonToEventGuestList';
-		url += '?list=$!{person.id}';
-		url += '&$!{person.id}-id=${person.id}';
-		url += '&$!{person.id}-select=true';
-		url += '&$!{person.id}-reserve=' + document.getElementById('inviteGuestReserve').value;
-		url += '&$!{person.id}-partner=' + document.getElementById('inviteGuestPartner').value;
-		window.location.href = url;
+		<span id="buttonPanel-bottom" class="textRight floatRight">
+			#if($grants.mayWrite())
+				<input type="submit" name="save" class="mainButton" value="Person speichern" title="Person speichern"/>
+			#end
+            <input type="button" name="cancel" class="mainButton" value="Zur Personen&uuml;bersicht" title="Zur Personen&uuml;bersicht" onclick="if (checkModified()) { window.location.href='${paths.staticWeb}do/AddPersonToEventList'; }">
+        </span>
+			
+	#elseif($action == "host")
+		
+		<span id="buttonPanel-bottom" class="textRight floatRight">
+			#if($grants.mayWrite())
+				<input type="submit" name="save" class="mainButton" value="Person speichern" />
+			#end
+            #if($person && $person.id)
+				<input type="button" name="cancel" class="mainButton" value="Zur Personen&uuml;bersicht" title="Zur Personen&uuml;bersicht" onclick="if (checkModified()) { window.location.href='${paths.staticWeb}do/SetHostToEventList'; }">
+            #else
+				<input type="button" name="cancel" class="mainButton" value="Zur Personen&uuml;bersicht" title="Zur Personen&uuml;bersicht" onclick="if (checkModified()) { window.location.href='${paths.staticWeb}do/SetHostToEventList'; }">
+    		#end
+		</span>
+		
+    #elseif($action == "event")
+		
+		<span id="buttonPanel-bottom" class="textRight floatRight">
+			#if($grants.mayWrite())
+				<input type="submit" name="save" class="mainButton" value="Person speichern" title="Person speichern" />
+			#end
+            <input type="button" name="cancel" class="mainButton" value="Zur Personen&uuml;bersicht" title="Zur Personen&uuml;bersicht" onclick="if (checkModified()) { window.location.href='${paths.staticWeb}do/ShowGuestDetail'; }">
+		</span>
+			
+    #else
+		
+		<span id="buttonPanel-bottom" class="textRight floatRight">
+			#if($grants.mayWrite())
+				<input type="submit" name="save" class="mainButton" value="Person speichern" title="Person speichern" />
+        	#end
+			#if( $action == "duplicateSearch" )
+        		<input type="button" name="cancel" class="mainButton" value="Zur Dublettensuche" title="Zur Dublettensuche" onclick="if (checkModified()) { window.location.href='${paths.staticWeb}do/PersonDuplicateSearch'; }">
+        	#else
+        	    <input type="button" name="cancel" class="mainButton" value="Zur Personen&uuml;bersicht" title="Zur Personen&uuml;bersicht" onclick="if (checkModified()) { window.location.href='${paths.staticWeb}do/SearchPerson?action=person'; }">
+    		#end
+		</span>
+		
+	#end
+	
+
+	#if($navigation)
+    	#parse("inc/person-navi.vm")
+    #end
+</form>
+<div class="clear"></div>
+</div>
+
+<script type="text/javascript">
+
+    #if($action == "guest")
+    	function addToGuestList() {
+    		htmlConfirm('Soll dieser Gast auf Platz gesetzt werden?', new Array('Ja', 'Nein'), new Array("addToGuestQuestX1('false');", "addToGuestQuestX1('true');"));
+    	}
+    	
+    	function addToGuestQuestX1(answer) {
+    		document.getElementById('inviteGuestReserve').value = answer;
+    		htmlConfirm('Soll die Partnerin / der Partner mit eingeladen werden?', new Array('Ja', 'Nein'), new Array("addToGuestQuestX2('true');", "addToGuestQuestX2('false');"));
+    	}
+    	
+    	function addToGuestQuestX2(answer) {
+    		document.getElementById('inviteGuestPartner').value = answer;
+    		htmlWait();
+    		
+    		var url = '${paths.staticWeb}do/AddPersonToEventGuestList';
+    		url += '?list=$!{person.id}';
+    		url += '&$!{person.id}-id=${person.id}';
+    		url += '&$!{person.id}-select=true';
+    		url += '&$!{person.id}-reserve='  + document.getElementById('inviteGuestReserve').value;
+    		url += '&$!{person.id}-partner='  + document.getElementById('inviteGuestPartner').value;
+    		url += '&$!{person.id}-category=$!octopusRequest.person-category';
+    		window.location.href = url;
+    	}
+    #end
+
+	function copyPerson() {
+		document.getElementById('PersonForm').action = '${paths.staticWeb}do/CopyPerson';
+    ## fixed bug 1011, copying did not work due to below line
+    ## cklein 2008-03-11
+##		document.getElementById('PersonForm').id.value = '';
+		document.getElementById('PersonForm').originalPersonId.value = '$!person.id';
+		document.getElementById('PersonForm').submit();
 	}
 	
-	#if(!$grants.mayWrite())
-	disableForm(document.getElementById('formlist'));
-	#end
-	disableFormInput(document.getElementById('person-expire'));
-	disableFormCheckbox(document.getElementById('person-iscompany'));
-	hideBlock(document.getElementById('show-expire'));
+	function removePerson() {
+		if (confirm('Aktuelle Person wirklich entfernen?')) {
+			window.location.href = '${paths.staticWeb}do/SearchPerson?doRemove=true&remove&remove-person=true&selectNone=true&list=$!{person.id}&$!{person.id}-select=true';
+		}
+	}
+
+	function showDoctypes() {
+		if (document.getElementById('modified').value == 'true') {
+    		document.getElementById('PersonForm').action = '${paths.staticWeb}do/ShowPersonDoctypeList';
+    		document.getElementById('PersonForm').submit();
+		} else {
+			window.location.href = '${paths.staticWeb}do/ShowPersonDoctypeList?id=$!person.id&offset=${navigation.current.offset}';
+		}
+	}
+	
+	function showCategories() {
+		if (document.getElementById('modified').value == 'true') {
+    		document.getElementById('PersonForm').action = '${paths.staticWeb}do/ShowPersonCategorieList';
+    		document.getElementById('PersonForm').submit();
+		} else {
+			window.location.href = '${paths.staticWeb}do/ShowPersonCategorieList?id=$!person.id&offset=${navigation.current.offset}';
+		}
+	}
+	
+	function setSex(salutation, sex) {
+		var s = document.getElementById(salutation);
+		var id = s.options[s.selectedIndex].value;
+		var g = '';
+		if (id == '') {}
+        #foreach($s in $allSalutation)
+        			else if (id == '$s.id') g = '$s.gender';
+        #end
+		if (g == 'M' || g == 'm') {
+			if (document.getElementById(sex + '-m')) {
+				document.getElementById(sex + '-m').checked = true;
+			}
+		} else if (g == 'F' || g == 'f') {
+			if (document.getElementById(sex + '-f')) {
+				document.getElementById(sex + '-f').checked = true;
+			}
+		}
+	}
+	
+	#if(!$person)
+		setSex('person-salutation_a_e1', 'person-sex_a_e1');
+		setSex('person-salutation_b_e1', 'person-sex_b_e1');
+	#end	
+	
+	//Show the company row (Firma/Institution) in the person detail view if the "Ist Firma" 
+	//checkbox was checked.
+	$("#person-iscompany").click(function() {
+       if(this.checked) {
+    		$('#company-row').show();
+			$('label[for=person-firstname_a_e1]').html('Vorname');
+			$('label[for=person-lastname_a_e1]').html('Nachname');
+        } else {
+    		$('#company-row').hide();
+			$('label[for=person-firstname_a_e1]').html('Vorname*');
+			$('label[for=person-lastname_a_e1]').html('Nachname*');
+        }
+	});
+
+    $(function () {
+    	//The field person-company-ignore does exist only in order to be able to set the company
+    	//name at start and show the company name in the person detail view. It's only the 
+    	//reference to the field person-company in the Tab Anschriften-->Geschaeftlich
+    	var company_ignore = $("#person-company-ignore_a_e1");
+    	var company_geschaeftlich = $("#person-company_a_e1");
+    	
+    	company_ignore.val(company_geschaeftlich.val());
+    	
+    	company_ignore.change(function (e){
+    		company_geschaeftlich.val(company_ignore.val());
+    	});
+    	company_geschaeftlich.change(function (e){
+    		company_ignore.val(company_geschaeftlich.val());
+    	});
+    
+    	//Show the company row (Firma/Institution) on load in the person detail view only if "Ist Firma" 
+    	//checkbox was checked.
+    	if($("#person-iscompany").is(":checked")){
+       		$('#company-row').show();
+			$('label[for=person-firstname_a_e1]').html('Vorname');
+			$('label[for=person-lastname_a_e1]').html('Nachname');
+        } else {
+    		$('#company-row').hide();
+			$('label[for=person-firstname_a_e1]').html('Vorname*');
+			$('label[for=person-lastname_a_e1]').html('Nachname*');
+        }
+    });
+	
+	function updateExpiredDate(newdate) {
+		document.getElementById('person-expire').value = newdate;
+		var inputs = document.getElementsByClassName('personExpiredDate');
+		for (var i = 0; i < inputs.length; i++) {
+			inputs[i].value = newdate;
+    	}
+	}
+	
+    $(function () {
+        // register page reload on tab doctype
+        var tabDocType = $('li#dokumenttypen');
+        tabDocType.click(function () {
+            if ($('#modified').val() === 'true') {
+                var form = $('#PersonForm');
+                form.attr('action', '${paths.staticWeb}do/ShowPersonDoctypeList');
+                form.submit();
+            } else {
+                window.location.href = '${paths.staticWeb}do/ShowPersonDoctypeList?id=$!person.id&tab=person';
+            }
+        });
+    });
+	
+	
+	
 </script>
 
 #parse("inc/footer.vm")
