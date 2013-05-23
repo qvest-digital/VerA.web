@@ -24,16 +24,16 @@
 <div class="buttonPanel-top textRight floatRight marginBottom20">
 	#if($grants.mayWrite())
     	<input type="submit" name="save" value="Speichern" class="mainButton"/>
-    	#if($person)
-    		<input type="button" name="add" value="&Uuml;bernehmen" title="Gast direkt in G&auml;steliste &uuml;bernehmen" class="mainButton" onclick="addToGuestList();" />
-    	#end
 	#end
 </div>
 
-
 <table>
 	<tr>
-		<th class="textCenter smallCell"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" #if($listparam.count > 0 && $listselection.size() == $listparam.count) checked#end title="Alle (de)markieren" #if(!$grants.mayWrite()) disabled="true"#end/></th>
+		<th class="textCenter smallCell">
+			#if($listparam.count > 0)
+				<input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" #if($listselection.size() == $listparam.count) checked#end title="Alle (de)markieren" #if(!$grants.mayWrite()) disabled="true"#end/>
+			#end
+		</th>
 		<th class="textCenter smallCell">ID</th>
 		<th class="width90">Kategorien und Ereignisse</th>
 		<th>Rang</th>
