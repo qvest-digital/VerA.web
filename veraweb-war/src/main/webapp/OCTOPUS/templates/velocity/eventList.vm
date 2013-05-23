@@ -26,7 +26,7 @@
 		<div id="breadcrumb" class="textRight">
 			<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Veranstaltungen > Veranstaltungs&uuml;bersicht</span>
 		</div>
-		<h1>Veranstaltungs&uuml;bersicht: </h1>
+		<h1>Veranstaltungs&uuml;bersicht</h1>
 	#end
 
 	
