@@ -540,7 +540,6 @@
 			<action name="saveList" worker="PersonDoctypeWorker" />
 			<action name="showList" worker="PersonDoctypeWorker" />
 			
-			<param name="docnavigation" value="PersonData"/>
 			<response type="velocity" name="personDetail">
 				<param name="ContentType" value="text/html;charset=UTF-8"/>
 			</response>
@@ -660,9 +659,6 @@
 			<action name="getAll" worker="SalutationWorker"/>
 			<action name="getAll" worker="WorkAreaWorker"/>
 			<action name="getDoctype" worker="PersonDetailWorker" />
-			<action name="saveList" worker="PersonDoctypeWorker" />
-			<action name="showList" worker="PersonDoctypeWorker" />
-			<param name="docnavigation" value="PersonData"/>
 			<response type="velocity" name="personDetail">
 				<param name="ContentType" value="text/html;charset=UTF-8"/>
 			</response>
@@ -679,6 +675,9 @@
 			</contract>
 			<doTask name="Load"/>
 			<action name="prepareSaveDetail" worker="PersonDetailWorker" />
+			<status equals="notcorrect">
+				<doTask name="ShowPerson"/>
+			</status>
 			<status equals="saveperson">
 				<action name="check" worker="PersonDupcheckWorker" />
 				<status equals="dupcheck">
@@ -722,16 +721,12 @@
 			<contract>
 				<input name="id" type="xsd:string" optional="t" description="ID der Person; wenn leer, wird diese aus der Session geladen."/>
 			</contract>
-			<doTask name="Load"/>
 			<doTask name="SavePersonWithDupcheck"/>
-			<action name="getAll" worker="SalutationWorker"/>
-			<action name="getAll" worker="WorkAreaWorker"/>
 			<action name="showDetail" worker="PersonDetailWorker" />
 			<action name="getDoctype" worker="PersonDetailWorker" />
 			<action name="saveList" worker="PersonDoctypeWorker" />
 			<action name="showList" worker="PersonDoctypeWorker" />
-			<param name="docnavigation" value="PersonDoctypeList"/>
-			<response type="velocity" name="personDetail">
+			<response type="velocity" name="personDoctype">
 				<param name="ContentType" value="text/html;charset=UTF-8"/>
 			</response>
 		</task>
@@ -743,14 +738,11 @@
 			<contract>
 				<input name="id" type="xsd:string" optional="t" description="ID der Person; wenn leer, wird diese aus der Session geladen."/>
 			</contract>
-			<doTask name="Load"/>			
-			<action name="getAll" worker="SalutationWorker"/>
-			<action name="getAll" worker="WorkAreaWorker"/>		
+			<doTask name="Load"/>
 			<action name="showDetail" worker="PersonDetailWorker" />
 			<action name="getDoctype" worker="PersonDetailWorker" />
 			<action name="showDetail" worker="PersonDoctypeWorker" />
-			<param name="docnavigation" value="PersonDoctype"/>
-			<response type="velocity" name="personDetail">
+			<response type="velocity" name="personDoctype">
 				<param name="ContentType" value="text/html;charset=UTF-8"/>
 			</response>
 		</task>
@@ -771,8 +763,7 @@
 			<action name="getDoctype" worker="PersonDetailWorker" />
 			<action name="createAll" worker="PersonDoctypeWorker" />
 			<action name="showList" worker="PersonDoctypeWorker" />
-			<param name="docnavigation" value="PersonDoctypeList"/>
-			<response type="velocity" name="personDetail">
+			<response type="velocity" name="personDoctype">
 				<param name="ContentType" value="text/html;charset=UTF-8"/>
 			</response>
 		</task>

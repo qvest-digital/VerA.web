@@ -39,11 +39,7 @@
 	</div>
 #end
 
-#if($docnavigation == "PersonDoctype")
-<form id="PersonForm" name="PersonForm" action="${paths.staticWeb}do/SavePersonDoctype" method="post">
-#else
 <form id="PersonForm" name="PersonForm" action="${paths.staticWeb}do/SavePerson" method="post">
-
     <input type="hidden" name="id" value="$!person.id">
     <input type="hidden" name="person-id" value="$!person.id">
     <input type="hidden" name="person-orgunit" value="$!person.orgunit">
@@ -77,7 +73,6 @@
     <input type="hidden" name="originalPersonId" value="$!originalPersonId">
 		
 	<input type="hidden" name="person-expire" id="person-expire" value="$!message.date("DATE", $person.expire)">
-#end
 
 
     #if($person.deleted == "t")
@@ -105,7 +100,7 @@
         </div>
 	#end
 	
-	
+
 	<div id="breadcrumb" class="textRight">
 		<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Personen > #if($person && $person.id)Person bearbeiten#else Person anlegen#end</span>
 	</div>
@@ -192,12 +187,14 @@
 	#parse("inc/person-header.vm")
 #end
 
+
 <div id="main_content" class="tabs contentBox grayBorder marginBottom20">
+
     <div id="tabsMain">
     	<ul class="gray-gradient" vera-tab-group> <!-- Bitte das End-tag der <li>s immer mit in die nächste Zeile nehmen (verhindert Mozilla styling bug) -->
-    		<li vera-tab="personendaten" #if($docnavigation == "PersonData") vera-tab-default #end>Persondendaten
+    		<li vera-tab="personendaten" vera-tab-default>Persondendaten
     		</li><li vera-tab="anschriften">Anschriften
-    		</li><li vera-tab="dokumenttypen" #if($docnavigation == "PersonDoctypeList" || $docnavigation == "PersonDoctype") vera-tab-default #end>Dokumenttypen
+    		</li><li vera-tab="dokumenttypen">Dokumenttypen
     		</li><li vera-tab="kategorien">Kategorien</li>
     	</ul>
     </div>
@@ -343,11 +340,11 @@
 
 	</div>
     
-    
-	<div vera-content="dokumenttypen" class="contentBoxColored tabsContent">
+    #**
+	<div vera-content="dokumenttypen" class="contentBoxColored tabsContent" style="border:1px solid #000000;">
 		#parse("personDoctype.vm")
 	</div> 
-
+	*#
     
 	#**
     #openContentBlock("anschrift1-zs1-block")
