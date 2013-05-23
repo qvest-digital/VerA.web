@@ -29,19 +29,18 @@
 
 <table>
 	<tr>
-		<th class="textCenter smallCell">
-			#if($listparam.count > 0)
-				<input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" #if($listselection.size() == $listparam.count) checked#end title="Alle (de)markieren" #if(!$grants.mayWrite()) disabled="true"#end/>
-			#end
-		</th>
+		#if($list && $list.size() > 0)
+			<th class="textCenter smallCell"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" #if($listselection.size() == $listparam.count) checked#end title="Alle (de)markieren" #if(!$grants.mayWrite()) disabled="true"#end/></th>
+		#end
 		<th class="textCenter smallCell">ID</th>
 		<th class="width90">Kategorien und Ereignisse</th>
 		<th>Rang</th>
 	</tr>
 	<tr>
-		<td class="textCenter smallCell">
-			<input type="hidden" id="add-modified" name="add-modified" value="false"/>
-		</td>
+		#if($list && $list.size() > 0)
+    		<td class="textCenter smallCell"/>
+		#end
+		<input type="hidden" id="add-modified" name="add-modified" value="false"/>
 		<td class="textCenter smallCell">
 			<input type="hidden" name="add-id" value=""/>
 			<input type="hidden" name="add-person" value="$!person.id"/>
