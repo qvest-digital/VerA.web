@@ -114,79 +114,11 @@
         <p>Bitte geben Sie zunächst den <strong>Vor- und Nachnamen</strong> an und <strong>speichern</strong> die Person.
             Bei Firmen wählen Sie die Checkbox <strong>"Ist Firma"</strong> und tragen dann den Firmennamen ein. Das System prüft Ihre Angaben daraufhin auf Dubletten. Liegt keine Dublette vor, können Sie weitere Daten eingeben</p>
     </div>
-    #end
-
-
-    #if($action == "guest")
-		
-		<span class="buttonPanel-top textRight floatRight marginBottom20">
-			#if($person && $person.id)
-    			<input type="button" name="add" value="&Uuml;bernehmen" title="Gast direkt in G&auml;steliste &uuml;bernehmen" class="mainButton" onclick="addToGuestList();">
-			#end
-			
-            <input type="button" name="copy" class="mainButton" value="Person kopieren" onclick="if (checkModified()) { copyPerson(); }" #if(!$grants.mayWrite()) disabled #end>
-            <input type="button" name="export" class="mainButton"value="Etikett erzeugen" onclick="exportPerson('${paths.staticWeb}do/', '$!person.id');">
-		</span>
-		
-    #elseif($action == "host")
-		
-		<span class="buttonPanel-top textRight floatRight marginBottom20">
-            #if($person && $person.id)
-				<input type="button" name="set" class="mainButton" value="&Uuml;bernehmen" title="Person direkt als Gastgeber &uuml;bernehmen" onclick="window.location.href='${paths.staticWeb}do/SetHostToEventDetail?hostid=$!person.id';">
-        	#end
-            <input type="button" name="copy" class="mainButton" value="Person kopieren" onclick="if (checkModified()) { copyPerson(); }" #if(!$grants.mayWrite()) disabled #end>
-            <input type="button" name="export" class="mainButton" value="Etikett erzeugen" onclick="exportPerson('${paths.staticWeb}do/', '$!person.id');">
-        
-            ## modified to provide a direct statistic button as per change request for version 1.2.0
-            ## cklein
-            ## 2008-03-14
-            <input type="button" value="Statistik" class="mainButton" name="statistics" #if($person && $person.id) onclick="window.open( '${paths.staticWeb}do/StatistikExport?id=$!person.id' );" #else disabled="disabled" #end>
-		</span>
-		
-    #elseif($action == "event")
-		
-		<span class="buttonPanel-top textRight floatRight marginBottom20">
-            <input type="button" name="copy" class="mainButton" value="Person kopieren" onclick="if (checkModified()) { copyPerson(); }" #if(!$grants.mayWrite()) disabled #end>
-            <input type="button" name="export" class="mainButton" value="Etikett erzeugen" onclick="exportPerson('${paths.staticWeb}do/', '$!person.id');">
-        
-            ## modified to provide a direct statistic button as per change request for version 1.2.0
-            ## cklein
-            ## 2008-03-14
-            <input type="button" value="Statistik" class="mainButton" name="statistics"	#if($person && $person.id) onclick="window.open( '${paths.staticWeb}do/StatistikExport?id=$!person.id' );" #else disabled="disabled" #end>
-		</span>
-		
-    #else
-		
-		<div class="buttonPanel-top textRight marginBottom20">
-			#if($person && $person.id)
-				<input type="button" name="copy" class="mainButton" value="Person kopieren" title="Aktuelle Person kopieren" onclick="if (checkModified()) { copyPerson(); }" #if(!$grants.mayWrite()) disabled #end>
-				<input type="button" name="export" class="mainButton" value="Etikett erzeugen" title="Etikett f&uuml;r aktuelle Person erzeugen" onclick="exportPerson('${paths.staticWeb}do/', '$!person.id');">
-            	#if($grants.mayWrite())
-    				<input type="button" name="event" class="mainButton" value="Einer Veranstaltung zuordnen" title="Aktuelle Person einer Veranstaltung zuordnen" onclick="if (checkModified()) { window.location.href='${paths.staticWeb}do/ShowEventSearch?action=addperson'; }">
-            	#end
-            	<input type="button" name="remove" class="mainButton" value="Person l&ouml;schen" title="Aktuelle Person l&ouml;schen und zur Personenliste zur&uuml;ckkehren." onclick="if (checkModified()) { removePerson(); }" #if(!$grants.mayWrite()) disabled #end>
-        	#end
-        
-            ## modified to disable the button in case that this is a new record
-            ## modified to provide a direct statistic button as per change request for version 1.2.0
-            ## cklein
-            ## 2008-02-21
-			#if($person && $person.id)
-				<input type="button" value="Statistik" title="Statistik" name="statistics" class="mainButton" onclick="window.open( '${paths.staticWeb}do/StatistikExport?id=$!person.id' );">
-			#end
-		</div>
-		
-    #end
-	
-	
-	
-	
-	
+    #end	
 
 #if(!$isNewPerson)
 	#parse("inc/person-header.vm")
 #end
-
 
 <div id="main_content" class="tabs contentBox grayBorder marginBottom20">
 
@@ -195,7 +127,7 @@
     		<li vera-tab="personendaten" vera-tab-default>Persondendaten
     		</li><li vera-tab="anschriften">Anschriften
     		</li><li class="inactive" id="dokumenttypen">Dokumenttypen
-    		</li><li vera-tab="kategorien">Kategorien</li>
+    		</li><li vera-tab="kategorien" onclick="showCategories();">Kategorien</li>
     	</ul>
     </div>
     
@@ -339,65 +271,6 @@
 		
 
 	</div>
-    
-
-    
-	#**
-    #openContentBlock("anschrift1-zs1-block")
-    #set($ext = "_a_e1")
-    #set($facade = $person.BusinessLatin)
-    #parse("inc/person-address.vm")
-    #closeContentBlock()
-    
-    #openContentBlock("anschrift1-zs2-block")
-    #set($ext = "_a_e2")
-    #set($facade = $person.BusinessExtra1)
-    #parse("inc/person-address.vm")
-    #closeContentBlock()
-    
-    #openContentBlock("anschrift1-zs3-block")
-    #set($ext = "_a_e3")
-    #set($facade = $person.BusinessExtra2)
-    #parse("inc/person-address.vm")
-    #closeContentBlock()
-    
-    #openContentBlock("anschrift2-zs1-block")
-    #set($ext = "_b_e1")
-    #set($facade = $person.PrivateLatin)
-    #parse("inc/person-address.vm")
-    #closeContentBlock()
-    
-    #openContentBlock("anschrift2-zs2-block")
-    #set($ext = "_b_e2")
-    #set($facade = $person.PrivateExtra1)
-    #parse("inc/person-address.vm")
-    #closeContentBlock()
-    
-    #openContentBlock("anschrift2-zs3-block")
-    #set($ext = "_b_e3")
-    #set($facade = $person.PrivateExtra2)
-    #parse("inc/person-address.vm")
-    #closeContentBlock()
-    
-    #openContentBlock("anschrift3-zs1-block")
-    #set($ext = "_c_e1")
-    #set($facade = $person.OtherLatin)
-    #parse("inc/person-address.vm")
-    #closeContentBlock()
-    
-    #openContentBlock("anschrift3-zs2-block")
-    #set($ext = "_c_e2")
-    #set($facade = $person.OtherExtra1)
-    #parse("inc/person-address.vm")
-    #closeContentBlock()
-    
-    #openContentBlock("anschrift3-zs3-block")
-    #set($ext = "_c_e3")
-    #set($facade = $person.OtherExtra2)
-    #parse("inc/person-address.vm")
-    #closeContentBlock()
-	*#
-	
 	
 
 </div>
@@ -409,14 +282,18 @@
     #if($action == "guest")
 		
 		<span id="buttonPanel-bottom" class="textRight floatRight">
-            <input type="submit" name="save" class="mainButton" value="Person speichern" title="Person speichern" #if(!$grants.mayWrite()) disabled #end>
+			#if($grants.mayWrite())
+				<input type="submit" name="save" class="mainButton" value="Person speichern" title="Person speichern"/>
+			#end
             <input type="button" name="cancel" class="mainButton" value="Zur Personen&uuml;bersicht" title="Zur Personen&uuml;bersicht" onclick="if (checkModified()) { window.location.href='${paths.staticWeb}do/AddPersonToEventList'; }">
         </span>
 			
 	#elseif($action == "host")
 		
 		<span id="buttonPanel-bottom" class="textRight floatRight">
-            <input type="submit" name="save" class="mainButton" value="Person speichern" #if(!$grants.mayWrite()) disabled #end>
+			#if($grants.mayWrite())
+				<input type="submit" name="save" class="mainButton" value="Person speichern" />
+			#end
             #if($person && $person.id)
 				<input type="button" name="cancel" class="mainButton" value="Zur Personen&uuml;bersicht" title="Zur Personen&uuml;bersicht" onclick="if (checkModified()) { window.location.href='${paths.staticWeb}do/SetHostToEventList'; }">
             #else
@@ -427,15 +304,19 @@
     #elseif($action == "event")
 		
 		<span id="buttonPanel-bottom" class="textRight floatRight">
-            <input type="submit" name="save" class="mainButton" value="Person speichern" title="Person speichern" #if(!$grants.mayWrite()) disabled #end>
+			#if($grants.mayWrite())
+				<input type="submit" name="save" class="mainButton" value="Person speichern" title="Person speichern" />
+			#end
             <input type="button" name="cancel" class="mainButton" value="Zur Personen&uuml;bersicht" title="Zur Personen&uuml;bersicht" onclick="if (checkModified()) { window.location.href='${paths.staticWeb}do/ShowGuestDetail'; }">
 		</span>
 			
     #else
 		
 		<span id="buttonPanel-bottom" class="textRight floatRight">
-            <input type="submit" name="save" class="mainButton" value="Person speichern" title="Person speichern" #if(!$grants.mayWrite()) disabled #end>
-        	#if( $action == "duplicateSearch" )
+			#if($grants.mayWrite())
+				<input type="submit" name="save" class="mainButton" value="Person speichern" title="Person speichern" />
+        	#end
+			#if( $action == "duplicateSearch" )
         		<input type="button" name="cancel" class="mainButton" value="Zur Dublettensuche" title="Zur Dublettensuche" onclick="if (checkModified()) { window.location.href='${paths.staticWeb}do/PersonDuplicateSearch'; }">
         	#else
         	    <input type="button" name="cancel" class="mainButton" value="Zur Personen&uuml;bersicht" title="Zur Personen&uuml;bersicht" onclick="if (checkModified()) { window.location.href='${paths.staticWeb}do/SearchPerson?action=person'; }">
@@ -491,6 +372,24 @@
 	function removePerson() {
 		if (confirm('Aktuelle Person wirklich entfernen?')) {
 			window.location.href = '${paths.staticWeb}do/SearchPerson?doRemove=true&remove&remove-person=true&selectNone=true&list=$!{person.id}&$!{person.id}-select=true';
+		}
+	}
+
+	function showDoctypes() {
+		if (document.getElementById('modified').value == 'true') {
+    		document.getElementById('PersonForm').action = '${paths.staticWeb}do/ShowPersonDoctypeList';
+    		document.getElementById('PersonForm').submit();
+		} else {
+			window.location.href = '${paths.staticWeb}do/ShowPersonDoctypeList?id=$!person.id&offset=${navigation.current.offset}';
+		}
+	}
+	
+	function showCategories() {
+		if (document.getElementById('modified').value == 'true') {
+    		document.getElementById('PersonForm').action = '${paths.staticWeb}do/ShowPersonCategorieList';
+    		document.getElementById('PersonForm').submit();
+		} else {
+			window.location.href = '${paths.staticWeb}do/ShowPersonCategorieList?id=$!person.id&offset=${navigation.current.offset}';
 		}
 	}
 	

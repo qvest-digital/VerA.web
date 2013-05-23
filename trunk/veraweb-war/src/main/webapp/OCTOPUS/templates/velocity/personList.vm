@@ -363,7 +363,7 @@
             <table class="list">
             	#if($action == "guest")
                 	<tr>
-                		<th class="textCenter smallCell" title="$!config.main einladen"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" #if($listselection.size() == $listparam.count) checked#end title="Alle (de)markieren"/> H</th>
+                		<th class="textCenter smallCell" title="$!config.main einladen"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" #if($listparam.count > 0 && $listselection.size() == $listparam.count) checked#end title="Alle (de)markieren"/> H</th>
                 		<th class="textCenter smallCell" title="$!config.partner einladen">P</th>
                 		<th class="textCenter smallCell" title="Auf Reserve">R</th>
                 		<th class="textCenter smallCell">ID</th>
