@@ -18,7 +18,7 @@
 <div id="content_container">
 	#if($action == "guest" || $searchTask)
 	<div id="breadcrumb" class="textRight">
-		<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Veranstaltungen > Suchergebnisse</span>
+		<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Veranstaltungen > <a href="${paths.staticWeb}do/ShowEventSearch?action=event" title="Zur Veranstaltungssuche">Veranstaltungs&uuml;bersicht</a> > Suchergebnisse</span>
 	</div>
 		<h1>Suchergebnis: Veranstaltungen</h1>
 	#else
@@ -37,7 +37,9 @@
     	<input type="hidden" name="doRemove" value="true">
     		
 		#if ($listparam.count == 0)
-    		<br>Keine Daten gefunden.
+    		<div class="contentBoxColored grayBorder">  		
+    			Es wurden keine Einträge gefunden.
+    		</div>
 		#else
     <span id="actionPanel" class="inlineLabel">
     	#if($action != "guest" || $action != "addperson")
@@ -114,7 +116,7 @@
     		#end
     			<th class="smallCell textCenter">ID</th>
     			<th>Name</th>
-    			<th>Beginn</th>
+    			<th class="smallCell textCenter">Beginn</th>
     			<th>Gastgeber</th>
     			<th>Verstaltungsort</th>
         		</tr>
@@ -140,9 +142,9 @@
         					<td style="cursor: pointer;" onclick="window.location.href='AddPersonToEventDetail?event-id=$!{bean.id}&action=person';" class="textCenter"><input type="hidden" name="${bean.id}-id" value="$bean.id">$!{bean.id}</td>
         					<td style="cursor: pointer;" onclick="window.location.href='AddPersonToEventDetail?event-id=$!{bean.id}&action=person';">$!message.plain($bean.shortname)</td>
         			#if ($bean.begin.Seconds == 30)
-        					<td style="cursor: pointer;" onclick="window.location.href='AddPersonToEventDetail?event-id=$!{bean.id}&action=person';">$!message.date("DATE", $bean.begin)</td>
+        					<td style="cursor: pointer;" onclick="window.location.href='AddPersonToEventDetail?event-id=$!{bean.id}&action=person';" class="textCenter">$!message.date("DATE", $bean.begin)</td>
         			#else
-        					<td style="cursor: pointer;" onclick="window.location.href='AddPersonToEventDetail?event-id=$!{bean.id}&action=person';">$!message.date("DATE_TIME", $bean.begin)</td>
+        					<td style="cursor: pointer;" onclick="window.location.href='AddPersonToEventDetail?event-id=$!{bean.id}&action=person';" class="textCenter">$!message.date("DATE_TIME", $bean.begin) Uhr</td>
         			#end
         					<td style="cursor: pointer;" onclick="window.location.href='AddPersonToEventDetail?event-id=$!{bean.id}&action=person';">$!message.plain($bean.hostname)</td>
         					<td style="cursor: pointer;" onclick="window.location.href='AddPersonToEventDetail?event-id=$!{bean.id}&action=person';">$!message.plain($bean.location)</td>
@@ -167,11 +169,14 @@
         		
         	</table>
 		#end
-    	#if($action == "guest" && !$searchTask)
-    		<input type="button" name="cancel" value="Zur&uuml;ck zur Veranstaltungssuche" onclick="window.location.href='ShowGuestList';"> 
-    	#elseif($action == "addperson" || $searchTask)
-    		<input type="button" name="cancel" value="Zur&uuml;ck zur Veranstaltungssuche" onclick="window.location.href='ShowEventSearch';"> 
-    	#end
+		
+		<div class="textRight">
+	    	#if($action == "guest" && !$searchTask)
+	    		<input type="button" name="cancel" value="Zur&uuml;ck zur Veranstaltungssuche" onclick="window.location.href='ShowGuestList';" class="mainButton"> 
+	    	#elseif($action == "addperson" || $searchTask)
+	    		<input type="button" name="cancel" value="Zur&uuml;ck zur Veranstaltungssuche" onclick="window.location.href='ShowEventSearch';" class="mainButton"> 
+	    	#end
+    	</div>
     	
 
 	
