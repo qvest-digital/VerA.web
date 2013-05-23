@@ -107,7 +107,7 @@
 	
 	
 	<div id="breadcrumb" class="textRight">
-		<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/">Home</a> > Personen > #if($person && $person.id)Person bearbeiten#else Person anlegen#end</span>
+		<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Personen > #if($person && $person.id)Person bearbeiten#else Person anlegen#end</span>
 	</div>
 	
 	<h1>$title</h1>

@@ -41,7 +41,7 @@
 
 
     <div id="breadcrumb" class="textRight">
-        <strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/">Home</a> > Personen > Personensuche</span>
+        <strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Personen > Personensuche</span>
     </div>
 
     <h1>Personensuche</h1>
