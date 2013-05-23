@@ -1,11 +1,11 @@
 #set($activeMenu = "Veranstaltungen")
 
 #if($action == "guest")
-#set($title = "Veranstaltung ausw&auml;hlen - Veranstaltung: $!message.plain($event.shortname)")
+	#set($title = "Veranstaltung ausw&auml;hlen - Veranstaltung: $!message.plain($event.shortname)")
 #elseif($action == "addperson")
-#set($title = "Veranstaltung ausw&auml;hlen - Person zuordnen")
+	#set($title = "Veranstaltung ausw&auml;hlen - Person zuordnen")
 #else
-#set($title = "Veranstaltung ausw&auml;hlen")
+	#set($title = "Veranstaltung ausw&auml;hlen")
 #end
 #parse("inc/header.vm")
 
@@ -16,134 +16,165 @@
 #end
 
 <div id="content_container">
-	<div id="breadcrumb" class="textRight">
-		<strong>Sie sind hier:</strong> <span><a href="index.html">Home</a> > Veranstaltungen > Veranstaltungssuche</span>
-	</div>
 
-	<h1>Suchergebnis: Veranstaltungen</h1>
+	#if($action == "guest")
+	<div id="breadcrumb" class="textRight">
+		<strong>Sie sind hier:</strong> <span><a href="index.html">Home</a> > Veranstaltungen > Suchergebnis</span>
+	</div>
+		<h1>Suchergebnis: Veranstaltungen</h1>
+	#else
+		<div id="breadcrumb" class="textRight">
+			<strong>Sie sind hier:</strong> <span><a href="index.html">Home</a> > Veranstaltungen > &Uuml;bersicht</span>
+		</div>
+		<h1>&Uuml;bersicht: Veranstaltungen</h1>
+	#end
+	
+
+	
+
 	
 	<form id="formlist" name="formlist" action="$formurl" method="POST">
-	<input type="hidden" name="start" value="">
-	<input type="hidden" name="selectAll" value="false">
-	<input type="hidden" name="selectNone" value="false">
-	<input type="hidden" name="doRemove" value="true">
-	
-	
-	
-	#if($listerrors && $listerrors.size() > 0)
-	<div style="margin: 10px 0px 10px 0px; padding: 10px 10px 10px 10px; background-color: #ffffff; border: 2px solid #ff0000;">
-		<strong>L&ouml;schen von Veranstaltungen ist nicht m&ouml;glich:</strong><br>
-		<ul style="margin: 0px 0px 0px -10px;">
-		#if($listerrors.size() > 5)
-		#set($show = 5)
-		#else
-		#set($show = $listerrors.size())
+    	<input type="hidden" name="start" value="">
+		<input type="hidden" name="limit" value="" />
+    	<input type="hidden" name="selectAll" value="false">
+    	<input type="hidden" name="selectNone" value="false">
+    	<input type="hidden" name="doRemove" value="true">
+    	
+    <span id="actionPanel" class="inlineLabel">
+    	#if($action == "guest")
+    		<input type="button" name="cancel" value="Zur&uuml;ck zur Veranstaltungssuche" onclick="window.location.href='ShowGuestList';"> 
+    	#elseif($action == "addperson")
+    		<input type="button" name="cancel" value="Zur&uuml;ck zur Veranstaltungssuche" onclick="window.location.href='ShowEventSearch';"> 
+    	#else
+			Ausgew&auml;hlte Eintr&auml;ge
+    		<input type="submit" name="remove" value="L&ouml;schen" title="markierte Veranstaltungen l&ouml;schen" #* onclick="return confirm('Markierte Veranstaltungen wirklich l&ouml;schen?');" *# #if($grants.mayWrite()) class="button" #else class="buttondisabled" disabled #end>
+    		<input type="button" name="cancel" value="Zur&uuml;ck zur Veranstaltungssuche" onclick="window.location.href='ShowEventSearch';">
+    	#end
+
+	</span>
+		
+	<span id="" class="buttonPanel-top textRight floatRight">
+        <input type="button" name="" value="Veranstaltung suchen" class="mainButton" onclick="window.location.href='ShowEventSearch?action=event';">
+		<input type="button" name="" value="Neue Veranstaltung anlegen" class="mainButton" onclick="window.location.href='CreateEvent?action=event';">
+	</span>	
+    	
+    	#if($listerrors && $listerrors.size() > 0)
+    	<div style="margin: 10px 0px 10px 0px; padding: 10px 10px 10px 10px; background-color: #ffffff; border: 2px solid #ff0000;">
+    		<strong>L&ouml;schen von Veranstaltungen ist nicht m&ouml;glich:</strong><br>
+    		<ul style="margin: 0px 0px 0px -10px;">
+    		#if($listerrors.size() > 5)
+    		#set($show = 5)
+    		#else
+    		#set($show = $listerrors.size())
+    		#end
+    		#foreach($error in $listerrors)
+    		#if($velocityCount <= $show)
+    			<li style="margin: 5px 0px 0px 0px;">$error</li>
+    		#end
+    		#end
+    		#if($listerrors.size() > $show)
+    		#set($drop = $listerrors.size() - $show)
+    			<li style="margin: 5px 0px 0px 0px;"><em>...  $drop weitere Meldungen.</em></li>
+    		#end
+    		</ul>
+    	</div>
+    	#elseif($listquestions && $listquestions.size() > 0)
+    	<div style="margin: 10px 0px 10px 0px; padding: 10px 10px 10px 10px; background-color: #ffffff; border: 2px solid #00ff00;">
+    		<strong>Bitte best&auml;tigen Sie das L&ouml;schen von Veranstaltungen</strong><br>
+    		<table class="form" style="margin: 5px 0px 0px 0px;">
+    		#foreach($quest in $listquestions.entrySet())
+    			<tr>
+    				<td class="value"><input type="hidden" name="$quest.key" value="true">$quest.value</td>
+    			</tr>
+    			#set($save = true)
+    		#end
+    		</table><br>
+    	
+    		#if($save)
+    		<input type="submit" class="button" name="remove" value="Ja" title="markierte Veranstaltung l&ouml;schen"> &nbsp;
+    		#end
+    		<input type="button" name="cancel" value="Nein" onclick="window.location.href='SearchEvent';"> &nbsp;
+    	</div>
+    	#end
+    	
+    	#foreach($bean in $list)
+    	<input type="hidden" name="list" value="$bean.id">
+    	#end
+    	<table>
+    		<tr>
+    	#if($action != "guest" && $action != "addperson")
+    		<th class="textCenter smallCell"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" #if($listselection.size() == $listparam.count) checked#end title="Alle (de)markieren"/></th>
+		## Handler für SelectAll Toggling 
+		<script>
+			$(function(){
+                $('#toggleAllSelect').change(function(){
+                    if ($(this).is(':checked')) {
+						navigateSelectAll();
+                    } else {
+						navigateSelectNone();
+                    }
+                });
+            });
+		</script>
 		#end
-		#foreach($error in $listerrors)
-		#if($velocityCount <= $show)
-			<li style="margin: 5px 0px 0px 0px;">$error</li>
-		#end
-		#end
-		#if($listerrors.size() > $show)
-		#set($drop = $listerrors.size() - $show)
-			<li style="margin: 5px 0px 0px 0px;"><em>...  $drop weitere Meldungen.</em></li>
-		#end
-		</ul>
-	</div>
-	#elseif($listquestions && $listquestions.size() > 0)
-	<div style="margin: 10px 0px 10px 0px; padding: 10px 10px 10px 10px; background-color: #ffffff; border: 2px solid #00ff00;">
-		<strong>Bitte best&auml;tigen Sie das L&ouml;schen von Veranstaltungen</strong><br>
-		<table class="form" style="margin: 5px 0px 0px 0px;">
-		#foreach($quest in $listquestions.entrySet())
-			<tr>
-				<td class="value"><input type="hidden" name="$quest.key" value="true">$quest.value</td>
-			</tr>
-			#set($save = true)
-		#end
-		</table><br>
-	
-		#if($save)
-		<input type="submit" class="button" name="remove" value="Ja" title="markierte Veranstaltung l&ouml;schen"> &nbsp;
-		#end
-		<input type="button" name="cancel" value="Nein" onclick="window.location.href='SearchEvent';"> &nbsp;
-	</div>
-	#end
-	
-	#foreach($bean in $list)
-	<input type="hidden" name="list" value="$bean.id">
-	#end
-	<table>
-		<tr>
-	#if($action != "guest" && $action != "addperson")
-			<th class="smallCell textCenter">&nbsp;</th>
-	#end
 			<th class="smallCell textCenter">ID</th>
 			<th>Name</th>
 			<th>Beginn</th>
 			<th>Gastgeber</th>
 			<th>Verstaltungsort</th>
-		</tr>
-		#foreach($bean in $list)
-		#if ($velocityCount % 2 == 0)
-			#set($class = "list1")
-		#else
-			#set($class = "list2")
-		#end
-		<tr class="$class">
-			#if($action == "guest")
-					<td style="cursor: pointer;" onclick="window.location.href='AddEventToEventGuestList?id=$!{bean.id}';" class="textCenter"><input type="hidden" name="${bean.id}-id" value="$bean.id">$!{bean.id}</td>
-					<td style="cursor: pointer;" onclick="window.location.href='AddEventToEventGuestList?id=$!{bean.id}';">$!message.plain($bean.shortname)</td>
-			#if ($bean.begin.Seconds == 30)
-					<td style="cursor: pointer;" onclick="window.location.href='AddEventToEventGuestList?id=$!{bean.id}';">$!message.date("DATE", $bean.begin)</td>
-			#else
-					<td style="cursor: pointer;" onclick="window.location.href='AddEventToEventGuestList?id=$!{bean.id}';">$!message.date("DATE_TIME", $bean.begin)</td>
+    		</tr>
+    		#foreach($bean in $list)
+    		#if ($velocityCount % 2 == 0)
+    			#set($class = "list1")
+    		#else
+    			#set($class = "list2")
 			#end
-					<td style="cursor: pointer;" onclick="window.location.href='AddEventToEventGuestList?id=$!{bean.id}';">$!message.plain($bean.hostname)</td>
-					<td style="cursor: pointer;" onclick="window.location.href='AddEventToEventGuestList?id=$!{bean.id}';">$!message.plain($bean.location)</td>
-			#elseif($action == "addperson")
-					<td style="cursor: pointer;" onclick="window.location.href='AddPersonToEventDetail?event-id=$!{bean.id}&action=person';" class="textCenter"><input type="hidden" name="${bean.id}-id" value="$bean.id">$!{bean.id}</td>
-					<td style="cursor: pointer;" onclick="window.location.href='AddPersonToEventDetail?event-id=$!{bean.id}&action=person';">$!message.plain($bean.shortname)</td>
-			#if ($bean.begin.Seconds == 30)
-					<td style="cursor: pointer;" onclick="window.location.href='AddPersonToEventDetail?event-id=$!{bean.id}&action=person';">$!message.date("DATE", $bean.begin)</td>
-			#else
-					<td style="cursor: pointer;" onclick="window.location.href='AddPersonToEventDetail?event-id=$!{bean.id}&action=person';">$!message.date("DATE_TIME", $bean.begin)</td>
-			#end
-					<td style="cursor: pointer;" onclick="window.location.href='AddPersonToEventDetail?event-id=$!{bean.id}&action=person';">$!message.plain($bean.hostname)</td>
-					<td style="cursor: pointer;" onclick="window.location.href='AddPersonToEventDetail?event-id=$!{bean.id}&action=person';">$!message.plain($bean.location)</td>
-			#else
-					<td class="textCenter"><input type="checkbox" name="${bean.id}-select" value="true" #if($listselection.indexOf($bean.id) != -1) checked#end></td>
-					<td style="cursor: pointer;" onclick="window.location.href='ShowEvent?id=$!{bean.id}';" class="textCenter"><input type="hidden" name="${bean.id}-id" value="$bean.id">$!{bean.id}</td>
-					<td style="cursor: pointer;" onclick="window.location.href='ShowEvent?id=$!{bean.id}';">$!message.plain($bean.shortname)</td>
-			#if ($bean.begin.Seconds == 30)
-					<td style="cursor: pointer;" onclick="window.location.href='ShowEvent?id=$!{bean.id}';">$!message.date("DATE", $bean.begin)</td>
-			#else
-					<td style="cursor: pointer;" onclick="window.location.href='ShowEvent?id=$!{bean.id}';">$!message.date("DATE_TIME", $bean.begin)</td>
-			#end
-					<td style="cursor: pointer;" onclick="window.location.href='ShowEvent?id=$!{bean.id}';">$!message.plain($bean.hostname)</td>
-					<td style="cursor: pointer;" onclick="window.location.href='ShowEvent?id=$!{bean.id}';">$!message.plain($bean.location)</td>
-			#end
-		</tr>
-		#end
-	</table>
-	
-	#if ($listparam.count == 0)
-		<br>Keine Daten gefunden.
-	#end
-	
-	
-		#parse("inc/list-navi.vm")
-		#parse("inc/list-direct.vm")
-	
-		<div id="buttonPanel-bottom" class="textRight">
-			#if($action == "guest")
-				<input type="button" name="cancel" value="Zur&uuml;ck zur Veranstaltungssuche" onclick="window.location.href='ShowGuestList';"> 
-			#elseif($action == "addperson")
-				<input type="button" name="cancel" value="Zur&uuml;ck zur Veranstaltungssuche" onclick="window.location.href='ShowEventSearch';"> 
-			#else
-				<input type="submit" name="remove" value="L&ouml;schen" title="markierte Veranstaltungen l&ouml;schen" #* onclick="return confirm('Markierte Veranstaltungen wirklich l&ouml;schen?');" *# #if($grants.mayWrite()) class="button" #else class="buttondisabled" disabled #end>
-				<input type="button" name="cancel" value="Zur&uuml;ck zur Veranstaltungssuche" onclick="window.location.href='ShowEventSearch';">
-			#end
-		</div>
+			#set($offset = $listparam.start + $velocityCount)
+    		<tr class="$class">
+    			#if($action == "guest")
+    					<td style="cursor: pointer;" onclick="window.location.href='AddEventToEventGuestList?id=$!{bean.id}';" class="textCenter"><input type="hidden" name="${bean.id}-id" value="$bean.id">$!{bean.id}</td>
+    					<td style="cursor: pointer;" onclick="window.location.href='AddEventToEventGuestList?id=$!{bean.id}';">$!message.plain($bean.shortname)</td>
+    			#if ($bean.begin.Seconds == 30)
+    					<td style="cursor: pointer;" onclick="window.location.href='AddEventToEventGuestList?id=$!{bean.id}';">$!message.date("DATE", $bean.begin)</td>
+    			#else
+    					<td style="cursor: pointer;" onclick="window.location.href='AddEventToEventGuestList?id=$!{bean.id}';">$!message.date("DATE_TIME", $bean.begin)</td>
+    			#end
+    					<td style="cursor: pointer;" onclick="window.location.href='AddEventToEventGuestList?id=$!{bean.id}';">$!message.plain($bean.hostname)</td>
+    					<td style="cursor: pointer;" onclick="window.location.href='AddEventToEventGuestList?id=$!{bean.id}';">$!message.plain($bean.location)</td>
+    			#elseif($action == "addperson")
+    					<td style="cursor: pointer;" onclick="window.location.href='AddPersonToEventDetail?event-id=$!{bean.id}&action=person';" class="textCenter"><input type="hidden" name="${bean.id}-id" value="$bean.id">$!{bean.id}</td>
+    					<td style="cursor: pointer;" onclick="window.location.href='AddPersonToEventDetail?event-id=$!{bean.id}&action=person';">$!message.plain($bean.shortname)</td>
+    			#if ($bean.begin.Seconds == 30)
+    					<td style="cursor: pointer;" onclick="window.location.href='AddPersonToEventDetail?event-id=$!{bean.id}&action=person';">$!message.date("DATE", $bean.begin)</td>
+    			#else
+    					<td style="cursor: pointer;" onclick="window.location.href='AddPersonToEventDetail?event-id=$!{bean.id}&action=person';">$!message.date("DATE_TIME", $bean.begin)</td>
+    			#end
+    					<td style="cursor: pointer;" onclick="window.location.href='AddPersonToEventDetail?event-id=$!{bean.id}&action=person';">$!message.plain($bean.hostname)</td>
+    					<td style="cursor: pointer;" onclick="window.location.href='AddPersonToEventDetail?event-id=$!{bean.id}&action=person';">$!message.plain($bean.location)</td>
+    			#else
+    					<td class="textCenter"><input type="checkbox" name="${bean.id}-select" value="true" #if($listselection.indexOf($bean.id) != -1) checked#end></td>
+    					<td style="cursor: pointer;" onclick="window.location.href='ShowEvent?id=$!{bean.id}';" class="textCenter"><input type="hidden" name="${bean.id}-id" value="$bean.id">$!{bean.id}</td>
+    					<td style="cursor: pointer;" onclick="window.location.href='ShowEvent?id=$!{bean.id}';">$!message.plain($bean.shortname)</td>
+    			#if ($bean.begin.Seconds == 30)
+    					<td style="cursor: pointer;" onclick="window.location.href='ShowEvent?id=$!{bean.id}';">$!message.date("DATE", $bean.begin)</td>
+    			#else
+    					<td style="cursor: pointer;" onclick="window.location.href='ShowEvent?id=$!{bean.id}';">$!message.date("DATE_TIME", $bean.begin)</td>
+    			#end
+    					<td style="cursor: pointer;" onclick="window.location.href='ShowEvent?id=$!{bean.id}';">$!message.plain($bean.hostname)</td>
+    					<td style="cursor: pointer;" onclick="window.location.href='ShowEvent?id=$!{bean.id}';">$!message.plain($bean.location)</td>
+    			#end
+    		</tr>
+    		#end
+    		
+    		#set($itemName = "Veranstaltungen")
+    		#parse("inc/list-navi-new.vm")
+    		#parse("inc/list-direct-new.vm")
+    		
+    	</table>
+    	
+    	#if ($listparam.count == 0)
+    		<br>Keine Daten gefunden.
+    	#end
 	
 	</form>
 </div>
