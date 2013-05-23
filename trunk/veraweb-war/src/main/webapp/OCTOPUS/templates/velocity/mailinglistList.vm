@@ -48,7 +48,7 @@ function deleteMailinglist() {
 			<th class="smallCell textCenter">ID</th>
 			<th>Bezeichnung</th>
 			<th>Benutzer</th>
-			<th class="smallCell">Angelegt am</th>
+			<th class="smallCell nowrap">Angelegt am</th>
 			<th>Erzeugt aus VA</th>
 		</tr>
 		#foreach($bean in $list)
@@ -62,7 +62,7 @@ function deleteMailinglist() {
 			<td style="cursor: pointer;" onclick="window.location.href='ShowMailinglistDetail?id=$!{bean.id}';"><input type="hidden" name="${bean.id}-id" value="$bean.id">$!bean.id</td>
 			<td style="cursor: pointer;" onclick="window.location.href='ShowMailinglistDetail?id=$!{bean.id}';">$!bean.name</td>
 			<td style="cursor: pointer;" onclick="window.location.href='ShowMailinglistDetail?id=$!{bean.id}';">$!bean.username</td>
-			<td class="textCenter" style="cursor: pointer;" onclick="window.location.href='ShowMailinglistDetail?id=$!{bean.id}';">$!message.date("DATE_TIME", $bean.created)</td>
+			<td class="textCenter" style="cursor: pointer;" onclick="window.location.href='ShowMailinglistDetail?id=$!{bean.id}';">$!message.date("DATE_TIME", $bean.created) Uhr</td>
 			<td style="cursor: pointer;" onclick="window.location.href='ShowMailinglistDetail?id=$!{bean.id}';">$!bean.eventname</td>
 		</tr>
 	

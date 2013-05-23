@@ -20,7 +20,7 @@ function openNewEmail() {
 		<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Veranstaltungen > Verteiler</span>
 	</div>
 
-	<h1>Verteilerdetails: Hier bite den Verteilernamen</h1>
+	<h1>Verteilerdetails: Hier bitte den Verteilernamen</h1>
 
 	<form id="formlist" name="formlist" action="ShowMailinglistDetail" method="POST">
 		<input type="hidden" name="start" value="">
@@ -70,7 +70,7 @@ function openNewEmail() {
 
 		<div class="textRight">	
 			<input type="submit" name="remove" value="L&ouml;schen" onclick="submit();" title="markierte Adressen aus dem Verteiler l&ouml;schen" #if($grants.mayWrite()) class="mainButton" #else class="buttondisabled" disabled #end>
-			<input type="button" name="send"   value="Versenden"    onclick="window.location.href='MailinglistWrite';" title="an alle Adressen versenden" #if($grants.mayReadStandardFields()) class="mainBbutton" #else class="buttondisabled" disabled #end>
+			<input type="button" name="send"   value="Versenden"    onclick="window.location.href='MailinglistWrite';" title="an alle Adressen versenden" #if($grants.mayReadStandardFields()) class="mainButton" #else class="buttondisabled" disabled #end>
 			<input type="button" name="cancel" value="Zur&uuml;ck zur Verteiler&uuml;bersicht"  onclick="window.location.href='ShowMailinglistList';" title="Zur&uuml;ck zur Verteiler&uuml;bersicht" class="mainButton">
 		</div>
 		

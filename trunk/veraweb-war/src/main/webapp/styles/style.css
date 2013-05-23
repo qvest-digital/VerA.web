@@ -279,6 +279,10 @@ ul.alphabet li {
 
 .autoWidth {width:auto !important;}
 
+.nowrap {
+    white-space: nowrap;
+}
+
 /************* End misc *************/
 
 /************* End general *************/
