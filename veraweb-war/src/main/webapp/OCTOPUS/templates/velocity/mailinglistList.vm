@@ -50,7 +50,7 @@ function deleteMailinglist() {
 	</span>	
 	#end
 	
-	<table>
+	<table class="marginTop10">
 		<tr class="list1" style="height: 20px;">
 			<th class="smallCell textCenter">&nbsp;</th>
 			<th class="smallCell textCenter">ID</th>
