@@ -138,6 +138,8 @@ public class PersonDetailWorker implements PersonConstants {
 // previously disabled due to the fact that the stats reach "out to near infinite time" in the future
 //		cal.setTime( new Date() );
 //		map.put( "end", cal.get( Calendar.DAY_OF_MONTH ) + "." + ( cal.get( Calendar.MONTH ) + 1 ) + "." + cal.get( Calendar.YEAR ) );
+		
+		cntx.setContent("tab", cntx.requestAsString("tab"));
 
 		return person;
 	}
@@ -561,6 +563,7 @@ public class PersonDetailWorker implements PersonConstants {
      * @return die abgespeicherte Person
 	 */
 	public Person saveDetail(OctopusContext cntx, Person person) throws BeanException, IOException {
+	    cntx.setContent("tab", cntx.requestAsString("tab"));
 		cntx.setContent("personTab", cntx.requestAsInteger("personTab"));
 		cntx.setContent("personMemberTab", cntx.requestAsInteger("personMemberTab"));
 		cntx.setContent("personAddresstypeTab", cntx.requestAsInteger("personAddresstypeTab"));
