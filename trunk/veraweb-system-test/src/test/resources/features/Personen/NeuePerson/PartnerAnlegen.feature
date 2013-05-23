@@ -8,6 +8,7 @@ Grundlage: Ich bin als Administrator angemeldet habe mind. eine Person angelegt 
 		|  Vorname	| Nachname 		| 
 		|  Fred 	| Feuerstein	|
 	 Und ich sehe "Person bearbeiten"
+	 Und ich sehe "Personendaten"
 	 Und ich bin im Tab "Partner"
 
 

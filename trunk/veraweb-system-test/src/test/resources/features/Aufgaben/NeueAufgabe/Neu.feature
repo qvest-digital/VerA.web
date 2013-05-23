@@ -9,8 +9,8 @@ Grundlage: Ich bin als Administrator angemeldet und habe mind. eine Veranstaltun
 		|  Fred 	| Feuerstein	|
 		|  Barny	| Geröllheimer	| 
 	 Und es existiert eine Veranstaltung "Veranstaltung 1" mit folgenden Aufgaben:
-		| ID	| Titel 	| Beschreibung	 | Start 	  | Ende 		| Fertigstellungsgrad	| Verantwortlicher	 | Priorität | 
-		| 1		| Aufgabe 1 | Beschreibung 1 | heute(+1)  | heute(+2) 	| 		0				| Barny  			 | 1		 |
+		| ID	| Titel 		  | Beschreibung	 | Start 	  | Ende 		| Fertigstellungsgrad	| Verantwortlicher	 | Priorität | 
+		| 1		| Veranstaltung 1 | Beschreibung 1   | heute(+1)  | heute(+2) 	| 		0				| Barny  			 | 1		 |
 	 Und ich bin in der Übersicht aller Aufgaben der Veranstaltung "Veranstaltung 1"
 	 
 	 
@@ -25,8 +25,8 @@ Szenariogrundriss: Ich lege eine neue Aufgabe an
 	
 	Beispiele:
 		| Testdaten														|	Meldung										|
-		| "Aufgabe mit leeren Feldern"									|	Pflichtfeld "Titel" muss ausgefüllt sein	|
-		| "Titel mit leerem Pflichtfeld"								|	Pflichtfeld "Titel" muss ausgefüllt sein	|
+		| "Aufgabe mit leeren Feldern"									|	Pflichtfeld "Kurzbeschreibung" muss ausgefüllt sein	|
+		| "Titel mit leerem Pflichtfeld"								|	Pflichtfeld "Kurzbeschreibung" muss ausgefüllt sein	|
 		| "Titel mit einhundertneun Zeichen Text"						|	Maximale Zeichenlänge überschritten			|
 		| "Titel mit hundert Zeichen Text"								|	Aufgabe erfolgreich angelegt				|
 		| "Titel mit neunundneunzig Zeichen Text"						|	Aufgabe erfolgreich angelegt				|
