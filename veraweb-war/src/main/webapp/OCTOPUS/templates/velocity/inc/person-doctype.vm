@@ -1,6 +1,7 @@
 <form id="formlist" name="formlist" action="${paths.staticWeb}do/ShowPersonDoctypeList" method="post">
 <input type="hidden" name="id" value="$!person.id">
 <input type="hidden" name="start" value="">
+<input type="hidden" name="limit" value="">
 <input type="hidden" name="selectAll" value="false">
 <input type="hidden" name="selectNone" value="false">
 <input type="hidden" name="doUpdate" value="true">
