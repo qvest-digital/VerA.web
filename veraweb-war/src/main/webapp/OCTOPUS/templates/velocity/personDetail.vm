@@ -573,6 +573,23 @@
     	}
 	}
 	
+    $(function () {
+        // register page reload on tab doctype
+        var tabDocType = $('li[vera-tab=dokumenttypen]');
+        if (!tabDocType.is('[vera-tab-default]')) {
+            tabDocType.click(function () {
+                if ($('#modified').val() === 'true') {
+                    var form = $('#PersonForm');
+                    form.attr('action', '${paths.staticWeb}do/ShowPersonDoctypeList');
+                    form.submit();
+                } else {
+                    window.location.href = '${paths.staticWeb}do/ShowPersonDoctypeList?id=$!person.id&tab=person';
+                }
+            });
+        }
+    });
+	
+	
 	
 </script>
 
