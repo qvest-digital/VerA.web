@@ -502,7 +502,7 @@ hr {border-top:1px solid #8b0f0f; }
 	margin-bottom:10px;
 }
 
-.statisticsType input {margin-bottom:5px;}
+.statisticsType input {margin-bottom:5px !important;}
 
 /************* =6.1 tabs *************/
 
