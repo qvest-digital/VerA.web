@@ -18,6 +18,12 @@
 		<script type="text/javascript" src="${paths.staticWeb}jscalendar/calendar.js"></script>
 		<script type="text/javascript" src="${paths.staticWeb}jscalendar/calendar-setup.js"></script>
 		<script type="text/javascript" src="${paths.staticWeb}jscalendar/lang/calendar-de.js"></script>
+		<script>
+			document.createElement("header");
+			document.createElement("nav");
+			document.createElement("section");
+			document.createElement("footer");
+		</script>			
 		<link rel="stylesheet" type="text/css" href="${paths.staticWeb}jscalendar/calendar-win2k-cold-1.css" media="all">
 ##		WCH - Windowed Controls Hider (http://www.aplus.co.yu/wch/intro/)
 ##		<!--[if IE]>
@@ -39,7 +45,7 @@
     							#if($config.helplink)
     								<li><a href="${paths.staticWeb}$config.helplink" #if($config.helptarget) target="$config.helptarget" #end>Hilfe</a></li>
     							#else
-    								<li title="Die Hilfe wurde noch nicht hinterlegt.">Hilfe</li>
+    								<li title="Die Hilfe wurde noch nicht hinterlegt">Hilfe</li>
     							#end
             					<li><a id="menu.logout" href="${paths.staticWeb}do/logout" class="noBorder"> <span class="borderBottom">Abmelden</span> <img src="${paths.staticWeb}images/logout.png" alt="Logout icon" title="Logout" style="vertical-align:middle;" /></a></li>
             				</ul>
