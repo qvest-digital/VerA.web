@@ -42,6 +42,14 @@ function deleteMailinglist() {
 	#foreach($bean in $list)
 	<input type="hidden" name="list" value="$bean.id">
 	#end
+	
+	#if($grants.mayWrite())
+	<span id="actionPanel">
+    	Ausgewählte Einträge
+		<input type="button" name="remove" value="L&ouml;schen" onclick="deleteMailinglist();" title="markierte Verteiler l&ouml;schen">
+	</span>	
+	#end
+	
 	<table>
 		<tr class="list1" style="height: 20px;">
 			<th class="smallCell textCenter">&nbsp;</th>
@@ -76,8 +84,6 @@ function deleteMailinglist() {
 	
 		#parse("inc/list-navi.vm")
 		#parse("inc/list-direct.vm")
-	
-		<input type="button" name="remove" value="L&ouml;schen" onclick="deleteMailinglist();" title="markierte Verteiler l&ouml;schen" #if($grants.mayWrite()) class="button" #else class="buttondisabled" disabled #end> &nbsp;
 	
 	
 	</form>
