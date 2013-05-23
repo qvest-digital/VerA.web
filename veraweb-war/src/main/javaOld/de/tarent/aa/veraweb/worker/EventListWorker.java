@@ -120,7 +120,14 @@ public class EventListWorker extends ListWorkerVeraWeb {
     }
 
 
-    /**
+    @Override
+	public List showList(OctopusContext cntx) throws BeanException, IOException {
+    	String val = cntx.getRequestObject().get("searchTask");
+    	cntx.setContent("searchTask", val);
+		return super.showList(cntx);
+	}
+
+	/**
 	 * Wenn das Event <code>search</code> einen Start-Termin hat,
 	 * werden nur Veranstaltungen angezeigt die <strong>genau</strong>
 	 * diesem Termin <strong>beginnen</strong>.<br><br>
