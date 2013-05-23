@@ -45,7 +45,7 @@
 					</script>
 				</div>
 				
-				<div class="tableCell width50 inlineLabel">
+				<div class="tableCell width50 inlineLabel statisticsType">
 					<script type="text/javascript">
 						function exportStatistik() {
 							if (document.getElementById('formlist').statistik[0].checked) {
@@ -82,27 +82,25 @@
 					<h2>Statistiktyp ausw&auml;hlen:</h2>
 					
 					<input type="radio" id="EventsPerYear" name="statistik" value="EventsPerYear" checked><label for="EventsPerYear">
-					Gesamt&uuml;bersicht &uuml;ber die Anzahl der Veranstaltungen pro Jahr.</label><br />
+					Gesamt&uuml;bersicht &uuml;ber die Anzahl der Veranstaltungen pro Jahr.</label>
 					
 					<input type="radio" id="EventsPerMonth" name="statistik" value="EventsPerMonth"><label for="EventsPerMonth">
-					Gesamt&uuml;bersicht &uuml;ber die Anzahl der Veranstaltungen pro Monat.</label><br />
+					Gesamt&uuml;bersicht &uuml;ber die Anzahl der Veranstaltungen pro Monat.</label>
 					
 					<input type="radio" id="EventsGroupByHost1" name="statistik" value="EventsGroupByHost"><label for="EventsGroupByHost1">
-					Gesamt&uuml;bersicht &uuml;ber alle Veranstaltungen, gruppiert nach Gastgeber.</label><br />
+					Gesamt&uuml;bersicht &uuml;ber alle Veranstaltungen, gruppiert nach Gastgeber.</label>
 					
 					<input type="radio" id="EventsGroupByHost2" name="statistik" value="EventsGroupByHost"><label for="EventsGroupByHost2">
-					&Uuml;bersicht &uuml;ber alle Veranstaltungen eines Gastgebers (mit Suche).</label><br />
+					&Uuml;bersicht &uuml;ber alle Veranstaltungen eines Gastgebers (mit Suche).</label>
 					
 					<input type="radio" id="EventsGroupByGuest" name="statistik" value="EventsGroupByGuest"><label for="EventsGroupByGuest">
-					&Uuml;bersicht &uuml;ber alle Veranstaltungen eines Gastes (mit Suche).</label><br />
+					&Uuml;bersicht &uuml;ber alle Veranstaltungen eines Gastes (mit Suche).</label>
 					
 					<input type="radio" id="EventsGroupByLocation" name="statistik" value="EventsGroupByLocation"><label for="EventsGroupByLocation">
-					&Uuml;bersicht &uuml;ber alle Veranstaltungen sortiert nach Veranstaltungsort.</label><br />
+					&Uuml;bersicht &uuml;ber alle Veranstaltungen sortiert nach Veranstaltungsort.</label>
 				</div>
 			</div>
 		</div>
-		
-		
 		
 		<div class="textRight marginTop10">
 			<input type="submit" class="mainButton" name="create" value="Statistik erstellen">
