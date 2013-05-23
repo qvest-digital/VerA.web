@@ -71,7 +71,7 @@ function navigateLimit(limit) {
 		form.elements['limit'].value = limit;
 		form.submit();
 	} else {
-		alert('form or field start NOT FOUND!');
+		alert('form or field limit NOT FOUND!');
 	}
 }
 
