@@ -28,6 +28,7 @@
 	<input type="hidden" name="selectNone" value="true">
 
 	<input type="hidden" name="search" value="reset">
+	<input type="hidden" name="searchTask" value="eventSearchTask">
 	
 	<div id="main_content" class="contentBoxColored grayBorder marginBottom20">
 
