@@ -194,7 +194,7 @@
     	<ul class="gray-gradient" vera-tab-group> <!-- Bitte das End-tag der <li>s immer mit in die nächste Zeile nehmen (verhindert Mozilla styling bug) -->
     		<li vera-tab="personendaten" vera-tab-default>Persondendaten
     		</li><li vera-tab="anschriften">Anschriften
-    		</li><li vera-tab="dokumenttypen">Dokumenttypen
+    		</li><li class="inactive" id="dokumenttypen">Dokumenttypen
     		</li><li vera-tab="kategorien">Kategorien</li>
     	</ul>
     </div>
@@ -340,11 +340,7 @@
 
 	</div>
     
-    #**
-	<div vera-content="dokumenttypen" class="contentBoxColored tabsContent" style="border:1px solid #000000;">
-		#parse("personDoctype.vm")
-	</div> 
-	*#
+
     
 	#**
     #openContentBlock("anschrift1-zs1-block")
@@ -575,18 +571,16 @@
 	
     $(function () {
         // register page reload on tab doctype
-        var tabDocType = $('li[vera-tab=dokumenttypen]');
-        if (!tabDocType.is('[vera-tab-default]')) {
-            tabDocType.click(function () {
-                if ($('#modified').val() === 'true') {
-                    var form = $('#PersonForm');
-                    form.attr('action', '${paths.staticWeb}do/ShowPersonDoctypeList');
-                    form.submit();
-                } else {
-                    window.location.href = '${paths.staticWeb}do/ShowPersonDoctypeList?id=$!person.id&tab=person';
-                }
-            });
-        }
+        var tabDocType = $('li#dokumenttypen');
+        tabDocType.click(function () {
+            if ($('#modified').val() === 'true') {
+                var form = $('#PersonForm');
+                form.attr('action', '${paths.staticWeb}do/ShowPersonDoctypeList');
+                form.submit();
+            } else {
+                window.location.href = '${paths.staticWeb}do/ShowPersonDoctypeList?id=$!person.id&tab=person';
+            }
+        });
     });
 	
 	
