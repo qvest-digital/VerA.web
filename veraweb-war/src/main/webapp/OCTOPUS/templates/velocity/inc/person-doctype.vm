@@ -15,7 +15,7 @@
 
 <table>
 	<tr>
-        <th class="textCenter smallCell"><input type="checkbox" name="" id="" /></th>
+        <th class="textCenter smallCell"><input type="checkbox" name="" id="toggleAllSelect" #if($listparam.count > 0 && $listselection.size() == $listparam.count) checked#end title="Alle (de)markieren" #if(!$grants.mayWrite()) disabled="true"#end /></th>
         <th class="width90">Dokumenttyp</th>
         <th>Anschrift</th>
         <th>Zeichensatz</th>
@@ -127,3 +127,16 @@
 </div>
 
 </form>
+
+
+<script>
+    $(function(){
+        $('#toggleAllSelect').change(function(){
+            if ($(this).is(':checked')) {
+                navigateSelectAll();
+            } else {
+                navigateSelectNone();
+            }
+        });
+    });
+</script>

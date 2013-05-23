@@ -50,14 +50,6 @@
                 #else
                 	<a id="page-last" href="javascript:navigateList($listparam.last);" class="listnavilink" title="Letzte Seite">&raquo;&raquo;</a>
                 #end
-    
-                #if(!$disableListSelect)
-                    <nobr>
-                        <a id="checkAll" href="javascript:navigateSelectAll();" class="listnavitext" style="margin-left: 15px;">Alle markieren</a>
-                        <span class="listnavitext" style="margin-left: 5px; margin-right: 5px;">|</span>
-                        <a id="uncheckAll" href="javascript:navigateSelectNone();" class="listnavitext">Alle demarkieren</a>
-					</nobr>
-                #end
     		</td>
     	</tr>
     </table>
