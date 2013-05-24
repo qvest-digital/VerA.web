@@ -32,6 +32,13 @@
 	<form id="formlist" name="formlist" action="$formurl" method="POST">
     	<input type="hidden" name="start" value="">
 		<input type="hidden" name="limit" value="" />
+		
+		<!-- Hidden value to save the information if the list view was shown after event search.
+		This is specially needed after one of the paging buttons was pressed to save this information.-->
+		#if($searchTask)
+			<input type="hidden" name="searchTask" value="">
+		#end
+		
     	<input type="hidden" name="selectAll" value="false">
     	<input type="hidden" name="selectNone" value="false">
     	<input type="hidden" name="doRemove" value="true">
