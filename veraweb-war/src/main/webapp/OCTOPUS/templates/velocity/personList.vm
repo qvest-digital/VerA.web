@@ -12,7 +12,7 @@
     #set($title = "Gastgeber ausw&auml;hlen")
 #elseif($action == "replace")
 	#set($activeMenu = "Personen")
-    #set($title = "Suchen &amp; Ersetzen")
+    #set($title = "Personen Suchen &amp; Ersetzen")
 #elseif($action == "duplicateSearch")
 	#set($activeMenu = "Personen")
     #set($title = "Dublettensuche")
@@ -118,7 +118,7 @@
             #if($action == "guest")
 				
 				<span id="actionPanel" class="inlineLabel">
-					<label>Markierte Eintr&auml;ge
+					<label>Markierte Personen
 						<input type="button" value="&Uuml;bernehmen" title="Markierte Personen zur Veranstaltung hinzuf&uuml;gen" onclick="submitFormWithGivenAction('AddPersonToEventGuestList');" />
                     </label>
             	</span>
@@ -209,7 +209,7 @@
     		#elseif($action == "replace")
 				
 				<span id="actionPanel" class="inlineLabel">
-					<label>Markierte Eintr&auml;ge
+					<label>Markierte Personen
 						<input type="button" value="Ersetzen" onclick="submitFormWithGivenAction('SaveReplacePersonList');" />
                     </label>
             	</span>
@@ -287,7 +287,7 @@
                 </script>
 				
 				<span id="actionPanel" class="inlineLabel">
-					<label>Markierte Eintr&auml;ge
+					<label>Markierte Personen
     					<select id="actionSelection">
         					<option>Löschen</option>
         					#if($exportFormat && $grants.mayExport())
@@ -349,7 +349,8 @@
 				}
     		</script>
     		
-			#if(!$searchTask)
+
+			#if($action!="replace" && $action!="duplicateSearch" && !$searchTask)
         		<span id="buttonPanel-top" class="textRight floatRight">
         			<input type="button" id="button.searchPerson" name="button.searchPerson" value="Personen suchen" title="Personen suchen" class="mainButton" onclick="window.location.href='ShowPersonSearch?search=clear';" />
         			<input type="button" id="button.newPerson" name="button.newPerson" value="Neue Person anlegen" title="Neue Person anlegen" class="mainButton" onclick="window.location.href='CreatePerson';" />
