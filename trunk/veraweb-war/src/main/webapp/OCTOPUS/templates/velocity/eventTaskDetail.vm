@@ -67,13 +67,14 @@
 	<input type="hidden" name="task-id" value="$!task.id">
 	<input type="hidden" name="event-id" value="$!eventId">
 	
-		<h2>$!message.text($task.title)</h2>
+	<div id="main_content" class="contentBoxColored grayBorder marginBottom20">
+		<h2>Aufgabe bearbeite: $!message.text($task.title)</h2>
 	
-		<div class="table">
+		<div class="table width100">
 			<div class="tableRow">
-				<div class="tableCell">
-					<label for="id">Aufgaben-ID:</label> $!message.text($task.id)</div>
-				<div class="tableCell">
+				<div class="tableCell width30">
+					<strong>Aufgaben-ID:</strong><br /> $!message.text($task.id)</div>
+				<div class="tableCell width30">
 					<label for="task-startdate">Beginn:</label> 
 					<input type="text" name="task-startdate" id="task-startdate" value="$!message.date("DATE", $task.startdate)" class="date" style="width: 80px;" onchange="setModified();">
 					#if($grants.mayWrite())
@@ -92,9 +93,9 @@
 					</script>
 					#end
 					<input type="text" name="task-starttime" id="task-starttime" #if($task-starthastime) value="$!message.date("TIME", $task.startdate)" #else value="" #end class="date" style="width: 40px;" onchange="setModified();"> Uhr</div>
-				<div class="tableCell">
+				<div class="tableCell width30">
 					<label for="task-degreeofcompletion">Fertigstellung:</label>
-					<select name="task-degreeofcompletion" id="task-degreeofcompletion" class="combobox WCHhider" onchange="setModified();">
+					<select name="task-degreeofcompletion" id="task-degreeofcompletion" class="width15" onchange="setModified();">
 						<option #if($task.degreeofcompletion && $task.degreeofcompletion == 0) selected #end value="0">0%</option>
 						<option #if($task.degreeofcompletion && $task.degreeofcompletion == 10) selected #end value="10">10%</option>
 						<option #if($task.degreeofcompletion && $task.degreeofcompletion == 20) selected #end value="20">20%</option>
@@ -131,7 +132,7 @@
 				</div>
 				<div class="tableCell">
 					<label for="task-priority">Priorit&auml;t:</label>
-					<select name="task-priority" id="task-priority" class="combobox WCHhider" onchange="setModified();">
+					<select name="task-priority" id="task-priority" class="width15" onchange="setModified();">
 						<option #if($task.priority && $task.priority == 1) selected #end value="1">1</option>
 						<option #if($task.priority && $task.priority == 2) selected #end value="2">2</option>
 						<option #if($task.priority && $task.priority == 3) selected #end value="3">3</option>
@@ -143,7 +144,7 @@
 			</div>
 		</div>
 		
-		<div class="table">
+		<div class="table width100">
 			<div class="tableRow">
 				<div class="tableCell">
 					<label for="task-description">Beschreibung:</label>
@@ -152,27 +153,28 @@
 			</div>
 			<div class="tableRow">
 				<div class="tableCell">
-					<label for="task-reference-person">Verantwortlicher:</label>
-					<input type="text" id="task-reference-person" name="task-reference-person" value="$!message.text($refPerson.firstname_a_e1) $!message.text($refPerson.lastname_a_e1)" class="textdisabled" readonly>
-					<div class="addButton">
+					<strong>Verantwortlicher:</strong><br />
+					$!message.text($refPerson.firstname_a_e1) $!message.text($refPerson.lastname_a_e1)
+					<div>
 						#if($grants.mayWrite())
-							<a href="SetReferencePersonToEventTask?a=taskReferencePerson&taskId=$!task.id&eventId=$!eventId">Suchen</a> |
-							<a href="#" id="linkRemoveRefPerson">Entfernen</a>
+							<a href="SetReferencePersonToEventTask?a=taskReferencePerson&taskId=$!task.id&eventId=$!eventId">Verantworlichen hinzufügen</a> |
+							<a href="#" id="linkRemoveRefPerson">Verantworlichen entfernen</a>
 						#end
 					</div>
 				</div>
 			</div>
 		</div>
-	
-	<div class="textRight">	
-		#if($event && $event.id)
-			<input id="button.save" type="submit" name="save" value="Speichern" title="Speichern" onclick="document.getElementById('formlist').action='SaveEventTask';" #if($grants.mayWrite()) class="mainButton" #else class="buttondisabled" disabled #end>
-			<input type="button" name="guestlist" class="mainButton" value="Zur G&auml;steliste" title="Zur G&auml;steliste" onclick="window.location.href='ShowGuestList?search-event=$!event.id&start=0&selectNone=true';">
-			<input id="button.back" type="button" name="cancel" class="mainButton" value="Zur&uuml;ck zur Aufgaben&uuml;bersicht" title="Zur&uuml;ck zur Aufgaben&uuml;bersicht" onclick="window.location.href='${paths.staticWeb}do/ShowEventTasks?id=$!eventId';">
-		#else
-		    <input id="button.save" type="submit" name="save" value="Speichern" title="Speichern" onclick="document.getElementById('formlist').action='SaveEventTask';" #if($grants.mayWrite()) class="mainButton" #else class="buttondisabled" disabled #end>
-		    <input id="button.back" type="button" name="cancel" class="mainButton" value="Zur&uuml;ck zur Aufgaben&uuml;bersicht" title="Zur&uuml;ck zur Aufgaben&uuml;bersicht" onclick="if (checkModified()) { window.location.href='${paths.staticWeb}do/ShowEventTasks?id=$!eventId'; }">
-		#end
+		
+		<div class="textRight">	
+			#if($event && $event.id)
+				<input id="button.save" type="submit" name="save" value="Speichern" title="Speichern" onclick="document.getElementById('formlist').action='SaveEventTask';" #if($grants.mayWrite()) class="mainButton" #else class="buttondisabled" disabled #end>
+				<input type="button" name="guestlist" class="mainButton" value="Zur G&auml;steliste" title="Zur G&auml;steliste" onclick="window.location.href='ShowGuestList?search-event=$!event.id&start=0&selectNone=true';">
+				<input id="button.back" type="button" name="cancel" class="mainButton" value="Zur&uuml;ck zur Aufgaben&uuml;bersicht" title="Zur&uuml;ck zur Aufgaben&uuml;bersicht" onclick="window.location.href='${paths.staticWeb}do/ShowEventTasks?id=$!eventId';">
+			#else
+			    <input id="button.save" type="submit" name="save" value="Speichern" title="Speichern" onclick="document.getElementById('formlist').action='SaveEventTask';" #if($grants.mayWrite()) class="mainButton" #else class="buttondisabled" disabled #end>
+			    <input id="button.back" type="button" name="cancel" class="mainButton" value="Zur&uuml;ck zur Aufgaben&uuml;bersicht" title="Zur&uuml;ck zur Aufgaben&uuml;bersicht" onclick="if (checkModified()) { window.location.href='${paths.staticWeb}do/ShowEventTasks?id=$!eventId'; }">
+			#end
+		</div>
 	</div>
 	
 	</form>
