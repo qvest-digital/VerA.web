@@ -55,6 +55,7 @@
             <input type="hidden" name="selectAll" value="false">
             <input type="hidden" name="selectNone" value="true">
 			<input type="hidden" name="search" value="reset">
+			<input type="hidden" name="searchTask" value="personSearchTask">
 
             #if($action == "taskReferencePerson")
                 <input type="hidden" name="eventId" value="$!eventId">

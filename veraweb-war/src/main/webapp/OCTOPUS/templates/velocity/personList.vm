@@ -1,31 +1,24 @@
 #if($action == "guest")
 	#set($activeMenu = "Veranstaltungen")
     #set($title = "Gast hinzuf&uuml;gen - Veranstaltung: $!message.plain($event.shortname)")
-    #parse("inc/header.vm")
 #elseif($action == "host")
 	#set($activeMenu = "Veranstaltungen")
     #set($title = "Gastgeber ausw&auml;hlen - Veranstaltung: $!message.plain($event.shortname)")
-    #parse("inc/header.vm")
 #elseif($action == "statistikGuest")
 	#set($activeMenu = "Veranstaltungen")
     #set($title = "Gast ausw&auml;hlen")
-    #parse("inc/header.vm")
 #elseif($action == "statistikHost")
 	#set($activeMenu = "Veranstaltungen")
     #set($title = "Gastgeber ausw&auml;hlen")
-    #parse("inc/header.vm")
 #elseif($action == "replace")
 	#set($activeMenu = "Personen")
     #set($title = "Suchen &amp; Ersetzen")
-    #parse("inc/header.vm")
 #elseif($action == "duplicateSearch")
 	#set($activeMenu = "Personen")
     #set($title = "Dublettensuche")
-    #parse("inc/header.vm")
 #elseif($action == "taskReferencePerson")
 	#set($activeMenu = "Veranstaltungen")
     #set($title = "Verantwortlichen f&uuml;r Aufgabe ausw&auml;hlen")
-    #parse("inc/header.vm")
 #else
 	#set($activeMenu = "Personen")
     #if(($listerrors && $listerrors.size() > 0) || ($listquestions && $listquestions.size() > 0))
@@ -33,266 +26,258 @@
     #else
 		#set($title = "Personen&uuml;bersicht")
     #end
-    #parse("inc/header.vm")
 #end
+#parse("inc/header.vm")
 
 <div id="content_container">
-	<div id="breadcrumb" class="textRight">
-		<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Personen > Personen&uuml;bersicht</span>
-	</div>
+	#if($searchTask && $searchTask == "personSearchTask")
+    	<div id="breadcrumb" class="textRight">
+    		<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Personen > <a href="${paths.staticWeb}do/ShowPersonSearch?action=person" title="Zur Personensuche">Personensuche</a> > Suchergebnisse</span>
+    	</div>
+    	<h1>Suchergebnis: Personen</h1>
+	#else
+		<div id="breadcrumb" class="textRight">
+    		<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Personen > $title</span>
+    	</div>
+    	<h1>$title</h1>
+	#end
+
 	
-	<h1>$title</h1>
-
-	<form id="formlist" name="formlist" action="${paths.staticWeb}do/$octopusRequest.task" method="POST">
-        <input type="hidden" name="start" value="" />
-		<input type="hidden" name="limit" value="" />
-        <input type="hidden" name="selectAll" value="false" />
-        <input type="hidden" name="selectNone" value="false" />
-        <input type="hidden" name="doRemove" value="true" />
-        <input type="hidden" name="categoryAssignmentAction" value="" />
-        <input type="hidden" name="categoryAssignmentId" value="" />
-        <input type="hidden" name="workareaAssignmentAction" value="" />
-        <input type="hidden" name="workareaAssignmentId" value="" />
-
-        #if(($listerrors && $listerrors.size() > 0) || ($listquestions && $listquestions.size() > 0))
-            #set($save = false)
-            
-            #if($listerrors && $listerrors.size() > 0)
-            <div style="margin: 10px 0px 10px 0px; padding: 10px 10px 10px 10px; background-color: #ffffff; border: 2px solid #ff0000;">
-            	<strong>L&ouml;schen von Personen ist nicht m&ouml;glich:</strong><br>
-            	<ul style="margin: 0px 0px 0px -10px;">
-                	#if($listerrors.size() > 5)
-        				#set($show = 5)
-                	#else
-        				#set($show = $listerrors.size())
-                	#end
-                	#foreach($error in $listerrors)
-                    	#if($velocityCount <= $show)
-                    		<li style="margin: 5px 0px 0px 0px;">$!message.plain($error)</li>
-                    	#end
-                	#end
-                	#if($listerrors.size() > $show)
-        				#set($drop = $listerrors.size() - $show)
-                		<li style="margin: 5px 0px 0px 0px;"><em>...  $drop weitere Meldungen.</em></li>
-                	#end
-            	</ul>
-            </div>
-            #end
-            #if($listquestions && $listquestions.size() > 0)
-            <div style="margin: 10px 0px 10px 0px; padding: 10px 10px 10px 10px; background-color: #ffffff; border: 2px solid #00ff00;">
-            	<strong>Bitte best&auml;tigen Sie das L&ouml;schen von Personen:</strong><br>
-            	<ul style="margin: 0px 0px 0px -10px;">
-            	#foreach($quest in $listquestions.entrySet())
-            		<li style="margin: 5px 0px 0px 0px;"><input type="hidden" name="$quest.key" value="true">$!message.plain($quest.value)</li>
-            		#set($save = true)
-            	#end
-            	</ul><br>
-            	#if($save)
-					<input type="submit" class="button" name="remove" value="Ja" title="markierte Personen l&ouml;schen"> &nbsp;
-            	#end
-            	<input type="button" class="cancel" name="cancel" value="Nein" onclick="window.location.href='SearchPerson';"> &nbsp;
-            </div>
-            #end
-
-		#end
+	#if($list && $list.size() > 0 )
 		
-		
-		#if($action == "host" || $action == "statistikGuest" || $action == "statistikHost")
-        	#set($disableListSelect = true)
-    	#end
-
-
-        #if($action == "guest")
-
-			#if($list && $list.size() > 0 )
-    			<span id="actionPanel" class="inlineLabel">
-        			<label>Aktion: 
-        				<select id="actionSelection">
-        					<option title="Ausgew&auml;hlte Personen zur Veranstaltung hinzuf&uuml;gen.">&Uuml;bernehmen</option>
-        				</select>
-        			</label>
-        			<input type="button" value="Durchf&uuml;hren" title="Gew&auml;hlte Aktion durchf&uuml;hren" id="button.execute" name="button.execute" />
-					(Für ausgewählte Einträge)
-        		</span>
-			#else
-				<span class="inlineLabel"><label>&nbsp;</label></span>	
-			#end
+    	<form id="formlist" name="formlist" action="${paths.staticWeb}do/$octopusRequest.task" method="POST">
+            <input type="hidden" name="start" value="" />
+    		<input type="hidden" name="limit" value="" />
+            <input type="hidden" name="selectAll" value="false" />
+            <input type="hidden" name="selectNone" value="false" />
+            <input type="hidden" name="doRemove" value="true" />
+            <input type="hidden" name="categoryAssignmentAction" value="" />
+            <input type="hidden" name="categoryAssignmentId" value="" />
+            <input type="hidden" name="workareaAssignmentAction" value="" />
+            <input type="hidden" name="workareaAssignmentId" value="" />
     
-            <script language="JavaScript">
-            	function hasNoMain(box) {
-            		if (document.getElementById(box).checked) {
-            			alert('Zu dieser Person ist keine Hauptperson eingetragen.');
-            			document.getElementById(box).checked = false;
-            		}
-            	}
-            	
-            	function hasNoPartner(box) {
-            		if (document.getElementById(box).checked) {
-            			alert('Zu dieser Person ist keine Partnerin / kein Partner eingetragen.');
-            			document.getElementById(box).checked = false;
-            		}
-            	}
-            	
-            	function onClickSetState(box1, box2) {
-            		if (document.getElementById(box1).checked) {
-            			document.getElementById(box2).checked = true;
-            		}
-            	}
-            
-            ## Fix for Bug 987
-            ## cklein
-            ## 2008-02-22
-            	function onClickEnforceConsistentState(box1, box2, box3) {
-            		var checked = document.getElementById(box1).checked || document.getElementById(box2).checked;
-            		if ( ! checked )
-            		{
-            			document.getElementById(box3).checked = false;
-            		}
-            	}
-            
-            	function onClickEnsureSelection(box1, box2, box3, invitationType, hasMain, hasPartner) {
-            		if ( document.getElementById(box3).checked )
-            		{
-            			var checked = document.getElementById(box1).checked || document.getElementById(box2).checked;
-            			if ( ! checked )
-            			{
-            				var errmsg = "";
-            				if ( invitationType == 2 || invitationType == 1 )
-            				{
-            					errmsg = "zur Person";
-            					document.getElementById(box1).checked = hasMain;
-            				}
-            				if ( invitationType == 3 || invitationType == 1 )
-            				{
-            					if ( errmsg.length > 0 )
-            					{
-            						errmsg += " und ";
-            					}
-            					errmsg += "zum Partner";
-            					document.getElementById(box2).checked = hasPartner;
-            				}
-            			}
-            			checked = document.getElementById(box1).checked || document.getElementById(box2).checked;
-            			if ( ! checked )
-            			{
-            				alert( "Diese Person kann nicht auf Reserve gesetzt werden, da die notwendigen Daten " + errmsg + " nicht vollständig erfasst wurden." );
-            				document.getElementById(box3).checked = false;
-            			}
-            		}
-            	}
-            	
-            </script>
-
-		#elseif($action == "host")
-
-            <table class="list">
-            	<tr style="height: 20px;">
-            		<td class="list2warn" style="text-align: center; width: 60px;"><strong>Hinweis</strong></td>
-            		<td class="list1warn">
-            			Bitte klicken Sie einer Person an um diese als Gastgeber zu &uuml;bernehmen.
-            		</td>
-            	</tr>
-            </table><br/>
-			<span class="inlineLabel"><label>&nbsp;</label></span>	
+            #if(($listerrors && $listerrors.size() > 0) || ($listquestions && $listquestions.size() > 0))
+                #set($save = false)
+                
+                #if($listerrors && $listerrors.size() > 0)
+                <div style="margin: 10px 0px 10px 0px; padding: 10px 10px 10px 10px; background-color: #ffffff; border: 2px solid #ff0000;">
+                	<strong>L&ouml;schen von Personen ist nicht m&ouml;glich:</strong><br>
+                	<ul style="margin: 0px 0px 0px -10px;">
+                    	#if($listerrors.size() > 5)
+            				#set($show = 5)
+                    	#else
+            				#set($show = $listerrors.size())
+                    	#end
+                    	#foreach($error in $listerrors)
+                        	#if($velocityCount <= $show)
+                        		<li style="margin: 5px 0px 0px 0px;">$!message.plain($error)</li>
+                        	#end
+                    	#end
+                    	#if($listerrors.size() > $show)
+            				#set($drop = $listerrors.size() - $show)
+                    		<li style="margin: 5px 0px 0px 0px;"><em>...  $drop weitere Meldungen.</em></li>
+                    	#end
+                	</ul>
+                </div>
+                #end
+                #if($listquestions && $listquestions.size() > 0)
+                <div style="margin: 10px 0px 10px 0px; padding: 10px 10px 10px 10px; background-color: #ffffff; border: 2px solid #00ff00;">
+                	<strong>Bitte best&auml;tigen Sie das L&ouml;schen von Personen:</strong><br>
+                	<ul style="margin: 0px 0px 0px -10px;">
+                	#foreach($quest in $listquestions.entrySet())
+                		<li style="margin: 5px 0px 0px 0px;"><input type="hidden" name="$quest.key" value="true">$!message.plain($quest.value)</li>
+                		#set($save = true)
+                	#end
+                	</ul><br>
+                	#if($save)
+    					<input type="submit" class="button" name="remove" value="Ja" title="markierte Personen l&ouml;schen"> &nbsp;
+                	#end
+                	<input type="button" class="cancel" name="cancel" value="Nein" onclick="window.location.href='SearchPerson';"> &nbsp;
+                </div>
+                #end
+    
+    		#end
+    		
+    		
+    		#if($action == "host" || $action == "statistikGuest" || $action == "statistikHost")
+            	#set($disableListSelect = true)
+        	#end
+    
+    
+            #if($action == "guest")
 				
-		#elseif($action == "statistikGuest")
-			<span class="inlineLabel"><label>&nbsp;</label></span>	
-		#elseif($action == "statistikHost")
-			<span class="inlineLabel"><label>&nbsp;</label></span>	
-		#elseif($action == "taskReferencePerson")
-			<span class="inlineLabel"><label>&nbsp;</label></span>	
-		#elseif($action == "replace")
-			
-			#if($list && $list.size() > 0 )
-    			<span id="actionPanel" class="inlineLabel">
-        			<label>Aktion: 
-        				<select id="actionSelection">
-        					<option>Ersetzen</option>
-        				</select>
-        			</label>
-        			<input type="button" value="Durchführen" id="button.execute" name="button.execute" />
-					(Für ausgewählte Einträge)
-        		</span>
-			#else
-				<span class="inlineLabel"><label>&nbsp;</label></span>	
-			#end
-
-		#else
-
-            #set($isUser = false)
-            #set($isAdmin = false)
-            #foreach($group in $octopusConfig.personalConfig.UserGroups)
-            	#if($group == "Writer")
-            		#set($isUser = true)
-            	#elseif($group == "PartialAdmin")
-            		#set($isAdmin = true)
-            	#elseif($group == "Administrator")
-            		#set($isAdmin = true)
-            	#end
-            #end
-            <input type="hidden" id="remove-person" name="remove-person" value="false">
-            <script language="JavaScript" type="text/javascript">
-            <!--
-            	function removePerson() {
-                    #if($isUser)
-                		var person = confirm('Markierte Person wirklich entfernen?');
-                    #elseif($isAdmin)
-                		var person = confirm('Sollen alle markierten Personen entfernt werden?');
-                    #else
-                		alert('Sie haben keine ausreichende Berechtigung um Personen zu entfernen.');
-                		var person = false;
-                    #end
-                		document.getElementById('remove-person').value = person;
-            		return person;
-            	}
-            
-            	var selectedCount = ${listselection.size()};
-            	function hasSelection() {
-            		return ( selectedCount > 0 );
-            	}
-            
-            	function selectionChange( elt ) {
-            		selectedCount += ( elt.checked ? 1 : -1 );
-            	}
-            
-            	function unassignCategories() {
-            		if ( hasSelection() ) {
-            			selectPersonCategory( "${paths.staticWeb}do/popupUnassignPersonCategory?count=" + selectedCount );
-            		} else {
-            			alert( "Wählen Sie bitte zunächst eine oder mehrere Personen aus." );
-            		}
-            	}
-            
-            	function assignCategories() {
-            		if ( hasSelection() ) {
-            			selectPersonCategory( "${paths.staticWeb}do/popupAssignPersonCategory?count=" + selectedCount );
-            		} else {
-            			alert( "Wählen Sie bitte zunächst eine oder mehrere Personen aus." );
-            		}
-            	}
-            	
-            	function unassignWorkarea() {
-            		if ( hasSelection() ) {
-            			selectPersonWorkarea( "${paths.staticWeb}do/popupUnassignPersonWorkarea?count=" + selectedCount );
-            		} else {
-            			alert( "Wählen Sie bitte zunächst eine oder mehrere Personen aus." );
-            		}
-            	}
-            
-            	function assignWorkarea() {
-            		if ( hasSelection() ) {
-            			selectPersonWorkarea( "${paths.staticWeb}do/popupAssignPersonWorkarea?count=" + selectedCount );
-            		} else {
-            			alert( "Wählen Sie bitte zunächst eine oder mehrere Personen aus." );
-            		}
-            	}
-            -->
-            </script>
+				<span id="actionPanel" class="inlineLabel">
+					<label>Ausgew&auml;hlte Eintr&auml;ge
+						<input type="button" value="&Uuml;bernehmen" title="Ausgew&auml;hlte Personen zur Veranstaltung hinzuf&uuml;gen" onclick="submitFormWithGivenAction('AddPersonToEventGuestList');" />
+                    </label>
+            	</span>
+        
+                <script language="JavaScript">
+                	function hasNoMain(box) {
+                		if (document.getElementById(box).checked) {
+                			alert('Zu dieser Person ist keine Hauptperson eingetragen.');
+                			document.getElementById(box).checked = false;
+                		}
+                	}
+                	
+                	function hasNoPartner(box) {
+                		if (document.getElementById(box).checked) {
+                			alert('Zu dieser Person ist keine Partnerin / kein Partner eingetragen.');
+                			document.getElementById(box).checked = false;
+                		}
+                	}
+                	
+                	function onClickSetState(box1, box2) {
+                		if (document.getElementById(box1).checked) {
+                			document.getElementById(box2).checked = true;
+                		}
+                	}
+                
+                ## Fix for Bug 987
+                ## cklein
+                ## 2008-02-22
+                	function onClickEnforceConsistentState(box1, box2, box3) {
+                		var checked = document.getElementById(box1).checked || document.getElementById(box2).checked;
+                		if ( ! checked )
+                		{
+                			document.getElementById(box3).checked = false;
+                		}
+                	}
+                
+                	function onClickEnsureSelection(box1, box2, box3, invitationType, hasMain, hasPartner) {
+                		if ( document.getElementById(box3).checked )
+                		{
+                			var checked = document.getElementById(box1).checked || document.getElementById(box2).checked;
+                			if ( ! checked )
+                			{
+                				var errmsg = "";
+                				if ( invitationType == 2 || invitationType == 1 )
+                				{
+                					errmsg = "zur Person";
+                					document.getElementById(box1).checked = hasMain;
+                				}
+                				if ( invitationType == 3 || invitationType == 1 )
+                				{
+                					if ( errmsg.length > 0 )
+                					{
+                						errmsg += " und ";
+                					}
+                					errmsg += "zum Partner";
+                					document.getElementById(box2).checked = hasPartner;
+                				}
+                			}
+                			checked = document.getElementById(box1).checked || document.getElementById(box2).checked;
+                			if ( ! checked )
+                			{
+                				alert( "Diese Person kann nicht auf Reserve gesetzt werden, da die notwendigen Daten " + errmsg + " nicht vollständig erfasst wurden." );
+                				document.getElementById(box3).checked = false;
+                			}
+                		}
+                	}
+                	
+                </script>
+    
+    		#elseif($action == "host")
+    
+                <table class="list">
+                	<tr style="height: 20px;">
+                		<td class="list2warn" style="text-align: center; width: 60px;"><strong>Hinweis</strong></td>
+                		<td class="list1warn">
+                			Bitte klicken Sie einer Person an um diese als Gastgeber zu &uuml;bernehmen.
+                		</td>
+                	</tr>
+                </table>
+    			<span class="inlineLabel"><label>&nbsp;</label></span>	
+    				
+    		#elseif($action == "statistikGuest")
+    			<span class="inlineLabel"><label>&nbsp;</label></span>	
+    		#elseif($action == "statistikHost")
+    			<span class="inlineLabel"><label>&nbsp;</label></span>	
+    		#elseif($action == "taskReferencePerson")
+    			<span class="inlineLabel"><label>&nbsp;</label></span>	
+    		#elseif($action == "replace")
 				
-			#if($list && $list.size() > 0 )
-    			<span id="actionPanel" class="inlineLabel">
-        			<label>Aktion: 
-        				<select id="actionSelection">
+				<span id="actionPanel" class="inlineLabel">
+					<label>Ausgew&auml;hlte Eintr&auml;ge
+						<input type="button" value="Ersetzen" onclick="submitFormWithGivenAction('SaveReplacePersonList');" />
+                    </label>
+            	</span>
+    
+    		#else
+    
+                #set($isUser = false)
+                #set($isAdmin = false)
+                #foreach($group in $octopusConfig.personalConfig.UserGroups)
+                	#if($group == "Writer")
+                		#set($isUser = true)
+                	#elseif($group == "PartialAdmin")
+                		#set($isAdmin = true)
+                	#elseif($group == "Administrator")
+                		#set($isAdmin = true)
+                	#end
+                #end
+                <input type="hidden" id="remove-person" name="remove-person" value="false">
+                <script language="JavaScript" type="text/javascript">
+                <!--
+                	function removePerson() {
+                        #if($isUser)
+                    		var person = confirm('Markierte Person wirklich entfernen?');
+                        #elseif($isAdmin)
+                    		var person = confirm('Sollen alle markierten Personen entfernt werden?');
+                        #else
+                    		alert('Sie haben keine ausreichende Berechtigung um Personen zu entfernen.');
+                    		var person = false;
+                        #end
+                    		document.getElementById('remove-person').value = person;
+                		return person;
+                	}
+                
+                	var selectedCount = ${listselection.size()};
+                	function hasSelection() {
+                		return ( selectedCount > 0 );
+                	}
+                
+                	function selectionChange( elt ) {
+                		selectedCount += ( elt.checked ? 1 : -1 );
+                	}
+                
+                	function unassignCategories() {
+                		if ( hasSelection() ) {
+                			selectPersonCategory( "${paths.staticWeb}do/popupUnassignPersonCategory?count=" + selectedCount );
+                		} else {
+                			alert( "Wählen Sie bitte zunächst eine oder mehrere Personen aus." );
+                		}
+                	}
+                
+                	function assignCategories() {
+                		if ( hasSelection() ) {
+                			selectPersonCategory( "${paths.staticWeb}do/popupAssignPersonCategory?count=" + selectedCount );
+                		} else {
+                			alert( "Wählen Sie bitte zunächst eine oder mehrere Personen aus." );
+                		}
+                	}
+                	
+                	function unassignWorkarea() {
+                		if ( hasSelection() ) {
+                			selectPersonWorkarea( "${paths.staticWeb}do/popupUnassignPersonWorkarea?count=" + selectedCount );
+                		} else {
+                			alert( "Wählen Sie bitte zunächst eine oder mehrere Personen aus." );
+                		}
+                	}
+                
+                	function assignWorkarea() {
+                		if ( hasSelection() ) {
+                			selectPersonWorkarea( "${paths.staticWeb}do/popupAssignPersonWorkarea?count=" + selectedCount );
+                		} else {
+                			alert( "Wählen Sie bitte zunächst eine oder mehrere Personen aus." );
+                		}
+                	}
+                -->
+                </script>
+				
+				<span id="actionPanel" class="inlineLabel">
+					<label>Ausgew&auml;hlte Eintr&auml;ge
+    					<select id="actionSelection">
         					<option>Löschen</option>
         					#if($exportFormat && $grants.mayExport())
         						<option>Export</option>
@@ -304,378 +289,396 @@
         						<option>Arbeitsbereich entfernen</option>
         					#end
         				</select>
-        			</label>
-        			<input type="button" value="Durchführen" id="button.execute" name="button.execute" />
-					(Für ausgewählte Einträge)
+    					<input type="button" value="Durchführen" id="button.execute" name="button.execute" />
+					</label>
+            	</span>
+    
+    		#end
+    		
+    		## Handler für selektierte Aktion 
+    		<script>
+    			$(function () {
+    				$('#button\\.execute').click(function (e) {					
+    					var selectText = $('#actionSelection option:selected').text();
+    					
+    					if (selectText == "Löschen") {
+							selectedActionRemovePerson();
+    					} else if (selectText == "Export") {
+							exportPerson();
+    					} else if (selectText == "Kategorien zuordnen") {
+    						assignCategories();
+    					} else if (selectText == "Kategorien entfernen") {
+    						unassignCategories();
+    					} else if (selectText == "Arbeitsbereich zuordnen") {
+    						assignWorkarea();
+    					} else if (selectText == "Arbeitsbereich entfernen") {
+    						unassignWorkarea();
+    					} else if (selectText == "Ersetzen") {
+							submitFormWithGivenAction('SaveReplacePersonList');
+    					} else if (selectText == "Übernehmen") {
+							submitFormWithGivenAction('AddPersonToEventGuestList');
+    					}
+    				});
+     			});
+				
+				function selectedActionRemovePerson() {
+					$('<input>').attr({ type: 'hidden', id: 'remove', name: 'remove' }).appendTo($('#formlist'));
+					removePerson();
+					document.formlist.submit();
+				}
+				
+				function selectedActionExportPerson() {
+					submitFormWithGivenAction('${paths.staticWeb}do/PersonExport/export.$exportFormat');
+					document.formlist.action = '${paths.staticWeb}do/$octopusRequest.task';
+				}
+				
+				function submitFormWithGivenAction(action) {
+					document.getElementById('formlist').action = action;
+    				document.formlist.submit();
+				}
+    		</script>
+    		
+			#if(!$searchTask)
+        		<span id="buttonPanel-top" class="textRight floatRight">
+        			<input type="button" id="button.searchPerson" name="button.searchPerson" value="Personen suchen" title="Personen suchen" class="mainButton" onclick="window.location.href='ShowPersonSearch?search=clear';" />
+        			<input type="button" id="button.newPerson" name="button.newPerson" value="Neue Person anlegen" title="Neue Person anlegen" class="mainButton" onclick="window.location.href='CreatePerson';" />
         		</span>
-			#else
-				<span class="inlineLabel"><label>&nbsp;</label></span>	
 			#end
-
-		#end
-		
-		## Handler für selektierte Aktion 
-		<script>
-			$(function () {
-				$('#button\\.execute').click(function (e) {					
-					var selectText = $('#actionSelection option:selected').text();
-					
-					if (selectText == "Löschen") {
-						$('<input>').attr({ type: 'hidden', id: 'remove', name: 'remove' }).appendTo($('#formlist'));
-						removePerson();
-						document.formlist.submit();
-					} else if (selectText == "Export") {
-						document.formlist.action='${paths.staticWeb}do/PersonExport/export.$exportFormat';
-						document.formlist.submit();
-						document.formlist.action='${paths.staticWeb}do/$octopusRequest.task';
-					} else if (selectText == "Kategorien zuordnen") {
-						assignCategories();
-					} else if (selectText == "Kategorien entfernen") {
-						unassignCategories();
-					} else if (selectText == "Arbeitsbereich zuordnen") {
-						assignWorkarea();
-					} else if (selectText == "Arbeitsbereich entfernen") {
-						unassignWorkarea();
-					} else if (selectText == "Ersetzen") {
-						document.getElementById('formlist').action='SaveReplacePersonList';
-						document.formlist.submit();
-					} else if (selectText == "Übernehmen") {
-						document.getElementById('formlist').action='AddPersonToEventGuestList';
-						document.formlist.submit();
-					}
-				});
- 			});
-		</script>
-		
-		<span id="buttonPanel-top" class="textRight floatRight">
-			<input type="button" id="button.searchPerson" name="button.searchPerson" value="Personen suchen" title="Personen suchen" class="mainButton" onclick="window.location.href='ShowPersonSearch?search=clear';" />
-			<input type="button" id="button.newPerson" name="button.newPerson" value="Neue Person anlegen" title="Neue Person anlegen" class="mainButton" onclick="window.location.href='CreatePerson';" />
-		</span>
-		
-		
-		
-        #foreach($bean in $list)
-			<input type="hidden" name="list" value="$bean.id">
-        #end
-
-		<div id="main_content">
-		
-            <table class="list">
-            	#if($action == "guest")
-                	<tr>
-                		<th class="textCenter smallCell" title="$!config.main einladen">#if($listparam.count > 0)<input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" #if($listselection.size() == $listparam.count) checked#end title="Alle (de)markieren"/>#end H</th>
-                		<th class="textCenter smallCell" title="$!config.partner einladen">P</th>
-                		<th class="textCenter smallCell" title="Auf Reserve">R</th>
-                		<th class="textCenter smallCell">ID</th>
-                		<th title="Hauptperson, Zeichensatz 1">Nachname</th>
-                		<th title="Hauptperson, Zeichensatz 1">Vorname</th>
-                		<th title="Gesch&auml;ftlich, Zeichensatz 1">Amtsbezeichnung</th>
-                		<th title="Gesch&auml;ftlich, Zeichensatz 1">Firma / Institution (G)</th>
-                		<th>Kategorie</th>
-                	</tr>
-            	#elseif($action == "host")
-                	<tr>
-                		<th class="textCenter smallCell">ID</th>
-                		<th title="Hauptperson, Zeichensatz 1">Nachname</th>
-                		<th title="Hauptperson, Zeichensatz 1">Vorname</th>
-                		<th title="Gesch&auml;ftlich, Zeichensatz 1">Amtsbezeichnung</th>
-                		<th title="Gesch&auml;ftlich, Zeichensatz 1">Firma / Institution (G)</th>
-                		<th title="Gesch&auml;ftlich, Zeichensatz 1">Stra&szlig;e (G)</th>
-                		<th title="Gesch&auml;ftlich, Zeichensatz 1">PLZ (G)</th>
-                		<th title="Gesch&auml;ftlich, Zeichensatz 1">Ort (G)</th>
-                		#if($userConfig.personListState)<th title="Gesch&auml;ftlich, Zeichensatz 1">Bundesland (G)</th>#end
-                	</tr>
-            	#elseif($action == "statistikHost")
-                	<tr>
-                		<th class="textCenter smallCell">ID</th>
-                		<th title="Hauptperson, Zeichensatz 1">Nachname</th>
-                		<th title="Hauptperson, Zeichensatz 1">Vorname</th>
-                		<th title="Gesch&auml;ftlich, Zeichensatz 1">Amtsbezeichnung</th>
-                		<th title="Gesch&auml;ftlich, Zeichensatz 1">Firma / Institution (G)</th>
-                		<th title="Gesch&auml;ftlich, Zeichensatz 1">Stra&szlig (G)</th>
-                		<th title="Gesch&auml;ftlich, Zeichensatz 1">PLZ (G)</th>
-                		<th title="Gesch&auml;ftlich, Zeichensatz 1">Ort (G)</th>
-                		#if($userConfig.personListState)<th title="Gesch&auml;ftlich, Zeichensatz 1">Bundesland (G)</th>#end
-                	</tr>
-            	#elseif($action == "statistikGuest")
-                	<tr>
-                		<th class="textCenter smallCell">ID</th>
-                		<th title="Hauptperson, Zeichensatz 1">Nachname</th>
-                		<th title="Hauptperson, Zeichensatz 1">Vorname</th>
-                		<th title="Gesch&auml;ftlich, Zeichensatz 1">Amtsbezeichnung</th>
-                		<th title="Gesch&auml;ftlich, Zeichensatz 1">Firma / Institution (G)</th>
-                		<th title="Gesch&auml;ftlich, Zeichensatz 1">Stra&szlig;e (G)</th>
-                		<th title="Gesch&auml;ftlich, Zeichensatz 1">PLZ (G)</th>
-                		<th title="Gesch&auml;ftlich, Zeichensatz 1">Ort (G)</th>
-                		#if($userConfig.personListState)<th title="Gesch&auml;ftlich, Zeichensatz 1">Bundesland (G)</th>#end
-                	</tr>
-            	#elseif($action == "taskReferencePerson")
-                	<tr>
-                		<th class="textCenter smallCell">ID</th>
-                		<th title="Hauptperson, Zeichensatz 1">Nachname</th>
-                		<th title="Hauptperson, Zeichensatz 1">Vorname</th>
-                		<th title="Gesch&auml;ftlich, Zeichensatz 1">Amtsbezeichnung</th>
-                		<th title="Gesch&auml;ftlich, Zeichensatz 1">Firma / Institution (G)</th>
-                		<th title="Gesch&auml;ftlich, Zeichensatz 1">Stra&szlig;e (G)</th>
-                		<th title="Gesch&auml;ftlich, Zeichensatz 1">PLZ (G)</th>
-                		<th title="Gesch&auml;ftlich, Zeichensatz 1">Ort (G)</th>
-                		#if($userConfig.personListState)<th title="Gesch&auml;ftlich, Zeichensatz 1">Bundesland (G)</th>#end
-                	</tr>
-            	#elseif($action == "duplicateSearch" )      
-                	## modified for duplicate search as per change request for version 1.2.0
-                	## cklein
-                	## 2008-02-27
-                	<tr>
-                		<th class="textCenter smallCell"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" #if($listselection.size() == $listparam.count) checked#end title="Alle (de)markieren"/></th>
-                		<th class="textCenter smallCell">ID</th>
-                		<th title="Datum">Datum</th>
-                		<th title="Arbeitsbereich">Arbeitsbereich</th>
-                		<th title="Hauptperson, Zeichensatz 1">Nachname</th>
-                		<th title="Hauptperson, Zeichensatz 1">Vorname</th>
-                		<th title="Gesch&auml;ftlich, Zeichensatz 1">Amtsbezeichnung</th>
-                		<th title="Gesch&auml;ftlich, Zeichensatz 1">Firma / Institution (G)</th>
-                		<th title="Gesch&auml;ftlich, Zeichensatz 1">Stra&szlig;e (G)</th>
-                		<th title="Gesch&auml;ftlich, Zeichensatz 1">PLZ (G)</th>
-                		<th title="Gesch&auml;ftlich, Zeichensatz 1">Ort (G)</th>
-                		#if($userConfig.personListState)<th title="Gesch&auml;ftlich, Zeichensatz 1">Bundesland (G)</th>#end
-                	</tr>
-            	#else
-                	<tr>
-						<th class="textCenter smallCell"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" #if($listselection.size() == $listparam.count) checked#end title="Alle (de)markieren"/></th>
-                		<th class="textCenter smallCell">ID</th>
-                		<th title="Arbeitsbereich">Arbeitsbereich</th>
-                		<th title="Hauptperson, Zeichensatz 1">Nachname</th>
-                		<th title="Hauptperson, Zeichensatz 1">Vorname</th>
-                		<th title="Gesch&auml;ftlich, Zeichensatz 1">Amtsbezeichnung</th>
-                		<th title="Gesch&auml;ftlich, Zeichensatz 1">Firma / Institution (G)</th>
-                		<th title="Gesch&auml;ftlich, Zeichensatz 1">Stra&szlig;e (G)</th>
-                		<th title="Gesch&auml;ftlich, Zeichensatz 1">PLZ (G)</th>
-                		<th title="Gesch&auml;ftlich, Zeichensatz 1">Ort (G)</th>
-                		#if($userConfig.personListState)<th title="Gesch&auml;ftlich, Zeichensatz 1">Bundesland (G)</th>#end
-                	</tr>
-            	#end
-            
-            	#foreach($bean in $list)
+    		
+    		
+    		
+            #foreach($bean in $list)
+    			<input type="hidden" name="list" value="$bean.id">
+            #end
+    
+    		<div id="main_content">
+    		
+                <table class="list">
                 	#if($action == "guest")
                     	<tr>
-                    		#set($hasA = $bean.lastname_a_e1.length() > 0 || $bean.firstname_a_e1.length() > 0)
-                    		#set($hasB = $bean.lastname_b_e1.length() > 0 || $bean.firstname_b_e1.length() > 0)
-                    		
-                            ## Fix for Bug 987
-                            ## cklein
-                            ## 2008-02-22
-                    		#if($event.invitationtype == 2)
-                    			## Ohne Partner
-                    			<td title="$!config.main einladen">
-                    				<input type="checkbox" id="${bean.id}-select" name="${bean.id}-select" value="true" #if($listselection.indexOf($bean.id) != -1) checked#end #if(!$hasA) onClick="hasNoMain('${bean.id}-select');" #else onClick="onClickEnforceConsistentState('${bean.id}-select', '${bean.id}-partner', '${bean.id}-reserve');" #end>
-                    			</td>
-                    			<td title="$!config.partner einladen">
-                    				<input type="checkbox" id="${bean.id}-partner" name="${bean.id}-partner" value="true" #if($invitepartner.indexOf($bean.id) != -1) checked#end #if(!$hasB) onClick="hasNoPartner('${bean.id}-partner');" #else onClick="onClickEnforceConsistentState('${bean.id}-select', '${bean.id}-partner', '${bean.id}-reserve');" #end>
-                    			</td>
-                    		#elseif($event.invitationtype == 3)
-                    			## NurPartner
-                    			<td title="$!config.main einladen">
-                    				<input type="checkbox" id="${bean.id}-select" name="${bean.id}-select" value="true" #if($listselection.indexOf($bean.id) != -1) checked#end #if(!$hasA) onClick="hasNoMain('${bean.id}-select');" #else onClick="onClickEnforceConsistentState('${bean.id}-select', '${bean.id}-partner', '${bean.id}-reserve');" #end>
-                    			</td>
-                    			<td title="$!config.partner einladen">
-                    				<input type="checkbox" id="${bean.id}-partner" name="${bean.id}-partner" value="true" #if($invitepartner.indexOf($bean.id) != -1) checked#end #if(!$hasB) onClick="hasNoPartner('${bean.id}-partner');" #else onClick="onClickEnforceConsistentState('${bean.id}-select', '${bean.id}-partner', '${bean.id}-reserve');" #end>
-                    			</td>
-                    		#else
-                    			## Mit Partner
-                    			<td title="$!config.main einladen">
-                    				<input type="checkbox" id="${bean.id}-select" name="${bean.id}-select" value="true" #if($listselection.indexOf($bean.id) != -1) checked#end #if(!$hasA) onClick="hasNoMain('${bean.id}-select');" #elseif($hasB) onClick="onClickSetState('${bean.id}-select', '${bean.id}-partner');onClickEnforceConsistentState('${bean.id}-select', '${bean.id}-partner', '${bean.id}-reserve');" #else onClick="onClickEnforceConsistentState('${bean.id}-select', '${bean.id}-partner', '${bean.id}-reserve');" #end>
-                    			</td>
-                    			<td title="$!config.partner einladen">
-                    				<input type="checkbox" id="${bean.id}-partner" name="${bean.id}-partner" value="true" #if($invitepartner.indexOf($bean.id) != -1) checked#end #if(!$hasB) onClick="hasNoPartner('${bean.id}-partner');" #elseif($hasA) onClick="onClickSetState('${bean.id}-partner', '${bean.id}-select');onClickEnforceConsistentState('${bean.id}-select', '${bean.id}-partner', '${bean.id}-reserve');" #else onClick="onClickEnforceConsistentState('${bean.id}-select', '${bean.id}-partner', '${bean.id}-reserve');" #end>
-                    			</td>
-                    		#end
-                    		<td title="Auf Reserve"><input type="checkbox" name="${bean.id}-reserve" id="${bean.id}-reserve" value="true" #if($selectreserve.indexOf($bean.id) != -1) checked#end onClick="onClickEnsureSelection( '${bean.id}-select', '${bean.id}-partner', '${bean.id}-reserve', $event.invitationtype, ${hasA}, ${hasB} );"></td>
-                    		<td style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}&person-category=' + document.getElementById('$!{bean.id}-category').value;"><input type="hidden" name="${bean.id}-id" value="$bean.id">$!{bean.id}</td>
-                    		<td style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}&person-category=' + document.getElementById('$!{bean.id}-category').value;">$!message.plain($bean.lastname_a_e1)</td>
-                    		<td style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}&person-category=' + document.getElementById('$!{bean.id}-category').value;">$!message.plain($bean.firstname_a_e1)</td>
-                    		<td style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}&person-category=' + document.getElementById('$!{bean.id}-category').value;">$!message.plain($bean.function_a_e1)</td>
-                    		<td style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}&person-category=' + document.getElementById('$!{bean.id}-category').value;">$!message.plain($bean.company_a_e1)</td>
-                    		<td>
-                    			## 2009-05-13 cklein
-                    			## fixes issue #1531
-                    			#set($cats = $personCategorie.getList($bean.id))
-                    			#set($size = $cats.size())
-                    			#set( $found=0 )
-                    			#if( $search.categoriesSelection.size() == 1 )
-                    				#foreach( $cat in $cats )
-                    					#if( $search.categoriesSelection.get( 0 ) == $cat.categorie )
-                    						#set( $found=$cat.categorie )
-                    					#end
-                    				#end			
-                    			#end
-                    			<select name="$!{bean.id}-category" id="$!{bean.id}-category" style="width: 135px;">
-                        			#if( $size == 0 || ( $size > 1 && $search.categoriesSelection.size() > 1 ) || ( $search.categoriesSelection.size() == 1 && $found == 0 ) )
-                        				<option value="" selected>keine</option>
-                        			#else
-                        				<option value="">keine</option>
-                        			#end
-                        			#if( $size == 1 )
-                        				#set( $found = $cats.get( 0 ).categorie )
-                        			#end
-                        			#foreach($cat in $cats)
-                        				<option value="$!cat.categorie" #if($cat.categorie == $found || $size == 1) selected #end>$!cat.name</option>
-                        			#end
-                    			</select>
-                    		</td>
+                    		<th class="textCenter smallCell" title="$!config.main einladen">#if($listparam.count > 0)<input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" #if($listselection.size() == $listparam.count) checked#end title="Alle (de)markieren"/>#end H</th>
+                    		<th class="textCenter smallCell" title="$!config.partner einladen">P</th>
+                    		<th class="textCenter smallCell" title="Auf Reserve">R</th>
+                    		<th class="textCenter smallCell">ID</th>
+                    		<th title="Hauptperson, Zeichensatz 1">Nachname</th>
+                    		<th title="Hauptperson, Zeichensatz 1">Vorname</th>
+                    		<th title="Gesch&auml;ftlich, Zeichensatz 1">Amtsbezeichnung</th>
+                    		<th title="Gesch&auml;ftlich, Zeichensatz 1">Firma / Institution (G)</th>
+                    		<th>Kategorie</th>
                     	</tr>
                 	#elseif($action == "host")
                     	<tr>
-                    		<td style="cursor: pointer;" onclick="window.location.href='SetHostToEventDetail?hostid=$!{bean.id}';"><input type="hidden" name="${bean.id}-id" value="$bean.id">$!{bean.id}</td>
-                    		<td style="cursor: pointer;" onclick="window.location.href='SetHostToEventDetail?hostid=$!{bean.id}';">$!message.plain($bean.lastname_a_e1)</td>
-                    		<td style="cursor: pointer;" onclick="window.location.href='SetHostToEventDetail?hostid=$!{bean.id}';">$!message.plain($bean.firstname_a_e1)</td>
-                    		<td style="cursor: pointer;" onclick="window.location.href='SetHostToEventDetail?hostid=$!{bean.id}';">$!message.plain($bean.function_a_e1)</td>
-                    		<td style="cursor: pointer;" onclick="window.location.href='SetHostToEventDetail?hostid=$!{bean.id}';">$!message.plain($bean.company_a_e1)</td>
-                    		<td style="cursor: pointer;" onclick="window.location.href='SetHostToEventDetail?hostid=$!{bean.id}';">$!message.plain($bean.street_a_e1)</td>
-                    		<td style="cursor: pointer;" onclick="window.location.href='SetHostToEventDetail?hostid=$!{bean.id}';">$!message.plain($bean.zipcode_a_e1)</td>
-                    		<td style="cursor: pointer;" onclick="window.location.href='SetHostToEventDetail?hostid=$!{bean.id}';">$!message.plain($bean.city_a_e1)</td>
-                    		#if($userConfig.personListState)<td style="cursor: pointer;" onclick="window.location.href='SetHostToEventDetail?hostid=$!{bean.id}';">$!message.plain($bean.state_a_e1)</td>#end
+                    		<th class="textCenter smallCell">ID</th>
+                    		<th title="Hauptperson, Zeichensatz 1">Nachname</th>
+                    		<th title="Hauptperson, Zeichensatz 1">Vorname</th>
+                    		<th title="Gesch&auml;ftlich, Zeichensatz 1">Amtsbezeichnung</th>
+                    		<th title="Gesch&auml;ftlich, Zeichensatz 1">Firma / Institution (G)</th>
+                    		<th title="Gesch&auml;ftlich, Zeichensatz 1">Stra&szlig;e (G)</th>
+                    		<th title="Gesch&auml;ftlich, Zeichensatz 1">PLZ (G)</th>
+                    		<th title="Gesch&auml;ftlich, Zeichensatz 1">Ort (G)</th>
+                    		#if($userConfig.personListState)<th title="Gesch&auml;ftlich, Zeichensatz 1">Bundesland (G)</th>#end
                     	</tr>
                 	#elseif($action == "statistikHost")
                     	<tr>
-                    		<td style="cursor: pointer;" onclick="window.open('StatistikExport?id=$!{bean.id}');"><input type="hidden" name="${bean.id}-id" value="$bean.id">$!{bean.id}</td>
-                    		<td style="cursor: pointer;" onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($bean.lastname_a_e1)</td>
-                    		<td style="cursor: pointer;" onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($bean.firstname_a_e1)</td>
-                    		<td style="cursor: pointer;" onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($bean.function_a_e1)</td>
-                    		<td style="cursor: pointer;" onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($bean.company_a_e1)</td>
-                    		<td style="cursor: pointer;" onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($bean.street_a_e1)</td>
-                    		<td style="cursor: pointer;" onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($bean.zipcode_a_e1)</td>
-                    		<td style="cursor: pointer;" onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($bean.city_a_e1)</td>
-                    		#if($userConfig.personListState)<td style="cursor: pointer;" onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($bean.state_a_e1)</td>#end
+                    		<th class="textCenter smallCell">ID</th>
+                    		<th title="Hauptperson, Zeichensatz 1">Nachname</th>
+                    		<th title="Hauptperson, Zeichensatz 1">Vorname</th>
+                    		<th title="Gesch&auml;ftlich, Zeichensatz 1">Amtsbezeichnung</th>
+                    		<th title="Gesch&auml;ftlich, Zeichensatz 1">Firma / Institution (G)</th>
+                    		<th title="Gesch&auml;ftlich, Zeichensatz 1">Stra&szlig (G)</th>
+                    		<th title="Gesch&auml;ftlich, Zeichensatz 1">PLZ (G)</th>
+                    		<th title="Gesch&auml;ftlich, Zeichensatz 1">Ort (G)</th>
+                    		#if($userConfig.personListState)<th title="Gesch&auml;ftlich, Zeichensatz 1">Bundesland (G)</th>#end
                     	</tr>
                 	#elseif($action == "statistikGuest")
                     	<tr>
-                    		<td style="cursor: pointer;" onclick="window.open('StatistikExport?id=$!{bean.id}');"><input type="hidden" name="${bean.id}-id" value="$bean.id">$!{bean.id}</td>
-                    		<td style="cursor: pointer;" onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($bean.lastname_a_e1)</td>
-                    		<td style="cursor: pointer;" onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($bean.firstname_a_e1)</td>
-                    		<td style="cursor: pointer;" onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($bean.function_a_e1)</td>
-                    		<td style="cursor: pointer;" onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($bean.company_a_e1)</td>
-                    		<td style="cursor: pointer;" onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($bean.street_a_e1)</td>
-                    		<td style="cursor: pointer;" onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($bean.zipcode_a_e1)</td>
-                    		<td style="cursor: pointer;" onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($bean.city_a_e1)</td>
-                    		#if($userConfig.personListState)<td style="cursor: pointer;" onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($bean.state_a_e1)</td>#end
+                    		<th class="textCenter smallCell">ID</th>
+                    		<th title="Hauptperson, Zeichensatz 1">Nachname</th>
+                    		<th title="Hauptperson, Zeichensatz 1">Vorname</th>
+                    		<th title="Gesch&auml;ftlich, Zeichensatz 1">Amtsbezeichnung</th>
+                    		<th title="Gesch&auml;ftlich, Zeichensatz 1">Firma / Institution (G)</th>
+                    		<th title="Gesch&auml;ftlich, Zeichensatz 1">Stra&szlig;e (G)</th>
+                    		<th title="Gesch&auml;ftlich, Zeichensatz 1">PLZ (G)</th>
+                    		<th title="Gesch&auml;ftlich, Zeichensatz 1">Ort (G)</th>
+                    		#if($userConfig.personListState)<th title="Gesch&auml;ftlich, Zeichensatz 1">Bundesland (G)</th>#end
                     	</tr>
                 	#elseif($action == "taskReferencePerson")
-                		#if($taskId && $taskId != "")
-                			#set($clickUrl = "ShowEventTask?refPersId=$!{bean.id}&id=$!taskId")
-                		#else
-                			#set($clickUrl = "CreateEventTask?refPersId=$!{bean.id}&eventId=$!eventId")
-                		#end
-                			
-                		<tr>
-                			<td style="cursor: pointer;" onclick="window.location.href='$clickUrl';"><input type="hidden" name="${bean.id}-id" value="$bean.id">$!{bean.id}</td>
-                			<td style="cursor: pointer;" onclick="window.location.href='$clickUrl';">$!message.plain($bean.lastname_a_e1)</td>
-                			<td style="cursor: pointer;" onclick="window.location.href='$clickUrl';">$!message.plain($bean.firstname_a_e1)</td>
-                			<td style="cursor: pointer;" onclick="window.location.href='$clickUrl';">$!message.plain($bean.function_a_e1)</td>
-                			<td style="cursor: pointer;" onclick="window.location.href='$clickUrl';">$!message.plain($bean.company_a_e1)</td>
-                			<td style="cursor: pointer;" onclick="window.location.href='$clickUrl';">$!message.plain($bean.street_a_e1)</td>
-                			<td style="cursor: pointer;" onclick="window.location.href='$clickUrl';">$!message.plain($bean.zipcode_a_e1)</td>
-                			<td style="cursor: pointer;" onclick="window.location.href='$clickUrl';">$!message.plain($bean.city_a_e1)</td>
-                			#if($userConfig.personListState)<td style="cursor: pointer;" onclick="window.location.href='$clickUrl';">$!message.plain($bean.state_a_e1)</td>#end
-                		</tr>
-                		
-                	#elseif($action == "duplicateSearch" )
-                
+                    	<tr>
+                    		<th class="textCenter smallCell">ID</th>
+                    		<th title="Hauptperson, Zeichensatz 1">Nachname</th>
+                    		<th title="Hauptperson, Zeichensatz 1">Vorname</th>
+                    		<th title="Gesch&auml;ftlich, Zeichensatz 1">Amtsbezeichnung</th>
+                    		<th title="Gesch&auml;ftlich, Zeichensatz 1">Firma / Institution (G)</th>
+                    		<th title="Gesch&auml;ftlich, Zeichensatz 1">Stra&szlig;e (G)</th>
+                    		<th title="Gesch&auml;ftlich, Zeichensatz 1">PLZ (G)</th>
+                    		<th title="Gesch&auml;ftlich, Zeichensatz 1">Ort (G)</th>
+                    		#if($userConfig.personListState)<th title="Gesch&auml;ftlich, Zeichensatz 1">Bundesland (G)</th>#end
+                    	</tr>
+                	#elseif($action == "duplicateSearch" )      
                     	## modified for duplicate search as per change request for version 1.2.0
                     	## cklein
                     	## 2008-02-27
                     	<tr>
-                    	
-                    	## fixing bug 1037
-                    	## 2008-03-25 cklein
-                    	
-                    		<td><input type="checkbox" name="${bean.id}-select" value="true" onChange="selectionChange( this );" #if($listselection.indexOf($bean.id) != -1) checked#end></td>
-                    		<td style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!{action}';"><input type="hidden" name="${bean.id}-id" value="$bean.id">$!{bean.id}</td>
-                    		<td style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!{action}';">$!message.date("DATE", $bean.created)</td>
-                    		<td style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!{action}';">$!message.plain($bean.workarea_name)</td>
-                    		<td style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!{action}';">$!message.plain($bean.lastname_a_e1)</td>
-                    		<td style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!{action}';">$!message.plain($bean.firstname_a_e1)</td>
-                    		<td style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!{action}';">$!message.plain($bean.function_a_e1)</td>
-                    		<td style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!{action}';">$!message.plain($bean.company_a_e1)</td>
-                    		<td style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!{action}';">$!message.plain($bean.street_a_e1)</td>
-                    		<td style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!{action}';">$!message.plain($bean.zipcode_a_e1)</td>
-                    		<td style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!{action}';">$!message.plain($bean.city_a_e1)</td>
-                    		#if($userConfig.personListState)<td style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!{action}';">$!message.plain($bean.state_a_e1)</td>#end
-                    	</tr>	
+                    		<th class="textCenter smallCell"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" #if($listselection.size() == $listparam.count) checked#end title="Alle (de)markieren"/></th>
+                    		<th class="textCenter smallCell">ID</th>
+                    		<th title="Datum">Datum</th>
+                    		<th title="Arbeitsbereich">Arbeitsbereich</th>
+                    		<th title="Hauptperson, Zeichensatz 1">Nachname</th>
+                    		<th title="Hauptperson, Zeichensatz 1">Vorname</th>
+                    		<th title="Gesch&auml;ftlich, Zeichensatz 1">Amtsbezeichnung</th>
+                    		<th title="Gesch&auml;ftlich, Zeichensatz 1">Firma / Institution (G)</th>
+                    		<th title="Gesch&auml;ftlich, Zeichensatz 1">Stra&szlig;e (G)</th>
+                    		<th title="Gesch&auml;ftlich, Zeichensatz 1">PLZ (G)</th>
+                    		<th title="Gesch&auml;ftlich, Zeichensatz 1">Ort (G)</th>
+                    		#if($userConfig.personListState)<th title="Gesch&auml;ftlich, Zeichensatz 1">Bundesland (G)</th>#end
+                    	</tr>
                 	#else
                     	<tr>
-                    		<td><input type="checkbox" name="${bean.id}-select" value="true" onChange="selectionChange( this );" #if($listselection.indexOf($bean.id) != -1) checked#end></td>
-                    		<td style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}';"><input type="hidden" name="${bean.id}-id" value="$bean.id">$!{bean.id}</td>
-                    		<td style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}';">$!message.plain($bean.workarea_name)</td>
-                    		<td style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}';">$!message.plain($bean.lastname_a_e1)</td>
-                    		<td style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}';">$!message.plain($bean.firstname_a_e1)</td>
-                    		<td style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}';">$!message.plain($bean.function_a_e1)</td>
-                    		<td style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}';">$!message.plain($bean.company_a_e1)</td>
-                    		<td style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}';">$!message.plain($bean.street_a_e1)</td>
-                    		<td style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}';">$!message.plain($bean.zipcode_a_e1)</td>
-                    		<td style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}';">$!message.plain($bean.city_a_e1)</td>
-                    		#if($userConfig.personListState)<td style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}';">$!message.plain($bean.state_a_e1)</td>#end
+    						<th class="textCenter smallCell"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" #if($listselection.size() == $listparam.count) checked#end title="Alle (de)markieren"/></th>
+                    		<th class="textCenter smallCell">ID</th>
+                    		<th title="Arbeitsbereich">Arbeitsbereich</th>
+                    		<th title="Hauptperson, Zeichensatz 1">Nachname</th>
+                    		<th title="Hauptperson, Zeichensatz 1">Vorname</th>
+                    		<th title="Gesch&auml;ftlich, Zeichensatz 1">Amtsbezeichnung</th>
+                    		<th title="Gesch&auml;ftlich, Zeichensatz 1">Firma / Institution (G)</th>
+                    		<th title="Gesch&auml;ftlich, Zeichensatz 1">Stra&szlig;e (G)</th>
+                    		<th title="Gesch&auml;ftlich, Zeichensatz 1">PLZ (G)</th>
+                    		<th title="Gesch&auml;ftlich, Zeichensatz 1">Ort (G)</th>
+                    		#if($userConfig.personListState)<th title="Gesch&auml;ftlich, Zeichensatz 1">Bundesland (G)</th>#end
                     	</tr>
                 	#end
-				#end
-				
-				#set($itemName = "Personen")
-				#parse("inc/list-navi-new.vm")
-				#parse("inc/list-direct-new.vm")
-            </table>
+                
+                	#foreach($bean in $list)
+                    	#if($action == "guest")
+                        	<tr>
+                        		#set($hasA = $bean.lastname_a_e1.length() > 0 || $bean.firstname_a_e1.length() > 0)
+                        		#set($hasB = $bean.lastname_b_e1.length() > 0 || $bean.firstname_b_e1.length() > 0)
+                        		
+                                ## Fix for Bug 987
+                                ## cklein
+                                ## 2008-02-22
+                        		#if($event.invitationtype == 2)
+                        			## Ohne Partner
+                        			<td title="$!config.main einladen">
+                        				<input type="checkbox" id="${bean.id}-select" name="${bean.id}-select" value="true" #if($listselection.indexOf($bean.id) != -1) checked#end #if(!$hasA) onClick="hasNoMain('${bean.id}-select');" #else onClick="onClickEnforceConsistentState('${bean.id}-select', '${bean.id}-partner', '${bean.id}-reserve');" #end>
+                        			</td>
+                        			<td title="$!config.partner einladen">
+                        				<input type="checkbox" id="${bean.id}-partner" name="${bean.id}-partner" value="true" #if($invitepartner.indexOf($bean.id) != -1) checked#end #if(!$hasB) onClick="hasNoPartner('${bean.id}-partner');" #else onClick="onClickEnforceConsistentState('${bean.id}-select', '${bean.id}-partner', '${bean.id}-reserve');" #end>
+                        			</td>
+                        		#elseif($event.invitationtype == 3)
+                        			## NurPartner
+                        			<td title="$!config.main einladen">
+                        				<input type="checkbox" id="${bean.id}-select" name="${bean.id}-select" value="true" #if($listselection.indexOf($bean.id) != -1) checked#end #if(!$hasA) onClick="hasNoMain('${bean.id}-select');" #else onClick="onClickEnforceConsistentState('${bean.id}-select', '${bean.id}-partner', '${bean.id}-reserve');" #end>
+                        			</td>
+                        			<td title="$!config.partner einladen">
+                        				<input type="checkbox" id="${bean.id}-partner" name="${bean.id}-partner" value="true" #if($invitepartner.indexOf($bean.id) != -1) checked#end #if(!$hasB) onClick="hasNoPartner('${bean.id}-partner');" #else onClick="onClickEnforceConsistentState('${bean.id}-select', '${bean.id}-partner', '${bean.id}-reserve');" #end>
+                        			</td>
+                        		#else
+                        			## Mit Partner
+                        			<td title="$!config.main einladen">
+                        				<input type="checkbox" id="${bean.id}-select" name="${bean.id}-select" value="true" #if($listselection.indexOf($bean.id) != -1) checked#end #if(!$hasA) onClick="hasNoMain('${bean.id}-select');" #elseif($hasB) onClick="onClickSetState('${bean.id}-select', '${bean.id}-partner');onClickEnforceConsistentState('${bean.id}-select', '${bean.id}-partner', '${bean.id}-reserve');" #else onClick="onClickEnforceConsistentState('${bean.id}-select', '${bean.id}-partner', '${bean.id}-reserve');" #end>
+                        			</td>
+                        			<td title="$!config.partner einladen">
+                        				<input type="checkbox" id="${bean.id}-partner" name="${bean.id}-partner" value="true" #if($invitepartner.indexOf($bean.id) != -1) checked#end #if(!$hasB) onClick="hasNoPartner('${bean.id}-partner');" #elseif($hasA) onClick="onClickSetState('${bean.id}-partner', '${bean.id}-select');onClickEnforceConsistentState('${bean.id}-select', '${bean.id}-partner', '${bean.id}-reserve');" #else onClick="onClickEnforceConsistentState('${bean.id}-select', '${bean.id}-partner', '${bean.id}-reserve');" #end>
+                        			</td>
+                        		#end
+                        		<td title="Auf Reserve"><input type="checkbox" name="${bean.id}-reserve" id="${bean.id}-reserve" value="true" #if($selectreserve.indexOf($bean.id) != -1) checked#end onClick="onClickEnsureSelection( '${bean.id}-select', '${bean.id}-partner', '${bean.id}-reserve', $event.invitationtype, ${hasA}, ${hasB} );"></td>
+                        		<td style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}&person-category=' + document.getElementById('$!{bean.id}-category').value;"><input type="hidden" name="${bean.id}-id" value="$bean.id">$!{bean.id}</td>
+                        		<td style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}&person-category=' + document.getElementById('$!{bean.id}-category').value;">$!message.plain($bean.lastname_a_e1)</td>
+                        		<td style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}&person-category=' + document.getElementById('$!{bean.id}-category').value;">$!message.plain($bean.firstname_a_e1)</td>
+                        		<td style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}&person-category=' + document.getElementById('$!{bean.id}-category').value;">$!message.plain($bean.function_a_e1)</td>
+                        		<td style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}&person-category=' + document.getElementById('$!{bean.id}-category').value;">$!message.plain($bean.company_a_e1)</td>
+                        		<td>
+                        			## 2009-05-13 cklein
+                        			## fixes issue #1531
+                        			#set($cats = $personCategorie.getList($bean.id))
+                        			#set($size = $cats.size())
+                        			#set( $found=0 )
+                        			#if( $search.categoriesSelection.size() == 1 )
+                        				#foreach( $cat in $cats )
+                        					#if( $search.categoriesSelection.get( 0 ) == $cat.categorie )
+                        						#set( $found=$cat.categorie )
+                        					#end
+                        				#end			
+                        			#end
+                        			<select name="$!{bean.id}-category" id="$!{bean.id}-category" style="width: 135px;">
+                            			#if( $size == 0 || ( $size > 1 && $search.categoriesSelection.size() > 1 ) || ( $search.categoriesSelection.size() == 1 && $found == 0 ) )
+                            				<option value="" selected>keine</option>
+                            			#else
+                            				<option value="">keine</option>
+                            			#end
+                            			#if( $size == 1 )
+                            				#set( $found = $cats.get( 0 ).categorie )
+                            			#end
+                            			#foreach($cat in $cats)
+                            				<option value="$!cat.categorie" #if($cat.categorie == $found || $size == 1) selected #end>$!cat.name</option>
+                            			#end
+                        			</select>
+                        		</td>
+                        	</tr>
+                    	#elseif($action == "host")
+                        	<tr>
+                        		<td style="cursor: pointer;" onclick="window.location.href='SetHostToEventDetail?hostid=$!{bean.id}';"><input type="hidden" name="${bean.id}-id" value="$bean.id">$!{bean.id}</td>
+                        		<td style="cursor: pointer;" onclick="window.location.href='SetHostToEventDetail?hostid=$!{bean.id}';">$!message.plain($bean.lastname_a_e1)</td>
+                        		<td style="cursor: pointer;" onclick="window.location.href='SetHostToEventDetail?hostid=$!{bean.id}';">$!message.plain($bean.firstname_a_e1)</td>
+                        		<td style="cursor: pointer;" onclick="window.location.href='SetHostToEventDetail?hostid=$!{bean.id}';">$!message.plain($bean.function_a_e1)</td>
+                        		<td style="cursor: pointer;" onclick="window.location.href='SetHostToEventDetail?hostid=$!{bean.id}';">$!message.plain($bean.company_a_e1)</td>
+                        		<td style="cursor: pointer;" onclick="window.location.href='SetHostToEventDetail?hostid=$!{bean.id}';">$!message.plain($bean.street_a_e1)</td>
+                        		<td style="cursor: pointer;" onclick="window.location.href='SetHostToEventDetail?hostid=$!{bean.id}';">$!message.plain($bean.zipcode_a_e1)</td>
+                        		<td style="cursor: pointer;" onclick="window.location.href='SetHostToEventDetail?hostid=$!{bean.id}';">$!message.plain($bean.city_a_e1)</td>
+                        		#if($userConfig.personListState)<td style="cursor: pointer;" onclick="window.location.href='SetHostToEventDetail?hostid=$!{bean.id}';">$!message.plain($bean.state_a_e1)</td>#end
+                        	</tr>
+                    	#elseif($action == "statistikHost")
+                        	<tr>
+                        		<td style="cursor: pointer;" onclick="window.open('StatistikExport?id=$!{bean.id}');"><input type="hidden" name="${bean.id}-id" value="$bean.id">$!{bean.id}</td>
+                        		<td style="cursor: pointer;" onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($bean.lastname_a_e1)</td>
+                        		<td style="cursor: pointer;" onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($bean.firstname_a_e1)</td>
+                        		<td style="cursor: pointer;" onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($bean.function_a_e1)</td>
+                        		<td style="cursor: pointer;" onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($bean.company_a_e1)</td>
+                        		<td style="cursor: pointer;" onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($bean.street_a_e1)</td>
+                        		<td style="cursor: pointer;" onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($bean.zipcode_a_e1)</td>
+                        		<td style="cursor: pointer;" onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($bean.city_a_e1)</td>
+                        		#if($userConfig.personListState)<td style="cursor: pointer;" onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($bean.state_a_e1)</td>#end
+                        	</tr>
+                    	#elseif($action == "statistikGuest")
+                        	<tr>
+                        		<td style="cursor: pointer;" onclick="window.open('StatistikExport?id=$!{bean.id}');"><input type="hidden" name="${bean.id}-id" value="$bean.id">$!{bean.id}</td>
+                        		<td style="cursor: pointer;" onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($bean.lastname_a_e1)</td>
+                        		<td style="cursor: pointer;" onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($bean.firstname_a_e1)</td>
+                        		<td style="cursor: pointer;" onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($bean.function_a_e1)</td>
+                        		<td style="cursor: pointer;" onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($bean.company_a_e1)</td>
+                        		<td style="cursor: pointer;" onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($bean.street_a_e1)</td>
+                        		<td style="cursor: pointer;" onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($bean.zipcode_a_e1)</td>
+                        		<td style="cursor: pointer;" onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($bean.city_a_e1)</td>
+                        		#if($userConfig.personListState)<td style="cursor: pointer;" onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($bean.state_a_e1)</td>#end
+                        	</tr>
+                    	#elseif($action == "taskReferencePerson")
+                    		#if($taskId && $taskId != "")
+                    			#set($clickUrl = "ShowEventTask?refPersId=$!{bean.id}&id=$!taskId")
+                    		#else
+                    			#set($clickUrl = "CreateEventTask?refPersId=$!{bean.id}&eventId=$!eventId")
+                    		#end
+                    			
+                    		<tr>
+                    			<td style="cursor: pointer;" onclick="window.location.href='$clickUrl';"><input type="hidden" name="${bean.id}-id" value="$bean.id">$!{bean.id}</td>
+                    			<td style="cursor: pointer;" onclick="window.location.href='$clickUrl';">$!message.plain($bean.lastname_a_e1)</td>
+                    			<td style="cursor: pointer;" onclick="window.location.href='$clickUrl';">$!message.plain($bean.firstname_a_e1)</td>
+                    			<td style="cursor: pointer;" onclick="window.location.href='$clickUrl';">$!message.plain($bean.function_a_e1)</td>
+                    			<td style="cursor: pointer;" onclick="window.location.href='$clickUrl';">$!message.plain($bean.company_a_e1)</td>
+                    			<td style="cursor: pointer;" onclick="window.location.href='$clickUrl';">$!message.plain($bean.street_a_e1)</td>
+                    			<td style="cursor: pointer;" onclick="window.location.href='$clickUrl';">$!message.plain($bean.zipcode_a_e1)</td>
+                    			<td style="cursor: pointer;" onclick="window.location.href='$clickUrl';">$!message.plain($bean.city_a_e1)</td>
+                    			#if($userConfig.personListState)<td style="cursor: pointer;" onclick="window.location.href='$clickUrl';">$!message.plain($bean.state_a_e1)</td>#end
+                    		</tr>
+                    		
+                    	#elseif($action == "duplicateSearch" )
+                    
+                        	## modified for duplicate search as per change request for version 1.2.0
+                        	## cklein
+                        	## 2008-02-27
+                        	<tr>
+                        	
+                        	## fixing bug 1037
+                        	## 2008-03-25 cklein
+                        	
+                        		<td><input type="checkbox" name="${bean.id}-select" value="true" onChange="selectionChange( this );" #if($listselection.indexOf($bean.id) != -1) checked#end></td>
+                        		<td style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!{action}';"><input type="hidden" name="${bean.id}-id" value="$bean.id">$!{bean.id}</td>
+                        		<td style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!{action}';">$!message.date("DATE", $bean.created)</td>
+                        		<td style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!{action}';">$!message.plain($bean.workarea_name)</td>
+                        		<td style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!{action}';">$!message.plain($bean.lastname_a_e1)</td>
+                        		<td style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!{action}';">$!message.plain($bean.firstname_a_e1)</td>
+                        		<td style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!{action}';">$!message.plain($bean.function_a_e1)</td>
+                        		<td style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!{action}';">$!message.plain($bean.company_a_e1)</td>
+                        		<td style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!{action}';">$!message.plain($bean.street_a_e1)</td>
+                        		<td style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!{action}';">$!message.plain($bean.zipcode_a_e1)</td>
+                        		<td style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!{action}';">$!message.plain($bean.city_a_e1)</td>
+                        		#if($userConfig.personListState)<td style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!{action}';">$!message.plain($bean.state_a_e1)</td>#end
+                        	</tr>	
+                    	#else
+                        	<tr>
+                        		<td><input type="checkbox" name="${bean.id}-select" value="true" onChange="selectionChange( this );" #if($listselection.indexOf($bean.id) != -1) checked#end></td>
+                        		<td style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}';"><input type="hidden" name="${bean.id}-id" value="$bean.id">$!{bean.id}</td>
+                        		<td style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}';">$!message.plain($bean.workarea_name)</td>
+                        		<td style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}';">$!message.plain($bean.lastname_a_e1)</td>
+                        		<td style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}';">$!message.plain($bean.firstname_a_e1)</td>
+                        		<td style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}';">$!message.plain($bean.function_a_e1)</td>
+                        		<td style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}';">$!message.plain($bean.company_a_e1)</td>
+                        		<td style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}';">$!message.plain($bean.street_a_e1)</td>
+                        		<td style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}';">$!message.plain($bean.zipcode_a_e1)</td>
+                        		<td style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}';">$!message.plain($bean.city_a_e1)</td>
+                        		#if($userConfig.personListState)<td style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}';">$!message.plain($bean.state_a_e1)</td>#end
+                        	</tr>
+                    	#end
+    				#end
+    				
+    				#set($itemName = "Personen")
+    				#parse("inc/list-navi-new.vm")
+    				#parse("inc/list-direct-new.vm")
+                </table>
+    		</div>
+    		
+    		## Handler für SelectAll Toggling 
+    		<script>
+    			$(function(){
+                    $('#toggleAllSelect').change(function(){
+                        if ($(this).is(':checked')) {
+    						navigateSelectAll();
+                        } else {
+    						navigateSelectNone();
+                        }
+                    });
+                });
+    		</script>
+    
+            #if ($listparam.count == 0)
+            	<br>Keine Daten gefunden.
+            #end
+    
+            #if ($action == "guest")
+                <table>
+                	<tr>
+                		<td style="text-align: center; width: 20px;"><strong>H</strong></td>
+                		<td style="width: 30%;">$!config.main einladen</td>
+                		<td style="text-align: center; width: 20px;"><strong>P</strong></td>
+                		<td style="width: 30%;">$!config.partner einladen</td>
+                		<td style="text-align: center; width: 20px;"><strong>R</strong></td>
+                		<td>Auf Reserve setzen</td>
+                	</tr>
+                </table>
+    		#end
+    		
+    		
+    
+    	</form>
+		
+	#else
+	
+		<div class="contentBoxColored grayBorder marginBottom20">  		
+			Es wurden keine Einträge gefunden.
 		</div>
 		
-		## Handler für SelectAll Toggling 
-		<script>
-			$(function(){
-                $('#toggleAllSelect').change(function(){
-                    if ($(this).is(':checked')) {
-						navigateSelectAll();
-                    } else {
-						navigateSelectNone();
-                    }
-                });
-            });
-		</script>
-
-        #if ($listparam.count == 0)
-        	<br>Keine Daten gefunden.
-        #end
-
-        #if ($action == "guest")
-            <table>
-            	<tr>
-            		<td style="text-align: center; width: 20px;"><strong>H</strong></td>
-            		<td style="width: 30%;">$!config.main einladen</td>
-            		<td style="text-align: center; width: 20px;"><strong>P</strong></td>
-            		<td style="width: 30%;">$!config.partner einladen</td>
-            		<td style="text-align: center; width: 20px;"><strong>R</strong></td>
-            		<td>Auf Reserve setzen</td>
-            	</tr>
-            </table>
-		#end
-		
-		## Zurück-Button
-		#if($action == "guest")
-			#set($cancelUrl = "ShowGuestList")
-		#elseif($action == "host")
-			#set($cancelUrl = "SetHostToEventDetail")
-		#elseif($action == "statistikGuest" || $action == "statistikHost")
-			#set($cancelUrl = "Statistik")
-		#elseif($action == "taskReferencePerson")
+	#end
+	
+	## Zurück-Button
+	<span id="buttonPanel-top" class="textRight floatRight">
+    	#if($action == "guest")
+			<input type="button" id="button.cancel" name="button.cancel" value="Zur&uuml;ck zur G&auml;steliste" class="mainButton" onclick="window.location.href='ShowGuestList';" />
+    	#elseif($action == "host")
+			<input type="button" id="button.cancel" name="button.cancel" value="Zur&uuml;ck zu Veranstaltungsdetails" class="mainButton" onclick="window.location.href='SetHostToEventDetail';" />
+    	#elseif($action == "statistikGuest" || $action == "statistikHost")
+			<input type="button" id="button.cancel" name="button.cancel" value="Zur&uuml;ck zu Veranstaltungsstatistiken" class="mainButton" onclick="window.location.href='Statistik';" />
+    	#elseif($action == "taskReferencePerson")
         	#if($taskId && $taskId != "")
-        		#set($cancelUrl = "ShowEventTask?id=$!taskId")
+				<input type="button" id="button.cancel" name="button.cancel" value="Zur&uuml;ck zur Veranstaltungsaufgabe" class="mainButton" onclick="window.location.href='ShowEventTask?id=$!taskId';" />
         	#else
-        		#set($cancelUrl = "CreateEventTask?eventId=$!eventId")
+				<input type="button" id="button.cancel" name="button.cancel" value="Zur&uuml;ck zur Veranstaltungsaufgabe" class="mainButton" onclick="window.location.href='CreateEventTask?eventId=$!eventId';" />
         	#end
-		#elseif($action == "replace")
-			#set($cancelUrl = "ShowReplacePerson")
+    	#elseif($action == "replace")
+			<input type="button" id="button.cancel" name="button.cancel" value="Zur&uuml;ck zu Suchen &amp; Ersetzen" class="mainButton" onclick="window.location.href='ShowReplacePerson';" />
+    	#elseif($searchTask && $searchTask == "personSearchTask")
+			<input type="button" id="button.cancel" name="button.cancel" value="Zur&uuml;ck zur Personensuche" class="mainButton" onclick="window.location.href='ShowPersonSearch?action=person';" />
 		#end
-		#if($cancelUrl)
-			<span id="buttonPanel-top" class="textRight floatRight">
-				<input type="button" id="button.cancel" name="button.cancel" value="Zur&uuml;ck" class="mainButton" onclick="window.location.href='$cancelUrl';" />
-            </span>
-		#end
-
-	</form>
+	</span>
+	
 </div>
 #parse("inc/footer.vm")
