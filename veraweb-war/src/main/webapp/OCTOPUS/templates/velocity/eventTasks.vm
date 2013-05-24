@@ -85,7 +85,7 @@
 	
 	#if($grants.mayWrite())
 		<span class="floatRight">
-			<input type="button" id="new" name="new" value="Neu"  class="mainButton" onclick="window.location.href='CreateEventTask?eventId=$!id';">	
+			<input type="button" id="new" name="new" value="Neue Aufgabe anlegen" title="Neue Aufgabe anlegen" class="mainButton" onclick="window.location.href='CreateEventTask?eventId=$!id';">	
 		</span>
 	#end
 	
@@ -115,13 +115,13 @@
 			#if ($bean.startdate.Seconds == 30)
 					<td class="textCenter" style="cursor: pointer;" onclick="window.location.href='ShowEventTask?id=$!{bean.id}&eventId=$!{bean.eventId}'">$!message.date("DATE",$bean.startdate)</td>
 			#else
-					<td class="textCenter" style="cursor: pointer;" onclick="window.location.href='ShowEventTask?id=$!{bean.id}&eventId=$!{bean.eventId}'">$!message.date("DATE_TIME",$bean.startdate)</td>
+					<td class="textCenter" style="cursor: pointer;" onclick="window.location.href='ShowEventTask?id=$!{bean.id}&eventId=$!{bean.eventId}'">$!message.date("DATE_TIME",$bean.startdate) Uhr</td>
 			#end
 			
 			#if ($bean.enddate.Seconds == 30)
 					<td class="textCenter" style="cursor: pointer;" onclick="window.location.href='ShowEventTask?id=$!{bean.id}&eventId=$!{bean.eventId}'">$!message.date("DATE",$bean.enddate)</td>
 			#else 
-					<td class="textCenter" style="cursor: pointer;" onclick="window.location.href='ShowEventTask?id=$!{bean.id}&eventId=$!{bean.eventId}'">$!message.date("DATE_TIME",$bean.enddate)</td>
+					<td class="textCenter" style="cursor: pointer;" onclick="window.location.href='ShowEventTask?id=$!{bean.id}&eventId=$!{bean.eventId}'">$!message.date("DATE_TIME",$bean.enddate) Uhr</td>
 			#end
 	
 			<td class="textCenter" style="cursor: pointer;" onclick="window.location.href='ShowEventTask?id=$!{bean.id}&eventId=$!{bean.eventId}'">$!bean.degreeofcompletion%</td>
