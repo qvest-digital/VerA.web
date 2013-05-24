@@ -25,7 +25,7 @@ function selectFunction(url, field) {
 }
 
 function selectCompany(url, field) {
-	openPopup('company', url + 'popupSelectCompany/field=' + field, 520, 380, "status=no,resizable=no,scrollbars=yes,dependent=yes,alwaysRaised=yes");
+	openPopup('company', url + 'popupSelectCompany/field=' + field + '?limit=5', 520, 380, "status=no,resizable=no,scrollbars=yes,dependent=yes,alwaysRaised=yes");
 }
 
 function selectPersonCategory(url) {

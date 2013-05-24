@@ -71,7 +71,7 @@
     <input type="hidden" name="selectAll" value="false">
     <input type="hidden" name="selectNone" value="true">
     <input type="hidden" name="originalPersonId" value="$!originalPersonId">
-	<input type="hidden" name="tab" id="tab" #if($!tab) value="$tab" #else value="person" #end">
+	<input type="hidden" name="tab" id="tab" #if($tab) value="$tab" #else value="person" #end">
 		
 	<input type="hidden" name="person-expire" id="person-expire" value="$!message.date("DATE", $person.expire)">
 
