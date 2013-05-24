@@ -166,7 +166,9 @@
         								<td onclick="window.location.href='AddEventToEventGuestList?id=$!{bean.id}';" class="textCenter">$!message.date("DATE", $bean.end)</td>
                         			#else
         								<td onclick="window.location.href='AddEventToEventGuestList?id=$!{bean.id}';" class="textCenter">$!message.date("DATE_TIME", $bean.end) Uhr</td>
-        							#end
+									#end
+								#else
+									<td onclick="window.location.href='AddEventToEventGuestList?id=$!{bean.id}';" class="textCenter"></td>
     							#end
     							
             					<td onclick="window.location.href='AddEventToEventGuestList?id=$!{bean.id}';">$!message.plain($bean.hostname)</td>
@@ -188,7 +190,9 @@
         								<td onclick="window.location.href='AddPersonToEventDetail?event-id=$!{bean.id}&action=person';" class="textCenter">$!message.date("DATE", $bean.end)</td>
                         			#else
         								<td onclick="window.location.href='AddPersonToEventDetail?event-id=$!{bean.id}&action=person';" class="textCenter">$!message.date("DATE_TIME", $bean.end) Uhr</td>
-        							#end
+									#end
+								#else
+									<td onclick="window.location.href='AddPersonToEventDetail?event-id=$!{bean.id}&action=person';" class="textCenter"></td>
     							#end
     							
                     			<td onclick="window.location.href='AddPersonToEventDetail?event-id=$!{bean.id}&action=person';">$!message.plain($bean.hostname)</td>
@@ -210,7 +214,9 @@
         								<td onclick="window.location.href='ShowEvent?id=$!{bean.id}';" class="textCenter">$!message.date("DATE", $bean.end)</td>
                         			#else
         								<td onclick="window.location.href='ShowEvent?id=$!{bean.id}';" class="textCenter">$!message.date("DATE_TIME", $bean.end) Uhr</td>
-        							#end
+									#end
+								#else
+									<td onclick="window.location.href='ShowEvent?id=$!{bean.id}';" class="textCenter"></td>
     							#end
     						
     							<td onclick="window.location.href='ShowEvent?id=$!{bean.id}';">$!message.plain($bean.hostname)</td>
