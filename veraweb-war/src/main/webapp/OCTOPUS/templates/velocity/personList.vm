@@ -494,11 +494,11 @@
                         			</td>
                         		#end
                         		<td title="Auf Reserve"><input type="checkbox" name="${bean.id}-reserve" id="${bean.id}-reserve" value="true" #if($selectreserve.indexOf($bean.id) != -1) checked#end onClick="onClickEnsureSelection( '${bean.id}-select', '${bean.id}-partner', '${bean.id}-reserve', $event.invitationtype, ${hasA}, ${hasB} );"></td>
-                        		<td style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}&person-category=' + document.getElementById('$!{bean.id}-category').value;"><input type="hidden" name="${bean.id}-id" value="$bean.id">$!{bean.id}</td>
-                        		<td style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}&person-category=' + document.getElementById('$!{bean.id}-category').value;">$!message.plain($bean.lastname_a_e1)</td>
-                        		<td style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}&person-category=' + document.getElementById('$!{bean.id}-category').value;">$!message.plain($bean.firstname_a_e1)</td>
-                        		<td style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}&person-category=' + document.getElementById('$!{bean.id}-category').value;">$!message.plain($bean.function_a_e1)</td>
-                        		<td style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}&person-category=' + document.getElementById('$!{bean.id}-category').value;">$!message.plain($bean.company_a_e1)</td>
+                        		<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&person-category=' + document.getElementById('$!{bean.id}-category').value;"><input type="hidden" name="${bean.id}-id" value="$bean.id">$!{bean.id}</td>
+                        		<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&person-category=' + document.getElementById('$!{bean.id}-category').value;">$!message.plain($bean.lastname_a_e1)</td>
+                        		<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&person-category=' + document.getElementById('$!{bean.id}-category').value;">$!message.plain($bean.firstname_a_e1)</td>
+                        		<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&person-category=' + document.getElementById('$!{bean.id}-category').value;">$!message.plain($bean.function_a_e1)</td>
+                        		<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&person-category=' + document.getElementById('$!{bean.id}-category').value;">$!message.plain($bean.company_a_e1)</td>
                         		<td>
                         			## 2009-05-13 cklein
                         			## fixes issue #1531
@@ -529,39 +529,39 @@
                         	</tr>
                     	#elseif($action == "host")
                         	<tr>
-                        		<td style="cursor: pointer;" onclick="window.location.href='SetHostToEventDetail?hostid=$!{bean.id}';"><input type="hidden" name="${bean.id}-id" value="$bean.id">$!{bean.id}</td>
-                        		<td style="cursor: pointer;" onclick="window.location.href='SetHostToEventDetail?hostid=$!{bean.id}';">$!message.plain($bean.lastname_a_e1)</td>
-                        		<td style="cursor: pointer;" onclick="window.location.href='SetHostToEventDetail?hostid=$!{bean.id}';">$!message.plain($bean.firstname_a_e1)</td>
-                        		<td style="cursor: pointer;" onclick="window.location.href='SetHostToEventDetail?hostid=$!{bean.id}';">$!message.plain($bean.function_a_e1)</td>
-                        		<td style="cursor: pointer;" onclick="window.location.href='SetHostToEventDetail?hostid=$!{bean.id}';">$!message.plain($bean.company_a_e1)</td>
-                        		<td style="cursor: pointer;" onclick="window.location.href='SetHostToEventDetail?hostid=$!{bean.id}';">$!message.plain($bean.street_a_e1)</td>
-                        		<td style="cursor: pointer;" onclick="window.location.href='SetHostToEventDetail?hostid=$!{bean.id}';">$!message.plain($bean.zipcode_a_e1)</td>
-                        		<td style="cursor: pointer;" onclick="window.location.href='SetHostToEventDetail?hostid=$!{bean.id}';">$!message.plain($bean.city_a_e1)</td>
-                        		#if($userConfig.personListState)<td style="cursor: pointer;" onclick="window.location.href='SetHostToEventDetail?hostid=$!{bean.id}';">$!message.plain($bean.state_a_e1)</td>#end
+                        		<td onclick="window.location.href='SetHostToEventDetail?hostid=$!{bean.id}';"><input type="hidden" name="${bean.id}-id" value="$bean.id">$!{bean.id}</td>
+                        		<td onclick="window.location.href='SetHostToEventDetail?hostid=$!{bean.id}';">$!message.plain($bean.lastname_a_e1)</td>
+                        		<td onclick="window.location.href='SetHostToEventDetail?hostid=$!{bean.id}';">$!message.plain($bean.firstname_a_e1)</td>
+                        		<td onclick="window.location.href='SetHostToEventDetail?hostid=$!{bean.id}';">$!message.plain($bean.function_a_e1)</td>
+                        		<td onclick="window.location.href='SetHostToEventDetail?hostid=$!{bean.id}';">$!message.plain($bean.company_a_e1)</td>
+                        		<td onclick="window.location.href='SetHostToEventDetail?hostid=$!{bean.id}';">$!message.plain($bean.street_a_e1)</td>
+                        		<td onclick="window.location.href='SetHostToEventDetail?hostid=$!{bean.id}';">$!message.plain($bean.zipcode_a_e1)</td>
+                        		<td onclick="window.location.href='SetHostToEventDetail?hostid=$!{bean.id}';">$!message.plain($bean.city_a_e1)</td>
+                        		#if($userConfig.personListState)<td onclick="window.location.href='SetHostToEventDetail?hostid=$!{bean.id}';">$!message.plain($bean.state_a_e1)</td>#end
                         	</tr>
                     	#elseif($action == "statistikHost")
                         	<tr>
-                        		<td style="cursor: pointer;" onclick="window.open('StatistikExport?id=$!{bean.id}');"><input type="hidden" name="${bean.id}-id" value="$bean.id">$!{bean.id}</td>
-                        		<td style="cursor: pointer;" onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($bean.lastname_a_e1)</td>
-                        		<td style="cursor: pointer;" onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($bean.firstname_a_e1)</td>
-                        		<td style="cursor: pointer;" onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($bean.function_a_e1)</td>
-                        		<td style="cursor: pointer;" onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($bean.company_a_e1)</td>
-                        		<td style="cursor: pointer;" onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($bean.street_a_e1)</td>
-                        		<td style="cursor: pointer;" onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($bean.zipcode_a_e1)</td>
-                        		<td style="cursor: pointer;" onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($bean.city_a_e1)</td>
-                        		#if($userConfig.personListState)<td style="cursor: pointer;" onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($bean.state_a_e1)</td>#end
+                        		<td onclick="window.open('StatistikExport?id=$!{bean.id}');"><input type="hidden" name="${bean.id}-id" value="$bean.id">$!{bean.id}</td>
+                        		<td onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($bean.lastname_a_e1)</td>
+                        		<td onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($bean.firstname_a_e1)</td>
+                        		<td onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($bean.function_a_e1)</td>
+                        		<td onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($bean.company_a_e1)</td>
+                        		<td onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($bean.street_a_e1)</td>
+                        		<td onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($bean.zipcode_a_e1)</td>
+                        		<td onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($bean.city_a_e1)</td>
+                        		#if($userConfig.personListState)<td onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($bean.state_a_e1)</td>#end
                         	</tr>
                     	#elseif($action == "statistikGuest")
                         	<tr>
-                        		<td style="cursor: pointer;" onclick="window.open('StatistikExport?id=$!{bean.id}');"><input type="hidden" name="${bean.id}-id" value="$bean.id">$!{bean.id}</td>
-                        		<td style="cursor: pointer;" onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($bean.lastname_a_e1)</td>
-                        		<td style="cursor: pointer;" onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($bean.firstname_a_e1)</td>
-                        		<td style="cursor: pointer;" onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($bean.function_a_e1)</td>
-                        		<td style="cursor: pointer;" onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($bean.company_a_e1)</td>
-                        		<td style="cursor: pointer;" onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($bean.street_a_e1)</td>
-                        		<td style="cursor: pointer;" onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($bean.zipcode_a_e1)</td>
-                        		<td style="cursor: pointer;" onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($bean.city_a_e1)</td>
-                        		#if($userConfig.personListState)<td style="cursor: pointer;" onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($bean.state_a_e1)</td>#end
+                        		<td onclick="window.open('StatistikExport?id=$!{bean.id}');"><input type="hidden" name="${bean.id}-id" value="$bean.id">$!{bean.id}</td>
+                        		<td onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($bean.lastname_a_e1)</td>
+                        		<td onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($bean.firstname_a_e1)</td>
+                        		<td onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($bean.function_a_e1)</td>
+                        		<td onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($bean.company_a_e1)</td>
+                        		<td onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($bean.street_a_e1)</td>
+                        		<td onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($bean.zipcode_a_e1)</td>
+                        		<td onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($bean.city_a_e1)</td>
+                        		#if($userConfig.personListState)<td onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($bean.state_a_e1)</td>#end
                         	</tr>
                     	#elseif($action == "taskReferencePerson")
                     		#if($taskId && $taskId != "")
@@ -571,15 +571,15 @@
                     		#end
                     			
                     		<tr>
-                    			<td style="cursor: pointer;" onclick="window.location.href='$clickUrl';"><input type="hidden" name="${bean.id}-id" value="$bean.id">$!{bean.id}</td>
-                    			<td style="cursor: pointer;" onclick="window.location.href='$clickUrl';">$!message.plain($bean.lastname_a_e1)</td>
-                    			<td style="cursor: pointer;" onclick="window.location.href='$clickUrl';">$!message.plain($bean.firstname_a_e1)</td>
-                    			<td style="cursor: pointer;" onclick="window.location.href='$clickUrl';">$!message.plain($bean.function_a_e1)</td>
-                    			<td style="cursor: pointer;" onclick="window.location.href='$clickUrl';">$!message.plain($bean.company_a_e1)</td>
-                    			<td style="cursor: pointer;" onclick="window.location.href='$clickUrl';">$!message.plain($bean.street_a_e1)</td>
-                    			<td style="cursor: pointer;" onclick="window.location.href='$clickUrl';">$!message.plain($bean.zipcode_a_e1)</td>
-                    			<td style="cursor: pointer;" onclick="window.location.href='$clickUrl';">$!message.plain($bean.city_a_e1)</td>
-                    			#if($userConfig.personListState)<td style="cursor: pointer;" onclick="window.location.href='$clickUrl';">$!message.plain($bean.state_a_e1)</td>#end
+                    			<td onclick="window.location.href='$clickUrl';"><input type="hidden" name="${bean.id}-id" value="$bean.id">$!{bean.id}</td>
+                    			<td onclick="window.location.href='$clickUrl';">$!message.plain($bean.lastname_a_e1)</td>
+                    			<td onclick="window.location.href='$clickUrl';">$!message.plain($bean.firstname_a_e1)</td>
+                    			<td onclick="window.location.href='$clickUrl';">$!message.plain($bean.function_a_e1)</td>
+                    			<td onclick="window.location.href='$clickUrl';">$!message.plain($bean.company_a_e1)</td>
+                    			<td onclick="window.location.href='$clickUrl';">$!message.plain($bean.street_a_e1)</td>
+                    			<td onclick="window.location.href='$clickUrl';">$!message.plain($bean.zipcode_a_e1)</td>
+                    			<td onclick="window.location.href='$clickUrl';">$!message.plain($bean.city_a_e1)</td>
+                    			#if($userConfig.personListState)<td onclick="window.location.href='$clickUrl';">$!message.plain($bean.state_a_e1)</td>#end
                     		</tr>
                     		
                     	#elseif($action == "duplicateSearch" )
@@ -593,31 +593,31 @@
                         	## 2008-03-25 cklein
                         	
                         		<td><input type="checkbox" name="${bean.id}-select" value="true" onChange="selectionChange( this );" #if($listselection.indexOf($bean.id) != -1) checked#end></td>
-                        		<td style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!{action}';"><input type="hidden" name="${bean.id}-id" value="$bean.id">$!{bean.id}</td>
-                        		<td style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!{action}';">$!message.date("DATE", $bean.created)</td>
-                        		<td style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!{action}';">$!message.plain($bean.workarea_name)</td>
-                        		<td style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!{action}';">$!message.plain($bean.lastname_a_e1)</td>
-                        		<td style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!{action}';">$!message.plain($bean.firstname_a_e1)</td>
-                        		<td style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!{action}';">$!message.plain($bean.function_a_e1)</td>
-                        		<td style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!{action}';">$!message.plain($bean.company_a_e1)</td>
-                        		<td style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!{action}';">$!message.plain($bean.street_a_e1)</td>
-                        		<td style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!{action}';">$!message.plain($bean.zipcode_a_e1)</td>
-                        		<td style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!{action}';">$!message.plain($bean.city_a_e1)</td>
-                        		#if($userConfig.personListState)<td style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!{action}';">$!message.plain($bean.state_a_e1)</td>#end
+                        		<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!{action}';"><input type="hidden" name="${bean.id}-id" value="$bean.id">$!{bean.id}</td>
+                        		<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!{action}';">$!message.date("DATE", $bean.created)</td>
+                        		<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!{action}';">$!message.plain($bean.workarea_name)</td>
+                        		<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!{action}';">$!message.plain($bean.lastname_a_e1)</td>
+                        		<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!{action}';">$!message.plain($bean.firstname_a_e1)</td>
+                        		<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!{action}';">$!message.plain($bean.function_a_e1)</td>
+                        		<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!{action}';">$!message.plain($bean.company_a_e1)</td>
+                        		<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!{action}';">$!message.plain($bean.street_a_e1)</td>
+                        		<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!{action}';">$!message.plain($bean.zipcode_a_e1)</td>
+                        		<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!{action}';">$!message.plain($bean.city_a_e1)</td>
+                        		#if($userConfig.personListState)<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!{action}';">$!message.plain($bean.state_a_e1)</td>#end
                         	</tr>	
                     	#else
                         	<tr>
                         		<td><input type="checkbox" name="${bean.id}-select" value="true" onChange="selectionChange( this );" #if($listselection.indexOf($bean.id) != -1) checked#end></td>
-                        		<td style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}';"><input type="hidden" name="${bean.id}-id" value="$bean.id">$!{bean.id}</td>
-                        		<td style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}';">$!message.plain($bean.workarea_name)</td>
-                        		<td style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}';">$!message.plain($bean.lastname_a_e1)</td>
-                        		<td style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}';">$!message.plain($bean.firstname_a_e1)</td>
-                        		<td style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}';">$!message.plain($bean.function_a_e1)</td>
-                        		<td style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}';">$!message.plain($bean.company_a_e1)</td>
-                        		<td style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}';">$!message.plain($bean.street_a_e1)</td>
-                        		<td style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}';">$!message.plain($bean.zipcode_a_e1)</td>
-                        		<td style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}';">$!message.plain($bean.city_a_e1)</td>
-                        		#if($userConfig.personListState)<td style="cursor: pointer;" onclick="window.location.href='ShowPerson?id=$!{bean.id}';">$!message.plain($bean.state_a_e1)</td>#end
+                        		<td onclick="window.location.href='ShowPerson?id=$!{bean.id}';"><input type="hidden" name="${bean.id}-id" value="$bean.id">$!{bean.id}</td>
+                        		<td onclick="window.location.href='ShowPerson?id=$!{bean.id}';">$!message.plain($bean.workarea_name)</td>
+                        		<td onclick="window.location.href='ShowPerson?id=$!{bean.id}';">$!message.plain($bean.lastname_a_e1)</td>
+                        		<td onclick="window.location.href='ShowPerson?id=$!{bean.id}';">$!message.plain($bean.firstname_a_e1)</td>
+                        		<td onclick="window.location.href='ShowPerson?id=$!{bean.id}';">$!message.plain($bean.function_a_e1)</td>
+                        		<td onclick="window.location.href='ShowPerson?id=$!{bean.id}';">$!message.plain($bean.company_a_e1)</td>
+                        		<td onclick="window.location.href='ShowPerson?id=$!{bean.id}';">$!message.plain($bean.street_a_e1)</td>
+                        		<td onclick="window.location.href='ShowPerson?id=$!{bean.id}';">$!message.plain($bean.zipcode_a_e1)</td>
+                        		<td onclick="window.location.href='ShowPerson?id=$!{bean.id}';">$!message.plain($bean.city_a_e1)</td>
+                        		#if($userConfig.personListState)<td onclick="window.location.href='ShowPerson?id=$!{bean.id}';">$!message.plain($bean.state_a_e1)</td>#end
                         	</tr>
                     	#end
     				#end

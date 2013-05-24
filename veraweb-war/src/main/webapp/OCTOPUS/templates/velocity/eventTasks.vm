@@ -80,7 +80,7 @@
 	#end
 	
 	#if($grants.mayWrite())
-		<span>
+		<span id="actionPanel">
 			<strong>Markierte Aufgaben</strong> <input type="submit" id="remove" name="remove" value="L&ouml;schen" title="Markierte Aufgaben l&ouml;schen"  onclick="return removeTask();">
 		</span>
 	#end
