@@ -58,40 +58,40 @@
             
 			#parse("inc/menu.vm")					
 
-            #if($octopusRequest.task != "ShowPersonCategorieList")
-            #if($countInsert && $countInsert > 0)
-            	<div id="text.info" style="margin: 10px 0px 0px 0px; padding: 2px 3px 2px 3px; background-color: #ffc080; border: 1px solid #ff8000;">
-            		#if($countInsert == 0)
-            			Es wurde kein neuer Datensatz angelegt.
-            		#elseif($countInsert == 1)
-            			Es wurde ein neuer Datensatz angelegt.
-            		#else
-            			Es wurden $countInsert neue Datens&auml;tze angelegt.
-            		#end
-            	</div>
-            #end
-            #if($countUpdate && $countUpdate > 0)
-            	<div id="text.info" style="margin: 10px 0px 0px 0px; padding: 2px 3px 2px 3px; background-color: #ffc080; border: 1px solid #ff8000;">
-            		#if($countUpdate == 0)
-            			Es wurde kein Datensatz ge&auml;ndert.
-            		#elseif($countUpdate == 1)
-            			Es wurde ein Datensatz ge&auml;ndert.
-            		#else
-            			Es wurden $countUpdate Datens&auml;tze ge&auml;ndert.
-            		#end
-            	</div>
-            #end
-            #if($countRemove)
-            	<div id="text.info" style="margin: 10px 0px 0px 0px; padding: 2px 3px 2px 3px; background-color: #ffc080; border: 1px solid #ff8000;">
-            		#if($countRemove == 0)
-            			Es wurde kein Datensatz gel&ouml;scht.
-            		#elseif($countRemove == 1)
-            			Es wurde ein Datensatz gel&ouml;scht.
-            		#else
-            			Es wurden $countRemove Datens&auml;tze gel&ouml;scht.
-            		#end
-            	</div>
-            #end
+            #if($octopusRequest.task != "ShowPersonCategorieList" || ($octopusRequest.task == "ShowPersonCategorieList" && $status && $status.code && $status.code == "saveperson"))
+                #if($countInsert && $countInsert > 0)
+                	<div id="text.info" style="margin: 10px 0px 0px 0px; padding: 2px 3px 2px 3px; background-color: #ffc080; border: 1px solid #ff8000;">
+                		#if($countInsert == 0)
+                			Es wurde kein neuer Datensatz angelegt.
+                		#elseif($countInsert == 1)
+                			Es wurde ein neuer Datensatz angelegt.
+                		#else
+                			Es wurden $countInsert neue Datens&auml;tze angelegt.
+                		#end
+                	</div>
+                #end
+                #if($countUpdate && $countUpdate > 0)
+                	<div id="text.info" style="margin: 10px 0px 0px 0px; padding: 2px 3px 2px 3px; background-color: #ffc080; border: 1px solid #ff8000;">
+                		#if($countUpdate == 0)
+                			Es wurde kein Datensatz ge&auml;ndert.
+                		#elseif($countUpdate == 1)
+                			Es wurde ein Datensatz ge&auml;ndert.
+                		#else
+                			Es wurden $countUpdate Datens&auml;tze ge&auml;ndert.
+                		#end
+                	</div>
+                #end
+                #if($countRemove)
+                	<div id="text.info" style="margin: 10px 0px 0px 0px; padding: 2px 3px 2px 3px; background-color: #ffc080; border: 1px solid #ff8000;">
+                		#if($countRemove == 0)
+                			Es wurde kein Datensatz gel&ouml;scht.
+                		#elseif($countRemove == 1)
+                			Es wurde ein Datensatz gel&ouml;scht.
+                		#else
+                			Es wurden $countRemove Datens&auml;tze gel&ouml;scht.
+                		#end
+                	</div>
+                #end
             #end
 	
 

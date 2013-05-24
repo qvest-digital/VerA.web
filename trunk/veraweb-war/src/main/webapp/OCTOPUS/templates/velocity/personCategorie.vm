@@ -9,39 +9,41 @@
 
 <div id="content_container"> 
 
-    #if($countInsert && $countInsert > 0)
-    	<div style="margin: 10px 0px 0px 0px; padding: 2px 3px 2px 3px; background-color: #ffc080; border: 1px solid #ff8000;">
-    		#if($countInsert == 0)
-    			Es wurde keine Kategorie hinzugef&uuml;gt.
-    		#elseif($countInsert == 1)
-    			Es wurde eine Kategorie hinzugef&uuml;gt.
-    		#else
-    			Es wurden $countInsert Kategorien hinzugef&uuml;gt.
-    		#end
-    	</div>
-    #end
-    #if($countUpdate && $countUpdate > 0)
-    	<div style="margin: 10px 0px 0px 0px; padding: 2px 3px 2px 3px; background-color: #ffc080; border: 1px solid #ff8000;">
-    		#if($countUpdate == 0)
-    			Es wurde keine Kategorie ge&auml;ndert.
-    		#elseif($countUpdate == 1)
-    			Es wurde eine Kategorie ge&auml;ndert.
-    		#else
-    			Es wurden $countUpdate Kategorien ge&auml;ndert.
-    		#end
-    	</div>
-    #end
-    #if($countRemove)
-    	<div style="margin: 10px 0px 0px 0px; padding: 2px 3px 2px 3px; background-color: #ffc080; border: 1px solid #ff8000;">
-    		#if($countRemove == 0)
-    			Es wurde keine Kategorie gel&ouml;scht.
-    		#elseif($countRemove == 1)
-    			Es wurde eine Kategorie gel&ouml;scht.
-    		#else
-    			Es wurden $countRemove Kategorien gel&ouml;scht.
-    		#end
-    	</div>
-    #end
+	#if (!$status || ($status && $status.code && $status.code != "saveperson"))
+        #if($countInsert && $countInsert > 0)
+        	<div style="margin: 10px 0px 0px 0px; padding: 2px 3px 2px 3px; background-color: #ffc080; border: 1px solid #ff8000;">
+        		#if($countInsert == 0)
+        			Es wurde keine Kategorie hinzugef&uuml;gt.
+        		#elseif($countInsert == 1)
+        			Es wurde eine Kategorie hinzugef&uuml;gt.
+        		#else
+        			Es wurden $countInsert Kategorien hinzugef&uuml;gt.
+        		#end
+        	</div>
+        #end
+        #if($countUpdate && $countUpdate > 0)
+        	<div style="margin: 10px 0px 0px 0px; padding: 2px 3px 2px 3px; background-color: #ffc080; border: 1px solid #ff8000;">
+        		#if($countUpdate == 0)
+        			Es wurde keine Kategorie ge&auml;ndert.
+        		#elseif($countUpdate == 1)
+        			Es wurde eine Kategorie ge&auml;ndert.
+        		#else
+        			Es wurden $countUpdate Kategorien ge&auml;ndert.
+        		#end
+        	</div>
+        #end
+        #if($countRemove)
+        	<div style="margin: 10px 0px 0px 0px; padding: 2px 3px 2px 3px; background-color: #ffc080; border: 1px solid #ff8000;">
+        		#if($countRemove == 0)
+        			Es wurde keine Kategorie gel&ouml;scht.
+        		#elseif($countRemove == 1)
+        			Es wurde eine Kategorie gel&ouml;scht.
+        		#else
+        			Es wurden $countRemove Kategorien gel&ouml;scht.
+        		#end
+        	</div>
+    	#end
+	#end
     
     <div id="breadcrumb" class="textRight">
     	<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Personen > Person bearbeiten</span>
