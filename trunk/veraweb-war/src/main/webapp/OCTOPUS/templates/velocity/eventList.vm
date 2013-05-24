@@ -125,7 +125,7 @@
     			<th>Name</th>
     			<th class="smallCell textCenter">Beginn</th>
     			<th>Gastgeber</th>
-    			<th>Verstaltungsort</th>
+    			<th>Veranstaltungsort</th>
         		</tr>
         		#foreach($bean in $list)
         		#if ($velocityCount % 2 == 0)
