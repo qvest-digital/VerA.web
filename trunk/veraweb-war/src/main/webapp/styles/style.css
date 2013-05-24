@@ -172,6 +172,10 @@ ul.alphabet li {
 
 /************* =2.4 misc *************/
 
+#actionPanel {
+    line-height: 35px;
+}
+
 .inactive, .gray-gradient {
     background: linear-gradient(top, #fcfcfc, #dddddd);
     background: -moz-linear-gradient(top, #fcfcfc, #dddddd);
@@ -803,8 +807,8 @@ input.active {
 /************* =9. tables *****************/
 
 table {
-	border-collapse: collapse;
-    margin: 20px 0;
+    border-collapse: collapse;
+    margin: 5px 0;
     width: 100%;
 }
 
