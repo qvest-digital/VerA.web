@@ -13,9 +13,16 @@
 #end
 
 <div id="content_container">
-	<div id="breadcrumb" class="textRight">
-		<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Veranstaltungen > Veranstaltung bearbeiten</span>
-	</div>
+
+	#if($task && $task.id)
+		<div id="breadcrumb" class="textRight">
+			<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Veranstaltungen > Veranstaltung (Aufgabe bearbeiten)</span>
+		</div>	
+	#else
+		<div id="breadcrumb" class="textRight">
+			<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Veranstaltungen > Veranstaltung (Aufgabe anlegen)</span>
+		</div>
+	#end
 
 	<form id="formlist" name="formlist" action="" method="POST">
 	<input type="hidden" id="a" name="a" value="taskReferencePerson">
@@ -57,7 +64,7 @@
 		</table><br>
 	
 		#if($save)
-		<input type="submit" class="button" name="remove" value="Ja" title="Speichern"> &nbsp;
+		<input type="submit" class="button" name="remove" value="Ja" title="Speichern">
 		#end
 		<input type="button" class="cancel" name="cancel" value="Nein" onclick="window.location.href='ShowEvent?id=$!eventId';"> &nbsp;
 	</div>
@@ -68,7 +75,7 @@
 	<input type="hidden" name="event-id" value="$!eventId">
 	
 	<div id="main_content" class="contentBoxColored grayBorder marginBottom20">
-		<h2>Aufgabe bearbeite: $!message.text($task.title)</h2>
+		<h2>$title</h2>
 	
 		<div class="table width100">
 			<div class="tableRow">
