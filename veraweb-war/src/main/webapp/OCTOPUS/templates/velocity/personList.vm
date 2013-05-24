@@ -35,6 +35,11 @@
     		<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Personen > <a href="${paths.staticWeb}do/ShowPersonSearch?action=person" title="Zur Personensuche">Personensuche</a> > Suchergebnisse</span>
     	</div>
     	<h1>Suchergebnis: Personen</h1>
+	#elseif($action == "taskReferencePerson")
+		<div id="breadcrumb" class="textRight">
+    		<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Veranstaltungen > Veranstaltung bearbeiten</span>
+    	</div>
+    	<h1>Verantwortlichen zuweisen</h1>    	
 	#else
 		<div id="breadcrumb" class="textRight">
     		<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Personen > $title</span>
@@ -42,6 +47,12 @@
     	<h1>$title</h1>
 	#end
 
+	#if($action == "taskReferencePerson")
+		<div class="hinweis contentBoxColored grayBorder marginBottom20">
+			<strong>Hinweis</strong>
+			<p>Suchen Sie einen Verantwortlichen für diese Aufgabe!</p>
+		</div>
+	#end
 	
 	#if($list && $list.size() > 0 )
 		
