@@ -828,7 +828,7 @@ tr:hover th {
 	    background-color: none !important;
 }
 
-tr:nth-child(even) {
+tr:nth-child(odd) {
 	background-color: #e5e5e5;
 }
 
