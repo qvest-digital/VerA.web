@@ -3,148 +3,148 @@
 #parse("inc/header.vm")
 
 #set($formurl = "ShowEventTasks")
-
-<form id="formlist" name="formlist" action="$formurl?id=$!id" method="POST">
-
-<input type="hidden" name="start" value="">
-<input type="hidden" name="selectAll" value="false">
-<input type="hidden" name="selectNone" value="false">
-<input type="hidden" name="doRemove" value="true">
-
-
-<table class="tab" border="0" cellspacing="0" cellpadding="0"><tr>
-	<td class="tableft">&nbsp;</td>
-	<td class="tabinactiv"><a href="ShowEvent?id=$!id" class="tabinactiv">Allgemein</a></td>
-	<td class="tabinactiv"><a href="${paths.staticWeb}do/ShowEventDoctype?id=$!id" class="tabinactiv">Dokumenttypen</a></td>
-	<td class="tabactiv"><a id="tab.tasks" href="${paths.staticWeb}do/ShowEventTasks?id=$!id" class="tabinactiv">Aufgaben</a></td>
-	<td class="tabright">&nbsp;</td>
-</tr></table>
-
-#openContent()
-#openContentSection()
-
-<input type="hidden" id="remove-task" name="remove-task" value="false">
-
-<script language="JavaScript" type="text/javascript">
-<!--
-	function removeTask() {
-		var task = confirm('Markierte Aufgabe(n) wirklich entfernen?');
-		
-		document.getElementById('remove-task').value = task;
-		return task;
-	}
--->
-</script>
-
-#if(($listerrors && $listerrors.size() > 0) || ($listquestions && $listquestions.size() > 0))
-#set($save = false)
-
-#if($listerrors && $listerrors.size() > 0)
-<div style="margin: 10px 0px 10px 0px; padding: 10px 10px 10px 10px; background-color: #ffffff; border: 2px solid #ff0000;">
-	<strong>L&ouml;schen von Aufgaben ist nicht m&ouml;glich:</strong><br>
-	<ul style="margin: 0px 0px 0px -10px;">
-	#if($listerrors.size() > 5)
-	#set($show = 5)
-	#else
-	#set($show = $listerrors.size())
-	#end
-	#foreach($error in $listerrors)
-	#if($velocityCount <= $show)
-		<li style="margin: 5px 0px 0px 0px;">$!message.plain($error)</li>
-	#end
-	#end
-	#if($listerrors.size() > $show)
-	#set($drop = $listerrors.size() - $show)
-		<li style="margin: 5px 0px 0px 0px;"><em>...  $drop weitere Meldungen.</em></li>
-	#end
-	</ul>
-</div>
-#end
-#if($listquestions && $listquestions.size() > 0)
-<div style="margin: 10px 0px 10px 0px; padding: 10px 10px 10px 10px; background-color: #ffffff; border: 2px solid #00ff00;">
-	<strong>Bitte best&auml;tigen Sie das L&ouml;schen von Aufgaben:</strong><br>
-	<ul style="margin: 0px 0px 0px -10px;">
-	#foreach($quest in $listquestions.entrySet())
-		<li style="margin: 5px 0px 0px 0px;"><input type="hidden" name="$quest.key" value="true">$!message.plain($quest.value)</li>
-		#set($save = true)
-	#end
-	</ul><br>
-	#if($save)
-	<input type="submit" class="button" name="remove" value="Ja" title="markierte Aufgabe(n) l&ouml;schen"> &nbsp;
-	#end
-	<input type="button" class="cancel" name="cancel" value="Nein" onclick="window.location.href='ShowEventTasks?id=$!id'"> &nbsp;
-</div>
-#end
-
-#end
-
-#foreach($bean in $list)
-<input type="hidden" name="list" value="$bean.id">
-#end
-
-
-<table class="list">
-	<tr class="list1">
-		<th class="list" style="width: 20px;">&nbsp;</th>
-		<th class="list" style="width: 60px;">ID</th>
-		<th class="list">Titel</th>
-		<th class="list">Start</th>
-		<th class="list">Ende</th>
-		<th class="list">Status</th>
-		<th class="list">Verantwortlicher</th>
-		<th class="list">Priorit&auml;t</th>
-	</tr>
-#foreach($bean in $list)	
-	#if ($velocityCount % 2 == 0)
-		#set($class = "list1")
-	#else
-		#set($class = "list2")
-	#end
-	<tr class="$class" style="height: 20px;" onmouseover="onMouseOverList(this);" onmouseout="onMouseOutList(this);">
-		<td class="list">
-			<input type="checkbox" id="add-select" name="${bean.id}-select" value="true" class="checkbox" #if($listselection.indexOf($bean.id) != -1) checked#end>			
-		</td>
-		<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowEventTask?id=$!{bean.id}&eventId=$!{bean.eventId}'">$!bean.id</td>
-		<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowEventTask?id=$!{bean.id}&eventId=$!{bean.eventId}'">$!message.plain($!bean.title)</td>
-		#if ($bean.startdate.Seconds == 30)
-				<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowEventTask?id=$!{bean.id}&eventId=$!{bean.eventId}'">$!message.date("DATE",$bean.startdate)</td>
+<div class="contentContainer">
+	<form id="formlist" name="formlist" action="$formurl?id=$!id" method="POST">
+	
+	<input type="hidden" name="start" value="">
+	<input type="hidden" name="selectAll" value="false">
+	<input type="hidden" name="selectNone" value="false">
+	<input type="hidden" name="doRemove" value="true">
+	
+	
+	<table class="tab" border="0" cellspacing="0" cellpadding="0"><tr>
+		<td class="tableft">&nbsp;</td>
+		<td class="tabinactiv"><a href="ShowEvent?id=$!id" class="tabinactiv">Allgemein</a></td>
+		<td class="tabinactiv"><a href="${paths.staticWeb}do/ShowEventDoctype?id=$!id" class="tabinactiv">Dokumenttypen</a></td>
+		<td class="tabactiv"><a id="tab.tasks" href="${paths.staticWeb}do/ShowEventTasks?id=$!id" class="tabinactiv">Aufgaben</a></td>
+		<td class="tabright">&nbsp;</td>
+	</tr></table>
+	
+	<input type="hidden" id="remove-task" name="remove-task" value="false">
+	
+	<script language="JavaScript" type="text/javascript">
+	<!--
+		function removeTask() {
+			var task = confirm('Markierte Aufgabe(n) wirklich entfernen?');
+			
+			document.getElementById('remove-task').value = task;
+			return task;
+		}
+	-->
+	</script>
+	
+	#if(($listerrors && $listerrors.size() > 0) || ($listquestions && $listquestions.size() > 0))
+	#set($save = false)
+	
+	#if($listerrors && $listerrors.size() > 0)
+	<div style="margin: 10px 0px 10px 0px; padding: 10px 10px 10px 10px; background-color: #ffffff; border: 2px solid #ff0000;">
+		<strong>L&ouml;schen von Aufgaben ist nicht m&ouml;glich:</strong><br>
+		<ul style="margin: 0px 0px 0px -10px;">
+		#if($listerrors.size() > 5)
+		#set($show = 5)
 		#else
-				<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowEventTask?id=$!{bean.id}&eventId=$!{bean.eventId}'">$!message.date("DATE_TIME",$bean.startdate)</td>
+		#set($show = $listerrors.size())
 		#end
+		#foreach($error in $listerrors)
+		#if($velocityCount <= $show)
+			<li style="margin: 5px 0px 0px 0px;">$!message.plain($error)</li>
+		#end
+		#end
+		#if($listerrors.size() > $show)
+		#set($drop = $listerrors.size() - $show)
+			<li style="margin: 5px 0px 0px 0px;"><em>...  $drop weitere Meldungen.</em></li>
+		#end
+		</ul>
+	</div>
+	#end
+	#if($listquestions && $listquestions.size() > 0)
+	<div style="margin: 10px 0px 10px 0px; padding: 10px 10px 10px 10px; background-color: #ffffff; border: 2px solid #00ff00;">
+		<strong>Bitte best&auml;tigen Sie das L&ouml;schen von Aufgaben:</strong><br>
+		<ul style="margin: 0px 0px 0px -10px;">
+		#foreach($quest in $listquestions.entrySet())
+			<li style="margin: 5px 0px 0px 0px;"><input type="hidden" name="$quest.key" value="true">$!message.plain($quest.value)</li>
+			#set($save = true)
+		#end
+		</ul><br>
+		#if($save)
+		<input type="submit" class="button" name="remove" value="Ja" title="markierte Aufgabe(n) l&ouml;schen"> &nbsp;
+		#end
+		<input type="button" class="cancel" name="cancel" value="Nein" onclick="window.location.href='ShowEventTasks?id=$!id'"> &nbsp;
+	</div>
+	#end
+	
+	#end
+	
+	#foreach($bean in $list)
+	<input type="hidden" name="list" value="$bean.id">
+	#end
+	
+	<span>
+		<strong>Ausgewählte Einträge</strong> <input type="submit" id="remove" name="remove" value="L&ouml;schen" title="Ausgew&auml;hlte Eintr&auml;ge l&ouml;schen" #if($grants.mayWrite()) class="button" #else class="buttondisabled" disabled #end onclick="return removeTask();">
+	</span>
+	
+	#if($grants.mayWrite())
+		<span class="floatRight">
+			<input type="button" id="new" name="new" value="Neu"  class="mainButton" onclick="window.location.href='CreateEventTask?eventId=$!id';">	
+		</span>
+	#end
+	
+	<table>
+		<tr class="list1">
+			<th class="smallCell textCenter">&nbsp;</th>
+			<th class="smallCell textCenter">ID</th>
+			<th>Titel</th>
+			<th class="smallCell textCenter">Start</th>
+			<th class="smallCell textCenter">Ende</th>
+			<th class="smallCell textCenter">Status</th>
+			<th>Verantwortlicher</th>
+			<th class="smallCell textCenter">Priorit&auml;t</th>
+		</tr>
+	#foreach($bean in $list)	
+		#if ($velocityCount % 2 == 0)
+			#set($class = "list1")
+		#else
+			#set($class = "list2")
+		#end
+		<tr class="$class">
+			<td class="textCenter">
+				<input type="checkbox" id="add-select" name="${bean.id}-select" value="true" class="checkbox" #if($listselection.indexOf($bean.id) != -1) checked#end>			
+			</td>
+			<td class="textCenter" style="cursor: pointer;" onclick="window.location.href='ShowEventTask?id=$!{bean.id}&eventId=$!{bean.eventId}'">$!bean.id</td>
+			<td style="cursor: pointer;" onclick="window.location.href='ShowEventTask?id=$!{bean.id}&eventId=$!{bean.eventId}'">$!message.plain($!bean.title)</td>
+			#if ($bean.startdate.Seconds == 30)
+					<td class="textCenter" style="cursor: pointer;" onclick="window.location.href='ShowEventTask?id=$!{bean.id}&eventId=$!{bean.eventId}'">$!message.date("DATE",$bean.startdate)</td>
+			#else
+					<td class="textCenter" style="cursor: pointer;" onclick="window.location.href='ShowEventTask?id=$!{bean.id}&eventId=$!{bean.eventId}'">$!message.date("DATE_TIME",$bean.startdate)</td>
+			#end
+			
+			#if ($bean.enddate.Seconds == 30)
+					<td class="textCenter" style="cursor: pointer;" onclick="window.location.href='ShowEventTask?id=$!{bean.id}&eventId=$!{bean.eventId}'">$!message.date("DATE",$bean.enddate)</td>
+			#else 
+					<td class="textCenter" style="cursor: pointer;" onclick="window.location.href='ShowEventTask?id=$!{bean.id}&eventId=$!{bean.eventId}'">$!message.date("DATE_TIME",$bean.enddate)</td>
+			#end
+	
+			<td class="textCenter" style="cursor: pointer;" onclick="window.location.href='ShowEventTask?id=$!{bean.id}&eventId=$!{bean.eventId}'">$!bean.degreeofcompletion%</td>
+			<td style="cursor: pointer;" onclick="window.location.href='ShowEventTask?id=$!{bean.id}&eventId=$!{bean.eventId}'">$!bean.personName</td>
+			<td class="textCenter" style="cursor: pointer;" onclick="window.location.href='ShowEventTask?id=$!{bean.id}&eventId=$!{bean.eventId}'">$!bean.priority</td>
+		</tr>
+	#end
+	</table>
+	
+	#if ($listparam.count == 0)
+		<br>Keine Daten gefunden.
+	#end
+
+		#parse("inc/list-navi.vm")
+		#parse("inc/list-direct.vm")
 		
-		#if ($bean.enddate.Seconds == 30)
-				<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowEventTask?id=$!{bean.id}&eventId=$!{bean.eventId}'">$!message.date("DATE",$bean.enddate)</td>
-		#else 
-				<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowEventTask?id=$!{bean.id}&eventId=$!{bean.eventId}'">$!message.date("DATE_TIME",$bean.enddate)</td>
-		#end
-
-		<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowEventTask?id=$!{bean.id}&eventId=$!{bean.eventId}'">$!bean.degreeofcompletion%</td>
-		<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowEventTask?id=$!{bean.id}&eventId=$!{bean.eventId}'">$!bean.personName</td>
-		<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowEventTask?id=$!{bean.id}&eventId=$!{bean.eventId}'">$!bean.priority</td>
-	</tr>
-#end
-</table>
-
-#if ($listparam.count == 0)
-	<br>Keine Daten gefunden.
-#end
-
-<div id="fixme" class="fixme1"><div class="fixme2"><div class="fixme3">
-
-	#parse("inc/list-navi.vm")
-	#parse("inc/list-direct.vm")
-
-	<input type="button" id="new" name="new" value="Neu" #if($grants.mayWrite()) class="button" #else class="buttondisabled" disabled #end onclick="window.location.href='CreateEventTask?eventId=$!id';"> &nbsp;
-	<input type="submit" id="remove" name="remove" value="L&ouml;schen" title="markierte Eintr&auml;ge entfernen" #if($grants.mayWrite()) class="button" #else class="buttondisabled" disabled #end onclick="return removeTask();"> &nbsp;
-	<input type="button" id="cancel" name="cancel" class="button" value="Zur&uuml;ck" title="Zur Suche" onclick="window.location.href='SearchEvent';"> &nbsp;
-
-</div></div></div>
-
-#closeContentSection()
-#closeContent()
-
-</form>
-
+	<div class="textRight">	
+		<!--input type="button" id="cancel" name="cancel" class="button" value="Zur&uuml;ck" title="Zur Suche" onclick="window.location.href='SearchEvent';"-->
+	</div>
+	
+	
+	</form>
+</div>
 <script type="text/javascript">
 #if(!$grants.mayWrite())
 	disableForm(document.getElementById('formlist'));
