@@ -13,6 +13,10 @@
 		<input type="hidden" name="action" value="$action">
 		<input type="hidden" name="id" value="$id">
 	
+		<div id="breadcrumb" class="textRight">
+    		<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Personen > Dublettensuche</span>
+    	</div>
+			
 		<h1 class="paddingTop20">Vorhandene Dubletten</h1>
 	
 		#foreach($bean in $list)
@@ -24,10 +28,10 @@
 				<th>Name</th>
 				<th>Vorname</th>
 				<th>Amtsbezeichnung</th>
-				<th>Firma / Institution</th>
-				<th>Stra&szlig;e</th>
-				<th>PLZ</th>
-				<th>Ort</th>
+				<th>Firma / Institution (G)</th>
+				<th>Stra&szlig;e (G)</th>
+				<th>PLZ (G)</th>
+				<th>Ort (G)</th>
 				<th class="textCenter smallCell">Weiteres Vorgehen</th>
 			</tr>
 			<tr>
