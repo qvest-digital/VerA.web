@@ -139,9 +139,9 @@
         					<td style="cursor: pointer;" onclick="window.location.href='AddEventToEventGuestList?id=$!{bean.id}';" class="textCenter"><input type="hidden" name="${bean.id}-id" value="$bean.id">$!{bean.id}</td>
         					<td style="cursor: pointer;" onclick="window.location.href='AddEventToEventGuestList?id=$!{bean.id}';">$!message.plain($bean.shortname)</td>
         			#if ($bean.begin.Seconds == 30)
-        					<td style="cursor: pointer;" onclick="window.location.href='AddEventToEventGuestList?id=$!{bean.id}';" class="textCenter nowrap">$!message.date("DATE", $bean.begin)</td>
+        					<td style="cursor: pointer;" onclick="window.location.href='AddEventToEventGuestList?id=$!{bean.id}';" class="textCenter">$!message.date("DATE", $bean.begin)</td>
         			#else
-        					<td style="cursor: pointer;" onclick="window.location.href='AddEventToEventGuestList?id=$!{bean.id}';" class="textCenter nowrap">$!message.date("DATE_TIME", $bean.begin) Uhr</td>
+        					<td style="cursor: pointer;" onclick="window.location.href='AddEventToEventGuestList?id=$!{bean.id}';" class="textCenter">$!message.date("DATE_TIME", $bean.begin) Uhr</td>
         			#end
         					<td style="cursor: pointer;" onclick="window.location.href='AddEventToEventGuestList?id=$!{bean.id}';">$!message.plain($bean.hostname)</td>
         					<td style="cursor: pointer;" onclick="window.location.href='AddEventToEventGuestList?id=$!{bean.id}';">$!message.plain($bean.location)</td>
@@ -149,9 +149,9 @@
         					<td style="cursor: pointer;" onclick="window.location.href='AddPersonToEventDetail?event-id=$!{bean.id}&action=person';" class="textCenter"><input type="hidden" name="${bean.id}-id" value="$bean.id">$!{bean.id}</td>
         					<td style="cursor: pointer;" onclick="window.location.href='AddPersonToEventDetail?event-id=$!{bean.id}&action=person';">$!message.plain($bean.shortname)</td>
         			#if ($bean.begin.Seconds == 30)
-        					<td style="cursor: pointer;" onclick="window.location.href='AddPersonToEventDetail?event-id=$!{bean.id}&action=person';" class="textCenter nowrap">$!message.date("DATE", $bean.begin)</td>
+        					<td style="cursor: pointer;" onclick="window.location.href='AddPersonToEventDetail?event-id=$!{bean.id}&action=person';" class="textCenter">$!message.date("DATE", $bean.begin)</td>
         			#else
-        					<td style="cursor: pointer;" onclick="window.location.href='AddPersonToEventDetail?event-id=$!{bean.id}&action=person';" class="textCenter nowrap">$!message.date("DATE_TIME", $bean.begin) Uhr</td>
+        					<td style="cursor: pointer;" onclick="window.location.href='AddPersonToEventDetail?event-id=$!{bean.id}&action=person';" class="textCenter">$!message.date("DATE_TIME", $bean.begin) Uhr</td>
         			#end
         					<td style="cursor: pointer;" onclick="window.location.href='AddPersonToEventDetail?event-id=$!{bean.id}&action=person';">$!message.plain($bean.hostname)</td>
         					<td style="cursor: pointer;" onclick="window.location.href='AddPersonToEventDetail?event-id=$!{bean.id}&action=person';">$!message.plain($bean.location)</td>
@@ -160,9 +160,9 @@
         					<td style="cursor: pointer;" onclick="window.location.href='ShowEvent?id=$!{bean.id}';" class="textCenter"><input type="hidden" name="${bean.id}-id" value="$bean.id">$!{bean.id}</td>
         					<td style="cursor: pointer;" onclick="window.location.href='ShowEvent?id=$!{bean.id}';">$!message.plain($bean.shortname)</td>
         			#if ($bean.begin.Seconds == 30)
-        					<td style="cursor: pointer;" onclick="window.location.href='ShowEvent?id=$!{bean.id}';" class="textCenter nowrap">$!message.date("DATE", $bean.begin)</td>
+        					<td style="cursor: pointer;" onclick="window.location.href='ShowEvent?id=$!{bean.id}';" class="textCenter">$!message.date("DATE", $bean.begin)</td>
         			#else
-        					<td style="cursor: pointer;" onclick="window.location.href='ShowEvent?id=$!{bean.id}';" class="textCenter nowrap">$!message.date("DATE_TIME", $bean.begin) Uhr</td>
+        					<td style="cursor: pointer;" onclick="window.location.href='ShowEvent?id=$!{bean.id}';" class="textCenter">$!message.date("DATE_TIME", $bean.begin) Uhr</td>
         			#end
         					<td style="cursor: pointer;" onclick="window.location.href='ShowEvent?id=$!{bean.id}';">$!message.plain($bean.hostname)</td>
         					<td style="cursor: pointer;" onclick="window.location.href='ShowEvent?id=$!{bean.id}';">$!message.plain($bean.location)</td>
