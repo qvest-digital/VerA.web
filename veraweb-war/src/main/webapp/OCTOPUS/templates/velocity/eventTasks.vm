@@ -79,9 +79,11 @@
 	<input type="hidden" name="list" value="$bean.id">
 	#end
 	
-	<span>
-		<strong>Ausgewählte Einträge</strong> <input type="submit" id="remove" name="remove" value="L&ouml;schen" title="Ausgew&auml;hlte Eintr&auml;ge l&ouml;schen" #if($grants.mayWrite()) class="button" #else class="buttondisabled" disabled #end onclick="return removeTask();">
-	</span>
+	#if($grants.mayWrite())
+		<span>
+			<strong>Markierte Aufgaben</strong> <input type="submit" id="remove" name="remove" value="L&ouml;schen" title="Markierte Aufgaben l&ouml;schen"  onclick="return removeTask();">
+		</span>
+	#end
 	
 	#if($grants.mayWrite())
 		<span class="floatRight">

@@ -861,6 +861,9 @@ td, th {
 	width:14px;
 }
 
+td[onclick]
+ {cursor:pointer;}
+
 /************* =8.1 CSS tables *****************/
 
 .table {display:table;}

@@ -118,8 +118,8 @@
             #if($action == "guest")
 				
 				<span id="actionPanel" class="inlineLabel">
-					<label>Ausgew&auml;hlte Eintr&auml;ge
-						<input type="button" value="&Uuml;bernehmen" title="Ausgew&auml;hlte Personen zur Veranstaltung hinzuf&uuml;gen" onclick="submitFormWithGivenAction('AddPersonToEventGuestList');" />
+					<label>Markierte Eintr&auml;ge
+						<input type="button" value="&Uuml;bernehmen" title="Markierte Personen zur Veranstaltung hinzuf&uuml;gen" onclick="submitFormWithGivenAction('AddPersonToEventGuestList');" />
                     </label>
             	</span>
         
@@ -209,7 +209,7 @@
     		#elseif($action == "replace")
 				
 				<span id="actionPanel" class="inlineLabel">
-					<label>Ausgew&auml;hlte Eintr&auml;ge
+					<label>Markierte Eintr&auml;ge
 						<input type="button" value="Ersetzen" onclick="submitFormWithGivenAction('SaveReplacePersonList');" />
                     </label>
             	</span>
@@ -287,7 +287,7 @@
                 </script>
 				
 				<span id="actionPanel" class="inlineLabel">
-					<label>Ausgew&auml;hlte Eintr&auml;ge
+					<label>Markierte Eintr&auml;ge
     					<select id="actionSelection">
         					<option>Löschen</option>
         					#if($exportFormat && $grants.mayExport())
