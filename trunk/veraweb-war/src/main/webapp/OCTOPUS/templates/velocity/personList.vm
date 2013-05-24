@@ -48,9 +48,9 @@
 	#end
 
 	#if($action == "taskReferencePerson")
-		<div class="hinweis contentBoxColored grayBorder marginBottom20">
+		<div class="hinweis contentBoxColored grayBorder">
 			<strong>Hinweis</strong>
-			<p>Suchen Sie einen Verantwortlichen für diese Aufgabe!</p>
+			<p>Wählen Sie eine der aufgelisteten Personen und fügen Sie sie durch Anklicken der Aufgabe zu!</p>
 		</div>
 	#end
 	
