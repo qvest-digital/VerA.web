@@ -124,10 +124,7 @@ public class CompanyListWorker extends ListWorkerVeraWeb {
 	 * @throws IOException
 	 */
 	public void copyCompanyData(OctopusContext cntx, Integer company, String companyfield) throws BeanException, IOException {
-		cntx.setContent("personTab", cntx.requestAsInteger("personTab"));
-		cntx.setContent("personMemberTab", cntx.requestAsInteger("personMemberTab"));
-		cntx.setContent("personAddresstypeTab", cntx.requestAsInteger("personAddresstypeTab"));
-		cntx.setContent("personLocaleTab", cntx.requestAsInteger("personLocaleTab"));
+	    cntx.setContent("tab", cntx.requestAsObject("tab"));
 		
 		final boolean copyAll = false;
 		

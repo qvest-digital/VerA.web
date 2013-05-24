@@ -564,10 +564,6 @@ public class PersonDetailWorker implements PersonConstants {
 	 */
 	public Person saveDetail(OctopusContext cntx, Person person) throws BeanException, IOException {
 	    cntx.setContent("tab", cntx.requestAsString("tab"));
-		cntx.setContent("personTab", cntx.requestAsInteger("personTab"));
-		cntx.setContent("personMemberTab", cntx.requestAsInteger("personMemberTab"));
-		cntx.setContent("personAddresstypeTab", cntx.requestAsInteger("personAddresstypeTab"));
-		cntx.setContent("personLocaleTab", cntx.requestAsInteger("personLocaleTab"));
 
 		Database database = new DatabaseVeraWeb(cntx);
 		TransactionContext context = database.getTransactionContext();
