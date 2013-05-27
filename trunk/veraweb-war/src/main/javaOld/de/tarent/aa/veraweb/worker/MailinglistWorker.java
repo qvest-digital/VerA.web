@@ -187,7 +187,7 @@ public class MailinglistWorker {
 			select.selectAs("tguest_doctype.fk_doctype", "doctype");
 			select.selectAs("tguest_doctype.mail", "mail1");
 			select.selectAs("tguest_doctype.fax", "fax1");
-			select.joinLeftOuter("veraweb.tguest_doctype", "tguest_doctype.fk_guest = tguest.pk AND tguest_doctype.fk_doctype", doctype.toString());
+			select.whereAndEq("tguest_doctype.fk_doctype", doctype.toString());
 		} else {
 			select.selectAs("FALSE", "hasguestdoctype");
 			select.selectAs("NULL", "doctype");
