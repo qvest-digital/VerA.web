@@ -33,55 +33,70 @@ function deleteMailinglist() {
 
 	<form id="formlist" name="formlist" action="ShowMailinglistList" method="POST">
 	
-	<input type="hidden" name="start" value="">
-	<input type="hidden" name="selectAll" value="false">
-	<input type="hidden" name="selectNone" value="false">
-	<input type="hidden" name="doRemove" value="true">
-	<input type="hidden" id="remove" name="removeDisabled" value="true">
-	
-	#foreach($bean in $list)
-	<input type="hidden" name="list" value="$bean.id">
-	#end
-	
-	#if($grants.mayWrite())
-	<span id="actionPanel">
-        <strong>Markierte(n) Verteiler</strong>
-		<input type="button" name="remove" value="L&ouml;schen" onclick="deleteMailinglist();" title="Markierte Verteiler l&ouml;schen">
-	</span>	
-	#end
-	
-	<table class="marginTop10">
-		<tr>
-			<th class="smallCell textCenter">&nbsp;</th>
-			<th class="smallCell textCenter">ID</th>
-			<th>Bezeichnung</th>
-			<th>Angelegt von</th>
-			<th class="smallCell nowrap">Angelegt am</th>
-			<th>Erzeugt aus Veranstaltung</th>
-		</tr>
-		#foreach($bean in $list)
-		<tr>
-			<td class="textCenter"><input type="checkbox" name="${bean.id}-select" value="true" class="checkbox" #if($listselection.indexOf($bean.id) != -1) checked#end></td>
-			<td onclick="window.location.href='ShowMailinglistDetail?id=$!{bean.id}';"><input type="hidden" name="${bean.id}-id" value="$bean.id">$!bean.id</td>
-			<td onclick="window.location.href='ShowMailinglistDetail?id=$!{bean.id}';">$!bean.name</td>
-			<td onclick="window.location.href='ShowMailinglistDetail?id=$!{bean.id}';">$!bean.username</td>
-			<td class="textCenter" onclick="window.location.href='ShowMailinglistDetail?id=$!{bean.id}';">$!message.date("DATE_TIME", $bean.created) Uhr</td>
-			<td onclick="window.location.href='ShowMailinglistDetail?id=$!{bean.id}';">$!bean.eventname</td>
-		</tr>
-	
-		#end
-	</table>
-	
-	#if ($listparam.count == 0)
-		<div class="contentBoxColored grayBorder marginBottom20"> 
-			Keine Daten gefunden.
-		</div>
-	#end
-	
-	
-		#parse("inc/list-navi.vm")
-		#parse("inc/list-direct.vm")
-	
+    	<input type="hidden" name="start" value="">
+    	<input type="hidden" name="selectAll" value="false">
+    	<input type="hidden" name="selectNone" value="false">
+    	<input type="hidden" name="doRemove" value="true">
+    	<input type="hidden" id="remove" name="removeDisabled" value="true">
+    	
+    	#foreach($bean in $list)
+    	<input type="hidden" name="list" value="$bean.id">
+    	#end
+    	
+    	#if($list && $list.size() > 0)
+    	
+        	#if($grants.mayWrite())
+        	<span id="actionPanel">
+                <strong>Markierte(n) Verteiler</strong>
+        		<input type="button" name="remove" value="L&ouml;schen" onclick="deleteMailinglist();" title="Markierte Verteiler l&ouml;schen">
+        	</span>	
+        	#end
+        	
+        	<table class="marginTop10">
+        		<tr>
+        			<th class="smallCell textCenter"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" #if($listselection.size() == $listparam.count) checked#end title="Alle (de)markieren"/></th>
+        			<th class="smallCell textCenter">ID</th>
+        			<th>Bezeichnung</th>
+        			<th>Angelegt von</th>
+        			<th class="smallCell nowrap">Angelegt am</th>
+        			<th>Erzeugt aus Veranstaltung</th>
+        		</tr>
+        		#foreach($bean in $list)
+        		<tr>
+        			<td class="textCenter"><input type="checkbox" name="${bean.id}-select" value="true" class="checkbox" #if($listselection.indexOf($bean.id) != -1) checked#end></td>
+        			<td onclick="window.location.href='ShowMailinglistDetail?id=$!{bean.id}';"><input type="hidden" name="${bean.id}-id" value="$bean.id">$!bean.id</td>
+        			<td onclick="window.location.href='ShowMailinglistDetail?id=$!{bean.id}';">$!bean.name</td>
+        			<td onclick="window.location.href='ShowMailinglistDetail?id=$!{bean.id}';">$!bean.username</td>
+        			<td class="textCenter" onclick="window.location.href='ShowMailinglistDetail?id=$!{bean.id}';">$!message.date("DATE_TIME", $bean.created) Uhr</td>
+        			<td onclick="window.location.href='ShowMailinglistDetail?id=$!{bean.id}';">$!bean.eventname</td>
+        		</tr>
+        		#end
+        		
+        		#set($itemName = "Verteiler")
+        		#parse("inc/list-navi-new.vm")
+        		#parse("inc/list-direct-new.vm")
+        	</table>
+			
+			## Handler für SelectAll Toggling 
+    		<script>
+    			$(function(){
+                    $('#toggleAllSelect').change(function(){
+                        if ($(this).is(':checked')) {
+    						navigateSelectAll();
+                        } else {
+    						navigateSelectNone();
+                        }
+                    });
+                });
+    		</script>
+    		
+    	#else
+    		
+    		<div class="contentBoxColored grayBorder marginBottom20">  		
+    			Es wurden keine Einträge gefunden.
+    		</div>
+    		
+    	#end
 	
 	</form>
 
