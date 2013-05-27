@@ -537,8 +537,6 @@
 			<action name="getAll" worker="WorkAreaWorker"/>
 			<action name="showDetail" worker="PersonDetailWorker" />
 			<action name="getDoctype" worker="PersonDetailWorker" />
-			<action name="saveList" worker="PersonDoctypeWorker" />
-			<action name="showList" worker="PersonDoctypeWorker" />
 			
 			<response type="velocity" name="personDetail">
 				<param name="ContentType" value="text/html;charset=UTF-8"/>
@@ -675,10 +673,11 @@
 			</contract>
 			<doTask name="Load"/>
 			<action name="prepareSaveDetail" worker="PersonDetailWorker" />
-			<status equals="notcorrect">
-				<doTask name="ShowPerson"/>
-			</status>
 			<status equals="saveperson">
+				<action name="verify" worker="PersonDetailWorker" />
+				<status equals="notcorrect">
+					<doTask name="ShowPerson"/>
+				</status>
 				<action name="check" worker="PersonDupcheckWorker" />
 				<status equals="dupcheck">
 					<doTask name="PersonDupcheck"/>
