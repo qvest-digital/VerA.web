@@ -24,7 +24,7 @@
             
 			<div class="table width40">
 				<div class="tableRow">
-					<div class="tableCell inlineLabel width10">
+					<div class="tableCell inlineLabel width30">
 						<input type="radio" name="exportFilter" id="exportFilterEvent" value="event" onclick="return filterChanged()">
 						<label for="exportFilterEvent">Veranstaltung:</label>
 					</div>
@@ -61,11 +61,11 @@
                 		</select>
 					</div>
 				</div>
-			</div>
-			<div class="table marginTop10">
 				<div class="tableRow">
 					<div class=" tableCell">
 						<label for="format">Dateityp:</label>
+					</div>
+					<div class="tableCell">
 						<select name="format" id="format" class="autoWidth" onchange="return formatChanged();">
                 #foreach($formatKey in $formats.keySet())
                  #set($format = $formats.get($formatKey))
@@ -81,7 +81,7 @@
             #set($style = '')
             #foreach($formatKey in $formats.keySet())
              #set($format = $formats.get($formatKey))
-            		<div $style id="format-$formatKey">
+            		<div $style id="format-$formatKey" class="marginTop10">
               #if($format.properties.containsKey("choices"))
                #set($choices = $format.properties.get("choices"))
             			<fieldset class="format"><legend>$format.name: weitere Optionen</legend>
