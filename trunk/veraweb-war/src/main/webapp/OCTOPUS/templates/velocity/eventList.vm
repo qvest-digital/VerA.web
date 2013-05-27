@@ -227,7 +227,6 @@
 					#end
         		
             		#set($itemName = "Veranstaltungen")
-					#set($listNaviNewColspan = 99)
             		#parse("inc/list-navi-new.vm")
             		#parse("inc/list-direct-new.vm")
             		

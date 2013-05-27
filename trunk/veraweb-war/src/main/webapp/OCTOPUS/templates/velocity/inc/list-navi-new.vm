@@ -4,7 +4,7 @@
     #set($stop = $listparam.start + $list.size())
     
 	<tr class="colspan">
-		<td colspan="$!listNaviNewColspan">
+		<td colspan="99">
 			
 			<span class="amount" id="listnavitext">$start - $stop von $listparam.count $itemName | Anzahl pro Seite 
     			<input type="button" #if($listparam.limit == 10) class="active"#end value="10" title="10 Datens&auml;tze anzeigen lassen" onclick="navigateLimit(10);"/>
