@@ -18,12 +18,12 @@
 
 <span id="actionPanel" class="inlineLabel">
 	#if($grants.mayWrite())
-    	Ausgewählte Einträge <input type="submit" name="remove" value="L&ouml;schen" title="markierte Eintr&auml;ge entfernen"/>
+    	Markierte Einträge <input type="submit" name="remove" value="L&ouml;schen" title="Markierte Eintr&auml;ge l&ouml;schen"/>
 	#end
 </span>
-<div class="buttonPanel-top textRight floatRight marginBottom20">
+<div class="buttonPanel-top floatRight">
 	#if($grants.mayWrite())
-    	<input type="submit" name="save" value="Speichern" class="mainButton"/>
+    	<input type="submit" name="save" value="Neue Kategorie speichern" title="Neue Kategorie speichern" class="mainButton"/>
 	#end
 </div>
 
@@ -33,8 +33,8 @@
 			<th class="textCenter smallCell"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" #if($listselection.size() == $listparam.count) checked#end title="Alle (de)markieren" #if(!$grants.mayWrite()) disabled="true"#end/></th>
 		#end
 		<th class="textCenter smallCell">ID</th>
-		<th class="width90">Kategorien und Ereignisse</th>
-		<th>Rang</th>
+		<th>Kategorien und Ereignisse</th>
+		<th class="textCenter smallCell">Rang</th>
 	</tr>
 	<tr>
 		#if($list && $list.size() > 0)
@@ -54,7 +54,7 @@
 				#end
 			</select>
 		</td>
-		<td>
+		<td class="textCenter">
 			<input type="text" name="add-rank" value="$!message.text($bean.rank)" class="small50px" onchange="setModified('add')" #if(!$grants.mayWrite()) disabled="true"#end/>
 		</td>
 	</tr>
@@ -77,6 +77,12 @@
 			</td>
 		</tr>
 	#end
+    
+	#if ($listparam.count == 0)
+    	<tr>
+    		<td colspan="3">Es liegen keine Kategorien und Ereignisse vor</td>
+    	</tr>
+    #end
 	
 	#set($itemName = "Kategorien")
 	#parse("inc/list-navi-new.vm")
@@ -89,9 +95,6 @@
 	Bei gr&uuml;n hinterlegten Eintr&auml;gen handelt es sich um wiederkehrende Ereignisse.
 </div>
 
-#if ($listparam.count == 0)
-	<br>Keine Daten gefunden.
-#end
 
 ## Handler für SelectAll Toggling 
 <script>
