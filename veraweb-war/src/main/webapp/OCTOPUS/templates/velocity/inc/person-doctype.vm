@@ -13,7 +13,20 @@
 #end
 #end
 
-<table>
+
+        <span id="actionPanel" class="inlineLabel">
+            <label>Markierte(n) Dokumenttyp(en)
+            <input class="mainButton" type="submit" title="markierte Einträge entfernen" value="Löschen" name="remove">
+                </label>
+		</span>
+
+		<span id="buttonPanel-top" class="textRight floatRight">
+         <input class="mainButton" type="button" onclick="window.location.href='${paths.staticWeb}do/CreateAllPersonDoctypes?id=$!person.id';" value="Alle erzeugen" name="create">
+            <input class="mainButton" type="submit" value="Änderungen speichern" name="save">
+		</span>
+
+
+    <table>
 	<tr>
         <th class="textCenter smallCell"><input type="checkbox" name="" id="toggleAllSelect" #if($listparam.count > 0 && $listselection.size() == $listparam.count) checked#end title="Alle (de)markieren" #if(!$grants.mayWrite()) disabled="true"#end /></th>
         <th class="width90">Dokumenttyp</th>
@@ -82,49 +95,16 @@
 		#end
 	</tr>
 	#end
+
+    #set($itemName = "Dokumenttypen")
+    #set($listNaviNewColspan = 5)
+    #parse("inc/list-navi-new.vm")
 </table>
 
 #if ($listparam.count == 0)
 	<br>Keine Daten gefunden.
 #end
 
-<div>
-<div id="fixme" class="fixme1"><div class="fixme2"><div class="fixme3">
-
-	#parse("inc/list-navi.vm")
-	#parse("inc/list-direct.vm")
-
-#if($action == "guest")
-    <input type="submit" name="save" value="Speichern" #if($grants.mayWrite()) class="button" #else class="buttondisabled" disabled #end> &nbsp;
-    <input type="submit" name="remove" value="L&ouml;schen" title="markierte Eintr&auml;ge entfernen" #if($grants.mayWrite()) class="button" #else class="buttondisabled" disabled #end> &nbsp;
-## 2009-05-07 cklein
-## refactor-renamed to CreateAllPersonDoctypes as part of issue #1528
-    <input type="button" name="create" value="Alle erzeugen" onclick="window.location.href='${paths.staticWeb}do/CreateAllPersonDoctypes?id=$!person.id';" #if($grants.mayWrite()) class="button" #else class="buttondisabled" disabled #end> &nbsp;
-    #if($person)
-    <input type="button" name="add" value="&Uuml;bernehmen" title="Gast direkt in G&auml;steliste &uuml;bernehmen" onclick="addToGuestList();" #if($grants.mayWrite()) class="button" #else class="buttondisabled" disabled #end> &nbsp;
-    <input type="button" name="cancel" class="button" value="Zur&uuml;ck" title="Zur&uuml;ck zur Personenliste" onclick="window.location.href='AddPersonToEventList';"> &nbsp;
-    #else
-    <input type="button" name="cancel" class="button" value="Zur&uuml;ck" title="Zur&uuml;ck zur Personenliste" onclick="window.location.href='AddPersonToEventList';"> &nbsp;
-    #end
-#elseif($action == "host")
-    <input type="submit" name="save" value="Speichern" #if($grants.mayWrite()) class="button" #else class="buttondisabled" disabled #end> &nbsp;
-    <input type="submit" name="remove" value="L&ouml;schen" title="markierte Eintr&auml;ge entfernen" #if($grants.mayWrite()) class="button" #else class="buttondisabled" disabled #end> &nbsp;
-    <input type="button" name="create" value="Alle erzeugen" onclick="window.location.href='${paths.staticWeb}do/CreateAllPersonDoctypes?id=$!person.id';" #if($grants.mayWrite()) class="button" #else class="buttondisabled" disabled #end> &nbsp;
-    <input type="button" name="cancel" class="button" value="Zur&uuml;ck" onclick="window.location.href='${paths.staticWeb}do/SetHostToEventList';">
-#elseif($action == "event")
-    <input type="submit" name="save" value="Speichern" #if($grants.mayWrite()) class="button" #else class="buttondisabled" disabled #end> &nbsp;
-    <input type="submit" name="remove" value="L&ouml;schen" title="markierte Eintr&auml;ge entfernen" #if($grants.mayWrite()) class="button" #else class="buttondisabled" disabled #end> &nbsp;
-    <input type="button" name="create" value="Alle erzeugen" onclick="window.location.href='${paths.staticWeb}do/CreateAllPersonDoctypes?id=$!person.id';" #if($grants.mayWrite()) class="button" #else class="buttondisabled" disabled #end> &nbsp;
-    <input type="button" name="cancel" class="button" value="Zur&uuml;ck" onclick="window.location.href='${paths.staticWeb}do/ShowGuestDetail';">
-#else
-    <input type="submit" name="save" value="Speichern" #if($grants.mayWrite()) class="button" #else class="buttondisabled" disabled #end> &nbsp;
-    <input type="submit" name="remove" value="L&ouml;schen" title="markierte Eintr&auml;ge entfernen" #if($grants.mayWrite()) class="button" #else class="buttondisabled" disabled #end> &nbsp;
-    <input type="button" name="create" value="Alle erzeugen" onclick="window.location.href='${paths.staticWeb}do/CreateAllPersonDoctypes?id=$!person.id';" #if($grants.mayWrite()) class="button" #else class="buttondisabled" disabled #end> &nbsp;
-    <input type="button" name="cancel" class="button" value="Zur&uuml;ck" onclick="window.location.href='${paths.staticWeb}do/SearchPerson?action=person';"> &nbsp;
-#end
-
-</div></div></div>
-</div>
 
 </form>
 
