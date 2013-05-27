@@ -12,7 +12,7 @@
     #set($title = "Gastgeber ausw&auml;hlen")
 #elseif($action == "replace")
 	#set($activeMenu = "Personen")
-    #set($title = "Personen Suchen &amp; Ersetzen")
+    #set($title = "Suchen &amp; Ersetzen")
 #elseif($action == "duplicateSearch")
 	#set($activeMenu = "Personen")
     #set($title = "Dublettensuche")

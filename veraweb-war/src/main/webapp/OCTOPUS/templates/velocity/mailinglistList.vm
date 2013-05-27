@@ -1,4 +1,4 @@
-#set($activeMenu = "Verwaltung")
+#set($activeMenu = "Veranstaltungen")
 #set($title = "Verteilerliste")
 #parse("inc/header.vm")
 
