@@ -614,6 +614,7 @@
     				#end
     				
     				#set($itemName = "Personen")
+					#set($listNaviNewColspan = 99)
     				#parse("inc/list-navi-new.vm")
     				#parse("inc/list-direct-new.vm")
                 </table>
