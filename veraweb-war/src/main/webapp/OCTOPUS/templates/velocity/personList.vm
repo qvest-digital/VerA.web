@@ -358,7 +358,7 @@
                 <table class="list">
                 	#if($action == "guest")
                     	<tr>
-                    		<th class="textCenter smallCell" title="$!config.main einladen">#if($listparam.count > 0)<input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" #if($listselection.size() == $listparam.count) checked#end title="Alle (de)markieren"/>#end H</th>
+                    		<th class="textCenter smallCell" title="$!config.main einladen"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" #if($listselection.size() == $listparam.count) checked#end title="Alle (de)markieren"/> H</th>
                     		<th class="textCenter smallCell" title="$!config.partner einladen">P</th>
                     		<th class="textCenter smallCell" title="Auf Reserve">R</th>
                     		<th class="textCenter smallCell">ID</th>
@@ -631,10 +631,6 @@
                     });
                 });
     		</script>
-    
-            #if ($listparam.count == 0)
-            	<br>Keine Daten gefunden.
-            #end
     
             #if ($action == "guest")
                 <table>
