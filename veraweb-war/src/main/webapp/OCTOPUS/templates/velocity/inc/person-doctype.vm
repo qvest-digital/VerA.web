@@ -99,7 +99,6 @@
 	#end
 
     #set($itemName = "Dokumenttypen")
-    #set($listNaviNewColspan = 5)
     #parse("inc/list-navi-new.vm")
 </table>
 
