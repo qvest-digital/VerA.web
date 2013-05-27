@@ -20,7 +20,7 @@ function openNewEmail() {
 		<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Veranstaltungen > Verteiler</span>
 	</div>
 
-	<h1>Verteilerdetails: Hier bitte den Verteilernamen</h1>
+	<h1>Verteilerdetails: $!mailinglist.name</h1>
 
 	<form id="formlist" name="formlist" action="ShowMailinglistDetail" method="POST">
 		<input type="hidden" name="start" value="">
@@ -33,7 +33,7 @@ function openNewEmail() {
 		#foreach($bean in $list)
 		<input type="hidden" name="list" value="$bean.id">
 		#end
-		<table class="list">
+		<table>
 			<tr>
 				<th class="smallCell textCenter">&nbsp;</th>
 				<th>Name</th>
@@ -41,12 +41,7 @@ function openNewEmail() {
 				<th>Adresse</th>
 			</tr>
 			#foreach($bean in $list)
-			#if ($velocityCount % 2 == 0)
-				#set($class = "list1")
-			#else
-				#set($class = "list2")
-			#end
-			<tr class="$class">
+			<tr>
 				<td class="textCenter"><input type="checkbox" name="${bean.id}-select" value="true" #if($listselection.indexOf($bean.id) != -1) checked#end></td>
 				<td><input type="hidden" name="${bean.id}-id" value="$bean.id">$!bean.lastname</td>
 				<td>$!bean.firstname</td>
@@ -55,26 +50,31 @@ function openNewEmail() {
 			#end
 		</table>
 		
-		#if($grants.mayReadStandardFields())
-			<br>
-			<a href="javascript:openNewEmail();">E-Mail-Client aufrufen</a>
-		#end
-		
-		#if ($listparam.count == 0)
-			<br><br>Keine Daten gefunden.
-		#end
 	
+		#if ($listparam.count == 0)
+			<div class="contentBoxColored grayBorder marginBottom20"> 
+				Keine Daten gefunden.
+            </div>
+		#end
+
 	
 		#parse("inc/list-navi.vm")
 		#parse("inc/list-direct.vm")
 
-		<div class="textRight">	
+		#if($grants.mayReadStandardFields())
+			<div class="float:left">
+				<a href="javascript:openNewEmail();">E-Mail-Client aufrufen</a>
+			</div>
+		#end
+
+		<div class="floatRight">	
 			<input type="submit" name="remove" value="L&ouml;schen" onclick="submit();" title="markierte Adressen aus dem Verteiler l&ouml;schen" #if($grants.mayWrite()) class="mainButton" #else class="buttondisabled" disabled #end>
 			<input type="button" name="send"   value="Versenden"    onclick="window.location.href='MailinglistWrite';" title="an alle Adressen versenden" #if($grants.mayReadStandardFields()) class="mainButton" #else class="buttondisabled" disabled #end>
 			<input type="button" name="cancel" value="Zur&uuml;ck zur Verteiler&uuml;bersicht"  onclick="window.location.href='ShowMailinglistList';" title="Zur&uuml;ck zur Verteiler&uuml;bersicht" class="mainButton">
 		</div>
 		
 	</form>
+    <div class="clear"></div>
 </div>
 <script type="text/javascript">
 #if($maildispatchParams && $maildispatchParams.count)
