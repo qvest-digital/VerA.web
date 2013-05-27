@@ -54,7 +54,7 @@
 			
             <span id="actionPanel" class="inlineLabel">
             	#if($action != "guest" || $action != "addperson")
-        			<strong>Markierte Veranstaltungen</strong>
+        			<strong>Markierte Veranstaltung(en)</strong>
             		<input type="submit" name="remove" value="L&ouml;schen" title="Markierte Veranstaltungen l&ouml;schen" #* onclick="return confirm('Markierte Veranstaltungen wirklich l&ouml;schen?');" *# #if(!$grants.mayWrite()) disabled #end>
             	#end        
         	</span>

@@ -45,40 +45,37 @@ function deleteMailinglist() {
 	
 	#if($grants.mayWrite())
 	<span id="actionPanel">
-    	Ausgewählte Einträge
-		<input type="button" name="remove" value="L&ouml;schen" onclick="deleteMailinglist();" title="markierte Verteiler l&ouml;schen">
+        <strong>Markierte(n) Verteiler</strong>
+		<input type="button" name="remove" value="L&ouml;schen" onclick="deleteMailinglist();" title="Markierte Verteiler l&ouml;schen">
 	</span>	
 	#end
 	
 	<table class="marginTop10">
-		<tr class="list1" style="height: 20px;">
+		<tr>
 			<th class="smallCell textCenter">&nbsp;</th>
 			<th class="smallCell textCenter">ID</th>
 			<th>Bezeichnung</th>
-			<th>Benutzer</th>
+			<th>Angelegt von</th>
 			<th class="smallCell nowrap">Angelegt am</th>
-			<th>Erzeugt aus VA</th>
+			<th>Erzeugt aus Veranstaltung</th>
 		</tr>
 		#foreach($bean in $list)
-		#if ($velocityCount % 2 == 0)
-			#set($class = "list1")
-		#else
-			#set($class = "list2")
-		#end
-		<tr class="$class">
+		<tr>
 			<td class="textCenter"><input type="checkbox" name="${bean.id}-select" value="true" class="checkbox" #if($listselection.indexOf($bean.id) != -1) checked#end></td>
-			<td style="cursor: pointer;" onclick="window.location.href='ShowMailinglistDetail?id=$!{bean.id}';"><input type="hidden" name="${bean.id}-id" value="$bean.id">$!bean.id</td>
-			<td style="cursor: pointer;" onclick="window.location.href='ShowMailinglistDetail?id=$!{bean.id}';">$!bean.name</td>
-			<td style="cursor: pointer;" onclick="window.location.href='ShowMailinglistDetail?id=$!{bean.id}';">$!bean.username</td>
-			<td class="textCenter" style="cursor: pointer;" onclick="window.location.href='ShowMailinglistDetail?id=$!{bean.id}';">$!message.date("DATE_TIME", $bean.created) Uhr</td>
-			<td style="cursor: pointer;" onclick="window.location.href='ShowMailinglistDetail?id=$!{bean.id}';">$!bean.eventname</td>
+			<td onclick="window.location.href='ShowMailinglistDetail?id=$!{bean.id}';"><input type="hidden" name="${bean.id}-id" value="$bean.id">$!bean.id</td>
+			<td onclick="window.location.href='ShowMailinglistDetail?id=$!{bean.id}';">$!bean.name</td>
+			<td onclick="window.location.href='ShowMailinglistDetail?id=$!{bean.id}';">$!bean.username</td>
+			<td class="textCenter" onclick="window.location.href='ShowMailinglistDetail?id=$!{bean.id}';">$!message.date("DATE_TIME", $bean.created) Uhr</td>
+			<td onclick="window.location.href='ShowMailinglistDetail?id=$!{bean.id}';">$!bean.eventname</td>
 		</tr>
 	
 		#end
 	</table>
 	
 	#if ($listparam.count == 0)
-		<br>Keine Daten gefunden.
+		<div class="contentBoxColored grayBorder marginBottom20"> 
+			Keine Daten gefunden.
+		</div>
 	#end
 	
 	

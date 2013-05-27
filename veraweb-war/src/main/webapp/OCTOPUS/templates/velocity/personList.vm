@@ -50,7 +50,7 @@
 	#if($action == "taskReferencePerson")
 		<div class="hinweis contentBoxColored grayBorder">
 			<strong>Hinweis</strong>
-			<p>Wählen Sie eine der aufgelisteten Personen und fügen Sie sie durch Anklicken der Aufgabe zu!</p>
+			<p>klicken Sie eine der aufgelisteten Personen an, um sie der Aufgabe hinzuzufügen!</p>
 		</div>
 	#end
 	
@@ -101,7 +101,7 @@
                 	#end
                 	</ul><br>
                 	#if($save)
-    					<input type="submit" class="button" name="remove" value="Ja" title="markierte Personen l&ouml;schen"> &nbsp;
+    					<input type="submit" class="button" name="remove" value="Ja" title="Markierte Person(en) l&ouml;schen"> &nbsp;
                 	#end
                 	<input type="button" class="cancel" name="cancel" value="Nein" onclick="window.location.href='SearchPerson';"> &nbsp;
                 </div>
@@ -118,8 +118,8 @@
             #if($action == "guest")
 				
 				<span id="actionPanel" class="inlineLabel">
-					<label>Markierte Personen
-						<input type="button" value="&Uuml;bernehmen" title="Markierte Personen zur Veranstaltung hinzuf&uuml;gen" onclick="submitFormWithGivenAction('AddPersonToEventGuestList');" />
+					<label>Markierte Person(en)
+						<input type="button" value="Zur Veranstaltung hinzuf&uuml;gen" title="Markierte Person(en) zur Veranstaltung hinzuf&uuml;gen" onclick="submitFormWithGivenAction('AddPersonToEventGuestList');" />
                     </label>
             	</span>
         
@@ -189,16 +189,11 @@
                 </script>
     
     		#elseif($action == "host")
-    
-                <table class="list">
-                	<tr style="height: 20px;">
-                		<td class="list2warn" style="text-align: center; width: 60px;"><strong>Hinweis</strong></td>
-                		<td class="list1warn">
-                			Bitte klicken Sie einer Person an um diese als Gastgeber zu &uuml;bernehmen.
-                		</td>
-                	</tr>
-                </table>
-    			<span class="inlineLabel"><label>&nbsp;</label></span>	
+				
+				<div class="hinweis contentBoxColored gray-border marginBottom15">
+					<strong>Hinweis</strong>
+					<p>Bitte klicken Sie eine der aufgelisteten Personen an, um diese als Gastgeber zu &uuml;bernehmen.</p>
+				</div>
     				
     		#elseif($action == "statistikGuest")
     			<span class="inlineLabel"><label>&nbsp;</label></span>	
@@ -209,8 +204,8 @@
     		#elseif($action == "replace")
 				
 				<span id="actionPanel" class="inlineLabel">
-					<label>Markierte Personen
-						<input type="button" value="Ersetzen" onclick="submitFormWithGivenAction('SaveReplacePersonList');" />
+					<label>Markierte Person(en)
+						<input type="button" value="Ersetzen" title="Ersetzen" onclick="submitFormWithGivenAction('SaveReplacePersonList');" />
                     </label>
             	</span>
     
@@ -287,7 +282,7 @@
                 </script>
 				
 				<span id="actionPanel" class="inlineLabel">
-					<label>Markierte Personen
+					<label>Markierte Person(en)
     					<select id="actionSelection">
         					<option>Löschen</option>
         					#if($exportFormat && $grants.mayExport())
@@ -693,4 +688,5 @@
 	</span>
 	
 </div>
+<div class="clear"></div>
 #parse("inc/footer.vm")
