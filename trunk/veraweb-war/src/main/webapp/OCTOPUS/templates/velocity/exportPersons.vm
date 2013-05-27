@@ -22,12 +22,13 @@
 
             <form action="ExportPersonsHandler/veraweb.export" name="formExport" method="post">
             
-			<div class="table">
+			<div class="table width50">
 				<div class="tableRow">
-					<div class="tableCell inlineLabel">
+					<div class="tableCell inlineLabel width10">
 						<input type="radio" name="exportFilter" id="exportFilterEvent" value="event" onclick="return filterChanged()">
 						<label for="exportFilterEvent">Veranstaltung:</label>
-
+					</div>
+					<div class="tableCell">
     					<select id="exportEvent" name="exportEvent" class="autoWidth">
                                		# cklein 2009-07-16: fixes issue 1815 - although option "Alle" yielded no return value
                                		# the octopus version in use made it a valid integer object of value 0, which broke
@@ -45,7 +46,8 @@
 					<div class="tableCell inlineLabel">
 						<input type="radio" name="exportFilter" id="exportFilterCategory" value="category" onclick="return filterChanged()">
 						<label for="exportFilterCategory">Kategorie:</label>
-
+					</div>
+					<div class="tableCell">
 						<select name="exportCategory" id="exportCategory" class="autoWidth">
                 		# cklein 2009-07-16: fixes issue 1815 - although option "Alle" yielded no return value
                 		# the octopus version in use made it a valid integer object of value 0, which broke
@@ -69,11 +71,10 @@
                 #end
             		</select>
 					</div>
+					<div class="tableCell"></div>
 				</div>
 			</div>
-			<div id="buttonPanel-bottom" class="textRight">
-				<input type="submit" name="submit" value="Export starten" class="mainButton">
- 			</div>
+
 			
 			<div class="hinweis contentBoxColored grayBorder">
             #set($style = '')
@@ -136,6 +137,10 @@
             	</div>
             
             ## see DataExchangeWorker#export
+			
+			<div id="buttonPanel-bottom" class="textRight">
+				<input type="submit" name="submit" value="Export starten" class="mainButton">
+ 			</div>
 
             </form>
 	</div>
