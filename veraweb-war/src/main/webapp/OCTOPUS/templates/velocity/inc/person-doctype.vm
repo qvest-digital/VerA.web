@@ -14,16 +14,18 @@
 #end
 
 
+    #if($grants.mayWrite())
         <span id="actionPanel" class="inlineLabel">
             <label>Markierte(n) Dokumenttyp(en)
-            <input class="mainButton" type="submit" title="markierte Einträge entfernen" value="Löschen" name="remove">
-                </label>
+                <input class="mainButton" type="submit" title="markierte Einträge entfernen" value="Löschen" name="remove">
+            </label>
 		</span>
 
 		<span id="buttonPanel-top" class="textRight floatRight">
          <input id="buttonMain" class="mainButton" type="button" onclick="window.location.href='${paths.staticWeb}do/CreateAllPersonDoctypes?id=$!person.id';" value="Alle erzeugen" name="create">
             <input class="mainButton" type="submit" value="Änderungen speichern" name="save">
 		</span>
+    #end
 
 
     <table>
