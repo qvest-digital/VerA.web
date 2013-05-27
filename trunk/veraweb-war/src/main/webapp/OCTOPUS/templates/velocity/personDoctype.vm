@@ -50,7 +50,7 @@
 
                 <span id="buttonPanel-bottom" class="textRight floatRight">
 		#if($grants.mayWrite())
-			<input type="button" class="mainButton" value="Person speichern" title="Person speichern" onclick="savePersonCategories();"/>
+             <input id="buttonSavePerson" class="mainButton" type="button" value="Person speichern">
 		#end
 
     	#if($action == "guest")
@@ -123,6 +123,11 @@
         });
         $('li#kategorien').click(function () {
             window.location.href = '${paths.staticWeb}do/ShowPersonCategorieList?id=$!person.id';
+        });
+
+        var save = $('input[name=save]');
+        $('#buttonSavePerson').click(function () {
+            save.trigger('click');
         });
     });
 
