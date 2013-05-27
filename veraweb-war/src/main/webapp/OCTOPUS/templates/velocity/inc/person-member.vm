@@ -98,9 +98,9 @@
 		
         <div class="tableRow">
 			
-            <div class="tableCell width50 #if(!$grants.mayWrite() || $ext != "_a_e1") disabled#end">
+            <div class="tableCell width50 #if(!$grants.mayWrite() || ($createNewPerson && $ext != "_a_e1")) disabled#end">
                 <label for="person-firstname$ext">Vorname*</label>
-                <input type="text" id="person-firstname$ext" name="person-firstname$ext" value="$!message.text($facade.Firstname)" onchange="setModified();" #if(!$grants.mayWrite() || $ext != "_a_e1") readonly="true"#end/>
+                <input type="text" id="person-firstname$ext" name="person-firstname$ext" value="$!message.text($facade.Firstname)" onchange="setModified();" #if(!$grants.mayWrite() || ($createNewPerson && $ext != "_a_e1")) readonly="true"#end/>
             </div>
 			
 			<div class="tableCell width50 #if(!$grants.mayWrite() || $createNewPerson) disabled#end">
@@ -114,9 +114,9 @@
 		
         <div class="tableRow">
 			
-            <div class="tableCell width50 #if(!$grants.mayWrite() || $ext != "_a_e1") disabled#end">
+            <div class="tableCell width50 #if(!$grants.mayWrite() || ($createNewPerson && $ext != "_a_e1")) disabled#end">
                 <label for="person-lastname$ext">Nachname*</label>
-                <input type="text" id="person-lastname$ext" name="person-lastname$ext" value="$!message.text($facade.Lastname)" onchange="setModified();" #if(!$grants.mayWrite() || $ext != "_a_e1") readonly="true"#end/>
+                <input type="text" id="person-lastname$ext" name="person-lastname$ext" value="$!message.text($facade.Lastname)" onchange="setModified();" #if(!$grants.mayWrite() || ($createNewPerson && $ext != "_a_e1")) readonly="true"#end/>
             </div>
 			
 			<div class="tableCell width50 #if(!$grants.mayWrite() || $createNewPerson) disabled#end">
