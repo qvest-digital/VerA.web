@@ -79,24 +79,24 @@
 <span id="buttonPanel-bottom" class="textRight">
 #if($action == "guest")
 <input type="submit" name="save" value="Dokumenttyp speichern" #if($grants.mayWrite()) class="button mainButton" #else class="buttondisabled mainButton" disabled #end> &nbsp;
-<input type="button" name="cancel" value="Zur&uuml;ck" class="button mainButton" onclick="window.location.href='${paths.staticWeb}do/ShowPersonDoctypeList?id=$!person.id';"> &nbsp;
+<input type="button" name="cancel" value="Abbrechen" class="button mainButton" onclick="window.location.href='${paths.staticWeb}do/ShowPersonDoctypeList?id=$!person.id';"> &nbsp;
 #if($person)
 <input type="button" name="add" value="&Uuml;bernehmen" title="Gast direkt in G&auml;steliste &uuml;bernehmen" onclick="addToGuestList();" #if($grants.mayWrite()) class="button mainButton" #else class="buttondisabled mainButton" disabled #end> &nbsp;
-<input type="button" name="cancel" class="button mainButton" value="Zur&uuml;ck" title="Zur&uuml;ck zur Personenliste" onclick="window.location.href='AddPersonToEventList';"> &nbsp;
+<input type="button" name="cancel" class="button mainButton" value="Abbrechen" title="Abbrechen" onclick="window.location.href='AddPersonToEventList';"> &nbsp;
 #else
-<input type="button" name="cancel" class="button mainButton" value="Zur&uuml;ck" title="Zur&uuml;ck zur Personenliste" onclick="window.location.href='AddPersonToEventList';"> &nbsp;
+<input type="button" name="cancel" class="button mainButton" value="Abbrechen" title="Abbrechen" onclick="window.location.href='AddPersonToEventList';"> &nbsp;
 #end
 #elseif($action == "host")
 <input type="submit" name="save" value="Dokumenttyp speichern" #if($grants.mayWrite()) class="mainButton" #else class="buttondisabled" disabled #end> &nbsp;
-<input type="button" name="cancel" value="Zur&uuml;ck" class="button mainButton" onclick="window.location.href='${paths.staticWeb}do/ShowPersonDoctypeList?id=$!person.id';"> &nbsp;
+<input type="button" name="cancel" value="Abbrechen" class="button mainButton" onclick="window.location.href='${paths.staticWeb}do/ShowPersonDoctypeList?id=$!person.id';"> &nbsp;
 <input type="button" name="cancel" class="mainButton" value="Abbrechen" onclick="window.location.href='${paths.staticWeb}do/SetHostToEventList';">
 #elseif($action == "event")
 <input type="submit" name="save" value="Dokumenttyp speichern" #if($grants.mayWrite()) class="button" #else class="buttondisabled mainButton" disabled #end> &nbsp;
-<input type="button" name="cancel" value="Zur&uuml;ck" class="button mainButton" onclick="window.location.href='${paths.staticWeb}do/ShowPersonDoctypeList?id=$!person.id';"> &nbsp;
+<input type="button" name="cancel" value="Abbrechen" class="button mainButton" onclick="window.location.href='${paths.staticWeb}do/ShowPersonDoctypeList?id=$!person.id';"> &nbsp;
 <input type="button" name="cancel" class="button mainButton" value="Abbrechen" onclick="window.location.href='${paths.staticWeb}do/ShowGuestDetail';">
 #else
 <input type="submit" name="save" value="Dokumenttyp speichern" #if($grants.mayWrite()) class="button mainButton" #else class="buttondisabled mainButton" disabled #end> &nbsp;
-<input type="button" name="cancel" value="Zur&uuml;ck" class="button mainButton" onclick="window.location.href='${paths.staticWeb}do/ShowPersonDoctypeList?id=$!person.id';"> &nbsp;
+<input type="button" name="cancel" value="Abbrechen" class="button mainButton" onclick="window.location.href='${paths.staticWeb}do/ShowPersonDoctypeList?id=$!person.id';"> &nbsp;
 #end
 				
 </span>				
