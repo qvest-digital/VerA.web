@@ -526,10 +526,6 @@ hr {border-top:1px solid #8b0f0f; }
     font-weight: bold;
 }
 
-#main_content.tabs table {
-	font-weight: normal;
-}
-
 .tabs li.active {
     background-color: #F9F9F9;
 }
