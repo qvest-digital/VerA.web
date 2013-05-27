@@ -22,14 +22,14 @@
 
             <form action="ExportPersonsHandler/veraweb.export" name="formExport" method="post">
             
-			<div class="table width50">
+			<div class="table width40">
 				<div class="tableRow">
 					<div class="tableCell inlineLabel width10">
 						<input type="radio" name="exportFilter" id="exportFilterEvent" value="event" onclick="return filterChanged()">
 						<label for="exportFilterEvent">Veranstaltung:</label>
 					</div>
 					<div class="tableCell">
-    					<select id="exportEvent" name="exportEvent" class="autoWidth">
+    					<select id="exportEvent" name="exportEvent">
                                		# cklein 2009-07-16: fixes issue 1815 - although option "Alle" yielded no return value
                                		# the octopus version in use made it a valid integer object of value 0, which broke
                                		# existing code relying on the fact that the request parameter would be null. 
@@ -48,7 +48,7 @@
 						<label for="exportFilterCategory">Kategorie:</label>
 					</div>
 					<div class="tableCell">
-						<select name="exportCategory" id="exportCategory" class="autoWidth">
+						<select name="exportCategory" id="exportCategory">
                 		# cklein 2009-07-16: fixes issue 1815 - although option "Alle" yielded no return value
                 		# the octopus version in use made it a valid integer object of value 0, which broke
                 		# existing code relying on the fact that the request parameter would be null. 
@@ -61,6 +61,8 @@
                 		</select>
 					</div>
 				</div>
+			</div>
+			<div class="table marginTop10">
 				<div class="tableRow">
 					<div class=" tableCell">
 						<label for="format">Dateityp:</label>
@@ -71,12 +73,11 @@
                 #end
             		</select>
 					</div>
-					<div class="tableCell"></div>
 				</div>
 			</div>
 
 			
-			<div class="hinweis contentBoxColored grayBorder">
+
             #set($style = '')
             #foreach($formatKey in $formats.keySet())
              #set($format = $formats.get($formatKey))
@@ -134,11 +135,10 @@
             		return true;
             	}
             </script>
-            	</div>
             
             ## see DataExchangeWorker#export
 			
-			<div id="buttonPanel-bottom" class="textRight">
+			<div id="buttonPanel-bottom" class="textRight marginTop10">
 				<input type="submit" name="submit" value="Export starten" class="mainButton">
  			</div>
 
