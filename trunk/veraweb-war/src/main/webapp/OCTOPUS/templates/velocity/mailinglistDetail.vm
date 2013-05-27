@@ -61,8 +61,8 @@ function openNewEmail() {
 		
 	
 		#if ($listparam.count == 0)
-			<div class="contentBoxColored grayBorder marginBottom20"> 
-				Keine Daten gefunden.
+			<div class="contentBoxColored grayBorder marginBottom5"> 
+				Es liegen keine Adressdaten für diesen Verteiler vor.
             </div>
 		#end
 
@@ -71,14 +71,14 @@ function openNewEmail() {
 		#parse("inc/list-direct.vm")
 
 		#if($grants.mayReadStandardFields())
-			<div class="float:left">
+			<span class="float:left">
 				<a href="javascript:openNewEmail();">E-Mail-Client aufrufen</a>
-			</div>
+			</span>
 		#end
 
-		<div class="floatRight">	
+		<span class="floatRight">	
 			<input type="button" name="cancel" value="Zur&uuml;ck zur Verteiler&uuml;bersicht"  onclick="window.location.href='ShowMailinglistList';" title="Zur&uuml;ck zur Verteiler&uuml;bersicht" class="mainButton">
-		</div>
+		</span>
 		
 	</form>
     <div class="clear"></div>
