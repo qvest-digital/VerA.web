@@ -74,7 +74,7 @@
 
 
 
-
+<input type="hidden" id="modified" value="false">
 <input type="hidden" id="inviteGuestReserve" name="inviteGuestReserve" value="false">
 <input type="hidden" id="inviteGuestPartner" name="inviteGuestPartner" value="false">
 <script type="text/javascript">
@@ -98,6 +98,16 @@
 		url += '&$!{person.id}-reserve=' + document.getElementById('inviteGuestReserve').value;
 		url += '&$!{person.id}-partner=' + document.getElementById('inviteGuestPartner').value;
 		window.location.href = url;
+	}
+	
+	function copyPerson() {
+		window.location.href = '${paths.staticWeb}do/CopyPerson?id=$!person.id';
+	}
+	
+	function removePerson() {
+		if (confirm('Aktuelle Person wirklich entfernen?')) {
+			window.location.href = '${paths.staticWeb}do/SearchPerson?doRemove=true&remove&remove-person=true&selectNone=true&list=$!{person.id}&$!{person.id}-select=true';
+		}
 	}
 	
 	#if(!$grants.mayWrite())
