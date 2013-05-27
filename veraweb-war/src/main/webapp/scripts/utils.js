@@ -153,9 +153,11 @@ function disableForm(frm) {
 function disableFormInput(fld) {
 	var attr = document.createAttribute('readonly');
 	attr.nodeValue = 'readonly';
-	fld.setAttributeNode(attr);
-	fld.style.color = "#808080";
-	fld.style.background = "#f0f0f0";
+    if (fld !== null) {
+	    fld.setAttributeNode(attr);
+	    fld.style.color = "#808080";
+	    fld.style.background = "#f0f0f0";
+    }
 }
 
 function enableFormInput(fld) {
@@ -197,9 +199,11 @@ function disableFormRadiobox(fld) {
 function disableFormCheckbox(fld) {
 	var attr = document.createAttribute('disabled');
 	attr.nodeValue = 'true';
-	fld.setAttributeNode(attr);
-	fld.style.color = "#808080";
-	fld.style.background = "#f0f0f0";
+    if (fld !== null) {
+        fld.setAttributeNode(attr);
+        fld.style.color = "#808080";
+        fld.style.background = "#f0f0f0";
+    }
 }
 
 function enableFormCheckbox(fld) {
