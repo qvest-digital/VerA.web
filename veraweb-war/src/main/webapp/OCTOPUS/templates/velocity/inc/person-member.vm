@@ -99,7 +99,7 @@
         <div class="tableRow">
 			
             <div class="tableCell width50 #if(!$grants.mayWrite() || ($createNewPerson && $ext != "_a_e1")) disabled#end">
-                <label for="person-firstname$ext">Vorname*</label>
+                <label for="person-firstname$ext">Vorname#if($ext == "_a_e1")*#end</label>
                 <input type="text" id="person-firstname$ext" name="person-firstname$ext" value="$!message.text($facade.Firstname)" onchange="setModified();" #if(!$grants.mayWrite() || ($createNewPerson && $ext != "_a_e1")) readonly="true"#end/>
             </div>
 			
@@ -115,7 +115,7 @@
         <div class="tableRow">
 			
             <div class="tableCell width50 #if(!$grants.mayWrite() || ($createNewPerson && $ext != "_a_e1")) disabled#end">
-                <label for="person-lastname$ext">Nachname*</label>
+                <label for="person-lastname$ext">Nachname#if($ext == "_a_e1")*#end</label>
                 <input type="text" id="person-lastname$ext" name="person-lastname$ext" value="$!message.text($facade.Lastname)" onchange="setModified();" #if(!$grants.mayWrite() || ($createNewPerson && $ext != "_a_e1")) readonly="true"#end/>
             </div>
 			
