@@ -32,7 +32,7 @@
 <div id="content_container">
 	#if($searchTask && $searchTask == "personSearchTask")
     	<div id="breadcrumb" class="textRight">
-    		<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Personen > <a href="${paths.staticWeb}do/ShowPersonSearch?action=person" title="Zur Personensuche">Personensuche</a> > Suchergebnisse</span>
+    		<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Personen > <a href="${paths.staticWeb}do/ShowPersonSearch?action=person" title="Zur Personensuche">Personensuche</a> > Suchergebnis</span>
     	</div>
     	<h1>Suchergebnis: Personen</h1>
 	#elseif($action == "taskReferencePerson")

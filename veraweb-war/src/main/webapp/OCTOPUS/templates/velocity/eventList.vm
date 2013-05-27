@@ -19,7 +19,7 @@
 <div id="content_container">
 	#if($action == "guest" || $searchTask)
     	<div id="breadcrumb" class="textRight">
-    		<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Veranstaltungen > <a href="${paths.staticWeb}do/ShowEventSearch?action=event" title="Zur Veranstaltungssuche">Veranstaltungssuche</a> > Suchergebnisse</span>
+    		<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Veranstaltungen > <a href="${paths.staticWeb}do/ShowEventSearch?action=event" title="Zur Veranstaltungssuche">Veranstaltungssuche</a> > Suchergebnis</span>
     	</div>
     		<h1>Suchergebnis: Veranstaltungen</h1>
 	#else

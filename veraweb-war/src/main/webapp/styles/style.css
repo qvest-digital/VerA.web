@@ -291,6 +291,9 @@ ul.alphabet li {
     white-space: nowrap;
 }
 
+.mandatoryText {
+	font-size:0.85em
+}
 /************* End misc *************/
 
 /************* End general *************/

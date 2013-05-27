@@ -156,6 +156,8 @@
 
 
 	<div vera-content="personendaten" class="contentBoxColored tabsContent">
+		
+		<div class="textRight mandatoryText">* = Pflichtfelder</div>
 
 		#set($personPartner = "hauptperson")
 		#set($extEncoding = "$extEncoding1")

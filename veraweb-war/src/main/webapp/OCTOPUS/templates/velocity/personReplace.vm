@@ -16,6 +16,7 @@
 	<input type="hidden" name="selectNone" value="true">
 
 	<div id="main_content" class="contentBoxColored grayBorder marginBottom20">
+			<div class="textRight mandatoryText">* = Pflichtfelder</div>
 			<div class="table width20 marginBottom10">
 				<div class="tableRow">
 					<div class="tableCell">
