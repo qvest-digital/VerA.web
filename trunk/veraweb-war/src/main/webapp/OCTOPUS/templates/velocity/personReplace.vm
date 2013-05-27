@@ -5,10 +5,10 @@
 
 <div id="content_container">
 	<div id="breadcrumb" class="textRight">
-		<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Personen > Suchen & ersetzen</span>
+		<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Personen > Suchen & Ersetzen</span>
 	</div>
 
-	<h1>Suchen & ersetzen in Personendaten</h1>
+	<h1>Suchen & Ersetzen in Personendaten</h1>
 
 	<form id="formlist" name="formlist" action="CountReplaceAllPerson" method="POST">
 	<input type="hidden" name="start" value="0">
@@ -82,7 +82,7 @@
 
 			<div id="buttonPanel-bottom">
 				<input type="submit" class="mainButton" title="Suchen" name="count" value="Suchen" onclick="document.getElementById('formlist').action='CountReplaceAllPerson'; document.getElementById('formlist').submit();">
-				<input type="button" class="mainButton" title="Einzelne Einzräge zum ersetzen selektieren" name="replace" value="Einzeln ersetzen" onclick="document.getElementById('formlist').action='ShowReplacePersonList'; document.getElementById('formlist').submit();">
+				<input type="button" class="mainButton" title="Einzelne Einzräge zum Ersetzen selektieren" name="replace" value="Einzeln ersetzen" onclick="document.getElementById('formlist').action='ShowReplacePersonList'; document.getElementById('formlist').submit();">
 				<input type="button" class="mainButton" title="Alle sofort ersetzen" name="replaceall" value="Alle ersetzen" onclick="document.getElementById('formlist').action='SaveReplaceAllPerson';  document.getElementById('formlist').submit();">
 				<input type="button" class="mainButton" title="Felder leeren" name="cancel" value="Felder leeren" onclick="clearFields();">		
 			</div>
