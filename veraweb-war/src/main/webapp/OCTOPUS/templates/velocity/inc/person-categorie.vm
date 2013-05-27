@@ -27,7 +27,7 @@
 	#end
 </div>
 
-<table>
+<table class="notBold">
 	<tr>
 		#if($list && $list.size() > 0)
 			<th class="textCenter smallCell"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" #if($listselection.size() == $listparam.count) checked#end title="Alle (de)markieren" #if(!$grants.mayWrite()) disabled="true"#end/></th>
