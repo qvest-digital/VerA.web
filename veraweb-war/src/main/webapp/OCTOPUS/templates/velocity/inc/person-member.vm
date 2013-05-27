@@ -1,5 +1,5 @@
 
-#if(!$person || $octopusRequest.task == "CreatePerson")
+#if(!$person || $octopusRequest.task == "CreatePerson" || $octopusRequest.task == "PersonDupcheckCancel")
 	#set($createNewPerson = 'true')
 #end
 
