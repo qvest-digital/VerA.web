@@ -193,15 +193,9 @@
 				<div class="hinweis contentBoxColored grayBorder marginBottom15">
 					<strong>Hinweis</strong>
 					<p>Bitte klicken Sie eine der aufgelisteten Personen an, um diese als Gastgeber zu &uuml;bernehmen.</p>
-				</div>
-    		#**		
-			#elseif($action == "statistikGuest")
-    			<span class="inlineLabel"><label>&nbsp;</label></span>	
-    		#elseif($action == "statistikHost")
-    			<span class="inlineLabel"><label>&nbsp;</label></span>	
-    		#elseif($action == "taskReferencePerson")
-    			<span class="inlineLabel"><label>&nbsp;</label></span>	
-				*#
+				</div>  			
+			#elseif($action == "statistikGuest" || $action == "statistikHost" || $action == "taskReferencePerson")
+    			## empty	
     		#elseif($action == "replace")
 				
 				<span id="actionPanel" class="inlineLabel">
