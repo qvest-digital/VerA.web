@@ -306,7 +306,7 @@
 		
     #elseif($action == "event")
 		
-		<span id="buttonPanel-bottom" class="textRight floatRight">
+		<span id="buttonPanel-bottom" class="floatRight">
 			#if($grants.mayWrite())
 				<input type="submit" name="save" class="mainButton" value="Person speichern" title="Person speichern" />
 			#end
@@ -315,7 +315,7 @@
 			
     #else
 		
-		<span id="buttonPanel-bottom" class="textRight floatRight">
+		<span id="buttonPanel-bottom" class="floatRight">
 			#if($grants.mayWrite())
 				<input type="submit" name="save" class="mainButton" value="Person speichern" title="Person speichern" />
         	#end

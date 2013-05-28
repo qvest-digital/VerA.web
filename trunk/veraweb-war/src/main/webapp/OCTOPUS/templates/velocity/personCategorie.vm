@@ -53,7 +53,7 @@
     
     #parse("inc/person-header.vm")
     
-    <div id="main_content" class="tabs contentBox grayBorder marginBottom20">
+    <div id="main_content" class="tabs contentBox grayBorder marginBottom10">
         <div id="tabsMain">
         	<ul class="gray-gradient" vera-tab-group> <!-- Bitte das End-tag der <li>s immer mit in die nächste Zeile nehmen (verhindert Mozilla styling bug) -->
         		<li class="inactive" id="personendaten" onclick="window.location.href='${paths.staticWeb}do/ShowPerson?id=$!person.id&tab=person&offset=${navigation.current.offset}';">Persondendaten
