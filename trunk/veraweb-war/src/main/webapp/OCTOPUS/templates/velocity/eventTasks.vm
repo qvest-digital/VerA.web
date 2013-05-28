@@ -115,7 +115,7 @@
 
                 #if ($listparam.count != 0)
 
-                <table class="marginTop0notBold">
+                <table class="marginTop0 notBold">
                     <tbody>
                     <tr>
                         <th class="textCenter smallCell"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" #if($listselection.size() == $listparam.count) checked#end title="Alle (de)markieren"/></th>
