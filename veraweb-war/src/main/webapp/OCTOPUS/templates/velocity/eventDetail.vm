@@ -151,7 +151,6 @@
             <input type="hidden" name="event-orgunit" value="$!event.orgunit">
 		
     		<div vera-content="allgemein" class="contentBoxColored tabsContent">
-    			<div class="contentBoxColored tabsContent">
     					<div class="table width100">
     						<div class="tableRow">
     							<div class="tableCell width50">
@@ -261,7 +260,6 @@
     								<textarea onchange="setModified();" id="event-note" name="event-note" rows="4" #if($grants.mayReadRemarkFields()) class="text">$!message.textarea($event.note)#else class="textdisabled" disabled="true">#end</textarea>						
     							</div>
     						</div>
-    					</div>
     				</div>
     		</div>
 		</div>
@@ -317,5 +315,6 @@
         </script>
     
     </form>
+	<div class="clear"></div> 
 </div>
 #parse("inc/footer.vm")
