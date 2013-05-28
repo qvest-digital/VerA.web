@@ -36,7 +36,7 @@
 		<!--link rel="stylesheet" type="text/css" href="${paths.staticWeb}styles/screen.css" media="screen,projection" title="Ausw&auml;rtiges Amt Intranet-Stil"-->
 	</head>
 	<body>
-		<div id="container">
+		<div id="container" #if($event) class="event" #end>
         	<header id="header">
         		<a href="${paths.staticWeb}do/" title="Zur Startseite" class="noBorder"><img src="${paths.staticWeb}images/veraweb_logo.png" alt="VerA.web Logo"></a>
 					#if($grants && $grants.isAuthenticated())
