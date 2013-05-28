@@ -13,12 +13,16 @@
 
     <h1>Veranstaltung bearbeiten: $!message.plain($event.shortname)</h1>
 
-    #parse("inc/event-header.vm")
+    <span class="textRight floatRight marginBottom20 buttonPanel-top" id="buttonPanel-top">
+        <input type="button" class="mainButton" value="zur G&auml;steliste" name="guestlist" onclick="window.location.href='ShowGuestList?search-event=$!event.id&start=0&selectNone=true';">
+    </span>
 
+    <form id="formlist" name="formlist" action="$formurl?id=$!id" method="POST">
+
+    #parse("inc/event-header.vm")
 
     <div id="main_content" class="tabs contentBox grayBorder marginBottom20 marginTop20">
 
-        <form id="formlist" name="formlist" action="$formurl?id=$!id" method="POST">
 
             <input type="hidden" name="start" value="">
             <input type="hidden" name="limit" value="" />
@@ -30,9 +34,9 @@
 
             <div id="tabsMain">
                 <ul class="gray-gradient"> <!-- Bitte das End-tag der <li>s immer mit in die nächste Zeile nehmen (verhindert Mozilla styling bug) -->
-                    <li class="inactive"><a href="ShowEvent?id=$!id" class="noBorder">Allgemein</a>
-                    </li><li class="inactive"><a href="${paths.staticWeb}do/ShowEventDoctype?id=$!id" class="noBorder">Dokumenttypen</a>
-                    </li><li class="active"><a href="${paths.staticWeb}do/ShowEventTasks?id=$!id" class="noBorder">Aufgaben</a>
+                    <li class="inactive" onclick="window.location.href='ShowEvent?id=$!id';" class="noBorder">Allgemein</a>
+                    </li><li class="inactive" onclick="window.location.href='${paths.staticWeb}do/ShowEventDoctype?id=$!id';" class="noBorder">Dokumenttypen
+                    </li><li class="active">Aufgaben
 					</li>
                 </ul>
             </div>
@@ -95,17 +99,22 @@
 
                 <div class="table width100">
                     <div class="tableRow">
+
+                        #if ($listparam.count != 0)
                         <div class="tableCell width50 inlineLabel" style="vertical-align:bottom;">
                             <label>Ausgewählte Einträge</label>
                             <input type="submit" name="remove" id="remove" value="Löschen" class="autoWidth noFloat"></div>
+                        #end
                         <div class="tableCell width50 textRight">
-                            <input type="button" title="Neue Aufgabe anlegen" value="Neue Aufgabe anlegen" name="save" id="" class="autoWidth" onclick="window.location.href='CreateEventTask?eventId=$!id';">
+                            <input type="button" title="Neue Aufgabe anlegen" value="Neue Aufgabe anlegen" name="save" id="" class="autoWidth mainButton" onclick="window.location.href='CreateEventTask?eventId=$!id';">
                         </div>
                     </div>
                 </div>
                 #end
 
 
+
+                #if ($listparam.count != 0)
 
 
 
@@ -161,7 +170,7 @@
                     </tbody>
                 </table>
 
-                #if ($listparam.count == 0)
+                #else
                 <br>Keine Daten gefunden.
                 #end
 
@@ -175,6 +184,9 @@
 
             </div>
 
+
+
+     </div>
 			<span id="buttonPanel-bottom" class="textRight floatRight">
                 #if($grants.mayWrite())
 				    <input type="button" name="save" value="Veranstaltung speichern" class="mainButton" onclick="alert('Erfolgreich gespeichert');">
@@ -182,10 +194,8 @@
 				<input type="reset" name="cancel" value="Zur Veranstaltungsübersicht" class="mainButton" onclick="window.location.href='SearchEvent?action=event&search=reset';">
 
             </span>
-
-
-        </form>
-    </div>
+    </form>
+    <div class="clear"></div>
 </div>
 <script type="text/javascript">
 
