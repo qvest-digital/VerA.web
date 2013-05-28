@@ -21,7 +21,7 @@
 
     #parse("inc/person-header.vm")
 
-    <div id="main_content" class="tabs contentBox grayBorder marginBottom20">
+    <div id="main_content" class="tabs contentBox grayBorder marginBottom10">
 
 
         <div id="tabsMain">
