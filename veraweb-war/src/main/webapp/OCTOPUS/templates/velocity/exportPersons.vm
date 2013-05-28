@@ -85,11 +85,11 @@
               #if($format.properties.containsKey("choices"))
                #set($choices = $format.properties.get("choices"))
             			<fieldset class="format"><legend>$format.name: weitere Optionen</legend>
-                			<div class="table width100">
+                			<div class="table width50">
                #foreach($choiceKey in $choices.keySet())
                 #set($choice = $choices.get($choiceKey))
                 				<div class="tableRow">
-            						<div class="tableCell"><label for="format-${formatKey}-$choiceKey">$!choice.get("label"):</label></div>
+            						<div class="tableCell width30"><label for="format-${formatKey}-$choiceKey">$!choice.get("label"):</label></div>
             						<div class="tableCell">
                                         #set($default = $choice.get("default"))
                                         #if($choice.containsKey("select"))
