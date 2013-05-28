@@ -26,16 +26,14 @@
         
         <input type="hidden" name="mail-id" value="$!mail.id">
         
-    	<div id="main_content" class="contentBoxColored grayBorder">
+    	<div id="main_content" class="contentBoxColored grayBorder marginBottom20">
 	
 			<div class="textRight mandatoryText">* = Pflichtfelder</div>
-			
-			<!-- Neu -->
 			
 			<div class="table width100">
 				<div class="tableRow">
 					<div class="tableCell width70">
-						<h2 class="marginTop20 marginBottom15">E-Mail schreiben</h2>
+						<h2 class="marginBottom15">E-Mail schreiben</h2>
                         
             			<div>
                         	<label for="mail-subject">Betreff*:</label>
@@ -68,13 +66,12 @@
             					<option value="email">E-Mail</option>
             					<option value="url">www</option>
             				</select>
-                            <input type="button" name="add" value="In Text einfügen" title="Platzhalter in Text einfügen" class="autoWidth" onclick="addPlatzhalter(this);">
+                            <input type="button" name="add" value="In Text einfügen" title="Platzhalter in Text einfügen" class="autoWidth noFloat" onclick="addPlatzhalter(this);">
             			</div>
                         
                         <div id="buttonPanel-bottom" class="textRight">
-                           	<input type="button" name="send" value="Senden" title="Senden" class="mainButton" onclick="document.getElementById('formlist').action='MailinglistSend'; document.getElementById('formlist').submit();">
-                           	<input type="reset"  name="clear"  value="Zur&uuml;cksetzen" title="Zur&uuml;cksetzen" class="mainButton">
-                           	<input type="button" name="cancel" value="Zur&uuml;ck zum Verteiler" title="Zur&uuml;ck zum Verteiler" class="mainButton" onclick="window.location.href='ShowMailinglistDetail';">
+                           	<input type="button" name="send" value="Senden" title="Senden" class="mainButton autoWidth" onclick="document.getElementById('formlist').action='MailinglistSend'; document.getElementById('formlist').submit();">
+                           	<input type="reset"  name="clear"  value="Zur&uuml;cksetzen" title="Zur&uuml;cksetzen" class="mainButton autoWidth">
                         </div>					
 					</div>
 					
@@ -107,9 +104,11 @@
 					</div>
 				</div>
 			</div>
-			
-			<!-- Neu ende -->
         
+		</div>
+		
+		<div id="buttonPanel-bottom" class="textRight">
+			<input type="button" name="cancel" value="Zur&uuml;ck zum Verteiler" title="Zur&uuml;ck zum Verteiler" class="mainButton" onclick="window.location.href='ShowMailinglistDetail';">
 		</div>
     </form>
 </div>
