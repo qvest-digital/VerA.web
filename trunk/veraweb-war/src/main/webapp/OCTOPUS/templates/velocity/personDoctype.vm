@@ -50,7 +50,7 @@
 
                 <span id="buttonPanel-bottom" class="textRight floatRight">
 		#if($grants.mayWrite())
-             <input id="buttonSavePerson" class="mainButton" type="button" value="Person speichern">
+             <input id="buttonSavePerson" class="mainButton" type="button" value="Person speichern" title="Person speichern">
 		#end
 
     	#if($action == "guest")
