@@ -2,62 +2,19 @@
 	<div style="display:inline-table; vertical-align:top;" class="table width70">
 		<div class="tableRow">
 			<div class="tableCell width50">	
-				<strong>Veranstaltungs-ID:</strong><br>
-				$!message.text($event.id)
+				<strong>Veranstaltungs-ID:</strong> $!message.text($event.id)
 			</div>
 			<div class="tableCell width50">
-				<label for="event-shortname">Kurzbezeichnung*:</label>
-				<input type="text" onchange="setModified();" maxlength="50" class="text" id="event-shortname" value="$!message.text($event.shortname)" name="event-shortname">					
+				<strong>Name:</strong> <pre>$!message.textarea($event.eventname)</pre>
 			</div>
 		</div>
 		<div class="tableRow">
 			<div class="tableCell width50">
-				<label for="event-begin">Beginn*:</label>
-				<div class="calenderContainer">
-						<input type="text" class="datepicker" id="event-begin" value="$!message.date("DATE", $event.begin)" name="event-begin" onchange="setModified();">
-						#if($grants.mayWrite())
-							<span class="datepickerContainer" id="show-begin">
-								<img title="Datum ausw&auml;hlen" alt="Datum ausw&auml;hlen" src="${paths.staticWeb}images/calendar.png">
-							</span>
-							<script type="text/javascript">
-							    Calendar.setup({
-									inputField     :    "event-begin",
-									button         :    "show-begin",
-									ifFormat       :    "%d.%m.%Y",
-									showsTime      :    false
-								});
-							</script>
-						#end
-					 um <input type="text" name="event-begintime" id="event-begintime" #if($event-beginhastime) value="$!message.date("TIME", $event.begin)" #else value="" #end class="width15" onchange="setModified();"> Uhr </div>									
+				<strong>Beginn:</strong> $!message.date("DATE", $event.begin) #if($event-beginhastime)um $!message.date("TIME", $event.begin) Uhr#end									
 			</div>
 			<div class="tableCell width50">
-				<label for="event-end">Ende:</label>
-				<div class="calenderContainer">
-						<input type="text" class="datepicker" id="event-end" value="$!message.date("DATE", $event.end)" name="event-end" onchange="setModified();">
-						<span class="datepickerContainer" id="show-end">
-							<img title="Datum auswählen" alt="Datum auswählen" src="${paths.staticWeb}images/calendar.png">
-						</span>
-						#if($grants.mayWrite())
-							<script type="text/javascript">
-							    Calendar.setup({
-									inputField     :    "event-end",
-									button         :    "show-end",
-									ifFormat       :    "%d.%m.%Y",
-									showsTime      :    false
-								});
-							</script>
-						#end
-					 um <input type="text" name="event-endtime" id="event-endtime" #if($event-endhastime) value="$!message.date("TIME", $event.end)" #else value="" #end class="width15" onchange="setModified();"> Uhr </div>									
-			
-			</div>
-		</div>				
-	</div>
-	<div style="display:inline-table" class="table width25 floatRight">
-		<div class="tableRow width100">
-			<div class="tableCell">
-				<label for="event-eventname">Name:</label>
-				<textarea onchange="setModified();" class="text" id="event-eventname" name="event-eventname" cols="20" rows="4">$!message.textarea($event.eventname)</textarea>
+				<strong>Ende:</strong> $!message.date("DATE", $event.end) #if($event-endhastime)um $!message.date("TIME", $event.end) Uhr#end									
 			</div>
 		</div>
-	</div>												
+	</div>											
 </div>
