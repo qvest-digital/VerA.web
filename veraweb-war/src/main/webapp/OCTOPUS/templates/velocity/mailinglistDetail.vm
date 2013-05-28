@@ -1,4 +1,4 @@
-#set($activeMenu = "Verwaltung")
+#set($activeMenu = "Veranstaltungen")
 #set($title = "Verteilerliste: $!mailinglist.name")
 #parse("inc/header.vm")
 
