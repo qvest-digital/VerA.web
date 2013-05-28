@@ -13,7 +13,7 @@
 
     <h1>Veranstaltung bearbeiten: $!message.plain($event.shortname)</h1>
 
-    <span class="textRight floatRight marginBottom20 buttonPanel-top" id="buttonPanel-top">
+    <span class="textRight floatRight marginBottom10 buttonPanel-top" id="buttonPanel-top">
         <input type="button" class="mainButton" value="zur G&auml;steliste" name="guestlist" onclick="window.location.href='ShowGuestList?search-event=$!event.id&start=0&selectNone=true';">
     </span>
 
