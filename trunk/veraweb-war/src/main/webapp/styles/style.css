@@ -568,6 +568,11 @@ color:#7D7D7D
 	list-style-type: none;
 }
 
+#tabsMain.event ul {
+    border-left: 0 none;
+    margin-left: 0;
+}
+
 .tabsSub li {
     border-top: 1px solid #BDBDBD;
     height: 40px;
