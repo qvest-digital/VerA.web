@@ -128,15 +128,9 @@
 					</tr>
 				
 					#foreach($bean in $list)	
-						
-                		#if ($velocityCount % 2 == 0)
-                			#set($class = "list1")
-                		#else
-                			#set($class = "list2")
-    					#end
     					
             			#set($offset = $listparam.start + $velocityCount)
-                		<tr class="$class">
+                		<tr>
     						
                 			#if($action == "guest")
     							
