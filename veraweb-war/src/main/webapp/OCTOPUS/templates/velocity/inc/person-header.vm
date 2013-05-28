@@ -2,7 +2,7 @@
 
 #if($action == "guest")
 		
-	<span class="buttonPanel-top textRight floatRight marginBottom20">
+	<span class="buttonPanel-top textRight floatRight marginBottom10">
 		#if($person && $person.id)
 			<input type="button" name="add" value="&Uuml;bernehmen" title="Gast direkt in G&auml;steliste &uuml;bernehmen" class="mainButton" onclick="addToGuestList();">
 		#end
@@ -14,7 +14,7 @@
 	
 #elseif($action == "host")
 	
-	<span class="buttonPanel-top textRight floatRight marginBottom20">
+	<span class="buttonPanel-top textRight floatRight marginBottom10">
         #if($person && $person.id)
 			<input type="button" name="set" class="mainButton" value="&Uuml;bernehmen" title="Person direkt als Gastgeber &uuml;bernehmen" onclick="window.location.href='${paths.staticWeb}do/SetHostToEventDetail?hostid=$!person.id';">
 		#end
@@ -31,7 +31,7 @@
 	
 #elseif($action == "event")
 	
-	<span class="buttonPanel-top textRight floatRight marginBottom20">
+	<span class="buttonPanel-top textRight floatRight marginBottom10">
 		#if($grants.mayWrite())
 			<input type="button" name="copy" class="mainButton" value="Person kopieren" onclick="if (checkModified()) { copyPerson(); }" />
 		#end
@@ -45,7 +45,7 @@
 	
 #else
 	
-	<div class="buttonPanel-top textRight marginBottom20">
+	<div class="buttonPanel-top textRight marginBottom10">
 		#if($person && $person.id)
 			#if($grants.mayWrite())
 				<input type="button" name="copy" class="mainButton" value="Person kopieren" title="Aktuelle Person kopieren" onclick="if (checkModified()) { copyPerson(); }" />
