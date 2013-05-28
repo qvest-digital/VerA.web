@@ -18,7 +18,7 @@
 
 <span id="actionPanel" class="inlineLabel">
 	#if($grants.mayWrite())
-    	Markierte Einträge <input type="submit" name="remove" value="L&ouml;schen" title="Markierte Eintr&auml;ge l&ouml;schen"/>
+    	Markierte Katgorie(n) <input type="submit" name="remove" value="Entfernen" title="Markierte Ketgorie(n) entfernen"/>
 	#end
 </span>
 <div class="buttonPanel-top floatRight">
