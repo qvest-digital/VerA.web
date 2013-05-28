@@ -2,95 +2,127 @@
 #set($title = "Veranstaltung bearbeiten: $!message.plain($event.shortname)")
 #parse("inc/header.vm")
 
-<form id="formlist" name="formlist" action="ShowEventDoctype" method="POST" onsubmit="htmlWait();">
+<div id="content_container">
 
-<table class="tab" border="0" cellspacing="0" cellpadding="0"><tr>
-	<td class="tableft">&nbsp;</td>
-	<td class="tabinactiv"><a href="ShowEvent?id=$!event.id" class="tabinactiv">Allgemein</a></td>
-	<td class="tabactiv"><span class="tabactiv">Dokumenttypen</span></td>
-	<td class="tabinactiv"><a id="tab.tasks" href="${paths.staticWeb}do/ShowEventTasks?id=$!event.id" class="tabinactiv">Aufgaben</a></td>
-	<td class="tabright">&nbsp;</td>
-</tr></table>
-
-#openContent()
-#openContentSection()
-
-<input type="hidden" name="id" value="$!event.id">
-
-<input type="hidden" name="start" value="">
-<input type="hidden" name="selectAll" value="false">
-<input type="hidden" name="selectNone" value="false">
-<input type="hidden" name="doInsert" value="true">
-<input type="hidden" name="doUpdate" value="false">
-<input type="hidden" name="doRemove" value="true">
-
-#foreach($bean in $list)
-<input type="hidden" name="list" value="$bean.id">
-#end
-<table class="list">
-	<tr class="list1">
-		<th class="list" style="width: 20px;">&nbsp;</th>
-		<th class="list" style="width: 60px;">ID</th>
-		<th class="list">Bezeichnung</th>
-	</tr>
-	<tr class="list2">
-		<td class="list"><input type="hidden" id="add-modified" name="add-modified" value="false"><input type="checkbox" name="add-select" value="true" class="checkbox" style="display: none;"></td>
-		<td class="list"><input type="hidden" name="add-id" value=""><input type="hidden" name="add-event" value="$!event.id"><em>neu</em></td>
-		<td class="list">
-			<select id="add-doctype" name="add-doctype" class="combobox" onchange="setModified('add')">
-			<option value="0">Bitte ausw&auml;hlen:</option>
-				#foreach($doctype in $allDoctype)
-				<option value="$doctype.id">$doctype.name</option>
+	<div id="breadcrumb" class="textRight">
+		<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Veranstaltungen > Veranstaltung bearbeiten</span>
+	</div>
+	
+	<h1>Veranstaltung bearbeiten: $!message.plain($event.shortname)</h1>
+	
+	<div class="textRight marginBottom10" id="buttonPanel-top">
+		<input type="button" class="mainButton" value="zur G&auml;steliste" name="guestlist" onclick="window.location.href='ShowGuestList?search-event=$!event.id&start=0&selectNone=true';"/>
+	</div>
+	
+	#parse("inc/event-header.vm")
+	
+	<form id="formlist" name="formlist" action="ShowEventDoctype" method="POST" onsubmit="htmlWait();">
+		<input type="hidden" name="id" value="$!event.id"/>
+        <input type="hidden" name="start" value=""/>
+		<input type="hidden" name="limit" value=""/>
+        <input type="hidden" name="selectAll" value="false"/>
+        <input type="hidden" name="selectNone" value="false"/>
+        <input type="hidden" name="doInsert" value="true"/>
+        <input type="hidden" name="doUpdate" value="false"/>
+        <input type="hidden" name="doRemove" value="true"/>
+		
+    	<div id="main_content" class="tabs contentBox grayBorder marginBottom20 marginTop20">
+    
+    		<div id="tabsMain" class="event">
+            	<ul class="gray-gradient" vera-tab-group> <!-- Bitte das End-tag der <li>s immer mit in die nächste Zeile nehmen (verhindert Mozilla styling bug) -->
+            		<li class="inactive" onclick="window.location.href='ShowEvent?id=$!event.id';">Allgemein
+            		</li><li class="active">Dokumenttypen
+    				</li><li class="inactive" onclick="window.location.href='ShowEventTasks?id=$!event.id';">Aufgaben
+    				</li>
+            	</ul>
+    		</div>
+				
+			
+			<div class="contentBoxColored tabsContent">
+				
+				#if($grants.mayWrite() && $list && $list.size() > 0)
+    				<span id="actionPanel">
+                		<strong>Markierte(n) Dokumenttyp(en)</strong>
+                		<input type="button" name="remove" value="L&ouml;schen" onclick="deleteEventDoctype();" title="Markierte(n) Dokumenttyp(en) l&ouml;schen">
+                	</span>
 				#end
-			</select>
-		</td>
-	</tr>
-	#foreach($bean in $list)
-	#if ($velocityCount % 2 == 1)
-		#set($class = "list1")
-	#else
-		#set($class = "list2")
-	#end
-	<tr class="$class">
-		<td class="list"><input type="hidden" id="${bean.id}-modified" name="${bean.id}-modified" value="false"><input type="checkbox" name="${bean.id}-select" value="true" class="checkbox" #if($listselection.indexOf($bean.id) != -1) checked#end></td>
-		<td class="list"><input type="hidden" name="${bean.id}-id" value="$!bean.id"><input type="hidden" name="${bean.id}-event" value="$!event.id">$!bean.id</td>
-		<td class="list">$!bean.name</td>
-##		<td class="list">
-##			<select id="${bean.id}-doctype" name="${bean.id}-doctype" class="combobox" onchange="setModified('${bean.id}')">
-##			#foreach($doctype in $allDoctype)
-##				<option value="$doctype.id" #if($bean.doctype == $doctype.id) selected#end>$doctype.name</option>
-##			#end
-##			</select>
-##		</td>
-	</tr>
-	#end
-</table>
-
-#if ($listparam.count == 0)
-	<br>Keine Daten gefunden.
-#end
-
-<div id="fixme" class="fixme1"><div class="fixme2"><div class="fixme3">
-
-	#parse("inc/list-navi.vm")
-	#parse("inc/list-direct.vm")
-
-	<input type="submit" name="save" value="Speichern" #if($grants.mayWrite()) class="button" #else class="buttondisabled" disabled #end> &nbsp;
-	<input type="submit" name="remove" value="L&ouml;schen" title="markierte Eintr&auml;ge entfernen" #if($grants.mayWrite()) class="button" #else class="buttondisabled" disabled #end> &nbsp;
-	<input type="button" name="guestlist" class="button" value="Zur G&auml;steliste" onclick="window.location.href='ShowGuestList?search-event=$!event.id&start=0&selectNone=true';"> &nbsp;
-	<input type="button" name="cancel" class="button" value="Zur&uuml;ck" title="Zur Suche" onclick="window.location.href='SearchEvent';"> &nbsp;
-
-</div></div></div>
-
-#closeContentSection()
-#closeContent()
-
-</form>
+		
+    			#foreach($bean in $list)
+    				<input type="hidden" name="list" value="$bean.id"/>
+				#end
+				
+                <table class="marginTop10">
+                	<tr >
+						#if($list && $list.size() > 0)
+							<th class="smallCell textCenter"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" #if($listselection.size() == $listparam.count) checked#end title="Alle (de)markieren"/></th>
+                		#end
+						<th class="smallCell textCenter">ID</th>
+                		<th>Bezeichnung</th>
+                	</tr>
+                	<tr>
+						#if($list && $list.size() > 0)
+							<td class="textCenter"/>
+						#end
+						<input type="hidden" id="add-modified" name="add-modified" value="false"/><input type="checkbox" name="add-select" value="true" class="checkbox" style="display: none;"/>
+						<td class="textCenter"><input type="hidden" name="add-id" value=""/><input type="hidden" name="add-event" value="$!event.id"/><em>neu</em></td>
+                		<td>
+                			<select id="add-doctype" name="add-doctype" onchange="setModified('add')">
+								<option value="0">Bitte ausw&auml;hlen:</option>
+                				#foreach($doctype in $allDoctype)
+									<option value="$doctype.id">$doctype.name</option>
+                				#end
+                			</select>
+							#if($grants.mayWrite())
+    							<span class="textRight floatRight" id="buttonPanel-top">
+    								<input type="submit" name="save" title="Neuen Dokumenttyp speichern" value="Neuen Dokumenttyp speichern"/> 
+    							</span>
+							#end
+                		</td>
+                	</tr>
+                	#foreach($bean in $list)
+                    	<tr>
+                    		<td class="textCenter"><input type="hidden" id="${bean.id}-modified" name="${bean.id}-modified" value="false"/><input type="checkbox" name="${bean.id}-select" value="true" class="checkbox" #if($listselection.indexOf($bean.id) != -1) checked#end/></td>
+                    		<td class="textCenter"><input type="hidden" name="${bean.id}-id" value="$!bean.id"/><input type="hidden" name="${bean.id}-event" value="$!event.id"/>$!bean.id</td>
+                    		<td>$!bean.name</td>
+                    	</tr>
+					#end
+					
+					#if ($listparam.count == 0)
+                    	<tr>
+                    		<td colspan="2">Es wurden keine Dokumenttypen gefunden.</td>
+                    	</tr>
+                    #end
+					
+					#set($itemName = "Dokumenttypen")
+					#parse("inc/list-navi-new.vm")
+					
+                </table>
+			
+			</div>
+			
+		</div>
+		
+		<span id="buttonPanel-bottom" class="textRight floatRight">
+			#if($grants.mayWrite())
+				<input type="submit" name="save" value="Veranstaltung speichern" class="mainButton"/>
+			#end
+			<input type="button" name="cancel" value="Zur Veranstaltungs&uuml;bersicht" class="mainButton" onclick="window.location.href='SearchEvent?action=event&search=reset';" />
+		</span>
+			
+	</form>
+	<div class="clear"></div>
+    
+</div>
 
 <script type="text/javascript">
-#if(!$grants.mayWrite())
-	disableForm(document.getElementById('formlist'));
-#end
+	function deleteEventDoctype() {
+		$('<input>').attr({ type: 'hidden', id: 'remove', name: 'remove' }).appendTo($('#formlist'));
+		document.formlist.submit();
+	}
+
+    #if(!$grants.mayWrite())
+    	disableForm(document.getElementById('formlist'));
+    #end
 </script>
 
 #parse("inc/footer.vm")
