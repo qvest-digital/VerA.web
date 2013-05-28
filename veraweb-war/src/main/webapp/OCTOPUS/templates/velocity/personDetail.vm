@@ -295,7 +295,7 @@
 		
 		<span id="buttonPanel-bottom" class="textRight floatRight">
 			#if($grants.mayWrite())
-				<input type="submit" name="save" class="mainButton" value="Person speichern" />
+				<input type="submit" name="save" class="mainButton" value="Person speichern" title="Person speichern" />
 			#end
             #if($person && $person.id)
 				<input type="button" name="cancel" class="mainButton" value="Zur Personen&uuml;bersicht" title="Zur Personen&uuml;bersicht" onclick="if (checkModified()) { window.location.href='${paths.staticWeb}do/SetHostToEventList'; }">
