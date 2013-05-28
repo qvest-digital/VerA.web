@@ -2,18 +2,18 @@
 #set($title = "E-Mail an Verteiler schreiben: $!message.text($mailinglist.name)")
 #parse("inc/header.vm")
 
-<form id="formlist" name="formlist" action="MailinglistWrite" method="POST">
-<input type="hidden" id="loaddraft" name="loaddraft" value="false">
-<input type="hidden" id="savedraft" name="savedraft" value="false">
-
-	
 <div id="content_container">
+
 	<div id="breadcrumb" class="textRight">
 		<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Personen > Verteiler</span>
 	</div>	
 	
 	<h1>Verteiler versenden</h1>
 
+	
+	<form id="formlist" name="formlist" action="MailinglistWrite" method="POST">
+	<input type="hidden" id="loaddraft" name="loaddraft" value="false">
+	<input type="hidden" id="savedraft" name="savedraft" value="false">
 
     #if($errors.size() > 0)
     <div style="margin: 10px 0px 10px 0px; padding: 10px 10px 10px 10px; background-color: #ffffff; border: 2px solid #ff0000;">
@@ -28,7 +28,7 @@
     
 	<div id="main_content" class="contentBoxColored grayBorder">
 	
-	<h2>E-Mail Entw&uuml;rfe</h2>
+		<h2>E-Mail Entw&uuml;rfe</h2>
         
         <div class="textRight mandatoryText">* = Pflichtfelder</div>
     
@@ -48,14 +48,14 @@
             			<option value="">Es liegen keine Vorlagen vor!</option>
             		</select>
         		</div>
-        	#if($loadable)
+		#end		
+        #if($loadable)
         		<div class="tableCell textRight">		
         			<input type="button" name="" value="Laden" onclick="document.getElementById('loaddraft').value='true'; document.getElementById('formlist').submit();">
         		</div>
-        	</div>
-			#end
-		</div>
-       	#end			
+		#end
+			</div>
+		</div>			
 
 		
 		<div class="table width100">	
@@ -138,8 +138,8 @@
             	<input type="button" name="cancel" value="Zur&uuml;ck zum Verteiler" title="Zur&uuml;ck zum Verteiler" class="mainButton" onclick="window.location.href='ShowMailinglistDetail';">
         	</div>
         
-        </form>
-	</div>
+		</div>
+    </form>
 </div>
 
 <script type="text/javascript">
