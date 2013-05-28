@@ -36,7 +36,7 @@
 						<h2 class="marginBottom15">E-Mail schreiben</h2>
                         
             			<div>
-                        	<label for="mail-subject">Betreff*:</label>
+                        	<label for="mail-subject">Betreff:</label>
                             <input type="text" id="mail-subject" name="mail-subject" value="$!message.text($mail.subject)">					
             			</div>
             			<div>
@@ -96,10 +96,11 @@
                 					#end
             
                			</div>
-                        <div>
-                        			<label for="mail-name">Vorlagenname* (für neue Vorlage):</label>
+                        <div class="marginTop20">
+                        			<label for="mail-name">Neue Vorlage (Name)*:</label>
                         			<input type="text" id="mail-name" name="mail-name" value="$!message.text($mail.name)">
-                        			<input type="button" name="savedraft" value="Speichern" title="Neue Vorlage speichern" onclick="document.getElementById('savedraft').value='true'; document.getElementById('formlist').submit();" class="autoWidth">
+                        			<input type="button" name="savedraft" value="Neue Vorlage speichern" title="Neue Vorlage speichern" onclick="document.getElementById('savedraft').value='true'; document.getElementById('formlist').submit();" class="autoWidth">
+                                    <p class="mandatoryText"><strong>Hinweis:</strong> Neue Vorlagen müssen sowohl einen Betreff als auch Text enthalten.</p>	
                         </div>
 					</div>
 				</div>
