@@ -75,9 +75,9 @@
 		## 2009-05-07 c.klein
 		## refactored parameterization as part of fix for issue #1528
 			#if($grants.mayWrite())
-			<a href="${paths.staticWeb}do/ShowPersonDoctype?persondoctype-id=$!bean.id"><img src="${paths.staticWeb}images/edit.png" alt="icon" /></a>
+			<a href="${paths.staticWeb}do/ShowPersonDoctype?persondoctype-id=$!bean.id" class="noBorder"><img src="${paths.staticWeb}images/edit.png" alt="Bearbeiten-Icon" title="Dokumenttyp bearbeiten" /></a>
 			#else
-			<a href="${paths.staticWeb}do/ShowPersonDoctype?persondoctype-id=$!bean.id"><img src="${paths.staticWeb}images/view.png" alt="icon" /></a>
+			<a href="${paths.staticWeb}do/ShowPersonDoctype?persondoctype-id=$!bean.id" class="noBorder"><img src="${paths.staticWeb}images/view.png" alt="Bearbeiten-Icon" title="Dokumenttyp bearbeiten" /></a>
 			#end
 		</td>
 		#else
