@@ -95,6 +95,7 @@
                              #end
                     		</select>
                     	</div>
+						<div class="tableCell"></div>
                     </div>
     				#end
     				
@@ -105,63 +106,64 @@
     					</div>
     					<div class="tableCell">
     						<label for="format">Dateityp:</label>
-    						<select name="format" id="format" class="combobox" onchange="return formatChanged();">
+    						<select name="format" id="format" onchange="return formatChanged();">
                             #foreach($formatKey in $formats.keySet())
                              #set($format = $formats.get($formatKey))
                             	<option value="$formatKey">$format.name ($format.description)</option>
                             #end
                             </select>
+							
+                            #set($style = '')
+                            #foreach($formatKey in $formats.keySet())
+                             #set($format = $formats.get($formatKey))
+                            		<div $style id="format-$formatKey" class="marginTop20">
+                              #if($format.properties.containsKey("choices"))
+                               #set($choices = $format.properties.get("choices"))
+                            			<fieldset class="format"><legend>$format.name: weitere Optionen</legend>
+                                			<div class="table width100">
+                               #foreach($choiceKey in $choices.keySet())
+                                #set($choice = $choices.get($choiceKey))
+                                				<div class="tableRow">
+                            						<div class="tableCell"><label for="format-${formatKey}-$choiceKey">$!choice.get("label"):</label></div>
+                            						<div class="tableCell">
+                                #set($default = $choice.get("default"))
+                                #if($choice.containsKey("select"))
+                                 #set($select = $choice.get("select"))
+                            							<select name="format-${formatKey}-$choiceKey" id="format-${formatKey}-$choiceKey" class="combobox">
+                                 #foreach($selectKey in $select.keySet())
+                            								<option value="$selectKey"#if($selectKey==$default) selected#end>$select.get($selectKey)</option>
+                                 #end
+                            							</select>
+                                #else
+                                						<input type="text" name="format-${formatKey}-$choiceKey" id="format-${formatKey}-$choiceKey" value="$!default" class="text">
+                                #end
+                            						</div>
+                                				</div>
+                               #end
+                                			</div>
+                            			</fieldset>
+                              #end
+                            		</div>
+                             #set($style = 'style="display:none;"')
+                            #end
+                            <script type="text/javascript">
+                            	function formatChanged() {
+                            #foreach($formatKey in $formats.keySet())
+                            		document.getElementById('format-$formatKey').style.display = 'none';
+                            #end
+                            		document.getElementById('format-' + document.formImport.format.options[document.formImport.format.options.selectedIndex].value).style.display = '';
+                            		return true;
+                            	}
+                            </script>
     					</div>
     				</div>
     			</div>
     	
-                #set($style = '')
-                #foreach($formatKey in $formats.keySet())
-                 #set($format = $formats.get($formatKey))
-                		<div $style id="format-$formatKey">
-                  #if($format.properties.containsKey("choices"))
-                   #set($choices = $format.properties.get("choices"))
-                			<fieldset class="format"><legend>$format.name: weitere Optionen</legend>
-                    			<div class="table width100">
-                   #foreach($choiceKey in $choices.keySet())
-                    #set($choice = $choices.get($choiceKey))
-                    				<div class="tableRow">
-                						<div class="tableCell"><label for="format-${formatKey}-$choiceKey">$!choice.get("label"):</label></div>
-                						<div class="tableCell">
-                    #set($default = $choice.get("default"))
-                    #if($choice.containsKey("select"))
-                     #set($select = $choice.get("select"))
-                							<select name="format-${formatKey}-$choiceKey" id="format-${formatKey}-$choiceKey" class="combobox">
-                     #foreach($selectKey in $select.keySet())
-                								<option value="$selectKey"#if($selectKey==$default) selected#end>$select.get($selectKey)</option>
-                     #end
-                							</select>
-                    #else
-                    						<input type="text" name="format-${formatKey}-$choiceKey" id="format-${formatKey}-$choiceKey" value="$!default" class="text">
-                    #end
-                						</div>
-                    				</div>
-                   #end
-                    			</div>
-                			</fieldset>
-                  #end
-                		</div>
-                 #set($style = 'style="display:none;"')
-                #end
-            <script type="text/javascript">
-            	function formatChanged() {
-            #foreach($formatKey in $formats.keySet())
-            		document.getElementById('format-$formatKey').style.display = 'none';
-            #end
-            		document.getElementById('format-' + document.formImport.format.options[document.formImport.format.options.selectedIndex].value).style.display = '';
-            		return true;
-            	}
-            </script>
             
             </form>
 		
 		
-			<div id="buttonPanel-bottom" class="">
+			<div id="buttonPanel-bottom" class="textRight">
 				<input name="start" type="button" value="Import starten" title="Import starten" class="mainButton" onclick="askStart()">
  			</div>			
 		</div><!-- End #main_content-->
