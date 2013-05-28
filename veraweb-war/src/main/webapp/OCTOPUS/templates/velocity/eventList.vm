@@ -117,18 +117,6 @@
             		<tr>						
                     	#if($action != "guest" && $action != "addperson")
                     		<th class="textCenter smallCell"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" #if($listselection.size() == $listparam.count) checked#end title="Alle (de)markieren"/></th>
-                    		## Handler für SelectAll Toggling 
-                    		<script>
-                    			$(function(){
-                                    $('#toggleAllSelect').change(function(){
-                                        if ($(this).is(':checked')) {
-                    						navigateSelectAll();
-                                        } else {
-                    						navigateSelectNone();
-                                        }
-                                    });
-                                });
-                    		</script>
         				#end
         				
             			<th class="smallCell textCenter">ID</th>

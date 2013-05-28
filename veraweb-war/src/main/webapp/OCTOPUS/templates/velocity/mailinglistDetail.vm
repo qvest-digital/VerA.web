@@ -96,16 +96,6 @@
         	alert('Es wurden $maildispatchParams.count E-Mails zum Versenden gespeichert. Diese werden nun automatisch versendet.');
         #end
     #end
-
-	$(function(){
-        $('#toggleAllSelect').change(function(){
-            if ($(this).is(':checked')) {
-				navigateSelectAll();
-            } else {
-				navigateSelectNone();
-            }
-        });
-    });
 </script>
 
 #parse("inc/footer.vm")

@@ -618,19 +618,6 @@
     				#parse("inc/list-direct-new.vm")
                 </table>
     		</div>
-    		
-    		## Handler für SelectAll Toggling 
-    		<script>
-    			$(function(){
-                    $('#toggleAllSelect').change(function(){
-                        if ($(this).is(':checked')) {
-    						navigateSelectAll();
-                        } else {
-    						navigateSelectNone();
-                        }
-                    });
-                });
-    		</script>
     
             #if ($action == "guest")
                 <table>
