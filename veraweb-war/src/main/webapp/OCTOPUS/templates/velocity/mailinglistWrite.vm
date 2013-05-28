@@ -32,13 +32,13 @@
 		
     		<h2 class="marginBottom15">E-Mail Entw&uuml;rfe</h2>       
         
-           	#set($loadable = false)		
             <div class="table width100">
             	<div class="tableRow">
-            		<div class="tableCell">
+            		<div class="tableCell width30">
             			<label for="mail-draft">Vorhandene Vorlagen:</label>
             		</div>
             		<div class="tableCell">
+                       	#set($loadable = false)		
             			<select id="mail-draft" name="mail-draft">
                 		#foreach($draft in $allMailDraft)
                 			#set($loadable = true)
@@ -53,58 +53,59 @@
     					#end
             		</div>
     			</div>
-    		</div>			
-    
-    		
-    		<div class="table width100">	
             	<div class="tableRow">
             		<div class="tableCell">
             			<label for="mail-name">Vorlagenname* (für neue Vorlage):</label>
             		</div>
-            		<div class="tableCell">
-            			<input type="text" id="mail-name" name="mail-name" value="$!message.text($mail.name)" class="text">
-            			<input type="button" name="savedraft" value="Speichern" title="Neue Vorlage speichern" onclick="document.getElementById('savedraft').value='true'; document.getElementById('formlist').submit();">
+            		<div class="tableCell inlineLabel">
+            			<input type="text" id="mail-name" name="mail-name" value="$!message.text($mail.name)" class="inlineInput width80">
+            			<input type="button" name="savedraft" value="Speichern" title="Neue Vorlage speichern" onclick="document.getElementById('savedraft').value='true'; document.getElementById('formlist').submit();" class="autoWidth">
             		</div>
             	</div>
             </div>
         
             <h2 class="marginTop20 marginBottom15">E-Mail schreiben</h2>
             
-            <div>
-    			<label for="mail-subject">Betreff*:</label>
-            	<input type="text" id="mail-subject" name="mail-subject" value="$!message.text($mail.subject)">
-            </div>
-            
-    		<div>
-    			<label for="mail-text">Text:</label>	
-    			<textarea id="mail-text" name="mail-text">$!message.textarea($mail.text)</textarea>
-            </div>
-            	
-    		<div>
-            	<label for="platzhalter">Platzhalter:</label>
-    			<select name="platzhalter" id="platzhalter" class="inlineInput autoWidth">
-            					<option value="firstname">Vorname</option>
-            					<option value="lastname">Nachname</option>
-            					<option value="salutation">Anrede</option>
-            					<option value="title">Akad. Titel</option>
-            					<option value="function">Amtsbez./Funktion</option>
-            					<option value="company">Firma/Institution</option>
-            					<option value="street">Stra&szlig;e</option>
-            					<option value="zipcode">PLZ</option>
-            					<option value="city">Ort</option>
-            					<option value="country">Land</option>
-            					<option value="poboxzipcode">Postfach-PLZ</option>
-            					<option value="pobox">Postfach-Nummer</option>
-            					<option value="suffix1">$!config.suffix1</option>
-            					<option value="suffix2">$!config.suffix2</option>
-            					<option value="phone">Telefon</option>
-            					<option value="fax">Fax</option>
-            					<option value="mobile">Mobil</option>
-            					<option value="email">E-Mail</option>
-            					<option value="url">www</option>
-            	</select>
-        		<input type="button" name="add" value="In Text einfügen" title="Platzhalter in Text einfügen" class="autoWidth" onclick="addPlatzhalter(this);">
-            </div>
+			<div class="table width100">
+				<div class="tableRow">
+					<div class="tableCell width50">
+            			<label for="mail-subject">Betreff*:</label>
+                    	<input type="text" id="mail-subject" name="mail-subject" value="$!message.text($mail.subject)">					
+					</div>
+					<div class="tableCell width50"></div>
+				</div>
+				<div class="tableRow">
+					<div class="tableCell width50">
+            			<label for="mail-text">Text:</label>	
+            			<textarea id="mail-text" name="mail-text" style="height:200px">$!message.textarea($mail.text)</textarea>					
+					</div>
+					<div class="tableCell width50">
+                    	<label for="platzhalter">Platzhalter:</label>
+            			<select name="platzhalter" id="platzhalter" class="inlineInput autoWidth">
+                    					<option value="firstname">Vorname</option>
+                    					<option value="lastname">Nachname</option>
+                    					<option value="salutation">Anrede</option>
+                    					<option value="title">Akad. Titel</option>
+                    					<option value="function">Amtsbez./Funktion</option>
+                    					<option value="company">Firma/Institution</option>
+                    					<option value="street">Stra&szlig;e</option>
+                    					<option value="zipcode">PLZ</option>
+                    					<option value="city">Ort</option>
+                    					<option value="country">Land</option>
+                    					<option value="poboxzipcode">Postfach-PLZ</option>
+                    					<option value="pobox">Postfach-Nummer</option>
+                    					<option value="suffix1">$!config.suffix1</option>
+                    					<option value="suffix2">$!config.suffix2</option>
+                    					<option value="phone">Telefon</option>
+                    					<option value="fax">Fax</option>
+                    					<option value="mobile">Mobil</option>
+                    					<option value="email">E-Mail</option>
+                    					<option value="url">www</option>
+                    	</select>
+                		<input type="button" name="add" value="In Text einfügen" title="Platzhalter in Text einfügen" class="autoWidth noFloat" onclick="addPlatzhalter(this);">
+					</div>
+				</div>
+			</div>
             
             <div id="buttonPanel-bottom" class="textRight">
                	<input type="button" name="send" value="Senden" title="Senden" class="mainButton" onclick="document.getElementById('formlist').action='MailinglistSend'; document.getElementById('formlist').submit();">
