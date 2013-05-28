@@ -125,13 +125,13 @@
 		#end
     	
     	#if($action == "guest")
-        	<input type="button" name="cancel" value="Zur Personenliste" class="mainButton" onclick="window.location.href='${paths.staticWeb}do/AddPersonToEventList';"/>				
+        	<input type="button" name="cancel" value="Zur Personenliste" title="Zur Personenliste" class="mainButton" onclick="window.location.href='${paths.staticWeb}do/AddPersonToEventList';"/>				
         #elseif($action == "host")
-        	<input type="button" name="cancel" value="Zur Personen&uuml;bersicht" class="mainButton" onclick="window.location.href='${paths.staticWeb}do/SetHostToEventList';"/>				
+        	<input type="button" name="cancel" value="Zur Personen&uuml;bersicht" title="Zur Personen&uuml;bersicht" class="mainButton" onclick="window.location.href='${paths.staticWeb}do/SetHostToEventList';"/>				
         #elseif($action == "event")
-        	<input type="button" name="cancel" value="Zur Personen&uuml;bersicht" class="mainButton" onclick="window.location.href='${paths.staticWeb}do/ShowGuestDetail';"/>				
+        	<input type="button" name="cancel" value="Zur Personen&uuml;bersicht" title="Zur Personen&uuml;bersicht" class="mainButton" onclick="window.location.href='${paths.staticWeb}do/ShowGuestDetail';"/>				
         #else
-        	<input type="button" name="cancel" value="Zur Personen&uuml;bersicht" class="mainButton" onclick="window.location.href='${paths.staticWeb}do/SearchPerson?action=person';"/>				
+        	<input type="button" name="cancel" value="Zur Personen&uuml;bersicht" title="Zur Personen&uuml;bersicht" class="mainButton" onclick="window.location.href='${paths.staticWeb}do/SearchPerson?action=person';"/>				
         #end				
     </span>
     
