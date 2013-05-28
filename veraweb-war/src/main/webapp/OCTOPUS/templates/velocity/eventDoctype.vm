@@ -40,11 +40,17 @@
 			
 			<div class="contentBoxColored tabsContent">
 				
-				#if($grants.mayWrite() && $list && $list.size() > 0)
-    				<span id="actionPanel">
+				<span id="actionPanel">
+					#if($grants.mayWrite() && $list && $list.size() > 0)
                 		<strong>Markierte(n) Dokumenttyp(en)</strong>
-                		<input type="button" name="remove" value="L&ouml;schen" onclick="deleteEventDoctype();" title="Markierte(n) Dokumenttyp(en) l&ouml;schen">
-                	</span>
+                		<input type="button" name="remove" value="L&ouml;schen" title="Markierte(n) Dokumenttyp(en) l&ouml;schen" onclick="deleteEventDoctype();"/>
+					#else &nbsp;#end
+            	</span>
+				
+				#if($grants.mayWrite())
+					<div class="buttonPanel-top floatRight">
+						<input type="submit" name="save" title="Neuen Dokumenttyp speichern" value="Neuen Dokumenttyp speichern" class="mainButton" onclick="saveEventDoctype();"/> 
+					</div>
 				#end
 		
     			#foreach($bean in $list)
@@ -72,11 +78,6 @@
 									<option value="$doctype.id">$doctype.name</option>
                 				#end
                 			</select>
-							#if($grants.mayWrite())
-    							<span class="textRight floatRight" id="buttonPanel-top">
-    								<input type="submit" name="save" title="Neuen Dokumenttyp speichern" value="Neuen Dokumenttyp speichern"/> 
-    							</span>
-							#end
                 		</td>
                 	</tr>
                 	#foreach($bean in $list)
@@ -117,6 +118,11 @@
 <script type="text/javascript">
 	function deleteEventDoctype() {
 		$('<input>').attr({ type: 'hidden', id: 'remove', name: 'remove' }).appendTo($('#formlist'));
+		document.formlist.submit();
+	}
+	
+	function saveEventDoctype() {
+		$('<input>').attr({ type: 'hidden', id: 'save', name: 'save' }).appendTo($('#formlist'));
 		document.formlist.submit();
 	}
 
