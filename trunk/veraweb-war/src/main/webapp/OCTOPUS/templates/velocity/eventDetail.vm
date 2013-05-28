@@ -81,9 +81,9 @@
     		<div id="tabsMain" class="event">
             	<ul class="gray-gradient" vera-tab-group> <!-- Bitte das End-tag der <li>s immer mit in die nächste Zeile nehmen (verhindert Mozilla styling bug) -->
             		<li vera-tab="allgemein" vera-tab-default>Allgemein
-            		</li><li vera-tab="dokumenttypen" onclick="showDoctypes();" class="inactive">Dokumenttypen
-    				</li><li vera-tab="anschriften" class="inactive" #if ($event.id) onclick="if (checkModified()) { window.location.href='ShowEventTasks?id=$!event.id';}" #end>Aufgaben
-    				</li>
+            		</li>#if(!$isNewEvent)<li onclick="showDoctypes();" class="inactive">Dokumenttypen
+    				</li><li class="inactive" #if ($event.id) onclick="if (checkModified()) { window.location.href='ShowEventTasks?id=$!event.id';}" #end>Aufgaben
+    				</li>#end
             	</ul>
     		</div>
     		
