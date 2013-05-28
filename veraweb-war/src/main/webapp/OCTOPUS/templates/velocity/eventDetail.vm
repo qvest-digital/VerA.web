@@ -11,10 +11,10 @@
 <div id="content_container">
 	#if($event && $event.id)
     	<div id="breadcrumb" class="textRight">
-    		<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Veranstaltungen > Veranstaltung Bearbeiten</span>
+    		<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Veranstaltungen > Veranstaltung bearbeiten</span>
     	</div>
     		<h1>Veranstaltung bearbeiten: $!message.plain($event.shortname)</h1>
-		<span class="textRight floatRight marginBottom20 buttonPanel-top" id="buttonPanel-top">
+		<span class="floatRight marginBottom10" id="buttonPanel-top">
 			<input type="button" class="mainButton" value="zur G&auml;steliste" name="guestlist" onclick="window.location.href='ShowGuestList?search-event=$!event.id&start=0&selectNone=true';">
 		</span>
 	#else
