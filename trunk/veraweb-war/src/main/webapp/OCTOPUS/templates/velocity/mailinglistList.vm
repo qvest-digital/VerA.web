@@ -3,25 +3,23 @@
 #parse("inc/header.vm")
 
 <script type="text/javascript">
-<!--
-function deleteMailinglist() {
-	var n = 0; //Anzahl der markierten Verteiler
-	for (var i = 0; i < document.formlist.length; i++) {
-		if (document.formlist.elements[i].type == "checkbox")
-			if (document.formlist.elements[i].checked == true)
-				n++;
-	}
-	var check = false;
-	if (n == 1)
-		check = confirm("Soll der markierte Verteiler entfernt werden?");
-	else if (n > 1)
-		check = confirm("Sollen die markierten Verteiler entfernt werden?");
-	if (check == true) {
-		document.getElementById('remove').name = 'remove';
-		document.formlist.submit();
-	}
-}
-//-->
+    function deleteMailinglist() {
+    	var n = 0; //Anzahl der markierten Verteiler
+    	for (var i = 0; i < document.formlist.length; i++) {
+    		if (document.formlist.elements[i].type == "checkbox")
+    			if (document.formlist.elements[i].checked == true)
+    				n++;
+    	}
+    	var check = false;
+    	if (n == 1)
+    		check = confirm("Soll der markierte Verteiler entfernt werden?");
+    	else if (n > 1)
+    		check = confirm("Sollen die markierten Verteiler entfernt werden?");
+    	if (check == true) {
+    		document.getElementById('remove').name = 'remove';
+    		document.formlist.submit();
+    	}
+    }
 </script>
 
 <div id="content_container">
