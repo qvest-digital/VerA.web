@@ -23,7 +23,7 @@
 
 		<span id="buttonPanel-top" class="textRight floatRight">
          <input id="buttonMain" class="mainButton" type="button" onclick="window.location.href='${paths.staticWeb}do/CreateAllPersonDoctypes?id=$!person.id';" value="Alle erzeugen" name="create">
-            <input class="mainButton" type="submit" value="Änderungen speichern" name="save">
+            <input class="mainButton" type="submit" value="Änderungen speichern" title="Änderungen speichern" name="save">
 		</span>
     #end
 
@@ -58,7 +58,7 @@
 			</select>
 		</td>
 		<td>
-			<select id="${bean.id}-locale" name="${bean.id}-locale" class="combobox" style="width: 99%;" onchange="setModified('${bean.id}')" #if(!$bean.id) disabled #end>
+			<select id="${bean.id}-locale" name="${bean.id}-locale" onchange="setModified('${bean.id}')" #if(!$bean.id) disabled #end>
 				#if($bean.locale && $bean.locale != 0)
 				<option value="1" #if($bean.locale == 1) selected#end>$!config.latin</option>
 				<option value="2" #if($bean.locale == 2) selected#end>$!config.extra1</option>
