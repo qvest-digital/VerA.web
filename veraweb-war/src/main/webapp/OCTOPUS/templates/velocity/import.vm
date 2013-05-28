@@ -69,104 +69,102 @@
 			
 		
 		<div id="main_content" class="contentBoxColored grayBorder marginBottom20">
+            <form action="ImportPersonsFile" method="post" enctype="multipart/form-data" name="formImport" id="formImport" >
+            
+    			<div class="table width100">
+    				<div class="tableRow">
+    					<div class="tableCell width50">
+    						<label for="importSource">Datenherkunft:</label>
+    						<input type="text" name="importSource" id="importSource" value="$!message.text($importSource)">
+    					</div>
+    					<div class="tableCell width50">
+    						<label for="orgUnit">Zielmandant:</label>
+    						<select name id>
+    							<option value="Alle">Alle</option>
+    						</select>
+    					</div>
+    				</div>
+    
+                    #if($grants && $grants.isAdmin() && $allOrgUnit)
+                    <div class="tableRow">
+    					<div class="tableCell">
+    						<label for=""></label>
+                     		<select name="orgUnit" id="orgUnit" class="combobox">
+                             #foreach($orgunit in $allOrgUnit)
+                            	<option value="$orgunit.id" #if($octopusConfig.personalConfig.orgUnitId == $orgunit.id)selected#end>$orgunit.name</option>
+                             #end
+                    		</select>
+                    	</div>
+                    </div>
+    				#end
+    				
+    				<div class="tableRow">
+    					<div class="tableCell">
+    						<label for="importfile">Import-Datei:</label>
+    						<input name="importfile" id="importfile" type="file" size="30" maxlength="100000" accept="text/*">
+    					</div>
+    					<div class="tableCell">
+    						<label for="format">Dateityp:</label>
+    						<select name="format" id="format" class="combobox" onchange="return formatChanged();">
+                            #foreach($formatKey in $formats.keySet())
+                             #set($format = $formats.get($formatKey))
+                            	<option value="$formatKey">$format.name ($format.description)</option>
+                            #end
+                            </select>
+    					</div>
+    				</div>
+    			</div>
+    	
+                #set($style = '')
+                #foreach($formatKey in $formats.keySet())
+                 #set($format = $formats.get($formatKey))
+                		<div $style id="format-$formatKey">
+                  #if($format.properties.containsKey("choices"))
+                   #set($choices = $format.properties.get("choices"))
+                			<fieldset class="format"><legend>$format.name: weitere Optionen</legend>
+                    			<div class="table width100">
+                   #foreach($choiceKey in $choices.keySet())
+                    #set($choice = $choices.get($choiceKey))
+                    				<div class="tableRow">
+                						<div class="tableCell"><label for="format-${formatKey}-$choiceKey">$!choice.get("label"):</label></div>
+                						<div class="tableCell">
+                    #set($default = $choice.get("default"))
+                    #if($choice.containsKey("select"))
+                     #set($select = $choice.get("select"))
+                							<select name="format-${formatKey}-$choiceKey" id="format-${formatKey}-$choiceKey" class="combobox">
+                     #foreach($selectKey in $select.keySet())
+                								<option value="$selectKey"#if($selectKey==$default) selected#end>$select.get($selectKey)</option>
+                     #end
+                							</select>
+                    #else
+                    						<input type="text" name="format-${formatKey}-$choiceKey" id="format-${formatKey}-$choiceKey" value="$!default" class="text">
+                    #end
+                						</div>
+                    				</div>
+                   #end
+                    			</div>
+                			</fieldset>
+                  #end
+                		</div>
+                 #set($style = 'style="display:none;"')
+                #end
+            <script type="text/javascript">
+            	function formatChanged() {
+            #foreach($formatKey in $formats.keySet())
+            		document.getElementById('format-$formatKey').style.display = 'none';
+            #end
+            		document.getElementById('format-' + document.formImport.format.options[document.formImport.format.options.selectedIndex].value).style.display = '';
+            		return true;
+            	}
+            </script>
+            
+            </form>
 		
 		
-			
 			<div id="buttonPanel-bottom" class="">
 				<input name="start" type="button" value="Import starten" title="Import starten" class="mainButton" onclick="askStart()">
  			</div>			
 		</div><!-- End #main_content-->
-
-        <form action="ImportPersonsFile" method="post" enctype="multipart/form-data" name="formImport" id="formImport" >
-        
-			<div class="table width100">
-				<div class="tableRow">
-					<div class="tableCell width50">
-						<label for="importSource">Datenherkunft:</label>
-						<input type="text" name="importSource" id="importSource" value="$!message.text($importSource)">
-					</div>
-					<div class="tableCell width50">
-						<label for="orgUnit">Zielmandant:</label>
-						<select name id>
-							<option value="Alle">Alle</option>
-						</select>
-					</div>
-				</div>
-
-                #if($grants && $grants.isAdmin() && $allOrgUnit)
-                <div class="tableRow">
-					<div class="tableCell">
-						<label for=""></label>
-                 		<select name="orgUnit" id="orgUnit" class="combobox">
-                         #foreach($orgunit in $allOrgUnit)
-                        	<option value="$orgunit.id" #if($octopusConfig.personalConfig.orgUnitId == $orgunit.id)selected#end>$orgunit.name</option>
-                         #end
-                		</select>
-                	</div>
-                </div>
-				#end
-				
-				<div class="tableRow">
-					<div class="tableCell">
-						<label for="importfile">Import-Datei:</label>
-						<input name="importfile" id="importfile" type="file" size="30" maxlength="100000" accept="text/*">
-					</div>
-					<div class="tableCell">
-						<label for="format">Dateityp:</label>
-						<select name="format" id="format" class="combobox" onchange="return formatChanged();">
-                        #foreach($formatKey in $formats.keySet())
-                         #set($format = $formats.get($formatKey))
-                        	<option value="$formatKey">$format.name ($format.description)</option>
-                        #end
-                        </select>
-					</div>
-				</div>
-			</div>
-	
-            #set($style = '')
-            #foreach($formatKey in $formats.keySet())
-             #set($format = $formats.get($formatKey))
-            		<div $style id="format-$formatKey">
-              #if($format.properties.containsKey("choices"))
-               #set($choices = $format.properties.get("choices"))
-            			<fieldset class="format"><legend>$format.name: weitere Optionen</legend>
-                			<div class="table width100">
-               #foreach($choiceKey in $choices.keySet())
-                #set($choice = $choices.get($choiceKey))
-                				<div class="tableRow">
-            						<div class="tableCell"><label for="format-${formatKey}-$choiceKey">$!choice.get("label"):</label></div>
-            						<div class="tableCell">
-                #set($default = $choice.get("default"))
-                #if($choice.containsKey("select"))
-                 #set($select = $choice.get("select"))
-            							<select name="format-${formatKey}-$choiceKey" id="format-${formatKey}-$choiceKey" class="combobox">
-                 #foreach($selectKey in $select.keySet())
-            								<option value="$selectKey"#if($selectKey==$default) selected#end>$select.get($selectKey)</option>
-                 #end
-            							</select>
-                #else
-                						<input type="text" name="format-${formatKey}-$choiceKey" id="format-${formatKey}-$choiceKey" value="$!default" class="text">
-                #end
-            						</div>
-                				</div>
-               #end
-                			</div>
-            			</fieldset>
-              #end
-            		</div>
-             #set($style = 'style="display:none;"')
-            #end
-        <script type="text/javascript">
-        	function formatChanged() {
-        #foreach($formatKey in $formats.keySet())
-        		document.getElementById('format-$formatKey').style.display = 'none';
-        #end
-        		document.getElementById('format-' + document.formImport.format.options[document.formImport.format.options.selectedIndex].value).style.display = '';
-        		return true;
-        	}
-        </script>
-        
-        </form>
 </div>	
 <script type="text/javascript">
 ##Hinweis und Rueckfrage vor dem Import
