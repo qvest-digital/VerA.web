@@ -57,7 +57,7 @@
     				<input type="hidden" name="list" value="$bean.id"/>
 				#end
 				
-                <table class="marginTop10">
+                <table class="marginTop10 notBold">
                 	<tr >
 						#if($list && $list.size() > 0)
 							<th class="smallCell textCenter"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" #if($listselection.size() == $listparam.count) checked#end title="Alle (de)markieren"/></th>
