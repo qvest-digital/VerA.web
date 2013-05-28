@@ -3,7 +3,6 @@
 #parse("inc/header.vm")
 
 <script type="text/javascript">
-    <!--
     function openNewEmail() {
     	var check = confirm("E-Mail aus Verteiler erstellen?");
     	if (check == true) {
@@ -12,7 +11,6 @@
     #end
     	}
     }
-    //-->
 </script>
 
 <div id="content_container">
