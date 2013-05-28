@@ -31,6 +31,8 @@
 #foreach($bean in $list)
 <input type="hidden" name="list" value="$bean.id">
 #end
+
+<div class="textRight mandatoryText">* = Pflichtfelder</div>
 <table class="list">
 	<tr class="list1">
 		<th class="list" style="width: 20px;">&nbsp;</th>

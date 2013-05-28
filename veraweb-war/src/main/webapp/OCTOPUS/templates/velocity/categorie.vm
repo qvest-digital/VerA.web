@@ -100,6 +100,7 @@ disableOtherBeans(id);
 	<input type="hidden" name="list" value="$bean.id">
 	#end
 #end
+<div class="textRight mandatoryText">* = Pflichtfelder</div>
 
 <table class="list">
 	<tr class="list1" class="1" style="height: 20px;">

@@ -38,6 +38,8 @@
 <input type="hidden" id="color3-modified" name="color3-modified" value="false">
 <input type="hidden" id="color4-modified" name="color4-modified" value="false">
 
+<div class="textRight mandatoryText">* = Pflichtfelder</div>
+	
 <table class="list">
 	<tr class="list1" style="height: 20px;">
 		<th class="list">Bezeichnung*</th>

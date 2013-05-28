@@ -17,7 +17,7 @@
     #if($grants.mayWrite())
         <span id="actionPanel" class="inlineLabel">
             <label>Markierte(n) Dokumenttyp(en)
-                <input class="mainButton" type="submit" title="markierte Einträge entfernen" value="Löschen" name="remove">
+                <input type="submit" title="markierte Einträge entfernen" value="Löschen" name="remove">
             </label>
 		</span>
 
@@ -28,23 +28,23 @@
     #end
 
 
-    <table>
+    <table class="notBold">
 	<tr>
         <th class="textCenter smallCell"><input type="checkbox" name="" id="toggleAllSelect" #if($listparam.count > 0 && $listselection.size() == $listparam.count) checked#end title="Alle (de)markieren" #if(!$grants.mayWrite()) disabled="true"#end /></th>
-        <th class="width90">Dokumenttyp</th>
-        <th>Anschrift</th>
-        <th>Zeichensatz</th>
-        <th class="smallCell">Bearbeiten</th>
+        <th>Dokumenttyp</th>
+        <th class="textCenter smallCell">Anschrift</th>
+        <th class="textCenter smallCell">Zeichensatz</th>
+        <th class="textCenter smallCell">Bearbeiten</th>
 	</tr>
 	#foreach($bean in $list)
 	<tr>
-		<td class="textCenter smallCell"><input type="hidden" id="${bean.id}-modified" name="${bean.id}-modified" value="false"><input type="checkbox" name="${bean.id}-select" value="true" class="checkbox" #if($listselection.indexOf($bean.id) != -1) checked#end></td>
+		<td class="textCenter"><input type="hidden" id="${bean.id}-modified" name="${bean.id}-modified" value="false"><input type="checkbox" name="${bean.id}-select" value="true" class="checkbox" #if($listselection.indexOf($bean.id) != -1) checked#end></td>
 		#if($bean.id)
-		<td class="clickable" #if($bean.id) onclick="window.location.href='${paths.staticWeb}do/ShowPersonDoctype?persondoctype-id=$!bean.id';"#else onclick="window.location.href='${paths.staticWeb}do/CreatePersonDoctype?doctype-id=$!bean.doctypeId';"#end><input type="hidden" name="${bean.id}-id" value="$!bean.id"><input type="hidden" name="${bean.id}-person" value="$!bean.person">$!bean.name</td>
+		<td #if($bean.id) onclick="window.location.href='${paths.staticWeb}do/ShowPersonDoctype?persondoctype-id=$!bean.id';"#else onclick="window.location.href='${paths.staticWeb}do/CreatePersonDoctype?doctype-id=$!bean.doctypeId';"#end><input type="hidden" name="${bean.id}-id" value="$!bean.id"><input type="hidden" name="${bean.id}-person" value="$!bean.person">$!bean.name</td>
 		#else
-		<td class="clickable" #if($bean.id) onclick="window.location.href='${paths.staticWeb}do/ShowPersonDoctype?persondoctype-id=$!bean.id';"#else onclick="window.location.href='${paths.staticWeb}do/CreatePersonDoctype?doctype-id=$!bean.doctypeId';"#end><input type="hidden" name="${bean.id}-id" value="$!bean.id"><input type="hidden" name="${bean.id}-person" value="$!bean.person">$!bean.name</td>
+		<td #if($bean.id) onclick="window.location.href='${paths.staticWeb}do/ShowPersonDoctype?persondoctype-id=$!bean.id';"#else onclick="window.location.href='${paths.staticWeb}do/CreatePersonDoctype?doctype-id=$!bean.doctypeId';"#end><input type="hidden" name="${bean.id}-id" value="$!bean.id"><input type="hidden" name="${bean.id}-person" value="$!bean.person">$!bean.name</td>
 		#end
-		<td class="clickable">
+		<td>
 			<select id="${bean.id}-addresstype" name="${bean.id}-addresstype" onchange="setModified('${bean.id}')" #if(!$bean.id) disabled #end>
 			#if($bean.addresstype && $bean.addresstype != 0)
 				<option value="1" #if($bean.addresstype == 1) selected#end>$!config.business</option>
@@ -57,7 +57,7 @@
 			#end
 			</select>
 		</td>
-		<td class="clickable">
+		<td>
 			<select id="${bean.id}-locale" name="${bean.id}-locale" class="combobox" style="width: 99%;" onchange="setModified('${bean.id}')" #if(!$bean.id) disabled #end>
 				#if($bean.locale && $bean.locale != 0)
 				<option value="1" #if($bean.locale == 1) selected#end>$!config.latin</option>
@@ -71,7 +71,7 @@
 			</select>
 		</td>
 		#if($bean.id)
-		<td class="textCenter smallCell">
+		<td class="textCenter">
 		## 2009-05-07 c.klein
 		## refactored parameterization as part of fix for issue #1528
 			#if($grants.mayWrite())
@@ -83,7 +83,7 @@
 		#else
 		## 2009-05-07 c.klein
 		## refactored parameterization as part of fix for issue #1528
-		<td class="list" style="cursor: pointer;">
+		<td>
 			#if($grants.mayWrite())
 ## 2009-05-07 cklein
 ## introduced createOne as part of issue #1528

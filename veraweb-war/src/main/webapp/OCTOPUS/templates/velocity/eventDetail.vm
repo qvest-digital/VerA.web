@@ -15,14 +15,14 @@
     		<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Veranstaltungen > Veranstaltung bearbeiten</span>
     	</div>
     		<h1>Veranstaltung bearbeiten: $!message.plain($event.shortname)</h1>
-		<span class="floatRight marginBottom10" id="buttonPanel-top">
+		<div class="textRight marginBottom10" id="buttonPanel-top">
 			<input type="button" class="mainButton" value="zur G&auml;steliste" name="guestlist" onclick="window.location.href='ShowGuestList?search-event=$!event.id&start=0&selectNone=true';">
-		</span>
+		</div>
 	#else
 		<div id="breadcrumb" class="textRight">
 			<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Veranstaltungen > Neue Veranstaltung</span>
 		</div>
-			<h1>Neue Veranstaltung erstellen</h1>
+			<h1>Neue Veranstaltung anlegen</h1>
 	#end
 
     <form id="formlist" name="formlist" action="" method="POST">
@@ -91,6 +91,7 @@
             <input type="hidden" name="event-orgunit" value="$!event.orgunit">
 		
     		<div vera-content="allgemein" class="contentBoxColored tabsContent">
+				<div class="textRight mandatoryText">* = Pflichtfelder</div>
     					<div class="table width100">
     						<div class="tableRow">
     							<div class="tableCell width50">
