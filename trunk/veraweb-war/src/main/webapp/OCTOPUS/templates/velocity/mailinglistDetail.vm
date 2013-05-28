@@ -37,7 +37,7 @@
 			
     		<span class="inlineLabel" id="actionPanel">
 				#if($grants.mayWrite())
-					<strong>Markierte Adresse(n)</strong> <input type="submit" name="remove" value="L&ouml;schen" onclick="submit();" title="Markierte Adressen aus dem Verteiler l&ouml;schen" class="mainButton"/>
+					<strong>Markierte Adresse(n)</strong> <input type="submit" name="remove" value="L&ouml;schen" onclick="submit();" title="Markierte Adressen aus dem Verteiler l&ouml;schen"/>
 				#else &nbsp;#end
             </span>
     		

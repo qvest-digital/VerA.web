@@ -45,6 +45,7 @@
 #foreach($bean in $list)
 <input type="hidden" name="list" value="$bean.id">
 #end
+<div class="textRight mandatoryText">* = Pflichtfelder</div>
 <fieldset class="filter"><legend>G&uuml;ltigkeitsfilter</legend>
 	<input type="radio" id="validityIgnore" name="proxiesValid" value="ignore" onclick="submit();" #if($proxiesValid && $proxiesValid=='ignore')checked#end><label for="validityIgnore"> alle Vertretungen</label>&nbsp;&nbsp;
 	<input type="radio" id="validityFuture" name="proxiesValid" value="future" onclick="submit();" #if((!$proxiesValid) || $proxiesValid=='future')checked#end><label for="validityFuture"> keine abgelaufenen Vertretungen</label>&nbsp;&nbsp;

@@ -124,7 +124,7 @@
                                #foreach($choiceKey in $choices.keySet())
                                 #set($choice = $choices.get($choiceKey))
                                 				<div class="tableRow">
-                            						<div class="tableCell"><label for="format-${formatKey}-$choiceKey">$!choice.get("label"):</label></div>
+                            						<div class="tableCell width30"><label for="format-${formatKey}-$choiceKey">$!choice.get("label"):</label></div>
                             						<div class="tableCell">
                                 #set($default = $choice.get("default"))
                                 #if($choice.containsKey("select"))
