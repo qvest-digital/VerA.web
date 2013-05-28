@@ -77,19 +77,6 @@ function deleteMailinglist() {
         		#parse("inc/list-navi-new.vm")
         		#parse("inc/list-direct-new.vm")
         	</table>
-			
-			## Handler für SelectAll Toggling 
-    		<script>
-    			$(function(){
-                    $('#toggleAllSelect').change(function(){
-                        if ($(this).is(':checked')) {
-    						navigateSelectAll();
-                        } else {
-    						navigateSelectNone();
-                        }
-                    });
-                });
-    		</script>
     		
     	#else
     		

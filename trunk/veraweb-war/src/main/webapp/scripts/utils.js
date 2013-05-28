@@ -101,6 +101,17 @@ function navigateSelectNone() {
 	}
 }
 
+//Handler for SelectAll Toggling 
+$(function(){
+    $('#toggleAllSelect').change(function(){
+        if ($(this).is(':checked')) {
+			navigateSelectAll();
+        } else {
+			navigateSelectNone();
+        }
+    });
+});
+
 function smallResolution() {
 	if (window.innerWidth) {
 		return (window.innerWidth < 912);
@@ -239,3 +250,4 @@ function insertAtCursor(fld, text) {
 		fld.value += text;
 	}
 }
+

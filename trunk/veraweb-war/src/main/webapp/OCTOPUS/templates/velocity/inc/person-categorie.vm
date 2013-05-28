@@ -96,17 +96,3 @@
 </div>
 
 
-## Handler für SelectAll Toggling 
-<script>
-	$(function(){
-        $('#toggleAllSelect').change(function(){
-            if ($(this).is(':checked')) {
-				navigateSelectAll();
-            } else {
-				navigateSelectNone();
-            }
-        });
-    });
-</script>
-
-

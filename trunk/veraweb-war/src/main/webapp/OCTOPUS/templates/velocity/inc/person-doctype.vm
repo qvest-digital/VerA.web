@@ -108,16 +108,3 @@
 
 
 </form>
-
-
-<script>
-    $(function(){
-        $('#toggleAllSelect').change(function(){
-            if ($(this).is(':checked')) {
-                navigateSelectAll();
-            } else {
-                navigateSelectNone();
-            }
-        });
-    });
-</script>
