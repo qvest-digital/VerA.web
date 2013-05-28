@@ -251,7 +251,7 @@
     								</select>
     								#if($grants.mayWrite())
     								<div class="addButton">
-    									<input type="button" value="Ort hinzufügen"><!-- war früher ein link <a href="javascript:newLocation('${paths.staticWeb}do/');">Ort Hinzuf&uuml;gen</a> -->
+    									<input type="button" value="Ort hinzuf&uuml;gen" onclick="newLocation('${paths.staticWeb}do/');" />
                                     </div>
     								#end
     							</div>
