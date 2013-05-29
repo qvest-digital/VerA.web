@@ -15,11 +15,11 @@
 <div id="content_container">
 
 	#if($task && $task.id)
-		<div id="breadcrumb" class="textRight">
+		<div id="breadcrumb" class="textRight marginBottom10">
 			<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Veranstaltungen > Veranstaltung (Aufgabe bearbeiten)</span>
 		</div>	
 	#else
-		<div id="breadcrumb" class="textRight">
+		<div id="breadcrumb" class="textRight marginBottom10">
 			<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Veranstaltungen > Veranstaltung (Aufgabe anlegen)</span>
 		</div>
 	#end
