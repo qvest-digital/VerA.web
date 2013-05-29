@@ -77,7 +77,7 @@
 			
 		#end
 
-		<span class="floatRight">
+		<span class="floatRight" id="buttonPanel-bottom">
 			<input type="button" name="cancel" value="Zur&uuml;ck zur Verteiler&uuml;bersicht"  onclick="window.location.href='ShowMailinglistList';" title="Zur&uuml;ck zur Verteiler&uuml;bersicht" class="mainButton">
 		</span>
 		
