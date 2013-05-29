@@ -306,7 +306,6 @@
 							selectedActionRemovePerson();
     					} else if (selectText == "Export") {
 							selectedActionExportPerson();
-							onclick="document.formlist.action='${paths.staticWeb}do/PersonExport/export.$exportFormat'; document.formlist.submit(); document.formlist.action='${paths.staticWeb}do/$octopusRequest.task';"
     					} else if (selectText == "Kategorien zuordnen") {
     						assignCategories();
     					} else if (selectText == "Kategorien entfernen") {
