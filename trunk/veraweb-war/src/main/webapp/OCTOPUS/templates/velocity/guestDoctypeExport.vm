@@ -8,8 +8,8 @@
 	<td class="tabright">&nbsp;</td>
 </tr></table>
 
-#openContent()
-#openContentSection()
+
+
 
 <table class="form"><tr>
 	<td class="label" style="width: 19%;"><strong>Veranstaltung:</strong></td>
@@ -211,7 +211,7 @@ Der Veranstaltung wurden noch keine Dokumenttypen zugeordnet.
 
 #end
 
-#closeContentSection()
-#closeContent()
+
+
 
 #parse("inc/footer.vm")

@@ -8,8 +8,8 @@
 	<td class="tabright">&nbsp;</td>
 </tr></table>
 
-#openContent()
-#openContentSection()
+
+
 
 #if($cleanup && $cleanup.size() > 0)
 	#if($cleanupdone)
@@ -41,8 +41,8 @@
 	<a href="${paths.staticWeb}do/Cleanup">Aktuallisieren</a>
 #end
 
-#closeContentSection()
-#closeContent()
+
+
 <hr class="footline">
 
 <!--

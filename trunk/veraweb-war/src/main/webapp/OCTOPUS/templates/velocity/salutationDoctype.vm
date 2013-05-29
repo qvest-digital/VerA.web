@@ -10,8 +10,8 @@
 	<td class="tabright">&nbsp;</td>
 </tr></table>
 
-#openContent()
-#openContentSection()
+
+
 
 <input type="hidden" name="id" value="$!salutation.id">
 <input type="hidden" name="start" value="">
@@ -78,8 +78,8 @@
 
 </div></div></div>
 
-#closeContentSection()
-#closeContent()
+
+
 
 </form>
 
