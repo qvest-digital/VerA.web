@@ -1,7 +1,7 @@
 #set($activeMenu = "Veranstaltungen")
 
 #if($task && $task.id)
-#set($title = "Aufgabe bearbeiten: $!message.text($task.title)
+#set($title = "Aufgabe bearbeiten: $!message.text($task.title)")
 #parse("inc/header.vm")
 #else
 #set($title = "Neue Aufgabe erstellen")
