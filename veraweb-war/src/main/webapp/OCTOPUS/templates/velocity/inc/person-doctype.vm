@@ -77,7 +77,7 @@
 			#if($grants.mayWrite())
 			<a href="${paths.staticWeb}do/ShowPersonDoctype?persondoctype-id=$!bean.id" class="noBorder"><img src="${paths.staticWeb}images/edit.png" alt="Bearbeiten-Icon" title="Dokumenttyp bearbeiten" /></a>
 			#else
-			<a href="${paths.staticWeb}do/ShowPersonDoctype?persondoctype-id=$!bean.id" class="noBorder"><img src="${paths.staticWeb}images/view.png" alt="Bearbeiten-Icon" title="Dokumenttyp bearbeiten" /></a>
+			<a href="${paths.staticWeb}do/ShowPersonDoctype?persondoctype-id=$!bean.id" class="noBorder"><img src="${paths.staticWeb}images/view.png" alt="Ansehen-Icon" title="Dokumenttyp ansehen" /></a>
 			#end
 		</td>
 		#else
