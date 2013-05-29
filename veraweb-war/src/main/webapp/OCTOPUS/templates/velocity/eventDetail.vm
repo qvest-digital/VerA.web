@@ -16,7 +16,7 @@
     	</div>
     		<h1>Veranstaltung bearbeiten: $!message.plain($event.shortname)</h1>
 		<div class="textRight marginBottom10" id="buttonPanel-top">
-			<input type="button" class="mainButton" value="zur G&auml;steliste" name="guestlist" onclick="window.location.href='ShowGuestList?search-event=$!event.id&start=0&selectNone=true';">
+			<input type="button" class="mainButton" value="Zur G&auml;steverwaltung" title="Zur G&auml;steverwaltung" name="guestlist" onclick="window.location.href='ShowGuestList?search-event=$!event.id&start=0&selectNone=true';">
 		</div>
 	#else
 		<div id="breadcrumb" class="textRight marginBottom10">
