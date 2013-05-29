@@ -8,7 +8,7 @@
 #end
 
 
-<div id="breadcrumb" class="textRight">
+<div id="breadcrumb" class="textRight marginBottom10">
     <strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Personen > #if($person && $person.id)Person bearbeiten#else Person anlegen#end</span>
 </div>
 

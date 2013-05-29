@@ -18,12 +18,12 @@
 
 <div id="content_container">
 	#if($action == "guest" || $searchTask)
-    	<div id="breadcrumb" class="textRight">
+    	<div id="breadcrumb" class="textRight marginBottom10">
     		<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Veranstaltungen > <a href="${paths.staticWeb}do/ShowEventSearch?action=event" title="Zur Veranstaltungssuche">Veranstaltungssuche</a> > Suchergebnis</span>
     	</div>
     		<h1>Suchergebnis: Veranstaltungen</h1>
 	#else
-		<div id="breadcrumb" class="textRight">
+		<div id="breadcrumb" class="textRight marginBottom10">
 			<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Veranstaltungen > Veranstaltungs&uuml;bersicht</span>
 		</div>
 			<h1>Veranstaltungs&uuml;bersicht</h1>
