@@ -21,7 +21,7 @@
 					
 					<label for="begin">Zeitrahmen-Beginn:</label>
 					<input type="text" name="begin" placeholder="TT.MM.JJJJ" id="begin" class="datepicker">
-		Personen Suchen & Ersetzen			<span id="showBegin" class="datepickerContainer"><img src="${paths.staticWeb}images/calendar.png" alt="Datum ausw&auml;hlen" title="Datum ausw&auml;hlen"></span>
+					<span id="showBegin" class="datepickerContainer"><img src="${paths.staticWeb}images/calendar.png" alt="Datum ausw&auml;hlen" title="Datum ausw&auml;hlen"></span>
 					<script type="text/javascript">
 					    Calendar.setup({
 							inputField     :    "begin",
