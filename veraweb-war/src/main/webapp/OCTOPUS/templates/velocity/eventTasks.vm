@@ -121,8 +121,8 @@
                         <th class="textCenter smallCell"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" #if($listselection.size() == $listparam.count) checked#end title="Alle (de)markieren"/></th>
                         <th class="smallCell textCenter">ID</th>
                         <th>Titel</th>
-                        <th>Start</th>
-                        <th>Ende</th>
+                        <th class="smallCell textCenter">Start</th>
+                        <th class="smallCell textCenter">Ende</th>
                         <th class="smallCell textCenter">Status</th>
                         <th>Verantwortlicher</th>
                         <th class="smallCell textCenter">Priorität</th>
