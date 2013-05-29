@@ -34,7 +34,7 @@
         <th>Dokumenttyp</th>
         <th class="textCenter smallCell">Anschrift</th>
         <th class="textCenter smallCell">Zeichensatz</th>
-        <th class="textCenter smallCell">Bearbeiten</th>
+        <th class="textCenter smallCell">Aktionen</th>
 	</tr>
 	#foreach($bean in $list)
 	<tr>
@@ -83,7 +83,7 @@
 		#else
 		## 2009-05-07 c.klein
 		## refactored parameterization as part of fix for issue #1528
-		<td>
+		<td class="textCenter">
 			#if($grants.mayWrite())
 ## 2009-05-07 cklein
 ## introduced createOne as part of issue #1528
