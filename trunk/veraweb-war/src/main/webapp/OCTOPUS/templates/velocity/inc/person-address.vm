@@ -11,17 +11,21 @@
             <div class="tableCell width50">
                 <label for="person-function$ext">Amtsbezeichnung/Funktion</label>
                 <textarea rows="2" col="20" id="person-function$ext" name="person-function$ext" onchange="setModified();" #if($createNewPerson || !$grants.mayWrite()) disabled="true"#end>$!message.textarea($facade.Function)</textarea>
-                <div class="addButton">
-                    <input type="button" value="Aus Stammdaten hinzufügen" onclick="selectFunction('${paths.staticWeb}do/', 'person-function$ext');" #if($createNewPerson || !$grants.mayWrite()) disabled="true"#end/>
-                </div>
+                #if(!$createNewPerson && $grants.mayWrite())
+    				<div class="addButton">
+                        <input type="button" value="Aus Stammdaten hinzufügen" onclick="selectFunction('${paths.staticWeb}do/', 'person-function$ext');"/>
+                    </div>
+				#end
             </div>
 			
             <div class="tableCell width50">
                 <label for="person-company$ext">Firma/Institution</label>
                 <input type="text" id="person-company$ext" name="person-company$ext" value="$!message.text($facade.Company)" onchange="setModified();" #if($createNewPerson || !$grants.mayWrite()) readonly="true"#end/>
-                <div class="addButton">
-                    <input type="button" value="Aus Stammdaten hinzufügen" onclick="selectCompany('${paths.staticWeb}do/', 'person-company$ext');" #if($createNewPerson || !$grants.mayWrite()) disabled="true"#end/>
-                </div>
+                #if(!$createNewPerson && $grants.mayWrite())
+    				<div class="addButton">
+                        <input type="button" value="Aus Stammdaten hinzufügen" onclick="selectCompany('${paths.staticWeb}do/', 'person-company$ext');"/>
+                    </div>
+				#end
             </div>
 			
         </div>
