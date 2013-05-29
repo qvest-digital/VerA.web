@@ -53,7 +53,7 @@
     	<td class="tabright">&nbsp;</td>
     </tr></table>
     
-	<h2>G&auml;ste&uuml;bersicht</h2>
+	<h2 class="marginBottom20">G&auml;ste&uuml;bersicht</h2>
     
     <form id="guestListFilter" name="guestListFilter" action="ShowGuestList" method="POST">
         <input type="hidden" name="start" value="0">
@@ -62,7 +62,7 @@
         <input type="hidden" name="search-event" value="$search.event">
         <input type="hidden" id="search-listorder" name="search-listorder" value="$!search.listorder">
 			
-        <h3 class="marginBottom10 marginTop20">Filter</h3>
+        <h3 class="marginBottom0">Filter</h3>
 		
 		<div class="table width50">
 			<div class="tableRow">
