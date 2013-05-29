@@ -294,9 +294,7 @@
     					#elseif($exportFormat && $grants.mayExport())
 							Markierte Person(en)
     						<input type="button" value="Exportieren" title="Exportieren" onclick="selectedActionExportPerson();" />
-    					#else
-							&nbsp;
-						#end
+    					#else &nbsp; #end
 					</label>
             	</span>
     
