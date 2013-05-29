@@ -158,7 +158,9 @@
                 </table>
 
                 #else
-                <br>Keine Daten gefunden.
+					<div class="hinweis grayBorder">
+						Es liegen keine Aufgaben für diese Veranstaltung vor.
+					</div>
                 #end
 
 
