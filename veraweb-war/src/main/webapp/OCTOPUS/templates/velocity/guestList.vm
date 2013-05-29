@@ -7,6 +7,10 @@
     		<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Veranstaltungen > Veranstaltung bearbeiten</span>
     </div>
     <h1>G&auml;steverwaltung der Veranstaltung: $!message.plain($event.shortname)</h1>
+	
+	#if(!$isNewEvent)
+      	#parse("inc/event-header.vm")
+    #end
 
     #if($invited)
     	<div style="margin: 10px 0px 0px 0px; padding: 2px 3px 2px 3px; background-color: #ffc080; border: 1px solid #ff8000;">
@@ -49,59 +53,44 @@
     	<td class="tabright">&nbsp;</td>
     </tr></table>
     
-    		#if(!$isNewEvent)
-            	#parse("inc/event-header.vm")
-            #end
-    
-    
-    <table class="form"><tr>
-    	<td class="label" style="width: 19%;"><strong>Veranstaltung:</strong></td>
-    	<td class="value" style="width: 31%;"><input type="text" id="event-shortname" name="event-shortname" value="$!message.text($event.shortname)" class="textdisabled" style="width: 90%;" readonly title="Veranstaltungs-ID: $!event.id"></td>
-    	<td class="label" style="width: 19%;">Einladungsart:</td>
-    	#if ($event.invitationtype == 2)
-    	<td class="value" style="width: 31%;"><input type="text" id="event-invitationtype" name="event-invitationtype" value="Ohne Partner" class="textdisabled" style="width: 90%;" readonly></td>
-    	#elseif ($event.invitationtype == 3)
-    	<td class="value" style="width: 31%;"><input type="text" id="event-invitationtype" name="event-invitationtype" value="Nur Partner" class="textdisabled" style="width: 90%;" readonly></td>
-    	#else
-    	<td class="value" style="width: 31%;"><input type="text" id="event-invitationtype" name="event-invitationtype" value="Mit Partner" class="textdisabled" style="width: 90%;" readonly></td>
-    	#end
-    </tr><tr>
-    	<td class="label" style="width: 19%;">Datum:</td>
-    	<td class="value" style="width: 31%;"><input type="text" id="event-begin" name="event-begin" value="$!message.date("DATE", $event.begin)#if($event-beginhastime) $!message.date("TIME", $event.begin)#end" class="textdisabled" style="width: 90%;" readonly></td>
-    	<td class="label" style="width: 19%;">Max. Anzahl G&auml;ste:</td>
-    	<td class="value" style="width: 31%;"><input type="text" id="event-maxguest" name="event-maxguest" value="$!message.text($event.maxguest)" class="intdisabled" readonly></td>
-    </tr></table>
-    
-    <hr class="contentsection" />
+	<h2>G&auml;ste&uuml;bersicht</h2>
     
     <form id="guestListFilter" name="guestListFilter" action="ShowGuestList" method="POST">
-    <input type="hidden" name="start" value="0">
-    <input type="hidden" name="selectAll" value="false">
-    <input type="hidden" name="selectNone" value="true">
-    <input type="hidden" name="search-event" value="$search.event">
-    <input type="hidden" id="search-listorder" name="search-listorder" value="$!search.listorder">
-    
-    <table class="form"><tr>
-    	<td class="label" style="width: 19%;">Platzwahl:</td>
-    	<td class="value" style="width: 31%;">
-    		<select name="search-reserve" class="combobox" style="width: 93%;" onchange="submit();">
-    			<option value="">Alle G&auml;ste</option>
-    			<option #if($search.reserve && $search.reserve == 1) selected#end value="1">Alle G&auml;ste auf Platz</option>
-    			<option #if($search.reserve && $search.reserve == 2) selected#end value="2">Alle G&auml;ste auf Reserve</option>
-    		</select>
-    	</td>
-    	<td class="label" style="width: 19%;">Status:</td>
-    	<td class="value" style="width: 31%;">
-    		<select name="search-invitationstatus" class="combobox" style="width: 93%;" onchange="submit();">
-    			<option value="">Alle</option>
-    			<option #if($search.invitationstatus && $search.invitationstatus == 1) selected#end value="1">nur Offene</option>
-    			<option #if($search.invitationstatus && $search.invitationstatus == 2) selected#end value="2">nur Zusagen</option>
-    			<option #if($search.invitationstatus && $search.invitationstatus == 3) selected#end value="3">nur Absagen</option>
-    			<option #if($search.invitationstatus && $search.invitationstatus == 4) selected#end value="4">nur Teilnahmen</option>
-    		</select>
-    	</td>
-    </tr></table><br>
-    
+        <input type="hidden" name="start" value="0">
+        <input type="hidden" name="selectAll" value="false">
+        <input type="hidden" name="selectNone" value="true">
+        <input type="hidden" name="search-event" value="$search.event">
+        <input type="hidden" id="search-listorder" name="search-listorder" value="$!search.listorder">
+			
+        <h3 class="marginBottom10 marginTop20">Filter</h3>
+		
+		<div class="table width50">
+			<div class="tableRow">
+				<div class="tableCell width50">
+					<label for="search-reserve">Platzwahl:</label>
+            		<select name="search-reserve" id="search-reserve" onchange="submit();">
+                    			<option value="">Alle G&auml;ste</option>
+                    			<option #if($search.reserve && $search.reserve == 1) selected#end value="1">Alle G&auml;ste auf Platz</option>
+                    			<option #if($search.reserve && $search.reserve == 2) selected#end value="2">Alle G&auml;ste auf Reserve</option>
+                    </select>
+				</div>
+				<div class="tableCell width50">
+            		<label for="search-invitationstatus">Status</label>
+            		<select name="search-invitationstatus" id="search-invitationstatus" onchange="submit();">
+                    			<option value="">Alle</option>
+                    			<option #if($search.invitationstatus && $search.invitationstatus == 1) selected#end value="1">nur Offene</option>
+                    			<option #if($search.invitationstatus && $search.invitationstatus == 2) selected#end value="2">nur Zusagen</option>
+                    			<option #if($search.invitationstatus && $search.invitationstatus == 3) selected#end value="3">nur Absagen</option>
+                    			<option #if($search.invitationstatus && $search.invitationstatus == 4) selected#end value="4">nur Teilnahmen</option>
+                    </select>				
+				</div>
+			</div>
+		</div>
+		
+
+		
+
+        
     </form>
     
     #if($listerrors.size() > 0)
