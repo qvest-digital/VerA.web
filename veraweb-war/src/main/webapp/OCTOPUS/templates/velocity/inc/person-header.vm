@@ -2,15 +2,15 @@
 
 #if($action == "guest")
 		
-	<span class="buttonPanel-top textRight floatRight marginBottom10">
+	<div id="buttonPanel-top" class="textRight marginBottom10">
 		#if($person && $person.id)
-			<input type="button" name="add" value="&Uuml;bernehmen" title="Gast direkt in G&auml;steliste &uuml;bernehmen" class="mainButton" onclick="addToGuestList();">
+			<input type="button" name="add" value="In G&auml;steliste &uuml;bernehmen" title="Gast direkt in G&auml;steliste &uuml;bernehmen" class="mainButton" onclick="addToGuestList();">
 		#end
 		#if($grants.mayWrite())
 			<input type="button" name="copy" class="mainButton" value="Person kopieren" onclick="if (checkModified()) { copyPerson(); }"/>
 		#end
         <input type="button" name="export" class="mainButton"value="Etikett erzeugen" onclick="exportPerson('${paths.staticWeb}do/', '$!person.id');">
-	</span>
+	</div>
 	
 #elseif($action == "host")
 	
