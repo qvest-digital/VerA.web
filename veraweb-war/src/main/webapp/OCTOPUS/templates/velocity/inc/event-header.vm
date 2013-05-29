@@ -5,12 +5,12 @@
 				<strong>Veranstaltungs-ID:</strong> $!message.text($event.id)
 			</div>
 			<div class="tableCell width50">
-				<strong>Name:</strong> <pre>$!message.textarea($event.eventname)</pre>
+				<strong>Beginn:</strong> $!message.date("DATE", $event.begin) #if($event-beginhastime)um $!message.date("TIME", $event.begin) Uhr#end									
 			</div>
 		</div>
 		<div class="tableRow">
 			<div class="tableCell width50">
-				<strong>Beginn:</strong> $!message.date("DATE", $event.begin) #if($event-beginhastime)um $!message.date("TIME", $event.begin) Uhr#end									
+				<strong>Name:</strong> <pre>$!message.textarea($event.eventname)</pre>
 			</div>
 			<div class="tableCell width50">
 				<strong>Ende:</strong> $!message.date("DATE", $event.end) #if($event-endhastime)um $!message.date("TIME", $event.end) Uhr#end									
