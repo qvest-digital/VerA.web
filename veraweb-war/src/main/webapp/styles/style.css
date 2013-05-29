@@ -514,6 +514,11 @@ hr {border-top:1px solid #8b0f0f; }
 #peopleTop > .table > .tableRow > .tableCell .tableCell:last-child {
 }	
 
+#eventTop strong {
+	display:inline-block; 
+	width:70px;
+}
+
 #popUp {
 	padding:20px;
 }
