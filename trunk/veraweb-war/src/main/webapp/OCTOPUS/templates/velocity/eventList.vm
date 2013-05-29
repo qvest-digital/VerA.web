@@ -53,16 +53,18 @@
 		#else
 			
             <span id="actionPanel" class="inlineLabel">
-            	#if($action != "guest" || $action != "addperson")
+            	#if(($action != "guest" || $action != "addperson") && $grants.mayWrite())
         			<strong>Markierte Veranstaltung(en)</strong>
-            		<input type="submit" name="remove" value="L&ouml;schen" title="Markierte Veranstaltungen l&ouml;schen" #* onclick="return confirm('Markierte Veranstaltungen wirklich l&ouml;schen?');" *# #if(!$grants.mayWrite()) disabled #end>
-            	#end        
+            		<input type="submit" name="remove" value="L&ouml;schen" title="Markierte Veranstaltungen l&ouml;schen" onclick="return confirm('Markierte Veranstaltungen wirklich l&ouml;schen?');" />
+            	#else &nbsp; #end        
         	</span>
 			
         	#if($action != "guest" && $action != "addPerson" && !$searchTask )
             	<span id="" class="buttonPanel-top textRight floatRight">
-                    <input type="button" name="" value="Veranstaltung suchen" class="mainButton" onclick="window.location.href='ShowEventSearch?action=event';">
-            		<input type="button" name="" value="Neue Veranstaltung anlegen" class="mainButton" onclick="window.location.href='CreateEvent?action=event';">
+                    <input type="button" name="" value="Veranstaltung suchen" class="mainButton" onclick="window.location.href='ShowEventSearch?action=event';"/>
+					#if($grants.mayWrite())
+						<input type="button" name="" value="Neue Veranstaltung anlegen" class="mainButton" onclick="window.location.href='CreateEvent?action=event';"/>
+					#end
             	</span>	
         	#end
             	
@@ -115,7 +117,7 @@
                 	
 				<table>
             		<tr>						
-                    	#if($action != "guest" && $action != "addperson")
+                    	#if($action != "guest" && $action != "addperson" && $grants.mayWrite())
                     		<th class="textCenter smallCell"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" #if($listselection.size() == $listparam.count) checked#end title="Alle (de)markieren"/></th>
         				#end
         				
@@ -133,7 +135,7 @@
                 		<tr>
     						
                 			#if($action == "guest")
-    							
+								
             					<td onclick="window.location.href='AddEventToEventGuestList?id=$!{bean.id}';" class="textCenter"><input type="hidden" name="${bean.id}-id" value="$bean.id">$!{bean.id}</td>
             					<td onclick="window.location.href='AddEventToEventGuestList?id=$!{bean.id}';">$!message.plain($bean.shortname)</td>
                     			
@@ -181,7 +183,9 @@
                     			<td onclick="window.location.href='AddPersonToEventDetail?event-id=$!{bean.id}&action=person';">$!message.plain($bean.location)</td>
     							
                 			#else
-                				<td class="textCenter"><input type="checkbox" name="${bean.id}-select" value="true" #if($listselection.indexOf($bean.id) != -1) checked#end></td>
+								#if($grants.mayWrite())
+									<td class="textCenter"><input type="checkbox" name="${bean.id}-select" value="true" #if($listselection.indexOf($bean.id) != -1) checked#end></td>
+								#end
                 				<td onclick="window.location.href='ShowEvent?id=$!{bean.id}';" class="textCenter"><input type="hidden" name="${bean.id}-id" value="$bean.id">$!{bean.id}</td>
                 				<td onclick="window.location.href='ShowEvent?id=$!{bean.id}';">$!message.plain($bean.shortname)</td>
     							
