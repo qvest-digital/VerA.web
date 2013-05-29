@@ -10,11 +10,26 @@
 		</div>
 		<div class="tableRow">
 			<div class="tableCell width50">
-				<strong style="width: 55px; vertical-align: inherit;">Name:</strong> <pre>$!message.textarea($event.eventname)</pre>
+				<strong style="width: 155px; vertical-align: inherit;">Veranstaltungsname:</strong> <pre>$!message.textarea($event.eventname)</pre>
 			</div>
 			<div class="tableCell width50">
 				<strong>Ende:</strong> $!message.date("DATE", $event.end) #if($event-endhastime)um $!message.date("TIME", $event.end) Uhr#end									
 			</div>
 		</div>
+		<div class="tableRow">
+			<div class="tableCell width50">
+				<strong>Einladungsart:</strong> 	
+				#if ($event.invitationtype == 2)
+					Ohne Partner
+            	#elseif ($event.invitationtype == 3)
+					Nur Partner
+            	#else
+					Mit Partner
+            	#end
+			</div>
+			<div class="tableCell width50">
+				<strong>Max. Anzahl G&auml;ste:</strong> $!message.text($event.maxguest)									
+			</div>
+		</div>		
 	</div>											
 </div>
