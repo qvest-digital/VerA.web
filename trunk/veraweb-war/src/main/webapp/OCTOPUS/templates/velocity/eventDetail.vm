@@ -92,31 +92,7 @@
 		
     		<div vera-content="allgemein" class="contentBoxColored tabsContent">
 				<div class="textRight mandatoryText">* = Pflichtfelder</div>
-    					<div class="table width100">
-    						<div class="tableRow">
-    							<div class="tableCell width50">
-    								<label for="event-invitationtype">Einladungsart:</label>
-    								<select onchange="setModified();" class="autoWidth" id="event-invitationtype" name="event-invitationtype">
-                    					<option #if($event.invitationtype && $event.invitationtype == 1) selected #end value="1">Mit Partner</option>
-                    					<option #if($event.invitationtype && $event.invitationtype == 2) selected #end value="2">Ohne Partner</option>
-                    					<option #if($event.invitationtype && $event.invitationtype == 3) selected #end value="3">Nur Partner</option>
-    								</select>						
-    							</div>
-    							<div class="tableCell width50 ">
-    								<label for="gastgeber">Gastgeber:</label>
-    								<input type="hidden" value="$!event.host" name="event-host" id="event-host">
-    								<input type="hidden" value="$!event.hostname" name="event-hostname" id="event-hostname">
-    								<input type="hidden" value="kein Gastgeber ausgewählt" name="showevent-hostnametext" id="showevent-hostnametext">
-    								<input type="text" readonly="" class="textdisabled" value="$!message.text($event.hostname)" name="showevent-hostname" id="showevent-hostname">
-    								#if($grants.mayWrite())
-    								<div class="addButton">
-    									<input type="button" value="Gastgeber suchen" onclick="document.getElementById('formlist').action='SetHostToEventSearch'; document.getElementById('a').value='host'; document.getElementById('formlist').submit();"><!-- war früher ein link <a href="javascript:document.getElementById('formlist').action='SetHostToEventSearch'; document.getElementById('a').value='host'; document.getElementById('formlist').submit();">Suchen</a> | -->
-    									<input type="button" value="Gastgeber entfernen" onclick="removeHost(); setModified(); document.getElementById('formlist').action='SaveEvent'; document.getElementById('formlist').submit();"><!-- war früher ein link <a href="javascript:removeHost(); setModified(); document.getElementById('formlist').action='SaveEvent'; document.getElementById('formlist').submit();">Entfernen</a> -->
-                                    </div>	
-    								#end
-    							</div>
-    						</div>
-							
+    					<div class="table width100">							
 							<div class="tableRow">
     							<div class="tableCell width50">
         							<label for="event-shortname">Kurzbezeichnung*:</label>
@@ -168,6 +144,30 @@
                     					 um <input type="text" name="event-endtime" id="event-endtime" #if($event-endhastime) value="$!message.date("TIME", $event.end)" #else value="" #end class="width15" onchange="setModified();">Uhr </div>									
 								</div>
 							</div>
+
+							<div class="tableRow">
+    							<div class="tableCell width50">
+    								<label for="event-invitationtype">Einladungsart:</label>
+    								<select onchange="setModified();" class="autoWidth" id="event-invitationtype" name="event-invitationtype">
+                    					<option #if($event.invitationtype && $event.invitationtype == 1) selected #end value="1">Mit Partner</option>
+                    					<option #if($event.invitationtype && $event.invitationtype == 2) selected #end value="2">Ohne Partner</option>
+                    					<option #if($event.invitationtype && $event.invitationtype == 3) selected #end value="3">Nur Partner</option>
+    								</select>						
+    							</div>
+    							<div class="tableCell width50 ">
+    								<label for="gastgeber">Gastgeber:</label>
+    								<input type="hidden" value="$!event.host" name="event-host" id="event-host">
+    								<input type="hidden" value="$!event.hostname" name="event-hostname" id="event-hostname">
+    								<input type="hidden" value="kein Gastgeber ausgewählt" name="showevent-hostnametext" id="showevent-hostnametext">
+    								<input type="text" readonly="" class="textdisabled" value="$!message.text($event.hostname)" name="showevent-hostname" id="showevent-hostname">
+    								#if($grants.mayWrite())
+    								<div class="addButton">
+    									<input type="button" value="Gastgeber suchen" onclick="document.getElementById('formlist').action='SetHostToEventSearch'; document.getElementById('a').value='host'; document.getElementById('formlist').submit();"><!-- war früher ein link <a href="javascript:document.getElementById('formlist').action='SetHostToEventSearch'; document.getElementById('a').value='host'; document.getElementById('formlist').submit();">Suchen</a> | -->
+    									<input type="button" value="Gastgeber entfernen" onclick="removeHost(); setModified(); document.getElementById('formlist').action='SaveEvent'; document.getElementById('formlist').submit();"><!-- war früher ein link <a href="javascript:removeHost(); setModified(); document.getElementById('formlist').action='SaveEvent'; document.getElementById('formlist').submit();">Entfernen</a> -->
+                                    </div>	
+    								#end
+    							</div>
+    						</div>
 									
     						<div class="tableRow">
     							<div class="tableCell width50">
