@@ -30,7 +30,9 @@
 
     <table class="notBold">
 	<tr>
+        #if($grants.mayWrite())
         <th class="textCenter smallCell"><input type="checkbox" name="" id="toggleAllSelect" #if($listparam.count > 0 && $listselection.size() == $listparam.count) checked#end title="Alle (de)markieren" #if(!$grants.mayWrite()) disabled="true"#end /></th>
+        #end
         <th>Dokumenttyp</th>
         <th class="textCenter smallCell">Anschrift</th>
         <th class="textCenter smallCell">Zeichensatz</th>
@@ -38,7 +40,9 @@
 	</tr>
 	#foreach($bean in $list)
 	<tr>
+        #if($grants.mayWrite())
 		<td class="textCenter"><input type="hidden" id="${bean.id}-modified" name="${bean.id}-modified" value="false"><input type="checkbox" name="${bean.id}-select" value="true" class="checkbox" #if($listselection.indexOf($bean.id) != -1) checked#end></td>
+        #end
 		#if($bean.id)
 		<td #if($bean.id) onclick="window.location.href='${paths.staticWeb}do/ShowPersonDoctype?persondoctype-id=$!bean.id';"#else onclick="window.location.href='${paths.staticWeb}do/CreatePersonDoctype?doctype-id=$!bean.doctypeId';"#end><input type="hidden" name="${bean.id}-id" value="$!bean.id"><input type="hidden" name="${bean.id}-person" value="$!bean.person">$!bean.name</td>
 		#else
