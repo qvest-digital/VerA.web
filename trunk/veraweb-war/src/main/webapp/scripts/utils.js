@@ -166,45 +166,33 @@ function disableFormInput(fld) {
 	attr.nodeValue = 'readonly';
     if (fld !== null) {
 	    fld.setAttributeNode(attr);
-	    fld.style.color = "#808080";
-	    fld.style.background = "#f0f0f0";
     }
 }
 
 function enableFormInput(fld) {
 	fld.removeAttribute("readonly", 0);
-	fld.style.color = "#000000";
-	fld.style.background = "#ffffff";
 }
 
 function disableFormTextarea(fld) {
 	var attr = document.createAttribute('readonly');
 	attr.nodeValue = 'readonly';
 	fld.setAttributeNode(attr);
-	fld.style.color = "#808080";
-	fld.style.background = "#f0f0f0";
 }
 
 function disableFormSelect(fld) {
 	var attr = document.createAttribute('disabled');
 	attr.nodeValue = 'true';
 	fld.setAttributeNode(attr);
-	fld.style.color = "#808080";
-	fld.style.background = "#f0f0f0";
 }
 
 function enableFormSelect(fld) {
 	fld.removeAttribute("disabled", 0);
-	fld.style.color = "#000000";
-	fld.style.background = "#ffffff";
 }
 
 function disableFormRadiobox(fld) {
 	var attr = document.createAttribute('disabled');
 	attr.nodeValue = 'true';
 	fld.setAttributeNode(attr);
-	fld.style.color = "#808080";
-	fld.style.background = "#f0f0f0";
 }
 
 function disableFormCheckbox(fld) {
@@ -212,15 +200,11 @@ function disableFormCheckbox(fld) {
 	attr.nodeValue = 'true';
     if (fld !== null) {
         fld.setAttributeNode(attr);
-        fld.style.color = "#808080";
-        fld.style.background = "#f0f0f0";
     }
 }
 
 function enableFormCheckbox(fld) {
 	fld.removeAttribute("disabled", 0);
-	fld.style.color = "#000000";
-	fld.style.background = "#ffffff";
 }
 
 function onMouseOverList(line) {
