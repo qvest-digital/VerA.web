@@ -90,9 +90,9 @@
 			#end
 
 			<div id="buttonPanel-bottom">
-				<input type="submit" class="mainButton" title="Suchen" name="count" value="Suchen" onclick="document.getElementById('formlist').action='CountReplaceAllPerson'; document.getElementById('formlist').submit();">
-				<input type="button" class="mainButton" title="Einzelne Einzräge zum Ersetzen selektieren" name="replace" value="Einzeln ersetzen" onclick="document.getElementById('formlist').action='ShowReplacePersonList'; document.getElementById('formlist').submit();">
-				<input type="button" class="mainButton" title="Alle sofort ersetzen" name="replaceall" value="Alle ersetzen" onclick="document.getElementById('formlist').action='SaveReplaceAllPerson';  document.getElementById('formlist').submit();">
+				<input type="submit" class="mainButton" title="Suchen" name="count" value="Suchen"/>
+				<input type="button" class="mainButton" title="Einzelne Einzräge zum Ersetzen selektieren" name="replace" value="Einzeln ersetzen" onclick="document.getElementById('formlist').action='ShowReplacePersonList'; document.getElementById('formlist').submit();"/>
+				<input type="button" class="mainButton" title="Alle sofort ersetzen" name="replaceall" value="Alle ersetzen" onclick="document.getElementById('formlist').action='SaveReplaceAllPerson';  document.getElementById('formlist').submit();"/>
 				<input type="button" class="mainButton" title="Felder leeren" name="cancel" value="Felder leeren" onclick="clearFields();">		
 			</div>
 		</div>
@@ -120,6 +120,7 @@
 		document.getElementById('snr-group09').checked = false;
 		document.getElementById('snr-group10').checked = false;
 		document.getElementById('snr-group20').checked = false;
+		document.getElementById('formlist').submit();
 	}
 </script>
 
