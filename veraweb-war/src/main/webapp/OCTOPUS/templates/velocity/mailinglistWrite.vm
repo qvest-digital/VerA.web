@@ -81,20 +81,18 @@
                     
                         <div>
             				<label for="mail-draft">Vorhandene Vorlagen:</label>
-                        		 	#set($loadable = false)		
+								#if($allMailDraft && $allMailDraft.size() > 0)
                         			<select id="mail-draft" name="mail-draft">
-                            		#foreach($draft in $allMailDraft)
-                            			#set($loadable = true)
-                            			<option value="$!draft.id" #if($mail.id && $mail.id == $draft.id) selected #end>$!draft.name</option>
-                            		#end
-                            		#if(!$loadable)
-                            			<option value="">Es liegen keine Vorlagen vor</option>
+										<option value="0">&lt;Bitte ausw&auml;hlen&gt;</option>
+										#foreach($draft in $allMailDraft)
+                                			<option value="$!draft.id" #if($mail.id && $mail.id == $draft.id) selected #end>$!draft.name</option>
+                                		#end
                             		</select>
-                					#end
-                                    #if($loadable)
-                            			<input type="button" name="" value="Vorlage laden" class="autoWidth" title="Vorlage laden" onclick="document.getElementById('loaddraft').value='true'; document.getElementById('formlist').submit();">
-									#end
+                        			<input type="button" name="" value="Vorlage laden" class="autoWidth" title="Vorlage laden" onclick="document.getElementById('loaddraft').value='true'; document.getElementById('formlist').submit();"/>
 									<input type="button" name="send" value="Keine Vorlage" class="autoWidth" onclick="window.location.href='MailinglistWrite';" title="Keine Vorlage verwenden"/>
+								#else
+									Es liegen keine Vorlagen vor
+								#end
             
                			</div>
                         <div class="marginTop20">
