@@ -9,7 +9,7 @@
 		
         <div class="tableRow">
 			
-            <div class="tableCell width50 inlineLabel #if(!$grants.mayWrite()) disabled#end">
+            <div class="tableCell width50 inlineLabel ">
 				#if($ext == "_a_e1")
                     <label for="person-iscompany">Ist Firma</label>
                     <input type="checkbox" id="person-iscompany" name="person-iscompany" value="t" class="noFloat" #if(($person.iscompany && $person.iscompany == "t") || ($person-iscompany && $person-iscompany == "t")) checked #end onchange="setModified();" #if(!$grants.mayWrite()) readonly="true"#end/>
@@ -31,7 +31,7 @@
 		
         <div class="tableRow">
 			
-            <div class="tableCell width50 #if(!$grants.mayWrite() || $createNewPerson) disabled#end">
+            <div class="tableCell width50 ">
                 <label for="person-salutation$ext">Anrede</label>
 				#set($sel = false)
 				<select class="width30" id="person-salutation$ext" name="person-salutation$ext" onchange="setModified(); setSex('person-salutation$ext', 'person-sex${ext}');" #if(!$grants.mayWrite() || $createNewPerson) disabled="true"#end >
@@ -51,7 +51,7 @@
 				</select>
             </div>
 			
-			<div class="tableCell width50 #if(!$grants.mayWrite() || $createNewPerson) disabled#end">
+			<div class="tableCell width50 ">
                 <label for="person-expire$ext">G&uuml;ltig bis</label>
                 <input type="text" name="person-expire$ext" id="person-expire$ext" value="$!message.date("DATE", $person.expire)" class="datepicker personExpiredDate" onchange="setModified(); updateExpiredDate(this.value);" #if(!$grants.mayWrite() || $createNewPerson) readonly="true"#end/>
 				#if($grants.mayWrite() && !$createNewPerson)
@@ -71,12 +71,12 @@
 		
         <div class="tableRow">
 			
-            <div class="tableCell width50 #if(!$grants.mayWrite() || $createNewPerson) disabled#end">
+            <div class="tableCell width50 ">
                 <label for="person-title$ext">Akad. Titel</label>
                 <input type="text" id="person-title$ext" name="person-title$ext" value="$!message.text($facade.Title)" onchange="setModified();" #if(!$grants.mayWrite() || $createNewPerson) readonly="true"#end/>
             </div>
 			
-			<div class="tableCell width50 #if(!$grants.mayWrite() || $createNewPerson) disabled#end">
+			<div class="tableCell width50 ">
 				#if($ext == "_a_e1" || $ext == "_b_e1")
                     <label for="person-birthday$ext">Geburtsdatum</label>
     				<input type="text" name="person-birthday$ext" value="$!message.date("DATE", $facade.Birthday, false)" id="person-birthday$ext" class="datepicker" onchange="setModified();" #if(!$grants.mayWrite() || $createNewPerson) readonly="true"#end/>
@@ -98,12 +98,12 @@
 		
         <div class="tableRow">
 			
-            <div class="tableCell width50 #if(!$grants.mayWrite() || ($createNewPerson && $ext != "_a_e1")) disabled#end">
+            <div class="tableCell width50 ">
                 <label for="person-firstname$ext">Vorname#if($ext == "_a_e1")*#end</label>
                 <input type="text" id="person-firstname$ext" name="person-firstname$ext" value="$!message.text($facade.Firstname)" onchange="setModified();" #if(!$grants.mayWrite() || ($createNewPerson && $ext != "_a_e1")) readonly="true"#end/>
             </div>
 			
-			<div class="tableCell width50 #if(!$grants.mayWrite() || $createNewPerson) disabled#end">
+			<div class="tableCell width50 ">
 				#if ( $ext == "_a_e1" || $ext == "_a_e2" || $ext == "_a_e3" )
                     <label for="person-birthplace$ext">Geburtsort</label>
                     <input type="text" name="person-birthplace$ext" value="$!message.text($facade.Birthplace)" id="person-birthplace$ext" onchange="setModified();" #if(!$grants.mayWrite() || $createNewPerson) readonly="true"#end />
@@ -114,12 +114,12 @@
 		
         <div class="tableRow">
 			
-            <div class="tableCell width50 #if(!$grants.mayWrite() || ($createNewPerson && $ext != "_a_e1")) disabled#end">
+            <div class="tableCell width50 ">
                 <label for="person-lastname$ext">Nachname#if($ext == "_a_e1")*#end</label>
                 <input type="text" id="person-lastname$ext" name="person-lastname$ext" value="$!message.text($facade.Lastname)" onchange="setModified();" #if(!$grants.mayWrite() || ($createNewPerson && $ext != "_a_e1")) readonly="true"#end/>
             </div>
 			
-			<div class="tableCell width50 #if(!$grants.mayWrite() || $createNewPerson) disabled#end">
+			<div class="tableCell width50 ">
 				#if ( $ext == "_a_e1" || $ext == "_b_e1" )
                     <label for="person-nationality$ext">Nationalit&auml;t/Staatsangeh&ouml;rigkeit</label>
                     <input type="text" id="person-nationality$ext" name="person-nationality$ext" value="$!message.text($facade.Nationality)" onchange="setModified();" #if(!$grants.mayWrite() || $createNewPerson) readonly="true"#end/>
@@ -130,7 +130,7 @@
 		
         <div class="tableRow">
 			
-			<div class="tableCell width50 inlineLabel #if(!$grants.mayWrite() || $createNewPerson) disabled#end">
+			<div class="tableCell width50 inlineLabel ">
     			#if($ext == "_a_e1" || $ext == "_b_e1") 
                     <strong>Inland</strong><br />
 					#if ($facade.Domestic && $facade.Domestic == "f")
@@ -143,7 +143,7 @@
     			#end
 			</div>
 			
-            <div class="tableCell width50 #if(!$grants.mayWrite() || $createNewPerson) disabled#end">
+            <div class="tableCell width50 ">
 				#if ( $ext == "_a_e1" || $ext == "_b_e1" )
                     <label for="person-languages$ext">Sprachen</label>
                     <input type="text" id="person-languages$ext" name="person-languages$ext" value="$!message.text($facade.Languages)" onchange="setModified();" #if(!$grants.mayWrite() || $createNewPerson) readonly="true"#end/>
@@ -154,7 +154,7 @@
 		
         <div class="tableRow">
 			
-            <div class="tableCell width50 #if(!$grants.mayWrite() || $createNewPerson) disabled#end">
+            <div class="tableCell width50 ">
 				#if($ext == "_a_e1")
                     <label for="workarea-id">Arbeitsbereich</label>
                     <select name="workarea-id" id="workarea-id" onchange="setModified('workarea')" #if(!$grants.mayWrite() || $createNewPerson) disabled="true"#end>
@@ -166,7 +166,7 @@
 				#end
             </div>
 			
-			<div class="tableCell width50 inlineLabel #if(!$grants.mayWrite() || $createNewPerson) disabled#end">
+			<div class="tableCell width50 inlineLabel ">
 				#if($ext == "_a_e1" || $ext == "_b_e1")
                     <strong>Geschlecht</strong><br />
     				#if ($facade.Sex && $facade.Sex == "f")
@@ -183,14 +183,14 @@
 		
         <div class="tableRow">
 			
-            <div class="tableCell width50 #if(!$grants.mayWrite() || $createNewPerson) disabled#end">
+            <div class="tableCell width50 ">
 				#if ( $ext == "_a_e1" || $ext == "_b_e1" )
                     <label for="person-note$ext">Bemerkung</label>
                     <textarea rows="3" cols="20" id="person-note$ext" name="person-note$ext" onchange="setModified();" #if($grants.mayReadRemarkFields()) #if(!$grants.mayWrite() || $createNewPerson) readonly="true"#end >$!message.textarea($facade.Note)#else disabled="true">#end</textarea>
                 #end
 			</div>
 			
-            <div class="tableCell width50 #if(!$grants.mayWrite() || $createNewPerson) disabled#end">
+            <div class="tableCell width50 ">
 				#if($ext == "_a_e1" || $ext == "_b_e1")
                     <label for="person-diplodate$ext">Akkreditierungsdatum</label>
                     <input type="text" name="person-diplodate$ext" value="$!message.date("DATE", $facade.Diplodate, false)" id="person-diplodate$ext" onchange="setModified();" class="datepicker" #if(!$grants.mayWrite() || $createNewPerson) readonly="true"#end/>
@@ -213,14 +213,14 @@
 		
         <div class="tableRow">
 			
-            <div class="tableCell width50 #if(!$grants.mayWrite() || $createNewPerson) disabled#end">
+            <div class="tableCell width50 ">
 				#if ( $ext == "_a_e1" || $ext == "_b_e1" )
                     <label for="person-noteorga$ext">Hinweis f&uuml;r Orga</label>
                     <textarea rows="3" cols="20" id="person-noteorga$ext" name="person-noteorga$ext" onchange="setModified();" #if($grants.mayReadRemarkFields()) #if(!$grants.mayWrite() || $createNewPerson) readonly="true"#end >$!message.textarea($facade.NoteOrga)#else disabled="true">#end</textarea>
                 #end
 			</div>
 			
-            <div class="tableCell width50 #if(!$grants.mayWrite() || $createNewPerson) disabled#end">
+            <div class="tableCell width50 ">
 				#if ( $ext == "_a_e1" || $ext == "_b_e1" )
                     <label for="person-notehost$ext">Hinweis f&uuml;r Gastgeber</label>
                     <textarea rows="3" cols="20" id="person-notehost$ext" name="person-notehost$ext" onchange="setModified();" #if($grants.mayReadRemarkFields()) #if(!$grants.mayWrite() || $createNewPerson) readonly="true"#end >$!message.textarea($facade.NoteHost)#else disabled="true">#end</textarea>
@@ -231,7 +231,7 @@
 		
 		<div class="tableRow">
 				
-            <div class="tableCell width50 #if(!$grants.mayWrite()) disabled#end">
+            <div class="tableCell width50 ">
 				#if ( !$createNewPerson && ($ext == "_a_e1" || $ext == "_b_e1") )
                     <strong>Datenherkunft</strong><br/>
 					#if(!$person.importsource || $person.importsource == '')-#else$!message.text($person.importsource)#end
