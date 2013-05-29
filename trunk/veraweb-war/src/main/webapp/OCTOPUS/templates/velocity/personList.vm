@@ -424,7 +424,7 @@
                     		<th title="Gesch&auml;ftlich, Zeichensatz 1">Ort (G)</th>
                     		#if($userConfig.personListState)<th title="Gesch&auml;ftlich, Zeichensatz 1">Bundesland (G)</th>#end
                     	</tr>
-                	#elseif($action == "duplicateSearch" )      
+                	#elseif($action == "duplicateSearch")      
                     	## modified for duplicate search as per change request for version 1.2.0
                     	## cklein
                     	## 2008-02-27
@@ -446,7 +446,7 @@
                     	</tr>
                 	#else
                     	<tr>
-							#if($isUser || ($exportFormat && $grants.mayExport()))
+							#if($isUser || ($exportFormat && $grants.mayExport()) || $action == "replace")
 								<th class="textCenter smallCell"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" #if($listselection.size() == $listparam.count) checked#end title="Alle (de)markieren"/></th>
                     		#end
 							<th class="textCenter smallCell">ID</th>
@@ -614,7 +614,7 @@
                         	</tr>	
                     	#else
                         	<tr>
-								#if($isUser || ($exportFormat && $grants.mayExport()))
+								#if($isUser || ($exportFormat && $grants.mayExport()) || $action == "replace")
 									<td><input type="checkbox" name="${bean.id}-select" value="true" onChange="selectionChange( this );" #if($listselection.indexOf($bean.id) != -1) checked#end></td>
                         		#end
 								<td onclick="window.location.href='ShowPerson?id=$!{bean.id}';"><input type="hidden" name="${bean.id}-id" value="$bean.id">$!{bean.id}</td>
