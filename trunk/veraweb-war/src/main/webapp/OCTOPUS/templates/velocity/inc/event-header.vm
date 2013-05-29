@@ -10,7 +10,7 @@
 		</div>
 		<div class="tableRow">
 			<div class="tableCell width50">
-				<strong>Name:</strong> <pre>$!message.textarea($event.eventname)</pre>
+				<strong style="width: 55px; vertical-align: inherit;">Name:</strong> <pre>$!message.textarea($event.eventname)</pre>
 			</div>
 			<div class="tableCell width50">
 				<strong>Ende:</strong> $!message.date("DATE", $event.end) #if($event-endhastime)um $!message.date("TIME", $event.end) Uhr#end									

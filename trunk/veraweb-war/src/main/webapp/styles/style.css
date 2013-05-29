@@ -296,7 +296,9 @@ ul.alphabet li {
 }
 
 pre {
+    display: inline-block;
     font-family: inherit;
+    white-space: pre-wrap;
 }
 
 /************* End misc *************/
