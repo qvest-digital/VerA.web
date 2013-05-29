@@ -273,10 +273,12 @@ public class PersonReplaceWorker extends PersonListWorker {
 			replaceRequest.put(PARAM_GROUPS[i], cntx.requestAsBoolean(PARAM_GROUPS[i]));
 		}
 		
-		if (search.replaceAll("\\*", "").length() < 2) {
+		if (search.replaceAll("\\*", "").length() < 1) {
+		    cntx.setContent("noSearchParam", true);
 			cntx.setStatus("invalidsearch");
 		}
 		if (!(getFieldList(replaceRequest).size() > 0 || ((Boolean)replaceRequest.get("snr-group20")).booleanValue())) {
+		    cntx.setContent("noFieldsSelected", true);
 			cntx.setStatus("invalidsearch");
 		}
 		

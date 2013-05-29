@@ -20,7 +20,7 @@
 			<div class="table width20 marginBottom10">
 				<div class="tableRow">
 					<div class="tableCell">
-						<label for="snr-search">Suchen:</label>
+						<label for="snr-search">Suchen*:</label>
 						<input type="text" name="snr-search" id="snr-search" value="$!message.text($replace-request.search)">
 					</div>
 				</div>		
@@ -58,7 +58,11 @@
 			#if($snr-action == "replace" || $snr-action == "replaceAll")
 				<div class="marginBottom20 marginTop10 msg">
 					#if(!$snr-count)
-						Ihre Suche muss aus mindestens zwei Buchstaben bestehen und Sie müssen ein Feld ausgewählt haben.
+						#if($noSearchParam)
+							Ihre Suche muss aus mindestens einem Buchstaben bestehen.
+						#elseif($noFieldsSelected)
+							Sie müssen mindestens ein Feld ausgewählt haben.
+						#end
 					#elseif($snr-count == 0)
 						Es wurde kein Datensatz ersetzt.
 					#elseif($snr-count == 1)
@@ -70,7 +74,11 @@
 				#elseif($snr-action == "count")
 				<div class="marginBottom20 marginTop10 msg">
 					#if(!$snr-count)
-						Ihre Suche muss aus mindestens zwei Buchstaben bestehen und Sie müssen ein Feld ausgewählt haben.
+						#if($noSearchParam)
+							Ihre Suche muss aus mindestens einem Buchstaben bestehen.
+						#elseif($noFieldsSelected)
+							Sie müssen mindestens ein Feld ausgewählt haben.
+						#end
 					#elseif($snr-count == 0)
 						Es wurde kein Datensatz gefunden.
 					#elseif($snr-count == 1)
