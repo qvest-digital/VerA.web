@@ -43,7 +43,9 @@
 	<td class="tabright">&nbsp;</td>
 </tr></table>
 
-
+		#if(!$isNewEvent)
+        	#parse("inc/event-header.vm")
+        #end
 
 
 <table class="form"><tr>
