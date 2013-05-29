@@ -78,26 +78,16 @@
     						<input type="text" name="importSource" id="importSource" value="$!message.text($importSource)">
     					</div>
     					<div class="tableCell width50">
-    						<label for="orgUnit">Zielmandant:</label>
-    						<select name id>
-    							<option value="Alle">Alle</option>
-    						</select>
+							#if($grants && $grants.isAdmin() && $allOrgUnit)
+								<label for="orgUnit">Zielmandant:</label>
+								<select name="orgUnit" id="orgUnit" class="combobox">
+									#foreach($orgunit in $allOrgUnit)
+										<option value="$orgunit.id" #if($octopusConfig.personalConfig.orgUnitId == $orgunit.id)selected#end>$orgunit.name</option>
+									#end
+								</select>
+							#end
     					</div>
     				</div>
-    
-                    #if($grants && $grants.isAdmin() && $allOrgUnit)
-                    <div class="tableRow">
-    					<div class="tableCell">
-    						<label for=""></label>
-                     		<select name="orgUnit" id="orgUnit" class="combobox">
-                             #foreach($orgunit in $allOrgUnit)
-                            	<option value="$orgunit.id" #if($octopusConfig.personalConfig.orgUnitId == $orgunit.id)selected#end>$orgunit.name</option>
-                             #end
-                    		</select>
-                    	</div>
-						<div class="tableCell"></div>
-                    </div>
-    				#end
     				
     				<div class="tableRow">
     					<div class="tableCell">
