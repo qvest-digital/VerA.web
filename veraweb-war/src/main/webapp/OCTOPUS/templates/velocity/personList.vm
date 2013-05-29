@@ -278,19 +278,21 @@
 				
 				<span id="actionPanel" class="inlineLabel">
 					<label>Markierte Person(en)
-    					<select id="actionSelection">
-        					<option>Löschen</option>
-        					#if($exportFormat && $grants.mayExport())
-        						<option>Export</option>
-        					#end
-        					#if($isUser)
+    					#if($isUser)
+							<select id="actionSelection">
+								<option>Löschen</option>
+            					#if($exportFormat && $grants.mayExport())
+            						<option>Exportieren</option>
+            					#end
         						<option>Kategorien zuordnen</option>
         						<option>Kategorien entfernen</option>
         						<option>Arbeitsbereich zuordnen</option>
         						<option>Arbeitsbereich entfernen</option>
-        					#end
-        				</select>
-    					<input type="button" value="Durchführen" id="button.execute" name="button.execute" />
+            				</select>
+        					<input type="button" value="Durchführen" id="button.execute" name="button.execute" />
+						#elseif($exportFormat && $grants.mayExport())
+							<input type="button" value="Exportieren" title="Exportieren" onclick="selectedActionExportPerson();" />
+						#end
 					</label>
             	</span>
     
@@ -304,7 +306,7 @@
     					
     					if (selectText == "Löschen") {
 							selectedActionRemovePerson();
-    					} else if (selectText == "Export") {
+    					} else if (selectText == "Exportieren") {
 							selectedActionExportPerson();
     					} else if (selectText == "Kategorien zuordnen") {
     						assignCategories();
