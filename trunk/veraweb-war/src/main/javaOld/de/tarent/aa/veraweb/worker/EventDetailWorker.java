@@ -32,6 +32,7 @@ import de.tarent.aa.veraweb.beans.EventDoctype;
 import de.tarent.aa.veraweb.beans.Guest;
 import de.tarent.aa.veraweb.beans.Location;
 import de.tarent.aa.veraweb.beans.Person;
+import de.tarent.aa.veraweb.beans.Task;
 import de.tarent.aa.veraweb.beans.facade.EventConstants;
 import de.tarent.aa.veraweb.utils.DateHelper;
 import de.tarent.dblayer.sql.SQL;
@@ -60,7 +61,7 @@ public class EventDetailWorker {
     // Octopus-Aktionen
     //
     /** Eingabe-Parameter der Octopus-Aktion {@link #showDetail(OctopusContext, Integer)} */
-	public static final String INPUT_showDetail[] = { "id", "eventId" };
+	public static final String INPUT_showDetail[] = { "id", "task" };
     /** Eingabe-Parameterzwang der Octopus-Aktion {@link #showDetail(OctopusContext, Integer)} */
 	public static final boolean MANDATORY_showDetail[] = { false, false  };
 	/**
@@ -73,9 +74,9 @@ public class EventDetailWorker {
 	 * @param id ID der zu ladenden Veranstaltung; falls <code>null</code> oder ung�ltig,
      *  so wird nichts geliefert
 	 */
-	public void showDetail(OctopusContext cntx, Integer id, Integer eventId) throws BeanException, IOException {
-		if (eventId != null) {
-			id = eventId;
+	public void showDetail(OctopusContext cntx, Integer id, Task task) throws BeanException, IOException {
+		if (task != null) {
+			id = task.getEventId();
 		}
 		Event event = getEvent(cntx, id);
 		if (event != null) {
