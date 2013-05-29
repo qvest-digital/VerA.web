@@ -1,7 +1,7 @@
 #set($activeMenu = "Veranstaltungen")
 
 #if($task && $task.id)
-#set($title = "Aufgabe bearbeiten: $!message.plain($task.shortname)")
+#set($title = "Aufgabe bearbeiten: $!message.text($task.title)
 #parse("inc/header.vm")
 #else
 #set($title = "Neue Aufgabe erstellen")
@@ -16,11 +16,11 @@
 
     #if($task && $task.id)
     <div id="breadcrumb" class="textRight">
-        <strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Veranstaltungen > Veranstaltung (Aufgabe bearbeiten)</span>
+        <strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Veranstaltungen > Veranstaltung</span>
     </div>
     #else
     <div id="breadcrumb" class="textRight">
-        <strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Veranstaltungen > Veranstaltung (Aufgabe anlegen)</span>
+        <strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Veranstaltungen > Veranstaltung</span>
     </div>
     #end
 
@@ -91,18 +91,18 @@
                 </ul>
             </div>
 
-            <div class="contentBoxColored tabsContent">
+            <div class="contentBoxColored tabsContent notBold">
 
-                <div class="table width100">
+                <div class="table width90">
                     <div class="tableRow">
-                        <div class="tableCell width30">
+                        <div class="tableCell width40">
                             <strong>Aufgaben-ID:</strong><br /> $!message.text($task.id)</div>
-                        <div class="tableCell width30">
+                        <div class="tableCell width20">
                             <label for="task-startdate">Beginn:</label>
                             <input tabindex="2" type="text" name="task-startdate" id="task-startdate" value="$!message.date("DATE", $task.startdate)" class="date" style="width: 80px;" onchange="setModified();">
                             #if($grants.mayWrite())
-                            <span id="show-begin" class="datepickerContainer"><img src="${paths.staticWeb}images/calendar.png" alt="Datum ausw&auml;hlen" title="Datum ausw&auml;hlen"></span> &nbsp; um &nbsp;
-                            <script type="text/javascript">
+                            <span id="show-begin" class="datepickerContainer"><img src="${paths.staticWeb}images/calendar.png" alt="Datum ausw&auml;hlen" title="Datum ausw&auml;hlen"></span> um
+								<script type="text/javascript">
                                 function changeDateStart(calendar, date) {
                                 }
 
@@ -116,7 +116,7 @@
                             </script>
                             #end
                             <input type="text" name="task-starttime" id="task-starttime" #if($task-starthastime) value="$!message.date("TIME", $task.startdate)" #else value="" #end class="date" style="width: 40px;" onchange="setModified();"> Uhr</div>
-                        <div class="tableCell width30">
+                        <div class="tableCell width20">
                             <label for="task-degreeofcompletion">Fertigstellung:</label>
                             <select tabindex="4" name="task-degreeofcompletion" id="task-degreeofcompletion" class="width15" onchange="setModified();">
                                 <option #if($task.degreeofcompletion && $task.degreeofcompletion == 0) selected #end value="0">0%</option>
@@ -141,8 +141,8 @@
                             <label for="task-enddate">Ende:</label>
                             <input tabindex="3" type="text" name="task-enddate" id="task-enddate" value="$!message.date("DATE", $task.enddate)" class="date" style="width: 80px;" onchange="setModified();">
                             #if($grants.mayWrite())
-                            <span id="show-end" class="datepickerContainer"><img src="${paths.staticWeb}images/calendar.png" alt="Datum ausw&auml;hlen" title="Datum ausw&auml;hlen"></span> &nbsp; um &nbsp;
-                            <script type="text/javascript">
+                            <span id="show-end" class="datepickerContainer"><img src="${paths.staticWeb}images/calendar.png" alt="Datum ausw&auml;hlen" title="Datum ausw&auml;hlen"></span> um
+							<script type="text/javascript">
                                 Calendar.setup({
                                     inputField     :    "task-enddate",
                                     button         :    "show-end",
@@ -179,18 +179,17 @@
                         <input type="hidden" id="task-reference-person" value="$!message.text($refPerson.firstname_a_e1) $!message.text($refPerson.lastname_a_e1)">
                         <strong>Verantwortlicher:</strong>
                         <div id="task-reference-person-text">$!message.text($refPerson.firstname_a_e1) $!message.text($refPerson.lastname_a_e1)</div>
+				        #if($grants.mayWrite())
+                            <div>
+                                <input type="button" class="mainButton" value="Verantworlichen hinzufügen" goto="SetReferencePersonToEventTask?a=taskReferencePerson&taskId=$!task.id&eventId=$!eventId">
+                                <input type="button" class="mainButton" value="Verantworlichen entfernen" id="linkRemoveRefPerson">
+                            </div>
+                        #end
                     </div>
                 </div>
             </div>
 
             </div>
-
-            #if($grants.mayWrite())
-            <div style="text-align: left;float: left;">
-                <input type="button" class="mainButton" value="Verantworlichen hinzufügen" goto="SetReferencePersonToEventTask?a=taskReferencePerson&taskId=$!task.id&eventId=$!eventId">
-                <input type="button" class="mainButton" value="Verantworlichen entfernen" id="linkRemoveRefPerson">
-            </div>
-            #end
 
             <div class="textRight">
                 #if($event && $event.id)
