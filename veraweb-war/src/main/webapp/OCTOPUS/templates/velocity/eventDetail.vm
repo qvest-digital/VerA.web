@@ -78,19 +78,21 @@
 		
 		<div id="main_content" class="tabs contentBox grayBorder marginBottom10 marginTop20">
 
-    		<div id="tabsMain" class="event">
-            	<ul class="gray-gradient" vera-tab-group> <!-- Bitte das End-tag der <li>s immer mit in die nächste Zeile nehmen (verhindert Mozilla styling bug) -->
-            		<li vera-tab="allgemein" vera-tab-default>Allgemein
-            		</li>#if(!$isNewEvent)<li onclick="showDoctypes();" class="inactive">Dokumenttypen
-    				</li><li class="inactive" #if ($event.id) onclick="if (checkModified()) { window.location.href='ShowEventTasks?id=$!event.id';}" #end>Aufgaben
-    				</li>#end
-            	</ul>
-    		</div>
+			#if(!$isNewEvent)
+        		<div id="tabsMain" class="event">
+                	<ul class="gray-gradient" vera-tab-group> <!-- Bitte das End-tag der <li>s immer mit in die nächste Zeile nehmen (verhindert Mozilla styling bug) -->
+                		<li vera-tab="allgemein" vera-tab-default>Allgemein
+                		</li><li onclick="showDoctypes();" class="inactive">Dokumenttypen
+        				</li><li class="inactive" #if ($event.id) onclick="if (checkModified()) { window.location.href='ShowEventTasks?id=$!event.id';}" #end>Aufgaben
+        				</li>
+                	</ul>
+        		</div>
+			#end
     		
     		<input type="hidden" name="event-id" value="$!event.id">
             <input type="hidden" name="event-orgunit" value="$!event.orgunit">
 		
-    		<div vera-content="allgemein" class="contentBoxColored tabsContent">
+    		<div #if(!$isNewEvent)vera-content="allgemein"#end class="contentBoxColored tabsContent">
 				<div class="textRight mandatoryText">* = Pflichtfelder</div>
     					<div class="table width100">							
 							<div class="tableRow">
