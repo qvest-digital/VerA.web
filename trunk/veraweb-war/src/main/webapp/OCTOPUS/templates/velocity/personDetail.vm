@@ -121,7 +121,7 @@
 	#parse("inc/person-header.vm")
 #end
 
-<div id="main_content" class="tabs contentBox grayBorder marginBottom20">
+<div id="main_content" class="tabs contentBox grayBorder marginBottom10">
 
     <div id="tabsMain">
     	<ul class="gray-gradient" vera-tab-group> <!-- Bitte das End-tag der <li>s immer mit in die nächste Zeile nehmen (verhindert Mozilla styling bug) -->
@@ -284,7 +284,7 @@
 ## 2008-02-22
     #if($action == "guest")
 		
-		<span id="buttonPanel-bottom" class="textRight floatRight">
+		<span id="buttonPanel-bottom" class="floatRight">
 			#if($grants.mayWrite())
 				<input type="submit" name="save" class="mainButton" value="Person speichern" title="Person speichern"/>
 			#end
@@ -293,7 +293,7 @@
 			
 	#elseif($action == "host")
 		
-		<span id="buttonPanel-bottom" class="textRight floatRight">
+		<span id="buttonPanel-bottom" class="floatRight">
 			#if($grants.mayWrite())
 				<input type="submit" name="save" class="mainButton" value="Person speichern" title="Person speichern" />
 			#end
