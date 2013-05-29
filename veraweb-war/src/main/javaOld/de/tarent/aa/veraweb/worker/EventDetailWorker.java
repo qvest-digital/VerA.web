@@ -60,9 +60,9 @@ public class EventDetailWorker {
     // Octopus-Aktionen
     //
     /** Eingabe-Parameter der Octopus-Aktion {@link #showDetail(OctopusContext, Integer)} */
-	public static final String INPUT_showDetail[] = { "id" };
+	public static final String INPUT_showDetail[] = { "id", "eventId" };
     /** Eingabe-Parameterzwang der Octopus-Aktion {@link #showDetail(OctopusContext, Integer)} */
-	public static final boolean MANDATORY_showDetail[] = { false };
+	public static final boolean MANDATORY_showDetail[] = { false, false  };
 	/**
 	 * Diese Octopus-Aktion l�dt eine Veranstaltung und legt sie unter dem Schl�ssel "event"
      * in den Octopus-Content. Begleitend werden dort zwei Flags unter den Schl�sseln
@@ -73,7 +73,10 @@ public class EventDetailWorker {
 	 * @param id ID der zu ladenden Veranstaltung; falls <code>null</code> oder ung�ltig,
      *  so wird nichts geliefert
 	 */
-	public void showDetail(OctopusContext cntx, Integer id) throws BeanException, IOException {
+	public void showDetail(OctopusContext cntx, Integer id, Integer eventId) throws BeanException, IOException {
+		if (eventId != null) {
+			id = eventId;
+		}
 		Event event = getEvent(cntx, id);
 		if (event != null) {
 			cntx.setContent("event", event);
