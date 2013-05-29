@@ -176,11 +176,11 @@
                     <div class="tableCell">
                         <input type="hidden" id="task-reference-person" value="$!message.text($refPerson.firstname_a_e1) $!message.text($refPerson.lastname_a_e1)">
                         <strong>Verantwortlicher:</strong>
-                        <div id="task-reference-person-text">$!message.text($refPerson.firstname_a_e1) $!message.text($refPerson.lastname_a_e1)</div>
+                        <div id="task-reference-person-text" class="marginBottom5">$!message.text($refPerson.firstname_a_e1) $!message.text($refPerson.lastname_a_e1)</div>
 				        #if($grants.mayWrite())
                             <div>
-                                <input type="button" tabindex="9" class="mainButton autoWidth" value="Verantworlichen hinzufügen" title="Verantworlichen hinzufügen" goto="SetReferencePersonToEventTask?a=taskReferencePerson&taskId=$!task.id&eventId=$!eventId">
-                                <input type="button" tabindex="10" class="mainButton autoWidth" value="Verantworlichen entfernen" title="Verantworlichen entfernen" id="linkRemoveRefPerson">
+                                <input type="button" tabindex="9" class="autoWidth" value="Verantworlichen hinzufügen" title="Verantworlichen hinzufügen" goto="SetReferencePersonToEventTask?a=taskReferencePerson&taskId=$!task.id&eventId=$!eventId">
+                                <input type="button" tabindex="10" class="autoWidth" value="Verantworlichen entfernen" title="Verantworlichen entfernen" id="linkRemoveRefPerson">
                             </div>
                         #end
                     </div>
@@ -193,12 +193,12 @@
         <div class="textRight" id="buttonPanel-bottom">
             #if($event && $event.id)
 				#if($grants.mayWrite())
-					<input id="button.save" tabindex="11" type="submit" name="save" value="Aufgabe speichern" title="Aufgabe speichern" onclick="document.getElementById('formlist').action='SaveEventTask';" />
+					<input id="button.save" tabindex="11" type="submit" name="save" value="Aufgabe speichern" title="Aufgabe speichern" onclick="document.getElementById('formlist').action='SaveEventTask';" class="mainButton" />
 				#end
                 <input id="button.back" tabindex="12" type="button" name="cancel" class="mainButton" value="Zur&uuml;ck zur Aufgaben&uuml;bersicht" title="Zur&uuml;ck zur Aufgaben&uuml;bersicht" goto="${paths.staticWeb}do/ShowEventTasks?id=$!eventId">
             #else
 				#if($grants.mayWrite())
-					<input id="button.save" tabindex="11" type="submit" name="save" value="Aufgabe speichern" title="Aufgabe speichern" onclick="document.getElementById('formlist').action='SaveEventTask';" />
+					<input id="button.save" tabindex="11" type="submit" name="save" value="Aufgabe speichern" title="Aufgabe speichern" onclick="document.getElementById('formlist').action='SaveEventTask';" class="mainButton" />
 				#end
                 <input id="button.back" tabindex="12" type="button" name="cancel" class="mainButton" value="Zur&uuml;ck zur Aufgaben&uuml;bersicht" title="Zur&uuml;ck zur Aufgaben&uuml;bersicht" goto="${paths.staticWeb}do/ShowEventTasks?id=$!eventId">
             #end
