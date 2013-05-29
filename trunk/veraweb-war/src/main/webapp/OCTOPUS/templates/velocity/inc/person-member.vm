@@ -57,12 +57,19 @@
 				#if($grants.mayWrite() && !$createNewPerson)
             		<span id="show-expire$ext" class="datepickerContainer"><img src="${paths.staticWeb}images/calendar.png" alt="Datum ausw&auml;hlen" title="Datum ausw&auml;hlen"/></span>
             		<script type="text/javascript">
-            		    Calendar.setup({
-            				inputField     :    "person-expire$ext",
-            				button         :    "show-expire$ext",
-            				ifFormat       :    "%d.%m.%Y",
-            				showsTime      :    false
-            			});
+                        $(function () {
+                            Calendar.setup({
+                                inputField     :    "person-expire$ext",
+                                button         :    "show-expire$ext",
+                                ifFormat       :    "%d.%m.%Y",
+                                showsTime      :    false
+                            });
+                            var input = $('input[name=person-expire$ext]');
+                            var span = $('span#show-expire$ext');
+                            input.focus(function () {
+                                span.trigger('click');
+                            });
+                        });
             		</script>
             	#end
             </div>
@@ -83,12 +90,19 @@
     				#if($grants.mayWrite() && !$createNewPerson)
         				<span id="show-birthday$ext" class="datepickerContainer"><img src="${paths.staticWeb}images/calendar.png" alt="Datum ausw&auml;hlen" title="Datum ausw&auml;hlen"/></span>
         				<script type="text/javascript">
-        				    Calendar.setup({
-        						inputField     :    "person-birthday$ext",
-        						button         :    "show-birthday$ext",
-        						ifFormat       :    "%d.%m.%Y",
-        						showsTime      :    false
-        					});
+                            $(function () {
+                                Calendar.setup({
+                                    inputField     :    "person-birthday$ext",
+                                    button         :    "show-birthday$ext",
+                                    ifFormat       :    "%d.%m.%Y",
+                                    showsTime      :    false
+                                });
+                                var input = $('input[name=person-birthday$ext]');
+                                var span = $('span#show-birthday$ext');
+                                input.focus(function () {
+                                    span.trigger('click');
+                                });
+                            });
         				</script>
 					#end
 				#end
@@ -197,12 +211,19 @@
     				#if($grants.mayWrite() && !$createNewPerson)
         				<span id="show-diplodate$ext" class="datepickerContainer"><img src="${paths.staticWeb}images/calendar.png" alt="Datum ausw&auml;hlen" title="Datum ausw&auml;hlen"/></span> &nbsp; um &nbsp;
         				<script type="text/javascript">
-        				    Calendar.setup({
-        						inputField     :    "person-diplodate$ext",
-        						button         :    "show-diplodate$ext",
-        						ifFormat       :    "%d.%m.%Y",
-        						showsTime      :    false
-        					});
+                            $(function () {
+                                Calendar.setup({
+                                    inputField     :    "person-diplodate$ext",
+                                    button         :    "show-diplodate$ext",
+                                    ifFormat       :    "%d.%m.%Y",
+                                    showsTime      :    false
+                                });
+                                var input = $('input[name=person-diplodate$ext]');
+                                var span = $('span#show-diplodate$ext');
+                                input.focus(function () {
+                                    span.trigger('click');
+                                });
+                            });
         				</script>
     				#end
     				<input type="text" class="width15" name="person-diplotime${ext}" id="person-diplotime${ext}" #if($person-diplodatetime) value="$!message.date("TIME", $facade.Diplodate)" #else value="" #end onchange="setModified();" #if(!$grants.mayWrite() || $createNewPerson) readonly="true"#end/> Uhr
