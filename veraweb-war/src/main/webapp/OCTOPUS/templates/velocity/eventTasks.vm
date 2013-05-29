@@ -21,7 +21,7 @@
 
     #parse("inc/event-header.vm")
 
-    <div id="main_content" class="tabs contentBox grayBorder marginBottom20 marginTop20">
+    <div id="main_content" class="tabs contentBox grayBorder marginBottom10 marginTop20">
 
 
             <input type="hidden" name="start" value="">

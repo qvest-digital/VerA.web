@@ -26,7 +26,7 @@
         <input type="hidden" name="doUpdate" value="false"/>
         <input type="hidden" name="doRemove" value="true"/>
 		
-    	<div id="main_content" class="tabs contentBox grayBorder marginBottom20 marginTop20">
+    	<div id="main_content" class="tabs contentBox grayBorder marginBottom10 marginTop20">
     
     		<div id="tabsMain" class="event">
             	<ul class="gray-gradient" vera-tab-group> <!-- Bitte das End-tag der <li>s immer mit in die nächste Zeile nehmen (verhindert Mozilla styling bug) -->
@@ -43,13 +43,13 @@
 				<span id="actionPanel">
 					#if($grants.mayWrite() && $list && $list.size() > 0)
                 		<strong>Markierte(n) Dokumenttyp(en)</strong>
-                		<input type="button" name="remove" value="L&ouml;schen" title="Markierte(n) Dokumenttyp(en) l&ouml;schen" onclick="deleteEventDoctype();"/>
+                		<input type="button" name="remove" value="Entfernen" title="Markierte(n) Dokumenttyp(en) entfernen" onclick="deleteEventDoctype();"/>
 					#else &nbsp;#end
             	</span>
 				
 				#if($grants.mayWrite())
 					<div class="buttonPanel-top floatRight">
-						<input type="submit" name="save" title="Neuen Dokumenttyp speichern" value="Neuen Dokumenttyp speichern" class="mainButton" onclick="saveEventDoctype();"/> 
+						<input type="submit" name="save" title="Neuen Dokumenttyp hinzufügen" value="Neuen Dokumenttyp hinzufügen" class="mainButton" onclick="saveEventDoctype();"/> 
 					</div>
 				#end
 		
@@ -57,7 +57,7 @@
     				<input type="hidden" name="list" value="$bean.id"/>
 				#end
 				
-                <table class="marginTop10 notBold">
+                <table class="notBold">
                 	<tr >
 						#if($list && $list.size() > 0)
 							<th class="smallCell textCenter"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" #if($listselection.size() == $listparam.count) checked#end title="Alle (de)markieren"/></th>
@@ -103,7 +103,7 @@
 			
 		</div>
 		
-		<span id="buttonPanel-bottom" class="textRight floatRight">
+		<span id="buttonPanel-bottom" class="floatRight">
 			#if($grants.mayWrite())
 				<input type="submit" name="save" value="Veranstaltung speichern" class="mainButton"/>
 			#end
