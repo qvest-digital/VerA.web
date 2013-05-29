@@ -656,6 +656,12 @@
 		
 	#else
 	
+		#if($grants.mayWrite() && !$searchTask)
+			<div id="" class="buttonPanel-top textRight marginBottom10">
+				<input type="button" id="button.newPerson" name="button.newPerson" value="Neue Person anlegen" title="Neue Person anlegen" class="mainButton" onclick="window.location.href='CreatePerson';" />
+        	</div>
+		#end
+		
 		<div class="contentBoxColored grayBorder marginBottom20">  		
 			Es wurden keine Einträge gefunden.
 		</div>

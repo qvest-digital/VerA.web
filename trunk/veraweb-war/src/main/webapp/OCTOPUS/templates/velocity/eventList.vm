@@ -46,6 +46,11 @@
     		
 		<!-- No need to show table and buttons in case of no results --> 
 		#if ($listparam.count == 0)
+			#if($grants.mayWrite() && !$searchTask)
+    			<div id="" class="buttonPanel-top textRight marginBottom10">
+    				<input type="button" name="" value="Neue Veranstaltung anlegen" class="mainButton" onclick="window.location.href='CreateEvent?action=event';"/>
+            	</div>
+			#end
     		<div class="contentBoxColored grayBorder marginBottom20">  		
     			Es wurden keine Einträge gefunden.
     		</div>
