@@ -298,6 +298,7 @@ ul.alphabet li {
 pre {
     font-family: inherit;
 }
+
 /************* End misc *************/
 
 /************* End general *************/
@@ -634,6 +635,18 @@ tr.repeat {
 }
 
 .error {}
+
+
+/*** To be removed later ****/
+div.dialogInfo {
+	position: absolute;
+	margin: 0px 0px 0px 0px;
+	padding: 11px 13px 11px 13px;
+	border: 2px solid #80A7E0;
+	color: #000000;
+	background-color: #ffffff;
+}
+/*** To be removed later end****/
 
 /************ End Messages ***********/
 
