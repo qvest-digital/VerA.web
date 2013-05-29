@@ -26,7 +26,7 @@
         
         <input type="hidden" name="mail-id" value="$!mail.id">
         
-    	<div id="main_content" class="contentBoxColored grayBorder marginBottom20">
+    	<div id="main_content" class="contentBoxColored grayBorder marginBottom10">
 	
 			<div class="textRight mandatoryText">* = Pflichtfelder</div>
 			
