@@ -9,7 +9,7 @@
 
 	<h1>Verteiler anlegen</h1>
 
-	<div id="main_content" class="contentBoxColored grayBorder marginBottom20">
+	<div id="main_content" class="contentBoxColored grayBorder marginBottom10">
 
 		<form action="SaveMailinglist" name="mailinglists" method="POST" onsubmit="htmlWait();">
 		
@@ -22,12 +22,13 @@
 		</div>
 		#end
 		
-		<p>Sie erstellen einen neuen Verteiler aus der Veranstaltung <strong>&quot;$!message.plain($event.shortname)&quot;</strong> mit
+		<p>Sie legen einen neuen Verteiler aus der Veranstaltung <strong>&quot;$!message.plain($event.shortname)&quot;</strong> mit
 		#if($mailinglistParams.count == 1)
-			einer Person.
+			einer Person 
 		#else
-			$!mailinglistParams.count Personen.
+			$!mailinglistParams.count Personen 
 		#end
+		an
 		</p>
 		
 		<input type="hidden" name="mailinglist-event" value="$!event.id">
