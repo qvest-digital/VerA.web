@@ -93,7 +93,8 @@
                 					#end
                                     #if($loadable)
                             			<input type="button" name="" value="Vorlage laden" class="autoWidth" title="Vorlage laden" onclick="document.getElementById('loaddraft').value='true'; document.getElementById('formlist').submit();">
-                					#end
+									#end
+									<input type="button" name="send" value="Keine Vorlage" class="autoWidth" onclick="window.location.href='MailinglistWrite';" title="Keine Vorlage verwenden"/>
             
                			</div>
                         <div class="marginTop20">
