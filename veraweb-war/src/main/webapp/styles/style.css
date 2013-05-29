@@ -294,6 +294,10 @@ ul.alphabet li {
 .mandatoryText {
 	font-size:0.85em
 }
+
+pre {
+    font-family: inherit;
+}
 /************* End misc *************/
 
 /************* End general *************/
