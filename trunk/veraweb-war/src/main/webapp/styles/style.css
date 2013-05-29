@@ -517,8 +517,8 @@ hr {border-top:1px solid #8b0f0f; }
 }	
 
 #eventTop strong {
-	display:inline-block; 
-	width:70px;
+    display: inline-block;
+    margin-right: 5px;
 }
 
 #popUp {
