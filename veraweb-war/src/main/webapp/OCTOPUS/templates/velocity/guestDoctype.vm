@@ -10,8 +10,8 @@
 	<td class="tabright">&nbsp;</td>
 </tr></table>
 
-#openContent()
-#openContentSection()
+
+
 
 <table class="form"><tr>
 	<td class="label" style="width: 19%;"><strong>Veranstaltung:</strong></td>
@@ -294,8 +294,8 @@
 
 </form>
 
-#closeContentSection()
-#closeContent()
+
+
 
 </form>
 

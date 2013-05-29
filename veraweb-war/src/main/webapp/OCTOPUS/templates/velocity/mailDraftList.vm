@@ -14,8 +14,8 @@
 	<td class="tabright">&nbsp;</td>
 </tr></table>
 
-#openContent()
-#openContentSection()
+
+
 
 #foreach($bean in $list)
 <input type="hidden" name="list" value="$bean.id">
@@ -54,8 +54,8 @@
 
 </div></div></div>
 
-#closeContentSection()
-#closeContent()
+
+
 
 </form>
 

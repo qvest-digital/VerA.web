@@ -21,8 +21,8 @@
 	<td class="tabright">&nbsp;</td>
 </tr></table>
 
-#openContent()
-#openContentSection()
+
+
 
 
 #if($location.errors.size() > 0)
@@ -132,8 +132,8 @@
 
 </div></div></div>
 
-#closeContentSection()
-#closeContent()
+
+
 
 </form>
 

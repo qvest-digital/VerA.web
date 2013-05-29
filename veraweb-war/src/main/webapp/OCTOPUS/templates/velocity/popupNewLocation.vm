@@ -20,27 +20,23 @@
 		<meta http-equiv="cache-control" content="no-cache">
 		<meta http-equiv="pragma" content="no-cache">
 	</head>
-	<body onload="document.getElementById('city').focus();">
+	<body onload="document.getElementById('city').focus();" id="popUp">
 		<form action="" method="post" onsubmit="if (returnCity()) closePopup();">
 		
-		<table class="tab" border="0" cellspacing="0" cellpadding="0"><tr>
-			<td class="tableft">&nbsp;</td>
-		</tr></table>
-		
-		#openContent()
-		#openContentSection()
-			Bitte geben Sie einen neuen Ort ein und klicken Sie auf "Hinzuf&uuml;gen":<br><br>
-			<input type="text" id="city" name="city" value="" class="text">
-		#closeContentSection()
-		
-		<hr class="contentsection"/>
 			
-		#openContentSection()
-			<input type="submit" value="Hinzuf&uuml;gen" class="submit" ssonclick="if (returnCity()) closePopup();"> &nbsp;
-			<input type="button" value="Schlie&szlig;en"  class="cancel" onclick="closePopup();">
-		#closeContentSection()
-		#closeContent()
+			<div class="contentBoxColored grayBorder">
+			
+				<h2>Neuer Veranstaltungsort</h2>
+			
+				<label for="city">Bitte geben Sie einen neuen Ort ein und klicken Sie auf "Hinzuf&uuml;gen":</label>
+				<input type="text" id="city" name="city" value="">
 		
+			
+				<div class="textRight marginTop5" id="buttonPanel-bottom">
+					<input type="submit" value="Hinzuf&uuml;gen" class="mainButton" ssonclick="if (returnCity()) closePopup();">
+					<input type="button" value="Schlie&szlig;en"  class="mainButton" onclick="closePopup();">
+				</div>
+			</div>
 		</form>
 	</body>
 </html>

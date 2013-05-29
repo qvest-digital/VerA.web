@@ -10,8 +10,8 @@
 	<td class="tabright">&nbsp;</td>
 </tr></table>
 
-#openContent()
-#openContentSection()
+
+
 
 <table class="form"><tr>
 	<td class="label" style="width: 19%;"><strong>Veranstaltung:</strong></td>
@@ -84,7 +84,7 @@
 
 <hr class="contentsection" />
 
-#closeContentSection()
+
 
 
 <div id="subtab-detail-block">
@@ -192,7 +192,7 @@
 </div>
 #closeContentBlock()
 
-#openContentSection()
+
 
 #if($person.deleted == "t")
 <table class="list" style="margin-top: 15px;">
@@ -246,11 +246,11 @@
 
 </div></div></div>
 
-#closeContentSection()
+
 
 </form>
 
-#closeContent()
+
 
 <script type="text/javascript" src="${paths.staticWeb}scripts/guest-detail-tabs.js"></script>
 <script type="text/javascript">

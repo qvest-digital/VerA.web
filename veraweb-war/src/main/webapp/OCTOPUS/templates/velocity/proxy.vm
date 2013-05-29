@@ -21,8 +21,8 @@
 	<td class="tabright">&nbsp;</td>
 </tr></table>
 
-#openContent()
-#openContentSection()
+
+
 
 #if($listerrors && $listerrors.size() > 0)
 <div style="margin: 10px 0px 10px 0px; padding: 10px 10px 10px 10px; background-color: #ffffff; border: 2px solid #ff0000;">
@@ -199,8 +199,8 @@
 
 </div></div></div>
 
-#closeContentSection()
-#closeContent()
+
+
 
 </form>
 

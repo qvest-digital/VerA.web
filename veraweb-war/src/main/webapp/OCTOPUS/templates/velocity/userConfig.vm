@@ -10,8 +10,8 @@
 	<td class="tabright">&nbsp;</td>
 </tr></table>
 
-#openContent()
-#openContentSection()
+
+
 
 <h1>Standard Auswahl von Tabulatoren</h1>
 #if($userConfig.personTab && $userConfig.personTab == "1")
@@ -136,8 +136,8 @@
 
 </div></div></div>
 
-#closeContentSection()
-#closeContent()
+
+
 
 </form>
 

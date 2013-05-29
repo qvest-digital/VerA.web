@@ -8,8 +8,8 @@
 	<td class="tabright">&nbsp;</td>
 </tr></table>
 
-#openContent()
-#openContentSection()
+
+
 
 <table class="form"><tr>
 	<td class="label"><label for="id">Import-ID:</label></td>
@@ -72,8 +72,8 @@
 	</td>
 </tr></table>
 
-#closeContentSection()
-#closeContent()
+
+
 <hr class="footline">
 
 #if($imported)

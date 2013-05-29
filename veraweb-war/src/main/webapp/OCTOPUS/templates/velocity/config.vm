@@ -10,8 +10,8 @@
 	<td class="tabright">&nbsp;</td>
 </tr></table>
 
-#openContent()
-#openContentSection()
+
+
 
 <input type="hidden" name="saveconfig" value="personTab">
 <input type="hidden" name="saveconfig" value="personMemberTab">
@@ -267,8 +267,8 @@
 
 </div></div></div>
 
-#closeContentSection()
-#closeContent()
+
+
 
 </form>
 

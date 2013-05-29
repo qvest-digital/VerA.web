@@ -15,8 +15,8 @@
 	<td class="tabright">&nbsp;</td>
 </tr></table>
 
-#openContent()
-#openContentSection()
+
+
 
 #foreach($bean in $list)
 <input type="hidden" name="list" value="$bean.id">
@@ -102,7 +102,7 @@ Anzahl zu speichernder Dubletten: $!listselection.size()
 
 </form>
 
-#closeContentSection()
-#closeContent()
+
+
 
 #parse("inc/footer.vm")

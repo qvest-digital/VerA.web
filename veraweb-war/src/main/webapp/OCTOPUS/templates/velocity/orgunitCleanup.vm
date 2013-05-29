@@ -16,8 +16,8 @@
 	<td class="tabright">&nbsp;</td>
 </tr></table>
 
-#openContent()
-#openContentSection()
+
+
 
 <form action="$octopusRequest.task" method="POST">
 
@@ -78,7 +78,7 @@
 
 </form>
 
-#closeContentSection()
-#closeContent()
+
+
 
 #parse("inc/footer.vm")
