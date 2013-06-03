@@ -31,7 +31,7 @@
 
 <table class="form"><tr>
 	<td class="label"><label for="show-id">ID</label></td>
-	<td class="value"><input type="text" id="show-id" name="show-id" value="$!message.text($maildraft.id)" class="id" readonly></td>
+	<td class="value"><input type="text" id="show-id" name="show-id" value="$!message.text($maildraft.id)" class="id" vera-disabled></td>
 </tr><tr>
 	<td class="label"><label for="maildraft-name">Name*</label></td>
 	<td class="value"><input type="text" id="maildraft-name" name="maildraft-name" value="$!message.text($maildraft.name)" ></td>

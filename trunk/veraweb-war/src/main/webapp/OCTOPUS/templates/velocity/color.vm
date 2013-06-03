@@ -138,7 +138,7 @@
 
 <div id="fixme" class="fixme1"><div class="fixme2"><div class="fixme3">
 
-			<input type="submit" name="save" value="Speichern" #if($grants.isAdmin()) class="submit" #else class="buttondisabled" disabled #end> &nbsp;
+			<input type="submit" name="save" value="Speichern" #if($grants.isAdmin()) class="submit" #else class="buttondisabled" vera-disabled #end> &nbsp;
 
 </div></div></div>
 

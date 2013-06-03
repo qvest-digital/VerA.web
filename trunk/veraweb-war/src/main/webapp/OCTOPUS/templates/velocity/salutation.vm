@@ -96,8 +96,8 @@ function askDeleteNo() {
 }
 </script>
 	<input type="hidden" name="egal" value="egal" id="presave">
-	<input type="submit" name="save" value="Speichern" #if($grants.isAdmin()) class="submit" #else class="buttondisabled" disabled #end> &nbsp;
-	<input type="button" name="remove" onclick="askDelete()"  value="L&ouml;schen" title="markierte Eintr&auml;ge entfernen" #if($grants.isAdmin()) class="submit" #else class="buttondisabled" disabled #end> &nbsp;
+	<input type="submit" name="save" value="Speichern" #if($grants.isAdmin()) class="submit" #else class="buttondisabled" vera-disabled #end> &nbsp;
+	<input type="button" name="remove" onclick="askDelete()"  value="L&ouml;schen" title="markierte Eintr&auml;ge entfernen" #if($grants.isAdmin()) class="submit" #else class="buttondisabled" vera-disabled #end> &nbsp;
 
 </div></div></div>
 

@@ -15,20 +15,20 @@
 
 <table class="form"><tr>
 	<td class="label" style="width: 19%;"><strong>Veranstaltung</strong></td>
-	<td class="value" style="width: 31%;"><input type="text" id="event-shortname" name="event-shortname" value="$!message.text($event.shortname)" class="textdisabled" style="width: 90%;" readonly title="Veranstaltungs-ID: $!event.id"></td>
+	<td class="value" style="width: 31%;"><input type="text" id="event-shortname" name="event-shortname" value="$!message.text($event.shortname)" class="textdisabled" style="width: 90%;" vera-disabled title="Veranstaltungs-ID: $!event.id"></td>
 	<td class="label" style="width: 19%;">Einladungsart:</td>
 	#if ($event.invitationtype == 2)
-	<td class="value" style="width: 31%;"><input type="text" id="event-invitationtype" name="event-invitationtype" value="Ohne Partner" class="textdisabled" style="width: 90%;" readonly></td>
+	<td class="value" style="width: 31%;"><input type="text" id="event-invitationtype" name="event-invitationtype" value="Ohne Partner" class="textdisabled" style="width: 90%;" vera-disabled></td>
 	#elseif ($event.invitationtype == 3)
-	<td class="value" style="width: 31%;"><input type="text" id="event-invitationtype" name="event-invitationtype" value="Nur Partner" class="textdisabled" style="width: 90%;" readonly></td>
+	<td class="value" style="width: 31%;"><input type="text" id="event-invitationtype" name="event-invitationtype" value="Nur Partner" class="textdisabled" style="width: 90%;" vera-disabled></td>
 	#else
-	<td class="value" style="width: 31%;"><input type="text" id="event-invitationtype" name="event-invitationtype" value="Mit Partner" class="textdisabled" style="width: 90%;" readonly></td>
+	<td class="value" style="width: 31%;"><input type="text" id="event-invitationtype" name="event-invitationtype" value="Mit Partner" class="textdisabled" style="width: 90%;" vera-disabled></td>
 	#end
 </tr><tr>
 	<td class="label" style="width: 19%;">Datum:</td>
-	<td class="value" style="width: 31%;"><input type="text" id="event-begin" name="event-begin" value="$!message.date("DATE_TIME", $event.begin)" class="textdisabled" style="width: 90%;" readonly></td>
+	<td class="value" style="width: 31%;"><input type="text" id="event-begin" name="event-begin" value="$!message.date("DATE_TIME", $event.begin)" class="textdisabled" style="width: 90%;" vera-disabled></td>
 	<td class="label" style="width: 19%;">Max. Anzahl G&auml;ste:</td>
-	<td class="value" style="width: 31%;"><input type="text" id="event-maxguest" name="event-maxguest" value="$!message.text($event.maxguest)" class="intdisabled" readonly></td>
+	<td class="value" style="width: 31%;"><input type="text" id="event-maxguest" name="event-maxguest" value="$!message.text($event.maxguest)" class="intdisabled" vera-disabled></td>
 </tr></table>
 
 <hr class="contentsection" />
@@ -66,20 +66,20 @@
 	#end
 	
 	<td class="label" style="width: 19%;"><strong>Gast</strong></td>
-	<td class="value" style="width: 31%;"><input type="text" id="person-main" name="person-main" value="$!message.text($name)" class="textdisabled" style="width: 90%;" readonly></td>
+	<td class="value" style="width: 31%;"><input type="text" id="person-main" name="person-main" value="$!message.text($name)" class="textdisabled" style="width: 90%;" vera-disabled></td>
 ## added mailto: link as per change request for version 1.2.0
 ## cklein 2008-03-03
 	<td class="label"><label style="float:left;" for="person-mail$ext">E-Mail</label>#if($email && $email.length()>0)<a style="float:right;" href="mailto:$!message.text($email)"><img src="${paths.staticWeb}images/email.gif"></a>#end</label></td>
-	<td class="value" style="width: 31%;"><input type="text" id="person-mail" name="person-mail" value="$!message.text($email)" class="textdisabled" style="width: 90%;" readonly></td>
+	<td class="value" style="width: 31%;"><input type="text" id="person-mail" name="person-mail" value="$!message.text($email)" class="textdisabled" style="width: 90%;" vera-disabled></td>
 </tr><tr>
 	
 	<td class="label" style="width: 19%;">Partner:</td>
-	<td class="value" style="width: 31%;"><input type="text" id="person-partner" name="person-partner" value="$!message.text($name_p)" class="textdisabled" style="width: 90%;" readonly></td>
+	<td class="value" style="width: 31%;"><input type="text" id="person-partner" name="person-partner" value="$!message.text($name_p)" class="textdisabled" style="width: 90%;" vera-disabled></td>
 	<td class="label" style="width: 19%;">Laufende Nummer:</td>
-	<td class="value" style="width: 31%;""><input type="text" id="guest-orderno_a" name="guest-orderno_a" value="#if($guest.orderno_a)$!guest.orderno_a#else$!guest.orderno_b#end" class="intdisabled" readonly></td>
+	<td class="value" style="width: 31%;""><input type="text" id="guest-orderno_a" name="guest-orderno_a" value="#if($guest.orderno_a)$!guest.orderno_a#else$!guest.orderno_b#end" class="intdisabled" vera-disabled></td>
 </tr><tr>
 	<td class="label" style="width: 19%;">Funktion:</td>
-	<td class="value" style="width: 31%;"><input type="text" id="person-function" name="person-function" value="$!message.text($funktion)" class="textdisabled" style="width: 90%;" readonly></td>
+	<td class="value" style="width: 31%;"><input type="text" id="person-function" name="person-function" value="$!message.text($funktion)" class="textdisabled" style="width: 90%;" vera-disabled></td>
 	<td class="label" style="width: 19%;">&nbsp;</td>
 	<td class="value" style="width: 31%;"">&nbsp;</td>
 </tr></table>
@@ -284,7 +284,7 @@
 #end
 </td></tr></table>
 
-    <input type="submit" name="save" value="Speichern" #if($grants.mayWrite()) class="button" #else class="buttondisabled" disabled #end> &nbsp;
+    <input type="submit" name="save" value="Speichern" #if($grants.mayWrite()) class="button" #else class="buttondisabled" vera-disabled #end> &nbsp;
     <input type="button" name="refresh" value="Neu laden" class="button" onclick="window.location.href='ReloadGuestData?guest-id=$!guest.id&show=doctype';"> &nbsp;
     <input type="button" name="persondata" value="Stammdaten" title="Personenstammdaten bearbeiten" onclick="window.location.href='ShowPerson?id=$guest.person&action=event';" class="button"> &nbsp;
     <input type="button" name="cancel" value="Zur&uuml;ck" title="Zur&uuml;ck zu den Veranstaltungdetails" class="reset" onclick="window.location.href='ShowGuestList';"> &nbsp;

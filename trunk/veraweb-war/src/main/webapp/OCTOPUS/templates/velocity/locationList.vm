@@ -92,7 +92,7 @@
 			<div class="fixme3">
             	#parse("inc/list-navi.vm")
             	#parse("inc/list-direct.vm")
-            	<input type="button" id="new" name="new" value="Neu" #if($grants.mayWrite()) class="button" #else class="buttondisabled" disabled #end onclick="window.location.href='CreateLocation';"> &nbsp;
+            	<input type="button" id="new" name="new" value="Neu" #if($grants.mayWrite()) class="button" #else class="buttondisabled" vera-disabled #end onclick="window.location.href='CreateLocation';"> &nbsp;
             	<input type="submit" id="remove" name="remove" value="L&ouml;schen" class="button" title="markierte Eintr&auml;ge entfernen"> &nbsp;
     		</div>
 		</div>

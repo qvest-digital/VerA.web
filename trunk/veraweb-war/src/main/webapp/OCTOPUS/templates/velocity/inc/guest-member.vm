@@ -17,12 +17,12 @@
 	<td class="value"><input type="text" id="guest-seatno$ext" name="guest-seatno$ext" value="$!message.text($facade.SeatNo)" ></td>
 </tr><tr>
 	<td class="label">Laufende Nummer:</td>
-	<td class="value"><input type="text" id="showguest-orderno$ext" name="showguest-orderno$ext" value="$!message.text($facade.OrderNo)" readonly class="textdisabled"></td>
+	<td class="value"><input type="text" id="showguest-orderno$ext" name="showguest-orderno$ext" value="$!message.text($facade.OrderNo)" vera-disabled class="textdisabled"></td>
 </tr><tr>
 	<td class="label">Farbe:</td>
 	<td class="value">
 		<input type="hidden" name="guest-fk_color$ext" value="$!facade.ColorFK">
-		<input type="text" name="showguest-color$ext" value="$!message.text($facade.Color)" readonly class="textdisabled">
+		<input type="text" name="showguest-color$ext" value="$!message.text($facade.Color)" vera-disabled class="textdisabled">
 	</td>
 </tr><tr>
 	<td class="label">Inland:</td>
@@ -58,8 +58,8 @@
 	<td class="value"><input type="text" id="guest-nationality$ext" name="guest-nationality$ext" value="$!message.text($facade.Nationality)" ></td>
 </tr><tr>
 	<td class="label">Hinweis Gastgeber:</td>
-	<td class="value"><textarea rows="4" cols="20" id="guest-notehost$ext" name="guest-notehost$ext" #if($grants.mayReadRemarkFields()) >$!message.textarea($facade.NoteHost)#else class="textdisabled" disabled="true">#end</textarea></td>
+	<td class="value"><textarea rows="4" cols="20" id="guest-notehost$ext" name="guest-notehost$ext" #if($grants.mayReadRemarkFields()) >$!message.textarea($facade.NoteHost)#else class="textdisabled" vera-disabled>#end</textarea></td>
 </tr><tr>
 	<td class="label">Hinweis Orgateam:</td>
-	<td class="value"><textarea rows="4" cols="20" id="guest-noteorga$ext" name="guest-noteorga$ext" #if($grants.mayReadRemarkFields()) >$!message.textarea($facade.NoteOrga)#else class="textdisabled" disabled="true">#end</textarea></td>
+	<td class="value"><textarea rows="4" cols="20" id="guest-noteorga$ext" name="guest-noteorga$ext" #if($grants.mayReadRemarkFields()) >$!message.textarea($facade.NoteOrga)#else class="textdisabled" vera-disabled>#end</textarea></td>
 </tr></table>

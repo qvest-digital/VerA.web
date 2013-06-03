@@ -162,7 +162,7 @@
     								<input type="hidden" value="$!event.host" name="event-host" id="event-host">
     								<input type="hidden" value="$!event.hostname" name="event-hostname" id="event-hostname">
     								<input type="hidden" value="kein Gastgeber ausgewählt" name="showevent-hostnametext" id="showevent-hostnametext">
-    								<input type="text" readonly="" class="textdisabled" value="$!message.text($event.hostname)" name="showevent-hostname" id="showevent-hostname">
+    								<input type="text" vera-disabled class="textdisabled" value="$!message.text($event.hostname)" name="showevent-hostname" id="showevent-hostname">
     								#if($grants.mayWrite())
     								<div class="addButton">
     									<input type="button" value="Gastgeber suchen" onclick="document.getElementById('formlist').action='SetHostToEventSearch'; document.getElementById('a').value='host'; document.getElementById('formlist').submit();"><!-- war früher ein link <a href="javascript:document.getElementById('formlist').action='SetHostToEventSearch'; document.getElementById('a').value='host'; document.getElementById('formlist').submit();">Suchen</a> | -->
@@ -254,7 +254,7 @@
     							</div>
     							<div class="tableCell width50">
     								<label for="event-note">Bemerkung</label>
-    								<textarea onchange="setModified();" id="event-note" name="event-note" rows="4" #if($grants.mayReadRemarkFields()) >$!message.textarea($event.note)#else class="textdisabled" disabled="true">#end</textarea>						
+    								<textarea onchange="setModified();" id="event-note" name="event-note" rows="4" #if($grants.mayReadRemarkFields()) >$!message.textarea($event.note)#else class="textdisabled" vera-disabled>#end</textarea>						
     							</div>
     						</div>
     				</div>

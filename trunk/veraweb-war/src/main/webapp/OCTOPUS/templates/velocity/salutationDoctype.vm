@@ -57,7 +57,7 @@
 		<td class="list"><input type="text" name="${bean.id}-text" value="$!message.text($bean.text)"  onchange="setModified('$!bean.id')"></td>
 		<td class="list">
 			<input type="hidden" name="${bean.id}-doctype" value="$!bean.doctype">
-			<input type="text" name="${bean.id}-name" value="$!message.text($bean.name)" class="textdisabled" style="width: 97%;" readonly>
+			<input type="text" name="${bean.id}-name" value="$!message.text($bean.name)" class="textdisabled" style="width: 97%;" vera-disabled>
 		</td>
 	</tr>
 	#end
