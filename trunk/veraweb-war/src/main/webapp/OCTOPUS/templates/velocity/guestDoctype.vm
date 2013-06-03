@@ -69,7 +69,7 @@
 	<td class="value" style="width: 31%;"><input type="text" id="person-main" name="person-main" value="$!message.text($name)" class="textdisabled" style="width: 90%;" readonly></td>
 ## added mailto: link as per change request for version 1.2.0
 ## cklein 2008-03-03
-	<td class="label"><label style="float:left;" for="person-mail$ext">E-Mail:</label>#if($email && $email.length()>0)<a style="float:right;" href="mailto:$!message.text($email)"><img src="${paths.staticWeb}images/email.gif"></a>#end</label></td>
+	<td class="label"><label style="float:left;" for="person-mail$ext">E-Mail</label>#if($email && $email.length()>0)<a style="float:right;" href="mailto:$!message.text($email)"><img src="${paths.staticWeb}images/email.gif"></a>#end</label></td>
 	<td class="value" style="width: 31%;"><input type="text" id="person-mail" name="person-mail" value="$!message.text($email)" class="textdisabled" style="width: 90%;" readonly></td>
 </tr><tr>
 	
@@ -200,7 +200,7 @@
 	<td class="label" style="width: 19%;">Stra&szlig;e:</td>
 	<td class="value"><input type="text" maxlength="100" id="guestdoctype-street" name="guestdoctype-street" value="$!message.text($guestdoctype.street)" class="text"></td>
 </tr><tr>
-	<td class="label"><label for="guestdoctype-zipcode">PLZ</label> / <label for="guestdoctype-city">Ort:</label></td>
+	<td class="label"><label for="guestdoctype-zipcode">PLZ</label> / <label for="guestdoctype-city">Ort</label></td>
 	<td class="value">
 		<table class="form" border="0" cellpadding="0" cellspacing="0"><tr>
 			<td class="value" style="width: 60px;"><input type="text" id="guestdoctype-zipcode" maxlength="50" name="guestdoctype-zipcode" value="$!message.text($guestdoctype.zipcode)" class="text"></td>
@@ -209,7 +209,7 @@
 		</tr></table>
 	</td>
 </tr><tr>
-	<td class="label"><label for="guestdoctype-poboxzipcode">Postfach PLZ</label> / <label for="guestdoctype-pobox">Nummer:</label></td>
+	<td class="label"><label for="guestdoctype-poboxzipcode">Postfach PLZ</label> / <label for="guestdoctype-pobox">Nummer</label></td>
 	<td class="value">
 		<table class="form" border="0" cellpadding="0" cellspacing="0"><tr>
 			<td class="value" style="width: 60px;"><input type="text" id="guestdoctype-poboxzipcode" maxlength="50" name="guestdoctype-poboxzipcode" value="$!message.text($guestdoctype.poboxzipcode)" class="text"></td>
@@ -239,7 +239,7 @@
 </tr><tr>
 ## added mailto: link as per change request for version 1.2.0
 ## cklein 2008-02-21
-	<td class="label"><label style="float:left;" for="person-mail$ext">E-Mail:</label>#if($email && $email.length()>0)<a style="float:right;" href="mailto:$!message.text($email)"><img src="${paths.staticWeb}images/email.gif"></a>#end</label></td>
+	<td class="label"><label style="float:left;" for="person-mail$ext">E-Mail</label>#if($email && $email.length()>0)<a style="float:right;" href="mailto:$!message.text($email)"><img src="${paths.staticWeb}images/email.gif"></a>#end</label></td>
 	<td class="value"><input type="text" maxlength="250" id="guestdoctype-mail" name="guestdoctype-mail" value="$!message.text($guestdoctype.mail)" class="text"></td>
 </tr><tr>
 	<td class="label">www:</td>

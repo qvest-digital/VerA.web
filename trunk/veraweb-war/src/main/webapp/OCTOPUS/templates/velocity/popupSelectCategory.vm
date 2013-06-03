@@ -87,7 +87,7 @@
 
 
 		#if( $allCategorie.size() > 0 )
-			<label for="category">Kategorie:</label>
+			<label for="category">Kategorie</label>
 			<select name="category" id="category" onChange="selected(this);">
 			<option value="">
 		#if( $assignmentAction == "unassign" )

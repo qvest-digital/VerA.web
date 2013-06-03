@@ -19,7 +19,7 @@
 				<div class="tableCell width50">
 					<h2>Statistik auf folgenden Zeitrahmen einschr&auml;nken:</h2>
 					
-					<label for="begin">Zeitrahmen-Beginn:</label>
+					<label for="begin">Zeitrahmen-Beginn</label>
 					<input type="text" name="begin" placeholder="TT.MM.JJJJ" id="begin" class="datepicker">
 					<span id="showBegin" class="datepickerContainer"><img src="${paths.staticWeb}images/calendar.png" alt="Datum ausw&auml;hlen" title="Datum ausw&auml;hlen"></span>
 					<script type="text/javascript">
@@ -32,7 +32,7 @@
 					</script>
 			##		&nbsp; &nbsp;
 			##		(<a href="javascript:document.getElementById('begin').value='$!message.date("DATE", $firstDayInMonth)'; document.getElementById('end').value='$!message.date("DATE", $lastDayInMonth)';">aktuellen Monat einf&uuml;gen</a>)
-					<label for="end">Zeitrahmen-Ende:</label>
+					<label for="end">Zeitrahmen-Ende</label>
 					<input type="text" name="end" placeholder="TT.MM.JJJJ" id="end" class="datepicker">
 					<span id="showEnd" class="datepickerContainer"><img src="${paths.staticWeb}images/calendar.png" alt="Datum ausw&auml;hlen" title="Datum ausw&auml;hlen"></span>
 					<script type="text/javascript">

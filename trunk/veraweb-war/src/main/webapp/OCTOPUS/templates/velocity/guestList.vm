@@ -82,7 +82,7 @@
         		<div class="table width50">
         			<div class="tableRow">
         				<div class="tableCell width50">
-        					<label for="search-reserve">Platzwahl:</label>
+        					<label for="search-reserve">Platzwahl</label>
                     		<select name="search-reserve" id="search-reserve" onchange="submit();">
                             			<option value="">Alle G&auml;ste</option>
                             			<option #if($search.reserve && $search.reserve == 1) selected#end value="1">Alle G&auml;ste auf Platz</option>

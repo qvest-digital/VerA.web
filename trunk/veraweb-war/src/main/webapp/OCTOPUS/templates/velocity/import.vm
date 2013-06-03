@@ -74,12 +74,12 @@
     			<div class="table width100">
     				<div class="tableRow">
     					<div class="tableCell width50">
-    						<label for="importSource">Datenherkunft:</label>
+    						<label for="importSource">Datenherkunft</label>
     						<input type="text" name="importSource" id="importSource" value="$!message.text($importSource)">
     					</div>
     					<div class="tableCell width50">
 							#if($grants && $grants.isAdmin() && $allOrgUnit)
-								<label for="orgUnit">Zielmandant:</label>
+								<label for="orgUnit">Zielmandant</label>
 								<select name="orgUnit" id="orgUnit" class="combobox">
 									#foreach($orgunit in $allOrgUnit)
 										<option value="$orgunit.id" #if($octopusConfig.personalConfig.orgUnitId == $orgunit.id)selected#end>$orgunit.name</option>
@@ -91,11 +91,11 @@
     				
     				<div class="tableRow">
     					<div class="tableCell">
-    						<label for="importfile">Import-Datei:</label>
+    						<label for="importfile">Import-Datei</label>
     						<input name="importfile" id="importfile" type="file" size="30" maxlength="100000" accept="text/*">
     					</div>
     					<div class="tableCell">
-    						<label for="format">Dateityp:</label>
+    						<label for="format">Dateityp</label>
     						<select name="format" id="format" onchange="return formatChanged();">
                             #foreach($formatKey in $formats.keySet())
                              #set($format = $formats.get($formatKey))
@@ -114,7 +114,7 @@
                                #foreach($choiceKey in $choices.keySet())
                                 #set($choice = $choices.get($choiceKey))
                                 				<div class="tableRow">
-                            						<div class="tableCell width30"><label for="format-${formatKey}-$choiceKey">$!choice.get("label"):</label></div>
+                            						<div class="tableCell width30"><label for="format-${formatKey}-$choiceKey">$!choice.get("label")</label></div>
                             						<div class="tableCell">
                                 #set($default = $choice.get("default"))
                                 #if($choice.containsKey("select"))
@@ -183,7 +183,7 @@
 ##<h1>Bestehenden Importvorgang laden</h1>
 ##<form action="ImportPersonsStoredRecord" method="post" enctype="multipart/form-data">
 ##<table class="form"><tr>
-##	<td class="label"><label for="importId">Import-ID:</label></td>
+##	<td class="label"><label for="importId">Import-ID</label></td>
 ##	<td class="value" align="right">
 ##	    <input type="text" name="importId" id="importId" value="" class="text">
 ##	</td>

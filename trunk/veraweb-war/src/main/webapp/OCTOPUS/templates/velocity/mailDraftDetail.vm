@@ -30,19 +30,19 @@
 <input type="hidden" name="maildraft-id" value="$!maildraft.id">
 
 <table class="form"><tr>
-	<td class="label"><label for="show-id">ID:</label></td>
+	<td class="label"><label for="show-id">ID</label></td>
 	<td class="value"><input type="text" id="show-id" name="show-id" value="$!message.text($maildraft.id)" class="id" readonly></td>
 </tr><tr>
-	<td class="label"><label for="maildraft-name">Name*:</label></td>
+	<td class="label"><label for="maildraft-name">Name*</label></td>
 	<td class="value"><input type="text" id="maildraft-name" name="maildraft-name" value="$!message.text($maildraft.name)" class="text"></td>
 </tr><tr>
-	<td class="label"><label for="maildraft-subject">Betreff*:</label></td>
+	<td class="label"><label for="maildraft-subject">Betreff*</label></td>
 	<td class="value"><input type="text" id="maildraft-subject" name="maildraft-subject" value="$!message.text($maildraft.subject)"  class="text"></td>
 </tr><tr>
-	<td class="label"><label for="maildraft-text">Text*:</label></td>
+	<td class="label"><label for="maildraft-text">Text*</label></td>
 	<td class="value"><textarea cols="20" rows="20" id="maildraft-text" name="maildraft-text" class="text">$!message.textarea($maildraft.text)</textarea></td>
 </tr><tr>
-	<td class="label"><label for="platzhalter">Platzhalter:</label></td>
+	<td class="label"><label for="platzhalter">Platzhalter</label></td>
 	<td class="value">
 		<table class="form" cellspacing="0" cellpadding="0"><tr>
 			<td class="value">

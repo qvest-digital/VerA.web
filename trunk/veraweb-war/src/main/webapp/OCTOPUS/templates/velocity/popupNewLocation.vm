@@ -28,7 +28,7 @@
 			
 				<h2>Neuer Veranstaltungsort</h2>
 			
-				<label for="city">Bitte geben Sie einen neuen Ort ein und klicken Sie auf "Hinzuf&uuml;gen":</label>
+				<label for="city">Bitte geben Sie einen neuen Ort ein und klicken Sie auf "Hinzuf&uuml;gen"</label>
 				<input type="text" id="city" name="city" value="">
 		
 			
