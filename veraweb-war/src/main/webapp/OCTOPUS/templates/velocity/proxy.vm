@@ -150,9 +150,9 @@
   #end
 		</td>
  #end
-		<td class="list"><input type="text" name="${bean.id}-userRole" value="$!message.text($bean.userRole)"  style="width: 96%;" onchange="setModified('$!bean.id')" readonly></td>
+		<td class="list"><input type="text" name="${bean.id}-userRole" value="$!message.text($bean.userRole)"  style="width: 96%;" onchange="setModified('$!bean.id')" vera-disabled></td>
 #end
-		<td class="list"><input type="text" name="${bean.id}-proxy" value="$!message.text($bean.proxy)"  style="width: 96%;" onchange="setModified('$!bean.id')" readonly></td>
+		<td class="list"><input type="text" name="${bean.id}-proxy" value="$!message.text($bean.proxy)"  style="width: 96%;" onchange="setModified('$!bean.id')" vera-disabled></td>
 		<td class="list">
 			<nobr>
 				<input type="text" name="${bean.id}-validFrom" id="${bean.id}-validFrom" value="$!message.date("DATE", $bean.validFrom)" class="date" onchange="setModified('$!bean.id')">

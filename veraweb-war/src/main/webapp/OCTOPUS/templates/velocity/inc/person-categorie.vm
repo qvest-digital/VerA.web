@@ -30,7 +30,7 @@
 <table class="notBold">
 	<tr>
 		#if($list && $list.size() > 0)
-			<th class="textCenter smallCell"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" #if($listselection.size() == $listparam.count) checked#end title="Alle (de)markieren" #if(!$grants.mayWrite()) disabled="true"#end/></th>
+			<th class="textCenter smallCell"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" #if($listselection.size() == $listparam.count) checked#end title="Alle (de)markieren" #if(!$grants.mayWrite()) vera-disabled#end/></th>
 		#end
 		<th class="textCenter smallCell">ID</th>
 		<th>Kategorien und Ereignisse</th>
@@ -47,7 +47,7 @@
 			<em>neu</em>
 		</td>
 		<td>
-			<select id="add-categorie" name="add-categorie" style="width:100%;" onchange="setModified('add')" #if(!$grants.mayWrite()) disabled="true"#end>
+			<select id="add-categorie" name="add-categorie" style="width:100%;" onchange="setModified('add')" #if(!$grants.mayWrite()) vera-disabled#end>
 				<option value="">Bitte w&auml;hlen sie</option>
 				#foreach($categorie in $allCategorie)
 					<option value="$!categorie.id">$!categorie.name</option>
@@ -55,14 +55,14 @@
 			</select>
 		</td>
 		<td class="textCenter">
-			<input type="text" name="add-rank" value="$!message.text($bean.rank)" class="small50px" onchange="setModified('add')" #if(!$grants.mayWrite()) disabled="true"#end/>
+			<input type="text" name="add-rank" value="$!message.text($bean.rank)" class="small50px" onchange="setModified('add')" #if(!$grants.mayWrite()) vera-disabled#end/>
 		</td>
 	</tr>
 	#foreach($bean in $list)
 		<tr #if($bean.flags == 1)class="repeat"#end>
 			<td class="textCenter smallCell">
 				<input type="hidden" id="${bean.id}-modified" name="${bean.id}-modified" value="false"/>
-				<input type="checkbox" name="${bean.id}-select" value="true" #if($listselection.indexOf($bean.id) != -1) checked#end #if(!$grants.mayWrite()) disabled="true"#end/>
+				<input type="checkbox" name="${bean.id}-select" value="true" #if($listselection.indexOf($bean.id) != -1) checked#end #if(!$grants.mayWrite()) vera-disabled#end/>
 			</td>
 			<td>
 				<input type="hidden" name="${bean.id}-id" value="$!bean.id"><input type="hidden" name="${bean.id}-person" value="$!bean.person"/>
@@ -73,7 +73,7 @@
 				$!bean.name (#if($bean.flags == 99)Dipl.&nbsp;Corps#elseif($bean.flags == 1)Ereignis#else Kategorie#end)
             </td>
 			<td>
-				<input type="text" name="${bean.id}-rank" value="$!message.text($bean.rank)" class="small50px" onchange="setModified('$!bean.id')" #if(!$grants.mayWrite()) disabled="true"#end/>
+				<input type="text" name="${bean.id}-rank" value="$!message.text($bean.rank)" class="small50px" onchange="setModified('$!bean.id')" #if(!$grants.mayWrite()) vera-disabled#end/>
 			</td>
 		</tr>
 	#end

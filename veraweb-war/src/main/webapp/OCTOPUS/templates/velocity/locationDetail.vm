@@ -58,7 +58,7 @@
 <table class="form">
 	<tr>
 		<td class="label"><label for="id">Veranstaltungsort-ID</label></td>
-		<td class="value"><input type="text" name="id" value="$!message.text($location.id)" id="id" class="id" readonly></td>
+		<td class="value"><input type="text" name="id" value="$!message.text($location.id)" id="id" class="id" vera-disabled></td>
 	</tr>
 	
 	
@@ -126,7 +126,7 @@
 
 <div id="fixme" class="fixme1"><div class="fixme2"><div class="fixme3">
 
-<input id="button.save" type="submit" name="save" value="Speichern" onclick="document.getElementById('formlist').action='SaveLocation';" #if($grants.mayWrite()) class="button" #else class="buttondisabled" disabled #end> &nbsp;
+<input id="button.save" type="submit" name="save" value="Speichern" onclick="document.getElementById('formlist').action='SaveLocation';" #if($grants.mayWrite()) class="button" #else class="buttondisabled" vera-disabled #end> &nbsp;
 <input id="button.back" type="button" name="cancel" class="button" value="Zur&uuml;ck" title="Zur Suche" onclick="window.location.href='${paths.staticWeb}do/Location?start=0';"> &nbsp; &nbsp;
 
 

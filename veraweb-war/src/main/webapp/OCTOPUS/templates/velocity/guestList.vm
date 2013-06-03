@@ -167,7 +167,7 @@
                 #if($grants.mayExport())
                 <nobr><a href="javascript:htmlWait(); document.getElementById('formlist').action='ShowReportGuestList'; document.getElementById('formlist').submit();">G&auml;steliste erstellen</a>
                 #end				
-                <input type="button" name="add" value="Gast hinzuf&uuml;gen" title="Personen suchen und zu der G&auml;steliste hinzuf&uuml;gen" onclick="window.location.href='AddPersonToEventSearch?action=guest&search=clear';" #if($grants.mayWrite()) class="mainButton" #else class="buttondisabled" disabled #end>
+                <input type="button" name="add" value="Gast hinzuf&uuml;gen" title="Personen suchen und zu der G&auml;steliste hinzuf&uuml;gen" onclick="window.location.href='AddPersonToEventSearch?action=guest&search=clear';" #if($grants.mayWrite()) class="mainButton" #else class="buttondisabled" vera-disabled #end>
         	</span>
         	
             <table class="list">
@@ -417,7 +417,7 @@
             		</div>
             	#end
             
-                <input type="submit" name="remove" value="L&ouml;schen" #if($grants.mayWrite()) class="button" #else class="buttondisabled" disabled #end> &nbsp;
+                <input type="submit" name="remove" value="L&ouml;schen" #if($grants.mayWrite()) class="button" #else class="buttondisabled" vera-disabled #end> &nbsp;
             
             <script type="text/javascript">
             
@@ -493,11 +493,11 @@
             	#end
             #end
             
-            	<input type="button" name="assignCategory" value="Kategorien zuordnen" #if($isUser) class="button" onClick="assignCategories();" #else class="buttondisabled" disabled="disabled" #end style="width:140px;">&nbsp;
-            	<input type="button" name="unassignCategory" value="Kategorien entfernen" #if($isUser) class="button" onClick="unassignCategories();" #else class="buttondisabled" disabled="disabled" #end style="width:140px;">
+            	<input type="button" name="assignCategory" value="Kategorien zuordnen" #if($isUser) class="button" onClick="assignCategories();" #else class="buttondisabled" vera-disabled #end style="width:140px;">&nbsp;
+            	<input type="button" name="unassignCategory" value="Kategorien entfernen" #if($isUser) class="button" onClick="unassignCategories();" #else class="buttondisabled" vera-disabled #end style="width:140px;">
             
-            	##<input type="button" name="assignWorkareas" value="Arbeitsbereich zuordnen" #if($isUser && $list && $list.size() > 0) class="button" onClick="assignWorkarea();" #else onClick="alert(0); assignWorkarea();" class="buttondisabled" disabled="disabled" #end style="width:152px; margin-left: 5px;">&nbsp;
-            	##<input type="button" name="unassignWorkareas" value="Arbeitsbereich entfernen" #if($isUser && $list && $list.size() > 0) class="button" onClick="unassignWorkarea();" #else class="buttondisabled" disabled="disabled" #end style="width:152px;">
+            	##<input type="button" name="assignWorkareas" value="Arbeitsbereich zuordnen" #if($isUser && $list && $list.size() > 0) class="button" onClick="assignWorkarea();" #else onClick="alert(0); assignWorkarea();" class="buttondisabled" vera-disabled #end style="width:152px; margin-left: 5px;">&nbsp;
+            	##<input type="button" name="unassignWorkareas" value="Arbeitsbereich entfernen" #if($isUser && $list && $list.size() > 0) class="button" onClick="unassignWorkarea();" #else class="buttondisabled" vera-disabled #end style="width:152px;">
             			
             </div>
 			

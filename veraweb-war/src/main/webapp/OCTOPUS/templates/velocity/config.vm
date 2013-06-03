@@ -241,8 +241,8 @@
 	<tr>
 		<td class="label">Vorhaltezeit der Protokolldaten (Jahre/Monate/Tage):</td>
 		<td class="value">
-		<input type="hidden" name="changeLogRetentionPolicy" id="changeLogRetentionPolicyValue" value="$!message.text($config.changeLogRetentionPolicy.toString())"  readonly="readonly" style="width: 80px;">
-		<input type="text" id="changeLogRetentionPolicyDisplay" value="$!message.text($config.changeLogRetentionPolicy.toFormattedString( '%Y%M%D' ))"  readonly="readonly" style="background-color: #f0f0f0;width: 200px;">
+		<input type="hidden" name="changeLogRetentionPolicy" id="changeLogRetentionPolicyValue" value="$!message.text($config.changeLogRetentionPolicy.toString())"  vera-disabled style="width: 80px;">
+		<input type="text" id="changeLogRetentionPolicyDisplay" value="$!message.text($config.changeLogRetentionPolicy.toFormattedString( '%Y%M%D' ))"  vera-disabled style="background-color: #f0f0f0;width: 200px;">
 		<span id="show-changeLogRetentionPolicy" class="datepickerContainer"><img src="${paths.staticWeb}images/calendar.png"></span>
 		<link rel="stylesheet" type="text/css" href="${paths.staticWeb}styles/dialog.css">
 		<script type="text/javascript" src="${paths.staticWeb}scripts/Duration.js"></script>
@@ -263,7 +263,7 @@
 
 <div id="fixme" class="fixme1"><div class="fixme2"><div class="fixme3">
 
-	<input type="submit" name="save" value="Speichern" #if($grants.isAdmin()) class="submit" #else class="buttondisabled" disabled #end> &nbsp;
+	<input type="submit" name="save" value="Speichern" #if($grants.isAdmin()) class="submit" #else class="buttondisabled" vera-disabled #end> &nbsp;
 
 </div></div></div>
 

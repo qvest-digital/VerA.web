@@ -31,7 +31,7 @@
     <table class="notBold">
 	<tr>
         #if($grants.mayWrite())
-        <th class="textCenter smallCell"><input type="checkbox" name="" id="toggleAllSelect" #if($listparam.count > 0 && $listselection.size() == $listparam.count) checked#end title="Alle (de)markieren" #if(!$grants.mayWrite()) disabled="true"#end /></th>
+        <th class="textCenter smallCell"><input type="checkbox" name="" id="toggleAllSelect" #if($listparam.count > 0 && $listselection.size() == $listparam.count) checked#end title="Alle (de)markieren" #if(!$grants.mayWrite()) vera-disabled#end /></th>
         #end
         <th>Dokumenttyp</th>
         <th class="textCenter smallCell">Anschrift</th>
@@ -49,7 +49,7 @@
 		<td #if($bean.id) onclick="window.location.href='${paths.staticWeb}do/ShowPersonDoctype?persondoctype-id=$!bean.id';"#else onclick="window.location.href='${paths.staticWeb}do/CreatePersonDoctype?doctype-id=$!bean.doctypeId';"#end><input type="hidden" name="${bean.id}-id" value="$!bean.id"><input type="hidden" name="${bean.id}-person" value="$!bean.person">$!bean.name</td>
 		#end
 		<td>
-			<select id="${bean.id}-addresstype" name="${bean.id}-addresstype" onchange="setModified('${bean.id}')" #if(!$bean.id) disabled #end>
+			<select id="${bean.id}-addresstype" name="${bean.id}-addresstype" onchange="setModified('${bean.id}')" #if(!$bean.id) vera-disabled #end>
 			#if($bean.addresstype && $bean.addresstype != 0)
 				<option value="1" #if($bean.addresstype == 1) selected#end>$!config.business</option>
 				<option value="2" #if($bean.addresstype == 2) selected#end>$!config.private</option>
@@ -62,7 +62,7 @@
 			</select>
 		</td>
 		<td>
-			<select id="${bean.id}-locale" name="${bean.id}-locale" onchange="setModified('${bean.id}')" #if(!$bean.id) disabled #end>
+			<select id="${bean.id}-locale" name="${bean.id}-locale" onchange="setModified('${bean.id}')" #if(!$bean.id) vera-disabled #end>
 				#if($bean.locale && $bean.locale != 0)
 				<option value="1" #if($bean.locale == 1) selected#end>$!config.latin</option>
 				<option value="2" #if($bean.locale == 2) selected#end>$!config.extra1</option>

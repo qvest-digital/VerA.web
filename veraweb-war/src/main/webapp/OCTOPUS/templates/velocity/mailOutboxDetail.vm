@@ -50,7 +50,7 @@
 
 <table class="form"><tr>
 	<td class="label"><label for="show-id">ID</label></td>
-	<td class="value"><input type="text" id="show-id" name="show-id" value="$!message.text($mailoutbox.id)" class="id" readonly></td>
+	<td class="value"><input type="text" id="show-id" name="show-id" value="$!message.text($mailoutbox.id)" class="id" vera-disabled></td>
 </tr><tr>
 	<td class="label"><label for="mailoutbox-from">Von</label></td>
 	<td class="value"><input type="text" id="mailoutbox-from" name="mailoutbox-from" value="$!message.text($mailoutbox.from)" ></td>

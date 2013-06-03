@@ -148,7 +148,7 @@ disableOtherBeans(id);
 	#if($grants.isAdmin() || $grants.isPartialAdmin())
 		<td class="list"><input type="hidden" id="${bean.id}-modified" name="${bean.id}-modified" value="false"><input type="checkbox" name="${bean.id}-select" id="${bean.id}-select" value="true"  #if($listselection.indexOf($bean.id) != -1) checked#end></td>
 		<td class="list"><input type="hidden" name="${bean.id}-id" value="$!bean.id">$!{bean.id}</td>
-		<td class="list"><input type="text" name="${bean.id}-name" id="${bean.id}-name" value="$!message.text($bean.name)"  style="width: 96%;" onchange="modifiedEvent('$!bean.id')" #if(!($grants.isAdmin() || $grants.isPartialAdmin()))readonly="readonly"#end></td>
+		<td class="list"><input type="text" name="${bean.id}-name" id="${bean.id}-name" value="$!message.text($bean.name)"  style="width: 96%;" onchange="modifiedEvent('$!bean.id')" #if(!($grants.isAdmin() || $grants.isPartialAdmin()))vera-disabled#end></td>
 		<td class="list">
 			<select id="${bean.id}-flags" name="${bean.id}-flags"  style="width: 98%;" onchange="modifiedEvent('$!bean.id')">
 				<option #if($bean.flags && $bean.flags == 0) selected#end value="0">Kategorie</option>
@@ -156,9 +156,9 @@ disableOtherBeans(id);
 				<option #if($bean.flags && $bean.flags == 99) selected#end value="99">Diplo. Corps</option>
 			</select>
 		</td>
-		<td class="list"><input type="text" name="${bean.id}-rank" id="${bean.id}-rank" value="$!message.text($bean.rank)"  style="width: 94px;" onchange="modifiedEvent('$!bean.id')" #if(! ($grants.isAdmin() || $grants.isPartialAdmin()))readonly="readonly"#end></td>
+		<td class="list"><input type="text" name="${bean.id}-rank" id="${bean.id}-rank" value="$!message.text($bean.rank)"  style="width: 94px;" onchange="modifiedEvent('$!bean.id')" #if(! ($grants.isAdmin() || $grants.isPartialAdmin()))vera-disabled#end></td>
 		<td class="list">
-			<select id="${bean.id}-event" name="${bean.id}-event"  style="width: 99%;" onchange="modifiedEvent('$!bean.id')" #if(! ( $grants.isAdmin() || $grants.isPartialAdmin() ))readonly="readonly"#end>
+			<select id="${bean.id}-event" name="${bean.id}-event"  style="width: 99%;" onchange="modifiedEvent('$!bean.id')" #if(! ( $grants.isAdmin() || $grants.isPartialAdmin() ))vera-disabled#end>
 			<option value="">F&uuml;r alle Veranstaltungen</option>
 			#foreach($event in $allEvent)
 				<option #if($bean.event && $bean.event == $event.id) selected#end value="$!event.id">$!message.text($event.shortname)</option>
