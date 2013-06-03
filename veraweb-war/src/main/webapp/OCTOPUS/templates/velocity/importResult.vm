@@ -12,7 +12,7 @@
 
 
 <table class="form"><tr>
-	<td class="label"><label for="id">Import-ID:</label></td>
+	<td class="label"><label for="id">Import-ID</label></td>
 	<td class="value"><input type="text" name="id" value="$!message.text($importStatus.id)" id="id" class="id" readonly></td>
 </tr><tr>
 	<td class="label">&nbsp;</td>
@@ -20,17 +20,17 @@
 		<hr class="contentsection">
 	</td>
 </tr><tr>
-	<td class="label"><label for="id">Datens&auml;tze Insgesamt:</label></td>
+	<td class="label"><label for="id">Datens&auml;tze Insgesamt</label></td>
 	<td class="value"><input type="text" name="ds_count" value="$!importStatus.dsCount" id="id" class="id" readonly></td>
 </tr><tr>
-	<td class="label"><label for="id">Anzahl Dubletten:</label></td>
+	<td class="label"><label for="id">Anzahl Dubletten</label></td>
 	<td class="value"><input type="text" name="dup_count" value="$!importStatus.dupCount" id="id" class="id" readonly></td>
 </tr><tr>
-	<td class="label"><label for="id">Datens&auml;tze speicherbar:</label></td>
+	<td class="label"><label for="id">Datens&auml;tze speicherbar</label></td>
 	<td class="value"><input type="text" name="save_count" value="$!importStatus.saveCount" id="id" class="id" readonly></td>
 #if($importStatus.igCount  && $importStatus.igCount != 0)
 </tr><tr>
-	<td class="label"><label for="id">Ignorierte Fehlerdatens&auml;tze:</label></td>
+	<td class="label"><label for="id">Ignorierte Fehlerdatens&auml;tze</label></td>
 	<td class="value"><input type="text" name="ig_count" value="$!importStatus.igCount" id="id" class="id" readonly></td>
 #end
 </tr><tr>

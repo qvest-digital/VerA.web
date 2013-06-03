@@ -15,7 +15,7 @@ Bitte w&auml;hlen Sie:
 	<!--input name="task" value="chooseRole" type="hidden"/-->
 	<table class="form">
 		<tr>
-			<td class="label"><label for="username">Rolle:</label></td>
+			<td class="label"><label for="username">Rolle</label></td>
 			<td class="value">
 				<select id="role" name="username" class="combobox" style="width: 60%;">
 #foreach($s in $octopusConfig.personalConfig.roles)
@@ -24,7 +24,7 @@ Bitte w&auml;hlen Sie:
 				</select>
 			</td>
 		</tr><tr>
-			<td class="label"><label for="password">Passwort:</label></td>
+			<td class="label"><label for="password">Passwort</label></td>
 			<td class="value"><input type="password" name="password" value="$!octopusRequest.get("password")" id="password" class="text" style="width: 60%;"></td>
 		</tr><tr>
 			<td class="label">&nbsp;</td>

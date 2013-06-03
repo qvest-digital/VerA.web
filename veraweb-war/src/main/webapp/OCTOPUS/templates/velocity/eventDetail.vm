@@ -98,11 +98,11 @@
     					<div class="table width100">							
 							<div class="tableRow">
     							<div class="tableCell width50">
-        							<label for="event-shortname">Kurzbezeichnung*:</label>
+        							<label for="event-shortname">Kurzbezeichnung*</label>
         							<input type="text" onchange="setModified();" maxlength="50" class="text" id="event-shortname" value="$!message.text($event.shortname)" name="event-shortname"/>
 								</div>
 								<div class="tableCell width50">
-                    				<label for="event-begin">Beginn*:</label>
+                    				<label for="event-begin">Beginn*</label>
                     				<div class="calenderContainer">
                     						<input type="text" class="datepicker" id="event-begin" value="$!message.date("DATE", $event.begin)" name="event-begin" onchange="setModified();">
                     						#if($grants.mayWrite())
@@ -124,11 +124,11 @@
 							
 							<div class="tableRow">
     							<div class="tableCell width50">
-        							<label for="event-eventname">Name:</label>
+        							<label for="event-eventname">Name</label>
 									<textarea onchange="setModified();" class="text" id="event-eventname" name="event-eventname" cols="20" rows="4">$!message.textarea($event.eventname)</textarea>
 								</div>
 								<div class="tableCell width50">
-                    				<label for="event-end">Ende:</label>
+                    				<label for="event-end">Ende</label>
                     				<div class="calenderContainer">
                     						<input type="text" class="datepicker" id="event-end" value="$!message.date("DATE", $event.end)" name="event-end" onchange="setModified();">
                     						<span class="datepickerContainer" id="show-end">
@@ -150,7 +150,7 @@
 
 							<div class="tableRow">
     							<div class="tableCell width50">
-    								<label for="event-invitationtype">Einladungsart:</label>
+    								<label for="event-invitationtype">Einladungsart</label>
     								<select onchange="setModified();" class="autoWidth" id="event-invitationtype" name="event-invitationtype">
                     					<option #if($event.invitationtype && $event.invitationtype == 1) selected #end value="1">Mit Partner</option>
                     					<option #if($event.invitationtype && $event.invitationtype == 2) selected #end value="2">Ohne Partner</option>
@@ -158,7 +158,7 @@
     								</select>						
     							</div>
     							<div class="tableCell width50 ">
-    								<label for="gastgeber">Gastgeber:</label>
+    								<label for="gastgeber">Gastgeber</label>
     								<input type="hidden" value="$!event.host" name="event-host" id="event-host">
     								<input type="hidden" value="$!event.hostname" name="event-hostname" id="event-hostname">
     								<input type="hidden" value="kein Gastgeber ausgewählt" name="showevent-hostnametext" id="showevent-hostnametext">
@@ -174,17 +174,17 @@
 									
     						<div class="tableRow">
     							<div class="tableCell width50">
-    								<label for="event-maxguest">Maximal Anzahl G&auml;ste:</label>
+    								<label for="event-maxguest">Maximal Anzahl G&auml;ste</label>
     								<input type="text" onchange="setModified();" class="int" id="event-maxguest" value="$!message.text($event.maxguest)" name="event-maxguest">														
     							</div>
     							<div class="tableCell width50 inlineLabel">
-    								<label for="event-invitepartner">Gastgeber-Partner:</label>
+    								<label for="event-invitepartner">Gastgeber-Partner</label>
     								<input type="checkbox" class="noFloat"  id="event-invitepartner" name="event-invitepartner" value="true" #if(!$event || $event.invitepartner) checked #end id="event-invitepartner">						
     							</div>
     						</div>
     						<div class="tableRow">
     							<div class="tableCell width50">
-    								<label for="event-location">Veranstaltungsort:</label>	
+    								<label for="event-location">Veranstaltungsort</label>	
     								<script type="text/javascript">
                             			function addCity() {
                     						var city = document.getElementById('addcity').value;
@@ -253,7 +253,7 @@
     								#end
     							</div>
     							<div class="tableCell width50">
-    								<label for="event-note">Bemerkung:</label>
+    								<label for="event-note">Bemerkung</label>
     								<textarea onchange="setModified();" id="event-note" name="event-note" rows="4" #if($grants.mayReadRemarkFields()) class="text">$!message.textarea($event.note)#else class="textdisabled" disabled="true">#end</textarea>						
     							</div>
     						</div>

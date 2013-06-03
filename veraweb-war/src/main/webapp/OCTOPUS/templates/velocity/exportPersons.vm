@@ -26,7 +26,7 @@
 				<div class="tableRow">
 					<div class="tableCell inlineLabel width30">
 						<input type="radio" name="exportFilter" id="exportFilterEvent" value="event" onclick="return filterChanged()">
-						<label for="exportFilterEvent">Veranstaltung:</label>
+						<label for="exportFilterEvent">Veranstaltung</label>
 					</div>
 					<div class="tableCell">
     					<select id="exportEvent" name="exportEvent">
@@ -45,7 +45,7 @@
 				<div class="tableRow">
 					<div class="tableCell inlineLabel">
 						<input type="radio" name="exportFilter" id="exportFilterCategory" value="category" onclick="return filterChanged()">
-						<label for="exportFilterCategory">Kategorie:</label>
+						<label for="exportFilterCategory">Kategorie</label>
 					</div>
 					<div class="tableCell">
 						<select name="exportCategory" id="exportCategory">
@@ -63,7 +63,7 @@
 				</div>
 				<div class="tableRow">
 					<div class=" tableCell">
-						<label for="format">Dateityp:</label>
+						<label for="format">Dateityp</label>
 					</div>
 					<div class="tableCell">
 						<select name="format" id="format" class="autoWidth" onchange="return formatChanged();">
@@ -89,7 +89,7 @@
                #foreach($choiceKey in $choices.keySet())
                 #set($choice = $choices.get($choiceKey))
                 				<div class="tableRow">
-            						<div class="tableCell width30"><label for="format-${formatKey}-$choiceKey">$!choice.get("label"):</label></div>
+            						<div class="tableCell width30"><label for="format-${formatKey}-$choiceKey">$!choice.get("label")</label></div>
             						<div class="tableCell">
                                         #set($default = $choice.get("default"))
                                         #if($choice.containsKey("select"))

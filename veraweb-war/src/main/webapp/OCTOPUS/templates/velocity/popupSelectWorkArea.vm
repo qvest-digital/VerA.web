@@ -84,7 +84,7 @@
 	    möchten:</h2>
 
 	#if( $allWorkArea.size() > 0 )
-		<label for="workarea">Arbeitsbereich:</label>
+		<label for="workarea">Arbeitsbereich</label>
 		<select name="workarea" id="workarea" onChange="selected(this);">
 		<option value="">
 	#if( $assignmentAction == "unassign" )

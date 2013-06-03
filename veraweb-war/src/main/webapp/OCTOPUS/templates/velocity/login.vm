@@ -8,13 +8,13 @@
 <div class="table">
     <div class="tableRow">
         <div class="tableCell">
-        	<label for="input.username">Benutzername:</label>
+        	<label for="input.username">Benutzername</label>
         	<input type="text" id="input.username" name="username">
         </div>
     </div>
     <div class="tableRow">
         <div class="tableCell">
-        	<label for="input.password">Passwort:</label>
+        	<label for="input.password">Passwort</label>
         	<input type="password" id="input.password" name="password">
         </div>
     </div>

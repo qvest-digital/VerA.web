@@ -36,15 +36,15 @@
 						<h2 class="marginBottom15">E-Mail schreiben</h2>
                         
             			<div>
-                        	<label for="mail-subject">Betreff:</label>
+                        	<label for="mail-subject">Betreff</label>
                             <input type="text" id="mail-subject" name="mail-subject" value="$!message.text($mail.subject)">					
             			</div>
             			<div>
-                        	<label for="mail-text">Text:</label>	
+                        	<label for="mail-text">Text</label>	
                         	<textarea id="mail-text" name="mail-text" style="height:200px">$!message.textarea($mail.text)</textarea>					
             			</div>
             			<div class="inlineLabel">
-                            <label for="platzhalter">Platzhalter:</label>
+                            <label for="platzhalter">Platzhalter</label>
                         	<select name="platzhalter" id="platzhalter" class="inlineInput autoWidth">
             					<option value="firstname">Vorname</option>
             					<option value="lastname">Nachname</option>
@@ -80,7 +80,7 @@
                 		<h2 class="marginBottom15">E-Mail Vorlagen</h2>       
                     
                         <div>
-            				<label for="mail-draft">Vorhandene Vorlagen:</label>
+            				<label for="mail-draft">Vorhandene Vorlagen</label>
 								#if($allMailDraft && $allMailDraft.size() > 0)
                         			<select id="mail-draft" name="mail-draft">
 										<option value="0">&lt;Bitte ausw&auml;hlen&gt;</option>
@@ -96,7 +96,7 @@
             
                			</div>
                         <div class="marginTop20">
-                        			<label for="mail-name">Neue Vorlage (Name)*:</label>
+                        			<label for="mail-name">Neue Vorlage (Name)*</label>
                         			<input type="text" id="mail-name" name="mail-name" value="$!message.text($mail.name)">
                         			<input type="button" name="savedraft" value="Neue Vorlage speichern" title="Neue Vorlage speichern" onclick="document.getElementById('savedraft').value='true'; document.getElementById('formlist').submit();" class="autoWidth">
                                     <p class="mandatoryText"><strong>Hinweis:</strong> Neue Vorlagen müssen sowohl einen Betreff als auch Text enthalten.</p>	

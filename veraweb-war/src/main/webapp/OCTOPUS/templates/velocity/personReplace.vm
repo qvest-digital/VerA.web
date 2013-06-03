@@ -20,13 +20,13 @@
 			<div class="table width20 marginBottom10">
 				<div class="tableRow">
 					<div class="tableCell">
-						<label for="snr-search">Suchen*:</label>
+						<label for="snr-search">Suchen*</label>
 						<input type="text" name="snr-search" id="snr-search" value="$!message.text($replace-request.search)">
 					</div>
 				</div>		
 				<div class="tableRow">
 					<div class="tableCell">
-						<label for="snr-replace">Ersetzen:</label>
+						<label for="snr-replace">Ersetzen</label>
 						<input type="text" name="snr-replace" id="snr-replace" value="$!message.text($replace-request.replace)">
 					</div>
 				</div>		

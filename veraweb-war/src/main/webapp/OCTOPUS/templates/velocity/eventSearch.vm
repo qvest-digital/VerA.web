@@ -40,11 +40,11 @@
 					<div class="table width100">
 						<div class="tableRow">
 							<div class="tableCell width30">
-								<label for="shortname">Kurzbezeichnung:</label>
+								<label for="shortname">Kurzbezeichnung</label>
 								<input type="text" name="shortname" id="input.shortname" value="">					
 							</div>
 							<div class="tableCell width30">
-								<label for="begin">Datum (Beginn):</label>
+								<label for="begin">Datum (Beginn)</label>
 								<div class="calenderContainer">
 									<input type="text" name="begin" value="" id="begin" class="datepicker">
 									<span id="show-begin" class="datepickerContainer"><img src="${paths.staticWeb}images/calendar.png" alt="Datum ausw&auml;hlen" title="Datum ausw&auml;hlen"></span>
@@ -59,17 +59,17 @@
 								</div>					
 							</div>
 							<div class="tableCell width30">
-								<label for="eventname">Name:</label>
+								<label for="eventname">Name</label>
 								<textarea name="eventname" id="eventname" value=""></textarea>
 							</div>
 						</div>
 						<div class="tableRow">
 							<div class="tableCell width30">
-								<label for="hostname">Gastgeber:</label>
+								<label for="hostname">Gastgeber</label>
 								<input type="text" name="hostname" id="hostname" value="">					
 							</div>
 							<div class="tableCell width30">
-								<label for="location">Veranstaltungsort:</label>
+								<label for="location">Veranstaltungsort</label>
 								<input type="text" name="location" id="location" value="">				
 							</div>
 							<div class="tableCell width30">

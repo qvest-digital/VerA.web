@@ -33,7 +33,7 @@
 <table class="form"><tr>
 	<td colspan=2>Bitte w&auml;hlen Sie, wen Sie vertreten wollen.</td>
 </tr><tr>
-	<td class="label"><label for="proxyFor">Benutzerrolle:</label></td>
+	<td class="label"><label for="proxyFor">Benutzerrolle</label></td>
 	<td class="value">
 		<select name="proxyFor" id="fieldMapping" class="combobox">
 #foreach($proxy in $list)

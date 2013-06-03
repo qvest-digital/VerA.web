@@ -781,16 +781,6 @@ label {
 	float:none;
 }
 
-/* #peopleSearch_form label,
-#peopleAdd_form strong,
-#peopleAdd_form label {
-    display: block;
-} */
-
-#peopleSearch_form label:after {
-	content:":";
-}
-
 fieldset {
     border-width: 1px 0 0;
 	margin-bottom:60px;
