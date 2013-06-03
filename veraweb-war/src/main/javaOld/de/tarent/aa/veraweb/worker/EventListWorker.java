@@ -45,7 +45,6 @@ import de.tarent.octopus.beans.BeanListWorker;
 import de.tarent.octopus.beans.Database;
 import de.tarent.octopus.beans.TransactionContext;
 import de.tarent.octopus.beans.veraweb.BeanChangeLogger;
-import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
 import de.tarent.octopus.beans.veraweb.ListWorkerVeraWeb;
 import de.tarent.octopus.beans.veraweb.RequestVeraWeb;
 import de.tarent.octopus.config.TcPersonalConfig;
@@ -267,13 +266,19 @@ public class EventListWorker extends ListWorkerVeraWeb {
 	}
 
 	/**
-	 * L�scht Veranstaltungen und die zugeordneten G�ste.
+	 * Löscht Veranstaltungen inkl. der zugehörigen Aufgaben und der zugeordneten Gäste.
 	 */
 	@Override
     protected boolean removeBean(OctopusContext cntx, Bean bean, TransactionContext context) throws BeanException, IOException {
 		Database database = context.getDatabase();
 		
 		Event event = (Event)bean;
+		
+		context.execute(
+		        SQL.Delete(database)
+		        .from("veraweb.ttask")
+		        .where(Expr.equal("fk_event", event.id))
+		        );
 		context.execute(
 				SQL.Delete( database ).
 				from("veraweb.tguest_doctype").
