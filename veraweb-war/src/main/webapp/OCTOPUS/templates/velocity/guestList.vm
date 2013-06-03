@@ -69,8 +69,6 @@
 		<!-- alter Code der tabs Ende-->	
 		
 		<div class="contentBoxColored tabsContent" vera-content="">
-        
-        	<h2 class="marginBottom20">G&auml;ste&uuml;bersicht</h2>
             
             <form id="guestListFilter" name="guestListFilter" action="ShowGuestList" method="POST">
                 <input type="hidden" name="start" value="0">
