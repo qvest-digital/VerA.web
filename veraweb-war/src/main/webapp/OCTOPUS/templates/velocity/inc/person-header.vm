@@ -76,17 +76,17 @@
                 <div class="table width100">
                     <div class="tableRow">
                         <div class="tableCell width50">
-                            <strong>Erfasst am / von:</strong><br />
+                            <strong>Erfasst am / von</strong><br />
 							#if($person.created)$!message.date("DATE", $person.created)#end #if($person.createdby)/ $!message.text($person.createdby)#end
                         </div>
                         <div class="tableCell width50">
-                            <strong>Zuletzt geändert am / von:</strong><br />
+                            <strong>Zuletzt geändert am / von</strong><br />
                             #if($person.changed)$!message.date("DATE", $person.changed)#end #if($person.changedby)/ $!message.text($person.changedby)#end
                         </div>
                     </div>
                     <div class="tableRow">
                         <div class="tableCell width50" id="showid">
-                            <strong>Personen-ID:</strong><br />#if($person.id)$!message.text($person.id)#end
+                            <strong>Personen-ID</strong><br />#if($person.id)$!message.text($person.id)#end
                         </div>
                         <div class="tableCell width50"></div>
                     </div>

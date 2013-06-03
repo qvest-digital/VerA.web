@@ -14,7 +14,7 @@
 		<input type="hidden" name="id" value="$id">
 	
 		<div id="breadcrumb" class="textRight marginBottom10">
-    		<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Personen > Dublettensuche</span>
+    		<strong>Sie sind hier</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Personen > Dublettensuche</span>
     	</div>
 			
 		<h1 class="paddingTop20">Vorhandene Dubletten</h1>

@@ -9,10 +9,10 @@
 	<div class="table width100 notBold">
 		<div class="tableRow">
 			<div class="tableCell width50 paddingBottom10">
-				<strong>Dokument-ID:</strong> $!message.text($persondoctype.doctype)
+				<strong>Dokument-ID</strong> $!message.text($persondoctype.doctype)
 			</div>
 			<div class="tableCell width50">
-				<strong>Dokument-Name:</strong> $!message.text($persondoctype.name)
+				<strong>Dokument-Name</strong> $!message.text($persondoctype.name)
 			</div>
 		</div>
 

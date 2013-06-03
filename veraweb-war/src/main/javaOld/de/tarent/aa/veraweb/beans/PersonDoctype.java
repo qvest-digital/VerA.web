@@ -32,7 +32,7 @@ import de.tarent.octopus.server.OctopusContext;
  * </p>
  * 
  * <p>
- * <strong>Achtung - Verwendung in Datenbank-Worker:</strong>
+ * <strong>Achtung - Verwendung in Datenbank-Worker</strong>
  * Die Verkn�pfung mit entsprechendem {@link Doctype Dokumenttyp}
  * muss in dem entsprechendem Worker per Join auf <em>veraweb.tdoctype</em>
  * erfolgen. Siehe {@link de.tarent.aa.veraweb.worker.PersonDetailWorker}

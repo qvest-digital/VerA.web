@@ -46,7 +46,7 @@
 	#end
     
     <div id="breadcrumb" class="textRight marginBottom10">
-    	<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Personen > Person bearbeiten</span>
+    	<strong>Sie sind hier</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Personen > Person bearbeiten</span>
     </div>
     
     <h1>$title</h1>

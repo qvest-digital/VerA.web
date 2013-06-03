@@ -4,7 +4,7 @@
 
 <div id="content_container">
 	<div id="breadcrumb" class="textRight marginBottom10">
-    		<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Veranstaltungen > Veranstaltung bearbeiten</span>
+    		<strong>Sie sind hier</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Veranstaltungen > Veranstaltung bearbeiten</span>
     </div>
     <h1>G&auml;steverwaltung der Veranstaltung: $!message.plain($event.shortname)</h1>
 	
@@ -113,7 +113,7 @@
             #elseif($listquestions && $listquestions.size() > 0)
             <form action="" method="POST">
             <div style="margin: 10px 0px 10px 0px; padding: 10px 10px 10px 10px; background-color: #ffffff; border: 2px solid #00ff00;">
-            	<strong>Bitte best&auml;tigen Sie die folgende Aktion:</strong><br>
+            	<strong>Bitte best&auml;tigen Sie die folgende Aktion</strong><br>
             	<table class="form" style="margin: 5px 0px 0px 0px;">
             	#foreach($quest in $listquestions.entrySet())
             		<tr>
