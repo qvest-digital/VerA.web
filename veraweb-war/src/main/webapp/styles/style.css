@@ -841,6 +841,12 @@ input.active {
 .addButton input {
 	width: auto;
 }
+
+[vera-disabled] {
+    background-color: #ddd;
+    color: black;
+}
+
 /************* End forms *****************/
 
 

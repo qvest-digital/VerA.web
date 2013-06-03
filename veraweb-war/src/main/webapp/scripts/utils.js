@@ -235,3 +235,26 @@ function insertAtCursor(fld, text) {
 	}
 }
 
+/** disable all form elements of forms with attribute "vera-disabled".
+ * This is because IE9 does not allow changing the text color of disabled input elements.
+ * Also focus will be disabled (which is not possible with attribute "readonly").
+ **/
+$(function () {
+    $(':input[vera-disabled]').focus(function (e) { // do not allow focus
+        $(this).blur();
+    }).change(function (e) { // reset form element to default value
+        var $t = $(this);
+        if ($t.is('select')) { // single selection box
+            $t.val($t.find('option[selected]').val());
+        } else if ($t.is('input[type=radio]')) { // radio group
+            var group = $('input[type=radio][name=' + $t.attr('name') + ']');
+            group.prop('checked', function () {
+                return $(this).is('[checked]');
+            });
+        } else if ($t.is('input[type=checkbox]')) { // checkbox
+            $t.prop('checked', $t.is('[checked]'));
+        } else { // text field / text area
+            $t.val($t.attr('value'));
+        }
+    });
+});
