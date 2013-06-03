@@ -22,7 +22,7 @@
 
             <form action="ExportPersonsHandler/veraweb.export" name="formExport" method="post">
             
-			<div class="table width60">
+			<div class="table width65">
 				<div class="tableRow">
 					<div class="tableCell inlineLabel width30">
 						<input type="radio" name="exportFilter" id="exportFilterEvent" value="event" onclick="return filterChanged()">
