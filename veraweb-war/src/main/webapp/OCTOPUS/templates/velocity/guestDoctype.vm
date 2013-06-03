@@ -5,7 +5,7 @@
 <table class="tab" border="0" cellspacing="0" cellpadding="0"><tr>
 	<td class="tableft">&nbsp;</td>
 	<td class="tabinactiv"><a href="ShowGuestList" class="tabinactiv">G&auml;steliste</a></td>
-	<td class="tabinactiv"><a href="ShowGuestDetail" class="tabinactiv">Gast-Details</a></td>
+	<td class="tabinactiv"><a href="ShowGuestDetail" class="tabinactiv">Gastdetails</a></td>
 	<td class="tabactiv"><span class="tabactiv">Dokumenttypen</span></td>
 	<td class="tabright">&nbsp;</td>
 </tr></table>

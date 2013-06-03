@@ -45,14 +45,15 @@
 		<div id="tabsMain">
 			<ul vera-tab-group="" class="gray-gradient"> <!-- Bitte das End-tag der <li>s immer mit in die nächste Zeile nehmen (verhindert Mozilla styling bug) -->
     		<li onclick="" vera-tab-default="" vera-tab="" class="inactive"><a href="ShowGuestList" class="tabinactiv">G&auml;steliste</a>
-				</li><li onclick="" vera-tab="" class="active">Gast-Details
+				</li><li onclick="" vera-tab="" class="active">Gastdetails
 				</li><li id="dokumenttypen" class="inactive"><a href="ShowGuestDoctype" class="tabinactiv">Dokumenttypen</a></li>
 			</ul>
 		</div>
 		
 		<div class="contentBoxColored tabsContent" vera-content="">
 			
-			<div id="guestTop" class="notBold grayBorder contentBox marginBottom5">
+			<div id="guestTop" class="notBold grayBorder contentBox marginBottom20 bgWhite">
+				<h3>Gastdetails</h3>
 				<div class="table width100">
     				## Bug 1591 im Kopf nicht die Stammdaten anzeigen
                     	#if($showGuestListData)
@@ -97,6 +98,8 @@
     				</div>
 				</div>
 			</div>
+
+			<form id="GuestForm" name="GuestForm" action="SaveGuestDetail" method="post">
 			
 			<div class="contentBox grayBorder tabs" vera-content="">
     			<div id="tabsMain2">
@@ -108,7 +111,6 @@
     			</div>
 				
 			
-       			<form id="GuestForm" name="GuestForm" action="SaveGuestDetail" method="post">
 					<div class="tabsContent contentBox">
                         <input type="hidden" name="id" value="$!guest.id">
                         <input type="hidden" name="guest-id" value="$!guest.id">
@@ -119,12 +121,24 @@
                         <input type="hidden" name="categorie-modified" id="categorie-modified" value="false">
                         <input type="hidden" name="fetchRankFromMasterData" id="fetchRankFromMasterData" value="false">
                     
-                    
+
+						#if($person.deleted == "t")
+						<div class="notBold hinweis grayBorder marginBottom10">
+                            <strong>Hinweis</strong>
+                            <p>Die Stammdaten dieses Gastes wurden gel&ouml;scht. Sie k&ouml;nnen nur Daten im Rahmen dieser Veranstaltung bearbeiten.</p>
+                        </div>
+						 #else
+						<div class="notBold hinweis grayBorder marginBottom10">
+                            <strong>Hinweis</strong>
+                            <p>Sie bearbeiten hier ausschlie&szlig;lich Personendaten im Rahmen der aktuellen Veranstaltung, <i>keine</i> grundlegenden Stammdaten.</p>
+                        </div>
+                        #end							
+							
                         #openContentBlock("detail-1-block")
 						
-							<div class="table width100">
+							<div class="table width60">
 								<div class="tableRow">
-                                    <div class="tableCell">
+                                    <div class="tableCell width40">
     									<label for="guest-invitationtype">Einladungsart:</label>                     			
     									<select id="guest-invitationtype" name="guest-invitationtype" onchange="setGuestInvitationtype(this.value);">
                             				<option value="1"#if($guest.invitationtype && $guest.invitationtype == 1) selected#end>Mit Partner</option>
@@ -132,6 +146,17 @@
                             				<option value="3"#if($guest.invitationtype && $guest.invitationtype == 3) selected#end>Nur Partner</option>
                             			</select>
 									</div>
+										
+									<div class="tableCell width20">
+										<label for="guest-rank">Rang:</label>
+										<input type="text" id="guest-rank" name="guest-rank" value="$!message.text($guest.rank)">
+									</div>
+									<div class="tableCell">
+										<label for="guest-reserve">Reserve:</label>
+										<input type="checkbox" id="guest-reserve" name="guest-reserve" value="true" #if($guest.reserve) checked#end>
+									</div>
+								</div>
+								<div class="tableRow">
 									<div class="tableCell">
 										<label for="">Kategorie:</label>
 										<select name="guest-category" id="guest-category" onchange="setModified('categorie')">
@@ -140,17 +165,7 @@
 												<option value="$category.id" #if($guest.category == $category.id) selected#end>$category.name</option>
 											#end
 										</select>
-									</div>
-									<div class="tableCell">
-										<label for="guest-rank">Rang:</label>
-										<input type="text" id="guest-rank" name="guest-rank" value="$!message.text($guest.rank)">
-									</div>
-								</div>
-								<div class="tableRow">
-									<div class="tableCell">
-										<label for="guest-reserve">Reserve:</label>
-										<input type="checkbox" id="guest-reserve" name="guest-reserve" value="true" #if($guest.reserve) checked#end>
-									</div>
+									</div>									
 									<div class="tableCell">
 										<label for="showguest-ishost">Ist Gastgeber:</label>
 										#if($guest.ishost == 1)
@@ -160,7 +175,7 @@
                             				<input type="checkbox" name="showguest-ishost" value="false" readonly disabled id="showguest-ishost">
                             				<input type="hidden" name="guest-ishost" value="0">
                             			#end
-									</div>
+									</div>		
 									<div class="tableCell"></div>
 								</div>
 							</div>
@@ -204,22 +219,6 @@
                         	</table>
                         </div>
                         #closeContentBlock()
-                        
-                       
-						
-						#if($person.deleted == "t")
-						<div class="contentBoxColored hinweis grayBorder marginBottom20">
-                            <strong>Hinweis</strong>
-                            <p>Die Stammdaten dieses Gastes wurden gel&ouml;scht. Sie k&ouml;nnen nur Daten im Rahmen dieser Veranstaltung bearbeiten.</p>
-                        </div>
-						 #else
-						<div class="contentBoxColored hinweis grayBorder marginBottom20">
-                            <strong>Hinweis</strong>
-                            <p>Sie bearbeiten hier ausschlie&szlig;lich Personendaten im Rahmen der aktuellen Veranstaltung, <i>keine</i> grundlegenden Stammdaten.</p>
-                        </div>
-                        #end
-						
-						
 						
 						   <div class="textRight marginBottom20" id="buttonPanel-bottom">
                 				#if($grants.mayWrite())
@@ -228,7 +227,8 @@
                 					<input type="button" name="persondata" value="Stammdaten bearbeiten" title="Personenstammdaten bearbeiten" onclick="window.location.href='ShowPerson?id=$guest.person&action=event';" />
                 			</div>
 						</div>
-						
+					</div>							
+					
 						<span class="paging">
     						 <table><tr><td>
                             <span class="listnavitext" style="margin-right: 15px;">Gast $search.offset von $search.count</span>
@@ -258,7 +258,7 @@
 							</span>
 						#end
                     </form>
-			</div>					
+				
 			
         </div><!--End class="tabsContent" --> 
 		

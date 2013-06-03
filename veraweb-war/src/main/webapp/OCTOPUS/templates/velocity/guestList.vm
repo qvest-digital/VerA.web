@@ -45,7 +45,7 @@
 		<div id="tabsMain">
 			<ul vera-tab-group="" class="gray-gradient"> <!-- Bitte das End-tag der <li>s immer mit in die nächste Zeile nehmen (verhindert Mozilla styling bug) -->
     		<li onclick="" vera-tab-default="" vera-tab="" class="active">G&auml;ste&uuml;bersicht
-				</li><li onclick="" vera-tab="" class="inactive"><a href="ShowGuestDetail" class="tabinactiv">Gast-Details</a>
+				</li><li onclick="" vera-tab="" class="inactive"><a href="ShowGuestDetail" class="tabinactiv">Gastdetails</a>
 				</li><li id="dokumenttypen" class="inactive"><a href="ShowGuestDoctype" class="tabinactiv">Dokumenttypen</a></li>
 			</ul>
 		</div>
@@ -57,10 +57,10 @@
         	<td class="tableft">&nbsp;</td>
         	<td class="tabactiv"><span class="tabactiv">G&auml;steliste</span></td>
         	#if ($listparam.count > 0)
-        	<td class="tabinactiv"><a href="ShowGuestDetail" class="tabinactiv">Gast-Details</a></td>
+        	<td class="tabinactiv"><a href="ShowGuestDetail" class="tabinactiv">Gastdetails</a></td>
         	<td class="tabinactiv"><a href="ShowGuestDoctype" class="tabinactiv">Dokumenttypen</a></td>
         	#else
-        	<td class="tabdisabled"><span class="tabdisabled">Gast-Details</span></td>
+        	<td class="tabdisabled"><span class="tabdisabled">Gastdetails</span></td>
         	<td class="tabdisabled"><span class="tabdisabled">Dokumenttypen</span></td>
         	#end
         	<td class="tabright">&nbsp;</td>

@@ -488,10 +488,13 @@ nav a, #nav a {
 	background-color: #f9f9f9 !important;
 }
 
-.hinweis {
+.hinweis,
+.bgWhite {
 	background-color: white;	
 	padding: 20px;
 }
+
+.hinweis {padding:10px 20px;}
 
 #main_content {
 }
