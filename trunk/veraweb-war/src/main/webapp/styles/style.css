@@ -546,7 +546,8 @@ hr {border-top:1px solid #8b0f0f; }
     background-color: #F9F9F9;
 }
 
-#tabsMain ul {
+#tabsMain ul,
+#tabsMain2 ul {
     border-left: 1px solid #BDBDBD;
     display: inline-block;
     height: 40px;
@@ -558,7 +559,8 @@ hr {border-top:1px solid #8b0f0f; }
     margin-left: 0;
 }
 
-#tabsMain li {
+#tabsMain li,
+#tabsMain2 li {
     border-right: 1px solid #BDBDBD;
     display: inline-block;
     line-height: 40px;
@@ -566,11 +568,13 @@ hr {border-top:1px solid #8b0f0f; }
     cursor: pointer;
 }
 
-#tabsMain li.active {
+#tabsMain li.active,
+#tabsMain2 li.active {
     height: 41px;
 }
 
 #tabsMain li.inactive,
+#tabsMain2 li.inactive,
 .tabsSub li.inactive {
 color:#7D7D7D
 }

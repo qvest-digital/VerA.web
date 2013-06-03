@@ -52,7 +52,7 @@
 		
 		<div class="contentBoxColored tabsContent" vera-content="">
 			
-			<div class="table width100" id="guest-header">
+			<div class="table width100 notBold" id="guest-header">
 				## Bug 1591 im Kopf nicht die Stammdaten anzeigen
                 	#if($showGuestListData)
                 		#if ($guestListData.firstname && $guestListData.firstname.length() > 0 && $guestListData.lastname && $guestListData.lastname.length() > 0)
@@ -85,23 +85,24 @@
                 	#end
                 
 				<div class="tableRow">
-					<div class="tablecell">Gast $!message.text($name)</div>
-					<div class="tablecell">E-Mail-Adresse $!message.text($email)</div>
-					<div class="tablecell">Laufende Nummer #if($guest.orderno_a)$!guest.orderno_a#else$!guest.orderno_b#end</div>
+					<div class="tableCell"><strong>Gast</strong> $!message.text($name)</div>
+					<div class="tableCell"><strong>E-Mail-Adresse</strong> $!message.text($email)</div>
+					<div class="tableCell"><strong>Laufende Nummer</strong> #if($guest.orderno_a)$!guest.orderno_a#else$!guest.orderno_b#end</div>
 				</div>
 				<div class="tableRow">
-					<div class="tablecell">Funktion $!message.text($funktion)</div>
-					<div class="tablecell">Partner $!message.text($name_p)</div>
-					<div class="tablecell"></div>
+					<div class="tableCell"><strong>Funktion</strong> $!message.text($funktion)</div>
+					<div class="tableCell"><strong>Partner</strong> $!message.text($name_p)</div>
+					<div class="tableCell"></div>
 				</div>
 			</div>
-			
-			<div id="tabsMain2">
-				<ul vera-tab-group="" class="gray-gradient"> <!-- Bitte das End-tag der <li>s immer mit in die nächste Zeile nehmen (verhindert Mozilla styling bug) -->
-					<li onclick="" vera-tab-default="" vera-tab="" class="active">Allgemein
-					</li><li onclick="" vera-tab="" class="active"><a href="javascript:showTab('detail-2');" id="detail-2-link" class="subtab">$!config.main</a>
-					</li><li id="dokumenttypen" class="inactive"><a href="javascript:showTab('detail-3');" id="detail-3-link" class="subtab">$!config.partner</a></li>
-				</ul>
+			<div class="contentBoxColored tabsContent" vera-content="">
+    			<div id="tabsMain2">
+    				<ul vera-tab-group="" class="gray-gradient"> <!-- Bitte das End-tag der <li>s immer mit in die nächste Zeile nehmen (verhindert Mozilla styling bug) -->
+    					<li onclick="" vera-tab-default="" vera-tab="" class="active">Allgemein
+    					</li><li onclick="" vera-tab="" class="active"><a href="javascript:showTab('detail-2');" id="detail-2-link" class="subtab">$!config.main</a>
+    					</li><li id="dokumenttypen" class="inactive"><a href="javascript:showTab('detail-3');" id="detail-3-link" class="subtab">$!config.partner</a></li>
+    				</ul>
+    			</div>
 			</div>
         </div><!--End class="tabsContent" --> 
 		
