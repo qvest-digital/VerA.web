@@ -97,12 +97,6 @@
     				</div>
 				</div>
 			</div>
-            <div class="textRight marginBottom20" id="buttonPanel-bottom">
-				#if($grants.mayWrite())
-					<input type="button" name="refresh" value="Auf Stammdaten zurücksetzen" title="Alle Werte auf Stammdaten zurücksetzen" onclick="window.location.href='ReloadGuestData?guest-id=$!guest.id';" />
-				#end
-					<input type="button" name="persondata" value="Stammdaten bearbeiten" title="Personenstammdaten bearbeiten" onclick="window.location.href='ShowPerson?id=$guest.person&action=event';" />
-			</div>
 			
 			<div class="contentBox grayBorder tabs" vera-content="">
     			<div id="tabsMain2">
@@ -113,9 +107,9 @@
     				</ul>
     			</div>
 				
-				<div class="tabsContent">
 			
-        			<form id="GuestForm" name="GuestForm" action="SaveGuestDetail" method="post">
+       			<form id="GuestForm" name="GuestForm" action="SaveGuestDetail" method="post">
+					<div class="tabsContent contentBox">
                         <input type="hidden" name="id" value="$!guest.id">
                         <input type="hidden" name="guest-id" value="$!guest.id">
                         <input type="hidden" name="guest-event" value="$!guest.event">
@@ -211,57 +205,59 @@
                         </div>
                         #closeContentBlock()
                         
-                        
-                        
-                        #if($person.deleted == "t")
-                        <table class="list" style="margin-top: 15px;">
-                        	<tr style="height: 20px;">
-                        		<td class="list2error" style="text-align: center; width: 60px;"><strong>Hinweis</strong></td>
-                        		<td class="list1error">
-                        			Die Stammdaten dieses Gastes wurden gel&ouml;scht,
-                        			Sie k&ouml;nnen nur Daten im Rahmen dieser Veranstaltung bearbeiten.
-                        		</td>
-                        	</tr>
-                        </table>
-                        #else
-                        <table class="list" style="margin-top: 15px;">
-                        	<tr style="height: 20px;">
-                        		<td class="list2warn" style="text-align: center; width: 60px;"><strong>Hinweis</strong></td>
-                        		<td class="list1warn">
-                        			Sie bearbeiten hier ausschlie&szlig;lich Personendaten im Rahmen der aktuellen
-                        			Veranstaltung, <i>keine</i> grundlegenden Stammdaten.
-                        		</td>
-                        	</tr>
-                        </table>
+                       
+						
+						#if($person.deleted == "t")
+						<div class="contentBoxColored hinweis grayBorder marginBottom20">
+                            <strong>Hinweis</strong>
+                            <p>Die Stammdaten dieses Gastes wurden gel&ouml;scht. Sie k&ouml;nnen nur Daten im Rahmen dieser Veranstaltung bearbeiten.</p>
+                        </div>
+						 #else
+						<div class="contentBoxColored hinweis grayBorder marginBottom20">
+                            <strong>Hinweis</strong>
+                            <p>Sie bearbeiten hier ausschlie&szlig;lich Personendaten im Rahmen der aktuellen Veranstaltung, <i>keine</i> grundlegenden Stammdaten.</p>
+                        </div>
                         #end
-                        
-                        <table cellspacing="0" cellpadding="0" style="width: 100%; margin-bottom: 5px;"><tr><td>
-                        <span class="listnavitext" style="margin-right: 15px;">Gast $search.offset von $search.count</span>
-                        
-                        #set($offset = $search.offset - 1)
-                        #if ($offset <= 0)
-                        	<a class="listnavilinkinactiv" title="Erster Gast">&laquo;&laquo;</a>
-                        	<a class="listnavilinkinactiv" title="Vorheriger Gast">&laquo;</a>
-                        #else
-                        	<a href="javascript:window.location.href='ShowGuestDetail?offset=1&tab=detail-' + detail;" class="listnavilink" title="Erster Gast">&laquo;&laquo;</a>
-                        	<a href="javascript:window.location.href='ShowGuestDetail?offset=$offset&tab=detail-' + detail;" class="listnavilink" title="Vorheriger Gast">&laquo;</a>
-                        #end
-                        #set($offset = $search.offset + 1)
-                        #if ($offset > $search.count)
-                        	<a class="listnavilinkinactiv" title="N&auml;chster Gast">&raquo;</a>
-                        	<a class="listnavilinkinactiv" title="Letzter Gast">&raquo;&raquo;</a>
-                        #else
-                        	<a href="javascript:window.location.href='ShowGuestDetail?offset=$offset&tab=detail-' + detail;" class="listnavilink" title="N&auml;chster Gast">&raquo;</a>
-                        	<a href="javascript:window.location.href='ShowGuestDetail?offset=$search.count&tab=detail-' + detail;" class="listnavilink" title="Letzter Gast">&raquo;&raquo;</a>
-                        #end
-                        </td></tr></table>
+						
+						
+						
+						   <div class="textRight marginBottom20" id="buttonPanel-bottom">
+                				#if($grants.mayWrite())
+                					<input type="button" name="refresh" value="Auf Stammdaten zurücksetzen" title="Alle Werte auf Stammdaten zurücksetzen" onclick="window.location.href='ReloadGuestData?guest-id=$!guest.id';" />
+                				#end
+                					<input type="button" name="persondata" value="Stammdaten bearbeiten" title="Personenstammdaten bearbeiten" onclick="window.location.href='ShowPerson?id=$guest.person&action=event';" />
+                			</div>
+						</div>
+						
+						<span class="paging">
+    						 <table><tr><td>
+                            <span class="listnavitext" style="margin-right: 15px;">Gast $search.offset von $search.count</span>
+                            
+                            #set($offset = $search.offset - 1)
+                            #if ($offset <= 0)
+                            	<a class="listnavilinkinactiv" title="Erster Gast">&laquo;&laquo;</a>
+                            	<a class="listnavilinkinactiv" title="Vorheriger Gast">&laquo;</a>
+                            #else
+                            	<a href="javascript:window.location.href='ShowGuestDetail?offset=1&tab=detail-' + detail;" class="listnavilink" title="Erster Gast">&laquo;&laquo;</a>
+                            	<a href="javascript:window.location.href='ShowGuestDetail?offset=$offset&tab=detail-' + detail;" class="listnavilink" title="Vorheriger Gast">&laquo;</a>
+                            #end
+                            #set($offset = $search.offset + 1)
+                            #if ($offset > $search.count)
+                            	<a class="listnavilinkinactiv" title="N&auml;chster Gast">&raquo;</a>
+                            	<a class="listnavilinkinactiv" title="Letzter Gast">&raquo;&raquo;</a>
+                            #else
+                            	<a href="javascript:window.location.href='ShowGuestDetail?offset=$offset&tab=detail-' + detail;" class="listnavilink" title="N&auml;chster Gast">&raquo;</a>
+                            	<a href="javascript:window.location.href='ShowGuestDetail?offset=$search.count&tab=detail-' + detail;" class="listnavilink" title="Letzter Gast">&raquo;&raquo;</a>
+                            #end
+                            </td></tr></table>
+						</span>
+						
 						#if($grants.mayWrite())
-							<div class="textRight" id="buttonPanel-bottom">
+							<span class="floatRight" id="buttonPanel-bottom">
 								<input type="button" name="save" value="Speichern"  class="mainButton" onclick="if ( validateGuestData() ) { return askPreSave(); } else { return false; }" />
-							</div>
+							</span>
 						#end
                     </form>
-				</div>
 			</div>					
 			
         </div><!--End class="tabsContent" --> 
