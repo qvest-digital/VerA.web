@@ -95,7 +95,7 @@
                     <div class="tableRow">
                         <div class="tableCell width40">
                             <strong>Aufgaben-ID:</strong><br /> $!message.text($task.id)</div>
-                        <div class="tableCell width20">
+                        <div class="tableCell width25">
                             <label for="task-startdate">Beginn:</label>
                             <input tabindex="2" type="text" name="task-startdate" id="task-startdate" value="$!message.date("DATE", $task.startdate)" class="date" style="width: 80px;" onchange="setModified();">
                             #if($grants.mayWrite())
@@ -114,7 +114,7 @@
                             </script>
                             #end
                             <input type="text" tabindex="3" name="task-starttime" id="task-starttime" #if($task-starthastime) value="$!message.date("TIME", $task.startdate)" #else value="" #end class="date" style="width: 40px;" onchange="setModified();"> Uhr</div>
-                        <div class="tableCell width20">
+                        <div class="tableCell width25">
                             <label for="task-degreeofcompletion">Fertigstellung:</label>
                             <select tabindex="6" name="task-degreeofcompletion" id="task-degreeofcompletion" class="width20" onchange="setModified();">
                                 <option #if($task.degreeofcompletion && $task.degreeofcompletion == 0) selected #end value="0">0%</option>
