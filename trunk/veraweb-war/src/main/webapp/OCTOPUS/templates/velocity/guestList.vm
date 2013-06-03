@@ -9,6 +9,7 @@
     <h1>G&auml;steverwaltung der Veranstaltung: $!message.plain($event.shortname)</h1>
 	
 	#if(!$isNewEvent)
+		#set($completeEventHeader = true)
       	#parse("inc/event-header.vm")
     #end
 
