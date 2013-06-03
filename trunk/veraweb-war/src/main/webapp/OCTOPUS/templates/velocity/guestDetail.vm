@@ -195,16 +195,12 @@
                         #set($facade = $guest.Main)
                         #parse("inc/guest-member.vm")
                         </div>
-                        <div id="detail-2-reload-block" #if($guest.invitationtype != 3) style="display: none;"#end>
-                        	<table class="list">
-                        		<tr style="height: 20px;">
-                        			<td class="list2error" style="text-align: center; width: 60px;"><strong>Info</strong></td>
-                        			<td class="list1error">
-                        				Dieser Gast wurde ohne $!config.main eingeladen.
-                        				M&ouml;chten Sie diese jetzt <a href="javascript:setGuestInvitationtype(1);">nachtr&auml;glich einladen</a>?
-                        			</td>
-                        		</tr>
-                        	</table>
+                        <div id="detail-2-reload-block" #if($guest.invitationtype != 3) style="display: none;"#end>					
+    						<div class="notBold hinweis grayBorder marginBottom10">
+                                <strong>Hinweis</strong>
+                                <p>Dieser Gast wurde ohne $!config.main eingeladen.
+                        		M&ouml;chten Sie diese jetzt <a href="javascript:setGuestInvitationtype(1);">nachtr&auml;glich einladen</a>?</p>
+                            </div>							
                         </div>
                         #closeContentBlock()
                         
@@ -214,16 +210,12 @@
                         #set($facade = $guest.Partner)
                         #parse("inc/guest-member.vm")
                         </div>
-                        <div id="detail-3-reload-block" #if($guest.invitationtype != 2) style="display: none;"#end>
-                        	<table class="list">
-                        		<tr style="height: 20px;">
-                        			<td class="list2error" style="text-align: center; width: 60px;"><strong>Info</strong></td>
-                        			<td class="list1error">
-                        				Dieser Gast wurde ohne $!config.partner eingeladen.
-                        				M&ouml;chten Sie diesen jetzt <a href="javascript:setGuestInvitationtype(1);">nachtr&auml;glich einladen</a>?
-                        			</td>
-                        		</tr>
-                        	</table>
+                        <div id="detail-3-reload-block" #if($guest.invitationtype != 2) style="display: none;"#end>							
+    						<div class="notBold hinweis grayBorder marginBottom10">
+                                <strong>Hinweis</strong>
+                                <p>Dieser Gast wurde ohne $!config.partner eingeladen.
+                        		M&ouml;chten Sie diesen jetzt <a href="javascript:setGuestInvitationtype(1);">nachtr&auml;glich einladen</a>?</p>
+                            </div>							
                         </div>
                         #closeContentBlock()
 						</div>
