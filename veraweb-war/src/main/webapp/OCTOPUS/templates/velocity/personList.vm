@@ -220,19 +220,6 @@
                 <input type="hidden" id="remove-person" name="remove-person" value="false">
                 <script language="JavaScript" type="text/javascript">
                 <!--
-                	function removePerson() {
-                        #if($isUser)
-                    		var person = confirm('Markierte Person wirklich entfernen?');
-                        #elseif($isAdmin)
-                    		var person = confirm('Sollen alle markierten Personen entfernt werden?');
-                        #else
-                    		alert('Sie haben keine ausreichende Berechtigung um Personen zu entfernen.');
-                    		var person = false;
-                        #end
-                    		document.getElementById('remove-person').value = person;
-                		return person;
-                	}
-                
                 	var selectedCount = ${listselection.size()};
                 	function hasSelection() {
                 		return ( selectedCount > 0 );
@@ -327,8 +314,17 @@
      			});
 				
 				function selectedActionRemovePerson() {
-					$('<input>').attr({ type: 'hidden', id: 'remove', name: 'remove' }).appendTo($('#formlist'));
-					removePerson();
+					var confirmResult = false;
+                    #if($isUser)
+                		confirmResult = confirm('Markierte Person wirklich entfernen?');
+                    #elseif($isAdmin)
+                		confirmResult = confirm('Sollen alle markierten Personen entfernt werden?');
+                    #else
+                		alert('Sie haben keine ausreichende Berechtigung um Personen zu entfernen.');
+                    #end
+					if (confirmResult) {
+						$('<input>').attr({ type: 'hidden', id: 'remove', name: 'remove' }).appendTo($('#formlist'));
+					}
 					document.formlist.submit();
 				}
 				
