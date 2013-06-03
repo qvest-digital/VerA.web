@@ -123,7 +123,7 @@
                     
 
 						#if($person.deleted == "t")
-						<div class="notBold hinweis grayBorder marginBottom10">
+						<div class="notBold hinweis grayBorder marginBottom20">
                             <strong>Hinweis</strong>
                             <p>Die Stammdaten dieses Gastes wurden gel&ouml;scht. Sie k&ouml;nnen nur Daten im Rahmen dieser Veranstaltung bearbeiten.</p>
                         </div>
@@ -132,7 +132,14 @@
                             <strong>Hinweis</strong>
                             <p>Sie bearbeiten hier ausschlie&szlig;lich Personendaten im Rahmen der aktuellen Veranstaltung, <i>keine</i> grundlegenden Stammdaten.</p>
                         </div>
-                        #end							
+                        #end	
+						
+						<div class="textRight marginBottom20" id="buttonPanel-bottom">
+                			#if($grants.mayWrite())
+                				<input type="button" name="refresh" value="Auf Stammdaten zurücksetzen" title="Alle Werte auf Stammdaten zurücksetzen" onclick="window.location.href='ReloadGuestData?guest-id=$!guest.id';" />
+                			#end
+                				<input type="button" name="persondata" value="Stammdaten bearbeiten" title="Personenstammdaten bearbeiten" onclick="window.location.href='ShowPerson?id=$guest.person&action=event';" />
+                		</div>						
 							
                         #openContentBlock("detail-1-block")
 						
@@ -219,13 +226,6 @@
                         	</table>
                         </div>
                         #closeContentBlock()
-						
-						   <div class="textRight marginBottom20" id="buttonPanel-bottom">
-                				#if($grants.mayWrite())
-                					<input type="button" name="refresh" value="Auf Stammdaten zurücksetzen" title="Alle Werte auf Stammdaten zurücksetzen" onclick="window.location.href='ReloadGuestData?guest-id=$!guest.id';" />
-                				#end
-                					<input type="button" name="persondata" value="Stammdaten bearbeiten" title="Personenstammdaten bearbeiten" onclick="window.location.href='ShowPerson?id=$guest.person&action=event';" />
-                			</div>
 						</div>
 					</div>							
 					
