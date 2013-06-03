@@ -52,7 +52,7 @@
 		
 		<div class="contentBoxColored tabsContent" vera-content="">
 			
-			<div id="guestTop" class="notBold grayBorder contentBox marginBottom20">
+			<div id="guestTop" class="notBold grayBorder contentBox marginBottom5">
 				<div class="table width100">
     				## Bug 1591 im Kopf nicht die Stammdaten anzeigen
                     	#if($showGuestListData)
@@ -97,11 +97,11 @@
     				</div>
 				</div>
 			</div>
-            <div class="textRight" id="buttonPanel-bottom">
+            <div class="textRight marginBottom20" id="buttonPanel-bottom">
 				#if($grants.mayWrite())
-					<input type="button" name="refresh" value="Auf Stammdaten zurücksetzen" title="Alle Werte auf Stammdaten zurücksetzen" class="mainButton" onclick="window.location.href='ReloadGuestData?guest-id=$!guest.id';" />
+					<input type="button" name="refresh" value="Auf Stammdaten zurücksetzen" title="Alle Werte auf Stammdaten zurücksetzen" onclick="window.location.href='ReloadGuestData?guest-id=$!guest.id';" />
 				#end
-                <input type="button" name="persondata" value="Stammdaten bearbeiten" title="Personenstammdaten bearbeiten" onclick="window.location.href='ShowPerson?id=$guest.person&action=event';" class="mainButton">
+					<input type="button" name="persondata" value="Stammdaten bearbeiten" title="Personenstammdaten bearbeiten" onclick="window.location.href='ShowPerson?id=$guest.person&action=event';" />
 			</div>
 			
 			<div class="contentBox grayBorder tabs" vera-content="">
@@ -255,10 +255,11 @@
                         	<a href="javascript:window.location.href='ShowGuestDetail?offset=$search.count&tab=detail-' + detail;" class="listnavilink" title="Letzter Gast">&raquo;&raquo;</a>
                         #end
                         </td></tr></table>
-                        
-                            <input type="button" name="save" value="Speichern" #if($grants.mayWrite()) class="button" onclick="if ( validateGuestData() ) { return askPreSave(); } else { return false; }" #else class="buttondisabled" disabled #end> &nbsp;
-                            <input type="button" name="cancel" value="Listenansicht" title="Zur&uuml;ck zu der G&auml;steliste" class="reset" onclick="window.location.href='ShowGuestList';"> &nbsp;
-                    
+						#if($grants.mayWrite())
+							<div class="textRight" id="buttonPanel-bottom">
+								<input type="button" name="save" value="Speichern"  class="mainButton" onclick="if ( validateGuestData() ) { return askPreSave(); } else { return false; }" />
+							</div>
+						#end
                     </form>
 				</div>
 			</div>					
