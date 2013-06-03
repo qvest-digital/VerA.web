@@ -2,7 +2,6 @@ package de.tarent.aa.veraweb.worker;
 
 import java.io.IOException;
 
-import de.tarent.aa.veraweb.beans.Event;
 import de.tarent.aa.veraweb.beans.Person;
 import de.tarent.aa.veraweb.beans.Task;
 import de.tarent.aa.veraweb.utils.DateHelper;
@@ -208,6 +207,7 @@ public class EventTaskDetailWorker {
 		if(task != null){
 			context.setContent("task-starthastime", Boolean.valueOf(DateHelper.isTimeInDate(task.startdate)));
 			context.setContent("task-endhastime", Boolean.valueOf(DateHelper.isTimeInDate(task.enddate)));
+			task.getErrors().clear();
 		}
 		
 		return task;
