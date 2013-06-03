@@ -2,36 +2,55 @@
 #set($title = "G&auml;steliste f&uuml;r Veranstaltung: $!message.plain($event.shortname)")
 #parse("inc/header.vm")
 
-<table class="tab" border="0" cellspacing="0" cellpadding="0"><tr>
-	<td class="tableft">&nbsp;</td>
-	<td class="tabinactiv"><a href="ShowGuestList" class="tabinactiv">G&auml;steliste</a></td>
-	<td class="tabactiv"><span class="tabactiv">Gast-Details</span></td>
-	<td class="tabinactiv"><a href="ShowGuestDoctype" class="tabinactiv">Dokumenttypen</a></td>
-	<td class="tabright">&nbsp;</td>
-</tr></table>
+<div id="content_container">
+	<div id="breadcrumb" class="textRight marginBottom10">
+    		<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Veranstaltungen > Veranstaltung bearbeiten</span>
+    </div>
+    <h1>G&auml;steverwaltung der Veranstaltung: $!message.plain($event.shortname)</h1>
+	
+	#if(!$isNewEvent)
+		#set($completeEventHeader = true)
+      	#parse("inc/event-header.vm")
+    #end
 
+    #if($invited)
+    	<div style="margin: 10px 0px 0px 0px; padding: 2px 3px 2px 3px; background-color: #ffc080; border: 1px solid #ff8000;">
+    		#if($invited == 0)
+    			Die G&auml;steliste wurde nicht ver&auml;ndert.
+    		#elseif($invited == 1)
+    			Die G&auml;steliste wurde um einen Gast erweitert.
+    		#else
+    			Die G&auml;steliste wurde um $invited G&auml;ste erweitert.
+    		#end
+    	</div>
+    #end
+    #if($mailinglistParams && $mailinglistParams.count)
+    	<div style="margin: 10px 0px 0px 0px; padding: 2px 3px 2px 3px; background-color: #ffc080; border: 1px solid #ff8000;">
+    		#if($mailinglistParams.count == 0)
+    			Verteiler &quot;$!message.plain($mailinglist.name)&quot; wurde ohne Person angelegt.
+    		#elseif($mailinglistParams.count == 1)
+    			Verteiler &quot;$!message.plain($mailinglist.name)&quot; wurde mit einer Person angelegt.
+    		#else
+    			Verteiler &quot;$!message.plain($mailinglist.name)&quot; wurde mit $!mailinglistParams.count Personen angelegt.
+    		#end
+    	</div>
+    #end
+    #if($octopusRequest.task == "CalcSerialNumber" && (!$listquestions || $listquestions.size() == 0))
+    	<div style="margin: 10px 0px 0px 0px; padding: 2px 3px 2px 3px; background-color: #ffc080; border: 1px solid #ff8000;">
+    		Die &quot;Laufende Nummer&quot; wurde f&uuml;r alle G&auml;ste neu berechnet und gespeichert.
+    	</div>
+    #end
+    <div class="tabs contentBox grayBorder marginBottom10 marginTop20" id="main_content">
 
-
-
-<table class="form"><tr>
-	<td class="label" style="width: 19%;"><strong>Veranstaltung:</strong></td>
-	<td class="value" style="width: 31%;"><input type="text" id="event-shortname" name="event-shortname" value="$!message.text($event.shortname)" class="textdisabled" style="width: 90%;" readonly title="Veranstaltungs-ID: $!event.id"></td>
-	<td class="label" style="width: 19%;">Einladungsart:</td>
-	#if ($event.invitationtype == 2)
-	<td class="value" style="width: 31%;"><input type="text" id="event-invitationtype" name="event-invitationtype" value="Ohne Partner" class="textdisabled" style="width: 90%;" readonly></td>
-	#elseif ($event.invitationtype == 3)
-	<td class="value" style="width: 31%;"><input type="text" id="event-invitationtype" name="event-invitationtype" value="Nur Partner" class="textdisabled" style="width: 90%;" readonly></td>
-	#else
-	<td class="value" style="width: 31%;"><input type="text" id="event-invitationtype" name="event-invitationtype" value="Mit Partner" class="textdisabled" style="width: 90%;" readonly></td>
-	#end
-</tr><tr>
-	<td class="label" style="width: 19%;">Datum:</td>
-	<td class="value" style="width: 31%;"><input type="text" id="event-begin" name="event-begin" value="$!message.date("DATE_TIME", $event.begin)" class="textdisabled" style="width: 90%;" readonly></td>
-	<td class="label" style="width: 19%;">Max. Anzahl G&auml;ste:</td>
-	<td class="value" style="width: 31%;"><input type="text" id="event-maxguest" name="event-maxguest" value="$!message.text($event.maxguest)" class="intdisabled" readonly></td>
-</tr></table>
-
-<hr class="contentsection" />
+		<div id="tabsMain">
+			<ul vera-tab-group="" class="gray-gradient"> <!-- Bitte das End-tag der <li>s immer mit in die nächste Zeile nehmen (verhindert Mozilla styling bug) -->
+    		<li onclick="" vera-tab-default="" vera-tab="" class="inactive"><a href="ShowGuestList" class="tabinactiv">G&auml;steliste</a>
+				</li><li onclick="" vera-tab="" class="active">Gast-Details
+				</li><li id="dokumenttypen" class="inactive"><a href="ShowGuestDoctype" class="tabinactiv">Dokumenttypen</a></li>
+			</ul>
+		</div>
+	</div><!-- End id="main_content" -->
+</div> <!-- End id="content_container" -->
 
 <table class="form"><tr>
 	## Bug 1591 im Kopf nicht die Stammdaten anzeigen
