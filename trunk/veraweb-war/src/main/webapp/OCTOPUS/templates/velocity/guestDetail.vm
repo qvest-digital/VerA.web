@@ -49,59 +49,62 @@
 				</li><li id="dokumenttypen" class="inactive"><a href="ShowGuestDoctype" class="tabinactiv">Dokumenttypen</a></li>
 			</ul>
 		</div>
+		
+		<div class="contentBoxColored tabsContent" vera-content="">
+			<table class="form">
+				<tr>
+                	## Bug 1591 im Kopf nicht die Stammdaten anzeigen
+                	#if($showGuestListData)
+                		#if ($guestListData.firstname && $guestListData.firstname.length() > 0 && $guestListData.lastname && $guestListData.lastname.length() > 0)
+                			#set($name = "$!guestListData.firstname $!guestListData.lastname")
+                		#else
+                			#set($name = "$!guestListData.firstname$!guestListData.lastname")
+                		#end
+                		#set($email = "$!guestListData.mail")
+                		#if ($guestListData.firstname_p && $guestListData.firstname_p.length() > 0 && $guestListData.lastname_p && $guestListData.lastname_p.length() > 0)
+                			#set($name_p = "$!guestListData.firstname_p $!guestListData.lastname_p")
+                		#else
+                			#set($name_p = "$!guestListData.firstname_p$!guestListData.lastname_p")
+                		#end
+                		#set($funktion = "$!guestListData.function")
+                	#else
+                		#set($facade = $main)
+                		#if($facade.Firstname && $facade.Firstname.length() > 0 && $facade.Lastname && $facade.Lastname.length() > 0)
+                			#set($name = "$!facade.Firstname $!facade.Lastname")
+                		#else
+                			#set($name = "$!facade.Firstname$!facade.Lastname")
+                		#end
+                		#set($email = "$!address.EMail")
+                		#set($facade = $partner)
+                		#if($facade.Firstname && $facade.Firstname.length() > 0 && $facade.Lastname && $facade.Lastname.length() > 0)
+                			#set($name_p = "$!facade.Firstname $!facade.Lastname")
+                		#else
+                			#set($name_p = "$!facade.Firstname$!facade.Lastname")
+                		#end
+                		#set($funktion = "$!address.Function")
+                	#end
+                
+                	<td class="label" style="width: 19%;"><strong>Gast:</strong></td>
+                	<td class="value" style="width: 31%;"><input type="text" id="person-main" name="person-main" value="$!message.text($name)" class="textdisabled" style="width: 90%;" readonly></td>
+                	<td class="label" style="width: 19%;">E-Mail-Adresse:</td>
+                	<td class="value" style="width: 31%;"><input type="text" id="person-mail" name="person-mail" value="$!message.text($email)" class="textdisabled" style="width: 90%;" readonly></td>
+                </tr><tr>
+                	
+                	<td class="label" style="width: 19%;">Partner:</td>
+                	<td class="value" style="width: 31%;"><input type="text" id="person-partner" name="person-partner" value="$!message.text($name_p)" class="textdisabled" style="width: 90%;" readonly></td>
+                	<td class="label" style="width: 19%;">Laufende Nummer:</td>
+                	<td class="value" style="width: 31%;""><input type="text" id="guest-orderno_a" name="guest-orderno_a" value="#if($guest.orderno_a)$!guest.orderno_a#else$!guest.orderno_b#end" class="intdisabled" readonly></td>
+                </tr><tr>
+                	<td class="label" style="width: 19%;">Funktion:</td>
+                	<td class="value" style="width: 31%;"><input type="text" id="person-function" name="person-function" value="$!message.text($funktion)" class="textdisabled" style="width: 90%;" readonly></td>
+                	<td class="label" style="width: 19%;">&nbsp;</td>
+                	<td class="value" style="width: 31%;"">&nbsp;</td>
+                </tr>
+			</table>
+        </div>
+		
 	</div><!-- End id="main_content" -->
 </div> <!-- End id="content_container" -->
-
-<table class="form"><tr>
-	## Bug 1591 im Kopf nicht die Stammdaten anzeigen
-	#if($showGuestListData)
-		#if ($guestListData.firstname && $guestListData.firstname.length() > 0 && $guestListData.lastname && $guestListData.lastname.length() > 0)
-			#set($name = "$!guestListData.firstname $!guestListData.lastname")
-		#else
-			#set($name = "$!guestListData.firstname$!guestListData.lastname")
-		#end
-		#set($email = "$!guestListData.mail")
-		#if ($guestListData.firstname_p && $guestListData.firstname_p.length() > 0 && $guestListData.lastname_p && $guestListData.lastname_p.length() > 0)
-			#set($name_p = "$!guestListData.firstname_p $!guestListData.lastname_p")
-		#else
-			#set($name_p = "$!guestListData.firstname_p$!guestListData.lastname_p")
-		#end
-		#set($funktion = "$!guestListData.function")
-	#else
-		#set($facade = $main)
-		#if($facade.Firstname && $facade.Firstname.length() > 0 && $facade.Lastname && $facade.Lastname.length() > 0)
-			#set($name = "$!facade.Firstname $!facade.Lastname")
-		#else
-			#set($name = "$!facade.Firstname$!facade.Lastname")
-		#end
-		#set($email = "$!address.EMail")
-		#set($facade = $partner)
-		#if($facade.Firstname && $facade.Firstname.length() > 0 && $facade.Lastname && $facade.Lastname.length() > 0)
-			#set($name_p = "$!facade.Firstname $!facade.Lastname")
-		#else
-			#set($name_p = "$!facade.Firstname$!facade.Lastname")
-		#end
-		#set($funktion = "$!address.Function")
-	#end
-
-	<td class="label" style="width: 19%;"><strong>Gast:</strong></td>
-	<td class="value" style="width: 31%;"><input type="text" id="person-main" name="person-main" value="$!message.text($name)" class="textdisabled" style="width: 90%;" readonly></td>
-	<td class="label" style="width: 19%;">E-Mail-Adresse:</td>
-	<td class="value" style="width: 31%;"><input type="text" id="person-mail" name="person-mail" value="$!message.text($email)" class="textdisabled" style="width: 90%;" readonly></td>
-</tr><tr>
-	
-	<td class="label" style="width: 19%;">Partner:</td>
-	<td class="value" style="width: 31%;"><input type="text" id="person-partner" name="person-partner" value="$!message.text($name_p)" class="textdisabled" style="width: 90%;" readonly></td>
-	<td class="label" style="width: 19%;">Laufende Nummer:</td>
-	<td class="value" style="width: 31%;""><input type="text" id="guest-orderno_a" name="guest-orderno_a" value="#if($guest.orderno_a)$!guest.orderno_a#else$!guest.orderno_b#end" class="intdisabled" readonly></td>
-</tr><tr>
-	<td class="label" style="width: 19%;">Funktion:</td>
-	<td class="value" style="width: 31%;"><input type="text" id="person-function" name="person-function" value="$!message.text($funktion)" class="textdisabled" style="width: 90%;" readonly></td>
-	<td class="label" style="width: 19%;">&nbsp;</td>
-	<td class="value" style="width: 31%;"">&nbsp;</td>
-</tr></table>
-
-<hr class="contentsection" />
 
 
 
