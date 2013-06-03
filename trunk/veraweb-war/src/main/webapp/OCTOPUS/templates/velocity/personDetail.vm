@@ -422,7 +422,7 @@
 	
 	//Show the company row (Firma/Institution) in the person detail view if the "Ist Firma" 
 	//checkbox was checked.
-	$("#person-iscompany").click(function() {
+	$("#person-iscompany:not([vera-disabled])").click(function() {
        if(this.checked) {
     		$('#company-row').show();
 			$('label[for=person-firstname_a_e1]').html('Vorname');
