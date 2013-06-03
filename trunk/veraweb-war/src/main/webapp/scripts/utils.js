@@ -137,74 +137,68 @@ function selectAll(inp) {
 	}
 }
 
+$.fn.veraDisable = function() {
+    this.filter('[vera-disabled]').focus(function (e) { // do not allow focus
+        $(this).blur();
+    }).change(function (e) { // reset form element to default value
+            var $t = $(this);
+            if ($t.is('select')) { // single selection box
+                $t.val($t.find('option[selected]').val());
+            } else if ($t.is('input[type=radio]')) { // radio group
+                var group = $('input[type=radio][name=' + $t.attr('name') + ']');
+                group.prop('checked', function () {
+                    return $(this).is('[checked]');
+                });
+            } else if ($t.is('input[type=checkbox]')) { // checkbox
+                $t.prop('checked', $t.is('[checked]'));
+            } else { // text field / text area
+                $t.val($t.attr('value'));
+            }
+        });
+    return this;
+}
+
+/** disable all form elements of forms with attribute "vera-disabled".
+ * This is because IE9 does not allow changing the text color of disabled input elements.
+ * Also focus will be disabled (which is not possible with attribute "readonly").
+ **/
+$(function () {
+    $(':input[vera-disabled]').veraDisable();
+});
+
 function disableForm(frm) {
-	var fields = frm.elements;
-	for (var i = 0; i < fields.length; i++) {
-		if (fields[i].type == 'text') {
-			disableFormInput(fields[i]);
-		} else if (fields[i].type == 'textarea') {
-			disableFormTextarea(fields[i]);
-		} else if (fields[i].type == 'radio') {
-			disableFormRadiobox(fields[i]);
-		} else if (fields[i].type == 'checkbox') {
-			disableFormCheckbox(fields[i]);
-		} else if (fields[i].type == 'select-one') {
-			disableFormSelect(fields[i]);
-/*
-		} else if (fields[i].type == 'submit') {
-		} else if (fields[i].type == 'button') {
-		} else if (fields[i].type == 'hidden') {
-		} else {
-			alert(fields[i].type);
-*/
-		}
-	}
+	$(frm).find(':input').attr('vera-disabled', '').veraDisable();
 }
 
 function disableFormInput(fld) {
-	var attr = document.createAttribute('readonly');
-	attr.nodeValue = 'readonly';
-    if (fld !== null) {
-	    fld.setAttributeNode(attr);
-    }
+    $(fld).attr('vera-disabled', '').veraDisable();
 }
-
-function enableFormInput(fld) {
-	fld.removeAttribute("readonly", 0);
-}
-
 function disableFormTextarea(fld) {
-	var attr = document.createAttribute('readonly');
-	attr.nodeValue = 'readonly';
-	fld.setAttributeNode(attr);
+    $(fld).attr('vera-disabled', '').veraDisable();
 }
 
 function disableFormSelect(fld) {
-	var attr = document.createAttribute('disabled');
-	attr.nodeValue = 'true';
-	fld.setAttributeNode(attr);
-}
-
-function enableFormSelect(fld) {
-	fld.removeAttribute("disabled", 0);
+    $(fld).attr('vera-disabled', '').veraDisable();
 }
 
 function disableFormRadiobox(fld) {
-	var attr = document.createAttribute('disabled');
-	attr.nodeValue = 'true';
-	fld.setAttributeNode(attr);
+    $(fld).attr('vera-disabled', '').veraDisable();
 }
 
 function disableFormCheckbox(fld) {
-	var attr = document.createAttribute('disabled');
-	attr.nodeValue = 'true';
-    if (fld !== null) {
-        fld.setAttributeNode(attr);
-    }
+    $(fld).attr('vera-disabled', '').veraDisable();
+}
+
+function enableFormSelect(fld) {
+    $(fld).removeAttr('vera-disabled');
+}
+
+function enableFormInput(fld) {
+    $(fld).removeAttr('vera-disabled');
 }
 
 function enableFormCheckbox(fld) {
-	fld.removeAttribute("disabled", 0);
+    $(fld).removeAttr('vera-disabled');
 }
 
 function onMouseOverList(line) {
@@ -234,27 +228,3 @@ function insertAtCursor(fld, text) {
 		fld.value += text;
 	}
 }
-
-/** disable all form elements of forms with attribute "vera-disabled".
- * This is because IE9 does not allow changing the text color of disabled input elements.
- * Also focus will be disabled (which is not possible with attribute "readonly").
- **/
-$(function () {
-    $(':input[vera-disabled]').focus(function (e) { // do not allow focus
-        $(this).blur();
-    }).change(function (e) { // reset form element to default value
-        var $t = $(this);
-        if ($t.is('select')) { // single selection box
-            $t.val($t.find('option[selected]').val());
-        } else if ($t.is('input[type=radio]')) { // radio group
-            var group = $('input[type=radio][name=' + $t.attr('name') + ']');
-            group.prop('checked', function () {
-                return $(this).is('[checked]');
-            });
-        } else if ($t.is('input[type=checkbox]')) { // checkbox
-            $t.prop('checked', $t.is('[checked]'));
-        } else { // text field / text area
-            $t.val($t.attr('value'));
-        }
-    });
-});
