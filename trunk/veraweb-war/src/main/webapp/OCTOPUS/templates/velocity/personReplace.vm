@@ -5,7 +5,7 @@
 
 <div id="content_container">
 	<div id="breadcrumb" class="textRight marginBottom10">
-		<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Personen > Suchen & Ersetzen</span>
+		<strong>Sie sind hier</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Personen > Suchen & Ersetzen</span>
 	</div>
 
 	<h1>Suchen & Ersetzen in Personendaten</h1>
@@ -32,7 +32,7 @@
 				</div>		
 			</div>
 			
-			<p><strong>In folgenden Feldern*:</strong></p>
+			<p><strong>In folgenden Feldern*</strong></p>
 			
 			<div class="table inlineLabel marginBottom20">
 				<div class="tableRow">

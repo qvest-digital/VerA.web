@@ -8,7 +8,7 @@
 
 
     <div id="breadcrumb" class="textRight marginBottom10">
-        <strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/">Home</a> > Veranstaltungen > Veranstaltung bearbeiten</span>
+        <strong>Sie sind hier</strong> <span><a href="${paths.staticWeb}do/">Home</a> > Veranstaltungen > Veranstaltung bearbeiten</span>
     </div>
 
     <h1>Veranstaltung bearbeiten: $!message.plain($event.shortname)</h1>
@@ -52,7 +52,7 @@
 
                 #if($listerrors && $listerrors.size() > 0)
                 <div style="margin: 10px 0px 10px 0px; padding: 10px 10px 10px 10px; background-color: #ffffff; border: 2px solid #ff0000;">
-                    <strong>L&ouml;schen von Aufgaben ist nicht m&ouml;glich:</strong><br>
+                    <strong>L&ouml;schen von Aufgaben ist nicht m&ouml;glich</strong><br>
                     <ul style="margin: 0px 0px 0px -10px;">
                         #if($listerrors.size() > 5)
                         #set($show = 5)
@@ -73,7 +73,7 @@
                 #end
                 #if($listquestions && $listquestions.size() > 0)
                 <div style="margin: 10px 0px 10px 0px; padding: 10px 10px 10px 10px; background-color: #ffffff; border: 2px solid #00ff00;">
-                    <strong>Bitte best&auml;tigen Sie das L&ouml;schen von Aufgaben:</strong><br>
+                    <strong>Bitte best&auml;tigen Sie das L&ouml;schen von Aufgaben</strong><br>
                     <ul style="margin: 0px 0px 0px -10px;">
                         #foreach($quest in $listquestions.entrySet())
                         <li style="margin: 5px 0px 0px 0px;"><input type="hidden" name="$quest.key" value="true">$!message.plain($quest.value)</li>

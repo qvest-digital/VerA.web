@@ -51,7 +51,7 @@
             				</ul>
             			</div>
             			<div id="user">
-            				<strong>Benutzer:</strong> $octopusConfig.personalConfig.userName#if($octopusConfig.personalConfig.proxy) / <strong>In Vertretung f&uuml;r:</strong> $octopusConfig.personalConfig.role #end
+            				<strong>Benutzer</strong> $octopusConfig.personalConfig.userName#if($octopusConfig.personalConfig.proxy) / <strong>In Vertretung f&uuml;r</strong> $octopusConfig.personalConfig.role #end
             			</div>
 					#end
         	</header>

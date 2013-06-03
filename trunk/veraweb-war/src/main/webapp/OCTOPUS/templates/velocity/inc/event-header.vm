@@ -2,14 +2,14 @@
 	<div class="table width100">
 		<div class="tableRow">
 			<div class="tableCell width30 paddingBottom15">	
-				<strong>Veranstaltungs-ID:</strong> $!message.text($event.id)
+				<strong>Veranstaltungs-ID</strong> $!message.text($event.id)
 			</div>
 			<div class="tableCell width30">
-				<strong>Beginn:</strong> $!message.date("DATE", $event.begin) #if($event-beginhastime)um $!message.date("TIME", $event.begin) Uhr#end									
+				<strong>Beginn</strong> $!message.date("DATE", $event.begin) #if($event-beginhastime)um $!message.date("TIME", $event.begin) Uhr#end									
 			</div>
 			#if($completeEventHeader)
 			<div class="tableCell width30">
-				<strong>Einladungsart:</strong> 	
+				<strong>Einladungsart</strong> 	
 				#if ($event.invitationtype == 2)
 					Ohne Partner
             	#elseif ($event.invitationtype == 3)
@@ -22,14 +22,14 @@
 		</div>
 		<div class="tableRow">
 			<div class="tableCell width30">
-				<strong style="vertical-align: inherit;">Veranstaltungsname:</strong> <pre>$!message.textarea($event.eventname)</pre>
+				<strong style="vertical-align: inherit;">Veranstaltungsname</strong> <pre>$!message.textarea($event.eventname)</pre>
 			</div>
 			<div class="tableCell width30">
-				<strong>Ende:</strong> $!message.date("DATE", $event.end) #if($event-endhastime)um $!message.date("TIME", $event.end) Uhr#end									
+				<strong>Ende</strong> $!message.date("DATE", $event.end) #if($event-endhastime)um $!message.date("TIME", $event.end) Uhr#end									
 			</div>
 			#if($completeEventHeader)
 			<div class="tableCell width30">
-				<strong>Max. Anzahl G&auml;ste:</strong> $!message.text($event.maxguest)									
+				<strong>Max. Anzahl G&auml;ste</strong> $!message.text($event.maxguest)									
 			</div>
 			#end
 		</div>		

@@ -614,7 +614,7 @@ public class GuestWorker {
     /**
      * Diese Methode f�gt eine Person einer Veranstaltung hinzu.<br><br>
      * 
-     * <strong>Achtung:</strong> Wenn die Gast-ID null ist wird ein neuer
+     * <strong>Achtung</strong> Wenn die Gast-ID null ist wird ein neuer
      * Gast angelegt wenn dieser noch nicht dieser Veranstaltung zugeordnet
      * war. Wenn die Gast-ID �bergeben wird, wird dieser Gast aktuallisiert!
      * 

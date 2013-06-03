@@ -23,7 +23,7 @@
 	<body onload="selectAll(document.getElementById('exportText'));">
 		<form action="" method="post">
 		<div class="contentBoxColored grayBorder padding20">
-			<strong>Markieren und kopieren Sie folgendes Adress-Etikett:</strong>
+			<strong>Markieren und kopieren Sie folgendes Adress-Etikett</strong>
 	
 			<textarea class="width100" style="height:150px" id="exportText" name="exportText">$!message.textarea($personExport)</textarea>
 			

@@ -12,7 +12,7 @@
 
 
 <table class="form"><tr>
-	<td class="label" style="width: 19%;"><strong>Veranstaltung:</strong></td>
+	<td class="label" style="width: 19%;"><strong>Veranstaltung</strong></td>
 	<td class="value" style="width: 31%;"><input type="text" id="event-shortname" name="event-shortname" value="$!message.text($event.shortname)" class="textdisabled" style="width: 90%;" readonly title="Veranstaltungs-ID: $!event.id"></td>
 	<td class="label" style="width: 19%;">Einladungsart:</td>
 	#if ($event.invitationtype == 2)
@@ -34,7 +34,7 @@
 <form action="ReportGuestList" target="_blank" method="get">
 
 <table class="form"><tr>
-	<td class="label" style="width: 19%;"><strong>Ausgabeformat:</strong></td>
+	<td class="label" style="width: 19%;"><strong>Ausgabeformat</strong></td>
 	<td class="value">
 		<select name="type" class="combobox">
 			<option value="Kat01">Liste nach Kategorien gruppiert - mit Partner</option>

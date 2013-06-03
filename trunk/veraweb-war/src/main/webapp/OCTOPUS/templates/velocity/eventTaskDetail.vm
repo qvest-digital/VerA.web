@@ -16,11 +16,11 @@
 
     #if($task && $task.id)
     <div id="breadcrumb" class="textRight marginBottom10">
-        <strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Veranstaltungen > Veranstaltung</span>
+        <strong>Sie sind hier</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Veranstaltungen > Veranstaltung</span>
     </div>
     #else
     <div id="breadcrumb" class="textRight marginBottom10">
-        <strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Veranstaltungen > Veranstaltung</span>
+        <strong>Sie sind hier</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Veranstaltungen > Veranstaltung</span>
     </div>
     #end
 
@@ -95,7 +95,7 @@
                 <div class="table width100">
                     <div class="tableRow">
                         <div class="tableCell width40">
-                            <strong>Aufgaben-ID:</strong><br /> $!message.text($task.id)</div>
+                            <strong>Aufgaben-ID</strong><br /> $!message.text($task.id)</div>
                         <div class="tableCell width30">
                             <label for="task-startdate">Beginn</label>
                             <input tabindex="2" type="text" name="task-startdate" id="task-startdate" value="$!message.date("DATE", $task.startdate)" class="date" style="width: 80px;" onchange="setModified();">
@@ -176,7 +176,7 @@
                 <div class="tableRow">
                     <div class="tableCell">
                         <input type="hidden" id="task-reference-person" value="$!message.text($refPerson.firstname_a_e1) $!message.text($refPerson.lastname_a_e1)">
-                        <strong>Verantwortlicher:</strong>
+                        <strong>Verantwortlicher</strong>
                         <div id="task-reference-person-text" class="marginBottom5">$!message.text($refPerson.firstname_a_e1) $!message.text($refPerson.lastname_a_e1)</div>
 				        #if($grants.mayWrite())
                             <div>

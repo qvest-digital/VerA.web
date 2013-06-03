@@ -12,7 +12,7 @@
 
 
 <table class="form"><tr>
-	<td class="label" style="width: 19%;"><strong>Veranstaltung:</strong></td>
+	<td class="label" style="width: 19%;"><strong>Veranstaltung</strong></td>
 	<td class="value" style="width: 31%;"><input type="text" id="event-shortname" name="event-shortname" value="$!message.text($event.shortname)" class="textdisabled" style="width: 90%;" readonly title="Veranstaltungs-ID: $!event.id"></td>
 	<td class="label" style="width: 19%;">Einladungsart:</td>
 	#if ($event.invitationtype == 2)
@@ -36,7 +36,7 @@
 <form id="ExportForm" action="ShowExportGuestDoctype" method="post">
 
 <table class="form"><tr>
-	<td class="label" style="width: 19%;"><strong>Dokumenttyp:</strong></td>
+	<td class="label" style="width: 19%;"><strong>Dokumenttyp</strong></td>
 	<td class="value" style="width: 81%;">
 		<select name="doctype" class="combobox" onChange="document.getElementById('ExportForm').action='ShowExportGuestDoctype'; submit();">
 			#foreach($bean in $allEventDoctype)

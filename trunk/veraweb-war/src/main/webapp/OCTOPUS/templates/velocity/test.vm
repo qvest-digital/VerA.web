@@ -16,7 +16,7 @@ $addr2<br><br>
 $list2<br><br>
 <br>
 
-	<strong>Eine Adresse:</strong><br><br>
+	<strong>Eine Adresse</strong><br><br>
 ID: <input type="text" name="id" value="$!message.text($addr1.id)"><br>
 	Block 1: <input type="text" name="addressblock1" value="$!message.text($addr1.addressblock1)"><br>
 			Block 2: <input type="text" name="addressblock2" value="$!message.text($addr1.addressblock2)"><br>
@@ -26,7 +26,7 @@ ID: <input type="text" name="id" value="$!message.text($addr1.id)"><br>
 			Block 6: <input type="text" name="addressblock6" value="$!message.text($addr1.addressblock6)"><br>
 <br><br>
 		
-	<strong>Adress-Liste:</strong><br><br>
+	<strong>Adress-Liste</strong><br><br>
 <input type="hidden" name="list" value="1-">
 	<input type="hidden" name="list" value="2-">
 	<input type="hidden" name="list" value="3-">

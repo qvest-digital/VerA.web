@@ -14,11 +14,11 @@
 #if($cleanup && $cleanup.size() > 0)
 	#if($cleanupdone)
 		<div style="margin-top: 10px; font-size: 14px; font-family: Arial;">
-			Folgende Aktionen <strong>WURDEN</strong> durchgef&uuml;hrt:</strong>
+			Folgende Aktionen <strong>WURDEN</strong> durchgef&uuml;hrt</strong>
 		</div>
 	#else
 		<div style="margin-top: 10px; font-size: 14px; font-family: Arial;">
-			Folgende Aktionen <strong>K&Ouml;NNEN</strong> durchgef&uuml;hrt:</strong>
+			Folgende Aktionen <strong>K&Ouml;NNEN</strong> durchgef&uuml;hrt</strong>
 		</div>
 	#end
 	<ul>

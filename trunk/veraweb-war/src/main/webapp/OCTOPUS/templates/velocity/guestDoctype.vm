@@ -14,7 +14,7 @@
 
 
 <table class="form"><tr>
-	<td class="label" style="width: 19%;"><strong>Veranstaltung:</strong></td>
+	<td class="label" style="width: 19%;"><strong>Veranstaltung</strong></td>
 	<td class="value" style="width: 31%;"><input type="text" id="event-shortname" name="event-shortname" value="$!message.text($event.shortname)" class="textdisabled" style="width: 90%;" readonly title="Veranstaltungs-ID: $!event.id"></td>
 	<td class="label" style="width: 19%;">Einladungsart:</td>
 	#if ($event.invitationtype == 2)
@@ -65,7 +65,7 @@
 		#set($funktion = "$!address.Function")
 	#end
 	
-	<td class="label" style="width: 19%;"><strong>Gast:</strong></td>
+	<td class="label" style="width: 19%;"><strong>Gast</strong></td>
 	<td class="value" style="width: 31%;"><input type="text" id="person-main" name="person-main" value="$!message.text($name)" class="textdisabled" style="width: 90%;" readonly></td>
 ## added mailto: link as per change request for version 1.2.0
 ## cklein 2008-03-03
@@ -89,7 +89,7 @@
 #if (!$allDoctype || $allDoctype.size() != 0)
 <form action="ShowGuestDoctype" method="get">
 <table class="form"><tr>
-	<td class="label" style="width: 19%;"><strong>Dokumenttyp:</strong></td>
+	<td class="label" style="width: 19%;"><strong>Dokumenttyp</strong></td>
 	<td class="value" style="width: 81%;">
 		<select id="doctype-id" name="doctype-id" class="combobox" style="width: 99%;" onChange="submit();">
 			#foreach($doc in $allDoctype)

@@ -4,7 +4,7 @@
 
 <div id="content_container">
 	<div id="breadcrumb" class="textRight marginBottom10">
-    		<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Veranstaltungen > Veranstaltung bearbeiten</span>
+    		<strong>Sie sind hier</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Veranstaltungen > Veranstaltung bearbeiten</span>
     </div>
     <h1>G&auml;steverwaltung der Veranstaltung: $!message.plain($event.shortname)</h1>
 	
@@ -51,9 +51,9 @@
 		</div>
 		
 		<div class="contentBoxColored tabsContent" vera-content="">
-			<table class="form">
-				<tr>
-                	## Bug 1591 im Kopf nicht die Stammdaten anzeigen
+			
+			<div class="table width100" id="guest-header">
+				## Bug 1591 im Kopf nicht die Stammdaten anzeigen
                 	#if($showGuestListData)
                 		#if ($guestListData.firstname && $guestListData.firstname.length() > 0 && $guestListData.lastname && $guestListData.lastname.length() > 0)
                 			#set($name = "$!guestListData.firstname $!guestListData.lastname")
@@ -84,31 +84,34 @@
                 		#set($funktion = "$!address.Function")
                 	#end
                 
-                	<td class="label" style="width: 19%;"><strong>Gast:</strong></td>
-                	<td class="value" style="width: 31%;"><input type="text" id="person-main" name="person-main" value="$!message.text($name)" class="textdisabled" style="width: 90%;" readonly></td>
-                	<td class="label" style="width: 19%;">E-Mail-Adresse:</td>
-                	<td class="value" style="width: 31%;"><input type="text" id="person-mail" name="person-mail" value="$!message.text($email)" class="textdisabled" style="width: 90%;" readonly></td>
-                </tr><tr>
-                	
-                	<td class="label" style="width: 19%;">Partner:</td>
-                	<td class="value" style="width: 31%;"><input type="text" id="person-partner" name="person-partner" value="$!message.text($name_p)" class="textdisabled" style="width: 90%;" readonly></td>
-                	<td class="label" style="width: 19%;">Laufende Nummer:</td>
-                	<td class="value" style="width: 31%;""><input type="text" id="guest-orderno_a" name="guest-orderno_a" value="#if($guest.orderno_a)$!guest.orderno_a#else$!guest.orderno_b#end" class="intdisabled" readonly></td>
-                </tr><tr>
-                	<td class="label" style="width: 19%;">Funktion:</td>
-                	<td class="value" style="width: 31%;"><input type="text" id="person-function" name="person-function" value="$!message.text($funktion)" class="textdisabled" style="width: 90%;" readonly></td>
-                	<td class="label" style="width: 19%;">&nbsp;</td>
-                	<td class="value" style="width: 31%;"">&nbsp;</td>
-                </tr>
-			</table>
-        </div>
+				<div class="tableRow">
+					<div class="tablecell">Gast $!message.text($name)</div>
+					<div class="tablecell">E-Mail-Adresse $!message.text($email)</div>
+					<div class="tablecell">Laufende Nummer #if($guest.orderno_a)$!guest.orderno_a#else$!guest.orderno_b#end</div>
+				</div>
+				<div class="tableRow">
+					<div class="tablecell">Funktion $!message.text($funktion)</div>
+					<div class="tablecell">Partner $!message.text($name_p)</div>
+					<div class="tablecell"></div>
+				</div>
+			</div>
+			
+			<div id="tabsMain2">
+				<ul vera-tab-group="" class="gray-gradient"> <!-- Bitte das End-tag der <li>s immer mit in die nächste Zeile nehmen (verhindert Mozilla styling bug) -->
+					<li onclick="" vera-tab-default="" vera-tab="" class="active">Allgemein
+					</li><li onclick="" vera-tab="" class="active"><a href="javascript:showTab('detail-2');" id="detail-2-link" class="subtab">$!config.main</a>
+					</li><li id="dokumenttypen" class="inactive"><a href="javascript:showTab('detail-3');" id="detail-3-link" class="subtab">$!config.partner</a></li>
+				</ul>
+			</div>
+        </div><!--End class="tabsContent" --> 
 		
 	</div><!-- End id="main_content" -->
 </div> <!-- End id="content_container" -->
 
 
 
-
+		<!-- alter Code der tabs -->
+		#*
 <div id="subtab-detail-block">
 	<table class="subtab" border="0" cellspacing="0" cellpadding="0"><tr>
 		<td class="subtableft">&nbsp;</td>
@@ -122,7 +125,7 @@
 ##            <td class="subtab" id="detail-3-tab"><a href="javascript:showTab('detail-3');" id="detail-3-link" class="subtab">$!config.partner</a></td>
 		<td class="subtabcenter">&nbsp;</td>
 	</tr></table>
-</div>
+</div>*#
 
 <form id="GuestForm" name="GuestForm" action="SaveGuestDetail" method="post">
 <input type="hidden" name="id" value="$!guest.id">
