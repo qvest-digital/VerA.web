@@ -87,11 +87,7 @@
 				</div>
 			</div>
 		</div>
-		
 
-		
-
-        
     </form>
     
     #if($listerrors.size() > 0)
@@ -135,7 +131,28 @@
     
     #foreach($bean in $list)
     <input type="hidden" name="list" value="$bean.id">
-    #end
+	#end
+	
+	<span id="actionPanel" class="inlineLabel">
+		<label>Markierte Person(en)
+			<select id="actionSelection">
+				<option>Löschen</option>
+				<option>Kategorien zuordnen</option>
+        		<option>Kategorien entfernen</option>
+        		<option>Verteiler erstellen</option>
+        		<option>Steuerdatei exportieren</option>
+            </select>
+        	<input type="button" value="Durchführen" id="button.execute" name="button.execute" />
+		</label>
+   	</span>
+	
+	<span id="buttonPanel-top" class="textRight floatRight">
+        #if($grants.mayWrite())
+        <nobr><a href="AddEventToEventSearch?action=guest">G&auml;ste aus Veranstaltung &uuml;bernehmen</a>
+        #end		
+        <input type="button" name="add" value="Gast hinzuf&uuml;gen" title="Personen suchen und zu der G&auml;steliste hinzuf&uuml;gen" onclick="window.location.href='AddPersonToEventSearch?action=guest&search=clear';" #if($grants.mayWrite()) class="mainButton" #else class="buttondisabled" disabled #end>
+	</span>
+	
     <table class="list">
     	<tr class="list1" style="height: 20px;">
     		<th class="list" style="width: 20px;">&nbsp;</th>
@@ -299,6 +316,15 @@
     	</tr>
     	#end
     </table>
+	
+	<div class="textRight" id="buttonPanel-bottom">
+		 #if($grants.mayWrite())
+			<nobr><a href="javascript:htmlWait(); document.getElementById('formlist').action='ReloadAllGuestData'; document.getElementById('formlist').submit();">Alle Stammdaten neu laden</a>
+		 #end
+		 #if($grants.mayWrite())
+			<nobr><a href="javascript:htmlWait(); window.location.href='CalcSerialNumber';">Laufende Nummer berechnen</a>
+		 #end
+	</div>
     
     #if ($listparam.count == 0)
     	<br>Keine Daten gefunden.<br>
@@ -336,24 +362,6 @@
     <div style="line-height: 160%;">
     ## vgl. Bug 1332
     #if($grants.mayWrite())
-    <nobr><a href="javascript:htmlWait(); window.location.href='CalcSerialNumber';">Laufende Nummer berechnen</a>
-    #else
-    <nobr>Laufende-Nummer berechnen
-    #end
-    &nbsp;|&nbsp;</nobr>
-    #if($grants.mayWrite())
-    <nobr><a href="javascript:htmlWait(); document.getElementById('formlist').action='ReloadAllGuestData'; document.getElementById('formlist').submit();">Alle Stammdaten neu laden</a>
-    #else
-    <nobr>Alle Stammdaten neu laden
-    #end
-    &nbsp;|&nbsp;</nobr>
-    #if($grants.mayWrite())
-    <nobr><a href="AddEventToEventSearch?action=guest">G&auml;ste aus Veranstaltung &uuml;bernehmen</a>
-    #else
-    <nobr>G&auml;ste aus Veranstaltung &uuml;bernehmen
-    #end
-    &nbsp;|&nbsp;</nobr>
-    #if($grants.mayWrite())
     <nobr><a href="javascript:htmlWait(); document.getElementById('formlist').action='CreateMailinglist'; document.getElementById('formlist').submit();">Verteiler erstellen</a>
     #else
     <nobr>Verteiler erstellen
@@ -387,7 +395,7 @@
     </table>
     
     <div>
-    <div id="fixme" class="fixme1"><div class="fixme2"><div class="fixme3">
+
     
     	#parse("inc/list-navi.vm")
     	#if($search.listorder)
@@ -400,7 +408,6 @@
     
         <input type="submit" name="save" value="Speichern" #if($grants.mayWrite()) class="button" #else class="buttondisabled" disabled #end> &nbsp;
         <input type="submit" name="remove" value="L&ouml;schen" #if($grants.mayWrite()) class="button" #else class="buttondisabled" disabled #end> &nbsp;
-        <input type="button" name="add" value="Gast hinzuf&uuml;gen" title="Personen suchen und zu der G&auml;steliste hinzuf&uuml;gen" onclick="window.location.href='AddPersonToEventSearch?action=guest&search=clear';" #if($grants.mayWrite()) class="button" #else class="buttondisabled" disabled #end> &nbsp;
     
     <script type="text/javascript">
     
@@ -484,7 +491,7 @@
     			
         <input type="button" name="cancel" value="Zur&uuml;ck" title="Zur&uuml;ck zu den Veranstaltungdetails" class="reset" onclick="window.location.href='ShowEvent?id=$!event.id&action=event';"> &nbsp;
     
-    </div></div></div>
+
     </div>
     
     </form>
