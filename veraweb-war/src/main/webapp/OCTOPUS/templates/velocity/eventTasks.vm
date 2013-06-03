@@ -131,7 +131,7 @@
                     #foreach($bean in $list)
                     <tr>
                         <td class="textCenter">
-                            <input type="checkbox" id="add-select" name="${bean.id}-select" value="true" class="checkbox" #if($listselection.indexOf($bean.id) != -1) checked#end>
+                            <input type="checkbox" id="add-select" name="${bean.id}-select" value="true"  #if($listselection.indexOf($bean.id) != -1) checked#end>
                         </td>
                         <td class="textCenter" onclick="window.location.href='ShowEventTask?id=$!{bean.id}&eventId=$!{bean.eventId}'">$!bean.id</td>
                         <td onclick="window.location.href='ShowEventTask?id=$!{bean.id}&eventId=$!{bean.eventId}'">$!message.plain($!bean.title)</td>

@@ -35,7 +35,7 @@
 </tr><tr>
 	<td class="label"><label for="proxyFor">Benutzerrolle</label></td>
 	<td class="value">
-		<select name="proxyFor" id="fieldMapping" class="combobox">
+		<select name="proxyFor" id="fieldMapping" >
 #foreach($proxy in $list)
 			<option value="$proxy.userRole">$proxy.userRole</option>
 #end

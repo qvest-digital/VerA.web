@@ -62,7 +62,7 @@
         		</tr>
         		#foreach($bean in $list)
         		<tr>
-        			<td class="textCenter"><input type="checkbox" name="${bean.id}-select" value="true" class="checkbox" #if($listselection.indexOf($bean.id) != -1) checked#end></td>
+        			<td class="textCenter"><input type="checkbox" name="${bean.id}-select" value="true"  #if($listselection.indexOf($bean.id) != -1) checked#end></td>
         			<td onclick="window.location.href='ShowMailinglistDetail?id=$!{bean.id}';"><input type="hidden" name="${bean.id}-id" value="$bean.id">$!bean.id</td>
         			<td onclick="window.location.href='ShowMailinglistDetail?id=$!{bean.id}';">$!bean.name</td>
         			<td onclick="window.location.href='ShowMailinglistDetail?id=$!{bean.id}';">$!bean.username</td>

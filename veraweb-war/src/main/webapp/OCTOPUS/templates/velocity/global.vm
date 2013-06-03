@@ -31,7 +31,7 @@
 #end
 
 #macro(comboAddresstype $name $current $style)
-	<select name="$name" class="combobox"#if($style) style="$style"#end>
+	<select name="$name" #if($style) style="$style"#end>
 		<option value="1"#if($current == 1) selected#end>$!config.business</option>
 		<option value="2"#if($current == 2) selected#end>$!config.private</option>
 		<option value="3"#if($current == 3) selected#end>$!config.other</option>
@@ -39,7 +39,7 @@
 #end
 
 #macro(comboLocale $name $current $style)
-	<select name="$name" class="combobox"#if($style) style="$style"#end>
+	<select name="$name" #if($style) style="$style"#end>
 		<option value="1"#if($current == 1) selected#end>$!config.latin</option>
 		<option value="2"#if($current == 2) selected#end>$!config.extra1</option>
 		<option value="3"#if($current == 3) selected#end>$!config.extra2</option>

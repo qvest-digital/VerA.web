@@ -19,22 +19,22 @@
 		<div class="tableRow">
 			<div class="tableCell width50">
 				<label for="persondoctype-textfield">Freitextfeld</label>
-				<textarea id="persondoctype-textfield" name="persondoctype-textfield" #if($grants.mayWrite()) class="text" #else class="textdisabled" readonly #end>$!message.textarea($persondoctype.textfield)</textarea>
+				<textarea id="persondoctype-textfield" name="persondoctype-textfield" #if($grants.mayWrite())  #else class="textdisabled" readonly #end>$!message.textarea($persondoctype.textfield)</textarea>
 			</div>
 			<div class="tableCell width50">
 				<label for="persondoctype-textfieldPartner">Partner Freitextfeld</label>
-				<textarea id="persondoctype-textfieldPartner" name="persondoctype-textfieldPartner" #if($grants.mayWrite()) class="text" #else class="textdisabled" readonly #end>$!message.textarea($persondoctype.textfieldPartner)</textarea>
+				<textarea id="persondoctype-textfieldPartner" name="persondoctype-textfieldPartner" #if($grants.mayWrite())  #else class="textdisabled" readonly #end>$!message.textarea($persondoctype.textfieldPartner)</textarea>
 			</div>
 		</div>
 		<div class="tableRow">
 		<div class="tableCell width50">
 			<label for="persondoctype-textfieldJoin">Verbinder</label>
-			<input type="text" id="persondoctype-textfieldJoin" name="persondoctype-textfieldJoin" value="$!message.text($persondoctype.textfieldJoin)" #if($grants.mayWrite()) class="text" #else class="textdisabled" readonly #end></textarea>
+			<input type="text" id="persondoctype-textfieldJoin" name="persondoctype-textfieldJoin" value="$!message.text($persondoctype.textfieldJoin)" #if($grants.mayWrite())  #else class="textdisabled" readonly #end></textarea>
 		</div>
 	<div class="tableCell width50">
 		<label for="persondoctype-addresstype">Anschrift</label>
 		#if($grants.mayWrite())
-		<select id="persondoctype-addresstype" name="persondoctype-addresstype" class="combobox">
+		<select id="persondoctype-addresstype" name="persondoctype-addresstype" >
 			<option value="1" #if($persondoctype.addresstype && $persondoctype.addresstype == 1) selected#end>$!config.business</option>
 			<option value="2" #if($persondoctype.addresstype && $persondoctype.addresstype == 2) selected#end>$!config.private</option>
 			<option value="3" #if($persondoctype.addresstype && $persondoctype.addresstype == 3) selected#end>$!config.other</option>
@@ -55,7 +55,7 @@
 	<div class="tableCell width50">
 		<label for="">Zeichensatz</label>
 		#if($grants.mayWrite())
-		<select id="persondoctype-locale" name="persondoctype-locale" class="combobox">
+		<select id="persondoctype-locale" name="persondoctype-locale" >
 			<option value="1" #if($persondoctype.locale && $persondoctype.locale == 1) selected#end>$!config.latin</option>
 			<option value="2" #if($persondoctype.locale && $persondoctype.locale == 2) selected#end>$!config.extra1</option>
 			<option value="3" #if($persondoctype.locale && $persondoctype.locale == 3) selected#end>$!config.extra2</option>

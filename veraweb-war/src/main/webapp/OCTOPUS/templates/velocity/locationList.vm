@@ -66,7 +66,7 @@
     	</tr>
     	#foreach($bean in $list)
     		<tr class="$class" style="height: 20px;" onmouseover="onMouseOverList(this);" onmouseout="onMouseOutList(this);">
-    			<td class="list"><input type="checkbox" id="remove-select" name="${bean.id}-select" value="true" class="checkbox" #if($listselection.indexOf($bean.id) != -1) checked#end></td>
+    			<td class="list"><input type="checkbox" id="remove-select" name="${bean.id}-select" value="true"  #if($listselection.indexOf($bean.id) != -1) checked#end></td>
     			<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowLocation?id=$!{bean.id}'">$!bean.id</td>
     			<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowLocation?id=$!{bean.id}'">$!message.plain($!bean.name)</td>
     			<td class="list" style="cursor: pointer;" onclick="window.location.href='ShowLocation?id=$!{bean.id}'">$!bean.contactperson</td>

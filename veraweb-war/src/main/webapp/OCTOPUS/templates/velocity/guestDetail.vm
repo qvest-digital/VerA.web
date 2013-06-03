@@ -97,6 +97,12 @@
     				</div>
 				</div>
 			</div>
+            <div class="textRight" id="buttonPanel-bottom">
+				#if($grants.mayWrite())
+					<input type="button" name="refresh" value="Auf Stammdaten zurücksetzen" title="Alle Werte auf Stammdaten zurücksetzen" class="mainButton" onclick="window.location.href='ReloadGuestData?guest-id=$!guest.id';" />
+				#end
+                <input type="button" name="persondata" value="Stammdaten bearbeiten" title="Personenstammdaten bearbeiten" onclick="window.location.href='ShowPerson?id=$guest.person&action=event';" class="mainButton">
+			</div>
 			
 			<div class="contentBox grayBorder tabs" vera-content="">
     			<div id="tabsMain2">
@@ -106,149 +112,156 @@
     					</li><li id="dokumenttypen" class="inactive"><a href="javascript:showTab('detail-3');" id="detail-3-link" class="subtab">$!config.partner</a></li>
     				</ul>
     			</div>
-			</div>
+				
+				<div class="tabsContent">
 			
-			<form id="GuestForm" name="GuestForm" action="SaveGuestDetail" method="post">
-                <input type="hidden" name="id" value="$!guest.id">
-                <input type="hidden" name="guest-id" value="$!guest.id">
-                <input type="hidden" name="guest-event" value="$!guest.event">
-                <input type="hidden" name="guest-person" value="$!guest.person">
-                <input type="hidden" name="guest-orderno_a" value="$!guest.orderno_a">
-                <input type="hidden" name="guest-orderno_b" value="$!guest.orderno_b">
-                <input type="hidden" name="categorie-modified" id="categorie-modified" value="false">
-                <input type="hidden" name="fetchRankFromMasterData" id="fetchRankFromMasterData" value="false">
-            
-            
-                #openContentBlock("detail-1-block")
-                	<table class="form"><tr>
-                		<td class="label">Einladungsart:</td>
-                		<td class="value">
-                			<select id="guest-invitationtype" name="guest-invitationtype" class="combobox" onchange="setGuestInvitationtype(this.value);">
-                				<option value="1"#if($guest.invitationtype && $guest.invitationtype == 1) selected#end>Mit Partner</option>
-                				<option value="2"#if($guest.invitationtype && $guest.invitationtype == 2) selected#end>Ohne Partner</option>
-                				<option value="3"#if($guest.invitationtype && $guest.invitationtype == 3) selected#end>Nur Partner</option>
-                			</select>
-                		</td>
-                	</tr><tr>
-                		<td class="label">Kategorie:</td>
-                		<td class="value">
-                			<select name="guest-category" class="combobox" onchange="setModified('categorie')">
-                				<option value="">Keine</option>
-                				#foreach($category in $allCategorie)
-                				<option value="$category.id" #if($guest.category == $category.id) selected#end>$category.name</option>
-                				#end
-                			</select>
-                		</td>
-                	</tr><tr>
-                		<td class="label">Rang:</td>
-                		<td class="value"><input type="text" id="guest-rank" name="guest-rank" value="$!message.text($guest.rank)" class="text"></td>
-                	</tr><tr>
-                		<td class="label">Reserve:</td>
-                		<td class="value"><input type="checkbox" id="guest-reserve" name="guest-reserve" value="true" #if($guest.reserve) checked#end class="checkbox"></td>
-                	</tr><tr>
-                		<td class="label">Ist Gastgeber:</td>
-                		<td class="value">
-                			#if($guest.ishost == 1)
-                				<input type="checkbox" name="showguest-ishost" value="true" checked readonly disabled>
-                				<input type="hidden" name="guest-ishost" value="1">
-                			#else
-                				<input type="checkbox" name="showguest-ishost" value="false" readonly disabled>
-                				<input type="hidden" name="guest-ishost" value="0">
-                			#end
-                		</td>
-                	</tr></table>
-                #closeContentBlock()
-            
-            
-                #openContentBlock("detail-2-block")
-                <div id="detail-2-data-block" #if($guest.invitationtype == 3) style="display: none;"#end>
-                #set($ext = "_a")
-                #set($facade = $guest.Main)
-                #parse("inc/guest-member.vm")
-                </div>
-                <div id="detail-2-reload-block" #if($guest.invitationtype != 3) style="display: none;"#end>
-                	<table class="list">
-                		<tr style="height: 20px;">
-                			<td class="list2error" style="text-align: center; width: 60px;"><strong>Info</strong></td>
-                			<td class="list1error">
-                				Dieser Gast wurde ohne $!config.main eingeladen.
-                				M&ouml;chten Sie diese jetzt <a href="javascript:setGuestInvitationtype(1);">nachtr&auml;glich einladen</a>?
-                			</td>
-                		</tr>
-                	</table>
-                </div>
-                #closeContentBlock()
-                
-                #openContentBlock("detail-3-block")
-                <div id="detail-3-data-block" #if($guest.invitationtype == 2) style="display: none;"#end>
-                #set($ext = "_b")
-                #set($facade = $guest.Partner)
-                #parse("inc/guest-member.vm")
-                </div>
-                <div id="detail-3-reload-block" #if($guest.invitationtype != 2) style="display: none;"#end>
-                	<table class="list">
-                		<tr style="height: 20px;">
-                			<td class="list2error" style="text-align: center; width: 60px;"><strong>Info</strong></td>
-                			<td class="list1error">
-                				Dieser Gast wurde ohne $!config.partner eingeladen.
-                				M&ouml;chten Sie diesen jetzt <a href="javascript:setGuestInvitationtype(1);">nachtr&auml;glich einladen</a>?
-                			</td>
-                		</tr>
-                	</table>
-                </div>
-                #closeContentBlock()
-                
-                
-                
-                #if($person.deleted == "t")
-                <table class="list" style="margin-top: 15px;">
-                	<tr style="height: 20px;">
-                		<td class="list2error" style="text-align: center; width: 60px;"><strong>Hinweis</strong></td>
-                		<td class="list1error">
-                			Die Stammdaten dieses Gastes wurden gel&ouml;scht,
-                			Sie k&ouml;nnen nur Daten im Rahmen dieser Veranstaltung bearbeiten.
-                		</td>
-                	</tr>
-                </table>
-                #else
-                <table class="list" style="margin-top: 15px;">
-                	<tr style="height: 20px;">
-                		<td class="list2warn" style="text-align: center; width: 60px;"><strong>Hinweis</strong></td>
-                		<td class="list1warn">
-                			Sie bearbeiten hier ausschlie&szlig;lich Personendaten im Rahmen der aktuellen
-                			Veranstaltung, <i>keine</i> grundlegenden Stammdaten.
-                		</td>
-                	</tr>
-                </table>
-                #end
-                
-                <table cellspacing="0" cellpadding="0" style="width: 100%; margin-bottom: 5px;"><tr><td>
-                <span class="listnavitext" style="margin-right: 15px;">Gast $search.offset von $search.count</span>
-                
-                #set($offset = $search.offset - 1)
-                #if ($offset <= 0)
-                	<a class="listnavilinkinactiv" title="Erster Gast">&laquo;&laquo;</a>
-                	<a class="listnavilinkinactiv" title="Vorheriger Gast">&laquo;</a>
-                #else
-                	<a href="javascript:window.location.href='ShowGuestDetail?offset=1&tab=detail-' + detail;" class="listnavilink" title="Erster Gast">&laquo;&laquo;</a>
-                	<a href="javascript:window.location.href='ShowGuestDetail?offset=$offset&tab=detail-' + detail;" class="listnavilink" title="Vorheriger Gast">&laquo;</a>
-                #end
-                #set($offset = $search.offset + 1)
-                #if ($offset > $search.count)
-                	<a class="listnavilinkinactiv" title="N&auml;chster Gast">&raquo;</a>
-                	<a class="listnavilinkinactiv" title="Letzter Gast">&raquo;&raquo;</a>
-                #else
-                	<a href="javascript:window.location.href='ShowGuestDetail?offset=$offset&tab=detail-' + detail;" class="listnavilink" title="N&auml;chster Gast">&raquo;</a>
-                	<a href="javascript:window.location.href='ShowGuestDetail?offset=$search.count&tab=detail-' + detail;" class="listnavilink" title="Letzter Gast">&raquo;&raquo;</a>
-                #end
-                </td></tr></table>
-                
-                    <input type="button" name="save" value="Speichern" #if($grants.mayWrite()) class="button" onclick="if ( validateGuestData() ) { return askPreSave(); } else { return false; }" #else class="buttondisabled" disabled #end> &nbsp;
-                    <input type="button" name="refresh" value="Neu laden" #if($grants.mayWrite()) class="button" onclick="window.location.href='ReloadGuestData?guest-id=$!guest.id';" #else class="buttondisabled" disabled #end> &nbsp;
-                    <input type="button" name="persondata" value="Stammdaten" title="Personenstammdaten bearbeiten" onclick="window.location.href='ShowPerson?id=$guest.person&action=event';" class="button"> &nbsp;
-                    <input type="button" name="cancel" value="Listenansicht" title="Zur&uuml;ck zu der G&auml;steliste" class="reset" onclick="window.location.href='ShowGuestList';"> &nbsp;
-            
-            </form>
+        			<form id="GuestForm" name="GuestForm" action="SaveGuestDetail" method="post">
+                        <input type="hidden" name="id" value="$!guest.id">
+                        <input type="hidden" name="guest-id" value="$!guest.id">
+                        <input type="hidden" name="guest-event" value="$!guest.event">
+                        <input type="hidden" name="guest-person" value="$!guest.person">
+                        <input type="hidden" name="guest-orderno_a" value="$!guest.orderno_a">
+                        <input type="hidden" name="guest-orderno_b" value="$!guest.orderno_b">
+                        <input type="hidden" name="categorie-modified" id="categorie-modified" value="false">
+                        <input type="hidden" name="fetchRankFromMasterData" id="fetchRankFromMasterData" value="false">
+                    
+                    
+                        #openContentBlock("detail-1-block")
+						
+							<div class="table width100">
+								<div class="tableRow">
+                                    <div class="tableCell">
+    									<label for="guest-invitationtype">Einladungsart:</label>                     			
+    									<select id="guest-invitationtype" name="guest-invitationtype" onchange="setGuestInvitationtype(this.value);">
+                            				<option value="1"#if($guest.invitationtype && $guest.invitationtype == 1) selected#end>Mit Partner</option>
+                            				<option value="2"#if($guest.invitationtype && $guest.invitationtype == 2) selected#end>Ohne Partner</option>
+                            				<option value="3"#if($guest.invitationtype && $guest.invitationtype == 3) selected#end>Nur Partner</option>
+                            			</select>
+									</div>
+									<div class="tableCell">
+										<label for="">Kategorie:</label>
+										<select name="guest-category" id="guest-category" onchange="setModified('categorie')">
+											<option value="">Keine</option>
+											#foreach($category in $allCategorie)
+												<option value="$category.id" #if($guest.category == $category.id) selected#end>$category.name</option>
+											#end
+										</select>
+									</div>
+									<div class="tableCell">
+										<label for="guest-rank">Rang:</label>
+										<input type="text" id="guest-rank" name="guest-rank" value="$!message.text($guest.rank)">
+									</div>
+								</div>
+								<div class="tableRow">
+									<div class="tableCell">
+										<label for="guest-reserve">Reserve:</label>
+										<input type="checkbox" id="guest-reserve" name="guest-reserve" value="true" #if($guest.reserve) checked#end>
+									</div>
+									<div class="tableCell">
+										<label for="showguest-ishost">Ist Gastgeber:</label>
+										#if($guest.ishost == 1)
+                            				<input type="checkbox" name="showguest-ishost" value="true" checked readonly disabled id="showguest-ishost">
+                            				<input type="hidden" name="guest-ishost" value="1">
+                            			#else
+                            				<input type="checkbox" name="showguest-ishost" value="false" readonly disabled id="showguest-ishost">
+                            				<input type="hidden" name="guest-ishost" value="0">
+                            			#end
+									</div>
+									<div class="tableCell"></div>
+								</div>
+							</div>
+                        #closeContentBlock()
+                    
+                    
+                        #openContentBlock("detail-2-block")
+                        <div id="detail-2-data-block" #if($guest.invitationtype == 3) style="display: none;"#end>
+                        #set($ext = "_a")
+                        #set($facade = $guest.Main)
+                        #parse("inc/guest-member.vm")
+                        </div>
+                        <div id="detail-2-reload-block" #if($guest.invitationtype != 3) style="display: none;"#end>
+                        	<table class="list">
+                        		<tr style="height: 20px;">
+                        			<td class="list2error" style="text-align: center; width: 60px;"><strong>Info</strong></td>
+                        			<td class="list1error">
+                        				Dieser Gast wurde ohne $!config.main eingeladen.
+                        				M&ouml;chten Sie diese jetzt <a href="javascript:setGuestInvitationtype(1);">nachtr&auml;glich einladen</a>?
+                        			</td>
+                        		</tr>
+                        	</table>
+                        </div>
+                        #closeContentBlock()
+                        
+                        #openContentBlock("detail-3-block")
+                        <div id="detail-3-data-block" #if($guest.invitationtype == 2) style="display: none;"#end>
+                        #set($ext = "_b")
+                        #set($facade = $guest.Partner)
+                        #parse("inc/guest-member.vm")
+                        </div>
+                        <div id="detail-3-reload-block" #if($guest.invitationtype != 2) style="display: none;"#end>
+                        	<table class="list">
+                        		<tr style="height: 20px;">
+                        			<td class="list2error" style="text-align: center; width: 60px;"><strong>Info</strong></td>
+                        			<td class="list1error">
+                        				Dieser Gast wurde ohne $!config.partner eingeladen.
+                        				M&ouml;chten Sie diesen jetzt <a href="javascript:setGuestInvitationtype(1);">nachtr&auml;glich einladen</a>?
+                        			</td>
+                        		</tr>
+                        	</table>
+                        </div>
+                        #closeContentBlock()
+                        
+                        
+                        
+                        #if($person.deleted == "t")
+                        <table class="list" style="margin-top: 15px;">
+                        	<tr style="height: 20px;">
+                        		<td class="list2error" style="text-align: center; width: 60px;"><strong>Hinweis</strong></td>
+                        		<td class="list1error">
+                        			Die Stammdaten dieses Gastes wurden gel&ouml;scht,
+                        			Sie k&ouml;nnen nur Daten im Rahmen dieser Veranstaltung bearbeiten.
+                        		</td>
+                        	</tr>
+                        </table>
+                        #else
+                        <table class="list" style="margin-top: 15px;">
+                        	<tr style="height: 20px;">
+                        		<td class="list2warn" style="text-align: center; width: 60px;"><strong>Hinweis</strong></td>
+                        		<td class="list1warn">
+                        			Sie bearbeiten hier ausschlie&szlig;lich Personendaten im Rahmen der aktuellen
+                        			Veranstaltung, <i>keine</i> grundlegenden Stammdaten.
+                        		</td>
+                        	</tr>
+                        </table>
+                        #end
+                        
+                        <table cellspacing="0" cellpadding="0" style="width: 100%; margin-bottom: 5px;"><tr><td>
+                        <span class="listnavitext" style="margin-right: 15px;">Gast $search.offset von $search.count</span>
+                        
+                        #set($offset = $search.offset - 1)
+                        #if ($offset <= 0)
+                        	<a class="listnavilinkinactiv" title="Erster Gast">&laquo;&laquo;</a>
+                        	<a class="listnavilinkinactiv" title="Vorheriger Gast">&laquo;</a>
+                        #else
+                        	<a href="javascript:window.location.href='ShowGuestDetail?offset=1&tab=detail-' + detail;" class="listnavilink" title="Erster Gast">&laquo;&laquo;</a>
+                        	<a href="javascript:window.location.href='ShowGuestDetail?offset=$offset&tab=detail-' + detail;" class="listnavilink" title="Vorheriger Gast">&laquo;</a>
+                        #end
+                        #set($offset = $search.offset + 1)
+                        #if ($offset > $search.count)
+                        	<a class="listnavilinkinactiv" title="N&auml;chster Gast">&raquo;</a>
+                        	<a class="listnavilinkinactiv" title="Letzter Gast">&raquo;&raquo;</a>
+                        #else
+                        	<a href="javascript:window.location.href='ShowGuestDetail?offset=$offset&tab=detail-' + detail;" class="listnavilink" title="N&auml;chster Gast">&raquo;</a>
+                        	<a href="javascript:window.location.href='ShowGuestDetail?offset=$search.count&tab=detail-' + detail;" class="listnavilink" title="Letzter Gast">&raquo;&raquo;</a>
+                        #end
+                        </td></tr></table>
+                        
+                            <input type="button" name="save" value="Speichern" #if($grants.mayWrite()) class="button" onclick="if ( validateGuestData() ) { return askPreSave(); } else { return false; }" #else class="buttondisabled" disabled #end> &nbsp;
+                            <input type="button" name="cancel" value="Listenansicht" title="Zur&uuml;ck zu der G&auml;steliste" class="reset" onclick="window.location.href='ShowGuestList';"> &nbsp;
+                    
+                    </form>
+				</div>
+			</div>					
 			
         </div><!--End class="tabsContent" --> 
 		

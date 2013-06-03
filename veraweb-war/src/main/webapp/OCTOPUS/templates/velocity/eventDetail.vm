@@ -99,7 +99,7 @@
 							<div class="tableRow">
     							<div class="tableCell width50">
         							<label for="event-shortname">Kurzbezeichnung*</label>
-        							<input type="text" onchange="setModified();" maxlength="50" class="text" id="event-shortname" value="$!message.text($event.shortname)" name="event-shortname"/>
+        							<input type="text" onchange="setModified();" maxlength="50"  id="event-shortname" value="$!message.text($event.shortname)" name="event-shortname"/>
 								</div>
 								<div class="tableCell width50">
                     				<label for="event-begin">Beginn*</label>
@@ -125,7 +125,7 @@
 							<div class="tableRow">
     							<div class="tableCell width50">
         							<label for="event-eventname">Name</label>
-									<textarea onchange="setModified();" class="text" id="event-eventname" name="event-eventname" cols="20" rows="4">$!message.textarea($event.eventname)</textarea>
+									<textarea onchange="setModified();"  id="event-eventname" name="event-eventname" cols="20" rows="4">$!message.textarea($event.eventname)</textarea>
 								</div>
 								<div class="tableCell width50">
                     				<label for="event-end">Ende</label>
@@ -254,7 +254,7 @@
     							</div>
     							<div class="tableCell width50">
     								<label for="event-note">Bemerkung</label>
-    								<textarea onchange="setModified();" id="event-note" name="event-note" rows="4" #if($grants.mayReadRemarkFields()) class="text">$!message.textarea($event.note)#else class="textdisabled" disabled="true">#end</textarea>						
+    								<textarea onchange="setModified();" id="event-note" name="event-note" rows="4" #if($grants.mayReadRemarkFields()) >$!message.textarea($event.note)#else class="textdisabled" disabled="true">#end</textarea>						
     							</div>
     						</div>
     				</div>

@@ -67,7 +67,7 @@
 		<th class="list" style="width: 100px;"><a href="?order=validTill#if($proxiesValid)&proxiesValid=$proxiesValid#end">G&uuml;ltig bis</a></th>
 	</tr>
 	<tr class="list2">
-		<td class="list"><input type="hidden" id="add-modified" name="add-modified" value="false"><input type="checkbox" name="add-select" value="true" class="checkbox" style="display: none;"></td>
+		<td class="list"><input type="hidden" id="add-modified" name="add-modified" value="false"><input type="checkbox" name="add-select" value="true"  style="display: none;"></td>
 		<td class="list"><input type="hidden" name="add-id" value=""><em>neu</em></td>
 #if($proxiesFor != 'self')
  #if($proxiesFor != 'ou')
@@ -75,14 +75,14 @@
  #end
 		<td class="list">
  #if($allUser)
-			<select id="add-user" name="add-user" class="combobox" style="width: 98%;" onchange="setModified('add')">
+			<select id="add-user" name="add-user"  style="width: 98%;" onchange="setModified('add')">
 				<option value="">Bitte ausw&auml;hlen</option>
   #foreach($user in $allUser)
 				<option value="$user.id">$user.name</option>
   #end
 			</select>
  #else
-			<input type="text" name="add-user" value="" class="text" style="width: 96%;" onchange="setModified('add')">
+			<input type="text" name="add-user" value=""  style="width: 96%;" onchange="setModified('add')">
  #end
 		</td>
 #else
@@ -90,14 +90,14 @@
 #end
 		<td class="list">
 #if($roleList)
-			<select id="add-proxy" name="add-proxy" class="combobox" style="width: 98%;" onchange="setModified('add')">
+			<select id="add-proxy" name="add-proxy"  style="width: 98%;" onchange="setModified('add')">
 				<option value="">Bitte ausw&auml;hlen</option>
  #foreach($role in $roleList)
 				<option value="$role">$role</option>
  #end
 			</select>
 #else
-			<input type="text" name="add-proxy" value="" class="text" style="width: 96%;" onchange="setModified('add')">
+			<input type="text" name="add-proxy" value=""  style="width: 96%;" onchange="setModified('add')">
 #end
 		</td>
 		<td class="list">
@@ -136,7 +136,7 @@
 		#set($class = "list2")
 	#end
 	<tr class="$class">
-		<td class="list"><input type="hidden" id="${bean.id}-modified" name="${bean.id}-modified" value="false"><input type="checkbox" name="${bean.id}-select" value="true" class="checkbox" #if($listselection.indexOf($bean.id) != -1) checked#end></td>
+		<td class="list"><input type="hidden" id="${bean.id}-modified" name="${bean.id}-modified" value="false"><input type="checkbox" name="${bean.id}-select" value="true"  #if($listselection.indexOf($bean.id) != -1) checked#end></td>
 		<td class="list"><input type="hidden" name="${bean.id}-id" value="$!bean.id">$!{bean.id}<input type="hidden" name="${bean.id}-user" value="$!bean.user"></td>
 #if($proxiesFor != 'self')
  #if($proxiesFor != 'ou')
@@ -150,9 +150,9 @@
   #end
 		</td>
  #end
-		<td class="list"><input type="text" name="${bean.id}-userRole" value="$!message.text($bean.userRole)" class="text" style="width: 96%;" onchange="setModified('$!bean.id')" readonly></td>
+		<td class="list"><input type="text" name="${bean.id}-userRole" value="$!message.text($bean.userRole)"  style="width: 96%;" onchange="setModified('$!bean.id')" readonly></td>
 #end
-		<td class="list"><input type="text" name="${bean.id}-proxy" value="$!message.text($bean.proxy)" class="text" style="width: 96%;" onchange="setModified('$!bean.id')" readonly></td>
+		<td class="list"><input type="text" name="${bean.id}-proxy" value="$!message.text($bean.proxy)"  style="width: 96%;" onchange="setModified('$!bean.id')" readonly></td>
 		<td class="list">
 			<nobr>
 				<input type="text" name="${bean.id}-validFrom" id="${bean.id}-validFrom" value="$!message.date("DATE", $bean.validFrom)" class="date" onchange="setModified('$!bean.id')">

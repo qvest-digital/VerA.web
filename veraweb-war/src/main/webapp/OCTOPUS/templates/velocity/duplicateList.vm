@@ -40,8 +40,8 @@
 	<tr class="$class">
 		<td class="list">
 ##			<input type="hidden" name="${bean.id}-checked" #if($bean.dupcheckstatus == 1) value="true" #else value="false" #end>
-##			<input type="checkbox" name="${bean.id}-check" #if($bean.dupcheckstatus == 1 )checked #end value="true" class="checkbox">
-			<input type="checkbox" name="${bean.id}-select" value="true" #if($listselection.indexOf($bean.id) != -1) checked #end class="checkbox">
+##			<input type="checkbox" name="${bean.id}-check" #if($bean.dupcheckstatus == 1 )checked #end value="true" >
+			<input type="checkbox" name="${bean.id}-select" value="true" #if($listselection.indexOf($bean.id) != -1) checked #end >
 		</td>
 		<td class="list"><input type="hidden" name="${bean.id}-id" value="$bean.id">$!bean.id</td>
 		<td class="list">$!person.lastname</td>

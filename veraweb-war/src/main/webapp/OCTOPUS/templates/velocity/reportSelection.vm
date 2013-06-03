@@ -36,7 +36,7 @@
 <table class="form"><tr>
 	<td class="label" style="width: 19%;"><strong>Ausgabeformat</strong></td>
 	<td class="value">
-		<select name="type" class="combobox">
+		<select name="type" >
 			<option value="Kat01">Liste nach Kategorien gruppiert - mit Partner</option>
 			<option value="Kat02">Liste nach Kategorien gruppiert - mit Tel. und Mobiltelefon</option>
 			<option value="Kat03">Liste nach Kategorien gruppiert - mit Partner und Fax</option>
@@ -49,7 +49,7 @@
 <table class="form"><tr>
 	<td class="label" style="width: 19%;">Sortierung:</td>
 	<td class="value">
-		<select name="sort1" class="combobox">
+		<select name="sort1" >
 #if($search.listorder == "lastname_a_e1" || $search.listorder == "firstname_a_e1" || $search.listorder == "mail_a_e1")
 			<option value="orderno">Laufende Nummer</option>
 			<option value="name" selected>Name</option>
@@ -72,7 +72,7 @@
 </tr><tr>
 	<td class="label" style="width: 19%;">&nbsp;</td>
 	<td class="value">
-		<select name="sort2" class="combobox">
+		<select name="sort2" >
 			<option value=""></option>
 #if($search.listorder == "lastname_a_e1" || $search.listorder == "firstname_a_e1" || $search.listorder == "mail_a_e1")
 			<option value="orderno">Laufende Nummer</option>
@@ -96,7 +96,7 @@
 </tr><tr>
 	<td class="label" style="width: 19%;">&nbsp;</td>
 	<td class="value">
-		<select name="sort3" class="combobox">
+		<select name="sort3" >
 #if($search.listorder == "lastname_a_e1" || $search.listorder == "firstname_a_e1" || $search.listorder == "mail_a_e1")
 			<option value=""></option>
 			<option value="orderno">Laufende Nummer</option>
