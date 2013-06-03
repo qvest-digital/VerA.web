@@ -69,12 +69,14 @@
 			
 		
 		<div id="main_content" class="contentBoxColored grayBorder marginBottom20">
+			<div class="textRight mandatoryText">* = Pflichtfelder</div>
+			
             <form action="ImportPersonsFile" method="post" enctype="multipart/form-data" name="formImport" id="formImport" >
             
     			<div class="table width100">
     				<div class="tableRow">
     					<div class="tableCell width50">
-    						<label for="importSource">Datenherkunft</label>
+    						<label for="importSource">Datenherkunft*</label>
     						<input type="text" name="importSource" id="importSource" value="$!message.text($importSource)">
     					</div>
     					<div class="tableCell width50">
@@ -91,7 +93,7 @@
     				
     				<div class="tableRow">
     					<div class="tableCell">
-    						<label for="importfile">Import-Datei</label>
+    						<label for="importfile">Import-Datei*</label>
     						<input name="importfile" id="importfile" type="file" size="30" maxlength="100000" accept="text/*">
     					</div>
     					<div class="tableCell">
