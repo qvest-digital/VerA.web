@@ -11,19 +11,19 @@
     		</select>			
 		</div>
 		<div class="tableCell width50">
-			<div style="display:inline">
+			<div style="display: inline-block; width: 49%;">
     			<label for="guest-tableno$ext">Tisch-Nummer</label>
     			<input type="text" id="guest-tableno$ext" name="guest-tableno$ext" value="$!message.text($facade.TableNo)" />
             </div>
-			<div style="display:inline">
+			<div style="width: 49%; float: right;">
 				<label for="guest-seatno$ext">Platz-Nummer</label>
 				<input type="text" id="guest-seatno$ext" name="guest-seatno$ext" value="$!message.text($facade.SeatNo)" />
             </div>
 		</div>
 	</div>
 	<div class="tableRow">
-		<div class="tableCell width50">
-			<strong>Inland</strong>
+		<div class="tableCell width50 inlineLabel">
+			<strong>Inland</strong><br />
 			#if ($facade.Domestic && $facade.Domestic == "f")
     			<input type="radio" name="guest-domestic$ext" value="t" id="guest-domestic${ext}-t"><label for="guest-domestic${ext}-t"> Ja</label>
     			<input type="radio" name="guest-domestic$ext" value="f" id="guest-domestic${ext}-f" checked><label for="guest-domestic${ext}-f"> Nein</label>
@@ -38,8 +38,8 @@
 		</div>
 	</div>
 	<div class="tableRow">
-		<div class="tableCell width50">
-			<strong>Geschlecht</strong>
+		<div class="tableCell width50 inlineLabel">
+			<strong>Geschlecht</strong><br />
 			#if ($facade.Sex && $facade.Sex == "f")
     			<input type="radio" name="guest-sex$ext" value="m" id="guest-sex${ext}-m"><label for="guest-sex${ext}-m"> M&auml;nnlich</label>
     			<input type="radio" name="guest-sex$ext" value="f" id="guest-sex${ext}-f" checked><label for="guest-sex${ext}-f"> Weiblich</label>
