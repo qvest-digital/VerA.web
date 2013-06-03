@@ -58,13 +58,13 @@
 	#set($rgb = $rgb - ($g * 256))
 	#set($b = $rgb)
 	<tr class="list2">
-		<td class="list"><input type="text" name="color1-name" value="$!message.text($color1.name)" class="text" style="width: 98%;" onchange="setModified('color1')"></td>
-		<td class="list"><input type="text" name="color1-rgb" value="$!r $!g $!b" class="text" style="width: 96%;" onchange="setModified('color1')"></td>
+		<td class="list"><input type="text" name="color1-name" value="$!message.text($color1.name)"  style="width: 98%;" onchange="setModified('color1')"></td>
+		<td class="list"><input type="text" name="color1-rgb" value="$!r $!g $!b"  style="width: 96%;" onchange="setModified('color1')"></td>
 	</tr>
 	#else
 	<tr class="list2">
-		<td class="list"><input type="text" name="color1-name" value="" class="text" style="width: 98%;" onchange="setModified('color1')"></td>
-		<td class="list"><input type="text" name="color1-rgb" value="" class="text" style="width: 96%;" onchange="setModified('color1')"></td>
+		<td class="list"><input type="text" name="color1-name" value=""  style="width: 98%;" onchange="setModified('color1')"></td>
+		<td class="list"><input type="text" name="color1-rgb" value=""  style="width: 96%;" onchange="setModified('color1')"></td>
 	</tr>
 	#end
 
@@ -80,13 +80,13 @@
 	#set($rgb = $rgb - ($g * 256))
 	#set($b = $rgb)
 	<tr class="list2">
-		<td class="list"><input type="text" name="color2-name" value="$!message.text($color2.name)" class="text" style="width: 98%;" onchange="setModified('color2')"></td>
-		<td class="list"><input type="text" name="color2-rgb" value="$!r $!g $!b" class="text" style="width: 96%;" onchange="setModified('color2')"></td>
+		<td class="list"><input type="text" name="color2-name" value="$!message.text($color2.name)"  style="width: 98%;" onchange="setModified('color2')"></td>
+		<td class="list"><input type="text" name="color2-rgb" value="$!r $!g $!b"  style="width: 96%;" onchange="setModified('color2')"></td>
 	</tr>
 	#else
 	<tr class="list2">
-		<td class="list"><input type="text" name="color2-name" value="" class="text" style="width: 98%;" onchange="setModified('color2')"></td>
-		<td class="list"><input type="text" name="color2-rgb" value="" class="text" style="width: 96%;" onchange="setModified('color2')"></td>
+		<td class="list"><input type="text" name="color2-name" value=""  style="width: 98%;" onchange="setModified('color2')"></td>
+		<td class="list"><input type="text" name="color2-rgb" value=""  style="width: 96%;" onchange="setModified('color2')"></td>
 	</tr>
 	#end
 
@@ -102,13 +102,13 @@
 	#set($rgb = $rgb - ($g * 256))
 	#set($b = $rgb)
 	<tr class="list2">
-		<td class="list"><input type="text" name="color3-name" value="$!message.text($color3.name)" class="text" style="width: 98%;" onchange="setModified('color3')"></td>
-		<td class="list"><input type="text" name="color3-rgb" value="$!r $!g $!b" class="text" style="width: 96%;" onchange="setModified('color3')"></td>
+		<td class="list"><input type="text" name="color3-name" value="$!message.text($color3.name)"  style="width: 98%;" onchange="setModified('color3')"></td>
+		<td class="list"><input type="text" name="color3-rgb" value="$!r $!g $!b"  style="width: 96%;" onchange="setModified('color3')"></td>
 	</tr>
 	#else
 	<tr class="list2">
-		<td class="list"><input type="text" name="color3-name" value="" class="text" style="width: 98%;" onchange="setModified('color3')"></td>
-		<td class="list"><input type="text" name="color3-rgb" value="" class="text" style="width: 96%;" onchange="setModified('color3')"></td>
+		<td class="list"><input type="text" name="color3-name" value=""  style="width: 98%;" onchange="setModified('color3')"></td>
+		<td class="list"><input type="text" name="color3-rgb" value=""  style="width: 96%;" onchange="setModified('color3')"></td>
 	</tr>
 	#end
 
@@ -124,13 +124,13 @@
 	#set($rgb = $rgb - ($g * 256))
 	#set($b = $rgb)
 	<tr class="list2">
-		<td class="list"><input type="text" name="color4-name" value="$!message.text($color4.name)" class="text" style="width: 98%;" onchange="setModified('color4')"></td>
-		<td class="list"><input type="text" name="color4-rgb" value="$!r $!g $!b" class="text" style="width: 96%;" onchange="setModified('color4')"></td>
+		<td class="list"><input type="text" name="color4-name" value="$!message.text($color4.name)"  style="width: 98%;" onchange="setModified('color4')"></td>
+		<td class="list"><input type="text" name="color4-rgb" value="$!r $!g $!b"  style="width: 96%;" onchange="setModified('color4')"></td>
 	</tr>
 	#else
 	<tr class="list2">
-		<td class="list"><input type="text" name="color4-name" value="" class="text" style="width: 98%;" onchange="setModified('color4')"></td>
-		<td class="list"><input type="text" name="color4-rgb" value="" class="text" style="width: 96%;" onchange="setModified('color4')"></td>
+		<td class="list"><input type="text" name="color4-name" value=""  style="width: 98%;" onchange="setModified('color4')"></td>
+		<td class="list"><input type="text" name="color4-rgb" value=""  style="width: 96%;" onchange="setModified('color4')"></td>
 	</tr>
 	#end
 

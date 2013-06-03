@@ -80,7 +80,7 @@
     					<div class="tableCell width50">
 							#if($grants && $grants.isAdmin() && $allOrgUnit)
 								<label for="orgUnit">Zielmandant</label>
-								<select name="orgUnit" id="orgUnit" class="combobox">
+								<select name="orgUnit" id="orgUnit" >
 									#foreach($orgunit in $allOrgUnit)
 										<option value="$orgunit.id" #if($octopusConfig.personalConfig.orgUnitId == $orgunit.id)selected#end>$orgunit.name</option>
 									#end
@@ -119,13 +119,13 @@
                                 #set($default = $choice.get("default"))
                                 #if($choice.containsKey("select"))
                                  #set($select = $choice.get("select"))
-                            							<select name="format-${formatKey}-$choiceKey" id="format-${formatKey}-$choiceKey" class="combobox">
+                            							<select name="format-${formatKey}-$choiceKey" id="format-${formatKey}-$choiceKey" >
                                  #foreach($selectKey in $select.keySet())
                             								<option value="$selectKey"#if($selectKey==$default) selected#end>$select.get($selectKey)</option>
                                  #end
                             							</select>
                                 #else
-                                						<input type="text" name="format-${formatKey}-$choiceKey" id="format-${formatKey}-$choiceKey" value="$!default" class="text">
+                                						<input type="text" name="format-${formatKey}-$choiceKey" id="format-${formatKey}-$choiceKey" value="$!default" >
                                 #end
                             						</div>
                                 				</div>
@@ -185,7 +185,7 @@
 ##<table class="form"><tr>
 ##	<td class="label"><label for="importId">Import-ID</label></td>
 ##	<td class="value" align="right">
-##	    <input type="text" name="importId" id="importId" value="" class="text">
+##	    <input type="text" name="importId" id="importId" value="" >
 ##	</td>
 ##</tr><tr>
 ##	<td class="label">&nbsp;</td>

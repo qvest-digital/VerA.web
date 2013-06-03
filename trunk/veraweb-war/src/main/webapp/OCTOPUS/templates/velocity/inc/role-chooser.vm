@@ -17,7 +17,7 @@ Bitte w&auml;hlen Sie:
 		<tr>
 			<td class="label"><label for="username">Rolle</label></td>
 			<td class="value">
-				<select id="role" name="username" class="combobox" style="width: 60%;">
+				<select id="role" name="username"  style="width: 60%;">
 #foreach($s in $octopusConfig.personalConfig.roles)
 					<option value="$!s">$!s</option>
 #end
@@ -25,7 +25,7 @@ Bitte w&auml;hlen Sie:
 			</td>
 		</tr><tr>
 			<td class="label"><label for="password">Passwort</label></td>
-			<td class="value"><input type="password" name="password" value="$!octopusRequest.get("password")" id="password" class="text" style="width: 60%;"></td>
+			<td class="value"><input type="password" name="password" value="$!octopusRequest.get("password")" id="password"  style="width: 60%;"></td>
 		</tr><tr>
 			<td class="label">&nbsp;</td>
 			<td class="value">

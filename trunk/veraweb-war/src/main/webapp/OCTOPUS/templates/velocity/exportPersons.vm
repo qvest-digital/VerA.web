@@ -94,13 +94,13 @@
                                         #set($default = $choice.get("default"))
                                         #if($choice.containsKey("select"))
                                          #set($select = $choice.get("select"))
-                                    							<select name="format-${formatKey}-$choiceKey" id="format-${formatKey}-$choiceKey" class="combobox">
+                                    							<select name="format-${formatKey}-$choiceKey" id="format-${formatKey}-$choiceKey" >
                                          #foreach($selectKey in $select.keySet())
                                     								<option value="$selectKey"#if($selectKey==$default) selected#end>$select.get($selectKey)</option>
                                          #end
                                     							</select>
                                         #else
-                                        						<input type="text" name="format-${formatKey}-$choiceKey" id="format-${formatKey}-$choiceKey" value="$!default" class="text">
+                                        						<input type="text" name="format-${formatKey}-$choiceKey" id="format-${formatKey}-$choiceKey" value="$!default" >
                                         #end
             						</div>
                 				</div>

@@ -33,7 +33,7 @@
 		#set($class = "list2")
 	#end
 	<tr class="$class" style="height: 22px;" onmouseover="onMouseOverList(this);" onmouseout="onMouseOutList(this);">
-		<td class="list"><input type="checkbox" name="${bean.id}-select" value="true" class="checkbox" #if($listselection.indexOf($bean.id) != -1) checked#end></td>
+		<td class="list"><input type="checkbox" name="${bean.id}-select" value="true"  #if($listselection.indexOf($bean.id) != -1) checked#end></td>
 		<td class="list" style="cursor: pointer;" onclick="window.location.href='MailDraftDetail?id=$!{bean.id}';"><input type="hidden" name="${bean.id}-id" value="$bean.id">$!{bean.id}</td>
 		<td class="list" style="cursor: pointer;" onclick="window.location.href='MailDraftDetail?id=$!{bean.id}';">$!message.text($bean.name)</td>
 	</tr>

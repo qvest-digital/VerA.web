@@ -538,7 +538,7 @@ hr {border-top:1px solid #8b0f0f; }
 
 /************* =6.1 tabs *************/
 
-#main_content.tabs {
+.tabs {
     padding: 0;
     font-weight: bold;
 }
@@ -555,7 +555,8 @@ hr {border-top:1px solid #8b0f0f; }
     margin-left: 185px;
 }
 
-.event #tabsMain ul {
+.event #tabsMain ul,
+#tabsMain2 ul { {
     border-left: 0 none;
     margin-left: 0;
 }

@@ -58,7 +58,7 @@
 <table class="form"><tr>
 	<td class="label">Mandant:</td>
 	<td class="value">
-		<select name="orgunit" class="combobox">
+		<select name="orgunit" >
 		#foreach($m in $allOrgUnit)
 			<option value="$!m.id">$!m.name</option>
 		#end

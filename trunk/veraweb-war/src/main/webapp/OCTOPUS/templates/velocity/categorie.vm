@@ -116,19 +116,19 @@ disableOtherBeans(id);
 
 #if($grants.isAdmin() || $grants.isPartialAdmin())
 	<tr class="list2">
-		<td class="list"><input type="hidden" id="add-modified" name="add-modified" value="false"><input type="checkbox" id="add-select" name="add-select" value="true" class="checkbox" style="display: none;"></td>
+		<td class="list"><input type="hidden" id="add-modified" name="add-modified" value="false"><input type="checkbox" id="add-select" name="add-select" value="true"  style="display: none;"></td>
 		<td class="list"><input type="hidden" name="add-id" value=""><em>neu</em></td>
-		<td class="list"><input type="text" name="add-name" id="add-name" value="" class="text" style="width: 96%;" onchange="modifiedEvent('add')"></td>
+		<td class="list"><input type="text" name="add-name" id="add-name" value=""  style="width: 96%;" onchange="modifiedEvent('add')"></td>
 		<td class="list">
-			<select id="add-flags" name="add-flags" class="combobox" style="width: 98%;" onchange="modifiedEvent('add')">
+			<select id="add-flags" name="add-flags"  style="width: 98%;" onchange="modifiedEvent('add')">
 				<option value="0">Kategorie</option>
 				<option value="1">Ereignis</option>
 				<option value="99">Diplo. Corps</option>
 			</select>
 		</td>
-		<td class="list"><input type="text" name="add-rank" id="add-rank" value="" class="text" style="width: 94px;" onchange="modifiedEvent('add')"></td>
+		<td class="list"><input type="text" name="add-rank" id="add-rank" value=""  style="width: 94px;" onchange="modifiedEvent('add')"></td>
 		<td class="list">
-			<select id="add-event" name="add-event" class="combobox" style="width: 99%;" onchange="modifiedEvent('add'); ">
+			<select id="add-event" name="add-event"  style="width: 99%;" onchange="modifiedEvent('add'); ">
 			<option value="">F&uuml;r alle Veranstaltungen</option>
 			#foreach($event in $allEvent)
 				<option value="$!event.id">$!message.text($event.shortname)</option>
@@ -146,19 +146,19 @@ disableOtherBeans(id);
 	#end	
 	<tr class="$class">
 	#if($grants.isAdmin() || $grants.isPartialAdmin())
-		<td class="list"><input type="hidden" id="${bean.id}-modified" name="${bean.id}-modified" value="false"><input type="checkbox" name="${bean.id}-select" id="${bean.id}-select" value="true" class="checkbox" #if($listselection.indexOf($bean.id) != -1) checked#end></td>
+		<td class="list"><input type="hidden" id="${bean.id}-modified" name="${bean.id}-modified" value="false"><input type="checkbox" name="${bean.id}-select" id="${bean.id}-select" value="true"  #if($listselection.indexOf($bean.id) != -1) checked#end></td>
 		<td class="list"><input type="hidden" name="${bean.id}-id" value="$!bean.id">$!{bean.id}</td>
-		<td class="list"><input type="text" name="${bean.id}-name" id="${bean.id}-name" value="$!message.text($bean.name)" class="text" style="width: 96%;" onchange="modifiedEvent('$!bean.id')" #if(!($grants.isAdmin() || $grants.isPartialAdmin()))readonly="readonly"#end></td>
+		<td class="list"><input type="text" name="${bean.id}-name" id="${bean.id}-name" value="$!message.text($bean.name)"  style="width: 96%;" onchange="modifiedEvent('$!bean.id')" #if(!($grants.isAdmin() || $grants.isPartialAdmin()))readonly="readonly"#end></td>
 		<td class="list">
-			<select id="${bean.id}-flags" name="${bean.id}-flags" class="combobox" style="width: 98%;" onchange="modifiedEvent('$!bean.id')">
+			<select id="${bean.id}-flags" name="${bean.id}-flags"  style="width: 98%;" onchange="modifiedEvent('$!bean.id')">
 				<option #if($bean.flags && $bean.flags == 0) selected#end value="0">Kategorie</option>
 				<option #if($bean.flags && $bean.flags == 1) selected#end value="1">Ereignis</option>
 				<option #if($bean.flags && $bean.flags == 99) selected#end value="99">Diplo. Corps</option>
 			</select>
 		</td>
-		<td class="list"><input type="text" name="${bean.id}-rank" id="${bean.id}-rank" value="$!message.text($bean.rank)" class="text" style="width: 94px;" onchange="modifiedEvent('$!bean.id')" #if(! ($grants.isAdmin() || $grants.isPartialAdmin()))readonly="readonly"#end></td>
+		<td class="list"><input type="text" name="${bean.id}-rank" id="${bean.id}-rank" value="$!message.text($bean.rank)"  style="width: 94px;" onchange="modifiedEvent('$!bean.id')" #if(! ($grants.isAdmin() || $grants.isPartialAdmin()))readonly="readonly"#end></td>
 		<td class="list">
-			<select id="${bean.id}-event" name="${bean.id}-event" class="combobox" style="width: 99%;" onchange="modifiedEvent('$!bean.id')" #if(! ( $grants.isAdmin() || $grants.isPartialAdmin() ))readonly="readonly"#end>
+			<select id="${bean.id}-event" name="${bean.id}-event"  style="width: 99%;" onchange="modifiedEvent('$!bean.id')" #if(! ( $grants.isAdmin() || $grants.isPartialAdmin() ))readonly="readonly"#end>
 			<option value="">F&uuml;r alle Veranstaltungen</option>
 			#foreach($event in $allEvent)
 				<option #if($bean.event && $bean.event == $event.id) selected#end value="$!event.id">$!message.text($event.shortname)</option>

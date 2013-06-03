@@ -38,7 +38,7 @@
 <table class="form"><tr>
 	<td class="label" style="width: 19%;"><strong>Dokumenttyp</strong></td>
 	<td class="value" style="width: 81%;">
-		<select name="doctype" class="combobox" onChange="document.getElementById('ExportForm').action='ShowExportGuestDoctype'; submit();">
+		<select name="doctype"  onChange="document.getElementById('ExportForm').action='ShowExportGuestDoctype'; submit();">
 			#foreach($bean in $allEventDoctype)
 			<option value="$!bean.doctype" #if($bean.doctype == $exportCalc.doctype) selected#end>$!bean.name</option>
 			#end
@@ -65,7 +65,7 @@
 <table class="form"><tr>
 	<td class="label" style="width: 19%;">Sortierung:</td>
 	<td class="value">
-		<select name="sort1" class="combobox">
+		<select name="sort1" >
 #if($search.listorder == "lastname_a_e1" || $search.listorder == "firstname_a_e1" || $search.listorder == "mail_a_e1")
 			<option value="orderno">Laufende Nummer</option>
 			<option value="name" selected>Name</option>
@@ -96,7 +96,7 @@
 </tr><tr>
 	<td class="label" style="width: 19%;">&nbsp;</td>
 	<td class="value">
-		<select name="sort2" class="combobox">
+		<select name="sort2" >
 			<option value=""></option>
 #if($search.listorder == "lastname_a_e1" || $search.listorder == "firstname_a_e1" || $search.listorder == "mail_a_e1")
 			<option value="orderno">Laufende Nummer</option>
@@ -128,7 +128,7 @@
 </tr><tr>
 	<td class="label" style="width: 19%;">&nbsp;</td>
 	<td class="value">
-		<select name="sort3" class="combobox">
+		<select name="sort3" >
 #if($search.listorder == "lastname_a_e1" || $search.listorder == "firstname_a_e1" || $search.listorder == "mail_a_e1")
 			<option value=""></option>
 			<option value="orderno">Laufende Nummer</option>

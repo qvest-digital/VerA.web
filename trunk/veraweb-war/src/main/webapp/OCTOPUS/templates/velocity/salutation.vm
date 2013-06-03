@@ -39,11 +39,11 @@
 		<th class="list" style="width: 80px;">&nbsp;</th>
 	</tr>
 	<tr class="list2">
-		<td class="list"><input type="hidden" id="add-modified" name="add-modified" value="false"><input type="checkbox" name="add-select" value="true" class="checkbox" style="display: none;"></td>
+		<td class="list"><input type="hidden" id="add-modified" name="add-modified" value="false"><input type="checkbox" name="add-select" value="true"  style="display: none;"></td>
 		<td class="list"><input type="hidden" name="add-id" value=""><em>neu</em></td>
-		<td class="list"><input type="text" name="add-name" value="" class="text" onchange="setModified('add')"></td>
+		<td class="list"><input type="text" name="add-name" value=""  onchange="setModified('add')"></td>
 		<td class="list">
-			<select name="add-gender" class="combobox" style="width: 97%;" onchange="setModified('add')">
+			<select name="add-gender"  style="width: 97%;" onchange="setModified('add')">
 				<option value="M">M&auml;nnlich</option>
 				<option value="F">Weiblich</option>
 			</select>
@@ -57,11 +57,11 @@
 		#set($class = "list2")
 	#end
 	<tr class="$class">
-		<td class="list"><input type="hidden" id="${bean.id}-modified" name="${bean.id}-modified" value="false"><input type="checkbox" name="${bean.id}-select" value="true" class="checkbox" #if($listselection.indexOf($bean.id) != -1) checked#end></td>
+		<td class="list"><input type="hidden" id="${bean.id}-modified" name="${bean.id}-modified" value="false"><input type="checkbox" name="${bean.id}-select" value="true"  #if($listselection.indexOf($bean.id) != -1) checked#end></td>
 		<td class="list"><input type="hidden" name="${bean.id}-id" value="$!bean.id">$!bean.id</td>
-		<td class="list"><input type="text" name="${bean.id}-name" value="$!message.text($bean.name)" class="text" onchange="setModified('$!bean.id')"></td>
+		<td class="list"><input type="text" name="${bean.id}-name" value="$!message.text($bean.name)"  onchange="setModified('$!bean.id')"></td>
 		<td class="list">
-			<select name="${bean.id}-gender" class="combobox" style="width: 97%;" onchange="setModified('$!bean.id')">
+			<select name="${bean.id}-gender"  style="width: 97%;" onchange="setModified('$!bean.id')">
 				<option value="M">M&auml;nnlich</option>
 				<option value="F" #if($bean.gender && $bean.gender == "F") selected#end>Weiblich</option>
 			</select>

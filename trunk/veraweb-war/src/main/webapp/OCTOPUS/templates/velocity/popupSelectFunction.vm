@@ -28,7 +28,7 @@
 		
 				<div class="contentBoxColored grayBorder">
 					<h2>Bitte w&auml;hlen Sie eine Amtsbezeichnung / Funktion aus:</h2>
-					<ul class="text">
+					<ul >
 					
 						#foreach($bean in $list)
 
