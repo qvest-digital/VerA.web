@@ -73,6 +73,7 @@
 		#end
 		
 		#if(!$isNewEvent)
+			#set($completeEventHeader = false)
         	#parse("inc/event-header.vm")
         #end
 		

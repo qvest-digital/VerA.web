@@ -14,6 +14,7 @@
 		<input type="button" class="mainButton" value="zur G&auml;steliste" name="guestlist" onclick="window.location.href='ShowGuestList?search-event=$!event.id&start=0&selectNone=true';"/>
 	</div>
 	
+	#set($completeEventHeader = false)
 	#parse("inc/event-header.vm")
 	
 	<form id="formlist" name="formlist" action="ShowEventDoctype" method="POST" onsubmit="htmlWait();">
