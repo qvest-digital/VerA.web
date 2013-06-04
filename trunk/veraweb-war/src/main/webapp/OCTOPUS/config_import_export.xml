@@ -44,7 +44,7 @@
 		<!-- die Einstellungen für das Bearbeiten von Duplikatslisten eines Import werden hier gehalten. -->
 		<param name="importDuplicatesProperties" type="map">
 			<!-- maximal Anzahl Importdatensätze, die auf einer Seite angezeigt werden sollen -->
-			<param name="dsCount" value="5"/>
+			<param name="dsCount" value="10"/>
 			<!-- maximale Anzahl der Duplikate im Bestand, die zu einem Importdatensatz angezeigt wird. -->
 			<param name="dupCount" value="-1"/>
 		</param>
