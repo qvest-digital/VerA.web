@@ -27,17 +27,19 @@
 	#end
 </div>
 
+#if(($list && $list.size() > 0) || $grants.mayWrite())
 <table class="notBold">
 	<tr>
-		#if($list && $list.size() > 0)
+		#if($list && $list.size() > 0 && $grants.mayWrite())
 			<th class="textCenter smallCell"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" #if($listselection.size() == $listparam.count) checked#end title="Alle (de)markieren" #if(!$grants.mayWrite()) vera-disabled#end/></th>
 		#end
 		<th class="textCenter smallCell">ID</th>
 		<th>Kategorien und Ereignisse</th>
 		<th class="textCenter smallCell">Rang</th>
 	</tr>
+    #if($grants.mayWrite())
 	<tr>
-		#if($list && $list.size() > 0)
+		#if($list && $list.size() > 0 && $grants.mayWrite())
     		<td class="textCenter smallCell"/>
 		#end
 		<input type="hidden" id="add-modified" name="add-modified" value="false"/>
@@ -58,12 +60,15 @@
 			<input type="text" name="add-rank" value="$!message.text($bean.rank)" class="small50px" onchange="setModified('add')" #if(!$grants.mayWrite()) vera-disabled#end/>
 		</td>
 	</tr>
+    #end
 	#foreach($bean in $list)
 		<tr #if($bean.flags == 1)class="repeat"#end>
+            #if($grants.mayWrite())
 			<td class="textCenter smallCell">
 				<input type="hidden" id="${bean.id}-modified" name="${bean.id}-modified" value="false"/>
 				<input type="checkbox" name="${bean.id}-select" value="true" #if($listselection.indexOf($bean.id) != -1) checked#end #if(!$grants.mayWrite()) vera-disabled#end/>
 			</td>
+            #end
 			<td>
 				<input type="hidden" name="${bean.id}-id" value="$!bean.id"><input type="hidden" name="${bean.id}-person" value="$!bean.person"/>
 				<input type="hidden" name="${bean.id}-categorie" value="$!bean.categorie"/>
@@ -96,3 +101,5 @@
 </div>
 
 
+
+#end
