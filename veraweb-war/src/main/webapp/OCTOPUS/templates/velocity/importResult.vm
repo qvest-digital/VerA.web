@@ -2,93 +2,98 @@
 #set($title = "Status des Importvorgangs")
 #parse("inc/header.vm")
 
-<table class="tab" border="0" cellspacing="0" cellpadding="0"><tr>
-	<td class="tableft">&nbsp;</td>
-	<td class="tabactiv"><span class="tabactiv">Import</span></td>
-	<td class="tabright">&nbsp;</td>
-</tr></table>
-
-
-
-
-<table class="form"><tr>
-	<td class="label"><label for="id">Import-ID</label></td>
-	<td class="value"><input type="text" name="id" value="$!message.text($importStatus.id)" id="id" class="id" vera-disabled></td>
-</tr><tr>
-	<td class="label">&nbsp;</td>
-	<td class="value">
-		<hr class="contentsection">
-	</td>
-</tr><tr>
-	<td class="label"><label for="id">Datens&auml;tze Insgesamt</label></td>
-	<td class="value"><input type="text" name="ds_count" value="$!importStatus.dsCount" id="id" class="id" vera-disabled></td>
-</tr><tr>
-	<td class="label"><label for="id">Anzahl Dubletten</label></td>
-	<td class="value"><input type="text" name="dup_count" value="$!importStatus.dupCount" id="id" class="id" vera-disabled></td>
-</tr><tr>
-	<td class="label"><label for="id">Datens&auml;tze speicherbar</label></td>
-	<td class="value"><input type="text" name="save_count" value="$!importStatus.saveCount" id="id" class="id" vera-disabled></td>
-#if($importStatus.igCount  && $importStatus.igCount != 0)
-</tr><tr>
-	<td class="label"><label for="id">Ignorierte Fehlerdatens&auml;tze</label></td>
-	<td class="value"><input type="text" name="ig_count" value="$!importStatus.igCount" id="id" class="id" vera-disabled></td>
-#end
-</tr><tr>
-	<td class="label">&nbsp;</td>
-	<td class="value">
-		<hr class="contentsection">
-	</td>
-</tr><tr>
-	<td class="label">&nbsp;</td>
-	<td class="value">
+<div id="content_container">
+    <div id="breadcrumb" class="textRight marginBottom10">
+    	<strong>Sie sind hier</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Personen > <a href="${paths.staticWeb}do/ImportPersons" title="Zum Personen-Import">Personen-Import</a> > Importergebnis</span>
+    </div>
+    <h1>Importergebnis</h1>
 	
-<table cellpadding="0" cellspacing="0" border="0">
-    <tr>
-		<td>
-        #if($importStatus.saveCount  && $importStatus.saveCount != 0)
-            <form action="ImportPersonsFinalise" method="post">
-                <input type="hidden" name="importId" value="$!importStatus.id">
-                <input type="submit" class="submit" value="Speichern" onclick="htmlWait();">&nbsp;&nbsp;&nbsp;
-                </form>
-        #else
-                <input type="button" class="buttondisabled" value="Speichern" vera-disabled>&nbsp;&nbsp;&nbsp;
-        #end
-        </td>
-		<td>
-        #if($importStatus.dupCount && $importStatus.dupCount != 0)
-                <form action="ImportPersonsEditDuplicates" method="post">
+	#if($importStatus.dupCount && $importStatus.dupCount != 0)
+		<div id="buttonPanel-top" class="textRight marginBottom10">
+            <form action="ImportPersonsEditDuplicates" method="post">
                 <input type="hidden" name="importId" value="$!importStatus.id">
                 #set($saveCount = $!importStatus.saveCount - $!importStatus.dsCount + $!importStatus.dupCount)
                 <input type="hidden" name="saveCount" value="$saveCount"/>
                 <input type="hidden" name="start" value="0"/>
-				<input type="hidden" name="selectNone" #if($selectNone && $selectNone == "false") value="false" #else value="true" #end/>
-                <input type="submit" class="submit" value="Dubletten"/> &nbsp;
-                <input type="button" class="button" value="Zur&uuml;ck" onclick="window.location.href='ImportPersons';"/>
+    			<input type="hidden" name="selectNone" #if($selectNone && $selectNone == "false") value="false" #else value="true" #end/>
+                <input type="submit" class="mainButton" value="Dubletten"/>
             </form>
-        #else
-			<input type="button" class="buttondisabled" value="Dubletten" vera-disabled> 
-        #end
-    	</td>
-    </tr>
-</table>
+		</div>
+	#end
+	
+	<div id="main_content" class="contentBoxColored grayBorder marginBottom10">
+		
+		<div class="table width70">
+			<div class="tableRow">
+				<div class="tableCell inlineLabel width30">
+					<strong>Import-ID:</strong>
+				</div>
+				<div class="tableCell">
+					$!message.text($importStatus.id)
+				</div>
+			</div>
+			<div class="tableRow">
+				<div class="tableCell">
+					<strong>Datens&auml;tze Insgesamt:</strong>
+				</div>
+				<div class="tableCell">
+					$!importStatus.dsCount
+				</div>
+			</div>
+			<div class="tableRow">
+				<div class="tableCell">
+					<strong>Anzahl Dubletten:</strong>
+				</div>
+				<div class="tableCell">
+					$!importStatus.dupCount
+				</div>
+			</div>
+			<div class="tableRow">
+				<div class="tableCell">
+					<strong>Datens&auml;tze speicherbar:</strong>
+				</div>
+				<div class="tableCell">
+					$!importStatus.saveCount
+				</div>
+			</div>
+			#if($importStatus.igCount  && $importStatus.igCount != 0)
+				<div class="tableRow">
+    				<div class="tableCell">
+    					<strong>Ignorierte Fehlerdatens&auml;tze:</strong>
+    				</div>
+    				<div class="tableCell">
+    					$!importStatus.igCount
+    				</div>
+    			</div>
+			#end
+		</div>
+		
+	</div>
+	
+	<form action="ImportPersonsFinalise" method="post">
+		<span class="textRight floatRight">
+			#if($importStatus.saveCount  && $importStatus.saveCount != 0)
+                <input type="hidden" name="importId" value="$!importStatus.id"/>
+                <input type="submit" class="mainButton" value="Import finalisieren" onclick="htmlWait();"/>
+			#end
+			<input type="button" class="mainButton" value="Zur&uuml;ck zu Personenimport" onclick="window.location.href='ImportPersons';"/>
+		</span>
+	</form>
 
-	</td>
-</tr></table>
+	<div class="clear"></div>
+</div>
 
-
-
-<hr class="footline">
 
 #if($imported)
-<script type="text/javascript">
- #if($imported == 0)
-	alert('Sie haben keinen Datensatz importiert.');
- #elseif($imported == 1)
-	alert('Sie haben einen Datensatz importiert.');
- #elseif($imported > 1)
-	alert('Sie haben $imported Datensätze importiert.');
- #end
-</script>
+    <script type="text/javascript">
+     #if($imported == 0)
+    	alert('Sie haben keinen Datensatz importiert.');
+     #elseif($imported == 1)
+    	alert('Sie haben einen Datensatz importiert.');
+     #elseif($imported > 1)
+    	alert('Sie haben $imported Datensätze importiert.');
+     #end
+    </script>
 #end
 
 #parse("inc/footer.vm")
