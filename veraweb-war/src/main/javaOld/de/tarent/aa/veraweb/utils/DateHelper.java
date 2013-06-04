@@ -27,6 +27,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.lang.StringEscapeUtils;
+
 /**
  * Diese Klasse enth�lt statische Hilfsmethoden f�r die Behandlung
  * von Datums- und Zeitwerten. 
@@ -93,6 +95,7 @@ public class DateHelper {
 			}
 		} catch (Exception e) {
 			if (errors != null) {
+				input = StringEscapeUtils.escapeHtml(input);
 				errors.add("'" + input + "' ist keine gültige Uhrzeit, bitte verwenden Sie das Format SS.MM.");
 			}
 			time.set(Calendar.HOUR_OF_DAY, 0);
