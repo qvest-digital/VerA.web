@@ -125,6 +125,8 @@ public class ImportPersonsWorker {
 		select.where(where);
 		Integer saveCount = database.getCount(select);
 		
+		cntx.setContent("selectNone", cntx.getRequestObject().getParam("selectNone"));
+		
         return DataExchangeWorker.createImportStats(dsCount.intValue(), dupCount.intValue(), saveCount.intValue(), importId);
 	}
 	
