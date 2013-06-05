@@ -44,9 +44,10 @@
 
 		<div id="tabsMain">
 			<ul vera-tab-group="" class="gray-gradient"> <!-- Bitte das End-tag der <li>s immer mit in die nächste Zeile nehmen (verhindert Mozilla styling bug) -->
-    		<li onclick="" vera-tab-default="" vera-tab="" class="active">G&auml;ste&uuml;bersicht
-				</li><li onclick="" vera-tab="" class="inactive"><a href="ShowGuestDetail" class="tabinactiv">Gastdetails</a>
-				</li><li id="dokumenttypen" class="inactive"><a href="ShowGuestDoctype" class="tabinactiv">Dokumenttypen</a></li>
+    			<li id="gaesteliste" onclick="" vera-tab-default="" vera-tab="" class="active">G&auml;steliste
+				</li><li id="gastdetails" onclick="" vera-tab="" class="inactive">Gastdetails
+				</li><li id="dokumenttypen" class="inactive">Dokumenttypen
+				</li>
 			</ul>
 		</div>
 		
@@ -529,6 +530,15 @@
 	alert('$!notInvited Gäste standen bereits auf der Gästeliste.');
 #end
 #end
+
+    $(function () {
+        $('li#gastdetails').click(function () {
+            window.location.href = '${paths.staticWeb}do/ShowGuestDetail';
+        });
+        $('li#dokumenttypen').click(function () {
+            window.location.href = '${paths.staticWeb}do/ShowGuestDoctype';
+        });
+    });
 
 </script>
 

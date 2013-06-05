@@ -44,9 +44,9 @@
 
 		<div id="tabsMain">
 			<ul vera-tab-group="" class="gray-gradient"> <!-- Bitte das End-tag der <li>s immer mit in die nächste Zeile nehmen (verhindert Mozilla styling bug) -->
-    		<li onclick="" vera-tab-default="" vera-tab="" class="inactive"><a href="ShowGuestList" class="tabinactiv">G&auml;steliste</a>
-				</li><li onclick="" vera-tab="" class="active">Gastdetails
-				</li><li id="dokumenttypen" class="inactive"><a href="ShowGuestDoctype" class="tabinactiv">Dokumenttypen</a></li>
+    			<li id="gaesteliste" onclick="" vera-tab-default="" vera-tab="" class="inactive">G&auml;steliste
+				</li><li id="gastdetails" onclick="" #if($responseTab == "detail") vera-tab-default #end vera-tab="" class="active">Gastdetails
+				</li><li id="dokumenttypen" class="inactive">Dokumenttypen</li>
 			</ul>
 		</div>
 		
@@ -104,9 +104,10 @@
 			<div class="contentBox grayBorder tabs" vera-content="">
     			<div id="tabsMain2">
     				<ul vera-tab-group="" class="gray-gradient"> <!-- Bitte das End-tag der <li>s immer mit in die nächste Zeile nehmen (verhindert Mozilla styling bug) -->
-    					<li onclick="" vera-tab-default="" vera-tab="" class="active">Allgemein
-    					</li><li onclick="" vera-tab="" class="active"><a href="javascript:showTab('detail-2');" id="detail-2-link" class="subtab">$!config.main</a>
-    					</li><li id="dokumenttypen" class="inactive"><a href="javascript:showTab('detail-3');" id="detail-3-link" class="subtab">$!config.partner</a></li>
+    					<li id="allgemein" onclick="" vera-tab-default="" vera-tab="" class="active">Allgemein
+    					</li><li id="hauptperson" onclick="" vera-tab="" class="active">$!config.main
+    					</li><li id="partner" class="inactive">$!config.partner
+    					</li>
     				</ul>
     			</div>
 				
@@ -372,6 +373,27 @@
 		document.getElementById('fetchRankFromMasterData').value=fetchRankFromMasterData;
 		document.getElementById('GuestForm').submit();
 	}
+	
+	$(function () {
+        $('li#gaesteliste').click(function () {
+            window.location.href = '${paths.staticWeb}do/ShowGuestList';
+        });
+        $('li#dokumenttypen').click(function () {
+            window.location.href = '${paths.staticWeb}do/ShowGuestDoctype';
+        });
+        
+        $('li#allgemein').click(function () {
+            showTab('detail-1');
+        });
+        $('li#hauptperson').click(function () {
+            showTab('detail-2');
+        });
+        $('li#partner').click(function () {
+            showTab('detail-3');
+        });
+        
+    });
+    
 </script>
 
 #parse("inc/footer.vm")
