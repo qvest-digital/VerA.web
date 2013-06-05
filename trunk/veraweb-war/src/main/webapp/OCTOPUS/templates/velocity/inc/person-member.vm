@@ -120,7 +120,7 @@
 			<div class="tableCell width50 ">
 				#if ( $ext == "_a_e1" || $ext == "_a_e2" || $ext == "_a_e3" )
                     <label for="person-birthplace$ext">Geburtsort</label>
-                    <input type="text" name="person-birthplace$ext" value="$!message.text($facade.Birthplace)" id="person-birthplace$ext" onchange="setModified();" #if(!$grants.mayWrite() || $createNewPerson) vera-disabled#end />
+                    <input type="text" name="person-birthplace$ext" value="$!message.text($facade.Birthplace)"  maxlength="100" id="person-birthplace$ext" onchange="setModified();" #if(!$grants.mayWrite() || $createNewPerson) vera-disabled#end />
 				#end
             </div>
 			
