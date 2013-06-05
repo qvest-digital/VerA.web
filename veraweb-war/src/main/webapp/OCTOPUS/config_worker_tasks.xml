@@ -1274,6 +1274,7 @@
 			<status equals="notfound">
 				<doTask name="ShowGuestList"/>
 			</status>
+			<param name="responseTab" value="detail" />
 			<response type="velocity" name="guestDetail">
 				<param name="ContentType" value="text/html;charset=UTF-8"/>
 			</response>

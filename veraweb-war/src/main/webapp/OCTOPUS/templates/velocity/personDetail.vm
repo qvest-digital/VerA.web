@@ -485,8 +485,6 @@
         });
     });
 	
-	
-	
 </script>
 
 #parse("inc/footer.vm")
