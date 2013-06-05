@@ -59,6 +59,8 @@
         	<input type="button" name="cancel" value="Zur Personen&uuml;bersicht" title="Zur Personen&uuml;bersicht" class="mainButton" onclick="window.location.href='${paths.staticWeb}do/SetHostToEventList';"/>
         #elseif($action == "event")
         	<input type="button" name="cancel" value="Zur Personen&uuml;bersicht" title="Zur Personen&uuml;bersicht" class="mainButton" onclick="window.location.href='${paths.staticWeb}do/ShowGuestDetail';"/>
+        #elseif($action == "duplicateSearch")
+            <input type="button" name="cancel" value="Zur Dublettensuche" title="Zur Dublettensuche" class="mainButton" onclick="window.location.href='${paths.staticWeb}do/PersonDuplicateSearch';">
         #else
         	<input type="button" name="cancel" value="Zur Personen&uuml;bersicht" title="Zur Personen&uuml;bersicht" class="mainButton" onclick="window.location.href='${paths.staticWeb}do/SearchPerson?action=person';"/>
         #end
