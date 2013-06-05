@@ -252,7 +252,7 @@
 		
 		<div class="tableRow">
 				
-            <div class="tableCell width50 ">
+            <div class="tableCell width50 notBold">
 				#if ( !$createNewPerson && ($ext == "_a_e1" || $ext == "_b_e1") )
                     <strong>Datenherkunft</strong><br/>
 					#if(!$person.importsource || $person.importsource == '')-#else$!message.text($person.importsource)#end
