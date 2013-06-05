@@ -207,6 +207,9 @@ public class PersonDetailWorker implements PersonConstants {
 					break;
 				}
 			}
+			if (i >= size) {
+				i = size - 1;
+			}
 			Map first = null;
 			Map previous = null;
 			if ( i > 0 )
