@@ -92,6 +92,12 @@
             		
             		#set($itemName = "Personen")
                 	#parse("inc/list-navi-new.vm")
+					
+					<tr class="colspan">
+						<td colspan="99">
+							Anzahl zu speichernde Dubletten: $!listselection.size()
+						</td>
+					</tr>
             		
                 </table>
 			</div>
