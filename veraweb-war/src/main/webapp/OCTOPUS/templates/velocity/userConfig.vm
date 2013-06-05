@@ -10,54 +10,36 @@
 	<td class="tabright">&nbsp;</td>
 </tr></table>
 
-
-
-
 <h1>Standard Auswahl von Tabulatoren</h1>
-#if($userConfig.personTab && $userConfig.personTab == "1")
-	#set($personTab1 = true)#set($personTab2 = false)
-#elseif($userConfig.personTab && $userConfig.personTab == "2")
-	#set($personTab1 = false)#set($personTab2 = true)
-#elseif(!$config.personTab)
-	#set($personTab1 = true)#set($personTab2 = false)
+
+#if(!$userConfig.personTab || $userConfig.personTab == "1")
+	#set($personTab1 = true)
 #else
-	#set($personTab1 = false)#set($personTab2 = true)
+	#set($personTab2 = true)
 #end
-#if($userConfig.personMemberTab && $userConfig.personMemberTab == "1")
-	#set($personMemberTab1 = true)#set($personMemberTab2 = false)
-#elseif($userConfig.personMemberTab && $userConfig.personMemberTab == "2")
-	#set($personMemberTab1 = false)#set($personMemberTab2 = true)
-#elseif(!$config.personMemberTab)
-	#set($personMemberTab1 = true)#set($personMemberTab2 = false)
+
+#if(!$userConfig.personMemberTab || $userConfig.personMemberTab == "1")
+	#set($personMemberTab1 = true)
 #else
-	#set($personMemberTab1 = false)#set($personMemberTab2 = true)
+	#set($personMemberTab2 = true)
 #end
-#if($userConfig.personAddresstypeTab && $userConfig.personAddresstypeTab == "1")
-	#set($personAddresstypeTab1 = true)#set($personAddresstypeTab2 = false)#set($personAddresstypeTab3 = false)
-#elseif($userConfig.personAddresstypeTab && $userConfig.personAddresstypeTab == "2")
-	#set($personAddresstypeTab1 = false)#set($personAddresstypeTab2 = true)#set($personAddresstypeTab3 = false)
-#elseif($userConfig.personAddresstypeTab && $userConfig.personAddresstypeTab == "3")
-	#set($personAddresstypeTab1 = false)#set($personAddresstypeTab2 = false)#set($personAddresstypeTab3 = true)
-#elseif(!$config.personAddresstypeTab)
-	#set($personAddresstypeTab1 = true)#set($personAddresstypeTab2 = false)#set($personAddresstypeTab3 = false)
-#elseif($config.personAddresstypeTab == "2")
-	#set($personAddresstypeTab1 = false)#set($personAddresstypeTab2 = true)#set($personAddresstypeTab3 = false)
+	
+#if(!$userConfig.personAddresstypeTab || $userConfig.personAddresstypeTab == "1")
+	#set($personAddresstypeTab1 = true)
+#elseif($userConfig.personAddresstypeTab == "2")
+	#set($personAddresstypeTab2 = true)
 #else
-	#set($personAddresstypeTab1 = false)#set($personAddresstypeTab2 = false)#set($personAddresstypeTab3 = true)
+	#set($personAddresstypeTab3 = true)
 #end
-#if($userConfig.personLocaleTab && $userConfig.personLocaleTab == "1")
-	#set($personLocaleTab1 = true)#set($personLocaleTab2 = false)#set($personLocaleTab3 = false)
-#elseif($userConfig.personLocaleTab && $userConfig.personLocaleTab == "2")
-	#set($personLocaleTab1 = false)#set($personLocaleTab2 = true)#set($personLocaleTab3 = false)
-#elseif($userConfig.personLocaleTab && $userConfig.personLocaleTab == "3")
-	#set($personLocaleTab1 = false)#set($personLocaleTab2 = false)#set($personLocaleTab3 = true)
-#elseif(!$config.personLocaleTab)
-	#set($personLocaleTab1 = true)#set($personLocaleTab2 = false)#set($personLocaleTab3 = false)
-#elseif($config.personLocaleTab == "2")
-	#set($personLocaleTab1 = false)#set($personLocaleTab2 = true)#set($personLocaleTab3 = false)
+
+#if(!$userConfig.personLocaleTab || $userConfig.personLocaleTab == "1")
+	#set($personLocaleTab1 = true)
+#elseif($userConfig.personLocaleTab == "2")
+	#set($personLocaleTab2 = true)
 #else
-	#set($personLocaleTab1 = false)#set($personLocaleTab2 = false)#set($personLocaleTab3 = true)
+	#set($personLocaleTab3 = true)
 #end
+
 <table class="form">
 	<tr>
 		<td class="label">Person-Dialog:</td>
