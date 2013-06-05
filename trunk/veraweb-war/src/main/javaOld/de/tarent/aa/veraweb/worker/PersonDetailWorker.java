@@ -170,7 +170,7 @@ public class PersonDetailWorker implements PersonConstants {
 			select.select( "tperson.firstname_a_e1" );
 			select.orderBy( Order.asc( "tperson.lastname_a_e1" ).andAsc( "tperson.firstname_a_e1" ) );
 		}
-		else if ( action == null || action.length() == 0 )
+		else if ( action == null || action.length() == 0 || "person".equals(action))
 		{
 			// standard person list
 			// must navigate through all persons matching current search query filter
