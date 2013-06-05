@@ -139,7 +139,10 @@ public class PersonDetailWorker implements PersonConstants {
 //		cal.setTime( new Date() );
 //		map.put( "end", cal.get( Calendar.DAY_OF_MONTH ) + "." + ( cal.get( Calendar.MONTH ) + 1 ) + "." + cal.get( Calendar.YEAR ) );
 		
-		cntx.setContent("tab", cntx.requestAsString("tab"));
+		cntx.setContent("personTab", cntx.requestAsString("personTab"));
+        cntx.setContent("personMemberTab", cntx.requestAsString("personMemberTab"));
+        cntx.setContent("personAddresstypeTab", cntx.requestAsString("personAddresstypeTab"));
+        cntx.setContent("personLocaleTab", cntx.requestAsString("personLocaleTab"));
 
 		return person;
 	}
@@ -572,7 +575,10 @@ public class PersonDetailWorker implements PersonConstants {
      * @return die abgespeicherte Person
 	 */
 	public Person saveDetail(OctopusContext cntx, Person person) throws BeanException, IOException {
-	    cntx.setContent("tab", cntx.requestAsString("tab"));
+	    cntx.setContent("personTab", cntx.requestAsString("personTab"));
+		cntx.setContent("personMemberTab", cntx.requestAsString("personMemberTab"));
+		cntx.setContent("personAddresstypeTab", cntx.requestAsString("personAddresstypeTab"));
+		cntx.setContent("personLocaleTab", cntx.requestAsString("personLocaleTab"));
 
 		Database database = new DatabaseVeraWeb(cntx);
 		TransactionContext context = database.getTransactionContext();

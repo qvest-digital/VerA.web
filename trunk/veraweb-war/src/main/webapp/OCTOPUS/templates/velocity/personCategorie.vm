@@ -56,8 +56,8 @@
     <div id="main_content" class="tabs contentBox grayBorder marginBottom10">
         <div id="tabsMain">
         	<ul class="gray-gradient" vera-tab-group> <!-- Bitte das End-tag der <li>s immer mit in die nächste Zeile nehmen (verhindert Mozilla styling bug) -->
-        		<li class="inactive" id="personendaten" onclick="window.location.href='${paths.staticWeb}do/ShowPerson?id=$!person.id&tab=person&offset=${navigation.current.offset}';">Persondendaten
-        		</li><li class="inactive" id="anschriften" onclick="window.location.href='ShowPerson?id=$!person.id&tab=anschrift&offset=${navigation.current.offset}';">Anschriften
+        		<li class="inactive" id="personendaten" onclick="window.location.href='${paths.staticWeb}do/ShowPerson?id=$!person.id&personTab=1&offset=${navigation.current.offset}';">Persondendaten
+        		</li><li class="inactive" id="anschriften" onclick="window.location.href='ShowPerson?id=$!person.id&personTab=2&offset=${navigation.current.offset}';">Anschriften
         		</li><li class="inactive" id="dokumenttypen" onclick="window.location.href='ShowPersonDoctypeList?id=$!person.id&offset=${navigation.current.offset}';">Dokumenttypen
         		</li><li class="active" id="kategorien" onclick="window.location.href='ShowPersonCategorieList?id=$!person.id&offset=${navigation.current.offset}';">Kategorien</li>
         	</ul>

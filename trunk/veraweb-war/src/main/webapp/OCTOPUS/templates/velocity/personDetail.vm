@@ -20,6 +20,10 @@
     	#set($activeMenu = "Personen")
     #end
 	
+	#set($personTab = "1")
+	#set($personMemberTab = "1")
+	#set($personAddresstypeTab = "1")
+	#set($personLocaleTab = "1")
     #set($isNewPerson = 1)
     #set($title = "Neue Person anlegen")
 	#parse("inc/header.vm")
@@ -40,40 +44,76 @@
 #end
 
 <form id="PersonForm" name="PersonForm" action="${paths.staticWeb}do/SavePerson" method="post">
-    <input type="hidden" name="id" value="$!person.id">
-    <input type="hidden" name="person-id" value="$!person.id">
-    <input type="hidden" name="person-orgunit" value="$!person.orgunit">
-    <input type="hidden" name="person-deleted" #if($person.deleted && $person.deleted == "t") value="t" #else value="f" #end>
-    <input type="hidden" name="person-importsource" value="$!person.importsource">
+    <input type="hidden" name="id" value="$!person.id"/>
+    <input type="hidden" name="person-id" value="$!person.id"/>
+    <input type="hidden" name="person-orgunit" value="$!person.orgunit"/>
+    <input type="hidden" name="person-deleted" #if($person.deleted && $person.deleted == "t") value="t" #else value="f" #end/>
+    <input type="hidden" name="person-importsource" value="$!person.importsource"/>
     #if($octopusRequest.task == "LoadPersonCompany" || $octopusRequest.forcedupcheck == "true")
-		<input type="hidden" name="person-modified" id="modified" value="true">
+		<input type="hidden" name="person-modified" id="modified" value="true"/>
     #else
-		<input type="hidden" name="person-modified" id="modified" value="false">
+		<input type="hidden" name="person-modified" id="modified" value="false"/>
     #end
     #if(!$person || $octopusRequest.task == "CreatePerson")
-		<input type="hidden" name="forcedupcheck" id="forcedupcheck" value="true">
+		<input type="hidden" name="forcedupcheck" id="forcedupcheck" value="true"/>
     #else
-		<input type="hidden" name="forcedupcheck" id="forcedupcheck" value="false">
+		<input type="hidden" name="forcedupcheck" id="forcedupcheck" value="false"/>
     #end
-    <input type="hidden" id="saveperson" name="saveperson" value="true">
-    <input type="hidden" id="company" name="company" value="">
-    <input type="hidden" id="companyfield" name="companyfield" value="">
-    <input type="hidden" id="inviteGuestReserve" name="inviteGuestReserve" value="false">
-    <input type="hidden" id="inviteGuestPartner" name="inviteGuestPartner" value="false">
+    <input type="hidden" id="saveperson" name="saveperson" value="true"/>
+    <input type="hidden" id="company" name="company" value=""/>
+    <input type="hidden" id="companyfield" name="companyfield" value=""/>
+    <input type="hidden" id="inviteGuestReserve" name="inviteGuestReserve" value="false"/>
+    <input type="hidden" id="inviteGuestPartner" name="inviteGuestPartner" value="false"/>
+	
+	#if($personTab)
+		#set($thisPersonTab = $personTab) ## param
+	#elseif($userConfig.personTab)
+		#set($thisPersonTab = $userConfig.personTab) ## userconfig
+	#elseif($config.personTab)
+		#set($thisPersonTab = $config.personTab) ## config
+	#end
+	
+	#if($personMemberTab)
+		#set($thisPersonMemberTab = $personMemberTab) ## param
+	#elseif($userConfig.personMemberTab)
+		#set($thisPersonMemberTab = $userConfig.personMemberTab) ## userconfig
+	#elseif($config.personMemberTab)
+		#set($thisPersonMemberTab = $config.personMemberTab) ## config
+	#end
+	
+	#if($personAddresstypeTab)
+		#set($thisPersonAddresstypeTab = $personAddresstypeTab) ## param
+	#elseif($userConfig.personAddresstypeTab)
+		#set($thisPersonAddresstypeTab = $userConfig.personAddresstypeTab) ## userconfig
+	#elseif($config.personAddresstypeTab)
+		#set($thisPersonAddresstypeTab = $config.personAddresstypeTab) ## config
+	#end
+	
+	#if($personLocaleTab)
+		#set($thisPersonLocaleTab = $personLocaleTab) ## param
+	#elseif($userConfig.personLocaleTab)
+		#set($thisPersonLocaleTab = $userConfig.personLocaleTab) ## userconfig
+	#elseif($config.personLocaleTab)
+		#set($thisPersonLocaleTab = $config.personLocaleTab) ## config
+	#end
+	
+	<input type="hidden" id="personTab" name="personTab" value = #if($thisPersonTab) "$thisPersonTab" #else "1" #end/>
+	<input type="hidden" id="personMemberTab" name="personMemberTab" value = #if($thisPersonMemberTab) "$thisPersonMemberTab" #else "1" #end/>
+	<input type="hidden" id="personAddresstypeTab" name="personAddresstypeTab" value = #if($thisPersonAddresstypeTab) "$thisPersonAddresstypeTab" #else "1" #end/>
+	<input type="hidden" id="personLocaleTab" name="personLocaleTab" value = #if($thisPersonLocaleTab) "$thisPersonLocaleTab" #else "1" #end/>
     
     ##new cf. issue #2091
-    <input type="hidden" id="action" name="action" value="$action">
+    <input type="hidden" id="action" name="action" value="$action"/>
     
     #if ($person && $person.id)
-    <input type="hidden" name="person-nodupcheck" value="true">
+    <input type="hidden" name="person-nodupcheck" value="true"/>
     #end
-    <input type="hidden" name="start" value="0">
-    <input type="hidden" name="selectAll" value="false">
-    <input type="hidden" name="selectNone" value="true">
-    <input type="hidden" name="originalPersonId" value="$!originalPersonId">
-	<input type="hidden" name="tab" id="tab" #if($tab) value="$tab" #else value="person" #end">
+    <input type="hidden" name="start" value="0"/>
+    <input type="hidden" name="selectAll" value="false"/>
+    <input type="hidden" name="selectNone" value="true"/>
+    <input type="hidden" name="originalPersonId" value="$!originalPersonId"/>
 		
-	<input type="hidden" name="person-expire" id="person-expire" value="$!message.date("DATE", $person.expire)">
+	<input type="hidden" name="person-expire" id="person-expire" value="$!message.date("DATE", $person.expire)"/>
 
 
     #if($person.deleted == "t")
@@ -125,8 +165,8 @@
 
     <div id="tabsMain">
     	<ul class="gray-gradient" vera-tab-group> <!-- Bitte das End-tag der <li>s immer mit in die nächste Zeile nehmen (verhindert Mozilla styling bug) -->
-    		<li vera-tab="personendaten" #if(!$tab || $tab == 'person')vera-tab-default#end onclick="$('#tab').attr('value', 'person');">Persondendaten
-    		</li><li vera-tab="anschriften" #if($tab && $tab == 'anschrift')vera-tab-default#end onclick="$('#tab').attr('value', 'anschrift');">Anschriften
+    		<li vera-tab="personendaten" #if(!$thisPersonTab || $thisPersonTab == "1") vera-tab-default #end onclick="$('#personTab').attr('value', '1');">Persondendaten
+    		</li><li vera-tab="anschriften" #if($thisPersonTab && $thisPersonTab == "2") vera-tab-default #end onclick="$('#personTab').attr('value', '2');">Anschriften
     		</li>#if(!$isNewPerson)<li class="inactive" id="dokumenttypen">Dokumenttypen
     		</li><li class="inactive" id="kategorien" onclick="showCategories();">Kategorien</li>#end
     	</ul>
@@ -138,18 +178,18 @@
 	
     <div class="tabsSub" vera-content="personendaten">
     	<ul class="marginBottom20" vera-tab-group>
-    		<li vera-tab="hauptperson" vera-tab-default>$!config.main</li>
-    		<li vera-tab="partner">$!config.partner</li>
-    	</ul>	
+    		<li vera-tab="hauptperson" #if(!$thisPersonMemberTab || $thisPersonMemberTab == "1") vera-tab-default #end onclick="$('#personMemberTab').attr('value', '1');" >$!config.main</li>
+    		<li vera-tab="partner" #if($thisPersonMemberTab && $thisPersonMemberTab == "2") vera-tab-default #end onclick="$('#personMemberTab').attr('value', '2');" >$!config.partner</li>
+    	</ul>
     	
     	<hr />
     	
     	<div class="CharSet">
     		<label for="encoding">Zeichensatz</label>
     		<select vera-select name="encoding" id="encoding">
-    		      <option value="person$extEncoding1" selected="selected">$!config.latin</option>
-    		      <option value="person$extEncoding2">$!config.extra1</option>
-    		      <option value="person$extEncoding3">$!config.extra2</option>
+    		      <option value="person$extEncoding1" #if(!$thisPersonLocaleTab || $thisPersonLocaleTab == "1") selected="selected" #end onclick="$('#personLocaleTab').attr('value', '1');" >$!config.latin</option>
+    		      <option value="person$extEncoding2" #if($thisPersonLocaleTab && $thisPersonLocaleTab == "2") selected="selected" #end onclick="$('#personLocaleTab').attr('value', '2');" >$!config.extra1</option>
+    		      <option value="person$extEncoding3" #if($thisPersonLocaleTab && $thisPersonLocaleTab == "3") selected="selected" #end onclick="$('#personLocaleTab').attr('value', '3');" >$!config.extra2</option>
     		</select>
     	</div>
     </div>
@@ -199,9 +239,9 @@
 	
 	<div class="tabsSub" vera-content="anschriften">
         <ul class="marginBottom20" vera-tab-group>
-            <li vera-tab="geschaeftlich" vera-tab-default>$!config.business</li>
-            <li vera-tab="privat">$!config.private</li>
-            <li vera-tab="weitere">$!config.other</li>
+            <li vera-tab="geschaeftlich" #if(!$thisPersonAddresstypeTab || $thisPersonAddresstypeTab == "1") vera-tab-default #end onclick="$('#personAddresstypeTab').attr('value', '1');" >$!config.business</li>
+            <li vera-tab="privat" #if($thisPersonAddresstypeTab && $thisPersonAddresstypeTab == "2") vera-tab-default #end onclick="$('#personAddresstypeTab').attr('value', '2');" >$!config.private</li>
+            <li vera-tab="weitere" #if($thisPersonAddresstypeTab && $thisPersonAddresstypeTab == "3") vera-tab-default #end onclick="$('#personAddresstypeTab').attr('value', '3');" >$!config.other</li>
         </ul>
 
         <hr />
@@ -209,9 +249,9 @@
         <div class="CharSet">
             <label for="encoding">Zeichensatz</label>
 			<select vera-select name="encoding" id="encoding">
-    		      <option value="address$extEncoding1" selected="selected">$!config.latin</option>
-    		      <option value="address$extEncoding2">$!config.extra1</option>
-    		      <option value="address$extEncoding3">$!config.extra2</option>
+    		      <option value="address$extEncoding1" #if(!$thisPersonLocaleTab || $thisPersonLocaleTab == "1") selected="selected" #end onclick="$('#personLocaleTab').attr('value', '1');" >$!config.latin</option>
+    		      <option value="address$extEncoding2" #if($thisPersonLocaleTab && $thisPersonLocaleTab == "2") selected="selected" #end onclick="$('#personLocaleTab').attr('value', '2');" >$!config.extra1</option>
+    		      <option value="address$extEncoding3" #if($thisPersonLocaleTab && $thisPersonLocaleTab == "3") selected="selected" #end onclick="$('#personLocaleTab').attr('value', '3');" >$!config.extra2</option>
     		</select>
         </div>
     </div>

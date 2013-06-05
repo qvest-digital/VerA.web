@@ -128,10 +128,10 @@
 
     $(function () {
         $('li#personendaten').click(function () {
-            window.location.href = '${paths.staticWeb}do/ShowPerson?id=$!person.id&tab=person';
+            window.location.href = '${paths.staticWeb}do/ShowPerson?id=$!person.id&personTab=1';
         });
         $('li#anschriften').click(function () {
-            window.location.href = '${paths.staticWeb}do/ShowPerson?id=$!person.id&tab=anschrift';
+            window.location.href = '${paths.staticWeb}do/ShowPerson?id=$!person.id&personTab=2';
         });
         $('li#kategorien').click(function () {
             window.location.href = '${paths.staticWeb}do/ShowPersonCategorieList?id=$!person.id';
