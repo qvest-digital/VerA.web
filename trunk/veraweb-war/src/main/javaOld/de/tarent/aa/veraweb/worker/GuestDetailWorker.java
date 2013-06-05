@@ -114,6 +114,7 @@ public class GuestDetailWorker extends GuestListWorker {
 		cntx.setContent("main", person.getMemberFacade(true, locale));
 		cntx.setContent("partner", person.getMemberFacade(false, locale));
 		cntx.setContent("address", person.getAddressFacade(addresstype, locale));
+		cntx.setContent("tab", cntx.requestAsString("tab"));
 
 		// Bug 1591 Im Kopf der Gaesteliste sollen nicht die Stammdaten, sondern die
 		// Daten der Gaesteliste angezeigt werden

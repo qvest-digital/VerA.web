@@ -100,12 +100,12 @@
 			</div>
 
 			<form id="GuestForm" name="GuestForm" action="SaveGuestDetail" method="post">
-			
+			<input type="hidden" name="tab" id="tab" value="allgemein" />
 			<div class="contentBox grayBorder tabs" vera-content="">
     			<div id="tabsMain2">
     				<ul vera-tab-group="" class="gray-gradient"> <!-- Bitte das End-tag der <li>s immer mit in die nächste Zeile nehmen (verhindert Mozilla styling bug) -->
-    					<li id="allgemein" onclick="" vera-tab-default="" vera-tab="" class="active">Allgemein
-    					</li><li id="hauptperson" onclick="" vera-tab="" class="active">$!config.main
+    					<li id="allgemein" onclick="" #if(!$tab || $tab =="allgemein") vera-tab-default #end vera-tab="" class="active">Allgemein
+    					</li><li id="hauptperson" onclick="" vera-tab="" #if($tab =="hauptperson") vera-tab-default #end class="active">$!config.main
     					</li><li id="partner" class="inactive">$!config.partner
     					</li>
     				</ul>
@@ -247,7 +247,7 @@
 						
 						#if($grants.mayWrite())
 							<span class="floatRight" id="buttonPanel-bottom">
-								<input type="button" name="save" value="Speichern"  class="mainButton" onclick="if ( validateGuestData() ) { return askPreSave(); } else { return false; }" />
+								<input type="button" name="save" value="Speichern"  class="mainButton" onClick="if ( validateGuestData() ) { return askPreSave(); } else { return false; }" />
 							</span>
 						#end
                     </form>
@@ -384,16 +384,22 @@
         
         $('li#allgemein').click(function () {
             showTab('detail-1');
+            $('input#tab').val("allgemein");
         });
         $('li#hauptperson').click(function () {
             showTab('detail-2');
+            $('input#tab').val("hauptperson");
         });
         $('li#partner').click(function () {
             showTab('detail-3');
+            $('input#tab').val("partner");
         });
         
     });
     
+    #if($tab == 'allgemein') showTab('detail-1'); 
+    #elseif($tab == 'hauptperson') showTab('detail-2'); 
+    #end   
 </script>
 
 #parse("inc/footer.vm")
