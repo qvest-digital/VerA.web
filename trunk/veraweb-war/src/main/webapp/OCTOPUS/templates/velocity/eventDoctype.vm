@@ -60,14 +60,14 @@
 				
                 <table class="notBold">
                 	<tr >
-						#if($list && $list.size() > 0)
+						#if($list && $list.size() > 0 && $grants.mayWrite())
 							<th class="smallCell textCenter"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" #if($listselection.size() == $listparam.count) checked#end title="Alle (de)markieren"/></th>
                 		#end
 						<th class="smallCell textCenter">ID</th>
                 		<th>Bezeichnung</th>
                 	</tr>
                 	<tr>
-						#if($list && $list.size() > 0)
+						#if($list && $list.size() > 0 && $grants.mayWrite())
 							<td class="textCenter"/>
 						#end
 						<input type="hidden" id="add-modified" name="add-modified" value="false"/><input type="checkbox" name="add-select" value="true"  style="display: none;"/>
