@@ -1,5 +1,6 @@
 #if($person && $person.id)
 	
+	#set($personDB = true)
 	#set($activeMenu = "Personen")
     #set($title = "Person bearbeiten: $!message.plain($person.MainLatin.SaveAs)")
     #parse("inc/header.vm")
@@ -24,13 +25,16 @@
 	#set($personMemberTab = "1")
 	#set($personAddresstypeTab = "1")
 	#set($personLocaleTab = "1")
-    #set($isNewPerson = 1)
     #set($title = "Neue Person anlegen")
 	#parse("inc/header.vm")
 	
 #end
 
 #set($searchTask = $octopusRequest.searchTask)
+
+#if(!$person || $octopusRequest.task == "CreatePerson" || $octopusRequest.task == "PersonDupcheckCancel")
+	#set($createNewPerson = true)
+#end
 
 <div id="content_container"> 
 
@@ -57,7 +61,7 @@
     #else
 		<input type="hidden" name="person-modified" id="modified" value="false"/>
     #end
-    #if(!$person || $octopusRequest.task == "CreatePerson")
+    #if(!$person || $octopusRequest.task == "CreatePerson" || $octopusRequest.task == "PersonDupcheckCancel")
 		<input type="hidden" name="forcedupcheck" id="forcedupcheck" value="true"/>
     #else
 		<input type="hidden" name="forcedupcheck" id="forcedupcheck" value="false"/>
@@ -108,8 +112,8 @@
     ##new cf. issue #2091
     <input type="hidden" id="action" name="action" value="$action"/>
     
-    #if ($person && $person.id)
-    <input type="hidden" name="person-nodupcheck" value="true"/>
+    #if ($personDB)
+    	<input type="hidden" name="person-nodupcheck" value="true"/>
     #end
     <input type="hidden" name="start" value="0"/>
     <input type="hidden" name="selectAll" value="false"/>
@@ -151,16 +155,21 @@
 	
 	<h1>$title</h1>
 
-    #if($isNewPerson)
+    #if($createNewPerson || !$personDB)
+        <div class="contentBoxColored hinweis grayBorder marginBottom20">
+            <strong>Hinweis</strong>
+			#if($octopusRequest.forcedupcheck == "true")
+				<p>Es wurden keine Dubletten gefunden. Sie k&ouml;nnen jetzt weitere Daten eingeben und die Daten speichern.</p>
+			#else 
+				<p>Bitte geben Sie zun&auml;chst den <strong>Vor- und Nachnamen</strong> an und f&uuml;hren die Dublettenpr&uuml;fung durch. 
+                    Bei Firmen w&auml;hlen Sie die Checkbox <strong>"Ist Firma"</strong> und tragen dann den Firmennamen ein. Das System pr&uuml;ft Ihre Angaben daraufhin auf Dubletten. 
+                    Liegt keine Dublette vor, k&ouml;nnen Sie weitere Daten eingeben und die Daten speichern.</p>
+			#end
+        </div>
+	#end
 
-    <div class="contentBoxColored hinweis grayBorder marginBottom20">
-        <strong>Hinweis</strong>
-        <p>Bitte geben Sie zunächst den <strong>Vor- und Nachnamen</strong> an und <strong>speichern</strong> die Person.
-            Bei Firmen wählen Sie die Checkbox <strong>"Ist Firma"</strong> und tragen dann den Firmennamen ein. Das System prüft Ihre Angaben daraufhin auf Dubletten. Liegt keine Dublette vor, können Sie weitere Daten eingeben</p>
-    </div>
-    #end	
 
-#if(!$isNewPerson)
+#if($personDB)
 	#parse("inc/person-header.vm")
 #end
 
@@ -170,7 +179,7 @@
     	<ul class="gray-gradient" vera-tab-group> <!-- Bitte das End-tag der <li>s immer mit in die nächste Zeile nehmen (verhindert Mozilla styling bug) -->
     		<li vera-tab="personendaten" #if(!$thisPersonTab || $thisPersonTab == "1") vera-tab-default #end onclick="$('#personTab').attr('value', '1');">Persondendaten
     		</li><li vera-tab="anschriften" #if($thisPersonTab && $thisPersonTab == "2") vera-tab-default #end onclick="$('#personTab').attr('value', '2');">Anschriften
-    		</li>#if(!$isNewPerson)<li class="inactive" id="dokumenttypen">Dokumenttypen
+    		</li>#if($personDB)<li class="inactive" id="dokumenttypen">Dokumenttypen
     		</li><li class="inactive" id="kategorien" onclick="showCategories();">Kategorien</li>#end
     	</ul>
     </div>
@@ -360,9 +369,13 @@
 		
 		<span id="buttonPanel-bottom" class="floatRight">
 			#if($grants.mayWrite())
-				<input type="submit" name="save" class="mainButton" value="Person speichern" title="Person speichern" />
+				#if($createNewPerson)
+					<input type="submit" name="save" class="mainButton" value="Dublettepr&uuml;fung durchf&uuml;hren" title="Dublettepr&uuml;fung durchf&uuml;hren" />
+				#else
+					<input type="submit" name="save" class="mainButton" value="Person speichern" title="Person speichern" />
+				#end
         	#end
-			#if( $action == "duplicateSearch" )
+			#if($action == "duplicateSearch")
         		<input type="button" name="cancel" class="mainButton" value="Zur Dublettensuche" title="Zur Dublettensuche" onclick="if (checkModified()) { window.location.href='${paths.staticWeb}do/PersonDuplicateSearch'; }">
         	#elseif($searchTask && $searchTask == "personSearchTask")
         	    <input type="button" name="cancel" class="mainButton" value="Zur&uuml;ck zum Suchergebnis" title="Zur&uuml;ck zum Suchergebnis" onclick="if (checkModified()) { window.location.href='${paths.staticWeb}do/SearchPerson?action=person&searchTask=personSearchTask'; }">

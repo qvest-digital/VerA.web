@@ -1,8 +1,4 @@
 
-#if(!$person || $octopusRequest.task == "CreatePerson")
-	#set($createNewPerson = 'true')
-#end
-
 <div vera-content="$addressType address$extEncoding">
 	<div class="table width100">
 		
