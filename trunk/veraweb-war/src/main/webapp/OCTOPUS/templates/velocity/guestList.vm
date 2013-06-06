@@ -431,7 +431,21 @@
             		#end
             		</td>
             	</tr>
+				#end
+				
+				#set($itemName = "Gästen")
+            	#parse("inc/list-navi-new.vm")
+				
+            	#if($search.listorder)
+					#parse("inc/list-direct-new.vm")
+            	#else
+					<tr class="colspan">
+						<td colspan="99">
+							Direkteinsprung: <em>Ist nur bei einer Sortierung nach Name, Vorname oder E-Mail-Adresse m&ouml;glich.</em>
+						</td>
+					</tr>
             	#end
+				
             </table>
         	
         	<div class="textRight" id="buttonPanel-bottom">
@@ -483,20 +497,12 @@
             			ansonsten die vollst&auml;ndige Liste.
             		</td>
             	</tr>
+				
             </table>
             
             <div>
         
-            
-            	#parse("inc/list-navi.vm")
 				
-            	#if($search.listorder)
-					#parse("inc/list-direct.vm")
-            	#else
-            		<div class="listnavidirect" style="text-align: left; width: 100%; margin-bottom: 10px;">
-            			Direkteinsprung: <em>Ist nur bei einer Sortierung nach Name, Vorname oder E-Mail-Adresse m&ouml;glich.</em>
-            		</div>
-            	#end
             
             #set($isUser = false)
             #set($isAdmin = false)
