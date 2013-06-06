@@ -82,7 +82,7 @@
 		*#
 		<!-- alter Code der tabs Ende-->	
 		
-		<div class="contentBoxColored tabsContent" vera-content="">
+		<div class="contentBoxColored tabsContent notBold" vera-content="">
             
             <form id="guestListFilter" name="guestListFilter" action="ShowGuestList" method="POST">
                 <input type="hidden" name="start" value="0">
