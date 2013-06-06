@@ -101,7 +101,7 @@
 
 			<form id="GuestForm" name="GuestForm" action="SaveGuestDetail" method="post">
 			<input type="hidden" name="tab" id="tab" value="$tab" />
-			<div class="contentBox grayBorder tabs" vera-content="">
+			<div class="contentBox grayBorder tabs marginBottom10" vera-content="">
     			<div id="tabsMain2">
     				<ul vera-tab-group="" class="gray-gradient"> <!-- Bitte das End-tag der <li>s immer mit in die nächste Zeile nehmen (verhindert Mozilla styling bug) -->
     					<li id="allgemein" onclick="" #if(!$tab || $tab =="detail-1") vera-tab-default #end vera-tab="" class="active">Allgemein
@@ -222,34 +222,13 @@
 						</div>
 					</div>							
 					
-						<span class="paging">
-    						 <table><tr><td>
-                            <span class="listnavitext" style="margin-right: 15px;">Gast $search.offset von $search.count</span>
-                            
-                            #set($offset = $search.offset - 1)
-                            #if ($offset <= 0)
-                            	<a class="listnavilinkinactiv" title="Erster Gast">&laquo;&laquo;</a>
-                            	<a class="listnavilinkinactiv" title="Vorheriger Gast">&laquo;</a>
-                            #else
-                            	<a href="javascript:window.location.href='ShowGuestDetail?offset=1&tab=detail-' + detail;" class="listnavilink" title="Erster Gast">&laquo;&laquo;</a>
-                            	<a href="javascript:window.location.href='ShowGuestDetail?offset=$offset&tab=detail-' + detail;" class="listnavilink" title="Vorheriger Gast">&laquo;</a>
-                            #end
-                            #set($offset = $search.offset + 1)
-                            #if ($offset > $search.count)
-                            	<a class="listnavilinkinactiv" title="N&auml;chster Gast">&raquo;</a>
-                            	<a class="listnavilinkinactiv" title="Letzter Gast">&raquo;&raquo;</a>
-                            #else
-                            	<a href="javascript:window.location.href='ShowGuestDetail?offset=$offset&tab=detail-' + detail;" class="listnavilink" title="N&auml;chster Gast">&raquo;</a>
-                            	<a href="javascript:window.location.href='ShowGuestDetail?offset=$search.count&tab=detail-' + detail;" class="listnavilink" title="Letzter Gast">&raquo;&raquo;</a>
-                            #end
-                            </td></tr></table>
-						</span>
+					#parse("inc/guest-navi.vm")
 						
-						#if($grants.mayWrite())
-							<span class="floatRight" id="buttonPanel-bottom">
-								<input type="button" name="save" value="Speichern"  class="mainButton" onClick="if ( validateGuestData() ) { return askPreSave(); } else { return false; }" />
-							</span>
-						#end
+					#if($grants.mayWrite())
+						<span class="floatRight" id="buttonPanel-bottom">
+							<input type="button" name="save" value="Speichern"  class="mainButton" onClick="if ( validateGuestData() ) { return askPreSave(); } else { return false; }" />
+						</span>
+					#end
                     </form>
 				
 			
