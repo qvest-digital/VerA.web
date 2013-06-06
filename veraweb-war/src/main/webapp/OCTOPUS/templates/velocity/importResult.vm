@@ -8,7 +8,12 @@
     </div>
     <h1>Importstatus</h1>
 	
-	<div class="hinweis grayBorder"><strong>Hinweis</strong><br /></div>
+	<div class="hinweis contentBoxColored grayBorder marginBottom20">
+		<strong>Hinweis</strong><br />
+		Um Dubletten speicherbar zu machen, m&uuml;ssen sie zun&auml;chst im Bereich &bdquo;vorhandene Dubletten&rdquo; &uuml;bernommen werden.<br />
+		Der Import ist erst beendet, wenn er abgeschlossen wurde.  <br />
+		Der Import kann erst abgeschlossen werden, wenn speicherbare Datens&auml;tze vorhanden sind.
+	</div>
 	
 	#if($importStatus.dupCount && $importStatus.dupCount != 0)
 		<div id="buttonPanel-top" class="textRight marginBottom10">
@@ -30,23 +35,16 @@
 				<div class="tableCell width30">
 					<strong>Import-ID:</strong> $!message.text($importStatus.id)
 				</div>
-				<div class="tableCell">
-					<strong>Zu importierende Datens&auml;tze</strong><br />
-					<strong>Insgesamt:</strong> $!importStatus.dsCount<br />
-					<strong>Davon Dubletten:</strong> $!importStatus.dupCount<br />
-					<strong>Davon speicherbar:</strong> $!importStatus.saveCount<br />
+				<div class="tableCell width70">
+					<strong>Zu importierende Datens&auml;tze insgesamt:</strong> $!importStatus.dsCount<br />
+					<strong>davon Dubletten:</strong> $!importStatus.dupCount<br />
+					<strong>davon speicherbar:</strong> $!importStatus.saveCount<br />
         			#if($importStatus.igCount  && $importStatus.igCount != 0)
 						<strong>Ignorierte Fehlerdatens&auml;tze:</strong> $!importStatus.igCount
         			#end
 					
-				</div>
-				<div class="tableCell hinweis grayBorder">
-					<strong>Hinweis</strong> <br />
-					Um Dubletten speicherbar zu machen, m&uuml;ssen sie im Bereich &bdquo;vorhandene Dubletten&rdquo; &uuml;bernommen werden.
 				</div>				
 			</div>
-
-
 
 		</div>
 		
