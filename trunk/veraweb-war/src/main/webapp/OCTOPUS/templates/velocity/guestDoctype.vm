@@ -2,13 +2,27 @@
 #set($title = "G&auml;steliste f&uuml;r Veranstaltung: $!message.plain($event.shortname)")
 #parse("inc/header.vm")
 
-<table class="tab" border="0" cellspacing="0" cellpadding="0"><tr>
-	<td class="tableft">&nbsp;</td>
-	<td class="tabinactiv"><a href="ShowGuestList" class="tabinactiv">G&auml;steliste</a></td>
-	<td class="tabinactiv"><a href="ShowGuestDetail" class="tabinactiv">Gastdetails</a></td>
-	<td class="tabactiv"><span class="tabactiv">Dokumenttypen</span></td>
-	<td class="tabright">&nbsp;</td>
-</tr></table>
+
+<div id="content_container">
+	<div id="breadcrumb" class="textRight marginBottom10">
+    		<strong>Sie sind hier</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Veranstaltungen > Veranstaltung bearbeiten</span>
+    </div>
+    <h1>G&auml;steverwaltung der Veranstaltung: $!message.plain($event.shortname)</h1>
+	
+	#if(!$isNewEvent)
+		#set($completeEventHeader = true)
+      	#parse("inc/event-header.vm")
+    #end
+	
+	<div class="tabs contentBox grayBorder marginBottom10 marginTop20" id="main_content">
+    	<div id="tabsMain">
+    		<ul vera-tab-group="" class="gray-gradient"> <!-- Bitte das End-tag der <li>s immer mit in die nächste Zeile nehmen (verhindert Mozilla styling bug) -->
+    			<li id="gaesteliste" onclick=""  vera-tab="" class="active">G&auml;steliste
+    			</li><li id="gastdetails" onclick="" vera-tab="" class="inactive">Gastdetails
+    			</li><li id="dokumenttypen" vera-tab-default="" class="inactive">Dokumenttypen
+    			</li>
+    		</ul>
+    	</div>
 
 
 
@@ -311,9 +325,21 @@
 		document.getElementById('ReloadGuestDoctypeForm').submit();
 	}
 
-#if(!$grants.mayWrite())
-	disableForm(document.getElementById('GuestForm'));
-#end
+    #if(!$grants.mayWrite())
+    	disableForm(document.getElementById('GuestForm'));
+    #end
+
+	$(function () {
+        $('li#gaesteliste').click(function () {
+            window.location.href = '${paths.staticWeb}do/ShowGuestList';
+        });
+		
+        $('li#gastdetails').click(function () {
+            window.location.href = '${paths.staticWeb}do/ShowGuestDetail';
+        });
+    });
 </script>
+</div>
+</div>
 
 #parse("inc/footer.vm")
