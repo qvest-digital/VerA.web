@@ -57,7 +57,9 @@
     			#foreach($bean in $list)
     				<input type="hidden" name="list" value="$bean.id"/>
 				#end
-				
+
+
+                #if(($list && $list.size() > 0) || $grants.mayWrite())
                 <table class="notBold">
                 	<tr >
 						#if($list && $list.size() > 0 && $grants.mayWrite())
@@ -66,8 +68,9 @@
 						<th class="smallCell textCenter">ID</th>
                 		<th>Bezeichnung</th>
                 	</tr>
+                    #if($grants.mayWrite())
                 	<tr>
-						#if($list && $list.size() > 0 && $grants.mayWrite())
+						#if($grants.mayWrite())
 							<td class="textCenter"/>
 						#end
 						<input type="hidden" id="add-modified" name="add-modified" value="false"/><input type="checkbox" name="add-select" value="true"  style="display: none;"/>
@@ -81,9 +84,12 @@
                 			</select>
                 		</td>
                 	</tr>
+                    #end
                 	#foreach($bean in $list)
                     	<tr>
+                            #if($grants.mayWrite())
                     		<td class="textCenter"><input type="hidden" id="${bean.id}-modified" name="${bean.id}-modified" value="false"/><input type="checkbox" name="${bean.id}-select" value="true"  #if($listselection.indexOf($bean.id) != -1) checked#end/></td>
+                            #end
                     		<td class="textCenter"><input type="hidden" name="${bean.id}-id" value="$!bean.id"/><input type="hidden" name="${bean.id}-event" value="$!event.id"/>$!bean.id</td>
                     		<td>$!bean.name</td>
                     	</tr>
@@ -99,7 +105,8 @@
 					#parse("inc/list-navi-new.vm")
 					
                 </table>
-			
+                #end
+
 			</div>
 			
 		</div>
