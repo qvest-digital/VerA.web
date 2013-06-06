@@ -7,6 +7,8 @@
     #parse("inc/header.vm")
 #end
 
+#set($searchTask = $octopusRequest.searchTask)
+
 <div id="content_container"> 
 
 	#if (!$status || ($status && $status.code && $status.code != "saveperson"))
@@ -56,10 +58,10 @@
     <div id="main_content" class="tabs contentBox grayBorder marginBottom10">
         <div id="tabsMain">
         	<ul class="gray-gradient" vera-tab-group> <!-- Bitte das End-tag der <li>s immer mit in die nächste Zeile nehmen (verhindert Mozilla styling bug) -->
-        		<li class="inactive" id="personendaten" onclick="window.location.href='${paths.staticWeb}do/ShowPerson?id=$!person.id&personTab=1&offset=${navigation.current.offset}';">Persondendaten
-        		</li><li class="inactive" id="anschriften" onclick="window.location.href='ShowPerson?id=$!person.id&personTab=2&offset=${navigation.current.offset}';">Anschriften
-        		</li><li class="inactive" id="dokumenttypen" onclick="window.location.href='ShowPersonDoctypeList?id=$!person.id&offset=${navigation.current.offset}';">Dokumenttypen
-        		</li><li class="active" id="kategorien" onclick="window.location.href='ShowPersonCategorieList?id=$!person.id&offset=${navigation.current.offset}';">Kategorien</li>
+        		<li class="inactive" id="personendaten" onclick="window.location.href='${paths.staticWeb}do/ShowPerson?id=$!person.id&searchTask=$!searchTask&personTab=1&offset=${navigation.current.offset}';">Persondendaten
+        		</li><li class="inactive" id="anschriften" onclick="window.location.href='ShowPerson?id=$!person.id&searchTask=$!searchTask&personTab=2&offset=${navigation.current.offset}';">Anschriften
+        		</li><li class="inactive" id="dokumenttypen" onclick="window.location.href='ShowPersonDoctypeList?id=$!person.id&searchTask=$!searchTask&offset=${navigation.current.offset}';">Dokumenttypen
+        		</li><li class="active" id="kategorien" onclick="window.location.href='ShowPersonCategorieList?id=$!person.id&searchTask=$!searchTask&offset=${navigation.current.offset}';">Kategorien</li>
         	</ul>
         </div>
     	
@@ -71,6 +73,7 @@
                 <input type="hidden" name="selectAll" value="false"/>
                 <input type="hidden" name="selectNone" value="false"/>
 				<input type="hidden" id="modified" value="false">
+                <input type="hidden" name="searchTask" value="$!searchTask"/>
                 
                 #parse("inc/person-categorie.vm")
     
@@ -132,9 +135,11 @@
         	<input type="button" name="cancel" value="Zur Personen&uuml;bersicht" title="Zur Personen&uuml;bersicht" class="mainButton" onclick="window.location.href='${paths.staticWeb}do/ShowGuestDetail';"/>				
         #elseif($action == "duplicateSearch")
             <input type="button" name="cancel" value="Zur Dublettensuche" title="Zur Dublettensuche" class="mainButton" onclick="window.location.href='${paths.staticWeb}do/PersonDuplicateSearch';">
+        #elseif($searchTask && $searchTask == "personSearchTask")
+            <input type="button" name="cancel" class="mainButton" value="Zur&uuml;ck zum Suchergebnis" title="Zur&uuml;ck zum Suchergebnis" onclick="if (checkModified()) { window.location.href='${paths.staticWeb}do/SearchPerson?action=person&searchTask=personSearchTask'; }">
         #else
-        	<input type="button" name="cancel" value="Zur Personen&uuml;bersicht" title="Zur Personen&uuml;bersicht" class="mainButton" onclick="window.location.href='${paths.staticWeb}do/SearchPerson?action=person';"/>				
-        #end				
+            <input type="button" name="cancel" class="mainButton" value="Zur Personen&uuml;bersicht" title="Zur Personen&uuml;bersicht" onclick="if (checkModified()) { window.location.href='${paths.staticWeb}do/SearchPerson?action=person'; }">
+        #end
     </span>
     
     

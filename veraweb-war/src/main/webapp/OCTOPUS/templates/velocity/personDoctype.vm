@@ -7,6 +7,7 @@
 #parse("inc/header.vm")
 #end
 
+#set($searchTask = $octopusRequest.searchTask)
 
 <div id="breadcrumb" class="textRight marginBottom10">
     <strong>Sie sind hier</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Personen > #if($person && $person.id)Person bearbeiten#else Person anlegen#end</span>
@@ -61,8 +62,10 @@
         	<input type="button" name="cancel" value="Zur Personen&uuml;bersicht" title="Zur Personen&uuml;bersicht" class="mainButton" onclick="window.location.href='${paths.staticWeb}do/ShowGuestDetail';"/>
         #elseif($action == "duplicateSearch")
             <input type="button" name="cancel" value="Zur Dublettensuche" title="Zur Dublettensuche" class="mainButton" onclick="window.location.href='${paths.staticWeb}do/PersonDuplicateSearch';">
+        #elseif($searchTask && $searchTask == "personSearchTask")
+            <input type="button" name="cancel" class="mainButton" value="Zur&uuml;ck zum Suchergebnis" title="Zur&uuml;ck zum Suchergebnis" onclick="if (checkModified()) { window.location.href='${paths.staticWeb}do/SearchPerson?action=person&searchTask=personSearchTask'; }">
         #else
-        	<input type="button" name="cancel" value="Zur Personen&uuml;bersicht" title="Zur Personen&uuml;bersicht" class="mainButton" onclick="window.location.href='${paths.staticWeb}do/SearchPerson?action=person';"/>
+            <input type="button" name="cancel" class="mainButton" value="Zur Personen&uuml;bersicht" title="Zur Personen&uuml;bersicht" onclick="if (checkModified()) { window.location.href='${paths.staticWeb}do/SearchPerson?action=person'; }">
         #end
     </span>
 
@@ -76,6 +79,7 @@
 
 
 
+<input type="hidden" name="searchTask" value="$!searchTask"/>
 <input type="hidden" id="modified" value="false">
 <input type="hidden" id="inviteGuestReserve" name="inviteGuestReserve" value="false">
 <input type="hidden" id="inviteGuestPartner" name="inviteGuestPartner" value="false">
@@ -128,13 +132,13 @@
 
     $(function () {
         $('li#personendaten').click(function () {
-            window.location.href = '${paths.staticWeb}do/ShowPerson?id=$!person.id&personTab=1';
+            window.location.href = '${paths.staticWeb}do/ShowPerson?id=$!person.id&searchTask=$!searchTask&personTab=1';
         });
         $('li#anschriften').click(function () {
-            window.location.href = '${paths.staticWeb}do/ShowPerson?id=$!person.id&personTab=2';
+            window.location.href = '${paths.staticWeb}do/ShowPerson?id=$!person.id&searchTask=$!searchTask&personTab=2';
         });
         $('li#kategorien').click(function () {
-            window.location.href = '${paths.staticWeb}do/ShowPersonCategorieList?id=$!person.id';
+            window.location.href = '${paths.staticWeb}do/ShowPersonCategorieList?id=$!person.id&searchTask=$!searchTask';
         });
 
         var save = $('input[name=save]');

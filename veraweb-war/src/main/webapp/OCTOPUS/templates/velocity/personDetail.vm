@@ -30,6 +30,8 @@
 	
 #end
 
+#set($searchTask = $octopusRequest.searchTask)
+
 <div id="content_container"> 
 
 #if($octopusRequest.task == "AddPersonToEventDetail")
@@ -45,6 +47,7 @@
 
 <form id="PersonForm" name="PersonForm" action="${paths.staticWeb}do/SavePerson" method="post">
     <input type="hidden" name="id" value="$!person.id"/>
+	<input type="hidden" name="searchTask" value="$!searchTask"/>
     <input type="hidden" name="person-id" value="$!person.id"/>
     <input type="hidden" name="person-orgunit" value="$!person.orgunit"/>
     <input type="hidden" name="person-deleted" #if($person.deleted && $person.deleted == "t") value="t" #else value="f" #end/>
@@ -361,7 +364,9 @@
         	#end
 			#if( $action == "duplicateSearch" )
         		<input type="button" name="cancel" class="mainButton" value="Zur Dublettensuche" title="Zur Dublettensuche" onclick="if (checkModified()) { window.location.href='${paths.staticWeb}do/PersonDuplicateSearch'; }">
-        	#else
+        	#elseif($searchTask && $searchTask == "personSearchTask")
+        	    <input type="button" name="cancel" class="mainButton" value="Zur&uuml;ck zum Suchergebnis" title="Zur&uuml;ck zum Suchergebnis" onclick="if (checkModified()) { window.location.href='${paths.staticWeb}do/SearchPerson?action=person&searchTask=personSearchTask'; }">
+            #else
         	    <input type="button" name="cancel" class="mainButton" value="Zur Personen&uuml;bersicht" title="Zur Personen&uuml;bersicht" onclick="if (checkModified()) { window.location.href='${paths.staticWeb}do/SearchPerson?action=person'; }">
     		#end
 		</span>
@@ -423,7 +428,7 @@
     		document.getElementById('PersonForm').action = '${paths.staticWeb}do/ShowPersonDoctypeList';
     		document.getElementById('PersonForm').submit();
 		} else {
-			window.location.href = '${paths.staticWeb}do/ShowPersonDoctypeList?id=$!person.id&offset=${navigation.current.offset}';
+			window.location.href = '${paths.staticWeb}do/ShowPersonDoctypeList?id=$!person.id&searchTask=$!searchTask&offset=${navigation.current.offset}';
 		}
 	}
 	
@@ -432,7 +437,7 @@
     		document.getElementById('PersonForm').action = '${paths.staticWeb}do/ShowPersonCategorieList';
     		document.getElementById('PersonForm').submit();
 		} else {
-			window.location.href = '${paths.staticWeb}do/ShowPersonCategorieList?id=$!person.id&offset=${navigation.current.offset}';
+			window.location.href = '${paths.staticWeb}do/ShowPersonCategorieList?id=$!person.id&searchTask=$!searchTask&offset=${navigation.current.offset}';
 		}
 	}
 	
@@ -520,7 +525,7 @@
                 form.attr('action', '${paths.staticWeb}do/ShowPersonDoctypeList');
                 form.submit();
             } else {
-                window.location.href = '${paths.staticWeb}do/ShowPersonDoctypeList?id=$!person.id&tab=person';
+                window.location.href = '${paths.staticWeb}do/ShowPersonDoctypeList?id=$!person.id&searchTask=$!searchTask&tab=person';
             }
         });
     });
