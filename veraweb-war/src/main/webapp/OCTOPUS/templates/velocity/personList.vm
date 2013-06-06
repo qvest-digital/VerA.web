@@ -265,7 +265,7 @@
 				
 				<span id="actionPanel" class="inlineLabel">
 					<label>
-    					#if($isUser)
+                        #if($grants.mayWrite())
     						Markierte Person(en)
 							<select id="actionSelection">
 								<option>Löschen</option>
@@ -315,7 +315,7 @@
 				
 				function selectedActionRemovePerson() {
 					var confirmResult = false;
-                    #if($isUser)
+                    #if($grants.mayWrite())
                 		confirmResult = confirm('Markierte Person wirklich entfernen?');
                     #elseif($isAdmin)
                 		confirmResult = confirm('Sollen alle markierten Personen entfernt werden?');
@@ -343,7 +343,7 @@
 			#if($action!="replace" && $action!="duplicateSearch" && !$searchTask)
         		<span id="buttonPanel-top" class="textRight floatRight">
         			<input type="button" id="button.searchPerson" name="button.searchPerson" value="Personen suchen" title="Personen suchen" class="mainButton" onclick="window.location.href='ShowPersonSearch?search=clear';" />
-        			#if($isUser)
+        			#if($grants.mayWrite())
 						<input type="button" id="button.newPerson" name="button.newPerson" value="Neue Person anlegen" title="Neue Person anlegen" class="mainButton" onclick="window.location.href='CreatePerson';" />
 					#end
         		</span>
@@ -360,7 +360,7 @@
                 <table class="list">
                 	#if($action == "guest")
                     	<tr>
-							#if($isUser)
+                            #if($grants.mayWrite())
 								<th class="textCenter smallCell" title="$!config.main einladen"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" #if($listselection.size() == $listparam.count) checked#end title="Alle (de)markieren"/> H</th>
     							<th class="textCenter smallCell" title="$!config.partner einladen">P</th>
                         		<th class="textCenter smallCell" title="Auf Reserve">R</th>
@@ -425,7 +425,7 @@
                     	## cklein
                     	## 2008-02-27
                     	<tr>
-							#if($isUser)
+                            #if($grants.mayWrite())
 								<th class="textCenter smallCell"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" #if($listselection.size() == $listparam.count) checked#end title="Alle (de)markieren"/></th>
                     		#end
 							<th class="textCenter smallCell">ID</th>
@@ -442,7 +442,7 @@
                     	</tr>
                 	#else
                     	<tr>
-							#if($isUser || ($exportFormat && $grants.mayExport()) || $action == "replace")
+                            #if($grants.mayWrite() || ($exportFormat && $grants.mayExport()) || $action == "replace")
 								<th class="textCenter smallCell"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" #if($listselection.size() == $listparam.count) checked#end title="Alle (de)markieren"/></th>
                     		#end
 							<th class="textCenter smallCell">ID</th>
@@ -467,7 +467,7 @@
                                 ## Fix for Bug 987
                                 ## cklein
                                 ## 2008-02-22
-								#if($isUser)
+                                #if($grants.mayWrite())
                             		#if($event.invitationtype == 2)
                             			## Ohne Partner
                             			<td title="$!config.main einladen">
@@ -592,8 +592,8 @@
                         	
                         	## fixing bug 1037
                         	## 2008-03-25 cklein
-                        	
-    							#if($isUser)
+
+                                #if($grants.mayWrite())
                             		<td><input type="checkbox" name="${bean.id}-select" value="true" onChange="selectionChange( this );" #if($listselection.indexOf($bean.id) != -1) checked#end></td>
                         		#end
 								<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!{action}';"><input type="hidden" name="${bean.id}-id" value="$bean.id">$!{bean.id}</td>
@@ -610,7 +610,7 @@
                         	</tr>	
                     	#else
                         	<tr>
-								#if($isUser || ($exportFormat && $grants.mayExport()) || $action == "replace")
+                                #if($grants.mayWrite() || ($exportFormat && $grants.mayExport()) || $action == "replace")
 									<td><input type="checkbox" name="${bean.id}-select" value="true" onChange="selectionChange( this );" #if($listselection.indexOf($bean.id) != -1) checked#end></td>
                         		#end
 								<td onclick="window.location.href='ShowPerson?id=$!{bean.id}';"><input type="hidden" name="${bean.id}-id" value="$bean.id">$!{bean.id}</td>
