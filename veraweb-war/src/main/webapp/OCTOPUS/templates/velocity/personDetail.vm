@@ -340,7 +340,7 @@
 			#if($grants.mayWrite())
 				<input type="submit" name="save" class="mainButton" value="Person speichern" title="Person speichern"/>
 			#end
-            <input type="button" name="cancel" class="mainButton" value="Zur&uuml;ck zur Personensuche" title="Zur&uuml;ck zur Personensuche" onclick="if (checkModified()) { window.location.href='${paths.staticWeb}do/AddPersonToEventList'; }">
+            <input type="button" name="cancel" class="mainButton" value="Zur&uuml;ck zur Personensuche" title="Zur&uuml;ck zur Personensuche" onclick="if (checkModified()) { window.location.href='${paths.staticWeb}do/AddPersonToEventList?searchTask=personSearchTask'; }">
         </span>
 			
 	#elseif($action == "host")
