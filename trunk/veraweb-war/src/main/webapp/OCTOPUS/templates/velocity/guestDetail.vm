@@ -222,7 +222,7 @@
 						</div>
 					</div>							
 					
-					#parse("inc/guest-navi.vm")
+					#parse("inc/guest-detail-navi.vm")
 						
 					#if($grants.mayWrite())
 						<span class="floatRight" id="buttonPanel-bottom">
