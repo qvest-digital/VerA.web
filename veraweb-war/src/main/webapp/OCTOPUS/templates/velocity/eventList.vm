@@ -29,6 +29,15 @@
 			<h1>Veranstaltungs&uuml;bersicht</h1>
 	#end
 
+
+
+    #if($action == "guest")
+    <div class="hinweis contentBoxColored grayBorder marginBottom15">
+        <strong>Hinweis</strong>
+        <p>Bitte klicken Sie eine der aufgelisteten Veranstaltungen an, um die G&auml;ste zu &uuml;bernehmen.</p>
+    </div>
+    #end
+
 	
 	<form id="formlist" name="formlist" action="$formurl" method="POST">
     	<input type="hidden" name="start" value="">
@@ -56,13 +65,15 @@
     		</div>
 			
 		#else
-			
+
+            #if($action != "guest")
             <span id="actionPanel" class="inlineLabel">
             	#if(($action != "guest" || $action != "addperson") && $grants.mayWrite())
         			<strong>Markierte Veranstaltung(en)</strong>
             		<input type="submit" name="remove" value="L&ouml;schen" title="Markierte Veranstaltungen l&ouml;schen" onclick="return confirm('Markierte Veranstaltungen wirklich l&ouml;schen?');" />
             	#else &nbsp; #end        
         	</span>
+            #end
 			
         	#if($action != "guest" && $action != "addPerson" && !$searchTask )
             	<span id="" class="buttonPanel-top textRight floatRight">
