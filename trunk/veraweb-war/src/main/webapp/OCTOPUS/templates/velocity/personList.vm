@@ -66,6 +66,7 @@
             <input type="hidden" name="categoryAssignmentId" value="" />
             <input type="hidden" name="workareaAssignmentAction" value="" />
             <input type="hidden" name="workareaAssignmentId" value="" />
+			<input type="hidden" name="searchTask" value="$!searchTask" />
     
             #if(($listerrors && $listerrors.size() > 0) || ($listquestions && $listquestions.size() > 0))
                 #set($save = false)
