@@ -9,7 +9,11 @@
     </div>
     <h1>Importstatus: vorhandene Dubletten bearbeiten</h1>
 	
-	<div class="hinweis grayBorder"><strong>Hinweis</strong><br /></div>
+	<div class="hinweis contentBoxColored grayBorder marginBottom20"><strong>Hinweis</strong><br />
+		Dubletten die durch den <strong>Import hinzugefügt werden würden</strong>, sind mit einer Checkbox gekennzeichnet. 
+		Darunter befinden sich die bereits im System vorhandenen, entsprechenden Datens&auml;tze.<br /> 
+		Um eine Dublette in den Import zu integrieren, m&uuml;ssen Sie sie &uuml;bernehmen. 
+	</div>
     
     <form id="formlist" name="formlist" action="ImportPersonsEditDuplicates" method="POST">
         <input type="hidden" name="start" value=""/>

@@ -305,6 +305,8 @@ pre {
     white-space: pre-wrap;
 }
 
+.inlineBlock {display:inline-block;}
+
 /************* End misc *************/
 
 /************* End general *************/
