@@ -4,9 +4,11 @@
 
 <div id="content_container">
     <div id="breadcrumb" class="textRight marginBottom10">
-    	<strong>Sie sind hier</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Personen > <a href="${paths.staticWeb}do/ImportPersons" title="Zum Personen-Import">Personenimport</a> > Importergebnis</span>
+    	<strong>Sie sind hier</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Personen > <a href="${paths.staticWeb}do/ImportPersons" title="Zum Personen-Import">Personenimport</a> > Importstatus</span>
     </div>
-    <h1>Importergebnis</h1>
+    <h1>Importstatus</h1>
+	
+	<div class="hinweis grayBorder"><strong>Hinweis</strong><br /></div>
 	
 	#if($importStatus.dupCount && $importStatus.dupCount != 0)
 		<div id="buttonPanel-top" class="textRight marginBottom10">
@@ -16,56 +18,36 @@
                 <input type="hidden" name="saveCount" value="$saveCount"/>
                 <input type="hidden" name="start" value="0"/>
     			<input type="hidden" name="selectNone" #if($selectNone && $selectNone == "false") value="false" #else value="true" #end/>
-                <input type="submit" class="mainButton" value="Dubletten"/>
+                <input type="submit" class="mainButton" value="vorhandene Dubletten"  title="Vorhandene Dubletten bearbeiten" />
             </form>
 		</div>
 	#end
 	
 	<div id="main_content" class="contentBoxColored grayBorder marginBottom10">
 		
-		<div class="table width70">
+		<div class="table width100">
 			<div class="tableRow">
-				<div class="tableCell inlineLabel width30">
-					<strong>Import-ID:</strong>
+				<div class="tableCell width30">
+					<strong>Import-ID:</strong> $!message.text($importStatus.id)
 				</div>
 				<div class="tableCell">
-					$!message.text($importStatus.id)
+					<strong>Zu importierende Datens&auml;tze</strong><br />
+					<strong>Insgesamt:</strong> $!importStatus.dsCount<br />
+					<strong>Davon Dubletten:</strong> $!importStatus.dupCount<br />
+					<strong>Davon speicherbar:</strong> $!importStatus.saveCount<br />
+        			#if($importStatus.igCount  && $importStatus.igCount != 0)
+						<strong>Ignorierte Fehlerdatens&auml;tze:</strong> $!importStatus.igCount
+        			#end
+					
 				</div>
+				<div class="tableCell hinweis grayBorder">
+					<strong>Hinweis</strong> <br />
+					Um Dubletten speicherbar zu machen, m&uuml;ssen sie im Bereich &bdquo;vorhandene Dubletten&rdquo; &uuml;bernommen werden.
+				</div>				
 			</div>
-			<div class="tableRow">
-				<div class="tableCell">
-					<strong>Datens&auml;tze Insgesamt:</strong>
-				</div>
-				<div class="tableCell">
-					$!importStatus.dsCount
-				</div>
-			</div>
-			<div class="tableRow">
-				<div class="tableCell">
-					<strong>Anzahl Dubletten:</strong>
-				</div>
-				<div class="tableCell">
-					$!importStatus.dupCount
-				</div>
-			</div>
-			<div class="tableRow">
-				<div class="tableCell">
-					<strong>Datens&auml;tze speicherbar:</strong>
-				</div>
-				<div class="tableCell">
-					$!importStatus.saveCount
-				</div>
-			</div>
-			#if($importStatus.igCount  && $importStatus.igCount != 0)
-				<div class="tableRow">
-    				<div class="tableCell">
-    					<strong>Ignorierte Fehlerdatens&auml;tze:</strong>
-    				</div>
-    				<div class="tableCell">
-    					$!importStatus.igCount
-    				</div>
-    			</div>
-			#end
+
+
+
 		</div>
 		
 	</div>

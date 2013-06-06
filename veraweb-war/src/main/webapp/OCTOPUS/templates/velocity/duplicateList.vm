@@ -1,13 +1,15 @@
 #set($activeMenu = "Personen")
-#set($title = "Importergebnis - Dubletten &uuml;bernehmen")
+#set($title = "Importstatus - Dubletten &uuml;bernehmen")
 #parse("inc/header.vm")
 
 <div id="content_container">
 
     <div id="breadcrumb" class="textRight marginBottom10">
-    	<strong>Sie sind hier</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Personen > <a href="${paths.staticWeb}do/ImportPersons" title="Zum Personen-Import">Personen-Import</a> > Importergebnis</span>
+    	<strong>Sie sind hier</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Personen > <a href="${paths.staticWeb}do/ImportPersons" title="Zum Personen-Import">Personen-Import</a> > Importstatus</span>
     </div>
-    <h1>Dubletten</h1>
+    <h1>Importstatus: vorhandene Dubletten bearbeiten</h1>
+	
+	<div class="hinweis grayBorder"><strong>Hinweis</strong><br /></div>
     
     <form id="formlist" name="formlist" action="ImportPersonsEditDuplicates" method="POST">
         <input type="hidden" name="start" value=""/>
@@ -19,7 +21,7 @@
     		
     	<span id="actionPanel" class="inlineLabel">
     		<label>Markierte Person(en)
-    			<input type="submit" name="save" type="button" value="&uuml;bernehmen" title="Markierte Person(en) &uuml;bernehmen"/>
+    			<input type="submit" name="save" type="button" value="Als Dublette &uuml;bernehmen" title="Markierte Person(en) als Dublette &uuml;bernehmen"/>
             </label>
     	</span>
     	
@@ -111,7 +113,7 @@
     	#end
         
         <span id="buttonPanel-top" class="textRight floatRight">
-			<input type="button" id="button.cancel" name="button.cancel" value="Zur&uuml;ck zu Importergebnis" class="mainButton" onclick="document.formlist.action='ImportPersonsStoredRecord';document.formlist.submit();" />
+			<input type="button" id="button.cancel" name="button.cancel" value="Zur&uuml;ck zu Importstatus" class="mainButton" onclick="document.formlist.action='ImportPersonsStoredRecord';document.formlist.submit();" />
 		</span>
     
     </form>
