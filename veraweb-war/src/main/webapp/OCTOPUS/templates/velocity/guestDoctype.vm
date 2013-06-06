@@ -275,28 +275,10 @@
 #end
 
 <div>
-<div id="fixme" class="fixme1"><div class="fixme2"><div class="fixme3">
-	
-<table cellspacing="0" cellpadding="0" style="width: 100%; margin-bottom: 5px;"><tr><td>
-<span class="listnavitext" style="margin-right: 15px;">Gast $search.offset von $search.count</span>
 
-#set($offset = $search.offset - 1)
-#if ($offset <= 0)
-	<a class="listnavilinkinactiv" title="Erster Gast">&laquo;&laquo;</a>
-	<a class="listnavilinkinactiv" title="Vorheriger Gast">&laquo;</a>
-#else
-	<a href="ShowGuestDoctype?offset=1" class="listnavilink" title="Erster Gast">&laquo;&laquo;</a>
-	<a href="ShowGuestDoctype?offset=$offset" class="listnavilink" title="Vorheriger Gast">&laquo;</a>
-#end
-#set($offset = $search.offset + 1)
-#if ($offset > $search.count)
-	<a class="listnavilinkinactiv" title="N&auml;chster Gast">&raquo;</a>
-	<a class="listnavilinkinactiv" title="Letzter Gast">&raquo;&raquo;</a>
-#else
-	<a href="ShowGuestDoctype?offset=$offset" class="listnavilink" title="N&auml;chster Gast">&raquo;</a>
-	<a href="ShowGuestDoctype?offset=$search.count" class="listnavilink" title="Letzter Gast">&raquo;&raquo;</a>
-#end
-</td></tr></table>
+#parse("inc/guest-doctype-navi.vm")
+
+<div id="fixme" class="fixme1"><div class="fixme2"><div class="fixme3">
 
     <input type="submit" name="save" value="Speichern" #if($grants.mayWrite()) class="button" #else class="buttondisabled" vera-disabled #end> &nbsp;
     <input type="button" name="refresh" value="Neu laden" class="button" onclick="window.location.href='ReloadGuestData?guest-id=$!guest.id&show=doctype';"> &nbsp;
