@@ -37,8 +37,8 @@
 				</div>
 				<div class="tableCell width70">
 					<strong class="inlineBlock width35">Zu importierende Datens&auml;tze insgesamt:</strong> $!importStatus.dsCount<br />
-					<strong class="inlineBlock width35">&nbsp;&nbsp; davon Dubletten:</strong> $!importStatus.dupCount<br />
-					<strong class="inlineBlock width35">&nbsp;&nbsp; davon speicherbar:</strong> $!importStatus.saveCount<br />
+					<strong class="inlineBlock width35">davon Dubletten:</strong> $!importStatus.dupCount<br />
+					<strong class="inlineBlock width35">davon speicherbar:</strong> $!importStatus.saveCount<br />
         			#if($importStatus.igCount  && $importStatus.igCount != 0)
 						<strong class="inlineBlock width35">&nbsp;&nbsp; Ignorierte Fehlerdatens&auml;tze:</strong> $!importStatus.igCount
         			#end

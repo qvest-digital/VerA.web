@@ -370,7 +370,7 @@
 		<span id="buttonPanel-bottom" class="floatRight">
 			#if($grants.mayWrite())
 				#if($createNewPerson)
-					<input type="submit" name="save" class="mainButton" value="Dublettepr&uuml;fung durchf&uuml;hren" title="Dublettepr&uuml;fung durchf&uuml;hren" />
+					<input type="submit" name="save" class="mainButton" value="Dublettenpr&uuml;fung durchf&uuml;hren" title="Dublettenpr&uuml;fung durchf&uuml;hren" />
 				#else
 					<input type="submit" name="save" class="mainButton" value="Person speichern" title="Person speichern" />
 				#end
