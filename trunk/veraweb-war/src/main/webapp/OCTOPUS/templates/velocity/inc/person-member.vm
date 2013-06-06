@@ -1,8 +1,4 @@
 
-#if(!$person || $octopusRequest.task == "CreatePerson" || $octopusRequest.task == "PersonDupcheckCancel")
-	#set($createNewPerson = 'true')
-#end
-
 <div vera-content="$personPartner person$extEncoding">
 	
     <div class="table width100">

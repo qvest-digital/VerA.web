@@ -20,7 +20,6 @@
 package de.tarent.aa.veraweb.worker;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import de.tarent.aa.veraweb.beans.Person;
