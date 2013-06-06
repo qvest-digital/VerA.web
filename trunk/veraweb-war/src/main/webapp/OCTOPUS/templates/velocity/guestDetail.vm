@@ -100,13 +100,13 @@
 			</div>
 
 			<form id="GuestForm" name="GuestForm" action="SaveGuestDetail" method="post">
-			<input type="hidden" name="tab" id="tab" value="allgemein" />
+			<input type="hidden" name="tab" id="tab" value="$tab" />
 			<div class="contentBox grayBorder tabs" vera-content="">
     			<div id="tabsMain2">
     				<ul vera-tab-group="" class="gray-gradient"> <!-- Bitte das End-tag der <li>s immer mit in die nächste Zeile nehmen (verhindert Mozilla styling bug) -->
-    					<li id="allgemein" onclick="" #if(!$tab || $tab =="allgemein") vera-tab-default #end vera-tab="" class="active">Allgemein
-    					</li><li id="hauptperson" onclick="" vera-tab="" #if($tab =="hauptperson") vera-tab-default #end class="active">$!config.main
-    					</li><li id="partner" class="inactive">$!config.partner
+    					<li id="allgemein" onclick="" #if(!$tab || $tab =="detail-1") vera-tab-default #end vera-tab="" class="active">Allgemein
+    					</li><li id="hauptperson" onclick="" vera-tab="" #if($tab =="detail-2") vera-tab-default #end vera-tab="" class="active">$!config.main
+    					</li><li id="partner" onclick="" vera-tab="" #if($tab =="detail-3") vera-tab-default #end class="active">$!config.partner
     					</li>
     				</ul>
     			</div>
@@ -261,7 +261,7 @@
 
 
 		<!-- alter Code der tabs -->
-		#*
+	
 ##<div id="subtab-detail-block">
 ##	<table class="subtab" border="0" cellspacing="0" cellpadding="0"><tr>
 ##		<td class="subtableft">&nbsp;</td>
@@ -384,21 +384,24 @@
         
         $('li#allgemein').click(function () {
             showTab('detail-1');
-            $('input#tab').val("allgemein");
+            $('input#tab').val("detail-1");
         });
         $('li#hauptperson').click(function () {
             showTab('detail-2');
-            $('input#tab').val("hauptperson");
+            $('input#tab').val("detail-2");
         });
         $('li#partner').click(function () {
             showTab('detail-3');
-            $('input#tab').val("partner");
-        });
-        
+            $('input#tab').val("detail-3");
+        }); 
     });
     
-    #if($tab == 'allgemein') showTab('detail-1'); 
-    #elseif($tab == 'hauptperson') showTab('detail-2'); 
+    #if(!$tab || $tab == 'detail-1') showTab('detail-1');
+    	 $('input#tab').val("detail-1");
+    #elseif($tab == 'detail-2') showTab('detail-2');
+    	 $('input#tab').val("detail-2");
+    #elseif($tab == 'detail-3') showTab('detail-3');
+    	 $('input#tab').val("detail-3");
     #end   
 </script>
 
