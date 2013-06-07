@@ -242,7 +242,7 @@ ul.alphabet li {
 }
 
 .marginBottom10 {
-	margin-bottom: 10px;
+	margin-bottom: 10px !important;
 }
 
 .marginBottom15 {
@@ -255,6 +255,22 @@ ul.alphabet li {
 
 .marginBottom25 {
 	margin-bottom: 25px;
+}
+
+.marginBottom30 {
+	margin-bottom: 30px;
+}
+
+.marginBottom35 {
+	margin-bottom: 35px;
+}
+
+.marginBottom40 {
+	margin-bottom: 40px;
+}
+
+.marginBottom45 {
+	margin-bottom: 45px;
 }
 
 .paddingTop10 {
@@ -310,6 +326,8 @@ pre {
 .posRel {position:relative;}
 
 .posAb {position:absolute;}
+
+.inline {display:inline;}
 
 /************* End misc *************/
 
@@ -955,6 +973,8 @@ td[onclick]
 .width30, .tabsContent .width30 {width: 30%;} .width35, .tabsContent .width35 {width: 35%;}
 
 .width40, .tabsContent .width40 {width: 40%;} .width45, .tabsContent .width45 {width: 45%;}
+
+.width49, .tabsContent .width49 {width: 49%;}
 
 .width50, .tabsContent .width50 {width: 50%;} .width55, .tabsContent .width55 {width: 55%;}
 
