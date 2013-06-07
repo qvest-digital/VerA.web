@@ -255,27 +255,14 @@
 						</div>
 						<div class="tableRow">
 							<div class="tableCell width50">
-								<div class="width49 inline">
+								<div class="width20 inlineBlock">
 									<label for="guestdoctype-zipcode">PLZ</label>
 									<input type="text" id="guestdoctype-zipcode" maxlength="50" name="guestdoctype-zipcode" value="$!message.text($guestdoctype.zipcode)" />
 								</div>
-								<div class="width49 inline">
+								<div class="width80 inlineBlock floatRight">
 									<label for="guestdoctype-city">Ort</label>
 									<input type="text" id="guestdoctype-city" name="guestdoctype-city" maxlength="100" value="$!message.text($guestdoctype.city)" />
 								</div>	
-							</div>
-							<div class="tableCell width50"><label for=""></label></div>
-						</div>
-						<div class="tableRow">
-							<div class="tableCell width50">
-								<div class="width49 inline">
-									<label for="guestdoctype-poboxzipcode">Postfach PLZ</label>
-									<input type="text" id="guestdoctype-poboxzipcode" maxlength="50" name="guestdoctype-poboxzipcode" value="$!message.text($guestdoctype.poboxzipcode)" />
-								</div>
-								<div class="width49 inline">
-									<label for="guestdoctype-pobox">Nummer</label>
-									<input type="text" id="guestdoctype-pobox" name="guestdoctype-pobox" maxlength="50" value="$!message.text($guestdoctype.pobox)" />
-								</div>
 							</div>
 							<div class="tableCell width50">
 								<label for="guestdoctype-fax">Fax</label>
@@ -284,18 +271,23 @@
 						</div>
 						<div class="tableRow">
 							<div class="tableCell width50">
-								<label for="guestdoctype-suffix1">$!config.suffix1</label>
-								<input type="text" id="guestdoctype-suffix1" maxlength="100" name="guestdoctype-suffix1" value="$!message.text($guestdoctype.suffix1)" />
+								<div class="width20 inlineBlock">
+									<label for="guestdoctype-poboxzipcode">Postfach PLZ</label>
+									<input type="text" id="guestdoctype-poboxzipcode" maxlength="50" name="guestdoctype-poboxzipcode" value="$!message.text($guestdoctype.poboxzipcode)" />
+								</div>
+								<div class="width80 inlineBlock floatRight">
+									<label for="guestdoctype-pobox">Nummer</label>
+									<input type="text" id="guestdoctype-pobox" name="guestdoctype-pobox" maxlength="50" value="$!message.text($guestdoctype.pobox)" />
+								</div>
 							</div>
 							<div class="tableCell width50">
 								<label for="guestdoctype-mail">E-Mail #if($email && $email.length()>0)<a href="mailto:$!message.text($email)"><img src="${paths.staticWeb}images/email.gif"></a>#end</label>
 								<input type="text" maxlength="250" id="guestdoctype-mail" name="guestdoctype-mail" value="$!message.text($guestdoctype.mail)" >								
-							</div>
-						</div>
+							</div>						</div>
 						<div class="tableRow">
 							<div class="tableCell width50">
-								<label for="guestdoctype-suffix2">$!config.suffix2</label>
-								<input type="text" id="guestdoctype-suffix2" maxlength="100" name="guestdoctype-suffix2" value="$!message.text($guestdoctype.suffix2)" />
+								<label for="guestdoctype-suffix1">$!config.suffix1</label>
+								<input type="text" id="guestdoctype-suffix1" maxlength="100" name="guestdoctype-suffix1" value="$!message.text($guestdoctype.suffix1)" />
 							</div>
 							<div class="tableCell width50">
 								<label for="guestdoctype-www">WWW</label>
@@ -304,13 +296,20 @@
 						</div>
 						<div class="tableRow">
 							<div class="tableCell width50">
-								<label for="guestdoctype-country">Land</label>
-								<input type="text" id="guestdoctype-country" maxlength="100" name="guestdoctype-country" value="$!message.text($guestdoctype.country)" />
+								<label for="guestdoctype-suffix2">$!config.suffix2</label>
+								<input type="text" id="guestdoctype-suffix2" maxlength="100" name="guestdoctype-suffix2" value="$!message.text($guestdoctype.suffix2)" />
 							</div>
 							<div class="tableCell width50">
 								<label for="guestdoctype-mobil">Mobil</label>
 								<input type="text" maxlength="100" id="guestdoctype-mobil" name="guestdoctype-mobil" value="$!message.text($guestdoctype.mobil)" />
 							</div>
+						</div>
+						<div class="tableRow">
+							<div class="tableCell width50">
+								<label for="guestdoctype-country">Land</label>
+								<input type="text" id="guestdoctype-country" maxlength="100" name="guestdoctype-country" value="$!message.text($guestdoctype.country)" />
+							</div>
+							<div class="tabelCell"></div>
 						</div>
 					</div>				
 				</fieldset>
@@ -326,15 +325,15 @@
                 
                 #end
                 
-                <div>
-                
+				
                 #parse("inc/guest-doctype-navi.vm")
-                
-                
-                    <input type="submit" name="save" value="Speichern" #if($grants.mayWrite()) class="button" #else class="buttondisabled" vera-disabled #end> &nbsp;
-                    <input type="button" name="cancel" value="Zur&uuml;ck" title="Zur&uuml;ck zu den Veranstaltungdetails" class="reset" onclick="window.location.href='ShowGuestList';"> &nbsp;
-                
-                </div>
+				
+                <span id="buttonPanel-bottom" class="floatRight">
+					#if($grants.mayWrite())
+						<input type="submit" name="save" value="Speichern" title="Speichern" class="mainButton" />
+					#end
+                    <input type="button" name="cancel" value="Zur&uuml;ck" title="Zur&uuml;ck zu den Veranstaltungdetails" onclick="window.location.href='ShowGuestList';" />
+                </span>
             
             </form><!-- End id="GuestForm" -->
 		</div>
