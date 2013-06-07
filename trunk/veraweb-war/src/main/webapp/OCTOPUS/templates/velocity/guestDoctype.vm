@@ -74,6 +74,12 @@
 			</div>
 			
 			#parse("inc/guestMasterDataNote.vm")
+			
+			
+			<div id="buttonPanel-bottom" class="textRight">
+				<input type="button" onclick="window.location.href='ReloadGuestData?guest-id=$!guest.id&show=doctype';" title="Alle Werte auf Stammdaten zurücksetzen" value="Auf Stammdaten zurücksetzen" name="refresh">
+				<input type="button" onclick="window.location.href='ShowPerson?id=$guest.person&action=event';" title="Personenstammdaten bearbeiten" value="Stammdaten bearbeiten" name="persondata">
+            </div>
             
             #if (!$allDoctype || $allDoctype.size() != 0)
 			<h3 class="marginBottom10">Dokumenttyp wählen</h3>
@@ -141,7 +147,7 @@
 
 				<h3 class="marginBottom10">Daten bearbeiten</h3>
 				
-				<div class="table width100">
+				<div class="table width100 marginBottom40">
 					<div class="tableRow">
 						<div class="tableCell width50">
 							<label for="guestdoctype-textfield">Freitextfeld</label>
@@ -164,7 +170,7 @@
 				
 				<fieldset class="width49 inline">
 					<legend>Persönliche Daten (Hauptperson)</legend>
-					<div class="table">
+					<div class="table width100">
 						<div class="tableRow">
 							<div class="tableCell">
 								<label for="guestdoctype-salutation">Anrede</label>
@@ -204,7 +210,7 @@
 					</div>
 				</fieldset>
 				
-                <fieldset class="width49 inline">
+                <fieldset class="width49 floatRight">
 					<legend>Persönliche Daten (Partner)</legend>
 					<div class="table width100">
 						<div class="tableRow">
@@ -233,63 +239,85 @@
 						</div>
 					</div>
                 </fieldset>
-                
-                <table class="form"><tr>
-                	<td class="label" style="width: 19%;">Stra&szlig;e:</td>
-                	<td class="value"><input type="text" maxlength="100" id="guestdoctype-street" name="guestdoctype-street" value="$!message.text($guestdoctype.street)" ></td>
-                </tr><tr>
-                	<td class="label"><label for="guestdoctype-zipcode">PLZ</label> / <label for="guestdoctype-city">Ort</label></td>
-                	<td class="value">
-                		<table class="form" border="0" cellpadding="0" cellspacing="0"><tr>
-                			<td class="value" style="width: 60px;"><input type="text" id="guestdoctype-zipcode" maxlength="50" name="guestdoctype-zipcode" value="$!message.text($guestdoctype.zipcode)" ></td>
-                			<td class="value" style="width: 10px;">&nbsp;</td>
-                			<td class="value"><input type="text" id="guestdoctype-city" name="guestdoctype-city" maxlength="100" value="$!message.text($guestdoctype.city)" ></td>
-                		</tr></table>
-                	</td>
-                </tr><tr>
-                	<td class="label"><label for="guestdoctype-poboxzipcode">Postfach PLZ</label> / <label for="guestdoctype-pobox">Nummer</label></td>
-                	<td class="value">
-                		<table class="form" border="0" cellpadding="0" cellspacing="0"><tr>
-                			<td class="value" style="width: 60px;"><input type="text" id="guestdoctype-poboxzipcode" maxlength="50" name="guestdoctype-poboxzipcode" value="$!message.text($guestdoctype.poboxzipcode)" ></td>
-                			<td class="value" style="width: 10px;">&nbsp;</td>
-                			<td class="value"><input type="text" id="guestdoctype-pobox" name="guestdoctype-pobox" maxlength="50" value="$!message.text($guestdoctype.pobox)" ></td>
-                		</tr></table>
-                	</td>
-                </tr><tr>
-                	<td class="label">$!config.suffix1:</td>
-                	<td class="value"><input type="text" id="guestdoctype-suffix1" maxlength="100" name="guestdoctype-suffix1" value="$!message.text($guestdoctype.suffix1)" ></td>
-                </tr><tr>
-                	<td class="label">$!config.suffix2:</td>
-                	<td class="value"><input type="text" id="guestdoctype-suffix2" maxlength="100" name="guestdoctype-suffix2" value="$!message.text($guestdoctype.suffix2)" ></td>
-                </tr><tr>
-                	<td class="label">Land:</td>
-                	<td class="value"><input type="text" id="guestdoctype-country" maxlength="100" name="guestdoctype-country" value="$!message.text($guestdoctype.country)" ></td>
-                </tr></table>
-                
-                <hr class="contentsection" />
-                
-                <table class="form"><tr>
-                	<td class="label" style="width: 19%;">Telefon:</td>
-                	<td class="value"><input type="text" id="guestdoctype-fon" maxlength="100" name="guestdoctype-fon" value="$!message.text($guestdoctype.fon)" ></td>
-                </tr><tr>
-                	<td class="label">Fax:</td>
-                	<td class="value"><input type="text" id="guestdoctype-fax" maxlength="100" name="guestdoctype-fax" value="$!message.text($guestdoctype.fax)" ></td>
-                </tr><tr>
-                ## added mailto: link as per change request for version 1.2.0
-                ## cklein 2008-02-21
-                	<td class="label"><label style="float:left;" for="person-mail$ext">E-Mail</label>#if($email && $email.length()>0)<a style="float:right;" href="mailto:$!message.text($email)"><img src="${paths.staticWeb}images/email.gif"></a>#end</label></td>
-                	<td class="value"><input type="text" maxlength="250" id="guestdoctype-mail" name="guestdoctype-mail" value="$!message.text($guestdoctype.mail)" ></td>
-                </tr><tr>
-                	<td class="label">www:</td>
-                	<td class="value"><input type="text" maxlength="250" id="guestdoctype-www" name="guestdoctype-www" value="$!message.text($guestdoctype.www)" ></td>
-                </tr><tr>
-                	<td class="label">Mobil:</td>
-                	<td class="value"><input type="text" maxlength="100" id="guestdoctype-mobil" name="guestdoctype-mobil" value="$!message.text($guestdoctype.mobil)" ></td>
-                </tr></table>
+				
+				<fieldset>
+					<legend>Kontaktdaten</legend>
+					<div class="table width100">
+						<div class="tableRow">
+							<div class="tableCell width50">
+								<label for="guestdoctype-street">Stra&szlig;e</label>
+								<input type="text" maxlength="100" id="guestdoctype-street" name="guestdoctype-street" value="$!message.text($guestdoctype.street)" />
+							</div>
+							<div class="tableCell width50">
+								<label for="guestdoctype-fon">Telefon</label>
+								<input type="text" id="guestdoctype-fon" maxlength="100" name="guestdoctype-fon" value="$!message.text($guestdoctype.fon)" />
+							</div>
+						</div>
+						<div class="tableRow">
+							<div class="tableCell width50">
+								<div class="width49 inline">
+									<label for="guestdoctype-zipcode">PLZ</label>
+									<input type="text" id="guestdoctype-zipcode" maxlength="50" name="guestdoctype-zipcode" value="$!message.text($guestdoctype.zipcode)" />
+								</div>
+								<div class="width49 inline">
+									<label for="guestdoctype-city">Ort</label>
+									<input type="text" id="guestdoctype-city" name="guestdoctype-city" maxlength="100" value="$!message.text($guestdoctype.city)" />
+								</div>	
+							</div>
+							<div class="tableCell width50"><label for=""></label></div>
+						</div>
+						<div class="tableRow">
+							<div class="tableCell width50">
+								<div class="width49 inline">
+									<label for="guestdoctype-poboxzipcode">Postfach PLZ</label>
+									<input type="text" id="guestdoctype-poboxzipcode" maxlength="50" name="guestdoctype-poboxzipcode" value="$!message.text($guestdoctype.poboxzipcode)" />
+								</div>
+								<div class="width49 inline">
+									<label for="guestdoctype-pobox">Nummer</label>
+									<input type="text" id="guestdoctype-pobox" name="guestdoctype-pobox" maxlength="50" value="$!message.text($guestdoctype.pobox)" />
+								</div>
+							</div>
+							<div class="tableCell width50">
+								<label for="guestdoctype-fax">Fax</label>
+								<input type="text" id="guestdoctype-fax" maxlength="100" name="guestdoctype-fax" value="$!message.text($guestdoctype.fax)" />
+							</div>
+						</div>
+						<div class="tableRow">
+							<div class="tableCell width50">
+								<label for="guestdoctype-suffix1">$!config.suffix1</label>
+								<input type="text" id="guestdoctype-suffix1" maxlength="100" name="guestdoctype-suffix1" value="$!message.text($guestdoctype.suffix1)" />
+							</div>
+							<div class="tableCell width50">
+								<label for="guestdoctype-mail">E-Mail #if($email && $email.length()>0)<a href="mailto:$!message.text($email)"><img src="${paths.staticWeb}images/email.gif"></a>#end</label>
+								<input type="text" maxlength="250" id="guestdoctype-mail" name="guestdoctype-mail" value="$!message.text($guestdoctype.mail)" >								
+							</div>
+						</div>
+						<div class="tableRow">
+							<div class="tableCell width50">
+								<label for="guestdoctype-suffix2">$!config.suffix2</label>
+								<input type="text" id="guestdoctype-suffix2" maxlength="100" name="guestdoctype-suffix2" value="$!message.text($guestdoctype.suffix2)" />
+							</div>
+							<div class="tableCell width50">
+								<label for="guestdoctype-www">WWW</label>
+								<input type="text" maxlength="250" id="guestdoctype-www" name="guestdoctype-www" value="$!message.text($guestdoctype.www)" >
+							</div>
+						</div>
+						<div class="tableRow">
+							<div class="tableCell width50">
+								<label for="guestdoctype-country">Land</label>
+								<input type="text" id="guestdoctype-country" maxlength="100" name="guestdoctype-country" value="$!message.text($guestdoctype.country)" />
+							</div>
+							<div class="tableCell width50">
+								<label for="guestdoctype-mobil">Mobil</label>
+								<input type="text" maxlength="100" id="guestdoctype-mobil" name="guestdoctype-mobil" value="$!message.text($guestdoctype.mobil)" />
+							</div>
+						</div>
+					</div>				
+				</fieldset>
                 
                 #else
                 
-                <div style="margin: 10px 0px 10px 0px; padding: 10px 10px 10px 10px; background-color: #ffffff; border: 2px solid #ff0000;">
+                <div class="hinweis grayBorder">
                 	Bitte &uuml;berpr&uuml;fen Sie ob dieser Veranstaltung
                 	bereits Dokumenttypen zugeordnet sind. Sollte dies der
                 	Fall sein m&uuml;ssen Sie die Dokumenttypen f&uuml;r diesen
