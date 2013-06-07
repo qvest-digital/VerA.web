@@ -24,7 +24,7 @@
     		</ul>
     	</div>
 		
-		<div vera-content="" class="contentBoxColored tabsContent">
+		<div class="contentBoxColored tabsContent">
 
             <table class="form"><tr>
             ## Bug 1591 im Kopf nicht die Stammdaten anzeigen
