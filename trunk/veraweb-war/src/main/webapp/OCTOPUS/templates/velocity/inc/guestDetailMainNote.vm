@@ -1,0 +1,11 @@
+<div class="notBold hinweis grayBorder marginBottom10">
+    <strong>Hinweis</strong>
+    <p>Sie bearbeiten hier ausschlie&szlig;lich Personendaten im Rahmen der aktuellen Veranstaltung, <i>keine</i> grundlegenden Stammdaten.</p>
+</div>
+
+<div class="textRight marginBottom20" id="buttonPanel-bottom">
+	#if($grants.mayWrite())
+		<input type="button" name="refresh" value="Auf Stammdaten zurücksetzen" title="Alle Werte auf Stammdaten zurücksetzen" onclick="window.location.href='ReloadGuestData?guest-id=$!guest.id';" />
+	#end
+		<input type="button" name="persondata" value="Stammdaten bearbeiten" title="Personenstammdaten bearbeiten" onclick="window.location.href='ShowPerson?id=$guest.person&action=event';" />
+</div>			
