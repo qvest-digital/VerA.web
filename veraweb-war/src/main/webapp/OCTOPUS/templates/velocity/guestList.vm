@@ -158,7 +158,7 @@
 			<!-- neu -->
 			<div class="table width100">
                 <div class="tableRow">
-                        <div class="tableCell width35 inlineInput"><label for="actionSelection">Markierte Person(en)</label>
+                        <div class="tableCell width35 inlineInput" style="padding-bottom:0"><label for="actionSelection">Markierte Person(en)</label>
                     			<select id="actionSelection" class="autoWidth">
                     				<option>Löschen</option>
                     				<option>Kategorien zuordnen</option>
@@ -168,7 +168,7 @@
                                 </select>
                             	<input type="button" name="button.execute" id="button.execute" value="Durchführen" class="autoWidth">
             			</div>
-            			<div class="tableCell textRight" style="vertical-align:bottom">
+            			<div class="tableCell textRight" style="vertical-align:bottom; padding-bottom:0">
             				#if($grants.mayWrite()) 
 								<input type="button" class="mainButton inlineInput autoWidth" name="createGuestList" value="G&auml;steliste erstellen" title="G&auml;steliste erstellen" onclick="submitFormWithGivenAction('ShowReportGuestList', $grants.mayWrite());" />
 								<input type="button" class="mainButton inlineInput autoWidth" name="addGuestsFromEvent" value="G&auml;ste aus Veranstaltung &uuml;bernehmen" title="G&auml;ste aus Veranstaltung &uuml;bernehmen" onclick="window.location.href='AddEventToEventSearch?action=guest';" />
