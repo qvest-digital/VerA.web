@@ -8,10 +8,8 @@
     </div>
     
 	<h1>Steuerdatei</h1>
-	
     
-    
-    #parse("inc/header.vm")
+    #parse("inc/event-header.vm")
     
     #if($exportCalc)
     
@@ -27,8 +25,6 @@
     		</select>
     	</td>
     </tr></table>
-    
-    <hr class="contentsection" />
     
     <table class="form"><tr>
     	<td class="label" style="width: 19%;">Ausgew&auml;hlte G&auml;ste:</td>
