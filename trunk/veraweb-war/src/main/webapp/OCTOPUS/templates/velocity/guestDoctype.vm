@@ -17,9 +17,9 @@
 	<div class="tabs contentBox grayBorder marginBottom10 marginTop20" id="main_content">
     	<div id="tabsMain">
     		<ul vera-tab-group="" class="gray-gradient"> <!-- Bitte das End-tag der <li>s immer mit in die nächste Zeile nehmen (verhindert Mozilla styling bug) -->
-    			<li id="gaesteliste" onclick=""  vera-tab="" class="active">G&auml;steliste
+    			<li id="gaesteliste" onclick=""  vera-tab="" class="inactive">G&auml;steliste
     			</li><li id="gastdetails" onclick="" vera-tab="" class="inactive">Gastdetails
-    			</li><li id="dokumenttypen" vera-tab-default="" class="inactive">Dokumenttypen
+    			</li><li id="dokumenttypen" vera-tab-default="" class="active">Dokumenttypen
     			</li>
     		</ul>
     	</div>
@@ -88,16 +88,16 @@
             </div>
             
             #if (!$allDoctype || $allDoctype.size() != 0)
-			<h3>Dokumenttyp wählen</h3>
-            <form action="ShowGuestDoctype" method="get">
+			<h3 class="marginBottom10">Dokumenttyp wählen</h3>
+            <form action="ShowGuestDoctype" method="get" class="marginBottom40">
 				
 			<div class="inlineLabel">
 				<label for="">Dokumenttyp</label>
-				<select id="doctype-id" name="doctype-id"  style="width: 99%;" onChange="submit();">
+				<select id="doctype-id" name="doctype-id" onChange="submit();">
             			#foreach($doc in $allDoctype)
             			<option value="$!doc.doctype" #if($doc.doctype == $guestdoctype.doctype) selected#end>$!message.text($doc.name)</option>
             			#end
-            		</select>
+            	</select>
 			</div>	
             </form>
             #end
@@ -124,9 +124,9 @@
                 <input type="hidden" name="guestdoctype-addresstype" value="$!guestdoctype.addresstype">
                 <input type="hidden" name="guestdoctype-locale" value="$!guestdoctype.locale">
 					
-				<h3>Adresstyp und Zeichensatz wählen</h3>
+				<h3 class="marginBottom10">Adresstyp und Zeichensatz wählen</h3>
 				
-				<div class="table">
+				<div class="table marginBottom40">
 					<div class="tableRow">
 						<div class="tableCell">
 							<label for="select-addresstype">Adresstyp</label> 
@@ -151,7 +151,7 @@
 					</div>
 				</div>
 
-				<h3>Daten bearbeiten</h3>
+				<h3 class="marginBottom10">Daten bearbeiten</h3>
 				
 				<div class="table width100">
 					<div class="tableRow">
@@ -173,44 +173,78 @@
 					</div>
 				</div>
                 
-                
-                <table class="form"><tr>
-                	<td class="label" style="width: 19%;">Anrede:</td>
-                	<td class="value"><input type="text" id="guestdoctype-salutation" maxlength="50" name="guestdoctype-salutation" value="$!message.text($guestdoctype.salutation)" ></td>
-                </tr><tr>
-                	<td class="label">Akad. Titel:</td>
-                	<td class="value"><input type="text" id="guestdoctype-titel" maxlength="250" name="guestdoctype-titel" value="$!message.text($guestdoctype.titel)" ></td>
-                </tr><tr>
-                	<td class="label">Vorname:</td>
-                	<td class="value"><input type="text" id="guestdoctype-firstname" maxlength="100" name="guestdoctype-firstname" value="$!message.text($guestdoctype.firstname)" ></td>
-                </tr><tr>
-                	<td class="label">Nachname:</td>
-                	<td class="value"><input type="text" id="guestdoctype-lastname" maxlength="100" name="guestdoctype-lastname" value="$!message.text($guestdoctype.lastname)" ></td>
-                </tr><tr>
-                	<td class="label">Funktion / Amtsbez.:</td>
-                	<td class="value"><input type="text" id="guestdoctype-function" maxlength="250" name="guestdoctype-function" value="$!message.text($guestdoctype.function)" ></td>
-                </tr><tr>
-                	<td class="label">Firma / Institution:</td>
-                	<td class="value"><input type="text" id="guestdoctype-company" maxlength="250" name="guestdoctype-company" value="$!message.text($guestdoctype.company)" ></td>
-                </tr></table>
-                
-                <hr class="contentsection"/>
-                
-                <table class="form"><tr>
-                	<td class="label" style="width: 19%;">Anrede (Partner):</td>
-                	<td class="value"><input type="text" id="guestdoctype-salutation_p" maxlength="50" name="guestdoctype-salutation_p" value="$!message.text($guestdoctype.salutation_p)" ></td>
-                </tr><tr>
-                	<td class="label">Akad. Titel (Partner):</td>
-                	<td class="value"><input type="text" id="guestdoctype-titel_p" maxlength="250" name="guestdoctype-titel_p" value="$!message.text($guestdoctype.titel_p)" ></td>
-                </tr><tr>
-                	<td class="label">Vorname (Partner):</td>
-                	<td class="value"><input type="text" id="guestdoctype-firstname_p"maxlength="100" name="guestdoctype-firstname_p" value="$!message.text($guestdoctype.firstname_p)" ></td>
-                </tr><tr>
-                	<td class="label">Nachname (Partner):</td>
-                	<td class="value"><input type="text" id="guestdoctype-lastname_p" maxlength="100" name="guestdoctype-lastname_p" value="$!message.text($guestdoctype.lastname_p)" ></td>
-                </tr></table>
-                
-                <hr class="contentsection" />
+				
+				<fieldset class="width49 inline">
+					<legend>Persönliche Daten (Hauptperson)</legend>
+					<div class="table">
+						<div class="tableRow">
+							<div class="tableCell">
+								<label for="guestdoctype-salutation">Anrede</label>
+								<input type="text" id="guestdoctype-salutation" maxlength="50" name="guestdoctype-salutation" value="$!message.text($guestdoctype.salutation)" />
+							</div>
+						</div>
+						<div class="tableRow">
+							<div class="tableCell">
+								<label for="guestdoctype-titel">Akad. Titel</label>
+								<input type="text" id="guestdoctype-titel" maxlength="250" name="guestdoctype-titel" value="$!message.text($guestdoctype.titel)" />
+							</div>
+						</div>
+						<div class="tableRow">
+							<div class="tableCell">
+								<label for="guestdoctype-firstname">Vorname</label>
+								<input type="text" id="guestdoctype-firstname" maxlength="100" name="guestdoctype-firstname" value="$!message.text($guestdoctype.firstname)" />
+							</div>
+						</div>
+						<div class="tableRow">
+							<div class="tableCell">
+								<label for="guestdoctype-lastname">Nachname</label>
+								<input type="text" id="guestdoctype-lastname" maxlength="100" name="guestdoctype-lastname" value="$!message.text($guestdoctype.lastname)" />
+							</div>
+						</div>
+						<div class="tableRow">
+							<div class="tableCell">
+								<label for="">Funktion / Amtsbez.</label>
+								<input type="text" id="guestdoctype-function" maxlength="250" name="guestdoctype-function" value="$!message.text($guestdoctype.function)" />
+							</div>
+						</div>
+						<div class="tableRow">
+							<div class="tableCell">
+								<label for="guestdoctype-company">Firma / Institution</label>
+								<input type="text" id="guestdoctype-company" maxlength="250" name="guestdoctype-company" value="$!message.text($guestdoctype.company)" >
+							</div>
+						</div>
+					</div>
+				</fieldset>
+				
+                <fieldset class="width49 inline">
+					<legend>Persönliche Daten (Partner)</legend>
+					<div class="table width100">
+						<div class="tableRow">
+							<div class="tableCell">
+								<label for="guestdoctype-salutation_p">Anrede (Partner)</label>
+								<input type="text" id="guestdoctype-salutation_p" maxlength="50" name="guestdoctype-salutation_p" value="$!message.text($guestdoctype.salutation_p)" />
+							</div>
+						</div>
+						<div class="tableRow">
+							<div class="tableCell">
+								<label for="guestdoctype-titel_p">Akad. Titel (Partner)</label>
+								<input type="text" id="guestdoctype-titel_p" maxlength="250" name="guestdoctype-titel_p" value="$!message.text($guestdoctype.titel_p)" />
+							</div>
+						</div>
+						<div class="tableRow">
+							<div class="tableCell">
+								<label for="guestdoctype-firstname_p">Vorname (Partner)</label>
+								<input type="text" id="guestdoctype-firstname_p"maxlength="100" name="guestdoctype-firstname_p" value="$!message.text($guestdoctype.firstname_p)" />
+							</div>
+						</div>
+						<div class="tableRow">
+							<div class="tableCell">
+								<label for="guestdoctype-lastname_p">Nachname (Partner)</label>
+								<input type="text" id="guestdoctype-lastname_p" maxlength="100" name="guestdoctype-lastname_p" value="$!message.text($guestdoctype.lastname_p)" />
+							</div>
+						</div>
+					</div>
+                </fieldset>
                 
                 <table class="form"><tr>
                 	<td class="label" style="width: 19%;">Stra&szlig;e:</td>
