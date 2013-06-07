@@ -60,7 +60,15 @@ public class PersonDupcheckWorker extends ListWorkerVeraWeb {
 	@Override
     protected void extendWhere(OctopusContext cntx, Select select) throws BeanException, IOException {
 		Person person = (Person)cntx.contentAsObject("person");
-		select.where(getDuplicateExprPerson(cntx, person));
+		
+		//Specific handling to differ between company and person dupcheck.
+        String isCompany = cntx.requestAsString("person-iscompany");
+        
+        if (isCompany != null && isCompany.equals("t")) {   
+            select.where(getDuplicateExprCompany(cntx, person));
+        } else {
+            select.where(getDuplicateExprPerson(cntx, person));
+        }
 	}
 
 	//
@@ -128,21 +136,9 @@ public class PersonDupcheckWorker extends ListWorkerVeraWeb {
      * @see de.tarent.octopus.custom.beans.BeanListWorker#showList(de.tarent.octopus.server.OctopusContext)
      */
     @Override
-    public List showList(OctopusContext cntx) throws BeanException, IOException
-	{
-    	//Specific handling to differ between company and person dupcheck.
-    	String isCompany = cntx.requestAsString("person-iscompany");
-    	
-    	if(isCompany != null && isCompany.equals("t")){
-        	Person person = (Person)cntx.sessionAsObject("dupcheck-person");
-        	Database database = new DatabaseVeraWeb(cntx);
-        	Select select = database.getSelect("Person");
-        	return database.getBeanList("Person", select.where(getDuplicateExprCompany(cntx, person)));
-    	} else {
-//    		Bug 1592 
-        	cntx.setContent("originalPersonId", cntx.requestAsInteger("originalPersonId"));
-    		return super.showList(cntx);
-    	}
+    public List showList(OctopusContext cntx) throws BeanException, IOException {
+    	cntx.setContent("originalPersonId", cntx.requestAsInteger("originalPersonId"));
+		return super.showList(cntx);
 	}
 
 	//

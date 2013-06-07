@@ -5,13 +5,43 @@
 <div id="content_container">
 
 	<form id="formlist" name="formlist" action="SavePerson" method="POST">
-		<input type="hidden" name="start" value="">
-		<input type="hidden" name="selectAll" value="false">
-		<input type="hidden" name="selectNone" value="false">
+		<input type="hidden" name="start" value=""/>
+		<input type="hidden" name="limit" value=""/>
+		<input type="hidden" name="selectAll" value="false"/>
+		<input type="hidden" name="selectNone" value="false"/>
 	
 		##new cf. issue #2091
-		<input type="hidden" name="action" value="$action">
-		<input type="hidden" name="id" value="$id">
+		<input type="hidden" name="action" value="$!action"/>
+		<input type="hidden" name="id" value="$!id"/>
+		
+		<input type="hidden" name="originalPersonId" value="$!octopusRequest.originalPersonId"/>
+		<input type="hidden" name="save" value="$!octopusRequest.save"/>
+		<input type="hidden" name="person-deleted" value="$!octopusRequest.person-deleted"/>
+		<input type="hidden" name="forcedupcheck" value="$!octopusRequest.forcedupcheck"/>
+		<input type="hidden" name="saveperson" value="$!octopusRequest.saveperson"/>
+		<input type="hidden" name="person-modified" value="$!octopusRequest.person-modified"/>
+		<input type="hidden" name="personTab" value="$!octopusRequest.personTab"/>
+        <input type="hidden" name="personMemberTab" value="$!octopusRequest.personTab"/>
+        <input type="hidden" name="personAddresstypeTab" value="$!octopusRequest.personTab"/>
+        <input type="hidden" name="personLocaleTab" value="$!octopusRequest.personTab"/>
+		<input type="hidden" name="person-expire" value="$!octopusRequest.person-expire"/>
+		<input type="hidden" name="person-firstname_a_e1" value="$!octopusRequest.person-firstname_a_e1"/>
+		<input type="hidden" name="person-lastname_a_e1" value="$!octopusRequest.person-lastname_a_e1"/>
+		<input type="hidden" name="person-iscompany" value="$!octopusRequest.person-iscompany"/>
+		<input type="hidden" name="person-company-ignore_a_e1" value="$!octopusRequest.person-company-ignore_a_e1"/>
+		<input type="hidden" name="person-company_a_e1" value="$!octopusRequest.person-company_a_e1"/>
+		<input type="hidden" name="company" value="$!octopusRequest.company"/>
+		<input type="hidden" name="companyfield" value="$!octopusRequest.companyfield"/>
+		<input type="hidden" name="person-salutation_a_e2" value="$!octopusRequest.person-salutation_a_e2"/>
+		<input type="hidden" name="person-salutation_a_e3" value="$!octopusRequest.person-salutation_a_e3"/>
+		<input type="hidden" name="person-salutation_b_e1" value="$!octopusRequest.person-salutation_b_e1"/>
+		<input type="hidden" name="person-salutation_b_e2" value="$!octopusRequest.person-salutation_b_e2"/>
+		<input type="hidden" name="person-salutation_b_e3" value="$!octopusRequest.person-salutation_b_e3"/>
+		<input type="hidden" name="person-domestic_a_e1" value="$!octopusRequest.person-domestic_a_e1"/>
+		<input type="hidden" name="person-domestic_b_e1" value="$!octopusRequest.person-domestic_b_e1"/>
+		<input type="hidden" name="person-sex_a_e1" value="$!octopusRequest.person-sex_a_e1"/>
+		<input type="hidden" name="person-sex_b_e1" value="$!octopusRequest.person-sex_b_e1"/>
+			
 	
 		<div id="breadcrumb" class="textRight marginBottom10">
     		<strong>Sie sind hier</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Personen > Dublettensuche</span>
@@ -65,6 +95,9 @@
 				<td class="textCenter"><a href="ShowPerson?id=$!{bean.id}&action=$!action" class="noBorder"><img src="${paths.staticWeb}images/edit.png" alt="Existierenden Eintrag bearbeiten" title="Existierenden Eintrag bearbeiten"></a></td>
 			</tr>
 			#end
+			
+			#set($itemName = "Personen")
+    		#parse("inc/list-navi-new.vm")
 		</table>
 	
 		#set($disableListSelect = true)
