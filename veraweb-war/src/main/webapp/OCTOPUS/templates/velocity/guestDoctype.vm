@@ -77,15 +77,7 @@
             	<td class="value" style="width: 31%;"">&nbsp;</td>
             </tr></table>
             
-            <div class="notBold hinweis grayBorder marginBottom10">
-				<strong>Hinweis</strong>
-				<p>Sie bearbeiten hier ausschließlich Personendaten im Rahmen der aktuellen Veranstaltung, <i>keine</i> grundlegenden Stammdaten.</p>
-            </div>
-			
-			<div id="buttonPanel-bottom" class="textRight marginBottom20">
-				<input type="button" onclick="window.location.href='ReloadGuestData?guest-id=$!guest.id&show=doctype';" title="Alle Werte auf Stammdaten zurücksetzen" value="Auf Stammdaten zurücksetzen" name="refresh">
-				<input type="button" onclick="window.location.href='ShowPerson?id=$guest.person&action=event';" title="Personenstammdaten bearbeiten" value="Stammdaten bearbeiten" name="persondata">
-            </div>
+			#parse("inc/guestMasterDataNote.vm")
             
             #if (!$allDoctype || $allDoctype.size() != 0)
 			<h3 class="marginBottom10">Dokumenttyp wählen</h3>
