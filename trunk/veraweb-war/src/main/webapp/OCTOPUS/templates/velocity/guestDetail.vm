@@ -128,21 +128,25 @@
                             <strong>Hinweis</strong>
                             <p>Die Stammdaten dieses Gastes wurden gel&ouml;scht. Sie k&ouml;nnen nur Daten im Rahmen dieser Veranstaltung bearbeiten.</p>
                         </div>
-						 #else
-						<div class="notBold hinweis grayBorder marginBottom10">
-                            <strong>Hinweis</strong>
-                            <p>Sie bearbeiten hier ausschlie&szlig;lich Personendaten im Rahmen der aktuellen Veranstaltung, <i>keine</i> grundlegenden Stammdaten.</p>
-                        </div>
                         #end	
 						
-						<div class="textRight marginBottom20" id="buttonPanel-bottom">
-                			#if($grants.mayWrite())
-                				<input type="button" name="refresh" value="Auf Stammdaten zurücksetzen" title="Alle Werte auf Stammdaten zurücksetzen" onclick="window.location.href='ReloadGuestData?guest-id=$!guest.id';" />
-                			#end
-                				<input type="button" name="persondata" value="Stammdaten bearbeiten" title="Personenstammdaten bearbeiten" onclick="window.location.href='ShowPerson?id=$guest.person&action=event';" />
-                		</div>						
+					
 							
                         #openContentBlock("detail-1-block")
+						
+						#if($person.deleted != "t")							
+    						<div class="notBold hinweis grayBorder marginBottom10">
+                                <strong>Hinweis</strong>
+                                <p>Sie bearbeiten hier ausschlie&szlig;lich Personendaten im Rahmen der aktuellen Veranstaltung, <i>keine</i> grundlegenden Stammdaten.</p>
+                            </div>
+    						
+    						<div class="textRight marginBottom20" id="buttonPanel-bottom">
+                    			#if($grants.mayWrite())
+                    				<input type="button" name="refresh" value="Auf Stammdaten zurücksetzen" title="Alle Werte auf Stammdaten zurücksetzen" onclick="window.location.href='ReloadGuestData?guest-id=$!guest.id';" />
+                    			#end
+                    				<input type="button" name="persondata" value="Stammdaten bearbeiten" title="Personenstammdaten bearbeiten" onclick="window.location.href='ShowPerson?id=$guest.person&action=event';" />
+                    		</div>							
+						#end
 						
 							<div class="table width60">
 								<div class="tableRow">
@@ -191,6 +195,21 @@
                     
                     
                         #openContentBlock("detail-2-block")
+						
+						#if($person.deleted != "t" && $guest.invitationtype != 3)							
+    						<div class="notBold hinweis grayBorder marginBottom10">
+                                <strong>Hinweis</strong>
+                                <p>Sie bearbeiten hier ausschlie&szlig;lich Personendaten im Rahmen der aktuellen Veranstaltung, <i>keine</i> grundlegenden Stammdaten.</p>
+                            </div>
+    						
+    						<div class="textRight marginBottom20" id="buttonPanel-bottom">
+                    			#if($grants.mayWrite())
+                    				<input type="button" name="refresh" value="Auf Stammdaten zurücksetzen" title="Alle Werte auf Stammdaten zurücksetzen" onclick="window.location.href='ReloadGuestData?guest-id=$!guest.id';" />
+                    			#end
+                    				<input type="button" name="persondata" value="Stammdaten bearbeiten" title="Personenstammdaten bearbeiten" onclick="window.location.href='ShowPerson?id=$guest.person&action=event';" />
+                    		</div>							
+						#end
+						
                         <div id="detail-2-data-block" #if($guest.invitationtype == 3) style="display: none;"#end>
                         #set($ext = "_a")
                         #set($facade = $guest.Main)
@@ -204,8 +223,24 @@
                             </div>							
                         </div>
                         #closeContentBlock()
+						
                         
                         #openContentBlock("detail-3-block")
+						
+						#if($person.deleted != "t" && $guest.invitationtype != 2)							
+    						<div class="notBold hinweis grayBorder marginBottom10">
+                                <strong>Hinweis</strong>
+                                <p>Sie bearbeiten hier ausschlie&szlig;lich Personendaten im Rahmen der aktuellen Veranstaltung, <i>keine</i> grundlegenden Stammdaten.</p>
+                            </div>
+    						
+    						<div class="textRight marginBottom20" id="buttonPanel-bottom">
+                    			#if($grants.mayWrite())
+                    				<input type="button" name="refresh" value="Auf Stammdaten zurücksetzen" title="Alle Werte auf Stammdaten zurücksetzen" onclick="window.location.href='ReloadGuestData?guest-id=$!guest.id';" />
+                    			#end
+                    				<input type="button" name="persondata" value="Stammdaten bearbeiten" title="Personenstammdaten bearbeiten" onclick="window.location.href='ShowPerson?id=$guest.person&action=event';" />
+                    		</div>							
+						#end
+						
                         <div id="detail-3-data-block" #if($guest.invitationtype == 2) style="display: none;"#end>
                         #set($ext = "_b")
                         #set($facade = $guest.Partner)
@@ -262,6 +297,7 @@
 
 <script type="text/javascript" src="${paths.staticWeb}scripts/guest-detail-tabs.js"></script>
 <script type="text/javascript">
+
 	function setGuestInvitationtype(type) {
 		if (type == 1) {
 			changeBlock('detail-2-data', new Array('detail-2-reload'));
