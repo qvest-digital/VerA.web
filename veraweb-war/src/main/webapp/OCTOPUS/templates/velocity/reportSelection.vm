@@ -12,125 +12,126 @@
 		#set($completeEventHeader = true)
       	#parse("inc/event-header.vm")
 	#end
-
-<form action="ReportGuestList" target="_blank" method="get">
-	
-	<h2>G&auml;steliste erstellen</h2>
-	
-	<h3>Ausgabeformat w&auml;hlen</h3>
-	
-	<div class="table">
-		<div class="tableRow">
-			<div class="tableCell">
-				<label for="type">Ausgabeformat</label>
-				<select name="type" id="type">
-        			<option value="Kat01">Liste nach Kategorien gruppiert - mit Partner</option>
-        			<option value="Kat02">Liste nach Kategorien gruppiert - mit Tel. und Mobiltelefon</option>
-        			<option value="Kat03">Liste nach Kategorien gruppiert - mit Partner und Fax</option>
-        			<option value="Alpha01">Liste nach Sortierung - mit Partner, Tel. und Mobiltelefon</option>
-        		</select>
-			</div>
-		</div>
+	<div class="contentBox grayBorder">
+        <form action="ReportGuestList" target="_blank" method="get">
+        	
+        	<h2>G&auml;steliste erstellen</h2>
+        	
+        	<h3 class="marginBottom5">Ausgabeformat w&auml;hlen</h3>
+        	
+        	<div class="table">
+        		<div class="tableRow">
+        			<div class="tableCell">
+        				<label for="type">Ausgabeformat</label>
+        				<select name="type" id="type">
+                			<option value="Kat01">Liste nach Kategorien gruppiert - mit Partner</option>
+                			<option value="Kat02">Liste nach Kategorien gruppiert - mit Tel. und Mobiltelefon</option>
+                			<option value="Kat03">Liste nach Kategorien gruppiert - mit Partner und Fax</option>
+                			<option value="Alpha01">Liste nach Sortierung - mit Partner, Tel. und Mobiltelefon</option>
+                		</select>
+        			</div>
+        		</div>
+        	</div>
+        
+        	<!-- Der folgende Bereich soll bitte nur erscheinen, wenn "Liste nach Sortierung ausgewählt ist -->
+        	<h3 class="marginBottom5 marginTop40">Sortierkriterien</h3>
+        
+        	<div class="table width100">
+        		<div class="tableRow">
+        			<div class="tableCell">
+        				<label for="sort1">Sortieren nach</label>
+        			</div>
+        			<div class="tableCell">
+        				<select name="sort1" id="sort1">
+                            #if($search.listorder == "lastname_a_e1" || $search.listorder == "firstname_a_e1" || $search.listorder == "mail_a_e1")
+                            			<option value="orderno">Laufende Nummer</option>
+                            			<option value="name" selected>Name</option>
+                            			<option value="country">Land</option>
+                            			<option value="zipcode">PLZ</option>
+                            			<option value="category">Kategorie</option>
+                            			<option value="rank">Rang</option>
+                            			<option value="table">Tisch</option>
+                            #else
+                            			<option value="orderno">Laufende Nummer</option>
+                            			<option value="name">Name</option>
+                            			<option value="country">Land</option>
+                            			<option value="zipcode">PLZ</option>
+                            			<option value="category">Kategorie</option>
+                            			<option value="rank">Rang</option>
+                            			<option value="table">Tisch</option>
+                            #end
+                    	</select>
+        			</div>
+        		</div>
+        		<div class="tableRow">
+        			<div class="tableCell"><label for="sort2">Anschließend nach</label></div>
+        			<div class="tableCell">
+            			<select name="sort2" id="sort2">
+                            			<option value=""></option>
+                            #if($search.listorder == "lastname_a_e1" || $search.listorder == "firstname_a_e1" || $search.listorder == "mail_a_e1")
+                            			<option value="orderno">Laufende Nummer</option>
+                            			<option value="name">Name</option>
+                            			<option value="country">Land</option>
+                            			<option value="zipcode">PLZ</option>
+                            			<option value="category" selected>Kategorie</option>
+                            			<option value="rank">Rang</option>
+                            			<option value="table">Tisch</option>
+                            #else
+                            			<option value="orderno">Laufende Nummer</option>
+                            			<option value="name" selected>Name</option>
+                            			<option value="country">Land</option>
+                            			<option value="zipcode">PLZ</option>
+                            			<option value="category">Kategorie</option>
+                            			<option value="rank">Rang</option>
+                            			<option value="table">Tisch</option>
+                            #end
+                		</select>
+        			</div>
+        		</div>
+        		<div class="tableRow">
+        			<div class="tableCell"><label for="sort3">Anschließend nach</label></div>
+        			<div class="tableCell">
+        				<select name="sort3" >
+                            #if($search.listorder == "lastname_a_e1" || $search.listorder == "firstname_a_e1" || $search.listorder == "mail_a_e1")
+                            			<option value=""></option>
+                            			<option value="orderno">Laufende Nummer</option>
+                            			<option value="name">Name</option>
+                            			<option value="country">Land</option>
+                            			<option value="zipcode">PLZ</option>
+                            			<option value="category">Kategorie</option>
+                            			<option value="rank" selected>Rang</option>
+                            			<option value="table">Tisch</option>
+                            #else
+                            			<option value="" selected></option>
+                            			<option value="orderno">Laufende Nummer</option>
+                            			<option value="name">Name</option>
+                            			<option value="country">Land</option>
+                            			<option value="zipcode">PLZ</option>
+                            			<option value="category">Kategorie</option>
+                            			<option value="rank">Rang</option>
+                            			<option value="table">Tisch</option>
+                            #end
+            		</select>
+        			</div>
+        		</div>
+        		<div class="tableRow">
+        			<div class="tableCell">
+        				<strong>Zusätzliche Sortierung nach</strong>
+        			</div>
+        			<div class="tableCell inlineLabel">
+        				<label for="orderByWorkArea">Arbeitsbereich</label> <input type="checkbox" id="orderByWorkArea" name="orderByWorkArea" value="true" />
+        			</div>
+        		</div>
+        	</div>
+        	<!-- Bereich Ende -->
+        	
+        	<div id="buttonPanel-bottom" class="textRight">
+        		<input type="submit" name="report" value="G&auml;steliste erstellen" title="G&auml;steliste erstellen" class="mainButton" />
+        		<input type="button" name="cancel" value="Zur&uuml;ck zur G&auml;steverwaltung" title="Zur&uuml;ck zur G&auml;steverwaltung" class="mainButton" onclick="window.location.href='ShowGuestList';" />
+            </div>
+        
+        </form>
 	</div>
-
-	<!-- Der folgende Bereich soll bitte nur erscheinen, wenn "Liste nach Sortierung ausgewählt ist -->
-	<h3>Sortierkriterien</h3>
-
-	<div class="table width100">
-		<div class="tableRow">
-			<div class="tableCell">
-				<label for="sort1">Sortieren nach</label>
-			</div>
-			<div class="tableCell">
-				<select name="sort1" id="sort1">
-                    #if($search.listorder == "lastname_a_e1" || $search.listorder == "firstname_a_e1" || $search.listorder == "mail_a_e1")
-                    			<option value="orderno">Laufende Nummer</option>
-                    			<option value="name" selected>Name</option>
-                    			<option value="country">Land</option>
-                    			<option value="zipcode">PLZ</option>
-                    			<option value="category">Kategorie</option>
-                    			<option value="rank">Rang</option>
-                    			<option value="table">Tisch</option>
-                    #else
-                    			<option value="orderno">Laufende Nummer</option>
-                    			<option value="name">Name</option>
-                    			<option value="country">Land</option>
-                    			<option value="zipcode">PLZ</option>
-                    			<option value="category">Kategorie</option>
-                    			<option value="rank">Rang</option>
-                    			<option value="table">Tisch</option>
-                    #end
-            	</select>
-			</div>
-		</div>
-		<div class="tableRow">
-			<div class="tableCell"><label for="sort2">Anschließend nach</label></div>
-			<div class="tableCell">
-    			<select name="sort2" id="sort2">
-                    			<option value=""></option>
-                    #if($search.listorder == "lastname_a_e1" || $search.listorder == "firstname_a_e1" || $search.listorder == "mail_a_e1")
-                    			<option value="orderno">Laufende Nummer</option>
-                    			<option value="name">Name</option>
-                    			<option value="country">Land</option>
-                    			<option value="zipcode">PLZ</option>
-                    			<option value="category" selected>Kategorie</option>
-                    			<option value="rank">Rang</option>
-                    			<option value="table">Tisch</option>
-                    #else
-                    			<option value="orderno">Laufende Nummer</option>
-                    			<option value="name" selected>Name</option>
-                    			<option value="country">Land</option>
-                    			<option value="zipcode">PLZ</option>
-                    			<option value="category">Kategorie</option>
-                    			<option value="rank">Rang</option>
-                    			<option value="table">Tisch</option>
-                    #end
-        		</select>
-			</div>
-		</div>
-		<div class="tableRow">
-			<div class="tableCell"><label for="sort3">Anschließend nach</label></div>
-			<div class="tableCell">
-				<select name="sort3" >
-                    #if($search.listorder == "lastname_a_e1" || $search.listorder == "firstname_a_e1" || $search.listorder == "mail_a_e1")
-                    			<option value=""></option>
-                    			<option value="orderno">Laufende Nummer</option>
-                    			<option value="name">Name</option>
-                    			<option value="country">Land</option>
-                    			<option value="zipcode">PLZ</option>
-                    			<option value="category">Kategorie</option>
-                    			<option value="rank" selected>Rang</option>
-                    			<option value="table">Tisch</option>
-                    #else
-                    			<option value="" selected></option>
-                    			<option value="orderno">Laufende Nummer</option>
-                    			<option value="name">Name</option>
-                    			<option value="country">Land</option>
-                    			<option value="zipcode">PLZ</option>
-                    			<option value="category">Kategorie</option>
-                    			<option value="rank">Rang</option>
-                    			<option value="table">Tisch</option>
-                    #end
-    		</select>
-			</div>
-		</div>
-		<div class="tableRow">
-			<div class="tableCell">
-				<strong>Zusätzliche Sortierung nach</strong>
-			</div>
-			<div class="tableCell inlineLabel">
-				<label for="orderByWorkArea">Arbeitsbereich</label> <input type="checkbox" id="orderByWorkArea" name="orderByWorkArea" value="true" />
-			</div>
-		</div>
-	</div>
-	<!-- Bereich Ende -->
-	
-	<div id="buttonPanel-bottom" class="textRight">
-		<input type="submit" name="report" value="G&auml;steliste erstellen" title="G&auml;steliste erstellen" class="mainButton" />
-		<input type="button" name="cancel" value="Zur&uuml;ck zur G&auml;steverwaltung" title="Zur&uuml;ck zur G&auml;steverwaltung" class="mainButton" onclick="window.location.href='ShowGuestList';" />
-    </div>
-
-</form>
 </div>
 
 
