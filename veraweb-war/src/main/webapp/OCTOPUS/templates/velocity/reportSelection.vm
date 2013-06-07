@@ -12,12 +12,13 @@
 		#set($completeEventHeader = true)
       	#parse("inc/event-header.vm")
 	#end
-	<div class="contentBox grayBorder">
+
+	<div class="contentBoxColored grayBorder marginTop20 marginBottom20">
         <form action="ReportGuestList" target="_blank" method="get">
         	
         	<h2>G&auml;steliste erstellen</h2>
         	
-        	<h3 class="marginBottom5">Ausgabeformat w&auml;hlen</h3>
+        	<h3 class="marginBottom10">Ausgabeformat w&auml;hlen</h3>
         	
         	<div class="table">
         		<div class="tableRow">
@@ -34,9 +35,9 @@
         	</div>
         
         	<!-- Der folgende Bereich soll bitte nur erscheinen, wenn "Liste nach Sortierung ausgewählt ist -->
-        	<h3 class="marginBottom5 marginTop40">Sortierkriterien</h3>
+        	<h3 class="marginBottom10 marginTop40">Sortierkriterien</h3>
         
-        	<div class="table width100">
+        	<div class="table">
         		<div class="tableRow">
         			<div class="tableCell">
         				<label for="sort1">Sortieren nach</label>
@@ -119,7 +120,7 @@
         				<strong>Zusätzliche Sortierung nach</strong>
         			</div>
         			<div class="tableCell inlineLabel">
-        				<label for="orderByWorkArea">Arbeitsbereich</label> <input type="checkbox" id="orderByWorkArea" name="orderByWorkArea" value="true" />
+        				<label for="orderByWorkArea">Arbeitsbereich</label> <input type="checkbox" id="orderByWorkArea" name="orderByWorkArea" value="true" class="noFloat" />
         			</div>
         		</div>
         	</div>
