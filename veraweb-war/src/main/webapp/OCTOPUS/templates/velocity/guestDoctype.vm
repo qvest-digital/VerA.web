@@ -77,12 +77,12 @@
 			
 			
 			<div id="buttonPanel-bottom" class="textRight">
-				<input type="button" onclick="window.location.href='ReloadGuestData?guest-id=$!guest.id&show=doctype';" title="Alle Werte auf Stammdaten zurücksetzen" value="Auf Stammdaten zurücksetzen" name="refresh">
+				<input type="button" onclick="window.location.href='ReloadGuestData?guest-id=$!guest.id&show=doctype';" title="Alle Werte auf Stammdaten zur&uuml;cksetzen" value="Auf Stammdaten zur&uuml;cksetzen" name="refresh">
 				<input type="button" onclick="window.location.href='ShowPerson?id=$guest.person&action=event';" title="Personenstammdaten bearbeiten" value="Stammdaten bearbeiten" name="persondata">
             </div>
             
             #if (!$allDoctype || $allDoctype.size() != 0)
-			<h3 class="marginBottom10">Dokumenttyp wählen</h3>
+			<h3 class="marginBottom10">Dokumenttyp w&auml;hlen</h3>
             <form action="ShowGuestDoctype" method="get" class="marginBottom40">
 				
 			<div class="inlineLabel">
@@ -118,7 +118,7 @@
                 <input type="hidden" name="guestdoctype-addresstype" value="$!guestdoctype.addresstype">
                 <input type="hidden" name="guestdoctype-locale" value="$!guestdoctype.locale">
 					
-				<h3 class="marginBottom10">Adresstyp und Zeichensatz wählen</h3>
+				<h3 class="marginBottom10">Adresstyp und Zeichensatz w&auml;hlen</h3>
 				
 				<div class="table marginBottom40">
 					<div class="tableRow">
@@ -169,7 +169,7 @@
                 
 				
 				<fieldset class="width49 inline">
-					<legend>Persönliche Daten (Hauptperson)</legend>
+					<legend>Pers&ouml;nliche Daten (Hauptperson)</legend>
 					<div class="table width100">
 						<div class="tableRow">
 							<div class="tableCell">
@@ -211,7 +211,7 @@
 				</fieldset>
 				
                 <fieldset class="width49 floatRight">
-					<legend>Persönliche Daten (Partner)</legend>
+					<legend>Pers&ouml;nliche Daten (Partner)</legend>
 					<div class="table width100">
 						<div class="tableRow">
 							<div class="tableCell">
