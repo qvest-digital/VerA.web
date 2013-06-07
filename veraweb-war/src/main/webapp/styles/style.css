@@ -307,6 +307,10 @@ pre {
 
 .inlineBlock {display:inline-block;}
 
+.posRel {position:relative;}
+
+.posAb {position:absolute;}
+
 /************* End misc *************/
 
 /************* End general *************/
@@ -540,6 +544,11 @@ hr {border-top:1px solid #8b0f0f; }
 }
 
 .statisticsType input {margin-bottom:5px !important;}
+
+#guestSummary {
+	top:10px;
+	right:10px;
+}
 
 /************* =6.1 tabs *************/
 
