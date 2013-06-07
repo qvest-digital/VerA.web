@@ -29,12 +29,6 @@
 			#parse("inc/guest-detail-header.vm")
 			
 			#parse("inc/guestMasterDataNote.vm")
-			
-			
-			<div id="buttonPanel-bottom" class="textRight">
-				<input type="button" onclick="window.location.href='ReloadGuestData?guest-id=$!guest.id&show=doctype';" title="Alle Werte auf Stammdaten zur&uuml;cksetzen" value="Auf Stammdaten zur&uuml;cksetzen" name="refresh">
-				<input type="button" onclick="window.location.href='ShowPerson?id=$guest.person&action=event';" title="Personenstammdaten bearbeiten" value="Stammdaten bearbeiten" name="persondata">
-            </div>
             
             #if (!$allDoctype || $allDoctype.size() != 0)
 			<h3 class="marginBottom10">Dokumenttyp w&auml;hlen</h3>

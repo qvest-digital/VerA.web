@@ -13,7 +13,7 @@
       	#parse("inc/event-header.vm")
 	#end
 
-	<div class="contentBoxColored grayBorder marginTop20 marginBottom20">
+	<div class="contentBoxColored grayBorder marginTop20 marginBottom10">
         <form action="ReportGuestList" target="_blank" method="get">
         	
         	<h2>G&auml;steliste erstellen</h2>
