@@ -128,10 +128,13 @@
         	
         	<div id="buttonPanel-bottom" class="textRight">
         		<input type="submit" name="report" value="G&auml;steliste erstellen" title="G&auml;steliste erstellen" class="mainButton" />
-        		<input type="button" name="cancel" value="Zur&uuml;ck zur G&auml;steverwaltung" title="Zur&uuml;ck zur G&auml;steverwaltung" class="mainButton" onclick="window.location.href='ShowGuestList';" />
             </div>
         
         </form>
+	</div>
+	
+	<div id="buttonPanel-bottom" class="textRight">
+		<input type="button" name="cancel" value="Zur&uuml;ck zur G&auml;steverwaltung" title="Zur&uuml;ck zur G&auml;steverwaltung" class="mainButton" onclick="window.location.href='ShowGuestList';" />
 	</div>
 </div>
 
