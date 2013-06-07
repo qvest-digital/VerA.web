@@ -77,7 +77,7 @@
 				</div>
 			</div>
             
-            <form id="guestListFilter" name="guestListFilter" action="ShowGuestList" method="POST" class="marginTop20">
+            <form id="guestListFilter" name="guestListFilter" action="ShowGuestList" method="POST" class="marginTop25">
                 <input type="hidden" name="start" value="0">
                 <input type="hidden" name="selectAll" value="false">
                 <input type="hidden" name="selectNone" value="true">
