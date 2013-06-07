@@ -135,7 +135,7 @@
                         #openContentBlock("detail-1-block")
 						
 						#if($person.deleted != "t")							
-							#parse("inc/guestDetailMainNote.vm")
+							#parse("inc/guestMasterDataNote.vm")
 						#end
 						
 							<div class="table width60">
@@ -187,7 +187,7 @@
                         #openContentBlock("detail-2-block")
 						
 						#if($person.deleted != "t" && $guest.invitationtype != 3)							
-							#parse("inc/guestDetailMainNote.vm")
+							#parse("inc/guestMasterDataNote.vm")
 						#end
 						
                         <div id="detail-2-data-block" #if($guest.invitationtype == 3) style="display: none;"#end>
@@ -208,7 +208,7 @@
                         #openContentBlock("detail-3-block")
 						
 						#if($person.deleted != "t" && $guest.invitationtype != 2)							
-							#parse("inc/guestDetailMainNote.vm")				
+							#parse("inc/guestMasterDataNote.vm")				
 						#end
 						
                         <div id="detail-3-data-block" #if($guest.invitationtype == 2) style="display: none;"#end>
