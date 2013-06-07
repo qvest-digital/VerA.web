@@ -255,11 +255,11 @@
 						</div>
 						<div class="tableRow">
 							<div class="tableCell width50">
-								<div class="width20 inlineBlock">
+								<div class="width25 inlineBlock">
 									<label for="guestdoctype-zipcode">PLZ</label>
 									<input type="text" id="guestdoctype-zipcode" maxlength="50" name="guestdoctype-zipcode" value="$!message.text($guestdoctype.zipcode)" />
 								</div>
-								<div class="width80 inlineBlock floatRight">
+								<div class="width75 inlineBlock floatRight">
 									<label for="guestdoctype-city">Ort</label>
 									<input type="text" id="guestdoctype-city" name="guestdoctype-city" maxlength="100" value="$!message.text($guestdoctype.city)" />
 								</div>	
@@ -271,11 +271,11 @@
 						</div>
 						<div class="tableRow">
 							<div class="tableCell width50">
-								<div class="width20 inlineBlock">
+								<div class="width25 inlineBlock">
 									<label for="guestdoctype-poboxzipcode">Postfach PLZ</label>
 									<input type="text" id="guestdoctype-poboxzipcode" maxlength="50" name="guestdoctype-poboxzipcode" value="$!message.text($guestdoctype.poboxzipcode)" />
 								</div>
-								<div class="width80 inlineBlock floatRight">
+								<div class="width75 inlineBlock floatRight">
 									<label for="guestdoctype-pobox">Nummer</label>
 									<input type="text" id="guestdoctype-pobox" name="guestdoctype-pobox" maxlength="50" value="$!message.text($guestdoctype.pobox)" />
 								</div>
@@ -332,7 +332,7 @@
 					#if($grants.mayWrite())
 						<input type="submit" name="save" value="Speichern" title="Speichern" class="mainButton" />
 					#end
-                    <input type="button" name="cancel" value="Zur&uuml;ck" title="Zur&uuml;ck zu den Veranstaltungdetails" onclick="window.location.href='ShowGuestList';" />
+                    <input type="button" name="cancel" value="Zur&uuml;ck" title="Zur&uuml;ck zu den Veranstaltungdetails" class="mainButton" onclick="window.location.href='ShowGuestList';" />
                 </span>
             
             </form><!-- End id="GuestForm" -->
