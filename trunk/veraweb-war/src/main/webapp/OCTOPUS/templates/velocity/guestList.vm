@@ -154,19 +154,29 @@
             #foreach($bean in $list)
 				<input type="hidden" name="list" value="$bean.id">
         	#end
-        	
-        	<span id="actionPanel" class="inlineLabel">
-        		<label>Markierte Person(en)
-        			<select id="actionSelection">
-        				<option>Löschen</option>
-        				<option>Kategorien zuordnen</option>
-                		<option>Kategorien entfernen</option>
-                		<option>Verteiler erstellen</option>
-                		<option>Steuerdatei exportieren</option>
-                    </select>
-                	<input type="button" value="Durchführen" id="button.execute" name="button.execute" />
-        		</label>
-           	</span>
+
+			<!-- neu -->
+			<div class="table width100">
+                <div class="tableRow">
+                        <div class="tableCell width35 inlineInput"><label for="actionSelection">Markierte Person(en)</label>
+                    			<select id="actionSelection" class="autoWidth">
+                    				<option>Löschen</option>
+                    				<option>Kategorien zuordnen</option>
+                            		<option>Kategorien entfernen</option>
+                            		<option>Verteiler erstellen</option>
+                            		<option>Steuerdatei exportieren</option>
+                                </select>
+                            	<input type="button" name="button.execute" id="button.execute" value="Durchführen" class="autoWidth">
+            			</div>
+            			<div class="tableCell textRight" style="vertical-align:bottom">
+            				#if($grants.mayWrite()) 
+								<input type="button" class="mainButton inlineInput autoWidth" name="createGuestList" value="G&auml;steliste erstellen" title="G&auml;steliste erstellen" onclick="submitFormWithGivenAction('ShowReportGuestList', $grants.mayWrite());" />
+								<input type="button" class="mainButton inlineInput autoWidth" name="addGuestsFromEvent" value="G&auml;ste aus Veranstaltung &uuml;bernehmen" title="G&auml;ste aus Veranstaltung &uuml;bernehmen" onclick="window.location.href='AddEventToEventSearch?action=guest';" />
+								<input type="button" class="mainButton inlineInput autoWidth" name="add" value="Gast hinzuf&uuml;gen" title="Personen suchen und zu der G&auml;steliste hinzuf&uuml;gen" onclick="window.location.href='AddPersonToEventSearch?action=guest&search=clear';" />
+							#end
+						</div>
+               	</div>
+            </div><!--neu -->
 			
 			## Handler für selektierte Aktion 
     		<script>
@@ -236,14 +246,6 @@
 					}
 				}
     		</script>
-        	
-        	<span id="buttonPanel-top" class="textRight floatRight">
-				<input type="button" class="mainButton" name="createGuestList" value="G&auml;steliste erstellen" title="G&auml;steliste erstellen" onclick="submitFormWithGivenAction('ShowReportGuestList', $grants.mayWrite());" #if(!$grants.mayWrite()) class="buttondisabled" vera-disabled #end>
-				
-				<input type="button" class="mainButton" name="addGuestsFromEvent" value="G&auml;ste aus Veranstaltung &uuml;bernehmen" title="G&auml;ste aus Veranstaltung &uuml;bernehmen" onclick="window.location.href='AddEventToEventSearch?action=guest';" #if(!$grants.mayWrite()) class="buttondisabled" vera-disabled #end>
-				
-                <input type="button" name="add" value="Gast hinzuf&uuml;gen" title="Personen suchen und zu der G&auml;steliste hinzuf&uuml;gen" onclick="window.location.href='AddPersonToEventSearch?action=guest&search=clear';" #if($grants.mayWrite()) class="mainButton" #else class="buttondisabled" vera-disabled #end>
-        	</span>
         	
             <table>
             	<tr>
