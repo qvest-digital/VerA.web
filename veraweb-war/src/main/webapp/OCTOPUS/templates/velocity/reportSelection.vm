@@ -38,8 +38,8 @@
 				$(function(){
 					$('#type').change(function(){
 						if($(this).val() === 'Alpha01'){
-							$('#sortHeadline').css('display','inline');
-							$('#sort').css('display','inline');
+							$('#sortHeadline').css('display','block');
+							$('#sort').css('display','block');
 						} else {
 							$('#sortHeadline').css('display','none');
 							$('#sort').css('display','none');
