@@ -57,34 +57,16 @@
 
 		<div id="tabsMain">
 			<ul vera-tab-group="" class="gray-gradient"> <!-- Bitte das End-tag der <li>s immer mit in die nächste Zeile nehmen (verhindert Mozilla styling bug) -->
-    			<li id="gaesteliste" onclick="" vera-tab-default="" vera-tab="" class="active">G&auml;steliste
+    			<li id="gaesteliste" onclick="" vera-tab-default="" vera-tab="" class="active posRel" style="z-index:2">G&auml;steliste
 				</li><li id="gastdetails" onclick="" vera-tab="" class="inactive">Gastdetails
 				</li><li id="dokumenttypen" class="inactive">Dokumenttypen
 				</li>
 			</ul>
 		</div>
 		
-		
-		<!-- alter Code der tabs -->
-		#*
-        <table class="tab" border="0" cellspacing="0" cellpadding="0"><tr>
-        	<td class="tableft">&nbsp;</td>
-        	<td class="tabactiv"><span class="tabactiv">G&auml;steliste</span></td>
-        	#if ($listparam.count > 0)
-        	<td class="tabinactiv"><a href="ShowGuestDetail" class="tabinactiv">Gastdetails</a></td>
-        	<td class="tabinactiv"><a href="ShowGuestDoctype" class="tabinactiv">Dokumenttypen</a></td>
-        	#else
-        	<td class="tabdisabled"><span class="tabdisabled">Gastdetails</span></td>
-        	<td class="tabdisabled"><span class="tabdisabled">Dokumenttypen</span></td>
-        	#end
-        	<td class="tabright">&nbsp;</td>
-        </tr></table>
-		*#
-		<!-- alter Code der tabs Ende-->	
-		
 		<div class="contentBoxColored tabsContent notBold posRel" vera-content="">
 			
-			<div class="table posAb" id="guestSummary">
+			<div id="guestSummary" class="table posAb hinweis grayBorder" style="padding-bottom: 5px;">
 				<div class="tableRow">
 					<div class="tableCell"><strong>Offen:</strong> $!guestlist-sums.offen</div>
 					<div class="tableCell"><strong>Zusagen:</strong> $!guestlist-sums.zusagen</div>
@@ -95,7 +77,7 @@
 				</div>
 			</div>
             
-            <form id="guestListFilter" name="guestListFilter" action="ShowGuestList" method="POST">
+            <form id="guestListFilter" name="guestListFilter" action="ShowGuestList" method="POST" class="marginTop20">
                 <input type="hidden" name="start" value="0">
                 <input type="hidden" name="selectAll" value="false">
                 <input type="hidden" name="selectNone" value="true">
@@ -263,15 +245,15 @@
                 <input type="button" name="add" value="Gast hinzuf&uuml;gen" title="Personen suchen und zu der G&auml;steliste hinzuf&uuml;gen" onclick="window.location.href='AddPersonToEventSearch?action=guest&search=clear';" #if($grants.mayWrite()) class="mainButton" #else class="buttondisabled" vera-disabled #end>
         	</span>
         	
-            <table class="list">
-            	<tr class="list1" style="height: 20px;">
+            <table>
+            	<tr>
 					<th class="textCenter smallCell"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" #if($listselection.size() == $listparam.count) checked#end title="Alle (de)markieren"/></th>
             #if($search.listorder == "lastname_a_e1")
-            		<th class="list" style="width: 50px;"><a href="javascript:orderGuestList('orderno');"><nobr>Lfd.-Nr.</nobr></a></th>
+            		<th class="textCenter smallCell"><a href="javascript:orderGuestList('orderno');"><nobr>Lfd.-Nr.</nobr></a></th>
             		<th class="list1" style="width: 25px; text-align: center;" title="Auf Reserve / Platz">R</th>
             		<th class="list"><a href="javascript:orderGuestList('lastname_a_e1');" style="color: #000000;">Name</a></th>
             		<th class="list"><a href="javascript:orderGuestList('firstname_a_e1');">Vorname</a></th>
-            		<th class="list" style="width: 20px;"><a href="javascript:orderGuestList('mail_a_e1');"><img src="${paths.staticWeb}images/email.gif" alt="eMail"></a></th>
+            		<th class="list" style="width: 20px;"><a href="javascript:orderGuestList('mail_a_e1');">E-Mail</a></th>
             #elseif($search.listorder == "firstname_a_e1")
             		<th class="list" style="width: 50px;"><a href="javascript:orderGuestList('orderno');"><nobr>Lfd.-Nr.</nobr></a></th>
             		<th class="list1" style="width: 25px; text-align: center;" title="Auf Reserve / Platz">R</th>
@@ -451,15 +433,15 @@
 					#parse("inc/list-direct-new.vm")
             	#else
 					<tr class="colspan">
-						<td colspan="99">
-							Direkteinsprung: <em>Ist nur bei einer Sortierung nach Name, Vorname oder E-Mail-Adresse m&ouml;glich.</em>
+						<td colspan="99" class="textCenter">
+							<strong>Hinweis:</strong> Direkteinsprung: Ist nur bei einer Sortierung nach Name, Vorname oder E-Mail m&ouml;glich.
 						</td>
 					</tr>
             	#end
 				
             </table>
         	
-        	<div class="textRight" id="buttonPanel-bottom">
+        	<div class="textRight marginBottom20" id="buttonPanel-bottom">
 				<input type="button" name="calcSerialNumber" value="Laufende Nummer berechnen" title="Laufende Nummer berechnen" onclick="htmlWait(); window.location.href='CalcSerialNumber';" #if(!$grants.mayWrite()) class="buttondisabled" vera-disabled #end>
 				<input type="button" name="reloadAllGuestData" value="Alle Stammdaten neu laden" title="Alle Stammdaten neu laden" onclick="submitFormWithGivenAction('ReloadAllGuestData', $grants.mayWrite());" #if(!$grants.mayWrite()) class="buttondisabled" vera-disabled #end>
         	</div>
@@ -480,7 +462,7 @@
                 <br>
             #end
             
-			<div class="hinweis contentBoxColored grayBorder">
+			<div class="hinweis contentBoxColored grayBorder marginBottom10">
 				<strong>Hinweis</strong>
 				<p>Beim Erstellen von Steuerdateien oder G&auml;stelisten wird Ihr oben ausgew&auml;hlter Filter ber&uuml;cksichtigt.<br>
 				Wenn Sie einzelne G&auml;ste markieren, werden nur diese exportiert, ansonsten die vollst&auml;ndige Liste.</p>
