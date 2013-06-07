@@ -78,8 +78,8 @@
             </tr></table>
             
             <div class="notBold hinweis grayBorder marginBottom10">
-                            <strong>Hinweis</strong>
-                            <p>Sie bearbeiten hier ausschließlich Personendaten im Rahmen der aktuellen Veranstaltung, <i>keine</i> grundlegenden Stammdaten.</p>
+				<strong>Hinweis</strong>
+				<p>Sie bearbeiten hier ausschließlich Personendaten im Rahmen der aktuellen Veranstaltung, <i>keine</i> grundlegenden Stammdaten.</p>
             </div>
 			
 			<div id="buttonPanel-bottom" class="textRight marginBottom20">
@@ -88,17 +88,17 @@
             </div>
             
             #if (!$allDoctype || $allDoctype.size() != 0)
+			<h3>Dokumenttyp wählen</h3>
             <form action="ShowGuestDoctype" method="get">
-            <table class="form"><tr>
-            	<td class="label" style="width: 19%;"><strong>Dokumenttyp</strong></td>
-            	<td class="value" style="width: 81%;">
-            		<select id="doctype-id" name="doctype-id"  style="width: 99%;" onChange="submit();">
+				
+			<div class="inlineLabel">
+				<label for="">Dokumenttyp</label>
+				<select id="doctype-id" name="doctype-id"  style="width: 99%;" onChange="submit();">
             			#foreach($doc in $allDoctype)
             			<option value="$!doc.doctype" #if($doc.doctype == $guestdoctype.doctype) selected#end>$!message.text($doc.name)</option>
             			#end
             		</select>
-            	</td>
-            </tr></table>
+			</div>	
             </form>
             #end
             
@@ -112,8 +112,6 @@
                 
                 <input type="hidden" id="reloadguestdoctype-addresstype" name="guestdoctype-addresstype" value="$!guestdoctype.addresstype">
                 <input type="hidden" id="reloadguestdoctype-locale" name="guestdoctype-locale" value="$!guestdoctype.locale">
-                
-                <hr class="contentsection" style="height: 2px; border-top: 2px solid #80A7E0; color: #80A7E0" />
             </form>
             
             <form id="GuestForm" name="GuestForm" action="SaveGuestDoctype" method="post">
@@ -125,38 +123,55 @@
                 
                 <input type="hidden" name="guestdoctype-addresstype" value="$!guestdoctype.addresstype">
                 <input type="hidden" name="guestdoctype-locale" value="$!guestdoctype.locale">
-                
-                <table class="form"><tr>
-                	<td class="label" style="width: 19%;">Freitextfeld:</td>
-                	<td class="value"><textarea rows="3" cols="20" id="guestdoctype-textfield" name="guestdoctype-textfield" >$!message.textarea($guestdoctype.textfield)</textarea></td>
-                </tr><tr>
-                	<td class="label">Verbinder:</td>
-                	<td class="value"><input type="text" id="guestdoctype-textjoin" name="guestdoctype-textjoin" maxlength="50" value="$!message.text($guestdoctype.textjoin)" ></td>
-                </tr><tr>
-                	<td class="label">Freitextfeld (Partner):</td>
-                	<td class="value"><textarea rows="3" cols="20" id="guestdoctype-textfield_p" name="guestdoctype-textfield_p" >$!message.textarea($guestdoctype.textfield_p)</textarea></td>
-                </tr></table>
-                
-                <hr class="contentsection" style="height: 2px; border-top: 2px solid #80A7E0; color: #80A7E0" />
-                
-                <table class="form"><tr>
-                	<td class="label" style="width: 19%;">&nbsp;</td>
-                	<td class="value" style="width: 25%;">
-                		<select id="select-addresstype" name="select-addresstype"  style="width: 95%;">
-                			<option value="1" #if($guestdoctype.addresstype == 1) selected#end>$!config.business</option>
-                			<option value="2" #if($guestdoctype.addresstype == 2) selected#end>$!config.private</option>
-                			<option value="3" #if($guestdoctype.addresstype == 3) selected#end>$!config.other</option>
-                		</select>
-                	</td>
-                	<td class="value" style="width: 25%;">
-                		<select id="select-locale" name="select-locale"  style="width: 95%;">
-                			<option value="1" #if($guestdoctype.locale == 1) selected#end>$!config.latin</option>
-                			<option value="2" #if($guestdoctype.locale == 2) selected#end>$!config.extra1</option>
-                			<option value="3" #if($guestdoctype.locale == 3) selected#end>$!config.extra2</option>
-                		</select>
-                	</td>
-                	<td class="value"><input type="button" name="create" value="Neu laden" class="button" style="" onclick="reloadGuestDoctype();"></td>
-                </tr></table>
+					
+				<h3>Adresstyp und Zeichensatz wählen</h3>
+				
+				<div class="table">
+					<div class="tableRow">
+						<div class="tableCell">
+							<label for="select-addresstype">Adresstyp</label> 
+							<select id="select-addresstype" name="select-addresstype">
+                    			<option value="1" #if($guestdoctype.addresstype == 1) selected#end>$!config.business</option>
+                    			<option value="2" #if($guestdoctype.addresstype == 2) selected#end>$!config.private</option>
+                    			<option value="3" #if($guestdoctype.addresstype == 3) selected#end>$!config.other</option>
+							</select>
+						</div>
+						<div class="tableCell">
+							<label for="select-locale">Zeichensatz</label>
+							<select id="select-locale" name="select-locale">
+                    			<option value="1" #if($guestdoctype.locale == 1) selected#end>$!config.latin</option>
+                    			<option value="2" #if($guestdoctype.locale == 2) selected#end>$!config.extra1</option>
+                    			<option value="3" #if($guestdoctype.locale == 3) selected#end>$!config.extra2</option>
+                    		</select>
+							
+						</div>
+						<div class="tableCell" style="vertical-align:bottom;">
+							<input type="button" name="create" value="Neu laden" onclick="reloadGuestDoctype();">
+						</div>
+					</div>
+				</div>
+
+				<h3>Daten bearbeiten</h3>
+				
+				<div class="table width100">
+					<div class="tableRow">
+						<div class="tableCell width50">
+							<label for="guestdoctype-textfield">Freitextfeld</label>
+							<textarea id="guestdoctype-textfield" name="guestdoctype-textfield" >$!message.textarea($guestdoctype.textfield)</textarea>
+						</div>
+						<div class="tableCell width50">
+							<label for="guestdoctype-textfield_p">Freitextfeld (Partner)</label>
+							<textarea id="guestdoctype-textfield_p" name="guestdoctype-textfield_p" >$!message.textarea($guestdoctype.textfield_p)</textarea>
+						</div>
+					</div>
+					<div class="tableRow">
+						<div class="tableCell">
+							<label for="guestdoctype-textjoin">Verbinder</label>
+							<input type="text" id="guestdoctype-textjoin" name="guestdoctype-textjoin" maxlength="50" value="$!message.text($guestdoctype.textjoin)" >
+						</div>
+						<div class="tableCell"></div>
+					</div>
+				</div>
                 
                 
                 <table class="form"><tr>
