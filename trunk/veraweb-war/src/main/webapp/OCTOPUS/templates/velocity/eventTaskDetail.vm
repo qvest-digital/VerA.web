@@ -90,7 +90,9 @@
                 </ul>
             </div>
 
-            <div class="contentBoxColored tabsContent notBold">
+            <div class="contentBoxColored tabsContent">
+				
+				<div class="textRight mandatoryText">* = Pflichtfelder</div>
 
                 <div class="table width100">
                     <div class="tableRow">
