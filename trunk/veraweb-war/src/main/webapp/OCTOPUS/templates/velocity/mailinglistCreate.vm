@@ -10,6 +10,8 @@
 	<h1>Verteiler anlegen</h1>
 
 	<div id="main_content" class="contentBoxColored grayBorder marginBottom10">
+		
+		<div class="textRight mandatoryText">* = Pflichtfelder</div>
 
 		<form action="SaveMailinglist" name="mailinglists" method="POST" onsubmit="htmlWait();">
 		
