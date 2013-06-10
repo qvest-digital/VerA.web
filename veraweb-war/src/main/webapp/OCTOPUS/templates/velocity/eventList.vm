@@ -36,6 +36,13 @@
         <strong>Hinweis</strong>
         <p>Bitte klicken Sie eine der aufgelisteten Veranstaltungen an, um die G&auml;ste zu &uuml;bernehmen.</p>
     </div>
+	#end
+	
+	#if($action == "addperson")
+    <div class="hinweis contentBoxColored grayBorder marginBottom15">
+        <strong>Hinweis</strong>
+        <p>Bitte klicken Sie eine der aufgelisteten Veranstaltungen an, um die Person dieser Veranstaltung zuzuordnen.</p>
+    </div>
     #end
 
 	
@@ -66,7 +73,7 @@
 			
 		#else
 
-            #if($action != "guest")
+            #if($action != "guest" && $action != "addPerson")
             <span id="actionPanel" class="inlineLabel">
             	#if(($action != "guest" || $action != "addperson") && $grants.mayWrite())
         			<strong>Markierte Veranstaltung(en)</strong>
