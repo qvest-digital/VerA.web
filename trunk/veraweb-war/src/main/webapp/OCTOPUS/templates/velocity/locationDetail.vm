@@ -54,6 +54,7 @@
 </div>
 #end
 
+<div class="textRight mandatoryText bold">* = Pflichtfelder</div>
 
 <table class="form">
 	<tr>
