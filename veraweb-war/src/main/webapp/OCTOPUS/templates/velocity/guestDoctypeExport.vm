@@ -26,7 +26,7 @@
     		</select>
 		</p>
     
-		<h2 class="marginTop20 marginBottom10">Daten bearbeiten</h2>
+		<h3 class="marginTop30 marginBottom10">Daten bearbeiten</h3>
 		
 		<div class="table">
 			<div class="tableRow">
@@ -43,7 +43,7 @@
 					<label for="available">Exportierf&auml;hige G&auml;ste</label>
 				</div>
 				<div class="tableCell">
-					<input type="text" name="available" id="available" value="$!exportCalc.available" class="id" vera-disabled />					
+					<input type="text" name="available" id="available" value="$!exportCalc.available" class="width15" vera-disabled />					
 				</div>
 			</div>
     
@@ -54,15 +54,15 @@
         					<label for="diff">Unvollst&auml;ndige G&auml;ste</label>
         				</div>
         				<div class="tableCell">
-        					<input type="text" id="diff" name="diff" value="$!diff" class="id" vera-disabled />
+        					<input type="text" id="diff" name="diff" value="$!diff" class="width15" vera-disabled />
         				</div>
         			</div>
             #end
 		</div>
 
-       	<h3 class="marginBottom10 marginTop30" id="sortHeadline">Sortierkriterien</h3>
+       	<h3 class="marginBottom10 marginTop25" id="sortHeadline">Sortierkriterien</h3>
 				
-		<div class="table" id="sort" style="display:none">
+		<div class="table" id="sort">
         		<div class="tableRow">
         			<div class="tableCell">
         				<label for="sort1">Sortieren nach</label>
@@ -167,7 +167,8 @@
         </div>
 			
     
-    <div class="hinweis grayBorder"><strong>Hinweis</strong><p>
+    <div class="hinweis grayBorder contentBoxColored marginTop20"><strong>Hinweis</strong>
+		<p>
     			Sollten Sie in der G&auml;steliste eine Filterung getroffen haben, werden nur die
     			ausgew&auml;hlten G&auml;ste exportiert.
     		</p>
