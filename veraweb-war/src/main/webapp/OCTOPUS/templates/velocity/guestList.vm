@@ -79,6 +79,7 @@
             
             <form id="guestListFilter" name="guestListFilter" action="ShowGuestList" method="POST" class="marginTop25">
                 <input type="hidden" name="start" value="0">
+				<input type="hidden" name="limit" value="" />
                 <input type="hidden" name="selectAll" value="false">
                 <input type="hidden" name="selectNone" value="true">
                 <input type="hidden" name="search-event" value="$search.event">
@@ -141,6 +142,7 @@
             
             <form id="formlist" name="formlist" action="ShowGuestList" method="POST">
             <input type="hidden" name="start" value="">
+			<input type="hidden" name="limit" value="" />
             <input type="hidden" name="selectAll" value="false">
             <input type="hidden" name="selectNone" value="false">
             <input type="hidden" name="doInsert" value="false">
