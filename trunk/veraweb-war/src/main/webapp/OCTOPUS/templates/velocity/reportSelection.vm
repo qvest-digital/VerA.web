@@ -49,7 +49,7 @@
             </script>
 			
         	<!-- Der folgende Bereich soll bitte nur erscheinen, wenn "Liste nach Sortierung ausgewählt ist -->
-        	<h3 class="marginBottom10 marginTop40" id="sortHeadline" style="display:none">Sortierkriterien</h3>
+        	<h3 class="marginBottom10 marginTop30" id="sortHeadline" style="display:none">Sortierkriterien</h3>
         
         	<div class="table" id="sort" style="display:none">
         		<div class="tableRow">
@@ -106,7 +106,7 @@
         		<div class="tableRow">
         			<div class="tableCell"><label for="sort3">Anschließend nach</label></div>
         			<div class="tableCell">
-        				<select name="sort3" >
+        				<select name="sort3" id="sort3" >
                             #if($search.listorder == "lastname_a_e1" || $search.listorder == "firstname_a_e1" || $search.listorder == "mail_a_e1")
                             			<option value=""></option>
                             			<option value="orderno">Laufende Nummer</option>
