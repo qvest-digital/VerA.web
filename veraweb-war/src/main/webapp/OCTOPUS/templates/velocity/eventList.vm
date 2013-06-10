@@ -73,7 +73,7 @@
 			
 		#else
 
-            #if($action != "guest" && $action != "addPerson")
+            #if($action != "guest" && $action != "addperson")
             <span id="actionPanel" class="inlineLabel">
             	#if(($action != "guest" || $action != "addperson") && $grants.mayWrite())
         			<strong>Markierte Veranstaltung(en)</strong>
@@ -82,7 +82,7 @@
         	</span>
             #end
 			
-        	#if($action != "guest" && $action != "addPerson" && !$searchTask )
+        	#if($action != "guest" && $action != "addperson" && !$searchTask )
             	<span id="" class="buttonPanel-top textRight floatRight">
                     <input type="button" name="" value="Veranstaltung suchen" class="mainButton" onclick="window.location.href='ShowEventSearch?action=event';"/>
 					#if($grants.mayWrite())
