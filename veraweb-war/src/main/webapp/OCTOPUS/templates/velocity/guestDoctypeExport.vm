@@ -34,7 +34,7 @@
 					<label for="total">Ausgew&auml;hlte G&auml;ste</label>
 				</div>
 				<div class="tableCell">
-					<input type="text" id="total" name="total" value="$!exportCalc.total" class="id" vera-disabled />
+					<input type="text" id="total" name="total" value="$!exportCalc.total" class="width15" vera-disabled />
 				</div>
 			</div>
 			
