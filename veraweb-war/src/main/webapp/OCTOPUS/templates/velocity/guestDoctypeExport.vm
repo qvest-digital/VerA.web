@@ -14,31 +14,52 @@
     #if($exportCalc)
     
     <form id="ExportForm" action="ShowExportGuestDoctype" method="post">
-    
-    <table class="form"><tr>
-    	<td class="label" style="width: 19%;"><strong>Dokumenttyp</strong></td>
-    	<td class="value" style="width: 81%;">
-    		<select name="doctype"  onChange="document.getElementById('ExportForm').action='ShowExportGuestDoctype'; submit();">
+		
+		<h2>Dokumenttyp auswählen</h2>
+		
+		<p class="inlineLabel">
+			<label for="doctype">Dokumenttyp</label>
+			<select name="doctype"  onChange="document.getElementById('ExportForm').action='ShowExportGuestDoctype'; submit();" id="doctype">
     			#foreach($bean in $allEventDoctype)
     			<option value="$!bean.doctype" #if($bean.doctype == $exportCalc.doctype) selected#end>$!bean.name</option>
     			#end
     		</select>
-    	</td>
-    </tr></table>
+		</p>
     
-    <table class="form"><tr>
-    	<td class="label" style="width: 19%;">Ausgew&auml;hlte G&auml;ste:</td>
-    	<td class="value"><input type="text" name="total" value="$!exportCalc.total" class="id" vera-disabled></td>
-    </tr><tr>
-    	<td class="label" style="width: 19%;">Exportierf&auml;hige G&auml;ste:</td>
-    	<td class="value"><input type="text" name="available" value="$!exportCalc.available" class="id" vera-disabled></td>
-    #if($exportCalc.total > $exportCalc.available)
-    #set($diff = $exportCalc.total - $exportCalc.available)
-    </tr><tr>
-    	<td class="label" style="width: 19%;">Unvollst&auml;ndige G&auml;ste:</td>
-    	<td class="value"><input type="text" name="diff" value="$!diff" class="id" vera-disabled style="color: #ff0000;"></td>
-    #end
-    </tr></table><br>
+		<h2>Daten bearbeiten</h2>
+		
+		<div class="table">
+			<div class="tableRow">
+				<div class="tableCell">
+					<label for="total">Ausgew&auml;hlte G&auml;ste</label>
+				</div>
+				<div class="tableCell">
+					<input type="text" id="total" name="total" value="$!exportCalc.total" class="id" vera-disabled />
+				</div>
+			</div>
+			
+			<div class="tableRow">
+				<div class="tableCell">
+					<label for="available">Exportierf&auml;hige G&auml;ste</label>
+				</div>
+				<div class="tableCell">
+					<input type="text" name="available" id="available" value="$!exportCalc.available" class="id" vera-disabled />					
+				</div>
+			</div>
+    
+        	#if($exportCalc.total > $exportCalc.available)
+            #set($diff = $exportCalc.total - $exportCalc.available)
+        			<div class="tableRow">
+        				<div class="tableCell">
+        					<label for="diff">Unvollst&auml;ndige G&auml;ste</label>
+        				</div>
+        				<div class="tableCell">
+        					<input type="text" id="diff" name="diff" value="$!diff" class="id" vera-disabled />
+        				</div>
+        			</div>
+            #end
+		</div>
+
     
     <table class="form"><tr>
     	<td class="label" style="width: 19%;">Sortierung:</td>
@@ -169,13 +190,13 @@
     
     #else
     
-    <div class="hinweis contentBoxColored grayBorder marginBottom20">
-    Der Veranstaltung wurden noch keine Dokumenttypen zugeordnet.
+    <div class="hinweis contentBoxColored grayBorder marginBottom20 marginTop20">
+		Der Veranstaltung wurden noch keine Dokumenttypen zugeordnet.
     </div>
     
     <div class="textRight marginTop10" id="buttonPanel-bottom">
     
-		<input type="button" name="cancel" value="Zur&uuml;ck zur Veranstaltung" title="Zur&uuml;ck zur Veranstaltung" class="cancel" onclick="window.location.href='ShowGuestList';" class="mainButton" />
+		<input type="button" name="cancel" value="Zur&uuml;ck zur Veranstaltung" title="Zur&uuml;ck zur Veranstaltung" class="mainButton" onclick="window.location.href='ShowGuestList';" class="mainButton" />
     
     </div>
     

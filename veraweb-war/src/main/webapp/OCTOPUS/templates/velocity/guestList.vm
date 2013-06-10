@@ -261,7 +261,7 @@
             		<th class="list1" style="width: 25px; text-align: center;" title="Auf Reserve / Platz">R</th>
             		<th class="list"><a href="javascript:orderGuestList('lastname_a_e1');">Name</a></th>
             		<th class="list"><a href="javascript:orderGuestList('firstname_a_e1');" style="color: #000000;">Vorname</a></th>
-            		<th class="list" style="width: 20px;"><a href="javascript:orderGuestList('mail_a_e1');"><img src="${paths.staticWeb}images/email.gif" alt="eMail"></a></th>
+            		<th class="list" style="width: 20px;"><a href="javascript:orderGuestList('mail_a_e1');">E-Mail</a></th>
             #elseif($search.listorder == "mail_a_e1")
             		<th class="list" style="width: 50px;"><a href="javascript:orderGuestList('orderno');"><nobr>Lfd.-Nr.</nobr></a></th>
             		<th class="list1" style="width: 25px; text-align: center;" title="Auf Reserve / Platz">R</th>
