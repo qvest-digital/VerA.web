@@ -28,6 +28,9 @@
 #end
 
 <input type="hidden" name="maildraft-id" value="$!maildraft.id">
+	
+	
+<div class="textRight mandatoryText bold">* = Pflichtfelder</div>	
 
 <table class="form"><tr>
 	<td class="label"><label for="show-id">ID</label></td>
