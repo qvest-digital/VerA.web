@@ -866,7 +866,7 @@ legend {
 
 .mainButton,
 input.active {
-	color: #8b0f08;
+	color: #8b0f08 !important;
 }
 
 .mainButton {
