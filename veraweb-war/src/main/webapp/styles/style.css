@@ -319,6 +319,8 @@ ul.alphabet li {
 
 .notBold {font-weight:normal}
 
+.bold {font-weight: bold;}
+
 .noDisplay {display:none;}
 
 .autoWidth {width:auto !important;}
