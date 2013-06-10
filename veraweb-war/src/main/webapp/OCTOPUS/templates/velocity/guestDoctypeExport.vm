@@ -15,7 +15,7 @@
     
     <form id="ExportForm" action="ShowExportGuestDoctype" method="post">
 		
-		<h2>Dokumenttyp auswählen</h2>
+		<h2 class="marginTop20 marginBottom10">Dokumenttyp auswählen</h2>
 		
 		<p class="inlineLabel">
 			<label for="doctype">Dokumenttyp</label>
@@ -26,7 +26,7 @@
     		</select>
 		</p>
     
-		<h2>Daten bearbeiten</h2>
+		<h2 class="marginTop20 marginBottom10">Daten bearbeiten</h2>
 		
 		<div class="table">
 			<div class="tableRow">
@@ -60,104 +60,112 @@
             #end
 		</div>
 
-    
-    <table class="form"><tr>
-    	<td class="label" style="width: 19%;">Sortierung:</td>
-    	<td class="value">
-    		<select name="sort1" >
-    #if($search.listorder == "lastname_a_e1" || $search.listorder == "firstname_a_e1" || $search.listorder == "mail_a_e1")
-    			<option value="orderno">Laufende Nummer</option>
-    			<option value="name" selected>Name</option>
-    			<option value="country">Land</option>
-    			<option value="zipcode">PLZ</option>
-    			<option value="category">Kategorie</option>
-    			<option value="rank">Rang</option>
-    			<option value="table">Tisch</option>
-    ## modified to support workareas as per change request for version 1.2.0
-    ## cklein
-    ## 2008-02-26
-    			<option value="workareaname">Arbeitsbereich</option>
-    #else
-    			<option value="orderno">Laufende Nummer</option>
-    			<option value="name">Name</option>
-    			<option value="country">Land</option>
-    			<option value="zipcode">PLZ</option>
-    			<option value="category">Kategorie</option>
-    			<option value="rank">Rang</option>
-    			<option value="table">Tisch</option>
-    ## modified to support workareas as per change request for version 1.2.0
-    ## cklein
-    ## 2008-02-26
-    			<option value="workareaname">Arbeitsbereich</option>
-    #end
-    		</select>
-    	</td>
-    </tr><tr>
-    	<td class="label" style="width: 19%;">&nbsp;</td>
-    	<td class="value">
-    		<select name="sort2" >
-    			<option value=""></option>
-    #if($search.listorder == "lastname_a_e1" || $search.listorder == "firstname_a_e1" || $search.listorder == "mail_a_e1")
-    			<option value="orderno">Laufende Nummer</option>
-    			<option value="name">Name</option>
-    			<option value="country">Land</option>
-    			<option value="zipcode">PLZ</option>
-    			<option value="category" selected>Kategorie</option>
-    			<option value="rank">Rang</option>
-    			<option value="table">Tisch</option>
-    ## modified to support workareas as per change request for version 1.2.0
-    ## cklein
-    ## 2008-02-26
-    			<option value="workareaname">Arbeitsbereich</option>
-    #else
-    			<option value="orderno">Laufende Nummer</option>
-    			<option value="name" selected>Name</option>
-    			<option value="country">Land</option>
-    			<option value="zipcode">PLZ</option>
-    			<option value="category">Kategorie</option>
-    			<option value="rank">Rang</option>
-    			<option value="table">Tisch</option>
-    ## modified to support workareas as per change request for version 1.2.0
-    ## cklein
-    ## 2008-02-26
-    			<option value="workareaname">Arbeitsbereich</option>
-    #end
-    		</select>
-    	</td>
-    </tr><tr>
-    	<td class="label" style="width: 19%;">&nbsp;</td>
-    	<td class="value">
-    		<select name="sort3" >
-    #if($search.listorder == "lastname_a_e1" || $search.listorder == "firstname_a_e1" || $search.listorder == "mail_a_e1")
-    			<option value=""></option>
-    			<option value="orderno">Laufende Nummer</option>
-    			<option value="name">Name</option>
-    			<option value="country">Land</option>
-    			<option value="zipcode">PLZ</option>
-    			<option value="category">Kategorie</option>
-    			<option value="rank" selected>Rang</option>
-    			<option value="table">Tisch</option>
-    ## modified to support workareas as per change request for version 1.2.0
-    ## cklein
-    ## 2008-02-26
-    			<option value="workareaname">Arbeitsbereich</option>
-    #else
-    			<option value="" selected></option>
-    			<option value="orderno">Laufende Nummer</option>
-    			<option value="name">Name</option>
-    			<option value="country">Land</option>
-    			<option value="zipcode">PLZ</option>
-    			<option value="category">Kategorie</option>
-    			<option value="rank">Rang</option>
-    			<option value="table">Tisch</option>
-    ## modified to support workareas as per change request for version 1.2.0
-    ## cklein
-    ## 2008-02-26
-    			<option value="workareaname">Arbeitsbereich</option>
-    #end
-    		</select>
-    	</td>
-    </tr></table><br>
+       	<h3 class="marginBottom10 marginTop30" id="sortHeadline">Sortierkriterien</h3>
+				
+		<div class="table" id="sort" style="display:none">
+        		<div class="tableRow">
+        			<div class="tableCell">
+        				<label for="sort1">Sortieren nach</label>
+        			</div>
+        			<div class="tableCell">
+        				<select name="sort1" id="sort1">
+                            #if($search.listorder == "lastname_a_e1" || $search.listorder == "firstname_a_e1" || $search.listorder == "mail_a_e1")
+                            			<option value="orderno">Laufende Nummer</option>
+                            			<option value="name" selected>Name</option>
+                            			<option value="country">Land</option>
+                            			<option value="zipcode">PLZ</option>
+                            			<option value="category">Kategorie</option>
+                            			<option value="rank">Rang</option>
+                            			<option value="table">Tisch</option>
+                            ## modified to support workareas as per change request for version 1.2.0
+                            ## cklein
+                            ## 2008-02-26
+                            			<option value="workareaname">Arbeitsbereich</option>
+                            #else
+                            			<option value="orderno">Laufende Nummer</option>
+                            			<option value="name">Name</option>
+                            			<option value="country">Land</option>
+                            			<option value="zipcode">PLZ</option>
+                            			<option value="category">Kategorie</option>
+                            			<option value="rank">Rang</option>
+                            			<option value="table">Tisch</option>
+                            ## modified to support workareas as per change request for version 1.2.0
+                            ## cklein
+                            ## 2008-02-26
+                            			<option value="workareaname">Arbeitsbereich</option>
+                            #end
+                    	</select>
+        			</div>
+        		</div>
+        		<div class="tableRow">
+        			<div class="tableCell"><label for="sort2">Anschließend nach</label></div>
+        			<div class="tableCell">
+            			<select name="sort2" id="sort2">
+                            			<option value=""></option>
+                            #if($search.listorder == "lastname_a_e1" || $search.listorder == "firstname_a_e1" || $search.listorder == "mail_a_e1")
+                            			<option value="orderno">Laufende Nummer</option>
+                            			<option value="name">Name</option>
+                            			<option value="country">Land</option>
+                            			<option value="zipcode">PLZ</option>
+                            			<option value="category" selected>Kategorie</option>
+                            			<option value="rank">Rang</option>
+                            			<option value="table">Tisch</option>
+                            ## modified to support workareas as per change request for version 1.2.0
+                            ## cklein
+                            ## 2008-02-26
+                            			<option value="workareaname">Arbeitsbereich</option>
+                            #else
+                            			<option value="orderno">Laufende Nummer</option>
+                            			<option value="name" selected>Name</option>
+                            			<option value="country">Land</option>
+                            			<option value="zipcode">PLZ</option>
+                            			<option value="category">Kategorie</option>
+                            			<option value="rank">Rang</option>
+                            			<option value="table">Tisch</option>
+                            ## modified to support workareas as per change request for version 1.2.0
+                            ## cklein
+                            ## 2008-02-26
+                            			<option value="workareaname">Arbeitsbereich</option>
+                            #end
+                		</select>
+        			</div>
+        		</div>
+        		<div class="tableRow">
+        			<div class="tableCell"><label for="sort3">Anschließend nach</label></div>
+        			<div class="tableCell">
+        				<select name="sort3" id="sort3" >
+                            #if($search.listorder == "lastname_a_e1" || $search.listorder == "firstname_a_e1" || $search.listorder == "mail_a_e1")
+                            			<option value=""></option>
+                            			<option value="orderno">Laufende Nummer</option>
+                            			<option value="name">Name</option>
+                            			<option value="country">Land</option>
+                            			<option value="zipcode">PLZ</option>
+                            			<option value="category">Kategorie</option>
+                            			<option value="rank" selected>Rang</option>
+                            			<option value="table">Tisch</option>
+                            ## modified to support workareas as per change request for version 1.2.0
+                            ## cklein
+                            ## 2008-02-26
+                            			<option value="workareaname">Arbeitsbereich</option>
+                            #else
+                            			<option value="" selected></option>
+                            			<option value="orderno">Laufende Nummer</option>
+                            			<option value="name">Name</option>
+                            			<option value="country">Land</option>
+                            			<option value="zipcode">PLZ</option>
+                            			<option value="category">Kategorie</option>
+                            			<option value="rank">Rang</option>
+                            			<option value="table">Tisch</option>
+                            ## modified to support workareas as per change request for version 1.2.0
+                            ## cklein
+                            ## 2008-02-26
+                            			<option value="workareaname">Arbeitsbereich</option>
+                            #end
+            		</select>
+        		</div>
+        	</div>
+        </div>
+			
     
     <div class="hinweis grayBorder"><strong>Hinweis</strong><p>
     			Sollten Sie in der G&auml;steliste eine Filterung getroffen haben, werden nur die
