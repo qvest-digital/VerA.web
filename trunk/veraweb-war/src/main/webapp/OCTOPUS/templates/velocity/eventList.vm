@@ -73,7 +73,7 @@
 			
 		#else
 
-            #if($action != "guest" && $action != "addPerson")
+            #if($action != "guest" && $action != "addPerson" && !$searchTask )
             <span id="actionPanel" class="inlineLabel">
             	#if(($action != "guest" || $action != "addperson") && $grants.mayWrite())
         			<strong>Markierte Veranstaltung(en)</strong>
