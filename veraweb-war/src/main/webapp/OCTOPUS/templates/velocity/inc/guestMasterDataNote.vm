@@ -5,7 +5,25 @@
 
 <div class="textRight marginBottom20" id="buttonPanel-bottom">
 	#if($grants.mayWrite())
-		<input type="button" name="refresh" value="Auf Stammdaten zurücksetzen" title="Alle Werte auf Stammdaten zurücksetzen" onclick="window.location.href='ReloadGuestData?guest-id=$!guest.id#if($octopusRequest.task == 'SaveGuestDoctype' || $octopusRequest.task == 'ShowGuestDoctype' || ($octopusRequest.task == 'ReloadGuestData' && $octopusRequest.show && $octopusRequest.show == 'doctype'))&show=doctype#end';" />		
+		<input type="button" name="refresh" value="Auf Stammdaten zurücksetzen" title="Alle Werte auf Stammdaten zurücksetzen" onclick="reloadGuestData();" />		
 	#end
 		<input type="button" name="persondata" value="Stammdaten bearbeiten" title="Personenstammdaten bearbeiten" onclick="window.location.href='ShowPerson?id=$guest.person&action=event';" />
 </div>
+	
+<script type="text/javascript">
+	function reloadGuestData() {
+		var url = '${paths.staticWeb}do/ReloadGuestData'
+		url += '?guest-id=$!guest.id';
+		
+		var targetTab = document.getElementById('tab');
+		if(targetTab) {
+			url += '&tab=' + targetTab.value;
+		}
+		
+		#if($octopusRequest.task == 'SaveGuestDoctype' || $octopusRequest.task == 'ShowGuestDoctype' || ($octopusRequest.task == 'ReloadGuestData' && $octopusRequest.show && $octopusRequest.show == 'doctype'))
+			url += '&show=doctype';
+		#end
+		
+		window.location.href = url;
+	}
+</script>
