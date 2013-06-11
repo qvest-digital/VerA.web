@@ -13,39 +13,38 @@
 		
 		<div class="textRight mandatoryText bold">* = Pflichtfelder</div>
 
-		<form action="SaveMailinglist" name="mailinglists" method="POST" onsubmit="htmlWait();">
-		
-		#if($mailinglist.errors.size() > 0)
-		<div style="margin: 10px 0px 10px 0px; padding: 10px 10px 10px 10px; background-color: #ffffff; border: 2px solid #ff0000;">
-			$mailinglist.errors.get(0)<br>
-		##	#foreach($error in $mailinglist.errors)
-		##		$error<br>
-		##	#end
-		</div>
-		#end
-		
-		<p>Sie legen einen neuen Verteiler aus der Veranstaltung <strong>&quot;$!message.plain($event.shortname)&quot;</strong> mit
-		#if($mailinglistParams.count == 1)
-			einer Person 
-		#else
-			$!mailinglistParams.count Personen 
-		#end
-		an
-		</p>
-		
-		<input type="hidden" name="mailinglist-event" value="$!event.id">
-
-		<label for="mailinglist-name">Verteilername*</label>
-		<input type="text" name="mailinglist-name" value="$!message.text($mailinglist.name)" id="mailinglist-name">
-		
-		
+    		<form action="SaveMailinglist" name="mailinglists" method="POST" onsubmit="htmlWait();">
+    		
+        		#if($mailinglist.errors.size() > 0)
+            		<div style="margin: 10px 0px 10px 0px; padding: 10px 10px 10px 10px; background-color: #ffffff; border: 2px solid #ff0000;">
+            			$mailinglist.errors.get(0)<br>
+                		##	#foreach($error in $mailinglist.errors)
+                		##		$error<br>
+                		##	#end
+            		</div>
+        		#end
+        		
+        		<p>Sie legen einen neuen Verteiler aus der Veranstaltung <strong>&quot;$!message.plain($event.shortname)&quot;</strong> mit
+        		
+    			#if($mailinglistParams.count == 1)
+        			einer Person 
+        		#else
+        			$!mailinglistParams.count Personen 
+        		#end
+        		an
+        		</p>
+        		
+        		<input type="hidden" name="mailinglist-event" value="$!event.id">
+        
+        		<label for="mailinglist-name">Verteilername*</label>
+        		<input type="text" name="mailinglist-name" value="$!message.text($mailinglist.name)" id="mailinglist-name">   
+        	</div>
+			
+        	<div class="textRight">
+        		<input type="submit" name="save" class="mainButton" value="Verteiler speichern" title="Verteiler speichern">
+        		<input type="button" name="cancel" class="mainButton" value="Zur&uuml;ck zur G&auml;steverwaltung" title="Zur&uuml;ck zur G&auml;steverwaltung" onclick="window.location.href='ShowGuestList';">
+        	</div>
 		</form>
-	</div>
-	<div class="textRight">
-		<input type="submit" name="save" class="mainButton" value="Verteiler speichern" title="Verteiler speichern">
-		<input type="button" name="cancel" class="mainButton" value="Zur&uuml;ck zur G&auml;steverwaltung" title="Zur&uuml;ck zur G&auml;steverwaltung" onclick="window.location.href='ShowGuestList';">
-	</div>
-
 </div><!-- end #content_container -->
 
 #parse("inc/footer.vm")
