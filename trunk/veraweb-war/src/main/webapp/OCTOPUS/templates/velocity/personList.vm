@@ -103,8 +103,12 @@
                 	</ul><br>
                 	#if($save)
     					<input type="submit" class="button" name="remove" value="Ja" title="Markierte Person(en) l&ouml;schen"> &nbsp;
-                	#end
-                	<input type="button" class="cancel" name="cancel" value="Nein" onclick="window.location.href='SearchPerson';"> &nbsp;
+					#end
+					#if($action == "duplicateSearch")
+						<input type="submit" class="cancel" name="cancel" value="Nein"> &nbsp;
+					#else
+						<input type="button" class="cancel" name="cancel" value="Nein" onclick="window.location.href='SearchPerson';"> &nbsp;
+					#end
                 </div>
                 #end
     
