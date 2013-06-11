@@ -67,6 +67,9 @@ function navigateList(start) {
 
 function navigateLimit(limit) {
 	var form = document.getElementById('formlist');
+	if (form && form.elements['start']) {
+		form.elements['start'].value = 0;
+	}
 	if (form && form.elements['limit']) {
 		form.elements['limit'].value = limit;
 		form.submit();
