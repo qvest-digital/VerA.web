@@ -57,8 +57,8 @@
 
 		<div id="tabsMain">
 			<ul vera-tab-group="" class="gray-gradient"> <!-- Bitte das End-tag der <li>s immer mit in die nächste Zeile nehmen (verhindert Mozilla styling bug) -->
-    			<li id="gaesteliste" onclick="" vera-tab-default="" vera-tab="" class="active posRel" style="z-index:2">G&auml;steliste
-				</li><li id="gastdetails" onclick="" vera-tab="" class="inactive">Gastdetails
+    			<li id="gaesteliste" vera-tab class="active posRel" style="z-index:2">G&auml;steliste
+				</li><li id="gastdetails" class="inactive">Gastdetails
 				</li><li id="dokumenttypen" class="inactive">Dokumenttypen
 				</li>
 			</ul>
