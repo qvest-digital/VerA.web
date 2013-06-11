@@ -11,7 +11,7 @@
 	<div class="hinweis contentBoxColored grayBorder marginBottom20">
 		<strong>Hinweis</strong><br />
 		Um Dubletten speicherbar zu machen, m&uuml;ssen sie zun&auml;chst im Bereich &bdquo;vorhandene Dubletten&rdquo; &uuml;bernommen werden.<br />
-		Der Import ist erst beendet, wenn er abgeschlossen wurde.  <br />
+		Der Import ist erst beendet, wenn der Button &bdquo;Import abschließen&rdquo; geklickt wurde.  <br />
 		Der Import kann erst abgeschlossen werden, wenn speicherbare Datens&auml;tze vorhanden sind.
 	</div>
 	
