@@ -347,6 +347,8 @@ pre {
 
 .inline {display:inline;}
 
+.verticalBottom {vertical-align: bottom !important;}
+
 /************* End misc *************/
 
 /************* End general *************/
@@ -1004,7 +1006,7 @@ td[onclick]
 
 .width70, .tabsContent .width70 {width: 70%;} .width75, .tabsContent .width75 {width: 75%;}
 
-.width80, .tabsContent .width80 {width: 80%;} .width85, .tabsContent .width85 {width: 85%;}
+.width80, .tabsContent .width80 {width: 80% !important;} .width85, .tabsContent .width85 {width: 85%;}
 
 .width90, .tabsContent .width90 {width: 90%;} .width95, .tabsContent .width95 {width: 95%;}
 

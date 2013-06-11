@@ -116,7 +116,7 @@ public class GuestReportWorker {
 		} else if (search.invitationstatus != null && search.invitationstatus.intValue() == 3) {
 			titel = "Absagenliste";
 		} else {
-			titel = "G&auml;steliste";
+			titel = "Gästeliste";
 		}
 		if (alphabetisch) {
 			titel += " (alphabetisch)";
