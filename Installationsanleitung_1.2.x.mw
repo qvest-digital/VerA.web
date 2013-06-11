@@ -57,7 +57,7 @@ Verwenden Sie hierfür zum Beispiel den graphischen PostgreSQL Client pgAdmin od
 # Führen Sie anschließend das Script '''veraweb-schema.sql''' aus welches die nachfolgende Funktion anlegt.
 # Erstellen Sie mit der Funktion '''SELECT serv_verawebschema(1);''' das eigentliche Datenbankschema.
 # Fügen Sie die nötigen Stammdaten mit dem Script '''veraweb-stammdaten.sql''' ein.
-# Legen Sie in der Tabelle '''veraweb.tuser''' zunächst Sie als Benutzer manuell an. Verweden Sie dabei Ihren LDAP-Kürzel als 'username' und vergeben Sie sich die Administratorrolle '5': <source lang="sql">INSERT INTO tuser (fk_orgunit, username, role) VALUES(NULL, '<username>', 5);</source>
+# Legen Sie in der Tabelle '''veraweb.tuser''' zunächst Sie als Benutzer manuell an. Verweden Sie dabei Ihren LDAP-Kürzel als 'username' und vergeben Sie sich die Administratorrolle '5': <source lang="sql">INSERT INTO veraweb.tuser (fk_orgunit, username, role) VALUES(NULL, '<username>', 5);</source>
 # Aktualisieren Sie alle veraweb Datenbank Sequenzen mit der Funktion '''SELECT veraweb.serv_build_sequences();'''
 
 == Installation LDAP ==
