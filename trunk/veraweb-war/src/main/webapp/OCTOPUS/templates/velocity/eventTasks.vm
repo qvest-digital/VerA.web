@@ -179,7 +179,7 @@
      </div>
 			<span id="buttonPanel-bottom" class="textRight floatRight">
                 #if($grants.mayWrite())
-				    <input type="button" name="save" value="Veranstaltung speichern" class="mainButton" onclick="alert('Erfolgreich gespeichert');">
+				    <input type="button" name="save" value="Veranstaltung speichern" class="mainButton" onclick="showInfo('Erfolgreich gespeichert');">
                 #end
 				<input type="reset" name="cancel" value="Zur Veranstaltungsübersicht" class="mainButton" onclick="window.location.href='SearchEvent?action=event&search=reset';">
 

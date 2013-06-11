@@ -87,11 +87,11 @@
 <script type="text/javascript">
     #if($maildispatchParams && $maildispatchParams.count)
         #if($maildispatchParams.count == 0)
-        	alert('Es wurde keine E-Mail zum Versenden gespeichert.');
+        	showInfo('Es wurde keine E-Mail zum Versenden gespeichert.');
         #elseif($maildispatchParams.count == 1)
-        	alert('Es wurde eine E-Mail zum Versenden gespeichert. Diese wird nun automatisch versendet.');
+        	showInfo('Es wurde eine E-Mail zum Versenden gespeichert. Diese wird nun automatisch versendet.');
         #else
-        	alert('Es wurden $maildispatchParams.count E-Mails zum Versenden gespeichert. Diese werden nun automatisch versendet.');
+        	showInfo('Es wurden $maildispatchParams.count E-Mails zum Versenden gespeichert. Diese werden nun automatisch versendet.');
         #end
     #end
 </script>
