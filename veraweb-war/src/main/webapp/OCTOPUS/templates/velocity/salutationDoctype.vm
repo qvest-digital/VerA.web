@@ -24,19 +24,19 @@
 #foreach($bean in $list)
 <input type="hidden" name="list" value="$bean.id">
 #end
-<table class="list">
-	<tr class="list1">
-		<th class="list" style="width: 20px;">&nbsp;</th>
-		<th class="list" style="width: 60px;">ID</th>
-		<th class="list">Bezeichnung</th>
-		<th class="list" style="width: 260px;">Dokumenttyp</th>
+<table>
+	<tr>
+		<th style="width: 20px;">&nbsp;</th>
+		<th style="width: 60px;">ID</th>
+		<th>Bezeichnung</th>
+		<th style="width: 260px;">Dokumenttyp</th>
 	</tr>
 #if ($allDoctype.iterator().hasNext())
-	<tr class="list2">
-		<td class="list"><input type="hidden" id="add-modified" name="add-modified" value="false"><input type="checkbox" name="add-select" value="true"  style="display: none;"></td>
-		<td class="list"><input type="hidden" name="add-id" value=""><input type="hidden" name="add-salutation" value="$!salutation.id"><em>neu</em></td>
-		<td class="list"><input type="text" name="add-text" value=""  onchange="setModified('add')"></td>
-		<td class="list">
+	<tr>
+		<td><input type="hidden" id="add-modified" name="add-modified" value="false"><input type="checkbox" name="add-select" value="true"  style="display: none;"></td>
+		<td><input type="hidden" name="add-id" value=""><input type="hidden" name="add-salutation" value="$!salutation.id"><em>neu</em></td>
+		<td><input type="text" name="add-text" value=""  onchange="setModified('add')"></td>
+		<td>
 			<select id="add-doctype" name="add-doctype"  style="width: 97%;" onchange="setModified('add')">
 				#foreach($doctype in $allDoctype)
 				<option value="$doctype.id">$!message.text($doctype.name)</option>
@@ -52,10 +52,10 @@
 		#set($class = "list2")
 	#end
 	<tr class="$class">
-		<td class="list"><input type="hidden" id="${bean.id}-modified" name="${bean.id}-modified" value="false"><input type="checkbox" name="${bean.id}-select" value="true"  #if($listselection.indexOf($bean.id) != -1) checked#end></td>
-		<td class="list"><input type="hidden" name="${bean.id}-id" value="$!bean.id"><input type="hidden" name="${bean.id}-salutation" value="$!salutation.id">$!bean.id</td>
-		<td class="list"><input type="text" name="${bean.id}-text" value="$!message.text($bean.text)"  onchange="setModified('$!bean.id')"></td>
-		<td class="list">
+		<td><input type="hidden" id="${bean.id}-modified" name="${bean.id}-modified" value="false"><input type="checkbox" name="${bean.id}-select" value="true"  #if($listselection.indexOf($bean.id) != -1) checked#end></td>
+		<td><input type="hidden" name="${bean.id}-id" value="$!bean.id"><input type="hidden" name="${bean.id}-salutation" value="$!salutation.id">$!bean.id</td>
+		<td><input type="text" name="${bean.id}-text" value="$!message.text($bean.text)"  onchange="setModified('$!bean.id')"></td>
+		<td>
 			<input type="hidden" name="${bean.id}-doctype" value="$!bean.doctype">
 			<input type="text" name="${bean.id}-name" value="$!message.text($bean.name)" class="textdisabled" style="width: 97%;" vera-disabled>
 		</td>

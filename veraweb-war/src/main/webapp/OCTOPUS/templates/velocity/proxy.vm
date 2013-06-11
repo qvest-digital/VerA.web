@@ -15,14 +15,7 @@
 #parse("inc/header.vm")	
 <form id="formlist" name="formlist" action="$octopusRequest.task" method="POST">
 
-<table class="tab" border="0" cellspacing="0" cellpadding="0"><tr>
-	<td class="tableft">&nbsp;</td>
-	<td class="tabactiv"><span class="tabactiv">Vertretungen</span></td>
-	<td class="tabright">&nbsp;</td>
-</tr></table>
-
-
-
+<h1>Vertretungen</h1>
 
 #if($listerrors && $listerrors.size() > 0)
 <div style="margin: 10px 0px 10px 0px; padding: 10px 10px 10px 10px; background-color: #ffffff; border: 2px solid #ff0000;">
@@ -52,28 +45,28 @@
 	<input type="radio" id="validityNow" name="proxiesValid" value="now" onclick="submit();" #if($proxiesValid && $proxiesValid=='now')checked#end><label for="validityNow"> nur aktuelle Vertretungen</label>
 </fieldset><br>
 
-<table class="list">
-	<tr class="list1" style="height: 20px;">
-		<th class="list" style="width: 20px;">&nbsp;</th>
-		<th class="list" style="width: 60px;">ID</th>
+<table>
+	<tr style="height: 20px;">
+		<th style="width: 20px;">&nbsp;</th>
+		<th style="width: 60px;">ID</th>
 #if($proxiesFor != 'self')
  #if($proxiesFor != 'ou')
-		<th class="list"><a href="?order=orgunit#if($proxiesValid)&proxiesValid=$proxiesValid#end">Mandant</a></th>
+		<th><a href="?order=orgunit#if($proxiesValid)&proxiesValid=$proxiesValid#end">Mandant</a></th>
  #end
-		<th class="list"><a href="?order=userRole#if($proxiesValid)&proxiesValid=$proxiesValid#end">Rolle*</a></th>
+		<th><a href="?order=userRole#if($proxiesValid)&proxiesValid=$proxiesValid#end">Rolle*</a></th>
 #end
-		<th class="list"><a href="?order=proxy#if($proxiesValid)&proxiesValid=$proxiesValid#end">Vertreter*</a></th>
-		<th class="list" style="width: 100px;"><a href="?order=validFrom#if($proxiesValid)&proxiesValid=$proxiesValid#end">G&uuml;ltig ab</a></th>
-		<th class="list" style="width: 100px;"><a href="?order=validTill#if($proxiesValid)&proxiesValid=$proxiesValid#end">G&uuml;ltig bis</a></th>
+		<th><a href="?order=proxy#if($proxiesValid)&proxiesValid=$proxiesValid#end">Vertreter*</a></th>
+		<th style="width: 100px;"><a href="?order=validFrom#if($proxiesValid)&proxiesValid=$proxiesValid#end">G&uuml;ltig ab</a></th>
+		<th style="width: 100px;"><a href="?order=validTill#if($proxiesValid)&proxiesValid=$proxiesValid#end">G&uuml;ltig bis</a></th>
 	</tr>
-	<tr class="list2">
-		<td class="list"><input type="hidden" id="add-modified" name="add-modified" value="false"><input type="checkbox" name="add-select" value="true"  style="display: none;"></td>
-		<td class="list"><input type="hidden" name="add-id" value=""><em>neu</em></td>
+	<tr>
+		<td><input type="hidden" id="add-modified" name="add-modified" value="false"><input type="checkbox" name="add-select" value="true"  style="display: none;"></td>
+		<td><input type="hidden" name="add-id" value=""><em>neu</em></td>
 #if($proxiesFor != 'self')
  #if($proxiesFor != 'ou')
-		<td class="list"></td>
+		<td></td>
  #end
-		<td class="list">
+		<td>
  #if($allUser)
 			<select id="add-user" name="add-user"  style="width: 98%;" onchange="setModified('add')">
 				<option value="">Bitte ausw&auml;hlen</option>
@@ -88,7 +81,7 @@
 #else
 		<input type="hidden" name="add-user" value="$!octopusConfig.personalConfig.verawebId">
 #end
-		<td class="list">
+		<td>
 #if($roleList)
 			<select id="add-proxy" name="add-proxy"  style="width: 98%;" onchange="setModified('add')">
 				<option value="">Bitte ausw&auml;hlen</option>
@@ -100,7 +93,7 @@
 			<input type="text" name="add-proxy" value=""  style="width: 96%;" onchange="setModified('add')">
 #end
 		</td>
-		<td class="list">
+		<td>
 			<nobr>
 				<input type="text" name="add-validFrom" id="add-validFrom" value="" class="date" onchange="setModified('add')">
 				<span id="show-add-from" class="datepickerContainer"><img src="${paths.staticWeb}images/calendar.png" alt="Datum ausw&auml;hlen" title="Datum ausw&auml;hlen"></span>
@@ -114,7 +107,7 @@
 				</script>
 			</nobr>
 		</td>
-		<td class="list">
+		<td>
 			<nobr>
 				<input type="text" name="add-validTill" id="add-validTill" value="" class="date" onchange="setModified('add')">
 				<span id="show-add-till" class="datepickerContainer"><img src="${paths.staticWeb}images/calendar.png" alt="Datum ausw&auml;hlen" title="Datum ausw&auml;hlen"></span>
@@ -136,11 +129,11 @@
 		#set($class = "list2")
 	#end
 	<tr class="$class">
-		<td class="list"><input type="hidden" id="${bean.id}-modified" name="${bean.id}-modified" value="false"><input type="checkbox" name="${bean.id}-select" value="true"  #if($listselection.indexOf($bean.id) != -1) checked#end></td>
-		<td class="list"><input type="hidden" name="${bean.id}-id" value="$!bean.id">$!{bean.id}<input type="hidden" name="${bean.id}-user" value="$!bean.user"></td>
+		<td><input type="hidden" id="${bean.id}-modified" name="${bean.id}-modified" value="false"><input type="checkbox" name="${bean.id}-select" value="true"  #if($listselection.indexOf($bean.id) != -1) checked#end></td>
+		<td><input type="hidden" name="${bean.id}-id" value="$!bean.id">$!{bean.id}<input type="hidden" name="${bean.id}-user" value="$!bean.user"></td>
 #if($proxiesFor != 'self')
  #if($proxiesFor != 'ou')
-		<td class="list">
+		<td>
   #if(!$bean.orgunit)
 			<i>no ou</i>
   #elseif(!$mapOrgUnit.get($bean.orgunit))
@@ -150,10 +143,10 @@
   #end
 		</td>
  #end
-		<td class="list"><input type="text" name="${bean.id}-userRole" value="$!message.text($bean.userRole)"  style="width: 96%;" onchange="setModified('$!bean.id')" vera-disabled></td>
+		<td><input type="text" name="${bean.id}-userRole" value="$!message.text($bean.userRole)"  style="width: 96%;" onchange="setModified('$!bean.id')" vera-disabled></td>
 #end
-		<td class="list"><input type="text" name="${bean.id}-proxy" value="$!message.text($bean.proxy)"  style="width: 96%;" onchange="setModified('$!bean.id')" vera-disabled></td>
-		<td class="list">
+		<td><input type="text" name="${bean.id}-proxy" value="$!message.text($bean.proxy)"  style="width: 96%;" onchange="setModified('$!bean.id')" vera-disabled></td>
+		<td>
 			<nobr>
 				<input type="text" name="${bean.id}-validFrom" id="${bean.id}-validFrom" value="$!message.date("DATE", $bean.validFrom)" class="date" onchange="setModified('$!bean.id')">
 				<span id="show-${bean.id}-from" class="datepickerContainer"><img src="${paths.staticWeb}images/calendar.png" alt="Datum ausw&auml;hlen" title="Datum ausw&auml;hlen"></span>
@@ -167,7 +160,7 @@
 				</script>
 			</nobr>
 		</td>
-		<td class="list">
+		<td>
 			<nobr>
 				<input type="text" name="${bean.id}-validTill" id="${bean.id}-validTill" value="$!message.date("DATE", $bean.validTill)" class="date" onchange="setModified('$!bean.id')">
 				<span id="show-${bean.id}-till" class="datepickerContainer"><img src="${paths.staticWeb}images/calendar.png" alt="Datum ausw&auml;hlen" title="Datum ausw&auml;hlen"></span>
@@ -194,8 +187,8 @@
 	#parse("inc/list-navi.vm")
 	#parse("inc/list-direct.vm")
 
-	<input type="submit" name="save" value="Speichern" class="submit"> &nbsp;
-	<input type="submit" name="remove" value="L&ouml;schen" class="button" title="markierte Eintr&auml;ge entfernen"> &nbsp;
+	<input type="submit" name="save" value="Speichern" class="submit">
+	<input type="submit" name="remove" value="L&ouml;schen" class="button" title="markierte Eintr&auml;ge entfernen">
 
 </div></div></div>
 

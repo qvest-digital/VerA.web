@@ -124,7 +124,7 @@
 
 
     #if($person.deleted == "t")
-        <table class="list">
+        <table>
         	<tr style="height: 20px;">
         		<td class="list2error" style="text-align: center; width: 60px;"><strong>Hinweis</strong></td>
         		<td class="list1error">

@@ -20,11 +20,11 @@
 #foreach($bean in $list)
 <input type="hidden" name="list" value="$bean.id">
 #end
-<table class="list">
-	<tr class="list1" style="height: 22px;">
-		<th class="list" style="width: 20px;">&nbsp;</th>
-		<th class="list" style="width: 60px;">ID</th>
-		<th class="list">Name der Vorlage</th>
+<table>
+	<tr style="height: 22px;">
+		<th style="width: 20px;">&nbsp;</th>
+		<th style="width: 60px;">ID</th>
+		<th>Name der Vorlage</th>
 	</tr>
 	#foreach($bean in $list)
 	#if ($velocityCount % 2 == 0)
@@ -33,9 +33,9 @@
 		#set($class = "list2")
 	#end
 	<tr class="$class" style="height: 22px;" onmouseover="onMouseOverList(this);" onmouseout="onMouseOutList(this);">
-		<td class="list"><input type="checkbox" name="${bean.id}-select" value="true"  #if($listselection.indexOf($bean.id) != -1) checked#end></td>
-		<td class="list" style="cursor: pointer;" onclick="window.location.href='MailDraftDetail?id=$!{bean.id}';"><input type="hidden" name="${bean.id}-id" value="$bean.id">$!{bean.id}</td>
-		<td class="list" style="cursor: pointer;" onclick="window.location.href='MailDraftDetail?id=$!{bean.id}';">$!message.text($bean.name)</td>
+		<td><input type="checkbox" name="${bean.id}-select" value="true"  #if($listselection.indexOf($bean.id) != -1) checked#end></td>
+		<td style="cursor: pointer;" onclick="window.location.href='MailDraftDetail?id=$!{bean.id}';"><input type="hidden" name="${bean.id}-id" value="$bean.id">$!{bean.id}</td>
+		<td style="cursor: pointer;" onclick="window.location.href='MailDraftDetail?id=$!{bean.id}';">$!message.text($bean.name)</td>
 	</tr>
 	#end
 </table>

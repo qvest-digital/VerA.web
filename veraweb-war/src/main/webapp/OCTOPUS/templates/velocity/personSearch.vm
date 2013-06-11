@@ -138,7 +138,7 @@
                         <div class="tableCell width30">
                             <label for="categorie">Kategorie</label>
 
-							<select name="categoriesSelection" id="categorie" class="list" size="5" multiple="multiple" onChange="ensureCorrectSelection( this );">
+							<select name="categoriesSelection" id="categorie" size="5" multiple="multiple" onChange="ensureCorrectSelection( this );">
 							<option value="" #if( ! $search.categoriesSearch || ( $search.categoriesSelection && $search.categoriesSelection.size() == 0 ) ) selected #end>Alle</option>
 							<option value="0" #if( $search.categoriesSelection && $search.categoriesSelection.size() == 1 && $search.categoriesSelection.get(0).intValue() == 0 ) selected #end>Keine Kategorie zugeordnet</option>
 							#foreach($categorie in $allCategorie)

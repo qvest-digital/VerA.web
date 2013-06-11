@@ -40,14 +40,14 @@
 
 <div class="textRight mandatoryText">* = Pflichtfelder</div>
 	
-<table class="list">
-	<tr class="list1" style="height: 20px;">
-		<th class="list">Bezeichnung*</th>
-		<th class="list" style="width: 20%;">Farbwert (R G B)</th>
+<table>
+	<tr style="height: 20px;">
+		<th>Bezeichnung*</th>
+		<th style="width: 20%;">Farbwert (R G B)</th>
 	</tr>
 
-	<tr class="list2" style="height: 20px;">
-		<td class="list" colspan="2">Inland: Ja - Geschlecht: Weiblich</td>
+	<tr style="height: 20px;">
+		<td colspan="2">Inland: Ja - Geschlecht: Weiblich</td>
 	</tr>
 	## RGB teilen
 	#if($color1)
@@ -57,19 +57,19 @@
 	#set($g = $rgb / 256)
 	#set($rgb = $rgb - ($g * 256))
 	#set($b = $rgb)
-	<tr class="list2">
-		<td class="list"><input type="text" name="color1-name" value="$!message.text($color1.name)"  style="width: 98%;" onchange="setModified('color1')"></td>
-		<td class="list"><input type="text" name="color1-rgb" value="$!r $!g $!b"  style="width: 96%;" onchange="setModified('color1')"></td>
+	<tr>
+		<td><input type="text" name="color1-name" value="$!message.text($color1.name)"  style="width: 98%;" onchange="setModified('color1')"></td>
+		<td><input type="text" name="color1-rgb" value="$!r $!g $!b"  style="width: 96%;" onchange="setModified('color1')"></td>
 	</tr>
 	#else
-	<tr class="list2">
-		<td class="list"><input type="text" name="color1-name" value=""  style="width: 98%;" onchange="setModified('color1')"></td>
-		<td class="list"><input type="text" name="color1-rgb" value=""  style="width: 96%;" onchange="setModified('color1')"></td>
+	<tr>
+		<td><input type="text" name="color1-name" value=""  style="width: 98%;" onchange="setModified('color1')"></td>
+		<td><input type="text" name="color1-rgb" value=""  style="width: 96%;" onchange="setModified('color1')"></td>
 	</tr>
 	#end
 
-	<tr class="list2" style="height: 20px;">
-		<td class="list" colspan="2">Inland: Ja - Geschlecht: M&auml;nnlich</td>
+	<tr style="height: 20px;">
+		<td colspan="2">Inland: Ja - Geschlecht: M&auml;nnlich</td>
 	</tr>
 	## RGB teilen
 	#if($color2)
@@ -79,19 +79,19 @@
 	#set($g = $rgb / 256)
 	#set($rgb = $rgb - ($g * 256))
 	#set($b = $rgb)
-	<tr class="list2">
-		<td class="list"><input type="text" name="color2-name" value="$!message.text($color2.name)"  style="width: 98%;" onchange="setModified('color2')"></td>
-		<td class="list"><input type="text" name="color2-rgb" value="$!r $!g $!b"  style="width: 96%;" onchange="setModified('color2')"></td>
+	<tr>
+		<td><input type="text" name="color2-name" value="$!message.text($color2.name)"  style="width: 98%;" onchange="setModified('color2')"></td>
+		<td><input type="text" name="color2-rgb" value="$!r $!g $!b"  style="width: 96%;" onchange="setModified('color2')"></td>
 	</tr>
 	#else
-	<tr class="list2">
-		<td class="list"><input type="text" name="color2-name" value=""  style="width: 98%;" onchange="setModified('color2')"></td>
-		<td class="list"><input type="text" name="color2-rgb" value=""  style="width: 96%;" onchange="setModified('color2')"></td>
+	<tr>
+		<td><input type="text" name="color2-name" value=""  style="width: 98%;" onchange="setModified('color2')"></td>
+		<td><input type="text" name="color2-rgb" value=""  style="width: 96%;" onchange="setModified('color2')"></td>
 	</tr>
 	#end
 
-	<tr class="list2" style="height: 20px;">
-		<td class="list" colspan="2">Inland: Nein - Geschlecht: Weiblich</td>
+	<tr style="height: 20px;">
+		<td colspan="2">Inland: Nein - Geschlecht: Weiblich</td>
 	</tr>
 	## RGB teilen
 	#if($color3)
@@ -101,19 +101,19 @@
 	#set($g = $rgb / 256)
 	#set($rgb = $rgb - ($g * 256))
 	#set($b = $rgb)
-	<tr class="list2">
-		<td class="list"><input type="text" name="color3-name" value="$!message.text($color3.name)"  style="width: 98%;" onchange="setModified('color3')"></td>
-		<td class="list"><input type="text" name="color3-rgb" value="$!r $!g $!b"  style="width: 96%;" onchange="setModified('color3')"></td>
+	<tr>
+		<td><input type="text" name="color3-name" value="$!message.text($color3.name)"  style="width: 98%;" onchange="setModified('color3')"></td>
+		<td><input type="text" name="color3-rgb" value="$!r $!g $!b"  style="width: 96%;" onchange="setModified('color3')"></td>
 	</tr>
 	#else
-	<tr class="list2">
-		<td class="list"><input type="text" name="color3-name" value=""  style="width: 98%;" onchange="setModified('color3')"></td>
-		<td class="list"><input type="text" name="color3-rgb" value=""  style="width: 96%;" onchange="setModified('color3')"></td>
+	<tr>
+		<td><input type="text" name="color3-name" value=""  style="width: 98%;" onchange="setModified('color3')"></td>
+		<td><input type="text" name="color3-rgb" value=""  style="width: 96%;" onchange="setModified('color3')"></td>
 	</tr>
 	#end
 
-	<tr class="list2" style="height: 20px;">
-		<td class="list" colspan="2">Inland: Nein - Geschlecht: M&auml;nnlich</td>
+	<tr style="height: 20px;">
+		<td colspan="2">Inland: Nein - Geschlecht: M&auml;nnlich</td>
 	</tr>
 	## RGB teilen
 	#if($color4)
@@ -123,14 +123,14 @@
 	#set($g = $rgb / 256)
 	#set($rgb = $rgb - ($g * 256))
 	#set($b = $rgb)
-	<tr class="list2">
-		<td class="list"><input type="text" name="color4-name" value="$!message.text($color4.name)"  style="width: 98%;" onchange="setModified('color4')"></td>
-		<td class="list"><input type="text" name="color4-rgb" value="$!r $!g $!b"  style="width: 96%;" onchange="setModified('color4')"></td>
+	<tr>
+		<td><input type="text" name="color4-name" value="$!message.text($color4.name)"  style="width: 98%;" onchange="setModified('color4')"></td>
+		<td><input type="text" name="color4-rgb" value="$!r $!g $!b"  style="width: 96%;" onchange="setModified('color4')"></td>
 	</tr>
 	#else
-	<tr class="list2">
-		<td class="list"><input type="text" name="color4-name" value=""  style="width: 98%;" onchange="setModified('color4')"></td>
-		<td class="list"><input type="text" name="color4-rgb" value=""  style="width: 96%;" onchange="setModified('color4')"></td>
+	<tr>
+		<td><input type="text" name="color4-name" value=""  style="width: 98%;" onchange="setModified('color4')"></td>
+		<td><input type="text" name="color4-rgb" value=""  style="width: 96%;" onchange="setModified('color4')"></td>
 	</tr>
 	#end
 
