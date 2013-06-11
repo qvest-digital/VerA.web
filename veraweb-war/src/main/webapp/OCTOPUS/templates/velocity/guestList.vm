@@ -200,7 +200,7 @@
         						submitFormWithGivenAction('ShowExportGuestDoctype', $grants.mayExport()); 
         					}
 						} else {
-            				alert( "Wählen Sie bitte zunächst eine oder mehrere Personen aus." );
+            				showInfo( "Wählen Sie bitte zunächst eine oder mehrere Personen aus." );
             			}
     				});
      			});	
@@ -222,7 +222,7 @@
                     #elseif($isAdmin)
                 		confirmResult = confirm('Sollen alle markierten Gäst entfernt werden?');
                     #else
-                		alert('Sie haben keine ausreichende Berechtigung um Gäste zu entfernen.');
+                		showInfo('Sie haben keine ausreichende Berechtigung um Gäste zu entfernen.');
                     #end
 					if (confirmResult) {
 						$('<input>').attr({ type: 'hidden', id: 'remove', name: 'remove' }).appendTo($('#formlist'));
@@ -244,7 +244,7 @@
     					document.getElementById('formlist').action = action;
         				document.formlist.submit();
 					} else {
-						alert('Sie haben keine ausreichende Berechtigung um diese Aktion auszuführen.');
+						showInfo('Sie haben keine ausreichende Berechtigung um diese Aktion auszuführen.');
 					}
 				}
     		</script>
@@ -513,12 +513,12 @@
 	}
 	
     #if($invited && $invited == 0 && $notInvited && $notInvited == 0 && ! $doNotAlert)
-    	alert('Sie haben keine Person ausgewählt.');
+    	showInfo('Sie haben keine Person ausgewählt.');
     #elseif($notInvited)
         #if($notInvited == 1)
-        	alert('Ein Gast stand bereits auf der Gästeliste.');
+        	showInfo('Ein Gast stand bereits auf der Gästeliste.');
         #elseif($notInvited > 1)
-        	alert('$!notInvited Gäste standen bereits auf der Gästeliste.');
+        	showInfo('$!notInvited Gäste standen bereits auf der Gästeliste.');
         #end
     #end
 

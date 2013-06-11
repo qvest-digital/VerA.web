@@ -290,7 +290,7 @@
         	};
         	
         	function removeHost() {
-        		##alert('Bitte beachten Sie das der Gastgeber dieser Veranstaltung weiterhin als normaler Gast zugeordenet ist.');
+        		##showInfo('Bitte beachten Sie das der Gastgeber dieser Veranstaltung weiterhin als normaler Gast zugeordenet ist.');
         		document.getElementById('event-host').value='';
         		document.getElementById('event-hostname').value='';
         		document.getElementById('showevent-hostname').value=document.getElementById('showevent-hostnametext').value;

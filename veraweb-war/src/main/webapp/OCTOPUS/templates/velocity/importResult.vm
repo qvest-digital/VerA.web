@@ -67,11 +67,11 @@
 #if($imported)
     <script type="text/javascript">
      #if($imported == 0)
-    	alert('Sie haben keinen Datensatz importiert.');
+    	showInfo('Sie haben keinen Datensatz importiert.');
      #elseif($imported == 1)
-    	alert('Sie haben einen Datensatz importiert.');
+    	showInfo('Sie haben einen Datensatz importiert.');
      #elseif($imported > 1)
-    	alert('Sie haben $imported Datensätze importiert.');
+    	showInfo('Sie haben $imported Datensätze importiert.');
      #end
     </script>
 #end

@@ -73,7 +73,7 @@
 								document.getElementById('formlist').target = '_blank';
 								document.getElementById('a').value = 'statistik';
 							} else {
-								alert('UNKNOWN');
+								showInfo('UNKNOWN');
 								return false;
 							}
 						}
