@@ -255,7 +255,7 @@ var showInfo = (function () {
      */
     $(function () {
        $('vera-info').replaceWith(function () {
-           return createInfoHtml($(this).text());
+           return createInfoHtml($(this).html());
        });
     });
 
