@@ -1,7 +1,6 @@
-<div class="notBold hinweis grayBorder marginBottom10">
-    <strong>Hinweis</strong>
-    <p>Sie bearbeiten hier ausschlie&szlig;lich Personendaten im Rahmen der aktuellen Veranstaltung, <i>keine</i> grundlegenden Stammdaten.</p>
-</div>
+<vera-info>
+	Sie bearbeiten hier ausschlie&szlig;lich Personendaten im Rahmen der aktuellen Veranstaltung, <i>keine</i> grundlegenden Stammdaten.
+</vera-info>
 
 <div class="textRight marginBottom20" id="buttonPanel-bottom">
 	#if($grants.mayWrite())

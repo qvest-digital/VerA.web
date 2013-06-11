@@ -236,11 +236,10 @@
             </div>
         </form>
     </div>
-    <div class="contentBoxColored hinweis grayBorder marginBottom20">
-        <strong>Hinweis</strong>
-        <p>Sie können bei der Suche sogenannte Platzhalter verwenden, der * steht für mehrere und das ? für einzelne Zeichen. </p>
-        <p>Die Suche unterstützt auch die Mehrfachsuche nach Kategorien. Um mehrere Kategorien auszuwählen, halten Sie bitte die Maustaste gedrückt und ziehen Sie den Mauszeiger über die in der Suche zu berücksichtigenden Kategorien. Alternativ können Sie bei gedrückter STRG-Taste mit der linken Maustaste auf die zu berücksichtigenden Kategorien klicken. Beachten Sie bitte, dass die beiden Pseudokategorien "Alle" und "Keine" nicht zusammen mit anderen Kategorien ausgewählt werden können.</p>
-    </div>
+    <vera-info>
+        Sie können bei der Suche sogenannte Platzhalter verwenden, der * steht für mehrere und das ? für einzelne Zeichen. <br/>
+        Die Suche unterstützt auch die Mehrfachsuche nach Kategorien. Um mehrere Kategorien auszuwählen, halten Sie bitte die Maustaste gedrückt und ziehen Sie den Mauszeiger über die in der Suche zu berücksichtigenden Kategorien. Alternativ können Sie bei gedrückter STRG-Taste mit der linken Maustaste auf die zu berücksichtigenden Kategorien klicken. Beachten Sie bitte, dass die beiden Pseudokategorien "Alle" und "Keine" nicht zusammen mit anderen Kategorien ausgewählt werden können.
+    </vera-info>
 </div>
 
 

@@ -79,10 +79,9 @@
                     
 
 						#if($person.deleted == "t")
-						<div class="notBold hinweis grayBorder marginBottom20">
-                            <strong>Hinweis</strong>
-                            <p>Die Stammdaten dieses Gastes wurden gel&ouml;scht. Sie k&ouml;nnen nur Daten im Rahmen dieser Veranstaltung bearbeiten.</p>
-                        </div>
+						<vera-info>
+                            Die Stammdaten dieses Gastes wurden gel&ouml;scht. Sie k&ouml;nnen nur Daten im Rahmen dieser Veranstaltung bearbeiten.
+                        </vera-info>
                         #end	
 						
 					
@@ -151,11 +150,10 @@
                         #parse("inc/guest-member.vm")
                         </div>
                         <div id="detail-2-reload-block" #if($guest.invitationtype != 3) style="display: none;"#end>					
-    						<div class="notBold hinweis grayBorder marginBottom10">
-                                <strong>Hinweis</strong>
-                                <p>Dieser Gast wurde ohne $!config.main eingeladen.
-                        		M&ouml;chten Sie diese jetzt <a href="javascript:setGuestInvitationtype(1);">nachtr&auml;glich einladen</a>?</p>
-                            </div>							
+    						<vera-info>
+                                Dieser Gast wurde ohne $!config.main eingeladen.
+                        		M&ouml;chten Sie diese jetzt <a href="javascript:setGuestInvitationtype(1);">nachtr&auml;glich einladen</a>?
+                            </vera-info>							
                         </div>
                         #closeContentBlock()
 						
@@ -172,11 +170,10 @@
                         #parse("inc/guest-member.vm")
                         </div>
                         <div id="detail-3-reload-block" #if($guest.invitationtype != 2) style="display: none;"#end>							
-    						<div class="notBold hinweis grayBorder marginBottom10">
-                                <strong>Hinweis</strong>
-                                <p>Dieser Gast wurde ohne $!config.partner eingeladen.
-                        		M&ouml;chten Sie diesen jetzt <a href="javascript:setGuestInvitationtype(1);">nachtr&auml;glich einladen</a>?</p>
-                            </div>							
+    						<vera-info>
+                                Dieser Gast wurde ohne $!config.partner eingeladen.
+                        		M&ouml;chten Sie diesen jetzt <a href="javascript:setGuestInvitationtype(1);">nachtr&auml;glich einladen</a>?
+                            </vera-info>							
                         </div>
                         #closeContentBlock()
 						</div>

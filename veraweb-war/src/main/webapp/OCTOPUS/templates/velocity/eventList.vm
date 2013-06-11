@@ -32,17 +32,15 @@
 
 
     #if($action == "guest")
-    <div class="hinweis contentBoxColored grayBorder marginBottom15">
-        <strong>Hinweis</strong>
-        <p>Bitte klicken Sie eine der aufgelisteten Veranstaltungen an, um die G&auml;ste zu &uuml;bernehmen.</p>
-    </div>
+    <vera-info>
+		Bitte klicken Sie eine der aufgelisteten Veranstaltungen an, um die G&auml;ste zu &uuml;bernehmen.
+    </vera-info>
 	#end
 	
 	#if($action == "addperson")
-    <div class="hinweis contentBoxColored grayBorder marginBottom15">
-        <strong>Hinweis</strong>
-        <p>Bitte klicken Sie eine der aufgelisteten Veranstaltungen an, um die Person dieser Veranstaltung zuzuordnen.</p>
-    </div>
+    <vera-info>
+        Bitte klicken Sie eine der aufgelisteten Veranstaltungen an, um die Person dieser Veranstaltung zuzuordnen.
+    </vera-info>
     #end
 
 	

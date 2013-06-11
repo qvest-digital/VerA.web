@@ -96,12 +96,9 @@
 				<input type="button" class="mainButton" title="Felder leeren" name="cancel" value="Felder leeren" onclick="clearFields();">		
 			</div>
 		</div>
-		<div class="hinweis contentBoxColored grayBorder marginTop20">
-				<strong>
-					Hinweis
-				</strong>
-				<p>Wenn Sie den Platzhalter * verwenden, werden auch Teilstücke ersetzt, sonst nur vollständige Datenfelder. </p>
-		</div>
+		<vera-info>
+			Wenn Sie den Platzhalter * verwenden, werden auch Teilstücke ersetzt, sonst nur vollständige Datenfelder.
+		</vera-info>
 	</form>
 </div>
 

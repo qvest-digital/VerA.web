@@ -8,12 +8,11 @@
     </div>
     <h1>Importstatus</h1>
 	
-	<div class="hinweis contentBoxColored grayBorder marginBottom20">
-		<strong>Hinweis</strong><br />
+	<vera-info>
 		Um Dubletten speicherbar zu machen, m&uuml;ssen sie zun&auml;chst im Bereich &bdquo;vorhandene Dubletten&rdquo; &uuml;bernommen werden.<br />
 		Der Import ist erst beendet, wenn der Button &bdquo;Import abschließen&rdquo; geklickt wurde.  <br />
 		Der Import kann erst abgeschlossen werden, wenn speicherbare Datens&auml;tze vorhanden sind.
-	</div>
+	</vera-info>
 	
 	#if($importStatus.dupCount && $importStatus.dupCount != 0)
 		<div id="buttonPanel-top" class="textRight marginBottom10">
