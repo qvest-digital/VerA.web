@@ -67,7 +67,7 @@ p {
 
 /************* =2.1 headings *************/
 
-h1, h2, h3 {
+h1, h2 {
     margin-bottom: 30px;
 }
 
@@ -701,7 +701,7 @@ tr.repeat {
     padding: 10px 20px;
 }
 
-.error {}
+.error {color:#c00;}
 
 
 /*** To be removed later ****/
@@ -747,6 +747,10 @@ input, select {
 
 input.small50px {
 	width: 50px;
+}
+
+td input[type=text] {
+	width:100%;
 }
 
 select{

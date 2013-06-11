@@ -43,7 +43,7 @@
 <table class="form">
 	<tr>
 		<td class="label">Person-Dialog:</td>
-		<td class="value"><table class="list" style="width: 99%;"><tr class="list1">
+		<td class="value"><table style="width: 99%;"><tr>
     		<td class="value" style="width: 20px;"><input type="radio" name="personTab" id="personTab1" value="1" #if($personTab1) checked #end></td>
     		<td class="value" style="width:120px;"><label for="personTab1">&nbsp;Personendaten</label></td>
     		<td class="value" style="width: 20px;"><input type="radio" name="personTab" id="personTab2" value="2" #if($personTab2) checked #end></td>
@@ -52,7 +52,7 @@
 		</tr></table></td>
 	</tr><tr>
 		<td class="value">&nbsp;</td>
-		<td class="value"><table class="list" style="width: 99%;"><tr class="list1">
+		<td class="value"><table style="width: 99%;"><tr>
     		<td class="value" style="width: 20px;"><input type="radio" name="personMemberTab" id="personMemberTab1" value="1" #if($personMemberTab1) checked #end></td>
     		<td class="value" style="width:120px;"><label for="personMemberTab1">&nbsp;Hauptperson</label></td>
     		<td class="value" style="width: 20px;"><input type="radio" name="personMemberTab" id="personMemberTab2" value="2" #if($personMemberTab2) checked #end></td>
@@ -61,7 +61,7 @@
 		</tr></table></td>
 	</tr><tr>
 		<td class="value">&nbsp;</td>
-		<td class="value"><table class="list" style="width: 99%;"><tr class="list1">
+		<td class="value"><table style="width: 99%;"><tr>
     		<td class="value" style="width: 20px;"><input type="radio" name="personAddresstypeTab" id="personAddresstypeTab1" value="1" #if($personAddresstypeTab1) checked #end></td>
     		<td class="value" style="width:120px;"><label for="personAddresstypeTab1">&nbsp;Gesch&auml;ftlich</label></td>
     		<td class="value" style="width: 20px;"><input type="radio" name="personAddresstypeTab" id="personAddresstypeTab2" value="2" #if($personAddresstypeTab2) checked #end></td>
@@ -72,7 +72,7 @@
 		</tr></table></td>
 	</tr><tr>
 		<td class="value">&nbsp;</td>
-		<td class="value"><table class="list" style="width: 99%;"><tr class="list1">
+		<td class="value"><table style="width: 99%;"><tr>
     		<td class="value" style="width: 20px;"><input type="radio" name="personLocaleTab" id="personLocaleTab1" value="1" #if($personLocaleTab1) checked #end></td>
     		<td class="value" style="width:120px;"><label for="personLocaleTab1">&nbsp;Latein</label></td>
     		<td class="value" style="width: 20px;"><input type="radio" name="personLocaleTab" id="personLocaleTab2" value="2" #if($personLocaleTab2) checked #end></td>
@@ -88,7 +88,7 @@
 <table class="form">
 	<tr>
 		<td class="label">G&auml;steliste:</td>
-		<td class="value"><table class="list" style="width: 99%;"><tr class="list1">
+		<td class="value"><table style="width: 99%;"><tr>
     		<td class="value" style="width: 20px;"><input type="checkbox" name="guestListFunction" id="guestListFunction" value="true" #if($userConfig.guestListFunction) checked #end></td>
     		<td class="value" style="width:120px;"><label for="guestListFunction">&nbsp;Funktion</label></td>
     		<td class="value" style="width: 20px;"><input type="checkbox" name="guestListCity" id="guestListCity" value="true" #if($userConfig.guestListCity) checked #end></td>
@@ -104,7 +104,7 @@
 <table class="form">
 	<tr>
 		<td class="label">Personenliste:</td>
-		<td class="value"><table class="list" style="width: 99%;"><tr class="list1">
+		<td class="value"><table style="width: 99%;"><tr>
     		<td class="value" style="width: 20px;"><input type="checkbox" name="personListState" id="personListState" value="true" #if($userConfig.personListState) checked #end></td>
     		<td class="value" style="width:120px;"><label for="guestListFunction">&nbsp;Bundesland</label></td>
     		<td class="value">&nbsp;</td>

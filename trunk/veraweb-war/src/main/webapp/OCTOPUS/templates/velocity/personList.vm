@@ -362,7 +362,7 @@
     
     		<div id="main_content">
     		
-                <table class="list">
+                <table>
                 	#if($action == "guest")
                     	<tr>
                             #if($grants.mayWrite())
