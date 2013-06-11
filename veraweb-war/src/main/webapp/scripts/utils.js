@@ -237,9 +237,32 @@ function insertAtCursor(fld, text) {
  *
  * @param text
  */
-var showInfo = function (text) {
-    $(function () {
-        $('h1').after('<div class="contentBoxColored hinweis grayBorder marginBottom20"><strong>Hinweis</strong><p>'
+var showInfo = (function () {
+
+    /**
+     * Create a formatted info text HTML div element with the given message text.
+     *
+     * @param text
+     * @returns {*|jQuery|HTMLElement}
+     */
+    var createInfoHtml = function (text) {
+        return $('<div class="contentBoxColored hinweis grayBorder marginBottom20"><strong>Hinweis</strong><p>'
             + text + '</p></div>');
+    };
+
+    /**
+     * Format all info texts in <vera-info /> tags on load of the current page
+     */
+    $(function () {
+       $('vera-info').replaceWith(function () {
+           return createInfoHtml($(this).text());
+       });
     });
-};
+
+    return function (text) {
+        $(function () {
+            $('h1').after(createInfoHtml(text));
+        });
+    };
+
+}());
