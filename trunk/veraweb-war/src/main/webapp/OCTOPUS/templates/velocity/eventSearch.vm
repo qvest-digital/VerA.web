@@ -97,10 +97,9 @@
 
 		</div>	
 	
-		<div class="contentBoxColored hinweis grayBorder marginBottom20">
-			<strong>Hinweis</strong>
-			<p>Sie können bei der Suche sogenannte Platzhalter verwenden, der * steht für mehrere und das ? für einzelne Zeichen. </p>
-		</div>		
+		<vera-info>
+			Sie können bei der Suche sogenannte Platzhalter verwenden, der * steht für mehrere und das ? für einzelne Zeichen.
+		</vera-info>		
 	
 		##<br><a href="SearchEvent?search=current">Aktuelle Veranstaltungen anzeigen</a><br><br>
 

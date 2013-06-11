@@ -167,15 +167,13 @@
         </div>
 			
     
-    <div class="hinweis grayBorder contentBoxColored marginTop20"><strong>Hinweis</strong>
-		<p>
-    			Sollten Sie in der G&auml;steliste eine Filterung getroffen haben, werden nur die
-    			ausgew&auml;hlten G&auml;ste exportiert.
-    		</p>
-    </div>
+    <vera-info>
+		Sollten Sie in der G&auml;steliste eine Filterung getroffen haben, werden nur die
+		ausgew&auml;hlten G&auml;ste exportiert.
+    </vera-info>
     
     #if($exportCalc.total > $exportCalc.available)
-    <div class="hinweis contentBoxColored grayBorder marginBottom20">
+    <vera-info>
         #if ($diff == 1)
         <strong>Ein Gast</strong> kann <strong>nicht exportiert</strong> werden,
         weil zu dieser Person keine entsprechenden Dokumenttyp
@@ -185,7 +183,7 @@
         weil nicht zu jeder Person entsprechende Dokumenttyp
         spezifische Daten gespeichert worden sind.
         #end
-    </div>
+    </vera-info>
     #end
     
 	<div class="textRight marginTop10" id="buttonPanel-bottom">
@@ -199,9 +197,9 @@
     
     #else
     
-    <div class="hinweis contentBoxColored grayBorder marginBottom20 marginTop20">
+    <vera-info>
 		Der Veranstaltung wurden noch keine Dokumenttypen zugeordnet.
-    </div>
+    </vera-info>
     
     <div class="textRight marginTop10" id="buttonPanel-bottom">
     

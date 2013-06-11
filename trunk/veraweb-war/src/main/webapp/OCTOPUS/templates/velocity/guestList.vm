@@ -465,12 +465,10 @@
                 </table>
                 <br>
             #end
-            
-			<div class="hinweis contentBoxColored grayBorder marginBottom10">
-				<strong>Hinweis</strong>
-				<p>Beim Erstellen von Steuerdateien oder G&auml;stelisten wird Ihr oben ausgew&auml;hlter Filter ber&uuml;cksichtigt.<br>
-				Wenn Sie einzelne G&auml;ste markieren, werden nur diese exportiert, ansonsten die vollst&auml;ndige Liste.</p>
-			</div>
+            <vera-info>
+				Beim Erstellen von Steuerdateien oder G&auml;stelisten wird Ihr oben ausgew&auml;hlter Filter ber&uuml;cksichtigt.<br>
+				Wenn Sie einzelne G&auml;ste markieren, werden nur diese exportiert, ansonsten die vollst&auml;ndige Liste.
+			</vera-info>
 				
             
             <div>

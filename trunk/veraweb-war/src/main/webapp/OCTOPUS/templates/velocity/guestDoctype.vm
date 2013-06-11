@@ -265,12 +265,12 @@
                 
                 #else
                 
-                <div class="hinweis grayBorder marginBottom10">
+                <vera-info>
                 	Bitte &uuml;berpr&uuml;fen Sie ob dieser Veranstaltung
                 	bereits Dokumenttypen zugeordnet sind. Sollte dies der
                 	Fall sein m&uuml;ssen Sie die Dokumenttypen f&uuml;r diesen
                 	Gast neu erzeugen, klicken Sie hierzu auf &quot;Auf Stammdaten zur&uuml;cksetzen&quot;.
-                </div>
+                </vera-info>
                 
                 #end
                 

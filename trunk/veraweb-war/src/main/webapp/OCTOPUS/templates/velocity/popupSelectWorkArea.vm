@@ -109,11 +109,10 @@
 </div>
 </form>
 
-<div class="contentBoxColored hinweis grayBorder marginTop10">
-	<strong>Hinweis</strong><br>
+<vera-info>
 	Sie haben ${count} Person(en) ausgewählt. Abhängig von der Anzahl
 	der ausgewählten Personen kann die Aktion eine gewisse Zeit in Anspruch nehmen.
-</div>
+</vera-info>
 
 </body>
 </html>

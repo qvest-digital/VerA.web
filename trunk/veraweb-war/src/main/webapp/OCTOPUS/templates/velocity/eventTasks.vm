@@ -159,9 +159,9 @@
                 </table>
 
                 #else
-					<div class="hinweis grayBorder">
+					<vera-info>
 						Es liegen keine Aufgaben für diese Veranstaltung vor.
-					</div>
+					</vera-info>
                 #end
 
 

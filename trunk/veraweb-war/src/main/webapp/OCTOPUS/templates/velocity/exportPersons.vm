@@ -9,14 +9,13 @@
 		
 		<h1>$title</h1>
 
-		<div class="contentBoxColored hinweis grayBorder marginBottom20">
-			<strong>Hinweis</strong>
+		<vera-info>
             #if($domain && $domain == "all" && $grants.isAdmin())
-            <p>Sie sind als &quot;Voll-Administrator&quot; angemeldet und exportieren hiermit Mandanten&uuml;bergreifend.</p>
+            Sie sind als &quot;Voll-Administrator&quot; angemeldet und exportieren hiermit Mandanten&uuml;bergreifend.
             #else
-            <p>Sie exportieren mit dieser Funktion ausschlie&szlig;lich Personen aus Ihrem aktuellen Mandanten.</p>
+            Sie exportieren mit dieser Funktion ausschlie&szlig;lich Personen aus Ihrem aktuellen Mandanten.
             #end
-		</div>	
+		</vera-info>	
 		
 		<div id="main_content" class="contentBoxColored grayBorder marginBottom20">
 

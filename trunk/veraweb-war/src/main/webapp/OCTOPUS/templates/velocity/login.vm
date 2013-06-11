@@ -30,10 +30,9 @@
 	<input type="reset" class="mainButton" value="Felder leeren" name="cancel" id="button.clearFields">				
 </div>
 
-<div class="contentBoxColored hinweis grayBorder marginTop20">
-	<strong>Hinweis</strong>
-	<p>Bitte verwenden Sie Ihr Organisationskennzeichen oder <strong>Vorname.Nachname</strong> als Benutzernamen.</p>
-</div>	
+<vera-info>
+	Bitte verwenden Sie Ihr Organisationskennzeichen oder <strong>Vorname.Nachname</strong> als Benutzernamen.
+</vera-info>	
 
 
 <input name="task" type="hidden" value="default">

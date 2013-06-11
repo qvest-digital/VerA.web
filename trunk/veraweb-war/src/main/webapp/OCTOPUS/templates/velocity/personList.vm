@@ -48,10 +48,9 @@
 	#end
 
 	#if($action == "taskReferencePerson")
-		<div class="hinweis contentBoxColored grayBorder">
-			<strong>Hinweis</strong>
-			<p>klicken Sie eine der aufgelisteten Personen an, um sie der Aufgabe hinzuzufügen!</p>
-		</div>
+		<vera-info>
+			klicken Sie eine der aufgelisteten Personen an, um sie der Aufgabe hinzuzufügen!
+		</vera-info>
 	#end
 	
 	#if($list && $list.size() > 0 )
@@ -195,10 +194,9 @@
     
     		#elseif($action == "host")
 				
-				<div class="hinweis contentBoxColored grayBorder marginBottom15">
-					<strong>Hinweis</strong>
-					<p>Bitte klicken Sie eine der aufgelisteten Personen an, um diese als Gastgeber zu &uuml;bernehmen.</p>
-				</div>  			
+				<vera-info>
+					Bitte klicken Sie eine der aufgelisteten Personen an, um diese als Gastgeber zu &uuml;bernehmen.
+				</vera-info>  			
 			#elseif($action == "statistikGuest" || $action == "statistikHost" || $action == "taskReferencePerson")
     			## empty	
     		#elseif($action == "replace")

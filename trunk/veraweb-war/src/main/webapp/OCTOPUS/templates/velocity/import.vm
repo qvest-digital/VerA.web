@@ -62,10 +62,9 @@
             </div>
 		#end		
 
-		<div class="contentBoxColored hinweis grayBorder marginBottom20">
-			<strong>Hinweis</strong>
-			<p>Beim Import k&ouml;nnen Feldinhalte, die l&auml;nger als bei VerA.web vorgesehen sind, gek&uuml;rzt &uuml;bernommen werden.</p>
-		</div>
+		<vera-info>
+			Beim Import k&ouml;nnen Feldinhalte, die l&auml;nger als bei VerA.web vorgesehen sind, gek&uuml;rzt &uuml;bernommen werden.
+		</vera-info>
 			
 		
 		<div id="main_content" class="contentBoxColored grayBorder marginBottom20">
