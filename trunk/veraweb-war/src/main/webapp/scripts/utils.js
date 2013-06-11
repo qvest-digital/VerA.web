@@ -231,3 +231,15 @@ function insertAtCursor(fld, text) {
 		fld.value += text;
 	}
 }
+
+/**
+ * Show an info text below the page header line
+ *
+ * @param text
+ */
+var showInfo = function (text) {
+    $(function () {
+        $('h1').after('<div class="contentBoxColored hinweis grayBorder marginBottom20"><strong>Hinweis</strong><p>'
+            + text + '</p></div>');
+    });
+};
