@@ -12,7 +12,7 @@
 <div id="content_container">
 	#if($event && $event.id)
     	<div id="breadcrumb" class="textRight marginBottom10">
-    		<strong>Sie sind hier</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Veranstaltungen > Veranstaltung bearbeiten</span>
+    		<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Veranstaltungen > Veranstaltung bearbeiten</span>
     	</div>
     		<h1>Veranstaltung bearbeiten: $!message.plain($event.shortname)</h1>
 		<div class="textRight marginBottom10" id="buttonPanel-top">
@@ -20,7 +20,7 @@
 		</div>
 	#else
 		<div id="breadcrumb" class="textRight marginBottom10">
-			<strong>Sie sind hier</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Veranstaltungen > Neue Veranstaltung</span>
+			<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Veranstaltungen > Neue Veranstaltung</span>
 		</div>
 			<h1>Neue Veranstaltung anlegen</h1>
 	#end
