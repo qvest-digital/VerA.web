@@ -4,8 +4,7 @@
 
 <form id="formlist" name="formlist" action="" method="POST">
 <input type="hidden" name="start" value="">
-<input type="hidden" name="selectAll" value="false">
-<input type="hidden" name="selectNone" value="false">
+<input type="hidden" name="selectNone" value="true">
 <input type="hidden" name="doRemove" value="true">
 
 <table class="tab" border="0" cellspacing="0" cellpadding="0"><tr>
@@ -35,7 +34,7 @@
 		#set($class = "list2")
 	#end
 	<tr class="$class" style="height: 22px;" onmouseover="onMouseOverList(this);" onmouseout="onMouseOutList(this);">
-		<td><input type="hidden" name="${bean.id}-id" value="$bean.id"><input type="checkbox" name="${bean.id}-select" value="true"  #if($listselection.indexOf($bean.id) != -1) checked#end></td>
+		<td><input type="hidden" name="${bean.id}-id" value="$bean.id"><input type="checkbox" name="${bean.id}-select" value="true"></td>
 		<td style="cursor: pointer;" onclick="window.location.href='MailOutboxDetail?id=$!{bean.id}';">
 			#if($bean.status == 1)Offen
 			#elseif($bean.status == 2)Wartet

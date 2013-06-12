@@ -11,8 +11,7 @@
 <form id="formlist" name="formlist" action="Location" method="POST">
     <input type="hidden" name="doRemove" value="true">
     <input type="hidden" name="start" value="">
-    <input type="hidden" name="selectAll" value="false">
-    <input type="hidden" name="selectNone" value="false">
+    <input type="hidden" name="selectNone" value="true">
 
     <table class="tab" border="0" cellspacing="0" cellpadding="0">
 		<tr>
@@ -55,7 +54,7 @@
     #end
     <table>
     	<tr>
-    		<th style="width: 20px;"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" #if($listselection.size() == $listparam.count) checked#end title="Alle (de)markieren"/></th>
+    		<th style="width: 20px;"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="Alle (de)markieren"/></th>
     		<th style="width: 60px;">ID</th>
     		<th>Titel</th>
     		<th>Ansprechpartner</th>
@@ -72,7 +71,7 @@
     	</tr>
     	#foreach($bean in $list)
     		<tr class="$class" style="height: 20px;" onmouseover="onMouseOverList(this);" onmouseout="onMouseOutList(this);">
-    			<td><input type="checkbox" id="remove-select" name="${bean.id}-select" value="true"  #if($listselection.indexOf($bean.id) != -1) checked#end></td>
+    			<td><input type="checkbox" id="remove-select" name="${bean.id}-select" value="true"></td>
     			<td style="cursor: pointer;" onclick="window.location.href='ShowLocation?id=$!{bean.id}'">$!message.plain($bean.id)</td>
     			<td style="cursor: pointer;" onclick="window.location.href='ShowLocation?id=$!{bean.id}'">$!message.plain($bean.name)</td>
     			<td style="cursor: pointer;" onclick="window.location.href='ShowLocation?id=$!{bean.id}'">$!message.plain($bean.contactperson)</td>

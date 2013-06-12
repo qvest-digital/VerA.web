@@ -2,8 +2,7 @@
 <input type="hidden" name="id" value="$!person.id">
 <input type="hidden" name="start" value="">
 <input type="hidden" name="limit" value="">
-<input type="hidden" name="selectAll" value="false">
-<input type="hidden" name="selectNone" value="false">
+<input type="hidden" name="selectNone" value="true">
 <input type="hidden" name="doUpdate" value="true">
 <input type="hidden" name="doRemove" value="true">
 
@@ -31,7 +30,7 @@
     <table class="notBold">
 	<tr>
         #if($grants.mayWrite())
-        <th class="textCenter smallCell"><input type="checkbox" name="" id="toggleAllSelect" #if($listparam.count > 0 && $listselection.size() == $listparam.count) checked#end title="Alle (de)markieren" #if(!$grants.mayWrite()) vera-disabled#end /></th>
+        <th class="textCenter smallCell"><input type="checkbox" name="" id="toggleAllSelect" title="Alle (de)markieren" #if(!$grants.mayWrite()) vera-disabled#end /></th>
         #end
         <th>Dokumenttyp</th>
         <th class="textCenter smallCell">Anschrift</th>
@@ -41,7 +40,7 @@
 	#foreach($bean in $list)
 	<tr>
         #if($grants.mayWrite())
-		<td class="textCenter"><input type="hidden" id="${bean.id}-modified" name="${bean.id}-modified" value="false"><input type="checkbox" name="${bean.id}-select" value="true"  #if($listselection.indexOf($bean.id) != -1) checked#end></td>
+		<td class="textCenter"><input type="hidden" id="${bean.id}-modified" name="${bean.id}-modified" value="false"><input type="checkbox" name="${bean.id}-select" value="true"></td>
         #end
 		#if($bean.id)
 		<td #if($bean.id) onclick="window.location.href='${paths.staticWeb}do/ShowPersonDoctype?persondoctype-id=$!bean.id';"#else onclick="window.location.href='${paths.staticWeb}do/CreatePersonDoctype?doctype-id=$!bean.doctypeId';"#end><input type="hidden" name="${bean.id}-id" value="$!bean.id"><input type="hidden" name="${bean.id}-person" value="$!bean.person">$!bean.name</td>

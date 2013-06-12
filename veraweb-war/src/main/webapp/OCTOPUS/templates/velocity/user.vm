@@ -28,8 +28,7 @@
 		#end
 		
 		<input type="hidden" name="start" value="">
-		<input type="hidden" name="selectAll" value="false">
-		<input type="hidden" name="selectNone" value="false">
+		<input type="hidden" name="selectNone" value="true">
 		<input type="hidden" name="doInsert" value="true">
 		<input type="hidden" name="doUpdate" value="true">
 		<input type="hidden" name="doRemove" value="true">
@@ -50,7 +49,7 @@
 			#end
 			<table>
 				<tr style="height: 20px;">
-					<th class="smallCell textCenter"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" #if($listselection.size() == $listparam.count) checked#end title="Alle (de)markieren"/></th>
+					<th class="smallCell textCenter"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="Alle (de)markieren"/></th>
 					<th class="smallCell textCenter">ID</th>
 			#if($domain == 'all')
 					<th><a href="?order=orgunit">Mandant</a></th>
@@ -111,7 +110,7 @@
 			 #end
 				<tr class="$class">
 			 #if(!$bean.role || 5 != $bean.role || $domain == 'all')
-					<td class="textCenter"><input type="hidden" id="${bean.id}-modified" name="${bean.id}-modified" value="false"><input type="checkbox" name="${bean.id}-select" value="true"  #if($listselection.indexOf($bean.id) != -1) checked#end></td>
+					<td class="textCenter"><input type="hidden" id="${bean.id}-modified" name="${bean.id}-modified" value="false"><input type="checkbox" name="${bean.id}-select" value="true"></td>
 					<td class="textCenter"><input type="hidden" name="${bean.id}-id" value="$!bean.id">$!{bean.id}</td>
 			  #if($domain == 'all')
 					<td>

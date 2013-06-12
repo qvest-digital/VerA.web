@@ -31,7 +31,7 @@
 <table class="notBold">
 	<tr>
 		#if($list && $list.size() > 0 && $grants.mayWrite())
-			<th class="textCenter smallCell"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" #if($listselection.size() == $listparam.count) checked#end title="Alle (de)markieren" #if(!$grants.mayWrite()) vera-disabled#end/></th>
+			<th class="textCenter smallCell"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="Alle (de)markieren" #if(!$grants.mayWrite()) vera-disabled#end/></th>
 		#end
 		<th class="textCenter smallCell">ID</th>
 		<th>Kategorien und Ereignisse</th>
@@ -66,7 +66,7 @@
             #if($grants.mayWrite())
 			<td class="textCenter smallCell">
 				<input type="hidden" id="${bean.id}-modified" name="${bean.id}-modified" value="false"/>
-				<input type="checkbox" name="${bean.id}-select" value="true" #if($listselection.indexOf($bean.id) != -1) checked#end #if(!$grants.mayWrite()) vera-disabled#end/>
+				<input type="checkbox" name="${bean.id}-select" value="true" #if(!$grants.mayWrite()) vera-disabled#end/>
 			</td>
             #end
 			<td>

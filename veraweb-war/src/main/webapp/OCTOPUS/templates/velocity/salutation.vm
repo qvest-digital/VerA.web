@@ -7,8 +7,7 @@
 <input type="hidden" name="doUpdate" value="true">
 <input type="hidden" name="doRemove" value="true">
 <input type="hidden" name="start" value="">
-<input type="hidden" name="selectAll" value="false">
-<input type="hidden" name="selectNone" value="false">
+<input type="hidden" name="selectNone" value="true">
 
 <table class="tab" border="0" cellspacing="0" cellpadding="0"><tr>
 	<td class="tableft">&nbsp;</td>
@@ -57,7 +56,7 @@
 		#set($class = "list2")
 	#end
 	<tr class="$class">
-		<td><input type="hidden" id="${bean.id}-modified" name="${bean.id}-modified" value="false"><input type="checkbox" name="${bean.id}-select" value="true"  #if($listselection.indexOf($bean.id) != -1) checked#end></td>
+		<td><input type="hidden" id="${bean.id}-modified" name="${bean.id}-modified" value="false"><input type="checkbox" name="${bean.id}-select" value="true"></td>
 		<td><input type="hidden" name="${bean.id}-id" value="$!bean.id">$!bean.id</td>
 		<td><input type="text" name="${bean.id}-name" value="$!message.text($bean.name)"  onchange="setModified('$!bean.id')"></td>
 		<td>

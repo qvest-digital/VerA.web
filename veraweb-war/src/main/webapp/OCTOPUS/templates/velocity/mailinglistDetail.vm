@@ -23,8 +23,7 @@
 	<form id="formlist" name="formlist" action="ShowMailinglistDetail" method="POST">
 		<input type="hidden" name="start" value="">
 		<input type="hidden" name="limit" value="">
-		<input type="hidden" name="selectAll" value="false">
-		<input type="hidden" name="selectNone" value="false">
+		<input type="hidden" name="selectNone" value="true">
 		<input type="hidden" name="doRemove" value="true">
 		
 		<input type="hidden" name="id" value="$!id">
@@ -50,14 +49,14 @@
     		
     		<table class="marginBottom10">
     			<tr>
-    				<th class="smallCell textCenter"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" #if($listselection.size() == $listparam.count) checked#end title="Alle (de)markieren"/></th>
+    				<th class="smallCell textCenter"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="Alle (de)markieren"/></th>
     				<th>Name</th>
     				<th>Vorname</th>
     				<th>Adresse</th>
     			</tr>
     			#foreach($bean in $list)
     			<tr>
-    				<td class="textCenter"><input type="checkbox" name="${bean.id}-select" value="true" #if($listselection.indexOf($bean.id) != -1) checked#end></td>
+    				<td class="textCenter"><input type="checkbox" name="${bean.id}-select" value="true"></td>
     				<td><input type="hidden" name="${bean.id}-id" value="$bean.id">$!bean.lastname</td>
     				<td>$!bean.firstname</td>
     				<td><a href="mailto:?bcc=$!bean.address">$!bean.address</a></td>

@@ -21,8 +21,7 @@
 		<input type="hidden" name="id" value="$!event.id"/>
         <input type="hidden" name="start" value=""/>
 		<input type="hidden" name="limit" value=""/>
-        <input type="hidden" name="selectAll" value="false"/>
-        <input type="hidden" name="selectNone" value="false"/>
+        <input type="hidden" name="selectNone" value="true"/>
         <input type="hidden" name="doInsert" value="true"/>
         <input type="hidden" name="doUpdate" value="false"/>
         <input type="hidden" name="doRemove" value="true"/>
@@ -63,7 +62,7 @@
                     <table class="notBold">
                     	<tr >
     						#if($list && $list.size() > 0 && $grants.mayWrite())
-    							<th class="smallCell textCenter"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" #if($listselection.size() == $listparam.count) checked#end title="Alle (de)markieren"/></th>
+    							<th class="smallCell textCenter"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="Alle (de)markieren"/></th>
 							#end
     						<th class="smallCell textCenter">ID</th>
                     		<th>Bezeichnung</th>
@@ -88,7 +87,7 @@
                 	#foreach($bean in $list)
                     	<tr>
                             #if($grants.mayWrite())
-                    		<td class="textCenter"><input type="hidden" id="${bean.id}-modified" name="${bean.id}-modified" value="false"/><input type="checkbox" name="${bean.id}-select" value="true"  #if($listselection.indexOf($bean.id) != -1) checked#end/></td>
+                    		<td class="textCenter"><input type="hidden" id="${bean.id}-modified" name="${bean.id}-modified" value="false"/><input type="checkbox" name="${bean.id}-select" value="true"/></td>
                             #end
                     		<td class="textCenter"><input type="hidden" name="${bean.id}-id" value="$!bean.id"/><input type="hidden" name="${bean.id}-event" value="$!event.id"/>$!bean.id</td>
                     		<td>$!bean.name</td>
