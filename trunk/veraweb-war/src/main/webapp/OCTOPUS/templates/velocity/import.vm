@@ -10,7 +10,7 @@
 		<h1>Import von Personendaten</h1>
 
         #if($errors.size() > 0 || $importStatus.invalidData)
-            <div style="margin: 10px 0px 10px 0px; padding: 10px 10px 10px 10px; background-color: #ffffff; border: 2px solid #ff0000;">
+            <vera-warn>
             	#if($importStatus.invalidData == "importSource")
             		Sie haben keine Datenherkunft angegeben.
             	#elseif($importStatus.invalidData == "fileExtension")
@@ -52,14 +52,14 @@
             <pre id="javastacktrace" style="display: none;">
             
             $importStatus.exception
-            </div>
+            </pre>
             	
             	#end
             	
             	#foreach($error in $errors)
             		$error
             	#end
-            </div>
+            </vera-warn>
 		#end		
 
 		<vera-info>

@@ -44,12 +44,12 @@
 
         #if($task.errors.size() > 0)
         <div style="width: 99%; background-color: #ffffff;">
-            <div style="margin: 10px 0px 10px 0px; padding: 10px 10px 10px 10px; background-color: #ffffff; border: 2px solid #ff0000;">
+            <vera-warn>
                 $task.errors.get(0)<br>
                 ##	#foreach($error in $task.errors)
                 ##		$error<br>
                 ##	#end
-            </div>
+            </vera-warn>
         </div>
         #elseif($listquestions && $listquestions.size() > 0)
         <div style="width: 99%; background-color: #ffffff;">

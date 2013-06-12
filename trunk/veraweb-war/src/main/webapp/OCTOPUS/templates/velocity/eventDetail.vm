@@ -32,21 +32,21 @@
         <input type="hidden" name="search" value="clear">
         
         #if($status && $status.code && $status.code == "noevent")
-            <div style="margin: 10px 0px 10px 0px; padding: 10px 10px 10px 10px; background-color: #ffffff; border: 2px solid #ff0000;">
+            <vera-warn>
             	Die Veranstaltung, an der Sie gerade gearbeitet haben, wurde von einem anderen Anwender gel&ouml;scht.
             	Sie k&ouml;nnen nun eine neue Veranstaltung anlegen oder anderweitig mit VerA.web arbeiten.
-            </div>
+            </vera-warn>
         #end
         
         #if($event.errors.size() > 0)
     
             <div style="width: 99%; background-color: #ffffff;">
-                <div style="margin: 10px 0px 10px 0px; padding: 10px 10px 10px 10px; background-color: #ffffff; border: 2px solid #ff0000;">
+                <vera-warn>
                     $event.errors.get(0)<br>
                     ##	#foreach($error in $event.errors)
                     ##		$error<br>
                     ##	#end
-                </div>
+                </vera-warn>
             </div>	
     		
         #elseif($listquestions && $listquestions.size() > 0)

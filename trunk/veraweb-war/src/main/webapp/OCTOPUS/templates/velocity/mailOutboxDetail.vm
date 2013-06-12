@@ -19,7 +19,7 @@
 
 
 #if($mailoutbox.errors.size() > 0 || $mailoutbox.status == $mailoutbox.STATUS_ERROR || ($mailoutbox.errortext && $mailoutbox.errortext.length() > 0))
-<div style="margin: 0px 0px 10px 0px; padding: 10px 10px 10px 10px; background-color: #ffffff; border: 2px solid #ff0000;">
+<vera-warn>
 	#if($mailoutbox.errors.size() > 0)
 		$mailoutbox.errors.get(0)<br>
 	#end
@@ -27,7 +27,7 @@
 		Beim Versenden dieser E-Mail ist ein Fehler aufgetreten.
 		Sie k&ouml;nnen diese jetzt bearbeiten und erneut senden.
 	#end
-</div>
+</vera-warn>
 #elseif($mailoutbox.status == 1)
 <div style="margin: 0px 0px 10px 0px; padding: 2px 3px 2px 3px; background-color: #ffffff; border: 2px solid #00ff00;">
 	Diese E-Mail wartet auf ihre Fertigstellung durch einen Benutzer.
@@ -37,13 +37,13 @@
 	Diese E-Mail wartet auf ihre Versendung.
 </div>
 #elseif($mailoutbox.status == 3)
-<div style="margin: 0px 0px 10px 0px; padding: 2px 3px 2px 3px; background-color: #ffffff; border: 2px solid #ff0000;">
+<vera-warn>
 	Diese E-Mail wird gerade versendet und sollte <strong>nicht bearbeitet</strong> werden.
-</div>
+</vera-warn>
 #elseif($mailoutbox.status == 4)
-<div style="margin: 0px 0px 10px 0px; padding: 2px 3px 2px 3px; background-color: #ffffff; border: 2px solid #ff0000;">
+<vera-warn>
 	Diese E-Mail wurde bereits versendet und sollte <strong>nicht mehr bearbeitet</strong> werden.
-</div>
+</vera-warn>
 #end
 
 <input type="hidden" name="mailoutbox-id" value="$!mailoutbox.id">

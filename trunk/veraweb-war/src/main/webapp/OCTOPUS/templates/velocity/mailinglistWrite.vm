@@ -16,12 +16,12 @@
     	<input type="hidden" id="savedraft" name="savedraft" value="false">
     
         #if($errors.size() > 0)
-        <div style="margin: 10px 0px 10px 0px; padding: 10px 10px 10px 10px; background-color: #ffffff; border: 2px solid #ff0000;">
+        <vera-warn>
         	$errors.get(0)<br>
         ##	#foreach($error in $errors)
         ##		$error<br>
         ##	#end
-        </div>
+        </vera-warn>
         #end
         
         <input type="hidden" name="mail-id" value="$!mail.id">

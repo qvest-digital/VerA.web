@@ -113,11 +113,11 @@
             </form>
             
             #if($listerrors.size() > 0)
-                <div style="margin: 10px 0px 10px 0px; padding: 10px 10px 10px 10px; background-color: #ffffff; border: 2px solid #ff0000;">
+                <vera-warn>
                 	#foreach($error in $listerrors)
                 		$error<br>
                 	#end
-                </div>
+                </vera-warn>
             #elseif($listquestions && $listquestions.size() > 0)
                 <form action="" method="POST">
                 <div style="margin: 10px 0px 10px 0px; padding: 10px 10px 10px 10px; background-color: #ffffff; border: 2px solid #00ff00;">
