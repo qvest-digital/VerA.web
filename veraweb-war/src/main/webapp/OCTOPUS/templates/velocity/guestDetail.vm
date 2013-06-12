@@ -268,7 +268,7 @@
 			i--;
 		}
 		end = i + 1;
-//		showInfo( begin + " " + ( end - begin ) + "'" + s.substr( begin, end - begin ) + "'" );
+//		showSuccess( begin + " " + ( end - begin ) + "'" + s.substr( begin, end - begin ) + "'" );
 		return s.substr( begin, end - begin ); 
 	}
 	
@@ -298,7 +298,7 @@
 
 		if ( msg.length > 0 )
 		{
-			showInfo( "In den folgenden Feldern wird\r\neine numerische Angabe erwartet:\r\n\r\n" + msg );
+			showWarning( "In den folgenden Feldern wird\r\neine numerische Angabe erwartet:\r\n\r\n" + msg );
 			return false;
 		}
 		return true;
