@@ -83,7 +83,7 @@
                 #end
                 #if($countRemove)
                 	<vera-success>
-                		#if($countRemove == 0)
+                		#if($countRemove == 0 || $uncaughtPSQLException)
                 			Es wurde kein Datensatz gel&ouml;scht.
                 		#elseif($countRemove == 1)
                 			Es wurde ein Datensatz gel&ouml;scht.

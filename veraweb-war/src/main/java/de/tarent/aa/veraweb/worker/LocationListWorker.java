@@ -20,11 +20,14 @@
 package de.tarent.aa.veraweb.worker;
 
 import java.io.IOException;
+import java.lang.reflect.UndeclaredThrowableException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+
+import org.postgresql.util.PSQLException;
 
 import de.tarent.aa.veraweb.beans.Location;
 import de.tarent.dblayer.sql.clause.Clause;
@@ -118,6 +121,13 @@ public class LocationListWorker extends ListWorkerVeraWeb {
                     }
                 }
                 context.commit();
+            } catch (UndeclaredThrowableException e) {
+            	Throwable undeclared = e.getUndeclaredThrowable();
+                if (undeclared != null && undeclared.getCause() instanceof PSQLException) {
+                	cntx.setContent("uncaughtPSQLException", undeclared.getCause());
+                } else {
+                	throw e;
+                }
             }
             catch ( BeanException e )
             {
