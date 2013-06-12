@@ -26,7 +26,7 @@
 <input type="hidden" name="search" value="reset">
 <table class="form"><tr>
 	<td class="label"><label for="begin">Datum Beginn</label></td>
-	<td class="value">
+	<td>
 		<input type="text" name="begin" value="${begin}" id="begin" class="date">
 		<span id="show-begin" class="datepickerContainer"><img src="${paths.staticWeb}images/calendar.png" alt="Datum ausw&auml;hlen" title="Datum ausw&auml;hlen"></span>
 		<script type="text/javascript">
@@ -40,7 +40,7 @@
 	</td>
 </tr><tr>
 	<td class="label"><label for="end">Datum Ende</label></td>
-	<td class="value">
+	<td>
 		<input type="text" name="end" value="${end}" id="end" class="date">
 		<span id="show-end" class="datepickerContainer"><img src="${paths.staticWeb}images/calendar.png" alt="Datum ausw&auml;hlen" title="Datum ausw&auml;hlen"></span>
 		<script type="text/javascript">

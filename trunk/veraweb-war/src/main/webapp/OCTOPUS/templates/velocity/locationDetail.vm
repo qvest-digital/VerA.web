@@ -40,7 +40,7 @@
 	<table class="form" style="margin: 5px 0px 0px 0px;">
 	#foreach($quest in $listquestions.entrySet())
 		<tr>
-			<td class="value"><input type="hidden" name="$quest.key" value="true">$!message.plain($quest.value)</td>
+			<td><input type="hidden" name="$quest.key" value="true">$!message.plain($quest.value)</td>
 		</tr>
 		#set($save = true)
 	#end
@@ -59,68 +59,68 @@
 <table class="form">
 	<tr>
 		<td class="label"><label for="id">ID</label></td>
-		<td class="value"><input type="text" name="id" value="$!message.text($location.id)" id="id" class="id" vera-disabled></td>
+		<td><input type="text" name="id" value="$!message.text($location.id)" id="id" class="id" vera-disabled></td>
 	</tr>
 	
 	
 	<tr>
 		<td class="label"><label for="location-title">Titel*</label></td>
-		<td class="value"><input type="text" name="location-name" value="$!message.text($location.name)" id="location-name"  maxlength="200" onchange="setModified();"></td>
+		<td><input type="text" name="location-name" value="$!message.text($location.name)" id="location-name"  maxlength="200" onchange="setModified();"></td>
 	</tr>
 	
 	<tr>
 		<td class="label"><label for="location-contactperson">Ansprechpartner</label></td>
-		<td class="value"><input type="text" name="location-contactperson" value="$!message.text($location.contactperson)" id="location-contact-person"  maxlength="250" onchange="setModified();"></td>
+		<td><input type="text" name="location-contactperson" value="$!message.text($location.contactperson)" id="location-contact-person"  maxlength="250" onchange="setModified();"></td>
 	</tr>
 	
 	<tr>
 		<td class="label"><label for="location-address">Stra&szlig;e</label></td>
-		<td class="value"><input type="text" name="location-address" value="$!message.text($location.address)" id="location-address"  maxlength="250" onchange="setModified();"></td>
+		<td><input type="text" name="location-address" value="$!message.text($location.address)" id="location-address"  maxlength="250" onchange="setModified();"></td>
 	</tr>
 	
 	<tr>
 		<td class="label"><label for="location-zip">PLZ</label></td>
-		<td class="value"><input type="text" name="location-zip" value="$!message.text($location.zip)" id="location-zip"  maxlength="50" onchange="setModified();"></td>
+		<td><input type="text" name="location-zip" value="$!message.text($location.zip)" id="location-zip"  maxlength="50" onchange="setModified();"></td>
 	</tr>
 	
 	<tr>
 		<td class="label"><label for="location-location">Ort</label></td>
-		<td class="value"><input type="text" name="location-location" value="$!message.text($location.location)" id="location-location"  maxlength="100" onchange="setModified();"></td>
+		<td><input type="text" name="location-location" value="$!message.text($location.location)" id="location-location"  maxlength="100" onchange="setModified();"></td>
 	</tr>
 	
 	<tr>
 		<td class="label"><label for="location-callnumber">Telefon</label></td>
-		<td class="value"><input type="text" name="location-callnumber" value="$!message.text($location.callnumber)" id="location-callnumber"  maxlength="50" onchange="setModified();"></td>
+		<td><input type="text" name="location-callnumber" value="$!message.text($location.callnumber)" id="location-callnumber"  maxlength="50" onchange="setModified();"></td>
 	</tr>
 	
 	<tr>
 		<td class="label"><label for="location-faxnumber">Fax</label></td>
-		<td class="value"><input type="text" name="location-faxnumber" value="$!message.text($location.faxnumber)" id="location-faxnumber"  maxlength="50" onchange="setModified();"></td>
+		<td><input type="text" name="location-faxnumber" value="$!message.text($location.faxnumber)" id="location-faxnumber"  maxlength="50" onchange="setModified();"></td>
 	</tr>
 	
 	<tr>
 		<td class="label"><label for="location-email">E-Mail</label></td>
-		<td class="value"><input type="text" name="location-email" value="$!message.text($location.email)" id="location-email"  maxlength="100" onchange="setModified();"></td>
+		<td><input type="text" name="location-email" value="$!message.text($location.email)" id="location-email"  maxlength="100" onchange="setModified();"></td>
 	</tr>
 	
 	<tr>
 		<td class="label"><label for="location-comment">Bemerkung</label></td>
-		<td class="value"><textarea rows="4" cols="20" name="location-comment" id="location-comment"  onchange="setModified();">$!message.textarea($location.comment)</textarea></td>
+		<td><textarea rows="4" cols="20" name="location-comment" id="location-comment"  onchange="setModified();">$!message.textarea($location.comment)</textarea></td>
 	</tr>
 	
 	<tr>
 		<td class="label"><label for="location-url">URL</label></td>
-		<td class="value"><input type="text" name="location-url" value="$!message.text($location.url)" id="location-url"  maxlength="250" onchange="setModified();"></td>
+		<td><input type="text" name="location-url" value="$!message.text($location.url)" id="location-url"  maxlength="250" onchange="setModified();"></td>
 	</tr>
 	
 	<tr>
 		<td class="label"><label for="location-gpsdata">GPS-Daten</label></td>
-		<td class="value"><input type="text" name="location-gpsdata" value="$!message.text($location.gpsdata)" id="location-gpsdata"  maxlength="1000" onchange="setModified();"></td>
+		<td><input type="text" name="location-gpsdata" value="$!message.text($location.gpsdata)" id="location-gpsdata"  maxlength="1000" onchange="setModified();"></td>
 	</tr>
 	
 	<tr>
 		<td class="label"><label for="location-roomnumber">Raumnummer</label></td>
-		<td class="value"><input type="text" name="location-roomnumber" value="$!message.text($location.roomnumber)" id="location-roomnumber"  maxlength="250" onchange="setModified();"></td>
+		<td><input type="text" name="location-roomnumber" value="$!message.text($location.roomnumber)" id="location-roomnumber"  maxlength="250" onchange="setModified();"></td>
 	</tr>
 	
 </table>

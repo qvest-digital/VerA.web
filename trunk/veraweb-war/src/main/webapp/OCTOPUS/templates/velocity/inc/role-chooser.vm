@@ -16,7 +16,7 @@ Bitte w&auml;hlen Sie:
 	<table class="form">
 		<tr>
 			<td class="label"><label for="username">Rolle</label></td>
-			<td class="value">
+			<td>
 				<select id="role" name="username"  style="width: 60%;">
 #foreach($s in $octopusConfig.personalConfig.roles)
 					<option value="$!s">$!s</option>
@@ -25,10 +25,10 @@ Bitte w&auml;hlen Sie:
 			</td>
 		</tr><tr>
 			<td class="label"><label for="password">Passwort</label></td>
-			<td class="value"><input type="password" name="password" value="$!octopusRequest.get("password")" id="password"  style="width: 60%;"></td>
+			<td><input type="password" name="password" value="$!octopusRequest.get("password")" id="password"  style="width: 60%;"></td>
 		</tr><tr>
 			<td class="label">&nbsp;</td>
-			<td class="value">
+			<td>
 				<input name="submit" type="submit" value="Ausw&auml;hlen" class="submit"> &nbsp;
 				<input name="cancel" type="reset"  value="Zur&uuml;cksetzen" class="reset">
 			</td>

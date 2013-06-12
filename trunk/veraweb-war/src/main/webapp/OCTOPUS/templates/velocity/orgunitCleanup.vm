@@ -25,28 +25,28 @@
 
 <table class="form"><tr>
 	<td class="label">Personen:</td>
-	<td class="value"><input type="text" value="$!message.text($missingorgunit.person)" class="intdisabled" vera-disabled></td>
+	<td><input type="text" value="$!message.text($missingorgunit.person)" class="intdisabled" vera-disabled></td>
 </tr><tr>
 	<td class="label">Veranstaltungen:</td>
-	<td class="value"><input type="text" value="$!message.text($missingorgunit.event)" class="intdisabled" vera-disabled</td>
+	<td><input type="text" value="$!message.text($missingorgunit.event)" class="intdisabled" vera-disabled</td>
 </tr><tr>
 	<td class="label">Import Vorg&auml;nge:</td>
-	<td class="value"><input type="text" value="$!message.text($missingorgunit.import)" class="intdisabled" vera-disabled</td>
+	<td><input type="text" value="$!message.text($missingorgunit.import)" class="intdisabled" vera-disabled</td>
 </tr><tr>
 	<td class="label">Import Personen:</td>
-	<td class="value"><input type="text" value="$!message.text($missingorgunit.importperson)" class="intdisabled" vera-disabled</td>
+	<td><input type="text" value="$!message.text($missingorgunit.importperson)" class="intdisabled" vera-disabled</td>
 </tr><tr>
 	<td class="label">Veranstaltungsorte:</td>
-	<td class="value"><input type="text" value="$!message.text($missingorgunit.location)" class="intdisabled" vera-disabled</td>
+	<td><input type="text" value="$!message.text($missingorgunit.location)" class="intdisabled" vera-disabled</td>
 </tr><tr>
 	<td class="label">Verteiler:</td>
-	<td class="value"><input type="text" value="$!message.text($missingorgunit.mailinglist)" class="intdisabled" vera-disabled</td>
+	<td><input type="text" value="$!message.text($missingorgunit.mailinglist)" class="intdisabled" vera-disabled</td>
 </tr><tr>
 	<td class="label">Kategorien:</td>
-	<td class="value"><input type="text" value="$!message.text($missingorgunit.category)" class="intdisabled" vera-disabled</td>
+	<td><input type="text" value="$!message.text($missingorgunit.category)" class="intdisabled" vera-disabled</td>
 </tr><tr>
 	<td class="label">Benutzer:</td>
-	<td class="value"><input type="text" value="$!message.text($missingorgunit.user)" class="intdisabled" vera-disabled</td>
+	<td><input type="text" value="$!message.text($missingorgunit.user)" class="intdisabled" vera-disabled</td>
 </tr></table><br>
 
 <h1>Mandanten zuordnen</h1>
@@ -57,7 +57,7 @@
 #else
 <table class="form"><tr>
 	<td class="label">Mandant:</td>
-	<td class="value">
+	<td>
 		<select name="orgunit" >
 		#foreach($m in $allOrgUnit)
 			<option value="$!m.id">$!m.name</option>

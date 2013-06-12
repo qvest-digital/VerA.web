@@ -8,7 +8,7 @@
     <strong>Sie sind hier:</strong> <span><a href="index.html">Home</a> > Verwaltung > Info</span>
 </div>
 
-<h1>Info &uuml;ber...</h1>
+<h1>Informationen zu VerA.Web</h1>
 
 
 
@@ -24,15 +24,15 @@
 #end
 
 
-<h3>VerA.web</h3>
+<h3>VerA.Web</h3>
 #if($properties)
 <table class="form">
 	<tr>
 		<td class="width10 bold">Version:</td>
-		<td class="value">$properties.getString("version")</td>
+		<td>$properties.getString("version")</td>
 	</tr><tr>
 		<td class="width10 bold">Build:</td>
-		<td class="value">$properties.getString("build")</td>
+		<td>$properties.getString("build")</td>
 	</tr>
 </table>
 <br>
@@ -44,7 +44,7 @@
 <table class="form">
 	<tr>
 		<td class="width10 bold">Version:</td>
-		<td class="value">
+		<td>
 #if($config && $config.get("SCHEMA_VERSION"))
 			$config.get("SCHEMA_VERSION")
 #else
@@ -53,7 +53,7 @@
 		</td>
 	</tr><tr>
 		<td class="width10 bold">Zeichensatz:</td>
-		<td class="value">
+		<td>
 #if($LC_CTYPE)
 			LC_CTYPE = $LC_CTYPE
 #else
@@ -62,7 +62,7 @@
 		</td>
 	</tr><tr>
 		<td class="width10 bold">&nbsp;</td>
-		<td class="value">
+		<td>
 #if($LC_COLLATE)
 			LC_COLLATE = $LC_COLLATE
 #else
@@ -79,10 +79,10 @@
 <table class="form">
 	<tr>
 		<td class="width10 bold"">Login:</td>
-		<td class="value">$!octopusConfig.personalConfig.userLogin</td>
+		<td>$!octopusConfig.personalConfig.userLogin</td>
 	</tr><tr>
 		<td class="width10 bold">Rolle:</td>
-		<td class="value">
+		<td>
 #if($octopusConfig.personalConfig.role)
 			$octopusConfig.personalConfig.role
 #else
@@ -92,7 +92,7 @@
 	</tr>
 	<tr>
 		<td class="width10 bold">Mandant:</td>
-		<td class="value">
+		<td>
 #if($orgUnit.id != 0)
 			$orgUnit.name
 #else
@@ -103,13 +103,13 @@
 #if($octopusConfig.personalConfig.proxy)
 	<tr>
 		<td class="label">vertreten durch:</td>
-		<td class="value">$octopusConfig.personalConfig.proxy</td>
+		<td>$octopusConfig.personalConfig.proxy</td>
 	</tr>
 #end
 #if($octopusConfig.personalConfig.roles)
 	<tr>
 		<td class="label">verf&uuml;gbare Rollen:</td>
-		<td class="value">
+		<td>
  #foreach($gg in $octopusConfig.personalConfig.roles)
  $gg
  #end
@@ -118,7 +118,7 @@
 #end
 	<tr>
 		<td class="width10 bold">Gruppen:</td>
-		<td class="value">
+		<td>
 #foreach($gg in $octopusConfig.personalConfig.userGroups)
  $gg
 #end
@@ -126,7 +126,7 @@
 	</tr>
 	<tr>
 		<td class="width10 bold"">E-Mail:</td>
-		<td class="value">
+		<td>
 #if($octopusConfig.personalConfig.userEmail)
 			$!octopusConfig.personalConfig.userEmail
 #else
