@@ -4,7 +4,7 @@
 
 <div id="content_container">
 	<div id="breadcrumb" class="textRight marginBottom10">
-		<strong>Sie sind hier</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Personen > <a href="${paths.staticWeb}do/ShowPersonSearch?action=person" title="Zur Personensuche">Personensuche</a> > Suchergebnis</span>
+		<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Personen > <a href="${paths.staticWeb}do/ShowPersonSearch?action=person" title="Zur Personensuche">Personensuche</a> > Suchergebnis</span>
     </div>
     
 	<h1>Steuerdatei</h1>

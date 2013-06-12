@@ -16,11 +16,11 @@
 
     #if($task && $task.id)
     <div id="breadcrumb" class="textRight marginBottom10">
-        <strong>Sie sind hier</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Veranstaltungen > Veranstaltung bearbeiten</span>
+        <strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Veranstaltungen > Veranstaltung bearbeiten</span>
     </div>
     #else
     <div id="breadcrumb" class="textRight marginBottom10">
-        <strong>Sie sind hier</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Veranstaltungen > Veranstaltung bearbeiten</span>
+        <strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Veranstaltungen > Veranstaltung bearbeiten</span>
     </div>
     #end
 
