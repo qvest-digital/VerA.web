@@ -58,13 +58,13 @@
 
 <table class="form">
 	<tr>
-		<td class="label"><label for="id">Veranstaltungsort-ID</label></td>
+		<td class="label"><label for="id">ID</label></td>
 		<td class="value"><input type="text" name="id" value="$!message.text($location.id)" id="id" class="id" vera-disabled></td>
 	</tr>
 	
 	
 	<tr>
-		<td class="label"><label for="location-title">Beschreibung/Titel*</label></td>
+		<td class="label"><label for="location-title">Titel*</label></td>
 		<td class="value"><input type="text" name="location-name" value="$!message.text($location.name)" id="location-name"  maxlength="200" onchange="setModified();"></td>
 	</tr>
 	
@@ -89,22 +89,22 @@
 	</tr>
 	
 	<tr>
-		<td class="label"><label for="location-callnumber">Telefonnummer</label></td>
+		<td class="label"><label for="location-callnumber">Telefon</label></td>
 		<td class="value"><input type="text" name="location-callnumber" value="$!message.text($location.callnumber)" id="location-callnumber"  maxlength="50" onchange="setModified();"></td>
 	</tr>
 	
 	<tr>
-		<td class="label"><label for="location-faxnumber">Faxnummer</label></td>
+		<td class="label"><label for="location-faxnumber">Fax</label></td>
 		<td class="value"><input type="text" name="location-faxnumber" value="$!message.text($location.faxnumber)" id="location-faxnumber"  maxlength="50" onchange="setModified();"></td>
 	</tr>
 	
 	<tr>
-		<td class="label"><label for="location-email">E-Mail-Adresse</label></td>
+		<td class="label"><label for="location-email">E-Mail</label></td>
 		<td class="value"><input type="text" name="location-email" value="$!message.text($location.email)" id="location-email"  maxlength="100" onchange="setModified();"></td>
 	</tr>
 	
 	<tr>
-		<td class="label"><label for="location-comment">Bemerkungsfeld</label></td>
+		<td class="label"><label for="location-comment">Bemerkung</label></td>
 		<td class="value"><textarea rows="4" cols="20" name="location-comment" id="location-comment"  onchange="setModified();">$!message.textarea($location.comment)</textarea></td>
 	</tr>
 	
