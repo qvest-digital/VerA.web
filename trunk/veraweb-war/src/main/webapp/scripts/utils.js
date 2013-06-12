@@ -298,13 +298,13 @@ var showInfo, showWarning, showSuccess;
 
     showWarning = function (text) {
         $(function () {
-            $('h1').after(createWarnHtml(text));
+            $('nav').after(createWarnHtml(text));
         });
     };
 
     showSuccess = function (text) {
         $(function () {
-            $('h1').after(createSuccessHtml(text));
+            $('nav').after(createSuccessHtml(text));
         });
     };
 
