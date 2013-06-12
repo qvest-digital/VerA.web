@@ -58,7 +58,7 @@
                 <table class="form" style="margin: 5px 0px 0px 0px;">
                     #foreach($quest in $listquestions.entrySet())
                     <tr>
-                        <td class="value"><input type="hidden" name="$quest.key" value="true">$!message.plain($quest.value)</td>
+                        <td><input type="hidden" name="$quest.key" value="true">$!message.plain($quest.value)</td>
                     </tr>
                     #set($save = true)
                     #end

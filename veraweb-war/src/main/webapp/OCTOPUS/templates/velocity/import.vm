@@ -185,12 +185,12 @@
 ##<form action="ImportPersonsStoredRecord" method="post" enctype="multipart/form-data">
 ##<table class="form"><tr>
 ##	<td class="label"><label for="importId">Import-ID</label></td>
-##	<td class="value" align="right">
+##	<td align="right">
 ##	    <input type="text" name="importId" id="importId" value="" >
 ##	</td>
 ##</tr><tr>
 ##	<td class="label">&nbsp;</td>
-##	<td class="value">
+##	<td>
 ##		<input name="submit" type="submit" value="Laden" class="submit">
 ##	</td>
 ##</tr></table>

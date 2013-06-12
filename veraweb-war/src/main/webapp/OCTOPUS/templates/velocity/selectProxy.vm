@@ -34,7 +34,7 @@
 	<td colspan=2>Bitte w&auml;hlen Sie, wen Sie vertreten wollen.</td>
 </tr><tr>
 	<td class="label"><label for="proxyFor">Benutzerrolle</label></td>
-	<td class="value">
+	<td>
 		<select name="proxyFor" id="fieldMapping" >
 #foreach($proxy in $list)
 			<option value="$proxy.userRole">$proxy.userRole</option>
@@ -43,7 +43,7 @@
 	</td>
 </tr><tr>
 	<td class="label">&nbsp;</td>
-	<td class="value">
+	<td>
 		<input name="submit" type="submit" value="Vertreten" class="submit"> &nbsp;
 		<input name="cancel" type="reset"  value="Felder leeren" class="reset">
 	</td>
