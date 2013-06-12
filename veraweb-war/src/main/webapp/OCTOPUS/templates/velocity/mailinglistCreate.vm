@@ -16,12 +16,12 @@
     		<form action="SaveMailinglist" name="mailinglists" method="POST" onsubmit="htmlWait();">
     		
         		#if($mailinglist.errors.size() > 0)
-            		<div style="margin: 10px 0px 10px 0px; padding: 10px 10px 10px 10px; background-color: #ffffff; border: 2px solid #ff0000;">
+            		<vera-warn>
             			$mailinglist.errors.get(0)<br>
                 		##	#foreach($error in $mailinglist.errors)
                 		##		$error<br>
                 		##	#end
-            		</div>
+            		</vera-warn>
         		#end
         		
         		<p>Sie legen einen neuen Verteiler aus der Veranstaltung <strong>&quot;$!message.plain($event.shortname)&quot;</strong> mit

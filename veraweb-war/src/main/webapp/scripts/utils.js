@@ -233,11 +233,13 @@ function insertAtCursor(fld, text) {
 }
 
 /**
- * Show an info text below the page header line
+ * Show a text below the page header line
  *
  * @param text
  */
-var showInfo = (function () {
+var showInfo, showWarning;
+
+(function () {
 
     /**
      * Create a formatted info text HTML div element with the given message text.
@@ -251,17 +253,37 @@ var showInfo = (function () {
     };
 
     /**
-     * Format all info texts in <vera-info /> tags on load of the current page
+     * Create a formatted warning text HTML div element with the given message text.
+     *
+     * @param text
+     * @returns {*|jQuery|HTMLElement}
+     */
+    var createWarnHtml = function (text) {
+        return $('<div style="margin: 10px 0px 10px 0px; padding: 10px 10px 10px 10px; background-color: #ffffff; border: 2px solid #ff0000;">'
+            + text + '</div>');
+    };
+
+    /**
+     * Format all texts in <vera-info> / <vera-war> tags on load of the current page
      */
     $(function () {
        $('vera-info').replaceWith(function () {
            return createInfoHtml($(this).html());
        });
+        $('vera-warn').replaceWith(function () {
+            return createWarnHtml($(this).html());
+        });
     });
 
-    return function (text) {
+    showInfo = function (text) {
         $(function () {
             $('h1').after(createInfoHtml(text));
+        });
+    };
+
+    showWarning = function (text) {
+        $(function () {
+            $('h1').after(createWarnHtml(text));
         });
     };
 

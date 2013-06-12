@@ -71,7 +71,7 @@
                 #set($save = false)
                 
                 #if($listerrors && $listerrors.size() > 0)
-                <div style="margin: 10px 0px 10px 0px; padding: 10px 10px 10px 10px; background-color: #ffffff; border: 2px solid #ff0000;">
+                <vera-warn>
                 	<strong>L&ouml;schen von Personen ist nicht m&ouml;glich</strong><br>
                 	<ul style="margin: 0px 0px 0px -10px;">
                     	#if($listerrors.size() > 5)
@@ -89,7 +89,7 @@
                     		<li style="margin: 5px 0px 0px 0px;"><em>...  $drop weitere Meldungen.</em></li>
                     	#end
                 	</ul>
-                </div>
+                </vera-warn>
                 #end
                 #if($listquestions && $listquestions.size() > 0)
                 <div style="margin: 10px 0px 10px 0px; padding: 10px 10px 10px 10px; background-color: #ffffff; border: 2px solid #00ff00;">

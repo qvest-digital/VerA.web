@@ -14,13 +14,13 @@
 
 
 #if($errors && $errors.size() > 0)
-<div style="margin: 10px 0px 10px 0px; padding: 10px 10px 10px 10px; background-color: #ffffff; border: 2px solid #ff0000;">
+<vera-warn>
 	#foreach($error in $errors)
 		$error<br>
 	#end
 	<br>
 	Es kann zu unerwarteten Fehlern kommen. Bitte wenden Sie sich an Ihren Administrator.
-</div>
+</vera-warn>
 #end
 
 <h1>VerA.web</h1>

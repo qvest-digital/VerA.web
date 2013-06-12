@@ -51,9 +51,9 @@
 
 <h1>Mandanten zuordnen</h1>
 #if(!$allOrgUnit || $allOrgUnit.size() == 0)
-	<div style="margin: 10px 0px 10px 0px; padding: 10px 10px 10px 10px; background-color: #ffffff; border: 2px solid #ff0000;">
+	<vera-warn>
 		Es existiert noch kein Mandant.
-	</div>
+	</vera-warn>
 #else
 <table class="form"><tr>
 	<td class="label">Mandant:</td>
