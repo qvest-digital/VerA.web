@@ -143,8 +143,7 @@
             <form id="formlist" name="formlist" action="ShowGuestList" method="POST">
             <input type="hidden" name="start" value="">
 			<input type="hidden" name="limit" value="" />
-            <input type="hidden" name="selectAll" value="false">
-            <input type="hidden" name="selectNone" value="false">
+            <input type="hidden" name="selectNone" value="true">
             <input type="hidden" name="doInsert" value="false">
             <input type="hidden" name="doUpdate" value="true">
             <input type="hidden" name="doRemove" value="true">
@@ -251,7 +250,7 @@
         	
             <table>
             	<tr>
-					<th class="textCenter smallCell"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" #if($listselection.size() == $listparam.count) checked#end title="Alle (de)markieren"/></th>
+					<th class="textCenter smallCell"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="Alle (de)markieren"/></th>
             #if($search.listorder == "lastname_a_e1")
             		<th class="textCenter smallCell"><a href="javascript:orderGuestList('orderno');"><nobr>Lfd.-Nr.</nobr></a></th>
             		<th style="width: 25px; text-align: center;" title="Auf Reserve / Platz">R</th>
@@ -316,7 +315,7 @@
 				#set($offset = $listparam.start + $velocityCount)
             	
             	<tr class="$class" onmouseover="onMouseOverList(this);" onmouseout="onMouseOutList(this);">
-            		<td><input type="hidden" id="${bean.id}-modified" name="${bean.id}-modified" value="false"><input type="hidden" id="${bean.id}-invitationtype" name="${bean.id}-invitationtype" value="${bean.invitationtype}"><input type="checkbox" name="${bean.id}-select" onChange="selectionChange( this );" value="true"  #if($listselection.indexOf($bean.id) != -1) checked#end></td>
+            		<td><input type="hidden" id="${bean.id}-modified" name="${bean.id}-modified" value="false"><input type="hidden" id="${bean.id}-invitationtype" name="${bean.id}-invitationtype" value="${bean.invitationtype}"><input type="checkbox" name="${bean.id}-select" onChange="selectionChange( this );" value="true"></td>
             		<td style="cursor: pointer;" onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&offset=$offset';"><input type="hidden" name="${bean.id}-id" value="$bean.id">
             			#if($bean.ishost && $bean.ishost == 1)
             				<em>Gastgeber</em>

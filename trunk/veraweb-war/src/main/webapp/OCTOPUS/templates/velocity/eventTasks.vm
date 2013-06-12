@@ -27,8 +27,7 @@
 
             <input type="hidden" name="start" value="">
             <input type="hidden" name="limit" value="" />
-            <input type="hidden" name="selectAll" value="false">
-            <input type="hidden" name="selectNone" value="false">
+            <input type="hidden" name="selectNone" value="true">
             <input type="hidden" name="doRemove" value="true">
 
 
@@ -119,7 +118,7 @@
                 <table class="marginTop0 notBold">
                     <tbody>
                     <tr>
-                        <th class="textCenter smallCell"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" #if($listselection.size() == $listparam.count) checked#end title="Alle (de)markieren"/></th>
+                        <th class="textCenter smallCell"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="Alle (de)markieren"/></th>
                         <th class="smallCell textCenter">ID</th>
                         <th>Titel</th>
                         <th class="smallCell textCenter">Start</th>
@@ -131,7 +130,7 @@
                     #foreach($bean in $list)
                     <tr>
                         <td class="textCenter">
-                            <input type="checkbox" id="add-select" name="${bean.id}-select" value="true"  #if($listselection.indexOf($bean.id) != -1) checked#end>
+                            <input type="checkbox" id="add-select" name="${bean.id}-select" value="true">
                         </td>
                         <td class="textCenter" onclick="window.location.href='ShowEventTask?id=$!{bean.id}&eventId=$!{bean.eventId}'">$!bean.id</td>
                         <td onclick="window.location.href='ShowEventTask?id=$!{bean.id}&eventId=$!{bean.eventId}'">$!message.plain($!bean.title)</td>

@@ -33,8 +33,7 @@
 	
     	<input type="hidden" name="start" value="">
 		<input type="hidden" name="limit" value="">
-    	<input type="hidden" name="selectAll" value="false">
-    	<input type="hidden" name="selectNone" value="false">
+    	<input type="hidden" name="selectNone" value="true">
     	<input type="hidden" name="doRemove" value="true">
     	<input type="hidden" id="remove" name="removeDisabled" value="true">
     	
@@ -53,7 +52,7 @@
         	
         	<table class="marginTop10">
         		<tr>
-        			<th class="smallCell textCenter"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" #if($listselection.size() == $listparam.count) checked#end title="Alle (de)markieren"/></th>
+        			<th class="smallCell textCenter"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="Alle (de)markieren"/></th>
         			<th class="smallCell textCenter">ID</th>
         			<th>Bezeichnung</th>
         			<th>Angelegt von</th>
@@ -62,7 +61,7 @@
         		</tr>
         		#foreach($bean in $list)
         		<tr>
-        			<td class="textCenter"><input type="checkbox" name="${bean.id}-select" value="true"  #if($listselection.indexOf($bean.id) != -1) checked#end></td>
+        			<td class="textCenter"><input type="checkbox" name="${bean.id}-select" value="true"></td>
         			<td onclick="window.location.href='ShowMailinglistDetail?id=$!{bean.id}';"><input type="hidden" name="${bean.id}-id" value="$bean.id">$!bean.id</td>
         			<td onclick="window.location.href='ShowMailinglistDetail?id=$!{bean.id}';">$!bean.name</td>
         			<td onclick="window.location.href='ShowMailinglistDetail?id=$!{bean.id}';">$!bean.username</td>

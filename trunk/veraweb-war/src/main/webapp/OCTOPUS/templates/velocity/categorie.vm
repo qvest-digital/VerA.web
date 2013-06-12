@@ -80,8 +80,7 @@ disableOtherBeans(id);
 
 <input type="hidden" name="start" value="">
 #if($grants.isAdmin() || $grants.isPartialAdmin())
-<input type="hidden" name="selectAll" value="false">
-<input type="hidden" name="selectNone" value="false">
+<input type="hidden" name="selectNone" value="true">
 <input type="hidden" name="doInsert" value="true">
 <input type="hidden" name="doUpdate" value="true">
 <input type="hidden" name="doRemove" value="true">
@@ -146,7 +145,7 @@ disableOtherBeans(id);
 	#end	
 	<tr class="$class">
 	#if($grants.isAdmin() || $grants.isPartialAdmin())
-		<td><input type="hidden" id="${bean.id}-modified" name="${bean.id}-modified" value="false"><input type="checkbox" name="${bean.id}-select" id="${bean.id}-select" value="true"  #if($listselection.indexOf($bean.id) != -1) checked#end></td>
+		<td><input type="hidden" id="${bean.id}-modified" name="${bean.id}-modified" value="false"><input type="checkbox" name="${bean.id}-select" id="${bean.id}-select" value="true"></td>
 		<td><input type="hidden" name="${bean.id}-id" value="$!bean.id">$!{bean.id}</td>
 		<td><input type="text" name="${bean.id}-name" id="${bean.id}-name" value="$!message.text($bean.name)"  style="width: 96%;" onchange="modifiedEvent('$!bean.id')" #if(!($grants.isAdmin() || $grants.isPartialAdmin()))vera-disabled#end></td>
 		<td>
