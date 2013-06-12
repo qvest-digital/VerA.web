@@ -78,39 +78,18 @@ function navigateLimit(limit) {
 	}
 }
 
-function navigateSelectAll() {
-	var form = document.getElementById('formlist');
-	if (form && form.elements['selectAll']) {
-		form.elements['selectAll'].value = 'true';
-		form.submit();
-	} else {
-		alert('form or field selectAll NOT FOUND!');
-	}
-}
-
-function navigateSelectNone() {
-	var form = document.getElementById('formlist');
-	var fields = form.elements;
-	for (var i = 0; i < fields.length; i++) {
-		if (fields[i].type == 'checkbox') {
-			fields[i].checked = false;
-		}
-	}
-	if (form && form.elements['selectNone']) {
-		form.elements['selectNone'].value = 'true';
-		form.submit();
-	} else {
-		alert('form or field selectNone NOT FOUND!');
-	}
-}
-
 //Handler for SelectAll Toggling 
 $(function(){
     $('#toggleAllSelect').change(function(){
         if ($(this).is(':checked')) {
-			navigateSelectAll();
+        	$('input[name$="-select"]').prop('checked', true).each(function() {
+        		this.onclick();
+        	});
         } else {
-			navigateSelectNone();
+        	$('input[name$="-select"]').prop('checked', false).each(function() {
+        		this.onclick();
+        	});
+        	$('input[name$="-partner"]').prop('checked', false);
         }
     });
 });
