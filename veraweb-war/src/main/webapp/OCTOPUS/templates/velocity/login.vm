@@ -25,7 +25,7 @@
     </div>
 </div>
 
-<div id="buttonPanel-bottom" class="marginTop5">
+<div id="buttonPanel-bottom" class="marginTop5 marginBottom20">
 	<input type="submit" class="mainButton" value="Anmelden" name="submit" id="button.login">
 	<input type="reset" class="mainButton" value="Felder leeren" name="cancel" id="button.clearFields">				
 </div>
