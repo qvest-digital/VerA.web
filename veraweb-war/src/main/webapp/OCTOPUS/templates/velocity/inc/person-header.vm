@@ -123,3 +123,21 @@
     </div>
 </div>
 
+<script>
+//In case the person detail view was called in the Event/Guest context ("Stammdaten bearbeiten"), we need to add the 
+//the initial tab in order to redirect the user back to the given guest detail tab from any person tab.
+function getGuestTabId(){
+	var guestTabId = '';
+	
+	#if($action == "event")
+		#if($octopusRequest.show && $octopusRequest.show == 'doctype') 
+			guestTabId = '&show=doctype';
+		#else
+			guestTabId = '&tab=$octopusRequest.tab';	
+		#end
+	#end
+	
+	return guestTabId;
+}
+</script>
+

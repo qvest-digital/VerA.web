@@ -352,7 +352,6 @@
 		</span>
 		
     #elseif($action == "event")
-		
 		<span id="buttonPanel-bottom" class="floatRight">
 			#if($grants.mayWrite())
 				<input type="submit" name="save" class="mainButton" value="Person speichern" title="Person speichern" />
@@ -446,13 +445,16 @@
 	}
 	
 	function showCategories() {
+
 		if (document.getElementById('modified').value == 'true') {
-    		document.getElementById('PersonForm').action = '${paths.staticWeb}do/ShowPersonCategorieList';
+    		document.getElementById('PersonForm').action = '${paths.staticWeb}do/ShowPersonCategorieList'+getGuestTabId();
     		document.getElementById('PersonForm').submit();
 		} else {
-			window.location.href = '${paths.staticWeb}do/ShowPersonCategorieList?id=$!person.id&searchTask=$!searchTask&offset=${navigation.current.offset}';
+			window.location.href = '${paths.staticWeb}do/ShowPersonCategorieList?id=$!person.id&searchTask=$!searchTask&offset=${navigation.current.offset}'+getGuestTabId();
 		}
 	}
+	
+
 	
 	function setSex(salutation, sex) {
 		var s = document.getElementById(salutation);
@@ -462,6 +464,7 @@
         #foreach($s in $allSalutation)
         			else if (id == '$s.id') g = '$s.gender';
         #end
+
 		if (g == 'M' || g == 'm') {
 			if (document.getElementById(sex + '-m')) {
 				document.getElementById(sex + '-m').checked = true;
@@ -477,7 +480,7 @@
 		setSex('person-salutation_a_e1', 'person-sex_a_e1');
 		setSex('person-salutation_b_e1', 'person-sex_b_e1');
 	#end	
-	
+
 	//Show the company row (Firma/Institution) in the person detail view if the "Ist Firma" 
 	//checkbox was checked.
 	$("#person-iscompany:not([vera-disabled])").click(function() {
@@ -535,10 +538,10 @@
         tabDocType.click(function () {
             if ($('#modified').val() === 'true') {
                 var form = $('#PersonForm');
-                form.attr('action', '${paths.staticWeb}do/ShowPersonDoctypeList');
+                form.attr('action', '${paths.staticWeb}do/ShowPersonDoctypeList'+getGuestTabId());
                 form.submit();
             } else {
-                window.location.href = '${paths.staticWeb}do/ShowPersonDoctypeList?id=$!person.id&searchTask=$!searchTask&tab=person';
+                window.location.href = '${paths.staticWeb}do/ShowPersonDoctypeList?id=$!person.id&searchTask=$!searchTask'+getGuestTabId();
             }
         });
     });
