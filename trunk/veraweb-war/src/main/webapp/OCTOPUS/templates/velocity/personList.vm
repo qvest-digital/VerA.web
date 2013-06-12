@@ -130,14 +130,14 @@
                 <script language="JavaScript">
                 	function hasNoMain(box) {
                 		if (document.getElementById(box).checked) {
-                			showInfo('Zu dieser Person ist keine Hauptperson eingetragen.');
+                			showWarning('Zu dieser Person ist keine Hauptperson eingetragen.');
                 			document.getElementById(box).checked = false;
                 		}
                 	}
                 	
                 	function hasNoPartner(box) {
                 		if (document.getElementById(box).checked) {
-                			showInfo('Zu dieser Person ist keine Partnerin / kein Partner eingetragen.');
+                			showWarning('Zu dieser Person ist keine Partnerin / kein Partner eingetragen.');
                 			document.getElementById(box).checked = false;
                 		}
                 	}
@@ -184,7 +184,7 @@
                 			checked = document.getElementById(box1).checked || document.getElementById(box2).checked;
                 			if ( ! checked )
                 			{
-                				showInfo( "Diese Person kann nicht auf Reserve gesetzt werden, da die notwendigen Daten " + errmsg + " nicht vollständig erfasst wurden." );
+                				showWarning( "Diese Person kann nicht auf Reserve gesetzt werden, da die notwendigen Daten " + errmsg + " nicht vollständig erfasst wurden." );
                 				document.getElementById(box3).checked = false;
                 			}
                 		}
@@ -236,7 +236,7 @@
                 		if ( hasSelection() ) {
                 			selectPersonCategory( "${paths.staticWeb}do/popupUnassignPersonCategory?count=" + selectedCount );
                 		} else {
-                			showInfo( "Wählen Sie bitte zunächst eine oder mehrere Personen aus." );
+                			showWarning( "Wählen Sie bitte zunächst eine oder mehrere Personen aus." );
                 		}
                 	}
                 
@@ -244,7 +244,7 @@
                 		if ( hasSelection() ) {
                 			selectPersonCategory( "${paths.staticWeb}do/popupAssignPersonCategory?count=" + selectedCount );
                 		} else {
-                			showInfo( "Wählen Sie bitte zunächst eine oder mehrere Personen aus." );
+                			showWarning( "Wählen Sie bitte zunächst eine oder mehrere Personen aus." );
                 		}
                 	}
                 	
@@ -252,7 +252,7 @@
                 		if ( hasSelection() ) {
                 			selectPersonWorkarea( "${paths.staticWeb}do/popupUnassignPersonWorkarea?count=" + selectedCount );
                 		} else {
-                			showInfo( "Wählen Sie bitte zunächst eine oder mehrere Personen aus." );
+                			showWarning( "Wählen Sie bitte zunächst eine oder mehrere Personen aus." );
                 		}
                 	}
                 
@@ -260,7 +260,7 @@
                 		if ( hasSelection() ) {
                 			selectPersonWorkarea( "${paths.staticWeb}do/popupAssignPersonWorkarea?count=" + selectedCount );
                 		} else {
-                			showInfo( "Wählen Sie bitte zunächst eine oder mehrere Personen aus." );
+                			showWarning( "Wählen Sie bitte zunächst eine oder mehrere Personen aus." );
                 		}
                 	}
                 -->
@@ -323,7 +323,7 @@
                     #elseif($isAdmin)
                 		confirmResult = confirm('Sollen alle markierten Personen entfernt werden?');
                     #else
-                		showInfo('Sie haben keine ausreichende Berechtigung um Personen zu entfernen.');
+                		showWarning('Sie haben keine ausreichende Berechtigung um Personen zu entfernen.');
                     #end
 					if (confirmResult) {
 						$('<input>').attr({ type: 'hidden', id: 'remove', name: 'remove' }).appendTo($('#formlist'));
