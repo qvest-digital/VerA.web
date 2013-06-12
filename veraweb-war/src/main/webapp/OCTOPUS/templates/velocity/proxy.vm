@@ -17,14 +17,18 @@
 
 <h1>Vertretungen</h1>
 
+
+
+
 #if($listerrors && $listerrors.size() > 0)
-<vera-warn>
+<div style="margin: 10px 0px 10px 0px; padding: 10px 10px 10px 10px; background-color: #ffffff; border: 2px solid #ff0000;">
 	#foreach($error in $listerrors)
 		$error<br>
 	#end
-</vera-warn>
+</div>
 #end
 
+<input type="hidden" value="">
 <input type="hidden" name="start" value="">
 <input type="hidden" name="selectAll" value="false">
 <input type="hidden" name="selectNone" value="false">
@@ -38,17 +42,22 @@
 #foreach($bean in $list)
 <input type="hidden" name="list" value="$bean.id">
 #end
-<div class="textRight mandatoryText">* = Pflichtfelder</div>
-<fieldset class="filter"><legend>G&uuml;ltigkeitsfilter</legend>
-	<input type="radio" id="validityIgnore" name="proxiesValid" value="ignore" onclick="submit();" #if($proxiesValid && $proxiesValid=='ignore')checked#end><label for="validityIgnore"> alle Vertretungen</label>&nbsp;&nbsp;
-	<input type="radio" id="validityFuture" name="proxiesValid" value="future" onclick="submit();" #if((!$proxiesValid) || $proxiesValid=='future')checked#end><label for="validityFuture"> keine abgelaufenen Vertretungen</label>&nbsp;&nbsp;
-	<input type="radio" id="validityNow" name="proxiesValid" value="now" onclick="submit();" #if($proxiesValid && $proxiesValid=='now')checked#end><label for="validityNow"> nur aktuelle Vertretungen</label>
-</fieldset><br>
+<div class="contentBoxColored grayBorder marginBottom20">
+    <h2>Gültigkeitsfilter</h2>
+	<div class="inlineLabel">
+    	<input type="radio" id="validityIgnore" name="proxiesValid" value="ignore" onclick="submit();" #if($proxiesValid && $proxiesValid=='ignore')checked#end><label for="validityIgnore"> alle Vertretungen</label>
+    	<input type="radio" id="validityFuture" name="proxiesValid" value="future" onclick="submit();" #if((!$proxiesValid) || $proxiesValid=='future')checked#end><label for="validityFuture"> keine abgelaufenen Vertretungen</label>
+    	<input type="radio" id="validityNow" name="proxiesValid" value="now" onclick="submit();" #if($proxiesValid && $proxiesValid=='now')checked#end><label for="validityNow"> nur aktuelle Vertretungen</label>
+    </div>
+</div>
 
 <table>
-	<tr style="height: 20px;">
-		<th style="width: 20px;">&nbsp;</th>
-		<th style="width: 60px;">ID</th>
+	<tbody>
+	<tr>
+		<th class="textCenter smallCell">
+			<input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" #if($listselection.size() == $listparam.count) checked#end title="Alle (de)markieren"/>
+		</th>
+		<th class="textCenter smallCell">ID</th>
 #if($proxiesFor != 'self')
  #if($proxiesFor != 'ou')
 		<th><a href="?order=orgunit#if($proxiesValid)&proxiesValid=$proxiesValid#end">Mandant</a></th>
@@ -56,8 +65,8 @@
 		<th><a href="?order=userRole#if($proxiesValid)&proxiesValid=$proxiesValid#end">Rolle*</a></th>
 #end
 		<th><a href="?order=proxy#if($proxiesValid)&proxiesValid=$proxiesValid#end">Vertreter*</a></th>
-		<th style="width: 100px;"><a href="?order=validFrom#if($proxiesValid)&proxiesValid=$proxiesValid#end">G&uuml;ltig ab</a></th>
-		<th style="width: 100px;"><a href="?order=validTill#if($proxiesValid)&proxiesValid=$proxiesValid#end">G&uuml;ltig bis</a></th>
+		<th class="textCenter width15"><a href="?order=validFrom#if($proxiesValid)&proxiesValid=$proxiesValid#end">G&uuml;ltig ab</a></th>
+		<th class="textCenter width15"><a href="?order=validTill#if($proxiesValid)&proxiesValid=$proxiesValid#end">G&uuml;ltig bis</a></th>
 	</tr>
 	<tr>
 		<td><input type="hidden" id="add-modified" name="add-modified" value="false"><input type="checkbox" name="add-select" value="true"  style="display: none;"></td>
@@ -68,14 +77,14 @@
  #end
 		<td>
  #if($allUser)
-			<select id="add-user" name="add-user"  style="width: 98%;" onchange="setModified('add')">
+			<select id="add-user" name="add-user"  onchange="setModified('add')">
 				<option value="">Bitte ausw&auml;hlen</option>
   #foreach($user in $allUser)
 				<option value="$user.id">$user.name</option>
   #end
 			</select>
  #else
-			<input type="text" name="add-user" value=""  style="width: 96%;" onchange="setModified('add')">
+			<input type="text" name="add-user" value=""  onchange="setModified('add')">
  #end
 		</td>
 #else
@@ -83,18 +92,18 @@
 #end
 		<td>
 #if($roleList)
-			<select id="add-proxy" name="add-proxy"  style="width: 98%;" onchange="setModified('add')">
+			<select id="add-proxy" name="add-proxy" onchange="setModified('add')">
 				<option value="">Bitte ausw&auml;hlen</option>
  #foreach($role in $roleList)
 				<option value="$role">$role</option>
  #end
 			</select>
 #else
-			<input type="text" name="add-proxy" value=""  style="width: 96%;" onchange="setModified('add')">
+			<input type="text" name="add-proxy" value="" onchange="setModified('add')">
 #end
 		</td>
-		<td>
-			<nobr>
+		<td class="textCenter">
+			<div class="calenderContainer">
 				<input type="text" name="add-validFrom" id="add-validFrom" value="" class="date" onchange="setModified('add')">
 				<span id="show-add-from" class="datepickerContainer"><img src="${paths.staticWeb}images/calendar.png" alt="Datum ausw&auml;hlen" title="Datum ausw&auml;hlen"></span>
 				<script type="text/javascript">
@@ -105,10 +114,10 @@
 						showsTime      :    false
 					});
 				</script>
-			</nobr>
+			</div>
 		</td>
-		<td>
-			<nobr>
+		<td class="textCenter">
+			<div class="calenderContainer">
 				<input type="text" name="add-validTill" id="add-validTill" value="" class="date" onchange="setModified('add')">
 				<span id="show-add-till" class="datepickerContainer"><img src="${paths.staticWeb}images/calendar.png" alt="Datum ausw&auml;hlen" title="Datum ausw&auml;hlen"></span>
 				<script type="text/javascript">
@@ -119,7 +128,7 @@
 						showsTime      :    false
 					});
 				</script>
-			</nobr>
+			</div>
 		</td>
 	</tr>
 	#foreach($bean in $list)
@@ -129,11 +138,11 @@
 		#set($class = "list2")
 	#end
 	<tr class="$class">
-		<td><input type="hidden" id="${bean.id}-modified" name="${bean.id}-modified" value="false"><input type="checkbox" name="${bean.id}-select" value="true"  #if($listselection.indexOf($bean.id) != -1) checked#end></td>
-		<td><input type="hidden" name="${bean.id}-id" value="$!bean.id">$!{bean.id}<input type="hidden" name="${bean.id}-user" value="$!bean.user"></td>
+		<td ><input type="hidden" id="${bean.id}-modified" name="${bean.id}-modified" value="false"><input type="checkbox" name="${bean.id}-select" value="true"  #if($listselection.indexOf($bean.id) != -1) checked#end></td>
+		<td ><input type="hidden" name="${bean.id}-id" value="$!bean.id">$!{bean.id}<input type="hidden" name="${bean.id}-user" value="$!bean.user"></td>
 #if($proxiesFor != 'self')
  #if($proxiesFor != 'ou')
-		<td>
+		<td >
   #if(!$bean.orgunit)
 			<i>no ou</i>
   #elseif(!$mapOrgUnit.get($bean.orgunit))
@@ -143,10 +152,10 @@
   #end
 		</td>
  #end
-		<td><input type="text" name="${bean.id}-userRole" value="$!message.text($bean.userRole)"  style="width: 96%;" onchange="setModified('$!bean.id')" vera-disabled></td>
+		<td ><input type="text" name="${bean.id}-userRole" value="$!message.text($bean.userRole)"  onchange="setModified('$!bean.id')" vera-disabled></td>
 #end
-		<td><input type="text" name="${bean.id}-proxy" value="$!message.text($bean.proxy)"  style="width: 96%;" onchange="setModified('$!bean.id')" vera-disabled></td>
-		<td>
+		<td ><input type="text" name="${bean.id}-proxy" value="$!message.text($bean.proxy)"  onchange="setModified('$!bean.id')" vera-disabled></td>
+		<td >
 			<nobr>
 				<input type="text" name="${bean.id}-validFrom" id="${bean.id}-validFrom" value="$!message.date("DATE", $bean.validFrom)" class="date" onchange="setModified('$!bean.id')">
 				<span id="show-${bean.id}-from" class="datepickerContainer"><img src="${paths.staticWeb}images/calendar.png" alt="Datum ausw&auml;hlen" title="Datum ausw&auml;hlen"></span>
@@ -160,7 +169,7 @@
 				</script>
 			</nobr>
 		</td>
-		<td>
+		<td >
 			<nobr>
 				<input type="text" name="${bean.id}-validTill" id="${bean.id}-validTill" value="$!message.date("DATE", $bean.validTill)" class="date" onchange="setModified('$!bean.id')">
 				<span id="show-${bean.id}-till" class="datepickerContainer"><img src="${paths.staticWeb}images/calendar.png" alt="Datum ausw&auml;hlen" title="Datum ausw&auml;hlen"></span>
@@ -176,21 +185,24 @@
 		</td>
 	</tr>
 	#end
+	
+    	#set($itemName = "Vertreter")
+    	#parse("inc/list-navi-new.vm")
+    	#parse("inc/list-direct-new.vm")
+	</tbody>
 </table>
 
 #if ($listparam.count == 0)
 	<br>Keine Daten gefunden.
 #end
 
-<div id="fixme" class="fixme1"><div class="fixme2"><div class="fixme3">
 
-	#parse("inc/list-navi.vm")
-	#parse("inc/list-direct.vm")
 
-	<input type="submit" name="save" value="Speichern" class="submit">
-	<input type="submit" name="remove" value="L&ouml;schen" class="button" title="markierte Eintr&auml;ge entfernen">
+<div id="buttonPanel-bottom" class="textRight">
+    <input type="button" name="save" value="Speichern" class="mainButton">
+    <input type="button" name="delete" value="L&ouml;schen" class="mainButton">
+</div>
 
-</div></div></div>
 
 
 
