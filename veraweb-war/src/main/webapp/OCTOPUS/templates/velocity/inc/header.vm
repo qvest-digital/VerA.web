@@ -60,7 +60,7 @@
 
             #if($octopusRequest.task != "ShowPersonCategorieList" || ($octopusRequest.task == "ShowPersonCategorieList" && $status && $status.code && $status.code == "saveperson"))
                 #if($countInsert && $countInsert > 0)
-                	<div id="text.info" style="margin: 10px 0px 0px 0px; padding: 2px 3px 2px 3px; background-color: #ffc080; border: 1px solid #ff8000;">
+                	<vera-success>
                 		#if($countInsert == 0)
                 			Es wurde kein neuer Datensatz angelegt.
                 		#elseif($countInsert == 1)
@@ -68,10 +68,10 @@
                 		#else
                 			Es wurden $countInsert neue Datens&auml;tze angelegt.
                 		#end
-                	</div>
+                	</vera-success>
                 #end
                 #if($countUpdate && $countUpdate > 0)
-                	<div id="text.info" style="margin: 10px 0px 0px 0px; padding: 2px 3px 2px 3px; background-color: #ffc080; border: 1px solid #ff8000;">
+                	<vera-success>
                 		#if($countUpdate == 0)
                 			Es wurde kein Datensatz ge&auml;ndert.
                 		#elseif($countUpdate == 1)
@@ -79,10 +79,10 @@
                 		#else
                 			Es wurden $countUpdate Datens&auml;tze ge&auml;ndert.
                 		#end
-                	</div>
+                	</vera-success>
                 #end
                 #if($countRemove)
-                	<div id="text.info" style="margin: 10px 0px 0px 0px; padding: 2px 3px 2px 3px; background-color: #ffc080; border: 1px solid #ff8000;">
+                	<vera-success>
                 		#if($countRemove == 0)
                 			Es wurde kein Datensatz gel&ouml;scht.
                 		#elseif($countRemove == 1)
@@ -90,7 +90,7 @@
                 		#else
                 			Es wurden $countRemove Datens&auml;tze gel&ouml;scht.
                 		#end
-                	</div>
+                	</vera-success>
                 #end
             #end
 	

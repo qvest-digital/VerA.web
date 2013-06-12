@@ -13,7 +13,7 @@
 
 	#if (!$status || ($status && $status.code && $status.code != "saveperson"))
         #if($countInsert && $countInsert > 0)
-        	<div style="margin: 10px 0px 0px 0px; padding: 2px 3px 2px 3px; background-color: #ffc080; border: 1px solid #ff8000;">
+        	<vera-success>
         		#if($countInsert == 0)
         			Es wurde keine Kategorie hinzugef&uuml;gt.
         		#elseif($countInsert == 1)
@@ -21,10 +21,10 @@
         		#else
         			Es wurden $countInsert Kategorien hinzugef&uuml;gt.
         		#end
-        	</div>
+        	</vera-success>
         #end
         #if($countUpdate && $countUpdate > 0)
-        	<div style="margin: 10px 0px 0px 0px; padding: 2px 3px 2px 3px; background-color: #ffc080; border: 1px solid #ff8000;">
+        	<vera-success>
         		#if($countUpdate == 0)
         			Es wurde keine Kategorie ge&auml;ndert.
         		#elseif($countUpdate == 1)
@@ -32,10 +32,10 @@
         		#else
         			Es wurden $countUpdate Kategorien ge&auml;ndert.
         		#end
-        	</div>
+        	</vera-success>
         #end
         #if($countRemove)
-        	<div style="margin: 10px 0px 0px 0px; padding: 2px 3px 2px 3px; background-color: #ffc080; border: 1px solid #ff8000;">
+        	<vera-success>
         		#if($countRemove == 0)
         			Es wurde keine Kategorie gel&ouml;scht.
         		#elseif($countRemove == 1)
@@ -43,7 +43,7 @@
         		#else
         			Es wurden $countRemove Kategorien gel&ouml;scht.
         		#end
-        	</div>
+        	</vera-success>
     	#end
 	#end
     
