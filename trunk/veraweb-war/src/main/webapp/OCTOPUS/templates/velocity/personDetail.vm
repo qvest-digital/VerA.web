@@ -358,7 +358,11 @@
 				<input type="submit" name="save" class="mainButton" value="Person speichern" title="Person speichern" />
 			#end
 			<input type="button" name="cancel" class="mainButton" value="Zur Personen&uuml;bersicht" title="Zur Personen&uuml;bersicht" onclick="if (checkModified()) { window.location.href='${paths.staticWeb}do/SearchPerson?action=person'; }">
-            <input type="button" name="cancel" class="mainButton" value="Zur&uuml;ck zur Veranstaltung" title="Zur&uuml;ck zur Veranstaltung" onclick="if (checkModified()) { window.location.href='${paths.staticWeb}do/ShowGuestDetail'; }">
+            #if($octopusRequest.show && $octopusRequest.show == 'doctype') 
+				<input type="button" name="cancel" class="mainButton" value="Zur&uuml;ck zur Veranstaltung" title="Zur&uuml;ck zur Veranstaltung" onclick="if (checkModified()) { window.location.href='${paths.staticWeb}do/ShowGuestDoctype'; }">
+			#else
+				<input type="button" name="cancel" class="mainButton" value="Zur&uuml;ck zur Veranstaltung" title="Zur&uuml;ck zur Veranstaltung" onclick="if (checkModified()) { window.location.href='${paths.staticWeb}do/ShowGuestDetail?tab=$!octopusRequest.tab'; }">	
+			#end
 		</span>
 			
     #else
