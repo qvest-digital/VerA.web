@@ -536,7 +536,20 @@ public class GuestExportWorker {
 		spreadSheet.addCell("Veranstaltungsname");
 		spreadSheet.addCell("Veranstaltung_Beginn");
 		spreadSheet.addCell("Veranstaltung_Ende");
-		spreadSheet.addCell("Ort_der_Veranstaltung");
+		
+		spreadSheet.addCell("Veranstaltungsort_Beschreibung");
+		spreadSheet.addCell("Veranstaltungsort_Ansprechpartner");
+		spreadSheet.addCell("Veranstaltungsort_Straße");
+		spreadSheet.addCell("Veranstaltungsort_PLZ");
+		spreadSheet.addCell("Veranstaltungsort_Ort");
+		spreadSheet.addCell("Veranstaltungsort_Telefonnummer");
+		spreadSheet.addCell("Veranstaltungsort_Faxnummer");
+		spreadSheet.addCell("Veranstaltungsort_E-Mailadresse ");
+		spreadSheet.addCell("Veranstaltungsort_Bemerkungsfeld");
+		spreadSheet.addCell("Veranstaltungsort_URL");
+		spreadSheet.addCell("Veranstaltungsort_GPS-Daten");
+		spreadSheet.addCell("Veranstaltungsort_Raumnummer");
+		
 		spreadSheet.addCell("Bemerkung");
 	}
 
@@ -715,6 +728,11 @@ public class GuestExportWorker {
 		spreadSheet.addCell(event.begin);
 		spreadSheet.addCell(event.end);
 		spreadSheet.addCell(event.location);
+		
+		for (int i = 0; i < 11; i += 1) { //TODO: add event location properties; see: backlog [#3910]
+			spreadSheet.addCell(null);
+		}
+		
 		spreadSheet.addCell(event.note);
 	}
 
@@ -835,6 +853,11 @@ public class GuestExportWorker {
 		spreadSheet.addCell(event.begin);
 		spreadSheet.addCell(event.end);
 		spreadSheet.addCell(event.location);
+		
+		for (int i = 0; i < 11; i += 1) { //TODO: add event location properties; see: backlog [#3910]
+			spreadSheet.addCell(null);
+		}
+		
 		spreadSheet.addCell(event.note);
 	}
 
@@ -955,6 +978,11 @@ public class GuestExportWorker {
 		spreadSheet.addCell(event.begin);
 		spreadSheet.addCell(event.end);
 		spreadSheet.addCell(event.location);
+		
+		for (int i = 0; i < 11; i += 1) { //TODO: add event location properties; see: backlog [#3910]
+			spreadSheet.addCell(null);
+		}
+		
 		spreadSheet.addCell(event.note);
 	}
 
