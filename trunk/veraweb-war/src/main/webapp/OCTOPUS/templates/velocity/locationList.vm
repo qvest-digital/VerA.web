@@ -2,6 +2,12 @@
 #set($title = "Stammdaten - Veranstaltungsorte")
 #parse("inc/header.vm")	
 
+#if ($uncaughtPSQLException) ## assume error occured because of foreign key constraint violation with tevent table
+<vera-warn>
+    Die Orte konnten nicht gel&ouml;scht werden, da einer von ihnen von mindestenes einer Veranstaltung verwendet wird.
+</vera-warn>
+#end
+
 <form id="formlist" name="formlist" action="Location" method="POST">
     <input type="hidden" name="doRemove" value="true">
     <input type="hidden" name="start" value="">
