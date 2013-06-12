@@ -155,6 +155,22 @@
                         		M&ouml;chten Sie diese jetzt <a href="javascript:setGuestInvitationtype(1);">nachtr&auml;glich einladen</a>?
                             </vera-info>							
                         </div>
+		<!-- alter Code der tabs -->
+	
+##<div id="subtab-detail-block">
+##	<table class="subtab" border="0" cellspacing="0" cellpadding="0"><tr>
+##		<td class="subtableft">&nbsp;</td>
+##		<td class="subtab" id="detail-1-tab"><a href="javascript:showTab('detail-1');" id="detail-1-link" class="subtab">Allgemein</a></td>
+##		<td class="subtab" id="detail-2-tab"><a href="javascript:showTab('detail-2');" id="detail-2-link" class="subtab">$!config.main</a></td>
+## partner tab now renders inactive if there is no partner defined or none has been invited
+## for existing guests, newly created guests will render the tab active
+## as per change request for version 1.2.0
+## cklein 2008-02-15
+ ##             <td #if( ( $guest.getIsPartnerInvited() && $person.getHasPartner() ) || $octopusRequest.task == "CreatePerson" ) class="subtab" #else class="tabdisabled" #end id="detail-3-tab"><a href="javascript:showTab('detail-3');" id="detail-3-link" class="subtab">$!config.partner</a></td>
+##            <td class="subtab" id="detail-3-tab"><a href="javascript:showTab('detail-3');" id="detail-3-link" class="subtab">$!config.partner</a></td>
+##		<td class="subtabcenter">&nbsp;</td>
+##	</tr></table>
+##</div>*# <!-- alter Code der tabs Ende -->
                         #closeContentBlock()
 						
                         
@@ -195,28 +211,6 @@
 </div> <!-- End id="content_container" -->
 
 
-
-		<!-- alter Code der tabs -->
-	
-##<div id="subtab-detail-block">
-##	<table class="subtab" border="0" cellspacing="0" cellpadding="0"><tr>
-##		<td class="subtableft">&nbsp;</td>
-##		<td class="subtab" id="detail-1-tab"><a href="javascript:showTab('detail-1');" id="detail-1-link" class="subtab">Allgemein</a></td>
-##		<td class="subtab" id="detail-2-tab"><a href="javascript:showTab('detail-2');" id="detail-2-link" class="subtab">$!config.main</a></td>
-## partner tab now renders inactive if there is no partner defined or none has been invited
-## for existing guests, newly created guests will render the tab active
-## as per change request for version 1.2.0
-## cklein 2008-02-15
- ##             <td #if( ( $guest.getIsPartnerInvited() && $person.getHasPartner() ) || $octopusRequest.task == "CreatePerson" ) class="subtab" #else class="tabdisabled" #end id="detail-3-tab"><a href="javascript:showTab('detail-3');" id="detail-3-link" class="subtab">$!config.partner</a></td>
-##            <td class="subtab" id="detail-3-tab"><a href="javascript:showTab('detail-3');" id="detail-3-link" class="subtab">$!config.partner</a></td>
-##		<td class="subtabcenter">&nbsp;</td>
-##	</tr></table>
-##</div>*# <!-- alter Code der tabs Ende -->
-
-
-
-
-
 <script type="text/javascript" src="${paths.staticWeb}scripts/guest-detail-tabs.js"></script>
 <script type="text/javascript">
 
@@ -236,13 +230,13 @@
 		}
 	}
 	
-#if(!$grants.mayWrite())
-	disableForm(document.getElementById('GuestForm'));
-#end
+    #if(!$grants.mayWrite())
+    	disableForm(document.getElementById('GuestForm'));
+    #end
 	
 	showTab(getTabParameter('detail-1'));
 	
-##wenn andere Kategorie ausgewaehlt wird, evtl. Rang aus Stammdaten laden
+	##wenn andere Kategorie ausgewaehlt wird, evtl. Rang aus Stammdaten laden
 	function askPreSave() {
 		if (isModified('categorie') && document.getElementById('guest-rank').value == '') {
   			htmlConfirm('Soll der Rang der Kategorie aus den Stammdaten &uuml;bernommen werden?', new Array('Ja', 'Nein'), new Array("saveDocWithMasterDataRank('true');", "saveDocWithMasterDataRank('false');"));

@@ -60,13 +60,18 @@
         	<input type="button" name="cancel" value="Zur Personen&uuml;bersicht" title="Zur Personen&uuml;bersicht" class="mainButton" onclick="window.location.href='${paths.staticWeb}do/SetHostToEventList';"/>
         #elseif($action == "event")
         	<input type="button" name="cancel" value="Zur Personen&uuml;bersicht" title="Zur Personen&uuml;bersicht" class="mainButton" onclick="window.location.href='${paths.staticWeb}do/ShowGuestDetail';"/>
-        #elseif($action == "duplicateSearch")
+			#if($octopusRequest.show && $octopusRequest.show == 'doctype') 
+				<input type="button" name="cancel" class="mainButton" value="Zur&uuml;ck zur Veranstaltung" title="Zur&uuml;ck zur Veranstaltung" onclick="if (checkModified()) { window.location.href='${paths.staticWeb}do/ShowGuestDoctype'; }">
+			#else
+				<input type="button" name="cancel" class="mainButton" value="Zur&uuml;ck zur Veranstaltung" title="Zur&uuml;ck zur Veranstaltung" onclick="if (checkModified()) { window.location.href='${paths.staticWeb}do/ShowGuestDetail?tab=$!octopusRequest.tab'; }">	
+			#end
+		#elseif($action == "duplicateSearch")
             <input type="button" name="cancel" value="Zur Dublettensuche" title="Zur Dublettensuche" class="mainButton" onclick="window.location.href='${paths.staticWeb}do/PersonDuplicateSearch';">
         #elseif($searchTask && $searchTask == "personSearchTask")
             <input type="button" name="cancel" class="mainButton" value="Zur&uuml;ck zum Suchergebnis" title="Zur&uuml;ck zum Suchergebnis" onclick="if (checkModified()) { window.location.href='${paths.staticWeb}do/SearchPerson?action=person&searchTask=personSearchTask'; }">
         #else
             <input type="button" name="cancel" class="mainButton" value="Zur Personen&uuml;bersicht" title="Zur Personen&uuml;bersicht" onclick="if (checkModified()) { window.location.href='${paths.staticWeb}do/SearchPerson?action=person'; }">
-        #end
+		#end
     </span>
 
     #if($navigation)
@@ -132,13 +137,13 @@
 
     $(function () {
         $('li#personendaten').click(function () {
-            window.location.href = '${paths.staticWeb}do/ShowPerson?id=$!person.id&searchTask=$!searchTask&personTab=1';
+            window.location.href = '${paths.staticWeb}do/ShowPerson?id=$!person.id&searchTask=$!searchTask&personTab=1'+getGuestTabId();
         });
         $('li#anschriften').click(function () {
-            window.location.href = '${paths.staticWeb}do/ShowPerson?id=$!person.id&searchTask=$!searchTask&personTab=2';
+            window.location.href = '${paths.staticWeb}do/ShowPerson?id=$!person.id&searchTask=$!searchTask&personTab=2'+getGuestTabId();
         });
         $('li#kategorien').click(function () {
-            window.location.href = '${paths.staticWeb}do/ShowPersonCategorieList?id=$!person.id&searchTask=$!searchTask';
+            window.location.href = '${paths.staticWeb}do/ShowPersonCategorieList?id=$!person.id&searchTask=$!searchTask'+getGuestTabId();
         });
 
         var save = $('input[name=save]');
@@ -146,7 +151,5 @@
             save.trigger('click');
         });
     });
-
-
 
 </script>
