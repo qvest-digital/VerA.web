@@ -41,8 +41,16 @@ ALTER TABLE veraweb.tlocation ADD COLUMN
 	ADD COLUMN gpsdata VARCHAR(1000),
 	ADD COLUMN roomnumber VARCHAR(250);
 	
+
+/* ---------------------------------------------------------------------- */
+/* Alter table "tevent"                                                   */
+/* ---------------------------------------------------------------------- */
+
+ALTER TABLE veraweb.tevent DROP COLUMN location;
+ALTER TABLE veraweb.tevent ADD COLUMN fk_location INTEGER REFERENCES veraweb.tlocation(pk);
+
 /* ---------------------------------------------------------------------- */
 /* Update schema version                                                  */
 /* ---------------------------------------------------------------------- */
 
-UPDATE veraweb.tconfig SET cvalue = '2013-05-08' WHERE cname = 'SCHEMA_VERSION';
+UPDATE veraweb.tconfig SET cvalue = '2013-06-12' WHERE cname = 'SCHEMA_VERSION';
