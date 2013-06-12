@@ -112,7 +112,6 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 		Select select = this.prepareShowList( cntx, database );
 		Map param = ( Map )cntx.contentAsObject( OUTPUT_showListParams );
 		select.Limit(new Limit((Integer)param.get("limit"), (Integer)param.get("start")));
-		cntx.setContent( OUTPUT_getSelection, getSelection( cntx, ( Integer ) param.get( "count" ) ) );
 		
 		/* FIXME remove this temporary fix ASAP
 		 * cklein 2009-09-16
