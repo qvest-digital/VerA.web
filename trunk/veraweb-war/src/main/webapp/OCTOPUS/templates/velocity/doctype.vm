@@ -78,7 +78,7 @@
 							<option value="ods-document">OOo 2.0</option>
 						</select>
 					</td>
-					<td><input type="checkbox" name="add-partner" value="true"  title="Eigenes Dokument f&uuml;r Partner" onchange="setModified('add')"></td>
+					<td class="textCenter"><input type="checkbox" name="add-partner" value="true"  title="Eigenes Dokument f&uuml;r Partner" onchange="setModified('add')"></td>
 					<td><input type="text" name="add-sortorder" value="" onchange="setModified('add')"></td>
 					<td><input type="text" name="add-flags" value="" onchange="setModified('add')"></td>
 					<td><input type="checkbox" name="add-host" value="true"  title="Gastgeber mit Ausgeben" onchange="setModified('add')" checked></td>
