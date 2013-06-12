@@ -18,6 +18,14 @@ INSERT INTO veraweb.tcolor (color, addresstype, locale, rgb) VALUES ('Weiß',   
 INSERT INTO veraweb.tcolor (color, addresstype, locale, rgb) VALUES ('Hellgrün', 1, 1, 6750003);
 -- Inland: Nein - Geschlecht: Männlich
 INSERT INTO veraweb.tcolor (color, addresstype, locale, rgb) VALUES ('Hellblau', 1, 1, 3381759);
+-- Administration; Programmeinstellungen: Personaldaten-Tab ausgewählt
+INSERT INTO veraweb.tconfig (cname, cvalue) VALUES ('personTab', '1');
+-- Administration; Programmeinstellungen: Hauptperson-Tab ausgewählt
+INSERT INTO veraweb.tconfig (cname, cvalue) VALUES ('personMemberTab', '1');
+-- Administration; Programmeinstellungen: Geschäftlich-Tab ausgewählt
+INSERT INTO veraweb.tconfig (cname, cvalue) VALUES ('personAddresstypeTab', '1');
+-- Administration; Programmeinstellungen: Latein-Tab ausgewählt
+INSERT INTO veraweb.tconfig (cname, cvalue) VALUES ('personLocaleTab', '1');
 
 -- DELETE FROM veraweb.tcategorie;
 INSERT INTO veraweb.tcategorie (fk_event, fk_orgunit, catname, flags, rank) VALUES (NULL, NULL, 'Raucher', 0, 20);
