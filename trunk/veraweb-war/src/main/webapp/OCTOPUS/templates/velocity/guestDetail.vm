@@ -14,7 +14,7 @@
     #end
 
     #if($invited)
-    	<div style="margin: 10px 0px 0px 0px; padding: 2px 3px 2px 3px; background-color: #ffc080; border: 1px solid #ff8000;">
+    	<vera-success>
     		#if($invited == 0)
     			Die G&auml;steliste wurde nicht ver&auml;ndert.
     		#elseif($invited == 1)
@@ -22,10 +22,10 @@
     		#else
     			Die G&auml;steliste wurde um $invited G&auml;ste erweitert.
     		#end
-    	</div>
+    	</vera-success>
     #end
     #if($mailinglistParams && $mailinglistParams.count)
-    	<div style="margin: 10px 0px 0px 0px; padding: 2px 3px 2px 3px; background-color: #ffc080; border: 1px solid #ff8000;">
+    	<vera-success>
     		#if($mailinglistParams.count == 0)
     			Verteiler &quot;$!message.plain($mailinglist.name)&quot; wurde ohne Person angelegt.
     		#elseif($mailinglistParams.count == 1)
@@ -33,12 +33,12 @@
     		#else
     			Verteiler &quot;$!message.plain($mailinglist.name)&quot; wurde mit $!mailinglistParams.count Personen angelegt.
     		#end
-    	</div>
+    	</vera-success>
     #end
     #if($octopusRequest.task == "CalcSerialNumber" && (!$listquestions || $listquestions.size() == 0))
-    	<div style="margin: 10px 0px 0px 0px; padding: 2px 3px 2px 3px; background-color: #ffc080; border: 1px solid #ff8000;">
+    	<vera-success>
     		Die &quot;Laufende Nummer&quot; wurde f&uuml;r alle G&auml;ste neu berechnet und gespeichert.
-    	</div>
+    	</vera-success>
     #end
     <div class="tabs contentBox grayBorder marginBottom10 marginTop20" id="main_content">
 

@@ -237,7 +237,7 @@ function insertAtCursor(fld, text) {
  *
  * @param text
  */
-var showInfo, showWarning;
+var showInfo, showWarning, showSuccess;
 
 (function () {
 
@@ -264,6 +264,17 @@ var showInfo, showWarning;
     };
 
     /**
+     * Create a formatted success text HTML div element with the given message text.
+     *
+     * @param text
+     * @returns {*|jQuery|HTMLElement}
+     */
+    var createSuccessHtml = function (text) {
+        return $('<div style="margin: 10px 0px 0px 0px; padding: 2px 3px 2px 3px; background-color: #ffc080; border: 1px solid #ff8000;">'
+            + text + '</div>');
+    };
+
+    /**
      * Format all texts in <vera-info> / <vera-war> tags on load of the current page
      */
     $(function () {
@@ -273,6 +284,10 @@ var showInfo, showWarning;
         $('vera-warn').replaceWith(function () {
             return createWarnHtml($(this).html());
         });
+        $('vera-success').replaceWith(function () {
+            return createSuccessHtml($(this).html());
+        });
+
     });
 
     showInfo = function (text) {
@@ -284,6 +299,12 @@ var showInfo, showWarning;
     showWarning = function (text) {
         $(function () {
             $('h1').after(createWarnHtml(text));
+        });
+    };
+
+    showSuccess = function (text) {
+        $(function () {
+            $('h1').after(createSuccessHtml(text));
         });
     };
 

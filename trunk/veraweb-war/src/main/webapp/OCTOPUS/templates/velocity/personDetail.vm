@@ -39,14 +39,14 @@
 <div id="content_container"> 
 
 #if($octopusRequest.task == "AddPersonToEventDetail")
-	<div style="margin: 10px 0px 0px 0px; padding: 2px 3px 2px 3px; background-color: #ffc080; border: 1px solid #ff8000;">
+	<vera-success>
 		#if($invited == 1)
 			Diese Person wurde erfolgreich zur G&auml;steliste der Veranstaltung &quot;$!message.plain($event.shortname)&quot; hinzugef&uuml;gt.
 		#end
 		#if($notInvited == 1)
 			Diese Person wurde nicht hinzugef&uuml;gt, da Sie bereits auf der G&auml;steliste steht.
 		#end
-	</div>
+	</vera-success>
 #end
 
 <form id="PersonForm" name="PersonForm" action="${paths.staticWeb}do/SavePerson" method="post">
