@@ -249,7 +249,7 @@ var showInfo, showWarning, showSuccess;
      * @returns {*|jQuery|HTMLElement}
      */
     var createSuccessHtml = function (text) {
-        return $('<div style="margin: 10px 0px 0px 0px; padding: 2px 3px 2px 3px; background-color: #ffc080; border: 1px solid #ff8000;">'
+        return $('<div class="sucessmsg">'
             + text + '</div>');
     };
 
