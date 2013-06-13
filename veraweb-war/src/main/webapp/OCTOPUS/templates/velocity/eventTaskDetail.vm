@@ -233,6 +233,20 @@
         disableForm($('#formlist')[0]);
         #end
     });
+
+$(function(){
+    $('input[name="save"]').click(function(){
+    	if ($('#task-starttime').val().length > 0 &&  $('#task-startdate').val().length == 0) {
+    		alert('Bitte geben Sie für den Zeitpunkt ein Datum an.');
+    		return false;
+    	}
+    	if ($('#task-endtime').val().length > 0 &&  $('#task-enddate').val().length == 0) {
+    		alert('Bitte geben Sie für den Zeitpunkt ein Datum an.');
+    		return false;
+    	} 	
+    });
+ });
+    
 </script>
 
 #parse("inc/footer.vm")
