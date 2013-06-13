@@ -145,9 +145,9 @@
 		#elseif($action == "duplicateSearch")
             <input type="button" name="cancel" value="Zur Dublettensuche" title="Zur Dublettensuche" class="mainButton" onclick="window.location.href='${paths.staticWeb}do/PersonDuplicateSearch';">
         #elseif($searchTask && $searchTask == "personSearchTask")
-            <input type="button" name="cancel" class="mainButton" value="Zur&uuml;ck zum Suchergebnis" title="Zur&uuml;ck zum Suchergebnis" onclick="if (checkModified()) { window.location.href='${paths.staticWeb}do/SearchPerson?action=person&searchTask=personSearchTask'; }">
+            <input type="button" name="cancel" class="mainButton" value="Zur&uuml;ck zum Suchergebnis" title="Zur&uuml;ck zum Suchergebnis" onclick="if (checkModified()) { window.location.href='${paths.staticWeb}do/SearchPerson?action=person&searchTask=personSearchTask&selectNone=true'; }">
         #else
-            <input type="button" name="cancel" class="mainButton" value="Zur Personen&uuml;bersicht" title="Zur Personen&uuml;bersicht" onclick="if (checkModified()) { window.location.href='${paths.staticWeb}do/SearchPerson?action=person'; }">
+            <input type="button" name="cancel" class="mainButton" value="Zur Personen&uuml;bersicht" title="Zur Personen&uuml;bersicht" onclick="if (checkModified()) { window.location.href='${paths.staticWeb}do/SearchPerson?action=person&selectNone=true'; }">
 		#end
     </span>
     

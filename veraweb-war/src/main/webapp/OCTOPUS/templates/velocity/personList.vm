@@ -58,7 +58,7 @@
     	<form id="formlist" name="formlist" action="${paths.staticWeb}do/$octopusRequest.task" method="POST">
             <input type="hidden" name="start" value="" />
     		<input type="hidden" name="limit" value="" />
-            <input type="hidden" name="selectNone" value="true" />
+            <input type="hidden" name="selectNone" id="selectNone" value="true" />
             <input type="hidden" name="doRemove" value="true" />
             <input type="hidden" name="categoryAssignmentAction" value="" />
             <input type="hidden" name="categoryAssignmentId" value="" />
@@ -105,7 +105,7 @@
 					#if($action == "duplicateSearch")
 						<input type="submit" class="cancel" name="cancel" value="Nein"> &nbsp;
 					#else
-						<input type="button" class="cancel" name="cancel" value="Nein" onclick="window.location.href='SearchPerson';"> &nbsp;
+						<input type="button" class="cancel" name="cancel" value="Nein" onclick="window.location.href='SearchPerson?selectNone=true';"> &nbsp;
 					#end
                 </div>
                 #end
@@ -122,7 +122,7 @@
 				
 				<span id="actionPanel" class="inlineLabel">
 					<label>Markierte Person(en)
-						<input type="button" value="Zur Veranstaltung hinzuf&uuml;gen" title="Markierte Person(en) zur Veranstaltung hinzuf&uuml;gen" onclick="submitFormWithGivenAction('AddPersonToEventGuestList');" />
+						<input type="button" value="Zur Veranstaltung hinzuf&uuml;gen" title="Markierte Person(en) zur Veranstaltung hinzuf&uuml;gen" onclick="$('#selectNone').val('false'); submitFormWithGivenAction('AddPersonToEventGuestList');" />
                     </label>
             	</span>
         
@@ -373,7 +373,7 @@
                 	#if($action == "guest")
                     	<tr>
                             #if($grants.mayWrite())
-								<th class="textCenter smallCell" title="$!config.main einladen">H <input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="Alle (de)markieren (inkl. Partner, wenn eingeladen)" /></th>
+								<th class="textCenter smallCell" title="$!config.main einladen">H <input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="Alle (de)markieren (inkl. Partner, wenn eingeladen)" #if($listselection.size() == $list.size()) checked#end/></th>
     							<th class="textCenter smallCell" title="$!config.partner einladen">P</th>
                         		<th class="textCenter smallCell" title="Auf Reserve">R</th>
 							#end
@@ -438,7 +438,7 @@
                     	## 2008-02-27
                     	<tr>
                             #if($grants.mayWrite())
-								<th class="textCenter smallCell"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="Alle (de)markieren"/></th>
+								<th class="textCenter smallCell"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="Alle (de)markieren" #if($listselection.size() == $list.size()) checked#end/></th>
                     		#end
 							<th class="textCenter smallCell">ID</th>
                     		<th title="Datum">Datum</th>
@@ -455,7 +455,7 @@
                 	#else
                     	<tr>
                             #if($grants.mayWrite() || ($exportFormat && $grants.mayExport()) || $action == "replace")
-								<th class="textCenter smallCell"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="Alle (de)markieren"/></th>
+								<th class="textCenter smallCell"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="Alle (de)markieren" #if($listselection.size() == $list.size()) checked#end/></th>
                     		#end
 							<th class="textCenter smallCell">ID</th>
                     		<th title="Arbeitsbereich">Arbeitsbereich</th>
@@ -483,29 +483,29 @@
                             		#if($event.invitationtype == 2)
                             			## Ohne Partner
                             			<td title="$!config.main einladen">
-                            				<input type="checkbox" id="${bean.id}-select" name="${bean.id}-select" value="true" #if(!$hasA) onClick="hasNoMain('${bean.id}-select');" #else onClick="onClickEnforceConsistentState('${bean.id}-select', '${bean.id}-partner', '${bean.id}-reserve');" #end>
+                            				<input type="checkbox" id="${bean.id}-select" name="${bean.id}-select" value="true" #if($listselection.indexOf($bean.id) != -1) checked#end #if(!$hasA) onClick="hasNoMain('${bean.id}-select');" #else onClick="onClickEnforceConsistentState('${bean.id}-select', '${bean.id}-partner', '${bean.id}-reserve');" #end>
                             			</td>
                             			<td title="$!config.partner einladen">
-                            				<input type="checkbox" id="${bean.id}-partner" name="${bean.id}-partner" value="true" #if(!$hasB) onClick="hasNoPartner('${bean.id}-partner');" #else onClick="onClickEnforceConsistentState('${bean.id}-select', '${bean.id}-partner', '${bean.id}-reserve');" #end>
+                            				<input type="checkbox" id="${bean.id}-partner" name="${bean.id}-partner" value="true" #if($invitepartner.indexOf($bean.id) != -1) checked#end #if(!$hasB) onClick="hasNoPartner('${bean.id}-partner');" #else onClick="onClickEnforceConsistentState('${bean.id}-select', '${bean.id}-partner', '${bean.id}-reserve');" #end>
                             			</td>
                             		#elseif($event.invitationtype == 3)
                             			## NurPartner
                             			<td title="$!config.main einladen">
-                            				<input type="checkbox" id="${bean.id}-select" name="${bean.id}-select" value="true" #if(!$hasA) onClick="hasNoMain('${bean.id}-select');" #else onClick="onClickEnforceConsistentState('${bean.id}-select', '${bean.id}-partner', '${bean.id}-reserve');" #end>
+                            				<input type="checkbox" id="${bean.id}-select" name="${bean.id}-select" value="true" #if($listselection.indexOf($bean.id) != -1) checked#end #if(!$hasA) onClick="hasNoMain('${bean.id}-select');" #else onClick="onClickEnforceConsistentState('${bean.id}-select', '${bean.id}-partner', '${bean.id}-reserve');" #end>
                             			</td>
                             			<td title="$!config.partner einladen">
-                            				<input type="checkbox" id="${bean.id}-partner" name="${bean.id}-partner" value="true" #if(!$hasB) onClick="hasNoPartner('${bean.id}-partner');" #else onClick="onClickEnforceConsistentState('${bean.id}-select', '${bean.id}-partner', '${bean.id}-reserve');" #end>
+                            				<input type="checkbox" id="${bean.id}-partner" name="${bean.id}-partner" value="true" #if($invitepartner.indexOf($bean.id) != -1) checked#end #if(!$hasB) onClick="hasNoPartner('${bean.id}-partner');" #else onClick="onClickEnforceConsistentState('${bean.id}-select', '${bean.id}-partner', '${bean.id}-reserve');" #end>
                             			</td>
                             		#else
                             			## Mit Partner
                             			<td title="$!config.main einladen">
-                            				<input type="checkbox" id="${bean.id}-select" name="${bean.id}-select" value="true" #if(!$hasA) onClick="hasNoMain('${bean.id}-select');" #elseif($hasB) onClick="onClickSetState('${bean.id}-select', '${bean.id}-partner');onClickEnforceConsistentState('${bean.id}-select', '${bean.id}-partner', '${bean.id}-reserve');" #else onClick="onClickEnforceConsistentState('${bean.id}-select', '${bean.id}-partner', '${bean.id}-reserve');" #end>
+                            				<input type="checkbox" id="${bean.id}-select" name="${bean.id}-select" value="true" #if($listselection.indexOf($bean.id) != -1) checked#end #if(!$hasA) onClick="hasNoMain('${bean.id}-select');" #elseif($hasB) onClick="onClickSetState('${bean.id}-select', '${bean.id}-partner');onClickEnforceConsistentState('${bean.id}-select', '${bean.id}-partner', '${bean.id}-reserve');" #else onClick="onClickEnforceConsistentState('${bean.id}-select', '${bean.id}-partner', '${bean.id}-reserve');" #end>
                             			</td>
                             			<td title="$!config.partner einladen">
-                            				<input type="checkbox" id="${bean.id}-partner" name="${bean.id}-partner" value="true" #if(!$hasB) onClick="hasNoPartner('${bean.id}-partner');" #elseif($hasA) onClick="onClickSetState('${bean.id}-partner', '${bean.id}-select');onClickEnforceConsistentState('${bean.id}-select', '${bean.id}-partner', '${bean.id}-reserve');" #else onClick="onClickEnforceConsistentState('${bean.id}-select', '${bean.id}-partner', '${bean.id}-reserve');" #end>
+                            				<input type="checkbox" id="${bean.id}-partner" name="${bean.id}-partner" value="true" #if($invitepartner.indexOf($bean.id) != -1) checked#end #if(!$hasB) onClick="hasNoPartner('${bean.id}-partner');" #elseif($hasA) onClick="onClickSetState('${bean.id}-partner', '${bean.id}-select');onClickEnforceConsistentState('${bean.id}-select', '${bean.id}-partner', '${bean.id}-reserve');" #else onClick="onClickEnforceConsistentState('${bean.id}-select', '${bean.id}-partner', '${bean.id}-reserve');" #end>
                             			</td>
                             		#end
-                            		<td title="Auf Reserve"><input type="checkbox" name="${bean.id}-reserve" id="${bean.id}-reserve" value="true" onClick="onClickEnsureSelection( '${bean.id}-select', '${bean.id}-partner', '${bean.id}-reserve', $event.invitationtype, ${hasA}, ${hasB} );"></td>
+                            		<td title="Auf Reserve"><input type="checkbox" name="${bean.id}-reserve" id="${bean.id}-reserve" #if($selectreserve.indexOf($bean.id) != -1) checked#end value="true" onClick="onClickEnsureSelection( '${bean.id}-select', '${bean.id}-partner', '${bean.id}-reserve', $event.invitationtype, ${hasA}, ${hasB} );"></td>
                         		#end
 								<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&searchTask=$!searchTask&person-category=' + document.getElementById('$!{bean.id}-category').value;"><input type="hidden" name="${bean.id}-id" value="$bean.id">$!{bean.id}</td>
                         		<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&searchTask=$!searchTask&person-category=' + document.getElementById('$!{bean.id}-category').value;">$!message.plain($bean.lastname_a_e1)</td>
@@ -606,7 +606,7 @@
                         	## 2008-03-25 cklein
 
                                 #if($grants.mayWrite())
-                            		<td><input type="checkbox" name="${bean.id}-select" value="true" onChange="selectionChange( this );"></td>
+                            		<td><input type="checkbox" name="${bean.id}-select" value="true" onChange="selectionChange( this );" #if($listselection.indexOf($bean.id) != -1) checked#end></td>
                         		#end
 								<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!{action}&searchTask=$!searchTask';"><input type="hidden" name="${bean.id}-id" value="$bean.id">$!{bean.id}</td>
                         		<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!{action}&searchTask=$!searchTask';">$!message.date("DATE", $bean.created)</td>
@@ -623,7 +623,7 @@
                     	#else
                         	<tr>
                                 #if($grants.mayWrite() || ($exportFormat && $grants.mayExport()) || $action == "replace")
-									<td><input type="checkbox" name="${bean.id}-select" value="true" onChange="selectionChange( this );"></td>
+									<td><input type="checkbox" name="${bean.id}-select" value="true" onChange="selectionChange( this );" #if($listselection.indexOf($bean.id) != -1) checked#end></td>
                         		#end
 								<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&searchTask=$!searchTask';"><input type="hidden" name="${bean.id}-id" value="$bean.id">$!{bean.id}</td>
                         		<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&searchTask=$!searchTask';">$!message.plain($bean.workarea_name)</td>
