@@ -128,7 +128,7 @@
 			  #else
 					<input type="hidden" name="${bean.id}-orgunit" value="$bean.orgunit">
 			  #end
-					<td><input type="text" name="${bean.id}-name" value="$!message.text($bean.name)" class="textdisabled" vera-disabled></td>
+					<td>$!message.text($bean.name)</td>
 					<td>
 						<select id="${bean.id}-role" name="${bean.id}-role"  onchange="setModified('${bean.id}')">
 							<option value="">inaktiv</option>
@@ -146,8 +146,8 @@
 					<td class="textCenter"><input type="hidden" id="${bean.id}-modified" name="${bean.id}-modified" value="false"><input type="checkbox" name="${bean.id}-select" value="true"  vera-disabled></td>
 					<td class="textCenter"><input type="hidden" name="${bean.id}-id" value="$!bean.id">$!{bean.id}</td>
 					<input type="hidden" name="${bean.id}-orgunit" value="$bean.orgunit">
-					<td><input type="text" name="${bean.id}-name" value="$!message.text($bean.name)"  style="width: 96%;" vera-disabled></td>
-					<td class="textCenter"><input type="hidden" name="${bean.id}-role" value="5"><input type="text" name="${bean.id}-role-text" value="Administrieren"  style="width: 96%;" vera-disabled></td>
+					<td>$!message.text($bean.name)></td>
+					<td class="textCenter"><input type="hidden" name="${bean.id}-role" value="5"><input type="text" name="${bean.id}-role-text" value="Administrieren" vera-disabled></td>
 			 #end
 				</tr>
 			#end
