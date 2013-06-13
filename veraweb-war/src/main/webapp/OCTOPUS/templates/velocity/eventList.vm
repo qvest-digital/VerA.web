@@ -176,7 +176,13 @@
     							#end
     							
             					<td onclick="window.location.href='AddEventToEventGuestList?id=$!{bean.id}';">$!message.plain($bean.hostname)</td>
-            					<td onclick="window.location.href='AddEventToEventGuestList?id=$!{bean.id}';">$!message.plain($bean.location)</td>
+            					<td onclick="window.location.href='AddEventToEventGuestList?id=$!{bean.id}';">
+                                    #foreach($location in $allLocation)
+                                        #if($location.get("id") ==  $bean.location)
+                                            $!message.plain($location.get("name"))
+                                        #end
+                                    #end
+                                </td>
     							
                 			#elseif($action == "addperson")
     							
@@ -200,7 +206,13 @@
     							#end
     							
                     			<td onclick="window.location.href='AddPersonToEventDetail?event-id=$!{bean.id}&action=person';">$!message.plain($bean.hostname)</td>
-                    			<td onclick="window.location.href='AddPersonToEventDetail?event-id=$!{bean.id}&action=person';">$!message.plain($bean.location)</td>
+                    			<td onclick="window.location.href='AddPersonToEventDetail?event-id=$!{bean.id}&action=person';">
+                                    #foreach($location in $allLocation)
+                                        #if($location.get("id") ==  $bean.location)
+                                            $!message.plain($location.get("name"))
+                                        #end
+                                    #end
+                                </td>
     							
                 			#else
 								#if($grants.mayWrite())
@@ -226,7 +238,13 @@
     							#end
     						
     							<td onclick="window.location.href='ShowEvent?id=$!{bean.id}';">$!message.plain($bean.hostname)</td>
-                				<td onclick="window.location.href='ShowEvent?id=$!{bean.id}';">$!message.plain($bean.location)</td>
+                				<td onclick="window.location.href='ShowEvent?id=$!{bean.id}';">
+                                    #foreach($location in $allLocation)
+                                        #if($location.get("id") ==  $bean.location)
+                                            $!message.plain($location.get("name"))
+                                        #end
+                                    #end
+                                </td>
                 			#end
                 		</tr>
 					<!-- End of foreach($bean in $list) -->
