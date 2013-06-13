@@ -168,10 +168,9 @@ public class EventListWorker extends ListWorkerVeraWeb {
 			where.addAnd(DatabaseHelper.getWhere(search.hostname, new String[] {
 					"hostname" }));
 		}
-//		if (search.location != null && search.location.length() != 0) {
-//			where.addAnd(DatabaseHelper.getWhere(search.location, new String[] {
-//					"location" }));
-//		}
+		if (search.location != null) {
+			where.addAnd(Expr.equal("fk_location", search.location));
+		}
 		if (search.begin != null) {
 			Timestamp nextDay = new Timestamp(search.begin.getTime() + 86400000); // n�chster tag
 			where.addAnd(Where.and(
