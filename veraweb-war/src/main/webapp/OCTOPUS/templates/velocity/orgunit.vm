@@ -34,42 +34,45 @@
         <input type="hidden" name="list" value="$bean.id">
 		#end
 		
-		<span class="inlineLabel" id="actionPanel">
-        	<strong>Markierte(n) Mandenten</strong>
-        	<input type="submit" onclick="return confirm('Markierte(n) Mandenten wirklich löschen?');" title="Markierte(n) Mandenten löschen" name="remove" value="L&ouml;schen" >
-        </span>
-        <table>
-        	<tr>
-        		<th class="smallCell textCenter">&nbsp;</th>
-        		<th class="smallCell textCenter">ID</th>
-        		<th><a href="?order=name">Mandant</a></th>
-        	</tr>
-        	<tr>
-        		<td class="textCenter"><input type="hidden" id="add-modified" name="add-modified" value="false"><input type="checkbox" name="add-select" value="true"  style="display: none;"></td>
-        		<td class="textCenter"><input type="hidden" name="add-id" value=""><em>neu</em></td>
-        		<td><input type="text" name="add-name" value="" onchange="setModified('add')"></td>
-        	</tr>
-        	<tr>
-        		<td><input type="hidden" id="${bean.id}-modified" name="${bean.id}-modified" value="false"><input type="checkbox" name="${bean.id}-select" value="true"></td>
-        		<td><input type="hidden" name="${bean.id}-id" value="$!bean.id">$!{bean.id}</td>
-        		<td><input type="text" name="${bean.id}-name" value="$!message.text($bean.name)" onchange="setModified('${bean.id}')"></td>
-        	</tr>
-        </table>
+		<div class="contentBoxColored tabsContent" vera-content="mandanten">
+		
+    		<span class="inlineLabel" id="actionPanel">
+            	<strong>Markierte(n) Mandenten</strong>
+            	<input type="submit" onclick="return confirm('Markierte(n) Mandenten wirklich löschen?');" title="Markierte(n) Mandenten löschen" name="remove" value="L&ouml;schen" >
+            </span>
+            <table>
+            	<tr>
+            		<th class="smallCell textCenter">&nbsp;</th>
+            		<th class="smallCell textCenter">ID</th>
+            		<th><a href="?order=name">Mandant</a></th>
+            	</tr>
+            	<tr>
+            		<td class="textCenter"><input type="hidden" id="add-modified" name="add-modified" value="false"><input type="checkbox" name="add-select" value="true"  style="display: none;"></td>
+            		<td class="textCenter"><input type="hidden" name="add-id" value=""><em>neu</em></td>
+            		<td><input type="text" name="add-name" value="" onchange="setModified('add')"></td>
+            	</tr>
+            	<tr>
+            		<td><input type="hidden" id="${bean.id}-modified" name="${bean.id}-modified" value="false"><input type="checkbox" name="${bean.id}-select" value="true"></td>
+            		<td><input type="hidden" name="${bean.id}-id" value="$!bean.id">$!{bean.id}</td>
+            		<td><input type="text" name="${bean.id}-name" value="$!message.text($bean.name)" onchange="setModified('${bean.id}')"></td>
+            	</tr>
+					#if ($listparam.count == 0)
+						<tr>
+							<td colspan="3">Es wurden keine Daten gefunden</td>
+						</tr>
+					#end
+            </table>
+            
+           
+            	#parse("inc/list-navi.vm")
+            	#parse("inc/list-direct.vm")
+    			
+    			<span id="buttonPanel-bottom" class="floatRight marginTop10">
+    			<!-- Show the save button -->
+    				<input type="submit" name="save" value="Speichern" title="Speichern" class="mainButton">
+    			</span>			
         
-        #if ($listparam.count == 0)
-        	<br>Keine Daten gefunden.
-        #end
-        
-       
-        	#parse("inc/list-navi.vm")
-        	#parse("inc/list-direct.vm")
-			
-			<span id="buttonPanel-bottom" class="floatRight">
-			<!-- Show the save button -->
-				<input type="submit" name="save" value="Speichern" title="Speichern" class="mainButton">
-			</span>			
-        
-        
+        </div>
         
     </div><!-- End ID=main_content-->
 
