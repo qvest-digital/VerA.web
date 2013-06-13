@@ -9,75 +9,80 @@
 </vera-success>
 #end
 
-<table class="tab" border="0" cellspacing="0" cellpadding="0"><tr>
-	<td class="tableft">&nbsp;</td>
-	<td class="tabinactiv"><a href="Orgunit" class="tabinactiv">Mandanten</a></td>
-	<td class="tabactiv"><span class="tabactiv">Datenbank</span></td>
-	<td class="tabright">&nbsp;</td>
-</tr></table>
+<div id="content_container"> 
 
+    <div class="tabs contentBox grayBorder marginBottom10 marginTop20" id="main_content">
+		<div class="event" id="tabsMain">
+			<ul vera-tab-group="" class="gray-gradient"> <!-- Bitte das End-tag der <li>s immer mit in die nächste Zeile nehmen (verhindert Mozilla styling bug) -->
+				<li vera-tab-default="" vera-tab="mandanten" class="inactiv"><a href="Orgunit" class="noBorder">Mandanten</a>
+				</li><li class="active">Datenbank
+				</li>
+			</ul>
+		</div>
 
+		<div class="contentBoxColored tabsContent" vera-content="mandanten">
 
-
-<form action="$octopusRequest.task" method="POST">
-
-<h1>Nicht Mandanten zugeordnete Daten</h1>
-
-<table class="form"><tr>
-	<td class="label">Personen:</td>
-	<td><input type="text" value="$!message.text($missingorgunit.person)" class="intdisabled" vera-disabled></td>
-</tr><tr>
-	<td class="label">Veranstaltungen:</td>
-	<td><input type="text" value="$!message.text($missingorgunit.event)" class="intdisabled" vera-disabled</td>
-</tr><tr>
-	<td class="label">Import Vorg&auml;nge:</td>
-	<td><input type="text" value="$!message.text($missingorgunit.import)" class="intdisabled" vera-disabled</td>
-</tr><tr>
-	<td class="label">Import Personen:</td>
-	<td><input type="text" value="$!message.text($missingorgunit.importperson)" class="intdisabled" vera-disabled</td>
-</tr><tr>
-	<td class="label">Veranstaltungsorte:</td>
-	<td><input type="text" value="$!message.text($missingorgunit.location)" class="intdisabled" vera-disabled</td>
-</tr><tr>
-	<td class="label">Verteiler:</td>
-	<td><input type="text" value="$!message.text($missingorgunit.mailinglist)" class="intdisabled" vera-disabled</td>
-</tr><tr>
-	<td class="label">Kategorien:</td>
-	<td><input type="text" value="$!message.text($missingorgunit.category)" class="intdisabled" vera-disabled</td>
-</tr><tr>
-	<td class="label">Benutzer:</td>
-	<td><input type="text" value="$!message.text($missingorgunit.user)" class="intdisabled" vera-disabled</td>
-</tr></table><br>
-
-<h1>Mandanten zuordnen</h1>
-#if(!$allOrgUnit || $allOrgUnit.size() == 0)
-	<vera-warn>
-		Es existiert noch kein Mandant.
-	</vera-warn>
-#else
-<table class="form"><tr>
-	<td class="label">Mandant:</td>
-	<td>
-		<select name="orgunit" >
-		#foreach($m in $allOrgUnit)
-			<option value="$!m.id">$!m.name</option>
-		#end
-		</select>
-	</td>
-</tr></table>
-
-<div>
-<div id="fixme" class="fixme1"><div class="fixme2"><div class="fixme3">
-
-<input type="submit" name="submit" value="Zuordnen" class="submit">
-
-</div></div></div>
+            <form action="$octopusRequest.task" method="POST">
+            
+                <h1>Nicht Mandanten zugeordnete Daten</h1>
+                
+                <table><tr>
+                	<td class="width10 bold"><label for="person">Personen:</label></td>
+                	<td><input type="text" value="$!message.text($missingorgunit.person)" id="person" vera-disabled></td>
+                </tr><tr>
+                	<td class="width10 bold"><label for="event">Veranstaltungen:</label></td>
+                	<td><input type="text" value="$!message.text($missingorgunit.event)" id="event" vera-disabled</td>
+                </tr><tr>
+                	<td class="width10 bold"><label for="import">Import Vorg&auml;nge:</label></td>
+                	<td><input type="text" value="$!message.text($missingorgunit.import)" id="import" vera-disabled</td>
+                </tr><tr>
+                	<td class="width10 bold"><label for="importPerson">Import Personen:</label></td>
+                	<td><input type="text" value="$!message.text($missingorgunit.importperson)" id="importPerson" vera-disabled</td>
+                </tr><tr>
+                	<td class="width10 bold"><label for="venue">Veranstaltungsorte:</label></td>
+                	<td><input type="text" value="$!message.text($missingorgunit.location)" id="venue" vera-disabled</td>
+                </tr><tr>
+                	<td class="width10 bold"><label for="mailinglist">Verteiler:</label></td>
+                	<td><input type="text" value="$!message.text($missingorgunit.mailinglist)" id="mailinglist" vera-disabled</td>
+                </tr><tr>
+                	<td class="width10 bold"><label for="kats">Kategorien:</label></td>
+                	<td><input type="text" value="$!message.text($missingorgunit.category)" id="kats" vera-disabled</td>
+                </tr><tr>
+                	<td class="width10 bold"><label for="users">Benutzer:</label></td>
+                	<td><input type="text" value="$!message.text($missingorgunit.user)" id="users" vera-disabled</td>
+                </tr></table><br>
+                
+                <h1>Mandanten zuordnen</h1>
+                #if(!$allOrgUnit || $allOrgUnit.size() == 0)
+                	<vera-warn>
+                		Es existiert noch kein Mandant.
+                	</vera-warn>
+                #else
+                <table><tr>
+                	<td class="width10 bold"><label for="orgunit">Mandant:</label></td>
+                	<td>
+                		<select name="orgunit" id="orgunit">
+                		#foreach($m in $allOrgUnit)
+                			<option value="$!m.id">$!m.name</option>
+                		#end
+                		</select>
+                	</td>
+                </tr></table>
+                
+                <div>
+					
+    			<span id="buttonPanel-bottom" class="floatRight marginTop10">
+					<input type="submit" name="submit" value="Zuordnen" title="Zuordnen" class="mainButton">
+    			</span>						
+               
+                
+                </div>
+                
+                #end
+            
+            </form>
+		</div>
 </div>
-
-#end
-
-</form>
-
 
 
 
