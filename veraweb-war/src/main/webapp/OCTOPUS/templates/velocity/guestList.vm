@@ -39,7 +39,7 @@
     #if($mailinglistParams && $mailinglistParams.count)
     	<vera-success>
     		#if($mailinglistParams.count == 0)
-    			Verteiler &quot;$!message.plain($mailinglist.name)&quot; wurde ohne Person angelegt.
+    			Verteiler &quot;$!message.plain($mailinglist.name)&quot; wurde ohne Personen angelegt.
     		#elseif($mailinglistParams.count == 1)
     			Verteiler &quot;$!message.plain($mailinglist.name)&quot; wurde mit einer Person angelegt.
     		#else
