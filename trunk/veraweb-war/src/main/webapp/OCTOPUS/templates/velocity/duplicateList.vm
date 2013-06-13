@@ -18,8 +18,7 @@
     <form id="formlist" name="formlist" action="ImportPersonsEditDuplicates" method="POST">
         <input type="hidden" name="start" value=""/>
     	<input type="hidden" name="limit" value=""/>
-        <input type="hidden" name="selectAll" value="false"/>
-        <input type="hidden" name="selectNone" value="false"/>
+        <input type="hidden" name="selectNone" value="true"/>
         <input type="hidden" name="importId" value="$!importId"/>
         <input type="hidden" name="saveCount" value="$!saveCount"/>
     		
@@ -38,7 +37,7 @@
 			<div id="main_content">
                 <table>
                 	<tr>
-                		<th class="textCenter smallCell"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" #if($listselection.size() == $listparam.count) checked#end title="Alle (de)markieren"/></th>
+                		<th class="textCenter smallCell"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" #if($listselection.size() == $list.size()) checked#end title="Alle (de)markieren"/></th>
                 		<th>ID</th>
                 		<th>Name</th>
                 		<th>Vorname</th>

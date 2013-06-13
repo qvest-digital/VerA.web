@@ -132,6 +132,9 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 			}
 			result.add( ( Map ) tmp );
 		}
+		
+		cntx.setContent(OUTPUT_getSelection, getSelection(cntx, getCount(cntx, database)));
+		
 		return result;
 	}
 
@@ -184,7 +187,6 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 				context.rollBack();
 				throw e;
 			}
-			cntx.setSession( "selection" + BEANNAME, selection );
 		}
 		
 		// does the user request workareas to be assigned or unassigned?
@@ -204,7 +206,6 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 					unassignWorkArea(cntx, selection, workareaId);
 				}
 				selection.clear();
-				cntx.setSession( "selection" + BEANNAME, selection );
 			}
 		}
 		else
