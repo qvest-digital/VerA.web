@@ -108,6 +108,9 @@
 	<input type="hidden" id="personMemberTab" name="personMemberTab" value = #if($thisPersonMemberTab) "$thisPersonMemberTab" #else "1" #end/>
 	<input type="hidden" id="personAddresstypeTab" name="personAddresstypeTab" value = #if($thisPersonAddresstypeTab) "$thisPersonAddresstypeTab" #else "1" #end/>
 	<input type="hidden" id="personLocaleTab" name="personLocaleTab" value = #if($thisPersonLocaleTab) "$thisPersonLocaleTab" #else "1" #end/>
+		
+	<input type="hidden" id="tab" name="tab" value = "$!{octopusRequest.tab}"/>
+	<input type="hidden" id="show" name="show" value = "$!{octopusRequest.show}"/>
     
     ##new cf. issue #2091
     <input type="hidden" id="action" name="action" value="$action"/>

@@ -5,6 +5,9 @@
 <input type="hidden" name="selectNone" value="true">
 <input type="hidden" name="doUpdate" value="true">
 <input type="hidden" name="doRemove" value="true">
+	
+<input type="hidden" id="tab" name="tab" value = "$!{octopusRequest.tab}"/>
+<input type="hidden" id="show" name="show" value = "$!{octopusRequest.show}"/>
 
 #foreach($bean in $list)
 #if($bean.id)
@@ -21,7 +24,7 @@
 		</span>
 
 		<span id="buttonPanel-top" class="textRight floatRight">
-         <input id="buttonMain" class="mainButton" type="button" onclick="window.location.href='${paths.staticWeb}do/CreateAllPersonDoctypes?id=$!person.id';" value="Alle erzeugen" name="create">
+         <input id="buttonMain" class="mainButton" type="button" onclick="window.location.href='${paths.staticWeb}do/CreateAllPersonDoctypes?id=$!person.id&tab=$!octopusRequest.tab&show=$!octopusRequest.show';" value="Alle erzeugen" name="create">
             <input class="mainButton" type="submit" value="Änderungen speichern" title="Änderungen speichern" name="save">
 		</span>
     #end
@@ -40,13 +43,12 @@
 	#foreach($bean in $list)
 	<tr>
         #if($grants.mayWrite())
-		<td class="textCenter"><input type="hidden" id="${bean.id}-modified" name="${bean.id}-modified" value="false"><input type="checkbox" name="${bean.id}-select" value="true"></td>
-        #end
-		#if($bean.id)
-		<td #if($bean.id) onclick="window.location.href='${paths.staticWeb}do/ShowPersonDoctype?persondoctype-id=$!bean.id';"#else onclick="window.location.href='${paths.staticWeb}do/CreatePersonDoctype?doctype-id=$!bean.doctypeId';"#end><input type="hidden" name="${bean.id}-id" value="$!bean.id"><input type="hidden" name="${bean.id}-person" value="$!bean.person">$!bean.name</td>
-		#else
-		<td #if($bean.id) onclick="window.location.href='${paths.staticWeb}do/ShowPersonDoctype?persondoctype-id=$!bean.id';"#else onclick="window.location.href='${paths.staticWeb}do/CreatePersonDoctype?doctype-id=$!bean.doctypeId';"#end><input type="hidden" name="${bean.id}-id" value="$!bean.id"><input type="hidden" name="${bean.id}-person" value="$!bean.person">$!bean.name</td>
+			<td class="textCenter"><input type="hidden" id="${bean.id}-modified" name="${bean.id}-modified" value="false"><input type="checkbox" name="${bean.id}-select" value="true"></td>
 		#end
+		<input type="hidden" name="${bean.id}-id" value="$!bean.id"/>
+		<input type="hidden" name="${bean.id}-person" value="$!bean.person"/>
+		<td #if($bean.id) onclick="window.location.href='${paths.staticWeb}do/ShowPersonDoctype?persondoctype-id=$!bean.id&tab=$!octopusRequest.tab&show=$!octopusRequest.show';"#else onclick="window.location.href='${paths.staticWeb}do/CreatePersonDoctype?doctype-id=$!bean.doctypeId&tab=$!octopusRequest.tab&show=$!octopusRequest.show';"#end>$!bean.name</td>
+
 		<td>
 			<select id="${bean.id}-addresstype" name="${bean.id}-addresstype" onchange="setModified('${bean.id}')" #if(!$bean.id) vera-disabled #end>
 			#if($bean.addresstype && $bean.addresstype != 0)
@@ -78,9 +80,9 @@
 		## 2009-05-07 c.klein
 		## refactored parameterization as part of fix for issue #1528
 			#if($grants.mayWrite())
-			<a href="${paths.staticWeb}do/ShowPersonDoctype?persondoctype-id=$!bean.id" class="noBorder"><img src="${paths.staticWeb}images/edit.png" alt="Bearbeiten-Icon" title="Dokumenttyp bearbeiten" /></a>
+			<a href="${paths.staticWeb}do/ShowPersonDoctype?persondoctype-id=$!bean.id&tab=$!octopusRequest.tab&show=$!octopusRequest.show" class="noBorder"><img src="${paths.staticWeb}images/edit.png" alt="Bearbeiten-Icon" title="Dokumenttyp bearbeiten" /></a>
 			#else
-			<a href="${paths.staticWeb}do/ShowPersonDoctype?persondoctype-id=$!bean.id" class="noBorder"><img src="${paths.staticWeb}images/view.png" alt="Ansehen-Icon" title="Dokumenttyp ansehen" /></a>
+			<a href="${paths.staticWeb}do/ShowPersonDoctype?persondoctype-id=$!bean.id&tab=$!octopusRequest.tab&show=$!octopusRequest.show" class="noBorder"><img src="${paths.staticWeb}images/view.png" alt="Ansehen-Icon" title="Dokumenttyp ansehen" /></a>
 			#end
 		</td>
 		#else
@@ -90,7 +92,7 @@
 			#if($grants.mayWrite())
 ## 2009-05-07 cklein
 ## introduced createOne as part of issue #1528
-			<a href="${paths.staticWeb}do/CreatePersonDoctype?doctype-id=$!bean.doctypeId" class="noBorder"><img src="${paths.staticWeb}images/add.png" alt="Erzeugen-Icon" title="Dokumenttyp erzeugen" /></a>
+			<a href="${paths.staticWeb}do/CreatePersonDoctype?doctype-id=$!bean.doctypeId&tab=$!octopusRequest.tab&show=$!octopusRequest.show" class="noBorder"><img src="${paths.staticWeb}images/add.png" alt="Erzeugen-Icon" title="Dokumenttyp erzeugen" /></a>
 ## 2009-05-07 cklein
 ## non existing doctypes cannot be viewed as part of issue #1528
 ##			#else

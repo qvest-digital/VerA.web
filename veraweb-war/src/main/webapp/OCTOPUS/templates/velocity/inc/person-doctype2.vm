@@ -1,6 +1,9 @@
 <form id="PersonForm" name="PersonForm" action="${paths.staticWeb}do/SavePersonDoctype" method="post">
 <input type="hidden" name="id" value="$!person.id">
 
+<input type="hidden" id="tab" name="tab" value = "$!{octopusRequest.tab}"/>
+<input type="hidden" id="show" name="show" value = "$!{octopusRequest.show}"/>	
+	
 <input type="hidden" name="persondoctype-id" value="$!persondoctype.id">
 <input type="hidden" name="persondoctype-person" value="$!persondoctype.person">
 <input type="hidden" name="persondoctype-doctype" value="$!persondoctype.doctype">
@@ -95,8 +98,7 @@
 #elseif($action == "event")
     #if($grants.mayWrite())
 		<input type="submit" name="save" value="Dokumenttyp speichern" title="Dokumenttyp speichern" class="mainButton" />
-    #end
-	<input type="button" name="cancel" class="mainButton" value="Zur&uuml;ck zu Gastdetails" title="Zur&uuml;ck zu Gastdetails" onclick="window.location.href='${paths.staticWeb}do/ShowGuestDetail';" />
+	#end
 #else
     #if($grants.mayWrite())
 		<input type="submit" name="save" value="Dokumenttyp speichern" title="Dokumenttyp speichern" class="mainButton" />
