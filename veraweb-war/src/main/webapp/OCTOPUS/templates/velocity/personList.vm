@@ -373,7 +373,7 @@
                 	#if($action == "guest")
                     	<tr>
                             #if($grants.mayWrite())
-								<th class="textCenter smallCell" title="$!config.main einladen"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="Alle (de)markieren"/> H</th>
+								<th class="textCenter smallCell" title="$!config.main einladen">H <input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="Alle (de)markieren (inkl. Partner, wenn eingeladen)" /></th>
     							<th class="textCenter smallCell" title="$!config.partner einladen">P</th>
                         		<th class="textCenter smallCell" title="Auf Reserve">R</th>
 							#end
