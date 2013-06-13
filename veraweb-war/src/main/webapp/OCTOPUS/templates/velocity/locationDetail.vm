@@ -107,7 +107,7 @@
         </table>
         
 		
-		<div class="textRight marginBottom20" id="buttonPanel-bottom">
+		<div class="textRight marginTop10" id="buttonPanel-bottom">
 			#if($grants.mayWrite())
 				<input id="button.save" type="submit" name="save" value="Speichern" title="Speichern" onclick="document.getElementById('formlist').action='SaveLocation';"  class="mainButton" />
 			 #end
