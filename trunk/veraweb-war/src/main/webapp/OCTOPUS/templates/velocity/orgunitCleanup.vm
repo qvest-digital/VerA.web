@@ -10,47 +10,49 @@
 #end
 
 <div id="content_container"> 
+	
+	<h1>Mandanten</h1>
 
     <div class="tabs contentBox grayBorder marginBottom10 marginTop20" id="main_content">
 		<div class="event" id="tabsMain">
 			<ul vera-tab-group="" class="gray-gradient"> <!-- Bitte das End-tag der <li>s immer mit in die nächste Zeile nehmen (verhindert Mozilla styling bug) -->
-				<li vera-tab-default="" vera-tab="mandanten" class="inactiv"><a href="Orgunit" class="noBorder">Mandanten</a>
-				</li><li class="active">Datenbank
+				<li class="inactiv"><a href="Orgunit" class="noBorder">Mandanten</a>
+				</li><li vera-tab-default="" vera-tab="database" class="active">Datenbank
 				</li>
 			</ul>
 		</div>
 
-		<div class="contentBoxColored tabsContent" vera-content="mandanten">
 
-            <form action="$octopusRequest.task" method="POST">
+		<form action="$octopusRequest.task" method="POST">
+			<div class="contentBoxColored tabsContent" vera-content="database">
             
                 <h1>Nicht Mandanten zugeordnete Daten</h1>
                 
                 <table><tr>
                 	<td class="width10 bold"><label for="person">Personen:</label></td>
                 	<td><input type="text" value="$!message.text($missingorgunit.person)" id="person" vera-disabled></td>
-                </tr><tr>
                 	<td class="width10 bold"><label for="event">Veranstaltungen:</label></td>
                 	<td><input type="text" value="$!message.text($missingorgunit.event)" id="event" vera-disabled</td>
+
                 </tr><tr>
                 	<td class="width10 bold"><label for="import">Import Vorg&auml;nge:</label></td>
                 	<td><input type="text" value="$!message.text($missingorgunit.import)" id="import" vera-disabled</td>
-                </tr><tr>
                 	<td class="width10 bold"><label for="importPerson">Import Personen:</label></td>
                 	<td><input type="text" value="$!message.text($missingorgunit.importperson)" id="importPerson" vera-disabled</td>
+
                 </tr><tr>
                 	<td class="width10 bold"><label for="venue">Veranstaltungsorte:</label></td>
                 	<td><input type="text" value="$!message.text($missingorgunit.location)" id="venue" vera-disabled</td>
-                </tr><tr>
                 	<td class="width10 bold"><label for="mailinglist">Verteiler:</label></td>
                 	<td><input type="text" value="$!message.text($missingorgunit.mailinglist)" id="mailinglist" vera-disabled</td>
+
                 </tr><tr>
                 	<td class="width10 bold"><label for="kats">Kategorien:</label></td>
                 	<td><input type="text" value="$!message.text($missingorgunit.category)" id="kats" vera-disabled</td>
-                </tr><tr>
                 	<td class="width10 bold"><label for="users">Benutzer:</label></td>
                 	<td><input type="text" value="$!message.text($missingorgunit.user)" id="users" vera-disabled</td>
-                </tr></table><br>
+                </tr><tr>
+                </tr></table>
                 
                 <h1>Mandanten zuordnen</h1>
                 #if(!$allOrgUnit || $allOrgUnit.size() == 0)
@@ -68,20 +70,17 @@
                 		</select>
                 	</td>
                 </tr></table>
-                
-                <div>
-					
-    			<span id="buttonPanel-bottom" class="floatRight marginTop10">
-					<input type="submit" name="submit" value="Zuordnen" title="Zuordnen" class="mainButton">
-    			</span>						
-               
+                #end
                 
                 </div>
+					
+  			<span id="buttonPanel-bottom" class="floatRight marginTop10">
+				<input type="submit" name="submit" value="Zuordnen" title="Zuordnen" class="mainButton">
+  			</span>						
                 
-                #end
             
-            </form>
-		</div>
+       </form>
+	</div>
 </div>
 
 
