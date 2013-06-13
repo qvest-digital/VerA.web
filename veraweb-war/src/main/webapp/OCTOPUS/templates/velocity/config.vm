@@ -68,7 +68,7 @@
 #end
 <table class="form">
 	<tr>
-		<td class="label">Person-Dialog:</td>
+		<td>Person-Dialog:</td>
 		<td><table style="width: 99%;"><tr>
     		<td style="width: 20px;"><input type="radio" name="personTab" id="personTab1" value="1" #if($personTab1) checked #end></td>
     		<td style="width:120px;"><label for="personTab1">&nbsp;Personendaten</label></td>
@@ -113,7 +113,7 @@
 <h1>Standard-Anreden und Freitextfelder:</h1>
 <table class="form">
 	<tr>
-		<td class="label">Standard-Anrede:</td>
+		<td>Standard-Anrede:</td>
 		<td>
 			<select name="anrede" >
 				<option></option>
@@ -124,7 +124,7 @@
 		</td>
 	</tr>
 	<tr>
-		<td class="label">Standard-Anrede Partner:</td>
+		<td>Standard-Anrede Partner:</td>
 		<td>
 			<select name="anrede_p" >
 				<option></option>
@@ -135,11 +135,11 @@
 		</td>
 	</tr>
 	<tr>
-		<td class="label">Freitextfeld-Verbinder:</td>
+		<td>Freitextfeld-Verbinder:</td>
 		<td><input type="text" name="freitextfeldverbinder" value="$!message.plain($config.freitextfeldverbinder)" ></td>
 	</tr>
 	<tr>
-		<td class="label">Freitextfeld (Anzeige):</td>
+		<td>Freitextfeld (Anzeige):</td>
 		<td>
 			<select name="freitextfeld" >
 				<option value="">Noch keine Auswahl getroffen</option>
@@ -150,7 +150,7 @@
 		</td>
 	</tr>
 	<tr>
-		<td class="label">Freitextfeld (G&auml;steliste):</td>
+		<td>Freitextfeld (G&auml;steliste):</td>
 		<td>
 			<select name="freitextfeld2" >
 				<option value="">Noch keine Auswahl getroffen</option>
@@ -165,43 +165,43 @@
 <h1>Oberfl&auml;chen Beschriftungen:</h1>
 <table class="form">
 	<tr>
-		<td class="label">Hauptperson:</td>
+		<td>Hauptperson:</td>
 		<td><input type="text" name="main" value="$!message.text($config.main)" ></td>
 	</tr>
 	<tr>
-		<td class="label">Partner:</td>
+		<td>Partner:</td>
 		<td><input type="text" name="partner" value="$!message.text($config.partner)" ></td>
 	</tr>
 	<tr>
-		<td class="label">Anschrift Gesch&auml;ftlich</td>
+		<td>Anschrift Gesch&auml;ftlich</td>
 		<td><input type="text" name="business" value="$!message.text($config.business)" ></td>
 	</tr>
 	<tr>
-		<td class="label">Anschrift Privat:</td>
+		<td>Anschrift Privat:</td>
 		<td><input type="text" name="private" value="$!message.text($config.private)" ></td>
 	</tr>
 	<tr>
-		<td class="label">Anschrift Weitere:</td>
+		<td>Anschrift Weitere:</td>
 		<td><input type="text" name="other" value="$!message.text($config.other)" ></td>
 	</tr>
 	<tr>
-		<td class="label">Zeichensatz Latein:</td>
+		<td>Zeichensatz Latein:</td>
 		<td><input type="text" name="latin" value="$!message.text($config.latin)" ></td>
 	</tr>
 	<tr>
-		<td class="label">Zeichensatz Alternative 1:</td>
+		<td>Zeichensatz Alternative 1:</td>
 		<td><input type="text" name="extra1" value="$!message.text($config.extra1)" ></td>
 	</tr>
 	<tr>
-		<td class="label">Zeichensatz Alternative 2:</td>
+		<td>Zeichensatz Alternative 2:</td>
 		<td><input type="text" name="extra2" value="$!message.text($config.extra2)" ></td>
 	</tr>
 	<tr>
-		<td class="label">Adresszusatz 1:</td>
+		<td>Adresszusatz 1:</td>
 		<td><input type="text" name="suffix1" value="$!message.text($config.suffix1)" ></td>
 	</tr>
 	<tr>
-		<td class="label">Adresszusatz 2:</td>
+		<td>Adresszusatz 2:</td>
 		<td><input type="text" name="suffix2" value="$!message.text($config.suffix2)" ></td>
 	</tr>
 </table><br>
@@ -209,11 +209,11 @@
 <h1>Hilfe:</h1>
 <table class="form">
 	<tr>
-		<td class="label">Hilfe-Link:</td>
+		<td>Hilfe-Link:</td>
 		<td><input type="text" name="helplink" value="$!message.text($config.helplink)" ></td>
 	</tr>
 	<tr>
-		<td class="label">Hilfe-Fenster:</td>
+		<td>Hilfe-Fenster:</td>
 		<td>
 			<select name="helptarget" >
 				$config.helptarget
@@ -228,7 +228,7 @@
 <h1>Sonstiges:</h1>
 <table class="form">
 	<tr>
-		<td class="label">Fax-DN (@fax.aa):</td>
+		<td>Fax-DN (@fax.aa):</td>
 		<td><input type="text" name="faxdomain" value="$!message.text($config.faxdomain)" ></td>
 	</tr>
 </table><br>
@@ -239,7 +239,7 @@
 <h1>Änderungsprotokoll:</h1>
 <table class="form">
 	<tr>
-		<td class="label">Vorhaltezeit der Protokolldaten (Jahre/Monate/Tage):</td>
+		<td>Vorhaltezeit der Protokolldaten (Jahre/Monate/Tage):</td>
 		<td>
 		<input type="hidden" name="changeLogRetentionPolicy" id="changeLogRetentionPolicyValue" value="$!message.text($config.changeLogRetentionPolicy.toString())"  vera-disabled style="width: 80px;">
 		<input type="text" id="changeLogRetentionPolicyDisplay" value="$!message.text($config.changeLogRetentionPolicy.toFormattedString( '%Y%M%D' ))"  vera-disabled style="background-color: #f0f0f0;width: 200px;">

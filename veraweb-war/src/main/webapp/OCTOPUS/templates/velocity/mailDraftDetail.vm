@@ -33,19 +33,19 @@
 <div class="textRight mandatoryText bold">* = Pflichtfelder</div>	
 
 <table class="form"><tr>
-	<td class="label"><label for="show-id">ID</label></td>
+	<td><label for="show-id">ID</label></td>
 	<td><input type="text" id="show-id" name="show-id" value="$!message.text($maildraft.id)" class="id" vera-disabled></td>
 </tr><tr>
-	<td class="label"><label for="maildraft-name">Name*</label></td>
+	<td><label for="maildraft-name">Name*</label></td>
 	<td><input type="text" id="maildraft-name" name="maildraft-name" value="$!message.text($maildraft.name)" ></td>
 </tr><tr>
-	<td class="label"><label for="maildraft-subject">Betreff*</label></td>
+	<td><label for="maildraft-subject">Betreff*</label></td>
 	<td><input type="text" id="maildraft-subject" name="maildraft-subject" value="$!message.text($maildraft.subject)"  ></td>
 </tr><tr>
-	<td class="label"><label for="maildraft-text">Text*</label></td>
+	<td><label for="maildraft-text">Text*</label></td>
 	<td><textarea cols="20" rows="20" id="maildraft-text" name="maildraft-text" >$!message.textarea($maildraft.text)</textarea></td>
 </tr><tr>
-	<td class="label"><label for="platzhalter">Platzhalter</label></td>
+	<td><label for="platzhalter">Platzhalter</label></td>
 	<td>
 		<table class="form" cellspacing="0" cellpadding="0"><tr>
 			<td>
