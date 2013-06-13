@@ -18,6 +18,7 @@
     <form id="formlist" name="formlist" action="Location" method="POST">
         <input type="hidden" name="doRemove" value="true">
         <input type="hidden" name="start" value="">
+		<input type="hidden" name="limit" value="">
         <input type="hidden" name="selectNone" value="true">
     
         #if($listerrors.size() > 0)
@@ -100,11 +101,14 @@
             	<tr>
             		<td colspan="14">Es wurden keine Daten gefunden</td>
             	</tr>
-            #end
+			#end
+			
+			#set($itemName = "Veranstaltungsorte")
+			#parse("inc/list-navi-new.vm")
+			#parse("inc/list-direct-new.vm")
         </table>
     
-         #parse("inc/list-navi.vm")
-          #parse("inc/list-direct.vm")
+         
     
         
         

@@ -30,6 +30,7 @@
 		</div>
 		
         <input type="hidden" name="start" value="">
+		<input type="hidden" name="limit" value="">
         <input type="hidden" name="selectNone" value="true">
         <input type="hidden" name="doInsert" value="true">
         <input type="hidden" name="doUpdate" value="true">
@@ -50,7 +51,7 @@
             </span>
             <table>
             	<tr>
-            		<th class="smallCell textCenter">&nbsp;</th>
+            		<th class="smallCell textCenter"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="Alle (de)markieren" #if($listselection.size() == $list.size()) checked#end/></th>
             		<th class="smallCell textCenter">ID</th>
             		<th><a href="?order=name">Mandant</a></th>
             	</tr>
@@ -76,11 +77,11 @@
 							<td colspan="3">Es wurden keine Daten gefunden</td>
 						</tr>
 					#end
+					
+				#set($itemName = "Mandanten")
+				#parse("inc/list-navi-new.vm")
+				#parse("inc/list-direct-new.vm")
             </table>
-            
-           
-            	#parse("inc/list-navi.vm")
-            	#parse("inc/list-direct.vm")
     			        
         </div>
     			<span id="buttonPanel-bottom" class="floatRight marginTop10">
