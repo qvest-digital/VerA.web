@@ -1092,6 +1092,7 @@
 				<input name="Gastgeber" type="xsd:string" optional="t" description="Vorgabewert: gesuchter Gastgeber"/>
 			</contract>
 			<doTask name="Load"/>
+			<action name="getAll" worker="LocationListWorker" />
 			<action name="getSearch" worker="EventListWorker" />
 			<response type="velocity" name="eventSearch">
 				<param name="ContentType" value="text/html;charset=UTF-8"/>
