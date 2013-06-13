@@ -351,6 +351,16 @@
         		</span>
 			#end
     		
+			
+    		#if ($action == "guest")
+			<div id="legend" class="table hinweis contentBoxColored grayBorder posAb">
+				<div class="tableRow">
+					<div class="tableCell"><strong>H</strong> $!config.main einladen</div>
+					<div class="tableCell"><strong>P</strong> $!config.partner einladen</div>
+					<div class="tableCell"><strong>R</strong> Auf Reserve setzen</div>
+				</div>
+			</div>
+    		#end
     		
     		
             #foreach($bean in $list)
@@ -515,7 +525,7 @@
                         					#end
                         				#end			
                         			#end
-                        			<select name="$!{bean.id}-category" id="$!{bean.id}-category" style="width: 135px;">
+                        			<select name="$!{bean.id}-category" id="$!{bean.id}-category">
                             			#if( $size == 0 || ( $size > 1 && $search.categoriesSelection.size() > 1 ) || ( $search.categoriesSelection.size() == 1 && $found == 0 ) )
                             				<option value="" selected>keine</option>
                             			#else
@@ -634,19 +644,6 @@
     				#parse("inc/list-direct-new.vm")
                 </table>
     		</div>
-    
-            #if ($action == "guest")
-                <table>
-                	<tr>
-                		<td style="text-align: center; width: 20px;"><strong>H</strong></td>
-                		<td style="width: 30%;">$!config.main einladen</td>
-                		<td style="text-align: center; width: 20px;"><strong>P</strong></td>
-                		<td style="width: 30%;">$!config.partner einladen</td>
-                		<td style="text-align: center; width: 20px;"><strong>R</strong></td>
-                		<td>Auf Reserve setzen</td>
-                	</tr>
-                </table>
-    		#end
     		
     		
     
