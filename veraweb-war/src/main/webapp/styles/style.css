@@ -349,6 +349,11 @@ pre {
 
 .verticalBottom {vertical-align: bottom !important;}
 
+#legend {
+	right: 30px; 
+	top: 197px;
+}
+
 /************* End misc *************/
 
 /************* End general *************/
