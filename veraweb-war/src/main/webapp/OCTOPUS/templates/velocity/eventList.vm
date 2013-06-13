@@ -127,7 +127,7 @@
                 		#if($save)
 							<input type="submit" class="button" name="remove" value="Ja" title="markierte Veranstaltung l&ouml;schen"> &nbsp;
                 		#end
-                		<input type="button" name="cancel" value="Nein" onclick="window.location.href='SearchEvent';"> &nbsp;
+                		<input type="button" name="cancel" value="Nein" onclick="window.location.href='SearchEvent?selectNone=true';"> &nbsp;
                 	</div>
             	#end
             	
@@ -138,7 +138,7 @@
 				<table>
             		<tr>						
                     	#if($action != "guest" && $action != "addperson" && $grants.mayWrite())
-                    		<th class="textCenter smallCell"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="Alle (de)markieren"/></th>
+                    		<th class="textCenter smallCell"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="Alle (de)markieren" #if($listselection.size() == $list.size()) checked#end/></th>
         				#end
         				
             			<th class="smallCell textCenter">ID</th>
@@ -216,7 +216,7 @@
     							
                 			#else
 								#if($grants.mayWrite())
-									<td class="textCenter"><input type="checkbox" name="${bean.id}-select" value="true"></td>
+									<td class="textCenter"><input type="checkbox" name="${bean.id}-select" value="true" #if($listselection.indexOf($bean.id) != -1) checked#end></td>
 								#end
                 				<td onclick="window.location.href='ShowEvent?id=$!{bean.id}';" class="textCenter"><input type="hidden" name="${bean.id}-id" value="$bean.id">$!{bean.id}</td>
                 				<td onclick="window.location.href='ShowEvent?id=$!{bean.id}';">$!message.plain($bean.shortname)</td>

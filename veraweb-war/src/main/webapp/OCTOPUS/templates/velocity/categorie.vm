@@ -104,7 +104,7 @@ disableOtherBeans(id);
 <table>
 	<tr class="1" style="height: 20px;">
 #if($grants.isAdmin() || $grants.isPartialAdmin())
-		<th style="width: 20px;">&nbsp;</th>
+		<th style="width: 20px;"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="Alle (de)markieren" #if($listselection.size() == $list.size()) checked#end/></th>
 		<th style="width: 60px;">ID</th>
 #end
 		<th><a href="?order=name">Bezeichnung*</a></th>

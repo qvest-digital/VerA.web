@@ -260,7 +260,7 @@
 			#end
 			
 			#if($event && $event.id)
-				<input type="reset" class="mainButton" value="Zur Veranstaltungsübersicht" title="Zur Veranstaltungsübersicht" name="cancel" onclick="window.location.href='SearchEvent?action=event';">			
+				<input type="reset" class="mainButton" value="Zur Veranstaltungsübersicht" title="Zur Veranstaltungsübersicht" name="cancel" onclick="window.location.href='SearchEvent?action=event&selectNone=true';">			
 			#else
 				<input type="reset" class="mainButton" value="Zur Veranstaltungsübersicht" title="Zur Veranstaltungsübersicht" name="cancel" onclick="if (checkModified()) { window.location.href='ShowEventSearch?action=event'; }">	
 			#end

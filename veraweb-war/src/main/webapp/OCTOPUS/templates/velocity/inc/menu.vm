@@ -17,7 +17,7 @@
 						#if($grants.isUser())
 							#if($grants.mayWrite())
 								<li><a id="menu.searchReplace" href="${paths.staticWeb}do/ShowReplacePerson">Suchen &amp; Ersetzen</a></li>
-            					<li><a id="menu.searchDuplicate" href="${paths.staticWeb}do/PersonDuplicateSearch">Dublettensuche</a></li>
+            					<li><a id="menu.searchDuplicate" href="${paths.staticWeb}do/PersonDuplicateSearch?selectNone=true">Dublettensuche</a></li>
 							#end
 							#if($grants.mayExport())
 								<li><a id="menu.exportPerson" href="${paths.staticWeb}do/ExportPersons">Personenexport</a></li>
@@ -30,7 +30,7 @@
     			</li><li #if ($activeMenu == "Veranstaltungen") class="active" #end >
     				<span>Veranstaltungen</span>
     				<ul>
-    					<li><a id="menu.overviewEvent" href="${paths.staticWeb}do/SearchEvent?action=event&search=reset">Veranstaltungs&uuml;bersicht</a></li>
+    					<li><a id="menu.overviewEvent" href="${paths.staticWeb}do/SearchEvent?action=event&search=reset&selectNone=true">Veranstaltungs&uuml;bersicht</a></li>
     					#if($grants.mayWrite())
         					<li><a id="menu.searchEvent" href="${paths.staticWeb}do/ShowEventSearch?action=event">Veranstaltungssuche</a></li>
         					<li><a id="menu.newEvent" href="${paths.staticWeb}do/CreateEvent?action=event">Neue Veranstaltung</a></li>
@@ -48,7 +48,7 @@
 					#if($grants.isUser())
 						<li><a id="menu.userConfig" href="${paths.staticWeb}do/UserConfig">Einstellungen</a></li>
 						#if(!$octopusConfig.personalConfig.proxy)
-							<li><a id="menu.proxy" href="${paths.staticWeb}do/Proxy">Vertretungen</a></li>
+							<li><a id="menu.proxy" href="${paths.staticWeb}do/Proxy?selectNone=true">Vertretungen</a></li>
 						#end
 					#elseif(!$octopusConfig.personalConfig.role)
 						<li><a id="menu.chooseRole" href="${paths.staticWeb}do/default">Rolle w&auml;hlen</a></li>
@@ -59,40 +59,40 @@
     				<span>Administration</span>
     				<ul>
 						#if($grants.isAdmin())
-							<li><a id="menu.salutation" href="${paths.staticWeb}do/Salutation?start=0">Anreden</a></li>
+							<li><a id="menu.salutation" href="${paths.staticWeb}do/Salutation?start=0&selectNone=true">Anreden</a></li>
 						#end
 						#if($grants.isAdmin())
-							<li><a id="menu.workarea" href="${paths.staticWeb}do/WorkArea?start=0">Arbeitsbereiche</a></li>
+							<li><a id="menu.workarea" href="${paths.staticWeb}do/WorkArea?start=0&selectNone=true">Arbeitsbereiche</a></li>
 						#end
 						#if($grants.isAdmin())				
-							<li><a id="menu.allUser" href="${paths.staticWeb}do/AllUser?start=0">Benutzer</a></li>	
+							<li><a id="menu.allUser" href="${paths.staticWeb}do/AllUser?start=0&selectNone=true">Benutzer</a></li>	
     					#else
 							#if($grants.isSystemUser())
-								<li><a id="menu.allUser" href="${paths.staticWeb}do/AllUser?start=0">Benutzer</a></li>	
+								<li><a id="menu.allUser" href="${paths.staticWeb}do/AllUser?start=0&selectNone=true">Benutzer</a></li>	
 							#elseif($grants.isPartialAdmin())
-    							<li><a id="menu.user" href="${paths.staticWeb}do/OUUser?start=0">Benutzer</a></li>
+    							<li><a id="menu.user" href="${paths.staticWeb}do/OUUser?start=0&selectNone=true">Benutzer</a></li>
     						#end
 						#end
 						#if($grants.isAdmin())
-							<li><a id="menu.doctype" href="${paths.staticWeb}do/Doctype?start=0">Dokumenttypen</a></li>
+							<li><a id="menu.doctype" href="${paths.staticWeb}do/Doctype?start=0&selectNone=true">Dokumenttypen</a></li>
 						#end
         				#if($grants.isAdmin() || $grants.isPartialAdmin())
-        					<li><a id="menu.mailOutbox" href="${paths.staticWeb}do/MailOutboxList?start=0">E-Mail-Postausgang</a></li>
+        					<li><a id="menu.mailOutbox" href="${paths.staticWeb}do/MailOutboxList?start=0&selectNone=true">E-Mail-Postausgang</a></li>
         				#end
 						#if($grants.isAdmin() || $grants.isPartialAdmin())
-        					<li><a id="menu.mailDraft" href="${paths.staticWeb}do/MailDraftList?start=0">E-Mail-Vorlagen</a></li>
+        					<li><a id="menu.mailDraft" href="${paths.staticWeb}do/MailDraftList?start=0&selectNone=true">E-Mail-Vorlagen</a></li>
         				#end
 						#if($grants.isAdmin() || $grants.isPartialAdmin())
 							<li><a id="menu.color" href="${paths.staticWeb}do/Color">Farben</a></li>
 						#end
 						#if($grants.isAdmin() || $grants.isPartialAdmin())
-        					<li><a id="menu.function" href="${paths.staticWeb}do/Function?start=0&limit=5">Funktionen/Amtsbezeichnungen</a></li>
+        					<li><a id="menu.function" href="${paths.staticWeb}do/Function?start=0&limit=5&selectNone=true">Funktionen/Amtsbezeichnungen</a></li>
 						#end
 						#if($grants.isUser())
-							<li><a id="menu.category" href="${paths.staticWeb}do/Categorie?start=0">Kategorien</a></li>
+							<li><a id="menu.category" href="${paths.staticWeb}do/Categorie?start=0&selectNone=true">Kategorien</a></li>
 						#end
 						#if($grants.isAdmin() || $grants.isSystemUser())
-        					<li><a id="menu.orgunit" href="${paths.staticWeb}do/Orgunit?start=0">Mandanten</a></li>
+        					<li><a id="menu.orgunit" href="${paths.staticWeb}do/Orgunit?start=0&selectNone=true">Mandanten</a></li>
 						#end
 						#if($grants.isAdmin() || $grants.isPartialAdmin())
 							<li><a id="menu.config" href="${paths.staticWeb}do/Config">Programmeinstellungen</a></li>
@@ -101,12 +101,12 @@
 							<li><a id="menu.reports" href="${paths.staticWeb}do/ChangeLogReport">Reports</a></li>
 						#end
 						#if($grants.isAdmin())
-							<li><a id="menu.allProxy" href="${paths.staticWeb}do/AllProxy?start=0">Stellvertretungen</a></li>
+							<li><a id="menu.allProxy" href="${paths.staticWeb}do/AllProxy?start=0&selectNone=true">Stellvertretungen</a></li>
 						#elseif($grants.isPartialAdmin())
-    						<li><a id="menu.proxy" href="${paths.staticWeb}do/OUProxy?start=0">Stellvertretungen</a></li>
+    						<li><a id="menu.proxy" href="${paths.staticWeb}do/OUProxy?start=0&selectNone=true">Stellvertretungen</a></li>
 						#end
 						#if($grants.isAdmin() || $grants.isPartialAdmin())
-							<li><a id="menu.location" href="${paths.staticWeb}do/Location?start=0">Veranstaltungsorte</a></li>
+							<li><a id="menu.location" href="${paths.staticWeb}do/Location?start=0&selectNone=true">Veranstaltungsorte</a></li>
 						#end
     				</ul>
     			</li>
