@@ -56,6 +56,7 @@ function isModified(id) {
 }
 
 function navigateList(start) {
+	$('input[name$="-select"]').prop('checked', false);
 	var form = document.getElementById('formlist');
 	if (form && form.elements['start']) {
 		form.elements['start'].value = start;
@@ -66,6 +67,7 @@ function navigateList(start) {
 }
 
 function navigateLimit(limit) {
+	$('input[name$="-select"]').prop('checked', false);
 	var form = document.getElementById('formlist');
 	if (form && form.elements['start']) {
 		form.elements['start'].value = 0;

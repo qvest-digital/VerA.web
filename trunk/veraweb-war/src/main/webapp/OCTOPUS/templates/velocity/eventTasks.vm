@@ -82,7 +82,7 @@
                     #if($save)
                     <input type="submit" class="button" name="remove" value="Ja" title="ausgewählte Einträge löschen"> &nbsp;
                     #end
-                    <input type="button" class="cancel" name="cancel" value="Nein" onclick="window.location.href='ShowEventTasks?id=$!id'"> &nbsp;
+                    <input type="button" class="cancel" name="cancel" value="Nein" onclick="window.location.href='ShowEventTasks?id=$!id&selectnone=true'"> &nbsp;
                 </div>
                 #end
 
@@ -118,7 +118,7 @@
                 <table class="marginTop0 notBold">
                     <tbody>
                     <tr>
-                        <th class="textCenter smallCell"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="Alle (de)markieren"/></th>
+                        <th class="textCenter smallCell"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="Alle (de)markieren" #if($listselection.size() == $list.size()) checked#end/></th>
                         <th class="smallCell textCenter">ID</th>
                         <th>Titel</th>
                         <th class="smallCell textCenter">Start</th>
@@ -130,7 +130,7 @@
                     #foreach($bean in $list)
                     <tr>
                         <td class="textCenter">
-                            <input type="checkbox" id="add-select" name="${bean.id}-select" value="true">
+                            <input type="checkbox" id="add-select" name="${bean.id}-select" value="true" #if($listselection.indexOf($bean.id) != -1) checked#end/>
                         </td>
                         <td class="textCenter" onclick="window.location.href='ShowEventTask?id=$!{bean.id}&eventId=$!{bean.eventId}'">$!bean.id</td>
                         <td onclick="window.location.href='ShowEventTask?id=$!{bean.id}&eventId=$!{bean.eventId}'">$!message.plain($!bean.title)</td>
@@ -180,7 +180,7 @@
                 #if($grants.mayWrite())
 				    <input type="button" name="save" value="Veranstaltung speichern" class="mainButton" onclick="showSuccess('Erfolgreich gespeichert');">
                 #end
-				<input type="reset" name="cancel" value="Zur Veranstaltungsübersicht" class="mainButton" onclick="window.location.href='SearchEvent?action=event&search=reset';">
+				<input type="reset" name="cancel" value="Zur Veranstaltungsübersicht" class="mainButton" onclick="window.location.href='SearchEvent?action=event&search=reset&selectNone=true';">
 
             </span>
     </form>

@@ -42,7 +42,7 @@
         	#if($save)
         		<input type="submit" class="button" name="remove" value="Ja" title="Markierte Veranstaltungsorte l&ouml;schen"> &nbsp;
         	#end
-        		<input type="button" class="cancel" name="cancel" value="Nein" onclick="window.location.href='Location';"> &nbsp;
+        		<input type="button" class="cancel" name="cancel" value="Nein" onclick="window.location.href='Location?selectNone=true';"> &nbsp;
         	</div>
         #end
     
@@ -64,7 +64,7 @@
 		
         <table>
         	<tr>
-        		<th class="smallCell textCenter"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="Alle (de)markieren"/></th>
+        		<th class="smallCell textCenter"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="Alle (de)markieren"  #if($listselection.size() == $list.size()) checked#end/></th>
         		<th class="smallCell textCenter">ID</th>
         		<th>Titel</th>
         		<th>Ansprechpartner</th>
@@ -81,7 +81,7 @@
         	</tr>
         	#foreach($bean in $list)
         		<tr onmouseover="onMouseOverList(this);" onmouseout="onMouseOutList(this);">
-        			<td class="textCenter"><input type="checkbox" id="remove-select" name="${bean.id}-select" value="true"></td>
+        			<td class="textCenter"><input type="checkbox" id="remove-select" name="${bean.id}-select" value="true" #if($listselection.indexOf($bean.id) != -1) checked#end></td>
         			<td class="textCenter" onclick="window.location.href='ShowLocation?id=$!{bean.id}'">$!message.plain($bean.id)</td>
         			<td onclick="window.location.href='ShowLocation?id=$!{bean.id}'">$!message.plain($bean.name)</td>
         			<td onclick="window.location.href='ShowLocation?id=$!{bean.id}'">$!message.plain($bean.contactperson)</td>

@@ -62,7 +62,7 @@
                     <table class="notBold">
                     	<tr >
     						#if($list && $list.size() > 0 && $grants.mayWrite())
-    							<th class="smallCell textCenter"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="Alle (de)markieren"/></th>
+    							<th class="smallCell textCenter"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="Alle (de)markieren" #if($listselection.size() == $list.size()) checked#end/></th>
 							#end
     						<th class="smallCell textCenter">ID</th>
                     		<th>Bezeichnung</th>
@@ -114,7 +114,7 @@
 			#if($grants.mayWrite())
 				<input type="submit" name="save" value="Veranstaltung speichern" class="mainButton"/>
 			#end
-			<input type="button" name="cancel" value="Zur Veranstaltungs&uuml;bersicht" class="mainButton" onclick="window.location.href='SearchEvent?action=event&search=reset';" />
+			<input type="button" name="cancel" value="Zur Veranstaltungs&uuml;bersicht" class="mainButton" onclick="window.location.href='SearchEvent?action=event&search=reset&selectNone=true';" />
 		</span>
 			
 	</form>
