@@ -45,9 +45,9 @@
 					<th class="smallCell textCenter"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="Alle (de)markieren"/></th></th>
 					<th class="smallCell textCenter">ID</th>
 					<th>Bezeichnung*</th>
-					<th class="smallCell textCenter">Adress-Typ</th>
-					<th class="smallCell textCenter">Zeichensatz</th>
-					<th class="smallCell textCenter">Format</th>
+					<th class="textCenter">Adress-Typ</th>
+					<th class="textCenter">Zeichensatz</th>
+					<th class="textCenter">Format</th>
 					<th class="smallCell textCenter" title="Eigenes Dokument f&uuml;r Partner">Dokument f&uuml;r Partner</th>
 					<th class="smallCell textCenter" title="Sortierreihenfolge">Sortier.</th>					
 					<th class="smallCell textCenter" title="Kennzeichen">Kennz.</th>
