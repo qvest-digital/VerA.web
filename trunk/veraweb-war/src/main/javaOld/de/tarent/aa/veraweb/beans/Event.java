@@ -43,7 +43,7 @@ public class Event extends AbstractHistoryBean implements OrgUnitDependent {
 	public Boolean invitepartner;
 	public String hostname;
 	public Integer maxguest;
-	public String location;
+	public Integer location;
 	public String note;
 	public String createdby;
 	public String changedby;

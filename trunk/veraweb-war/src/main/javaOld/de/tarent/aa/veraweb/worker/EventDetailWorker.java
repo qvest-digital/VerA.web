@@ -259,27 +259,6 @@ public class EventDetailWorker {
 					clogger.logUpdate( cntx.personalConfig().getLoginname(), oldEvent, event );	
 				}
 
-				if (saveLocation)
-				{
-					Location location = new Location();
-					location.name = event.location;
-					location.orgunit = event.orgunit;
-					location.setModified(true);
-					try
-					{
-						// Testet hier ob Location geschrieben werden darf, um
-						// bei �nderungen sp�ter dies Zentral �ndern zu k�nnen.
-						location.checkWrite(cntx);
-					} catch (BeanException e)
-					{
-						saveLocation = false;
-					}
-					if (saveLocation)
-					{
-						WorkerFactory.getLocationListWorker(cntx).insertBean(cntx, errors, location, context);
-					}
-				}
-
 				if (newEvent)
 				{
 					List list = database.getBeanList("Doctype", database.getSelect("Doctype").where(

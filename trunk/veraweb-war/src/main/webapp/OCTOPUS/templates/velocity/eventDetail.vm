@@ -234,23 +234,15 @@
                     					<option value=""></option>
                     					
                     					#foreach($location in $allLocation)
-                        					#if($event.location && $event.location == $location.name)
+                        					#if($event.location && $event.location == $location.id)
                             					#set ($exists = 1)
-                            					<option value="$location.name" selected>$!message.text($location.name)</option>
+                                              <option value="$location.id" selected>$!message.text($location.name)</option>
                         					#else
-                								<option value="$location.name">$!message.text($location.name)</option>
+                								<option value="$location.id">$!message.text($location.name)</option>
                         					#end
                     					#end
-                    					
-                    					#if($exists == 0)
-                							<option value="$event.location" selected>$!message.text($event.location)</option>
-                    					#end
+
     								</select>
-    								#if($grants.mayWrite())
-    								<div class="addButton">
-    									<input type="button" value="Ort hinzuf&uuml;gen" onclick="newLocation('${paths.staticWeb}do/');" />
-                                    </div>
-    								#end
     							</div>
     							<div class="tableCell width50">
     								<label for="event-note">Bemerkung</label>
