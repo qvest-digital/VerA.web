@@ -60,8 +60,8 @@
 				#set($rgb = $rgb - ($g * 256))
 				#set($b = $rgb)
 				<tr>
-					<td><input type="text" name="color1-name" value="$!message.text($color1.name)"  style="width: 98%;" onchange="setModified('color1')"></td>
-					<td><input type="text" name="color1-rgb" value="$!r $!g $!b"  style="width: 96%;" onchange="setModified('color1')"></td>
+					<td><input type="text" name="color1-name" value="$!message.text($color1.name)" onchange="setModified('color1')"></td>
+					<td><input type="text" name="color1-rgb" value="$!r $!g $!b" onchange="setModified('color1')"></td>
 				</tr>
 				#else
 				<tr>
@@ -104,7 +104,7 @@
 				#set($rgb = $rgb - ($g * 256))
 				#set($b = $rgb)
 				<tr>
-					<td><input type="text" name="color3-name" value="$!message.text($color3.name)"  style="width: 98%;" onchange="setModified('color3')"></td>
+					<td><input type="text" name="color3-name" value="$!message.text($color3.name)" onchange="setModified('color3')"></td>
 					<td><input type="text" name="color3-rgb" value="$!r $!g $!b" onchange="setModified('color3')"></td>
 				</tr>
 				#else
@@ -140,7 +140,7 @@
 			</table>
 			
 				<div id="buttonPanel-bottom" class="textRight">
-					<input type="submit" name="save" value="Speichern" #if($grants.isAdmin()) class="mainButton" #else class="buttondisabled" vera-disabled #end> &nbsp;
+					<input type="submit" name="save" value="Speichern" #if($grants.isAdmin()) class="mainButton" #else class="buttondisabled" vera-disabled #end>
 				</div>
 				
 				<script type="text/javascript">
