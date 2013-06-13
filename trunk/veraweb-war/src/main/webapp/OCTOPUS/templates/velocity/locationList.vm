@@ -47,7 +47,20 @@
     
         #foreach($bean in $list)
     		<input type="hidden" name="list" value="$bean.id">
-        #end
+		#end
+		
+		<span id="actionPanel" class="inlineLabel">
+			<label>Markierte(n) Veranstaltungsort(e)
+               	<input type="submit" id="remove" name="remove" value="Markierte(n) Veranstaltungsort(e) l&ouml;schen" title="Markierte(n) Veranstaltungsort(e) l&ouml;schen" />
+            </label>
+        </span>		
+		
+		#if($grants.mayWrite())
+		<span class="textRight floatRight" id="buttonPanel-top">
+          	<input type="button" id="new" name="new" value="Neu"  class="mainButton" onclick="window.location.href='CreateLocation';" />
+		</span>
+		#end
+		
         <table>
         	<tr>
         		<th class="smallCell textCenter"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="Alle (de)markieren"/></th>
@@ -92,11 +105,6 @@
     
          #parse("inc/list-navi.vm")
           #parse("inc/list-direct.vm")
-		  
-		<div class="textRight marginBottom20" id="buttonPanel-bottom">
-          	<input type="button" id="new" name="new" value="Neu" #if($grants.mayWrite()) class="button" #else class="buttondisabled" vera-disabled #end onclick="window.location.href='CreateLocation';" />
-           	<input type="submit" id="remove" name="remove" value="L&ouml;schen" class="button" title="markierte Eintr&auml;ge entfernen" />
-		</div>
     
         
         
