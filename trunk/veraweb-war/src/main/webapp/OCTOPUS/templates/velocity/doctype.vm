@@ -26,10 +26,6 @@
 		<input type="hidden" name="doRemove" value="true">
 		<input type="hidden" name="limit" value="" />
 		
-		<span id="actionPanel" class="inlineLabel">
-	       	<strong>Markierte(n) Dokumenttyp(en)</strong>
-	       	<input type="button" name="remove" onclick="askDelete()"  value="L&ouml;schen" title="Markierte(n) Dokumenttyp(en) l&ouml;schen" #if($grants.isAdmin()) class="submit" #else class="buttondisabled" vera-disabled #end>
-        </span>
 		
 		<div id="main_content">
 		
@@ -38,6 +34,11 @@
 			#end
 			
 			<div class="textRight mandatoryText tabs">* = Pflichtfelder</div>
+
+			<span id="actionPanel" class="inlineLabel">
+    	       	<strong>Markierte(n) Dokumenttyp(en)</strong>
+    	       	<input type="button" name="remove" onclick="askDelete()"  value="L&ouml;schen" title="Markierte(n) Dokumenttyp(en) l&ouml;schen" #if($grants.isAdmin()) class="submit" #else class="buttondisabled" vera-disabled #end>
+            </span>
 			
 			<table>
 				<tr>
@@ -158,6 +159,7 @@
 			</script>
 			
 
+        	</div>
 		</form>
 		
 		<script type="text/javascript">
@@ -178,6 +180,5 @@
 			disableForm(document.getElementById('formlist'));
 		#end
 		</script>
-	</div>
 </div>
 #parse("inc/footer.vm")
