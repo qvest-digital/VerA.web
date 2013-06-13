@@ -12,11 +12,13 @@
     </vera-warn>
     #end
 
+<div id="content_container"> 	
+	
     <div class="tabs contentBox grayBorder marginBottom10 marginTop20" id="main_content">
 		<div class="event" id="tabsMain">
 			<ul vera-tab-group="" class="gray-gradient"> <!-- Bitte das End-tag der <li>s immer mit in die nächste Zeile nehmen (verhindert Mozilla styling bug) -->
 				<li vera-tab-default="" vera-tab="mandanten" class="active">Mandanten
-				</li><li class="inactive"><a href="OrgunitCleanup" class="tabinactiv noBorder">Datenbank</a>
+				</li><li class="inactive"><a href="OrgunitCleanup" class="noBorder">Datenbank</a>
 				</li>
 			</ul>
 		</div>
@@ -37,8 +39,8 @@
 		<div class="contentBoxColored tabsContent" vera-content="mandanten">
 		
     		<span class="inlineLabel" id="actionPanel">
-            	<strong>Markierte(n) Mandenten</strong>
-            	<input type="submit" onclick="return confirm('Markierte(n) Mandenten wirklich löschen?');" title="Markierte(n) Mandenten löschen" name="remove" value="L&ouml;schen" >
+            	<strong>Markierte(n) Mandanten</strong>
+            	<input type="submit" onclick="return confirm('Markierte(n) Mandanten wirklich löschen?');" title="Markierte(n) Mandanten löschen" name="remove" value="L&ouml;schen" >
             </span>
             <table>
             	<tr>
@@ -58,8 +60,8 @@
                   #set($class = "list2")
                  #end
             	<tr>
-            		<td><input type="hidden" id="${bean.id}-modified" name="${bean.id}-modified" value="false"><input type="checkbox" name="${bean.id}-select" value="true"></td>
-            		<td><input type="hidden" name="${bean.id}-id" value="$!bean.id">$!{bean.id}</td>
+            		<td class="textCenter"><input type="hidden" id="${bean.id}-modified" name="${bean.id}-modified" value="false"><input type="checkbox" name="${bean.id}-select" value="true"></td>
+            		<td class="textCenter"><input type="hidden" name="${bean.id}-id" value="$!bean.id">$!{bean.id}</td>
             		<td><input type="text" name="${bean.id}-name" value="$!message.text($bean.name)" onchange="setModified('${bean.id}')"></td>
             	</tr>
 				#end
@@ -83,7 +85,7 @@
     </div><!-- End ID=main_content-->
 
 
-
+</div>
 
 </form>
 
