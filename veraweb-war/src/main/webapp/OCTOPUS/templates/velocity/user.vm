@@ -10,7 +10,7 @@
 #end
 #parse("inc/header.vm")	
 
-<div id="content_container>
+<div id="content_container">
 
 	<div id="breadcrumb" class="textRight marginBottom10">
 	    	<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Administration > Benutzer</span>
@@ -162,7 +162,7 @@
 			#end
 			
 			<div class="textRight marginTop10" id="buttonPanel-bottom">
-				<input type="submit" name="save" value="Speichern" class="mainButton"> &nbsp;
+				<input type="submit" name="save" value="Speichern" class="mainButton">
 			</div>
 		</div>
 	</form>
