@@ -355,9 +355,9 @@
     		#if ($action == "guest")
 			<div id="legend" class="table hinweis contentBoxColored grayBorder posAb">
 				<div class="tableRow">
-					<div class="tableCell"><strong>H</strong> $!config.main einladen</div>
-					<div class="tableCell"><strong>P</strong> $!config.partner einladen</div>
-					<div class="tableCell"><strong>R</strong> Auf Reserve setzen</div>
+					<div class="tableCell"><strong>H</strong> = $!config.main einladen</div>
+					<div class="tableCell"><strong>P</strong> = $!config.partner einladen</div>
+					<div class="tableCell"><strong>R</strong> = Auf Reserve setzen</div>
 				</div>
 			</div>
     		#end
