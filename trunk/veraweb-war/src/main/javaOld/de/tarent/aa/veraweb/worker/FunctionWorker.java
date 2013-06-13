@@ -43,6 +43,6 @@ public class FunctionWorker extends StammdatenWorker {
     //
 	@Override
     protected Integer getLimit(OctopusContext cntx) {
-		return new Integer(5);
+		return new Integer(10);
 	}
 }
