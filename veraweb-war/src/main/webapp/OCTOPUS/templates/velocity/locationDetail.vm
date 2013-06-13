@@ -12,7 +12,7 @@
     	<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Administration > Veranstaltungsorte</span>
     </div>
 
-	<h1>Veranstaltungsorte<h1>
+	<h1>Veranstaltungsorte</h1>
 
 
     <form id="formlist" name="formlist" action="" method="POST">
@@ -113,13 +113,6 @@
 			 #end
             <input id="button.back" type="button" name="cancel" class="mainButton" value="Zur&uuml;ck" title="Zur&uuml;ck zur &Uuml;bersicht" onclick="window.location.href='${paths.staticWeb}do/Location?start=0';" />
         </div>
-    
-        
-        
-
-    
-    
-    
     
     </form>
 </div>
