@@ -38,6 +38,7 @@ import org.apache.log4j.Logger;
 import de.tarent.aa.veraweb.beans.Doctype;
 import de.tarent.aa.veraweb.beans.Event;
 import de.tarent.aa.veraweb.beans.GuestSearch;
+import de.tarent.aa.veraweb.beans.Location;
 import de.tarent.aa.veraweb.beans.facade.EventConstants;
 import de.tarent.aa.veraweb.utils.DatabaseHelper;
 import de.tarent.aa.veraweb.utils.ExportHelper;
@@ -268,8 +269,14 @@ public class GuestExportWorker {
 		GuestReportWorker.setSortOrder(order, cntx.requestAsString("sort3"));
 		select.orderBy(DatabaseHelper.getOrder(order));
 		
+
+		Location location = null;
+		if (event.location != null) {
+			location = (Location)database.getBean("Location", event.location);
+		}
+		
 		// Export-Select ausf�hren
-		exportSelect(spreadSheet, database, event, doctype, search, select, data);
+		exportSelect(spreadSheet, database, event, location, doctype, search, select, data);
 		
 		// Tabelle schlie�en
 		spreadSheet.closeTable();
@@ -331,7 +338,7 @@ public class GuestExportWorker {
      * @param data Map mit Zusatzinformationen unter den Schl�sseln "doctype", "zusagen",
      *  "absagen", "offenen", "platz" und "reserve".
      */
-	protected void exportSelect(SpreadSheet spreadSheet, Database database, Event event, Doctype doctype, GuestSearch search, Select select, Map data) throws BeanException {
+	protected void exportSelect(SpreadSheet spreadSheet, Database database, Event event, Location location, Doctype doctype, GuestSearch search, Select select, Map data) throws BeanException {
 		for (Iterator it = database.getList(select, database).iterator(); it.hasNext(); ) {
 			Map guest = (Map)it.next();
 			
@@ -372,26 +379,26 @@ public class GuestExportWorker {
 					// Mit Partner
 					if (showA) {
 						spreadSheet.openRow();
-						exportOnlyPerson(spreadSheet, event, showA, showB, guest, data);
+						exportOnlyPerson(spreadSheet, event, location, showA, showB, guest, data);
 						spreadSheet.closeRow();
 					}
 					if (showB) {
 						spreadSheet.openRow();
-						exportOnlyPartner(spreadSheet, event, showA, showB, guest, data);
+						exportOnlyPartner(spreadSheet, event, location, showA, showB, guest, data);
 						spreadSheet.closeRow();
 					}
 				} else if (invitationtype.intValue() == EventConstants.TYPE_OHNEPARTNER) {
 					// Ohne Partner
 					if (showA) {
 						spreadSheet.openRow();
-						exportOnlyPerson(spreadSheet, event, showA, showB, guest, data);
+						exportOnlyPerson(spreadSheet, event, location, showA, showB, guest, data);
 						spreadSheet.closeRow();
 					}
 				} else if (invitationtype.intValue() == EventConstants.TYPE_NURPARTNER) {
 					// Nur Partner
 					if (showB) {
 						spreadSheet.openRow();
-						exportOnlyPartner(spreadSheet, event, showA, showB, guest, data);
+						exportOnlyPartner(spreadSheet, event, location, showA, showB, guest, data);
 						spreadSheet.closeRow();
 					}
 				}
@@ -401,21 +408,21 @@ public class GuestExportWorker {
 					// Mit Partner
 					if (showA || showB) {
 						spreadSheet.openRow();
-						exportBothInOneLine(spreadSheet, event, showA, showB, guest, data);
+						exportBothInOneLine(spreadSheet, event, location, showA, showB, guest, data);
 						spreadSheet.closeRow();
 					}
 				} else if (invitationtype.intValue() == EventConstants.TYPE_OHNEPARTNER) {
 					// Ohne Partner
 					if (showA) {
 						spreadSheet.openRow();
-						exportOnlyPerson(spreadSheet, event, showA, showB, guest, data);
+						exportOnlyPerson(spreadSheet, event, location, showA, showB, guest, data);
 						spreadSheet.closeRow();
 					}
 				} else if (invitationtype.intValue() == EventConstants.TYPE_NURPARTNER) {
 					// Nur Partner
 					if (showB) {
 						spreadSheet.openRow();
-						exportOnlyPartner(spreadSheet, event, showA, showB, guest, data);
+						exportOnlyPartner(spreadSheet, event, location, showA, showB, guest, data);
 						spreadSheet.closeRow();
 					}
 				}
@@ -561,7 +568,7 @@ public class GuestExportWorker {
 	 * @param guest Map mit den Gastdaten.
 	 * @param data Zusatzinformationen.
 	 */
-	protected void exportBothInOneLine(SpreadSheet spreadSheet, Event event, boolean showA, boolean showB, Map guest, Map data) {
+	protected void exportBothInOneLine(SpreadSheet spreadSheet, Event event, Location location, boolean showA, boolean showB, Map guest, Map data) {
 		//
 		// Gast spezifische Daten
 		//
@@ -727,13 +734,27 @@ public class GuestExportWorker {
 		spreadSheet.addCell(event.shortname);
 		spreadSheet.addCell(event.begin);
 		spreadSheet.addCell(event.end);
-		spreadSheet.addCell(event.location);
 		
-		for (int i = 0; i < 11; i += 1) { //TODO: add event location properties; see: backlog [#3910]
-			spreadSheet.addCell(null);
-		}
+		addLocationCells(spreadSheet, location);
 		
 		spreadSheet.addCell(event.note);
+	}
+
+	private void addLocationCells(SpreadSheet spreadSheet, Location location) {
+		if (location != null) {
+			spreadSheet.addCell(location.name);
+			spreadSheet.addCell(location.contactperson);
+			spreadSheet.addCell(location.address);
+			spreadSheet.addCell(location.zip);
+			spreadSheet.addCell(location.location);
+			spreadSheet.addCell(location.callnumber);
+			spreadSheet.addCell(location.faxnumber);
+			spreadSheet.addCell(location.email);
+			spreadSheet.addCell(location.comment);
+			spreadSheet.addCell(location.url);
+			spreadSheet.addCell(location.gpsdata);
+			spreadSheet.addCell(location.roomnumber);
+		}
 	}
 
 	/**
@@ -744,7 +765,7 @@ public class GuestExportWorker {
 	 * @param guest Map mit den Gastdaten.
 	 * @param data Zusatzinformationen.
 	 */
-	protected void exportOnlyPerson(SpreadSheet spreadSheet, Event event, boolean showA, boolean showB, Map guest, Map data) {
+	protected void exportOnlyPerson(SpreadSheet spreadSheet, Event event, Location location, boolean showA, boolean showB, Map guest, Map data) {
 		//
 		// Gast spezifische Daten
 		//
@@ -852,11 +873,8 @@ public class GuestExportWorker {
 		spreadSheet.addCell(event.shortname);
 		spreadSheet.addCell(event.begin);
 		spreadSheet.addCell(event.end);
-		spreadSheet.addCell(event.location);
 		
-		for (int i = 0; i < 11; i += 1) { //TODO: add event location properties; see: backlog [#3910]
-			spreadSheet.addCell(null);
-		}
+		addLocationCells(spreadSheet, location);
 		
 		spreadSheet.addCell(event.note);
 	}
@@ -869,7 +887,7 @@ public class GuestExportWorker {
 	 * @param guest Map mit den Gastdaten.
 	 * @param data Zusatzinformationen.
 	 */
-	protected void exportOnlyPartner(SpreadSheet spreadSheet, Event event, boolean showA, boolean showB, Map guest, Map data) {
+	protected void exportOnlyPartner(SpreadSheet spreadSheet, Event event, Location location, boolean showA, boolean showB, Map guest, Map data) {
 		//
 		// Gast spezifische Daten
 		//
@@ -977,11 +995,8 @@ public class GuestExportWorker {
 		spreadSheet.addCell(event.shortname);
 		spreadSheet.addCell(event.begin);
 		spreadSheet.addCell(event.end);
-		spreadSheet.addCell(event.location);
 		
-		for (int i = 0; i < 11; i += 1) { //TODO: add event location properties; see: backlog [#3910]
-			spreadSheet.addCell(null);
-		}
+		addLocationCells(spreadSheet, location);
 		
 		spreadSheet.addCell(event.note);
 	}
