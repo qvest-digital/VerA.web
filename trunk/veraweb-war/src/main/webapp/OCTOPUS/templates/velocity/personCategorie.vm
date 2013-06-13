@@ -79,6 +79,9 @@
     
                 <input type="hidden" id="inviteGuestReserve" name="inviteGuestReserve" value="false"/>
                 <input type="hidden" id="inviteGuestPartner" name="inviteGuestPartner" value="false"/>
+				
+				<input type="hidden" id="tab" name="tab" value = "$!{octopusRequest.tab}"/>
+				<input type="hidden" id="show" name="show" value = "$!{octopusRequest.show}"/>
     		</form>
             <script type="text/javascript">
 			
