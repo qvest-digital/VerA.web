@@ -1112,7 +1112,8 @@
 			</contract>
 			<doTask name="Load"/>
 			<action name="saveList" worker="EventListWorker" />
-			<action name="showList" worker="EventListWorker" />
+			<action name="showList" worker="EventListWorker" />		
+			<action name="getAll" worker="LocationListWorker" />
 			<response type="velocity" name="eventList">
 				<param name="ContentType" value="text/html;charset=UTF-8"/>
 			</response>
