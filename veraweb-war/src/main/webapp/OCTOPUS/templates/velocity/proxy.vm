@@ -32,7 +32,7 @@
 </div>
 #end
 
-<input type="hidden" value="">
+<input type="hidden" name="limit" value="">
 <input type="hidden" name="start" value="">
 <input type="hidden" name="selectNone" value="true">
 <input type="hidden" name="doInsert" value="true">
@@ -53,6 +53,13 @@
     	<input type="radio" id="validityNow" name="proxiesValid" value="now" onclick="submit();" #if($proxiesValid && $proxiesValid=='now')checked#end><label for="validityNow"> nur aktuelle Vertretungen</label>
     </div>
 </div>
+
+<span id="actionPanel" class="inlineLabel">
+	<strong >
+		Markierte Vertretung (en)
+    </strong>
+	    <input type="submit" name="remove" value="L&ouml;schen" class="mainButton" >
+</span>
 
 <table>
 	<tbody>
@@ -158,8 +165,8 @@
 		<td ><input type="text" name="${bean.id}-userRole" value="$!message.text($bean.userRole)"  onchange="setModified('$!bean.id')" vera-disabled></td>
 #end
 		<td ><input type="text" name="${bean.id}-proxy" value="$!message.text($bean.proxy)"  onchange="setModified('$!bean.id')" vera-disabled></td>
-		<td >
-			<nobr>
+		<td class="textCenter">
+			<div class="calenderContainer">
 				<input type="text" name="${bean.id}-validFrom" id="${bean.id}-validFrom" value="$!message.date("DATE", $bean.validFrom)" class="date" onchange="setModified('$!bean.id')">
 				<span id="show-${bean.id}-from" class="datepickerContainer"><img src="${paths.staticWeb}images/calendar.png" alt="Datum ausw&auml;hlen" title="Datum ausw&auml;hlen"></span>
 				<script type="text/javascript">
@@ -170,10 +177,10 @@
 						showsTime      :    false
 					});
 				</script>
-			</nobr>
+			</div>
 		</td>
-		<td >
-			<nobr>
+		<td class="textCenter">
+			<div class="calenderContainer">
 				<input type="text" name="${bean.id}-validTill" id="${bean.id}-validTill" value="$!message.date("DATE", $bean.validTill)" class="date" onchange="setModified('$!bean.id')">
 				<span id="show-${bean.id}-till" class="datepickerContainer"><img src="${paths.staticWeb}images/calendar.png" alt="Datum ausw&auml;hlen" title="Datum ausw&auml;hlen"></span>
 				<script type="text/javascript">
@@ -184,7 +191,7 @@
 						showsTime      :    false
 					});
 				</script>
-			</nobr>
+			</div>
 		</td>
 	</tr>
 	#end
@@ -201,9 +208,8 @@
 
 
 
-<div id="buttonPanel-bottom" class="textRight">
-    <input type="submit" name="save" value="Speichern" class="mainButton">
-    <input type="button" name="remove" value="L&ouml;schen" class="mainButton">
+<div id="buttonPanel-bottom" class="textRight marginTop10">
+    <input type="submit" name="save" value="Speichern" class="mainButton">	
 </div>
 
 
