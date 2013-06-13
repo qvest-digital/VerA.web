@@ -102,13 +102,13 @@
 	</tr>
 #if($octopusConfig.personalConfig.proxy)
 	<tr>
-		<td class="label">vertreten durch:</td>
+		<td>vertreten durch:</td>
 		<td>$octopusConfig.personalConfig.proxy</td>
 	</tr>
 #end
 #if($octopusConfig.personalConfig.roles)
 	<tr>
-		<td class="label">verf&uuml;gbare Rollen:</td>
+		<td>verf&uuml;gbare Rollen:</td>
 		<td>
  #foreach($gg in $octopusConfig.personalConfig.roles)
  $gg
