@@ -16,7 +16,7 @@
 		<div class="event" id="tabsMain">
 			<ul vera-tab-group="" class="gray-gradient"> <!-- Bitte das End-tag der <li>s immer mit in die nächste Zeile nehmen (verhindert Mozilla styling bug) -->
 				<li vera-tab-default="" vera-tab="mandanten" class="active">Mandanten
-				</li><li class="inactive"><a href="OrgunitCleanup" class="tabinactiv">Datenbank</a>
+				</li><li class="inactive"><a href="OrgunitCleanup" class="tabinactiv noBorder">Datenbank</a>
 				</li>
 			</ul>
 		</div>
@@ -51,11 +51,18 @@
             		<td class="textCenter"><input type="hidden" name="add-id" value=""><em>neu</em></td>
             		<td><input type="text" name="add-name" value="" onchange="setModified('add')"></td>
             	</tr>
+				#foreach($bean in $list)
+                 #if ($velocityCount % 2 == 1)
+                  #set($class = "list1")
+                 #else
+                  #set($class = "list2")
+                 #end
             	<tr>
             		<td><input type="hidden" id="${bean.id}-modified" name="${bean.id}-modified" value="false"><input type="checkbox" name="${bean.id}-select" value="true"></td>
             		<td><input type="hidden" name="${bean.id}-id" value="$!bean.id">$!{bean.id}</td>
             		<td><input type="text" name="${bean.id}-name" value="$!message.text($bean.name)" onchange="setModified('${bean.id}')"></td>
             	</tr>
+				#end
 					#if ($listparam.count == 0)
 						<tr>
 							<td colspan="3">Es wurden keine Daten gefunden</td>
@@ -66,13 +73,12 @@
            
             	#parse("inc/list-navi.vm")
             	#parse("inc/list-direct.vm")
-    			
+    			        
+        </div>
     			<span id="buttonPanel-bottom" class="floatRight marginTop10">
     			<!-- Show the save button -->
     				<input type="submit" name="save" value="Speichern" title="Speichern" class="mainButton">
     			</span>			
-        
-        </div>
         
     </div><!-- End ID=main_content-->
 
