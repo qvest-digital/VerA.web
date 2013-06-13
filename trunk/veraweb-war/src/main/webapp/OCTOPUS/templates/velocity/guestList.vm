@@ -357,13 +357,13 @@
             		<td class="textCenter">
             			#if($bean.showdoctype)
             				#if($bean.mail_a_gd.length() > 0)
-            					<a href="mailto:$!message.plain($bean.mail_a_gd)" class="noBorder" title="$!message.plain($bean.mail_a_gd)"><img src="${paths.staticWeb}images/email.gif" alt="eMail"></a>
+            					<a href="mailto:$!message.plain($bean.mail_a_gd)" title="$!message.plain($bean.mail_a_gd)">$!message.plain($bean.mail_a_gd)</a>
             				#else
             					&nbsp;
             				#end
             			#else
             				#if($bean.mail_a_e1.length() > 0)
-            					<a href="mailto:$!message.plain($bean.mail_a_e1)" class="noBorder" title="$!message.plain($bean.mail_a_e1)"><img src="${paths.staticWeb}images/email.gif" alt="eMail"></a>
+            					<a href="mailto:$!message.plain($bean.mail_a_e1)" title="$!message.plain($bean.mail_a_e1)">$!message.plain($bean.mail_a_e1)</a>
             				#else
             					&nbsp;
             				#end
