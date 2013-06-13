@@ -769,7 +769,8 @@ input.small50px {
 }
 
 td input[type="text"], 
-td select {
+td select,
+td textarea {
 	width:100%;
 }
 
