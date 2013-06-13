@@ -209,7 +209,7 @@
 				var selectedCount = ${listselection.size()};
         	
             	function hasSelection() {
-            		return ( selectedCount > 0 );
+                    return $('input:checked[name$="-select"]').length > 0;
             	}
             
             	function selectionChange( elt ) {
