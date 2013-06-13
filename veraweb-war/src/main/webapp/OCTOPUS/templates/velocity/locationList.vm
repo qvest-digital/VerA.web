@@ -51,13 +51,13 @@
 		
 		<span id="actionPanel" class="inlineLabel">
 			<label>Markierte(n) Veranstaltungsort(e)
-               	<input type="submit" id="remove" name="remove" value="Markierte(n) Veranstaltungsort(e) l&ouml;schen" title="Markierte(n) Veranstaltungsort(e) l&ouml;schen" />
+               	<input type="submit" id="remove" name="remove" value="L&ouml;schen" title="Markierte(n) Veranstaltungsort(e) l&ouml;schen" />
             </label>
         </span>		
 		
 		#if($grants.mayWrite())
 		<span class="textRight floatRight" id="buttonPanel-top">
-          	<input type="button" id="new" name="new" value="Neu"  class="mainButton" onclick="window.location.href='CreateLocation';" />
+          	<input type="button" id="new" name="new" value="Neuen Veranstaltugsort hinzuf&uuml;gen" title="Neuen Veranstaltugsort hinzuf&uuml;gen"  class="mainButton" onclick="window.location.href='CreateLocation';" />
 		</span>
 		#end
 		
