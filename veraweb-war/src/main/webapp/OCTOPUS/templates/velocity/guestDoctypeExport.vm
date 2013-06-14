@@ -189,7 +189,7 @@
 	<div class="textRight marginTop10" id="buttonPanel-bottom">
     
 		<input type="button" name="export" value="Exportieren" title="Exportieren" class="mainButton" onclick="document.getElementById('ExportForm').action='ExportGuestDoctype/export.${extension}'; submit();">
-		<input type="button" name="cancel" value="Zur&uuml;ck zur Veranstaltung" title="Zur&uuml;ck zur Veranstaltung" class="mainButton" onclick="window.location.href='ShowGuestList?selectNone=true';">
+		<input type="button" name="cancel" value="Zur&uuml;ck zur G&auml;steliste" title="Zur&uuml;ck zur G&auml;steliste" class="mainButton" onclick="window.location.href='ShowGuestList';">
     
     </div>
     
@@ -203,7 +203,8 @@
     
     <div class="textRight marginTop10" id="buttonPanel-bottom">
     
-		<input type="button" name="cancel" value="Zur&uuml;ck zur Veranstaltung" title="Zur&uuml;ck zur Veranstaltung" class="mainButton" onclick="window.location.href='ShowGuestList?selectNone=true';" class="mainButton" />
+		<input type="button" name="cancel" value="Zur&uuml;ck zur G&auml;steliste" title="Zur&uuml;ck zur G&auml;steliste" class="mainButton" onclick="window.location.href='ShowGuestList';" class="mainButton" />
+		<input type="button" name="cancel" value="Zu den Veranstaltungsdetails" title="Zu den Veranstaltungsdetails" class="mainButton" onclick="window.location.href='ShowEventDoctype?id=$!event.id';" class="mainButton" />
     
     </div>
     
