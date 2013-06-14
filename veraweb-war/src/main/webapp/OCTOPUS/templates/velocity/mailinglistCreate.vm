@@ -42,7 +42,7 @@
 			
         	<div class="textRight">
         		<input type="submit" name="save" class="mainButton" value="Verteiler speichern" title="Verteiler speichern">
-        		<input type="button" name="cancel" class="mainButton" value="Zur&uuml;ck zur G&auml;steverwaltung" title="Zur&uuml;ck zur G&auml;steverwaltung" onclick="window.location.href='ShowGuestList';">
+        		<input type="button" name="cancel" class="mainButton" value="Zur&uuml;ck zur G&auml;steverwaltung" title="Zur&uuml;ck zur G&auml;steverwaltung" onclick="window.location.href='ShowGuestList?selectNone=true';">
         	</div>
 		</form>
 </div><!-- end #content_container -->

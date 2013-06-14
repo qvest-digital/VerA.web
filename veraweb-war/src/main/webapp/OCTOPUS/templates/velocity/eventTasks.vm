@@ -35,7 +35,7 @@
             <div id="tabsMain">
                 <ul class="gray-gradient"> <!-- Bitte das End-tag der <li>s immer mit in die nächste Zeile nehmen (verhindert Mozilla styling bug) -->
                     <li class="inactive" onclick="window.location.href='ShowEvent?id=$!id';" class="noBorder">Allgemein</a>
-                    </li><li class="inactive" onclick="window.location.href='${paths.staticWeb}do/ShowEventDoctype?id=$!id';" class="noBorder">Dokumenttypen
+                    </li><li class="inactive" onclick="window.location.href='${paths.staticWeb}do/ShowEventDoctype?id=$!id&selectNone=true';" class="noBorder">Dokumenttypen
                     </li><li class="active">Aufgaben
 					</li>
                 </ul>
@@ -82,7 +82,7 @@
                     #if($save)
                     <input type="submit" class="button" name="remove" value="Ja" title="ausgewählte Einträge löschen"> &nbsp;
                     #end
-                    <input type="button" class="cancel" name="cancel" value="Nein" onclick="window.location.href='ShowEventTasks?id=$!id&selectnone=true'"> &nbsp;
+                    <input type="button" class="cancel" name="cancel" value="Nein" onclick="window.location.href='ShowEventTasks?id=$!id&selectNone=true'"> &nbsp;
                 </div>
                 #end
 

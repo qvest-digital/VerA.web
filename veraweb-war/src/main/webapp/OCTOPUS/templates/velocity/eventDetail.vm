@@ -84,7 +84,7 @@
                 	<ul class="gray-gradient" vera-tab-group> <!-- Bitte das End-tag der <li>s immer mit in die nächste Zeile nehmen (verhindert Mozilla styling bug) -->
                 		<li vera-tab="allgemein" vera-tab-default>Allgemein
                 		</li><li onclick="showDoctypes();" class="inactive">Dokumenttypen
-        				</li><li class="inactive" #if ($event.id) onclick="if (checkModified()) { window.location.href='ShowEventTasks?id=$!event.id';}" #end>Aufgaben
+        				</li><li class="inactive" #if ($event.id) onclick="if (checkModified()) { window.location.href='ShowEventTasks?id=$!event.id&selectNone=true';}" #end>Aufgaben
         				</li>
                 	</ul>
         		</div>
@@ -273,7 +273,7 @@
                     		document.getElementById('formlist').action = '${paths.staticWeb}do/ShowEventDoctype';
                     		document.getElementById('formlist').submit();
                 		} else {
-                			window.location.href = '${paths.staticWeb}do/ShowEventDoctype?id=$!event.id';
+                			window.location.href = '${paths.staticWeb}do/ShowEventDoctype?id=$!event.id&selectNone=true';
                 		}
                 #else
                     		document.getElementById('formlist').action = '${paths.staticWeb}do/ShowEventDoctype';

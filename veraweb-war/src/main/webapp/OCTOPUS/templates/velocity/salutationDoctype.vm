@@ -73,7 +73,7 @@
 
 	<input type="submit" name="save" value="Speichern" class="submit"> &nbsp;
 	<input type="submit" name="remove" value="L&ouml;schen" class="button" title="markierte Eintr&auml;ge entfernen"> &nbsp;
-	<input type="button" name="cancel" value="Zur&uuml;ck" class="button" onclick="window.location.href='Salutation';"> &nbsp;
+	<input type="button" name="cancel" value="Zur&uuml;ck" class="button" onclick="window.location.href='Salutation?selectNone=true';"> &nbsp;
 
 </div></div></div>
 

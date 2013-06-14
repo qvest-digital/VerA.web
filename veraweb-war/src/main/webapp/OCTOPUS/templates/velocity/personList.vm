@@ -666,7 +666,7 @@
 	## Zurück-Button
 	<span id="buttonPanel-top" class="textRight floatRight">
     	#if($action == "guest")
-			<input type="button" id="button.cancel" name="button.cancel" value="Zur&uuml;ck zur G&auml;steliste" class="mainButton" onclick="window.location.href='ShowGuestList';" />
+			<input type="button" id="button.cancel" name="button.cancel" value="Zur&uuml;ck zur G&auml;steliste" class="mainButton" onclick="window.location.href='ShowGuestList?selectNone=true';" />
     	#elseif($action == "host")
 			<input type="button" id="button.cancel" name="button.cancel" value="Zur&uuml;ck zu Veranstaltungsdetails" class="mainButton" onclick="window.location.href='SetHostToEventDetail';" />
     	#elseif($action == "statistikGuest" || $action == "statistikHost")

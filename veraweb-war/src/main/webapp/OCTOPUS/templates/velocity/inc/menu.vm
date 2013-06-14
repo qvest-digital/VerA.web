@@ -36,7 +36,7 @@
         					<li><a id="menu.newEvent" href="${paths.staticWeb}do/CreateEvent?action=event">Neue Veranstaltung</a></li>
 						#end
 						#if($grants.isUser())
-        					<li><a id="menu.mailingList" href="${paths.staticWeb}do/ShowMailinglistList">Verteiler</a></li>
+        					<li><a id="menu.mailingList" href="${paths.staticWeb}do/ShowMailinglistList?selectNone=true">Verteiler</a></li>
     						#if($grants.mayExport())
     							<li><a id="menu.statistic" href="${paths.staticWeb}do/Statistik">Statistiken</a></li>
     						#end
