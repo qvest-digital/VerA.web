@@ -31,7 +31,7 @@
 #end
 <table>
 	<tr>
-		<th style="width: 20px;">&nbsp;</th>
+		<th style="width: 20px;"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="Alle (de)markieren" #if($listselection.size() == $list.size()) checked#end/></th>
 		<th style="width: 60px;">ID</th>
 		<th>Stammform</th>
 		<th style="width: 120px;">Geschlecht</th>

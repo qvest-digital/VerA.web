@@ -28,7 +28,7 @@
 <table>
 	<tr>
 		<th class="smallCell textCenter">
-			<input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="Alle (de)markieren"/>
+			<input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="Alle (de)markieren" #if($listselection.size() == $list.size()) checked#end/>
 		</th>
 		<th class="smallCell textCenter">ID</th>
 		<th>Name der Vorlage</th>
