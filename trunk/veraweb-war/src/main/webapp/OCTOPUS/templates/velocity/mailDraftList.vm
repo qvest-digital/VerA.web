@@ -7,22 +7,30 @@
 <input type="hidden" name="selectNone" value="true">
 <input type="hidden" name="doRemove" value="true">
 
-<table class="tab" border="0" cellspacing="0" cellpadding="0"><tr>
-	<td class="tableft">&nbsp;</td>
-	<td class="tabactiv"><span class="tabactiv">E-Mail-Vorlagen</span></td>
-	<td class="tabright">&nbsp;</td>
-</tr></table>
+<div class="textRight marginBottom10" id="breadcrumb">
+	<strong>Sie sind hier:</strong> <span><a href="index.html">Home</a> > Administration > E-Mail-Vorlagen</span>
+</div>	
+	
+<h1>E-Mail-Vorlagen</h1>
 
 
 
-
+<span id="actionPanel" class="inlineLabel">
+	       	<strong>Markierte Vorlage(n)</strong>
+	       	<input type="submit" name="remove" value="Löschen" class="mainButton" title="Markierte Vorlage(n) löschen" onclick="">
+</span>
+<span id="" class="buttonPanel-top textRight floatRight">
+			<input type="button" name="" value="Neue Vorlage anlegen" title="Neue Vorlage anlegen" class="mainButton" onclick="window.location.href='MailDraftDetail';">
+</span>
 #foreach($bean in $list)
 <input type="hidden" name="list" value="$bean.id">
 #end
 <table>
-	<tr style="height: 22px;">
-		<th style="width: 20px;">&nbsp;</th>
-		<th style="width: 60px;">ID</th>
+	<tr>
+		<th class="smallCell textCenter">
+			<input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="Alle (de)markieren"/>
+		</th>
+		<th class="smallCell textCenter">ID</th>
 		<th>Name der Vorlage</th>
 	</tr>
 	#foreach($bean in $list)
@@ -31,27 +39,23 @@
 	#else
 		#set($class = "list2")
 	#end
-	<tr class="$class" style="height: 22px;" onmouseover="onMouseOverList(this);" onmouseout="onMouseOutList(this);">
+	<tr>
 		<td><input type="checkbox" name="${bean.id}-select" value="true"></td>
 		<td style="cursor: pointer;" onclick="window.location.href='MailDraftDetail?id=$!{bean.id}';"><input type="hidden" name="${bean.id}-id" value="$bean.id">$!{bean.id}</td>
 		<td style="cursor: pointer;" onclick="window.location.href='MailDraftDetail?id=$!{bean.id}';">$!message.text($bean.name)</td>
 	</tr>
 	#end
+	
+	#set($itemName = "Mail")
+	#parse("inc/list-navi-new.vm")
+	#parse("inc/list-direct-new.vm")
 </table>
 
 #if ($listparam.count == 0)
 	<br>Keine Daten gefunden.
 #end
 
-<div id="fixme" class="fixme1"><div class="fixme2"><div class="fixme3">
-
-	#parse("inc/list-navi.vm")
-	#parse("inc/list-direct.vm")
-
-	<input type="button" name="new"    value="Neu" class="button" onclick="window.location.href='MailDraftDetail';"> &nbsp;
-	<input type="submit" name="remove" value="L&ouml;schen" class="button"> &nbsp;
-
-</div></div></div>
+	
 
 
 
