@@ -378,7 +378,7 @@
 				#end
         	#end
 			#if($action == "duplicateSearch")
-        		<input type="button" name="cancel" class="mainButton" value="Zur Dublettensuche" title="Zur Dublettensuche" onclick="if (checkModified()) { window.location.href='${paths.staticWeb}do/PersonDuplicateSearch'; }">
+        		<input type="button" name="cancel" class="mainButton" value="Zur Dublettensuche" title="Zur Dublettensuche" onclick="if (checkModified()) { window.location.href='${paths.staticWeb}do/PersonDuplicateSearch?selectNone=true'; }">
         	#elseif($searchTask && $searchTask == "personSearchTask")
         	    <input type="button" name="cancel" class="mainButton" value="Zur&uuml;ck zum Suchergebnis" title="Zur&uuml;ck zum Suchergebnis" onclick="if (checkModified()) { window.location.href='${paths.staticWeb}do/SearchPerson?action=person&searchTask=personSearchTask&selectNone=true'; }">
             #else
@@ -440,10 +440,10 @@
 
 	function showDoctypes() {
 		if (document.getElementById('modified').value == 'true') {
-    		document.getElementById('PersonForm').action = '${paths.staticWeb}do/ShowPersonDoctypeList';
+    		document.getElementById('PersonForm').action = '${paths.staticWeb}do/ShowPersonDoctypeList?selectNone=true';
     		document.getElementById('PersonForm').submit();
 		} else {
-			window.location.href = '${paths.staticWeb}do/ShowPersonDoctypeList?id=$!person.id&searchTask=$!searchTask&offset=${navigation.current.offset}';
+			window.location.href = '${paths.staticWeb}do/ShowPersonDoctypeList?id=$!person.id&searchTask=$!searchTask&selectNone=true&offset=${navigation.current.offset}';
 		}
 	}
 	
@@ -544,7 +544,7 @@
                 form.attr('action', '${paths.staticWeb}do/ShowPersonDoctypeList'+getGuestTabId());
                 form.submit();
             } else {
-                window.location.href = '${paths.staticWeb}do/ShowPersonDoctypeList?id=$!person.id&searchTask=$!searchTask'+getGuestTabId();
+                window.location.href = '${paths.staticWeb}do/ShowPersonDoctypeList?id=$!person.id&selectNone=true&searchTask=$!searchTask'+getGuestTabId();
             }
         });
     });

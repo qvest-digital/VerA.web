@@ -148,7 +148,7 @@
 	</div>
 	
 	<div id="buttonPanel-bottom" class="textRight">
-		<input type="button" name="cancel" value="Zur&uuml;ck zur G&auml;steverwaltung" title="Zur&uuml;ck zur G&auml;steverwaltung" class="mainButton" onclick="window.location.href='ShowGuestList';" />
+		<input type="button" name="cancel" value="Zur&uuml;ck zur G&auml;steverwaltung" title="Zur&uuml;ck zur G&auml;steverwaltung" class="mainButton" onclick="window.location.href='ShowGuestList?selectNone=true';" />
 	</div>
 </div>
 

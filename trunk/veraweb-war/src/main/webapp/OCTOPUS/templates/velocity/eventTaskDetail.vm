@@ -84,8 +84,8 @@
             <div id="tabsMain">
                 <ul class="gray-gradient"> <!-- Bitte das End-tag der <li>s immer mit in die nächste Zeile nehmen (verhindert Mozilla styling bug) -->
                     <li class="inactive" goto="ShowEvent?id=$!eventId" class="noBorder">Allgemein</a>
-                    </li><li class="inactive" goto="${paths.staticWeb}do/ShowEventDoctype?id=$!eventId" class="noBorder">Dokumenttypen
-                    </li><li class="active" goto="${paths.staticWeb}do/ShowEventTasks?id=$!eventId">Aufgaben
+                    </li><li class="inactive" goto="${paths.staticWeb}do/ShowEventDoctype?id=$!eventId&selectNone=true" class="noBorder">Dokumenttypen
+                    </li><li class="active" goto="${paths.staticWeb}do/ShowEventTasks?id=$!eventId&selectNone=true">Aufgaben
                     </li>
                 </ul>
             </div>
@@ -198,12 +198,12 @@
 				#if($grants.mayWrite())
 					<input id="button.save" tabindex="11" type="submit" name="save" value="Aufgabe speichern" title="Aufgabe speichern" onclick="document.getElementById('formlist').action='SaveEventTask';" class="mainButton" />
 				#end
-                <input id="button.back" tabindex="12" type="button" name="cancel" class="mainButton" value="Zur&uuml;ck zur Aufgaben&uuml;bersicht" title="Zur&uuml;ck zur Aufgaben&uuml;bersicht" goto="${paths.staticWeb}do/ShowEventTasks?id=$!eventId">
+                <input id="button.back" tabindex="12" type="button" name="cancel" class="mainButton" value="Zur&uuml;ck zur Aufgaben&uuml;bersicht" title="Zur&uuml;ck zur Aufgaben&uuml;bersicht" goto="${paths.staticWeb}do/ShowEventTasks?id=$!eventId&selectNone=true">
             #else
 				#if($grants.mayWrite())
 					<input id="button.save" tabindex="11" type="submit" name="save" value="Aufgabe speichern" title="Aufgabe speichern" onclick="document.getElementById('formlist').action='SaveEventTask';" class="mainButton" />
 				#end
-                <input id="button.back" tabindex="12" type="button" name="cancel" class="mainButton" value="Zur&uuml;ck zur Aufgaben&uuml;bersicht" title="Zur&uuml;ck zur Aufgaben&uuml;bersicht" goto="${paths.staticWeb}do/ShowEventTasks?id=$!eventId">
+                <input id="button.back" tabindex="12" type="button" name="cancel" class="mainButton" value="Zur&uuml;ck zur Aufgaben&uuml;bersicht" title="Zur&uuml;ck zur Aufgaben&uuml;bersicht" goto="${paths.staticWeb}do/ShowEventTasks?id=$!eventId&selectNone=true">
             #end
         </div>
 

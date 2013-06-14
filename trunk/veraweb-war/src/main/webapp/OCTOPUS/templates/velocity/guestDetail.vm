@@ -308,7 +308,7 @@
 	
 	$(function () {
         $('li#gaesteliste').click(function () {
-            window.location.href = '${paths.staticWeb}do/ShowGuestList';
+            window.location.href = '${paths.staticWeb}do/ShowGuestList?selectNone=true';
         });
         $('li#dokumenttypen').click(function () {
             window.location.href = '${paths.staticWeb}do/ShowGuestDoctype';

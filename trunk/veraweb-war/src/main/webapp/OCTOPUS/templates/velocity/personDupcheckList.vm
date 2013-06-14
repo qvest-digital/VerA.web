@@ -110,7 +110,7 @@
 		#if($action == "guest")
 			<input type="submit" class="submit" name="add" value="Hinzuf&uuml;gen" title="Ausgew&auml;hlte Personen zur Veranstaltung hinzuf&uuml;gen."> 
 			<input type="button" class="button" name="newperson" value="Person erfassen" title="Person erfassen" onclick="window.location.href='ShowPerson';">
-			<input type="button" class="cancel" name="cancel" value="Zur&uuml;ck" title="Zur&uuml;ck" onclick="window.location.href='ShowGuestList';">
+			<input type="button" class="cancel" name="cancel" value="Zur&uuml;ck" title="Zur&uuml;ck" onclick="window.location.href='ShowGuestList?selectNone=true';">
 		#else
 			<!-- <input type="button" class="button" name="newperson" value="Dubletten anlegen" onclick="window.location.href='SavePerson?saveperson=true&person-nodupcheck=true&originalPersonId=$!originalPersonId';"> -->
 			<input type="button" name="cancel" value="Abbrechen &amp; zur&uuml;ck"  title="Abbrechen &amp; zur&uuml;ck" onclick="window.location.href='PersonDupcheckCancel';" class="mainButton">

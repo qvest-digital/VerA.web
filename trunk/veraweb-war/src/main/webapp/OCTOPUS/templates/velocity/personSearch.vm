@@ -216,7 +216,7 @@
                 #if($action == "guest")
                     <input type="submit" class="mainButton submit" name="search" value="Suchen" title="Suchen"> 
                     <input type="button" class="mainButton reset"  name="reset" value="Felder leeren" title="Felder leeren" onclick="clearForm();"> 
-                    <input type="button" class="mainButton cancel" name="cancel" value="Zur&uuml;ck" title="Zur&uuml;ck" onclick="window.location.href='ShowGuestList';"> 
+                    <input type="button" class="mainButton cancel" name="cancel" value="Zur&uuml;ck" title="Zur&uuml;ck" onclick="window.location.href='ShowGuestList?selectNone=true';"> 
                 #elseif($action == "host")
                     <input type="submit" class="mainButton submit" name="search" value="Suchen" title="Suchen"> 
                     <input type="button" class="mainButton reset"  name="reset" value="Felder leeren" title="Felder leeren" onclick="clearForm();"> 

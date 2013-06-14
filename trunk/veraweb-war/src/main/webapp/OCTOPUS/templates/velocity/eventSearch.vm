@@ -89,7 +89,7 @@
 					#if($action == "guest")
 						<input id="button.startSearch" type="submit" class="mainButton" value="Suchen"> 
 						<input type="reset"  class="mainButton" value="Felder leeren"> 
-						<input type="button" class="mainButton"  name="cancel" value="Zur&uuml;ck" onclick="window.location.href='ShowGuestList';">
+						<input type="button" class="mainButton"  name="cancel" value="Zur&uuml;ck" onclick="window.location.href='ShowGuestList?selectNone=true';">
 					#elseif($action == "addperson")
 						<input id="button.startSearch" type="submit" class="mainButton" value="Suchen"> 
 						<input type="reset"  class="mainButton" value="Felder leeren">
