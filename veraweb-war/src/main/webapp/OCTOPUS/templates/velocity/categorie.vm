@@ -1,5 +1,5 @@
 #set($activeMenu = "Administration")
-#set($title = "Stammdaten - Kategorien")
+#set($title = "Kategorien")
 #parse("inc/header.vm")	
 
 ## modified to allow all authorized user to read the categories as per change request for version 1.2.0
@@ -59,159 +59,160 @@ disableOtherBeans(id);
 #set($disableListSelect = true)
 #end
 
-<form id="formlist" name="formlist" action="Categorie" method="POST" #if($grants.isAdmin() || $grants.isPartialAdmin())onsubmit="return askResort();"#end>
 
-<table class="tab" border="0" cellspacing="0" cellpadding="0"><tr>
-	<td class="tableft">&nbsp;</td>
-	<td class="tabactiv"><span class="tabactiv">Kategorien</span></td>
-	<td class="tabright">&nbsp;</td>
-</tr></table>
+<div id="content_container">
 
+	<div id="breadcrumb" class="textRight marginBottom10">
+	    	<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Administration > Kategorien</span>
+	</div>
+		
+	<h1>Kategorien</h1>
 
-
-
-#if($listerrors.size() > 0)
-<vera-warn>
-	#foreach($error in $listerrors)
-		$error<br>
-	#end
-</vera-warn>
-#end
-
-<input type="hidden" name="start" value="">
-#if($grants.isAdmin() || $grants.isPartialAdmin())
-<input type="hidden" name="selectNone" value="true">
-<input type="hidden" name="doInsert" value="true">
-<input type="hidden" name="doUpdate" value="true">
-<input type="hidden" name="doRemove" value="true">
-<input type="hidden" name="modified" id="modified" value="false">
-#end
-#if($order)
-<input type="hidden" name="order" value="$order">
-#end
-#if($grants.isAdmin() || $grants.isPartialAdmin())
-<input type="hidden" id="dosave" name="dosave" value="">
-<input type="hidden" id="resort" name="resort" value="false">
-#end
-
-#if($grants.isAdmin() || $grants.isPartialAdmin())
-	#foreach($bean in $list)
-	<input type="hidden" name="list" value="$bean.id">
-	#end
-#end
-<div class="textRight mandatoryText">* = Pflichtfelder</div>
-
-<table>
-	<tr class="1" style="height: 20px;">
-#if($grants.isAdmin() || $grants.isPartialAdmin())
-		<th style="width: 20px;"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="Alle (de)markieren" #if($listselection.size() == $list.size()) checked#end/></th>
-		<th style="width: 60px;">ID</th>
-#end
-		<th><a href="?order=name">Bezeichnung*</a></th>
-		<th style="width: 100px;"><a href="?order=flags">Kennzeichen</a></th>
-		<th style="width: 100px;"><a href="?order=rank">Rang</a></th>
-		<th>Nur f&uuml;r Veranstaltung</th>
-	</tr>
-
-#if($grants.isAdmin() || $grants.isPartialAdmin())
-	<tr>
-		<td><input type="hidden" id="add-modified" name="add-modified" value="false"><input type="checkbox" id="add-select" name="add-select" value="true"  style="display: none;"></td>
-		<td><input type="hidden" name="add-id" value=""><em>neu</em></td>
-		<td><input type="text" name="add-name" id="add-name" value=""  style="width: 96%;" onchange="modifiedEvent('add')"></td>
-		<td>
-			<select id="add-flags" name="add-flags"  style="width: 98%;" onchange="modifiedEvent('add')">
-				<option value="0">Kategorie</option>
-				<option value="1">Ereignis</option>
-				<option value="99">Diplo. Corps</option>
-			</select>
-		</td>
-		<td><input type="text" name="add-rank" id="add-rank" value=""  style="width: 94px;" onchange="modifiedEvent('add')"></td>
-		<td>
-			<select id="add-event" name="add-event"  style="width: 99%;" onchange="modifiedEvent('add'); ">
-			<option value="">F&uuml;r alle Veranstaltungen</option>
-			#foreach($event in $allEvent)
-				<option value="$!event.id">$!message.text($event.shortname)</option>
+	<form id="formlist" name="formlist" action="Categorie" method="POST" #if($grants.isAdmin() || $grants.isPartialAdmin())onsubmit="return askResort();"#end>
+		#if($listerrors.size() > 0)
+		<vera-warn>
+			#foreach($error in $listerrors)
+				$error<br>
 			#end
-			</select>
-		</td>
-	</tr>
-#end
-
-#foreach($bean in $list)
-	#if ($velocityCount % 2 == 1)
-		#set($class = "list1")
-	#else
-		#set($class = "list2")
-	#end	
-	<tr class="$class">
-	#if($grants.isAdmin() || $grants.isPartialAdmin())
-		<td><input type="hidden" id="${bean.id}-modified" name="${bean.id}-modified" value="false"><input type="checkbox" name="${bean.id}-select" id="${bean.id}-select" value="true"></td>
-		<td><input type="hidden" name="${bean.id}-id" value="$!bean.id">$!{bean.id}</td>
-		<td><input type="text" name="${bean.id}-name" id="${bean.id}-name" value="$!message.text($bean.name)"  style="width: 96%;" onchange="modifiedEvent('$!bean.id')" #if(!($grants.isAdmin() || $grants.isPartialAdmin()))vera-disabled#end></td>
-		<td>
-			<select id="${bean.id}-flags" name="${bean.id}-flags"  style="width: 98%;" onchange="modifiedEvent('$!bean.id')">
-				<option #if($bean.flags && $bean.flags == 0) selected#end value="0">Kategorie</option>
-				<option #if($bean.flags && $bean.flags == 1) selected#end value="1">Ereignis</option>
-				<option #if($bean.flags && $bean.flags == 99) selected#end value="99">Diplo. Corps</option>
-			</select>
-		</td>
-		<td><input type="text" name="${bean.id}-rank" id="${bean.id}-rank" value="$!message.text($bean.rank)"  style="width: 94px;" onchange="modifiedEvent('$!bean.id')" #if(! ($grants.isAdmin() || $grants.isPartialAdmin()))vera-disabled#end></td>
-		<td>
-			<select id="${bean.id}-event" name="${bean.id}-event"  style="width: 99%;" onchange="modifiedEvent('$!bean.id')" #if(! ( $grants.isAdmin() || $grants.isPartialAdmin() ))vera-disabled#end>
-			<option value="">F&uuml;r alle Veranstaltungen</option>
-			#foreach($event in $allEvent)
-				<option #if($bean.event && $bean.event == $event.id) selected#end value="$!event.id">$!message.text($event.shortname)</option>
+		</vera-warn>
+		#end
+		
+		<input type="hidden" name="limit" value="" />
+		<input type="hidden" name="start" value="">
+		#if($grants.isAdmin() || $grants.isPartialAdmin())
+		<input type="hidden" name="selectNone" value="true">
+		<input type="hidden" name="doInsert" value="true">
+		<input type="hidden" name="doUpdate" value="true">
+		<input type="hidden" name="doRemove" value="true">
+		<input type="hidden" name="modified" id="modified" value="false">
+		#end
+		#if($order)
+		<input type="hidden" name="order" value="$order">
+		#end
+		#if($grants.isAdmin() || $grants.isPartialAdmin())
+		<input type="hidden" id="dosave" name="dosave" value="">
+		<input type="hidden" id="resort" name="resort" value="false">
+		#end
+		
+		#if($grants.isAdmin() || $grants.isPartialAdmin())
+			#foreach($bean in $list)
+			<input type="hidden" name="list" value="$bean.id">
 			#end
-			</select>
-		</td>
-	#else
-		<td>$!message.text($bean.name)</td>
-		<td>
-			#if($bean.flags && $bean.flags == 0)
-				Kategorie
-			#elseif($bean.flags && $bean.flags == 1)
-				Ereignis
+		#end
+		
+		<div class="textRight mandatoryText tabs">* = Pflichtfelder</div>
+		
+		<span class="inlineLabel" id="actionPanel">
+			<strong>Markierte Kategorie(n)</strong>
+			<input type="submit" name="remove" value="L&ouml;schen" class="button" title="Markierte Kategorie(n) l&ouml;schen" onclick="formlist.action='SaveCategories';return true;">
+			
+		</span>
+		
+		<table>
+			<tr>
+		#if($grants.isAdmin() || $grants.isPartialAdmin())
+				<th class="smallCell textCenter"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="Alle (de)markieren" #if($listselection.size() == $list.size()) checked#end/></th>
+				<th class="smallCell textCenter">ID</th>
+		#end
+				<th><a href="?order=name">Bezeichnung*</a></th>
+				<th><a href="?order=flags">Kennzeichen</a></th>
+				<th><a href="?order=rank">Rang</a></th>
+				<th>Veranstaltung(en)</th>
+			</tr>
+		
+		#if($grants.isAdmin() || $grants.isPartialAdmin())
+			<tr>
+				<td class="textCenter"><input type="hidden" id="add-modified" name="add-modified" value="false"><input type="checkbox" id="add-select" name="add-select" value="true" ></td>
+				<td class="textCenter"><input type="hidden" name="add-id" value=""><em>neu</em></td>
+				<td><input type="text" name="add-name" id="add-name" value="" onchange="modifiedEvent('add')"></td>
+				<td>
+					<select id="add-flags" name="add-flags" onchange="modifiedEvent('add')">
+						<option value="0">Kategorie</option>
+						<option value="1">Ereignis</option>
+						<option value="99">Diplo. Corps</option>
+					</select>
+				</td>
+				<td><input type="text" name="add-rank" id="add-rank" value="" onchange="modifiedEvent('add')"></td>
+				<td>
+					<select id="add-event" name="add-event" onchange="modifiedEvent('add'); ">
+					<option value="">F&uuml;r alle Veranstaltungen</option>
+					#foreach($event in $allEvent)
+						<option value="$!event.id">$!message.text($event.shortname)</option>
+					#end
+					</select>
+				</td>
+			</tr>
+		#end
+		
+		#foreach($bean in $list)
+			#if ($velocityCount % 2 == 1)
+				#set($class = "list1")
 			#else
-				Diplo. Corps
+				#set($class = "list2")
+			#end	
+			<tr class="$class">
+			#if($grants.isAdmin() || $grants.isPartialAdmin())
+				<td class="textCenter"><input type="hidden" id="${bean.id}-modified" name="${bean.id}-modified" value="false"><input type="checkbox" name="${bean.id}-select" id="${bean.id}-select" value="true"></td>
+				<td class="textCenter"><input type="hidden" name="${bean.id}-id" value="$!bean.id">$!{bean.id}</td>
+				<td><input type="text" name="${bean.id}-name" id="${bean.id}-name" value="$!message.text($bean.name)" onchange="modifiedEvent('$!bean.id')" #if(!($grants.isAdmin() || $grants.isPartialAdmin()))vera-disabled#end></td>
+				<td>
+					<select id="${bean.id}-flags" name="${bean.id}-flags" onchange="modifiedEvent('$!bean.id')">
+						<option #if($bean.flags && $bean.flags == 0) selected#end value="0">Kategorie</option>
+						<option #if($bean.flags && $bean.flags == 1) selected#end value="1">Ereignis</option>
+						<option #if($bean.flags && $bean.flags == 99) selected#end value="99">Diplo. Corps</option>
+					</select>
+				</td>
+				<td class="textCenter"><input type="text" name="${bean.id}-rank" id="${bean.id}-rank" value="$!message.text($bean.rank)" onchange="modifiedEvent('$!bean.id')" #if(! ($grants.isAdmin() || $grants.isPartialAdmin()))vera-disabled#end></td>
+				<td>
+					<select id="${bean.id}-event" name="${bean.id}-event" onchange="modifiedEvent('$!bean.id')" #if(! ( $grants.isAdmin() || $grants.isPartialAdmin() ))vera-disabled#end>
+					<option value="">F&uuml;r alle Veranstaltungen</option>
+					#foreach($event in $allEvent)
+						<option #if($bean.event && $bean.event == $event.id) selected#end value="$!event.id">$!message.text($event.shortname)</option>
+					#end
+					</select>
+				</td>
+			#else
+				<td>$!message.text($bean.name)</td>
+				<td>
+					#if($bean.flags && $bean.flags == 0)
+						Kategorie
+					#elseif($bean.flags && $bean.flags == 1)
+						Ereignis
+					#else
+						Diplo. Corps
+					#end
+				</td>
+				<td>$!message.text($bean.rank)</td>
+				<td>
+					#set($found=false)
+					#foreach($event in $allEvent)
+						#if($bean.event && $bean.event == $event.id)#set($found=true)$!message.text($event.shortname)#end
+					#end
+					#if(!$found)
+						Für alle Veranstaltungen
+					#end
+				</td>
 			#end
-		</td>
-		<td>$!message.text($bean.rank)</td>
-		<td>
-			#set($found=false)
-			#foreach($event in $allEvent)
-				#if($bean.event && $bean.event == $event.id)#set($found=true)$!message.text($event.shortname)#end
+			</tr>
+		#end
+			#set($itemName = "Kategorie")
+			#parse("inc/list-navi-new.vm")
+			#parse("inc/list-direct-new.vm")
+		</table>
+		
+		#if ($listparam.count == 0)
+			<br>Keine Daten gefunden.
+		#end
+
+		
+		## introduced onclick form action change in order to allow all authenticated users to view the categories as per change request for version 1.2.0
+		## cklein
+		## 2008-02-21
+			#if($grants.isAdmin() || $grants.isPartialAdmin())
+				<div class="textRight marginTop10" id="buttonPanel-bottom">
+					<input type="submit" name="save" value="Speichern" class="mainButton" onclick="formlist.action='SaveCategories';return true;">
+				</div>
 			#end
-			#if(!$found)
-				Für alle Veranstaltungen
-			#end
-		</td>
-	#end
-	</tr>
-#end
-</table>
-
-#if ($listparam.count == 0)
-	<br>Keine Daten gefunden.
-#end
-
-<div id="fixme" class="fixme1"><div class="fixme2"><div class="fixme3">
-
-	#parse("inc/list-navi.vm")
-	#parse("inc/list-direct.vm")
-
-## introduced onclick form action change in order to allow all authenticated users to view the categories as per change request for version 1.2.0
-## cklein
-## 2008-02-21
-	#if($grants.isAdmin() || $grants.isPartialAdmin())
-	<input type="submit" name="save" value="Speichern" class="submit" onclick="formlist.action='SaveCategories';return true;"> &nbsp;
-	<input type="submit" name="remove" value="L&ouml;schen" class="button" title="markierte Eintr&auml;ge entfernen" onclick="formlist.action='SaveCategories';return true;"> &nbsp;
-	#end
-
-</div></div></div>
-
-
-
-
-</form>
-
+	</form>
+</div>
 #parse("inc/footer.vm")
