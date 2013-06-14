@@ -257,7 +257,7 @@ public class GuestWorker {
 		+ "noteorga_p, language_p, gender_p, nationality_p, domestic_b, fk_color_p, createdby, created ) "
 		+ "select p.pk as fk_person, {0} as fk_event, g.fk_category as fk_category, g.fk_color "
 		+ "as fk_color, CASE WHEN {1} <> g.invitationtype AND {1} <> {2} THEN g.invitationtype ELSE {1} END as invitationtype, 0 as invitationstatus, "
-		+ "g.ishost as ishost, p.diplodate_a_e1 as diplodate, g.rank as rank, g.reserve as reserve, "
+		+ "0 as ishost, p.diplodate_a_e1 as diplodate, g.rank as rank, g.reserve as reserve, "
 		+ "g.tableno as tableno, g.seatno as seatno, g.orderno as orderno, p.notehost_a_e1 as notehost, "
 		+ "p.noteorga_a_e1 as noteorga, p.languages_a_e1 as \"language\", p.sex_a_e1 as gender, "
 		+ "p.nationality_a_e1 as nationality, p.domestic_a_e1 as domestic_a, 0 as "
