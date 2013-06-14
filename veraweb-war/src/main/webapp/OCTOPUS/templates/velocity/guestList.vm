@@ -199,6 +199,7 @@
 								$('#selectNone').val('false');
         						submitFormWithGivenAction('CreateMailinglist', $grants.mayWrite());
         					} else if (selectText == "Steuerdatei exportieren") {
+								$('#selectNone').val('false');
         						submitFormWithGivenAction('ShowExportGuestDoctype', $grants.mayExport()); 
         					}
 						} else {
