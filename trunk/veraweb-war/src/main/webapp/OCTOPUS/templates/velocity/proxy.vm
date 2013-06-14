@@ -65,7 +65,7 @@
 	<tbody>
 	<tr>
 		<th class="textCenter smallCell">
-			<input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="Alle (de)markieren"/>
+			<input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="Alle (de)markieren" #if($listselection.size() == $list.size()) checked#end/>
 		</th>
 		<th class="textCenter smallCell">ID</th>
 #if($proxiesFor != 'self')

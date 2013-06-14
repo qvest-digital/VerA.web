@@ -111,7 +111,7 @@
 			#if($grants.mayWrite())
 				<input id="button.save" type="submit" name="save" value="Speichern" title="Speichern" onclick="document.getElementById('formlist').action='SaveLocation';"  class="mainButton" />
 			 #end
-            <input id="button.back" type="button" name="cancel" class="mainButton" value="Zur&uuml;ck" title="Zur&uuml;ck zur &Uuml;bersicht" onclick="window.location.href='${paths.staticWeb}do/Location?start=0';" />
+            <input id="button.back" type="button" name="cancel" class="mainButton" value="Zur&uuml;ck" title="Zur&uuml;ck zur &Uuml;bersicht" onclick="window.location.href='${paths.staticWeb}do/Location?start=0&selectNone=true';" />
         </div>
     
     </form>

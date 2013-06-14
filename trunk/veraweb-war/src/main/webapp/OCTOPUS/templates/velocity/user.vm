@@ -49,7 +49,7 @@
 			#end
 			<table>
 				<tr style="height: 20px;">
-					<th class="smallCell textCenter"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="Alle (de)markieren"/></th>
+					<th class="smallCell textCenter"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="Alle (de)markieren" #if($listselection.size() == $list.size()) checked#end/></th>
 					<th class="smallCell textCenter">ID</th>
 			#if($domain == 'all')
 					<th><a href="?order=orgunit">Mandant</a></th>
