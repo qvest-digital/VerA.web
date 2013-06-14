@@ -145,7 +145,7 @@
             <form id="formlist" name="formlist" action="ShowGuestList" method="POST">
             <input type="hidden" name="start" value="">
 			<input type="hidden" name="limit" value="" />
-            <input type="hidden" name="selectNone" value="true">
+            <input type="hidden" name="selectNone" id="selectNone" value="true">
             <input type="hidden" name="doInsert" value="false">
             <input type="hidden" name="doUpdate" value="true">
             <input type="hidden" name="doRemove" value="true">
@@ -196,6 +196,7 @@
         					} else if (selectText == "Kategorien entfernen") {
         						unassignCategories();
         					} else if (selectText == "Verteiler erstellen") {
+								$('#selectNone').val('false');
         						submitFormWithGivenAction('CreateMailinglist', $grants.mayWrite());
         					} else if (selectText == "Steuerdatei exportieren") {
         						submitFormWithGivenAction('ShowExportGuestDoctype', $grants.mayExport()); 
