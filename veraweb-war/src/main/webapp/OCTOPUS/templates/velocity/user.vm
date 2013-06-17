@@ -151,15 +151,19 @@
 			 #end
 				</tr>
 			#end
+			
+    			#if ($listparam.count == 0)
+                    <tr>
+						<td colspan="99">Es wurden keine Daten gefunden</td>
+					</tr>
+    			#end
+    			
 			#set($itemName = "Benutzer")
 			#parse("inc/list-navi-new.vm")
 			#parse("inc/list-direct-new.vm")
 			
 			</table>
-			
-			#if ($listparam.count == 0)
-				<br>Keine Daten gefunden.
-			#end
+
 			
 			<div class="textRight marginTop10" id="buttonPanel-bottom">
 				<input type="submit" name="save" value="Speichern" class="mainButton">
