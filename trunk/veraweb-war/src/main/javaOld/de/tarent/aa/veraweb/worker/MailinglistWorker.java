@@ -138,6 +138,14 @@ public class MailinglistWorker {
 		// Personen hinzuf�gen
 		int savedAddresses = addMailinglist(cntx, mailinglist, freitextfeld, addresstype, locale, clause);
 		
+		if (savedAddresses == 0) {
+            cntx.setStatus("error");
+            mailinglist.addError("Das Anlegen eines neuen Verteilers ist fehlgeschlagen, da zu den ausgewählten Personen keine Adressdaten vorliegen.");
+    		if (mailinglist.id != null) {
+                database.execute(database.getDelete(mailinglist));
+    		}
+		}
+		
 		// Ergebnis ist Params eintragen
 		Map result = (Map)cntx.contentAsObject("mailinglistParams");
 		if (result == null) result = new HashMap();
