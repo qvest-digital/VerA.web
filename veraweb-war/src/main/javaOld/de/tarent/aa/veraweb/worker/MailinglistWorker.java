@@ -115,6 +115,7 @@ public class MailinglistWorker {
 				database.getBean("Doctype",
 				database.getSelect("Doctype").
 				where(Expr.equal("pk", freitextfeld)));
+		
 		if (doctype != null && doctype.locale != null) {
 			locale = doctype.locale;
 		}
@@ -172,7 +173,7 @@ public class MailinglistWorker {
 		String personMail = getMailColumn(addresstype, locale);
 		String personFax = getFaxColumn(addresstype, locale);
 		
-		Select select = SQL.SelectDistinct( database ).
+		Select select = SQL.Select(database).setDistinct(true).
 				from("veraweb.tguest").
 				selectAs("tguest.pk", "guest").
 				selectAs("tperson.pk", "person").
@@ -180,22 +181,20 @@ public class MailinglistWorker {
 				selectAs(personFax, "fax2").
 				selectAs("tperson.mail_a_e1", "mail3").
 				selectAs("tperson.fax_a_e1", "fax3").
-				joinLeftOuter("veraweb.tguest_doctype", "tguest.pk", "tguest_doctype.fk_guest").
-				joinLeftOuter("veraweb.tperson", "tperson.pk", "tguest.fk_person");
+				joinLeftOuter("veraweb.tperson", "tperson.pk", "tguest.fk_person").
+				joinLeftOuter("veraweb.tguest_doctype", "tguest.pk", "tguest_doctype.fk_guest");
 		if (doctype != null) {
 			select.selectAs("tguest_doctype.pk IS NOT NULL", "hasguestdoctype");
-			select.selectAs("tguest_doctype.fk_doctype", "doctype");
 			select.selectAs("tguest_doctype.mail", "mail1");
 			select.selectAs("tguest_doctype.fax", "fax1");
 			select.whereAndEq("tguest_doctype.fk_doctype", doctype.toString());
 		} else {
 			select.selectAs("FALSE", "hasguestdoctype");
-			select.selectAs("NULL", "doctype");
 			select.selectAs("NULL", "mail1");
 			select.selectAs("NULL", "fax1");
 		}
 		
-		select.where(new RawClause("(" + clause.clauseToString() + ") AND (" +
+		select.where(new RawClause("(" + clause.clauseToString(database) + ") AND (" +
 						"length(tguest_doctype.mail) != 0 OR " +
 						"length(tguest_doctype.fax) != 0 OR " +
 						"length(" + personMail + ") != 0 OR " +
