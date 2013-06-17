@@ -52,7 +52,7 @@
                                		<td class="textCenter"><input type="hidden" name="add-id" value=""><em>neu</em></td>
                                		<td><input type="text" name="add-name" value=""  onchange="setModified('add')"></td>
                                		<td>
-                               			<select name="add-gender"  style="width: 97%;" onchange="setModified('add')">
+                               			<select name="add-gender" onchange="setModified('add')">
                                				<option value="M">M&auml;nnlich</option>
                                				<option value="F">Weiblich</option>
                                			</select>
@@ -66,8 +66,8 @@
                                 		#set($class = "list2")
                                 	#end
                                 	<tr class="$class">
-                                		<td><input type="hidden" id="${bean.id}-modified" name="${bean.id}-modified" value="false"><input type="checkbox" name="${bean.id}-select" value="true"></td>
-                                		<td><input type="hidden" name="${bean.id}-id" value="$!bean.id">$!bean.id</td>
+                                		<td class="textCenter"><input type="hidden" id="${bean.id}-modified" name="${bean.id}-modified" value="false"><input type="checkbox" name="${bean.id}-select" value="true"></td>
+                                		<td class="textCenter"><input type="hidden" name="${bean.id}-id" value="$!bean.id">$!bean.id</td>
                                 		<td><input type="text" name="${bean.id}-name" value="$!message.text($bean.name)"  onchange="setModified('$!bean.id')"></td>
                                 		<td>
                                 			<select name="${bean.id}-gender"  style="width: 97%;" onchange="setModified('$!bean.id')">
@@ -75,7 +75,7 @@
                                 				<option value="F" #if($bean.gender && $bean.gender == "F") selected#end>Weiblich</option>
                                 			</select>
                                 		</td>
-                                		<td><a href="SalutationDoctype?start=0&id=${bean.id}">bearbeiten</a></td>
+                                		<td class="textCenter"><a href="SalutationDoctype?start=0&id=${bean.id}" class="noBorder"><img src=" ${paths.staticWeb}images/edit.png" alt="bearbeiten" title="bearbeiten" /></a></td>
                                 	</tr>
                                 	#end    
 									#if ($listparam.count == 0)
@@ -84,7 +84,7 @@
             				</table>
             
             				<div class="textRight marginTop10" id="buttonPanel-bottom">
-									<input type="submit" name="save" value="Speichern" title="Speichern" #if($grants.isAdmin()) class="submit" #else class="buttondisabled" vera-disabled #end>
+									<input type="submit" name="save" value="Speichern" title="Speichern" #if($grants.isAdmin()) class="mainButton" #else class="mainButton" vera-disabled #end>
             				</div>
 						
                             ##Rueckfrage beim Loeschen
