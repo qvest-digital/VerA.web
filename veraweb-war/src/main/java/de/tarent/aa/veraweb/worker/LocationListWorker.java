@@ -20,14 +20,11 @@
 package de.tarent.aa.veraweb.worker;
 
 import java.io.IOException;
-import java.lang.reflect.UndeclaredThrowableException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-
-import org.postgresql.util.PSQLException;
 
 import de.tarent.aa.veraweb.beans.Location;
 import de.tarent.dblayer.sql.clause.Clause;
@@ -85,20 +82,23 @@ public class LocationListWorker extends ListWorkerVeraWeb {
         
         List removeLocations = new ArrayList();
         
-        List locationList =
-                database.getBeanList("Location", select);
+        List locationList = database.getBeanList("Location", select);
         
         for (Iterator it = locationList.iterator(); it.hasNext(); ) {
             location = (Location)it.next();
+            
+            Integer countReferences = database.getCount(database.getCount("Event").where(Expr.equal("fk_location", location.id)));
         
-            if (cntx.requestAsBoolean("remove-location" + location.id).booleanValue()) {
+            if (countReferences != null && countReferences > 0) {
+                errors.add("Der Ort '" + location.name + "' kannt nicht gelöscht werden, da er von mindestenes einer Veranstaltung verwendet wird.");
+            } else if (cntx.requestAsBoolean("remove-location" + location.id).booleanValue()) {
                 removeLocations.add(location.id);
             } else {
                 questions.put("remove-location" + location.id, "Soll der Veranstaltungsort '" + location.name + "' wirklich gelöscht werden?");
             }
         }
 
-        if (!questions.isEmpty()) {
+        if (errors.isEmpty() && !questions.isEmpty()) {
             cntx.setContent("listquestions", questions);
         }
         
@@ -108,29 +108,20 @@ public class LocationListWorker extends ListWorkerVeraWeb {
         
         select = database.getSelectIds(location).where(clause);
 
-        if(!removeLocations.isEmpty()) {
-            try
-            {
+        if (!removeLocations.isEmpty()) {
+            try {
                 Map data;
                 for (Iterator it = database.getList(select, context).iterator(); it.hasNext(); ) {
                     data = (Map)it.next();
                     location.id = (Integer)data.get("id");
+                    
                     if (removeBean(cntx, location, context)) {
                         selection.remove(location.id);
                         count++;
                     }
                 }
                 context.commit();
-            } catch (UndeclaredThrowableException e) {
-            	Throwable undeclared = e.getUndeclaredThrowable();
-                if (undeclared != null && undeclared.getCause() instanceof PSQLException) {
-                	cntx.setContent("uncaughtPSQLException", undeclared.getCause());
-                } else {
-                	throw e;
-                }
-            }
-            catch ( BeanException e )
-            {
+            } catch ( BeanException e ) {
                 context.rollBack();
                 throw new BeanException( "Der Veranstaltungsort konnten nicht gelöscht werden.", e );
             }
