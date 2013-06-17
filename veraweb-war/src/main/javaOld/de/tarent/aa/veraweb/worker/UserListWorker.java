@@ -25,6 +25,7 @@ import java.util.List;
 import de.tarent.aa.veraweb.beans.OrgUnit;
 import de.tarent.aa.veraweb.beans.Proxy;
 import de.tarent.aa.veraweb.beans.User;
+import de.tarent.aa.veraweb.beans.UserConfig;
 import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.clause.Order;
 import de.tarent.dblayer.sql.clause.WhereList;
@@ -193,31 +194,45 @@ public class UserListWorker extends ListWorkerVeraWeb {
             }
             saveBean(cntx, bean, context);
             count++;
+            
+            /* set default user tab configuration for new user */
+            for (String configParamString : UserConfigWorker.PARAMS_STRING) {
+                UserConfig userConfig = new UserConfig();
+                userConfig.user = ((User) bean).id;
+                userConfig.key = configParamString;
+                userConfig.value = "1";
+                context.getDatabase().saveBean(userConfig);              
+            }
+            
         }
         return count;
     }
     
     /**
-     * Wird von {@link de.tarent.octopus.beans.BeanListWorker#saveList(OctopusContext)}
-     * aufgerufen und soll das �bergebene Bean als neuen Eintrag speichern.
+     * Wird von {@link de.tarent.octopus.beans.BeanListWorker#removeSelection(OctopusContext)}
+     * aufgerufen und soll das übergebene Bean löschen.
      * 
-     * @see #saveBean(OctopusContext, Bean)
+     * @see #removeBean(OctopusContext, Bean)
      * 
      * @param cntx Octopus-Kontext
      * @param errors kummulierte Fehlerliste
-     * @param bean einzuf�gendes Bean
+     * @param bean zu löschende Bean
      * @throws BeanException
      * @throws IOException
      */
    @Override
-protected boolean removeBean(OctopusContext cntx, Bean bean, TransactionContext context) throws BeanException, IOException {
+   protected boolean removeBean(OctopusContext cntx, Bean bean, TransactionContext context) throws BeanException, IOException {
 	    if (bean != null && ((User)bean).id != null) {
+	        Integer userId = ((User)bean).id;
+	        
+	        /* delete related proxy configurations */
 		    Proxy proxy = new Proxy();
-		    proxy.user = ((User)bean).id;
+		    proxy.user = userId;
 		    Database database = context.getDatabase();
-	    	context.execute(
-	    			database.getDelete("Proxy").where(
-	    			database.getWhere(proxy)));
+	    	context.execute(database.getDelete("Proxy").where(database.getWhere(proxy)));
+	    	
+	    	/* delete related user configurations */
+	    	context.execute(database.getDelete("UserConfig").where(Expr.equal("fk_user", userId)));
 	    }
     	return super.removeBean(cntx, bean, context);
     }
