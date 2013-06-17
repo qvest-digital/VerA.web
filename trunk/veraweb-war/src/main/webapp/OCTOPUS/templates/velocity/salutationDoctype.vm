@@ -4,13 +4,21 @@
 
 <form id="formlist" name="formlist" action="SalutationDoctype" method="POST">
 
-<table class="tab" border="0" cellspacing="0" cellpadding="0"><tr>
-	<td class="tableft">&nbsp;</td>
-	<td class="tabactiv"><span class="tabactiv">Anreden</span></td>
-	<td class="tabright">&nbsp;</td>
-</tr></table>
 
 
+<div id="content_container">
+
+<div id="breadcrumb marginBottom10" class="textRight">
+  <strong>Sie sind hier:</strong> <span><a href="index.html">Home</a>
+					> Administration > Anreden</span>
+			</div>
+
+<h1>Anreden</h1>
+
+<span id="actionPanel" class="inlineLabel">
+			  <strong>Markierte Anrede(n)</strong>
+			  <input type="submit" name="remove" value="Löschen" title="Markierte Anreden löschen" onclick="">
+			</span>
 
 
 <input type="hidden" name="id" value="$!salutation.id">
@@ -25,10 +33,12 @@
 #end
 <table>
 	<tr>
-		<th style="width: 20px;">&nbsp;</th>
-		<th style="width: 60px;">ID</th>
+		<th class="smallCell textCenter"><input type="checkbox"
+							title="Alle (de)markieren" id="toggleAllSelect"
+							name="toggleAllSelect"></th>
+		<th class="smallCell textCenter">ID</th>
 		<th>Bezeichnung</th>
-		<th style="width: 260px;">Dokumenttyp</th>
+		<th>Dokumenttyp</th>
 	</tr>
 #if ($allDoctype.iterator().hasNext())
 	<tr>
@@ -43,6 +53,9 @@
 			</select>
 		</td>
 	</tr>
+	<tr>
+					    <td colspan="5">Keine Daten gefunden</td>
+					</tr>
 #end
 	#foreach($bean in $list)
 	#if ($velocityCount % 2 == 1)
@@ -59,21 +72,22 @@
 			<input type="text" name="${bean.id}-name" value="$!message.text($bean.name)" class="textdisabled" style="width: 97%;" vera-disabled>
 		</td>
 	</tr>
+
 	#end
 </table>
 
-#if ($listparam.count == 0)
-	<br>Keine Daten gefunden.
-#end
+<div class="textRight" id="buttonPanel-bottom">
+					<input type="button" name="save" value="Speichern"
+						title="Speichern" class="mainButton">
+					<input type="button" name="save" value="Zurück" onclick="window.location.href='Salutation';"
+						title="Zurück" class="mainButton">
+				</div>
 
-<div id="fixme" class="fixme1"><div class="fixme2"><div class="fixme3">
 
 	#parse("inc/list-navi.vm")
 	#parse("inc/list-direct.vm")
 
-	<input type="submit" name="save" value="Speichern" class="submit"> &nbsp;
-	<input type="submit" name="remove" value="L&ouml;schen" class="button" title="markierte Eintr&auml;ge entfernen"> &nbsp;
-	<input type="button" name="cancel" value="Zur&uuml;ck" class="button" onclick="window.location.href='Salutation?selectNone=true';"> &nbsp;
+	
 
 </div></div></div>
 
