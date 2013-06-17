@@ -27,6 +27,7 @@ import java.util.List;
 import java.util.Map;
 
 import de.tarent.aa.veraweb.beans.Location;
+import de.tarent.dblayer.sql.Escaper;
 import de.tarent.dblayer.sql.clause.Clause;
 import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.clause.Where;
@@ -61,6 +62,18 @@ public class LocationListWorker extends ListWorkerVeraWeb {
     @Override
     protected void extendAll(final OctopusContext cntx, final Select select) throws BeanException, IOException {
         select.where(Expr.equal("tlocation.fk_orgunit", ((PersonalConfigAA) (cntx.personalConfig())).getOrgUnitId()));
+    }
+    
+    protected Integer getAlphaStart(OctopusContext cntx, String start) throws BeanException, IOException {
+        Database database = getDatabase(cntx);
+        Select select = database.getCount(BEANNAME);
+        extendWhere(cntx, select);
+        if (start != null && start.length() > 0) {
+            select.whereAnd(Expr.less("tlocation.locationname", Escaper.escape(start)));
+        }
+
+        Integer i = database.getCount(select);
+        return new Integer(i.intValue() - (i.intValue() % getLimit(cntx).intValue()));
     }
     
     /**
