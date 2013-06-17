@@ -56,7 +56,7 @@
 
 <span id="actionPanel" class="inlineLabel">
 	<strong >
-		Markierte Vertretung (en)
+		Markierte Vertretung(en)
     </strong>
 	    <input type="submit" name="remove" value="L&ouml;schen" class="mainButton" >
 </span>
@@ -167,7 +167,7 @@
 		<td ><input type="text" name="${bean.id}-proxy" value="$!message.text($bean.proxy)"  onchange="setModified('$!bean.id')" vera-disabled></td>
 		<td class="textCenter">
 			<div class="calenderContainer">
-				<input type="text" name="${bean.id}-validFrom" id="${bean.id}-validFrom" value="$!message.date("DATE", $bean.validFrom)" class="date" onchange="setModified('$!bean.id')">
+				<input type="text" name="${bean.id}-validFrom" id="${bean.id}-validFrom" value="$!message.date("DATE", $bean.validFrom)" class="datepicker width80" onchange="setModified('$!bean.id')">
 				<span id="show-${bean.id}-from" class="datepickerContainer"><img src="${paths.staticWeb}images/calendar.png" alt="Datum ausw&auml;hlen" title="Datum ausw&auml;hlen"></span>
 				<script type="text/javascript">
 				    Calendar.setup({
@@ -181,7 +181,7 @@
 		</td>
 		<td class="textCenter">
 			<div class="calenderContainer">
-				<input type="text" name="${bean.id}-validTill" id="${bean.id}-validTill" value="$!message.date("DATE", $bean.validTill)" class="date" onchange="setModified('$!bean.id')">
+				<input type="text" name="${bean.id}-validTill" id="${bean.id}-validTill" value="$!message.date("DATE", $bean.validTill)" class="datepicker width80" onchange="setModified('$!bean.id')">
 				<span id="show-${bean.id}-till" class="datepickerContainer"><img src="${paths.staticWeb}images/calendar.png" alt="Datum ausw&auml;hlen" title="Datum ausw&auml;hlen"></span>
 				<script type="text/javascript">
 				    Calendar.setup({
