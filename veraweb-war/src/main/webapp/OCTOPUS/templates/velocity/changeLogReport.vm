@@ -8,14 +8,19 @@
 
 <form action="ShowChangeLogReport" method="post" target="_blank" onSubmit="location.reload();return true;">
 
-<table class="tab" border="0" cellspacing="0" cellpadding="0"><tr>
-	<td class="tableft">&nbsp;</td>
-	<td class="tabactiv"><span class="tabactiv">Reporteinstellungen</span></td>
-	<td class="tabright">&nbsp;</td>
-</tr></table>
+<div id="content_container">
+    <div id="breadcrumb" class="textRight marginBottom10">
+        <strong>Sie sind hier:</strong> <span><a href="index.html">Home</a> > Administration > Reports</span>
+    </div>
+
+    <h1>Reports</h1>
 
 
-
+			<div class="contentBoxColored hinweis grayBorder marginBottom20">
+                <strong>Hinweis</strong>
+                <p>Abhängig vom ausgewählten Zeitraum und der daraus resultierenden Anzahl Daten, kann die Erzeugung des Berichts relativ lange dauern.
+                    Haben Sie bitte ein wenig Geduld.</p>
+            </div>
 
 #if($noLogDataAvailableMessage)
 <vera-warn>
@@ -24,24 +29,29 @@
 #end
 
 <input type="hidden" name="search" value="reset">
-<table class="form"><tr>
-	<td><label for="begin">Datum Beginn</label></td>
-	<td>
-		<input type="text" name="begin" value="${begin}" id="begin" class="date">
-		<span id="show-begin" class="datepickerContainer"><img src="${paths.staticWeb}images/calendar.png" alt="Datum ausw&auml;hlen" title="Datum ausw&auml;hlen"></span>
-		<script type="text/javascript">
-		    Calendar.setup({
-				inputField     :    "begin",
-				button         :    "show-begin",
-				ifFormat       :    "%d.%m.%Y",
-				showsTime      :    false
-			});
-		</script>
-	</td>
-</tr><tr>
-	<td><label for="end">Datum Ende</label></td>
-	<td>
-		<input type="text" name="end" value="${end}" id="end" class="date">
+<div class="table">
+	<div class="tableRow">
+    	<div class="tableCell">
+			<label for="begin">Datum Beginn:</label>
+		</div>
+    	<div class="tableCell">
+    		<span id="show-begin" class="datepickerContainer"><img src="${paths.staticWeb}images/calendar.png" alt="Datum ausw&auml;hlen" title="Datum ausw&auml;hlen"></span>
+    		<script type="text/javascript">
+    		    Calendar.setup({
+    				inputField     :    "begin",
+    				button         :    "show-begin",
+    				ifFormat       :    "%d.%m.%Y",
+    				showsTime      :    false
+    			});
+    		</script>
+    		<input type="text" name="begin" value="${begin}" id="begin" class="datepicker width80">
+		</div>
+	</div>
+	<div class="tableRow">
+		<div class="tableCell">
+			<label for="end">Datum Ende:</label>
+		</div>
+	<div class="tableCell">
 		<span id="show-end" class="datepickerContainer"><img src="${paths.staticWeb}images/calendar.png" alt="Datum ausw&auml;hlen" title="Datum ausw&auml;hlen"></span>
 		<script type="text/javascript">
 		    Calendar.setup({
@@ -51,28 +61,18 @@
 				showsTime      :    false
 			});
 		</script>
-	</td>
-</tr></table><br>
-
-<table style="margin-top: 15px;">
-	<tbody><tr class="list2warn" style="height: 18px;">
-		<td class="list2warn" style="text-align: center; width: 100px;"><strong>Hinweis</strong></td>
-
-		<td class="list1warn" style="padding-left: 8px;">
-			Abhängig vom ausgewählten Zeitraum und der daraus resultierenden Anzahl Daten, kann die Erzeugung des Berichts relativ lange dauern.<br/>Haben Sie bitte ein wenig Geduld.
-		</td>
-	</tr>
-</tbody></table>
-
-<div id="fixme" class="fixme1"><div class="fixme2"><div class="fixme3">
-
-	<input type="submit" class="submit" value="Report erzeugen"> &nbsp;
-	<input type="reset"  class="reset" value="Felder zurücksetzen"> &nbsp;
-
-</div></div></div>
+		<input type="text" name="end" value="${end}" id="end" class="datepicker width80">
+	</div>	
+</div>
 
 
+<div id="buttonPanel-bottom" class="marginTop10">
+	<input type="submit" class="mainButton" value="Report erzeugen"> 
+	<input type="reset"  class="mainButton" value="Felder zurücksetzen"> 
+</div>
 
+</div>
+</div>
 
 </form>
 
