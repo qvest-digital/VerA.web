@@ -540,7 +540,8 @@ nav a, #nav a {
 }
 
 .hinweis,
-.bgWhite {
+.bgWhite,
+.contentBoxColored .hinweis {
 	background-color: white;	
 	padding: 20px;
 }
