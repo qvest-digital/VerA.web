@@ -420,7 +420,7 @@ nav,
     padding-right: 30px;
     position: relative;
     width: 100%;
-    z-index:3;
+    z-index:1000;
 }
 
 nav ul, #nav ul {
