@@ -3,6 +3,7 @@
 #parse("inc/header.vm")
 
 <form id="formlist" name="formlist" action="" method="POST">
+<input type="hidden" name="limit" value="">
 <input type="hidden" name="start" value="">
 <input type="hidden" name="selectNone" value="true">
 <input type="hidden" name="doRemove" value="true">
