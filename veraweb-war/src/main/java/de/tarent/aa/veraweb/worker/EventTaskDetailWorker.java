@@ -131,11 +131,8 @@ public class EventTaskDetailWorker {
 			Task task = (Task) cntx.contentAsObject(PARAM_TASK);
 			if (task == null) {
 				task = (Task) request.getBean("Task", PARAM_TASK);
-				DateHelper.addTimeToDate(task.startdate,
-						cntx.requestAsString("task-starttime"),
-						task.getErrors());
-				DateHelper.addTimeToDate(task.enddate,
-						cntx.requestAsString("task-endtime"), task.getErrors());
+				DateHelper.addTimeToDate(task.startdate, task.starttime, task.getErrors());
+				DateHelper.addTimeToDate(task.enddate, task.endtime, task.getErrors());
 			}
 
 			Task oldTask = (Task) database.getBean("Task", task.getId(),

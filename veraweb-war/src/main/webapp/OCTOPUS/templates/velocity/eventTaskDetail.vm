@@ -116,7 +116,7 @@
                                 });
                             </script>
                             #end
-                            <input type="text" tabindex="3" name="task-starttime" id="task-starttime" #if($task-starthastime) value="$!message.date("TIME", $task.startdate)" #else value="" #end class="date" style="width: 45px;" onchange="setModified();"> Uhr</div>
+                            <input type="text" tabindex="3" name="task-starttime" id="task-starttime" #if($task-starthastime) value="$!message.date("TIME", $task.startdate)" #else value="$!message.plain($task.starttime)" #end class="date" style="width: 45px;" onchange="setModified();"> Uhr</div>
                         <div class="tableCell width30">
                             <label for="task-degreeofcompletion">Fertigstellung</label>
                             <select tabindex="6" name="task-degreeofcompletion" id="task-degreeofcompletion" class="width20" onchange="setModified();">
@@ -152,7 +152,7 @@
                                 });
                             </script>
                             #end
-                            <input type="text" tabindex="5" name="task-endtime" id="task-endtime" #if($task-endhastime) value="$!message.date("TIME", $task.enddate)" #else value="" #end class="date" style="width: 45px;" onchange="setModified();"> Uhr
+                            <input type="text" tabindex="5" name="task-endtime" id="task-endtime" #if($task-endhastime) value="$!message.date("TIME", $task.enddate)" #else value="$!message.plain($task.endtime)" #end class="date" style="width: 45px;" onchange="setModified();"> Uhr
                         </div>
                         <div class="tableCell">
                             <label for="task-priority">Priorit&auml;t</label>
@@ -233,20 +233,6 @@
         disableForm($('#formlist')[0]);
         #end
     });
-
-$(function(){
-    $('input[name="save"]').click(function(){
-    	if ($('#task-starttime').val().length > 0 &&  $('#task-startdate').val().length == 0) {
-    		alert('Bitte geben Sie für den Zeitpunkt ein Datum an.');
-    		return false;
-    	}
-    	if ($('#task-endtime').val().length > 0 &&  $('#task-enddate').val().length == 0) {
-    		alert('Bitte geben Sie für den Zeitpunkt ein Datum an.');
-    		return false;
-    	} 	
-    });
- });
-    
 </script>
 
 #parse("inc/footer.vm")

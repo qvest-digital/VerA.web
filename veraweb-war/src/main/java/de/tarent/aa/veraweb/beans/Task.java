@@ -103,6 +103,16 @@ public class Task extends AbstractHistoryBean {
      * Changed date.
      */
     public Timestamp changed;
+    
+    /**
+     *  Begin time. This bean properties is not mapped to database field.
+     */
+    public String starttime;
+    
+    /**
+     *  End time. This bean properties is not mapped to database field.
+     */
+    public String endtime;
 
     /**
      * Get id.
@@ -371,6 +381,11 @@ public class Task extends AbstractHistoryBean {
 
     @Override
     public void verify() throws BeanException {
+        if ((starttime != null && starttime.length() > 0 && startdate == null) 
+                || (endtime != null && endtime.length() > 0 && enddate == null)) {
+            addError("Die Eingabe einer Uhrzeit ohne ein zugehöriges Datum ist nicht zulässig.");
+        }
+        
         if (enddate != null) {
             if (enddate.before(new Date())) {
                 addError("Die Aufgabe kann nicht gespeichert werden. Das Enddatum muss in der Zukunft liegen.");
