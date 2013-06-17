@@ -78,7 +78,7 @@
                     			<select id="add-doctype" name="add-doctype" onchange="setModified('add')">
     								<option value="0">Bitte ausw&auml;hlen:</option>
                     				#foreach($doctype in $allDoctype)
-    									<option value="$doctype.id">$doctype.name</option>
+    									<option value="$doctype.id">$!message.plain($doctype.name)</option>
                     				#end
                     			</select>
                     		</td>
