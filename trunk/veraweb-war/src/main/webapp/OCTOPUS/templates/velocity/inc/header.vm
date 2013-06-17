@@ -14,7 +14,6 @@
 		<script type="text/javascript" src="${paths.staticWeb}scripts/dhtml-tabs.js"></script>
 		<script type="text/javascript" src="${paths.staticWeb}scripts/dhtml-popup.js"></script>
 		<script type="text/javascript" src="${paths.staticWeb}scripts/dhtml-dialogs.js"></script>
-        <script type="text/javascript" src="${paths.staticWeb}scripts/jquery-ui.js"></script>
 ##		Calendar (http://www.dynarch.com/projects/calendar/)
 		<script type="text/javascript" src="${paths.staticWeb}jscalendar/calendar.js"></script>
 		<script type="text/javascript" src="${paths.staticWeb}jscalendar/calendar-setup.js"></script>
@@ -24,9 +23,7 @@
 			document.createElement("nav");
 			document.createElement("section");
 			document.createElement("footer");
-		</script>
-		
-		<link rel="stylesheet" href="${paths.staticWeb}styles/jquery-ui.css" />		
+		</script>			
 		<link rel="stylesheet" type="text/css" href="${paths.staticWeb}jscalendar/calendar-win2k-cold-1.css" media="all">
 ##		WCH - Windowed Controls Hider (http://www.aplus.co.yu/wch/intro/)
 ##		<!--[if IE]>
