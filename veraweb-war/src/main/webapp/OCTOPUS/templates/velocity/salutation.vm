@@ -9,13 +9,18 @@
 <input type="hidden" name="start" value="">
 <input type="hidden" name="selectNone" value="true">
 
-<table class="tab" border="0" cellspacing="0" cellpadding="0"><tr>
-	<td class="tableft">&nbsp;</td>
-	<td class="tabactiv"><span class="tabactiv">Anreden</span></td>
-	<td class="tabright">&nbsp;</td>
-</tr></table>
+<div id="breadcrumb marginBottom10" class="textRight">
+				<strong>Sie sind hier:</strong> <span><a href="index.html">Home</a>
+					> Administration > Anreden</span>
+			</div>
 
+<h1>Anreden</h1>
 
+<span id="actionPanel" class="inlineLabel"> 
+  <strong>Markierte Anrede(n)</strong> 
+    <input type="submit" name="remove" value="Löschen"	title="Markierte Anrede(n) löschen" onclick="">
+</span>
+<br>
 
 
 #if($listerrors.size() > 0)
@@ -29,55 +34,83 @@
 #foreach($bean in $list)
 <input type="hidden" name="list" value="$bean.id">
 #end
-<table>
-	<tr>
-		<th style="width: 20px;"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="Alle (de)markieren" #if($listselection.size() == $list.size()) checked#end/></th>
-		<th style="width: 60px;">ID</th>
-		<th>Stammform</th>
-		<th style="width: 120px;">Geschlecht</th>
-		<th style="width: 80px;">&nbsp;</th>
-	</tr>
-	<tr>
-		<td><input type="hidden" id="add-modified" name="add-modified" value="false"><input type="checkbox" name="add-select" value="true"  style="display: none;"></td>
-		<td><input type="hidden" name="add-id" value=""><em>neu</em></td>
-		<td><input type="text" name="add-name" value=""  onchange="setModified('add')"></td>
-		<td>
-			<select name="add-gender"  style="width: 97%;" onchange="setModified('add')">
-				<option value="M">M&auml;nnlich</option>
-				<option value="F">Weiblich</option>
-			</select>
-		</td>
-		<td>&nbsp;</td>
-	</tr>
+<div id="main_content">
+
+				<table>
+					<tr>
+						<th class="smallCell textCenter"><input type="checkbox"
+							title="Alle (de)markieren" id="toggleAllSelect"
+							name="toggleAllSelect"></th>
+						<th class="smallCell textCenter">ID</th>
+						<th>Stammform</th>
+						<th class="textCenter width10">Geschlecht</th>
+						<th class="smallCell textCenter">Bearbeiten</th>
+					</tr>
+					<tr>
+						<td class="textCenter"><input type="hidden" id="add-modified"
+							name="add-modified" value="false"><input type="checkbox"
+							name="add-select" value="true"
+							style="display: none;"></td>
+						<td class="textCenter"><input type="hidden" name="add-id" value=""><em>neu</em></td>
+						<td><input type="text" name="add-name" value="" class="text"
+							onchange="setModified('add')"></td>
+						<td class="textCenter"><select name="add-gender" onchange="setModified('add')">
+								<option value="M">M&auml;nnlich</option>
+								<option value="F">Weiblich</option>
+						</select></td>
+						<td class="textCenter">&nbsp;</td>
+					</tr>
 	#foreach($bean in $list)
 	#if ($velocityCount % 2 == 1)
 		#set($class = "list1")
 	#else
 		#set($class = "list2")
 	#end
-	<tr class="$class">
-		<td><input type="hidden" id="${bean.id}-modified" name="${bean.id}-modified" value="false"><input type="checkbox" name="${bean.id}-select" value="true"></td>
-		<td><input type="hidden" name="${bean.id}-id" value="$!bean.id">$!bean.id</td>
-		<td><input type="text" name="${bean.id}-name" value="$!message.text($bean.name)"  onchange="setModified('$!bean.id')"></td>
-		<td>
-			<select name="${bean.id}-gender"  style="width: 97%;" onchange="setModified('$!bean.id')">
-				<option value="M">M&auml;nnlich</option>
-				<option value="F" #if($bean.gender && $bean.gender == "F") selected#end>Weiblich</option>
-			</select>
-		</td>
-		<td><a href="SalutationDoctype?start=0&id=${bean.id}">bearbeiten</a></td>
-	</tr>
+	<tr>
+						<td class="textCenter"><input type="hidden" id="1-modified" name="1-modified"
+							value="false"><input type="checkbox" name="1-select"
+							value="true"></td>
+						<td class="textCenter"><input type="hidden" name="1-id" value="1">1</td>
+						<td><input type="text" name="1-name" value="Frau"
+							class="text" onchange="setModified('1')"></td>
+						<td class="textCenter"><select name="1-gender" onchange="setModified('1')">
+								<option value="M">M&auml;nnlich</option>
+								<option value="F" selected>Weiblich</option>
+						</select></td>
+						<td class="textCenter"><a href="SalutationDoctype?start=0&id=1" class="noBorder"><img src=" ${paths.staticWeb}images/edit.png" alt="bearbeiten" title="bearbeiten" /></a></td>
+					</tr>
+					
+					<tr>
+						<td class="textCenter"><input type="hidden" id="2-modified" name="2-modified"
+							value="false"><input type="checkbox" name="2-select"
+							value="true"></td>
+						<td class="textCenter"><input type="hidden" name="2-id" value="2">2</td>
+						<td><input type="text" name="2-name" value="Herr"
+							class="text" onchange="setModified('2')"></td>
+						<td class="textCenter"><select name="2-gender" onchange="setModified('2')">
+								<option value="M">M&auml;nnlich</option>
+								<option value="F">Weiblich</option>
+						</select></td>
+						<td class="textCenter"><a href="SalutationDoctype?start=0&id=2" class="noBorder"><img src=" ${paths.staticWeb}images/edit.png" alt="bearbeiten" title="bearbeiten" /></a></td>
+					</tr>
+				</table>
+
+				<div class="textRight marginTop10" id="buttonPanel-bottom">
+					<input type="button" name="save" value="Speichern"
+						title="Speichern" class="mainButton">
+				</div>
+
+			</div>
+		</div>
+					
 	#end
+	
 </table>
 
 #if ($listparam.count == 0)
 	<br>Keine Daten gefunden.
 #end
 
-<div id="fixme" class="fixme1"><div class="fixme2"><div class="fixme3">
-
-	#parse("inc/list-navi.vm")
-	#parse("inc/list-direct.vm")
 
 ##Rueckfrage beim Loeschen
 <script type="text/javascript">
