@@ -1,11 +1,7 @@
 #set($title = "Ein Fehler ist aufgetreten.")
 #parse("inc/header.vm")	
 
-<table class="tab" border="0" cellspacing="0" cellpadding="0"><tr>
-	<td class="tableft">&nbsp;</td>
-	<td class="tabactiv"><span class="tabactiv">Fehlermeldung</span></td>
-	<td class="tabright">&nbsp;</td>
-</tr></table>
+<h1>Fehlermeldung</h1>
 
 
 
@@ -76,13 +72,13 @@
 </table>
 #end
 
-<h1>Fehler</h1>
-Bei der Bearbeitung Ihrer Anfrage ist ein Fehler aufgetreten.
-Bitte melden Sie dies Ihrem Administrator.<br><br>
-<h1>Details</h1>
+<h2 class="marginBottom10">Fehler</h2>
+<p>Bei der Bearbeitung Ihrer Anfrage ist ein Fehler aufgetreten.
+Bitte melden Sie dies Ihrem Administrator.</p>
+<h2 class="marginTop30 marginBottom10">Details</h2>
 #printStackTrace($status.exception)
 #else
-Unbekannter Fehler.
+<p>Unbekannter Fehler.</p>
 #end
 
 
