@@ -143,7 +143,7 @@
 							<option value="0" #if( $search.categoriesSelection && $search.categoriesSelection.size() == 1 && $search.categoriesSelection.get(0).intValue() == 0 ) selected #end>Keine Kategorie zugeordnet</option>
 							#foreach($categorie in $allCategorie)
 							    #if((!$categorie.flags) || ($categorie.flags != 1))
-							    <option value="$!categorie.id" #if($search.categoriesSelection && $search.categoriesSelection.contains( $categorie.id )) selected #end>$!categorie.name</option>
+							    <option value="$!categorie.id" #if($search.categoriesSelection && $search.categoriesSelection.contains( $categorie.id )) selected #end>$!message.plain($!categorie.name)</option>
 							    #end
 							#end
 							</select>
@@ -156,7 +156,7 @@
 							<option value="">Alle</option>
 							<option value="0">Kein Arbeitsbereich zugeordnet</option>
 							#foreach($workArea in $allWorkArea)
-							    <option value="$!workArea.id" #if($search.workarea == $!workArea.id) selected #end>$!workArea.name</option>
+							    <option value="$!workArea.id" #if($search.workarea == $!workArea.id) selected #end>$!message.plain($!workArea.name)</option>
 							#end
 							</select>
 
@@ -168,7 +168,7 @@
 							<option value="">Alle</option>
 							#foreach($categorie in $allCategorie)
 							    #if($categorie.flags == 1)
-							    <option value="$!categorie.id" #if($search.categorie2 == $!categorie.id) selected #end>$!categorie.name</option>
+							    <option value="$!categorie.id" #if($search.categorie2 == $!categorie.id) selected #end>$!message.plain($!categorie.name)</option>
 							    #end
 							#end
 							</select>

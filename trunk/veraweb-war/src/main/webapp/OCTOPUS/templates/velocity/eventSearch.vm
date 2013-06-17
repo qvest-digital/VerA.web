@@ -73,7 +73,7 @@
                                 <select name="location" id="location">
                                     <option value=""></option> ##get all locations
                                     #foreach($location in $allLocation)
-                                        <option value="$location.get('id')">$location.get("name")</option>
+                                        <option value="$location.get('id')">$!message.plain($location.get("name"))</option>
                                     #end
                                 </select>
 							</div>

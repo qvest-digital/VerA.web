@@ -118,7 +118,7 @@
 										<select name="guest-category" id="guest-category" onchange="setModified('categorie')">
 											<option value="">Keine</option>
 											#foreach($category in $allCategorie)
-												<option value="$category.id" #if($guest.category == $category.id) selected#end>$category.name</option>
+												<option value="$category.id" #if($guest.category == $category.id) selected#end>$!message.plain($category.name)</option>
 											#end
 										</select>
 									</div>									
