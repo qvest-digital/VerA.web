@@ -58,7 +58,7 @@
 		
 		#if($grants.mayWrite())
 		<span class="textRight floatRight" id="buttonPanel-top">
-          	<input type="button" id="new" name="new" value="Neuen Veranstaltugsort hinzuf&uuml;gen" title="Neuen Veranstaltugsort hinzuf&uuml;gen"  class="mainButton" onclick="window.location.href='CreateLocation';" />
+          	<input type="button" id="new" name="new" value="Neuen Veranstaltungsort hinzuf&uuml;gen" title="Neuen Veranstaltungsort hinzuf&uuml;gen"  class="mainButton" onclick="window.location.href='CreateLocation';" />
 		</span>
 		#end
 		
