@@ -9,11 +9,12 @@
 <form id="formlist" name="formlist" action="" method="POST">
 <input type="hidden" name="save" value="true">
 
-<table class="tab" border="0" cellspacing="0" cellpadding="0"><tr>
-	<td class="tableft">&nbsp;</td>
-	<td class="tabactiv"><span class="tabactiv">Postausgang</span></td>
-	<td class="tabright">&nbsp;</td>
-</tr></table>
+<div id="breadcrumb marginBottom10" class="textRight">
+				<strong>Sie sind hier:</strong> <span><a href="index.html">Home</a>
+					> Administration > Postausgang</span>
+			</div>
+
+<h1>Postausgang</h1>
 
 
 
@@ -84,10 +85,17 @@
 
 	#parse("inc/list-navi.vm")
 	#parse("inc/list-direct.vm")
+	
+	<div class="textRight" id="buttonPanel-bottom">
+					<input type="button" name="save" value="Speichern"
+						title="Speichern" class="mainButton">
+					<input type="button" name="save" value="Zurück"
+						title="Zurück" class="mainButton" onclick="window.location.href='MailOutboxList';">
+				</div>
 
-	<input type="submit" name="submit" value="Speichern" class="button"> &nbsp;
 	<input type="reset"  name="clear"  value="Zur&uuml;cksetzen" class="reset"> &nbsp;
-	<input type="button" name="cancel" value="Zur&uuml;ck" class="button" onclick="window.location.href='MailOutboxList';"> &nbsp;
+	
+	
 
 </div></div></div>
 
