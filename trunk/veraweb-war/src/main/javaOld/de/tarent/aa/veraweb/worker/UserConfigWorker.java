@@ -44,7 +44,7 @@ import de.tarent.octopus.server.OctopusContext;
  * @version $Revision: 1.1 $
  */
 public class UserConfigWorker {
-	private static final String PARAMS_STRING[] = {
+	public static final String PARAMS_STRING[] = {
 		"personTab", "personMemberTab",
 		"personAddresstypeTab", "personLocaleTab" };
 	private static final String PARAMS_BOOLEAN[] = {
@@ -128,33 +128,16 @@ public class UserConfigWorker {
 		
 		Database database = new DatabaseVeraWeb(cntx);
 		Integer userId = ((PersonalConfigAA)cntx.personalConfig()).getVerawebId();
-		Map config = (Map)cntx.contentAsObject("config");
 		Map userConfig = (Map)cntx.contentAsObject("userConfig");
 		
 		for (int i = 0; i < PARAMS_STRING.length; i++) {
 			String key = PARAMS_STRING[i];
 			String value = cntx.requestAsString(key);
-//			String global = (String)config.get(key);
 			
 			if (value == null) {
 			    continue;
 			}
-			
-//			if (global == null) {
-				// Global ist nichts gesetzt, Standard.
-//				if (value.equals("1")) {
-//					removeUserSetting(database, userId, userConfig, key);
-//				} else if (!value.equals("1")) {
-					setUserSetting(database, userId, userConfig, key, value);
-//				}
-//			} else {
-//				// Global wurde dies gesetzt.
-//				if (global.equals(value)) {
-//					removeUserSetting(database, userId, userConfig, key);
-//				} else {
-//					setUserSetting(database, userId, userConfig, key, value);
-//				}
-//			}
+			setUserSetting(database, userId, userConfig, key, value);
 		}
 		
 		for (int i = 0; i < PARAMS_BOOLEAN.length; i++) {
