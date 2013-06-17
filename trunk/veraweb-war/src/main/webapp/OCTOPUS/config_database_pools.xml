@@ -30,7 +30,7 @@
 				<param name="portNumber" value="5432" />
 				<param name="databaseName" value="veraweb" />
 				<param name="user" value="veraweb" />
-				<param name="password" value="veraweb" />
+				<param name="password" value="admin" />
 				
 				<!--
 				The maximum number of active connections. Requests for a new Connection
