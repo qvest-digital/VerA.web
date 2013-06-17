@@ -420,7 +420,6 @@ nav,
     padding-right: 30px;
     position: relative;
     width: 100%;
-    z-index:1000;
 }
 
 nav ul, #nav ul {
@@ -434,6 +433,7 @@ nav li, #nav li {
     line-height: 35px;
     padding: 0 15px;
     position: relative;
+    z-index:1000;
 }
 
 nav li ul, #nav li ul {
