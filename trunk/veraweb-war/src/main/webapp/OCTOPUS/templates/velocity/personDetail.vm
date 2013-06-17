@@ -55,7 +55,7 @@
     <input type="hidden" name="person-id" value="$!person.id"/>
     <input type="hidden" name="person-orgunit" value="$!person.orgunit"/>
     <input type="hidden" name="person-deleted" #if($person.deleted && $person.deleted == "t") value="t" #else value="f" #end/>
-    <input type="hidden" name="person-importsource" value="$!person.importsource"/>
+    <input type="hidden" name="person-importsource" value="$!message.plain($person.importsource)"/>
     #if($octopusRequest.task == "LoadPersonCompany" || $octopusRequest.forcedupcheck == "true")
 		<input type="hidden" name="person-modified" id="modified" value="true"/>
     #else
