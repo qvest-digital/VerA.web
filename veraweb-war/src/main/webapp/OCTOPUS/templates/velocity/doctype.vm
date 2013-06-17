@@ -55,7 +55,7 @@
 					<th class="smallCell textCenter" title="Ist Standard f&uuml;r Steuerdatei">SD</th>
 				</tr>
 				<tr>
-					<td class="textCenter"><input type="hidden" id="add-modified" name="add-modified" value="false"><input type="checkbox" name="add-select" value="true"></td>
+					<td class="textCenter"><input type="hidden" id="add-modified" name="add-modified" value="false"><input type="checkbox" name="add-select" value="true" style="display: none;"></td>
 					<td class="textCenter"><input type="hidden" name="add-id" value=""><em>neu</em></td>
 					<td class="textCenter"><input type="text" name="add-name" value="" onchange="setModified('add')"></td>
 					<td>
@@ -121,6 +121,12 @@
 					<td class="textCenter"><input type="checkbox" name="${bean.id}-isdefault" value="true" #if($bean.isdefault) checked #end  title="Ist Standard f&uuml;r Steuerdatei" onchange="setModified('$!bean.id'); onlyOneStandard('$!bean.id');"></td>
 				</tr>
 				#end
+    		
+    			#if ($listparam.count == 0)
+                    <tr>
+						<td colspan="99">Es wurden keine Daten gefunden</td>
+					</tr>
+    			#end
 				
 				#set($itemName = "Dokumenttypen")
 				#parse("inc/list-navi-new.vm")
@@ -137,10 +143,6 @@
 	   			 <p><strong>Format:</strong> OOo 1.1 steht f&uuml;r OpenOffice 1.1 (sxc-Datei) und OOo 2.0 f&uuml;r OpenOffice 2.0 (ods-Datei).</p>
 	  			 <p><strong>Kennzeichen:</strong> Kennz. 50 und 99 werden autom. neuen Veranstaltungen hinzugef&uuml;gt. Beim Kennz. 50 wird kein Freitextfeld erzeugt.</p>
 			</div>
-			
-			#if ($listparam.count == 0)
-				<br>Keine Daten gefunden.
-			#end
 		
 			##Rueckfrage beim Loeschen
 			<script type="text/javascript">
