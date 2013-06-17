@@ -10,7 +10,7 @@
 <input type="hidden" name="save" value="true">
 
 <div id="content_container">
-    <div id="breadcrumb" class="textRight">
+    <div id="breadcrumb" class="textRight marginBottom10">
         <strong>Sie sind hier:</strong> <span><a href="index.html">Home</a> > Administration > E-Mail-Vorlage</span>
     </div>
 
@@ -46,12 +46,12 @@
 	<td><input type="text" id="maildraft-subject" name="maildraft-subject" value="$!message.text($maildraft.subject)"  ></td>
 </tr><tr>
 	<td class="bold width10"><label for="maildraft-text">Text*</label></td>
-	<td><textarea cols="20" rows="20" id="maildraft-text" class="width100" name="maildraft-text" >$!message.textarea($maildraft.text)</textarea></td>
+	<td><textarea cols="50" rows="20" id="maildraft-text" class="width100" name="maildraft-text" >$!message.textarea($maildraft.text)</textarea></td>
 </tr><tr>
 	<td class="bold width10"><label for="platzhalter">Platzhalter</label></td>
 	<td>
-			<div>
-			<select id="platzhalter" name="platzhalter" >
+		<div class="">
+			<select id="platzhalter" name="platzhalter" class="width15" >
 				<option value="firstname">Vorname</option>
 				<option value="lastname">Nachname</option>
 				<option value="salutation">Anrede</option>
@@ -72,8 +72,8 @@
 				<option value="email">E-Mail</option>
 				<option value="url">www</option>
 			</select>
-				<input type="button" name="add" value="Hinzuf&uuml;gen" class="button" onclick="addPlatzhalter(this);">
-			</div>	
+				<input type="button" name="add" value="Hinzuf&uuml;gen" class="" onclick="addPlatzhalter(this);">
+		</div>	
 	</td>
 </tr></table>
 
