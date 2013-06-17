@@ -5,7 +5,7 @@
 <form id="formlist" name="formlist" action="Config" method="POST">
 	
 <div id="content_container">
-        <div id="breadcrumb" class="textRight">
+        <div id="breadcrumb" class="textRight marginBottom10">
             <strong>Sie sind hier:</strong> <span><a href="index.html">Home</a> > Administration > Programmeinstellungen </span>
         </div>
 <h1>Programmeinstellungen</h1>
