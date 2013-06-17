@@ -30,7 +30,6 @@ import de.tarent.aa.veraweb.beans.Doctype;
 import de.tarent.aa.veraweb.beans.Event;
 import de.tarent.aa.veraweb.beans.EventDoctype;
 import de.tarent.aa.veraweb.beans.Guest;
-import de.tarent.aa.veraweb.beans.Location;
 import de.tarent.aa.veraweb.beans.Person;
 import de.tarent.aa.veraweb.beans.Task;
 import de.tarent.aa.veraweb.beans.facade.EventConstants;
