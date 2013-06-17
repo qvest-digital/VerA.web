@@ -125,10 +125,10 @@
 									<div class="tableCell">
 										<label for="showguest-ishost">Ist Gastgeber:</label>
 										#if($guest.ishost == 1)
-											<input type="checkbox" name="showguest-ishost" value="true" checked readonly vera-disabled id="showguest-ishost">
+											<input type="checkbox" name="showguest-ishost" value="true" checked readonly disabled id="showguest-ishost">
                             				<input type="hidden" name="guest-ishost" value="1">
                             			#else
-                            				<input type="checkbox" name="showguest-ishost" value="false" readonly vera-disabled id="showguest-ishost">
+                            				<input type="checkbox" name="showguest-ishost" value="false" readonly disabled id="showguest-ishost">
                             				<input type="hidden" name="guest-ishost" value="0">
                             			#end
 									</div>		
