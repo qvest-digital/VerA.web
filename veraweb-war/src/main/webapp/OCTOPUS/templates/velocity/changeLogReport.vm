@@ -49,7 +49,7 @@
 	</div>
 	<div class="tableRow">
 		<div class="tableCell">
-			<label for="end">Datum Ende:</label>
+			<label for="end">Datum Ende</label>
 		</div>
 	<div class="tableCell">
 		<span id="show-end" class="datepickerContainer"><img src="${paths.staticWeb}images/calendar.png" alt="Datum ausw&auml;hlen" title="Datum ausw&auml;hlen"></span>
