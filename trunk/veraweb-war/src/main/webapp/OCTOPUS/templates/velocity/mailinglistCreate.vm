@@ -11,7 +11,7 @@
 
 	<div id="main_content" class="contentBoxColored grayBorder marginBottom10">
 		
-		<div class="textRight mandatoryText bold">* = Pflichtfelder</div>
+		<div class="textRight mandatoryText">* = Pflichtfelder</div>
 
     		<form action="SaveMailinglist" name="mailinglists" method="POST" onsubmit="htmlWait();">
     		

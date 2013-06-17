@@ -30,7 +30,7 @@
 <input type="hidden" name="maildraft-id" value="$!maildraft.id">
 	
 	
-<div class="textRight mandatoryText bold">* = Pflichtfelder</div>	
+<div class="textRight mandatoryText">* = Pflichtfelder</div>	
 
 <table class="form"><tr>
 	<td><label for="show-id">ID</label></td>
