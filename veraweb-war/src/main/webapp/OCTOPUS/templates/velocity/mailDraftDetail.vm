@@ -9,11 +9,14 @@
 <form id="formlist" name="formlist" action="" method="POST">
 <input type="hidden" name="save" value="true">
 
-<table class="tab" border="0" cellspacing="0" cellpadding="0"><tr>
-	<td class="tableft">&nbsp;</td>
-	<td class="tabactiv"><span class="tabactiv">E-Mail-Vorlage</span></td>
-	<td class="tabright">&nbsp;</td>
-</tr></table>
+<div id="content_container">
+    <div id="breadcrumb" class="textRight">
+        <strong>Sie sind hier:</strong> <span><a href="index.html">Home</a> > Administration > E-Mail-Vorlage</span>
+    </div>
+
+    <h1>E-Mail-Vorlage</h1>
+
+
 
 
 
@@ -30,50 +33,47 @@
 <input type="hidden" name="maildraft-id" value="$!maildraft.id">
 	
 	
-<div class="textRight mandatoryText">* = Pflichtfelder</div>	
+<div class="textRight bold">* = Pflichtfelder</div>
 
 <table class="form"><tr>
-	<td><label for="show-id">ID</label></td>
+	<td class="bold width10"><label for="show-id">ID</label></td>
 	<td><input type="text" id="show-id" name="show-id" value="$!message.text($maildraft.id)" class="id" vera-disabled></td>
 </tr><tr>
-	<td><label for="maildraft-name">Name*</label></td>
+	<td class="bold width10"><label for="maildraft-name">Name*</label></td>
 	<td><input type="text" id="maildraft-name" name="maildraft-name" value="$!message.text($maildraft.name)" ></td>
 </tr><tr>
-	<td><label for="maildraft-subject">Betreff*</label></td>
+	<td class="bold width10"><label for="maildraft-subject">Betreff*</label></td>
 	<td><input type="text" id="maildraft-subject" name="maildraft-subject" value="$!message.text($maildraft.subject)"  ></td>
 </tr><tr>
-	<td><label for="maildraft-text">Text*</label></td>
-	<td><textarea cols="20" rows="20" id="maildraft-text" name="maildraft-text" >$!message.textarea($maildraft.text)</textarea></td>
+	<td class="bold width10"><label for="maildraft-text">Text*</label></td>
+	<td><textarea cols="20" rows="20" id="maildraft-text" class="width100" name="maildraft-text" >$!message.textarea($maildraft.text)</textarea></td>
 </tr><tr>
-	<td><label for="platzhalter">Platzhalter</label></td>
+	<td class="bold width10"><label for="platzhalter">Platzhalter</label></td>
 	<td>
-		<table class="form" cellspacing="0" cellpadding="0"><tr>
-			<td>
-				<select id="platzhalter" name="platzhalter" >
-					<option value="firstname">Vorname</option>
-					<option value="lastname">Nachname</option>
-					<option value="salutation">Anrede</option>
-					<option value="title">Akad. Titel</option>
-					<option value="function">Amtsbez./Funktion</option>
-					<option value="company">Firma/Institution</option>
-					<option value="street">Stra&szlig;e</option>
-					<option value="zipcode">PLZ</option>
-					<option value="city">Ort</option>
-					<option value="country">Land</option>
-					<option value="poboxzipcode">Postfach-PLZ</option>
-					<option value="pobox">Postfach-Nummer</option>
-					<option value="suffix1">$!config.suffix1</option>
-					<option value="suffix2">$!config.suffix2</option>
-					<option value="phone">Telefon</option>
-					<option value="fax">Fax</option>
-					<option value="mobile">Mobil</option>
-					<option value="email">E-Mail</option>
-					<option value="url">www</option>
-				</select>&nbsp;
-			</td>
-			<td style="width: 10px;">&nbsp;&nbsp;&nbsp;</td>
-			<td style="width: 130px;"><input type="button" name="add" value="Hinzuf&uuml;gen" class="button" onclick="addPlatzhalter(this);"></td>
-		</tr></table>
+			<div>
+			<select id="platzhalter" name="platzhalter" >
+				<option value="firstname">Vorname</option>
+				<option value="lastname">Nachname</option>
+				<option value="salutation">Anrede</option>
+				<option value="title">Akad. Titel</option>
+				<option value="function">Amtsbez./Funktion</option>
+				<option value="company">Firma/Institution</option>
+				<option value="street">Stra&szlig;e</option>
+				<option value="zipcode">PLZ</option>
+				<option value="city">Ort</option>
+				<option value="country">Land</option>
+				<option value="poboxzipcode">Postfach-PLZ</option>
+				<option value="pobox">Postfach-Nummer</option>
+				<option value="suffix1">$!config.suffix1</option>
+				<option value="suffix2">$!config.suffix2</option>
+				<option value="phone">Telefon</option>
+				<option value="fax">Fax</option>
+				<option value="mobile">Mobil</option>
+				<option value="email">E-Mail</option>
+				<option value="url">www</option>
+			</select>
+				<input type="button" name="add" value="Hinzuf&uuml;gen" class="button" onclick="addPlatzhalter(this);">
+			</div>	
 	</td>
 </tr></table>
 
@@ -81,19 +81,19 @@
 	<br>Keine Daten gefunden.
 #end
 
-<div id="fixme" class="fixme1"><div class="fixme2"><div class="fixme3">
 
-	#parse("inc/list-navi.vm")
-	#parse("inc/list-direct.vm")
+	#parse("inc/list-navi-new.vm")
+	#parse("inc/list-direct-new.vm")
+	
+<div id="buttonPanel-bottom" class="textRight marginTop10">
+	<input type="submit" name="submit" value="Speichern" class="mainButton"> 
+	<input type="reset"  name="clear"  value="Zur&uuml;cksetzen" class="mainButton"> 
+	<input type="button" name="cancel" value="Zur&uuml;ck" class="mainButton" onclick="window.location.href='MailDraftList?selectNone=true';">
 
-	<input type="submit" name="submit" value="Speichern" class="button"> &nbsp;
-	<input type="reset"  name="clear"  value="Zur&uuml;cksetzen" class="reset"> &nbsp;
-	<input type="button" name="cancel" value="Zur&uuml;ck" class="button" onclick="window.location.href='MailDraftList?selectNone=true';"> &nbsp;
-
-</div></div></div>
+</div>
 
 
-
+</div>
 
 </form>
 
