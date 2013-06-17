@@ -52,7 +52,7 @@
         </div>
         #end
         
-        <div class="textRight mandatoryText bold">* = Pflichtfelder</div>
+        <div class="textRight mandatoryText">* = Pflichtfelder</div>
         
         <table>
         	<tr>
