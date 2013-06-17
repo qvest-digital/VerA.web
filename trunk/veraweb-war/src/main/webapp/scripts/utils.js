@@ -229,7 +229,7 @@ var showInfo, showWarning, showSuccess;
      * @returns {*|jQuery|HTMLElement}
      */
     var createInfoHtml = function (text) {
-        return $('<div class="contentBoxColored hinweis grayBorder marginBottom20"><strong>Hinweis</strong><p>'
+        return $('<div class="hinweis grayBorder marginBottom20 notBold"><strong>Hinweis</strong><p>'
             + text + '</p></div>');
     };
 
