@@ -479,6 +479,7 @@ nav span, #nav span {
 
 nav .active, #nav .active {
     background-color: #BDBDBD;
+    z-index: 999;
 }
 
 nav .active span, #nav .active span {
@@ -540,10 +541,8 @@ nav a, #nav a {
 }
 
 .hinweis,
-.bgWhite,
 .contentBoxColored .hinweis {
-	background-color: white;	
-	padding: 20px;
+	background-color: white !important;	
 }
 
 .hinweis {padding:10px 20px;}
@@ -773,6 +772,9 @@ input.small50px {
 td input[type="text"], 
 td select,
 td textarea {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
 	width:100%;
 }
 
