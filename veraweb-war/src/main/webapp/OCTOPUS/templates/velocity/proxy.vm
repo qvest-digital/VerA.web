@@ -46,7 +46,7 @@
 <input type="hidden" name="list" value="$bean.id">
 #end
 <div class="contentBoxColored grayBorder marginBottom20">
-    <h2>Gültigkeitsfilter</h2>
+    <h3 class="marginBottom10">Gültigkeitsfilter</h3>
 	<div class="inlineLabel">
     	<input type="radio" id="validityIgnore" name="proxiesValid" value="ignore" onclick="submit();" #if($proxiesValid && $proxiesValid=='ignore')checked#end><label for="validityIgnore"> alle Vertretungen</label>
     	<input type="radio" id="validityFuture" name="proxiesValid" value="future" onclick="submit();" #if((!$proxiesValid) || $proxiesValid=='future')checked#end><label for="validityFuture"> keine abgelaufenen Vertretungen</label>
@@ -58,7 +58,7 @@
 	<strong >
 		Markierte Vertretung(en)
     </strong>
-	    <input type="submit" name="remove" value="L&ouml;schen" class="mainButton" >
+	    <input type="submit" name="remove" value="L&ouml;schen" class="mainButton" />
 </span>
 
 <table>
@@ -199,12 +199,12 @@
     	#set($itemName = "Vertreter")
     	#parse("inc/list-navi-new.vm")
     	#parse("inc/list-direct-new.vm")
+    #if ($listparam.count == 0)
+    	<tr><td colspan="5">Keine Daten gefunden.</td></tr>
+    #end
 	</tbody>
 </table>
 
-#if ($listparam.count == 0)
-	<br>Keine Daten gefunden.
-#end
 
 
 

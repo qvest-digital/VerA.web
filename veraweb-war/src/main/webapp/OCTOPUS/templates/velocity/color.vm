@@ -139,7 +139,7 @@
 				#parse("inc/list-direct-new.vm")
 			</table>
 			
-				<div id="buttonPanel-bottom" class="textRight">
+				<div id="buttonPanel-bottom" class="textRight marginTop10">
 					<input type="submit" name="save" value="Speichern" #if($grants.isAdmin()) class="mainButton" #else class="buttondisabled" vera-disabled #end>
 				</div>
 				
