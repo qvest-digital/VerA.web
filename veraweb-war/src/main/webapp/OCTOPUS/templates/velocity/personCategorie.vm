@@ -1,51 +1,18 @@
 #set($activeMenu = "Personen")
 #if($person)
     #set($title = "Person bearbeiten: $!message.plain($person.MainLatin.SaveAs)")
-    #parse("inc/header.vm")
 #else
     #set($title = "Neue Person anlegen")
-    #parse("inc/header.vm")
 #end
+
+#set($elementNameSex = "female")
+#set($elementNameSingular = "Kategorie")
+#set($elementNamePlural = "Kategorien")
+#parse("inc/header.vm")
 
 #set($searchTask = $octopusRequest.searchTask)
 
-<div id="content_container"> 
-
-	#if (!$status || ($status && $status.code && $status.code != "saveperson"))
-        #if($countInsert && $countInsert > 0)
-        	<vera-success>
-        		#if($countInsert == 0)
-        			Es wurde keine Kategorie hinzugef&uuml;gt.
-        		#elseif($countInsert == 1)
-        			Es wurde eine Kategorie hinzugef&uuml;gt.
-        		#else
-        			Es wurden $countInsert Kategorien hinzugef&uuml;gt.
-        		#end
-        	</vera-success>
-        #end
-        #if($countUpdate && $countUpdate > 0)
-        	<vera-success>
-        		#if($countUpdate == 0)
-        			Es wurde keine Kategorie ge&auml;ndert.
-        		#elseif($countUpdate == 1)
-        			Es wurde eine Kategorie ge&auml;ndert.
-        		#else
-        			Es wurden $countUpdate Kategorien ge&auml;ndert.
-        		#end
-        	</vera-success>
-        #end
-        #if($countRemove)
-        	<vera-success>
-        		#if($countRemove == 0)
-        			Es wurde keine Kategorie gel&ouml;scht.
-        		#elseif($countRemove == 1)
-        			Es wurde eine Kategorie gel&ouml;scht.
-        		#else
-        			Es wurden $countRemove Kategorien gel&ouml;scht.
-        		#end
-        	</vera-success>
-    	#end
-	#end
+<div id="content_container">
     
     <div id="breadcrumb" class="textRight marginBottom10">
     	<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Personen > Person bearbeiten</span>
