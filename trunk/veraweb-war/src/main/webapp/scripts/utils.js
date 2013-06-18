@@ -326,15 +326,22 @@ var showInfo, showWarning, showSuccess, showConfirm, showConfirmYesNo;
 
     showConfirmYesNo = (function () {
         var activeConfirmDialogs = {};
-        return function (title, htmlContent, yesAction) {
+        return function (title, htmlContent, yesAction, nayAction) {
             if (activeConfirmDialogs.hasOwnProperty(title)) { // already open?
                 return;
             }
             var btnYes = $('<input type="button" class="button" value="Ja">');
             var btnNo = $('<input type="button" class="button" value="Nein">');
             var msg = createConfirmHtml('<strong>' + title + '</strong><br>' + htmlContent + '<br>');
-            btnYes.click(yesAction);
+            btnYes.click(function () {
+                yesAction();
+                msg.hide();
+                delete activeConfirmDialogs[title];
+            });
             btnNo.click(function () {
+                if (nayAction !== undefined) {
+                    nayAction();
+                }
                 msg.hide();
                 delete activeConfirmDialogs[title];
             });
