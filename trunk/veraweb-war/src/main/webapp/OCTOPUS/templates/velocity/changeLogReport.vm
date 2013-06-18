@@ -29,12 +29,13 @@
 #end
 
 <input type="hidden" name="search" value="reset">
-<div class="table">
+<div class="table width30">
 	<div class="tableRow">
-    	<div class="tableCell">
+    	<div class="tableCell ">
 			<label for="begin">Datum Beginn:</label>
 		</div>
-    	<div class="tableCell">
+    	<div class="tableCell ">
+			<input type="text" name="begin" value="${begin}" id="begin" class="datepicker width80">
     		<span id="show-begin" class="datepickerContainer"><img src="${paths.staticWeb}images/calendar.png" alt="Datum ausw&auml;hlen" title="Datum ausw&auml;hlen"></span>
     		<script type="text/javascript">
     		    Calendar.setup({
@@ -43,15 +44,15 @@
     				ifFormat       :    "%d.%m.%Y",
     				showsTime      :    false
     			});
-    		</script>
-    		<input type="text" name="begin" value="${begin}" id="begin" class="datepicker width80">
+    		</script>   		
 		</div>
 	</div>
 	<div class="tableRow">
-		<div class="tableCell">
-			<label for="end">Datum Ende</label>
+		<div class="tableCell ">
+			<label for="end">Datum Ende:</label>
 		</div>
-	<div class="tableCell">
+	<div class="tableCell ">
+		<input type="text" name="end" value="${end}" id="end" class="datepicker width80">
 		<span id="show-end" class="datepickerContainer"><img src="${paths.staticWeb}images/calendar.png" alt="Datum ausw&auml;hlen" title="Datum ausw&auml;hlen"></span>
 		<script type="text/javascript">
 		    Calendar.setup({
@@ -60,18 +61,17 @@
 				ifFormat       :    "%d.%m.%Y",
 				showsTime      :    false
 			});
-		</script>
-		<input type="text" name="end" value="${end}" id="end" class="datepicker width80">
+		</script>		
 	</div>	
 </div>
-
+</div>
 
 <div id="buttonPanel-bottom" class="marginTop10">
 	<input type="submit" class="mainButton" value="Report erzeugen"> 
 	<input type="reset"  class="mainButton" value="Felder zurücksetzen"> 
 </div>
 
-</div>
+
 </div>
 
 </form>
