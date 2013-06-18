@@ -30,7 +30,12 @@
 #parse("inc/header.vm")
 
 <div id="content_container">
-	#if($searchTask && $searchTask == "personSearchTask")
+	#if($action == "host")
+		<div id="breadcrumb" class="textRight marginBottom10">
+    		<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Veranstaltungen > Gastgeber hinzuf&uuml;gen</span>
+    	</div>
+    	<h1>Gastgeber hinzuf&uuml;gen</h1>    
+	#elseif($searchTask && $searchTask == "personSearchTask")
     	<div id="breadcrumb" class="textRight marginBottom10">
     		<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Personen > <a href="${paths.staticWeb}do/ShowPersonSearch?action=person" title="Zur Personensuche">Personensuche</a> > Suchergebnis</span>
     	</div>
