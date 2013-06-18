@@ -50,7 +50,7 @@
 <input type="hidden" name="mailoutbox-id" value="$!mailoutbox.id">
 
 <table class="form"><tr>
-	<td><label for="show-id">ID</label></td>
+	<td class="width5"><label for="show-id">ID</label></td>
 	<td><input type="text" id="show-id" name="show-id" value="$!message.text($mailoutbox.id)" class="id" vera-disabled></td>
 </tr><tr>
 	<td><label for="mailoutbox-from">Von</label></td>
@@ -81,11 +81,10 @@
 	<br>Keine Daten gefunden.
 #end
 
-	#parse("inc/list-navi.vm")
-	#parse("inc/list-direct.vm")
+
 	
 	<div class="textRight" id="buttonPanel-bottom">
-					<input type="button" name="save" value="Speichern" title="Speichern" class="mainButton" />
+					<input type="submit" name="submit" value="Speichern" title="Speichern" class="mainButton" />
 					<input type="button" name="save" value="Zurück" title="Zurück" class="mainButton" onclick="window.location.href='MailOutboxList';" />
 				</div>
 
