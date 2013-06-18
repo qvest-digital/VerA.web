@@ -270,9 +270,13 @@ var showInfo, showWarning, showSuccess, showConfirm, showConfirmYesNo;
      * Format all texts in <vera-info> / <vera-war> tags on load of the current page
      */
     $(function () {
-       $('vera-info').replaceWith(function () {
-           return createInfoHtml($(this).html());
-       });
+        $('vera-info').replaceWith(function () {
+            var info = createInfoHtml($(this).html());
+            info.click(function () {
+                info.hide();
+            });
+            return info;
+        });
         $('vera-warn').replaceWith(function () {
             return createWarnHtml($(this).html());
         });
@@ -282,14 +286,25 @@ var showInfo, showWarning, showSuccess, showConfirm, showConfirmYesNo;
         $('vera-confirm').replaceWith(function () {
             return createConfirmHtml($(this).html());
         });
-
     });
 
-    showInfo = function (htmlStr) {
-        $(function () {
-            $('h1').after(createInfoHtml(htmlStr));
-        });
-    };
+    showInfo = (function () {
+        var activeInfoDialogs = {};
+        return function (htmlStr) {
+            if (activeInfoDialogs.hasOwnProperty(htmlStr)) { // already open?
+                return;
+            }
+            activeInfoDialogs[htmlStr] = null;
+            var info = createInfoHtml(htmlStr);
+            info.click(function () {
+                info.hide();
+                delete activeInfoDialogs[htmlStr];
+            });
+            $(function () {
+                $('h1').after(info);
+            });
+        }
+    }());
 
     showWarning = function (htmlStr) {
         $(function () {
