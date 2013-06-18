@@ -383,8 +383,8 @@
                         		<th class="textCenter smallCell" title="Auf Reserve">R</th>
 							#end
                     		<th class="textCenter smallCell">ID</th>
-                    		<th title="Hauptperson, Zeichensatz 1">Nachname</th>
-                    		<th title="Hauptperson, Zeichensatz 1">Vorname</th>
+                    		<th title="Hauptperson, Zeichensatz 1">Nach&shy;name</th>
+                    		<th title="Hauptperson, Zeichensatz 1">Vor&shy;name</th>
                     		<th title="Gesch&auml;ftlich, Zeichensatz 1">Amtsbezeichnung</th>
                     		<th title="Gesch&auml;ftlich, Zeichensatz 1">Firma / Institution (G)</th>
                     		<th>Kategorie</th>
@@ -392,8 +392,8 @@
                 	#elseif($action == "host")
                     	<tr>
                     		<th class="textCenter smallCell">ID</th>
-                    		<th title="Hauptperson, Zeichensatz 1">Nachname</th>
-                    		<th title="Hauptperson, Zeichensatz 1">Vorname</th>
+                    		<th title="Hauptperson, Zeichensatz 1">Nach&shy;name</th>
+                    		<th title="Hauptperson, Zeichensatz 1">Vor&shy;name</th>
                     		<th title="Gesch&auml;ftlich, Zeichensatz 1">Amtsbezeichnung</th>
                     		<th title="Gesch&auml;ftlich, Zeichensatz 1">Firma / Institution (G)</th>
                     		<th title="Gesch&auml;ftlich, Zeichensatz 1">Stra&szlig;e (G)</th>
@@ -404,8 +404,8 @@
                 	#elseif($action == "statistikHost")
                     	<tr>
                     		<th class="textCenter smallCell">ID</th>
-                    		<th title="Hauptperson, Zeichensatz 1">Nachname</th>
-                    		<th title="Hauptperson, Zeichensatz 1">Vorname</th>
+                    		<th title="Hauptperson, Zeichensatz 1">Nach&shy;name</th>
+                    		<th title="Hauptperson, Zeichensatz 1">Vor&shy;name</th>
                     		<th title="Gesch&auml;ftlich, Zeichensatz 1">Amtsbezeichnung</th>
                     		<th title="Gesch&auml;ftlich, Zeichensatz 1">Firma / Institution (G)</th>
                     		<th title="Gesch&auml;ftlich, Zeichensatz 1">Stra&szlig (G)</th>
@@ -416,8 +416,8 @@
                 	#elseif($action == "statistikGuest")
                     	<tr>
                     		<th class="textCenter smallCell">ID</th>
-                    		<th title="Hauptperson, Zeichensatz 1">Nachname</th>
-                    		<th title="Hauptperson, Zeichensatz 1">Vorname</th>
+                    		<th title="Hauptperson, Zeichensatz 1">Nach&shy;name</th>
+                    		<th title="Hauptperson, Zeichensatz 1">Vor&shy;name</th>
                     		<th title="Gesch&auml;ftlich, Zeichensatz 1">Amtsbezeichnung</th>
                     		<th title="Gesch&auml;ftlich, Zeichensatz 1">Firma / Institution (G)</th>
                     		<th title="Gesch&auml;ftlich, Zeichensatz 1">Stra&szlig;e (G)</th>
@@ -428,8 +428,8 @@
                 	#elseif($action == "taskReferencePerson")
                     	<tr>
                     		<th class="textCenter smallCell">ID</th>
-                    		<th title="Hauptperson, Zeichensatz 1">Nachname</th>
-                    		<th title="Hauptperson, Zeichensatz 1">Vorname</th>
+                    		<th title="Hauptperson, Zeichensatz 1">Nach&shy;name</th>
+                    		<th title="Hauptperson, Zeichensatz 1">Vor&shy;name</th>
                     		<th title="Gesch&auml;ftlich, Zeichensatz 1">Amtsbezeichnung</th>
                     		<th title="Gesch&auml;ftlich, Zeichensatz 1">Firma / Institution (G)</th>
                     		<th title="Gesch&auml;ftlich, Zeichensatz 1">Stra&szlig;e (G)</th>
@@ -448,8 +448,8 @@
 							<th class="textCenter smallCell">ID</th>
                     		<th title="Datum">Datum</th>
                     		<th title="Arbeitsbereich">Arbeits&shy;bereich</th>
-                    		<th title="Hauptperson, Zeichensatz 1">Nachname</th>
-                    		<th title="Hauptperson, Zeichensatz 1">Vorname</th>
+                    		<th title="Hauptperson, Zeichensatz 1">Nach&shy;name</th>
+                    		<th title="Hauptperson, Zeichensatz 1">Vor&shy;name</th>
                     		<th title="Gesch&auml;ftlich, Zeichensatz 1">Amtsbe&shy;zeichnung</th>
                     		<th title="Gesch&auml;ftlich, Zeichensatz 1">Firma / Institution (G)</th>
                     		<th title="Gesch&auml;ftlich, Zeichensatz 1">Stra&szlig;e (G)</th>
@@ -464,8 +464,8 @@
                     		#end
 							<th class="textCenter smallCell">ID</th>
                     		<th title="Arbeitsbereich">Arbeits&shy;bereich</th>
-                    		<th title="Hauptperson, Zeichensatz 1">Nachname</th>
-                    		<th title="Hauptperson, Zeichensatz 1">Vorname</th>
+                    		<th title="Hauptperson, Zeichensatz 1">Nach&shy;name</th>
+                    		<th title="Hauptperson, Zeichensatz 1">Vor&shy;name</th>
                     		<th title="Gesch&auml;ftlich, Zeichensatz 1">Amtsbe&shy;zeichnung</th>
                     		<th title="Gesch&auml;ftlich, Zeichensatz 1">Firma / Institution (G)</th>
                     		<th title="Gesch&auml;ftlich, Zeichensatz 1">Stra&szlig;e (G)</th>
