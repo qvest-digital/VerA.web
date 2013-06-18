@@ -21,7 +21,6 @@ package de.tarent.aa.veraweb.worker;
 
 import java.io.IOException;
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -31,7 +30,6 @@ import java.util.Map;
 import de.tarent.aa.veraweb.beans.Event;
 import de.tarent.aa.veraweb.utils.DatabaseHelper;
 import de.tarent.dblayer.sql.SQL;
-import de.tarent.dblayer.sql.clause.Clause;
 import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.clause.Order;
 import de.tarent.dblayer.sql.clause.RawClause;
@@ -191,10 +189,7 @@ public class EventListWorker extends ListWorkerVeraWeb {
 	}
 
 	/**
-	 * �berpr�ft ob eine Veranstaltung nicht mindestens ein Jahr in der
-	 * Vergangheit liegt und fragt ggf. ob diese trotzdem gel�scht werden soll.
-	 * <br><br>
-	 * siehe Anwendungsfall: UC.VERA.LOESCH
+	 * Überprüft ob es noch laufende oder zukünftige Veranstaltungen und fragt ggf. ob diese trotzdem gelöscht werden sollen.
 	 */
 	@Override
     protected int removeSelection(OctopusContext cntx, List errors, List selection, TransactionContext context) throws BeanException, IOException {
@@ -203,57 +198,57 @@ public class EventListWorker extends ListWorkerVeraWeb {
 		Database database = context.getDatabase();
 		Map questions = new HashMap();
 		
-		Calendar notExpire = Calendar.getInstance();
-		notExpire.add(Calendar.YEAR, -1);
 		
-		List eventIsNotExpire =
-				database.getBeanList("Event",
-				database.getSelect("Event").
-				where(Where.and(
-						Expr.greaterOrEqual("datebegin", notExpire.getTime()),
-						Expr.in("pk", selection))), context);
-		List removeExpireEvents = new ArrayList();
-		for (Iterator it = eventIsNotExpire.iterator(); it.hasNext(); ) {
-			Event event = (Event)it.next();
-			if (cntx.requestAsBoolean("remove-event" + event.id).booleanValue()) {
-				removeExpireEvents.add(event.id);
-			} else {
-				questions.put("remove-event" + event.id, "Die Veranstaltung '" + event.shortname + "' ist noch nicht veraltet, soll diese trotzdem gelöscht werden?");
-			}
+		if (!cntx.getRequestObject().getParameterAsBoolean("force-remove-events")) {
+    		/* 
+             * determine events which are not expired and add question
+             */
+    		Calendar today = Calendar.getInstance();
+    		today.set(Calendar.HOUR_OF_DAY, 23);
+    		today.set(Calendar.MINUTE, 59);
+    		
+    		Integer countOfNotExpiredEvents =
+                    database.getCount(database.getCount("Event").
+                    where(Where.and(
+                            Expr.in("pk", selection),
+                            Where.or(
+                                    Expr.greaterOrEqual("datebegin", today.getTime()),
+                                    Where.and(
+                                        Expr.less("datebegin", today.getTime()),
+                                        Where.or(
+                                                Expr.isNull("dateend"),
+                                                Expr.greater("dateend", today.getTime())
+                                        )
+                                    )
+                                ))),
+                    context);
+    
+    		if (countOfNotExpiredEvents != null && countOfNotExpiredEvents.intValue() > 0) {
+    			questions.put("force-remove-events", "Die folgenden Veranstaltungen laufen aktuell oder liegen in der Zukunft. Wenn Sie Ihre Auswahl anpassen wollen, brechen Sie bitte das Löschen ab.");
+    			cntx.setContent("listquestions", questions);
+    			return count;
+    		}
 		}
 		
-		if (!questions.isEmpty()) {
-			cntx.setContent("listquestions", questions);
-		}
-		
+		/* 
+		 * remove events
+		 */
 		Event event = (Event)database.createBean("Event");
-		Clause clause = Where.and(
-				Expr.less("datebegin", notExpire.getTime()),
-				Expr.in("pk", selection));
-		if (removeExpireEvents.size() > 0) {
-			clause = Where.or(clause, Expr.in("pk", removeExpireEvents));
-		}
-		Select select = database.getSelectIds(event).where(clause);
 		
-		Map data;
-		for (Iterator it = database.getList(select, context).iterator(); it.hasNext(); ) {
-			data = (Map)it.next();
-			event.id = (Integer)data.get("id");
+		for (Iterator iter = selection.iterator(); iter.hasNext();) {
+			event.id = (Integer) iter.next();
 			if (removeBean(cntx, event, context)) {
-				selection.remove(event.id);
 				count++;
 			}
 		}
+		selection.clear();
 
-		try
-		{
+		try {
 			// will commit here so that the following call to 
 			// PersonDetailWorker.removeAllDeletedPersonsHavingNoEvent()
 			// succeeds
 			context.commit();
-		}
-		catch ( BeanException e )
-		{
+		} catch ( BeanException e ) {
 			context.rollBack();
 			throw new BeanException( "Die Veranstaltungen konnten nicht gelöscht werden.", e );
 		}
