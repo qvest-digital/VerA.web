@@ -536,11 +536,11 @@ nav a, #nav a {
 	padding: 20px;
 }
 
-.contentBoxColored {
+.contentBoxColored,
+.hinweis {
 	background-color: #f9f9f9 !important;
 }
 
-.hinweis,
 .contentBoxColored .hinweis {
 	background-color: white !important;	
 }

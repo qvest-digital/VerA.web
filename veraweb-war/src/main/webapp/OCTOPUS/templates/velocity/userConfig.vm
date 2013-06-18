@@ -68,7 +68,7 @@
     						</div>
     					</fieldset>	
     					<fieldset>
-    					<legend>Standard Auswahl der Zeichensatz Selectbox</legend>	
+    					<legend>Standard Auswahl der Selectbox &bdquo;Zeichensatz&rdquo;</legend>	
     						<div class="table width100 inlineLabel">
     							<div class="tableRow">
     								<div class="tableCell"><input type="radio" name="personLocaleTab" id="personLocaleTab1" value="1" #if($personLocaleTab1) checked #end> <label for="personLocaleTab1">&nbsp;Latein</label></div>
