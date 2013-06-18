@@ -75,21 +75,21 @@
 				<input type="button" name="add" value="Hinzuf&uuml;gen" class="" onclick="addPlatzhalter(this);">
 		</div>	
 	</td>
-</tr></table>
+</tr>
 
 #if ($listparam.count == 0)
-	<br>Keine Daten gefunden.
+	<tr><td colspan="2">Keine Daten gefunden.</td></tr>
 #end
+</table>
 
 
 	#parse("inc/list-navi-new.vm")
 	#parse("inc/list-direct-new.vm")
 	
 <div id="buttonPanel-bottom" class="textRight marginTop10">
-	<input type="submit" name="submit" value="Speichern" class="mainButton"> 
-	<input type="reset"  name="clear"  value="Zur&uuml;cksetzen" class="mainButton"> 
-	<input type="button" name="cancel" value="Zur&uuml;ck" class="mainButton" onclick="window.location.href='MailDraftList?selectNone=true';">
-
+	<input type="submit" name="submit" value="Speichern" class="mainButton" /> 
+	<input type="reset"  name="clear"  value="Zur&uuml;cksetzen" class="mainButton" /> 
+	<input type="button" name="cancel" value="Zur&uuml;ck" class="mainButton" onclick="window.location.href='MailDraftList?selectNone=true';" />
 </div>
 
 
