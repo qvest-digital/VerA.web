@@ -2,7 +2,7 @@
 #set($title = "Hilfe - Info &uuml;ber VerA.web")
 #parse("inc/header.vm")	
 
-<div id="contet_container">
+<div id="content_container">
     <form action="Main" method="POST">
     
     <div id="breadcrumb" class="textRight marginBottom10">
