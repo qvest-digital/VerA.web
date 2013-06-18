@@ -58,7 +58,7 @@
 	<strong >
 		Markierte Vertretung(en)
     </strong>
-	    <input type="submit" name="remove" value="L&ouml;schen" class="mainButton" />
+	    <input type="submit" name="remove" value="L&ouml;schen" class="" />
 </span>
 
 <table>
