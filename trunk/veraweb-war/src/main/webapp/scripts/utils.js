@@ -218,41 +218,52 @@ function insertAtCursor(fld, text) {
  *
  * @param text
  */
-var showInfo, showWarning, showSuccess;
+var showInfo, showWarning, showSuccess, showConfirm;
 
 (function () {
 
     /**
      * Create a formatted info text HTML div element with the given message text.
      *
-     * @param text
+     * @param htmlStr
      * @returns {*|jQuery|HTMLElement}
      */
-    var createInfoHtml = function (text) {
+    var createInfoHtml = function (htmlStr) {
         return $('<div class="hinweis grayBorder marginBottom20 notBold"><strong>Hinweis</strong><p>'
-            + text + '</p></div>');
+            + htmlStr + '</p></div>');
     };
 
     /**
      * Create a formatted warning text HTML div element with the given message text.
      *
-     * @param text
+     * @param htmlStr
      * @returns {*|jQuery|HTMLElement}
      */
-    var createWarnHtml = function (text) {
+    var createWarnHtml = function (htmlStr) {
         return $('<div style="margin: 10px 0px 10px 0px; padding: 10px 10px 10px 10px; background-color: #ffffff; border: 2px solid #ff0000;">'
-            + text + '</div>');
+            + htmlStr + '</div>');
     };
 
     /**
      * Create a formatted success text HTML div element with the given message text.
      *
-     * @param text
+     * @param htmlStr
      * @returns {*|jQuery|HTMLElement}
      */
-    var createSuccessHtml = function (text) {
+    var createSuccessHtml = function (htmlStr) {
         return $('<div class="sucessmsg">'
-            + text + '</div>');
+            + htmlStr + '</div>');
+    };
+
+    /**
+     * Create a formatted confirm text HTML div element with the given message text.
+     *
+     * @param htmlStr
+     * @returns {*|jQuery|HTMLElement}
+     */
+    var createConfirmHtml = function (htmlStr) {
+        return $('<div style="margin: 10px 0px 10px 0px; padding: 10px 10px 10px 10px; background-color: #ffffff; border: 2px solid #00ff00;">'
+            + htmlStr + '</div>');
     };
 
     /**
@@ -267,6 +278,9 @@ var showInfo, showWarning, showSuccess;
         });
         $('vera-success').replaceWith(function () {
             return createSuccessHtml($(this).html());
+        });
+        $('vera-confirm').replaceWith(function () {
+            return createConfirmHtml($(this).html());
         });
 
     });
@@ -286,6 +300,12 @@ var showInfo, showWarning, showSuccess;
     showSuccess = function (text) {
         $(function () {
             $('nav').after(createSuccessHtml(text));
+        });
+    };
+
+    showConfirm = function (text) {
+        $(function () {
+            $('h1').after(createConfirmHtml(text));
         });
     };
 
