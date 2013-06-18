@@ -24,6 +24,7 @@
         <input type="hidden" name="doInsert" value="true">
         <input type="hidden" name="doUpdate" value="true">
         <input type="hidden" name="doRemove" value="true">
+        <input type="hidden" name="limit" value="" />
     
         #foreach($bean in $list)
 			<input type="hidden" name="list" value="$bean.id">
@@ -51,13 +52,18 @@
         #end
 
 		#foreach($bean in $list)
-        	<tr>
+		#if ($velocityCount % 2 == 1)
+		#set($class = "list1")
+	#else
+		#set($class = "list2")
+	#end
+        	<tr class="$class">
         		<td><input type="hidden" id="${bean.id}-modified" name="${bean.id}-modified" value="false"><input type="checkbox" name="${bean.id}-select" value="true"></td>
         		<td><input type="hidden" name="${bean.id}-id" value="$!bean.id"><input type="hidden" name="${bean.id}-salutation" value="$!salutation.id">$!bean.id</td>
         		<td><input type="text" name="${bean.id}-text" value="$!message.text($bean.text)"  onchange="setModified('$!bean.id')"></td>
         		<td>
         			<input type="hidden" name="${bean.id}-doctype" value="$!bean.doctype">
-        			<input type="text" name="${bean.id}-name" value="$!message.text($bean.name)" vera-disabled>
+        			<input type="text" name="${bean.id}-name" value="$!message.text($bean.name)"  class="textdisabled" vera-disabled>
         		</td>
         	</tr>
 		#end
@@ -66,16 +72,19 @@
         			<td colspan="5">Keine Daten gefunden</td>
         		</tr>           	
         #end
+        
+        #set($itemName = "Anreden")
+    				#parse("inc/list-navi-new.vm")
+    				#parse("inc/list-direct-new.vm")
         </table>
     
     	<div class="textRight" id="buttonPanel-bottom">
-    		<input type="button" name="save" value="Speichern" title="Speichern" class="mainButton">
+    		<input type="submit" name="save" value="Speichern" title="Speichern" class="mainButton">
     		<input type="button" name="save" value="Zurück" onclick="window.location.href='Salutation';" title="Zurück" class="mainButton">
     	</div>
     
     
-    	#parse("inc/list-navi.vm")
-    	#parse("inc/list-direct.vm")
+
    
     </div>
 
