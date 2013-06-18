@@ -1,7 +1,10 @@
 package de.tarent.aa.veraweb.worker;
 
-import static org.mockito.Matchers.*;
-import static org.mockito.Mockito.*;
+import static org.mockito.Matchers.argThat;
+import static org.mockito.Matchers.isA;
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 
 import java.io.IOException;
 import java.sql.Timestamp;
@@ -57,6 +60,7 @@ public class EventTaskDetailWorkerTest extends TestCase {
 		Task t = new Task();
 		t.setTitle("Gäste einladen");
 		t.setStartdate(new Timestamp(DATE_FORMAT.parse("25.12.2011 10:23").getTime()));
+		t.setStarttime("10:23");
 		t.setCreated(new Timestamp(DATE_FORMAT.parse("24.12.2011 00:00").getTime()));
 		t.setPriority(3);
 		t.setDescription("Einladungen verschicken");
@@ -65,6 +69,7 @@ public class EventTaskDetailWorkerTest extends TestCase {
 		t.setChangedby("SYSTEM");
 		t.setCreatedby("user111");
 		t.setEnddate(new Timestamp(DATE_FORMAT.parse("26.12.2911 09:34").getTime()));
+		t.setEndtime("09:34");
 		t.setChanged(new Timestamp(new Date().getTime()));
 		t.setModified(true);
 
@@ -92,8 +97,8 @@ public class EventTaskDetailWorkerTest extends TestCase {
 		doReturn(enddate).when(cntx).requestAsObject("task-enddate");
 		doReturn(changed).when(cntx).requestAsObject("task-changed");
 		doReturn(modified).when(cntx).requestAsObject("task-modified");
-		doReturn(starttime).when(cntx).requestAsString("task-starttime");
-		doReturn(endtime).when(cntx).requestAsString("task-endtime");
+		doReturn(starttime).when(cntx).requestAsObject("task-starttime");
+		doReturn(endtime).when(cntx).requestAsObject("task-endtime");
 	}
 
 	class TaskArgumentMarcher extends ArgumentMatcher<Bean> {
