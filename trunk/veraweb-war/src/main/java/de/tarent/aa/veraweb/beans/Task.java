@@ -378,6 +378,44 @@ public class Task extends AbstractHistoryBean {
     public void setChanged(final Timestamp changed) {
         this.changed = changed;
     }
+    
+    /**
+     * Get start time.
+     * 
+     * @return the starttime
+     */
+    public String getStarttime() {
+        return starttime;
+    }
+
+    /**
+     * Set start time.
+     * 
+     * @param starttime
+     *            the start time to set
+     */
+    public void setStarttime(final String starttime) {
+        this.starttime = starttime;
+    }
+    
+    /**
+     * Get end time.
+     * 
+     * @return the endtime
+     */
+    public String getEndtime() {
+        return endtime;
+    }
+
+    /**
+     * Set end time.
+     * 
+     * @param endtime
+     *            the end time to set
+     */
+    public void setEndtime(final String endtime) {
+        this.endtime = endtime;
+    }
 
     @Override
     public void verify() throws BeanException {
