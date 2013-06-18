@@ -47,7 +47,7 @@
 		#end
 		<input type="hidden" name="${bean.id}-id" value="$!bean.id"/>
 		<input type="hidden" name="${bean.id}-person" value="$!bean.person"/>
-		<td #if($bean.id) onclick="window.location.href='${paths.staticWeb}do/ShowPersonDoctype?persondoctype-id=$!bean.id&tab=$!octopusRequest.tab&show=$!octopusRequest.show';"#else onclick="window.location.href='${paths.staticWeb}do/CreatePersonDoctype?doctype-id=$!bean.doctypeId&tab=$!octopusRequest.tab&show=$!octopusRequest.show';"#end>$!bean.name</td>
+		<td #if($bean.id) onclick="window.location.href='${paths.staticWeb}do/ShowPersonDoctype?persondoctype-id=$!bean.id&tab=$!octopusRequest.tab&show=$!octopusRequest.show';"#else onclick="window.location.href='${paths.staticWeb}do/CreatePersonDoctype?doctype-id=$!bean.doctypeId&tab=$!octopusRequest.tab&show=$!octopusRequest.show';"#end>$!message.plain($bean.name)</td>
 
 		<td>
 			<select id="${bean.id}-addresstype" name="${bean.id}-addresstype" onchange="setModified('${bean.id}')" #if(!$bean.id) vera-disabled #end>

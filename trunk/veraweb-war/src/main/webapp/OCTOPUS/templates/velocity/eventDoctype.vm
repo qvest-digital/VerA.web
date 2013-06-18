@@ -90,7 +90,7 @@
                     		<td class="textCenter"><input type="hidden" id="${bean.id}-modified" name="${bean.id}-modified" value="false"/><input type="checkbox" name="${bean.id}-select" value="true"/></td>
                             #end
                     		<td class="textCenter"><input type="hidden" name="${bean.id}-id" value="$!bean.id"/><input type="hidden" name="${bean.id}-event" value="$!event.id"/>$!bean.id</td>
-                    		<td>$!bean.name</td>
+                    		<td>$!message.plain($bean.name)</td>
                     	</tr>
 					#end
 					
