@@ -96,7 +96,7 @@
                 </vera-warn>
                 #end
                 #if($listquestions && $listquestions.size() > 0)
-                <div style="margin: 10px 0px 10px 0px; padding: 10px 10px 10px 10px; background-color: #ffffff; border: 2px solid #00ff00;">
+                <vera-confirm>
                 	<strong>Bitte best&auml;tigen Sie das L&ouml;schen von Personen</strong><br>
                 	<ul style="margin: 0px 0px 0px -10px;">
                 	#foreach($quest in $listquestions.entrySet())
@@ -112,7 +112,7 @@
 					#else
 						<input type="button" class="cancel" name="cancel" value="Nein" onclick="window.location.href='SearchPerson?selectNone=true';"> &nbsp;
 					#end
-                </div>
+                </vera-confirm>
                 #end
     
     		#end
@@ -297,44 +297,46 @@
     		## Handler für selektierte Aktion 
     		<script>
     			$(function () {
-    				$('#button\\.execute').click(function (e) {					
-    					var selectText = $('#actionSelection option:selected').text();
-    					
-    					if (selectText == "Löschen") {
-							selectedActionRemovePerson();
-    					} else if (selectText == "Exportieren") {
-							selectedActionExportPerson();
-    					} else if (selectText == "Kategorien zuordnen") {
-    						assignCategories();
-    					} else if (selectText == "Kategorien entfernen") {
-    						unassignCategories();
-    					} else if (selectText == "Arbeitsbereich zuordnen") {
-    						assignWorkarea();
-    					} else if (selectText == "Arbeitsbereich entfernen") {
-    						unassignWorkarea();
-    					} else if (selectText == "Ersetzen") {
-							submitFormWithGivenAction('SaveReplacePersonList');
-    					} else if (selectText == "Übernehmen") {
-							submitFormWithGivenAction('AddPersonToEventGuestList');
-    					}
+    				$('#button\\.execute').click(function (e) {
+                        var selectText = $('#actionSelection option:selected').text();
+
+                        if (selectText == "Löschen") {
+                            #if(!$grants.mayWrite())
+                            showWarning('Sie haben keine ausreichende Berechtigung um Personen zu entfernen.');
+                            return;
+                            #end
+                            var checkBoxes = $('input:checkbox[name$="-select"]:checked');
+                            if (checkBoxes.length === 0) {
+                                showInfo('W&auml;hlen Sie bitte zun&auml;chst eine oder mehrere Personen aus.');
+                            } else {
+                                showConfirmYesNo('Bitte best&auml;tigen Sie das L&ouml;schen von Personen',
+                                        'Sollen alle markierten Personen gel&ouml;scht werden? ' +
+                                                'Diese Aktion kann nicht r&uuml;ckg&auml;ngig gemacht werden.',
+                                        function () { // Ja
+                                            $('input[name=remove-person]').val('true');
+                                            $('form').append('<input type="hidden" name="remove" value="Ja" >').submit();
+                                        }, function () { // Nein
+                                            showInfo('Es wurde keine Person gel&ouml;scht.');
+                                        });
+                            }
+                        } else if (selectText == "Exportieren") {
+                            selectedActionExportPerson();
+                        } else if (selectText == "Kategorien zuordnen") {
+                            assignCategories();
+                        } else if (selectText == "Kategorien entfernen") {
+                            unassignCategories();
+                        } else if (selectText == "Arbeitsbereich zuordnen") {
+                            assignWorkarea();
+                        } else if (selectText == "Arbeitsbereich entfernen") {
+                            unassignWorkarea();
+                        } else if (selectText == "Ersetzen") {
+                            submitFormWithGivenAction('SaveReplacePersonList');
+                        } else if (selectText == "Übernehmen") {
+                            submitFormWithGivenAction('AddPersonToEventGuestList');
+                        }
     				});
      			});
-				
-				function selectedActionRemovePerson() {
-					var confirmResult = false;
-                    #if($grants.mayWrite())
-                		confirmResult = confirm('Markierte Person wirklich entfernen?');
-                    #elseif($isAdmin)
-                		confirmResult = confirm('Sollen alle markierten Personen entfernt werden?');
-                    #else
-                		showWarning('Sie haben keine ausreichende Berechtigung um Personen zu entfernen.');
-                    #end
-					if (confirmResult) {
-						$('<input>').attr({ type: 'hidden', id: 'remove', name: 'remove' }).appendTo($('#formlist'));
-					}
-					document.formlist.submit();
-				}
-				
+
 				function selectedActionExportPerson() {
 					submitFormWithGivenAction('${paths.staticWeb}do/PersonExport/export.$exportFormat');
 					document.formlist.action = '${paths.staticWeb}do/$octopusRequest.task';
