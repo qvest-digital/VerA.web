@@ -218,7 +218,7 @@ function insertAtCursor(fld, text) {
  *
  * @param text
  */
-var showInfo, showWarning, showSuccess, showConfirm;
+var showInfo, showWarning, showSuccess, showConfirm, showConfirmYesNo;
 
 (function () {
 
@@ -285,28 +285,50 @@ var showInfo, showWarning, showSuccess, showConfirm;
 
     });
 
-    showInfo = function (text) {
+    showInfo = function (htmlStr) {
         $(function () {
-            $('h1').after(createInfoHtml(text));
+            $('h1').after(createInfoHtml(htmlStr));
         });
     };
 
-    showWarning = function (text) {
+    showWarning = function (htmlStr) {
         $(function () {
-            $('nav').after(createWarnHtml(text));
+            $('nav').after(createWarnHtml(htmlStr));
         });
     };
 
-    showSuccess = function (text) {
+    showSuccess = function (htmlStr) {
         $(function () {
-            $('nav').after(createSuccessHtml(text));
+            $('nav').after(createSuccessHtml(htmlStr));
         });
     };
 
-    showConfirm = function (text) {
+    showConfirm = function (htmlStr) {
         $(function () {
-            $('h1').after(createConfirmHtml(text));
+            $('h1').after(createConfirmHtml(htmlStr));
         });
     };
+
+    showConfirmYesNo = (function () {
+        var activeConfirmDialogs = {};
+        return function (title, htmlContent, yesAction) {
+            if (activeConfirmDialogs.hasOwnProperty(title)) { // already open?
+                return;
+            }
+            var btnYes = $('<input type="button" class="button" value="Ja">');
+            var btnNo = $('<input type="button" class="button" value="Nein">');
+            var msg = createConfirmHtml('<strong>' + title + '</strong><br>' + htmlContent + '<br>');
+            btnYes.click(yesAction);
+            btnNo.click(function () {
+                msg.hide();
+                delete activeConfirmDialogs[title];
+            });
+            msg.append(btnYes).append('&nbsp;').append(btnNo);
+            activeConfirmDialogs[title] = null;
+            $(function () {
+                $('h1').after(msg);
+            });
+        };
+    }());
 
 }());
