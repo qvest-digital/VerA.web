@@ -625,7 +625,7 @@ hr {border-top:1px solid #8b0f0f; }
     border-right: 1px solid #BDBDBD;
     display: inline-block;
     line-height: 40px;
-    padding: 0 15px;
+    padding: 0;
     cursor: pointer;
 }
 
@@ -649,8 +649,11 @@ color:#7D7D7D
 	list-style-type: none;
 }
 
-.tabsSub li div  {
+
+.tabsSub li div, 
+.tabsMain li div  {
     padding: 0 15px;
+    width:100%;
 }
 
 #tabsMain.event ul {
@@ -662,7 +665,7 @@ color:#7D7D7D
     border-top: 1px solid #BDBDBD;
     height: 40px;
     line-height: 40px;
-    padding: 0 0 0 20px;
+    padding: 0 20px 0 0;
     cursor: pointer;
 }
 
