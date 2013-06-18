@@ -14,7 +14,7 @@
     
     	<span id="actionPanel" class="inlineLabel">
     		<strong>Markierte Anrede(n)</strong>
-    		<input type="submit" name="remove" value="Löschen" title="Markierte Anreden löschen" onclick="">
+    		<input type="submit" name="remove" value="Löschen" title="Markierte Anreden löschen" />
     	</span>
     
     
@@ -26,7 +26,7 @@
         <input type="hidden" name="doRemove" value="true">
     
         #foreach($bean in $list)
-        <input type="hidden" name="list" value="$bean.id">
+			<input type="hidden" name="list" value="$bean.id">
         #end
         <table>
         	<tr>
@@ -48,14 +48,10 @@
         			</select>
         		</td>
         	</tr>
-        	#end
-        	#foreach($bean in $list)
-        	#if ($velocityCount % 2 == 1)
-        		#set($class = "list1")
-        	#else
-        		#set($class = "list2")
-        	#end
-        	<tr class="$class">
+        #end
+
+		#foreach($bean in $list)
+        	<tr>
         		<td><input type="hidden" id="${bean.id}-modified" name="${bean.id}-modified" value="false"><input type="checkbox" name="${bean.id}-select" value="true"></td>
         		<td><input type="hidden" name="${bean.id}-id" value="$!bean.id"><input type="hidden" name="${bean.id}-salutation" value="$!salutation.id">$!bean.id</td>
         		<td><input type="text" name="${bean.id}-text" value="$!message.text($bean.text)"  onchange="setModified('$!bean.id')"></td>
@@ -64,12 +60,12 @@
         			<input type="text" name="${bean.id}-name" value="$!message.text($bean.name)" vera-disabled>
         		</td>
         	</tr>
-			#end
-			#if ($listparam.count == 0)
+		#end
+		#if ($listparam.count == 0)
             	<tr>
         			<td colspan="5">Keine Daten gefunden</td>
         		</tr>           	
-            #end
+        #end
         </table>
     
     	<div class="textRight" id="buttonPanel-bottom">
@@ -80,12 +76,8 @@
     
     	#parse("inc/list-navi.vm")
     	#parse("inc/list-direct.vm")
-    
-    	
-    
+   
     </div>
-
-
 
 
 </form>
