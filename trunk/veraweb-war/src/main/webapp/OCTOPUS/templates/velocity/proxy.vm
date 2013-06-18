@@ -1,25 +1,39 @@
 ## $Id$
 #if($proxiesFor == 'ou')
 	#set($activeMenu = "Administration")
-	#set($title = "Verwaltung - alle Stellvertretungen im Mandanten")
+	#set($title = "Administration - alle Stellvertretungen im Mandanten")
 #elseif($proxiesFor == 'all')
 	#set($activeMenu = "Administration")
-	#set($title = "Verwaltung - alle Stellvertretungen")
+	#set($title = "Administration - alle Stellvertretungen")
 #elseif($proxiesFor == 'self')
 	#set($activeMenu = "Verwaltung")
-	#set($title = "Einstellungen - pers&ouml;nliche Stellvertretungen")
+	#set($title = "Verwaltung - pers&ouml;nliche Vertretungen")
 #else
 	#set($activeMenu = "Administration")
 	#set($title = "Stellvertretungen")
 #end
 #parse("inc/header.vm")	
 <form id="formlist" name="formlist" action="$octopusRequest.task" method="POST">
-	
-<div id="breadcrumb" class="textRight marginBottom10">
-    <strong>Sie sind hier:</strong> <span><a href="index.html">Home</a> > Administration > Vertretungen</span>
-</div>
 
+## Dynamischer breadcrumb
+#if($activeMenu == "Administration")	
+<div id="breadcrumb" class="textRight marginBottom10">
+    <strong>Sie sind hier:</strong> <span><a href="index.html">Home</a> > Administration > Stellvertretungen</span>
+</div>
+#elseif($activeMenu == "Verwaltung")
+<div id="breadcrumb" class="textRight marginBottom10">
+    <strong>Sie sind hier:</strong> <span><a href="index.html">Home</a> > Verwaltung > Vertretung</span>
+</div>	
+#end
+
+## Dynamische Überschrift
+#if($activeMenu == "Verwaltung")
 <h1>Vertretungen</h1>
+
+#elseif($activeMenu == "Administration")
+<h1>Stellvertretungen</h1>
+
+#end
 
 
 
