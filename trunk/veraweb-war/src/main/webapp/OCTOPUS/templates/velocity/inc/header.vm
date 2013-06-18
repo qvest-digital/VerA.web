@@ -107,7 +107,7 @@
             #end
             #if($countRemove)
             	<vera-success>
-            		#if($countRemove == 0 || $uncaughtPSQLException)
+            		#if($countRemove == 0)
             			Es wurde $noElement gel&ouml;scht.
             		#elseif($countRemove == 1)
             			Es wurde $oneElement gel&ouml;scht.
