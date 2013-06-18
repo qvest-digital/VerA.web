@@ -6,7 +6,7 @@
 <input type="hidden" name="start" value="">
 <input type="hidden" name="selectNone" value="true">
 <input type="hidden" name="doRemove" value="true">
-
+<input type="hidden" name="limit" value="" />
 
 
 
@@ -60,79 +60,26 @@
 					<td style="cursor: pointer;" onclick="window.location.href='MailOutboxDetail?id=$!{bean.id}';">$!message.text($bean.subject)</td>
 				</tr>
 				#end
-				 <tr class="colspan">
-				    <td colspan="99">
-					
-					<span id="listnavitext" class="amount">1 - 1 von 1 Arbeitsbereiche | Anzahl pro Seite 
-		    			<input type="button" onclick="navigateLimit(10);" title="10 Datensätze anzeigen lassen" value="10" class="active">
-		    			<input type="button" onclick="navigateLimit(25);" title="25 Datensätze anzeigen lassen" value="25">
-		    			<input type="button" onclick="navigateLimit(50);" title="50 Datensätze anzeigen lassen" value="50">
-					</span>
-					
-								
-					<span class="paging floatRight textRight">Seite 1 von 1
-						<ul>
-													<li id="page-first" class="img"><img style="cursor: pointer;" title="Erste Seite" src="${paths.staticWeb}images/paging_arrow_left_last.png"></li>
-		                    											<li id="page-previous" class="img"><img style="cursor: pointer;" title="Vorherige Seite" src="${paths.staticWeb}images/paging_arrow_left.png"></li>
-		                    					
-							
-							                                                
-		                                        	                        	    							<li id="page-1">1</li>
-		                        	                    	                    						
-							
-													<li id="page-next" class="img"><img style="cursor: pointer;" title="Nächste Seite" src="${paths.staticWeb}images/paging_arrow_right.png"></li>
-		                    											<li id="page-last" class="img"><img style="cursor: pointer;" title="Letzte Seite" src="${paths.staticWeb}images/paging_arrow_right_last.png"></li>
-		                    				</ul>
-					</span>
-					
-				</td>
-			</tr>
-            <tr class="colspan">
-		    	<td class="textCenter" colspan="99">Direkteinsprung:
-					<ul class="inline alphabet">
-		            	<li><a href="javascript:navigateList('A');">A</a></li>
-		            	<li><a href="javascript:navigateList('B');">B</a></li>
-		            	<li><a href="javascript:navigateList('C');">C</a></li>
-		            	<li><a href="javascript:navigateList('D');">D</a></li>
-		            	<li><a href="javascript:navigateList('E');">E</a></li>
-		            	<li><a href="javascript:navigateList('F');">F</a></li>
-		            	<li><a href="javascript:navigateList('G');">G</a></li>
-		            	<li><a href="javascript:navigateList('H');">H</a></li>
-		            	<li><a href="javascript:navigateList('I');">I</a></li>
-		            	<li><a href="javascript:navigateList('J');">J</a></li>
-		            	<li><a href="javascript:navigateList('K');">K</a></li>
-		            	<li><a href="javascript:navigateList('L');">L</a></li>
-		            	<li><a href="javascript:navigateList('M');">M</a></li>
-		            	<li><a href="javascript:navigateList('N');">N</a></li>
-		            	<li><a href="javascript:navigateList('O');">O</a></li>
-		            	<li><a href="javascript:navigateList('P');">P</a></li>
-		            	<li><a href="javascript:navigateList('Q');">Q</a></li>
-		            	<li><a href="javascript:navigateList('R');">R</a></li>
-		            	<li><a href="javascript:navigateList('S');">S</a></li>
-		            	<li><a href="javascript:navigateList('T');">T</a></li>
-		            	<li><a href="javascript:navigateList('U');">U</a></li>
-		            	<li><a href="javascript:navigateList('V');">V</a></li>
-		            	<li><a href="javascript:navigateList('W');">W</a></li>
-		            	<li><a href="javascript:navigateList('X');">X</a></li>
-		            	<li><a href="javascript:navigateList('Y');">Y</a></li>
-		            	<li><a href="javascript:navigateList('Z');">Z</a></li>
-					</ul>
-		    	</td>
-		    </tr>
+				 #if ($listparam.count == 0)
+			<tr>
+							<td colspan="5">Keine Daten gefunden</td>
+				</tr>           	
+				#end
+				
+			#set($itemName = "E-Mails's")
+    				#parse("inc/list-navi-new.vm")
+    				#parse("inc/list-direct-new.vm")
+        		     		
         		     		
 		</table>
-#if ($listparam.count == 0)
-	<br>Keine Daten gefunden.
-#end
+
 	
 
 
 
 	</div>
 	</div>
-	
-	#parse("inc/list-navi.vm")
-	#parse("inc/list-direct.vm")
+
 
 
 </div></div></div>
