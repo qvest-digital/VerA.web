@@ -27,10 +27,10 @@
 
         <div id="tabsMain">
             <ul class="gray-gradient"> <!-- Bitte das End-tag der <li>s immer mit in die nächste Zeile nehmen (verhindert Mozilla styling bug) -->
-                <li class="inactive" id="personendaten">Persondendaten
-                </li><li class="inactive" id="anschriften">Anschriften
-                </li><li class="active" id="dokumenttypen">Dokumenttypen
-                </li><li class="inactive" id="kategorien">Kategorien</li>
+                <li class="inactive" id="personendaten"><div>Persondendaten</div>
+                </li><li class="inactive" id="anschriften"><div>Anschriften</div>
+                </li><li class="active" id="dokumenttypen"><div>Dokumenttypen</div>
+                </li><li class="inactive" id="kategorien"><div>Kategorien</div></li>
             </ul>
         </div>
 
