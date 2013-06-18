@@ -30,9 +30,9 @@
     
     		<div id="tabsMain" class="event">
             	<ul class="gray-gradient" vera-tab-group> <!-- Bitte das End-tag der <li>s immer mit in die nächste Zeile nehmen (verhindert Mozilla styling bug) -->
-            		<li class="inactive" onclick="window.location.href='ShowEvent?id=$!event.id';">Allgemein
-            		</li><li class="active">Dokumenttypen
-    				</li><li class="inactive" onclick="window.location.href='ShowEventTasks?id=$!event.id&selectNone=true';">Aufgaben
+            		<li class="inactive" onclick="window.location.href='ShowEvent?id=$!event.id';"><div>Allgemein</div>
+            		</li><li class="active"><div>Dokumenttypen</div>
+    				</li><li class="inactive" onclick="window.location.href='ShowEventTasks?id=$!event.id&selectNone=true';"><div>Aufgaben</div>
     				</li>
             	</ul>
     		</div>

@@ -651,7 +651,8 @@ color:#7D7D7D
 
 
 .tabsSub li div, 
-#tabsMain li div  {
+#tabsMain li div,
+#tabsMain2 li div  {
     padding: 0 15px;
     width:100%;
 }
