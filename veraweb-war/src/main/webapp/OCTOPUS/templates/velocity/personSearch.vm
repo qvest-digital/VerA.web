@@ -38,14 +38,20 @@
 
 
 <div id="content_container">
-
-
-    <div id="breadcrumb" class="textRight marginBottom10">
-        <strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Personen > Personensuche</span>
-    </div>
-
-    <h1>Personensuche</h1>
-
+	
+	#if($action == "host")
+    	<div id="breadcrumb" class="textRight marginBottom10">
+    		<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Veranstaltungen > Gastgeber hinzuf&uuml;gen</span>
+    	</div>
+    	
+    	<h1>Personensuche</h1>   
+	#else	
+        <div id="breadcrumb" class="textRight marginBottom10">
+            <strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Personen > Personensuche</span>
+        </div>
+    
+        <h1>Personensuche</h1>
+	#end
     <div id="main_content" class="contentBoxColored grayBorder marginBottom20">
 
         <h2>Suche</h2>
