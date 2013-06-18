@@ -59,8 +59,8 @@
 			<ul vera-tab-group="" class="gray-gradient"> <!-- Bitte das End-tag der <li>s immer mit in die nächste Zeile nehmen (verhindert Mozilla styling bug) -->
     			<li id="gaesteliste" vera-tab class="active posRel" style="z-index:2">G&auml;steliste
 				#if($list.size() > 0) 
-				</li><li id="gastdetails" class="inactive">Gastdetails
-				</li><li id="dokumenttypen" class="inactive">Dokumenttypen
+				</li><li id="gastdetails" class="inactive"><div>Gastdetails</div>
+				</li><li id="dokumenttypen" class="inactive"><div>Dokumenttypen</div>
 				#end
 				</li>
 			</ul>
