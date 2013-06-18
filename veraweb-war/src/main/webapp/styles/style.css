@@ -649,6 +649,10 @@ color:#7D7D7D
 	list-style-type: none;
 }
 
+.tabsSub li div  {
+    padding: 0 15px;
+}
+
 #tabsMain.event ul {
     border-left: 0 none;
     margin-left: 0;
