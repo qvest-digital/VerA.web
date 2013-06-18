@@ -127,7 +127,7 @@
 				
 				<span id="actionPanel" class="inlineLabel">
 					<label>Markierte Person(en)
-						<input type="button" value="Zur Veranstaltung hinzuf&uuml;gen" title="Markierte Person(en) zur Veranstaltung hinzuf&uuml;gen" onclick="$('#selectNone').val('false'); submitFormWithGivenAction('AddPersonToEventGuestList');" />
+						<input type="button" value="Hinzuf&uuml;gen" title="Markierte Person(en) zur Veranstaltung hinzuf&uuml;gen" onclick="$('#selectNone').val('false'); submitFormWithGivenAction('AddPersonToEventGuestList');" />
                     </label>
             	</span>
         
@@ -447,10 +447,10 @@
                     		#end
 							<th class="textCenter smallCell">ID</th>
                     		<th title="Datum">Datum</th>
-                    		<th title="Arbeitsbereich">Arbeitsbereich</th>
+                    		<th title="Arbeitsbereich">Arbeits&shy;bereich</th>
                     		<th title="Hauptperson, Zeichensatz 1">Nachname</th>
                     		<th title="Hauptperson, Zeichensatz 1">Vorname</th>
-                    		<th title="Gesch&auml;ftlich, Zeichensatz 1">Amtsbezeichnung</th>
+                    		<th title="Gesch&auml;ftlich, Zeichensatz 1">Amtsbe&shy;zeichnung</th>
                     		<th title="Gesch&auml;ftlich, Zeichensatz 1">Firma / Institution (G)</th>
                     		<th title="Gesch&auml;ftlich, Zeichensatz 1">Stra&szlig;e (G)</th>
                     		<th title="Gesch&auml;ftlich, Zeichensatz 1">PLZ (G)</th>
@@ -463,10 +463,10 @@
 								<th class="textCenter smallCell"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="Alle (de)markieren" #if($listselection.size() == $list.size()) checked#end/></th>
                     		#end
 							<th class="textCenter smallCell">ID</th>
-                    		<th title="Arbeitsbereich">Arbeitsbereich</th>
+                    		<th title="Arbeitsbereich">Arbeits&shy;bereich</th>
                     		<th title="Hauptperson, Zeichensatz 1">Nachname</th>
                     		<th title="Hauptperson, Zeichensatz 1">Vorname</th>
-                    		<th title="Gesch&auml;ftlich, Zeichensatz 1">Amtsbezeichnung</th>
+                    		<th title="Gesch&auml;ftlich, Zeichensatz 1">Amtsbe&shy;zeichnung</th>
                     		<th title="Gesch&auml;ftlich, Zeichensatz 1">Firma / Institution (G)</th>
                     		<th title="Gesch&auml;ftlich, Zeichensatz 1">Stra&szlig;e (G)</th>
                     		<th title="Gesch&auml;ftlich, Zeichensatz 1">PLZ (G)</th>
