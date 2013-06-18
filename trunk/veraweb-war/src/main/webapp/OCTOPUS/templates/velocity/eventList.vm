@@ -8,6 +8,9 @@
 	#set($title = "Veranstaltung ausw&auml;hlen")
 #end
 
+#set($elementNameSex = "female")
+#set($elementNameSingular = "Veranstaltung")
+#set($elementNamePlural = "Veranstaltungen")
 #parse("inc/header.vm")
 
 #if($action == "guest")

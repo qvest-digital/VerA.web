@@ -56,42 +56,65 @@
 					#end
         	</header>
             
-			#parse("inc/menu.vm")					
+			#parse("inc/menu.vm")
+			
+			#if($elementNameSingular && $elementNameSingular != "" && $elementNamePlural && $elementNamePlural != "" && $elementNameSex && $elementNameSex != "")
+				#if($elementNameSex && $elementNameSex == "female") 
+					#set($prefNo = "keine")
+					#set($prefOne = "eine")
+					#set($prefNew = "neue")
+				#else
+					#set($prefNo = "kein")
+					#set($prefOne = "ein")
+					#set($prefNew = "neuer")
+				#end
+				#set($noElement = "$prefNo $elementNameSingular")
+				#set($noNewElement = "$prefNo $prefNew $elementNameSingular")
+				#set($oneElement = "$prefOne $elementNameSingular")
+				#set($oneNewElement = "$prefOne $prefNew $elementNameSingular")
+				#set($severalElements = "$elementNamePlural")
+				#set($severalNewElements = "neue $elementNamePlural")
+			#else
+				#set($noElement = "kein Datensatz")
+    			#set($noNewElement = "kein neuer Datensatz")
+    			#set($oneElement = "ein Datensatz")
+    			#set($oneNewElement = "ein neuer Datensatz")
+    			#set($severalElements = "Datensätze")
+    			#set($severalNewElements = "neue Datensätze")
+			#end
 
-            #if($octopusRequest.task != "ShowPersonCategorieList" || ($octopusRequest.task == "ShowPersonCategorieList" && $status && $status.code && $status.code == "saveperson"))
-                #if($countInsert && $countInsert > 0)
-                	<vera-success>
-                		#if($countInsert == 0)
-                			Es wurde kein neuer Datensatz angelegt.
-                		#elseif($countInsert == 1)
-                			Es wurde ein neuer Datensatz angelegt.
-                		#else
-                			Es wurden $countInsert neue Datens&auml;tze angelegt.
-                		#end
-                	</vera-success>
-                #end
-                #if($countUpdate && $countUpdate > 0)
-                	<vera-success>
-                		#if($countUpdate == 0)
-                			Es wurde kein Datensatz ge&auml;ndert.
-                		#elseif($countUpdate == 1)
-                			Es wurde ein Datensatz ge&auml;ndert.
-                		#else
-                			Es wurden $countUpdate Datens&auml;tze ge&auml;ndert.
-                		#end
-                	</vera-success>
-                #end
-                #if($countRemove)
-                	<vera-success>
-                		#if($countRemove == 0 || $uncaughtPSQLException)
-                			Es wurde kein Datensatz gel&ouml;scht.
-                		#elseif($countRemove == 1)
-                			Es wurde ein Datensatz gel&ouml;scht.
-                		#else
-                			Es wurden $countRemove Datens&auml;tze gel&ouml;scht.
-                		#end
-                	</vera-success>
-                #end
+            #if($countInsert && $countInsert > 0)
+            	<vera-success>
+            		#if($countInsert == 0)
+						Es wurde $noNewElement angelegt.
+            		#elseif($countInsert == 1)
+            			Es wurde $oneNewElement angelegt.
+            		#else
+            			Es wurden $countInsert $severalNewElements angelegt.
+            		#end
+            	</vera-success>
+            #end
+            #if($countUpdate && $countUpdate > 0)
+            	<vera-success>
+            		#if($countUpdate == 0)
+            			Es wurde $noElement ge&auml;ndert.
+            		#elseif($countUpdate == 1)
+            			Es wurde $oneElement ge&auml;ndert.
+            		#else
+            			Es wurden $countUpdate $severalElements ge&auml;ndert.
+            		#end
+            	</vera-success>
+            #end
+            #if($countRemove)
+            	<vera-success>
+            		#if($countRemove == 0 || $uncaughtPSQLException)
+            			Es wurde $noElement gel&ouml;scht.
+            		#elseif($countRemove == 1)
+            			Es wurde $oneElement gel&ouml;scht.
+            		#else
+            			Es wurden $countRemove $severalElements gel&ouml;scht.
+            		#end
+            	</vera-success>
             #end
 	
 
