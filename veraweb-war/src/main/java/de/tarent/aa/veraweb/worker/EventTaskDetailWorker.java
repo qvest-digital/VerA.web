@@ -111,7 +111,38 @@ public class EventTaskDetailWorker {
 		return task;
 	}
 
-
+    /** Eingabe-Parameter der Octopus-Aktion {@link #saveTemp(OctopusContext)} */
+    public static final String INPUT_saveTemp[] = {};
+    /**
+     * Diese Octopus-Aktion holt eine Aufgabe unter "task" aus dem Octopus-Request und legt sie unter "task" in
+     * den Octopus-Content und unter "tasktemp" in die Session.
+     * 
+     * @param cntx
+     *          Octopus-Kontext
+     */
+    public void saveTemp(OctopusContext cntx) throws BeanException {
+        Request request = new RequestVeraWeb(cntx);
+        Task task = (Task)request.getBean("Task", "task");
+        cntx.setSession("tasktemp", task);
+        cntx.setContent("task", task);
+    }
+    
+    
+    /** Eingabe-Parameter der Octopus-Aktion {@link #loadTemp(OctopusContext)} */
+    public static final String INPUT_loadTemp[] = {};
+    /**
+     * Diese Octopus-Aktion holt eine Aufgabe unter "tasktemp" aus der Session und
+     * legt sie unter "task" und Hilfsflags unter "task-beginhastime" und "task-endhastime"
+     * im Octopus-Content ab.
+     * 
+     * @param cntx Octopus-Kontext
+     */
+    public void loadTemp(OctopusContext cntx) {
+        Task task = (Task)cntx.sessionAsObject("tasktemp");
+        cntx.setContent("task", task);
+    }
+	
+	
 	public static final String INPUT_saveDetail[] = { "savetask" };
 
 	public static final boolean MANDATORY_saveDetail[] = { false };

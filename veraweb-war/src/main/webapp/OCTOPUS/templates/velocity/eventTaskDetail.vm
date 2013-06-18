@@ -83,9 +83,9 @@
 
             <div id="tabsMain">
                 <ul class="gray-gradient"> <!-- Bitte das End-tag der <li>s immer mit in die nächste Zeile nehmen (verhindert Mozilla styling bug) -->
-                    <li class="inactive" goto="ShowEvent?id=$!eventId" class="noBorder">Allgemein</a>
-                    </li><li class="inactive" goto="${paths.staticWeb}do/ShowEventDoctype?id=$!eventId&selectNone=true" class="noBorder">Dokumenttypen
-                    </li><li class="active" goto="${paths.staticWeb}do/ShowEventTasks?id=$!eventId&selectNone=true">Aufgaben
+                    <li class="inactive" id="showEvent" goto="ShowEvent?id=$!eventId" class="noBorder">Allgemein</a>
+                    </li><li id="showEventDoctype" class="inactive" goto="${paths.staticWeb}do/ShowEventDoctype?id=$!eventId&selectNone=true" class="noBorder">Dokumenttypen
+                    </li><li id="showEventTasks" class="active" goto="${paths.staticWeb}do/ShowEventTasks?id=$!eventId&selectNone=true">Aufgaben
                     </li>
                 </ul>
             </div>
@@ -182,7 +182,9 @@
                         <div id="task-reference-person-text" class="marginBottom5">$!message.text($refPerson.firstname_a_e1) $!message.text($refPerson.lastname_a_e1)</div>
 				        #if($grants.mayWrite())
                             <div>
-                                <input type="button" tabindex="9" class="autoWidth" value="Verantworlichen hinzufügen" title="Verantworlichen hinzufügen" goto="SetReferencePersonToEventTask?a=taskReferencePerson&taskId=$!task.id&eventId=$!eventId">
+                               <input type="button" id="addRemoveRefPerson" tabindex="9" class="autoWidth" value="Verantworlichen hinzufügen" title="Verantworlichen hinzufügen" 
+                                onclick="document.getElementById('formlist').action='SetReferencePersonToEventTask'; 
+                                document.getElementById('a').value='taskReferencePerson';  document.getElementById('formlist').submit();" />
                                 <input type="button" tabindex="10" class="autoWidth" value="Verantworlichen entfernen" title="Verantworlichen entfernen" id="linkRemoveRefPerson">
                             </div>
                         #end
@@ -217,10 +219,10 @@
                 e.preventDefault(); // do not follow link
             }
         });
-        $("li, input[type=button]").not("#linkRemoveRefPerson").click(function (e) {
-            if (checkModified()) {
+        $("#showEvent, #showEventDoctype, #showEventTasks, input[type=button]").not("#addRemoveRefPerson, #linkRemoveRefPerson").click(function (e) {    
+           if (checkModified()) {
                 window.location.href = $(this).attr('goto');
-            }
+           }
         });
         $("#linkRemoveRefPerson").click(function () {
             $("#task-reference-person").val("");
