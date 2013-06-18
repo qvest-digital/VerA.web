@@ -81,23 +81,15 @@
 	<br>Keine Daten gefunden.
 #end
 
-<div id="fixme" class="fixme1"><div class="fixme2"><div class="fixme3">
-
 	#parse("inc/list-navi.vm")
 	#parse("inc/list-direct.vm")
 	
 	<div class="textRight" id="buttonPanel-bottom">
-					<input type="button" name="save" value="Speichern"
-						title="Speichern" class="mainButton">
-					<input type="button" name="save" value="Zurück"
-						title="Zurück" class="mainButton" onclick="window.location.href='MailOutboxList';">
+					<input type="button" name="save" value="Speichern" title="Speichern" class="mainButton" />
+					<input type="button" name="save" value="Zurück" title="Zurück" class="mainButton" onclick="window.location.href='MailOutboxList';" />
 				</div>
 
 	<input type="reset"  name="clear"  value="Zur&uuml;cksetzen" class="reset"> &nbsp;
-	
-	
-
-</div></div></div>
 
 
 

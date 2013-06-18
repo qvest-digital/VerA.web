@@ -75,22 +75,22 @@
                                 <legend>Standard Auswahl von Tabulatoren</legend>
                                     <div class="table width100 inlineLabel">
                                     	<div class="tableRow">
-                                        		<div class="tableCell bold padingBottom10 width30">Haupttabs</div>
-                                        		<div class="tableCell"><input type="radio" name="personTab" id="personTab1" value="1" #if($personTab1) checked #end></td><label for="personTab1">Personendaten</label></div>
-                                        		<div class="tableCell"><input type="radio" name="personTab" id="personTab2" value="2" #if($personTab2) checked #end><label for="personTab2">Anschriften</label></div>
+                                        		<div class="tableCell bold padingBottom10 width30"> Haupttabs</div>
+                                        		<div class="tableCell"><input type="radio" name="personTab" id="personTab1" value="1" #if($personTab1) checked #end></td><label for="personTab1">&nbsp;Personendaten</label></div>
+                                        		<div class="tableCell"><input type="radio" name="personTab" id="personTab2" value="2" #if($personTab2) checked #end><label for="personTab2">&nbsp;Anschriften</label></div>
                                     			<div class="tableCell"></div>
                                     	</div>
                                     	<div class="tableRow">
                                         		<div class="tableCell bold paddingBottom10">Subtabs von &bdquo;Personendaten&rdquo;</div>
-                                        		<div class="tableCell verticalBottom"><input type="radio" name="personMemberTab" id="personMemberTab1" value="1" #if($personMemberTab1) checked #end><label for="personMemberTab1">Hauptperson</label></div>
-                                        		<div class="tableCell verticalBottom"><input type="radio" name="personMemberTab" id="personMemberTab2" value="2" #if($personMemberTab2) checked #end><label for="personMemberTab2">Partner</label></div>
+                                        		<div class="tableCell verticalBottom"><input type="radio" name="personMemberTab" id="personMemberTab1" value="1" #if($personMemberTab1) checked #end><label for="personMemberTab1">&nbsp;Hauptperson</label></div>
+                                        		<div class="tableCell verticalBottom"><input type="radio" name="personMemberTab" id="personMemberTab2" value="2" #if($personMemberTab2) checked #end><label for="personMemberTab2">&nbsp;Partner</label></div>
                                         		<div class="tableCell"></div>
                                     	</div>
                                     	<div class="tableRow">
                                         		<div class="tableCell bold paddingBottom10">Subtabs von &bdquo;Anschriften&rdquo;</div>
-            									<div class="tableCell verticalBottom"><input type="radio" name="personAddresstypeTab" id="personAddresstypeTab1" value="1" #if($personAddresstypeTab1) checked #end><label for="personAddresstypeTab1">Gesch&auml;ftlich</label></div>
-                                        		<div class="tableCell verticalBottom"><input type="radio" name="personAddresstypeTab" id="personAddresstypeTab2" value="2" #if($personAddresstypeTab2) checked #end><label for="personAddresstypeTab2">Privat</label></div>
-                                        		<div class="tableCell verticalBottom"><input type="radio" name="personAddresstypeTab" id="personAddresstypeTab3" value="3" #if($personAddresstypeTab3) checked #end><label for="personAddresstypeTab3">Weitere</label></div>
+            									<div class="tableCell verticalBottom"><input type="radio" name="personAddresstypeTab" id="personAddresstypeTab1" value="1" #if($personAddresstypeTab1) checked #end><label for="personAddresstypeTab1">&nbsp;Gesch&auml;ftlich</label></div>
+                                        		<div class="tableCell verticalBottom"><input type="radio" name="personAddresstypeTab" id="personAddresstypeTab2" value="2" #if($personAddresstypeTab2) checked #end><label for="personAddresstypeTab2">&nbsp;Privat</label></div>
+                                        		<div class="tableCell verticalBottom"><input type="radio" name="personAddresstypeTab" id="personAddresstypeTab3" value="3" #if($personAddresstypeTab3) checked #end><label for="personAddresstypeTab3">&nbsp;Weitere</label></div>
                                     	</div>
                                     </div>
                            	</fieldset>
@@ -168,7 +168,7 @@
             </div>
             
             <div class="floatRight width49">
-                <h3>Oberfl&auml;chen Beschriftungen:</h3>
+                <h3>Oberfl&auml;chenbeschriftungen:</h3>
                 <table class="marginBottom20">
                 	<tr>
                 		<td class="bold width25">Hauptperson:</td>
@@ -253,7 +253,7 @@
                 <h3>Änderungsprotokoll:</h3>
                 <table class="marginBottom20">
                 	<tr>
-                		<td class="bold width25">Vorhaltezeit der Protokolldaten (Jahre/Monate/Tage):</td>
+                		<td class="bold width50">Vorhaltezeit der Protokolldaten (Jahre/Monate/Tage):</td>
                 		<td class="value">
                 		<input type="hidden" name="changeLogRetentionPolicy" id="changeLogRetentionPolicyValue" value="$!message.text($config.changeLogRetentionPolicy.toString())"  vera-disabled style="width: 80px;">
                 		<input type="text" id="changeLogRetentionPolicyDisplay" value="$!message.text($config.changeLogRetentionPolicy.toFormattedString( '%Y%M%D' ))"  vera-disabled style="background-color: #f0f0f0;width: 200px;">
