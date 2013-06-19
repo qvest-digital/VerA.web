@@ -39,17 +39,12 @@
     	<div id="breadcrumb" class="textRight marginBottom10">
     		<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Personen > <a href="${paths.staticWeb}do/ShowPersonSearch?action=person" title="Zur Personensuche">Personensuche</a> > Suchergebnis</span>
     	</div>
-    	<h1>Suchergebnis: Personen</h1>
+    	<h1>Gast hinzuf&uuml;gen</h1>
 	#elseif($action == "taskReferencePerson")
 		<div id="breadcrumb" class="textRight marginBottom10">
     		<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Veranstaltungen > Veranstaltung bearbeiten</span>
     	</div>
     	<h1>Verantwortlichen zuweisen</h1> 
-	#elseif($action == "guest")
-		<div id="breadcrumb" class="textRight marginBottom10">
-    		<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Veranstaltungen > Gast hinzuf&uuml;gen</span>
-    	</div>
-    	<h1>Gast hinzuf&uuml;gen</h1>
 	#else
 		<div id="breadcrumb" class="textRight marginBottom10">
     		<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Personen > $title</span>
