@@ -1,9 +1,13 @@
 #set($activeMenu = "Administration")
 #if($mailoutbox && $mailoutbox.id)
-#set($title = "E-Mail bearbeiten")
+	#set($title = "E-Mail bearbeiten")
 #else
-#set($title = "Neue E-Mail anlegen")
+	#set($title = "Neue E-Mail anlegen")
 #end
+
+#set($elementNameSex = "female")
+#set($elementNameSingular = "E-Mail")
+#set($elementNamePlural = "E-Mails")
 #parse("inc/header.vm")
 
 <form id="formlist" name="formlist" action="" method="POST">

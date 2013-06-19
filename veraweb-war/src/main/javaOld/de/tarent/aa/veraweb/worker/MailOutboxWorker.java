@@ -73,7 +73,7 @@ public class MailOutboxWorker extends ListWorkerVeraWeb {
 		if (mailOutbox == null && id != null) {
 			return (MailOutbox)getDatabase(cntx).getBean("MailOutbox", id);
 		}
-		return null;
+		return mailOutbox;
 	}
 
 	/** Octopus-Eingabe-Parameter f�r {@link #saveDetail(OctopusContext, Boolean)} */
@@ -112,6 +112,7 @@ public class MailOutboxWorker extends ListWorkerVeraWeb {
 				{
 					saveBean(cntx, mailOutbox, context);
 					context.commit();
+					cntx.setContent("countUpdate", new Integer(1));
 				}
 				catch ( BeanException e )
 				{

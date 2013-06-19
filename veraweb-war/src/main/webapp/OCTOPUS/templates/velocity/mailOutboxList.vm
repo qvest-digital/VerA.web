@@ -1,5 +1,8 @@
 #set($activeMenu = "Administration")
 #set($title = "E-Mail-Postausgang")
+#set($elementNameSex = "female")
+#set($elementNameSingular = "E-Mail")
+#set($elementNamePlural = "E-Mails")
 #parse("inc/header.vm")
 
 <form id="formlist" name="formlist" action="" method="POST">
