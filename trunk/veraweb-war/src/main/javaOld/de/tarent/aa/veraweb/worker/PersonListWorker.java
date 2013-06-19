@@ -306,6 +306,7 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 	
 	protected void extendColumns(OctopusContext cntx, Select select) throws BeanException, IOException {
 		select.selectAs( "tworkarea.name", "workarea_name" );
+		select.selectAs( "dateexpire", "dateexpire" );
 		//select.orderBy( Order.asc( "workarea_name" ) );
 
 		/*
@@ -681,9 +682,9 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 	private void addPersonListFilter(OctopusContext cntx, WhereList list) throws BeanException {
 		PersonSearch search = getSearch(cntx);
 		
-		if (search.findAll != null && search.findAll.booleanValue()) {
-		    return;
-		}
+//		if (search.findAll != null && search.findAll.booleanValue()) {
+//		    return;
+//		}
 		
 		list.addAnd(Expr.equal("tperson.deleted", PersonConstants.DELETED_FALSE));
 
