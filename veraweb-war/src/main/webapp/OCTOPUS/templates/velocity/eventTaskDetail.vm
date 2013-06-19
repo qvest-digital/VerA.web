@@ -32,12 +32,13 @@
 
 
     <form id="formlist" name="formlist" action="" method="POST">
-        <input type="hidden" id="a" name="a" value="taskReferencePerson">
-        <input type="hidden" id="modified" name="task-modified" value= #if (($refPerson.id && !$task.personId) || $refPerson.id != $task.personId) "true" #else "false" #end>
-        <input type="hidden" name="savetask" value="true">
-        <input type="hidden" name="search" value="clear">
-        <input type="hidden" name="task-eventId" value="$!eventId">
-        <input type="hidden" name="task-personId" value="$!refPerson.id">
+        <input type="hidden" id="a" name="a" value="taskReferencePerson" />
+        <input type="hidden" id="modified" name="task-modified" value= #if (($refPerson.id && !$task.personId) || $refPerson.id != $task.personId) "true" #else "false" #end />
+        <input type="hidden" name="savetask" value="true" />
+        <input type="hidden" name="search" value="clear" />
+        <input type="hidden" name="task-eventId" value="$!eventId" />
+        <input type="hidden" name="eventId" value="$!eventId" />
+        <input type="hidden" name="task-personId" value="$!refPerson.id" />
 
 
 
