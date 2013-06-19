@@ -69,7 +69,7 @@
                 	<td>
                 		<select name="orgunit" id="orgunit">
                 		#foreach($m in $allOrgUnit)
-                			<option value="$!m.id">$!m.name</option>
+                			<option value="$!m.id">$!message.text($!m.name)</option>
                 		#end
                 		</select>
                 	</td>
