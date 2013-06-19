@@ -717,20 +717,22 @@ tr.repeat {
 /************ =6.2 Messages ***********/
 
 .msg  {
-    background-color: #FFDFAF;
-    border: 1px solid #BDBDBD;
-    padding: 10px 20px;
-}
-
-.sucessmsg {
-    background: url("../images/success.png") no-repeat scroll 6px 50% #F4FDEF;
-    border: 1px solid #ACDFA7;
-    color: #384F34;
     display: block;
     font-weight: 700;
     margin: 2px auto 14px;
     padding: 6px 6px 6px 30px;
-    text-align: left;
+}
+
+.successmsg {
+    background: url("../images/success.png") no-repeat scroll 6px 50% #F4FDEF;
+    border: 1px solid #ACDFA7;
+    color: #384F34;
+}
+
+.errormsg {
+	background: url(../images/error.png) no-repeat 6px 50% #FDD;
+	border: 1px solid red;
+    color: #c00;	
 }
 
 .error {color:#c00;}
