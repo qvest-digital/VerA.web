@@ -138,11 +138,10 @@
 			</div>
 			
 			<input type="hidden" name="egal" value="egal" id="presave">
-			<div class="contentBoxColored hinweis grayBorder marginTop10 marginBottom20">
-				 <strong>Hinweis</strong>
+			<vera-info>
 	   			 <p><strong>Format:</strong> OOo 1.1 steht f&uuml;r OpenOffice 1.1 (sxc-Datei) und OOo 2.0 f&uuml;r OpenOffice 2.0 (ods-Datei).</p>
 	  			 <p><strong>Kennzeichen:</strong> Kennz. 50 und 99 werden autom. neuen Veranstaltungen hinzugef&uuml;gt. Beim Kennz. 50 wird kein Freitextfeld erzeugt.</p>
-			</div>
+			</vera-info>
 		
 			##Rueckfrage beim Loeschen
 			<script type="text/javascript">
