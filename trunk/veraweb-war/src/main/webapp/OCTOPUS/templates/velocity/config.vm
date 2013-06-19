@@ -68,10 +68,9 @@
             	#set($personLocaleTab1 = false)#set($personLocaleTab2 = false)#set($personLocaleTab3 = true)
             #end
             <div class="contentBoxColored grayBorder marginBottom20">
-            	<div class="table width100">
-            		<div class="tableRow">
-                        <div class="tableCell width49">
-                            <fieldset class="marginTop20">
+				
+				<div style="width: 55%; float: left; max-width: 510px;">
+					<fieldset class="marginTop20">
                                 <legend>Standard Auswahl von Tabulatoren</legend>
                                     <div class="table width100 marginTop10">
                                     	<div class="tableRow">
@@ -94,10 +93,10 @@
                                     	</div>
                                     </div>
                            	</fieldset>
-            			</div>
-            			<div class="tableCell width5"></div>
-            			<div class="tableCell width49">
-                            <fieldset class="marginTop20">
+				</div>
+				
+				<div style="width:43%" class="floatRight">
+				 <fieldset class="marginTop20">
                             	<legend>Standard Auswahl der Selectbox &bdquo;Zeichensatz&rdquo; </legend>
                             		<div class="table width100 marginTop10">
                             			<div class="tableRow">
@@ -107,9 +106,10 @@
                             			</div>
                                     </div>
                             </fieldset>
-            			</div>
-            		</div>
-            	</div>
+				</div>
+				
+                <div class="clear"></div>
+			
             </div>
             
             <div class="width49" style="float:left;">
