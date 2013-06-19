@@ -1,4 +1,4 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3c.org/TR/1999/REC-html401-19991224/loose.dtd">
+<!DOCTYPE HTML>
 <html>
 	<head>
 		<title>Funktion ausw&auml;hlen</title>
@@ -6,6 +6,7 @@
 		<link rel="stylesheet" type="text/css" href="${paths.staticWeb}styles/default.css" media="all">
 		<link rel="stylesheet" type="text/css" href="${paths.staticWeb}styles/style.css" media="all" />
 		## Utils
+		<script type="text/javascript" src="${paths.staticWeb}scripts/jquery.min.js"></script>
 		<script type="text/javascript" src="${paths.staticWeb}scripts/utils.js"></script>
 		## Tabs und Popups
 		<script type="text/javascript" src="${paths.staticWeb}scripts/dhtml-tabs.js"></script>
@@ -22,9 +23,10 @@
 	</head>
 	<body id="popUp">
 		<form id="formlist" name="formlist" action="" method="post">
-        <input type="hidden" name="start" value="">
-        <input type="hidden" name="selectAll" value="false">
-        <input type="hidden" name="selectNone" value="false">
+        <input type="hidden" name="start" value=""/>
+		<input type="hidden" name="limit" value=""/>
+        <input type="hidden" name="selectAll" value="false"/>
+        <input type="hidden" name="selectNone" value="false"/>
 		
 				<div class="contentBoxColored grayBorder">
 					<h2>Bitte w&auml;hlen Sie eine Amtsbezeichnung / Funktion aus:</h2>
@@ -46,15 +48,16 @@
 
 						#set($disableListSelect = true)
 						#if ($listparam.count > 0)
-							#parse("inc/list-navi.vm")
-							#parse("inc/list-direct.vm")
+							#set($itemName = "Funktionen")
+							#parse("inc/list-navi-new.vm")
+							#parse("inc/list-direct-new.vm")
 						#else
-							Keine Daten gefunden.<br><br>
+							Keine Daten gefunden.<br/><br/>
 						#end
 					</table>
 				
 						<div class="textRight">
-							<input type="button" value="Schlie&szlig;en" onclick="closePopup();">
+							<input type="button" value="Schlie&szlig;en" onclick="closePopup();"/>
 						</div>
 		
 			</div>
