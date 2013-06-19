@@ -1194,6 +1194,7 @@
 			</description>
 			<doTask name="Load"/>
 			<action name="setEventTaskId" worker="EventTaskDetailWorker" />
+			<action name="loadTemp" worker="EventTaskDetailWorker"/>
 			<action name="loadReferencePerson" worker="EventTaskDetailWorker" />
 			<action name="showDetail" worker="EventDetailWorker" />
 			<response type="velocity" name="eventTaskDetail">
@@ -1231,8 +1232,8 @@
 		<task name="SetReferencePersonToEventTask" access="public" groups="Writer">
 			<description>
 				Suchmaske zur Auswahl einen verantwortliche Person für eine Veranstaltungsaufgabe.
-			</description>
-			
+			</description>		
+			<action name="saveTemp" worker="EventTaskDetailWorker" />
 			<action name="copyTaskAndEventId" worker="EventTaskDetailWorker" />
 			<doTask name="ShowPersonSearch"/>
 		</task>		
@@ -1241,6 +1242,7 @@
 			<description>
 				Auswahl einen verantwortliche Person für eine Veranstaltungsaufgabe.
 			</description>
+			<action name="loadTemp" worker="EventTaskDetailWorker"/>
 			<action name="copyTaskAndEventId" worker="EventTaskDetailWorker" />
 			<doTask name="SearchPerson"/>
 		</task>
