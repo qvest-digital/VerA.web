@@ -21,23 +21,23 @@ function newLocation(url) {
 }
 
 function selectFunction(url, field) {
-	openPopup('function', url + 'popupSelectFunction/field=' + field + '?limit=5', 520, 380, "status=no,resizable=no,scrollbars=yes,dependent=yes,alwaysRaised=yes");
+	openPopup('function', url + 'popupSelectFunction/field=' + field, 800, 600, "status=no,resizable=no,scrollbars=yes,dependent=yes,alwaysRaised=yes");
 }
 
 function selectCompany(url, field) {
-	openPopup('company', url + 'popupSelectCompany/field=' + field + '?limit=5', 520, 380, "status=no,resizable=no,scrollbars=yes,dependent=yes,alwaysRaised=yes");
+	openPopup('company', url + 'popupSelectCompany/field=' + field, 800, 600, "status=no,resizable=no,scrollbars=yes,dependent=yes,alwaysRaised=yes");
 }
 
 function selectPersonCategory(url) {
-	openPopup('function', url, 320, 220, "status=no,resizable=yes,scrollbars=yes,dependent=yes,alwaysRaised=yes");
+	openPopup('function', url, 320, 250, "status=no,resizable=yes,scrollbars=yes,dependent=yes,alwaysRaised=yes");
 }
 
 function selectPersonWorkarea(url) {
-	openPopup('function', url, 320, 220, "status=no,resizable=yes,scrollbars=yes,dependent=yes,alwaysRaised=yes");
+	openPopup('function', url, 320, 250, "status=no,resizable=yes,scrollbars=yes,dependent=yes,alwaysRaised=yes");
 }
 
 function selectGuestCategory(url) {
-	openPopup('function', url, 320, 220, "status=no,resizable=yes,scrollbars=yes,dependent=yes,alwaysRaised=yes");
+	openPopup('function', url, 320, 250, "status=no,resizable=yes,scrollbars=yes,dependent=yes,alwaysRaised=yes");
 }
 
 function exportPerson(url, id) {

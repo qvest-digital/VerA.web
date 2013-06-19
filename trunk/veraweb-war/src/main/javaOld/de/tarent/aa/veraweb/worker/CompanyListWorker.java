@@ -101,13 +101,6 @@ public class CompanyListWorker extends ListWorkerVeraWeb {
 		return new Integer(i.intValue() - (i.intValue() % getLimit(cntx).intValue()));
 	}
 
-	/** Gibt die maximale Anzahl von Datens�tzen pro Seite. */
-	protected Integer limit = new Integer(5);
-	@Override
-    protected Integer getLimit(OctopusContext cntx) {
-		return limit;
-	}
-
 	//
     // Octopus-Aktionen
     //
