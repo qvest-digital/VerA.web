@@ -23,7 +23,7 @@
     </div>
     #elseif($activeMenu == "Verwaltung")
     <div id="breadcrumb" class="textRight marginBottom10">
-        <strong>Sie sind hier:</strong> <span><a href="index.html">Home</a> > Verwaltung > Vertretung</span>
+        <strong>Sie sind hier:</strong> <span><a href="index.html">Home</a> > Verwaltung > Vertretungen</span>
     </div>	
     #end
     

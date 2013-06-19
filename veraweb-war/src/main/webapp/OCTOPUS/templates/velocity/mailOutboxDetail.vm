@@ -70,8 +70,8 @@
 	<td>
 		<a id="show-errorlink" href="javascript:showBlock(document.getElementById('show-errortext')); hideBlock(document.getElementById('show-errorlink'));">technische Fehlermeldung einblenden</a>
 		<div id="show-errortext" name="show-errortext" style="display: none;">
-		<a href="javascript:showBlock(document.getElementById('show-errorlink')); hideBlock(document.getElementById('show-errortext'));">technische Fehlermeldung ausblenden</a>
-		$!message.plain($mailoutbox.errortext)
+    		<a href="javascript:showBlock(document.getElementById('show-errorlink')); hideBlock(document.getElementById('show-errortext'));">technische Fehlermeldung ausblenden</a>
+    		<p>$!message.plain($mailoutbox.errortext)</p>
 		</div>
 	</td>
 #end
@@ -88,7 +88,7 @@
 					<input type="button" name="save" value="Zurück" title="Zurück" class="mainButton" onclick="window.location.href='MailOutboxList';" />
 				</div>
 
-	<input type="reset"  name="clear"  value="Zur&uuml;cksetzen" class="reset"> &nbsp;
+	<input type="reset"  name="clear"  value="Zur&uuml;cksetzen" class="reset">
 
 
 

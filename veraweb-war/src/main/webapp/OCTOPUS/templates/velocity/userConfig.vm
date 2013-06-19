@@ -105,13 +105,11 @@
     					</fieldset>
     				</div>
     			</div>
-    		</div>
-    	
-    			<div class="textRight">
-    				<input type="submit" class="mainButton" value="Speichern" name="save">
-    			</div>			
-    
+    		</div>   
     	</div>
+		<div class="textRight">
+			<input type="submit" class="mainButton" value="Speichern" name="save">
+    	</div>			
 	</div>
 </form>
 
