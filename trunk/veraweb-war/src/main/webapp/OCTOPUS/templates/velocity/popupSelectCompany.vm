@@ -29,20 +29,20 @@
         <div class="contentBoxColored grayBorder">
 
 			<h2>Bitte w&auml;hlen Sie eine Firma / Institution aus:</h2>
-			<ul >
+			<table>
 			
 			#foreach($bean in $list)
-			
+				<tr>
 			## fixing issue 1525, consolidating display to a single display scheme
-						<li onclick="if (returnCompany('${paths.staticWeb}do/', '$bean.id')) closePopup();">
+						<td onclick="if (returnCompany('${paths.staticWeb}do/', '$bean.id')) closePopup();">
 							#if($bean.company_a_e1.length() > 0)
 									<a href="#">$!message.plain($bean.company_a_e1)</a>
 							#else
 								&nbsp;
 							#end
-						</li>
+						</td>
+				</tr>
 			#end
-			</ul>
 
 			#set($disableListSelect = true)
 			#if ($listparam.count > 0)
@@ -51,6 +51,7 @@
 			#else
 				Keine Daten gefunden.<br><br>
 			#end
+			</table>
 			
 			<div class="textRight">
 				<input type="button" value="Schlie&szlig;en" onclick="closePopup();">
