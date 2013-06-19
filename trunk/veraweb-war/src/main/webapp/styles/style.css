@@ -545,7 +545,10 @@ nav a, #nav a {
 	background-color: white !important;	
 }
 
-.hinweis {padding:10px 20px;}
+.hinweis {
+	background-image: url("../images/dialog_close.png") 1% 99%;
+	padding:10px 20px;
+	}
 
 #main_content {
 }

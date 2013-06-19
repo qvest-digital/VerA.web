@@ -56,7 +56,7 @@
 			</div>					
 
 			#if($snr-action == "replace" || $snr-action == "replaceAll")
-				<div class="marginBottom20 marginTop10 msg">
+				<div class="marginBottom20 marginTop10 msg errormsg">
 					#if(!$snr-count)
 						#if($noSearchParam)
 							Ihre Suche muss aus mindestens einem Buchstaben bestehen.
@@ -72,7 +72,7 @@
 					#end
 				</div>
 				#elseif($snr-action == "count")
-				<div class="marginBottom20 marginTop10 msg">
+				<div class="marginBottom20 marginTop10 msg errormsg">
 					#if(!$snr-count)
 						#if($noSearchParam)
 							Ihre Suche muss aus mindestens einem Buchstaben bestehen.

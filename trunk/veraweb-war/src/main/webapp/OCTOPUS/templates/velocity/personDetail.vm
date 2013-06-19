@@ -127,14 +127,9 @@
 
 
     #if($person.deleted == "t")
-        <table>
-        	<tr style="height: 20px;">
-        		<td class="list2error" style="text-align: center; width: 60px;"><strong>Hinweis</strong></td>
-        		<td class="list1error">
+        <vera-warn>
         			Diese Person wurde bereits als gel&ouml;scht markiert und wird beim Suchen nicht mehr angezeigt.
-        		</td>
-        	</tr>
-        </table><br>
+        </vera-warn>
     #end
 
     #if($person)
