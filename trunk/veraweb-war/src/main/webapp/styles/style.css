@@ -546,10 +546,12 @@ nav a, #nav a {
 }
 
 .hinweis {
-	background-image: url("../images/dialog_close.png");
-	background-position: 1% 99%;
-	padding:10px 20px;
-	}
+    background-image: url("../images/dialog_close.png");
+    background-position: right top;
+    background-repeat: no-repeat;
+    background-size: 21px auto;
+    padding: 10px 20px;
+}
 
 #main_content {
 }
