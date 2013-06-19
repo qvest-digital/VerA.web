@@ -588,6 +588,10 @@ hr {border-top:1px solid #8b0f0f; }
 	margin-bottom:10px;
 }
 
+#popUp ul {
+	margin:1em 0 20px 1em
+}
+
 .statisticsType input {margin-bottom:5px !important;}
 
 #guestSummary {
