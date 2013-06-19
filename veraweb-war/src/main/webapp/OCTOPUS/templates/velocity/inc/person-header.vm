@@ -101,7 +101,7 @@
                     <div class="tableRow">
                         <div class="tableCell">
 							#if($doctype)
-                                <strong>Freifeld-Vorschau f&uuml;r &quot;$!{doctype.name}&quot;</strong>
+                                <strong>Freifeld-Vorschau f&uuml;r &quot;$!message.plain($doctype.name)&quot;</strong>
 								#if($doctype.textfield)
 									<textarea id="d8" name="freitextfeld" style="height:88px;" vera-disabled>$!message.textarea($doctype.textfield)</textarea>
 								#elseif(!$person)
