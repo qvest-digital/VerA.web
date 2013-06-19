@@ -270,21 +270,21 @@ var showInfo, showWarning, showSuccess, showConfirm, showConfirmYesNo;
      * Format all texts in <vera-info> / <vera-war> tags on load of the current page
      */
     $(function () {
-        $('vera-info').replaceWith(function () {
-            var info = createInfoHtml($(this).html());
+        $('vera-info').each(function () {
+            var info = createInfoHtml($(this).remove().html());
             info.click(function () {
-                info.hide();
+                info.remove();
             });
-            return info;
+            $('h1').after(info);
         });
-        $('vera-warn').replaceWith(function () {
-            return createWarnHtml($(this).html());
+        $('vera-warn').each(function () {
+            $('h1').after(createWarnHtml($(this).remove().html()));
         });
-        $('vera-success').replaceWith(function () {
-            return createSuccessHtml($(this).html());
+        $('vera-success').each(function () {
+            $('h1').after(createSuccessHtml($(this).remove().html()));
         });
-        $('vera-confirm').replaceWith(function () {
-            return createConfirmHtml($(this).html());
+        $('vera-confirm').each(function () {
+            $('h1').after(createConfirmHtml($(this).remove().html()));
         });
     });
 
@@ -297,7 +297,7 @@ var showInfo, showWarning, showSuccess, showConfirm, showConfirmYesNo;
             activeInfoDialogs[htmlStr] = null;
             var info = createInfoHtml(htmlStr);
             info.click(function () {
-                info.hide();
+                info.remove();
                 delete activeInfoDialogs[htmlStr];
             });
             $(function () {
@@ -335,14 +335,14 @@ var showInfo, showWarning, showSuccess, showConfirm, showConfirmYesNo;
             var msg = createConfirmHtml('<strong>' + title + '</strong><br>' + htmlContent + '<br>');
             btnYes.click(function () {
                 yesAction();
-                msg.hide();
+                msg.remove();
                 delete activeConfirmDialogs[title];
             });
             btnNo.click(function () {
                 if (nayAction !== undefined) {
                     nayAction();
                 }
-                msg.hide();
+                msg.remove();
                 delete activeConfirmDialogs[title];
             });
             msg.append(btnYes).append('&nbsp;').append(btnNo);
