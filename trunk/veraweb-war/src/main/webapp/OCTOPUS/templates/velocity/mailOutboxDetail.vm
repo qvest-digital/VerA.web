@@ -68,19 +68,19 @@
 </tr><tr>
 	<td>Fehlerbeschreibung:</td>
 	<td>
-		<a id="show-errorlink" href="javascript:showBlock(document.getElementById('show-errortext')); hideBlock(document.getElementById('show-errorlink'));" style="display: block; margin: 5px 0px 5px 0px;">technische Fehlermeldung einblenden</a>
-		<div id="show-errortext" name="show-errortext" style="display: none; margin: 5px 0px 5px 0px;">
-		<a href="javascript:showBlock(document.getElementById('show-errorlink')); hideBlock(document.getElementById('show-errortext'));" style="display: block; margin: 5px 0px 5px 0px;">technische Fehlermeldung ausblenden</a>
+		<a id="show-errorlink" href="javascript:showBlock(document.getElementById('show-errortext')); hideBlock(document.getElementById('show-errorlink'));">technische Fehlermeldung einblenden</a>
+		<div id="show-errortext" name="show-errortext" style="display: none;">
+		<a href="javascript:showBlock(document.getElementById('show-errorlink')); hideBlock(document.getElementById('show-errortext'));">technische Fehlermeldung ausblenden</a>
 		$!message.plain($mailoutbox.errortext)
 		</div>
 	</td>
 #end
-</tr></table>
+</tr>
 
 #if ($listparam.count == 0)
-	<br>Keine Daten gefunden.
+	<tr><td colapsn="2">Keine Daten gefunden.</td></tr>
 #end
-
+</table>
 
 	
 	<div class="textRight" id="buttonPanel-bottom">
