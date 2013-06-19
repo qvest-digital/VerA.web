@@ -240,7 +240,7 @@ var showInfo, showWarning, showSuccess, showConfirm, showConfirmYesNo;
      * @returns {*|jQuery|HTMLElement}
      */
     var createWarnHtml = function (htmlStr) {
-        return $('<div style="msg errormsg">'
+        return $('<div class="msg errormsg">'
             + htmlStr + '</div>');
     };
 
