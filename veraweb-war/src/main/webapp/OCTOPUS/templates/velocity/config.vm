@@ -73,24 +73,24 @@
                         <div class="tableCell width49">
                             <fieldset class="marginTop20">
                                 <legend>Standard Auswahl von Tabulatoren</legend>
-                                    <div class="table width100 inlineLabel">
+                                    <div class="table width100 inlineLabel marginTop10">
                                     	<div class="tableRow">
-                                        		<div class="tableCell bold padingBottom10 width30"> Haupttabs</div>
-                                        		<div class="tableCell"><input type="radio" name="personTab" id="personTab1" value="1" #if($personTab1) checked #end></td><label for="personTab1">&nbsp;Personendaten</label></div>
-                                        		<div class="tableCell"><input type="radio" name="personTab" id="personTab2" value="2" #if($personTab2) checked #end><label for="personTab2">&nbsp;Anschriften</label></div>
+                                        		<div class="tableCell bold paddingBottom10 width30">Haupttabs</div>
+                                        		<div class="tableCell"><label for="personTab1"><input type="radio" name="personTab" id="personTab1" value="1" #if($personTab1) checked #end>&nbsp;Personendaten</label></div>
+                                        		<div class="tableCell"><label for="personTab2"><input type="radio" name="personTab" id="personTab2" value="2" #if($personTab2) checked #end>&nbsp;Anschriften</label></div>
                                     			<div class="tableCell"></div>
                                     	</div>
                                     	<div class="tableRow">
                                         		<div class="tableCell bold paddingBottom10">Subtabs von &bdquo;Personendaten&rdquo;</div>
-                                        		<div class="tableCell verticalBottom"><input type="radio" name="personMemberTab" id="personMemberTab1" value="1" #if($personMemberTab1) checked #end><label for="personMemberTab1">&nbsp;Hauptperson</label></div>
-                                        		<div class="tableCell verticalBottom"><input type="radio" name="personMemberTab" id="personMemberTab2" value="2" #if($personMemberTab2) checked #end><label for="personMemberTab2">&nbsp;Partner</label></div>
+                                        		<div class="tableCell verticalBottom"><label for="personMemberTab1"><input type="radio" name="personMemberTab" id="personMemberTab1" value="1" #if($personMemberTab1) checked #end>&nbsp;Hauptperson</label></div>
+                                        		<div class="tableCell verticalBottom"><label for="personMemberTab2"><input type="radio" name="personMemberTab" id="personMemberTab2" value="2" #if($personMemberTab2) checked #end>&nbsp;Partner</label></div>
                                         		<div class="tableCell"></div>
                                     	</div>
                                     	<div class="tableRow">
                                         		<div class="tableCell bold paddingBottom10">Subtabs von &bdquo;Anschriften&rdquo;</div>
-            									<div class="tableCell verticalBottom"><input type="radio" name="personAddresstypeTab" id="personAddresstypeTab1" value="1" #if($personAddresstypeTab1) checked #end><label for="personAddresstypeTab1">&nbsp;Gesch&auml;ftlich</label></div>
-                                        		<div class="tableCell verticalBottom"><input type="radio" name="personAddresstypeTab" id="personAddresstypeTab2" value="2" #if($personAddresstypeTab2) checked #end><label for="personAddresstypeTab2">&nbsp;Privat</label></div>
-                                        		<div class="tableCell verticalBottom"><input type="radio" name="personAddresstypeTab" id="personAddresstypeTab3" value="3" #if($personAddresstypeTab3) checked #end><label for="personAddresstypeTab3">&nbsp;Weitere</label></div>
+            									<div class="tableCell verticalBottom"><label for="personAddresstypeTab1"><input type="radio" name="personAddresstypeTab" id="personAddresstypeTab1" value="1" #if($personAddresstypeTab1) checked #end>&nbsp;Gesch&auml;ftlich</label></div>
+                                        		<div class="tableCell verticalBottom"><label for="personAddresstypeTab2"><input type="radio" name="personAddresstypeTab" id="personAddresstypeTab2" value="2" #if($personAddresstypeTab2) checked #end>&nbsp;Privat</label></div>
+                                        		<div class="tableCell verticalBottom"><label for="personAddresstypeTab3"><input type="radio" name="personAddresstypeTab" id="personAddresstypeTab3" value="3" #if($personAddresstypeTab3) checked #end>&nbsp;Weitere</label></div>
                                     	</div>
                                     </div>
                            	</fieldset>
@@ -99,12 +99,11 @@
             			<div class="tableCell width49">
                             <fieldset class="marginTop20">
                             	<legend>Standard Auswahl der Selectbox &bdquo;Zeichensatz&rdquo; </legend>
-                            		<div class="table width100 inlineLabel">
+                            		<div class="table width100 inlineLabel marginTop10">
                             			<div class="tableRow">
-                                    		<div class="tableCell"><input type="radio" name="personLocaleTab" id="personLocaleTab1" value="1" #if($personLocaleTab1) checked #end><label for="personLocaleTab1">&nbsp;Latein</label></div>
-                                    		<div class="tableCell"><input type="radio" name="personLocaleTab" id="personLocaleTab2" value="2" #if($personLocaleTab2) checked #end><label for="personLocaleTab2">&nbsp;Zeichensatz 1</label></div>                
-                                    		<div class="tableCell"><input type="radio" name="personLocaleTab" id="personLocaleTab3" value="3" #if($personLocaleTab3) checked #end><label for="personLocaleTab3">&nbsp;Zeichensatz 2</label></div>
-                            
+                                    		<div class="tableCell"><label for="personLocaleTab1"><input type="radio" name="personLocaleTab" id="personLocaleTab1" value="1" #if($personLocaleTab1) checked #end>&nbsp;Latein</label></div>
+                                    		<div class="tableCell"><label for="personLocaleTab2"><input type="radio" name="personLocaleTab" id="personLocaleTab2" value="2" #if($personLocaleTab2) checked #end>&nbsp;Zeichensatz 1</label></div>                
+                                    		<div class="tableCell"><label for="personLocaleTab3"><input type="radio" name="personLocaleTab" id="personLocaleTab3" value="3" #if($personLocaleTab3) checked #end>&nbsp;Zeichensatz 2</label></div>                          
                             			</div>
                                     </div>
                             </fieldset>
