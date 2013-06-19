@@ -73,7 +73,7 @@
                         <div class="tableCell width49">
                             <fieldset class="marginTop20">
                                 <legend>Standard Auswahl von Tabulatoren</legend>
-                                    <div class="table width100 inlineLabel marginTop10">
+                                    <div class="table width100 marginTop10">
                                     	<div class="tableRow">
                                         		<div class="tableCell bold paddingBottom10 width30">Haupttabs</div>
                                         		<div class="tableCell"><label for="personTab1"><input type="radio" name="personTab" id="personTab1" value="1" #if($personTab1) checked #end>&nbsp;Personendaten</label></div>
@@ -95,11 +95,11 @@
                                     </div>
                            	</fieldset>
             			</div>
-            			<div class="tableCell width10"></div>
+            			<div class="tableCell width5"></div>
             			<div class="tableCell width49">
                             <fieldset class="marginTop20">
                             	<legend>Standard Auswahl der Selectbox &bdquo;Zeichensatz&rdquo; </legend>
-                            		<div class="table width100 inlineLabel marginTop10">
+                            		<div class="table width100 marginTop10">
                             			<div class="tableRow">
                                     		<div class="tableCell"><label for="personLocaleTab1"><input type="radio" name="personLocaleTab" id="personLocaleTab1" value="1" #if($personLocaleTab1) checked #end>&nbsp;Latein</label></div>
                                     		<div class="tableCell"><label for="personLocaleTab2"><input type="radio" name="personLocaleTab" id="personLocaleTab2" value="2" #if($personLocaleTab2) checked #end>&nbsp;Zeichensatz 1</label></div>                
@@ -117,7 +117,7 @@
                 <table class="marginBottom20">
                 	<tr>
                 		<td class="bold width25">Standard-Anrede:</td>
-                		<td class="value">
+                		<td>
                 			<select name="anrede" class="combox">
                 				<option></option>
                 				#foreach($salutation in $allSalutation)
@@ -128,7 +128,7 @@
                 	</tr>
                 	<tr>
                 		<td class="bold width25">Standard-Anrede Partner:</td>
-                		<td class="value">
+                		<td>
                 			<select name="anrede_p" >
                 				<option></option>
                 				#foreach($salutation in $allSalutation)
@@ -139,11 +139,11 @@
                 	</tr>
                 	<tr>
                 		<td class="bold width25">Freitextfeld-Verbinder:</td>
-                		<td class="value"><input type="text" name="freitextfeldverbinder" value="$!message.plain($config.freitextfeldverbinder)" ></td>
+                		<td><input type="text" name="freitextfeldverbinder" value="$!message.plain($config.freitextfeldverbinder)" ></td>
                 	</tr>
                 	<tr>
                 		<td class="bold width25">Freitextfeld (Anzeige):</td>
-                		<td class="value">
+                		<td>
                 			<select name="freitextfeld" >
                 				<option value="">Noch keine Auswahl getroffen</option>
                 	2			#foreach($doctype in $allDoctype)
@@ -154,7 +154,7 @@
                 	</tr>
                 	<tr>
                 		<td class="bold width25">Freitextfeld (G&auml;steliste):</td>
-                		<td class="value">
+                		<td>
                 			<select name="freitextfeld2" >
                 				<option value="">Noch keine Auswahl getroffen</option>
                 				#foreach($doctype in $allDoctype)
@@ -171,43 +171,43 @@
                 <table class="marginBottom20">
                 	<tr>
                 		<td class="bold width25">Hauptperson:</td>
-                		<td class="value"><input type="text" name="main" value="$!message.text($config.main)" ></td>
+                		<td><input type="text" name="main" value="$!message.text($config.main)" ></td>
                 	</tr>
                 	<tr>
                 		<td class="bold width25">Partner:</td>
-                		<td class="value"><input type="text" name="partner" value="$!message.text($config.partner)" ></td>
+                		<td><input type="text" name="partner" value="$!message.text($config.partner)" ></td>
                 	</tr>
                 	<tr>
-                		<td class="bold width25">Anschrift Gesch&auml;ftlich</td>
-                		<td class="value"><input type="text" name="business" value="$!message.text($config.business)" ></td>
+                		<td class="bold width25">Anschrift Gesch&auml;ftlich:</td>
+                		<td><input type="text" name="business" value="$!message.text($config.business)" ></td>
                 	</tr>
                 	<tr>
                 		<td class="bold width25">Anschrift Privat:</td>
-                		<td class="value"><input type="text" name="private" value="$!message.text($config.private)" ></td>
+                		<td><input type="text" name="private" value="$!message.text($config.private)" ></td>
                 	</tr>
                 	<tr>
                 		<td class="bold width25">Anschrift Weitere:</td>
-                		<td class="value"><input type="text" name="other" value="$!message.text($config.other)" ></td>
+                		<td><input type="text" name="other" value="$!message.text($config.other)" ></td>
                 	</tr>
                 	<tr>
                 		<td class="bold width25">Zeichensatz Latein:</td>
-                		<td class="value"><input type="text" name="latin" value="$!message.text($config.latin)" ></td>
+                		<td><input type="text" name="latin" value="$!message.text($config.latin)" ></td>
                 	</tr>
                 	<tr>
                 		<td class="bold width25">Zeichensatz Alternative 1:</td>
-                		<td class="value"><input type="text" name="extra1" value="$!message.text($config.extra1)" ></td>
+                		<td><input type="text" name="extra1" value="$!message.text($config.extra1)" ></td>
                 	</tr>
                 	<tr>
                 		<td class="bold width25">Zeichensatz Alternative 2:</td>
-                		<td class="value"><input type="text" name="extra2" value="$!message.text($config.extra2)" ></td>
+                		<td><input type="text" name="extra2" value="$!message.text($config.extra2)" ></td>
                 	</tr>
                 	<tr>
                 		<td class="bold width25">Adresszusatz 1:</td>
-                		<td class="value"><input type="text" name="suffix1" value="$!message.text($config.suffix1)" ></td>
+                		<td><input type="text" name="suffix1" value="$!message.text($config.suffix1)" ></td>
                 	</tr>
                 	<tr>
                 		<td class="bold width25">Adresszusatz 2:</td>
-                		<td class="value"><input type="text" name="suffix2" value="$!message.text($config.suffix2)" ></td>
+                		<td><input type="text" name="suffix2" value="$!message.text($config.suffix2)" ></td>
                 	</tr>
                 </table>
             </div>
@@ -217,11 +217,11 @@
                 <table class="marginBottom20">
                 	<tr>
                 		<td class="bold width25">Hilfe-Link:</td>
-                		<td class="value"><input type="text" name="helplink" value="$!message.text($config.helplink)" ></td>
+                		<td><input type="text" name="helplink" value="$!message.text($config.helplink)" ></td>
                 	</tr>
                 	<tr>
                 		<td class="bold width25">Hilfe-Fenster:</td>
-                		<td class="value">
+                		<td>
                 			<select name="helptarget" >
                 				$config.helptarget
                 				<option value="">Aktuelles Browser-Fenster verwenden.</option>
@@ -239,7 +239,7 @@
                 <table class="marginBottom20">
                 	<tr>
                 		<td class="bold width25">Fax-DN (@fax.aa):</td>
-                		<td class="value"><input type="text" name="faxdomain" value="$!message.text($config.faxdomain)" ></td>
+                		<td><input type="text" name="faxdomain" value="$!message.text($config.faxdomain)" ></td>
                 	</tr>
                 </table>
             </div>
@@ -253,7 +253,7 @@
                 <table class="marginBottom20">
                 	<tr>
                 		<td class="bold width50">Vorhaltezeit der Protokolldaten (Jahre/Monate/Tage):</td>
-                		<td class="value">
+                		<td>
                 		<input type="hidden" name="changeLogRetentionPolicy" id="changeLogRetentionPolicyValue" value="$!message.text($config.changeLogRetentionPolicy.toString())"  vera-disabled style="width: 80px;">
                 		<input type="text" id="changeLogRetentionPolicyDisplay" value="$!message.text($config.changeLogRetentionPolicy.toFormattedString( '%Y%M%D' ))"  vera-disabled style="background-color: #f0f0f0;width: 200px;">
                 		<span id="show-changeLogRetentionPolicy" class="datepickerContainer"><img src="${paths.staticWeb}images/calendar.png"></span>
@@ -278,7 +278,7 @@
             #if($grants.isAdmin())
             <div id="buttonPanel-bottom" class="textRight ">
             
-            	<input type="submit" name="save" value="Speichern"  class="mainButton" /> 
+            	<input type="submit" name="save" value="Speichern" title="Speichern" class="mainButton" /> 
             
             </div>
             #end
