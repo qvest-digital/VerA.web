@@ -306,17 +306,27 @@ $(function () {
     var personModel = (function () {
         var now = Date.now();
         // parse a date in yyyy-mm-dd format
-        var expired = function (input) {
+        var parseDate = function (input) {
             var parts = input.split(/-| /);
-            var date = new Date(parts[0], parts[1]-1, parts[2], 23, 59, 59, 999); // months are 0-based
-            return (date - now) < 0;
+            return new Date(parts[0], parts[1]-1, parts[2], 23, 59, 59, 999); // months are 0-based
+        };
+        var expired = function (input) {
+            return (parseDate(input) - now) < 0;
+        };
+        var ongoingEvent = function (input) {
+            if ('' === input) {
+                return false;
+            }
+            return (parseDate(input) - now) >= 0;
         };
         return {
             #foreach($bean in $list)
                 '$bean.id' : {
-                    expired : expired("$bean.dateexpire"),
-                        firstName: '$!message.plain($bean.firstname_a_e1)',
-                        lastName: '$!message.plain($bean.lastname_a_e1)'
+                    expired : expired("$!bean.dateexpire"),
+                    firstName: '$!message.plain($bean.firstname_a_e1)',
+                    lastName: '$!message.plain($bean.lastname_a_e1)',
+                    ongoingEvent: ongoingEvent("$!bean.eventmaxenddate"),
+                    ongoingTaskEvent: ongoingEvent("$!bean.taskeventmaxenddate")
                 },
             #end
         };
@@ -346,21 +356,55 @@ $(function () {
                         notExpiredPersonIds.push(id);
                     }
                 });
+                var ongoingEventPersonIds = [];
+                $ .each(ids, function(index, id) {
+                    if (personModel[id].ongoingEvent) {
+                        ongoingEventPersonIds.push(id);
+                    }
+                });
+                var ongoingTaskEventPersonIds = [];
+                $ .each(ids, function(index, id) {
+                    if (personModel[id].ongoingTaskEvent) {
+                        ongoingTaskEventPersonIds.push(id);
+                    }
+                });
 
+
+                var msg = '';
                 if (notExpiredPersonIds.length > 0) {
-                    var msg = 'Bei den folgenden Personen liegt das G&uuml;ltigkeitsdatum in der Zukunft.' +
+                    msg += '<br>Bei den folgenden Personen liegt das G&uuml;ltigkeitsdatum in der Zukunft.' +
                         'Wenn Sie Ihre Auswahl anpassen wollen, brechen Sie bitte das L&ouml;schen ab.<br><ul>';
                     $ .each(notExpiredPersonIds, function (index, id) {
                         var person = personModel[id];
                         msg += '<li>' + person.firstName + ' ' + person.lastName + ' (ID: ' + id + ')</li>';
                     });
-                    msg += '</ul>Sollen alle markierten Personen gelöscht werden? ' +
-                        'Diese Aktion kann nicht rückgängig gemacht werden.';
-
-                } else {
-                    msg = 'Sollen alle markierten Personen gel&ouml;scht werden? ' +
-                        'Diese Aktion kann nicht r&uuml;ckg&auml;ngig gemacht werden.';
+                    msg += '</ul>';
                 }
+                if (ongoingEventPersonIds.length > 0) {
+                    msg += '<br>Folgenden Personen sind ist mindestens einer laufenden oder zukünftigen Veranstaltung ' +
+                            'zugeordnet. Detailinformation können Sie über die Gästelisten der jeweiligen ' +
+                            'Veranstaltungen abrufen. Die Personen werden aus allen Gästelisten entfernt. ' +
+                            'Wenn Sie Ihre  Auswahl anpassen wollen, brechen Sie bitte das Löschen ab.<br><ul>';
+                    $ .each(ongoingEventPersonIds, function (index, id) {
+                        var person = personModel[id];
+                        msg += '<li>' + person.firstName + ' ' + person.lastName + ' (ID: ' + id + ')</li>';
+                    });
+                    msg += '</ul>';
+                }
+                if (ongoingTaskEventPersonIds.length > 0) {
+                    msg += '<br>Folgenden Personen sind mindestens einer Aufgabe in mindestens einer laufenden oder ' +
+                            'zukünftigen Veranstaltung zugeordnet. Detailinformationen rufen Sie bitte über die ' +
+                            'Aufgabenlisten der jeweiligen Veranstaltungen auf. Die Person werden aus allen Aufgaben ' +
+                            'entfernt. Wenn Sie Ihre Auswahl anpassen wollen, ' +
+                            'brechen Sie bitte das Löschen ab.<br><ul>';
+                    $ .each(ongoingEventPersonIds, function (index, id) {
+                        var person = personModel[id];
+                        msg += '<li>' + person.firstName + ' ' + person.lastName + ' (ID: ' + id + ')</li>';
+                    });
+                    msg += '</ul>';
+                }
+                msg += 'Sollen alle markierten Personen gelöscht werden? ' +
+                        'Diese Aktion kann nicht rückgängig gemacht werden.';
                 // disable all checkboxes while confirmation is visible
                 $('input:checkbox').prop('disabled', true);
                 showConfirmYesNo('Bitte best&auml;tigen Sie das L&ouml;schen von Personen',
