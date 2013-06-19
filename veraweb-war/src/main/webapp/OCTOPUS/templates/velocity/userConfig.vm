@@ -41,7 +41,7 @@
         #end
         <div id="main_content" class="contentBoxColored grayBorder">
     		
-        		<div style="width: 55%; float: left; max-width: 510px;">
+        		<div style="width: 57%; float: left; max-width: 510px;">
         			<h3>Personendetailansicht</h3>
         					<fieldset class="marginTop20">
         						<legend>Standard Auswahl von Tabulatoren</legend>
@@ -79,7 +79,7 @@
         					</fieldset>
     			</div>
     		
-        		<div style="width:43%" class="floatRight">
+        		<div style="width:41%" class="floatRight">
         			<h3>Gästeliste</h3>
         					<fieldset class="marginTop20">
         						<legend>Zusätzliche Felder</legend>
@@ -106,8 +106,8 @@
 				<div class="clear"></div>
     
         </div>
-    	<div class="textRight">
-    			<input type="submit" class="mainButton" value="Speichern" name="save">
+    	<div class="textRight marginTop10" id="buttonPanel-bottom">
+    			<input type="submit" class="mainButton" value="Speichern" title="Speichern" name="save">
         </div>			
 </form>
 </div>
