@@ -27,6 +27,11 @@
 		#set($title = "Personen&uuml;bersicht")
     #end
 #end
+
+#set($elementNameSex = "female")
+#set($elementNameSingular = "Person")
+#set($elementNamePlural = "Personen")
+
 #parse("inc/header.vm")
 
 <div id="content_container">
@@ -295,58 +300,111 @@
     		#end
     		
     		## Handler für selektierte Aktion 
-    		<script>
-    			$(function () {
-    				$('#button\\.execute').click(function (e) {
-                        var selectText = $('#actionSelection option:selected').text();
+<script>
+$(function () {
 
-                        if (selectText == "Löschen") {
-                            #if(!$grants.mayWrite())
-                            showWarning('Sie haben keine ausreichende Berechtigung um Personen zu entfernen.');
-                            return;
-                            #end
-                            var checkBoxes = $('input:checkbox[name$="-select"]:checked');
-                            if (checkBoxes.length === 0) {
-                                showInfo('W&auml;hlen Sie bitte zun&auml;chst eine oder mehrere Personen aus.');
-                            } else {
-                                showConfirmYesNo('Bitte best&auml;tigen Sie das L&ouml;schen von Personen',
-                                        'Sollen alle markierten Personen gel&ouml;scht werden? ' +
-                                                'Diese Aktion kann nicht r&uuml;ckg&auml;ngig gemacht werden.',
-                                        function () { // Ja
-                                            $('input[name=remove-person]').val('true');
-                                            $('form').append('<input type="hidden" name="remove" value="Ja" >').submit();
-                                        }, function () { // Nein
-                                            showInfo('Es wurde keine Person gel&ouml;scht.');
-                                        });
-                            }
-                        } else if (selectText == "Exportieren") {
-                            selectedActionExportPerson();
-                        } else if (selectText == "Kategorien zuordnen") {
-                            assignCategories();
-                        } else if (selectText == "Kategorien entfernen") {
-                            unassignCategories();
-                        } else if (selectText == "Arbeitsbereich zuordnen") {
-                            assignWorkarea();
-                        } else if (selectText == "Arbeitsbereich entfernen") {
-                            unassignWorkarea();
-                        } else if (selectText == "Ersetzen") {
-                            submitFormWithGivenAction('SaveReplacePersonList');
-                        } else if (selectText == "Übernehmen") {
-                            submitFormWithGivenAction('AddPersonToEventGuestList');
-                        }
-    				});
-     			});
+    var personModel = (function () {
+        var now = Date.now();
+        // parse a date in yyyy-mm-dd format
+        var expired = function (input) {
+            var parts = input.split(/-| /);
+            var date = new Date(parts[0], parts[1]-1, parts[2], 23, 59, 59, 999); // months are 0-based
+            return (date - now) < 0;
+        };
+        return {
+            #foreach($bean in $list)
+                '$bean.id' : {
+                    expired : expired("$bean.dateexpire"),
+                        firstName: '$!message.plain($bean.firstname_a_e1)',
+                        lastName: '$!message.plain($bean.lastname_a_e1)'
+                },
+            #end
+        };
 
-				function selectedActionExportPerson() {
-					submitFormWithGivenAction('${paths.staticWeb}do/PersonExport/export.$exportFormat');
-					document.formlist.action = '${paths.staticWeb}do/$octopusRequest.task';
-				}
-				
-				function submitFormWithGivenAction(action) {
-					document.getElementById('formlist').action = action;
-    				document.formlist.submit();
-				}
-    		</script>
+    }());
+
+    $('#button\\.execute').click(function (e) {
+        var selectText = $('#actionSelection option:selected').text();
+
+        if (selectText == "Löschen") {
+            #if(!$grants.mayWrite())
+                showWarning('Sie haben keine ausreichende Berechtigung um Personen zu entfernen.');
+                return;
+            #end
+            var checkBoxes = $('input:checkbox[name$="-select"]:checked');
+            if (checkBoxes.length === 0) {
+                showInfo('W&auml;hlen Sie bitte zun&auml;chst eine oder mehrere Personen aus.');
+            } else {
+                // get array of selected person ids
+                var ids = checkBoxes.map(function () {
+                    return $(this).attr('name').split('-')[0];
+                }).toArray();
+
+                var notExpiredPersonIds = [];
+                $ .each(ids, function(index, id) {
+                    if (!personModel[id].expired) {
+                        notExpiredPersonIds.push(id);
+                    }
+                });
+
+                if (notExpiredPersonIds.length > 0) {
+                    var msg = 'Bei den folgenden Personen liegt das G&uuml;ltigkeitsdatum in der Zukunft.' +
+                        'Wenn Sie Ihre Auswahl anpassen wollen, brechen Sie bitte das L&ouml;schen ab.<br><ul>';
+                    $ .each(notExpiredPersonIds, function (index, id) {
+                        var person = personModel[id];
+                        msg += '<li>' + person.firstName + ' ' + person.lastName + ' (ID: ' + id + ')</li>';
+                    });
+                    msg += '</ul>Sollen alle markierten Personen gelöscht werden? ' +
+                        'Diese Aktion kann nicht rückgängig gemacht werden.';
+
+                } else {
+                    msg = 'Sollen alle markierten Personen gel&ouml;scht werden? ' +
+                        'Diese Aktion kann nicht r&uuml;ckg&auml;ngig gemacht werden.';
+                }
+                // disable all checkboxes while confirmation is visible
+                $('input:checkbox').prop('disabled', true);
+                showConfirmYesNo('Bitte best&auml;tigen Sie das L&ouml;schen von Personen',
+                    msg,
+                    function () { // Ja
+                        $ .each(notExpiredPersonIds, function(index, id) {
+                            $('form').append('<input type="hidden" name="remove-expire-' + id  + '" value="true" >');
+                        });
+                        $('input[name=remove-person]').val('true');
+                        $('input:checkbox').prop('disabled', false);
+                        $('form').append('<input type="hidden" name="remove" value="Ja" >').submit();
+                    }, function () { // Nein
+                        showInfo('Es wurde keine Person gel&ouml;scht.');
+                        $('input:checkbox').prop('disabled', false);
+                    });
+            }
+        } else if (selectText == "Exportieren") {
+            selectedActionExportPerson();
+        } else if (selectText == "Kategorien zuordnen") {
+            assignCategories();
+        } else if (selectText == "Kategorien entfernen") {
+            unassignCategories();
+        } else if (selectText == "Arbeitsbereich zuordnen") {
+            assignWorkarea();
+        } else if (selectText == "Arbeitsbereich entfernen") {
+            unassignWorkarea();
+        } else if (selectText == "Ersetzen") {
+            submitFormWithGivenAction('SaveReplacePersonList');
+        } else if (selectText == "Übernehmen") {
+            submitFormWithGivenAction('AddPersonToEventGuestList');
+        }
+    });
+});
+
+function selectedActionExportPerson() {
+    submitFormWithGivenAction('${paths.staticWeb}do/PersonExport/export.$exportFormat');
+    document.formlist.action = '${paths.staticWeb}do/$octopusRequest.task';
+}
+
+function submitFormWithGivenAction(action) {
+    document.getElementById('formlist').action = action;
+    document.formlist.submit();
+}
+</script>
     		
 
 			#if($action!="replace" && $action!="duplicateSearch" && !$searchTask)
