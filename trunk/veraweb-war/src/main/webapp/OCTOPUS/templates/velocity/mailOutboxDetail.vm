@@ -92,11 +92,6 @@
 					<input type="button" name="save" value="Zurück" title="Zurück" class="mainButton" onclick="window.location.href='MailOutboxList';" />
 				</div>
 
-	<input type="reset"  name="clear"  value="Zur&uuml;cksetzen" class="reset">
-
-
-
-
 </form>
 
 #parse("inc/footer.vm")
