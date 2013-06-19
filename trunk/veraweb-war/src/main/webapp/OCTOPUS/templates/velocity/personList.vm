@@ -32,19 +32,19 @@
 <div id="content_container">
 	#if($action == "host")
 		<div id="breadcrumb" class="textRight marginBottom10">
-    		<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Veranstaltungen > Gastgeber hinzuf&uuml;gen</span>
+    		<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Veranstaltungen > $title</span>
     	</div>
-    	<h1>Gastgeber hinzuf&uuml;gen</h1>    
+    	<h1>$title</h1>    
 	#elseif($searchTask && $searchTask == "personSearchTask")
     	<div id="breadcrumb" class="textRight marginBottom10">
-    		<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Personen > <a href="${paths.staticWeb}do/ShowPersonSearch?action=person" title="Zur Personensuche">Personensuche</a> > Suchergebnis</span>
+    		<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Veranstaltungen > $title</span>
     	</div>
-    	<h1>Gast hinzuf&uuml;gen</h1>
+    	<h1>$title</h1>
 	#elseif($action == "taskReferencePerson")
 		<div id="breadcrumb" class="textRight marginBottom10">
-    		<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Veranstaltungen > Veranstaltung bearbeiten</span>
+    		<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Veranstaltungen > $title</span>
     	</div>
-    	<h1>Verantwortlichen zuweisen</h1> 
+    	<h1>$title</h1> 
 	#else
 		<div id="breadcrumb" class="textRight marginBottom10">
     		<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Personen > $title</span>
