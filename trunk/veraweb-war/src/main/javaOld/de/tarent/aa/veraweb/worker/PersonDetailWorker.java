@@ -970,9 +970,15 @@ public class PersonDetailWorker implements PersonConstants {
 				database.getCount(
 				database.getCount("Guest").
 				where(Expr.equal("fk_person", personid)), context).intValue() != 0;
+		
+		// Gibt an ob diese Person noch einer Aufgabe zugeordnet ist.
+		boolean hasTask =
+				database.getCount(
+				database.getCount("Task").
+				where(Expr.equal("fk_person", personid)), context).intValue() != 0;
 
 		Person oldPerson = ( Person ) database.getBean( "Person", personid, context );
-		if (hasEvent) {
+		if (hasEvent || hasTask) {
 			// Datenbank-Eintrag auf Gel�scht setzten.
 			if (logger.isEnabledFor(Priority.DEBUG)) {
 				logger.log(Priority.DEBUG, "Person löschen: Person #" + personid + " wird als gelöscht markiert.");
@@ -1011,7 +1017,7 @@ public class PersonDetailWorker implements PersonConstants {
 		 * cklein 2008-02-12
 		 */
 		BeanChangeLogger clogger = new BeanChangeLogger( database, context );
-		if ( hasEvent )
+		if ( hasEvent || hasTask )
 		{
 			Person newPerson = ( Person ) database.getBean( "Person", personid, context );
 			clogger.logUpdate( cntx.personalConfig().getLoginname(), oldPerson, newPerson );
