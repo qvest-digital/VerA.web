@@ -20,6 +20,7 @@
 package de.tarent.aa.veraweb.worker;
 
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -120,22 +121,49 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 		 * although, upon exiting this method the first time that it is called, will return the correct resultlist with at most
 		 * 10 entries in the underlying resultset as is defined by the query.
 		 */
-		ArrayList< Map > result = new ArrayList< Map >();
+		Map<Integer, Map> result = new HashMap<Integer, Map>();
 		List resultList = getResultList( database, select );
 		for ( int i = 0; i < resultList.size(); i++ )
 		{
 			HashMap< String, Object > tmp = new HashMap< String, Object >();
 			Set< String > keys = ( ( ResultMap ) resultList.get( i ) ).keySet();
+			Integer id = null;
+			Timestamp eventEndDate = null;
+			Timestamp taskEventEndDate = null;
 			for ( String key : keys )
 			{
-				tmp.put( key, ( ( ResultMap ) resultList.get( i ) ).get( key ) );
+				Object val = ( ( ResultMap ) resultList.get( i ) ).get( key ) ;
+				if ("id".equals(key)) {
+					id = (Integer) val;
+					tmp.put(key, val);
+				} else if ("eventenddate".equals(key)) {
+					eventEndDate = (Timestamp) val;
+					tmp.put("eventmaxenddate", val);
+				} else if ("taskeventenddate".equals(key)) {
+					taskEventEndDate = (Timestamp) val;
+					tmp.put("taskeventmaxenddate", val);
+				} else {
+					tmp.put(key, val);
+				}
 			}
-			result.add( ( Map ) tmp );
+			if (!result.containsKey(id)) {
+				result.put(id, tmp);
+			} else {
+				Map map = result.get(id);
+				Timestamp date = (Timestamp) map.get("eventmaxenddate");
+				if (eventEndDate != null && (date == null || eventEndDate.after(date))) {
+					map.put("eventmaxenddate", eventEndDate);
+				}
+				date = (Timestamp) map.get("taskeventmaxenddate");
+				if (taskEventEndDate != null && (date == null || taskEventEndDate.after(date))) {
+					map.put("taskeventmaxenddate", taskEventEndDate);
+				}
+			}
 		}
 		
 		cntx.setContent(OUTPUT_getSelection, getSelection(cntx, getCount(cntx, database)));
 		
-		return result;
+		return new ArrayList(result.values());
 	}
 
 	@Override
@@ -307,6 +335,9 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 	protected void extendColumns(OctopusContext cntx, Select select) throws BeanException, IOException {
 		select.selectAs( "tworkarea.name", "workarea_name" );
 		select.selectAs( "dateexpire", "dateexpire" );
+		select.selectAs( "tevent.dateend", "eventenddate" );
+		select.selectAs( "event2.dateend", "taskeventenddate" );
+		
 		//select.orderBy( Order.asc( "workarea_name" ) );
 
 		/*
@@ -314,6 +345,10 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 		 * cklein 2008-02-12
 		 */
 		select.join( "veraweb.tworkarea", "tworkarea.pk", "tperson.fk_workarea" );
+		select.joinOuter( "veraweb.tguest", "tguest.fk_person", "tperson.pk" );
+		select.joinOuter( "veraweb.tevent", "tevent.pk", "tguest.fk_event" );
+		select.joinOuter( "veraweb.ttask", "ttask.fk_person", "tperson.pk" );
+		select.joinOuter( "veraweb.tevent event2", "event2.pk", "ttask.fk_event" );
 	}
 
 	protected void extendWhere(OctopusContext cntx, Select select) throws BeanException
