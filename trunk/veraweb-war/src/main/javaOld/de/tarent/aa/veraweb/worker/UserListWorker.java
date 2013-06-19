@@ -203,8 +203,8 @@ public class UserListWorker extends ListWorkerVeraWeb {
                 userConfig.value = "1";
                 context.getDatabase().saveBean(userConfig);              
             }
-            
         }
+        errors.addAll(bean.getErrors());
         return count;
     }
     
