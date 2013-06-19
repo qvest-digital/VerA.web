@@ -308,13 +308,13 @@ var showInfo, showWarning, showSuccess, showConfirm, showConfirmYesNo;
 
     showWarning = function (htmlStr) {
         $(function () {
-            $('nav').after(createWarnHtml(htmlStr));
+            $('h1').after(createWarnHtml(htmlStr));
         });
     };
 
     showSuccess = function (htmlStr) {
         $(function () {
-            $('nav').after(createSuccessHtml(htmlStr));
+            $('h1').after(createSuccessHtml(htmlStr));
         });
     };
 
