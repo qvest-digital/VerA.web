@@ -94,7 +94,7 @@
 			<option value="0">Alle entfernen
 		#end
 			#foreach( $category in $allCategorie )
-			<option value="${category.id}">${category.name}
+			<option value="${category.id}">$!message.plain(${category.name})
 			#end
 			</select>
 		#else

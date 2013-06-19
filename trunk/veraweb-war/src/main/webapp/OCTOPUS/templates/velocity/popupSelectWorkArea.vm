@@ -91,7 +91,7 @@
 		<option value="0">Alle entfernen
 	#end
 		#foreach( $workarea in $allWorkArea )
-		<option value="${workarea.id}">${workarea.name}
+		<option value="${workarea.id}">$!message.plain(${workarea.name})
 		#end
 		</select>
 	#else
