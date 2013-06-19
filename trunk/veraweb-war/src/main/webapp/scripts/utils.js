@@ -240,7 +240,7 @@ var showInfo, showWarning, showSuccess, showConfirm, showConfirmYesNo;
      * @returns {*|jQuery|HTMLElement}
      */
     var createWarnHtml = function (htmlStr) {
-        return $('<div style="margin: 10px 0px 10px 0px; padding: 10px 10px 10px 10px; background-color: #ffffff; border: 2px solid #ff0000;">'
+        return $('<div style="msg errormsg">'
             + htmlStr + '</div>');
     };
 
@@ -251,7 +251,7 @@ var showInfo, showWarning, showSuccess, showConfirm, showConfirmYesNo;
      * @returns {*|jQuery|HTMLElement}
      */
     var createSuccessHtml = function (htmlStr) {
-        return $('<div class="sucessmsg">'
+        return $('<div class="msg successmsg">'
             + htmlStr + '</div>');
     };
 
