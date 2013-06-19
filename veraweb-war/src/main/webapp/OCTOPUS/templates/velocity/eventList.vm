@@ -99,7 +99,7 @@
         		#if($save)
 					<input type="submit" class="button" name="remove" value="Ja" title="markierte Veranstaltung l&ouml;schen"> &nbsp;
         		#end
-        		<input type="button" name="cancel" value="Nein" onclick="window.location.href='SearchEvent?selectNone=true';"> &nbsp;
+        		<input type="button" id="button.remove-cancel" name="cancel" value="Nein"/> &nbsp;
         	</vera-confirm>
     	#end
     		
@@ -281,6 +281,11 @@
             } else {
 				$('form').append('<input type="hidden" name="remove" value="Ja" />').submit();
            }
+		});
+		
+		$('#button\\.remove-cancel').click(function (e) {
+			$('input[name$="-select"]').prop('checked', false);
+			$('form').append('<input type="hidden" name="remove" value="Ja" />').submit();
 		});
     });
 </script>
