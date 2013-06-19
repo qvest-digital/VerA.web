@@ -68,7 +68,7 @@
 						<select id="add-orgunit" name="add-orgunit" onchange="setModified('add')">
 							<option value="">Bitte ausw&auml;hlen</option>
 			  #foreach($orgunit in $allOrgUnit)
-							<option value="$orgunit.id">$orgunit.name</option>
+							<option value="$orgunit.id">$!message.text($orgunit.name)</option>
 			  #end
 						</select>
 			 #else
