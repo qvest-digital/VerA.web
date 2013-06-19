@@ -86,7 +86,7 @@
 							<li><a id="menu.color" href="${paths.staticWeb}do/Color">Farben</a></li>
 						#end
 						#if($grants.isAdmin() || $grants.isPartialAdmin())
-        					<li><a id="menu.function" href="${paths.staticWeb}do/Function?start=0&limit=5&selectNone=true">Funktionen/Amtsbezeichnungen</a></li>
+        					<li><a id="menu.function" href="${paths.staticWeb}do/Function?start=0&selectNone=true">Funktionen/Amtsbezeichnungen</a></li>
 						#end
 						#if($grants.isUser())
 							<li><a id="menu.category" href="${paths.staticWeb}do/Categorie?start=0&selectNone=true">Kategorien</a></li>
