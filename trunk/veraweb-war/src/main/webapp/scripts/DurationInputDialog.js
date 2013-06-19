@@ -214,7 +214,7 @@ DurationInputDialog.showModalInputDialog = function( instance, windowSpec )
 		label.style.cssFloat = "left";
 
 		var inputField = document.createElement( "INPUT" );
-		inputField.type = "textbox";
+		inputField.type = "text";
 		inputField.size = "5";
 		inputField.style.cssFloat = "right";
 		inputField.style.width = "50%";
