@@ -83,7 +83,7 @@
     			#set($severalNewElements = "neue Datensätze")
 			#end
 
-            #if($countInsert && $countInsert >= 0)
+            #if($countInsert && $countInsert > 0)
             	<vera-success>
             		#if($countInsert == 0)
 						Es wurde $noNewElement angelegt.
@@ -94,7 +94,7 @@
             		#end
             	</vera-success>
             #end
-            #if($countUpdate && $countUpdate >= 0)
+            #if($countUpdate && $countUpdate > 0)
             	<vera-success>
             		#if($countUpdate == 0)
             			Es wurde $noElement ge&auml;ndert.
