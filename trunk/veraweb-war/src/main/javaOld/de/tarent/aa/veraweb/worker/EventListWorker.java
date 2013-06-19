@@ -229,7 +229,7 @@ public class EventListWorker extends ListWorkerVeraWeb {
     		    questions.put("force-remove-events", "Sollen alle markierten Personen gelöscht werden? Diese Aktion kann nicht rückgängig gemacht werden.");
     		}
     		cntx.setContent("listquestions", questions);
-            return count;
+            return -1;
 		}
 		
 		/* 
