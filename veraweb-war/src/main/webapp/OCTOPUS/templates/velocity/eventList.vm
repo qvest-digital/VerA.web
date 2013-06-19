@@ -59,6 +59,49 @@
 		
     	<input type="hidden" name="selectNone" value="true">
     	<input type="hidden" name="doRemove" value="true">
+			
+		#if($listerrors && $listerrors.size() > 0)
+        	<vera-warn>
+        		<strong>L&ouml;schen von Veranstaltungen ist nicht m&ouml;glich</strong><br>
+        		<ul style="margin: 0px 0px 0px -10px;">
+					
+        		#if($listerrors.size() > 5)
+					#set($show = 5)
+        		#else
+					#set($show = $listerrors.size())
+				#end
+				
+        		#foreach($error in $listerrors)
+            		#if($velocityCount <= $show)
+            			<li style="margin: 5px 0px 0px 0px;">$error</li>
+					#end
+				#end
+				
+        		#if($listerrors.size() > $show)
+            		#set($drop = $listerrors.size() - $show)
+            			<li style="margin: 5px 0px 0px 0px;"><em>...  $drop weitere Meldungen.</em></li>
+        		#end
+        		</ul>
+        	</vera-warn>
+				
+    	#elseif($listquestions && $listquestions.size() > 0)
+        	<vera-confirm>
+        		<strong>Bitte best&auml;tigen Sie das L&ouml;schen von Veranstaltungen</strong><br>
+        		<table class="form" style="margin: 5px 0px 0px 0px;">
+        		#foreach($quest in $listquestions.entrySet())
+        			<tr>
+        				<td><input type="hidden" name="$quest.key" value="true">$quest.value</td>
+        			</tr>
+        			#set($save = true)
+        		#end
+        		</table><br>
+        	
+        		#if($save)
+					<input type="submit" class="button" name="remove" value="Ja" title="markierte Veranstaltung l&ouml;schen"> &nbsp;
+        		#end
+        		<input type="button" name="cancel" value="Nein" onclick="window.location.href='SearchEvent?selectNone=true';"> &nbsp;
+        	</vera-confirm>
+    	#end
     		
 		<!-- No need to show table and buttons in case of no results --> 
 		#if ($listparam.count == 0)
@@ -90,49 +133,6 @@
 					#end
             	</span>	
         	#end
-            	
-        	#if($listerrors && $listerrors.size() > 0)
-            	<vera-warn>
-            		<strong>L&ouml;schen von Veranstaltungen ist nicht m&ouml;glich</strong><br>
-            		<ul style="margin: 0px 0px 0px -10px;">
-						
-            		#if($listerrors.size() > 5)
-						#set($show = 5)
-            		#else
-						#set($show = $listerrors.size())
-					#end
-					
-            		#foreach($error in $listerrors)
-                		#if($velocityCount <= $show)
-                			<li style="margin: 5px 0px 0px 0px;">$error</li>
-						#end
-					#end
-					
-            		#if($listerrors.size() > $show)
-                		#set($drop = $listerrors.size() - $show)
-                			<li style="margin: 5px 0px 0px 0px;"><em>...  $drop weitere Meldungen.</em></li>
-            		#end
-            		</ul>
-            	</vera-warn>
-					
-            	#elseif($listquestions && $listquestions.size() > 0)
-                	<vera-confirm>
-                		<strong>Bitte best&auml;tigen Sie das L&ouml;schen von Veranstaltungen</strong><br>
-                		<table class="form" style="margin: 5px 0px 0px 0px;">
-                		#foreach($quest in $listquestions.entrySet())
-                			<tr>
-                				<td><input type="hidden" name="$quest.key" value="true">$quest.value</td>
-                			</tr>
-                			#set($save = true)
-                		#end
-                		</table><br>
-                	
-                		#if($save)
-							<input type="submit" class="button" name="remove" value="Ja" title="markierte Veranstaltung l&ouml;schen"> &nbsp;
-                		#end
-                		<input type="button" name="cancel" value="Nein" onclick="window.location.href='SearchEvent?selectNone=true';"> &nbsp;
-                	</vera-confirm>
-            	#end
             	
             	#foreach($bean in $list)
 					<input type="hidden" name="list" value="$bean.id">
