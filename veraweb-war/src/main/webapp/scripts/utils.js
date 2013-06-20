@@ -287,7 +287,8 @@ var showInfo, showWarning, showSuccess, showConfirm, showConfirmYesNo;
                 if (removable) {
                     info.click(funcRemove);
                 }
-                if ($this.is('[vera-stay]')) {
+                // do not move element if it has attribute "vera-stay" or contains a form input element (e.g. button)
+                if ($this.is('[vera-stay]') || $this.find('input').length > 0) {
                     $this.replaceWith(info);
                 } else {
                     $this.remove();
