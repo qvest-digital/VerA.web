@@ -267,25 +267,38 @@ var showInfo, showWarning, showSuccess, showConfirm, showConfirmYesNo;
     };
 
     /**
-     * Format all texts in <vera-info> / <vera-war> tags on load of the current page
+     * Format all texts in <vera-info>, <vera-war>, ... tags on load of the current page
      */
     $(function () {
-        $('vera-info').each(function () {
-            var info = createInfoHtml($(this).remove().html());
-            info.click(function () {
-                info.remove();
+        var funcRemove = function () {
+            $(this).remove();
+        };
+        /**
+         * Format elements with given function and optionally make removable
+         *
+         * @param select CSS selector which defines the elements which are adapted
+         * @param wrapFunc function to wrap the HTML in formatting container
+         * @param removable true if elements should be removed on click
+         */
+        var formatElements = function (select, wrapFunc, removable) {
+            $(select).each(function () {
+                var $this = $(this);
+                var info = wrapFunc($this.html());
+                if (removable) {
+                    info.click(funcRemove);
+                }
+                if ($this.is('[vera-stay]')) {
+                    $this.replaceWith(info);
+                } else {
+                    $this.remove();
+                    $('h1').after(info);
+                }
             });
-            $('h1').after(info);
-        });
-        $('vera-warn').each(function () {
-            $('h1').after(createWarnHtml($(this).remove().html()));
-        });
-        $('vera-success').each(function () {
-            $('h1').after(createSuccessHtml($(this).remove().html()));
-        });
-        $('vera-confirm').each(function () {
-            $('h1').after(createConfirmHtml($(this).remove().html()));
-        });
+        };
+        formatElements('vera-info', createInfoHtml, true);
+        formatElements('vera-warn', createWarnHtml);
+        formatElements('vera-success', createSuccessHtml);
+        formatElements('vera-confirm', createConfirmHtml);
     });
 
     showInfo = (function () {
