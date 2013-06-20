@@ -1,5 +1,8 @@
 #set($activeMenu = "Veranstaltungen")
 #set($title = "Aufgaben")
+#set($elementNameSex = "female")
+#set($elementNameSingular = "Aufgabe")
+#set($elementNamePlural = "Aufgaben")
 #parse("inc/header.vm")
 
 #set($formurl = "ShowEventTasks")

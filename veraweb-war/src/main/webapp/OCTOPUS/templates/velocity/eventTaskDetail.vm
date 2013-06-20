@@ -1,15 +1,18 @@
 #set($activeMenu = "Veranstaltungen")
 
 #if($task && $task.id)
-#set($title = "Aufgabe bearbeiten: $!message.text($task.title)")
-#parse("inc/header.vm")
+	#set($title = "Aufgabe bearbeiten: $!message.text($task.title)")
 #else
-#set($title = "Neue Aufgabe erstellen")
-#parse("inc/header.vm")
+	#set($title = "Neue Aufgabe erstellen")
 #end
 
+#set($elementNameSex = "female")
+#set($elementNameSingular = "Aufgabe")
+#set($elementNamePlural = "Aufgaben")
+#parse("inc/header.vm")
+
 #if(!$eventId)
-#set($eventId = $task.eventId)
+	#set($eventId = $task.eventId)
 #end
 
 <div id="content_container">

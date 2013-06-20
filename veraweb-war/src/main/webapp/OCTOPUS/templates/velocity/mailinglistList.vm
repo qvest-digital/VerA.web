@@ -1,5 +1,8 @@
 #set($activeMenu = "Veranstaltungen")
 #set($title = "Verteilerliste")
+#set($elementNameSex = "male")
+#set($elementNameSingular = "Verteiler")
+#set($elementNamePlural = "Verteiler")
 #parse("inc/header.vm")
 
 <script type="text/javascript">

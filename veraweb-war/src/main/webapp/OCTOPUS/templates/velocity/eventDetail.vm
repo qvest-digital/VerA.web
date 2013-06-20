@@ -7,6 +7,9 @@
     #set($title = "Neue Veranstaltung erstellen")
 #end
 
+#set($elementNameSex = "female")
+#set($elementNameSingular = "Veranstaltung")
+#set($elementNamePlural = "Veranstaltungen")
 #parse("inc/header.vm")
 
 <div id="content_container">

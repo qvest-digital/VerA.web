@@ -1,5 +1,8 @@
 #set($activeMenu = "Veranstaltungen")
 #set($title = "Verteiler erstellen - Veranstaltung: $!event.shortname")
+#set($elementNameSex = "male")
+#set($elementNameSingular = "Verteiler")
+#set($elementNamePlural = "Verteiler")
 #parse("inc/header.vm")
 
 <div id="content_container">

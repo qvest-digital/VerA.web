@@ -1,5 +1,8 @@
 #set($activeMenu = "Veranstaltungen")
 #set($title = "E-Mail an Verteiler schreiben: $!message.text($mailinglist.name)")
+#set($elementNameSex = "male")
+#set($elementNameSingular = "Verteiler")
+#set($elementNamePlural = "Verteiler")
 #parse("inc/header.vm")
 
 <div id="content_container">
