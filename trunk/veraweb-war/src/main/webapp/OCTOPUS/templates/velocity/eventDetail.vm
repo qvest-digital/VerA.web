@@ -42,7 +42,7 @@
     
             <div style="width: 99%; background-color: #ffffff;">
                 <vera-warn>
-                    $event.errors.get(0)<br>
+                    $!message.plain($event.errors.get(0))<br>
                     ##	#foreach($error in $event.errors)
                     ##		$error<br>
                     ##	#end
@@ -181,7 +181,7 @@
     						<div class="tableRow">
     							<div class="tableCell width50">
     								<label for="event-maxguest">Maximal Anzahl G&auml;ste</label>
-    								<input type="text" onchange="setModified();" class="int" id="event-maxguest" value="$!message.text($event.maxguest)" name="event-maxguest">														
+    								<input type="text" onchange="setModified();" class="int" id="event-maxguest" value="$!message.plain($event.maxguest)" name="event-maxguest">														
     							</div>
     							<div class="tableCell width50 inlineLabel">
     								<label for="event-invitepartner">Gastgeber-Partner</label>

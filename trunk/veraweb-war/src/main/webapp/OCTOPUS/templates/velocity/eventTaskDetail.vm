@@ -44,7 +44,7 @@
         #if($task.errors.size() > 0)
         <div style="width: 99%; background-color: #ffffff;">
             <vera-warn>
-                $task.errors.get(0)<br>
+                $!message.plain($task.errors.get(0))<br>
                 ##	#foreach($error in $task.errors)
                 ##		$error<br>
                 ##	#end
