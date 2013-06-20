@@ -3,7 +3,6 @@
 	#set($personDB = true)
 	#set($activeMenu = "Personen")
     #set($title = "Person bearbeiten: $!message.plain($person.MainLatin.SaveAs)")
-    #parse("inc/header.vm")
 	
 #else
 	
@@ -26,9 +25,13 @@
 	#set($personAddresstypeTab = "1")
 	#set($personLocaleTab = "1")
     #set($title = "Neue Person anlegen")
-	#parse("inc/header.vm")
 	
 #end
+
+#set($elementNameSex = "female")
+#set($elementNameSingular = "Person")
+#set($elementNamePlural = "Personen")
+#parse("inc/header.vm")
 
 #set($searchTask = $octopusRequest.searchTask)
 

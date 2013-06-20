@@ -1,5 +1,8 @@
 #set($activeMenu = "Personen")
 #set($title = "Import von Personendaten")
+#set($elementNameSex = "female")
+#set($elementNameSingular = "Person")
+#set($elementNamePlural = "Personen")
 #parse("inc/header.vm")
 
 	<div id="content_container">
