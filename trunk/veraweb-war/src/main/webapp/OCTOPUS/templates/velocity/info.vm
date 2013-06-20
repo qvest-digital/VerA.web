@@ -6,7 +6,7 @@
     <form action="Main" method="POST">
     
     <div id="breadcrumb" class="textRight marginBottom10">
-        <strong>Sie sind hier:</strong> <span><a href="index.html">Home</a> > Verwaltung > Info</span>
+        <strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Verwaltung > Info</span>
     </div>
     
     <h1>Informationen zu VerA.Web</h1>
