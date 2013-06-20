@@ -86,7 +86,7 @@
 								<label for="orgUnit">Zielmandant</label>
 								<select name="orgUnit" id="orgUnit" >
 									#foreach($orgunit in $allOrgUnit)
-										<option value="$orgunit.id" #if($octopusConfig.personalConfig.orgUnitId == $orgunit.id)selected#end>$orgunit.name</option>
+										<option value="$orgunit.id" #if($octopusConfig.personalConfig.orgUnitId == $orgunit.id)selected#end>$!message.text($orgunit.name)</option>
 									#end
 								</select>
 							#end
