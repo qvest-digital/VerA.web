@@ -19,11 +19,11 @@
 	#set($completeEventHeader = false)
     #parse("inc/event-header.vm")
 
-	<span class="textRight floatRight marginBottom10 buttonPanel-top" id="buttonPanel-top">
+	<div class="marginBottom10 marginTop20 textRight" id="buttonPanel-top">
         <input type="button" class="mainButton" value="Zur G&auml;steverwaltung" name="guestlist" onclick="window.location.href='ShowGuestList?search-event=$!event.id&start=0&selectNone=true';">
-    </span>
+    </div>
 
-    <div id="main_content" class="tabs contentBox grayBorder marginBottom10 marginTop20">
+    <div id="main_content" class="tabs contentBox grayBorder marginBottom10">
 
 
             <input type="hidden" name="start" value="">
@@ -174,10 +174,8 @@
 
             </div>
 
-
-
      </div>
-			<span id="buttonPanel-bottom" class="textRight floatRight">
+			<span id="buttonPanel-bottom" class="floatRight">
                 #if($grants.mayWrite())
 				    <input type="button" name="save" value="Veranstaltung speichern" class="mainButton" onclick="showSuccess('Erfolgreich gespeichert');">
                 #end
