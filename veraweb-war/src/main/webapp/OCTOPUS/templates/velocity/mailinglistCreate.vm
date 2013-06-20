@@ -20,7 +20,7 @@
     		
         		#if($mailinglist.errors.size() > 0)
             		<vera-warn>
-            			$mailinglist.errors.get(0)<br>
+            			$!message.plain($mailinglist.errors.get(0))<br>
                 		##	#foreach($error in $mailinglist.errors)
                 		##		$error<br>
                 		##	#end

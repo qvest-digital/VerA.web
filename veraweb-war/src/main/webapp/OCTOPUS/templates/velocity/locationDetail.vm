@@ -29,7 +29,7 @@
         #if($location.errors.size() > 0)
         <div style="width: 99%; background-color: #ffffff;">
         <vera-warn>
-        	$location.errors.get(0)<br>
+        	$!message.plain($location.errors.get(0))<br>
         
         
         </vera-warn>

@@ -23,7 +23,7 @@
         #if($mailoutbox.errors.size() > 0 || $mailoutbox.status == $mailoutbox.STATUS_ERROR || ($mailoutbox.errortext && $mailoutbox.errortext.length() > 0))
             <vera-warn>
             	#if($mailoutbox.errors.size() > 0)
-            		$mailoutbox.errors.get(0)<br>
+            		$!message.plain($mailoutbox.errors.get(0))<br>
             	#end
             	#if($mailoutbox.status > 10 || ($mailoutbox.errortext && $mailoutbox.errortext.length() > 0))
             		Beim Versenden dieser E-Mail ist ein Fehler aufgetreten.

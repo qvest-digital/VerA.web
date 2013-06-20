@@ -142,7 +142,7 @@
     #end
     #if($errors.size() > 0)
         <vera-warn>
-        	$errors.get(0)<br>
+        	$!message.plain($errors.get(0))<br>
             ##	#foreach($error in $errors)
             ##		$error<br>
             ##	#end
