@@ -275,6 +275,29 @@ public class ProxyListWorker extends ListWorkerVeraWeb {
             list.addAnd(new RawClause("fk_user IN (SELECT pk FROM veraweb.tuser WHERE username = '" + Escaper.escape(proxiesFor) + "')"));
         select.where(list);
     }
+    
+    /**
+     * Wird von {@link de.tarent.octopus.beans.BeanListWorker#saveList(OctopusContext)}
+     * aufgerufen und soll das übergebene Bean als neuen Eintrag speichern.
+     * 
+     * @see #saveBean(OctopusContext, Bean)
+     * 
+     * @param cntx Octopus-Kontext
+     * @param errors kummulierte Fehlerliste
+     * @param bean einzufügendes Bean
+     * @throws BeanException
+     * @throws IOException
+     */
+    @Override
+    protected int insertBean(OctopusContext cntx, List errors, Bean bean, TransactionContext context ) throws BeanException, IOException {
+        int count = 0;
+        if (bean.isModified() && bean.isCorrect()) {
+            saveBean(cntx, bean, context);
+            count++;
+        }
+        errors.addAll(bean.getErrors());
+        return count;
+    }
 
 	@Override
     protected void saveBean(OctopusContext cntx, Bean bean, TransactionContext context) throws BeanException, IOException {

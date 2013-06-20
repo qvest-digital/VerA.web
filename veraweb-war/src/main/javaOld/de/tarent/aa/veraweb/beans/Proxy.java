@@ -30,7 +30,7 @@ import de.tarent.octopus.server.PersonalConfig;
  * 
  * @author mikel
  */
-public class Proxy extends AbstractBean {
+public class Proxy extends AbstractHistoryBean {
     //
     // tproxy
     //
@@ -66,12 +66,15 @@ public class Proxy extends AbstractBean {
      */
     @Override
     public void verify() {
-        if (proxy == null || proxy.length() == 0)
+        if (proxy == null || proxy.length() == 0) {
             addError("Sie müssen eine Stellvertreterrollenbezeichnung eingeben.");
-        if (user == null || user.intValue() == 0)
+        }
+        if (user == null || user.intValue() == 0) {
             addError("Sie müssen einen Benutzer eingeben.");
-        if (validFrom != null && validTill != null && validFrom.after(validTill))
+        }
+        if (validFrom != null && validTill != null && validFrom.after(validTill)) {
         	addError("Der Beginn der Vertretung muss vor dem Ende liegen.");
+        }
     }
 
     /**
