@@ -26,11 +26,6 @@
 
     <h1>$title</h1>
 
-    <span class="textRight floatRight marginBottom10 buttonPanel-top" id="buttonPanel-top">
-        <input type="button" class="mainButton" value="zur G&auml;steverwaltung" title="zur G&auml;steverwaltung" name="guestlist" goto="ShowGuestList?search-event=$!event.id&start=0&selectNone=true">
-    </span>
-
-
     <form id="formlist" name="formlist" action="" method="POST">
         <input type="hidden" id="a" name="a" value="taskReferencePerson" />
         <input type="hidden" id="modified" name="task-modified" value= #if (($refPerson.id && !$task.personId) || $refPerson.id != $task.personId) "true" #else "false" #end />
@@ -78,8 +73,12 @@
 
 		#set($completeEventHeader = false)
         #parse("inc/event-header.vm")
+		
+		<div class="textRight marginBottom10 marginTop20" id="buttonPanel-top">
+            <input type="button" class="mainButton" value="zur G&auml;steverwaltung" title="zur G&auml;steverwaltung" name="guestlist" goto="ShowGuestList?search-event=$!event.id&start=0&selectNone=true">
+        </div>
 
-        <div id="main_content" class="tabs contentBox grayBorder marginBottom10 marginTop20 event">
+        <div id="main_content" class="tabs contentBox grayBorder marginBottom10 event">
 
 
             <div id="tabsMain">
