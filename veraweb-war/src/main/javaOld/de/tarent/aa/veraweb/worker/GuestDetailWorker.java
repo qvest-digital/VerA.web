@@ -20,7 +20,11 @@
 package de.tarent.aa.veraweb.worker;
 
 import java.io.IOException;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -28,6 +32,7 @@ import org.apache.log4j.Logger;
 import org.apache.log4j.Priority;
 
 import de.tarent.aa.veraweb.beans.Doctype;
+import de.tarent.aa.veraweb.beans.Event;
 import de.tarent.aa.veraweb.beans.Guest;
 import de.tarent.aa.veraweb.beans.GuestDoctype;
 import de.tarent.aa.veraweb.beans.GuestSearch;
@@ -35,6 +40,11 @@ import de.tarent.aa.veraweb.beans.Person;
 import de.tarent.aa.veraweb.beans.PersonCategorie;
 import de.tarent.aa.veraweb.beans.facade.EventConstants;
 import de.tarent.aa.veraweb.beans.facade.GuestMemberFacade;
+import de.tarent.aa.veraweb.beans.facade.PersonConstants;
+import de.tarent.aa.veraweb.utils.DateHelper;
+import de.tarent.dblayer.helper.ResultList;
+import de.tarent.dblayer.sql.SQL;
+import de.tarent.dblayer.sql.clause.Clause;
 import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.clause.Limit;
 import de.tarent.dblayer.sql.clause.Where;
@@ -48,6 +58,8 @@ import de.tarent.octopus.beans.Database;
 import de.tarent.octopus.beans.Request;
 import de.tarent.octopus.beans.TransactionContext;
 import de.tarent.octopus.beans.veraweb.BeanChangeLogger;
+import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
+import de.tarent.octopus.beans.veraweb.RequestVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
 
 /**
@@ -170,6 +182,14 @@ public class GuestDetailWorker extends GuestListWorker {
 		try
 		{
 			Guest guest = (Guest) request.getBean("Guest", "guest");
+			
+			List<String> duplicateErrorList = reservationDupCheck(database, guest);
+			
+			if(duplicateErrorList != null && !duplicateErrorList.isEmpty()){
+				cntx.setContent("duplicateErrorList", duplicateErrorList);
+				return;				
+			}
+			
 			if (guest.reserve != null && guest.reserve.booleanValue())
 			{
 				guest.orderno_a = null;
@@ -275,8 +295,201 @@ public class GuestDetailWorker extends GuestListWorker {
 			context.rollBack();
 		}
 	}
+	
+	public static final String INPUT_reservationDupCheck[] = {};
+	
+	public List<String> reservationDupCheck(Database database, Guest guest) throws BeanException, IOException{
+		
+		List<String> duplicateErrorList = new ArrayList<String>();	
+		
+		//SZENARIO 1
+		//Check for duplicate reservation for the guest 
+		if (guest.seatno_a != null && guest.seatno_a > 0) {
+			if (guest.tableno_a == null || guest.tableno_a.intValue() == 0) {
 
-    /** Eingabe-Parameter der Octopus-Aktion {@link #showTestGuest(OctopusContext)} */
+				Select select = database.getSelect("Guest")
+						.whereOr(Expr.isNull("tableno"))
+						.whereOr(Expr.equal("tableno", 0))
+						.whereAnd(Expr.equal("seatno", guest.seatno_a))
+						.whereAnd(Expr.equal("fk_event", guest.event))
+						.whereAnd(Expr.notEqual("fk_person", guest.person));
+
+				Person duplicatePerson = checkForDuplicatePerson(database, select);
+				
+				if(duplicatePerson != null){
+					duplicateErrorList
+					.add("Bitte ändern Sie erst den Sitzplatz bei der Hauptperson von "
+							+ duplicatePerson.firstname_a_e1 + " " + duplicatePerson.lastname_a_e1
+							+ " (" + duplicatePerson.id + ") über die Gästeliste. Diese Person sitzt aktuell auf "
+							+ "dem eingegebenen Sitzplatz der Hauptperson. Die Änderung wurde nicht gespeichert.");
+				}
+			} else {
+				Select select = database.getSelect("Guest")
+						.whereAnd(Expr.equal("tableno", guest.tableno_a))
+						.whereAnd(Expr.equal("seatno", guest.seatno_a))
+						.whereAnd(Expr.equal("fk_event", guest.event))
+						.whereAnd(Expr.notEqual("fk_person", guest.person));
+				
+				
+				Person duplicatePerson = checkForDuplicatePerson(database, select);
+				
+				if(duplicatePerson != null){
+					duplicateErrorList
+					.add("Bitte ändern Sie erst den Sitzplatz bei der Hauptperson von "
+							+ duplicatePerson.firstname_a_e1 + " " + duplicatePerson.lastname_a_e1
+							+ " (" + duplicatePerson.id + ") über die Gästeliste. Diese Person sitzt aktuell auf "
+							+ "dem eingegebenen Sitzplatz der Hauptperson. Die Änderung wurde nicht gespeichert.");
+				}
+			}
+		}
+		
+		//SZENARIO 2
+		if (guest.seatno_a != null && guest.seatno_a > 0) {
+			if (guest.tableno_a == null || guest.tableno_a.intValue() == 0) {
+
+				Select select = database.getSelect("Guest")
+						.whereOr(Expr.isNull("tableno_p"))
+						.whereOr(Expr.equal("tableno_p", 0))
+						.whereAnd(Expr.equal("seatno_p", guest.seatno_a))
+						.whereAnd(Expr.equal("fk_event", guest.event))
+						.whereAnd(Expr.notEqual("fk_person", guest.person));
+				
+				
+				Person duplicatePerson = checkForDuplicatePerson(database, select);
+				
+				if(duplicatePerson != null){
+					duplicateErrorList
+					.add("Bitte ändern Sie erst den Sitzplatz bei dem Partner von "
+							+ duplicatePerson.firstname_a_e1 + " " + duplicatePerson.lastname_a_e1
+							+ " (" + duplicatePerson.id + ") über die Gästeliste. Diese Person sitzt aktuell auf "
+							+ "dem eingegebenen Sitzplatz der Hauptperson. Die Änderung wurde nicht gespeichert.");
+				}
+				
+			} else {
+				Select select = database.getSelect("Guest")
+						.whereAnd(Expr.equal("tableno_p", guest.tableno_a))
+						.whereAnd(Expr.equal("seatno_p", guest.seatno_a))
+						.whereAnd(Expr.equal("fk_event", guest.event))
+						.whereAnd(Expr.notEqual("fk_person", guest.person));				
+				
+				Person duplicatePerson = checkForDuplicatePerson(database, select);
+				
+				if(duplicatePerson != null){
+					duplicateErrorList
+					.add("Bitte ändern Sie erst den Sitzplatz bei dem Partner von "
+							+ duplicatePerson.firstname_a_e1 + " " + duplicatePerson.lastname_a_e1
+							+ " (" + duplicatePerson.id	+ ") über die Gästeliste. Diese Person sitzt aktuell auf "
+							+ "dem eingegebenen Sitzplatz der Hauptperson. Die Änderung wurde nicht gespeichert.");
+				}
+			}
+
+		}
+		
+		
+		if(guest.getIsPartnerInvited()){
+			//SZENARIO 3
+			if (guest.seatno_b != null && guest.seatno_b > 0) {
+				if (guest.tableno_b == null || guest.tableno_b.intValue() == 0) {
+
+					Select select = database.getSelect("Guest")
+							.whereOr(Expr.isNull("tableno"))
+							.whereOr(Expr.equal("tableno", 0))
+							.whereAnd(Expr.equal("seatno", guest.seatno_b))
+							.whereAnd(Expr.equal("fk_event", guest.event))
+							.whereAnd(Expr.notEqual("fk_person", guest.person));
+					
+					Person duplicatePerson = checkForDuplicatePerson(database, select);
+					
+					if(duplicatePerson != null){
+						duplicateErrorList
+						.add("Bitte ändern Sie erst den Sitzplatz bei der Hauptperson von "
+								+ duplicatePerson.firstname_a_e1 + " " + duplicatePerson.lastname_a_e1
+								+ " (" + duplicatePerson.id + ") über die Gästeliste. Diese Person sitzt aktuell auf "
+								+ "dem eingegebenen Sitzplatz des Partners. Die Änderung wurde nicht gespeichert.");
+					}
+				} else {
+					Select select = database.getSelect("Guest")
+							.whereAnd(Expr.equal("tableno", guest.tableno_b))
+							.whereAnd(Expr.equal("seatno", guest.seatno_b))
+							.whereAnd(Expr.equal("fk_event", guest.event))
+							.whereAnd(Expr.notEqual("fk_person", guest.person));
+					
+					Person duplicatePerson = checkForDuplicatePerson(database, select);
+					
+					if(duplicatePerson != null){
+						duplicateErrorList
+						.add("Bitte ändern Sie erst den Sitzplatz bei der Hauptperson von "
+								+ duplicatePerson.firstname_a_e1 + " " + duplicatePerson.lastname_a_e1
+								+ " (" + duplicatePerson.id	+ ") über die Gästeliste. Diese Person sitzt aktuell auf "
+								+ "dem eingegebenen Sitzplatz des Partners. Die Änderung wurde nicht gespeichert.");
+					}
+				}
+			}
+			
+			//SZENARIO 4
+			if (guest.seatno_b != null && guest.seatno_b > 0) {
+				if (guest.tableno_b == null || guest.tableno_b.intValue() == 0) {
+
+					Select select = database.getSelect("Guest")
+							.whereOr(Expr.isNull("tableno_p"))
+							.whereOr(Expr.equal("tableno_p", 0))
+							.whereAnd(Expr.equal("seatno_p", guest.seatno_b))
+							.whereAnd(Expr.equal("fk_event", guest.event))
+							.whereAnd(Expr.notEqual("fk_person", guest.person));
+					
+					Person duplicatePerson = checkForDuplicatePerson(database, select);
+					
+					if(duplicatePerson != null){
+						duplicateErrorList
+						.add("Bitte ändern Sie erst den Sitzplatz bei dem Partner von "
+								+ duplicatePerson.firstname_a_e1 + " " + duplicatePerson.lastname_a_e1
+								+ " (" + duplicatePerson.id	+ ") über die Gästeliste. Diese Person sitzt aktuell auf "
+								+ "dem eingegebenen Sitzplatz des Partners. Die Änderung wurde nicht gespeichert.");
+					}
+				} else {
+					Select select = database.getSelect("Guest")
+							.whereAnd(Expr.equal("tableno_p", guest.tableno_b))
+							.whereAnd(Expr.equal("seatno_p", guest.seatno_b))
+							.whereAnd(Expr.equal("fk_event", guest.event))
+							.whereAnd(Expr.notEqual("fk_person", guest.person));
+					
+					Person duplicatePerson = checkForDuplicatePerson(database, select);
+					
+					if(duplicatePerson != null){
+						duplicateErrorList
+						.add("Bitte ändern Sie erst den Sitzplatz bei dem Partner von "
+								+ duplicatePerson.firstname_a_e1 + " " + duplicatePerson.lastname_a_e1
+								+ " (" + duplicatePerson.id	+ ") über die Gästeliste. Diese Person sitzt aktuell auf "
+								+ "dem eingegebenen Sitzplatz des Partners. Die Änderung wurde nicht gespeichert.");
+					}
+				}
+			}			
+		}
+		
+		return duplicateErrorList;
+	}
+	
+	private Person checkForDuplicatePerson(Database database, Select select) throws BeanException, IOException{
+		Person duplicatePersonResult = null;
+		
+		List resultList = database.getBeanList("Guest", select);
+
+		if (resultList != null && !resultList.isEmpty()) {
+			Guest duplicateGuest = (Guest) resultList.get(0);
+
+			if (duplicateGuest.person != null) {
+				Person person = (Person) database.getBean("Person", duplicateGuest.person);
+				if (person != null) {
+					duplicatePersonResult = person;
+				}
+			}
+		}
+		
+		return duplicatePersonResult;
+	}
+
+
+	/** Eingabe-Parameter der Octopus-Aktion {@link #showTestGuest(OctopusContext)} */
 	public static final String INPUT_showTestGuest[] = {};
 	/**
 	 * Diese Octopus-Aktion liefert Details zu einem Test-Gast. Dieser wird unter
