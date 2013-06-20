@@ -157,15 +157,17 @@
 	<h1>$title</h1>
 
     #if($createNewPerson || !$personDB)
-        <vera-info>
 			#if($octopusRequest.forcedupcheck == "true")
+            <vera-success>
 				Es wurden keine Dubletten gefunden. Sie k&ouml;nnen jetzt weitere Daten eingeben und die Daten speichern.
+            </vera-success>
 			#else 
+			<vera-info>
 				Bitte geben Sie zun&auml;chst den <strong>Vor- und Nachnamen</strong> an und f&uuml;hren die Dublettenpr&uuml;fung durch. 
                     Bei Firmen w&auml;hlen Sie die Checkbox <strong>"Ist Firma"</strong> und tragen dann den Firmennamen ein. Das System pr&uuml;ft Ihre Angaben daraufhin auf Dubletten. 
                     Liegt keine Dublette vor, k&ouml;nnen Sie weitere Daten eingeben und die Daten speichern.
+			</vera-info>
 			#end
-        </vera-info>
 	#end
 
 

@@ -162,7 +162,7 @@
                 </table>
 
                 #else
-					<vera-info>
+					<vera-info vera-stay>
 						Es liegen keine Aufgaben für diese Veranstaltung vor.
 					</vera-info>
                 #end
