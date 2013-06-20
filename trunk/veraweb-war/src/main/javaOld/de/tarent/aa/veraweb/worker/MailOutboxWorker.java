@@ -108,14 +108,15 @@ public class MailOutboxWorker extends ListWorkerVeraWeb {
 			
 			if (mailOutbox.isCorrect()) {
 				TransactionContext context = ( new DatabaseVeraWeb(cntx) ).getTransactionContext();
-				try
-				{
-					saveBean(cntx, mailOutbox, context);
+				try {
+				    if (mailOutbox.id == null) {
+                        cntx.setContent("countInsert", new Integer(1));
+                    } else {
+                        cntx.setContent("countUpdate", new Integer(1));
+                    }
+				    saveBean(cntx, mailOutbox, context);
 					context.commit();
-					cntx.setContent("countUpdate", new Integer(1));
-				}
-				catch ( BeanException e )
-				{
+				} catch ( BeanException e ) {
 					context.rollBack();
 					throw new BeanException( "Die E-Mail konnte nicht für den Versand vorbereitet werden.", e );
 				}
