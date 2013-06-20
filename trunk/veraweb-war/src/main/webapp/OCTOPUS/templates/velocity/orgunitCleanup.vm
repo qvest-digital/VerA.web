@@ -1,6 +1,10 @@
 #set($activeMenu = "Administration")
 ## $Id$
-#set($title = "Verwaltung - alle Mandanten")
+#set($title = "Mandanten")
+
+#set($elementNameSex = "male")
+#set($elementNameSingular = "Mandant")
+#set($elementNamePlural = "Mandanten")
 #parse("inc/header.vm")	
 
 #if($missingorgunit.result == "done")

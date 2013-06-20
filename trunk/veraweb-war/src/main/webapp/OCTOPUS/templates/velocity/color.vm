@@ -1,5 +1,8 @@
 #set($activeMenu = "Administration")
 #set($title = "Farben")
+#set($elementNameSex = "female")
+#set($elementNameSingular = "Farbe")
+#set($elementNamePlural = "Farben")
 #parse("inc/header.vm")	
 
 <div id="content_container">

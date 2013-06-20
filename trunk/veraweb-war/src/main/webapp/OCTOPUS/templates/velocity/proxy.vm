@@ -12,6 +12,9 @@
 	#set($activeMenu = "Administration")
 	#set($title = "Stellvertretungen")
 #end
+#set($elementNameSex = "female")
+#set($elementNameSingular = "Vertretung")
+#set($elementNamePlural = "Vertretungen")
 #parse("inc/header.vm")	
 <div id="content_container">
     <form id="formlist" name="formlist" action="$octopusRequest.task" method="POST">

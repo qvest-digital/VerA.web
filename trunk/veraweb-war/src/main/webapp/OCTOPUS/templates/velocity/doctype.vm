@@ -1,5 +1,8 @@
 #set($activeMenu = "Administration")
 #set($title = "Dokumenttypen")
+#set($elementNameSex = "male")
+#set($elementNameSingular = "Dokumenttyp")
+#set($elementNamePlural = "Dokumenttypen")
 #parse("inc/header.vm")	
 
 <div id="content_container">

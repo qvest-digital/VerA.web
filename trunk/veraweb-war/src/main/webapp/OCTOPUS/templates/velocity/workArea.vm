@@ -1,5 +1,8 @@
 #set($activeMenu = "Administration")
 #set($title = "Arbeitsbereiche")
+#set($elementNameSex = "male")
+#set($elementNameSingular = "Arbeitsbereich")
+#set($elementNamePlural = "Arbeitsbereiche")
 #parse("inc/header.vm")	
 
 <div id="content_container">

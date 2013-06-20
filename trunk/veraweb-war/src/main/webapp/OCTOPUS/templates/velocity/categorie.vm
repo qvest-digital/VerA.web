@@ -1,5 +1,8 @@
 #set($activeMenu = "Administration")
 #set($title = "Kategorien")
+#set($elementNameSex = "female")
+#set($elementNameSingular = "Kategorie")
+#set($elementNamePlural = "Kategorien")
 #parse("inc/header.vm")	
 
 ## modified to allow all authorized user to read the categories as per change request for version 1.2.0

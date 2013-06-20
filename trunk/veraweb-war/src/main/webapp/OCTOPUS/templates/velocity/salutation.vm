@@ -1,5 +1,8 @@
 #set($activeMenu = "Administration")
 #set($title = "Stammdaten - Anreden")
+#set($elementNameSex = "female")
+#set($elementNameSingular = "Anrede")
+#set($elementNamePlural = "Anreden")
 #parse("inc/header.vm")
 
 

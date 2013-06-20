@@ -1,5 +1,8 @@
 #set($activeMenu = "Administration")
-#set($title = "Stammdaten - Veranstaltungsorte")
+#set($title = "Veranstaltungsorte")
+#set($elementNameSex = "male")
+#set($elementNameSingular = "Veranstaltungsort")
+#set($elementNamePlural = "Veranstaltungsorte")
 #parse("inc/header.vm")	
 
 <div id="content_container">
