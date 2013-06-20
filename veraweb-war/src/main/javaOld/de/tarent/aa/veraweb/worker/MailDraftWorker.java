@@ -121,7 +121,7 @@ public class MailDraftWorker extends ListWorkerVeraWeb {
 		if (mailDraft == null && id != null) {
 			return (MailDraft)getDatabase(cntx).getBean("MailDraft", id);
 		}
-		return null;
+		return mailDraft;
 	}
 
 	/** Octopus-Eingabe-Parameter f�r {@link #saveDetail(OctopusContext, Boolean)} */
@@ -146,13 +146,15 @@ public class MailDraftWorker extends ListWorkerVeraWeb {
 			MailDraft mailDraft = (MailDraft)getRequest(cntx).getBean("MailDraft", "maildraft");
 			TransactionContext context = ( new DatabaseVeraWeb(cntx) ).getTransactionContext();
 			if (mailDraft.isCorrect()) {
-				try
-				{
+				try {
+				    if (mailDraft.id == null) {
+				        cntx.setContent("countInsert", new Integer(1));
+				    } else {
+				        cntx.setContent("countUpdate", new Integer(1));
+				    }
 					saveBean(cntx, mailDraft, context);
 					context.commit();
-				}
-				catch ( Throwable e )
-				{
+				} catch ( Throwable e ) {
 					context.rollBack();
 					throw new BeanException( "Der Maildraft konnte nicht gespeichert werden.", e );
 				}
