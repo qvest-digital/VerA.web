@@ -11,6 +11,9 @@
         
         <h1>Einstellungen</h1>
         
+		#if($saveSuccess)
+    		<vera-success>Einstellungen wurden erfolgreich gespeichert.</vera-success>
+    	#end
         
         #if(!$userConfig.personTab || $userConfig.personTab == "1")
         	#set($personTab1 = true)

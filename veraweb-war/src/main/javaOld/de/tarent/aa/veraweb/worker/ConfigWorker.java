@@ -27,19 +27,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 
-import de.tarent.aa.veraweb.beans.Config;
 import de.tarent.aa.veraweb.beans.Duration;
 import de.tarent.dblayer.sql.SQL;
 import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.statement.Delete;
 import de.tarent.dblayer.sql.statement.Insert;
-import de.tarent.dblayer.sql.statement.Select;
 import de.tarent.dblayer.sql.statement.Update;
 import de.tarent.octopus.PersonalConfigAA;
 import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.beans.BeanFactory;
 import de.tarent.octopus.beans.Database;
-import de.tarent.octopus.beans.TransactionContext;
 import de.tarent.octopus.beans.veraweb.ListWorkerVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
 
@@ -163,8 +160,9 @@ public class ConfigWorker extends ListWorkerVeraWeb {
      * @throws SQLException 
      */
 	public void save(OctopusContext cntx) throws BeanException, IOException, SQLException {
-		if (!cntx.personalConfig().isUserInGroup(PersonalConfigAA.GROUP_ADMIN))
+		if (!cntx.personalConfig().isUserInGroup(PersonalConfigAA.GROUP_ADMIN) || !cntx.requestContains("save")) {
 			return;
+		}
 		
 		List list = (List)BeanFactory.transform(cntx.requestAsObject("saveconfig"), List.class);
 		for (Iterator it = list.iterator(); it.hasNext(); ) {
@@ -172,6 +170,7 @@ public class ConfigWorker extends ListWorkerVeraWeb {
 			String value = cntx.requestAsString(key);
 			saveValue(cntx, key, value);
 		}
+		cntx.setContent("saveSuccess", true);
 	}
 
     //
