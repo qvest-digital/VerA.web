@@ -255,9 +255,6 @@ public class EventListWorker extends ListWorkerVeraWeb {
 			throw new BeanException( "Die Veranstaltungen konnten nicht gelöscht werden.", e );
 		}
 
-		// must also remove all persons marked for deletion, when possible
-		PersonDetailWorker.removeAllDeletedPersonsHavingNoEvent( cntx, context );
-
 		return count;
 	}
 
@@ -287,7 +284,6 @@ public class EventListWorker extends ListWorkerVeraWeb {
 				SQL.Delete( database ).
 				from("veraweb.tguest").
 				where(Expr.equal("fk_event", event.id)));
-		context.execute(PersonListWorker.getPersonClear( database ));
 		
 		context.execute(
 				SQL.Delete( database ).

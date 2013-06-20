@@ -864,11 +864,5 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 					"(SELECT fk_host FROM veraweb.tevent)")));
 		}
 	}
-
-	static Delete getPersonClear( Database db ) {
-		return SQL.Delete( db ).from("veraweb.tperson").where(new RawClause(
-				"deleted = 't' AND " +
-				"pk NOT IN (SELECT fk_person FROM veraweb.tguest) AND " +
-				"pk NOT IN (SELECT fk_person FROM veraweb.tperson_mailinglist)"));
-	}
+	
 }

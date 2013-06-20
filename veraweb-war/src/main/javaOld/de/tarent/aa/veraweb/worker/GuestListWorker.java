@@ -422,8 +422,6 @@ public class GuestListWorker extends ListWorkerVeraWeb {
 			throw new BeanException( "Das Löschen aller zum löschen markierten Personen ist fehlgeschlagen.", e );
 		}
 
-		PersonDetailWorker.removeAllDeletedPersonsHavingNoEvent( cntx, context );
-
 		return selection.size();
 	}
 
