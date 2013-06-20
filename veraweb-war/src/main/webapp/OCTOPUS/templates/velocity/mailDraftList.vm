@@ -11,7 +11,7 @@
         <input type="hidden" name="doRemove" value="true">
         
         <div class="textRight marginBottom10" id="breadcrumb">
-        	<strong>Sie sind hier:</strong> <span><a href="index.html">Home</a> > Administration > E-Mail-Vorlagen</span>
+        	<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Administration > E-Mail-Vorlagen</span>
         </div>	
         	
         <h1>E-Mail-Vorlagen</h1>
