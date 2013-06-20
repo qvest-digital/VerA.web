@@ -56,37 +56,37 @@
 			</div>					
 
 			#if($snr-action == "replace" || $snr-action == "replaceAll")
-				<div class="marginBottom20 marginTop10 msg errormsg">
-					#if(!$snr-count)
-						#if($noSearchParam)
-							Ihre Suche muss aus mindestens einem Buchstaben bestehen.
-						#elseif($noFieldsSelected)
-							Sie müssen mindestens ein Feld ausgewählt haben.
-						#end
-					#elseif($snr-count == 0)
-						Es wurde kein Datensatz ersetzt.
-					#elseif($snr-count == 1)
-						Es wurde ein Datensatz ersetzt.
-					#else
-						Es wurden $!snr-count Datens&auml;tze ersetzt.
+				#if(!$snr-count)
+					<vera-warn>
+					#if($noSearchParam)
+						Ihre Suche muss aus mindestens einem Buchstaben bestehen.
+					#elseif($noFieldsSelected)
+						Sie müssen mindestens ein Feld ausgewählt haben.
 					#end
-				</div>
-				#elseif($snr-action == "count")
-				<div class="marginBottom20 marginTop10 msg errormsg">
-					#if(!$snr-count)
-						#if($noSearchParam)
-							Ihre Suche muss aus mindestens einem Buchstaben bestehen.
-						#elseif($noFieldsSelected)
-							Sie müssen mindestens ein Feld ausgewählt haben.
-						#end
-					#elseif($snr-count == 0)
-						Es wurde kein Datensatz gefunden.
-					#elseif($snr-count == 1)
-						Es wurde ein Datensatz gefunden.
-					#else
-						Es wurden $!snr-count Datens&auml;tze gefunden.
+					</vera-warn>
+				#elseif($snr-count == 0)
+					<vera-success>Es wurde keine Person ersetzt.</vera-success>
+				#elseif($snr-count == 1)
+					<vera-success>Es wurde eine Person ersetzt.</vera-success>
+				#else
+					<vera-success>Es wurden $!snr-count Personen ersetzt.</vera-success>
+				#end
+			#elseif($snr-action == "count")
+				#if(!$snr-count)
+					<vera-warn>
+					#if($noSearchParam)
+						Ihre Suche muss aus mindestens einem Buchstaben bestehen.
+					#elseif($noFieldsSelected)
+						Sie müssen mindestens ein Feld ausgewählt haben.
 					#end
-				</div>
+					</vera-warn>
+				#elseif($snr-count == 0)
+					<vera-success>Es wurde keine Person gefunden.</vera-success>
+				#elseif($snr-count == 1)
+					<vera-success>Es wurde eine Person gefunden.</vera-success>
+				#else
+					<vera-success>Es wurden $!snr-count Personen gefunden.</vera-success>
+				#end
 			#end
 
 			<div id="buttonPanel-bottom">

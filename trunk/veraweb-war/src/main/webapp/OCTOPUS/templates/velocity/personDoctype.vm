@@ -1,11 +1,14 @@
 #set($activeMenu = "Personen")
 #if($person && $person)
-#set($title = "Person bearbeiten: $!message.plain($person.MainLatin.SaveAs)")
-#parse("inc/header.vm")
+ #set($title = "Person bearbeiten: $!message.plain($person.MainLatin.SaveAs)")
 #else
-#set($title = "Neue Person anlegen")
-#parse("inc/header.vm")
+ #set($title = "Neue Person anlegen")
 #end
+
+#set($elementNameSex = "male")
+#set($elementNameSingular = "Dokumenttyp")
+#set($elementNamePlural = "Dokumenttypen")
+#parse("inc/header.vm")
 
 #set($searchTask = $octopusRequest.searchTask)
 
