@@ -176,7 +176,7 @@
       #elseif(!$mapOrgUnit.get($bean.orgunit))
     			<i>ou unknown</i>
       #else
-    			$!mapOrgUnit.get($bean.orgunit).name
+    			$!message.text($!mapOrgUnit.get($bean.orgunit).name)
       #end
     		</td>
      #end
