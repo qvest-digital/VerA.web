@@ -86,6 +86,11 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 
 
 	/**
+	 * Should be after vera lifetime: 9999-12-01 GMT
+	 */
+	private static final Timestamp INFINITY_TIMESTAMP = new Timestamp(253399622400000L);
+	
+	/**
 	 * Octopus-Aktion die eine <strong>bl�tterbare</strong> Liste
 	 * mit Beans aus der Datenbank in den Content stellt. Kann durch
 	 * {@link #extendColumns(OctopusContext, Select)} erweitert bzw.
@@ -128,7 +133,9 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 			HashMap< String, Object > tmp = new HashMap< String, Object >();
 			Set< String > keys = ( ( ResultMap ) resultList.get( i ) ).keySet();
 			Integer id = null;
+			Timestamp eventBeginDate = null;
 			Timestamp eventEndDate = null;
+			Timestamp taskEventBeginDate = null;
 			Timestamp taskEventEndDate = null;
 			for ( String key : keys )
 			{
@@ -136,15 +143,29 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 				if ("id".equals(key)) {
 					id = (Integer) val;
 					tmp.put(key, val);
+				} else if ("eventbegindate".equals(key)) {
+					eventBeginDate = (Timestamp) val;
 				} else if ("eventenddate".equals(key)) {
 					eventEndDate = (Timestamp) val;
-					tmp.put("eventmaxenddate", val);
+				} else if ("taskeventbegindate".equals(key)) {
+					taskEventBeginDate = (Timestamp) val;
 				} else if ("taskeventenddate".equals(key)) {
 					taskEventEndDate = (Timestamp) val;
-					tmp.put("taskeventmaxenddate", val);
 				} else {
 					tmp.put(key, val);
 				}
+			}
+			if (eventBeginDate != null && eventEndDate == null) { // end = infinity
+				eventEndDate = INFINITY_TIMESTAMP;
+			}
+			if (taskEventBeginDate != null && taskEventEndDate == null) { // end = infinity
+				taskEventEndDate = INFINITY_TIMESTAMP;
+			}
+			if (eventEndDate != null) {
+				tmp.put("eventmaxenddate", eventEndDate);
+			}
+			if (taskEventEndDate != null) {
+				tmp.put("taskeventmaxenddate", taskEventEndDate);
 			}
 			if (!result.containsKey(id)) {
 				result.put(id, tmp);
@@ -337,6 +358,8 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 		select.selectAs( "dateexpire", "dateexpire" );
 		select.selectAs( "tevent.dateend", "eventenddate" );
 		select.selectAs( "event2.dateend", "taskeventenddate" );
+		select.selectAs( "tevent.datebegin", "eventbegindate" );
+		select.selectAs( "event2.datebegin", "taskeventbegindate" );
 		
 		//select.orderBy( Order.asc( "workarea_name" ) );
 
