@@ -398,7 +398,7 @@ $(function () {
                             'Aufgabenlisten der jeweiligen Veranstaltungen auf. Die Personen werden aus allen ' +
                             'Aufgaben entfernt. Wenn Sie Ihre Auswahl anpassen wollen, ' +
                             'brechen Sie bitte das L&ouml;schen ab.<br><ul>';
-                    $ .each(ongoingEventPersonIds, function (index, id) {
+                    $ .each(ongoingTaskEventPersonIds, function (index, id) {
                         var person = personModel[id];
                         msg += '<li>' + person.firstName + ' ' + person.lastName + ' (ID: ' + id + ')</li>';
                     });
