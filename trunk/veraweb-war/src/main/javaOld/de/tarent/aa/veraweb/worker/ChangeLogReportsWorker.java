@@ -25,6 +25,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import de.tarent.aa.veraweb.beans.ChangeLogEntry;
@@ -123,7 +124,7 @@ public class ChangeLogReportsWorker extends ListWorkerVeraWeb
 			map.put( "end", bd );
 		}
 
-		DateFormat format = DateFormat.getDateInstance( DateFormat.DEFAULT );
+		DateFormat format = DateFormat.getDateInstance(DateFormat.SHORT, new Locale("de","DE"));
 		cntx.setContent( "begin", format.format( map.get( "begin" ) ) );
 		cntx.setContent( "end", format.format( map.get( "end" ) ) );
 
