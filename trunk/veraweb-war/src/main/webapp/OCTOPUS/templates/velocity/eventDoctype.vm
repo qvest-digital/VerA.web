@@ -1,5 +1,8 @@
 #set($activeMenu = "Veranstaltungen")
 #set($title = "Veranstaltung bearbeiten: $!message.plain($event.shortname)")
+#set($elementNameSex = "male")
+#set($elementNameSingular = "Dokumenttyp")
+#set($elementNamePlural = "Dokumenttypen")
 #parse("inc/header.vm")
 
 <div id="content_container">

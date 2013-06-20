@@ -1,12 +1,16 @@
 #set($activeMenu = "Veranstaltungen")
 
 #if($action == "guest")
-#set($title = "Veranstaltung suchen - Veranstaltung: $!message.plain($event.shortname)")
+	#set($title = "Veranstaltung suchen - Veranstaltung: $!message.plain($event.shortname)")
 #elseif($action == "addperson")
-#set($title = "Veranstaltung suchen - Person zuordnen")
+	#set($title = "Veranstaltung suchen - Person zuordnen")
 #else
-#set($title = "Veranstaltung suchen")
+	#set($title = "Veranstaltung suchen")
 #end
+
+#set($elementNameSex = "female")
+#set($elementNameSingular = "Veranstaltung")
+#set($elementNamePlural = "Veranstaltungen")
 #parse("inc/header.vm")
 
 #if($action == "guest")
