@@ -5,6 +5,10 @@
 <div id="content_container">
 
     <form action="" method="post" target="_top">
+	
+	<div id="breadcrumb" class="textRight marginBottom10">
+		<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Login (Stellvertretung)</span>
+	</div>		
     
     <h1>Stellvertretung</h1>
     
@@ -21,7 +25,7 @@
 	<div id="main_content" class="contentBoxColored grayBorder">
 		<p>Bitte w&auml;hlen Sie die Rolle aus, die Sie vertreten möchten.</p>
 		
-		<div class="table width50">
+		<div class="table width30">
 			<div class="tableRow">
 				<div class="tableCell"><label for="proxyFor">Benutzerrolle</label></div>
 				<div class="tableCell">
@@ -32,14 +36,11 @@
                     </select>
 				</div>
 			</div>
-			<div class="tableRow">
-				<div class="tableCell"></div>
-				<div class="tableCell">
-					<input name="submit" type="submit" value="Vertreten" title="Vertreten" class="mainButton" />
-				</div>
-			</div>
 		</div>
 		
+		<div>
+			<input name="submit" type="submit" value="Vertreten" title="Vertreten" class="mainButton" />
+		</div>
 		
 	</div>
     
