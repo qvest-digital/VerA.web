@@ -518,35 +518,9 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 			return count;
 		}
 		
-		/** Test ob eine Person einer Verstaltungs in der Zukunft zugeordnet ist. */
+		
 		int maxquestions = 0;
 		int subselectsize = 1000;
-		if ((user || admin) && !selectionRemove.isEmpty()) {
-			for (int i = 0; i < selectionRemove.size(); i += subselectsize) {
-				List subList = selectionRemove.subList(i, i + subselectsize < selectionRemove.size() ? i + subselectsize : selectionRemove.size());
-				List personIsGuest =
-						database.getBeanList("Person",
-						database.getSelect("Person").
-						join(new Join(Join.INNER, "veraweb.tguest", new RawClause(
-								"tguest.fk_person = tperson.pk AND tperson.pk IN " +
-								new StatementList(subList) ))).
-						join(new Join(Join.INNER, "veraweb.tevent",
-								"tguest.fk_event", "tevent.pk AND tevent.datebegin > now()::date")));
-				for (Iterator it = personIsGuest.iterator(); it.hasNext(); ) {
-					Person person = (Person)it.next();
-					if (maxquestions == 0 || errors.size() < maxquestions)
-						errors.add("Die Person \"" + person.getMainLatin().getSaveAs() + "\" (ID: " + person.id + ") ist einer laufenden Veranstaltung zugeordnet und kann nicht gelöscht werden.");
-					selectionRemove.remove(person.id);
-					/* 
-					 * will remove person from selection aswell as it is not deletable, this saves the user from 
-					 * having to deselect the person prior to executing the delete operation
-					 * cklein 2008-03-12
-					 */
-					selection.remove( person.id );
-					i--;
-				}
-			}
-		}
 		
 		/** Test ob Personen noch g�ltig sind und nicht gel�scht werden d�rfen. */
 		if ((user || admin) && !selectionRemove.isEmpty()) {
