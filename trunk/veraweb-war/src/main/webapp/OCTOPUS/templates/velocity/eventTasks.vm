@@ -80,9 +80,9 @@
                         #end
                     </ul><br>
                     #if($save)
-                    <input type="submit" class="button" name="remove" value="Ja" title="ausgewählte Einträge löschen"> &nbsp;
+                    <input type="submit" name="remove" value="Ja" title="ausgewählte Einträge löschen">
                     #end
-                    <input type="button" class="cancel" name="cancel" value="Nein" onclick="window.location.href='ShowEventTasks?id=$!id&selectNone=true'"> &nbsp;
+                    <input type="button" name="cancel" value="Nein" onclick="window.location.href='ShowEventTasks?id=$!id&selectNone=true'"> &nbsp;
                 </div>
                 #end
 
@@ -103,7 +103,7 @@
                         #if ($listparam.count != 0)
                         <div class="tableCell width50 inlineLabel" style="vertical-align:bottom;">
                             <label>Ausgewählte Einträge</label>
-                            <input type="submit" name="remove" id="remove" value="Löschen" class="autoWidth noFloat"></div>
+                            <input type="submit" name="remove" id="remove" value="Löschen" title="Löschen" class="autoWidth noFloat"></div>
                         #end
                         <div class="tableCell width50 textRight">
                             <input type="button" title="Neue Aufgabe anlegen" value="Neue Aufgabe anlegen" name="save" id="" class="autoWidth mainButton" onclick="window.location.href='CreateEventTask?eventId=$!id';">

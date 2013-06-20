@@ -79,8 +79,8 @@
         </table>
     
     	<div class="textRight" id="buttonPanel-bottom">
-    		<input type="submit" name="save" value="Speichern" title="Speichern" class="mainButton">
-    		<input type="button" name="save" value="Zurück" onclick="window.location.href='Salutation';" title="Zurück" class="mainButton">
+    		<input type="submit" name="save" value="Speichern" title="Speichern" class="mainButton" />
+    		<input type="button" name="save" value="Zurück" onclick="window.location.href='Salutation';" title="Zurück" class="mainButton" />
     	</div>
     
     

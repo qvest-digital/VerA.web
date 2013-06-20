@@ -67,8 +67,8 @@
 </div>
 
 <div id="buttonPanel-bottom" class="marginTop10">
-	<input type="submit" class="mainButton" value="Report erzeugen"> 
-	<input type="reset"  class="mainButton" value="Felder zurücksetzen"> 
+	<input type="submit" class="mainButton" value="Report erzeugen" title="Report erzeugen" /> 
+	<input type="reset"  class="mainButton" value="Felder zurücksetzen"  title="Felder zurücksetzen" /> 
 </div>
 
 

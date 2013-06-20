@@ -74,7 +74,7 @@
 
 				
 			<div class="textRight marginTop10" id="buttonPanel-bottom">
-				<input id="buttonSave" type="submit" name="save" value="Speichern" class="mainButton">
+				<input id="buttonSave" type="submit" name="save" value="Speichern" title="Speichern" class="mainButton">
 			</div>
 			
 		</div>

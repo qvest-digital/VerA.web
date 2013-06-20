@@ -2,60 +2,51 @@
 #set($title = "Anmelden als Stellvertreter.")
 #parse("inc/header.vm")	
 
-<form action="" method="post" target="_top">
+<div id="content_container">
 
-<table class="tab" border="0" cellspacing="0" cellpadding="0"><tr>
-	<td class="tableft">&nbsp;</td>
-	<td class="tabactiv"><span class="tabactiv">Stellvertretung</span></td>
-	<td class="tabright">&nbsp;</td>
-</tr></table>
+    <form action="" method="post" target="_top">
+    
+    <h1>Stellvertretung</h1>
+    
+    #if($errors && $errors.size() > 0)
+    <vera-warn>
+    	#foreach($error in $errors)
+    		$error<br>
+    	#end
+    	<br>
+    	Es kann zu unerwarteten Fehlern kommen. Bitte wenden Sie sich an Ihren Administrator.
+    </vera-warn>
+    #end
 
-
-
-
-#if($errors && $errors.size() > 0)
-<vera-warn>
-	#foreach($error in $errors)
-		$error<br>
-	#end
-	<br>
-	Es kann zu unerwarteten Fehlern kommen. Bitte wenden Sie sich an Ihren Administrator.
-</vera-warn>
-#end
-
-<strong>Willkommen beim Veranstaltungsmanagement des Ausw&auml;rtigen Amtes</strong>
-<br><br>
-
-<P>
-	
-</P>
-
-<table class="form"><tr>
-	<td colspan=2>Bitte w&auml;hlen Sie, wen Sie vertreten wollen.</td>
-</tr><tr>
-	<td><label for="proxyFor">Benutzerrolle</label></td>
-	<td>
-		<select name="proxyFor" id="fieldMapping" >
-#foreach($proxy in $list)
-			<option value="$proxy.userRole">$proxy.userRole</option>
-#end
-		</select>
-	</td>
-</tr><tr>
-	<td>&nbsp;</td>
-	<td>
-		<input name="submit" type="submit" value="Vertreten" class="submit"> &nbsp;
-		<input name="cancel" type="reset"  value="Felder leeren" class="reset">
-	</td>
-</tr></table>
-
-<input name="task" type="hidden" value="LoginAsProxy">
-
-
-
-
-</form>
-
+	<div id="main_content" class="contentBoxColored grayBorder">
+		<p>Bitte w&auml;hlen Sie die Rolle aus, die Sie vertreten möchten.</p>
+		
+		<div class="table width50">
+			<div class="tableRow">
+				<div class="tableCell"><label for="proxyFor">Benutzerrolle</label></div>
+				<div class="tableCell">
+					<select name="proxyFor" id="fieldMapping" >
+                        #foreach($proxy in $list)
+                        			<option value="$proxy.userRole">$proxy.userRole</option>
+                        #end
+                    </select>
+				</div>
+			</div>
+			<div class="tableRow">
+				<div class="tableCell"></div>
+				<div class="tableCell">
+					<input name="submit" type="submit" value="Vertreten" title="Vertreten" class="mainButton" />
+				</div>
+			</div>
+		</div>
+		
+		
+	</div>
+    
+    <input name="task" type="hidden" value="LoginAsProxy">
+ 
+    </form>
+</div>
 <!--
 $responseParams
 -->

@@ -210,7 +210,7 @@ disableOtherBeans(id);
 		## 2008-02-21
 			#if($grants.isAdmin() || $grants.isPartialAdmin())
 				<div class="textRight marginTop10" id="buttonPanel-bottom">
-					<input type="submit" name="save" value="Speichern" class="mainButton" onclick="formlist.action='SaveCategories';return true;">
+					<input type="submit" name="save" value="Speichern" title="Speichern" class="mainButton" onclick="formlist.action='SaveCategories';return true;">
 				</div>
 			#end
 	</form>

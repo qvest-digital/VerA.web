@@ -20,7 +20,7 @@
         
         <span id="actionPanel" class="inlineLabel">
         	       	<strong>Markierte Vorlage(n)</strong>
-        	       	<input type="submit" name="remove" value="Löschen" title="Markierte Vorlage(n) löschen" onclick="">
+        	       	<input type="submit" name="remove" value="Löschen" title="Markierte Vorlage(n) löschen" onclick="" />
         </span>
         <span id="" class="buttonPanel-top textRight floatRight">
         			<input type="button" name="" value="Neue Vorlage anlegen" title="Neue Vorlage anlegen" class="mainButton" onclick="window.location.href='MailDraftDetail';">
