@@ -162,7 +162,7 @@
                         #parse("inc/guest-member.vm")
                         </div>
                         <div id="detail-2-reload-block" #if($guest.invitationtype != 3) style="display: none;"#end>					
-    						<vera-info>
+    						<vera-info vera-stay>
                                 Dieser Gast wurde ohne $!config.main eingeladen.
                         		M&ouml;chten Sie diese jetzt <a href="javascript:setGuestInvitationtype(1);">nachtr&auml;glich einladen</a>?
                             </vera-info>							
