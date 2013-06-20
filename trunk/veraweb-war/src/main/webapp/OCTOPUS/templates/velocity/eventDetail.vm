@@ -75,12 +75,12 @@
 		#end
 		
 		#if($event && $event.id)
-		<div class="textRight marginBottom10" id="buttonPanel-top">
+		<div class="textRight marginBottom10 marginTop20" id="buttonPanel-top">
 			<input type="button" class="mainButton" value="Zur G&auml;steverwaltung" title="Zur G&auml;steverwaltung" name="guestlist" onclick="window.location.href='ShowGuestList?search-event=$!event.id&start=0&selectNone=true';">
 		</div>
 		#end
 		
-		<div id="main_content" class="tabs contentBox grayBorder marginBottom10 marginTop20">
+		<div id="main_content" class="tabs contentBox grayBorder marginBottom10">
 
 			#if(!$isNewEvent)
         		<div id="tabsMain" class="event">

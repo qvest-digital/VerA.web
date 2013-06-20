@@ -23,11 +23,11 @@
         <input type="hidden" name="doUpdate" value="false"/>
         <input type="hidden" name="doRemove" value="true"/>
 
-	<div class="textRight marginBottom10" id="buttonPanel-top">
+	<div class="textRight marginBottom10 marginTop20" id="buttonPanel-top">
 		<input type="button" class="mainButton" value="Zur G&auml;steverwaltung" name="guestlist" onclick="window.location.href='ShowGuestList?search-event=$!event.id&start=0&selectNone=true';"/>
 	</div>
 		
-    	<div id="main_content" class="tabs contentBox grayBorder marginBottom10 marginTop20">
+    	<div id="main_content" class="tabs contentBox grayBorder marginBottom10">
     
     		<div id="tabsMain" class="event">
             	<ul class="gray-gradient" vera-tab-group> <!-- Bitte das End-tag der <li>s immer mit in die nächste Zeile nehmen (verhindert Mozilla styling bug) -->
