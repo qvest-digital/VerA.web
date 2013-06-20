@@ -1,11 +1,14 @@
 #set($activeMenu = "Administration")
 #if($location && $location.id)
-#set($title = "Veranstaltungsort bearbeiten: $!message.plain($location.shortname)")
-#parse("inc/header.vm")
+	#set($title = "Veranstaltungsort bearbeiten: $!message.plain($location.shortname)")
 #else
-#set($title = "Neuen Veranstaltungsort eingeben")
-#parse("inc/header.vm")
+	#set($title = "Neuen Veranstaltungsort eingeben")
 #end
+
+#set($elementNameSex = "male")
+#set($elementNameSingular = "Veranstaltungsort")
+#set($elementNamePlural = "Veranstaltungsorte")
+#parse("inc/header.vm")
 
 <div id="content_container">
 	<div id="breadcrumb" class="textRight marginBottom10">

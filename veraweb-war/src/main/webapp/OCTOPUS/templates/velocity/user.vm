@@ -8,6 +8,9 @@
 #else
 #set($title = "Benutzer")
 #end
+#set($elementNameSex = "male")
+#set($elementNameSingular = "Benutzer")
+#set($elementNamePlural = "Benutzer")
 #parse("inc/header.vm")	
 
 <div id="content_container">

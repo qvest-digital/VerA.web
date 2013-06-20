@@ -1,5 +1,8 @@
 #set($activeMenu = "Administration")
 #set($title = "Stammdaten - Anrede: $!salutation.name")
+#set($elementNameSex = "female")
+#set($elementNameSingular = "Anrede")
+#set($elementNamePlural = "Anreden")
 #parse("inc/header.vm")
 
 <form id="formlist" name="formlist" action="SalutationDoctype" method="POST">
