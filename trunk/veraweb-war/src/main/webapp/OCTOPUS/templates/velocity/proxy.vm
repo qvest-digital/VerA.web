@@ -19,11 +19,11 @@
     ## Dynamischer breadcrumb
     #if($activeMenu == "Administration")	
     <div id="breadcrumb" class="textRight marginBottom10">
-        <strong>Sie sind hier:</strong> <span><a href="index.html">Home</a> > Administration > Stellvertretungen</span>
+        <strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Administration > Stellvertretungen</span>
     </div>
     #elseif($activeMenu == "Verwaltung")
     <div id="breadcrumb" class="textRight marginBottom10">
-        <strong>Sie sind hier:</strong> <span><a href="index.html">Home</a> > Verwaltung > Vertretungen</span>
+        <strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Verwaltung > Vertretungen</span>
     </div>	
     #end
     

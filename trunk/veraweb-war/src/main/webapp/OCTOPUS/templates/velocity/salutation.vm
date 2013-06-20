@@ -13,7 +13,7 @@
             <input type="hidden" name="limit" value="" />
             
             <div id="breadcrumb marginBottom10" class="textRight">
-            	<strong>Sie sind hier:</strong> <span><a href="index.html">Home</a> > Administration > Anreden</span>
+            	<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Administration > Anreden</span>
     		</div>
             
             <h1>Anreden</h1>
