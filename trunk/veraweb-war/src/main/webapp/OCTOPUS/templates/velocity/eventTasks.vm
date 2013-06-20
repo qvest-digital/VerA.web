@@ -13,14 +13,15 @@
 
     <h1>Veranstaltung bearbeiten: $!message.plain($event.shortname)</h1>
 
-    <span class="textRight floatRight marginBottom10 buttonPanel-top" id="buttonPanel-top">
-        <input type="button" class="mainButton" value="Zur G&auml;steverwaltung" name="guestlist" onclick="window.location.href='ShowGuestList?search-event=$!event.id&start=0&selectNone=true';">
-    </span>
 
     <form id="formlist" name="formlist" action="$formurl?id=$!id" method="POST">
 
 	#set($completeEventHeader = false)
     #parse("inc/event-header.vm")
+
+	<span class="textRight floatRight marginBottom10 buttonPanel-top" id="buttonPanel-top">
+        <input type="button" class="mainButton" value="Zur G&auml;steverwaltung" name="guestlist" onclick="window.location.href='ShowGuestList?search-event=$!event.id&start=0&selectNone=true';">
+    </span>
 
     <div id="main_content" class="tabs contentBox grayBorder marginBottom10 marginTop20">
 

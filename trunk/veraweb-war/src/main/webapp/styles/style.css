@@ -553,7 +553,9 @@ nav a, #nav a {
     padding: 10px 20px;
 }
 
-#main_content {
+#guestSummary.hinweis,
+#legend.hinweis {
+	background-image: none;
 }
 
 hr {border-top:1px solid #8b0f0f; }
