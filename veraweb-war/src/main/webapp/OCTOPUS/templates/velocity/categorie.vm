@@ -140,7 +140,7 @@ disableOtherBeans(id);
 					<select id="add-event" name="add-event" onchange="modifiedEvent('add'); ">
 					<option value="">F&uuml;r alle Veranstaltungen</option>
 					#foreach($event in $allEvent)
-						<option value="$!event.id">$!message.text($event.shortname)</option>
+						<option value="$!event.id">$!message.plain($event.shortname)</option>
 					#end
 					</select>
 				</td>
@@ -157,7 +157,7 @@ disableOtherBeans(id);
 			#if($grants.isAdmin() || $grants.isPartialAdmin())
 				<td class="textCenter"><input type="hidden" id="${bean.id}-modified" name="${bean.id}-modified" value="false"><input type="checkbox" name="${bean.id}-select" id="${bean.id}-select" value="true"></td>
 				<td class="textCenter"><input type="hidden" name="${bean.id}-id" value="$!bean.id">$!{bean.id}</td>
-				<td><input type="text" name="${bean.id}-name" id="${bean.id}-name" value="$!message.text($bean.name)" onchange="modifiedEvent('$!bean.id')" #if(!($grants.isAdmin() || $grants.isPartialAdmin()))vera-disabled#end></td>
+				<td><input type="text" name="${bean.id}-name" id="${bean.id}-name" value="$!message.plain($bean.name)" onchange="modifiedEvent('$!bean.id')" #if(!($grants.isAdmin() || $grants.isPartialAdmin()))vera-disabled#end></td>
 				<td>
 					<select id="${bean.id}-flags" name="${bean.id}-flags" onchange="modifiedEvent('$!bean.id')">
 						<option #if($bean.flags && $bean.flags == 0) selected#end value="0">Kategorie</option>
@@ -170,12 +170,12 @@ disableOtherBeans(id);
 					<select id="${bean.id}-event" name="${bean.id}-event" onchange="modifiedEvent('$!bean.id')" #if(! ( $grants.isAdmin() || $grants.isPartialAdmin() ))vera-disabled#end>
 					<option value="">F&uuml;r alle Veranstaltungen</option>
 					#foreach($event in $allEvent)
-						<option #if($bean.event && $bean.event == $event.id) selected#end value="$!event.id">$!message.text($event.shortname)</option>
+						<option #if($bean.event && $bean.event == $event.id) selected#end value="$!event.id">$!message.plain($event.shortname)</option>
 					#end
 					</select>
 				</td>
 			#else
-				<td>$!message.text($bean.name)</td>
+				<td>$!message.plain($bean.name)</td>
 				<td>
 					#if($bean.flags && $bean.flags == 0)
 						Kategorie
@@ -185,11 +185,11 @@ disableOtherBeans(id);
 						Diplo. Corps
 					#end
 				</td>
-				<td>$!message.text($bean.rank)</td>
+				<td>$!message.plain($bean.rank)</td>
 				<td>
 					#set($found=false)
 					#foreach($event in $allEvent)
-						#if($bean.event && $bean.event == $event.id)#set($found=true)$!message.text($event.shortname)#end
+						#if($bean.event && $bean.event == $event.id)#set($found=true)$!message.plain($event.shortname)#end
 					#end
 					#if(!$found)
 						Für alle Veranstaltungen
