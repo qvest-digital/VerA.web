@@ -10,9 +10,6 @@
 	
 	<h1>Veranstaltung bearbeiten: $!message.plain($event.shortname)</h1>
 	
-	<div class="textRight marginBottom10" id="buttonPanel-top">
-		<input type="button" class="mainButton" value="Zur G&auml;steverwaltung" name="guestlist" onclick="window.location.href='ShowGuestList?search-event=$!event.id&start=0&selectNone=true';"/>
-	</div>
 	
 	#set($completeEventHeader = false)
 	#parse("inc/event-header.vm")
@@ -25,6 +22,10 @@
         <input type="hidden" name="doInsert" value="true"/>
         <input type="hidden" name="doUpdate" value="false"/>
         <input type="hidden" name="doRemove" value="true"/>
+
+	<div class="textRight marginBottom10" id="buttonPanel-top">
+		<input type="button" class="mainButton" value="Zur G&auml;steverwaltung" name="guestlist" onclick="window.location.href='ShowGuestList?search-event=$!event.id&start=0&selectNone=true';"/>
+	</div>
 		
     	<div id="main_content" class="tabs contentBox grayBorder marginBottom10 marginTop20">
     

@@ -15,9 +15,6 @@
     		<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Veranstaltungen > Veranstaltung bearbeiten</span>
     	</div>
     		<h1>Veranstaltung bearbeiten: $!message.plain($event.shortname)</h1>
-		<div class="textRight marginBottom10" id="buttonPanel-top">
-			<input type="button" class="mainButton" value="Zur G&auml;steverwaltung" title="Zur G&auml;steverwaltung" name="guestlist" onclick="window.location.href='ShowGuestList?search-event=$!event.id&start=0&selectNone=true';">
-		</div>
 	#else
 		<div id="breadcrumb" class="textRight marginBottom10">
 			<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Veranstaltungen > Neue Veranstaltung</span>
@@ -75,7 +72,13 @@
 		#if(!$isNewEvent)
 			#set($completeEventHeader = false)
         	#parse("inc/event-header.vm")
-        #end
+		#end
+		
+		#if($event && $event.id)
+		<div class="textRight marginBottom10" id="buttonPanel-top">
+			<input type="button" class="mainButton" value="Zur G&auml;steverwaltung" title="Zur G&auml;steverwaltung" name="guestlist" onclick="window.location.href='ShowGuestList?search-event=$!event.id&start=0&selectNone=true';">
+		</div>
+		#end
 		
 		<div id="main_content" class="tabs contentBox grayBorder marginBottom10 marginTop20">
 
@@ -165,8 +168,8 @@
     								<input type="text" vera-disabled class="textdisabled" value="$!message.text($event.hostname)" name="showevent-hostname" id="showevent-hostname">
     								#if($grants.mayWrite())
     								<div class="addButton">
-    									<input type="button" value="Gastgeber suchen" onclick="document.getElementById('formlist').action='SetHostToEventSearch'; document.getElementById('a').value='host'; document.getElementById('formlist').submit();"><!-- war früher ein link <a href="javascript:document.getElementById('formlist').action='SetHostToEventSearch'; document.getElementById('a').value='host'; document.getElementById('formlist').submit();">Suchen</a> | -->
-    									<input type="button" value="Gastgeber entfernen" onclick="removeHost(); setModified(); document.getElementById('formlist').action='SaveEvent'; document.getElementById('formlist').submit();"><!-- war früher ein link <a href="javascript:removeHost(); setModified(); document.getElementById('formlist').action='SaveEvent'; document.getElementById('formlist').submit();">Entfernen</a> -->
+    									<input type="button" value="Gastgeber suchen" title="Gastgeber suchen" onclick="document.getElementById('formlist').action='SetHostToEventSearch'; document.getElementById('a').value='host'; document.getElementById('formlist').submit();">
+    									<input type="button" value="Gastgeber entfernen" title="Gastgeber entfernen" onclick="removeHost(); setModified(); document.getElementById('formlist').action='SaveEvent'; document.getElementById('formlist').submit();">
                                     </div>	
     								#end
     							</div>
