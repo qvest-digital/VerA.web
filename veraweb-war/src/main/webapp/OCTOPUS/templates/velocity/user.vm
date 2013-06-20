@@ -71,7 +71,7 @@
 						<select id="add-orgunit" name="add-orgunit" onchange="setModified('add')">
 							<option value="">Bitte ausw&auml;hlen</option>
 			  #foreach($orgunit in $allOrgUnit)
-							<option value="$orgunit.id">$!message.text($orgunit.name)</option>
+							<option value="$orgunit.id">$!message.plain($orgunit.name)</option>
 			  #end
 						</select>
 			 #else
@@ -86,7 +86,7 @@
 						<select id="add-name" name="add-name" onchange="setModified('add')">
 							<option value="">Bitte ausw&auml;hlen</option>
 			 #foreach($role in $roleList)
-							<option value="$role">$role</option>
+							<option value="$role">$!message.plain($role)</option>
 			 #end
 						</select>
 			#else
@@ -123,17 +123,17 @@
 						<select id="${bean.id}-orgunit" name="${bean.id}-orgunit" onchange="setModified('${bean.id}')">
 							<option value="">Bitte ausw&auml;hlen</option>
 			    #foreach($orgunit in $allOrgUnit)
-							<option value="$orgunit.id" #if($orgunit.id==$bean.orgunit)selected#end>$!message.text($orgunit.name)</option>
+							<option value="$orgunit.id" #if($orgunit.id==$bean.orgunit)selected#end>$!message.plain($orgunit.name)</option>
 			    #end
 						</select>
 			   #else
-						<input type="text" name="${bean.id}-orgunit" value="$!message.text($bean.orgunit)" onchange="setModified('${bean.id}')">
+						<input type="text" name="${bean.id}-orgunit" value="$!message.plain($bean.orgunit)" onchange="setModified('${bean.id}')">
 			   #end
 					</td>
 			  #else
 					<input type="hidden" name="${bean.id}-orgunit" value="$bean.orgunit">
 			  #end
-					<td><input type="hidden" name="${bean.id}-name" value="$!message.text($bean.name)"/>$!message.text($bean.name)</td>
+					<td><input type="hidden" name="${bean.id}-name" value="$!message.plain($bean.name)"/>$!message.plain($bean.name)</td>
 					<td>
 						<select id="${bean.id}-role" name="${bean.id}-role"  onchange="setModified('${bean.id}')">
 							<option value="">inaktiv</option>
@@ -151,7 +151,7 @@
 					<td class="textCenter"><input type="hidden" id="${bean.id}-modified" name="${bean.id}-modified" value="false"><input type="checkbox" name="${bean.id}-select" value="true"  vera-disabled></td>
 					<td class="textCenter"><input type="hidden" name="${bean.id}-id" value="$!bean.id">$!{bean.id}</td>
 					<input type="hidden" name="${bean.id}-orgunit" value="$bean.orgunit">
-					<td><input type="hidden" name="${bean.id}-name" value="$!message.text($bean.name)"/>$!message.text($bean.name)</td>
+					<td><input type="hidden" name="${bean.id}-name" value="$!message.plain($bean.name)"/>$!message.plain($bean.name)</td>
 					<td class="textCenter"><input type="hidden" name="${bean.id}-role" value="5"><input type="text" name="${bean.id}-role-text" value="Administrieren" vera-disabled></td>
 			 #end
 				</tr>
