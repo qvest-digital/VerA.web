@@ -78,7 +78,7 @@
         #parse("inc/event-header.vm")
 		
 		<div class="textRight marginBottom10 marginTop20" id="buttonPanel-top">
-            <input type="button" class="mainButton" value="zur G&auml;steverwaltung" title="zur G&auml;steverwaltung" name="guestlist" goto="ShowGuestList?search-event=$!event.id&start=0&selectNone=true">
+            <input type="button" class="mainButton" value="Zur G&auml;steverwaltung" title="Zur G&auml;steverwaltung" name="guestlist" goto="ShowGuestList?search-event=$!event.id&start=0&selectNone=true">
         </div>
 
         <div id="main_content" class="tabs contentBox grayBorder marginBottom10 event">
@@ -171,7 +171,7 @@
                     </div>
                 </div>
 
-                <div class="table width100">
+             <div class="table width100">
                 <div class="tableRow">
                     <div class="tableCell">
                         <label for="task-description">Beschreibung</label>
@@ -189,27 +189,27 @@
                                 onclick="document.getElementById('formlist').action='SetReferencePersonToEventTask'; 
                                 document.getElementById('a').value='taskReferencePerson';  document.getElementById('formlist').submit();" />
                                 <input type="button" tabindex="10" class="autoWidth" value="Verantworlichen entfernen" title="Verantworlichen entfernen" id="linkRemoveRefPerson">
-                            </div>
+                         </div>
                         #end
                     </div>
                 </div>
+             </div>
+
+        </div>
+
+            <div class="textRight" id="buttonPanel-bottom">
+                #if($event && $event.id)
+    				#if($grants.mayWrite())
+    					<input id="button.save" tabindex="11" type="submit" name="save" value="Aufgabe speichern" title="Aufgabe speichern" onclick="document.getElementById('formlist').action='SaveEventTask';" class="mainButton" />
+    				#end
+                    <input id="button.back" tabindex="12" type="button" name="cancel" class="mainButton" value="Zur&uuml;ck zur Aufgaben&uuml;bersicht" title="Zur&uuml;ck zur Aufgaben&uuml;bersicht" goto="${paths.staticWeb}do/ShowEventTasks?id=$!eventId&selectNone=true">
+                #else
+    				#if($grants.mayWrite())
+    					<input id="button.save" tabindex="11" type="submit" name="save" value="Aufgabe speichern" title="Aufgabe speichern" onclick="document.getElementById('formlist').action='SaveEventTask';" class="mainButton" />
+    				#end
+                    <input id="button.back" tabindex="12" type="button" name="cancel" class="mainButton" value="Zur&uuml;ck zur Aufgaben&uuml;bersicht" title="Zur&uuml;ck zur Aufgaben&uuml;bersicht" goto="${paths.staticWeb}do/ShowEventTasks?id=$!eventId&selectNone=true">
+                #end
             </div>
-
-        </div>
-
-        </div>
-        <div class="textRight" id="buttonPanel-bottom">
-            #if($event && $event.id)
-				#if($grants.mayWrite())
-					<input id="button.save" tabindex="11" type="submit" name="save" value="Aufgabe speichern" title="Aufgabe speichern" onclick="document.getElementById('formlist').action='SaveEventTask';" class="mainButton" />
-				#end
-                <input id="button.back" tabindex="12" type="button" name="cancel" class="mainButton" value="Zur&uuml;ck zur Aufgaben&uuml;bersicht" title="Zur&uuml;ck zur Aufgaben&uuml;bersicht" goto="${paths.staticWeb}do/ShowEventTasks?id=$!eventId&selectNone=true">
-            #else
-				#if($grants.mayWrite())
-					<input id="button.save" tabindex="11" type="submit" name="save" value="Aufgabe speichern" title="Aufgabe speichern" onclick="document.getElementById('formlist').action='SaveEventTask';" class="mainButton" />
-				#end
-                <input id="button.back" tabindex="12" type="button" name="cancel" class="mainButton" value="Zur&uuml;ck zur Aufgaben&uuml;bersicht" title="Zur&uuml;ck zur Aufgaben&uuml;bersicht" goto="${paths.staticWeb}do/ShowEventTasks?id=$!eventId&selectNone=true">
-            #end
         </div>
 
     </form>

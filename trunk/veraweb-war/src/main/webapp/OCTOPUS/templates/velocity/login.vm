@@ -30,7 +30,7 @@
 	<input type="reset" class="mainButton" value="Felder leeren" title="Felder leeren" name="cancel" id="button.clearFields" />				
 </div>
 
-<vera-info>
+<vera-info vera-stay>
 	Bitte verwenden Sie Ihr Organisationskennzeichen oder <strong>Vorname.Nachname</strong> als Benutzernamen.
 </vera-info>	
 
