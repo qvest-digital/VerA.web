@@ -134,10 +134,10 @@
                 	</table><br>
                 
                 	#if($save)
-						<input type="submit" class="button" name="remove" value="Ja"> &nbsp;
+						<input type="submit" name="remove" value="Ja" title="Speichern" />
 					#end
 					
-                	<input type="button" class="cancel" name="cancel" value="Nein" onclick="window.location.href='ShowGuestList?selectNone=true';"> &nbsp;
+                	<input type="button" name="cancel" value="Nein" title="Abbrechen" onclick="window.location.href='ShowGuestList?selectNone=true';"> &nbsp;
                 </div>
                 </form>
             #end

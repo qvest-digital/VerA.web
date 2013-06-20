@@ -87,16 +87,16 @@
 				
 				<div id="buttonPanel-bottom" class="textRight">			
 					#if($action == "guest")
-						<input id="button.startSearch" type="submit" class="mainButton" value="Suchen"> 
-						<input type="reset"  class="mainButton" value="Felder leeren"> 
-						<input type="button" class="mainButton"  name="cancel" value="Zur&uuml;ck" onclick="window.location.href='ShowGuestList?selectNone=true';">
+						<input id="button.startSearch" type="submit" class="mainButton" value="Suchen" title="Suchen" /> 
+						<input type="reset"  class="mainButton" value="Felder leeren" title="Felder leeren" /> 
+						<input type="button" class="mainButton"  name="cancel" value="Zur&uuml;ck" title="Zur&uuml;ck" onclick="window.location.href='ShowGuestList?selectNone=true';" />
 					#elseif($action == "addperson")
-						<input id="button.startSearch" type="submit" class="mainButton" value="Suchen"> 
-						<input type="reset"  class="mainButton" value="Felder leeren">
-						<input type="button" class="mainButton"  name="cancel" value="Zur&uuml;ck" onclick="window.location.href='ShowPerson';"> 
+						<input id="button.startSearch" type="submit" class="mainButton" value="Suchen" title="Suchen" /> 
+						<input type="reset"  class="mainButton" value="Felder leeren" title="Felder leeren" />
+						<input type="button" class="mainButton"  name="cancel" value="Zur&uuml;ck" title="Zur&uuml;ck" onclick="window.location.href='ShowPerson';" /> 
 					#else
-						<input id="button.startSearch" type="submit" class="mainButton" value="Suchen">
-						<input type="reset"  class="mainButton" value="Felder leeren">
+						<input id="button.startSearch" type="submit" class="mainButton" value="Suchen" title="Suchen" />
+						<input type="reset"  class="mainButton" value="Felder leeren" title="Felder leeren" />
 					#end			
 				</div>				
 

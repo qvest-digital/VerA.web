@@ -39,7 +39,7 @@
 		
 		<span class="inlineLabel" id="actionPanel">
 			<strong>Markierte(n) Benutzer</strong>
-			<input type="submit" name="remove" value="L&ouml;schen" class="button" title="Markierte(n) Benutzer l&ouml;schen">
+			<input type="submit" name="remove" value="L&ouml;schen" class="button" title="Markierte(n) Benutzer l&ouml;schen" />
 		</span>
 		
 		<div id="main_content">
@@ -168,7 +168,7 @@
 
 			
 			<div class="textRight marginTop10" id="buttonPanel-bottom">
-				<input type="submit" name="save" value="Speichern" class="mainButton">
+				<input type="submit" name="save" value="Speichern" title="Speichern" class="mainButton" />
 			</div>
 		</div>
 	</form>

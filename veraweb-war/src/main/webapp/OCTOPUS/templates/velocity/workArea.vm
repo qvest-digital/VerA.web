@@ -21,7 +21,7 @@
 
 		<span class="inlineLabel" id="actionPanel">
 			<strong>Markierte(n) Arbeitsbereich(e)</strong>
-			<input type="submit" name="remove" value="L&ouml;schen" class="button" title="markierte Eintr&auml;ge entfernen">
+			<input type="submit" name="remove" value="L&ouml;schen" class="button" title="markierte Eintr&auml;ge entfernen" />
 		</span>
 
 		<div id="main_content">
@@ -73,7 +73,7 @@
 			</table>
 			
 			<div class="textRight marginTop10" id="buttonPanel-bottom">
-				<input type="submit" name="save" value="Speichern" class="mainButton">			
+				<input type="submit" name="save" value="Speichern" title="Speichern" class="mainButton" />			
 			</div>
 		
 		</div>
