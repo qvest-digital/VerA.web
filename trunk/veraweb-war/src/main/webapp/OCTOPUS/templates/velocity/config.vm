@@ -10,6 +10,10 @@
     </div>
 	
     <h1>Programmeinstellungen</h1>
+	
+	#if($saveSuccess)
+		<vera-success>Einstellungen wurden erfolgreich gespeichert.</vera-success>
+	#end
     
     <div class="content">
     	<div class="contentsection">

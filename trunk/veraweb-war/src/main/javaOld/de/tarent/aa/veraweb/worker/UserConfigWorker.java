@@ -123,8 +123,9 @@ public class UserConfigWorker {
 	 * @throws IOException
 	 */
 	public void save(OctopusContext cntx) throws BeanException, IOException {
-		if (!cntx.requestContains("save"))
+		if (!cntx.requestContains("save")) {
 			return;
+		}
 		
 		Database database = new DatabaseVeraWeb(cntx);
 		Integer userId = ((PersonalConfigAA)cntx.personalConfig()).getVerawebId();
@@ -149,6 +150,8 @@ public class UserConfigWorker {
 				removeUserSetting(database, userId, userConfig, key);
 			}
 		}
+		
+		cntx.setContent("saveSuccess", true);
 	}
 
 	protected void removeUserSetting(Database database, Integer userId, Map userConfig, String key) throws BeanException, IOException {
