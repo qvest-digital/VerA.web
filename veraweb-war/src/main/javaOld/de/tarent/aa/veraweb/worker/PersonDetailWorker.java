@@ -965,67 +965,46 @@ public class PersonDetailWorker implements PersonConstants {
 	void removePerson(OctopusContext cntx, TransactionContext context, Integer personid) throws BeanException, IOException {
 		Database database = context.getDatabase();
 		
-		// Gibt an ob diese Person noch einer Veranstaltung zugeordnet ist.
-		boolean hasEvent =
-				database.getCount(
-				database.getCount("Guest").
-				where(Expr.equal("fk_person", personid)), context).intValue() != 0;
 		
-		// Gibt an ob diese Person noch einer Aufgabe zugeordnet ist.
-		boolean hasTask =
-				database.getCount(
-				database.getCount("Task").
-				where(Expr.equal("fk_person", personid)), context).intValue() != 0;
+		
 
 		Person oldPerson = ( Person ) database.getBean( "Person", personid, context );
-		if (hasEvent || hasTask) {
-			// Datenbank-Eintrag auf Gel�scht setzten.
-			if (logger.isEnabledFor(Priority.DEBUG)) {
-				logger.log(Priority.DEBUG, "Person löschen: Person #" + personid + " wird als gelöscht markiert.");
-			}
-			context.execute(SQL.Update( database ).
-					table("veraweb.tperson").
-					update("deleted", PersonConstants.DELETED_TRUE).
-					where(Expr.equal("pk", personid)));
-		} else {
-			// Datenbank-Eintr�ge inkl. Abh�nigkeiten l�schen.
-			if (logger.isEnabledFor(Priority.DEBUG)) {
-				logger.log(Priority.DEBUG, "Person löschen: Person #" + personid + " wird vollständig gelöscht.");
-			}
-			
-			context.execute(SQL.Delete( database ).
-					from("veraweb.tperson_categorie").
-					where(Expr.equal("fk_person", personid)));
-			context.execute(SQL.Delete( database ).
-					from("veraweb.tperson_doctype").
-					where(Expr.equal("fk_person", personid)));
-			context.execute(SQL.Delete( database ).
-					from("veraweb.tperson_mailinglist").
-					where(Expr.equal("fk_person", personid)));
-			context.execute(SQL.Delete( database ).
-					from("veraweb.tperson").
-					where(Expr.equal("pk", personid)));
-			context.execute(SQL.Update( database ).
-					table("veraweb.tevent").
-					update("fk_host", null).
-					update("hostname", null).
-					where(Expr.equal("fk_host", personid)));
+		// Datenbank-Eintr�ge inkl. Abh�nigkeiten l�schen.
+		if (logger.isEnabledFor(Priority.DEBUG)) {
+			logger.log(Priority.DEBUG, "Person löschen: Person #" + personid + " wird vollständig gelöscht.");
 		}
-
+		
+		context.execute(SQL.Delete( database ).
+				from("veraweb.tperson_categorie").
+				where(Expr.equal("fk_person", personid)));
+		context.execute(SQL.Delete( database ).
+				from("veraweb.tperson_doctype").
+				where(Expr.equal("fk_person", personid)));
+		context.execute(SQL.Delete( database ).
+				from("veraweb.tperson_mailinglist").
+				where(Expr.equal("fk_person", personid)));
+		context.execute(SQL.Delete( database ).
+				from("veraweb.ttask").
+				where(Expr.equal("fk_person", personid)));
+		context.execute(SQL.Delete( database ).
+				from("veraweb.tguest").
+				where(Expr.equal("fk_person", personid)));
+		context.execute(SQL.Update( database ).
+				table("veraweb.tperson").
+				update("deleted", PersonConstants.DELETED_TRUE).
+				where(Expr.equal("pk", personid)));
+		context.execute(SQL.Update( database ).
+				table("veraweb.tevent").
+				update("fk_host", null).
+				update("hostname", null).
+				where(Expr.equal("fk_host", personid)));
+		
 		/*
 		 * modified to support change logging
 		 * cklein 2008-02-12
 		 */
 		BeanChangeLogger clogger = new BeanChangeLogger( database, context );
-		if ( hasEvent || hasTask )
-		{
-			Person newPerson = ( Person ) database.getBean( "Person", personid, context );
-			clogger.logUpdate( cntx.personalConfig().getLoginname(), oldPerson, newPerson );
-		}
-		else
-		{
-			clogger.logDelete( cntx.personalConfig().getLoginname(), oldPerson );
-		}
+		clogger.logDelete( cntx.personalConfig().getLoginname(), oldPerson );
 	}
 
 	private final static String DELETE_ALL_STALE_PERSON_CATEGORIES = 
