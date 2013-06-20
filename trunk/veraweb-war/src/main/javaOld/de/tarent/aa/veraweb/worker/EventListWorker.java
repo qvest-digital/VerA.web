@@ -226,7 +226,7 @@ public class EventListWorker extends ListWorkerVeraWeb {
     		if (countOfNotExpiredEvents != null && countOfNotExpiredEvents.intValue() > 0) {
     			questions.put("force-remove-events", "Die folgenden Veranstaltungen laufen aktuell oder liegen in der Zukunft. Wenn Sie Ihre Auswahl anpassen wollen, brechen Sie bitte das Löschen ab.");
     		} else {
-    		    questions.put("force-remove-events", "Sollen alle markierten Personen gelöscht werden? Diese Aktion kann nicht rückgängig gemacht werden.");
+    		    questions.put("force-remove-events", "Sollen alle markierten Veranstaltungen gelöscht werden? Diese Aktion kann nicht rückgängig gemacht werden.");
     		}
     		cntx.setContent("listquestions", questions);
             return -1;
