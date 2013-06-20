@@ -123,7 +123,7 @@
 						<select id="${bean.id}-orgunit" name="${bean.id}-orgunit" onchange="setModified('${bean.id}')">
 							<option value="">Bitte ausw&auml;hlen</option>
 			    #foreach($orgunit in $allOrgUnit)
-							<option value="$orgunit.id" #if($orgunit.id==$bean.orgunit)selected#end>$orgunit.name</option>
+							<option value="$orgunit.id" #if($orgunit.id==$bean.orgunit)selected#end>$!message.text($orgunit.name)</option>
 			    #end
 						</select>
 			   #else
