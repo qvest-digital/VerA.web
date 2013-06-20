@@ -43,7 +43,7 @@
     		<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Veranstaltungen > Gastgeber hinzuf&uuml;gen</span>
     	</div>
     	
-    	<h1>Personensuche</h1>   
+    	<h1>Personensuche: Gastgeber hinzuf&uuml;gen</h1>   
 	#elseif($action == "guest")
     	<div id="breadcrumb" class="textRight marginBottom10">
     		<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Veranstaltungen > Gast hinzuf&uuml;gen</span>
