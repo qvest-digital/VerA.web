@@ -25,7 +25,7 @@
         	#end
             </vera-warn>
         #elseif($listquestions && $listquestions.size() > 0)
-        	<div style="margin: 10px 0px 10px 0px; padding: 10px 10px 10px 10px; background-color: #ffffff; border: 2px solid #00ff00;">
+        	<vera-confirm>
         		<strong>Bitte best&auml;tigen Sie das L&ouml;schen von Veranstaltungsorten</strong><br>
         		<table class="form" style="margin: 5px 0px 0px 0px;">
         		#foreach($quest in $listquestions.entrySet())
@@ -40,7 +40,7 @@
         		<input type="submit" class="button" name="remove" value="Ja" title="Markierte Veranstaltungsorte l&ouml;schen"> &nbsp;
         	#end
         		<input type="button" class="cancel" name="cancel" value="Nein" onclick="window.location.href='Location?selectNone=true';"> &nbsp;
-        	</div>
+        	</vera-confirm>
         #end
     
         #foreach($bean in $list)

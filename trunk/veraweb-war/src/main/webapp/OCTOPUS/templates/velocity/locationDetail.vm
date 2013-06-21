@@ -35,8 +35,7 @@
         </vera-warn>
         </div>
         #elseif($listquestions && $listquestions.size() > 0)
-        <div style="width: 99%; background-color: #ffffff;">
-        <div style="margin: 10px 0px 10px 0px; padding: 10px 10px 10px 10px; background-color: #ffffff; border: 2px solid #00ff00;">
+        <vera-confirm>
         	<strong>Bitte best&auml;tigen Sie das Speichern dieser Aufgabe</strong><br>
         	<table class="form" style="margin: 5px 0px 0px 0px;">
         	#foreach($quest in $listquestions.entrySet())
@@ -51,8 +50,7 @@
         	<input type="submit" class="button" name="remove" value="Ja" title="Speichern"> &nbsp;
         	#end
         	<input type="button" class="cancel" name="cancel" value="Nein" onclick="window.location.href='CreateLocation?id=$!$locationtId';"> &nbsp;
-        </div>
-        </div>
+        </vera-confirm>
         #end
         
         <div class="textRight mandatoryText">* = Pflichtfelder</div>

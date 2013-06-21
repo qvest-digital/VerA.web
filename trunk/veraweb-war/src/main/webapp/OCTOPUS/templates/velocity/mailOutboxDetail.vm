@@ -31,13 +31,13 @@
             	#end
             </vera-warn>
         #elseif($mailoutbox.status == 1)
-            <div style="margin: 0px 0px 10px 0px; padding: 2px 3px 2px 3px; background-color: #ffffff; border: 2px solid #00ff00;">
+            <vera-info>
             	Diese E-Mail wartet auf ihre Fertigstellung durch einen Benutzer.
-            </div>
+            </vera-info>
         #elseif($mailoutbox.status == 2)
-            <div style="margin: 0px 0px 10px 0px; padding: 2px 3px 2px 3px; background-color: #ffffff; border: 2px solid #00ff00;">
+            <vera-info>
             	Diese E-Mail wartet auf ihre Versendung.
-            </div>
+            </vera-info>
         #elseif($mailoutbox.status == 3)
             <vera-warn>
             	Diese E-Mail wird gerade versendet und sollte <strong>nicht bearbeitet</strong> werden.

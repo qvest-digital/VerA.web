@@ -51,23 +51,21 @@
     		
         #elseif($listquestions && $listquestions.size() > 0)
     		
-            <div style="width: 99%; background-color: #ffffff;">
-                <div style="margin: 10px 0px 10px 0px; padding: 10px 10px 10px 10px; background-color: #ffffff; border: 2px solid #00ff00;">
-                	<strong>Bitte best&auml;tigen Sie das Speichern dieser Veranstaltung</strong><br>
-                	<table class="form" style="margin: 5px 0px 0px 0px;">
-                	#foreach($quest in $listquestions.entrySet())
-                		<tr>
-                			<td><input type="hidden" name="$quest.key" value="true">$!message.plain($quest.value)</td>
-                		</tr>
-                		#set($save = true)
-                	#end
-                	</table><br>
-                
-                	#if($save)
-						<input type="submit" class="button" name="remove" value="Ja" title="Speichern">
-                	#end
-                	<input type="button" class="cancel" name="cancel" value="Nein" onclick="window.location.href='ShowEvent?id=$!event.id';">
-                </div>
+            <vera-confirm>
+            	<strong>Bitte best&auml;tigen Sie das Speichern dieser Veranstaltung</strong><br>
+            	<table class="form" style="margin: 5px 0px 0px 0px;">
+            	#foreach($quest in $listquestions.entrySet())
+            		<tr>
+            			<td><input type="hidden" name="$quest.key" value="true">$!message.plain($quest.value)</td>
+            		</tr>
+            		#set($save = true)
+            	#end
+            	</table><br>
+            
+            	#if($save)
+					<input type="submit" class="button" name="remove" value="Ja" title="Speichern">
+            	#end
+            	<input type="button" class="cancel" name="cancel" value="Nein" onclick="window.location.href='ShowEvent?id=$!event.id';">
             </div>
     		
 		#end

@@ -37,19 +37,19 @@
 	<div class="tableCell width50">
 		<label for="persondoctype-addresstype">Anschrift</label>
 		#if($grants.mayWrite())
-		<select id="persondoctype-addresstype" name="persondoctype-addresstype" >
-			<option value="1" #if($persondoctype.addresstype && $persondoctype.addresstype == 1) selected#end>$!config.business</option>
-			<option value="2" #if($persondoctype.addresstype && $persondoctype.addresstype == 2) selected#end>$!config.private</option>
-			<option value="3" #if($persondoctype.addresstype && $persondoctype.addresstype == 3) selected#end>$!config.other</option>
-		</select>
+    		<select id="persondoctype-addresstype" name="persondoctype-addresstype" >
+    			<option value="1" #if($persondoctype.addresstype && $persondoctype.addresstype == 1) selected#end>$!message.text($!config.business)</option>
+    			<option value="2" #if($persondoctype.addresstype && $persondoctype.addresstype == 2) selected#end>$!message.text($!config.private)</option>
+    			<option value="3" #if($persondoctype.addresstype && $persondoctype.addresstype == 3) selected#end>$!message.text($!config.other)</option>
+    		</select>
 		#else
-		#if($persondoctype.addresstype && $persondoctype.addresstype == 1)
-		$!config.business
-		#elseif($persondoctype.addresstype && $persondoctype.addresstype == 2)
-		$!config.private
-		#elseif($persondoctype.addresstype && $persondoctype.addresstype == 3)
-		$!config.other
-		#end
+    		#if($persondoctype.addresstype && $persondoctype.addresstype == 1)
+    			$!message.text($!config.business)
+    		#elseif($persondoctype.addresstype && $persondoctype.addresstype == 2)
+    			$!message.text($!config.private)
+    		#elseif($persondoctype.addresstype && $persondoctype.addresstype == 3)
+    			$!message.text($!config.other)
+    		#end
 		#end
 	</div>
 </div>
@@ -58,19 +58,19 @@
 	<div class="tableCell width50">
 		<label for="">Zeichensatz</label>
 		#if($grants.mayWrite())
-		<select id="persondoctype-locale" name="persondoctype-locale" >
-			<option value="1" #if($persondoctype.locale && $persondoctype.locale == 1) selected#end>$!config.latin</option>
-			<option value="2" #if($persondoctype.locale && $persondoctype.locale == 2) selected#end>$!config.extra1</option>
-			<option value="3" #if($persondoctype.locale && $persondoctype.locale == 3) selected#end>$!config.extra2</option>
-		</select>
+    		<select id="persondoctype-locale" name="persondoctype-locale" >
+    			<option value="1" #if($persondoctype.locale && $persondoctype.locale == 1) selected#end>$!message.text($!config.latin)</option>
+    			<option value="2" #if($persondoctype.locale && $persondoctype.locale == 2) selected#end>$!message.text($!config.extra1)</option>
+    			<option value="3" #if($persondoctype.locale && $persondoctype.locale == 3) selected#end>$!message.text($!config.extra2)</option>
+    		</select>
 		#else
-		#if($persondoctype.locale && $persondoctype.locale == 1)
-		$!config.latin
-		#elseif($persondoctype.locale && $persondoctype.locale == 2)
-		$!config.extra1
-		#elseif($persondoctype.locale && $persondoctype.locale == 3)
-		$!config.extra2
-		#end
+    		#if($persondoctype.locale && $persondoctype.locale == 1)
+    			$!message.text($!config.latin)
+    		#elseif($persondoctype.locale && $persondoctype.locale == 2)
+    			$!message.text($!config.extra1)
+    		#elseif($persondoctype.locale && $persondoctype.locale == 3)
+    			$!message.text($!config.extra2)
+    		#end
 		#end
 	</div>
 	<div class="tableCell width50">&nbsp;</div>

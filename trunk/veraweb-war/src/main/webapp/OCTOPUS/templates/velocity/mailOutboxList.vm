@@ -37,12 +37,7 @@
         			<th class="width50">Betreff</th>
         		</tr>
                 #foreach($bean in $list)
-                	#if ($velocityCount % 2 == 0)
-                		#set($class = "list1")
-                	#else
-                		#set($class = "list2")
-                	#end
-    	        	<tr class="$class" onmouseout="onMouseOutList(this);" onmouseover="onMouseOverList(this);">
+    	        	<tr onmouseout="onMouseOutList(this);" onmouseover="onMouseOverList(this);">
     					<td class="textCenter"><input type="hidden" value="$bean.id" name="${bean.id}-id"/><input type="checkbox" value="true" name="${bean.id}-select"/></td>
     					<td class="textCenter" onclick="window.location.href='MailOutboxDetail?id=$!{bean.id}';">
     					      #if($bean.status == 1)Offen

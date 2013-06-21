@@ -67,8 +67,8 @@
             				<option value="country">Land</option>
             				<option value="poboxzipcode">Postfach-PLZ</option>
             				<option value="pobox">Postfach-Nummer</option>
-            				<option value="suffix1">$!config.suffix1</option>
-            				<option value="suffix2">$!config.suffix2</option>
+            				<option value="suffix1">$!message.text($!config.suffix1)</option>
+            				<option value="suffix2">$!message.text($!config.suffix2)</option>
             				<option value="phone">Telefon</option>
             				<option value="fax">Fax</option>
             				<option value="mobile">Mobil</option>

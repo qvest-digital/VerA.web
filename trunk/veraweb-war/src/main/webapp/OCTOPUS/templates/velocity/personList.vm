@@ -465,8 +465,8 @@ function submitFormWithGivenAction(action) {
     		#if ($action == "guest")
 			<div id="key" class="table hinweis contentBoxColored grayBorder floatRight" style="margin-top: -14px;">
 				<div class="tableRow">
-					<div class="tableCell"><strong>H</strong> = $!config.main einladen</div>
-					<div class="tableCell"><strong>P</strong> = $!config.partner einladen</div>
+					<div class="tableCell"><strong>H</strong> = $!message.text($!config.main) einladen</div>
+					<div class="tableCell"><strong>P</strong> = $!message.text($!config.partner) einladen</div>
 					<div class="tableCell"><strong>R</strong> = Auf Reserve setzen</div>
 				</div>
 			</div>
@@ -483,8 +483,8 @@ function submitFormWithGivenAction(action) {
                 	#if($action == "guest")
                     	<tr>
                             #if($grants.mayWrite())
-								<th class="textCenter smallCell" title="$!config.main einladen">H <input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="Alle (de)markieren (inkl. Partner, wenn eingeladen)" #if($listselection.size() == $list.size()) checked#end/></th>
-    							<th class="textCenter smallCell" title="$!config.partner einladen">P</th>
+								<th class="textCenter smallCell" title="$!message.text($!config.main) einladen">H <input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="Alle (de)markieren (inkl. Partner, wenn eingeladen)" #if($listselection.size() == $list.size()) checked#end/></th>
+    							<th class="textCenter smallCell" title="$!message.text($!config.partner) einladen">P</th>
                         		<th class="textCenter smallCell" title="Auf Reserve">R</th>
 							#end
                     		<th class="textCenter smallCell">ID</th>

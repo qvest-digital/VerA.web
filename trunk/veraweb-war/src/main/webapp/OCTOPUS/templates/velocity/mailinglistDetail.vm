@@ -21,7 +21,7 @@
 		<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Veranstaltungen > Verteiler</span>
 	</div>
 
-	<h1>Verteilerdetails: $!mailinglist.name</h1>
+	<h1>Verteilerdetails: $!message.text($!mailinglist.name)</h1>
 
 	<form id="formlist" name="formlist" action="ShowMailinglistDetail" method="POST">
 		<input type="hidden" name="start" value="">
@@ -60,9 +60,9 @@
     			#foreach($bean in $list)
     			<tr>
     				<td class="textCenter"><input type="checkbox" name="${bean.id}-select" value="true"></td>
-    				<td><input type="hidden" name="${bean.id}-id" value="$bean.id">$!bean.lastname</td>
-    				<td>$!bean.firstname</td>
-    				<td><a href="mailto:?bcc=$!bean.address">$!bean.address</a></td>
+    				<td><input type="hidden" name="${bean.id}-id" value="$bean.id">$!message.text($!bean.lastname)</td>
+    				<td>$!message.text($!bean.firstname)</td>
+    				<td><a href="mailto:?bcc=$!bean.address">$!message.text($!bean.address)</a></td>
     			</tr>
 				#end
 				

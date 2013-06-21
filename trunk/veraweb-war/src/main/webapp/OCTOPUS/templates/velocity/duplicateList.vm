@@ -60,13 +60,13 @@
                 			<input type="checkbox" name="${bean.id}-select" value="true" #if($listselection.indexOf($bean.id) != -1) checked #end onChange="selectionChange(this);"/>
                 		</td>
                 		<td><input type="hidden" name="${bean.id}-id" value="$bean.id"/>$!bean.id</td>
-                		<td>$!person.lastname</td>
-                		<td>$!person.firstname</td>
-                		<td>$!address.function</td>
-                		<td>$!address.company</td>
-                		<td>$!address.street</td>
-                		<td>$!address.zipcode</td>
-                		<td>$!address.city</td>
+                		<td>$!message.text($!person.lastname)</td>
+                		<td>$!message.text($!person.firstname)</td>
+                		<td>$!message.text($!address.function)</td>
+                		<td>$!message.text($!address.company)</td>
+                		<td>$!message.text($!address.street)</td>
+                		<td>$!message.text($!address.zipcode)</td>
+                		<td>$!message.text($!address.city)</td>
                 	</tr>
                 		#foreach($duplicate in $bean.getDuplicateList())
                 		#set($person = $duplicate.mainLatin)
@@ -74,13 +74,13 @@
                 	<tr>
                 		<td>&nbsp;</td>
                 		<td>$!duplicate.id</td>
-                		<td>$!person.lastname</td>
-                		<td>$!person.firstname</td>
-                		<td>$!address.function</td>
-                		<td>$!address.company</td>
-                		<td>$!address.street</td>
-                		<td>$!address.zipcode</td>
-                		<td>$!address.city</td>
+                		<td>$!message.text($!person.lastname)</td>
+                		<td>$!message.text($!person.firstname)</td>
+                		<td>$!message.text($!address.function)</td>
+                		<td>$!message.text($!address.company)</td>
+                		<td>$!message.text($!address.street)</td>
+                		<td>$!message.text($!address.zipcode)</td>
+                		<td>$!message.text($!address.city)</td>
                 	</tr>
                 		#end
                 		#if($bean.hasMoreDuplicates())

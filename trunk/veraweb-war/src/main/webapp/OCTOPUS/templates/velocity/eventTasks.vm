@@ -75,7 +75,7 @@
                 </vera-warn>
                 #end
                 #if($listquestions && $listquestions.size() > 0)
-                <div style="margin: 10px 0px 10px 0px; padding: 10px 10px 10px 10px; background-color: #ffffff; border: 2px solid #00ff00;">
+                <vera-confirm>
                     <strong>Bitte best&auml;tigen Sie das L&ouml;schen von Aufgaben</strong><br>
                     <ul style="margin: 0px 0px 0px -10px;">
                         #foreach($quest in $listquestions.entrySet())
@@ -87,7 +87,7 @@
                     <input type="submit" name="remove" value="Ja" title="ausgewählte Einträge löschen">
                     #end
                     <input type="button" name="cancel" value="Nein" onclick="window.location.href='ShowEventTasks?id=$!id&selectNone=true'"> &nbsp;
-                </div>
+                </vera-confirm>
                 #end
 
                 #end
@@ -151,8 +151,8 @@
                         #end
 
                         <td class="textCenter" onclick="window.location.href='ShowEventTask?id=$!{bean.id}&eventId=$!{bean.eventId}'">$!bean.degreeofcompletion%</td>
-                        <td onclick="window.location.href='ShowEventTask?id=$!{bean.id}&eventId=$!{bean.eventId}'">$!bean.personName</td>
-                        <td class="textCenter" onclick="window.location.href='ShowEventTask?id=$!{bean.id}&eventId=$!{bean.eventId}'">$!bean.priority</td>
+                        <td onclick="window.location.href='ShowEventTask?id=$!{bean.id}&eventId=$!{bean.eventId}'">$!message.text($!bean.personName)</td>
+                        <td class="textCenter" onclick="window.location.href='ShowEventTask?id=$!{bean.id}&eventId=$!{bean.eventId}'">$!message.text($!bean.priority)</td>
                     </tr>
                     #end
 
