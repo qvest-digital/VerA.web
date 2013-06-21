@@ -286,7 +286,7 @@ public class StatistikWorker {
 				selectAs("tperson.firstname_a_e1", "firstname").
 				selectAs("tperson.function_a_e1", "function").
 				selectAs("tevent.shortname", "shortname").
-				selectAs("tevent.location", "shortname").
+				selectAs("tevent.fk_location", "shortname").
 				selectAs("tevent.datebegin", "datebegin").
 				selectAs("tguest.invitationtype", "invitationtype").
 				selectAs("tguest.invitationstatus", "invitationstatus").
