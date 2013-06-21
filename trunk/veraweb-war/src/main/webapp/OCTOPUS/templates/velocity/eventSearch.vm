@@ -106,7 +106,7 @@
 
 		</div>	
 	
-		<vera-info>
+		<vera-info vera-stay>
 			Sie können bei der Suche sogenannte Platzhalter verwenden, der * steht für mehrere und das ? für einzelne Zeichen.
 		</vera-info>		
 	

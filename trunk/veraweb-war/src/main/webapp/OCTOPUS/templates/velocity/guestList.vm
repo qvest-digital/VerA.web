@@ -437,6 +437,10 @@
             	</tr>
 				#end
 				
+				#if ($listparam.count == 0)
+                   	<tr><td colspan="99">Es wurden noch keine Gäste eingeladen</td></tr>
+                #end
+				
 				#set($itemName = "Gästen")
             	#parse("inc/list-navi-new.vm")
 				
@@ -457,9 +461,6 @@
 				<input type="button" name="reloadAllGuestData" value="Alle Stammdaten neu laden" title="Alle Stammdaten neu laden" onclick="submitFormWithGivenAction('ReloadAllGuestData', $grants.mayWrite());" #if(!$grants.mayWrite()) class="buttondisabled" vera-disabled #end>
         	</div>
             
-            #if ($listparam.count == 0)
-            	<br>Keine Daten gefunden.<br>
-            #end
             
             #if($deletedperson)
                 <table>
