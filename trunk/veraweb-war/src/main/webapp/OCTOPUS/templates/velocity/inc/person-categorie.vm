@@ -71,11 +71,11 @@
             #end
 			<td>
 				<input type="hidden" name="${bean.id}-id" value="$!bean.id"><input type="hidden" name="${bean.id}-person" value="$!bean.person"/>
-				<input type="hidden" name="${bean.id}-categorie" value="$!bean.categorie"/>
-				$!{bean.id}
+				<input type="hidden" name="${bean.id}-categorie" value="$!message.text($!bean.categorie)"/>
+				$!message.text($!{bean.id})
 			</td>
 			<td>
-				$!bean.name (#if($bean.flags == 99)Dipl.&nbsp;Corps#elseif($bean.flags == 1)Ereignis#else Kategorie#end)
+				$!message.text($!bean.name) (#if($bean.flags == 99)Dipl.&nbsp;Corps#elseif($bean.flags == 1)Ereignis#else Kategorie#end)
             </td>
 			<td>
 				<input type="text" name="${bean.id}-rank" value="$!message.text($bean.rank)" class="small50px" onchange="setModified('$!bean.id')" #if(!$grants.mayWrite()) vera-disabled#end/>
