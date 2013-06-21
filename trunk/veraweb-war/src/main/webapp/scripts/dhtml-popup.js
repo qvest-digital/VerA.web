@@ -29,19 +29,19 @@ function selectCompany(url, field) {
 }
 
 function selectPersonCategory(url) {
-	openPopup('function', url, 320, 250, "status=no,resizable=yes,scrollbars=yes,dependent=yes,alwaysRaised=yes");
+	openPopup('function', url, 600, 400, "status=no,resizable=yes,scrollbars=yes,dependent=yes,alwaysRaised=yes");
 }
 
 function selectPersonWorkarea(url) {
-	openPopup('function', url, 320, 250, "status=no,resizable=yes,scrollbars=yes,dependent=yes,alwaysRaised=yes");
+	openPopup('function', url, 600, 400, "status=no,resizable=yes,scrollbars=yes,dependent=yes,alwaysRaised=yes");
 }
 
 function selectGuestCategory(url) {
-	openPopup('function', url, 320, 250, "status=no,resizable=yes,scrollbars=yes,dependent=yes,alwaysRaised=yes");
+	openPopup('function', url, 600, 400, "status=no,resizable=yes,scrollbars=yes,dependent=yes,alwaysRaised=yes");
 }
 
 function exportPerson(url, id) {
-	openPopup('person', url + 'popupPersonExport?id=' + id, 520, 380, "status=no,resizable=no,scrollbars=no,dependent=yes,alwaysRaised=yes");
+	openPopup('person', url + 'popupPersonExport?id=' + id, 600, 400, "status=no,resizable=no,scrollbars=no,dependent=yes,alwaysRaised=yes");
 }
 
 function returnCity() {
