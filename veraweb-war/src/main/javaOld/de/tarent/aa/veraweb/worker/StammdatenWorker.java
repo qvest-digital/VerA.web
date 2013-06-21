@@ -20,6 +20,7 @@
 package de.tarent.aa.veraweb.worker;
 
 import java.io.IOException;
+import java.util.Iterator;
 import java.util.List;
 
 import de.tarent.dblayer.sql.Escaper;
@@ -90,27 +91,48 @@ public class StammdatenWorker extends ListWorkerVeraWeb {
 	@Override
     protected int insertBean(OctopusContext cntx, List errors, Bean bean, TransactionContext context) throws BeanException, IOException {
 		int count = 0;
-		if (bean.isModified() && bean.isCorrect()) {
-			Database database = context.getDatabase();
-			
-			String orgunit = database.getProperty(bean, "orgunit");
-			Clause clause = Expr.equal(
-					database.getProperty(bean, "name"),
-					bean.getField("name"));
-			if (orgunit != null) {
-				clause = Where.and(Expr.equal(orgunit, ((PersonalConfigAA)(cntx.personalConfig())).getOrgUnitId()), clause);
-			}
-			
-			Integer exist =
-					database.getCount(
-					database.getCount(bean).
-					where(clause),context);
-			if (exist.intValue() != 0) {
-				errors.add("Es existiert bereits ein Stammdaten-Eintrag unter dem Namen '" + bean.getField("name") + "'.");
-			} else {
-				count += super.insertBean(cntx, errors, bean, context);
-			}
+		if (bean.isModified()) {
+		    if (bean.isCorrect()) {
+		        Database database = context.getDatabase();
+	            
+	            String orgunit = database.getProperty(bean, "orgunit");
+	            Clause clause = Expr.equal(
+	                    database.getProperty(bean, "name"),
+	                    bean.getField("name"));
+	            if (orgunit != null) {
+	                clause = Where.and(Expr.equal(orgunit, ((PersonalConfigAA)(cntx.personalConfig())).getOrgUnitId()), clause);
+	            }
+	            
+	            Integer exist =
+	                    database.getCount(
+	                    database.getCount(bean).
+	                    where(clause),context);
+	            if (exist.intValue() != 0) {
+	                errors.add("Es existiert bereits ein Stammdaten-Eintrag unter dem Namen '" + bean.getField("name") + "'.");
+	            } else {
+	                count += super.insertBean(cntx, errors, bean, context);
+	            }
+		    } else {
+		        errors.addAll(bean.getErrors());
+		    }
 		}
+		
 		return count;
 	}
+	
+	protected int updateBeanList(OctopusContext cntx, List errors, List beanlist, TransactionContext context) throws BeanException, IOException {
+        int count = 0;
+        for (Iterator it = beanlist.iterator(); it.hasNext(); ) {
+            Bean bean = (Bean)it.next();
+            if (bean.isModified()) {
+                if (bean.isCorrect()) {
+                    saveBean(cntx, bean, context);
+                    count++;
+                } else {
+                    errors.addAll(bean.getErrors()); 
+                }
+            }
+        }
+        return count;
+    }
 }
