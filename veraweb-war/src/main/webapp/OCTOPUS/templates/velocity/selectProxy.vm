@@ -31,7 +31,7 @@
 				<div class="tableCell">
 					<select name="proxyFor" id="fieldMapping" >
                         #foreach($proxy in $list)
-                        			<option value="$proxy.userRole">$proxy.userRole</option>
+                        			<option value="$proxy.userRole">$!message.text($proxy.userRole)</option>
                         #end
                     </select>
 				</div>

@@ -295,8 +295,8 @@
             #if($userConfig.guestListPhone)
             		<th>Telefon</th>
             #end
-            		<th style="width: 100px; text-align: center;">$!config.main</th>
-            		<th style="width: 100px; text-align: center;">$!config.partner</th>
+            		<th style="width: 100px; text-align: center;">$!message.text($!config.main)</th>
+            		<th style="width: 100px; text-align: center;">$!message.text($!config.partner)</th>
             	</tr>
 				
             	#set($deletedperson = false)
@@ -304,25 +304,12 @@
 				#foreach($bean in $list)
                 	#if ($bean.deleted == "t")
                     	#set($deletedperson = true)
-						
-                    	#if ($velocityCount % 2 == 0)
-                    		#set($class = "list1error")
-                    	#else
-                    		#set($class = "list2error")
-						#end
-						
-                    #else
-                    	#if ($velocityCount % 2 == 0)
-                    		#set($class = "list1")
-                    	#else
-                    		#set($class = "list2")
                 	#end
-            	#end
             	
             	
 				#set($offset = $listparam.start + $velocityCount)
             	
-            	<tr class="$class" onmouseover="onMouseOverList(this);" onmouseout="onMouseOutList(this);">
+            	<tr onmouseover="onMouseOverList(this);" onmouseout="onMouseOutList(this);">
             		<td><input type="hidden" id="${bean.id}-modified" name="${bean.id}-modified" value="false"><input type="hidden" id="${bean.id}-invitationtype" name="${bean.id}-invitationtype" value="${bean.invitationtype}"><input type="checkbox" name="${bean.id}-select" onChange="selectionChange( this );" value="true" #if($listselection.indexOf($bean.id) != -1) checked#end/></td>
             		<td style="cursor: pointer;" onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&offset=$offset';"><input type="hidden" name="${bean.id}-id" value="$bean.id">
             			#if($bean.ishost && $bean.ishost == 1)

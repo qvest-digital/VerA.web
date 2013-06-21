@@ -70,31 +70,26 @@
 			<tr>
 				<td class="textCenter"><em>neu</em></td>
 				##additional parameters action cf. issue #2091
-				<td onclick="window.location.href='SavePerson?saveperson=true&person-nodupcheck=true&originalPersonId=$!originalPersonId&action=$!action';">$!person.lastname_a_e1</td>
-				<td onclick="window.location.href='SavePerson?saveperson=true&person-nodupcheck=true&originalPersonId=$!originalPersonId&action=$!action';">$!person.firstname_a_e1</td>
-				<td onclick="window.location.href='SavePerson?saveperson=true&person-nodupcheck=true&originalPersonId=$!originalPersonId&action=$!action';">$!person.function_a_e1</td>
-				<td onclick="window.location.href='SavePerson?saveperson=true&person-nodupcheck=true&originalPersonId=$!originalPersonId&action=$!action';">$!person.company_a_e1</td>
-				<td onclick="window.location.href='SavePerson?saveperson=true&person-nodupcheck=true&originalPersonId=$!originalPersonId&action=$!action';">$!person.street_a_e1</td>
-				<td onclick="window.location.href='SavePerson?saveperson=true&person-nodupcheck=true&originalPersonId=$!originalPersonId&action=$!action';">$!person.zipcode_a_e1</td>
-				<td onclick="window.location.href='SavePerson?saveperson=true&person-nodupcheck=true&originalPersonId=$!originalPersonId&action=$!action';">$!person.city_a_e1</td>
+				<td onclick="window.location.href='SavePerson?saveperson=true&person-nodupcheck=true&originalPersonId=$!originalPersonId&action=$!action';">$!message.text($!person.lastname_a_e1)</td>
+				<td onclick="window.location.href='SavePerson?saveperson=true&person-nodupcheck=true&originalPersonId=$!originalPersonId&action=$!action';">$!message.text($!person.firstname_a_e1)</td>
+				<td onclick="window.location.href='SavePerson?saveperson=true&person-nodupcheck=true&originalPersonId=$!originalPersonId&action=$!action';">$!message.text($!person.function_a_e1)</td>
+				<td onclick="window.location.href='SavePerson?saveperson=true&person-nodupcheck=true&originalPersonId=$!originalPersonId&action=$!action';">$!message.text($!person.company_a_e1)</td>
+				<td onclick="window.location.href='SavePerson?saveperson=true&person-nodupcheck=true&originalPersonId=$!originalPersonId&action=$!action';">$!message.text($!person.street_a_e1)</td>
+				<td onclick="window.location.href='SavePerson?saveperson=true&person-nodupcheck=true&originalPersonId=$!originalPersonId&action=$!action';">$!message.text($!person.zipcode_a_e1)</td>
+				<td onclick="window.location.href='SavePerson?saveperson=true&person-nodupcheck=true&originalPersonId=$!originalPersonId&action=$!action';">$!message.text($!person.city_a_e1)</td>
 				<td class="textCenter"><a href="SavePerson?saveperson=true&person-nodupcheck=true&originalPersonId=$!originalPersonId&action=$!action" class="noBorder"><img src="${paths.staticWeb}images/add.png" alt="Neuen Eintrag anlegen" title="Neuen Eintrag anlegen"></a></td>
 			</tr>
 			#foreach($bean in $list)
-			#if ($velocityCount % 2 == 0)
-				#set($class = "list2")
-			#else
-				#set($class = "list1")
-			#end
-			<tr class="$class">
+			<tr>
 				##additional parameters action cf. issue #2091
 				<td class="textCenter" onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!action';"><input type="hidden" name="${bean.id}-id" value="$bean.id">$!{bean.id}</td>
-				<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!action';">$!bean.lastname_a_e1</td>
-				<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!action';">$!bean.firstname_a_e1</td>
-				<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!action';">$!bean.function_a_e1</td>
-				<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!action';">$!bean.company_a_e1</td>
-				<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!action';">$!bean.street_a_e1</td>
-				<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!action';">$!bean.zipcode_a_e1</td>
-				<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!action';">$!bean.city_a_e1</td>
+				<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!action';">$!message.text($!bean.lastname_a_e1)</td>
+				<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!action';">$!message.text($!bean.firstname_a_e1)</td>
+				<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!action';">$!message.text($!bean.function_a_e1)</td>
+				<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!action';">$!message.text($!bean.company_a_e1)</td>
+				<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!action';">$!message.text($!bean.street_a_e1)</td>
+				<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!action';">$!message.text($!bean.zipcode_a_e1)</td>
+				<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!action';">$!message.text($!bean.city_a_e1)</td>
 				<td class="textCenter"><a href="ShowPerson?id=$!{bean.id}&action=$!action" class="noBorder"><img src="${paths.staticWeb}images/edit.png" alt="Existierenden Eintrag bearbeiten" title="Existierenden Eintrag bearbeiten"></a></td>
 			</tr>
 			#end

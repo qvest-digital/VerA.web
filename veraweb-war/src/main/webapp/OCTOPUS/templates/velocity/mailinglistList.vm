@@ -66,10 +66,10 @@
         		<tr>
         			<td class="textCenter"><input type="checkbox" name="${bean.id}-select" value="true"></td>
         			<td onclick="window.location.href='ShowMailinglistDetail?id=$!{bean.id}';"><input type="hidden" name="${bean.id}-id" value="$bean.id">$!bean.id</td>
-        			<td onclick="window.location.href='ShowMailinglistDetail?id=$!{bean.id}';">$!bean.name</td>
-        			<td onclick="window.location.href='ShowMailinglistDetail?id=$!{bean.id}';">$!bean.username</td>
+        			<td onclick="window.location.href='ShowMailinglistDetail?id=$!{bean.id}';">$!message.text($!bean.name)</td>
+        			<td onclick="window.location.href='ShowMailinglistDetail?id=$!{bean.id}';">$!message.text($!bean.username)</td>
         			<td class="textCenter" onclick="window.location.href='ShowMailinglistDetail?id=$!{bean.id}';">$!message.date("DATE_TIME", $bean.created) Uhr</td>
-        			<td onclick="window.location.href='ShowMailinglistDetail?id=$!{bean.id}';">$!bean.eventname</td>
+        			<td onclick="window.location.href='ShowMailinglistDetail?id=$!{bean.id}';">$!message.text($!bean.eventname)</td>
         		</tr>
         		#end
         		

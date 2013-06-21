@@ -160,12 +160,7 @@
     		</td>
     	</tr>
     	#foreach($bean in $list)
-    	#if ($velocityCount % 2 == 1)
-    		#set($class = "list1")
-    	#else
-    		#set($class = "list2")
-    	#end
-    	<tr class="$class">
+    	<tr>
     		<td ><input type="hidden" id="${bean.id}-modified" name="${bean.id}-modified" value="false"><input type="checkbox" name="${bean.id}-select" value="true"></td>
     		<td ><input type="hidden" name="${bean.id}-id" value="$!bean.id">$!{bean.id}<input type="hidden" name="${bean.id}-user" value="$!bean.user"></td>
     #if($proxiesFor != 'self')

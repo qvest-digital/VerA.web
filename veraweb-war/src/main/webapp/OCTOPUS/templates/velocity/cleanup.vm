@@ -23,7 +23,7 @@
 	#end
 	<ul>
 	#foreach($c in $cleanup)
-		<li>$c</li>
+		<li>$!message.text($c)</li>
 	#end
 	</ul>
 	
