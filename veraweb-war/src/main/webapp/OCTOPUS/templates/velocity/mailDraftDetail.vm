@@ -22,10 +22,9 @@
     
         #if($maildraft.errors.size() > 0)
             <vera-warn>
-            	$!message.plain($maildraft.errors.get(0))<br>
-            ##	#foreach($error in $event.errors)
-            ##		$error<br>
-            ##	#end
+            	#foreach($error in $maildraft.errors)
+            		$!message.plain($error)<br>
+            	#end
             </vera-warn>
         #end
     
