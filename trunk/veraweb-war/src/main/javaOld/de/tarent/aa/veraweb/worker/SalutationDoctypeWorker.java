@@ -20,12 +20,16 @@
 package de.tarent.aa.veraweb.worker;
 
 import java.io.IOException;
+import java.util.Iterator;
+import java.util.List;
 
 import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.clause.Order;
 import de.tarent.dblayer.sql.statement.Select;
+import de.tarent.octopus.beans.Bean;
 import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.beans.Database;
+import de.tarent.octopus.beans.TransactionContext;
 import de.tarent.octopus.beans.veraweb.ListWorkerVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
 
@@ -62,4 +66,35 @@ public class SalutationDoctypeWorker extends ListWorkerVeraWeb {
 		Database database = getDatabase(cntx);
 		cntx.setContent("salutation", database.getBean("Salutation", id));
 	}
+	
+	@Override
+	protected int insertBean(OctopusContext cntx, List errors, Bean bean, TransactionContext context) throws BeanException, IOException {
+        int count = 0;
+        if (bean.isModified()) {
+            if (bean.isCorrect()) {
+                saveBean(cntx, bean, context);
+                count++;
+            } else {
+                errors.addAll(bean.getErrors());
+            }
+        }
+        return count;
+    }
+	
+	@Override
+	protected int updateBeanList(OctopusContext cntx, List errors, List beanlist, TransactionContext context) throws BeanException, IOException {
+        int count = 0;
+        for (Iterator it = beanlist.iterator(); it.hasNext(); ) {
+            Bean bean = (Bean)it.next();
+            if (bean.isModified()) {
+                if (bean.isCorrect()) {
+                    saveBean(cntx, bean, context);
+                    count++;
+                } else {
+                    errors.addAll(bean.getErrors()); 
+                }
+            }
+        }
+        return count;
+    }
 }

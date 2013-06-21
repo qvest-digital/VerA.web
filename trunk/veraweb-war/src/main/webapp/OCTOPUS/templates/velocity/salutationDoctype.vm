@@ -19,6 +19,14 @@
     		<strong>Markierte Anrede(n)</strong>
     		<input type="submit" name="remove" value="Löschen" title="Markierte Anreden löschen" />
     	</span>
+		
+		#if($listerrors.size() > 0)
+        <vera-warn>
+        	#foreach($error in $listerrors)
+        		$error<br>
+        	#end
+        </vera-warn>
+        #end
     
     
         <input type="hidden" name="id" value="$!salutation.id">
