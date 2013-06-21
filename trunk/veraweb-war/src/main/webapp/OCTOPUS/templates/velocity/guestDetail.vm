@@ -112,7 +112,7 @@
                             			</select>
 									</div>
 										
-									<div class="tableCell width25" style="border-left: 1px solid #C1C1C1; border-right: 1px solid #C1C1C1; padding-left: 30px;">
+									<div class="tableCell width25 inlineLabel" style="border-left: 1px solid #C1C1C1; border-right: 1px solid #C1C1C1; padding-left: 30px; vertical-align:middle;">
 										<label for="showguest-ishost">Ist Gastgeber:</label>
 										#if($guest.ishost == 1)
 											<input type="checkbox" name="showguest-ishost" value="true" checked readonly disabled id="showguest-ishost">
@@ -123,7 +123,7 @@
                             			#end
 									</div>		
 									
-									<div class="tableCell" style="padding-left: 30px;">
+									<div class="tableCell inlineLabel" style="padding-left: 30px; vertical-align:middle;">
 										<label for="guest-reserve">Reserve:</label>
 										<input type="checkbox" id="guest-reserve" name="guest-reserve" value="true" #if($guest.reserve) checked #end>
 									</div>
