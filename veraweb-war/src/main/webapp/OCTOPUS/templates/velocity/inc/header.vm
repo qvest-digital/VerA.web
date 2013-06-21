@@ -24,7 +24,7 @@
 			document.createElement("section");
 			document.createElement("footer");
 		</script>			
-		<link rel="stylesheet" type="text/css" href="${paths.staticWeb}jscalendar/calendar-win2k-cold-1.css" media="all">
+		<link rel="stylesheet" type="text/css" href="${paths.staticWeb}jscalendar/calendar-win2k-cold-1.css" media="all" />
 ##		WCH - Windowed Controls Hider (http://www.aplus.co.yu/wch/intro/)
 ##		<!--[if IE]>
 		<script type="text/javascript" src="${paths.staticWeb}scripts/WCH.js"></script>

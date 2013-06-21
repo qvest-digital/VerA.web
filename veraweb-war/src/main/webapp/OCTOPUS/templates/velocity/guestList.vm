@@ -309,7 +309,7 @@
             	
 				#set($offset = $listparam.start + $velocityCount)
             	
-            	<tr onmouseover="onMouseOverList(this);" onmouseout="onMouseOutList(this);">
+            	<tr>
             		<td><input type="hidden" id="${bean.id}-modified" name="${bean.id}-modified" value="false"><input type="hidden" id="${bean.id}-invitationtype" name="${bean.id}-invitationtype" value="${bean.invitationtype}"><input type="checkbox" name="${bean.id}-select" onChange="selectionChange( this );" value="true" #if($listselection.indexOf($bean.id) != -1) checked#end/></td>
             		<td style="cursor: pointer;" onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&offset=$offset';"><input type="hidden" name="${bean.id}-id" value="$bean.id">
             			#if($bean.ishost && $bean.ishost == 1)
@@ -322,12 +322,12 @@
             		</td>
 					
             		#if($bean.reserve == 1)
-						<td style="cursor: pointer; text-align: center;" onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&offset=$offset';" title="Auf Reserve"><strong>R</strong></td>
+						<td class="textCenter" onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&offset=$offset';" title="Auf Reserve"><strong>R</strong></td>
             		#else
-						<td style="cursor: pointer; text-align: center;" onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&offset=$offset';" title="Auf Platz">&nbsp;</td>
+						<td class="textCenter" onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&offset=$offset';" title="Auf Platz">&nbsp;</td>
 					#end
 					
-            		<td style="cursor: pointer;" onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&offset=$offset';">
+            		<td onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&offset=$offset';">
                 		#if($bean.invitationtype != 3)
             				#if($bean.showdoctype)
 								$!message.plain($bean.lastname_a_gd)
@@ -342,7 +342,7 @@
 							#end
             			#end
             		</td>
-            		<td style="cursor: pointer;" onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&offset=$offset';">
+            		<td onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&offset=$offset';">
             			#if($bean.invitationtype != 3)
             				#if($bean.showdoctype)$!message.plain($bean.firstname_a_gd)#else$!message.plain($bean.firstname_a_e1)#end
             			#else
@@ -365,15 +365,15 @@
             			#end
             		</td>
             #if($userConfig.guestListFunction)
-            		<td style="cursor: pointer;" onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&offset=$offset';">#if($bean.showdoctype)$!message.plain($bean.function_a_gd)#else$!message.plain($bean.function_a_e1)#end</td>
+            		<td onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&offset=$offset';">#if($bean.showdoctype)$!message.plain($bean.function_a_gd)#else$!message.plain($bean.function_a_e1)#end</td>
             #end
             #if($userConfig.guestListCity)
-            		<td style="cursor: pointer;" onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&offset=$offset';">#if($bean.showdoctype)$!message.plain($bean.zipcode_a_gd) $!message.plain($bean.city_a_gd)#else$!message.plain($bean.zipcode_a_e1) $!message.plain($bean.city_a_e1)#end</td>
+            		<td onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&offset=$offset';">#if($bean.showdoctype)$!message.plain($bean.zipcode_a_gd) $!message.plain($bean.city_a_gd)#else$!message.plain($bean.zipcode_a_e1) $!message.plain($bean.city_a_e1)#end</td>
             #end
             #if($userConfig.guestListPhone)
-            		<td style="cursor: pointer;" onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&offset=$offset';">#if($bean.showdoctype)$!message.plain($bean.fon_a_gd)#else$!message.plain($bean.fon_a_e1)#end</td>
+            		<td onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&offset=$offset';">#if($bean.showdoctype)$!message.plain($bean.fon_a_gd)#else$!message.plain($bean.fon_a_e1)#end</td>
             #end
-            		<td style="text-align: center;">
+            		<td class="textCenter">
             		#if($bean.invitationtype != 3)
             			#if($grants.mayWrite())
             			<select name="${bean.id}-invitationstatus_a"  onchange="setModified('${bean.id}')">
@@ -397,7 +397,7 @@
             			<input type="hidden" name="${bean.id}-invitationstatus_a" value="$!bean.invitationstatus_a">nicht eingeladen
             		#end
             		</td>
-            		<td style="text-align: center;">
+            		<td class="textCenter">
             		#if($bean.invitationtype != 2)
             			#if($grants.mayWrite())
                 			<select name="${bean.id}-invitationstatus_b"  onchange="setModified('${bean.id}')">
@@ -425,7 +425,7 @@
 				#end
 				
 				#if ($listparam.count == 0)
-                   	<tr><td colspan="99">Es wurden noch keine Gäste eingeladen</td></tr>
+                   	<tr class="colspan"><td colspan="99">Es wurden noch keine Gäste eingeladen</td></tr>
                 #end
 				
 				#set($itemName = "Gästen")
