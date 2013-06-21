@@ -171,40 +171,44 @@ public class UserListWorker extends ListWorkerVeraWeb {
     @Override
     protected int insertBean(OctopusContext cntx, List errors, Bean bean, TransactionContext context ) throws BeanException, IOException {
     	int count = 0;
-        if (bean.isModified() && bean.isCorrect()) {
-            if (bean instanceof User) {
-                User userBean = (User) bean;
-                if (userBean.id != null) {
-                    errors.add("Einzufügender Benutzer darf keine ID haben");
-                    return count;
-                }
-                Database database = new DatabaseVeraWeb(cntx);
-                User dupBean = (User) database.getBean("User",
-                        database.getSelect("User").
-                        where(Expr.equal("username", userBean.name)), context);
-                if (dupBean != null) {
-                    OrgUnit ou = (OrgUnit) database.getBean("OrgUnit", dupBean.orgunit, context);
-                    if (ou != null) {
-                        errors.add("Einzufügender Benutzer ist bereits dem Mandanten " + ((ou.name != null && ou.name.length() > 0) ? ou.name : ou.id.toString()) + " zugeordnet.");
-                    } else {
-                        errors.add("Einzufügender Benutzer ist bereits VerA.web zugeordnet.");
+        if (bean.isModified()) {
+            if (bean.isCorrect()) {
+                if (bean instanceof User) {
+                    User userBean = (User) bean;
+                    if (userBean.id != null) {
+                        errors.add("Einzufügender Benutzer darf keine ID haben");
+                        return count;
                     }
-                    return count;
+                    Database database = new DatabaseVeraWeb(cntx);
+                    User dupBean = (User) database.getBean("User",
+                            database.getSelect("User").
+                            where(Expr.equal("username", userBean.name)), context);
+                    if (dupBean != null) {
+                        OrgUnit ou = (OrgUnit) database.getBean("OrgUnit", dupBean.orgunit, context);
+                        if (ou != null) {
+                            errors.add("Einzufügender Benutzer ist bereits dem Mandanten " + ((ou.name != null && ou.name.length() > 0) ? ou.name : ou.id.toString()) + " zugeordnet.");
+                        } else {
+                            errors.add("Einzufügender Benutzer ist bereits VerA.web zugeordnet.");
+                        }
+                        return count;
+                    }
                 }
-            }
-            saveBean(cntx, bean, context);
-            count++;
-            
-            /* set default user tab configuration for new user */
-            for (String configParamString : UserConfigWorker.PARAMS_STRING) {
-                UserConfig userConfig = new UserConfig();
-                userConfig.user = ((User) bean).id;
-                userConfig.key = configParamString;
-                userConfig.value = "1";
-                context.getDatabase().saveBean(userConfig);              
+                saveBean(cntx, bean, context);
+                count++;
+                
+                /* set default user tab configuration for new user */
+                for (String configParamString : UserConfigWorker.PARAMS_STRING) {
+                    UserConfig userConfig = new UserConfig();
+                    userConfig.user = ((User) bean).id;
+                    userConfig.key = configParamString;
+                    userConfig.value = "1";
+                    context.getDatabase().saveBean(userConfig);              
+                }
+            } else {
+                errors.addAll(bean.getErrors());
             }
         }
-        errors.addAll(bean.getErrors());
+        
         return count;
     }
     
