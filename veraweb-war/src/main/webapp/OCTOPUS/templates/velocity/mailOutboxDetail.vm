@@ -22,8 +22,8 @@
     
         #if($mailoutbox.errors.size() > 0 || $mailoutbox.status == $mailoutbox.STATUS_ERROR || ($mailoutbox.errortext && $mailoutbox.errortext.length() > 0))
             <vera-warn>
-            	#if($mailoutbox.errors.size() > 0)
-            		$!message.plain($mailoutbox.errors.get(0))<br>
+				#foreach($error in $mailoutbox.errors)
+            		$!message.plain($error)<br>
             	#end
             	#if($mailoutbox.status > 10 || ($mailoutbox.errortext && $mailoutbox.errortext.length() > 0))
             		Beim Versenden dieser E-Mail ist ein Fehler aufgetreten.
@@ -49,6 +49,8 @@
         #end
     
         <input type="hidden" name="mailoutbox-id" value="$!mailoutbox.id"/>
+		
+		<div class="textRight bold">* = Pflichtfelder</div>
         
         <table class="form">
 			<tr>
@@ -56,15 +58,15 @@
             	<td><input type="text" id="show-id" name="show-id" value="$!message.text($mailoutbox.id)" class="id" vera-disabled /></td>
             </tr>
 			<tr>
-            	<td><label for="mailoutbox-from">Von</label></td>
+            	<td><label for="mailoutbox-from">Von*</label></td>
             	<td><input type="text" id="mailoutbox-from" name="mailoutbox-from" value="$!message.text($mailoutbox.from)" /></td>
             </tr>
 			<tr>
-            	<td><label for="mailoutbox-to">An</label></td>
+            	<td><label for="mailoutbox-to">An*</label></td>
             	<td><input type="text" id="mailoutbox-to" name="mailoutbox-to" value="$!message.text($mailoutbox.to)" /></td>
             </tr>
 			<tr>
-            	<td><label for="mailoutbox-subject">Betreff</label></td>
+            	<td><label for="mailoutbox-subject">Betreff*</label></td>
             	<td><input type="text" id="mailoutbox-subject" name="mailoutbox-subject" value="$!message.text($mailoutbox.subject)" /></td>
             </tr>
 			<tr>
