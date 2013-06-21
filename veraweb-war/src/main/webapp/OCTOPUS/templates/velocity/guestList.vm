@@ -22,7 +22,7 @@
     	#if($group == "Writer")
     		#set($isUser = true)
     	#elseif($group == "PartialAdmin")
-    		#set($isAdmin = true)
+    		#set($isAdmin = true)	
     	#elseif($group == "Administrator")
     		#set($isAdmin = true)
     	#end
@@ -56,7 +56,7 @@
     		Die &quot;Laufende Nummer&quot; wurde f&uuml;r alle G&auml;ste neu berechnet und gespeichert.
     	</vera-success>
     #end
-    <div class="tabs contentBox grayBorder marginBottom10 marginTop20" id="main_content">
+    <div id="main_content" class="tabs contentBox marginBottom10 marginTop20 grayBorder" style="border-bottom:0">
 
 		<div id="tabsMain">
 			<ul vera-tab-group="" class="gray-gradient"> <!-- Bitte das End-tag der <li>s immer mit in die nächste Zeile nehmen (verhindert Mozilla styling bug) -->
@@ -69,7 +69,7 @@
 			</ul>
 		</div>
 		
-		<div class="contentBoxColored tabsContent notBold posRel" vera-content="">
+		<div style="border-bottom:1px solid #BDBDBD;" class="contentBoxColored  tabsContent notBold posRel marginBottom40" vera-content="">
 			
 			<div id="guestSummary" class="table posAb hinweis grayBorder" style="padding-bottom: 5px;">
 				<div class="tableRow">
@@ -452,7 +452,7 @@
 				
             </table>
         	
-        	<div class="textRight marginBottom20" id="buttonPanel-bottom">
+        	<div class="textRight marginTop10">
 				<input type="button" name="calcSerialNumber" value="Laufende Nummer berechnen" title="Laufende Nummer berechnen" onclick="htmlWait(); window.location.href='CalcSerialNumber';" #if(!$grants.mayWrite()) class="buttondisabled" vera-disabled #end>
 				<input type="button" name="reloadAllGuestData" value="Alle Stammdaten neu laden" title="Alle Stammdaten neu laden" onclick="submitFormWithGivenAction('ReloadAllGuestData', $grants.mayWrite());" #if(!$grants.mayWrite()) class="buttondisabled" vera-disabled #end>
         	</div>
@@ -462,7 +462,7 @@
             #end
             
             #if($deletedperson)
-                <br><table>
+                <table>
                 	<tr style="height: 20px;">
                 		<td class="list2error" style="width: 20px;">&nbsp;</td>
                 		<td class="list1error">
@@ -497,7 +497,7 @@
             			
             </div>
 			
-        	<div class="textRight" id="buttonPanel-bottom">
+        	<div style="bottom: -40px; right: -1px;" class="textRight posAb" id="buttonPanel-bottom">
 				#if($grants.mayWrite())
 					<input type="submit" name="save" value="Speichern" title="Speichern" class="mainButton" />
 				#end

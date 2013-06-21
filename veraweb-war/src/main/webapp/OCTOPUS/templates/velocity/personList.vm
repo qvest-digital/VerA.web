@@ -463,7 +463,7 @@ function submitFormWithGivenAction(action) {
     		
 			
     		#if ($action == "guest")
-			<div id="legend" class="table hinweis contentBoxColored grayBorder posAb">
+			<div id="key" class="table hinweis contentBoxColored grayBorder floatRight" style="margin-top: -14px;">
 				<div class="tableRow">
 					<div class="tableCell"><strong>H</strong> = $!config.main einladen</div>
 					<div class="tableCell"><strong>P</strong> = $!config.partner einladen</div>

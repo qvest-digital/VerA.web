@@ -156,11 +156,11 @@
             
             </form>
 		
-		
-			<div id="buttonPanel-bottom" class="textRight">
-				<input name="start" type="button" value="Import starten" title="Import starten" class="mainButton" onclick="askStart()">
- 			</div>			
 		</div><!-- End #main_content-->
+
+		<div id="buttonPanel-bottom" class="textRight">
+			<input name="start" type="button" value="Import starten" title="Import starten" class="mainButton" onclick="askStart()">
+		</div>			
 </div>	
 <script type="text/javascript">
 ##Hinweis und Rueckfrage vor dem Import
