@@ -77,7 +77,7 @@
         		<th>Raumnummer</th>
         	</tr>
         	#foreach($bean in $list)
-        		<tr onmouseover="onMouseOverList(this);" onmouseout="onMouseOutList(this);">
+        		<tr>
         			<td class="textCenter"><input type="checkbox" id="remove-select" name="${bean.id}-select" value="true" #if($listselection.indexOf($bean.id) != -1) checked#end></td>
         			<td class="textCenter" onclick="window.location.href='ShowLocation?id=$!{bean.id}'">$!message.plain($bean.id)</td>
         			<td onclick="window.location.href='ShowLocation?id=$!{bean.id}'">$!message.plain($bean.name)</td>
