@@ -69,7 +69,7 @@ public class Doctype extends AbstractBean {
 	@Override
     public void verify() throws BeanException {
 		if (name == null || name.trim().length() == 0)
-			addError("Sie müssen einen Namen eingeben.");
+			addError("Sie müssen eine Bezeichung eingeben.");
 	}
 
     /**
