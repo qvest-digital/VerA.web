@@ -58,7 +58,7 @@ public class Event extends AbstractHistoryBean implements OrgUnitDependent {
 			end = timestamp;
 		}
 		
-		if (shortname == null || shortname.length() == 0)
+		if (shortname == null || shortname.trim().length() == 0)
 			addError("Die Veranstaltung kann nicht gespeichert werden. Vergeben Sie bitte eine Kurzbezeichnung.");
 		if (begin == null)
 			addError("Sie müssen den Beginn der Veranstaltung im Format TT.MM.JJJJ angeben.");

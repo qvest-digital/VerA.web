@@ -22,7 +22,6 @@ package de.tarent.aa.veraweb.beans;
 import de.tarent.octopus.PersonalConfigAA;
 import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.server.OctopusContext;
-import de.tarent.octopus.server.PersonalConfig;
 
 /**
  * Diese Bohne stellt Benutzer mit ihren Berechtigungen dar. 
@@ -44,7 +43,7 @@ public class User extends AbstractBean implements OrgUnitDependent {
      */
     @Override
     public void verify() {
-        if (name == null || name.length() == 0)
+        if (name == null || name.trim().length() == 0)
             addError("Sie müssen eine Benutzerrollenbezeichnung eingeben.");
     }
     

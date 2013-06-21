@@ -215,7 +215,7 @@ public class Location extends AbstractBean implements OrgUnitDependent, Comparab
 
     @Override
     public void verify() throws BeanException {
-		if (name == null || name.length() == 0)
+		if (name == null || name.trim().length() == 0)
 			addError("Der Veranstaltungsort kann nicht gespeichert werden. Vergeben Sie Bitte einen Titel.");
 		
 		if(comment != null && comment.length() > 1000) {

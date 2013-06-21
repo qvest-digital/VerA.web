@@ -63,11 +63,11 @@ public class MailOutbox extends AbstractBean {
 
 	@Override
     public void verify() throws BeanException {
-		if (from == null || from.length() == 0)
+		if (from == null || from.trim().length() == 0)
 			addError("Die E-Mail kann nicht ohne Absender versendet werden.");
-		if (to == null || to.length() == 0)
+		if (to == null || to.trim().length() == 0)
 			addError("Die E-Mail kann nicht ohne Empfänger versendet werden.");
-		if (subject == null || subject.length() == 0)
+		if (subject == null || subject.trim().length() == 0)
 			addError("Die E-Mail kann nicht ohne Betreff versendet werden.");
 	}
 

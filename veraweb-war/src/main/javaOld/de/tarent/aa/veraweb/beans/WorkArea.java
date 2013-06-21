@@ -33,8 +33,7 @@ import de.tarent.octopus.server.OctopusContext;
  * 
  * @see de.tarent.aa.veraweb.worker.WorkAreaWorker
  */
-public class WorkArea extends AbstractBean
-{
+public class WorkArea extends AbstractBean {
 	public Integer id;
 	public Integer orgunit;
 	public String name;
@@ -45,10 +44,8 @@ public class WorkArea extends AbstractBean
 	 * @throws BeanException
 	 */
 	@Override
-    public void verify() throws BeanException
-	{
-		if ( name == null || name.length() == 0 )
-		{
+    public void verify() throws BeanException {
+		if ( name == null || name.trim().length() == 0 ) {
 			addError( "Der Arbeitsbereich benötigt einen eindeutigen Namen." );	
 		}
 	}
@@ -62,8 +59,7 @@ public class WorkArea extends AbstractBean
      * @see de.tarent.aa.veraweb.beans.AbstractBean#checkRead(de.tarent.octopus.server.OctopusContext)
      */
     @Override
-    public void checkRead( OctopusContext cntx ) throws BeanException
-    {
+    public void checkRead( OctopusContext cntx ) throws BeanException {
         checkGroups( cntx, new String[] {PersonalConfigAA.GROUP_READ_STANDARD, PersonalConfigAA.GROUP_SYSTEM_USER} );
     }
 
@@ -76,8 +72,7 @@ public class WorkArea extends AbstractBean
     * @see de.tarent.aa.veraweb.beans.AbstractBean#checkWrite(de.tarent.octopus.server.OctopusContext)
     */
    @Override
-   public void checkWrite( OctopusContext cntx ) throws BeanException
-   {
+   public void checkWrite( OctopusContext cntx ) throws BeanException {
        checkGroups( cntx, new String[] {PersonalConfigAA.GROUP_ADMIN, PersonalConfigAA.GROUP_SYSTEM_USER} );
    }
 }
