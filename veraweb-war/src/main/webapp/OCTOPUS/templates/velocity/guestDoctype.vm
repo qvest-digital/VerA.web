@@ -17,7 +17,7 @@
       	#parse("inc/event-header.vm")
     #end
 	
-	<div class="tabs contentBox grayBorder marginBottom40 marginTop20" id="main_content">
+	<div class="tabs contentBox grayBorder marginBottom40 marginTop20 posRel" id="main_content">
     	<div id="tabsMain">
     		<ul vera-tab-group="" class="gray-gradient"> <!-- Bitte das End-tag der <li>s immer mit in die nächste Zeile nehmen (verhindert Mozilla styling bug) -->
     			<li id="gaesteliste" class="inactive"><div>G&auml;steliste</div>

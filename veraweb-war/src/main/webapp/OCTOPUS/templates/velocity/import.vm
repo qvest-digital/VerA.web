@@ -70,7 +70,7 @@
 		</vera-info>
 			
 		
-		<div id="main_content" class="contentBoxColored grayBorder marginBottom20">
+		<div id="main_content" class="contentBoxColored grayBorder">
 			<div class="textRight mandatoryText">* = Pflichtfelder</div>
 			
             <form action="ImportPersonsFile" method="post" enctype="multipart/form-data" name="formImport" id="formImport" >
@@ -158,7 +158,7 @@
 		
 		</div><!-- End #main_content-->
 
-		<div id="buttonPanel-bottom" class="textRight">
+		<div id="buttonPanel-bottom" class="textRight marginTop10">
 			<input name="start" type="button" value="Import starten" title="Import starten" class="mainButton" onclick="askStart()">
 		</div>			
 </div>	

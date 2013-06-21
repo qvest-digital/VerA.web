@@ -19,7 +19,7 @@
 		
 
         <form action="ExportPersonsHandler/veraweb.export" name="formExport" method="post">
-			<div id="main_content" class="contentBoxColored grayBorder marginBottom20">
+			<div id="main_content" class="contentBoxColored grayBorder">
             
     			<div class="table width70">
     				<div class="tableRow">
