@@ -183,8 +183,10 @@ public class GuestDetailWorker extends GuestListWorker {
 		{
 			Guest guest = (Guest) request.getBean("Guest", "guest");
 			
+			//Check for duplicate reservation (guest and partner). 
 			List<String> duplicateErrorList = reservationDupCheck(database, guest);
 			
+			//In case duplications were found show the errors and do not proceed with saving 
 			if(duplicateErrorList != null && !duplicateErrorList.isEmpty()){
 				cntx.setContent("duplicateErrorList", duplicateErrorList);
 				return;				
@@ -298,12 +300,21 @@ public class GuestDetailWorker extends GuestListWorker {
 	
 	public static final String INPUT_reservationDupCheck[] = {};
 	
+	/**
+	 * This method returns list of error messages in the case where duplicate reservation for the guest ("Hauptperson") or its partner 
+	 * (or both) were found in the database table tguest. Duplicate reservation applies if an seat (with empty or 0 table) or table and seat is already
+	 * reserved by another guest or its partner.
+	 * @param database 
+	 * @param guest 
+	 * @return Returns list of error messages in case duplicate reservation were found
+	 * @throws BeanException
+	 * @throws IOException
+	 */
 	public List<String> reservationDupCheck(Database database, Guest guest) throws BeanException, IOException{
 		
 		List<String> duplicateErrorList = new ArrayList<String>();	
 		
-		//SZENARIO 1
-		//Check for duplicate reservation for the guest 
+		//SCENARIO 1 - The seat (or table and seat) of the guest ("Hauptperson") is already reserved by another guest 
 		if (guest.seatno_a != null && guest.seatno_a > 0) {
 			if (guest.tableno_a == null || guest.tableno_a.intValue() == 0) {
 
@@ -314,14 +325,10 @@ public class GuestDetailWorker extends GuestListWorker {
 						.whereAnd(Expr.equal("fk_event", guest.event))
 						.whereAnd(Expr.notEqual("fk_person", guest.person));
 
-				Person duplicatePerson = checkForDuplicatePerson(database, select);
+				Person duplicatePerson = checkForDuplicateSeatPerson(database, select);
 				
 				if(duplicatePerson != null){
-					duplicateErrorList
-					.add("Bitte ändern Sie erst den Sitzplatz bei der Hauptperson von "
-							+ duplicatePerson.firstname_a_e1 + " " + duplicatePerson.lastname_a_e1
-							+ " (" + duplicatePerson.id + ") über die Gästeliste. Diese Person sitzt aktuell auf "
-							+ "dem eingegebenen Sitzplatz der Hauptperson. Die Änderung wurde nicht gespeichert.");
+					duplicateErrorList.add(getDuplicateSeatErrorMessage(duplicatePerson, "der Hauptperson", "der Hauptperson"));
 				}
 			} else {
 				Select select = database.getSelect("Guest")
@@ -331,19 +338,15 @@ public class GuestDetailWorker extends GuestListWorker {
 						.whereAnd(Expr.notEqual("fk_person", guest.person));
 				
 				
-				Person duplicatePerson = checkForDuplicatePerson(database, select);
+				Person duplicatePerson = checkForDuplicateSeatPerson(database, select);
 				
 				if(duplicatePerson != null){
-					duplicateErrorList
-					.add("Bitte ändern Sie erst den Sitzplatz bei der Hauptperson von "
-							+ duplicatePerson.firstname_a_e1 + " " + duplicatePerson.lastname_a_e1
-							+ " (" + duplicatePerson.id + ") über die Gästeliste. Diese Person sitzt aktuell auf "
-							+ "dem eingegebenen Sitzplatz der Hauptperson. Die Änderung wurde nicht gespeichert.");
+					duplicateErrorList.add(getDuplicateSeatErrorMessage(duplicatePerson, "der Hauptperson", "der Hauptperson"));
 				}
 			}
 		}
 		
-		//SZENARIO 2
+		//SCENARIO 2 - The seat (or table and seat) of the guest is already reserved by another partner
 		if (guest.seatno_a != null && guest.seatno_a > 0) {
 			if (guest.tableno_a == null || guest.tableno_a.intValue() == 0) {
 
@@ -355,14 +358,10 @@ public class GuestDetailWorker extends GuestListWorker {
 						.whereAnd(Expr.notEqual("fk_person", guest.person));
 				
 				
-				Person duplicatePerson = checkForDuplicatePerson(database, select);
+				Person duplicatePerson = checkForDuplicateSeatPerson(database, select);
 				
 				if(duplicatePerson != null){
-					duplicateErrorList
-					.add("Bitte ändern Sie erst den Sitzplatz bei dem Partner von "
-							+ duplicatePerson.firstname_a_e1 + " " + duplicatePerson.lastname_a_e1
-							+ " (" + duplicatePerson.id + ") über die Gästeliste. Diese Person sitzt aktuell auf "
-							+ "dem eingegebenen Sitzplatz der Hauptperson. Die Änderung wurde nicht gespeichert.");
+					duplicateErrorList.add(getDuplicateSeatErrorMessage(duplicatePerson, "dem Partner", "der Hauptperson"));
 				}
 				
 			} else {
@@ -372,14 +371,10 @@ public class GuestDetailWorker extends GuestListWorker {
 						.whereAnd(Expr.equal("fk_event", guest.event))
 						.whereAnd(Expr.notEqual("fk_person", guest.person));				
 				
-				Person duplicatePerson = checkForDuplicatePerson(database, select);
+				Person duplicatePerson = checkForDuplicateSeatPerson(database, select);
 				
 				if(duplicatePerson != null){
-					duplicateErrorList
-					.add("Bitte ändern Sie erst den Sitzplatz bei dem Partner von "
-							+ duplicatePerson.firstname_a_e1 + " " + duplicatePerson.lastname_a_e1
-							+ " (" + duplicatePerson.id	+ ") über die Gästeliste. Diese Person sitzt aktuell auf "
-							+ "dem eingegebenen Sitzplatz der Hauptperson. Die Änderung wurde nicht gespeichert.");
+					duplicateErrorList.add(getDuplicateSeatErrorMessage(duplicatePerson, "dem Partner", "der Hauptperson"));
 				}
 			}
 
@@ -387,7 +382,8 @@ public class GuestDetailWorker extends GuestListWorker {
 		
 		
 		if(guest.getIsPartnerInvited()){
-			//SZENARIO 3
+			
+			//SCENARIO 3 - The seat (or table and seat) of the partner is already reserved by another guest
 			if (guest.seatno_b != null && guest.seatno_b > 0) {
 				if (guest.tableno_b == null || guest.tableno_b.intValue() == 0) {
 
@@ -398,14 +394,10 @@ public class GuestDetailWorker extends GuestListWorker {
 							.whereAnd(Expr.equal("fk_event", guest.event))
 							.whereAnd(Expr.notEqual("fk_person", guest.person));
 					
-					Person duplicatePerson = checkForDuplicatePerson(database, select);
+					Person duplicatePerson = checkForDuplicateSeatPerson(database, select);
 					
 					if(duplicatePerson != null){
-						duplicateErrorList
-						.add("Bitte ändern Sie erst den Sitzplatz bei der Hauptperson von "
-								+ duplicatePerson.firstname_a_e1 + " " + duplicatePerson.lastname_a_e1
-								+ " (" + duplicatePerson.id + ") über die Gästeliste. Diese Person sitzt aktuell auf "
-								+ "dem eingegebenen Sitzplatz des Partners. Die Änderung wurde nicht gespeichert.");
+						duplicateErrorList.add(getDuplicateSeatErrorMessage(duplicatePerson, "der Hauptperson", "des Partners"));
 					}
 				} else {
 					Select select = database.getSelect("Guest")
@@ -414,19 +406,15 @@ public class GuestDetailWorker extends GuestListWorker {
 							.whereAnd(Expr.equal("fk_event", guest.event))
 							.whereAnd(Expr.notEqual("fk_person", guest.person));
 					
-					Person duplicatePerson = checkForDuplicatePerson(database, select);
+					Person duplicatePerson = checkForDuplicateSeatPerson(database, select);
 					
 					if(duplicatePerson != null){
-						duplicateErrorList
-						.add("Bitte ändern Sie erst den Sitzplatz bei der Hauptperson von "
-								+ duplicatePerson.firstname_a_e1 + " " + duplicatePerson.lastname_a_e1
-								+ " (" + duplicatePerson.id	+ ") über die Gästeliste. Diese Person sitzt aktuell auf "
-								+ "dem eingegebenen Sitzplatz des Partners. Die Änderung wurde nicht gespeichert.");
+						duplicateErrorList.add(getDuplicateSeatErrorMessage(duplicatePerson, "der Hauptperson", "des Partners"));
 					}
 				}
 			}
 			
-			//SZENARIO 4
+			//SCENARIO 3 - The seat (or table and seat) of the partner is already reserved by another partner
 			if (guest.seatno_b != null && guest.seatno_b > 0) {
 				if (guest.tableno_b == null || guest.tableno_b.intValue() == 0) {
 
@@ -437,14 +425,10 @@ public class GuestDetailWorker extends GuestListWorker {
 							.whereAnd(Expr.equal("fk_event", guest.event))
 							.whereAnd(Expr.notEqual("fk_person", guest.person));
 					
-					Person duplicatePerson = checkForDuplicatePerson(database, select);
+					Person duplicatePerson = checkForDuplicateSeatPerson(database, select);
 					
 					if(duplicatePerson != null){
-						duplicateErrorList
-						.add("Bitte ändern Sie erst den Sitzplatz bei dem Partner von "
-								+ duplicatePerson.firstname_a_e1 + " " + duplicatePerson.lastname_a_e1
-								+ " (" + duplicatePerson.id	+ ") über die Gästeliste. Diese Person sitzt aktuell auf "
-								+ "dem eingegebenen Sitzplatz des Partners. Die Änderung wurde nicht gespeichert.");
+						duplicateErrorList.add(getDuplicateSeatErrorMessage(duplicatePerson, "dem Partner", "des Partners"));
 					}
 				} else {
 					Select select = database.getSelect("Guest")
@@ -453,14 +437,10 @@ public class GuestDetailWorker extends GuestListWorker {
 							.whereAnd(Expr.equal("fk_event", guest.event))
 							.whereAnd(Expr.notEqual("fk_person", guest.person));
 					
-					Person duplicatePerson = checkForDuplicatePerson(database, select);
+					Person duplicatePerson = checkForDuplicateSeatPerson(database, select);
 					
 					if(duplicatePerson != null){
-						duplicateErrorList
-						.add("Bitte ändern Sie erst den Sitzplatz bei dem Partner von "
-								+ duplicatePerson.firstname_a_e1 + " " + duplicatePerson.lastname_a_e1
-								+ " (" + duplicatePerson.id	+ ") über die Gästeliste. Diese Person sitzt aktuell auf "
-								+ "dem eingegebenen Sitzplatz des Partners. Die Änderung wurde nicht gespeichert.");
+						duplicateErrorList.add(getDuplicateSeatErrorMessage(duplicatePerson, "dem Partner", "des Partners"));
 					}
 				}
 			}			
@@ -469,7 +449,15 @@ public class GuestDetailWorker extends GuestListWorker {
 		return duplicateErrorList;
 	}
 	
-	private Person checkForDuplicatePerson(Database database, Select select) throws BeanException, IOException{
+	/**
+	 * 
+	 * @param database
+	 * @param select
+	 * @return
+	 * @throws BeanException
+	 * @throws IOException
+	 */
+	private Person checkForDuplicateSeatPerson(Database database, Select select) throws BeanException, IOException{
 		Person duplicatePersonResult = null;
 		
 		List resultList = database.getBeanList("Guest", select);
@@ -488,6 +476,12 @@ public class GuestDetailWorker extends GuestListWorker {
 		return duplicatePersonResult;
 	}
 
+	private String getDuplicateSeatErrorMessage(Person duplicatePerson, String changeSeatFor, String collidesWithSeatOfTheCurrent){
+		return "Bitte ändern Sie erst den Sitzplatz bei " + changeSeatFor + " von "
+				+ duplicatePerson.firstname_a_e1 + " " + duplicatePerson.lastname_a_e1
+				+ " (" + duplicatePerson.id	+ ") über die Gästeliste. Diese Person sitzt aktuell auf "
+				+ "dem eingegebenen Sitzplatz " + collidesWithSeatOfTheCurrent + ". Die Änderung wurde nicht gespeichert.";
+	}
 
 	/** Eingabe-Parameter der Octopus-Aktion {@link #showTestGuest(OctopusContext)} */
 	public static final String INPUT_showTestGuest[] = {};
