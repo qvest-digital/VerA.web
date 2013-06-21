@@ -101,16 +101,19 @@
 							#parse("inc/guestMasterDataNote.vm")
 						#end
 						
-						<div class="floatLeft inlineLabel" style="border-right: 1px solid #C1C1C1;">
-							<label for="guest-invitationtype">Einladungsart:</label>                     			
+							<div class="table width60">
+								<div class="tableRow">
+                                    <div class="tableCell width40">
+    									<label for="guest-invitationtype">Einladungsart:</label>                     			
     									<select id="guest-invitationtype" name="guest-invitationtype" onchange="setGuestInvitationtype(this.value);">
                             				<option value="1"#if($guest.invitationtype && $guest.invitationtype == 1) selected#end>Mit Partner</option>
                             				<option value="2"#if($guest.invitationtype && $guest.invitationtype == 2) selected#end>Ohne Partner</option>
                             				<option value="3"#if($guest.invitationtype && $guest.invitationtype == 3) selected#end>Nur Partner</option>
                             			</select>
-						</div>
-						<div class="floatLeft inlineLabel" style="border-right: 1px solid #C1C1C1;">
-							<label for="showguest-ishost">Ist Gastgeber:</label>
+									</div>
+										
+									<div class="tableCell width25 inlineLabel" style="border-left: 1px solid #C1C1C1; border-right: 1px solid #C1C1C1; padding-left: 30px; vertical-align:middle;">
+										<label for="showguest-ishost">Ist Gastgeber:</label>
 										#if($guest.ishost == 1)
 											<input type="checkbox" name="showguest-ishost" value="true" checked readonly disabled id="showguest-ishost">
                             				<input type="hidden" name="guest-ishost" value="1">
@@ -118,26 +121,30 @@
                             				<input type="checkbox" name="showguest-ishost" value="false" readonly disabled id="showguest-ishost">
                             				<input type="hidden" name="guest-ishost" value="0">
                             			#end
-						</div>
-						<div class="inlineLabel">
-							<label for="guest-reserve">Reserve:</label>
-							<input type="checkbox" id="guest-reserve" name="guest-reserve" value="true" class="noFloat" #if($guest.reserve) checked #end />
-						</div>
-						
-						<div class="floatLeft inlineLabel" style="border-right: 1px solid #C1C1C1;">
-							<label for="guest-category">Kategorie:</label>
+									</div>		
+									
+									<div class="tableCell inlineLabel" style="padding-left: 30px; vertical-align:middle;">
+										<label for="guest-reserve">Reserve:</label>
+										<input type="checkbox" id="guest-reserve" name="guest-reserve" value="true" class="noFloat" #if($guest.reserve) checked #end>
+									</div>
+								</div>
+								<div class="tableRow">
+									<div class="tableCell paddingTop10">
+										<label for="guest-category">Kategorie:</label>
 										<select name="guest-category" id="guest-category" onchange="setModified('categorie')">
 											<option value="">Keine</option>
 											#foreach($category in $allCategorie)
 												<option value="$category.id" #if($guest.category == $category.id) selected#end>$!message.plain($category.name)</option>
 											#end
 										</select>
-						</div>
-						<div class="inlineLabel">
-							<label for="guest-rank">Rang:</label>
-							<input type="text" id="guest-rank" name="guest-rank" value="$!message.text($guest.rank)" />
-						</div>
-
+									</div>									
+									<div class="tableCell width20 paddingTop10">
+										<label for="guest-rank">Rang:</label>
+										<input type="text" id="guest-rank" name="guest-rank" value="$!message.text($guest.rank)">
+									</div>
+									<div class="tableCell"></div>
+								</div>
+							</div>
                         #closeContentBlock()
                     
                     
