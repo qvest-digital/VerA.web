@@ -38,7 +38,6 @@ import de.tarent.aa.veraweb.utils.DatabaseHelper;
 import de.tarent.dblayer.helper.ResultMap;
 import de.tarent.dblayer.sql.Escaper;
 import de.tarent.dblayer.sql.Format;
-import de.tarent.dblayer.sql.Join;
 import de.tarent.dblayer.sql.SQL;
 import de.tarent.dblayer.sql.SyntaxErrorException;
 import de.tarent.dblayer.sql.clause.Clause;
@@ -49,7 +48,6 @@ import de.tarent.dblayer.sql.clause.RawClause;
 import de.tarent.dblayer.sql.clause.StatementList;
 import de.tarent.dblayer.sql.clause.Where;
 import de.tarent.dblayer.sql.clause.WhereList;
-import de.tarent.dblayer.sql.statement.Delete;
 import de.tarent.dblayer.sql.statement.Select;
 import de.tarent.dblayer.sql.statement.Update;
 import de.tarent.octopus.PersonalConfigAA;
@@ -115,9 +113,9 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 		 * 2008-02-21
 		 */
 //		cntx.setContent( "action", ( String ) null ); // reset action
-		Select select = this.prepareShowList( cntx, database );
+		Select personSelect = this.prepareShowList( cntx, database );
 		Map param = ( Map )cntx.contentAsObject( OUTPUT_showListParams );
-		select.Limit(new Limit((Integer)param.get("limit"), (Integer)param.get("start")));
+		personSelect.Limit(new Limit((Integer)param.get("limit"), (Integer)param.get("start")));
 		
 		/* FIXME remove this temporary fix ASAP
 		 * cklein 2009-09-16
@@ -127,34 +125,63 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 		 * 10 entries in the underlying resultset as is defined by the query.
 		 */
 		Map<Integer, Map> result = new HashMap<Integer, Map>();
-		List resultList = getResultList( database, select );
-		for ( int i = 0; i < resultList.size(); i++ )
-		{
+		List personList = getResultList( database, personSelect );
+		
+		for ( int i = 0; i < personList.size(); i++ ) {
 			HashMap< String, Object > tmp = new HashMap< String, Object >();
-			Set< String > keys = ( ( ResultMap ) resultList.get( i ) ).keySet();
+			Set< String > keys = ((ResultMap) personList.get(i)).keySet();
+			
 			Integer id = null;
-			Timestamp eventBeginDate = null;
-			Timestamp eventEndDate = null;
-			Timestamp taskEventBeginDate = null;
-			Timestamp taskEventEndDate = null;
-			for ( String key : keys )
-			{
-				Object val = ( ( ResultMap ) resultList.get( i ) ).get( key ) ;
+			for ( String key : keys ) {
+				Object val = ((ResultMap) personList.get(i)).get(key) ;
 				if ("id".equals(key)) {
 					id = (Integer) val;
 					tmp.put(key, val);
-				} else if ("eventbegindate".equals(key)) {
-					eventBeginDate = (Timestamp) val;
-				} else if ("eventenddate".equals(key)) {
-					eventEndDate = (Timestamp) val;
-				} else if ("taskeventbegindate".equals(key)) {
-					taskEventBeginDate = (Timestamp) val;
-				} else if ("taskeventenddate".equals(key)) {
-					taskEventEndDate = (Timestamp) val;
 				} else {
 					tmp.put(key, val);
 				}
 			}
+			
+			/* select all relevant event/task information for each person */
+			Integer personId = (Integer) tmp.get("id");
+			Select eventSelect = SQL.SelectDistinct(database).from("veraweb.tperson")
+			            .selectAs("tperson.pk", "id")
+                        .selectAs("tevent.dateend", "eventenddate")
+                        .selectAs("event2.dateend", "taskeventenddate")
+                        .selectAs("tevent.datebegin", "eventbegindate")
+                        .selectAs("event2.datebegin", "taskeventbegindate")
+                        .joinOuter("veraweb.tguest", "tguest.fk_person", "tperson.pk")
+                        .joinOuter("veraweb.tevent", "tevent.pk", "tguest.fk_event")
+                        .joinOuter("veraweb.ttask", "ttask.fk_person", "tperson.pk")
+                        .joinOuter("veraweb.tevent event2", "event2.pk", "ttask.fk_event")
+                        .where(Expr.equal("tperson.pk", personId));
+			
+			Timestamp eventBeginDate = null;
+            Timestamp eventEndDate = null;
+            Timestamp taskEventBeginDate = null;
+            Timestamp taskEventEndDate = null;
+			
+			List eventList = getResultList(database, eventSelect);
+			for ( int j = 0; j < eventList.size(); j++ ) {
+    			keys = ((ResultMap) eventList.get(j)).keySet();
+    			for (String key : keys) {
+                    Object val = ((ResultMap) eventList.get(j)).get(key) ;
+                    if ("id".equals(key)) {
+                        id = (Integer) val;
+                        tmp.put(key, val);
+                    } else if ("eventbegindate".equals(key)) {
+                        eventBeginDate = (Timestamp) val;
+                    } else if ("eventenddate".equals(key)) {
+                        eventEndDate = (Timestamp) val;
+                    } else if ("taskeventbegindate".equals(key)) {
+                        taskEventBeginDate = (Timestamp) val;
+                    } else if ("taskeventenddate".equals(key)) {
+                        taskEventEndDate = (Timestamp) val;
+                    }
+                }
+			}
+			
+			
 			if (eventBeginDate != null && eventEndDate == null) { // end = infinity
 				eventEndDate = INFINITY_TIMESTAMP;
 			}
@@ -356,22 +383,12 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 	protected void extendColumns(OctopusContext cntx, Select select) throws BeanException, IOException {
 		select.selectAs( "tworkarea.name", "workarea_name" );
 		select.selectAs( "dateexpire", "dateexpire" );
-		select.selectAs( "tevent.dateend", "eventenddate" );
-		select.selectAs( "event2.dateend", "taskeventenddate" );
-		select.selectAs( "tevent.datebegin", "eventbegindate" );
-		select.selectAs( "event2.datebegin", "taskeventbegindate" );
-		
-		//select.orderBy( Order.asc( "workarea_name" ) );
 
 		/*
 		 * modified to support workarea display in the search result list as per change request for version 1.2.0
 		 * cklein 2008-02-12
 		 */
 		select.join( "veraweb.tworkarea", "tworkarea.pk", "tperson.fk_workarea" );
-		select.joinOuter( "veraweb.tguest", "tguest.fk_person", "tperson.pk" );
-		select.joinOuter( "veraweb.tevent", "tevent.pk", "tguest.fk_event" );
-		select.joinOuter( "veraweb.ttask", "ttask.fk_person", "tperson.pk" );
-		select.joinOuter( "veraweb.tevent event2", "event2.pk", "ttask.fk_event" );
 	}
 
 	protected void extendWhere(OctopusContext cntx, Select select) throws BeanException
