@@ -27,7 +27,7 @@
     </div>
     #end
 
-    <h1>$title</h1>
+	<h1>Veranstaltung bearbeiten: $!message.plain($event.shortname)</h1>
 
     <form id="formlist" name="formlist" action="" method="POST">
         <input type="hidden" id="a" name="a" value="taskReferencePerson" />
@@ -211,6 +211,13 @@
 			</div>
 
         </div>
+		
+		<span id="buttonPanel-bottom" class="floatRight">
+            #if($grants.mayWrite())
+			    <input type="submit" name="save" value="Veranstaltung speichern" class="mainButton" onclick="document.getElementById('formlist').action='SaveEventTask';">
+            #end
+			<input type="reset" name="cancel" value="Zur Veranstaltungsübersicht" class="mainButton" onclick="window.location.href='SearchEvent?action=event&search=reset&selectNone=true';">
+        </span>
 
     </form>
     <div class="clear"></div>
