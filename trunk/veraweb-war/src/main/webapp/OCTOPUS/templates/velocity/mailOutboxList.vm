@@ -37,7 +37,7 @@
         			<th class="width50">Betreff</th>
         		</tr>
                 #foreach($bean in $list)
-    	        	<tr onmouseout="onMouseOutList(this);" onmouseover="onMouseOverList(this);">
+    	        	<tr>
     					<td class="textCenter"><input type="hidden" value="$bean.id" name="${bean.id}-id"/><input type="checkbox" value="true" name="${bean.id}-select"/></td>
     					<td class="textCenter" onclick="window.location.href='MailOutboxDetail?id=$!{bean.id}';">
     					      #if($bean.status == 1)Offen
@@ -48,9 +48,9 @@
     					      #else<em>unbekannt</em>
     					      #end
     						</td>	
-    					<td style="cursor: pointer;" onclick="window.location.href='MailOutboxDetail?id=$!{bean.id}';">$!message.text($bean.from)</td>
-    					<td style="cursor: pointer;" onclick="window.location.href='MailOutboxDetail?id=$!{bean.id}';">$!message.text($bean.to)</td>
-    					<td style="cursor: pointer;" onclick="window.location.href='MailOutboxDetail?id=$!{bean.id}';">$!message.text($bean.subject)</td>
+    					<td onclick="window.location.href='MailOutboxDetail?id=$!{bean.id}';">$!message.text($bean.from)</td>
+    					<td onclick="window.location.href='MailOutboxDetail?id=$!{bean.id}';">$!message.text($bean.to)</td>
+    					<td onclick="window.location.href='MailOutboxDetail?id=$!{bean.id}';">$!message.text($bean.subject)</td>
     				</tr>
     			#end
         		
