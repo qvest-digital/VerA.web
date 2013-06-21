@@ -112,26 +112,7 @@
                             			</select>
 									</div>
 										
-									<div class="tableCell width20">
-										<label for="guest-rank">Rang:</label>
-										<input type="text" id="guest-rank" name="guest-rank" value="$!message.text($guest.rank)">
-									</div>
-									<div class="tableCell">
-										<label for="guest-reserve">Reserve:</label>
-										<input type="checkbox" id="guest-reserve" name="guest-reserve" value="true" #if($guest.reserve) checked#end>
-									</div>
-								</div>
-								<div class="tableRow">
-									<div class="tableCell">
-										<label for="">Kategorie:</label>
-										<select name="guest-category" id="guest-category" onchange="setModified('categorie')">
-											<option value="">Keine</option>
-											#foreach($category in $allCategorie)
-												<option value="$category.id" #if($guest.category == $category.id) selected#end>$!message.plain($category.name)</option>
-											#end
-										</select>
-									</div>									
-									<div class="tableCell">
+									<div class="tableCell" style="border-left: 1px solid #C1C1C1; border-right: 1px solid #C1C1C1; padding-left: 35px;">
 										<label for="showguest-ishost">Ist Gastgeber:</label>
 										#if($guest.ishost == 1)
 											<input type="checkbox" name="showguest-ishost" value="true" checked readonly disabled id="showguest-ishost">
@@ -141,6 +122,26 @@
                             				<input type="hidden" name="guest-ishost" value="0">
                             			#end
 									</div>		
+									
+									<div class="tableCell" style="padding-left: 30px;">
+										<label for="guest-reserve">Reserve:</label>
+										<input type="checkbox" id="guest-reserve" name="guest-reserve" value="true" #if($guest.reserve) checked #end>
+									</div>
+								</div>
+								<div class="tableRow">
+									<div class="tableCell paddingTop10">
+										<label for="">Kategorie:</label>
+										<select name="guest-category" id="guest-category" onchange="setModified('categorie')">
+											<option value="">Keine</option>
+											#foreach($category in $allCategorie)
+												<option value="$category.id" #if($guest.category == $category.id) selected#end>$!message.plain($category.name)</option>
+											#end
+										</select>
+									</div>									
+									<div class="tableCell width20 paddingTop10">
+										<label for="guest-rank">Rang:</label>
+										<input type="text" id="guest-rank" name="guest-rank" value="$!message.text($guest.rank)">
+									</div>
 									<div class="tableCell"></div>
 								</div>
 							</div>
