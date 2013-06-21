@@ -113,14 +113,15 @@
 									</div>
 										
 									<div class="tableCell width25 inlineLabel" style="border-left: 1px solid #C1C1C1; border-right: 1px solid #C1C1C1; padding-left: 30px; vertical-align:middle;">
-										<label for="showguest-ishost">Ist Gastgeber:</label>
+										<label for="showguest-ishost" style="white-space:nowrap">Ist Gastgeber:
 										#if($guest.ishost == 1)
 											<input type="checkbox" name="showguest-ishost" value="true" checked readonly disabled id="showguest-ishost">
                             				<input type="hidden" name="guest-ishost" value="1">
                             			#else
                             				<input type="checkbox" name="showguest-ishost" value="false" readonly disabled id="showguest-ishost">
                             				<input type="hidden" name="guest-ishost" value="0">
-                            			#end
+										#end
+										</label>
 									</div>		
 									
 									<div class="tableCell inlineLabel" style="padding-left: 30px; vertical-align:middle;">
