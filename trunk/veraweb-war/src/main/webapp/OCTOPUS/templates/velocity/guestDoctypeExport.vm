@@ -21,7 +21,7 @@
 			<label for="doctype">Dokumenttyp</label>
 			<select name="doctype"  onChange="document.getElementById('ExportForm').action='ShowExportGuestDoctype'; submit();" id="doctype">
     			#foreach($bean in $allEventDoctype)
-    			<option value="$!bean.doctype" #if($bean.doctype == $exportCalc.doctype) selected#end>$!bean.name</option>
+    			<option value="$!bean.doctype" #if($bean.doctype == $exportCalc.doctype) selected#end>$!message.text($!bean.name)</option>
     			#end
     		</select>
 		</p>

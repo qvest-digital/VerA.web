@@ -645,7 +645,7 @@ function submitFormWithGivenAction(action) {
                             				#set( $found = $cats.get( 0 ).categorie )
                             			#end
                             			#foreach($cat in $cats)
-                            				<option value="$!cat.categorie" #if($cat.categorie == $found || $size == 1) selected #end>$!cat.name</option>
+                            				<option value="$!cat.categorie" #if($cat.categorie == $found || $size == 1) selected #end>$!message.text($!cat.name)</option>
                             			#end
                         			</select>
                         		</td>
