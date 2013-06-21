@@ -57,7 +57,7 @@ public class MailDraft extends AbstractHistoryBean {
 		if (subject == null || subject.length() == 0)
 			addError("Sie haben der E-Mail-Vorlage keinen Betreff gegeben.");
 		if (text == null || text.length() == 0)
-			addError("Sie haben in dieser E-Mail-Vorlage keinen Text eingegeben..");
+			addError("Sie haben in dieser E-Mail-Vorlage keinen Text eingegeben.");
 	}
 
 	/**
