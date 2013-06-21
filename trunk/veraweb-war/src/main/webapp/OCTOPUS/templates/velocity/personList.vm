@@ -144,13 +144,6 @@
                 		}
                 	}
                 	
-                	function hasNoPartner(box) {
-                		if (document.getElementById(box).checked) {
-                			showWarning('Zu dieser Person ist keine Partnerin / kein Partner eingetragen.');
-                			document.getElementById(box).checked = false;
-                		}
-                	}
-                	
                 	function onClickSetState(box1, box2) {
                 		if (document.getElementById(box1).checked) {
                 			document.getElementById(box2).checked = true;
@@ -596,7 +589,7 @@ function submitFormWithGivenAction(action) {
                             				<input type="checkbox" id="${bean.id}-select" name="${bean.id}-select" value="true" #if($listselection.indexOf($bean.id) != -1) checked#end #if(!$hasA) onClick="hasNoMain('${bean.id}-select');" #else onClick="onClickEnforceConsistentState('${bean.id}-select', '${bean.id}-partner', '${bean.id}-reserve');" #end>
                             			</td>
                             			<td title="$!config.partner einladen">
-                            				<input type="checkbox" id="${bean.id}-partner" name="${bean.id}-partner" value="true" #if($invitepartner.indexOf($bean.id) != -1) checked#end #if(!$hasB) onClick="hasNoPartner('${bean.id}-partner');" #else onClick="onClickEnforceConsistentState('${bean.id}-select', '${bean.id}-partner', '${bean.id}-reserve');" #end>
+                            				<input type="checkbox" id="${bean.id}-partner" name="${bean.id}-partner" value="true" #if($invitepartner.indexOf($bean.id) != -1) checked#end #if(!$hasB) disabled #else onClick="onClickEnforceConsistentState('${bean.id}-select', '${bean.id}-partner', '${bean.id}-reserve');" #end>
                             			</td>
                             		#elseif($event.invitationtype == 3)
                             			## NurPartner
@@ -604,7 +597,7 @@ function submitFormWithGivenAction(action) {
                             				<input type="checkbox" id="${bean.id}-select" name="${bean.id}-select" value="true" #if($listselection.indexOf($bean.id) != -1) checked#end #if(!$hasA) onClick="hasNoMain('${bean.id}-select');" #else onClick="onClickEnforceConsistentState('${bean.id}-select', '${bean.id}-partner', '${bean.id}-reserve');" #end>
                             			</td>
                             			<td title="$!config.partner einladen">
-                            				<input type="checkbox" id="${bean.id}-partner" name="${bean.id}-partner" value="true" #if($invitepartner.indexOf($bean.id) != -1) checked#end #if(!$hasB) onClick="hasNoPartner('${bean.id}-partner');" #else onClick="onClickEnforceConsistentState('${bean.id}-select', '${bean.id}-partner', '${bean.id}-reserve');" #end>
+                            				<input type="checkbox" id="${bean.id}-partner" name="${bean.id}-partner" value="true" #if($invitepartner.indexOf($bean.id) != -1) checked#end #if(!$hasB) disabled #else onClick="onClickEnforceConsistentState('${bean.id}-select', '${bean.id}-partner', '${bean.id}-reserve');" #end>
                             			</td>
                             		#else
                             			## Mit Partner
@@ -612,7 +605,7 @@ function submitFormWithGivenAction(action) {
                             				<input type="checkbox" id="${bean.id}-select" name="${bean.id}-select" value="true" #if($listselection.indexOf($bean.id) != -1) checked#end #if(!$hasA) onClick="hasNoMain('${bean.id}-select');" #elseif($hasB) onClick="onClickSetState('${bean.id}-select', '${bean.id}-partner');onClickEnforceConsistentState('${bean.id}-select', '${bean.id}-partner', '${bean.id}-reserve');" #else onClick="onClickEnforceConsistentState('${bean.id}-select', '${bean.id}-partner', '${bean.id}-reserve');" #end>
                             			</td>
                             			<td title="$!config.partner einladen">
-                            				<input type="checkbox" id="${bean.id}-partner" name="${bean.id}-partner" value="true" #if($invitepartner.indexOf($bean.id) != -1) checked#end #if(!$hasB) onClick="hasNoPartner('${bean.id}-partner');" #elseif($hasA) onClick="onClickSetState('${bean.id}-partner', '${bean.id}-select');onClickEnforceConsistentState('${bean.id}-select', '${bean.id}-partner', '${bean.id}-reserve');" #else onClick="onClickEnforceConsistentState('${bean.id}-select', '${bean.id}-partner', '${bean.id}-reserve');" #end>
+                            				<input type="checkbox" id="${bean.id}-partner" name="${bean.id}-partner" value="true" #if($invitepartner.indexOf($bean.id) != -1) checked#end #if(!$hasB) disabled #elseif($hasA) onClick="onClickSetState('${bean.id}-partner', '${bean.id}-select');onClickEnforceConsistentState('${bean.id}-select', '${bean.id}-partner', '${bean.id}-reserve');" #else onClick="onClickEnforceConsistentState('${bean.id}-select', '${bean.id}-partner', '${bean.id}-reserve');" #end>
                             			</td>
                             		#end
                             		<td title="Auf Reserve"><input type="checkbox" name="${bean.id}-reserve" id="${bean.id}-reserve" #if($selectreserve.indexOf($bean.id) != -1) checked#end value="true" onClick="onClickEnsureSelection( '${bean.id}-select', '${bean.id}-partner', '${bean.id}-reserve', $event.invitationtype, ${hasA}, ${hasB} );"></td>
