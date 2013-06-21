@@ -43,7 +43,7 @@
     		Die &quot;Laufende Nummer&quot; wurde f&uuml;r alle G&auml;ste neu berechnet und gespeichert.
     	</vera-success>
     #end
-    <div class="tabs contentBox grayBorder marginBottom10 marginTop20" id="main_content">
+    <div id="main_content" class="tabs contentBox grayBorder marginBottom40 marginTop20 posRel">
 
 		<div id="tabsMain">
 			<ul vera-tab-group="" class="gray-gradient"> <!-- Bitte das End-tag der <li>s immer mit in die nächste Zeile nehmen (verhindert Mozilla styling bug) -->
@@ -112,7 +112,7 @@
                             			</select>
 									</div>
 										
-									<div class="tableCell" style="border-left: 1px solid #C1C1C1; border-right: 1px solid #C1C1C1; padding-left: 35px;">
+									<div class="tableCell width25" style="border-left: 1px solid #C1C1C1; border-right: 1px solid #C1C1C1; padding-left: 30px;">
 										<label for="showguest-ishost">Ist Gastgeber:</label>
 										#if($guest.ishost == 1)
 											<input type="checkbox" name="showguest-ishost" value="true" checked readonly disabled id="showguest-ishost">
@@ -219,7 +219,7 @@
 					
 					#parse("inc/guest-detail-navi.vm")
 					
-					<span class="floatRight" id="buttonPanel-bottom">
+					<span id="buttonPanel-bottom" class="floatRight posAb" style="right: -1px; bottom: -40px;">
     					#if($grants.mayWrite())
     						<input type="button" name="save" value="Speichern"  class="mainButton" onClick="if ( validateGuestData() ) { return askPreSave(); } else { return false; }" />
     					#end

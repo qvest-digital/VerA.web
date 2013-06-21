@@ -17,7 +17,7 @@
       	#parse("inc/event-header.vm")
     #end
 	
-	<div class="tabs contentBox grayBorder marginBottom10 marginTop20" id="main_content">
+	<div class="tabs contentBox grayBorder marginBottom40 marginTop20" id="main_content">
     	<div id="tabsMain">
     		<ul vera-tab-group="" class="gray-gradient"> <!-- Bitte das End-tag der <li>s immer mit in die nächste Zeile nehmen (verhindert Mozilla styling bug) -->
     			<li id="gaesteliste" class="inactive"><div>G&auml;steliste</div>
@@ -280,7 +280,7 @@
 				
                 #parse("inc/guest-doctype-navi.vm")
 				
-                <span id="buttonPanel-bottom" class="floatRight">
+                <span class="posAb" id="buttonPanel-bottom" style="right:-1px; bottom:-40px">
 					#if($grants.mayWrite())
 						<input type="submit" name="save" value="Speichern" title="Speichern" class="mainButton" />
 					#end

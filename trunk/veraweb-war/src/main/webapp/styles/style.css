@@ -350,11 +350,6 @@ pre {
 
 .verticalBottom {vertical-align: bottom !important;}
 
-#legend {
-	right: 30px; 
-	top: 197px;
-}
-
 /************* End misc *************/
 
 /************* End general *************/
@@ -554,7 +549,7 @@ nav a, #nav a {
 }
 
 #guestSummary.hinweis,
-#legend.hinweis {
+#key.hinweis {
 	background-image: none;
 }
 
@@ -727,7 +722,7 @@ tr.repeat {
 .msg  {
     display: block;
     font-weight: 700;
-    margin: 2px auto 14px;
+    margin: 2px auto 20px;
     padding: 6px 6px 6px 30px;
 }
 
