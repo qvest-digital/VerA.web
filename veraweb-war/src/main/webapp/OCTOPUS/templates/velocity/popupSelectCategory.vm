@@ -6,10 +6,13 @@
 
 <head>
 	<title>Kategorien</title>
-	<link rel="stylesheet" type="text/css" href="${paths.staticWeb}styles/default.css" media="all">
+	<link rel="stylesheet" type="text/css" href="${paths.staticWeb}styles/default.css" media="all" />
 	<link rel="stylesheet" type="text/css" href="${paths.staticWeb}styles/style.css" media="all" />
 	<script type="text/javascript" src="/veraweb/scripts/dhtml-popup.js"></script>
+	<script type="text/javascript" src="/veraweb/scripts/utils.js"></script>
+
 	<script type="text/javascript">
+	
 		var oldState = { categoryId : null, actionName : null };
 
 		function selected( elt )
