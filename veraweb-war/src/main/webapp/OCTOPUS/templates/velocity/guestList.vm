@@ -461,6 +461,10 @@
 				<input type="button" name="reloadAllGuestData" value="Alle Stammdaten neu laden" title="Alle Stammdaten neu laden" onclick="submitFormWithGivenAction('ReloadAllGuestData', $grants.mayWrite());" #if(!$grants.mayWrite()) class="buttondisabled" vera-disabled #end>
         	</div>
             
+			<vera-info vera-stay>
+				Beim Erstellen von Steuerdateien oder G&auml;stelisten wird Ihr oben ausgew&auml;hlter Filter ber&uuml;cksichtigt.<br>
+				Wenn Sie einzelne G&auml;ste markieren, werden nur diese exportiert, ansonsten die vollst&auml;ndige Liste.
+			</vera-info>
             
             #if($deletedperson)
                 <table>
@@ -472,12 +476,7 @@
                 	</tr>
                 </table>
                 <br>
-            #end
-            <vera-info>
-				Beim Erstellen von Steuerdateien oder G&auml;stelisten wird Ihr oben ausgew&auml;hlter Filter ber&uuml;cksichtigt.<br>
-				Wenn Sie einzelne G&auml;ste markieren, werden nur diese exportiert, ansonsten die vollst&auml;ndige Liste.
-			</vera-info>
-				
+            #end			
             
             <div>
         
