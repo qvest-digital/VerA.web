@@ -125,7 +125,7 @@
 									
 									<div class="tableCell inlineLabel" style="padding-left: 30px; vertical-align:middle;">
 										<label for="guest-reserve">Reserve:</label>
-										<input type="checkbox" id="guest-reserve" name="guest-reserve" value="true" #if($guest.reserve) checked #end>
+										<input type="checkbox" id="guest-reserve" name="guest-reserve" value="true" class="noFloat" #if($guest.reserve) checked #end>
 									</div>
 								</div>
 								<div class="tableRow">
