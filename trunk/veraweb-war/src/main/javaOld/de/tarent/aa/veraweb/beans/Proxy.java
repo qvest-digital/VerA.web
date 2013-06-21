@@ -66,7 +66,7 @@ public class Proxy extends AbstractHistoryBean {
      */
     @Override
     public void verify() {
-        if (proxy == null || proxy.length() == 0) {
+        if (proxy == null || proxy.trim().length() == 0) {
             addError("Sie müssen eine Stellvertreterrollenbezeichnung eingeben.");
         }
         if (user == null || user.intValue() == 0) {

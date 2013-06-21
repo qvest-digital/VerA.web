@@ -59,7 +59,7 @@ public class Categorie extends AbstractBean implements OrgUnitDependent {
      */
 	@Override
     public void verify() throws BeanException {
-		if (name == null || name.length() == 0)
+		if (name == null || name.trim().length() == 0)
 			addError("Sie müssen eine Bezeichnung eingeben.");
 	}
 

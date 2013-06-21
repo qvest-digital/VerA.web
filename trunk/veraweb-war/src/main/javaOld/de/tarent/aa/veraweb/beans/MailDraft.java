@@ -52,11 +52,11 @@ public class MailDraft extends AbstractHistoryBean {
 
 	@Override
     public void verify() throws BeanException {
-		if (name == null || name.length() == 0)
+		if (name == null || name.trim().length() == 0)
 			addError("Sie müssen der E-Mail-Vorlage einen Namen geben.");
-		if (subject == null || subject.length() == 0)
+		if (subject == null || subject.trim().length() == 0)
 			addError("Sie haben der E-Mail-Vorlage keinen Betreff gegeben.");
-		if (text == null || text.length() == 0)
+		if (text == null || text.trim().length() == 0)
 			addError("Sie haben in dieser E-Mail-Vorlage keinen Text eingegeben.");
 	}
 

@@ -29,7 +29,7 @@ public class Function extends AbstractBean {
 
 	@Override
     public void verify() throws BeanException {
-		if (name == null || name.length() == 0)
+		if (name == null || name.trim().length() == 0)
 			addError("Sie müssen der Funktion einen Namen geben.");
 	}
 
