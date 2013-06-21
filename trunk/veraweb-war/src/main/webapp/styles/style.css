@@ -205,6 +205,10 @@ ul.alphabet li {
 	float: right;
 }
 
+.floatLeft {
+	float: left;
+}
+
 .noFloat {
 	float: none !important;
 }
