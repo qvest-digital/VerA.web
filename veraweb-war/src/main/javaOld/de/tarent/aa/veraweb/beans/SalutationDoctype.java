@@ -37,7 +37,7 @@ public class SalutationDoctype extends AbstractBean {
 	@Override
     public void verify() throws BeanException {
 		if (text == null || text.trim().length() == 0)
-			addError("Die Zuordnung einer Anrede zu einem Dokumenttyp ist fehlerhaft.");
+			addError("Sie müssen einen Namen eingeben.");
 		if (salutation == null || salutation.intValue() == 0)
 			addError("Die Zuordnung einer Anrede zu einem Dokumenttyp ist fehlerhaft.");
 		if (doctype == null || doctype.intValue() == 0)
