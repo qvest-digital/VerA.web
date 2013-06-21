@@ -8,8 +8,10 @@
 	<title>Kategorien</title>
 	<link rel="stylesheet" type="text/css" href="${paths.staticWeb}styles/default.css" media="all" />
 	<link rel="stylesheet" type="text/css" href="${paths.staticWeb}styles/style.css" media="all" />
-	<script type="text/javascript" src="/veraweb/scripts/dhtml-popup.js"></script>
+	<script type="text/javascript" src="${paths.staticWeb}scripts/jquery.min.js"></script>
 	<script type="text/javascript" src="${paths.staticWeb}scripts/utils.js"></script>
+	<script type="text/javascript" src="${paths.staticWeb}scripts/dhtml-popup.js"></script>
+	
 
 	<script type="text/javascript">
 	
@@ -80,13 +82,13 @@
 
 <div class="contentBoxColored grayBorder">
 
-		<h2>Wählen Sie eine Kategorie aus, welche Sie
+		<h1>Wählen Sie eine Kategorie aus, welche Sie
 			#if( $assignmentAction == "assign" )
 				zuweisen
 			#else
 				entfernen
 			#end
-		möchten:</h2>
+		möchten:</h1>
 
 
 		#if( $allCategorie.size() > 0 )

@@ -8,8 +8,10 @@
 	<title>Arbeitsbereiche</title>
 	<link rel="stylesheet" type="text/css" href="${paths.staticWeb}styles/default.css" media="all" />
 	<link rel="stylesheet" type="text/css" href="${paths.staticWeb}styles/style.css" media="all" />
-	<script type="text/javascript" src="/veraweb/scripts/dhtml-popup.js"></script>
+	<script type="text/javascript" src="${paths.staticWeb}scripts/jquery.min.js"></script>
 	<script type="text/javascript" src="${paths.staticWeb}scripts/utils.js"></script>
+	<script type="text/javascript" src="${paths.staticWeb}scripts/dhtml-popup.js"></script>
+
 
 	<script type="text/javascript">
 		var oldState = { workareaId : null, actionName : null };
@@ -77,13 +79,13 @@
 <form>
 
 <div class="contentBoxColored grayBorder">
-		<h2>Wählen Sie einen Arbeitsbereich aus, welchen Sie 
+		<h1>Wählen Sie einen Arbeitsbereich aus, welchen Sie 
 	#if( $assignmentAction == "assign" )
 		zuweisen
 	#else
 		entfernen
 	#end
-	    möchten:</h2>
+	    möchten:</h1>
 
 	#if( $allWorkArea.size() > 0 )
 		<label for="workarea">Arbeitsbereich</label>
