@@ -38,6 +38,12 @@ public class OrgUnit extends AbstractBean {
     /** Mandantenname */
     public String name;
     
+    @Override
+    public void verify() throws BeanException {
+        if (name == null || name.trim().length() == 0)
+            addError("Sie müssen einen Namen eingeben.");
+    }
+    
     /**
      * Diese Methode testet, ob im aktuellen Kontext diese Bohne gelesen werden
      * darf.<br>
