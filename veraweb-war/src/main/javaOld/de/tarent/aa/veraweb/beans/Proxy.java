@@ -67,10 +67,10 @@ public class Proxy extends AbstractHistoryBean {
     @Override
     public void verify() {
         if (proxy == null || proxy.trim().length() == 0) {
-            addError("Sie müssen eine Stellvertreterrollenbezeichnung eingeben.");
+            addError("Sie müssen eine Vertreter eingeben.");
         }
         if (user == null || user.intValue() == 0) {
-            addError("Sie müssen einen Benutzer eingeben.");
+            addError("Sie müssen einen Rolle eingeben.");
         }
         if (validFrom != null && validTill != null && validFrom.after(validTill)) {
         	addError("Der Beginn der Vertretung muss vor dem Ende liegen.");
