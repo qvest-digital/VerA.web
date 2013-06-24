@@ -72,6 +72,8 @@
         </div>
     </div>
     
+	<div class="textRight mandatoryText">* = Pflichtfelder</div>
+	
     <span id="actionPanel" class="inlineLabel">
     	<strong >
     		Markierte Vertretung(en)
