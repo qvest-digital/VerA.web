@@ -5,48 +5,6 @@
 #set($elementNamePlural = "Kategorien")
 #parse("inc/header.vm")	
 
-## modified to allow all authorized user to read the categories as per change request for version 1.2.0
-## cklein
-## 2008-02-21
-
-##
-## fixing issue 1584 where non admins could still choose select all or unselect all
-## which then will result in a javascript exception since the hidden selectAll formfield
-## is not rendered as part of the document
-##
-#set($disableListSelect = false)
-#if($grants.isAdmin() || $grants.isPartialAdmin())
-<script type="text/javascript">
-	function askResort() {
-		if (isModified()) {
-			htmlConfirm('Soll die Kategorie einsortiert werden?', new Array('Ja', 'Nein'), new Array("askResortYes();", "askResortNo();"));
-			return false;
-		} else {
-			return true;
-		}
-	}
-	
-	function askResortYes() {
-		hideDialogs();
-		document.getElementById('resort').value = 'true';
-		document.getElementById('dosave').name = 'save';
-		document.getElementById('formlist').submit();
-	}
-	
-	function askResortNo() {
-		hideDialogs();
-		document.getElementById('resort').value = 'false';
-		document.getElementById('dosave').name = 'save';
-		document.getElementById('formlist').submit();
-	}
-}
-
-</script>
-#else
-	#set($disableListSelect = true)
-#end
-
-
 <div id="content_container">
 
 	<div id="breadcrumb" class="textRight marginBottom10">
@@ -55,30 +13,38 @@
 		
 	<h1>Kategorien</h1>
 
-	<form id="formlist" name="formlist" action="Categorie" method="POST" #if($grants.isAdmin() || $grants.isPartialAdmin())onsubmit="return askResort();"#end>
-		#if($listerrors.size() > 0)
-		<vera-warn>
-			#foreach($error in $listerrors)
-				$error<br>
-			#end
-		</vera-warn>
+	<form id="formlist" name="formlist" action="Categorie" method="POST">
+		#if($listerrors && $listerrors.size() > 0)
+    		<vera-warn>
+    			#foreach($error in $listerrors)
+    				$error<br>
+    			#end
+    		</vera-warn>
 		#end
+		#if($resortQuestion)
+        	<vera-confirm>
+        		<strong>Soll die neue Kategorie '$!message.text($beanToAdd.name)' einsortiert werden?</strong><br>
+				<input type="hidden" name="questionConfirmed" value="true"/>
+				<input type="button" id="button.resortYes" value="Ja"/> &nbsp;
+        		<input type="button" id="button.resortNo" value="Nein"/> &nbsp;
+        	</vera-confirm>
+    	#end
 		
 		<input type="hidden" name="limit" value="" />
 		<input type="hidden" name="start" value="">
 		#if($grants.isAdmin() || $grants.isPartialAdmin())
-		<input type="hidden" name="selectNone" value="true">
-		<input type="hidden" name="doInsert" value="true">
-		<input type="hidden" name="doUpdate" value="true">
-		<input type="hidden" name="doRemove" value="true">
-		<input type="hidden" name="modified" id="modified" value="false">
+    		<input type="hidden" name="selectNone" value="true">
+    		<input type="hidden" name="doInsert" value="true">
+    		<input type="hidden" name="doUpdate" value="true">
+    		<input type="hidden" name="doRemove" value="true">
+    		<input type="hidden" name="modified" id="modified" value="false">
 		#end
 		#if($order)
 		<input type="hidden" name="order" value="$order">
 		#end
 		#if($grants.isAdmin() || $grants.isPartialAdmin())
-		<input type="hidden" id="dosave" name="dosave" value="">
-		<input type="hidden" id="resort" name="resort" value="false">
+    		<input type="hidden" id="dosave" name="dosave" value="">
+    		<input type="hidden" id="resort" name="resort" value="false">
 		#end
 		
 		#if($grants.isAdmin() || $grants.isPartialAdmin())
@@ -109,22 +75,22 @@
 		
 		#if($grants.isAdmin() || $grants.isPartialAdmin())
 			<tr>
-				<td class="textCenter"><input type="hidden" id="add-modified" name="add-modified" value="false"><input type="checkbox" id="add-select" name="add-select" value="true" style="display: none;" ></td>
+				<td class="textCenter"><input type="hidden" id="add-modified" name="add-modified" #if($beanToAdd) value="true" #else value="false" #end/><input type="checkbox" id="add-select" name="add-select" value="true" style="display: none;" ></td>
 				<td class="textCenter"><input type="hidden" name="add-id" value=""><em>neu</em></td>
-				<td><input type="text" name="add-name" id="add-name" maxlength="200" value="" onchange="setModified('add')"></td>
+				<td><input type="text" name="add-name" id="add-name" maxlength="200" #if($beanToAdd) value="$!message.text($beanToAdd.name)" #else value="" #end onchange="setModified('add')"></td>
 				<td>
 					<select id="add-flags" name="add-flags" onchange="setModified('add')">
-						<option value="0">Kategorie</option>
-						<option value="1">Ereignis</option>
-						<option value="99">Diplo. Corps</option>
+						<option value="0" #if($beanToAdd && $beanToAdd.flags && $beanToAdd.flags == 0) selected #end>Kategorie</option>
+						<option value="1" #if($beanToAdd && $beanToAdd.flags && $beanToAdd.flags == 1) selected #end>Ereignis</option>
+						<option value="99" #if($beanToAdd && $beanToAdd.flags && $beanToAdd.flags == 99) selected #end>Diplo. Corps</option>
 					</select>
 				</td>
-				<td><input type="text" name="add-rank" id="add-rank" value="" onchange="setModified('add')"></td>
+				<td><input type="text" name="add-rank" id="add-rank" #if($beanToAdd) value="$!message.text($beanToAdd.rank)" #else value="" #end onchange="setModified('add')"></td>
 				<td>
 					<select id="add-event" name="add-event" onchange="setModified('add'); ">
 					<option value="">F&uuml;r alle Veranstaltungen</option>
 					#foreach($event in $allEvent)
-						<option value="$!event.id">$!message.plain($event.shortname)</option>
+						<option #if($beanToAdd && $beanToAdd.event && $beanToAdd.event == $event.id) selected#end value="$!event.id">$!message.plain($event.shortname)</option>
 					#end
 					</select>
 				</td>
@@ -182,7 +148,7 @@
 				<td colspan="99">Es wurden keine Daten gefunden</td>
 			</tr>
 		#end
-		#set($itemName = "Kategorie")
+		#set($itemName = "Kategorien")
 		#parse("inc/list-navi-new.vm")
 		#parse("inc/list-direct-new.vm")
 		</table>
@@ -197,4 +163,25 @@
 			#end
 	</form>
 </div>
+
+<script>
+    $(function() {		
+		$('#button\\.resortYes').click(function (e) {
+			$('#resort').val('true');
+			$('form')
+				.append('<input type="hidden" name="save" value="true" />')
+				.prop('action', 'SaveCategories')
+				.submit();
+		});
+		$('#button\\.resortNo').click(function (e) {
+			$('#resort').val('false');
+			$('form')
+				.append('<input type="hidden" name="save" value="true" />')
+				.prop('action', 'SaveCategories')
+				.submit();
+		});
+    });
+</script>
+
+
 #parse("inc/footer.vm")
