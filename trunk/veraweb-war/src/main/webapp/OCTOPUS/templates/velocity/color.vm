@@ -63,8 +63,8 @@
 				#set($rgb = $rgb - ($g * 256))
 				#set($b = $rgb)
 				<tr>
-					<td><input type="text" name="color1-name" value="$!message.text($color1.name)" onchange="setModified('color1')"></td>
-					<td><input type="text" name="color1-rgb" value="$!r $!g $!b" onchange="setModified('color1')"></td>
+					<td><input type="text" name="color1-name" maxlength="100" value="$!message.text($color1.name)" onchange="setModified('color1')"></td>
+					<td><input type="text" name="color1-rgb" maxlength="11" value="$!r $!g $!b" onchange="setModified('color1')"></td>
 				</tr>
 				#else
 				<tr>

@@ -143,7 +143,7 @@
                 	</tr>
                 	<tr>
                 		<td class="bold width25">Freitextfeld-Verbinder:</td>
-                		<td><input type="text" name="freitextfeldverbinder" value="$!message.plain($config.freitextfeldverbinder)" ></td>
+                		<td><input type="text" name="freitextfeldverbinder" maxlength="300" value="$!message.plain($config.freitextfeldverbinder)" ></td>
                 	</tr>
                 	<tr>
                 		<td class="bold width25">Freitextfeld (Anzeige):</td>
@@ -175,43 +175,43 @@
                 <table class="marginBottom20">
                 	<tr>
                 		<td class="bold width25">Hauptperson:</td>
-                		<td><input type="text" name="main" value="$!message.text($config.main)" ></td>
+                		<td><input type="text" name="main" maxlength="300" value="$!message.text($config.main)" ></td>
                 	</tr>
                 	<tr>
                 		<td class="bold width25">Partner:</td>
-                		<td><input type="text" name="partner" value="$!message.text($config.partner)" ></td>
+                		<td><input type="text" name="partner" maxlength="300" value="$!message.text($config.partner)" ></td>
                 	</tr>
                 	<tr>
                 		<td class="bold width25">Anschrift Gesch&auml;ftlich:</td>
-                		<td><input type="text" name="business" value="$!message.text($config.business)" ></td>
+                		<td><input type="text" name="business" maxlength="300" value="$!message.text($config.business)" ></td>
                 	</tr>
                 	<tr>
                 		<td class="bold width25">Anschrift Privat:</td>
-                		<td><input type="text" name="private" value="$!message.text($config.private)" ></td>
+                		<td><input type="text" name="private" maxlength="300" value="$!message.text($config.private)" ></td>
                 	</tr>
                 	<tr>
                 		<td class="bold width25">Anschrift Weitere:</td>
-                		<td><input type="text" name="other" value="$!message.text($config.other)" ></td>
+                		<td><input type="text" name="other" maxlength="300" value="$!message.text($config.other)" ></td>
                 	</tr>
                 	<tr>
                 		<td class="bold width25">Zeichensatz Latein:</td>
-                		<td><input type="text" name="latin" value="$!message.text($config.latin)" ></td>
+                		<td><input type="text" name="latin" maxlength="300" value="$!message.text($config.latin)" ></td>
                 	</tr>
                 	<tr>
                 		<td class="bold width25">Zeichensatz Alternative 1:</td>
-                		<td><input type="text" name="extra1" value="$!message.text($config.extra1)" ></td>
+                		<td><input type="text" name="extra1" maxlength="300" value="$!message.text($config.extra1)" ></td>
                 	</tr>
                 	<tr>
                 		<td class="bold width25">Zeichensatz Alternative 2:</td>
-                		<td><input type="text" name="extra2" value="$!message.text($config.extra2)" ></td>
+                		<td><input type="text" name="extra2" maxlength="300" value="$!message.text($config.extra2)" ></td>
                 	</tr>
                 	<tr>
                 		<td class="bold width25">Adresszusatz 1:</td>
-                		<td><input type="text" name="suffix1" value="$!message.text($config.suffix1)" ></td>
+                		<td><input type="text" name="suffix1" maxlength="300" value="$!message.text($config.suffix1)" ></td>
                 	</tr>
                 	<tr>
                 		<td class="bold width25">Adresszusatz 2:</td>
-                		<td><input type="text" name="suffix2" value="$!message.text($config.suffix2)" ></td>
+                		<td><input type="text" name="suffix2" maxlength="300" value="$!message.text($config.suffix2)" ></td>
                 	</tr>
                 </table>
             </div>
@@ -221,7 +221,7 @@
                 <table class="marginBottom20">
                 	<tr>
                 		<td class="bold width25">Hilfe-Link:</td>
-                		<td><input type="text" name="helplink" value="$!message.text($config.helplink)" ></td>
+                		<td><input type="text" name="helplink" maxlength="300" value="$!message.text($config.helplink)" ></td>
                 	</tr>
                 	<tr>
                 		<td class="bold width25">Hilfe-Fenster:</td>
@@ -243,7 +243,7 @@
                 <table class="marginBottom20">
                 	<tr>
                 		<td class="bold width25">Fax-DN (@fax.aa):</td>
-                		<td><input type="text" name="faxdomain" value="$!message.text($config.faxdomain)" ></td>
+                		<td><input type="text" name="faxdomain" maxlength="300" value="$!message.text($config.faxdomain)" ></td>
                 	</tr>
                 </table>
             </div>
@@ -259,7 +259,7 @@
                 		<td class="bold width50">Vorhaltezeit der Protokolldaten (Jahre/Monate/Tage):</td>
                 		<td>
                 		<input type="hidden" name="changeLogRetentionPolicy" id="changeLogRetentionPolicyValue" value="$!message.text($config.changeLogRetentionPolicy.toString())"  vera-disabled style="width: 80px;">
-                		<input type="text" id="changeLogRetentionPolicyDisplay" value="$!message.text($config.changeLogRetentionPolicy.toFormattedString( '%Y%M%D' ))"  vera-disabled style="background-color: #f0f0f0;width: 200px;">
+                		<input type="text" maxlength="300" id="changeLogRetentionPolicyDisplay" value="$!message.text($config.changeLogRetentionPolicy.toFormattedString( '%Y%M%D' ))"  vera-disabled style="background-color: #f0f0f0;width: 200px;">
                 		<span id="show-changeLogRetentionPolicy" class="datepickerContainer"><img src="${paths.staticWeb}images/calendar.png"></span>
                 		<link rel="stylesheet" type="text/css" href="${paths.staticWeb}styles/dialog.css">
                 		<script type="text/javascript" src="${paths.staticWeb}scripts/Duration.js"></script>
