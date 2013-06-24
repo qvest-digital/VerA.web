@@ -211,10 +211,12 @@ public class PersonDoctypeWorker extends ListWorkerVeraWeb {
 		Database database = new DatabaseVeraWeb(cntx);
 		
 		PersonDoctype personDoctype = (PersonDoctype)request.getBean("PersonDoctype", "persondoctype");
-        database.saveBean(personDoctype);
-		cntx.setContent("persondoctype-id", personDoctype.id);
 		
-		WorkerFactory.getPersonDetailWorker(cntx).updatePerson(cntx, null, personDoctype.person);
+		if(personDoctype.isCorrect()) {
+		    database.saveBean(personDoctype);
+		    cntx.setContent("persondoctype-id", personDoctype.id);
+		    WorkerFactory.getPersonDetailWorker(cntx).updatePerson(cntx, null, personDoctype.person);
+		}
 	}
 
     /** Eingabe-Parameter der Octopus-Aktion {@link #createAll(OctopusContext)} */
