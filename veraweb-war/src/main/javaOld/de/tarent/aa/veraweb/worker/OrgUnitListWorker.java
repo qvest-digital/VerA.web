@@ -20,14 +20,12 @@
 package de.tarent.aa.veraweb.worker;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import de.tarent.aa.veraweb.beans.OrgUnit;
-import de.tarent.aa.veraweb.beans.WorkArea;
 import de.tarent.dblayer.sql.clause.Clause;
 import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.clause.RawClause;
@@ -37,7 +35,6 @@ import de.tarent.octopus.beans.Bean;
 import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.beans.Database;
 import de.tarent.octopus.beans.TransactionContext;
-import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
 import de.tarent.octopus.beans.veraweb.ListWorkerVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
 
@@ -78,24 +75,28 @@ public class OrgUnitListWorker extends ListWorkerVeraWeb {
     @Override
     protected int insertBean(OctopusContext cntx, List errors, Bean bean, TransactionContext context) throws BeanException, IOException {
     	int count = 0;
-        if (bean.isModified() && bean.isCorrect()) {
-            if (bean instanceof OrgUnit) {
-                OrgUnit orgunitBean = (OrgUnit) bean;
-                if (orgunitBean.id != null) {
-                    errors.add("Einzufügender Mandant darf keine ID haben");
-                    return count;
+        if (bean.isModified()) {
+            if (bean.isCorrect()) {
+                if (bean instanceof OrgUnit) {
+                    OrgUnit orgunitBean = (OrgUnit) bean;
+                    if (orgunitBean.id != null) {
+                        errors.add("Einzufügender Mandant darf keine ID haben");
+                        return count;
+                    }
+                    Database database = context.getDatabase();
+                    OrgUnit dupBean = (OrgUnit) database.getBean("OrgUnit",
+                            database.getSelect("OrgUnit").
+                            where(Expr.equal("unitname", orgunitBean.name)), context);
+                    if (dupBean != null) {
+                        errors.add("Einzufügender Mandant '" + orgunitBean.name + "' existiert bereits.");
+                        return count;
+                    }
                 }
-                Database database = context.getDatabase();
-                OrgUnit dupBean = (OrgUnit) database.getBean("OrgUnit",
-                        database.getSelect("OrgUnit").
-                        where(Expr.equal("unitname", orgunitBean.name)), context);
-                if (dupBean != null) {
-                    errors.add("Einzufügender Mandant " + orgunitBean.name + " existiert bereits.");
-                    return count;
-                }
+                saveBean(cntx, bean, context);
+                count++;
+            } else {
+                errors.addAll(bean.getErrors());
             }
-            saveBean(cntx, bean, context);
-            count++;
         }
         return count;
     }
@@ -117,29 +118,31 @@ public class OrgUnitListWorker extends ListWorkerVeraWeb {
     	int count = 0;
         for (Iterator it = beanlist.iterator(); it.hasNext(); ) {
             Bean bean = (Bean)it.next();
-            if (bean.isModified() && bean.isCorrect()) {
-                if (bean instanceof OrgUnit) {
-                    OrgUnit orgunitBean = (OrgUnit) bean;
-                    if (orgunitBean.id == null) {
-                        errors.add("Zu aktualisierender Mandant " + orgunitBean.name + " muss eine ID haben");
-                        continue;
+            if (bean.isModified()) {
+                if (bean.isCorrect()) {
+                    if (bean instanceof OrgUnit) {
+                        OrgUnit orgunitBean = (OrgUnit) bean;
+                        if (orgunitBean.id == null) {
+                            errors.add("Zu aktualisierender Mandant " + orgunitBean.name + " muss eine ID haben");
+                            continue;
+                        }
+                        Database database = context.getDatabase();
+                        OrgUnit dupBean = (OrgUnit) database.getBean("OrgUnit",
+                                database.getSelect("OrgUnit").
+                                where(Where.and(
+                                        Expr.equal("unitname", orgunitBean.name),
+                                        Expr.notEqual("pk", orgunitBean.id))), context);
+                        if (dupBean != null) {
+                            errors.add("Ein Mandant mit Namen " + orgunitBean.name + " existiert bereits.");
+                            continue;
+                        }
                     }
-                    Database database = context.getDatabase();
-                    OrgUnit dupBean = (OrgUnit) database.getBean("OrgUnit",
-                            database.getSelect("OrgUnit").
-                            where(Where.and(
-                                    Expr.equal("unitname", orgunitBean.name),
-                                    Expr.notEqual("pk", orgunitBean.id))), context);
-                    if (dupBean != null) {
-                        errors.add("Ein Mandant mit Namen " + orgunitBean.name + " existiert bereits.");
-                        continue;
-                    }
+                    saveBean(cntx, bean, context);
+                    count++;
+                } else {
+                    errors.addAll(bean.getErrors());
                 }
-                saveBean(cntx, bean, context);
-                count++;
-            } else if (bean.isModified()) {
-                errors.addAll(bean.getErrors());
-            }
+            } 
         }
         return count;
     }
