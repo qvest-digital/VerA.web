@@ -109,7 +109,6 @@ public class ColorWorker {
 		Color color3 = (Color)request.getBean("Color", "color3");
 		Color color4 = (Color)request.getBean("Color", "color4");
 		
-//		removeColor(database);
 		saveColor(database, new Integer(1), color1, errors);
 		saveColor(database, new Integer(2), color2, errors);
 		saveColor(database, new Integer(3), color3, errors);
@@ -135,7 +134,6 @@ public class ColorWorker {
 			if (color.isCorrect()) {
 				database.saveBean(color);
 			} else {
-//				database.execute(database.getDelete(color));
 				errors.addAll(color.getErrors());
 			}
 		}
