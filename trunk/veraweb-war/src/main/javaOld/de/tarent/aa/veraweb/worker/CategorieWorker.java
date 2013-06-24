@@ -20,6 +20,7 @@
 package de.tarent.aa.veraweb.worker;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 
 import de.tarent.aa.veraweb.beans.Categorie;
@@ -88,8 +89,9 @@ public class CategorieWorker extends StammdatenWorker {
 	@Override
     protected void extendWhere(OctopusContext cntx, Select select) throws BeanException, IOException {
 		Clause orgUnitTest = getWhere(cntx);
-		if (orgUnitTest != null)
+		if (orgUnitTest != null) {
 			select.where(orgUnitTest);
+		}
 	}
 
 	@Override
@@ -107,11 +109,9 @@ public class CategorieWorker extends StammdatenWorker {
 	}
 
 	@Override
-	public void getAll(OctopusContext cntx) throws BeanException, IOException
-	{
+	public void getAll(OctopusContext cntx) throws BeanException, IOException {
 		Integer count = cntx.requestAsInteger( "count" );
-		if ( count != null )
-		{
+		if ( count != null ) {
 			cntx.setContent( "count", count );
 		}
 		
@@ -128,8 +128,7 @@ public class CategorieWorker extends StammdatenWorker {
 	 */
 	public static String[] INPUT_getAllAvailablePersonCategories = {};
 	public static String[] MANDATOR_getAllAvailablePersonCategories = {};
-	public void getAllAvailablePersonCategories( OctopusContext cntx ) throws BeanException, IOException
-	{
+	public void getAllAvailablePersonCategories( OctopusContext cntx ) throws BeanException, IOException {
 		Database database = getDatabase(cntx);
 		Select select = database.getSelect(BEANNAME);
 		extendColumns(cntx, select);
@@ -137,8 +136,7 @@ public class CategorieWorker extends StammdatenWorker {
 		select.whereAnd( Expr.isNull( "fk_event" ) );
 
 		Integer count = cntx.requestAsInteger( "count" );
-		if ( count != null )
-		{
+		if ( count != null ) {
 			cntx.setContent( "count", count );
 		}
 
@@ -156,32 +154,28 @@ public class CategorieWorker extends StammdatenWorker {
 		}
 
 		Event event = (Event)cntx.contentAsObject("event");
-		Integer eventId = cntx.requestAsInteger( "eventId" );
-		if ( eventId.intValue() == 0 )
-		{
-			if ( event != null )
-			{
+		Integer eventId = cntx.requestAsInteger("eventId");
+		if (eventId.intValue() == 0) {
+			if (event != null) {
 				eventId = event.id;
-			}
-			else
-			{
+			} else {
 				eventId = null;
 			}
 		}
-		if ( eventId != null ) {
+		if (eventId != null) {
 			clause = Where.or(
-				Expr.isNull( "fk_event" ),
-				Expr.equal( "fk_event", eventId )
+				Expr.isNull("fk_event"),
+				Expr.equal("fk_event", eventId)
 			);
 		}
 
 		Clause orgUnitTest = getWhere(cntx);
-        if (orgUnitTest != null)
+        if (orgUnitTest != null) {
         	clause = clause == null ? orgUnitTest : Where.and(orgUnitTest, clause);
-        
-        if (clause != null)
+        }
+        if (clause != null) {
             select.where(clause);
-
+        }
 	}
 
 	@Override
@@ -217,38 +211,39 @@ public class CategorieWorker extends StammdatenWorker {
 	 * @throws IOException
 	 */
 	@Override
-    public void saveList(OctopusContext cntx) throws BeanException, IOException
-	{
+    public void saveList(OctopusContext cntx) throws BeanException, IOException {
 		super.saveList( cntx );
 	}
 
 	@Override
-    protected int insertBean(OctopusContext cntx, List errors, Bean bean, TransactionContext context) throws BeanException, IOException
-	{
+    protected int insertBean(OctopusContext cntx, List errors, Bean bean, TransactionContext context) throws BeanException, IOException {
 		int count = 0;
-		if (bean.isModified() && bean.isCorrect())
-		{
-			Database database = context.getDatabase();
-
-			Clause sameOrgunit = getWhere(cntx);
-			Clause sameName = Expr.equal(database.getProperty(bean, "name"), bean.getField("name"));
-			Clause sameCategorie = sameOrgunit == null ? sameName : Where.and(sameOrgunit, sameName);
-
-			Integer exist = database.getCount(database.getCount(bean).where(sameCategorie),context);
-
-			if (exist.intValue() != 0)
-			{
-				errors.add("Es existiert bereits ein Stammdaten-Eintrag unter dem Namen '" + bean.getField("name") + "'.");
-			} else
-			{
-				saveBean(cntx, bean, context);
-				count++;
-			}
-		} else if (bean.isModified() && !bean.isCorrect())
-		{
-
-			errors.addAll(bean.getErrors());
-
+		if (bean.isModified()) {
+		    if (bean.isCorrect()) {
+    			Database database = context.getDatabase();
+    
+    			Clause sameOrgunit = getWhere(cntx);
+    			Clause sameName = Expr.equal(database.getProperty(bean, "name"), bean.getField("name"));
+    			Clause sameCategorie = sameOrgunit == null ? sameName : Where.and(sameOrgunit, sameName);
+    			Integer exist = database.getCount(database.getCount(bean).where(sameCategorie),context);
+    			
+    			List groups = Arrays.asList(cntx.personalConfig().getUserGroups());
+    	        boolean admin = groups.contains(PersonalConfigAA.GROUP_ADMIN) || groups.contains(PersonalConfigAA.GROUP_PARTIAL_ADMIN);
+    
+    			if (exist.intValue() != 0) {
+    			    cntx.getContentObject().setField("beanToAdd", bean);
+    				errors.add("Es existiert bereits ein Stammdaten-Eintrag unter dem Namen '" + bean.getField("name") + "'.");
+    			} else if (admin && !cntx.requestAsBoolean("questionConfirmed").booleanValue()) {
+    			    cntx.getContentObject().setField("beanToAdd", bean);
+    			    cntx.getContentObject().setField("resortQuestion", true);
+    			} else {
+    			    saveBean(cntx, bean, context);
+                    count++;
+    			}
+		    } else {
+    		    cntx.getContentObject().setField("beanToAdd", bean);
+    			errors.addAll(bean.getErrors());
+		    }
 		}
 		return count;
 	}
@@ -261,13 +256,11 @@ public class CategorieWorker extends StammdatenWorker {
 	 * @param bean
 	 * @throws BeanException
 	 */
-	protected void incorporateBean(OctopusContext cntx, Categorie bean, TransactionContext context) throws BeanException
-	{
+	protected void incorporateBean(OctopusContext cntx, Categorie bean, TransactionContext context) throws BeanException {
 		assert bean != null; 
 		assert cntx != null;
 		
-		if (bean.rank != null)
-		{
+		if (bean.rank != null) {
 			context.execute(SQL.Update( context.getDatabase() ).
 				table("veraweb.tcategorie").
 				update("rank", new RawClause("rank + 1")).
@@ -277,13 +270,10 @@ public class CategorieWorker extends StammdatenWorker {
 	
 	
 	@Override
-    protected void saveBean(OctopusContext cntx, Bean bean, TransactionContext context) throws BeanException, IOException
-	{
+    protected void saveBean(OctopusContext cntx, Bean bean, TransactionContext context) throws BeanException, IOException {
 		((Categorie) bean).orgunit = ((PersonalConfigAA) (cntx.personalConfig())).getOrgUnitId();
-		if (bean.isModified() && bean.isCorrect())
-		{
-			if (((Categorie) bean).rank != null && cntx.requestAsBoolean("resort").booleanValue())
-			{
+		if (bean.isModified() && bean.isCorrect()) {
+			if (((Categorie) bean).rank != null && cntx.requestAsBoolean("resort").booleanValue()) {
 				incorporateBean(cntx, (Categorie) bean, context);
 			}
 		}
