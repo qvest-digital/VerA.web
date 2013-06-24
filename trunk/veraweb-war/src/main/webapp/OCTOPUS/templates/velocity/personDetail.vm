@@ -157,7 +157,7 @@
 	<h1>$title</h1>
 
     #if($createNewPerson || !$personDB)
-			#if($octopusRequest.forcedupcheck == "true")
+			#if($octopusRequest.forcedupcheck == "true" && $errors.isEmpty())
             <vera-success>
 				Es wurden keine Dubletten gefunden. Sie k&ouml;nnen jetzt weitere Daten eingeben und die Daten speichern.
             </vera-success>
