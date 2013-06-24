@@ -291,11 +291,14 @@ public class ProxyListWorker extends ListWorkerVeraWeb {
     @Override
     protected int insertBean(OctopusContext cntx, List errors, Bean bean, TransactionContext context ) throws BeanException, IOException {
         int count = 0;
-        if (bean.isModified() && bean.isCorrect()) {
-            saveBean(cntx, bean, context);
-            count++;
+        if (bean.isModified()) {
+            if (bean.isCorrect()) {
+                saveBean(cntx, bean, context);
+                count++;
+            } else{
+                errors.addAll(bean.getErrors());
+            }
         }
-        errors.addAll(bean.getErrors());
         return count;
     }
 
