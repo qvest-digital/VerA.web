@@ -52,7 +52,7 @@
 			<select id="add-categorie" name="add-categorie" style="width:100%;" onchange="setModified('add')" #if(!$grants.mayWrite()) vera-disabled#end>
 				<option value="">Bitte w&auml;hlen sie</option>
 				#foreach($categorie in $allCategorie)
-					<option value="$!categorie.id">$!message.text($!categorie.name)</option>
+					<option value="$!categorie.id">$!message.plain($categorie.name)</option>
 				#end
 			</select>
 		</td>
