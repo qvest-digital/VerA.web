@@ -488,7 +488,7 @@
 				#if($grants.mayWrite())
 					<input type="submit" name="save" value="Speichern" title="Speichern" class="mainButton" />
 				#end
-                <input type="button" name="cancel" value="Zur&uuml;ck zu den Veranstaltungdetails" title="Zur&uuml;ck zu den Veranstaltungdetails" class="mainButton" onclick="window.location.href='ShowEvent?id=$!event.id&action=event';" />
+                <input type="button" name="cancel" value="Zur&uuml;ck zu den Veranstaltungsdetails" title="Zur&uuml;ck zu den Veranstaltungsdetails" class="mainButton" onclick="window.location.href='ShowEvent?id=$!event.id&action=event';" />
         	</div>			
             
             </form>
