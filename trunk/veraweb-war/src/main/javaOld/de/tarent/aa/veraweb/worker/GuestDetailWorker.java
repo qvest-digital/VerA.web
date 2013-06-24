@@ -414,7 +414,7 @@ public class GuestDetailWorker extends GuestListWorker {
 				}
 			}
 			
-			//SCENARIO 3 - The seat (or table and seat) of the partner is already reserved by another partner
+			//SCENARIO 4 - The seat (or table and seat) of the partner is already reserved by another partner
 			if (guest.seatno_b != null && guest.seatno_b > 0) {
 				if (guest.tableno_b == null || guest.tableno_b.intValue() == 0) {
 
@@ -476,11 +476,11 @@ public class GuestDetailWorker extends GuestListWorker {
 		return duplicatePersonResult;
 	}
 
-	private String getDuplicateSeatErrorMessage(Person duplicatePerson, String changeSeatFor, String collidesWithSeatOfTheCurrent){
+	private String getDuplicateSeatErrorMessage(Person duplicatePerson, String changeSeatFor, String collidesWithSeatOf){
 		return "Bitte ändern Sie erst den Sitzplatz bei " + changeSeatFor + " von "
 				+ duplicatePerson.firstname_a_e1 + " " + duplicatePerson.lastname_a_e1
 				+ " (" + duplicatePerson.id	+ ") über die Gästeliste. Diese Person sitzt aktuell auf "
-				+ "dem eingegebenen Sitzplatz " + collidesWithSeatOfTheCurrent + ". Die Änderung wurde nicht gespeichert.";
+				+ "dem eingegebenen Sitzplatz " + collidesWithSeatOf + ". Die Änderung wurde nicht gespeichert.";
 	}
 
 	/** Eingabe-Parameter der Octopus-Aktion {@link #showTestGuest(OctopusContext)} */
