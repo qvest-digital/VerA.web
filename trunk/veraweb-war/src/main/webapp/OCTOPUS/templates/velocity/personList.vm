@@ -336,7 +336,7 @@ $(function () {
             #end
             var checkBoxes = $('input:checkbox[name$="-select"]:checked');
             if (checkBoxes.length === 0) {
-                showInfo('W&auml;hlen Sie bitte zun&auml;chst eine oder mehrere Personen aus.');
+                showWarning('W&auml;hlen Sie bitte zun&auml;chst eine oder mehrere Personen aus.');
             } else {
                 // get array of selected person ids
                 var ids = checkBoxes.map(function () {
