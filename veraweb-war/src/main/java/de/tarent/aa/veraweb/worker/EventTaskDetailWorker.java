@@ -169,7 +169,7 @@ public class EventTaskDetailWorker {
 			Task oldTask = (Task) database.getBean("Task", task.getId(),
 					context);
 
-			/** Veranstaltung speichern */
+			/** Aufgabe speichern */
 			if (task.isModified() && task.isCorrect()) {
 				BeanChangeLogger clogger = new BeanChangeLogger(database,
 						context);

@@ -32,7 +32,7 @@
 		<div class="tableRow">
 		<div class="tableCell width50">
 			<label for="persondoctype-textfieldJoin">Verbinder</label>
-			<input type="text" id="persondoctype-textfieldJoin" name="persondoctype-textfieldJoin" value="$!message.text($persondoctype.textfieldJoin)" #if($grants.mayWrite())  #else class="textdisabled" vera-disabled #end></textarea>
+			<input type="text" id="persondoctype-textfieldJoin" maxlength="51" name="persondoctype-textfieldJoin" value="$!message.text($persondoctype.textfieldJoin)" #if($grants.mayWrite())  #else class="textdisabled" vera-disabled #end></textarea>
 		</div>
 	<div class="tableCell width50">
 		<label for="persondoctype-addresstype">Anschrift</label>

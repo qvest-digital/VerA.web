@@ -109,8 +109,9 @@ public class PersonDoctype extends AbstractBean {
     public void verify() throws BeanException {
         if (addresstype == null)
             addresstype = new Integer(PersonConstants.ADDRESSTYPE_BUSINESS);
-        if (locale == null)
+        if (locale == null) {
             locale = new Integer(PersonConstants.LOCALE_LATIN);
+        }
 		if ( textfieldJoin != null && textfieldJoin.length() > 50 )
 		{
 			addError( "Der Verbinder darf maximal 50 Zeichen lang sein." );
