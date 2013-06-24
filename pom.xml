@@ -5,7 +5,7 @@
 	<groupId>org.evolvis.veraweb</groupId>
 	<artifactId>veraweb-evolvis-parent</artifactId>
 	<packaging>pom</packaging>
-	<version>1.4</version>
+	<version>1.4.1-SNAPSHOT</version>
 
 	<name>veraweb-evolvis-parent</name>
 	<description>Veranstaltungsmanagment VerA.web</description>
@@ -37,13 +37,13 @@
 
 	<scm>
 		<connection>
-			scm:svn:svn://evolvis.org/svnroot/veraweb/tags/veraweb-evolvis-parent-1.4/trunk
+			scm:svn:svn://evolvis.org/svnroot/veraweb/trunk
 		</connection>
 		<developerConnection>
-			scm:svn:svn+ssh://maven@evolvis.org/svnroot/veraweb/tags/veraweb-evolvis-parent-1.4/trunk
+			scm:svn:svn+ssh://maven@evolvis.org/svnroot/veraweb/trunk
 		</developerConnection>
 		<url>
-			https://evolvis.org/scm/viewvc.php/tags/veraweb-evolvis-parent-1.4/?root=veraweb?root=veraweb
+			https://evolvis.org/scm/viewvc.php/?root=veraweb
 		</url>
 	</scm>
 
