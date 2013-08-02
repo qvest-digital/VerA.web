@@ -3,12 +3,20 @@ Section: java
 Priority: optional
 Maintainer: Debian Java Maintainers <pkg-java-maintainers@lists.alioth.debian.org>
 Uploaders: Sascha Girrulat <sascha@girrulat.de>
-Build-Depends: debhelper (>= 7), cdbs, default-jdk, maven-debian-helper (>= 1.5), maven2
-Build-Depends-Indep: libservlet2.5-java, junit4, default-jdk-doc, libservlet2.5-java-doc, libmaven-javadoc-plugin-java 
+Build-Depends: debhelper (>= 7),
+ cdbs, default-jdk,
+ maven-debian-helper (>= 1.5),
+Build-Depends-Indep: libservlet2.5-java,
+ junit4, default-jdk-doc,
+ libservlet2.5-java-doc,
+ libmaven-javadoc-plugin-java,
+ maven2,
+ libmaven-war-plugin-java,
+ libmaven-ear-plugin-java,
 Standards-Version: 3.9.4
 Vcs-Svn: svn://svn.debian.org/svn/pkg-java/trunk/veraweb
 Vcs-Browser: http://svn.debian.org/wsvn/pkg-java/trunk/veraweb
-Homepage: http://veraweb.evolvis.org/ 
+Homepage: http://veraweb.evolvis.org/
 
 Package: libveraweb-java
 Architecture: all
