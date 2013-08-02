@@ -20,7 +20,8 @@ Homepage: http://veraweb.evolvis.org/
 
 Package: libveraweb-java
 Architecture: all
-Depends: ${misc:Depends}, ${maven:Depends}
+Depends: ${misc:Depends}, ${maven:Depends},
+ tomcat7
 Recommends: ${maven:OptionalDepends}
 Suggests: libveraweb-java-doc
 Description: veraweb-evolvis-parent
