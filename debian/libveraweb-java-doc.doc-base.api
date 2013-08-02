@@ -8,5 +8,3 @@ Section: Programming
 Format: HTML
 Index: /usr/share/doc/libveraweb-java/veraweb-war/index.html
 Files: /usr/share/doc/libveraweb-java/veraweb-war/*
-Index: /usr/share/doc/libveraweb-java/veraweb-ear/index.html
-Files: /usr/share/doc/libveraweb-java/veraweb-ear/*

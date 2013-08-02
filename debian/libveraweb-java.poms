@@ -27,4 +27,3 @@
 #
 pom.xml --has-package-version --no-rules
 veraweb-war/pom.xml --has-package-version --no-rules
-veraweb-ear/pom.xml --has-package-version --no-rules
