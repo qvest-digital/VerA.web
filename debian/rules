@@ -9,5 +9,8 @@ JAVA_HOME := /usr/lib/jvm/default-java
 DEB_MAVEN_DOC_TARGET := javadoc:jar javadoc:aggregate
 DEB_PATCHPOMS_ARGS := --no-rules
 
+after-mvn-build::
+	mvn install:install-file -DgroupId=org.evolvis.veraweb -DartifactId=veraweb-war -Dversion=$(DEB_VERSION) -Dpackaging=war -Dfile=veraweb-war/target/veraweb.war -Dmaven.repo.local=$(DEB_MAVEN_REPO)
+
 get-orig-source:
 	uscan --download-version $(DEB_UPSTREAM_VERSION) --force-download --rename
