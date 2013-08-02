@@ -7,6 +7,7 @@ include /usr/share/cdbs/1/class/maven.mk
 
 JAVA_HOME := /usr/lib/jvm/default-java
 DEB_MAVEN_DOC_TARGET := javadoc:jar javadoc:aggregate
+DEB_PATCHPOMS_ARGS := --no-rules
 
 get-orig-source:
 	uscan --download-version $(DEB_UPSTREAM_VERSION) --force-download --rename

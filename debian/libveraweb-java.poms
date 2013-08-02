@@ -25,6 +25,6 @@
 #   --site-xml=<location>: Optional, the location for site.xml if it needs to be installed.
 #     Empty by default. [mh_install]
 #
-pom.xml --has-package-version
-veraweb-war/pom.xml --has-package-version
-veraweb-ear/pom.xml --has-package-version
+pom.xml --has-package-version --no-rules
+veraweb-war/pom.xml --has-package-version --no-rules
+veraweb-ear/pom.xml --has-package-version --no-rules
