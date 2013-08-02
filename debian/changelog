@@ -1,5 +1,17 @@
-veraweb (1.4.1-SNAPSHOT-1) UNRELEASED; urgency=low
+veraweb (1.4.1-SNAPSHOT-1~3.gbp00bf19) UNRELEASED; urgency=low
+
+  ** SNAPSHOT build @00bf1945eae14b502c2a7e178b6353583f0599ee **
 
   * Initial release (Closes: #4400)
+  * [c6a8f28] add postgesql to package dependencys
+  * [a732fae] Update README.source - how to build
+  * [8159877] add dbsetup script.
+    Thanks to Volker Schmitz for contribution
+  * [ed5613a] pimp the dbsetup a bit and add a bunch of todos.
+  * [5a4d4a3] Do not check if a package is installed...maybe we are not a debian or whatever
+  * [7ba5fd6] Now we are more functional and a bit more robust.
+  * [700be4f] debian snapshot
+  * [917e5ec] Now we are more functional and a bit more robust.
+  * [00bf194] debian snapshot
 
  -- Sascha Girrulat <sascha@girrulat.de>  Wed, 24 Jul 2013 11:41:50 +0200
