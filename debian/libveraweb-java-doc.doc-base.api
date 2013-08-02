@@ -1,0 +1,12 @@
+Document: libveraweb-java
+Title: API Javadoc for veraweb-evolvis-parent
+Author: tarent solutions GmbH, Germany developers
+Abstract: This is the API Javadoc provided for the
+ libveraweb-java libraries.
+Section: Programming
+
+Format: HTML
+Index: /usr/share/doc/libveraweb-java/veraweb-war/index.html
+Files: /usr/share/doc/libveraweb-java/veraweb-war/*
+Index: /usr/share/doc/libveraweb-java/veraweb-ear/index.html
+Files: /usr/share/doc/libveraweb-java/veraweb-ear/*
