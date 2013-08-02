@@ -1,6 +1,5 @@
 veraweb (1.4.1-SNAPSHOT-1) UNRELEASED; urgency=low
 
-  * Initial release (Closes: #nnnn)  <nnnn is the bug number of your
-    ITP>
+  * Initial release (Closes: #4400)
 
  -- Sascha Girrulat <sascha@girrulat.de>  Wed, 24 Jul 2013 11:41:50 +0200
