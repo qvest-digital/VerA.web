@@ -13,6 +13,7 @@ Build-Depends-Indep: libservlet2.5-java,
  maven2,
  libmaven-war-plugin-java,
  libmaven-ear-plugin-java,
+ libmaven-clean-plugin-java,
 Standards-Version: 3.9.4
 Vcs-Svn: svn://svn.debian.org/svn/pkg-java/trunk/veraweb
 Vcs-Browser: http://svn.debian.org/wsvn/pkg-java/trunk/veraweb
