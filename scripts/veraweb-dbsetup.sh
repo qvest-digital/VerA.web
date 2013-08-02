@@ -1,25 +1,41 @@
 #!/bin/sh
+#
+# Setup the database for veraweb with postgesql
+#
+#
+# Authors : Volker Schmitz <v.schmitz@tarent.de>
+#           Sascha Girrulat <s.girrulat@tarent.de>
+#
+#
+# TODO: disable/enable pgpass
+# TODO: write own pgpass entry
+# TODO: user other user than veraweb
+# TODO: more functional programming
+# TODO: more documentation of steps and functions
+# TODO: simplify the conditionals
 
-# Todo
-# * disable/enable pgpass
-# * write own pgpass entry
-# * user other user than veraweb
-
-DIRECTORY='/opt/veraweb/install'
+# TODO: maybe this variables be sourced from /etc/defaults/veraweb
+DIRECTORY='/usr/share/libveraweb-java/'
 STOP=0
 USER='veraweb'
 PSQLOPTS='-q'
+SELF=$(basename $0)
 
 usage() {
-    echo "./veraweb-install.sh -a <ADMIN>"
-    echo
-    echo "  [-d]                  Install Directory (default: /opt/veraweb/install"
-    echo "* [-a]                  Set Admin User    (default: verawebadmin"
-    echo "* [-p]		      Set User Password for user veraweb"
-    echo
-    echo "* = required Parameter"
+    cat <<EOF
+Usage: $SELF -p <PASSWORD> [ -a <USER>, -d <DIRECTORY> ]
+
+  [-p]          Set User Password for user veraweb
+
+  Optional Parameters:
+
+    [-a]          Set Admin User    (default: verawebadmin)
+    [-d]          Install Directory (default: /usr/share/libveraweb-java/
+
+EOF
 }
 
+# TODO: maybe we use getopt it is more robust and works with all shells
 while getopts 'd:a:' OPTION; do
     case "$OPTION" in
         h|\?)           usage
@@ -32,6 +48,7 @@ while getopts 'd:a:' OPTION; do
     esac
 done
 
+# TODO: could we do an other check to be shure we are configured?
 if [ -e $DIRECTORY/.configured ]; then
     echo "PGSQL allready configured"
     exit 0
@@ -47,13 +64,13 @@ if [ $STOP -eq 1 ]; then
 fi
 
 #Checks if all files exist.
-FILE="$DIRECTORY/veraweb-schema.sql"
+FILE="$DIRECTORY/sql/veraweb-schema.sql"
 if [ ! -f $FILE ]; then
     echo "veraweb-schema.sql is missing"
     exit 1
 fi
 
-FILE="$DIRECTORY/veraweb-stammdaten.sql"
+FILE="$DIRECTORY/sql/veraweb-stammdaten.sql"
 if [ ! -f $FILE ]; then
     echo "veraweb-stammdaten.sql is missing"
     exit 1
