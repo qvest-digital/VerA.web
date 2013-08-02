@@ -1,19 +1,2 @@
 
-com.mycila.maven-license-plugin maven-license-plugin * * * *
-de.tarent.libraries tarent-commons * * * *
-de.tarent.octopus octopus-core * * * *
-de.tarent.octopus octopus-ext-annotation * * * *
-de.tarent.octopus octopus-ext-beans * * * *
-de.tarent.octopus octopus-ext-commons * * * *
-de.tarent.octopus octopus-ext-cronjobs * * * *
-de.tarent.octopus octopus-ext-jmx * * * *
-de.tarent.octopus octopus-servlet * * * *
-javax.activation activation * * * *
-javax.mail mail * * * *
-org.apache.maven.plugins maven-ear-plugin * * * *
-org.apache.maven.plugins maven-eclipse-plugin * * * *
-org.apache.maven.plugins maven-war-plugin * * * *
-org.codehaus.mojo build-helper-maven-plugin * * * *
-org.mockito mockito-core * * * *
-org.mortbay.jetty maven-jetty-plugin * * * *
-postgresql postgresql * * * *
+
