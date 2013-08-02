@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash -e
 #
 # Setup the database for veraweb with postgesql
 #
@@ -10,16 +10,16 @@
 # TODO: disable/enable pgpass
 # TODO: write own pgpass entry
 # TODO: user other user than veraweb
-# TODO: more functional programming
 # TODO: more documentation of steps and functions
-# TODO: simplify the conditionals
 
 # TODO: maybe this variables be sourced from /etc/defaults/veraweb
-DIRECTORY='/usr/share/libveraweb-java/'
+DIRECTORY='/usr/share/libveraweb-java'
 STOP=0
 USER='veraweb'
 PSQLOPTS='-q'
 SELF=$(basename $0)
+LOGGER=/usr/bin/logger
+
 
 usage() {
     cat <<EOF
@@ -33,6 +33,19 @@ Usage: $SELF -p <PASSWORD> [ -a <USER>, -d <DIRECTORY> ]
     [-d]          Install Directory (default: /usr/share/libveraweb-java/
 
 EOF
+}
+
+log(){
+    TAG=$1
+    MSG=$2
+    ${LOGGER} -s -t "${SELF}: ${TAG}: " "${MSG}"
+}
+
+err() {
+    TAG="ERROR"
+    MSG=$1
+    log ${TAG} ${MSG}
+    exit 1
 }
 
 # TODO: maybe we use getopt it is more robust and works with all shells
@@ -55,85 +68,92 @@ if [ -e $DIRECTORY/.configured ]; then
 fi
 
 if [ -z $ADMIN ]; then
-    echo "[-a] missing!"
-    STOP=1
+    err "[-a] missing, try --help!"
 fi
 
-if [ $STOP -eq 1 ]; then
-    echo; usage; exit 4
-fi
+check_sql_files() {
+    FILES="veraweb-schema veraweb-stammdaten"
+    for file in ${FILES}; do
+        if [ ! -f "${DIRECTORY}/sql/${file}.sql"  ]; then
+            err "${file}.sql is missing."
+        fi
+    done
+}
 
-#Checks if all files exist.
-FILE="$DIRECTORY/sql/veraweb-schema.sql"
-if [ ! -f $FILE ]; then
-    echo "veraweb-schema.sql is missing"
-    exit 1
-fi
+check_pg_conn(){
+    # Checks PG-Connection
+    if ! service postgresql status | grep -qi running; then
+        err "ERROR:"  "Ensure that postgresql is running"
+    elif ! grep -q veraweb /root/.pgpass; then
+        err "No pgpass entry for user veraweb"
+    elif ! psql $PSQLOPTS -U veraweb -h localhost -c "\q" >/dev/null 2>&1; then
+        err "User 'veraweb' can't connect to database"
+    fi
 
-FILE="$DIRECTORY/sql/veraweb-stammdaten.sql"
-if [ ! -f $FILE ]; then
-    echo "veraweb-stammdaten.sql is missing"
-    exit 1
-fi
+    return 0
+}
 
-#Checks PG-Connection
+check_admin_exists() {
+    check_user_exists ${ADMIN}
+    return $?
+}
 
-PGPROZESS=$(service postgresql status | grep -ic running)
-PGCONN=$(psql $PSQLOPTS -U veraweb -h localhost -c "\q" >/dev/null 2>&1; echo $?)
-PGPASS=$(grep -c veraweb /root/.pgpass)
+check_buildsequences() {
+    psql $PSQLOPTS -U veraweb -h localhost -c "SELECT veraweb.serv_build_sequences();"
+    return $?
+}
 
-if [ -z $PGPROZESS ]; then
-    echo "Ensure that postgresql is running"
-    exit 3
-fi
+check_user_exists() {
+    USER=$1
+    TABLE="tuser"
 
-if [ -z $PGCONN ]; then
-    echo "Postgres is burning";
-    exit 3
-fi
+    if ! psql -U veraweb -h localhost -c "SELECT * FROM ${TABLE} WHERE username='${USER}'" | grep -q ${USER}; then
+        log "INFO" "Could not get user $USER from Database"
+        return 1
+    else
+        return 0
+    fi
+}
 
-if [ -z $PGPASS ]; then
-	echo "No pgpass entry for user veraweb"
-	exit 3
-fi
-if [ $PGCONN -ne 0 ]; then
-	echo "User: veraweb can't connect to database"
-fi
+create_admin() {
+    create_user ${ADMIN}
+}
 
-psql $PSQLOPTS -U veraweb -h localhost -f ${DIRECTORY}/veraweb-schema.sql
-if [ $? -ne 0 ]; then
-    echo "Could not load file '$DIRECTORY/veraweb-schema.sql' into PGSQL"
-    exit 2
-fi
+create_user(){
+    USER=$1
 
-psql $PSQLOPTS -U veraweb -h localhost -c "SELECT serv_verawebschema(1);"
-if [ $? -ne 0 ]; then
-    echo "Errors accured by executing serv_verawebscgema(1)"
-    exit 2
-fi
+    if psql $PSQLOPTS -U veraweb -h localhost -c "INSERT INTO tuser (username, role) VALUES ('${USER}', 5)"; then
+        if ! check_user_exists ${USER}; then
+            err "Error while creating user: $USER."
+        fi
+    fi
+}
 
-psql $PSQLOPTS -U veraweb -h localhost -f /opt/veraweb/install/veraweb-stammdaten.sql
-if [ $? -ne 0 ]; then
-    echo "Could not load file '$DIRECTORY/veraweb-stammdate.sql' into PGSQL"
-    exit 2
-fi
+setup_schema() {
+    if ! psql $PSQLOPTS -U veraweb -h localhost -f ${DIRECTORY}/sql/veraweb-schema.sql; then
+        err "Could not load file: ${DIRECTORY}/sql/veraweb-schema.sql into PGSQL"
+    elif ! psql $PSQLOPTS -U veraweb -h localhost -c "SELECT serv_verawebschema(1);"; then
+        err "Errors accured by executing serv_verawebschema(1)"
+    fi
+}
 
-psql $PSQLOPTS -U veraweb -h localhost -c "INSERT INTO tuser (username, role) VALUES ('$ADMIN', 5)"
-if [ $? -ne 0 ]; then
-    echo 'Could not create verawebadmin "$ADMI"'
-    exit 2
-fi
+setup_stammdaten() {
+    if ! psql $PSQLOPTS -U veraweb -h localhost -f "${DIRECTORY}/sql/veraweb-stammdaten.sql"; then
+        err "Could not load file '$DIRECTORY/sql/veraweb-stammdate.sql' into PGSQL"
+    fi
+}
 
-psql $PSQLOPTS -U veraweb -h localhost -c "SELECT veraweb.serv_build_sequences();"
-if [ $? -ne 0 ]; then
-    echo 'Errors accured by executing veraweb.serv_build_sequences();'
-    exit 2
-fi
+main() {
+    if check_sql_files && check_pg_conn; then
+        setup_schema
+        setup_stammdaten && create_admin
 
-ADMINTEST=$(psql -U veraweb -h localhost -c "SELECT * FROM tuser WHERE username='$ADMIN'" | grep -c $ADMIN )
-if [ -z $ADMINTEST ]; then
-    echo "FATAL veraweb installation burned everything away"
-else
-    echo "Done"
-    touch $DIRECTORY/.configured
-fi
+        if check_buildsequences; then
+            log "INFO" "We are finished now, have fun."
+        else
+            err "Error while setup database, we can't select build sequences from database."
+        fi
+    fi
+}
+
+main
