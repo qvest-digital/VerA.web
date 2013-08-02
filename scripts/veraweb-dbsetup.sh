@@ -78,15 +78,9 @@ fi
 
 #Checks PG-Connection
 
-PGPACKAGE=$(dpkg -l | grep -c postgresql-server)
 PGPROZESS=$(service postgresql status | grep -ic running)
 PGCONN=$(psql $PSQLOPTS -U veraweb -h localhost -c "\q" >/dev/null 2>&1; echo $?)
 PGPASS=$(grep -c veraweb /root/.pgpass)
-
-if [ -z $PGPACKAGE ]; then
-    echo "No postgresqlserver found"
-    exit 3
-fi
 
 if [ -z $PGPROZESS ]; then
     echo "Ensure that postgresql is running"
