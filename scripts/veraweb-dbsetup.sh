@@ -13,23 +13,19 @@
 # TODO: more documentation of steps and functions
 
 # TODO: maybe this variables be sourced from /etc/defaults/veraweb
-DIRECTORY='/usr/share/libveraweb-java'
+DIRECTORY='/usr/share/veraweb-java'
 STOP=0
 USER='veraweb'
 PSQLOPTS='-q'
 SELF=$(basename $0)
 LOGGER=/usr/bin/logger
-
+ADMIN=administrator
 
 usage() {
     cat <<EOF
-Usage: $SELF -p <PASSWORD> [ -a <USER>, -d <DIRECTORY> ]
+Usage: $SELF [ -a <USER>, -d <DIRECTORY> ]
 
-  [-p]          Set User Password for user veraweb
-
-  Optional Parameters:
-
-    [-a]          Set Admin User    (default: verawebadmin)
+    [-a]          Set Admin User    (default: ${ADMIN})
     [-d]          Install Directory (default: /usr/share/libveraweb-java/
 
 EOF
