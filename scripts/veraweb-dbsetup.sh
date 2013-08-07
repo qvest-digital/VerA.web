@@ -68,7 +68,7 @@ if [ -z $ADMIN ]; then
 fi
 
 check_sql_files() {
-    FILES="veraweb-schema veraweb-stammdaten"
+    FILES="1.4/alter_from_1.3.15_to_1.4 veraweb-schema veraweb-stammdaten"
     for file in ${FILES}; do
         if [ ! -f "${DIRECTORY}/sql/${file}.sql"  ]; then
             err "${file}.sql is missing."
@@ -139,6 +139,11 @@ setup_schema() {
     fi
 }
 
+setup_1_4() {
+        if ! psql $PSQLOPTS -U veraweb -h localhost -f ${DIRECTORY}/sql/1.4/alter_from_1.3.15_to_1.4.sql >/dev/null; then
+            err "Could not load file: ${DIRECTORY}/sql/alter_from_1.3.15_to_1.4.sql into PGSQL"
+        fi
+}
 setup_stammdaten() {
     if ! psql $PSQLOPTS -U veraweb -h localhost -f "${DIRECTORY}/sql/veraweb-stammdaten.sql"; then
         err "Could not load file '$DIRECTORY/sql/veraweb-stammdate.sql' into PGSQL"
@@ -148,7 +153,7 @@ setup_stammdaten() {
 main() {
     if check_sql_files && check_pg_conn; then
         setup_schema
-        setup_stammdaten && create_admin
+        setup_stammdaten && setup_1_4 && create_admin
 
         if check_buildsequences; then
             log "INFO" "We are finished now, have fun."
