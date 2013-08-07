@@ -1,6 +1,6 @@
-veraweb (1.4-1~4.gbp027317) UNRELEASED; urgency=low
+veraweb (1.4-1~6.gbp74e152) veraweb-unstable; urgency=low
 
-  ** SNAPSHOT build @0273176527634df7a24ec4571ed7e7f4dfba0f7c **
+  ** SNAPSHOT build @74e15215187ef0ddc1c0be5d8af7b0fb402dba84 **
 
   * Initial release (Closes: #4400)
   * [c6a8f28] add postgesql to package dependencys
@@ -10,5 +10,13 @@ veraweb (1.4-1~4.gbp027317) UNRELEASED; urgency=low
   * [917e5ec] Now we are more functional and a bit more robust.
   * [7457c83] add default-jre to depends
   * [fb1184c] package renaming to veraweb-java
+  * [67931ea] [debian] add slapd to package depends
+  * [9f07bd5] [debian] set native maintainer
+  * [753dfd2] debian snapshot
+  * [d50ca8e] [debian] cleanup usage and set administrator as default user
+  * [5d50e1a] [debian] dont write the result of sql statements to stdout
+  * [4b2cb6a] [debian] be able to create not admin users
+  * [c567797] [debian] setup database to version 1.4, doesn't work with older versions
+  * [74e1521] Setup database after install the package
 
- -- Sascha Girrulat <sascha@girrulat.de>  Wed, 24 Jul 2013 11:41:50 +0200
+ -- Sascha Girrulat <s.girrulat@tarent.de>  Wed, 07 Aug 2013 18:50:34 +0200
