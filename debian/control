@@ -24,6 +24,7 @@ Depends: ${misc:Depends}, ${maven:Depends},
  tomcat7,
  postgresql,
  default-jre,
+ slapd,
 Recommends: ${maven:OptionalDepends}
 Suggests: veraweb-java-doc
 Description: veraweb-evolvis-parent
