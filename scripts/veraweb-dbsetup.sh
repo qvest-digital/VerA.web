@@ -104,7 +104,6 @@ check_user_exists() {
     TABLE="tuser"
 
     if ! psql -U veraweb -h localhost -c "SELECT * FROM ${TABLE} WHERE username='${USER}'" | grep -q ${USER}; then
-        log "INFO" "Could not get user $USER from Database"
         return 1
     else
         return 0
@@ -112,16 +111,23 @@ check_user_exists() {
 }
 
 create_admin() {
-    create_user ${ADMIN}
+    create_user ${ADMIN} 5
 }
 
 create_user(){
     USER=$1
+    ROLE=$2
 
-    if psql $PSQLOPTS -U veraweb -h localhost -c "INSERT INTO tuser (username, role) VALUES ('${USER}', 5)"; then
-        if ! check_user_exists ${USER}; then
-            err "Error while creating user: $USER."
+    if ! check_user_exists ${USER}; then
+        if psql $PSQLOPTS -U veraweb -h localhost -c "INSERT INTO tuser (username, role) VALUES ('${USER}', $ROLE)"; then
+            if ! check_user_exists ${USER}; then
+                err "Error while creating user: $USER."
+            else
+                log "INFO" "User $USER sucessfull created."
+            fi
         fi
+    else
+            log "INFO" "User $USER already exist, nothing to do."
     fi
 }
 
