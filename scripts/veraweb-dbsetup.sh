@@ -95,7 +95,7 @@ check_admin_exists() {
 }
 
 check_buildsequences() {
-    psql $PSQLOPTS -U veraweb -h localhost -c "SELECT veraweb.serv_build_sequences();"
+    psql $PSQLOPTS -U veraweb -h localhost -c "SELECT veraweb.serv_build_sequences();" >/dev/null
     return $?
 }
 
@@ -128,7 +128,7 @@ create_user(){
 setup_schema() {
     if ! psql $PSQLOPTS -U veraweb -h localhost -f ${DIRECTORY}/sql/veraweb-schema.sql; then
         err "Could not load file: ${DIRECTORY}/sql/veraweb-schema.sql into PGSQL"
-    elif ! psql $PSQLOPTS -U veraweb -h localhost -c "SELECT serv_verawebschema(1);"; then
+    elif ! psql $PSQLOPTS -U veraweb -h localhost -c "SELECT serv_verawebschema(1);" >/dev/null; then
         err "Errors accured by executing serv_verawebschema(1)"
     fi
 }
