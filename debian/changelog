@@ -1,3 +1,9 @@
+veraweb (1.4-2) veraweb-stable; urgency=low
+
+  * Make the XML configs of OCTOPUS into UTF-8 files (requested by Volker)
+
+ -- Thorsten Glaser <t.glaser@tarent.de>  Wed, 14 Aug 2013 11:34:22 +0200
+
 veraweb (1.4-1) veraweb-stable; urgency=low
 
   * Initial release (Closes: #4400)

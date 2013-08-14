@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!--!DOCTYPE tcModuleConfig SYSTEM "../tcModuleConfig.dtd"-->
 
 <!--
 	Octopus config.xml
-	
+
 	E-Mail-Versendung
 -->
 <tcModuleConfig>
@@ -16,11 +16,11 @@
 			<param name="host" value="mail.example.com"/>
 			<!--
 				Der Absender, wenn zum versendenden Benutzer keine E-Mail-Adresse im LDAP gefunden wird.
-				Hier kann "$role" als Platzhalter für die Rolle des versendenden Benutzers genutzt werden.
+				Hier kann "$role" als Platzhalter fÃ¼r die Rolle des versendenden Benutzers genutzt werden.
 			-->
 			<param name="from" value="$role@example.com"/>
 		</param>
-		<!-- maximale Länge, die eine "mailto:..."-URL annehmen darf; "-1"  steht für keine Beschränkung. -->
+		<!-- maximale LÃ¤nge, die eine "mailto:..."-URL annehmen darf; "-1"  steht fÃ¼r keine BeschrÃ¤nkung. -->
 		<param name="mailToUrlMaxSize" value="1024"/>
 	</params>
 </tcModuleConfig>
