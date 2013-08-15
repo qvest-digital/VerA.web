@@ -344,8 +344,8 @@ var showInfo, showWarning, showSuccess, showConfirm, showConfirmYesNo;
             if (activeConfirmDialogs.hasOwnProperty(title)) { // already open?
                 return;
             }
-            var btnYes = $('<input type="button" class="button floatRight marginLeft5" value="Löschen">');
-            var btnNo = $('<input type="button" class="button floatRight" value="Abbrechen">');
+            var btnYes = $('<div class="floatRight"> <input type="button" class="button marginRight5" value="Löschen">');
+            var btnNo = $('<input type="button" class="button" value="Abbrechen"> <div>');
             var msg = createConfirmHtml('<strong>' + title + '</strong><br>' + htmlContent + '<br>');
             btnYes.click(function () {
                 yesAction();
@@ -359,7 +359,7 @@ var showInfo, showWarning, showSuccess, showConfirm, showConfirmYesNo;
                 msg.remove();
                 delete activeConfirmDialogs[title];
             });
-            msg.append(btnYes).append('&nbsp;').append(btnNo);
+            msg.append(btnYes).append(btnNo);
             activeConfirmDialogs[title] = null;
             $(function () {
                 $('h1').after(msg);
