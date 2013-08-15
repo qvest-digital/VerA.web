@@ -359,7 +359,9 @@ var showInfo, showWarning, showSuccess, showConfirm, showConfirmYesNo;
                 msg.remove();
                 delete activeConfirmDialogs[title];
             });
-            msg.append(btnYes).append(btnNo);
+            $('<div class="floatRight">');
+            msg.append(btnYes).append(btnNo));
+    		$('</div>');
             activeConfirmDialogs[title] = null;
             $(function () {
                 $('h1').after(msg);
