@@ -371,7 +371,6 @@ $(function () {
                         msg += '<li>' + person.firstName + ' ' + person.lastName + ' (ID: ' + id + ')</li>';
                     });
                     msg += '</ul>';
-                    msg += '<br>Wenn Sie Ihre Auswahl anpassen wollen, brechen Sie bitte das L&ouml;schen ab.<br>';
                     
                 }
                 if (ongoingEventPersonIds.length > 0) {
@@ -384,22 +383,20 @@ $(function () {
                         msg += '<li>' + person.firstName + ' ' + person.lastName + ' (ID: ' + id + ')</li>';
                     });
                     msg += '</ul>';
-                    msg += '<br>Wenn Sie Ihre Auswahl anpassen wollen, brechen Sie bitte das L&ouml;schen ab.<br>';
                     
                 }
                 if (ongoingTaskEventPersonIds.length > 0) {
                     msg += '<br>Folgende Personen sind mindestens einer Aufgabe in mindestens einer laufenden oder ' +
                             'zuk&uuml;nftigen Veranstaltung zugeordnet. Detailinformationen rufen Sie bitte über die ' +
                             'Aufgabenlisten der jeweiligen Veranstaltungen auf. Die Personen werden aus allen ' +
-                            'Aufgaben entfernt. Wenn Sie Ihre Auswahl anpassen wollen, ' +
-                            'brechen Sie bitte das L&ouml;schen ab.<br><ul>';
+                            'Aufgaben entfernt:<br>';
                     $ .each(ongoingTaskEventPersonIds, function (index, id) {
                         var person = personModel[id];
                         msg += '<li>' + person.firstName + ' ' + person.lastName + ' (ID: ' + id + ')</li>';
                     });
                     msg += '</ul>';
                 }
-                msg += '<br>Sollen alle markierten Personen gel&ouml;scht werden? ' +
+                msg += '<br>Wenn Sie Ihre Auswahl anpassen wollen, brechen Sie bitte das L&ouml;schen ab.<br>'+ 'Sollen alle markierten Personen gel&ouml;scht werden? ' +
                         'Diese Aktion kann nicht r&uuml;ckg&auml;ngig gemacht werden.<br>';
                 // disable all checkboxes while confirmation is visible
                 $('input:checkbox').prop('disabled', true);
