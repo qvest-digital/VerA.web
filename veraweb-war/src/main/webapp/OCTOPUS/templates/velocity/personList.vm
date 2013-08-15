@@ -365,7 +365,7 @@ $(function () {
 
                 var msg = '';
                 if (notExpiredPersonIds.length > 0) {
-                    msg += '<br>Bei den folgenden Personen liegt das G&uuml;ltigkeitsdatum in der Zukunft: ';
+                    msg += '<br>Bei den folgenden Personen liegt das G&uuml;ltigkeitsdatum in der Zukunft: <ul class="text">';
                     $ .each(notExpiredPersonIds, function (index, id) {
                         var person = personModel[id];
                         msg += '<li>' + person.firstName + ' ' + person.lastName + ' (ID: ' + id + ')</li>';
@@ -377,7 +377,7 @@ $(function () {
                     msg += '<br>Folgende Personen sind mindestens einer laufenden oder zuk&uuml;nftigen Veranstaltung ' +
                             'zugeordnet. Detailinformationen k&ouml;nnen Sie &uuml;ber die G&auml;stelisten der ' +
                             'jeweiligen Veranstaltungen abrufen. Die Personen werden aus allen G&auml;stelisten ' +
-                            'entfernt:<br>';
+                            'entfernt:<br><ul class="text">';
                     $ .each(ongoingEventPersonIds, function (index, id) {
                         var person = personModel[id];
                         msg += '<li>' + person.firstName + ' ' + person.lastName + ' (ID: ' + id + ')</li>';
@@ -389,7 +389,7 @@ $(function () {
                     msg += '<br>Folgende Personen sind mindestens einer Aufgabe in mindestens einer laufenden oder ' +
                             'zuk&uuml;nftigen Veranstaltung zugeordnet. Detailinformationen rufen Sie bitte über die ' +
                             'Aufgabenlisten der jeweiligen Veranstaltungen auf. Die Personen werden aus allen ' +
-                            'Aufgaben entfernt:<br>';
+                            'Aufgaben entfernt:<br><ul class="text">';
                     $ .each(ongoingTaskEventPersonIds, function (index, id) {
                         var person = personModel[id];
                         msg += '<li>' + person.firstName + ' ' + person.lastName + ' (ID: ' + id + ')</li>';
