@@ -365,7 +365,7 @@ $(function () {
 
                 var msg = '';
                 if (notExpiredPersonIds.length > 0) {
-                    msg += '<br><span class="fontweightNormal">Bei den folgenden Personen liegt das G&uuml;ltigkeitsdatum in der Zukunft:</span> <ul class="text">';
+                    msg += '<br><span class="notBold">Bei den folgenden Personen liegt das G&uuml;ltigkeitsdatum in der Zukunft:</span> <ul class="text">';
                     $ .each(notExpiredPersonIds, function (index, id) {
                         var person = personModel[id];
                         msg += '<li>' + person.firstName + ' ' + person.lastName + ' (ID: ' + id + ')</li>';
@@ -374,7 +374,7 @@ $(function () {
                     
                 }
                 if (ongoingEventPersonIds.length > 0) {
-                    msg += '<br><span class="fontweightNormal">Folgende Personen sind mindestens einer laufenden oder zuk&uuml;nftigen Veranstaltung ' +
+                    msg += '<br><span class="notBold">Folgende Personen sind mindestens einer laufenden oder zuk&uuml;nftigen Veranstaltung ' +
                             'zugeordnet. Detailinformationen k&ouml;nnen Sie &uuml;ber die G&auml;stelisten der ' +
                             'jeweiligen Veranstaltungen abrufen. Die Personen werden aus allen G&auml;stelisten ' +
                             'entfernt:</span><br><ul class="text">';
@@ -386,7 +386,7 @@ $(function () {
                     
                 }
                 if (ongoingTaskEventPersonIds.length > 0) {
-                    msg += '<br><span class="fontweightNormal">Folgende Personen sind mindestens einer Aufgabe in mindestens einer laufenden oder ' +
+                    msg += '<br><span class="notBold">Folgende Personen sind mindestens einer Aufgabe in mindestens einer laufenden oder ' +
                             'zuk&uuml;nftigen Veranstaltung zugeordnet. Detailinformationen rufen Sie bitte über die ' +
                             'Aufgabenlisten der jeweiligen Veranstaltungen auf. Die Personen werden aus allen ' +
                             'Aufgaben entfernt:</span><br><ul class="text">';
@@ -396,7 +396,7 @@ $(function () {
                     });
                     msg += '</ul>';
                 }
-                msg += '<br><span class="fontweightNormal">Wenn Sie Ihre Auswahl anpassen wollen, brechen Sie bitte das L&ouml;schen ab.</span><br>'+ 'Sollen alle markierten Personen gel&ouml;scht werden? ' +
+                msg += '<br><span class="notBold">Wenn Sie Ihre Auswahl anpassen wollen, brechen Sie bitte das L&ouml;schen ab.</span><br>'+ 'Sollen alle markierten Personen gel&ouml;scht werden? ' +
                         'Diese Aktion kann nicht r&uuml;ckg&auml;ngig gemacht werden.<br>';
                 // disable all checkboxes while confirmation is visible
                 $('input:checkbox').prop('disabled', true);
