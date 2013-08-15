@@ -262,7 +262,7 @@ var showInfo, showWarning, showSuccess, showConfirm, showConfirmYesNo;
      * @returns {*|jQuery|HTMLElement}
      */
     var createConfirmHtml = function (htmlStr) {
-        return $('<div class="msg errormsg">'
+        return $('<div class="msg errormsg errormsgButton">'
             + htmlStr + '</div>');
     };
 
