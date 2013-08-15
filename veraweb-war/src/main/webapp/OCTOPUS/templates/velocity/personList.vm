@@ -365,13 +365,14 @@ $(function () {
 
                 var msg = '';
                 if (notExpiredPersonIds.length > 0) {
-                    msg += '<br>Bei den folgenden Personen liegt das G&uuml;ltigkeitsdatum in der Zukunft. ' +
-                        'Wenn Sie Ihre Auswahl anpassen wollen, brechen Sie bitte das L&ouml;schen ab.<br><ul>';
+                    msg += '<br>Bei den folgenden Personen liegt das G&uuml;ltigkeitsdatum in der Zukunft: ';
                     $ .each(notExpiredPersonIds, function (index, id) {
                         var person = personModel[id];
                         msg += '<li>' + person.firstName + ' ' + person.lastName + ' (ID: ' + id + ')</li>';
                     });
                     msg += '</ul>';
+                    msg += '<br>Wenn Sie Ihre Auswahl anpassen wollen, brechen Sie bitte das L&ouml;schen ab.';
+                    
                 }
                 if (ongoingEventPersonIds.length > 0) {
                     msg += '<br>Folgende Personen sind mindestens einer laufenden oder zuk&uuml;nftigen Veranstaltung ' +
