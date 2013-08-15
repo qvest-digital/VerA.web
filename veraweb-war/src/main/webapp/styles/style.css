@@ -730,8 +730,8 @@ tr.repeat {
 .msg  {
     display: block;
     font-weight: 700;
-    margin: 2px auto 20px;
-    padding: 6px 6px 6px 30px;
+    margin: 2px auto 30px;
+    padding: 6px 6px 26px 30px;
 }
 
 .successmsg {
