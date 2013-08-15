@@ -262,7 +262,7 @@ var showInfo, showWarning, showSuccess, showConfirm, showConfirmYesNo;
      * @returns {*|jQuery|HTMLElement}
      */
     var createConfirmHtml = function (htmlStr) {
-        return $('<div style="margin: 10px 0px 10px 0px; padding: 10px 10px 10px 10px; background-color: #ffffff; border: 2px solid #00ff00;">'
+        return $('<div class="msg errormsg">'
             + htmlStr + '</div>');
     };
 
@@ -344,8 +344,8 @@ var showInfo, showWarning, showSuccess, showConfirm, showConfirmYesNo;
             if (activeConfirmDialogs.hasOwnProperty(title)) { // already open?
                 return;
             }
-            var btnYes = $('<input type="button" class="button" value="Ja">');
-            var btnNo = $('<input type="button" class="button" value="Nein">');
+            var btnYes = $('<input type="button" class="button" value="Löschen">');
+            var btnNo = $('<input type="button" class="button" value="Abbrechen">');
             var msg = createConfirmHtml('<strong>' + title + '</strong><br>' + htmlContent + '<br>');
             btnYes.click(function () {
                 yesAction();
