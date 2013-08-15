@@ -730,8 +730,8 @@ tr.repeat {
 .msg  {
     display: block;
     font-weight: 700;
-    margin: 2px auto 30px;
-    padding: 6px 6px 26px 30px;
+    margin: 2px auto 20px;
+    padding: 6px 6px 6px 30px;
 }
 
 .successmsg {
@@ -743,7 +743,9 @@ tr.repeat {
 .errormsg {
 	background: url(../images/error.png) no-repeat 6px 50% #FDD;
 	border: 1px solid red;
-    color: #c00;	
+    color: #c00;
+    margin: 0 0 10px;
+    padding: 0 0 20px 0;	
 }
 
 
