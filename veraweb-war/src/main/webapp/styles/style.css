@@ -742,6 +742,10 @@ tr.repeat {
     color: #c00;	
 }
 
+.errormsg button {
+	float: right;
+}
+
 .error {color:#c00;}
 
 
