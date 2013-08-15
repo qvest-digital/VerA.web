@@ -432,11 +432,11 @@
 		document.getElementById('PersonForm').submit();
 	}
 	
-	function removePerson() {
-		if (confirm('Aktuelle Person wirklich entfernen?')) {
-			window.location.href = '${paths.staticWeb}do/SearchPerson?doRemove=true&remove&remove-person=true&selectNone=true&list=$!{person.id}&$!{person.id}-select=true';
-		}
-	}
+	##function removePerson() {
+		##if (confirm('Aktuelle Person wirklich entfernen?')) {
+		##	window.location.href = '${paths.staticWeb}do/SearchPerson?doRemove=true&remove&remove-person=true&selectNone=true&list=$!{person.id}&$!{person.id}-select=true';
+	##	}
+##	}
 
 	function showDoctypes() {
 		if (document.getElementById('modified').value == 'true') {
