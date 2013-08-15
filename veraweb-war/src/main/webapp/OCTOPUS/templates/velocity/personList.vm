@@ -371,20 +371,21 @@ $(function () {
                         msg += '<li>' + person.firstName + ' ' + person.lastName + ' (ID: ' + id + ')</li>';
                     });
                     msg += '</ul>';
-                    msg += '<br>Wenn Sie Ihre Auswahl anpassen wollen, brechen Sie bitte das L&ouml;schen ab.';
+                    msg += '<br>Wenn Sie Ihre Auswahl anpassen wollen, brechen Sie bitte das L&ouml;schen ab.<br>';
                     
                 }
                 if (ongoingEventPersonIds.length > 0) {
                     msg += '<br>Folgende Personen sind mindestens einer laufenden oder zuk&uuml;nftigen Veranstaltung ' +
                             'zugeordnet. Detailinformationen k&ouml;nnen Sie &uuml;ber die G&auml;stelisten der ' +
                             'jeweiligen Veranstaltungen abrufen. Die Personen werden aus allen G&auml;stelisten ' +
-                            'entfernt. Wenn Sie Ihre Auswahl anpassen wollen, brechen Sie bitte das ' +
-                            'L&ouml;schen ab.<br><ul>';
+                            'entfernt:<br>';
                     $ .each(ongoingEventPersonIds, function (index, id) {
                         var person = personModel[id];
                         msg += '<li>' + person.firstName + ' ' + person.lastName + ' (ID: ' + id + ')</li>';
                     });
                     msg += '</ul>';
+                    msg += '<br>Wenn Sie Ihre Auswahl anpassen wollen, brechen Sie bitte das L&ouml;schen ab.<br>';
+                    
                 }
                 if (ongoingTaskEventPersonIds.length > 0) {
                     msg += '<br>Folgende Personen sind mindestens einer Aufgabe in mindestens einer laufenden oder ' +
