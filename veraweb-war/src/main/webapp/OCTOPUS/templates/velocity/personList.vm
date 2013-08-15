@@ -109,6 +109,7 @@
                 		#set($save = true)
                 	#end
                 	</ul><br>
+					<div class="floatRight">
                 	#if($save)
     					<input type="submit" class="button" name="remove" value="Löschen" title="Markierte Person(en) l&ouml;schen" />
 					#end
@@ -117,6 +118,7 @@
 					#else
 						<input type="button" class="cancel" name="cancel" value="Abbrechen" title="Abbrechen" onclick="window.location.href='SearchPerson?selectNone=true';" />
 					#end
+					</div>
                 </vera-confirm>
                 #end
     
