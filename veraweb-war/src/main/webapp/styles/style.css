@@ -749,6 +749,9 @@ tr.repeat {
 
 .error {color:#c00;}
 
+.fontweightNormal{
+	font-weight: normal;
+}
 
 /*** To be removed later ****/
 div.dialogInfo {
