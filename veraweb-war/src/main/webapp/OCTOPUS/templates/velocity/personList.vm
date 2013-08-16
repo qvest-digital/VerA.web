@@ -412,7 +412,7 @@ $(function () {
                         $('input:checkbox').prop('disabled', false);
                         $('form').append('<input type="hidden" name="remove" value="Ja" >').submit();
                     }, function () { // Nein
-                        showInfo('Test Es wurde keine Person gel&ouml;scht.');
+                        showInfo('Es wurde keine Person gel&ouml;scht.');
                         $('input:checkbox').prop('disabled', false);
                     });
             }
