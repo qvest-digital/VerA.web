@@ -102,8 +102,11 @@
                 #end
                 #if($listquestions && $listquestions.size() > 0)
                 <vera-confirm>
-                	<strong>Bitte best&auml;tigen Sie das L&ouml;schen von Personen</strong><br>
-                	<ul style="margin: 0px 0px 0px -10px;">
+                	<strong>Bitte best&auml;tigen Sie das L&ouml;schen von Personen</strong><br><br>
+					<span class="notBold">
+							$!message.plain($quest.value)
+                    </span>
+					<ul class="text">
                 	#foreach($quest in $listquestions.entrySet())
                 		<li style="margin: 5px 0px 0px 0px;"><input type="hidden" name="$quest.key" value="true">$!message.plain($quest.value)</li>
                 		#set($save = true)
