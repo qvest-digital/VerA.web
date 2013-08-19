@@ -104,7 +104,10 @@
                 <vera-confirm>
                 	<strong>Bitte best&auml;tigen Sie das L&ouml;schen von Personen</strong><br><br>
 					<span class="notBold">
+					#foreach($quest in $listquestions.entrySet())
 							$!message.plain($quest.value)
+							#set($save = true)
+					#end
                     </span>
 					<ul class="text">
                 	#foreach($quest in $listquestions.entrySet())
