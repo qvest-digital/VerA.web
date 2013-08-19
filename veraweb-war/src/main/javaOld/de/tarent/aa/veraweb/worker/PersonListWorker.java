@@ -572,7 +572,6 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 		                where(new RawClause(
 		                        "dateexpire >= " + Format.format(new Date()) +
 		                        " AND pk IN " + new StatementList(subList))));
-						questions.put("Bei den folgenden Personen liegt das Gültigkeitsdatum in der zukunft");
 				for (Iterator it = personExpireInFuture.iterator(); it.hasNext(); ) {
 					Person person = (Person)it.next();
 					if (getContextAsBoolean(cntx, "remove-expire-" + person.id)) {
