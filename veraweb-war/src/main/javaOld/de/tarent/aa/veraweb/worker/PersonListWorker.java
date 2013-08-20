@@ -578,7 +578,8 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 						cntx.setContent("remove-person", Boolean.TRUE);
 					} else {
 						if (maxquestions == 0 || questions.size() < maxquestions) {
-							questions.put("remove-expire-" + person.id, "Das Gültigkeitsdatum der Person \"" + person.getMainLatin().getSaveAs()  + "\" liegt in der Zukunft. Soll die Person trotzdem gelöscht werden?");
+							/**questions.put("remove-expire-" + person.id, "Das Gültigkeitsdatum der Person \"" + person.getMainLatin().getSaveAs()  + "\" liegt in der Zukunft. Soll die Person trotzdem gelöscht werden?");*/
+							questions.put("remove-expire-" + "(" + person.id + ")" + person.getMainLatin().getSaveAs());
 						}
 						selectionRemove.remove(person.id);
 						i--;
