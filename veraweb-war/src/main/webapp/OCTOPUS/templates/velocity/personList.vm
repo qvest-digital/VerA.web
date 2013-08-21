@@ -76,7 +76,168 @@
             <input type="hidden" name="workareaAssignmentId" value="" />
 			<input type="hidden" name="searchTask" value="$!searchTask" />
     
-            #if(($listerrors && $listerrors.size() > 0) || ($listquestions && $listquestions.size() > 0))
+               		
+    		## Handler für selektierte Aktion 
+<script>
+
+    var personModel = (function () {
+        var now = Date.now();
+        // parse a date in yyyy-mm-dd format
+        var parseDate = function (input) {
+            var parts = input.split(/-| /);
+            return new Date(parts[0], parts[1]-1, parts[2], 23, 59, 59, 999); // months are 0-based
+        };
+        var expired = function (input) {
+            return (parseDate(input) - now) < 0;
+        };
+        var ongoingEvent = function (input) {
+            if ('' === input) {
+                return false;
+            }
+            return (parseDate(input) - now) >= 0;
+        };
+        return {
+            #foreach($bean in $list)
+                '$bean.id' : {
+                    expired : expired("$!bean.dateexpire"),
+                    firstName: '$!message.plain($bean.firstname_a_e1)',
+                    lastName: '$!message.plain($bean.lastname_a_e1)',
+                    ongoingEvent: ongoingEvent("$!bean.eventmaxenddate"),
+                    ongoingTaskEvent: ongoingEvent("$!bean.taskeventmaxenddate")
+                },
+            #end
+        };
+
+    }());
+
+
+var showDeleteMessages = function () {
+		
+            #if(!$grants.mayWrite())
+                showWarning('Sie haben keine ausreichende Berechtigung um Personen zu entfernen.');
+                return;
+            #end
+            var checkBoxes = $('input:checkbox[name$="-select"]:checked');
+            if (checkBoxes.length === 0) {
+                showWarning('W&auml;hlen Sie bitte zun&auml;chst eine oder mehrere Personen aus.');
+            } else {
+
+                // get array of selected person ids
+                var ids = checkBoxes.map(function () {
+                    return $(this).attr('name').split('-')[0];
+                }).toArray();
+
+                var notExpiredPersonIds = [];
+                $ .each(ids, function(index, id) {
+                    if (!personModel[id].expired) {
+                        notExpiredPersonIds.push(id);
+                    }
+                });
+                var ongoingEventPersonIds = [];
+                $ .each(ids, function(index, id) {
+                    if (personModel[id].ongoingEvent) {
+                        ongoingEventPersonIds.push(id);
+                    }
+                });
+                var ongoingTaskEventPersonIds = [];
+                $ .each(ids, function(index, id) {
+                    if (personModel[id].ongoingTaskEvent) {
+                        ongoingTaskEventPersonIds.push(id);
+                    }
+                });
+
+
+                var msg = '';
+                if (notExpiredPersonIds.length > 0) {
+                    msg += '<br><span class="notBold">Bei den folgenden Personen liegt das G&uuml;ltigkeitsdatum in der Zukunft:</span> <ul class="text">';
+                    $ .each(notExpiredPersonIds, function (index, id) {
+                        var person = personModel[id];
+                        msg += '<li>' + person.firstName + ' ' + person.lastName + ' (ID: ' + id + ')</li>';
+                    });
+                    msg += '</ul>';
+                    
+                }
+                if (ongoingEventPersonIds.length > 0) {
+                    msg += '<br><span class="notBold">Folgende Personen sind mindestens einer laufenden oder zuk&uuml;nftigen Veranstaltung ' +
+                            'zugeordnet. Detailinformationen k&ouml;nnen Sie &uuml;ber die G&auml;stelisten der ' +
+                            'jeweiligen Veranstaltungen abrufen. Die Personen werden aus allen G&auml;stelisten ' +
+                            'entfernt:</span><br><ul class="text">';
+                    $ .each(ongoingEventPersonIds, function (index, id) {
+                        var person = personModel[id];
+                        msg += '<li>' + person.firstName + ' ' + person.lastName + ' (ID: ' + id + ')</li>';
+                    });
+                    msg += '</ul>';
+                    
+                }
+                if (ongoingTaskEventPersonIds.length > 0) {
+                    msg += '<br><span class="notBold">Folgende Personen sind mindestens einer Aufgabe in mindestens einer laufenden oder ' +
+                            'zuk&uuml;nftigen Veranstaltung zugeordnet. Detailinformationen rufen Sie bitte über die ' +
+                            'Aufgabenlisten der jeweiligen Veranstaltungen auf. Die Personen werden aus allen ' +
+                            'Aufgaben entfernt:</span><br><ul class="text">';
+                    $ .each(ongoingTaskEventPersonIds, function (index, id) {
+                        var person = personModel[id];
+                        msg += '<li>' + person.firstName + ' ' + person.lastName + ' (ID: ' + id + ')</li>';
+                    });
+                    msg += '</ul>';
+                }
+                msg += '<br><span class="notBold">Wenn Sie Ihre Auswahl anpassen wollen, brechen Sie bitte das L&ouml;schen ab.</span><br>'+ 'Sollen alle markierten Personen gel&ouml;scht werden? ' +
+                        'Diese Aktion kann nicht r&uuml;ckg&auml;ngig gemacht werden.<br>';
+                // disable all checkboxes while confirmation is visible
+                $('input:checkbox').prop('disabled', true);
+                showConfirmYesNo('Bitte best&auml;tigen Sie das L&ouml;schen der markierten Personen!',
+                    msg,
+                    function () { // Ja
+                        $ .each(notExpiredPersonIds, function(index, id) {
+                            $('form').append('<input type="hidden" name="remove-expire-' + id  + '" value="true" >');
+                        });
+                        $('input[name=remove-person]').val('true');
+                        $('input:checkbox').prop('disabled', false);
+                        $('form').append('<input type="hidden" name="remove" value="Ja" >').submit();
+                    }, function () { // Nein
+                        showInfo('Es wurde keine Person gel&ouml;scht.');
+                        $('input:checkbox').prop('disabled', false);
+                    });
+			}
+};
+
+
+$(function () {
+
+    $('#button\\.execute').click(function (e) {
+        var selectText = $('#actionSelection option:selected').text();
+
+        if (selectText == "Löschen") {
+			showDeleteMessages();
+        } else if (selectText == "Exportieren") {
+            selectedActionExportPerson();
+        } else if (selectText == "Kategorien zuordnen") {
+            assignCategories();
+        } else if (selectText == "Kategorien entfernen") {
+            unassignCategories();
+        } else if (selectText == "Arbeitsbereich zuordnen") {
+            assignWorkarea();
+        } else if (selectText == "Arbeitsbereich entfernen") {
+            unassignWorkarea();
+        } else if (selectText == "Ersetzen") {
+            submitFormWithGivenAction('SaveReplacePersonList');
+        } else if (selectText == "Übernehmen") {
+            submitFormWithGivenAction('AddPersonToEventGuestList');
+        }
+    });
+});
+
+function selectedActionExportPerson() {
+    submitFormWithGivenAction('${paths.staticWeb}do/PersonExport/export.$exportFormat');
+    document.formlist.action = '${paths.staticWeb}do/$octopusRequest.task';
+}
+
+function submitFormWithGivenAction(action) {
+    document.getElementById('formlist').action = action;
+    document.formlist.submit();
+}
+</script>
+			
+			#if(($listerrors && $listerrors.size() > 0) || ($listquestions && $listquestions.size() > 0))
                 #set($save = false)
                 
                 #if($listerrors && $listerrors.size() > 0)
@@ -101,32 +262,12 @@
                 </vera-warn>
                 #end
                 #if($listquestions && $listquestions.size() > 0)
-                <vera-confirm>
-                	<strong>Bitte best&auml;tigen Sie das L&ouml;schen von Personen</strong><br><br>
-					<span class="notBold">
-					##foreach($quest in $listquestions.entrySet())
-						##	$!message.plain($quest.value)
-							##set($save = true)
-							Bei den folgenden Personen liegt das Gültigkeitsdatum in der Zukunft:
-					##end
-                    </span>
-					<ul class="text">
-                	#foreach($quest in $listquestions.entrySet())
-                		<li style="margin: 5px 0px 0px 0px;"><input type="hidden" name="$quest.key" value="true">$!message.plain($quest.value)</li>
-                		#set($save = true)
-                	#end
-                	</ul><br>
-					<div class="floatRight">
-                	#if($save)
-    					<input type="submit" class="button" name="remove" value="Löschen" title="Markierte Person(en) l&ouml;schen" />
-					#end
-					#if($action == "duplicateSearch")
-						<input type="submit" class="cancel" name="cancel" value="Abbrechen" title="Abbrechen" />
-					#else
-						<input type="button" class="cancel" name="cancel" value="Abbrechen" title="Abbrechen" onclick="window.location.href='SearchPerson?selectNone=true';" />
-					#end
-					</div>
-                </vera-confirm>
+					<script>
+						$(function () {
+							showDeleteMessages();
+						});
+					</script>
+       
                 #end
     
     		#end
@@ -300,159 +441,7 @@
             	</span>
     
     		#end
-    		
-    		## Handler für selektierte Aktion 
-<script>
-$(function () {
-
-    var personModel = (function () {
-        var now = Date.now();
-        // parse a date in yyyy-mm-dd format
-        var parseDate = function (input) {
-            var parts = input.split(/-| /);
-            return new Date(parts[0], parts[1]-1, parts[2], 23, 59, 59, 999); // months are 0-based
-        };
-        var expired = function (input) {
-            return (parseDate(input) - now) < 0;
-        };
-        var ongoingEvent = function (input) {
-            if ('' === input) {
-                return false;
-            }
-            return (parseDate(input) - now) >= 0;
-        };
-        return {
-            #foreach($bean in $list)
-                '$bean.id' : {
-                    expired : expired("$!bean.dateexpire"),
-                    firstName: '$!message.plain($bean.firstname_a_e1)',
-                    lastName: '$!message.plain($bean.lastname_a_e1)',
-                    ongoingEvent: ongoingEvent("$!bean.eventmaxenddate"),
-                    ongoingTaskEvent: ongoingEvent("$!bean.taskeventmaxenddate")
-                },
-            #end
-        };
-
-    }());
-
-    $('#button\\.execute').click(function (e) {
-        var selectText = $('#actionSelection option:selected').text();
-
-        if (selectText == "Löschen") {
-            #if(!$grants.mayWrite())
-                showWarning('Sie haben keine ausreichende Berechtigung um Personen zu entfernen.');
-                return;
-            #end
-            var checkBoxes = $('input:checkbox[name$="-select"]:checked');
-            if (checkBoxes.length === 0) {
-                showWarning('W&auml;hlen Sie bitte zun&auml;chst eine oder mehrere Personen aus.');
-            } else {
-                // get array of selected person ids
-                var ids = checkBoxes.map(function () {
-                    return $(this).attr('name').split('-')[0];
-                }).toArray();
-
-                var notExpiredPersonIds = [];
-                $ .each(ids, function(index, id) {
-                    if (!personModel[id].expired) {
-                        notExpiredPersonIds.push(id);
-                    }
-                });
-                var ongoingEventPersonIds = [];
-                $ .each(ids, function(index, id) {
-                    if (personModel[id].ongoingEvent) {
-                        ongoingEventPersonIds.push(id);
-                    }
-                });
-                var ongoingTaskEventPersonIds = [];
-                $ .each(ids, function(index, id) {
-                    if (personModel[id].ongoingTaskEvent) {
-                        ongoingTaskEventPersonIds.push(id);
-                    }
-                });
-
-
-                var msg = '';
-                if (notExpiredPersonIds.length > 0) {
-                    msg += '<br><span class="notBold">Bei den folgenden Personen liegt das G&uuml;ltigkeitsdatum in der Zukunft:</span> <ul class="text">';
-                    $ .each(notExpiredPersonIds, function (index, id) {
-                        var person = personModel[id];
-                        msg += '<li>' + person.firstName + ' ' + person.lastName + ' (ID: ' + id + ')</li>';
-                    });
-                    msg += '</ul>';
-                    
-                }
-                if (ongoingEventPersonIds.length > 0) {
-                    msg += '<br><span class="notBold">Folgende Personen sind mindestens einer laufenden oder zuk&uuml;nftigen Veranstaltung ' +
-                            'zugeordnet. Detailinformationen k&ouml;nnen Sie &uuml;ber die G&auml;stelisten der ' +
-                            'jeweiligen Veranstaltungen abrufen. Die Personen werden aus allen G&auml;stelisten ' +
-                            'entfernt:</span><br><ul class="text">';
-                    $ .each(ongoingEventPersonIds, function (index, id) {
-                        var person = personModel[id];
-                        msg += '<li>' + person.firstName + ' ' + person.lastName + ' (ID: ' + id + ')</li>';
-                    });
-                    msg += '</ul>';
-                    
-                }
-                if (ongoingTaskEventPersonIds.length > 0) {
-                    msg += '<br><span class="notBold">Folgende Personen sind mindestens einer Aufgabe in mindestens einer laufenden oder ' +
-                            'zuk&uuml;nftigen Veranstaltung zugeordnet. Detailinformationen rufen Sie bitte über die ' +
-                            'Aufgabenlisten der jeweiligen Veranstaltungen auf. Die Personen werden aus allen ' +
-                            'Aufgaben entfernt:</span><br><ul class="text">';
-                    $ .each(ongoingTaskEventPersonIds, function (index, id) {
-                        var person = personModel[id];
-                        msg += '<li>' + person.firstName + ' ' + person.lastName + ' (ID: ' + id + ')</li>';
-                    });
-                    msg += '</ul>';
-                }
-                msg += '<br><span class="notBold">Wenn Sie Ihre Auswahl anpassen wollen, brechen Sie bitte das L&ouml;schen ab.</span><br>'+ 'Sollen alle markierten Personen gel&ouml;scht werden? ' +
-                        'Diese Aktion kann nicht r&uuml;ckg&auml;ngig gemacht werden.<br>';
-                // disable all checkboxes while confirmation is visible
-                $('input:checkbox').prop('disabled', true);
-                showConfirmYesNo('Bitte best&auml;tigen Sie das L&ouml;schen der markierten Personen!',
-                    msg,
-                    function () { // Ja
-                        $ .each(notExpiredPersonIds, function(index, id) {
-                            $('form').append('<input type="hidden" name="remove-expire-' + id  + '" value="true" >');
-                        });
-                        $('input[name=remove-person]').val('true');
-                        $('input:checkbox').prop('disabled', false);
-                        $('form').append('<input type="hidden" name="remove" value="Ja" >').submit();
-                    }, function () { // Nein
-                        showInfo('Es wurde keine Person gel&ouml;scht.');
-                        $('input:checkbox').prop('disabled', false);
-                    });
-            }
-        } else if (selectText == "Exportieren") {
-            selectedActionExportPerson();
-        } else if (selectText == "Kategorien zuordnen") {
-            assignCategories();
-        } else if (selectText == "Kategorien entfernen") {
-            unassignCategories();
-        } else if (selectText == "Arbeitsbereich zuordnen") {
-            assignWorkarea();
-        } else if (selectText == "Arbeitsbereich entfernen") {
-            unassignWorkarea();
-        } else if (selectText == "Ersetzen") {
-            submitFormWithGivenAction('SaveReplacePersonList');
-        } else if (selectText == "Übernehmen") {
-            submitFormWithGivenAction('AddPersonToEventGuestList');
-        }
-    });
-});
-
-function selectedActionExportPerson() {
-    submitFormWithGivenAction('${paths.staticWeb}do/PersonExport/export.$exportFormat');
-    document.formlist.action = '${paths.staticWeb}do/$octopusRequest.task';
-}
-
-function submitFormWithGivenAction(action) {
-    document.getElementById('formlist').action = action;
-    document.formlist.submit();
-}
-</script>
-    		
-
+  
 			#if($action!="replace" && $action!="duplicateSearch" && !$searchTask)
         		<span id="buttonPanel-top" class="textRight floatRight">
         			<input type="button" id="button.searchPerson" name="button.searchPerson" value="Personen suchen" title="Personen suchen" class="mainButton" onclick="window.location.href='ShowPersonSearch?search=clear';" />
