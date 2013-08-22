@@ -121,8 +121,7 @@
 								${project.description}
 							</version_description>
 							<version_copyright>
-								Copyright (c) 2005-2008 tarent GmbH
-								Copyright © 2013 tarent solutions GmbH
+								Copyright (c) 2005-2013 tarent GmbH
 							</version_copyright>
 							<version_vendor>
 								${project.organization.name}
