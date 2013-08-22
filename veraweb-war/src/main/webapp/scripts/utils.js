@@ -84,13 +84,9 @@ function navigateLimit(limit) {
 $(function(){
     $('#toggleAllSelect').change(function(){
         if ($(this).is(':checked')) {
-        	$('input[name$="-select"]').prop('checked', true).each(function() {
-        		this.onclick();
-        	});
+            $('input[name$="-select"]:not(:checked)').click();
         } else {
-        	$('input[name$="-select"]').prop('checked', false).each(function() {
-        		this.onclick();
-        	});
+            $('input[name$="-select"]:checked').click();
         	$('input[name$="-partner"]').prop('checked', false);
         }
     });
