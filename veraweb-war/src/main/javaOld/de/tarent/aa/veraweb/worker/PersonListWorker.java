@@ -538,6 +538,8 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 		if (selection == null || selection.size() == 0) return count;
 		List selectionRemove = new ArrayList(selection);
 		
+		cntx.setContent("deleted", selectionRemove.size());
+		
 		Database database = context.getDatabase();
 		Map questions = new HashMap();
 		
