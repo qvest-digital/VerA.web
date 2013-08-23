@@ -5,7 +5,7 @@
 	<groupId>org.evolvis.veraweb</groupId>
 	<artifactId>veraweb-war</artifactId>
 	<packaging>war</packaging>
-	<version>1.4.0.1-SNAPSHOT</version>
+	<version>1.4.0.1</version>
 
 	<name>veraweb-evolvis-war</name>
 	<description>Veranstaltungsmanagment VerA.web</description>
@@ -37,13 +37,13 @@
 
 	<scm>
 		<connection>
-			scm:svn:svn://evolvis.org/svnroot/veraweb/tags/veraweb-evolvis-parent-1.4/veraweb-war
+			scm:svn:svn://evolvis.org/svnroot/veraweb/tags/veraweb-evolvis-parent-1.4.0.1/veraweb-war
 		</connection>
 		<developerConnection>
-			scm:svn:svn+ssh://maven@evolvis.org/svnroot/veraweb/tags/veraweb-evolvis-parent-1.4/veraweb-war
+			scm:svn:svn+ssh://maven@evolvis.org/svnroot/veraweb/tags/veraweb-evolvis-parent-1.4.0.1/veraweb-war
 		</developerConnection>
 		<url>
-			https://evolvis.org/scm/viewvc.php/tags/veraweb-evolvis-parent-1.4?root=veraweb
+			https://evolvis.org/scm/viewvc.php/tags/veraweb-evolvis-parent-1.4.0.1?root=veraweb
 		</url>
 	</scm>
 
