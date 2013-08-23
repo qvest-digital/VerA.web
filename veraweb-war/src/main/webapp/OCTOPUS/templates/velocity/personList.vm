@@ -189,6 +189,7 @@ var showDeleteMessages = function () {
                     function () { // Ja
                         $ .each(notExpiredPersonIds, function(index, id) {
                             $('form').append('<input type="hidden" name="remove-expire-' + id  + '" value="true" >');
+							$('form').append('<input type="hidden" name="deleted" value="'+notExpiredPersonIds.length+'" >');
                         });
                        
                         $('input[name=remove-person]').val('true');
@@ -269,18 +270,19 @@ function submitFormWithGivenAction(action) {
 						});
 					</script>
 					
-					#if($deleted)
-    					<script type="text/javascript">
+					
+       
+				#end
+				
+				#if($deleted.size() > 0)
+    					<script language="JavaScript">
        						  #if($deleted == 1)
         						showSuccess('Es wurde eine Person gel&ouml;scht.');
       					   #elseif($deleted > 1)
        						 	showSuccess('Es wurden $deleted Personen gel&ouml;scht.');
          					#end
      				   </script>
-					#end
-       
 				#end
-				
 
     		#end
     		
