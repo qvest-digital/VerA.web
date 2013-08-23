@@ -63,6 +63,16 @@
 		</vera-info>
 	#end
 	
+	#if($deleted)
+		<script>
+			  #if($deleted == 1)
+				showSuccess('Es wurde eine Person gel&ouml;scht.');
+		   #elseif($deleted > 1)
+			 	showSuccess('Es wurden $deleted Personen gel&ouml;scht.');
+			#end
+	   </script>
+	#end
+	
 	#if($list && $list.size() > 0 )
 		
     	<form id="formlist" name="formlist" action="${paths.staticWeb}do/$octopusRequest.task" method="POST">
@@ -269,23 +279,10 @@ function submitFormWithGivenAction(action) {
 							showDeleteMessages();
 						});
 					</script>
-					
-					
-       
-				#end
-				
-				#if($deleted.size() > 0)
-    					<script language="JavaScript">
-       						  #if($deleted == 1)
-        						showSuccess('Es wurde eine Person gel&ouml;scht.');
-      					   #elseif($deleted > 1)
-       						 	showSuccess('Es wurden $deleted Personen gel&ouml;scht.');
-         					#end
-     				   </script>
+					       
 				#end
 
     		#end
-    		
     		
     		#if($action == "host" || $action == "statistikGuest" || $action == "statistikHost")
             	#set($disableListSelect = true)
