@@ -206,7 +206,7 @@ var showDeleteMessages = function () {
                         $('input:checkbox').prop('disabled', false);
                         $('form').append('<input type="hidden" name="remove" value="Ja" >').submit();
                     }, function () { // Nein
-                        showInfo('Es wurde keine Person gel&ouml;scht.');
+                        showSuccess('Es wurde keine Person gel&ouml;scht.');
                         $('input:checkbox').prop('disabled', false);
                     });
 			}
