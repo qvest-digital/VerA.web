@@ -1,0 +1,18 @@
+Information about veraweb
+------------------------------
+
+This package was debianized using the mh_make command
+from the maven-debian-helper package.
+
+The build system uses Maven but prevents it from downloading
+anything from the Internet, making the build compliant with
+the Debian policy.
+
+To build the package you need to use a own settings.xml or reconfigure the
+debian maven settings /etc/maven2/settings-debian.xml. We haven't all dependend
+javalibs packaged yep so we need to build with maven in online mode.
+
+<settings>
+  <localRepository>/usr/share/maven-repo</localRepository>
+  <offline>false</offline>
+</settings>

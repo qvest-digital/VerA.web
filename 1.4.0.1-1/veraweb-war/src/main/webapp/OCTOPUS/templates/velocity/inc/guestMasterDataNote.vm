@@ -1,0 +1,45 @@
+<vera-info vera-stay>
+	Sie bearbeiten hier ausschlie&szlig;lich Personendaten im Rahmen der aktuellen Veranstaltung, <i>keine</i> grundlegenden Stammdaten.
+</vera-info>
+
+<div class="textRight marginBottom20" id="buttonPanel-bottom">
+	#if($grants.mayWrite())
+		<input type="button" name="refresh" value="Auf Stammdaten zurücksetzen" title="Alle Werte auf Stammdaten zurücksetzen" onclick="reloadGuestData();" />		
+	#end
+		<input type="button" name="persondata" value="Stammdaten bearbeiten" title="Personenstammdaten bearbeiten" onclick="shwoPersonDetail();" />
+</div>
+	
+<script type="text/javascript">
+	function reloadGuestData() {
+		var url = '${paths.staticWeb}do/ReloadGuestData'
+		url += '?guest-id=$!guest.id';
+		
+		var targetTab = document.getElementById('tab');
+		if(targetTab) {
+			url += '&tab=' + targetTab.value;
+		}
+		
+		#if($octopusRequest.task == 'SaveGuestDoctype' || $octopusRequest.task == 'ShowGuestDoctype' || ($octopusRequest.task == 'ReloadGuestData' && $octopusRequest.show && $octopusRequest.show == 'doctype'))
+			url += '&show=doctype';
+		#end
+		
+		window.location.href = url;
+	}
+	
+	function shwoPersonDetail() {
+		var url = '${paths.staticWeb}do/ShowPerson'
+		url += '?id=$guest.person';
+		url += '&action=event';
+		
+		var targetTab = document.getElementById('tab');
+		if (targetTab) {
+			url += '&tab=' + targetTab.value;
+		}
+		
+		#if($octopusRequest.task == 'SaveGuestDoctype' || $octopusRequest.task == 'ShowGuestDoctype' || ($octopusRequest.task == 'ReloadGuestData' && $octopusRequest.show && $octopusRequest.show == 'doctype'))
+			url += '&show=doctype';
+		#end
+		
+		window.location.href = url;
+	}
+</script>
