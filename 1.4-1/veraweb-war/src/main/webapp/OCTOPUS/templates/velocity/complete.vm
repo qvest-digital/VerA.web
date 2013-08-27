@@ -1,0 +1,2 @@
+##showSuccess('blub');
+sendRPCDone(frameElement, "$!message.plain($query)", new Array(#foreach($entry in $list)#if($velocityCount != 1), #end"$!message.plain($entry.entry)"#end), new Array(#foreach($entry in $list)#if($velocityCount != 1), #end"$!message.plain($entry.entry)"#end), new Array(""));

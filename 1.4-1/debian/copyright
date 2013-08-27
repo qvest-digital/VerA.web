@@ -1,0 +1,17 @@
+Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: veraweb-evolvis-parent
+Source: http://veraweb.evolvis.org/
+
+Files: *
+Copyright: 2005-2013, tarent solutions GmbH, Germany
+License: GPL-2
+
+Files: debian/*
+Copyright: 2013, Sascha Girrulat <sascha@girrulat.de>
+License: GPL-2
+
+License: GPL-2
+  On Debian GNU/Linux system you can find the complete text of the
+  GPL-2 license in '/usr/share/common-licenses/GPL-2'
+
+

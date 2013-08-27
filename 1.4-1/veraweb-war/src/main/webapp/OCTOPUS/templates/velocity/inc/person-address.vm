@@ -1,0 +1,132 @@
+
+<div vera-content="$addressType address$extEncoding">
+	<div class="table width100">
+		
+		<div class="tableRow">
+			
+            <div class="tableCell width50">
+                <label for="person-function$!message.plain($ext)">Amtsbezeichnung/Funktion</label>
+                <textarea rows="2" col="20" id="person-function$!message.plain($ext)" name="person-function$!message.plain($ext)" onchange="setModified();" #if($createNewPerson || !$grants.mayWrite()) vera-disabled#end>$!message.textarea($facade.Function)</textarea>
+                #if(!$createNewPerson && $grants.mayWrite())
+    				<div class="addButton">
+                        <input type="button" value="Aus Stammdaten hinzufügen" title="Amtsbezeichnung aus Stammdaten hinzufügen" onclick="selectFunction('${paths.staticWeb}do/', 'person-function$ext');"/>
+                    </div>
+				#end
+            </div>
+			
+            <div class="tableCell width50">
+                <label for="person-company$!message.plain($ext)">Firma/Institution</label>
+                <input type="text" id="person-company$!message.plain($ext)" name="person-company$!message.plain($ext)" value="$!message.text($facade.Company)" onchange="setModified();" #if($createNewPerson || !$grants.mayWrite()) vera-disabled#end/>
+                #if(!$createNewPerson && $grants.mayWrite())
+    				<div class="addButton">
+                        <input type="button" value="Aus Stammdaten hinzufügen" title="Firma aus Stammdaten hinzufügen" onclick="selectCompany('${paths.staticWeb}do/', 'person-company$!message.plain($ext)');"/>
+                    </div>
+				#end
+            </div>
+			
+        </div>
+
+		<div class="tableRow">
+			
+            <div class="tableCell width50">
+                <label for="person-street$!message.plain($ext)">Straße</label>
+                <input type="text" id="person-street$!message.plain($ext)" name="person-street$!message.plain($ext)" value="$!message.text($facade.Street)" onchange="setModified();" #if($createNewPerson || !$grants.mayWrite()) vera-disabled#end/>
+            </div>
+			
+            <div class="tableCell width50 inlineLabel">
+                <label for="person-zipcode$!message.plain($ext)">PLZ</label> / <label for="person-city$!message.plain($ext)">Ort</label><br />
+                <input type="text" id="person-zipcode$!message.plain($ext)" name="person-zipcode$!message.plain($ext)" value="$!message.text($facade.ZipCode)" onchange="setModified();" class="width15 inlineInput" #if($createNewPerson || !$grants.mayWrite()) vera-disabled#end/>
+                <input type="text" id="person-city$!message.plain($ext)" name="person-city$!message.plain($ext)" value="$!message.text($facade.City)" onchange="setModified();" class="width85 inlineInput" #if($createNewPerson || !$grants.mayWrite()) vera-disabled#end/>
+            </div>
+			
+        </div>
+		
+		<div class="tableRow">
+			
+            <div class="tableCell width50">
+                <label for="person-state$!message.plain($ext)">Bundesland</label>
+                <input type="text" id="person-state$!message.plain($ext)" name="person-state$!message.plain($ext)" value="$!message.text($facade.State)" onchange="setModified();" #if($createNewPerson || !$grants.mayWrite()) vera-disabled#end/>
+            </div>
+			
+            <div class="tableCell width50">
+                <label for="person-country$!message.plain($ext)">Land</label>
+                <input type="text" id="person-country$!message.plain($ext)" name="person-country$!message.plain($ext)" value="$!message.text($facade.Country)" onchange="setModified();" #if($createNewPerson || !$grants.mayWrite()) vera-disabled#end/>
+            </div>
+			
+        </div>
+		
+		<div class="tableRow">
+			
+            <div class="tableCell width50 inlineLabel">
+                <label for="person-poboxzipcode$!message.plain($ext)">PLZ</label> / <label for="person-pobox$!message.plain($ext)">Postfach</label><br />
+                <input type="text" id="person-poboxzipcode$!message.plain($ext)" name="person-poboxzipcode$!message.plain($ext)" value="$!message.text($facade.POBoxZipCode)" onchange="setModified();" class="width15 inlineInput" #if($createNewPerson || !$grants.mayWrite()) vera-disabled#end/>
+                <input type="text" id="person-pobox$!message.plain($ext)" name="person-pobox$!message.plain($ext)" value="$!message.text($facade.POBox)" onchange="setModified();" class="width85 inlineInput" #if($createNewPerson || !$grants.mayWrite()) vera-disabled#end/>
+            </div>
+			
+            <div class="tableCell width50">
+            </div>
+			
+        </div>
+		
+		<div class="tableRow">
+			
+            <div class="tableCell width50">
+                <label for="person-suffix1$!message.plain($ext)">$!message.plain($config.suffix1)</label>
+                <input type="text" id="person-suffix1$!message.plain($ext)" name="person-suffix1$!message.plain($ext)" value="$!message.text($facade.Suffix1)" onchange="setModified();" #if($createNewPerson || !$grants.mayWrite()) vera-disabled#end/>
+            </div>
+			
+            <div class="tableCell width50">
+                <label for="person-suffix2$!message.plain($ext)">$!message.plain($config.suffix2)</label>
+                <input type="text" id="person-suffix2$!message.plain($ext)" name="person-suffix2$!message.plain($ext)" value="$!message.text($facade.Suffix2)" onchange="setModified();" #if($createNewPerson || !$grants.mayWrite()) vera-disabled#end/>
+            </div>
+			
+        </div>
+		
+		<div class="tableRow">
+			
+            <div class="tableCell width50">
+                <label for="person-fon$!message.plain($ext)">Telefon</label>
+                <input type="text" id="person-fon$!message.plain($ext)" name="person-fon$!message.plain($ext)" value="$!message.text($facade.Phone)" onchange="setModified();" #if($createNewPerson || !$grants.mayWrite()) vera-disabled#end/>
+            </div>
+			
+            <div class="tableCell width50">
+                <label for="person-fax$!message.plain($ext)">Fax</label>
+                <input type="text" id="person-fax$!message.plain($ext)" name="person-fax$!message.plain($ext)" value="$!message.text($facade.Fax)" onchange="setModified();" #if($createNewPerson || !$grants.mayWrite()) vera-disabled#end/>
+            </div>
+			
+        </div>
+		
+		 <div class="tableRow">
+			
+            <div class="tableCell width50">
+                <label for="person-mobil$!message.plain($ext)">Mobil</label>
+                <input type="text" id="person-mobil$!message.plain($ext)" name="person-mobil$!message.plain($ext)" value="$!message.text($facade.Mobile)" onchange="setModified();" #if($createNewPerson || !$grants.mayWrite()) vera-disabled#end/>
+            </div>
+			
+            <div class="tableCell width50">
+                <label for="person-mail$!message.plain($ext)">E-Mail</label>
+                <input type="text" id="person-mail$!message.plain($ext)" name="person-mail$!message.plain($ext)" value="$!message.text($facade.EMail)" onchange="setModified();" #if($createNewPerson || !$grants.mayWrite()) vera-disabled#end/>
+                
+                #if($facade.EMail && $facade.EMail.length()>0)
+                <div class="addButton">
+                	<a class="noBorder" href="mailto:$!message.text($facade.EMail)"><img src="${paths.staticWeb}images/email.gif" title="E-Mail an diese Adresse senden"></a>
+                </div>
+                #end
+                
+            </div>
+			
+        </div>
+		
+		<div class="tableRow">
+			
+            <div class="tableCell width50">
+                <label for="person-url$!message.plain($ext)">www</label>
+                <input type="url" id="person-url$!message.plain($ext)" name="person-url$!message.plain($ext)" value="$!message.text($facade.Url)" onchange="setModified();" #if($createNewPerson || !$grants.mayWrite()) vera-disabled#end/>
+            </div>
+			
+            <div class="tableCell width50"></div>
+			
+        </div>
+
+	</div>
+</div>
