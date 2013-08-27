@@ -86,7 +86,6 @@ function returnCompany(url, id, bean) {
 		var form = window.opener.document.getElementById('PersonForm');
 		window.opener.document.getElementById('company').value = id;
 		window.opener.document.getElementById('companyfield').value = field;
-		alert(bean);
 		form.action = url + 'LoadPersonCompany/tab=anschrift';
 		form.submit();
 		return true;
