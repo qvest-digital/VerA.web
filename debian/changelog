@@ -1,4 +1,4 @@
-veraweb (1.4.0.1) veraweb-stable; urgency=low
+veraweb (1.4.0.1-1) veraweb-stable; urgency=low
 
   * Make the XML configs of OCTOPUS into UTF-8 files (requested by Volker)
   * Fix the version number as we build a native package
