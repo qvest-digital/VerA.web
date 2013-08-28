@@ -89,6 +89,9 @@ public interface PersonMemberFacade {
 
 	/** �ndert Nachname */
 	public void setLastname(String value);
+	
+	/** ändert Firma*/
+	public void getCompany(String value);
 
 	/** �ndert Flag f�r {@link PersonConstants#DOMESTIC_INLAND Inland} oder {@link PersonConstants#DOMESTIC_AUSLAND Ausland} */
 	public void setDomestic(String value);
