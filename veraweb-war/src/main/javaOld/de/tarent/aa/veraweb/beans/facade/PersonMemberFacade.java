@@ -42,6 +42,9 @@ public interface PersonMemberFacade {
 	/** @return Nachname */
 	public String getLastname();
 	
+	/** @return Firma */
+	public String getCompany();
+	
 	/** @return Flag f�r {@link PersonConstants#DOMESTIC_INLAND Inland} oder {@link PersonConstants#DOMESTIC_AUSLAND Ausland} */
 	public String getDomestic();
 
