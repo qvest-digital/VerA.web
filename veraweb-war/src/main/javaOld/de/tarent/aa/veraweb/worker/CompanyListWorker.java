@@ -143,10 +143,10 @@ public class CompanyListWorker extends ListWorkerVeraWeb {
 		
 		//Name der Firma steht in Lastname. Der wird bei der Person nach Company kopiert
 		String companyNameLatin, companyNameExtra1, companyNameExtra2;
-		companyNameLatin = personcompany.getMainLatin().getCompany();
-		companyNameExtra1 = personcompany.getMainExtra1().getCompany();
+		companyNameLatin = personcompany.getMainLatin().getLastname();
+		companyNameExtra1 = personcompany.getMainExtra1().getLastname();
 		if (AddressHelper.empty(companyNameExtra1)) companyNameExtra1 = companyNameLatin;
-		companyNameExtra2 = personcompany.getMainExtra2().getCompany();
+		companyNameExtra2 = personcompany.getMainExtra2().getLastname();
 		if (AddressHelper.empty(companyNameExtra2)) companyNameExtra2 = companyNameLatin;
 		
 		if (copyBusinessLatin) {
