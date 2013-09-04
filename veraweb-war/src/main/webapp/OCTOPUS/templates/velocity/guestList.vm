@@ -222,17 +222,7 @@
             	}
 				
 				function selectedActionRemoveGuest() {
-					var confirmResult = false;
-                    #if($isUser)
-                		confirmResult = confirm('Markierten Gast wirklich entfernen?');
-                    #elseif($isAdmin)
-                		confirmResult = confirm('Sollen alle markierten Gäst entfernt werden?');
-                    #else
-                		showWarning('Sie haben keine ausreichende Berechtigung um Gäste zu entfernen.');
-                    #end
-					if (confirmResult) {
-						$('<input>').attr({ type: 'hidden', id: 'remove', name: 'remove' }).appendTo($('#formlist'));
-					}
+					$('<input>').attr({ type: 'hidden', id: 'remove', name: 'remove' }).appendTo($('#formlist'));
 					document.formlist.submit();
 				}
 				
