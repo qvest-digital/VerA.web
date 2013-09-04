@@ -107,6 +107,11 @@
 		#set($thisPersonLocaleTab = $config.personLocaleTab) ## config
 	#end
 	
+	#if($showAdressTab == 'true')
+		#set($thisPersonTab = '2')
+	#end
+		
+
 	<input type="hidden" id="personTab" name="personTab" value = #if($thisPersonTab) "$thisPersonTab" #else "1" #end/>
 	<input type="hidden" id="personMemberTab" name="personMemberTab" value = #if($thisPersonMemberTab) "$thisPersonMemberTab" #else "1" #end/>
 	<input type="hidden" id="personAddresstypeTab" name="personAddresstypeTab" value = #if($thisPersonAddresstypeTab) "$thisPersonAddresstypeTab" #else "1" #end/>
