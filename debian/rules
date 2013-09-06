@@ -5,9 +5,17 @@ export DH_VERBOSE=1
 include /usr/share/cdbs/1/rules/debhelper.mk
 include /usr/share/cdbs/1/class/maven.mk
 
-JAVA_HOME := /usr/lib/jvm/default-java
 DEB_MAVEN_DOC_TARGET := javadoc:jar javadoc:aggregate
 DEB_PATCHPOMS_ARGS := --no-rules
+JAVA_HOME := /usr/lib/jvm/default-java
+JAVACMD := $(JAVA_HOME)/bin/java
+DEB_MAVEN_INVOKE := cd $(DEB_BUILDDIR) && $(JAVACMD) -noverify -cp $(DEB_CLASSPATH) \
+         $(JAVA_OPTS) -Dclassworlds.conf=$(MAVEN_CLASSCONF) \
+         org.codehaus.classworlds.Launcher \
+         -s $(DEB_BUILDDIR)/settings-debian.xml \
+         -Dmaven.repo.local=$(DEB_MAVEN_REPO) \
+         $(if $(DEB_MAVEN_ARGS_$(cdbs_curpkg)),$(DEB_MAVEN_ARGS_$(cdbs_curpkg)),$(DEB_MAVEN_ARGS))
+
 
 after-mvn-build::
 	mvn install:install-file -DgroupId=org.evolvis.veraweb -DartifactId=veraweb-war -Dversion=$(DEB_VERSION) -Dpackaging=war -Dfile=veraweb-war/target/veraweb.war -Dmaven.repo.local=$(DEB_MAVEN_REPO)
