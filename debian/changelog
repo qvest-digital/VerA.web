@@ -1,3 +1,12 @@
+veraweb (1.4.0.1-2~1.gbpe506fb) UNRELEASED; urgency=low
+
+  ** SNAPSHOT build @e506fb613786d793454c22467a62d5c485a4eca5 **
+
+  [ Sascha Girrulat ]
+  * [e506fb6] [debian] add new maven build command to d/rules so we are able to build without changing the /etc/maven2/settings-debian.xml
+
+ -- Sascha Girrulat <sascha@girrulat.de>  Fri, 06 Sep 2013 14:59:36 +0200
+
 veraweb (1.4.0.1-1) veraweb-stable; urgency=low
 
   * Make the XML configs of OCTOPUS into UTF-8 files (requested by Volker)
