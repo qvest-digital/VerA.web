@@ -9,6 +9,7 @@ DEB_MAVEN_DOC_TARGET := javadoc:jar javadoc:aggregate
 DEB_PATCHPOMS_ARGS := --no-rules
 JAVA_HOME := /usr/lib/jvm/default-java
 JAVACMD := $(JAVA_HOME)/bin/java
+JAVA_OPTS := $(JAVA_OPTS) -D"file.encoding=UTF-8"
 DEB_MAVEN_INVOKE := cd $(DEB_BUILDDIR) && $(JAVACMD) -noverify -cp $(DEB_CLASSPATH) \
          $(JAVA_OPTS) -Dclassworlds.conf=$(MAVEN_CLASSCONF) \
          org.codehaus.classworlds.Launcher \
