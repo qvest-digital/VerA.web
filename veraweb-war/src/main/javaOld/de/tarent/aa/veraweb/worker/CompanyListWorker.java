@@ -186,5 +186,6 @@ public class CompanyListWorker extends ListWorkerVeraWeb {
 			person.getOtherExtra2().setCompany(companyNameExtra2);
 		}
 		cntx.setContent("person", person);
+		cntx.setContent("showAdressTab", "true");
 	}
 }
