@@ -34,6 +34,8 @@ import de.tarent.octopus.PersonalConfigAA;
 import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.beans.Database;
 import de.tarent.octopus.beans.Request;
+import de.tarent.octopus.beans.TransactionContext;
+import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
 import de.tarent.octopus.beans.veraweb.ListWorkerVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
 
@@ -118,6 +120,8 @@ public class CompanyListWorker extends ListWorkerVeraWeb {
 	 */
 	public void copyCompanyData(OctopusContext cntx, Integer company, String companyfield) throws BeanException, IOException {
 	    cntx.setContent("tab", cntx.requestAsObject("tab"));
+	    Database database2 = new DatabaseVeraWeb(cntx);
+	    TransactionContext context = database2.getTransactionContext();
 		
 		final boolean copyAll = false;
 		
@@ -185,6 +189,7 @@ public class CompanyListWorker extends ListWorkerVeraWeb {
 			AddressHelper.copyAddressData(personcompany.getOtherExtra2(), person.getOtherExtra2(), true, true, true, true);
 			person.getOtherExtra2().setCompany(companyNameExtra2);
 		}
+		AddressHelper.checkPersonSalutation(person, database, context);
 		cntx.setContent("person", person);
 		cntx.setContent("showAdressTab", "true");
 	}
