@@ -19,6 +19,7 @@
  */
 package de.tarent.ldap;
 
+import java.lang.reflect.Field;
 import java.net.PasswordAuthentication;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -41,10 +42,14 @@ import de.tarent.octopus.beans.Database;
 import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
 import de.tarent.octopus.config.TcCommonConfig;
 import de.tarent.octopus.config.TcConfig;
+import de.tarent.octopus.config.TcConfigException;
 import de.tarent.octopus.content.TcAll;
 import de.tarent.octopus.content.TcContent;
 import de.tarent.octopus.request.TcEnv;
 import de.tarent.octopus.request.TcRequest;
+import de.tarent.octopus.request.TcSession;
+import de.tarent.octopus.request.TcTask;
+import de.tarent.octopus.request.TcTaskList;
 import de.tarent.octopus.security.TcSecurityException;
 import de.tarent.octopus.server.OctopusContext;
 import de.tarent.octopus.server.PersonalConfig;
@@ -114,6 +119,80 @@ public class LoginManagerLDAPAA extends LoginManagerLDAPGeneric implements Login
             }
         else
             return null;
+    }
+    
+
+
+    public void handleAuthentication(TcCommonConfig config, TcRequest tcRequest, TcSession theSession)
+        throws TcSecurityException {
+        
+        PersonalConfig pConfig = getPersonalConfig(config, tcRequest, theSession);
+        boolean wasNew = false;
+        if (pConfig == null) {
+            wasNew = true;
+            try {
+                pConfig = config.createNewPersonalConfig(tcRequest.getModule());
+            } catch (TcConfigException e) {
+                throw new TcSecurityException(e.getMessage(), e.getCause());
+            }
+            theSession.setAttribute(PREFIX_PERSONAL_CONFIGS+tcRequest.getModule(),
+                                    pConfig);
+        } 
+        else if (pConfig.isUserInGroup(PersonalConfig.GROUP_LOGGED_OUT))
+            pConfig.setUserGroups(new String[]{PersonalConfig.GROUP_ANONYMOUS});
+                 
+        String task = tcRequest.getTask();
+        PasswordAuthentication pwdAuth = tcRequest.getPasswordAuthentication();
+        if (TASK_LOGIN.equals(tcRequest.get(task))
+            || TASK_LOGIN_SOAP.equals(task)
+            || pwdAuth != null 
+            || hasPasswordAuthentication(tcRequest)) {
+            
+            if (pwdAuth == null)                
+                throw new TcSecurityException(TcSecurityException.ERROR_INCOMPLETE_USER_DATA);
+            
+            doLogin(config, pConfig, tcRequest);
+        } 
+
+        // Wenn nicht eingeloggt wird
+        // und eine neue Session gestartet wurde
+        // und das Task nicht f�r Anonymous freigegeben ist
+        // ==> Meldung, dass die Session un�ltig ist
+        else if (wasNew) {
+            TcTaskList taskList = config.getTaskList(tcRequest.getModule());
+            TcTask t = taskList.getTask(tcRequest.getTask());
+            String[] taskGroups = t.getGroups();            
+            
+            if (!arrayContains(taskGroups, PersonalConfig.GROUP_ANONYMOUS)) {
+                throw new TcSecurityException(TcSecurityException.ERROR_NO_VALID_SESSION);
+            }
+        }
+        
+        if (TASK_LOGOUT.equals(task) || TASK_LOGOUT_SOAP.equals(task)) {
+            doLogout(config, pConfig, tcRequest);
+        }
+    }
+    
+    /**
+     * Returns {@code true} if the field {TcRequest#passwordAuthentication} is not {@code null} for the given object.
+     * This is a hack to fix login with a redirect and basic authentication and also minimize changes to Veraweb and
+     * avert patching octopus.
+     * 
+     * @param tcRequest
+     * @return {@code true} if the field {TcRequest#passwordAuthentication} is not {@code null}.
+     */
+    private boolean hasPasswordAuthentication(TcRequest tcRequest) {
+		try {
+			Field field = TcRequest.class.getDeclaredField("passwordAuthentication");
+	    	field.setAccessible(true);
+	    	return field.get(tcRequest) != null;
+		} catch (NoSuchFieldException e) {
+			throw new RuntimeException(e);
+		} catch (SecurityException e) {
+			throw new RuntimeException(e);
+		}  catch (IllegalAccessException e) {
+			throw new RuntimeException(e);
+		}
     }
     
     //
