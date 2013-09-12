@@ -1,0 +1,303 @@
+#set($activeMenu = "Administration")
+#set($title = "Allgemeine Einstellungen")
+#parse("inc/header.vm")	
+
+<form id="formlist" name="formlist" action="Config" method="POST">
+	
+<div id="content_container">
+    <div id="breadcrumb" class="textRight marginBottom10">
+        <strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Administration > Programmeinstellungen </span>
+    </div>
+	
+    <h1>Programmeinstellungen</h1>
+	
+	#if($saveSuccess)
+		<vera-success>Einstellungen wurden erfolgreich gespeichert.</vera-success>
+	#end
+    
+    <div class="content">
+    	<div class="contentsection">
+    
+            <input type="hidden" name="saveconfig" value="personTab">
+            <input type="hidden" name="saveconfig" value="personMemberTab">
+            <input type="hidden" name="saveconfig" value="personAddresstypeTab">
+            <input type="hidden" name="saveconfig" value="personLocaleTab">
+            
+            <input type="hidden" name="saveconfig" value="freitextfeld">
+            <input type="hidden" name="saveconfig" value="freitextfeld2">
+            <input type="hidden" name="saveconfig" value="anrede">
+            <input type="hidden" name="saveconfig" value="anrede_p">
+            <input type="hidden" name="saveconfig" value="freitextfeldverbinder">
+            
+            <input type="hidden" name="saveconfig" value="main">
+            <input type="hidden" name="saveconfig" value="partner">
+            <input type="hidden" name="saveconfig" value="business">
+            <input type="hidden" name="saveconfig" value="private">
+            <input type="hidden" name="saveconfig" value="other">
+            <input type="hidden" name="saveconfig" value="latin">
+            <input type="hidden" name="saveconfig" value="extra1">
+            <input type="hidden" name="saveconfig" value="extra2">
+            <input type="hidden" name="saveconfig" value="suffix1">
+            <input type="hidden" name="saveconfig" value="suffix2">
+    
+            <input type="hidden" name="saveconfig" value="helplink">
+            <input type="hidden" name="saveconfig" value="helptarget">
+            
+            <input type="hidden" name="saveconfig" value="faxdomain">
+            <input type="hidden" name="saveconfig" value="changeLogRetentionPolicy">
+    
+    
+            #if(!$config.personTab || $config.personTab == "1")
+            	#set($personTab1 = true)#set($personTab2 = false)
+            #else
+            	#set($personTab1 = false)#set($personTab2 = true)
+            #end
+            #if(!$config.personMemberTab || $config.personMemberTab == "1")
+            	#set($personMemberTab1 = true)#set($personMemberTab2 = false)
+            #else
+            	#set($personMemberTab1 = false)#set($personMemberTab2 = true)
+            #end
+            #if(!$config.personAddresstypeTab || $config.personAddresstypeTab == "1")
+            	#set($personAddresstypeTab1 = true)#set($personAddresstypeTab2 = false)#set($personAddresstypeTab3 = false)
+            #elseif($config.personAddresstypeTab == "2")
+            	#set($personAddresstypeTab1 = false)#set($personAddresstypeTab2 = true)#set($personAddresstypeTab3 = false)
+            #else
+            	#set($personAddresstypeTab1 = false)#set($personAddresstypeTab2 = false)#set($personAddresstypeTab3 = true)
+            #end
+            #if(!$config.personLocaleTab || $config.personLocaleTab == "1")
+            	#set($personLocaleTab1 = true)#set($personLocaleTab2 = false)#set($personLocaleTab3 = false)
+            #elseif($config.personLocaleTab == "2")
+            	#set($personLocaleTab1 = false)#set($personLocaleTab2 = true)#set($personLocaleTab3 = false)
+            #else
+            	#set($personLocaleTab1 = false)#set($personLocaleTab2 = false)#set($personLocaleTab3 = true)
+            #end
+            <div class="contentBoxColored grayBorder marginBottom20">
+				
+				<div style="width: 55%; float: left; max-width: 510px;">
+					<fieldset class="marginTop20">
+                                <legend>Standard Auswahl von Tabulatoren</legend>
+                                    <div class="table width100 marginTop10">
+                                    	<div class="tableRow">
+                                        		<div class="tableCell bold paddingBottom10 width30">Haupttabs</div>
+                                        		<div class="tableCell"><label for="personTab1"><input type="radio" name="personTab" id="personTab1" value="1" #if($personTab1) checked #end>&nbsp;Personendaten</label></div>
+                                        		<div class="tableCell"><label for="personTab2"><input type="radio" name="personTab" id="personTab2" value="2" #if($personTab2) checked #end>&nbsp;Anschriften</label></div>
+                                    			<div class="tableCell"></div>
+                                    	</div>
+                                    	<div class="tableRow">
+                                        		<div class="tableCell bold paddingBottom10">Subtabs von &bdquo;Personendaten&rdquo;</div>
+                                        		<div class="tableCell verticalBottom"><label for="personMemberTab1"><input type="radio" name="personMemberTab" id="personMemberTab1" value="1" #if($personMemberTab1) checked #end>&nbsp;Hauptperson</label></div>
+                                        		<div class="tableCell verticalBottom"><label for="personMemberTab2"><input type="radio" name="personMemberTab" id="personMemberTab2" value="2" #if($personMemberTab2) checked #end>&nbsp;Partner</label></div>
+                                        		<div class="tableCell"></div>
+                                    	</div>
+                                    	<div class="tableRow">
+                                        		<div class="tableCell bold paddingBottom10">Subtabs von &bdquo;Anschriften&rdquo;</div>
+            									<div class="tableCell verticalBottom"><label for="personAddresstypeTab1"><input type="radio" name="personAddresstypeTab" id="personAddresstypeTab1" value="1" #if($personAddresstypeTab1) checked #end>&nbsp;Gesch&auml;ftlich</label></div>
+                                        		<div class="tableCell verticalBottom"><label for="personAddresstypeTab2"><input type="radio" name="personAddresstypeTab" id="personAddresstypeTab2" value="2" #if($personAddresstypeTab2) checked #end>&nbsp;Privat</label></div>
+                                        		<div class="tableCell verticalBottom"><label for="personAddresstypeTab3"><input type="radio" name="personAddresstypeTab" id="personAddresstypeTab3" value="3" #if($personAddresstypeTab3) checked #end>&nbsp;Weitere</label></div>
+                                    	</div>
+                                    </div>
+                           	</fieldset>
+				</div>
+				
+				<div style="width:43%" class="floatRight">
+				 <fieldset class="marginTop20">
+                            	<legend>Standard Auswahl der Selectbox &bdquo;Zeichensatz&rdquo; </legend>
+                            		<div class="table width100 marginTop10">
+                            			<div class="tableRow">
+                                    		<div class="tableCell"><label for="personLocaleTab1"><input type="radio" name="personLocaleTab" id="personLocaleTab1" value="1" #if($personLocaleTab1) checked #end>&nbsp;Latein</label></div>
+                                    		<div class="tableCell"><label for="personLocaleTab2"><input type="radio" name="personLocaleTab" id="personLocaleTab2" value="2" #if($personLocaleTab2) checked #end>&nbsp;Zeichensatz 1</label></div>                
+                                    		<div class="tableCell"><label for="personLocaleTab3"><input type="radio" name="personLocaleTab" id="personLocaleTab3" value="3" #if($personLocaleTab3) checked #end>&nbsp;Zeichensatz 2</label></div>                          
+                            			</div>
+                                    </div>
+                            </fieldset>
+				</div>
+				
+                <div class="clear"></div>
+			
+            </div>
+            
+            <div class="width49" style="float:left;">
+                <h3>Standard-Anreden und Freitextfelder:</h3>
+                <table class="marginBottom20">
+                	<tr>
+                		<td class="bold width25">Standard-Anrede:</td>
+                		<td>
+                			<select name="anrede" class="combox">
+                				<option></option>
+                				#foreach($salutation in $allSalutation)
+                					<option #if($salutation.name == $config.anrede) selected#end>$!message.text($salutation.name)</option>
+                				#end
+                			</select>
+                		</td>
+                	</tr>
+                	<tr>
+                		<td class="bold width25">Standard-Anrede Partner:</td>
+                		<td>
+                			<select name="anrede_p" >
+                				<option></option>
+                				#foreach($salutation in $allSalutation)
+                					<option #if($salutation.name == $config.anrede_p) selected#end>$!message.text($salutation.name)</option>
+                				#end
+                			</select>
+                		</td>
+                	</tr>
+                	<tr>
+                		<td class="bold width25">Freitextfeld-Verbinder:</td>
+                		<td><input type="text" name="freitextfeldverbinder" maxlength="300" value="$!message.plain($config.freitextfeldverbinder)" ></td>
+                	</tr>
+                	<tr>
+                		<td class="bold width25">Freitextfeld (Anzeige):</td>
+                		<td>
+                			<select name="freitextfeld" >
+                				<option value="">Noch keine Auswahl getroffen</option>
+                	2			#foreach($doctype in $allDoctype)
+                					<option value="$!doctype.id" #if("$doctype.id" == $config.freitextfeld) selected#end>$!message.text($doctype.name)</option>
+                				#end
+                			</select>
+                		</td>
+                	</tr>
+                	<tr>
+                		<td class="bold width25">Freitextfeld (G&auml;steliste):</td>
+                		<td>
+                			<select name="freitextfeld2" >
+                				<option value="">Noch keine Auswahl getroffen</option>
+                				#foreach($doctype in $allDoctype)
+                					<option value="$!doctype.id" #if("$doctype.id" == $config.freitextfeld2) selected#end>$!message.text($doctype.name)</option>
+                				#end
+                			</select>
+                		</td>
+                	</tr>
+            </table>
+            </div>
+            
+            <div class="floatRight width49">
+                <h3>Oberfl&auml;chenbeschriftungen:</h3>
+                <table class="marginBottom20">
+                	<tr>
+                		<td class="bold width25">Hauptperson:</td>
+                		<td><input type="text" name="main" maxlength="300" value="$!message.text($config.main)" ></td>
+                	</tr>
+                	<tr>
+                		<td class="bold width25">Partner:</td>
+                		<td><input type="text" name="partner" maxlength="300" value="$!message.text($config.partner)" ></td>
+                	</tr>
+                	<tr>
+                		<td class="bold width25">Anschrift Gesch&auml;ftlich:</td>
+                		<td><input type="text" name="business" maxlength="300" value="$!message.text($config.business)" ></td>
+                	</tr>
+                	<tr>
+                		<td class="bold width25">Anschrift Privat:</td>
+                		<td><input type="text" name="private" maxlength="300" value="$!message.text($config.private)" ></td>
+                	</tr>
+                	<tr>
+                		<td class="bold width25">Anschrift Weitere:</td>
+                		<td><input type="text" name="other" maxlength="300" value="$!message.text($config.other)" ></td>
+                	</tr>
+                	<tr>
+                		<td class="bold width25">Zeichensatz Latein:</td>
+                		<td><input type="text" name="latin" maxlength="300" value="$!message.text($config.latin)" ></td>
+                	</tr>
+                	<tr>
+                		<td class="bold width25">Zeichensatz Alternative 1:</td>
+                		<td><input type="text" name="extra1" maxlength="300" value="$!message.text($config.extra1)" ></td>
+                	</tr>
+                	<tr>
+                		<td class="bold width25">Zeichensatz Alternative 2:</td>
+                		<td><input type="text" name="extra2" maxlength="300" value="$!message.text($config.extra2)" ></td>
+                	</tr>
+                	<tr>
+                		<td class="bold width25">Adresszusatz 1:</td>
+                		<td><input type="text" name="suffix1" maxlength="300" value="$!message.text($config.suffix1)" ></td>
+                	</tr>
+                	<tr>
+                		<td class="bold width25">Adresszusatz 2:</td>
+                		<td><input type="text" name="suffix2" maxlength="300" value="$!message.text($config.suffix2)" ></td>
+                	</tr>
+                </table>
+            </div>
+            
+            <div class="width49">
+                <h3>Hilfe:</h3>
+                <table class="marginBottom20">
+                	<tr>
+                		<td class="bold width25">Hilfe-Link:</td>
+                		<td><input type="text" name="helplink" maxlength="300" value="$!message.text($config.helplink)" ></td>
+                	</tr>
+                	<tr>
+                		<td class="bold width25">Hilfe-Fenster:</td>
+                		<td>
+                			<select name="helptarget" >
+                				$config.helptarget
+                				<option value="">Aktuelles Browser-Fenster verwenden.</option>
+                				<option value="_blank"      #if($config.helptarget == "_blank") selected #end>Pro Aufruf ein neues Browser-Fenster &ouml;ffnen.</option>
+                				<option value="verawebhelp" #if($config.helptarget == "verawebhelp") selected #end>Bei jedem Aufruf das selbe Browser-Fenster (nicht das aktuelle).</option>
+                			</select>
+                		</td>
+                	</tr>
+                </table>
+            </div>
+            
+            
+            <div class="width49">
+                <h3>Sonstiges:</h3>
+                <table class="marginBottom20">
+                	<tr>
+                		<td class="bold width25">Fax-DN (@fax.aa):</td>
+                		<td><input type="text" name="faxdomain" maxlength="300" value="$!message.text($config.faxdomain)" ></td>
+                	</tr>
+                </table>
+            </div>
+            
+            ## added change log maintenance worker configuration as per change request for version 1.2.0
+            ## cklein
+            ## 2008-02-18
+            
+            <div class="width49">
+                <h3>Änderungsprotokoll:</h3>
+                <table class="marginBottom20">
+                	<tr>
+                		<td class="bold width50">Vorhaltezeit der Protokolldaten (Jahre/Monate/Tage):</td>
+                		<td>
+                		<input type="hidden" name="changeLogRetentionPolicy" id="changeLogRetentionPolicyValue" value="$!message.text($config.changeLogRetentionPolicy.toString())"  vera-disabled style="width: 80px;">
+                		<input type="text" maxlength="300" id="changeLogRetentionPolicyDisplay" value="$!message.text($config.changeLogRetentionPolicy.toFormattedString( '%Y%M%D' ))"  vera-disabled style="background-color: #f0f0f0;width: 200px;">
+                		<span id="show-changeLogRetentionPolicy" class="datepickerContainer"><img src="${paths.staticWeb}images/calendar.png"></span>
+                		<link rel="stylesheet" type="text/css" href="${paths.staticWeb}styles/dialog.css">
+                		<script type="text/javascript" src="${paths.staticWeb}scripts/Duration.js"></script>
+                		<script type="text/javascript" src="${paths.staticWeb}scripts/DurationInputDialog.js"></script>
+                		<script type="text/javascript">
+                			DurationInputDialog.setup(
+                				{
+                					display : "changeLogRetentionPolicyDisplay",
+                					value : "changeLogRetentionPolicyValue",
+                					button : "show-changeLogRetentionPolicy",
+                					title : "Geben Sie die Aufbewahrungsfrist ein:"
+                				}
+                			);
+                		</script>
+                		</td>
+                	</tr>
+                </table>
+            </div>
+            
+            #if($grants.isAdmin())
+            <div id="buttonPanel-bottom" class="textRight ">
+            
+            	<input type="submit" name="save" value="Speichern" title="Speichern" class="mainButton" /> 
+            
+            </div>
+            #end
+    
+    
+    	</div>
+    </div>
+</div>
+
+</form>
+
+<script type="text/javascript">
+#if(!$grants.isAdmin())
+	disableForm(document.getElementById('formlist'));
+#end
+</script>
+
+#parse("inc/footer.vm")

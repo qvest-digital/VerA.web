@@ -1,0 +1,313 @@
+#set($activeMenu = "Veranstaltungen")
+
+#if($event && $event.id)
+    #set($title = "Veranstaltung bearbeiten: $!message.plain($event.shortname)")
+#else
+	#set($isNewEvent = 1)
+    #set($title = "Neue Veranstaltung erstellen")
+#end
+
+#set($elementNameSex = "female")
+#set($elementNameSingular = "Veranstaltung")
+#set($elementNamePlural = "Veranstaltungen")
+#parse("inc/header.vm")
+
+<div id="content_container">
+	#if($event && $event.id)
+    	<div id="breadcrumb" class="textRight marginBottom10">
+    		<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Veranstaltungen > Veranstaltung bearbeiten</span>
+    	</div>
+    		<h1>Veranstaltung bearbeiten: $!message.plain($event.shortname)</h1>
+	#else
+		<div id="breadcrumb" class="textRight marginBottom10">
+			<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Veranstaltungen > Neue Veranstaltung</span>
+		</div>
+			<h1>Neue Veranstaltung anlegen</h1>
+	#end
+
+    <form id="formlist" name="formlist" action="" method="POST">
+        <input type="hidden" id="a" name="a" value="">
+        <input type="hidden" id="modified" name="event-modified" value="false">
+        <input type="hidden" name="saveevent" value="true">
+        <input type="hidden" name="search" value="clear">
+        
+        #if($status && $status.code && $status.code == "noevent")
+            <vera-warn>
+            	Die Veranstaltung, an der Sie gerade gearbeitet haben, wurde von einem anderen Anwender gel&ouml;scht.
+            	Sie k&ouml;nnen nun eine neue Veranstaltung anlegen oder anderweitig mit VerA.web arbeiten.
+            </vera-warn>
+        #end
+        
+        #if($event.errors.size() > 0)
+    
+            <div style="width: 99%; background-color: #ffffff;">
+                <vera-warn>
+                    $!message.plain($event.errors.get(0))<br>
+                    ##	#foreach($error in $event.errors)
+                    ##		$error<br>
+                    ##	#end
+                </vera-warn>
+            </div>	
+    		
+        #elseif($listquestions && $listquestions.size() > 0)
+    		
+            <vera-confirm>
+            	<strong>Bitte best&auml;tigen Sie das Speichern dieser Veranstaltung</strong><br>
+            	<table class="form" style="margin: 5px 0px 0px 0px;">
+            	#foreach($quest in $listquestions.entrySet())
+            		<tr>
+            			<td><input type="hidden" name="$quest.key" value="true">$!message.plain($quest.value)</td>
+            		</tr>
+            		#set($save = true)
+            	#end
+            	</table><br>
+            
+            	#if($save)
+					<input type="submit" class="button" name="remove" value="Ja" title="Speichern">
+            	#end
+            	<input type="button" class="cancel" name="cancel" value="Nein" onclick="window.location.href='ShowEvent?id=$!event.id';">
+            </div>
+    		
+		#end
+		
+		#if(!$isNewEvent)
+			#set($completeEventHeader = false)
+        	#parse("inc/event-header.vm")
+		#end
+		
+		#if($event && $event.id)
+		<div class="textRight marginBottom10 marginTop20" id="buttonPanel-top">
+			<input type="button" class="mainButton" value="Zur G&auml;steverwaltung" title="Zur G&auml;steverwaltung" name="guestlist" onclick="window.location.href='ShowGuestList?search-event=$!event.id&start=0&selectNone=true';">
+		</div>
+		#end
+		
+		<div id="main_content" class="tabs contentBox grayBorder marginBottom10">
+
+			#if(!$isNewEvent)
+        		<div id="tabsMain" class="event">
+                	<ul class="gray-gradient" vera-tab-group> <!-- Bitte das End-tag der <li>s immer mit in die nächste Zeile nehmen (verhindert Mozilla styling bug) -->
+                		<li vera-tab="allgemein" vera-tab-default><div>Allgemein</div>
+                		</li><li onclick="showDoctypes();" class="inactive"><div>Dokumenttypen</div>
+        				</li><li class="inactive" #if ($event.id) onclick="if (checkModified()) { window.location.href='ShowEventTasks?id=$!event.id&selectNone=true';}" #end><div>Aufgaben</div>
+        				</li>
+                	</ul>
+        		</div>
+			#end
+    		
+    		<input type="hidden" name="event-id" value="$!event.id">
+            <input type="hidden" name="event-orgunit" value="$!event.orgunit">
+		
+    		<div #if(!$isNewEvent)vera-content="allgemein"#end class="contentBoxColored tabsContent">
+				<div class="textRight mandatoryText">* = Pflichtfelder</div>
+    					<div class="table width100">							
+							<div class="tableRow">
+    							<div class="tableCell width50">
+        							<label for="event-shortname">Kurzbezeichnung*</label>
+        							<input type="text" onchange="setModified();" maxlength="50"  id="event-shortname" value="$!message.text($event.shortname)" name="event-shortname"/>
+								</div>
+								<div class="tableCell width50">
+                    				<label for="event-begin">Beginn*</label>
+                    				<div class="calenderContainer">
+                    						<input type="text" class="datepicker" id="event-begin" value="$!message.date("DATE", $event.begin)" name="event-begin" onchange="setModified();">
+                    						#if($grants.mayWrite())
+                    							<span class="datepickerContainer" id="show-begin">
+                    								<img title="Datum ausw&auml;hlen" alt="Datum ausw&auml;hlen" src="${paths.staticWeb}images/calendar.png">
+                    							</span>
+                    							<script type="text/javascript">
+                    							    Calendar.setup({
+                    									inputField     :    "event-begin",
+                    									button         :    "show-begin",
+                    									ifFormat       :    "%d.%m.%Y",
+                    									showsTime      :    false
+                    								});
+                    							</script>
+                    						#end
+                    					 um <input type="text" name="event-begintime" id="event-begintime" #if($event-beginhastime) value="$!message.date("TIME", $event.begin)" #else value="" #end class="width15" onchange="setModified();"> Uhr </div>									
+								</div>
+							</div>
+							
+							<div class="tableRow">
+    							<div class="tableCell width50">
+        							<label for="event-eventname">Name</label>
+									<textarea onchange="setModified();"  id="event-eventname" name="event-eventname" cols="20" rows="4">$!message.textarea($event.eventname)</textarea>
+								</div>
+								<div class="tableCell width50">
+                    				<label for="event-end">Ende</label>
+                    				<div class="calenderContainer">
+                    						<input type="text" class="datepicker" id="event-end" value="$!message.date("DATE", $event.end)" name="event-end" onchange="setModified();">
+                    						<span class="datepickerContainer" id="show-end">
+                    							<img title="Datum auswählen" alt="Datum auswählen" src="${paths.staticWeb}images/calendar.png">
+                    						</span>
+                    						#if($grants.mayWrite())
+                    							<script type="text/javascript">
+                    							    Calendar.setup({
+                    									inputField     :    "event-end",
+                    									button         :    "show-end",
+                    									ifFormat       :    "%d.%m.%Y",
+                    									showsTime      :    false
+                    								});
+                    							</script>
+                    						#end
+                    					 um <input type="text" name="event-endtime" id="event-endtime" #if($event-endhastime) value="$!message.date("TIME", $event.end)" #else value="" #end class="width15" onchange="setModified();">Uhr </div>									
+								</div>
+							</div>
+
+							<div class="tableRow">
+    							<div class="tableCell width50">
+    								<label for="event-invitationtype">Einladungsart</label>
+    								<select onchange="setModified();" class="autoWidth" id="event-invitationtype" name="event-invitationtype">
+                    					<option #if($event.invitationtype && $event.invitationtype == 1) selected #end value="1">Mit Partner</option>
+                    					<option #if($event.invitationtype && $event.invitationtype == 2) selected #end value="2">Ohne Partner</option>
+                    					<option #if($event.invitationtype && $event.invitationtype == 3) selected #end value="3">Nur Partner</option>
+    								</select>						
+    							</div>
+    							<div class="tableCell width50 ">
+    								<label for="gastgeber">Gastgeber</label>
+    								<input type="hidden" value="$!event.host" name="event-host" id="event-host">
+    								<input type="hidden" value="$!event.hostname" name="event-hostname" id="event-hostname">
+    								<input type="hidden" value="kein Gastgeber ausgewählt" name="showevent-hostnametext" id="showevent-hostnametext">
+    								<input type="text" vera-disabled class="textdisabled" value="$!message.text($event.hostname)" name="showevent-hostname" id="showevent-hostname">
+    								#if($grants.mayWrite())
+    								<div class="addButton">
+    									<input type="button" value="Gastgeber suchen" title="Gastgeber suchen" onclick="document.getElementById('formlist').action='SetHostToEventSearch'; document.getElementById('a').value='host'; document.getElementById('formlist').submit();">
+    									<input type="button" value="Gastgeber entfernen" title="Gastgeber entfernen" onclick="removeHost(); setModified(); document.getElementById('formlist').action='SaveEvent'; document.getElementById('formlist').submit();">
+                                    </div>	
+    								#end
+    							</div>
+    						</div>
+									
+    						<div class="tableRow">
+    							<div class="tableCell width50">
+    								<label for="event-maxguest">Maximal Anzahl G&auml;ste</label>
+    								<input type="text" onchange="setModified();" class="int" id="event-maxguest" value="$!message.plain($event.maxguest)" name="event-maxguest">														
+    							</div>
+    							<div class="tableCell width50 inlineLabel">
+    								<label for="event-invitepartner">Gastgeber-Partner</label>
+    								<input type="checkbox" class="noFloat"  id="event-invitepartner" name="event-invitepartner" value="true" #if(!$event || $event.invitepartner) checked #end id="event-invitepartner">						
+    							</div>
+    						</div>
+    						<div class="tableRow">
+    							<div class="tableCell width50">
+    								<label for="event-location">Veranstaltungsort</label>	
+    								<script type="text/javascript">
+                            			function addCity() {
+                    						var city = document.getElementById('addcity').value;
+                    						var select = document.getElementById('event-location');
+                    						var exists = false;
+                    						var i = 0;
+                                			for (i = 0; i < select.length; i++) {
+                                				if (select.options[i].text == city) {
+                                					exists = true;
+                                					break;
+                                				}
+                                			}
+                    						if (exists) {
+                    							select.options[i].selected = true;
+                    						} else {
+                    							select.options[select.length] = new Option(city, city, false, true);
+                    							#if($grants.isAdmin() || $grants.isPartialAdmin())
+                    							htmlConfirm('Sollen die Stammdaten um diesen Ort erweitert werden?', new Array('Ja', 'Nein'), new Array("addCityYes();", "addCityNo();"));
+                    							#else
+                    							addCityNo();
+                    							#end
+                    						}
+                    						setModified();
+                            			}
+                            			
+                            			function addCityYes() {
+                    	        			document.getElementById('addcity-masterdata').value = 'true';
+                    	        			hideDialogs();
+                    						showComboboxes();
+                            			}
+                            			
+                            			function addCityNo() {
+                    						document.getElementById('addcity-masterdata').value = 'false';
+                    	        			hideDialogs();
+                    						showComboboxes();
+                            			}
+                            		</script>
+                    				<input type="hidden" id="addcity-masterdata" name="addcity-masterdata" #if($addcity-masterdata) value="true" #else value="false" #end>
+                    				<input type="hidden" id="addcity" name="addcity" value="">
+    								<select onchange="setModified();" name="event-location" id="event-location">
+    									#if((!$event.location) || $event.location == "")
+                							#set ($exists = 1)
+                    					#else
+                							#set ($exists = 0)
+                						#end
+                						
+                    					<option value=""></option>
+                    					
+                    					#foreach($location in $allLocation)
+                        					#if($event.location && $event.location == $location.id)
+                            					#set ($exists = 1)
+                                              <option value="$location.id" selected>$!message.text($location.name)</option>
+                        					#else
+                								<option value="$location.id">$!message.text($location.name)</option>
+                        					#end
+                    					#end
+
+    								</select>
+    							</div>
+    							<div class="tableCell width50">
+    								<label for="event-note">Bemerkung</label>
+    								<textarea onchange="setModified();" id="event-note" name="event-note" rows="4" #if($grants.mayReadRemarkFields()) >$!message.textarea($event.note)#else class="textdisabled" vera-disabled>#end</textarea>						
+    							</div>
+    						</div>
+    				</div>
+    		</div>
+		</div>
+		
+		<span class="floatRight" id="buttonPanel-bottom">
+			<!-- Show the save button -->
+			#if($grants.mayWrite())
+				<input type="submit" class="mainButton" value="Veranstaltung speichern" title="Veranstaltung speichern" name="save" onclick="document.getElementById('formlist').action='SaveEvent';">
+			#end
+			
+			#if($event && $event.id)
+				<input type="reset" class="mainButton" value="Zur Veranstaltungsübersicht" title="Zur Veranstaltungsübersicht" name="cancel" onclick="window.location.href='SearchEvent?action=event&selectNone=true';">			
+			#else
+				<input type="reset" class="mainButton" value="Zur Veranstaltungsübersicht" title="Zur Veranstaltungsübersicht" name="cancel" onclick="if (checkModified()) { window.location.href='ShowEventSearch?action=event'; }">	
+			#end
+		</span>
+        
+        <script type="text/javascript">
+        	function showDoctypes() {
+                #if($event && $event.id)
+                		if (document.getElementById('modified').value == 'true') {
+                    		document.getElementById('formlist').action = '${paths.staticWeb}do/ShowEventDoctype';
+                    		document.getElementById('formlist').submit();
+                		} else {
+                			window.location.href = '${paths.staticWeb}do/ShowEventDoctype?id=$!event.id&selectNone=true';
+                		}
+                #else
+                    		document.getElementById('formlist').action = '${paths.staticWeb}do/ShowEventDoctype';
+                    		document.getElementById('formlist').submit();
+                #end
+        	};
+        	
+        	function removeHost() {
+        		##showSuccess('Bitte beachten Sie das der Gastgeber dieser Veranstaltung weiterhin als normaler Gast zugeordenet ist.');
+        		document.getElementById('event-host').value='';
+        		document.getElementById('event-hostname').value='';
+        		document.getElementById('showevent-hostname').value=document.getElementById('showevent-hostnametext').value;
+        	};
+        	
+        	function resetHost() {
+                #if(!$event.hostname || $event.hostname.length() == 0)
+                	document.getElementById('event-host').value='';
+                	document.getElementById('event-hostname').value='';
+                	document.getElementById('showevent-hostname').value=document.getElementById('showevent-hostnametext').value;
+                #end
+        	};
+    		
+        	resetHost();
+        
+            #if(!$grants.mayWrite())
+            	disableForm(document.getElementById('formlist'));
+            #end
+        </script>
+    
+    </form>
+	<div class="clear"></div> 
+</div>
+#parse("inc/footer.vm")

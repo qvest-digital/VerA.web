@@ -1,0 +1,164 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description></description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <hudson.security.AuthorizationMatrixProperty>
+      <permission>hudson.model.Item.Workspace:sgirru</permission>
+      <permission>hudson.model.Item.Build:sgirru</permission>
+      <permission>hudson.model.Item.Read:sgirru</permission>
+      <permission>hudson.model.Item.Delete:sgirru</permission>
+      <permission>hudson.model.Item.Configure:sgirru</permission>
+    </hudson.security.AuthorizationMatrixProperty>
+    <hudson.model.ParametersDefinitionProperty>
+      <parameterDefinitions>
+        <hudson.model.StringParameterDefinition>
+          <name>VERSION</name>
+          <description>Welche Version des Debian pakets soll gebaut werden?
+Mögliche Werte sind:
+  latest =&gt; baut die letzte Version die als tag unter &quot;tags/debian/&quot; vorhanden ist
+  trunk =&gt; erstellt einen snapshot build
+  x.y    =&gt; versucht die neueste version von z.b. 1.4 unter tags/debian zu bauen. Wenn es Verschiedene Versionen wie 1.4-1, 1.4.0.1-1 und 1.4.0.1-3 würde er bei einer Angabe von 1.4 die Version  1.4.0.1-3 erstellen.</description>
+          <defaultValue>latest</defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>REPOSITORY</name>
+          <description>Welches SCM soll auf evolvis.org genutzt werden?
+
+svn://evolvis.org/scmrepos/svn/${REPOSITORY}/${VERSION}</description>
+          <defaultValue>veraweb</defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>DIST</name>
+          <description>Welches chroot soll für den Build genutzt werden. Mögliche werte sind stable, testing oder unstable.</description>
+          <defaultValue>testing</defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>STAGE</name>
+          <description>Zielstage für den Paketupload, unstable z.B. für veraweb-unstable
+
+Mögliche werte sind stable, testing, unstable oder  NONE.&lt;/br&gt;
+
+Bei der Angabe von NONE erfolgt kein Paketupload.
+Siehe https://dev.tarent.de/plugins/mediawiki/wiki/buildmgmt/index.php/Debian_Repositorys</description>
+          <defaultValue>NONE</defaultValue>
+        </hudson.model.StringParameterDefinition>
+      </parameterDefinitions>
+    </hudson.model.ParametersDefinitionProperty>
+  </properties>
+  <scm class="hudson.scm.NullSCM"/>
+  <canRoam>true</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <jdk>(Vorgabewert)</jdk>
+  <triggers class="vector"/>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.tasks.Shell>
+      <command>#!/bin/bash -x
+#
+# Author: Sascha Girrulat &lt;s.girrulat@tarent.de&gt;
+#
+set -e
+GBP_ARGS=&quot;--git-upstream-tree=master --git-upstream-branch=master --git-builder=/usr/bin/git-pbuilder -us -uc&quot;
+REV=&quot;HEAD&quot;
+CO=$(mktemp -u -p ./)
+
+# create url to clone
+if [ &quot;${VERSION}&quot; = &quot;trunk&quot; ]; then
+    URL=&quot;svn://evolvis.org/scmrepos/svn/${REPOSITORY}/${VERSION}&quot;
+    # rev 1330 is the first svn revision of a debian release
+    REV=1330
+elif [ &quot;${VERSION}&quot; = &quot;latest&quot; ]; then
+    TAG=$(svn list svn://evolvis.org/scmrepos/svn/${REPOSITORY}/tags/debian/ | sort | tail -n1)
+    URL=&quot;svn://evolvis.org/scmrepos/svn/${REPOSITORY}/tags/debian/${TAG}&quot;
+else
+    TAGS=$(svn list svn://evolvis.org/scmrepos/svn/${REPOSITORY}/tags/debian/ | sort | grep -e &quot;^${VERSION}&quot;)
+    COUNT=$(echo $TAGS | wc -w)
+    if [ ${COUNT} -eq 0 ]; then
+        echo &quot;ERROR: Can&apos;t find any tags that match on ${VERSION}.&quot;
+    elif [ ${COUNT} -gt 1 ]; then
+        # get latest of given version match
+        TAG=$(echo ${TAGS} | sed &apos;s/ /\n/g&apos; | sort | tail -n1)
+    else
+        # explicit version is given
+        TAG=${TAGS}
+    fi
+    URL=&quot;svn://evolvis.org/scmrepos/svn/${REPOSITORY}/tags/debian/${TAG}&quot;
+fi
+
+# clone
+if git svn clone -r ${REV} ${URL} ${CO}; then
+    pushd &quot;${CO}&quot; &gt; /dev/null
+
+    if [ &quot;${VERSION}&quot; = &quot;trunk&quot; ]; then
+        if ! git svn rebase; then
+            echo &quot;Error while getting revisions ${REV}:HEAD.&quot;
+            exit 1
+        fi
+
+        if ! git dch -S --since HEAD^; then
+            echo &quot;Error while setting snapshot version.&quot;
+            exit 1
+        else
+            sed &quot;1s/UNRELEASED/${REPOSITORY}-${STAGE}/&quot; -i debian/changelog
+        fi
+        GBP_ARGS=&quot;${GBP_ARGS} --git-ignore-new&quot;
+    fi
+    popd &gt; /dev/null
+else
+    echo &quot;Error while createing clone of ${REV}@${URL}.&quot;
+    exit 1
+fi
+
+# build
+pushd &quot;${CO}&quot; &gt; /dev/null
+if [ -d &quot;/var/cache/pbuilder/base-${DIST}.cow&quot; ]; then
+    sudo DIST=${DIST} git-pbuilder update
+else
+    sudo DIST=${DIST} git-pbuilder create
+fi
+
+if ! sudo DIST=${DIST} git-buildpackage ${GBP_ARGS}; then
+    echo &quot;Error while building ${REPOSITORY}-java.&quot;
+    exit 1
+else
+    popd &gt; /dev/null
+    rm ./tmp.* -Rf
+    exit 0
+fi
+</command>
+    </hudson.tasks.Shell>
+    <hudson.tasks.Shell>
+      <command>#!/bin/bash -x
+#
+# Author: Sascha Girrulat &lt;s.girrulat@tarent.de&gt;
+#
+if [ &quot;${STAGE}&quot; = &quot;NONE&quot; ]; then
+    echo &quot;No Package upload selected.&quot;
+    exit 0
+fi
+
+cat &gt; dput.cf &lt;&lt;EOF
+[${REPOSITORY}-${STAGE}]
+incoming                = /var/www/mini-dinstall/incoming/
+allow_unsigned_uploads  = 1
+fqdn                    = bm-repo.lan.tarent.de
+method                  = scp
+progress_indicator      = 2
+EOF
+
+CHANGES=$(ls -rt *changes | tail -n1)
+
+if ! dput -c dput.cf ${REPOSITORY}-${STAGE} ${CHANGES}; then
+    echo &quot;Error while uploading ${CHANGES}.&quot;
+    exit 1
+fi
+</command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers/>
+  <buildWrappers/>
+</project>

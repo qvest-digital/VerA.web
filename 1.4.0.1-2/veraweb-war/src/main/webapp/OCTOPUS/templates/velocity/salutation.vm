@@ -1,0 +1,119 @@
+#set($activeMenu = "Administration")
+#set($title = "Stammdaten - Anreden")
+#set($elementNameSex = "female")
+#set($elementNameSingular = "Anrede")
+#set($elementNamePlural = "Anreden")
+#parse("inc/header.vm")
+
+
+<div id="content_container">
+    <form id="formlist" name="formlist" action="Salutation" method="POST">
+            <input type="hidden" name="doInsert" value="true">
+            <input type="hidden" name="doUpdate" value="true">
+            <input type="hidden" name="doRemove" value="true">
+            <input type="hidden" name="start" value="">
+            <input type="hidden" name="selectNone" value="true">
+            <input type="hidden" name="limit" value="" />
+            
+            <div id="breadcrumb marginBottom10" class="textRight">
+            	<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Administration > Anreden</span>
+    		</div>
+            
+            <h1>Anreden</h1>
+            
+            <span id="actionPanel" class="inlineLabel"> 
+              <strong>Markierte Anrede(n)</strong> 
+             	<input type="button" name="remove" onclick="askDelete()"  value="L&ouml;schen" title="Markierte Anrede(n) l&ouml;schen" #if($grants.isAdmin()) #else vera-disabled #end>
+            </span>
+            
+            
+            #if($listerrors.size() > 0)
+            <vera-warn>
+            	#foreach($error in $listerrors)
+            		$error<br>
+            	#end
+            </vera-warn>
+            #end
+            
+            #foreach($bean in $list)
+            <input type="hidden" name="list" value="$bean.id">
+            #end
+            <div id="main_content">
+            
+            				<table>
+            					<tr>
+            						<th class="smallCell textCenter"><input type="checkbox" title="Alle (de)markieren" id="toggleAllSelect" name="toggleAllSelect" #if($listselection.size() == $list.size()) checked#end></th>
+            						<th class="smallCell textCenter">ID</th>
+            						<th>Stammform</th>
+            						<th class="textCenter width10">Geschlecht</th>
+            						<th class="smallCell textCenter">Bearbeiten</th>
+            					</tr>
+								
+								<tr>
+                               		<td class="textCenter"><input type="hidden" id="add-modified" name="add-modified" value="false"><input type="checkbox" name="add-select" value="true"  style="display: none;"></td>
+                               		<td class="textCenter"><input type="hidden" name="add-id" value=""><em>neu</em></td>
+                               		<td><input type="text" name="add-name" value="" maxlength="100" onchange="setModified('add')"></td>
+                               		<td>
+                               			<select name="add-gender" onchange="setModified('add')">
+                               				<option value="M">M&auml;nnlich</option>
+                               				<option value="F">Weiblich</option>
+                               			</select>
+                               		</td>
+                               		<td>&nbsp;</td>
+                               	</tr>
+                            	#foreach($bean in $list)
+                                	<tr>
+                                		<td class="textCenter"><input type="hidden" id="${bean.id}-modified" name="${bean.id}-modified" value="false"><input type="checkbox" name="${bean.id}-select" value="true"></td>
+                                		<td class="textCenter"><input type="hidden" name="${bean.id}-id" value="$!bean.id">$!bean.id</td>
+                                		<td><input type="text" name="${bean.id}-name" value="$!message.text($bean.name)"  onchange="setModified('$!bean.id')"></td>
+                                		<td>
+                                			<select name="${bean.id}-gender"  style="width: 97%;" onchange="setModified('$!bean.id')">
+                                				<option value="M">M&auml;nnlich</option>
+                                				<option value="F" #if($bean.gender && $bean.gender == "F") selected#end>Weiblich</option>
+                                			</select>
+                                		</td>
+                                		<td class="textCenter"><a href="SalutationDoctype?start=0&id=${bean.id}" class="noBorder"><img src=" ${paths.staticWeb}images/edit.png" alt="bearbeiten" title="bearbeiten" /></a></td>
+                                	</tr>
+                                	#end
+									#if ($listparam.count == 0)
+                                    	<tr><td colspan="5">Keine Daten gefunden.</td></tr>
+                                    #end
+                                    
+                                    
+                                    #set($itemName = "Anreden")
+    				#parse("inc/list-navi-new.vm")
+    				#parse("inc/list-direct-new.vm")
+                                    
+            				</table>
+							#if($grants.isAdmin())
+            				<div class="textRight marginTop10" id="buttonPanel-bottom">
+									<input type="submit" name="save" value="Speichern" title="Speichern" class="mainButton" />
+            				</div>
+							#end
+							
+                            ##Rueckfrage beim Loeschen
+                            <script type="text/javascript">
+                            function askDelete() {
+                            	htmlConfirm('Wirklich L&ouml;schen?', new Array('Ja', 'Nein'), new Array("askDeleteYes();", "askDeleteNo();"));
+                            } 
+                            function askDeleteYes() {
+                            	hideDialogs();
+                            	document.getElementById('presave').name='remove'
+                            	document.getElementById('formlist').submit();
+                            }
+                            function askDeleteNo() {
+                            	hideDialogs();
+                            	showComboboxes();
+                            }
+                            </script>
+							<input type="hidden" name="egal" value="egal" id="presave">
+         </div>
+    </form>
+</div>
+</script>
+<script type="text/javascript">
+#if(!$grants.isAdmin())
+	disableForm(document.getElementById('formlist'));
+#end
+</script>
+#parse("inc/footer.vm")
