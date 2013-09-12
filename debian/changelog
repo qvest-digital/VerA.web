@@ -1,6 +1,4 @@
-veraweb (1.4.0.1-2~2.gbpa93a3b) UNRELEASED; urgency=low
-
-  ** SNAPSHOT build @a93a3b8e02eba82530b3de6262d370165124e7f2 **
+veraweb (1.4.0.1-2) veraweb-stable; urgency=low
 
   [ Sascha Girrulat ]
   * [e506fb6] [debian] add new maven build command to d/rules so we are able to
@@ -9,7 +7,7 @@ veraweb (1.4.0.1-2~2.gbpa93a3b) UNRELEASED; urgency=low
   * [cff021d] [debian] add openjdk-6-jdk as build dependency
   * [a93a3b8] [debian] use java-6-openjdk
 
- -- Sascha Girrulat <sascha@girrulat.de>  Fri, 06 Sep 2013 14:59:36 +0200
+ -- Sascha Girrulat <sascha@girrulat.de>  Thu, 12 Sep 2013 18:35:55 +0200
 
 veraweb (1.4.0.1-1) veraweb-stable; urgency=low
 
