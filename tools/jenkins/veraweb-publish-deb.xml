@@ -98,8 +98,8 @@ STAGE=${STAGE}
       <deleteDirs>false</deleteDirs>
       <skipWhenFailed>false</skipWhenFailed>
       <cleanWhenSuccess>true</cleanWhenSuccess>
-      <cleanWhenUnstable>false</cleanWhenUnstable>
-      <cleanWhenFailure>false</cleanWhenFailure>
+      <cleanWhenUnstable>true</cleanWhenUnstable>
+      <cleanWhenFailure>true</cleanWhenFailure>
       <cleanWhenNotBuilt>true</cleanWhenNotBuilt>
       <cleanWhenAborted>true</cleanWhenAborted>
       <notFailBuild>false</notFailBuild>
