@@ -86,16 +86,19 @@
 				
     	#elseif($listquestions && $listquestions.size() > 0)
         	<vera-confirm>
-        		<strong>Bitte best&auml;tigen Sie das L&ouml;schen von Veranstaltungen</strong><br>
-        		<table class="form" >
+        		<strong>Bitte best&auml;tigen Sie das L&ouml;schen von Veranstaltungen</strong><br><br>
         		#foreach($quest in $listquestions.entrySet())
-        			<tr>
-        				<td><input type="hidden" name="$quest.key" value="true">$quest.value</td>
-        			</tr>
+        				<span class="notBold"><input type="hidden" name="$quest.key" value="true">$quest.value</span>
         			#set($save = true)
         		#end
-        		</table><br>
-        	
+        		<br>
+				#foreach($quest in $listquestions2.entrySet())
+        				<input type="hidden" name="$quest.key" value="true">$quest.value
+        			#set($save = true)
+        		#end	
+				<br>
+				<br>
+					
         		#if($save)
 					<div class="floatRight">
 					<input type="submit" class="button" name="remove" value="L&ouml;schen" title="markierte Veranstaltung l&ouml;schen">
