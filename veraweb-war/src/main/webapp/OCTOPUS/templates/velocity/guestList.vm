@@ -236,7 +236,7 @@
         						submitFormWithGivenAction('ShowExportGuestDoctype', $grants.mayExport()); 
         					}
 						} else {
-            				showWarning( "Wählen Sie bitte zunächst eine oder mehrere G&auml;ste aus." );
+            				showWarning( "Wählen Sie bitte zunächst einen oder mehrere G&auml;ste aus." );
             			}
     				});
      			});	
