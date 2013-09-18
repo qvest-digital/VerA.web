@@ -205,6 +205,7 @@
                                 msg,
                                 function () { // Ja                                                                 
                                     $('<input>').attr({ type: 'hidden', id: 'remove', name: 'remove' }).appendTo($('#formlist'));
+									$('input:checkbox').prop('disabled', false);
 									document.formlist.submit();
 									##selectedActionRemoveGuest();
 									
@@ -268,7 +269,7 @@
 				
 				function submitFormWithGivenAction(action, permission) {
 					##if(permission){
-    				##	htmlWait();
+    					htmlWait();
     					document.getElementById('formlist').action = action;
         				document.formlist.submit();
 					##} else {
