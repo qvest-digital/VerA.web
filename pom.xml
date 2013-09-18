@@ -115,6 +115,5 @@
 
 	<modules>
 		<module>veraweb-war</module>
-		<module>veraweb-ear</module>
 	</modules>
 </project>
