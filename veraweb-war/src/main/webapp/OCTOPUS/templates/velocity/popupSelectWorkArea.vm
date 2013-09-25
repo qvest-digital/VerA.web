@@ -38,15 +38,19 @@
 		{
 #if( $assignmentAction == "assign" )
 #if( $count == 1 )
-			doit = confirm( "Wollen Sie diese Person bzw. diesen Gast dem ausgewählten Arbeitsbereich zuordnen?" );
+			##doit = confirm( "Wollen Sie diese Person bzw. diesen Gast dem ausgewählten Arbeitsbereich zuordnen?" );
+			doit = true;
 #else
-			doit = confirm( "Wollen Sie ${count} Personen bzw. Gäste dem ausgewählten Arbeitsbereich zuordnen?" );
+			##doit = confirm( "Wollen Sie ${count} Personen bzw. Gäste dem ausgewählten Arbeitsbereich zuordnen?" );
+			doit = true;
 #end
 #else
 #if ( $count == 1 )
-			doit = confirm( "Wollen Sie die Zuordnung dieser Person bzw. diesem Gast zum ausgewählten Arbeitsbereich aufheben?" );
+			##doit = confirm( "Wollen Sie die Zuordnung dieser Person bzw. diesem Gast zum ausgewählten Arbeitsbereich aufheben?" );
+			doit = true;
 #else
-			doit = confirm( "Wollen Sie die Zuordnung von ${count} Personen bzw. Gästen zum ausgewählten Arbeitsbereich aufheben?" );
+			##doit = confirm( "Wollen Sie die Zuordnung von ${count} Personen bzw. Gästen zum ausgewählten Arbeitsbereich aufheben?" );
+			doit = true;
 #end
 #end
 			if ( doit )
