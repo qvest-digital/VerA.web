@@ -1,3 +1,0 @@
-veraweb-war/target/veraweb.war usr/share/maven-repo/org/evolvis/veraweb/veraweb-war/
-veraweb-war/src/main/sql/* usr/share/veraweb-java/sql/
-scripts/veraweb-dbsetup.sh usr/share/veraweb-java/
