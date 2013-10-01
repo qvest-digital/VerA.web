@@ -1,3 +1,10 @@
+veraweb (1.4.1.0-2) veraweb-stable; urgency=low
+
+  [ Sascha Girrulat ]
+  * [f1a326f] Adjust maven version and tag path's inside all pom's
+
+ -- Sascha Girrulat <sascha@girrulat.de>  Tue, 01 Oct 2013 17:30:03 +0200
+
 veraweb (1.4.1.0-1) veraweb-stable; urgency=low
 
   * Löschbestätigung bei Veranstaltungen im Design angepasst
