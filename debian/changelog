@@ -1,3 +1,13 @@
+veraweb (1.4.1.0-1) veraweb-stable; urgency=low
+
+  * Löschbestätigung bei Veranstaltungen im Design angepasst
+  * Hinweismeldung bei Nicht-Bestätigung von Löschungen im Design angepasst
+  * Optimierung der Benutzerführung beim Entfernen von Personen aus der Gästeliste
+  * Bezeichnungen in der Benutzerverwaltung angepasst
+  * Bezeichnung bei Veranstaltungsort angepasst
+
+ -- Sebastian Reimers <s.reimers@tarent.de>  Tue, 01 Oct 2013 15:54:48 +0200
+
 veraweb (1.4.0.1-2) veraweb-stable; urgency=low
 
   [ Sascha Girrulat ]
