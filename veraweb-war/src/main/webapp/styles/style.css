@@ -293,6 +293,10 @@ ul.alphabet li {
 	margin-bottom: 45px;
 }
 
+.marginRight5 {
+	margin-right: 5px;
+}
+
 .paddingTop10 {
 	padding-top:10px;
 }
@@ -739,8 +743,14 @@ tr.repeat {
 .errormsg {
 	background: url(../images/error.png) no-repeat 6px 50% #FDD;
 	border: 1px solid red;
-    color: #c00;	
+    color: #c00;
 }
+
+.errormsgButton {
+	margin: 2 auto 30px;
+    padding: 6px 6px 26px 30px;	
+}
+
 
 .error {color:#c00;}
 

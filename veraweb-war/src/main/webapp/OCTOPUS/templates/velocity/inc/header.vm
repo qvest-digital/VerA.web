@@ -106,7 +106,12 @@
             	</vera-success>
             #end
             #if($countRemove && $countRemove >= 0)
-            	<vera-success>
+				
+            	## Extra If Verzweigung um überflüssige Success Meldung von Löschen von Personen(Aus Detailansicht) auszublenden.
+				#if($noElement == "keine Person")
+					
+				#else 
+				<vera-success>
             		#if($countRemove == 0)
             			Es wurde $noElement gel&ouml;scht.
             		#elseif($countRemove == 1)
@@ -115,6 +120,10 @@
             			Es wurden $countRemove $severalElements gel&ouml;scht.
             		#end
             	</vera-success>
+				
+				## Extra If Verzweigung um überflüssige Success Meldung von Löschen von Personen(Aus Detailansicht) auszublenden.
+				#end
+				
             #end
 	
 

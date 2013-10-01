@@ -80,7 +80,7 @@ function returnFunction(url, id) {
 	}
 }
 
-function returnCompany(url, id) {
+function returnCompany(url, id, bean) {
 	if (window.opener) {
 		var field = getParameter('field');
 		var form = window.opener.document.getElementById('PersonForm');

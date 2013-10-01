@@ -84,9 +84,9 @@ function navigateLimit(limit) {
 $(function(){
     $('#toggleAllSelect').change(function(){
         if ($(this).is(':checked')) {
-            $('input[name$="-select"]:not(:checked)').click();
+        	$('input[name$="-select"]:not(:checked)').click();
         } else {
-            $('input[name$="-select"]:checked').click();
+        	$('input[name$="-select"]:checked').click();
         	$('input[name$="-partner"]').prop('checked', false);
         }
     });
@@ -258,7 +258,7 @@ var showInfo, showWarning, showSuccess, showConfirm, showConfirmYesNo;
      * @returns {*|jQuery|HTMLElement}
      */
     var createConfirmHtml = function (htmlStr) {
-        return $('<div style="margin: 10px 0px 10px 0px; padding: 10px 10px 10px 10px; background-color: #ffffff; border: 2px solid #00ff00;">'
+        return $('<div class="msg errormsg errormsgButton">'
             + htmlStr + '</div>');
     };
 
@@ -340,8 +340,8 @@ var showInfo, showWarning, showSuccess, showConfirm, showConfirmYesNo;
             if (activeConfirmDialogs.hasOwnProperty(title)) { // already open?
                 return;
             }
-            var btnYes = $('<input type="button" class="button" value="Ja">');
-            var btnNo = $('<input type="button" class="button" value="Nein">');
+            var btnYes = $('<input type="button" class="button marginRight5" value="Löschen">');
+            var btnNo = $('<input type="button" class="button" value="Abbrechen">');
             var msg = createConfirmHtml('<strong>' + title + '</strong><br>' + htmlContent + '<br>');
             btnYes.click(function () {
                 yesAction();
@@ -355,7 +355,9 @@ var showInfo, showWarning, showSuccess, showConfirm, showConfirmYesNo;
                 msg.remove();
                 delete activeConfirmDialogs[title];
             });
-            msg.append(btnYes).append('&nbsp;').append(btnNo);
+            var divBtn = $('<div class="floatRight"/>');
+            divBtn.append(btnYes).append(btnNo);
+            msg.append(divBtn);
             activeConfirmDialogs[title] = null;
             $(function () {
                 $('h1').after(msg);

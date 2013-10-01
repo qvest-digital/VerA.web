@@ -197,6 +197,7 @@ public class EventListWorker extends ListWorkerVeraWeb {
 		if (selection == null || selection.size() == 0) return count;
 		Database database = context.getDatabase();
 		Map questions = new HashMap();
+		Map questions2 = new HashMap();
 		
 		
 		if (!cntx.getRequestObject().getParameterAsBoolean("force-remove-events")) {
@@ -224,11 +225,13 @@ public class EventListWorker extends ListWorkerVeraWeb {
                     context);
     
     		if (countOfNotExpiredEvents != null && countOfNotExpiredEvents.intValue() > 0) {
-    			questions.put("force-remove-events", "Die markierten Veranstaltungen laufen aktuell oder liegen in der Zukunft. Wenn Sie Ihre Auswahl anpassen wollen, brechen Sie bitte das Löschen ab.");
+    			questions.put("force-remove-events", "Mindestens eine markierte Veranstaltung läuft aktuell oder liegt in der Zukunft.");
+    			questions2.put("force-remove-events", "Wenn Sie Ihre Auswahl anpassen wollen, brechen Sie bitte das Löschen ab.");
     		} else {
     		    questions.put("force-remove-events", "Sollen alle markierten Veranstaltungen gelöscht werden? Diese Aktion kann nicht rückgängig gemacht werden.");
     		}
     		cntx.setContent("listquestions", questions);
+    		cntx.setContent("listquestions2", questions2);
             return -1;
 		}
 		
