@@ -1,0 +1,40 @@
+veraweb (1.4.1.0-2) veraweb-stable; urgency=low
+
+  [ Sascha Girrulat ]
+  * [f1a326f] Adjust maven version and tag path's inside all pom's
+
+ -- Sascha Girrulat <sascha@girrulat.de>  Tue, 01 Oct 2013 17:30:03 +0200
+
+veraweb (1.4.1.0-1) veraweb-stable; urgency=low
+
+  * Löschbestätigung bei Veranstaltungen im Design angepasst
+  * Hinweismeldung bei Nicht-Bestätigung von Löschungen im Design angepasst
+  * Optimierung der Benutzerführung beim Entfernen von Personen aus der Gästeliste
+  * Bezeichnungen in der Benutzerverwaltung angepasst
+  * Bezeichnung bei Veranstaltungsort angepasst
+
+ -- Sebastian Reimers <s.reimers@tarent.de>  Tue, 01 Oct 2013 15:54:48 +0200
+
+veraweb (1.4.0.1-2) veraweb-stable; urgency=low
+
+  [ Sascha Girrulat ]
+  * [e506fb6] [debian] add new maven build command to d/rules so we are able to
+    build without changing the /etc/maven2/settings-debian.xml
+  * [f4f04d5] [debian] set filencoding to utf8 while build
+  * [cff021d] [debian] add openjdk-6-jdk as build dependency
+  * [a93a3b8] [debian] use java-6-openjdk
+
+ -- Sascha Girrulat <sascha@girrulat.de>  Thu, 12 Sep 2013 18:35:55 +0200
+
+veraweb (1.4.0.1-1) veraweb-stable; urgency=low
+
+  * Make the XML configs of OCTOPUS into UTF-8 files (requested by Volker)
+  * Fix the version number as we build a native package
+
+ -- Thorsten Glaser <t.glaser@tarent.de>  Wed, 14 Aug 2013 12:43:49 +0200
+
+veraweb (1.4-1) veraweb-stable; urgency=low
+
+  * Initial release (Closes: #4400)
+
+ -- Sascha Girrulat <sascha@girrulat.de>  Thu, 08 Aug 2013 14:46:04 +0200
