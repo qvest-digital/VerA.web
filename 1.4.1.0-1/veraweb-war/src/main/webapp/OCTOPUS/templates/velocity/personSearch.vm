@@ -1,0 +1,301 @@
+
+#if($action == "guest")
+	#set($activeMenu = "Veranstaltungen")
+	#set($title = "Gast suchen - Veranstaltung: $!message.plain($event.shortname)")
+#elseif($action == "host")
+	#set($activeMenu = "Veranstaltungen")
+    #set($title = "Gastgeber suchen - Veranstaltung: $!message.plain($event.shortname)")
+#elseif($action == "statistikGuest")
+	#set($activeMenu = "Veranstaltungen")
+    #set($title = "Gast suchen")
+#elseif($action == "statistikHost")
+	#set($activeMenu = "Veranstaltungen")
+    #set($title = "Gastgeber suchen")
+#elseif($action == "taskReferencePerson")
+	#set($activeMenu = "Veranstaltungen")
+    #set($title = "Verantwortlichen f&uuml;r Aufgabe suchen")
+#else
+	#set($activeMenu = "Personen")
+    #set($title = "Person suchen")
+#end
+
+#set($elementNameSex = "female")
+#set($elementNameSingular = "Person")
+#set($elementNamePlural = "Personen")
+#parse("inc/header.vm")
+
+#if($action == "guest")
+	#set($formurl = "AddPersonToEventList")
+#elseif($action == "host")
+	#set($formurl = "SetHostToEventList")
+#elseif($action == "taskReferencePerson")
+	#set($formurl = "SetReferencePersonToEventTaskList")
+#else
+	#set($formurl = "SearchPerson")
+#end
+
+
+
+<div id="content_container">
+	
+	#if($action == "host")
+    	<div id="breadcrumb" class="textRight marginBottom10">
+    		<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Veranstaltungen > Gastgeber hinzuf&uuml;gen</span>
+    	</div>
+    	
+    	<h1>Personensuche: Gastgeber hinzuf&uuml;gen</h1>   
+	#elseif($action == "guest")
+    	<div id="breadcrumb" class="textRight marginBottom10">
+    		<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Veranstaltungen > Gast hinzuf&uuml;gen</span>
+    	</div>
+    	
+    	<h1>Personensuche: Gast hinzufügen</h1> 
+	#elseif($action == "taskReferencePerson")
+    	<div id="breadcrumb" class="textRight marginBottom10">
+    		<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Veranstaltungen > Verantwortlichen hinzufügen</span>
+    	</div>
+    	
+    	<h1>Personensuche: Verantwortlichen für Aufgabe hinzufügen</h1> 		
+	#else	
+        <div id="breadcrumb" class="textRight marginBottom10">
+            <strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Personen > Personensuche</span>
+        </div>
+    
+        <h1>Personensuche</h1>
+	#end
+    <div id="main_content" class="contentBoxColored grayBorder marginBottom20">
+
+        <h2>Suche</h2>
+
+        <form action="$formurl" id="peopleSearch_form" method="post">
+            <input type="hidden" name="start" value="0">
+            <input type="hidden" name="selectAll" value="false">
+            <input type="hidden" name="selectNone" value="true">
+			<input type="hidden" name="search" value="reset">
+			<input type="hidden" name="searchTask" value="personSearchTask">
+
+            #if($action == "taskReferencePerson")
+                <input type="hidden" name="eventId" value="$!eventId">
+                <input type="hidden" name="taskId" value="$!taskId">
+            #end
+
+            #if($action == "statistikHost")
+                <input type="hidden" name="onlyhosts" id="onlyhosts" value="true">
+            #end
+
+            <fieldset>
+                <legend>Person/Firma</legend>
+
+                <div class="table width100">
+                    <div class="tableRow">
+                        <div class="tableCell width30">
+                            <label for="firstname">Vorname</label>
+                            <input type="text" name="firstname" id="firstname" value="$!message.text($search.firstname)"  />
+                        </div>
+                        <div class="tableCell width30">
+                            <label for="lastname">Nachname</label>
+                            <input type="text" name="lastname" id="lastname" value="$!message.text($search.lastname)"  />
+                        </div>
+                        <div class="tableCell width30">
+                            <label for="function">Amtsbezeichnung/Funktion</label>
+                            <input type="text" name="function" id="function" value="$!message.text($search.function)"  />
+                        </div>
+                    </div>
+                    <div class="tableRow">
+                        <div class="tableCell width30">
+                            <label for="company">Firma/Institution</label>
+                            <input type="text" name="company" id="company" value="$!message.text($search.company)"  />
+                        </div>
+                        <div class="tableCell width30">
+                            <label for="iscompany">Ist Firma</label>
+                            <input type="checkbox" name="iscompany" id="iscompany" value="true"  #if($search.iscompany) checked #end />
+                        </div>
+                        <div class="tableCell width30"></div>
+                    </div>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>Adresse</legend>
+
+                <div class="table width100">
+                    <div class="tableRow">
+                        <div class="tableCell width30">
+                            <label for="street">Straße</label>
+                            <input type="text" name="street" id="street" value="$!message.text($search.street)"  />
+                        </div>
+                        <div class="tableCell width30">
+                            <label for="zipcode">PLZ</label>
+                            <input type="text" name="zipcode" id="zipcode" value="$!message.text($search.zipcode)"  />
+                        </div>
+                        <div class="tableCell width30">
+                            <label for="city">Ort</label>
+                            <input type="text" name="city" id="city" value="$!message.text($search.city)"  />
+                        </div>
+                    </div>
+                    <div class="tableRow">
+                        <div class="tableCell width30">
+                            <label for="state">Bundesland</label>
+                            <input type="text" name="state" id="state" value="$!message.text($search.state)"  />
+                        </div>
+                        <div class="tableCell width30">
+                            <label for="country">Land</label>
+                            <input type="text" name="country" id="country" value="$!message.text($search.country)"  />
+                        </div>
+                        <div class="tableCell width30"></div>
+                    </div>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>Weitere Angaben</legend>
+
+                <div class="table width100">
+                    <div class="tableRow">
+                        <div class="tableCell width30">
+                            <label for="categorie">Kategorie</label>
+
+							<select name="categoriesSelection" id="categorie" size="5" multiple="multiple" onChange="ensureCorrectSelection( this );">
+							<option value="" #if( ! $search.categoriesSearch || ( $search.categoriesSelection && $search.categoriesSelection.size() == 0 ) ) selected #end>Alle</option>
+							<option value="0" #if( $search.categoriesSelection && $search.categoriesSelection.size() == 1 && $search.categoriesSelection.get(0).intValue() == 0 ) selected #end>Keine Kategorie zugeordnet</option>
+							#foreach($categorie in $allCategorie)
+							    #if((!$categorie.flags) || ($categorie.flags != 1))
+							    <option value="$!categorie.id" #if($search.categoriesSelection && $search.categoriesSelection.contains( $categorie.id )) selected #end>$!message.plain($!categorie.name)</option>
+							    #end
+							#end
+							</select>
+
+                        </div>
+                        <div class="tableCell width30">
+                            <label for="workarea">Arbeitsbereich</label>
+
+							<select name="workarea" id="workarea" >
+							<option value="">Alle</option>
+							<option value="0">Kein Arbeitsbereich zugeordnet</option>
+							#foreach($workArea in $allWorkArea)
+							    <option value="$!workArea.id" #if($search.workarea == $!workArea.id) selected #end>$!message.plain($!workArea.name)</option>
+							#end
+							</select>
+
+                        </div>
+                        <div class="tableCell width30">
+                            <label for="categorie2">Ereignis</label>
+
+							<select name="categorie2" id="categorie2" >
+							<option value="">Alle</option>
+							#foreach($categorie in $allCategorie)
+							    #if($categorie.flags == 1)
+							    <option value="$!categorie.id" #if($search.categorie2 == $!categorie.id) selected #end>$!message.plain($!categorie.name)</option>
+							    #end
+							#end
+							</select>
+
+                        </div>
+                    </div>
+                    <div class="tableRow">
+                        <div class="tableCell width30">
+                            <label for="importsource">Datenherkunft</label>
+                            <input type="text" name="importsource" id="importsource" value="$!message.text($search.importsource)"  />
+                        </div>
+                        <div class="tableCell width30">
+                            <label for="validtype">Gültigkeitsdatum</label>
+                            <select name="validtype" id="validtype" >
+                                <option value="1" #if($search.validtype == 1) selected #end>bis zu diesem Datum</option>
+                                <option value="2" #if($search.validtype == 2) selected #end>ab diesem Datum</option>
+                                <option value="3" #if($search.validtype == 3) selected #end>an genau diesem Datum</option>
+                            </select>
+
+							<div class="calendarContainer">
+								<input type="date" name="validdate" value="$!message.date("DATE", $search.validdate)" id="validdate" class="datepicker">
+								<span id="showGueltigDate" class="datepickerContainer"><img src="${paths.staticWeb}images/calendar.png" alt="Datum ausw&auml;hlen" title="Datum ausw&auml;hlen"></span>
+								<script type="text/javascript">
+								    Calendar.setup({
+										inputField     :    "validdate",
+										button         :    "showGueltigDate",
+										ifFormat       :    "%d.%m.%Y",
+										showsTime      :    false
+									});
+								</script>
+							</div>
+                        </div>
+                        <div class="tableCell width30"></div>
+                    </div>
+                </div>
+            </fieldset>
+
+
+
+
+
+
+
+            <div id="buttonPanel-bottom" class="textRight">
+                #if($action == "guest")
+                    <input type="submit" class="mainButton submit" name="search" value="Suchen" title="Suchen" /> 
+                    <input type="button" class="mainButton reset"  name="reset" value="Felder leeren" title="Felder leeren" onclick="clearForm();" /> 
+                    <input type="button" class="mainButton cancel" name="cancel" value="Zur&uuml;ck" title="Zur&uuml;ck" onclick="window.location.href='ShowGuestList?selectNone=true';" /> 
+                #elseif($action == "host")
+                    <input type="submit" class="mainButton submit" name="search" value="Suchen" title="Suchen" /> 
+                    <input type="button" class="mainButton reset"  name="reset" value="Felder leeren" title="Felder leeren" onclick="clearForm();" /> 
+                    <input type="button" class="mainButton cancel" name="cancel" value="Zur&uuml;ck" title="Zur&uuml;ck" onclick="window.location.href='SetHostToEventDetail';" /> 
+                #elseif($action == "statistikGuest")
+                    <input type="submit" class="mainButton submit" name="search" value="Suchen" title="Suchen" /> 
+                    <input type="button" class="mainButton reset"  name="reset" value="Felder leeren" title="Felder leeren" onclick="clearForm();" /> 
+                    <input type="button" class="mainButton cancel" name="cancel" value="Zur&uuml;ck" title="Zur&uuml;ck" onclick="window.location.href='Statistik';" /> 
+                #elseif($action == "statistikHost")
+                    <input type="submit" class="mainButton submit" name="search" value="Suchen" title="Suchen" /> 
+                    <input type="button" class="mainButton reset"  name="reset" value="Felder leeren" title="Felder leeren" onclick="clearForm();" /> 
+                    <input type="button" class="mainButton cancel" name="cancel" value="Zur&uuml;ck" title="Zur&uuml;ck" onclick="window.location.href='Statistik';" /> 
+                #else
+                    <input type="submit" class="mainButton submit" name="search" value="Suchen" title="Suchen" /> 
+                    <input type="button"  class="mainButton reset" name="cancel" value="Felder leeren" title="Felder leeren" onclick="clearForm();" /> 
+                #end
+            </div>
+        </form>
+    </div>
+    <vera-info vera-stay>
+        Sie können bei der Suche sogenannte Platzhalter verwenden, der * steht für mehrere und das ? für einzelne Zeichen. <br/>
+        Die Suche unterstützt auch die Mehrfachsuche nach Kategorien. Um mehrere Kategorien auszuwählen, halten Sie bitte die Maustaste gedrückt und ziehen Sie den Mauszeiger über die in der Suche zu berücksichtigenden Kategorien. Alternativ können Sie bei gedrückter STRG-Taste mit der linken Maustaste auf die zu berücksichtigenden Kategorien klicken. Beachten Sie bitte, dass die beiden Pseudokategorien "Alle" und "Keine" nicht zusammen mit anderen Kategorien ausgewählt werden können.
+    </vera-info>
+</div>
+
+
+
+<script type="text/javascript">
+	var clearForm = function () {
+        $ .each(['firstname', 'lastname', 'function', 'company', 'street', 'zipcode', 'city', 'country', 'importsource',
+                'validdate', 'state', 'workarea'], function(idx, field) {
+	        $('#' + field).val('');
+        });
+
+
+		document.getElementById('categorie').selectedIndex = 0;
+		document.getElementById('categorie2').selectedIndex = 0;
+		document.getElementById('validtype').selectedIndex = 0;
+		document.getElementById('iscompany').checked = false;
+	};
+
+	var ensureCorrectSelection = function (elt) {
+		var deselectionStart = elt.options[ 0 ].selected ? 1 : 0;
+		var deselectionSkip = deselectionStart == 1 ? 0 : ( elt.options[ 1 ].selected ? 1 : -1 );
+		for( var i=0; i < elt.options.length; i++ )
+		{
+			// on select ALL or NONE we must skip the element's option
+			// we also skip the element's option in case that it is one of the multi-selectable ones
+			// not equal to either ALL or NONE
+			if ( i == deselectionSkip || deselectionSkip == -1 )
+			{
+				continue;
+			}
+			// we deselect all beginning with deselectionStart
+			if ( i >= deselectionStart )
+			{
+				elt.options[ i ].selected = false;
+			}
+		}
+	};
+</script>
+
+
+
+#parse("inc/footer.vm")

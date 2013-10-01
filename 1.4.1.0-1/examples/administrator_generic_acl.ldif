@@ -1,0 +1,7 @@
+dn: olcDatabase={1}hdb,cn=config
+changetype: modify
+add: olcAccess
+olcAccess: {1}to *
+  by dn="uid=administrator,ou=Users,dc=veraweb,dc=de" write
+  by self write
+  by * read

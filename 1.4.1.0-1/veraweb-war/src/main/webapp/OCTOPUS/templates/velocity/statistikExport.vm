@@ -1,0 +1,38 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3c.org/TR/1999/REC-html401-19991224/loose.dtd">
+<html>
+	<head>
+		#parse("inc/statistikTitle.vm")
+		<title>$title</title>
+		## Style
+		<link rel="stylesheet" type="text/css" href="${paths.staticWeb}styles/default.css" media="all">
+		<link rel="stylesheet" type="text/css" href="${paths.staticWeb}styles/report.css" media="all" title="Ausw&auml;rtiges Amt Intranet-Stil">
+		## Browser-Cache deaktivieren
+		<meta http-equiv="expires" content="0">
+		<meta http-equiv="cache-control" content="no-cache">
+		<meta http-equiv="pragma" content="no-cache">
+	</head>
+	<body>
+		
+		<h1>$title</h1>
+		#if($begin.class.name == "java.util.Date" && $end.class.name == "java.util.Date")
+			<h2>Im Zeitraum vom $!message.date("DATE", $begin) bis zum $!message.date("DATE", $end)</h2>
+		#elseif($begin.class.name == "java.util.Date")
+			<h2>Ab $!message.date("DATE", $begin)</h2>
+		#elseif($end.class.name == "java.util.Date")
+			<h2>Bis $!message.date("DATE", $end)</h2>
+		#end
+		
+		#if($statistik == "EventsGroupByHost" && $person)
+			<h2>Statistik f&uuml;r Gastgeber: $person.MainLatin.SaveAs</h2>
+		#elseif($statistik == "EventsGroupByGuest" && $person)
+			<h2>Statistik f&uuml;r Gast: $person.MainLatin.SaveAs</h2>
+		#end
+		
+		<!-- $result -->
+		
+		<hr class="kategorie" />
+		<br>
+		#parse("inc/statistik${statistik}.vm")
+		
+	</body>
+</html>
