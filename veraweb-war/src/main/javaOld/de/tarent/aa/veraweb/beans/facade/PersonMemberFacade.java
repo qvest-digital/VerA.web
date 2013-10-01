@@ -42,6 +42,9 @@ public interface PersonMemberFacade {
 	/** @return Nachname */
 	public String getLastname();
 	
+	/** @return Firma */
+	public String getCompany();
+	
 	/** @return Flag f�r {@link PersonConstants#DOMESTIC_INLAND Inland} oder {@link PersonConstants#DOMESTIC_AUSLAND Ausland} */
 	public String getDomestic();
 
@@ -86,6 +89,7 @@ public interface PersonMemberFacade {
 
 	/** �ndert Nachname */
 	public void setLastname(String value);
+	
 
 	/** �ndert Flag f�r {@link PersonConstants#DOMESTIC_INLAND Inland} oder {@link PersonConstants#DOMESTIC_AUSLAND Ausland} */
 	public void setDomestic(String value);
@@ -119,4 +123,6 @@ public interface PersonMemberFacade {
 
 	/** Gibt einen zusammengesetzten Namen zur�ck. */
 	public String getSaveAs();
+
+	
 }

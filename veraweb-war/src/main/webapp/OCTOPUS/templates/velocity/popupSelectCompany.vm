@@ -36,7 +36,7 @@
     			#foreach($bean in $list)
     				<tr>
     			## fixing issue 1525, consolidating display to a single display scheme
-    						<td onclick="if (returnCompany('${paths.staticWeb}do/', '$bean.id')) closePopup();">
+    						<td onclick="if (returnCompany('${paths.staticWeb}do/', '$bean.id', '$bean.companyfield')) closePopup();">
     							#if($bean.company_a_e1.length() > 0)
     									<a href="#">$!message.plain($bean.company_a_e1)</a>
     							#else
