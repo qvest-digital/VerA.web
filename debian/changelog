@@ -1,3 +1,21 @@
+veraweb (1.4.1.1-1~1.gbp58a7fd) UNRELEASED; urgency=low
+
+  ** SNAPSHOT build @58a7fda47dc761d7d87e8020459ddcc278e40e85 **
+
+  [ Sascha Girrulat ]
+  * [01eedfb] [debian] database and ldap config are now at /etc/veraweb
+  * [7614d6c] [debian] remove links to etc, it's better to patch config xml so
+    we use the configs directly
+  * [c1f72f8] [debian] Add patch to use config files from etc and switch from
+    native to source format
+  * [d0cc625] [debian] Add package prefix to d/postinst
+  * [a51bb8d] [debian] Set needed permissions on /etc/.java/.systemPrefs/
+  * [bb110a5] [debian] backup/copy old confiles to /etc/veraweb
+  * [55ca370] [debian] cleanup application path after purge
+  * [84f3a8a] [debian] avoid needless database updates
+
+ -- Sascha Girrulat <sascha@girrulat.de>  Wed, 09 Oct 2013 17:08:30 +0200
+
 veraweb (1.4.1.0-2) veraweb-stable; urgency=low
 
   [ Sascha Girrulat ]
