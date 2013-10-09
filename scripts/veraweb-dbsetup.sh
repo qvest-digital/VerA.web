@@ -20,6 +20,7 @@ PSQLOPTS='-q'
 SELF=$(basename $0)
 LOGGER=/usr/bin/logger
 ADMIN=administrator
+SCHEMA_VERSION="2013-06-12"
 
 usage() {
     cat <<EOF
@@ -103,7 +104,7 @@ check_user_exists() {
     USER=$1
     TABLE="tuser"
 
-    if ! psql -U veraweb -h localhost -c "SELECT * FROM ${TABLE} WHERE username='${USER}'" | grep -q ${USER}; then
+    if ! psql $PSQLOPTS -U veraweb -h localhost -c "SELECT * FROM ${TABLE} WHERE username='${USER}'" | grep -q ${USER}; then
         return 1
     else
         return 0
@@ -131,6 +132,10 @@ create_user(){
     fi
 }
 
+get_schema_version() {
+    psql $PSQLOPTS -t -U veraweb -h localhost -c "SELECT cvalue FROM veraweb.tconfig WHERE cname = 'SCHEMA_VERSION';" | tr -d ' '
+}
+
 setup_schema() {
     if ! psql $PSQLOPTS -U veraweb -h localhost -f ${DIRECTORY}/sql/veraweb-schema.sql; then
         err "Could not load file: ${DIRECTORY}/sql/veraweb-schema.sql into PGSQL"
@@ -140,9 +145,15 @@ setup_schema() {
 }
 
 setup_1_4() {
-        if ! psql $PSQLOPTS -U veraweb -h localhost -f ${DIRECTORY}/sql/1.4/alter_from_1.3.15_to_1.4.sql >/dev/null; then
-            err "Could not load file: ${DIRECTORY}/sql/alter_from_1.3.15_to_1.4.sql into PGSQL"
-        fi
+    VERSION=$(get_schema_version)
+
+    if  [ "${VERSION}" != "2013-06-12" ]; then
+            if ! psql $PSQLOPTS -U veraweb -h localhost -f ${DIRECTORY}/sql/1.4/alter_from_1.3.15_to_1.4.sql >/dev/null; then
+                err "Could not load file: ${DIRECTORY}/sql/alter_from_1.3.15_to_1.4.sql into PGSQL"
+            fi
+    else
+        log "INFO" "Database schema is already in the newest version, nothing to do."
+    fi
 }
 setup_stammdaten() {
     if ! psql $PSQLOPTS -U veraweb -h localhost -f "${DIRECTORY}/sql/veraweb-stammdaten.sql"; then
@@ -152,8 +163,15 @@ setup_stammdaten() {
 
 main() {
     if check_sql_files && check_pg_conn; then
-        setup_schema
-        setup_stammdaten && setup_1_4 && create_admin
+
+    VERSION="$(get_schema_version)"
+
+    if  [ "${VERSION}" != "${SCHEMA_VERSION}" ]; then
+            setup_schema && setup_stammdaten && setup_1_4
+    else
+        log "INFO" "The database setup is already finished, nothing to do."
+    fi
+    create_admin
 
         if check_buildsequences; then
             log "INFO" "We are finished now, have fun."
