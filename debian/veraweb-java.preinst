@@ -13,9 +13,18 @@ set -e
 # for details, see http://www.debian.org/doc/debian-policy/ or
 # the debian-policy package
 
+CONFIGFILES="config_database_pools.xml config_ldap_access.xml"
+APPPATH="/var/lib/tomcat7/webapps/veraweb"
+CONFPATH="${APPPATH}/OCTOPUS"
+ETC="/etc/veraweb"
+INIT="/etc/init.d/tomcat7"
 
 case "$1" in
     install|upgrade)
+
+        if ! ${INIT} status > /dev/null; then
+            echo "Warning: Tomcat is not running, you need to remove '${APPPATH}' before start the application."
+        fi
 
         if [ -f /etc/.java/.systemPrefs/.system.lock ]; then
             chmod 664 /etc/.java/.systemPrefs/.system.lock
@@ -26,6 +35,20 @@ case "$1" in
             chmod 775 /etc/.java/.systemPrefs
             chown root.tomcat7 /etc/.java/.systemPrefs
         fi
+
+        for f in ${CONFIGFILES}; do
+            CONFFILE="${CONFPATH}/${f}"
+            if [ ! -h "${CONFFILE}" -a -f "${CONFFILE}" ]; then
+                if ! [ -f "${ETC}/${f}" ]; then
+                    mkdir "${ETC}" -p
+                    DEST="${ETC}/${f}"
+                else
+                    DEST="${ETC}/${f}.backup"
+                fi
+                cp -a "${CONFFILE}" "${DEST}"
+                echo "Found old config '${CONFFILE}' copy it to '${DEST}'"
+            fi
+        done
     ;;
 
     abort-upgrade)
