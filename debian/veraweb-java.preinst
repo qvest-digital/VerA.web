@@ -16,6 +16,16 @@ set -e
 
 case "$1" in
     install|upgrade)
+
+        if [ -f /etc/.java/.systemPrefs/.system.lock ]; then
+            chmod 664 /etc/.java/.systemPrefs/.system.lock
+            chown root.tomcat7 /etc/.java/.systemPrefs/.system.lock
+        fi
+
+        if [ -d /etc/.java/.systemPrefs ]; then
+            chmod 775 /etc/.java/.systemPrefs
+            chown root.tomcat7 /etc/.java/.systemPrefs
+        fi
     ;;
 
     abort-upgrade)
