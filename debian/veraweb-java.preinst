@@ -16,8 +16,6 @@ set -e
 
 case "$1" in
     install|upgrade)
-        mkdir -p /var/lib/tomcat7/webapps/veraweb/OCTOPUS/
-        chown tomcat7.tomcat7 /var/lib/tomcat7/webapps/veraweb/ -Rf
     ;;
 
     abort-upgrade)

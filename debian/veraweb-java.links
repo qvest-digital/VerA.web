@@ -1,3 +1,1 @@
 usr/share/maven-repo/org/evolvis/veraweb/veraweb-war/veraweb.war /var/lib/tomcat7/webapps/veraweb.war
-etc/veraweb/config_database_pools.xml /var/lib/tomcat7/webapps/veraweb/OCTOPUS/config_database_pools.xml
-etc/veraweb/config_ldap_access.xml /var/lib/tomcat7/webapps/veraweb/OCTOPUS/config_ldap_access.xml
