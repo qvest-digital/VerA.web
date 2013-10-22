@@ -72,6 +72,28 @@
 			#end
 	   </script>
 	#end
+
+	
+	#if($workareaAssigned )
+		<script>
+		   #if($workareaAssigned == "assign")
+				showSuccess('Der Arbeitsbereich wurde erfolgreich hinzugefügt.');
+		   #elseif($workareaAssigned == "unassign")
+			 	showSuccess('Die Arbeitsbereiche wurden erfolgreich entfernt.');
+			#end
+	   </script>
+	#end
+	
+	#if($categoryAssigned )
+		<script>
+		   #if($categoryAssigned == "assign")
+				showSuccess('Die Kategorie wurde erfolgreich hinzugefügt.');
+		   #elseif($categoryAssigned == "unassign")
+			 	showSuccess('Die Kategorien wurden erfolgreich entfernt.');
+			#end
+	   </script>
+	#end
+	
 	
 	#if($list && $list.size() > 0 )
 		
@@ -212,6 +234,21 @@ var showDeleteMessages = function () {
 			}
 };
 
+$(function () {
+   // var showSuccessForWorkarea = function () {
+    //	$(document).ready(function(){
+        	document.getElementsByName("workareaAssignmentAction").value = "${assignmentActionForWorkarea}";
+        	
+        	#if($assignmentActionForWorkarea == "assign")
+        		showSuccess('Der Arbeitsbereich wurde erfolgreich hinzugefügt.');
+    			
+        	#elseif($assignmentActionForWorkarea == "unassign") 
+        		showSuccess('Der Arbeitsbereich wurde erfolgreich entfernt.');
+        	#end	
+    //	});
+   // };
+});
+
 
 $(function () {
 
@@ -282,8 +319,8 @@ function submitFormWithGivenAction(action) {
 					       
 				#end
 
-    		#end
-    		
+			#end
+					
     		#if($action == "host" || $action == "statistikGuest" || $action == "statistikHost")
             	#set($disableListSelect = true)
         	#end
@@ -406,6 +443,7 @@ function submitFormWithGivenAction(action) {
                 	function assignCategories() {
                 		if ( hasSelection() ) {
                 			selectPersonCategory( "${paths.staticWeb}do/popupAssignPersonCategory?count=" + selectedCount );
+							
                 		} else {
                 			showWarning( "Wählen Sie bitte zunächst eine oder mehrere Personen aus." );
                 		}
