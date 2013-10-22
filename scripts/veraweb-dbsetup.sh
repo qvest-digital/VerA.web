@@ -142,7 +142,7 @@ get_schema_version() {
 }
 
 setup_schema() {
-    if ! psql $PSQLOPTS -U veraweb -h localhost -f ${DIRECTORY}/sql/veraweb-schema.sql; then
+    if ! psql $PSQLOPTS -U veraweb -h localhost -f ${DIRECTORY}/sql/veraweb-schema.sql > /dev/null; then
         err "Could not load file: ${DIRECTORY}/sql/veraweb-schema.sql into PGSQL"
     elif ! psql $PSQLOPTS -U veraweb -h localhost -c "SELECT serv_verawebschema(1);" >/dev/null; then
         err "Errors accured by executing serv_verawebschema(1)"
@@ -176,7 +176,7 @@ setup_1_4() {
     fi
 }
 setup_stammdaten() {
-    if ! psql $PSQLOPTS -U veraweb -h localhost -f "${DIRECTORY}/sql/veraweb-stammdaten.sql"; then
+    if ! psql $PSQLOPTS -U veraweb -h localhost -f "${DIRECTORY}/sql/veraweb-stammdaten.sql" >/dev/null; then
         err "Could not load file '$DIRECTORY/sql/veraweb-stammdate.sql' into PGSQL"
     fi
 }
