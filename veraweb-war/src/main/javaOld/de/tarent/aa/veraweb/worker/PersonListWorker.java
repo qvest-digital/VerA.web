@@ -213,6 +213,10 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 		
 		cntx.setContent("deleted", cntx.getRequestObject().getParamAsInt("deleted"));
 		
+		cntx.setContent("workareaAssigned",  cntx.requestAsObject("workareaAssigned"));
+		
+		cntx.setContent("categoryAssigned",  cntx.requestAsObject("categoryAssigned"));
+		
 		return new ArrayList(result.values());
 	}
 
