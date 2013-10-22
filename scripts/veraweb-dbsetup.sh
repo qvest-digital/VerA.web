@@ -157,6 +157,11 @@ set_helplink_destination(){
     DEST=$(get_helplink_destination)
 
     if [ "${DEST}" != "${HELPLINK}" ]; then
+        COUNT=$(psql $PSQLOPTS -t -U veraweb -h localhost -c "SELECT COUNT('cname') from tconfig WHERE cname='helplink';")
+        if [ $COUNT -eq 0 ]; then
+            psql $PSQLOPTS -t -U veraweb -h localhost -c "INSERT INTO tconfig (cname,cvalue) VALUES ('helplink', 'unset');" > /dev/null
+        fi
+
         if psql $PSQLOPTS -t -U veraweb -h localhost -c "UPDATE tconfig SET cvalue='${HELPLINK}' WHERE cname='helplink';" > /dev/null; then
             log "INFO" "Set helplink destination to ${HELPLINK}."
         else
