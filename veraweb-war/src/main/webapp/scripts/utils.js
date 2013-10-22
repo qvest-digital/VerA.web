@@ -364,5 +364,68 @@ var showInfo, showWarning, showSuccess, showConfirm, showConfirmYesNo;
             });
         };
     }());
-
+    
+    showAllocateAssign = (function () {
+    	 var activeConfirmDialogs = {};
+         return function (title, yesAction, nayAction) {
+             if (activeConfirmDialogs.hasOwnProperty(title)) { // already open?
+                 return;
+             }
+             var btnYes = $('<input type="button" class="button marginRight5" value="Zuweisen">');
+             var btnNo = $('<input type="button" class="button" value="Abbrechen">');
+             var msg = createConfirmHtml('<strong>' + title + '</strong><br>' + '<br>');
+             btnYes.click(function () {
+            	 yesAction();            	 
+            	 msg.remove();
+            	 delete activeConfirmDialogs[title];
+            	closePopup();
+             });
+             btnNo.click(function () {
+            	 if (nayAction !== undefined) {
+                     nayAction();
+                 }
+                 msg.remove();
+                 delete activeConfirmDialogs[title];
+             });
+             var divBtn = $('<div class="floatRight"/>');
+             divBtn.append(btnYes).append(btnNo);
+             msg.append(divBtn);
+             activeConfirmDialogs[title] = null;
+             $(function () {
+                 $('h1').after(msg);
+             });
+        };
+    }());
+    
+    showAllocateRemove = (function () {
+   	 var activeConfirmDialogs = {};
+        return function (title, yesAction, nayAction) {
+            if (activeConfirmDialogs.hasOwnProperty(title)) { // already open?
+                return;
+            }
+            var btnYes = $('<input type="button" class="button marginRight5" value="Entfernen">');
+            var btnNo = $('<input type="button" class="button" value="Abbrechen">');
+            var msg = createConfirmHtml('<strong>' + title + '</strong><br>' + '<br>');
+            btnYes.click(function () {
+           	  yesAction();            	 
+           	 msg.remove();
+           	 delete activeConfirmDialogs[title];
+           	 closePopup();
+            });
+            btnNo.click(function () {
+           	 if (nayAction !== undefined) {
+                    nayAction();
+                }
+                msg.remove();
+                delete activeConfirmDialogs[title];
+            });
+            var divBtn = $('<div class="floatRight"/>');
+            divBtn.append(btnYes).append(btnNo);
+            msg.append(divBtn);
+            activeConfirmDialogs[title] = null;
+            $(function () {
+                $('h1').after(msg);
+            });
+       };
+   }());
 }());
