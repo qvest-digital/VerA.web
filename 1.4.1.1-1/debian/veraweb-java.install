@@ -1,0 +1,5 @@
+veraweb-war/target/veraweb.war usr/share/maven-repo/org/evolvis/veraweb/veraweb-war/
+veraweb-war/src/main/sql/* usr/share/veraweb-java/sql/
+scripts/veraweb-dbsetup.sh usr/share/veraweb-java/
+veraweb-war/src/main/webapp/OCTOPUS/config_database_pools.xml /etc/veraweb/
+veraweb-war/src/main/webapp/OCTOPUS/config_ldap_access.xml /etc/veraweb/

@@ -1,0 +1,225 @@
+#set($activeMenu = "Veranstaltungen")
+#set($title = "Aufgaben")
+#set($elementNameSex = "female")
+#set($elementNameSingular = "Aufgabe")
+#set($elementNamePlural = "Aufgaben")
+#parse("inc/header.vm")
+
+#set($formurl = "ShowEventTasks")
+
+<div id="content_container">
+
+
+    <div id="breadcrumb" class="textRight marginBottom10">
+        <strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/">Home</a> > Veranstaltungen > Veranstaltung bearbeiten</span>
+    </div>
+
+    <h1>Veranstaltung bearbeiten: $!message.plain($event.shortname)</h1>
+
+
+    <form id="formlist" name="formlist" action="$formurl?id=$!id" method="POST">
+
+	#set($completeEventHeader = false)
+    #parse("inc/event-header.vm")
+
+	<div class="marginBottom10 marginTop20 textRight" id="buttonPanel-top">
+        <input type="button" class="mainButton" value="Zur G&auml;steverwaltung" name="guestlist" onclick="window.location.href='ShowGuestList?search-event=$!event.id&start=0&selectNone=true';">
+    </div>
+
+    <div id="main_content" class="tabs contentBox grayBorder marginBottom10">
+
+
+            <input type="hidden" name="start" value="">
+            <input type="hidden" name="limit" value="" />
+            <input type="hidden" name="selectNone" value="true">
+            <input type="hidden" name="doRemove" value="true">
+
+
+
+            <div id="tabsMain">
+                <ul class="gray-gradient"> <!-- Bitte das End-tag der <li>s immer mit in die nächste Zeile nehmen (verhindert Mozilla styling bug) -->
+                    <li class="inactive" onclick="window.location.href='ShowEvent?id=$!id';" class="noBorder"><div>Allgemein</div></a>
+                    </li><li class="inactive" onclick="window.location.href='${paths.staticWeb}do/ShowEventDoctype?id=$!id&selectNone=true';" class="noBorder"><div>Dokumenttypen</div>
+                    </li><li class="active"><div>Aufgaben</div>
+					</li>
+                </ul>
+            </div>
+
+
+            <div class="contentBoxColored tabsContent">
+                <input type="hidden" id="remove-task" name="remove-task" value="false">
+
+
+                #if(($listerrors && $listerrors.size() > 0) || ($listquestions && $listquestions.size() > 0))
+                #set($save = false)
+
+                #if($listerrors && $listerrors.size() > 0)
+                <vera-warn>
+                    <strong>L&ouml;schen von Aufgaben ist nicht m&ouml;glich</strong><br>
+                    <ul style="margin: 0px 0px 0px -10px;">
+                        #if($listerrors.size() > 5)
+                        #set($show = 5)
+                        #else
+                        #set($show = $listerrors.size())
+                        #end
+                        #foreach($error in $listerrors)
+                        #if($velocityCount <= $show)
+                        <li style="margin: 5px 0px 0px 0px;">$!message.plain($error)</li>
+                        #end
+                        #end
+                        #if($listerrors.size() > $show)
+                        #set($drop = $listerrors.size() - $show)
+                        <li style="margin: 5px 0px 0px 0px;"><em>...  $drop weitere Meldungen.</em></li>
+                        #end
+                    </ul>
+                </vera-warn>
+                #end
+                #if($listquestions && $listquestions.size() > 0)
+                <vera-confirm>
+                    <strong>Bitte best&auml;tigen Sie das L&ouml;schen von Aufgaben</strong><br>
+                    <ul style="margin: 0px 0px 0px -10px;">
+                        #foreach($quest in $listquestions.entrySet())
+                        <li style="margin: 5px 0px 0px 0px;"><input type="hidden" name="$quest.key" value="true">$!message.plain($quest.value)</li>
+                        #set($save = true)
+                        #end
+                    </ul><br>
+                    #if($save)
+                    <input type="submit" name="remove" value="Ja" title="ausgewählte Einträge löschen">
+                    #end
+                    <input type="button" name="cancel" value="Nein" onclick="window.location.href='ShowEventTasks?id=$!id&selectNone=true'"> &nbsp;
+                </vera-confirm>
+                #end
+
+                #end
+
+                #foreach($bean in $list)
+                <input type="hidden" name="list" value="$bean.id">
+                #end
+
+
+
+
+                #if($grants.mayWrite())
+
+                <div class="table width100">
+                    <div class="tableRow">
+
+                        #if ($listparam.count != 0)
+                        <div class="tableCell width50 inlineLabel" style="vertical-align:bottom;">
+                            <label>Ausgewählte Einträge</label>
+                            <input type="submit" name="remove" id="remove" value="Löschen" title="Löschen" class="autoWidth noFloat"></div>
+                        #end
+                        <div class="tableCell width50 textRight">
+                            <input type="button" title="Neue Aufgabe anlegen" value="Neue Aufgabe anlegen" name="save" id="" class="autoWidth mainButton" onclick="window.location.href='CreateEventTask?eventId=$!id';">
+                        </div>
+                    </div>
+                </div>
+                #end
+
+
+                #if ($listparam.count != 0)
+
+                <table class="marginTop0 notBold">
+                    <tbody>
+                    <tr>
+                        <th class="textCenter smallCell"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="Alle (de)markieren" #if($listselection.size() == $list.size()) checked#end/></th>
+                        <th class="smallCell textCenter">ID</th>
+                        <th>Titel</th>
+                        <th class="smallCell textCenter">Start</th>
+                        <th class="smallCell textCenter">Ende</th>
+                        <th class="smallCell textCenter">Status</th>
+                        <th>Verantwortlicher</th>
+                        <th class="smallCell textCenter">Priorität</th>
+                    </tr>
+                    #foreach($bean in $list)
+                    <tr>
+                        <td class="textCenter">
+                            <input type="checkbox" id="add-select" name="${bean.id}-select" value="true" #if($listselection.indexOf($bean.id) != -1) checked#end/>
+                        </td>
+                        <td class="textCenter" onclick="window.location.href='ShowEventTask?id=$!{bean.id}&eventId=$!{bean.eventId}'">$!bean.id</td>
+                        <td onclick="window.location.href='ShowEventTask?id=$!{bean.id}&eventId=$!{bean.eventId}'">$!message.plain($!bean.title)</td>
+                        #if ($bean.startdate.Seconds == 30)
+                        <td class="textCenter" onclick="window.location.href='ShowEventTask?id=$!{bean.id}&eventId=$!{bean.eventId}'">$!message.date("DATE",$bean.startdate)</td>
+                        #else
+                        <td class="textCenter" onclick="window.location.href='ShowEventTask?id=$!{bean.id}&eventId=$!{bean.eventId}'">$!message.date("DATE_TIME",$bean.startdate)</td>
+                        #end
+
+                        #if ($bean.enddate.Seconds == 30)
+                        <td class="textCenter" onclick="window.location.href='ShowEventTask?id=$!{bean.id}&eventId=$!{bean.eventId}'">$!message.date("DATE",$bean.enddate)</td>
+                        #else
+                        <td class="textCenter" onclick="window.location.href='ShowEventTask?id=$!{bean.id}&eventId=$!{bean.eventId}'">$!message.date("DATE_TIME",$bean.enddate)</td>
+                        #end
+
+                        <td class="textCenter" onclick="window.location.href='ShowEventTask?id=$!{bean.id}&eventId=$!{bean.eventId}'">$!bean.degreeofcompletion%</td>
+                        <td onclick="window.location.href='ShowEventTask?id=$!{bean.id}&eventId=$!{bean.eventId}'">$!message.text($!bean.personName)</td>
+                        <td class="textCenter" onclick="window.location.href='ShowEventTask?id=$!{bean.id}&eventId=$!{bean.eventId}'">$!message.text($!bean.priority)</td>
+                    </tr>
+                    #end
+
+                    #set($itemName = "Aufgaben")
+                    #parse("inc/list-navi-new.vm")
+                    </tbody>
+                </table>
+
+                #else
+					<vera-info vera-stay>
+						Es liegen keine Aufgaben für diese Veranstaltung vor.
+					</vera-info>
+                #end
+
+
+                <div class="textRight">
+                    <!--input type="button" id="cancel" name="cancel" class="button" value="Zur&uuml;ck" title="Zur Suche" onclick="window.location.href='SearchEvent';"-->
+                </div>
+
+
+
+
+            </div>
+
+     </div>
+			<span id="buttonPanel-bottom" class="floatRight">
+                #if($grants.mayWrite())
+				    <input type="button" name="save" value="Veranstaltung speichern" class="mainButton" onclick="showSuccess('Erfolgreich gespeichert');">
+                #end
+				<input type="reset" name="cancel" value="Zur Veranstaltungsübersicht" class="mainButton" onclick="window.location.href='SearchEvent?action=event&search=reset&selectNone=true';">
+
+            </span>
+    </form>
+    <div class="clear"></div>
+</div>
+<script type="text/javascript">
+
+$(function () {
+
+    #if(!$grants.mayWrite())
+        disableForm(document.getElementById('formlist'));
+    #end
+
+    $('#remove').click(function (e) {
+        var selectCount = $('input:checkbox:checked').length;
+        if (selectCount === 0) {
+            e.preventDefault();
+            return;
+        }
+        var task = confirm('Ausgewählte Einträge wirklich entfernen?');
+        $('#remove-task').val(task);
+        if (!task) {
+            e.preventDefault();
+        }
+    });
+
+    $('#toggleAllSelect').change(function(){
+        if ($(this).is(':checked')) {
+            navigateSelectAll();
+        } else {
+            navigateSelectNone();
+        }
+    });
+
+    $('#eventTop input, textarea').prop('disabled', true);
+
+});
+</script>
+
+#parse("inc/footer.vm")

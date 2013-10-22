@@ -1,0 +1,73 @@
+#set($activeMenu = "Administration")
+#set($title = "E-Mail-Postausgang")
+#set($elementNameSex = "female")
+#set($elementNameSingular = "E-Mail")
+#set($elementNamePlural = "E-Mails")
+#parse("inc/header.vm")
+
+<form id="formlist" name="formlist" action="MailOutboxList" method="POST">
+    <input type="hidden" name="start" value=""/>
+    <input type="hidden" name="selectNone" value="true"/>
+    <input type="hidden" name="doRemove" value="true"/>
+    <input type="hidden" name="limit" value="" />
+
+    <div id="content_container">
+		<div class="textRight marginBottom10" id="breadcrumb">
+			<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Administration > E-Mail-Postausgang</span>
+		</div>
+				
+		<div id="main_content">
+    		<h1>E-Mail-Postausgang</h1>
+        
+    		#foreach($bean in $list)
+    			<input type="hidden" name="list" value="$bean.id"/>
+            #end
+        
+    		<span id="actionPanel" class="inlineLabel">
+    			<strong>Markierte E-Mail(s)</strong>
+    	       	<input type="submit" name="remove" value="Löschen" title="Markierte E-Mail(s) löschen"/>
+    	    </span>
+    		
+    		<table>
+        		<tr>
+        			<th class="smallCell textCenter"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="Alle (de)markieren"/></th>
+        			<th class="smallCell textCenter">Status</th>
+        			<th>Von</th>
+        			<th>An</th>
+        			<th class="width50">Betreff</th>
+        		</tr>
+                #foreach($bean in $list)
+    	        	<tr>
+    					<td class="textCenter"><input type="hidden" value="$bean.id" name="${bean.id}-id"/><input type="checkbox" value="true" name="${bean.id}-select"/></td>
+    					<td class="textCenter" onclick="window.location.href='MailOutboxDetail?id=$!{bean.id}';">
+    					      #if($bean.status == 1)Offen
+    					      #elseif($bean.status == 2)Wartet
+    					      #elseif($bean.status == 3)Wird versendet
+    					      #elseif($bean.status == 4)Gesendet
+    					      #elseif($bean.status > 10)<span style="font-weight: bold; color: #ff0000;">Fehler</span>
+    					      #else<em>unbekannt</em>
+    					      #end
+    						</td>	
+    					<td onclick="window.location.href='MailOutboxDetail?id=$!{bean.id}';">$!message.text($bean.from)</td>
+    					<td onclick="window.location.href='MailOutboxDetail?id=$!{bean.id}';">$!message.text($bean.to)</td>
+    					<td onclick="window.location.href='MailOutboxDetail?id=$!{bean.id}';">$!message.text($bean.subject)</td>
+    				</tr>
+    			#end
+        		
+    			#if ($listparam.count == 0)
+        			<tr>
+    					<td colspan="5">Keine Daten gefunden</td>
+        			</tr>           	
+        		#end
+        				
+    			#set($itemName = "E-Mails")
+    			#parse("inc/list-navi-new.vm")
+    			#parse("inc/list-direct-new.vm")
+    		</table>
+
+    	</div>
+    </div>
+	
+</form>
+
+#parse("inc/footer.vm")
