@@ -207,7 +207,6 @@
                                     $('<input>').attr({ type: 'hidden', id: 'remove', name: 'remove' }).appendTo($('#formlist'));
 									$('input:checkbox').prop('disabled', false);
 									document.formlist.submit();
-									##selectedActionRemoveGuest();
 									
                                 }, function () { // Nein
                                     showSuccess('Es wurden keine G&auml;ste gel&ouml;scht.');
@@ -268,13 +267,9 @@
             	}  
 				
 				function submitFormWithGivenAction(action, permission) {
-					##if(permission){
     					htmlWait();
     					document.getElementById('formlist').action = action;
         				document.formlist.submit();
-					##} else {
-					##	showWarning('Sie haben keine ausreichende Berechtigung um diese Aktion auszuführen.');
-					##}
 				}
     		</script>
         	
