@@ -138,7 +138,11 @@ get_helplink_destination() {
 }
 
 get_schema_version() {
-    psql $PSQLOPTS -t -U veraweb -h localhost -c "SELECT cvalue FROM tconfig WHERE cname = 'SCHEMA_VERSION';" | tr -d ' '
+    if psql $PSQLOPTS -t -U veraweb -h localhost -c "SELECT cvalue FROM tconfig WHERE cname = 'SCHEMA_VERSION';" > /dev/null 2>&1; then
+        psql $PSQLOPTS -t -U veraweb -h localhost -c "SELECT cvalue FROM tconfig WHERE cname = 'SCHEMA_VERSION';" | tr -d ' '
+    else
+        echo "INITIAL SETUP"
+    fi
 }
 
 setup_schema() {
