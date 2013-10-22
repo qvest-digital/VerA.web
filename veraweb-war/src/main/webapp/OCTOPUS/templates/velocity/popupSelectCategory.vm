@@ -14,6 +14,91 @@
 	
 
 	<script type="text/javascript">
+		var showCategory = function () {
+    		var selectionOfOption = $('option[name$="nix"]:selected');	
+    			if(selectionOfOption.length === 1) {
+    				var msg ='<span>Wählen Sie bitte zunächst eine Kategorie aus.</span>';
+					showWarning(msg);
+    			}else {
+    				#if( $count == 1 )
+						showAllocateAssign('Wollen Sie diese Person bzw. diesen Gast der ausgewählten Kategorie zuordnen?',
+						function () { // Ja
+                           	var form = window.opener.document.forms[ "formlist" ];
+                	       	 var input = window.document.createElement('input');
+                	       	 input.type = 'hidden';
+                	       	 input.name = 'categoryAssigned';
+                	       	 input.value = 'assign';
+                	       	 form.appendChild(input);
+                	       	 form.submit();
+						}, function () { //nein
+							showSuccess('Es wurde keine Kategorie zugeordnet');
+						});
+        			#else
+						showAllocateAssign('Wollen Sie ${count} Personen bzw. Gäste der ausgewählten Kategorie zuordnen?',
+						function () { // Ja
+                           	var form = window.opener.document.forms[ "formlist" ];
+                	       	 var input = window.document.createElement('input');
+                	       	 input.type = 'hidden';
+                	       	 input.name = 'categoryAssigned';
+                	       	 input.value = 'assign';
+                	       	 form.appendChild(input);
+                	       	 form.submit();
+						}, function () { //nein
+							showSuccess('Es wurden keine Kategorien zugeordnet');
+						});
+        			#end
+    			};
+		};
+		var showRemoveCategory = function() {
+			var selectionOfOption = $('option[name$="nix"]:selected');	
+    			if(selectionOfOption.length === 1) {
+    				var msg ='<span>Wählen Sie bitte zunächst eine Kategorie aus.</span>';
+					showWarning(msg);
+    			}else {
+    				#if( $count == 1 )
+						showAllocateRemove('Wollen Sie diese Personen bzw. diesen Gast aus der ausgewählten Kategorie entfernen?',
+						function () { // Ja
+                           	var form = window.opener.document.forms[ "formlist" ];
+                	       	 var input = window.document.createElement('input');
+                	       	 input.type = 'hidden';
+                	       	 input.name = 'categoryAssigned';
+                	       	 input.value = 'unassign';
+                	       	 form.appendChild(input);
+                	       	 form.submit();
+						}, function () { //nein
+							showSuccess('Es wurde kein Kategorie entfernt');
+						});
+        			#else
+						showAllocateRemove('Wollen Sie ${count} Personen bzw. Gäste aus der ausgewählten Kategorie entfernen?',
+						function () { // Ja
+							var form = window.opener.document.forms[ "formlist" ];
+                	       	 var input = window.document.createElement('input');
+                	       	 input.type = 'hidden';
+                	       	 input.name = 'categoryAssigned';
+                	       	 input.value = 'unassign';
+                	       	 form.appendChild(input);
+                	       	 form.submit();
+						}, function () { //nein
+							showSuccess('Es wurden keine Kategorien entfernt.');
+						});
+        			#end
+    			};
+		};
+		
+		// Funktion um ausgewählte Option : Zuweisen / Entfernen und Abbrechen zu überprüfen und dementspreche abfragen zu implementieren
+		$(function () {
+            $('#button\\.execute').click(function (e) {
+                var selectText = $("input:button[name$='checkboxForSelection'] ").text();
+				
+				if (selectText == "Zuweisen") {
+					showDeleteAllocate();
+				}else if (selectText == "Entfernen") {
+            		selectedActionRemove();
+				}else if (selectText == "Abbrechen") {
+					selectedActionCancel();
+				}
+			});
+		});
 	
 		var oldState = { categoryId : null, actionName : null };
 
@@ -94,12 +179,12 @@
 		#if( $allCategorie.size() > 0 )
 			<label for="category">Kategorie</label>
 			<select name="category" id="category" onChange="selected(this);">
-			<option value="">
+			<option name="nix" value="">
 		#if( $assignmentAction == "unassign" )
-			<option value="0">Alle entfernen
+			<option name="Entfernen" value="0">Alle entfernen
 		#end
 			#foreach( $category in $allCategorie )
-			<option value="${category.id}">$!message.plain(${category.name})
+			<option name="kategorie" value="${category.id}">$!message.plain(${category.name})
 			#end
 			</select>
 		#else
@@ -108,11 +193,11 @@
 
 
 	<div class="textRight marginTop5" id="buttonPanel-bottom">
-		<input type="button" value="Abbrechen" onClick="restore();closePopup();">
+		<input type="button" name="checkboxForSelection" value="Abbrechen" onClick="restore();closePopup();">
 		#if( $assignmentAction == "assign" && $allCategorie.size() > 0 )
-				<input type="button" value="Zuweisen" onClick="send();closePopup();">
+				<input type="button" name="checkboxForSelection" value="Zuweisen" onClick="showCategory();">
 		#elseif ( $allCategorie.size() > 0 )
-				<input type="button" value="Entfernen" onClick="send();closePopup();">
+				<input type="button" name="checkboxForSelection" value="Entfernen" onClick="showRemoveCategory();">
 		#end
 	</div>
 </div>
