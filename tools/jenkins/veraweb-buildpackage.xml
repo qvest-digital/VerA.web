@@ -15,6 +15,7 @@
       <permission>hudson.model.Item.Configure:sgirru</permission>
       <permission>hudson.model.Item.Build:sgirru</permission>
       <permission>hudson.model.Item.Read:anonymous</permission>
+      <permission>hudson.model.Item.Read:maven</permission>
       <permission>hudson.model.Item.Read:sgirru</permission>
       <permission>hudson.model.Item.Delete:sgirru</permission>
     </hudson.security.AuthorizationMatrixProperty>

@@ -35,7 +35,7 @@
               <properties>HOST=verawebdemo-backend.lan.tarent.de</properties>
             </hudson.plugins.parameterizedtrigger.PredefinedBuildParameters>
           </configs>
-          <projects>BM-deploy-package</projects>
+          <projects>BM-deploy-puppet</projects>
           <condition>ALWAYS</condition>
           <triggerWithNoParameters>false</triggerWithNoParameters>
           <block>
