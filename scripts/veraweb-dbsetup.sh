@@ -21,6 +21,7 @@ SELF=$(basename $0)
 LOGGER=/usr/bin/logger
 ADMIN=administrator
 SCHEMA_VERSION="2013-06-12"
+HELPLINK="doc/Benutzerhandbuch.pdf"
 
 usage() {
     cat <<EOF
@@ -132,6 +133,10 @@ create_user(){
     fi
 }
 
+get_helplink_destination() {
+    psql $PSQLOPTS -t -U veraweb -h localhost -c "SELECT cvalue FROM tconfig WHERE cname='helplink';" | tr -d ' '
+}
+
 get_schema_version() {
     psql $PSQLOPTS -t -U veraweb -h localhost -c "SELECT cvalue FROM veraweb.tconfig WHERE cname = 'SCHEMA_VERSION';" | tr -d ' '
 }
@@ -141,6 +146,21 @@ setup_schema() {
         err "Could not load file: ${DIRECTORY}/sql/veraweb-schema.sql into PGSQL"
     elif ! psql $PSQLOPTS -U veraweb -h localhost -c "SELECT serv_verawebschema(1);" >/dev/null; then
         err "Errors accured by executing serv_verawebschema(1)"
+    fi
+}
+
+set_helplink_destination(){
+    DEST=$(get_helplink_destination)
+
+    if [ "${DEST}" != "${HELPLINK}" ]; then
+        if psql $PSQLOPTS -t -U veraweb -h localhost -c "UPDATE tconfig SET cvalue='${HELPLINK}' WHERE cname='helplink';" > /dev/null; then
+            log "INFO" "Set helplink destination to ${HELPLINK}."
+        else
+            log "WARN" "Can't set helplink destination, pls check database connection."
+            return 2
+        fi
+    else
+        log "INFO" "Helplink destination (${HELPLINK}) is already set."
     fi
 }
 
@@ -179,6 +199,8 @@ main() {
             err "Error while setup database, we can't select build sequences from database."
         fi
     fi
+
+    set_helplink_destination
 }
 
 main
