@@ -1,20 +1,35 @@
-veraweb (1.4.1.1-1~1.gbp58a7fd) UNRELEASED; urgency=low
-
-  ** SNAPSHOT build @58a7fda47dc761d7d87e8020459ddcc278e40e85 **
+veraweb (1.4.1.1-1) veraweb-stable; urgency=low
 
   [ Sascha Girrulat ]
   * [01eedfb] [debian] database and ldap config are now at /etc/veraweb
-  * [7614d6c] [debian] remove links to etc, it's better to patch config xml so
+  * [1165af0] [debian] avoid needless database updates
+  * [1b7a5a6] [debian] remove links to etc, it's better to patch config xml so
     we use the configs directly
-  * [c1f72f8] [debian] Add patch to use config files from etc and switch from
+  * [5b6063c] [debian] Add patch to use config files from etc and switch from
     native to source format
-  * [d0cc625] [debian] Add package prefix to d/postinst
-  * [a51bb8d] [debian] Set needed permissions on /etc/.java/.systemPrefs/
-  * [bb110a5] [debian] backup/copy old confiles to /etc/veraweb
-  * [55ca370] [debian] cleanup application path after purge
-  * [84f3a8a] [debian] avoid needless database updates
+  * [9c8decc] [debian] Add package prefix to d/postinst
+  * [ed76152] [debian] Set needed permissions on /etc/.java/.systemPrefs/
+  * [0ff04db] [debian] backup/copy old confiles to /etc/veraweb
+  * [ca64bfe] [debian] cleanup application path after purge
+  * [8d7d618] [debian] prepare a new minor release
+  * [bf6a76c] [debian+webapp] add veraweb Benutzerhandbuch to d/veraweb-java.docs and webapp
+  * [f58ce35] [database] remove nedless db prefix form schema check
+  * [17a6537] [database] be quiet during schema setup
+  * [84cbdf9] [database] check if schema exitsts before we check them
+  * [7774579] prepare new release
+  * [61de5ca] [database] insert helplink value if not exists
 
- -- Sascha Girrulat <sascha@girrulat.de>  Wed, 09 Oct 2013 17:08:30 +0200
+  [ sreime ]
+  * [880293d] Updaten Version for 1.4.1
+  * [565dc01] personenübersicht-> kategorien zuordnen/entfernen -> angepasste meldungen
+  * [1bae520] personenübersicht-> kategorien/arbeitsbereich ->
+    zuordnen/entfernen -> angepasste meldungen -> input felder übergeben
+  * [62059c2] personenübersicht-> arbeitsbereich -> zuordnen/entfernen -> angepasste meldungen
+  * [720fb0a] personenübersicht-> kategorien/arbeitsbereich ->
+    zuordnen/entfernen -> angepasste meldungen
+  * [279c7b2] personenübersicht-> arbeitsbereich -> zuordnen/entfernen -> angepasste meldungen
+
+ -- Sascha Girrulat <sascha@girrulat.de>  Tue, 22 Oct 2013 16:04:19 +0200
 
 veraweb (1.4.1.0-2) veraweb-stable; urgency=low
 
