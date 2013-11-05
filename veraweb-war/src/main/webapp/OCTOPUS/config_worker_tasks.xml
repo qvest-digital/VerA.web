@@ -454,7 +454,7 @@
 		<!-- Umsetzung PERSON -->
 		<task name="ShowPersonSearch" access="public" groups="StandardFieldsReader">
 			<description>
-				Dieser Task zeigt einen Suchdialog für Personen.
+				Dieser Task zeigt einen erweiterten Suchdialog für Personen.
 			</description>
 			<contract>
 				<input name="Vorname" type="xsd:string" optional="t" description="Vorgabewert: gesuchter Vorname"/>
@@ -481,10 +481,9 @@
 
 		</task>
 		
-			<!-- Umsetzung PERSON -->
 		<task name="ShowPersonSearchSimple" access="public" groups="StandardFieldsReader">
 			<description>
-				Dieser Task zeigt einen Suchdialog für Personen.
+				Dieser Task zeigt einen einfachen Suchdialog für Personen.
 			</description>
 			<contract>
 				<input name="Vorname" type="xsd:string" optional="t" description="Vorgabewert: gesuchter Vorname"/>

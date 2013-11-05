@@ -35,8 +35,12 @@
 
             <div id="buttonPanel-bottom" class="textRight">
                     <input type="submit" class="mainButton submit" name="search" value="Suchen" title="Suchen" /> 
-                    <input type="button"  class="mainButton reset" name="cancel" value="Erweiterte Suche" title="Erweiterte Suche" onclick="clearForm();" /> 
+                    <input type="button" class="mainButton submit" name="cancel" value="Erweiterte Suche" title="Erweiterte Suche" onclick="clearForm();" /> 
             </div>
+			
+	<!-- 	in Button "erweiterte Suche" einfügen		
+			href="${paths.staticWeb}do/ShowPersonSearch?action=person&search=clear" -->
+			
         </form>
     </div>
     <vera-info vera-stay>
