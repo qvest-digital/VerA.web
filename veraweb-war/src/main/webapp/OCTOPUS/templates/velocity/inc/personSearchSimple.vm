@@ -9,7 +9,6 @@
 #set($elementNamePlural = "Personen")
 #parse("inc/header.vm")
 
-
 <div id="content_container">
     <div id="breadcrumb" class="textRight marginBottom10">
         <strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Personen > Personensuche</span>
@@ -34,30 +33,11 @@
                 <div class="table width100">
                     <div class="tableRow">
                         <div class="tableCell width30">
-                            <label for="firstname">Vorname</label>
+                            <label for="firstname">Suchfeld</label>
                             <input type="text" name="firstname" id="firstname" value="$!message.text($search.firstname)"  />
                         </div>
-                        <div class="tableCell width30">
-                            <label for="lastname">Nachname</label>
-                            <input type="text" name="lastname" id="lastname" value="$!message.text($search.lastname)"  />
-                        </div>
-                        <div class="tableCell width30">
-                            <label for="function">Amtsbezeichnung/Funktion</label>
-                            <input type="text" name="function" id="function" value="$!message.text($search.function)"  />
-                        </div>
                     </div>
-                    <div class="tableRow">
-                        <div class="tableCell width30">
-                            <label for="company">Firma/Institution</label>
-                            <input type="text" name="company" id="company" value="$!message.text($search.company)"  />
-                        </div>
-                        <div class="tableCell width30">
-                            <label for="iscompany">Ist Firma</label>
-                            <input type="checkbox" name="iscompany" id="iscompany" value="true"  #if($search.iscompany) checked #end />
-                        </div>
-                        <div class="tableCell width30"></div>
-                    </div>
-                </div>
+				</div>    
             </fieldset>
 
             <div id="buttonPanel-bottom" class="textRight">
