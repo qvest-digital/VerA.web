@@ -18,7 +18,7 @@
 
 	<div id="main_content" class="contentBoxColored grayBorder marginBottom20">
 
-        <h2>Suche</h2>
+        <h2>Einfache Suche</h2>
 
         <form action="$formurl" id="peopleSearch_form" method="post">
             <input type="hidden" name="start" value="0">
@@ -27,22 +27,15 @@
 			<input type="hidden" name="search" value="reset">
 			<input type="hidden" name="searchTask" value="personSearchTask">
 
-            <fieldset>
-                <legend>Person/Firma</legend>
 
-                <div class="table width100">
-                    <div class="tableRow">
-                        <div class="tableCell width30">
-                            <label for="firstname">Suchfeld</label>
-                            <input type="text" name="firstname" id="firstname" value="$!message.text($search.firstname)"  />
-                        </div>
-                    </div>
-				</div>    
-            </fieldset>
+            <div class="tableCell width30">
+                <input type="text" name="searchField" id="searchfield" value="$!message.text($search.searchField)"  />
+            </div>
+
 
             <div id="buttonPanel-bottom" class="textRight">
                     <input type="submit" class="mainButton submit" name="search" value="Suchen" title="Suchen" /> 
-                    <input type="button"  class="mainButton reset" name="cancel" value="Felder leeren" title="Erweiterte Suche" onclick="clearForm();" /> 
+                    <input type="button"  class="mainButton reset" name="cancel" value="Erweiterte Suche" title="Erweiterte Suche" onclick="clearForm();" /> 
             </div>
         </form>
     </div>
