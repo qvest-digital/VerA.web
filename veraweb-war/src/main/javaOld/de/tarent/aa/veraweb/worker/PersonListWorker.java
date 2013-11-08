@@ -918,7 +918,7 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 	 * @param list
 	 * @throws BeanException
 	 */
-	private void addPersonListFilterSimple(OctopusContext cntx, String searchField, WhereList list2, boolean bla) throws BeanException {
+	private void addPersonListFilterSimple(OctopusContext cntx, String searchField, WhereList list2, boolean status) throws BeanException {
 		PersonSearch search = getSearch(cntx);
 		
 //		if (search.findAll != null && search.findAll.booleanValue()) {
@@ -1013,7 +1013,7 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 		"tcategorie.catname" }));
 		
 		
-		if (bla) { 
+		if (status) { 
 			list.addOr(DatabaseHelper.getWhere(searchField, new String[] {
 						"tworkarea.name" }));
 		}

@@ -829,7 +829,7 @@ function submitFormWithGivenAction(action) {
     	#elseif($action == "replace")
 			<input type="button" id="button.cancel" name="button.cancel" value="Zur&uuml;ck zu Suchen &amp; Ersetzen" class="mainButton" onclick="window.location.href='ShowReplacePerson';" />
     	#elseif($searchTask && $searchTask == "personSearchTask")
-			<input type="button" id="button.cancel" name="button.cancel" value="Zur&uuml;ck zur Personensuche" class="mainButton" onclick="window.location.href='ShowPersonSearch?action=person';" />
+			<input type="button" id="button.cancel" name="button.cancel" value="Zur&uuml;ck zur Personensuche" class="mainButton" onclick="javascript:history.back();" />
 		#end
 	</span>
 	
