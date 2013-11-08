@@ -1034,7 +1034,38 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 					"note_a_e1",
 					"note_b_e1" }));
 		
+		list.addOr(DatabaseHelper.getWhere(searchField, new String[] {
+				"city_a_e1",
+				"city_a_e2",
+				"city_a_e3",
+				"city_b_e1",
+				"city_b_e2",
+				"city_b_e3",
+				"city_c_e1",
+				"city_c_e2",
+				"city_c_e3" }));
 		
+		list.addOr(DatabaseHelper.getWhere(searchField, new String[] {
+				"street_a_e1",
+				"street_a_e2",
+				"street_a_e3",
+				"street_b_e1",
+				"street_b_e2",
+				"street_b_e3",
+				"street_c_e1",
+				"street_c_e2",
+				"street_c_e3" }));
+		
+		list.addOr(DatabaseHelper.getWhere(searchField, new String[] {
+				"zipcode_a_e1",
+				"zipcode_a_e2",
+				"zipcode_a_e3",
+				"zipcode_b_e1",
+				"zipcode_b_e2",
+				"zipcode_b_e3",
+				"zipcode_c_e1",
+				"zipcode_c_e2",
+				"zipcode_c_e3" }));
 		
 		
 
