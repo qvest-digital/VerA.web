@@ -406,12 +406,8 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 		PersonSearch search = getSearch( cntx );
 		select.whereAnd( getPersonListFilter( cntx , true) );
 		
+		select.setDistinct(true);
 		String searchFiled = cntx.getRequestObject().getParamAsString("searchField");
-		if (searchFiled != null) {
-			select.joinOuter("veraweb.tworkarea", "tworkarea.pk", "tperson.fk_workarea");
-//			select.joinOuter("veraweb.torgunit", "torgunit.pk", "tperson.fk_orgunit");
-			select.joinOuter("veraweb.tcategorie", "tcategorie.fk_orgunit", "tperson.fk_orgunit");
-		}
 		
 		
 		/*
@@ -424,6 +420,15 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 		if ( search.categorie2 != null )
 		{
 			select.join( "veraweb.tperson_categorie cat2", "cat2.fk_person", "tperson.pk" );
+		} else if (searchFiled != null) {
+			select.joinOuter( "veraweb.tperson_categorie cat2", "cat2.fk_person", "tperson.pk" );
+			
+		}
+		if (searchFiled != null) {
+			
+			select.joinOuter("veraweb.tworkarea", "tworkarea.pk", "tperson.fk_workarea");
+//			select.joinOuter("veraweb.torgunit", "torgunit.pk", "tperson.fk_orgunit");
+			select.joinOuter("veraweb.tcategorie", "tcategorie.pk", "cat2.fk_categorie");
 		}
 	}
 
@@ -1011,7 +1016,6 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 
 		list.addOr(DatabaseHelper.getWhere(searchField, new String[] {
 		"tcategorie.catname" }));
-		
 		
 		if (status) { 
 			list.addOr(DatabaseHelper.getWhere(searchField, new String[] {
