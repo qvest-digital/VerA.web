@@ -533,6 +533,7 @@
 			</contract>
 			<doTask name="Load"/>
 			<action name="saveList" worker="PersonListWorker" />
+			<action name="getSearch" worker="PersonListWorker" />
 			<action name="showList" worker="PersonListWorker" />
 			<action name="exportFormat" worker="PersonExportWorker" />
 			<param name="liststarts" value="true"/>
