@@ -714,7 +714,8 @@ public class PersonListWorker extends ListWorkerVeraWeb {
         if (search == null)
             search = new PersonSearch();
 
-        if (search != null && !("lastname_a_e1".equals(search.listorder) || "firstname_a_e1".equals(search.listorder) || "mail_a_e1".equals(search.listorder))) {
+        if (search != null && !("lastname_a_e1".equals(search.listorder) 
+                || "firstname_a_e1".equals(search.listorder))) {
             search.listorder = null;
         }
 
