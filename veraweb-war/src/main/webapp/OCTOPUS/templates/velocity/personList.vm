@@ -521,7 +521,7 @@ function submitFormWithGivenAction(action) {
             #end
     
     		<div id="main_content">
-    		
+
                 <table>
                 	#if($action == "guest")
                     	<tr>
@@ -530,60 +530,60 @@ function submitFormWithGivenAction(action) {
     							<th class="textCenter smallCell" title="$!message.text($!config.partner) einladen">P</th>
                         		<th class="textCenter smallCell" title="Auf Reserve">R</th>
 							#end
-                    		<th class="textCenter smallCell">ID</th>
-                    		<th title="Hauptperson, Zeichensatz 1">Nach&shy;name</th>
-                    		<th title="Hauptperson, Zeichensatz 1">Vor&shy;name</th>
-                    		<th title="Gesch&auml;ftlich, Zeichensatz 1">Amtsbezeichnung</th>
-                    		<th title="Gesch&auml;ftlich, Zeichensatz 1">Firma / Institution (G)</th>
+                    		<th class="textCenter smallCell"><a href="javascript:orderPersonList('id');">ID</a></th>
+                    		<th title="Hauptperson, Zeichensatz 1"><a href="javascript:orderPersonList('lastname_a_e1');">Nach&shy;name</a></th>
+                    		<th title="Hauptperson, Zeichensatz 1"><a href="javascript:orderPersonList('firstname_a_e1');">Vor&shy;name</a></th>
+                    		<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('function_a_e1');">Amtsbezeichnung</a></th>
+                    		<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('company_a_e1');">Firma / Institution (G)</a></th>
                     		<th>Kategorie</th>
                     	</tr>
                 	#elseif($action == "host")
                     	<tr>
-                    		<th class="textCenter smallCell">ID</th>
-                    		<th title="Hauptperson, Zeichensatz 1">Nach&shy;name</th>
-                    		<th title="Hauptperson, Zeichensatz 1">Vor&shy;name</th>
-                    		<th title="Gesch&auml;ftlich, Zeichensatz 1">Amtsbezeichnung</th>
-                    		<th title="Gesch&auml;ftlich, Zeichensatz 1">Firma / Institution (G)</th>
-                    		<th title="Gesch&auml;ftlich, Zeichensatz 1">Stra&szlig;e (G)</th>
-                    		<th title="Gesch&auml;ftlich, Zeichensatz 1">PLZ (G)</th>
-                    		<th title="Gesch&auml;ftlich, Zeichensatz 1">Ort (G)</th>
-                    		#if($userConfig.personListState)<th title="Gesch&auml;ftlich, Zeichensatz 1">Bundesland (G)</th>#end
+                    		<th class="textCenter smallCell"><a href="javascript:orderPersonList('id');">ID</a></th>
+                    		<th title="Hauptperson, Zeichensatz 1"><a href="javascript:orderPersonList('lastname_a_e1');">Nach&shy;name</a></th>
+                    		<th title="Hauptperson, Zeichensatz 1"><a href="javascript:orderPersonList('firstname_a_e1');">Vor&shy;name</a></th>
+                    		<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('function_a_e1');">Amtsbezeichnung</a></th>
+                    		<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('company_a_e1');">Firma / Institution (G)</a></th>
+                    		<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('street_a_e1');">Stra&szlig;e (G)</a></th>
+                    		<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('zipcode_a_e1');">PLZ (G)</a></th>
+                    		<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('city_a_e1');">Ort (G)</a></th>
+                    		#if($userConfig.personListState)<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('state_a_e1');">Bundesland (G)</a></th>#end
                     	</tr>
                 	#elseif($action == "statistikHost")
                     	<tr>
-                    		<th class="textCenter smallCell">ID</th>
-                    		<th title="Hauptperson, Zeichensatz 1">Nach&shy;name</th>
-                    		<th title="Hauptperson, Zeichensatz 1">Vor&shy;name</th>
-                    		<th title="Gesch&auml;ftlich, Zeichensatz 1">Amtsbezeichnung</th>
-                    		<th title="Gesch&auml;ftlich, Zeichensatz 1">Firma / Institution (G)</th>
-                    		<th title="Gesch&auml;ftlich, Zeichensatz 1">Stra&szlig (G)</th>
-                    		<th title="Gesch&auml;ftlich, Zeichensatz 1">PLZ (G)</th>
-                    		<th title="Gesch&auml;ftlich, Zeichensatz 1">Ort (G)</th>
-                    		#if($userConfig.personListState)<th title="Gesch&auml;ftlich, Zeichensatz 1">Bundesland (G)</th>#end
+                    		<th class="textCenter smallCell"><a href="javascript:orderPersonList('id');">ID</a></th>
+                    		<th title="Hauptperson, Zeichensatz 1"><a href="javascript:orderPersonList('lastname_a_e1');">Nach&shy;name</a></th>
+                    		<th title="Hauptperson, Zeichensatz 1"><a href="javascript:orderPersonList('firstname_a_e1');">Vor&shy;name</a></th>
+                    		<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('function_a_e1');">Amtsbezeichnung</a></th>
+                    		<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('company_a_e1');">Firma / Institution (G)</a></th>
+                    		<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('street_a_e1');">Stra&szlig (G)</a></th>
+                    		<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('zipcode_a_e1');">PLZ (G)</a></th>
+                    		<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('city_a_e1');">Ort (G)</a></th>
+                    		#if($userConfig.personListState)<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('state_a_e1');">Bundesland (G)</a></th>#end
                     	</tr>
                 	#elseif($action == "statistikGuest")
                     	<tr>
-                    		<th class="textCenter smallCell">ID</th>
-                    		<th title="Hauptperson, Zeichensatz 1">Nach&shy;name</th>
-                    		<th title="Hauptperson, Zeichensatz 1">Vor&shy;name</th>
-                    		<th title="Gesch&auml;ftlich, Zeichensatz 1">Amtsbezeichnung</th>
-                    		<th title="Gesch&auml;ftlich, Zeichensatz 1">Firma / Institution (G)</th>
-                    		<th title="Gesch&auml;ftlich, Zeichensatz 1">Stra&szlig;e (G)</th>
-                    		<th title="Gesch&auml;ftlich, Zeichensatz 1">PLZ (G)</th>
-                    		<th title="Gesch&auml;ftlich, Zeichensatz 1">Ort (G)</th>
-                    		#if($userConfig.personListState)<th title="Gesch&auml;ftlich, Zeichensatz 1">Bundesland (G)</th>#end
+                    		<th class="textCenter smallCell"><a href="javascript:orderPersonList('id');">ID</a></th>
+                    		<th title="Hauptperson, Zeichensatz 1"><a href="javascript:orderPersonList('lastname_a_e1');">Nach&shy;name</a></th>
+                    		<th title="Hauptperson, Zeichensatz 1"><a href="javascript:orderPersonList('firstname_a_e1');">Vor&shy;name</a></th>
+                    		<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('function_a_e1');">Amtsbezeichnung</a></th>
+                    		<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('company_a_e1');">Firma / Institution (G)</a></th>
+                    		<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('street_a_e1');">Stra&szlig;e (G)</a></th>
+                    		<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('zipcode_a_e1');">PLZ (G)</a></th>
+                    		<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('city_a_e1');">Ort (G)</a></th>
+                    		#if($userConfig.personListState)<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('state_a_e1');">Bundesland (G)</a></th>#end
                     	</tr>
                 	#elseif($action == "taskReferencePerson")
                     	<tr>
-                    		<th class="textCenter smallCell">ID</th>
-                    		<th title="Hauptperson, Zeichensatz 1">Nach&shy;name</th>
-                    		<th title="Hauptperson, Zeichensatz 1">Vor&shy;name</th>
-                    		<th title="Gesch&auml;ftlich, Zeichensatz 1">Amtsbezeichnung</th>
-                    		<th title="Gesch&auml;ftlich, Zeichensatz 1">Firma / Institution (G)</th>
-                    		<th title="Gesch&auml;ftlich, Zeichensatz 1">Stra&szlig;e (G)</th>
-                    		<th title="Gesch&auml;ftlich, Zeichensatz 1">PLZ (G)</th>
-                    		<th title="Gesch&auml;ftlich, Zeichensatz 1">Ort (G)</th>
-                    		#if($userConfig.personListState)<th title="Gesch&auml;ftlich, Zeichensatz 1">Bundesland (G)</th>#end
+                    		<th class="textCenter smallCell"><a href="javascript:orderPersonList('id');">ID</a></th>
+                    		<th title="Hauptperson, Zeichensatz 1"><a href="javascript:orderPersonList('lastname_a_e1');">Nach&shy;name</a></th>
+                    		<th title="Hauptperson, Zeichensatz 1"><a href="javascript:orderPersonList('firstname_a_e1');">Vor&shy;name</a></th>
+                    		<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('function_a_e1');">Amtsbezeichnung</a></th>
+                    		<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('company_a_e1');">Firma / Institution (G)</a></th>
+                    		<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('street_a_e1');">Stra&szlig;e (G)</a></th>
+                    		<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('zipcode_a_e1');">PLZ (G)</a></th>
+                    		<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('city_a_e1');">Ort (G)</a></th>
+                    		#if($userConfig.personListState)<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('state_a_e1');">Bundesland (G)</a></th>#end
                     	</tr>
                 	#elseif($action == "duplicateSearch")      
                     	## modified for duplicate search as per change request for version 1.2.0
@@ -593,33 +593,33 @@ function submitFormWithGivenAction(action) {
                             #if($grants.mayWrite())
 								<th class="textCenter smallCell"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="Alle (de)markieren" #if($listselection.size() == $list.size()) checked#end/></th>
                     		#end
-							<th class="textCenter smallCell">ID</th>
+							<th class="textCenter smallCell"><a href="javascript:orderPersonList('id');">ID</a></th>
                     		<th title="Datum">Datum</th>
-                    		<th title="Arbeitsbereich">Arbeits&shy;bereich</th>
-                    		<th title="Hauptperson, Zeichensatz 1">Nach&shy;name</th>
-                    		<th title="Hauptperson, Zeichensatz 1">Vor&shy;name</th>
-                    		<th title="Gesch&auml;ftlich, Zeichensatz 1">Amtsbe&shy;zeichnung</th>
-                    		<th title="Gesch&auml;ftlich, Zeichensatz 1">Firma / Institution (G)</th>
-                    		<th title="Gesch&auml;ftlich, Zeichensatz 1">Stra&szlig;e (G)</th>
-                    		<th title="Gesch&auml;ftlich, Zeichensatz 1">PLZ (G)</th>
-                    		<th title="Gesch&auml;ftlich, Zeichensatz 1">Ort (G)</th>
-                    		#if($userConfig.personListState)<th title="Gesch&auml;ftlich, Zeichensatz 1">Bundesland (G)</th>#end
+                    		<th title="Arbeitsbereich"><a href="javascript:orderPersonList('orgunit');">Arbeits&shy;bereich</a></th>
+                    		<th title="Hauptperson, Zeichensatz 1"><a href="javascript:orderPersonList('lastname_a_e1');">Nach&shy;name</a></th>
+                    		<th title="Hauptperson, Zeichensatz 1"><a href="javascript:orderPersonList('firstname_a_e1');">Vor&shy;name</a></th>
+                    		<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('function_a_e1');">Amtsbe&shy;zeichnung</a></th>
+                    		<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('company_a_e1');">Firma / Institution (G)</a></th>
+                    		<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('street_a_e1');">Stra&szlig;e (G)</a></th>
+                    		<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('zipcode_a_e1');">PLZ (G)</a></th>
+                    		<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('city_a_e1');">Ort (G)</a></th>
+                    		#if($userConfig.personListState)<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('state_a_e1');">Bundesland (G)</a></th>#end
                     	</tr>
                 	#else
                     	<tr>
                             #if($grants.mayWrite() || ($exportFormat && $grants.mayExport()) || $action == "replace")
 								<th class="textCenter smallCell"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="Alle (de)markieren" #if($listselection.size() == $list.size()) checked#end/></th>
                     		#end
-							<th class="textCenter smallCell">ID</th>
-                    		<th title="Arbeitsbereich">Arbeits&shy;bereich</th>
-                    		<th title="Hauptperson, Zeichensatz 1">Nach&shy;name</th>
-                    		<th title="Hauptperson, Zeichensatz 1">Vor&shy;name</th>
-                    		<th title="Gesch&auml;ftlich, Zeichensatz 1">Amtsbe&shy;zeichnung</th>
-                    		<th title="Gesch&auml;ftlich, Zeichensatz 1">Firma / Institution (G)</th>
-                    		<th title="Gesch&auml;ftlich, Zeichensatz 1">Stra&szlig;e (G)</th>
-                    		<th title="Gesch&auml;ftlich, Zeichensatz 1">PLZ (G)</th>
-                    		<th title="Gesch&auml;ftlich, Zeichensatz 1">Ort (G)</th>
-                    		#if($userConfig.personListState)<th title="Gesch&auml;ftlich, Zeichensatz 1">Bundesland (G)</th>#end
+							<th class="textCenter smallCell"><a href="javascript:orderPersonList('id');">ID</a></th>
+                    		<th title="Arbeitsbereich"><a href="javascript:orderPersonList('orgunit');">Arbeits&shy;bereich</a></th>
+                    		<th title="Hauptperson, Zeichensatz 1"><a href="javascript:orderPersonList('lastname_a_e1');">Nach&shy;name</a></th>
+                    		<th title="Hauptperson, Zeichensatz 1"><a href="javascript:orderPersonList('firstname_a_e1');">Vor&shy;name</a></th>
+                    		<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('function_a_e1');">Amtsbe&shy;zeichnung</th>
+                    		<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('company_a_e1');">Firma / Institution (G)</a></th>
+                    		<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('street_a_e1');">Stra&szlig;e (G)</a></th>
+                    		<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('zipcode_a_e1');">PLZ (G)</a></th>
+                    		<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('city_a_e1');">Ort (G)</a></th>
+                    		#if($userConfig.personListState)<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('state_a_e1');">Bundesland (G)</a></th>#end
                     	</tr>
                 	#end
                 
@@ -815,6 +815,15 @@ function submitFormWithGivenAction(action) {
 		</div>
 		
 	#end
+
+	<form id="personListFilter" name="personListFilter" action="${paths.staticWeb}do/$octopusRequest.task" method="POST" class="marginTop25">
+		<input type="hidden" name="start" value="0">
+		<input type="hidden" name="limit" value="" />
+		<input type="hidden" name="selectAll" value="false">
+		<input type="hidden" name="selectNone" value="true">
+		<input type="hidden" name="search-person" value="$search.person">
+		<input type="hidden" id="search-listorder" name="search-listorder" value="$!search.listorder">
+	</form>
 	
 	## Zurück-Button
 	<span id="buttonPanel-top" class="textRight floatRight">
@@ -839,4 +848,12 @@ function submitFormWithGivenAction(action) {
 	
     <div class="clear"></div>
 </div>
+
+<script type="text/javascript">
+	function orderPersonList(column) {
+		document.getElementById('search-listorder').value = column;
+		document.getElementById('personListFilter').submit();
+	}
+</script>
+
 #parse("inc/footer.vm")
