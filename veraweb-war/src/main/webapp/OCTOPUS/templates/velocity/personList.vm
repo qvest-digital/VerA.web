@@ -595,7 +595,7 @@ function submitFormWithGivenAction(action) {
                     		#end
 							<th class="textCenter smallCell"><a href="javascript:orderPersonList('id');">ID</a></th>
                     		<th title="Datum">Datum</th>
-                    		<th title="Arbeitsbereich"><a href="javascript:orderPersonList('orgunit');">Arbeits&shy;bereich</a></th>
+                    		<th title="Arbeitsbereich"><a href="javascript:orderPersonList('workarea_name');">Arbeits&shy;bereich</a></th>
                     		<th title="Hauptperson, Zeichensatz 1"><a href="javascript:orderPersonList('lastname_a_e1');">Nach&shy;name</a></th>
                     		<th title="Hauptperson, Zeichensatz 1"><a href="javascript:orderPersonList('firstname_a_e1');">Vor&shy;name</a></th>
                     		<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('function_a_e1');">Amtsbe&shy;zeichnung</a></th>
@@ -611,7 +611,7 @@ function submitFormWithGivenAction(action) {
 								<th class="textCenter smallCell"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="Alle (de)markieren" #if($listselection.size() == $list.size()) checked#end/></th>
                     		#end
 							<th class="textCenter smallCell"><a href="javascript:orderPersonList('id');">ID</a></th>
-                    		<th title="Arbeitsbereich"><a href="javascript:orderPersonList('orgunit');">Arbeits&shy;bereich</a></th>
+                    		<th title="Arbeitsbereich"><a href="javascript:orderPersonList('workarea_name');">Arbeits&shy;bereich</a></th>
                     		<th title="Hauptperson, Zeichensatz 1"><a href="javascript:orderPersonList('lastname_a_e1');">Nach&shy;name</a></th>
                     		<th title="Hauptperson, Zeichensatz 1"><a href="javascript:orderPersonList('firstname_a_e1');">Vor&shy;name</a></th>
                     		<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('function_a_e1');">Amtsbe&shy;zeichnung</th>
