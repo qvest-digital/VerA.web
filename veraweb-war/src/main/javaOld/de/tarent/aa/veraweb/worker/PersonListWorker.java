@@ -748,7 +748,7 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 	 * @param cntx
 	 * @throws BeanException
 	 */
-	protected Clause getPersonListFilter(OctopusContext cntx, boolean bla) throws BeanException {
+	protected Clause getPersonListFilter(OctopusContext cntx, boolean status) throws BeanException {
 		WhereList list = new WhereList();
 		
 		String searchFiled = cntx.getRequestObject().getParamAsString("searchField");
@@ -756,7 +756,7 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 		
 			addPersonListFilter(cntx, list);
 		} else {
-			addPersonListFilterSimple(cntx, searchFiled, list, bla);
+			addPersonListFilterSimple(cntx, searchFiled, list, status);
 		}
 		
 		Where orgunitFilter = Expr.equal("tperson.fk_orgunit", ((PersonalConfigAA)cntx.personalConfig()).getOrgUnitId());
