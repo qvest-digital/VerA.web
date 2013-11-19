@@ -26,6 +26,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -124,7 +125,7 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 		 * although, upon exiting this method the first time that it is called, will return the correct resultlist with at most
 		 * 10 entries in the underlying resultset as is defined by the query.
 		 */
-		Map<Integer, Map> result = new HashMap<Integer, Map>();
+		Map<Integer, Map> result = new LinkedHashMap<Integer, Map>();
 		List personList = getResultList( database, personSelect );
 		
 		for ( int i = 0; i < personList.size(); i++ ) {
@@ -388,6 +389,7 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 	}
 	
 	protected void extendColumns(OctopusContext cntx, Select select) throws BeanException, IOException {
+	    PersonSearch search = getSearch(cntx);
 		select.selectAs( "tworkarea.name", "workarea_name" );
 		select.selectAs( "dateexpire", "dateexpire" );
 
@@ -397,8 +399,14 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 		 */
 		String searchFiled = cntx.getRequestObject().getParamAsString("searchField");
 		if (searchFiled == null) {
-			select.join( "veraweb.tworkarea", "tworkarea.pk", "tperson.fk_workarea" );		
+			select.join( "veraweb.tworkarea", "tworkarea.pk", "tperson.fk_workarea" );
 		}
+		
+		List order = new ArrayList();
+        if(search != null && search.listorder != null) {
+            order.add(search.listorder);
+        }
+        select.orderBy(DatabaseHelper.getOrder(order));
 	}
 
 	protected void extendWhere(OctopusContext cntx, Select select) throws BeanException
@@ -538,8 +546,7 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 				select("street_a_e1").
 				select("zipcode_a_e1").
 				select("state_a_e1").
-				select("city_a_e1").
-				orderBy(Order.asc("lastname_a_e1").andAsc("firstname_a_e1"));
+				select("city_a_e1");
 	}
 
 	protected List getResultList(Database database, Select select) throws BeanException, IOException {
@@ -684,6 +691,10 @@ public class PersonListWorker extends ListWorkerVeraWeb {
      * @throws BeanException
      */
     public PersonSearch getSearch(OctopusContext cntx) throws BeanException {
+        
+        if (cntx.contentContains("search") && cntx.contentAsObject("search") instanceof PersonSearch)
+            return (PersonSearch)cntx.contentAsObject("search");
+        
         String param = cntx.requestAsString("search");
         PersonSearch search = null;
         
@@ -708,15 +719,15 @@ public class PersonListWorker extends ListWorkerVeraWeb {
             	}
             }
             search.categoriesSelection = selection;
+        } else {
+            search = (PersonSearch)getRequest(cntx).getBean("PersonSearch", "search");
         }
-        if (search == null)
-            search = (PersonSearch)cntx.sessionAsObject("search" + BEANNAME);
-        if (search == null)
-            search = new PersonSearch();
 
-        if (search != null && !("lastname_a_e1".equals(search.listorder) 
-                || "firstname_a_e1".equals(search.listorder))) {
-            search.listorder = null;
+        if(search == null || search.listorder == null) {
+            search = (PersonSearch)cntx.sessionAsObject("search" + BEANNAME);
+        }
+        if (search == null) {
+            search = new PersonSearch();
         }
 
         cntx.setSession("search" + BEANNAME, search);

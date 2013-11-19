@@ -821,7 +821,6 @@ function submitFormWithGivenAction(action) {
 		<input type="hidden" name="limit" value="" />
 		<input type="hidden" name="selectAll" value="false">
 		<input type="hidden" name="selectNone" value="true">
-		<input type="hidden" name="search-person" value="$search.person">
 		<input type="hidden" id="search-listorder" name="search-listorder" value="$!search.listorder">
 	</form>
 	
