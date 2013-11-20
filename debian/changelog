@@ -11,6 +11,8 @@ veraweb (1.4.2)
   * Aufsteigende Sortierung Personenübersicht
   	- Sortierung nach jeder Spalte möglich in dem der Spaltenkopf angeklickt wird
   
+ -- Sebastian Gerhards <s.gerhards@tarent.de> Wed, 20 Nov 2013 17:30:00 +0200
+
 veraweb (1.4.1.1-1) veraweb-stable; urgency=low
 
   [ Sascha Girrulat ]
