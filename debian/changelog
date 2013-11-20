@@ -1,3 +1,16 @@
+veraweb (1.4.2)
+
+  [ Marc Radel ]
+  * neue "vereinfachte" Personensuche
+  	- Menüpunkt "Personensuche" leitet auf die neue Suche
+    - alte Personensuche erreichbar über "erweiterte Suche" auf der Seite der neuen
+  	- Rückleitung von der Ergebenisseite nun dynamisch da diese von beiden Suchen benutzt wird
+  * Dokumenttypen
+  	- Export der Steuerdatei nun auch in den Formaten .csv und .xsl möglich
+  	- Dementsprechend wurde die Auswahl der Formate bei den Dokumenttypen angepasst
+  * Aufsteigende Sortierung Personenübersicht
+  	- Sortierung nach jeder Spalte möglich in dem der Spaltenkopf angeklickt wird
+  
 veraweb (1.4.1.1-1) veraweb-stable; urgency=low
 
   [ Sascha Girrulat ]
