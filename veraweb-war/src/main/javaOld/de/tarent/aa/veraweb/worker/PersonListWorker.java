@@ -402,10 +402,28 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 			select.join( "veraweb.tworkarea", "tworkarea.pk", "tperson.fk_workarea" );
 		}
 		
-		List order = new ArrayList();
-        if(search != null && search.listorder != null) {
-            order.add(search.listorder);
+        List order = new ArrayList();
+        if(search.lastListOrder == null && search.listorder != null) {
+            search.sort = "ASC";
+        } else if (search.lastListOrder == null && search.listorder == null) {
+            search.sort = "ASC";
+        } else if (!search.lastListOrder.equals(search.listorder)) {
+            search.sort = "ASC";
+        } else {
+            if (search.sort == null) {
+                search.sort = "ASC";
+            } else if ("ASC".equals(search.sort)) {
+                search.sort = "DESC";
+            } else {
+                search.sort = "ASC";
+            }
         }
+        
+        if (search != null && search.listorder != null) {
+            order.add(search.listorder);
+            order.add(search.sort);
+        }
+
         select.orderBy(DatabaseHelper.getOrder(order));
 	}
 
@@ -728,8 +746,15 @@ public class PersonListWorker extends ListWorkerVeraWeb {
         }
         if (search == null) {
             search = new PersonSearch();
+        }        
+        
+        PersonSearch sessionSearchPerson = (PersonSearch)cntx.sessionAsObject("search" + BEANNAME);
+        
+        if(sessionSearchPerson != null) {
+            search.lastListOrder = sessionSearchPerson.listorder; /* Gets the last string order of the session SearchPerson object
+            and set it to the new session. */
+            search.sort = sessionSearchPerson.sort;
         }
-
         cntx.setSession("search" + BEANNAME, search);
         return search;
     }
