@@ -26,6 +26,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -124,7 +125,7 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 		 * although, upon exiting this method the first time that it is called, will return the correct resultlist with at most
 		 * 10 entries in the underlying resultset as is defined by the query.
 		 */
-		Map<Integer, Map> result = new HashMap<Integer, Map>();
+		Map<Integer, Map> result = new LinkedHashMap<Integer, Map>();
 		List personList = getResultList( database, personSelect );
 		
 		for ( int i = 0; i < personList.size(); i++ ) {
@@ -155,6 +156,7 @@ public class PersonListWorker extends ListWorkerVeraWeb {
                         .joinOuter("veraweb.ttask", "ttask.fk_person", "tperson.pk")
                         .joinOuter("veraweb.tevent event2", "event2.pk", "ttask.fk_event")
                         .where(Expr.equal("tperson.pk", personId));
+			
 			
 			Timestamp eventBeginDate = null;
             Timestamp eventEndDate = null;
@@ -387,6 +389,7 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 	}
 	
 	protected void extendColumns(OctopusContext cntx, Select select) throws BeanException, IOException {
+	    PersonSearch search = getSearch(cntx);
 		select.selectAs( "tworkarea.name", "workarea_name" );
 		select.selectAs( "dateexpire", "dateexpire" );
 
@@ -394,13 +397,26 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 		 * modified to support workarea display in the search result list as per change request for version 1.2.0
 		 * cklein 2008-02-12
 		 */
-		select.join( "veraweb.tworkarea", "tworkarea.pk", "tperson.fk_workarea" );
+		String searchFiled = cntx.getRequestObject().getParamAsString("searchField");
+		if (searchFiled == null) {
+			select.join( "veraweb.tworkarea", "tworkarea.pk", "tperson.fk_workarea" );
+		}
+		
+		List order = new ArrayList();
+        if(search != null && search.listorder != null) {
+            order.add(search.listorder);
+        }
+        select.orderBy(DatabaseHelper.getOrder(order));
 	}
 
 	protected void extendWhere(OctopusContext cntx, Select select) throws BeanException
 	{
 		PersonSearch search = getSearch( cntx );
-		select.whereAnd( getPersonListFilter( cntx ) );
+		select.whereAnd( getPersonListFilter( cntx , true) );
+		
+		select.setDistinct(true);
+		String searchFiled = cntx.getRequestObject().getParamAsString("searchField");
+		
 		
 		/*
 		 * extension to support for multiple categories at once
@@ -412,6 +428,15 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 		if ( search.categorie2 != null )
 		{
 			select.join( "veraweb.tperson_categorie cat2", "cat2.fk_person", "tperson.pk" );
+		} else if (searchFiled != null) {
+			select.joinOuter( "veraweb.tperson_categorie cat2", "cat2.fk_person", "tperson.pk" );
+			
+		}
+		if (searchFiled != null) {
+			
+			select.joinOuter("veraweb.tworkarea", "tworkarea.pk", "tperson.fk_workarea");
+//			select.joinOuter("veraweb.torgunit", "torgunit.pk", "tperson.fk_orgunit");
+			select.joinOuter("veraweb.tcategorie", "tcategorie.pk", "cat2.fk_categorie");
 		}
 	}
 
@@ -521,8 +546,7 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 				select("street_a_e1").
 				select("zipcode_a_e1").
 				select("state_a_e1").
-				select("city_a_e1").
-				orderBy(Order.asc("lastname_a_e1").andAsc("firstname_a_e1"));
+				select("city_a_e1");
 	}
 
 	protected List getResultList(Database database, Select select) throws BeanException, IOException {
@@ -667,6 +691,10 @@ public class PersonListWorker extends ListWorkerVeraWeb {
      * @throws BeanException
      */
     public PersonSearch getSearch(OctopusContext cntx) throws BeanException {
+        
+        if (cntx.contentContains("search") && cntx.contentAsObject("search") instanceof PersonSearch)
+            return (PersonSearch)cntx.contentAsObject("search");
+        
         String param = cntx.requestAsString("search");
         PersonSearch search = null;
         
@@ -691,11 +719,16 @@ public class PersonListWorker extends ListWorkerVeraWeb {
             	}
             }
             search.categoriesSelection = selection;
+        } else {
+            search = (PersonSearch)getRequest(cntx).getBean("PersonSearch", "search");
         }
-        if (search == null)
+
+        if(search == null || search.listorder == null) {
             search = (PersonSearch)cntx.sessionAsObject("search" + BEANNAME);
-        if (search == null)
+        }
+        if (search == null) {
             search = new PersonSearch();
+        }
 
         cntx.setSession("search" + BEANNAME, search);
         return search;
@@ -715,9 +748,16 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 	 * @param cntx
 	 * @throws BeanException
 	 */
-	protected Clause getPersonListFilter(OctopusContext cntx) throws BeanException {
+	protected Clause getPersonListFilter(OctopusContext cntx, boolean status) throws BeanException {
 		WhereList list = new WhereList();
-		addPersonListFilter(cntx, list);
+		
+		String searchFiled = cntx.getRequestObject().getParamAsString("searchField");
+		if (searchFiled == null) {
+		
+			addPersonListFilter(cntx, list);
+		} else {
+			addPersonListFilterSimple(cntx, searchFiled, list, status);
+		}
 		
 		Where orgunitFilter = Expr.equal("tperson.fk_orgunit", ((PersonalConfigAA)cntx.personalConfig()).getOrgUnitId());
 		if (list.size() == 0) {
@@ -888,5 +928,178 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 					"(SELECT fk_host FROM veraweb.tevent)")));
 		}
 	}
+	
+
+	/**
+	 * Erweitert die �bergebene WhereList um Bedingungen der Suche.
+	 * Die WhereList ist danach <strong>niemals</strong> leer.
+	 * 
+	 * @param cntx
+	 * @param searchField 
+	 * @param list
+	 * @throws BeanException
+	 */
+	private void addPersonListFilterSimple(OctopusContext cntx, String searchField, WhereList list2, boolean status) throws BeanException {
+		PersonSearch search = getSearch(cntx);
+		
+//		if (search.findAll != null && search.findAll.booleanValue()) {
+//		    return;
+//		}
+		
+
+		/*
+		 * modified to support search for individual workareas as per change request for version 1.2.0
+		 * cklein
+		 * 2008-02-21
+		 */
+		
+		WhereList list = new WhereList();
+		
+		
+		
+		list.addOr(DatabaseHelper.getWhere(searchField, new String[] {
+					"firstname_a_e1",
+					"firstname_a_e2",
+					"firstname_a_e3",
+					"firstname_b_e1",
+					"firstname_b_e2",
+					"firstname_b_e3" }));
+		
+
+		
+		list.addOr(DatabaseHelper.getWhere(searchField, new String[] {
+					"lastname_a_e1",
+					"lastname_a_e2",
+					"lastname_a_e3",
+					"lastname_b_e1",
+					"lastname_b_e2",
+					"lastname_b_e3" }));
+		
+		list.addOr(DatabaseHelper.getWhere(searchField, new String[] {
+					"company_a_e1",
+					"company_a_e2",
+					"company_a_e3",
+					"company_b_e1",
+					"company_b_e2",
+					"company_b_e3",
+					"company_c_e1",
+					"company_c_e2",
+					"company_c_e3" }));
+		
+		list.addOr(DatabaseHelper.getWhere(searchField, new String[] {
+					"fon_a_e1",
+					"fon_a_e2",
+					"fon_a_e3",
+					"fon_b_e1",
+					"fon_b_e2",
+					"fon_b_e3",
+					"fon_c_e1",
+					"fon_c_e2",
+					"fon_c_e3" }));
+
+		list.addOr(DatabaseHelper.getWhere(searchField, new String[] {
+					"fax_a_e1",
+					"fax_a_e2",
+					"fax_a_e3",
+					"fax_b_e1",
+					"fax_b_e2",
+					"fax_b_e3",
+					"fax_c_e1",
+					"fax_c_e2",
+					"fax_c_e3" }));
+
+		list.addOr(DatabaseHelper.getWhere(searchField, new String[] {
+					"mobil_a_e1",
+					"mobil_a_e2",
+					"mobil_a_e3",
+					"mobil_b_e1",
+					"mobil_b_e2",
+					"mobil_b_e3",
+					"mobil_c_e1",
+					"mobil_c_e2",
+					"mobil_c_e3" }));
+
+		list.addOr(DatabaseHelper.getWhere(searchField, new String[] {
+					"mail_a_e1",
+					"mail_a_e2",
+					"mail_a_e3",
+					"mail_b_e1",
+					"mail_b_e2",
+					"mail_b_e3",
+					"mail_c_e1",
+					"mail_c_e2",
+					"mail_c_e3" }));
+
+		list.addOr(DatabaseHelper.getWhere(searchField, new String[] {
+		"tcategorie.catname" }));
+		
+		if (status) { 
+			list.addOr(DatabaseHelper.getWhere(searchField, new String[] {
+						"tworkarea.name" }));
+		}
+		
+		
+		list.addOr(DatabaseHelper.getWhere(searchField, new String[] {
+				"function_a_e1",
+				"function_a_e2",
+				"function_a_e3",
+				"function_b_e1",
+				"function_b_e2",
+				"function_b_e3",
+				"function_c_e1",
+				"function_c_e2",
+				"function_c_e3" }));
+		
+		list.addOr(DatabaseHelper.getWhere(searchField, new String[] {
+					"note_a_e1",
+					"note_b_e1" }));
+		
+		list.addOr(DatabaseHelper.getWhere(searchField, new String[] {
+				"city_a_e1",
+				"city_a_e2",
+				"city_a_e3",
+				"city_b_e1",
+				"city_b_e2",
+				"city_b_e3",
+				"city_c_e1",
+				"city_c_e2",
+				"city_c_e3" }));
+		
+		list.addOr(DatabaseHelper.getWhere(searchField, new String[] {
+				"street_a_e1",
+				"street_a_e2",
+				"street_a_e3",
+				"street_b_e1",
+				"street_b_e2",
+				"street_b_e3",
+				"street_c_e1",
+				"street_c_e2",
+				"street_c_e3" }));
+		
+		list.addOr(DatabaseHelper.getWhere(searchField, new String[] {
+				"zipcode_a_e1",
+				"zipcode_a_e2",
+				"zipcode_a_e3",
+				"zipcode_b_e1",
+				"zipcode_b_e2",
+				"zipcode_b_e3",
+				"zipcode_c_e1",
+				"zipcode_c_e2",
+				"zipcode_c_e3" }));
+		
+		
+
+		list2.addAnd(Where.and(Expr.equal("tperson.deleted", PersonConstants.DELETED_FALSE), list));
+			
+//		list.addAnd(Expr.in("tperson.fk_workarea", new RawClause(
+//				"(SELECT name FROM veraweb.tworkarea)")));
+		
+//		list.addOr( Expr.equal( "tperson.fk_workarea", searchField ) );
+		
+		
+		return;
+	}
+	
+	
 	
 }

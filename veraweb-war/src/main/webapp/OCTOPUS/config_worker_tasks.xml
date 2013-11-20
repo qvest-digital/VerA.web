@@ -454,7 +454,7 @@
 		<!-- Umsetzung PERSON -->
 		<task name="ShowPersonSearch" access="public" groups="StandardFieldsReader">
 			<description>
-				Dieser Task zeigt einen Suchdialog für Personen.
+				Dieser Task zeigt einen erweiterten Suchdialog für Personen.
 			</description>
 			<contract>
 				<input name="Vorname" type="xsd:string" optional="t" description="Vorgabewert: gesuchter Vorname"/>
@@ -476,6 +476,35 @@
 			<action name="getAll" worker="WorkAreaWorker"/>
 			<action name="getSearch" worker="PersonListWorker" />
 			<response type="velocity" name="personSearch">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+
+		</task>
+		
+		<task name="ShowPersonSearchSimple" access="public" groups="StandardFieldsReader">
+			<description>
+				Dieser Task zeigt einen einfachen Suchdialog für Personen.
+			</description>
+			<contract>
+				<input name="Vorname" type="xsd:string" optional="t" description="Vorgabewert: gesuchter Vorname"/>
+				<input name="Nachname" type="xsd:string" optional="t" description="Vorgabewert: gesuchter Nachname"/>
+				<input name="Institution" type="xsd:string" optional="t" description="Vorgabewert: gesuchte Institution"/>
+				<input name="Ort" type="xsd:string" optional="t" description="Vorgabewert: gesuchter Ort"/>
+				<input name="Straße" type="xsd:string" optional="t" description="Vorgabewert: gesuchte Straße"/>
+				<input name="PLZ" type="xsd:string" optional="t" description="Vorgabewert: gesuchte PLZ"/>
+				<input name="Funktion" type="xsd:string" optional="t" description="Vorgabewert: gesuchte Funktion"/>
+				<input name="Kategorie" type="xsd:string" optional="t" description="Vorgabewert: gesuchte Kategorie"/>
+				<input name="Ereignis" type="xsd:string" optional="t" description="Vorgabewert: gesuchtes Ereignis"/>
+				<input name="IstFirma" type="xsd:string" optional="t" description="Vorgabe-Flag: Firmen gesucht"/>
+				<input name="Datenherkunft" type="xsd:string" optional="t" description="Vorgabewert: gesuchte Datenherkunft"/>
+				<input name="Gültigkeitsdatum" type="xsd:string" optional="t" description="Vorgabewert: gesuchtes Gültigkeitsdatum"/>
+				<input name="Gültigkeitstyp" type="xsd:string" optional="t" description="Vorgabewert: Art der Gültigkeitsdatumsangabe"/>
+			</contract>
+			<doTask name="Load"/>
+			<action name="getAllAvailablePersonCategories" worker="CategorieWorker" />
+			<action name="getAll" worker="WorkAreaWorker"/>
+			<action name="getSearch" worker="PersonListWorker" />
+			<response type="velocity" name="personSearchSimple">
 				<param name="ContentType" value="text/html;charset=UTF-8"/>
 			</response>
 
@@ -504,6 +533,7 @@
 			</contract>
 			<doTask name="Load"/>
 			<action name="saveList" worker="PersonListWorker" />
+			<action name="getSearch" worker="PersonListWorker" />
 			<action name="showList" worker="PersonListWorker" />
 			<action name="exportFormat" worker="PersonExportWorker" />
 			<param name="liststarts" value="true"/>
@@ -512,6 +542,9 @@
 			</response>
 		</task>
 
+	
+		
+		
 		<task name="CreatePerson" access="public" groups="Writer">
 			<description>
 				Dieser Task erzeugt eine neue, initial leere, Person.

@@ -12,8 +12,6 @@
     <h1>Informationen zu VerA.Web</h1>
     
     
-    
-    
     #if($errors && $errors.size() > 0)
     <vera-warn>
     	#foreach($error in $errors)

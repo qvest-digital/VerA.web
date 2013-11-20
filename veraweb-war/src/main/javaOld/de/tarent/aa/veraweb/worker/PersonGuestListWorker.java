@@ -89,7 +89,7 @@ public class PersonGuestListWorker extends PersonListWorker {
 			}
 			
 			Select select = database.getSelectIds(database.createBean(BEANNAME));
-			Clause clause = getPersonListFilter(cntx);
+			Clause clause = getPersonListFilter(cntx, false);
 			if (search.categoriesSelection != null && search.categorie2 != null) {
 				select.joinLeftOuter("veraweb.tperson_categorie AS cat1", "tperson.pk", "cat1.fk_person");
 				select.joinLeftOuter("veraweb.tperson_categorie AS cat2", "tperson.pk", "cat2.fk_person");
@@ -174,7 +174,7 @@ public class PersonGuestListWorker extends PersonListWorker {
 			} else {
 				select.selectAs("NULL", "category");
 			}
-			Clause clause = getPersonListFilter(cntx);
+			Clause clause = getPersonListFilter(cntx, false);
 			if (event.invitationtype.intValue() != EventConstants.TYPE_NURPARTNER) {
 				select.where(Where.and(clause, Where.or(
 						Expr.greater("lastname_a_e1", ""),

@@ -69,7 +69,7 @@ public class PersonExportWorker extends PersonListWorker {
 		if (selection != null && selection.size() != 0) {
 			select.where(Where.and(
 					Expr.in("tperson.pk", selection),
-					getPersonListFilter(cntx)));
+					getPersonListFilter(cntx, false)));
 		}
 	}
 
