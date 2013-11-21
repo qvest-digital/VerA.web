@@ -46,8 +46,9 @@ public class PersonSearch extends AbstractBean {
 	public Date validdate;
 	public Boolean onlyhosts;
 	public Boolean findAll;
-	public String lastListOrder;
+	public String lastlistorder;
 	public String listorder;
+	public Boolean sortList;
 	public String sort;
 
     /**

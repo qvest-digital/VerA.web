@@ -402,24 +402,23 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 			select.join( "veraweb.tworkarea", "tworkarea.pk", "tperson.fk_workarea" );
 		}
 		
-        List order = new ArrayList();
-        if(search.lastListOrder == null && search.listorder != null) {
-            search.sort = "ASC";
-        } else if (search.lastListOrder == null && search.listorder == null) {
-            search.sort = "ASC";
-        } else if (!search.lastListOrder.equals(search.listorder)) {
-            search.sort = "ASC";
-        } else {
-            if (search.sort == null) {
+		List<String> order = new ArrayList<String>();		
+
+		/*
+		 * TODO: Needed to optimise that snippet and move it to a 
+		 * location where all List can use it for sortation
+		 */
+		if(search.sortList) {
+            if (search.sort == null || search.lastlistorder == null || !search.lastlistorder.equals(search.listorder)) {
                 search.sort = "ASC";
-            } else if ("ASC".equals(search.sort)) {
+            } else if ("ASC".equals(search.sort) && search.lastlistorder.equals(search.lastlistorder)) {
                 search.sort = "DESC";
-            } else {
+            } else if ("DESC".equals(search.sort) && search.lastlistorder.equals(search.lastlistorder)){
                 search.sort = "ASC";
             }
         }
         
-        if (search != null && search.listorder != null) {
+        if (search != null && search.listorder != null && search.listorder != "") {
             order.add(search.listorder);
             order.add(search.sort);
         }
@@ -714,6 +713,7 @@ public class PersonListWorker extends ListWorkerVeraWeb {
             return (PersonSearch)cntx.contentAsObject("search");
         
         String param = cntx.requestAsString("search");
+        Boolean sortList = cntx.requestAsBoolean("sortList");
         PersonSearch search = null;
         
         if ("clear".equals(param))
@@ -749,12 +749,14 @@ public class PersonListWorker extends ListWorkerVeraWeb {
         }        
         
         PersonSearch sessionSearchPerson = (PersonSearch)cntx.sessionAsObject("search" + BEANNAME);
-        
+
         if(sessionSearchPerson != null) {
-            search.lastListOrder = sessionSearchPerson.listorder; /* Gets the last string order of the session SearchPerson object
+            search.lastlistorder = sessionSearchPerson.listorder; /* Gets the last string order of the session SearchPerson object
             and set it to the new session. */
             search.sort = sessionSearchPerson.sort;
         }
+        search.sortList = sortList;
+
         cntx.setSession("search" + BEANNAME, search);
         return search;
     }
