@@ -1,0 +1,365 @@
+#set($activeMenu = "Veranstaltungen")
+#set($title = "G&auml;steliste f&uuml;r Veranstaltung: $!message.plain($event.shortname)")
+#set($elementNameSex = "male")
+#set($elementNameSingular = "Gast")
+#set($elementNamePlural = "G&auml;ste")
+#parse("inc/header.vm")
+
+<div id="content_container">
+	<div id="breadcrumb" class="textRight marginBottom10">
+    		<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Veranstaltungen > Veranstaltung bearbeiten</span>
+    </div>
+    <h1>G&auml;steverwaltung der Veranstaltung: $!message.plain($event.shortname)</h1>
+	
+	#if(!$isNewEvent)
+		#set($completeEventHeader = true)
+      	#parse("inc/event-header.vm")
+	#end
+	
+    #if($invited)
+    	<vera-success>
+    		#if($invited == 0)
+    			Die G&auml;steliste wurde nicht ver&auml;ndert.
+    		#elseif($invited == 1)
+    			Die G&auml;steliste wurde um einen Gast erweitert.
+    		#else
+    			Die G&auml;steliste wurde um $invited G&auml;ste erweitert.
+    		#end
+    	</vera-success>
+    #end
+    #if($mailinglistParams && $mailinglistParams.count)
+    	<vera-success>
+    		#if($mailinglistParams.count == 0)
+    			Verteiler &quot;$!message.plain($mailinglist.name)&quot; wurde ohne Person angelegt.
+    		#elseif($mailinglistParams.count == 1)
+    			Verteiler &quot;$!message.plain($mailinglist.name)&quot; wurde mit einer Person angelegt.
+    		#else
+    			Verteiler &quot;$!message.plain($mailinglist.name)&quot; wurde mit $!mailinglistParams.count Personen angelegt.
+    		#end
+    	</vera-success>
+    #end
+    #if($octopusRequest.task == "CalcSerialNumber" && (!$listquestions || $listquestions.size() == 0))
+    	<vera-success>
+    		Die &quot;Laufende Nummer&quot; wurde f&uuml;r alle G&auml;ste neu berechnet und gespeichert.
+    	</vera-success>
+    #end
+    <div id="main_content" class="tabs contentBox grayBorder marginBottom40 marginTop20 posRel">
+
+		<div id="tabsMain">
+			<ul vera-tab-group="" class="gray-gradient"> <!-- Bitte das End-tag der <li>s immer mit in die nächste Zeile nehmen (verhindert Mozilla styling bug) -->
+                <li id="gaesteliste" class="inactive"><div>G&auml;steliste</div>
+                </li><li id="gastdetails" #if($responseTab == "detail") vera-tab-default #end class="active"><div>Gastdetails</div>
+				</li><li id="dokumenttypen" class="inactive"><div>Dokumenttypen</div></li>
+			</ul>
+		</div>
+		
+		<div class="contentBoxColored tabsContent" vera-content="">
+			
+			#parse("inc/guest-detail-header.vm")
+
+			<form id="GuestForm" name="GuestForm" action="SaveGuestDetail" method="post">
+			<input type="hidden" name="tab" id="tab" value="$tab" />
+			<div class="contentBox grayBorder tabs marginBottom10" vera-content="">
+    			<div id="tabsMain2">
+    				<ul vera-tab-group="" class="gray-gradient"> <!-- Bitte das End-tag der <li>s immer mit in die nächste Zeile nehmen (verhindert Mozilla styling bug) -->
+    					<li id="allgemein" vera-tab #if(!$tab || $tab == "detail-1") vera-tab-default #end onclick="$('#tab').attr('value', 'detail-1');"><div>Allgemein</div>
+    					</li><li id="hauptperson" vera-tab #if($tab && $tab == "detail-2") vera-tab-default #end onclick="$('#tab').attr('value', 'detail-2');"><div>$!message.text($!config.main)</div>
+    					</li><li id="partner" vera-tab #if($tab && $tab == "detail-3") vera-tab-default #end onclick="$('#tab').attr('value', 'detail-3');"><div>$!message.text($!config.partner)</div>
+    					</li>
+    				</ul>
+    			</div>
+				
+			
+					<div class="tabsContent contentBox">
+                        <input type="hidden" name="id" value="$!guest.id">
+                        <input type="hidden" name="guest-id" value="$!guest.id">
+                        <input type="hidden" name="guest-event" value="$!guest.event">
+                        <input type="hidden" name="guest-person" value="$!guest.person">
+                        <input type="hidden" name="guest-orderno_a" value="$!guest.orderno_a">
+                        <input type="hidden" name="guest-orderno_b" value="$!guest.orderno_b">
+                        <input type="hidden" name="categorie-modified" id="categorie-modified" value="false">
+                        <input type="hidden" name="fetchRankFromMasterData" id="fetchRankFromMasterData" value="false">
+                    
+
+						#if($person.deleted == "t")
+						<vera-info>
+                            Die Stammdaten dieses Gastes wurden gel&ouml;scht. Sie k&ouml;nnen nur Daten im Rahmen dieser Veranstaltung bearbeiten.
+                        </vera-info>
+                        #end	
+						
+					
+							
+                        #openContentBlock("detail-1-block")
+						
+						#if($duplicateErrorList)
+							#foreach($error in $duplicateErrorList)
+								<vera-warn vera-stay>$error</vera-warn>
+							#end
+						#end
+						
+						#if($person.deleted != "t")							
+							#parse("inc/guestMasterDataNote.vm")
+						#end
+						
+							<div class="table width60">
+								<div class="tableRow">
+                                    <div class="tableCell width40">
+    									<label for="guest-invitationtype">Einladungsart:</label>                     			
+    									<select id="guest-invitationtype" name="guest-invitationtype" onchange="setGuestInvitationtype(this.value);">
+                            				<option value="1"#if($guest.invitationtype && $guest.invitationtype == 1) selected#end>Mit Partner</option>
+                            				<option value="2"#if($guest.invitationtype && $guest.invitationtype == 2) selected#end>Ohne Partner</option>
+                            				<option value="3"#if($guest.invitationtype && $guest.invitationtype == 3) selected#end>Nur Partner</option>
+                            			</select>
+									</div>
+										
+									<div class="tableCell width25 inlineLabel" style="border-left: 1px solid #C1C1C1; border-right: 1px solid #C1C1C1; padding-left: 30px; vertical-align:middle;">
+										<label for="showguest-ishost" style="white-space:nowrap">Ist Gastgeber:
+										#if($guest.ishost == 1)
+											<span class="notBold">Ja</span>
+											<input type="hidden" name="showguest-ishost" value="1"/>
+                            				<input type="hidden" name="guest-ishost" value="1"/>
+                            			#else
+											<span class="notBold">Nein</span>
+											<input type="hidden" name="showguest-ishost" value="0"/>
+                            				<input type="hidden" name="guest-ishost" value="0"/>
+										#end
+										</label>
+									</div>		
+									
+									<div class="tableCell inlineLabel" style="padding-left: 30px; vertical-align:middle;">
+										<label for="guest-reserve">Reserve:</label>
+										<input type="checkbox" id="guest-reserve" name="guest-reserve" value="true" class="noFloat" #if($guest.reserve) checked #end>
+									</div>
+								</div>
+								<div class="tableRow">
+									<div class="tableCell paddingTop10">
+										<label for="guest-category">Kategorie:</label>
+										<select name="guest-category" id="guest-category" onchange="setModified('categorie')">
+											<option value="">Keine</option>
+											#foreach($category in $allCategorie)
+												<option value="$category.id" #if($guest.category == $category.id) selected#end>$!message.plain($category.name)</option>
+											#end
+										</select>
+									</div>									
+									<div class="tableCell width20 paddingTop10">
+										<label for="guest-rank">Rang:</label>
+										<input type="text" id="guest-rank" name="guest-rank" value="$!message.text($guest.rank)">
+									</div>
+									<div class="tableCell"></div>
+								</div>
+							</div>
+                        #closeContentBlock()
+                    
+                    
+                        #openContentBlock("detail-2-block")
+						
+						#if($duplicateErrorList)
+							#foreach($error in $duplicateErrorList)
+								<vera-warn vera-stay>$error</vera-warn>
+							#end
+						#end
+						
+						#if($person.deleted != "t" && $guest.invitationtype != 3)							
+							#parse("inc/guestMasterDataNote.vm")
+						#end
+						
+                        <div id="detail-2-data-block" #if($guest.invitationtype == 3) style="display: none;"#end>
+                        #set($ext = "_a")
+                        #set($facade = $guest.Main)
+                        #parse("inc/guest-member.vm")
+                        </div>
+                        <div id="detail-2-reload-block" #if($guest.invitationtype != 3) style="display: none;"#end>					
+    						<vera-info vera-stay>
+                                Dieser Gast wurde ohne $!message.text($!config.main) eingeladen.
+                        		M&ouml;chten Sie diese jetzt <a href="javascript:setGuestInvitationtype(1);">nachtr&auml;glich einladen</a>?
+                            </vera-info>							
+                        </div>
+		<!-- alter Code der tabs -->
+	
+##<div id="subtab-detail-block">
+##	<table class="subtab" border="0" cellspacing="0" cellpadding="0"><tr>
+##		<td class="subtableft">&nbsp;</td>
+##		<td class="subtab" id="detail-1-tab"><a href="javascript:showTab('detail-1');" id="detail-1-link" class="subtab">Allgemein</a></td>
+##		<td class="subtab" id="detail-2-tab"><a href="javascript:showTab('detail-2');" id="detail-2-link" class="subtab">$!config.main</a></td>
+## partner tab now renders inactive if there is no partner defined or none has been invited
+## for existing guests, newly created guests will render the tab active
+## as per change request for version 1.2.0
+## cklein 2008-02-15
+ ##             <td #if( ( $guest.getIsPartnerInvited() && $person.getHasPartner() ) || $octopusRequest.task == "CreatePerson" ) class="subtab" #else class="tabdisabled" #end id="detail-3-tab"><a href="javascript:showTab('detail-3');" id="detail-3-link" class="subtab">$!config.partner</a></td>
+##            <td class="subtab" id="detail-3-tab"><a href="javascript:showTab('detail-3');" id="detail-3-link" class="subtab">$!config.partner</a></td>
+##		<td class="subtabcenter">&nbsp;</td>
+##	</tr></table>
+##</div>*# <!-- alter Code der tabs Ende -->
+                        #closeContentBlock()
+						
+                        
+                        #openContentBlock("detail-3-block")
+						
+						#if($duplicateErrorList)
+							#foreach($error in $duplicateErrorList)
+								<vera-warn vera-stay>$error</vera-warn>
+							#end
+						#end
+						
+						#if($person.deleted != "t" && $guest.invitationtype != 2)							
+							#parse("inc/guestMasterDataNote.vm")				
+						#end
+						
+                        <div id="detail-3-data-block" #if($guest.invitationtype == 2) style="display: none;"#end>
+                        #set($ext = "_b")
+                        #set($facade = $guest.Partner)
+                        #parse("inc/guest-member.vm")
+                        </div>
+                        <div id="detail-3-reload-block" #if($guest.invitationtype != 2) style="display: none;"#end>							
+    						<vera-info vera-stay>
+                                Dieser Gast wurde ohne $!message.text($!config.partner) eingeladen.
+                        		M&ouml;chten Sie diesen jetzt <a href="javascript:setGuestInvitationtype(1);">nachtr&auml;glich einladen</a>?
+                            </vera-info vera-stay>							
+                        </div>
+                        #closeContentBlock()
+						</div>
+					</div>							
+					
+					#parse("inc/guest-detail-navi.vm")
+					
+					<span id="buttonPanel-bottom" class="floatRight posAb" style="right: -1px; bottom: -40px;">
+    					#if($grants.mayWrite())
+    						<input type="button" name="save" value="Speichern"  class="mainButton" onClick="if ( validateGuestData() ) { return askPreSave(); } else { return false; }" />
+    					#end
+    					<input type="button" name="cancel" value="Zur&uuml;ck zu den Veranstaltungsdetails" title="Zur&uuml;ck zu den Veranstaltungdetails" class="mainButton" onclick="window.location.href='ShowEvent?id=$!event.id&action=event';" />
+					</span>
+                  </form>
+				
+			
+        </div><!--End class="tabsContent" --> 
+		
+	</div><!-- End id="main_content" -->
+</div> <!-- End id="content_container" -->
+
+
+<script type="text/javascript" src="${paths.staticWeb}scripts/guest-detail-tabs.js"></script>
+<script type="text/javascript">
+
+	function setGuestInvitationtype(type) {
+		if (type == 1) {
+			changeBlock('detail-2-data', new Array('detail-2-reload'));
+			changeBlock('detail-3-data', new Array('detail-3-reload'));
+			document.getElementById('guest-invitationtype').value = 1;
+		} else if (type == 2) {
+			changeBlock('detail-2-data', new Array('detail-2-reload'));
+			changeBlock('detail-3-reload', new Array('detail-3-data'));
+			document.getElementById('guest-invitationtype').value = 2;
+		} else if (type == 3) {
+			changeBlock('detail-2-reload', new Array('detail-2-data'));
+			changeBlock('detail-3-data', new Array('detail-3-reload'));
+			document.getElementById('guest-invitationtype').value = 3;
+		}
+	}
+	
+    #if(!$grants.mayWrite())
+    	disableForm(document.getElementById('GuestForm'));
+    #end
+	
+	showTab(getTabParameter('detail-1'));
+	
+	##wenn andere Kategorie ausgewaehlt wird, evtl. Rang aus Stammdaten laden
+	function askPreSave() {
+		if (isModified('categorie') && document.getElementById('guest-rank').value == '') {
+  			htmlConfirm('Soll der Rang der Kategorie aus den Stammdaten &uuml;bernommen werden?', new Array('Ja', 'Nein'), new Array("saveDocWithMasterDataRank('true');", "saveDocWithMasterDataRank('false');"));
+		}
+		else {
+			saveDocWithMasterDataRank('false');
+		}
+	} 
+	
+	function trim( s )
+	{
+		var i = 0;
+		var begin = -1;
+		var end = -1;
+		while ( i < s.length && ( s.charAt( i ) == ' ' || s.charAt( i ) == '\t' ) )
+		{
+			i++;
+		}
+		begin = i;
+		i = s.length -1;
+		while ( i > begin && ( s.charAt( i ) == ' ' || s.charAt( i ) == '\t' ) )
+		{
+			i--;
+		}
+		end = i + 1;
+//		showSuccess( begin + " " + ( end - begin ) + "'" + s.substr( begin, end - begin ) + "'" );
+		return s.substr( begin, end - begin ); 
+	}
+	
+	function validateGuestData()
+	{
+		var check = new Array( 'guest-tableno_a', 'guest-tableno_b', 'guest-seatno_a', 'guest-seatno_b' );
+		var msgs = new Array( 'Tischnummer der Hauptperson', 'Tischnummer des Partners', 'Platznummer der Hauptperson', 'Platznummer des Partners' );
+		var regexp = /^\d+$/;
+		var msg = "";
+		var i = 0;
+		for ( i = 0; i < check.length; i++ )
+		{
+			var val = trim( document.getElementById( check[ i ] ).value );
+			if ( val.length > 0 )
+			{
+				document.getElementById( check[ i ] ).value = val;
+				if ( ! regexp.test( val ) )
+				{
+					if ( msg.length > 0 )
+					{
+						msg += ',\r\n';
+					}
+					msg += '\t' + msgs[ i ];
+				}
+			}
+		}
+
+		if ( msg.length > 0 )
+		{
+			showWarning( "In den folgenden Feldern wird\r\neine numerische Angabe erwartet:\r\n\r\n" + msg );
+			return false;
+		}
+		return true;
+	}
+
+	function saveDocWithMasterDataRank(fetchRankFromMasterData) {
+		hideDialogs();
+		showComboboxes();
+		document.getElementById('fetchRankFromMasterData').value=fetchRankFromMasterData;
+		document.getElementById('GuestForm').submit();
+	}
+	
+	$(function () {
+        $('li#gaesteliste').click(function () {
+            window.location.href = '${paths.staticWeb}do/ShowGuestList?selectNone=true';
+        });
+        $('li#dokumenttypen').click(function () {
+            window.location.href = '${paths.staticWeb}do/ShowGuestDoctype';
+        });
+        
+        $('li#allgemein').click(function () {
+            showTab('detail-1');
+            $('input#tab').val("detail-1");
+        });
+        $('li#hauptperson').click(function () {
+            showTab('detail-2');
+            $('input#tab').val("detail-2");
+        });
+        $('li#partner').click(function () {
+            showTab('detail-3');
+            $('input#tab').val("detail-3");
+        }); 
+    });
+    
+    #if(!$tab || $tab == 'detail-1') showTab('detail-1');
+    	 $('input#tab').val("detail-1");
+    #elseif($tab == 'detail-2') showTab('detail-2');
+    	 $('input#tab').val("detail-2");
+    #elseif($tab == 'detail-3') showTab('detail-3');
+    	 $('input#tab').val("detail-3");
+    #end   
+</script>
+
+#parse("inc/footer.vm")

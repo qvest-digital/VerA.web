@@ -1,0 +1,96 @@
+#set($activeMenu = "Administration")
+## $Id$
+#set($title = "Mandanten")
+
+#set($elementNameSex = "male")
+#set($elementNameSingular = "Mandant")
+#set($elementNamePlural = "Mandanten")
+#parse("inc/header.vm")	
+
+#if($missingorgunit.result == "done")
+<vera-success>
+	Alle Datens&auml;tze wurden erfolgreich einem Mandanten zugeordnet.
+</vera-success>
+#end
+
+<div id="content_container"> 
+	
+    <div id="breadcrumb" class="textRight marginBottom10">
+    	<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Administration > Mandanten</span>
+    </div>	
+	
+	<h1>Mandanten</h1>
+
+    <div class="tabs contentBox grayBorder marginBottom10 marginTop20" id="main_content">
+		<div class="event" id="tabsMain">
+			<ul vera-tab-group="" class="gray-gradient"> <!-- Bitte das End-tag der <li>s immer mit in die nächste Zeile nehmen (verhindert Mozilla styling bug) -->
+				<li class="inactiv"><a href="Orgunit?selectNone=true" class="noBorder"><div>Mandanten</div></a>
+				</li><li vera-tab-default="" vera-tab="database" class="active"><div>Datenbank</div>
+				</li>
+			</ul>
+		</div>
+
+
+		<form action="$octopusRequest.task" method="POST">
+			<div class="contentBoxColored tabsContent" vera-content="database">
+            
+                <h2 class="marginBottom10">Nicht Mandanten zugeordnete Daten</h2>
+                
+                <table><tr>
+                	<td class="width15 bold"><label for="person">Personen:</label></td>
+                	<td><input type="text" value="$!message.text($missingorgunit.person)" id="person" vera-disabled></td>
+                	<td class="width15 bold"><label for="event">Veranstaltungen:</label></td>
+                	<td><input type="text" value="$!message.text($missingorgunit.event)" id="event" vera-disabled></td>
+
+                </tr><tr>
+                	<td class="width15 bold"><label for="import">Import Vorg&auml;nge:</label></td>
+                	<td><input type="text" value="$!message.text($missingorgunit.import)" id="import" vera-disabled></td>
+                	<td class="width15 bold"><label for="importPerson">Import Personen:</label></td>
+                	<td><input type="text" value="$!message.text($missingorgunit.importperson)" id="importPerson" vera-disabled></td>
+
+                </tr><tr>
+                	<td class="width15 bold"><label for="venue">Veranstaltungsorte:</label></td>
+                	<td><input type="text" value="$!message.text($missingorgunit.location)" id="venue" vera-disabled></td>
+                	<td class="width15 bold"><label for="mailinglist">Verteiler:</label></td>
+                	<td><input type="text" value="$!message.text($missingorgunit.mailinglist)" id="mailinglist" vera-disabled></td>
+
+                </tr><tr>
+                	<td class="width15 bold"><label for="kats">Kategorien:</label></td>
+                	<td><input type="text" value="$!message.text($missingorgunit.category)" id="kats" vera-disabled></td>
+                	<td class="width15 bold"><label for="users">Benutzer:</label></td>
+                	<td><input type="text" value="$!message.text($missingorgunit.user)" id="users" vera-disabled></td>
+                </tr><tr>
+                </tr></table>
+                
+                <h2 class="marginBottom10 marginTop30">Mandanten zuordnen</h2>
+                #if(!$allOrgUnit || $allOrgUnit.size() == 0)
+                	<vera-warn>
+                		Es existiert noch kein Mandant.
+                	</vera-warn>
+                #else
+                <table><tr>
+                	<td class="width15 bold"><label for="orgunit">Mandant:</label></td>
+                	<td>
+                		<select name="orgunit" id="orgunit">
+                		#foreach($m in $allOrgUnit)
+                			<option value="$!m.id">$!message.text($!m.name)</option>
+                		#end
+                		</select>
+                	</td>
+                </tr></table>
+                #end
+                
+                </div>
+					
+  			<span id="buttonPanel-bottom" class="floatRight marginTop10">
+				<input type="submit" name="submit" value="Zuordnen" title="Zuordnen" class="mainButton">
+  			</span>						
+                
+            
+       </form>
+	</div>
+</div>
+
+
+
+#parse("inc/footer.vm")
