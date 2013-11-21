@@ -1,0 +1,7 @@
+
+junit junit jar s/4\..*/4.x/ * *
+org.evolvis.veraweb veraweb-evolvis-parent pom * * *
+org.evolvis.veraweb veraweb-war war * * *
+s/org.apache.tomcat/javax.el/ el-api jar s/.*/2.1/ * *
+s/org.apache.tomcat/javax.servlet/ jsp-api jar s/.*/2.1/ * *
+s/org.apache.tomcat/javax.servlet/ servlet-api jar s/.*/2.5/ * *
