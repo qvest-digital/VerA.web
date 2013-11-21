@@ -1,0 +1,88 @@
+veraweb (1.4.2)
+
+  [ Marc Radel ]
+  * neue "vereinfachte" Personensuche
+  	- Menüpunkt "Personensuche" leitet auf die neue Suche
+    - alte Personensuche erreichbar über "erweiterte Suche" auf der Seite der neuen
+  	- Rückleitung von der Ergebenisseite nun dynamisch da diese von beiden Suchen benutzt wird
+  * Dokumenttypen
+  	- Export der Steuerdatei nun auch in den Formaten .csv und .xsl möglich
+  	- Dementsprechend wurde die Auswahl der Formate bei den Dokumenttypen angepasst
+  * Aufsteigende Sortierung Personenübersicht
+  	- Sortierung nach jeder Spalte möglich in dem der Spaltenkopf angeklickt wird
+
+ -- Sebastian Gerhards <s.gerhards@tarent.de> Wed, 20 Nov 2013 17:30:00 +0200
+
+veraweb (1.4.1.1-1) veraweb-stable; urgency=low
+
+  [ Sascha Girrulat ]
+  * [01eedfb] [debian] database and ldap config are now at /etc/veraweb
+  * [1165af0] [debian] avoid needless database updates
+  * [1b7a5a6] [debian] remove links to etc, it's better to patch config xml so
+    we use the configs directly
+  * [5b6063c] [debian] Add patch to use config files from etc and switch from
+    native to source format
+  * [9c8decc] [debian] Add package prefix to d/postinst
+  * [ed76152] [debian] Set needed permissions on /etc/.java/.systemPrefs/
+  * [0ff04db] [debian] backup/copy old confiles to /etc/veraweb
+  * [ca64bfe] [debian] cleanup application path after purge
+  * [8d7d618] [debian] prepare a new minor release
+  * [bf6a76c] [debian+webapp] add veraweb Benutzerhandbuch to d/veraweb-java.docs and webapp
+  * [f58ce35] [database] remove nedless db prefix form schema check
+  * [17a6537] [database] be quiet during schema setup
+  * [84cbdf9] [database] check if schema exitsts before we check them
+  * [7774579] prepare new release
+  * [61de5ca] [database] insert helplink value if not exists
+
+  [ sreime ]
+  * [880293d] Updaten Version for 1.4.1
+  * [565dc01] personenübersicht-> kategorien zuordnen/entfernen -> angepasste meldungen
+  * [1bae520] personenübersicht-> kategorien/arbeitsbereich ->
+    zuordnen/entfernen -> angepasste meldungen -> input felder übergeben
+  * [62059c2] personenübersicht-> arbeitsbereich -> zuordnen/entfernen -> angepasste meldungen
+  * [720fb0a] personenübersicht-> kategorien/arbeitsbereich ->
+    zuordnen/entfernen -> angepasste meldungen
+  * [279c7b2] personenübersicht-> arbeitsbereich -> zuordnen/entfernen -> angepasste meldungen
+
+ -- Sascha Girrulat <sascha@girrulat.de>  Tue, 22 Oct 2013 16:04:19 +0200
+
+veraweb (1.4.1.0-2) veraweb-stable; urgency=low
+
+  [ Sascha Girrulat ]
+  * [f1a326f] Adjust maven version and tag path's inside all pom's
+
+ -- Sascha Girrulat <sascha@girrulat.de>  Tue, 01 Oct 2013 17:30:03 +0200
+
+veraweb (1.4.1.0-1) veraweb-stable; urgency=low
+
+  * Löschbestätigung bei Veranstaltungen im Design angepasst
+  * Hinweismeldung bei Nicht-Bestätigung von Löschungen im Design angepasst
+  * Optimierung der Benutzerführung beim Entfernen von Personen aus der Gästeliste
+  * Bezeichnungen in der Benutzerverwaltung angepasst
+  * Bezeichnung bei Veranstaltungsort angepasst
+
+ -- Sebastian Reimers <s.reimers@tarent.de>  Tue, 01 Oct 2013 15:54:48 +0200
+
+veraweb (1.4.0.1-2) veraweb-stable; urgency=low
+
+  [ Sascha Girrulat ]
+  * [e506fb6] [debian] add new maven build command to d/rules so we are able to
+    build without changing the /etc/maven2/settings-debian.xml
+  * [f4f04d5] [debian] set filencoding to utf8 while build
+  * [cff021d] [debian] add openjdk-6-jdk as build dependency
+  * [a93a3b8] [debian] use java-6-openjdk
+
+ -- Sascha Girrulat <sascha@girrulat.de>  Thu, 12 Sep 2013 18:35:55 +0200
+
+veraweb (1.4.0.1-1) veraweb-stable; urgency=low
+
+  * Make the XML configs of OCTOPUS into UTF-8 files (requested by Volker)
+  * Fix the version number as we build a native package
+
+ -- Thorsten Glaser <t.glaser@tarent.de>  Wed, 14 Aug 2013 12:43:49 +0200
+
+veraweb (1.4-1) veraweb-stable; urgency=low
+
+  * Initial release (Closes: #4400)
+
+ -- Sascha Girrulat <sascha@girrulat.de>  Thu, 08 Aug 2013 14:46:04 +0200

@@ -1,0 +1,165 @@
+#set($activeMenu = "Personen")
+#set($title = "Export von Personendaten")
+#parse("inc/header.vm")
+
+	<div id="content_container">
+		<div id="breadcrumb" class="textRight marginBottom10">
+			<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Personen > Personenexport</span>
+		</div>
+		
+		<h1>$title</h1>
+
+		<vera-info>
+            #if($domain && $domain == "all" && $grants.isAdmin())
+            Sie sind als &quot;Voll-Administrator&quot; angemeldet und exportieren hiermit Mandanten&uuml;bergreifend.
+            #else
+            Sie exportieren mit dieser Funktion ausschlie&szlig;lich Personen aus Ihrem aktuellen Mandanten.
+            #end
+		</vera-info>	
+		
+
+        <form action="ExportPersonsHandler/veraweb.export" name="formExport" method="post">
+			<div id="main_content" class="contentBoxColored grayBorder">
+            
+    			<div class="table width70">
+    				<div class="tableRow">
+    					<div class="tableCell inlineLabel width30">
+    						<input type="radio" name="exportFilter" id="exportFilterEvent" value="event" onclick="return filterChanged()">
+    						<label for="exportFilterEvent">Veranstaltung</label>
+    					</div>
+    					<div class="tableCell">
+        					<select id="exportEvent" name="exportEvent">
+                                   		# cklein 2009-07-16: fixes issue 1815 - although option "Alle" yielded no return value
+                                   		# the octopus version in use made it a valid integer object of value 0, which broke
+                                   		# existing code relying on the fact that the request parameter would be null. 
+                                   		#
+                                   			<option value="0">Alle</option>
+                                   			<option value="-1">Keine</option>
+                                   #foreach($event in $allEvent)
+                                   			<option value="$!event.id">$!message.text($event.shortname)</option>
+                                   #end
+    						</select>
+    					</div>
+    				</div>
+    				<div class="tableRow">
+    					<div class="tableCell inlineLabel">
+    						<input type="radio" name="exportFilter" id="exportFilterCategory" value="category" onclick="return filterChanged()">
+    						<label for="exportFilterCategory">Kategorie</label>
+    					</div>
+    					<div class="tableCell">
+    						<select name="exportCategory" id="exportCategory">
+                    		# cklein 2009-07-16: fixes issue 1815 - although option "Alle" yielded no return value
+                    		# the octopus version in use made it a valid integer object of value 0, which broke
+                    		# existing code relying on the fact that the request parameter would be null. 
+                    		#
+                    			<option value="0">Alle</option>
+                    			<option value="-1">ohne</option>
+                    #foreach($category in $allCategorie)
+                    			<option value="$!category.id">$!message.text($category.name)</option>
+                    #end
+                    		</select>
+    					</div>
+    				</div>
+    				<div class="tableRow">
+    					<div class=" tableCell">
+    						<label for="format">Dateityp</label>
+    					</div>
+    					<div class="tableCell">
+    						<select name="format" id="format" class="autoWidth" onchange="return formatChanged();">
+                    #foreach($formatKey in $formats.keySet())
+                     #set($format = $formats.get($formatKey))
+                    			<option value="$formatKey">$format.name ($format.description)</option>
+                    #end
+                		</select>
+    					</div>
+    				</div>
+    			</div>
+
+			
+
+                #set($style = '')
+                #foreach($formatKey in $formats.keySet())
+                 #set($format = $formats.get($formatKey))
+                		<div $style id="format-$formatKey" class="marginTop20">
+                  #if($format.properties.containsKey("choices"))
+                   #set($choices = $format.properties.get("choices"))
+                			<fieldset class="format"><legend>$format.name: weitere Optionen</legend>
+                    			<div class="table width50">
+                   #foreach($choiceKey in $choices.keySet())
+                    #set($choice = $choices.get($choiceKey))
+                    				<div class="tableRow">
+                						<div class="tableCell width30"><label for="format-${formatKey}-$choiceKey">$!choice.get("label")</label></div>
+                						<div class="tableCell">
+                                            #set($default = $choice.get("default"))
+                                            #if($choice.containsKey("select"))
+                                             #set($select = $choice.get("select"))
+                                        							<select name="format-${formatKey}-$choiceKey" id="format-${formatKey}-$choiceKey" >
+                                             #foreach($selectKey in $select.keySet())
+                                        								<option value="$selectKey"#if($selectKey==$default) selected#end>$select.get($selectKey)</option>
+                                             #end
+                                        							</select>
+                                            #else
+                                            						<input type="text" name="format-${formatKey}-$choiceKey" id="format-${formatKey}-$choiceKey" value="$!default" >
+                                            #end
+                						</div>
+                    				</div>
+                   #end
+                    			</div>
+                			</fieldset>
+                  #end
+                  #if($format.properties.containsKey("remarks"))
+                   #set($remarks = $format.properties.get("remarks"))
+                			<fieldset class="format">
+                   #if($remarks.size() == 1)
+                   				<legend>$format.name: Anmerkung</legend>
+                   #else
+                   				<legend>$format.name: Anmerkungen</legend>
+                   #end
+                   #foreach($remark in $remarks)
+                				<p>$remark</p>
+                   #end
+                			</fieldset>
+                  #end
+                		</div>
+                 #set($style = 'style="display:none;"')
+    			#end
+    			
+    			
+                <script type="text/javascript">
+                	function formatChanged() {
+                #foreach($formatKey in $formats.keySet())
+                		document.getElementById('format-$formatKey').style.display = 'none';
+                #end
+                		document.getElementById('format-' + document.formExport.format.options[document.formExport.format.options.selectedIndex].value).style.display = '';
+                		return true;
+                	}
+                </script>
+                
+                ## see DataExchangeWorker#export
+			
+        	</div>
+			
+			<div id="buttonPanel-bottom" class="textRight marginTop10">
+				<input type="submit" name="submit" value="Export starten" class="mainButton" />
+ 			</div>
+
+        </form>
+	
+</div>	
+<script type="text/javascript">
+	document.formExport.exportFilter[0].click();
+	function filterChanged() {
+		if (document.formExport.exportFilter[0].checked) {
+			document.getElementById("exportEvent").disabled = false;
+			document.getElementById("exportCategory").disabled = true;
+			document.getElementById("exportEvent").focus();
+		} else {
+			document.getElementById("exportEvent").disabled = true;
+			document.getElementById("exportCategory").disabled = false;
+			document.getElementById("exportCategory").focus();
+		}
+		return true;
+	}
+</script>
+
+#parse("inc/footer.vm")
