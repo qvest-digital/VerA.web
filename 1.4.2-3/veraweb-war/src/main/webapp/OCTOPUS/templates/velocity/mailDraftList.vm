@@ -1,0 +1,59 @@
+#set($activeMenu = "Administration")
+#set($title = "E-Mail-Vorlagen")
+#set($elementNameSex = "female")
+#set($elementNameSingular = "Vorlage")
+#set($elementNamePlural = "Vorlagen")
+#parse("inc/header.vm")
+
+<div id="content_container">
+    <form id="formlist" name="formlist" action="MailDraftList" method="POST">
+        <input type="hidden" name="limit" value=""/>
+        <input type="hidden" name="start" value=""/>
+        <input type="hidden" name="selectNone" value="true"/>
+        <input type="hidden" name="doRemove" value="true"/>
+        
+        <div class="textRight marginBottom10" id="breadcrumb">
+        	<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Administration > E-Mail-Vorlagen</span>
+        </div>	
+        	
+        <h1>E-Mail-Vorlagen</h1>
+        
+        <span id="actionPanel" class="inlineLabel">
+	       	<strong>Markierte Vorlage(n)</strong>
+	       	<input type="submit" name="remove" value="Löschen" title="Markierte Vorlage(n) löschen" onclick="" />
+        </span>
+        <span id="" class="buttonPanel-top textRight floatRight">
+			<input type="button" name="" value="Neue Vorlage anlegen" title="Neue Vorlage anlegen" class="mainButton" onclick="window.location.href='MailDraftDetail';" />
+        </span>
+        #foreach($bean in $list)
+        <input type="hidden" name="list" value="$bean.id"/>
+        #end
+        
+    	<table>
+        	<tr>
+        		<th class="smallCell textCenter">
+        			<input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="Alle (de)markieren" #if($listselection.size() == $list.size()) checked#end/>
+        		</th>
+        		<th class="smallCell textCenter">ID</th>
+        		<th>Name der Vorlage</th>
+        	</tr>
+        	#foreach($bean in $list)
+        	<tr>
+        		<td><input type="checkbox" name="${bean.id}-select" value="true"/></td>
+        		<td onclick="window.location.href='MailDraftDetail?id=$!{bean.id}';"><input type="hidden" name="${bean.id}-id" value="$bean.id"/>$!{bean.id}</td>
+        		<td onclick="window.location.href='MailDraftDetail?id=$!{bean.id}';"/>$!message.text($bean.name)</td>
+        	</tr>
+        	#end
+        	
+        	#set($itemName = "Vorlagen")
+        	#parse("inc/list-navi-new.vm")
+        	#parse("inc/list-direct-new.vm")
+            #if ($listparam.count == 0)
+            	<tr><td colspan="3">Keine Daten gefunden.</td></tr>
+            #end
+        </table>
+        
+    </form>
+</div>
+
+#parse("inc/footer.vm")

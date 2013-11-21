@@ -1,0 +1,115 @@
+#set($activeMenu = "Administration")
+#set($title = "Veranstaltungsorte")
+#set($elementNameSex = "male")
+#set($elementNameSingular = "Veranstaltungsort")
+#set($elementNamePlural = "Veranstaltungsorte")
+#parse("inc/header.vm")	
+
+<div id="content_container">
+	<div id="breadcrumb" class="textRight marginBottom10">
+    	<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Administration > Veranstaltungsorte</span>
+    </div>
+
+    <h1>Veranstaltungsorte</h1>
+	
+    <form id="formlist" name="formlist" action="Location" method="POST">
+        <input type="hidden" name="doRemove" value="true">
+        <input type="hidden" name="start" value="">
+		<input type="hidden" name="limit" value="">
+        <input type="hidden" name="selectNone" value="true">
+    
+        #if($listerrors.size() > 0)
+        	<vera-warn>
+        	#foreach($error in $listerrors)
+            	$error<br>
+        	#end
+            </vera-warn>
+        #elseif($listquestions && $listquestions.size() > 0)
+        	<vera-confirm>
+        		<strong>Bitte best&auml;tigen Sie das L&ouml;schen von Veranstaltungsorten</strong><br>
+        		<table class="form" style="margin: 5px 0px 0px 0px;">
+        		#foreach($quest in $listquestions.entrySet())
+        			<tr>
+        				<td><input type="hidden" name="$quest.key" value="true">$!message.plain($quest.value)</td>
+        			</tr>
+        			#set($save = true)
+        		#end
+        		</table><br />
+        
+        	#if($save)
+        		<input type="submit" class="button" name="remove" value="Ja" title="Markierte Veranstaltungsorte l&ouml;schen"> &nbsp;
+        	#end
+        		<input type="button" class="cancel" name="cancel" value="Nein" onclick="window.location.href='Location?selectNone=true';"> &nbsp;
+        	</vera-confirm>
+        #end
+    
+        #foreach($bean in $list)
+    		<input type="hidden" name="list" value="$bean.id">
+		#end
+		
+		<span id="actionPanel" class="inlineLabel">
+			<label>Markierte(n) Veranstaltungsort(e)
+               	<input type="submit" id="remove" name="remove" value="L&ouml;schen" title="Markierte(n) Veranstaltungsort(e) l&ouml;schen" />
+            </label>
+        </span>		
+		
+		#if($grants.mayWrite())
+		<span class="textRight floatRight" id="buttonPanel-top">
+          	<input type="button" id="new" name="new" value="Neuen Veranstaltungsort hinzuf&uuml;gen" title="Neuen Veranstaltungsort hinzuf&uuml;gen"  class="mainButton" onclick="window.location.href='CreateLocation';" />
+		</span>
+		#end
+		
+        <table>
+        	<tr>
+        		<th class="smallCell textCenter"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="Alle (de)markieren"  #if($listselection.size() == $list.size()) checked#end/></th>
+        		<th class="smallCell textCenter">ID</th>
+        		<th>Bezeichnung</th>
+        		<th>Ansprechpartner</th>
+        		<th>Stra&szlig;e</th>
+        		<th>PLZ</th>
+        		<th>Ort</th>
+        		<th>Telefon</th>
+        		<th>Fax</th>
+        		<th>E-Mail</th>
+        		<th>Bemerkung</th>
+        		<th>URL</th>
+        		<th>GPS-Daten</th>
+        		<th>Raumnummer</th>
+        	</tr>
+        	#foreach($bean in $list)
+        		<tr>
+        			<td class="textCenter"><input type="checkbox" id="remove-select" name="${bean.id}-select" value="true" #if($listselection.indexOf($bean.id) != -1) checked#end></td>
+        			<td class="textCenter" onclick="window.location.href='ShowLocation?id=$!{bean.id}'">$!message.plain($bean.id)</td>
+        			<td onclick="window.location.href='ShowLocation?id=$!{bean.id}'">$!message.plain($bean.name)</td>
+        			<td onclick="window.location.href='ShowLocation?id=$!{bean.id}'">$!message.plain($bean.contactperson)</td>
+        			<td onclick="window.location.href='ShowLocation?id=$!{bean.id}'">$!message.plain($bean.address)</td>
+        			<td onclick="window.location.href='ShowLocation?id=$!{bean.id}'">$!message.plain($bean.zip)</td>
+        			<td onclick="window.location.href='ShowLocation?id=$!{bean.id}'">$!message.plain($bean.location)</td>
+        			<td onclick="window.location.href='ShowLocation?id=$!{bean.id}'">$!message.plain($bean.callnumber)</td>
+        			<td onclick="window.location.href='ShowLocation?id=$!{bean.id}'">$!message.plain($bean.faxnumber)</td>
+        			<td onclick="window.location.href='ShowLocation?id=$!{bean.id}'">$!message.plain($bean.email)</td>
+        			<td onclick="window.location.href='ShowLocation?id=$!{bean.id}'">$!message.plain($bean.comment)</td>
+        			<td onclick="window.location.href='ShowLocation?id=$!{bean.id}'">$!message.plain($bean.url)</td>
+        			<td onclick="window.location.href='ShowLocation?id=$!{bean.id}'">$!message.plain($bean.gpsdata)</td>
+        			<td onclick="window.location.href='ShowLocation?id=$!{bean.id}'">$!message.plain($bean.roomnumber)</td>
+            	</tr>
+        	#end
+            #if ($listparam.count == 0)
+            	<tr>
+            		<td colspan="14">Es wurden keine Daten gefunden</td>
+            	</tr>
+			#end
+			
+			#set($itemName = "Veranstaltungsorte")
+			#parse("inc/list-navi-new.vm")
+			#parse("inc/list-direct-new.vm")
+        </table>
+    
+         
+    
+        
+        
+    
+    </form>
+</div>
+#parse("inc/footer.vm")
