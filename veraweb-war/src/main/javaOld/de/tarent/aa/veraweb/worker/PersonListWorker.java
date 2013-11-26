@@ -739,10 +739,10 @@ public class PersonListWorker extends ListWorkerVeraWeb {
             search.categoriesSelection = selection;
         } else {
             search = (PersonSearch)getRequest(cntx).getBean("PersonSearch", "search");
-        }
-
-        if(search == null || search.listorder == null) {
-            search = (PersonSearch)cntx.sessionAsObject("search" + BEANNAME);
+            
+            if(search == null || (search.listorder == null) ) {
+                search = (PersonSearch)cntx.sessionAsObject("search" + BEANNAME);
+            }
         }
         if (search == null) {
             search = new PersonSearch();
