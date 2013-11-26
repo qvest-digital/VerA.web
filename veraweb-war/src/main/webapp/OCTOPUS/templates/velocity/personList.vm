@@ -94,7 +94,16 @@
 	   </script>
 	#end
 	
-	
+
+	<form id="personListFilter" name="personListFilter" action="${paths.staticWeb}do/$octopusRequest.task" method="POST" class="marginTop25">
+		<!--<input type="hidden" name="start" value="0" />
+		<input type="hidden" name="limit" value="" />
+		<input type="hidden" name="selectAll" value="false" />
+		<input type="hidden" name="selectNone" value="true" /> -->
+		<input type="hidden" name="sortList" value="true" />
+		<input type="hidden" id="search-listorder" name="search-listorder" value="$!search.listorder">
+	</form>
+
 	#if($list && $list.size() > 0 )
 		
     	<form id="formlist" name="formlist" action="${paths.staticWeb}do/$octopusRequest.task" method="POST">
@@ -815,15 +824,6 @@ function submitFormWithGivenAction(action) {
 		</div>
 		
 	#end
-
-	<form id="personListFilter" name="personListFilter" action="${paths.staticWeb}do/$octopusRequest.task" method="POST" class="marginTop25">
-		<input type="hidden" name="start" value="0" />
-		<input type="hidden" name="limit" value="" />
-		<input type="hidden" name="selectAll" value="false" />
-		<input type="hidden" name="selectNone" value="true" />
-		<input type="hidden" name="sortList" value="true" />
-		<input type="hidden" id="search-listorder" name="search-listorder" value="$!search.listorder">
-	</form>
 	
 	## Zurück-Button
 	<span id="buttonPanel-top" class="textRight floatRight">
