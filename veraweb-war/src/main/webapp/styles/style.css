@@ -104,8 +104,15 @@ a img {
 }
 
 th a {
-	display:block;
-	border:0;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+    border: medium none;
+    display: inline-block;
+    height: 40px;
+    line-height: 40px;
+    padding: 0 10px;
+    width: 100%;
 }
 
 /************* End links *************/
@@ -1009,6 +1016,7 @@ th {
 	background-image: url(../images/th_bg.png);
 	background-repeat:repeat-x;	 
     background-size: 1px 100%;	
+    padding: 0 !import;
 }
 
 td, th {
