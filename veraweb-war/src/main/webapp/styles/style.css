@@ -1016,13 +1016,17 @@ th {
 	background-image: url(../images/th_bg.png);
 	background-repeat:repeat-x;	 
     background-size: 1px 100%;	
-    padding: 0 !import;
+    padding: 0 !important;
 }
 
 td, th {
     padding: 10px;
     text-align: left;
     vertical-align: top;
+}
+
+th > input {
+    margin: 14px 0;
 }
 
 .smallCell {
