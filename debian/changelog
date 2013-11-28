@@ -1,3 +1,10 @@
+veraweb (1.4.2.0-4) veraweb-stable; urgency=low
+
+  [ Volker Schmitz }
+  * Update to veraweb 1.4.2.0.4
+
+ -- Volker Schmitz <v.schmitz@tarent.de>  Thu, 28 Nov 2013 10:32:38 +0100
+
 veraweb (1.4.2.0-3) veraweb-stable; urgency=low
 
   [ cnuess ]

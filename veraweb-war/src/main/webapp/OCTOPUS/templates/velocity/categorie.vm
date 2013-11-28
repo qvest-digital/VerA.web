@@ -67,9 +67,9 @@
 				<th class="smallCell textCenter"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="Alle (de)markieren" #if($listselection.size() == $list.size()) checked#end/></th>
 				<th class="smallCell textCenter">ID</th>
 		#end
-				<th><a href="?order=name">Bezeichnung*</a></th>
-				<th><a href="?order=flags">Kennzeichen</a></th>
-				<th><a href="?order=rank">Rang</a></th>
+				<th>Bezeichnung*</th>
+				<th>Kennzeichen</th>
+				<th>Rang</th>
 				<th>Veranstaltung(en)</th>
 			</tr>
 		

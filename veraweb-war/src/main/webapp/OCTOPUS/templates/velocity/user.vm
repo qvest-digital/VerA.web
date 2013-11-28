@@ -57,10 +57,10 @@
 					<th class="smallCell textCenter"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="Alle (de)markieren" #if($listselection.size() == $list.size()) checked#end/></th>
 					<th class="smallCell textCenter">ID</th>
 			#if($domain == 'all')
-					<th><a href="?order=orgunit">Mandant</a></th>
+					<th>Mandant</th>
 			#end
-					<th><a href="?order=name">Benutzername*</a></th>
-					<th><a href="?order=role">Benutzerrechte</a></th>
+					<th>Benutzername*</th>
+					<th>Benutzerrechte</th>
 				</tr>
 				<tr>
 					<td class="textCenter"><input type="hidden" id="add-modified" name="add-modified" value="false"><input type="checkbox" name="add-select" value="true"  style="display: none;"></td>
