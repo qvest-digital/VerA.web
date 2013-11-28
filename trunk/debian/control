@@ -1,0 +1,43 @@
+Source: veraweb
+Section: java
+Priority: optional
+Maintainer: Sascha Girrulat <sascha@girrulat.de>
+Build-Depends: debhelper (>= 7),
+ cdbs, default-jdk,
+ maven-debian-helper (>= 1.5),
+ maven-repo-helper (>= 1.8.3),
+Build-Depends-Indep: libservlet2.5-java,
+ junit4, default-jdk-doc,
+ libservlet2.5-java-doc,
+ libmaven-javadoc-plugin-java,
+ maven2,
+ libmaven-war-plugin-java,
+ libmaven-clean-plugin-java,
+ openjdk-6-jdk,
+Standards-Version: 3.9.4
+Vcs-Svn: svn://svn.debian.org/svn/pkg-java/trunk/veraweb
+Vcs-Browser: http://svn.debian.org/wsvn/pkg-java/trunk/veraweb
+Homepage: http://veraweb.evolvis.org/
+
+Package: veraweb-java
+Architecture: all
+Depends: ${misc:Depends}, ${maven:Depends},
+ tomcat7,
+ postgresql,
+ default-jre,
+ slapd,
+Recommends: ${maven:OptionalDepends}
+Suggests: veraweb-java-doc
+Description: veraweb-evolvis-parent
+ Veranstaltungsmanagment VerA.web
+
+Package: veraweb-java-doc
+Architecture: all
+Section: doc
+Depends: ${misc:Depends}, ${maven:DocDepends}
+Recommends: ${maven:DocOptionalDepends}
+Suggests: veraweb-java
+Description: Documentation for veraweb-evolvis-parent
+ Veranstaltungsmanagment VerA.web
+ .
+ This package contains the API documentation of veraweb-java.

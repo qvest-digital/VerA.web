@@ -1,0 +1,250 @@
+#set($activeMenu = "Veranstaltungen")
+
+#if($task && $task.id)
+	#set($title = "Aufgabe bearbeiten: $!message.text($task.title)")
+#else
+	#set($title = "Neue Aufgabe erstellen")
+#end
+
+#set($elementNameSex = "female")
+#set($elementNameSingular = "Aufgabe")
+#set($elementNamePlural = "Aufgaben")
+#parse("inc/header.vm")
+
+#if(!$eventId)
+	#set($eventId = $task.eventId)
+#end
+
+<div id="content_container">
+
+    #if($task && $task.id)
+    <div id="breadcrumb" class="textRight marginBottom10">
+        <strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Veranstaltungen > Veranstaltung bearbeiten</span>
+    </div>
+    #else
+    <div id="breadcrumb" class="textRight marginBottom10">
+        <strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Veranstaltungen > Veranstaltung bearbeiten</span>
+    </div>
+    #end
+
+	<h1>Veranstaltung bearbeiten: $!message.plain($event.shortname)</h1>
+
+    <form id="formlist" name="formlist" action="" method="POST">
+        <input type="hidden" id="a" name="a" value="taskReferencePerson" />
+        <input type="hidden" id="modified" name="task-modified" value= #if (($refPerson.id && !$task.personId) || $refPerson.id != $task.personId) "true" #else "false" #end />
+        <input type="hidden" name="savetask" value="true" />
+        <input type="hidden" name="search" value="clear" />
+        <input type="hidden" name="task-eventId" value="$!eventId" />
+        <input type="hidden" name="eventId" value="$!eventId" />
+        <input type="hidden" name="task-personId" value="$!refPerson.id" />
+
+
+
+
+        #if($task.errors.size() > 0)
+
+            <vera-warn>
+                $!message.plain($task.errors.get(0))<br>
+                ##	#foreach($error in $task.errors)
+                ##		$error<br>
+                ##	#end
+            </vera-warn>
+
+        #elseif($listquestions && $listquestions.size() > 0)
+        <div style="width: 99%; background-color: #ffffff;">
+            <div style="margin: 10px 0px 10px 0px; padding: 10px 10px 10px 10px; background-color: #ffffff; border: 2px solid #00ff00;">
+                <strong>Bitte best&auml;tigen Sie das Speichern dieser Aufgabe</strong><br>
+                <table class="form" style="margin: 5px 0px 0px 0px;">
+                    #foreach($quest in $listquestions.entrySet())
+                    <tr>
+                        <td><input type="hidden" name="$quest.key" value="true">$!message.plain($quest.value)</td>
+                    </tr>
+                    #set($save = true)
+                    #end
+                </table><br>
+
+                #if($save)
+                <input type="submit" class="button" name="remove" value="Ja" title="Speichern">
+                #end
+                <input type="button" class="cancel" name="cancel" value="Nein" goto="ShowEvent?id=$!eventId">
+            </div>
+        </div>
+        #end
+
+        <input type="hidden" name="task-id" value="$!task.id">
+        <input type="hidden" name="event-id" value="$!eventId">
+
+		#set($completeEventHeader = false)
+        #parse("inc/event-header.vm")
+		
+		<div class="textRight marginBottom10 marginTop20" id="buttonPanel-top">
+            <input type="button" class="mainButton" value="Zur G&auml;steverwaltung" title="Zur G&auml;steverwaltung" name="guestlist" goto="ShowGuestList?search-event=$!event.id&start=0&selectNone=true">
+        </div>
+
+        <div id="main_content" class="tabs contentBox grayBorder marginBottom10 event">
+
+
+            <div id="tabsMain">
+                <ul class="gray-gradient"> <!-- Bitte das End-tag der <li>s immer mit in die nächste Zeile nehmen (verhindert Mozilla styling bug) -->
+                    <li class="inactive" id="showEvent" goto="ShowEvent?id=$!eventId" class="noBorder"><div>Allgemein</div></a>
+                    </li><li id="showEventDoctype" class="inactive" goto="${paths.staticWeb}do/ShowEventDoctype?id=$!eventId&selectNone=true" class="noBorder"><div>Dokumenttypen</div>
+                    </li><li id="showEventTasks" class="active" goto="${paths.staticWeb}do/ShowEventTasks?id=$!eventId&selectNone=true"><div>Aufgaben</div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="contentBoxColored tabsContent">
+				
+				<div class="textRight mandatoryText">* = Pflichtfelder</div>
+
+                <div class="table width100">
+                    <div class="tableRow">
+                        <div class="tableCell width40">
+                            <strong>Aufgaben-ID</strong><br /> $!message.text($task.id)</div>
+                        <div class="tableCell width30">
+                            <label for="task-startdate">Beginn</label>
+                            <input tabindex="2" type="text" name="task-startdate" id="task-startdate" value="$!message.date("DATE", $task.startdate)" class="date" style="width: 80px;" onchange="setModified();">
+                            #if($grants.mayWrite())
+                            <span id="show-begin" class="datepickerContainer"><img src="${paths.staticWeb}images/calendar.png" alt="Datum ausw&auml;hlen" title="Datum ausw&auml;hlen"></span> um
+								<script type="text/javascript">
+                                function changeDateStart(calendar, date) {
+                                }
+
+                                Calendar.setup({
+                                    inputField     :    "task-startdate",
+                                    button         :    "show-begin",
+                                    ifFormat       :    "%d.%m.%Y",
+                                    showsTime      :    false,
+                                    onUpdate       :    changeDateStart
+                                });
+                            </script>
+                            #end
+                            <input type="text" tabindex="3" name="task-starttime" id="task-starttime" #if($task-starthastime) value="$!message.date("TIME", $task.startdate)" #else value="$!message.plain($task.starttime)" #end class="date" style="width: 45px;" onchange="setModified();"> Uhr</div>
+                        <div class="tableCell width30">
+                            <label for="task-degreeofcompletion">Fertigstellung</label>
+                            <select tabindex="6" name="task-degreeofcompletion" id="task-degreeofcompletion" class="width20" onchange="setModified();">
+                                <option #if($task.degreeofcompletion && $task.degreeofcompletion == 0) selected #end value="0">0%</option>
+                                <option #if($task.degreeofcompletion && $task.degreeofcompletion == 10) selected #end value="10">10%</option>
+                                <option #if($task.degreeofcompletion && $task.degreeofcompletion == 20) selected #end value="20">20%</option>
+                                <option #if($task.degreeofcompletion && $task.degreeofcompletion == 30) selected #end value="30">30%</option>
+                                <option #if($task.degreeofcompletion && $task.degreeofcompletion == 40) selected #end value="40">40%</option>
+                                <option #if($task.degreeofcompletion && $task.degreeofcompletion == 50) selected #end value="50">50%</option>
+                                <option #if($task.degreeofcompletion && $task.degreeofcompletion == 60) selected #end value="60">60%</option>
+                                <option #if($task.degreeofcompletion && $task.degreeofcompletion == 70) selected #end value="70">70%</option>
+                                <option #if($task.degreeofcompletion && $task.degreeofcompletion == 80) selected #end value="80">80%</option>
+                                <option #if($task.degreeofcompletion && $task.degreeofcompletion == 90) selected #end value="90">90%</option>
+                                <option #if($task.degreeofcompletion && $task.degreeofcompletion == 100) selected #end value="100">100%</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="tableRow">
+                        <div class="tableCell">
+                            <label for="task-title">Kurzbezeichnung*</label>
+                            <input tabindex="1" type="text" name="task-title" value="$!message.text($task.title)" id="task-title" maxlength="100" onchange="setModified();"></div>
+                        <div class="tableCell">
+                            <label for="task-enddate">Ende</label>
+                            <input tabindex="4" type="text" name="task-enddate" id="task-enddate" value="$!message.date("DATE", $task.enddate)" class="date" style="width: 80px;" onchange="setModified();">
+                            #if($grants.mayWrite())
+                            <span id="show-end" class="datepickerContainer"><img src="${paths.staticWeb}images/calendar.png" alt="Datum ausw&auml;hlen" title="Datum ausw&auml;hlen"></span> um
+							<script type="text/javascript">
+                                Calendar.setup({
+                                    inputField     :    "task-enddate",
+                                    button         :    "show-end",
+                                    ifFormat       :    "%d.%m.%Y",
+                                    showsTime      :    false
+                                });
+                            </script>
+                            #end
+                            <input type="text" tabindex="5" name="task-endtime" id="task-endtime" #if($task-endhastime) value="$!message.date("TIME", $task.enddate)" #else value="$!message.plain($task.endtime)" #end class="date" style="width: 45px;" onchange="setModified();"> Uhr
+                        </div>
+                        <div class="tableCell">
+                            <label for="task-priority">Priorit&auml;t</label>
+                            <select  tabindex="7" name="task-priority" id="task-priority" class="width20" onchange="setModified();">
+                                <option #if($task.priority && $task.priority == 1) selected #end value="1">1</option>
+                                <option #if($task.priority && $task.priority == 2) selected #end value="2">2</option>
+                                <option #if($task.priority && $task.priority == 3) selected #end value="3">3</option>
+                                <option #if($task.priority && $task.priority == 4) selected #end value="4">4</option>
+                                <option #if($task.priority && $task.priority == 5) selected #end value="5">5</option>
+                                <option #if($task.priority && $task.priority == 6) selected #end value="6">6</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                 <div class="table width100">
+                    <div class="tableRow">
+                        <div class="tableCell">
+                            <label for="task-description">Beschreibung</label>
+                            <textarea tabindex="8" rows="4" cols="20" name="task-description" id="task-description" onchange="setModified();">$!message.textarea($task.description)</textarea>
+                        </div>
+                    </div>
+                    <div class="tableRow">
+                        <div class="tableCell">
+                            <input type="hidden" id="task-reference-person" value="$!message.text($refPerson.firstname_a_e1) $!message.text($refPerson.lastname_a_e1)">
+                            <strong>Verantwortlicher</strong>
+                            <div id="task-reference-person-text" class="marginBottom5">$!message.text($refPerson.firstname_a_e1) $!message.text($refPerson.lastname_a_e1)</div>
+    				        #if($grants.mayWrite())
+                                <div>
+                                   <input type="button" id="addRemoveRefPerson" tabindex="9" class="autoWidth" value="Verantworlichen hinzufügen" title="Verantworlichen hinzufügen" 
+                                    onclick="document.getElementById('formlist').action='SetReferencePersonToEventTask'; 
+                                    document.getElementById('a').value='taskReferencePerson';  document.getElementById('formlist').submit();" />
+                                    <input type="button" tabindex="10" class="autoWidth" value="Verantworlichen entfernen" title="Verantworlichen entfernen" id="linkRemoveRefPerson">
+                             </div>
+                            #end
+                        </div>
+                    </div>
+                 </div>
+
+                <div class="textRight" id="buttonPanel-bottom">
+                    #if($event && $event.id)
+        				#if($grants.mayWrite())
+        					<input id="button.save" tabindex="11" type="submit" name="save" value="Aufgabe speichern" title="Aufgabe speichern" onclick="document.getElementById('formlist').action='SaveEventTask';" class="mainButton" />
+        				#end
+                        <input id="button.back" tabindex="12" type="button" name="cancel" class="mainButton" value="Zur&uuml;ck zur Aufgaben&uuml;bersicht" title="Zur&uuml;ck zur Aufgaben&uuml;bersicht" goto="${paths.staticWeb}do/ShowEventTasks?id=$!eventId&selectNone=true">
+                    #else
+        				#if($grants.mayWrite())
+        					<input id="button.save" tabindex="11" type="submit" name="save" value="Aufgabe speichern" title="Aufgabe speichern" onclick="document.getElementById('formlist').action='SaveEventTask';" class="mainButton" />
+        				#end
+                        <input id="button.back" tabindex="12" type="button" name="cancel" class="mainButton" value="Zur&uuml;ck zur Aufgaben&uuml;bersicht" title="Zur&uuml;ck zur Aufgaben&uuml;bersicht" goto="${paths.staticWeb}do/ShowEventTasks?id=$!eventId&selectNone=true">
+                    #end
+                </div>
+			</div>
+
+        </div>
+		
+		<span id="buttonPanel-bottom" class="floatRight">
+            #if($grants.mayWrite())
+			    <input type="submit" name="save" value="Veranstaltung speichern" class="mainButton" onclick="document.getElementById('formlist').action='SaveEventTask';">
+            #end
+			<input type="reset" name="cancel" value="Zur Veranstaltungsübersicht" class="mainButton" onclick="window.location.href='SearchEvent?action=event&search=reset&selectNone=true';">
+        </span>
+
+    </form>
+    <div class="clear"></div>
+</div>
+<script type="text/javascript">
+    $(function () { // on dom ready
+        $("a").click(function (e) {
+            if (!checkModified()) {
+                e.preventDefault(); // do not follow link
+            }
+        });
+        $("#showEvent, #showEventDoctype, #showEventTasks, input[type=button]").not("#addRemoveRefPerson, #linkRemoveRefPerson").click(function (e) {    
+           if (checkModified()) {
+                window.location.href = $(this).attr('goto');
+           }
+        });
+        $("#linkRemoveRefPerson").click(function () {
+            $("#task-reference-person").val("");
+            $("#task-reference-person-text").text("");
+            $("input[name='task-personId']").val("");
+            $("input[name='task-modified']").val("true");
+        });
+		
+        #if(!$grants.mayWrite())
+        disableForm($('#formlist')[0]);
+        #end
+    });
+</script>
+
+#parse("inc/footer.vm")

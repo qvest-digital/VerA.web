@@ -1,0 +1,190 @@
+#set($activeMenu = "Administration")
+#set($title = "Dokumenttypen")
+#set($elementNameSex = "male")
+#set($elementNameSingular = "Dokumenttyp")
+#set($elementNamePlural = "Dokumenttypen")
+#parse("inc/header.vm")	
+
+<div id="content_container">
+	<div class="textRight marginBottom10" id="breadcrumb">
+	    <strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Administration > Dokumenttypen</span>
+	</div>
+	
+	<h1>Dokumenttypen</h1>
+
+	<form id="formlist" name="formlist" action="Doctype" method="POST">
+		
+		#if($listerrors.size() > 0)
+		<vera-warn>
+			#foreach($error in $listerrors)
+				$error<br>
+			#end
+		</vera-warn>
+		#end
+		
+		<input type="hidden" name="start" value="">
+		<input type="hidden" name="selectNone" value="true">
+		<input type="hidden" name="doInsert" value="true">
+		<input type="hidden" name="doUpdate" value="true">
+		<input type="hidden" name="doRemove" value="true">
+		<input type="hidden" name="limit" value="" />
+		
+		
+		<div id="main_content">
+		
+			#foreach($bean in $list)
+				<input type="hidden" name="list" value="$bean.id">
+			#end
+			
+			<div class="textRight mandatoryText tabs">* = Pflichtfelder</div>
+
+			<span id="actionPanel" class="inlineLabel">
+    	       	<strong>Markierte(n) Dokumenttyp(en)</strong>
+    	       	<input type="button" name="remove" onclick="askDelete()"  value="L&ouml;schen" title="Markierte(n) Dokumenttyp(en) l&ouml;schen" #if($grants.isAdmin()) class="submit" #else class="buttondisabled" vera-disabled #end>
+            </span>
+			
+			<table>
+				<tr>
+					<th class="smallCell textCenter"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="Alle (de)markieren" #if($listselection.size() == $list.size()) checked#end/></th></th>
+					<th class="smallCell textCenter">ID</th>
+					<th>Bezeichnung*</th>
+					<th class="textCenter">Adress-Typ</th>
+					<th class="textCenter">Zeichensatz</th>
+					<th class="textCenter">Format</th>
+					<th class="smallCell textCenter" title="Eigenes Dokument f&uuml;r Partner">Dokument f&uuml;r Partner</th>
+					<th class="smallCell textCenter" title="Sortierreihenfolge">Sortier.</th>					
+					<th class="smallCell textCenter" title="Kennzeichen">Kennz.</th>
+					<th class="smallCell textCenter" title="Gastgeber mit Ausgeben">GA</th>
+					<th class="smallCell textCenter" title="Ist Standard f&uuml;r Steuerdatei">SD</th>
+				</tr>
+				<tr>
+					<td class="textCenter"><input type="hidden" id="add-modified" name="add-modified" value="false"><input type="checkbox" name="add-select" value="true" style="display: none;"></td>
+					<td class="textCenter"><input type="hidden" name="add-id" value=""><em>neu</em></td>
+					<td class="textCenter"><input type="text" name="add-name" maxlength="200" value="" onchange="setModified('add')"></td>
+					<td>
+						<select name="add-addresstype" onchange="setModified('add')">
+							<option value="1">$!message.text($!config.business)</option>
+							<option value="2">$!message.text($!config.private)</option>
+							<option value="3">$!message.text($!config.other)</option>
+						</select>
+					</td>
+					<td>
+						<select name="add-locale" onchange="setModified('add')">
+							<option value="1">$!message.text($!config.latin)</option>
+							<option value="2">$!message.text($!config.extra1)</option>
+							<option value="3">$!message.text($!config.extra2)</option>
+						</select>
+					</td>
+					<td>
+						<select name="add-format" onchange="setModified('add')">
+							<option value="sxc-document">OOo 1.1</option>
+							<option value="ods-document">OOo 2.0</option>
+							<option value="xls">MS Office</option>
+							<option value="csv">CSV</option>
+						</select>
+					</td>
+					<td class="textCenter"><input type="checkbox" name="add-partner" value="true"  title="Eigenes Dokument f&uuml;r Partner" onchange="setModified('add')"></td>
+					<td><input type="text" name="add-sortorder" value="" onchange="setModified('add')"></td>
+					<td><input type="text" name="add-flags" value="" onchange="setModified('add')"></td>
+					<td><input type="checkbox" name="add-host" value="true"  title="Gastgeber mit Ausgeben" onchange="setModified('add')" checked></td>
+					<td><input type="checkbox" name="add-isdefault" value="true" title="Ist Standard f&uuml;r Steuerdatei" onchange="setModified('add')"; onlyOneStandard('add');></td>
+				</tr>
+				#foreach($bean in $list)
+				<tr>
+					<td class="textCenter"><input type="hidden" id="${bean.id}-modified" name="${bean.id}-modified" value="false"><input type="checkbox" name="${bean.id}-select" value="true"></td>
+					<td class="textCenter"><input type="hidden" name="${bean.id}-id" value="$!bean.id">$!bean.id</td>
+					<td class="textCenter"><input type="text" name="${bean.id}-name" value="$!message.text($bean.name)" onchange="setModified('$!bean.id')"></td>
+					<td>
+						<select name="${bean.id}-addresstype"  onchange="setModified('$!bean.id')">
+							<option value="1"#if($bean.addresstype == 1) selected#end>$!message.text($!config.business)</option>
+							<option value="2"#if($bean.addresstype == 2) selected#end>$!message.text($!config.private)</option>
+							<option value="3"#if($bean.addresstype == 3) selected#end>$!message.text($!config.other)</option>
+						</select>
+					</td>
+					<td>
+						<select name="${bean.id}-locale" onchange="setModified('$!bean.id')">
+							<option value="1"#if($bean.locale == 1) selected#end>$!message.text($!config.latin)</option>
+							<option value="2"#if($bean.locale == 2) selected#end>$!message.text($!config.extra1)</option>
+							<option value="3"#if($bean.locale == 3) selected#end>$!message.text($!config.extra2)</option>
+						</select>
+					</td>
+					<td>
+						<select name="${bean.id}-format" onchange="setModified('$!bean.id')">
+							<option value="sxc-document"#if($bean.format == "sxc-document") selected #end>OOo 1.1</option>
+							<option value="ods-document"#if($bean.format == "ods-document") selected #end>OOo 2.0</option>
+							<option value="xls"#if($bean.format == "xls") selected #end>MS Office</option>
+							<option value="csv"#if($bean.format == "csv") selected #end>CSV</option>
+						</select>
+					</td>
+					<td class="textCenter"><input type="checkbox" name="${bean.id}-partner" value="true" #if($bean.partner) checked #end  title="Eigenes Dokument f&uuml;r Partner" onchange="setModified('$!bean.id')"></td>
+					<td class="textCenter"><input type="text" name="${bean.id}-sortorder" value="$!message.text($bean.sortorder)"onchange="setModified('$!bean.id')"></td>
+					<td class="textCenter"><input type="text" name="${bean.id}-flags" value="$!message.text($bean.flags)" onchange="setModified('$!bean.id')"></td>
+					<td class="textCenter"><input type="checkbox" name="${bean.id}-host" value="true" #if($bean.host) checked #end  title="Gastgeber mit Ausgeben" onchange="setModified('$!bean.id')"></td>
+					<td class="textCenter"><input type="checkbox" name="${bean.id}-isdefault" value="true" #if($bean.isdefault) checked #end  title="Ist Standard f&uuml;r Steuerdatei" onchange="setModified('$!bean.id'); onlyOneStandard('$!bean.id');"></td>
+				</tr>
+				#end
+    		
+    			#if ($listparam.count == 0)
+                    <tr>
+						<td colspan="99">Es wurden keine Daten gefunden</td>
+					</tr>
+    			#end
+				
+				#set($itemName = "Dokumenttypen")
+				#parse("inc/list-navi-new.vm")
+				#parse("inc/list-direct-new.vm")
+			</table>
+			
+			#if($grants.isAdmin())
+			<div class="textRight marginTop10" id="buttonPanel-bottom">
+				<input type="submit" name="save" value="Speichern" class="mainButton" />
+			</div>
+			#end
+			
+			<input type="hidden" name="egal" value="egal" id="presave">
+			<vera-info>
+	   			 <p><strong>Format:</strong> OOo 1.1 steht f&uuml;r OpenOffice 1.1 (sxc-Datei) und OOo 2.0 f&uuml;r OpenOffice 2.0 (ods-Datei), 
+	   			 xls steht für Microsoft Office (xls-Datei) und CSV steht für CSV-Dateiformat.</p>
+	  			 <p><strong>Kennzeichen:</strong> Kennz. 50 und 99 werden autom. neuen Veranstaltungen hinzugef&uuml;gt. Beim Kennz. 50 wird kein Freitextfeld erzeugt.</p>
+			</vera-info>
+		
+			##Rueckfrage beim Loeschen
+			<script type="text/javascript">
+				function askDelete() {
+				htmlConfirm('Wirklich L&ouml;schen?', new Array('Ja', 'Nein'), new Array("askDeleteYes();", "askDeleteNo();"));
+			} 
+			function askDeleteYes() {
+				hideDialogs();
+				document.getElementById('presave').name='remove'
+				document.getElementById('formlist').submit();
+			}
+			function askDeleteNo() {
+				hideDialogs();
+				showComboboxes();
+			}
+			</script>
+			
+
+        	</div>
+		</form>
+		
+		<script type="text/javascript">
+			function onlyOneStandard(name) {
+				var frm = document.getElementById('formlist');
+				var fields = frm.elements;
+		    	for (var i = 0; i < fields.length; i++) {
+		    		if (fields[i].type == 'checkbox' && fields[i].name.indexOf('-isdefault') != -1) {
+						if (fields[i].name.indexOf(name) != 0) {
+							fields[i].checked = false;
+						}
+		    		}
+				}
+			}
+		</script>
+		<script type="text/javascript">
+		#if(!$grants.isAdmin())
+			disableForm(document.getElementById('formlist'));
+		#end
+		</script>
+</div>
+#parse("inc/footer.vm")
