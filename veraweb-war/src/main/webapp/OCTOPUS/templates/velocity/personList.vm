@@ -531,7 +531,7 @@ function submitFormWithGivenAction(action) {
     
     		<div id="main_content">
 
-                <table>
+                <table class="sortable">
                 	#if($action == "guest")
                     	<tr>
                             #if($grants.mayWrite())
