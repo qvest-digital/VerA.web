@@ -1016,7 +1016,6 @@ th {
 	background-image: url(../images/th_bg.png);
 	background-repeat:repeat-x;	 
     background-size: 1px 100%;	
-    padding: 0 !important;
 }
 
 td, th {
@@ -1025,8 +1024,12 @@ td, th {
     vertical-align: top;
 }
 
-th > input {
+.sortable th > input {
     margin: 14px 0;
+}
+
+.sortable th {
+	padding: 0;
 }
 
 .smallCell {
