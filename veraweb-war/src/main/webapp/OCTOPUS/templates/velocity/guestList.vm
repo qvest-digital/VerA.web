@@ -278,25 +278,25 @@
 					<th class="textCenter smallCell"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="Alle (de)markieren" #if($listselection.size() == $list.size()) checked#end/></th>
             #if($search.listorder == "lastname_a_e1")
             		<th class="textCenter smallCell"><a href="javascript:orderGuestList('orderno');"><nobr>Lfd.-Nr.</nobr></a></th>
-            		<th class="textCenter smallCell" title="Auf Reserve / Platz">R</th>
+            		<th class="textCenter smallCell" title="Auf Reserve / Platz"><span style="display: inline-block; padding: 10px;color: #1B1B1B;">R</span></th>
             		<th><a href="javascript:orderGuestList('lastname_a_e1');" style="color: #000000;">Name</a></th>
             		<th><a href="javascript:orderGuestList('firstname_a_e1');">Vorname</a></th>
             		<th class="textCenter smallCell"><a href="javascript:orderGuestList('mail_a_e1');">E-Mail</a></th>
             #elseif($search.listorder == "firstname_a_e1")
             		<th class="textCenter smallCell"><a href="javascript:orderGuestList('orderno');"><nobr>Lfd.-Nr.</nobr></a></th>
-            		<th class="textCenter smallCell" title="Auf Reserve / Platz">R</th>
+            		<th class="textCenter smallCell" title="Auf Reserve / Platz"><span style="display: inline-block; padding: 10px;color: #1B1B1B;">R</span></th>
             		<th><a href="javascript:orderGuestList('lastname_a_e1');">Name</a></th>
             		<th><a href="javascript:orderGuestList('firstname_a_e1');" style="color: #000000;">Vorname</a></th>
             		<th class="textCenter smallCell"><a href="javascript:orderGuestList('mail_a_e1');">E-Mail</a></th>
             #elseif($search.listorder == "mail_a_e1")
             		<th class="textCenter smallCell"><a href="javascript:orderGuestList('orderno');"><nobr>Lfd.-Nr.</nobr></a></th>
-            		<th class="textCenter smallCell" title="Auf Reserve / Platz">R</th>
+            		<th class="textCenter smallCell" title="Auf Reserve / Platz"><span style="display: inline-block; padding: 10px;color: #1B1B1B;">R</span></th>
             		<th><a href="javascript:orderGuestList('lastname_a_e1');">Name</a></th>
             		<th><a href="javascript:orderGuestList('firstname_a_e1');">Vorname</a></th>
             		<th class="textCenter smallCell"><a href="javascript:orderGuestList('mail_a_e1');" style="color: #000000;">E-Mail</a></th>
             #else
             		<th class="textCenter smallCell"><a href="javascript:orderGuestList('orderno');" style="color: #000000;"><nobr>Lfd.-Nr.</nobr></a></th>
-            		<th class="textCenter smallCell" title="Auf Reserve / Platz">R</th>
+            		<th class="textCenter smallCell" title="Auf Reserve / Platz"><span style="display: inline-block; padding: 10px;color: #1B1B1B;">R</span></th>
             		<th><a href="javascript:orderGuestList('lastname_a_e1');">Name</a></th>
             		<th><a href="javascript:orderGuestList('firstname_a_e1');">Vorname</a></th>
             		<th class="textCenter smallCell"><a href="javascript:orderGuestList('mail_a_e1');">E-Mail</a></th>
