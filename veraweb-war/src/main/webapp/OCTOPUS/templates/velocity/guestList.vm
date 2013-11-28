@@ -313,8 +313,8 @@
             #if($userConfig.guestListPhone)
             		<th>Telefon</th>
             #end
-            		<th style="width: 100px; text-align: center;">$!message.text($!config.main)</th>
-            		<th style="width: 100px; text-align: center;">$!message.text($!config.partner)</th>
+            		<th style="width: 100px; text-align: center;"><span style="display: inline-block; padding: 10px;color: #1B1B1B;">$!message.text($!config.main)</span></th>
+            		<th style="width: 100px; text-align: center;"><span style="display: inline-block; padding: 10px;color: #1B1B1B;">$!message.text($!config.partner)</span></th>
             	</tr>
 				
             	#set($deletedperson = false)
