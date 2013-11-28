@@ -1,0 +1,56 @@
+#if ($listparam.count > 0)
+
+    #set($start = $listparam.start + 1)
+    #set($stop = $listparam.start + $list.size())
+    
+    <table cellspacing="0" cellpadding="0" style="width: 100%; margin-bottom: 5px;">
+    	<tr>
+    		<td>
+    			<span id="listnavitext" class="listnavitext" style="margin-right: 15px;">$start - $stop von $listparam.count</span>
+    
+                #if($listparam.start == $listparam.first)
+                	<a id="page-first" class="listnavilinkinactiv" title="Erste Seite">&laquo;&laquo;</a>
+                #else
+                	<a id="page-first" href="javascript:navigateList($listparam.first);" class="listnavilink" title="Erste Seite">&laquo;&laquo;</a>
+                #end
+                #if($listparam.start == $listparam.prev)
+                	<a id="page-previous" class="listnavilinkinactiv" title="Vorherige Seite">&laquo;</a>
+                #else
+                	<a id="page-previous" href="javascript:navigateList($listparam.prev);" class="listnavilink" title="Vorherige Seite">&laquo;</a>
+                #end
+    
+                #set($ol = $listparam.start + ($listparam.limit * -5))
+                #set($or = $listparam.start + ($listparam.limit *  5))
+                #if($ol < 0)
+                	#set($or = $or - $ol - $listparam.limit)
+                	#set($ol = 0)
+                #elseif($or > $listparam.last)
+                	#set($ol = $ol - ($or - $listparam.last) + $listparam.limit)
+                	#set($or = $listparam.last)
+                #end
+    
+                #foreach($p in [1..$listparam.pages])
+                	#set($s = ($p - 1) * $listparam.limit)
+                	#if($listparam.pages < 10 || ($s >= $ol && $s <= $or))
+                	#if ($s == $listparam.start)
+                		<a id="page-$p" href="javascript:navigateList($s);" class="listnavilink" style="background-color: #ffff80"><strong>$p</strong></a>
+                	#else
+                		<a id="page-$p" href="javascript:navigateList($s);" class="listnavilink">$p</a>
+                	#end
+                	#end
+                #end
+    
+                #if($listparam.start == $listparam.next)
+                	<a id="page-next" class="listnavilinkinactiv" title="N&auml;chste Seite">&raquo;</a>
+                #else
+                	<a id="page-next" href="javascript:navigateList($listparam.next);" class="listnavilink" title="N&auml;chste Seite">&raquo;</a>
+                #end
+                #if($listparam.start == $listparam.last)
+                	<a id="page-last" class="listnavilinkinactiv" title="Letzte Seite">&raquo;&raquo;</a>
+                #else
+                	<a id="page-last" href="javascript:navigateList($listparam.last);" class="listnavilink" title="Letzte Seite">&raquo;&raquo;</a>
+                #end
+    		</td>
+    	</tr>
+    </table>
+#end

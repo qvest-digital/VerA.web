@@ -1,0 +1,546 @@
+#set($activeMenu = "Veranstaltungen")
+#set($title = "G&auml;steliste f&uuml;r Veranstaltung: $!message.plain($event.shortname)")
+#set($elementNameSex = "male")
+#set($elementNameSingular = "Gast")
+#set($elementNamePlural = "G&auml;ste")
+#parse("inc/header.vm")
+
+<div id="content_container">
+	<div id="breadcrumb" class="textRight marginBottom10">
+    	<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Veranstaltungen > Veranstaltung bearbeiten</span>
+    </div>
+    <h1>G&auml;steverwaltung der Veranstaltung: $!message.plain($event.shortname)</h1>
+	
+	#if(!$isNewEvent)
+		#set($completeEventHeader = true)
+      	#parse("inc/event-header.vm")
+	#end
+	
+    #set($isUser = false)
+    #set($isAdmin = false)
+    #foreach($group in $octopusConfig.personalConfig.UserGroups)
+    	#if($group == "Writer")
+    		#set($isUser = true)
+    	#elseif($group == "PartialAdmin")
+    		#set($isAdmin = true)	
+    	#elseif($group == "Administrator")
+    		#set($isAdmin = true)
+    	#end
+    #end
+
+    #if($invited)
+    	<vera-success>
+    		#if($invited == 0)
+    			Die G&auml;steliste wurde nicht ver&auml;ndert.
+    		#elseif($invited == 1)
+    			Die G&auml;steliste wurde um einen Gast erweitert.
+    		#else
+    			Die G&auml;steliste wurde um $invited G&auml;ste erweitert.
+    		#end
+    	</vera-success>
+    #end
+    #if($mailinglistParams && $mailinglistParams.count)
+    	<vera-success>
+    		#if($mailinglistParams.count == 0)
+    			Verteiler &quot;$!message.plain($mailinglist.name)&quot; wurde ohne Personen angelegt.
+    		#elseif($mailinglistParams.count == 1)
+    			Verteiler &quot;$!message.plain($mailinglist.name)&quot; wurde mit einer Person angelegt.
+    		#else
+    			Verteiler &quot;$!message.plain($mailinglist.name)&quot; wurde mit $!mailinglistParams.count Personen angelegt.
+    		#end
+    	</vera-success>
+	#end
+	
+    #if($octopusRequest.task == "CalcSerialNumber" && (!$listquestions || $listquestions.size() == 0))
+		<vera-success>
+    		Die &quot;Laufende Nummer&quot; wurde f&uuml;r alle G&auml;ste neu berechnet und gespeichert.
+    	</vera-success>
+    #end
+    <div id="main_content" class="tabs contentBox marginBottom10 marginTop20 grayBorder" style="border-bottom:0">
+
+		<div id="tabsMain">
+			<ul vera-tab-group="" class="gray-gradient"> <!-- Bitte das End-tag der <li>s immer mit in die nächste Zeile nehmen (verhindert Mozilla styling bug) -->
+    			<li id="gaesteliste" vera-tab class="active posRel" style="z-index:2"><div>G&auml;steliste</div>
+				#if($list.size() > 0) 
+				</li><li id="gastdetails" class="inactive"><div>Gastdetails</div>
+				</li><li id="dokumenttypen" class="inactive"><div>Dokumenttypen</div>
+				#end
+				</li>
+			</ul>
+		</div>
+		
+		<div style="border-bottom:1px solid #BDBDBD;" class="contentBoxColored  tabsContent notBold posRel marginBottom40" vera-content="">
+			
+			<div id="guestSummary" class="table posAb hinweis grayBorder" style="padding-bottom: 5px;">
+				<div class="tableRow">
+					<div class="tableCell"><strong>Offen:</strong> $!guestlist-sums.offen</div>
+					<div class="tableCell"><strong>Zusagen:</strong> $!guestlist-sums.zusagen</div>
+					<div class="tableCell"><strong>Absagen:</strong> $!guestlist-sums.absagen</div>
+					<div class="tableCell"><strong>Teilnahmen:</strong> $!guestlist-sums.teilnahmen</div>
+					<div class="tableCell"><strong>Auf&nbsp;Platz:</strong> $!guestlist-sums.platz</div>
+					<div class="tableCell"><strong>Auf&nbsp;Reserve:</strong> $!guestlist-sums.reserve</div>
+				</div>
+			</div>
+            
+            <form id="guestListFilter" name="guestListFilter" action="ShowGuestList" method="POST" class="marginTop25">
+                <input type="hidden" name="start" value="0">
+				<input type="hidden" name="limit" value="" />
+                <input type="hidden" name="selectAll" value="false">
+                <input type="hidden" name="selectNone" value="true">
+                <input type="hidden" name="search-event" value="$search.event">
+                <input type="hidden" id="search-listorder" name="search-listorder" value="$!search.listorder">
+        			
+                <h3 class="marginBottom0">Filter</h3>
+        		
+        		<div class="table width50">
+        			<div class="tableRow">
+        				<div class="tableCell width50">
+        					<label for="search-reserve">Platzwahl</label>
+                    		<select name="search-reserve" id="search-reserve" onchange="submit();">
+                            			<option value="">Alle G&auml;ste</option>
+                            			<option #if($search.reserve && $search.reserve == 1) selected#end value="1">Alle G&auml;ste auf Platz</option>
+                            			<option #if($search.reserve && $search.reserve == 2) selected#end value="2">Alle G&auml;ste auf Reserve</option>
+                            </select>
+        				</div>
+        				<div class="tableCell width50">
+                    		<label for="search-invitationstatus">Status</label>
+                    		<select name="search-invitationstatus" id="search-invitationstatus" onchange="submit();">
+                            			<option value="">Alle</option>
+                            			<option #if($search.invitationstatus && $search.invitationstatus == 1) selected#end value="1">nur Offene</option>
+                            			<option #if($search.invitationstatus && $search.invitationstatus == 2) selected#end value="2">nur Zusagen</option>
+                            			<option #if($search.invitationstatus && $search.invitationstatus == 3) selected#end value="3">nur Absagen</option>
+                            			<option #if($search.invitationstatus && $search.invitationstatus == 4) selected#end value="4">nur Teilnahmen</option>
+                            </select>				
+        				</div>
+        			</div>
+        		</div>
+        
+            </form>
+            
+            #if($listerrors.size() > 0)
+                <vera-warn>
+                	#foreach($error in $listerrors)
+                		$error<br>
+                	#end
+                </vera-warn>
+            #elseif($listquestions && $listquestions.size() > 0)
+                <form action="" method="POST">
+                <div style="margin: 10px 0px 10px 0px; padding: 10px 10px 10px 10px; background-color: #ffffff; border: 2px solid #00ff00;">
+                	<strong>Bitte best&auml;tigen Sie die folgende Aktion</strong><br>
+                	<table class="form" style="margin: 5px 0px 0px 0px;">
+                	#foreach($quest in $listquestions.entrySet())
+                		<tr>
+                			<td><input type="hidden" name="$quest.key" value="true">$quest.value</td>
+                		</tr>
+                		#set($save = true)
+                	#end
+                	</table><br>
+                
+                	#if($save)
+						<input type="submit" name="remove" value="Ja" title="Speichern" />
+					#end
+					
+                	<input type="button" name="cancel" value="Nein" title="Abbrechen" onclick="window.location.href='ShowGuestList?selectNone=true';"> &nbsp;
+                </div>
+                </form>
+            #end
+            
+            <form id="formlist" name="formlist" action="ShowGuestList" method="POST">
+            <input type="hidden" name="start" value="">
+			<input type="hidden" name="limit" value="" />
+            <input type="hidden" name="selectNone" id="selectNone" value="true">
+            <input type="hidden" name="doInsert" value="false">
+            <input type="hidden" name="doUpdate" value="true">
+            <input type="hidden" name="doRemove" value="true">
+            <input type="hidden" name="categoryAssignmentAction" value="">
+            <input type="hidden" name="categoryAssignmentId" value="">
+            <input type="hidden" name="workareaAssignmentAction" value="">
+            <input type="hidden" name="workareaAssignmentId" value="">
+            
+            #foreach($bean in $list)
+				<input type="hidden" name="list" value="$bean.id">
+        	#end
+
+			<!-- neu -->
+			<div class="table width100 marginTop30">
+                <div class="tableRow">
+                        <div class="tableCell width35 inlineInput" style="padding-bottom:0"><label for="actionSelection">Markierte Person(en)</label>
+                    			<select id="actionSelection" class="autoWidth">
+                    				<option>Löschen</option>
+                    				<option>Kategorien zuordnen</option>
+                            		<option>Kategorien entfernen</option>
+                            		<option>Verteiler erstellen</option>
+                            		<option>Steuerdatei exportieren</option>
+                                </select>
+                            	<input type="button" name="button.execute" id="button.execute" value="Durchführen" class="autoWidth">
+            			</div>
+            			<div class="tableCell textRight" style="vertical-align:bottom; padding-bottom:0">
+            				#if($grants.mayWrite()) 
+								<input type="button" class="mainButton inlineInput autoWidth" name="createGuestList" value="G&auml;steliste erstellen" title="G&auml;steliste erstellen" onclick="submitFormWithGivenAction('ShowReportGuestList', $grants.mayWrite());" />
+								<input type="button" class="mainButton inlineInput autoWidth" name="addGuestsFromEvent" value="G&auml;ste aus Veranstaltung &uuml;bernehmen" title="G&auml;ste aus Veranstaltung &uuml;bernehmen" onclick="window.location.href='AddEventToEventSearch?action=guest';" />
+								<input type="button" class="mainButton inlineInput autoWidth" name="add" value="Gast hinzuf&uuml;gen" title="Personen suchen und zu der G&auml;steliste hinzuf&uuml;gen" onclick="window.location.href='AddPersonToEventSearch?action=guest&search=clear';" />
+							#end
+						</div>
+               	</div>
+            </div><!--neu -->
+			
+			## Handler für selektierte Aktion 
+    		<script>
+			
+				var removeGuestabfrage = function () {
+						#if(!$grants.mayWrite())
+                            showWarning('Sie haben keine ausreichende Berechtigung um G&auml;ste zu entfernen.');
+                            return;
+                        #end
+                        var checkBoxes = $('input:checkbox[name$="-select"]:checked');
+                        if (checkBoxes.length === 0) {
+                            showWarning('W&auml;hlen Sie bitte zun&auml;chst eine oder mehrere G&auml;ste aus.');
+                        } else {
+							var msg = '';
+                            msg += '<br><span class="notBold">Wenn Sie Ihre Auswahl anpassen wollen, brechen Sie bitte das L&ouml;schen ab.</span><br>'+ 'Sollen alle markierten Personen gel&ouml;scht werden? ' +
+                            'Diese Aktion kann nicht r&uuml;ckg&auml;ngig gemacht werden.<br>';
+                            // disable all checkboxes while confirmation is visible
+                            $('input:checkbox').prop('disabled', true);
+                            showConfirmYesNo('Bitte best&auml;tigen Sie das L&ouml;schen der markierten G&auml;ste!',
+                                msg,
+                                function () { // Ja                                                                 
+                                    $('<input>').attr({ type: 'hidden', id: 'remove', name: 'remove' }).appendTo($('#formlist'));
+									$('input:checkbox').prop('disabled', false);
+									document.formlist.submit();
+									
+                                }, function () { // Nein
+                                    showSuccess('Es wurden keine G&auml;ste gel&ouml;scht.');
+                                    $('input:checkbox').prop('disabled', false);
+                                });
+						}
+				}
+			
+			
+    			$(function () {
+				
+    				$('#button\\.execute').click(function (e) {					
+    					var selectText = $('#actionSelection option:selected').text();
+    					
+						if(hasSelection()){
+        					if (selectText == "Löschen") {
+    							removeGuestabfrage();
+        					} else if (selectText == "Kategorien zuordnen") {
+        						assignCategories();
+        					} else if (selectText == "Kategorien entfernen") {
+        						unassignCategories();
+        					} else if (selectText == "Verteiler erstellen") {
+								$('#selectNone').val('false');
+        						submitFormWithGivenAction('CreateMailinglist', $grants.mayWrite());
+        					} else if (selectText == "Steuerdatei exportieren") {
+								$('#selectNone').val('false');
+        						submitFormWithGivenAction('ShowExportGuestDoctype', $grants.mayExport()); 
+        					}
+						} else {
+            				showWarning( "Wählen Sie bitte zunächst einen oder mehrere G&auml;ste aus." );
+            			}
+    				});
+     			});	
+				
+				
+				
+				var selectedCount = ${listselection.size()};
+        	
+            	function hasSelection() {
+                    return $('input:checked[name$="-select"]').length > 0;
+            	}
+            
+            	function selectionChange( elt ) {
+            		selectedCount += ( elt.checked ? 1 : -1 );
+            	}
+				
+				function selectedActionRemoveGuest() {
+					$('<input>').attr({ type: 'hidden', id: 'remove', name: 'remove' }).appendTo($('#formlist'));
+					document.formlist.submit();					
+				}
+				
+            	function unassignCategories() {
+            		selectPersonCategory( "${paths.staticWeb}do/popupUnassignGuestCategory?count=" + selectedCount + "&eventId=" + ${event.id} );
+            	}
+            	
+            	function assignCategories() {
+            		selectPersonCategory( "${paths.staticWeb}do/popupAssignGuestCategory?count=" + selectedCount + "&eventId=" + ${event.id} );
+            	}  
+				
+				function submitFormWithGivenAction(action, permission) {
+    					htmlWait();
+    					document.getElementById('formlist').action = action;
+        				document.formlist.submit();
+				}
+    		</script>
+        	
+            <table>
+            	<tr>
+					<th class="textCenter smallCell"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="Alle (de)markieren" #if($listselection.size() == $list.size()) checked#end/></th>
+            #if($search.listorder == "lastname_a_e1")
+            		<th class="textCenter smallCell"><a href="javascript:orderGuestList('orderno');"><nobr>Lfd.-Nr.</nobr></a></th>
+            		<th class="textCenter smallCell" title="Auf Reserve / Platz">R</th>
+            		<th><a href="javascript:orderGuestList('lastname_a_e1');" style="color: #000000;">Name</a></th>
+            		<th><a href="javascript:orderGuestList('firstname_a_e1');">Vorname</a></th>
+            		<th class="textCenter smallCell"><a href="javascript:orderGuestList('mail_a_e1');">E-Mail</a></th>
+            #elseif($search.listorder == "firstname_a_e1")
+            		<th class="textCenter smallCell"><a href="javascript:orderGuestList('orderno');"><nobr>Lfd.-Nr.</nobr></a></th>
+            		<th class="textCenter smallCell" title="Auf Reserve / Platz">R</th>
+            		<th><a href="javascript:orderGuestList('lastname_a_e1');">Name</a></th>
+            		<th><a href="javascript:orderGuestList('firstname_a_e1');" style="color: #000000;">Vorname</a></th>
+            		<th class="textCenter smallCell"><a href="javascript:orderGuestList('mail_a_e1');">E-Mail</a></th>
+            #elseif($search.listorder == "mail_a_e1")
+            		<th class="textCenter smallCell"><a href="javascript:orderGuestList('orderno');"><nobr>Lfd.-Nr.</nobr></a></th>
+            		<th class="textCenter smallCell" title="Auf Reserve / Platz">R</th>
+            		<th><a href="javascript:orderGuestList('lastname_a_e1');">Name</a></th>
+            		<th><a href="javascript:orderGuestList('firstname_a_e1');">Vorname</a></th>
+            		<th class="textCenter smallCell"><a href="javascript:orderGuestList('mail_a_e1');" style="color: #000000;">E-Mail</a></th>
+            #else
+            		<th class="textCenter smallCell"><a href="javascript:orderGuestList('orderno');" style="color: #000000;"><nobr>Lfd.-Nr.</nobr></a></th>
+            		<th class="textCenter smallCell" title="Auf Reserve / Platz">R</th>
+            		<th><a href="javascript:orderGuestList('lastname_a_e1');">Name</a></th>
+            		<th><a href="javascript:orderGuestList('firstname_a_e1');">Vorname</a></th>
+            		<th class="textCenter smallCell"><a href="javascript:orderGuestList('mail_a_e1');">E-Mail</a></th>
+			#end
+			
+            #if($userConfig.guestListFunction)
+            		<th>Funktion</th>
+			#end
+			
+            #if($userConfig.guestListCity)
+            		<th>PLZ / Ort</th>
+			#end
+			
+            #if($userConfig.guestListPhone)
+            		<th>Telefon</th>
+            #end
+            		<th style="width: 100px; text-align: center;">$!message.text($!config.main)</th>
+            		<th style="width: 100px; text-align: center;">$!message.text($!config.partner)</th>
+            	</tr>
+				
+            	#set($deletedperson = false)
+            	
+				#foreach($bean in $list)
+                	#if ($bean.deleted == "t")
+                    	#set($deletedperson = true)
+                	#end
+            	
+            	
+				#set($offset = $listparam.start + $velocityCount)
+            	
+            	<tr>
+            		<td><input type="hidden" id="${bean.id}-modified" name="${bean.id}-modified" value="false"><input type="hidden" id="${bean.id}-invitationtype" name="${bean.id}-invitationtype" value="${bean.invitationtype}"><input type="checkbox" name="${bean.id}-select" onChange="selectionChange( this );" value="true" #if($listselection.indexOf($bean.id) != -1) checked#end/></td>
+            		<td style="cursor: pointer;" onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&offset=$offset';"><input type="hidden" name="${bean.id}-id" value="$bean.id">
+            			#if($bean.ishost && $bean.ishost == 1)
+            				<em>Gastgeber</em>
+            			#elseif($bean.someorderno)
+            				$bean.someorderno
+            			#else
+            				<em>keine</em>
+            			#end
+            		</td>
+					
+            		#if($bean.reserve == 1)
+						<td class="textCenter" onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&offset=$offset';" title="Auf Reserve"><strong>R</strong></td>
+            		#else
+						<td class="textCenter" onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&offset=$offset';" title="Auf Platz">&nbsp;</td>
+					#end
+					
+            		<td onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&offset=$offset';">
+                		#if($bean.invitationtype != 3)
+            				#if($bean.showdoctype)
+								$!message.plain($bean.lastname_a_gd)
+							#else
+								$!message.plain($bean.lastname_a_e1)
+							#end
+            			#else
+            				#if($bean.showdoctype)
+								$!message.plain($bean.lastname_b_gd)
+							#else
+								$!message.plain($bean.lastname_b_e1)
+							#end
+            			#end
+            		</td>
+            		<td onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&offset=$offset';">
+            			#if($bean.invitationtype != 3)
+            				#if($bean.showdoctype)$!message.plain($bean.firstname_a_gd)#else$!message.plain($bean.firstname_a_e1)#end
+            			#else
+            				#if($bean.showdoctype)$!message.plain($bean.firstname_b_gd)#else$!message.plain($bean.firstname_b_e1)#end
+            			#end
+            		</td>
+            		<td class="textCenter">
+            			#if($bean.showdoctype)
+            				#if($bean.mail_a_gd.length() > 0)
+            					<a href="mailto:$!message.plain($bean.mail_a_gd)" title="$!message.plain($bean.mail_a_gd)">$!message.plain($bean.mail_a_gd)</a>
+            				#else
+            					&nbsp;
+            				#end
+            			#else
+            				#if($bean.mail_a_e1.length() > 0)
+            					<a href="mailto:$!message.plain($bean.mail_a_e1)" title="$!message.plain($bean.mail_a_e1)">$!message.plain($bean.mail_a_e1)</a>
+            				#else
+            					&nbsp;
+            				#end
+            			#end
+            		</td>
+            #if($userConfig.guestListFunction)
+            		<td onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&offset=$offset';">#if($bean.showdoctype)$!message.plain($bean.function_a_gd)#else$!message.plain($bean.function_a_e1)#end</td>
+            #end
+            #if($userConfig.guestListCity)
+            		<td onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&offset=$offset';">#if($bean.showdoctype)$!message.plain($bean.zipcode_a_gd) $!message.plain($bean.city_a_gd)#else$!message.plain($bean.zipcode_a_e1) $!message.plain($bean.city_a_e1)#end</td>
+            #end
+            #if($userConfig.guestListPhone)
+            		<td onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&offset=$offset';">#if($bean.showdoctype)$!message.plain($bean.fon_a_gd)#else$!message.plain($bean.fon_a_e1)#end</td>
+            #end
+            		<td class="textCenter">
+            		#if($bean.invitationtype != 3)
+            			#if($grants.mayWrite())
+            			<select name="${bean.id}-invitationstatus_a"  onchange="setModified('${bean.id}')">
+            				<option #if($bean.invitationstatus_a && $bean.invitationstatus_a == 0) selected#end value="0">Offen</option>
+            				<option #if($bean.invitationstatus_a && $bean.invitationstatus_a == 1) selected#end value="1">Zusage</option>
+            				<option #if($bean.invitationstatus_a && $bean.invitationstatus_a == 2) selected#end value="2">Absage</option>
+            				<option #if($bean.invitationstatus_a && $bean.invitationstatus_a == 3) selected#end value="3">Teilgenommen</option>
+            			</select>
+            			#else
+                			#if($bean.invitationstatus_a && $bean.invitationstatus_a == 0)
+								Offen
+                			#elseif($bean.invitationstatus_a && $bean.invitationstatus_a == 1)
+								Zusage
+                			#elseif($bean.invitationstatus_a && $bean.invitationstatus_a == 2)
+								Absage
+                			#elseif($bean.invitationstatus_a && $bean.invitationstatus_a == 3)
+								Teilgenommen
+                			#end
+            			#end
+            		#else
+            			<input type="hidden" name="${bean.id}-invitationstatus_a" value="$!bean.invitationstatus_a">nicht eingeladen
+            		#end
+            		</td>
+            		<td class="textCenter">
+            		#if($bean.invitationtype != 2)
+            			#if($grants.mayWrite())
+                			<select name="${bean.id}-invitationstatus_b"  onchange="setModified('${bean.id}')">
+                				<option #if($bean.invitationstatus_b && $bean.invitationstatus_b == 0) selected#end value="0">Offen</option>
+                				<option #if($bean.invitationstatus_b && $bean.invitationstatus_b == 1) selected#end value="1">Zusage</option>
+                				<option #if($bean.invitationstatus_b && $bean.invitationstatus_b == 2) selected#end value="2">Absage</option>
+                				<option #if($bean.invitationstatus_a && $bean.invitationstatus_b == 3) selected#end value="3">Teilgenommen</option>
+                			</select>
+            			#else
+                			#if($bean.invitationstatus_b && $bean.invitationstatus_b == 0)
+								Offen
+                			#elseif($bean.invitationstatus_b && $bean.invitationstatus_b == 1)
+								Zusage
+                			#elseif($bean.invitationstatus_b && $bean.invitationstatus_b == 2)
+								Absage
+                			#elseif($bean.invitationstatus_b && $bean.invitationstatus_b == 3)
+								Teilgenommen
+                			#end
+            			#end
+            		#else
+            			<input type="hidden" name="${bean.id}-invitationstatus_b" value="$!bean.invitationstatus_b">nicht eingeladen
+            		#end
+            		</td>
+            	</tr>
+				#end
+				
+				#if ($listparam.count == 0)
+                   	<tr class="colspan"><td colspan="99">Es wurden noch keine Gäste eingeladen</td></tr>
+                #end
+				
+				#set($itemName = "Gästen")
+            	#parse("inc/list-navi-new.vm")
+				
+            	#if($search.listorder)
+					#parse("inc/list-direct-new.vm")
+            	#else
+					<tr class="colspan">
+						<td colspan="99" class="textCenter">
+							<strong>Hinweis:</strong> Direkteinsprung: Ist nur bei einer Sortierung nach Name, Vorname oder E-Mail m&ouml;glich.
+						</td>
+					</tr>
+            	#end
+				
+            </table>
+        	
+        	<div class="textRight marginTop10 marginBottom20">
+				<input type="button" name="calcSerialNumber" value="Laufende Nummer berechnen" title="Laufende Nummer berechnen" onclick="htmlWait(); window.location.href='CalcSerialNumber';" #if(!$grants.mayWrite()) class="buttondisabled" vera-disabled #end>
+				<input type="button" name="reloadAllGuestData" value="Alle Stammdaten neu laden" title="Alle Stammdaten neu laden" onclick="submitFormWithGivenAction('ReloadAllGuestData', $grants.mayWrite());" #if(!$grants.mayWrite()) class="buttondisabled" vera-disabled #end>
+        	</div>
+            
+			<vera-info vera-stay>
+				Beim Erstellen von Steuerdateien oder G&auml;stelisten wird Ihr oben ausgew&auml;hlter Filter ber&uuml;cksichtigt.<br>
+				Wenn Sie einzelne G&auml;ste markieren, werden nur diese exportiert, ansonsten die vollst&auml;ndige Liste.
+			</vera-info>
+            
+            #if($deletedperson)
+                <table>
+                	<tr style="height: 20px;">
+                		<td class="list2error" style="width: 20px;">&nbsp;</td>
+                		<td class="list1error">
+                			Rot hinterlegte Personen wurden bereits als &quot;zu l&ouml;schen&quot; markiert.
+                		</td>
+                	</tr>
+                </table>
+                <br>
+            #end			
+            
+            <div>
+        
+				
+            
+            #set($isUser = false)
+            #set($isAdmin = false)
+            
+			#foreach($group in $octopusConfig.personalConfig.UserGroups)
+            	#if($group == "Writer")
+            		#set($isUser = true)
+            	#elseif($group == "PartialAdmin")
+            		#set($isAdmin = true)
+            	#elseif($group == "Administrator")
+            		#set($isAdmin = true)
+            	#end
+            #end
+            			
+            </div>
+			
+        	<div style="bottom: -40px; right: -1px;" class="textRight posAb" id="buttonPanel-bottom">
+				#if($grants.mayWrite())
+					<input type="submit" name="save" value="Speichern" title="Speichern" class="mainButton" />
+				#end
+                <input type="button" name="cancel" value="Zur&uuml;ck zu den Veranstaltungsdetails" title="Zur&uuml;ck zu den Veranstaltungsdetails" class="mainButton" onclick="window.location.href='ShowEvent?id=$!event.id&action=event';" />
+        	</div>			
+            
+            </form>
+		</div>
+	</div>
+
+</div>
+
+
+<script type="text/javascript">
+	function orderGuestList(column) {
+		document.getElementById('search-listorder').value = column;
+		document.getElementById('guestListFilter').submit();
+	}
+	
+    #if($invited && $invited == 0 && $notInvited && $notInvited == 0 && ! $doNotAlert)
+    	showWarning('Sie haben keine Person ausgewählt.');
+    #elseif($notInvited)
+        #if($notInvited == 1)
+        	showWarning('Ein Gast stand bereits auf der Gästeliste.');
+        #elseif($notInvited > 1)
+        	showWarning('$!notInvited Gäste standen bereits auf der Gästeliste.');
+        #end
+    #end
+
+    $(function () {
+        $('li#gastdetails').click(function () {
+            window.location.href = '${paths.staticWeb}do/ShowGuestDetail';
+        });
+        $('li#dokumenttypen').click(function () {
+            window.location.href = '${paths.staticWeb}do/ShowGuestDoctype';
+        });
+    });
+
+</script>
+
+#parse("inc/footer.vm")
