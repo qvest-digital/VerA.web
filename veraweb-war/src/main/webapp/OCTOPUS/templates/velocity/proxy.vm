@@ -90,13 +90,13 @@
     		<th class="textCenter smallCell">ID</th>
     #if($proxiesFor != 'self')
      #if($proxiesFor != 'ou')
-    		<th><a href="?order=orgunit#if($proxiesValid)&proxiesValid=$proxiesValid#end">Mandant</a></th>
+    		<th><Mandant</th>
      #end
-    		<th><a href="?order=userRole#if($proxiesValid)&proxiesValid=$proxiesValid#end">Rolle*</a></th>
+    		<th>Rolle*</th>
     #end
-    		<th><a href="?order=proxy#if($proxiesValid)&proxiesValid=$proxiesValid#end">Vertreter*</a></th>
-    		<th class="textCenter width15"><a href="?order=validFrom#if($proxiesValid)&proxiesValid=$proxiesValid#end">G&uuml;ltig ab</a></th>
-    		<th class="textCenter width15"><a href="?order=validTill#if($proxiesValid)&proxiesValid=$proxiesValid#end">G&uuml;ltig bis</a></th>
+    		<th>Vertreter*</th>
+    		<th class="textCenter width15">G&uuml;ltig ab</th>
+    		<th class="textCenter width15">G&uuml;ltig bis</th>
     	</tr>
     	<tr>
     		<td><input type="hidden" id="add-modified" name="add-modified" value="false"><input type="checkbox" name="add-select" value="true"  style="display: none;"></td>
