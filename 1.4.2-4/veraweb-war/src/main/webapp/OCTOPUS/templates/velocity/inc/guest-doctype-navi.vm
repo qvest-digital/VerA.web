@@ -1,0 +1,23 @@
+<span class="paging notBold">
+	<ul>
+		#set($offset = $search.offset - 1)
+		#if($offset <= 0)
+			<li class="img inactive"><a><img src="${paths.staticWeb}images/paging_arrow_left_last.png" title="Erster Gast" style="cursor: pointer;"/></a></li>
+			<li class="img inactive"><a><img src="${paths.staticWeb}images/paging_arrow_left.png" title="Vorheriger Gast" style="cursor: pointer;"/></a></li>
+        #else
+			<li class="img"><a href="ShowGuestDoctype?offset=1"><img src="${paths.staticWeb}images/paging_arrow_left_last_active.png" title="Erster Gast" style="cursor: pointer;"/></a></li>
+			<li class="img"><a href="ShowGuestDoctype?offset=$offset"><img src="${paths.staticWeb}images/paging_arrow_left_active.png" title="Erster Gast" style="cursor: pointer;"/></a></li>
+		#end
+		
+		Gast $search.offset von $search.count
+		
+		#set($offset = $search.offset + 1)
+		#if ($offset > $search.count)
+			<li class="img inactive"><a><img src="${paths.staticWeb}images/paging_arrow_right.png" title="N&auml;chster Gast" style="cursor: pointer;"/></a></li>
+			<li class="img inactive"><a><img src="${paths.staticWeb}images/paging_arrow_right_last.png" title="Letzter Gast" style="cursor: pointer;"/></a></li>
+		#else
+			<li class="img"><a href="ShowGuestDoctype?offset=$offset" ><img src="${paths.staticWeb}images/paging_arrow_right_active.png" title="N&auml;chster Gast" style="cursor: pointer;"/></a></li>
+			<li class="img"><a href="ShowGuestDoctype?offset=$search.count" ><img src="${paths.staticWeb}images/paging_arrow_right_last_active.png" title="N&auml;chster Gast" style="cursor: pointer;"/></a></li>
+		#end
+	</ul>
+</span>
