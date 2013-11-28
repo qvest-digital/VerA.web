@@ -37,7 +37,7 @@
 
 	<scm>
 		<connection>
-			scm:svn:svn://evolvis.org/svnroot/veraweb/tags/1.4.2.0-3
+			scm:svn:svn://maven@evolvis.org/svnroot/veraweb/tags/1.4.2.0-3
 		</connection>
 		<developerConnection>
 			scm:svn:svn+ssh://maven@evolvis.org/svnroot/veraweb/tags/1.4.2.0-3
