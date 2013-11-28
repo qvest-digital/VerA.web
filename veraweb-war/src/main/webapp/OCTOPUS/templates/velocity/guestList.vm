@@ -273,7 +273,7 @@
 				}
     		</script>
         	
-            <table>
+            <table class="sortable">
             	<tr>
 					<th class="textCenter smallCell"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="Alle (de)markieren" #if($listselection.size() == $list.size()) checked#end/></th>
             #if($search.listorder == "lastname_a_e1")
