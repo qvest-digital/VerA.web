@@ -1,0 +1,20 @@
+<h1>Pop</h1>
+<form action="">
+<table>
+<tr><th>Kontexte</th><td><input type="text" name="contexts" value="$!message.text($contexts)"></td></tr>
+<tr><th>Task</th><td><input type="text" name="task" value="Pop"></td></tr>
+<tr><th>&nbsp;</th><td><input type="submit"></td></tr>
+</table>
+</form>
+<h1>Push</h1>
+<form action="">
+<table>
+<tr><th>Kontexte</th><td><input type="text" name="contexts" value="$!message.text($contexts)"></td></tr>
+<tr><th>Data</th><td><input type="text" name="push" value=""></td></tr>
+<tr><th>&nbsp;</th><td><input type="text" name="push" value="Push"></td></tr>
+<tr><th>&nbsp;</th><td><input type="text" name="push" value="Push"></td></tr>
+<tr><th>&nbsp;</th><td><input type="text" name="push" value="Push"></td></tr>
+<tr><th>Task</th><td><input type="text" name="task" value="PushTest"></td></tr>
+<tr><th>&nbsp;</th><td><input type="submit"></td></tr>
+</table>
+</form>
