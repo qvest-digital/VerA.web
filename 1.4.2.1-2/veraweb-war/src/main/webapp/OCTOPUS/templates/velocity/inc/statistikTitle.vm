@@ -1,0 +1,22 @@
+
+#if($statistik == "EventsPerYear")
+	#set($title = "Gesamt&uuml;bersicht &uuml;ber die Anzahl der Veranstaltungen pro Jahr.")
+#elseif($statistik == "EventsPerMonth")
+	#set($title = "Gesamt&uuml;bersicht &uuml;ber die Anzahl der Veranstaltungen pro Monat.")
+#elseif($statistik == "EventsGroupByHost")
+	#if($person)
+		#set($title = "&Uuml;bersicht &uuml;ber alle Veranstaltungen eines Gastgebers.")
+	#else
+		#set($title = "Gesamt&uuml;bersicht &uuml;ber alle Veranstaltungen, gruppiert nach Gastgeber.")
+	#end
+#elseif($statistik == "EventsGroupByGuest")
+	#if($person)
+		#set($title = "&Uuml;bersicht &uuml;ber alle Veranstaltungen eines Gastes.")
+	#else
+		#set($title = "Gesamt&uuml;bersicht &uuml;ber alle Veranstaltungen, gruppiert nach G&auml;sten.")
+	#end
+#elseif($statistik == "EventsGroupByLocation")
+	#set($title = "&Uuml;bersicht &uuml;ber alle Veranstaltungen sortiert nach Veranstaltungsort.")
+#else
+	#set($title = "UNBEKANNTE STATISTIK")
+#end

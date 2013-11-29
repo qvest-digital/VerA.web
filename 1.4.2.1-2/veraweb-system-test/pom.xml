@@ -1,0 +1,442 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.evolvis.veraweb</groupId>
+    <artifactId>veraweb-system-test</artifactId>
+    <version>1.3.16-SNAPSHOT</version>
+    
+    <name>VerA.web System Test</name>
+    <url>http://veraweb.evolvis.org/</url>
+
+    <description>Systemtest für die VerA.web Web Applikation zur Registrierung eines digitalen Nachsendeauftrags.</description>
+    
+    <licenses>
+		<license>
+			<name>GNU General Public License</name>
+			<url>http://www.gnu.org/licenses/gpl-2.0.txt</url>
+		</license>
+	</licenses>
+
+	<mailingLists>
+		<mailingList>
+			<name>veraweb-commits@lists.evolvis.org</name>
+		</mailingList>
+		<mailingList>
+			<name>veraweb-discussion@lists.evolvis.org</name>
+		</mailingList>
+	</mailingLists>
+
+    <properties>
+    	<spring.version>3.2.0.RELEASE</spring.version>
+		<cucumber.version>1.0.14</cucumber.version>
+		<gherkin.version>2.11.5</gherkin.version>
+		<selenium.version>2.28.0</selenium.version>
+    
+        <result.content.path>${project.build.directory}/test-results/${profile}</result.content.path>
+        <cucumber.out.colored>true</cucumber.out.colored>
+        <selenium.server.host>selenium-test.lan.tarent.de</selenium.server.host>
+        <selenium.server.port>4444</selenium.server.port>
+        <html.path>${result.content.path}/html/</html.path>
+        <screenshot.embedded>true</screenshot.embedded>
+        <screenshot.path>${result.content.path}/screenshots/</screenshot.path>
+        <druckansicht.path>${result.content.path}/druckansichten/</druckansicht.path>
+        <result.content.zip.path>resultContent.zip</result.content.zip.path>
+        <new.session.per.feature>false</new.session.per.feature>
+        <cucumber.tags>~@wip</cucumber.tags>
+        
+        <veraweb.baseUrl>https://veraweb.lan.tarent.de/veraweb/do/</veraweb.baseUrl>
+        <veraweb.db.driver>org.postgresql.Driver</veraweb.db.driver>
+        <veraweb.db.url>jdbc:postgresql://veraweb.lan.tarent.de:5432/veraweb</veraweb.db.url>
+        <veraweb.db.username>veraweb</veraweb.db.username>
+        <veraweb.db.password>veraweb</veraweb.db.password>
+    </properties>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-beans</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+            <version>${spring.version}</version>
+            <exclusions>
+				<exclusion>
+					<artifactId>commons-logging</artifactId>
+					<groupId>commons-logging</groupId>
+				</exclusion>
+			</exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-orm</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+
+		<!-- Postgres -->
+        <dependency>
+			<groupId>postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>9.1-901.jdbc4</version>
+		</dependency>
+		<!-- Hibernate -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+			<version>4.2.0.Final</version>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-entitymanager</artifactId>
+			<version>4.2.0.Final</version>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>4.3.1.Final</version>
+		</dependency>
+
+		<dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+            <version>2.6</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.1</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-fileupload</groupId>
+            <artifactId>commons-fileupload</artifactId>
+            <version>1.2.2</version>
+        </dependency>
+        <dependency>
+			<groupId>commons-dbcp</groupId>
+			<artifactId>commons-dbcp</artifactId>
+			<version>1.4</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-pool</groupId>
+			<artifactId>commons-pool</artifactId>
+			<version>1.6</version>
+		</dependency>
+
+        <dependency>
+            <groupId>org.evolvis</groupId>
+            <artifactId>config</artifactId>
+            <version>0.6.0</version>
+        </dependency>
+
+        <!-- URI templates rfc 6570 -->
+        <dependency>
+            <groupId>com.damnhandy</groupId>
+            <artifactId>handy-uri-templates</artifactId>
+            <version>1.1.7</version>
+        </dependency>
+
+        <!-- jodaTime -->
+        <dependency>
+            <groupId>joda-time</groupId>
+            <artifactId>joda-time</artifactId>
+            <version>2.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.easytesting</groupId>
+            <artifactId>fest-assert</artifactId>
+            <version>1.4</version>
+			<scope>compile</scope>
+        </dependency>
+
+        <!-- Logging -->
+        <dependency>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+            <version>1.1.1</version>
+        </dependency>
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.17</version>
+        </dependency>
+
+		<!-- Testing -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.11</version>
+				<scope>test</scope>
+				<exclusions>
+					<exclusion>
+						<groupId>org.hamcrest</groupId>
+						<artifactId>hamcrest-core</artifactId>
+					</exclusion>
+				</exclusions>
+        </dependency>
+        <dependency>
+            <groupId>junit-addons</groupId>
+            <artifactId>junit-addons</artifactId>
+            <version>1.4</version>
+			<scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.hamcrest</groupId>
+            <artifactId>hamcrest-all</artifactId>
+            <version>1.3</version>
+			<scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-beanutils</groupId>
+            <artifactId>commons-beanutils</artifactId>
+            <version>1.8.3</version>
+			<scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.1</version>
+        </dependency>
+
+		<!-- cucumber -->
+		<dependency>
+			<groupId>info.cukes</groupId>
+			<artifactId>cucumber-core</artifactId>
+			<version>${cucumber.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>info.cukes</groupId>
+			<artifactId>cucumber-java</artifactId>
+			<version>${cucumber.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>info.cukes</groupId>
+			<artifactId>cucumber-junit</artifactId>
+			<version>${cucumber.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>info.cukes</groupId>
+			<artifactId>cucumber-spring</artifactId>
+			<version>${cucumber.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>info.cukes</groupId>
+			<artifactId>gherkin</artifactId>
+			<version>${gherkin.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+            <groupId>de.tarent.cucumber</groupId>
+            <artifactId>datamanager</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+		<!-- Selenium -->
+		<dependency>
+			<groupId>org.seleniumhq.selenium</groupId>
+			<artifactId>selenium-java</artifactId>
+			<version>${selenium.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.apache.commons</groupId>
+					<artifactId>commons-lang3</artifactId>
+				</exclusion>
+			</exclusions>
+			<scope>test</scope>
+		</dependency>
+		<!-- Flyway -->
+		<dependency>
+			<groupId>com.googlecode.flyway</groupId>
+			<artifactId>flyway-core</artifactId>
+			<version>2.1.1</version>
+		</dependency>
+
+    </dependencies>
+
+    <build>
+        <sourceDirectory>src/main/java</sourceDirectory>
+        <scriptSourceDirectory>src/main/scripts</scriptSourceDirectory>
+        <testSourceDirectory>src/test/java</testSourceDirectory>
+        <outputDirectory>target/classes</outputDirectory>
+        <testOutputDirectory>target/test-classes</testOutputDirectory>
+        <resources>
+            <resource>
+                <directory>src/main/java</directory>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
+        </resources>
+
+        <testResources>
+            <testResource>
+                <directory>src/test/resources</directory>
+                <filtering>true</filtering>
+            </testResource>
+        </testResources>
+
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.3.2</version>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-eclipse-plugin</artifactId>
+				<version>2.9</version>
+				<configuration>
+					<downloadSources>true</downloadSources>
+					<downloadJavadocs>true</downloadJavadocs>
+					<useProjectReferences>false</useProjectReferences>
+				</configuration>
+			</plugin>
+           
+              <plugin>
+                  <groupId>org.apache.maven.plugins</groupId>
+                  <artifactId>maven-antrun-plugin</artifactId>
+                  <version>1.6</version>
+                  <executions>
+                      <execution>
+                          <id>CLI-test</id>
+                          <phase>integration-test</phase>
+
+                          <goals>
+                              <goal>run</goal>
+                          </goals>
+                          <configuration>
+                              <target>
+                                  <echo>Running cucumber from the command line</echo>
+                                  <mkdir dir="${result.content.path}" />
+                                  <mkdir dir="target/surefire-reports" />
+                                  <java classname="cucumber.cli.Main" fork="true" failonerror="true" newenvironment="true" maxmemory="512m" classpathref="maven.test.classpath">
+
+                                      <arg value="--format" />
+                                      <arg value="de.tarent.aa.veraweb.cucumber.formatter.HTMLFormatter:${result.content.path}" />
+                                      <arg value="--format" />
+                                      <arg value="de.tarent.aa.veraweb.cucumber.formatter.RuntimeInfoCatcher" />
+                                      <arg value="--format" />
+                                      <arg value="json-pretty:${result.content.path}/cucumber_report.json" />
+                                      <arg value="--format" />
+                                      <arg value="junit:${result.content.path}/cucumber_report.xml" />
+                                      <arg value="--glue" />
+                                      <arg value="de.tarent.aa.veraweb.cucumber" />
+                                      <arg value="${basedir}" />
+                                      <arg value="--tags" />
+                                      <arg value="${cucumber.tags}" />
+
+                                      <!-- This is a systemproperty used by the de.tarent.cucumber.RuntimeInfoCatcher -->
+                                      <sysproperty key="tarent.cucumber.colored" value="${cucumber.out.colored}" />
+                                  </java>
+                              </target>
+                          </configuration>
+                      </execution>
+                  </executions>
+              </plugin>
+          </plugins>
+    </build>
+
+    <profiles>
+        <!-- Each profile is for a variant of the application for a specific target. The profile id denotes the name to use 
+            on the command-line (-P <profilename>). The value of the variable 'profile' denotes the name of the directory containing 
+            further configuration files. Both names should be equal. To introduce a new profile copy an existing stanza from below, invent 
+            a new name and make a copy of an existing configuration directory. Finally adjust all the configuration files in the newly 
+            created directory. -->
+        <profile>
+            <id>developer</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+	            <veraweb.baseUrl>http://vbut-dev.lan.tarent.de:8080/veraweb/do/</veraweb.baseUrl>
+		        <veraweb.db.url>jdbc:postgresql://localhost:5432/veraweb</veraweb.db.url>
+		        <selenium.mode>FF</selenium.mode>
+                <!-- selenium.server.host>localhost</selenium.server.host-->
+                <profile>developer</profile>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>cucumberFF</id>
+            <properties>
+                <selenium.mode>FF</selenium.mode>
+                <profile>cucumberFF</profile>
+            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-antrun-plugin</artifactId>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        
+
+        <profile>
+            <id>cucumberIE</id>
+            <properties>
+                <selenium.mode>IE</selenium.mode>
+                <profile>cucumberIE</profile>
+            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-antrun-plugin</artifactId>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        
+        <profile>
+            <id>cucumberChrome</id>
+            <properties>
+                <selenium.mode>chrome</selenium.mode>
+                <profile>cucumberChrome</profile>
+            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-antrun-plugin</artifactId>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        
+        <profile>
+            <id>cucumberOpera</id>
+            <properties>
+                <selenium.mode>opera</selenium.mode>
+                <profile>cucumberOpera</profile>
+            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-antrun-plugin</artifactId>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+    </profiles>
+
+</project>

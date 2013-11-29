@@ -1,0 +1,16 @@
+
+{
+	"_id":"typen",
+	"form":"de.tarent.cucumber.datamanager.entity.DataSet",
+	"field":"de.tarent.cucumber.datamanager.entity.Field"
+}
+
+{
+	"_id":"feldtypen",
+	"select":"select",
+	"span":"span",
+	"input":"input",
+	"radio":"radio",
+	"textarea":"textarea",
+	"checkbox":"checkbox"
+}
