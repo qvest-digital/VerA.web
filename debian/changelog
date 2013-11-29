@@ -1,5 +1,15 @@
 veraweb (1.4.2.0-4) veraweb-stable; urgency=low
 
+  [ Volker Schmitz ]
+  * Update to veraweb 1.4.2.1-6
+
+  [ Claudie Nuessle ]
+  * css bug fixes in tables
+
+ -- Volker Schmitz <v.schmitz@tarent.de>  Thu, 28 Nov 2013 09:11:11 +0100
+
+veraweb (1.4.2.0-4) veraweb-stable; urgency=low
+
   [ Volker Schmitz }
   * Update to veraweb 1.4.2.0-5
 
