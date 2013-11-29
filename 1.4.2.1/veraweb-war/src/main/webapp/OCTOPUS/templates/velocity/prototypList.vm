@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <title>VerA.web :: &Uuml;bersicht</title>
+  <link href="${paths.staticWeb}style/style.css" rel="stylesheet" type="text/css">
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+</head>
+<body>
+
+<a href="list">&Uuml;bersicht anzeigen</a> -
+<a href="detail">Neuen Datensatz anlegen</a> -
+<a href="control.sxc">OpenOffice-Datei herrunterladen</a>
+<br><br>
+
+#if($addressen)
+	#if($addressen.size() == 0)
+		<h3>Keine Datens&auml;tze gefunden.</h3>
+	#elseif($addressen.size() == 1)
+		<h3>Einen Datensatz gefunden.</h3>
+	#else
+		<h3>$addressen.size() Datens&auml;tze gefunden.</h3>
+	#end
+<table style="width: 100%;" border="1" cellpadding="2" cellspacing="2">
+	<tr>
+		<th>&nbsp;</th>
+		<th><nobr>Adressblock 1</nobr></th>
+		<th><nobr>Adressblock 2</nobr></th>
+		<th><nobr>Adressblock 3</nobr></th>
+		<th><nobr>Adressblock 4</nobr></th>
+		<th><nobr>Adressblock 5</nobr></th>
+		<th><nobr>Adressblock 6</nobr></th>
+    </tr>
+#foreach($address in $addressen)
+	<tr>
+		<td>
+			<a href="detail?id=$address.getPk()">anzeigen</a><br />
+			<a href="javascript:if (confirm('Wollen Sie diesen Datensatz unwiderruflich entfernen?') == true) { window.location.href='remove?id=$address.getPk()'; }">l&ouml;schen</a>
+		</td>
+		<td style="vertical-align: top;">#if($address.getAdressblock1() && $address.getAdressblock1().length() != 0)$address.getAdressblock1().replaceAll("(\r\n|\r|\n)", "<br/>")#else&nbsp;#end</td>
+		<td style="vertical-align: top;">#if($address.getAdressblock2() && $address.getAdressblock2().length() != 0)$address.getAdressblock2().replaceAll("(\r\n|\r|\n)", "<br/>")#else&nbsp;#end</td>
+		<td style="vertical-align: top;">#if($address.getAdressblock3() && $address.getAdressblock3().length() != 0)$address.getAdressblock3().replaceAll("(\r\n|\r|\n)", "<br/>")#else&nbsp;#end</td>
+		<td style="vertical-align: top;">#if($address.getAdressblock4() && $address.getAdressblock4().length() != 0)$address.getAdressblock4().replaceAll("(\r\n|\r|\n)", "<br/>")#else&nbsp;#end</td>
+		<td style="vertical-align: top;">#if($address.getAdressblock5() && $address.getAdressblock5().length() != 0)$address.getAdressblock5().replaceAll("(\r\n|\r|\n)", "<br/>")#else&nbsp;#end</td>
+		<td style="vertical-align: top;">#if($address.getAdressblock6() && $address.getAdressblock6().length() != 0)$address.getAdressblock6().replaceAll("(\r\n|\r|\n)", "<br/>")#else&nbsp;#end</td>
+	</tr>
+#end
+</table>
+#end
+
+<br>
+<br>
+</body>
+</html>
