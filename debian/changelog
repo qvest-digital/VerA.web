@@ -1,7 +1,7 @@
 veraweb (1.4.2.0-4) veraweb-stable; urgency=low
 
   [ Volker Schmitz ]
-  * Update to veraweb 1.4.2.1-6
+  * Update to veraweb 1.4.2.1-1
 
   [ Claudie Nuessle ]
   * css bug fixes in tables
