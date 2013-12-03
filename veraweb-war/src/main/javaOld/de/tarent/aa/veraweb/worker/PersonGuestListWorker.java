@@ -82,6 +82,7 @@ public class PersonGuestListWorker extends PersonListWorker {
 		List selectreserve = (List)cntx.sessionAsObject("addguest-selectreserve");
 		Map invitecategory = (Map)cntx.sessionAsObject("addguest-invitecategory");
 		
+		cntx.getContentObject().setField("action", "guest");
 		
 		if ("reset".equals(cntx.requestAsString("search"))) {
 			if (invitemain.size() == 1) {
