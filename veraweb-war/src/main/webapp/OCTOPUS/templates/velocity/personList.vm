@@ -555,7 +555,7 @@ function submitFormWithGivenAction(action) {
                     		<th title="Hauptperson, Zeichensatz 1"><a href="javascript:orderPersonList('firstname_a_e1');">Vor&shy;name</a></th>
                     		<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('function_a_e1');">Amtsbezeichnung</a></th>
                     		<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('company_a_e1');">Firma / Institution (G)</a></th>
-                    		<th style="vertical-align:middle; color:#1B1B1B; padding-left:10px;">Kategorie</th>
+                    		<th style="color:#1B1B1B; padding:10px;">Kategorie</th>
                     	</tr>
                 	#elseif($action == "host")
                     	<tr>
