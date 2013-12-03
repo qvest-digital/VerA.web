@@ -184,7 +184,7 @@
 
     <div id="tabsMain">
     	<ul class="gray-gradient" vera-tab-group> <!-- Bitte das End-tag der <li>s immer mit in die nächste Zeile nehmen (verhindert Mozilla styling bug) -->
-    		<li vera-tab="personendaten" #if(!$thisPersonTab || $thisPersonTab == "1") vera-tab-default #end onclick="$('#personTab').attr('value', '1');"><div>Persondendaten</div>
+    		<li vera-tab="personendaten" #if(!$thisPersonTab || $thisPersonTab == "1") vera-tab-default #end onclick="$('#personTab').attr('value', '1');"><div>Personendaten</div>
     		</li><li vera-tab="anschriften" #if($thisPersonTab && $thisPersonTab == "2") vera-tab-default #end onclick="$('#personTab').attr('value', '2');"><div>Anschriften</div>
     		</li>#if($personDB)<li class="inactive" id="dokumenttypen"><div>Dokumenttypen</div>
     		</li><li class="inactive" id="kategorien" onclick="showCategories();"><div>Kategorien</div></li>#end

@@ -38,7 +38,7 @@
 			#end
 			
 			<div id="main_content">
-                <table>
+                <table class="sortable">
                 	<tr>
                 		<th class="textCenter smallCell"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" #if($listselection.size() == $list.size()) checked#end title="Alle (de)markieren"/></th>
                 		<th>ID</th>

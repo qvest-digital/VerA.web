@@ -55,7 +55,7 @@
 		#foreach($bean in $list)
 		<input type="hidden" name="list" value="$bean.id">
 		#end
-		<table>
+		<table class="sortable">
 			<tr>
 				<th class="smallCell textCenter">ID</th>
 				<th>Name</th>
