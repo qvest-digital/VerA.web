@@ -546,7 +546,7 @@ function submitFormWithGivenAction(action) {
                 	#if($action == "guest")
                     	<tr>
                             #if($grants.mayWrite())
-								<th class="textCenter smallCell" title="$!message.text($!config.main) einladen">H <input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="Alle (de)markieren (inkl. Partner, wenn eingeladen)" #if($listselection.size() == $list.size()) checked#end/></th>
+								<th class="textCenter smallCell" title="$!message.text($!config.main) einladen">H <input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="Alle (de)markieren (inkl. Partner, wenn eingeladen)" style="margin: 5px;" #if($listselection.size() == $list.size()) checked#end/></th>
     							<th class="textCenter smallCell" title="$!message.text($!config.partner) einladen">P</th>
                         		<th class="textCenter smallCell" title="Auf Reserve">R</th>
 							#end
