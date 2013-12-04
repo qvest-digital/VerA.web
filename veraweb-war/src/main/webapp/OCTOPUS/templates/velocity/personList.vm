@@ -551,7 +551,7 @@ function submitFormWithGivenAction(action) {
                         		<th class="textCenter smallCell" title="Auf Reserve">R</th>
 							#end
                     		<th class="textCenter smallCell"><a href="javascript:orderPersonList('id');">ID</a></th>
-                    		<th title="Hauptperson, Zeichensatz 1"><a href="javascript:orderPersonList('lastname_a_e1');">Nach&shy;name</a></th>
+                    		<th title="Hauptperson, Zeichensatz 1"><a href="javascript:orderPersonList('lastname_a_e1');">Nach&shy;name <span><img border="0" alt="none" src="/veraweb_trunk/veraweb-war/src/main/webapp/OCTOPUS/templates/velocity/up_black.png"></img></span></a></th>
                     		<th title="Hauptperson, Zeichensatz 1"><a href="javascript:orderPersonList('firstname_a_e1');">Vor&shy;name</a></th>
                     		<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('function_a_e1');">Amtsbezeichnung</a></th>
                     		<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('company_a_e1');">Firma / Institution (G)</a></th>
