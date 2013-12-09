@@ -417,6 +417,7 @@ public class PersonListWorker extends ListWorkerVeraWeb {
                 search.sort = "ASC";
             }
         }
+        cntx.getContentObject().setField("personSearchOrder", search.sort);
         
         if (search != null && search.listorder != null && search.listorder != "") {
             order.add(search.listorder);
@@ -758,6 +759,8 @@ public class PersonListWorker extends ListWorkerVeraWeb {
         search.sortList = sortList;
 
         cntx.setSession("search" + BEANNAME, search);
+        cntx.getContentObject().setField("personSearchField", search.listorder);
+        cntx.getContentObject().setField("personSearchOrder", search.sort);
         return search;
     }
 
