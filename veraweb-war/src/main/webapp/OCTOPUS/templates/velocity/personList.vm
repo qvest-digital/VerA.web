@@ -112,6 +112,11 @@
 		<input type="hidden" name="selectNone" value="true" /> -->
 		<input type="hidden" name="sortList" value="true" />
 		<input type="hidden" id="search-listorder" name="search-listorder" value="$!search.listorder">
+    
+	#if ($octopusRequest.getParam("searchField"))
+            <input type="hidden" name="searchField" value="$octopusRequest.getParam("searchField")" />
+	#end
+               		
 	</form>
 
 	#if($list && $list.size() > 0 )
@@ -535,7 +540,7 @@ function submitFormWithGivenAction(action) {
 				</div>
 			</div>
     		#end
-    		
+    			
     		
             #foreach($bean in $list)
     			<input type="hidden" name="list" value="$bean.id">
@@ -552,10 +557,50 @@ function submitFormWithGivenAction(action) {
                         		<th class="textCenter smallCell" title="Auf Reserve">R</th>
 							#end
                     		<th class="textCenter smallCell"><a href="javascript:orderPersonList('id');">ID</a></th>
-                    		<th title="Hauptperson, Zeichensatz 1"><a href="javascript:orderPersonList('lastname_a_e1');">Nach&shy;name</a></th>
-                    		<th title="Hauptperson, Zeichensatz 1"><a href="javascript:orderPersonList('firstname_a_e1');">Vor&shy;name</a></th>
-                    		<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('function_a_e1');">Amtsbezeichnung</a></th>
-                    		<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('company_a_e1');">Firma / Institution (G)</a></th>
+                    		<th title="Hauptperson, Zeichensatz 1"><a href="javascript:orderPersonList('lastname_a_e1');">Nach&shy;name
+								#if($personSearchField == 'lastname_a_e1')
+									#if ($personSearchOrder == 'ASC')
+										<span><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span> 
+									#else
+										<span><img border="0" alt="DESC" src="${paths.staticWeb}images/sort_down.gif"></img></span>
+									#end
+								#else
+										<span><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
+								#end 
+							</a></th>
+                    		<th title="Hauptperson, Zeichensatz 1"><a href="javascript:orderPersonList('firstname_a_e1');">Vor&shy;name
+								#if($personSearchField == 'firstname_a_e1')
+									#if ($personSearchOrder == 'ASC')
+										<span><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span> 
+									#else
+										<span><img border="0" alt="DESC" src="${paths.staticWeb}images/sort_down.gif"></img></span>
+									#end
+								#else
+										<span><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
+								#end 
+							</a></th>
+                    		<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('function_a_e1');">Amtsbezeichnung
+								#if($personSearchField == 'function_a_e1')
+									#if ($personSearchOrder == 'ASC')
+										<span><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span> 
+									#else
+										<span><img border="0" alt="DESC" src="${paths.staticWeb}images/sort_down.gif"></img></span>
+									#end
+								#else
+										<span><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
+								#end 
+							</a></th>
+                    		<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('company_a_e1');">Firma / Institution (G)
+								#if($personSearchField == 'company_a_e1')
+									#if ($personSearchOrder == 'ASC')
+										<span><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span> 
+									#else
+										<span><img border="0" alt="DESC" src="${paths.staticWeb}images/sort_down.gif"></img></span>
+									#end
+								#else
+										<span><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
+								#end 
+							</a></th>
                     		<th style="color:#1B1B1B; padding:10px;">Kategorie</th>
                     	</tr>
                 	#elseif($action == "host")
@@ -597,13 +642,83 @@ function submitFormWithGivenAction(action) {
                 	#elseif($action == "taskReferencePerson")
                     	<tr>
                     		<th class="textCenter smallCell"><a href="javascript:orderPersonList('id');">ID</a></th>
-                    		<th title="Hauptperson, Zeichensatz 1"><a href="javascript:orderPersonList('lastname_a_e1');">Nach&shy;name</a></th>
-                    		<th title="Hauptperson, Zeichensatz 1"><a href="javascript:orderPersonList('firstname_a_e1');">Vor&shy;name</a></th>
-                    		<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('function_a_e1');">Amtsbezeichnung</a></th>
-                    		<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('company_a_e1');">Firma / Institution (G)</a></th>
-                    		<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('street_a_e1');">Stra&szlig;e (G)</a></th>
-                    		<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('zipcode_a_e1');">PLZ (G)</a></th>
-                    		<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('city_a_e1');">Ort (G)</a></th>
+                    		<th title="Hauptperson, Zeichensatz 1"><a href="javascript:orderPersonList('lastname_a_e1');">Nach&shy;name
+								#if($personSearchField == 'lastname_a_e1')
+									#if ($personSearchOrder == 'ASC')
+										<span><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span> 
+									#else
+										<span><img border="0" alt="DESC" src="${paths.staticWeb}images/sort_down.gif"></img></span>
+									#end
+								#else
+										<span><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
+								#end 
+							</a></th>
+                    		<th title="Hauptperson, Zeichensatz 1"><a href="javascript:orderPersonList('firstname_a_e1');">Vor&shy;name
+								#if($personSearchField == 'firstname_a_e1')
+									#if ($personSearchOrder == 'ASC')
+										<span><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span> 
+									#else
+										<span><img border="0" alt="DESC" src="${paths.staticWeb}images/sort_down.gif"></img></span>
+									#end
+								#else
+										<span><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
+								#end 
+							</a></th>
+                    		<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('function_a_e1');">Amtsbezeichnung
+								#if($personSearchField == 'function_a_e1')
+									#if ($personSearchOrder == 'ASC')
+										<span><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span> 
+									#else
+										<span><img border="0" alt="DESC" src="${paths.staticWeb}images/sort_down.gif"></img></span>
+									#end
+								#else
+										<span><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
+								#end 
+							</a></th>
+                    		<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('company_a_e1');">Firma / Institution (G)
+								#if($personSearchField == 'company_a_e1')
+									#if ($personSearchOrder == 'ASC')
+										<span><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span> 
+									#else
+										<span><img border="0" alt="DESC" src="${paths.staticWeb}images/sort_down.gif"></img></span>
+									#end
+								#else
+										<span><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
+								#end 
+							</a></th>
+                    		<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('street_a_e1');">Stra&szlig;e (G)
+								#if($personSearchField == 'street_a_e1')
+									#if ($personSearchOrder == 'ASC')
+										<span><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span> 
+									#else
+										<span><img border="0" alt="DESC" src="${paths.staticWeb}images/sort_down.gif"></img></span>
+									#end
+								#else
+										<span><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
+								#end 
+							</a></th>
+                    		<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('zipcode_a_e1');">PLZ (G)
+								#if($personSearchField == 'zipcode_a_e1')
+									#if ($personSearchOrder == 'ASC')
+										<span><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span> 
+									#else
+										<span><img border="0" alt="DESC" src="${paths.staticWeb}images/sort_down.gif"></img></span>
+									#end
+								#else
+										<span><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
+								#end
+							</a></th>
+                    		<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('city_a_e1');">Ort (G)
+								#if($personSearchField == 'city_a_e1')
+									#if ($personSearchOrder == 'ASC')
+										<span><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span> 
+									#else
+										<span><img border="0" alt="DESC" src="${paths.staticWeb}images/sort_down.gif"></img></span>
+									#end
+								#else
+										<span><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
+								#end
+							</a></th>
                     		#if($userConfig.personListState)<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('state_a_e1');">Bundesland (G)</a></th>#end
                     	</tr>
                 	#elseif($action == "duplicateSearch")      
@@ -631,86 +746,94 @@ function submitFormWithGivenAction(action) {
                             #if($grants.mayWrite() || ($exportFormat && $grants.mayExport()) || $action == "replace")
 								<th class="textCenter smallCell"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="Alle (de)markieren" #if($listselection.size() == $list.size()) checked#end/></th>
                     		#end
-							<th class="textCenter smallCell"><a href="javascript:orderPersonList('id');">ID 
-									#if($personSearchField == 'id' && $personSearchOrder == 'ASC')
-										<span><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span> 
-									#elseif($personSearchOrder == 'DESC')
+							<th class="textCenter smallCell"><a href="javascript:orderPersonList('id');">ID</a></th>
+                    		<th title="Arbeitsbereich"><a href="javascript:orderPersonList('workarea_name');">Arbeits&shy;bereich 
+									#if($personSearchField == 'workarea_name')
+										#if ($personSearchOrder == 'ASC')
+											<span><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span> 
+										#else
 										<span><img border="0" alt="DESC" src="${paths.staticWeb}images/sort_down.gif"></img></span>
+										#end
 									#else
 										<span><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
 									#end 
 							</a></th>
-                    		<th title="Arbeitsbereich"><a href="javascript:orderPersonList('workarea_name');">Arbeits&shy;bereich 
-									#if($personSearchField == 'workarea_name' && $personSearchOrder == 'ASC')
-										<span><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span> 
-									#elseif($personSearchOrder == 'DESC')
-										<span><img border="0" alt="DESC" src="${paths.staticWeb}images/sort_down.gif"></img></span>
-									#else
-										<span><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
-									#end
-							</a></th>
                     		<th title="Hauptperson, Zeichensatz 1"><a href="javascript:orderPersonList('lastname_a_e1');">Nach&shy;name 
-									#if($personSearchField == 'lastname_a_e1' && $personSearchOrder == 'ASC')
-										<span><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span> 
-									#elseif($personSearchOrder == 'DESC')
+									#if($personSearchField == 'lastname_a_e1')
+										#if ($personSearchOrder == 'ASC')
+											<span><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span> 
+										#else
 										<span><img border="0" alt="DESC" src="${paths.staticWeb}images/sort_down.gif"></img></span>
+										#end
 									#else
 										<span><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
-									#end
+									#end 
 							</a></th>
                     		<th title="Hauptperson, Zeichensatz 1"><a href="javascript:orderPersonList('firstname_a_e1');">Vor&shy;name
-    							#if($personSearchField == 'firstname_a_e1' && $personSearchOrder == 'ASC')
-    								<span><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span> 
-    							#elseif($personSearchOrder == 'DESC')
-    								<span><img border="0" alt="DESC" src="${paths.staticWeb}images/sort_down.gif"></img></span>
-    							#else
-    								<span><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
-    							#end
+    							#if($personSearchField == 'firstname_a_e1')
+										#if ($personSearchOrder == 'ASC')
+											<span><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span> 
+										#else
+										<span><img border="0" alt="DESC" src="${paths.staticWeb}images/sort_down.gif"></img></span>
+										#end
+									#else
+										<span><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
+									#end 
 							</a></th>
                     		<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('function_a_e1');">Amtsbe&shy;zeichnung	
-								#if($personSearchField == 'function_a_e1' && $personSearchOrder == 'ASC')
-    								<span><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span> 
-    							#elseif($personSearchOrder == 'DESC')
-    								<span><img border="0" alt="DESC" src="${paths.staticWeb}images/sort_down.gif"></img></span>
-    							#else
-    								<span><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
-    							#end
+								#if($personSearchField == 'function_a_e1')
+										#if ($personSearchOrder == 'ASC')
+											<span><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span> 
+										#else
+										<span><img border="0" alt="DESC" src="${paths.staticWeb}images/sort_down.gif"></img></span>
+										#end
+									#else
+										<span><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
+									#end 
 							</a></th>
                     		<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('company_a_e1');">Firma / Institution (G)
-								#if($personSearchField == 'company_a_e1' && $personSearchOrder == 'ASC')
-    								<span><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span> 
-    							#elseif($personSearchOrder == 'DESC')
-    								<span><img border="0" alt="DESC" src="${paths.staticWeb}images/sort_down.gif"></img></span>
-    							#else
-    								<span><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
-    							#end
+								#if($personSearchField == 'company_a_e1')
+										#if ($personSearchOrder == 'ASC')
+											<span><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span> 
+										#else
+										<span><img border="0" alt="DESC" src="${paths.staticWeb}images/sort_down.gif"></img></span>
+										#end
+									#else
+										<span><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
+									#end 
 							</a></th>
                     		<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('street_a_e1');">Stra&szlig;e (G)
-								#if($personSearchField == 'street_a_e1' && $personSearchOrder == 'ASC')
-    								<span><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span> 
-    							#elseif($personSearchOrder == 'DESC')
-    								<span><img border="0" alt="DESC" src="${paths.staticWeb}images/sort_down.gif"></img></span>
-    							#else
-    								<span><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
-    							#end
+								#if($personSearchField == 'street_a_e1')
+										#if ($personSearchOrder == 'ASC')
+											<span><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span> 
+										#else
+										<span><img border="0" alt="DESC" src="${paths.staticWeb}images/sort_down.gif"></img></span>
+										#end
+									#else
+										<span><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
+									#end
 							</a></th>
                     		<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('zipcode_a_e1');">PLZ (G)
-								#if($personSearchField == 'zipcode_a_e1' && $personSearchOrder == 'ASC')
-    								<span><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span> 
-    							#elseif($personSearchOrder == 'DESC')
-    								<span><img border="0" alt="DESC" src="${paths.staticWeb}images/sort_down.gif"></img></span>
-    							#else
-    								<span><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
-    							#end
+								#if($personSearchField == 'zipcode_a_e1')
+										#if ($personSearchOrder == 'ASC')
+											<span><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span> 
+										#else
+										<span><img border="0" alt="DESC" src="${paths.staticWeb}images/sort_down.gif"></img></span>
+										#end
+									#else
+										<span><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
+									#end
 							</a></th>
                     		<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('city_a_e1');">Ort (G)
-								#if($personSearchField == 'city_a_e1' && $personSearchOrder == 'ASC')
-    								<span><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span> 
-    							#elseif($personSearchOrder == 'DESC')
-    								<span><img border="0" alt="DESC" src="${paths.staticWeb}images/sort_down.gif"></img></span>
-    							#else
-    								<span><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
-    							#end
+								#if($personSearchField == 'city_a_e1')
+										#if ($personSearchOrder == 'ASC')
+											<span><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span> 
+										#else
+										<span><img border="0" alt="DESC" src="${paths.staticWeb}images/sort_down.gif"></img></span>
+										#end
+									#else
+										<span><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
+									#end
 							</a></th>
                     		#if($userConfig.personListState)<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('state_a_e1');">Bundesland (G)</a></th>#end
                     	</tr>
