@@ -719,7 +719,18 @@ function submitFormWithGivenAction(action) {
 										<span><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
 								#end
 							</a></th>
-                    		#if($userConfig.personListState)<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('state_a_e1');">Bundesland (G)</a></th>#end
+                    		#if($userConfig.personListState)<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('state_a_e1');">Bundesland (G)
+								#if($personSearchField == 'state_a_e1')
+									#if ($personSearchOrder == 'ASC')
+										<span><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span> 
+									#else
+										<span><img border="0" alt="DESC" src="${paths.staticWeb}images/sort_down.gif"></img></span>
+									#end
+								#else
+										<span><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
+								#end
+							</a></th>
+							#end
                     	</tr>
                 	#elseif($action == "duplicateSearch")      
                     	## modified for duplicate search as per change request for version 1.2.0
@@ -835,7 +846,18 @@ function submitFormWithGivenAction(action) {
 										<span><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
 									#end
 							</a></th>
-                    		#if($userConfig.personListState)<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('state_a_e1');">Bundesland (G)</a></th>#end
+                    		#if($userConfig.personListState)<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('state_a_e1');">Bundesland (G)
+								#if($personSearchField == 'state_a_e1')
+										#if ($personSearchOrder == 'ASC')
+											<span><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span> 
+										#else
+										<span><img border="0" alt="DESC" src="${paths.staticWeb}images/sort_down.gif"></img></span>
+										#end
+									#else
+										<span><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
+									#end
+							</a></th>
+							#end
                     	</tr>
                 	#end
                 
