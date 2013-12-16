@@ -567,45 +567,45 @@ function submitFormWithGivenAction(action) {
                     		<th title="Hauptperson, Zeichensatz 1"><a href="javascript:orderPersonList('lastname_a_e1');">Nach&shy;name
 								#if($personSearchField == 'lastname_a_e1')
 									#if ($personSearchOrder == 'ASC')
-										<span><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span> 
+										<span class="floatRight"><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span> 
 									#else
-										<span><img border="0" alt="DESC" src="${paths.staticWeb}images/sort_down.gif"></img></span>
+										<span class="floatRight"><img border="0" alt="DESC" src="${paths.staticWeb}images/sort_down.gif"></img></span>
 									#end
 								#else
-										<span><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
+										<span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
 								#end 
 							</a></th>
                     		<th title="Hauptperson, Zeichensatz 1"><a href="javascript:orderPersonList('firstname_a_e1');">Vor&shy;name
 								#if($personSearchField == 'firstname_a_e1')
 									#if ($personSearchOrder == 'ASC')
-										<span><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span> 
+										<span class="floatRight"><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span> 
 									#else
-										<span><img border="0" alt="DESC" src="${paths.staticWeb}images/sort_down.gif"></img></span>
+										<span class="floatRight"><img border="0" alt="DESC" src="${paths.staticWeb}images/sort_down.gif"></img></span>
 									#end
 								#else
-										<span><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
+										<span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
 								#end 
 							</a></th>
                     		<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('function_a_e1');">Amtsbezeichnung
 								#if($personSearchField == 'function_a_e1')
 									#if ($personSearchOrder == 'ASC')
-										<span><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span> 
+										<span class="floatRight"><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span> 
 									#else
-										<span><img border="0" alt="DESC" src="${paths.staticWeb}images/sort_down.gif"></img></span>
+										<span class="floatRight"><img border="0" alt="DESC" src="${paths.staticWeb}images/sort_down.gif"></img></span>
 									#end
 								#else
-										<span><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
+										<span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
 								#end 
 							</a></th>
                     		<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('company_a_e1');">Firma / Institution (G)
 								#if($personSearchField == 'company_a_e1')
 									#if ($personSearchOrder == 'ASC')
-										<span><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span> 
+										<span class="floatRight"><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span> 
 									#else
-										<span><img border="0" alt="DESC" src="${paths.staticWeb}images/sort_down.gif"></img></span>
+										<span class="floatRight"><img border="0" alt="DESC" src="${paths.staticWeb}images/sort_down.gif"></img></span>
 									#end
 								#else
-										<span><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
+										<span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
 								#end 
 							</a></th>
                     		<th style="color:#1B1B1B; padding:10px;">Kategorie</th>
@@ -652,89 +652,89 @@ function submitFormWithGivenAction(action) {
                     		<th title="Hauptperson, Zeichensatz 1"><a href="javascript:orderPersonList('lastname_a_e1');">Nach&shy;name
 								#if($personSearchField == 'lastname_a_e1')
 									#if ($personSearchOrder == 'ASC')
-										<span><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span> 
+										<span class="floatRight"><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span> 
 									#else
-										<span><img border="0" alt="DESC" src="${paths.staticWeb}images/sort_down.gif"></img></span>
+										<span class="floatRight"><img border="0" alt="DESC" src="${paths.staticWeb}images/sort_down.gif"></img></span>
 									#end
 								#else
-										<span><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
+										<span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
 								#end 
 							</a></th>
                     		<th title="Hauptperson, Zeichensatz 1"><a href="javascript:orderPersonList('firstname_a_e1');">Vor&shy;name
 								#if($personSearchField == 'firstname_a_e1')
 									#if ($personSearchOrder == 'ASC')
-										<span><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span> 
+										<span class="floatRight"><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span> 
 									#else
-										<span><img border="0" alt="DESC" src="${paths.staticWeb}images/sort_down.gif"></img></span>
+										<span class="floatRight"><img border="0" alt="DESC" src="${paths.staticWeb}images/sort_down.gif"></img></span>
 									#end
 								#else
-										<span><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
+										<span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
 								#end 
 							</a></th>
                     		<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('function_a_e1');">Amtsbezeichnung
 								#if($personSearchField == 'function_a_e1')
 									#if ($personSearchOrder == 'ASC')
-										<span><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span> 
+										<span class="floatRight"><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span> 
 									#else
-										<span><img border="0" alt="DESC" src="${paths.staticWeb}images/sort_down.gif"></img></span>
+										<span class="floatRight"><img border="0" alt="DESC" src="${paths.staticWeb}images/sort_down.gif"></img></span>
 									#end
 								#else
-										<span><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
+										<span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
 								#end 
 							</a></th>
                     		<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('company_a_e1');">Firma / Institution (G)
 								#if($personSearchField == 'company_a_e1')
 									#if ($personSearchOrder == 'ASC')
-										<span><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span> 
+										<span class="floatRight"><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span> 
 									#else
-										<span><img border="0" alt="DESC" src="${paths.staticWeb}images/sort_down.gif"></img></span>
+										<span class="floatRight"><img border="0" alt="DESC" src="${paths.staticWeb}images/sort_down.gif"></img></span>
 									#end
 								#else
-										<span><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
+										<span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
 								#end 
 							</a></th>
                     		<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('street_a_e1');">Stra&szlig;e (G)
 								#if($personSearchField == 'street_a_e1')
 									#if ($personSearchOrder == 'ASC')
-										<span><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span> 
+										<span class="floatRight"><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span> 
 									#else
-										<span><img border="0" alt="DESC" src="${paths.staticWeb}images/sort_down.gif"></img></span>
+										<span class="floatRight"><img border="0" alt="DESC" src="${paths.staticWeb}images/sort_down.gif"></img></span>
 									#end
 								#else
-										<span><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
+										<span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
 								#end 
 							</a></th>
                     		<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('zipcode_a_e1');">PLZ (G)
 								#if($personSearchField == 'zipcode_a_e1')
 									#if ($personSearchOrder == 'ASC')
-										<span><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span> 
+										<span class="floatRight"><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span> 
 									#else
-										<span><img border="0" alt="DESC" src="${paths.staticWeb}images/sort_down.gif"></img></span>
+										<span class="floatRight"><img border="0" alt="DESC" src="${paths.staticWeb}images/sort_down.gif"></img></span>
 									#end
 								#else
-										<span><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
+										<span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
 								#end
 							</a></th>
                     		<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('city_a_e1');">Ort (G)
 								#if($personSearchField == 'city_a_e1')
 									#if ($personSearchOrder == 'ASC')
-										<span><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span> 
+										<span class="floatRight"><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span> 
 									#else
-										<span><img border="0" alt="DESC" src="${paths.staticWeb}images/sort_down.gif"></img></span>
+										<span class="floatRight"><img border="0" alt="DESC" src="${paths.staticWeb}images/sort_down.gif"></img></span>
 									#end
 								#else
-										<span><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
+										<span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
 								#end
 							</a></th>
                     		#if($userConfig.personListState)<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('state_a_e1');">Bundesland (G)
 								#if($personSearchField == 'state_a_e1')
 									#if ($personSearchOrder == 'ASC')
-										<span><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span> 
+										<span class="floatRight"><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span> 
 									#else
-										<span><img border="0" alt="DESC" src="${paths.staticWeb}images/sort_down.gif"></img></span>
+										<span class="floatRight"><img border="0" alt="DESC" src="${paths.staticWeb}images/sort_down.gif"></img></span>
 									#end
 								#else
-										<span><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
+										<span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
 								#end
 							</a></th>
 							#end
@@ -768,100 +768,100 @@ function submitFormWithGivenAction(action) {
                     		<th title="Arbeitsbereich"><a href="javascript:orderPersonList('workarea_name');">Arbeits&shy;bereich 
 									#if($personSearchField == 'workarea_name')
 										#if ($personSearchOrder == 'ASC')
-											<span><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span> 
+											<span class="floatRight"><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span> 
 										#else
-										<span><img border="0" alt="DESC" src="${paths.staticWeb}images/sort_down.gif"></img></span>
+										<span class="floatRight"><img border="0" alt="DESC" src="${paths.staticWeb}images/sort_down.gif"></img></span>
 										#end
 									#else
-										<span><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
+										<span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
 									#end 
 							</a></th>
                     		<th title="Hauptperson, Zeichensatz 1"><a href="javascript:orderPersonList('lastname_a_e1');">Nach&shy;name 
 									#if($personSearchField == 'lastname_a_e1')
 										#if ($personSearchOrder == 'ASC')
-											<span><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span> 
+											<span class="floatRight"><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span> 
 										#else
-										<span><img border="0" alt="DESC" src="${paths.staticWeb}images/sort_down.gif"></img></span>
+										<span class="floatRight"><img border="0" alt="DESC" src="${paths.staticWeb}images/sort_down.gif"></img></span>
 										#end
 									#else
-										<span><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
+										<span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
 									#end 
 							</a></th>
                     		<th title="Hauptperson, Zeichensatz 1"><a href="javascript:orderPersonList('firstname_a_e1');">Vor&shy;name
     							#if($personSearchField == 'firstname_a_e1')
 										#if ($personSearchOrder == 'ASC')
-											<span><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span> 
+											<span class="floatRight"><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span> 
 										#else
-										<span><img border="0" alt="DESC" src="${paths.staticWeb}images/sort_down.gif"></img></span>
+										<span class="floatRight"><img border="0" alt="DESC" src="${paths.staticWeb}images/sort_down.gif"></img></span>
 										#end
 									#else
-										<span><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
+										<span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
 									#end 
 							</a></th>
                     		<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('function_a_e1');">Amtsbe&shy;zeichnung	
 								#if($personSearchField == 'function_a_e1')
 										#if ($personSearchOrder == 'ASC')
-											<span><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span> 
+											<span class="floatRight"><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span> 
 										#else
-										<span><img border="0" alt="DESC" src="${paths.staticWeb}images/sort_down.gif"></img></span>
+										<span class="floatRight"><img border="0" alt="DESC" src="${paths.staticWeb}images/sort_down.gif"></img></span>
 										#end
 									#else
-										<span><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
+										<span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
 									#end 
 							</a></th>
                     		<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('company_a_e1');">Firma / Institution (G)
 								#if($personSearchField == 'company_a_e1')
 										#if ($personSearchOrder == 'ASC')
-											<span><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span> 
+											<span class="floatRight"><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span> 
 										#else
-										<span><img border="0" alt="DESC" src="${paths.staticWeb}images/sort_down.gif"></img></span>
+										<span class="floatRight"><img border="0" alt="DESC" src="${paths.staticWeb}images/sort_down.gif"></img></span>
 										#end
 									#else
-										<span><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
+										<span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
 									#end 
 							</a></th>
                     		<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('street_a_e1');">Stra&szlig;e (G)
 								#if($personSearchField == 'street_a_e1')
 										#if ($personSearchOrder == 'ASC')
-											<span><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span> 
+											<span class="floatRight"><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span> 
 										#else
-										<span><img border="0" alt="DESC" src="${paths.staticWeb}images/sort_down.gif"></img></span>
+										<span class="floatRight"><img border="0" alt="DESC" src="${paths.staticWeb}images/sort_down.gif"></img></span>
 										#end
 									#else
-										<span><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
+										<span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
 									#end
 							</a></th>
                     		<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('zipcode_a_e1');">PLZ (G)
 								#if($personSearchField == 'zipcode_a_e1')
 										#if ($personSearchOrder == 'ASC')
-											<span><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span> 
+											<span class="floatRight"><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span> 
 										#else
-										<span><img border="0" alt="DESC" src="${paths.staticWeb}images/sort_down.gif"></img></span>
+										<span class="floatRight"><img border="0" alt="DESC" src="${paths.staticWeb}images/sort_down.gif"></img></span>
 										#end
 									#else
-										<span><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
+										<span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
 									#end
 							</a></th>
                     		<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('city_a_e1');">Ort (G)
 								#if($personSearchField == 'city_a_e1')
 										#if ($personSearchOrder == 'ASC')
-											<span><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span> 
+											<span class="floatRight"><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span> 
 										#else
-										<span><img border="0" alt="DESC" src="${paths.staticWeb}images/sort_down.gif"></img></span>
+										<span class="floatRight"><img border="0" alt="DESC" src="${paths.staticWeb}images/sort_down.gif"></img></span>
 										#end
 									#else
-										<span><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
+										<span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
 									#end
 							</a></th>
                     		#if($userConfig.personListState)<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('state_a_e1');">Bundesland (G)
 								#if($personSearchField == 'state_a_e1')
 										#if ($personSearchOrder == 'ASC')
-											<span><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span> 
+											<span class="floatRight"><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span> 
 										#else
-										<span><img border="0" alt="DESC" src="${paths.staticWeb}images/sort_down.gif"></img></span>
+										<span class="floatRight"><img border="0" alt="DESC" src="${paths.staticWeb}images/sort_down.gif"></img></span>
 										#end
 									#else
-										<span><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
+										<span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
 									#end
 							</a></th>
 							#end
