@@ -1,0 +1,79 @@
+## ChangeLogReport Settings Editor
+##
+## @author Carsten Klein
+## @since 1.2.0
+
+#set($activeMenu = "Administration")
+#parse("inc/header.vm")
+
+<form action="ShowChangeLogReport" method="post" target="_blank" onSubmit="location.reload();return true;">
+
+<div id="content_container">
+    <div id="breadcrumb" class="textRight marginBottom10">
+        <strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Administration > Reports</span>
+    </div>
+
+    <h1>Reports</h1>
+
+
+			<div class="contentBoxColored hinweis grayBorder marginBottom20">
+                <strong>Hinweis</strong>
+                <p>Abhängig vom ausgewählten Zeitraum und der daraus resultierenden Anzahl Daten, kann die Erzeugung des Berichts relativ lange dauern.
+                    Haben Sie bitte ein wenig Geduld.</p>
+            </div>
+
+#if($noLogDataAvailableMessage)
+<vera-warn>
+	$noLogDataAvailableMessage
+</vera-warn>
+#end
+
+<input type="hidden" name="search" value="reset">
+<div class="table width30">
+	<div class="tableRow">
+    	<div class="tableCell ">
+			<label for="begin">Datum Beginn:</label>
+		</div>
+    	<div class="tableCell ">
+			<input type="text" name="begin" value="${begin}" id="begin" class="datepicker width80">
+    		<span id="show-begin" class="datepickerContainer"><img src="${paths.staticWeb}images/calendar.png" alt="Datum ausw&auml;hlen" title="Datum ausw&auml;hlen"></span>
+    		<script type="text/javascript">
+    		    Calendar.setup({
+    				inputField     :    "begin",
+    				button         :    "show-begin",
+    				ifFormat       :    "%d.%m.%Y",
+    				showsTime      :    false
+    			});
+    		</script>   		
+		</div>
+	</div>
+	<div class="tableRow">
+		<div class="tableCell ">
+			<label for="end">Datum Ende:</label>
+		</div>
+	<div class="tableCell ">
+		<input type="text" name="end" value="${end}" id="end" class="datepicker width80">
+		<span id="show-end" class="datepickerContainer"><img src="${paths.staticWeb}images/calendar.png" alt="Datum ausw&auml;hlen" title="Datum ausw&auml;hlen"></span>
+		<script type="text/javascript">
+		    Calendar.setup({
+				inputField     :    "end",
+				button         :    "show-end",
+				ifFormat       :    "%d.%m.%Y",
+				showsTime      :    false
+			});
+		</script>		
+	</div>	
+</div>
+</div>
+
+<div id="buttonPanel-bottom" class="marginTop10">
+	<input type="submit" class="mainButton" value="Report erzeugen" title="Report erzeugen" /> 
+	<input type="reset"  class="mainButton" value="Felder zurücksetzen"  title="Felder zurücksetzen" /> 
+</div>
+
+
+</div>
+
+</form>
+
+#parse("inc/footer.vm")
