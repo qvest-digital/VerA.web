@@ -116,6 +116,10 @@
 	#if ($octopusRequest.getParam("searchField"))
             <input type="hidden" name="searchField" value="$octopusRequest.getParam("searchField")" />
 	#end
+	
+	#if ($octopusRequest.getParam("searchTask"))
+        <input type="hidden" name="searchTask" value="$octopusRequest.getParam("searchTask")" />
+    #end
                		
 	</form>
 
@@ -133,8 +137,11 @@
 			<input type="hidden" name="searchTask" value="$!searchTask" />
     
 	#if ($octopusRequest.getParam("searchField"))
-            <input type="hidden" name="searchField" value="$octopusRequest.getParam("searchField")" />
+        <input type="hidden" name="searchField" value="$octopusRequest.getParam("searchField")" />
 	#end
+	
+	
+	
                		
 			
     		## Handler für selektierte Aktion 
