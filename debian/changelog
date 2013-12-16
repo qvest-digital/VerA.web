@@ -1,5 +1,12 @@
 veraweb (1.4.2.1-2) veraweb-stable; urgency=low
 
+  [ Marc Radel ]
+  * Update to veraweb 1.4.2.1-2
+
+ -- Marc Radel <m.radel@tarent.de>  Mon, 16 Dez 2013 09:11:11 +0100
+
+veraweb (1.4.2.1-2) veraweb-stable; urgency=low
+
   [ Volker Schmitz ]
   * Update to veraweb 1.4.2.1-2
 
