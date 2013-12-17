@@ -1,3 +1,10 @@
+veraweb (1.4.3.0-0) veraweb-stable; urgency=low
+
+  [ Marc Radel ]
+  * Update to veraweb 1.4.3.0-0
+
+ -- Marc Radel <m.radel@tarent.de>  Mon, 17 Dez 2013 10:11:11 +0100
+
 veraweb (1.4.2.1-2) veraweb-stable; urgency=low
 
   [ Marc Radel ]
