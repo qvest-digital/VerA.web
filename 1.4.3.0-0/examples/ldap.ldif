@@ -1,0 +1,156 @@
+# lan.veraweb.de
+dn: dc=veraweb,dc=de
+objectClass: top
+objectClass: dcObject
+objectClass: organization
+o: de
+dc: veraweb
+
+# admin, lan.veraweb.de
+dn: cn=admin,dc=veraweb,dc=de
+objectClass: simpleSecurityObject
+objectClass: organizationalRole
+cn: admin
+description: LDAP administrator
+
+# Users, lan.veraweb.de
+dn: ou=Users,dc=veraweb,dc=de
+objectClass: organizationalUnit
+ou: Users
+
+# Group, lan.veraweb.de
+dn: ou=Group,dc=veraweb,dc=de
+objectClass: organizationalUnit
+ou: Group
+
+# lesenEingeschraenkt, Group, lan.veraweb.de
+dn: cn=lesenEingeschraenkt,ou=Group,dc=veraweb,dc=de
+cn: lesenEingeschraenkt
+gidNumber: 20000
+objectClass: top
+objectClass: posixGroup
+
+# lesenUneingeschraenkt, Group, lan.veraweb.de
+dn: cn=lesenUneingeschraenkt,ou=Group,dc=veraweb,dc=de
+cn: lesenUneingeschraenkt
+gidNumber: 20001
+objectClass: top
+objectClass: posixGroup
+
+# lesenUndSchreibenEingeschraenkt, Group, lan.veraweb.de
+dn: cn=lesenUndSchreibenEingeschraenkt,ou=Group,dc=veraweb,dc=de
+cn: lesenUndSchreibenEingeschraenkt
+gidNumber: 20002
+objectClass: top
+objectClass: posixGroup
+
+# lesenUndSchreiben, Group, lan.veraweb.de
+dn: cn=lesenUndSchreiben,ou=Group,dc=veraweb,dc=de
+cn: lesenUndSchreiben
+gidNumber: 20003
+objectClass: top
+objectClass: posixGroup
+
+# mandantAdministrieren, Group, lan.veraweb.de
+dn: cn=mandantAdministrieren,ou=Group,dc=veraweb,dc=de
+cn: mandantAdministrieren
+gidNumber: 20004
+objectClass: top
+objectClass: posixGroup
+
+# administrator, Group, lan.veraweb.de
+dn: cn=administrator,ou=Group,dc=veraweb,dc=de
+cn: administrator
+gidNumber: 20005
+objectClass: top
+objectClass: posixGroup
+
+# lesenEingeschraenkt, Users, lan.veraweb.de
+dn: uid=lesenEingeschraenkt,ou=Users,dc=veraweb,dc=de
+uid: lesenEingeschraenkt
+uidNumber: 20000
+gidNumber: 20000
+cn: LesenEingeschraenkt
+sn: LesenEingeschraenkt
+objectClass: top
+objectClass: person
+objectClass: posixAccount
+objectClass: shadowAccount
+loginShell: /bin/bash
+homeDirectory: /home/lesenEingeschraenkt
+userPassword: veraweb
+
+# lesenUneingeschraenkt, Users, lan.veraweb.de
+dn: uid=lesenUneingeschraenkt,ou=Users,dc=veraweb,dc=de
+uid: lesenUneingeschraenkt
+uidNumber: 20001
+gidNumber: 20001
+cn: LesenUneingeschraenkt
+sn: LesenUneingeschraenkt
+objectClass: top
+objectClass: person
+objectClass: posixAccount
+objectClass: shadowAccount
+loginShell: /bin/bash
+homeDirectory: /home/lesenUneingeschraenkt
+userPassword: veraweb
+
+# lesenUndSchreibenEingeschraenkt, Users, lan.veraweb.de
+dn: uid=lesenUndSchreibenEingeschraenkt,ou=Users,dc=veraweb,dc=de
+uid: lesenUndSchreibenEingeschraenkt
+uidNumber: 20002
+gidNumber: 20002
+cn: LesenUndSchreibenEingeschraenkt
+sn: LesenUndSchreibenEingeschraenkt
+objectClass: top
+objectClass: person
+objectClass: posixAccount
+objectClass: shadowAccount
+loginShell: /bin/bash
+homeDirectory: /home/lesenUndSchreibenEingeschraenkt
+userPassword: veraweb
+
+# lesenUndSchreiben, Users, lan.veraweb.de
+dn: uid=lesenUndSchreiben,ou=Users,dc=veraweb,dc=de
+uid: lesenUndSchreiben
+uidNumber: 20003
+gidNumber: 20003
+cn: LesenUndSchreiben
+sn: LesenUndSchreiben
+objectClass: top
+objectClass: person
+objectClass: posixAccount
+objectClass: shadowAccount
+loginShell: /bin/bash
+homeDirectory: /home/lesenUndSchreiben
+userPassword: veraweb
+
+# mandantAdministrieren, Users, lan.veraweb.de
+dn: uid=mandantAdministrieren,ou=Users,dc=veraweb,dc=de
+uid: mandantAdministrieren
+uidNumber: 20004
+gidNumber: 20004
+cn: mandantAdministrieren
+sn: mandantAdministrieren
+objectClass: top
+objectClass: person
+objectClass: posixAccount
+objectClass: shadowAccount
+loginShell: /bin/bash
+homeDirectory: /home/mandantAdministrieren
+userPassword: veraweb
+
+# administrator, Users, lan.veraweb.de
+dn: uid=administrator,ou=Users,dc=veraweb,dc=de
+uid: administrator
+uidNumber: 20005
+gidNumber: 20005
+cn: administrator
+sn: administrator
+objectClass: top
+objectClass: person
+objectClass: posixAccount
+objectClass: shadowAccount
+loginShell: /bin/bash
+homeDirectory: /home/administrator
+userPassword: veraweb
