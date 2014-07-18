@@ -37,13 +37,13 @@
 
 	<scm>
 		<connection>
-			scm:svn:svn://maven@evolvis.org/svnroot/veraweb/tags/1.4.3.0-0
+			scm:svn:svn://maven@evolvis.org/svnroot/veraweb/trunk
 		</connection>
 		<developerConnection>
-			scm:svn:svn+ssh://maven@evolvis.org/svnroot/veraweb/tags/1.4.3.0-0
+			scm:svn:svn+ssh://maven@evolvis.org/svnroot/veraweb/trunk
 		</developerConnection>
 		<url>
-			https://evolvis.org/scm/viewvc.php/tags/1.4.3.0-0?root=veraweb
+			https://evolvis.org/scm/viewvc.php/trunk?root=veraweb
 		</url>
 	</scm>
 
