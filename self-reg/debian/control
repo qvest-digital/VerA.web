@@ -3,7 +3,7 @@ Maintainer: Martin Ley <m.ley@tarent.de>
 Section: non-free/web
 Priority: optional
 Standards-Version: 3.9.5
-Build-Depends: debhelper (>= 9)
+Build-Depends: debhelper (>= 8)
 Homepage: https://evolvis.org/projects/veraweb/
 
 Package: vw-selfreg
