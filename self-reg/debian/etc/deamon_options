@@ -1,0 +1,10 @@
+##
+#This is a shell file included by
+# /etc/service/vw-selfreg/run
+##
+
+JAVA_CMD=java
+
+JAVA_HEAP_SPACE=128m
+
+STARTUP_LOG_FILE=/var/log/vw-selfreg/selfreg.out

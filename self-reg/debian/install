@@ -1,0 +1,4 @@
+target/self-registration-1.0-SNAPSHOT.jar	usr/share/vw-selfreg
+
+debian/etc/*                    etc/vw-selfreg
+config.yaml                     etc/vw-selfreg

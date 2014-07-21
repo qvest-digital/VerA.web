@@ -1,0 +1,13 @@
+Source: vw-selfreg
+Maintainer: Martin Ley <m.ley@tarent.de>
+Section: non-free/web
+Priority: optional
+Standards-Version: 3.9.5
+Build-Depends: debhelper (>= 9)
+Homepage: https://evolvis.org/projects/veraweb/
+
+Package: vw-selfreg
+Architecture: all
+Depends: openjdk-7-jre, daemontools (>> 1:0.76), daemontools-run (>> 1:0.76),
+    ${misc:Depends}
+Description: verA.web self-registration server

@@ -1,0 +1,10 @@
+#!/bin/sh
+# prerm script for selfreg
+
+
+update-service --remove /etc/-vwselfreg/selfreg
+sleep 2
+
+#DEBHELPER#
+
+exit 0
