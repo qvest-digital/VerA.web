@@ -4,8 +4,7 @@
 
 echo `date` 'starting vw-selfreg service' >> $STARTUP_LOG_FILE
 
-exec setuidgid nobody sh -c '
- cd /etc/vw-selfreg
- exec $JAVA_CMD -Xmx$JAVA_HEAP_SPACE -jar /usr/share/vw-selfreg/self-registration-1.0-SNAPSHOT.jar  server config.yaml  >> $STARTUP_LOG_FILE 2>&1
+cd /etc/vw-selfreg
 
-'
+exec $JAVA_CMD -Xmx$JAVA_HEAP_SPACE -jar /usr/share/vw-selfreg/self-registration-1.0-SNAPSHOT.jar  server config.yaml  >> $STARTUP_LOG_FILE 2>&1
+

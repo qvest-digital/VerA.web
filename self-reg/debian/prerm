@@ -2,7 +2,7 @@
 # prerm script for selfreg
 
 
-update-service --remove /etc/-vwselfreg/selfreg
+update-service --remove /etc/vw-selfreg/vw-selfreg selfreg
 sleep 2
 
 #DEBHELPER#

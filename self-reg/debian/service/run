@@ -1,5 +1,5 @@
 #!/bin/sh
-exec setuidgid nobody sh -c '
- cd /etc/vw-selfreg
- exec java -jar /usr/share/vw-selfreg/self-registration-1.0-SNAPSHOT.jar server config.yaml  >> /var/log/vw-selfreg/selfreg.log 2>&1
-'
+
+cd /etc/vw-selfreg
+
+exec java -jar /usr/share/vw-selfreg/self-registration-1.0-SNAPSHOT.jar server config.yaml  >> /var/log/vw-selfreg/selfreg.log 2>&1

@@ -6,7 +6,7 @@ pgrep svscan || initctl reload-configuration
 pgrep svscan || initctl start svscan
 
 
-update-service --add /etc/vw-selfreg/selfreg selfreg
+update-service --add /etc/vw-selfreg/vw-selfreg selfreg
 
 # current testserver has no upstart yet...
 #initctl reload svscan
