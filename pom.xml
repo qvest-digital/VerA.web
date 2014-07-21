@@ -12,7 +12,13 @@
 
 	<inceptionYear>2005</inceptionYear>
 
-	<licenses>
+    <modules>
+        <module>veraweb-war</module>
+        <module>self-reg</module>
+    </modules>
+
+
+    <licenses>
 		<license>
 			<name>GNU General Public License</name>
 			<url>http://www.gnu.org/licenses/gpl-2.0.txt</url>
@@ -113,7 +119,4 @@
 		</plugins>
 	</build>
 
-	<modules>
-		<module>veraweb-war</module>
-	</modules>
 </project>
