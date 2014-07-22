@@ -14,7 +14,7 @@
 
     <modules>
         <module>veraweb-war</module>
-        <module>self-reg</module>
+        <module>online-reg</module>
     </modules>
 
 
