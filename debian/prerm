@@ -1,0 +1,10 @@
+#!/bin/sh
+# prerm script for onlinereg
+
+
+update-service --remove /etc/vw-onlinereg/vw-onlinereg onlinereg
+sleep 2
+
+#DEBHELPER#
+
+exit 0

@@ -1,0 +1,16 @@
+#!/bin/sh
+# postinst script for onlinereg
+
+## ensure the daemontools scan service is running
+pgrep svscan || initctl reload-configuration
+pgrep svscan || initctl start svscan
+
+
+update-service --add /etc/vw-onlinereg/vw-onlinereg onlinereg
+
+# current testserver has no upstart yet...
+#initctl reload svscan
+
+#DEBHELPER#
+
+exit 0

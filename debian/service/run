@@ -1,0 +1,6 @@
+#!/bin/sh
+
+cd /etc/vw-onlinereg
+cd /etc/vw-onlinereg
+
+exec java -jar /usr/share/vw-onlinereg/online-registration-1.0-SNAPSHOT.jar server config.yaml  >> /var/log/vw-onlinereg/onlinereg.log 2>&1
