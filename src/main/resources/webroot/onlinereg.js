@@ -1,15 +1,15 @@
 /**
  * Created by mley on 21.07.14.
  */
+$(document).ready(function () {
+    // verA.web brand logo bar
+    $('.navbar-lower').affix({
+        offset: {top: 100}
+    });
 
-$('.navbar-lower').affix({
-    offset: {top: 100}
 });
 
-
-
 var onlineRegApp = angular.module('onlineRegApp', [ 'ngRoute', 'ui.bootstrap' ]);
-
 
 
 onlineRegApp.config(function ($routeProvider) {
@@ -21,8 +21,8 @@ onlineRegApp.config(function ($routeProvider) {
         templateUrl: 'partials/welcome.html',
         controller: 'WelcomeController'
     }).otherwise({
-            redirectTo: '/login'
-        });
+        redirectTo: '/login'
+    });
 });
 
 onlineRegApp.controller('LoginController', function ($scope, $location) {
@@ -37,7 +37,6 @@ onlineRegApp.controller('LoginController', function ($scope, $location) {
 });
 
 onlineRegApp.controller('WelcomeController', function ($scope) {
-
 
 
 });
