@@ -67,6 +67,11 @@ body {
     color: #eeeeee;
 }
 
+.navbar-default {
+    background-color: #ffffff;
+    border-color: #ffffff;
+}
+
 /* custom button style */
 
 .btn-custom {
