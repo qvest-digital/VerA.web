@@ -1,0 +1,4 @@
+etc/vw-onlinereg
+usr/share/vw-onlinereg/
+var/lib/vw-onlinereg/data
+var/log/vw-onlinereg

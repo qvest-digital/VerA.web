@@ -1,0 +1,13 @@
+Source: vw-onlinereg
+Maintainer: Martin Ley <m.ley@tarent.de>
+Section: non-free/web
+Priority: optional
+Standards-Version: 3.9.5
+Build-Depends: debhelper (>= 8)
+Homepage: https://evolvis.org/projects/veraweb/
+
+Package: vw-onlinereg
+Architecture: all
+Depends: openjdk-7-jre, daemontools (>> 1:0.76), daemontools-run (>> 1:0.76),
+    ${misc:Depends}
+Description: verA.web online-registration server
