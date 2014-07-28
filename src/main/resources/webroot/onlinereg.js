@@ -20,6 +20,9 @@ onlineRegApp.config(function ($routeProvider) {
     }).when('/welcome', {
         templateUrl: 'partials/welcome.html',
         controller: 'WelcomeController'
+    }).when('/event', {
+        templateUrl: 'partials/event.html',
+        controller: 'EventController'
     }).otherwise({
         redirectTo: '/login'
     });
@@ -36,7 +39,12 @@ onlineRegApp.controller('LoginController', function ($scope, $location) {
 
 });
 
-onlineRegApp.controller('WelcomeController', function ($scope) {
+onlineRegApp.controller('WelcomeController', function ($scope, $location) {
+	
+	
+});
+
+onlineRegApp.controller('EventController', function ($scope) {
 
 
 });
