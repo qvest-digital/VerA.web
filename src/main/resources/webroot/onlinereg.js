@@ -48,3 +48,10 @@ onlineRegApp.controller('EventController', function ($scope) {
 
 
 });
+
+onlineRegApp.controller('RepeatController', function($scope) {
+  $scope.events = [
+    {date: '03.11.2014', event: 'Tag der Deutschen Einheit'},
+    {date: '13.10.2014', event: 'Woche der Brüderlichkeit'},
+    {date: '28.10.2014', event: 'Kamingespräch'},
+  ]});
