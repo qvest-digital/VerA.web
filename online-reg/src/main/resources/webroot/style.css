@@ -14,6 +14,10 @@ body {
     padding-top: 0px;
 }
 
+.container {
+    width: auto;
+}
+
 .divide-nav {
     height: 100px;
     background-color: #428bca;
