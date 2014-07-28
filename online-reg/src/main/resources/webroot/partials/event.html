@@ -1,28 +1,15 @@
-<table class="table table-condensed table-bordered">
-	<tr class="active">
-		<th>Datum</th>
-		<th>Veranstaltung</th>
-		<th></th>
-	</tr>
+<table class="table table-condensed table-bordered" ng-controller="RepeatController">
 	
-	<tr class="warning">
-		<td>03.11.2014</td>
-		<td>Tag der Deutschen Einheit</td>
-		<td><input type="button" id="button.anmelden" name="button.anmelden" value="Anmelden" title="Anmelden"/></td>
+	<tr class="active">
+			<th>Datum</th>
+			<th>Veranstaltung</th>
+			<th></th>
 	</tr>
 		
-	<tr class="warning">
-		<td>13.10.2014</td>
-		<td>Woche der Brüderlichkeit</td>
-		<td><input type="button" id="button.anmelden" name="button.anmelden" value="Anmelden" title="Anmelden"/></td>
-	</tr>
-	
-	<tr class="warning">
-		<td>28.10.2014</td>
-		<td>Kamingespräch</td>
-		<td><input type="button" id="button.anmelden" name="button.anmelden" value="Anmelden" title="Anmelden"/></td>
-	</tr>
+	<tr class="warning" ng-repeat="event in events">
+    	<td>{​{event.date}}</td>
+    	<td>{​{event.event}}</td>
+    	<td><input type="button" id="button.anmelden" name="button.anmelden" value="Anmelden" title="Anmelden"/></td>
+  	</tr>
+  	
 </table>
-	     
-     
-     
