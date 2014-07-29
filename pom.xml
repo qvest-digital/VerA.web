@@ -41,7 +41,7 @@
         </dependency>
         <dependency>
             <groupId>com.yammer.dropwizard</groupId>
-            <artifactId>dropwizard-views</artifactId>
+            <artifactId>dropwizard-client</artifactId>
             <version>0.6.2</version>
         </dependency>
 

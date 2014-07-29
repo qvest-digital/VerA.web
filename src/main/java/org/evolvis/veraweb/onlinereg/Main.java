@@ -1,10 +1,13 @@
 package org.evolvis.veraweb.onlinereg;
 
+import com.sun.jersey.api.client.Client;
 import com.yammer.dropwizard.Service;
 import com.yammer.dropwizard.assets.AssetsBundle;
+import com.yammer.dropwizard.client.JerseyClientBuilder;
 import com.yammer.dropwizard.config.Bootstrap;
 import com.yammer.dropwizard.config.Environment;
-import com.yammer.dropwizard.views.ViewBundle;
+import org.evolvis.veraweb.onlinereg.event.EventResource;
+
 
 
 public class Main extends Service<Config> {
@@ -23,20 +26,6 @@ public class Main extends Service<Config> {
         }
     }
 
-    /**
-     * hibernate bundle creation. All entity classes must be referenced here.
-     */
-    /*private final HibernateBundle<Config> hibernate = new HibernateBundle<Config>(
-            // List all persisted entities' classes here
-            ) {
-
-        @Override
-        public DatabaseConfiguration getDatabaseConfiguration(Config configuration) {
-            return configuration.getDatabase();
-        }
-    };
-*/
-
 
     @Override
     public void initialize(final Bootstrap<Config> bootstrap) {
@@ -45,17 +34,15 @@ public class Main extends Service<Config> {
         // serve all files in src/main/resources/webroot on /
         bootstrap.addBundle(new AssetsBundle("/webroot/", "/"));
 
-        // ViewBundle for BookViews templating
-        bootstrap.addBundle(new ViewBundle());
-
-        //bootstrap.addBundle(hibernate);
     }
 
     @Override
     public void run(final Config configuration, final Environment environment) {
         environment.addHealthCheck(new Health());
-        //BookResource br = new BookResource(hibernate.getSessionFactory());
-        //environment.addResource(br);
+
+        final Client client = new JerseyClientBuilder().using(environment).using(configuration.getJerseyClientConfiguration()).build();
+
+        environment.addResource(new EventResource(client, configuration));
 
     }
 
