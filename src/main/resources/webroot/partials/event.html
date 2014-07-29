@@ -1,15 +1,17 @@
 <table class="table table-condensed table-bordered" ng-controller="RepeatController">
 	
 	<tr class="active">
+			<th>ID</th>
 			<th>Datum</th>
 			<th>Veranstaltung</th>
 			<th></th>
 	</tr>
 	
 	<tr class="warning" ng-repeat="event in events">
+		<td>{{event.id}}</td>
 		<td>{{event.date}}</td>
 		<td>{{event.event}}</td>
-		<td><input type="button" id="button.anmelden" name="button.anmelden" value="Anmelden" title="Anmelden"/></td>
+		<td><a href="#/register/{{event.id}}"><input type="button" value="Anmelden"/></a></td>
 	</tr>
   	
 </table>
