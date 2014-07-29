@@ -23,6 +23,9 @@ onlineRegApp.config(function ($routeProvider) {
     }).when('/event', {
         templateUrl: 'partials/event.html',
         controller: 'EventController'
+    }).when('/register/:eventId', {
+        templateUrl: 'partials/register.html',
+        controller: 'RegisterController'
     }).otherwise({
         redirectTo: '/login'
     });
@@ -50,8 +53,17 @@ onlineRegApp.controller('EventController', function ($scope) {
 });
 
 onlineRegApp.controller('RepeatController', function($scope) {
-  $scope.events = [
-    {date: '03.11.2014', event: 'Tag der Deutschen Einheit'},
-    {date: '13.10.2014', event: 'Woche der Brüderlichkeit'},
-    {date: '28.10.2014', event: 'Kamingespräch'},
+    $scope.events = [
+    {id: 1, date: '03.11.2014', event: 'Tag der Deutschen Einheit'},
+    {id: 2, date: '13.10.2014', event: 'Woche der Brüderlichkeit'},
+    {id: 3, date: '28.10.2014', event: 'Kamingespräch'},
   ]});
+
+onlineRegApp.controller('RegisterController', function ($scope, $routeParams) {
+	
+	$scope.register = function () {
+        console.log("register with eventId.");
+        $location.path("/register/:eventId");	
+    }
+	$scope.eventID=$routeParams.eventId;
+});
