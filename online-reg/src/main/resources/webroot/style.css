@@ -110,6 +110,10 @@ body {
     border-radius: 0;
 }
 
+.button_column {
+    text-align: center;
+}
+
 /** Login */
 
 .login-container {
