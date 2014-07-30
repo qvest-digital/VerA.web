@@ -59,7 +59,7 @@ public class EventResource {
         return readResource(path(eventId));
     }
 
-    @GET
+    @POST
     @Path("/{eventId}/register")
     public boolean register(@PathParam("eventId") int eventId, @QueryParam("acceptance") String acceptance, @QueryParam("noteToHost")String noteToHost) {
         WebResource r = client.resource(path(eventId, "register"));

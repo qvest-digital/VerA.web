@@ -1,5 +1,10 @@
 
-myConfigValue: "1100101"
+verawebEndpoint: http://localhost:9090
+
+## start WireMock:
+# cd src/test/resources/wiremock
+# java -jar /path/to/wirekmock.jar --port 9090
+
 
 
 ####################################
