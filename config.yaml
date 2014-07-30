@@ -1,5 +1,5 @@
 
-verawebEndpoint: http://localhost:9090
+verawebEndpoint: http://localhost:8080
 
 ## start WireMock:
 # cd src/test/resources/wiremock
