@@ -1,4 +1,3 @@
 target/online-registration-1.0-SNAPSHOT.jar	usr/share/vw-onlinereg
 
 debian/etc/*                    etc/vw-onlinereg
-config.yaml                     etc/vw-onlinereg
