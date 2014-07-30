@@ -1,22 +1,29 @@
+<h3>Anmeldung: </h3>
+<!-- {{events.pk}} -->
+{{events.shortname}}<br><br>	
+am {{parseDate(events.datebegin) | date:'dd.MM.yyyy HH:mm'}}<br><br>
 
-<h3>Anmeldung: </h3>{{events.pk}}<br><br>
-	
-	{{events.shortname}}<br><br>
-	
-	am {{events.datebegin}}<br><br>
+<form method="post" role="form" >
 
-
-{{eventID}}
-
+	<div class="dropdown">
+	  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
+	    Offen
+	    <span class="caret"></span>
+	  </button>
+	  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+	    <li role="presentation"><a role="menuitem" tabindex="-1">Zusage</a></li>
+	    <li role="presentation"><a role="menuitem" tabindex="-1">Absage</a></li>
+	  </ul>
+	</div>
 	
+	<br><br>
 	
-<div class="dropdown">
-  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
-    Offen
-    <span class="caret"></span>
-  </button>
-  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-    <li role="presentation"><a role="menuitem" tabindex="-1">Zusage</a></li>
-    <li role="presentation"><a role="menuitem" tabindex="-1">Absage</a></li>
-  </ul>
-</div>
+	Hinweis Gastgeber<br>
+	<div class="input-group">
+	  <input type="text" class="form-control" name="notice">
+	</div>
+	
+    <br><br>
+    
+    <button class="btn btn-lg btn-primary btn-custom" type="submit" ng-click="" >Speichern</button>
+</form>
