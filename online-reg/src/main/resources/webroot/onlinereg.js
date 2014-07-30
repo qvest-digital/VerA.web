@@ -45,19 +45,26 @@ onlineRegApp.controller('WelcomeController', function ($scope, $location) {
 
 });
 
-onlineRegApp.controller('EventController', function ($scope) {
+onlineRegApp.controller('EventController', function ($scope, $http) {
+    $http.get('/api/event/list').success(function (result) {
+        console.log("loaded data");
+        $scope.events = result;
+    });
+});
+
+/*onlineRegApp.controller('EventController', function ($scope) {
     $scope.events = [
         {id: 1, date: '03.11.2014', event: 'Tag der Deutschen Einheit'},
         {id: 2, date: '13.10.2014', event: 'Woche der Brüderlichkeit'},
         {id: 3, date: '28.10.2014', event: 'Kamingespräch'},
     ];
-});
+});*/
 
-onlineRegApp.controller('RegisterController', function ($scope, $routeParams) {
+onlineRegApp.controller('RegisterController', function ($scope, $routeParams, $http) {
 
-    $scope.register = function () {
-        console.log("register with eventId.");
-        $location.path("/register/:eventId");
-    }
-    $scope.eventID = $routeParams.eventId;
+   $scope.eventID =  $routeParams.eventId;
+   $http.get('/api/event/'+$routeParams.eventId).success(function (result) {
+        console.log("loaded data");
+        $scope.events = result;
+    });
 });
