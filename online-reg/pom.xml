@@ -14,7 +14,7 @@
 
     Launch from command line:
       Maven build: mvn package
-      java -jar target/dropwizard-demo-1.0-SNAPSHOT.jar server config.yaml
+      java -jar target/online-registration-1.0-SNAPSHOT.jar server config.yaml
 
 
     -->
