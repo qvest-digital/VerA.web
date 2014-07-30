@@ -1,17 +1,15 @@
-<table class="table table-condensed table-bordered" >
+<table class="table" >
 	
 	<tr class="active">
-			<th>ID</th>
 			<th>Datum</th>
 			<th>Veranstaltung</th>
 			<th></th>
 	</tr>
 	
-	<tr class="warning" ng-repeat="event in events">
-		<th>{{event.pk}}</th>
-		<td>{{event.datebegin}}</td>
+	<tr ng-repeat="event in events">
+		<td>{{parseDate(event.datebegin) | date:'dd.MM.yyyy HH:mm'}}</td>
 		<td>{{event.shortname}}</td>
-		<td class="button_column"><a href="#/register/{{event.pk}}"><input type="button" value="Anmelden"/></a></td>
+		<td class="button_column"><a href="#/register/{{event.pk}}"><input type="button" class="btn-custom" value="Anmelden"/></a></td>
 	</tr>
   	
 </table>

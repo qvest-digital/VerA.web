@@ -46,6 +46,13 @@ onlineRegApp.controller('WelcomeController', function ($scope, $location) {
 });
 
 onlineRegApp.controller('EventController', function ($scope, $http) {
+
+    $scope.parseDate = function(dt) {
+        // "2014-11-03 00:00:00+02"
+        // timezone offset is ignored
+        return moment(dt, "YYYY-MM-DD HH:mm:ss").toDate();
+    }
+
     $http.get('/api/event/list').success(function (result) {
         console.log("loaded data");
         $scope.events = result;
