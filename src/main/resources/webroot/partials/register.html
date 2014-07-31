@@ -1,29 +1,39 @@
-<h3>Anmeldung: </h3>
-<!-- {{events.pk}} -->
-{{events.shortname}}<br><br>	
-am {{parseDate(events.datebegin) | date:'dd.MM.yyyy HH:mm'}}<br><br>
+<div>
 
-<form method="post" role="form" >
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title"><h3>Anmeldung: {{event.shortname}}</h3></h3>
+        </div>
 
-	<div class="dropdown">
-	  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
-	    Offen
-	    <span class="caret"></span>
-	  </button>
-	  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-	    <li role="presentation"><a role="menuitem" tabindex="-1">Zusage</a></li>
-	    <li role="presentation"><a role="menuitem" tabindex="-1">Absage</a></li>
-	  </ul>
-	</div>
-	
-	<br><br>
-	
-	Hinweis Gastgeber<br>
-	<div class="input-group">
-	  <input type="text" class="form-control" name="notice">
-	</div>
-	
-    <br><br>
-    
-    <button class="btn btn-lg btn-primary btn-custom" type="submit" ng-click="" >Speichern</button>
-</form>
+        <div class="panel-body">
+
+            <form class="form-horizontal" role="form">
+
+                <div class="form-group">
+                    <label for="acceptance" class="col-lg-4 control-label">Teilnahme</label>
+                    <div class="col-lg-4">
+                        <select class="form-control" id="acceptance" ng-model="acceptance"
+                                ng-options="a.label for a in acceptanceOptions">
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="noteToHost" class="col-lg-4 control-label">Hinweis Gastgeber</label>
+
+                    <div class="col-lg-4">
+                        <textarea class="form-control" id="noteToHost" rows="3" ng-model="noteToHost" ></textarea>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-lg-offset-4 col-lg-4">
+                        <button type="submit" class="btn btn-default" ng-click="save()">Speichern</button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+</div>
