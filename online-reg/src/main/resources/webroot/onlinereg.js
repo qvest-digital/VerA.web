@@ -47,7 +47,7 @@ onlineRegApp.controller('WelcomeController', function ($scope, $location) {
 
 onlineRegApp.controller('EventController', function ($scope, $http) {
 
-    $scope.parseDate = function(dt) {
+    $scope.parseDate = function (dt) {
         // "2014-11-03 00:00:00+02"
         // timezone offset is ignored
         return moment(dt, "YYYY-MM-DD HH:mm:ss").toDate();
@@ -59,19 +59,22 @@ onlineRegApp.controller('EventController', function ($scope, $http) {
     });
 });
 
-/*onlineRegApp.controller('EventController', function ($scope) {
-    $scope.events = [
-        {id: 1, date: '03.11.2014', event: 'Tag der Deutschen Einheit'},
-        {id: 2, date: '13.10.2014', event: 'Woche der Brüderlichkeit'},
-        {id: 3, date: '28.10.2014', event: 'Kamingespräch'},
-    ];
-});*/
-
 onlineRegApp.controller('RegisterController', function ($scope, $routeParams, $http) {
 
-   $scope.eventID =  $routeParams.eventId;
-   $http.get('/api/event/'+$routeParams.eventId).success(function (result) {
+    $scope.acceptanceOptions = [
+        {id: 1, label: "Offen"},
+        {id: 2, label: "Zusage"},
+        {id: 3, label: "Absage"}
+    ];
+
+    $scope.acceptance = $scope.acceptanceOptions[0];
+
+    $http.get('/api/event/' + $routeParams.eventId).success(function (result) {
         console.log("loaded data");
-        $scope.events = result;
+        $scope.event = result;
     });
+
+    $scope.save = function() {
+        console.log("Teilnahme speichern:" + $scope.acceptance+" "+$scope.noteToHost);
+    }
 });
