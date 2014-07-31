@@ -12,6 +12,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -22,8 +24,21 @@ public class OnlineRegistration {
 
     private static final String GET_EVENT_TEMPLATE = "select tevent.*, tlocation.locationname from tevent left outer join tlocation on tevent.fk_location = tlocation.pk";
 
+    @GET
+    @Path("/available")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String isAvailable() {
+        try {
+            DBUtils.getConnection().close();
+            return "OK";
+        } catch (SQLException e) {
+            return e.getMessage();
+        }
+    }
+
     /**
      * Get a list of all events.
+     *
      * @return JSON array with all events and their location
      * @throws SQLException
      */
@@ -31,58 +46,124 @@ public class OnlineRegistration {
     @Path("/event/list")
     @Produces(MediaType.APPLICATION_JSON)
     public String getEvents() throws SQLException {
-
-        ResultSet resultSet = null;
+        Connection c = null;
         try {
-            Connection c = DBUtils.getConnection();
+            c = DBUtils.getConnection();
 
             Statement statement = c.createStatement();
             statement.execute(GET_EVENT_TEMPLATE);
-            resultSet = statement.getResultSet();
+            ResultSet resultSet = statement.getResultSet();
 
-            String json = DBUtils.resultSetToJson(resultSet);
-            return json;
+            return DBUtils.resultSetToJson(resultSet);
         } finally {
-            DBUtils.close(resultSet);
+            DBUtils.close(c);
         }
     }
 
+    /**
+     * Get a single event
+     *
+     * @param eventId id of the event
+     * @return returns event as json or throws an exception is event is not found
+     * @throws SQLException
+     */
     @GET
     @Path("/event/{eventId}")
     @Produces(MediaType.APPLICATION_JSON)
     public String getEvent(@PathParam("eventId") int eventId) throws SQLException {
-
-        ResultSet resultSet = null;
+        Connection c = null;
         try {
-            Connection c = DBUtils.getConnection();
-            String sql = GET_EVENT_TEMPLATE+ " where tevent.pk = ? ";
+            c = DBUtils.getConnection();
+            String sql = GET_EVENT_TEMPLATE + " where tevent.pk = ? ";
             PreparedStatement ps = c.prepareStatement(sql);
             ps.setInt(1, eventId);
-            resultSet = ps.executeQuery();
+            ResultSet resultSet = ps.executeQuery();
 
-            if(resultSet.next()) {
+            if (resultSet.next()) {
                 return DBUtils.singleResultToJSON(resultSet, DBUtils.getColumnNames(resultSet), null);
             }
             throw new VeraWebRestException("no data found");
         } finally {
-            DBUtils.close(resultSet);
+            DBUtils.close(c);
         }
 
 
     }
 
-    @POST
-    @Path("/event/{eventId}/register")
-    public boolean registerForEvent(@PathParam("eventId") int eventId, @QueryParam("acceptance") String acceptance, @QueryParam("notesToHost") String notesToHost) throws SQLException {
-        Statement statement = null;
+    /**
+     * Get the registration status of a user for an event
+     *
+     * @param eventId event id
+     * @param userId  user id
+     * @return registration status and note to host
+     * @throws SQLException
+     */
+    @GET
+    @Path("/event/{eventId}/register/{userId}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Map<String, String> getRegistration(@PathParam("eventId") int eventId, @PathParam("userId") int userId) throws SQLException {
+        Connection c = null;
         try {
-            Connection c = DBUtils.getConnection();
+            c = DBUtils.getConnection();
 
-            statement = c.createStatement();
-            //return statement.execute("select * from tevent left outer join tlocation on tevent.fk_location = tlocation.pk;");
-            return true;
-        }finally {
-            DBUtils.close(statement);
+
+            PreparedStatement ps = c.prepareStatement("select invitationstatus, notehost from tguest where fk_person = ? and fk_event = ?");
+            ps.setInt(1, userId);
+            ps.setInt(2, eventId);
+            ResultSet resultSet = ps.executeQuery();
+            if (resultSet.next()) {
+
+                Map<String, String> result = new HashMap<String, String>();
+                result.put("acceptance", Integer.toString(resultSet.getInt(1)));
+                result.put("noteToHost", resultSet.getString(2));
+
+                return result;
+            }
+        } finally {
+            DBUtils.close(c);
+        }
+        return null;
+    }
+
+    /**
+     * Save registration status
+     *
+     * @param eventId    event id
+     * @param userId     user id
+     * @param acceptance acceptance status.
+     * @param noteToHost note to host
+     * @return true if changes where saved
+     * @throws SQLException
+     */
+    @POST
+    @Path("/event/{eventId}/register/{userId}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public boolean registerForEvent(@PathParam("eventId") int eventId, @PathParam("userId") int userId, @QueryParam("acceptance") int acceptance, @QueryParam("noteToHost") String noteToHost) throws SQLException {
+        Connection c = null;
+
+        try {
+            c = DBUtils.getConnection();
+
+
+            PreparedStatement ps = c.prepareStatement("select 1 from tguest where fk_person = ? and fk_event = ?");
+            ps.setInt(1, userId);
+            ps.setInt(2, eventId);
+            if (!ps.executeQuery().next()) {
+                // user is not invited to this event.
+                return false;
+            }
+
+            ps = c.prepareStatement("UPDATE tguest SET invitationstatus=?, notehost=? WHERE fk_person = ? and fk_event = ?");
+            ps.setInt(1, acceptance);
+            ps.setString(2, noteToHost);
+            ps.setInt(3, userId);
+            ps.setInt(4, eventId);
+
+            int updated = ps.executeUpdate();
+            c.commit();
+            return updated == 1;
+        } finally {
+            DBUtils.close(c);
         }
     }
 
