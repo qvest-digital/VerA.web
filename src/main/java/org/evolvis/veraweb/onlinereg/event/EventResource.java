@@ -12,6 +12,7 @@ import javax.ws.rs.Produces;
 
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
+import java.util.Map;
 
 /**
  * Created by mley on 29.07.14.
@@ -31,8 +32,8 @@ public class EventResource {
     }
 
     private String path(Object... path) {
-        String r = config.getVerawebEndpoint()+EVENT_RESOURCE;
-        if(path != null) {
+        String r = config.getVerawebEndpoint() + EVENT_RESOURCE;
+        if (path != null) {
             for (Object p : path) {
                 if (p != null) {
                     r += "/" + p;
@@ -59,13 +60,18 @@ public class EventResource {
         return readResource(path(eventId));
     }
 
+    @GET
+    @Path("/{eventId}/register/{userId}")
+    public String getRegistration(@PathParam("eventId") int eventId, @PathParam("userId") int userId) {
+        return readResource(path(eventId, "register", userId));
+    }
+
     @POST
-    @Path("/{eventId}/register")
-    public boolean register(@PathParam("eventId") int eventId, @QueryParam("acceptance") String acceptance, @QueryParam("noteToHost")String noteToHost) {
-        WebResource r = client.resource(path(eventId, "register"));
-        r.queryParam("acceptance", acceptance);
-        r.queryParam("noteToHost", noteToHost);
-        return r.post(Boolean.class);
+    @Path("/{eventId}/register/{userId}")
+    public String register(@PathParam("eventId") int eventId, @PathParam("userId") int userId, @QueryParam("acceptance") String acceptance, @QueryParam("noteToHost") String noteToHost) {
+        WebResource r = client.resource(path(eventId, "register", userId));
+        String result = r.queryParam("acceptance", acceptance).queryParam("noteToHost", noteToHost).post(String.class);
+        return result;
     }
 
 }

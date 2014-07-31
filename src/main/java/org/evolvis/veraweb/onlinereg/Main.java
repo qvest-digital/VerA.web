@@ -38,10 +38,10 @@ public class Main extends Service<Config> {
 
     @Override
     public void run(final Config configuration, final Environment environment) {
-        environment.addHealthCheck(new Health());
+
 
         final Client client = new JerseyClientBuilder().using(environment).using(configuration.getJerseyClientConfiguration()).build();
-
+        environment.addHealthCheck(new Health(client, configuration.getVerawebEndpoint()));
         environment.addResource(new EventResource(client, configuration));
 
     }
