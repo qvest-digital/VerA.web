@@ -11,11 +11,11 @@ $(document).ready(function () {
 
 var onlineRegApp = angular.module('onlineRegApp', [ 'ngRoute', 'ui.bootstrap' ]);
 
-onlineRegApp.run(function($rootScope) {
-        $rootScope.parseDate = function (dt) {
-		return moment(dt, "YYYY-MM-DD HH:mm:ss").toDate();	
-	};
-    });
+onlineRegApp.run(function ($rootScope) {
+    $rootScope.parseDate = function (dt) {
+        return moment(dt, "YYYY-MM-DD HH:mm:ss").toDate();
+    };
+});
 
 
 onlineRegApp.config(function ($routeProvider) {
@@ -53,34 +53,49 @@ onlineRegApp.controller('WelcomeController', function ($scope, $location) {
 
 onlineRegApp.controller('EventController', function ($scope, $http) {
 
-  /*  $scope.parseDate = function (dt) {
-        // "2014-11-03 00:00:00+02"
-        // timezone offset is ignored
-        return moment(dt, "YYYY-MM-DD HH:mm:ss").toDate();
-    }*/
-
     $http.get('/api/event/list').success(function (result) {
         console.log("loaded data");
         $scope.events = result;
     });
+
 });
 
 onlineRegApp.controller('RegisterController', function ($scope, $routeParams, $http) {
 
+    // currently hardwired to 2
+    $scope.userId = 2;
+
     $scope.acceptanceOptions = [
-        {id: 1, label: "Offen"},
-        {id: 2, label: "Zusage"},
-        {id: 3, label: "Absage"}
+        {id: 0, label: "Offen"},
+        {id: 1, label: "Zusage"},
+        {id: 2, label: "Absage"}
     ];
 
     $scope.acceptance = $scope.acceptanceOptions[0];
 
     $http.get('/api/event/' + $routeParams.eventId).success(function (result) {
-        console.log("loaded data");
-        $scope.event = result;
+         $scope.event = result;
     });
 
-    $scope.save = function() {
-        console.log("Teilnahme speichern:" + $scope.acceptance+" "+$scope.noteToHost);
+    $http.get('/api/event/' + $routeParams.eventId + '/register/'+$scope.userId).success(function (result) {
+        if (result.acceptance) {
+            $scope.acceptance = $scope.acceptanceOptions[result.acceptance];
+        }
+        if (result.noteToHost) {
+            $scope.noteToHost = result.noteToHost;
+        }
+    });
+
+    $scope.save = function () {
+        $http({
+            method: 'POST',
+            url: '/api/event/' + $routeParams.eventId + '/register/' + $scope.userId,
+            params: {
+                acceptance: $scope.acceptance.id,
+                noteToHost: $scope.noteToHost
+            }
+        }).success(function (result) {
+            console.log("Teilnahme gespeichert: " + result);
+        });
     }
 });

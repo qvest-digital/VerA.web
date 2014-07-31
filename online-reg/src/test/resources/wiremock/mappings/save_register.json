@@ -1,0 +1,13 @@
+{
+    "request": {
+        "method": "POST",
+        "url": "/veraweb/rest/onlinereg/event/[0-9]+/register/2"
+    },
+    "response": {
+        "status": 200,
+        "bodyFileName": "true",
+        "headers": {
+            "Content-Type": "application/json"
+        }
+    }
+}
