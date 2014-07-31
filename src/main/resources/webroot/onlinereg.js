@@ -11,6 +11,12 @@ $(document).ready(function () {
 
 var onlineRegApp = angular.module('onlineRegApp', [ 'ngRoute', 'ui.bootstrap' ]);
 
+onlineRegApp.run(function($rootScope) {
+        $rootScope.parseDate = function (dt) {
+		return moment(dt, "YYYY-MM-DD HH:mm:ss").toDate();	
+	};
+    });
+
 
 onlineRegApp.config(function ($routeProvider) {
 
@@ -47,11 +53,11 @@ onlineRegApp.controller('WelcomeController', function ($scope, $location) {
 
 onlineRegApp.controller('EventController', function ($scope, $http) {
 
-    $scope.parseDate = function (dt) {
+  /*  $scope.parseDate = function (dt) {
         // "2014-11-03 00:00:00+02"
         // timezone offset is ignored
         return moment(dt, "YYYY-MM-DD HH:mm:ss").toDate();
-    }
+    }*/
 
     $http.get('/api/event/list').success(function (result) {
         console.log("loaded data");
