@@ -31,4 +31,8 @@
         <res-auth>Container</res-auth>
     </resource-ref>
 
+    <listener>
+        <listener-class>org.evolvis.veraweb.onlinereg.HibernateSessionFactoryListener</listener-class>
+    </listener>
+    
 </web-app>
