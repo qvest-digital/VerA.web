@@ -13,16 +13,6 @@ verawebEndpoint: https://veraweb.lan.tarent.de/vwor
 ## http://dropwizard.codahale.com/manual/core/#configuration-defaults
 
 
-# DB configuration
-database:
-  driverClass: org.hsqldb.jdbc.JDBCDriver
-  user: sa
-  password: sa
-  url: jdbc:hsqldb:db/example
-  validationQuery: SELECT * FROM INFORMATION_SCHEMA.SYSTEM_TABLES
-  properties:
-    hibernate.hbm2ddl.auto: update
-
 # HTTP-specific options.
 http:
   # The port on which the HTTP server listens for service requests.
