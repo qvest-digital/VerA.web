@@ -1,13 +1,15 @@
 /**
  * Created by mley on 21.07.14.
  */
-$(document).ready(function () {
+
+
+/*$(document).ready(function () {
     // verA.web brand logo bar
     $('.navbar-lower').affix({
         offset: {top: 100}
     });
 
-});
+});*/
 
 var onlineRegApp = angular.module('onlineRegApp', [ 'ngRoute', 'ui.bootstrap' ]);
 
