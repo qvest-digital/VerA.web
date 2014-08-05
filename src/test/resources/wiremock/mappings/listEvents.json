@@ -1,7 +1,7 @@
 {
     "request": {
         "method": "GET",
-        "url": "/veraweb/rest/onlinereg/event/list"
+        "url": "/vwor/rest/event"
     },
     "response": {
         "status": 200,
