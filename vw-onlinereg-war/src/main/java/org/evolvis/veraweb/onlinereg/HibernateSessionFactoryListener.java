@@ -10,7 +10,7 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 import org.jboss.logging.Logger;
 
-@WebListener
+
 public class HibernateSessionFactoryListener implements ServletContextListener {
 
     public final Logger logger = Logger.getLogger(HibernateSessionFactoryListener.class);
