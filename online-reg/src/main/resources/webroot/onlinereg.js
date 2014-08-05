@@ -7,7 +7,7 @@ var onlineRegApp = angular.module('onlineRegApp', [ 'ngRoute', 'ui.bootstrap' ])
 
 onlineRegApp.run(function ($rootScope) {
     $rootScope.parseDate = function (dt) {
-        return moment(dt, "YYYY-MM-DD HH:mm:ss").toDate();
+        return moment(dt).toDate();
     };
 });
 
