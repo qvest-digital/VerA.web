@@ -6,5 +6,5 @@ echo `date` 'starting vw-onlinereg service' >> $STARTUP_LOG_FILE
 
 cd /etc/vw-onlinereg
 
-exec $JAVA_CMD -Xmx$JAVA_HEAP_SPACE -jar /usr/share/vw-onlinereg/online-registration-1.0-SNAPSHOT.jar  server config.yaml  >> $STARTUP_LOG_FILE 2>&1
+exec $JAVA_CMD -Xmx$JAVA_HEAP_SPACE -jar /usr/share/vw-onlinereg/vw-online-registration.jar  server config.yaml  >> $STARTUP_LOG_FILE 2>&1
 

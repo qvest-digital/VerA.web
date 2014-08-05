@@ -106,6 +106,8 @@
     </profiles>
 
     <build>
+        <finalName>vw-online-registration</finalName>
+
         <plugins>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
