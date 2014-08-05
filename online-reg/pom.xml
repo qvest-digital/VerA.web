@@ -58,6 +58,22 @@
 
     <build>
         <plugins>
+            <plugin>
+                <groupId>com.kelveden</groupId>
+                <artifactId>maven-karma-plugin</artifactId>
+                <version>1.1</version>
+                <executions>
+                    <execution>
+                        <id>runTests</id>
+                        <goals>
+                            <goal>start</goal>
+                        </goals>
+                        <configuration>
+                            <configFile>${basedir}/src/test/js/karma.conf.js</configFile>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
 
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
