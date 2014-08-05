@@ -3,14 +3,6 @@
  */
 
 
-/*$(document).ready(function () {
-    // verA.web brand logo bar
-    $('.navbar-lower').affix({
-        offset: {top: 100}
-    });
-
-});*/
-
 var onlineRegApp = angular.module('onlineRegApp', [ 'ngRoute', 'ui.bootstrap' ]);
 
 onlineRegApp.run(function ($rootScope) {
