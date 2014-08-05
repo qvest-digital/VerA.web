@@ -4,6 +4,7 @@ import com.sun.jersey.api.client.Client;
 import com.yammer.dropwizard.Service;
 import com.yammer.dropwizard.assets.AssetsBundle;
 import com.yammer.dropwizard.client.JerseyClientBuilder;
+import com.yammer.dropwizard.client.JerseyClientConfiguration;
 import com.yammer.dropwizard.config.Bootstrap;
 import com.yammer.dropwizard.config.Environment;
 import org.evolvis.veraweb.onlinereg.event.EventResource;
@@ -39,8 +40,9 @@ public class Main extends Service<Config> {
     @Override
     public void run(final Config configuration, final Environment environment) {
 
+        JerseyClientConfiguration jcc = configuration.getJerseyClientConfiguration();
 
-        final Client client = new JerseyClientBuilder().using(environment).using(configuration.getJerseyClientConfiguration()).build();
+        final Client client = new JerseyClientBuilder().using(environment).using(jcc).build();
         environment.addHealthCheck(new Health(client, configuration.getVerawebEndpoint()));
         environment.addResource(new EventResource(client, configuration));
 

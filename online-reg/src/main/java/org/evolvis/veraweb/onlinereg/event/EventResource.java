@@ -21,7 +21,7 @@ import java.util.Map;
 @Produces(MediaType.APPLICATION_JSON)
 public class EventResource {
 
-    public static final String EVENT_RESOURCE = "/veraweb/rest/onlinereg/event";
+    public static final String EVENT_RESOURCE = "/rest";
 
     private Client client;
     private Config config;
@@ -51,26 +51,26 @@ public class EventResource {
     @GET
     @Path("/list")
     public String getEvents() {
-        return readResource(path("list"));
+        return readResource(path("event"));
     }
 
     @GET
     @Path("/{eventId}")
     public String getEvent(@PathParam("eventId") int eventId) {
-        return readResource(path(eventId));
+        return readResource(path("event", eventId));
     }
 
     @GET
     @Path("/{eventId}/register/{userId}")
     public String getRegistration(@PathParam("eventId") int eventId, @PathParam("userId") int userId) {
-        return readResource(path(eventId, "register", userId));
+        return readResource(path("guest", eventId, userId));
     }
 
     @POST
     @Path("/{eventId}/register/{userId}")
-    public String register(@PathParam("eventId") int eventId, @PathParam("userId") int userId, @QueryParam("acceptance") String acceptance, @QueryParam("noteToHost") String noteToHost) {
-        WebResource r = client.resource(path(eventId, "register", userId));
-        String result = r.queryParam("acceptance", acceptance).queryParam("noteToHost", noteToHost).post(String.class);
+    public String register(@PathParam("eventId") int eventId, @PathParam("userId") int userId, @QueryParam("invitationstatus") String invitationstatus, @QueryParam("notehost") String notehost) {
+        WebResource r = client.resource(path("guest", eventId, userId));
+        String result = r.queryParam("invitationstatus", invitationstatus).queryParam("notehost", notehost).post(String.class);
         return result;
     }
 
