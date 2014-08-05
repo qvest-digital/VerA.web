@@ -1,5 +1,5 @@
 
-verawebEndpoint: https://veraweb.lan.tarent.de
+verawebEndpoint: https://veraweb.lan.tarent.de/vwor
 
 ## start WireMock:
 # cd src/test/resources/wiremock
