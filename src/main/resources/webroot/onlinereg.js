@@ -1,13 +1,7 @@
 /**
  * Created by mley on 21.07.14.
  */
-$(document).ready(function () {
-    // verA.web brand logo bar
-    $('.navbar-lower').affix({
-        offset: {top: 100}
-    });
 
-});
 
 var onlineRegApp = angular.module('onlineRegApp', [ 'ngRoute', 'ui.bootstrap' ]);
 
@@ -78,11 +72,11 @@ onlineRegApp.controller('RegisterController', function ($scope, $routeParams, $h
     });
 
     $http.get('/api/event/' + $routeParams.eventId + '/register/'+$scope.userId).success(function (result) {
-        if (result.acceptance) {
-            $scope.acceptance = $scope.acceptanceOptions[result.acceptance];
+        if (result.invitationstatus) {
+            $scope.acceptance = $scope.acceptanceOptions[result.invitationstatus];
         }
-        if (result.noteToHost) {
-            $scope.noteToHost = result.noteToHost;
+        if (result.notehost) {
+            $scope.noteToHost = result.notehost;
         }
     });
 
@@ -91,8 +85,8 @@ onlineRegApp.controller('RegisterController', function ($scope, $routeParams, $h
             method: 'POST',
             url: '/api/event/' + $routeParams.eventId + '/register/' + $scope.userId,
             params: {
-                acceptance: $scope.acceptance.id,
-                noteToHost: $scope.noteToHost
+                invitationstatus: $scope.acceptance.id,
+                notehost: $scope.noteToHost
             }
         }).success(function (result) {
             console.log("Teilnahme gespeichert: " + result);

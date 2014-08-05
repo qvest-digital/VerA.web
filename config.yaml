@@ -1,5 +1,5 @@
 
-verawebEndpoint: http://localhost:9090
+verawebEndpoint: http://localhost:8080/vwor
 
 ## start WireMock:
 # cd src/test/resources/wiremock
@@ -12,16 +12,6 @@ verawebEndpoint: http://localhost:9090
 ## For more options take a look at:
 ## http://dropwizard.codahale.com/manual/core/#configuration-defaults
 
-
-# DB configuration
-database:
-  driverClass: org.hsqldb.jdbc.JDBCDriver
-  user: sa
-  password: sa
-  url: jdbc:hsqldb:db/example
-  validationQuery: SELECT * FROM INFORMATION_SCHEMA.SYSTEM_TABLES
-  properties:
-    hibernate.hbm2ddl.auto: update
 
 # HTTP-specific options.
 http:
