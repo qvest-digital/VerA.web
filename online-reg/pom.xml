@@ -110,6 +110,7 @@
 
 
             <!--install NPM modules for karma tests -->
+            <!--
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
@@ -130,8 +131,9 @@
                     </execution>
                 </executions>
             </plugin>
-
+            -->
             <!-- JavaScript unit testing with karma -->
+            <!--
             <plugin>
                 <groupId>com.kelveden</groupId>
                 <artifactId>maven-karma-plugin</artifactId>
@@ -153,7 +155,7 @@
                     <autoWatch>false</autoWatch>
                 </configuration>
             </plugin>
-
+            -->
 
 
         </plugins>
