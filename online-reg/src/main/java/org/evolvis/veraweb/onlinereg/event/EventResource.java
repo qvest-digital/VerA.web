@@ -1,7 +1,10 @@
 package org.evolvis.veraweb.onlinereg.event;
 
 import com.sun.jersey.api.client.Client;
+import com.sun.jersey.api.client.ClientHandlerException;
 import com.sun.jersey.api.client.WebResource;
+import lombok.extern.java.Log;
+import lombok.extern.log4j.Log4j2;
 import org.evolvis.veraweb.onlinereg.Config;
 
 import javax.ws.rs.GET;
@@ -12,6 +15,7 @@ import javax.ws.rs.Produces;
 
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
+import java.net.SocketTimeoutException;
 import java.util.Map;
 
 /**
@@ -19,6 +23,7 @@ import java.util.Map;
  */
 @Path("/event")
 @Produces(MediaType.APPLICATION_JSON)
+@Log
 public class EventResource {
 
     public static final String EVENT_RESOURCE = "/rest";
@@ -44,8 +49,21 @@ public class EventResource {
     }
 
     private String readResource(String path) {
-        WebResource resource = client.resource(path);
-        return resource.get(String.class);
+        WebResource resource;
+        try {
+            resource = client.resource(path);
+            return resource.get(String.class);
+        } catch (ClientHandlerException che) {
+            if (che.getCause() instanceof SocketTimeoutException) {
+                // some times open, pooled connections time out and generate errors
+                log.warning("Retrying request to " + path + " once because of SocketTimeoutException");
+                resource = client.resource(path);
+                return resource.get(String.class);
+            } else {
+                throw che;
+            }
+
+        }
     }
 
     @GET
