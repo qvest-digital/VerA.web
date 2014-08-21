@@ -26,6 +26,9 @@ onlineRegApp.config(function ($routeProvider) {
     }).when('/register/:eventId', {
         templateUrl: 'partials/register.html',
         controller: 'RegisterController'
+     }).when('/register_user', {
+        templateUrl: 'partials/register_user.html',
+        controller: 'RegisterUserController'
     }).otherwise({
         redirectTo: '/login'
     });
@@ -69,6 +72,7 @@ onlineRegApp.controller('RegisterController', function ($scope, $routeParams, $h
 
     $http.get('/api/event/' + $routeParams.eventId).success(function (result) {
          $scope.event = result;
+	 console.log("Auswahl: "+$scope.event.shortname);
     });
 
     $http.get('/api/event/' + $routeParams.eventId + '/register/'+$scope.userId).success(function (result) {
@@ -78,6 +82,7 @@ onlineRegApp.controller('RegisterController', function ($scope, $routeParams, $h
         if (result.notehost) {
             $scope.noteToHost = result.notehost;
         }
+	console.log("Teilnahme: "+$scope.acceptance.label);
     });
 
     $scope.save = function () {
@@ -92,4 +97,9 @@ onlineRegApp.controller('RegisterController', function ($scope, $routeParams, $h
             console.log("Teilnahme gespeichert: " + result);
         });
     }
+});
+
+onlineRegApp.controller('RegisterUserController', function ($scope, $location) {
+
+
 });
