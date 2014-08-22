@@ -1,45 +1,52 @@
-
-    
-
-<div class="">
+<div class="container">
     <div class="panel">
-
         <div class="panel-body">
-
             <form class="form-horizontal" role="form">
 				<h2 class="form-signin-heading">Registrieren</h2>
-                <div class="form-group">
-                    <label for="noteToHost" class="col-lg-4 control-label">Vorname</label>
-                    <div class="col-lg-4">
+ 
+                <div class="form-group">                            
+                    <label for="osiam_firstname" class="col-lg-4 control-label">Vorname</label>
+                    <div class="col-lg-3">
                         <input id="osiam_firstname" name="osiam_firstname" type="text" class="form-control"/>
                     </div>
-                    
-                    <label for="noteToHost" class="col-lg-4 control-label">Nachname</label>
-                    <div class="col-lg-4">
+                </div>    
+                
+                <div class="form-group">    
+                    <label for="osiam_secondname" class="col-lg-4 control-label">Nachname</label>
+                    <div class="col-lg-3">
                         <input id="osiam_secondname" name="osiam_secondname" type="text" class="form-control"/>
                     </div>
-                    
-                    <label for="noteToHost" class="col-lg-4 control-label">Anmeldename</label>
-                    <div class="col-lg-4">
+                </div> 
+                 
+                <div class="form-group">   
+                    <label for="osiam_username" class="col-lg-4 control-label">Anmeldename</label>
+                    <div class="col-lg-3">
                         <input id="osiam_username" name="osiam_username" type="text" class="form-control"/>
                     </div>
-                    
-                    <label for="noteToHost" class="col-lg-4 control-label">Passwort</label>
-                    <div class="col-lg-4">
-                        <input id="osiam_password" name="osiam_password" type="password" class="form-control"/>
+                </div> 
+                
+                <div class="form-group">    
+                    <label for="osiam_password1" class="col-lg-4 control-label">Passwort</label>
+                    <div class="col-lg-3">
+                        <input id="osiam_password1" name="osiam_password1" type="password" class="form-control"/>
                     </div>
-                    
-                    <label for="noteToHost" class="col-lg-4 control-label">Passwort wiederholen</label>
-                    <div class="col-lg-4">
-                        <input id="osiam_password_again" name="osiam_password_again" type="password" class="form-control"/>
+                </div> 
+                
+                <div class="form-group">    
+                    <label for="osiam_password2" class="col-lg-4 control-label">Passwort wiederholen</label>
+                    <div class="col-lg-3">
+                        <input id="osiam_password2" name="osiam_password2" type="password" class="form-control"/>
                     </div>
+                </div> 
                     
-                    <button class="btn btn-lg btn-primary btn-block btn-custom login-container" type="submit" ng-click="register_user()">Registrieren</button>
                     
-                </div>    
-                  
+                 <div class="form-group">                        
+                    <div class="col-lg-3 col-lg-offset-4">
+                        <button class="btn btn-lg btn-primary btn-block btn-custom" type="submit" ng-click="register_user()">Registrieren</button>
+                    </div>
+                </div>                    
+
             </form>
         </div>
     </div>
-</div>
 </div>
