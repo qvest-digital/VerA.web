@@ -101,5 +101,9 @@ onlineRegApp.controller('RegisterController', function ($scope, $routeParams, $h
 
 onlineRegApp.controller('RegisterUserController', function ($scope, $location) {
 
+	$scope.register_user = function () {
+        console.log("registering user.");
+        $location.path("/welcome");
+    }
 
 });
