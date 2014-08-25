@@ -26,7 +26,7 @@ onlineRegApp.config(function ($routeProvider) {
     }).when('/register/:eventId', {
         templateUrl: 'partials/register.html',
         controller: 'RegisterController'
-     }).when('/register_user', {
+    }).when('/register_user', {
         templateUrl: 'partials/register_user.html',
         controller: 'RegisterUserController'
     }).otherwise({
@@ -71,18 +71,18 @@ onlineRegApp.controller('RegisterController', function ($scope, $routeParams, $h
     $scope.acceptance = $scope.acceptanceOptions[0];
 
     $http.get('/api/event/' + $routeParams.eventId).success(function (result) {
-         $scope.event = result;
-	 console.log("Auswahl: "+$scope.event.shortname);
+        $scope.event = result;
+        console.log("Auswahl: " + $scope.event.shortname);
     });
 
-    $http.get('/api/event/' + $routeParams.eventId + '/register/'+$scope.userId).success(function (result) {
+    $http.get('/api/event/' + $routeParams.eventId + '/register/' + $scope.userId).success(function (result) {
         if (result.invitationstatus) {
             $scope.acceptance = $scope.acceptanceOptions[result.invitationstatus];
         }
         if (result.notehost) {
             $scope.noteToHost = result.notehost;
         }
-	console.log("Teilnahme: "+$scope.acceptance.label);
+        console.log("Teilnahme: " + $scope.acceptance.label);
     });
 
     $scope.save = function () {
@@ -101,7 +101,7 @@ onlineRegApp.controller('RegisterController', function ($scope, $routeParams, $h
 
 onlineRegApp.controller('RegisterUserController', function ($scope, $location) {
 
-	$scope.register_user = function () {
+    $scope.register_user = function () {
         console.log("registering user.");
         $location.path("/welcome");
     }
