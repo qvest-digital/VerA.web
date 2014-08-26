@@ -1,122 +1,135 @@
 <script>
-$(document).ready(function() {
-    $('#myForm').bootstrapValidator({
-	    fields: {
-	            osiam_firstname: {
-	                validators: {
-	                    notEmpty: {
-	                        message: 'Bitte füllen Sie dieses Feld aus.'
-	                    },
-	                    regexp: {
-	                        regexp: /^[a-z\s]+$/i,
-	                        message: 'Bitte geben Sie in dieses Feld nur Buchstaben und Leerzeichen ein.'
-	                    }
-	                }
-	            },
-	            osiam_secondname: {
-	                validators: {
-	                    notEmpty: {
-	                        message: 'Bitte füllen Sie dieses Feld aus.'
-	                    },
-	                    regexp: {
-	                        regexp: /^[a-z\s]+$/i,
-	                        message: 'Bitte geben Sie in dieses Feld nur Buchstaben und Leerzeichen ein.'
-	                    }
-	                }
-            	},
-            	osiam_username: {
-	                validators: {
-	                    notEmpty: {
-	                        message: 'Bitte füllen Sie dieses Feld aus.'
-	                    }
-	                }
-            	},
-            	osiam_password1: {
-	                validators: {
-	                    notEmpty: {
-	                        message: 'Bitte füllen Sie dieses Feld aus.'
-	                    },
-	                    callback: {
-	                        message: 'The password is not valid',
-	                        callback: function(value, validator, $field) {
-	
-	                            // Check the password strength
-	                            if (value.length < 5) {
-	                                return {
-	                                    valid: false,
-	                                    message: 'Das Passwort muss mindestens 5 Zeichen lang sein'
-	                                }
-	                            }else {return {valid:true}}
-	                         }
-	                    },
-	                    identical: {
-	                        field: 'osiam_password2',
-	                        message: 'Die Passwörter stimmen nicht überein.'
-	                    }
-	                }
-            	},
-            	osiam_password2: {
-	                validators: {
-	                    notEmpty: {
-	                        message: 'Bitte füllen Sie dieses Feld aus.'
-	                    },
-	                    identical: {
-	                        field: 'osiam_password1',
-	                        message: 'Die Passwörter stimmen nicht überein.'
-	                    }
-	                }
-            	}
-	    }
+    $(document).ready(function () {
+        $('#myForm').bootstrapValidator({
+            fields: {
+                osiam_firstname: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Bitte füllen Sie dieses Feld aus.'
+                        },
+                        regexp: {
+                            regexp: /^[a-z\s]+$/i,
+                            message: 'Bitte geben Sie in dieses Feld nur Buchstaben und Leerzeichen ein.'
+                        }
+                    }
+                },
+                osiam_secondname: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Bitte füllen Sie dieses Feld aus.'
+                        },
+                        regexp: {
+                            regexp: /^[a-z\s]+$/i,
+                            message: 'Bitte geben Sie in dieses Feld nur Buchstaben und Leerzeichen ein.'
+                        }
+                    }
+                },
+                osiam_username: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Bitte füllen Sie dieses Feld aus.'
+                        }
+                    }
+                },
+                osiam_password1: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Bitte füllen Sie dieses Feld aus.'
+                        },
+                        callback: {
+                            message: 'The password is not valid',
+                            callback: function (value, validator, $field) {
+
+                                // Check the password strength
+                                if (value.length < 5) {
+                                    return {
+                                        valid: false,
+                                        message: 'Das Passwort muss mindestens 5 Zeichen lang sein'
+                                    }
+                                } else {
+                                    return {valid: true}
+                                }
+                            }
+                        },
+                        identical: {
+                            field: 'osiam_password2',
+                            message: 'Die Passwörter stimmen nicht überein.'
+                        }
+                    }
+                },
+                osiam_password2: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Bitte füllen Sie dieses Feld aus.'
+                        },
+                        identical: {
+                            field: 'osiam_password1',
+                            message: 'Die Passwörter stimmen nicht überein.'
+                        }
+                    }
+                }
+            }
+        });
     });
-});
 </script>
 
 <div class="container panel panel-body">
-     <form class="form-horizontal" method="post" role="form" id="myForm">
-     	<h2 class="form-signin-heading">Registrieren</h2>
- 
-        <div class="form-group">                            
-        	<label for="osiam_firstname" class="col-lg-4 control-label">Vorname</label>
+    <form class="form-horizontal" method="post" role="form" id="myForm">
+        <h2 class="form-signin-heading">Registrieren</h2>
+
+        <div class="form-group">
+            <label for="osiam_firstname" class="col-lg-4 control-label">Vorname</label>
+
             <div class="col-lg-3">
-                 <input id="osiam_firstname" name="osiam_firstname" type="text" class="form-control" ng-model="osiam_firstname"/>
+                <input id="osiam_firstname" name="osiam_firstname" type="text" class="form-control"
+                       ng-model="osiam_firstname"/>
             </div>
-        </div>    
-                
-        <div class="form-group">    
+        </div>
+
+        <div class="form-group">
             <label for="osiam_secondname" class="col-lg-4 control-label">Nachname</label>
+
             <div class="col-lg-3">
-                 <input id="osiam_secondname" name="osiam_secondname" type="text" class="form-control" ng-model="osiam_secondname"/>
+                <input id="osiam_secondname" name="osiam_secondname" type="text" class="form-control"
+                       ng-model="osiam_secondname"/>
             </div>
-        </div> 
-                 
-        <div class="form-group">   
+        </div>
+
+        <div class="form-group">
             <label for="osiam_username" class="col-lg-4 control-label">Anmeldename</label>
+
             <div class="col-lg-3">
-                 <input id="osiam_username" name="osiam_username" type="text" class="form-control" type="number" ng-model="osiam_username"/>
+                <input id="osiam_username" name="osiam_username" type="text" class="form-control" type="number"
+                       ng-model="osiam_username"/>
             </div>
-        </div> 
-                
-        <div class="form-group">    
+        </div>
+
+        <div class="form-group">
             <label for="osiam_password1" class="col-lg-4 control-label" id="inputPassword">Passwort</label>
+
             <div class="col-lg-3">
-                 <input id="osiam_password1" name="osiam_password1" type="password" class="form-control" ng-model="osiam_password1"/>
+                <input id="osiam_password1" name="osiam_password1" type="password" class="form-control"
+                       ng-model="osiam_password1"/>
             </div>
-        </div> 
-                
-        <div class="form-group">    
+        </div>
+
+        <div class="form-group">
             <label for="osiam_password2" class="col-lg-4 control-label">Passwort wiederholen</label>
+
             <div class="col-lg-3">
                 <input id="osiam_password2" name="osiam_password2" type="password" class="form-control"/>
             </div>
-        </div> 
-                    
-        <div class="form-group">                        
+        </div>
+
+        <div class="form-group">
             <div class="col-lg-3 col-lg-offset-4">
-                 <button class="btn btn-lg btn-primary btn-block btn-custom" type="submit" ng-click="register_user()">Registrieren</button>
+                <button class="btn btn-lg btn-primary btn-block btn-custom" type="submit" ng-click="register_user()">
+                    Registrieren
+                </button>
             </div>
-        </div>                    
-		<div ng-if="success" class="alert alert-success" role="alert">{{success}}</div>
+        </div>
+        <div ng-if="success" class="alert alert-success" role="alert">{{success}}</div>
     </form>
-    
-    
+
+
 </div>
