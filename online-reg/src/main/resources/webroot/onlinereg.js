@@ -102,28 +102,23 @@ onlineRegApp.controller('RegisterController', function ($scope, $routeParams, $h
     }
 });
 
-onlineRegApp.controller('RegisterUserController', function ($scope, $location, $http, $routeParams) {
+onlineRegApp.controller('RegisterUserController', function ($scope, $location, $http) {
 
     $scope.register_user = function () {
         console.log("registering user.");
         $http({
             method: 'POST',
-            url: '/api/user/' + $routeParams.osiam_username,
+            url: '/api/user/'
             params: {
+		osiam_username: $scope.osiam_username,
                 osiam_firstname: $scope.osiam_firstname,
                 osiam_secondname: $scope.osiam_secondname,
 		osiam_password1: $scope.osiam_password1
             }
         }).success(function (result) {
             console.log("User prüfen: " + result);
+	    $scope.success="Benutzerdaten wurden gesendet.";
+            $scope.error="";
         });
     }
-
-    $http.get('/api/user/'+ $routeParams.osiam_username).succes(function(result){
-	
-	$scope.osiam_firstname = result.osiam_firstname;
-	$scope.osiam_secondname = result.osiam_secondname;
-	$scope.osiam_password1 = result.osiam_password1;
-    });
-
 });
