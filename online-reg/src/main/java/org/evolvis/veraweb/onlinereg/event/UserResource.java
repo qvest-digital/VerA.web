@@ -63,10 +63,23 @@ public class UserResource {
 }
   
   @POST
+  @Path("/{osiam_username}")
+  public String registerUser(@PathParam("osiam_username") String osiam_username, 
+		  					 @QueryParam("osiam_firstname") String osiam_firstname,
+                             @QueryParam("osiam_secondname") String osiam_secondname,
+                             @QueryParam("osiam_password1") String osiam_password1) {
+      if(osiam_username == "existinguser") {
+          return "USER_EXISTS";
+      }
+
+      return "OK";
+  }
+  
+ /* @POST
   @Path("/{osiam_username}/")
   public String registerUser(@PathParam("osiam_username") String osiam_username, @QueryParam("osiam_firstname") String osiam_firstname, @QueryParam("osiam_secondname") String osiam_secondname, @QueryParam("osiam_password1") String osiam_password1) {
       WebResource r = client.resource(path("user", osiam_username));
       String result = r.queryParam("osiam_firstname", osiam_firstname).queryParam("osiam_secondname", osiam_secondname).queryParam("osiam_password1", osiam_password1).post(String.class);
       return result;
-  }
+  }*/
 }
