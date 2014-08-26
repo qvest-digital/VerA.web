@@ -29,6 +29,9 @@ onlineRegApp.config(function ($routeProvider) {
     }).when('/register_user', {
         templateUrl: 'partials/register_user.html',
         controller: 'RegisterUserController'
+    }).when('/user/:osiam_username', {
+        templateUrl: 'partials/register_user.html',
+        controller: 'RegisterUserController'
     }).otherwise({
         redirectTo: '/login'
     });
@@ -99,11 +102,28 @@ onlineRegApp.controller('RegisterController', function ($scope, $routeParams, $h
     }
 });
 
-onlineRegApp.controller('RegisterUserController', function ($scope, $location) {
+onlineRegApp.controller('RegisterUserController', function ($scope, $location, $http, $routeParams) {
 
     $scope.register_user = function () {
         console.log("registering user.");
-        $location.path("/welcome");
+        $http({
+            method: 'POST',
+            url: '/api/user/' + $routeParams.osiam_username,
+            params: {
+                osiam_firstname: $scope.osiam_firstname,
+                osiam_secondname: $scope.osiam_secondname,
+		osiam_password1: $scope.osiam_password1
+            }
+        }).success(function (result) {
+            console.log("User prüfen: " + result);
+        });
     }
+
+    $http.get('/api/user/'+ $routeParams.osiam_username).succes(function(result){
+	
+	$scope.osiam_firstname = result.osiam_firstname;
+	$scope.osiam_secondname = result.osiam_secondname;
+	$scope.osiam_password1 = result.osiam_password1;
+    });
 
 });
