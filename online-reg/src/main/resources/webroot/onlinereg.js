@@ -41,7 +41,28 @@ onlineRegApp.controller('LoginController', function ($scope, $location) {
 
     $scope.login = function () {
         console.log("logging in.");
-        $location.path("/welcome");
+
+        $http({
+            method: 'POST',
+            url: '/api/idm/login/' + $scope.username,
+            params: {
+                password: $scope.password
+            }
+
+        }).success(function (result) {
+
+            if (result === "true") {
+                console.log("Login erfolgreich");
+                $location.path("/event");
+            } else {
+                // Benutzername oder Password falsch
+            }
+
+        }).error(function (data, status, headers, config) {
+
+            // Fehler (z.B. OSIAM nicht erreichbar)
+
+        });
     }
 
 });
@@ -108,17 +129,16 @@ onlineRegApp.controller('RegisterUserController', function ($scope, $location, $
         console.log("registering user.");
         $http({
             method: 'POST',
-            url: '/api/user/'
+            url: '/api/user/'+$scope.osiam_username,
             params: {
-		osiam_username: $scope.osiam_username,
                 osiam_firstname: $scope.osiam_firstname,
                 osiam_secondname: $scope.osiam_secondname,
-		osiam_password1: $scope.osiam_password1
+                osiam_password1: $scope.osiam_password1
             }
         }).success(function (result) {
             console.log("User prüfen: " + result);
-	    $scope.success="Benutzerdaten wurden gesendet.";
-            $scope.error="";
+            $scope.success = "Benutzerdaten wurden gesendet.";
+            $scope.error = null;
         });
     }
 });

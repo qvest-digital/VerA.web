@@ -52,8 +52,12 @@ public class Main extends Service<Config> {
                 .build();
         environment.addHealthCheck(new Health(client, configuration.getVerawebEndpoint()));
         environment.addResource(new EventResource(client, configuration));
-        environment.addResource(new UserResource(client, configuration));
+        environment.addResource(new UserResource(configuration));
+
+
 
     }
+
+
 
 }
