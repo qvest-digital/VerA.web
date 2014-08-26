@@ -9,6 +9,7 @@ import com.yammer.dropwizard.client.JerseyClientConfiguration;
 import com.yammer.dropwizard.config.Bootstrap;
 import com.yammer.dropwizard.config.Environment;
 import org.evolvis.veraweb.onlinereg.event.EventResource;
+import org.evolvis.veraweb.onlinereg.event.UserResource;
 
 
 public class Main extends Service<Config> {
@@ -51,6 +52,7 @@ public class Main extends Service<Config> {
                 .build();
         environment.addHealthCheck(new Health(client, configuration.getVerawebEndpoint()));
         environment.addResource(new EventResource(client, configuration));
+        environment.addResource(new UserResource(client, configuration));
 
     }
 
