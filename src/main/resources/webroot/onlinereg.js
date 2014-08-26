@@ -34,7 +34,7 @@ onlineRegApp.config(function ($routeProvider) {
     });
 });
 
-onlineRegApp.controller('LoginController', function ($scope, $location) {
+onlineRegApp.controller('LoginController', function ($scope, $location, $http) {
 
     $scope.login = function () {
         console.log("logging in.");

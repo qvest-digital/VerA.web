@@ -4,7 +4,6 @@ import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientHandlerException;
 import com.sun.jersey.api.client.WebResource;
 import lombok.extern.java.Log;
-import lombok.extern.log4j.Log4j2;
 import org.evolvis.veraweb.onlinereg.Config;
 
 import javax.ws.rs.GET;
@@ -12,11 +11,9 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import java.net.SocketTimeoutException;
-import java.util.Map;
 
 /**
  * Created by mley on 29.07.14.

@@ -1,7 +1,8 @@
 package org.evolvis.veraweb.onlinereg;
 
+import com.codahale.metrics.health.HealthCheck;
 import com.sun.jersey.api.client.Client;
-import com.yammer.metrics.core.HealthCheck;
+
 
 public class Health extends HealthCheck {
 
@@ -9,7 +10,6 @@ public class Health extends HealthCheck {
     private final Client client;
     private final String resource;
     public Health(Client client, String verawebEndpoint) {
-        super("vera.web REST Monitor");
         this.resource = verawebEndpoint + "/veraweb/rest/onlinereg/available";
         this.client = client;
     }
