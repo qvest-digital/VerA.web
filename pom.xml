@@ -57,7 +57,7 @@
         <dependency>
             <groupId>org.osiam</groupId>
             <artifactId>connector4java</artifactId>
-            <version>1.0</version>
+            <version>0.15</version>
         </dependency>
 
         <!-- @Data,Getter,Setter annotations -->

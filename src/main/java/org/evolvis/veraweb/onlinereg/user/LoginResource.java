@@ -1,10 +1,9 @@
 package org.evolvis.veraweb.onlinereg.user;
 
 import org.evolvis.veraweb.onlinereg.Config;
-import org.osiam.client.OsiamConnector;
+import org.osiam.client.connector.OsiamConnector;
 import org.osiam.client.exception.UnauthorizedException;
 import org.osiam.client.oauth.AccessToken;
-import org.osiam.client.oauth.Scope;
 
 import javax.servlet.ServletContext;
 import javax.ws.rs.POST;
@@ -56,9 +55,9 @@ public class LoginResource {
     @POST
     @Path("/login/{username}")
     public boolean login(@PathParam("username") String userName, @QueryParam("password") String password) {
-        OsiamConnector oc = config.getOsiam().getConnector();
+        OsiamConnector oc = config.getOsiam().getConnector(userName, password);
         try {
-            AccessToken accessToken = oc.retrieveAccessToken(userName, password, Scope.GET);
+            AccessToken accessToken = oc.retrieveAccessToken();
             context.setAttribute(ACCESS_TOKEN, accessToken);
             return true;
         } catch (UnauthorizedException ue) {

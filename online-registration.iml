@@ -9,6 +9,8 @@
       <sourceFolder url="file://$MODULE_DIR$/src/main/resources" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/resources" type="java-test-resource" />
       <excludeFolder url="file://$MODULE_DIR$/target/classes" />
+      <excludeFolder url="file://$MODULE_DIR$/target/maven-archiver" />
+      <excludeFolder url="file://$MODULE_DIR$/target/surefire" />
       <excludeFolder url="file://$MODULE_DIR$/target/test-classes" />
     </content>
     <orderEntry type="inheritedJdk" />
@@ -91,25 +93,14 @@
     <orderEntry type="library" name="Maven: com.sun.jersey.contribs:jersey-apache-client4:1.18.1" level="project" />
     <orderEntry type="library" name="Maven: org.apache.httpcomponents:httpclient:4.3.4" level="project" />
     <orderEntry type="library" name="Maven: org.apache.httpcomponents:httpcore:4.3.2" level="project" />
-    <orderEntry type="library" name="Maven: commons-codec:commons-codec:1.6" level="project" />
+    <orderEntry type="library" name="Maven: commons-codec:commons-codec:1.9" level="project" />
     <orderEntry type="library" name="Maven: com.codahale.metrics:metrics-httpclient:3.0.2" level="project" />
     <orderEntry type="library" name="Maven: io.dropwizard:dropwizard-assets:0.7.1" level="project" />
-    <orderEntry type="library" name="Maven: org.osiam:connector4java:1.0" level="project" />
-    <orderEntry type="library" name="Maven: org.osiam:scim-schema:1.0" level="project" />
+    <orderEntry type="library" name="Maven: org.osiam:connector4java:0.15" level="project" />
+    <orderEntry type="library" name="Maven: org.osiam:scim-schema:0.42" level="project" />
+    <orderEntry type="library" name="Maven: org.joda:joda-convert:1.6" level="project" />
     <orderEntry type="library" name="Maven: org.apache.tika:tika-core:1.5" level="project" />
     <orderEntry type="library" name="Maven: commons-io:commons-io:2.4" level="project" />
-    <orderEntry type="library" name="Maven: org.glassfish.jersey.connectors:jersey-apache-connector:2.8" level="project" />
-    <orderEntry type="library" name="Maven: org.glassfish.jersey.core:jersey-common:2.8" level="project" />
-    <orderEntry type="library" name="Maven: javax.ws.rs:javax.ws.rs-api:2.0" level="project" />
-    <orderEntry type="library" name="Maven: javax.annotation:javax.annotation-api:1.2" level="project" />
-    <orderEntry type="library" name="Maven: org.glassfish.jersey.bundles.repackaged:jersey-guava:2.8" level="project" />
-    <orderEntry type="library" name="Maven: org.glassfish.hk2:hk2-api:2.2.0" level="project" />
-    <orderEntry type="library" name="Maven: org.glassfish.hk2:hk2-utils:2.2.0" level="project" />
-    <orderEntry type="library" name="Maven: org.glassfish.hk2.external:aopalliance-repackaged:2.2.0" level="project" />
-    <orderEntry type="library" name="Maven: org.glassfish.hk2.external:javax.inject:2.2.0" level="project" />
-    <orderEntry type="library" name="Maven: org.glassfish.hk2:hk2-locator:2.2.0" level="project" />
-    <orderEntry type="library" name="Maven: org.glassfish.hk2:osgi-resource-locator:1.0.1" level="project" />
-    <orderEntry type="library" name="Maven: org.glassfish.jersey.core:jersey-client:2.8" level="project" />
   </component>
 </module>
 
