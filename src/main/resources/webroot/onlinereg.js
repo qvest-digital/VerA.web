@@ -126,23 +126,22 @@ onlineRegApp.controller('RegisterUserController', function ($scope, $location, $
         console.log("registering user.");
         $http({
             method: 'POST',
-            url: '/api/user/register_user',
+            url: '/api/user/register/'+$scope.osiam_username,
             params: {
-		osiam_username: $scope.osiam_username,
                 osiam_firstname: $scope.osiam_firstname,
                 osiam_secondname: $scope.osiam_secondname,
-		osiam_password1: $scope.osiam_password1
+                osiam_password1: $scope.osiam_password1
             }
         }).success(function (result) {
             console.log("User prüfen: " + result);
-	    $scope.success="Benutzerdaten wurden gesendet.";
-            
+            $scope.success = "Benutzerdaten wurden gesendet.";
+
         }).error(function (data, status, headers, config) {
-	    $scope.error="OSIAM error.";
-	    /*$scope.data=data;
-	    $scope.status=status;
-	    $scope.headers=headers;
-	    $scope.config=config;*/
+            $scope.error = "OSIAM error.";
+            /*$scope.data=data;
+             $scope.status=status;
+             $scope.headers=headers;
+             $scope.config=config;*/
             // Fehler (z.B. OSIAM nicht erreichbar)/**/
 
         });
