@@ -22,8 +22,8 @@ public class UserResource {
 
 
     @POST
-    @Path("/register_user")
-    public String registerUser(@QueryParam("osiam_username") String osiam_username,
+    @Path("/register/{osiam_username}")
+    public String registerUser(@PathParam("osiam_username") String osiam_username,
                                @QueryParam("osiam_firstname") String osiam_firstname,
                                @QueryParam("osiam_secondname") String osiam_secondname,
                                @QueryParam("osiam_password1") String osiam_password1) {
