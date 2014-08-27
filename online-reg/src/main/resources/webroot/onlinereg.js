@@ -121,8 +121,13 @@ onlineRegApp.controller('RegisterController', function ($scope, $routeParams, $h
 });
 
 onlineRegApp.controller('RegisterUserController', function ($scope, $location, $http) {
+     $scope.button = true;
 
-    $scope.register_user = function () {
+     $scope.changed = function() {
+	$scope.button = false;
+     }
+
+     $scope.register_user = function () {
         console.log("registering user.");
         $http({
             method: 'POST',
