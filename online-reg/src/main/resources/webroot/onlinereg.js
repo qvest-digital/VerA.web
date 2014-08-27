@@ -26,7 +26,10 @@ onlineRegApp.config(function ($routeProvider) {
     }).when('/register/:eventId', {
         templateUrl: 'partials/register.html',
         controller: 'RegisterController'
-    }).when('/register_user', {
+    }).when('/register/', {
+        templateUrl: 'partials/register_user.html',
+        controller: 'RegisterUserController'
+    }).when('/register/:osiam_username', {
         templateUrl: 'partials/register_user.html',
         controller: 'RegisterUserController'
     }).otherwise({
@@ -36,7 +39,7 @@ onlineRegApp.config(function ($routeProvider) {
 
 onlineRegApp.controller('LoginController', function ($scope, $location, $http) {
 
-    $scope.login = function () {
+   $scope.login = function () {
         console.log("logging in.");
 
         $http({
@@ -135,7 +138,14 @@ onlineRegApp.controller('RegisterUserController', function ($scope, $location, $
         }).success(function (result) {
             console.log("User prüfen: " + result);
             $scope.success = "Benutzerdaten wurden gesendet.";
-
+	    $scope.result = result;
+	    if(result==='USER_EXISTS'){
+		$scope.user_exists=true;
+		$scope.user="Benutzer existiert bereits.";			
+	    }else {
+		$scope.user="Benutzerdaten wurden gespeichert.";
+		$scope.user_exists=false;
+            }
         }).error(function (data, status, headers, config) {
             $scope.error = "OSIAM error.";
             /*$scope.data=data;

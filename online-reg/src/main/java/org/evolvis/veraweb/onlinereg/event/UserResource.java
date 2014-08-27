@@ -12,7 +12,6 @@ import javax.ws.rs.core.MediaType;
 
 @Path("/user")
 @Produces(MediaType.APPLICATION_JSON)
-@Log
 public class UserResource {
     private Config config;
 
@@ -31,7 +30,7 @@ public class UserResource {
             return "USER_EXISTS";
         }
 
-        return "OK";
+        else {return "osiam_username: "+osiam_username+ " und if-Anweisung wurde nicht ausgeführt. ";}
   }
   
 
