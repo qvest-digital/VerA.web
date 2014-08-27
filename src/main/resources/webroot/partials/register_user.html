@@ -9,7 +9,8 @@
                         },
                         regexp: {
                             regexp: /^[a-z\s]+$/i,
-                            message: 'Bitte geben Sie in dieses Feld nur Buchstaben und Leerzeichen ein.'
+                            message: 'Bitte geben Sie in dieses Feld nur Buchstaben und Leerzeichen ein.',
+                            valid: false
                         }
                     }
                 },
@@ -28,6 +29,10 @@
                     validators: {
                         notEmpty: {
                             message: 'Bitte füllen Sie dieses Feld aus.'
+                        },
+                        regexp: {
+                            regexp: /^[0-9a-z]*$/i,
+                            message: 'Bitte geben Sie in dieses Feld nur Buchstaben und Zahlen ein.'
                         }
                     }
                 },
@@ -44,7 +49,7 @@
                                 if (value.length < 5) {
                                     return {
                                         valid: false,
-                                        message: 'Das Passwort muss mindestens 5 Zeichen lang sein'
+                                        message: 'Das Passwort muss mindestens 5 Zeichen lang sein.'
                                     }
                                 } else {
                                     return {valid: true}
@@ -130,6 +135,8 @@
         </div>
         <div ng-if="success" class="alert alert-success" role="alert">{{success}}</div>
         <div ng-if="error" class="alert alert-danger" role="alert">{{error}}</div>
+        <div ng-if="result" class="alert alert-danger" role="alert">{{result}}</div>
+        {{data}}{{status}}{{headers}}{{config}}
     </form>
 
 
