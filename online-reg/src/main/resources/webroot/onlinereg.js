@@ -29,9 +29,6 @@ onlineRegApp.config(function ($routeProvider) {
     }).when('/register/', {
         templateUrl: 'partials/register_user.html',
         controller: 'RegisterUserController'
-    }).when('/register/:osiam_username', {
-        templateUrl: 'partials/register_user.html',
-        controller: 'RegisterUserController'
     }).otherwise({
         redirectTo: '/login'
     });
@@ -39,7 +36,7 @@ onlineRegApp.config(function ($routeProvider) {
 
 onlineRegApp.controller('LoginController', function ($scope, $location, $http) {
 
-   $scope.login = function () {
+    $scope.login = function () {
         console.log("logging in.");
 
         $http({
@@ -129,30 +126,26 @@ onlineRegApp.controller('RegisterUserController', function ($scope, $location, $
         console.log("registering user.");
         $http({
             method: 'POST',
-            url: '/api/user/register/'+$scope.osiam_username,
+            url: '/api/user/register/' + $scope.osiam_username,
             params: {
                 osiam_firstname: $scope.osiam_firstname,
                 osiam_secondname: $scope.osiam_secondname,
                 osiam_password1: $scope.osiam_password1
             }
         }).success(function (result) {
-            console.log("User prüfen: " + result);
-            $scope.success = "Benutzerdaten wurden gesendet.";
-	    $scope.result = result;
-	    if(result==='USER_EXISTS'){
-		$scope.user_exists=true;
-		$scope.user="Benutzer existiert bereits.";			
-	    }else {
-		$scope.user="Benutzerdaten wurden gespeichert.";
-		$scope.user_exists=false;
+
+            if (result === 'USER_EXISTS') {
+                $scope.success = null;
+                $scope.error = "Benutzer existiert bereits.";
+
+            } else {
+                $scope.error = null;
+                $scope.success = "Benutzerdaten wurden gespeichert.";
             }
+
         }).error(function (data, status, headers, config) {
-            $scope.error = "OSIAM error.";
-            /*$scope.data=data;
-             $scope.status=status;
-             $scope.headers=headers;
-             $scope.config=config;*/
-            // Fehler (z.B. OSIAM nicht erreichbar)/**/
+
+            $scope.error = "Fehler beim Anlegen eines neuen Benutzers. Bitte versuchen Sie es später nochmal.";
 
         });
     }
