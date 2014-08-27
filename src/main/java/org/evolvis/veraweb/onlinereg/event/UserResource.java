@@ -1,6 +1,5 @@
 package org.evolvis.veraweb.onlinereg.event;
 
-import lombok.extern.java.Log;
 import org.evolvis.veraweb.onlinereg.Config;
 
 import javax.ws.rs.POST;
@@ -9,6 +8,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
+import java.io.IOException;
 
 @Path("/user")
 @Produces(MediaType.APPLICATION_JSON)
@@ -25,13 +25,14 @@ public class UserResource {
     public String registerUser(@PathParam("osiam_username") String osiam_username,
                                @QueryParam("osiam_firstname") String osiam_firstname,
                                @QueryParam("osiam_secondname") String osiam_secondname,
-                               @QueryParam("osiam_password1") String osiam_password1) {
-        if(osiam_username == "existinguser") {
+                               @QueryParam("osiam_password1") String osiam_password1) throws IOException {
+
+
+        if("existinguser".equals(osiam_username)) {
             return "USER_EXISTS";
         }
+        return "OK";
+    }
 
-        else {return "osiam_username: "+osiam_username+ " und if-Anweisung wurde nicht ausgeführt. ";}
-  }
-  
 
 }
