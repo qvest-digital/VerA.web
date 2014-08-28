@@ -1,5 +1,5 @@
 
-verawebEndpoint: http://localhost:8080/vwor
+verawebEndpoint: https://veraweb.lan.tarent.de/vwor
 
 osiam:
   endpoint: https://veraweb.lan.tarent.de

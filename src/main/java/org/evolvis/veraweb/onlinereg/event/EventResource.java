@@ -2,6 +2,7 @@ package org.evolvis.veraweb.onlinereg.event;
 
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientHandlerException;
+import com.sun.jersey.api.client.UniformInterfaceException;
 import com.sun.jersey.api.client.WebResource;
 import lombok.extern.java.Log;
 import org.evolvis.veraweb.onlinereg.Config;
@@ -60,6 +61,9 @@ public class EventResource {
                 throw che;
             }
 
+        } catch(UniformInterfaceException uie) {
+            log.warning(uie.getResponse().getEntity(String.class));
+            throw uie;
         }
     }
 

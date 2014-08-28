@@ -1,9 +1,7 @@
 package org.evolvis.veraweb.onlinereg.user;
 
+import com.sun.jersey.api.client.Client;
 import org.evolvis.veraweb.onlinereg.Config;
-import org.osiam.client.connector.OsiamConnector;
-import org.osiam.client.exception.UnauthorizedException;
-import org.osiam.client.oauth.AccessToken;
 
 import javax.servlet.ServletContext;
 import javax.ws.rs.POST;
@@ -12,6 +10,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
+import java.io.IOException;
 
 /**
  * Created by mley on 26.08.14.
@@ -29,6 +28,7 @@ public class LoginResource {
      * configuration
      */
     private final Config config;
+    private Client client;
 
     /**
      * Servlet context
@@ -41,8 +41,9 @@ public class LoginResource {
      *
      * @param config configuration
      */
-    public LoginResource(Config config) {
+    public LoginResource(Config config, Client client) {
         this.config = config;
+        this.client = client;
     }
 
     /**
@@ -54,15 +55,16 @@ public class LoginResource {
      */
     @POST
     @Path("/login/{username}")
-    public boolean login(@PathParam("username") String userName, @QueryParam("password") String password) {
-        OsiamConnector oc = config.getOsiam().getConnector(userName, password);
+    public boolean login(@PathParam("username") String userName, @QueryParam("password") String password)  {
+
         try {
-            AccessToken accessToken = oc.retrieveAccessToken();
+            String accessToken = config.getOsiam().getClient(client).getAccessToken(userName, password, "POST");
             context.setAttribute(ACCESS_TOKEN, accessToken);
             return true;
-        } catch (UnauthorizedException ue) {
+        } catch (IOException ue) {
             return false;
         }
+
     }
 
     /**
