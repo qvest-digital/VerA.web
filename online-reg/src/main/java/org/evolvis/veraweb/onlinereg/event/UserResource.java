@@ -1,6 +1,10 @@
 package org.evolvis.veraweb.onlinereg.event;
 
+import com.sun.jersey.api.client.Client;
 import org.evolvis.veraweb.onlinereg.Config;
+import org.evolvis.veraweb.onlinereg.osiam.OsiamClient;
+import org.osiam.resources.scim.Name;
+import org.osiam.resources.scim.User;
 
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -14,9 +18,11 @@ import java.io.IOException;
 @Produces(MediaType.APPLICATION_JSON)
 public class UserResource {
     private Config config;
+    private Client client;
 
-    public UserResource(Config config) {
+    public UserResource(Config config, Client client) {
         this.config = config;
+        this.client = client;
     }
 
 
@@ -27,10 +33,26 @@ public class UserResource {
                                @QueryParam("osiam_secondname") String osiam_secondname,
                                @QueryParam("osiam_password1") String osiam_password1) throws IOException {
 
+        if(!osiam_username.matches("\\w+")) {
+            return "INVALID_USERNAME";
+        }
 
-        if("existinguser".equals(osiam_username)) {
+        OsiamClient osiamClient = config.getOsiam().getClient(client);
+        String accessToken = osiamClient.getAccessToken("GET POST");
+
+        User user = osiamClient.getUser(accessToken, osiam_username);
+        if(user != null) {
             return "USER_EXISTS";
         }
+
+        user = new User.Builder(osiam_username)
+                .setName(new Name.Builder().setGivenName(osiam_firstname).setFamilyName(osiam_secondname).build())
+                .setPassword(osiam_password1)
+                .setActive(true)
+                .build();
+
+        osiamClient.createUser(accessToken, user);
+
         return "OK";
     }
 

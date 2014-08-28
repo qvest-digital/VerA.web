@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import io.dropwizard.Configuration;
 import io.dropwizard.client.JerseyClientConfiguration;
 import lombok.Data;
+import org.evolvis.veraweb.onlinereg.osiam.OsiamConfig;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;

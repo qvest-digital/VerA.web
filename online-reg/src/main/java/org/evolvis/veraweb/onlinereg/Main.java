@@ -8,10 +8,10 @@ import io.dropwizard.client.JerseyClientBuilder;
 import io.dropwizard.client.JerseyClientConfiguration;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
+import io.dropwizard.util.Duration;
 import org.evolvis.veraweb.onlinereg.event.EventResource;
 import org.evolvis.veraweb.onlinereg.event.UserResource;
 import org.evolvis.veraweb.onlinereg.user.LoginResource;
-
 
 
 public class Main extends Application<Config> {
@@ -43,6 +43,10 @@ public class Main extends Application<Config> {
 
 
         JerseyClientConfiguration jcc = configuration.getJerseyClientConfiguration();
+        jcc.setConnectionTimeout(Duration.milliseconds(1000));
+        jcc.setTimeout(Duration.milliseconds(5000));
+        jcc.setGzipEnabled(false);
+
 
 
         final Client client = new JerseyClientBuilder(environment)
@@ -53,8 +57,8 @@ public class Main extends Application<Config> {
 
         environment.healthChecks().register("veraweb availability", new Health(client, configuration.getVerawebEndpoint()));
         environment.jersey().register(new EventResource(client, configuration));
-        environment.jersey().register(new UserResource(configuration));
-        environment.jersey().register(new LoginResource(configuration));
+        environment.jersey().register(new UserResource(configuration, client));
+        environment.jersey().register(new LoginResource(configuration, client));
 
 
 

@@ -127,6 +127,8 @@ onlineRegApp.controller('RegisterUserController', function ($scope, $location, $
 	$scope.button = false;
      }
 
+    var ERROR_TEXT = "Ein Fehler ist aufgetreten. Bitte versuchen Sie es später nochmal";
+
      $scope.register_user = function () {
         console.log("registering user.");
         $http({
@@ -138,19 +140,24 @@ onlineRegApp.controller('RegisterUserController', function ($scope, $location, $
                 osiam_password1: $scope.osiam_password1
             }
         }).success(function (result) {
+            $scope.success = null;
+            $scope.error = null;
 
             if (result === 'USER_EXISTS') {
-                $scope.success = null;
-                $scope.error = "Benutzer existiert bereits.";
+                $scope.error = "Ein Benutzer mit diesem Benutzernamen existiert bereits.";
+
+            } else if (result === 'INVALID_USERNAME') {
+                $scope.error = "Der Benutzername darf nur Buchstaben und Zahlen enthalten.";
+
+            } else if (result === 'OK') {
+                $scope.success = "Benutzerdaten wurden gespeichert.";
 
             } else {
-                $scope.error = null;
-                $scope.success = "Benutzerdaten wurden gespeichert.";
+                $scope.error = ERROR_TEXT;
             }
 
         }).error(function (data, status, headers, config) {
-
-            $scope.error = "Fehler beim Anlegen eines neuen Benutzers. Bitte versuchen Sie es später nochmal.";
+            $scope.error = ERROR_TEXT;
 
         });
     }
