@@ -1,6 +1,8 @@
 package org.evolvis.veraweb.onlinereg.user;
 
 import com.sun.jersey.api.client.Client;
+import com.sun.jersey.api.client.UniformInterfaceException;
+import com.sun.jersey.api.client.ClientResponse;
 import org.evolvis.veraweb.onlinereg.Config;
 
 import javax.servlet.ServletContext;
@@ -58,10 +60,17 @@ public class LoginResource {
     public boolean login(@PathParam("username") String userName, @QueryParam("password") String password)  {
 
         try {
+        	if(userName == null || password == null) {
+                return false;
+            }
             String accessToken = config.getOsiam().getClient(client).getAccessToken(userName, password, "POST");
             context.setAttribute(ACCESS_TOKEN, accessToken);
             return true;
         } catch (IOException ue) {
+            return false;
+        }catch (UniformInterfaceException uie) {
+            ClientResponse response = uie.getResponse();
+            response.getStatus();
             return false;
         }
 
