@@ -194,9 +194,6 @@
                     <includes>
                         <include>**/TestSuite.java</include>
                     </includes>
-                        <systemPropertyVariables>
-                            <mvnrepo>${settings.localRepository}</mvnrepo>
-                        </systemPropertyVariables>
                 </configuration>
             </plugin>
 

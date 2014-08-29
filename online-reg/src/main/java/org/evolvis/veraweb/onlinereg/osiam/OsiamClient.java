@@ -85,16 +85,15 @@ public class OsiamClient {
         }
 
 
-        String result = resource.post(String.class);
         try {
+            String result = resource.post(String.class);
             String accessToken = (String) mapper.readValue(result, Map.class).get("access_token");
 
             return accessToken;
         } catch (UniformInterfaceException uie) {
             ClientResponse response = uie.getResponse();
-            response.getStatus();
-
-            log.warning(uie.getResponse().getEntity(String.class));
+            String entity = response.getEntity(String.class);
+            log.warning("Error getting accesstoken: " + resource.toString() + " : " + entity);
             throw uie;
         }
     }

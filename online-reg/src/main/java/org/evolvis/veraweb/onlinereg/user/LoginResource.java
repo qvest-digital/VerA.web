@@ -57,7 +57,7 @@ public class LoginResource {
      */
     @POST
     @Path("/login/{username}")
-    public boolean login(@PathParam("username") String userName, @QueryParam("password") String password)  {
+    public boolean login(@PathParam("username") String userName, @QueryParam("password") String password) throws IOException {
 
         try {
         	if(userName == null || password == null) {
@@ -66,12 +66,14 @@ public class LoginResource {
             String accessToken = config.getOsiam().getClient(client).getAccessToken(userName, password, "POST");
             context.setAttribute(ACCESS_TOKEN, accessToken);
             return true;
-        } catch (IOException ue) {
-            return false;
-        }catch (UniformInterfaceException uie) {
+        } catch (UniformInterfaceException uie) {
             ClientResponse response = uie.getResponse();
-            response.getStatus();
-            return false;
+            if(response.getStatus() == 400) {
+                // status 400 indicates user error: user does not exist, password wrong, user deactivated, etc...
+                return false;
+            } else {
+                throw uie;
+            }
         }
 
     }
