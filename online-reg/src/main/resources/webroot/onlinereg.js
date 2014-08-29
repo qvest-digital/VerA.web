@@ -51,9 +51,12 @@ onlineRegApp.controller('LoginController', function ($scope, $location, $http) {
             if (result === "true") {
                 console.log("Login erfolgreich");
                 $location.path("/event");
+
             } else {
-                // Benutzername oder Password falsch
+                $scope.error = "Bitte geben Sie ihren Anmeldenamen und Passwort erneut ein.";
             }
+
+	   
 
         }).error(function (data, status, headers, config) {
 
