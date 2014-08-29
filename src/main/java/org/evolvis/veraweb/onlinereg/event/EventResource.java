@@ -30,37 +30,76 @@ import java.util.List;
 @Log
 public class EventResource {
 
-    public static final String EVENT_RESOURCE = "/rest";
+    /**
+     * base path of all resource
+     */
+    public static final String BASE_RESOURCE = "/rest";
 
+    /**
+     * Event type
+     */
     private static final TypeReference<Event> EVENT = new TypeReference<Event>() {
     };
+    /**
+     * List of Events type
+     */
     private static final TypeReference<List<Event>> EVENT_LIST = new TypeReference<List<Event>>() {
     };
+    /**
+     * Guest type
+     */
     private static final TypeReference<Guest> GUEST = new TypeReference<Guest>() {
     };
 
-
+    /**
+     * Jersey client
+     */
     private Client client;
+
+    /**
+     * configuration
+     */
     private Config config;
+
+    /**
+     * Jackson Object Mapper
+     */
     private ObjectMapper mapper = new ObjectMapper();
 
-    public EventResource(Client client, Config config) {
+    /**
+     * Creates a new EventResource
+     *
+     * @param client jersey client
+     * @param config configuration
+     */
+    public EventResource(Config config, Client client) {
         this.client = client;
         this.config = config;
     }
 
+    /**
+     * Constructs a path from vera.web endpint, BASE_RESOURCE and given path fragmensts.
+     *
+     * @param path path fragments
+     * @return complete path as string
+     */
     private String path(Object... path) {
-        String r = config.getVerawebEndpoint() + EVENT_RESOURCE;
-        if (path != null) {
-            for (Object p : path) {
-                if (p != null) {
-                    r += "/" + p;
-                }
-            }
+        String r = config.getVerawebEndpoint() + BASE_RESOURCE;
+        for (Object p : path) {
+            r += "/" + p;
         }
         return r;
     }
 
+    /**
+     * Reads the resource at given path and returns the entity.
+     *
+     * @param path path
+     * @param type TypeReference of requested entity
+     * @param <T>  Type of requested entity
+     * @return requested resource
+     * @throws IOException
+     */
     private <T> T readResource(String path, TypeReference<T> type) throws IOException {
         WebResource resource;
         try {
@@ -69,7 +108,7 @@ public class EventResource {
             return mapper.readValue(json, type);
         } catch (ClientHandlerException che) {
             if (che.getCause() instanceof SocketTimeoutException) {
-                // some times open, pooled connections time out and generate errors
+                //FIXME some times open, pooled connections time out and generate errors
                 log.warning("Retrying request to " + path + " once because of SocketTimeoutException");
                 resource = client.resource(path);
                 String json = resource.get(String.class);
@@ -84,24 +123,55 @@ public class EventResource {
         }
     }
 
+    /**
+     * Returns a list of events
+     *
+     * @return List of Event objects
+     * @throws IOException
+     */
     @GET
     @Path("/list")
     public List<Event> getEvents() throws IOException {
         return readResource(path("event"), EVENT_LIST);
     }
 
+    /**
+     * Returns an event with given id.
+     *
+     * @param eventId event id
+     * @return Event object
+     * @throws IOException
+     */
     @GET
     @Path("/{eventId}")
     public Event getEvent(@PathParam("eventId") int eventId) throws IOException {
         return readResource(path("event", eventId), EVENT);
     }
 
+    /**
+     * Gets the current registration to an event of a user
+     *
+     * @param eventId event id
+     * @param userId  user id
+     * @return Guest object
+     * @throws IOException
+     */
     @GET
     @Path("/{eventId}/register/{userId}")
     public Guest getRegistration(@PathParam("eventId") int eventId, @PathParam("userId") int userId) throws IOException {
         return readResource(path("guest", eventId, userId), GUEST);
     }
 
+    /**
+     * Save the registration to an event
+     *
+     * @param eventId          event id
+     * @param userId           user id
+     * @param invitationstatus invitation status
+     * @param notehost         note to host
+     * @return updated Guest object
+     * @throws IOException
+     */
     @POST
     @Path("/{eventId}/register/{userId}")
     public Guest register(@PathParam("eventId") int eventId, @PathParam("userId") int userId, @QueryParam("invitationstatus") String invitationstatus, @QueryParam("notehost") String notehost) throws IOException {

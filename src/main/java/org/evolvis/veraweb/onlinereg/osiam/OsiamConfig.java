@@ -20,6 +20,11 @@ public class OsiamConfig {
     @JsonProperty
     private String clientSecret;
 
+    /**
+     * Creates a new OSIAM client
+     * @param client jersey client
+     * @return OsiamClient object
+     */
     public OsiamClient getClient(Client client) {
         return new OsiamClient(this, client);
     }
