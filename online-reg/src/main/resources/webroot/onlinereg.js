@@ -35,8 +35,9 @@ onlineRegApp.config(function ($routeProvider) {
 });
 
 onlineRegApp.controller('LoginController', function ($scope, $location, $http) {
-
+    $scope.button = false;
     $scope.login = function () {
+	$scope.button = true;
         console.log("logging in.");
 
         $http({
@@ -54,6 +55,7 @@ onlineRegApp.controller('LoginController', function ($scope, $location, $http) {
 
             } else {
                 $scope.error = "Bitte geben Sie ihren Anmeldenamen und Passwort erneut ein.";
+		$scope.button = false;
             }
 
 	   
@@ -133,6 +135,7 @@ onlineRegApp.controller('RegisterUserController', function ($scope, $location, $
     var ERROR_TEXT = "Ein Fehler ist aufgetreten. Bitte versuchen Sie es später nochmal";
 
      $scope.register_user = function () {
+	$scope.button = true;
         console.log("registering user.");
         $http({
             method: 'POST',
@@ -158,10 +161,11 @@ onlineRegApp.controller('RegisterUserController', function ($scope, $location, $
             } else {
                 $scope.error = ERROR_TEXT;
             }
+	    $scope.button = false;
 
         }).error(function (data, status, headers, config) {
             $scope.error = ERROR_TEXT;
-
+	    $scope.button = false;
         });
     }
 });
