@@ -14,18 +14,36 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import java.io.IOException;
 
+/**
+ * Resource to register new users in OSIAM backend
+ */
 @Path("/user")
 @Produces(MediaType.APPLICATION_JSON)
 public class UserResource {
     private Config config;
     private Client client;
 
+    /**
+     * Creates new UserResource
+     *
+     * @param config configuration
+     * @param client jersey client
+     */
     public UserResource(Config config, Client client) {
         this.config = config;
         this.client = client;
     }
 
-
+    /**
+     * Creates a new user
+     *
+     * @param osiam_username   user name
+     * @param osiam_firstname  first name
+     * @param osiam_secondname family name
+     * @param osiam_password1  password
+     * @return result of creation. Values can be "OK", "INVALID_USERNAME" or "USER_EXISTS"
+     * @throws IOException
+     */
     @POST
     @Path("/register/{osiam_username}")
     public String registerUser(@PathParam("osiam_username") String osiam_username,
@@ -33,7 +51,7 @@ public class UserResource {
                                @QueryParam("osiam_secondname") String osiam_secondname,
                                @QueryParam("osiam_password1") String osiam_password1) throws IOException {
 
-        if(!osiam_username.matches("\\w+")) {
+        if (!osiam_username.matches("\\w+")) {
             return "INVALID_USERNAME";
         }
 
@@ -41,7 +59,7 @@ public class UserResource {
         String accessToken = osiamClient.getAccessToken("GET POST");
 
         User user = osiamClient.getUser(accessToken, osiam_username);
-        if(user != null) {
+        if (user != null) {
             return "USER_EXISTS";
         }
 

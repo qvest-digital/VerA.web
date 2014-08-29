@@ -1,0 +1,13 @@
+{
+    "request": {
+        "method": "GET",
+        "url": "/osiam-resource-server/Users?access_token=ddf31856-ebbc-4087-8d85-093fa36044a7&filter=userName+eq+%22test%22"
+    },
+    "response": {
+        "status": 200,
+        "bodyFileName": "getUserTest.json",
+        "headers": {
+            "Content-Type": "application/json"
+        }
+    }
+}

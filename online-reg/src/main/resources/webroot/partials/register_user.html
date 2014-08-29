@@ -82,6 +82,9 @@
     <form class="form-horizontal" role="form" id="myForm">
         <h2 class="form-signin-heading">Registrieren</h2>
 
+        <div ng-if="success" class="alert alert-success" role="alert">{{success}}</div>
+        <div ng-if="error" class="alert alert-danger" role="alert">{{error}}</div>
+
         <div class="form-group">
             <label for="osiam_firstname" class="col-lg-4 control-label">Vorname</label>
 
@@ -133,7 +136,5 @@
                 </button>
             </div>
         </div>
-        <div ng-if="success" class="alert alert-success" role="alert">{{success}}</div>
-        <div ng-if="error" class="alert alert-danger" role="alert">{{error}}</div>
     </form>
 </div>

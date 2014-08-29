@@ -36,8 +36,9 @@ onlineRegApp.config(function ($routeProvider) {
 
 onlineRegApp.controller('LoginController', function ($scope, $location, $http) {
     $scope.button = false;
+
     $scope.login = function () {
-	$scope.button = true;
+        $scope.button = true;
         console.log("logging in.");
 
         $http({
@@ -48,21 +49,19 @@ onlineRegApp.controller('LoginController', function ($scope, $location, $http) {
             }
 
         }).success(function (result) {
+            $scope.button = false;
 
             if (result === "true") {
                 console.log("Login erfolgreich");
                 $location.path("/event");
 
             } else {
-                $scope.error = "Bitte geben Sie ihren Anmeldenamen und Passwort erneut ein.";
-		$scope.button = false;
+                $scope.error = "Der Benutzername oder das Passwort ist falsch.";
             }
 
-	   
-
         }).error(function (data, status, headers, config) {
-
-            // Fehler (z.B. OSIAM nicht erreichbar)
+            $scope.button = false;
+            $scope.error = "Es ist ein Fehler aufgetreten. Bitte versuchen Sie es später erneut.";
 
         });
     }
@@ -126,16 +125,16 @@ onlineRegApp.controller('RegisterController', function ($scope, $routeParams, $h
 });
 
 onlineRegApp.controller('RegisterUserController', function ($scope, $location, $http) {
-     $scope.button = true;
+    $scope.button = true;
 
-     $scope.changed = function() {
-	$scope.button = false;
-     }
+    $scope.changed = function () {
+        $scope.button = false;
+    }
 
     var ERROR_TEXT = "Ein Fehler ist aufgetreten. Bitte versuchen Sie es später nochmal";
 
-     $scope.register_user = function () {
-	$scope.button = true;
+    $scope.register_user = function () {
+        $scope.button = true;
         console.log("registering user.");
         $http({
             method: 'POST',
@@ -161,11 +160,11 @@ onlineRegApp.controller('RegisterUserController', function ($scope, $location, $
             } else {
                 $scope.error = ERROR_TEXT;
             }
-	    $scope.button = false;
+            $scope.button = false;
 
         }).error(function (data, status, headers, config) {
             $scope.error = ERROR_TEXT;
-	    $scope.button = false;
+            $scope.button = false;
         });
     }
 });

@@ -46,6 +46,7 @@ public class Main extends Application<Config> {
 
 
         JerseyClientConfiguration jcc = configuration.getJerseyClientConfiguration();
+        // timeouts must be increased, because OSIAM is kind of slow.
         jcc.setConnectionTimeout(Duration.milliseconds(1000));
         jcc.setTimeout(Duration.milliseconds(5000));
         jcc.setGzipEnabled(false);
@@ -62,7 +63,7 @@ public class Main extends Application<Config> {
 
 
 
-        environment.jersey().register(eventResource = new EventResource(client, configuration));
+        environment.jersey().register(eventResource = new EventResource(configuration, client));
         environment.jersey().register(userResource = new UserResource(configuration, client));
         environment.jersey().register(loginResource = new LoginResource(configuration, client));
 
