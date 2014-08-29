@@ -1,0 +1,13 @@
+{
+    "request": {
+        "method": "POST",
+        "url": "/osiam-resource-server/Users"
+    },
+    "response": {
+        "status": 200,
+        "bodyFileName": "postNewUser.json",
+        "headers": {
+            "Content-Type": "application/json"
+        }
+    }
+}
