@@ -1,0 +1,27 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.evolvis.veraweb.onlinereg</groupId>
+    <artifactId>online-reg-test</artifactId>
+    <version>1.5.0-SNAPSHOT</version>
+
+    <packaging>jar</packaging>
+
+    <name>Online-Registration Test project</name>
+    <description>Required for tests in online-reg project, to download wiremock to the local maven repository
+    </description>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>com.github.tomakehurst</groupId>
+            <artifactId>wiremock</artifactId>
+            <version>1.47</version>
+            <classifier>standalone</classifier>
+            <scope>test</scope>
+        </dependency>
+
+    </dependencies>
+
+</project>

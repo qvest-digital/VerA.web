@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.jersey.api.client.Client;
+import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.UniformInterfaceException;
 import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.client.filter.HTTPBasicAuthFilter;
@@ -90,6 +91,9 @@ public class OsiamClient {
 
             return accessToken;
         } catch (UniformInterfaceException uie) {
+            ClientResponse response = uie.getResponse();
+            response.getStatus();
+
             log.warning(uie.getResponse().getEntity(String.class));
             throw uie;
         }

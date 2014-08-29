@@ -9,11 +9,12 @@ import io.dropwizard.client.JerseyClientConfiguration;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import io.dropwizard.util.Duration;
+import lombok.Getter;
 import org.evolvis.veraweb.onlinereg.event.EventResource;
 import org.evolvis.veraweb.onlinereg.event.UserResource;
 import org.evolvis.veraweb.onlinereg.user.LoginResource;
 
-
+@Getter
 public class Main extends Application<Config> {
 
     /**
@@ -30,7 +31,9 @@ public class Main extends Application<Config> {
         }
     }
 
-
+    private EventResource eventResource;
+    private UserResource userResource;
+    private LoginResource loginResource;
 
     @Override
     public void initialize(final Bootstrap<Config> bootstrap) {
@@ -56,11 +59,12 @@ public class Main extends Application<Config> {
         environment.jersey().setUrlPattern("/api/*");
 
         environment.healthChecks().register("veraweb availability", new Health(client, configuration.getVerawebEndpoint()));
-        environment.jersey().register(new EventResource(client, configuration));
-        environment.jersey().register(new UserResource(configuration, client));
-        environment.jersey().register(new LoginResource(configuration, client));
 
 
+
+        environment.jersey().register(eventResource = new EventResource(client, configuration));
+        environment.jersey().register(userResource = new UserResource(configuration, client));
+        environment.jersey().register(loginResource = new LoginResource(configuration, client));
 
     }
 

@@ -17,7 +17,9 @@
         <module>veraweb-war</module>
         <module>vw-onlinereg-common</module>
         <module>vw-onlinereg-war</module>
+	<module>online-reg-tests</module>
         <module>online-reg</module>
+	
     </modules>
 
 
