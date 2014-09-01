@@ -16,5 +16,7 @@
         <mapping class="org.evolvis.veraweb.onlinereg.entities.Guest"/>
         <mapping class="org.evolvis.veraweb.onlinereg.entities.Event"/>
         <mapping class="org.evolvis.veraweb.onlinereg.entities.Location"/>
+        <mapping class="org.evolvis.veraweb.onlinereg.entities.Person"/>
+
     </session-factory>
 </hibernate-configuration>
