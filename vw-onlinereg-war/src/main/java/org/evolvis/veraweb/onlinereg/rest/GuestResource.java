@@ -20,15 +20,13 @@ import javax.ws.rs.core.MediaType;
  */
 @Path("/guest")
 @Produces(MediaType.APPLICATION_JSON)
-public class GuestResource {
+public class GuestResource extends AbstractResource{
 
-    @Context
-    ServletContext context;
 
     @GET
     @Path("/{eventId}/{userId}")
     public Guest getGuest(@PathParam("eventId") int eventId, @PathParam("userId") int userId) {
-        Session session = getSessionFactory().openSession();
+        Session session = openSession();
         try {
             Query query = session.getNamedQuery("Guest.findByEventAndUser");
             query.setInteger("eventId", eventId);
@@ -42,7 +40,7 @@ public class GuestResource {
     @POST
     @Path("/{eventId}/{userId}")
     public Guest saveGuest(@PathParam("eventId") int eventId, @PathParam("userId") int userId, @QueryParam("invitationstatus") int invitationstatus, @QueryParam("notehost") String notehost) {
-        Session session = getSessionFactory().openSession();
+        Session session = openSession();
         try {
             Query query = session.getNamedQuery("Guest.findByEventAndUser");
             query.setInteger("eventId", eventId);
@@ -61,7 +59,4 @@ public class GuestResource {
 
     }
 
-    private SessionFactory getSessionFactory() {
-        return (SessionFactory) context.getAttribute("SessionFactory");
-    }
 }
