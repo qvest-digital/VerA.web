@@ -15,6 +15,6 @@ public class WarTestSuite {
 
 
     @ClassRule
-    public static final H2ClassRule H2 = new H2ClassRule();
+    public static final H2HibernateRule H2 = new H2HibernateRule();
 
 }

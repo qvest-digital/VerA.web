@@ -11,12 +11,20 @@ import org.junit.rules.TestRule;
 import org.junit.runner.Description;
 import org.junit.runners.model.Statement;
 
+import javax.servlet.ServletContext;
+
+import static org.mockito.Matchers.eq;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
 /**
  * Created by mley on 02.09.14.
  */
-public class H2ClassRule  implements TestRule {
+public class H2HibernateRule implements TestRule {
 
     public SessionFactory sessionFactory;
+
+    public ServletContext contextMock;
 
     @Override
     public Statement apply(final Statement base, Description description) {
@@ -48,6 +56,9 @@ public class H2ClassRule  implements TestRule {
         configuration.setProperty("hibernate.hbm2ddl.auto", "create");
 
         sessionFactory =  configuration.buildSessionFactory();
+
+        contextMock = mock(ServletContext.class);
+        when(contextMock.getAttribute(eq("SessionFactory"))).thenReturn(sessionFactory);
     }
 
 }

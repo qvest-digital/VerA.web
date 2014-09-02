@@ -1,5 +1,6 @@
 package org.evolvis.veraweb.onlinereg.rest;
 
+import lombok.Setter;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
@@ -12,6 +13,7 @@ import javax.ws.rs.core.Context;
 public class AbstractResource {
 
     @Context
+    @Setter // for testing
     protected ServletContext context;
 
     protected SessionFactory getSessionFactory() {

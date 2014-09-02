@@ -15,13 +15,15 @@ import static org.junit.Assert.assertEquals;
 /**
  * Created by mley on 02.09.14.
  */
-public class EventResourceTest extends EventResource {
+public class EventResourceTest {
 
     private static SessionFactory sessionFactory;
 
-    @Override
-    public Session openSession() {
-        return WarTestSuite.H2.sessionFactory.openSession();
+        EventResource er;
+
+    public EventResourceTest() {
+        er = new EventResource();
+        er.setContext(WarTestSuite.H2.contextMock);
     }
 
     @BeforeClass
@@ -50,13 +52,13 @@ public class EventResourceTest extends EventResource {
 
     @Test
     public void testListEvents() {
-        List<Event> events= listEvents();
+        List<Event> events= er.listEvents();
         assertEquals(2, events.size());
     }
 
     @Test
     public void testGetEvent() {
-        Event e = getEvent(1);
+        Event e = er.getEvent(1);
         assertEquals("shortname", e.getShortname());
     }
 
