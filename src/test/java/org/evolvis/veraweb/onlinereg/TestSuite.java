@@ -12,7 +12,7 @@ import org.junit.runners.Suite;
  * Created by mley on 28.08.14.
  */
 @RunWith(Suite.class)
-@Suite.SuiteClasses({EventResourceTest.class, UserResourceTest.class, LoginResourceTest.class})
+@Suite.SuiteClasses({EventResourceTest.class, UserResourceTest.class, LoginResourceTest.class, HealthTest.class})
 public class TestSuite{
 
     @ClassRule

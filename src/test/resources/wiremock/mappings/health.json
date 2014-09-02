@@ -1,11 +1,11 @@
 {
     "request": {
-        "method": "POST",
-        "urlPattern": "/vwor/rest/guest/1/2.*"
+        "method": "GET",
+        "url": "/vwor/rest/available"
     },
     "response": {
         "status": 200,
-        "bodyFileName": "registered_response.json",
+        "body": "OK",
         "headers": {
             "Content-Type": "application/json"
         }
