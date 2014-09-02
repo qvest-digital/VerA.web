@@ -68,22 +68,21 @@ public class UserResource {
         if (user != null) {
             return "USER_EXISTS";
         }
-
-		int tPersonId=1;
-		user = new User.Builder(osiam_username)
-                .setName(new Name.Builder().setGivenName(osiam_firstname).setFamilyName(osiam_secondname).build())
-                .setPassword(osiam_password1)
-                .setActive(true)
-                .addExtension(new Extension.Builder(VERAWEB_SCHEME).setField("tpersonid", BigInteger.valueOf(tPersonId)).build())
-                .build();        
-        
-        
-
-        osiamClient.createUser(accessToken, user);
         
         WebResource r = client.resource(config.getVerawebEndpoint() + "/rest/person/");
         r = r.queryParam("username", osiam_username).queryParam("firstname", osiam_firstname).queryParam("lastname", osiam_secondname);
         Person person = r.post(Person.class);
+
+		user = new User.Builder(osiam_username)
+                .setName(new Name.Builder().setGivenName(osiam_firstname).setFamilyName(osiam_secondname).build())
+                .setPassword(osiam_password1)
+                .setActive(true)
+                .addExtension(new Extension.Builder(VERAWEB_SCHEME).setField("tpersonid", BigInteger.valueOf(person.getPk())).build())
+                .build();              
+        
+
+        osiamClient.createUser(accessToken, user);      
+       
 
         return "OK";
     }
