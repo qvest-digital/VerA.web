@@ -3,6 +3,7 @@ package org.evolvis.veraweb.onlinereg.user;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.UniformInterfaceException;
+import lombok.Getter;
 import org.evolvis.veraweb.onlinereg.Config;
 import org.osiam.resources.scim.User;
 
@@ -23,12 +24,12 @@ import java.io.IOException;
 @Produces(MediaType.APPLICATION_JSON)
 public class LoginResource {
 
-    private static final String USERNAME = "USERNAME";
+    public static final String USERNAME = "USERNAME";
 
     /**
      * key name for access tokens
      */
-    private static final String ACCESS_TOKEN = "ACCESS_TOKEN";
+    public static final String ACCESS_TOKEN = "ACCESS_TOKEN";
 
     /**
      * configuration
@@ -40,6 +41,7 @@ public class LoginResource {
      * Servlet context
      */
     @javax.ws.rs.core.Context
+    @Getter
     private ServletContext context;
 
     /**
