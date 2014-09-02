@@ -23,9 +23,8 @@ public class EventResource extends AbstractResource {
     public List<Event> listEvents() {
         Session session = openSession();
         try {
-
             Query query = session.getNamedQuery("Event.list");
-            return (List<Event>)query.list();
+            return (List<Event>) query.list();
 
         } finally {
             session.close();
@@ -41,7 +40,7 @@ public class EventResource extends AbstractResource {
 
             Query query = session.getNamedQuery("Event.getEvent");
             query.setInteger("pk", eventId);
-            return (Event)query.uniqueResult();
+            return (Event) query.uniqueResult();
 
         } finally {
             session.close();

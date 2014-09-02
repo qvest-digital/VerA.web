@@ -15,37 +15,41 @@ import javax.ws.rs.core.MediaType;
  */
 @Path("/person")
 @Produces(MediaType.APPLICATION_JSON)
-public class PersonResource extends AbstractResource{
+public class PersonResource extends AbstractResource {
 
     @POST
     @Path("/")
     public Person createPerson(@QueryParam("username") String username,
                                @QueryParam("firstname") String firstName,
                                @QueryParam("lastname") String lastname) {
+        Session session = openSession();
+        try {
 
-        Session session =openSession();
-        Query query = session.getNamedQuery("Person.findByUsername");
-        query.setString("username", "username:" + username);
+            Query query = session.getNamedQuery("Person.findByUsername");
+            query.setString("username", "username:" + username);
 
 
-        if(!query.list().isEmpty()) {
-            return null;
+            if (!query.list().isEmpty()) {
+                // user already exists
+                return null;
+            }
+
+            Person p = new Person();
+            p.setFirstName(firstName);
+            p.setLastName(lastname);
+            p.setUsername(username);
+
+            session.persist(p);
+            session.flush();
+
+
+            query.setString("username", "username:" + username);
+            p = (Person) query.uniqueResult();
+            return p;
+
+        } finally {
+            session.close();
         }
-
-        Person p = new Person();
-        p.setFirstName(firstName);
-        p.setLastName(lastname);
-        p.setUsername(username);
-
-        session.persist(p);
-        session.flush();
-
-
-        query.setString("username", "username:" + username);
-        p = (Person)query.uniqueResult();
-
-        session.close();
-        return p;
 
     }
 }
