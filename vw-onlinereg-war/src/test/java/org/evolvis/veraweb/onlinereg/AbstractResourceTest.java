@@ -5,11 +5,9 @@ import org.evolvis.veraweb.onlinereg.entities.Event;
 import org.evolvis.veraweb.onlinereg.entities.Guest;
 import org.evolvis.veraweb.onlinereg.entities.Location;
 import org.evolvis.veraweb.onlinereg.entities.Person;
+import org.evolvis.veraweb.onlinereg.rest.AbstractResource;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.AnnotationConfiguration;
-import org.junit.rules.TestRule;
-import org.junit.runner.Description;
-import org.junit.runners.model.Statement;
 
 import javax.servlet.ServletContext;
 
@@ -20,27 +18,28 @@ import static org.mockito.Mockito.when;
 /**
  * Created by mley on 02.09.14.
  */
-public class H2HibernateRule implements TestRule {
+public class AbstractResourceTest<T extends AbstractResource> {
 
-    public SessionFactory sessionFactory;
+    public static SessionFactory sessionFactory;
 
-    public ServletContext contextMock;
+    public static ServletContext contextMock;
 
-    @Override
-    public Statement apply(final Statement base, Description description) {
-        return new Statement() {
-            @Override
-            public void evaluate() throws Throwable {
-                startIfRequired();
-                try {
-                    base.evaluate();
-                } finally {
-                }
-            }
-        };
+    static {
+        startH2();
     }
 
-    private void startIfRequired() {
+    protected T resource;
+
+    public AbstractResourceTest(Class<T> clazz) {
+        try {
+            resource = clazz.getConstructor().newInstance();
+        } catch (Exception e) {
+           throw new RuntimeException(e);
+        }
+        resource.setContext(contextMock);
+    }
+
+    public static void startH2() {
         // setup the session factory
         AnnotationConfiguration configuration = new AnnotationConfiguration();
         configuration.addAnnotatedClass(Config.class)
@@ -55,10 +54,15 @@ public class H2HibernateRule implements TestRule {
         configuration.setProperty("hibernate.connection.url", "jdbc:h2:mem");
         configuration.setProperty("hibernate.hbm2ddl.auto", "create");
 
+
         sessionFactory =  configuration.buildSessionFactory();
 
         contextMock = mock(ServletContext.class);
         when(contextMock.getAttribute(eq("SessionFactory"))).thenReturn(sessionFactory);
+    }
+
+    public static void stopH2() {
+        sessionFactory.close();
     }
 
 }

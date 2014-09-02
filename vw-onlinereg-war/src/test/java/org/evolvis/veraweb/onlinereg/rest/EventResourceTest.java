@@ -1,9 +1,8 @@
 package org.evolvis.veraweb.onlinereg.rest;
 
-import org.evolvis.veraweb.onlinereg.WarTestSuite;
+import org.evolvis.veraweb.onlinereg.AbstractResourceTest;
 import org.evolvis.veraweb.onlinereg.entities.Event;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -15,21 +14,17 @@ import static org.junit.Assert.assertEquals;
 /**
  * Created by mley on 02.09.14.
  */
-public class EventResourceTest {
+public class EventResourceTest extends AbstractResourceTest<EventResource> {
 
-    private static SessionFactory sessionFactory;
-
-        EventResource er;
 
     public EventResourceTest() {
-        er = new EventResource();
-        er.setContext(WarTestSuite.H2.contextMock);
+        super(EventResource.class);
     }
 
     @BeforeClass
     public static void init() {
 
-        Session s = WarTestSuite.H2.sessionFactory.openSession();
+        Session s = sessionFactory.openSession();
 
 
         Event e = new Event();
@@ -52,13 +47,13 @@ public class EventResourceTest {
 
     @Test
     public void testListEvents() {
-        List<Event> events= er.listEvents();
+        List<Event> events = resource.listEvents();
         assertEquals(2, events.size());
     }
 
     @Test
     public void testGetEvent() {
-        Event e = er.getEvent(1);
+        Event e = resource.getEvent(1);
         assertEquals("shortname", e.getShortname());
     }
 
