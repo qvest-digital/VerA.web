@@ -1,5 +1,6 @@
 package org.evolvis.veraweb.onlinereg.user;
 
+import com.sun.jersey.api.client.UniformInterfaceException;
 import org.evolvis.veraweb.onlinereg.Main;
 import org.evolvis.veraweb.onlinereg.TestSuite;
 import org.junit.Test;
@@ -44,6 +45,36 @@ public class LoginResourceTest {
     public void testLogout() throws IOException {
         lr.login("test", "password");
         lr.logout();
+        assertFalse(lr.loggedIn());
+    }
+
+    @Test(expected=UniformInterfaceException.class)
+    public void testLoginServerError() throws IOException {
+        lr.login("fail", "password");
+    }
+
+    @Test
+    public void testNotLoggedIn() throws IOException {
+        lr.getContext().setAttribute(LoginResource.USERNAME, "notloggedin");
+        lr.getContext().setAttribute(LoginResource.ACCESS_TOKEN, "notloggedin");
+
+        lr.loggedIn();
+    }
+
+
+    @Test(expected=UniformInterfaceException.class)
+    public void testLoggedInServerError() throws IOException {
+        lr.getContext().setAttribute(LoginResource.USERNAME, "illegal");
+        lr.getContext().setAttribute(LoginResource.ACCESS_TOKEN, "illegal");
+
+        lr.loggedIn();
+    }
+
+    @Test
+    public void testLoggedInDeletedUser() throws IOException {
+        lr.getContext().setAttribute(LoginResource.USERNAME, "newuser");
+        lr.getContext().setAttribute(LoginResource.ACCESS_TOKEN, "ddf31856-ebbc-4087-8d85-093fa36044a7");
+
         assertFalse(lr.loggedIn());
     }
 
