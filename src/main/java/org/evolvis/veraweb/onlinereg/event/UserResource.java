@@ -1,8 +1,12 @@
 package org.evolvis.veraweb.onlinereg.event;
 
 import com.sun.jersey.api.client.Client;
+import com.sun.jersey.api.client.WebResource;
+
 import org.evolvis.veraweb.onlinereg.Config;
+import org.evolvis.veraweb.onlinereg.entities.Person;
 import org.evolvis.veraweb.onlinereg.osiam.OsiamClient;
+import org.osiam.resources.scim.Extension;
 import org.osiam.resources.scim.Name;
 import org.osiam.resources.scim.User;
 
@@ -13,6 +17,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import java.io.IOException;
+import java.math.BigInteger;
 
 /**
  * Resource to register new users in OSIAM backend
@@ -20,7 +25,8 @@ import java.io.IOException;
 @Path("/user")
 @Produces(MediaType.APPLICATION_JSON)
 public class UserResource {
-    private Config config;
+    private static final String VERAWEB_SCHEME = "urn:scim:schemas:veraweb:1.5:Person";
+	private Config config;
     private Client client;
 
     /**
@@ -63,16 +69,22 @@ public class UserResource {
             return "USER_EXISTS";
         }
 
-        user = new User.Builder(osiam_username)
+		int tPersonId=1;
+		user = new User.Builder(osiam_username)
                 .setName(new Name.Builder().setGivenName(osiam_firstname).setFamilyName(osiam_secondname).build())
                 .setPassword(osiam_password1)
                 .setActive(true)
-                .build();
+                .addExtension(new Extension.Builder(VERAWEB_SCHEME).setField("tpersonid", BigInteger.valueOf(tPersonId)).build())
+                .build();        
+        
+        
 
         osiamClient.createUser(accessToken, user);
+        
+        WebResource r = client.resource(config.getVerawebEndpoint() + "/rest/person/");
+        r = r.queryParam("username", osiam_username).queryParam("firstname", osiam_firstname).queryParam("lastname", osiam_secondname);
+        Person person = r.post(Person.class);
 
         return "OK";
     }
-
-
 }
