@@ -59,6 +59,17 @@ public class LoginResourceTest {
         lr.getContext().setAttribute(LoginResource.ACCESS_TOKEN, "notloggedin");
 
         lr.loggedIn();
+
+        lr.getContext().setAttribute(LoginResource.USERNAME, null);
+        lr.getContext().setAttribute(LoginResource.ACCESS_TOKEN, "accestoken");
+
+        assertFalse(lr.loggedIn());
+
+        lr.getContext().setAttribute(LoginResource.USERNAME, "user");
+        lr.getContext().setAttribute(LoginResource.ACCESS_TOKEN, null);
+
+        assertFalse(lr.loggedIn());
+
     }
 
 

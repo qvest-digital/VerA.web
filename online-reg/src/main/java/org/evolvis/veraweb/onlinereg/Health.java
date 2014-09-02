@@ -10,7 +10,7 @@ public class Health extends HealthCheck {
     private final Client client;
     private final String resource;
     public Health(Client client, String verawebEndpoint) {
-        this.resource = verawebEndpoint + "/veraweb/rest/onlinereg/available";
+        this.resource = verawebEndpoint + "/rest/available";
         this.client = client;
     }
 

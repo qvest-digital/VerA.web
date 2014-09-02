@@ -48,4 +48,9 @@ public class EventResourceTest {
         assertEquals(1, g.getInvitationstatus());
         assertEquals("Zusage", g.getNotehost());
     }
+
+    @Test
+    public void testSaveRegistration() throws IOException {
+        Guest g = er.register(1, 2, "2", "note");
+    }
 }
