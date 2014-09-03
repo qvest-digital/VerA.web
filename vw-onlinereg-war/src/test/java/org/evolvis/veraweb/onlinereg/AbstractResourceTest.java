@@ -1,17 +1,16 @@
 package org.evolvis.veraweb.onlinereg;
 
-import org.evolvis.veraweb.onlinereg.entities.Config;
-import org.evolvis.veraweb.onlinereg.entities.Event;
-import org.evolvis.veraweb.onlinereg.entities.Guest;
-import org.evolvis.veraweb.onlinereg.entities.Location;
-import org.evolvis.veraweb.onlinereg.entities.Person;
 import org.evolvis.veraweb.onlinereg.rest.AbstractResource;
 import org.hibernate.SessionFactory;
-import org.hibernate.cfg.AnnotationConfiguration;
+import org.mockito.invocation.InvocationOnMock;
+import org.mockito.stubbing.Answer;
 
 import javax.servlet.ServletContext;
+import javax.servlet.ServletContextEvent;
 
+import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
+import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -24,7 +23,32 @@ public class AbstractResourceTest<T extends AbstractResource> {
 
     public static ServletContext contextMock;
 
+    private static ServletContextEvent contextEventMock;
+
     static {
+        contextMock = mock(ServletContext.class);
+        when(contextMock.getAttribute(eq("SessionFactory"))).then(new Answer<Object>() {
+            @Override
+            public Object answer(InvocationOnMock invocationOnMock) throws Throwable {
+                return sessionFactory;
+            }
+        });
+
+        doAnswer(new Answer<Void>() {
+            @Override
+            public Void answer(InvocationOnMock invocationOnMock) throws Throwable {
+                sessionFactory = (SessionFactory) invocationOnMock.getArguments()[1];
+                return null;
+            }
+        }).when(contextMock).setAttribute(eq("SessionFactory"), any(SessionFactory.class));
+
+
+        contextEventMock = mock(ServletContextEvent.class);
+        when(contextEventMock.getServletContext()).thenReturn(contextMock);
+
+
+
+
         startH2();
     }
 
@@ -40,29 +64,12 @@ public class AbstractResourceTest<T extends AbstractResource> {
     }
 
     public static void startH2() {
-        // setup the session factory
-        AnnotationConfiguration configuration = new AnnotationConfiguration();
-        configuration.addAnnotatedClass(Config.class)
-                .addAnnotatedClass(Event.class)
-                .addAnnotatedClass(Guest.class)
-                .addAnnotatedClass(Location.class)
-                .addAnnotatedClass(Person.class);
-        configuration.setProperty("hibernate.dialect",
-                "org.hibernate.dialect.H2Dialect");
-        configuration.setProperty("hibernate.connection.driver_class",
-                "org.h2.Driver");
-        configuration.setProperty("hibernate.connection.url", "jdbc:h2:mem");
-        configuration.setProperty("hibernate.hbm2ddl.auto", "create");
+        new HibernateSessionFactoryListener().contextInitialized(contextEventMock);
 
-
-        sessionFactory =  configuration.buildSessionFactory();
-
-        contextMock = mock(ServletContext.class);
-        when(contextMock.getAttribute(eq("SessionFactory"))).thenReturn(sessionFactory);
     }
 
     public static void stopH2() {
-        sessionFactory.close();
+        new HibernateSessionFactoryListener().contextDestroyed(contextEventMock);
     }
 
 }
