@@ -19,6 +19,7 @@ import static org.mockito.Mockito.when;
  */
 public class AbstractResourceTest<T extends AbstractResource> {
 
+
     public static SessionFactory sessionFactory;
 
     public static ServletContext contextMock;
@@ -27,6 +28,8 @@ public class AbstractResourceTest<T extends AbstractResource> {
 
     static {
         contextMock = mock(ServletContext.class);
+
+        // always return the current value of sessionFactory
         when(contextMock.getAttribute(eq("SessionFactory"))).then(new Answer<Object>() {
             @Override
             public Object answer(InvocationOnMock invocationOnMock) throws Throwable {
@@ -34,6 +37,7 @@ public class AbstractResourceTest<T extends AbstractResource> {
             }
         });
 
+        // store sessionFactory
         doAnswer(new Answer<Void>() {
             @Override
             public Void answer(InvocationOnMock invocationOnMock) throws Throwable {
@@ -46,28 +50,35 @@ public class AbstractResourceTest<T extends AbstractResource> {
         contextEventMock = mock(ServletContextEvent.class);
         when(contextEventMock.getServletContext()).thenReturn(contextMock);
 
-
-
-
         startH2();
     }
 
     protected T resource;
 
+    /**
+     * Creates a new ResourceTest
+     * @param clazz class object of class under test
+     */
     public AbstractResourceTest(Class<T> clazz) {
         try {
             resource = clazz.getConstructor().newInstance();
         } catch (Exception e) {
-           throw new RuntimeException(e);
+            throw new RuntimeException(e);
         }
         resource.setContext(contextMock);
     }
 
+    /**
+     * start the in memory H2 database
+     */
     public static void startH2() {
         new HibernateSessionFactoryListener().contextInitialized(contextEventMock);
 
     }
 
+    /**
+     * stop the in memory H2 database
+     */
     public static void stopH2() {
         new HibernateSessionFactoryListener().contextDestroyed(contextEventMock);
     }
