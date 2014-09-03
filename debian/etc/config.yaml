@@ -1,72 +1,42 @@
 
 verawebEndpoint: https://veraweb.lan.tarent.de/vwor
 
+osiam:
+  endpoint: https://veraweb.lan.tarent.de
+  clientId: online-reg
+  clientSecret: secret
+
 ## start WireMock:
 # cd src/test/resources/wiremock
 # java -jar /path/to/wirekmock.jar --port 9090
 
 
-
-####################################
-## Dropwizard options (some of them)             
-## For more options take a look at:
-## http://dropwizard.codahale.com/manual/core/#configuration-defaults
-
-
-# HTTP-specific options.
-http:
-  # The port on which the HTTP server listens for service requests.
-  # Because Java cannot drop privileges in a POSIX system, these
-  # ports cannot be in the range 1-1024. A port value of 0 will
-  # make the OS use an arbitrary unused port.
-  port: 8443
-
-  # The port on which the HTTP server listens for administrative
-  # requests. Subject to the same limitations as "port". If this is
-  # set to the same value as port, the admin routes will be mounted
-  # under /admin.
-  adminPort: 8444
-  
-  # nonblocking is required for websockets
-  connectorType: nonblocking+ssl
-
-  # The hostname of the interface to which the HTTP server socket
-  # will be bound. If omitted, the socket will listen on all
-  # interfaces.
-  # bindHost: null
-
-  # If specified, adds Basic Authentication to the admin port using
-  # this username.
-  # adminUsername: null
-
-  # If specified, adds Basic Authentication to the admin port using
-  # this password. (Requires adminUsername to be specified).
-  # adminPassword: null
-
-  # The root path for the Jersey servlet.
-  rootPath: "/api/*"
-
-  ssl:
-    # The path to the Java Keystore which contains the server's SSL
-    # certificate.
-    # Generated with keytool:
-    # keytool -genkey -keyalg RSA -alias selfsigned -keystore keystore.jks -storepass changeit -validity 3660 -keysize 2048
-    keyStore: ./keystore.jks
-
-    # The password for the keystore.
+server:
+  type: simple
+  applicationContextPath: /
+  adminContextPath: /admin
+  connector:
+    type: https
+    port: 8443
+    keyStorePath: keystore.jks
     keyStorePassword: "changeit"
+    validateCerts: false
 
 
+# Logging settings.
 logging:
 
-  # The default level of all loggers. Can be OFF, ERROR, WARN, INFO,
-  # DEBUG, TRACE, or ALL.
+  # The default level of all loggers. Can be OFF, ERROR, WARN, INFO, DEBUG, TRACE, or ALL.
   level: INFO
 
   # Logger-specific levels.
   loggers:
-    org.tarent.demo: INFO
-    
-    # Hibernate Query logging
-    #org.hibernate.SQL: DEBUG
+
+    # Sets the level for 'com.example.app' to DEBUG.
+    org.evolvis.veraweb.onlinereg: DEBUG
+
+    org.hibernate.SQL: ALL
+
+  appenders:
+    - type: console
 
