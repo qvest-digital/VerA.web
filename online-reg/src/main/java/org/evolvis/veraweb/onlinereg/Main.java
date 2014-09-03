@@ -34,6 +34,7 @@ public class Main extends Application<Config> {
     private EventResource eventResource;
     private UserResource userResource;
     private LoginResource loginResource;
+    private Health health;
 
     @Override
     public void initialize(final Bootstrap<Config> bootstrap) {
@@ -59,8 +60,9 @@ public class Main extends Application<Config> {
 
         environment.jersey().setUrlPattern("/api/*");
 
-        environment.healthChecks().register("veraweb availability", new Health(client, configuration.getVerawebEndpoint()));
+        environment.healthChecks().register("veraweb availability", health = new Health(client, configuration.getVerawebEndpoint()));
 
+        //environment.jersey().register(new OsiamAuthProvider("OSIAM protected"));
 
 
         environment.jersey().register(eventResource = new EventResource(configuration, client));
