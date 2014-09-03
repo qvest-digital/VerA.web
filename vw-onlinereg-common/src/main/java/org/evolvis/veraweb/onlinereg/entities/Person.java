@@ -37,7 +37,7 @@ public class Person {
     private Date changed;
     private String changedby;
 
-    private int fk_orgunit = -1;
+    private int fk_orgunit = 1;
     private char isCompany = 'f';
     private char deleted = 'f';
     private int fk_workarea = 0;
