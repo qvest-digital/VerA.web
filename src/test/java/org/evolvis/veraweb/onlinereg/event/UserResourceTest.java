@@ -25,7 +25,7 @@ public class UserResourceTest {
     private final UserResource ur;
     private Client client;
     private Config config;
-
+    
     public UserResourceTest() {
         Main main = TestSuite.DROPWIZARD.getApplication();
         ur = main.getUserResource();    
@@ -36,31 +36,28 @@ public class UserResourceTest {
     @Test
     public void testRegisterUser() throws IOException {
         String result = ur.registerUser("newuser", "firstname", "secondname", "password");
-        assertEquals("OK", result);
-        Person person = new Person();
-        person.setFirstName("firstname2");
-        person.setLastName("lastname2");
-        person.setUsername("newuser2");
-
-		WebResource r = client.resource(config.getVerawebEndpoint() + "/rest/person/");
-        r = r.queryParam("username", "newuser2").queryParam("firstname", "firstname2").queryParam("lastname", "lastname2");
-        boolean isPerson=false;
-        try {
-        	Person person2 = r.post(Person.class);        
-        	if (person2 instanceof Person) {
-        	  isPerson = true;
-        	}
-        	assertTrue(isPerson);
-        	assertEquals(person, person2); 
+        assertEquals("OK", result);		         
+    }
+    
+    //testet, ob post() nach Veraweb eine Person-Instanz zurückliefert
+    @Test
+    public void testVerawebPerson() throws IOException {
+        
+        WebResource r = client.resource(config.getVerawebEndpoint() + "/rest/person/");
+        r = r.queryParam("username", "newuserTwo").queryParam("firstname", "firstnameTwo").queryParam("lastname", "lastnameTwo");
+        
+       try {
+        	Person person = r.post(Person.class);        
+        	assertTrue(person instanceof Person);
+        	
 	    } catch (UniformInterfaceException uie) {
 	        ClientResponse response = uie.getResponse();
 	        if (response.getStatus() == 404) {
-	            // status 400 indicates user error: user does not exist, password wrong, user deactivated, etc...
 	        	System.out.println("404");
 	        } else {
 	            throw uie;
 	        }
-	    }              
+	    }     
     }
 
     @Test
