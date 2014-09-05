@@ -6,7 +6,6 @@ import com.sun.jersey.api.client.WebResource;
 import org.evolvis.veraweb.onlinereg.Config;
 import org.evolvis.veraweb.onlinereg.entities.Person;
 import org.evolvis.veraweb.onlinereg.osiam.OsiamClient;
-import org.evolvis.veraweb.onlinereg.user.LoginResource;
 import org.osiam.resources.scim.Extension;
 import org.osiam.resources.scim.Name;
 import org.osiam.resources.scim.User;
