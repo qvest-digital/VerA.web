@@ -30,7 +30,7 @@ onlineRegApp.config(function ($routeProvider) {
         templateUrl: 'partials/register_user.html',
         controller: 'RegisterUserController'
     }).otherwise({
-        redirectTo: '/login'
+        redirectTo: '/event'
     });
 });
 
@@ -131,7 +131,7 @@ onlineRegApp.controller('RegisterUserController', function ($scope, $location, $
         $scope.button = false;
     }
 
-    var ERROR_TEXT = "Ein Fehler ist aufgetreten. Bitte versuchen Sie es später nochmal";
+    var ERROR_TEXT = "Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.";
 
     $scope.register_user = function () {
         $scope.button = true;
