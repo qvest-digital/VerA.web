@@ -105,25 +105,11 @@
         							<label for="event-shortname">Kurzbezeichnung*</label>
         							<input type="text" onchange="setModified();" maxlength="50"  id="event-shortname" value="$!message.text($event.shortname)" name="event-shortname"/>
 								</div>
-								<div class="tableCell width50">
-                    				<label for="event-begin">Beginn*</label>
-                    				<div class="calenderContainer">
-                    						<input type="text" class="datepicker" id="event-begin" value="$!message.date("DATE", $event.begin)" name="event-begin" onchange="setModified();">
-                    						#if($grants.mayWrite())
-                    							<span class="datepickerContainer" id="show-begin">
-                    								<img title="Datum ausw&auml;hlen" alt="Datum ausw&auml;hlen" src="${paths.staticWeb}images/calendar.png">
-                    							</span>
-                    							<script type="text/javascript">
-                    							    Calendar.setup({
-                    									inputField     :    "event-begin",
-                    									button         :    "show-begin",
-                    									ifFormat       :    "%d.%m.%Y",
-                    									showsTime      :    false
-                    								});
-                    							</script>
-                    						#end
-                    					 um <input type="text" name="event-begintime" id="event-begintime" #if($event-beginhastime) value="$!message.date("TIME", $event.begin)" #else value="" #end class="width15" onchange="setModified();"> Uhr </div>									
-								</div>
+								
+    							<div class="tableCell width50 inlineLabel">
+    								<label for="event-open">Offene Veranstaltung</label>
+    								<input type="checkbox" class="noFloat"  id="event-open" name="event-open" value="true" id="event-open">						
+    							</div>							
 							</div>
 							
 							<div class="tableRow">
@@ -131,8 +117,29 @@
         							<label for="event-eventname">Name</label>
 									<textarea onchange="setModified();"  id="event-eventname" name="event-eventname" cols="20" rows="4">$!message.textarea($event.eventname)</textarea>
 								</div>
-								<div class="tableCell width50">
-                    				<label for="event-end">Ende</label>
+								
+								<div class="tableCell width50">                       							
+                 
+									<label for="event-begin">Beginn*</label>
+	                				<div class="calenderContainer">
+	                						<input type="text" class="datepicker" id="event-begin" value="$!message.date("DATE", $event.begin)" name="event-begin" onchange="setModified();">
+	                						#if($grants.mayWrite())
+	                							<span class="datepickerContainer" id="show-begin">
+	                								<img title="Datum ausw&auml;hlen" alt="Datum ausw&auml;hlen" src="${paths.staticWeb}images/calendar.png">
+	                							</span>
+	                							<script type="text/javascript">
+	                							    Calendar.setup({
+	                									inputField     :    "event-begin",
+	                									button         :    "show-begin",
+	                									ifFormat       :    "%d.%m.%Y",
+	                									showsTime      :    false
+	                								});
+	                							</script>
+	                						#end
+	                					 um <input type="text" name="event-begintime" id="event-begintime" #if($event-beginhastime) value="$!message.date("TIME", $event.begin)" #else value="" #end class="width15" onchange="setModified();"> Uhr 								
+									</div>		
+									
+									<label for="event-end">Ende</label>
                     				<div class="calenderContainer">
                     						<input type="text" class="datepicker" id="event-end" value="$!message.date("DATE", $event.end)" name="event-end" onchange="setModified();">
                     						<span class="datepickerContainer" id="show-end">
@@ -148,7 +155,8 @@
                     								});
                     							</script>
                     						#end
-                    					 um <input type="text" name="event-endtime" id="event-endtime" #if($event-endhastime) value="$!message.date("TIME", $event.end)" #else value="" #end class="width15" onchange="setModified();">Uhr </div>									
+                    					 um <input type="text" name="event-endtime" id="event-endtime" #if($event-endhastime) value="$!message.date("TIME", $event.end)" #else value="" #end class="width15" onchange="setModified();">Uhr 
+                    				</div>							
 								</div>
 							</div>
 
