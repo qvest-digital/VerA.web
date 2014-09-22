@@ -102,16 +102,24 @@
     					<div class="table width100">							
 							<div class="tableRow">
     							<div class="tableCell width50">
-        							<label for="event-shortname">Kurzbezeichnung*</label>
-        							<input type="text" onchange="setModified();" maxlength="50"  id="event-shortname" value="$!message.text($event.shortname)" name="event-shortname"/>
 								</div>
-								
+
     							<div class="tableCell width50 inlineLabel">
     								<label for="event-open">Offene Veranstaltung</label>
-    								<input type="checkbox" class="noFloat"  id="event-open" name="event-open" value="true" id="event-open">						
-    							</div>							
+    								<input type="checkbox" class="noFloat"  id="event-open" name="event-open" value="true" id="event-open">
+    							</div>
 							</div>
-							
+
+							<div class="tableRow">
+                                <div class="tableCell width50">
+                                    <label for="event-shortname">Kurzbezeichnung*</label>
+                                    <input type="text" onchange="setModified();" maxlength="50"  id="event-shortname" value="$!message.text($event.shortname)" name="event-shortname"/>
+                                </div>
+
+                                <div class="tableCell width50">
+                                </div>
+                            </div>
+
 							<div class="tableRow">
     							<div class="tableCell width50">
         							<label for="event-eventname">Name</label>
