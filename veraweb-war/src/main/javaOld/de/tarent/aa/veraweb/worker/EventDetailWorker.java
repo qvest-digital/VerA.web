@@ -181,22 +181,19 @@ public class EventDetailWorker {
                 }
             }
 
-			if (!questions.isEmpty())
-			{
-				cntx.setContent("listquestions", questions);
-			}
+            if (!questions.isEmpty()) {
+                cntx.setContent("listquestions", questions);
+            }
 
 			/** Veranstaltung speichern */
-			if (event.isModified() && event.isCorrect() && questions.isEmpty())
-			{
-				/*
+            if (event.isModified() && event.isCorrect() && questions.isEmpty()) {
+                /*
 				 * modified to support change logging
 				 * cklein 2008-02-12
 				 */
 				BeanChangeLogger clogger = new BeanChangeLogger( database, context );
-				if (event.id == null)
-				{
-					cntx.setContent("countInsert", new Integer(1));
+                if (event.id == null) {
+                    cntx.setContent("countInsert", new Integer(1));
 					database.getNextPk(event, context);
 					Insert insert = database.getInsert(event);
 					insert.insert("pk", event.id);
@@ -206,10 +203,9 @@ public class EventDetailWorker {
 					}
 					context.execute(insert);
 
-					clogger.logInsert( cntx.personalConfig().getLoginname(), event );	
-				} else
-				{
-					cntx.setContent("countUpdate", new Integer(1));
+					clogger.logInsert( cntx.personalConfig().getLoginname(), event );
+                } else {
+                    cntx.setContent("countUpdate", new Integer(1));
 					Update update = database.getUpdate(event);
 					if (!((PersonalConfigAA) cntx.personalConfig()).getGrants().mayReadRemarkFields())
 					{
@@ -220,15 +216,13 @@ public class EventDetailWorker {
 					clogger.logUpdate( cntx.personalConfig().getLoginname(), oldEvent, event );	
 				}
 
-				if (newEvent)
-				{
-					List list = database.getBeanList("Doctype", database.getSelect("Doctype").where(
+                if (newEvent) {
+                    List list = database.getBeanList("Doctype", database.getSelect("Doctype").where(
 						Where
 							.or(Expr.equal("flags", new Integer(Doctype.FLAG_IS_STANDARD)), Expr.equal("flags", new Integer(Doctype.FLAG_NO_FREITEXT)))),
 						context);
-					for (Iterator it = list.iterator(); it.hasNext();)
-					{
-						Doctype doctype = (Doctype) it.next();
+                    for (Iterator it = list.iterator(); it.hasNext(); ) {
+                        Doctype doctype = (Doctype) it.next();
 						EventDoctype eventDoctype = new EventDoctype();
 						eventDoctype.event = event.id;
 						eventDoctype.doctype = doctype.id;
@@ -240,23 +234,19 @@ public class EventDetailWorker {
 				}
 
 				Integer invitationtype;
-				if (event.invitepartner.booleanValue() || event.invitationtype == null)
-				{
-					invitationtype = new Integer(EventConstants.TYPE_MITPARTNER);
-				} else if (event.invitationtype.intValue() == EventConstants.TYPE_NURPARTNER)
-				{
-					invitationtype = new Integer(EventConstants.TYPE_NURPARTNER);
-				} else
-				{
-					invitationtype = new Integer(EventConstants.TYPE_OHNEPARTNER);
-				}
+                if (event.invitepartner.booleanValue() || event.invitationtype == null) {
+                    invitationtype = new Integer(EventConstants.TYPE_MITPARTNER);
+                } else if (event.invitationtype.intValue() == EventConstants.TYPE_NURPARTNER) {
+                    invitationtype = new Integer(EventConstants.TYPE_NURPARTNER);
+                } else {
+                    invitationtype = new Integer(EventConstants.TYPE_OHNEPARTNER);
+                }
 
 				// Bug 1601
 				// Alt: Veraltete Gastgeber zu G�sten machen
 				// Neu: gel�schten Gastgeber aus Veranstaltung entfernen.
-				if (removeHost)
-				{
-					Select sel = database.getSelect("Guest").where(Where.and(Expr.equal("fk_event", event.id), Expr.equal("ishost", new Integer(1))));
+                if (removeHost) {
+                    Select sel = database.getSelect("Guest").where(Where.and(Expr.equal("fk_event", event.id), Expr.equal("ishost", new Integer(1))));
 					Guest hostToRemove = (Guest) database.getBean("Guest", sel);
 					if (hostToRemove != null && hostToRemove.id != null)
 					{
@@ -270,50 +260,43 @@ public class EventDetailWorker {
 					// Expr.equal("fk_event", event.id),
 					// Expr.equal("ishost", new Integer(1)))));
 				}
-				if (createHost)
-				{
-					Boolean reserve = Boolean.FALSE;
+                if (createHost) {
+                    Boolean reserve = Boolean.FALSE;
 					WorkerFactory.getGuestWorker(cntx).addGuest(cntx, database, context, event, event.host, null, reserve, invitationtype,
 						Boolean.TRUE);
-				} else if (updateHost)
-				{
-					context.execute(SQL.Update( database ).table("veraweb.tguest").update("ishost", new Integer(1)).update("invitationtype", invitationtype)
-						.where(Where.and(Expr.equal("fk_event", event.id), Expr.equal("fk_person", event.host))));
-					
-					// TODO also modifies tguest, full change logging requires
-					// TODO refactor and centralize in GuestDetailWorker
-				}
+				} else if (updateHost) {
+                    context.execute(SQL.Update(database).table("veraweb.tguest").update("ishost", new Integer(1)).update("invitationtype", invitationtype)
+                            .where(Where.and(Expr.equal("fk_event", event.id), Expr.equal("fk_person", event.host))));
 
-				if (oldEvent != null && !event.invitationtype.equals(oldEvent.invitationtype))
-				{
-					context.execute(SQL.Update( database ).table("veraweb.tguest").update("invitationtype", event.invitationtype).where(
-						Where.and(Expr.equal("fk_event", event.id), Expr.notEqual("ishost", new Integer(1)))));
+                    // TODO also modifies tguest, full change logging requires
+                    // TODO refactor and centralize in GuestDetailWorker
+                }
 
-					// TODO also modifies tevent, full change logging requires
-					// TODO refactor and centralize in EventDetailWorker
-				}
-			} else
-			{
-				cntx.setStatus("notsaved");
-			}
-			cntx.setContent("event", event);
+                if (oldEvent != null && !event.invitationtype.equals(oldEvent.invitationtype)) {
+                    context.execute(SQL.Update(database).table("veraweb.tguest").update("invitationtype", event.invitationtype).where(
+                            Where.and(Expr.equal("fk_event", event.id), Expr.notEqual("ishost", new Integer(1)))));
+
+                    // TODO also modifies tevent, full change logging requires
+                    // TODO refactor and centralize in EventDetailWorker
+                }
+            } else {
+                cntx.setStatus("notsaved");
+            }
+            cntx.setContent("event", event);
 			cntx.setContent("event-beginhastime", Boolean.valueOf(DateHelper.isTimeInDate(event.begin)));
 			cntx.setContent("event-endhastime", Boolean.valueOf(DateHelper.isTimeInDate(event.end)));
 
 			context.commit();
-		} 
-		catch ( BeanException e )
-		{
-			context.rollBack();
-			// must report error to user
-			throw new BeanException( "Die Eventdetails konnten nicht gespeichert werden.", e );
-		}
-	}
+        } catch (BeanException e) {
+            context.rollBack();
+            // must report error to user
+            throw new BeanException("Die Eventdetails konnten nicht gespeichert werden.", e);
+        }
+    }
 
     private void getHostPersonDetails(Database database, TransactionContext context, Event event) throws BeanException, IOException {
         Person person = (Person) database.getBean("Person", database.getSelect("Person").where(Expr.equal("pk", event.host)), context);
-        if (person != null)
-        {
+        if (person != null) {
             event.hostname = person.getMainLatin().getSaveAs();
             event.setModified(true);
         }
@@ -321,25 +304,19 @@ public class EventDetailWorker {
 
     private void checkForDuplicateEvents(OctopusContext cntx, Database database, Event event, Map questions) throws BeanException, IOException {
         // Test ob bereits eine Veranstaltung mit diesem Namen existiert.
-        if (event.shortname != null && event.shortname.length() != 0)
-        {
+        if (event.shortname != null && event.shortname.length() != 0) {
             WhereList where = new WhereList();
             where.addAnd(Expr.equal("fk_orgunit", ((PersonalConfigAA) cntx.personalConfig()).getOrgUnitId()));
             where.addAnd(Expr.equal("shortname", event.shortname));
-            if (event.id != null)
-            {
+            if (event.id != null) {
                 where.addAnd(Expr.notEqual("pk", event.id));
             }
 
-            if (database.getCount(database.getCount("Event").where(where)).intValue() != 0)
-            {
-                if (!cntx.requestAsBoolean("event-samename").booleanValue())
-                {
+            if (database.getCount(database.getCount("Event").where(where)).intValue() != 0) {
+                if (!cntx.requestAsBoolean("event-samename").booleanValue()) {
                     questions.put("event-samename", "Eine Verstaltung mit dem Namen '" + event.shortname
                         + "' existiert bereits. Möchten Sie die neue Veranstaltung dennoch speichern?");
-                }
-                else
-                {
+                } else {
                     //QUICKFIX wenn die Frage samename schon gestellt wurde und user trotzdem speichern will, ist der
                     //event zwar neu, aber nicht mehr modified. Dann wird weiter unten nicht gespeichert.
                     //modified sagt nur aus, ob die letzte site was geaendert hat. Wird eine Rueckfrage gestellt,
