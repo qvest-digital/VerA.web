@@ -137,87 +137,49 @@ public class EventDetailWorker {
 
 			List errors = new ArrayList();
 			Map questions = new HashMap();
+            checkForDuplicateEvents(cntx, database, event, questions);
 
-			// Test ob bereits eine Veranstaltung mit diesem Namen existiert.
-			if (event.shortname != null && event.shortname.length() != 0)
-			{
-				WhereList where = new WhereList();
-				where.addAnd(Expr.equal("fk_orgunit", ((PersonalConfigAA) cntx.personalConfig()).getOrgUnitId()));
-				where.addAnd(Expr.equal("shortname", event.shortname));
-				if (event.id != null)
-				{
-					where.addAnd(Expr.notEqual("pk", event.id));
-				}
-
-				if (database.getCount(database.getCount("Event").where(where)).intValue() != 0)
-				{
-					if (!cntx.requestAsBoolean("event-samename").booleanValue())
-					{
-						questions.put("event-samename", "Eine Verstaltung mit dem Namen '" + event.shortname
-							+ "' existiert bereits. Möchten Sie die neue Veranstaltung dennoch speichern?");
-					}
-					else
-					{
-						//QUICKFIX wenn die Frage samename schon gestellt wurde und user trotzdem speichern will, ist der
-						//event zwar neu, aber nicht mehr modified. Dann wird weiter unten nicht gespeichert.
-						//modified sagt nur aus, ob die letzte site was geaendert hat. Wird eine Rueckfrage gestellt,
-						//ist modified false, obwohl das bean noch neu (nicht persistent) sein koennte.
-						event.setModified(true);
-					}
-				}
-			}
-
-			/** Gibt an ob der �bergebene Ort in die Stammdaten �bernommen werden soll. */
+            /** Gibt an ob der �bergebene Ort in die Stammdaten �bernommen werden soll. */
 			boolean saveLocation = cntx.requestAsBoolean("addcity-masterdata").booleanValue();
 			cntx.setContent("addcity-masterdata", Boolean.valueOf(saveLocation));
 
 			/** Wenn ein Gastgeber angegeben worden ist zu diesem die Personendaten laden. */
-			if (event.host != null)
-			{
-				Person person = (Person) database.getBean("Person", database.getSelect("Person").where(Expr.equal("pk", event.host)), context);
-				if (person != null)
-				{
-					event.hostname = person.getMainLatin().getSaveAs();
-					event.setModified(true);
-				}
-			} else
-			{
+			if (event.host != null) {
+                getHostPersonDetails(database, context, event);
+			} else {
 				event.hostname = null;
 			}
 
 			/** Gibt an ob es sich um eine neue Veranstaltung handelt. */
 			boolean newEvent = event.id == null;
-			/** Gibt an ob es sich um einen neuen oder alten Gastgeber handelt. */
+
+            /** Gibt an ob es sich um einen neuen oder alten Gastgeber handelt. */
 			boolean createHost;
 			boolean updateHost;
 			boolean removeHost;
-			if (newEvent)
-			{
+			if (newEvent) {
 				// Neue Veranstaltung -> Gastgeber anlegen
 				removeHost = false;
 				updateHost = false;
 				createHost = event.host != null;
-			} else
-			{
-				if (event.host == null)
-				{
-					// Alte Veranstaltung -> Gastgeber entfernen
-					removeHost = database.getCount(
-						database.getCount("Guest").where(Where.and(Expr.equal("fk_event", event.id), Expr.equal("ishost", new Integer(1))))).intValue() != 0;
-					updateHost = false;
-					createHost = false;
-				} else
-				{
-					// Alte Veranstaltung -> Gastgeber hinzuf�gen
-					removeHost = database.getCount(
-						database.getCount("Guest").where(
-							Where.and(Where.and(Expr.equal("fk_event", event.id), Expr.notEqual("fk_person", event.host)), Expr.equal("ishost",
-								new Integer(1))))).intValue() != 0;
-					updateHost = database.getCount(
-						database.getCount("Guest").where(Where.and(Expr.equal("fk_event", event.id), Expr.equal("fk_person", event.host)))).intValue() != 0;
-					createHost = !updateHost;
-				}
-			}
+			} else {
+                if (event.host == null) {
+                    // Alte Veranstaltung -> Gastgeber entfernen
+                    removeHost = database.getCount(
+                            database.getCount("Guest").where(Where.and(Expr.equal("fk_event", event.id), Expr.equal("ishost", new Integer(1))))).intValue() != 0;
+                    updateHost = false;
+                    createHost = false;
+                } else {
+                    // Alte Veranstaltung -> Gastgeber hinzuf�gen
+                    removeHost = database.getCount(
+                            database.getCount("Guest").where(
+                                    Where.and(Where.and(Expr.equal("fk_event", event.id), Expr.notEqual("fk_person", event.host)), Expr.equal("ishost",
+                                            new Integer(1))))).intValue() != 0;
+                    updateHost = database.getCount(
+                            database.getCount("Guest").where(Where.and(Expr.equal("fk_event", event.id), Expr.equal("fk_person", event.host)))).intValue() != 0;
+                    createHost = !updateHost;
+                }
+            }
 
 			if (!questions.isEmpty())
 			{
@@ -348,6 +310,46 @@ public class EventDetailWorker {
 		}
 	}
 
+    private void getHostPersonDetails(Database database, TransactionContext context, Event event) throws BeanException, IOException {
+        Person person = (Person) database.getBean("Person", database.getSelect("Person").where(Expr.equal("pk", event.host)), context);
+        if (person != null)
+        {
+            event.hostname = person.getMainLatin().getSaveAs();
+            event.setModified(true);
+        }
+    }
+
+    private void checkForDuplicateEvents(OctopusContext cntx, Database database, Event event, Map questions) throws BeanException, IOException {
+        // Test ob bereits eine Veranstaltung mit diesem Namen existiert.
+        if (event.shortname != null && event.shortname.length() != 0)
+        {
+            WhereList where = new WhereList();
+            where.addAnd(Expr.equal("fk_orgunit", ((PersonalConfigAA) cntx.personalConfig()).getOrgUnitId()));
+            where.addAnd(Expr.equal("shortname", event.shortname));
+            if (event.id != null)
+            {
+                where.addAnd(Expr.notEqual("pk", event.id));
+            }
+
+            if (database.getCount(database.getCount("Event").where(where)).intValue() != 0)
+            {
+                if (!cntx.requestAsBoolean("event-samename").booleanValue())
+                {
+                    questions.put("event-samename", "Eine Verstaltung mit dem Namen '" + event.shortname
+                        + "' existiert bereits. Möchten Sie die neue Veranstaltung dennoch speichern?");
+                }
+                else
+                {
+                    //QUICKFIX wenn die Frage samename schon gestellt wurde und user trotzdem speichern will, ist der
+                    //event zwar neu, aber nicht mehr modified. Dann wird weiter unten nicht gespeichert.
+                    //modified sagt nur aus, ob die letzte site was geaendert hat. Wird eine Rueckfrage gestellt,
+                    //ist modified false, obwohl das bean noch neu (nicht persistent) sein koennte.
+                    event.setModified(true);
+                }
+            }
+        }
+    }
+
     /** Eingabe-Parameter der Octopus-Aktion {@link #saveTemp(OctopusContext)} */
 	public static final String INPUT_saveTemp[] = {};
 	/**
@@ -406,7 +408,7 @@ public class EventDetailWorker {
 			event.host = hostid;
 			Person person = (Person)database.getBean("Person", hostid);
 			if (person != null) {
-				event.hostname = person.getMainLatin().getSaveAs();				
+				event.hostname = person.getMainLatin().getSaveAs();
 			}
 			event.setModified(true);
 			cntx.setContent("saveevent", Boolean.TRUE);
