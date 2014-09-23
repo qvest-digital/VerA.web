@@ -41,6 +41,7 @@ public class Event extends AbstractHistoryBean implements OrgUnitDependent {
 	public Timestamp begin;
 	public Timestamp end;
 	public Boolean invitepartner;
+    public String eventtype;
 	public String hostname;
 	public Integer maxguest;
 	public Integer location;

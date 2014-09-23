@@ -106,7 +106,12 @@
 
     							<div class="tableCell width50 inlineLabel">
     								<label for="event-open">Offene Veranstaltung</label>
-    								<input type="checkbox" class="noFloat"  id="event-open" name="event-open" value="true" id="event-open">
+    								<!-- DEBUG $event.eventtype -->
+    								<input type="checkbox"  onchange="setModified();" class="noFloat" id="event-eventtype" name="event-eventtype"
+                                        #if($event && $event.eventtype != "")
+                                            checked
+                                        #end
+    								>
     							</div>
 							</div>
 

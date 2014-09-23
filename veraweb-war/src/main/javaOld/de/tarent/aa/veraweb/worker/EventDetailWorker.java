@@ -115,8 +115,9 @@ public class EventDetailWorker {
 	 */
 	public void saveDetail(OctopusContext cntx, Boolean saveevent) throws BeanException, IOException
 	{
-		if (saveevent == null || !saveevent.booleanValue())
-			return;
+		if (saveevent == null || !saveevent.booleanValue()) {
+            return;
+        }
 
 		Request request = new RequestVeraWeb(cntx);
 		Database database = new DatabaseVeraWeb(cntx);
@@ -185,55 +186,56 @@ public class EventDetailWorker {
                 cntx.setContent("listquestions", questions);
             }
 
-			/** Veranstaltung speichern */
+            /** Veranstaltung speichern */
             if (event.isModified() && event.isCorrect() && questions.isEmpty()) {
-                /*
-				 * modified to support change logging
-				 * cklein 2008-02-12
-				 */
-				BeanChangeLogger clogger = new BeanChangeLogger( database, context );
+            /*
+             * modified to support change logging
+             * cklein 2008-02-12
+             */
+
+                setEventType(event);
+
+                BeanChangeLogger clogger = new BeanChangeLogger( database, context );
                 if (event.id == null) {
                     cntx.setContent("countInsert", new Integer(1));
-					database.getNextPk(event, context);
-					Insert insert = database.getInsert(event);
-					insert.insert("pk", event.id);
-					if (!((PersonalConfigAA) cntx.personalConfig()).getGrants().mayReadRemarkFields())
-					{
-						insert.remove("note");
-					}
-					context.execute(insert);
+                    database.getNextPk(event, context);
+                    Insert insert = database.getInsert(event);
+                    insert.insert("pk", event.id);
+                    if (!((PersonalConfigAA) cntx.personalConfig()).getGrants().mayReadRemarkFields()) {
+                        insert.remove("note");
+                    }
+                    context.execute(insert);
 
-					clogger.logInsert( cntx.personalConfig().getLoginname(), event );
+                    clogger.logInsert( cntx.personalConfig().getLoginname(), event );
                 } else {
                     cntx.setContent("countUpdate", new Integer(1));
-					Update update = database.getUpdate(event);
-					if (!((PersonalConfigAA) cntx.personalConfig()).getGrants().mayReadRemarkFields())
-					{
-						update.remove("note");
-					}
-					context.execute(update);
+                    Update update = database.getUpdate(event);
+                    if (!((PersonalConfigAA) cntx.personalConfig()).getGrants().mayReadRemarkFields()) {
+                        update.remove("note");
+                    }
+                    context.execute(update);
 
-					clogger.logUpdate( cntx.personalConfig().getLoginname(), oldEvent, event );	
-				}
+                    clogger.logUpdate( cntx.personalConfig().getLoginname(), oldEvent, event );
+                }
 
                 if (newEvent) {
                     List list = database.getBeanList("Doctype", database.getSelect("Doctype").where(
-						Where
-							.or(Expr.equal("flags", new Integer(Doctype.FLAG_IS_STANDARD)), Expr.equal("flags", new Integer(Doctype.FLAG_NO_FREITEXT)))),
-						context);
+                                    Where
+                                            .or(Expr.equal("flags", new Integer(Doctype.FLAG_IS_STANDARD)), Expr.equal("flags", new Integer(Doctype.FLAG_NO_FREITEXT)))),
+                            context);
                     for (Iterator it = list.iterator(); it.hasNext(); ) {
                         Doctype doctype = (Doctype) it.next();
-						EventDoctype eventDoctype = new EventDoctype();
-						eventDoctype.event = event.id;
-						eventDoctype.doctype = doctype.id;
-						if (eventDoctype.event != null && eventDoctype.doctype != null)
-						{
-							database.saveBean(eventDoctype, context, false);
-						}
-					}
-				}
+                        EventDoctype eventDoctype = new EventDoctype();
+                        eventDoctype.event = event.id;
+                        eventDoctype.doctype = doctype.id;
+                        if (eventDoctype.event != null && eventDoctype.doctype != null)
+                        {
+                            database.saveBean(eventDoctype, context, false);
+                        }
+                    }
+                }
 
-				Integer invitationtype;
+                Integer invitationtype;
                 if (event.invitepartner.booleanValue() || event.invitationtype == null) {
                     invitationtype = new Integer(EventConstants.TYPE_MITPARTNER);
                 } else if (event.invitationtype.intValue() == EventConstants.TYPE_NURPARTNER) {
@@ -242,29 +244,29 @@ public class EventDetailWorker {
                     invitationtype = new Integer(EventConstants.TYPE_OHNEPARTNER);
                 }
 
-				// Bug 1601
-				// Alt: Veraltete Gastgeber zu G�sten machen
-				// Neu: gel�schten Gastgeber aus Veranstaltung entfernen.
+                // Bug 1601
+                // Alt: Veraltete Gastgeber zu G�sten machen
+                // Neu: gel�schten Gastgeber aus Veranstaltung entfernen.
                 if (removeHost) {
                     Select sel = database.getSelect("Guest").where(Where.and(Expr.equal("fk_event", event.id), Expr.equal("ishost", new Integer(1))));
-					Guest hostToRemove = (Guest) database.getBean("Guest", sel);
-					if (hostToRemove != null && hostToRemove.id != null)
-					{
-						WorkerFactory.getGuestListWorker(cntx).removeBean(cntx, hostToRemove, context);
-					}
+                    Guest hostToRemove = (Guest) database.getBean("Guest", sel);
+                    if (hostToRemove != null && hostToRemove.id != null)
+                    {
+                        WorkerFactory.getGuestListWorker(cntx).removeBean(cntx, hostToRemove, context);
+                    }
 
-					// context.execute(SQL.Update(database).
-					// table("veraweb.tguest").
-					// update("ishost", Boolean.FALSE).
-					// where(Where.and(
-					// Expr.equal("fk_event", event.id),
-					// Expr.equal("ishost", new Integer(1)))));
-				}
+                    // context.execute(SQL.Update(database).
+                    // table("veraweb.tguest").
+                    // update("ishost", Boolean.FALSE).
+                    // where(Where.and(
+                    // Expr.equal("fk_event", event.id),
+                    // Expr.equal("ishost", new Integer(1)))));
+                }
                 if (createHost) {
                     Boolean reserve = Boolean.FALSE;
-					WorkerFactory.getGuestWorker(cntx).addGuest(cntx, database, context, event, event.host, null, reserve, invitationtype,
-						Boolean.TRUE);
-				} else if (updateHost) {
+                    WorkerFactory.getGuestWorker(cntx).addGuest(cntx, database, context, event, event.host, null, reserve, invitationtype,
+                            Boolean.TRUE);
+                } else if (updateHost) {
                     context.execute(SQL.Update(database).table("veraweb.tguest").update("ishost", new Integer(1)).update("invitationtype", invitationtype)
                             .where(Where.and(Expr.equal("fk_event", event.id), Expr.equal("fk_person", event.host))));
 
@@ -282,6 +284,7 @@ public class EventDetailWorker {
             } else {
                 cntx.setStatus("notsaved");
             }
+
             cntx.setContent("event", event);
 			cntx.setContent("event-beginhastime", Boolean.valueOf(DateHelper.isTimeInDate(event.begin)));
 			cntx.setContent("event-endhastime", Boolean.valueOf(DateHelper.isTimeInDate(event.end)));
@@ -291,6 +294,20 @@ public class EventDetailWorker {
             context.rollBack();
             // must report error to user
             throw new BeanException("Die Eventdetails konnten nicht gespeichert werden.", e);
+        }
+    }
+
+    /**
+     * Set/unset the event type (aka public event or private event). Status of the checkbox is saved in the DB as
+     * string. Later will be possible to handle more than two types of events.
+     *
+     * @param event The event
+     */
+    private void setEventType(Event event) {
+        if(event.eventtype != null && event.eventtype.equals("on")) {
+            event.eventtype = "Offene Veranstaltung";
+        } else {
+            event.eventtype = "";
         }
     }
 
