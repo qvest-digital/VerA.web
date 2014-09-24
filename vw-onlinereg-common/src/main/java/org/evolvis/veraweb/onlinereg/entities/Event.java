@@ -20,11 +20,11 @@ import java.util.Date;
 @Entity
 @Table(name = "tevent")
 @NamedQueries({
-        @NamedQuery(name = "Event.list", query = "SELECT e FROM Event e"),
+        @NamedQuery(name = "Event.list", query = "SELECT e FROM Event e where CURRENT_TIMESTAMP < e.datebegin OR CURRENT_TIMESTAMP < e.dateend"),
         @NamedQuery(name = "Event.getEvent", query = "SELECT e FROM Event e where e.pk = :pk")
 })
 public class Event {
-
+	
     @Id
     private int pk;
     private String shortname;
@@ -33,7 +33,4 @@ public class Event {
     @ManyToOne
     @JoinColumn(name="fk_location")
     private Location location;
-
-
-
 }
