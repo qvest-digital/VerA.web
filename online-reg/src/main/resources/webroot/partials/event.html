@@ -9,7 +9,7 @@
 	<tr ng-repeat="event in events">
 		<td>{{parseDate(event.datebegin) | date:'dd.MM.yyyy HH:mm'}}</td>
 		<td>{{event.shortname}}</td>
-		<td class="button_column"><a href="#/register/{{event.pk}}"><input type="button" class="btn-custom" value="Anmelden"/></a></td>
+		<td class="button_column"><a href="#/register/{{event.pk}}"><input type="button" class="btn-custom" value="zur Veranstaltung anmelden"/></a></td>
 	</tr>
   	
 </table>
