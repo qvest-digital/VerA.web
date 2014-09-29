@@ -6,6 +6,7 @@ import org.hibernate.Session;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -26,23 +27,23 @@ public class EventResourceTest extends AbstractResourceTest<EventResource> {
 
         Session s = sessionFactory.openSession();
 
+        Date date = getFutureDate();
 
         Event e = new Event();
         e.setPk(1);
-        e.setDatebegin(new Date());
+        e.setDatebegin(date);
         e.setShortname("shortname");
         s.persist(e);
 
 
         e = new Event();
         e.setPk(2);
-        e.setDatebegin(new Date());
+        e.setDatebegin(date);
         e.setShortname("event2");
         s.persist(e);
 
         s.flush();
         s.close();
-
     }
 
     @Test
@@ -57,5 +58,10 @@ public class EventResourceTest extends AbstractResourceTest<EventResource> {
         assertEquals("shortname", e.getShortname());
     }
 
-
+    private static Date getFutureDate() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date()); // Now use today date.
+        calendar.add(Calendar.DATE, 15); // Adds 15 days
+        return calendar.getTime();
+    }
 }
