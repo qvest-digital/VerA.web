@@ -29,6 +29,7 @@ public class Event {
     private int pk;
     private String shortname;
     private Date datebegin;
+    private Date dateend;
 
     @ManyToOne
     @JoinColumn(name="fk_location")
