@@ -25,7 +25,7 @@ public class EventResourceTest extends AbstractResourceTest<EventResource> {
     @BeforeClass
     public static void init() {
 
-        Session s = sessionFactory.openSession();
+        Session session = sessionFactory.openSession();
 
         Date date = getFutureDate();
 
@@ -33,23 +33,59 @@ public class EventResourceTest extends AbstractResourceTest<EventResource> {
         e.setPk(1);
         e.setDatebegin(date);
         e.setShortname("shortname");
-        s.persist(e);
+        session.persist(e);
 
 
         e = new Event();
         e.setPk(2);
         e.setDatebegin(date);
         e.setShortname("event2");
-        s.persist(e);
+        session.persist(e);
 
-        s.flush();
-        s.close();
+        session.flush();
+        session.close();
     }
 
     @Test
     public void testListEvents() {
         List<Event> events = resource.listEvents();
         assertEquals(2, events.size());
+    }
+
+    @Test
+    public void testFilterEventsInThePast() {
+        // GIVEN
+        addPastEvents();
+
+        // WHEN
+        List<Event> events = resource.listEvents();
+
+        // THEN
+        assertEquals(2, events.size());
+    }
+
+    @Test
+    public void testShowEventsWithPastBeginAndFutureEndDate() {
+        // GIVEN
+        addEventWithPastBeginAndFutureEnd();
+
+        // WHEN
+        List<Event> events = resource.listEvents();
+
+        // THEN
+        assertEquals(3, events.size());
+    }
+
+    @Test
+    public void testShowEventsWithFutureBeginAndEndDate() {
+        // GIVEN
+        addEventsWithFutureBeginAndEndDate();
+
+        // WHEN
+        List<Event> events = resource.listEvents();
+
+        // THEN
+        assertEquals(3, events.size());
     }
 
     @Test
@@ -60,8 +96,56 @@ public class EventResourceTest extends AbstractResourceTest<EventResource> {
 
     private static Date getFutureDate() {
         Calendar calendar = Calendar.getInstance();
-        calendar.setTime(new Date()); // Now use today date.
+        calendar.setTime(new Date());
         calendar.add(Calendar.DATE, 15); // Adds 15 days
         return calendar.getTime();
+    }
+
+    private static Date getPastDate() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date());
+        calendar.add(Calendar.DATE, -15); // Removes 15 days
+        return calendar.getTime();
+    }
+
+    private void addPastEvents() {
+        Session session = sessionFactory.openSession();
+
+        Event e = new Event();
+        e.setPk(3);
+        e.setDatebegin(getPastDate());
+        e.setShortname("pastEvent");
+
+        persistEvent(session, e);
+    }
+
+    private void addEventWithPastBeginAndFutureEnd() {
+        Session session = sessionFactory.openSession();
+
+        Event e = new Event();
+        e.setPk(4);
+        e.setDatebegin(getPastDate());
+        e.setDateend(getFutureDate());
+        e.setShortname("activeEvent");
+
+        persistEvent(session, e);
+    }
+
+    private void addEventsWithFutureBeginAndEndDate() {
+        Session session = sessionFactory.openSession();
+
+        Event e = new Event();
+        e.setPk(5);
+        e.setDatebegin(getFutureDate());
+        e.setDateend(getFutureDate());
+        e.setShortname("activeEvent");
+
+        persistEvent(session, e);
+    }
+
+    private void persistEvent(Session session, Event e) {
+        session.persist(e);
+        session.flush();
+        session.close();
     }
 }
