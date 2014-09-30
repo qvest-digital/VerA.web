@@ -10,15 +10,15 @@
 
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/bootstrap/validator/css/bootstrapValidator.min.css"/>
-    <link href="style.css" rel="stylesheet">
+    <link href="styles/style.css" rel="stylesheet">
 </head>
 
 <body>
 <div class="maincontainer"  ng-controller="DirectLoginController">
 
-    <div ng-include src="'header.html'"></div>
+    <div ng-include src="'partials/header.html'"></div>
 
-    <div ng-include src="'navigation.html'"></div>
+    <div ng-include src="'partials/navigation.html'"></div>
 
     <div class="container">
 	    <div ng-if="direct_login_error" class="alert alert-danger" role="alert">{{direct_login_error}}</div>
@@ -27,14 +27,14 @@
 
 </div>
 
-<script src="jquery-1.10.2.min.js"></script>
+<script src="scripts/jquery-1.10.2.min.js"></script>
+<script src="scripts/angular.min.js"></script>
+<script src="scripts/angular-route.min.js"></script>
+<script src="scripts/ui-bootstrap-tpls.min.js"></script>
+<script src="scripts/moment.min.js"></script>
+<script src="scripts/onlinereg.js"></script>
 <script src="bootstrap/js/bootstrap.min.js"></script>
-<script src="angular.min.js"></script>
-<script src="angular-route.min.js"></script>
-<script src="ui-bootstrap-tpls.min.js"></script>
-<script src="moment.min.js"></script>
 <script src="bootstrap/validator/js/bootstrapValidator.min.js"></script>
-<script src="onlinereg.js"></script>
 
 <script>
     $(document).ready(function () {
