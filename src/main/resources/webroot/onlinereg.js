@@ -2,7 +2,6 @@
  * Created by mley on 21.07.14.
  */
 
-
 var onlineRegApp = angular.module('onlineRegApp', [ 'ngRoute', 'ui.bootstrap' ]);
 
 onlineRegApp.run(function ($rootScope) {
@@ -34,7 +33,48 @@ onlineRegApp.config(function ($routeProvider) {
     });
 });
 
-onlineRegApp.controller('LoginController', function ($scope, $location, $http) {
+onlineRegApp.controller('DirectLoginController', function ($scope, $http, $rootScope) {
+    $scope.button = false;
+    $scope.loginData = false;
+
+    $scope.no_error = function(){
+		$scope.direct_login_error = null;
+    }
+
+    $scope.logout = function () {
+		$scope.loginData = false;
+		console.log("logged out.");
+		$scope.direct_login_error = null;
+    }
+
+    $scope.direct_login = function () {
+        $scope.button = true;
+		$scope.loginData = false;
+        console.log("logging in.");
+
+        $http({
+            method: 'POST',
+            url: '/api/idm/login/' + $scope.directusername,
+            params: {
+                password: $scope.directpassword
+            }
+        }).success(function (result) {
+            $scope.button = false;	
+            if (result === "true") {
+                console.log("Login erfolgreich");
+	    	$scope.loginData = true;
+            } else {
+                $scope.direct_login_error = "Der Benutzername oder das Passwort ist falsch.";
+            }
+        }).error(function (data, status, headers, config) {
+            $scope.button = false;
+            $scope.direct_login_error = "Es ist ein Fehler aufgetreten. Bitte versuchen Sie es später erneut.";
+        });
+    }
+});
+
+
+onlineRegApp.controller('LoginController', function ($scope, $location, $http, $rootScope) {
     $scope.button = false;
 
     $scope.login = function () {
@@ -62,10 +102,8 @@ onlineRegApp.controller('LoginController', function ($scope, $location, $http) {
         }).error(function (data, status, headers, config) {
             $scope.button = false;
             $scope.error = "Es ist ein Fehler aufgetreten. Bitte versuchen Sie es später erneut.";
-
         });
     }
-
 });
 
 onlineRegApp.controller('WelcomeController', function ($scope, $location) {
@@ -146,24 +184,24 @@ onlineRegApp.controller('RegisterUserController', function ($scope, $location, $
             }
         }).success(function (result) {
             $scope.success = null;
-            $scope.error = null;
+            $scope.register_error = null;
 
             if (result === 'USER_EXISTS') {
-                $scope.error = "Ein Benutzer mit diesem Benutzernamen existiert bereits.";
+                $scope.register_error = "Ein Benutzer mit diesem Benutzernamen existiert bereits.";
 
             } else if (result === 'INVALID_USERNAME') {
-                $scope.error = "Der Benutzername darf nur Buchstaben und Zahlen enthalten.";
+                $scope.register_error = "Der Benutzername darf nur Buchstaben und Zahlen enthalten.";
 
             } else if (result === 'OK') {
                 $scope.success = "Benutzerdaten wurden gespeichert.";
 
             } else {
-                $scope.error = ERROR_TEXT;
+                $scope.register_error = ERROR_TEXT;
             }
             $scope.button = false;
 
         }).error(function (data, status, headers, config) {
-            $scope.error = ERROR_TEXT;
+            $scope.register_error = ERROR_TEXT;
             $scope.button = false;
         });
     }

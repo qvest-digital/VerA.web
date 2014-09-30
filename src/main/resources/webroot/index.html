@@ -11,33 +11,64 @@
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/bootstrap/validator/css/bootstrapValidator.min.css"/>
     <link href="style.css" rel="stylesheet">
-
-
 </head>
 
 <body>
-<div class="maincontainer">
+<div class="maincontainer"  ng-controller="DirectLoginController">
 
     <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
         <div class="container">
             <div class="navbar-header">
                 <a class="navbar-brand" href="index.html"> <img src="/images/veraweb_logo.png"></a>
-            </div>
+            </div>            
+            <div >
+				<div ng-switch on="loginData">
+					<div ng-switch-when="false">
+						<div class="col-lg-5 col-lg-offset-7">
+						    <form class="form-inline" role="form" >
+						    	<div class="form-group">
+						    		<input id="directusername" name="directusername" type="text" class="form-control" placeholder="Anmeldename" ng-model="$parent.directusername" />
+						    	</div>
+						    	<div class="form-group">
+						    		<input id="directpassword" name="directpassword" type="password" class="form-control" placeholder="Passwort" ng-model="$parent.directpassword" />
+						    	</div>
+						    	<div class="form-group">
+						    		<button ng-disabled="button" class="btn btn-custom" ng-click="direct_login()">Anmelden</button>
+						    	</div>
+						    </form>
+				 		</div>
+			 		</div>
+			 		<div ng-switch-when="true">
+			 			<div class="col-lg-3 col-lg-offset-9">
+						    <form class="form-inline" role="form" >
+						        <div class="form-group">
+						    		Angemeldet als: {{directusername}}
+						    	</div>
+						    	<div class="form-group">
+									<button class="btn btn-custom" ng-click="logout()">Abmelden</button>
+								</div>
+						    </form>
+						</div>
+			 		</div>
+				</div>
+		   </div>
         </div>
     </nav>
     <nav class="navbar navbar-custom navbar-lower btn-custom" role="navigation">
         <div class="container">
             <div class="collapse navbar-collapse ">
                 <ul class="nav navbar-nav">
-                	<li class="active"><a href="#">Veranstaltungen</a></li>
-                	<li class="active"><a href="#/login">Meine Veranstaltungen</a></li>
-                	<li class="active"><a href="#/login">Meine Kontaktdaten</a></li>
+                	<li class="active"><a href="#" ng-click="no_error()">Veranstaltungen</a></li>
+                	<li class="active"><a href="#/login" ng-click="no_error()">Meine Veranstaltungen</a></li>
+                	<li class="active"><a href="#/login" ng-click="no_error()">Meine Kontaktdaten</a></li>
                 </ul>
             </div>
         </div>
     </nav> 
 
-    <div class="container" ng-view>
+    <div class="container">
+	    <div ng-if="direct_login_error" class="alert alert-danger" role="alert">{{direct_login_error}}</div>
+	    <div ng-view></div>
     </div>
 
 </div>
