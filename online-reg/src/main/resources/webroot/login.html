@@ -1,10 +1,10 @@
 <div class="col-lg-5 col-lg-offset-7">
     <form class="form-inline" role="form" >
         <div class="form-group">
-            <input id="directusername" name="directusername" type="text" class="form-control" placeholder="Anmeldename" ng-model="$parent.$parent.directusername" />
+            <input id="directusername" name="directusername" type="text" class="form-control" placeholder="Anmeldename" ng-model="$parent.$parent.$parent.directusername" />
         </div>
         <div class="form-group">
-            <input id="directpassword" name="directpassword" type="password" class="form-control" placeholder="Passwort" ng-model="$parent.$parent.directpassword" />
+            <input id="directpassword" name="directpassword" type="password" class="form-control" placeholder="Passwort" ng-model="$parent.$parent.$parent.directpassword" />
         </div>
         <div class="form-group">
             <button ng-disabled="button" class="btn btn-custom" ng-click="direct_login()">Anmelden</button>
