@@ -24,31 +24,10 @@
             <div >
 				<div ng-switch on="loginData">
 					<div ng-switch-when="false">
-						<div class="col-lg-5 col-lg-offset-7">
-						    <form class="form-inline" role="form" >
-						    	<div class="form-group">
-						    		<input id="directusername" name="directusername" type="text" class="form-control" placeholder="Anmeldename" ng-model="$parent.directusername" />
-						    	</div>
-						    	<div class="form-group">
-						    		<input id="directpassword" name="directpassword" type="password" class="form-control" placeholder="Passwort" ng-model="$parent.directpassword" />
-						    	</div>
-						    	<div class="form-group">
-						    		<button ng-disabled="button" class="btn btn-custom" ng-click="direct_login()">Anmelden</button>
-						    	</div>
-						    </form>
-				 		</div>
+                        <div ng-include src="'login.html'"></div>
 			 		</div>
 			 		<div ng-switch-when="true">
-			 			<div class="col-lg-3 col-lg-offset-9">
-						    <form class="form-inline" role="form" >
-						        <div class="form-group">
-						    		Angemeldet als: {{directusername}}
-						    	</div>
-						    	<div class="form-group">
-									<button class="btn btn-custom" ng-click="logout()">Abmelden</button>
-								</div>
-						    </form>
-						</div>
+                        <div ng-include src="'logout.html'"></div>
 			 		</div>
 				</div>
 		   </div>
