@@ -1,49 +1,49 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="onlineRegApp">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
 
-    <title>verA.web Online-Registrierung</title>
+        <title>verA.web Online-Registrierung</title>
 
-    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="/bootstrap/validator/css/bootstrapValidator.min.css"/>
-    <link href="styles/style.css" rel="stylesheet">
-</head>
+        <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="/bootstrap/validator/css/bootstrapValidator.min.css"/>
+        <link href="styles/style.css" rel="stylesheet">
+    </head>
 
-<body>
-<div class="maincontainer"  ng-controller="DirectLoginController">
+    <body>
+        <div class="maincontainer"  ng-controller="DirectLoginController">
 
-    <div ng-include src="'partials/header.html'"></div>
+            <div ng-include src="'partials/header.html'"></div>
 
-    <div ng-include src="'partials/navigation.html'"></div>
+            <div ng-include src="'partials/navigation.html'"></div>
 
-    <div class="container">
-	    <div ng-if="direct_login_error" class="alert alert-danger" role="alert">{{direct_login_error}}</div>
-	    <div ng-view></div>
-    </div>
+            <div class="container">
+                <div ng-if="direct_login_error" class="alert alert-danger" role="alert">{{direct_login_error}}</div>
+                <div ng-view></div>
+            </div>
 
-</div>
+        </div>
 
-<script src="scripts/jquery-1.10.2.min.js"></script>
-<script src="scripts/angular.min.js"></script>
-<script src="scripts/angular-route.min.js"></script>
-<script src="scripts/ui-bootstrap-tpls.min.js"></script>
-<script src="scripts/moment.min.js"></script>
-<script src="scripts/onlinereg.js"></script>
-<script src="bootstrap/js/bootstrap.min.js"></script>
-<script src="bootstrap/validator/js/bootstrapValidator.min.js"></script>
+        <script src="scripts/jquery-1.10.2.min.js"></script>
+        <script src="scripts/angular.min.js"></script>
+        <script src="scripts/angular-route.min.js"></script>
+        <script src="scripts/ui-bootstrap-tpls.min.js"></script>
+        <script src="scripts/moment.min.js"></script>
+        <script src="scripts/onlinereg.js"></script>
+        <script src="bootstrap/js/bootstrap.min.js"></script>
+        <script src="bootstrap/validator/js/bootstrapValidator.min.js"></script>
 
-<script>
-    $(document).ready(function () {
-        // verA.web brand logo bar
-        $('.navbar-lower').affix({
-            offset: {top: 100}
-        });
+        <script>
+            $(document).ready(function () {
+                // verA.web brand logo bar
+                $('.navbar-lower').affix({
+                    offset: {top: 100}
+                });
 
-    });
-</script>
-</body>
+            });
+        </script>
+    </body>
 </html>
