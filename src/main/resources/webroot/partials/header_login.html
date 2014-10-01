@@ -7,7 +7,7 @@
             <input id="directpassword" name="directpassword" type="password" class="form-control" placeholder="Passwort" ng-model="$parent.$parent.$parent.directpassword" />
         </div>
         <div class="form-group">
-            <button ng-disabled="button" class="btn btn-custom" ng-click="direct_login()">Anmelden</button>
+            <button ng-disabled="button" class="btn btn-custom" ng-click="no_login_error(); direct_login()">Anmelden</button>
         </div>
     </form>
 </div>
