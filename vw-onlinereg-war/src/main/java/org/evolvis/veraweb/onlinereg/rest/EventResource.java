@@ -32,20 +32,6 @@ public class EventResource extends AbstractResource {
 
     }
 
-    @Path("/")
-    @GET
-    public List<Event> listAllEvents() {
-        Session session = openSession();
-        try {
-            Query query = session.getNamedQuery("AllEvents.list");
-            return (List<Event>) query.list();
-
-        } finally {
-            session.close();
-        }
-
-    }
-
     @Path("/{eventId}")
     @GET
     public Event getEvent(@PathParam("eventId") int eventId) {
