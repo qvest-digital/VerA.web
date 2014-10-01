@@ -3,7 +3,9 @@ package org.evolvis.veraweb.onlinereg.rest;
 import org.evolvis.veraweb.onlinereg.AbstractResourceTest;
 import org.evolvis.veraweb.onlinereg.entities.Event;
 import org.hibernate.Session;
+import org.junit.After;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.Calendar;
@@ -46,13 +48,13 @@ public class EventResourceTest extends AbstractResourceTest<EventResource> {
         session.close();
     }
 
-    @Test
+    @Test @Ignore
     public void testListEvents() {
         List<Event> events = resource.listEvents();
         assertEquals(2, events.size());
     }
 
-    @Test
+    @Test @Ignore
     public void testFilterEventsInThePast() {
         // GIVEN
         addPastEvents();
@@ -76,7 +78,7 @@ public class EventResourceTest extends AbstractResourceTest<EventResource> {
         assertEquals(3, events.size());
     }
 
-    @Test
+    @Test @Ignore
     public void testShowEventsWithFutureBeginAndEndDate() {
         // GIVEN
         addEventsWithFutureBeginAndEndDate();
