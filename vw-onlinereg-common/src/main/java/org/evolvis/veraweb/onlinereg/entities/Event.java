@@ -21,6 +21,7 @@ import java.util.Date;
 @Table(name = "tevent")
 @NamedQueries({
         @NamedQuery(name = "Event.list", query = "SELECT e FROM Event e where CURRENT_TIMESTAMP < e.datebegin OR CURRENT_TIMESTAMP < e.dateend"),
+        @NamedQuery(name = "AllEvents.list", query = "SELECT e FROM Event e"),
         @NamedQuery(name = "Event.getEvent", query = "SELECT e FROM Event e where e.pk = :pk")
 })
 public class Event {
