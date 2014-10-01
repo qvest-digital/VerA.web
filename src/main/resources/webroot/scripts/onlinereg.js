@@ -37,7 +37,7 @@ onlineRegApp.controller('DirectLoginController', function ($scope, $http, $rootS
     $scope.button = false;
 
     $scope.no_error = function(){
-		$scope.direct_login_error = null;
+		$rootScope.error = null;
     }
 
     $scope.logout = function () {
