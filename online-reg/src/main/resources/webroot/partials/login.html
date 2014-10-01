@@ -1,10 +1,9 @@
-<div ng-if="error" class="alert alert-danger" role="alert">{{error}}</div>
 <div class="login-container">
     <h2 class="form-signin-heading">Bitte anmelden</h2>
     <form class="form-signin" role="form" >
         <input id="j_username" name="j_username" type="text" class="form-control" placeholder="Anmeldename" ng-model="username" />
         <input id="j_password" name="j_password" type="password" class="form-control" placeholder="Passwort" ng-model="password" />
-        <button ng-disabled="button" class="btn btn-lg btn-primary btn-block btn-custom" ng-click="login()">Anmelden</button>
+        <button ng-disabled="button" class="btn btn-lg btn-primary btn-block btn-custom" ng-click="no_error(); login()">Anmelden</button>
     </form>
     <div class="container">
     <div class="col-md-7 col-md-offset-3">

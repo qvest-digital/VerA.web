@@ -4,7 +4,7 @@
             <a class="navbar-brand" href="index.html"> <img src="/images/veraweb_logo.png"></a>
         </div>
         <div >
-            <div ng-switch on="loginData">
+            <div ng-switch on="user_logged_in != null">
                 <div ng-switch-when="false">
                     <div ng-include src="'partials/header_login.html'"></div>
                 </div>

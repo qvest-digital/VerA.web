@@ -35,21 +35,21 @@ onlineRegApp.config(function ($routeProvider) {
 
 onlineRegApp.controller('DirectLoginController', function ($scope, $http, $rootScope) {
     $scope.button = false;
-    $scope.loginData = false;
 
     $scope.no_error = function(){
 		$scope.direct_login_error = null;
     }
 
     $scope.logout = function () {
-		$scope.loginData = false;
 		console.log("logged out.");
-		$scope.direct_login_error = null;
+		$rootScope.error = null;
+		$scope.directusername = null;
+		$scope.directpassword = null;
+		$rootScope.user_logged_in = null;
     }
 
     $scope.direct_login = function () {
         $scope.button = true;
-		$scope.loginData = false;
         console.log("logging in.");
 
         $http({
@@ -60,22 +60,28 @@ onlineRegApp.controller('DirectLoginController', function ($scope, $http, $rootS
             }
         }).success(function (result) {
             $scope.button = false;	
+            $rootScope.error = null;
             if (result === "true") {
                 console.log("Login erfolgreich");
-	    	$scope.loginData = true;
+		    	$rootScope.user_logged_in = $scope.directusername;
             } else {
-                $scope.direct_login_error = "Der Benutzername oder das Passwort ist falsch.";
+                $rootScope.error = "Der Benutzername oder das Passwort ist falsch.";
             }
         }).error(function (data, status, headers, config) {
             $scope.button = false;
-            $scope.direct_login_error = "Es ist ein Fehler aufgetreten. Bitte versuchen Sie es später erneut.";
+            $rootScope.error = "Es ist ein Fehler aufgetreten. Bitte versuchen Sie es später erneut.";
         });
     }
+    
 });
 
 
 onlineRegApp.controller('LoginController', function ($scope, $location, $http, $rootScope) {
     $scope.button = false;
+    
+    $scope.no_login_error = function(){
+		$rootScope.error = null;
+    }
 
     $scope.login = function () {
         $scope.button = true;
@@ -94,14 +100,14 @@ onlineRegApp.controller('LoginController', function ($scope, $location, $http, $
             if (result === "true") {
                 console.log("Login erfolgreich");
                 $location.path("/event");
-
+				$rootScope.user_logged_in = $scope.username;
             } else {
-                $scope.error = "Der Benutzername oder das Passwort ist falsch.";
+                $rootScope.error = "Der Benutzername oder das Passwort ist falsch.";
             }
 
         }).error(function (data, status, headers, config) {
             $scope.button = false;
-            $scope.error = "Es ist ein Fehler aufgetreten. Bitte versuchen Sie es später erneut.";
+            $rootScope.error = "Es ist ein Fehler aufgetreten. Bitte versuchen Sie es später erneut.";
         });
     }
 });
