@@ -717,7 +717,6 @@ $serv_build_sequences$
 			  datebegin timestamptz NOT NULL,
 			  dateend timestamptz,
 			  invitehostpartner int4 DEFAULT 0,
-			  eventtype varchar(100),
 			  hostname varchar(300),
 			  maxguest int4 DEFAULT 0,
 			  location varchar(300) NOT NULL,
