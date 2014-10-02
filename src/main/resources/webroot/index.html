@@ -21,7 +21,7 @@
             <div ng-include src="'partials/navigation.html'"></div>
 
             <div class="container">
-                <div ng-if="direct_login_error" class="alert alert-danger" role="alert">{{direct_login_error}}</div>
+                <div ng-if="error" class="alert alert-danger" role="alert">{{error}}</div>
                 <div ng-view></div>
             </div>
 
