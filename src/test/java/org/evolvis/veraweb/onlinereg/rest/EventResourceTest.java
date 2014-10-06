@@ -32,6 +32,7 @@ public class EventResourceTest extends AbstractResourceTest<EventResource> {
         e.setPk(1);
         e.setDatebegin(getFutureDate());
         e.setShortname("shortname");
+        e.setEventtype("Offene Veranstaltung");
         session.persist(e);
 
         e = new Event();
@@ -44,6 +45,7 @@ public class EventResourceTest extends AbstractResourceTest<EventResource> {
         e.setPk(3);
         e.setDatebegin(getPastDate());
         e.setShortname("pastEvent");
+        e.setEventtype("Offene Veranstaltung");
         session.persist(e);
 
         e = new Event();
@@ -51,6 +53,7 @@ public class EventResourceTest extends AbstractResourceTest<EventResource> {
         e.setDatebegin(getPastDate());
         e.setDateend(getFutureDate());
         e.setShortname("activeEvent");
+        e.setEventtype("Offene Veranstaltung");
         session.persist(e);
 
         e = new Event();
@@ -58,6 +61,7 @@ public class EventResourceTest extends AbstractResourceTest<EventResource> {
         e.setDatebegin(getFutureDate());
         e.setDateend(getFutureDate());
         e.setShortname("futureEvent");
+        e.setEventtype("Offene Veranstaltung");
         session.persist(e);
 
         e = new Event();
@@ -65,16 +69,17 @@ public class EventResourceTest extends AbstractResourceTest<EventResource> {
         e.setDatebegin(getPastDate());
         e.setDateend(getPastDate());
         e.setShortname("futureEvent");
+        e.setEventtype("Offene Veranstaltung");
         session.persist(e);
 
         session.flush();
         session.close();
     }
 
-    @Test@Ignore
+    @Test
     public void testListEvents() {
         List<Event> events = resource.listEvents();
-        assertEquals(4, events.size());
+        assertEquals(3, events.size());
     }
 
     @Test
