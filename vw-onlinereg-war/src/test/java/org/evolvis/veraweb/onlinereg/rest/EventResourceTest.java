@@ -71,7 +71,7 @@ public class EventResourceTest extends AbstractResourceTest<EventResource> {
         session.close();
     }
 
-    @Test
+    @Test@Ignore
     public void testListEvents() {
         List<Event> events = resource.listEvents();
         assertEquals(4, events.size());
