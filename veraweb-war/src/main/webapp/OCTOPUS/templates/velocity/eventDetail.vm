@@ -101,27 +101,19 @@
 				<div class="textRight mandatoryText">* = Pflichtfelder</div>
     					<div class="table width100">							
 							<div class="tableRow">
-    							<div class="tableCell width50">
-								</div>
-
-    							<div class="tableCell width50 inlineLabel">
-    								<label for="event-open">Offene Veranstaltung</label>
-    								<!-- DEBUG $event.eventtype -->
-    								<input type="checkbox"  onchange="setModified();" class="noFloat" id="event-eventtype" name="event-eventtype"
-                                        #if($event && $event.eventtype != "")
-                                            checked
-                                        #end
-    								>
-    							</div>
-							</div>
-
-							<div class="tableRow">
                                 <div class="tableCell width50">
                                     <label for="event-shortname">Kurzbezeichnung*</label>
                                     <input type="text" onchange="setModified();" maxlength="50"  id="event-shortname" value="$!message.text($event.shortname)" name="event-shortname"/>
                                 </div>
 
-                                <div class="tableCell width50">
+                                <div class="tableCell width50 inlineLabel">
+                                    <label for="event-open">Offene Veranstaltung</label>
+                                    <!-- DEBUG $event.eventtype -->
+                                    <input type="checkbox"  onchange="setModified();" class="noFloat" id="event-eventtype" name="event-eventtype"
+                                        #if($event && $event.eventtype != "")
+                                            checked
+                                        #end
+                                    >
                                 </div>
                             </div>
 
