@@ -22,7 +22,13 @@
 
             <div class="container">
                 <div ng-if="$parent.status != null">
-                    <div class="alert alert-{{$parent.status}}" role="alert">{{$parent.messageContent}}</div>
+                    <div class="alert alert-{{$parent.status}}" role="alert">
+                        <span ng-if="$parent.status == 'danger'" class="glyphicon glyphicon-remove-sign">&nbsp;</span>
+                        <span ng-if="$parent.status == 'info'" class="glyphicon glyphicon-info-sign">&nbsp;</span>
+                        <span ng-if="$parent.status == 'success'" class="glyphicon glyphicon-ok-sign">&nbsp;</span>
+                        <span ng-if="$parent.status == 'warning'" class="glyphicon glyphicon-warning-sign">&nbsp;</span>
+                        {{$parent.messageContent}}
+                    </div>
                 </div>
                 <div ng-view></div>
             </div>
