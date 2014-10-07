@@ -48,36 +48,24 @@ onlineRegApp.controller('DirectLoginController', function ($scope, $location, $h
     }
 
     $scope.view_veranstaltungen = function () {
-		 var logged = $http({
-	            method: 'GET',
-	            url: '/api/idm/login'
-	        });
-		 if (logged) {
-			 console.log("User LOGGED IN.");
-			 // Redirect to "Meine Veranstaltungen" page
-		 }
-		 else {
+    	 if ($rootScope.user_logged_in == null) {
 			 console.log("User NOT logged in.");
-			 // Redirect to "Login" page
+			 console.log("Redirecting to login ...");
+		 } else {
+			 console.log("User LOGGED IN.");
+			 console.log("Redirecting to Meine Veranstaltungen ...");
 		 }
 		 
 	 }
-    
 
     $scope.view_kontaktdaten = function () {
-		 var logged = $http({
-	            method: 'GET',
-	            url: '/api/idm/login'
-	        });
-		 if (logged) {
-			 console.log("User LOGGED IN.");
-			 // Redirect to "Meine Veranstaltungen" page
-		 }
-		 else {
+		 if ($rootScope.user_logged_in == null) {
 			 console.log("User NOT logged in.");
-			 // Redirect to "Login" page
+			 console.log("Redirecting to login ...");
+		 } else {
+			 console.log("User LOGGED IN.");
+			 console.log("Redirecting to Meine Kontaktdaten ...");
 		 }
-		 
 	 }
 
     $scope.logout = function () {
