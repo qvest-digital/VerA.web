@@ -36,8 +36,9 @@ onlineRegApp.config(function ($routeProvider) {
 onlineRegApp.controller('DirectLoginController', function ($scope, $location, $http, $rootScope) {
     $scope.button = false;
 
-    $scope.no_error = function(){
-		$rootScope.error = null;
+    $rootScope.no_messages = function() {
+        $rootScope.status = null;
+        $rootScope.messageContent = null;
     }
 
     $scope.logout = function () {
@@ -49,6 +50,8 @@ onlineRegApp.controller('DirectLoginController', function ($scope, $location, $h
             $rootScope.error = null;
             $scope.directusername = null;
             $scope.directpassword = null;
+            $rootScope.messageContent = "Erfolgreich abgemeldet!";
+            $rootScope.status = "success";
             $rootScope.user_logged_in = null;
             $location.path('/');
         }).error(function (data, status, headers, config) {
@@ -72,24 +75,33 @@ onlineRegApp.controller('DirectLoginController', function ($scope, $location, $h
             if (result === "true") {
                 console.log("Login erfolgreich");
 		    	$rootScope.user_logged_in = $scope.directusername;
+                $rootScope.status = null;
+                $rootScope.messageContent = null;
             } else {
-                $rootScope.error = "Der Benutzername oder das Passwort ist falsch.";
+                $rootScope.messageContent = "Der Benutzername oder das Passwort ist falsch.";
+                $rootScope.status = "danger";
             }
         }).error(function (data, status, headers, config) {
             $scope.button = false;
-            $rootScope.error = "Es ist ein Fehler aufgetreten. Bitte versuchen Sie es später erneut.";
+            $rootScope.messageContent = "Es ist ein Fehler aufgetreten. Bitte versuchen Sie es später erneut.";
+            $rootScope.status = "danger";
         });
     }
-    
+
+    $scope.setStatus = function(value) {
+        $scope.x = value;
+    }
+
+    $scope.setMessageContent = function(value) {
+        $scope.x = value;
+    }
 });
 
 
 onlineRegApp.controller('LoginController', function ($scope, $location, $http, $rootScope) {
-    $scope.button = false;
-    
-    $scope.no_login_error = function(){
-		$rootScope.error = null;
-    }
+    $rootScope.button = false;
+    $rootScope.status = null;
+    $rootScope.messageContent = null;
 
     $scope.login = function () {
         $scope.button = true;
@@ -109,13 +121,16 @@ onlineRegApp.controller('LoginController', function ($scope, $location, $http, $
                 console.log("Login erfolgreich");
                 $location.path("/event");
 				$rootScope.user_logged_in = $scope.username;
+                $rootScope.status = null;
+                $rootScope.messageContent = null;
             } else {
-                $rootScope.error = "Der Benutzername oder das Passwort ist falsch.";
+                $rootScope.status = "danger";
+                $rootScope.messageContent = "Der Benutzername oder das Passwort ist falsch.";
             }
-
         }).error(function (data, status, headers, config) {
             $scope.button = false;
-            $rootScope.error = "Es ist ein Fehler aufgetreten. Bitte versuchen Sie es später erneut.";
+            $rootScope.status = "danger";
+            $rootScope.messageContent = "Es ist ein Fehler aufgetreten. Bitte versuchen Sie es später erneut.";
         });
     }
 });
@@ -125,13 +140,11 @@ onlineRegApp.controller('WelcomeController', function ($scope, $location) {
 
 });
 
-onlineRegApp.controller('EventController', function ($scope, $http) {
-
+onlineRegApp.controller('EventController', function ($scope, $http, $rootScope) {
     $http.get('/api/event/list').success(function (result) {
         console.log("loaded data");
         $scope.events = result;
     });
-
 });
 
 onlineRegApp.controller('RegisterController', function ($scope, $routeParams, $http) {

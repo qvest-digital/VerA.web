@@ -21,10 +21,11 @@
             <div ng-include src="'partials/navigation.html'"></div>
 
             <div class="container">
-                <div ng-if="error" class="alert alert-danger" role="alert">{{error}}</div>
+                <div ng-if="$parent.status != null">
+                    <div class="alert alert-{{$parent.status}}" role="alert">{{$parent.messageContent}}</div>
+                </div>
                 <div ng-view></div>
             </div>
-
         </div>
 
         <script src="scripts/jquery-1.10.2.min.js"></script>
