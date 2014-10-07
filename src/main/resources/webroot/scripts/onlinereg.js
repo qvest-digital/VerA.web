@@ -31,6 +31,9 @@ onlineRegApp.config(function ($routeProvider) {
     }).when('/veranstaltungen', {
         templateUrl: 'partials/veranstaltungen.html',
         controller: 'VeranstaltungenController'
+    }).when('/kontaktdaten', {
+        templateUrl: 'partials/kontaktdaten.html',
+        controller: 'KontaktdatenController'
     }).otherwise({
         redirectTo: '/event'
     });
@@ -43,8 +46,25 @@ onlineRegApp.controller('DirectLoginController', function ($scope, $location, $h
         $rootScope.status = null;
         $rootScope.messageContent = null;
     }
-    
+
     $scope.view_veranstaltungen = function () {
+		 var logged = $http({
+	            method: 'GET',
+	            url: '/api/idm/login'
+	        });
+		 if (logged) {
+			 console.log("User LOGGED IN.");
+			 // Redirect to "Meine Veranstaltungen" page
+		 }
+		 else {
+			 console.log("User NOT logged in.");
+			 // Redirect to "Login" page
+		 }
+		 
+	 }
+    
+
+    $scope.view_kontaktdaten = function () {
 		 var logged = $http({
 	            method: 'GET',
 	            url: '/api/idm/login'
