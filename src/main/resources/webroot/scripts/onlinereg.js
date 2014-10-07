@@ -28,6 +28,9 @@ onlineRegApp.config(function ($routeProvider) {
     }).when('/register/', {
         templateUrl: 'partials/register_user.html',
         controller: 'RegisterUserController'
+    }).when('/veranstaltungen', {
+        templateUrl: 'partials/veranstaltungen.html',
+        controller: 'VeranstaltungenController'
     }).otherwise({
         redirectTo: '/event'
     });
@@ -40,6 +43,22 @@ onlineRegApp.controller('DirectLoginController', function ($scope, $location, $h
         $rootScope.status = null;
         $rootScope.messageContent = null;
     }
+    
+    $scope.view_veranstaltungen = function () {
+		 var logged = $http({
+	            method: 'GET',
+	            url: '/api/idm/login'
+	        });
+		 if (logged) {
+			 console.log("User LOGGED IN.");
+			 // Redirect to "Meine Veranstaltungen" page
+		 }
+		 else {
+			 console.log("User NOT logged in.");
+			 // Redirect to "Login" page
+		 }
+		 
+	 }
 
     $scope.logout = function () {
         $http({
@@ -232,4 +251,31 @@ onlineRegApp.controller('RegisterUserController', function ($scope, $location, $
             $scope.button = false;
         });
     }
+    
+    
+
+    onlineRegApp.controller('VeranstaltungenController', function ($scope, $location, $http) {
+    	
+    	
+    	 $scope.view_veranstaltungen = function () {
+    		 var logged = $http({
+    	            method: 'GET',
+    	            url: '/api/idm/login'
+    	        });
+    		 if (logged) {
+    			 console.log("User LOGGED IN.");
+    			 // Redirect to "Meine Veranstaltungen" page
+    		 }
+    		 else {
+    			 console.log("User NOT logged in.");
+    			 // Redirect to "Login" page
+    		 }
+    		 
+    	 }
+    	      
+    	
+    	
+    });
+    
+    
 });
