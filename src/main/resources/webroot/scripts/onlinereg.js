@@ -29,8 +29,8 @@ onlineRegApp.config(function ($routeProvider) {
         templateUrl: 'partials/register_user.html',
         controller: 'RegisterUserController'
     }).when('/veranstaltungen', {
-        templateUrl: 'partials/veranstaltungen.html',
-        controller: 'VeranstaltungenController'
+        templateUrl: 'partials/meine-veranstaltungen.html',
+        controller: 'VeranstaltungsController'
     }).when('/kontaktdaten', {
         templateUrl: 'partials/kontaktdaten.html',
         controller: 'KontaktdatenController'
@@ -271,31 +271,11 @@ onlineRegApp.controller('RegisterUserController', function ($scope, $location, $
             $scope.button = false;
         });
     }
-    
-    
 
-    onlineRegApp.controller('VeranstaltungenController', function ($scope, $location, $http) {
-    	
-    	
-    	 $scope.view_veranstaltungen = function () {
-    		 var logged = $http({
-    	            method: 'GET',
-    	            url: '/api/idm/login'
-    	        });
-    		 if (logged) {
-    			 console.log("User LOGGED IN.");
-    			 // Redirect to "Meine Veranstaltungen" page
-    		 }
-    		 else {
-    			 console.log("User NOT logged in.");
-    			 // Redirect to "Login" page
-    		 }
-    		 
-    	 }
-    	      
-    	
-    	
+    onlineRegApp.controller('VeranstaltungsController', function ($scope) {
+        $http.get('/api/event/list/{userid}/').success(function (result) {
+                console.log("loaded data");
+                $scope.events = result;
+        });
     });
-    
-    
 });
