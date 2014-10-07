@@ -33,7 +33,7 @@ onlineRegApp.config(function ($routeProvider) {
     });
 });
 
-onlineRegApp.controller('DirectLoginController', function ($scope, $http, $rootScope) {
+onlineRegApp.controller('DirectLoginController', function ($scope, $location, $http, $rootScope) {
     $scope.button = false;
 
     $scope.no_error = function(){
@@ -41,11 +41,19 @@ onlineRegApp.controller('DirectLoginController', function ($scope, $http, $rootS
     }
 
     $scope.logout = function () {
-		console.log("logged out.");
-		$rootScope.error = null;
-		$scope.directusername = null;
-		$scope.directpassword = null;
-		$rootScope.user_logged_in = null;
+        $http({
+            method: 'POST',
+            url: '/api/idm/logout/'
+        }).success(function (result) {
+            console.log('You have successfully logged out!')
+            $rootScope.error = null;
+            $scope.directusername = null;
+            $scope.directpassword = null;
+            $rootScope.user_logged_in = null;
+            $location.path('/');
+        }).error(function (data, status, headers, config) {
+            console.log('ERROR! Logout failed!”')
+        });
     }
 
     $scope.direct_login = function () {
