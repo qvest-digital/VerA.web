@@ -51,20 +51,23 @@ onlineRegApp.controller('DirectLoginController', function ($scope, $location, $h
     	 if ($rootScope.user_logged_in == null) {
 			 console.log("User NOT logged in.");
 			 console.log("Redirecting to login ...");
+			 $location.path("/login");
 		 } else {
 			 console.log("User LOGGED IN.");
 			 console.log("Redirecting to Meine Veranstaltungen ...");
+			 $location.path("/veranstaltungen");
 		 }
-		 
 	 }
 
     $scope.view_kontaktdaten = function () {
 		 if ($rootScope.user_logged_in == null) {
 			 console.log("User NOT logged in.");
 			 console.log("Redirecting to login ...");
+			 $location.path("/login");
 		 } else {
 			 console.log("User LOGGED IN.");
 			 console.log("Redirecting to Meine Kontaktdaten ...");
+			 $location.path("/kontaktdaten");
 		 }
 	 }
 
@@ -150,6 +153,7 @@ onlineRegApp.controller('LoginController', function ($scope, $location, $http, $
 				$rootScope.user_logged_in = $scope.username;
                 $rootScope.status = null;
                 $rootScope.messageContent = null;
+                
             } else {
                 $rootScope.status = "danger";
                 $rootScope.messageContent = "Der Benutzername oder das Passwort ist falsch.";
