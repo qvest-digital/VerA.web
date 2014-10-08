@@ -251,4 +251,11 @@ onlineRegApp.controller('RegisterUserController', function ($scope, $location, $
                 $scope.events = result;
         });
     });
+    
+    onlineRegApp.controller('KontaktdatenController', function ($scope) {
+        $http.get('/api/event/list/{userid}/').success(function (result) {
+                console.log("loaded data");
+                $scope.events = result;
+        });
+    });
 });
