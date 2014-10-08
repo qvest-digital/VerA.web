@@ -46,31 +46,12 @@ onlineRegApp.controller('DirectLoginController', function ($scope, $location, $h
         $rootScope.status = null;
         $rootScope.messageContent = null;
     }
-
-    $scope.view_veranstaltungen = function () {
-    	 if ($rootScope.user_logged_in == null) {
-			 console.log("User NOT logged in.");
-			 console.log("Redirecting to login ...");
-			 $location.path("/login");
-		 } else {
-			 console.log("User LOGGED IN.");
-			 console.log("Redirecting to Meine Veranstaltungen ...");
-			 $location.path("/veranstaltungen");
-		 }
-	 }
-
-    $scope.view_kontaktdaten = function () {
-		 if ($rootScope.user_logged_in == null) {
-			 console.log("User NOT logged in.");
-			 console.log("Redirecting to login ...");
-			 $location.path("/login");
-		 } else {
-			 console.log("User LOGGED IN.");
-			 console.log("Redirecting to Meine Kontaktdaten ...");
-			 $location.path("/kontaktdaten");
-		 }
-	 }
-
+    
+    $scope.isUserLoged = function () {
+    	console.log("Checking USER CONNECTION ...");
+    	return $rootScope.user_logged_in != null;
+    }
+    
     $scope.logout = function () {
         $http({
             method: 'POST',
