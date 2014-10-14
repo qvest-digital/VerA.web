@@ -10,7 +10,6 @@ onlineRegApp.run(function ($rootScope) {
     };
     
     $rootScope.isUserLoged = function () {
-    	console.log("Checking USER CONNECTION ..."+ new Date());
     	return $rootScope.user_logged_in != null;
     }
 });
