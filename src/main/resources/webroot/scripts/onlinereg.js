@@ -8,6 +8,11 @@ onlineRegApp.run(function ($rootScope) {
     $rootScope.parseDate = function (dt) {
         return moment(dt).toDate();
     };
+    
+    $rootScope.isUserLoged = function () {
+    	console.log("Checking USER CONNECTION ..."+ new Date());
+    	return $rootScope.user_logged_in != null;
+    }
 });
 
 
@@ -45,11 +50,6 @@ onlineRegApp.controller('DirectLoginController', function ($scope, $location, $h
     $rootScope.no_messages = function() {
         $rootScope.status = null;
         $rootScope.messageContent = null;
-    }
-    
-    $scope.isUserLoged = function () {
-    	console.log("Checking USER CONNECTION ...");
-    	return $rootScope.user_logged_in != null;
     }
     
     $scope.logout = function () {
