@@ -10,6 +10,11 @@ onlineRegApp.run(function ($rootScope) {
     };
     
     $rootScope.isUserLoged = function () {
+//    	if ($rootScope.user_logged_in != null) {
+//    		$rootScope.newLocation = $newLocation;
+//    		return true;
+//    	}
+//    	$rootScope.newLocation = "/login"
     	return $rootScope.user_logged_in != null;
     }
 });
@@ -105,6 +110,19 @@ onlineRegApp.controller('DirectLoginController', function ($scope, $location, $h
     $scope.setMessageContent = function(value) {
         $scope.x = value;
     }
+    
+    $scope.setNextPage = function(value) {
+    	if (value == "veranstaltungen") {
+    		$scope.nextPage = "/veranstaltungen";
+    	}
+    	else if (value == "kontaktdaten") {
+    		$scope.nextPage = "/kontaktdaten";
+    	}
+    	else {
+    		$scope.nextPage = "/login";
+    	}
+    	
+    }
 });
 
 
@@ -129,7 +147,7 @@ onlineRegApp.controller('LoginController', function ($scope, $location, $http, $
 
             if (result === "true") {
                 console.log("Login erfolgreich");
-                $location.path("/event");
+                $location.path($scope.nextPage);
 				$rootScope.user_logged_in = $scope.username;
                 $rootScope.status = null;
                 $rootScope.messageContent = null;
