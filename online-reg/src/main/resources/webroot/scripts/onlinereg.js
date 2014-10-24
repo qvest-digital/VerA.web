@@ -173,51 +173,55 @@ onlineRegApp.controller('EventController', function ($scope, $http, $rootScope) 
     });
 });
 
-onlineRegApp.controller('RegisterController', function ($scope, $routeParams, $http) {
-
-    // currently hardwired to 2
-    $scope.userId = 2;
-
-    $scope.acceptanceOptions = [
-        {id: 0, label: "Offen"},
-        {id: 1, label: "Zusage"},
-        {id: 2, label: "Absage"}
-    ];
-
-    $scope.acceptance = $scope.acceptanceOptions[0];
-
-    $http.get('/api/event/' + $routeParams.eventId).success(function (result) {
-        $scope.event = result;
-        console.log("Auswahl: " + $scope.event.shortname);
-    });
-
-    $http.get('/api/event/' + $routeParams.eventId + '/register/' + $scope.userId).success(function (result) {
-    	if (!isUserLoged()) {
-    		$location.path('/login');
-    	}
-    	else {
-	        if (result.invitationstatus) {
-	            $scope.acceptance = $scope.acceptanceOptions[result.invitationstatus];
-	        }
-	        if (result.notehost) {
-	            $scope.noteToHost = result.notehost;
-	        }
-	        console.log("Teilnahme: " + $scope.acceptance.label);
-    	}
-    });
-
-    $scope.save = function () {
-        $http({
-            method: 'POST',
-            url: '/api/event/' + $routeParams.eventId + '/register/' + $scope.userId,
-            params: {
-                invitationstatus: $scope.acceptance.id,
-                notehost: $scope.noteToHost
-            }
-        }).success(function (result) {
-            console.log("Teilnahme gespeichert: " + result);
-        });
-    }
+onlineRegApp.controller('RegisterController', function ($scope, $rootScope, $location, $routeParams, $http) {
+	if ($rootScope.user_logged_in == null) {
+		$location.path('/login');
+	}
+	else {
+	    // currently hardwired to 2
+	    $scope.userId = 2;
+	
+	    $scope.acceptanceOptions = [
+	        {id: 0, label: "Offen"},
+	        {id: 1, label: "Zusage"},
+	        {id: 2, label: "Absage"}
+	    ];
+	
+	    $scope.acceptance = $scope.acceptanceOptions[0];
+	
+	    $http.get('/api/event/' + $routeParams.eventId).success(function (result) {
+	        $scope.event = result;
+	        console.log("Auswahl: " + $scope.event.shortname);
+	    });
+	
+	    $http.get('/api/event/' + $routeParams.eventId + '/register/' + $scope.userId).success(function (result) {
+	    	if (!isUserLoged()) {
+	    		$location.path('/login');
+	    	}
+	    	else {
+		        if (result.invitationstatus) {
+		            $scope.acceptance = $scope.acceptanceOptions[result.invitationstatus];
+		        }
+		        if (result.notehost) {
+		            $scope.noteToHost = result.notehost;
+		        }
+		        console.log("Teilnahme: " + $scope.acceptance.label);
+	    	}
+	    });
+	
+	    $scope.save = function () {
+	        $http({
+	            method: 'POST',
+	            url: '/api/event/' + $routeParams.eventId + '/register/' + $scope.userId,
+	            params: {
+	                invitationstatus: $scope.acceptance.id,
+	                notehost: $scope.noteToHost
+	            }
+	        }).success(function (result) {
+	            console.log("Teilnahme gespeichert: " + result);
+	        });
+	    }
+	}
 });
 
 onlineRegApp.controller('RegisterUserController', function ($scope, $location, $http) {
@@ -263,31 +267,18 @@ onlineRegApp.controller('RegisterUserController', function ($scope, $location, $
             $scope.button = false;
         });
     }
-
-    onlineRegApp.controller('VeranstaltungsController', function ($scope, $http, $rootScope) {
-//    	$http.get('/api/event/list/{userid}/').success(function (result) { 
-		$http.get('/api/veranstaltungen/dum').success(function (result) {
-        	if (!isUserLoged()) {
-        		$location.path('/login');
-        	}
-        	else {
-                console.log("loaded data");
-                $scope.events = result;
-        	}
-        }
-        )
-    });
     
-    onlineRegApp.controller('KontaktdatenController', function ($scope, $http, $rootScope) {
-        $http.get('/api/kontaktdaten/dum').success(function (result) {
-//            $http.get('/api/event/list/{userid}/').success(function (result) {
-        	if (!isUserLoged()) {
-        		$location.path('/login');
-        	}
-        	else {
-                console.log("loaded data");
-                $scope.events = result;
-        	}})
-        	
-    });
+});
+
+onlineRegApp.controller('VeranstaltungsController', function ($scope, $location, $rootScope) {
+    	if ($rootScope.user_logged_in == null) {
+    		$location.path('/login');
+    	}
+
+});
+
+onlineRegApp.controller('KontaktdatenController', function ($scope, $location, $rootScope) {
+    	if ($rootScope.user_logged_in == null) {
+    		$location.path('/login');
+    	}
 });
