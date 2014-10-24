@@ -14,7 +14,6 @@ import org.evolvis.veraweb.onlinereg.event.EventResource;
 import org.evolvis.veraweb.onlinereg.event.KontaktdatenResource;
 import org.evolvis.veraweb.onlinereg.event.UserResource;
 import org.evolvis.veraweb.onlinereg.event.VeranstaltungenResource;
-import org.evolvis.veraweb.onlinereg.osiam.OsiamAuthProvider;
 import org.evolvis.veraweb.onlinereg.user.LoginResource;
 
 @Getter
@@ -67,7 +66,7 @@ public class Main extends Application<Config> {
 
         environment.healthChecks().register("veraweb availability", health = new Health(client, configuration.getVerawebEndpoint()));
 
-        environment.jersey().register(new OsiamAuthProvider("OSIAM protected"));
+//        environment.jersey().register(new OsiamAuthProvider("OSIAM protected"));
 
 
         environment.jersey().register(eventResource = new EventResource(configuration, client));
