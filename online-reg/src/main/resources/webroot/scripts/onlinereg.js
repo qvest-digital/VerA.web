@@ -10,13 +10,9 @@ onlineRegApp.run(function ($rootScope) {
     };
     
     $rootScope.isUserLoged = function () {
-//    	if ($rootScope.user_logged_in != null) {
-//    		$rootScope.newLocation = $newLocation;
-//    		return true;
-//    	}
-//    	$rootScope.newLocation = "/login"
     	return $rootScope.user_logged_in != null;
     }
+    
 });
 
 
@@ -40,12 +36,13 @@ onlineRegApp.config(function ($routeProvider) {
     }).when('/veranstaltungen', {
         templateUrl: 'partials/meine-veranstaltungen.html',
         controller: 'VeranstaltungsController'
-    }).when('/kontaktdaten', {
-        templateUrl: 'partials/kontaktdaten.html',
-        controller: 'KontaktdatenController'
-    }).otherwise({
-        redirectTo: '/event'
-    });
+    }).when('/kontaktdaten' , {
+    	templateUrl: 'partials/kontaktdaten.html',
+    	controller: 'KontaktdatenController',
+    })
+    .otherwise({
+    	redirectTo: '/event'
+    })
 });
 
 onlineRegApp.controller('DirectLoginController', function ($scope, $location, $http, $rootScope) {
@@ -195,13 +192,18 @@ onlineRegApp.controller('RegisterController', function ($scope, $routeParams, $h
     });
 
     $http.get('/api/event/' + $routeParams.eventId + '/register/' + $scope.userId).success(function (result) {
-        if (result.invitationstatus) {
-            $scope.acceptance = $scope.acceptanceOptions[result.invitationstatus];
-        }
-        if (result.notehost) {
-            $scope.noteToHost = result.notehost;
-        }
-        console.log("Teilnahme: " + $scope.acceptance.label);
+    	if (!isUserLoged()) {
+    		$location.path('/login');
+    	}
+    	else {
+	        if (result.invitationstatus) {
+	            $scope.acceptance = $scope.acceptanceOptions[result.invitationstatus];
+	        }
+	        if (result.notehost) {
+	            $scope.noteToHost = result.notehost;
+	        }
+	        console.log("Teilnahme: " + $scope.acceptance.label);
+    	}
     });
 
     $scope.save = function () {
@@ -262,17 +264,30 @@ onlineRegApp.controller('RegisterUserController', function ($scope, $location, $
         });
     }
 
-    onlineRegApp.controller('VeranstaltungsController', function ($scope) {
-        $http.get('/api/event/list/{userid}/').success(function (result) {
+    onlineRegApp.controller('VeranstaltungsController', function ($scope, $http, $rootScope) {
+//    	$http.get('/api/event/list/{userid}/').success(function (result) { 
+		$http.get('/api/veranstaltungen/dum').success(function (result) {
+        	if (!isUserLoged()) {
+        		$location.path('/login');
+        	}
+        	else {
                 console.log("loaded data");
                 $scope.events = result;
-        });
+        	}
+        }
+        )
     });
     
-    onlineRegApp.controller('KontaktdatenController', function ($scope) {
-        $http.get('/api/event/list/{userid}/').success(function (result) {
+    onlineRegApp.controller('KontaktdatenController', function ($scope, $http, $rootScope) {
+        $http.get('/api/kontaktdaten/dum').success(function (result) {
+//            $http.get('/api/event/list/{userid}/').success(function (result) {
+        	if (!isUserLoged()) {
+        		$location.path('/login');
+        	}
+        	else {
                 console.log("loaded data");
                 $scope.events = result;
-        });
+        	}})
+        	
     });
 });
