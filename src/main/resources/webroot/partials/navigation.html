@@ -4,12 +4,10 @@
             <ul class="nav navbar-nav">
                 <li class="active"><a href="#" ng-click="no_messages()">Veranstaltungen</a></li>
                 <li class="active" >
-	                <a href="#/veranstaltungen" ng-if="isUserLoged()" ng-click="setNextPage('veranstaltungen')" >Meine Veranstaltungen</a>
-	                <a href="#/login" ng-if="!isUserLoged()" ng-click="setNextPage('veranstaltungen')">Meine Veranstaltungen</a>
+	                <a href="#/veranstaltungen" ng-click="setNextPage('veranstaltungen')" >Meine Veranstaltungen</a>
                 </li> 
                 <li class="active">
-	                <a href="#/kontaktdaten" ng-if="isUserLoged()" ng-click="setNextPage('kontaktdaten')">Meine Kontaktdaten</a>
-	                <a href="#/login" ng-if="!isUserLoged()" ng-click="setNextPage('kontaktdaten')">Meine Kontaktdaten</a>
+	                <a href="#/kontaktdaten" ng-click="setNextPage('kontaktdaten')">Meine Kontaktdaten</a>
                 </li>
             </ul>
         </div>
