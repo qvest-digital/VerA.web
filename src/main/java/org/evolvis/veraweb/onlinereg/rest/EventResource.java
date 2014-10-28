@@ -32,16 +32,28 @@ public class EventResource extends AbstractResource {
 
     }
 
+    @Path("/userevents/{username}")
+    @GET
+    public List<Event> listUsersEvents(@PathParam("username") String username) {
+        Session session = openSession();
+        try {
+            Query query = session.getNamedQuery("Event.list.userevents");
+            query.setString("username", username);
+            return query.list();
+        } finally {
+            session.close();
+        }
+
+    }
+
     @Path("/{eventId}")
     @GET
     public Event getEvent(@PathParam("eventId") int eventId) {
         Session session = openSession();
         try {
-
             Query query = session.getNamedQuery("Event.getEvent");
             query.setInteger("pk", eventId);
             return (Event) query.uniqueResult();
-
         } finally {
             session.close();
         }

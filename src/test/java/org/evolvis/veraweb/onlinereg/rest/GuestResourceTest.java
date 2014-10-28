@@ -19,7 +19,7 @@ public class GuestResourceTest extends AbstractResourceTest<GuestResource>{
 
     @BeforeClass
     public static void init() {
-        Session s = sessionFactory.openSession();
+        Session session = sessionFactory.openSession();
 
         Guest g = new Guest();
         g.setPk(1);
@@ -28,9 +28,9 @@ public class GuestResourceTest extends AbstractResourceTest<GuestResource>{
         g.setNotehost("note");
         g.setInvitationstatus(0);
 
-        s.persist(g);
-        s.flush();
-        s.close();
+        session.persist(g);
+        session.flush();
+        session.close();
     }
 
     @Test
