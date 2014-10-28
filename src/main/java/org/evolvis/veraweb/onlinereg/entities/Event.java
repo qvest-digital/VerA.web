@@ -34,7 +34,6 @@ import java.util.Date;
                 "JOIN tguest g on g.fk_event = e.pk " +
                 "JOIN tuser tu on tu.pk = g.fk_person " +
                     "where (CURRENT_TIMESTAMP < e.datebegin OR CURRENT_TIMESTAMP < e.dateend) " +
-                    "AND e.eventtype LIKE 'Offene Veranstaltung' " +
                     "AND tu.username LIKE :username", resultClass=Event.class)})
 
 public class Event {
