@@ -180,4 +180,16 @@ public class EventResource {
         return mapper.readValue(result, GUEST);
     }
 
+    /**
+     * Get user's subscribed events.
+     *
+     * @param username  username
+     * @return Users' events list
+     * @throws IOException
+     */
+    @GET
+    @Path("/userevents/{username}")
+    public List<Event> getUsersEvents(@PathParam("username") String username) throws IOException {
+        return readResource(path("event", "userevents", username), EVENT_LIST);
+    }
 }

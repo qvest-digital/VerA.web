@@ -21,9 +21,6 @@ onlineRegApp.config(function ($routeProvider) {
     $routeProvider.when('/login', {
         templateUrl: 'partials/login.html',
         controller: 'LoginController'
-    }).when('/welcome', {
-        templateUrl: 'partials/welcome.html',
-        controller: 'WelcomeController'
     }).when('/event', {
         templateUrl: 'partials/event.html',
         controller: 'EventController'
@@ -39,8 +36,7 @@ onlineRegApp.config(function ($routeProvider) {
     }).when('/kontaktdaten' , {
     	templateUrl: 'partials/kontaktdaten.html',
     	controller: 'KontaktdatenController',
-    })
-    .otherwise({
+    }).otherwise({
     	redirectTo: '/event'
     })
 });
@@ -52,7 +48,7 @@ onlineRegApp.controller('DirectLoginController', function ($scope, $location, $h
         $rootScope.status = null;
         $rootScope.messageContent = null;
     }
-    
+
     $scope.logout = function () {
         $http({
             method: 'POST',
@@ -111,14 +107,11 @@ onlineRegApp.controller('DirectLoginController', function ($scope, $location, $h
     $scope.setNextPage = function(value) {
     	if (value == "veranstaltungen") {
     		$scope.nextPage = "/veranstaltungen";
-    	}
-    	else if (value == "kontaktdaten") {
+    	} else if (value == "kontaktdaten") {
     		$scope.nextPage = "/kontaktdaten";
-    	}
-    	else {
+    	} else {
     		$scope.nextPage = "/login";
     	}
-    	
     }
 });
 
@@ -143,7 +136,6 @@ onlineRegApp.controller('LoginController', function ($scope, $location, $http, $
             $scope.button = false;
 
             if (result === "true") {
-                console.log("Login erfolgreich");
                 $location.path($scope.nextPage);
 				$rootScope.user_logged_in = $scope.username;
                 $rootScope.status = null;
@@ -161,11 +153,6 @@ onlineRegApp.controller('LoginController', function ($scope, $location, $http, $
     }
 });
 
-onlineRegApp.controller('WelcomeController', function ($scope, $location) {
-
-
-});
-
 onlineRegApp.controller('EventController', function ($scope, $http, $rootScope) {
     $http.get('/api/event/list').success(function (result) {
         console.log("loaded data");
@@ -176,8 +163,7 @@ onlineRegApp.controller('EventController', function ($scope, $http, $rootScope) 
 onlineRegApp.controller('RegisterController', function ($scope, $rootScope, $location, $routeParams, $http) {
 	if ($rootScope.user_logged_in == null) {
 		$location.path('/login');
-	}
-	else {
+	} else {
 	    // currently hardwired to 2
 	    $scope.userId = 2;
 	
@@ -225,60 +211,75 @@ onlineRegApp.controller('RegisterController', function ($scope, $rootScope, $loc
 });
 
 onlineRegApp.controller('RegisterUserController', function ($scope, $location, $http) {
-    $scope.button = true;
-
-    $scope.changed = function () {
-        $scope.button = false;
-    }
-
-    var ERROR_TEXT = "Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.";
-
-    $scope.register_user = function () {
+    if ($rootScope.user_logged_in == null) {
+        $location.path('/login');
+    } else {
         $scope.button = true;
-        console.log("registering user.");
-        $http({
-            method: 'POST',
-            url: '/api/user/register/' + $scope.osiam_username,
-            params: {
-                osiam_firstname: $scope.osiam_firstname,
-                osiam_secondname: $scope.osiam_secondname,
-                osiam_password1: $scope.osiam_password1
-            }
-        }).success(function (result) {
-            $scope.success = null;
-            $scope.register_error = null;
 
-            if (result === 'USER_EXISTS') {
-                $scope.register_error = "Ein Benutzer mit diesem Benutzernamen existiert bereits.";
+        $scope.changed = function () {
+            $scope.button = false;
+        }
 
-            } else if (result === 'INVALID_USERNAME') {
-                $scope.register_error = "Der Benutzername darf nur Buchstaben und Zahlen enthalten.";
+        var ERROR_TEXT = "Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.";
 
-            } else if (result === 'OK') {
-                $scope.success = "Benutzerdaten wurden gespeichert.";
+        $scope.register_user = function () {
+            $scope.button = true;
+            console.log("registering user.");
+            $http({
+                method: 'POST',
+                url: '/api/user/register/' + $scope.osiam_username,
+                params: {
+                    osiam_firstname: $scope.osiam_firstname,
+                    osiam_secondname: $scope.osiam_secondname,
+                    osiam_password1: $scope.osiam_password1
+                }
+            }).success(function (result) {
+                $scope.success = null;
+                $scope.register_error = null;
 
-            } else {
+                if (result === 'USER_EXISTS') {
+                    $scope.register_error = "Ein Benutzer mit diesem Benutzernamen existiert bereits.";
+
+                } else if (result === 'INVALID_USERNAME') {
+                    $scope.register_error = "Der Benutzername darf nur Buchstaben und Zahlen enthalten.";
+
+                } else if (result === 'OK') {
+                    $scope.success = "Benutzerdaten wurden gespeichert.";
+
+                } else {
+                    $scope.register_error = ERROR_TEXT;
+                }
+                $scope.button = false;
+
+            }).error(function (data, status, headers, config) {
                 $scope.register_error = ERROR_TEXT;
-            }
-            $scope.button = false;
-
-        }).error(function (data, status, headers, config) {
-            $scope.register_error = ERROR_TEXT;
-            $scope.button = false;
-        });
+                $scope.button = false;
+            });
+        }
     }
-    
+
 });
 
-onlineRegApp.controller('VeranstaltungsController', function ($scope, $location, $rootScope) {
-    	if ($rootScope.user_logged_in == null) {
-    		$location.path('/login');
-    	}
-
+onlineRegApp.controller('VeranstaltungsController', function ($scope, $http, $rootScope, $location) {
+    if ($rootScope.user_logged_in == null) {
+        $location.path('/login');
+    } else {
+        console.log("DEBUG: " + $rootScope.user_logged_in);
+        var userEventsURL = '/api/event/userevents/' + $rootScope.user_logged_in;
+        $http.get(userEventsURL).success(function (result) {
+            console.log("Loading user's subscribed events...");
+            $scope.events = result;
+        });
+    }
 });
 
 onlineRegApp.controller('KontaktdatenController', function ($scope, $location, $rootScope) {
-    	if ($rootScope.user_logged_in == null) {
-    		$location.path('/login');
-    	}
+    if ($rootScope.user_logged_in == null) {
+        $location.path('/login');
+    } else {
+        $http.get('/api/event/list/{userid}/').success(function (result) {
+                console.log("loaded data");
+                $scope.events = result;
+        });
+    }
 });
