@@ -85,6 +85,9 @@ Damit der Tomcat auch vom Apachen angesprochen werden kann, muß in '''/etc/tomc
 Dafür müssen etwas weiter unten die Kommentarzeichen rund um diesen Abschnitt entfernt werden:
      <Connector port="8009" protocol="AJP/1.3" redirectPort="8443" />
 
+Außerdem muß die Zeile geändert werden in:
+     <Connector address="127.0.0.1" port="8009" protocol="AJP/1.3" redirectPort="8443" />
+
 === LDAP-Konfiguration ===
 
 In '''/var/lib/tomcat7/webapps/veraweb/OCTOPUS/config_ldap_access.xml''' findet sich die entsprechende Konfiguration; die Parameter '''ldapurl''', '''ldapbasedn''', '''ldaprelative''' sind mindestens anzupassen; '''ldappwd''' ist bei anonymem Bind nicht nötig.
