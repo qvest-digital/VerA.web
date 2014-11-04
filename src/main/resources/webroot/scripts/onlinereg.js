@@ -211,51 +211,47 @@ onlineRegApp.controller('RegisterController', function ($scope, $rootScope, $loc
 });
 
 onlineRegApp.controller('RegisterUserController', function ($scope, $location, $http) {
-    if ($rootScope.user_logged_in == null) {
-        $location.path('/login');
-    } else {
+    $scope.button = true;
+
+    $scope.changed = function () {
+        $scope.button = false;
+    }
+
+    var ERROR_TEXT = "Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.";
+
+    $scope.register_user = function () {
         $scope.button = true;
+        console.log("registering user.");
+        $http({
+            method: 'POST',
+            url: '/api/user/register/' + $scope.osiam_username,
+            params: {
+                osiam_firstname: $scope.osiam_firstname,
+                osiam_secondname: $scope.osiam_secondname,
+                osiam_password1: $scope.osiam_password1
+            }
+        }).success(function (result) {
+            $scope.success = null;
+            $scope.register_error = null;
 
-        $scope.changed = function () {
-            $scope.button = false;
-        }
+            if (result === 'USER_EXISTS') {
+                $scope.register_error = "Ein Benutzer mit diesem Benutzernamen existiert bereits.";
 
-        var ERROR_TEXT = "Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.";
+            } else if (result === 'INVALID_USERNAME') {
+                $scope.register_error = "Der Benutzername darf nur Buchstaben und Zahlen enthalten.";
 
-        $scope.register_user = function () {
-            $scope.button = true;
-            console.log("registering user.");
-            $http({
-                method: 'POST',
-                url: '/api/user/register/' + $scope.osiam_username,
-                params: {
-                    osiam_firstname: $scope.osiam_firstname,
-                    osiam_secondname: $scope.osiam_secondname,
-                    osiam_password1: $scope.osiam_password1
-                }
-            }).success(function (result) {
-                $scope.success = null;
-                $scope.register_error = null;
+            } else if (result === 'OK') {
+                $scope.success = "Benutzerdaten wurden gespeichert.";
 
-                if (result === 'USER_EXISTS') {
-                    $scope.register_error = "Ein Benutzer mit diesem Benutzernamen existiert bereits.";
-
-                } else if (result === 'INVALID_USERNAME') {
-                    $scope.register_error = "Der Benutzername darf nur Buchstaben und Zahlen enthalten.";
-
-                } else if (result === 'OK') {
-                    $scope.success = "Benutzerdaten wurden gespeichert.";
-
-                } else {
-                    $scope.register_error = ERROR_TEXT;
-                }
-                $scope.button = false;
-
-            }).error(function (data, status, headers, config) {
+            } else {
                 $scope.register_error = ERROR_TEXT;
-                $scope.button = false;
-            });
-        }
+            }
+            $scope.button = false;
+
+        }).error(function (data, status, headers, config) {
+            $scope.register_error = ERROR_TEXT;
+            $scope.button = false;
+        });
     }
 
 });
