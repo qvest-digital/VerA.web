@@ -28,7 +28,6 @@ public class PersonResource extends AbstractResource {
             Query query = session.getNamedQuery("Person.findByUsername");
             query.setString("username", "username:" + username);
 
-
             if (!query.list().isEmpty()) {
                 // user already exists
                 return null;
@@ -38,10 +37,10 @@ public class PersonResource extends AbstractResource {
             p.setFirstName(firstName);
             p.setLastName(lastname);
             p.setUsername(username);
+            p.setFk_orgunit(0);
 
             session.persist(p);
             session.flush();
-
 
             query.setString("username", "username:" + username);
             p = (Person) query.uniqueResult();
