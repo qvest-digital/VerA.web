@@ -66,4 +66,11 @@ public class Person {
         }
     }
 
+    public void setFk_orgunit(Integer fk_orgunit) {
+        this.fk_orgunit = fk_orgunit;
+    }
+
+    public int getPk() {
+        return this.pk;
+    }
 }
