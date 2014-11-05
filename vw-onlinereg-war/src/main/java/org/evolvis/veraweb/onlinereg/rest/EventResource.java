@@ -1,6 +1,7 @@
 package org.evolvis.veraweb.onlinereg.rest;
 
 import org.evolvis.veraweb.onlinereg.entities.Event;
+import org.evolvis.veraweb.onlinereg.entities.Person;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
@@ -37,9 +38,20 @@ public class EventResource extends AbstractResource {
     public List<Event> listUsersEvents(@PathParam("username") String username) {
         Session session = openSession();
         try {
-            Query query = session.getNamedQuery("Event.list.userevents");
-            query.setString("username", username);
-            return query.list();
+
+            Query query = session.getNamedQuery("Person.findByUsername");
+            query.setString("username", "username:" + username);
+            Person person;
+            if (query.list().isEmpty()) {
+                // user does not exists
+                return null;
+            } else {
+                person = (Person) query.uniqueResult();
+                query = session.getNamedQuery("Event.list.userevents");
+                query.setInteger("fk_person", person.getPk());
+                return query.list();
+            }
+
         } finally {
             session.close();
         }

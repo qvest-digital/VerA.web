@@ -29,12 +29,6 @@ import java.util.Date;
         @NamedQuery(name = "AllEvents.list", query = "SELECT e FROM Event e"),
         @NamedQuery(name = "Event.getEvent", query = "SELECT e FROM Event e where e.pk = :pk")
 })
-@NamedNativeQueries({
-        @NamedNativeQuery(name="Event.list.userevents", query = "SELECT e.* FROM tevent e " +
-                "JOIN tguest g on g.fk_event = e.pk " +
-                "JOIN tuser tu on tu.pk = g.fk_person " +
-                    "where (CURRENT_TIMESTAMP < e.datebegin OR CURRENT_TIMESTAMP < e.dateend) " +
-                    "AND tu.username LIKE :username", resultClass=Event.class)})
 
 public class Event {
 	
