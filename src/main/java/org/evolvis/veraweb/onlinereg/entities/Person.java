@@ -20,7 +20,8 @@ import java.util.Date;
 @Entity
 @Table(name = "tperson")
 @NamedQueries(value = {
-        @NamedQuery(name = "Person.findByUsername", query = "SELECT p FROM Person p where note_a_e1 like :username")
+        @NamedQuery(name = "Person.findByUsername", query = "SELECT p FROM Person p where note_a_e1 like :username"),
+        @NamedQuery(name = "Person.findPersonIdByUsername", query = "SELECT p.pk FROM Person p where note_a_e1 like :username")
 })
 public class Person {
 
