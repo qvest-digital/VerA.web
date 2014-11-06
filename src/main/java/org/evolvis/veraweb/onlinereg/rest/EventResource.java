@@ -41,21 +41,24 @@ public class EventResource extends AbstractResource {
 
             Query query = session.getNamedQuery("Person.findByUsername");
             query.setString("username", "username:" + username);
-            Person person;
             if (query.list().isEmpty()) {
                 // user does not exists
                 return null;
             } else {
-                person = (Person) query.uniqueResult();
-                query = session.getNamedQuery("Event.list.userevents");
-                query.setInteger("fk_person", person.getPk());
-                return query.list();
+                return getUsersEvents(session, query);
             }
 
         } finally {
             session.close();
         }
 
+    }
+
+    private List<Event> getUsersEvents(Session session, Query query) {
+        Person person = (Person) query.uniqueResult();
+        query = session.getNamedQuery("Event.list.userevents");
+        query.setInteger("fk_person", person.getPk());
+        return query.list();
     }
 
     @Path("/{eventId}")
