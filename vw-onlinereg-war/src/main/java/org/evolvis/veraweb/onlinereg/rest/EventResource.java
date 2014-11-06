@@ -38,14 +38,14 @@ public class EventResource extends AbstractResource {
     public List<Event> listUsersEvents(@PathParam("username") String username) {
         Session session = openSession();
         try {
-
-            Query query = session.getNamedQuery("Person.findByUsername");
+            Query query = session.getNamedQuery("Person.findPersonIdByUsername");
             query.setString("username", "username:" + username);
             if (query.list().isEmpty()) {
                 // user does not exists
                 return null;
             } else {
-                return getUsersEvents(session, query);
+                int personId = (int) query.uniqueResult();
+                return getUsersEvents(session, personId);
             }
 
         } finally {
@@ -54,10 +54,9 @@ public class EventResource extends AbstractResource {
 
     }
 
-    private List<Event> getUsersEvents(Session session, Query query) {
-        Person person = (Person) query.uniqueResult();
-        query = session.getNamedQuery("Event.list.userevents");
-        query.setInteger("fk_person", person.getPk());
+    private List<Event> getUsersEvents(Session session, int personId) {
+        Query query = session.getNamedQuery("Event.list.userevents");
+        query.setInteger("fk_person", personId);
         return query.list();
     }
 
