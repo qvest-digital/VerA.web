@@ -24,32 +24,36 @@ public class PersonResource extends AbstractResource {
                                @QueryParam("lastname") String lastname) {
         Session session = openSession();
         try {
-            Query query = prepareQuery(username, session);
-            if (!query.list().isEmpty()) {
-                // user already exists
-                return null;
-            }
-
-            persistPerson(username, firstName, lastname, session, query);
-
-            Person person = (Person) query.uniqueResult();
+            Person person = handleCreatePerson(username, firstName, lastname, session);
             return person;
         } finally {
             session.close();
         }
-
     }
 
-    private Query prepareQuery(String username, Session session) {
+    private Person handleCreatePerson(String username, String firstName, String lastname, Session session) {
+        Query query = getSelectPersonByUsernameQuery(username, session);
+        if (!query.list().isEmpty()) {
+            // user already exists
+            return null;
+        }
+
+        persistPerson(username, firstName, lastname, session);
+        Person person = (Person) query.uniqueResult();
+        return person;
+    }
+
+    private Query getSelectPersonByUsernameQuery(String username, Session session) {
         Query query = session.getNamedQuery("Person.findByUsername");
         query.setString("username", "username:" + username);
         return query;
     }
 
-    private void persistPerson(String username, String firstName, String lastname, Session session, Query query) {
+    private Person persistPerson(String username, String firstName, String lastname, Session session) {
         Person p = initPerson(username, firstName, lastname);
         session.persist(p);
         session.flush();
+        return p;
     }
 
     private Person initPerson(String username, String firstName, String lastname) {
