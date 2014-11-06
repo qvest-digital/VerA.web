@@ -42,6 +42,7 @@ public class PersonResourceTest extends AbstractResourceTest<PersonResource>{
         assertEquals("Luke", p.getFirstname_a_e1());
         assertEquals("Skywalker", p.getLastname_a_e1());
         assertEquals("username:luke", p.getNote_a_e1());
+        assertEquals(0, p.getFk_orgunit());
     }
 
     @Test
