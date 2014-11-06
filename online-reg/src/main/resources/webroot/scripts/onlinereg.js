@@ -12,7 +12,6 @@ onlineRegApp.run(function ($rootScope) {
     $rootScope.isUserLoged = function () {
     	return $rootScope.user_logged_in != null;
     }
-    
 });
 
 
@@ -105,13 +104,7 @@ onlineRegApp.controller('DirectLoginController', function ($scope, $location, $h
     }
     
     $scope.setNextPage = function(value) {
-    	if (value == "veranstaltungen") {
-    		$scope.nextPage = "/veranstaltungen";
-    	} else if (value == "kontaktdaten") {
-    		$scope.nextPage = "/kontaktdaten";
-    	} else {
-    		$scope.nextPage = "/login";
-    	}
+    	$scope.nextPage = "/" + value;
     }
 });
 
@@ -136,10 +129,10 @@ onlineRegApp.controller('LoginController', function ($scope, $location, $http, $
             $scope.button = false;
 
             if (result === "true") {
-                $location.path($scope.nextPage);
 				$rootScope.user_logged_in = $scope.username;
                 $rootScope.status = null;
                 $rootScope.messageContent = null;
+                $location.path($scope.nextPage);
                 
             } else {
                 $rootScope.status = "danger";
@@ -162,6 +155,8 @@ onlineRegApp.controller('EventController', function ($scope, $http, $rootScope) 
 
 onlineRegApp.controller('RegisterController', function ($scope, $rootScope, $location, $routeParams, $http) {
 	if ($rootScope.user_logged_in == null) {
+		
+		$scope.setNextPage('register/' + $routeParams.eventId);
 		$location.path('/login');
 	} else {
 	    // currently hardwired to 2
@@ -182,6 +177,7 @@ onlineRegApp.controller('RegisterController', function ($scope, $rootScope, $loc
 	
 	    $http.get('/api/event/' + $routeParams.eventId + '/register/' + $scope.userId).success(function (result) {
 	    	if (!isUserLoged()) {
+	    		
 	    		$location.path('/login');
 	    	}
 	    	else {
