@@ -2,9 +2,10 @@ package org.evolvis.veraweb.onlinereg.rest;
 
 import org.evolvis.veraweb.onlinereg.AbstractResourceTest;
 import org.evolvis.veraweb.onlinereg.entities.Event;
+import org.evolvis.veraweb.onlinereg.entities.Guest;
+import org.evolvis.veraweb.onlinereg.entities.Person;
 import org.hibernate.Session;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.Calendar;
@@ -25,7 +26,43 @@ public class EventResourceTest extends AbstractResourceTest<EventResource> {
 
     @BeforeClass
     public static void init() {
+        createDummyEvents();
+    }
 
+    @Test
+    public void testListEvents() {
+        List<Event> events = resource.listEvents();
+        assertEquals(3, events.size());
+    }
+
+    @Test
+    public void testListUserEvents() {
+        getDummyPersonAndGuests();
+        List<Event> events = resource.listUsersEvents("exists");
+        assertEquals(2, events.size());
+    }
+
+    @Test
+    public void testGetEvent() {
+        Event e = resource.getEvent(3);
+        assertEquals("pastEvent", e.getShortname());
+    }
+
+    private static Date getFutureDate() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date());
+        calendar.add(Calendar.DATE, 15); // Adds 15 days
+        return calendar.getTime();
+    }
+
+    private static Date getPastDate() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date());
+        calendar.add(Calendar.DATE, -15); // Removes 15 days
+        return calendar.getTime();
+    }
+
+    private static void createDummyEvents() {
         Session session = sessionFactory.openSession();
 
         Event e = new Event();
@@ -76,29 +113,36 @@ public class EventResourceTest extends AbstractResourceTest<EventResource> {
         session.close();
     }
 
-    @Test
-    public void testListEvents() {
-        List<Event> events = resource.listEvents();
-        assertEquals(3, events.size());
-    }
+    private static void getDummyPersonAndGuests() {
 
-    @Test
-    public void testGetEvent() {
-        Event e = resource.getEvent(3);
-        assertEquals("pastEvent", e.getShortname());
-    }
+        Session session = sessionFactory.openSession();
 
-    private static Date getFutureDate() {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(new Date());
-        calendar.add(Calendar.DATE, 15); // Adds 15 days
-        return calendar.getTime();
-    }
+        Person person = new Person();
+        person.setPk(1);
+        person.setUsername("exists");
+        person.setFirstName("Hans");
+        person.setLastName("Wurst");
+        session.save(person);
 
-    private static Date getPastDate() {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(new Date());
-        calendar.add(Calendar.DATE, -15); // Removes 15 days
-        return calendar.getTime();
+        Guest guest = new Guest();
+        guest.setPk(1);
+        guest.setFk_event(1);
+        guest.setFk_person(1);
+        session.persist(guest);
+
+        guest = new Guest();
+        guest.setPk(2);
+        guest.setFk_event(2);
+        guest.setFk_person(1);
+        session.persist(guest);
+
+        guest = new Guest();
+        guest.setPk(3);
+        guest.setFk_event(6);
+        guest.setFk_person(1);
+        session.persist(guest);
+
+        session.flush();
+        session.close();
     }
 }
