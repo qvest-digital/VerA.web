@@ -25,9 +25,11 @@ public class PersonResourceTest extends AbstractResourceTest<PersonResource>{
 
         Person p = new Person();
         p.setPk(1);
-        p.setUsername("exists");
+        String username = "exists";
+        p.setUsername(username);
         p.setFirstName("Hans");
         p.setLastName("Wurst");
+        p.setNote_a_e1("username:" + username);
 
         s.save(p);
         s.flush();

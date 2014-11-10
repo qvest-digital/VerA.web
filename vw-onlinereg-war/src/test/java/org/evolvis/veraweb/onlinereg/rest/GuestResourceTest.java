@@ -21,14 +21,26 @@ public class GuestResourceTest extends AbstractResourceTest<GuestResource>{
     public static void init() {
         Session session = sessionFactory.openSession();
 
-        Guest g = new Guest();
-        g.setPk(1);
-        g.setFk_event(1);
-        g.setFk_person(1);
-        g.setNotehost("note");
-        g.setInvitationstatus(0);
+        Guest guest = new Guest();
+        guest.setPk(1);
+        guest.setFk_event(1);
+        guest.setFk_person(1);
+        guest.setNotehost("note");
+        guest.setInvitationstatus(0);
+        session.persist(guest);
 
-        session.persist(g);
+        guest = new Guest();
+        guest.setPk(2);
+        guest.setFk_event(2);
+        guest.setFk_person(1);
+        session.persist(guest);
+
+        guest = new Guest();
+        guest.setPk(3);
+        guest.setFk_event(6);
+        guest.setFk_person(1);
+        session.persist(guest);
+
         session.flush();
         session.close();
     }

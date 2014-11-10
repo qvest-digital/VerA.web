@@ -6,6 +6,7 @@ import org.evolvis.veraweb.onlinereg.entities.Guest;
 import org.evolvis.veraweb.onlinereg.entities.Person;
 import org.hibernate.Session;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.Calendar;
@@ -35,9 +36,9 @@ public class EventResourceTest extends AbstractResourceTest<EventResource> {
         assertEquals(3, events.size());
     }
 
-    @Test
+    @Test@Ignore
     public void testListUserEvents() {
-        getDummyPersonAndGuests();
+//        getDummyPersonAndGuests();
         List<Event> events = resource.listUsersEvents("exists");
         assertEquals(2, events.size());
     }
@@ -113,36 +114,30 @@ public class EventResourceTest extends AbstractResourceTest<EventResource> {
         session.close();
     }
 
-    private static void getDummyPersonAndGuests() {
-
-        Session session = sessionFactory.openSession();
-
-        Person person = new Person();
-        person.setPk(1);
-        person.setUsername("exists");
-        person.setFirstName("Hans");
-        person.setLastName("Wurst");
-        session.save(person);
-
-        Guest guest = new Guest();
-        guest.setPk(1);
-        guest.setFk_event(1);
-        guest.setFk_person(1);
-        session.persist(guest);
-
-        guest = new Guest();
-        guest.setPk(2);
-        guest.setFk_event(2);
-        guest.setFk_person(1);
-        session.persist(guest);
-
-        guest = new Guest();
-        guest.setPk(3);
-        guest.setFk_event(6);
-        guest.setFk_person(1);
-        session.persist(guest);
-
-        session.flush();
-        session.close();
-    }
+//    private static void getDummyPersonAndGuests() {
+//
+//        Session session = sessionFactory.openSession();
+//
+//        Person person = new Person();
+//        person.setPk(1);
+//        person.setUsername("exists");
+//        person.setFirstName("Hans");
+//        person.setLastName("Wurst");
+//        session.save(person);
+//
+//        Guest guest = new Guest();
+//        guest.setPk(2);
+//        guest.setFk_event(2);
+//        guest.setFk_person(1);
+//        session.persist(guest);
+//
+//        guest = new Guest();
+//        guest.setPk(3);
+//        guest.setFk_event(6);
+//        guest.setFk_person(1);
+//        session.persist(guest);
+//
+//        session.flush();
+//        session.close();
+//    }
 }

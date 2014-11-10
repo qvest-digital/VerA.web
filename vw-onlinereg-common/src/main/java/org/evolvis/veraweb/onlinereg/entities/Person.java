@@ -67,6 +67,10 @@ public class Person {
         }
     }
 
+    public void setNote_a_e1(String note_a_e1) {
+        this.note_a_e1 = note_a_e1;
+    }
+
     public void setFk_orgunit(Integer fk_orgunit) {
         this.fk_orgunit = fk_orgunit;
     }
