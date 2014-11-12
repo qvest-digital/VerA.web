@@ -20,7 +20,6 @@ import static org.junit.Assert.assertEquals;
  */
 public class EventResourceTest extends AbstractResourceTest<EventResource> {
 
-
     public EventResourceTest() {
         super(EventResource.class);
     }
@@ -34,13 +33,6 @@ public class EventResourceTest extends AbstractResourceTest<EventResource> {
     public void testListEvents() {
         List<Event> events = resource.listEvents();
         assertEquals(3, events.size());
-    }
-
-    @Test@Ignore
-    public void testListUserEvents() {
-//        getDummyPersonAndGuests();
-        List<Event> events = resource.listUsersEvents("exists");
-        assertEquals(2, events.size());
     }
 
     @Test
@@ -113,31 +105,4 @@ public class EventResourceTest extends AbstractResourceTest<EventResource> {
         session.flush();
         session.close();
     }
-
-//    private static void getDummyPersonAndGuests() {
-//
-//        Session session = sessionFactory.openSession();
-//
-//        Person person = new Person();
-//        person.setPk(1);
-//        person.setUsername("exists");
-//        person.setFirstName("Hans");
-//        person.setLastName("Wurst");
-//        session.save(person);
-//
-//        Guest guest = new Guest();
-//        guest.setPk(2);
-//        guest.setFk_event(2);
-//        guest.setFk_person(1);
-//        session.persist(guest);
-//
-//        guest = new Guest();
-//        guest.setPk(3);
-//        guest.setFk_event(6);
-//        guest.setFk_person(1);
-//        session.persist(guest);
-//
-//        session.flush();
-//        session.close();
-//    }
 }
