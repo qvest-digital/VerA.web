@@ -544,6 +544,7 @@ function submitFormWithGivenAction(action) {
 					<div class="tableCell"><strong>H</strong> = $!message.text($!config.main) einladen</div>
 					<div class="tableCell"><strong>P</strong> = $!message.text($!config.partner) einladen</div>
 					<div class="tableCell"><strong>R</strong> = Auf Reserve setzen</div>
+					<div class="tableCell"><strong>D</strong> = Delegation anmelden</div>
 				</div>
 			</div>
     		#end
@@ -562,6 +563,7 @@ function submitFormWithGivenAction(action) {
 								<th class="textCenter smallCell" title="$!message.text($!config.main) einladen">H <input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="Alle (de)markieren (inkl. Partner, wenn eingeladen)" style="margin: 5px;" #if($listselection.size() == $list.size()) checked#end/></th>
     							<th class="textCenter smallCell" title="$!message.text($!config.partner) einladen">P</th>
                         		<th class="textCenter smallCell" title="Auf Reserve">R</th>
+                        		<th class="textCenter smallCell" title="Delegation anmelden">D</th>
 							#end
                     		<th class="textCenter smallCell"><a href="javascript:orderPersonList('id');">ID</a></th>
                     		<th title="Hauptperson, Zeichensatz 1"><a href="javascript:orderPersonList('lastname_a_e1');">Nach&shy;name
@@ -904,6 +906,7 @@ function submitFormWithGivenAction(action) {
                             			</td>
                             		#end
                             		<td title="Auf Reserve"><input type="checkbox" name="${bean.id}-reserve" id="${bean.id}-reserve" #if($selectreserve.indexOf($bean.id) != -1) checked#end value="true" onClick="onClickEnsureSelection( '${bean.id}-select', '${bean.id}-partner', '${bean.id}-reserve', $event.invitationtype, ${hasA}, ${hasB} );"></td>
+                            		<td title="Delegation anmelden">#if($bean.iscompany == "t") <input type="checkbox" name="${bean.id}-delegation" id="${bean.id}-delegation" value="true" onClick="onClickEnsureSelection( '${bean.id}-select', '${bean.id}-partner', '${bean.id}-reserve', $event.invitationtype, ${hasA}, ${hasB} );">#end</td>
                         		#end
 								<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&searchTask=$!searchTask&person-category=' + document.getElementById('$!{bean.id}-category').value;"><input type="hidden" name="${bean.id}-id" value="$bean.id">$!{bean.id}</td>
                         		<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&searchTask=$!searchTask&person-category=' + document.getElementById('$!{bean.id}-category').value;">$!message.plain($bean.lastname_a_e1)</td>

@@ -564,7 +564,8 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 				select("street_a_e1").
 				select("zipcode_a_e1").
 				select("state_a_e1").
-				select("city_a_e1");
+				select("city_a_e1").
+                select("iscompany");
 	}
 
 	protected List getResultList(Database database, Select select) throws BeanException, IOException {
@@ -820,10 +821,9 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 		 * cklein
 		 * 2008-02-21
 		 */
-		if ( search.workarea != null )
-		{
-			list.addAnd( Expr.equal( "tperson.fk_workarea", search.workarea ) );
-		}
+        if (search.workarea != null) {
+            list.addAnd(Expr.equal("tperson.fk_workarea", search.workarea));
+        }
 
 		if (search.categorie2 != null) {
 			list.addAnd(Expr.equal("cat2.fk_categorie", search.categorie2));
