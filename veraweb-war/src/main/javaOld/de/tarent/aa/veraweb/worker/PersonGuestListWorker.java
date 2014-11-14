@@ -80,6 +80,9 @@ public class PersonGuestListWorker extends PersonListWorker {
 		List invitepartner = (List)cntx.sessionAsObject("addguest-invitepartner");
 		// IDs der Personen deren Reserve selektiert ist
 		List selectreserve = (List)cntx.sessionAsObject("addguest-selectreserve");
+		// IDs der Personen, welche als delegation selektiert sind
+		List selectdelegation = (List)cntx.sessionAsObject("addguest-selectdelegation");
+		
 		Map invitecategory = (Map)cntx.sessionAsObject("addguest-invitecategory");
 		
 		cntx.getContentObject().setField("action", "guest");
@@ -156,10 +159,13 @@ public class PersonGuestListWorker extends PersonListWorker {
 			invitemain = new ArrayList();
 			invitepartner = new ArrayList();
 			selectreserve = new ArrayList();
+			selectdelegation = new ArrayList();
 		} else if (cntx.requestAsBoolean(INPUT_SELECTALL).booleanValue()) {
 			// Alle IDs aus der Datenbank in die Liste kopieren.
 			invitepartner = new ArrayList();
 			selectreserve = new ArrayList();
+			selectdelegation = new ArrayList();
+			
 			
 			Select select = database.getSelectIds(database.createBean(BEANNAME));
 			if (search.categoriesSelection != null && search.categorie2 != null) {
@@ -203,6 +209,8 @@ public class PersonGuestListWorker extends PersonListWorker {
 			// IDs zusammenführen.
 			if (invitepartner == null) invitepartner = new ArrayList();
 			if (selectreserve == null) selectreserve = new ArrayList();
+			if (selectdelegation == null) selectdelegation = new ArrayList();
+			
 			
 			for (Iterator it = ids.iterator(); it.hasNext(); ) {
 				Integer id = new Integer((String)it.next());
@@ -218,6 +226,13 @@ public class PersonGuestListWorker extends PersonListWorker {
 				} else {
 					selectreserve.remove(id);
 				}
+				if (cntx.requestAsBoolean(id + "-delegation").booleanValue()) {
+					if (selectdelegation.indexOf(id) == -1)
+						selectdelegation.add(id);
+				} else {
+					selectdelegation.remove(id);
+				}
+				
 			}
 		}
 		
@@ -229,9 +244,11 @@ public class PersonGuestListWorker extends PersonListWorker {
 		cntx.setSession("selection" + BEANNAME, invitemain);
 		cntx.setSession("addguest-invitepartner", invitepartner);
 		cntx.setSession("addguest-selectreserve", selectreserve);
+		cntx.setSession("addguest-selectdelegation", selectdelegation);
 		cntx.setSession("addguest-invitecategory", invitecategory);
 		cntx.setContent("invitepartner", invitepartner);
 		cntx.setContent("selectreserve", selectreserve);
+		cntx.setContent("selectdelegation", selectdelegation);
 		cntx.setContent("invitecategory", invitecategory);
 		
 		cntx.setContent("personCategorie", new PersonCategorie(database));
@@ -249,6 +266,7 @@ public class PersonGuestListWorker extends PersonListWorker {
 	 */
 	public void clearGuestSelection(OctopusContext cntx) {
 		cntx.setSession("addguest-selectreserve", null);
+		cntx.setSession("addguest-selectdelegation", null);
 		cntx.setSession("addguest-invitepartner", null);
 		cntx.setSession("addguest-invitecategory", null);
 	}

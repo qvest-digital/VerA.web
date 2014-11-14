@@ -69,6 +69,7 @@ import de.tarent.octopus.server.OctopusContext;
  * 
  * @author christoph
  * @author mikel
+ * @author Max Marche <m.marche@tarent.de>, tarent solutions GmbH
  */
 public class GuestWorker {
     //
@@ -94,12 +95,12 @@ public class GuestWorker {
 
 	protected static final String ADD_PERSONS_TO_GUESTLIST_PATTERN =
 		"insert into tguest ( fk_person, fk_event, fk_category, fk_color, invitationtype, invitationstatus, "
-		+ "ishost, diplodate, rank, reserve, notehost, noteorga, \"language\", "
+		+ "ishost, diplodate, rank, reserve, delegation, notehost, noteorga, \"language\", "
 		+ "gender, nationality, domestic_a, invitationstatus_p, notehost_p, "
 		+ "noteorga_p, language_p, gender_p, nationality_p, domestic_b, fk_color_p, createdby, created ) "
 		+ "select p.pk as fk_person, {0} as fk_event, 0 as fk_category, "
 		+ "(CASE WHEN p.domestic_a_e1 = ''f'' THEN CASE WHEN p.sex_a_e1 = ''f'' THEN 3 ELSE 4 END ELSE CASE WHEN p.sex_a_e1 =''f'' THEN 1 ELSE 2 END END) as fk_color, "
-		+ "0 as invitationtype, 0 as invitationstatus, 0 as ishost, p.diplodate_a_e1 as diplodate, 0 as rank, 0 as reserve, "
+		+ "0 as invitationtype, 0 as invitationstatus, 0 as ishost, p.diplodate_a_e1 as diplodate, 0 as rank, 0 as reserve, 0 as delegation, "
 		+ "p.notehost_a_e1 as notehost, p.noteorga_a_e1 as noteorga, p.languages_a_e1 as \"language\", p.sex_a_e1 as gender, "
 		+ "p.nationality_a_e1 as nationality, p.domestic_a_e1 as domestic_a, 0 as "
 		+ "invitationstatus_p, p.notehost_b_e1 as notehost_p, p.noteorga_b_e1 as noteorga_p, p.languages_b_e1 as language_p, "
@@ -111,9 +112,9 @@ public class GuestWorker {
 	protected static final MessageFormat ADD_PERSONS_TO_GUESTLIST_FORMAT = new MessageFormat(ADD_PERSONS_TO_GUESTLIST_PATTERN);
 
 	protected static final String UPDATE_PERSON_TO_GUEST_LIST_PATTERN =
-		"update tguest set fk_category={0}, invitationtype={1}, "
-		+ "rank=(select rank from tperson_categorie where pk={0}), reserve={2} "
-		+ "where fk_person={3} and fk_event={4};";
+		"update tguest set fk_category={0}, invitationtype={1}, delegation={3},"
+		+ "rank=(select rank from tperson_categorie where pk={0}), reserve={2}"
+		+ "where fk_person={4} and fk_event={5};";
 	protected static final MessageFormat UPDATE_PERSON_TO_GUEST_LIST_FORMAT = new MessageFormat(UPDATE_PERSON_TO_GUEST_LIST_PATTERN);
 
 	public void addGuestList(OctopusContext cntx) throws BeanException, IOException
@@ -127,13 +128,14 @@ public class GuestWorker {
 			List invitemain = ( List ) cntx.sessionAsObject( "selectionPerson" );
 			List invitepartner = ( List )cntx.sessionAsObject( "addguest-invitepartner" );
 			List selectreserve = ( List ) cntx.sessionAsObject( "addguest-selectreserve" );
+			List selectdelegation = ( List )cntx.sessionAsObject( "addguest-selectdelegation" );
 			Map invitecategory = ( Map ) cntx.sessionAsObject( "addguest-invitecategory" );
 			if ( invitecategory == null )
 			{
 				invitecategory = new HashMap();
 			}
 
-			String personIds = DatabaseHelper.listsToIdListString( new List[] { invitemain, invitepartner, selectreserve } );
+			String personIds = DatabaseHelper.listsToIdListString( new List[] { invitemain, invitepartner, selectreserve, selectdelegation } );
 			String sql = COUNT_INVITED_NOT_INVITED_2_FORMAT.format( new Object[] { event.id.toString(), personIds } );
 			Result res = DB.result( context, sql );
 
@@ -167,8 +169,10 @@ public class GuestWorker {
 					}
 
 					sql3.append( UPDATE_PERSON_TO_GUEST_LIST_FORMAT.format( new Object[] {
-						fk_category != null ? fk_category.toString() : null, new Integer( invitepartner.indexOf( person.id ) != -1 ? EventConstants.TYPE_MITPARTNER : EventConstants.TYPE_OHNEPARTNER ),
-						( selectreserve.indexOf( person.id ) != -1 ) ? 1 : 0, person.id.toString(), event.id.toString()
+							fk_category != null ? fk_category.toString() : null,
+							new Integer( invitepartner.indexOf( person.id ) != -1 ? EventConstants.TYPE_MITPARTNER : EventConstants.TYPE_OHNEPARTNER ),
+							( selectreserve.indexOf( person.id ) != -1 ) ? 1 : 0, ( selectdelegation.indexOf( person.id ) != -1 ) ? 1 : 0, 
+							person.id.toString(),  event.id.toString()
 					} ) );
 					sql3.append( ';' );
 				}
@@ -194,7 +198,10 @@ public class GuestWorker {
 			}
 
 			// second step, create guest tupels
-			sql = ADD_PERSONS_TO_GUESTLIST_FORMAT.format( new Object[] { event.id.toString(), ( ( PersonalConfigAA ) cntx.personalConfig() ).getRoleWithProxy(), personIds } );
+			sql = ADD_PERSONS_TO_GUESTLIST_FORMAT.format( new Object[] { 
+					event.id.toString(), 
+					( ( PersonalConfigAA ) cntx.personalConfig() ).getRoleWithProxy(), 
+					personIds } );
 			DB.insert( context, sql );
 			context.commit();
 
