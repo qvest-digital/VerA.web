@@ -63,9 +63,41 @@ import de.tarent.octopus.server.OctopusContext;
  * @version $Revision: 1.1 $
  */
 public class GuestListWorker extends ListWorkerVeraWeb {
-    //
-    // Konstruktoren
-    //
+
+    private final static String DELETE_ALL_STALE_GUEST_DOCTYPES =
+            "DELETE FROM tguest_doctype WHERE fk_guest IN ({0})";
+    private final static MessageFormat DELETE_ALL_STALE_GUEST_DOCTYPES_FORMAT = new MessageFormat( DELETE_ALL_STALE_GUEST_DOCTYPES );
+
+    private final static String DELETE_ALL_STALE_GUESTS =
+            "DELETE FROM tguest WHERE pk IN ({0})";
+    private final static MessageFormat DELETE_ALL_STALE_GUESTS_FORMAT = new MessageFormat( DELETE_ALL_STALE_GUESTS );
+
+    private final static String BULK_INSERT_CHANGELOG_ENTRIES =
+            "INSERT INTO tchangelog (username, objname, objtype, objid, op, attributes, date) "
+                    + "SELECT DISTINCT "
+                    + "''{0}'' AS username, p.lastname_a_e1 || CASE WHEN p.firstname_a_e1 IS NOT NULL "
+                    + "THEN '', '' || p.firstname_a_e1 ELSE '''' END AS objname, "
+                    + "''de.tarent.aa.veraweb.beans.Guest'' AS objtype, g.pk AS objid, "
+                    + "''delete'' AS op, ''*'' AS attributes, NOW() AS date "
+                    + "FROM tperson p LEFT JOIN tguest g ON g.fk_person = p.pk "
+                    + "WHERE g.pk IN ({1})";
+    private final static MessageFormat BULK_INSERT_CHANGELOG_ENTRIES_FORMAT = new MessageFormat( BULK_INSERT_CHANGELOG_ENTRIES );
+
+    /** Eingabe-Parameter der Octopus-Aktion {@link #getSearch(OctopusContext)} */
+    public static final String INPUT_getSearch[] = {};
+    /** Ausgabe-Parameter der Octopus-Aktion {@link #getSearch(OctopusContext)} */
+    public static final String OUTPUT_getSearch = "search";
+
+    /** Eingabe-Parameter der Octopus-Aktion {@link #getSums(OctopusContext)} */
+    public static final String INPUT_getSums[] = {};
+    /** Ausgabe-Parameter der Octopus-Aktion {@link #getSums(OctopusContext)} */
+    public static final String OUTPUT_getSums = "guestlist-sums";
+
+    /** Eingabe-Parameter der Octopus-Aktion {@link #getEvent(OctopusContext)} */
+    public static final String INPUT_getEvent[] = {};
+    /** Ausgabe-Parameter der Octopus-Aktion {@link #getEvent(OctopusContext)} */
+    public static final String OUTPUT_getEvent = "event";
+
     /**
      * Der Konstruktor legt den Bean-Namen fest.
      */
@@ -120,26 +152,21 @@ public class GuestListWorker extends ListWorkerVeraWeb {
 	{
 		Database database = getDatabase(cntx);
 		TransactionContext context = database.getTransactionContext();
-		
-		try
-		{
-			for(Integer personId : guestIds)
-			{
-				Guest guest = (Guest) database.getBean(BEANNAME, personId);
-				Person person = (Person) database.getBean("Person", guest.person);
-				if(person != null && (person.workarea.intValue() == workAreaId.intValue() || workAreaId.intValue() == 0))
-				{
-					person.workarea = new Integer(0);
-					database.saveBean(person, context, false);
-				}
-			}
-			context.commit();
-		}
-		catch ( BeanException e )
-		{
-			context.rollBack();
-		}
-	}
+
+        try {
+            for (Integer personId : guestIds) {
+                Guest guest = (Guest) database.getBean(BEANNAME, personId);
+                Person person = (Person) database.getBean("Person", guest.person);
+                if (person != null && (person.workarea.intValue() == workAreaId.intValue() || workAreaId.intValue() == 0)) {
+                    person.workarea = new Integer(0);
+                    database.saveBean(person, context, false);
+                }
+            }
+            context.commit();
+        } catch (BeanException e) {
+            context.rollBack();
+        }
+    }
 	
 	/**
 	 * Ordnet den übergebenen Arbeitsbereich der Liste von Gästen hinzu.
@@ -157,30 +184,22 @@ public class GuestListWorker extends ListWorkerVeraWeb {
 	{
 		Database database = getDatabase(cntx);
 		TransactionContext context = database.getTransactionContext();
-		
-		try 
-		{
-			for(Integer personId : guestIds)
-			{
-				Guest guest = (Guest) database.getBean(BEANNAME, personId);
-				Person person = (Person) database.getBean("Person", guest.person);
-				if(person != null && person.workarea.intValue() != workAreaId.intValue())
-				{
-					person.workarea = workAreaId;
-					database.saveBean(person, context, false);
-				}
-			}
-			context.commit();
-		} 
-		finally 
-		{
-			context.rollBack();
-		}
-	}
 
-	//
-    // Oberklasse BeanListWorker
-    //
+        try {
+            for (Integer personId : guestIds) {
+                Guest guest = (Guest) database.getBean(BEANNAME, personId);
+                Person person = (Person) database.getBean("Person", guest.person);
+                if (person != null && person.workarea.intValue() != workAreaId.intValue()) {
+                    person.workarea = workAreaId;
+                    database.saveBean(person, context, false);
+                }
+            }
+            context.commit();
+        } finally {
+            context.rollBack();
+        }
+    }
+
 	protected void extendWhere(OctopusContext cntx, Select select) throws BeanException {
 		GuestSearch search = getSearch(cntx);
 		
@@ -194,19 +213,19 @@ public class GuestListWorker extends ListWorkerVeraWeb {
 		Integer configFreitextfeld = ConfigWorker.getInteger(cntx, "freitextfeld");
 		Integer freitextfeld = null;
 
-		if(configFreitextfeld != null) {
-			Database database = getDatabase(cntx);
-			
-			Select eventDoctypeSelect = database.getCount("EventDoctype");
-			eventDoctypeSelect.where(Expr.equal("fk_event", cntx.requestAsInteger("search-event")));
-			eventDoctypeSelect.whereAnd(Expr.equal("fk_doctype", configFreitextfeld));
-	
-			if(database.getCount(eventDoctypeSelect) != 0) {
-				freitextfeld = configFreitextfeld;
-			}
-		}
-		
-		select.joinLeftOuter("veraweb.tperson", "tguest.fk_person", "tperson.pk");
+        if (configFreitextfeld != null) {
+            Database database = getDatabase(cntx);
+
+            Select eventDoctypeSelect = database.getCount("EventDoctype");
+            eventDoctypeSelect.where(Expr.equal("fk_event", cntx.requestAsInteger("search-event")));
+            eventDoctypeSelect.whereAnd(Expr.equal("fk_doctype", configFreitextfeld));
+
+            if (database.getCount(eventDoctypeSelect) != 0) {
+                freitextfeld = configFreitextfeld;
+            }
+        }
+
+        select.joinLeftOuter("veraweb.tperson", "tguest.fk_person", "tperson.pk");
 		select.joinLeftOuter("veraweb.tcategorie", "tguest.fk_category", "tcategorie.pk");
 		select.selectAs("CASE WHEN tguest.orderno IS NOT NULL THEN NULLIF(tguest.orderno, 0) ELSE NULLIF(tguest.orderno_p, 0) END", "someorderno");
 		select.selectAs("tcategorie.rank", "catrank");
@@ -316,62 +335,38 @@ public class GuestListWorker extends ListWorkerVeraWeb {
 
 	protected Select getSelect(Database database) throws BeanException, IOException {
 		return SQL.SelectDistinct( database ).
-				from("veraweb.tguest").
-				selectAs("tguest.pk", "id").
-				selectAs("tguest.rank", "rank").
-				select("deleted").
-				select("ishost").
-				select("invitationtype").
-				selectAs("invitationstatus", "invitationstatus_a").
-				selectAs("invitationstatus_p", "invitationstatus_b").
-				selectAs("reserve", "reserve").
-				selectAs("orderno", "orderno_a").
-				selectAs("orderno_p", "orderno_b");
+            from("veraweb.tguest").
+            selectAs("tguest.pk", "id").
+            selectAs("tguest.rank", "rank").
+            select("deleted").
+            select("ishost").
+            select("invitationtype").
+            selectAs("invitationstatus", "invitationstatus_a").
+            selectAs("invitationstatus_p", "invitationstatus_b").
+            selectAs("reserve", "reserve").
+            selectAs("orderno", "orderno_a").
+            selectAs("orderno_p", "orderno_b");
 	}
 
 	protected List getResultList(Database database, Select select) throws BeanException, IOException {
 		return database.getList(select, database);
 	}
 
-	private final static String DELETE_ALL_STALE_GUEST_DOCTYPES = 
-		"DELETE FROM tguest_doctype WHERE fk_guest IN ({0})";
-	private final static MessageFormat DELETE_ALL_STALE_GUEST_DOCTYPES_FORMAT = new MessageFormat( DELETE_ALL_STALE_GUEST_DOCTYPES );
-
-	private final static String DELETE_ALL_STALE_GUESTS = 
-		"DELETE FROM tguest WHERE pk IN ({0})";
-	private final static MessageFormat DELETE_ALL_STALE_GUESTS_FORMAT = new MessageFormat( DELETE_ALL_STALE_GUESTS );
-
-	private final static String BULK_INSERT_CHANGELOG_ENTRIES = 
-		"INSERT INTO tchangelog (username, objname, objtype, objid, op, attributes, date) "
-		+ "SELECT DISTINCT "
-		+ "''{0}'' AS username, p.lastname_a_e1 || CASE WHEN p.firstname_a_e1 IS NOT NULL "
-		+ "THEN '', '' || p.firstname_a_e1 ELSE '''' END AS objname, "
-		+ "''de.tarent.aa.veraweb.beans.Guest'' AS objtype, g.pk AS objid, "
-		+ "''delete'' AS op, ''*'' AS attributes, NOW() AS date "
-		+ "FROM tperson p LEFT JOIN tguest g ON g.fk_person = p.pk "
-		+ "WHERE g.pk IN ({1})";
-	private final static MessageFormat BULK_INSERT_CHANGELOG_ENTRIES_FORMAT = new MessageFormat( BULK_INSERT_CHANGELOG_ENTRIES );
-
 	protected int removeSelection(OctopusContext cntx, List errors, List selection, TransactionContext context) throws BeanException, IOException
 	{
-		try
-		{
-			String ids = DatabaseHelper.listsToIdListString( new List[] { selection } );
-			DB.insert( context, DELETE_ALL_STALE_GUEST_DOCTYPES_FORMAT.format( new Object[] { ids } ) );
-			DB.insert( context, DELETE_ALL_STALE_GUESTS_FORMAT.format( new Object[] { ids } ) );
-			DB.insert( context, BULK_INSERT_CHANGELOG_ENTRIES_FORMAT.format( new Object[] { cntx.personalConfig().getLoginname(), ids }	) );
-			context.commit();
-		}
-		catch ( BeanException e )
-		{
-			context.rollBack();
-			throw new BeanException( "Das Löschen aller zum löschen markierten Gäste ist fehlgeschlagen.", e );
-		}
-		catch ( SQLException e )
-		{
-			context.rollBack();
-			throw new BeanException( "Das Löschen aller zum löschen markierten Personen ist fehlgeschlagen.", e );
-		}
+        try {
+            String ids = DatabaseHelper.listsToIdListString(new List[]{selection});
+            DB.insert(context, DELETE_ALL_STALE_GUEST_DOCTYPES_FORMAT.format(new Object[]{ids}));
+            DB.insert(context, DELETE_ALL_STALE_GUESTS_FORMAT.format(new Object[]{ids}));
+            DB.insert(context, BULK_INSERT_CHANGELOG_ENTRIES_FORMAT.format(new Object[]{cntx.personalConfig().getLoginname(), ids}));
+            context.commit();
+        } catch (BeanException e) {
+            context.rollBack();
+            throw new BeanException("Das Löschen aller zum löschen markierten Gäste ist fehlgeschlagen.", e);
+        } catch (SQLException e) {
+            context.rollBack();
+            throw new BeanException("Das Löschen aller zum löschen markierten Personen ist fehlgeschlagen.", e);
+        }
 
 		return selection.size();
 	}
@@ -399,18 +394,22 @@ public class GuestListWorker extends ListWorkerVeraWeb {
 				where(Expr.equal("pk", guest.id));
 
 		if (guest.invitationtype.intValue() == EventConstants.TYPE_MITPARTNER) {
-			if (guest.invitationstatus_a != null && guest.invitationstatus_a.intValue() == 2)
-				update.update("orderno", null);
-			if (guest.invitationstatus_b != null && guest.invitationstatus_b.intValue() == 2)
-				update.update("orderno_p", null);
+			if (guest.invitationstatus_a != null && guest.invitationstatus_a.intValue() == 2) {
+                update.update("orderno", null);
+            }
+			if (guest.invitationstatus_b != null && guest.invitationstatus_b.intValue() == 2) {
+                update.update("orderno_p", null);
+            }
 		} else if (guest.invitationtype.intValue() == EventConstants.TYPE_OHNEPARTNER) {
-			if (guest.invitationstatus_a != null && guest.invitationstatus_a.intValue() == 2)
-				update.update("orderno", null);
+			if (guest.invitationstatus_a != null && guest.invitationstatus_a.intValue() == 2) {
+                update.update("orderno", null);
+            }
 			update.update("orderno_p", null);
 		} else if (guest.invitationtype.intValue() == EventConstants.TYPE_NURPARTNER) {
 			update.update("orderno", null);
-			if (guest.invitationstatus_b != null && guest.invitationstatus_b.intValue() == 2)
-				update.update("orderno_p", null);
+			if (guest.invitationstatus_b != null && guest.invitationstatus_b.intValue() == 2) {
+                update.update("orderno_p", null);
+            }
 		}
 		
 		context.execute(update);
@@ -433,30 +432,19 @@ public class GuestListWorker extends ListWorkerVeraWeb {
 		/*
 		 * see bug #1033
 		 */
-		if ( ( ( Guest ) bean ).person == null )
-		{
-			// need to load the guest entity in order to retrieve the person
-			bean = database.getBean( "Guest", ( ( Guest ) bean ).id, context );
-		}
-		clogger.logDelete( cntx.personalConfig().getLoginname(), bean );
+        if (((Guest) bean).person == null) {
+            // need to load the guest entity in order to retrieve the person
+            bean = database.getBean("Guest", ((Guest) bean).id, context);
+        }
+        clogger.logDelete( cntx.personalConfig().getLoginname(), bean );
 
-		context.execute(SQL.Delete( database ).
-				from("veraweb.tguest_doctype").
-				where(Expr.equal("fk_guest", ((Guest)bean).id)));
-		context.execute(SQL.Delete( database ).
-				from("veraweb.tguest").
-				where(Expr.equal("pk", ((Guest)bean).id)));
+        context.execute(SQL.Delete(database).from("veraweb.tguest_doctype").
+                where(Expr.equal("fk_guest", ((Guest) bean).id)));
+        context.execute(SQL.Delete(database).from("veraweb.tguest").where(Expr.equal("pk", ((Guest) bean).id)));
 
 		return true;
 	}
 
-    //
-    // Octopus-Aktionen
-    //
-    /** Eingabe-Parameter der Octopus-Aktion {@link #getSums(OctopusContext)} */
-    public static final String INPUT_getSums[] = {};
-    /** Ausgabe-Parameter der Octopus-Aktion {@link #getSums(OctopusContext)} */
-    public static final String OUTPUT_getSums = "guestlist-sums";
     /**
      * Diese Octopus-Aktion liefert die Gesamtzahlen der aktuellen G�steliste.
      * 
@@ -472,10 +460,6 @@ public class GuestListWorker extends ListWorkerVeraWeb {
         return result;
     }
 
-    /** Eingabe-Parameter der Octopus-Aktion {@link #getSearch(OctopusContext)} */
-    public static final String INPUT_getSearch[] = {};
-    /** Ausgabe-Parameter der Octopus-Aktion {@link #getSearch(OctopusContext)} */
-    public static final String OUTPUT_getSearch = "search";
     /**
      * Diese Octopus-Aktion liefert eine {@link GuestSearch}-Instanz, die die aktuellen
      * G�stesuchkriterien enth�lt. Diese stammen entweder aus dem Octopus-Content (unter
@@ -514,10 +498,7 @@ public class GuestListWorker extends ListWorkerVeraWeb {
         return search;
     }
 
-    /** Eingabe-Parameter der Octopus-Aktion {@link #getEvent(OctopusContext)} */
-    public static final String INPUT_getEvent[] = {};
-    /** Ausgabe-Parameter der Octopus-Aktion {@link #getEvent(OctopusContext)} */
-    public static final String OUTPUT_getEvent = "event";
+
     /**
      * Diese Octopus-Aktion liefert das Ereignis aus der aktuellen G�stesuche,
      * siehe Aktion {@link #getSearch(OctopusContext)}.
@@ -535,9 +516,6 @@ public class GuestListWorker extends ListWorkerVeraWeb {
         return event;
     }
 
-    //
-    // �ffentliche Hilfsfunktionen
-    //
     /**
      * Diese Methode �bertr�gt G�stesuchkriterien aus einer {@link GuestSearch}-Instanz
      * in einer WHERE-Statement-Liste.
@@ -606,9 +584,6 @@ public class GuestListWorker extends ListWorkerVeraWeb {
         }
     }
 
-    //
-    // gesch�tzte Hilfsfunktionen
-    //
 	/**
 	 * Berechnet die Gesamtzahlen der aktuellen G�steliste.
 	 * 
@@ -656,11 +631,21 @@ public class GuestListWorker extends ListWorkerVeraWeb {
 		Long absagen = (Long)result.get("absagen");
 		Long teilnahmen = (Long)result.get("teilnahmen");
 
-		if (platz == null) platz = new Long(0);
-		if (reserve == null) reserve = new Long(0);
-		if (zusagen == null) zusagen = new Long(0);
-		if (absagen == null) absagen = new Long(0);
-		if (teilnahmen == null) teilnahmen = new Long(0);
+		if (platz == null) {
+            platz = new Long(0);
+        }
+		if (reserve == null) {
+            reserve = new Long(0);
+        }
+		if (zusagen == null) {
+            zusagen = new Long(0);
+        }
+		if (absagen == null) {
+            absagen = new Long(0);
+        }
+		if (teilnahmen == null) {
+            teilnahmen = new Long(0);
+        }
 
 		data.put("platz", platz);
 		data.put("reserve", reserve);
