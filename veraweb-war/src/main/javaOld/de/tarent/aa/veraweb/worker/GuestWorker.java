@@ -22,7 +22,9 @@ package de.tarent.aa.veraweb.worker;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.text.MessageFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -30,6 +32,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.UUID;
 
 import org.apache.log4j.Logger;
 
@@ -171,7 +174,8 @@ public class GuestWorker {
 					sql3.append( UPDATE_PERSON_TO_GUEST_LIST_FORMAT.format( new Object[] {
 							fk_category != null ? fk_category.toString() : null,
 							new Integer( invitepartner.indexOf( person.id ) != -1 ? EventConstants.TYPE_MITPARTNER : EventConstants.TYPE_OHNEPARTNER ),
-							( selectreserve.indexOf( person.id ) != -1 ) ? 1 : 0, ( selectdelegation.indexOf( person.id ) != -1 ) ? 1 : 0, 
+							( selectreserve.indexOf( person.id ) != -1 ) ? 1 : 0,
+                            ( selectdelegation.indexOf( person.id ) != -1 ) ? "'" + UUID.randomUUID() + "'" : null,
 							person.id.toString(),  event.id.toString()
 					} ) );
 					sql3.append( ';' );
@@ -198,11 +202,13 @@ public class GuestWorker {
 			}
 
 			// second step, create guest tupels
-			sql = ADD_PERSONS_TO_GUESTLIST_FORMAT.format( new Object[] { 
-					event.id.toString(), 
-					( ( PersonalConfigAA ) cntx.personalConfig() ).getRoleWithProxy(), 
-					personIds } );
-			DB.insert( context, sql );
+            sql = ADD_PERSONS_TO_GUESTLIST_FORMAT.format(new Object[]{
+                    event.id.toString(),
+                    ((PersonalConfigAA) cntx.personalConfig()).getRoleWithProxy(),
+                    personIds
+                }
+            );
+            DB.insert( context, sql );
 			context.commit();
 
 			if ( sql3.length() > 0 )
