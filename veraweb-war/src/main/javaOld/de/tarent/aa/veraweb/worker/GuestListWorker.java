@@ -74,63 +74,34 @@ public class GuestListWorker extends ListWorkerVeraWeb {
 	}
 
     @Override
-	public void saveList(OctopusContext cntx) throws BeanException, IOException
-	{
-    	String categoryAssignmentAction = cntx.requestAsString( "categoryAssignmentAction" );
-    	String workareaAssignmentAction = cntx.requestAsString( "workareaAssignmentAction" );
-    	
-		// does the user request categories to be assigned or unassigned?
-		if ( categoryAssignmentAction != null && categoryAssignmentAction.length() > 0 )
-		{
-			Database database = getDatabase(cntx);
-			TransactionContext context = database.getTransactionContext();
-			Integer categoryId = cntx.requestAsInteger( "categoryAssignmentId" );
-			List selection = this.getSelection( cntx, this.getCount( cntx, database ) );
-			Iterator iter = selection.iterator();
-			while( iter.hasNext() )
-			{
-				Guest guest = ( Guest ) database.getBean( "Guest", ( Integer ) iter.next(), context );
-				if ( "assign".compareTo( categoryAssignmentAction ) == 0 && categoryId.intValue() > 0 )
-				{
-					guest.category = categoryId;
-				}
-				else
-				{
-					guest.category = null;
-				}
-				database.saveBean(guest, context, false);
-				iter.remove();
-			}
-			context.commit();
-			cntx.setSession( "selection" + BEANNAME, selection );
-		}
-/*
- * currently disabled as part of fix to issue #1530
-		// does the user request workareas to be assigned or unassigned?
-		else if(workareaAssignmentAction != null && workareaAssignmentAction.length() > 0)
-		{
-			Database database = getDatabase(cntx);
-			List<Integer> selection = getSelection(cntx, getCount(cntx, database));
-			if(!selection.isEmpty())
-			{
-				Integer workareaId = cntx.requestAsInteger( "workareaAssignmentId" );
-				if("assign".compareTo(workareaAssignmentAction) == 0)
-				{
-					assignWorkArea(cntx, selection, workareaId);
-				}
-				else if ("unassign".compareTo(workareaAssignmentAction) == 0)
-				{
-					unassignWorkArea(cntx, selection, workareaId);
-				}
-				cntx.setSession( "selection" + BEANNAME, Collections.emptyList() );
-			}
-		}
-*/
-		else
-		{
-			super.saveList( cntx );
-		}
-	}
+    public void saveList(OctopusContext cntx) throws BeanException, IOException {
+        String categoryAssignmentAction = cntx.requestAsString("categoryAssignmentAction");
+        String workareaAssignmentAction = cntx.requestAsString("workareaAssignmentAction");
+
+        // does the user request categories to be assigned or unassigned?
+        if (categoryAssignmentAction != null && categoryAssignmentAction.length() > 0) {
+            Database database = getDatabase(cntx);
+            TransactionContext context = database.getTransactionContext();
+            Integer categoryId = cntx.requestAsInteger("categoryAssignmentId");
+            List selection = this.getSelection(cntx, this.getCount(cntx, database));
+            Iterator iter = selection.iterator();
+            while (iter.hasNext()) {
+                Guest guest = (Guest) database.getBean("Guest", (Integer) iter.next(), context);
+                if ("assign".compareTo(categoryAssignmentAction) == 0 && categoryId.intValue() > 0) {
+                    guest.category = categoryId;
+                } else {
+                    guest.category = null;
+                }
+                database.saveBean(guest, context, false);
+                iter.remove();
+            }
+            context.commit();
+            cntx.setSession("selection" + BEANNAME, selection);
+        }
+        else {
+            super.saveList(cntx);
+        }
+    }
     
     /**
 	 * Entfernt die Zuordnungen von Arbeitsbereichen der übergebenen Liste von Gästen (IDs).
@@ -362,26 +333,6 @@ public class GuestListWorker extends ListWorkerVeraWeb {
 		return database.getList(select, database);
 	}
 
-	/*
-
-	DELETE FROM tguest_doctype WHERE tguest.fk_guest IN ({0});
-
-    personIds = SELECT tperson.pk FROM tperson LEFT JOIN tguest ON tperson.pk = tguest.fk_person WHERE tguest.pk IN ({0}) AND tperson.deleted = ''t''; 
-
-	DELETE FROM tguest WHERE tguest.pk IN ({0});
-
-    COMMIT
-
-    personIds = SELECT tperson.pk FROM tperson WHERE tperson.pk NOT IN (SELECT DISTINCT tguest.fk_person FROM tguest) AND tperson.deleted = ''t''; 
-
-    DELETE FROM tperson WHERE tperson.deleted = ''t'' AND tperson.pk IN ({0}) AND tperson.pk NOT IN (SELECT DISTINCT tguest.fk_person FROM tguest)
-    DELETE FROM tperson_categorie WHERE tperson_categorie.fk_person IN ({0})
-    DELETE FROM tperson_doctype WHERE tperson_doctype.fk_person IN ({0})
-    DELETE FROM tperson_mailinglist WHERE tperson_mailinglist.fk_person IN ({0})
-    UPDATE tevent SET tevent.fk_host = NULL, tevent.hostname = NULL WHERE tevent.fk_host IN ({0}) 
-
-	 */
-
 	private final static String DELETE_ALL_STALE_GUEST_DOCTYPES = 
 		"DELETE FROM tguest_doctype WHERE fk_guest IN ({0})";
 	private final static MessageFormat DELETE_ALL_STALE_GUEST_DOCTYPES_FORMAT = new MessageFormat( DELETE_ALL_STALE_GUEST_DOCTYPES );
@@ -425,68 +376,6 @@ public class GuestListWorker extends ListWorkerVeraWeb {
 		return selection.size();
 	}
 
-/*	
-	protected int removeSelection(OctopusContext cntx, List errors, List selection, TransactionContext context) throws BeanException, IOException {
-		int count = 0;
-		PersonDetailWorker personDetailWorker = WorkerFactory.getPersonDetailWorker(cntx);
-		Database database = context.getDatabase();
-		
-		if (selection == null || selection.size() == 0)
-			return count;
-		
-		// Abfrage ob auch entsprechende Person gel�scht werden soll.
-		Select select = SQL.Select( context ).
-				from("veraweb.tguest").
-				selectAs("tguest.pk", "guest").
-				selectAs("tperson.pk", "person").
-				selectAs("tperson.deleted", "deleted").
-				joinLeftOuter("veraweb.tperson", "tguest.fk_person", "tperson.pk").
-				where(Expr.in("tguest.pk", selection));
-		
-		// Entsprechende G�ste und Personen l�schen
-		Guest guest = new Guest();
-		try
-		{
-			for (Iterator it = database.getList(select, context).iterator(); it.hasNext(); ) {
-				Map data = (Map)it.next();
-				guest.id = (Integer)data.get("guest");
-				if (removeBean(cntx, guest, context)) {
-					count++;
-				}
-				if ("t".equals(data.get("deleted"))) {
-					personDetailWorker.removePerson(cntx, context, (Integer)data.get("person"));
-				}
-			}
-			// TODO updates Event, change must be logged
-			// TODO should be refactor-moved to Event
-			Event event = (Event)cntx.contentAsObject("event");
-			boolean noHost = 0 ==
-					database.getCount(
-					database.getCount("Guest").where(Where.and(
-							Expr.equal("fk_event", event.id),
-							Expr.equal("ishost", new Integer(1))))).intValue();
-			if (noHost) {
-				context.execute(SQL.Update( context).
-						table("veraweb.tevent").
-						update("fk_host", null).
-						update("hostname", null).
-						where(Expr.equal("pk", event.id)));
-			}
-			
-			context.commit();
-
-			selection.clear();
-		}
-		catch( BeanException e )
-		{
-			context.rollBack();
-			throw new BeanException( "Die ausgewählten Gäste konnten nicht gelöscht werden.", e );
-		}
-
-		return count;
-	}
-*/
-
 	protected void saveBean(OctopusContext cntx, Bean bean, TransactionContext context) throws BeanException, IOException {
 		Database database = context.getDatabase();
 		Guest guest = (Guest)bean;
@@ -497,12 +386,6 @@ public class GuestListWorker extends ListWorkerVeraWeb {
 		 * 2008-02-20
 		 */
 		Guest guestOld = ( Guest ) database.getBean( "Guest", guest.id );
-		// restore foreign keys
-		//guest.person = guestOld.person;
-		//guest.category = guestOld.category;
-		//guest.color_a = guestOld.color_a;
-		//guest.color_b = guestOld.color_b;
-		//guest.event = guestOld.event;
 		
 		Update update = SQL.Update( database ).
 				table("veraweb.tguest").
@@ -556,14 +439,14 @@ public class GuestListWorker extends ListWorkerVeraWeb {
 			bean = database.getBean( "Guest", ( ( Guest ) bean ).id, context );
 		}
 		clogger.logDelete( cntx.personalConfig().getLoginname(), bean );
-		
+
 		context.execute(SQL.Delete( database ).
 				from("veraweb.tguest_doctype").
 				where(Expr.equal("fk_guest", ((Guest)bean).id)));
 		context.execute(SQL.Delete( database ).
 				from("veraweb.tguest").
 				where(Expr.equal("pk", ((Guest)bean).id)));
-		
+
 		return true;
 	}
 
@@ -765,29 +648,20 @@ public class GuestListWorker extends ListWorkerVeraWeb {
 		select.selectAs(
 				"SUM(CASE WHEN reserve != 1 AND invitationstatus   = 3 AND invitationtype != 3 THEN 1 ELSE 0 END) + " +
 				"SUM(CASE WHEN reserve != 1 AND invitationstatus_p = 3 AND invitationtype != 2 THEN 1 ELSE 0 END)", "teilnahmen");
-//		select.selectAs(
-//				"SUM(CASE WHEN reserve = 1  AND invitationstatus   = 1 AND invitationtype != 3 THEN 1 ELSE 0 END) + " +
-//				"SUM(CASE WHEN reserve = 1  AND invitationstatus_p = 1 AND invitationtype != 2 THEN 1 ELSE 0 END)", "zusagenReserve");
-//		select.selectAs(
-//				"SUM(CASE WHEN reserve = 1  AND invitationstatus   = 2 AND invitationtype != 3 THEN 1 ELSE 0 END) + " +
-//				"SUM(CASE WHEN reserve = 1  AND invitationstatus_p = 2 AND invitationtype != 2 THEN 1 ELSE 0 END)", "absagenReserve");
-		
+
 		Map result = (Map)database.getList(select, database).iterator().next();
 		Long platz = (Long)result.get("platz");
 		Long reserve = (Long)result.get("reserve");
 		Long zusagen = (Long)result.get("zusagen");
 		Long absagen = (Long)result.get("absagen");
 		Long teilnahmen = (Long)result.get("teilnahmen");
-//		Long zusagenReserve = (Long)result.get("zusagenReserve");
-//		Long absagenReserve = (Long)result.get("absagenReserve");
+
 		if (platz == null) platz = new Long(0);
 		if (reserve == null) reserve = new Long(0);
 		if (zusagen == null) zusagen = new Long(0);
 		if (absagen == null) absagen = new Long(0);
 		if (teilnahmen == null) teilnahmen = new Long(0);
-//		if (zusagenReserve == null) zusagenReserve = new Long(0);
-//		if (absagenReserve == null) absagenReserve = new Long(0);
-		
+
 		data.put("platz", platz);
 		data.put("reserve", reserve);
 		data.put("all", new Long(platz.longValue() + reserve.longValue()));
@@ -795,8 +669,5 @@ public class GuestListWorker extends ListWorkerVeraWeb {
 		data.put("zusagen", zusagen);
 		data.put("absagen", absagen);
 		data.put("teilnahmen", teilnahmen);
-//		data.put("offenReserve", new Long(reserve.longValue() - zusagenReserve.longValue() - absagenReserve.longValue()));
-//		data.put("zusagenReserve", zusagenReserve);
-//		data.put("absagenReserve", absagenReserve);
 	}
 }
