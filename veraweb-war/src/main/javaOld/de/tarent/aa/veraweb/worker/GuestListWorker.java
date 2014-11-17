@@ -148,8 +148,8 @@ public class GuestListWorker extends ListWorkerVeraWeb {
     /*
      * currently made private (disabled) as part of fix to issue #1530
      */
-	private void unassignWorkArea(OctopusContext cntx, List<Integer> guestIds, Integer workAreaId) throws BeanException, IOException
-	{
+	private void unassignWorkArea(OctopusContext cntx, List<Integer> guestIds, Integer workAreaId)
+            throws BeanException, IOException {
 		Database database = getDatabase(cntx);
 		TransactionContext context = database.getTransactionContext();
 
@@ -472,13 +472,15 @@ public class GuestListWorker extends ListWorkerVeraWeb {
      * @throws BeanException
      */
     public GuestSearch getSearch(OctopusContext cntx) throws BeanException {
-        if (cntx.contentContains("search") && cntx.contentAsObject("search") instanceof GuestSearch)
-            return (GuestSearch)cntx.contentAsObject("search");
+        if (cntx.contentContains("search") && cntx.contentAsObject("search") instanceof GuestSearch) {
+            return (GuestSearch) cntx.contentAsObject("search");
+        }
         
         Request request = new RequestVeraWeb(cntx);
         GuestSearch search = (GuestSearch)request.getBean("GuestSearch", "search");
-        if (search == null || search.event == null)
-            search = (GuestSearch)cntx.sessionAsObject("search" + BEANNAME);
+        if (search == null || search.event == null) {
+            search = (GuestSearch) cntx.sessionAsObject("search" + BEANNAME);
+        }
         
         if (search != null && !("lastname_a_e1".equals(search.listorder) || "firstname_a_e1".equals(search.listorder) || "mail_a_e1".equals(search.listorder))) {
             search.listorder = null;
@@ -489,9 +491,8 @@ public class GuestListWorker extends ListWorkerVeraWeb {
          * in that case an NPE was thrown
          * cklein 2008-03-27
          */
-        if ( search == null )
-        {
-        	search = new GuestSearch();
+        if (search == null) {
+            search = new GuestSearch();
         }
         
         cntx.setSession("search" + BEANNAME, search);
