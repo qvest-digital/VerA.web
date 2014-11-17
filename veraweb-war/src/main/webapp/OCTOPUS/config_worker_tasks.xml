@@ -31,6 +31,7 @@
 		<worker name="UserWorker" implementation="de.tarent.aa.veraweb.worker.UserWorker" singleton="true" factory="reflected" />
 		<worker name="UserListWorker" implementation="de.tarent.aa.veraweb.worker.UserListWorker" singleton="true" factory="reflected" />
 		<worker name="OrgUnitListWorker" implementation="de.tarent.aa.veraweb.worker.OrgUnitListWorker" singleton="true" factory="reflected" />
+		<worker name="OSIAMWorker" implementation="de.tarent.aa.veraweb.worker.OSIAMWorker" singleton="true" factory="reflected" />
 
 		<!-- Changelog-Worker -->
 		<worker name="ChangeLogMaintenanceWorker" implementation="de.tarent.aa.veraweb.worker.ChangeLogMaintenanceWorker" singleton="true" factory="reflected" />
@@ -1424,6 +1425,7 @@
 			<status equals="noevent"><doTask name="CreateEvent"/></status>
 			<action name="getSelection" worker="PersonListWorker"/>
 			<action name="extendGuestSelection" worker="PersonGuestListWorker"/>
+			<action name="createDelegationUsers" worker="OSIAMWorker" />
 			<doTask name="SearchPerson"/>
 		</task>
 
