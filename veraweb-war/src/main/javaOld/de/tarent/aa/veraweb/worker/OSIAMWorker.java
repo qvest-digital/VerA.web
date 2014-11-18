@@ -67,7 +67,7 @@ public class OSIAMWorker {
 		for (Object object : selectdelegation) {
 			User delegationUser = new User.Builder()
 					.setActive(true)
-					.setNickName(this.generateSecureUsername())
+					.setNickName(this.generateUsername())
 					.setPassword(this.generateSecurePassword())
 					.build();
 
@@ -76,7 +76,7 @@ public class OSIAMWorker {
 		}
 	}
 
-	private String generateSecureUsername() {
+	private String generateUsername() {
 		return RandomStringUtils.random(OSIAM_USERNAME_LENGTH);
 	}
 	

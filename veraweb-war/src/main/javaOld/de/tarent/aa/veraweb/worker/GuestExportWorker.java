@@ -315,6 +315,7 @@ public class GuestExportWorker {
 		stream.put(TcBinaryResponseEngine.PARAM_MIMETYPE, ExportHelper.getContentType(spreadSheet.getContentType()));
 		stream.put(TcBinaryResponseEngine.PARAM_STREAM, pis);
 		stream.put(TcBinaryResponseEngine.PARAM_IS_ATTACHMENT, Boolean.TRUE);
+
 		return stream;
 	}
 
@@ -375,54 +376,63 @@ public class GuestExportWorker {
 			
 			if (doctype.partner != null && doctype.partner.booleanValue()) {
 				// Eigenes Dokument
-				if (invitationtype == null || invitationtype.intValue() == EventConstants.TYPE_MITPARTNER) {
+				if (invitationtype == null
+						|| invitationtype.intValue() == EventConstants.TYPE_MITPARTNER) {
 					// Mit Partner
 					if (showA) {
 						spreadSheet.openRow();
-						exportOnlyPerson(spreadSheet, event, location, showA, showB, guest, data);
+						exportOnlyPerson(spreadSheet, event, location, showA,
+								showB, guest, data);
 						spreadSheet.closeRow();
 					}
 					if (showB) {
 						spreadSheet.openRow();
-						exportOnlyPartner(spreadSheet, event, location, showA, showB, guest, data);
+						exportOnlyPartner(spreadSheet, event, location, showA,
+								showB, guest, data);
 						spreadSheet.closeRow();
 					}
 				} else if (invitationtype.intValue() == EventConstants.TYPE_OHNEPARTNER) {
 					// Ohne Partner
 					if (showA) {
 						spreadSheet.openRow();
-						exportOnlyPerson(spreadSheet, event, location, showA, showB, guest, data);
+						exportOnlyPerson(spreadSheet, event, location, showA,
+								showB, guest, data);
 						spreadSheet.closeRow();
 					}
 				} else if (invitationtype.intValue() == EventConstants.TYPE_NURPARTNER) {
 					// Nur Partner
 					if (showB) {
 						spreadSheet.openRow();
-						exportOnlyPartner(spreadSheet, event, location, showA, showB, guest, data);
+						exportOnlyPartner(spreadSheet, event, location, showA,
+								showB, guest, data);
 						spreadSheet.closeRow();
 					}
 				}
 			} else {
 				// Gleiches Dokument
-				if (invitationtype == null || invitationtype.intValue() == EventConstants.TYPE_MITPARTNER) {
+				if (invitationtype == null
+						|| invitationtype.intValue() == EventConstants.TYPE_MITPARTNER) {
 					// Mit Partner
 					if (showA || showB) {
 						spreadSheet.openRow();
-						exportBothInOneLine(spreadSheet, event, location, showA, showB, guest, data);
+						exportBothInOneLine(spreadSheet, event, location,
+								showA, showB, guest, data);
 						spreadSheet.closeRow();
 					}
 				} else if (invitationtype.intValue() == EventConstants.TYPE_OHNEPARTNER) {
 					// Ohne Partner
 					if (showA) {
 						spreadSheet.openRow();
-						exportOnlyPerson(spreadSheet, event, location, showA, showB, guest, data);
+						exportOnlyPerson(spreadSheet, event, location, showA,
+								showB, guest, data);
 						spreadSheet.closeRow();
 					}
 				} else if (invitationtype.intValue() == EventConstants.TYPE_NURPARTNER) {
 					// Nur Partner
 					if (showB) {
 						spreadSheet.openRow();
-						exportOnlyPartner(spreadSheet, event, location, showA, showB, guest, data);
+						exportOnlyPartner(spreadSheet, event, location, showA,
+								showB, guest, data);
 						spreadSheet.closeRow();
 					}
 				}
@@ -556,6 +566,10 @@ public class GuestExportWorker {
 		spreadSheet.addCell("Veranstaltungsort_URL");
 		spreadSheet.addCell("Veranstaltungsort_GPS-Daten");
 		spreadSheet.addCell("Veranstaltungsort_Raumnummer");
+		
+		//OSIAM Login
+		spreadSheet.addCell("Anmeldename");
+		spreadSheet.addCell("Passwort");
 		
 		spreadSheet.addCell("Bemerkung");
 	}
@@ -736,7 +750,7 @@ public class GuestExportWorker {
 		spreadSheet.addCell(event.end);
 		
 		addLocationCells(spreadSheet, location);
-		
+		addOSIAMLoginCells(spreadSheet, guest);
 		spreadSheet.addCell(event.note);
 	}
 
@@ -754,6 +768,18 @@ public class GuestExportWorker {
 			spreadSheet.addCell(location.url);
 			spreadSheet.addCell(location.gpsdata);
 			spreadSheet.addCell(location.roomnumber);
+		} else {
+			for(int i = 0; i != 12; i++) spreadSheet.addCell(null);
+		}
+	}
+	
+	private void addOSIAMLoginCells(SpreadSheet spreadSheet, Map guest) {
+		if(guest.containsKey("delegation") && guest.get("delegation").toString().length() > 0) {
+			spreadSheet.addCell(guest.get("osiam_login"));
+			spreadSheet.addCell("Password");
+		} else {
+			spreadSheet.addCell(null);
+			spreadSheet.addCell(null);
 		}
 	}
 
@@ -875,6 +901,7 @@ public class GuestExportWorker {
 		spreadSheet.addCell(event.end);
 		
 		addLocationCells(spreadSheet, location);
+		addOSIAMLoginCells(spreadSheet, guest);
 		
 		spreadSheet.addCell(event.note);
 	}
@@ -997,6 +1024,7 @@ public class GuestExportWorker {
 		spreadSheet.addCell(event.end);
 		
 		addLocationCells(spreadSheet, location);
+		addOSIAMLoginCells(spreadSheet, guest);
 		
 		spreadSheet.addCell(event.note);
 	}
