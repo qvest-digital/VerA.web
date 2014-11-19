@@ -23,7 +23,6 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.text.MessageFormat;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -36,11 +35,12 @@ import de.tarent.aa.veraweb.beans.Person;
 import de.tarent.aa.veraweb.beans.facade.EventConstants;
 import de.tarent.aa.veraweb.utils.DatabaseHelper;
 import de.tarent.dblayer.engine.DB;
+import de.tarent.dblayer.helper.ResultList;
+import de.tarent.dblayer.helper.ResultMap;
 import de.tarent.dblayer.sql.Escaper;
 import de.tarent.dblayer.sql.SQL;
 import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.clause.RawClause;
-import de.tarent.dblayer.sql.clause.Where;
 import de.tarent.dblayer.sql.clause.WhereList;
 import de.tarent.dblayer.sql.statement.Select;
 import de.tarent.dblayer.sql.statement.Update;
@@ -83,19 +83,16 @@ public class GuestListWorker extends ListWorkerVeraWeb {
                     + "WHERE g.pk IN ({1})";
     private final static MessageFormat BULK_INSERT_CHANGELOG_ENTRIES_FORMAT = new MessageFormat( BULK_INSERT_CHANGELOG_ENTRIES );
 
-    /** Eingabe-Parameter der Octopus-Aktion {@link #getSearch(OctopusContext)} */
     public static final String INPUT_getSearch[] = {};
-    /** Ausgabe-Parameter der Octopus-Aktion {@link #getSearch(OctopusContext)} */
+
     public static final String OUTPUT_getSearch = "search";
 
-    /** Eingabe-Parameter der Octopus-Aktion {@link #getSums(OctopusContext)} */
     public static final String INPUT_getSums[] = {};
-    /** Ausgabe-Parameter der Octopus-Aktion {@link #getSums(OctopusContext)} */
+
     public static final String OUTPUT_getSums = "guestlist-sums";
 
-    /** Eingabe-Parameter der Octopus-Aktion {@link #getEvent(OctopusContext)} */
     public static final String INPUT_getEvent[] = {};
-    /** Ausgabe-Parameter der Octopus-Aktion {@link #getEvent(OctopusContext)} */
+
     public static final String OUTPUT_getEvent = "event";
 
     /**
@@ -339,7 +336,9 @@ public class GuestListWorker extends ListWorkerVeraWeb {
             selectAs("tguest.pk", "id").
             selectAs("tguest.rank", "rank").
             select("deleted").
+            select("delegation").
             select("ishost").
+            select("iscompany").
             select("invitationtype").
             selectAs("invitationstatus", "invitationstatus_a").
             selectAs("invitationstatus_p", "invitationstatus_b").
@@ -348,11 +347,52 @@ public class GuestListWorker extends ListWorkerVeraWeb {
             selectAs("orderno_p", "orderno_b");
 	}
 
-	protected List getResultList(Database database, Select select) throws BeanException, IOException {
-		return database.getList(select, database);
-	}
+    protected List getResultList(Database database, Select select) throws BeanException, IOException {
+        final List fullList = getAllGuests(database, select);
 
-	protected int removeSelection(OctopusContext cntx, List errors, List selection, TransactionContext context) throws BeanException, IOException
+        final List modifiedList = new ArrayList();
+        for (int i = 0; i < fullList.size(); i++) {
+            final Map guest = (Map) fullList.get(i);
+            final String uuid = (String) guest.get("delegation");
+            final String iscompany = (String) guest.get("iscompany");
+            if(iscompany.trim().equals("f") || !isDelegationFound(fullList, uuid)) {
+                modifiedList.add(guest);
+            }
+        }
+
+        return modifiedList;
+    }
+
+    private List getAllGuests(Database database, Select select) throws BeanException {
+        final ResultList allResults = database.getList(select, database);
+        return copyResultSetToArrayList(allResults);
+    }
+
+    private List copyResultSetToArrayList(ResultList allResults) {
+        ArrayList fullList = new ArrayList();
+        int size = allResults.size();
+        for (int i = 0; i < size ; i++) {
+            ResultMap rm = (ResultMap) allResults.get(i);
+            HashMap map = new HashMap();
+            map.putAll(rm);
+            fullList.add(map);
+        }
+
+        return fullList;
+    }
+
+    private Boolean isDelegationFound(List fullList, String uuid) {
+        Boolean counter = false;
+        for (int y = 0; y < fullList.size(); y++) {
+            Map guest = (Map) fullList.get(y);
+            if(guest != null && guest.get("iscompany").equals("f") && guest.get("delegation") != null && guest.get("delegation").equals(uuid)) {
+                counter = true;
+            }
+        }
+        return counter;
+    }
+
+    protected int removeSelection(OctopusContext cntx, List errors, List selection, TransactionContext context) throws BeanException, IOException
 	{
         try {
             String ids = DatabaseHelper.listsToIdListString(new List[]{selection});
@@ -511,9 +551,13 @@ public class GuestListWorker extends ListWorkerVeraWeb {
      */
     public Event getEvent(OctopusContext cntx) throws BeanException, IOException {
         GuestSearch search = getSearch(cntx);
-        if (search == null) return null;
+        if (search == null) {
+            return null;
+        }
         Event event = EventDetailWorker.getEvent(cntx, search.event);
-        if (event == null) cntx.setStatus("noevent");
+        if (event == null) {
+            cntx.setStatus("noevent");
+        }
         return event;
     }
 

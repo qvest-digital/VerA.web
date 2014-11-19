@@ -906,7 +906,7 @@ function submitFormWithGivenAction(action) {
                             			</td>
                             		#end
                             		<td title="Auf Reserve"><input type="checkbox" name="${bean.id}-reserve" id="${bean.id}-reserve" #if($selectreserve.indexOf($bean.id) != -1) checked#end value="true" onClick="onClickEnsureSelection( '${bean.id}-select', '${bean.id}-partner', '${bean.id}-reserve', $event.invitationtype, ${hasA}, ${hasB} );"></td>
-                            		<td title="Delegation anmelden">#if($bean.iscompany == "t") <input type="checkbox" name="${bean.id}-delegation" id="${bean.id}-delegation" value="true" onClick="onClickEnsureSelection( '${bean.id}-select', '${bean.id}-partner', '${bean.id}-reserve', $event.invitationtype, ${hasA}, ${hasB} );">#end</td>
+                            		<td title="Delegation anmelden">#if($bean.iscompany == "t") <input type="checkbox" name="${bean.id}-delegation" id="${bean.id}-delegation" value="true">#end</td>
                         		#end
 								<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&searchTask=$!searchTask&person-category=' + document.getElementById('$!{bean.id}-category').value;"><input type="hidden" name="${bean.id}-id" value="$bean.id">$!{bean.id}</td>
                         		<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&searchTask=$!searchTask&person-category=' + document.getElementById('$!{bean.id}-category').value;">$!message.plain($bean.lastname_a_e1)</td>
