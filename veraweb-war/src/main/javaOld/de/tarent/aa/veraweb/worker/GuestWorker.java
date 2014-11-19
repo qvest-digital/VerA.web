@@ -133,10 +133,9 @@ public class GuestWorker {
 			List selectreserve = ( List ) cntx.sessionAsObject( "addguest-selectreserve" );
 			List selectdelegation = ( List )cntx.sessionAsObject( "addguest-selectdelegation" );
 			Map invitecategory = ( Map ) cntx.sessionAsObject( "addguest-invitecategory" );
-			if ( invitecategory == null )
-			{
-				invitecategory = new HashMap();
-			}
+            if (invitecategory == null) {
+                invitecategory = new HashMap();
+            }
 
 			String personIds = DatabaseHelper.listsToIdListString( new List[] { invitemain, invitepartner, selectreserve, selectdelegation } );
 			String sql = COUNT_INVITED_NOT_INVITED_2_FORMAT.format( new Object[] { event.id.toString(), personIds } );
@@ -150,56 +149,49 @@ public class GuestWorker {
 
 			// prepare third step, fill in missing data into guest tupels
 			StringBuffer sql3 = new StringBuffer();
-			try
-			{
-				// not optimized due to dynamic creation of doctype content from configuration
-				// must still instantiate person beans from database, which may lead to destabilization
-				// of the system once more
-				List<Person> persons = database.getBeanList( "Person", database.getSelect( "Person" ).
-					where( new RawClause( "tperson.pk in (" + personIds + ") and tperson.deleted='f'"
-						+ " and tperson.pk not in (select fk_person from tguest where fk_event = " + event.id + ")"
-				)));
-	
-				for ( int i = 0; i < persons.size(); i++ )
-				{
-					Person person = persons.get( i );
-					PersonDoctypeWorker.createPersonDoctype(cntx, database, context, person );
-	
-					Integer fk_category = ( Integer ) invitecategory.get( person.id );
-					if ( fk_category != null && fk_category.intValue() == 0 )
-					{
-						fk_category = null;
-					}
+            try {
+                // not optimized due to dynamic creation of doctype content from configuration
+                // must still instantiate person beans from database, which may lead to destabilization
+                // of the system once more
+                List<Person> persons = database.getBeanList("Person", database.getSelect("Person").
+                        where(new RawClause("tperson.pk in (" + personIds + ") and tperson.deleted='f'"
+                                + " and tperson.pk not in (select fk_person from tguest where fk_event = " + event.id + ")"
+                        )));
 
-					sql3.append( UPDATE_PERSON_TO_GUEST_LIST_FORMAT.format( new Object[] {
-							fk_category != null ? fk_category.toString() : null,
-							new Integer( invitepartner.indexOf( person.id ) != -1 ? EventConstants.TYPE_MITPARTNER : EventConstants.TYPE_OHNEPARTNER ),
-							( selectreserve.indexOf( person.id ) != -1 ) ? 1 : 0,
-                            ( selectdelegation.indexOf( person.id ) != -1 ) ? "'" + UUID.randomUUID() + "'" : null,
-							person.id.toString(),  event.id.toString()
-					} ) );
-					sql3.append( ';' );
-				}
-				context.commit();
-			}
-			catch( BeanException e )
-			{
-				// will silently fail here as the following transaction
-				// must be run under all cases, even if individual
-				// person document types have not been updated
-				logger.warn( "Transaktion fehlgeschlagen. Die Dokumenttypen der Personen wurden nicht aktualisiert.", e );
-			}
-			catch( OutOfMemoryError e )
-			{
-				// will silently fail here as the following transaction
-				// must be run under all cases, even if individual
-				// person document types have not been updated
+                for (int i = 0; i < persons.size(); i++) {
+                    Person person = persons.get(i);
+                    PersonDoctypeWorker.createPersonDoctype(cntx, database, context, person);
 
-				// enforce garbage collection so that the following code
-				// may continue
-				logger.fatal( "Nicht genügend Speicher. Forciere Garbage-Collection.", e );
-				System.gc();
-			}
+                    Integer fk_category = (Integer) invitecategory.get(person.id);
+                    if (fk_category != null && fk_category.intValue() == 0) {
+                        fk_category = null;
+                    }
+
+                    sql3.append(UPDATE_PERSON_TO_GUEST_LIST_FORMAT.format(new Object[]{
+                            fk_category != null ? fk_category.toString() : null,
+                            new Integer(invitepartner.indexOf(person.id) != -1 ? EventConstants.TYPE_MITPARTNER : EventConstants.TYPE_OHNEPARTNER),
+                            (selectreserve.indexOf(person.id) != -1) ? 1 : 0,
+                            (selectdelegation.indexOf(person.id) != -1) ? "'" + UUID.randomUUID() + "'" : null,
+                            person.id.toString(), event.id.toString()
+                    }));
+                    sql3.append(';');
+                }
+                context.commit();
+            } catch (BeanException e) {
+                // will silently fail here as the following transaction
+                // must be run under all cases, even if individual
+                // person document types have not been updated
+                logger.warn("Transaktion fehlgeschlagen. Die Dokumenttypen der Personen wurden nicht aktualisiert.", e);
+            } catch (OutOfMemoryError e) {
+                // will silently fail here as the following transaction
+                // must be run under all cases, even if individual
+                // person document types have not been updated
+
+                // enforce garbage collection so that the following code
+                // may continue
+                logger.fatal("Nicht genügend Speicher. Forciere Garbage-Collection.", e);
+                System.gc();
+            }
 
 			// second step, create guest tupels
             sql = ADD_PERSONS_TO_GUESTLIST_FORMAT.format(new Object[]{
@@ -211,11 +203,10 @@ public class GuestWorker {
             DB.insert( context, sql );
 			context.commit();
 
-			if ( sql3.length() > 0 )
-			{
-				DB.insert( context, sql3.toString() );
-				context.commit();
-			}
+            if (sql3.length() > 0) {
+                DB.insert(context, sql3.toString());
+                context.commit();
+            }
 
 			sql = UPDATE_GUEST_DOCUMENT_TYPES_FORMAT.format( new Object[] { event.id.toString() } );
 			context.commit();
@@ -225,24 +216,18 @@ public class GuestWorker {
 
 			// prevent alert message in case of invited == 0 and notinvited == 0
 			cntx.setContent("doNotAlert", true);
-		}
-		catch ( BeanException e )
-		{
-			context.rollBack();
-			throw new BeanException( "Die Gäste konnten nicht auf die Gästeliste gesetzt werden.", e );
-		}
-		catch ( SQLException e )
-		{
-			context.rollBack();
-			throw new BeanException( "Die Gäste konnten nicht auf die Gästeliste gesetzt werden.", e );
-		}
-		catch ( OutOfMemoryError e )
-		{
-			context.rollBack();
-			// just rethrow
-			throw e;
-		}
-	}
+        } catch (BeanException e) {
+            context.rollBack();
+            throw new BeanException("Die Gäste konnten nicht auf die Gästeliste gesetzt werden.", e);
+        } catch (SQLException e) {
+            context.rollBack();
+            throw new BeanException("Die Gäste konnten nicht auf die Gästeliste gesetzt werden.", e);
+        } catch (OutOfMemoryError e) {
+            context.rollBack();
+            // just rethrow
+            throw e;
+        }
+    }
 
 	/** Octopus-Eingabe-Parameter f�r {@link #addEvent(OctopusContext, Integer)} */
 	public static final String INPUT_addEvent[] = { "id" };
