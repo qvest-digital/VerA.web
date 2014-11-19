@@ -279,24 +279,28 @@
             #if($search.listorder == "lastname_a_e1")
             		<th class="textCenter smallCell"><a href="javascript:orderGuestList('orderno');"><nobr>Lfd.-Nr.</nobr></a></th>
             		<th class="textCenter smallCell" title="Auf Reserve / Platz"><span style="display: inline-block; padding: 10px;color: #1B1B1B;">R</span></th>
+            		<th><a href="javascript:orderGuestList('orderno');" style="color: #000000;"><nobr>Firma</nobr></a></th>
             		<th><a href="javascript:orderGuestList('lastname_a_e1');" style="color: #000000;">Name</a></th>
             		<th><a href="javascript:orderGuestList('firstname_a_e1');">Vorname</a></th>
             		<th class="textCenter smallCell"><a href="javascript:orderGuestList('mail_a_e1');">E-Mail</a></th>
             #elseif($search.listorder == "firstname_a_e1")
             		<th class="textCenter smallCell"><a href="javascript:orderGuestList('orderno');"><nobr>Lfd.-Nr.</nobr></a></th>
             		<th class="textCenter smallCell" title="Auf Reserve / Platz"><span style="display: inline-block; padding: 10px;color: #1B1B1B;">R</span></th>
+            		<th><a href="javascript:orderGuestList('orderno');" style="color: #000000;"><nobr>Firma</nobr></a></th>
             		<th><a href="javascript:orderGuestList('lastname_a_e1');">Name</a></th>
             		<th><a href="javascript:orderGuestList('firstname_a_e1');" style="color: #000000;">Vorname</a></th>
             		<th class="textCenter smallCell"><a href="javascript:orderGuestList('mail_a_e1');">E-Mail</a></th>
             #elseif($search.listorder == "mail_a_e1")
             		<th class="textCenter smallCell"><a href="javascript:orderGuestList('orderno');"><nobr>Lfd.-Nr.</nobr></a></th>
             		<th class="textCenter smallCell" title="Auf Reserve / Platz"><span style="display: inline-block; padding: 10px;color: #1B1B1B;">R</span></th>
+            		<th><a href="javascript:orderGuestList('orderno');" style="color: #000000;"><nobr>Firma</nobr></a></th>
             		<th><a href="javascript:orderGuestList('lastname_a_e1');">Name</a></th>
             		<th><a href="javascript:orderGuestList('firstname_a_e1');">Vorname</a></th>
             		<th class="textCenter smallCell"><a href="javascript:orderGuestList('mail_a_e1');" style="color: #000000;">E-Mail</a></th>
             #else
             		<th class="textCenter smallCell"><a href="javascript:orderGuestList('orderno');" style="color: #000000;"><nobr>Lfd.-Nr.</nobr></a></th>
             		<th class="textCenter smallCell" title="Auf Reserve / Platz"><span style="display: inline-block; padding: 10px;color: #1B1B1B;">R</span></th>
+            		<th><a href="javascript:orderGuestList('orderno');" style="color: #000000;"><nobr>Firma</nobr></a></th>
             		<th><a href="javascript:orderGuestList('lastname_a_e1');">Name</a></th>
             		<th><a href="javascript:orderGuestList('firstname_a_e1');">Vorname</a></th>
             		<th class="textCenter smallCell"><a href="javascript:orderGuestList('mail_a_e1');">E-Mail</a></th>
@@ -344,101 +348,129 @@
             		#else
 						<td class="textCenter" onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&offset=$offset';" title="Auf Platz">&nbsp;</td>
 					#end
-					
-            		<td onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&offset=$offset';">
-                		#if($bean.invitationtype != 3)
-            				#if($bean.showdoctype)
-								$!message.plain($bean.lastname_a_gd)
-							#else
-								$!message.plain($bean.lastname_a_e1)
-							#end
-            			#else
-            				#if($bean.showdoctype)
-								$!message.plain($bean.lastname_b_gd)
-							#else
-								$!message.plain($bean.lastname_b_e1)
-							#end
-            			#end
-            		</td>
-            		<td onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&offset=$offset';">
-            			#if($bean.invitationtype != 3)
-            				#if($bean.showdoctype)$!message.plain($bean.firstname_a_gd)#else$!message.plain($bean.firstname_a_e1)#end
-            			#else
-            				#if($bean.showdoctype)$!message.plain($bean.firstname_b_gd)#else$!message.plain($bean.firstname_b_e1)#end
-            			#end
-            		</td>
-            		<td class="textCenter">
-            			#if($bean.showdoctype)
-            				#if($bean.mail_a_gd.length() > 0)
-            					<a href="mailto:$!message.plain($bean.mail_a_gd)" title="$!message.plain($bean.mail_a_gd)">$!message.plain($bean.mail_a_gd)</a>
-            				#else
-            					&nbsp;
-            				#end
-            			#else
-            				#if($bean.mail_a_e1.length() > 0)
-            					<a href="mailto:$!message.plain($bean.mail_a_e1)" title="$!message.plain($bean.mail_a_e1)">$!message.plain($bean.mail_a_e1)</a>
-            				#else
-            					&nbsp;
-            				#end
-            			#end
-            		</td>
-            #if($userConfig.guestListFunction)
-            		<td onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&offset=$offset';">#if($bean.showdoctype)$!message.plain($bean.function_a_gd)#else$!message.plain($bean.function_a_e1)#end</td>
-            #end
-            #if($userConfig.guestListCity)
-            		<td onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&offset=$offset';">#if($bean.showdoctype)$!message.plain($bean.zipcode_a_gd) $!message.plain($bean.city_a_gd)#else$!message.plain($bean.zipcode_a_e1) $!message.plain($bean.city_a_e1)#end</td>
-            #end
-            #if($userConfig.guestListPhone)
-            		<td onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&offset=$offset';">#if($bean.showdoctype)$!message.plain($bean.fon_a_gd)#else$!message.plain($bean.fon_a_e1)#end</td>
-            #end
-            		<td class="textCenter">
-            		#if($bean.invitationtype != 3)
-            			#if($grants.mayWrite())
-            			<select name="${bean.id}-invitationstatus_a"  onchange="setModified('${bean.id}')">
-            				<option #if($bean.invitationstatus_a && $bean.invitationstatus_a == 0) selected#end value="0">Offen</option>
-            				<option #if($bean.invitationstatus_a && $bean.invitationstatus_a == 1) selected#end value="1">Zusage</option>
-            				<option #if($bean.invitationstatus_a && $bean.invitationstatus_a == 2) selected#end value="2">Absage</option>
-            				<option #if($bean.invitationstatus_a && $bean.invitationstatus_a == 3) selected#end value="3">Teilgenommen</option>
-            			</select>
-            			#else
-                			#if($bean.invitationstatus_a && $bean.invitationstatus_a == 0)
-								Offen
-                			#elseif($bean.invitationstatus_a && $bean.invitationstatus_a == 1)
-								Zusage
-                			#elseif($bean.invitationstatus_a && $bean.invitationstatus_a == 2)
-								Absage
-                			#elseif($bean.invitationstatus_a && $bean.invitationstatus_a == 3)
-								Teilgenommen
-                			#end
-            			#end
-            		#else
-            			<input type="hidden" name="${bean.id}-invitationstatus_a" value="$!bean.invitationstatus_a">nicht eingeladen
-            		#end
-            		</td>
-            		<td class="textCenter">
-            		#if($bean.invitationtype != 2)
-            			#if($grants.mayWrite())
-                			<select name="${bean.id}-invitationstatus_b"  onchange="setModified('${bean.id}')">
-                				<option #if($bean.invitationstatus_b && $bean.invitationstatus_b == 0) selected#end value="0">Offen</option>
-                				<option #if($bean.invitationstatus_b && $bean.invitationstatus_b == 1) selected#end value="1">Zusage</option>
-                				<option #if($bean.invitationstatus_b && $bean.invitationstatus_b == 2) selected#end value="2">Absage</option>
-                				<option #if($bean.invitationstatus_a && $bean.invitationstatus_b == 3) selected#end value="3">Teilgenommen</option>
-                			</select>
-            			#else
-                			#if($bean.invitationstatus_b && $bean.invitationstatus_b == 0)
-								Offen
-                			#elseif($bean.invitationstatus_b && $bean.invitationstatus_b == 1)
-								Zusage
-                			#elseif($bean.invitationstatus_b && $bean.invitationstatus_b == 2)
-								Absage
-                			#elseif($bean.invitationstatus_b && $bean.invitationstatus_b == 3)
-								Teilgenommen
-                			#end
-            			#end
-            		#else
-            			<input type="hidden" name="${bean.id}-invitationstatus_b" value="$!bean.invitationstatus_b">nicht eingeladen
-            		#end
-            		</td>
+
+                    #if($bean.iscompany == "t")
+					    <td onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&offset=$offset';" title="Firma/Institution">$bean.company_a_e1</td>
+					#elseif($bean.companyname != "")
+					    <td onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&offset=$offset';" title="Firma/Institution">$bean.companyname</td>
+					#else
+					    <td onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&offset=$offset';" title="Firma/Institution">&nbsp;</td>
+                    #end
+
+                    #if($bean.iscompany == "f")
+
+                        <td onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&offset=$offset';">
+
+                            #if($bean.invitationtype != 3)
+                                #if($bean.showdoctype)
+                                    $!message.plain($bean.lastname_a_gd)
+                                #else
+                                    $!message.plain($bean.lastname_a_e1)
+                                #end
+                            #else
+                                #if($bean.showdoctype)
+                                    $!message.plain($bean.lastname_b_gd)
+                                #else
+                                    $!message.plain($bean.lastname_b_e1)
+                                #end
+                            #end
+                        </td>
+                        <td onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&offset=$offset';">
+                            #if($bean.invitationtype != 3)
+                                #if($bean.showdoctype)$!message.plain($bean.firstname_a_gd)#else$!message.plain($bean.firstname_a_e1)#end
+                            #else
+                                #if($bean.showdoctype)$!message.plain($bean.firstname_b_gd)#else$!message.plain($bean.firstname_b_e1)#end
+                            #end
+                        </td>
+                        <td class="textCenter">
+                            #if($bean.showdoctype)
+                                #if($bean.mail_a_gd.length() > 0)
+                                    <a href="mailto:$!message.plain($bean.mail_a_gd)" title="$!message.plain($bean.mail_a_gd)">$!message.plain($bean.mail_a_gd)</a>
+                                #else
+                                    &nbsp;
+                                #end
+                            #else
+                                #if($bean.mail_a_e1.length() > 0)
+                                    <a href="mailto:$!message.plain($bean.mail_a_e1)" title="$!message.plain($bean.mail_a_e1)">$!message.plain($bean.mail_a_e1)</a>
+                                #else
+                                    &nbsp;
+                                #end
+                            #end
+                        </td>
+                        #if($userConfig.guestListFunction)
+                                <td onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&offset=$offset';">#if($bean.showdoctype)$!message.plain($bean.function_a_gd)#else$!message.plain($bean.function_a_e1)#end</td>
+                        #end
+                        #if($userConfig.guestListCity)
+                                <td onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&offset=$offset';">#if($bean.showdoctype)$!message.plain($bean.zipcode_a_gd) $!message.plain($bean.city_a_gd)#else$!message.plain($bean.zipcode_a_e1) $!message.plain($bean.city_a_e1)#end</td>
+                        #end
+                        #if($userConfig.guestListPhone)
+                                <td onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&offset=$offset';">#if($bean.showdoctype)$!message.plain($bean.fon_a_gd)#else$!message.plain($bean.fon_a_e1)#end</td>
+                        #end
+                        <td class="textCenter">
+                            #if($bean.invitationtype != 3)
+                                #if($grants.mayWrite())
+                                <select name="${bean.id}-invitationstatus_a"  onchange="setModified('${bean.id}')">
+                                    <option #if($bean.invitationstatus_a && $bean.invitationstatus_a == 0) selected#end value="0">Offen</option>
+                                    <option #if($bean.invitationstatus_a && $bean.invitationstatus_a == 1) selected#end value="1">Zusage</option>
+                                    <option #if($bean.invitationstatus_a && $bean.invitationstatus_a == 2) selected#end value="2">Absage</option>
+                                    <option #if($bean.invitationstatus_a && $bean.invitationstatus_a == 3) selected#end value="3">Teilgenommen</option>
+                                </select>
+                                #else
+                                    #if($bean.invitationstatus_a && $bean.invitationstatus_a == 0)
+                                        Offen
+                                    #elseif($bean.invitationstatus_a && $bean.invitationstatus_a == 1)
+                                        Zusage
+                                    #elseif($bean.invitationstatus_a && $bean.invitationstatus_a == 2)
+                                        Absage
+                                    #elseif($bean.invitationstatus_a && $bean.invitationstatus_a == 3)
+                                        Teilgenommen
+                                    #end
+                                #end
+                            #else
+                                <input type="hidden" name="${bean.id}-invitationstatus_a" value="$!bean.invitationstatus_a">nicht eingeladen
+                            #end
+            		    </td>
+
+                        <td class="textCenter">
+                            #if($bean.invitationtype != 2)
+                                #if($grants.mayWrite())
+                                    <select name="${bean.id}-invitationstatus_b"  onchange="setModified('${bean.id}')">
+                                        <option #if($bean.invitationstatus_b && $bean.invitationstatus_b == 0) selected#end value="0">Offen</option>
+                                        <option #if($bean.invitationstatus_b && $bean.invitationstatus_b == 1) selected#end value="1">Zusage</option>
+                                        <option #if($bean.invitationstatus_b && $bean.invitationstatus_b == 2) selected#end value="2">Absage</option>
+                                        <option #if($bean.invitationstatus_a && $bean.invitationstatus_b == 3) selected#end value="3">Teilgenommen</option>
+                                    </select>
+                                #else
+                                    #if($bean.invitationstatus_b && $bean.invitationstatus_b == 0)
+                                        Offen
+                                    #elseif($bean.invitationstatus_b && $bean.invitationstatus_b == 1)
+                                        Zusage
+                                    #elseif($bean.invitationstatus_b && $bean.invitationstatus_b == 2)
+                                        Absage
+                                    #elseif($bean.invitationstatus_b && $bean.invitationstatus_b == 3)
+                                        Teilgenommen
+                                    #end
+                                #end
+                            #else
+                                <input type="hidden" name="${bean.id}-invitationstatus_b" value="$!bean.invitationstatus_b">nicht eingeladen
+                            #end
+                        </td>
+                    #else
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        #if($userConfig.guestListFunction)
+                            <td></td>
+                        #end
+                        #if($userConfig.guestListCity)
+                            <td></td>
+                        #end
+                        #if($userConfig.guestListPhone)
+                            <td></td>
+                        #end
+                        <td></td>
+                        <td></td>
+                    #end
             	</tr>
 				#end
 				
