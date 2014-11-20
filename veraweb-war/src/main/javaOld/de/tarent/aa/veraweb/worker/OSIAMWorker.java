@@ -99,6 +99,6 @@ public class OSIAMWorker {
 			try { inputStream.close(); } catch (Exception e) { }
 		}
 		
-
+		this.properties = prop;
 	}
 }
