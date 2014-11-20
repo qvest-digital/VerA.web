@@ -35,9 +35,21 @@ onlineRegApp.config(function ($routeProvider) {
     }).when('/kontaktdaten' , {
     	templateUrl: 'partials/kontaktdaten.html',
     	controller: 'KontaktdatenController',
+    }).when('/delegation/:uuid', {
+      templateUrl: 'partials/delegation.html',
+      controller: 'DelegationController'
     }).otherwise({
     	redirectTo: '/event'
     })
+});
+
+onlineRegApp.controller('DelegationController', function ($scope, $rootScope, $location, $routeParams) {
+    if ($rootScope.user_logged_in == null) {
+		$scope.setNextPage('delegation/' + $routeParams.uuid);
+		$location.path('/login');
+	} else {
+	    // TODO
+	}
 });
 
 onlineRegApp.controller('DirectLoginController', function ($scope, $location, $http, $rootScope) {
