@@ -8,7 +8,6 @@ alter table tevent add eventtype varchar(100);
 /* Alter table "tguest"                                                   */
 /* ---------------------------------------------------------------------- */
 alter table tguest add column delegation varchar(255);
-alter table tguest add column companyname varchar(255);
 
 /* ---------------------------------------------------------------------- */
 /* Update schema version                                                  */

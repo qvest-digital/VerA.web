@@ -305,7 +305,16 @@ public class GuestListWorker extends ListWorkerVeraWeb {
 				order.add("lastname_a_e1");
 				order.add("firstname_a_e1");
 			}
-		}
+		} else if(search.listorder.equals("companyname")) {
+            order.add("company_a_e1");
+            if (freitextfeld != null) {
+                order.add("lastname_a_gd");
+                order.add("firstname_a_gd");
+            } else {
+                order.add("lastname_a_e1");
+                order.add("firstname_a_e1");
+            }
+        }
 		select.orderBy(DatabaseHelper.getOrder(order));
 	}
 
@@ -342,7 +351,6 @@ public class GuestListWorker extends ListWorkerVeraWeb {
             select("delegation").
             select("ishost").
             select("iscompany").
-            select("companyname").
             select("invitationtype").
             selectAs("invitationstatus", "invitationstatus_a").
             selectAs("invitationstatus_p", "invitationstatus_b").
