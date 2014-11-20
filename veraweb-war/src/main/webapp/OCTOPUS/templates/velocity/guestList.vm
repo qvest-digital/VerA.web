@@ -297,6 +297,13 @@
             		<th><a href="javascript:orderGuestList('lastname_a_e1');">Name</a></th>
             		<th><a href="javascript:orderGuestList('firstname_a_e1');">Vorname</a></th>
             		<th class="textCenter smallCell"><a href="javascript:orderGuestList('mail_a_e1');" style="color: #000000;">E-Mail</a></th>
+            #elseif($search.listorder == "companyname")
+                    <th class="textCenter smallCell"><a href="javascript:orderGuestList('orderno');"><nobr>Lfd.-Nr.</nobr></a></th>
+                    <th class="textCenter smallCell" title="Auf Reserve / Platz"><span style="display: inline-block; padding: 10px;color: #1B1B1B;">R</span></th>
+                    <th><a href="javascript:orderGuestList('companyname');" style="color: #000000;"><nobr>Firma</nobr></a></th>
+                    <th><a href="javascript:orderGuestList('lastname_a_e1');">Name</a></th>
+                    <th><a href="javascript:orderGuestList('firstname_a_e1');">Vorname</a></th>
+                    <th class="textCenter smallCell"><a href="javascript:orderGuestList('mail_a_e1');" style="color: #000000;">E-Mail</a></th>
             #else
             		<th class="textCenter smallCell"><a href="javascript:orderGuestList('orderno');" style="color: #000000;"><nobr>Lfd.-Nr.</nobr></a></th>
             		<th class="textCenter smallCell" title="Auf Reserve / Platz"><span style="display: inline-block; padding: 10px;color: #1B1B1B;">R</span></th>
@@ -355,7 +362,8 @@
 					    <td onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&offset=$offset';" title="Firma/Institution">&nbsp;</td>
                     #end
 
-                    #if($bean.iscompany == "t" && $bean.delegation != "")
+                    #if($bean.iscompany == "t" && $bean.delegation != "" && $bean.invitationtype == 2)
+                        <td></td>
                         <td></td>
                         <td></td>
                         <td></td>
