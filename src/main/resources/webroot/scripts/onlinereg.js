@@ -63,7 +63,7 @@ onlineRegApp.controller('DirectLoginController', function ($scope, $location, $h
     $scope.logout = function () {
         $http({
             method: 'POST',
-            url: '/api/idm/logout/'
+            url: 'api/idm/logout/'
         }).success(function (result) {
             console.log('You have successfully logged out!')
             $rootScope.error = null;
@@ -84,7 +84,7 @@ onlineRegApp.controller('DirectLoginController', function ($scope, $location, $h
 
         $http({
             method: 'POST',
-            url: '/api/idm/login/' + $scope.directusername,
+            url: 'api/idm/login/' + $scope.directusername,
             params: {
                 password: $scope.directpassword
             }
@@ -132,7 +132,7 @@ onlineRegApp.controller('LoginController', function ($scope, $location, $http, $
 
         $http({
             method: 'POST',
-            url: '/api/idm/login/' + $scope.username,
+            url: 'api/idm/login/' + $scope.username,
             params: {
                 password: $scope.password
             }
@@ -159,7 +159,7 @@ onlineRegApp.controller('LoginController', function ($scope, $location, $http, $
 });
 
 onlineRegApp.controller('EventController', function ($scope, $http, $rootScope) {
-    $http.get('/api/event/list').success(function (result) {
+    $http.get('api/event/list').success(function (result) {
         console.log("loaded data");
         $scope.events = result;
     });
@@ -182,12 +182,12 @@ onlineRegApp.controller('RegisterController', function ($scope, $rootScope, $loc
 	
 	    $scope.acceptance = $scope.acceptanceOptions[0];
 	
-	    $http.get('/api/event/' + $routeParams.eventId).success(function (result) {
+	    $http.get('api/event/' + $routeParams.eventId).success(function (result) {
 	        $scope.event = result;
 	        console.log("Auswahl: " + $scope.event.shortname);
 	    });
 	
-	    $http.get('/api/event/' + $routeParams.eventId + '/register/' + $scope.userId).success(function (result) {
+	    $http.get('api/event/' + $routeParams.eventId + '/register/' + $scope.userId).success(function (result) {
 	    	if (!isUserLoged()) {
 	    		
 	    		$location.path('/login');
@@ -206,7 +206,7 @@ onlineRegApp.controller('RegisterController', function ($scope, $rootScope, $loc
 	    $scope.save = function () {
 	        $http({
 	            method: 'POST',
-	            url: '/api/event/' + $routeParams.eventId + '/register/' + $scope.userId,
+	            url: 'api/event/' + $routeParams.eventId + '/register/' + $scope.userId,
 	            params: {
 	                invitationstatus: $scope.acceptance.id,
 	                notehost: $scope.noteToHost
@@ -232,7 +232,7 @@ onlineRegApp.controller('RegisterUserController', function ($scope, $location, $
         console.log("registering user.");
         $http({
             method: 'POST',
-            url: '/api/user/register/' + $scope.osiam_username,
+            url: 'api/user/register/' + $scope.osiam_username,
             params: {
                 osiam_firstname: $scope.osiam_firstname,
                 osiam_secondname: $scope.osiam_secondname,
@@ -269,7 +269,7 @@ onlineRegApp.controller('VeranstaltungsController', function ($scope, $http, $ro
         $location.path('/login');
     } else {
         console.log("DEBUG: " + $rootScope.user_logged_in);
-        var userEventsURL = '/api/event/userevents/' + $rootScope.user_logged_in;
+        var userEventsURL = 'api/event/userevents/' + $rootScope.user_logged_in;
         $http.get(userEventsURL).success(function (result) {
             console.log("Loading user's subscribed events...");
             $scope.events = result;
@@ -281,7 +281,7 @@ onlineRegApp.controller('KontaktdatenController', function ($scope, $location, $
     if ($rootScope.user_logged_in == null) {
         $location.path('/login');
     } else {
-        $http.get('/api/event/list/{userid}/').success(function (result) {
+        $http.get('api/event/list/{userid}/').success(function (result) {
                 console.log("loaded data");
                 $scope.events = result;
         });

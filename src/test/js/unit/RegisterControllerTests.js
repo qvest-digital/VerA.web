@@ -28,12 +28,12 @@ describe('Registration Test Suits', function() {
             ctrl = $controller('RegisterController', {$scope: scope, $routeParams: routeParams});
             
 	    //for(var i=1;i<4;i++){
-		    _$httpBackend_.whenGET('/api/event/'+routeParams.eventId).respond(eventList[routeParams.eventId-1]);
+		    _$httpBackend_.whenGET('api/event/'+routeParams.eventId).respond(eventList[routeParams.eventId-1]);
 	    //}
 
-		_$httpBackend_.whenGET('/api/event/'+routeParams.eventId+'/register/2').respond(acceptanceOptions[routeParams.acceptanceId]);
+		_$httpBackend_.whenGET('api/event/'+routeParams.eventId+'/register/2').respond(acceptanceOptions[routeParams.acceptanceId]);
 
-		//_$httpBackend_.whenGET('/api/event/'+routeParams.eventId+'/register/2').respond(routeParams.noteToHost);
+		//_$httpBackend_.whenGET('api/event/'+routeParams.eventId+'/register/2').respond(routeParams.noteToHost);
 
             _$httpBackend_.verifyNoOutstandingExpectation();
             _$httpBackend_.flush();
@@ -43,7 +43,7 @@ describe('Registration Test Suits', function() {
         	expect(scope.event).toEqual(eventList[0]);
 		expect(scope.acceptance).toEqual(acceptanceOptions[routeParams.acceptanceId]);
 		//expect(scope.noteToHost).toEqual(routeParams.noteToHost);
-		//_$httpBackend_.expectPOST('/api/event/' + routeParams.eventId + '/register/2').respond();
+		//_$httpBackend_.expectPOST('api/event/' + routeParams.eventId + '/register/2').respond();
 		
         });
 

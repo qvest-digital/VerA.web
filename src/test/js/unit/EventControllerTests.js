@@ -12,7 +12,7 @@ describe('Online Registration App', function() {
 
         beforeEach(inject(function(_$httpBackend_, $rootScope, $controller) {
 
-            _$httpBackend_.whenGET('/api/event/list').respond(eventList);
+            _$httpBackend_.whenGET('api/event/list').respond(eventList);
 
             scope = $rootScope.$new();
 
