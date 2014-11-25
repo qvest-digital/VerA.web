@@ -58,7 +58,7 @@ public class Main extends Application<Config> {
                 .using(jcc)
                 .build("jerseyClient");
 
-        environment.jersey().setUrlPattern("api/*");
+        environment.jersey().setUrlPattern("/api/*");
 
         environment.healthChecks().register("veraweb availability", health = new Health(client, configuration.getVerawebEndpoint()));
 
