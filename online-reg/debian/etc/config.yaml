@@ -21,7 +21,9 @@ server:
     keyStorePath: keystore.jks
     keyStorePassword: "changeit"
     validateCerts: false
-
+  connector:
+    type: http
+    port: 8080
 
 # Logging settings.
 logging:
