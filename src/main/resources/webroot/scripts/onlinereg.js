@@ -48,6 +48,7 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 		$scope.setNextPage('delegation/' + $routeParams.uuid);
 		$location.path('/login');
 	} else {
+	 	 var ERROR_TEXT = "Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.";
 		
 		 $scope.register_user = function () {
 		        $scope.button = true;
