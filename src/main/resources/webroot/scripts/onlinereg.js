@@ -48,7 +48,42 @@ onlineRegApp.controller('DelegationController', function ($scope, $rootScope, $l
 		$scope.setNextPage('delegation/' + $routeParams.uuid);
 		$location.path('/login');
 	} else {
-	    // TODO
+		
+		 $scope.register_user = function () {
+		        $scope.button = true;
+		        console.log("registering delegierten.");
+		        $http({
+		            method: 'POST',
+		            url: 'api/delegation/' + $routeParams.uuid + '/register/',
+		            params: {
+		                username: $scope.username,
+		                vorname: $scope.vorname,
+		                nachname: $scope.nachname
+		            }
+		        }).success(function (result) {
+		            $scope.success = null;
+		            $scope.register_error = null;
+
+		            if (result === 'USER_EXISTS') {
+		                $scope.register_error = "Ein Benutzer mit diesem Benutzernamen existiert bereits.";
+
+		            } else if (result === 'INVALID_USERNAME') {
+		                $scope.register_error = "Der Benutzername darf nur Buchstaben und Zahlen enthalten.";
+
+		            } else if (result === 'OK') {
+		                $scope.success = "Delegiertdaten wurden gespeichert.";
+
+		            } else {
+		                $scope.register_error = ERROR_TEXT;
+		            }
+		            $scope.button = false;
+
+		        }).error(function (data, status, headers, config) {
+		            $scope.register_error = ERROR_TEXT;
+		            $scope.button = false;
+		        });
+		    }
+		
 	}
 });
 
