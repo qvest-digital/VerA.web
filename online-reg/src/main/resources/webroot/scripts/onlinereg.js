@@ -43,7 +43,7 @@ onlineRegApp.config(function ($routeProvider) {
     })
 });
 
-onlineRegApp.controller('DelegationController', function ($scope, $rootScope, $location, $routeParams) {
+onlineRegApp.controller('DelegationController', function ($scope, $http, $rootScope, $location, $routeParams) {
     if ($rootScope.user_logged_in == null) {
 		$scope.setNextPage('delegation/' + $routeParams.uuid);
 		$location.path('/login');
