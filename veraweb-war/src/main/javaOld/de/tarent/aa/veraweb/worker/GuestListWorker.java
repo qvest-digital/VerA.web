@@ -681,12 +681,16 @@ public class GuestListWorker extends ListWorkerVeraWeb {
 				"SUM(CASE WHEN reserve != 1 AND invitationstatus   = 3 AND invitationtype != 3 THEN 1 ELSE 0 END) + " +
 				"SUM(CASE WHEN reserve != 1 AND invitationstatus_p = 3 AND invitationtype != 2 THEN 1 ELSE 0 END)", "teilnahmen");
 
+		select.selectAs(
+				"SUM(CASE WHEN char_length(delegation) > 0 THEN 1 ELSE 0 END)", "delegationen");
+
 		Map result = (Map)database.getList(select, database).iterator().next();
 		Long platz = (Long)result.get("platz");
 		Long reserve = (Long)result.get("reserve");
 		Long zusagen = (Long)result.get("zusagen");
 		Long absagen = (Long)result.get("absagen");
 		Long teilnahmen = (Long)result.get("teilnahmen");
+		Long delegationen = (Long)result.get("delegationen");
 
 		if (platz == null) {
             platz = new Long(0);
@@ -703,11 +707,14 @@ public class GuestListWorker extends ListWorkerVeraWeb {
 		if (teilnahmen == null) {
             teilnahmen = new Long(0);
         }
+		if(delegationen == null) {
+			delegationen = new Long(0);
+		}
 
-		data.put("platz", platz);
+		data.put("platz", new Long(platz.longValue() - delegationen.longValue()));
 		data.put("reserve", reserve);
-		data.put("all", new Long(platz.longValue() + reserve.longValue()));
-		data.put("offen", new Long(platz.longValue() - zusagen.longValue() - absagen.longValue() - teilnahmen.longValue()));
+		data.put("all", new Long(platz.longValue() + reserve.longValue()) - delegationen.longValue());
+		data.put("offen", new Long(platz.longValue() - zusagen.longValue() - absagen.longValue() - teilnahmen.longValue()) - delegationen.longValue());
 		data.put("zusagen", zusagen);
 		data.put("absagen", absagen);
 		data.put("teilnahmen", teilnahmen);

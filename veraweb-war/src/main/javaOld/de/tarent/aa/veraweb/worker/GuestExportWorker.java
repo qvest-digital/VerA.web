@@ -61,7 +61,7 @@ import de.tarent.octopus.server.OctopusContext;
 /**
  * Diese Octopus-Worker-Klasse exportiert Dokumenttypen einer G�steliste
  * in ein OpenDocument-SpreadSheet.
- * 
+ *
  * @author Christoph
  */
 public class GuestExportWorker {
@@ -82,7 +82,7 @@ public class GuestExportWorker {
 	 * Berechnet wieviele Dokumenttypen einer G�steliste exportiert
 	 * werden sollen und k�nnen.
 	 * </p>
-	 * 
+	 *
 	 * @param cntx OctopusContext
 	 * @param doctypeid Dokumenttyp der exportiert werden soll.
 	 */
@@ -91,7 +91,7 @@ public class GuestExportWorker {
 		Event event = (Event)cntx.contentAsObject("event");
 		GuestSearch search = (GuestSearch)cntx.contentAsObject("search");
 		List selection = (List)cntx.sessionAsObject("selectionGuest");
-		
+
 		if (doctypeid == null) {
 			List list = (List)cntx.contentAsObject("allEventDoctype");
 			Iterator it = list.iterator();
@@ -112,35 +112,35 @@ public class GuestExportWorker {
 				database.getBean("Doctype",
 				database.getSelect("Doctype").
 				where(Expr.equal("pk", doctypeid)));
-		
+
 		Integer total = null;
 		Integer available = null;
-		
+
 		if (selection != null && selection.size() > 0) {
 			total = new Integer(selection.size());
-			
+
 			available =
 					database.getCount(
 					database.getCount("GuestDoctype").
 					where(Where.and(
 							Expr.equal("fk_doctype", doctypeid),
 							Expr.in("fk_guest", selection))));
-			
+
 		} else if (event != null && event.id != null && event.id.intValue() != 0) {
 			WhereList where = new WhereList();
 			GuestListWorker.addGuestListFilter(search, where);
-			
+
 			total = database.getCount(
 					database.getCount("Guest").
 					where(where));
-			
+
 			available =
 					database.getCount(
 					database.getCount("GuestDoctype").
 					join("veraweb.tguest", "fk_guest", "tguest.pk").
 					where(Where.and(where, Expr.equal("fk_doctype", doctypeid))));
 		}
-		
+
 		cntx.setContent("doctype", doctype);
 		cntx.setContent("extension", ExportHelper.getExtension(SpreadSheetFactory.getSpreadSheet(doctype.format).getFileExtension()));
 		Map result = new HashMap();
@@ -163,16 +163,16 @@ public class GuestExportWorker {
 	 * Wenn Daten G�ste selektiert wurden werden diese exportiert,
 	 * falls dies nicht der Fall ist alle G�ste der �bergebenen Veranstaltung.
 	 * </p>
-	 * 
+	 *
 	 * @param cntx OctopusContext
 	 * @param doctypeid Dokumenttyp-ID der exportiert werden soll.
 	 * @return Map mit Stream-Informationen
 	 * @throws BeanException
-	 * @throws IOException 
-	 * @throws ParserConfigurationException 
-	 * @throws FactoryConfigurationError 
-	 * @throws TransformerFactoryConfigurationError 
-	 * @throws TransformerException 
+	 * @throws IOException
+	 * @throws ParserConfigurationException
+	 * @throws FactoryConfigurationError
+	 * @throws TransformerFactoryConfigurationError
+	 * @throws TransformerException
 	 */
 	public Map export(OctopusContext cntx, Integer doctypeid) throws BeanException, IOException, FactoryConfigurationError, TransformerFactoryConfigurationError {
 		Database database = new DatabaseVeraWeb(cntx);
@@ -180,51 +180,51 @@ public class GuestExportWorker {
 		GuestSearch search = (GuestSearch)cntx.contentAsObject("search");
 		List selection = (List)cntx.sessionAsObject("selectionGuest");
 		Doctype doctype = (Doctype)database.getBean("Doctype", doctypeid);
-		
+
 		// Spreadsheet �ffnen
 		final SpreadSheet spreadSheet = SpreadSheetFactory.getSpreadSheet(doctype.format);
 		spreadSheet.init();
 		String filename = OctopusHelper.getFilename(cntx, spreadSheet.getFileExtension(), "export." + spreadSheet.getFileExtension());
-		
+
 		if (logger.isInfoEnabled())
 			logger.info("Exportiere Gästeliste. (Dateiname: '" + filename + "'; Dokumenttyp: #" + doctype.id + "; Format: '" + spreadSheet.getClass().getName() + "')");
-		
+
 		// Tabelle �ffnen und erste Zeile schreiben
 		spreadSheet.openTable("Gäste", 65);
 		spreadSheet.openRow();
 		exportHeader(spreadSheet);
 		spreadSheet.closeRow();
-		
+
 		// Zusatzinformationen
 		Map data = new HashMap();
 		data.put("doctype", doctype.name);
 		String withHost = (doctype.host != null && doctype.host.booleanValue()) ? "" :
 				"(tguest.ishost IS NULL OR tguest.ishost = 0) AND ";
-		
+
 		// Export-Select zusammenbauen
 		Select select = database.getSelect("GuestDoctype");
 		select.select("tguest.*");
 		select.selectAs("CASE WHEN orderno IS NOT NULL THEN orderno ELSE orderno_p END", "someorderno");
-		
+
 		if (selection != null && selection.size() > 0) {
 			// Joint tguest und schr�nkt das Ergebnis auf den entsprechenden
 			// Dokumenten-Typ und bestimmte G�ste ein.
 			if (logger.isInfoEnabled())
 				logger.info("Exportiere Gästeliste anhand der Sleektion.");
-			
+
 			select.join(new Join(Join.INNER, "veraweb.tguest", new RawClause(withHost +
 					"tguest_doctype.fk_guest = tguest.pk AND tguest_doctype.fk_doctype = " + doctype.id)));
-			
+
 			select.where(Expr.in("tguest_doctype.fk_guest", selection));
 		} else if (event != null && event.id != null && event.id.intValue() != 0) {
 			// Joint tguest und schr�nkt das Ergebnis auf den entsprechenden
 			// Dokumenten-Typ und eine Veranstaltung ein.
 			if (logger.isInfoEnabled())
 				logger.info("Exportiere Gästeliste der Veranstaltung " + event.id + ".");
-			
+
 			select.join(new Join(Join.INNER, "veraweb.tguest", new RawClause(withHost +
 					"tguest_doctype.fk_guest = tguest.pk AND tguest_doctype.fk_doctype = " + doctype.id)));
-			
+
 			WhereList list = new WhereList();
 			GuestListWorker.addGuestListFilter(search, list);
 			select.where(list);
@@ -232,15 +232,16 @@ public class GuestExportWorker {
 			logger.error("Konnte Gästeliste nicht exportieren.");
 			throw new BeanException("Konnte Gästeliste nicht exportieren.");
 		}
-		
+
 		WorkerFactory.getGuestListWorker(cntx).getSums(database, data, search, selection);
-		
+
 		select.joinLeftOuter("veraweb.tperson", "tperson.pk", "tguest.fk_person");
 		select.select("tperson.lastname_a_e1");
 		select.select("tperson.firstname_a_e1");
 		select.select("tperson.country_a_e1");
 		select.select("tperson.zipcode_a_e1");
 		select.select("tperson.birthplace_a_e1");
+		select.select("tperson.company_a_e1");
 		select.joinLeftOuter("veraweb.tcategorie", "tguest.fk_category", "tcategorie.pk");
 
 		/*
@@ -259,7 +260,7 @@ public class GuestExportWorker {
 		select.joinLeftOuter("veraweb.tcolor c2", "tguest.fk_color_p", "c2.pk");
 		select.selectAs("c1.rgb", "color1");
 		select.selectAs("c2.rgb", "color2");
-		
+
 		// Sortierung erstellen
 		List order = new ArrayList();
 		order.add("tguest.ishost");
@@ -268,19 +269,19 @@ public class GuestExportWorker {
 		GuestReportWorker.setSortOrder(order, cntx.requestAsString("sort2"));
 		GuestReportWorker.setSortOrder(order, cntx.requestAsString("sort3"));
 		select.orderBy(DatabaseHelper.getOrder(order));
-		
+
 
 		Location location = null;
 		if (event.location != null) {
 			location = (Location)database.getBean("Location", event.location);
 		}
-		
+
 		// Export-Select ausf�hren
 		exportSelect(spreadSheet, database, event, location, doctype, search, select, data);
-		
+
 		// Tabelle schlie�en
 		spreadSheet.closeTable();
-		
+
 		// SpreadSheet speichern
 		if (logger.isInfoEnabled())
 			logger.info("Gebe Gästeliste als Download zurück.");
@@ -307,7 +308,7 @@ public class GuestExportWorker {
         			logger.debug("Gästelisten-Export: Beende das Speichern eines Spreadsheets.");
         	}
         }).start();
-		
+
 		// Stream-Informationen zur�ck geben
 		Map stream = new HashMap();
 		stream.put(TcBinaryResponseEngine.PARAM_TYPE, TcBinaryResponseEngine.BINARY_RESPONSE_TYPE_STREAM);
@@ -326,7 +327,7 @@ public class GuestExportWorker {
      * Diese Methode exportiert alle G�ste, die �ber das �bergebene Select-Statement
      * erfasst werden, in das �bergebene Spreadsheet.<br>
      * TODO: Parameter, von denen nur eine oder zwei Eigenschaften benutzt werden, durch Parameter ersetzen, die direkt diese Eigenschaften darstellen
-     * 
+     *
      * @param spreadSheet Exportziel
      * @param database Exportquelle, auf die das Statement select angewendet werden soll
      * @param event Veranstaltung, zu der die G�ste geh�ren
@@ -342,11 +343,11 @@ public class GuestExportWorker {
 	protected void exportSelect(SpreadSheet spreadSheet, Database database, Event event, Location location, Doctype doctype, GuestSearch search, Select select, Map data) throws BeanException {
 		for (Iterator it = database.getList(select, database).iterator(); it.hasNext(); ) {
 			Map guest = (Map)it.next();
-			
+
 			Integer invitationtype = (Integer)guest.get("invitationtype");
 			if (invitationtype == null || invitationtype.intValue() == 0)
 				invitationtype = event.invitationtype;
-			
+
 			// Test ob die Hauptperson / der Partner zum aktuellen Filter passen.
 			Integer reserve = (Integer)guest.get("reserve");
 			Integer invitationstatus_a = (Integer)guest.get("invitationstatus");
@@ -373,7 +374,7 @@ public class GuestExportWorker {
 			showB = showB && (search.reserve == null || (
 					(search.reserve.intValue() == 1 && (reserve == null || reserve.intValue() == 0)) ||
 					(search.reserve.intValue() == 2 && (reserve != null && reserve.intValue() == 1))));
-			
+
 			if (doctype.partner != null && doctype.partner.booleanValue()) {
 				// Eigenes Dokument
 				if (invitationtype == null
@@ -442,7 +443,7 @@ public class GuestExportWorker {
 
 	/**
 	 * Schreibt die �berschriften des Export-Dokumentes.
-	 * 
+	 *
 	 * @param spreadSheet In das geschrieben werden soll.
 	 */
 	protected void exportHeader(SpreadSheet spreadSheet) {
@@ -453,21 +454,21 @@ public class GuestExportWorker {
 		spreadSheet.addCell("Freitextfeld");
 		spreadSheet.addCell("Partner_Freitextfeld");
 		spreadSheet.addCell("Verbinder");
-		
+
 		spreadSheet.addCell("Anschrift"); // P, G oder S - Vorgabe aus Person, �berschreibbar
 		spreadSheet.addCell("Zeichensatz"); // L, F1 oder F2 - Vorgabe aus Person, �berschreibbar
-		
+
 		spreadSheet.addCell("Funktion");
 		spreadSheet.addCell("Anrede");
 		spreadSheet.addCell("Akad_Titel");
 		spreadSheet.addCell("Vorname");
 		spreadSheet.addCell("Nachname");
-		
+
 		spreadSheet.addCell("Partner_Anrede");
 		spreadSheet.addCell("Partner_Akad_Titel");
 		spreadSheet.addCell("Partner_Vorname");
 		spreadSheet.addCell("Partner_Nachname");
-		
+
 		spreadSheet.addCell("PLZ");
 		spreadSheet.addCell("Ort");
 		spreadSheet.addCell("Strasse");
@@ -489,7 +490,7 @@ public class GuestExportWorker {
 		spreadSheet.addCell("Firma");
 		spreadSheet.addCell("Postfach_Nr");
 		spreadSheet.addCell("Postfach_PLZ");
-		
+
 		//
 		// Kategorie spezifische Daten, wenn nach Kategorie gefilter wurde.
 		//
@@ -504,7 +505,7 @@ public class GuestExportWorker {
 		 */
 		spreadSheet.addCell("Arbeitsbereich");
 		spreadSheet.addCell("Reserve"); // 0 = Tisch, 1 = Reservce
-		
+
 		//
 		// Veranstaltungsspezifische Attribute f�r Person
 		//
@@ -519,7 +520,7 @@ public class GuestExportWorker {
 		spreadSheet.addCell("Nationalität");
 		spreadSheet.addCell("Hinweis_Gastgeber");
 		spreadSheet.addCell("Hinweis_Orgateam");
-		
+
 		//
 		// Veranstaltungsspezifische Attribute f�r Partner der Person
 		//
@@ -534,7 +535,7 @@ public class GuestExportWorker {
 		spreadSheet.addCell("Partner_Nationalität");
 		spreadSheet.addCell("Partner_Hinweis_Gastgeber");
 		spreadSheet.addCell("Partner_Hinweis_Orgateam");
-		
+
 		//
 		// Sonstiges
 		//
@@ -553,7 +554,7 @@ public class GuestExportWorker {
 		spreadSheet.addCell("Veranstaltungsname");
 		spreadSheet.addCell("Veranstaltung_Beginn");
 		spreadSheet.addCell("Veranstaltung_Ende");
-		
+
 		spreadSheet.addCell("Veranstaltungsort_Beschreibung");
 		spreadSheet.addCell("Veranstaltungsort_Ansprechpartner");
 		spreadSheet.addCell("Veranstaltungsort_Straße");
@@ -566,17 +567,17 @@ public class GuestExportWorker {
 		spreadSheet.addCell("Veranstaltungsort_URL");
 		spreadSheet.addCell("Veranstaltungsort_GPS-Daten");
 		spreadSheet.addCell("Veranstaltungsort_Raumnummer");
-		
+
 		//OSIAM Login
 		spreadSheet.addCell("Anmeldename");
 		spreadSheet.addCell("Passwort");
-		
+
 		spreadSheet.addCell("Bemerkung");
 	}
 
 	/**
 	 * Export die Gast- und Partner Daten in eine Zeile.
-	 * 
+	 *
 	 * @param spreadSheet In das geschrieben werden soll.
 	 * @param event Event das exportiert wird.
 	 * @param guest Map mit den Gastdaten.
@@ -587,7 +588,7 @@ public class GuestExportWorker {
 		// Gast spezifische Daten
 		//
 		spreadSheet.addCell(data.get("doctype")); // Name des Dokument-Typs
-		
+
 		String text_a = (String)guest.get("textfield");
 		String text_b = (String)guest.get("textfield_p");
 		if (showA) {
@@ -605,10 +606,10 @@ public class GuestExportWorker {
 		} else {
 			spreadSheet.addCell(null);
 		}
-		
+
 		spreadSheet.addCell(getAddresstype((Integer)guest.get("addresstype")));
 		spreadSheet.addCell(getLocale((Integer)guest.get("locale")));
-		
+
 		if (showA) {
 			spreadSheet.addCell(guest.get("function"));
 			spreadSheet.addCell(guest.get("salutation"));
@@ -622,7 +623,7 @@ public class GuestExportWorker {
 			spreadSheet.addCell(null);
 			spreadSheet.addCell(null);
 		}
-		
+
 		if (showB) {
 			spreadSheet.addCell(guest.get("salutation_p"));
 			spreadSheet.addCell(guest.get("titel_p"));
@@ -634,7 +635,7 @@ public class GuestExportWorker {
 			spreadSheet.addCell(null);
 			spreadSheet.addCell(null);
 		}
-		
+
 		spreadSheet.addCell(guest.get("zipcode"));
 		spreadSheet.addCell(guest.get("city"));
 		spreadSheet.addCell(guest.get("street"));
@@ -656,7 +657,7 @@ public class GuestExportWorker {
 		spreadSheet.addCell(guest.get("company"));
 		spreadSheet.addCell(guest.get("pobox"));
 		spreadSheet.addCell(guest.get("poboxzipcode"));
-		
+
 		//
 		// Kategorie spezifische Daten, wenn nach Kategorie gefilter wurde.
 		//
@@ -671,7 +672,7 @@ public class GuestExportWorker {
 		 */
 		spreadSheet.addCell(guest.get("workareaname"));
 		spreadSheet.addCell(getReserve((Integer)guest.get("reserve"))); // 0 = Tisch, 1 = Reservce
-		
+
 		//
 		// Veranstaltungsspezifische Attribute f�r Person
 		//
@@ -700,7 +701,7 @@ public class GuestExportWorker {
 			spreadSheet.addCell(null);
 			spreadSheet.addCell(null);
 		}
-		
+
 		//
 		// Veranstaltungsspezifische Attribute f�r Partner der Person
 		//
@@ -729,7 +730,7 @@ public class GuestExportWorker {
 			spreadSheet.addCell(null);
 			spreadSheet.addCell(null);
 		}
-		
+
 		//
 		// Sonstiges
 		//
@@ -748,9 +749,9 @@ public class GuestExportWorker {
 		spreadSheet.addCell(event.shortname);
 		spreadSheet.addCell(event.begin);
 		spreadSheet.addCell(event.end);
-		
+
 		addLocationCells(spreadSheet, location);
-		addOSIAMLoginCells(spreadSheet, guest);
+		addOSIAMLoginCells(spreadSheet, guest, event);
 		spreadSheet.addCell(event.note);
 	}
 
@@ -772,20 +773,38 @@ public class GuestExportWorker {
 			for(int i = 0; i != 12; i++) spreadSheet.addCell(null);
 		}
 	}
-	
-	private void addOSIAMLoginCells(SpreadSheet spreadSheet, Map guest) {
-		if(guest.containsKey("delegation") && guest.get("delegation").toString().length() > 0) {
-			spreadSheet.addCell(guest.get("osiam_login"));
-			spreadSheet.addCell("Password");
-		} else {
-			spreadSheet.addCell(null);
-			spreadSheet.addCell(null);
+
+	private void addOSIAMLoginCells(SpreadSheet spreadSheet, Map guest, Event event) {
+		String password = "-";
+		Object username = "-";
+		
+		if(guest.containsKey("delegation") && 
+				guest.get("delegation") != null && 
+				guest.get("delegation").toString().length() > 0) {
+			StringBuilder passwordBuilder = new StringBuilder();
+			String shortName = event.get("shortname").toString();
+			String companyName = guest.get("company_a_e1").toString();
+			Object login = guest.get("osiam_login");
+			
+			passwordBuilder.append(extractFirstXChars(shortName, 3));
+			passwordBuilder.append(extractFirstXChars(companyName, 3));
+			passwordBuilder.append(event.begin);
+			
+			password = passwordBuilder.toString();
+			username = login;
 		}
+
+		spreadSheet.addCell(username);
+		spreadSheet.addCell(password);
+	}
+	
+	private String extractFirstXChars(String value, int x) {
+		return value.substring(0, Math.min(value.length(), x));
 	}
 
 	/**
 	 * Export ausschlie�lich die Gast-Daten in eine Zeile.
-	 * 
+	 *
 	 * @param spreadSheet In das geschrieben werden soll.
 	 * @param event Event das exportiert wird.
 	 * @param guest Map mit den Gastdaten.
@@ -799,21 +818,21 @@ public class GuestExportWorker {
 		spreadSheet.addCell(guest.get("textfield"));
 		spreadSheet.addCell(null);
 		spreadSheet.addCell(null);
-		
+
 		spreadSheet.addCell(getAddresstype((Integer)guest.get("addresstype")));
 		spreadSheet.addCell(getLocale((Integer)guest.get("locale")));
-		
+
 		spreadSheet.addCell(guest.get("function"));
 		spreadSheet.addCell(guest.get("salutation"));
 		spreadSheet.addCell(guest.get("titel"));
 		spreadSheet.addCell(guest.get("firstname"));
 		spreadSheet.addCell(guest.get("lastname"));
-		
+
 		spreadSheet.addCell(null);
 		spreadSheet.addCell(null);
 		spreadSheet.addCell(null);
 		spreadSheet.addCell(null);
-		
+
 		spreadSheet.addCell(guest.get("zipcode"));
 		spreadSheet.addCell(guest.get("city"));
 		spreadSheet.addCell(guest.get("street"));
@@ -835,7 +854,7 @@ public class GuestExportWorker {
 		spreadSheet.addCell(guest.get("company"));
 		spreadSheet.addCell(guest.get("pobox"));
 		spreadSheet.addCell(guest.get("poboxzipcode"));
-		
+
 		//
 		// Kategorie spezifische Daten, wenn nach Kategorie gefilter wurde.
 		//
@@ -850,7 +869,7 @@ public class GuestExportWorker {
 		 */
 		spreadSheet.addCell(guest.get("workareaname"));
 		spreadSheet.addCell(getReserve((Integer)guest.get("reserve"))); // 0 = Tisch, 1 = Reservce
-		
+
 		//
 		// Veranstaltungsspezifische Attribute f�r Person
 		//
@@ -865,7 +884,7 @@ public class GuestExportWorker {
 		spreadSheet.addCell(guest.get("nationality"));
 		spreadSheet.addCell(guest.get("notehost"));
 		spreadSheet.addCell(guest.get("noteorga"));
-		
+
 		//
 		// Veranstaltungsspezifische Attribute f�r Partner der Person
 		//
@@ -880,7 +899,7 @@ public class GuestExportWorker {
 		spreadSheet.addCell(null);
 		spreadSheet.addCell(null);
 		spreadSheet.addCell(null);
-		
+
 		//
 		// Sonstiges
 		//
@@ -899,16 +918,16 @@ public class GuestExportWorker {
 		spreadSheet.addCell(event.shortname);
 		spreadSheet.addCell(event.begin);
 		spreadSheet.addCell(event.end);
-		
+
 		addLocationCells(spreadSheet, location);
-		addOSIAMLoginCells(spreadSheet, guest);
-		
+		addOSIAMLoginCells(spreadSheet, guest, event);
+
 		spreadSheet.addCell(event.note);
 	}
 
 	/**
 	 * Export ausschlie�lich die Partner-Daten in eine Zeile.
-	 * 
+	 *
 	 * @param spreadSheet In das geschrieben werden soll.
 	 * @param event Event das exportiert wird.
 	 * @param guest Map mit den Gastdaten.
@@ -922,21 +941,21 @@ public class GuestExportWorker {
 		spreadSheet.addCell(guest.get("textfield_p"));
 		spreadSheet.addCell(null);
 		spreadSheet.addCell(null);
-		
+
 		spreadSheet.addCell(getAddresstype((Integer)guest.get("addresstype")));
 		spreadSheet.addCell(getLocale((Integer)guest.get("locale")));
-		
+
 		spreadSheet.addCell(null);
 		spreadSheet.addCell(guest.get("salutation_p"));
 		spreadSheet.addCell(guest.get("titel_p"));
 		spreadSheet.addCell(guest.get("firstname_p"));
 		spreadSheet.addCell(guest.get("lastname_p"));
-		
+
 		spreadSheet.addCell(null);
 		spreadSheet.addCell(null);
 		spreadSheet.addCell(null);
 		spreadSheet.addCell(null);
-		
+
 		spreadSheet.addCell(guest.get("zipcode"));
 		spreadSheet.addCell(guest.get("city"));
 		spreadSheet.addCell(guest.get("street"));
@@ -958,7 +977,7 @@ public class GuestExportWorker {
 		spreadSheet.addCell(guest.get("company"));
 		spreadSheet.addCell(guest.get("pobox"));
 		spreadSheet.addCell(guest.get("poboxzipcode"));
-		
+
 		//
 		// Kategorie spezifische Daten, wenn nach Kategorie gefilter wurde.
 		//
@@ -973,7 +992,7 @@ public class GuestExportWorker {
 		 */
 		spreadSheet.addCell(guest.get("workareaname"));
 		spreadSheet.addCell(getReserve((Integer)guest.get("reserve"))); // 0 = Tisch, 1 = Reservce
-		
+
 		//
 		// Veranstaltungsspezifische Attribute f�r Person
 		//
@@ -988,7 +1007,7 @@ public class GuestExportWorker {
 		spreadSheet.addCell(guest.get("nationality_p"));
 		spreadSheet.addCell(guest.get("notehost_p"));
 		spreadSheet.addCell(guest.get("noteorga_p"));
-		
+
 		//
 		// Veranstaltungsspezifische Attribute f�r Partner der Person
 		//
@@ -1003,7 +1022,7 @@ public class GuestExportWorker {
 		spreadSheet.addCell(null);
 		spreadSheet.addCell(null);
 		spreadSheet.addCell(null);
-		
+
 		//
 		// Sonstiges
 		//
@@ -1022,10 +1041,10 @@ public class GuestExportWorker {
 		spreadSheet.addCell(event.shortname);
 		spreadSheet.addCell(event.begin);
 		spreadSheet.addCell(event.end);
-		
+
 		addLocationCells(spreadSheet, location);
-		addOSIAMLoginCells(spreadSheet, guest);
-		
+		addOSIAMLoginCells(spreadSheet, guest, event);
+
 		spreadSheet.addCell(event.note);
 	}
 
@@ -1049,7 +1068,7 @@ public class GuestExportWorker {
 
     /**
      * Diese Methode liefert zu einem Integer den um 1 erh�hten Wert oder
-     * 0, falls <code>null</code> �bergeben worden war. 
+     * 0, falls <code>null</code> �bergeben worden war.
      */
 	public static Integer getColor(Integer color) {
 		return new Integer(color == null ? 0 : color.intValue() + 1);
@@ -1057,7 +1076,7 @@ public class GuestExportWorker {
 
 	/**
 	 * Anschrifttyp als P,G,S zur�ckgeben.
-	 * 
+	 *
 	 * Vorgabe aus PersonDoctype, �berschreibbar in GuestDoctype
 	 * Muss auch in anderen Bereichen umgesetzt werden.
 	 * Z.B. beim "Neu Laden" in Worker und Template.
@@ -1076,7 +1095,7 @@ public class GuestExportWorker {
 
 	/**
 	 * Zeichensatz als L,F1,F2 zur�ckgeben.
-	 * 
+	 *
 	 * Vorgabe aus PersonDoctype, �berschreibbar in GuestDoctype
 	 * Muss auch in anderen Bereichen umgesetzt werden.
 	 * Z.B. beim "Neu Laden" in Worker und Template.
