@@ -1425,7 +1425,6 @@
 			<status equals="noevent"><doTask name="CreateEvent"/></status>
 			<action name="getSelection" worker="PersonListWorker"/>
 			<action name="extendGuestSelection" worker="PersonGuestListWorker"/>
-			<action name="createDelegationUsers" worker="OSIAMWorker" />
 			<doTask name="SearchPerson"/>
 		</task>
 
@@ -1440,6 +1439,7 @@
 			<action name="getSelection" worker="PersonListWorker"/>
 			<action name="extendGuestSelection" worker="PersonGuestListWorker"/>
 			<action name="addGuestList" worker="GuestWorker"/>
+			<action name="createDelegationUsers" worker="OSIAMWorker" />
 			<action name="clearGuestSelection" worker="PersonGuestListWorker"/>
 			<doTask name="ShowGuestList"/>
 		</task>
