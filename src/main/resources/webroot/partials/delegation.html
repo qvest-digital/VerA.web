@@ -3,8 +3,11 @@ Bereits angemeldet:
 <hr/>
 
 <form role="form">
+    
     <div class="form-group container">
         <div class="row">
+			<div ng-if="success" class="alert alert-success" role="alert">{{success}}</div>
+		    <div ng-if="error" class="alert alert-danger" role="alert">{{error}}</div>
             <div class="col-xs-5">
                 <input type="text" class="form-control" id="username" placeholder="Username">
             </div>
