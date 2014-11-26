@@ -55,7 +55,7 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 		        console.log("registering delegierten.");
 		        $http({
 		            method: 'POST',
-		            url: 'api/delegation/' + $routeParams.uuid + '/register/',
+		            url: 'api/delegation/' + $routeParams.uuid + '/register',
 		            params: {
 		                username: $scope.username,
 		                vorname: $scope.vorname,
