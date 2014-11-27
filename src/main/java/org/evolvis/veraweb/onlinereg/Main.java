@@ -10,6 +10,8 @@ import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import io.dropwizard.util.Duration;
 import lombok.Getter;
+
+import org.evolvis.veraweb.onlinereg.event.DelegationResource;
 import org.evolvis.veraweb.onlinereg.event.EventResource;
 import org.evolvis.veraweb.onlinereg.event.UserResource;
 import org.evolvis.veraweb.onlinereg.user.LoginResource;
@@ -34,6 +36,7 @@ public class Main extends Application<Config> {
     private EventResource eventResource;
     private UserResource userResource;
     private LoginResource loginResource;
+    private DelegationResource delegationResource;
     private Health health;
 
     @Override
@@ -67,7 +70,8 @@ public class Main extends Application<Config> {
 
         environment.jersey().register(eventResource = new EventResource(configuration, client));
         environment.jersey().register(userResource = new UserResource(configuration, client));
-        environment.jersey().register(loginResource = new LoginResource(configuration, client)); // VeranstaltungenResource KontaktdatenResource
+        environment.jersey().register(loginResource = new LoginResource(configuration, client)); 
+        environment.jersey().register(delegationResource = new DelegationResource(configuration, client)); 
 
     }
 
