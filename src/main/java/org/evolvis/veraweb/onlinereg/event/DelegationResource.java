@@ -13,7 +13,6 @@ import org.osiam.resources.scim.User;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.WebResource;
 
-import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -21,7 +20,6 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
-
 import java.io.IOException;
 import java.util.List;
 
@@ -44,9 +42,9 @@ public class DelegationResource {
 
     @POST
     @Path("/{uuid}/register")
-    public String registerDelegateForEvent(@PathParam("uuid") String uuid,@FormParam("username") String username,
-    		@FormParam("vorname") String vorname,
-    		@FormParam("nachname") String nachname) throws IOException {
+    public String registerDelegateForEvent(@PathParam("uuid") String uuid,@QueryParam("username") String username,
+            @QueryParam("vorname") String vorname,
+            @QueryParam("nachname") String nachname) throws IOException {
     	
     	if (!username.matches("\\w+")) {
             return "INVALID_USERNAME";
