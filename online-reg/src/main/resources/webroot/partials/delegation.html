@@ -2,22 +2,21 @@ Bereits angemeldet:
 
 <hr/>
 
-<form role="form">
+<form role="form" id="delegation-form">
     
     <div class="form-group container">
         <div class="row">
 			<div ng-if="success" class="alert alert-success" role="alert">{{success}}</div>
 		    <div ng-if="error" class="alert alert-danger" role="alert">{{error}}</div>
             <div class="col-xs-5">
-                <input type="text" class="form-control" id="username" placeholder="Username">
+                <input type="text" class="form-control" id="username" placeholder="Username" ng-model="username">
+            </div>
+            <div class="col-xs-5">
+                <input type="text" class="form-control" id="vorname" placeholder="Vorname" ng-model="vorname">
             </div>
 			
             <div class="col-xs-5">
-                <input type="text" class="form-control" id="vorname" placeholder="Vorname">
-            </div>
-			
-            <div class="col-xs-5">
-                <input type="text" class="form-control" id="nachname" placeholder="Nachname">
+                <input type="text" class="form-control" id="nachname" placeholder="Nachname" ng-model="nachname">
             </div>
 
             <div class="col-xs-2">
