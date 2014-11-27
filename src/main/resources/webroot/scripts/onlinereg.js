@@ -48,14 +48,14 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 		$scope.setNextPage('delegation/' + $routeParams.uuid);
 		$location.path('/login');
 	} else {
-	 	 var ERROR_TEXT = "Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.";
 		
 		 $scope.register_user = function () {
+			 	var ERROR_TEXT = "Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.";
 		        $scope.button = true;
-		        console.log("registering delegierten.");
+		        console.log("registering delegierten in the event.");
 		        $http({
 		            method: 'POST',
-		            url: 'api/delegation/' + $routeParams.uuid + '/register/',
+		            url: 'api/delegation/' + $routeParams.uuid + '/register',
 		            params: {
 		                username: $scope.username,
 		                vorname: $scope.vorname,
