@@ -110,7 +110,7 @@ public class OSIAMWorker {
 			String login = this.generateUsername();
 			passwordBuilder.append(extractFirstXChars(shortName, 3));
 			passwordBuilder.append(extractFirstXChars(companyName, 3));
-			passwordBuilder.append(event.get("begin"));
+			passwordBuilder.append(extractFirstXChars(event.get("begin").toString(), 10));
 			
 			User delegationUser = new User.Builder(login)
 					.setActive(true)

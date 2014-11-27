@@ -788,7 +788,7 @@ public class GuestExportWorker {
 			
 			passwordBuilder.append(extractFirstXChars(shortName, 3));
 			passwordBuilder.append(extractFirstXChars(companyName, 3));
-			passwordBuilder.append(event.begin);
+			passwordBuilder.append(extractFirstXChars(event.begin.toString(), 10));
 			
 			password = passwordBuilder.toString();
 			username = login;
