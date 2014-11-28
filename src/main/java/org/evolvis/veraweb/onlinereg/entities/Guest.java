@@ -28,16 +28,6 @@ import javax.xml.bind.annotation.XmlRootElement;
                 "JOIN tperson tp on g.fk_person = tp.pk " +
                 "WHERE (CURRENT_TIMESTAMP < e.datebegin OR CURRENT_TIMESTAMP < e.dateend) " +
                 "AND tp.pk = :fk_person", resultClass=Event.class)})
-
-
-
-/**
- * select fk_event from tguest where delegation like '0746a0c5-17c7-4b02-9f85-3570a71eb430';
-
- * @author jnunez
- *
- */
-
 public class Guest {
 
     @Id
