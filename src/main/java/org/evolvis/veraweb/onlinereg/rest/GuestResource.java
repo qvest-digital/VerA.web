@@ -1,5 +1,7 @@
 package org.evolvis.veraweb.onlinereg.rest;
 
+import java.math.BigInteger;
+
 import org.evolvis.veraweb.onlinereg.entities.Guest;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -58,5 +60,17 @@ public class GuestResource extends AbstractResource{
         }
 
     }
-
+    
+    @GET
+    @Path("/{uuid}")
+    public Guest findEventIdByDelegation(@PathParam("uuid") String uuid) {
+    	Session session = openSession();
+        try {
+            Query query = session.getNamedQuery("Guest.findEventIdByDelegation");
+            query.setString("uuid", uuid);
+            return (Guest) query.uniqueResult();
+        } finally {
+            session.close();
+        }
+    }
 }
