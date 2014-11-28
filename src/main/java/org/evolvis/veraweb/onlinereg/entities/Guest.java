@@ -19,7 +19,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @Table(name = "tguest")
 @NamedQueries({
-        @NamedQuery(name = "Guest.findByEventAndUser", query = "SELECT g FROM Guest g where fk_event = :eventId and fk_person = :userId")
+        @NamedQuery(name = "Guest.findByEventAndUser", query = "SELECT g FROM Guest g where fk_event = :eventId and fk_person = :userId"),
+        @NamedQuery(name = "Guest.findEventIdByDelegation", query ="SELECT g FROM Guest g WHERE  delegation=:uuid ")
 })
 @NamedNativeQueries({
         @NamedNativeQuery(name="Event.list.userevents", query = "SELECT e.* FROM tevent e " +
@@ -27,6 +28,15 @@ import javax.xml.bind.annotation.XmlRootElement;
                 "JOIN tperson tp on g.fk_person = tp.pk " +
                 "WHERE (CURRENT_TIMESTAMP < e.datebegin OR CURRENT_TIMESTAMP < e.dateend) " +
                 "AND tp.pk = :fk_person", resultClass=Event.class)})
+
+
+
+/**
+ * select fk_event from tguest where delegation like '0746a0c5-17c7-4b02-9f85-3570a71eb430';
+
+ * @author jnunez
+ *
+ */
 
 public class Guest {
 
@@ -38,6 +48,7 @@ public class Guest {
     private String gender_p;
     private int invitationstatus;
     private String notehost;
+    private String delegation;
 
 }
 
