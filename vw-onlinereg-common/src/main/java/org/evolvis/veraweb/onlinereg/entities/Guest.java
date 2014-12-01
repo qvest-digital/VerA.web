@@ -39,6 +39,48 @@ public class Guest {
     private int invitationstatus;
     private String notehost;
     private String delegation;
+	public int getFk_event() {
+		return fk_event;
+	}
+	public void setFk_event(int fk_event) {
+		this.fk_event = fk_event;
+	}
+	public int getFk_person() {
+		return fk_person;
+	}
+	public void setFk_person(int fk_person) {
+		this.fk_person = fk_person;
+	}
+	public String getGender() {
+		return gender;
+	}
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+	public String getGender_p() {
+		return gender_p;
+	}
+	public void setGender_p(String gender_p) {
+		this.gender_p = gender_p;
+	}
+	public int getInvitationstatus() {
+		return invitationstatus;
+	}
+	public void setInvitationstatus(int invitationstatus) {
+		this.invitationstatus = invitationstatus;
+	}
+	public String getNotehost() {
+		return notehost;
+	}
+	public void setNotehost(String notehost) {
+		this.notehost = notehost;
+	}
+	public String getDelegation() {
+		return delegation;
+	}
+	public void setDelegation(String delegation) {
+		this.delegation = delegation;
+	}
 
 }
 
