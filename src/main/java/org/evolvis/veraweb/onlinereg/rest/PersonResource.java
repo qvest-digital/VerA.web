@@ -30,6 +30,19 @@ public class PersonResource extends AbstractResource {
             session.close();
         }
     }
+    
+    @POST
+    @Path("/create")
+    public Person createPersonWithoutUsername(@QueryParam("firstname") String firstName,
+                               @QueryParam("lastname") String lastname) {
+        Session session = openSession();
+        try {
+            Person person = handleCreatePerson(firstName, lastname, session);
+            return person;
+        } finally {
+            session.close();
+        }
+    }
 
     private Person handleCreatePerson(String username, String firstName, String lastname, Session session) {
         Query query = getSelectPersonByUsernameQuery(username, session);
@@ -41,6 +54,10 @@ public class PersonResource extends AbstractResource {
         persistPerson(username, firstName, lastname, session);
         Person person = (Person) query.uniqueResult();
         return person;
+    }
+
+    private Person handleCreatePerson(String firstName, String lastname, Session session) {
+    	return persistPersonWithoutUsername(firstName, lastname, session);
     }
 
     private Query getSelectPersonByUsernameQuery(String username, Session session) {
@@ -56,6 +73,13 @@ public class PersonResource extends AbstractResource {
         return p;
     }
 
+    private Person persistPersonWithoutUsername(String firstName, String lastname, Session session) {
+        Person p = initPerson(firstName, lastname);
+        session.persist(p);
+        session.flush();
+        return p;
+    }
+
     private Person initPerson(String username, String firstName, String lastname) {
         Person p = new Person();
         p.setFirstName(firstName);
@@ -63,5 +87,9 @@ public class PersonResource extends AbstractResource {
         p.setUsername(username);
         p.setFk_orgunit(0);
         return p;
+    }
+
+    private Person initPerson(String firstName, String lastname) {
+        return initPerson(null, firstName, lastname);
     }
 }
