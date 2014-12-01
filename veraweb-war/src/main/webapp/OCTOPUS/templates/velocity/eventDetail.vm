@@ -266,6 +266,22 @@
     								<textarea onchange="setModified();" id="event-note" name="event-note" rows="4" #if($grants.mayReadRemarkFields()) >$!message.textarea($event.note)#else class="textdisabled" vera-disabled>#end</textarea>						
     							</div>
     						</div>
+
+    						<div class="tableRow">
+                                <div class="tableCell width50">
+                                    <strong>URL für Pressevertreter:</strong><br/>
+                                    $event.mediarepresentatives
+                                </div>
+
+                                <div class="tableCell width50 inlineLabel">
+                                    <label for="event-open">Anmeldung von Pressevertretern möglich</label>
+                                    <input type="checkbox"  onchange="setModified();" class="noFloat" id="event-media-representatives" name="event-media-representatives"
+                                        #if($event && $event.mediarepresentatives != "")
+                                            checked
+                                        #end
+                                    >
+                                </div>
+                            </div>
     				</div>
     		</div>
 		</div>
