@@ -76,12 +76,12 @@ public class DelegationResource {
     		@QueryParam("vorname") String vorname) throws IOException {
     	
     	// Store in tperson
-    	Person person = insertIntoTPerson(nachname, vorname);
+    	Integer personId = insertIntoTPerson(nachname, vorname);
     	
     	// Assing person to event as guest
-    	Guest guest = getEventIdFromUuid(uuid);
+//    	Guest guest = getEventIdFromUuid(uuid);
     	
-    	insertPersonIntoEvent(guest.getFk_event(), person.getPk(), "0", "");
+//    	insertPersonIntoEvent(guest.getFk_event(), personId, "0", "");
     	
         return "OK";
     }
@@ -95,22 +95,23 @@ public class DelegationResource {
         return null;
     }
 
-    private Guest insertIntoTGuest(String uuid) throws IOException {
-        return readResource(path("guest", uuid), GUEST);
-    }
-	 
     /**
      * Includes a new person in the database - Table "tperson"
      * 
      * @param nachname Last name
      * @param vorname First name
      */
-    private Person insertIntoTPerson(String nachname, String vorname) {
-    	WebResource r = client.resource(config.getVerawebEndpoint() + "/rest/person/create/");
-    	r = r.queryParam("firstname", vorname).queryParam("lastname", nachname);
-    	r.post(Person.class);
+    private Integer insertIntoTPerson(String nachname, String vorname) {
+    	WebResource r = client.resource(config.getVerawebEndpoint() + "/rest/person/");
+    	r = r.queryParam("username", "").queryParam("firstname", vorname).queryParam("lastname", nachname);
+    	Person person = null;
+    	try {
+    	person = r.post(Person.class);
+    	}catch (Exception e) {
+    		System.out.println("");
+    	}
     	
-    	return person;
+    	return person.getPk();
     } 
     
     /**
