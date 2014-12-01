@@ -102,9 +102,8 @@ public class DelegationResource {
     /**
      * Includes a new person in the database - Table "tperson"
      * 
-     * @param nachname String
-     * @param username String
-     * @param vorname String
+     * @param nachname Last name
+     * @param vorname First name
      */
     private Person insertIntoTPerson(String nachname, String vorname) {
     	WebResource r = client.resource(config.getVerawebEndpoint() + "/rest/person/create/");
@@ -117,15 +116,16 @@ public class DelegationResource {
     /**
      * Includes a new guest in the database - Table "tguest"
      * 
-     * @param eventId
-     * @param userId
-     * @param invitationstatus
-     * @param notehost
+     * @param eventId Event id
+     * @param userId User id
+     * @param invitationstatus //TODO
+     * @param notehost //TODO
      * @throws IOException 
      * @throws JsonMappingException 
      * @throws JsonParseException 
      */
-    private Guest insertPersonIntoEvent(int eventId, int userId, String invitationstatus, String notehost) throws JsonParseException, JsonMappingException, IOException {
+    private Guest insertPersonIntoEvent(int eventId, int userId, String invitationstatus, String notehost)
+            throws IOException {
     	WebResource r = client.resource(path("guest", eventId, userId));
         String result = r.queryParam("invitationstatus", invitationstatus).queryParam("notehost", notehost).post(String.class);
         return mapper.readValue(result, GUEST);
