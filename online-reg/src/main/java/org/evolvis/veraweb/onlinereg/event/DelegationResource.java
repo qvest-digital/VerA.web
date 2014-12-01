@@ -1,31 +1,5 @@
 package org.evolvis.veraweb.onlinereg.event;
 
-import java.io.IOException;
-import java.math.BigInteger;
-import java.net.SocketTimeoutException;
-import java.util.List;
-
-import javax.servlet.ServletContext;
-import javax.ws.rs.FormParam;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.MediaType;
-
-import lombok.Getter;
-import lombok.Setter;
-import lombok.extern.java.Log;
-
-import org.evolvis.veraweb.onlinereg.Config;
-import org.evolvis.veraweb.onlinereg.entities.Guest;
-import org.evolvis.veraweb.onlinereg.entities.Person;
-import org.evolvis.veraweb.onlinereg.osiam.OsiamClient;
-import org.osiam.resources.scim.User;
-
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -34,9 +8,24 @@ import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientHandlerException;
 import com.sun.jersey.api.client.UniformInterfaceException;
 import com.sun.jersey.api.client.WebResource;
+import lombok.extern.java.Log;
+import org.evolvis.veraweb.onlinereg.Config;
+import org.evolvis.veraweb.onlinereg.entities.Guest;
+import org.evolvis.veraweb.onlinereg.entities.Person;
+
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.MediaType;
+import java.io.IOException;
+import java.net.SocketTimeoutException;
+import java.util.List;
 
 /**
- * Created by Atanas Alexandrov, tarent solutions GmbH
+ * @author Atanas Alexandrov, tarent solutions GmbH
  */
 @Path("/delegation")
 @Produces(MediaType.APPLICATION_JSON)
