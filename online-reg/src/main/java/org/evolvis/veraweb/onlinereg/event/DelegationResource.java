@@ -43,14 +43,29 @@ import com.sun.jersey.api.client.WebResource;
 @Log
 public class DelegationResource {
 
+    /**
+     * Jackson Object Mapper
+     */
+    private ObjectMapper mapper = new ObjectMapper();
+    private Config config;
+    private Client client;
+    /**
+     * base path of all resource
+     */
+    public static final String BASE_RESOURCE = "/rest";
+    /**
+     * Guest type
+     */
+    private static final TypeReference<Guest> GUEST = new TypeReference<Guest>() {};
+
 	/**
-	 * Empty constructor
+	 * Default constructor
 	 */
 	public DelegationResource() {
 	}
 	
 	/**
-	 * Constructor with parameters
+	 * Constructor
 	 * 
 	 * @param config Config
 	 * @param client Client
@@ -59,27 +74,7 @@ public class DelegationResource {
 		this.config = config;
 		this.client = client;
 	}
-
-    /**
-     * Jackson Object Mapper
-     */
-    private ObjectMapper mapper = new ObjectMapper();
-	private Config config;
-    private Client client;
     
-
-    /**
-     * base path of all resource
-     */
-    public static final String BASE_RESOURCE = "/rest";
-
-    
-    /**
-     * Guest type
-     */
-    private static final TypeReference<Guest> GUEST = new TypeReference<Guest>() {
-    };
-
 	@GET
     @Path("/{uuid}")
     public List<Guest> showRegisterView(@PathParam("uuid") String uuid) throws IOException {
@@ -105,11 +100,14 @@ public class DelegationResource {
 	private Guest getEventIdFromUuid(String uuid) throws IOException {
 		return readResource(path("guest", uuid), GUEST);
 	}
-
 	@GET
     @Path("/{uuid}/remove/{userid}")
     public List<Guest> removeDelegateFromEvent(@PathParam("uuid") String uuid, @PathParam("userid") Long userid) throws IOException {
         return null;
+    }
+
+    private Guest insertIntoTGuest(String uuid) throws IOException {
+        return readResource(path("guest", uuid), GUEST);
     }
 	 
     /**
@@ -122,7 +120,7 @@ public class DelegationResource {
     private Person insertIntoTPerson(String nachname, String vorname) {
     	WebResource r = client.resource(config.getVerawebEndpoint() + "/rest/person/create/");
     	r = r.queryParam("firstname", vorname).queryParam("lastname", nachname);
-    	Person person = r.post(Person.class);
+    	r.post(Person.class);
     	
     	return person;
     } 
@@ -142,7 +140,6 @@ public class DelegationResource {
     	WebResource r = client.resource(path("guest", eventId, userId));
         String result = r.queryParam("invitationstatus", invitationstatus).queryParam("notehost", notehost).post(String.class);
         return mapper.readValue(result, GUEST);
-        
     }
 
     /**
