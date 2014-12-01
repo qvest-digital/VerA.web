@@ -80,7 +80,6 @@ public class DelegationResource {
     	
     	// Assing person to event as guest
 //    	Guest guest = getEventIdFromUuid(uuid);
-    	
 //    	insertPersonIntoEvent(guest.getFk_event(), personId, "0", "");
     	
         return "OK";
@@ -103,7 +102,7 @@ public class DelegationResource {
      */
     private Integer insertIntoTPerson(String nachname, String vorname) {
         WebResource r = client.resource(config.getVerawebEndpoint() + "/rest/person/");
-        r = r.queryParam("username", "").queryParam("firstname", vorname).queryParam("lastname", nachname);
+        r = r.queryParam("username", "delegiert").queryParam("firstname", vorname).queryParam("lastname", nachname);
         Person person = r.post(Person.class);
 
     	
