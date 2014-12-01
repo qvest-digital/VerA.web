@@ -27,6 +27,7 @@ public class Person {
 
 
     private static final String USERNAME_TEMPLATE = "username:";
+    private static final String DELEGIERT_NAME = "delegiert";
     private static final String USERNAME_REGEX = USERNAME_TEMPLATE+"(\\w+)";
 
     @Id
@@ -62,7 +63,8 @@ public class Person {
     public void setUsername(String username) {
         if(note_a_e1 != null && note_a_e1.contains(USERNAME_REGEX)) {
             note_a_e1.replaceFirst(USERNAME_REGEX, USERNAME_TEMPLATE+username);
-        } else {
+        }
+        else {
             note_a_e1 = USERNAME_TEMPLATE+username;
         }
     }
