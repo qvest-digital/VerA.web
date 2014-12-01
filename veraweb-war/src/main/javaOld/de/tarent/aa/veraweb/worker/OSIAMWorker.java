@@ -54,8 +54,7 @@ public class OSIAMWorker {
 	
 	private static final String OSIAM_PROPERTY_FILE = "/etc/veraweb/osiam.properties";
 	private static final int OSIAM_USERNAME_LENGTH = 6;
-	
-	/** Eingabe-Parameter für die Octopus-Aktion {@link #createDelegationUsers(OctopusContext)} */
+
 	public static final String INPUT_createDelegationUsers[] = {};
 	
 	private OsiamConnector connector;
@@ -63,7 +62,7 @@ public class OSIAMWorker {
 
 	public OSIAMWorker() throws IOException {
 		this.loadProperties();
-		
+
 		this.connector = new OsiamConnector.Builder()
 				.setClientRedirectUri(this.getProperty(PROPERTY_KEY_CLIENT_REDIRECT_URI))
 				.setClientSecret(this.getProperty(PROPERTY_KEY_CLIENT_SECRET))
@@ -73,7 +72,6 @@ public class OSIAMWorker {
 				.build();
 	}
 
-
 	/**
 	 * Creates an new user in OSIAM via connector4java and the configured client
 	 * @param ctx
@@ -81,61 +79,71 @@ public class OSIAMWorker {
 	 * @throws SQLException 
 	 */
 	public void createDelegationUsers(OctopusContext ctx) throws BeanException, SQLException{
-		
 		Database database = new DatabaseVeraWeb(ctx);
-		TransactionContext context = database.getTransactionContext();
-
-		
 		AccessToken accessToken = connector.retrieveAccessToken(Scope.ALL);
 		List selectdelegation = (List) ctx.sessionAsObject("addguest-selectdelegation");
 		Map event = (Map)ctx.getContextField("event");
-			
-		for (Object object : selectdelegation) {
-			WhereList where = new WhereList();		
-			where.addOr(new Where("pk", Integer.parseInt(object.toString()), "="));
-			
-			Select select = SQL.Select( database ).
-					from("veraweb.tperson")
-					.where(where);
-			select.select("*");
-			ResultSet result = database.result(select);
 
-			String companyName = "";
-			while(result.next()) {
-				 companyName = result.getString("company_a_e1");
-			}
-			
-			StringBuilder passwordBuilder = new StringBuilder();
-			String shortName = event.get("shortname").toString();
-			String login = this.generateUsername();
-			passwordBuilder.append(extractFirstXChars(shortName, 3));
-			passwordBuilder.append(extractFirstXChars(companyName, 3));
-			passwordBuilder.append(extractFirstXChars(event.get("begin").toString(), 10));
-			
-			User delegationUser = new User.Builder(login)
-					.setActive(true)
-					.setPassword(passwordBuilder.toString())
-					.build();
+		for (Object id : selectdelegation) {
+            ResultSet result = getPersons(database, id);
+            String companyName = getCompanyName(result);
+            String login = this.generateUsername();
+            String password = generatePassword(event, companyName);
 
-			//create User in osiam
-			this.connector.createUser(delegationUser, accessToken);
-			
-			saveOsiamLogin(database, login, Integer.parseInt(event.get("id").toString()), Integer.parseInt(object.toString()));
+            createOsiamUser(accessToken, login, password);
+
+			saveOsiamLogin(database, login, Integer.parseInt(event.get("id").toString()), Integer.parseInt(id.toString()));
 		}
 	}
-	
-	private void saveOsiamLogin(Database db, String login, int eventId, int personId) throws BeanException, SyntaxErrorException, SQLException{
-		TransactionContext context = db.getTransactionContext();
-		WhereList whereA = new WhereList();
-		whereA.addAnd(new Where("fk_person", personId, "="));
-		whereA.addAnd(new Where("fk_event", eventId, "="));
+
+    private void createOsiamUser(AccessToken accessToken, String login, String password) {
+        User delegationUser = new User.Builder(login)
+                .setActive(true)
+                .setPassword(password)
+                .build();
+
+        //create User in osiam
+        this.connector.createUser(delegationUser, accessToken);
+    }
+
+    private String generatePassword(Map event, String companyName) {
+        StringBuilder passwordBuilder = new StringBuilder();
+        String shortName = event.get("shortname").toString();
+
+        passwordBuilder.append(extractFirstXChars(shortName, 3));
+        passwordBuilder.append(extractFirstXChars(companyName, 3));
+        passwordBuilder.append(extractFirstXChars(event.get("begin").toString(), 10));
+
+        return passwordBuilder.toString();
+    }
+
+    private String getCompanyName(ResultSet result) throws SQLException {
+        String companyName = "";
+        while(result.next()) {
+             companyName = result.getString("company_a_e1");
+        }
+        return companyName;
+    }
+
+    private ResultSet getPersons(Database database, Object id) throws BeanException {
+        WhereList filter = new WhereList();
+        filter.add(new Where("pk", Integer.parseInt(id.toString()), "="));
+
+        Select selectPerson = SQL.Select(database).from("veraweb.tperson").where(filter);
+        selectPerson.select("*");
+        return database.result(selectPerson);
+    }
+
+    private void saveOsiamLogin(Database db, String login, int eventId, int personId) throws BeanException, SyntaxErrorException, SQLException{
+		final TransactionContext context = db.getTransactionContext();
+		final WhereList whereCriterias = new WhereList();
+		whereCriterias.addAnd(new Where("fk_person", personId, "="));
+		whereCriterias.addAnd(new Where("fk_event", eventId, "="));
 		//Example Query:
 		//	UPDATE veraweb.tguest SET osiam_login='aaa'  WHERE (fk_person=2 AND fk_event=1)
-		Update update = SQL.Update(db)
-				.where(whereA);
+		final Update update = SQL.Update(db).where(whereCriterias);
 		update.table("veraweb.tguest");
 		update.update("osiam_login", login);
-		
 
 		DB.insert(context, update.statementToString());
         context.commit();
@@ -162,10 +170,10 @@ public class OSIAMWorker {
 	}
 	
 	private void loadProperties() throws IOException {
-		Properties prop = new Properties();
-		
-		FileInputStream inputStream = new FileInputStream(new File(OSIAM_PROPERTY_FILE));
-		try {
+		final Properties prop = new Properties();
+
+        FileInputStream inputStream = null;
+        try {
 			inputStream = new FileInputStream(OSIAM_PROPERTY_FILE);
 			prop.load(inputStream);
 		} finally {
