@@ -1,6 +1,22 @@
 package de.tarent.aa.veraweb.worker;
 
-import java.io.File;
+import de.tarent.dblayer.engine.DB;
+import de.tarent.dblayer.sql.SQL;
+import de.tarent.dblayer.sql.SyntaxErrorException;
+import de.tarent.dblayer.sql.clause.Where;
+import de.tarent.dblayer.sql.clause.WhereList;
+import de.tarent.dblayer.sql.statement.Select;
+import de.tarent.dblayer.sql.statement.Update;
+import de.tarent.octopus.beans.BeanException;
+import de.tarent.octopus.beans.Database;
+import de.tarent.octopus.beans.TransactionContext;
+import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
+import de.tarent.octopus.server.OctopusContext;
+import org.osiam.client.OsiamConnector;
+import org.osiam.client.oauth.AccessToken;
+import org.osiam.client.oauth.Scope;
+import org.osiam.resources.scim.User;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.security.SecureRandom;
@@ -10,28 +26,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Random;
-
-import org.apache.commons.lang.RandomStringUtils;
-import org.osiam.client.OsiamConnector;
-import org.osiam.client.oauth.AccessToken;
-import org.osiam.client.oauth.Scope;
-import org.osiam.resources.scim.User;
-
-import de.tarent.dblayer.engine.DB;
-import de.tarent.dblayer.helper.ResultList;
-import de.tarent.dblayer.sql.SQL;
-import de.tarent.dblayer.sql.SyntaxErrorException;
-import de.tarent.dblayer.sql.clause.Expr;
-import de.tarent.dblayer.sql.clause.Where;
-import de.tarent.dblayer.sql.clause.WhereList;
-import de.tarent.dblayer.sql.statement.Insert;
-import de.tarent.dblayer.sql.statement.Select;
-import de.tarent.dblayer.sql.statement.Update;
-import de.tarent.octopus.beans.BeanException;
-import de.tarent.octopus.beans.Database;
-import de.tarent.octopus.beans.TransactionContext;
-import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
-import de.tarent.octopus.server.OctopusContext;
 
 /**
  * @author Max Marche <m.marche@tarent.de>, tarent solutions GmbH
