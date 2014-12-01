@@ -270,7 +270,9 @@
     						<div class="tableRow">
                                 <div class="tableCell width50">
                                     <strong>URL für Pressevertreter:</strong><br/>
-                                    $event.mediarepresentatives
+                                    #if($event && $event.mediarepresentatives != "")
+                                        $event.mediarepresentatives
+                                    #end
                                 </div>
 
                                 <div class="tableCell width50 inlineLabel">
