@@ -26,7 +26,9 @@ import org.evolvis.veraweb.onlinereg.entities.Person;
 import org.evolvis.veraweb.onlinereg.osiam.OsiamClient;
 import org.osiam.resources.scim.User;
 
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientHandlerException;
@@ -85,32 +87,22 @@ public class DelegationResource {
     }
 
     @POST
-    @Path("/{uuid}/registerdelegiert")
-    public String registerDelegateForEvent(@PathParam("uuid") String uuid,@QueryParam("nachname") String nachname,@QueryParam("username") String username,
+    @Path("/{uuid}/register")
+    public String registerDelegateForEvent(@PathParam("uuid") String uuid,@QueryParam("nachname") String nachname,
     		@QueryParam("vorname") String vorname) throws IOException {
     	
-    	if (!username.matches("\\w+")) {
-            return "INVALID_USERNAME";
-        }
-    	
-    	OsiamClient osiamClient = config.getOsiam().getClient(client);
-        String accessToken = osiamClient.getAccessToken("GET POST");
-    	
-    	User user = osiamClient.getUser(accessToken, username);
-        if (user != null) {
-            return "USER_EXISTS";
-        }
-    	
     	// Store in tperson
-    	insertIntoTPerson(nachname, username, vorname);
+    	Person person = insertIntoTPerson(nachname, vorname);
     	
     	// Assing person to event as guest
-    	Guest guest = insertIntoTGuest(uuid);
-        
+    	Guest guest = getEventIdFromUuid(uuid);
+    	
+    	insertPersonIntoEvent(guest.getFk_event(), person.getPk(), "0", "");
+    	
         return "OK";
     }
 
-	private Guest insertIntoTGuest(String uuid) throws IOException {
+	private Guest getEventIdFromUuid(String uuid) throws IOException {
 		return readResource(path("guest", uuid), GUEST);
 	}
 
@@ -127,11 +119,12 @@ public class DelegationResource {
      * @param username String
      * @param vorname String
      */
-    private void insertIntoTPerson(String nachname, String username,
-    		String vorname) {
-    	WebResource r = client.resource(config.getVerawebEndpoint() + "/rest/person/");
-    	r = r.queryParam("username", username).queryParam("firstname", vorname).queryParam("lastname", nachname);
+    private Person insertIntoTPerson(String nachname, String vorname) {
+    	WebResource r = client.resource(config.getVerawebEndpoint() + "/rest/person/create/");
+    	r = r.queryParam("firstname", vorname).queryParam("lastname", nachname);
     	Person person = r.post(Person.class);
+    	
+    	return person;
     } 
     
     /**
@@ -141,11 +134,14 @@ public class DelegationResource {
      * @param userId
      * @param invitationstatus
      * @param notehost
+     * @throws IOException 
+     * @throws JsonMappingException 
+     * @throws JsonParseException 
      */
-    private void insertPersonIntoEvent(int eventId, int userId, String invitationstatus, String notehost){
+    private Guest insertPersonIntoEvent(int eventId, int userId, String invitationstatus, String notehost) throws JsonParseException, JsonMappingException, IOException {
     	WebResource r = client.resource(path("guest", eventId, userId));
         String result = r.queryParam("invitationstatus", invitationstatus).queryParam("notehost", notehost).post(String.class);
-//        return mapper.readValue(result, GUEST);
+        return mapper.readValue(result, GUEST);
         
     }
 
