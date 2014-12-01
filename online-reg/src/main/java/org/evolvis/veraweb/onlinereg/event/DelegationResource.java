@@ -102,14 +102,10 @@ public class DelegationResource {
      * @param vorname First name
      */
     private Integer insertIntoTPerson(String nachname, String vorname) {
-    	WebResource r = client.resource(config.getVerawebEndpoint() + "/rest/person/");
-    	r = r.queryParam("username", "").queryParam("firstname", vorname).queryParam("lastname", nachname);
-    	Person person = null;
-    	try {
-    	person = r.post(Person.class);
-    	}catch (Exception e) {
-    		System.out.println("");
-    	}
+        WebResource r = client.resource(config.getVerawebEndpoint() + "/rest/person/");
+        r = r.queryParam("username", "").queryParam("firstname", vorname).queryParam("lastname", nachname);
+        Person person = r.post(Person.class);
+
     	
     	return person.getPk();
     } 
