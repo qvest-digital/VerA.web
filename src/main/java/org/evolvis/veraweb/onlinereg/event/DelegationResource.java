@@ -81,7 +81,11 @@ public class DelegationResource {
     	
     	// Assing person to event as guest
     	Guest guest = getEventIdFromUuid(uuid);
-    	insertPersonIntoEvent(guest.getFk_event(), personId, "0", "");
+    	
+    	if (guest==null) {
+    		return "NO_EVENT_DATA";
+    	}
+//    	insertPersonIntoEvent(guest.getFk_event(), personId, "0", "");
     	
         return "OK";
     }
