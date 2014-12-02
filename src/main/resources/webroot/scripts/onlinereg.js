@@ -70,6 +70,9 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 		            } else if (result === 'INVALID_USERNAME') {
 		                $scope.register_error = "Der Benutzername darf nur Buchstaben und Zahlen enthalten.";
 
+		            } else if (result === 'NO_EVENT_DATA') {
+		                $scope.register_error = "Der Veranstaltung existiert nicht";
+
 		            } else if (result === 'OK') {
 		                $scope.success = "Delegiertdaten wurden gespeichert.";
 
