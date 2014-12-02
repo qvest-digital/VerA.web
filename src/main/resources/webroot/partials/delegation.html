@@ -9,20 +9,17 @@ Bereits angemeldet:
 			<div ng-if="success" class="alert alert-success" role="alert">{{success}}</div>
 		    <div ng-if="error" class="alert alert-danger" role="alert">{{error}}</div>
 		    
-            <div class="col-xs-5">
-                <label for="gender" class="col-lg-4 control-label">Gender:</label>
-                    <div class="col-lg-4">
-                        <select class="form-control" id="gender" ng-model="gender"
-                                ng-options="a.label for a in genderOptions">
-                        </select>
-                    </div>
+            <div class="col-xs-2">
+                   <select class="form-control" id="gender" ng-model="gender"
+                           ng-options="a.label for a in genderOptions">
+                   </select>
             </div>
             
-            <div class="col-xs-5">
+            <div class="col-xs-2">
                 <input type="text" class="form-control" id="vorname" placeholder="Vorname" ng-model="vorname">
             </div>
 			
-            <div class="col-xs-5">
+            <div class="col-xs-2">
                 <input type="text" class="form-control" id="nachname" placeholder="Nachname" ng-model="nachname">
             </div>
 
