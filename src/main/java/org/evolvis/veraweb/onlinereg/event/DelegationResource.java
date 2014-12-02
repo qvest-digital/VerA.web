@@ -22,6 +22,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import java.io.IOException;
 import java.net.SocketTimeoutException;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -79,8 +80,8 @@ public class DelegationResource {
     	Integer personId = insertIntoTPerson(nachname, vorname);
     	
     	// Assing person to event as guest
-//    	Guest guest = getEventIdFromUuid(uuid);
-//    	insertPersonIntoEvent(guest.getFk_event(), personId, "0", "");
+    	Guest guest = getEventIdFromUuid(uuid);
+    	insertPersonIntoEvent(guest.getFk_event(), personId, "0", "");
     	
         return "OK";
     }
@@ -102,9 +103,8 @@ public class DelegationResource {
      */
     private Integer insertIntoTPerson(String nachname, String vorname) {
         WebResource r = client.resource(config.getVerawebEndpoint() + "/rest/person/");
-        r = r.queryParam("username", "delegiert").queryParam("firstname", vorname).queryParam("lastname", nachname);
+        r = r.queryParam("username", usernameGenerator()).queryParam("firstname", vorname).queryParam("lastname", nachname);
         Person person = r.post(Person.class);
-
     	
     	return person.getPk();
     } 
@@ -171,6 +171,15 @@ public class DelegationResource {
             r += "/" + p;
         }
         return r;
+    }
+    
+    private String usernameGenerator() {
+    	StringBuilder sb = new StringBuilder();
+    	sb.append("deleg");
+    	Date current = new Date();
+    	sb.append(current.getTime());
+    	
+    	return sb.toString();
     }
     
 }
