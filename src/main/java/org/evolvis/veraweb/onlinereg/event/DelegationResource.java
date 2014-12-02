@@ -47,6 +47,16 @@ public class DelegationResource {
      * Guest type
      */
     private static final TypeReference<Guest> GUEST = new TypeReference<Guest>() {};
+    
+    /**
+     * Guest type
+     */
+    private static final TypeReference<List<Guest>> GUEST_LIST = new TypeReference<List<Guest>>() {};
+    
+    /**
+     * Guest type
+     */
+    private static final TypeReference<Boolean> BOOLEAN = new TypeReference<Boolean>() {};
 
 	/**
 	 * Default constructor
@@ -76,22 +86,23 @@ public class DelegationResource {
     public String registerDelegateForEvent(@PathParam("uuid") String uuid,@QueryParam("nachname") String nachname,
     		@QueryParam("vorname") String vorname) throws IOException {
 
-        Boolean delegationIsFound = checkForExistingDelegation();
+        Boolean delegationIsFound = checkForExistingDelegation(uuid);
 
         if(delegationIsFound) {
             return handleDelegationFound(uuid, nachname, vorname);
         } else {
-            return handleDelegationNotFound();
+            return "WRONG_DELEGATION";
         }
-
     }
 
-    private String handleDelegationNotFound() {
+    @GET
+    @Path("/{uuid}/remove/{userid}")
+    public List<Guest> removeDelegateFromEvent(@PathParam("uuid") String uuid, @PathParam("userid") Long userid) throws IOException {
         return null;
     }
-
-    private Boolean checkForExistingDelegation() {
-        return null;
+    
+    private Boolean checkForExistingDelegation(String uuid) throws IOException {
+    	return readResource(path("guest","exist", uuid), BOOLEAN);
     }
 
     private String handleDelegationFound(String uuid, String nachname, String vorname) throws IOException {
@@ -104,7 +115,7 @@ public class DelegationResource {
         if (guest==null) {
             return "NO_EVENT_DATA";
         }
-        // insertPersonIntoEvent(guest.getFk_event(), personId, "0", "");
+        addGuestToEvent(uuid, String.valueOf(guest.getFk_event()), String.valueOf(personId), "0", "");
 
         return "OK";
     }
@@ -112,11 +123,7 @@ public class DelegationResource {
     private Guest getEventIdFromUuid(String uuid) throws IOException {
 		return readResource(path("guest", uuid), GUEST);
 	}
-	@GET
-    @Path("/{uuid}/remove/{userid}")
-    public List<Guest> removeDelegateFromEvent(@PathParam("uuid") String uuid, @PathParam("userid") Long userid) throws IOException {
-        return null;
-    }
+	
 
     /**
      * Includes a new person in the database - Table "tperson"
@@ -143,11 +150,15 @@ public class DelegationResource {
      * @throws JsonMappingException 
      * @throws JsonParseException 
      */
-    private Guest insertPersonIntoEvent(int eventId, int userId, String invitationstatus, String notehost)
+    private Guest addGuestToEvent(String uuid, String eventId, String userId, String invitationstatus, String notehost)
             throws IOException {
-    	WebResource r = client.resource(path("guest", eventId, userId));
-        String result = r.queryParam("invitationstatus", invitationstatus).queryParam("notehost", notehost).post(String.class);
-        return mapper.readValue(result, GUEST);
+    	WebResource r = client.resource(path("guest", uuid, "einladen"));
+        r = r.queryParam("eventId", eventId)
+        	 .queryParam("userId", userId)
+        	 .queryParam("invitationstatus", invitationstatus);
+        Guest guest = r.post(Guest.class);
+        		
+        return guest;
     }
 
     /**
