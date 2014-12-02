@@ -48,8 +48,19 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 		$scope.setNextPage('delegation/' + $routeParams.uuid);
 		$location.path('/login');
 	} else {
+		$scope.genderOptions = [
+	        {id: 0, label: "Bitte wählen"},
+	        {id: 1, label: "Herr"},
+	        {id: 2, label: "Frau"}
+	    ];
+		
+		$scope.gender = $scope.genderOptions[0];
 		
 		 $scope.register_user = function () {
+			 if ($scope.gender.id == 0) {
+				 $scope.error = "Bitte wählen der Gender Feld";
+			 }
+			 else if ($scope.gender.id == 1 || $scope.gender.id == 2){
 			 	var ERROR_TEXT = "Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.";
 		        $scope.button = true;
 		        console.log("registering delegierten in the event.");
@@ -58,11 +69,13 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 		            url: 'api/delegation/' + $routeParams.uuid + '/register',
 		            params: {
 		            	nachname: $scope.nachname,
-		                vorname: $scope.vorname
+		                vorname: $scope.vorname,
+		                gender: $scope.gender.label
 		            }
 		        }).success(function (result) {
 		            $scope.success = null;
 		            $scope.error = null;
+		            
 
 		            if (result === 'USER_EXISTS') {
 		                $scope.error = "Ein Benutzer mit diesem Benutzernamen existiert bereits.";
@@ -74,7 +87,7 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 		                $scope.error = "Der Veranstaltung existiert nicht";
 
 		            }  else if (result === 'WRONG_DELEGATION') {
-		                $scope.error = "TEST";
+		                $scope.error = "Die Delegation existiert nicht";
 
 		            } else if (result === 'OK') {
 		                $scope.success = "Delegiertdaten wurden gespeichert.";
@@ -88,6 +101,7 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 		            $scope.error = ERROR_TEXT;
 		            $scope.button = false;
 		        });
+			 }
 		    }
 		
 	}
