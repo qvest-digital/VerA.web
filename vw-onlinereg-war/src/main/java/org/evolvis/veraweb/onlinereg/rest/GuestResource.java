@@ -58,7 +58,6 @@ public class GuestResource extends AbstractResource{
         } finally {
             session.close();
         }
-
     }
     
     @GET
@@ -68,7 +67,8 @@ public class GuestResource extends AbstractResource{
         try {
             Query query = session.getNamedQuery("Guest.findEventIdByDelegation");
             query.setString("uuid", uuid);
-            return (Guest) query.uniqueResult();
+            Guest guest = (Guest) query.uniqueResult();
+            return guest;
         } finally {
             session.close();
         }
