@@ -25,13 +25,14 @@
         <osiam-scim-schema.version>1.0</osiam-scim-schema.version>
         <lombok.version>1.14.4</lombok.version>
         <junit.version>4.11</junit.version>
+        <postgresql.version>9.3-1101-jdbc41</postgresql.version>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>org.evolvis.veraweb.onlinereg</groupId>
             <artifactId>vw-onlinereg-common</artifactId>
-            <version>1.5.0-SNAPSHOT</version>
+            <version>${project.version}</version>
         </dependency>
 
         <dependency>
@@ -66,7 +67,7 @@
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
-            <version>9.3-1101-jdbc41</version>
+            <version>${postgresql.version}</version>
         </dependency>
 
         <!-- @Data,Getter,Setter annotations -->
