@@ -84,12 +84,12 @@ public class DelegationResource {
     @POST
     @Path("/{uuid}/register")
     public String registerDelegateForEvent(@PathParam("uuid") String uuid,@QueryParam("nachname") String nachname,
-    		@QueryParam("vorname") String vorname) throws IOException {
+    		@QueryParam("vorname") String vorname, @QueryParam("gender") String gender) throws IOException {
 
         Boolean delegationIsFound = checkForExistingDelegation(uuid);
 
         if(delegationIsFound) {
-            return handleDelegationFound(uuid, nachname, vorname);
+            return handleDelegationFound(uuid, nachname, vorname, gender);
         } else {
             return "WRONG_DELEGATION";
         }
@@ -105,7 +105,7 @@ public class DelegationResource {
     	return readResource(path("guest","exist", uuid), BOOLEAN);
     }
 
-    private String handleDelegationFound(String uuid, String nachname, String vorname) throws IOException {
+    private String handleDelegationFound(String uuid, String nachname, String vorname, String gender) throws IOException {
         // Store in tperson
         Integer personId = createPerson(nachname, vorname);
 
@@ -115,7 +115,7 @@ public class DelegationResource {
         if (guest==null) {
             return "NO_EVENT_DATA";
         }
-        addGuestToEvent(uuid, String.valueOf(guest.getFk_event()), String.valueOf(personId), "0", "");
+        addGuestToEvent(uuid, String.valueOf(guest.getFk_event()), String.valueOf(personId), "0", "", gender);
 
         return "OK";
     }
@@ -150,12 +150,13 @@ public class DelegationResource {
      * @throws JsonMappingException 
      * @throws JsonParseException 
      */
-    private Guest addGuestToEvent(String uuid, String eventId, String userId, String invitationstatus, String notehost)
+    private Guest addGuestToEvent(String uuid, String eventId, String userId, String invitationstatus, String notehost, String gender)
             throws IOException {
     	WebResource r = client.resource(path("guest", uuid, "einladen"));
         r = r.queryParam("eventId", eventId)
         	 .queryParam("userId", userId)
-        	 .queryParam("invitationstatus", invitationstatus);
+        	 .queryParam("invitationstatus", invitationstatus)
+        	 .queryParam("gender", gender);
         Guest guest = r.post(Guest.class);
         		
         return guest;
