@@ -62,27 +62,30 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 		            }
 		        }).success(function (result) {
 		            $scope.success = null;
-		            $scope.register_error = null;
+		            $scope.error = null;
 
 		            if (result === 'USER_EXISTS') {
-		                $scope.register_error = "Ein Benutzer mit diesem Benutzernamen existiert bereits.";
+		                $scope.error = "Ein Benutzer mit diesem Benutzernamen existiert bereits.";
 
 		            } else if (result === 'INVALID_USERNAME') {
-		                $scope.register_error = "Der Benutzername darf nur Buchstaben und Zahlen enthalten.";
+		                $scope.error = "Der Benutzername darf nur Buchstaben und Zahlen enthalten.";
 
 		            } else if (result === 'NO_EVENT_DATA') {
-		                $scope.register_error = "Der Veranstaltung existiert nicht";
+		                $scope.error = "Der Veranstaltung existiert nicht";
+
+		            }  else if (result === 'WRONG_DELEGATION') {
+		                $scope.error = "TEST";
 
 		            } else if (result === 'OK') {
 		                $scope.success = "Delegiertdaten wurden gespeichert.";
 
 		            } else {
-		                $scope.register_error = ERROR_TEXT;
+		                $scope.error = ERROR_TEXT;
 		            }
 		            $scope.button = false;
 
 		        }).error(function (data, status, headers, config) {
-		            $scope.register_error = ERROR_TEXT;
+		            $scope.error = ERROR_TEXT;
 		            $scope.button = false;
 		        });
 		    }
