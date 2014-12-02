@@ -3,6 +3,8 @@ package org.evolvis.veraweb.onlinereg.entities;
 import lombok.Data;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedNativeQueries;
 import javax.persistence.NamedNativeQuery;
@@ -20,7 +22,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "tguest")
 @NamedQueries({
         @NamedQuery(name = "Guest.findByEventAndUser", query = "SELECT g FROM Guest g where fk_event = :eventId and fk_person = :userId"),
-        @NamedQuery(name = "Guest.findEventIdByDelegation", query ="SELECT g FROM Guest g WHERE  delegation=:uuid "),
 })
 @NamedNativeQueries({
     @NamedNativeQuery(name="Event.list.userevents", query = "SELECT e.* FROM tevent e " +
@@ -28,15 +29,18 @@ import javax.xml.bind.annotation.XmlRootElement;
             "JOIN tperson tp on g.fk_person = tp.pk " +
             "WHERE (CURRENT_TIMESTAMP < e.datebegin OR CURRENT_TIMESTAMP < e.dateend) " +
             "AND tp.pk = :fk_person", resultClass=Event.class),
-
     @NamedNativeQuery(name="Guest.guestByUuid", query = "SELECT count(g.*) FROM tguest g " +
     		"LEFT JOIN tperson on tperson.pk=g.fk_person " +
-    		"WHERE delegation=:uuid AND tperson.iscompany='t'")
+    		"WHERE delegation=:uuid AND tperson.iscompany='t'"),
+	@NamedNativeQuery(name = "Guest.findEventIdByDelegation", query ="SELECT g.* FROM tguest g  " +
+    		"LEFT JOIN tperson on tperson.pk=g.fk_person " +
+    		"WHERE delegation=:uuid AND tperson.iscompany='t'", resultClass=Guest.class)
 
 })
 public class Guest {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int pk;
     private int fk_event;
     private int fk_person;
