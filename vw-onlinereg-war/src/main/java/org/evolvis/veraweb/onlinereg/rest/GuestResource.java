@@ -94,10 +94,11 @@ public class GuestResource extends AbstractResource{
     
     @POST
     @Path("/{uuid}/einladen")
-    public Guest addGuestToEvent(@PathParam("uuid") String uuid, @QueryParam("eventId") String eventId, @QueryParam("userId") String userId, @QueryParam("invitationstatus") String invitationstatus) {
+    public Guest addGuestToEvent(@PathParam("uuid") String uuid, @QueryParam("eventId") String eventId, @QueryParam("userId") String userId,
+    		@QueryParam("invitationstatus") String invitationstatus, @QueryParam("gender") String gender) {
 		Session session = openSession();
 		try { 
-			Guest g = initGuest(uuid,eventId, userId, invitationstatus);
+			Guest g = initGuest(uuid,eventId, userId, invitationstatus, gender);
 			session.save(g);
 			session.flush();
 			     
@@ -110,15 +111,21 @@ public class GuestResource extends AbstractResource{
     /**
      * Initialize guest with event information 
      */
-    private Guest initGuest(String uuid, String eventId, String userId, String invitationstatus) {
+    private Guest initGuest(String uuid, String eventId, String userId, String invitationstatus, String gender) {
         Guest g = new Guest();
         g.setDelegation(uuid);
         g.setFk_person(Integer.parseInt(userId));
         g.setFk_event(Integer.parseInt(eventId));
         g.setInvitationstatus(Integer.parseInt(invitationstatus));
         g.setNotehost("");
-    	g.setGender("m");
-    	g.setGender_p("m");
+        if (gender.equalsIgnoreCase("Herr")) {
+        	g.setGender("m");
+        	g.setGender_p("m");
+        }
+        else {
+        	g.setGender("w");
+        	g.setGender_p("w");
+        }
     	
     	return g;
     }
