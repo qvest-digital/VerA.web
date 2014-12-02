@@ -20,14 +20,18 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "tguest")
 @NamedQueries({
         @NamedQuery(name = "Guest.findByEventAndUser", query = "SELECT g FROM Guest g where fk_event = :eventId and fk_person = :userId"),
-        @NamedQuery(name = "Guest.findEventIdByDelegation", query ="SELECT g FROM Guest g WHERE  delegation=:uuid ")
+        @NamedQuery(name = "Guest.findEventIdByDelegation", query ="SELECT g FROM Guest g WHERE  delegation=:uuid "),
 })
 @NamedNativeQueries({
-        @NamedNativeQuery(name="Event.list.userevents", query = "SELECT e.* FROM tevent e " +
-                "JOIN tguest g on g.fk_event = e.pk " +
-                "JOIN tperson tp on g.fk_person = tp.pk " +
-                "WHERE (CURRENT_TIMESTAMP < e.datebegin OR CURRENT_TIMESTAMP < e.dateend) " +
-                "AND tp.pk = :fk_person", resultClass=Event.class)
+    @NamedNativeQuery(name="Event.list.userevents", query = "SELECT e.* FROM tevent e " +
+            "JOIN tguest g on g.fk_event = e.pk " +
+            "JOIN tperson tp on g.fk_person = tp.pk " +
+            "WHERE (CURRENT_TIMESTAMP < e.datebegin OR CURRENT_TIMESTAMP < e.dateend) " +
+            "AND tp.pk = :fk_person", resultClass=Event.class),
+
+    @NamedNativeQuery(name="Guest.guestByUuid", query = "SELECT count(g.*) FROM tguest g " +
+    		"LEFT JOIN tperson on tperson.pk=g.fk_person " +
+    		"WHERE delegation=:uuid AND tperson.iscompany='t'")
 
 })
 public class Guest {
