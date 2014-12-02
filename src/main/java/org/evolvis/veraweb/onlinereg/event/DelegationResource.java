@@ -75,22 +75,41 @@ public class DelegationResource {
     @Path("/{uuid}/register")
     public String registerDelegateForEvent(@PathParam("uuid") String uuid,@QueryParam("nachname") String nachname,
     		@QueryParam("vorname") String vorname) throws IOException {
-    	
-    	// Store in tperson
-    	Integer personId = insertIntoTPerson(nachname, vorname);
-    	
-    	// Assing person to event as guest
-    	Guest guest = getEventIdFromUuid(uuid);
-    	
-    	if (guest==null) {
-    		return "NO_EVENT_DATA";
-    	}
-//    	insertPersonIntoEvent(guest.getFk_event(), personId, "0", "");
-    	
+
+        Boolean delegationIsFound = checkForExistingDelegation();
+
+        if(delegationIsFound) {
+            return handleDelegationFound(uuid, nachname, vorname);
+        } else {
+            return handleDelegationNotFound();
+        }
+
+    }
+
+    private String handleDelegationNotFound() {
+        return null;
+    }
+
+    private Boolean checkForExistingDelegation() {
+        return null;
+    }
+
+    private String handleDelegationFound(String uuid, String nachname, String vorname) throws IOException {
+        // Store in tperson
+        Integer personId = createPerson(nachname, vorname);
+
+        // Assing person to event as guest
+        Guest guest = getEventIdFromUuid(uuid);
+
+        if (guest==null) {
+            return "NO_EVENT_DATA";
+        }
+        // insertPersonIntoEvent(guest.getFk_event(), personId, "0", "");
+
         return "OK";
     }
 
-	private Guest getEventIdFromUuid(String uuid) throws IOException {
+    private Guest getEventIdFromUuid(String uuid) throws IOException {
 		return readResource(path("guest", uuid), GUEST);
 	}
 	@GET
@@ -105,11 +124,11 @@ public class DelegationResource {
      * @param nachname Last name
      * @param vorname First name
      */
-    private Integer insertIntoTPerson(String nachname, String vorname) {
+    private Integer createPerson(String nachname, String vorname) {
         WebResource r = client.resource(config.getVerawebEndpoint() + "/rest/person/");
         r = r.queryParam("username", usernameGenerator()).queryParam("firstname", vorname).queryParam("lastname", nachname);
         Person person = r.post(Person.class);
-    	
+
     	return person.getPk();
     } 
     
