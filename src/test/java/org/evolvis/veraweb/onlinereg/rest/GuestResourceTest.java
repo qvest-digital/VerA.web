@@ -22,7 +22,7 @@ public class GuestResourceTest extends AbstractResourceTest<GuestResource>{
         Session session = sessionFactory.openSession();
 
         Guest guest = new Guest();
-        guest.setPk(1);
+//        guest.setPk(1);
         guest.setFk_event(1);
         guest.setFk_person(1);
         guest.setNotehost("note");
