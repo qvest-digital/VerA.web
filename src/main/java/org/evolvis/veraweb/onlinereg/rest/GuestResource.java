@@ -1,8 +1,10 @@
 package org.evolvis.veraweb.onlinereg.rest;
 
 import java.math.BigInteger;
+import java.util.List;
 
 import org.evolvis.veraweb.onlinereg.entities.Guest;
+import org.evolvis.veraweb.onlinereg.entities.Person;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -59,7 +61,7 @@ public class GuestResource extends AbstractResource{
             session.close();
         }
     }
-    
+
     @GET
     @Path("/{uuid}")
     public Guest findEventIdByDelegation(@PathParam("uuid") String uuid) {
@@ -73,4 +75,53 @@ public class GuestResource extends AbstractResource{
             session.close();
         }
     }
+    @GET
+    @Path("/exist/{uuid}")
+    public Boolean existEventIdByDelegation(@PathParam("uuid") String uuid) {
+    	Session session = openSession();
+        try {
+            Query query = session.getNamedQuery("Guest.guestByUuid");
+            query.setString("uuid", uuid);
+            BigInteger numberFoundDelegations = (BigInteger) query.uniqueResult();
+            if(numberFoundDelegations.intValue() == 1) {
+            	return true;
+            }
+            return false;
+        } finally {
+            session.close();
+        }
+    }
+    
+    @POST
+    @Path("/{uuid}/einladen")
+    public Guest addGuestToEvent(@PathParam("uuid") String uuid, @QueryParam("eventId") String eventId, @QueryParam("userId") String userId, @QueryParam("invitationstatus") String invitationstatus) {
+		Session session = openSession();
+		try { 
+			Guest g = initGuest(uuid,eventId, userId, invitationstatus);
+			session.save(g);
+			session.flush();
+			     
+			return g;
+		} finally {
+			session.close();
+		}
+    }
+    
+    /**
+     * Initialize guest with event information 
+     */
+    private Guest initGuest(String uuid, String eventId, String userId, String invitationstatus) {
+        Guest g = new Guest();
+        g.setDelegation(uuid);
+        g.setFk_person(Integer.parseInt(userId));
+        g.setFk_event(Integer.parseInt(eventId));
+        g.setInvitationstatus(Integer.parseInt(invitationstatus));
+        g.setNotehost("");
+    	g.setGender("m");
+    	g.setGender_p("m");
+    	
+    	return g;
+    }
+    
+    
 }
