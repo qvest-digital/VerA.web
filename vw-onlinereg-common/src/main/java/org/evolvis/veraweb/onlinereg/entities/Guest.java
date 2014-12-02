@@ -27,7 +27,9 @@ import javax.xml.bind.annotation.XmlRootElement;
                 "JOIN tguest g on g.fk_event = e.pk " +
                 "JOIN tperson tp on g.fk_person = tp.pk " +
                 "WHERE (CURRENT_TIMESTAMP < e.datebegin OR CURRENT_TIMESTAMP < e.dateend) " +
-                "AND tp.pk = :fk_person", resultClass=Event.class)})
+                "AND tp.pk = :fk_person", resultClass=Event.class)
+
+})
 public class Guest {
 
     @Id
