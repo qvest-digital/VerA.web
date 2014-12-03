@@ -13,6 +13,7 @@ import lombok.Getter;
 
 import org.evolvis.veraweb.onlinereg.event.DelegationResource;
 import org.evolvis.veraweb.onlinereg.event.EventResource;
+import org.evolvis.veraweb.onlinereg.event.MediaResource;
 import org.evolvis.veraweb.onlinereg.event.UserResource;
 import org.evolvis.veraweb.onlinereg.user.LoginResource;
 
@@ -37,6 +38,7 @@ public class Main extends Application<Config> {
     private UserResource userResource;
     private LoginResource loginResource;
     private DelegationResource delegationResource;
+    private MediaResource mediaResource;
     private Health health;
 
     @Override
@@ -72,6 +74,7 @@ public class Main extends Application<Config> {
         environment.jersey().register(userResource = new UserResource(configuration, client));
         environment.jersey().register(loginResource = new LoginResource(configuration, client)); 
         environment.jersey().register(delegationResource = new DelegationResource(configuration, client)); 
+        environment.jersey().register(mediaResource = new MediaResource(configuration, client)); 
 
     }
 
