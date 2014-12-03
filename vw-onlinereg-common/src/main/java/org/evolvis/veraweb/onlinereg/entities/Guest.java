@@ -21,8 +21,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @Table(name = "tguest")
 @NamedQueries({
-    @NamedQuery(name = "Guest.findByEventAndUser", query = "SELECT g FROM Guest g where fk_event = :eventId and fk_person = :userId"),
-    @NamedQuery(name = "Guest.findByDelegationId", query = "SELECT g FROM Guest g where delegation = :delegationId")
+    @NamedQuery(name = "Guest.findByEventAndUser", query = "SELECT g FROM Guest g where fk_event = :eventId and fk_person = :userId")
 })
 @NamedNativeQueries({
     @NamedNativeQuery(name="Event.list.userevents", query = "SELECT e.* FROM tevent e " +
@@ -30,7 +29,7 @@ import javax.xml.bind.annotation.XmlRootElement;
             "JOIN tperson tp on g.fk_person = tp.pk " +
             "WHERE (CURRENT_TIMESTAMP < e.datebegin OR CURRENT_TIMESTAMP < e.dateend) " +
             "AND tp.pk = :fk_person", resultClass=Event.class),
-    @NamedNativeQuery(name="Guest.guestByUuid", query = "SELECT count(g.*) FROM tguest g " +
+    @NamedNativeQuery(name="Guest.guestByUUID", query = "SELECT count(g.*) FROM tguest g " +
     		"LEFT JOIN tperson on tperson.pk=g.fk_person " +
     		"WHERE delegation=:uuid AND tperson.iscompany='t'"),
 	@NamedNativeQuery(name = "Guest.findEventIdByDelegationUUID", query ="SELECT g.* FROM tguest g  " +
