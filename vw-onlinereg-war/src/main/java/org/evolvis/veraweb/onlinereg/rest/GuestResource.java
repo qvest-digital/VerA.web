@@ -40,20 +40,6 @@ public class GuestResource extends AbstractResource{
         }
     }
     
-    @GET
-    @Path("delegated/{delegationId}")
-    public ArrayList<Guest> getGuestsByDelegation(@PathParam("delegationId") String delegationId) {
-        Session session = openSession();
-        
-        try {
-            Query query = session.getNamedQuery("Guest.findByDelegationId");
-            query.setString("delegationId", delegationId);
-            return (ArrayList<Guest>) query.uniqueResult();
-        } finally {
-            session.close();
-        }
-    }
-
     @POST
     @Path("/{eventId}/{userId}")
     public Guest saveGuest(@PathParam("eventId") int eventId, @PathParam("userId") int userId, @QueryParam("invitationstatus") int invitationstatus, @QueryParam("notehost") String notehost) {
@@ -94,7 +80,7 @@ public class GuestResource extends AbstractResource{
     public Boolean existEventIdByDelegation(@PathParam("uuid") String uuid) {
     	Session session = openSession();
         try {
-            Query query = session.getNamedQuery("Guest.guestByUuid");
+            Query query = session.getNamedQuery("Guest.guestByUUID");
             query.setString("uuid", uuid);
             BigInteger numberFoundDelegations = (BigInteger) query.uniqueResult();
             if(numberFoundDelegations.intValue() == 1) {
@@ -121,6 +107,7 @@ public class GuestResource extends AbstractResource{
 			session.close();
 		}
     }
+    
     
     /**
      * Initialize guest with event information 
