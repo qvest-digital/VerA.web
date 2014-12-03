@@ -42,6 +42,14 @@ public class DelegationResource {
      * Base path of all resources.
      */
     private static final String BASE_RESOURCE = "/rest";
+
+    /**
+     * Invitation type:
+     *  1 - main person and partner are invited
+     *  2 - only main person is invited
+     *  3 - only partner is invited
+     */
+    private static final String INVITATION_TYPE = "2";
     private static final TypeReference<Guest> GUEST = new TypeReference<Guest>() {};
     private static final TypeReference<Boolean> BOOLEAN = new TypeReference<Boolean>() {};
     private static final TypeReference<List<Person>> GUEST_LIST = new TypeReference<List<Person>>() {};
@@ -141,9 +149,10 @@ public class DelegationResource {
      */
     private void addGuestToEvent(String uuid, String eventId, String userId, String gender) {
     	WebResource resource = client.resource(path("guest", uuid, "register"));
+
         resource = resource.queryParam("eventId", eventId)
         	 .queryParam("userId", userId)
-        	 .queryParam("invitationstatus", "0")
+        	 .queryParam("invitationstatus", INVITATION_TYPE)
         	 .queryParam("gender", gender);
 
         resource.post(Guest.class);
