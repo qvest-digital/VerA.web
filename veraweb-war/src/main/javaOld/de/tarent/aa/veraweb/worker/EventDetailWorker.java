@@ -25,6 +25,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 import java.util.UUID;
 
 import de.tarent.aa.veraweb.beans.Doctype;
@@ -35,6 +36,8 @@ import de.tarent.aa.veraweb.beans.Person;
 import de.tarent.aa.veraweb.beans.Task;
 import de.tarent.aa.veraweb.beans.facade.EventConstants;
 import de.tarent.aa.veraweb.utils.DateHelper;
+import de.tarent.aa.veraweb.utils.PropertiesReader;
+import de.tarent.aa.veraweb.utils.URLGenerator;
 import de.tarent.dblayer.sql.SQL;
 import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.clause.Where;
@@ -83,8 +86,17 @@ public class EventDetailWorker {
 		Event event = getEvent(cntx, id);
 		if (event != null) {
 			cntx.setContent("event", event);
+            setUrlForMediaRepresentatives(cntx, event);
 		}
 	}
+
+    private void setUrlForMediaRepresentatives(OctopusContext cntx, Event event) throws IOException {
+        PropertiesReader propertiesReader = new PropertiesReader();
+        Properties properties = propertiesReader.getProperties();
+        URLGenerator url = new URLGenerator(properties);
+        url.getURLForMediaRepresentatives(event.id);
+        cntx.setContent("pressevertreterUrl", url.getURLForMediaRepresentatives(event.id) + "blaaa");
+    }
 
     /** Eingabe-Parameter der Octopus-Aktion {@link #saveDetail(OctopusContext, Boolean)} */
 	public static final String INPUT_saveDetail[] = { "saveevent" };
@@ -288,6 +300,7 @@ public class EventDetailWorker {
                 cntx.setStatus("notsaved");
             }
 
+            setUrlForMediaRepresentatives(cntx, event);
             cntx.setContent("event", event);
 			cntx.setContent("event-beginhastime", Boolean.valueOf(DateHelper.isTimeInDate(event.begin)));
 			cntx.setContent("event-endhastime", Boolean.valueOf(DateHelper.isTimeInDate(event.end)));
