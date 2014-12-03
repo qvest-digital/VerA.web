@@ -94,11 +94,15 @@ public class GuestResource extends AbstractResource{
     
     @POST
     @Path("/{uuid}/register")
-    public Guest addGuestToEvent(@PathParam("uuid") String uuid, @QueryParam("eventId") String eventId, @QueryParam("userId") String userId,
-    		@QueryParam("invitationstatus") String invitationstatus, @QueryParam("gender") String gender) {
+    public Guest addGuestToEvent(@PathParam("uuid") String uuid,
+                                @QueryParam("eventId") Integer eventId,
+                                @QueryParam("userId") Integer userId,
+                                @QueryParam("invitationstatus") Integer invitationstatus,
+                                @QueryParam("invitationtype") Integer invitationtype,
+                                @QueryParam("gender") String gender) {
 		Session session = openSession();
 		try { 
-			Guest guest = initGuest(uuid,eventId, userId, invitationstatus, gender);
+			Guest guest = initGuest(uuid,eventId, userId, invitationstatus, invitationtype, gender);
             session.save(guest);
 			session.flush();
 			     
@@ -112,13 +116,14 @@ public class GuestResource extends AbstractResource{
     /**
      * Initialize guest with event information 
      */
-    private Guest initGuest(String uuid, String eventId, String userId, String invitationstatus, String gender) {
+    private Guest initGuest(String uuid, Integer eventId, Integer userId, Integer invitationstatus, Integer invitationtype, String gender) {
         Guest guest = new Guest();
         guest.setDelegation(uuid);
-        guest.setFk_person(Integer.parseInt(userId));
-        guest.setFk_event(Integer.parseInt(eventId));
-        guest.setInvitationstatus(Integer.parseInt(invitationstatus));
+        guest.setFk_person(userId);
+        guest.setFk_event(eventId);
+        guest.setInvitationstatus(invitationstatus);
         guest.setNotehost("");
+        guest.setInvitationtype(invitationtype);
         setGender(gender, guest);
 
         return guest;
