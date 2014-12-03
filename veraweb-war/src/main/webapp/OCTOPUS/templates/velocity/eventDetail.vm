@@ -270,15 +270,13 @@
     						<div class="tableRow">
                                 <div class="tableCell width50">
                                     <strong>URL für Pressevertreter:</strong><br/>
-                                    #if($event && $event.mediarepresentatives != "")
-                                        $event.mediarepresentatives
-                                    #end
                                 </div>
 
                                 <div class="tableCell width50 inlineLabel">
                                     <label for="event-open">Anmeldung von Pressevertretern möglich</label>
-                                    <input type="checkbox"  onchange="setModified();" class="noFloat" id="event-media-representatives" name="event-media-representatives"
-                                        #if($event && $event.mediarepresentatives != "")
+                                	<!-- DEBUG $event.mediarepresentatives -->
+                                    <input type="checkbox"  onchange="setModified();" class="noFloat" id="event-mediarepresentatives" name="event-mediarepresentatives"
+                                        #if($event && $event.mediarepresentatives && $event.mediarepresentatives != "f")
                                             checked
                                         #end
                                     >
