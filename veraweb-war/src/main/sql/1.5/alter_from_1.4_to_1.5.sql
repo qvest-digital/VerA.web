@@ -12,7 +12,7 @@ alter table tguest add column delegation varchar(255);
 alter table tguest add column osiam_login varchar(255);
 
 /* ---------------------------------------------------------------------- */
-/* Trigger for link mandant with categorie                                */
+/* Trigger for link mandant with categories                               */
 /* ---------------------------------------------------------------------- */
 CREATE FUNCTION linkOrgUnitWithCategorie()
         RETURNS TRIGGER AS $BODY$
@@ -46,6 +46,7 @@ $BODY$ LANGUAGE plpgsql;
 
 SELECT migrateOrgUnits();
 DROP FUNCTION migrateOrgUnits();
+
 /* ---------------------------------------------------------------------- */
 /* Update schema version                                                  */
 /* ---------------------------------------------------------------------- */
