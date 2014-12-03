@@ -38,6 +38,7 @@ public class Event {
     private Date datebegin;
     private Date dateend;
     private String eventtype;
+    private String mediarepresentatives;
 
     @ManyToOne
     @JoinColumn(name="fk_location")
