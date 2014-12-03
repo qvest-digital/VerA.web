@@ -1,5 +1,6 @@
 package de.tarent.aa.veraweb.worker;
 
+import de.tarent.aa.veraweb.utils.PropertiesReader;
 import de.tarent.dblayer.engine.DB;
 import de.tarent.dblayer.sql.SQL;
 import de.tarent.dblayer.sql.SyntaxErrorException;
@@ -17,7 +18,6 @@ import org.osiam.client.oauth.AccessToken;
 import org.osiam.client.oauth.Scope;
 import org.osiam.resources.scim.User;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.security.SecureRandom;
 import java.sql.ResultSet;
@@ -40,29 +40,29 @@ public class OSIAMWorker {
 	osiam.server.resource=http://osiam-test.lan.tarent.de:8080/osiam-resource-server/
 	osiam.server.auth=http://osiam-test.lan.tarent.de:8080/osiam-auth-server/
 	 */
-	private static final String PROPERTY_KEY_OSIAM_RESOURCE_SERVER_ENDPOINT = "osiam.server.resource";
-	private static final String PROPERTY_KEY_OSIAM_AUTH_SERVER_ENDPOINT = "osiam.server.auth";
-	private static final String PROPERTY_KEY_CLIENT_REDIRECT_URI = "osiam.client.redirect_uri";
-	private static final String PROPERTY_KEY_CLIENT_SECRET = "osiam.client.secret";
-	private static final String PROPERTY_KEY_CLIENT_ID = "osiam.client.id";
-	
-	private static final String OSIAM_PROPERTY_FILE = "/etc/veraweb/veraweb.properties";
-	private static final int OSIAM_USERNAME_LENGTH = 6;
+	private static final String OSIAM_RESOURCE_SERVER_ENDPOINT = "osiam.server.resource";
+	private static final String OSIAM_AUTH_SERVER_ENDPOINT = "osiam.server.auth";
+	private static final String OSIAM_CLIENT_REDIRECT_URI = "osiam.client.redirect_uri";
+	private static final String OSIAM_CLIENT_SECRET = "osiam.client.secret";
+	private static final String OSIAM_CLIENT_ID = "osiam.client.id";
 
-	public static final String INPUT_createDelegationUsers[] = {};
-	
+    public static final String INPUT_createDelegationUsers[] = {};
+
+    private static final int OSIAM_USERNAME_LENGTH = 6;
+
 	private OsiamConnector connector;
 	private Properties properties;
 
 	public OSIAMWorker() throws IOException {
-		this.loadProperties();
+        final PropertiesReader propertiesReader = new PropertiesReader();
+        this.properties = propertiesReader.getProperties();
 
 		this.connector = new OsiamConnector.Builder()
-				.setClientRedirectUri(this.getProperty(PROPERTY_KEY_CLIENT_REDIRECT_URI))
-				.setClientSecret(this.getProperty(PROPERTY_KEY_CLIENT_SECRET))
-				.setClientId(this.getProperty(PROPERTY_KEY_CLIENT_ID))
-				.setAuthServerEndpoint(this.getProperty(PROPERTY_KEY_OSIAM_AUTH_SERVER_ENDPOINT))
-				.setResourceServerEndpoint(this.getProperty(PROPERTY_KEY_OSIAM_RESOURCE_SERVER_ENDPOINT))
+				.setClientRedirectUri(properties.getProperty(OSIAM_CLIENT_REDIRECT_URI))
+				.setClientSecret(properties.getProperty(OSIAM_CLIENT_SECRET))
+				.setClientId(properties.getProperty(OSIAM_CLIENT_ID))
+				.setAuthServerEndpoint(properties.getProperty(OSIAM_AUTH_SERVER_ENDPOINT))
+				.setResourceServerEndpoint(properties.getProperty(OSIAM_RESOURCE_SERVER_ENDPOINT))
 				.build();
 	}
 
@@ -157,23 +157,5 @@ public class OSIAMWorker {
 		    sb.append( symbols[indexRandom] );
 		}
 		return sb.toString();
-	}
-	
-	private String getProperty(String key) {
-		return this.properties.getProperty(key);
-	}
-	
-	private void loadProperties() throws IOException {
-		final Properties prop = new Properties();
-
-        FileInputStream inputStream = null;
-        try {
-			inputStream = new FileInputStream(OSIAM_PROPERTY_FILE);
-			prop.load(inputStream);
-		} finally {
-			try { inputStream.close(); } catch (Exception e) { }
-		}
-		
-		this.properties = prop;
 	}
 }
