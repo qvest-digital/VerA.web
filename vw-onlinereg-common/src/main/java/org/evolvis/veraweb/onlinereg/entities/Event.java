@@ -29,6 +29,9 @@ import java.util.Date;
         @NamedQuery(name = "AllEvents.list", query = "SELECT e FROM Event e"),
         @NamedQuery(name = "Event.getEvent", query = "SELECT e FROM Event e where e.pk = :pk")
 })
+@NamedNativeQueries({
+	@NamedNativeQuery(name="Event.guestByUUID",query="SELECT count(e.*) FROM tevent e WHERE mediarepresentatives=:uuid ")
+})
 
 public class Event {
 	
