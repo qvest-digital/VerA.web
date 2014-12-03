@@ -1,11 +1,16 @@
 package org.evolvis.veraweb.onlinereg.rest;
 
+import java.util.List;
+
+import org.evolvis.veraweb.onlinereg.entities.Guest;
 import org.evolvis.veraweb.onlinereg.entities.Person;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
@@ -26,6 +31,20 @@ public class PersonResource extends AbstractResource {
         try {
             Person person = handleCreatePerson(username, firstName, lastname, session);
             return person;
+        } finally {
+            session.close();
+        }
+    }
+
+    @GET
+    @Path("/{uuid}")
+    public List<Person> getDelegatesByUUID(@PathParam("uuid") String uuid) {
+    	Session session = openSession();
+        try {
+            Query query = session.getNamedQuery("Person.getDelegatesByUUID");
+            query.setString("uuid", uuid);
+            return (List<Person>) query.list();
+            
         } finally {
             session.close();
         }
