@@ -1,0 +1,65 @@
+<h2>Pressevertreter hinzuf&uuml;gen:</h2>
+<form role="form" id="delegation-form">
+    
+    <div class="form-group container">
+        <div class="row">
+			<div ng-if="success" class="alert alert-success" role="alert">{{success}}</div>
+		    <div ng-if="error" class="alert alert-danger" role="alert">{{error}}</div>
+		    
+            <div class="col-xs-2">
+                   <select class="form-control" id="gender" ng-model="gender"
+                           ng-options="a.label for a in genderOptions">
+                   </select>
+            </div>
+            
+            <div class="col-xs-2">
+                <input type="text" class="form-control" id="firstname" placeholder="Vorname" ng-model="firstname">
+            </div>
+			
+            <div class="col-xs-2">
+                <input type="text" class="form-control" id="lastname" placeholder="Nachname" ng-model="lastname">
+            </div>
+            
+             
+            <div class="col-xs-2">
+                <input type="text" class="form-control" id="email" placeholder="Email" ng-model="email">
+            </div>
+			<div class="col-xs-4">
+			</div>
+            <div class="col-xs-4">
+                <input type="text" class="form-control" id="address" placeholder="Anschrift" ng-model="address">
+            </div>
+            
+             
+            <div class="col-xs-1">
+                <input type="text" class="form-control" id="plz" placeholder="PLZ" ng-model="plz">
+            </div>
+			
+            <div class="col-xs-2">
+                <input type="text" class="form-control" id="city" placeholder="Stadt" ng-model="city">
+            </div>
+
+            <div class="col-xs-2">
+                <input type="text" class="form-control" id="country" placeholder="Land" ng-model="country">
+            </div>
+
+            <div class="col-xs-2">
+                <button type="submit" class="btn btn-custom" ng-click="register_pressevertreter()">Delegierten anmelden</button>
+            </div>
+        </div>
+    </div>
+</form>
+
+<hr/>
+
+<!-- <h2>Bereits angemeldet:</h2> -->
+<!-- <table class="table"> -->
+<!--     <tr class="active"> -->
+<!--         <th>Vorname</th> -->
+<!--         <th>Nachname</th> -->
+<!--     </tr> -->
+<!--     <tr ng-repeat="person in presentPersons"> -->
+<!--         <td>{{person.firstname_a_e1}}</td> -->
+<!--         <td>{{person.lastname_a_e1}}</td> -->
+<!--     </tr> -->
+<!-- </table> -->
