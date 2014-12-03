@@ -39,6 +39,20 @@ public class GuestResource extends AbstractResource{
             session.close();
         }
     }
+    
+    @GET
+    @Path("delegated/{delegationId}")
+    public ArrayList<Guest> getGuestsByDelegation(@PathParam("delegationId") String delegationId) {
+        Session session = openSession();
+        
+        try {
+            Query query = session.getNamedQuery("Guest.findByDelegationId");
+            query.setString("delegationId", delegationId);
+            return (ArrayList<Guest>) query.uniqueResult();
+        } finally {
+            session.close();
+        }
+    }
 
     @POST
     @Path("/{eventId}/{userId}")
