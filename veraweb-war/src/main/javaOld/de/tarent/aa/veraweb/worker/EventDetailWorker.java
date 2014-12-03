@@ -192,9 +192,11 @@ public class EventDetailWorker {
              * modified to support change logging
              * cklein 2008-02-12
              */
-
+            	// Opened Event or not
                 setEventType(event);
-
+                // Allowing Press in the Event or not
+                setMediaRepresentatives(event);
+                
                 BeanChangeLogger clogger = new BeanChangeLogger( database, context );
                 if (event.id == null) {
                     cntx.setContent("countInsert", new Integer(1));
@@ -309,6 +311,14 @@ public class EventDetailWorker {
         } else {
             event.eventtype = "";
         }
+    }
+    
+    private void setMediaRepresentatives(Event event) {
+    	if (event.mediarepresentatives != null && event.mediarepresentatives.equals("on")) {
+    		event.mediarepresentatives = "t";
+    	} else {
+    		event.mediarepresentatives = "f";
+    	}
     }
 
     private void getHostPersonDetails(Database database, TransactionContext context, Event event) throws BeanException, IOException {
