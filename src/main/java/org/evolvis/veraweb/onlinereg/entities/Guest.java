@@ -33,7 +33,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedNativeQuery(name="Guest.guestByUuid", query = "SELECT count(g.*) FROM tguest g " +
     		"LEFT JOIN tperson on tperson.pk=g.fk_person " +
     		"WHERE delegation=:uuid AND tperson.iscompany='t'"),
-	@NamedNativeQuery(name = "Guest.findEventIdByDelegation", query ="SELECT g.* FROM tguest g  " +
+	@NamedNativeQuery(name = "Guest.findEventIdByDelegationUUID", query ="SELECT g.* FROM tguest g  " +
     		"LEFT JOIN tperson on tperson.pk=g.fk_person " +
     		"WHERE delegation=:uuid AND tperson.iscompany='t'", resultClass=Guest.class)
 
