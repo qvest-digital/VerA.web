@@ -1,8 +1,9 @@
 /* ---------------------------------------------------------------------- */
-/* Add column "eventtype" to mark public events                           */
+/* Alter table "tevent"						                              */
 /* ---------------------------------------------------------------------- */
 
 alter table tevent add eventtype varchar(100);
+alter table tevent add column mediarepresentatives varchar(1) DEFAULT 'f'::character varying;
 
 /* ---------------------------------------------------------------------- */
 /* Alter table "tguest"                                                   */
