@@ -21,7 +21,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @Table(name = "tguest")
 @NamedQueries({
-        @NamedQuery(name = "Guest.findByEventAndUser", query = "SELECT g FROM Guest g where fk_event = :eventId and fk_person = :userId"),
+    @NamedQuery(name = "Guest.findByEventAndUser", query = "SELECT g FROM Guest g where fk_event = :eventId and fk_person = :userId"),
+    @NamedQuery(name = "Guest.findByDelegationId", query = "SELECT g FROM Guest g where delegation = :delegationId")
 })
 @NamedNativeQueries({
     @NamedNativeQuery(name="Event.list.userevents", query = "SELECT e.* FROM tevent e " +
