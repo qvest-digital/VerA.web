@@ -42,11 +42,11 @@ public class OSIAMWorker {
 	 */
 	private static final String PROPERTY_KEY_OSIAM_RESOURCE_SERVER_ENDPOINT = "osiam.server.resource";
 	private static final String PROPERTY_KEY_OSIAM_AUTH_SERVER_ENDPOINT = "osiam.server.auth";
-	private static final String PROPERTY_KEY_CLIENT_REDIRECT_URI = "client.redirect_uri";
-	private static final String PROPERTY_KEY_CLIENT_SECRET = "client.secret";
-	private static final String PROPERTY_KEY_CLIENT_ID = "client.id";
+	private static final String PROPERTY_KEY_CLIENT_REDIRECT_URI = "osiam.client.redirect_uri";
+	private static final String PROPERTY_KEY_CLIENT_SECRET = "osiam.client.secret";
+	private static final String PROPERTY_KEY_CLIENT_ID = "osiam.client.id";
 	
-	private static final String OSIAM_PROPERTY_FILE = "/etc/veraweb/osiam.properties";
+	private static final String OSIAM_PROPERTY_FILE = "/etc/veraweb/veraweb.properties";
 	private static final int OSIAM_USERNAME_LENGTH = 6;
 
 	public static final String INPUT_createDelegationUsers[] = {};
