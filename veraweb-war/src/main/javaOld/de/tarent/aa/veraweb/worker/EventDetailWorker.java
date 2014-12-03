@@ -25,6 +25,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import de.tarent.aa.veraweb.beans.Doctype;
 import de.tarent.aa.veraweb.beans.Event;
@@ -313,11 +314,17 @@ public class EventDetailWorker {
         }
     }
     
+    /**
+     * Set/Unset the event flag for Press. Currently (03.12.2014) we store the uuid into that new column
+     * @param event The event
+     */
     private void setMediaRepresentatives(Event event) {
     	if (event.mediarepresentatives != null && event.mediarepresentatives.equals("on")) {
-    		event.mediarepresentatives = "t";
+    		// We generate an UUID and we store it into tevent - column "mediarepresentatives"
+    		UUID uuid = UUID.randomUUID();
+    		event.mediarepresentatives = uuid.toString();
     	} else {
-    		event.mediarepresentatives = "f";
+    		event.mediarepresentatives = null;
     	}
     }
 
