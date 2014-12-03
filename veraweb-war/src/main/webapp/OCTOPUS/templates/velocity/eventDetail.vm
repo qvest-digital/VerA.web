@@ -276,7 +276,7 @@
                                     <label for="event-open">Anmeldung von Pressevertretern möglich</label>
                                 	<!-- DEBUG $event.mediarepresentatives -->
                                     <input type="checkbox"  onchange="setModified();" class="noFloat" id="event-mediarepresentatives" name="event-mediarepresentatives"
-                                        #if($event && $event.mediarepresentatives && $event.mediarepresentatives != "f")
+                                        #if($event && $event.mediarepresentatives)
                                             checked
                                         #end
                                     >
