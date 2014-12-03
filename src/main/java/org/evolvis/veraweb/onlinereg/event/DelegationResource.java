@@ -44,6 +44,7 @@ public class DelegationResource {
     private static final String BASE_RESOURCE = "/rest";
     private static final TypeReference<Guest> GUEST = new TypeReference<Guest>() {};
     private static final TypeReference<Boolean> BOOLEAN = new TypeReference<Boolean>() {};
+    private static final TypeReference<List<Person>> GUEST_LIST = new TypeReference<List<Person>>() {};
 
 	/**
 	 * Default constructor
@@ -64,8 +65,8 @@ public class DelegationResource {
     
 	@GET
     @Path("/{uuid}")
-    public List<Guest> showRegisterView(@PathParam("uuid") String uuid) throws IOException {
-        return null;
+    public List<Person> getDelegates(@PathParam("uuid") String uuid) throws IOException {
+		return readResource(path("person", uuid), GUEST_LIST);
     }
 
     @POST
@@ -199,26 +200,4 @@ public class DelegationResource {
     	
     	return "deleg" + current.getTime();
     }
-    
-	@GET
-	@Path("/{uuid}/present")
-	public String listPesentUsers(@PathParam("uuid") String uuid) {
-		
-		WebResource r = client.resource(config.getVerawebEndpoint() + "/rest/person/");
-		r = r.queryParam("uuid", uuid);
-		Person person = r.post(Person.class);
-		
-		//TODO
-		//Remove this
-		return ""
-	    		+ "[{"
-	    		+ "	\"username\"	: \"a1\","
-	    		+ "	\"firstname\" : \"b1\","
-	    		+ "	\"lastname\"	: \"c1\""
-	    		+ "},{"
-	    		+ "	\"username\"	: \"a2\","
-	    		+ "	\"firstname\"	: \"b2\","
-	    		+ "	\"lastname\"	: \"c3\""
-	    		+ "}]";
-	}
 }
