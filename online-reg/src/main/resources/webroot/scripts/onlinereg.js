@@ -55,7 +55,11 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 	    ];
 		
 		$scope.gender = $scope.genderOptions[0];
-		
+
+         $http.get('api/delegation/' + $routeParams.uuid + '/present').then(function(presentPersons) {
+            $scope.presentPersons = presentPersons.data;
+         });
+
 		 $scope.register_user = function () {
 			 if ($scope.gender.id == 0) {
 				 $scope.error = "Bitte wählen der Gender Feld";
@@ -84,10 +88,10 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 		                $scope.error = "Der Benutzername darf nur Buchstaben und Zahlen enthalten.";
 
 		            } else if (result === 'NO_EVENT_DATA') {
-		                $scope.error = "Der Veranstaltung existiert nicht.";
+		                $scope.error = "Der Veranstaltung existiert nicht";
 
 		            }  else if (result === 'WRONG_DELEGATION') {
-		                $scope.error = "Die Delegation existiert nicht.";
+		                $scope.error = "Die Delegation existiert nicht";
 
 		            } else if (result === 'OK') {
 		                $scope.success = "Delegiertdaten wurden gespeichert.";

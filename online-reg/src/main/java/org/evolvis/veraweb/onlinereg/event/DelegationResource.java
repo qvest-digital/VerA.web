@@ -200,4 +200,25 @@ public class DelegationResource {
     	return "deleg" + current.getTime();
     }
     
+	@GET
+	@Path("/{uuid}/present")
+	public String listPesentUsers(@PathParam("uuid") String uuid) {
+		
+		WebResource r = client.resource(config.getVerawebEndpoint() + "/rest/person/");
+		r = r.queryParam("uuid", uuid);
+		Person person = r.post(Person.class);
+		
+		//TODO
+		//Remove this
+		return ""
+	    		+ "[{"
+	    		+ "	\"username\"	: \"a1\","
+	    		+ "	\"firstname\" : \"b1\","
+	    		+ "	\"lastname\"	: \"c1\""
+	    		+ "},{"
+	    		+ "	\"username\"	: \"a2\","
+	    		+ "	\"firstname\"	: \"b2\","
+	    		+ "	\"lastname\"	: \"c3\""
+	    		+ "}]";
+	}
 }

@@ -1,7 +1,19 @@
-Bereits angemeldet:
-
+<h2>Bereits angemeldet:</h2>
+<table class="table">
+    <tr class="active">
+        <th>Username</th>
+        <th>Vorname</th>
+        <th>Nachname</th>
+    </tr>
+    <tr ng-repeat="person in presentPersons">
+        <td>{{person.username}}</td>
+        <td>{{person.firstname}}</td>
+        <td>{{person.lastname}}</td>
+    </tr>
+</table>
 <hr/>
 
+<h2>Delegierten hinzuf&uuml;gen:</h2>
 <form role="form" id="delegation-form">
     
     <div class="form-group container">
@@ -15,11 +27,11 @@ Bereits angemeldet:
                    </select>
             </div>
             
-            <div class="col-xs-4">
+            <div class="col-xs-2">
                 <input type="text" class="form-control" id="vorname" placeholder="Vorname" ng-model="vorname">
             </div>
 			
-            <div class="col-xs-4">
+            <div class="col-xs-2">
                 <input type="text" class="form-control" id="nachname" placeholder="Nachname" ng-model="nachname">
             </div>
 
