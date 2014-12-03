@@ -152,7 +152,8 @@ public class DelegationResource {
 
         resource = resource.queryParam("eventId", eventId)
         	 .queryParam("userId", userId)
-        	 .queryParam("invitationstatus", INVITATION_TYPE)
+        	 .queryParam("invitationstatus", "0")
+             .queryParam("invitationtype", INVITATION_TYPE)
         	 .queryParam("gender", gender);
 
         resource.post(Guest.class);
