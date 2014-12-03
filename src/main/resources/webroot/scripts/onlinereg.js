@@ -84,10 +84,10 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 		                $scope.error = "Der Benutzername darf nur Buchstaben und Zahlen enthalten.";
 
 		            } else if (result === 'NO_EVENT_DATA') {
-		                $scope.error = "Der Veranstaltung existiert nicht";
+		                $scope.error = "Der Veranstaltung existiert nicht.";
 
 		            }  else if (result === 'WRONG_DELEGATION') {
-		                $scope.error = "Die Delegation existiert nicht";
+		                $scope.error = "Die Delegation existiert nicht.";
 
 		            } else if (result === 'OK') {
 		                $scope.success = "Delegiertdaten wurden gespeichert.";

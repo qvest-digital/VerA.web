@@ -1,8 +1,6 @@
 package org.evolvis.veraweb.onlinereg.event;
 
-import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientHandlerException;
@@ -36,26 +34,15 @@ public class DelegationResource {
     /**
      * Jackson Object Mapper
      */
-    private ObjectMapper mapper = new ObjectMapper();
+    private final ObjectMapper mapper = new ObjectMapper();
     private Config config;
     private Client client;
+
     /**
-     * base path of all resource
+     * Base path of all resources.
      */
-    public static final String BASE_RESOURCE = "/rest";
-    /**
-     * Guest type
-     */
+    private static final String BASE_RESOURCE = "/rest";
     private static final TypeReference<Guest> GUEST = new TypeReference<Guest>() {};
-    
-    /**
-     * Guest type
-     */
-    private static final TypeReference<List<Guest>> GUEST_LIST = new TypeReference<List<Guest>>() {};
-    
-    /**
-     * Guest type
-     */
     private static final TypeReference<Boolean> BOOLEAN = new TypeReference<Boolean>() {};
 
 	/**
@@ -83,8 +70,11 @@ public class DelegationResource {
 
     @POST
     @Path("/{uuid}/register")
-    public String registerDelegateForEvent(@PathParam("uuid") String uuid,@QueryParam("nachname") String nachname,
-    		@QueryParam("vorname") String vorname, @QueryParam("gender") String gender) throws IOException {
+    public String registerDelegateForEvent(
+            @PathParam("uuid") String uuid,
+            @QueryParam("nachname") String nachname,
+    		@QueryParam("vorname") String vorname,
+            @QueryParam("gender") String gender) throws IOException {
 
         Boolean delegationIsFound = checkForExistingDelegation(uuid);
 
@@ -95,7 +85,7 @@ public class DelegationResource {
         }
     }
 
-    @GET
+    @POST
     @Path("/{uuid}/remove/{userid}")
     public List<Guest> removeDelegateFromEvent(@PathParam("uuid") String uuid, @PathParam("userid") Long userid) throws IOException {
         return null;
@@ -115,7 +105,7 @@ public class DelegationResource {
         if (guest==null) {
             return "NO_EVENT_DATA";
         }
-        addGuestToEvent(uuid, String.valueOf(guest.getFk_event()), String.valueOf(personId), "0", "", gender);
+        addGuestToEvent(uuid, String.valueOf(guest.getFk_event()), String.valueOf(personId), gender);
 
         return "OK";
     }
@@ -132,9 +122,12 @@ public class DelegationResource {
      * @param vorname First name
      */
     private Integer createPerson(String nachname, String vorname) {
-        WebResource r = client.resource(config.getVerawebEndpoint() + "/rest/person/");
-        r = r.queryParam("username", usernameGenerator()).queryParam("firstname", vorname).queryParam("lastname", nachname);
-        Person person = r.post(Person.class);
+        WebResource resource = client.resource(config.getVerawebEndpoint() + "/rest/person/");
+        resource = resource
+                .queryParam("username", usernameGenerator())
+                .queryParam("firstname", vorname)
+                .queryParam("lastname", nachname);
+        final Person person = resource.post(Person.class);
 
     	return person.getPk();
     } 
@@ -144,22 +137,15 @@ public class DelegationResource {
      * 
      * @param eventId Event id
      * @param userId User id
-     * @param invitationstatus //TODO
-     * @param notehost //TODO
-     * @throws IOException 
-     * @throws JsonMappingException 
-     * @throws JsonParseException 
      */
-    private Guest addGuestToEvent(String uuid, String eventId, String userId, String invitationstatus, String notehost, String gender)
-            throws IOException {
-    	WebResource r = client.resource(path("guest", uuid, "einladen"));
-        r = r.queryParam("eventId", eventId)
+    private void addGuestToEvent(String uuid, String eventId, String userId, String gender) {
+    	WebResource resource = client.resource(path("guest", uuid, "register"));
+        resource = resource.queryParam("eventId", eventId)
         	 .queryParam("userId", userId)
-        	 .queryParam("invitationstatus", invitationstatus)
+        	 .queryParam("invitationstatus", "0")
         	 .queryParam("gender", gender);
-        Guest guest = r.post(Guest.class);
-        		
-        return guest;
+
+        resource.post(Guest.class);
     }
 
     /**
@@ -209,12 +195,9 @@ public class DelegationResource {
     }
     
     private String usernameGenerator() {
-    	StringBuilder sb = new StringBuilder();
-    	sb.append("deleg");
-    	Date current = new Date();
-    	sb.append(current.getTime());
+        Date current = new Date();
     	
-    	return sb.toString();
+    	return "deleg" + current.getTime();
     }
     
 }
