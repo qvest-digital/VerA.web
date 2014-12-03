@@ -10,6 +10,8 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+
+import java.math.BigInteger;
 import java.util.List;
 
 /**
@@ -72,5 +74,22 @@ public class EventResource extends AbstractResource {
             session.close();
         }
 
+    }
+    
+    @GET
+    @Path("/exist/{uuid}")
+    public Boolean existEventIdByDelegation(@PathParam("uuid") String uuid) {
+    	Session session = openSession();
+        try {
+            Query query = session.getNamedQuery("Event.guestByUUID");
+            query.setString("uuid", uuid);
+            BigInteger numberFoundDelegations = (BigInteger) query.uniqueResult();
+            if(numberFoundDelegations.intValue() >= 1) {
+            	return true;
+            }
+            return false;
+        } finally {
+            session.close();
+        }
     }
 }
