@@ -3,7 +3,7 @@
 /* ---------------------------------------------------------------------- */
 
 alter table tevent add eventtype varchar(100);
-alter table tevent add column mediarepresentatives varchar(1) DEFAULT 'f'::character varying;
+alter table tevent add column mediarepresentatives varchar(100);
 
 /* ---------------------------------------------------------------------- */
 /* Alter table "tguest"                                                   */
