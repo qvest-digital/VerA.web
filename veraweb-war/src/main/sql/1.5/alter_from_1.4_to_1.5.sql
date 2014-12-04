@@ -2,15 +2,15 @@
 /* Alter table "tevent"						                              */
 /* ---------------------------------------------------------------------- */
 
-alter table tevent add eventtype varchar(100);
-alter table tevent add column mediarepresentatives varchar(100);
+alter table veraweb.tevent add eventtype varchar(100);
+alter table veraweb.tevent add column mediarepresentatives varchar(100);
 
 /* ---------------------------------------------------------------------- */
 /* Alter table "tguest"                                                   */
 /* ---------------------------------------------------------------------- */
 
-alter table tguest add column delegation varchar(255);
-alter table tguest add column osiam_login varchar(255);
+alter table veraweb.tguest add column delegation varchar(255);
+alter table veraweb.tguest add column osiam_login varchar(255);
 
 /* ---------------------------------------------------------------------- */
 /* Trigger for link mandant with categories                               */
