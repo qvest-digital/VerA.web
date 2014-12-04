@@ -39,6 +39,7 @@ public class MediaResource {
 
     private static final TypeReference<Boolean> BOOLEAN = new TypeReference<Boolean>() {};
     private static final TypeReference<BigInteger> BIG_INTEGER = new TypeReference<BigInteger>() {};
+    private static final TypeReference<List<Person>> GUEST_LIST = new TypeReference<List<Person>>() {};
     private static final String INVITATION_TYPE = "2";
 	
     /**
@@ -62,11 +63,11 @@ public class MediaResource {
 		this.config = config;
 		this.client = client;
 	}
-    
+	
 	@GET
     @Path("/{uuid}")
     public List<Person> getGuests(@PathParam("uuid") String uuid) throws IOException {
-		return null;
+		return readResource(path("person", uuid), GUEST_LIST);
     }
 	
     @POST
