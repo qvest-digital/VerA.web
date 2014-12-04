@@ -95,7 +95,7 @@ public class EventDetailWorker {
         Properties properties = propertiesReader.getProperties();
         URLGenerator url = new URLGenerator(properties);
         url.getURLForMediaRepresentatives(event.id);
-        cntx.setContent("pressevertreterUrl", url.getURLForMediaRepresentatives(event.id) + "blaaa");
+        cntx.setContent("pressevertreterUrl", url.getURLForMediaRepresentatives(event.id) + event.mediarepresentatives);
     }
 
     /** Eingabe-Parameter der Octopus-Aktion {@link #saveDetail(OctopusContext, Boolean)} */

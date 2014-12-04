@@ -11,7 +11,6 @@ public class URLGenerator {
     private static final String VERAWEB_MEDIA_PROTOCOL = "veraweb.press.protocol";
     private static final String VERAWEB_MEDIA_HOST = "veraweb.press.host";
     private static final String VERAWEB_MEDIA_PORT = "veraweb.press.port";
-    private static final String VERAWEB_MEDIA_PATH = "veraweb.press.path";
 
     private Properties properties;
 
@@ -23,7 +22,6 @@ public class URLGenerator {
         String protocol = properties.getProperty(VERAWEB_MEDIA_PROTOCOL);
         String host = properties.getProperty(VERAWEB_MEDIA_HOST);
         String port = properties.getProperty(VERAWEB_MEDIA_PORT);
-        String path = properties.getProperty(VERAWEB_MEDIA_PATH);
         return protocol + "://" + host + ":" + port + "/#/media/";
     }
 
