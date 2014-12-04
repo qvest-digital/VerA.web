@@ -28,3 +28,26 @@
         </div>
     </div>
 </form>
+<hr/>
+
+<h2>Bereits angemeldet:</h2>
+<table class="table">
+    <tr class="active">
+        <th>Vorname</th>
+        <th>Nachname</th>
+        <th>Email</th>
+        <th>Anschrift</th>
+        <th>PLZ</th>
+        <th>Stadt</th>
+        <th>Land</th>
+    </tr>
+    <tr ng-repeat="person in presentPersons">
+        <td>{{person.firstname_a_e1}}</td>
+        <td>{{person.lastname_a_e1}}</td>
+        <td>{{person.mail_a_e1}}</td>
+        <td>{{person.street_a_e1}}</td>
+        <td>{{person.zipcode_a_e1}}</td>
+        <td>{{person.city_a_e1}}</td>
+        <td>{{person.country_a_e1}}</td>
+    </tr>
+</table>
