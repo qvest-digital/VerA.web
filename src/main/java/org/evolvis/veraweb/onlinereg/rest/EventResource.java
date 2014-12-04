@@ -92,4 +92,20 @@ public class EventResource extends AbstractResource {
             session.close();
         }
     }
+    
+    @GET
+    @Path("/require/{uuid}")
+    public BigInteger getEventIdByUUID(@PathParam("uuid") String uuid) {
+    	Session session = openSession();
+        try {
+            Query query = session.getNamedQuery("Event.guestByUUID");
+            query.setString("uuid", uuid);
+            BigInteger eventId = (BigInteger) query.uniqueResult();
+            return eventId;
+            
+        } finally {
+            session.close();
+        }
+    }
+    
 }
