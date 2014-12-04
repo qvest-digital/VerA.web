@@ -193,7 +193,7 @@ public class MediaResource {
         } catch (ClientHandlerException che) {
             if (che.getCause() instanceof SocketTimeoutException) {
                 //FIXME some times open, pooled connections time out and generate errors
-//                log.warning("Retrying request to " + path + " once because of SocketTimeoutException");
+                log.warning("Retrying request to " + path + " once because of SocketTimeoutException");
                 resource = client.resource(path);
                 String json = resource.get(String.class);
                 return mapper.readValue(json, type);
@@ -202,7 +202,7 @@ public class MediaResource {
             }
 
         } catch (UniformInterfaceException uie) {
-//            log.warning(uie.getResponse().getEntity(String.class));
+            log.warning(uie.getResponse().getEntity(String.class));
             throw uie;
         }
     }
