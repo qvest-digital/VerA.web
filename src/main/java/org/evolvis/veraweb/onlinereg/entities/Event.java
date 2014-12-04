@@ -27,7 +27,8 @@ import java.util.Date;
                 "where (CURRENT_TIMESTAMP < e.datebegin OR CURRENT_TIMESTAMP < e.dateend) " +
                 "AND e.eventtype LIKE 'Offene Veranstaltung'"),
         @NamedQuery(name = "AllEvents.list", query = "SELECT e FROM Event e"),
-        @NamedQuery(name = "Event.getEvent", query = "SELECT e FROM Event e where e.pk = :pk")
+        @NamedQuery(name = "Event.getEvent", query = "SELECT e FROM Event e where e.pk = :pk"),
+        @NamedQuery(name = "Event.getEventByUUID", query = "SELECT e.pk FROM Event e where e.mediarepresentatives=:uuid ")
 })
 @NamedNativeQueries({
 	@NamedNativeQuery(name="Event.guestByUUID",query="SELECT count(e.*) FROM tevent e WHERE mediarepresentatives=:uuid ")
