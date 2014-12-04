@@ -65,60 +65,66 @@ onlineRegApp.controller('MediaController', function ($scope, $http, $rootScope, 
             $scope.success = null;
         }
         else if ($scope.gender.id == 1 || $scope.gender.id == 2){
-            var ERROR_TEXT = "Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.";
-            $scope.button = true;
-            console.log("registering delegierten in the event.");
-            $http({
-                method: 'POST',
-                url: 'api/media/' + $routeParams.uuid + '/register',
-                params: {
-                    nachname: $scope.lastname,
-                    vorname: $scope.firstname,
-                    gender: $scope.gender.label,
-                    email: $scope.email,
-                    address: $scope.address,
-                    plz: $scope.plz,
-                    city: $scope.city,
-                    country: $scope.country
-                }
-            }).success(function (result) {
+        	if ($scope.lastname != null && $scope.firstname != null && $scope.email != null && $scope.address != null && $scope.plz != null && $scope.city != null && $scope.country != null) {
+	            var ERROR_TEXT = "Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.";
+	            $scope.button = true;
+	            console.log("registering delegierten in the event.");
+	            $http({
+	                method: 'POST',
+	                url: 'api/media/' + $routeParams.uuid + '/register',
+	                params: {
+	                    nachname: $scope.lastname,
+	                    vorname: $scope.firstname,
+	                    gender: $scope.gender.label,
+	                    email: $scope.email,
+	                    address: $scope.address,
+	                    plz: $scope.plz,
+	                    city: $scope.city,
+	                    country: $scope.country
+	                }
+	            }).success(function (result) {
+	                $scope.success = null;
+	                $scope.error = null;
+	
+	
+	                if (result === 'USER_EXISTS') {
+	                    $scope.error = "Ein Benutzer mit diesem Benutzernamen existiert bereits.";
+	                    $scope.success = null;
+	
+	                } else if (result === 'INVALID_USERNAME') {
+	                    $scope.error = "Der Benutzername darf nur Buchstaben und Zahlen enthalten.";
+	                    $scope.success = null;
+	
+	                } else if (result === 'NO_EVENT_DATA') {
+	                    $scope.error = "Der Veranstaltung existiert nicht";
+	                    $scope.success = null;
+	
+	                }  else if (result === 'WRONG_EVENT') {
+	                    $scope.error = "Der Veranstaltung existiert nicht";
+	                    $scope.success = null;
+	
+	                } else if (result === 'OK') {
+	                    $scope.error= null;
+	                    $scope.success = "Delegiertdaten wurden gespeichert.";
+	                    $http.get('api/delegation/' + $routeParams.uuid).then(function(presentPersons) {
+	                        $scope.presentPersons = presentPersons.data;
+	                     });
+	
+	                } else {
+	                    $scope.error = ERROR_TEXT;
+	                    $scope.success = null;
+	                }
+	                $scope.button = false;
+	
+	            }).error(function (data, status, headers, config) {
+	                $scope.error = ERROR_TEXT;
+	                $scope.button = false;
+	            });
+        	}
+        	else {
+        		$scope.error = "Bitte wählen sie alle Felder.";
                 $scope.success = null;
-                $scope.error = null;
-
-
-                if (result === 'USER_EXISTS') {
-                    $scope.error = "Ein Benutzer mit diesem Benutzernamen existiert bereits.";
-                    $scope.success = null;
-
-                } else if (result === 'INVALID_USERNAME') {
-                    $scope.error = "Der Benutzername darf nur Buchstaben und Zahlen enthalten.";
-                    $scope.success = null;
-
-                } else if (result === 'NO_EVENT_DATA') {
-                    $scope.error = "Der Veranstaltung existiert nicht";
-                    $scope.success = null;
-
-                }  else if (result === 'WRONG_EVENT') {
-                    $scope.error = "Der Veranstaltung existiert nicht";
-                    $scope.success = null;
-
-                } else if (result === 'OK') {
-                    $scope.error= null;
-                    $scope.success = "Delegiertdaten wurden gespeichert.";
-                    $http.get('api/delegation/' + $routeParams.uuid).then(function(presentPersons) {
-                        $scope.presentPersons = presentPersons.data;
-                     });
-
-                } else {
-                    $scope.error = ERROR_TEXT;
-                    $scope.success = null;
-                }
-                $scope.button = false;
-
-            }).error(function (data, status, headers, config) {
-                $scope.error = ERROR_TEXT;
-                $scope.button = false;
-            });
+        	}
         }
     }
 });
