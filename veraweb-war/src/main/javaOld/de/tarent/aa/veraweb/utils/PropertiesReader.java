@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.util.Properties;
 
 /**
+ * This class is used to read the properties for veraweb and online registration.
+ *
  * @author Atanas Alexandrov, tarent solutions GmbH
  */
 public class PropertiesReader {
