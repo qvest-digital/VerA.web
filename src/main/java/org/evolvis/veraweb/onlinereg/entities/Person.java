@@ -56,6 +56,13 @@ public class Person {
     private String lastname_a_e1;
     private String lastname_a_e2;
     private String lastname_a_e3;
+    
+    private String mail_a_e1;
+    private String street_a_e1;
+    private String zipcode_a_e1;
+    private String city_a_e1;
+    private String country_a_e1;
+    private String sex_a_e1;
 
     public void setFirstName(String firstName) {
         firstname_a_e1 = firstname_a_e2 = firstname_a_e3 = firstName;
@@ -89,4 +96,141 @@ public class Person {
     public int getPk() {
         return this.pk;
     }
+
+	public Date getCreated() {
+		return created;
+	}
+
+	public void setCreated(Date created) {
+		this.created = created;
+	}
+
+	public String getCreatedby() {
+		return createdby;
+	}
+
+	public void setCreatedby(String createdby) {
+		this.createdby = createdby;
+	}
+
+	public char getIsCompany() {
+		return isCompany;
+	}
+
+	public void setIsCompany(char isCompany) {
+		this.isCompany = isCompany;
+	}
+
+	public char getDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(char deleted) {
+		this.deleted = deleted;
+	}
+
+	public String getFirstname_a_e1() {
+		return firstname_a_e1;
+	}
+
+	public void setFirstname_a_e1(String firstname_a_e1) {
+		this.firstname_a_e1 = firstname_a_e1;
+	}
+
+	public String getFirstname_a_e2() {
+		return firstname_a_e2;
+	}
+
+	public void setFirstname_a_e2(String firstname_a_e2) {
+		this.firstname_a_e2 = firstname_a_e2;
+	}
+
+	public String getFirstname_a_e3() {
+		return firstname_a_e3;
+	}
+
+	public void setFirstname_a_e3(String firstname_a_e3) {
+		this.firstname_a_e3 = firstname_a_e3;
+	}
+
+	public String getLastname_a_e1() {
+		return lastname_a_e1;
+	}
+
+	public void setLastname_a_e1(String lastname_a_e1) {
+		this.lastname_a_e1 = lastname_a_e1;
+	}
+
+	public String getLastname_a_e2() {
+		return lastname_a_e2;
+	}
+
+	public void setLastname_a_e2(String lastname_a_e2) {
+		this.lastname_a_e2 = lastname_a_e2;
+	}
+
+	public String getLastname_a_e3() {
+		return lastname_a_e3;
+	}
+
+	public void setLastname_a_e3(String lastname_a_e3) {
+		this.lastname_a_e3 = lastname_a_e3;
+	}
+
+	public String getMail_a_e1() {
+		return mail_a_e1;
+	}
+
+	public void setMail_a_e1(String mail_a_e1) {
+		this.mail_a_e1 = mail_a_e1;
+	}
+
+	public String getStreet_a_e1() {
+		return street_a_e1;
+	}
+
+	public void setStreet_a_e1(String street_a_e1) {
+		this.street_a_e1 = street_a_e1;
+	}
+
+	public String getZipcode_a_e1() {
+		return zipcode_a_e1;
+	}
+
+	public void setZipcode_a_e1(String zipcode_a_e1) {
+		this.zipcode_a_e1 = zipcode_a_e1;
+	}
+
+	public String getCity_a_e1() {
+		return city_a_e1;
+	}
+
+	public void setCity_a_e1(String city_a_e1) {
+		this.city_a_e1 = city_a_e1;
+	}
+
+	public String getCountry_a_e1() {
+		return country_a_e1;
+	}
+
+	public void setCountry_a_e1(String country_a_e1) {
+		this.country_a_e1 = country_a_e1;
+	}
+
+	public String getSex_a_e1() {
+		return sex_a_e1;
+	}
+
+	public void setSex_a_e1(String sex_a_e1) {
+		this.sex_a_e1 = sex_a_e1;
+	}
+
+	public String getNote_a_e1() {
+		return note_a_e1;
+	}
+
+	public void setPk(int pk) {
+		this.pk = pk;
+	}
+    
 }
