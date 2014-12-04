@@ -25,7 +25,7 @@ CREATE FUNCTION linkOrgUnitWithCategorie()
 
 CREATE TRIGGER createCategorieOnUnitInsert
         AFTER INSERT ON veraweb.torgunit
-        FOR EACH ROW EXECUTE PROCEDURE test();
+        FOR EACH ROW EXECUTE PROCEDURE linkOrgUnitWithCategorie();
         
 /* ---------------------------------------------------------------------- */
 /* Mirgate old OrgUnits                                                   */
