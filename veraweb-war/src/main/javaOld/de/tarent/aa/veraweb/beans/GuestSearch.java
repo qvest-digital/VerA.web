@@ -36,4 +36,6 @@ public class GuestSearch extends AbstractBean {
 	public Integer invitationstatus;
 	/** Gibt an in welcher Sortierreihenfolge die G�steliste angezeigt werden soll.*/
 	public String listorder; // orderno, lastname, firstname, email
+	/** Gibt an nach welcher kategorie gefiltert werden soll*/
+	public String category;
 }

@@ -28,6 +28,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import de.tarent.aa.veraweb.beans.Categorie;
 import de.tarent.aa.veraweb.beans.Event;
 import de.tarent.aa.veraweb.beans.Guest;
 import de.tarent.aa.veraweb.beans.GuestSearch;
@@ -41,6 +42,7 @@ import de.tarent.dblayer.sql.Escaper;
 import de.tarent.dblayer.sql.SQL;
 import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.clause.RawClause;
+import de.tarent.dblayer.sql.clause.Where;
 import de.tarent.dblayer.sql.clause.WhereList;
 import de.tarent.dblayer.sql.statement.Select;
 import de.tarent.dblayer.sql.statement.Update;
@@ -572,6 +574,38 @@ public class GuestListWorker extends ListWorkerVeraWeb {
         }
         return event;
     }
+    
+    /**
+     * 
+     * @param cntx
+     * @throws IOException 
+     * @throws BeanException 
+     */
+    public void getAllCategories(OctopusContext ctx) throws BeanException, IOException {
+		Database database = new DatabaseVeraWeb(ctx);
+    	TransactionContext context = database.getTransactionContext();
+    	
+		WhereList whereCriterias = new WhereList();
+	
+	
+		Select select = SQL.Select( database ).
+				from("veraweb.tcategorie");
+		
+		select.selectAs("DISTINCT", "catname");
+	
+		Map result = (Map)database.getList(select, database).iterator().next();
+		result.get("catname");
+		Long platz = (Long)result.get("catname");
+	
+		//SELECT DISTINCT catname FROM veraweb.tcategorie ;
+//		Select selectCategories = SQL.Select(database);
+//		selectCategories.from("veraweb.tcategorie");
+//		selectCategories.select("DISTINCT catname");
+//		
+//		Select sel = database.getSelect("Categorie").setDistinctOn("catname");
+//		Categorie hostToRemove = (Categorie) database.getBean("Categorie", sel);
+
+    }
 
     /**
      * Diese Methode �bertr�gt G�stesuchkriterien aus einer {@link GuestSearch}-Instanz
@@ -579,6 +613,11 @@ public class GuestListWorker extends ListWorkerVeraWeb {
      */
     public static void addGuestListFilter(GuestSearch search, WhereList where) {
         where.addAnd(Expr.equal("tguest.fk_event", search.event));
+        
+        
+        if(search.category != null && !search.category.trim().equals("")) {
+        	where.addAnd(new RawClause("fk_category IN (SELECT pk FROM veraweb.tcategorie WHERE catname = '" + search.category + "')"));	
+        }
         
         if (search.reserve != null) {
             switch (search.reserve.intValue()) {

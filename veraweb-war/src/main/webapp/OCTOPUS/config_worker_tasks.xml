@@ -1293,6 +1293,7 @@
 			<action name="saveList" worker="GuestListWorker"/>
 			<action name="showList" worker="GuestListWorker"/>
 			<action name="getSums" worker="GuestListWorker"/>
+			<action name="getAllCategories" worker="GuestListWorker" />
 			<param name="liststarts" value="true"/>
 			<response type="velocity" name="guestList">
 				<param name="ContentType" value="text/html;charset=UTF-8"/>
