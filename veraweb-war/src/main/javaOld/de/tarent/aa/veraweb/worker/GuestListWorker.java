@@ -95,7 +95,7 @@ public class GuestListWorker extends ListWorkerVeraWeb {
     public static final String OUTPUT_getSums = "guestlist-sums";
 
     public static final String INPUT_getEvent[] = {};
-
+    
     public static final String OUTPUT_getEvent = "event";
     
     public static final String INPUT_getAllCategories[] = {};
