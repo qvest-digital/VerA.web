@@ -106,7 +106,7 @@ public class DelegationResource {
 
     private String handleDelegationFound(String uuid, String nachname, String vorname, String gender) throws IOException {
         // Store in tperson
-        Integer personId = createPerson(nachname, vorname);
+        Integer personId = createPerson(nachname, vorname, gender);
 
         // Assing person to event as guest
         Guest guest = getEventIdFromUuid(uuid);
@@ -130,12 +130,13 @@ public class DelegationResource {
      * @param nachname Last name
      * @param vorname First name
      */
-    private Integer createPerson(String nachname, String vorname) {
-        WebResource resource = client.resource(config.getVerawebEndpoint() + "/rest/person/");
+    private Integer createPerson(String nachname, String vorname, String gender) {
+        WebResource resource = client.resource(config.getVerawebEndpoint() + "/rest/person/delegate/");
         resource = resource
                 .queryParam("username", usernameGenerator())
                 .queryParam("firstname", vorname)
-                .queryParam("lastname", nachname);
+                .queryParam("lastname", nachname)
+                .queryParam("gender", gender);
         final Person person = resource.post(Person.class);
 
     	return person.getPk();
