@@ -38,7 +38,7 @@ public class MediaResource {
 
 
     private static final TypeReference<Boolean> BOOLEAN = new TypeReference<Boolean>() {};
-    private static final TypeReference<BigInteger> BIG_INTEGER = new TypeReference<BigInteger>() {};
+    private static final TypeReference<Integer> INTEGER = new TypeReference<Integer>() {};
     private static final TypeReference<List<Person>> GUEST_LIST = new TypeReference<List<Person>>() {};
     private static final String INVITATION_TYPE = "2";
 	
@@ -67,7 +67,7 @@ public class MediaResource {
 	@GET
     @Path("/{uuid}")
     public List<Person> getGuests(@PathParam("uuid") String uuid) throws IOException {
-		return readResource(path("person", uuid), GUEST_LIST);
+		return null;
     }
 	
     @POST
@@ -107,7 +107,7 @@ public class MediaResource {
         Integer personId = createPerson(transporter);
 
         // Assing person to event as guest
-        BigInteger eventId = getEventIdFromUuid(transporter.getUuid());
+        Integer eventId = getEventIdFromUuid(transporter.getUuid());
 
         if (eventId==null) {
             return "NO_EVENT_DATA";
@@ -138,8 +138,8 @@ public class MediaResource {
     }
     
     
-    private BigInteger getEventIdFromUuid(String uuid) throws IOException {
-		return readResource(path("event", "require", uuid), BIG_INTEGER);
+    private Integer getEventIdFromUuid(String uuid) throws IOException {
+		return readResource(path("event", "require", uuid), INTEGER);
 	}
     
     /**
