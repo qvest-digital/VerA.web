@@ -20,6 +20,7 @@
 package de.tarent.aa.veraweb.worker;
 
 import java.io.IOException;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.MessageFormat;
 import java.util.ArrayList;
@@ -96,6 +97,8 @@ public class GuestListWorker extends ListWorkerVeraWeb {
     public static final String INPUT_getEvent[] = {};
 
     public static final String OUTPUT_getEvent = "event";
+    
+    public static final String INPUT_getAllCategories[] = {};
 
     /**
      * Der Konstruktor legt den Bean-Namen fest.
@@ -580,32 +583,26 @@ public class GuestListWorker extends ListWorkerVeraWeb {
      * @param cntx
      * @throws IOException 
      * @throws BeanException 
+     * @throws SQLException 
      */
-    public void getAllCategories(OctopusContext ctx) throws BeanException, IOException {
+    public void getAllCategories(OctopusContext ctx) throws BeanException, IOException, SQLException {
 		Database database = new DatabaseVeraWeb(ctx);
-    	TransactionContext context = database.getTransactionContext();
     	
-		WhereList whereCriterias = new WhereList();
-	
-	
 		Select select = SQL.Select( database ).
 				from("veraweb.tcategorie");
+		select.select("catname");
+		select.setDistinctOn("catname");
+	
+		ResultList result = database.getList(select, database);
+		List<String> catnames = new ArrayList<String>();
 		
-		select.selectAs("DISTINCT", "catname");
-	
-		Map result = (Map)database.getList(select, database).iterator().next();
-		result.get("catname");
-		Long platz = (Long)result.get("catname");
-	
-		//SELECT DISTINCT catname FROM veraweb.tcategorie ;
-//		Select selectCategories = SQL.Select(database);
-//		selectCategories.from("veraweb.tcategorie");
-//		selectCategories.select("DISTINCT catname");
-//		
-//		Select sel = database.getSelect("Categorie").setDistinctOn("catname");
-//		Categorie hostToRemove = (Categorie) database.getBean("Categorie", sel);
-
-    }
+		for (Iterator<ResultMap> iterator = result.iterator(); iterator.hasNext();) {
+			ResultMap object = iterator.next();
+			catnames.add((String)object.get("catname"));
+		}
+		
+		ctx.setContent("categories", catnames);
+	}
 
     /**
      * Diese Methode �bertr�gt G�stesuchkriterien aus einer {@link GuestSearch}-Instanz
@@ -616,7 +613,7 @@ public class GuestListWorker extends ListWorkerVeraWeb {
         
         
         if(search.category != null && !search.category.trim().equals("")) {
-        	where.addAnd(new RawClause("fk_category IN (SELECT pk FROM veraweb.tcategorie WHERE catname = '" + search.category + "')"));	
+        	where.addAnd(new RawClause("fk_category IN (SELECT pk FROM veraweb.tcategorie WHERE catname = '" + Escaper.escape(search.category) + "')"));	
         }
         
         if (search.reserve != null) {
