@@ -36,6 +36,22 @@ public class PersonResource extends AbstractResource {
         }
     }
     
+
+    @POST
+    @Path("/delegate")
+    public Person createPersonWithGender(@QueryParam("username") String username,
+                               @QueryParam("firstname") String firstName,
+                               @QueryParam("lastname") String lastname,
+                               @QueryParam("gender") String gender) {
+        Session session = openSession();
+        try {
+            Person person = handleCreatePersonDelegation(username, firstName, lastname, gender, session);
+            return person;
+        } finally {
+            session.close();
+        }
+    }
+    
     @POST
     @Path("/press")
     public Person createPersonPress(@QueryParam("username") String username,
@@ -82,6 +98,18 @@ public class PersonResource extends AbstractResource {
         Person person = (Person) query.uniqueResult();
         return person;
     }
+    
+
+    private Person handleCreatePersonDelegation(String username, String firstName, String lastname, String gender,Session session) {
+        Query query = getSelectPersonByUsernameQuery(username, session);
+        if (!query.list().isEmpty()) {
+            // user already exists
+            return null;
+        }
+        persistPersonDelegation(username, firstName, lastname, gender, session);
+        Person person = (Person) query.uniqueResult();
+        return person;
+    }
 
     private Person handleCreatePersonPress(String username, String firstName, String lastname, String gender,
             String email, String address, String plz, String city, String country, Session session) {
@@ -108,6 +136,13 @@ public class PersonResource extends AbstractResource {
         return p;
     }
 
+    private Person persistPersonDelegation(String username, String firstName, String lastname, String gender, Session session) {
+        Person p = initPersonDelegation(username, firstName, lastname, gender);
+        session.persist(p);
+        session.flush();
+        return p;
+    }
+
     private Person initPerson(String username, String firstName, String lastname) {
         Person p = new Person();
         p.setFirstName(firstName);
@@ -115,6 +150,24 @@ public class PersonResource extends AbstractResource {
         p.setUsername(username);
         p.setFk_orgunit(0);
         return p;
+    }
+
+    private Person initPersonDelegation(String username, String firstName, String lastname, String gender) {
+        Person p = new Person();
+        p.setFirstName(firstName);
+        p.setLastName(lastname);
+        p.setUsername(username);
+        p.setFk_orgunit(0);
+        p.setSex_a_e1(correctGender(gender));
+        
+        return p;
+    }
+    
+    private String correctGender(String complete) {
+    	if (complete.equals("Herr")) {
+    		return "m";
+    	}
+    	return "w";
     }
 
     private Person persistPersonPress(String username, String firstName, String lastname, String gender,
