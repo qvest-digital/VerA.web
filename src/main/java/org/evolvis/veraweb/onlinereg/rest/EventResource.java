@@ -95,12 +95,12 @@ public class EventResource extends AbstractResource {
     
     @GET
     @Path("/require/{uuid}")
-    public BigInteger getEventIdByUUID(@PathParam("uuid") String uuid) {
+    public Integer getEventIdByUUID(@PathParam("uuid") String uuid) {
     	Session session = openSession();
         try {
-            Query query = session.getNamedQuery("Event.guestByUUID");
+            Query query = session.getNamedQuery("Event.getEventByUUID");
             query.setString("uuid", uuid);
-            BigInteger eventId = (BigInteger) query.uniqueResult();
+            Integer eventId = (Integer) query.uniqueResult();
             return eventId;
             
         } finally {
