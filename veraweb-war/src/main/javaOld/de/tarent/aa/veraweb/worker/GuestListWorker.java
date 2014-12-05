@@ -718,7 +718,9 @@ public class GuestListWorker extends ListWorkerVeraWeb {
 				"SUM(CASE WHEN reserve != 1 AND invitationstatus_p = 3 AND invitationtype != 2 THEN 1 ELSE 0 END)", "teilnahmen");
 
 		select.selectAs(
-				"SUM(CASE WHEN char_length(delegation) > 0 THEN 1 ELSE 0 END)", "delegationen");
+				"SUM(CASE WHEN tperson.iscompany = 't' THEN 1 ELSE 0 END)", "delegationen");
+		
+		select.joinLeftOuter("veraweb.tperson", "fk_person", "tperson.pk");
 
 		Map result = (Map)database.getList(select, database).iterator().next();
 		Long platz = (Long)result.get("platz");
