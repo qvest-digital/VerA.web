@@ -105,11 +105,19 @@ onlineRegApp.controller('MediaController', function ($scope, $http, $rootScope, 
 	
 	                } else if (result === 'OK') {
 	                    $scope.error= null;
-	                    $scope.success = "Delegiertdaten wurden gespeichert.";
+	                    $scope.success = "Ihre Daten werden nun überprüft, eine Zusage erfolgt nach positiver Überprüfung.";
 	                    $http.get('api/delegation/' + $routeParams.uuid).then(function(presentPersons) {
 	                        $scope.presentPersons = presentPersons.data;
 	                     });
-	
+
+                        $scope.lastname = null;
+                        $scope.firstname = null;
+                        $scope.gender = $scope.genderOptions[0];
+                        $scope.email = null;
+                        $scope.address = null;
+                        $scope.plz = null;
+                        $scope.city = null;
+                        $scope.country = null;
 	                } else {
 	                    $scope.error = ERROR_TEXT;
 	                    $scope.success = null;
