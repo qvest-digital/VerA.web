@@ -50,6 +50,8 @@ public class Guest {
     private int invitationtype;
     private String notehost;
     private String delegation;
+    private Integer fk_category;
+    
 
     public int getFk_event() {
         return fk_event;
@@ -114,5 +116,15 @@ public class Guest {
     public void setInvitationtype(int invitationtype) {
         this.invitationtype = invitationtype;
     }
+
+	public Integer getFk_category() {
+		return fk_category;
+	}
+
+	public void setFk_category(Integer fk_category) {
+		this.fk_category = fk_category;
+	}
+    
+    
 }
 
