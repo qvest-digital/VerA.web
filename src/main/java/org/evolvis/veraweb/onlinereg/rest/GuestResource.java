@@ -99,10 +99,11 @@ public class GuestResource extends AbstractResource{
                                 @QueryParam("userId") Integer userId,
                                 @QueryParam("invitationstatus") Integer invitationstatus,
                                 @QueryParam("invitationtype") Integer invitationtype,
-                                @QueryParam("gender") String gender) {
+                                @QueryParam("gender") String gender,
+                                @QueryParam("category") Integer category) {
 		Session session = openSession();
 		try { 
-			Guest guest = initGuest(uuid,eventId, userId, invitationstatus, invitationtype, gender);
+			Guest guest = initGuest(uuid,eventId, userId, invitationstatus, invitationtype, gender, category);
             session.save(guest);
 			session.flush();
 			     
@@ -116,7 +117,7 @@ public class GuestResource extends AbstractResource{
     /**
      * Initialize guest with event information 
      */
-    private Guest initGuest(String uuid, Integer eventId, Integer userId, Integer invitationstatus, Integer invitationtype, String gender) {
+    private Guest initGuest(String uuid, Integer eventId, Integer userId, Integer invitationstatus, Integer invitationtype, String gender, Integer category) {
         Guest guest = new Guest();
         guest.setDelegation(uuid);
         guest.setFk_person(userId);
@@ -125,7 +126,8 @@ public class GuestResource extends AbstractResource{
         guest.setNotehost("");
         guest.setInvitationtype(invitationtype);
         setGender(gender, guest);
-
+        guest.setFk_category(category);
+        
         return guest;
     }
 
