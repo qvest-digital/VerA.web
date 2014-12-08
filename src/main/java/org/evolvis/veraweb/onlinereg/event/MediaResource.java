@@ -124,24 +124,37 @@ public class MediaResource {
      * 
      * @param eventId Event id
      * @param userId User id
+     * @throws IOException 
      */
-    private void addGuestToEvent(String uuid, String eventId, String userId, String gender) {
+    private void addGuestToEvent(String uuid, String eventId, String userId, String gender) throws IOException {
+    	
+    	Integer categoryID = getCategoryIdFromCatname("Pressevertreter");
+    	
     	WebResource resource = client.resource(path("guest", uuid, "register"));
 
         resource = resource.queryParam("eventId", eventId)
         	 .queryParam("userId", userId)
         	 .queryParam("invitationstatus", "0")
              .queryParam("invitationtype", INVITATION_TYPE)
-        	 .queryParam("gender", gender);
+        	 .queryParam("gender", gender)
+        	 .queryParam("category", String.valueOf(categoryID));
 
         resource.post(Guest.class);
     }
     
-    
+    /**
+     * Searching an event ID using the UUID
+     */
     private Integer getEventIdFromUuid(String uuid) throws IOException {
 		return readResource(path("event", "require", uuid), INTEGER);
 	}
-    
+
+    /**
+     * Searching the ID of one category using the catname
+     */
+    private Integer getCategoryIdFromCatname(String catname) throws IOException {
+    	return readResource(path("category", catname), INTEGER);
+    }
     /**
      * Includes a new person in the database - Table "tperson"
      * 
