@@ -600,13 +600,10 @@ public class GuestWorker {
 				database.getSelect("Guest").
 				where(Expr.equal("pk", guestId)), context);
 		if (guest == null) return;
-		
-		Person person = (Person)
-				database.getBean("Person",
-				database.getSelect("Person").
-				where(Expr.equal("pk", guest.person)), context);
-		
-		refreshDoctypes(cntx, database, context, guest, person);
+
+        Person person = getPersonById(database, context, guest.person);
+
+        refreshDoctypes(cntx, database, context, guest, person);
 	}
 
     /**
@@ -631,7 +628,9 @@ public class GuestWorker {
 	 * 
 	 * fixed as part of issue #1531 - personCategorie was always null due to malformed query
 	 */
-	protected boolean saveGuest(OctopusContext cntx, Database database, ExecutionContext context, Event event, Integer guestId, Integer personId, Integer categoryId, Boolean reserve, Integer invitationtype, Boolean ishost) throws BeanException, IOException {
+	protected boolean saveGuest(OctopusContext cntx, Database database, ExecutionContext context, Event event,
+                                Integer guestId, Integer personId, Integer categoryId, Boolean reserve,
+                                Integer invitationtype, Boolean ishost) throws BeanException, IOException {
 		if (event == null) return false;
 		
 		if (guestId == null) {
@@ -640,32 +639,25 @@ public class GuestWorker {
 		
 		// Keinen neuen Gast hinzuf�gen wenn diese Person bereits zugeordnet war.
 		if (guestId == null) {
-			if (database.getCount(database.getCount("Guest").where(Where.and(
-					Expr.equal("fk_event", event.id),
-					Expr.equal("fk_person", personId))), context).intValue() > 0)
-				return false;
+			if (getNumberOfGuests(database, context, event, personId) > 0) {
+                return false;
+            }
 		}
 		
 		Guest guest = null;
 		// Gast laden
 		if (guestId != null) {
-			guest = (Guest)
-					database.getBean("Guest",
-					database.getSelect("Guest").
-					where(Expr.equal("pk", guestId)), context);
-			if (guest == null) {
+            guest = getGuestById(database, context, guestId);
+            if (guest == null) {
 				logger.warn("Gast #" + guestId + " konnte nicht gefunden werden.");
 				return false;
 			}
 			personId = guest.person;
 		}
-		
-		// Vollst�ndige Personendaten laden.
-		Person person = (Person)
-				database.getBean("Person",
-				database.getSelect("Person").
-				where(Expr.equal("pk", personId)), context);
-		if (person == null) {
+
+        Person person = getPersonById(database, context, personId);
+
+        if (person == null) {
 			logger.warn("Person #" + personId + " konnte nicht gefunden und daher der Veranstaltung #" + event.id + " nicht hinzugef�gt werden.");
 			return false;
 		}
@@ -758,6 +750,42 @@ public class GuestWorker {
 		}
 		return false;
 	}
+
+    private Person getPersonById(Database database, ExecutionContext context, Integer personId) throws BeanException, IOException {
+        // Vollst�ndige Personendaten laden.
+        return (Person)
+                database.getBean("Person",
+                database.getSelect("Person").
+                where(Expr.equal("pk", personId)), context);
+    }
+
+    private Guest getGuestById(Database database, ExecutionContext context, Integer guestId) throws BeanException, IOException {
+        Guest guest;
+        guest = (Guest)
+                database.getBean("Guest",
+                database.getSelect("Guest").
+                where(Expr.equal("pk", guestId)), context);
+        return guest;
+    }
+
+    /**
+     * Get the number of guests by event id and person id.
+     *
+     * @param database The database
+     * @param context TODO
+     * @param event The event
+     * @param personId Person id
+     *
+     * @return Total number of the guests
+     *
+     * @throws BeanException
+     * @throws IOException
+     */
+    private int getNumberOfGuests(Database database, ExecutionContext context, Event event, Integer personId) throws BeanException, IOException {
+        return database.getCount(database.getCount("Guest").where(Where.and(
+                Expr.equal("fk_event", event.id),
+                Expr.equal("fk_person", personId))), context).intValue();
+    }
 
     /**
      * Diese Methode aktualisiert die Dokumenttypen eines �bergebenen Gasts.
