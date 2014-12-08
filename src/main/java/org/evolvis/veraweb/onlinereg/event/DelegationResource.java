@@ -149,13 +149,15 @@ public class DelegationResource {
      * @param userId User id
      */
     private void addGuestToEvent(String uuid, String eventId, String userId, String gender) {
+    	
     	WebResource resource = client.resource(path("guest", uuid, "register"));
 
         resource = resource.queryParam("eventId", eventId)
         	 .queryParam("userId", userId)
         	 .queryParam("invitationstatus", "0")
              .queryParam("invitationtype", INVITATION_TYPE)
-        	 .queryParam("gender", gender);
+        	 .queryParam("gender", gender)
+        	 .queryParam("category", "0");
 
         resource.post(Guest.class);
     }
