@@ -30,8 +30,6 @@ import java.util.Map;
 import java.util.Properties;
 
 import javax.xml.parsers.FactoryConfigurationError;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactoryConfigurationError;
 
 import org.apache.log4j.Logger;
@@ -68,18 +66,23 @@ import de.tarent.octopus.server.OctopusContext;
  * @author Christoph
  */
 public class GuestExportWorker {
-    /** Logger dieser Klasse */
-	private final Logger logger = Logger.getLogger(getClass());
-
     //
     // Octopus-Aktionen
     //
-	/** Octopus-Eingabeparameter f�r {@link #calc(OctopusContext, Integer)} */
-	public static final String INPUT_calc[] = { "doctype" };
-	/** Octopus-Eingabeparameter f�r {@link #calc(OctopusContext, Integer)} */
-	public static final boolean MANDATORY_calc[] = { false };
-	/** Octopus-Ausgabeparameter f�r {@link #calc(OctopusContext, Integer)} */
-	public static final String OUTPUT_calc = "exportCalc";
+    /** Octopus-Eingabeparameter f�r {@link #calc(OctopusContext, Integer)} */
+    public static final String INPUT_calc[] = { "doctype" };
+    /** Octopus-Eingabeparameter f�r {@link #calc(OctopusContext, Integer)} */
+    public static final boolean MANDATORY_calc[] = { false };
+    /** Octopus-Ausgabeparameter f�r {@link #calc(OctopusContext, Integer)} */
+    public static final String OUTPUT_calc = "exportCalc";
+    /** Octopus-Eingabeparameter f�r {@link #export(OctopusContext, Integer)} */
+    public static final String INPUT_export[] = { "doctype" };
+    /** Octopus-Ausgabeparameter f�r {@link #export(OctopusContext, Integer)} */
+    public static final String OUTPUT_export = "stream";
+
+    /** Logger dieser Klasse */
+	private final Logger logger = Logger.getLogger(getClass());
+
 	/**
 	 * <p>
 	 * Berechnet wieviele Dokumenttypen einer G�steliste exportiert
@@ -90,19 +93,19 @@ public class GuestExportWorker {
 	 * @param doctypeid Dokumenttyp der exportiert werden soll.
 	 */
 	public Map calc(OctopusContext cntx, Integer doctypeid) throws BeanException, IOException {
-		Database database = new DatabaseVeraWeb(cntx);
-		Event event = (Event)cntx.contentAsObject("event");
-		GuestSearch search = (GuestSearch)cntx.contentAsObject("search");
-		List selection = (List)cntx.sessionAsObject("selectionGuest");
+		final Database database = new DatabaseVeraWeb(cntx);
+        final Event event = (Event)cntx.contentAsObject("event");
+        final GuestSearch search = (GuestSearch)cntx.contentAsObject("search");
+        final List selection = (List)cntx.sessionAsObject("selectionGuest");
 
 		if (doctypeid == null) {
-			List list = (List)cntx.contentAsObject("allEventDoctype");
+            final List list = (List)cntx.contentAsObject("allEventDoctype");
 			Iterator it = list.iterator();
 			if (it.hasNext()) {
 				doctypeid = (Integer)((Map)it.next()).get("doctype");
 			}
 			for (it = list.iterator(); it.hasNext(); ) {
-				Map data = (Map)it.next();
+                final Map data = (Map)it.next();
 				if (((Integer)(data).get("isdefault")).intValue() == 1) {
 					doctypeid = (Integer)data.get("doctype");
 					break;
@@ -111,7 +114,7 @@ public class GuestExportWorker {
 		}
 		if (doctypeid == null)
 			return null;
-		Doctype doctype = (Doctype)
+        final Doctype doctype = (Doctype)
 				database.getBean("Doctype",
 				database.getSelect("Doctype").
 				where(Expr.equal("pk", doctypeid)));
@@ -130,7 +133,7 @@ public class GuestExportWorker {
 							Expr.in("fk_guest", selection))));
 
 		} else if (event != null && event.id != null && event.id.intValue() != 0) {
-			WhereList where = new WhereList();
+            final WhereList where = new WhereList();
 			GuestListWorker.addGuestListFilter(search, where);
 
 			total = database.getCount(
@@ -146,7 +149,7 @@ public class GuestExportWorker {
 
 		cntx.setContent("doctype", doctype);
 		cntx.setContent("extension", ExportHelper.getExtension(SpreadSheetFactory.getSpreadSheet(doctype.format).getFileExtension()));
-		Map result = new HashMap();
+        final Map result = new HashMap();
 		result.put("doctype", doctypeid);
 		result.put("total", total);
 		result.put("available", available);
@@ -154,10 +157,6 @@ public class GuestExportWorker {
 		return result;
 	}
 
-	/** Octopus-Eingabeparameter f�r {@link #export(OctopusContext, Integer)} */
-	public static final String INPUT_export[] = { "doctype" };
-	/** Octopus-Ausgabeparameter f�r {@link #export(OctopusContext, Integer)} */
-	public static final String OUTPUT_export = "stream";
 	/**
 	 * <p>
 	 * Exportiert die Dokumenttypen einer G�steliste.
@@ -178,19 +177,22 @@ public class GuestExportWorker {
 	 * @throws TransformerException
 	 */
 	public Map export(OctopusContext cntx, Integer doctypeid) throws BeanException, IOException, FactoryConfigurationError, TransformerFactoryConfigurationError {
-		Database database = new DatabaseVeraWeb(cntx);
-		Event event = (Event)cntx.contentAsObject("event");
-		GuestSearch search = (GuestSearch)cntx.contentAsObject("search");
-		List selection = (List)cntx.sessionAsObject("selectionGuest");
-		Doctype doctype = (Doctype)database.getBean("Doctype", doctypeid);
+        final Database database = new DatabaseVeraWeb(cntx);
+        final Event event = (Event)cntx.contentAsObject("event");
+        final GuestSearch search = (GuestSearch)cntx.contentAsObject("search");
+        final List selection = (List)cntx.sessionAsObject("selectionGuest");
+        final Doctype doctype = (Doctype)database.getBean("Doctype", doctypeid);
 
 		// Spreadsheet �ffnen
 		final SpreadSheet spreadSheet = SpreadSheetFactory.getSpreadSheet(doctype.format);
 		spreadSheet.init();
-		String filename = OctopusHelper.getFilename(cntx, spreadSheet.getFileExtension(), "export." + spreadSheet.getFileExtension());
+        final String fileExtension = spreadSheet.getFileExtension();
+        final String filename = OctopusHelper.getFilename(cntx, fileExtension, "export." + fileExtension);
 
-		if (logger.isInfoEnabled())
-			logger.info("Exportiere Gästeliste. (Dateiname: '" + filename + "'; Dokumenttyp: #" + doctype.id + "; Format: '" + spreadSheet.getClass().getName() + "')");
+		if (logger.isInfoEnabled()) {
+            logger.info("Exportiere Gästeliste. (Dateiname: '" + filename + "'; Dokumenttyp: #" + doctype.id
+                    + "; Format: '" + spreadSheet.getClass().getName() + "')");
+        }
 
 		// Tabelle �ffnen und erste Zeile schreiben
 		spreadSheet.openTable("Gäste", 65);
@@ -199,13 +201,13 @@ public class GuestExportWorker {
 		spreadSheet.closeRow();
 
 		// Zusatzinformationen
-		Map data = new HashMap();
+        final Map data = new HashMap();
 		data.put("doctype", doctype.name);
-		String withHost = (doctype.host != null && doctype.host.booleanValue()) ? "" :
+        final String withHost = (doctype.host != null && doctype.host.booleanValue()) ? "" :
 				"(tguest.ishost IS NULL OR tguest.ishost = 0) AND ";
 
 		// Export-Select zusammenbauen
-		Select select = database.getSelect("GuestDoctype");
+        final Select select = database.getSelect("GuestDoctype");
 		select.select("tguest.*");
 		select.selectAs("CASE WHEN orderno IS NOT NULL THEN orderno ELSE orderno_p END", "someorderno");
 
@@ -228,7 +230,7 @@ public class GuestExportWorker {
 			select.join(new Join(Join.INNER, "veraweb.tguest", new RawClause(withHost +
 					"tguest_doctype.fk_guest = tguest.pk AND tguest_doctype.fk_doctype = " + doctype.id)));
 
-			WhereList list = new WhereList();
+            final WhereList list = new WhereList();
 			GuestListWorker.addGuestListFilter(search, list);
 			select.where(list);
 		} else {
@@ -265,7 +267,7 @@ public class GuestExportWorker {
 		select.selectAs("c2.rgb", "color2");
 
 		// Sortierung erstellen
-		List order = new ArrayList();
+        final List order = new ArrayList();
 		order.add("tguest.ishost");
 		order.add("DESC");
 		GuestReportWorker.setSortOrder(order, cntx.requestAsString("sort1"));
@@ -305,6 +307,7 @@ public class GuestExportWorker {
 					try {
 						pos.close();
 					} catch (IOException e) {
+                        // TODO
 					}
 				}
         		if (logger.isDebugEnabled())
@@ -313,7 +316,7 @@ public class GuestExportWorker {
         }).start();
 
 		// Stream-Informationen zur�ck geben
-		Map stream = new HashMap();
+        final Map stream = new HashMap();
 		stream.put(TcBinaryResponseEngine.PARAM_TYPE, TcBinaryResponseEngine.BINARY_RESPONSE_TYPE_STREAM);
 		stream.put(TcBinaryResponseEngine.PARAM_FILENAME, ExportHelper.getFilename(filename));
 		stream.put(TcBinaryResponseEngine.PARAM_MIMETYPE, ExportHelper.getContentType(spreadSheet.getContentType()));
@@ -345,17 +348,17 @@ public class GuestExportWorker {
      * @throws IOException 
      */
 	protected void exportSelect(SpreadSheet spreadSheet, Database database, Event event, Location location, Doctype doctype, GuestSearch search, Select select, Map data) throws BeanException, IOException {
-		for (Iterator it = database.getList(select, database).iterator(); it.hasNext(); ) {
-			Map guest = (Map)it.next();
+		for (final Iterator it = database.getList(select, database).iterator(); it.hasNext(); ) {
+            final Map guest = (Map)it.next();
 
 			Integer invitationtype = (Integer)guest.get("invitationtype");
 			if (invitationtype == null || invitationtype.intValue() == 0)
 				invitationtype = event.invitationtype;
 
 			// Test ob die Hauptperson / der Partner zum aktuellen Filter passen.
-			Integer reserve = (Integer)guest.get("reserve");
-			Integer invitationstatus_a = (Integer)guest.get("invitationstatus");
-			Integer invitationstatus_b = (Integer)guest.get("invitationstatus_p");
+            final Integer reserve = (Integer)guest.get("reserve");
+            final Integer invitationstatusA = (Integer)guest.get("invitationstatus");
+            final Integer invitationstatusB = (Integer)guest.get("invitationstatus_p");
 
 			/*
 			 * modified to support the additional fourth invitation_status of "teilgenommen"
@@ -363,15 +366,15 @@ public class GuestExportWorker {
 			 * 2008-02-26
 			 */
 			boolean showA = search.invitationstatus == null || (
-					(search.invitationstatus.intValue() == 1 && (invitationstatus_a == null || invitationstatus_a.intValue() == 0)) ||
-					(search.invitationstatus.intValue() == 2 && (invitationstatus_a != null && invitationstatus_a.intValue() == 1)) ||
-					(search.invitationstatus.intValue() == 3 && (invitationstatus_a != null && invitationstatus_a.intValue() == 2)) ||
-					(search.invitationstatus.intValue() == 4 && (invitationstatus_a != null && invitationstatus_a.intValue() == 3)));
+					(search.invitationstatus.intValue() == 1 && (invitationstatusA == null || invitationstatusA.intValue() == 0)) ||
+					(search.invitationstatus.intValue() == 2 && (invitationstatusA != null && invitationstatusA.intValue() == 1)) ||
+					(search.invitationstatus.intValue() == 3 && (invitationstatusA != null && invitationstatusA.intValue() == 2)) ||
+					(search.invitationstatus.intValue() == 4 && (invitationstatusA != null && invitationstatusA.intValue() == 3)));
 			boolean showB = search.invitationstatus == null || (
-					(search.invitationstatus.intValue() == 1 && (invitationstatus_b == null || invitationstatus_b.intValue() == 0)) ||
-					(search.invitationstatus.intValue() == 2 && (invitationstatus_b != null && invitationstatus_b.intValue() == 1)) ||
-					(search.invitationstatus.intValue() == 3 && (invitationstatus_b != null && invitationstatus_b.intValue() == 2)) ||
-					(search.invitationstatus.intValue() == 4 && (invitationstatus_b != null && invitationstatus_b.intValue() == 3)));
+					(search.invitationstatus.intValue() == 1 && (invitationstatusB == null || invitationstatusB.intValue() == 0)) ||
+					(search.invitationstatus.intValue() == 2 && (invitationstatusB != null && invitationstatusB.intValue() == 1)) ||
+					(search.invitationstatus.intValue() == 3 && (invitationstatusB != null && invitationstatusB.intValue() == 2)) ||
+					(search.invitationstatus.intValue() == 4 && (invitationstatusB != null && invitationstatusB.intValue() == 3)));
 			showA = showA && (search.reserve == null || (
 					(search.reserve.intValue() == 1 && (reserve == null || reserve.intValue() == 0)) ||
 					(search.reserve.intValue() == 2 && (reserve != null && reserve.intValue() == 1))));
@@ -386,8 +389,7 @@ public class GuestExportWorker {
 					// Mit Partner
 					if (showA) {
 						spreadSheet.openRow();
-						exportOnlyPerson(spreadSheet, event, location, showA,
-								showB, guest, data);
+						exportOnlyPerson(spreadSheet, event, location, guest, data);
 						spreadSheet.closeRow();
 					}
 					if (showB) {
@@ -400,8 +402,7 @@ public class GuestExportWorker {
 					// Ohne Partner
 					if (showA) {
 						spreadSheet.openRow();
-						exportOnlyPerson(spreadSheet, event, location, showA,
-								showB, guest, data);
+						exportOnlyPerson(spreadSheet, event, location, guest, data);
 						spreadSheet.closeRow();
 					}
 				} else if (invitationtype.intValue() == EventConstants.TYPE_NURPARTNER) {
@@ -428,8 +429,7 @@ public class GuestExportWorker {
 					// Ohne Partner
 					if (showA) {
 						spreadSheet.openRow();
-						exportOnlyPerson(spreadSheet, event, location, showA,
-								showB, guest, data);
+						exportOnlyPerson(spreadSheet, event, location,  guest, data);
 						spreadSheet.closeRow();
 					}
 				} else if (invitationtype.intValue() == EventConstants.TYPE_NURPARTNER) {
@@ -587,7 +587,7 @@ public class GuestExportWorker {
 	 * @param event Event das exportiert wird.
 	 * @param guest Map mit den Gastdaten.
 	 * @param data Zusatzinformationen.
-	 * @throws IOException 
+	 * @throws IOException Wenn die Generierung von URL fur Delegation fehlschlug.
 	 */
 	protected void exportBothInOneLine(SpreadSheet spreadSheet, Event event, Location location, boolean showA, boolean showB, Map guest, Map data) throws IOException {
 		//
@@ -595,19 +595,19 @@ public class GuestExportWorker {
 		//
 		spreadSheet.addCell(data.get("doctype")); // Name des Dokument-Typs
 
-		String text_a = (String)guest.get("textfield");
-		String text_b = (String)guest.get("textfield_p");
+        final String textA = (String)guest.get("textfield");
+        final String textB = (String)guest.get("textfield_p");
 		if (showA) {
-			spreadSheet.addCell(text_a);
+			spreadSheet.addCell(textA);
 		} else {
 			spreadSheet.addCell(null);
 		}
 		if (showB) {
-			spreadSheet.addCell(text_b);
+			spreadSheet.addCell(textB);
 		} else {
 			spreadSheet.addCell(null);
 		}
-		if (showA && showB && text_a != null && text_a.length() != 0 && text_b != null && text_b.length() != 0) {
+		if (showA && showB && textA != null && textA.length() != 0 && textB != null && textB.length() != 0) {
 			spreadSheet.addCell(guest.get("textjoin"));
 		} else {
 			spreadSheet.addCell(null);
@@ -784,36 +784,36 @@ public class GuestExportWorker {
 	private void addDelegationLoginCells(SpreadSheet spreadSheet, Map guest, Event event) throws IOException {
 		String password = "-";
 		Object username = "-";
-		String loginUrl = "-";
+		String delegationRegistrerURL = "-";
 	
 		if(guest.containsKey("delegation") && 
 				guest.get("delegation") != null && 
 				guest.get("delegation").toString().length() > 0) {
 			
-			loginUrl = generadeLoginUrl(guest);
-			password = generadePassword(event, guest);
+			delegationRegistrerURL = generateLoginUrl(guest);
+			password = generatePassword(event, guest);
 			username = guest.get("osiam_login"); ;
 		}
 
 		spreadSheet.addCell(username);
 		spreadSheet.addCell(password);
-		spreadSheet.addCell(loginUrl);
+		spreadSheet.addCell(delegationRegistrerURL);
 	}
 
-	private String  generadePassword(Event event, Map guest) {
-		String shortName = event.get("shortname").toString();
-		String companyName = guest.get("company_a_e1").toString();
-		StringBuilder passwordBuilder = new StringBuilder();
+	private String generatePassword(Event event, Map guest) {
+        final String shortName = event.get("shortname").toString();
+        final String companyName = guest.get("company_a_e1").toString();
+        final StringBuilder passwordBuilder = new StringBuilder();
 		passwordBuilder.append(extractFirstXChars(shortName, 3));
 		passwordBuilder.append(extractFirstXChars(companyName, 3));
 		passwordBuilder.append(extractFirstXChars(event.begin.toString(), 10));
 		return passwordBuilder.toString();
 	}
 	
-	private String generadeLoginUrl(Map guest) throws IOException {
-		PropertiesReader propertiesReader = new PropertiesReader();
-        Properties properties = propertiesReader.getProperties();
-        URLGenerator url = new URLGenerator(properties);
+	private String generateLoginUrl(Map guest) throws IOException {
+        final PropertiesReader propertiesReader = new PropertiesReader();
+        final Properties properties = propertiesReader.getProperties();
+        final URLGenerator url = new URLGenerator(properties);
         return url.getURLForDelegation() + guest.get("delegation");
 	}
 	
@@ -828,9 +828,9 @@ public class GuestExportWorker {
 	 * @param event Event das exportiert wird.
 	 * @param guest Map mit den Gastdaten.
 	 * @param data Zusatzinformationen.
-	 * @throws IOException 
+	 * @throws IOException Wenn die Generierung von URL fur Delegation fehlschlug.
 	 */
-	protected void exportOnlyPerson(SpreadSheet spreadSheet, Event event, Location location, boolean showA, boolean showB, Map guest, Map data) throws IOException {
+	protected void exportOnlyPerson(SpreadSheet spreadSheet, Event event, Location location, Map guest, Map data) throws IOException {
 		//
 		// Gast spezifische Daten
 		//
