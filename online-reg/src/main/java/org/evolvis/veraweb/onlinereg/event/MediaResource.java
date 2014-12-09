@@ -128,7 +128,7 @@ public class MediaResource {
      */
     private void addGuestToEvent(String uuid, String eventId, String userId, String gender) throws IOException {
     	
-    	Integer categoryID = getCategoryIdFromCatname("Pressevertreter");
+    	Integer categoryID = getCategoryIdFromCatname("Pressevertreter", uuid);
     	
     	WebResource resource = client.resource(path("guest", uuid, "register"));
 
@@ -152,8 +152,8 @@ public class MediaResource {
     /**
      * Searching the ID of one category using the catname
      */
-    private Integer getCategoryIdFromCatname(String catname) throws IOException {
-    	return readResource(path("category", catname), INTEGER);
+    private Integer getCategoryIdFromCatname(String catname, String uuid) throws IOException {
+    	return readResource(path("category", catname, uuid), INTEGER);
     }
     /**
      * Includes a new person in the database - Table "tperson"
