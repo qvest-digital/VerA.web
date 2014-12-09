@@ -15,12 +15,13 @@ public class CategoryResource extends AbstractResource {
 
 
     @GET
-    @Path("/{catname}")
-    public Integer getGuest(@PathParam("catname") String catname) {
+    @Path("/{catname}/{uuid}")
+    public Integer getGuest(@PathParam("catname") String catname, @PathParam("uuid") String uuid) {
         Session session = openSession();
         try {
             Query query = session.getNamedQuery("Category.findIdByCatname");
             query.setString("pcatname", catname);
+            query.setString("uuid", uuid);
             Integer returnedValue = (Integer) query.uniqueResult(); 
             if (returnedValue != null) {
             	return returnedValue;
