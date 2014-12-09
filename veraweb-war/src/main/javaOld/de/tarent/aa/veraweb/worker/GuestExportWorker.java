@@ -757,7 +757,7 @@ public class GuestExportWorker {
 		spreadSheet.addCell(event.end);
 
 		addLocationCells(spreadSheet, location);
-		addOSIAMLoginCells(spreadSheet, guest, event);
+		addDelegationLoginCells(spreadSheet, guest, event);
 		spreadSheet.addCell(event.note);
 	}
 
@@ -781,7 +781,7 @@ public class GuestExportWorker {
 	}
 
 		
-	private void addOSIAMLoginCells(SpreadSheet spreadSheet, Map guest, Event event) throws IOException {
+	private void addDelegationLoginCells(SpreadSheet spreadSheet, Map guest, Event event) throws IOException {
 		String password = "-";
 		Object username = "-";
 		String loginUrl = "-";
@@ -940,7 +940,7 @@ public class GuestExportWorker {
 		spreadSheet.addCell(event.end);
 
 		addLocationCells(spreadSheet, location);
-		addOSIAMLoginCells(spreadSheet, guest, event);
+		addDelegationLoginCells(spreadSheet, guest, event);
 
 		spreadSheet.addCell(event.note);
 	}
@@ -1064,7 +1064,7 @@ public class GuestExportWorker {
 		spreadSheet.addCell(event.end);
 
 		addLocationCells(spreadSheet, location);
-		addOSIAMLoginCells(spreadSheet, guest, event);
+		addDelegationLoginCells(spreadSheet, guest, event);
 
 		spreadSheet.addCell(event.note);
 	}
