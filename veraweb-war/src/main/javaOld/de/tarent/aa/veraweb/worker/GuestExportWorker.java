@@ -27,6 +27,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 
 import javax.xml.parsers.FactoryConfigurationError;
 import javax.xml.parsers.ParserConfigurationException;
@@ -43,6 +44,8 @@ import de.tarent.aa.veraweb.beans.facade.EventConstants;
 import de.tarent.aa.veraweb.utils.DatabaseHelper;
 import de.tarent.aa.veraweb.utils.ExportHelper;
 import de.tarent.aa.veraweb.utils.OctopusHelper;
+import de.tarent.aa.veraweb.utils.PropertiesReader;
+import de.tarent.aa.veraweb.utils.URLGenerator;
 import de.tarent.commons.spreadsheet.export.SpreadSheet;
 import de.tarent.commons.spreadsheet.export.SpreadSheetFactory;
 import de.tarent.dblayer.sql.Join;
@@ -339,8 +342,9 @@ public class GuestExportWorker {
      *  die zu exportierenden Datens�tze zu liefern.
      * @param data Map mit Zusatzinformationen unter den Schl�sseln "doctype", "zusagen",
      *  "absagen", "offenen", "platz" und "reserve".
+     * @throws IOException 
      */
-	protected void exportSelect(SpreadSheet spreadSheet, Database database, Event event, Location location, Doctype doctype, GuestSearch search, Select select, Map data) throws BeanException {
+	protected void exportSelect(SpreadSheet spreadSheet, Database database, Event event, Location location, Doctype doctype, GuestSearch search, Select select, Map data) throws BeanException, IOException {
 		for (Iterator it = database.getList(select, database).iterator(); it.hasNext(); ) {
 			Map guest = (Map)it.next();
 
@@ -571,7 +575,8 @@ public class GuestExportWorker {
 		//OSIAM Login
 		spreadSheet.addCell("Anmeldename");
 		spreadSheet.addCell("Passwort");
-
+		spreadSheet.addCell("Delegations URL");
+		
 		spreadSheet.addCell("Bemerkung");
 	}
 
@@ -582,8 +587,9 @@ public class GuestExportWorker {
 	 * @param event Event das exportiert wird.
 	 * @param guest Map mit den Gastdaten.
 	 * @param data Zusatzinformationen.
+	 * @throws IOException 
 	 */
-	protected void exportBothInOneLine(SpreadSheet spreadSheet, Event event, Location location, boolean showA, boolean showB, Map guest, Map data) {
+	protected void exportBothInOneLine(SpreadSheet spreadSheet, Event event, Location location, boolean showA, boolean showB, Map guest, Map data) throws IOException {
 		//
 		// Gast spezifische Daten
 		//
@@ -774,28 +780,41 @@ public class GuestExportWorker {
 		}
 	}
 
-	private void addOSIAMLoginCells(SpreadSheet spreadSheet, Map guest, Event event) {
+		
+	private void addOSIAMLoginCells(SpreadSheet spreadSheet, Map guest, Event event) throws IOException {
 		String password = "-";
 		Object username = "-";
-		
+		String loginUrl = "-";
+	
 		if(guest.containsKey("delegation") && 
 				guest.get("delegation") != null && 
 				guest.get("delegation").toString().length() > 0) {
-			StringBuilder passwordBuilder = new StringBuilder();
-			String shortName = event.get("shortname").toString();
-			String companyName = guest.get("company_a_e1").toString();
-			Object login = guest.get("osiam_login");
 			
-			passwordBuilder.append(extractFirstXChars(shortName, 3));
-			passwordBuilder.append(extractFirstXChars(companyName, 3));
-			passwordBuilder.append(extractFirstXChars(event.begin.toString(), 10));
-			
-			password = passwordBuilder.toString();
-			username = login;
+			loginUrl = generadeLoginUrl(guest);
+			password = generadePassword(event, guest);
+			username = guest.get("osiam_login"); ;
 		}
 
 		spreadSheet.addCell(username);
 		spreadSheet.addCell(password);
+		spreadSheet.addCell(loginUrl);
+	}
+
+	private String  generadePassword(Event event, Map guest) {
+		String shortName = event.get("shortname").toString();
+		String companyName = guest.get("company_a_e1").toString();
+		StringBuilder passwordBuilder = new StringBuilder();
+		passwordBuilder.append(extractFirstXChars(shortName, 3));
+		passwordBuilder.append(extractFirstXChars(companyName, 3));
+		passwordBuilder.append(extractFirstXChars(event.begin.toString(), 10));
+		return passwordBuilder.toString();
+	}
+	
+	private String generadeLoginUrl(Map guest) throws IOException {
+		PropertiesReader propertiesReader = new PropertiesReader();
+        Properties properties = propertiesReader.getProperties();
+        URLGenerator url = new URLGenerator(properties);
+        return url.getURLForDelegation() + guest.get("delegation");
 	}
 	
 	private String extractFirstXChars(String value, int x) {
@@ -809,8 +828,9 @@ public class GuestExportWorker {
 	 * @param event Event das exportiert wird.
 	 * @param guest Map mit den Gastdaten.
 	 * @param data Zusatzinformationen.
+	 * @throws IOException 
 	 */
-	protected void exportOnlyPerson(SpreadSheet spreadSheet, Event event, Location location, boolean showA, boolean showB, Map guest, Map data) {
+	protected void exportOnlyPerson(SpreadSheet spreadSheet, Event event, Location location, boolean showA, boolean showB, Map guest, Map data) throws IOException {
 		//
 		// Gast spezifische Daten
 		//
@@ -932,8 +952,9 @@ public class GuestExportWorker {
 	 * @param event Event das exportiert wird.
 	 * @param guest Map mit den Gastdaten.
 	 * @param data Zusatzinformationen.
+	 * @throws IOException 
 	 */
-	protected void exportOnlyPartner(SpreadSheet spreadSheet, Event event, Location location, boolean showA, boolean showB, Map guest, Map data) {
+	protected void exportOnlyPartner(SpreadSheet spreadSheet, Event event, Location location, boolean showA, boolean showB, Map guest, Map data) throws IOException {
 		//
 		// Gast spezifische Daten
 		//

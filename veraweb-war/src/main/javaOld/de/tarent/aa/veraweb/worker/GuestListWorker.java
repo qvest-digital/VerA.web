@@ -696,7 +696,7 @@ public class GuestListWorker extends ListWorkerVeraWeb {
 		GuestListWorker.addGuestListFilter(search, where);
 		
 		if (selection != null && selection.size() != 0) {
-			where.addAnd(Expr.in("pk", selection));
+			where.addAnd(Expr.in("tguest.pk", selection));
 		}
 		
 		Select select = SQL.Select( database ).
