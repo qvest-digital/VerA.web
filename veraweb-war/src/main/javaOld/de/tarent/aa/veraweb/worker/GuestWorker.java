@@ -631,7 +631,9 @@ public class GuestWorker {
 	protected boolean saveGuest(OctopusContext cntx, Database database, ExecutionContext context, Event event,
                                 Integer guestId, Integer personId, Integer categoryId, Boolean reserve,
                                 Integer invitationtype, Boolean ishost) throws BeanException, IOException {
-		if (event == null) return false;
+		if (event == null) {
+            return false;
+        }
 		
 		if (guestId == null) {
 			logger.debug("Füge Person #" + personId + " der Veranstaltung #" + event.id + " hinzu.");

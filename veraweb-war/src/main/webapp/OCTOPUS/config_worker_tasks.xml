@@ -1184,7 +1184,6 @@
                 Dieser Task zeigt eine Veranstaltung an.
             </description>
             <doTask name="Load"/>
-            <action name="showDelegationFields" worker="EventDelegationWorker" />
             <action name="getDelegationFieldsLabels" worker="EventDelegationWorker" />
             <response type="velocity" name="delegationFields">
                 <param name="ContentType" value="text/html;charset=UTF-8"/>
@@ -1323,6 +1322,7 @@
 			<action name="getEvent" worker="GuestListWorker" />
 			<status equals="noevent"><doTask name="CreateEvent"/></status>
 			<action name="getAll" worker="CategorieWorker"/>
+            <action name="showDelegationFields" worker="EventDelegationWorker" />
 			<action name="showDetail" worker="GuestDetailWorker"/>
 			<status equals="notfound">
 				<doTask name="ShowGuestList"/>

@@ -349,7 +349,7 @@
             	
             	<tr>
             		<td><input type="hidden" id="${bean.id}-modified" name="${bean.id}-modified" value="false"><input type="hidden" id="${bean.id}-invitationtype" name="${bean.id}-invitationtype" value="${bean.invitationtype}"><input type="checkbox" name="${bean.id}-select" onChange="selectionChange( this );" value="true" #if($listselection.indexOf($bean.id) != -1) checked#end/></td>
-            		<td style="cursor: pointer;" onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&offset=$offset';"><input type="hidden" name="${bean.id}-id" value="$bean.id">
+            		<td style="cursor: pointer;" onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';"><input type="hidden" name="${bean.id}-id" value="$bean.id">
             			#if($bean.ishost && $bean.ishost == 1)
             				<em>Gastgeber</em>
             			#elseif($bean.someorderno)
@@ -360,15 +360,15 @@
             		</td>
 					
             		#if($bean.reserve == 1)
-						<td class="textCenter" onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&offset=$offset';" title="Auf Reserve"><strong>R</strong></td>
+						<td class="textCenter" onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';" title="Auf Reserve"><strong>R</strong></td>
             		#else
-						<td class="textCenter" onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&offset=$offset';" title="Auf Platz">&nbsp;</td>
+						<td class="textCenter" onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';" title="Auf Platz">&nbsp;</td>
 					#end
 
                     #if($bean.company_a_e1 != "")
-					    <td onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&offset=$offset';" title="Firma/Institution">$bean.company_a_e1</td>
+					    <td onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';" title="Firma/Institution">$bean.company_a_e1</td>
 					#else
-					    <td onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&offset=$offset';" title="Firma/Institution">&nbsp;</td>
+					    <td onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';" title="Firma/Institution">&nbsp;</td>
                     #end
 
                     #if($bean.iscompany == "t" && $bean.delegation != "" && $bean.invitationtype != 4)
@@ -378,7 +378,7 @@
                         <td></td>
                         <td></td>
                     #else
-                        <td onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&offset=$offset';">
+                        <td onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';">
 
                             #if($bean.invitationtype != 3)
                                 #if($bean.showdoctype)
@@ -394,7 +394,7 @@
                                 #end
                             #end
                         </td>
-                        <td onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&offset=$offset';">
+                        <td onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';">
                             #if($bean.invitationtype != 3)
                                 #if($bean.showdoctype)$!message.plain($bean.firstname_a_gd)#else$!message.plain($bean.firstname_a_e1)#end
                             #else
@@ -417,13 +417,13 @@
                             #end
                         </td>
                         #if($userConfig.guestListFunction)
-                                <td onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&offset=$offset';">#if($bean.showdoctype)$!message.plain($bean.function_a_gd)#else$!message.plain($bean.function_a_e1)#end</td>
+                                <td onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';">#if($bean.showdoctype)$!message.plain($bean.function_a_gd)#else$!message.plain($bean.function_a_e1)#end</td>
                         #end
                         #if($userConfig.guestListCity)
-                                <td onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&offset=$offset';">#if($bean.showdoctype)$!message.plain($bean.zipcode_a_gd) $!message.plain($bean.city_a_gd)#else$!message.plain($bean.zipcode_a_e1) $!message.plain($bean.city_a_e1)#end</td>
+                                <td onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';">#if($bean.showdoctype)$!message.plain($bean.zipcode_a_gd) $!message.plain($bean.city_a_gd)#else$!message.plain($bean.zipcode_a_e1) $!message.plain($bean.city_a_e1)#end</td>
                         #end
                         #if($userConfig.guestListPhone)
-                                <td onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&offset=$offset';">#if($bean.showdoctype)$!message.plain($bean.fon_a_gd)#else$!message.plain($bean.fon_a_e1)#end</td>
+                                <td onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';">#if($bean.showdoctype)$!message.plain($bean.fon_a_gd)#else$!message.plain($bean.fon_a_e1)#end</td>
                         #end
                         <td class="textCenter">
                             #if($bean.invitationtype != 3)
