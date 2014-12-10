@@ -1189,6 +1189,15 @@
                 <param name="ContentType" value="text/html;charset=UTF-8"/>
             </response>
         </task>
+        
+        <task name="SaveDelegationFields" access="public" groups="StandardFieldsReader">
+            <description>
+                Dieser Task speicher die bearbeitetten Tasks.
+            </description>
+            <doTask name="Load"/>
+            <action name="saveDelegationFieldLabels" worker="EventDelegationWorker" />
+            <doTask name="ShowDelegationFields"/>
+        </task>
 
 		<task name="SaveEvent" access="public" groups="Writer">
 			<description>

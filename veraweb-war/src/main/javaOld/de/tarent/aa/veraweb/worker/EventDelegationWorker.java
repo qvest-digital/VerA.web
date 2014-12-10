@@ -1,5 +1,7 @@
 package de.tarent.aa.veraweb.worker;
 
+import de.tarent.aa.veraweb.beans.Delegation;
+import de.tarent.aa.veraweb.beans.DelegationField;
 import de.tarent.aa.veraweb.beans.Event;
 import de.tarent.aa.veraweb.utils.DateHelper;
 import de.tarent.octopus.beans.BeanException;
@@ -8,6 +10,7 @@ import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -27,6 +30,10 @@ public class EventDelegationWorker {
     public static final String INPUT_getDelegationFieldsLabels[] = {"eventId"};
 
     public static final String OUTPUT_getDelegationFieldsLabels = "delegationFieldsLabels";
+    
+    public static final String INPUT_saveDelegationFieldLabels[] = {"eventId", "delegationFields", };
+
+//    public static final String OUTPUT_saveDelegationFieldLabels = "";
 
     /**
      * Show the optional delegation fields in the guest detail view.
@@ -76,30 +83,49 @@ public class EventDelegationWorker {
      * Get the labels for the delegation fields.
      *
      * @return Labels for the fields
+     * @throws SQLException 
      */
-    public List<String> getDelegationFieldsLabels(OctopusContext oc, Integer eventId) throws IOException, BeanException {
+    public List<String> getDelegationFieldsLabels(OctopusContext oc, Integer eventId) throws IOException, BeanException, SQLException {
         setEventInContext(oc, eventId);
-
         final List<String> delegationFieldsLabelds = new ArrayList<String>();
-        delegationFieldsLabelds.add("Bezeichnung Feld 01");
-        delegationFieldsLabelds.add("Bezeichnung Feld 02");
-        delegationFieldsLabelds.add("Bezeichnung Feld 03");
-        delegationFieldsLabelds.add("Bezeichnung Feld 04");
-        delegationFieldsLabelds.add("Bezeichnung Feld 05");
-        delegationFieldsLabelds.add("Bezeichnung Feld 06");
-        delegationFieldsLabelds.add("Bezeichnung Feld 07");
-        delegationFieldsLabelds.add("Bezeichnung Feld 08");
-        delegationFieldsLabelds.add("Bezeichnung Feld 09");
-        delegationFieldsLabelds.add("Bezeichnung Feld 10");
-        delegationFieldsLabelds.add("Bezeichnung Feld 11");
-        delegationFieldsLabelds.add("Bezeichnung Feld 12");
-        delegationFieldsLabelds.add("Bezeichnung Feld 13");
-        delegationFieldsLabelds.add("Bezeichnung Feld 14");
-        delegationFieldsLabelds.add("Bezeichnung Feld 15");
-
+        DelegationFieldWorker delegationFieldWorker = new DelegationFieldWorker(oc);
+        
+        List<DelegationField> a = delegationFieldWorker.getDelegationFieldsByEvent(eventId);
+        
+        for (DelegationField delegationField : a) {
+        	delegationFieldsLabelds.add(delegationField.getLabel());
+		}
+        
         return delegationFieldsLabelds;
     }
 
+    public void saveDelegationFieldLabels(OctopusContext oc, Integer eventId, List<String> delegationFieldLables) throws BeanException, SQLException {
+    	DelegationFieldWorker delegationFieldWorker = new DelegationFieldWorker(oc);
+    	List<String> createdOrUpdatedLabels = new ArrayList<String>();
+    	
+		for(String label : delegationFieldLables) {
+			DelegationField delegationField = new DelegationField();
+			delegationField.setFkEvent(eventId);
+			delegationField.setLabel(label);
+			
+			delegationFieldWorker.createOrUpdateDelegationField(delegationField);
+			
+			createdOrUpdatedLabels.add(label);
+		}
+		
+		delegationFieldLables.removeAll(createdOrUpdatedLabels);
+		
+		for (String label : createdOrUpdatedLabels) {
+			DelegationField delegationField = new DelegationField();
+			delegationField.setFkEvent(eventId);
+			delegationField.setLabel(label);
+			
+			delegationFieldWorker.removeDelegationField(delegationField);
+		}
+    	
+    	
+    }
+    
     private static Event getEvent(OctopusContext cntx, Integer id) throws BeanException, IOException {
         if (id == null) return null;
 

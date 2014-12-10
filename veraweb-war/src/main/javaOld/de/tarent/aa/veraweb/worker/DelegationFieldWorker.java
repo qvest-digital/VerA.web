@@ -11,6 +11,7 @@ import de.tarent.dblayer.sql.SQL;
 import de.tarent.dblayer.sql.SyntaxErrorException;
 import de.tarent.dblayer.sql.clause.Where;
 import de.tarent.dblayer.sql.clause.WhereList;
+import de.tarent.dblayer.sql.statement.Delete;
 import de.tarent.dblayer.sql.statement.Insert;
 import de.tarent.dblayer.sql.statement.Select;
 import de.tarent.dblayer.sql.statement.Update;
@@ -152,17 +153,37 @@ public class DelegationFieldWorker {
 		WhereList whereCriterias = new WhereList();
 		Select select = SQL.Select(this.database);
 		
-		whereCriterias.addAnd(new Where("pk", delegationField.getPk(), "="));
+		if(delegationField.getPk() == -1) {
+			whereCriterias.addAnd(new Where("label", delegationField.getLabel(), "="));
+			whereCriterias.addAnd(new Where("fk_event", delegationField.getLabel(), "="));
+		} else {
+			whereCriterias.addAnd(new Where("pk", delegationField.getPk(), "="));
+		}
 		select.from(DELEGATON_FIELD_TABLE_NAME);
+		select.where(whereCriterias);
 		select.select("pk");
 		
 		ResultSet resultSet = database.result(select);
 	
-		if(resultSet.next()) {
-	    	return true;
-		}
+		return resultSet.next();
+	}
+
+	public void removeDelegationField(DelegationField delegationField) throws SQLException, BeanException {
+		TransactionContext context = this.database.getTransactionContext();
+		WhereList whereCriterias = new WhereList();
+		Delete delete = SQL.Delete(this.database);
 		
-		return false;
+		if(delegationField.getPk() == -1) {
+			whereCriterias.addAnd(new Where("label", delegationField.getLabel(), "="));
+			whereCriterias.addAnd(new Where("fk_event", delegationField.getLabel(), "="));
+		} else {
+			whereCriterias.addAnd(new Where("pk", delegationField.getPk(), "="));
+		}
+		delete.from(DELEGATON_FIELD_TABLE_NAME);
+		delete.where(whereCriterias);
+		
+		delete.executeDelete(context);
+        context.commit();
 	}
 
 }

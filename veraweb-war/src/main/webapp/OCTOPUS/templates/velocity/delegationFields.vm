@@ -5,7 +5,7 @@
         #set($elementNamePlural = "Aufgaben")
         #parse("inc/header.vm")
 
-        #set($formurl = "ShowEventTasks")
+        #set($formurl = "SaveDelegationFields")
 
 <div class="content_container">
     <div id="breadcrumb" class="textRight marginBottom10">
@@ -15,7 +15,7 @@
     <h1>Veranstaltung bearbeiten: $!message.plain($event.shortname)</h1>
 
 
-    <form id="formlist" name="formlist" action="$formurl?id=$!id" method="POST">
+    <form id="formlist" name="formlist" action="$formurl?eventId=$!event.id" method="POST">
 
         #set($completeEventHeader = false)
         #parse("inc/event-header.vm")
@@ -51,14 +51,15 @@
             </div>
 
             <div class="contentBoxColored tabsContent">
-                #set( $counter = 1)
-                #foreach( $field in $delegationFieldsLabels )
-                <div style="margin-bottom: 10px">
-                    <label for="event-delegation-field-$counter" style="display:inline;">$field</label>
-                    <input type="text" onchange="setModified();" id="event-$field" name="event-$field"/>
-                </div>
-                #set( $counter = $counter + 1)
-                #end
+				<ol class="delegationFields">
+	                #foreach( $field in $delegationFieldsLabels )
+			            <li>
+			                <input type="text" name="delegationFields" value="$field">
+							<input type="button" class="remove_field" value="-">
+			            </li>
+	                #end
+				</ol>
+				<input type="button" id="addDelegation" class="mainButton" value="Feld hinzuf&uuml;gen"><br>
             </div>
         </div>
 
@@ -66,7 +67,7 @@
         <span id="buttonPanel-bottom" class="floatRight">
             #if($grants.mayWrite())
                 <input type="button" name="save" value="Veranstaltung speichern" class="mainButton"
-                       onclick="showSuccess('Erfolgreich gespeichert');">
+                       onclick="submitForm();">
             #end
             <input type="reset" name="cancel" value="Zur Veranstaltungsübersicht" class="mainButton"
                    onclick="window.location.href='SearchEvent?action=event&search=reset&selectNone=true';">
@@ -76,38 +77,57 @@
 
 <div class="clear"></div>
 
+<style>
+	.delegationFields>li {
+		margin:10px;
+	}
+</style>
+
 <script type="text/javascript">
+ $(document).ready(function() {
+    var max_fields      = 10; //maximum input boxes allowed
+    var wrapper         = $(".delegationFields"); //Fields wrapper
+    var add_button      = $("#addDelegation"); //Add button ID
+    var remove_button   = ".remove_field";
 
-$(function () {
-
-    #if(!$grants.mayWrite())
-        disableForm(document.getElementById('formlist'));
-    #end
-
-    $('#remove').click(function (e) {
-        var selectCount = $('input:checkbox:checked').length;
-        if (selectCount === 0) {
-            e.preventDefault();
-            return;
-        }
-        var task = confirm('Ausgewählte Einträge wirklich entfernen?');
-        $('#remove-task').val(task);
-        if (!task) {
-            e.preventDefault();
-        }
-    });
-
-    $('#toggleAllSelect').change(function(){
-        if ($(this).is(':checked')) {
-            navigateSelectAll();
+    var x = 1; //initlal text box count
+    $(add_button).click(function(e){ //on add input button click
+        e.preventDefault();
+        if(x < max_fields){ //max input box allowed
+            x++; //text box increment
+            $(wrapper).append('' +
+            '<li>' +
+            '   <input type="text" name="delegationFields"/>' +
+            '   <input type="button" class="remove_field" value="-">' +
+            '</li>'); //add input box
         } else {
-            navigateSelectNone();
+            alert("maximum an feldern erreicht");
         }
     });
 
-    $('#eventTop input, textarea').prop('disabled', true);
-
+    $(wrapper).on("click", remove_button, function(e){ //user click on remove text
+        e.preventDefault();
+        $(this).parent('li').remove();
+        x--;
+    })
 });
+
+function submitForm() {
+	var msg = '<br><span class="notBold">Wenn Sie Ihre Auswahl anpassen wollen, brechen Sie bitte das L&ouml;schen ab.</span><br>';
+		msg += 'Sollen alle leeren Felder gel&ouml;scht werden? ';
+        msg += 'Diese Aktion kann nicht r&uuml;ckg&auml;ngig gemacht werden.<br>';
+
+	showConfirmYesNo('Bitte best&auml;tigen Sie das L&ouml;schen, leerer Felder!',
+	    msg,
+	    function () { // Ja                                                                 
+	    	$('#formlist').submit();
+	
+	    },
+	    function () { // Nein
+	      showSuccess('Es wurden kein Feld gel&ouml;scht.');
+	    });
+}
+
 </script>
 
 #parse("inc/footer.vm")
