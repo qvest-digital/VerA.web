@@ -89,6 +89,7 @@
                     <li class="inactive" id="showEvent" goto="ShowEvent?id=$!eventId" class="noBorder"><div>Allgemein</div></a>
                     </li><li id="showEventDoctype" class="inactive" goto="${paths.staticWeb}do/ShowEventDoctype?id=$!eventId&selectNone=true" class="noBorder"><div>Dokumenttypen</div>
                     </li><li id="showEventTasks" class="active" goto="${paths.staticWeb}do/ShowEventTasks?id=$!eventId&selectNone=true"><div>Aufgaben</div>
+                    </li><li class="inactive" onclick="window.location.href='${paths.staticWeb}do/ShowDelegationFields?eventId=$!event.id'"><div>Zusätzliche Personendaten</div>
                     </li>
                 </ul>
             </div>

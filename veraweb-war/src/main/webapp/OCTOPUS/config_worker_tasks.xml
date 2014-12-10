@@ -64,6 +64,7 @@
 		<worker name="EventListWorker" implementation="de.tarent.aa.veraweb.worker.EventListWorker" singleton="true" factory="reflected" />
 		<worker name="EventDetailWorker" implementation="de.tarent.aa.veraweb.worker.EventDetailWorker" singleton="true" factory="reflected" />
 		<worker name="EventDoctypeWorker" implementation="de.tarent.aa.veraweb.worker.EventDoctypeWorker" singleton="true" factory="reflected" />
+        <worker name="EventDelegationWorker" implementation="de.tarent.aa.veraweb.worker.EventDelegationWorker" singleton="true" factory="reflected" />
 		<worker name="EventTaskListWorker" implementation="de.tarent.aa.veraweb.worker.EventTaskListWorker" singleton="true" factory="reflected" />
 		<worker name="EventTaskDetailWorker" implementation="de.tarent.aa.veraweb.worker.EventTaskDetailWorker" singleton="true" factory="reflected" />
 		<worker name="GuestWorker" implementation="de.tarent.aa.veraweb.worker.GuestWorker" singleton="true" factory="reflected" />
@@ -72,6 +73,7 @@
 		<worker name="GuestDoctypeWorker" implementation="de.tarent.aa.veraweb.worker.GuestDoctypeWorker" singleton="true" factory="reflected" />
 		<worker name="GuestExportWorker" implementation="de.tarent.aa.veraweb.worker.GuestExportWorker" singleton="true" factory="reflected" />
 		<worker name="GuestReportWorker" implementation="de.tarent.aa.veraweb.worker.GuestReportWorker" singleton="true" factory="reflected" />
+
 
 		<!-- Stammdaten-Worker -->
 		<worker name="ColorWorker" implementation="de.tarent.aa.veraweb.worker.ColorWorker" singleton="true" factory="reflected" />
@@ -1176,6 +1178,18 @@
 				<param name="ContentType" value="text/html;charset=UTF-8"/>
 			</response>
 		</task>
+
+        <task name="ShowDelegationFields" access="public" groups="StandardFieldsReader">
+            <description>
+                Dieser Task zeigt eine Veranstaltung an.
+            </description>
+            <doTask name="Load"/>
+            <action name="showDelegationFields" worker="EventDelegationWorker" />
+            <action name="getDelegationFieldsLabels" worker="EventDelegationWorker" />
+            <response type="velocity" name="delegationFields">
+                <param name="ContentType" value="text/html;charset=UTF-8"/>
+            </response>
+        </task>
 
 		<task name="SaveEvent" access="public" groups="Writer">
 			<description>

@@ -371,7 +371,7 @@
 					    <td onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&offset=$offset';" title="Firma/Institution">&nbsp;</td>
                     #end
 
-                    #if($bean.iscompany == "t" && $bean.delegation != "" && $bean.invitationtype == 2)
+                    #if($bean.iscompany == "t" && $bean.delegation != "" && $bean.invitationtype != 4)
                         <td></td>
                         <td></td>
                         <td></td>

@@ -89,6 +89,7 @@
                 		<li vera-tab="allgemein" vera-tab-default><div>Allgemein</div>
                 		</li><li onclick="showDoctypes();" class="inactive"><div>Dokumenttypen</div>
         				</li><li class="inactive" #if ($event.id) onclick="if (checkModified()) { window.location.href='ShowEventTasks?id=$!event.id&selectNone=true';}" #end><div>Aufgaben</div>
+                        </li><li class="inactive" onclick="window.location.href='${paths.staticWeb}do/ShowDelegationFields?eventId=$!event.id'"><div>Zusätzliche Personendaten</div>
         				</li>
                 	</ul>
         		</div>

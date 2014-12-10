@@ -37,6 +37,7 @@
             		<li class="inactive" onclick="window.location.href='ShowEvent?id=$!event.id';"><div>Allgemein</div>
             		</li><li class="active"><div>Dokumenttypen</div>
     				</li><li class="inactive" onclick="window.location.href='ShowEventTasks?id=$!event.id&selectNone=true';"><div>Aufgaben</div>
+                    </li><li class="inactive" onclick="window.location.href='${paths.staticWeb}do/ShowDelegationFields?eventId=$!event.id'"><div>Zusätzliche Personendaten</div>
     				</li>
             	</ul>
     		</div>
