@@ -41,7 +41,7 @@
         <td>{{person.lastname_a_e1}}</td>
         <td>
         	<!-- Button trigger modal -->
-			<button type="button" class="btn btn-custom" data-toggle="modal" data-target="#myModal" ng-click="editInfo();">
+			<button type="button" class="btn btn-custom" data-toggle="modal" data-target="#myModal" >
 			  Editieren
 			</button>
         </td>
@@ -63,8 +63,6 @@
     
     <div class="form-group container">
         <div class="row">
-			<div ng-if="success" class="alert alert-success" role="alert">{{success}}</div>
-		    <div ng-if="error" class="alert alert-danger" role="alert">{{error}}</div>
 
             <input type="text" class="form-control" id="address" placeholder="Anschrift" ng-model="address">
 
@@ -83,7 +81,7 @@
 
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-custom">Speichern</button>
+        <button type="button" class="btn btn-custom" data-dismiss="modal" ng-click="editInfo();">Speichern</button>
       </div>
 </form>
     </div>
