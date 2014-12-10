@@ -94,26 +94,23 @@ public class GuestDetailWorker extends GuestListWorker {
 	 *          alternativ: Offset des Gasts in der aktuellen G�stesuche
 	 */
 	@SuppressWarnings("unchecked")
-	public void showDetail(OctopusContext cntx, Integer guestid, Integer offset) throws BeanException, IOException
-	{
+	public void showDetail(OctopusContext cntx, Integer guestid, Integer offset) throws BeanException, IOException {
 		Database database = getDatabase(cntx);
 
 		GuestSearch search = getSearch(cntx);
 		Guest guest = getGuest(cntx, search.event, guestid, offset);
-		if (guest == null)
-		{
-			logger.error("showDetail konnte Gast #" + guestid + " unerwartet nicht laden.");
-			cntx.setStatus("notfound");
-			return;
-		}
+        if (guest == null) {
+            logger.error("showDetail konnte Gast #" + guestid + " unerwartet nicht laden.");
+            cntx.setStatus("notfound");
+            return;
+        }
 
 		Person person = (Person) database.getBean("Person", guest.person);
-		if (person == null)
-		{
-			logger.error("showDetail konnte Person #" + guest.person + " unerwartet nicht laden.");
-			cntx.setStatus("notfound");
-			return;
-		}
+        if (person == null) {
+            logger.error("showDetail konnte Person #" + guest.person + " unerwartet nicht laden.");
+            cntx.setStatus("notfound");
+            return;
+        }
 
 		Integer freitextfeld = ConfigWorker.getInteger(cntx, "freitextfeld");
 		Doctype doctype = (Doctype) database.getBean("Doctype", freitextfeld);
@@ -130,33 +127,29 @@ public class GuestDetailWorker extends GuestListWorker {
 
 		// Bug 1591 Im Kopf der Gaesteliste sollen nicht die Stammdaten, sondern die
 		// Daten der Gaesteliste angezeigt werden
-		try
-		{
-			if (freitextfeld == null)
-			{
-				//Kopfdaten der Gaesteliste: Anzeige der Stammdaten oder Kopien fuer Gaesteliste
-				cntx.setContent("showGuestListData", new Boolean(false));
-			} else
-			{
-				GuestDoctype guestDoctype = new GuestDoctype();
+        try {
+            if (freitextfeld == null) {
+                //Kopfdaten der Gaesteliste: Anzeige der Stammdaten oder Kopien fuer Gaesteliste
+                cntx.setContent("showGuestListData", new Boolean(false));
+            } else {
+                GuestDoctype guestDoctype = new GuestDoctype();
 
-				Select select = database.getSelect(guestDoctype);
-				guestDoctype.doctype = freitextfeld;
-				guestDoctype.guest = guest.id;
-				select.where(database.getWhere(guestDoctype));
+                Select select = database.getSelect(guestDoctype);
+                guestDoctype.doctype = freitextfeld;
+                guestDoctype.guest = guest.id;
+                select.where(database.getWhere(guestDoctype));
 
-				guestDoctype = (GuestDoctype) database.getBean("GuestDoctype", select);
-				
-				cntx.setContent("showGuestListData", new Boolean(guestDoctype != null));
-				
-				cntx.setContent("guestListData", guestDoctype);
-			}
-		} catch (Exception e)
-		{
-			logger.warn("zum Gast: " + guestid + " und Doctyp: " + freitextfeld + " kann Bean 'GuestDoctype' nicht geladen werden", e);
-			cntx.setContent("showGuestListData", new Boolean(false));
-		}
-	}
+                guestDoctype = (GuestDoctype) database.getBean("GuestDoctype", select);
+
+                cntx.setContent("showGuestListData", new Boolean(guestDoctype != null));
+
+                cntx.setContent("guestListData", guestDoctype);
+            }
+        } catch (Exception e) {
+            logger.warn("zum Gast: " + guestid + " und Doctyp: " + freitextfeld + " kann Bean 'GuestDoctype' nicht geladen werden", e);
+            cntx.setContent("showGuestListData", new Boolean(false));
+        }
+    }
 
     /** Eingabe-Parameter der Octopus-Aktion {@link #saveDetail(OctopusContext)} */
     public static final String INPUT_saveDetail[] = {};
