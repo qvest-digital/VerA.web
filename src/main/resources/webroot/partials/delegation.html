@@ -34,9 +34,58 @@
     <tr class="active">
         <th>Vorname</th>
         <th>Nachname</th>
+        <th>Weitere Felder</th>
     </tr>
     <tr ng-repeat="person in presentPersons">
         <td>{{person.firstname_a_e1}}</td>
         <td>{{person.lastname_a_e1}}</td>
+        <td>
+        	<!-- Button trigger modal -->
+			<button type="button" class="btn btn-custom" data-toggle="modal" data-target="#myModal" ng-click="editInfo();">
+			  Editieren
+			</button>
+        </td>
     </tr>
 </table>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+    
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">Weitere Felder</h4>
+      </div>
+	<form role="form" id="delegation-form" class="form-signin">
+    
+      <div class="modal-body">
+    
+    <div class="form-group container">
+        <div class="row">
+			<div ng-if="success" class="alert alert-success" role="alert">{{success}}</div>
+		    <div ng-if="error" class="alert alert-danger" role="alert">{{error}}</div>
+
+            <input type="text" class="form-control" id="address" placeholder="Anschrift" ng-model="address">
+
+            <input type="text" class="form-control" id="plz" placeholder="PLZ" ng-model="plz">
+
+            <input type="text" class="form-control" id="city" placeholder="Stadt" ng-model="city">
+
+            <input type="text" class="form-control" id="country" placeholder="Land" ng-model="country">
+
+            <br/>
+
+        </div>
+    </div>
+            
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-custom">Speichern</button>
+      </div>
+</form>
+    </div>
+  </div>
+</div>
