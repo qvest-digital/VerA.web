@@ -49,6 +49,28 @@ SELECT migrateOrgUnits();
 DROP FUNCTION migrateOrgUnits();
 
 /* ---------------------------------------------------------------------- */
+/* Create new tables for delegation fields                                */
+/* ---------------------------------------------------------------------- */     
+CREATE TABLE veraweb.tdelegation_fields (
+	pk serial NOT NULL,
+	fk_event serial NOT NULL,
+	label text,
+
+	FOREIGN KEY (fk_event) REFERENCES veraweb.tevent(pk),
+	PRIMARY KEY (pk)
+);
+
+CREATE TABLE veraweb.tdelegations (
+	fk_guest serial NOT NULL,
+	fk_delegation_field serial NOT NULL,
+	value text,
+
+	FOREIGN KEY (fk_guest) REFERENCES veraweb.tguest(pk),
+	FOREIGN KEY (fk_delegation_field) REFERENCES veraweb.tdelegation_fields(pk),
+	PRIMARY KEY (fk_guest, fk_delegation_field)
+);
+
+/* ---------------------------------------------------------------------- */
 /* Update schema version                                                  */
 /* ---------------------------------------------------------------------- */
 
