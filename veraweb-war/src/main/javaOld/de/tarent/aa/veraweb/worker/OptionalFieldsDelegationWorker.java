@@ -5,7 +5,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.tarent.aa.veraweb.beans.Delegation;
+import de.tarent.aa.veraweb.beans.OptionalDelegationField;
 import de.tarent.dblayer.engine.DB;
 import de.tarent.dblayer.sql.SQL;
 import de.tarent.dblayer.sql.SyntaxErrorException;
@@ -21,87 +21,87 @@ import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
 
 
-public class DelegationWorker {
-	private static final String DELEGATION_TABLE_NAME = "veraweb.tdelegations";
-    private static final String DELEGATION_FIELDS_TABLE_NAME = "veraweb.tdelegation_fields";
+public class OptionalFieldsDelegationWorker {
+	private static final String DELEGATION_TABLE_NAME = "veraweb.toptional_fields_delegation_content";
+    private static final String DELEGATION_FIELDS_TABLE_NAME = "veraweb.toptional_fields";
     private Database database;
 	
-	public DelegationWorker(OctopusContext ctx) {
+	public OptionalFieldsDelegationWorker(OctopusContext ctx) {
 		this.database = new DatabaseVeraWeb(ctx);
 	}
 	
 	/**
-	 * Persist or Update the given "Delegation"-object.
+	 * Persist or Update the given "OptionalDelegationField"-object.
      *
-	 * @param delegation
+	 * @param optionalDelegationField
      *
 	 * @throws SyntaxErrorException
 	 * @throws SQLException
 	 * @throws BeanException
 	 */
-	public void createOrUpdateDelegation(Delegation delegation) throws SyntaxErrorException, SQLException, BeanException {
-		if(this.delegationExist(delegation)) {
-			this.updateDelegation(delegation);
+	public void createOrUpdateDelegation(OptionalDelegationField optionalDelegationField) throws SQLException, BeanException {
+		if(this.delegationExist(optionalDelegationField)) {
+			this.updateDelegation(optionalDelegationField);
 		} else {
-			this.createDelegation(delegation);
+			this.createDelegation(optionalDelegationField);
 		}
 	}
 	
 	/**
-	 * Persists the given "Delegation"-object.
+	 * Persists the given "OptionalDelegationField"-object.
      *
-	 * @param delegation
+	 * @param optionalDelegationField
      *
 	 * @throws SyntaxErrorException
 	 * @throws SQLException
 	 * @throws BeanException
 	 */
-	public void createDelegation(Delegation delegation) throws SyntaxErrorException, SQLException, BeanException {
+	public void createDelegation(OptionalDelegationField optionalDelegationField) throws SQLException, BeanException {
 		TransactionContext context = this.database.getTransactionContext();
 		Insert insert = SQL.Insert(this.database);
 		
 		insert.table(DELEGATION_TABLE_NAME);
-		insert.insert("fk_guest", delegation.getFkGuest());
-		insert.insert("fk_delegation_field", delegation.getFkDelegationnField());
-		insert.insert("value", delegation.getValue());
+		insert.insert("fk_guest", optionalDelegationField.getFkGuest());
+		insert.insert("fk_delegation_field", optionalDelegationField.getFkDelegationnField());
+		insert.insert("value", optionalDelegationField.getValue());
 
 		DB.insert(context, insert.statementToString());
         context.commit();
 	}
 
 	/**
-	 * Update the "value"-field of an existing "Delegation"-object
+	 * Update the "value"-field of an existing "OptionalDelegationField"-object
      *
-	 * @param delegation
+	 * @param optionalDelegationField
      *
 	 * @throws SyntaxErrorException
 	 * @throws SQLException
 	 * @throws BeanException
 	 */
-	public void updateDelegation(Delegation delegation) throws SQLException, BeanException {
+	public void updateDelegation(OptionalDelegationField optionalDelegationField) throws SQLException, BeanException {
 		TransactionContext context = this.database.getTransactionContext();
 		WhereList whereCriterias = new WhereList();
 		Update update = SQL.Update(this.database);
 		
-		whereCriterias.addAnd(new Where("fk_guest", delegation.getFkGuest(), "="));
-		whereCriterias.addAnd(new Where("fk_delegation_field", delegation.getFkDelegationnField(), "="));
+		whereCriterias.addAnd(new Where("fk_guest", optionalDelegationField.getFkGuest(), "="));
+		whereCriterias.addAnd(new Where("fk_delegation_field", optionalDelegationField.getFkDelegationnField(), "="));
 		update.table(DELEGATION_TABLE_NAME);
 		update.where(whereCriterias);
-		update.update("value", delegation.getValue());
+		update.update("value", optionalDelegationField.getValue());
 
 		DB.update(context, update.statementToString());
         context.commit();
 	}
 
 	/**
-	 * Returns an "ArrayList<Delegation>" with all delegations who have the given guestId 
+	 * Returns an "ArrayList<OptionalDelegationField>" with all delegations who have the given guestId
 	 * @param guestId
 	 * @return
 	 * @throws BeanException
 	 * @throws SQLException
 	 */
-	public List<Delegation> getDelegationsByGuest(int guestId) throws BeanException, SQLException {
-		ArrayList<Delegation> result = new ArrayList<Delegation>();
+	public List<OptionalDelegationField> getDelegationsByGuest(int guestId) throws BeanException, SQLException {
+		List<OptionalDelegationField> result = new ArrayList<OptionalDelegationField>();
 		WhereList whereCriterias = new WhereList();
 		Select select = SQL.Select(this.database);
 		
@@ -116,22 +116,22 @@ public class DelegationWorker {
 		ResultSet resultSet = database.result(select);
 		
         while(resultSet.next()) {
-        	Delegation delegation = new Delegation(resultSet);
-        	result.add(delegation);
+        	OptionalDelegationField optionalDelegationField = new OptionalDelegationField(resultSet);
+        	result.add(optionalDelegationField);
         }
 	
 		return result;
 	}
 	
 	/**
-	 * Returns the "Delegation" with the given guestId and delegationFieldId 
+	 * Returns the "OptionalDelegationField" with the given guestId and delegationFieldId
 	 * @param guestId
 	 * @param delegationFieldId
 	 * @return
 	 * @throws BeanException
 	 * @throws SQLException
 	 */
-	public Delegation getDelegationByGuestAndDelegationField(int guestId, int delegationFieldId) throws BeanException, SQLException {
+	public OptionalDelegationField getDelegationByGuestAndDelegationField(int guestId, int delegationFieldId) throws BeanException, SQLException {
 		WhereList whereCriterias = new WhereList();
 		Select select = SQL.Select(this.database);
 		
@@ -145,25 +145,25 @@ public class DelegationWorker {
 		ResultSet resultSet = database.result(select);
 
 		if(resultSet.next()) {
-        	return new Delegation(resultSet);
+        	return new OptionalDelegationField(resultSet);
 		}
 		
 		return null;
 	}
 	
 	/**
-	 * Check if the given "Delegation" exist
-	 * @param delegation
+	 * Check if the given "OptionalDelegationField" exist
+	 * @param optionalDelegationField
 	 * @return
 	 * @throws BeanException
 	 * @throws SQLException
 	 */
-	public boolean delegationExist(Delegation delegation) throws BeanException, SQLException {
+	public boolean delegationExist(OptionalDelegationField optionalDelegationField) throws BeanException, SQLException {
 		WhereList whereCriterias = new WhereList();
 		Select select = SQL.Select(this.database);
 		
-		whereCriterias.addAnd(new Where("fk_guest", delegation.getFkGuest(), "="));
-		whereCriterias.addAnd(new Where("fk_delegation_field", delegation.getFkDelegationnField(), "="));
+		whereCriterias.addAnd(new Where("fk_guest", optionalDelegationField.getFkGuest(), "="));
+		whereCriterias.addAnd(new Where("fk_delegation_field", optionalDelegationField.getFkDelegationnField(), "="));
 		select.from(DELEGATION_TABLE_NAME);
 		select.select("fk_guest");
 		select.select("fk_delegation_field");

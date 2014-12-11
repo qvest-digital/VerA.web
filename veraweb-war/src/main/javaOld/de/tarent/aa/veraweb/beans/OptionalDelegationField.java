@@ -3,18 +3,18 @@ package de.tarent.aa.veraweb.beans;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class Delegation {
+public class OptionalDelegationField {
 	private String value;
 	private int fkGuest;
 	private int fkDelegationField;
     private String label;
 
 
-    public Delegation() {
+    public OptionalDelegationField() {
 		this.value = "";
 	}
 
-	public Delegation(ResultSet resultSet) throws SQLException {
+	public OptionalDelegationField(ResultSet resultSet) throws SQLException {
 		this.value = resultSet.getString("value");
 		this.fkGuest = resultSet.getInt("fk_guest");
 		this.fkDelegationField = resultSet.getInt("fk_delegation_field");

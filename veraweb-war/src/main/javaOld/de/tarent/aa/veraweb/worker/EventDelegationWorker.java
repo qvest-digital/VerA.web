@@ -1,7 +1,7 @@
 package de.tarent.aa.veraweb.worker;
 
-import de.tarent.aa.veraweb.beans.Delegation;
-import de.tarent.aa.veraweb.beans.DelegationField;
+import de.tarent.aa.veraweb.beans.OptionalDelegationField;
+import de.tarent.aa.veraweb.beans.OptionalField;
 import de.tarent.aa.veraweb.beans.Event;
 import de.tarent.aa.veraweb.utils.DateHelper;
 import de.tarent.octopus.beans.BeanException;
@@ -50,11 +50,11 @@ public class EventDelegationWorker {
 
         Map<String, String> delegationFields = new LinkedHashMap<String, String>();
 
-        DelegationWorker delegationWorker = new DelegationWorker(oc);
-        List<Delegation> delegationFieldsForGuest = delegationWorker.getDelegationsByGuest(guestId);
+        OptionalFieldsDelegationWorker optionalFieldsDelegationWorker = new OptionalFieldsDelegationWorker(oc);
+        List<OptionalDelegationField> optionalDelegationFieldFieldsForGuest = optionalFieldsDelegationWorker.getDelegationsByGuest(guestId);
         Integer counter = 1;
-        for (Delegation delegation : delegationFieldsForGuest) {
-            delegationFields.put(delegation.getLabel(), delegation.getValue());
+        for (OptionalDelegationField optionalDelegationField : optionalDelegationFieldFieldsForGuest) {
+            delegationFields.put(optionalDelegationField.getLabel(), optionalDelegationField.getValue());
             counter++;
         };
 
@@ -81,27 +81,27 @@ public class EventDelegationWorker {
         setEventInContext(oc, eventId);
 
         final List<String> delegationFieldsLabelds = new ArrayList<String>();
-        final DelegationFieldWorker delegationFieldWorker = new DelegationFieldWorker(oc);
+        final OptionalFieldsWorker optionalFieldsWorker = new OptionalFieldsWorker(oc);
         
-        List<DelegationField> delegationFieldsByEvent = delegationFieldWorker.getDelegationFieldsByEvent(eventId);
+        List<OptionalField> optionalFieldsByEvent = optionalFieldsWorker.getDelegationFieldsByEvent(eventId);
         
-        for (DelegationField delegationField : delegationFieldsByEvent) {
-        	delegationFieldsLabelds.add(delegationField.getLabel());
+        for (OptionalField optionalField : optionalFieldsByEvent) {
+        	delegationFieldsLabelds.add(optionalField.getLabel());
 		}
 
         return delegationFieldsLabelds;
     }
 
     public void saveDelegationFieldLabels(OctopusContext oc, Integer eventId, List<String> delegationFieldLables) throws BeanException, SQLException {
-    	DelegationFieldWorker delegationFieldWorker = new DelegationFieldWorker(oc);
+    	OptionalFieldsWorker optionalFieldsWorker = new OptionalFieldsWorker(oc);
     	List<String> createdOrUpdatedLabels = new ArrayList<String>();
     	
 		for(String label : delegationFieldLables) {
-			DelegationField delegationField = new DelegationField();
-			delegationField.setFkEvent(eventId);
-			delegationField.setLabel(label);
+			OptionalField optionalField = new OptionalField();
+			optionalField.setFkEvent(eventId);
+			optionalField.setLabel(label);
 			
-			delegationFieldWorker.createOrUpdateDelegationField(delegationField);
+			optionalFieldsWorker.createOrUpdateDelegationField(optionalField);
 			
 			createdOrUpdatedLabels.add(label);
 		}
@@ -109,11 +109,11 @@ public class EventDelegationWorker {
 		delegationFieldLables.removeAll(createdOrUpdatedLabels);
 		
 		for (String label : createdOrUpdatedLabels) {
-			DelegationField delegationField = new DelegationField();
-			delegationField.setFkEvent(eventId);
-			delegationField.setLabel(label);
+			OptionalField optionalField = new OptionalField();
+			optionalField.setFkEvent(eventId);
+			optionalField.setLabel(label);
 			
-			delegationFieldWorker.removeDelegationField(delegationField);
+			optionalFieldsWorker.removeDelegationField(optionalField);
 		}
     	
     	

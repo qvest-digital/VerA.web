@@ -24,21 +24,21 @@ import java.sql.SQLException;
 
 
 /**
- * Dieses Bean bildet einen Eintrag der Tabelle <em>veraweb.tdelegation</em> ab.
+ * Dieses Bean bildet einen Eintrag der Tabelle <em>veraweb.toptional_fields</em> ab.
  * 
  * @author Max Marche <m.marche@tarent.de
  */
-public class DelegationField {
+public class OptionalField {
 	private int pk;
 	private String label;
 	private int fkEvent;
 	
-	public DelegationField() {
+	public OptionalField() {
 		this.label = "";
 		this.fkEvent = -1;
 	}
 	
-	public DelegationField(ResultSet resultSet) throws SQLException {
+	public OptionalField(ResultSet resultSet) throws SQLException {
 		this.pk = resultSet.getInt("pk");
 		this.label = resultSet.getString("label");
 		this.fkEvent = resultSet.getInt("fk_event");
