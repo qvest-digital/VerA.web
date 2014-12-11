@@ -43,15 +43,17 @@
 			<div class="tableCell"></div>
 		</div>
 
-        #if ($guest.delegation)
-            #set( $counter = 1)
-            #foreach( $field in $delegationFields.entrySet() )
-            <div style="margin-bottom: 10px">
-                <label for="event-delegation-field-$counter" style="display:inline;">$field.key</label>: <span>$field.value</span>
-            </div>
-            #set( $counter = $counter + 1)
+        <div class="tableRow">
+            #if ($guest.delegation)
+                #set( $counter = 1)
+                #foreach( $field in $delegationFields.entrySet() )
+                    <div class="tableCell">
+                        <label for="event-delegation-field-$counter" style="display:inline;">$field.key</label>: <span>$field.value</span>
+                    </div>
+                #set( $counter = $counter + 1)
+                #end
             #end
-        #end
+        </div>
 
 	</div>
 </div>

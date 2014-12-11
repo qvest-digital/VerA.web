@@ -7,8 +7,10 @@ public class Delegation {
 	private String value;
 	private int fkGuest;
 	private int fkDelegationField;
-	
-	public Delegation() {
+    private String label;
+
+
+    public Delegation() {
 		this.value = "";
 	}
 
@@ -16,6 +18,7 @@ public class Delegation {
 		this.value = resultSet.getString("value");
 		this.fkGuest = resultSet.getInt("fk_guest");
 		this.fkDelegationField = resultSet.getInt("fk_delegation_field");
+        this.label = resultSet.getString("label");
 	}
 
 	public String getValue() {
@@ -41,4 +44,12 @@ public class Delegation {
 	public void setFkDelegationField(int fkDelegationField) {
 		this.fkDelegationField = fkDelegationField;
 	}
+
+    public String getLabel() {
+        return label;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
+    }
 }

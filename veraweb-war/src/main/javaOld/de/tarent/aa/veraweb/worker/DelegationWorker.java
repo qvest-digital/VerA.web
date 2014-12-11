@@ -3,6 +3,7 @@ package de.tarent.aa.veraweb.worker;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import de.tarent.aa.veraweb.beans.Delegation;
 import de.tarent.dblayer.engine.DB;
@@ -22,15 +23,18 @@ import de.tarent.octopus.server.OctopusContext;
 
 public class DelegationWorker {
 	private static final String DELEGATION_TABLE_NAME = "veraweb.tdelegations";
-	private Database database;
+    private static final String DELEGATION_FIELDS_TABLE_NAME = "veraweb.tdelegation_fields";
+    private Database database;
 	
 	public DelegationWorker(OctopusContext ctx) {
 		this.database = new DatabaseVeraWeb(ctx);
 	}
 	
 	/**
-	 * Persist or Update the given "Delegation"-object
+	 * Persist or Update the given "Delegation"-object.
+     *
 	 * @param delegation
+     *
 	 * @throws SyntaxErrorException
 	 * @throws SQLException
 	 * @throws BeanException
@@ -44,8 +48,10 @@ public class DelegationWorker {
 	}
 	
 	/**
-	 * Persists the given "Delegation"-object
+	 * Persists the given "Delegation"-object.
+     *
 	 * @param delegation
+     *
 	 * @throws SyntaxErrorException
 	 * @throws SQLException
 	 * @throws BeanException
@@ -64,13 +70,15 @@ public class DelegationWorker {
 	}
 
 	/**
-	 * Update the "value"-field of an existing "Delegation"-object 
+	 * Update the "value"-field of an existing "Delegation"-object
+     *
 	 * @param delegation
+     *
 	 * @throws SyntaxErrorException
 	 * @throws SQLException
 	 * @throws BeanException
 	 */
-	public void updateDelegation(Delegation delegation) throws SyntaxErrorException, SQLException, BeanException {
+	public void updateDelegation(Delegation delegation) throws SQLException, BeanException {
 		TransactionContext context = this.database.getTransactionContext();
 		WhereList whereCriterias = new WhereList();
 		Update update = SQL.Update(this.database);
@@ -92,16 +100,18 @@ public class DelegationWorker {
 	 * @throws BeanException
 	 * @throws SQLException
 	 */
-	public ArrayList<Delegation> getDelegationsByGuest(int guestId) throws BeanException, SQLException {
+	public List<Delegation> getDelegationsByGuest(int guestId) throws BeanException, SQLException {
 		ArrayList<Delegation> result = new ArrayList<Delegation>();
 		WhereList whereCriterias = new WhereList();
 		Select select = SQL.Select(this.database);
 		
 		whereCriterias.addAnd(new Where("fk_guest", guestId, "="));
 		select.from(DELEGATION_TABLE_NAME);
+        select.joinLeftOuter(DELEGATION_FIELDS_TABLE_NAME, DELEGATION_TABLE_NAME + ".fk_delegation_field", DELEGATION_FIELDS_TABLE_NAME + ".pk");
 		select.select("fk_guest");
 		select.select("fk_delegation_field");
 		select.select("value");
+        select.select(DELEGATION_FIELDS_TABLE_NAME + ".label as label");
 		
 		ResultSet resultSet = database.result(select);
 		

@@ -12,11 +12,9 @@ import de.tarent.octopus.server.OctopusContext;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.SortedMap;
 
 /**
  * @author Atanas Alexandrov, tarent solutions GmbH
@@ -47,28 +45,20 @@ public class EventDelegationWorker {
      * @throws BeanException If fetching event failed
      */
     public Map<String, String> showDelegationFields(OctopusContext oc, Integer eventId, Integer guestId)
-            throws IOException, BeanException {
+            throws IOException, BeanException, SQLException {
         setEventInContext(oc, eventId);
 
-        // TODO Zusätzliche Felder anzeigen
-        Map<String, String> dummy = new LinkedHashMap<String, String>();
-        dummy.put("Bezeichnung Feld 01", "Label01");
-        dummy.put("Bezeichnung Feld 02", "Label02");
-        dummy.put("Bezeichnung Feld 03", "Label03");
-        dummy.put("Bezeichnung Feld 04", "Label04");
-        dummy.put("Bezeichnung Feld 05", "Label05");
-        dummy.put("Bezeichnung Feld 06", "Label06");
-        dummy.put("Bezeichnung Feld 07", "Label07");
-        dummy.put("Bezeichnung Feld 08", "Label08");
-        dummy.put("Bezeichnung Feld 09", "Label09");
-        dummy.put("Bezeichnung Feld 10", "Label10");
-        dummy.put("Bezeichnung Feld 11", "Label11");
-        dummy.put("Bezeichnung Feld 12", "Label12");
-        dummy.put("Bezeichnung Feld 13", "Label13");
-        dummy.put("Bezeichnung Feld 14", "Label14");
-        dummy.put("Bezeichnung Feld 15", "Label15");
+        Map<String, String> delegationFields = new LinkedHashMap<String, String>();
 
-        return dummy;
+        DelegationWorker delegationWorker = new DelegationWorker(oc);
+        List<Delegation> delegationFieldsForGuest = delegationWorker.getDelegationsByGuest(guestId);
+        Integer counter = 1;
+        for (Delegation delegation : delegationFieldsForGuest) {
+            delegationFields.put(delegation.getLabel(), delegation.getValue());
+            counter++;
+        };
+
+        return delegationFields;
     }
 
     private void setEventInContext(OctopusContext oc, Integer eventId) throws BeanException, IOException {
@@ -85,17 +75,20 @@ public class EventDelegationWorker {
      * @return Labels for the fields
      * @throws SQLException 
      */
-    public List<String> getDelegationFieldsLabels(OctopusContext oc, Integer eventId) throws IOException, BeanException, SQLException {
+    public List<String> getDelegationFieldsLabels(OctopusContext oc, Integer eventId)
+            throws IOException, BeanException, SQLException {
+
         setEventInContext(oc, eventId);
+
         final List<String> delegationFieldsLabelds = new ArrayList<String>();
-        DelegationFieldWorker delegationFieldWorker = new DelegationFieldWorker(oc);
+        final DelegationFieldWorker delegationFieldWorker = new DelegationFieldWorker(oc);
         
-        List<DelegationField> a = delegationFieldWorker.getDelegationFieldsByEvent(eventId);
+        List<DelegationField> delegationFieldsByEvent = delegationFieldWorker.getDelegationFieldsByEvent(eventId);
         
-        for (DelegationField delegationField : a) {
+        for (DelegationField delegationField : delegationFieldsByEvent) {
         	delegationFieldsLabelds.add(delegationField.getLabel());
 		}
-        
+
         return delegationFieldsLabelds;
     }
 
