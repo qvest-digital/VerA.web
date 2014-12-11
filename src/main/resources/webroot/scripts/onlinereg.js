@@ -218,9 +218,10 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 			 $http.get('api/delegation/' + $routeParams.uuid + '/data/').then(function(fields) {
                  $scope.fields = fields.data;
               });
-			 
-			 $scope.success = "Delegiertdaten wurden gespeichert.";
-			 $scope.error = null;
+			 if ($scope.success != null) {
+				 $scope.success = "Delegiertdaten wurden gespeichert.";
+				 $scope.error = null;
+			 }
 			 
 		 }
 		 
