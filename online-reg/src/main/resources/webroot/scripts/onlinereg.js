@@ -150,6 +150,7 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 		
 		$scope.gender = $scope.genderOptions[0];
 		$scope.success = null;
+		$scope.error = null;
 
          $http.get('api/delegation/' + $routeParams.uuid).then(function(presentPersons) {
             $scope.presentPersons = presentPersons.data;
@@ -213,8 +214,14 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 			 }
 		    }
 		 $scope.editInfo = function () {
+			 
+			 $http.get('api/delegation/' + $routeParams.uuid + '/data/').then(function(fields) {
+                 $scope.fields = fields.data;
+              });
+			 
 			 $scope.success = "Delegiertdaten wurden gespeichert.";
 			 $scope.error = null;
+			 
 		 }
 		 
 		
