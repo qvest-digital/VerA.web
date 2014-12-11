@@ -30,19 +30,20 @@
 <hr/>
 
 <h2>Bereits angemeldet:</h2>
-<table class="table">
+<table class="table table-striped table-hover">
     <tr class="active">
         <th>Vorname</th>
         <th>Nachname</th>
     </tr>
-    <tr ng-repeat="person in presentPersons">
+    <tr id="delegation" ng-click="showOptionalFields()" data-toggle="modal" data-target="#myModal" ng-repeat="person in presentPersons">
         <td>
-        	<a href="" ng-click="showOptionalFields()" data-toggle="modal" data-target="#myModal"> {{person.firstname_a_e1}}</a>
+             {{person.firstname_a_e1}}
         </td>
         <td>
-        	<a href="" ng-click="showOptionalFields()" data-toggle="modal" data-target="#myModal">{{person.lastname_a_e1}}</a>
+            {{person.lastname_a_e1}}
         </td>
     </tr>
+
 </table>
 
 <!-- Modal -->
@@ -61,10 +62,8 @@
     <div class="form-group container">
         <div class="row">
 				<div ng-repeat="field in fields">
-					<input type="text" class="form-control" id="nachname" placeholder="{{field.label}}" ng-model="nachname">
+					<input type="text" class="form-control" id="nachname" placeholder="{{field.label}}" ng-model="nachname" style="margin-bottom: 10px;">
 				</div>
-				
-            <br/>
         </div>
     </div>
 
