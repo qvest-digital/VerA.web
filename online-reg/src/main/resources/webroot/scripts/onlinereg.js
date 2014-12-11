@@ -213,16 +213,17 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 		        });
 			 }
 		    }
-		 $scope.editInfo = function () {
-			 
+		 $scope.showOptionalFields = function () {
+			 $scope.success = null;
+			 $scope.error = null;
 			 $http.get('api/delegation/' + $routeParams.uuid + '/data/').then(function(fields) {
                  $scope.fields = fields.data;
               });
-			 if ($scope.success != null) {
-				 $scope.success = "Delegiertdaten wurden gespeichert.";
-				 $scope.error = null;
-			 }
-			 
+		 }
+		 
+		 $scope.saveOptionalFields = function () {
+			 $scope.success = "Delegiertdaten wurden gespeichert.";
+			 $scope.error = null;
 		 }
 		 
 		
