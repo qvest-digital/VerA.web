@@ -34,16 +34,13 @@
     <tr class="active">
         <th>Vorname</th>
         <th>Nachname</th>
-        <th>Weitere Felder</th>
     </tr>
     <tr ng-repeat="person in presentPersons">
-        <td>{{person.firstname_a_e1}}</td>
-        <td>{{person.lastname_a_e1}}</td>
         <td>
-        	<!-- Button trigger modal -->
-			<button type="button" class="btn btn-custom" data-toggle="modal" data-target="#myModal" ng-click="showOptionalFields()">
-			  Editieren
-			</button>
+        	<a href="" ng-click="showOptionalFields()" data-toggle="modal" data-target="#myModal"> {{person.firstname_a_e1}}</a>
+        </td>
+        <td>
+        	<a href="" ng-click="showOptionalFields()" data-toggle="modal" data-target="#myModal">{{person.lastname_a_e1}}</a>
         </td>
     </tr>
 </table>
