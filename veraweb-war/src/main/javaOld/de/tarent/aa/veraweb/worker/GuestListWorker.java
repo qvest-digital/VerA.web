@@ -81,6 +81,10 @@ public class GuestListWorker extends ListWorkerVeraWeb {
 
     private final static String DELETE_ALL_STALE_GUEST_DOCTYPES = "DELETE FROM tguest_doctype WHERE fk_guest IN ({0})";
     private final static MessageFormat DELETE_ALL_STALE_GUEST_DOCTYPES_FORMAT = new MessageFormat( DELETE_ALL_STALE_GUEST_DOCTYPES );
+
+    private final static String DELETE_TOPTIONAL_FIELDS_DELEGATION_CONTENT ="DELETE FROM toptional_fields_delegation_content WHERE fk_guest IN ({0})";
+    private final static MessageFormat DELETE_ALL_OPTIONAL_DELEGATION_FIELDS_FOR_GUEST = new MessageFormat(DELETE_TOPTIONAL_FIELDS_DELEGATION_CONTENT);
+
     private final static String DELETE_ALL_STALE_GUESTS = "DELETE FROM tguest WHERE pk IN ({0})";
     private final static MessageFormat DELETE_ALL_STALE_GUESTS_FORMAT = new MessageFormat( DELETE_ALL_STALE_GUESTS );
 
@@ -411,6 +415,7 @@ public class GuestListWorker extends ListWorkerVeraWeb {
         try {
             final String ids = DatabaseHelper.listsToIdListString(new List[]{selection});
             DB.insert(context, DELETE_ALL_STALE_GUEST_DOCTYPES_FORMAT.format(new Object[]{ids}));
+            DB.insert(context, DELETE_ALL_OPTIONAL_DELEGATION_FIELDS_FOR_GUEST.format(new Object[]{ids}));
             DB.insert(context, DELETE_ALL_STALE_GUESTS_FORMAT.format(new Object[]{ids}));
             DB.insert(context, BULK_INSERT_CHANGELOG_ENTRIES_FORMAT.format(new Object[]{cntx.personalConfig().getLoginname(), ids}));
             context.commit();
