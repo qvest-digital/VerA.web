@@ -8,6 +8,7 @@ import com.sun.jersey.api.client.UniformInterfaceException;
 import com.sun.jersey.api.client.WebResource;
 import lombok.extern.java.Log;
 import org.evolvis.veraweb.onlinereg.Config;
+import org.evolvis.veraweb.onlinereg.entities.OptionalField;
 import org.evolvis.veraweb.onlinereg.entities.Guest;
 import org.evolvis.veraweb.onlinereg.entities.Person;
 
@@ -20,7 +21,9 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import java.io.IOException;
 import java.net.SocketTimeoutException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -53,6 +56,7 @@ public class DelegationResource {
     private static final TypeReference<Guest> GUEST = new TypeReference<Guest>() {};
     private static final TypeReference<Boolean> BOOLEAN = new TypeReference<Boolean>() {};
     private static final TypeReference<List<Person>> GUEST_LIST = new TypeReference<List<Person>>() {};
+    private static final TypeReference<List<OptionalField>> FIELDS_LIST = new TypeReference<List<OptionalField>>() {};
 
 	/**
 	 * Default constructor
@@ -76,6 +80,14 @@ public class DelegationResource {
     public List<Person> getDelegates(@PathParam("uuid") String uuid) throws IOException {
 		return readResource(path("person", uuid), GUEST_LIST);
     }
+	
+
+	@GET
+    @Path("/{uuid}/data")
+    public List<OptionalField> getExtraDataFields(@PathParam("uuid") String uuid) throws IOException {
+		return getLabels(uuid);
+    }
+
 
     @POST
     @Path("/{uuid}/register")
@@ -99,6 +111,17 @@ public class DelegationResource {
     public List<Guest> removeDelegateFromEvent(@PathParam("uuid") String uuid, @PathParam("userid") Long userid) throws IOException {
         return null;
     }
+
+	private List<OptionalField> getLabels(String uuid) throws IOException {
+		try{
+			Guest guest = getEventIdFromUuid(uuid);
+			List<OptionalField> fields = readResource(path("delegation", "fields", guest.getFk_event()), FIELDS_LIST);
+			return fields;
+		}
+		catch (UniformInterfaceException uie) {
+			return null;
+		}
+	}
     
     private Boolean checkForExistingDelegation(String uuid) throws IOException {
     	return readResource(path("guest","exist", uuid), BOOLEAN);
@@ -120,6 +143,7 @@ public class DelegationResource {
     }
 
     private Guest getEventIdFromUuid(String uuid) throws IOException {
+    	// FIXME We only need the ID as return
 		return readResource(path("guest", uuid), GUEST);
 	}
 	
