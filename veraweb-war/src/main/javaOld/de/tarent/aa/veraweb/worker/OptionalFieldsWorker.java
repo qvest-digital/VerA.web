@@ -1,13 +1,8 @@
 package de.tarent.aa.veraweb.worker;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-
 import de.tarent.aa.veraweb.beans.OptionalField;
 import de.tarent.dblayer.engine.DB;
 import de.tarent.dblayer.sql.SQL;
-import de.tarent.dblayer.sql.SyntaxErrorException;
 import de.tarent.dblayer.sql.clause.Where;
 import de.tarent.dblayer.sql.clause.WhereList;
 import de.tarent.dblayer.sql.statement.Delete;
@@ -20,171 +15,205 @@ import de.tarent.octopus.beans.TransactionContext;
 import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
+/**
+ * This class handles the optional fields labels.
+ *
+ * @author Max Marche, tarent solutions GmbH
+ * @author Atanas Alexandrov, tarent solutions GmbH
+ */
 public class OptionalFieldsWorker {
 	private static final String DELEGATON_FIELD_TABLE_NAME = "veraweb.toptional_fields";
+
 	private Database database;
-	
+
+    /**
+     * Constructor.
+     *
+     * @param ctx The {@link OctopusContext}
+     */
 	public OptionalFieldsWorker(OctopusContext ctx) {
 		this.database = new DatabaseVeraWeb(ctx);
 	}
 	
 	/**
-	 * Persist or Update the given "OptionalField"-object
-	 * @param optionalField
-	 * @throws SyntaxErrorException
-	 * @throws SQLException
-	 * @throws BeanException
+	 * Create ot update optional field.
+     *
+	 * @param optionalField The {@link OptionalField}
+     *
+     * @throws SQLException TODO
+     * @throws BeanException TODO
 	 */
-	public void createOrUpdateDelegationField(OptionalField optionalField) throws SyntaxErrorException, SQLException, BeanException {
-		if(this.delegationfieldExist(optionalField)) {
-			this.updateDelegationField(optionalField);
+	public void createOrUpdateOptionalField(OptionalField optionalField) throws SQLException, BeanException {
+		if(this.checkOptionFieldExists(optionalField)) {
+			this.updateOptionalField(optionalField);
 		} else {
-			this.createDelegationField(optionalField);
+			this.createOptionalField(optionalField);
 		}
 	}
 	
 	/**
-	 * Persists the given "OptionalField"-object
-	 * @param optionalField
-	 * @throws SyntaxErrorException
-	 * @throws SQLException
-	 * @throws BeanException 
+	 * Create optional field.
+     *
+	 * @param optionalField The {@link OptionalField}
+	 *
+     * @throws SQLException TODO
+     * @throws BeanException TODO
 	 */
-	public void createDelegationField(OptionalField optionalField) throws SyntaxErrorException, SQLException, BeanException {
-		TransactionContext context = this.database.getTransactionContext();
-		Insert insert = SQL.Insert(this.database);
-		
-		insert.table(DELEGATON_FIELD_TABLE_NAME);
-		insert.insert("label", optionalField.getLabel());
-		insert.insert("fk_event", optionalField.getFkEvent());
+	public void createOptionalField(OptionalField optionalField) throws SQLException, BeanException {
+		final TransactionContext context = this.database.getTransactionContext();
+        final Insert insert = getStatementInsertOptionalField(optionalField);
 
 		DB.insert(context, insert.statementToString());
         context.commit();
 	}
-	
-	/**
-	 * Update the "label" and "fk_event"(if is set)-field of an existing "OptionalDelegationField"-object
-	 * @param optionalField
-	 * @throws SyntaxErrorException
-	 * @throws SQLException
-	 * @throws BeanException
-	 */
-	public void updateDelegationField(OptionalField optionalField) throws SyntaxErrorException, SQLException, BeanException {
-		TransactionContext context = this.database.getTransactionContext();
-		WhereList whereCriterias = new WhereList();
-		Update update = SQL.Update(this.database);
-		
-		whereCriterias.addAnd(new Where("pk", optionalField.getPk(), "="));
-		update.table(DELEGATON_FIELD_TABLE_NAME);
-		update.where(whereCriterias);
-		if(optionalField.getFkEvent() != -1) {
-			update.update("fk_event", optionalField.getFkEvent());
-		}
-		update.update("label", optionalField.getLabel());
 
-		DB.update(context, update.statementToString());
+    /**
+	 * Update optional field.
+     *
+	 * @param optionalField The {@link OptionalField}
+	 *
+	 * @throws SQLException TODO
+	 * @throws BeanException TODO
+	 */
+	public void updateOptionalField(OptionalField optionalField) throws SQLException, BeanException {
+        final TransactionContext context = this.database.getTransactionContext();
+        final Update updateStatement = getStatementUpdateOptionalField(optionalField);
+		DB.update(context, updateStatement.statementToString());
         context.commit();
 	}
 
-	/**
-	 * Returns an "ArrayList<OptionalField>" with all delegationFields who have the given fk_event.
+    /**
+	 * Get all optional fields by event id.
      *
-	 * @param fk_event Event id
+	 * @param eventId Event id
      *
-	 * @return
-	 * @throws BeanException
-	 * @throws SQLException
+	 * @return List with labels for the optional fields.
+     *
+     * @throws SQLException TODO
+     * @throws BeanException TODO
 	 */
-	public ArrayList<OptionalField> getDelegationFieldsByEvent(int fk_event) throws BeanException, SQLException {
-		ArrayList<OptionalField> result = new ArrayList<OptionalField>();
-		WhereList whereCriterias = new WhereList();
-		Select select = SQL.Select(this.database);
-		
-		whereCriterias.addAnd(new Where("fk_guest", fk_event, "="));
-		select.from(DELEGATON_FIELD_TABLE_NAME);
-		select.select("pk");
-		select.select("label");
-		select.select("fk_event");
-		
-		ResultSet resultSet = database.result(select);
-		
-        while(resultSet.next()) {
-        	OptionalField delegation = new OptionalField(resultSet);
-        	result.add(delegation);
-        }
-	
-		return result;
+	public List<OptionalField> getOptionalFieldsByEvent(Integer eventId) throws BeanException, SQLException {
+        final Select select = getStatementSelectOptionalField(eventId);
+        final ResultSet resultSet = database.result(select);
+
+        return getOptionalFieldsAsList(resultSet);
 	}
 
-	/**
-	 * Returns the "OptionalField" with the given pk
-	 * @param pk
-	 * @return
-	 * @throws BeanException
-	 * @throws SQLException
+    /**
+	 * Check if the given {@link }OptionalField} exist.
+	 *
+     * @param optionalField The {@link OptionalField}
+     *
+	 * @return True if the field exists, otherwise false.
+     *
+     * @throws SQLException TODO
+     * @throws BeanException TODO
 	 */
-	public OptionalField getDelegationFieldByPk(int pk) throws BeanException, SQLException {
-		WhereList whereCriterias = new WhereList();
-		Select select = SQL.Select(this.database);
-		
-		whereCriterias.addAnd(new Where("pk", pk, "="));
-		select.from(DELEGATON_FIELD_TABLE_NAME);
-		select.select("pk");
-		select.select("label");
-		select.select("fk_event");
-		
-		ResultSet resultSet = database.result(select);
-
-		if(resultSet.next()) {
-        	return new OptionalField(resultSet);
-		}
-		
-		return null;
-	}
-	
-	/**
-	 * Check if the given "OptionalField" exist
-	 * @param optionalField
-	 * @return
-	 * @throws BeanException
-	 * @throws SQLException
-	 */
-	public boolean delegationfieldExist(OptionalField optionalField) throws BeanException, SQLException {
-		WhereList whereCriterias = new WhereList();
-		Select select = SQL.Select(this.database);
-		
-		if(optionalField.getPk() == -1) {
-			whereCriterias.addAnd(new Where("label", optionalField.getLabel(), "="));
-			whereCriterias.addAnd(new Where("fk_event", optionalField.getLabel(), "="));
-		} else {
-			whereCriterias.addAnd(new Where("pk", optionalField.getPk(), "="));
-		}
-		select.from(DELEGATON_FIELD_TABLE_NAME);
-		select.where(whereCriterias);
-		select.select("pk");
-		
-		ResultSet resultSet = database.result(select);
+	public boolean checkOptionFieldExists(OptionalField optionalField) throws BeanException, SQLException {
+        final Select select = getStatementCheckOptionalFieldExists(optionalField);
+        final ResultSet resultSet = database.result(select);
 	
 		return resultSet.next();
 	}
 
-	public void removeDelegationField(OptionalField optionalField) throws SQLException, BeanException {
-		TransactionContext context = this.database.getTransactionContext();
-		WhereList whereCriterias = new WhereList();
-		Delete delete = SQL.Delete(this.database);
-		
-		if(optionalField.getPk() == -1) {
-			whereCriterias.addAnd(new Where("label", optionalField.getLabel(), "="));
-			whereCriterias.addAnd(new Where("fk_event", optionalField.getLabel(), "="));
-		} else {
-			whereCriterias.addAnd(new Where("pk", optionalField.getPk(), "="));
-		}
-		delete.from(DELEGATON_FIELD_TABLE_NAME);
-		delete.where(whereCriterias);
-		
-		delete.executeDelete(context);
-        context.commit();
+    /**
+     * Delete optional field.
+     *
+     * @param optionalField The {@link OptionalField}
+     *
+     * @throws SQLException TODO
+     * @throws BeanException TODO
+     */
+	public void removeOptionalField(OptionalField optionalField) throws SQLException, BeanException {
+		final TransactionContext context = this.database.getTransactionContext();
+        deleteOptionalFieldFromDB(optionalField, context);
 	}
 
+    private void deleteOptionalFieldFromDB(OptionalField optionalField, TransactionContext context)
+            throws SQLException, BeanException {
+        final Delete deleteStatement = getDeleteStatement(optionalField);
+        deleteStatement.executeDelete(context);
+        context.commit();
+    }
+
+    private Delete getDeleteStatement(OptionalField optionalField) {
+        final Delete deleteStatement = SQL.Delete(this.database);
+
+        final WhereList whereCriterias = getWhereCriterialsForOptionalField(optionalField);
+        deleteStatement.from(DELEGATON_FIELD_TABLE_NAME);
+        deleteStatement.where(whereCriterias);
+        return deleteStatement;
+    }
+
+    private WhereList getWhereCriterialsForOptionalField(OptionalField optionalField) {
+        final WhereList whereCriterias = new WhereList();
+        if(optionalField.getPk() == -1) {
+            whereCriterias.addAnd(new Where("label", optionalField.getLabel(), "="));
+            whereCriterias.addAnd(new Where("fk_event", optionalField.getLabel(), "="));
+        } else {
+            whereCriterias.addAnd(new Where("pk", optionalField.getPk(), "="));
+        }
+        return whereCriterias;
+    }
+
+    private List<OptionalField> getOptionalFieldsAsList(ResultSet resultSet) throws SQLException {
+        final List<OptionalField> result = new ArrayList<OptionalField>();
+        while(resultSet.next()) {
+            final OptionalField delegation = new OptionalField(resultSet);
+            result.add(delegation);
+        }
+
+        return result;
+    }
+
+    private Select getStatementCheckOptionalFieldExists(OptionalField optionalField) {
+        final WhereList whereCriterias = getWhereCriterialsForOptionalField(optionalField);
+        final Select select = SQL.Select(this.database);
+        select.from(DELEGATON_FIELD_TABLE_NAME);
+        select.where(whereCriterias);
+        select.select("pk");
+        return select;
+    }
+
+    private Select getStatementSelectOptionalField(Integer eventId) {
+        final WhereList whereCriterias = new WhereList();
+        whereCriterias.addAnd(new Where("fk_event", eventId, "="));
+
+        final Select select = SQL.Select(this.database);
+        select.from(DELEGATON_FIELD_TABLE_NAME);
+        select.select("pk");
+        select.select("label");
+        select.select("fk_event");
+        select.where(whereCriterias);
+        return select;
+    }
+
+    private Insert getStatementInsertOptionalField(OptionalField optionalField) {
+        final Insert insert = SQL.Insert(this.database);
+
+        insert.table(DELEGATON_FIELD_TABLE_NAME);
+        insert.insert("label", optionalField.getLabel());
+        insert.insert("fk_event", optionalField.getFkEvent());
+        return insert;
+    }
+
+    private Update getStatementUpdateOptionalField(OptionalField optionalField) {
+        final WhereList whereCriterias = new WhereList();
+        whereCriterias.addAnd(new Where("pk", optionalField.getPk(), "="));
+
+        final Update updateStatement = SQL.Update(this.database);
+        updateStatement.table(DELEGATON_FIELD_TABLE_NAME);
+        updateStatement.where(whereCriterias);
+        if(optionalField.getFkEvent() != -1) {
+            updateStatement.update("fk_event", optionalField.getFkEvent());
+        }
+        updateStatement.update("label", optionalField.getLabel());
+
+        return updateStatement;
+    }
 }

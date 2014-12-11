@@ -51,7 +51,7 @@ public class EventDelegationWorker {
         Map<String, String> delegationFields = new LinkedHashMap<String, String>();
 
         OptionalFieldsDelegationWorker optionalFieldsDelegationWorker = new OptionalFieldsDelegationWorker(oc);
-        List<OptionalDelegationField> optionalDelegationFieldFieldsForGuest = optionalFieldsDelegationWorker.getDelegationsByGuest(guestId);
+        List<OptionalDelegationField> optionalDelegationFieldFieldsForGuest = optionalFieldsDelegationWorker.getOptionalDelegationFieldsByGuestId(guestId);
         Integer counter = 1;
         for (OptionalDelegationField optionalDelegationField : optionalDelegationFieldFieldsForGuest) {
             delegationFields.put(optionalDelegationField.getLabel(), optionalDelegationField.getValue());
@@ -83,7 +83,7 @@ public class EventDelegationWorker {
         final List<String> delegationFieldsLabelds = new ArrayList<String>();
         final OptionalFieldsWorker optionalFieldsWorker = new OptionalFieldsWorker(oc);
         
-        List<OptionalField> optionalFieldsByEvent = optionalFieldsWorker.getDelegationFieldsByEvent(eventId);
+        List<OptionalField> optionalFieldsByEvent = optionalFieldsWorker.getOptionalFieldsByEvent(eventId);
         
         for (OptionalField optionalField : optionalFieldsByEvent) {
         	delegationFieldsLabelds.add(optionalField.getLabel());
@@ -101,7 +101,7 @@ public class EventDelegationWorker {
 			optionalField.setFkEvent(eventId);
 			optionalField.setLabel(label);
 			
-			optionalFieldsWorker.createOrUpdateDelegationField(optionalField);
+			optionalFieldsWorker.createOrUpdateOptionalField(optionalField);
 			
 			createdOrUpdatedLabels.add(label);
 		}
@@ -113,7 +113,7 @@ public class EventDelegationWorker {
 			optionalField.setFkEvent(eventId);
 			optionalField.setLabel(label);
 			
-			optionalFieldsWorker.removeDelegationField(optionalField);
+			optionalFieldsWorker.removeOptionalField(optionalField);
 		}
     	
     	

@@ -9,11 +9,6 @@ public class OptionalDelegationField {
 	private int fkDelegationField;
     private String label;
 
-
-    public OptionalDelegationField() {
-		this.value = "";
-	}
-
 	public OptionalDelegationField(ResultSet resultSet) throws SQLException {
 		this.value = resultSet.getString("value");
 		this.fkGuest = resultSet.getInt("fk_guest");

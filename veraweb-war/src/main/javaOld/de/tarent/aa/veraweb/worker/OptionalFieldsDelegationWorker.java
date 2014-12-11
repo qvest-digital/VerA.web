@@ -1,14 +1,8 @@
 package de.tarent.aa.veraweb.worker;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-
 import de.tarent.aa.veraweb.beans.OptionalDelegationField;
 import de.tarent.dblayer.engine.DB;
 import de.tarent.dblayer.sql.SQL;
-import de.tarent.dblayer.sql.SyntaxErrorException;
 import de.tarent.dblayer.sql.clause.Where;
 import de.tarent.dblayer.sql.clause.WhereList;
 import de.tarent.dblayer.sql.statement.Insert;
@@ -20,161 +14,180 @@ import de.tarent.octopus.beans.TransactionContext;
 import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
+/**
+ * This class handles the optional fields for the delegation guests.
+ *
+ * @author Max Marche, tarent solutions GmbH
+ * @author Atanas Alexandrov, tarent solutions GmbH
+ */
 public class OptionalFieldsDelegationWorker {
-	private static final String DELEGATION_TABLE_NAME = "veraweb.toptional_fields_delegation_content";
-    private static final String DELEGATION_FIELDS_TABLE_NAME = "veraweb.toptional_fields";
+
+    private static final String OPTIONAL_FIELDS_DELEGATION_CONTENT_TABLE = "veraweb.toptional_fields_delegation_content";
+    private static final String OPTIONAL_FIELDS_TABLE = "veraweb.toptional_fields";
     private Database database;
-	
+
+    /**
+     * Constructor.
+     *
+     * @param ctx The {@link OctopusContext}
+     */
 	public OptionalFieldsDelegationWorker(OctopusContext ctx) {
 		this.database = new DatabaseVeraWeb(ctx);
 	}
 	
 	/**
-	 * Persist or Update the given "OptionalDelegationField"-object.
+	 * Persist or update the given {@link OptionalDelegationField}.
      *
-	 * @param optionalDelegationField
+	 * @param optionalDelegationField Label for the optional delegation field
      *
-	 * @throws SyntaxErrorException
-	 * @throws SQLException
-	 * @throws BeanException
+     * @throws SQLException TODO
+     * @throws BeanException TODO
 	 */
-	public void createOrUpdateDelegation(OptionalDelegationField optionalDelegationField) throws SQLException, BeanException {
-		if(this.delegationExist(optionalDelegationField)) {
-			this.updateDelegation(optionalDelegationField);
+	public void createOrUpdateOptionalDelegationField(OptionalDelegationField optionalDelegationField)
+            throws SQLException, BeanException {
+		if(this.checkOptionalDelegationFieldExist(optionalDelegationField)) {
+			this.updateOptionalDelegationField(optionalDelegationField);
 		} else {
-			this.createDelegation(optionalDelegationField);
+			this.createOptionalDelegationField(optionalDelegationField);
 		}
 	}
 	
 	/**
 	 * Persists the given "OptionalDelegationField"-object.
      *
-	 * @param optionalDelegationField
+	 * @param optionalDelegationField The {@link OptionalDelegationField}
      *
-	 * @throws SyntaxErrorException
-	 * @throws SQLException
-	 * @throws BeanException
+     * @throws SQLException TODO
+     * @throws BeanException TODO
 	 */
-	public void createDelegation(OptionalDelegationField optionalDelegationField) throws SQLException, BeanException {
-		TransactionContext context = this.database.getTransactionContext();
-		Insert insert = SQL.Insert(this.database);
-		
-		insert.table(DELEGATION_TABLE_NAME);
-		insert.insert("fk_guest", optionalDelegationField.getFkGuest());
-		insert.insert("fk_delegation_field", optionalDelegationField.getFkDelegationnField());
-		insert.insert("value", optionalDelegationField.getValue());
+	public void createOptionalDelegationField(OptionalDelegationField optionalDelegationField)
+            throws SQLException, BeanException {
+        final TransactionContext context = this.database.getTransactionContext();
+        final Insert insert = getStatementInsertOptionalField(optionalDelegationField);
 
 		DB.insert(context, insert.statementToString());
         context.commit();
 	}
 
-	/**
+    /**
 	 * Update the "value"-field of an existing "OptionalDelegationField"-object
      *
-	 * @param optionalDelegationField
+	 * @param optionalDelegationField The {@link OptionalDelegationField}
      *
-	 * @throws SyntaxErrorException
-	 * @throws SQLException
-	 * @throws BeanException
+     * @throws SQLException TODO
+	 * @throws BeanException TODO
 	 */
-	public void updateDelegation(OptionalDelegationField optionalDelegationField) throws SQLException, BeanException {
-		TransactionContext context = this.database.getTransactionContext();
-		WhereList whereCriterias = new WhereList();
-		Update update = SQL.Update(this.database);
-		
-		whereCriterias.addAnd(new Where("fk_guest", optionalDelegationField.getFkGuest(), "="));
-		whereCriterias.addAnd(new Where("fk_delegation_field", optionalDelegationField.getFkDelegationnField(), "="));
-		update.table(DELEGATION_TABLE_NAME);
-		update.where(whereCriterias);
-		update.update("value", optionalDelegationField.getValue());
+	public void updateOptionalDelegationField(OptionalDelegationField optionalDelegationField)
+            throws BeanException, SQLException {
+        final TransactionContext context = this.database.getTransactionContext();
+
+        final Update update = getStatementUpdateOptionalDelegationField(optionalDelegationField);
 
 		DB.update(context, update.statementToString());
         context.commit();
 	}
 
-	/**
-	 * Returns an "ArrayList<OptionalDelegationField>" with all delegations who have the given guestId
-	 * @param guestId
-	 * @return
-	 * @throws BeanException
-	 * @throws SQLException
+
+    /**
+	 * Get the optional delegation fields by guest id.
+     *
+	 * @param guestId Guest id
+     *
+	 * @return List with all optional delegation fields for the current guest
+     *
+     * @throws SQLException TODO
+     * @throws BeanException TODO
 	 */
-	public List<OptionalDelegationField> getDelegationsByGuest(int guestId) throws BeanException, SQLException {
-		List<OptionalDelegationField> result = new ArrayList<OptionalDelegationField>();
-		WhereList whereCriterias = new WhereList();
-		Select select = SQL.Select(this.database);
-		
-		whereCriterias.addAnd(new Where("fk_guest", guestId, "="));
-		select.from(DELEGATION_TABLE_NAME);
-        select.joinLeftOuter(DELEGATION_FIELDS_TABLE_NAME, DELEGATION_TABLE_NAME + ".fk_delegation_field", DELEGATION_FIELDS_TABLE_NAME + ".pk");
-		select.select("fk_guest");
-		select.select("fk_delegation_field");
-		select.select("value");
-        select.select(DELEGATION_FIELDS_TABLE_NAME + ".label as label");
-		
-		ResultSet resultSet = database.result(select);
-		
+	public List<OptionalDelegationField> getOptionalDelegationFieldsByGuestId(int guestId)
+            throws BeanException, SQLException {
+
+        final Select select = getStatementSelectOptionalDelegationField(guestId);
+        final ResultSet resultSet = database.result(select);
+        return getOptionalFieldsAsList(resultSet);
+	}
+
+    private List<OptionalDelegationField> getOptionalFieldsAsList(ResultSet resultSet) throws SQLException {
+        final List<OptionalDelegationField> optionalDelegationFields = new ArrayList<OptionalDelegationField>();
         while(resultSet.next()) {
-        	OptionalDelegationField optionalDelegationField = new OptionalDelegationField(resultSet);
-        	result.add(optionalDelegationField);
+            final OptionalDelegationField optionalDelegationField = new OptionalDelegationField(resultSet);
+            optionalDelegationFields.add(optionalDelegationField);
         }
-	
-		return result;
-	}
-	
-	/**
-	 * Returns the "OptionalDelegationField" with the given guestId and delegationFieldId
-	 * @param guestId
-	 * @param delegationFieldId
-	 * @return
-	 * @throws BeanException
-	 * @throws SQLException
-	 */
-	public OptionalDelegationField getDelegationByGuestAndDelegationField(int guestId, int delegationFieldId) throws BeanException, SQLException {
-		WhereList whereCriterias = new WhereList();
-		Select select = SQL.Select(this.database);
-		
-		whereCriterias.addAnd(new Where("fk_guest", guestId, "="));
-		whereCriterias.addAnd(new Where("fk_delegation_field", guestId, "="));
-		select.from(DELEGATION_TABLE_NAME);
-		select.select("fk_guest");
-		select.select("fk_delegation_field");
-		select.select("value");
-		
-		ResultSet resultSet = database.result(select);
 
-		if(resultSet.next()) {
-        	return new OptionalDelegationField(resultSet);
-		}
-		
-		return null;
-	}
-	
-	/**
-	 * Check if the given "OptionalDelegationField" exist
-	 * @param optionalDelegationField
-	 * @return
-	 * @throws BeanException
-	 * @throws SQLException
-	 */
-	public boolean delegationExist(OptionalDelegationField optionalDelegationField) throws BeanException, SQLException {
-		WhereList whereCriterias = new WhereList();
-		Select select = SQL.Select(this.database);
-		
-		whereCriterias.addAnd(new Where("fk_guest", optionalDelegationField.getFkGuest(), "="));
-		whereCriterias.addAnd(new Where("fk_delegation_field", optionalDelegationField.getFkDelegationnField(), "="));
-		select.from(DELEGATION_TABLE_NAME);
-		select.select("fk_guest");
-		select.select("fk_delegation_field");
-		
-		ResultSet resultSet = database.result(select);
+        return optionalDelegationFields;
+    }
 
+
+    /**
+	 * Check if the given {@link }OptionalDelegationField} exists.
+     *
+	 * @param optionalDelegationField The {@link OptionalDelegationField}
+     *
+	 * @return True if the field exists, otherwise false.
+     *
+     * @throws SQLException TODO
+     * @throws BeanException TODO
+	 */
+	public boolean checkOptionalDelegationFieldExist(OptionalDelegationField optionalDelegationField)
+            throws BeanException, SQLException {
+
+        final Select select = getStatementOptionalFieldExists(optionalDelegationField);
+        final ResultSet resultSet = database.result(select);
 		if(resultSet.next()) {
         	return true;
-        	
 		}
 		
 		return false;
 	}
+
+    private Select getStatementOptionalFieldExists(OptionalDelegationField optionalDelegationField) {
+        final WhereList whereCriterias = new WhereList();
+        whereCriterias.addAnd(new Where("fk_guest", optionalDelegationField.getFkGuest(), "="));
+        whereCriterias.addAnd(new Where("fk_delegation_field", optionalDelegationField.getFkDelegationnField(), "="));
+        final Select select = SQL.Select(this.database);
+        select.from(OPTIONAL_FIELDS_DELEGATION_CONTENT_TABLE);
+        select.select("fk_guest");
+        select.select("fk_delegation_field");
+        return select;
+    }
+
+    private Insert getStatementInsertOptionalField(OptionalDelegationField optionalDelegationField) {
+        final Insert insert = SQL.Insert(this.database);
+
+        insert.table(OPTIONAL_FIELDS_DELEGATION_CONTENT_TABLE);
+        insert.insert("fk_guest", optionalDelegationField.getFkGuest());
+        insert.insert("fk_delegation_field", optionalDelegationField.getFkDelegationnField());
+        insert.insert("value", optionalDelegationField.getValue());
+        return insert;
+    }
+
+    private Select getStatementSelectOptionalDelegationField(int guestId) {
+        final WhereList whereCriterias = new WhereList();
+        whereCriterias.addAnd(new Where("fk_guest", guestId, "="));
+
+        final Select select = SQL.Select(this.database);
+        select.from(OPTIONAL_FIELDS_DELEGATION_CONTENT_TABLE);
+        select.joinLeftOuter(OPTIONAL_FIELDS_TABLE,
+                OPTIONAL_FIELDS_DELEGATION_CONTENT_TABLE + ".fk_delegation_field", OPTIONAL_FIELDS_TABLE + ".pk");
+        select.select("fk_guest");
+        select.select("fk_delegation_field");
+        select.select("value");
+        select.select(OPTIONAL_FIELDS_TABLE + ".label as label");
+        return select;
+    }
+
+    private Update getStatementUpdateOptionalDelegationField(OptionalDelegationField optionalDelegationField) {
+        final WhereList whereCriterias = new WhereList();
+        whereCriterias.addAnd(new Where("fk_guest", optionalDelegationField.getFkGuest(), "="));
+        whereCriterias.addAnd(new Where("fk_delegation_field", optionalDelegationField.getFkDelegationnField(), "="));
+        final Update update = SQL.Update(this.database);
+        update.table(OPTIONAL_FIELDS_DELEGATION_CONTENT_TABLE);
+        update.where(whereCriterias);
+        update.update("value", optionalDelegationField.getValue());
+        return update;
+    }
 }
