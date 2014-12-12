@@ -1331,7 +1331,7 @@
 			<action name="getEvent" worker="GuestListWorker" />
 			<status equals="noevent"><doTask name="CreateEvent"/></status>
 			<action name="getAll" worker="CategorieWorker"/>
-            <action name="showDelegationFields" worker="EventDelegationWorker" />
+            <!-- <action name="showDelegationFields" worker="EventDelegationWorker" /> -->
 			<action name="showDetail" worker="GuestDetailWorker"/>
 			<status equals="notfound">
 				<doTask name="ShowGuestList"/>
