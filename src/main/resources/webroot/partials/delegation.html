@@ -35,7 +35,7 @@
         <th>Vorname</th>
         <th>Nachname</th>
     </tr>
-    <tr id="delegation" ng-click="showOptionalFields()" data-toggle="modal" data-target="#myModal" ng-repeat="person in presentPersons">
+    <tr id="delegation" ng-click="showOptionalFields(person.pk)" data-toggle="modal" data-target="#myModal" ng-repeat="person in presentPersons">
         <td>
              {{person.firstname_a_e1}}
         </td>
@@ -62,7 +62,7 @@
     <div class="form-group container">
         <div class="row">
 				<div ng-repeat="field in fields">
-					<input type="text" class="form-control" id="nachname" placeholder="{{field.label}}" ng-model="nachname" style="margin-bottom: 10px;">
+					<input type="text" class="form-control" id="nachname" placeholder="{{field.label}}" ng-model="labellist[field.pk]" style="margin-bottom: 10px;">
 				</div>
         </div>
     </div>
