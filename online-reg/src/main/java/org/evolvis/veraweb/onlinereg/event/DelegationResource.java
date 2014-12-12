@@ -8,9 +8,12 @@ import com.sun.jersey.api.client.UniformInterfaceException;
 import com.sun.jersey.api.client.WebResource;
 import lombok.extern.java.Log;
 import org.evolvis.veraweb.onlinereg.Config;
+import org.evolvis.veraweb.onlinereg.entities.Delegation;
 import org.evolvis.veraweb.onlinereg.entities.OptionalField;
 import org.evolvis.veraweb.onlinereg.entities.Guest;
 import org.evolvis.veraweb.onlinereg.entities.Person;
+import org.evolvis.veraweb.onlinereg.entities.pk.DelegationPK;
+import org.hibernate.Session;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -121,13 +124,13 @@ public class DelegationResource {
 		        String[] arrayFields = fields.split(",");
 		    	for (int i = 1; i < arrayFields.length; i++) {
 					String labelValue = arrayFields[i];
-					Integer labelId = readResource(path("delegation", "field", guest.getFk_event(), labels.get(i-1).getLabel()), INTEGER);
+//					Integer labelId = readResource(path("delegation", "field", guest.getFk_event(), labels.get(i-1).getLabel()), INTEGER);
+					WebResource resource = client.resource(path("delegation", "field", guest.getFk_event()));
+					resource = resource.queryParam("label", labels.get(i-1).getLabel());
+					Integer labelId = resource.get(Integer.class);
+					// Saving ...
+					saveOptionalField(guestId, labelId, labelValue);
 					
-					
-					
-					
-					
-					// Direct persist over database with guest.getFk_event(), labels.get(i-1).getLabel(), personId and labelValue
 				}
 		    	
 		}
@@ -213,6 +216,23 @@ public class DelegationResource {
         resource.post(Guest.class);
     }
 
+    /**
+     * Persist a new optional fields value
+     * 
+     * @param guestId guest pk
+     * @param fieldId optional field pk
+     * @param fieldValue value
+     */
+    private void saveOptionalField(Integer guestId, Integer fieldId, String fieldValue) {
+    	WebResource resource = client.resource(path("delegation","field", "save"));
+
+        resource = resource.queryParam("guestId", guestId.toString())
+        	 .queryParam("fieldId", fieldId.toString())
+        	 .queryParam("fieldValue", fieldValue);
+
+        resource.post(Delegation.class);
+    }
+    
     /**
      * Reads the resource at given path and returns the entity.
      *
