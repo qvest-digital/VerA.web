@@ -1,6 +1,7 @@
 package de.tarent.aa.veraweb.worker;
 
 import de.tarent.aa.veraweb.beans.OptionalDelegationField;
+import de.tarent.aa.veraweb.worker.OptionalFieldsWorker;
 import de.tarent.aa.veraweb.beans.OptionalField;
 import de.tarent.aa.veraweb.beans.Event;
 import de.tarent.aa.veraweb.utils.DateHelper;
@@ -11,7 +12,6 @@ import de.tarent.octopus.server.OctopusContext;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,9 +29,7 @@ public class EventDelegationWorker {
 
     public static final String OUTPUT_getDelegationFieldsLabels = "delegationFieldsLabels";
     
-    public static final String INPUT_saveDelegationFieldLabels[] = {"eventId", "delegationFields", };
-
-//    public static final String OUTPUT_saveDelegationFieldLabels = "";
+    public static final String INPUT_saveDelegationFieldLabels[] = {"eventId"};
 
     /**
      * Show the optional delegation fields in the guest detail view.
@@ -75,48 +73,53 @@ public class EventDelegationWorker {
      * @return Labels for the fields
      * @throws SQLException 
      */
-    public List<String> getDelegationFieldsLabels(OctopusContext oc, Integer eventId)
+    public Map<String, String> getDelegationFieldsLabels(OctopusContext oc, Integer eventId)
             throws IOException, BeanException, SQLException {
 
         setEventInContext(oc, eventId);
 
-        final List<String> delegationFieldsLabelds = new ArrayList<String>();
+        final Map<String, String> delegationFieldsLabelds = new LinkedHashMap<String, String>();
         final OptionalFieldsWorker optionalFieldsWorker = new OptionalFieldsWorker(oc);
         
         List<OptionalField> optionalFieldsByEvent = optionalFieldsWorker.getOptionalFieldsByEvent(eventId);
         
         for (OptionalField optionalField : optionalFieldsByEvent) {
-        	delegationFieldsLabelds.add(optionalField.getLabel());
+        	delegationFieldsLabelds.put(String.valueOf(optionalField.getPk()), optionalField.getLabel());
 		}
 
         return delegationFieldsLabelds;
     }
 
-    public void saveDelegationFieldLabels(OctopusContext oc, Integer eventId, List<String> delegationFieldLables) throws BeanException, SQLException {
+    public void saveDelegationFieldLabels(OctopusContext oc, Integer eventId) throws BeanException, SQLException {
     	OptionalFieldsWorker optionalFieldsWorker = new OptionalFieldsWorker(oc);
-    	List<String> createdOrUpdatedLabels = new ArrayList<String>();
+    	Map<String, String> allRequestParams = oc.getRequestObject().getRequestParameters();
     	
-		for(String label : delegationFieldLables) {
-			OptionalField optionalField = new OptionalField();
-			optionalField.setFkEvent(eventId);
-			optionalField.setLabel(label);
-			
-			optionalFieldsWorker.createOrUpdateOptionalField(optionalField);
-			
-			createdOrUpdatedLabels.add(label);
-		}
-		
-		delegationFieldLables.removeAll(createdOrUpdatedLabels);
-		
-		for (String label : createdOrUpdatedLabels) {
-			OptionalField optionalField = new OptionalField();
-			optionalField.setFkEvent(eventId);
-			optionalField.setLabel(label);
-			
-			optionalFieldsWorker.removeOptionalField(optionalField);
-		}
+    	for (String key : allRequestParams.keySet()) {
+    		OptionalField optionalField = new OptionalField();
+    		optionalField.setFkEvent(eventId);
+    		
+    		if(key.startsWith("optionalField-")) {
+    			String[] splitted = key.split("-");
+    			optionalField.setLabel(allRequestParams.get(key));
+    			optionalField.setPk(Integer.parseInt(splitted[1]));
+    			
+    			updateOrDeleteOptionalField(optionalFieldsWorker, optionalField);
+    		}else if(key.startsWith("optionalField")) {
+    			optionalField.setLabel(allRequestParams.get(key));
+    			
+    			optionalFieldsWorker.createOptionalField(optionalField);
+    		}
+    	}
     	
-    	
+
+    }
+    
+    private void updateOrDeleteOptionalField(OptionalFieldsWorker optionalFieldsWorker, OptionalField optionalField) throws SQLException, BeanException {
+    	if(optionalField.getLabel().trim().isEmpty()) {
+    		optionalFieldsWorker.removeOptionalField(optionalField);
+    	} else {
+    		optionalFieldsWorker.updateOptionalField(optionalField);
+    	}
     }
     
     private static Event getEvent(OctopusContext cntx, Integer id) throws BeanException, IOException {

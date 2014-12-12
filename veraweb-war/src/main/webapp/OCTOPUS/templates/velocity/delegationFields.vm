@@ -52,9 +52,9 @@
 
             <div class="contentBoxColored tabsContent">
 				<ol class="delegationFields">
-	                #foreach( $field in $delegationFieldsLabels )
+	                #foreach( $field in $delegationFieldsLabels.entrySet() )
 			            <li>
-			                <input type="text" name="delegationFields" value="$field">
+			                <input type="text" name="optionalField-$field.key" value="$field.value">
 							<input type="button" class="remove_field" value="-">
 			            </li>
 	                #end
@@ -97,7 +97,7 @@
             x++; //text box increment
             $(wrapper).append('' +
             '<li>' +
-            '   <input type="text" name="delegationFields"/>' +
+            '   <input type="text" name="optionalField"/>' +
             '   <input type="button" class="remove_field" value="-">' +
             '</li>'); //add input box
         } else {

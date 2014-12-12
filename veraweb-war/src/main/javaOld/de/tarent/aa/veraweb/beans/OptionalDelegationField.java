@@ -16,6 +16,11 @@ public class OptionalDelegationField {
         this.label = resultSet.getString("label");
 	}
 
+	public OptionalDelegationField() {
+		this.value = "";
+		this.label = "";
+	}
+
 	public String getValue() {
 		return value;
 	}
