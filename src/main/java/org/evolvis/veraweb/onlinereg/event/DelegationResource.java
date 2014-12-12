@@ -121,7 +121,7 @@ public class DelegationResource {
 		        Integer guestId = readResource(path("guest","concrete", guest.getFk_event(), personId), INTEGER);
 		        
 		        String[] arrayFields = fields.split(",");
-		    	for (int i = 0; i != arrayFields.length; i++) {
+		    	for (int i = 1; i != arrayFields.length; i++) {
 					String labelValue = arrayFields[i-1];
 //					Integer labelId = readResource(path("delegation", "field", guest.getFk_event(), labels.get(i-1).getLabel()), INTEGER);
 					WebResource resource = client.resource(path("delegation", "field", guest.getFk_event()));
