@@ -110,7 +110,7 @@ public class EventDelegationWorker {
     				String[] tempParamA = (String[]) tempParam;
     				
     				for (String string : tempParamA) {
-        				createOptionalField(optionalFieldsWorker, eventId, allRequestParams.get(key));
+        				createOptionalField(optionalFieldsWorker, eventId, string);
 					}
     				
     			} else {
@@ -121,6 +121,10 @@ public class EventDelegationWorker {
     }
     
     private void createOptionalField(OptionalFieldsWorker optionalFieldsWorker, int eventId, String label) throws SQLException, BeanException {
+    	if(label.trim().isEmpty()) {
+    		return;
+    	}
+    	
     	OptionalField optionalField = new OptionalField();
 		optionalField.setFkEvent(eventId);
 		optionalField.setLabel(label);
