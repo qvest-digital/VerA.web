@@ -35,7 +35,23 @@ public class DelegationResource extends AbstractResource {
             session.close();
         }
     }
-	
+    
+
+    @GET
+    @Path("/field/{eventId}")
+    public Integer getLabelIdfromEventAndLabel(@PathParam("eventId") int eventId, @QueryParam("label") String label) {
+        Session session = openSession();
+        try {
+            Query query = session.getNamedQuery("OptionalField.findByEventIdAndLabel");
+            query.setInteger("eventId", eventId);
+            query.setString("label", label);
+            
+            return (Integer) query.uniqueResult();
+        } finally {
+            session.close();
+        }
+    }
+
 	
     @GET
     @Path("/values")
