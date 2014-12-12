@@ -237,7 +237,7 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 		            method: 'POST',
 		            url: 'api/delegation/'+ $routeParams.uuid + '/fields/',
 		            params: {
-		            	fields: $scope.labellist.toString(),
+		            	fields: $scope.labellist,
 		            	personId: $scope.targetPersonId
 		            }
 		        }).success(function (result) {
