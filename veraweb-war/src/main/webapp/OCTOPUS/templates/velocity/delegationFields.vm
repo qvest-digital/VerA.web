@@ -55,11 +55,11 @@
 	                #foreach( $field in $delegationFieldsLabels.entrySet() )
 			            <li>
 			                <input type="text" name="optionalField-$field.key" value="$field.value">
-							<input type="button" class="remove_field" value="-">
+							<!--<input type="button" class="remove_field" value="-">-->
 			            </li>
 	                #end
 				</ol>
-				<input type="button" id="addDelegation" class="mainButton" value="Feld hinzuf&uuml;gen"><br>
+				<!--<input type="button" id="addDelegation" class="mainButton" value="Feld hinzuf&uuml;gen"><br>-->
             </div>
         </div>
 
@@ -84,32 +84,50 @@
 </style>
 
 <script type="text/javascript">
- $(document).ready(function() {
-    var max_fields      = 10; //maximum input boxes allowed
-    var wrapper         = $(".delegationFields"); //Fields wrapper
-    var add_button      = $("#addDelegation"); //Add button ID
-    var remove_button   = ".remove_field";
+	var wrapper = $(".delegationFields"); //Fields wrapper
+	
+	function initXOptionalFields(X) {
+		var anzElements = $( wrapper ).children().length;
+	
+		for(var i = anzElements; i != X; i++) {
+			addOptionalField();
+		}
+	}
+	
+	function addOptionalField() {
+		$(wrapper).append('' +
+	            '<li>' +
+	            '   <input type="text" name="optionalField"/>' +
+	           // '   <input type="button" class="remove_field" value="-">' +
+	            '</li>');
+	}
+	
+	function handelOpionalFields() {
+	    var max_fields      = 10; //maximum input boxes allowed
+	    var wrapper         = $(".delegationFields"); //Fields wrapper
+	    var add_button      = $("#addDelegation"); //Add button ID
+	    var remove_button   = ".remove_field";
+	
+	    var x = 1; //initlal text box count
+	    $(add_button).click(function(e){ //on add input button click
+	        e.preventDefault();
+	        if(x < max_fields){ //max input box allowed
+	            x++; //text box increment
+	           	addOptionalField();
+	        } else {
+	            alert("maximum an feldern erreicht");
+	        }
+	    });
+	
+	    $(wrapper).on("click", remove_button, function(e){ //user click on remove text
+	        e.preventDefault();
+	        $(this).parent('li').remove();
+	        x--;
+	    });
+	}
 
-    var x = 1; //initlal text box count
-    $(add_button).click(function(e){ //on add input button click
-        e.preventDefault();
-        if(x < max_fields){ //max input box allowed
-            x++; //text box increment
-            $(wrapper).append('' +
-            '<li>' +
-            '   <input type="text" name="optionalField"/>' +
-            '   <input type="button" class="remove_field" value="-">' +
-            '</li>'); //add input box
-        } else {
-            alert("maximum an feldern erreicht");
-        }
-    });
-
-    $(wrapper).on("click", remove_button, function(e){ //user click on remove text
-        e.preventDefault();
-        $(this).parent('li').remove();
-        x--;
-    })
+$(document).ready(function() {
+	initXOptionalFields(15);
 });
 
 function submitForm() {
@@ -131,3 +149,4 @@ function submitForm() {
 </script>
 
 #parse("inc/footer.vm")
+

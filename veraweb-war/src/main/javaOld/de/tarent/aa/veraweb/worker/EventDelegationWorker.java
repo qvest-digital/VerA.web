@@ -1,20 +1,6 @@
 package de.tarent.aa.veraweb.worker;
 
 import de.tarent.aa.veraweb.beans.OptionalDelegationField;
-import de.tarent.aa.veraweb.worker.OptionalFieldsWorker;
-import de.tarent.aa.veraweb.beans.OptionalField;
-import de.tarent.aa.veraweb.beans.Event;
-import de.tarent.aa.veraweb.utils.DateHelper;
-import de.tarent.octopus.beans.BeanException;
-import de.tarent.octopus.beans.Database;
-import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
-import de.tarent.octopus.server.OctopusContext;
-
-import java.io.IOException;
-import java.sql.SQLException;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * @author Atanas Alexandrov, tarent solutions GmbH
@@ -95,23 +81,37 @@ public class EventDelegationWorker {
     	Map<String, String> allRequestParams = oc.getRequestObject().getRequestParameters();
     	
     	for (String key : allRequestParams.keySet()) {
-    		OptionalField optionalField = new OptionalField();
-    		optionalField.setFkEvent(eventId);
     		
     		if(key.startsWith("optionalField-")) {
+        		OptionalField optionalField = new OptionalField();
+        		optionalField.setFkEvent(eventId);
     			String[] splitted = key.split("-");
-    			optionalField.setLabel(allRequestParams.get(key));
+    			optionalField.setLabel(allRequestParams.get(key).toString());
     			optionalField.setPk(Integer.parseInt(splitted[1]));
     			
     			updateOrDeleteOptionalField(optionalFieldsWorker, optionalField);
     		}else if(key.startsWith("optionalField")) {
-    			optionalField.setLabel(allRequestParams.get(key));
+    			Object tempParam = allRequestParams.get(key);
     			
-    			optionalFieldsWorker.createOptionalField(optionalField);
+    			if(tempParam instanceof String[]) {
+    				String[] tempParamA = (String[]) tempParam;
+    				
+    				for (String string : tempParamA) {
+        				createOptionalField(optionalFieldsWorker, eventId, allRequestParams.get(key));
+					}
+    				
+    			} else {
+    				createOptionalField(optionalFieldsWorker, eventId, allRequestParams.get(key));
+    			}
     		}
     	}
-    	
-
+    }
+    
+    private void createOptionalField(OptionalFieldsWorker optionalFieldsWorker, int eventId, String label) throws SQLException, BeanException {
+    	OptionalField optionalField = new OptionalField();
+		optionalField.setFkEvent(eventId);
+		optionalField.setLabel(label);
+		optionalFieldsWorker.createOptionalField(optionalField);
     }
     
     private void updateOrDeleteOptionalField(OptionalFieldsWorker optionalFieldsWorker, OptionalField optionalField) throws SQLException, BeanException {
@@ -135,3 +135,4 @@ public class EventDelegationWorker {
         return event;
     }
 }
+
