@@ -71,6 +71,8 @@
 				
 			
 					<div class="tabsContent contentBox">
+                        <input type="hidden" name="guestId" value="$!guest.id">
+                        <input type="hidden" name="eventId" value="$!event.id">
                         <input type="hidden" name="id" value="$!guest.id">
                         <input type="hidden" name="guest-id" value="$!guest.id">
                         <input type="hidden" name="guest-event" value="$!guest.event">
