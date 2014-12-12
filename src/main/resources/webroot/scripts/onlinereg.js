@@ -151,8 +151,6 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 		$scope.gender = $scope.genderOptions[0];
 		$scope.success = null;
 		$scope.error = null;
-		$scope.presentPersons = [];
-		$scope.targetPersonId = null;
 
          $http.get('api/delegation/' + $routeParams.uuid).then(function(presentPersons) {
             $scope.presentPersons = presentPersons.data;
@@ -211,6 +209,7 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 
 		        }).error(function (data, status, headers, config) {
 		            $scope.error = ERROR_TEXT;
+		            $scope.success = null;
 		            $scope.button = false;
 		        });
 			 }
