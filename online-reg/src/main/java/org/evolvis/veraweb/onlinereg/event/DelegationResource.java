@@ -55,6 +55,7 @@ public class DelegationResource {
     private static final String INVITATION_TYPE = "2";
     private static final TypeReference<Guest> GUEST = new TypeReference<Guest>() {};
     private static final TypeReference<Boolean> BOOLEAN = new TypeReference<Boolean>() {};
+    private static final TypeReference<Integer> INTEGER = new TypeReference<Integer>() {};
     private static final TypeReference<List<Person>> GUEST_LIST = new TypeReference<List<Person>>() {};
     private static final TypeReference<List<OptionalField>> FIELDS_LIST = new TypeReference<List<OptionalField>>() {};
 
@@ -95,7 +96,8 @@ public class DelegationResource {
             @PathParam("uuid") String uuid,
             @QueryParam("nachname") String nachname,
     		@QueryParam("vorname") String vorname,
-            @QueryParam("gender") String gender) throws IOException {
+            @QueryParam("gender") String gender,
+            String... labels) throws IOException {
 
         Boolean delegationIsFound = checkForExistingDelegation(uuid);
 
@@ -107,11 +109,36 @@ public class DelegationResource {
     }
 
     @POST
+    @Path("/{uuid}/fields")
+    public void saveOptionalFields(@PathParam("uuid") String uuid,
+            @QueryParam("fields") String fields, @QueryParam("personId") Integer personId) throws IOException {
+		if (fields != null || !"".equals(fields)) {
+		    	List<OptionalField> labels = getLabels(uuid);
+		        Guest guest = getEventIdFromUuid(uuid);
+		    	
+		        Integer guestId = readResource(path("guest","concrete", guest.getFk_event(), personId), INTEGER);
+		        
+		        String[] arrayFields = fields.split(",");
+		    	for (int i = 1; i < arrayFields.length; i++) {
+					String labelValue = arrayFields[i];
+					Integer labelId = readResource(path("delegation", "field", guest.getFk_event(), labels.get(i-1).getLabel()), INTEGER);
+					
+					
+					
+					
+					
+					// Direct persist over database with guest.getFk_event(), labels.get(i-1).getLabel(), personId and labelValue
+				}
+		    	
+		}
+    }
+
+    @POST
     @Path("/{uuid}/remove/{userid}")
     public List<Guest> removeDelegateFromEvent(@PathParam("uuid") String uuid, @PathParam("userid") Long userid) throws IOException {
         return null;
     }
-
+    
 	private List<OptionalField> getLabels(String uuid) throws IOException {
 		try{
 			Guest guest = getEventIdFromUuid(uuid);
@@ -204,7 +231,7 @@ public class DelegationResource {
         } catch (ClientHandlerException che) {
             if (che.getCause() instanceof SocketTimeoutException) {
                 //FIXME some times open, pooled connections time out and generate errors
-                log.warning("Retrying request to " + path + " once because of SocketTimeoutException");
+//                log.warning("Retrying request to " + path + " once because of SocketTimeoutException");
                 resource = client.resource(path);
                 String json = resource.get(String.class);
                 return mapper.readValue(json, type);
@@ -213,7 +240,7 @@ public class DelegationResource {
             }
 
         } catch (UniformInterfaceException uie) {
-            log.warning(uie.getResponse().getEntity(String.class));
+//            log.warning(uie.getResponse().getEntity(String.class));
             throw uie;
         }
     }
