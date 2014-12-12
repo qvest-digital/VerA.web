@@ -18,9 +18,6 @@ import lombok.Data;
 @XmlRootElement
 @Entity
 @Table(name = "toptional_fields_delegation_content")
-@NamedQueries({
-    @NamedQuery(name = "Delegation.findDelegationByFieldAndGuest", query = "select d.* from Delegation d where d.pk.fk_delegation_field=:fk_delegation_field and d.pk.fk_guest=:fk_guest")
-})
 public class Delegation {
 	
 	@EmbeddedId
