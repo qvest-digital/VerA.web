@@ -151,6 +151,8 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 		$scope.gender = $scope.genderOptions[0];
 		$scope.success = null;
 		$scope.error = null;
+		$scope.presentPersons = [];
+		$scope.targetPersonId = null;
 
          $http.get('api/delegation/' + $routeParams.uuid).then(function(presentPersons) {
             $scope.presentPersons = presentPersons.data;
@@ -213,20 +215,45 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 		        });
 			 }
 		    }
-		 $scope.showOptionalFields = function () {
+		 $scope.showOptionalFields = function (personId) {
+			 
+			 $scope.targetPersonId=personId;
+			 
 			 $scope.success = null;
 			 $scope.error = null;
 			 $http.get('api/delegation/' + $routeParams.uuid + '/data/').then(function(fields) {
                  $scope.fields = fields.data;
               });
+			 $scope.labellist = [];
 		 }
 		 
 		 $scope.saveOptionalFields = function () {
-			 $scope.success = "Delegiertdaten wurden gespeichert.";
+			 $scope.success = null;
 			 $scope.error = null;
+			 
+			 var list = $scope.labellist;
+			 console.log("labels" + list);
+			 
+			 	$http({
+		            method: 'POST',
+		            url: 'api/delegation/'+ $routeParams.uuid + '/fields/',
+		            params: {
+		            	fields: $scope.labellist.toString(),
+		            	personId: $scope.targetPersonId
+		            }
+		        }).success(function (result) {
+		            console.log('Optional Felder speichern...');
+		            
+		            $scope.error= null;
+	                $scope.success = "Delegiertdaten wurden gespeichert.";
+		            
+		            
+		        }).error(function (data, status, headers, config) {
+		            console.log('ERROR! Optional fields not saved!”');
+		            $scope.error= "Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.";
+	                $scope.success = null;
+		        });
 		 }
-		 
-		
 	}
 });
 
