@@ -99,8 +99,7 @@ public class DelegationResource {
             @PathParam("uuid") String uuid,
             @QueryParam("nachname") String nachname,
     		@QueryParam("vorname") String vorname,
-            @QueryParam("gender") String gender,
-            String... labels) throws IOException {
+            @QueryParam("gender") String gender) throws IOException {
 
         Boolean delegationIsFound = checkForExistingDelegation(uuid);
 
