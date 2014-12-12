@@ -3,14 +3,17 @@ package org.evolvis.veraweb.onlinereg.rest;
 import java.util.List;
 
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
+import org.evolvis.veraweb.onlinereg.entities.Delegation;
 import org.evolvis.veraweb.onlinereg.entities.OptionalField;
 import org.evolvis.veraweb.onlinereg.entities.Guest;
+import org.evolvis.veraweb.onlinereg.entities.pk.DelegationPK;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
@@ -66,7 +69,24 @@ public class DelegationResource extends AbstractResource {
             session.close();
         }
     }
-    
 
+    @POST
+    @Path("/field/save")
+    public Delegation saveOptionalField(@QueryParam("guestId") Integer guestId, @QueryParam("fieldId") Integer fieldId, @QueryParam("fieldValue") String fieldValue) {
+        Session session = openSession();
+        try {
+        	Delegation delegation = new Delegation(); 
+        	delegation.setPk(new DelegationPK(guestId,fieldId));
+        	delegation.setValue(fieldValue);
+        	
+        	session.saveOrUpdate(delegation);
+        	session.flush();
+        	
+        	return delegation;
+        	
+        } finally {
+            session.close();
+        }
+    }
 	
 }
