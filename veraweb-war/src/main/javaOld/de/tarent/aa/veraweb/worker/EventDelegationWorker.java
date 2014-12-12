@@ -20,7 +20,7 @@ import de.tarent.octopus.server.OctopusContext;
  */
 public class EventDelegationWorker {
 
-    public static final String INPUT_showDelegationFields[] = {"id", "eventId"};
+    public static final String INPUT_showDelegationFields[] = {"eventId", "guestId"};
 
     public static final String OUTPUT_showDelegationFields = "delegationFields";
 
