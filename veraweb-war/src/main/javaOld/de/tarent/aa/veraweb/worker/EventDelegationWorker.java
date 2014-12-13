@@ -20,7 +20,7 @@ import de.tarent.octopus.server.OctopusContext;
  */
 public class EventDelegationWorker {
 
-    public static final String INPUT_showDelegationFields[] = {"eventId", "guestId"};
+    public static final String INPUT_showDelegationFields[] = {"id", "eventId"};
 
     public static final String OUTPUT_showDelegationFields = "delegationFields";
 
@@ -41,14 +41,14 @@ public class EventDelegationWorker {
      * @throws IOException If fetching event failed
      * @throws BeanException If fetching event failed
      */
-    public Map<String, String> showDelegationFields(OctopusContext oc, Integer eventId, Integer guestId)
+    public Map<String, String> showDelegationFields(OctopusContext oc, Integer id, Integer eventId)
             throws IOException, BeanException, SQLException {
         setEventInContext(oc, eventId);
 
         Map<String, String> delegationFields = new LinkedHashMap<String, String>();
 
         OptionalFieldsDelegationWorker optionalFieldsDelegationWorker = new OptionalFieldsDelegationWorker(oc);
-        List<OptionalDelegationField> optionalDelegationFieldFieldsForGuest = optionalFieldsDelegationWorker.getOptionalDelegationFieldsByGuestId(guestId);
+        List<OptionalDelegationField> optionalDelegationFieldFieldsForGuest = optionalFieldsDelegationWorker.getOptionalDelegationFieldsByGuestId(id);
         Integer counter = 1;
         for (OptionalDelegationField optionalDelegationField : optionalDelegationFieldFieldsForGuest) {
             delegationFields.put(optionalDelegationField.getLabel(), optionalDelegationField.getValue());
