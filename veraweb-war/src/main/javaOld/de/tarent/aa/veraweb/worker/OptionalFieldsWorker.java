@@ -2,7 +2,9 @@ package de.tarent.aa.veraweb.worker;
 
 import de.tarent.aa.veraweb.beans.OptionalField;
 import de.tarent.dblayer.engine.DB;
+import de.tarent.dblayer.engine.DBContext;
 import de.tarent.dblayer.sql.SQL;
+import de.tarent.dblayer.sql.clause.Clause;
 import de.tarent.dblayer.sql.clause.Where;
 import de.tarent.dblayer.sql.clause.WhereList;
 import de.tarent.dblayer.sql.statement.Delete;
@@ -28,6 +30,8 @@ import java.util.List;
  */
 public class OptionalFieldsWorker {
 	private static final String DELEGATON_FIELD_TABLE_NAME = "veraweb.toptional_fields";
+	private static final String DELEGATON_FIELD_VALUE_TABLE_NAME = "veraweb.toptional_fields_delegation_content";
+	
 
 	private Database database;
 
@@ -131,10 +135,29 @@ public class OptionalFieldsWorker {
      */
 	public void removeOptionalField(OptionalField optionalField) throws SQLException, BeanException {
 		final TransactionContext context = this.database.getTransactionContext();
+		deleteOprionalFieldDependencies(context, optionalField);
         deleteOptionalFieldFromDB(optionalField, context);
 	}
 
-    private void deleteOptionalFieldFromDB(OptionalField optionalField, TransactionContext context)
+    private void deleteOprionalFieldDependencies(TransactionContext context,
+			OptionalField optionalField) throws BeanException, SQLException {
+    	 final Delete deleteStatement = getDeleteDependenciesStatement(optionalField);
+         deleteStatement.executeDelete(context);
+         context.commit();
+	}
+
+	private Delete getDeleteDependenciesStatement(OptionalField optionalField) {
+        final Delete deleteStatement = SQL.Delete(this.database);
+        final WhereList whereCriterias = new WhereList();
+        
+        whereCriterias.add(new Where("fk_delegation_field", optionalField.getPk(), "="));
+        
+        deleteStatement.from(DELEGATON_FIELD_VALUE_TABLE_NAME);
+        deleteStatement.where(whereCriterias);
+        return deleteStatement;
+	}
+
+	private void deleteOptionalFieldFromDB(OptionalField optionalField, TransactionContext context)
             throws SQLException, BeanException {
         final Delete deleteStatement = getDeleteStatement(optionalField);
         deleteStatement.executeDelete(context);

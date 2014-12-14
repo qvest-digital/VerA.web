@@ -13,6 +13,9 @@
 	function reloadGuestData() {
 		var url = '${paths.staticWeb}do/ReloadGuestData'
 		url += '?guest-id=$!guest.id';
+		url += '&id=$!guest.id';
+		url += '&eventId=$!event.id';
+		
 		
 		var targetTab = document.getElementById('tab');
 		if(targetTab) {

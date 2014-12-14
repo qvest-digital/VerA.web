@@ -53,10 +53,9 @@ public class EventDelegationWorker {
  
         for(OptionalDelegationField field : optionalDelegationFields) {
         	OptionalField optionalField = findFieldById(optionalFields, field.getFkDelegationnField());
-        	
-        	
+
         	delegationFields.put(optionalField.getLabel(), field.getValue());
-        	
+
         	optionalFields.remove(optionalField);
         }
         
