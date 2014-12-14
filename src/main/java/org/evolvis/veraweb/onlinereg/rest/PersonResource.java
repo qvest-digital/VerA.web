@@ -63,7 +63,9 @@ public class PersonResource extends AbstractResource {
 
 	@POST
     @Path("/press")
-    public Person createPersonPress(@QueryParam("username") String username,
+    public Person createPersonPress(
+    							@QueryParam("eventId") Integer eventId,
+    							@QueryParam("username") String username,
                                @QueryParam("firstname") String firstName,
                                @QueryParam("lastname") String lastname,
                                @QueryParam("gender") String gender,
@@ -76,7 +78,8 @@ public class PersonResource extends AbstractResource {
 
         Session session = openSession();
         try {
-            Person person = handleCreatePersonPress(username, firstName, lastname,gender, email, address, plz, city, country, session);
+        	Integer fk_orgUnitId = getOrgUnitId(session, eventId);
+            Person person = handleCreatePersonPress(fk_orgUnitId, username, firstName, lastname,gender, email, address, plz, city, country, session);
             return person;
         } finally {
             session.close();
@@ -120,14 +123,14 @@ public class PersonResource extends AbstractResource {
         return person;
     }
 
-    private Person handleCreatePersonPress(String username, String firstName, String lastname, String gender,
+    private Person handleCreatePersonPress(Integer orgUnit, String username, String firstName, String lastname, String gender,
             String email, String address, String plz, String city, String country, Session session) {
         Query query = getSelectPersonByUsernameQuery(username, session);
         if (!query.list().isEmpty()) {
             // user already exists
             return null;
         }
-        persistPersonPress(username, firstName, lastname, gender, email, address, plz, city, country, session);
+        persistPersonPress(orgUnit, username, firstName, lastname, gender, email, address, plz, city, country, session);
         Person person = (Person) query.uniqueResult();
         return person;
     }
@@ -179,21 +182,21 @@ public class PersonResource extends AbstractResource {
     	return "w";
     }
 
-    private Person persistPersonPress(String username, String firstName, String lastname, String gender,
+    private Person persistPersonPress(Integer orgUnitId, String username, String firstName, String lastname, String gender,
             String email, String address, String plz, String city, String country, Session session) {
-        Person p = initPersonPress(username, firstName, lastname, gender, email, address, plz, city, country);
+        Person p = initPersonPress(orgUnitId, username, firstName, lastname, gender, email, address, plz, city, country);
         session.persist(p);
         session.flush();
         return p;
     }
 
-    private Person initPersonPress(String username, String firstName, String lastname,  String gender,
+    private Person initPersonPress(Integer orgUnitId, String username, String firstName, String lastname,  String gender,
             String email, String address, String plz, String city, String country) {
         Person p = new Person();
         p.setFirstName(firstName);
         p.setLastName(lastname);
         p.setUsername(username);
-        p.setFk_orgunit(0);
+        p.setFk_orgunit(orgUnitId);
         p.setSex_a_e1(gender);
         p.setMail_a_e1(email);
         p.setStreet_a_e1(address);
