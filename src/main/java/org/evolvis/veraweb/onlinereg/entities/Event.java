@@ -35,7 +35,7 @@ import java.util.Date;
 })
 
 public class Event {
-	
+
     @Id
     private int pk;
     private String shortname;
@@ -43,8 +43,13 @@ public class Event {
     private Date dateend;
     private String eventtype;
     private String mediarepresentatives;
+    private int fk_orgunit = 1;
 
     @ManyToOne
     @JoinColumn(name="fk_location")
     private Location location;
+
+    public int getFk_orgunit() {
+		return fk_orgunit;
+	}
 }
