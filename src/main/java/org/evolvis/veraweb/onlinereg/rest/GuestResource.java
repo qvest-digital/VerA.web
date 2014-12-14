@@ -39,7 +39,7 @@ public class GuestResource extends AbstractResource{
             session.close();
         }
     }
-    
+
     @GET
     @Path("/concrete/{eventId}/{userId}")
     public Integer getGuestId(@PathParam("eventId") int eventId, @PathParam("userId") int userId) {
@@ -53,7 +53,7 @@ public class GuestResource extends AbstractResource{
             session.close();
         }
     }
-    
+
     @POST
     @Path("/{eventId}/{userId}")
     public Guest saveGuest(@PathParam("eventId") int eventId, @PathParam("userId") int userId, @QueryParam("invitationstatus") int invitationstatus, @QueryParam("notehost") String notehost) {
@@ -90,6 +90,20 @@ public class GuestResource extends AbstractResource{
     }
 
     @GET
+    @Path("/delegation/{uuid}/{userId}")
+    public Guest findGuestByDelegationAndPerson(@PathParam("uuid") String uuid, @PathParam("userId") int userId) {
+        Session session = openSession();
+        try {
+            Query query = session.getNamedQuery("Guest.findByDelegationAndUser");
+            query.setString("delegation", uuid);
+            query.setInteger("userId", userId);
+            return (Guest) query.uniqueResult();
+        } finally {
+            session.close();
+        }
+    }
+
+    @GET
     @Path("/exist/{uuid}")
     public Boolean existEventIdByDelegation(@PathParam("uuid") String uuid) {
     	Session session = openSession();
@@ -105,7 +119,7 @@ public class GuestResource extends AbstractResource{
             session.close();
         }
     }
-    
+
     @POST
     @Path("/{uuid}/register")
     public Guest addGuestToEvent(@PathParam("uuid") String uuid,
@@ -116,20 +130,20 @@ public class GuestResource extends AbstractResource{
                                 @QueryParam("gender") String gender,
                                 @QueryParam("category") Integer category) {
 		Session session = openSession();
-		try { 
+		try {
 			Guest guest = initGuest(uuid,eventId, userId, invitationstatus, invitationtype, gender, category);
             session.save(guest);
 			session.flush();
-			     
+
 			return guest;
 		} finally {
 			session.close();
 		}
     }
-    
-    
+
+
     /**
-     * Initialize guest with event information 
+     * Initialize guest with event information
      */
     private Guest initGuest(String uuid, Integer eventId, Integer userId, Integer invitationstatus, Integer invitationtype, String gender, Integer category) {
         Guest guest = new Guest();
@@ -141,7 +155,7 @@ public class GuestResource extends AbstractResource{
         guest.setInvitationtype(invitationtype);
         setGender(gender, guest);
         guest.setFk_category(category);
-        
+
         return guest;
     }
 
