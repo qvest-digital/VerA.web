@@ -44,18 +44,37 @@ public class EventDelegationWorker {
     public Map<String, String> showDelegationFields(OctopusContext oc, Integer id, Integer eventId)
             throws IOException, BeanException, SQLException {
         setEventInContext(oc, eventId);
-
         Map<String, String> delegationFields = new LinkedHashMap<String, String>();
-
         OptionalFieldsDelegationWorker optionalFieldsDelegationWorker = new OptionalFieldsDelegationWorker(oc);
-        List<OptionalDelegationField> optionalDelegationFieldFieldsForGuest = optionalFieldsDelegationWorker.getOptionalDelegationFieldsByGuestId(id);
-        Integer counter = 1;
-        for (OptionalDelegationField optionalDelegationField : optionalDelegationFieldFieldsForGuest) {
-            delegationFields.put(optionalDelegationField.getLabel(), optionalDelegationField.getValue());
-            counter++;
-        };
+        OptionalFieldsWorker optionalFieldsWorker = new  OptionalFieldsWorker(oc);
+
+        List<OptionalField> optionalFields = optionalFieldsWorker.getOptionalFieldsByEvent(eventId);
+        List<OptionalDelegationField> optionalDelegationFields = optionalFieldsDelegationWorker.getOptionalDelegationFieldsByGuestId(id);
+ 
+        for(OptionalDelegationField field : optionalDelegationFields) {
+        	OptionalField optionalField = findFieldById(optionalFields, field.getFkDelegationnField());
+        	
+        	
+        	delegationFields.put(optionalField.getLabel(), field.getValue());
+        	
+        	optionalFields.remove(optionalField);
+        }
+        
+        for(OptionalField optionalField : optionalFields) {
+        	delegationFields.put(optionalField.getLabel(), "");
+        }
 
         return delegationFields;
+    }
+    
+    private OptionalField findFieldById(List<OptionalField> fields, int id) {
+    	for(OptionalField field : fields) {
+    		if(field.getPk() == id) {
+    			return field;
+    		}
+    	}
+    	
+    	return null;
     }
 
     private void setEventInContext(OctopusContext oc, Integer eventId) throws BeanException, IOException {

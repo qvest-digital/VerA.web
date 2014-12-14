@@ -110,8 +110,46 @@ public class OptionalFieldsDelegationWorker {
         final ResultSet resultSet = database.result(select);
         return getOptionalFieldsAsList(resultSet);
 	}
+	
+    /**
+	 * Get the optional delegation fields by guest id.
+     *
+	 * @param guestId Guest id
+     *
+	 * @return List with all optional delegation fields for the current guest
+     *
+     * @throws SQLException TODO
+     * @throws BeanException TODO
+	 */
+	public OptionalDelegationField getOptionalDelegationFieldByGuestIdAndOptionalField(int guestId, int optionalField)
+            throws BeanException, SQLException {
 
-    private List<OptionalDelegationField> getOptionalFieldsAsList(ResultSet resultSet) throws SQLException {
+        final Select select = getStatementSelectOptionalDelegationFieldByGuestAndOptionalField(guestId, optionalField);
+        final ResultSet resultSet = database.result(select);
+        return new OptionalDelegationField(resultSet);
+	}
+
+    private Select getStatementSelectOptionalDelegationFieldByGuestAndOptionalField(
+			int guestId, int optionalField) {
+        final WhereList whereCriterias = new WhereList();
+        final Select select = SQL.Select(this.database);
+
+        whereCriterias.addAnd(new Where("fk_guest", guestId, "="));
+        whereCriterias.addAnd(new Where("fk_delegation_field", optionalField, "="));
+
+        select.where(whereCriterias);
+        select.from(OPTIONAL_FIELDS_DELEGATION_CONTENT_TABLE);
+        select.joinLeftOuter(OPTIONAL_FIELDS_TABLE,
+                OPTIONAL_FIELDS_DELEGATION_CONTENT_TABLE + ".fk_delegation_field", OPTIONAL_FIELDS_TABLE + ".pk");
+        select.select("fk_guest");
+        select.select("fk_delegation_field");
+        select.select("value");
+        select.select(OPTIONAL_FIELDS_TABLE + ".label as label");
+    	
+		return null;
+	}
+
+	private List<OptionalDelegationField> getOptionalFieldsAsList(ResultSet resultSet) throws SQLException {
         final List<OptionalDelegationField> optionalDelegationFields = new ArrayList<OptionalDelegationField>();
         while(resultSet.next()) {
             final OptionalDelegationField optionalDelegationField = new OptionalDelegationField(resultSet);
@@ -170,6 +208,7 @@ public class OptionalFieldsDelegationWorker {
         whereCriterias.addAnd(new Where("fk_guest", guestId, "="));
 
         final Select select = SQL.Select(this.database);
+        select.where(whereCriterias);
         select.from(OPTIONAL_FIELDS_DELEGATION_CONTENT_TABLE);
         select.joinLeftOuter(OPTIONAL_FIELDS_TABLE,
                 OPTIONAL_FIELDS_DELEGATION_CONTENT_TABLE + ".fk_delegation_field", OPTIONAL_FIELDS_TABLE + ".pk");
