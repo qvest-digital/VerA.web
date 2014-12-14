@@ -3,7 +3,10 @@ package org.evolvis.veraweb.onlinereg.event;
 import java.io.IOException;
 import java.net.SocketTimeoutException;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -86,9 +89,12 @@ public class DelegationResource {
 
 
 	@GET
-    @Path("/{uuid}/data")
-    public List<OptionalFieldValue> getExtraDataFields(@PathParam("uuid") String uuid) throws IOException {
-		return getLabels(uuid);
+    @Path("/{uuid}/{personId}/data")
+    public List<OptionalFieldValue> getExtraDataFields(
+    		@PathParam("uuid") String uuid,
+    		@PathParam("personId") Integer personId) throws IOException {
+
+		return getLabels(uuid, personId);
     }
 
 
@@ -114,23 +120,16 @@ public class DelegationResource {
     public void saveOptionalFields(@PathParam("uuid") String uuid,
             @QueryParam("fields") String fields, @QueryParam("personId") Integer personId) throws IOException {
 		if (fields != null || !"".equals(fields)) {
-		    	List<OptionalFieldValue> labels = getLabels(uuid);
-		        Guest guest = getEventIdFromUuid(uuid);
+			Map<String, String> fieldMap = mapper.readValue(fields, new TypeReference<HashMap<String,String>>(){});
 
-		        Integer guestId = readResource(path("guest","concrete", guest.getFk_event(), personId), INTEGER);
+			Guest guest = getEventIdFromUuid(uuid, personId);
 
-		        String[] arrayFields = fields.split(",");
-		    	for (int i = 1; i < arrayFields.length; i++) {
-					String labelValue = arrayFields[i];
-//					Integer labelId = readResource(path("delegation", "field", guest.getFk_event(), labels.get(i-1).getLabel()), INTEGER);
-					WebResource resource = client.resource(path("delegation", "field", guest.getFk_event()));
-					resource = resource.queryParam("label", labels.get(i-1).getLabel());
-					Integer labelId = resource.get(Integer.class);
-					// Saving ...
-					saveOptionalField(guestId, labelId, labelValue);
+			for(Entry<String, String> entry : fieldMap.entrySet()){
+				final int fieldId = Integer.parseInt(entry.getKey());
+				final String fieldValue = entry.getValue();
 
-				}
-
+				saveOptionalField(guest.getPk(), fieldId, fieldValue);
+			}
 		}
     }
 
@@ -140,9 +139,9 @@ public class DelegationResource {
         return null;
     }
 
-	private List<OptionalFieldValue> getLabels(String uuid) throws IOException {
+	private List<OptionalFieldValue> getLabels(String uuid, Integer personId) throws IOException {
 		try{
-			Guest guest = getEventIdFromUuid(uuid);
+			Guest guest = getEventIdFromUuid(uuid, personId);
 			List<OptionalFieldValue> fields = readResource(path("delegation", "fields", guest.getFk_event(), guest.getPk()), FIELDS_LIST);
 			return fields;
 		}
@@ -171,8 +170,11 @@ public class DelegationResource {
     }
 
     private Guest getEventIdFromUuid(String uuid) throws IOException {
-    	// FIXME We only need the ID as return
 		return readResource(path("guest", uuid), GUEST);
+	}
+
+    private Guest getEventIdFromUuid(String uuid, Integer personId) throws IOException {
+		return readResource(path("guest", "delegation", uuid, personId), GUEST);
 	}
 
 
