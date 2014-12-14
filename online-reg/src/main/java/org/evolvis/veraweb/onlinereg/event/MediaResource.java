@@ -41,20 +41,20 @@ public class MediaResource {
     private static final TypeReference<Integer> INTEGER = new TypeReference<Integer>() {};
     private static final TypeReference<List<Person>> GUEST_LIST = new TypeReference<List<Person>>() {};
     private static final String INVITATION_TYPE = "2";
-	
+
     /**
      * Jackson Object Mapper
      */
     private final ObjectMapper mapper = new ObjectMapper();
     private Config config;
     private Client client;
-    
+
     /**
      * Base path of all resources.
      */
     private static final String BASE_RESOURCE = "/rest";
 
-    
+
     public MediaResource() {
     }
 
@@ -63,13 +63,13 @@ public class MediaResource {
 		this.config = config;
 		this.client = client;
 	}
-	
+
 	@GET
     @Path("/{uuid}")
     public List<Person> getGuests(@PathParam("uuid") String uuid) throws IOException {
 		return null;
     }
-	
+
     @POST
     @Path("/{uuid}/register")
     public String registerDelegateForEvent(
@@ -91,23 +91,23 @@ public class MediaResource {
         } else {
             return "WRONG_EVENT";
         }
-        	
-        
+
+
     }
-	
+
     @POST
     @Path("/{uuid}/remove/{userid}")
     public List<Guest> removeDelegateFromEvent(@PathParam("uuid") String uuid, @PathParam("userid") Long userid) throws IOException {
         return null;
     }
-    
+
 
     private String handlePressEvent(PressTransporter transporter) throws IOException {
-        // Store in tperson
-        Integer personId = createPerson(transporter);
-
-        // Assing person to event as guest
+    	// Assing person to event as guest
         Integer eventId = getEventIdFromUuid(transporter.getUuid());
+
+    	// Store in tperson
+        Integer personId = createPerson(eventId, transporter);
 
         if (eventId==null) {
             return "NO_EVENT_DATA";
@@ -116,20 +116,20 @@ public class MediaResource {
 
         return "OK";
     }
-    
-    
+
+
 
     /**
      * Includes a new guest in the database - Table "tguest"
-     * 
+     *
      * @param eventId Event id
      * @param userId User id
-     * @throws IOException 
+     * @throws IOException
      */
     private void addGuestToEvent(String uuid, String eventId, String userId, String gender) throws IOException {
-    	
+
     	Integer categoryID = getCategoryIdFromCatname("Pressevertreter", uuid);
-    	
+
     	WebResource resource = client.resource(path("guest", uuid, "register"));
 
         resource = resource.queryParam("eventId", eventId)
@@ -141,7 +141,7 @@ public class MediaResource {
 
         resource.post(Guest.class);
     }
-    
+
     /**
      * Searching an event ID using the UUID
      */
@@ -157,14 +157,15 @@ public class MediaResource {
     }
     /**
      * Includes a new person in the database - Table "tperson"
-     * 
+     *
      * @param nachname Last name
      * @param vorname First name
      */
-    private Integer createPerson(PressTransporter transporter) {
+    private Integer createPerson(Integer eventId, PressTransporter transporter) {
         WebResource resource = client.resource(config.getVerawebEndpoint() + "/rest/person/press/");
-        
+
         resource = resource
+        	.queryParam("eventId", String.valueOf(eventId))
             .queryParam("username", usernameGenerator())
             .queryParam("firstname", transporter.getVorname())
             .queryParam("lastname", transporter.getNachname())
@@ -174,20 +175,20 @@ public class MediaResource {
 	        .queryParam("plz", transporter.getPlz())
 	        .queryParam("city", transporter.getCity())
 	        .queryParam("country", transporter.getCountry());
-        
+
         final Person person = resource.post(Person.class);
 
     	return person.getPk();
     }
 
-	
-    
+
+
     private Boolean checkForExistingPressEvent(String uuid) throws IOException {
     	return readResource(path("event","exist", uuid), BOOLEAN);
     }
-    
-    
-    
+
+
+
     /**
      * Reads the resource at given path and returns the entity.
      *
@@ -233,23 +234,23 @@ public class MediaResource {
         }
         return r;
     }
-    
+
     private String usernameGenerator() {
         Date current = new Date();
-    	
+
     	return "press" + current.getTime();
     }
-    
+
     private String correctGender(String gender) {
-		String dbGender = null;    
+		String dbGender = null;
 		if (gender.equals("Herr")) {
 			dbGender = "m";
 		}
 		else {
 			dbGender = "w";
 		}
-		
+
 		return dbGender;
-	} 
-    
+	}
+
 }
