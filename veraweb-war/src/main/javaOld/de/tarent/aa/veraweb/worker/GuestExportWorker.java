@@ -788,7 +788,10 @@ public class GuestExportWorker {
 	
 		if(guest.containsKey("delegation") && 
 				guest.get("delegation") != null && 
-				guest.get("delegation").toString().length() > 0) {
+				guest.get("delegation").toString().length() > 0 &&
+				guest.containsKey("osiam_login") && 
+				guest.get("osiam_login") != null && 
+				guest.get("osiam_login").toString().length() > 0) {
 			
 			delegationRegistrerURL = generateLoginUrl(guest);
 			password = generatePassword(event, guest);
