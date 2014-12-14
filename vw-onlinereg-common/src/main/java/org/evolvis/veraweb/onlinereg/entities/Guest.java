@@ -52,7 +52,10 @@ public class Guest {
     private String notehost;
     private String delegation;
     private Integer fk_category;
-    
+
+	public int getPk() {
+		return pk;
+	}
 
     public int getFk_event() {
         return fk_event;
@@ -125,7 +128,7 @@ public class Guest {
 	public void setFk_category(Integer fk_category) {
 		this.fk_category = fk_category;
 	}
-    
-    
+
+
 }
 

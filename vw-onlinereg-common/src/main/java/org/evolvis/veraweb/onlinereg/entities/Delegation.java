@@ -13,18 +13,26 @@ import lombok.Data;
 
 /**
  * @author jnunez
+ * @author Sven Schumann <s.schumann@tarent.de>
  */
 @Data
 @XmlRootElement
 @Entity
 @Table(name = "toptional_fields_delegation_content")
+@NamedQueries({
+    @NamedQuery(name = Delegation.QUERY_FIND_BY_GUEST,
+    			query = "select d from Delegation d where fk_guest=:" + Delegation.PARAM_GUEST_ID + " and fk_delegation_field=:" + Delegation.PARAM_FIELD_ID)
+})
 public class Delegation {
-	
+	public static final String QUERY_FIND_BY_GUEST = "Delegation.findByGuestId";
+	public static final String PARAM_GUEST_ID = "guestId";
+	public static final String PARAM_FIELD_ID = "fieldId";
+
 	@EmbeddedId
 	private DelegationPK pk;
 	private String value;
-	
-	
+
+
 	public DelegationPK getPk() {
 		return pk;
 	}
@@ -36,9 +44,9 @@ public class Delegation {
 	public String getValue() {
 		return value;
 	}
-	
+
 	public void setValue(String value) {
 		this.value = value;
 	}
-	
+
 }

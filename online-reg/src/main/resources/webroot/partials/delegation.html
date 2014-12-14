@@ -1,21 +1,21 @@
 <h2>Delegierten hinzuf&uuml;gen:</h2>
 <form role="form" id="delegation-form">
-    
+
     <div class="form-group container">
         <div class="row">
 			<div ng-if="success" class="alert alert-success" role="alert">{{success}}</div>
 		    <div ng-if="error" class="alert alert-danger" role="alert">{{error}}</div>
-		    
+
             <div class="col-xs-2">
                    <select class="form-control" id="gender" ng-model="gender"
                            ng-options="a.label for a in genderOptions">
                    </select>
             </div>
-            
+
             <div class="col-xs-4">
                 <input type="text" class="form-control" id="vorname" placeholder="Vorname" ng-model="vorname">
             </div>
-			
+
             <div class="col-xs-4">
                 <input type="text" class="form-control" id="nachname" placeholder="Nachname" ng-model="nachname">
             </div>
@@ -50,19 +50,20 @@
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-    
+
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
         <h4 class="modal-title" id="myModalLabel">Weitere Felder</h4>
       </div>
 	<form role="form" id="delegation-form" class="form-signin">
-    
+
       <div class="modal-body">
-    
+
     <div class="form-group container">
         <div class="row">
 				<div ng-repeat="field in fields">
-					<input type="text" class="form-control" id="nachname" placeholder="{{field.label}}" ng-model="labellist[field.pk]" style="margin-bottom: 10px;">
+					<label for="{{field.label}}">{{field.label}}</label>
+					<input type="text" class="form-control" id="{{field.label}}" placeholder="{{field.label}}" style="margin-bottom: 10px;" value="{{field.value}}" />
 				</div>
         </div>
     </div>
