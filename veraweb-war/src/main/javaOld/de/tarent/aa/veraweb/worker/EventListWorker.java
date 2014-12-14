@@ -20,6 +20,7 @@
 package de.tarent.aa.veraweb.worker;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -28,6 +29,7 @@ import java.util.List;
 import java.util.Map;
 
 import de.tarent.aa.veraweb.beans.Event;
+import de.tarent.aa.veraweb.beans.OptionalField;
 import de.tarent.aa.veraweb.utils.DatabaseHelper;
 import de.tarent.dblayer.sql.SQL;
 import de.tarent.dblayer.sql.clause.Expr;
@@ -267,8 +269,35 @@ public class EventListWorker extends ListWorkerVeraWeb {
 	@Override
     protected boolean removeBean(OctopusContext cntx, Bean bean, TransactionContext context) throws BeanException, IOException {
 		Database database = context.getDatabase();
+		OptionalFieldsWorker optionalFieldsWorker = new OptionalFieldsWorker(cntx);
 		
 		Event event = (Event)bean;
+
+		List<OptionalField> optionalFields;
+		try {
+			optionalFields = optionalFieldsWorker.getOptionalFieldsByEvent(event.id);
+			for (OptionalField optionalField : optionalFields) {
+				context.execute(
+					SQL.Delete(database)
+					.from("veraweb.toptional_fields_delegation_content")
+					.where(new Where("fk_delegation_field", optionalField.getPk(), "="))
+				);
+				
+				context.execute(
+						SQL.Delete(database)
+						.from("veraweb.toptional_fields")
+						.where(new Where("pk", optionalField.getPk(), "="))
+					);
+			}
+			
+			
+		} catch (SQLException e) {
+			throw new BeanException("SQL Exception while deleting OptionalFields from Event", e);
+		}
+		
+	
+		
+
 		
 		context.execute(
 		        SQL.Delete(database)
@@ -292,7 +321,6 @@ public class EventListWorker extends ListWorkerVeraWeb {
 				SQL.Delete( database ).
 				from("veraweb.tevent_doctype").
 				where(Expr.equal("fk_event", event.id)));
-
 		boolean result = super.removeBean(cntx, bean, context);
 		if ( result )
 		{
