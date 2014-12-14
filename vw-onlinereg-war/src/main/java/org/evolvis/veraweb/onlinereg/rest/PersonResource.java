@@ -2,7 +2,7 @@ package org.evolvis.veraweb.onlinereg.rest;
 
 import java.util.List;
 
-import org.evolvis.veraweb.onlinereg.entities.Guest;
+import org.evolvis.veraweb.onlinereg.entities.Event;
 import org.evolvis.veraweb.onlinereg.entities.Person;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -35,36 +35,45 @@ public class PersonResource extends AbstractResource {
             session.close();
         }
     }
-    
+
 
     @POST
     @Path("/delegate")
-    public Person createPersonWithGender(@QueryParam("username") String username,
+    public Person createPersonWithGender(@QueryParam("eventId") Integer eventId,
+    							@QueryParam("username") String username,
                                @QueryParam("firstname") String firstName,
                                @QueryParam("lastname") String lastname,
                                @QueryParam("gender") String gender) {
         Session session = openSession();
         try {
-            Person person = handleCreatePersonDelegation(username, firstName, lastname, gender, session);
+        	Integer fk_orgUnitId = getOrgUnitId(session, eventId);
+            Person person = handleCreatePersonDelegation(fk_orgUnitId, username, firstName, lastname, gender, session);
             return person;
         } finally {
             session.close();
         }
     }
-    
-    @POST
+
+    private Integer getOrgUnitId(Session session, Integer eventId) {
+        Query query = session.getNamedQuery("Event.getEvent");
+        query.setInteger("pk", eventId);
+        return ((Event) query.uniqueResult()).getFk_orgunit();
+	}
+
+
+	@POST
     @Path("/press")
     public Person createPersonPress(@QueryParam("username") String username,
                                @QueryParam("firstname") String firstName,
-                               @QueryParam("lastname") String lastname, 
+                               @QueryParam("lastname") String lastname,
                                @QueryParam("gender") String gender,
                                @QueryParam("email") String email,
                        		   @QueryParam("address") String address,
                        		   @QueryParam("plz") String plz,
                        		   @QueryParam("city") String city,
                                @QueryParam("country") String country) {
-    	
-    	
+
+
         Session session = openSession();
         try {
             Person person = handleCreatePersonPress(username, firstName, lastname,gender, email, address, plz, city, country, session);
@@ -82,7 +91,7 @@ public class PersonResource extends AbstractResource {
             Query query = session.getNamedQuery("Person.getDelegatesByUUID");
             query.setString("uuid", uuid);
             return (List<Person>) query.list();
-            
+
         } finally {
             session.close();
         }
@@ -98,15 +107,15 @@ public class PersonResource extends AbstractResource {
         Person person = (Person) query.uniqueResult();
         return person;
     }
-    
 
-    private Person handleCreatePersonDelegation(String username, String firstName, String lastname, String gender,Session session) {
+
+    private Person handleCreatePersonDelegation(Integer orgUnitId, String username, String firstName, String lastname, String gender,Session session) {
         Query query = getSelectPersonByUsernameQuery(username, session);
         if (!query.list().isEmpty()) {
             // user already exists
             return null;
         }
-        persistPersonDelegation(username, firstName, lastname, gender, session);
+        persistPersonDelegation(orgUnitId, username, firstName, lastname, gender, session);
         Person person = (Person) query.uniqueResult();
         return person;
     }
@@ -136,8 +145,8 @@ public class PersonResource extends AbstractResource {
         return p;
     }
 
-    private Person persistPersonDelegation(String username, String firstName, String lastname, String gender, Session session) {
-        Person p = initPersonDelegation(username, firstName, lastname, gender);
+    private Person persistPersonDelegation(Integer orgUnitId, String username, String firstName, String lastname, String gender, Session session) {
+        Person p = initPersonDelegation(orgUnitId, username, firstName, lastname, gender);
         session.persist(p);
         session.flush();
         return p;
@@ -152,17 +161,17 @@ public class PersonResource extends AbstractResource {
         return p;
     }
 
-    private Person initPersonDelegation(String username, String firstName, String lastname, String gender) {
+    private Person initPersonDelegation(Integer orgUnitId, String username, String firstName, String lastname, String gender) {
         Person p = new Person();
         p.setFirstName(firstName);
         p.setLastName(lastname);
         p.setUsername(username);
-        p.setFk_orgunit(0);
+        p.setFk_orgunit(orgUnitId);
         p.setSex_a_e1(correctGender(gender));
-        
+
         return p;
     }
-    
+
     private String correctGender(String complete) {
     	if (complete.equals("Herr")) {
     		return "m";
@@ -191,7 +200,7 @@ public class PersonResource extends AbstractResource {
         p.setZipcode_a_e1(plz);
         p.setCity_a_e1(city);
         p.setCountry_a_e1(country);
-        
+
         return p;
     }
 
