@@ -63,7 +63,7 @@
         <div class="row">
 				<div ng-repeat="field in fields">
 					<label for="{{field.label}}">{{field.label}}</label>
-					<input type="text" class="form-control" id="{{field.label}}" placeholder="{{field.label}}" style="margin-bottom: 10px;" value="{{field.value}}" />
+					<input type="text" class="form-control" id="{{field.label}}" placeholder="{{field.label}}" ng-model="labellist[field.pk]" style="margin-bottom: 10px;" />
 				</div>
         </div>
     </div>

@@ -8,7 +8,7 @@ onlineRegApp.run(function ($rootScope) {
     $rootScope.parseDate = function (dt) {
         return moment(dt).toDate();
     };
-    
+
     $rootScope.isUserLoged = function () {
     	return $rootScope.user_logged_in != null;
     }
@@ -85,24 +85,24 @@ onlineRegApp.controller('MediaController', function ($scope, $http, $rootScope, 
 	            }).success(function (result) {
 	                $scope.success = null;
 	                $scope.error = null;
-	
-	
+
+
 	                if (result === 'USER_EXISTS') {
 	                    $scope.error = "Ein Benutzer mit diesem Benutzernamen existiert bereits.";
 	                    $scope.success = null;
-	
+
 	                } else if (result === 'INVALID_USERNAME') {
 	                    $scope.error = "Der Benutzername darf nur Buchstaben und Zahlen enthalten.";
 	                    $scope.success = null;
-	
+
 	                } else if (result === 'NO_EVENT_DATA') {
 	                    $scope.error = "Der Veranstaltung existiert nicht";
 	                    $scope.success = null;
-	
+
 	                }  else if (result === 'WRONG_EVENT') {
 	                    $scope.error = "Der Veranstaltung existiert nicht";
 	                    $scope.success = null;
-	
+
 	                } else if (result === 'OK') {
 	                    $scope.error= null;
 	                    $scope.success = "Ihre Daten werden nun überprüft, eine Zusage erfolgt nach positiver Überprüfung.";
@@ -123,7 +123,7 @@ onlineRegApp.controller('MediaController', function ($scope, $http, $rootScope, 
 	                    $scope.success = null;
 	                }
 	                $scope.button = false;
-	
+
 	            }).error(function (data, status, headers, config) {
 	                $scope.error = ERROR_TEXT;
 	                $scope.button = false;
@@ -147,7 +147,7 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 	        {id: 1, label: "Herr"},
 	        {id: 2, label: "Frau"}
 	    ];
-		
+
 		$scope.gender = $scope.genderOptions[0];
 		$scope.success = null;
 		$scope.error = null;
@@ -176,7 +176,7 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 		        }).success(function (result) {
 		            $scope.success = null;
 		            $scope.error = null;
-		            
+
 
 		            if (result === 'USER_EXISTS') {
 		                $scope.error = "Ein Benutzer mit diesem Benutzernamen existiert bereits.";
@@ -215,24 +215,36 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 			 }
 		    }
 		 $scope.showOptionalFields = function (personId) {
-			 
+
 			 $scope.targetPersonId=personId;
-			 
+
 			 $scope.success = null;
 			 $scope.error = null;
-			 $http.get('api/delegation/' + $routeParams.uuid + '/data/').then(function(fields) {
+			 $scope.labellist = {};
+
+			 $http.get('api/delegation/' + $routeParams.uuid + '/' + personId + '/data/').then(function(fields) {
                  $scope.fields = fields.data;
+                 console.log(JSON.stringify($scope.fields));
+
+                 for(var prop in $scope.fields){
+    				 var curField = $scope.fields[prop];
+
+                	 if(curField.value != null){
+
+    					 $scope.labellist[curField.pk] = curField.value;
+    					 console.log(curField.value + "|" + $scope.labellist[curField.pk]);
+    				 }
+    			 }
               });
-			 $scope.labellist = [];
 		 }
-		 
+
 		 $scope.saveOptionalFields = function () {
 			 $scope.success = null;
 			 $scope.error = null;
-			 
+
 			 var list = $scope.labellist;
-			 console.log("labels" + list);
-			 
+			 console.log("labels " + list);
+
 			 	$http({
 		            method: 'POST',
 		            url: 'api/delegation/'+ $routeParams.uuid + '/fields/',
@@ -242,11 +254,11 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 		            }
 		        }).success(function (result) {
 		            console.log('Optional Felder speichern...');
-		            
+
 		            $scope.error= null;
 	                $scope.success = "Delegiertdaten wurden gespeichert.";
-		            
-		            
+
+
 		        }).error(function (data, status, headers, config) {
 		            console.log('ERROR! Optional fields not saved!”');
 		            $scope.error= "Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.";
@@ -293,7 +305,7 @@ onlineRegApp.controller('DirectLoginController', function ($scope, $location, $h
                 password: $scope.directpassword
             }
         }).success(function (result) {
-            $scope.button = false;	
+            $scope.button = false;
             $rootScope.error = null;
             if (result === "true") {
                 console.log("Login erfolgreich");
@@ -318,7 +330,7 @@ onlineRegApp.controller('DirectLoginController', function ($scope, $location, $h
     $scope.setMessageContent = function(value) {
         $scope.x = value;
     }
-    
+
     $scope.setNextPage = function(value) {
     	$scope.nextPage = "/" + value;
     }
@@ -349,7 +361,7 @@ onlineRegApp.controller('LoginController', function ($scope, $location, $http, $
                 $rootScope.status = null;
                 $rootScope.messageContent = null;
                 $location.path($scope.nextPage);
-                
+
             } else {
                 $rootScope.status = "danger";
                 $rootScope.messageContent = "Der Benutzername oder das Passwort ist falsch.";
@@ -371,29 +383,29 @@ onlineRegApp.controller('EventController', function ($scope, $http, $rootScope) 
 
 onlineRegApp.controller('RegisterController', function ($scope, $rootScope, $location, $routeParams, $http) {
 	if ($rootScope.user_logged_in == null) {
-		
+
 		$scope.setNextPage('register/' + $routeParams.eventId);
 		$location.path('/login');
 	} else {
 	    // currently hardwired to 2
 	    $scope.userId = 2;
-	
+
 	    $scope.acceptanceOptions = [
 	        {id: 0, label: "Offen"},
 	        {id: 1, label: "Zusage"},
 	        {id: 2, label: "Absage"}
 	    ];
-	
+
 	    $scope.acceptance = $scope.acceptanceOptions[0];
-	
+
 	    $http.get('api/event/' + $routeParams.eventId).success(function (result) {
 	        $scope.event = result;
 	        console.log("Auswahl: " + $scope.event.shortname);
 	    });
-	
+
 	    $http.get('api/event/' + $routeParams.eventId + '/register/' + $scope.userId).success(function (result) {
 	    	if (!isUserLoged()) {
-	    		
+
 	    		$location.path('/login');
 	    	}
 	    	else {
@@ -406,7 +418,7 @@ onlineRegApp.controller('RegisterController', function ($scope, $rootScope, $loc
 		        console.log("Teilnahme: " + $scope.acceptance.label);
 	    	}
 	    });
-	
+
 	    $scope.save = function () {
 	        $http({
 	            method: 'POST',
