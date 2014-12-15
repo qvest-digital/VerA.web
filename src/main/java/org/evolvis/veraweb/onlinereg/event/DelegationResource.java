@@ -59,6 +59,7 @@ public class DelegationResource {
      */
     private static final String INVITATION_TYPE = "2";
     private static final TypeReference<Guest> GUEST = new TypeReference<Guest>() {};
+    private static final TypeReference<Person> PERSON = new TypeReference<Person>() {};
     private static final TypeReference<Boolean> BOOLEAN = new TypeReference<Boolean>() {};
     private static final TypeReference<Integer> INTEGER = new TypeReference<Integer>() {};
     private static final TypeReference<List<Person>> GUEST_LIST = new TypeReference<List<Person>>() {};
@@ -157,9 +158,10 @@ public class DelegationResource {
     private String handleDelegationFound(String uuid, String nachname, String vorname, String gender) throws IOException {
         // Assing person to event as guest
         Guest guest = getEventIdFromUuid(uuid);
+        Person company = getCompanyFromUuid(uuid);
 
         // Store in tperson
-        Integer personId = createPerson(guest.getFk_event(), nachname, vorname, gender);
+        Integer personId = createPerson(company.getCompany_a_e1(), guest.getFk_event(), nachname, vorname, gender);
 
         if (guest==null) {
             return "NO_EVENT_DATA";
@@ -176,17 +178,23 @@ public class DelegationResource {
     private Guest getEventIdFromUuid(String uuid, Integer personId) throws IOException {
 		return readResource(path("guest", "delegation", uuid, personId), GUEST);
 	}
+    
+    private Person getCompanyFromUuid(String uuid) throws IOException {
+		return readResource(path("person", "company", uuid), PERSON);
+	}
 
 
     /**
      * Includes a new person in the database - Table "tperson"
+     * @param companyName 
      *
      * @param nachname Last name
      * @param vorname First name
      */
-    private Integer createPerson(Integer eventId, String nachname, String vorname, String gender) {
+    private Integer createPerson(String companyName, Integer eventId, String nachname, String vorname, String gender) {
         WebResource resource = client.resource(config.getVerawebEndpoint() + "/rest/person/delegate/");
         resource = resource
+        		.queryParam("company", companyName)
         		.queryParam("eventId", String.valueOf(eventId))
                 .queryParam("username", usernameGenerator())
                 .queryParam("firstname", vorname)
