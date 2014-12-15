@@ -26,7 +26,8 @@ import java.util.Date;
         @NamedQuery(name = "Person.findPersonIdByUsername", query = "SELECT p.pk FROM Person p where note_a_e1 like :username")
 })
 @NamedNativeQueries(value={
-		 @NamedNativeQuery(name="Person.getDelegatesByUUID", query = "SELECT tperson.* FROM tperson LEFT JOIN tguest g on tperson.pk=g.fk_person WHERE g.delegation=:uuid AND tperson.iscompany='f'", resultClass=Person.class)	
+		 @NamedNativeQuery(name="Person.getDelegatesByUUID", query = "SELECT tperson.* FROM tperson LEFT JOIN tguest g on tperson.pk=g.fk_person WHERE g.delegation=:uuid AND tperson.iscompany='f'", resultClass=Person.class),
+		 @NamedNativeQuery(name="Person.getCompanyByUUID", query = "SELECT tperson.* FROM tperson LEFT JOIN tguest g on tperson.pk=g.fk_person WHERE g.delegation=:uuid AND tperson.iscompany='t'", resultClass=Person.class)
 })
 public class Person {
 
@@ -63,6 +64,8 @@ public class Person {
     private String city_a_e1;
     private String country_a_e1;
     private String sex_a_e1;
+    
+    private String company_a_e1;
 
     public void setFirstName(String firstName) {
         firstname_a_e1 = firstname_a_e2 = firstname_a_e3 = firstName;
@@ -80,6 +83,14 @@ public class Person {
             note_a_e1 = USERNAME_TEMPLATE+username;
         }
     }
+    
+    public String getCompany_a_e1() {
+		return company_a_e1;
+	}
+    
+    public void setCompany_a_e1(String company_a_e1) {
+		this.company_a_e1 = company_a_e1;
+	}
 
     public void setNote_a_e1(String note_a_e1) {
         this.note_a_e1 = note_a_e1;
