@@ -161,6 +161,7 @@ public class PersonResource extends AbstractResource {
         p.setLastName(lastname);
         p.setUsername(username);
         p.setFk_orgunit(0);
+        p.setSex_a_e1("m");
         return p;
     }
 
