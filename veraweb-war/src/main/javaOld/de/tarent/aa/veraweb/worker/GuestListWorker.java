@@ -274,7 +274,7 @@ public class GuestListWorker extends ListWorkerVeraWeb {
 
         final List order = new ArrayList();
 		order.add("ishost");
-		order.add("DESC");
+		order.add("ASC");
 		if (search == null || search.listorder == null) {
 			order.add("someorderno");
 			order.add("tcategorie.rank");
@@ -373,9 +373,9 @@ public class GuestListWorker extends ListWorkerVeraWeb {
             final Map guest = (Map) fullList.get(i);
             final String uuid = (String) guest.get("delegation");
             final String iscompany = (String) guest.get("iscompany");
-            if(iscompany!=null && (iscompany.trim().equals("f") || !isDelegationFound(fullList, uuid))) {
+//            if(iscompany!=null && (iscompany.trim().equals("f") || !isDelegationFound(fullList, uuid))) {
                 modifiedList.add(guest);
-            }
+//            }
         }
 
         return modifiedList;
