@@ -158,19 +158,18 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 
 		 $scope.register_user = function () {
 			 if ($scope.gender.id == 0) {
-				 $scope.error = "Bitte wählen der Gender Feld";
+				 $scope.error = "Bitte wählen Sie Ihr Geschlecht aus";
 				 $scope.success = null;
-			 }
-			 else if ($scope.gender.id == 1 || $scope.gender.id == 2){
-			 	var ERROR_TEXT = "Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.";
+			 } else if ($scope.gender.id == 1 || $scope.gender.id == 2) {
+			    var ERROR_TEXT = "Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.";
 		        $scope.button = true;
 		        console.log("registering delegierten in the event.");
 		        $http({
 		            method: 'POST',
 		            url: 'api/delegation/' + $routeParams.uuid + '/register',
 		            params: {
-		            	nachname: $scope.nachname,
-		                vorname: $scope.vorname,
+		            	firstname: $scope.nachname,
+		                lastname: $scope.vorname,
 		                gender: $scope.gender.label
 		            }
 		        }).success(function (result) {
@@ -213,7 +212,8 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 		            $scope.button = false;
 		        });
 			 }
-		    }
+		 }
+
 		 $scope.showOptionalFields = function (personId) {
 
 			 $scope.targetPersonId=personId;
@@ -247,7 +247,7 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 
 			 	$http({
 		            method: 'POST',
-		            url: 'api/delegation/'+ $routeParams.uuid + '/fields/',
+		            url: 'api/delegation/'+ $routeParams.uuid + '/fields/save',
 		            params: {
 		            	fields: $scope.labellist,
 		            	personId: $scope.targetPersonId

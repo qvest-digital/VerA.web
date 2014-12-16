@@ -1,12 +1,17 @@
 package org.evolvis.veraweb.onlinereg.event;
 
-import java.io.IOException;
-import java.net.SocketTimeoutException;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sun.jersey.api.client.Client;
+import com.sun.jersey.api.client.ClientHandlerException;
+import com.sun.jersey.api.client.UniformInterfaceException;
+import com.sun.jersey.api.client.WebResource;
+import lombok.extern.java.Log;
+import org.evolvis.veraweb.onlinereg.Config;
+import org.evolvis.veraweb.onlinereg.entities.Delegation;
+import org.evolvis.veraweb.onlinereg.entities.Guest;
+import org.evolvis.veraweb.onlinereg.entities.OptionalFieldValue;
+import org.evolvis.veraweb.onlinereg.entities.Person;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -15,21 +20,13 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
-
-import lombok.extern.java.Log;
-
-import org.evolvis.veraweb.onlinereg.Config;
-import org.evolvis.veraweb.onlinereg.entities.Delegation;
-import org.evolvis.veraweb.onlinereg.entities.Guest;
-import org.evolvis.veraweb.onlinereg.entities.OptionalFieldValue;
-import org.evolvis.veraweb.onlinereg.entities.Person;
-
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sun.jersey.api.client.Client;
-import com.sun.jersey.api.client.ClientHandlerException;
-import com.sun.jersey.api.client.UniformInterfaceException;
-import com.sun.jersey.api.client.WebResource;
+import java.io.IOException;
+import java.net.SocketTimeoutException;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 /**
  * @author Atanas Alexandrov, tarent solutions GmbH
@@ -38,13 +35,6 @@ import com.sun.jersey.api.client.WebResource;
 @Produces(MediaType.APPLICATION_JSON)
 @Log
 public class DelegationResource {
-
-    /**
-     * Jackson Object Mapper
-     */
-    private final ObjectMapper mapper = new ObjectMapper();
-    private Config config;
-    private Client client;
 
     /**
      * Base path of all resources.
@@ -63,7 +53,17 @@ public class DelegationResource {
     private static final TypeReference<Boolean> BOOLEAN = new TypeReference<Boolean>() {};
     private static final TypeReference<Integer> INTEGER = new TypeReference<Integer>() {};
     private static final TypeReference<List<Person>> GUEST_LIST = new TypeReference<List<Person>>() {};
-    private static final TypeReference<List<OptionalFieldValue>> FIELDS_LIST = new TypeReference<List<OptionalFieldValue>>() {};
+    private static final TypeReference<List<OptionalFieldValue>> FIELDS_LIST =
+            new TypeReference<List<OptionalFieldValue>>() {};
+
+    /**
+     * Jackson Object Mapper
+     */
+    private final ObjectMapper mapper = new ObjectMapper();
+
+    private Config config;
+    private Client client;
+
 
 	/**
 	 * Default constructor
@@ -82,13 +82,29 @@ public class DelegationResource {
 		this.client = client;
 	}
 
+    /**
+     * Get delegates of company/institution.
+     *
+     * @param uuid The delegation UUID
+     *
+     * @return List with delegates
+     * @throws IOException TODO
+     */
 	@GET
     @Path("/{uuid}")
     public List<Person> getDelegates(@PathParam("uuid") String uuid) throws IOException {
 		return readResource(path("person", uuid), GUEST_LIST);
     }
 
-
+    /**
+     * Get optional fields.
+     *
+     * @param uuid The delegation UUID
+     * @param personId The person id
+     *
+     * @return List with optional fields for delegates
+     * @throws IOException TODO
+     */
 	@GET
     @Path("/{uuid}/{personId}/data")
     public List<OptionalFieldValue> getExtraDataFields(
@@ -98,52 +114,90 @@ public class DelegationResource {
 		return getLabels(uuid, personId);
     }
 
-
+    /**
+     * Register delegate for event.
+     *
+     * @param uuid The delegation UUID of the company.
+     *
+     * @param lastname The last name of the delegare
+     * @param firstname The first name of the delegare
+     * @param gender The gender of the delegare
+     *
+     * @return Status message
+     *
+     * @throws IOException TODO
+     */
     @POST
     @Path("/{uuid}/register")
     public String registerDelegateForEvent(
             @PathParam("uuid") String uuid,
-            @QueryParam("nachname") String nachname,
-    		@QueryParam("vorname") String vorname,
+            @QueryParam("lastname") String lastname,
+    		@QueryParam("firstname") String firstname,
             @QueryParam("gender") String gender) throws IOException {
 
-        Boolean delegationIsFound = checkForExistingDelegation(uuid);
+        final Boolean delegationIsFound = checkForExistingDelegation(uuid);
 
         if(delegationIsFound) {
-            return handleDelegationFound(uuid, nachname, vorname, gender);
+            return handleDelegationFound(uuid, lastname, firstname, gender);
         } else {
             return "WRONG_DELEGATION";
         }
     }
 
+    /**
+     * Save optional fields.
+     *
+     * @param uuid The delegation UUID for the company.
+     *
+     * @param fields The optional fields
+     * @param personId The delegate id
+     *
+     * @throws IOException TODO
+     */
     @POST
-    @Path("/{uuid}/fields")
+    @Path("/{uuid}/fields/save")
     public void saveOptionalFields(@PathParam("uuid") String uuid,
             @QueryParam("fields") String fields, @QueryParam("personId") Integer personId) throws IOException {
 		if (fields != null || !"".equals(fields)) {
-			Map<String, String> fieldMap = mapper.readValue(fields, new TypeReference<HashMap<String,String>>(){});
-
-			Guest guest = getEventIdFromUuid(uuid, personId);
-
-			for(Entry<String, String> entry : fieldMap.entrySet()){
-				final int fieldId = Integer.parseInt(entry.getKey());
-				final String fieldValue = entry.getValue();
-
-				saveOptionalField(guest.getPk(), fieldId, fieldValue);
-			}
+            handleSaveOptionalFields(uuid, fields, personId);
 		}
     }
 
+
+    /**
+     * Remove delegate from guest list for event.
+     *
+     * @param uuid The delegation UUID
+     * @param userid The user id
+     *
+     * @return TODO
+     */
     @POST
     @Path("/{uuid}/remove/{userid}")
-    public List<Guest> removeDelegateFromEvent(@PathParam("uuid") String uuid, @PathParam("userid") Long userid) throws IOException {
+    public List<Guest> removeDelegateFromEvent(@PathParam("uuid") String uuid, @PathParam("userid") Long userid) {
         return null;
+    }
+
+    private void handleSaveOptionalFields(String uuid, String fields, Integer personId) throws IOException {
+        final TypeReference<HashMap<String, String>> typeReference = new TypeReference<HashMap<String, String>>() {
+        };
+        final Map<String, String> fieldMap = mapper.readValue(fields, typeReference);
+
+        final Guest guest = getEventIdFromUuid(uuid, personId);
+
+        for(Entry<String, String> entry : fieldMap.entrySet()){
+            final int fieldId = Integer.parseInt(entry.getKey());
+            final String fieldValue = entry.getValue();
+
+            saveOptionalField(guest.getPk(), fieldId, fieldValue);
+        }
     }
 
 	private List<OptionalFieldValue> getLabels(String uuid, Integer personId) throws IOException {
 		try{
-			Guest guest = getEventIdFromUuid(uuid, personId);
-			List<OptionalFieldValue> fields = readResource(path("delegation", "fields", guest.getFk_event(), guest.getPk()), FIELDS_LIST);
+			final Guest guest = getEventIdFromUuid(uuid, personId);
+			final List<OptionalFieldValue> fields =
+                    readResource(path("delegation", "fields", "list", guest.getFk_event(), guest.getPk()), FIELDS_LIST);
 			return fields;
 		}
 		catch (UniformInterfaceException uie) {
@@ -155,13 +209,14 @@ public class DelegationResource {
     	return readResource(path("guest","exist", uuid), BOOLEAN);
     }
 
-    private String handleDelegationFound(String uuid, String nachname, String vorname, String gender) throws IOException {
+    private String handleDelegationFound(String uuid, String nachname, String vorname, String gender)
+            throws IOException {
         // Assing person to event as guest
-        Guest guest = getEventIdFromUuid(uuid);
+        final Guest guest = getEventIdFromUuid(uuid);
         Person company = getCompanyFromUuid(uuid);
 
         // Store in tperson
-        Integer personId = createPerson(company.getCompany_a_e1(), guest.getFk_event(), nachname, vorname, gender);
+        final Integer personId = createPerson(company.getCompany_a_e1(), guest.getFk_event(), nachname, vorname, gender);
 
         if (guest==null) {
             return "NO_EVENT_DATA";
@@ -188,17 +243,18 @@ public class DelegationResource {
      * Includes a new person in the database - Table "tperson"
      * @param companyName 
      *
-     * @param nachname Last name
-     * @param vorname First name
+     * @param lastname Last name
+     * @param firstname First name
+     * @param gender Gender of the person
      */
-    private Integer createPerson(String companyName, Integer eventId, String nachname, String vorname, String gender) {
+    private Integer createPerson(String companyName, Integer eventId, String lastname, String firstname, String gender) {
         WebResource resource = client.resource(config.getVerawebEndpoint() + "/rest/person/delegate/");
         resource = resource
         		.queryParam("company", companyName)
         		.queryParam("eventId", String.valueOf(eventId))
                 .queryParam("username", usernameGenerator())
-                .queryParam("firstname", vorname)
-                .queryParam("lastname", nachname)
+                .queryParam("firstname", firstname)
+                .queryParam("lastname", lastname)
                 .queryParam("gender", gender);
         final Person person = resource.post(Person.class);
 
@@ -206,10 +262,11 @@ public class DelegationResource {
     }
 
     /**
-     * Includes a new guest in the database - Table "tguest"
+     * Includes a new guest in the database - Table "tguest".
      *
      * @param eventId Event id
      * @param userId User id
+     * @param gender Gender of the person
      */
     private void addGuestToEvent(String uuid, String eventId, String userId, String gender) {
 
@@ -226,18 +283,17 @@ public class DelegationResource {
     }
 
     /**
-     * Persist a new optional fields value
+     * Persist a new optional fields value.
      *
      * @param guestId guest pk
      * @param fieldId optional field pk
-     * @param fieldValue value
      */
-    private void saveOptionalField(Integer guestId, Integer fieldId, String fieldValue) {
+    private void saveOptionalField(Integer guestId, Integer fieldId, String fieldContent) {
     	WebResource resource = client.resource(path("delegation","field", "save"));
 
         resource = resource.queryParam("guestId", guestId.toString())
         	 .queryParam("fieldId", fieldId.toString())
-        	 .queryParam("fieldValue", fieldValue);
+        	 .queryParam("fieldContent", fieldContent);
 
         resource.post(Delegation.class);
     }
@@ -255,14 +311,14 @@ public class DelegationResource {
         WebResource resource;
         try {
             resource = client.resource(path);
-            String json = resource.get(String.class);
+            final String json = resource.get(String.class);
             return mapper.readValue(json, type);
         } catch (ClientHandlerException che) {
             if (che.getCause() instanceof SocketTimeoutException) {
                 //FIXME some times open, pooled connections time out and generate errors
 //                log.warning("Retrying request to " + path + " once because of SocketTimeoutException");
                 resource = client.resource(path);
-                String json = resource.get(String.class);
+                final String json = resource.get(String.class);
                 return mapper.readValue(json, type);
             } else {
                 throw che;
@@ -289,8 +345,8 @@ public class DelegationResource {
     }
 
     private String usernameGenerator() {
-        Date current = new Date();
+        final Date currentDate = new Date();
 
-    	return "deleg" + current.getTime();
+    	return "deleg" + currentDate.getTime();
     }
 }
