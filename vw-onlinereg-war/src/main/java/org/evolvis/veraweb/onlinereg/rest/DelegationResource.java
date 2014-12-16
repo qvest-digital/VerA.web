@@ -1,7 +1,11 @@
 package org.evolvis.veraweb.onlinereg.rest;
 
-import java.util.ArrayList;
-import java.util.List;
+import org.evolvis.veraweb.onlinereg.entities.Delegation;
+import org.evolvis.veraweb.onlinereg.entities.OptionalField;
+import org.evolvis.veraweb.onlinereg.entities.OptionalFieldValue;
+import org.evolvis.veraweb.onlinereg.entities.pk.DelegationPK;
+import org.hibernate.Query;
+import org.hibernate.Session;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -10,62 +14,58 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
-
-import org.evolvis.veraweb.onlinereg.entities.Delegation;
-import org.evolvis.veraweb.onlinereg.entities.OptionalField;
-import org.evolvis.veraweb.onlinereg.entities.Guest;
-import org.evolvis.veraweb.onlinereg.entities.OptionalFieldValue;
-import org.evolvis.veraweb.onlinereg.entities.pk.DelegationPK;
-import org.hibernate.Query;
-import org.hibernate.Session;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
- * Rest api for delegations and extra fields
+ * Rest api for delegations and extra fields.
+ *
  * @author jnunez
  */
 @Path("/delegation")
 @Produces(MediaType.APPLICATION_JSON)
 public class DelegationResource extends AbstractResource {
 
+    /**
+     * Get optional fields content for a guest.
+     *
+     * @param eventId Event id
+     * @param guestId Guest id
+     *
+     * @return Fields content
+     */
     @GET
-    @Path("/fields/{eventId}/{guestId}")
+    @Path("/fields/list/{eventId}/{guestId}")
     public List<OptionalFieldValue> getFieldsFromEvent(
     		@PathParam("eventId") int eventId,
     		@PathParam("guestId") int guestId) {
 
-        Session session = openSession();
+        final Session session = openSession();
         try {
-            Query query = session.getNamedQuery("OptionalField.findByEventId");
+            final Query query = session.getNamedQuery("OptionalField.findByEventId");
             query.setInteger("eventId", eventId);
+            final List<OptionalField> fields = (List<OptionalField>) query.list();
 
-            List<OptionalField> fields = (List<OptionalField>) query.list();
-            List<OptionalFieldValue> result = new ArrayList<>(fields.size());
-
-            for(OptionalField field : fields){
-            	query = session.getNamedQuery(Delegation.QUERY_FIND_BY_GUEST);
-            	query.setInteger(Delegation.PARAM_GUEST_ID, guestId);
-            	query.setInteger(Delegation.PARAM_FIELD_ID, field.getPk());
-
-            	Delegation delegation = (Delegation)query.uniqueResult();
-            	OptionalFieldValue newValue = new OptionalFieldValue(field,
-            			delegation == null ? null : delegation.getValue());
-
-            	result.add(newValue);
-            }
-
-            return result;
+            return convertOptionalFieldsResultSetToList(guestId, fields);
         } finally {
             session.close();
         }
     }
 
-
+    /**
+     * Get label id by event id and label.
+     *
+     * @param eventId The event id
+     * @param label The label (for example: firstname, lastname, email etc), not the content for this label
+     *
+     * @return The label id
+     */
     @GET
     @Path("/field/{eventId}")
     public Integer getLabelIdfromEventAndLabel(@PathParam("eventId") int eventId, @QueryParam("label") String label) {
-        Session session = openSession();
+        final Session session = openSession();
         try {
-            Query query = session.getNamedQuery("OptionalField.findByEventIdAndLabel");
+            final Query query = session.getNamedQuery("OptionalField.findByEventIdAndLabel");
             query.setInteger("eventId", eventId);
             query.setString("label", label);
 
@@ -75,29 +75,26 @@ public class DelegationResource extends AbstractResource {
         }
     }
 
-
-    @GET
-    @Path("/values")
-    public Guest getDelegationByFieldAndGuest(@QueryParam("fieldId") Integer fieldId, @QueryParam("guestId") Integer guestId) {
-        Session session = openSession();
-        try {
-            Query query = session.getNamedQuery("Guest.findByEventAndUser");
-            query.setInteger("fk_delegation_field", fieldId);
-            query.setInteger("fk_guest", guestId);
-            return (Guest) query.uniqueResult();
-        } finally {
-            session.close();
-        }
-    }
-
+    /**
+     * Save the field content.
+     *
+     * @param guestId Guest id
+     * @param fieldId Field id
+     * @param fieldContent Field content
+     *
+     * @return TODO
+     */
     @POST
     @Path("/field/save")
-    public Delegation saveOptionalField(@QueryParam("guestId") Integer guestId, @QueryParam("fieldId") Integer fieldId, @QueryParam("fieldValue") String fieldValue) {
-        Session session = openSession();
+    public Delegation saveOptionalField(
+            @QueryParam("guestId") Integer guestId,
+            @QueryParam("fieldId") Integer fieldId,
+            @QueryParam("fieldContent") String fieldContent) {
+        final Session session = openSession();
         try {
-        	Delegation delegation = new Delegation();
+            final Delegation delegation = new Delegation();
         	delegation.setPk(new DelegationPK(guestId,fieldId));
-        	delegation.setValue(fieldValue);
+        	delegation.setValue(fieldContent);
 
         	session.saveOrUpdate(delegation);
         	session.flush();
@@ -109,4 +106,21 @@ public class DelegationResource extends AbstractResource {
         }
     }
 
+    private List<OptionalFieldValue> convertOptionalFieldsResultSetToList(int guestId, List<OptionalField> fields) {
+        final List<OptionalFieldValue> fieldsList = new ArrayList<>(fields.size());
+        final Session session = openSession();
+        for(OptionalField field : fields){
+            final Query query = session.getNamedQuery(Delegation.QUERY_FIND_BY_GUEST);
+            query.setInteger(Delegation.PARAM_GUEST_ID, guestId);
+            query.setInteger(Delegation.PARAM_FIELD_ID, field.getPk());
+
+            final Delegation delegation = (Delegation)query.uniqueResult();
+            final OptionalFieldValue newValue = new OptionalFieldValue(field,
+                    delegation == null ? null : delegation.getValue());
+
+            fieldsList.add(newValue);
+        }
+
+        return fieldsList;
+    }
 }
