@@ -19,23 +19,6 @@
  */
 package de.tarent.aa.veraweb.worker;
 
-import java.io.IOException;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.text.MessageFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.UUID;
-
-import org.apache.log4j.Logger;
-
 import de.tarent.aa.veraweb.beans.Event;
 import de.tarent.aa.veraweb.beans.EventDoctype;
 import de.tarent.aa.veraweb.beans.Guest;
@@ -65,6 +48,18 @@ import de.tarent.octopus.beans.TransactionContext;
 import de.tarent.octopus.beans.veraweb.BeanChangeLogger;
 import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
+import org.apache.log4j.Logger;
+
+import java.io.IOException;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.text.MessageFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 /**
  * Diese Octopus-Worker-Klasse stellt Operationen f�r G�ste von
@@ -137,15 +132,9 @@ public class GuestWorker {
                 invitecategory = new HashMap();
             }
 
-			String personIds = DatabaseHelper.listsToIdListString( new List[] { invitemain, invitepartner, selectreserve, selectdelegation } );
-			String sql = COUNT_INVITED_NOT_INVITED_2_FORMAT.format( new Object[] { event.id.toString(), personIds } );
-			Result res = DB.result( context, sql );
+			String personIds = DatabaseHelper.listsToIdListString(new List[]{invitemain, invitepartner, selectreserve, selectdelegation});
 
-			ResultSet rs = res.resultSet();
-			rs.first();
-			cntx.setContent( "invited", new Integer( rs.getInt( "invited" ) ) );
-			cntx.setContent( "notInvited", new Integer( rs.getInt( "notinvited" ) ) );
-			rs.close();
+			setInvitationStatistics(cntx, context, event, personIds);
 
 			// prepare third step, fill in missing data into guest tupels
 			StringBuffer sql3 = new StringBuffer();
@@ -193,24 +182,14 @@ public class GuestWorker {
                 System.gc();
             }
 
-			// second step, create guest tupels
-            sql = ADD_PERSONS_TO_GUESTLIST_FORMAT.format(new Object[]{
-                    event.id.toString(),
-                    ((PersonalConfigAA) cntx.personalConfig()).getRoleWithProxy(),
-                    personIds
-                }
-            );
-            DB.insert( context, sql );
-			context.commit();
+			addGuests(cntx, context, event, personIds);
 
-            if (sql3.length() > 0) {
+			if (sql3.length() > 0) {
                 DB.insert(context, sql3.toString());
                 context.commit();
             }
 
-			sql = UPDATE_GUEST_DOCUMENT_TYPES_FORMAT.format( new Object[] { event.id.toString() } );
-			context.commit();
-			DB.insert( context, sql );
+			updateDoctype(context, event);
 
 			// TODO bulk log guest create event
 
@@ -228,6 +207,42 @@ public class GuestWorker {
             throw e;
         }
     }
+
+	private void updateDoctype(TransactionContext context, Event event) throws BeanException, SQLException {
+		final String sql = UPDATE_GUEST_DOCUMENT_TYPES_FORMAT.format( new Object[] { event.id.toString() } );
+		context.commit();
+		DB.insert(context, sql);
+	}
+
+	private void addGuests(OctopusContext cntx, TransactionContext context, Event event, String personIds)
+			throws SQLException, BeanException {
+		// second step, create guest tupels
+		final String sql = ADD_PERSONS_TO_GUESTLIST_FORMAT.format(new Object[]{
+                event.id.toString(),
+                ((PersonalConfigAA) cntx.personalConfig()).getRoleWithProxy(),
+                personIds
+            }
+        );
+		DB.insert(context, sql);
+		context.commit();
+	}
+
+	private void setInvitationStatistics(OctopusContext oc, TransactionContext context, Event event, String personIds)
+			throws SQLException {
+		final String sql = COUNT_INVITED_NOT_INVITED_2_FORMAT.format( new Object[] {event.id.toString(), personIds });
+		final Result result = DB.result(context, sql);
+
+		final ResultSet rs = result.resultSet();
+		rs.first();
+
+		final Integer counterInvited = rs.getInt("invited");
+		final Integer counterNotInvited = rs.getInt("notinvited");
+
+		oc.setContent("invited", counterInvited);
+		oc.setContent("notInvited", counterNotInvited);
+
+		rs.close();
+	}
 
 	/** Octopus-Eingabe-Parameter f�r {@link #addEvent(OctopusContext, Integer)} */
 	public static final String INPUT_addEvent[] = { "id" };
