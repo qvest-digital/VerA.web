@@ -35,6 +35,7 @@
 
 # /veraweb-war/src/main/webapp/OCTOPUS/
 /veraweb-war/src/main/webapp/OCTOPUS/module.wsdl
+/veraweb-war/src/main/webapp/OCTOPUS/config_ldap_access.xml
 
 # /veraweb-war/src/main/webapp/WEB-INF/
 /veraweb-war/src/main/webapp/WEB-INF/*.lck
