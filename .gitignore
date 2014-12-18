@@ -6,6 +6,9 @@
 /.idea
 /*.log
 
+# IntelliJ
+*.iml
+
 # /online-reg/
 /online-reg/.classpath
 /online-reg/.project
