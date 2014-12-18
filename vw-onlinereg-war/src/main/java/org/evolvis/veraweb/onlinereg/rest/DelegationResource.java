@@ -107,7 +107,7 @@ public class DelegationResource extends AbstractResource {
     }
 
     private List<OptionalFieldValue> convertOptionalFieldsResultSetToList(int guestId, List<OptionalField> fields) {
-        final List<OptionalFieldValue> fieldsList = new ArrayList<>(fields.size());
+        final List<OptionalFieldValue> fieldsList = new ArrayList<OptionalFieldValue>(fields.size());
         final Session session = openSession();
         for(OptionalField field : fields){
             final Query query = session.getNamedQuery(Delegation.QUERY_FIND_BY_GUEST);
