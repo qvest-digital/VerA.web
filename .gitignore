@@ -16,6 +16,7 @@
 /online-reg/target
 /online-reg/node_modules
 /online-reg-tests/target
+/online-reg/config.yaml
 
 # /veraweb-ear/
 /veraweb-ear/target
