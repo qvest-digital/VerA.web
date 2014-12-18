@@ -373,9 +373,7 @@ public class GuestListWorker extends ListWorkerVeraWeb {
             final Map guest = (Map) fullList.get(i);
             final String uuid = (String) guest.get("delegation");
             final String iscompany = (String) guest.get("iscompany");
-//            if(iscompany!=null && (iscompany.trim().equals("f") || !isDelegationFound(fullList, uuid))) {
-                modifiedList.add(guest);
-//            }
+            modifiedList.add(guest);
         }
 
         return modifiedList;
@@ -397,17 +395,6 @@ public class GuestListWorker extends ListWorkerVeraWeb {
         }
 
         return fullList;
-    }
-
-    private Boolean isDelegationFound(List fullList, String uuid) {
-        Boolean delegation = false;
-        for (int y = 0; y < fullList.size(); y++) {
-            final Map guest = (Map) fullList.get(y);
-            if(guest != null && guest.get("iscompany").equals("f") && guest.get("delegation") != null && guest.get("delegation").equals(uuid)) {
-                delegation = true;
-            }
-        }
-        return delegation;
     }
 
     protected int removeSelection(OctopusContext cntx, List errors, List selection, TransactionContext context) throws BeanException, IOException
