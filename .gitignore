@@ -1,0 +1,50 @@
+
+# /
+/target
+/.classpath
+/.project
+/.idea
+
+# /online-reg/
+/online-reg/.classpath
+/online-reg/.project
+/online-reg/.settings
+/online-reg/target
+/online-reg/node_modules
+
+# /veraweb-ear/
+/veraweb-ear/target
+/veraweb-ear/.project
+
+# /veraweb-system-test/
+/veraweb-system-test/.project
+/veraweb-system-test/.settings
+/veraweb-system-test/target
+/veraweb-system-test/.classpath
+/veraweb-system-test/resultContent.zip
+
+# /veraweb-war/
+/veraweb-war/target
+/veraweb-war/.settings
+/veraweb-war/.classpath
+/veraweb-war/.project
+/veraweb-war/bin
+/veraweb-war/.checkstyle
+
+# /veraweb-war/src/main/webapp/OCTOPUS/
+/veraweb-war/src/main/webapp/OCTOPUS/module.wsdl
+
+# /veraweb-war/src/main/webapp/WEB-INF/
+/veraweb-war/src/main/webapp/WEB-INF/*.lck
+
+# /vw-onlinereg-common/
+/vw-onlinereg-common/target
+/vw-onlinereg-common/.settings
+/vw-onlinereg-common/.classpath
+/vw-onlinereg-common/.project
+
+# /vw-onlinereg-war/
+/vw-onlinereg-war/target
+/vw-onlinereg-war/.settings
+/vw-onlinereg-war/.project
+/vw-onlinereg-war/.classpath
