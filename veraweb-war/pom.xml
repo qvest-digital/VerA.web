@@ -137,7 +137,7 @@
 								${project.version}
 							</version_version>
 							<Class-Path>
-								/etc
+								/etc/
 							</Class-Path>
 						</manifestEntries>
 					</archive>
