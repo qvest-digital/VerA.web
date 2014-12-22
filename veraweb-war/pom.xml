@@ -137,7 +137,7 @@
 								${project.version}
 							</version_version>
 							<Class-Path>
-								/etc/
+								/etc/veraweb/
 							</Class-Path>
 						</manifestEntries>
 					</archive>
