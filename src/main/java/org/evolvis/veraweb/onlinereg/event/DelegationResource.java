@@ -6,12 +6,15 @@ import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientHandlerException;
 import com.sun.jersey.api.client.UniformInterfaceException;
 import com.sun.jersey.api.client.WebResource;
+
 import lombok.extern.java.Log;
+
 import org.evolvis.veraweb.onlinereg.Config;
 import org.evolvis.veraweb.onlinereg.entities.Delegation;
 import org.evolvis.veraweb.onlinereg.entities.Guest;
 import org.evolvis.veraweb.onlinereg.entities.OptionalFieldValue;
 import org.evolvis.veraweb.onlinereg.entities.Person;
+import org.evolvis.veraweb.onlinereg.entities.PersonDoctype;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -20,6 +23,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
+
 import java.io.IOException;
 import java.net.SocketTimeoutException;
 import java.util.Date;
@@ -221,7 +225,7 @@ public class DelegationResource {
         if (guest==null) {
             return "NO_EVENT_DATA";
         }
-        addGuestToEvent(uuid, String.valueOf(guest.getFk_event()), String.valueOf(personId), gender);
+        addGuestToEvent(uuid, String.valueOf(guest.getFk_event()), String.valueOf(personId), gender, nachname, vorname);
 
         return "OK";
     }
@@ -248,17 +252,31 @@ public class DelegationResource {
      * @param gender Gender of the person
      */
     private Integer createPerson(String companyName, Integer eventId, String lastname, String firstname, String gender) {
-        WebResource resource = client.resource(config.getVerawebEndpoint() + "/rest/person/delegate/");
-        resource = resource
+        WebResource personResource = client.resource(config.getVerawebEndpoint() + "/rest/person/delegate");
+        
+        personResource = personResource
         		.queryParam("company", companyName)
         		.queryParam("eventId", String.valueOf(eventId))
                 .queryParam("username", usernameGenerator())
                 .queryParam("firstname", firstname)
                 .queryParam("lastname", lastname)
                 .queryParam("gender", gender);
-        final Person person = resource.post(Person.class);
-
+        
+        final Person person = personResource.post(Person.class);
+        createPersonDoctype(person);
+        
     	return person.getPk();
+    }
+    
+    private void createPersonDoctype(Person person) {
+        WebResource personDoctypeRsource = client.resource(config.getVerawebEndpoint() + "/rest/personDoctype");
+        
+        personDoctypeRsource = personDoctypeRsource
+			.queryParam("personId", Integer.toString(person.getPk()))
+			.queryParam("firstName", person.getFirstname_a_e1())
+	        .queryParam("lastName", person.getLastname_a_e1());
+
+        personDoctypeRsource.post();
     }
 
     /**
@@ -268,9 +286,8 @@ public class DelegationResource {
      * @param userId User id
      * @param gender Gender of the person
      */
-    private void addGuestToEvent(String uuid, String eventId, String userId, String gender) {
-
-    	WebResource resource = client.resource(path("guest", uuid, "register"));
+    private void addGuestToEvent(String uuid, String eventId, String userId, String gender, String lastName, String firstName) {
+		WebResource resource = client.resource(path("guest", uuid, "register"));
 
         resource = resource.queryParam("eventId", eventId)
         	 .queryParam("userId", userId)
@@ -279,8 +296,20 @@ public class DelegationResource {
         	 .queryParam("gender", gender)
         	 .queryParam("category", "0");
 
-        resource.post(Guest.class);
-    }
+        Guest guest = resource.post(Guest.class);
+        
+        createGuestDoctype(guest.getPk(), firstName, lastName);
+	}
+	
+	private void createGuestDoctype(int guestId, String firstName, String lastName) {
+		WebResource resource = client.resource(config.getVerawebEndpoint() + "/rest/guestDoctype");
+
+        resource = resource.queryParam("guestId", Integer.toString(guestId))
+        	 .queryParam("firstName", firstName)
+        	 .queryParam("lastName", lastName);
+
+        resource.post();
+	}
 
     /**
      * Persist a new optional fields value.
