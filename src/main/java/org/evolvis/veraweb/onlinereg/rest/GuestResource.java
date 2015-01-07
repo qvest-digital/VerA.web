@@ -56,7 +56,10 @@ public class GuestResource extends AbstractResource{
 
     @POST
     @Path("/{eventId}/{userId}")
-    public Guest saveGuest(@PathParam("eventId") int eventId, @PathParam("userId") int userId, @QueryParam("invitationstatus") int invitationstatus, @QueryParam("notehost") String notehost) {
+    public Guest saveGuest(@PathParam("eventId") int eventId, 
+    						@PathParam("userId") int userId, 
+    						@QueryParam("invitationstatus") int invitationstatus, 
+    						@QueryParam("notehost") String notehost) {
         Session session = openSession();
         try {
             Query query = session.getNamedQuery("Guest.findByEventAndUser");
