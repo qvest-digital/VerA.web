@@ -456,24 +456,24 @@ onlineRegApp.controller('RegisterUserController', function ($scope, $location, $
             }
         }).success(function (result) {
             $scope.success = null;
-            $scope.register_error = null;
+            $scope.error = null;
 
             if (result === 'USER_EXISTS') {
-                $scope.register_error = "Ein Benutzer mit diesem Benutzernamen existiert bereits.";
+                $scope.error = "Ein Benutzer mit diesem Benutzernamen existiert bereits.";
 
             } else if (result === 'INVALID_USERNAME') {
-                $scope.register_error = "Der Benutzername darf nur Buchstaben und Zahlen enthalten.";
+                $scope.error = "Der Benutzername darf nur Buchstaben und Zahlen enthalten.";
 
             } else if (result === 'OK') {
                 $scope.success = "Benutzerdaten wurden gespeichert.";
 
             } else {
-                $scope.register_error = ERROR_TEXT;
+                $scope.error = ERROR_TEXT;
             }
             $scope.button = false;
 
         }).error(function (data, status, headers, config) {
-            $scope.register_error = ERROR_TEXT;
+            $scope.error = ERROR_TEXT;
             $scope.button = false;
         });
     }
