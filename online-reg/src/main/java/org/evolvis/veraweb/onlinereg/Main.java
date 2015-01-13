@@ -2,6 +2,8 @@ package org.evolvis.veraweb.onlinereg;
 
 
 import com.sun.jersey.api.client.Client;
+import com.sun.jersey.api.client.filter.HTTPBasicAuthFilter;
+
 import io.dropwizard.Application;
 import io.dropwizard.assets.AssetsBundle;
 import io.dropwizard.client.JerseyClientBuilder;
@@ -58,17 +60,17 @@ public class Main extends Application<Config> {
         jcc.setGzipEnabled(false);
 
 
-
         final Client client = new JerseyClientBuilder(environment)
                 .using(jcc)
                 .build("jerseyClient");
+        
+        client.addFilter(new HTTPBasicAuthFilter("hallo","hallo"));
 
         environment.jersey().setUrlPattern("/api/*");
 
         environment.healthChecks().register("veraweb availability", health = new Health(client, configuration.getVerawebEndpoint()));
 
 //        environment.jersey().register(new OsiamAuthProvider("OSIAM protected"));
-
 
         environment.jersey().register(eventResource = new EventResource(configuration, client));
         environment.jersey().register(userResource = new UserResource(configuration, client));
