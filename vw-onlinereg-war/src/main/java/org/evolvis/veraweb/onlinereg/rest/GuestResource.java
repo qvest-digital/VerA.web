@@ -1,23 +1,17 @@
 package org.evolvis.veraweb.onlinereg.rest;
 
-import java.math.BigInteger;
-import java.util.List;
-
 import org.evolvis.veraweb.onlinereg.entities.Guest;
-import org.evolvis.veraweb.onlinereg.entities.Person;
 import org.hibernate.Query;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 
-import javax.servlet.ServletContext;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
-import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import java.math.BigInteger;
 
 /**
  * Created by mley on 03.08.14.
@@ -26,12 +20,20 @@ import javax.ws.rs.core.MediaType;
 @Produces(MediaType.APPLICATION_JSON)
 public class GuestResource extends AbstractResource{
 
+    /**
+     * Get guest.
+     *
+     * @param eventId Event id
+     * @param userId User id
+     *
+     * @return Guest
+     */
     @GET
     @Path("/{eventId}/{userId}")
     public Guest getGuest(@PathParam("eventId") int eventId, @PathParam("userId") int userId) {
-        Session session = openSession();
+        final Session session = openSession();
         try {
-            Query query = session.getNamedQuery("Guest.findByEventAndUser");
+            final Query query = session.getNamedQuery("Guest.findByEventAndUser");
             query.setInteger("eventId", eventId);
             query.setInteger("userId", userId);
             return (Guest) query.uniqueResult();
@@ -40,12 +42,20 @@ public class GuestResource extends AbstractResource{
         }
     }
 
+    /**
+     * Get guest id by event id and user id.
+     *
+     * @param eventId Event id
+     * @param userId User id
+     *
+     * @return Guest
+     */
     @GET
     @Path("/concrete/{eventId}/{userId}")
     public Integer getGuestId(@PathParam("eventId") int eventId, @PathParam("userId") int userId) {
-        Session session = openSession();
+        final Session session = openSession();
         try {
-            Query query = session.getNamedQuery("Guest.findIdByEventAndUser");
+            final Query query = session.getNamedQuery("Guest.findIdByEventAndUser");
             query.setInteger("eventId", eventId);
             query.setInteger("userId", userId);
             return (Integer) query.uniqueResult();
@@ -54,16 +64,29 @@ public class GuestResource extends AbstractResource{
         }
     }
 
+    /**
+     * Save guest.
+     *
+     * @param eventId Event id
+     * @param userId User id
+     * @param invitationstatus invitation status
+     * @param notehost TODO
+     *
+     * @return The guest
+     */
     @POST
     @Path("/{eventId}/{userId}")
-    public Guest saveGuest(@PathParam("eventId") int eventId, @PathParam("userId") int userId, @QueryParam("invitationstatus") int invitationstatus, @QueryParam("notehost") String notehost) {
-        Session session = openSession();
+    public Guest saveGuest(@PathParam("eventId") int eventId,
+                           @PathParam("userId") int userId,
+                           @QueryParam("invitationstatus") int invitationstatus,
+                           @QueryParam("notehost") String notehost) {
+        final Session session = openSession();
         try {
-            Query query = session.getNamedQuery("Guest.findByEventAndUser");
+            final Query query = session.getNamedQuery("Guest.findByEventAndUser");
             query.setInteger("eventId", eventId);
             query.setInteger("userId", userId);
 
-            Guest guest = (Guest) query.uniqueResult();
+            final Guest guest = (Guest) query.uniqueResult();
             guest.setInvitationstatus(invitationstatus);
             guest.setNotehost(notehost);
 
@@ -75,42 +98,67 @@ public class GuestResource extends AbstractResource{
         }
     }
 
+    /**
+     * TODO
+     *
+     * @param uuid Delegation uuid.
+     *
+     * @return Guest
+     */
     @GET
     @Path("/{uuid}")
     public Guest findEventIdByDelegation(@PathParam("uuid") String uuid) {
-    	Session session = openSession();
+        final Session session = openSession();
         try {
-            Query query = session.getNamedQuery("Guest.findEventIdByDelegationUUID");
+            final Query query = session.getNamedQuery("Guest.findEventIdByDelegationUUID");
             query.setString("uuid", uuid);
-            Guest guest = (Guest) query.uniqueResult();
+
+            final Guest guest = (Guest) query.uniqueResult();
             return guest;
         } finally {
             session.close();
         }
     }
 
+    /**
+     * Find guest by delegation and person id.
+     *
+     * @param uuid Delegation UUID
+     * @param userId Person id
+     *
+     * @return Guest
+     */
     @GET
     @Path("/delegation/{uuid}/{userId}")
     public Guest findGuestByDelegationAndPerson(@PathParam("uuid") String uuid, @PathParam("userId") int userId) {
-        Session session = openSession();
+        final Session session = openSession();
         try {
-            Query query = session.getNamedQuery("Guest.findByDelegationAndUser");
+            final Query query = session.getNamedQuery("Guest.findByDelegationAndUser");
             query.setString("delegation", uuid);
             query.setInteger("userId", userId);
+
             return (Guest) query.uniqueResult();
         } finally {
             session.close();
         }
     }
 
+    /**
+     * Check for existing delegation by delegation uuid.
+     *
+     * @param uuid Delegation UUID
+     *
+     * @return True if exists only one delegation, otherwise false
+     */
     @GET
     @Path("/exist/{uuid}")
     public Boolean existEventIdByDelegation(@PathParam("uuid") String uuid) {
-    	Session session = openSession();
+        final Session session = openSession();
         try {
-            Query query = session.getNamedQuery("Guest.guestByUUID");
+            final Query query = session.getNamedQuery("Guest.guestByUUID");
             query.setString("uuid", uuid);
-            BigInteger numberFoundDelegations = (BigInteger) query.uniqueResult();
+
+            final BigInteger numberFoundDelegations = (BigInteger) query.uniqueResult();
             if(numberFoundDelegations.intValue() == 1) {
             	return true;
             }
@@ -120,6 +168,19 @@ public class GuestResource extends AbstractResource{
         }
     }
 
+    /**
+     * Add guest to event.
+     *
+     * @param uuid Uuid
+     * @param eventId Event id
+     * @param userId User id
+     * @param invitationstatus Invitation status
+     * @param invitationtype Invitationtype
+     * @param gender Gender
+     * @param category Category
+     *
+     * @return Guest
+     */
     @POST
     @Path("/{uuid}/register")
     public Guest addGuestToEvent(@PathParam("uuid") String uuid,
@@ -129,9 +190,10 @@ public class GuestResource extends AbstractResource{
                                 @QueryParam("invitationtype") Integer invitationtype,
                                 @QueryParam("gender") String gender,
                                 @QueryParam("category") Integer category) {
-		Session session = openSession();
+        final Session session = openSession();
 		try {
-			Guest guest = initGuest(uuid,eventId, userId, invitationstatus, invitationtype, gender, category);
+            final Guest guest = initGuest(uuid,eventId, userId, invitationstatus, invitationtype, gender, category);
+
             session.save(guest);
 			session.flush();
 
@@ -145,8 +207,9 @@ public class GuestResource extends AbstractResource{
     /**
      * Initialize guest with event information
      */
-    private Guest initGuest(String uuid, Integer eventId, Integer userId, Integer invitationstatus, Integer invitationtype, String gender, Integer category) {
-        Guest guest = new Guest();
+    private Guest initGuest(String uuid, Integer eventId, Integer userId, Integer invitationstatus,
+                            Integer invitationtype, String gender, Integer category) {
+        final Guest guest = new Guest();
         guest.setDelegation(uuid);
         guest.setFk_person(userId);
         guest.setFk_event(eventId);
