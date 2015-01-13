@@ -7,7 +7,7 @@
 
         #set($formurl = "SaveDelegationFields")
 
-<div class="content_container">
+<div id="content_container">
     <div id="breadcrumb" class="textRight marginBottom10">
         <strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/">Home</a> > Veranstaltungen > Veranstaltung bearbeiten</span>
     </div>
@@ -73,15 +73,10 @@
                    onclick="window.location.href='SearchEvent?action=event&search=reset&selectNone=true';">
         </span>
     </form>
+    <div class="clear"></div>
 </div>
 
-<div class="clear"></div>
 
-<style>
-	.delegationFields>li {
-		margin:10px;
-	}
-</style>
 
 <script type="text/javascript">
 	var wrapper = $(".delegationFields"); //Fields wrapper
@@ -148,5 +143,10 @@ function submitForm() {
 
 </script>
 
+<style>
+	.delegationFields>li {
+		margin:10px;
+	}
+</style>
 #parse("inc/footer.vm")
 

@@ -7,6 +7,7 @@ import org.evolvis.veraweb.onlinereg.entities.Person;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -96,8 +97,8 @@ public class PersonResource extends AbstractResource {
 	@POST
     @Path("/press")
     public Person createPersonPress(
-    							@QueryParam("eventId") Integer eventId,
-    							@QueryParam("username") String username,
+    						   @QueryParam("eventId") Integer eventId,
+    						   @QueryParam("username") String username,
                                @QueryParam("firstname") String firstName,
                                @QueryParam("lastname") String lastname,
                                @QueryParam("gender") String gender,
