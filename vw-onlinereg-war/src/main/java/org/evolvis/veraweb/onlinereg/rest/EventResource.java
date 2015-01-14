@@ -21,6 +21,11 @@ import java.util.List;
 @Produces(MediaType.APPLICATION_JSON)
 public class EventResource extends AbstractResource {
 
+	/**
+	 * Getting the list of openned Events
+	 * 
+	 * @return List<Event> List of events
+	 */
     @Path("/")
     @GET
     public List<Event> listEvents() {
@@ -35,6 +40,12 @@ public class EventResource extends AbstractResource {
 
     }
 
+    /**
+     * Getting the list of events of a person using the username (by previous getting of the id)
+     * 
+     * @param username String
+     * @return List<Event> List of events
+     */
     @Path("/userevents/{username}")
     @GET
     public List<Event> listUsersEvents(@PathParam("username") String username) {
@@ -56,12 +67,25 @@ public class EventResource extends AbstractResource {
 
     }
 
+    /**
+     * Get the events associated to a person
+     * 
+     * @param session Session
+     * @param personId ID
+     * @return List<Event> List of events
+     */
     private List<Event> getUsersEvents(Session session, int personId) {
         Query query = session.getNamedQuery("Event.list.userevents");
         query.setInteger("fk_person", personId);
         return query.list();
     }
 
+    /**
+     * Get event using the event id
+     * 
+     * @param eventId int
+     * @return Event the event
+     */
     @Path("/{eventId}")
     @GET
     public Event getEvent(@PathParam("eventId") int eventId) {
@@ -76,6 +100,12 @@ public class EventResource extends AbstractResource {
 
     }
     
+    /**
+     * Checks if a delegation exists according to the relationship between delegation and event
+     * 
+     * @param uuid String the uuid
+     * @return the checking
+     */
     @GET
     @Path("/exist/{uuid}")
     public Boolean existEventIdByDelegation(@PathParam("uuid") String uuid) {
@@ -93,6 +123,12 @@ public class EventResource extends AbstractResource {
         }
     }
     
+    /**
+     * Get event id using the uuid from a Press Event
+     * 
+     * @param uuid press uuid
+     * @return Integer the event id
+     */
     @GET
     @Path("/require/{uuid}")
     public Integer getEventIdByUUID(@PathParam("uuid") String uuid) {
