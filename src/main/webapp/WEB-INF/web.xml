@@ -17,10 +17,6 @@
             <param-name>com.sun.jersey.api.json.POJOMappingFeature</param-name>
             <param-value>true</param-value>
         </init-param>
-        <init-param>
-		    <param-name>com.sun.jersey.spi.container.ContainerRequestFilters</param-name>
-		    <param-value>your.package.BasicAuthFilter</param-value>
-		</init-param>
         <load-on-startup>1</load-on-startup>
     </servlet>
     <servlet-mapping>
@@ -38,5 +34,18 @@
     <listener>
         <listener-class>org.evolvis.veraweb.onlinereg.HibernateSessionFactoryListener</listener-class>
     </listener>
+    
+    <security-constraint>
+    	<web-resource-collection>
+	    	<web-resource-name>Veraweb REST API</web-resource-name>
+	    	<url-pattern>/*</url-pattern>
+    	</web-resource-collection>
+    	<auth-constraint>
+    		<role-name>veraweb</role-name>
+    	</auth-constraint>
+    </security-constraint>
+    <login-config>
+    	<auth-method>BASIC</auth-method>
+    </login-config>
     
 </web-app>
