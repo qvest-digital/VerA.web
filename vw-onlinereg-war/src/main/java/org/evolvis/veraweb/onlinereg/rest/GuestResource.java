@@ -99,10 +99,10 @@ public class GuestResource extends AbstractResource{
     }
 
     /**
-     * TODO
+     * Get guest using the UUID of a delegation
+     * TODO Rename method. It is not clear.
      *
-     * @param uuid Delegation uuid.
-     *
+     * @param uuid Delegation uuid
      * @return Guest
      */
     @GET
@@ -222,6 +222,9 @@ public class GuestResource extends AbstractResource{
         return guest;
     }
 
+    /**
+     * Choosing the correct value for the gender
+     */
     private void setGender(String gender, Guest guest) {
         if (gender.equalsIgnoreCase("Herr")) {
         	guest.setGender("m");
