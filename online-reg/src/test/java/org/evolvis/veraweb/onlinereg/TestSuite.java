@@ -1,6 +1,7 @@
 package org.evolvis.veraweb.onlinereg;
 
 import io.dropwizard.testing.junit.DropwizardAppRule;
+import org.evolvis.veraweb.onlinereg.event.DelegationResourceTest;
 import org.evolvis.veraweb.onlinereg.event.EventResourceTest;
 import org.evolvis.veraweb.onlinereg.event.UserResourceTest;
 import org.evolvis.veraweb.onlinereg.user.LoginResourceTest;
@@ -12,7 +13,13 @@ import org.junit.runners.Suite;
  * Created by mley on 28.08.14.
  */
 @RunWith(Suite.class)
-@Suite.SuiteClasses({EventResourceTest.class, UserResourceTest.class, LoginResourceTest.class, HealthTest.class})
+@Suite.SuiteClasses({
+        EventResourceTest.class,
+        UserResourceTest.class,
+        LoginResourceTest.class,
+        HealthTest.class,
+        DelegationResourceTest.class
+})
 public class TestSuite{
 
     @ClassRule
