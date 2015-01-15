@@ -1,7 +1,6 @@
 package org.evolvis.veraweb.onlinereg.rest;
 
 import org.evolvis.veraweb.onlinereg.entities.GuestDoctype;
-import org.evolvis.veraweb.onlinereg.entities.PersonDoctype;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
@@ -18,34 +17,42 @@ import javax.ws.rs.core.MediaType;
 @Produces(MediaType.APPLICATION_JSON)
 public class GuestDoctypeResource extends AbstractResource {
 
+	/**
+	 * Create guest doctype.
+	 *
+	 * @param guestId Guest id
+	 * @param firstName First name
+	 * @param lastName Last name
+	 * @return The {@link GuestDoctype}
+	 */
 	@POST
 	@Path("/")
 	public GuestDoctype createGuestDoctype(
 			@QueryParam("guestId") int guestId,
 			@QueryParam("firstName") String firstName,
 			@QueryParam("lastName") String lastName) {
-		int fk_doctype = 1;
-		int addresstype = 1;
-		int locale = 1;
-		Session session = openSession();
+		final int fkDoctype = 1;
+		final int addresstype = 1;
+		final int locale = 1;
+		final Session session = openSession();
 
 		try {
-			GuestDoctype guestDoctype = handleCreateGuestDoctype(guestId,
-					fk_doctype, addresstype, locale, firstName, lastName, session);
+			final GuestDoctype guestDoctype = handleCreateGuestDoctype(guestId,
+					fkDoctype, addresstype, locale, firstName, lastName, session);
 			return guestDoctype;
 		} finally {
 			session.close();
 		}
 	}
 
-	private GuestDoctype handleCreateGuestDoctype(int fk_guest,
-			int fk_doctype, int addresstype, int locale, 
+	private GuestDoctype handleCreateGuestDoctype(int fkGuest,
+			int fkDoctype, int addresstype, int locale,
 			String firstname, String lastname, Session session) {
-		
-		GuestDoctype guestDoctype = new GuestDoctype(fk_guest, fk_doctype, addresstype, locale);
+
+		final GuestDoctype guestDoctype = new GuestDoctype(fkGuest, fkDoctype, addresstype, locale);
 		guestDoctype.setFirstname(firstname);
 		guestDoctype.setLastname(lastname);
-		Query query = getSelectGuestDoctypeByDoctypeIdAndPersonIdQuery(guestDoctype,  session);
+		final Query query = getSelectGuestDoctypeByDoctypeIdAndPersonIdQuery(guestDoctype,  session);
 		
 		if (!query.list().isEmpty()) {
 			// user already exists
@@ -64,7 +71,7 @@ public class GuestDoctypeResource extends AbstractResource {
 	private Query getSelectGuestDoctypeByDoctypeIdAndPersonIdQuery(
 			GuestDoctype guestDoctype, Session session) {
 
-		Query query = session
+		final Query query = session
 				.getNamedQuery("GuestDoctype.findByDoctypeIdAndGuestId");
 		query.setInteger("fk_guest", guestDoctype.getFk_guest());
 		query.setInteger("fk_doctype", guestDoctype.getFk_doctype());

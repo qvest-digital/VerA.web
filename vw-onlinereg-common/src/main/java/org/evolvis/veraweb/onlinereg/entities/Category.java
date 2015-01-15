@@ -19,7 +19,11 @@ import lombok.Data;
 @Entity
 @Table(name = "tcategorie")
 @NamedNativeQueries({
-	@NamedNativeQuery(name = "Category.findIdByCatname", query = "SELECT c.pk FROM tcategorie c where catname=:pcatname and fk_orgunit=(SELECT fk_orgunit from tevent where mediarepresentatives=:uuid)")
+	@NamedNativeQuery(name = "Category.findIdByCatname",
+			query = "SELECT c.pk " +
+					"FROM tcategorie c " +
+						"where catname=:pcatname " +
+						"and fk_orgunit=(SELECT fk_orgunit from tevent where mediarepresentatives=:uuid)")
 })
 public class Category {
 
