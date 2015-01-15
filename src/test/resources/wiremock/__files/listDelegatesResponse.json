@@ -1,4 +1,4 @@
-[ {"pk":"1","value":"3747debb-c8ed-4731-9775-ef072dd7a4b9"},
-  {"pk":"2","value":"3747debb-c8ed-4731-9775-ef072dd7a4b9"},
-  {"pk":"3","value":"3747debb-c8ed-4731-9775-ef072dd7a4b9"}
+[{"pk":"1", "isCompany":"f", "firstname_a_e1":"Max"},
+  {"pk":"2", "isCompany":"f", "firstname_a_e1":"Klaus"},
+  {"pk":"1", "isCompany":"t", "company_a_e1":"MyCompany GmbH"}
 ]
