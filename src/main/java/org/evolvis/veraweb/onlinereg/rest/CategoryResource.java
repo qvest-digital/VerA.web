@@ -9,22 +9,32 @@ import javax.ws.rs.core.MediaType;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
+/**
+ * This class handles requests about category.
+ */
 @Path("/category")
 @Produces(MediaType.APPLICATION_JSON)
 public class CategoryResource extends AbstractResource {
 
-
+    /**
+     * Get category id by media representatives uuid and category name.
+     *
+     * @param catname Category name
+     * @param uuid UUID for the media representatives
+     *
+     * @return The category id
+     */
     @GET
     @Path("/{catname}/{uuid}")
-    public Integer getGuest(@PathParam("catname") String catname, @PathParam("uuid") String uuid) {
-        Session session = openSession();
+    public Integer getCategoryId(@PathParam("catname") String catname, @PathParam("uuid") String uuid) {
+        final Session session = openSession();
         try {
-            Query query = session.getNamedQuery("Category.findIdByCatname");
+            final Query query = session.getNamedQuery("Category.findIdByCatname");
             query.setString("pcatname", catname);
             query.setString("uuid", uuid);
-            Integer returnedValue = (Integer) query.uniqueResult(); 
-            if (returnedValue != null) {
-            	return returnedValue;
+            final Integer categoryId = (Integer) query.uniqueResult();
+            if (categoryId != null) {
+            	return categoryId;
             }
             return 0;
         } finally {
