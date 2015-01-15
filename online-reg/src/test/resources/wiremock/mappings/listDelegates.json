@@ -1,7 +1,7 @@
 {
     "request": {
         "method": "GET",
-        "url": "/vwor/rest/delegation/uuid"
+        "url": "/vwor/rest/person/uuid"
     },
     "response": {
         "status": 200,
