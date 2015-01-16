@@ -52,18 +52,20 @@ public class OSIAMWorker {
 
 	private OsiamConnector connector;
 	private Properties properties;
-
-	public OSIAMWorker() throws IOException {
+	
+	public OSIAMWorker() {
         final PropertiesReader propertiesReader = new PropertiesReader();
-        this.properties = propertiesReader.getProperties();
 
-		this.connector = new OsiamConnector.Builder()
+        if(propertiesReader.propertiesAreAvailable()) {
+            this.properties = propertiesReader.getProperties();
+        	this.connector = new OsiamConnector.Builder()
 				.setClientRedirectUri(properties.getProperty(OSIAM_CLIENT_REDIRECT_URI))
 				.setClientSecret(properties.getProperty(OSIAM_CLIENT_SECRET))
 				.setClientId(properties.getProperty(OSIAM_CLIENT_ID))
 				.setAuthServerEndpoint(properties.getProperty(OSIAM_AUTH_SERVER_ENDPOINT))
 				.setResourceServerEndpoint(properties.getProperty(OSIAM_RESOURCE_SERVER_ENDPOINT))
 				.build();
+        }
 	}
 
 	/**
@@ -73,21 +75,27 @@ public class OSIAMWorker {
 	 * @throws SQLException 
 	 */
 	public void createDelegationUsers(OctopusContext ctx) throws BeanException, SQLException{
-		Database database = new DatabaseVeraWeb(ctx);
-		AccessToken accessToken = connector.retrieveAccessToken(Scope.ALL);
-		List selectdelegation = (List) ctx.sessionAsObject("addguest-selectdelegation");
-		Map event = (Map)ctx.getContextField("event");
-
-		for (Object id : selectdelegation) {
-            ResultSet result = getPersons(database, id);
-            String companyName = getCompanyName(result);
-            String login = this.generateUsername();
-            String password = generatePassword(event, companyName);
-
-            createOsiamUser(accessToken, login, password);
-
-			saveOsiamLogin(database, login, Integer.parseInt(event.get("id").toString()), Integer.parseInt(id.toString()));
+		if(this.osiamIsAvailable()) {
+			Database database = new DatabaseVeraWeb(ctx);
+			AccessToken accessToken = connector.retrieveAccessToken(Scope.ALL);
+			List selectdelegation = (List) ctx.sessionAsObject("addguest-selectdelegation");
+			Map event = (Map)ctx.getContextField("event");
+	
+			for (Object id : selectdelegation) {
+	            ResultSet result = getPersons(database, id);
+	            String companyName = getCompanyName(result);
+	            String login = this.generateUsername();
+	            String password = generatePassword(event, companyName);
+	
+	            createOsiamUser(accessToken, login, password);
+	
+				saveOsiamLogin(database, login, Integer.parseInt(event.get("id").toString()), Integer.parseInt(id.toString()));
+			}
 		}
+	}
+	
+	public boolean osiamIsAvailable() {
+		return (this.properties == null) ? false : true;
 	}
 
     private void createOsiamUser(AccessToken accessToken, String login, String password) {
