@@ -100,7 +100,7 @@
         						<legend>Zusätzliche Felder</legend>
         						<div class="table inlineLabel">
         							<div class="tableRow">
-        								<div class="tableCell"><input type="checkbox" name="personListState" id="personListState" value="true" #if($userConfig.personListState) checked #end> <label for="guestListFunction">&nbsp;Bundesland</label></div>
+        								<div class="tableCell"><input type="checkbox" name="personListState" id="personListState" value="true" #if($userConfig.personListState) checked #end> <label for="personListState">&nbsp;Bundesland</label></div>
         							</div>
         						</div>
         					</fieldset>		
