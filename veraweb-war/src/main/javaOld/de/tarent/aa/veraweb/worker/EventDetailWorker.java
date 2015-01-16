@@ -92,10 +92,15 @@ public class EventDetailWorker {
 
     private void setUrlForMediaRepresentatives(OctopusContext cntx, Event event) throws IOException {
         PropertiesReader propertiesReader = new PropertiesReader();
-        Properties properties = propertiesReader.getProperties();
-        URLGenerator url = new URLGenerator(properties);
-        url.getURLForMediaRepresentatives();
-        cntx.setContent("pressevertreterUrl", url.getURLForMediaRepresentatives() + event.mediarepresentatives);
+        
+        if(propertiesReader.propertiesAreAvailable()) {
+	        Properties properties = propertiesReader.getProperties();
+	        URLGenerator url = new URLGenerator(properties);
+	        url.getURLForMediaRepresentatives();
+	        cntx.setContent("pressevertreterUrl", url.getURLForMediaRepresentatives() + event.mediarepresentatives);
+        } else {
+	        cntx.setContent("pressevertreterUrl", "Nicht verf&uuml;gbar");
+        }
     }
 
     /** Eingabe-Parameter der Octopus-Aktion {@link #saveDetail(OctopusContext, Boolean)} */

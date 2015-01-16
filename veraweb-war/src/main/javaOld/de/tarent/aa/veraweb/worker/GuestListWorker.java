@@ -25,6 +25,7 @@ import de.tarent.aa.veraweb.beans.GuestSearch;
 import de.tarent.aa.veraweb.beans.Person;
 import de.tarent.aa.veraweb.beans.facade.EventConstants;
 import de.tarent.aa.veraweb.utils.DatabaseHelper;
+import de.tarent.aa.veraweb.utils.PropertiesReader;
 import de.tarent.dblayer.engine.DB;
 import de.tarent.dblayer.helper.ResultList;
 import de.tarent.dblayer.helper.ResultMap;
@@ -518,6 +519,12 @@ public class GuestListWorker extends ListWorkerVeraWeb {
      * @throws BeanException
      */
     public GuestSearch getSearch(OctopusContext cntx) throws BeanException {
+    	PropertiesReader propertiesReader = new PropertiesReader();
+        
+        if(propertiesReader.propertiesAreAvailable()) {
+	        cntx.setContent("delegationCanBeUsed", true);
+        }
+        
         if (cntx.contentContains("search") && cntx.contentAsObject("search") instanceof GuestSearch) {
             return (GuestSearch) cntx.contentAsObject("search");
         }
