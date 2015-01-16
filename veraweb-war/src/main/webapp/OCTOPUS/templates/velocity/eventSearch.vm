@@ -59,6 +59,11 @@
 											ifFormat       :    "%d.%m.%Y",
 											showsTime      :    false
 										});
+										var input = $('input[name=begin]');
+										var span = $('span#show-begin');
+										input.focus(function () {
+											span.trigger('click');
+										});
 									</script>
 								</div>					
 							</div>
