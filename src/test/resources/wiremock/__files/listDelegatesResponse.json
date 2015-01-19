@@ -1,4 +1,5 @@
-[{"pk":"1", "isCompany":"f", "firstname_a_e1":"Max"},
+[
+  {"pk":"1", "isCompany":"f", "firstname_a_e1":"Max"},
   {"pk":"2", "isCompany":"f", "firstname_a_e1":"Klaus"},
-  {"pk":"1", "isCompany":"t", "company_a_e1":"MyCompany GmbH"}
+  {"pk":"3", "isCompany":"t", "company_a_e1":"MyCompany GmbH"}
 ]
