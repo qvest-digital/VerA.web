@@ -51,5 +51,13 @@ public class DelegationResourceTest extends AbstractResourceTest<DelegationResou
     public void testGetFields() {
         List<OptionalFieldValue> fields = resource.getFieldsFromEvent(1, 1);
         assertEquals(3, fields.size());
+        assertEquals("Label 1", fields.get(0).getLabel());
+        assertEquals(1, fields.get(1).getFk_event());
+    }
+
+    @Test
+    public void testGetLabelId() {
+        Integer labelId = resource.getLabelIdfromEventAndLabel(1, "Label 1");
+        assertEquals(new Integer(1), labelId);
     }
 }
