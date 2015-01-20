@@ -1,8 +1,10 @@
 package org.evolvis.veraweb.onlinereg;
 
 
+
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.filter.HTTPBasicAuthFilter;
+
 
 import io.dropwizard.Application;
 import io.dropwizard.assets.AssetsBundle;
@@ -42,6 +44,7 @@ public class Main extends Application<Config> {
     private DelegationResource delegationResource;
     private MediaResource mediaResource;
     private Health health;
+    
 
     @Override
     public void initialize(final Bootstrap<Config> bootstrap) {
@@ -59,13 +62,13 @@ public class Main extends Application<Config> {
         jcc.setTimeout(Duration.milliseconds(5000));
         jcc.setGzipEnabled(false);
 
-
         final Client client = new JerseyClientBuilder(environment)
                 .using(jcc)
                 .build("jerseyClient");
         
-        client.addFilter(new HTTPBasicAuthFilter("hallo","hallo"));
-
+        client.addFilter(
+        		new HTTPBasicAuthFilter(configuration.getRestauth().getUsername(),configuration.getRestauth().getPassword()));
+        
         environment.jersey().setUrlPattern("/api/*");
 
         environment.healthChecks().register("veraweb availability", health = new Health(client, configuration.getVerawebEndpoint()));

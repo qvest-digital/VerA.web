@@ -5,6 +5,10 @@ osiam:
   endpoint: https://veraweb.lan.tarent.de
   clientId: online-reg
   clientSecret: secret
+  
+restauth:
+  username: hallo
+  password: hallo
 
 ## start WireMock:
 # cd src/test/resources/wiremock
