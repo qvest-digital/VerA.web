@@ -540,6 +540,7 @@ nav a, #nav a {
 
 #content_container {
     padding-bottom: 40px;
+    overflow: auto;
 }
 
 .contentBox, 
