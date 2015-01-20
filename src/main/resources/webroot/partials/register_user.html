@@ -1,140 +1,81 @@
-<script>
-    $(document).ready(function () {
-        $('#myForm').bootstrapValidator({
-            fields: {
-                osiam_firstname: {
-                    validators: {
-                        notEmpty: {
-                            message: 'Bitte füllen Sie dieses Feld aus.'
-                        },
-                        regexp: {
-                            regexp: /^[a-z\s]+$/i,
-                            message: 'Bitte geben Sie in dieses Feld nur Buchstaben und Leerzeichen ein.',
-                            valid: false
-                        }
-                    }
-                },
-                osiam_secondname: {
-                    validators: {
-                        notEmpty: {
-                            message: 'Bitte füllen Sie dieses Feld aus.'
-                        },
-                        regexp: {
-                            regexp: /^[a-z\s]+$/i,
-                            message: 'Bitte geben Sie in dieses Feld nur Buchstaben und Leerzeichen ein.'
-                        }
-                    }
-                },
-                osiam_username: {
-                    validators: {
-                        notEmpty: {
-                            message: 'Bitte füllen Sie dieses Feld aus.'
-                        },
-                        regexp: {
-                            regexp: /^[0-9a-z]*$/i,
-                            message: 'Bitte geben Sie in dieses Feld nur Buchstaben und Zahlen ein.'
-                        }
-                    }
-                },
-                osiam_password1: {
-                    validators: {
-                        notEmpty: {
-                            message: 'Bitte füllen Sie dieses Feld aus.'
-                        },
-                        callback: {
-                            message: 'The password is not valid',
-                            callback: function (value, validator, $field) {
-
-                                // Check the password strength
-                                if (value.length < 5) {
-                                    return {
-                                        valid: false,
-                                        message: 'Das Passwort muss mindestens 5 Zeichen lang sein.'
-                                    }
-                                } else {
-                                    return {valid: true}
-                                }
-                            }
-                        },
-                        identical: {
-                            field: 'osiam_password2',
-                            message: 'Die Passwörter stimmen nicht überein.'
-                        }
-                    }
-                },
-                osiam_password2: {
-                    validators: {
-                        notEmpty: {
-                            message: 'Bitte füllen Sie dieses Feld aus.'
-                        },
-                        identical: {
-                            field: 'osiam_password1',
-                            message: 'Die Passwörter stimmen nicht überein.'
-                        }
-                    }
-                }
-            }
-        });
-    });
-</script>
-
 <div class="container panel panel-body">
-    <form class="form-horizontal" role="form" id="myForm">
+    <form class="form-horizontal" role="form" ng-submit="register(registerForm.$valid)" name="registerForm" novalidate>
         <h2 class="form-signin-heading">Registrieren</h2>
 
-        <div ng-if="success" class="alert alert-success" role="alert">{{success}}</div>
-        <div ng-if="error" class="alert alert-danger" role="alert">{{error}}</div>
+		<div ng-show="status == 1" class="alert alert-success" role="alert">Benutzerdaten wurden gespeichert.</div>
+		<div ng-show="status == 'e'" class="alert alert-danger" role="alert">Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.</div>
+		<div ng-show="status == 'e1'" class="alert alert-danger" role="alert">Ein Benutzer mit diesem Benutzernamen existiert bereits.</div>
+		<div ng-show="status == 'e2'" class="alert alert-danger" role="alert">Der Benutzername darf nur Buchstaben und Zahlen enthalten.</div>
+		<div ng-show="status == 'e1'" class="alert alert-danger" role="alert">Ein Benutzer mit diesem Benutzernamen existiert bereits.</div>
 
-        <div class="form-group">
-            <label for="osiam_firstname" class="col-lg-4 control-label">Vorname</label>
+		<div class="form-group" ng-class="registerForm.firstName.$valid ? 'has-success' : 'has-error'">
+			<label class="col-lg-4 control-label" for="firstName">Vorname</label>
+			<div class="col-lg-3">
+				<input class="form-control" type="text" ng-model="osiam.firstName" name="firstName" required=""/>
+			
+				<div ng-show="registerForm.$submitted || registerForm.firstName.$touched">
+					<div class="help-block" ng-show="registerForm.firstName.$error.required">Bitte füllen Sie dieses Feld aus.</div>
+				</div>
+			</div>
+		</div>
 
-            <div class="col-lg-3">
-                <input id="osiam_firstname" name="osiam_firstname" type="text" class="form-control"
-                       ng-model="osiam_firstname"/>
-            </div>
-        </div>
 
-        <div class="form-group">
-            <label for="osiam_secondname" class="col-lg-4 control-label">Nachname</label>
+		<div class="form-group" ng-class="registerForm.lastName.$valid ? 'has-success' : 'has-error'">
+			<label class="col-lg-4 control-label" for="lastName">Nachname</label>
+			<div class="col-lg-3">
+				<input class="form-control" type="text" ng-model="osiam.lastName" name="lastName" required=""/>
+				
+				<div ng-show="registerForm.$submitted || registerForm.lastName.$touched">
+					<div class="help-block" ng-show="registerForm.lastName.$error.required">Bitte füllen Sie dieses Feld aus.</div>
+				</div>
+			</div>
+		</div>
 
-            <div class="col-lg-3">
-                <input id="osiam_secondname" name="osiam_secondname" type="text" class="form-control"
-                       ng-model="osiam_secondname"/>
-            </div>
-        </div>
 
-        <div class="form-group">
-            <label for="osiam_username" class="col-lg-4 control-label">Anmeldename</label>
+		<div class="form-group" ng-class="registerForm.userName.$valid ? 'has-success' : 'has-error'">
+			<label class="col-lg-4 control-label" for="userName">Anmeldename</label>
+			<div class="col-lg-3">
+				<input class="form-control" type="text" ng-model="osiam.userName" name="userName" required=""/>
 
-            <div class="col-lg-3">
-                <input id="osiam_username" name="osiam_username" type="text" class="form-control" type="number"
-                       ng-model="osiam_username"/>
-            </div>
-        </div>
+				<div ng-show="registerForm.$submitted || registerForm.userName.$touched">
+					<div class="help-block" ng-show="registerForm.userName.$error.required">Bitte füllen Sie dieses Feld aus.</div>
+				</div>
+			</div>
+		</div>
+ 
+ 
+ 		<hr>
+ 		<div class="form-group" ng-class="registerForm.password.$valid ? 'has-success' : 'has-error'">
+ 		
+			<label class="col-lg-4 control-label" for="password">Passwort</label>
+			<div class="col-lg-3">
+				<input class="form-control" type="password" ng-model="osiam.password" name="password" required=""/>
 
-        <div class="form-group">
-            <label for="osiam_password1" class="col-lg-4 control-label" id="inputPassword">Passwort</label>
+				<div ng-show="registerForm.$submitted || registerForm.password.$touched">
+					<div class="help-block" ng-show="registerForm.password.$error.required">Bitte füllen Sie dieses Feld aus.</div>
+				</div>
+			</div>
+		</div>
 
-            <div class="col-lg-3">
-                <input id="osiam_password1" name="osiam_password1" type="password" class="form-control"
-                       ng-model="osiam_password1"/>
-            </div>
-        </div>
 
-        <div class="form-group">
-            <label for="osiam_password2" ng-model="confirmed" class="col-lg-4 control-label">Passwort wiederholen</label>
-
-            <div class="col-lg-3">
-                <input id="osiam_password2" name="osiam_password2" type="password" class="form-control" ng-model="osiam_password2" ng-change="changed()"/>
-            </div>
-        </div>
+		<div class="form-group" ng-class="registerForm.passwordRep.$valid ? 'has-success' : 'has-error'">
+			<label class="col-lg-4 control-label" for="passwordRep">Passwort wiederholen</label>
+			<div class="col-lg-3">
+				<input class="form-control" type="password" ng-model="osiam.passwordRep" name="passwordRep" equals="{{osiam.password}}" required=""/>
+				
+				<div ng-show="registerForm.$submitted || registerForm.passwordRep.$touched">
+					<div class="help-block" ng-show="registerForm.passwordRep.$error.required">Bitte füllen Sie dieses Feld aus.</div>
+					<div class="help-block" ng-show="registerForm.passwordRep.$error.equals">Die Passwörter stimmen nicht überein.</div>
+				</div>
+			</div>
+		</div>
 
         <div class="form-group">
             <div class="col-lg-3 col-lg-offset-4">
-                <button ng-disabled="button" id="bid" class="btn btn-lg btn-primary btn-block btn-custom" ng-click="register_user()">
+                <button type="submit" class="btn btn-lg btn-primary btn-block btn-custom">
                     Registrieren
                 </button>
             </div>
-        </div>
+        </div> 
     </form>
 </div>
