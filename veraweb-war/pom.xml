@@ -161,15 +161,6 @@
 				</configuration>
 			</plugin>
 
-			<plugin>
-				<artifactId>maven-eclipse-plugin</artifactId>
-
-				<configuration>
-					<downloadSources>true</downloadSources>
-					<downloadJavadocs>true</downloadJavadocs>
-				</configuration>
-			</plugin>
-
 			<!-- Add second source folder to distinguish new code from legacy code in sonar. -->
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
