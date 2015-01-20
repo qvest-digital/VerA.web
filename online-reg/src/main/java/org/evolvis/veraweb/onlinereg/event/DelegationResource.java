@@ -14,7 +14,6 @@ import org.evolvis.veraweb.onlinereg.entities.Delegation;
 import org.evolvis.veraweb.onlinereg.entities.Guest;
 import org.evolvis.veraweb.onlinereg.entities.OptionalFieldValue;
 import org.evolvis.veraweb.onlinereg.entities.Person;
-import org.evolvis.veraweb.onlinereg.entities.PersonDoctype;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -215,23 +214,24 @@ public class DelegationResource {
 
     private String handleDelegationFound(String uuid, String nachname, String vorname, String gender)
             throws IOException {
-        // Assing person to event as guest
-        final Guest guest = getEventIdFromUuid(uuid);
-        Person company = getCompanyFromUuid(uuid);
+
+        final Integer eventId = getEventId(uuid);
+        final Person company = getCompanyFromUuid(uuid);
 
         // Store in tperson
-        final Integer personId = createPerson(company.getCompany_a_e1(), guest.getFk_event(), nachname, vorname, gender);
+        final Integer personId = createPerson(company.getCompany_a_e1(), eventId, nachname, vorname, gender);
 
-        if (guest==null) {
+        if (eventId == null) {
             return "NO_EVENT_DATA";
         }
-        addGuestToEvent(uuid, String.valueOf(guest.getFk_event()), String.valueOf(personId), gender, nachname, vorname);
+        addGuestToEvent(uuid, String.valueOf(eventId), String.valueOf(personId), gender, nachname, vorname);
 
         return "OK";
     }
 
-    private Guest getEventIdFromUuid(String uuid) throws IOException {
-		return readResource(path("guest", uuid), GUEST);
+    private Integer getEventId(String uuid) throws IOException {
+        final Guest guest = readResource(path("guest", uuid), GUEST);
+        return guest.getFk_event();
 	}
 
     private Guest getEventIdFromUuid(String uuid, Integer personId) throws IOException {
@@ -296,7 +296,7 @@ public class DelegationResource {
         	 .queryParam("gender", gender)
         	 .queryParam("category", "0");
 
-        Guest guest = resource.post(Guest.class);
+        final Guest guest = resource.post(Guest.class);
         
         createGuestDoctype(guest.getPk(), firstName, lastName);
 	}
