@@ -55,11 +55,11 @@
 	                #foreach( $field in $delegationFieldsLabels.entrySet() )
 			            <li>
 			                <input type="text" name="optionalField-$field.key" value="$field.value">
-							<!--<input type="button" class="remove_field" value="-">-->
+							<input type="button" class="remove_field" value="-">
 			            </li>
 	                #end
 				</ol>
-				<!--<input type="button" id="addDelegation" class="mainButton" value="Feld hinzuf&uuml;gen"><br>-->
+				<input type="button" id="addDelegation" class="mainButton" value="Feld hinzuf&uuml;gen"><br>
             </div>
         </div>
 
@@ -93,7 +93,7 @@
 		$(wrapper).append('' +
 	            '<li>' +
 	            '   <input type="text" name="optionalField"/>' +
-	           // '   <input type="button" class="remove_field" value="-">' +
+	            '   <input type="button" class="remove_field" value="-">' +
 	            '</li>');
 	}
 	
@@ -121,9 +121,10 @@
 	    });
 	}
 
-$(document).ready(function() {
-	initXOptionalFields(15);
-});
+	$(document).ready(function() {
+		//initXOptionalFields(15);
+		handelOpionalFields();
+	});
 
 function submitForm() {
 	var msg = '<br><span class="notBold">Wenn Sie Ihre Auswahl anpassen wollen, brechen Sie bitte das L&ouml;schen ab.</span><br>';

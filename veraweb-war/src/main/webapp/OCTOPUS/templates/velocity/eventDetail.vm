@@ -108,7 +108,7 @@
                                 </div>
 
                                 <div class="tableCell width50 inlineLabel">
-                                    <label for="event-open">Offene Veranstaltung</label>
+                                    <label for="event-eventtype">Offene Veranstaltung</label>
                                     <!-- DEBUG $event.eventtype -->
                                     <input type="checkbox"  onchange="setModified();" class="noFloat" id="event-eventtype" name="event-eventtype"
                                         #if($event && $event.eventtype != "")
@@ -142,7 +142,7 @@
 	                								});
 	                							</script>
 	                						#end
-	                					 um <input type="text" name="event-begintime" id="event-begintime" #if($event-beginhastime) value="$!message.date("TIME", $event.begin)" #else value="" #end class="width15" onchange="setModified();"> Uhr 								
+	                					 um <input type="text" name="event-begintime" id="event-begintime" #if($event-beginhastime) value="$!message.date("TIME", $event.begin)" #else value="" #end class="width15" onchange="setModified();"> <label class="inline" for="event-begintime">Uhr</label> 								
 									</div>		
 									
 									<label for="event-end">Ende</label>
@@ -161,7 +161,7 @@
                     								});
                     							</script>
                     						#end
-                    					 um <input type="text" name="event-endtime" id="event-endtime" #if($event-endhastime) value="$!message.date("TIME", $event.end)" #else value="" #end class="width15" onchange="setModified();">Uhr 
+                    					 um <input type="text" name="event-endtime" id="event-endtime" #if($event-endhastime) value="$!message.date("TIME", $event.end)" #else value="" #end class="width15" onchange="setModified();"> <label class="inline" for="event-endtime">Uhr</label>  
                     				</div>							
 								</div>
 							</div>
@@ -277,7 +277,7 @@
                                 </div>
 
                                 <div class="tableCell width50 inlineLabel">
-                                    <label for="event-open">Anmeldung von Pressevertretern möglich</label>
+                                    <label for="event-mediarepresentatives">Anmeldung von Pressevertretern möglich</label>
                                 	<!-- DEBUG $event.mediarepresentatives -->
                                     <input type="checkbox"  onchange="setModified();" class="noFloat" id="event-mediarepresentatives" name="event-mediarepresentatives"
                                         #if($event && $event.mediarepresentatives)

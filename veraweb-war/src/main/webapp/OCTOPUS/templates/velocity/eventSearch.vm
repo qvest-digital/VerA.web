@@ -44,7 +44,7 @@
 					<div class="table width100">
 						<div class="tableRow">
 							<div class="tableCell width30">
-								<label for="shortname">Kurzbezeichnung</label>
+								<label for="input.shortname">Kurzbezeichnung</label>
 								<input type="text" name="shortname" id="input.shortname" value="">					
 							</div>
 							<div class="tableCell width30">
