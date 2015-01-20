@@ -6,6 +6,10 @@ osiam:
   clientId: online-reg
   clientSecret: secret
 
+restauth:
+  username: veraweb
+  password: veraweb
+
 ## start WireMock:
 # cd src/test/resources/wiremock
 # java -jar /path/to/wirekmock.jar --port 9090
