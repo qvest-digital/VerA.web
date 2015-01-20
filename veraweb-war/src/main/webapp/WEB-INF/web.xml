@@ -105,7 +105,7 @@
 		<!--
 			Parameter zum Weiterleiten an eine Octopus Instanz:
 			Wenn der Octopus in der gleichen Webanwendung liegt,
-			am Besten auskommeniert lassen,
+			am Besten auskommentiert lassen,
 			damit die Defaults (/<aktuellesModul>/octopus) verwendet werden.
 			<init-param>
 			<param-name>targetContext</param-name>
