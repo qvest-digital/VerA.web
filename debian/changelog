@@ -1,3 +1,9 @@
+veraweb (1.4.3.1-1) veraweb-stable; urgency=medium
+
+  * [#5786] Ignore HTTP Auth info from Apache in favour of our own login
+
+ -- Thorsten Glaser <t.glaser@tarent.de>  Tue, 20 Jan 2015 19:29:05 +0100
+
 veraweb (1.4.3.0-0) veraweb-stable; urgency=low
 
   [ Marc Radel ]
