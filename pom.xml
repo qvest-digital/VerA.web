@@ -28,7 +28,12 @@
 
 	<description>octopus application framework, base library</description>
 
-	<licenses>MIT</licenses>
+	<licenses>
+		<license>
+			<name>MIT</name>
+			<url>http://opensource.org/licenses/MIT</url>
+		</license>
+	</licenses>
 
 	<!--
 		The version of the project under development, e.g.
