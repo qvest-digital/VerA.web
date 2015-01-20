@@ -41,6 +41,10 @@
 	-->
 	<version>1.6.2verawebpl0-SNAPSHOT</version>
 
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
 	<!-- Information required to build the project. -->
 	<build>
 		<sourceDirectory>src/main/java</sourceDirectory>
