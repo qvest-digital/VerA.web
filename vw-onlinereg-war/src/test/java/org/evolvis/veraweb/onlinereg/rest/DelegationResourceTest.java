@@ -1,6 +1,7 @@
 package org.evolvis.veraweb.onlinereg.rest;
 
 import org.evolvis.veraweb.onlinereg.AbstractResourceTest;
+import org.evolvis.veraweb.onlinereg.entities.Delegation;
 import org.evolvis.veraweb.onlinereg.entities.Event;
 import org.evolvis.veraweb.onlinereg.entities.OptionalField;
 import org.evolvis.veraweb.onlinereg.entities.OptionalFieldValue;
@@ -11,6 +12,7 @@ import org.junit.Test;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 /**
  * Created by aalexa on 20.01.15.
@@ -59,5 +61,11 @@ public class DelegationResourceTest extends AbstractResourceTest<DelegationResou
     public void testGetLabelId() {
         Integer labelId = resource.getLabelIdfromEventAndLabel(1, "Label 1");
         assertEquals(new Integer(1), labelId);
+    }
+
+    @Test
+    public void testSaveField() {
+        Delegation delegation = resource.saveOptionalField(1, 1, "Value Field 2");
+        assertNotNull(delegation);
     }
 }
