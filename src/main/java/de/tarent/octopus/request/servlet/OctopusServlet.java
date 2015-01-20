@@ -352,7 +352,7 @@ public class OctopusServlet extends HttpServlet {
             requests = HttpHelper.readXmlRpcRequests(request, requestType, requestID);
         else 
             return null;
-        HttpHelper.addHttpMetaData(requests, request, requestID);
+        HttpHelper.addHttpMetaDataEx(requests, request, requestID, env);
         return requests;
     }
 

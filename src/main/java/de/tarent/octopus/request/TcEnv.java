@@ -371,6 +371,7 @@ public class TcEnv extends HashMap {
         Der gesamte key setzt sich zusammen aus: KEY_MODULE_CONFIGFILE_LOCATION_PREFIX + modulname */
     public final static String KEY_MODULE_CONFIGFILE_LOCATION_PREFIX = "moduleConfig.";
     public final static String KEY_OMIT_SESSIONS = "omitSessions";
+    public final static String KEY_OMIT_HTTPAUTH = "omitHttpAuth";
     public final static String KEY_PATHS_LOGFILE = "paths.logfile";
     public final static String KEY_PATHS_ROOT = "paths.root";
     public final static String KEY_LOGGING_BASELOGGER = "logging.baseLogger";

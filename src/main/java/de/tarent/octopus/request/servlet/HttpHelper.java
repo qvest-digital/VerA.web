@@ -48,6 +48,7 @@ import org.apache.commons.logging.Log;
 import org.apache.xmlrpc.Base64;
 
 import de.tarent.octopus.logging.LogFactory;
+import de.tarent.octopus.request.TcEnv;
 import de.tarent.octopus.request.TcRequest;
 import de.tarent.octopus.resource.Resources;
 import de.tarent.octopus.soap.TcSOAPEngine;
@@ -160,11 +161,12 @@ public class HttpHelper {
      * @param requests zu erweiternde Octopus-Requests
      * @param request HttpServletRequest, dessen Metadaten benutzt werden sollen.
      */
-    public static void addHttpMetaData(TcRequest[] requests, HttpServletRequest request, String requestID) {
+    public static void addHttpMetaDataEx(TcRequest[] requests, HttpServletRequest request, String requestID, TcEnv env) {
         // Headerfeld 'Accept-Language' als Locale eintragen
         Locale localeValue = getHttpLanguage(request.getHeader("Accept-Language"));
         // Basic-Authentisierung oder RemoteUser eintragen
         PasswordAuthentication pwdAuth = getPasswordAuthentication(requestID, request);
+        boolean skipPwdAuth = (env == null) ? false : env.getValueAsBoolean(TcEnv.KEY_OMIT_HTTPAUTH);
         // Cookie-Support ermitteln
         boolean supportCookies = request.getCookies() != null;
         // PathInfo eintragen, ggfs Modul und Task ableiten
@@ -197,7 +199,7 @@ public class HttpHelper {
         // in allen Requests passend setzen
         for (int i = 0; i < requests.length; i++) {
             requests[i].setParam(TcRequest.PARAM_LOCALE, localeValue);
-            if (requests[i].getPasswordAuthentication() == null)
+            if ((requests[i].getPasswordAuthentication() == null) && !skipPwdAuth)
                 requests[i].setPasswordAuthentication(pwdAuth);
             requests[i].setSupportCookies(supportCookies);
             // adding Cookies to request
@@ -217,6 +219,10 @@ public class HttpHelper {
             if (requests[i].getTask() == null)
                 requests[i].setTask(task);
         }
+    }
+
+    public static void addHttpMetaData(TcRequest[] requests, HttpServletRequest request, String requestID) {
+        addHttpMetaDataEx(requests, request, requestID, null);
     }
 
     /**
