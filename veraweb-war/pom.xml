@@ -5,7 +5,7 @@
 	<groupId>org.evolvis.veraweb</groupId>
 	<artifactId>veraweb-war</artifactId>
 	<packaging>war</packaging>
-	<version>1.5.0.0</version>
+	<version>1.4.3.1-SNAPSHOT</version>
 
 	<name>veraweb-evolvis-war</name>
 	<description>Veranstaltungsmanagment VerA.web</description>
@@ -41,15 +41,8 @@
 	</organization>
 
 	<scm>
-		<connection>
-			scm:svn:svn://evolvis.org/svnroot/veraweb/tags/1.4.3.0-0/veraweb-war
-		</connection>
-		<developerConnection>
-			scm:svn:svn+ssh://maven@evolvis.org/svnroot/veraweb/tags/1.4.3.0-0/veraweb-war
-		</developerConnection>
-		<url>
-			https://evolvis.org/scm/viewvc.php/tags/1.4.3.0-0?root=veraweb
-		</url>
+                <developerConnection>scm:git:ssh://maven@evolvis.org/scmrepos/git/veraweb/veraweb.git</developerConnection>
+		<url>https://evolvis.org/plugins/scmgit/cgi-bin/gitweb.cgi?p=veraweb/veraweb.git</url>
 	</scm>
 
 	<repositories>
@@ -127,7 +120,7 @@
 								${project.description}
 							</version_description>
 							<version_copyright>
-								Copyright (c) 2005-2013 tarent GmbH
+								Copyright (c) 2005-2015 tarent solutions GmbH
 							</version_copyright>
 							<version_vendor>
 								${project.organization.name}
@@ -176,7 +169,7 @@
 					<downloadJavadocs>true</downloadJavadocs>
 				</configuration>
 			</plugin>
-			
+
 			<!-- Add second source folder to distinguish new code from legacy code in sonar. -->
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
@@ -194,8 +187,8 @@
 						</configuration>
 					</execution>
 				</executions>
-			</plugin>			
-			
+			</plugin>
+
 		</plugins>
 	</build>
 
@@ -300,12 +293,12 @@
 			<version>1.9.5</version>
 			<scope>test</scope>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi</artifactId>
 			<version>3.9</version>
 		</dependency>
-		
+
 	</dependencies>
 </project>
