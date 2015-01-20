@@ -184,21 +184,21 @@
 	<!-- this section is required for deployment -->
 	<distributionManagement>
 		<repository>
-			<id>tarent2-repository</id>
-			<name>tarent Maven2 Repository</name>
-			<url>scp://kassandra.tarent.de/home/maven/repository2/</url>
+			<id>evolvis-release-repository</id>
+			<name>evolvis.org release repository-ASDASD</name>
+			<url>scpexe://maven-repo.evolvis.org/var/www/maven_repo/releases</url>
 		</repository>
 		<snapshotRepository>
-			<id>tarent2-repository</id>
-			<name>tarent Maven2 Repository</name>
-			<url>scp://kassandra.tarent.de/home/maven/repository2/</url>
+			<id>evolvis-snapshot-repository</id>
+			<name>evolvis.org snapshot repository-ASDASD</name>
+			<url>scpexe://maven-repo.evolvis.org/var/www/maven_repo/snapshots</url>
 		</snapshotRepository>
 		<site>
-			<id>maven-site-projects</id>
-			<url>scp://kassandra.tarent.de/home/maven/projects/octopus</url>
+			<id>evolvis-site-repository</id>
+			<name>evolvis.org site repository</name>
+			<url>scpexe://maven@svn.evolvis.org/site/octopus/htdocs/${project.artifactId}</url>
 		</site>
 	</distributionManagement>
-
         <scm>
                 <connection>scm:cvs:local:/cvs/newcvsroot:octopus/core</connection>
   </scm>
