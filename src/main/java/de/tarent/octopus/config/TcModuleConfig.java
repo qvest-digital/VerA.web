@@ -75,8 +75,8 @@ import de.tarent.octopus.util.Xml;
 
 /**
  * Beinhaltet die Einstellungen zu eimem Module.
- * Ein Module ist eine Sammlung von zusammengehörigen Dateien und Einstellungen.
- * Dies können z.B. ein paar TcContentWorker und ein paar Templates sein, die zusammen eine 
+ * Ein Module ist eine Sammlung von zusammengehÃ¶rigen Dateien und Einstellungen.
+ * Dies kÃ¶nnen z.B. ein paar TcContentWorker und ein paar Templates sein, die zusammen eine 
  * bestimmte Anwendung von tc bilden.
  *
  * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
@@ -117,12 +117,12 @@ public class TcModuleConfig {
     private Preferences configPrefs;
     
     /**
-     * Map mit den Einstellungen für den LoginManager.
+     * Map mit den Einstellungen fÃ¼r den LoginManager.
      */
     protected Map loginManagerParams = new HashMap();
 
     /**
-     * Map mit den verfügbaren Datenquellen.
+     * Map mit den verfÃ¼gbaren Datenquellen.
      * <br>Eine Map, in der unter den Namen der Datenquellen wieder
      * Maps mit String Keys und String Values abgelegt sind.
      */
@@ -135,7 +135,7 @@ public class TcModuleConfig {
     protected Map contentWorkersDeclarations;
 
     /**
-     * Verfügbare Tasks
+     * VerfÃ¼gbare Tasks
      */
     protected TcTaskList taskList;
     protected Definition wsdlDefinition;
@@ -144,7 +144,7 @@ public class TcModuleConfig {
 
     /**
      * Initialisiert diese Config mit einem geparsten Document.
-     * Dieses Document muss der DTD ModuleConfig genügen.
+     * Dieses Document muss der DTD ModuleConfig genÃ¼gen.
      */
     public TcModuleConfig(String name, File realPath, Document document, Preferences preferences) throws DataFormatException {
         this.name = name;
@@ -187,7 +187,7 @@ public class TcModuleConfig {
         NodeList sections = document.getDocumentElement().getChildNodes();
 
         
-        // Auslesen der übrigen Section mit den in der Application angegebenen Namen
+        // Auslesen der Ã¼brigen Section mit den in der Application angegebenen Namen
         for (int i = 0; i < sections.getLength(); i++) {
             Node currNode = sections.item(i);
             
@@ -312,7 +312,7 @@ public class TcModuleConfig {
             } else if ("types".equals(currNode.getNodeName())) {
                 try {
                     // TODO: richtig machen.
-                	// Joh watt dän?
+                	// Joh watt dÃ¤n?
                     Class javaClass = getClassLoader().loadClass("de.tarent.schemas.Groupware_xsd.OptionMapType");
                     QName qname = new QName("http://schemas.tarent.de/Groupware.xsd", "OptionMapType");
                     TypeMappingRegistry reg = TcSOAPEngine.engine.getTypeMappingRegistry();
@@ -321,7 +321,7 @@ public class TcModuleConfig {
                     qname = new QName("http://schemas.tarent.de/Groupware.xsd", "EntryType");
                     reg.getDefaultTypeMapping().register(javaClass, qname, new org.apache.axis.encoding.ser.BeanSerializerFactory(javaClass, qname), new org.apache.axis.encoding.ser.BeanDeserializerFactory(javaClass, qname));
                 } catch (ClassNotFoundException e1) {
-                    logger.error("Typenübergabe", e1);
+                    logger.error("TypenÃ¼bergabe", e1);
                 }
             } else if (currNode instanceof Element) {
                 otherNodes.put(currNode.getNodeName(), currNode);
@@ -360,7 +360,7 @@ public class TcModuleConfig {
         Map declarationMap = new HashMap();
         
         // Es gibt einen Default-Worker, 
-        // der für das Hinzufügen von Parameern in den Content genutzt wird.
+        // der fÃ¼r das HinzufÃ¼gen von Parameern in den Content genutzt wird.
         ContentWorkerDeclaration putParamWorker = new ContentWorkerDeclaration();
         putParamWorker.setWorkerName(Resources.getInstance().get("REQUESTDISPATCHER_CLS_PARAM_WORKER"));
         putParamWorker.setImplementationSource("de.tarent.octopus.content.TcPutParams");
@@ -405,7 +405,7 @@ public class TcModuleConfig {
 
                 declarationMap.put(workerDek.getWorkerName(), workerDek);
             }
-            // Zur Erhaltung der Kompatibilität sind auch <param name="workername" value="Klasse"/> erlaubt.
+            // Zur Erhaltung der KompatibilitÃ¤t sind auch <param name="workername" value="Klasse"/> erlaubt.
             else if (currNode instanceof Element && "param".equals(currNode.getNodeName())) {
                 ContentWorkerDeclaration workerDek = new ContentWorkerDeclaration();
                 Element workerElement = (Element)currNode;                
@@ -431,15 +431,15 @@ public class TcModuleConfig {
     }
     
     /**
-     * Liefert einen voll Qualifizierten Klassennamen zurück.
-     * Wenn 'shortname' keinen Punkt enthält wird er als Kurzname interpretiert,
+     * Liefert einen voll Qualifizierten Klassennamen zurÃ¼ck.
+     * Wenn 'shortname' keinen Punkt enthÃ¤lt wird er als Kurzname interpretiert,
      * und entsprechend expandiert. Sonst wird davon aus gegangen, dass es sich 
      * bereits um einen kompletten Klassennamen handelt.
      * 
      * Methode zur Expansion ist: "de.tarent.octopus.content."+ UK_FIRST_LOWER_REST(shortname) +"WorkerFactory"
      * 
      * @param shortname Ein Kurzname oder bereits ein voll qualifizierter Name
-     * @return Den vollen Klassennamen für shortname, oder shortname, wenn es bereits ein Klassenname ist.
+     * @return Den vollen Klassennamen fÃ¼r shortname, oder shortname, wenn es bereits ein Klassenname ist.
      */
     protected String getExpandedWorkerFactoryName(String shortname) {
         if (shortname.indexOf(".") < 0)
@@ -490,7 +490,7 @@ public class TcModuleConfig {
     }
 
     /**
-     * Liefert die verfügbaren Datenquellen
+     * Liefert die verfÃ¼gbaren Datenquellen
      * 
      * @return Eine Map, in der unter den Namen der Datenquellen wieder
      *         Maps mit String Keys und String Values abgelegt sind.
@@ -535,7 +535,7 @@ public class TcModuleConfig {
      *   ${HOME} => Homeverzeichnis
      *   ${user.home} => Homeverzeichnis
      *   ${module.path} => Modulverzeichnis
-     * unterstützt.
+     * unterstÃ¼tzt.
      */
     public String substituteVars(String value) {
         if (value == null)
@@ -565,9 +565,9 @@ public class TcModuleConfig {
 	}
 	
     /**
-     * Diese Methode überschreibt einen Parameter in den Preferences.  
+     * Diese Methode Ã¼berschreibt einen Parameter in den Preferences.  
      * 
-     * @param key Schlüssel
+     * @param key SchlÃ¼ssel
      * @param value neuer Wert; falls <code>null</code>, so wird der Wert aus den Preferences entfernt.
      */
     public void setParam(String key, String value) {
@@ -644,13 +644,13 @@ public class TcModuleConfig {
     }
 
     /**
-	 * Liefert den ClassLoader für das Modul.
+	 * Liefert den ClassLoader fÃ¼r das Modul.
 	 * 
 	 * @return Modul-ClassLoader.
 	 */
 	public ClassLoader getClassLoader() {
 		if (classLoader == null) {
-			logger.debug("ClassLoader-Erstellung für das Modul '" + getName() + "'.");
+			logger.debug("ClassLoader-Erstellung fÃ¼r das Modul '" + getName() + "'.");
 			
 			Set urlSet = new HashSet();
 			if (getRealPath().exists()) {
@@ -709,7 +709,7 @@ public class TcModuleConfig {
      * 
      * @param subNode relativer Pfad des Unterknotens. Falls <code>null</code>, so wird der
      *  Modul-Basisknoten geliefert.
-     * @return ausgewählter Preferences-Knoten
+     * @return ausgewÃ¤hlter Preferences-Knoten
      */
     public Preferences getPreferences(String subNode) {
         while (subNode != null && subNode.startsWith("/"))
@@ -718,9 +718,9 @@ public class TcModuleConfig {
     }
 
     /**
-     * Diese Methode liefert die Parameter mit Überschreibungen aus den Preferences. 
+     * Diese Methode liefert die Parameter mit Ãœberschreibungen aus den Preferences. 
      * 
-     * @return maniüulierte Modul-Parameter.
+     * @return maniÃ¼ulierte Modul-Parameter.
      */
 	public Map getParams() {
 	    return Collections.unmodifiableMap(configParams);
@@ -737,7 +737,7 @@ public class TcModuleConfig {
     
     /**
      * Diese Methode liefert einen DOM-Knoten in der Konfiguration, der nicht zu
-     * den Standardknoten gehört 
+     * den Standardknoten gehÃ¶rt 
      * 
      * @param nodeName Name des Knotens unter tcModuleConfig.
      * @return bezeichnetes Element, ggfs <code>null</code>.
@@ -759,7 +759,7 @@ public class TcModuleConfig {
     }
 
 	/**
-	 * Diese Methode überschreibt Werte in einer Map mit Werten in einem Preferences-Knoten.
+	 * Diese Methode Ã¼berschreibt Werte in einer Map mit Werten in einem Preferences-Knoten.
 	 */
 	public final static void override(String context, Map map, Preferences preferences) {
         String[] keys;
@@ -783,17 +783,17 @@ public class TcModuleConfig {
 	}
 	
     /**
-     * Diese Methode liefert einen LoginManager für dieses Modul. Liegt hier keine
+     * Diese Methode liefert einen LoginManager fÃ¼r dieses Modul. Liegt hier keine
      * (ausreichende) LoginManager-Konfiguration vor, so wird <code>null</code> geliefert. 
      * 
-     * @return LoginManager für das angegebene Modul
+     * @return LoginManager fÃ¼r das angegebene Modul
      * @see #getLoginManager()
      */
 	public synchronized LoginManager getLoginManager() throws TcSecurityException {
         if (loginManager == null) {
             if (!loginManagerParams.isEmpty()) {
-                logger.debug("Login-Manager-Erstellung für das Modul " + getName());
-                //Modul möchte seine Config selber machen...
+                logger.debug("Login-Manager-Erstellung fÃ¼r das Modul " + getName());
+                //Modul mÃ¶chte seine Config selber machen...
                 String loginManagerClassName = (String) loginManagerParams.get("loginManagerClass");
                 if (loginManagerClassName != null) {
                     logger.debug("Lade LoginManager-Implementierung: " + loginManagerClassName);
@@ -814,7 +814,7 @@ public class TcModuleConfig {
 
     /**
      * Diese Methode erzeug eine neue {@link PersonalConfig}-Instanz. Die verwendete
-     * Klasse kann über den Modul-Parameter {@link #CONFIG_PARAM_PERSONAL_CONFIG_CLASS}
+     * Klasse kann Ã¼ber den Modul-Parameter {@link #CONFIG_PARAM_PERSONAL_CONFIG_CLASS}
      * gesetzt werden, Vorgabe ist {@link TcPersonalConfig}. 
      * 
      * @return eine leere {@link PersonalConfig}-Instanz
@@ -827,22 +827,22 @@ public class TcModuleConfig {
                     String className = getParam(CONFIG_PARAM_PERSONAL_CONFIG_CLASS);
                     Class classClass = className != null ? getClassLoader().loadClass(className) : TcPersonalConfig.class;
                     if (!PersonalConfig.class.isAssignableFrom(classClass)) {
-                        String msg = "Fehler beim Laden des Konstruktors für PersonalConfigs; angegebene Klasse implementiert nicht PersonalConfig.";
+                        String msg = "Fehler beim Laden des Konstruktors fÃ¼r PersonalConfigs; angegebene Klasse implementiert nicht PersonalConfig.";
                         logger.error(msg);
                         throw new TcConfigException(msg);
                     }
                     personalConfigConstructor = classClass.getConstructor(new Class[0]);
                 } catch (Exception e) {
-                    logger.error("Fehler beim Laden des Konstruktors für PersonalConfigs.", e);
-                    throw new TcConfigException("Fehler beim Laden des Konstruktors für PersonalConfigs.", e);
+                    logger.error("Fehler beim Laden des Konstruktors fÃ¼r PersonalConfigs.", e);
+                    throw new TcConfigException("Fehler beim Laden des Konstruktors fÃ¼r PersonalConfigs.", e);
                 }
             }
         }
         try {
             return (PersonalConfig) personalConfigConstructor.newInstance(new Object[0]);
         } catch (Exception e) {
-            logger.error("Fehler beim Ausführen des Konstruktors für PersonalConfigs.", e);
-            throw new TcConfigException("Fehler beim Ausführen des Konstruktors für PersonalConfigs.", e);
+            logger.error("Fehler beim AusfÃ¼hren des Konstruktors fÃ¼r PersonalConfigs.", e);
+            throw new TcConfigException("Fehler beim AusfÃ¼hren des Konstruktors fÃ¼r PersonalConfigs.", e);
         }
     }
 }

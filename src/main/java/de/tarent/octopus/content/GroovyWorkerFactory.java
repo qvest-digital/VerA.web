@@ -41,7 +41,7 @@ import de.tarent.octopus.server.WorkerCreationException;
  */
 public class GroovyWorkerFactory implements SpecialWorkerFactory {
     /**
-     * Läd die als ImplementationSource angegebene Klasse und gibt sie gecastet TcContentWorker zurück.
+     * LÃ¤d die als ImplementationSource angegebene Klasse und gibt sie gecastet TcContentWorker zurÃ¼ck.
      * 
      * @param workerDeclaration Beschreibung zur Instanziierung des Workers.
      */

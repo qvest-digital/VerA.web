@@ -29,7 +29,7 @@ import java.util.Enumeration;
 
 /** 
  * Stellt ein Sessionobjekt dar.
- * Dies soll unabh‰ngig von der verwendeten Umgebung (Web/Lokal) passieren.
+ * Dies soll unabh√§ngig von der verwendeten Umgebung (Web/Lokal) passieren.
  * 
  * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
  */

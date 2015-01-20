@@ -35,26 +35,26 @@ import java.util.List;
  *
  * Jeder Parameter wird durch eine TcMessageDefinitionPart Objekt dar gestellt.
  *
- * Eine Ausführlichere Beschreibung des Contextes ist in TcPortDefinition
+ * Eine AusfÃ¼hrlichere Beschreibung des Contextes ist in TcPortDefinition
  * @see TcPortDefinition
  */
 public class TcMessageDefinition {
     /**
-     * Constante für den Datentyp Scalar.
+     * Constante fÃ¼r den Datentyp Scalar.
      * Ein Scalar ist ein Parameter, der beliebige einteilige Daten aufnehmen kann (z.B. integer, string, float, ...)
      */
     public static final String TYPE_SCALAR = "xsd:string";
 
     /**
-     * Constante für den Datentyp Array mit beliebigen Elementen.
+     * Constante fÃ¼r den Datentyp Array mit beliebigen Elementen.
      * Ein Array ist ein Parameter, der eine Liste von anderen Parametern aufnehmen kann.
      */
     public static final String TYPE_ARRAY = "xsd:array";
 
     /**
-     * Constante für den Datentyp Struct.
+     * Constante fÃ¼r den Datentyp Struct.
      * Ein Struct ist ein Parameter, der eine Map (z.B. wie eine Java Map) aufnehmen kann.
-     * Darin können also andere Parameter mit ihren Namen als Keys abgelegt werden.
+     * Darin kÃ¶nnen also andere Parameter mit ihren Namen als Keys abgelegt werden.
      */
     public static final String TYPE_STRUCT = "tc:struct";
 
@@ -68,7 +68,7 @@ public class TcMessageDefinition {
     }
 
     /**
-     * Erzeugt einen neuen Parameter und fügt diesen an.
+     * Erzeugt einen neuen Parameter und fÃ¼gt diesen an.
      * @param newPart Der neue Parameter
      */
     public TcMessageDefinition addPart(TcMessageDefinitionPart newPart) {
@@ -85,9 +85,9 @@ public class TcMessageDefinition {
     }
 
     /**
-     * Erzeugt einen neuen Parameter und fügt diesen an.
+     * Erzeugt einen neuen Parameter und fÃ¼gt diesen an.
      * @param name Name des Parameters
-     * @param partDataType Datentyp des Parameters als XML-Schema-Type. Die Konstanten der Klassen können und sollen benutzt werden.
+     * @param partDataType Datentyp des Parameters als XML-Schema-Type. Die Konstanten der Klassen kÃ¶nnen und sollen benutzt werden.
      * @param description Beschreibung des Parameters
      * @param optional Flag, ob der Parameter optional sein soll
      */
@@ -97,10 +97,10 @@ public class TcMessageDefinition {
     }
 
     /**
-     * Erzeugt einen neuen Parameter und fügt diesen an.
+     * Erzeugt einen neuen Parameter und fÃ¼gt diesen an.
      * Optional wird auf false gesetzt.
      * @param name Name des Parameters
-     * @param partDataType Datentyp des Parameters als XML-Schema-Type. Die Konstanten der Klassen können und sollen benutzt werden.
+     * @param partDataType Datentyp des Parameters als XML-Schema-Type. Die Konstanten der Klassen kÃ¶nnen und sollen benutzt werden.
      * @param description Beschreibung des Parameters
      */
     public TcMessageDefinition addPart(String name, String partDataType, String description) {
@@ -109,7 +109,7 @@ public class TcMessageDefinition {
     }
 
     /**
-     * Fügt eine Liste von neuen Parametern an.
+     * FÃ¼gt eine Liste von neuen Parametern an.
      * @param addParts Vector mit Elementen vom Type TcMessageDefinitionPart
      */
     public TcMessageDefinition addParts(List addParts) {

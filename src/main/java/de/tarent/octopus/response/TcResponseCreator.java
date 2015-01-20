@@ -42,13 +42,13 @@ import org.apache.commons.logging.Log;
 /** 
  * View Komponente, die die Ausgabe steuert.
  * <br><br>
- * Abhängig von einer TcResponseDescription wird eine
- * Engine gestartet, die für den entsprechenden ResponseType zuständig ist.
- * Dieser ResponseType kann über die TcResponseDescription abgefragt werden.
+ * AbhÃ¤ngig von einer TcResponseDescription wird eine
+ * Engine gestartet, die fÃ¼r den entsprechenden ResponseType zustÃ¤ndig ist.
+ * Dieser ResponseType kann Ã¼ber die TcResponseDescription abgefragt werden.
  *
  * Der Content-Type der Ausgabe wird hier auf 
  *  theContent.get( "responseParams.ContentType" ) oder auf config.getDefaultContentType()
- * gesetzt, kann aber von der benutzten Engine später überschrieben werden.
+ * gesetzt, kann aber von der benutzten Engine spÃ¤ter Ã¼berschrieben werden.
  *
  * <br><br>
  * Bisher gibt es folgende Responsetypen:
@@ -85,11 +85,11 @@ public class TcResponseCreator {
     /**
      * Erstellen der Response.
      * <br><br>
-     * Abhängig vom Rückgabewert der Methode TcResponseDescription.getResponseType() 
-     * wird über Reflaction eine entsprechende Engine geladen und die Ausgabe erzeugt.
+     * AbhÃ¤ngig vom RÃ¼ckgabewert der Methode TcResponseDescription.getResponseType() 
+     * wird Ã¼ber Reflaction eine entsprechende Engine geladen und die Ausgabe erzeugt.
      *
      * @param config Konfiguration
-     * @param tcResponse Ausgabeobjekt, für die Rückgabe an den Client
+     * @param tcResponse Ausgabeobjekt, fÃ¼r die RÃ¼ckgabe an den Client
      * @param theContent Datencontainer mit den Ausgabedaten
      * @param desc Parameter, die die Ausgabeart beeinflussen
      */
@@ -98,7 +98,7 @@ public class TcResponseCreator {
 
         String engineIndex = moduleConfig.getName() + desc.getResponseType();
         TcResponseEngine engine = (TcResponseEngine) responseEngines.get(engineIndex);
-        //falls die benötgte Engine noch nicht bekannt ist, wird versucht sie zu initialisieren.
+        //falls die benÃ¶tgte Engine noch nicht bekannt ist, wird versucht sie zu initialisieren.
         if (engine == null) {
             try {
                 Class clazz =
@@ -161,7 +161,7 @@ public class TcResponseCreator {
             response.addResponseObject(fieldNameOutput, theContent.getAsObject(fieldNameContent));
         } 
         
-        logger.debug("Gebe Daten per DirectCall zurück. Antwort auf Methode");
+        logger.debug("Gebe Daten per DirectCall zurÃ¼ck. Antwort auf Methode");
     }
     
 

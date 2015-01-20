@@ -28,13 +28,13 @@ package de.tarent.octopus.client;
 
 /**
  * Liefert auf Nachfrage die Benutzerdaten, 
- * die z.B. über einen Dialog angefordert werden können.
+ * die z.B. Ã¼ber einen Dialog angefordert werden kÃ¶nnen.
  */
 public interface UserDataProvider {
 
 
     /**
-     * Fordert die Benutzerdaten an (z.B. über einen Login-Dialog);
+     * Fordert die Benutzerdaten an (z.B. Ã¼ber einen Login-Dialog);
      *
      * @param message Nachricht, die einem Benutzer gezeigt werden kann.
      * @param usernamePreselection Vorbelegung des Benutzernamens, darf null sein.

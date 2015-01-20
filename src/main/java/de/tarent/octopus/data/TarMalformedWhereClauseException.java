@@ -27,7 +27,7 @@
 package de.tarent.octopus.data;
 
 /**
- * Für Fehler, die auftreten, wenn ein Baum aus einem ungültigen Postfix Ausdruck aufgebaut werden soll.
+ * FÃ¼r Fehler, die auftreten, wenn ein Baum aus einem ungÃ¼ltigen Postfix Ausdruck aufgebaut werden soll.
  *
  * @see TarWhereClause
  */

@@ -65,7 +65,7 @@ import de.tarent.octopus.request.internal.OctopusInternalStarter;
  * <br><br>
  * 2. Es nimmt Anfragen entgegen und leitet diese an den RequestDispatcher weiter.
  * Dabei muss es unterscheiden, ob diese Anfragen normale WEB- oder SOAP-Anfrgen sind.
- * Beide werden dann in eine unabhängige Repräsentaition gebracht.
+ * Beide werden dann in eine unabhÃ¤ngige ReprÃ¤sentaition gebracht.
  * 
  * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
  */
@@ -78,12 +78,12 @@ public class OctopusServlet extends HttpServlet {
     private TcSOAPEngine soapEngine;
     static Log logger = LogFactory.getLog(OctopusServlet.class);
 
-    // Fehler, der während des Initialisierens auftritt
+    // Fehler, der wÃ¤hrend des Initialisierens auftritt
     private Exception initError = null;
 
 
     /** Name dieser Webapp aus dem ContextPath (==ContextPath ohne '/' am Anfang).
-     *  Wird beim ersten Request oder ueber die Servlet-Konfiguration gesetzt, da er nicht über den Servlet-Context abgerufen werden kann
+     *  Wird beim ersten Request oder ueber die Servlet-Konfiguration gesetzt, da er nicht Ã¼ber den Servlet-Context abgerufen werden kann
      */
     protected String webappContextPathName = null;
 
@@ -93,7 +93,7 @@ public class OctopusServlet extends HttpServlet {
     protected int allowedRequestTypes = 0x00000000;
     
     /**
-     * Inititalisiert die Komponenten, die für alle Aufrufe gleich sind.
+     * Inititalisiert die Komponenten, die fÃ¼r alle Aufrufe gleich sind.
      * <br><br>
     
      *   <li>Env Objekt durch createEnvObject()</li>
@@ -131,7 +131,7 @@ public class OctopusServlet extends HttpServlet {
             octopus = new Octopus();
             octopus.init(env);
             octopus.init(new ServletModuleLookup(getServletContext(), this, octopus.getCommonConfig()));
-            //Octopus für lokale Connections bekannt machen
+            //Octopus fÃ¼r lokale Connections bekannt machen
             OctopusConnectionFactory.getInstance().setInternalOctopusInstance(octopus);
             
         } catch (Exception e) {
@@ -173,13 +173,13 @@ public class OctopusServlet extends HttpServlet {
     }
 
     /**
-     * Startet die Abarbeitung einer Anfrage dadurch, daß diese an den die dispatch() Methode des RequestDispatchers weiter gegeben wird.
+     * Startet die Abarbeitung einer Anfrage dadurch, daÃŸ diese an den die dispatch() Methode des RequestDispatchers weiter gegeben wird.
      * <br><br>
      * Dazu werden ein TcRequest Objekt mit createRequestObject(),
      * <br>ein TcResponse Objekt,
-     * <br>sowie ein TcSession mit der HttpSession initialisiert und an den RequestDispatcher übergeben.
+     * <br>sowie ein TcSession mit der HttpSession initialisiert und an den RequestDispatcher Ã¼bergeben.
      * <br><br>
-     * Wenn der Request den Parameter debug=true enthält und Debugging über den DeploymentDescriptor erlaubt wurde,
+     * Wenn der Request den Parameter debug=true enthÃ¤lt und Debugging Ã¼ber den DeploymentDescriptor erlaubt wurde,
      * werden noch Debugausgaben aus gegeben.
      */
     public void handleTheRequest(HttpServletRequest request, HttpServletResponse response, boolean post) throws IOException {
@@ -302,12 +302,12 @@ public class OctopusServlet extends HttpServlet {
 
                 octopus.dispatch(octRequest, tcResponse, tcSession);
 
-                // Debug Messages wurden seit Octopus 1.2.0 entfernt: Für Debugging bitte Logging-Api verwenden!
+                // Debug Messages wurden seit Octopus 1.2.0 entfernt: FÃ¼r Debugging bitte Logging-Api verwenden!
                 if (octRequest.getParameterAsBoolean(TcRequest.PARAM_DEBUG))
                     tcResponse.sendError(requestType,
                                          octRequest.getRequestID(),
                                          Resources.getInstance().get("REQUEST_UNKNOWN_REQUEST_PARAM", TcRequest.PARAM_DEBUG, 
-                                                                     "Direkte Debug Messages wurden seit Octopus 1.2.0 entfernt: Für Debugging bitte Logging-Api verwenden!"),
+                                                                     "Direkte Debug Messages wurden seit Octopus 1.2.0 entfernt: FÃ¼r Debugging bitte Logging-Api verwenden!"),
                                          null);
             }
         } catch (Exception e) {
@@ -334,9 +334,9 @@ public class OctopusServlet extends HttpServlet {
     }
 
     /**
-     * Diese Methode extrahiert aus einer Http-Anfrage die zugehörigen
+     * Diese Methode extrahiert aus einer Http-Anfrage die zugehÃ¶rigen
      * Octopus-Anfragen.<br>
-     * TODO: genauer testen und ggfs eine Fehlerrückgabe
+     * TODO: genauer testen und ggfs eine FehlerrÃ¼ckgabe
      *  
      * @param request HTTP-Anfrage
      * @param requestType Anfragetyp
@@ -364,15 +364,15 @@ public class OctopusServlet extends HttpServlet {
     /**
      * Erstellt ein TcEnv aus den Konfigurationsparametern Servlets
      * <br><br>Die Informationen aus dem ServletContext werden mit dem prefix 'servletContext.' abgelegt.
-     * <br>Die Parameter aus dem Deployment Descriptor werden so übernommen, wie sie sind und können die
-     * des ServletContextes gegebenenfalls überschreiben.
+     * <br>Die Parameter aus dem Deployment Descriptor werden so Ã¼bernommen, wie sie sind und kÃ¶nnen die
+     * des ServletContextes gegebenenfalls Ã¼berschreiben.
      */
     protected TcEnv createEnvObject() {
         // Env Objekt mit Umgebungsvariablen und Einstellungsparametern
         TcEnv env = new TcEnv();
 
         // Default-Module auf den ContextPath setzen. 
-        // Dies kann an späterer Stelle überschrieben werden.
+        // Dies kann an spÃ¤terer Stelle Ã¼berschrieben werden.
         //env.setValue(TcEnv.KEY_DEFAULT_MODULE, getServletContext().getContextPath());
 
         ServletConfig config = getServletConfig();

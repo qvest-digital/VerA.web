@@ -59,10 +59,10 @@ import de.tarent.octopus.security.TcSecurityException;
  * Bevor etwas ausgegeben werden kann, muss der ContentType gesetzt werden.
  *
  * <br><br>
- * Es mag verwirren, daß die Klasse TcResponse im Package tcRequest ist und nicht im Package tcResponse
- * wo sie dem Namen nach hin gehört. Das macht aber so Sinn, da sie wie auch TcRequestProxy und TcRequest
+ * Es mag verwirren, daÃŸ die Klasse TcResponse im Package tcRequest ist und nicht im Package tcResponse
+ * wo sie dem Namen nach hin gehÃ¶rt. Das macht aber so Sinn, da sie wie auch TcRequestProxy und TcRequest
  * die Schnittstelle zum Client kapselt und somit protokollspezifisches Verhalten hat, vondem in
- * allen anderen Packages völlig abstrahiert wird.
+ * allen anderen Packages vÃ¶llig abstrahiert wird.
  * 
  * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
  */
@@ -96,7 +96,7 @@ public class TcServletResponse implements TcResponse {
     }
 
     /**
-     * Gibt einen Writer für die Ausgabe zurück.
+     * Gibt einen Writer fÃ¼r die Ausgabe zurÃ¼ck.
      * <br><br>
      * Bevor etwas ausgegeben werden kann, muss der ContentType gesetzt werden.
      */
@@ -105,7 +105,7 @@ public class TcServletResponse implements TcResponse {
     }
 
     /**
-     * Setzt den Mime-Type für die Ausgabe.
+     * Setzt den Mime-Type fÃ¼r die Ausgabe.
      * Das muss passiert sein, bevor etwas ausgegeben wurde.
      */
     public void setContentType(String contentType) {
@@ -114,7 +114,7 @@ public class TcServletResponse implements TcResponse {
     }
 
 	/**
-	 * Setzt den Status für die Ausgabe.
+	 * Setzt den Status fÃ¼r die Ausgabe.
 	 * Das muss passiert sein, bevor etwas ausgegeben wurde.
 	 */
 	public void setStatus(int code) {
@@ -196,7 +196,7 @@ public class TcServletResponse implements TcResponse {
     }
 
     /**
-     * Diese Methode schließt die Ausgaben ab. 
+     * Diese Methode schlieÃŸt die Ausgaben ab. 
      */
     public void close() throws IOException {
     	outputStream.close();
@@ -212,12 +212,12 @@ public class TcServletResponse implements TcResponse {
 
 
     /**
-     * Diese Methode gibt eine einfache Fehlermeldung aus. Je nach übergebenen
+     * Diese Methode gibt eine einfache Fehlermeldung aus. Je nach Ã¼bergebenen
      * Typ geschieht dies in HTML- oder in SOAP-Form.
      *  
      * @param responseType Antwortart, vergleiche {@link HttpHelper}.
      * @param requestID die ID der Anfrage
-     * @param header eine Überschrift (nur für HTML benutzt)
+     * @param header eine Ãœberschrift (nur fÃ¼r HTML benutzt)
      * @param e eine Exception
      */
     public void sendError(int responseType, String requestID, String header, Exception e) {
@@ -237,10 +237,10 @@ public class TcServletResponse implements TcResponse {
     }
     
     /**
-     * Diese Methode gibt eine einfache HTML-Fehlermeldung zurück.
+     * Diese Methode gibt eine einfache HTML-Fehlermeldung zurÃ¼ck.
      * 
      * @param requestID die ID der Anfrage
-     * @param header eine Überschrift
+     * @param header eine Ãœberschrift
      * @param e eine Exception
      */
     public void printHtmlError(String requestID, String header, Exception e) {
@@ -263,7 +263,7 @@ public class TcServletResponse implements TcResponse {
     }
 
     /**
-     * Diese Methode gibt eine Ausnahme als SOAP-Fault zurück.
+     * Diese Methode gibt eine Ausnahme als SOAP-Fault zurÃ¼ck.
      * 
      * @param requestID die ID der Anfrage
      * @param e eine Exception
@@ -302,7 +302,7 @@ public class TcServletResponse implements TcResponse {
     }
 
     /**
-     * Diese Methode gibt eine einfache SOAP-Fehlermeldung zurück.
+     * Diese Methode gibt eine einfache SOAP-Fehlermeldung zurÃ¼ck.
      * 
      * @param requestID die ID der Anfrage
      * @param e eine Exception

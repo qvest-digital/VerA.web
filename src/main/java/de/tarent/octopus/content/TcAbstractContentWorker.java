@@ -38,7 +38,7 @@ import de.tarent.octopus.logging.LogFactory;
 import de.tarent.octopus.request.TcRequest;
 
 /** 
- * Worker zur bequemeren Bedienung aller Content-Worker. Ruft automatisch über Reflection
+ * Worker zur bequemeren Bedienung aller Content-Worker. Ruft automatisch Ã¼ber Reflection
  * die mit der Action gleichnamige Mathode auf.
  *
  * @author <a href="mailto:H.Helwich@tarent.de">Hendrik Helwich</a>, <b>tarent GmbH</b>
@@ -67,7 +67,7 @@ public abstract class TcAbstractContentWorker implements TcContentWorker {
             result = RESULT_ok;
         } catch (NoSuchMethodException e) {
             throw new TcContentProzessException(
-                "Nicht unterstützte Action im Worker '" + workerClass.getName() + "': " + actionName);
+                "Nicht unterstÃ¼tzte Action im Worker '" + workerClass.getName() + "': " + actionName);
         } catch (IllegalAccessException e) {
             logger.error("Fehler im Worker '" + workerClass.getName() + "'", e);
             throw new TcContentProzessException(e);

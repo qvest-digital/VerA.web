@@ -29,7 +29,7 @@
 package de.tarent.octopus.util;
 
 /**
- * Utility-Funktionen für den Umgang mit CVS
+ * Utility-Funktionen fÃ¼r den Umgang mit CVS
  * 
  * @author mikel
  */

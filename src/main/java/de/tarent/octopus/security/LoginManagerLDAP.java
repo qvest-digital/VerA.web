@@ -39,7 +39,7 @@ import de.tarent.octopus.security.ldap.TcSecurityLDAPManager;
 import de.tarent.octopus.server.PersonalConfig;
 
 /** 
- * Implementierung eines LoginManagers, über LDAP
+ * Implementierung eines LoginManagers, Ã¼ber LDAP
  * <br><br>
  * 
  * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, <b>tarent GmbH</b>

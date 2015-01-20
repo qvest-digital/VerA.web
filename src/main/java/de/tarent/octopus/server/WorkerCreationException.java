@@ -28,7 +28,7 @@
 package de.tarent.octopus.server;
 
 /** 
- * Exception, für Fehler beim Erstellen einer neuen Worker-Instatnz
+ * Exception, fÃ¼r Fehler beim Erstellen einer neuen Worker-Instatnz
  * 
  * @see de.tarent.octopus.content.TcContentWorker
  * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, <b>tarent GmbH</b>

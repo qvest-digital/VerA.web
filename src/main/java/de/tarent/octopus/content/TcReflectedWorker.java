@@ -60,7 +60,7 @@ abstract public class TcReflectedWorker implements TcContentWorker {
 	private final static Class[] PREPOST_PARAMETER = { TcAll.class, String.class }; 
 	
 	/**
-	 * Sammlung der zur Verfügung stehenden Aktions.
+	 * Sammlung der zur VerfÃ¼gung stehenden Aktions.
 	 * 
 	 * Key = Methodenname
 	 * Value = WorkerAction bzw. TcActionDeclarationException
@@ -106,22 +106,22 @@ abstract public class TcReflectedWorker implements TcContentWorker {
 						paramNames = (String[])field.get(null);
 						paramTypes = method.getParameterTypes();
 						if (paramNames.length + 1 != paramTypes.length || !paramTypes[0].equals(TcAll.class)) {
-							throw new TcActionDeclarationException("Serverfehler: Für die Action '" + method.getName() + "' im Worker '" + getClass().getName() + "' stimmt die Anzahl der Argumente (der Methode, exkl. TcAll) nicht mit dennen des statischen String[] 'INPUT_" + methodname + "' überein.");
+							throw new TcActionDeclarationException("Serverfehler: FÃ¼r die Action '" + method.getName() + "' im Worker '" + getClass().getName() + "' stimmt die Anzahl der Argumente (der Methode, exkl. TcAll) nicht mit dennen des statischen String[] 'INPUT_" + methodname + "' Ã¼berein.");
 						}
 					} catch (NoSuchFieldException e) {
-						throw new TcActionDeclarationException("Serverfehler: Für die Action '" + method.getName() + "' im Worker '" + getClass().getName() + "' muss ein statisches String[] Feld 'INPUT_" + methodname + "' übergeben sein.");
+						throw new TcActionDeclarationException("Serverfehler: FÃ¼r die Action '" + method.getName() + "' im Worker '" + getClass().getName() + "' muss ein statisches String[] Feld 'INPUT_" + methodname + "' Ã¼bergeben sein.");
 					}
 					try {
 						Field field = getClass().getField("MANDATORY_".concat(methodname));
 						mandatory = (boolean[])field.get(null);
 					} catch (NoSuchFieldException e) {
-						throw new TcActionDeclarationException("Serverfehler: Für die Action '" + method.getName() + "' im Worker '" + getClass().getName() + "' muss ein statisches boolean[] Feld 'MANDATORY_" + methodname + "' übergeben sein.");
+						throw new TcActionDeclarationException("Serverfehler: FÃ¼r die Action '" + method.getName() + "' im Worker '" + getClass().getName() + "' muss ein statisches boolean[] Feld 'MANDATORY_" + methodname + "' Ã¼bergeben sein.");
 					}
 					try {
 						Field field = getClass().getField("OUTPUT_".concat(methodname));
 						output = (String)field.get(null);
 					} catch (NoSuchFieldException e) {
-						throw new TcActionDeclarationException("Serverfehler: Für die Action '" + method.getName() + "' im Worker '" + getClass().getName() + "' muss ein statisches String Feld 'OUTPUT_" + methodname + "' übergeben sein.");
+						throw new TcActionDeclarationException("Serverfehler: FÃ¼r die Action '" + method.getName() + "' im Worker '" + getClass().getName() + "' muss ein statisches String Feld 'OUTPUT_" + methodname + "' Ã¼bergeben sein.");
 					}
 					_serviceActions.put(method.getName(), new WorkerAction(method, method.getName(), paramNames, paramTypes, mandatory, output));
 				} catch (TcActionDeclarationException e) {
@@ -142,7 +142,7 @@ abstract public class TcReflectedWorker implements TcContentWorker {
 	}
 	
 	/**
-	 * Führt impl. die Aktion aus.
+	 * FÃ¼hrt impl. die Aktion aus.
 	 * 
 	 * Fehler werden als <code>TcContentProzessException</code>
 	 * an den Octopus weiter gereicht und NICHT geloggt.
@@ -286,14 +286,14 @@ abstract public class TcReflectedWorker implements TcContentWorker {
 					 * 
 					 * - Boolean wird bei null explizit false.
 					 * - Parameter muss wenn 'mandatory' wahr ist angegeben sein.
-					 * - Wenn der Parameter null ist wird null übergeben.
-					 * - Integer, Long und Double können konvertiert werden.
+					 * - Wenn der Parameter null ist wird null Ã¼bergeben.
+					 * - Integer, Long und Double kÃ¶nnen konvertiert werden.
 					 */
 					case TcRequest.REQUEST_TYPE_WEB:
 						if (type.equals(Boolean.class)) {
 							params.add((param != null) ? Boolean.valueOf(param.toString()) : Boolean.FALSE);
 						} else if (_mandatory[i] && param == null) {
-							throw new TcActionInvocationException("Anfragefehler: Der Parameter '" + _paramNames[i] + "' muss übergeben werden. (" + _method.getDeclaringClass().getName() + "#" + _actionName + ")");
+							throw new TcActionInvocationException("Anfragefehler: Der Parameter '" + _paramNames[i] + "' muss Ã¼bergeben werden. (" + _method.getDeclaringClass().getName() + "#" + _actionName + ")");
 						} else if (param == null) {
 							params.add(null);
 						} else if (type.isInstance(param)) {
@@ -303,7 +303,7 @@ abstract public class TcReflectedWorker implements TcContentWorker {
 								params.add(Integer.valueOf(param.toString()));
 							} catch (NumberFormatException e) {
 								if (_mandatory[i]) {
-									throw new TcActionInvocationException("Anfragefehler: Der Parameter '" + _paramNames[i] + "' muss vom Typ '" + type.getName() + "' sein (tatsächlicher Typ: '" + param.getClass().getName() + "', Wert: '" + param.toString() + "'). (" + _method.getDeclaringClass().getName() + "#" + _actionName + ")");
+									throw new TcActionInvocationException("Anfragefehler: Der Parameter '" + _paramNames[i] + "' muss vom Typ '" + type.getName() + "' sein (tatsÃ¤chlicher Typ: '" + param.getClass().getName() + "', Wert: '" + param.toString() + "'). (" + _method.getDeclaringClass().getName() + "#" + _actionName + ")");
 								} else {
 									params.add(null);
 								}
@@ -333,20 +333,20 @@ abstract public class TcReflectedWorker implements TcContentWorker {
 						} else if (type.equals(List.class)) {
 							params.add(Collections.singletonList(param));
 						} else {
-							throw new TcActionInvocationException("Anfragefehler: Der Parameter '" + _paramNames[i] + "' muss vom Typ '" + type.getName() + "' sein (tatsächlicher Typ: '" + param.getClass().getName() + "', Wert: '" + param.toString() + "'). (" + _method.getDeclaringClass().getName() + "#" + _actionName + ")");
+							throw new TcActionInvocationException("Anfragefehler: Der Parameter '" + _paramNames[i] + "' muss vom Typ '" + type.getName() + "' sein (tatsÃ¤chlicher Typ: '" + param.getClass().getName() + "', Wert: '" + param.toString() + "'). (" + _method.getDeclaringClass().getName() + "#" + _actionName + ")");
 						}
 						break;
 					/**
 					 * RequestType 'default'
 					 * 
-					 * - Datentyp und Parametertyp müssen übereinstimmen.
+					 * - Datentyp und Parametertyp mÃ¼ssen Ã¼bereinstimmen.
 					 * - Object-Arrays werden, wenn das Ziel eine Liste ist
 					 *   automatisch umgewandelt (z.B. bei Vectoren)
-					 * - Wenn 'mandatory' nicht wahr ist, kann <code>null</code> übergeben werden.
+					 * - Wenn 'mandatory' nicht wahr ist, kann <code>null</code> Ã¼bergeben werden.
 					 */
 					default:
 						if (_mandatory[i] && param == null) {
-							throw new TcActionInvocationException("Anfragefehler: Der Parameter '" + _paramNames[i] + "' muss übergeben werden. (" + _method.getDeclaringClass().getName() + "#" + _actionName + ")");
+							throw new TcActionInvocationException("Anfragefehler: Der Parameter '" + _paramNames[i] + "' muss Ã¼bergeben werden. (" + _method.getDeclaringClass().getName() + "#" + _actionName + ")");
 						} else if (param == null) {
 							params.add(null);
 						} else if (type.isInstance(param)) {
@@ -354,7 +354,7 @@ abstract public class TcReflectedWorker implements TcContentWorker {
 						} else if (type.equals(List.class) && param instanceof Object[]) {
 							params.add(Arrays.asList((Object[])param));
 						} else {
-							throw new TcActionInvocationException("Anfragefehler: Der Parameter '" + _paramNames[i] + "' muss vom Typ '" + type.getName() + "' sein. (tatsächlicher Typ: '" + param.getClass().getName() + "', Wert: '" + param.toString() + "'). (" + _method.getDeclaringClass().getName() + "#" + _actionName + ")");
+							throw new TcActionInvocationException("Anfragefehler: Der Parameter '" + _paramNames[i] + "' muss vom Typ '" + type.getName() + "' sein. (tatsÃ¤chlicher Typ: '" + param.getClass().getName() + "', Wert: '" + param.toString() + "'). (" + _method.getDeclaringClass().getName() + "#" + _actionName + ")");
 						}
 						break;
 				}
@@ -370,7 +370,7 @@ abstract public class TcReflectedWorker implements TcContentWorker {
 
 
     // Diese Exceptions sollen eigentlich entfernt werden.
-    // Sind aber aus kompatibilitätsgründen zu alten Workern noch drinn.
+    // Sind aber aus kompatibilitÃ¤tsgrÃ¼nden zu alten Workern noch drinn.
     
     /**
      * @depracated Die nicht eingebetteten Varianten dieser Exceptions sollen verwendet werden.

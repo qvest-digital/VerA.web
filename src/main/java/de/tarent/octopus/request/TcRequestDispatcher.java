@@ -57,7 +57,7 @@ import de.tarent.octopus.soap.TcSOAPException;
 import de.tarent.octopus.util.Threads;
 
 /** 
- * Wichtigste Steuerkomponente für den Ablauf und die Abarbeitung einer Anfrage.
+ * Wichtigste Steuerkomponente fÃ¼r den Ablauf und die Abarbeitung einer Anfrage.
  * <br><br>
  * Initialisiert das ganze System mit dem Konstructor
  * und arbeitet eine Anfrage mit dispatch() ab.
@@ -88,21 +88,21 @@ public class TcRequestDispatcher {
      * Abarbeitung einer Anfrage.
      * <ol><b>Ablauf:</b>
      *  <li>Wenn der Request als Task 'login' oder 'logout' hat,
-     *      wird über den SecutityManager versucht, dies zu tun.</li>
-     *  <li>Als nächstes wird kontrolliert, ob der Benutzer eingeloggt ist,
+     *      wird Ã¼ber den SecutityManager versucht, dies zu tun.</li>
+     *  <li>Als nÃ¤chstes wird kontrolliert, ob der Benutzer eingeloggt ist,
      *      gegebenenfalls wird versucht, einen Login zu erzwingen. Wenn dies
      *      der Fall ist wird die Config mit der Personal- und CommonConfig
      *      erstellt.</li>
-     *  <li>Nun wird das Task abgearbeitet. Dazu werden abhängig vom TaskManager,
-     *      der die Tasksteuerung übernimmt, die ActionWorker gestartet, die den
+     *  <li>Nun wird das Task abgearbeitet. Dazu werden abhÃ¤ngig vom TaskManager,
+     *      der die Tasksteuerung Ã¼bernimmt, die ActionWorker gestartet, die den
      *      Content verarbeiten.</li>
-     *  <li>Als letztes wird die Ausgabe über den ResponseCreator erstellt und
+     *  <li>Als letztes wird die Ausgabe Ã¼ber den ResponseCreator erstellt und
      *      ausgegeben. Welche Ausgabe gemacht werden soll, bestimmt der
      *      TaskManager.</li>
      * </ol>
      * 
      * @param tcRequest Anfrageparameter.
-     * @param tcResponse Objekt, das Methoden für die Ausgabe des Ergebnisses
+     * @param tcResponse Objekt, das Methoden fÃ¼r die Ausgabe des Ergebnisses
      *      bereit stellt. Es wird an den ResponseCreator weiter gegeben.
      * @param theSession Sessionobjekt, das die PersonalConfig aufnehmen kann.
      */
@@ -147,7 +147,7 @@ public class TcRequestDispatcher {
 
 
         //
-        // Wirklich auszuführendes Module und Task sind nun identifiziert.
+        // Wirklich auszufÃ¼hrendes Module und Task sind nun identifiziert.
         //
         
         
@@ -169,7 +169,7 @@ public class TcRequestDispatcher {
             personalConfig.testTaskAccess(commonConfig, tcRequest);
             Threads.setContextClassLoader(outerLoader);
         } catch (Exception securityException) {
-            // Für diese Aktion ist eine andere Berechtigung nötig
+            // FÃ¼r diese Aktion ist eine andere Berechtigung nÃ¶tig
             if (logger.isInfoEnabled())
                 logger.info(Resources.getInstance().get("REQUESTDISPATCHER_LOG_SESSION_ERROR", requestID, module, task));
             if (logger.isInfoEnabled())
@@ -181,7 +181,7 @@ public class TcRequestDispatcher {
                 sendAuthenticationError(moduleConfig, commonConfig, tcRequest, tcResponse, new TcSecurityException(TcSecurityException.ERROR_SERVER_AUTH_ERROR, securityException));
                 
             if (logger.isInfoEnabled())
-                logger.debug("Authentication Error wurde an den Client gesendet. Kehre nun zurück.");
+                logger.debug("Authentication Error wurde an den Client gesendet. Kehre nun zurÃ¼ck.");
             
             return;
         } finally {
@@ -189,7 +189,7 @@ public class TcRequestDispatcher {
         	Context.clear();
         }
         
-        // Berechtigung erfolgreich geprüft!
+        // Berechtigung erfolgreich geprÃ¼ft!
         config.setPersonalConfig(personalConfig);
         
         
@@ -198,7 +198,7 @@ public class TcRequestDispatcher {
         //
 
         //==================================================
-        // 3. Abarbeitung des auszuführenden Task
+        // 3. Abarbeitung des auszufÃ¼hrenden Task
         TcTaskManager taskManager = new TcTaskManager(context);
         try {
             Context.addActive(context);
@@ -282,7 +282,7 @@ public class TcRequestDispatcher {
     }
 
     /**
-     * Einige Parameter, die fast immer in der Ausgabe benötigt werden,
+     * Einige Parameter, die fast immer in der Ausgabe benÃ¶tigt werden,
      * schonmal in den Content schieben
      */
     public void putStandardParams(
@@ -365,7 +365,7 @@ public class TcRequestDispatcher {
         TcConfig cfg = new TcConfig(config, null, tcRequest.getModule());
 
         if (TcRequest.isWebType(tcRequest.getRequestType()) && ! "soap".equalsIgnoreCase(cfg.getDefaultResponseType())) {
-            // Web-Type über sendResponse abwickeln.
+            // Web-Type Ã¼ber sendResponse abwickeln.
             sendError(moduleConfig, cfg, tcResponse, tcRequest, securityException.getMessage(), securityException);
         } else {            
             // Eine SOAP Anfrage bekommt auch eine SOAP Fehlermeldung

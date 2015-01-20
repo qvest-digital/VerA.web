@@ -63,10 +63,10 @@ import de.tarent.octopus.util.Xml;
 
 /**
  * Kapselt Einstellungen und Informationen, die
- * für alle Benutzer gleich sind.
+ * fÃ¼r alle Benutzer gleich sind.
  * <br><br>
  * Diese Informationen stammen aus der Configdatei (./WEB-INF/config/config.xml) und dem TcEnv Container,
- * der mit Servletinformationen und den Parametern aus dem Deployment-Descriptor gefüllt ist.
+ * der mit Servletinformationen und den Parametern aus dem Deployment-Descriptor gefÃ¼llt ist.
  *
  * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
  */
@@ -75,9 +75,9 @@ public class TcCommonConfig {
     public static final String AUTH_TYPE_ACCEPT = "ACCEPT";
     /** Authorisierungstyp: von vorgeschaltetem Filter akzeptieren */
 	public static final String AUTH_TYPE_FILTER = "FILTER";
-    /** Authorisierungstyp: gegen XML-Datei prüfen */
+    /** Authorisierungstyp: gegen XML-Datei prÃ¼fen */
 	public static final String AUTH_TYPE_XML = "XML";
-    /** Authorisierungstyp: gegen LDAP prüfen */
+    /** Authorisierungstyp: gegen LDAP prÃ¼fen */
 	public static final String AUTH_TYPE_LDAP = "LDAP";
     
 	/** Der Logger */
@@ -110,7 +110,7 @@ public class TcCommonConfig {
     private Map moduleConfigs;
     
     /**
-     * Map mit Einträgen der LoginManager Konfiguration
+     * Map mit EintrÃ¤gen der LoginManager Konfiguration
      */
     private Map configLoginManager = new HashMap();
 
@@ -120,7 +120,7 @@ public class TcCommonConfig {
     protected TcModuleConfig defaultModuleConfig;
 
     /**
-     * Puffer Mit Zugriffsklassen für die Verschiedenen Datenquellen.
+     * Puffer Mit Zugriffsklassen fÃ¼r die Verschiedenen Datenquellen.
      * Die Keys sind String in der Form: 'ModulName.dataSourceName', wobei der ModulName der 
      * Name des Modules ist, indem die Datenquelle Deklariert wurde
      * Die Values sind Objekte vom Typ TcGenericDataAccessWrapper oder Spezialisierungen davon.
@@ -131,7 +131,7 @@ public class TcCommonConfig {
      * Initialisierung:
      * Parst die Haupt Konfigurations Datei.
      *
-     * @param env Ein Datenkontainer, mit mindestens den Einträgen:
+     * @param env Ein Datenkontainer, mit mindestens den EintrÃ¤gen:
      *  config.configRoot, config.configData
      */
     public TcCommonConfig(TcEnv env, Octopus octopus) throws TcConfigException {
@@ -146,7 +146,7 @@ public class TcCommonConfig {
      * Parsen der Haupt Konfigurations Datei.
      *
      * Wenn Fehler auftreten, werden diese nur durch den Logger protokolliert
-     * und nicht zurück gegeben.
+     * und nicht zurÃ¼ck gegeben.
      */
     protected void parseConfigFile() throws TcConfigException {
         String filename =
@@ -207,8 +207,8 @@ public class TcCommonConfig {
     }
 
     /**
-     * Liefert die Wrapperklasse für Datenzugriffe
-     * Diese Wrapperklassen werden alle hier verwaltet und vorrätig gehalten.
+     * Liefert die Wrapperklasse fÃ¼r Datenzugriffe
+     * Diese Wrapperklassen werden alle hier verwaltet und vorrÃ¤tig gehalten.
      * Wenn jemand nach einer Datenzugriffsklasse fragt,
      * wird erst im aktuellen Modul unter dem Namen nach einer Datenquelle gesucht.
      * Wenn dort nichts vorhanden ist, wird das Defaultmodule benutzt.
@@ -327,7 +327,7 @@ public class TcCommonConfig {
     }
 
     /**
-     * Verzeichnis, indem die Templates für ein bestimmtes Modul liegen.
+     * Verzeichnis, indem die Templates fÃ¼r ein bestimmtes Modul liegen.
      *
      * @return Verzeichnis
      */
@@ -341,10 +341,10 @@ public class TcCommonConfig {
     }
 
     /**
-     * Verzeichnis, indem die Templates für ein bestimmtes Modul liegen.
+     * Verzeichnis, indem die Templates fÃ¼r ein bestimmtes Modul liegen.
      * Relativ zum Rootverzeichnis der Module
      *
-     * @return Verzeichnisname mit abschließendem /
+     * @return Verzeichnisname mit abschlieÃŸendem /
      */
     public String getRelativeTemplateRootPath(String moduleName) {
         TcModuleConfig moduleConfig = getModuleConfig(moduleName);
@@ -354,10 +354,10 @@ public class TcCommonConfig {
     }
 
     /**
-     * Verzeichiss, indem sich die Statischen Web Ressourcen für das angegebene Modul befinden.
+     * Verzeichiss, indem sich die Statischen Web Ressourcen fÃ¼r das angegebene Modul befinden.
      * Relativ zum Rootverzeichnis des Servers
      *
-     * @return Verzeichnissname mit abschließendem /
+     * @return Verzeichnissname mit abschlieÃŸendem /
      */
     public String getRelativeWebRootPath(String moduleName) {
         TcModuleConfig moduleConfig = getModuleConfig(moduleName);
@@ -439,7 +439,7 @@ public class TcCommonConfig {
     }
 
     /**
-     * Diese Methode registriert ein Modul mittels der übergebenen Modulkonfiguration.
+     * Diese Methode registriert ein Modul mittels der Ã¼bergebenen Modulkonfiguration.
      *  
      * @param moduleName Modulname
      * @param config Modulkonfiguration
@@ -538,7 +538,7 @@ public class TcCommonConfig {
     }
 
     /**
-     * Liefert das Default-Encoding z.B. für Velocity-Templates
+     * Liefert das Default-Encoding z.B. fÃ¼r Velocity-Templates
      */
     public String getDefaultEncoding(String moduleName) {
         String result = null;
@@ -572,7 +572,7 @@ public class TcCommonConfig {
 
     /**
      * Diese Methode erzeug eine neue {@link PersonalConfig}-Instanz. Die verwendete
-     * Klasse kann über den Modul-Parameter {@link TcModuleConfig#CONFIG_PARAM_PERSONAL_CONFIG_CLASS}
+     * Klasse kann Ã¼ber den Modul-Parameter {@link TcModuleConfig#CONFIG_PARAM_PERSONAL_CONFIG_CLASS}
      * gesetzt werden, Vorgabe ist {@link TcPersonalConfig}. 
      * 
      * @param module
@@ -596,12 +596,12 @@ public class TcCommonConfig {
     
 
     /**
-     * Diese Methode liefert einen LoginManager für ein bestimmtes Modul. Liegt im Modul
+     * Diese Methode liefert einen LoginManager fÃ¼r ein bestimmtes Modul. Liegt im Modul
      * keine (ausreichende) LoginManager-Konfiguration vor, so wird der Default-LoginManager
      * des Octopus geliefert. 
      * 
-     * @param module Name des Moduls, für den ein LoginManager gesucht wird.
-     * @return LoginManager für das angegebene Modul
+     * @param module Name des Moduls, fÃ¼r den ein LoginManager gesucht wird.
+     * @return LoginManager fÃ¼r das angegebene Modul
      * @see #getLoginManager()
      */
     public LoginManager getLoginManager(String module) throws TcSecurityException {
@@ -610,12 +610,12 @@ public class TcCommonConfig {
     }
 
     /**
-     * Diese Methode liefert einen LoginManager für ein bestimmtes Modul. Liegt im Modul
+     * Diese Methode liefert einen LoginManager fÃ¼r ein bestimmtes Modul. Liegt im Modul
      * keine (ausreichende) LoginManager-Konfiguration vor, so wird der Default-LoginManager
      * des Octopus geliefert. 
      * 
-     * @param moduleConfig Konfiguration des Moduls, für den ein LoginManager gesucht wird.
-     * @return LoginManager für das angegebene Modul
+     * @param moduleConfig Konfiguration des Moduls, fÃ¼r den ein LoginManager gesucht wird.
+     * @return LoginManager fÃ¼r das angegebene Modul
      * @see #getLoginManager()
      */
     public LoginManager getLoginManager(TcModuleConfig moduleConfig) throws TcSecurityException {
@@ -635,7 +635,7 @@ public class TcCommonConfig {
         	Map loginManagerParams = getConfigLoginManager();
             if (!loginManagerParams.isEmpty()) {
                 logger.debug("Default-Login-Manager-Erstellung");
-                //Octopus möchte seine Config selber machen...
+                //Octopus mÃ¶chte seine Config selber machen...
                 String loginManagerClassName = (String) loginManagerParams.get("loginManagerClass");
                 if (loginManagerClassName != null) {
                     logger.debug("Lade LoginManager Klasse: " + loginManagerClassName);
@@ -651,7 +651,7 @@ public class TcCommonConfig {
                 }
             }
             if (loginManager == null) {
-                //Hier der Fallback-Teil für die alte Konfiguration...
+                //Hier der Fallback-Teil fÃ¼r die alte Konfiguration...
                 String authType = env.get(TcEnv.KEY_AUTHENTICATION_TYPE);
                 logger.debug("LoginManager: Fallback auf Octopus 1.1 Variante: " + authType);
                 if (AUTH_TYPE_LDAP.equalsIgnoreCase(authType)) {

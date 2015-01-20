@@ -10,18 +10,18 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Diese Klasse enthält Hilfsmethoden für ContentWorker.
+ * Diese Klasse enthÃ¤lt Hilfsmethoden fÃ¼r ContentWorker.
  * 
  * @author mikel
  */
 public class TcContentWorkerHelper {
     /**
-     * Diese Methode liefert einen Parameter zurück, wobei zunächst im
+     * Diese Methode liefert einen Parameter zurÃ¼ck, wobei zunÃ¤chst im
      * Content, dann im Request gesucht wird.
      * 
      * @param tcRequest Request-Objekt
      * @param tcContent Content-Objekt
-     * @param key Schlüssel des gesuchten Parameters
+     * @param key SchlÃ¼ssel des gesuchten Parameters
      * @return Wert des Parameters
      */
     public static Object getParam(TcRequest tcRequest, TcContent tcContent, String key) {
@@ -30,12 +30,12 @@ public class TcContentWorkerHelper {
     }
 
     /**
-     * Diese Methode liefert einen Parameter als Liste, wobei zunächst im
+     * Diese Methode liefert einen Parameter als Liste, wobei zunÃ¤chst im
      * Content, dann im Request gesucht wird.
      * 
      * @param tcRequest Request-Objekt
      * @param tcContent Content-Objekt
-     * @param key Schlüssel des gesuchten Parameters
+     * @param key SchlÃ¼ssel des gesuchten Parameters
      * @return Wert des Parameters
      */
     public static List getParamAsList(TcRequest tcRequest, TcContent tcContent, String key) {
@@ -56,12 +56,12 @@ public class TcContentWorkerHelper {
     }
 
     /**
-     * Diese Methode liefert einen Parameter als String, wobei zunächst im
+     * Diese Methode liefert einen Parameter als String, wobei zunÃ¤chst im
      * Content, dann im Request gesucht wird.
      * 
      * @param tcRequest Request-Objekt
      * @param tcContent Content-Objekt
-     * @param key Schlüssel des gesuchten Parameters
+     * @param key SchlÃ¼ssel des gesuchten Parameters
      * @return Wert des Parameters
      */
     public static String getParamAsString(TcRequest tcRequest, TcContent tcContent, String key) {
@@ -70,13 +70,13 @@ public class TcContentWorkerHelper {
     }
 
     /**
-     * Diese Methode liefert einen Parameter als int, wobei zunächst im
+     * Diese Methode liefert einen Parameter als int, wobei zunÃ¤chst im
      * Content, dann im Request gesucht wird.
      * 
      * @param tcRequest Request-Objekt
      * @param tcContent Content-Objekt
-     * @param key Schlüssel des gesuchten Parameters
-     * @param defaultValue default-Wert für den Parameter
+     * @param key SchlÃ¼ssel des gesuchten Parameters
+     * @param defaultValue default-Wert fÃ¼r den Parameter
      * @return Wert des Parameters
      */
     public static int getParamAsInt(TcRequest tcRequest, TcContent tcContent, String key, int defaultValue) {
@@ -90,13 +90,13 @@ public class TcContentWorkerHelper {
     }
 
     /**
-     * Diese Methode liefert einen Parameter als boolean, wobei zunächst im
+     * Diese Methode liefert einen Parameter als boolean, wobei zunÃ¤chst im
      * Content, dann im Request gesucht wird.
      * 
      * @param tcRequest Request-Objekt
      * @param tcContent Content-Objekt
-     * @param key Schlüssel des gesuchten Parameters
-     * @param defaultValue default-Wert für den Parameter
+     * @param key SchlÃ¼ssel des gesuchten Parameters
+     * @param defaultValue default-Wert fÃ¼r den Parameter
      * @return Wert des Parameters
      */
     public static boolean getParamAsBoolean(

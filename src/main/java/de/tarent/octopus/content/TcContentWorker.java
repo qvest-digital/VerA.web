@@ -31,7 +31,7 @@ import de.tarent.octopus.config.TcModuleConfig;
 import de.tarent.octopus.request.TcRequest;
 
 /** 
- * Jeglicher Zugriff auf Daten erfolgt über diese TcContentWorker.
+ * Jeglicher Zugriff auf Daten erfolgt Ã¼ber diese TcContentWorker.
  * 
  * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
  */
@@ -47,12 +47,12 @@ public interface TcContentWorker {
     /**
      * Abarbeiten einer Action mit diesem ContentWorker
      * Die Ergebnisse werden in dem tcContent-Kontainer abgelegt.
-     * Ein ContentWorker kann für mehrere Actions zuständig sein.
+     * Ein ContentWorker kann fÃ¼r mehrere Actions zustÃ¤ndig sein.
      *
      * @param tcConfig Konfiguration
-     * @param actionName Name der Aktion, die von diesem Worker ausgeführt werden soll.
+     * @param actionName Name der Aktion, die von diesem Worker ausgefÃ¼hrt werden soll.
      * @param tcRequest Die Anfragedaten
-     * @param tcContent Der Content-Kontainer, in dem die Daten abgelegt werden können.
+     * @param tcContent Der Content-Kontainer, in dem die Daten abgelegt werden kÃ¶nnen.
      * @return String mit einem Statuscode z.B. ok oder error
      */
     public String doAction(TcConfig tcConfig, String actionName, TcRequest tcRequest, TcContent tcContent)
@@ -74,12 +74,12 @@ public interface TcContentWorker {
     public String getVersion();
 
     /**
-     * Standard-Ergebnis für den Erfolgsfall.
+     * Standard-Ergebnis fÃ¼r den Erfolgsfall.
      */
     public final static String RESULT_ok = "ok";
 
     /**
-     * Standard-Ergebnis für den Fehlerfall.
+     * Standard-Ergebnis fÃ¼r den Fehlerfall.
      */
     public final static String RESULT_error = "error";
 }

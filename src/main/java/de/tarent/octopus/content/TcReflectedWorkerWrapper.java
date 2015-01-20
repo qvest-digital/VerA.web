@@ -48,7 +48,7 @@ public class TcReflectedWorkerWrapper
 
     Log logger = LogFactory.getLog(getClass());
 
-    // Feldkonstanten für die Metadaten
+    // Feldkonstanten fÃ¼r die Metadaten
     public static final String FIELD_NAME_PREFIX_INPUT = "INPUT_";
     public static final String FIELD_NAME_PREFIX_OUTPUT = "OUTPUT_";
     public static final String FIELD_NAME_PREFIX_MANDORITY = "MANDATORY_";
@@ -70,7 +70,7 @@ public class TcReflectedWorkerWrapper
         try {
             return (String)workerClass.getField(FIELD_NAME_VERSION).get(workerDelegate);
 		} catch (NoSuchFieldException nf) {
-			logger.debug("Für den Worker "+workerClass.getName()+" wurde keine Version angegeben.");
+			logger.debug("FÃ¼r den Worker "+workerClass.getName()+" wurde keine Version angegeben.");
             return "1.0";
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
@@ -81,7 +81,7 @@ public class TcReflectedWorkerWrapper
 
     /**
      * Holt die Metadaten zu der Action aus dem Cache, 
-     * oder stellt sie über getActionData neu zusammen.
+     * oder stellt sie Ã¼ber getActionData neu zusammen.
      *
      * @param actionName Name der Action
      * @return Metadaten die beschreiben, wie die Action-Methode aufgerufen werden soll.
@@ -98,7 +98,7 @@ public class TcReflectedWorkerWrapper
                     break;
                 }
             if (action.method == null)
-                throw new TcActionDeclarationException("Serverfehler: Keine passende Methode für die Action "+actionName+" im Worker "+workerClass.getName()+" gefunden.");
+                throw new TcActionDeclarationException("Serverfehler: Keine passende Methode fÃ¼r die Action "+actionName+" im Worker "+workerClass.getName()+" gefunden.");
             
             action.args = action.method.getParameterTypes();
             action.passOctopusContext = action.args.length > 0 
@@ -115,7 +115,7 @@ public class TcReflectedWorkerWrapper
             String manNameLower = (FIELD_NAME_PREFIX_MANDORITY + actionName).toLowerCase();
            
             // Beachte: Bei den Feldnamen wird nicht zwischen Gross- und Kleinschreibung
-            // unterschieden. Deswegen müssen alle vorhandenen Fields überprüft werden.
+            // unterschieden. Deswegen mÃ¼ssen alle vorhandenen Fields Ã¼berprÃ¼ft werden.
             try {
                 for (int i = 0; i < fields.length; i++) {
                     String fNameLower = fields[i].getName().toLowerCase();
@@ -138,10 +138,10 @@ public class TcReflectedWorkerWrapper
             if (action.inputParams == null)
                 throw new TcActionDeclarationException("Serverfehler: Kein Feld "+FIELD_NAME_PREFIX_INPUT + actionName+" vom Typ String[] im Worker "+workerClass.getName()+" gefunden.");
             if (action.inputParams.length != action.genericArgsCount)
-                throw new TcActionDeclarationException("Serverfehler: Das Feld "+FIELD_NAME_PREFIX_INPUT + actionName+" in der Klasse "+workerClass.getName()+" hat eine falsche Länge.");
+                throw new TcActionDeclarationException("Serverfehler: Das Feld "+FIELD_NAME_PREFIX_INPUT + actionName+" in der Klasse "+workerClass.getName()+" hat eine falsche LÃ¤nge.");
 
             if (action.mandatoryFlags != null && action.mandatoryFlags.length != action.genericArgsCount)
-                throw new TcActionDeclarationException("Serverfehler: Das Feld "+FIELD_NAME_PREFIX_MANDORITY + actionName+" in der Klasse "+workerClass.getName()+" hat eine falsche Länge.");
+                throw new TcActionDeclarationException("Serverfehler: Das Feld "+FIELD_NAME_PREFIX_MANDORITY + actionName+" in der Klasse "+workerClass.getName()+" hat eine falsche LÃ¤nge.");
             
             if (action.mandatoryFlags == null) {
                 action.mandatoryFlags = new boolean[action.genericArgsCount];
@@ -199,7 +199,7 @@ public class TcReflectedWorkerWrapper
 
 
     /**
-     * Implementierung eines InOutParam, mit dem Ein-Ausgabeparameter bei Actions realisiert werden können
+     * Implementierung eines InOutParam, mit dem Ein-Ausgabeparameter bei Actions realisiert werden kÃ¶nnen
      */
     class EnrichedParamImplementation
         implements EnrichedInOutParam {

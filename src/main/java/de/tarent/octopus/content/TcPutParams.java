@@ -65,7 +65,7 @@ public class TcPutParams implements TcContentWorker {
             returnStatus = putAll(tcConfig, tcRequest, tcContent);
         } else {
             throw new TcContentProzessException(
-                "Nicht unterstützte action im Worker 'TcPutParams': " + actionName);
+                "Nicht unterstÃ¼tzte action im Worker 'TcPutParams': " + actionName);
         }
         return returnStatus;
     }

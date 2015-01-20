@@ -35,15 +35,15 @@ import java.util.Iterator;
  * Schnittstelle zur Bereitstellung von Informationen und Einstellungen eines Benutzers.
  * Eine PersonalConfig ist an eine Session des Benutzers an einem Octopus Modul gebunden.
  * PersonalConfigs werden von LoginManagern verwaltet. Es kann unterschiedliche
- * Implementierungen geben, die die Grundfunktionalität erweitern.
+ * Implementierungen geben, die die GrundfunktionalitÃ¤t erweitern.
  * <br><br>
  *
  * Eine PersonalConfig soll Modulweit im Octopus sichtbar sein. Damit bekommt jedes Modul
  * einen eigenen Scope in dem Benutzerinformationen und Sessiondaten liegen. *
  * <br><br>
  *
- * Ein Benutzer kann in verschiedenen Bereichen Zugehörigkeiten zu Gruppen haben.
- * Ein Bereich wird über einen String-Bezeichner angegeben. Er schließt all die Bereiche (Unterbereiche) ein,
+ * Ein Benutzer kann in verschiedenen Bereichen ZugehÃ¶rigkeiten zu Gruppen haben.
+ * Ein Bereich wird Ã¼ber einen String-Bezeichner angegeben. Er schlieÃŸt all die Bereiche (Unterbereiche) ein,
  * von deren Bezeichner er Prefix ist.
  * 
  * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
@@ -52,7 +52,7 @@ public interface PersonalConfig {
 
     /**
      * Teilt der PersonalConfig mit, wenn sich ein Benutzer authentifiziert hat.
-     * Diese kann damit abhängig von ihrer Implementierung die Benutzerdaten laden.
+     * Diese kann damit abhÃ¤ngig von ihrer Implementierung die Benutzerdaten laden.
      * 
      */
     public void userLoggedIn(String userName);
@@ -64,12 +64,12 @@ public interface PersonalConfig {
 
 
     /**
-     * Gruppe für Administratoren eines Moduls
+     * Gruppe fÃ¼r Administratoren eines Moduls
      */
     public static final String GROUP_ADMINISTRATOR = "Administrator";
     
     /**
-     * Std. Gruppe für gewöhnliche User
+     * Std. Gruppe fÃ¼r gewÃ¶hnliche User
      */
     public static final String GROUP_USER = "User";
 
@@ -127,7 +127,7 @@ public interface PersonalConfig {
 
     /**
      * Liefert eine Liste aller Gruppen, die einem Benutzer 
-     * für den Moludweit globalen Bereich zugeordnet sind.
+     * fÃ¼r den Moludweit globalen Bereich zugeordnet sind.
      */
     public String[] getUserGroups();
 
@@ -138,7 +138,7 @@ public interface PersonalConfig {
     public void setUserGroups(String[] newGroups);
 
     /**
-     * Testet, ob ein User für den Moludweit globalen Bereich
+     * Testet, ob ein User fÃ¼r den Moludweit globalen Bereich
      * in einer Gruppe ist.
      *
      * @group Bezeichner der Gruppe, auf die getestet wird
@@ -147,7 +147,7 @@ public interface PersonalConfig {
 
     /**
      * Liefert eine Liste aller Gruppen, die einem Benutzer 
-     * für den Bereich area zugeordnet sind.
+     * fÃ¼r den Bereich area zugeordnet sind.
      *
      * @area Ein Bezeichner eines Zugriffsbereiches
      */
@@ -161,7 +161,7 @@ public interface PersonalConfig {
 
 
     /**
-     * Testet, ob ein User für den Bereich area
+     * Testet, ob ein User fÃ¼r den Bereich area
      * in einer Gruppe ist.
      *
      * @group Bezeichner der Gruppe, auf die getestet wird
@@ -171,8 +171,8 @@ public interface PersonalConfig {
 
 
     /**
-     * Testet, ob der User das gewollte Task ausführen darf.
-     * Wenn kein Zugriff gewäht wird muss eine TcSecurityException geworfen werden.
+     * Testet, ob der User das gewollte Task ausfÃ¼hren darf.
+     * Wenn kein Zugriff gewÃ¤ht wird muss eine TcSecurityException geworfen werden.
      */
     public void testTaskAccess(TcCommonConfig config, TcRequest tcRequest)
         throws TcSecurityException;
@@ -198,13 +198,13 @@ public interface PersonalConfig {
     public String getUserGivenName();
 
     /**                                        
-     * Liefert den vollständigen Namen des Users
+     * Liefert den vollstÃ¤ndigen Namen des Users
      */
     public String getUserName();
 
 
     /**                                        
-     * Setzt den vollständigen Namen des Users
+     * Setzt den vollstÃ¤ndigen Namen des Users
      */
     public void setUserName(String name);
     

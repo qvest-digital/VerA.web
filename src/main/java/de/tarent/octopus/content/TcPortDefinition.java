@@ -67,23 +67,23 @@ import com.ibm.wsdl.extensions.soap.SOAPBodyImpl;
 import com.ibm.wsdl.extensions.soap.SOAPOperationImpl;
 
 /**
- * Schnittstellenbeschreibung; Mit dieser Klasse ist es möglich, die Operationen mit ihren Ein- und Ausgabeparametern,
+ * Schnittstellenbeschreibung; Mit dieser Klasse ist es mÃ¶glich, die Operationen mit ihren Ein- und Ausgabeparametern,
  * die von einem Modul angeboten werden zu beschreiben.
  * <br><br>
  * <ul>
- * <b>Die Beschreibung ist folgendermaßen gegliedert:</b>
+ * <b>Die Beschreibung ist folgendermaÃŸen gegliedert:</b>
  *  <li>Ein Port ist z.B. ein TcContentWorker oder eine Ansammlung von Tasks. 
- *    Er benötigt genau eine TcPortDefinition.</li>
- *  <li>Die Actions eines Workers, bzw. die Tasks einer Tasksammlung sind die Operationen. Sie werden von TcOperationDefinition Objekten repräsentiert.
- *    Ein Port hat in der Regel viele Operationen, die er zur Verfügung stellt.</li>
+ *    Er benÃ¶tigt genau eine TcPortDefinition.</li>
+ *  <li>Die Actions eines Workers, bzw. die Tasks einer Tasksammlung sind die Operationen. Sie werden von TcOperationDefinition Objekten reprÃ¤sentiert.
+ *    Ein Port hat in der Regel viele Operationen, die er zur VerfÃ¼gung stellt.</li>
  *  <li>Eine Operation hat eine InputMessage und eine OutputMessage, dazu kommen beliebig viele FaultMessages.
- *    Eine Message wird durch TcMessageDefinition dar gestellt und beschreibt die Parameter, die eine Operation benötigt,
- *    bzw. zurück liefert. </li>
+ *    Eine Message wird durch TcMessageDefinition dar gestellt und beschreibt die Parameter, die eine Operation benÃ¶tigt,
+ *    bzw. zurÃ¼ck liefert. </li>
  *  <li>Eine Message besteht aus TcMessageDefinitionParts. Diese beschreiben einzelne Eingabeparameter mit ihrem Typ und Namen</li>
  * </ul>
  *
- * Die Art dieser Beschreibung ist an WSDL angepasst, so daß unmittelbar ein XML-Dokument daraus erzeugt werden kann, daß
- * der PortType-Section eines  WSDL-Dokumentes ähnlich ist und sich mit wehnig Aufwand darin transformieren lässt.
+ * Die Art dieser Beschreibung ist an WSDL angepasst, so daÃŸ unmittelbar ein XML-Dokument daraus erzeugt werden kann, daÃŸ
+ * der PortType-Section eines  WSDL-Dokumentes Ã¤hnlich ist und sich mit wehnig Aufwand darin transformieren lÃ¤sst.
  *
  * @see TcOperationDefinition
  * @see TcMessageDefinition
@@ -125,7 +125,7 @@ public class TcPortDefinition {
     }
 
     /**
-     * Liefert den Namen, der im Constructor übergeben wurde.
+     * Liefert den Namen, der im Constructor Ã¼bergeben wurde.
      * @return String mit dem Namen
      */
     public String getName() {
@@ -133,7 +133,7 @@ public class TcPortDefinition {
     }
 
     /**
-     * Liefert die Beschreibung, die im Constructor übergeben wurde.
+     * Liefert die Beschreibung, die im Constructor Ã¼bergeben wurde.
      * @return String mit der Beschreibung
      */
     public String getDescription() {
@@ -141,8 +141,8 @@ public class TcPortDefinition {
     }
 
     /**
-     * Fügt eine neue Operation hinzu, die von diesem, Port angeboten wird.
-     * @param theOperation Die Beschreibung der Operation, die hinzu gefügt werden soll
+     * FÃ¼gt eine neue Operation hinzu, die von diesem, Port angeboten wird.
+     * @param theOperation Die Beschreibung der Operation, die hinzu gefÃ¼gt werden soll
      */
     public TcOperationDefinition addOperation(TcOperationDefinition theOperation) {
         operations.put(theOperation.getName(), theOperation);
@@ -150,8 +150,8 @@ public class TcPortDefinition {
     }
 
     /**
-     * Fügt eine neue Operation hinzu, die von diesem, Port angeboten wird.
-     * Dabei wird automatisch ein Beschreibungsobjekt erstellt und hinzu gefügt.
+     * FÃ¼gt eine neue Operation hinzu, die von diesem, Port angeboten wird.
+     * Dabei wird automatisch ein Beschreibungsobjekt erstellt und hinzu gefÃ¼gt.
      *
      * @param name Der Name der Operation
      * @param description Eine Beschreibung der Operation
@@ -161,7 +161,7 @@ public class TcPortDefinition {
     }
 
     /**
-     * Liefert die Operationen, die von diesem Port unterstützt werden zurück.
+     * Liefert die Operationen, die von diesem Port unterstÃ¼tzt werden zurÃ¼ck.
      * @return Map mit den Namen der Operationen als Keys und TcOperationDefinition Objekten als Values
      */
     public Map getOperations() {
@@ -170,7 +170,7 @@ public class TcPortDefinition {
 
     /**
      * Liefert die Beschreibgung einer Operation.
-     * @param name Der Name der Operation, deren Beschreibung zurück gegeben werden soll.
+     * @param name Der Name der Operation, deren Beschreibung zurÃ¼ck gegeben werden soll.
      * @return Die Beschreibung oder null, wenn keine Operation zu dme Namen existiert.
      */
     public TcOperationDefinition getOperation(String name) {
@@ -183,7 +183,7 @@ public class TcPortDefinition {
      * 
      * @param includeCredentials <code>true</code>, falls jeder Operation,
      *  die nicht anonym ist, Benutzername und Passwort als Pflichtparameter
-     *  hinzugefügt werden sollen.
+     *  hinzugefÃ¼gt werden sollen.
      * @return ein WSDL4J-Definition-Objekt.
      * @throws WSDLException Ausnahmen, die in WSDL4J aufkommen
      */
@@ -395,7 +395,7 @@ public class TcPortDefinition {
         Element operationsNode = document.createElement("Operations");
         rootNode.appendChild(operationsNode);
 
-        // Alle Messages werden wärend der Iteration hier gesammelt.
+        // Alle Messages werden wÃ¤rend der Iteration hier gesammelt.
         // Dabei werden Dubletten nicht erkannt.
         Map messagesTable = new HashMap();
 

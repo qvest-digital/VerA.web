@@ -49,9 +49,9 @@ import de.tarent.octopus.request.TcResponse;
 import de.tarent.octopus.xmlrpc.XmlRpcBuffer;
 
 /**
- * Diese Klasse dient der Ausgabe von XML-RPC-Rückgaben.
+ * Diese Klasse dient der Ausgabe von XML-RPC-RÃ¼ckgaben.
  *
- * TODO: Test der XmlRpc-Fähigkeiten
+ * TODO: Test der XmlRpc-FÃ¤higkeiten
  * 
  * @author mikel
  */
@@ -70,7 +70,7 @@ public class TcXmlrpcResponseEngine implements TcRPCResponseEngine, TcResponseEn
             tcResponse.setContentType("text/xml");
 
 
-        // Geänder um auch ein Mapping der Parameternamen zu ermöglichen.
+        // GeÃ¤nder um auch ein Mapping der Parameternamen zu ermÃ¶glichen.
         //         Object outputFieldsObject = theContent.getAsObject(RPC_RESPONSE_OUTPUT_FIELDS);
         //         Object result = null;
         //         if (outputFieldsObject instanceof List) {
@@ -118,7 +118,7 @@ public class TcXmlrpcResponseEngine implements TcRPCResponseEngine, TcResponseEn
                 byteBuffer.get(bytes);
                 tcResponse.getOutputStream().write(bytes);
             } catch (Exception e2) {
-                logger.error("Es konnte auch keine XML-RPC Fehlermeldung ausgegeben werden. Schmeiße jetzt einfach eine Exception.",
+                logger.error("Es konnte auch keine XML-RPC Fehlermeldung ausgegeben werden. SchmeiÃŸe jetzt einfach eine Exception.",
                     e2);
                 throw new ResponseProcessingException("Es ist Fehler bei der Formatierung der Ausgabe ausgetreten.", e);
             }

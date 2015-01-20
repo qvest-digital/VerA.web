@@ -34,8 +34,8 @@ import de.tarent.octopus.request.TcSession;
 import de.tarent.octopus.security.TcSecurityException;
 
 /** 
- * Ein LoginManager regelt die Authentifizierung. Er stellt Wissen darüber bereit,
- * welche Aktionen vom Benutzer ausgeführt werden dürfen.
+ * Ein LoginManager regelt die Authentifizierung. Er stellt Wissen darÃ¼ber bereit,
+ * welche Aktionen vom Benutzer ausgefÃ¼hrt werden dÃ¼rfen.
  * <br><br>
  * Seine Hauptaufgabe ist es, eine PersonalConfig modulweit bereit zu stellen.
  *
@@ -57,8 +57,8 @@ public interface LoginManager {
     
     /**
      * Regelt Login-Logout operationen.
-     * Als Ergebnis wird eine TcPersonalConfig für das aktuelle Modul in der Session abgelegt.
-     * In dieser TcPersonalConfig können die Informationen zum Login und den Rechten hinterlegt sein.
+     * Als Ergebnis wird eine TcPersonalConfig fÃ¼r das aktuelle Modul in der Session abgelegt.
+     * In dieser TcPersonalConfig kÃ¶nnen die Informationen zum Login und den Rechten hinterlegt sein.
      *
      * @throws TcSecurityException bei einer Authentifizierung, die Fehlerhaft war
      */
@@ -67,21 +67,21 @@ public interface LoginManager {
 
 
     /**
-     * Liefert die zuvor erstellte TcPersonalConfig dieses Moduls zurück.
+     * Liefert die zuvor erstellte TcPersonalConfig dieses Moduls zurÃ¼ck.
      *
      * @return TcPersonalConfig des Benutzers
      */
     public PersonalConfig getPersonalConfig(TcCommonConfig config, TcRequest tcRequest, TcSession theSession);
     
     /**
-     * Stellt fest, ob der LoginManager auch selber die Userverwaltung übernehmen kann.
-     * @return <code>true</code> falls Userverwaltung möglich, <code>false</code> sonst.
+     * Stellt fest, ob der LoginManager auch selber die Userverwaltung Ã¼bernehmen kann.
+     * @return <code>true</code> falls Userverwaltung mÃ¶glich, <code>false</code> sonst.
      */
     public boolean isUserManagementSupported();
     
     /**
-     * Liefert den zuständigen UserManager zurück.
-     * @return UserManager oder <code>null</code>, falls LoginManager kein UserManagement unterstützt.
+     * Liefert den zustÃ¤ndigen UserManager zurÃ¼ck.
+     * @return UserManager oder <code>null</code>, falls LoginManager kein UserManagement unterstÃ¼tzt.
      */
     public UserManager getUserManager();
 

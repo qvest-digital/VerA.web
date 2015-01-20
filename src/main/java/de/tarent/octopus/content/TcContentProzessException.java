@@ -27,7 +27,7 @@
 package de.tarent.octopus.content;
 
 /** 
- * Diese klasse kapselt Fehlermeldungen, die wärend
+ * Diese klasse kapselt Fehlermeldungen, die wÃ¤rend
  * der Verarbeitung des Contents auf treten.
  * 
  * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, <b>tarent GmbH</b>

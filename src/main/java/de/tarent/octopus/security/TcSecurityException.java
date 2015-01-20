@@ -23,7 +23,7 @@ import de.tarent.octopus.resource.Resources;
 import javax.xml.namespace.QName;
 
 /**
- * Kapselt Fehlermeldungen, die auftreten, wenn ein User etwas ausführt, wofür er nicht autorisiert ist. <br>
+ * Kapselt Fehlermeldungen, die auftreten, wenn ein User etwas ausfÃ¼hrt, wofÃ¼r er nicht autorisiert ist. <br>
  * Wird auch benutzt, wenn ein User versucht sich mit falscher Benutzername/Password kombination ein zu loggen.
  * 
  * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke </a>, <b>tarent GmbH </b>

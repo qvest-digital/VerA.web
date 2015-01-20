@@ -39,9 +39,9 @@ import de.tarent.octopus.response.TcResponseDescription;
  * TcConfig besteht aus TcCommonConfig und TcPersonalConfig und kapselt die Informationen 
  * aus beiden Konfigurations-Kontainern. 
  * <br><br>
- * Dadurch dass alle Komponenten nur auf TcConfig zugreifen, ist es möglich zu verbergen, woher 
- * die Informationen kommen. Auf diese weise können Benutzerspezifische Informationen
- * die Standardeinstellungen des Systems teilweise erweitern uns überschreiben.
+ * Dadurch dass alle Komponenten nur auf TcConfig zugreifen, ist es mÃ¶glich zu verbergen, woher 
+ * die Informationen kommen. Auf diese weise kÃ¶nnen Benutzerspezifische Informationen
+ * die Standardeinstellungen des Systems teilweise erweitern uns Ã¼berschreiben.
  * 
  * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
  */
@@ -67,7 +67,7 @@ public class TcConfig {
     }
 
     /**
-     * Liefert die Wrapperklasse für Datenzugriffe
+     * Liefert die Wrapperklasse fÃ¼r Datenzugriffe
      * @see TcCommonConfig#getDataAccess( String, String )     
      */
     public TcGenericDataAccessWrapper getDataAccess(String dataAccessName) throws TcDataAccessException {
@@ -114,7 +114,7 @@ public class TcConfig {
     }
 
     /**
-     * Verzeichnis, indem die Templates für das aktuelle Modul liegen.
+     * Verzeichnis, indem die Templates fÃ¼r das aktuelle Modul liegen.
      *
      * @return Verzeichnis
      */
@@ -123,7 +123,7 @@ public class TcConfig {
     }
 
     /**
-     * Verzeichnis, indem die Templates für das aktuelle Modul liegen.
+     * Verzeichnis, indem die Templates fÃ¼r das aktuelle Modul liegen.
      * Relativ zum Rootverzeichnis der Module
      *
      * @return Verzeichnis
@@ -133,7 +133,7 @@ public class TcConfig {
     }
 
     /**
-     * Verzeichnis, indem sich die Statischen Web Ressourcen für das aktuelle Modul befinden.
+     * Verzeichnis, indem sich die Statischen Web Ressourcen fÃ¼r das aktuelle Modul befinden.
      * Relativ zum Rootverzeichnis des Servers
      *
      * @return Verzeichnis
@@ -178,11 +178,11 @@ public class TcConfig {
     /**
      * Gibt an, ob das System Debugmeldungen ausgeben soll.
      * <br><br>
-     * Dies ist völlig unabhängig vom Logger und  hängt davon ab, 
+     * Dies ist vÃ¶llig unabhÃ¤ngig vom Logger und  hÃ¤ngt davon ab, 
      * ob 'global.allowDebugMessages' im DeploymentDescriptor und
      * 'debug' im Request aus true sind.
      *
-     * @deprecated Direkte ausgabe von Debug Messages werden nicht mehr unterstützt. Bitte Logging Api verwenden!
+     * @deprecated Direkte ausgabe von Debug Messages werden nicht mehr unterstÃ¼tzt. Bitte Logging Api verwenden!
      * @return true, wenn Debugmeldugen ausgegeben werden sollen, false sonst. 
      */
     public boolean debug() {
@@ -199,7 +199,7 @@ public class TcConfig {
     }
 
     /**
-     * Liefert das Default-Encoding z.B. für Velocity-Templates
+     * Liefert das Default-Encoding z.B. fÃ¼r Velocity-Templates
      */
     public String getDefaultEncoding() {
         return commonConfig.getDefaultEncoding(currentModuleName);

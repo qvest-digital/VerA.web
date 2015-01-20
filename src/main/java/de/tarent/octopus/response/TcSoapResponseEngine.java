@@ -45,7 +45,7 @@ import de.tarent.octopus.soap.TcSOAPEngine;
 import de.tarent.octopus.soap.TcSOAPException;
 
 /** 
- *  Diese Klasse gibt die ausgewählten Felder eines TcContent Objekte als SOAP Nachricht zurück.
+ *  Diese Klasse gibt die ausgewÃ¤hlten Felder eines TcContent Objekte als SOAP Nachricht zurÃ¼ck.
  *
  *  @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
  */
@@ -63,7 +63,7 @@ public class TcSoapResponseEngine implements TcRPCResponseEngine, TcResponseEngi
 
         // Wenn ein ContentType angegeben wurde, 
         // wurde dieser bereits im TcRequestCreator gesetzt.
-        // Ansonsten wird text/xml für SOAP gesetzt.
+        // Ansonsten wird text/xml fÃ¼r SOAP gesetzt.
         String contentType = theContent.getAsString("responseParams.ContentType");
         if (contentType == null)
             tcResponse.setContentType("text/xml");
@@ -83,7 +83,7 @@ public class TcSoapResponseEngine implements TcRPCResponseEngine, TcResponseEngi
                 rpcResponse.addParam(fieldNameOutput, theContent.getAsObject(fieldNameContent));
             } 
         
-            // Geänder um auch ein Mapping der Parameternamen zu ermöglichen.
+            // GeÃ¤nder um auch ein Mapping der Parameternamen zu ermÃ¶glichen.
             //         Vector outputFields = TcResponseCreator.refineOutputFields(theContent.getAsObject(RPC_RESPONSE_OUTPUT_FIELDS));
             //         for (int i = 0; i < outputFields.size(); i++) {
             //             String fieldName = (String) outputFields.get(i);
@@ -105,7 +105,7 @@ public class TcSoapResponseEngine implements TcRPCResponseEngine, TcResponseEngi
             try {
                 soapException.writeTo(tcResponse.getOutputStream());
             } catch (Exception e2) {
-                logger.error("Es konnte auch keine SOAP Fehlermeldung ausgegeben werden. Schmeiße jetzt einfach eine Exception.",
+                logger.error("Es konnte auch keine SOAP Fehlermeldung ausgegeben werden. SchmeiÃŸe jetzt einfach eine Exception.",
                     e2);
                 throw new ResponseProcessingException("Es ist Fehler bei der Formatierung der Ausgabe ausgetreten.", e);
             }

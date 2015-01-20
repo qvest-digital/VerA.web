@@ -31,7 +31,7 @@ import de.tarent.octopus.config.ContentWorkerDeclaration;
 import de.tarent.octopus.content.TcContentWorker;
 
 /** 
- * Schnittstelle für Factorys, die ContentWorker nach unterschiedlichen 
+ * Schnittstelle fÃ¼r Factorys, die ContentWorker nach unterschiedlichen 
  * Verfahren instantiieren.
  * 
  * 
@@ -40,8 +40,8 @@ import de.tarent.octopus.content.TcContentWorker;
  */
 public interface SpecialWorkerFactory {
     /**
-     * Liefert einen Worker entsprechend der workerDeclaration zurück.
-     * Im Normalfall muss von der Factory nur die ImplementationSource berücksichtigt werden.
+     * Liefert einen Worker entsprechend der workerDeclaration zurÃ¼ck.
+     * Im Normalfall muss von der Factory nur die ImplementationSource berÃ¼cksichtigt werden.
      * 
      * @param classLoader Octopus Classloader fuer Worker.
      * @param workerDeclaration Beschreibung zur Instanziierung des Workers.

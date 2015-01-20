@@ -32,7 +32,7 @@ import java.util.Arrays;
  * Ein Knoten mit einem Token eines SQL-Ausdruckes.
  *
  * Wird mit einem String initialisiert. 
- * Dieser wird als Schlüsselwort erkannt, wenn er in den Arrays DOUBLE_OPERATORS oder SINGLE_OPERATORS enthalten ist.
+ * Dieser wird als SchlÃ¼sselwort erkannt, wenn er in den Arrays DOUBLE_OPERATORS oder SINGLE_OPERATORS enthalten ist.
  *
  * @see TarWhereClause
 */
@@ -125,14 +125,14 @@ public class TarWhereNode {
     }
 
     /**
-     * Gibt den linken Kindknoten zurück, oder null, wenn es keinen gibt.
+     * Gibt den linken Kindknoten zurÃ¼ck, oder null, wenn es keinen gibt.
      */
     public TarWhereNode getFistChild() {
         return firstChild;
     }
 
     /**
-     * Gibt den rechten Kindknoten zurück, oder null, wenn es keinen gibt.
+     * Gibt den rechten Kindknoten zurÃ¼ck, oder null, wenn es keinen gibt.
      */
     public TarWhereNode getSecondChild() {
         return secondChild;
@@ -146,7 +146,7 @@ public class TarWhereNode {
     }
 
     /**
-     * Gibt eine menschenlesbare Repräsentation rekursiv mit Kindern zurück.
+     * Gibt eine menschenlesbare ReprÃ¤sentation rekursiv mit Kindern zurÃ¼ck.
      */
     public String toString() {
         return " (" + value + " " + firstChild + " " + secondChild + ")";

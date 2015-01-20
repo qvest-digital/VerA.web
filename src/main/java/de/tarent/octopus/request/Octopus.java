@@ -57,14 +57,14 @@ import de.tarent.octopus.server.Context;
 import de.tarent.octopus.server.OctopusContext;
 
 /**
- * Diese Klasse dient als Wrapper f�r Octopus-Funktionalit�ten,
- * der auch au�erhalb von Web-Applikationskontexten benutzt werden kann.
+ * Diese Klasse dient als Wrapper fï¿½r Octopus-Funktionalitï¿½ten,
+ * der auch auï¿½erhalb von Web-Applikationskontexten benutzt werden kann.
  * 
  * @author mikel
  */
 public class Octopus {
 	/*
-     * gesch�tzte Member-Variablen
+     * geschï¿½tzte Member-Variablen
      */
     private TcRequestDispatcher dispatcher;
     private TcModuleLookup moduleLookup;
@@ -85,7 +85,7 @@ public class Octopus {
     }
 
     /*
-     * �ffentliche Methoden
+     * ï¿½ffentliche Methoden
      */
 
     /**
@@ -174,7 +174,7 @@ public class Octopus {
     }
 
     /**
-     * Diese Methode f�hrt einen Request aus.
+     * Diese Methode fï¿½hrt einen Request aus.
      * 
      * @param tcRequest
      * @param tcResponse
@@ -198,7 +198,7 @@ public class Octopus {
     }
     
     /*
-	 * gesch�tzte Methoden
+	 * geschï¿½tzte Methoden
 	 */
 	private void preloadModules(TcCommonConfig commonConfig) {
 		String preloadString = commonConfig.getConfigData(TcEnv.KEY_PRELOAD_MODULES);
@@ -246,7 +246,7 @@ public class Octopus {
     }
 
     /**
-     * @param modulename Name des Moduls, in dem der Autostart durchgef�hrt werden soll
+     * @param modulename Name des Moduls, in dem der Autostart durchgefï¿½hrt werden soll
      * @param commonConfig die Config
      */
     public void doAutostart(String modulename, TcCommonConfig commonConfig)

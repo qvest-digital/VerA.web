@@ -173,7 +173,7 @@ public class TcPersonalConfig implements PersonalConfig {
 
     /**
      * Liefert eine Liste aller Gruppen, die einem Benutzer 
-     * für den Moludweit globalen Bereich zugeordnet sind.
+     * fÃ¼r den Moludweit globalen Bereich zugeordnet sind.
      */
     public String[] getUserGroups() {
         return globalGroups;
@@ -189,7 +189,7 @@ public class TcPersonalConfig implements PersonalConfig {
     }
 
     /**
-     * Testet, ob ein User für den Moludweit globalen Bereich
+     * Testet, ob ein User fÃ¼r den Moludweit globalen Bereich
      * in einer Gruppe ist.
      *
      * @group Bezeichner der Gruppe, auf die getestet wird
@@ -212,9 +212,9 @@ public class TcPersonalConfig implements PersonalConfig {
 
     /**
      * Liefert eine Liste aller Gruppen, die einem Benutzer 
-     * für den Bereich area zugeordnet sind.
-     * Wenn für die Area selbst keine Gruppen definiert sind,
-     * werden die Gruppen der übergeordneten Area zurück gegeben,
+     * fÃ¼r den Bereich area zugeordnet sind.
+     * Wenn fÃ¼r die Area selbst keine Gruppen definiert sind,
+     * werden die Gruppen der Ã¼bergeordneten Area zurÃ¼ck gegeben,
      * die ab weitesten spezialisiert ist.
      *
      * @area Ein Bezeichner eines Zugriffsbereiches
@@ -224,7 +224,7 @@ public class TcPersonalConfig implements PersonalConfig {
         int bestMatchingRating = -1;
 
         // Get best matching area-Group-List
-        // Bestimmt die Area, mit dem längsten Bezeichner der Präfix von area ist
+        // Bestimmt die Area, mit dem lÃ¤ngsten Bezeichner der PrÃ¤fix von area ist
         for (Iterator iter = areaGroups.keySet().iterator(); iter.hasNext();) {
             String key = (String)iter.next();
             if (area.startsWith(key) && key.length() > bestMatchingRating) {
@@ -245,7 +245,7 @@ public class TcPersonalConfig implements PersonalConfig {
 
 
     /**
-     * Testet, ob ein User für den Bereich area
+     * Testet, ob ein User fÃ¼r den Bereich area
      * in einer Gruppe ist.
      *
      * @group Bezeichner der Gruppe, auf die getestet wird
@@ -256,8 +256,8 @@ public class TcPersonalConfig implements PersonalConfig {
     }
 
     /**
-     * Testet, ob der User das gewollte Task ausführen darf.
-     * Wenn kein Zugriff gewäht wird muss eine TcSecurityException geworfen werden.
+     * Testet, ob der User das gewollte Task ausfÃ¼hren darf.
+     * Wenn kein Zugriff gewÃ¤ht wird muss eine TcSecurityException geworfen werden.
      */
     public void testTaskAccess(TcCommonConfig config, TcRequest tcRequest)
         throws TcSecurityException {
@@ -319,7 +319,7 @@ public class TcPersonalConfig implements PersonalConfig {
 
 
 
-    ///////////// Kompatibilität:
+    ///////////// KompatibilitÃ¤t:
     /**
      * @return Returns the email.
      */

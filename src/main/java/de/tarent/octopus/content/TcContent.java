@@ -41,23 +41,23 @@ import java.util.StringTokenizer;
  * bekommen, damit Konflikte durch gleiche Namen aus verschiedenen Kontexten vermieden werden.
  * <br>
  * Der Kontainer ist als Baum von Maps, Arrays und Strings organisiert. Um trotzdem einen
- * einfachen Zugriff darauf zu ermöglichen, unterstützen alle Methoden eine Punktnotation bei den Keys.
+ * einfachen Zugriff darauf zu ermÃ¶glichen, unterstÃ¼tzen alle Methoden eine Punktnotation bei den Keys.
  * <br><br>
  * Beispiel: address.name bezeichnet den Wert, der in der Map address zu 'name' abgelegt ist. 
  * <br>Beispiel: address.fon.2 bezeichnet der 2. Element des Array, das unter 'fon' in der Map address abgelegt ist.
  * <br><br>
  * Wenn ein Wert unter einem solchen Key abgelegt wird und die daruterliegende Struktur noch nicht existiert, wird sie automatisch erstellt.
- * Bei dieser automatischen erstellung werden für jede Stufe immer Map angelegt, nie Arrays.
+ * Bei dieser automatischen erstellung werden fÃ¼r jede Stufe immer Map angelegt, nie Arrays.
  * <br><br>
- * Da die benutzten Speicherstrukturen nicht mit null-Pointern umgehen können, wird überall darauf getestet.
- * Wenn ein key oder value ein null-Pointer ist, kehrt die Methode einfach zurück und meldet keinen Fehler.
+ * Da die benutzten Speicherstrukturen nicht mit null-Pointern umgehen kÃ¶nnen, wird Ã¼berall darauf getestet.
+ * Wenn ein key oder value ein null-Pointer ist, kehrt die Methode einfach zurÃ¼ck und meldet keinen Fehler.
  * 
  * 
  * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
  */
 public class TcContent {
     /**
-     * Enthält ein Kürzel, daß das Ergebniss der Aktion charakterisiert.
+     * EnthÃ¤lt ein KÃ¼rzel, daÃŸ das Ergebniss der Aktion charakterisiert.
      */
     private String status;
 
@@ -125,7 +125,7 @@ public class TcContent {
 
     /**
      * Setzt das Ergebniss der Aktion
-     * @param status Kürzel für die Aktion. (z.B. "ok" oder "error")
+     * @param status KÃ¼rzel fÃ¼r die Aktion. (z.B. "ok" oder "error")
      */
     public void setStatus(String status) {
         this.status = status;
@@ -133,7 +133,7 @@ public class TcContent {
     }
 
     /**
-     * Gibt ein Kürzel zurück, daß das Ergebniss der Aktion charakterisiert.
+     * Gibt ein KÃ¼rzel zurÃ¼ck, daÃŸ das Ergebniss der Aktion charakterisiert.
      */
     public String getStatus() {
         return this.status;
@@ -147,7 +147,7 @@ public class TcContent {
     }
 
     /**
-     * Gibt ein Feld als String zurück.
+     * Gibt ein Feld als String zurÃ¼ck.
      * 
      * @param key Der Key des Fedes
      */
@@ -160,8 +160,8 @@ public class TcContent {
     }
 
     /**
-     * Gibt ein Feld als String zurück.
-     * kurzform für getAsObject()
+     * Gibt ein Feld als String zurÃ¼ck.
+     * kurzform fÃ¼r getAsObject()
      *
      * @param key Der Key des Fedes
      */
@@ -170,7 +170,7 @@ public class TcContent {
     }
 
     /**
-     * Gibt ein Feld als Object zurück.
+     * Gibt ein Feld als Object zurÃ¼ck.
      *
      * @param key Der Key des Feldes
      */
@@ -190,7 +190,7 @@ public class TcContent {
                 newNode = ((Map) node).get(token);
             } else if (node instanceof List) {
                 index = 0;
-                try { // Wenn der key nicht gültig ist, geben wir einfach zurück
+                try { // Wenn der key nicht gÃ¼ltig ist, geben wir einfach zurÃ¼ck
                     index = Integer.parseInt(token);
                 } catch (Exception e) {
                     return null;
@@ -212,7 +212,7 @@ public class TcContent {
             return ((Map) node).get(token);
         else if (node instanceof List) {
             index = 0;
-            try { // Wenn der key nicht gültig ist, geben wir einfach null zurück 
+            try { // Wenn der key nicht gÃ¼ltig ist, geben wir einfach null zurÃ¼ck 
                 index = Integer.parseInt(token);
             } catch (Exception e) {
                 return null;
@@ -268,7 +268,7 @@ public class TcContent {
     /**
      * Setzen eines Feldes von einem beliebigen Typ.
      * Ist Private, da nur Lists, Maps und Strings gesetz werden sollen.
-     * bei Fehlern wird einfach zurück gekehrt.
+     * bei Fehlern wird einfach zurÃ¼ck gekehrt.
      */
     public void setField(String key, Object data) {
         if (key == null || "".equals(key))
@@ -290,7 +290,7 @@ public class TcContent {
                 }
             } else if (node instanceof List) {
                 index = 0;
-                try { // Wenn der key nicht gültig ist, geben wir einfach zurück
+                try { // Wenn der key nicht gÃ¼ltig ist, geben wir einfach zurÃ¼ck
                     index = Integer.parseInt(token);
                 } catch (Exception e) {
                     return;
@@ -315,7 +315,7 @@ public class TcContent {
              ((Map) node).put(token, data);
         else if (node instanceof List) {
             index = 0;
-            try { // Wenn der key nicht gültig ist, hängen wir einfach an.
+            try { // Wenn der key nicht gÃ¼ltig ist, hÃ¤ngen wir einfach an.
                 index = Integer.parseInt(token);
             } catch (Exception e) {
                 index = ((List) node).size();
@@ -329,7 +329,7 @@ public class TcContent {
     }
 
     /**
-     * String räpräsentation z.B. für Debugausgaben.
+     * String rÃ¤prÃ¤sentation z.B. fÃ¼r Debugausgaben.
      */
     public String toString() {
         StringBuffer sb = new StringBuffer();

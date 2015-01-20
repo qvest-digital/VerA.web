@@ -38,7 +38,7 @@ import java.util.Map;
 import org.w3c.dom.Element;
 
 /** 
- * Klasse zur Repr‰sentation einer Sammlung von Tasks
+ * Klasse zur Repr√§sentation einer Sammlung von Tasks
  *
  * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
  */
@@ -57,7 +57,7 @@ public class TcTaskList {
     /**
      * Auslesen der TaskInformationen
      * Kopie auf TcCommon Config
-     * Soll sp‰ter nur noch hier existieren.
+     * Soll sp√§ter nur noch hier existieren.
      */
     public void parseTasks(Element tasksNode, TcModuleConfig moduleConfig) {
         // Evtl. auch nicht vorhanden
@@ -85,7 +85,7 @@ public class TcTaskList {
 
     /**
      * Liefert eine Map.
-     * Diese enth‰lt f¸r jedes Task, das fehlerhaft ist einen Eintrag
+     * Diese enth√§lt f√ºr jedes Task, das fehlerhaft ist einen Eintrag
      * mit dem Tasknamen als String Key und Fehlerliste als String Vector.
      * Oder null, wenn kein Task fehlerhalt ist.
      *

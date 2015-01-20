@@ -42,7 +42,7 @@ import de.tarent.octopus.client.OctopusTask;
 
 /**
  * Kontext, in dem ein Worker im Octopus existiert.
- * Über diesen Kontext kann ein Worker Request-, Content- Config- und Sessiondaten abfragen sowie setzen.
+ * Ãœber diesen Kontext kann ein Worker Request-, Content- Config- und Sessiondaten abfragen sowie setzen.
  * 
  *
  * @author <a href="mailto:sebastian@tarent.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
@@ -64,7 +64,7 @@ public interface OctopusContext {
     
     /**
      * Liefert den Inhalt eines Feldes aus einem der Contextbereiche Request, Content, Session oder Config
-     * Aus welchem Bereich das Feld Stammt wird über das Prefix entschieden.
+     * Aus welchem Bereich das Feld Stammt wird Ã¼ber das Prefix entschieden.
      * REQUEST:username z.B liefert den Parameter username aus dem Request.
      * Kein Prefix bedeutet: Suche in Content, Request, Session
      *
@@ -72,7 +72,7 @@ public interface OctopusContext {
     public Object getContextField(String contextFieldName);
 
     /**
-     * Setzt ein Feld in einem der Contextbereiche Content, Session, abhängig vom Verwendeten Prefix des fieldNames.
+     * Setzt ein Feld in einem der Contextbereiche Content, Session, abhÃ¤ngig vom Verwendeten Prefix des fieldNames.
      * Ohne Prefix wird das Feld im Content gesetzt.
      * Das Setzen von Feldern im Request und in der Config ist verboten.     
      */

@@ -33,11 +33,11 @@ import de.tarent.octopus.security.TcSecurityException;
 /**
  * @author kirchner
  * 
- * Interface für einen UserManager.
+ * Interface fÃ¼r einen UserManager.
  */
 public interface UserManager {
 	/**
-	 * Hinzufügen eines Users zur Authentifizierungs-DB.
+	 * HinzufÃ¼gen eines Users zur Authentifizierungs-DB.
 	 * @param userID userID des neuen Users
 	 * @param firstName Vorname des Users
 	 * @param lastName Nachname des Users
@@ -71,8 +71,8 @@ public interface UserManager {
 	public Object getUserParam(String userID, String paramname) throws TcSecurityException;
 	
 	/**
-	 * Löschen eines Users aus der Authentifizierungs-DB.
-	 * @param userID userID des zu löschenden Users
+	 * LÃ¶schen eines Users aus der Authentifizierungs-DB.
+	 * @param userID userID des zu lÃ¶schenden Users
 	 */
 	public void deleteUser(String userID) throws TcSecurityException;
 }

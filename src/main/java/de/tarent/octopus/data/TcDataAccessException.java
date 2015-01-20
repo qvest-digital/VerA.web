@@ -29,7 +29,7 @@ package de.tarent.octopus.data;
 import de.tarent.octopus.util.RootCauseException;
 
 /** 
- * Kann benutzt werden um Fehler, die wärend des Datenzugriffes auftreten 
+ * Kann benutzt werden um Fehler, die wÃ¤rend des Datenzugriffes auftreten 
  * weiter zu geben.
  * 
  * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, <b>tarent GmbH</b>

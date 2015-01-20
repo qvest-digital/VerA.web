@@ -99,8 +99,8 @@ public abstract class AbstractLoginManager implements LoginManager {
 
         // Wenn nicht eingeloggt wird
         // und eine neue Session gestartet wurde
-        // und das Task nicht f¸r Anonymous freigegeben ist
-        // ==> Meldung, dass die Session un¸ltig ist
+        // und das Task nicht f√ºr Anonymous freigegeben ist
+        // ==> Meldung, dass die Session un√ºltig ist
         else if (wasNew) {
             TcTaskList taskList = config.getTaskList(tcRequest.getModule());
             TcTask t = taskList.getTask(tcRequest.getTask());

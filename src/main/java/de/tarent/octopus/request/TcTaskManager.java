@@ -57,7 +57,7 @@ public class TcTaskManager {
 	TcTaskList taskList;
 
 	/**
-	 * Benˆtigt die Config, um sich eine Liste mit Tasks zum aktuellen Modul zu
+	 * Ben√∂tigt die Config, um sich eine Liste mit Tasks zum aktuellen Modul zu
 	 * holen.
 	 */
 	TcConfig config;
@@ -69,13 +69,13 @@ public class TcTaskManager {
 	TcTask.TNode position;
 
 	// Merkt sich die Positionen (TNodes), an die nach dem Aufruf von
-	// anderen tasks zur¸ck gesprungen werden soll.
+	// anderen tasks zur√ºck gesprungen werden soll.
 	// Wird erst initialisiert, wenn er wirklich gebraucht wird.
 	List trace;
 
     public static final String ON_ERROR_ACTION_RESUME_NEXT = "resumeNext";
 
-	/** Dieser String enth‰lt die Aktion, die im Fehlerfall ausgef¸hrt werden soll */
+	/** Dieser String enth√§lt die Aktion, die im Fehlerfall ausgef√ºhrt werden soll */
 	private String onErrorAction = null;
 
 
@@ -96,9 +96,9 @@ public class TcTaskManager {
 	}
 
 	/**
-	 * Setzt die Position auf ein Task, so daﬂ der Aufruf von next() auf die
-	 * erste Action ziehlt, und pr¸ft, ob dieses Task das Attribut public hat.
-	 * Wenn nicht, wird eine TcTaskProzessingException ausgelˆﬂt
+	 * Setzt die Position auf ein Task, so da√ü der Aufruf von next() auf die
+	 * erste Action ziehlt, und pr√ºft, ob dieses Task das Attribut public hat.
+	 * Wenn nicht, wird eine TcTaskProzessingException ausgel√∂√üt
 	 */
 	public void start(String moduleName, String taskName, boolean testAccess)
 		throws TcTaskProzessingException {
@@ -142,13 +142,13 @@ public class TcTaskManager {
     }
 
 	/**
-	 * Setzt die Position auf die n‰chste Action, eines Task. oder ausgabeseite, 
-     * abh‰ngig vonm status.
+	 * Setzt die Position auf die n√§chste Action, eines Task. oder ausgabeseite, 
+     * abh√§ngig vonm status.
 	 * 
-	 * @return gibt true zur¸ck, wenn die die neue Pointerposition auf eine
-	 *         Action zeigt, also als n‰chstes eine Action abgearbeitet werden
-	 *         soll. Wenn als n‰chstes die Response generiert werden soll wird
-	 *         false zur¸ck gegeben.
+	 * @return gibt true zur√ºck, wenn die die neue Pointerposition auf eine
+	 *         Action zeigt, also als n√§chstes eine Action abgearbeitet werden
+	 *         soll. Wenn als n√§chstes die Response generiert werden soll wird
+	 *         false zur√ºck gegeben.
 	 * @throws TcTaskProzessingException 
 	 */
 	protected boolean next() throws TcTaskProzessingException {
@@ -192,7 +192,7 @@ public class TcTaskManager {
 			} while (next == null);
 		}
 
-		// Jetzt sollte next auf dem n‰chsten Element stehen.
+		// Jetzt sollte next auf dem n√§chsten Element stehen.
 		// Dieses kann also nun ausgewertet werden
         if (next instanceof TcTask.DoTaskNode) {
 			TcTask.DoTaskNode doTaskNode = (TcTask.DoTaskNode) next;

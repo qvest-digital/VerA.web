@@ -26,7 +26,7 @@
 
 package de.tarent.octopus.response;
 
-/** Objekt zur Beschreibung der Ausgabeseite für verscheidenen Ausgabeformate.
+/** Objekt zur Beschreibung der Ausgabeseite fÃ¼r verscheidenen Ausgabeformate.
  *  @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
  *  @author <a href="mailto:H.Helwich@tarent.de">Hendrik Helwich</a>, <b>tarent GmbH</b>
  */
@@ -43,14 +43,14 @@ public class TcResponseDescription {
         this.responseType = responseType;
     }
 
-    /** Gibt den Typ zurück, von dem die Ausgabeseite sein soll.
-     * Damit kann das Modul für die Ausgabegenerierung bestimmt werden.
+    /** Gibt den Typ zurÃ¼ck, von dem die Ausgabeseite sein soll.
+     * Damit kann das Modul fÃ¼r die Ausgabegenerierung bestimmt werden.
      */
     public String getDescName() {
         return descName;
     }
 
-    /** Gibt den Namen zurück, den das Modul für die Ausgabegenerierung benutzt.
+    /** Gibt den Namen zurÃ¼ck, den das Modul fÃ¼r die Ausgabegenerierung benutzt.
      */
     public String getResponseType() {
         return responseType;

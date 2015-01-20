@@ -51,14 +51,14 @@ import de.tarent.octopus.logging.LogFactory;
  *
  * Hier werden High-Level Funktionen zum Zugriff auf Daten bereit gestellt.
  * <br>
- * <br>Im Moment sind ein paar Funktionen da, die das Cachen von Anfragen ermöglichen sollen.
+ * <br>Im Moment sind ein paar Funktionen da, die das Cachen von Anfragen ermÃ¶glichen sollen.
  * Sie funktionieren aber noch nicht wirklich (also eher experimentell).
  * 
  * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
  */
 public class TcGenericDataAccessWrapper {
 	//
-    // geschützte Member
+    // geschÃ¼tzte Member
     //
     protected TarDBConnection dbConnection;
 
@@ -78,13 +78,13 @@ public class TcGenericDataAccessWrapper {
     protected long creationTimeMillis = 0;
     protected final static long MAX_TIME_MILLIS = 600000;
     
-    /** Hier werden die aktuellen Benutzungslocks gezählt */
+    /** Hier werden die aktuellen Benutzungslocks gezÃ¤hlt */
     private int useCount = 0;
-    /** Mutex für das Erzeugen der {@link #jdbcConnection Datenbankverbindung} */
+    /** Mutex fÃ¼r das Erzeugen der {@link #jdbcConnection Datenbankverbindung} */
     private final Object connectionMutex = new Object();
-    /** Mutex für das Verwalten des {@link #useCount} */
+    /** Mutex fÃ¼r das Verwalten des {@link #useCount} */
     private final Object useMutex = new Object();
-    /** Flag: {@link #jdbcConnection Datenbankverbindung} soll baldmöglichst geschlossen werden */
+    /** Flag: {@link #jdbcConnection Datenbankverbindung} soll baldmÃ¶glichst geschlossen werden */
     private boolean pendingDisconnect = false;
     //
     // Konstruktoren
@@ -112,7 +112,7 @@ public class TcGenericDataAccessWrapper {
 
         allDataAccessWrappers.add(new WeakReference(this));
         cleanWrapperList();
-        logger.debug("Wrapperlistengröße: " + allDataAccessWrappers.size());
+        logger.debug("WrapperlistengrÃ¶ÃŸe: " + allDataAccessWrappers.size());
     }
 
     //
@@ -134,7 +134,7 @@ public class TcGenericDataAccessWrapper {
         this.schema = dbConnection.getSchema();
     }
 
-    /** Die Größe des Puffers für das Cachen von Resultsets */
+    /** Die GrÃ¶ÃŸe des Puffers fÃ¼r das Cachen von Resultsets */
     public void setResultSetCacheSize(int resultSetCount) {
         resultSetCache = resultSetCount;
     }
@@ -145,10 +145,10 @@ public class TcGenericDataAccessWrapper {
 //    }
 
     //
-    // öffentliche Methoden
+    // Ã¶ffentliche Methoden
     //
     /**
-     * Diese Methode liefert, ob der Wrapper 'alt', also älter als
+     * Diese Methode liefert, ob der Wrapper 'alt', also Ã¤lter als
      * {@link #MAX_TIME_MILLIS} ist.
      * 
      * @return <code>true</code>, falls der Wrapper alt ist.
@@ -158,7 +158,7 @@ public class TcGenericDataAccessWrapper {
     }
     
     /**
-     * Diese Methode sichert zu, dass in diesem Objekt eine gültige
+     * Diese Methode sichert zu, dass in diesem Objekt eine gÃ¼ltige
      * {@link #getJdbcConnection() Datenbankverbindung} vorliegt.
      * 
      * @throws SQLException
@@ -179,8 +179,8 @@ public class TcGenericDataAccessWrapper {
     }
 
     /**
-     * Diese Methode meldet einen Disconnect der Verbindung zur nächsten Gelegenheit
-     * (d.h. dann, wenn der Benutzungszähler auf 0 absinkt) an. 
+     * Diese Methode meldet einen Disconnect der Verbindung zur nÃ¤chsten Gelegenheit
+     * (d.h. dann, wenn der BenutzungszÃ¤hler auf 0 absinkt) an. 
      * 
      * @throws SQLException
      */
@@ -192,9 +192,9 @@ public class TcGenericDataAccessWrapper {
     }
     
     /**
-     * Diese Methode erhöht den Benutzungszähler. Hierdurch wird ein Schließen der
+     * Diese Methode erhÃ¶ht den BenutzungszÃ¤hler. Hierdurch wird ein SchlieÃŸen der
      * zugrunde liegenden {@link #getJdbcConnection() Verbindung} mindestens bis
-     * zum zugehörigen {@link #unUse()} verzögert.<br>
+     * zum zugehÃ¶rigen {@link #unUse()} verzÃ¶gert.<br>
      * Diese Methode sollte immer im Zusammenspiel mit {@link #unUse()} verwendet
      * werden:
      * <pre><code>
@@ -215,7 +215,7 @@ public class TcGenericDataAccessWrapper {
     }
 
     /**
-     * Diese Methode verringert den Benutzungszähler und führt gegebenenfalls ein verzögertes
+     * Diese Methode verringert den BenutzungszÃ¤hler und fÃ¼hrt gegebenenfalls ein verzÃ¶gertes
      * Freigeben der Verbindung aus. Zur Benutzung siehe {@link #use()}.
      * 
      * @throws SQLException 
@@ -232,11 +232,11 @@ public class TcGenericDataAccessWrapper {
     }
     
     /**
-     * Setzt ein Flagg um an zu zeigen, wenn sich die Daten in einem Bereich geändert haben
+     * Setzt ein Flagg um an zu zeigen, wenn sich die Daten in einem Bereich geÃ¤ndert haben
      * und z.B. ein neues Resultset erzeugt werden soll.
      *
-     * @param section Bezeichner für den Bereich der Daten. Dieser Bezeichner kann beliebig sein,
-     *        solange gewährleistet ist, daß zugriffe auf den gleichen Bereich auch den gleichen Bezeichner verwenden.
+     * @param section Bezeichner fÃ¼r den Bereich der Daten. Dieser Bezeichner kann beliebig sein,
+     *        solange gewÃ¤hrleistet ist, daÃŸ zugriffe auf den gleichen Bereich auch den gleichen Bezeichner verwenden.
      */
     public void setDirtyDataSection(String section) {
         // Irgend einen Wert != null rein setzen 
@@ -245,20 +245,20 @@ public class TcGenericDataAccessWrapper {
     }
 
     /**
-     * Löscht das Flagg, daß anzeigt, das sich die Daten in einem Bereich geändert haben
+     * LÃ¶scht das Flagg, daÃŸ anzeigt, das sich die Daten in einem Bereich geÃ¤ndert haben
      *
-     * @param section Bezeichner für den Bereich der Daten. Dieser Bezeichner kann beliebig sein,
-     *        solange gewährleistet ist, daß zugriffe auf den gleichen Bereich auch den gleichen Bezeichner verwenden.
+     * @param section Bezeichner fÃ¼r den Bereich der Daten. Dieser Bezeichner kann beliebig sein,
+     *        solange gewÃ¤hrleistet ist, daÃŸ zugriffe auf den gleichen Bereich auch den gleichen Bezeichner verwenden.
      */
     public void removeDirtyDataSection(String section) {
         dirtyDataSections.remove(section);
     }
 
     /**
-     * Setzt das Ditry Flag für eine Section bei allen Workern
+     * Setzt das Ditry Flag fÃ¼r eine Section bei allen Workern
      *
-     * @param section Bezeichner für den Bereich der Daten. Dieser Bezeichner kann beliebig sein,
-     *        solange gewährleistet ist, daß zugriffe auf den gleichen Bereich auch den gleichen Bezeichner verwenden.
+     * @param section Bezeichner fÃ¼r den Bereich der Daten. Dieser Bezeichner kann beliebig sein,
+     *        solange gewÃ¤hrleistet ist, daÃŸ zugriffe auf den gleichen Bereich auch den gleichen Bezeichner verwenden.
      */
     public void setDirtyDataSectionOnAll(String section) {
         for (;;) {
@@ -285,7 +285,7 @@ public class TcGenericDataAccessWrapper {
     }
 
     //
-    // geschützte Methoden für einen generischen Zugriff auf Daten durch abgeleitete Klassen
+    // geschÃ¼tzte Methoden fÃ¼r einen generischen Zugriff auf Daten durch abgeleitete Klassen
     //
     /**
      * Liefert eine Map mit einem Datensatz.
@@ -339,7 +339,7 @@ public class TcGenericDataAccessWrapper {
      * 
      * @param tableName Tabelle, die selektiert werden soll.
      * @param whereClause String mit einer where Bedingung.
-     * @param offset Position des gewünschten Datensatzes
+     * @param offset Position des gewÃ¼nschten Datensatzes
      * 
      * @return Einen Datensatz mit den Spaltennamen als Keys und den Feldern als String Values.
      */
@@ -381,16 +381,16 @@ public class TcGenericDataAccessWrapper {
     }
 
     /**
-     * Erzeugt ein ResultSet und gibt dies zurück.
+     * Erzeugt ein ResultSet und gibt dies zurÃ¼ck.
      *
      * Wenn cache gesetzt ist, wird das ResultSet aus einer Schlange genommen,
-     * wenn bereits eines für das gleiche Kommando gemacht wurde.
+     * wenn bereits eines fÃ¼r das gleiche Kommando gemacht wurde.
      * Bzw. wird es wird ein neues erzeugt und in der Schlange abgelegt.
      *
-     * @param cmd SQL Commando, muss für gleiche Resultsets auch gleich sein.
+     * @param cmd SQL Commando, muss fÃ¼r gleiche Resultsets auch gleich sein.
      * @param cache Soll das Resultset gecacht werden`
      * @param dataSection Bezeichner, der den Bereich aus dem die Daten sind bezeichnet und benutzt werden kann um ein Dirty-Flag ab zu fragen.
-     *                    Kann null sein, wenn aktualität egal ist.     
+     *                    Kann null sein, wenn aktualitÃ¤t egal ist.     
      *
      * @return ResultSet der Ergebnissmenge
      */
@@ -412,7 +412,7 @@ public class TcGenericDataAccessWrapper {
             ResultSet cursor = null;
 
             logger.trace("dirtyDataSections.get( " + dataSection + " ): " + dirtyDataSections.get(dataSection));
-            // Wenn das Resultset gepuffert und noch gültig ist
+            // Wenn das Resultset gepuffert und noch gÃ¼ltig ist
             if (index >= 0 && dirtyDataSections.get(dataSection) == null) {
                 // Hole das gepufferte
                 // Wenn dieses Set nicht schon das letzte ist,
@@ -457,7 +457,7 @@ public class TcGenericDataAccessWrapper {
      * @param whereClause String mit einer where Bedingung.
      * @param reccord Datensatz mit den Spaltennamen als Keys und den Feldern als String Values.
      * 
-     * @return Anzahl geänderter Datensätze 
+     * @return Anzahl geÃ¤nderter DatensÃ¤tze 
      */
    protected int doUpdate(String tableName, String whereClause, Map reccord) throws TcDataAccessException {
        try {
@@ -491,12 +491,12 @@ public class TcGenericDataAccessWrapper {
    }
 
    /**
-    * Füht einen SQL befehl aus, der kein Resultset liefert.
+    * FÃ¼ht einen SQL befehl aus, der kein Resultset liefert.
     *
     * @param sql Das SQL Kommando
     * @param dataSection Bezeichner, der den Bereich aus dem die Daten sind bezeichnet und benutzt werden kann um ein Dirty-Flag ab zu fragen.
-    *                    Kann null sein, wenn aktualität egal ist.     
-    * @return Ergebnis der Aktion, wenn diese eines zurück liefert
+    *                    Kann null sein, wenn aktualitÃ¤t egal ist.     
+    * @return Ergebnis der Aktion, wenn diese eines zurÃ¼ck liefert
     */
    protected int doSql(String sql, String dataSection) throws SQLException, ClassNotFoundException {
        if (dataSection != null)
@@ -515,18 +515,18 @@ public class TcGenericDataAccessWrapper {
    }
 
    //
-   // geschützte Hilfsmethoden
+   // geschÃ¼tzte Hilfsmethoden
    //
     /**
-     * Liefert die Felder eines Resultsets, also die Spaltennamen zurück.
+     * Liefert die Felder eines Resultsets, also die Spaltennamen zurÃ¼ck.
      *
-     * Diese werden im Moment noch für jede Anfrage neu ausgewertet, kommen 
-     * später aber aus eimem Puffer. Um dies zu realisieren muss ein Key
-     * mit übergeben werden, der für diese Anordnung von Feldnamen eindeutig ist.
+     * Diese werden im Moment noch fÃ¼r jede Anfrage neu ausgewertet, kommen 
+     * spÃ¤ter aber aus eimem Puffer. Um dies zu realisieren muss ein Key
+     * mit Ã¼bergeben werden, der fÃ¼r diese Anordnung von Feldnamen eindeutig ist.
      *
      * @param cursor Das Result Set
-     * @param cacheKey Ein Key, der für diese Anordnung von Feldnamen eindeutig ist. Darunter kann das Ergebniss dieser Anfrage dann abgelegt werden.
-     * @return Ein Array mit den Feldnamen der Spalten in der richtigen Reihenfolge. Vorsicht: Die erste Spalte liegt im Array bei [0], wärend der erste Spalte in einem ResultSet mit 1 anfängt.
+     * @param cacheKey Ein Key, der fÃ¼r diese Anordnung von Feldnamen eindeutig ist. Darunter kann das Ergebniss dieser Anfrage dann abgelegt werden.
+     * @return Ein Array mit den Feldnamen der Spalten in der richtigen Reihenfolge. Vorsicht: Die erste Spalte liegt im Array bei [0], wÃ¤rend der erste Spalte in einem ResultSet mit 1 anfÃ¤ngt.
      */
     protected String[] getFieldList(ResultSet cursor, Object cacheKey)
         throws java.sql.SQLException {
@@ -543,7 +543,7 @@ public class TcGenericDataAccessWrapper {
     }
 
     /**
-     * Diese Methode räumt die statische {@link #allDataAccessWrappers WrapperListe} auf.
+     * Diese Methode rÃ¤umt die statische {@link #allDataAccessWrappers WrapperListe} auf.
      */
     private static void cleanWrapperList() {
         try {
@@ -558,7 +558,7 @@ public class TcGenericDataAccessWrapper {
     }
     
     /**
-     * Diese Methode führt den eigentlichen Disconnect der {@link #jdbcConnection Verbindung}
+     * Diese Methode fÃ¼hrt den eigentlichen Disconnect der {@link #jdbcConnection Verbindung}
      * zur Datenbank aus. 
      * 
      * @throws SQLException

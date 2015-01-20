@@ -6,14 +6,14 @@
 package de.tarent.octopus.util;
 
 /**
- * Diese Klasse stellt Hilfsmethoden für das Multi-Threading zur Verfügung.
+ * Diese Klasse stellt Hilfsmethoden fÃ¼r das Multi-Threading zur VerfÃ¼gung.
  * 
  * @author mikel
  */
 public class Threads {
     /**
      * Diese statische Methode setzt den Kontext-{@link ClassLoader} des
-     * aktuellen {@link Thread}s und gibt den bisherigen zurück.
+     * aktuellen {@link Thread}s und gibt den bisherigen zurÃ¼ck.
      * 
      * @param newLoader der neue {@link ClassLoader}; darf nicht <code>null</code>
      *  sein.

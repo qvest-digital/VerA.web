@@ -48,7 +48,7 @@ public class OctopusDirectCallConnection
 
    
     /**
-     * Liefert ein CallObject, dass für den Aufruf dieses Task verwendet werden kann.
+     * Liefert ein CallObject, dass fÃ¼r den Aufruf dieses Task verwendet werden kann.
      */
     public OctopusTask getTask(String taskName)
         throws OctopusCallException {

@@ -122,8 +122,8 @@ public class OctopusRemoteTask implements OctopusTask {
     }
 
     /**
-     * @return Gibt eine Refferenz auf sich selbst zur�ck. 
-     *         Damit sind z.B. folgende Aufrufe m�glich: add().add().add ...
+     * @return Gibt eine Refferenz auf sich selbst zurï¿½ck. 
+     *         Damit sind z.B. folgende Aufrufe mï¿½glich: add().add().add ...
      */
     public OctopusTask add(String paramName, Object paramValue) {
         if (paramName == null)
@@ -218,7 +218,7 @@ public class OctopusRemoteTask implements OctopusTask {
      * Vorsicht: Es werden nur Maps, Listen und Arrays traversiert. 
      * Wenn ein Array in einem anderen Datencontainer enthalten ist, wird es nicht gefunden
      * <br>
-     * TODO: Besser w�re nat�rlich ein direktes Deserialisieren als List durch Axis (derzeit nicht unterst�tzt).
+     * TODO: Besser wï¿½re natï¿½rlich ein direktes Deserialisieren als List durch Axis (derzeit nicht unterstï¿½tzt).
      */
     protected Object replaceArrayWithList(Object o) {
         Object out = o;
@@ -233,7 +233,7 @@ public class OctopusRemoteTask implements OctopusTask {
                 Object replacement = replaceArrayWithList(element);
 
                 // Hier ist ein echtes == gemeint, kein equals, 
-                // da nur ausgetauscht werden muss, wenn sich die Objektinstanz wirklich ge�ndert hat.
+                // da nur ausgetauscht werden muss, wenn sich die Objektinstanz wirklich geï¿½ndert hat.
                 if (replacement != element)
                     list.set(i, replacement);
             }            
@@ -247,7 +247,7 @@ public class OctopusRemoteTask implements OctopusTask {
                 Object replacement = replaceArrayWithList(element);
 
                 // Hier ist ein echtes == gemeint, kein equals, 
-                // da nur ausgetauscht werden muss, wenn sich die Objektinstanz wirklich ge�ndert hat.
+                // da nur ausgetauscht werden muss, wenn sich die Objektinstanz wirklich geï¿½ndert hat.
                 if (replacement != element)
                     map.put(entry.getKey(), replacement);
             }            

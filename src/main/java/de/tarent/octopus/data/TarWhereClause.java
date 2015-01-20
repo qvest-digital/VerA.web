@@ -31,16 +31,16 @@ import java.util.List;
 
 /**
  * Stellt eine SQL WHERE Bedingung dar.
- * Die Klasse wird über einen Postfix Ausdruck Initialisiert. Und kann einen String mit einem SQL Ausdruck liefern.
+ * Die Klasse wird Ã¼ber einen Postfix Ausdruck Initialisiert. Und kann einen String mit einem SQL Ausdruck liefern.
  *
  * <b>Postfix:</b>
- * Postfix ist eine Möglichkeit einen Ausdrucksbaum, wie in einer flachen Liste eindeutig zu speichern, ohne Klammerung zu benötigen.
+ * Postfix ist eine MÃ¶glichkeit einen Ausdrucksbaum, wie in einer flachen Liste eindeutig zu speichern, ohne Klammerung zu benÃ¶tigen.
  * <br>Der Ausdruck ((name = 'Sebastian') and (id = '2'))  sieht in Postfix z.B. so aus: name 'Sebastian' = id '2' "=" "AND"
- * Dieses Modell bietet die Möglichkeit Suchausdrücke in einer flachen Struktur zu speichern und ihre logische Struktur dabei zu erhalten. 
- * Letzteres wäre bei der Repräsentation in einem String nicht der Fall.
+ * Dieses Modell bietet die MÃ¶glichkeit SuchausdrÃ¼cke in einer flachen Struktur zu speichern und ihre logische Struktur dabei zu erhalten. 
+ * Letzteres wÃ¤re bei der ReprÃ¤sentation in einem String nicht der Fall.
  *
  * <br><br>
- * Die Klassen erkennen SQL-Schlüsselwörter in der Token Liste:
+ * Die Klassen erkennen SQL-SchlÃ¼sselwÃ¶rter in der Token Liste:
  * <br>Zwei Operanden: "=", "and", "in", "like", "or" 
  * <br>Ein Operand: "not"
  *
@@ -52,7 +52,7 @@ public class TarWhereClause {
     /**
      * Initialisaierung mit einer Liste von Tokens in Postfix Reihenfolge.
      * 
-     * Wenn sich aus der Liste kein gültiger Baum aufbauen lässt,
+     * Wenn sich aus der Liste kein gÃ¼ltiger Baum aufbauen lÃ¤sst,
      * wirde eine Exception geworfen.
      */
     public TarWhereClause(String[] postfixTokenList) throws TarMalformedWhereClauseException {
@@ -63,7 +63,7 @@ public class TarWhereClause {
     /**
      * Initialisaierung mit einer Liste von Knotenobjekten in Postfix Reihenfolge.
      *
-     * Wenn sich aus der Liste kein gültiger Baum aufbauen lässt,
+     * Wenn sich aus der Liste kein gÃ¼ltiger Baum aufbauen lÃ¤sst,
      * wirde eine Exception geworfen.
      */
     public TarWhereClause(TarWhereNode[] postfixTokenList) throws TarMalformedWhereClauseException {
@@ -71,7 +71,7 @@ public class TarWhereClause {
     }
 
     /**
-     * Liefert einen String mit einem SQL Ausdruck zurück.     
+     * Liefert einen String mit einem SQL Ausdruck zurÃ¼ck.     
      */
     public String toString() {
         return inOrderTraverse(rootNode).toString();
@@ -101,11 +101,11 @@ public class TarWhereClause {
                 stack.add(newNode);
             }
             if (stack.size() > 1)
-                throw new TarMalformedWhereClauseException("Der Ausdruck ist keine gültige Postfix Notation. Es sind zu wehnig Operatoren für die Operanden vorhanden.");
+                throw new TarMalformedWhereClauseException("Der Ausdruck ist keine gÃ¼ltige Postfix Notation. Es sind zu wehnig Operatoren fÃ¼r die Operanden vorhanden.");
 
             return (TarWhereNode) stack.remove(0);
         } catch (java.lang.ArrayIndexOutOfBoundsException e) {
-            throw new TarMalformedWhereClauseException("Der Ausdruck ist keine gültige Postfix Notation. Es sind nicht genügend Operanden für die Operatoren vorhanden.");
+            throw new TarMalformedWhereClauseException("Der Ausdruck ist keine gÃ¼ltige Postfix Notation. Es sind nicht genÃ¼gend Operanden fÃ¼r die Operatoren vorhanden.");
         }
     }
 

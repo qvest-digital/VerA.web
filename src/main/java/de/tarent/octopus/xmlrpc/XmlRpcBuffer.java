@@ -39,7 +39,7 @@ public class XmlRpcBuffer {
     }
 
     //
-    // öffentliche Methoden
+    // Ã¶ffentliche Methoden
     //
     /**
      * Diese Methode liefert die kodierte XML-RPC-Antwort.
@@ -50,12 +50,12 @@ public class XmlRpcBuffer {
     }
 
     /**
-     * Diese Methode fügt eine vollständige XML-RPC-Antwort an.
+     * Diese Methode fÃ¼gt eine vollstÃ¤ndige XML-RPC-Antwort an.
      * 
      * @param result
      *            Antwortparameter; wenn dieser null ist, ist die Antwort leer.
      * @throws IllegalArgumentException
-     *             Wenn <code>null</code> im Parameter eingefügt werden soll,
+     *             Wenn <code>null</code> im Parameter eingefÃ¼gt werden soll,
      *             wird diese Ausnahme geworfen, da dies nicht nach der <a
      *             href="http://xml-rpc.com/spec">XML-RPC Specifikation </a>)
      *             erlaubt ist.
@@ -73,12 +73,12 @@ public class XmlRpcBuffer {
     }
 
     /**
-     * Diese Methode fügt eine XML-RPC-Beschreibung eines Java-Objekts ein.
+     * Diese Methode fÃ¼gt eine XML-RPC-Beschreibung eines Java-Objekts ein.
      * 
      * @param object
-     *            Das einzufügende Objekt.
+     *            Das einzufÃ¼gende Objekt.
      * @throws IllegalArgumentException
-     *             Wenn <code>null</code> als Objekt eingefügt werden soll,
+     *             Wenn <code>null</code> als Objekt eingefÃ¼gt werden soll,
      *             wird diese Ausnahme geworfen, da dies nicht nach der <a
      *             href="http://xml-rpc.com/spec">XML-RPC Specifikation </a>)
      *             erlaubt ist.
@@ -86,7 +86,7 @@ public class XmlRpcBuffer {
     public void appendObject(Object object) {
         startElement("value");
         if (object == null)
-            throw new IllegalArgumentException("XML-RPC unterstützt keine null-Objekte");
+            throw new IllegalArgumentException("XML-RPC unterstÃ¼tzt keine null-Objekte");
         else if (object instanceof String)
             buffer.append(Xml.escape((String) object));
         else if (object instanceof Integer)
@@ -106,12 +106,12 @@ public class XmlRpcBuffer {
         else if (object instanceof Map)
             appendDataElement((Map) object);
         else
-            throw new RuntimeException("nicht unterstützter Java-Typ: " + object.getClass());
+            throw new RuntimeException("nicht unterstÃ¼tzter Java-Typ: " + object.getClass());
         endElement("value");
     }
 
     /**
-     * Diese Methode fügt eine XML-RPC-Fehlermeldung ein.
+     * Diese Methode fÃ¼gt eine XML-RPC-Fehlermeldung ein.
      * 
      * @param code
      *            Fehlercode
@@ -155,13 +155,13 @@ public class XmlRpcBuffer {
     // Hilfsmethoden
     //
     /**
-     * Diese Methode fügt ein einfaches Datenelement ein. Diese Methode führt
+     * Diese Methode fÃ¼gt ein einfaches Datenelement ein. Diese Methode fÃ¼hrt
      * kein XML-Escaping durch!
      * 
      * @param type
      *            Typenstring
      * @param object
-     *            Objekt, das als einfaches Datenobjekt einzufügen ist.
+     *            Objekt, das als einfaches Datenobjekt einzufÃ¼gen ist.
      */
     void appendDataElement(String type, Object object) {
         assert type != null;
@@ -172,10 +172,10 @@ public class XmlRpcBuffer {
     }
 
     /**
-     * Diese Methode fügt eine Collection als XML-RPC-Array an.
+     * Diese Methode fÃ¼gt eine Collection als XML-RPC-Array an.
      * 
      * @param collection
-     *            Kollektion, die einzufügen ist.
+     *            Kollektion, die einzufÃ¼gen ist.
      */
     void appendDataElement(Collection collection) {
         assert collection != null;
@@ -189,10 +189,10 @@ public class XmlRpcBuffer {
     }
 
     /**
-     * Diese Methode fügt eine Map als XML-RPC-Struct an.
+     * Diese Methode fÃ¼gt eine Map als XML-RPC-Struct an.
      * 
      * @param map
-     *            Map, die einzufügen ist.
+     *            Map, die einzufÃ¼gen ist.
      */
     void appendDataElement(Map map) {
         assert map != null;

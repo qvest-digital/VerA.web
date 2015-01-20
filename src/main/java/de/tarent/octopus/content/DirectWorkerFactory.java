@@ -36,7 +36,7 @@ import de.tarent.octopus.server.SpecialWorkerFactory;
 import de.tarent.octopus.server.WorkerCreationException;
 
 /** 
- * Instantiiert eine Klasse, die das TcContentWorker-Interface direkt unterstützt.
+ * Instantiiert eine Klasse, die das TcContentWorker-Interface direkt unterstÃ¼tzt.
  * 
  * 
  * @see TcContentWorker
@@ -49,7 +49,7 @@ public class DirectWorkerFactory implements SpecialWorkerFactory {
     private static Object[] emptyObjectArray = new Object[]{};
 
     /**
-     * Läd die als ImplementationSource angegebene Klasse und gibt sie gecastet TcContentWorker zurück.
+     * LÃ¤d die als ImplementationSource angegebene Klasse und gibt sie gecastet TcContentWorker zurÃ¼ck.
      * 
      * @param workerDeclaration Beschreibung zur Instanziierung des Workers.
      */

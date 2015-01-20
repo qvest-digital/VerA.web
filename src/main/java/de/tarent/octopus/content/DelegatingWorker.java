@@ -28,8 +28,8 @@
 package de.tarent.octopus.content;
 
 /**
- * Interface für Wrapperklassen von Workern, 
- * um eine einheitliche Schnittstelle für das Liefern des Delegate zu bieten.
+ * Interface fÃ¼r Wrapperklassen von Workern, 
+ * um eine einheitliche Schnittstelle fÃ¼r das Liefern des Delegate zu bieten.
  * 
  * @author Sebastian Mancke
  */

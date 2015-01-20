@@ -33,7 +33,7 @@ import java.io.*;
 import java.util.*;
 
 /** 
- * Stellt Funktionen zur direkten Übergabe 
+ * Stellt Funktionen zur direkten Ãœbergabe 
  * der Ausgaben an einen Aufrufer bereit.
  * 
  * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
@@ -88,7 +88,7 @@ public class TcDirectCallResponse implements TcResponse {
     }
 
     /**
-     * Gibt einen Writer für die Ausgabe zurück.
+     * Gibt einen Writer fÃ¼r die Ausgabe zurÃ¼ck.
      * <br><br>
      * Bevor etwas ausgegeben werden kann, muss der ContentType gesetzt werden.
      */
@@ -141,7 +141,7 @@ public class TcDirectCallResponse implements TcResponse {
     }
 
     /**
-     * Diese Methode schließt die Ausgaben ab. 
+     * Diese Methode schlieÃŸt die Ausgaben ab. 
      */
     public void close() 
         throws IOException{
@@ -160,7 +160,7 @@ public class TcDirectCallResponse implements TcResponse {
    
 
     /**
-     * Setzt den Mime-Type für die Ausgabe.
+     * Setzt den Mime-Type fÃ¼r die Ausgabe.
      * Das muss passiert sein, bevor etwas ausgegeben wurde.
      */
     public void setContentType(String contentType) {
@@ -172,7 +172,7 @@ public class TcDirectCallResponse implements TcResponse {
     }
 
 	/**
-	 * Setzt den Status für die Ausgabe.
+	 * Setzt den Status fÃ¼r die Ausgabe.
 	 * Das muss passiert sein, bevor etwas ausgegeben wurde.
 	 */
 	public void setStatus(int code) {

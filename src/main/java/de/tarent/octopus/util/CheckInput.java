@@ -16,25 +16,25 @@ import java.util.regex.Pattern;
  */
 public class CheckInput {
     /**
-     * InputRegexp beinhaltet die Definitionen für Eingabefelder
+     * InputRegexp beinhaltet die Definitionen fÃ¼r Eingabefelder
      * verschiedener Eingabetypen als:
      * Key:
      * type  String : z.B. EMail, PLZ usw  
      * Value: eine HashMap mit 
      *             Key:
-     *             Vorkompilierter Regulärer Ausdruck vom typ Pattern und
+     *             Vorkompilierter RegulÃ¤rer Ausdruck vom typ Pattern und
      *             Value:
-     *                 Ein String mit der Beschreibung der Eingabe für den Benutzer
+     *                 Ein String mit der Beschreibung der Eingabe fÃ¼r den Benutzer
      *                  z.B. 
-     *                 Eine gültige Eingabe für das Datums-format ist folgende:
+     *                 Eine gÃ¼ltige Eingabe fÃ¼r das Datums-format ist folgende:
      *                TT.MM.JJJJ
      * 
      * Bem: diese HashMap dient dem Worker CheckInput als Basis
-     *  zur überprüfung von Eingaben aus einem Velocity (HTML)
+     *  zur Ã¼berprÃ¼fung von Eingaben aus einem Velocity (HTML)
      * kontext.
      * 
-     * Die Werte für diese Map werden in der Funktion InitInputRegexp
-     * einmal initialisiert. Sie sollten dann statisch für alle instanzen dieser 
+     * Die Werte fÃ¼r diese Map werden in der Funktion InitInputRegexp
+     * einmal initialisiert. Sie sollten dann statisch fÃ¼r alle instanzen dieser 
      * Klasse vorliegen.
      * 
      */
@@ -52,21 +52,21 @@ public class CheckInput {
     /* EMail */
     public static String IT_EMail = new String("EMail");
     private static String ID_EMail =
-        new String("Eine gültige EMail-Adresse hat folgendes Format: adressad@Domain.TopDomain");
+        new String("Eine gÃ¼ltige EMail-Adresse hat folgendes Format: adressad@Domain.TopDomain");
     private static Pattern IP_EMail = Pattern.compile("[A-Za-z]*@[A-Za-z]*.[A-Za-z]{2,3}");
     /* Vorname */
     public static String IT_Vorname = new String("Vorname");
     private static String ID_Vorname =
-        new String("Eine gültiger Vorname besteht aus Buchstaben mit der maximalen \n länge von 30 Zeichen. \n Der erste Buchstabe ist ein Großbuchstabe alle folgenden werden klein geschrieben.");
+        new String("Eine gÃ¼ltiger Vorname besteht aus Buchstaben mit der maximalen \n lÃ¤nge von 30 Zeichen. \n Der erste Buchstabe ist ein GroÃŸbuchstabe alle folgenden werden klein geschrieben.");
     private static Pattern IP_Vorname = Pattern.compile("[A-Z][a-z]{1,29}");
     /* Nachname */
     public static String IT_Nachname = new String("Nachname");
     private static String ID_Nachname =
-        new String("Eine gültiger Nachname besteht aus Buchstaben mit der maximalen \n länge von 30 Zeichen. \n Der erste Buchstabe ist ein Großbuchstabe alle folgenden werden klein geschrieben.");
+        new String("Eine gÃ¼ltiger Nachname besteht aus Buchstaben mit der maximalen \n lÃ¤nge von 30 Zeichen. \n Der erste Buchstabe ist ein GroÃŸbuchstabe alle folgenden werden klein geschrieben.");
     private static Pattern IP_Nachname = Pattern.compile("[A-Z][a-z]{1,29}");
     /* PLZ */
     public static String IT_PLZ = new String("PLZ");
-    private static String ID_PLZ = new String("Eine gültige PLZ besteht aus fünf Ziffern.");
+    private static String ID_PLZ = new String("Eine gÃ¼ltige PLZ besteht aus fÃ¼nf Ziffern.");
     private static Pattern IP_PLZ = Pattern.compile("[0-9]{5}");
     /* Datum */
     public static String IT_Datum = new String("Datum");
@@ -92,7 +92,7 @@ public class CheckInput {
      */
     private void InitStatic() {
         // Variablen mit hilfe der Funktion r (registrieren).
-        // Typ, Beschreibung, Regulären Ausdruck (Vorkompiliert)
+        // Typ, Beschreibung, RegulÃ¤ren Ausdruck (Vorkompiliert)
         reg(IT_EMail, ID_EMail, IP_EMail);
         reg(IT_Vorname, ID_Vorname, IP_Vorname);
         reg(IT_Nachname, ID_Nachname, IP_Nachname);
@@ -100,10 +100,10 @@ public class CheckInput {
     }
 
     /**
-     * Gibt eine Liste von verfügbaren Eingabetypen 
-     * zurück.
+     * Gibt eine Liste von verfÃ¼gbaren Eingabetypen 
+     * zurÃ¼ck.
      * 
-     * @return ein Stringarray von verfügbaren EigabeTypen
+     * @return ein Stringarray von verfÃ¼gbaren EigabeTypen
      */
     public String getInputTypes() {
         return InputDesc.keySet().toString();
@@ -127,7 +127,7 @@ public class CheckInput {
     }
 
     /**
-     * Gibt das Pattern (RegExp) zu einem EingabeTyp als String zurück
+     * Gibt das Pattern (RegExp) zu einem EingabeTyp als String zurÃ¼ck
      * @param InputType
      * @return Pattern zum Eingabetyp
      */
@@ -142,7 +142,7 @@ public class CheckInput {
         }
     }
     /**
-     * Gibt true zurück, falls der InputType existiert, sonnsten false.
+     * Gibt true zurÃ¼ck, falls der InputType existiert, sonnsten false.
      * @param InputType
      * @return boolean
      */
@@ -158,8 +158,8 @@ public class CheckInput {
 
     /**
      * @param InputType String  : Type des Eingabeformates
-     * @param InputString String : Zu überprüfender String
-     * @return true falls eine Übereinstimmung des EingabeTypen mit dem InputString erfolgreich war.
+     * @param InputString String : Zu Ã¼berprÃ¼fender String
+     * @return true falls eine Ãœbereinstimmung des EingabeTypen mit dem InputString erfolgreich war.
      * Ansonsten false
      */
     public boolean check(String InputType, String InputString) {

@@ -28,7 +28,7 @@ package de.tarent.octopus.request;
 
 /** 
  * Exception, die geworfen werden soll, wenn 
- * Probleme, wie z.B. fehlende Attribute und Anweidsungen w‰rend der
+ * Probleme, wie z.B. fehlende Attribute und Anweidsungen w√§rend der
  * Taskabarbeitung im ActionManager auftreten.
  *
  * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, <b>tarent GmbH</b>

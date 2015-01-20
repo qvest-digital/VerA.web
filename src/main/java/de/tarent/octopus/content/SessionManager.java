@@ -13,7 +13,7 @@ import java.util.Map;
  * 
  * Durchsucht Content und Request nach neuen den
  * Parametern und speichert diese in der Session ab.
- * Sollte der Parameter nicht übergeben werden, wird
+ * Sollte der Parameter nicht Ã¼bergeben werden, wird
  * der Wert aus der Session geladen bzw. der Default-Wert
  * genommen.
  * 
@@ -27,7 +27,7 @@ public class SessionManager {
 	
 	/**
 	 * @deprecated
-	 * Die Liste der erlauben variablen sollte nicht gelöscht werden
+	 * Die Liste der erlauben variablen sollte nicht gelÃ¶scht werden
 	 *
 	 */
 	public void clear() {
@@ -36,12 +36,12 @@ public class SessionManager {
 	
 	/**
 	 * Funktion zum registrieren der erlaubten Session-Variablen
-	 * es ist nicht möglich den Wert (Defaultwert) der erlaubten Variable 
-	 * ein zweites mal zu ändern.
+	 * es ist nicht mÃ¶glich den Wert (Defaultwert) der erlaubten Variable 
+	 * ein zweites mal zu Ã¤ndern.
 	 * 
 	 * Erlaubte Variable ist dann also nach definition "final" 
 	 * 
-	 * @param name    Key für den Request, Content und die Session. 
+	 * @param name    Key fÃ¼r den Request, Content und die Session. 
 	 * @param def     Default-Wert.
 	 */
 	public void add(String name, Object def) {

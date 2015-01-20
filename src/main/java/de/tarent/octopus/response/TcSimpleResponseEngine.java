@@ -53,7 +53,7 @@ import de.tarent.octopus.request.TcRequest;
 import de.tarent.octopus.request.TcResponse;
 import de.tarent.octopus.util.Xml;
 
-/** Diese Klasse repräsentiert die Anfangs verwendete Template-Engine.
+/** Diese Klasse reprÃ¤sentiert die Anfangs verwendete Template-Engine.
  *
  *  @author <a href="mailto:H.Helwich@tarent.de">Hendrik Helwich</a>, <b>tarent GmbH</b>
  */
@@ -107,7 +107,7 @@ public class TcSimpleResponseEngine implements TcResponseEngine {
      * Parst eine Seitenbeschreibung und initialisiert damit ein Beschreibungsobjekt
      * <br><br>
      * Wenn Fehler auftreten, werden diese nur durch den Logger protokolliert
-     * und nicht zurück gegeben.
+     * und nicht zurÃ¼ck gegeben.
      *
      * @param filename Dateiname relativ zum pageDescriptionRoot
      * @return TcPageDescription die aus der Datei erstellt wurde
@@ -138,18 +138,18 @@ public class TcSimpleResponseEngine implements TcResponseEngine {
     /**
      * Liefert das Beschreibungsobjekt einer Ausgabeseite.
      * <br><br>
-     * Diese enthält im wesentlichen Namen der Templates und wie diese geschachtelt werden
+     * Diese enthÃ¤lt im wesentlichen Namen der Templates und wie diese geschachtelt werden
      * sollen, um eine Ausgabeseite zu erstellen.
-     * Außerdem werden in den PageDescriptions einige Felder der Templates schon definiert.
+     * AuÃŸerdem werden in den PageDescriptions einige Felder der Templates schon definiert.
      * <br><br>
-     * Welche Ausgabeseite benutzt werden soll hängt nur von dem pageName parameter ab.
-     * Es kann aber später auch noch an die Benutzerrolle angepasst werden.
+     * Welche Ausgabeseite benutzt werden soll hÃ¤ngt nur von dem pageName parameter ab.
+     * Es kann aber spÃ¤ter auch noch an die Benutzerrolle angepasst werden.
      *
      * @param descName Name der Response
      * @param responseType Typ, von der die Response sein soll (z.B. htmlPage )
      *
      * @return Beschreibungsobjekt einer Ausgabeseite als TcResponseDescription.
-     *         Das Objekt muss dann abhängig vom Typ der Rückgabeseite z.B. zu
+     *         Das Objekt muss dann abhÃ¤ngig vom Typ der RÃ¼ckgabeseite z.B. zu
      *         einem TcPageDescription herunter gecastet werden.
      */
     public TcResponseDescription getResponseDescription(String descName, String responseType, TcConfig config)
@@ -184,7 +184,7 @@ public class TcSimpleResponseEngine implements TcResponseEngine {
     }
 
     /**
-     * Liefert den Verzeichnispfad zurück, indem die Pagedescription enthalten ist.
+     * Liefert den Verzeichnispfad zurÃ¼ck, indem die Pagedescription enthalten ist.
      */
     private String getTemplatePath(String descName, TcConfig config, String suffix)
         throws ResponseProcessingException {
@@ -217,7 +217,7 @@ public class TcSimpleResponseEngine implements TcResponseEngine {
 }
 
 /**
- * Parsen und füllen eines Templates im mehreren Schritten.
+ * Parsen und fÃ¼llen eines Templates im mehreren Schritten.
  *
  * <ol>
  *   <li>Parsen eines Templates im Constructor. Dabei werden Untermodule direkt eingebunden.</li>
@@ -226,15 +226,15 @@ public class TcSimpleResponseEngine implements TcResponseEngine {
  * </ol>
  * <ul><b>Templatedialekt:</b>
  *   <li><b>{$feldName$}</b> Wird durch den Wert im TcContent Objekt ersetzt.</li>
- *   <li><b>{$°templatePlatzhalter$}</b> Wird durch das geparste Template in childs.get( templatePlatzhalter ) ersetzt, wobei childs über setChildTemplates() gesetzt wird.</li>
- *   <li><b>{$>templateDateiName$}</b> Wird direkt wärend dem Parsen aufgelößt und durch den Inhalt der Datei rekursiv templateDateiName+".tct" (absolut zum Templateverzeichniss) ersetzt.</li>
+ *   <li><b>{$Â°templatePlatzhalter$}</b> Wird durch das geparste Template in childs.get( templatePlatzhalter ) ersetzt, wobei childs Ã¼ber setChildTemplates() gesetzt wird.</li>
+ *   <li><b>{$>templateDateiName$}</b> Wird direkt wÃ¤rend dem Parsen aufgelÃ¶ÃŸt und durch den Inhalt der Datei rekursiv templateDateiName+".tct" (absolut zum Templateverzeichniss) ersetzt.</li>
  * </ul>
  * @author <a href="mailto:H.Helwich@tarent.de">Hendrik Helwich</a>, <b>tarent GmbH</b>
  */
 class TarParsedTemplate {
     /**
      * Felder des Templates. Abwechselnd Stings mit beliebigem Inhalt und 
-     * Direktiven. Direktiven können wieder Vectoren oder Strings mit Anweisungen sein.
+     * Direktiven. Direktiven kÃ¶nnen wieder Vectoren oder Strings mit Anweisungen sein.
      */
     private List template = null;
     private String templatePath;
@@ -252,16 +252,16 @@ class TarParsedTemplate {
     }
 
     /**
-     * Hier werden die Templates mit den Daten gefüllt.
-     * Die Ausgabe sollte später eventuell auf Streams umgestellt werden
+     * Hier werden die Templates mit den Daten gefÃ¼llt.
+     * Die Ausgabe sollte spÃ¤ter eventuell auf Streams umgestellt werden
      */
     public String getFilledTemplate(TcContent content) throws ResponseProcessingException {
         return getFilledTemplate(content, this.template);
     }
 
     /**
-     * Hier werden die Templates mit den Daten gefüllt.
-     * Die Ausgabe sollte später eventuell auf Streams umgestellt werden
+     * Hier werden die Templates mit den Daten gefÃ¼llt.
+     * Die Ausgabe sollte spÃ¤ter eventuell auf Streams umgestellt werden
      */
     public String getFilledTemplate(TcContent content, List template) throws ResponseProcessingException {
         StringBuffer sb = new StringBuffer();
@@ -275,9 +275,9 @@ class TarParsedTemplate {
                 String s = (String) o;
 
                 switch (s.charAt(0)) {
-                    case '°' : //Referenz auf anderes Template
+                    case 'Â°' : //Referenz auf anderes Template
                         if (childs == null)
-                            throw new ResponseProcessingException("Referenz kann nicht aufgelöst werden; Keine Templates angehängt.");
+                            throw new ResponseProcessingException("Referenz kann nicht aufgelÃ¶st werden; Keine Templates angehÃ¤ngt.");
                         TarParsedTemplate reftemp = (TarParsedTemplate) childs.get(s.substring(1));
                         str = reftemp.getFilledTemplate(content);
                         break;
@@ -291,7 +291,7 @@ class TarParsedTemplate {
             if (str != null)
                 sb.append(str);
         }
-        //Für den End-String.
+        //FÃ¼r den End-String.
         if ((template.size() % 2) != 0) {
             sb.append(template.get(template.size() - 1));
         }
@@ -349,9 +349,9 @@ class TarParsedTemplate {
                         }
                     }
                 } else {
-                    if (tag_index > 0) { //Anweisungen für falsch erkannte Tags.
+                    if (tag_index > 0) { //Anweisungen fÃ¼r falsch erkannte Tags.
                         //muss erweitert werden wenn TAG[i].length
-                        //grösser als zwei ist.
+                        //grÃ¶sser als zwei ist.
                         tag_index = 0;
                         sb.append(TAG[tag][0]);
                     }
@@ -373,22 +373,22 @@ class TarParsedTemplate {
 }
 
 /**
- * Die TcPageDescription entält Informationen darüber,
- * aus was für Templates sich eine Seite zusammen setzt.
+ * Die TcPageDescription entÃ¤lt Informationen darÃ¼ber,
+ * aus was fÃ¼r Templates sich eine Seite zusammen setzt.
  * <br><br>
- * Außerdem können hier auch schon ein paar Felder im Template belegt werden.
+ * AuÃŸerdem kÃ¶nnen hier auch schon ein paar Felder im Template belegt werden.
  *
  * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
  */
 class TcPageDescription extends TcResponseDescription {
-    /**  Das Hapt Template, daß alle anderen einbindet, muss gesetzt sein */
+    /**  Das Hapt Template, daÃŸ alle anderen einbindet, muss gesetzt sein */
     private TarTemplateDescription rootTemplate;
 
-    /** Zuweisung für Felder der Templates, optoinal */
+    /** Zuweisung fÃ¼r Felder der Templates, optoinal */
     private Map fieldAssignment;
 
     /**
-     * Fehlermeldungen können hier abgelegt und von einer aufrufenden Klasse abgefragt werden
+     * Fehlermeldungen kÃ¶nnen hier abgelegt und von einer aufrufenden Klasse abgefragt werden
      */
     private String messages;
 
@@ -419,9 +419,9 @@ class TcPageDescription extends TcResponseDescription {
     }
 
     /**
-     * Gibt das Verzeichniss zurück, indem nach Templates gesucht werden soll.
+     * Gibt das Verzeichniss zurÃ¼ck, indem nach Templates gesucht werden soll.
      *
-     * @return Absolute Pfadangabe mit abschließendem Slash
+     * @return Absolute Pfadangabe mit abschlieÃŸendem Slash
      */
     public String getTemplateRootPath() {
         return templateRootPath;
@@ -430,17 +430,17 @@ class TcPageDescription extends TcResponseDescription {
     /**
      * Setzt das Verzeichniss indem nach Templates gesucht werden soll.
      *
-     * @param path Absolute Pfadangabe mit abschließendem Slash
+     * @param path Absolute Pfadangabe mit abschlieÃŸendem Slash
      */
     public void setTemplateRootPath(String path) {
         templateRootPath = path;
     }
 
     /**
-     * Liefert immer "htmlPage" zurück,
-     * da diese Description nur für diesen Typ ist.
+     * Liefert immer "htmlPage" zurÃ¼ck,
+     * da diese Description nur fÃ¼r diesen Typ ist.
      * <br><br>
-     * Ist für die Schnittstelle TcResponseDescription implementiert
+     * Ist fÃ¼r die Schnittstelle TcResponseDescription implementiert
      *
      * @return "htmlPage"
      */
@@ -449,14 +449,14 @@ class TcPageDescription extends TcResponseDescription {
     }
 
     /**
-     * Gibt die TarTemplateDescription des Obersten Templates im Templatebaum zurück.
+     * Gibt die TarTemplateDescription des Obersten Templates im Templatebaum zurÃ¼ck.
      */
     public TarTemplateDescription getRootTemplate() {
         return rootTemplate;
     }
 
     /**
-     * Gibt die Map mit den Feldzuweisungen zurück.
+     * Gibt die Map mit den Feldzuweisungen zurÃ¼ck.
      *
      * @return Map mit Strings als Keys und Values
      */
@@ -465,7 +465,7 @@ class TcPageDescription extends TcResponseDescription {
     }
 
     /**
-     * Gibt Fehlermeldungen, die wärend der Erstellung aufgetreten sind zurück
+     * Gibt Fehlermeldungen, die wÃ¤rend der Erstellung aufgetreten sind zurÃ¼ck
      * @return Fehlermeldung, oder null, wenn keine Meldung auf getreten ist.
      */
     public String getMessages() {
@@ -473,7 +473,7 @@ class TcPageDescription extends TcResponseDescription {
     }
 
     /**
-     * Fügt eine Meldung an messages am
+     * FÃ¼gt eine Meldung an messages am
      * und testet dabei ob  messages==null ist
      */
     private void appendMessage(String m) {

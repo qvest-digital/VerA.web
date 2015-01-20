@@ -40,36 +40,36 @@ import de.tarent.octopus.soap.TcSOAPEngine;
  * Bevor etwas ausgegeben werden kann, muss der ContentType gesetzt werden.
  *
  * <br><br>
- * Es mag verwirren, daß die Klasse TcResponse im Package tcRequest ist und nicht im Package tcResponse
- * wo sie dem Namen nach hin gehört. Das macht aber so Sinn, da sie wie auch TcRequestProxy und TcRequest
+ * Es mag verwirren, daÃŸ die Klasse TcResponse im Package tcRequest ist und nicht im Package tcResponse
+ * wo sie dem Namen nach hin gehÃ¶rt. Das macht aber so Sinn, da sie wie auch TcRequestProxy und TcRequest
  * die Schnittstelle zum Client kapselt und somit protokollspezifisches Verhalten hat, vondem in
- * allen anderen Packages völlig abstrahiert wird.
+ * allen anderen Packages vÃ¶llig abstrahiert wird.
  * 
  * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
  */
 public interface TcResponse {
 
     /**
-     * Gibt einen Writer für die Ausgabe zurück.
+     * Gibt einen Writer fÃ¼r die Ausgabe zurÃ¼ck.
      * <br><br>
      * Bevor etwas ausgegeben werden kann, muss der ContentType gesetzt werden.
      */
     public PrintWriter getWriter();
 
     /**
-     * Setzt den Mime-Type für die Ausgabe.
+     * Setzt den Mime-Type fÃ¼r die Ausgabe.
      * Das muss passiert sein, bevor etwas ausgegeben wurde.
      */
     public void setContentType(String contentType);
 
 	/**
-	 * Setzt den Status für die Ausgabe.
+	 * Setzt den Status fÃ¼r die Ausgabe.
 	 * Das muss passiert sein, bevor etwas ausgegeben wurde.
 	 */
 	public void setStatus(int code);
 	
 	/**
-	 * Setzt das Ausgabe-Level für geworfene Fehlermeldungen.
+	 * Setzt das Ausgabe-Level fÃ¼r geworfene Fehlermeldungen.
 	 */
 	public void setErrorLevel(String errorLevel);
 
@@ -90,7 +90,7 @@ public interface TcResponse {
      * Diese Methode setzt die maximale Verweildauer der Antwort in einem Cache. 
      * 
      * @param millis maximale Caching-Dauer in Millisekunden. Negative Werte verbieten ein Caching.
-     * @param param Zusätzliche Caching Paramater. Null entspricht default verhalten.
+     * @param param ZusÃ¤tzliche Caching Paramater. Null entspricht default verhalten.
      */
     public void setCachingTime(int millis, String param);
     
@@ -148,7 +148,7 @@ public interface TcResponse {
 
 
     // REMOVED: der OutputStream sollte nur auf konkrete art in einer
-    //          Implementierung gesetzt werden dürfen.
+    //          Implementierung gesetzt werden dÃ¼rfen.
     //     /**
     //      * Sets the outputStream.
     //      * @param outputStream The outputStream to set
@@ -172,27 +172,27 @@ public interface TcResponse {
         throws IOException;
 
     /**
-     * Diese Methode schließt die Ausgabe ab. 
+     * Diese Methode schlieÃŸt die Ausgabe ab. 
      */
     public void close()
         throws IOException;
 
     /**
      * Diese Methode gibt einen Fehlerstatus aus. 
-     * Je nach übergebenen Typ und aufrufer geschieht dies in 
+     * Je nach Ã¼bergebenen Typ und aufrufer geschieht dies in 
      * HTML-, SOAP- oder sonstiger form.
      *  
      * @param responseType Antwortart, vergleiche HttpHelper im OctopusWebapp-Projekt.
      * @param requestID die ID der Anfrage
-     * @param header eine Überschrift (nur für HTML benutzt)
+     * @param header eine Ãœberschrift (nur fÃ¼r HTML benutzt)
      * @param e eine Exception
      */
     public void sendError(int responseType, String requestID, String header, Exception e);
 
 
     /**
-     * Teilt der Response mit, dass ein Login oder eine andere Authorisierung für
-     * die gewünschte Aktion erforderlich wäre.
+     * Teilt der Response mit, dass ein Login oder eine andere Authorisierung fÃ¼r
+     * die gewÃ¼nschte Aktion erforderlich wÃ¤re.
      * 
      * @param authorisationAction Vorschlag, wie die Autentifizierung erfolgen soll.
      */

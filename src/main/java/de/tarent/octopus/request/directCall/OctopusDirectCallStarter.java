@@ -48,7 +48,7 @@ import de.tarent.octopus.resource.Resources;
 import de.tarent.octopus.soap.TcSOAPEngine;
 
 /** 
- * Ermöglicht das einfache Starten des Octopus
+ * ErmÃ¶glicht das einfache Starten des Octopus
  * aus einer Anwendung heraus, oder als neuen Prozess.
  * 
  * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
@@ -96,10 +96,10 @@ public class OctopusDirectCallStarter implements OctopusStarter {
             starter.request(params);
         } catch (TcDirectCallException re) {
             Throwable rc = re.getRootCause();
-            System.out.println("Fehler während der Octopus-Anfragebearbeitung: "+rc);
+            System.out.println("Fehler wÃ¤hrend der Octopus-Anfragebearbeitung: "+rc);
             rc.printStackTrace();
         } catch (Exception e) {
-            System.out.println("Fehler während der Octopus-Anfragebearbeitung: "+e);
+            System.out.println("Fehler wÃ¤hrend der Octopus-Anfragebearbeitung: "+e);
             e.printStackTrace();
         }
     } 
@@ -114,9 +114,9 @@ public class OctopusDirectCallStarter implements OctopusStarter {
     }
     
     /**
-     * Inititalisiert die Komponenten, die für alle Aufrufe gleich sind.
+     * Inititalisiert die Komponenten, die fÃ¼r alle Aufrufe gleich sind.
      *
-     * @param configParams Parameter, die die Konfigurationen überschreiben, darf null sein
+     * @param configParams Parameter, die die Konfigurationen Ã¼berschreiben, darf null sein
      */
     public OctopusDirectCallStarter(Map configParams) {
         boolean loggerWasNull = false;
@@ -228,11 +228,11 @@ public class OctopusDirectCallStarter implements OctopusStarter {
 
     /**
      * Erstellt eine default-Konfiguration im TcEnv
-     * Anschließend werden diese Werte durch die im 
+     * AnschlieÃŸend werden diese Werte durch die im 
      * Knoten /de/tarent/octopus/overrides der Java-System-Prefferences
-     * überschrieben.
+     * Ã¼berschrieben.
      *
-     * @param overrideSettings Parameter, die die Konfigurationen überschreiben, 
+     * @param overrideSettings Parameter, die die Konfigurationen Ã¼berschreiben, 
      *        darf null sein
      */
     protected TcEnv createEnvObject(Map overrideSettings) {

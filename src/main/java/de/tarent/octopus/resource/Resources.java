@@ -18,7 +18,7 @@ public class Resources {
      * Singelton-Zugriff
      */
     /**
-     * Diese Methode liefert ein Singleton für das Standardbündel.
+     * Diese Methode liefert ein Singleton fÃ¼r das StandardbÃ¼ndel.
      */
     public final static Resources getInstance() {
         return instance;
@@ -28,7 +28,7 @@ public class Resources {
      * Konstruktoren
      */
     /**
-     * Dieser Konstruktor liefert eine Instanz zum Standardbündel ohne
+     * Dieser Konstruktor liefert eine Instanz zum StandardbÃ¼ndel ohne
      * Parent.
      */
     public Resources() {
@@ -36,7 +36,7 @@ public class Resources {
     }
 
     /**
-     * Dieser Konstruktor liefert eine Instanz zum übergebenen Bündel
+     * Dieser Konstruktor liefert eine Instanz zum Ã¼bergebenen BÃ¼ndel
      * ohne Parent.
      */
     public Resources(String bundleName) {
@@ -44,8 +44,8 @@ public class Resources {
     }
 
     /**
-     * Dieser Konstruktor liefert eine Instanz zum übergebenen Bündel
-     * und zum übergebenen Parent.
+     * Dieser Konstruktor liefert eine Instanz zum Ã¼bergebenen BÃ¼ndel
+     * und zum Ã¼bergebenen Parent.
      */
     public Resources(String bundleName, Resources parent) {
         this.parent = parent;
@@ -63,9 +63,9 @@ public class Resources {
      * Methoden
      */
     /**
-     * Diese Methode liefert den Wert zu einem Schlüssel.
+     * Diese Methode liefert den Wert zu einem SchlÃ¼ssel.
      * 
-     * @param key Schlüssel
+     * @param key SchlÃ¼ssel
      * @return Wert
      */
     public String get(String key) {
@@ -77,26 +77,26 @@ public class Resources {
     }
 
     /**
-     * Diese Methode holt den Wert zu einem Schlüssel, interpretiert
-     * ihn als Message, in die die übergebenen Parameter eingesetzt
-     * werden, und gibt die ausgefüllte Message zurück.
+     * Diese Methode holt den Wert zu einem SchlÃ¼ssel, interpretiert
+     * ihn als Message, in die die Ã¼bergebenen Parameter eingesetzt
+     * werden, und gibt die ausgefÃ¼llte Message zurÃ¼ck.
      *  
-     * @param key Schlüssel
+     * @param key SchlÃ¼ssel
      * @param params Parameter
-     * @return ausgefüllte Message
+     * @return ausgefÃ¼llte Message
      */
     public String get(String key, Object[] params) {
         return MessageFormat.format(get(key), params);
     }
 
     /**
-     * Diese Methode holt den Wert zu einem Schlüssel, interpretiert
-     * ihn als Message, in die der übergebene Parameter eingesetzt
-     * wird, und gibt die ausgefüllte Message zurück.
+     * Diese Methode holt den Wert zu einem SchlÃ¼ssel, interpretiert
+     * ihn als Message, in die der Ã¼bergebene Parameter eingesetzt
+     * wird, und gibt die ausgefÃ¼llte Message zurÃ¼ck.
      *  
-     * @param key Schlüssel
+     * @param key SchlÃ¼ssel
      * @param param Parameter
-     * @return ausgefüllte Message
+     * @return ausgefÃ¼llte Message
      * @see #get(String, Object[])
      */
     public String get(String key, Object param) {
@@ -104,14 +104,14 @@ public class Resources {
     }
 
     /**
-     * Diese Methode holt den Wert zu einem Schlüssel, interpretiert
-     * ihn als Message, in die die übergebene Parameter eingesetzt
-     * werden, und gibt die ausgefüllte Message zurück.
+     * Diese Methode holt den Wert zu einem SchlÃ¼ssel, interpretiert
+     * ihn als Message, in die die Ã¼bergebene Parameter eingesetzt
+     * werden, und gibt die ausgefÃ¼llte Message zurÃ¼ck.
      *  
-     * @param key Schlüssel
+     * @param key SchlÃ¼ssel
      * @param param1 Parameter
      * @param param2 Parameter
-     * @return ausgefüllte Message
+     * @return ausgefÃ¼llte Message
      * @see #get(String, Object[])
      */
     public String get(String key, Object param1, Object param2) {
@@ -119,15 +119,15 @@ public class Resources {
     }
 
     /**
-     * Diese Methode holt den Wert zu einem Schlüssel, interpretiert
-     * ihn als Message, in die die übergebene Parameter eingesetzt
-     * werden, und gibt die ausgefüllte Message zurück.
+     * Diese Methode holt den Wert zu einem SchlÃ¼ssel, interpretiert
+     * ihn als Message, in die die Ã¼bergebene Parameter eingesetzt
+     * werden, und gibt die ausgefÃ¼llte Message zurÃ¼ck.
      *  
-     * @param key Schlüssel
+     * @param key SchlÃ¼ssel
      * @param param1 Parameter
      * @param param2 Parameter
      * @param param3 Parameter
-     * @return ausgefüllte Message
+     * @return ausgefÃ¼llte Message
      * @see #get(String, Object[])
      */
     public String get(String key, Object param1, Object param2, Object param3) {

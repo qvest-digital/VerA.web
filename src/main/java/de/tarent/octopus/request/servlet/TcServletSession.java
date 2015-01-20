@@ -33,8 +33,8 @@ import javax.servlet.http.HttpSession;
 
 /** 
  * Kapselt das Sessionobjekt des Servletkontainers
- * um eine eventuelle sp‰tere Umstellung leichter zu machen und eine 
- * Unabh‰ngigkeit von der Umgebung zu ereichen.
+ * um eine eventuelle sp√§tere Umstellung leichter zu machen und eine 
+ * Unabh√§ngigkeit von der Umgebung zu ereichen.
  * <br><br>
  * Zur Zeit werden keine weiteren Methoden als die der javax.servlet.http.HttpSession bereit gestellt.
  * 

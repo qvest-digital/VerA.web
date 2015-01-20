@@ -128,11 +128,11 @@ public class Xml {
      *                   <li>Wenn das Attribut type=array ist, kann es auch eine Liste von 'value' Kindern haben, 
      * 			 	           die dann in einem Vector abgelegt werden.</li>
      *
-     * 					   <li>Wenn das Attribut type=map ist, können wieder Param-Elemente 
-     *                       darin enthalten sein, die dann als Map zurück geliefert werden.</li>
+     * 					   <li>Wenn das Attribut type=map ist, kÃ¶nnen wieder Param-Elemente 
+     *                       darin enthalten sein, die dann als Map zurÃ¼ck geliefert werden.</li>
      *
      * 					   <li>Anstatt des value Attributes kann es auch ein refvalue haben, dass dann in 
-     *                         dem entsprechenden Kontext aufzulösen ist.</li>
+     *                         dem entsprechenden Kontext aufzulÃ¶sen ist.</li>
      *                 </ul>
      *
      * @return Map mit Strings als Keys und Values
@@ -227,8 +227,8 @@ public class Xml {
     }
 
     /**
-     * Diese Methode wandelt die XML-gefährlichen Zeichen eines Strings
-     * in Entitäten.
+     * Diese Methode wandelt die XML-gefÃ¤hrlichen Zeichen eines Strings
+     * in EntitÃ¤ten.
      */
     public static String escape(String source) {
         StringBuffer buffer = new StringBuffer();

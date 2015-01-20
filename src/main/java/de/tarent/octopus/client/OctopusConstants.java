@@ -29,7 +29,7 @@ package de.tarent.octopus.client;
 import javax.xml.namespace.QName;
 
 /** 
- * Konstanten, die ein Octopus Client benötigen kann.
+ * Konstanten, die ein Octopus Client benÃ¶tigen kann.
  *
  * @author <a href="mailto:sebastian@tarent.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
  */

@@ -56,7 +56,7 @@ public class TcRequest {
     public static final int REQUEST_TYPE_SOAP = 8;
     /** Anfragetyp XML-SOAP-Messages mit POST gesendet, mit GZIP komprimiert. */
     public static final int REQUEST_TYPE_GZIP_SOAP = REQUEST_TYPE_SOAP | REQUEST_TYPE_FLAG_GZIP;
-    /** Anfragetyp XML-SOAP-Messages mit POST gesendet, mit GZIP komprimiert, mit PGP verschlüsselt */
+    /** Anfragetyp XML-SOAP-Messages mit POST gesendet, mit GZIP komprimiert, mit PGP verschlÃ¼sselt */
     public static final int REQUEST_TYPE_PGP_SOAP = REQUEST_TYPE_GZIP_SOAP | REQUEST_TYPE_FLAG_PGP;
     /** Anfragetyp XML-RPC-Message mit POST gesendet */
     public static final int REQUEST_TYPE_XML_RPC = 16;
@@ -99,7 +99,7 @@ public class TcRequest {
     private Map requestParameters = null;
     /** Requesttyp, vergleiche REQUEST_TYPE_* */
     private int requestType;
-    /** Flag: werden Cookies unterstützt? */
+    /** Flag: werden Cookies unterstÃ¼tzt? */
 	private boolean supportCookies = false;
 	/** Flag: werden Cookies gefordert? */
 	private boolean askForCookies = false;
@@ -109,7 +109,7 @@ public class TcRequest {
     private RequestHeaders headers;
 
     //
-    // öffentliche statische Methoden
+    // Ã¶ffentliche statische Methoden
     //
     /**
      * Diese statische Methode erzeugt eine RequestID.
@@ -122,10 +122,10 @@ public class TcRequest {
     }
 
     /**
-     * Diese Methode liefert einen sprechenden Bezeichner für einen Anfragetyp.
+     * Diese Methode liefert einen sprechenden Bezeichner fÃ¼r einen Anfragetyp.
      * 
      * @param requestType ein Anfragetyp-Wert.
-     * @return eine sprechende Bezeichnung für den Anfragetyp.
+     * @return eine sprechende Bezeichnung fÃ¼r den Anfragetyp.
      */
     public static String getRequestTypeName(int requestType) {
         String resourceName = null;
@@ -140,7 +140,7 @@ public class TcRequest {
     }
 
     /**
-     * Diese Methode bestimmt, ob der übergebene Anfragetyp ein Web-Typ
+     * Diese Methode bestimmt, ob der Ã¼bergebene Anfragetyp ein Web-Typ
      * (HTML) ist.
      * 
      * @param requestType ein Anfragetyp-Wert
@@ -151,7 +151,7 @@ public class TcRequest {
     }
     
     /**
-     * Diese Methode bestimmt, ob der übergebene Anfragetyp ein SOAP-Typ ist.
+     * Diese Methode bestimmt, ob der Ã¼bergebene Anfragetyp ein SOAP-Typ ist.
      * 
      * @param requestType ein Anfragetyp-Wert
      * @return true, wenn Ja.
@@ -161,7 +161,7 @@ public class TcRequest {
     }
     
     /**
-     * Diese Methode bestimmt, ob der übergebene Anfragetyp ein XML-RPC-Typ ist.
+     * Diese Methode bestimmt, ob der Ã¼bergebene Anfragetyp ein XML-RPC-Typ ist.
      * 
      * @param requestType ein Anfragetyp-Wert
      * @return true, wenn Ja.
@@ -171,7 +171,7 @@ public class TcRequest {
     }
 
     /**
-     * Diese Methode bestimmt, ob der übergebene Anfragetyp 
+     * Diese Methode bestimmt, ob der Ã¼bergebene Anfragetyp 
      * ein REQUEST_DIRECT_CALL-Typ ist.
      * 
      * @param requestType ein Anfragetyp-Wert
@@ -192,7 +192,7 @@ public class TcRequest {
     }
 
     /**
-     * Der Konstruktor legt die übergebene Request-ID ab.
+     * Der Konstruktor legt die Ã¼bergebene Request-ID ab.
      */
     public TcRequest(String requestID) {
         this.requestID = requestID;
@@ -220,43 +220,43 @@ public class TcRequest {
 	}
 
     /**
-     * Diese Methode liefert das Flag: werden Cookies unterstützt? 
+     * Diese Methode liefert das Flag: werden Cookies unterstÃ¼tzt? 
      * 
-     * @return Flag: werden Cookies unterstützt?
+     * @return Flag: werden Cookies unterstÃ¼tzt?
      */
 	public boolean supportCookies() {
 		return supportCookies;
 	}
 
     /**
-     * Diese Methode setzt das Flag: werden Cookies unterstützt? 
+     * Diese Methode setzt das Flag: werden Cookies unterstÃ¼tzt? 
      * 
-     * @param b Flag: werden Cookies unterstützt?
+     * @param b Flag: werden Cookies unterstÃ¼tzt?
      */
 	public void setSupportCookies(boolean b) {
 		supportCookies = b;
 	}
 
 	/**
-	 * Diese Methode liefert das auszuführende Modul. Wenn keines oder <code>null</code>
+	 * Diese Methode liefert das auszufÃ¼hrende Modul. Wenn keines oder <code>null</code>
 	 * explizit gesetzt wurde, wird versucht, es aus den Parametern zu gewinnen.
 	 * 
-	 * @return auszuführendes Modul
+	 * @return auszufÃ¼hrendes Modul
 	 */
     public String getModule() {
         return module != null ? module : getModuleFromParams();
     }
     
     /**
-     * Diese Methode setzt das auszuführende Modul. 
+     * Diese Methode setzt das auszufÃ¼hrende Modul. 
      * 
-     * @param mod auszuführendes Modul
+     * @param mod auszufÃ¼hrendes Modul
      */
     public void setModule(String mod) {
         module = mod;
         // TODO: Nur bei entsprechend gesetztem Hack-Flag.
-        // Etwa über statische Variable am TcRequest, die initial vom Octopus
-        // gesetzt wird, oder etwas feiner direkt vor dem tatsächlichen Dispatchen,
+        // Etwa Ã¼ber statische Variable am TcRequest, die initial vom Octopus
+        // gesetzt wird, oder etwas feiner direkt vor dem tatsÃ¤chlichen Dispatchen,
         // wo eine Modul-spezifische Einstellung abgefragt werden kann.
         if (mod != null)
             setParam(PARAM_MODULE, mod);
@@ -283,19 +283,19 @@ public class TcRequest {
     }
     
     /**
-	 * Diese Methode liefert den auszuführenden Task. Wenn keiner oder <code>null</code>
+	 * Diese Methode liefert den auszufÃ¼hrenden Task. Wenn keiner oder <code>null</code>
 	 * explizit gesetzt wurde, wird versucht, ihn aus den Parametern zu gewinnen.
 	 * 
-	 * @return auszuführender Task
+	 * @return auszufÃ¼hrender Task
      */
     public String getTask() {
         return task != null ? task : getTaskFromParams();
     }
     
     /**
-     * Diese Methode setzt den auszuführenden Task. 
+     * Diese Methode setzt den auszufÃ¼hrenden Task. 
      * 
-     * @param tsk auszuführender Task
+     * @param tsk auszufÃ¼hrender Task
      */
     public void setTask(String tsk) {
         task = tsk;
@@ -320,7 +320,7 @@ public class TcRequest {
     }
 
     /**
-     * Liefert die ID des Requests für Logzwecke.
+     * Liefert die ID des Requests fÃ¼r Logzwecke.
      */
     public String getRequestID() {
         return requestID;
@@ -329,7 +329,7 @@ public class TcRequest {
     /**
      * Liefert einen Int Wert, der wiedergibt, ob die Anfrage als
      * WEB Request, SOAP, GZIP-SOAP, ... gekommen ist.
-     * <br>Er kann über die Konstanten in TcRequestProxy aufgelößt werden.
+     * <br>Er kann Ã¼ber die Konstanten in TcRequestProxy aufgelÃ¶ÃŸt werden.
      */
     public int getRequestType() {
         return requestType;
@@ -338,7 +338,7 @@ public class TcRequest {
     /**
      * Setzt einen Int Wert, der wiedergibt, ob die Anfrage als
      * WEB Request, SOAP, GZIP-SOAP, ... gekommen ist.
-     * <br>Er kann über die Konstanten in TcRequestProxy aufgelößt werden.
+     * <br>Er kann Ã¼ber die Konstanten in TcRequestProxy aufgelÃ¶ÃŸt werden.
      */
     public void setRequestType(int requestType) {
         this.requestType = requestType;
@@ -348,7 +348,7 @@ public class TcRequest {
     // Requestparameterverwaltung
     //
     /**
-     * Gibt zurück ob der key im Request enthalten ist.
+     * Gibt zurÃ¼ck ob der key im Request enthalten ist.
      * 
      * @param key
      */
@@ -357,7 +357,7 @@ public class TcRequest {
     }
 
     /**
-     * Gibt einen Wert als Object zurück
+     * Gibt einen Wert als Object zurÃ¼ck
      *
      * @return Ein String oder String[] Objekt
      */
@@ -373,16 +373,16 @@ public class TcRequest {
     }
 
     /**
-     * Gibt einen Wert als String zurück
-     * Kurzform für getParamAsString
-     * @return Einen String. Wenn ein String[] gespeichert ist, wird das erste Element zurück gegeben.
+     * Gibt einen Wert als String zurÃ¼ck
+     * Kurzform fÃ¼r getParamAsString
+     * @return Einen String. Wenn ein String[] gespeichert ist, wird das erste Element zurÃ¼ck gegeben.
      */
     public String get(String key) {
         return getParamAsString(key);
     }
 
     /**
-     * Gibt einen Wert als boolean zurück
+     * Gibt einen Wert als boolean zurÃ¼ck
      *
      * @return true, wenn der String, oder der erste Eintrag im String-Array "true" ist, false sonst. Nicht case-Sensitiv.
      */
@@ -402,9 +402,9 @@ public class TcRequest {
     }
 
     /**
-     * Gibt einen Wert als int zurück
+     * Gibt einen Wert als int zurÃ¼ck
      *
-     * @return Zahlwert oder null, wenn es kein gültiger Zahlwert ist.
+     * @return Zahlwert oder null, wenn es kein gÃ¼ltiger Zahlwert ist.
      */
     public int getParamAsInt(String key) {
         Object value = getParam(key);
@@ -426,9 +426,9 @@ public class TcRequest {
     }
 
     /**
-     * Gibt einen Wert als String zurück
+     * Gibt einen Wert als String zurÃ¼ck
      *
-     * @return Einen String. Wenn ein String[] gespeichert ist, wird das erste Element zurück gegeben.
+     * @return Einen String. Wenn ein String[] gespeichert ist, wird das erste Element zurÃ¼ck gegeben.
      */
     public String getParamAsString(String key) {
         Object value = getParam(key);
@@ -443,7 +443,7 @@ public class TcRequest {
     }
 
     /**
-     * Gibt einen Wert als String[] zurück
+     * Gibt einen Wert als String[] zurÃ¼ck
      *
      * @return Ein String[], ggfs als Wrapper eines einzelnen Elements. 
      */
@@ -463,7 +463,7 @@ public class TcRequest {
     // Klasse Object
     //
     /**
-     * Gibt den Inhalt als String zurück
+     * Gibt den Inhalt als String zurÃ¼ck
      */
     public String toString() {
         StringBuffer sb = new StringBuffer();
@@ -513,7 +513,7 @@ public class TcRequest {
     }
     
     /**
-     * Diese Methode versucht, aus den Request-Parametern das auszuführende Modul zu
+     * Diese Methode versucht, aus den Request-Parametern das auszufÃ¼hrende Modul zu
      * gewinnen.
      * 
      * @return Modul aus den Request-Parametern, sonst <code>null</code>.
@@ -523,7 +523,7 @@ public class TcRequest {
     }
     
     /**
-     * Diese Methode versucht, aus den Request-Parametern den auszuführenden Task zu
+     * Diese Methode versucht, aus den Request-Parametern den auszufÃ¼hrenden Task zu
      * gewinnen.
      * 
      * @return Task aus den Request-Parametern, sonst <code>null</code>.

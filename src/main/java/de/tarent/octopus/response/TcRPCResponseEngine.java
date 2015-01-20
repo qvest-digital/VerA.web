@@ -32,12 +32,12 @@ package de.tarent.octopus.response;
  * eine Antwort auf einen ProcedureCall liefert und nach folgendem Schema arbeitet.
  *
  * <br><br>
- * Das Feld RPC_RESPONSE_OUTPUT_FIELDS enthält die Felder des TcContent, 
- * die an den Client zurück geliefert werden.
+ * Das Feld RPC_RESPONSE_OUTPUT_FIELDS enthÃ¤lt die Felder des TcContent, 
+ * die an den Client zurÃ¼ck geliefert werden.
  * RPC_RESPONSE_OUTPUT_FIELDS kann sein:
  * <ul>
  *  <li>Eine Liste. Dann werden die Felder des TcContent 
- *      unter dem gleichen Namen an den Client zurück geliefert, 
+ *      unter dem gleichen Namen an den Client zurÃ¼ck geliefert, 
  *      unter dem sie auch in TcContent liegen.<li>
 
  *  <li>Eine Map. Die Keys enthalten den Namen des Parameters 
@@ -50,7 +50,7 @@ package de.tarent.octopus.response;
 public interface TcRPCResponseEngine {
 
     /**
-     * Liste im TcContent mit den Feldschlüsseln
+     * Liste im TcContent mit den FeldschlÃ¼sseln
      * der Inhalte, die als Antwort gesendet werden sollen.
      */
     public static final String RPC_RESPONSE_OUTPUT_FIELDS = "responseParams.OutputFields";

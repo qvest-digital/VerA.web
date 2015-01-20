@@ -29,7 +29,7 @@ package de.tarent.octopus.response;
 import de.tarent.octopus.config.TcConfig;
 
 /** 
- * Enth‰lt Informationen und Parameter, die f¸r alle Templates gleich sind.
+ * Enth√§lt Informationen und Parameter, die f√ºr alle Templates gleich sind.
  * 
  * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
  */
@@ -38,16 +38,16 @@ public class TcTemplateSystemParams {
     String templateRootPath;
 
     /**
-     * Initialisierung mit Config Objekkt, aus dem die Informationen kommen kˆnnen
+     * Initialisierung mit Config Objekkt, aus dem die Informationen kommen k√∂nnen
      */
     public TcTemplateSystemParams(TcConfig config) {
         this.config = config;
     }
 
     /**
-     * Gibt das Verzeichniss zur¸ck, indem nach Templates gesucht werden soll.
+     * Gibt das Verzeichniss zur√ºck, indem nach Templates gesucht werden soll.
      *
-     * @return Absolute Pfadangabe mit abschlieﬂendem Slash
+     * @return Absolute Pfadangabe mit abschlie√üendem Slash
      */
     public String getTemplateRootPath() {
         return templateRootPath;
@@ -56,7 +56,7 @@ public class TcTemplateSystemParams {
     /**
      * Setzt das Verzeichniss indem nach Templates gesucht werden soll.
      *
-     * @param path Absolute Pfadangabe mit abschlieﬂendem Slash
+     * @param path Absolute Pfadangabe mit abschlie√üendem Slash
      */
     public void setTemplateRootPath(String path) {
         templateRootPath = path;

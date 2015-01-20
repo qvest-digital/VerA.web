@@ -49,7 +49,7 @@ public class TcContentWorkerFactory {
     private static Log logger = LogFactory.getLog(TcContentWorkerFactory.class);
 
     /** Map mit TcContentWorkern. Keys der Map sind die ClassLoader der Module. Values sind wiederum Maps mit ("workername"=>Instance).
-     *  Dadurch werden die Worker gepuffert und müssen nicht für jede Anfrage neu erstellt werden.
+     *  Dadurch werden die Worker gepuffert und mÃ¼ssen nicht fÃ¼r jede Anfrage neu erstellt werden.
      */
     protected static Map workers = new HashMap();
 
@@ -78,7 +78,7 @@ public class TcContentWorkerFactory {
         // Bei einem Singleton cachen wir die Instanz, 
         if (workerDeclaration.isSingletonInstantiation()) {
 
-            // Da jedes Modul einen eigenen Classloader besitzt müssen die 
+            // Da jedes Modul einen eigenen Classloader besitzt mÃ¼ssen die 
             // Worker unter diesem Classloader im Cache verwendet werden.
             ClassLoader moduleLoader = config.getClassLoader();
             Map moduleWorkers = (Map)workers.get(moduleLoader);
@@ -102,9 +102,9 @@ public class TcContentWorkerFactory {
     protected static TcContentWorker getNewWorkerInstance(TcModuleConfig config, ContentWorkerDeclaration workerDeclaration) 
         throws WorkerCreationException {
 
-        // Da jedes Modul einen eigenen Classloader besitzt müssen 
+        // Da jedes Modul einen eigenen Classloader besitzt mÃ¼ssen 
         // auch die Factorys mit diesem Classloader geladen werden.
-        // Nur so ist es möglich einem Modul eine eigene Factory hinzu zu fügen.
+        // Nur so ist es mÃ¶glich einem Modul eine eigene Factory hinzu zu fÃ¼gen.
         ClassLoader moduleLoader = config.getClassLoader();
 
         Map moduleFactorys = (Map)factorys.get(moduleLoader);

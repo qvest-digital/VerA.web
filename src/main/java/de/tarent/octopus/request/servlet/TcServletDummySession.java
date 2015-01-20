@@ -32,7 +32,7 @@ import java.util.Hashtable;
 import de.tarent.octopus.request.TcSession;
 
 /** 
- * Implementierung einer Session als Dummy ohne Session-Funktionalit‰t
+ * Implementierung einer Session als Dummy ohne Session-Funktionalit√§t
  * 
  * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
  */

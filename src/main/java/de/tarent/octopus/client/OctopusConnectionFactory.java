@@ -45,8 +45,8 @@ import de.tarent.octopus.request.internal.OctopusStarter;
 
 /** 
  * Factory zur Lieferung einer Client-Schnittstelle zum Octopus.
- * Abhängig von einer Konfiguration wird eine OctopusConnection zu einem lokalen 
- * oder entferneten Octopus zurück geliefert.
+ * AbhÃ¤ngig von einer Konfiguration wird eine OctopusConnection zu einem lokalen 
+ * oder entferneten Octopus zurÃ¼ck geliefert.
  *
  * @author <a href="mailto:sebastian@tarent.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
  */
@@ -99,7 +99,7 @@ public class OctopusConnectionFactory {
         } else if (CONNECTION_TYPE_INTERNAL.equals(conf.get(CONNECTION_TYPE_KEY))) {
             return getInternalConnection(conf);
         }
-        throw new FactoryConfigurationException("Andere Verbindungstypen als directCall, internal und remote werden von der Factory noch nicht unterstützt.", null);
+        throw new FactoryConfigurationException("Andere Verbindungstypen als directCall, internal und remote werden von der Factory noch nicht unterstÃ¼tzt.", null);
     }
 
     /**
@@ -179,7 +179,7 @@ public class OctopusConnectionFactory {
             try {
                 con.setKeepSessionAlive(new Integer((String)conf.get(OctopusRemoteConnection.KEEP_SESSION_ALIVE)));
             } catch (NumberFormatException  e) {            
-                logger.warn("Fehlerhafter Wert für Octopus Connection Propertie:"+OctopusRemoteConnection.KEEP_SESSION_ALIVE, e);
+                logger.warn("Fehlerhafter Wert fÃ¼r Octopus Connection Propertie:"+OctopusRemoteConnection.KEEP_SESSION_ALIVE, e);
             }
         }
         return con;

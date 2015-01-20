@@ -29,7 +29,7 @@ package de.tarent.octopus.config;
 import de.tarent.octopus.util.RootCauseException;
 
 /**
- * Für Fehlermeldungen, die beim Einlesen der Config entstehen können.
+ * FÃ¼r Fehlermeldungen, die beim Einlesen der Config entstehen kÃ¶nnen.
  */
 public class TcConfigException extends Exception implements RootCauseException {
     /**

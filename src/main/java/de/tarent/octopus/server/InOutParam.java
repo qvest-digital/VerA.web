@@ -30,7 +30,7 @@ package de.tarent.octopus.server;
 
 /**
  * Wrapper um ein CallByReference in Java zu realisieren.
- * TODO: Mit JDK 1.5 durch einen Generic-Type ersetzen, um nicht mehr Casten zu müssen.
+ * TODO: Mit JDK 1.5 durch einen Generic-Type ersetzen, um nicht mehr Casten zu mÃ¼ssen.
  *
  * @author <a href="mailto:sebastian@tarent.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
  * @version 1.0

@@ -33,9 +33,9 @@ import de.tarent.octopus.request.TcRequest;
 import de.tarent.octopus.server.PersonalConfig;
 
 /** 
- * Implementierung eines LoginManagers, die alle User immer akzeptiert, unabhängig davon,
- * ob sie existieren oder ihr Passwort gültig ist. Die User landen alle in der DEFAULT_GROUP.
- * Diese könnte später konfigurierbar sein.
+ * Implementierung eines LoginManagers, die alle User immer akzeptiert, unabhÃ¤ngig davon,
+ * ob sie existieren oder ihr Passwort gÃ¼ltig ist. Die User landen alle in der DEFAULT_GROUP.
+ * Diese kÃ¶nnte spÃ¤ter konfigurierbar sein.
  * <br><br>
  * a
  * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, <b>tarent GmbH</b>

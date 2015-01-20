@@ -81,7 +81,7 @@ public class ContentWorkerDeclaration {
 
 
     /**
-     * Eindeutiger Bezeichner, unter dem den Worker in dem Modul verfügbar ist.
+     * Eindeutiger Bezeichner, unter dem den Worker in dem Modul verfÃ¼gbar ist.
      */
     public String getWorkerName() {
         return workerName;

@@ -69,7 +69,7 @@ public class TcAll
 	}
 	
 	/**
-	 * Erzeugt ein TcAll Object mit dem übergebenem Request und einem neuen (leeren) Content.
+	 * Erzeugt ein TcAll Object mit dem Ã¼bergebenem Request und einem neuen (leeren) Content.
 	 * 
 	 * @param requestmap
 	 * @param requesttype siehe de.tarent.octopus.request.HttpHelper.REQUEST_TYPE_*

@@ -31,7 +31,7 @@ import java.util.*;
 
 /**
  * Map Implementierung, deren KeySet().iterator() die Keys
- * in der Reihenfolge zurück gibt, in der sie eingefügt wurden.
+ * in der Reihenfolge zurÃ¼ck gibt, in der sie eingefÃ¼gt wurden.
  */
 public class ConsistentMap extends HashMap {
     /**

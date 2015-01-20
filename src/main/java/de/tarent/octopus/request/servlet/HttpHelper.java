@@ -59,7 +59,7 @@ import de.tarent.octopus.soap.TcSOAPException;
 import de.tarent.octopus.xmlrpc.XmlRpcEngine;
 
 /**
- * Diese Klasse enthält Hilfsmethoden für die Octopus-spezifische
+ * Diese Klasse enthÃ¤lt Hilfsmethoden fÃ¼r die Octopus-spezifische
  * Http-Request-Verarbeitung.
  * 
  * @author mikel
@@ -90,23 +90,23 @@ public class HttpHelper {
     /** Expliziter Header RequestType, der angibt, von welchem Typ eine Anfrage ist */
     public static String HEADER_REQUEST_TYPE = "RequestType";
     
-    /** XML-RPC Wert für den Header 'RequestType' */  
+    /** XML-RPC Wert fÃ¼r den Header 'RequestType' */  
     public static String HEADER_REQUEST_TYPE_XML_RPC = "xml-rpc";
-    /** SOAP Wert für den Header 'RequestType' */  
+    /** SOAP Wert fÃ¼r den Header 'RequestType' */  
     public static String HEADER_REQUEST_TYPE_SOAP = "soap";
-    /** WEB Wert für den Header 'RequestType' */  
+    /** WEB Wert fÃ¼r den Header 'RequestType' */  
     public static String HEADER_REQUEST_TYPE_WEB = "web";
 
 
     //
-    // öffentliche statische Methoden
+    // Ã¶ffentliche statische Methoden
     //
     /**
      * @deprecated Use same Method in TcRequest instead
-     * Diese Methode liefert einen sprechenden Bezeichner für einen Anfragetyp.
+     * Diese Methode liefert einen sprechenden Bezeichner fÃ¼r einen Anfragetyp.
      * 
      * @param requestType ein Anfragetyp-Wert.
-     * @return eine sprechende Bezeichnung für den Anfragetyp.
+     * @return eine sprechende Bezeichnung fÃ¼r den Anfragetyp.
      */
     public static String getRequestTypeName(int requestType) {
         return TcRequest.getRequestTypeName(requestType);
@@ -117,13 +117,13 @@ public class HttpHelper {
      * Das Verfahren dabei ist wie folgt:
      * <ul>
      *   <li>GET-Anfragen sind <b>web</b>
-     *   <li>Berücksichtigung des expliziten Octopus-Http-Headers 'RequestType'
-     *   <li>SOAPAction-Header: <b>soap</b> mit Bestimmung der Untertypen über den mime-Type
+     *   <li>BerÃ¼cksichtigung des expliziten Octopus-Http-Headers 'RequestType'
+     *   <li>SOAPAction-Header: <b>soap</b> mit Bestimmung der Untertypen Ã¼ber den mime-Type
      *   <li>Default ist <b>web</b>
      * </ul>
      *  
      * @param request die HTTP-Anfrage.
-     * @return der zugehörige Octopus-Anfragetyp.
+     * @return der zugehÃ¶rige Octopus-Anfragetyp.
      */
     protected static int discoverRequestType(HttpServletRequest request) {
         String contentTypeHeader = request.getHeader(HEADER_CONTENT_TYPE);
@@ -143,7 +143,7 @@ public class HttpHelper {
 
         String soapActionHeader = request.getHeader(HEADER_SOAP_ACTION);
 
-        // Für SOAP muss der SOAPAction-Header existieren und einer von
+        // FÃ¼r SOAP muss der SOAPAction-Header existieren und einer von
         // bestimmten Content-Types vorliegen.
         if (soapActionHeader != null || (requestTypeHeader != null && requestTypeHeader.startsWith(HEADER_REQUEST_TYPE_SOAP))) {
             if (contentTypeHeader.startsWith(CONTENT_TYPE_GZIP_SOAP))
@@ -158,7 +158,7 @@ public class HttpHelper {
     }
     
     /**
-     * Diese Methode fügt den schon aus dem Inhalt des HTTP-Requests erstellten Octopus-Requests
+     * Diese Methode fÃ¼gt den schon aus dem Inhalt des HTTP-Requests erstellten Octopus-Requests
      * Metadaten aus Header, Protokoll und URL hinzu 
      * 
      * @param requests zu erweiternde Octopus-Requests
@@ -235,7 +235,7 @@ public class HttpHelper {
     public static TcRequest readWebRequest(HttpServletRequest request, int requestType, String requestID) throws TcSOAPException {
         Map requestParams = new HashMap();
 
-        // Übergabeparameter eintragen
+        // Ãœbergabeparameter eintragen
         // TODO: CharacterEncoding in etwa wie im Folgenden festlegen, allerdings konfigurierbar; testen, ob bei get, post, post-multipart funktioniert.  
         // if (request.getCharacterEncoding() == null)
         // 	request.setCharacterEncoding("UTF-8");
@@ -249,7 +249,7 @@ public class HttpHelper {
             
             requestParams.put(key, val);
             
-            // Map übergeben
+            // Map Ã¼bergeben
             int bracketStart = key.indexOf("[");
             if (bracketStart > -1) {
                 String mapName = key.substring(0,bracketStart);
@@ -367,7 +367,7 @@ public class HttpHelper {
 
     /**
      * @deprecated Use same Method in TcRequest instead
-     * Diese Methode bestimmt, ob der übergebene Anfragetyp ein Web-Typ
+     * Diese Methode bestimmt, ob der Ã¼bergebene Anfragetyp ein Web-Typ
      * (HTML) ist.
      * 
      * @param requestType ein Anfragetyp-Wert
@@ -379,7 +379,7 @@ public class HttpHelper {
     
     /**
      * @deprecated Use same Method in TcRequest instead
-     * Diese Methode bestimmt, ob der übergebene Anfragetyp ein SOAP-Typ ist.
+     * Diese Methode bestimmt, ob der Ã¼bergebene Anfragetyp ein SOAP-Typ ist.
      * 
      * @param requestType ein Anfragetyp-Wert
      * @return true, falls der Parameter ein Web-Anfragetyp ist.
@@ -390,7 +390,7 @@ public class HttpHelper {
     
     /**
      * @deprecated Use same Method in TcRequest instead
-     * Diese Methode bestimmt, ob der übergebene Anfragetyp ein XML-RPC-Typ ist.
+     * Diese Methode bestimmt, ob der Ã¼bergebene Anfragetyp ein XML-RPC-Typ ist.
      * 
      * @param requestType ein Anfragetyp-Wert
      * @return true, falls der Parameter ein Web-Anfragetyp ist.
@@ -441,7 +441,7 @@ public class HttpHelper {
             authorization = new String(Base64.decode(authorization.getBytes()));
             String[] authParts = authorization.split("[:]", 2);
             if (authParts.length == 2) {
-                logger.debug("Authorisierung aus Header übernommen: " + Arrays.asList(authParts));
+                logger.debug("Authorisierung aus Header Ã¼bernommen: " + Arrays.asList(authParts));
                 return new PasswordAuthentication(authParts[0], authParts[1].toCharArray());
             }
         }
@@ -454,18 +454,18 @@ public class HttpHelper {
 	
     /**
      * Diese Methode gibt je nach LogLevel-Angabe die Mitteilung in das
-     * Log aus und liefert einen InputStream zurück, der wieder auslesbar ist.
+     * Log aus und liefert einen InputStream zurÃ¼ck, der wieder auslesbar ist.
      *
      * TODO: Schlechte Effizienz:
      *       Sobald das Log-Level != null ist muss die gesamte Nachricht in 
      *       einen neuen InputStream Kopiert werden.
-     *       Besser wäre es, den Stream nur dann zu kopieren,
+     *       Besser wÃ¤re es, den Stream nur dann zu kopieren,
      *       wenn er auch wirklich geloggt wurde.
      * 
      * @param message die Eingabe
      * @param logLevel der Level, mit dem die Eingabe gelogt werden soll. Bei
      *  null und "" wird nichts getan.
-     * @param logResource Schlüssel zum Ressourcen-Eintrag, der als Mitteilung
+     * @param logResource SchlÃ¼ssel zum Ressourcen-Eintrag, der als Mitteilung
      *  geloggt wird. {0} im Eintrag wird durch die Mitteilung ersetzt. 
      * @return ein wieder verwendbarer Mitteilungs-Eingabe-Strom.
      * @throws IOException

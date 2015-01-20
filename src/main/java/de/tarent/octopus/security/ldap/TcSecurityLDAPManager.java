@@ -92,9 +92,9 @@ public class TcSecurityLDAPManager
 	 * Methode, die einen gegebenen Benutzer einloggt.
 	 * @param username Benutzername entweder nur als Benutzername, wenn appendBaseDN
 	 * gesetzt ist, sonst als komplette DN des Users
-	 * @param appendBaseDN	Soll der Base-DN angehängt werden?
+	 * @param appendBaseDN	Soll der Base-DN angehÃ¤ngt werden?
 	 * @param passwort	Passwort
-	 * @param authType	Authentifizierungstyp gegenüber dem LDAP (im Moment nur "simple" ausprobiert & supported)
+	 * @param authType	Authentifizierungstyp gegenÃ¼ber dem LDAP (im Moment nur "simple" ausprobiert & supported)
 	 * @throws TcSecurityException
 	 */
 	public void login(
@@ -132,19 +132,19 @@ public class TcSecurityLDAPManager
 		{
 			//Falls die Authentification nicht stimmt
             if (logger.isInfoEnabled())
-                logger.info("Fehlerhafte Authenifizierung über LDAP.");
+                logger.info("Fehlerhafte Authenifizierung Ã¼ber LDAP.");
             if (logger.isDebugEnabled())
-                logger.debug("Fehlerhafte Authenifizierung über LDAP.", e);
+                logger.debug("Fehlerhafte Authenifizierung Ã¼ber LDAP.", e);
 			throw new TcSecurityException(TcSecurityException.ERROR_AUTH_ERROR);
 
 		} catch (CommunicationException e)
 		{
 			//Falls LDAP-Server nicht erreichbar
-            logger.error("Der LDAP-Server ist nicht erreichbar, bitte versuchen Sie es später noch einmal.", e);
+            logger.error("Der LDAP-Server ist nicht erreichbar, bitte versuchen Sie es spÃ¤ter noch einmal.", e);
 			throw new TcSecurityException(TcSecurityException.ERROR_SERVER_AUTH_ERROR);
 		} catch (NamingException e)
 		{
-            logger.error("Es ist ein Fehler bei der Kommunikation mit dem Authentifizierungs-Server aufgetreten, bitte versuchen Sie es später noch einmal.", e);
+            logger.error("Es ist ein Fehler bei der Kommunikation mit dem Authentifizierungs-Server aufgetreten, bitte versuchen Sie es spÃ¤ter noch einmal.", e);
 			throw new TcSecurityException(TcSecurityException.ERROR_SERVER_AUTH_ERROR);
 		}
 	}
@@ -165,11 +165,11 @@ public class TcSecurityLDAPManager
         } catch (CommunicationException e)
 		{
 			//Falls LDAP-Server nicht erreichbar
-            logger.error("Der LDAP-Server ist nicht erreichbar, bitte versuchen Sie es später noch einmal.", e);
+            logger.error("Der LDAP-Server ist nicht erreichbar, bitte versuchen Sie es spÃ¤ter noch einmal.", e);
 			throw new TcSecurityException(TcSecurityException.ERROR_SERVER_AUTH_ERROR);
 		} catch (NamingException e)
 		{
-            logger.error("Es ist ein Fehler bei der Kommunikation mit dem Authentifizierungs-Server aufgetreten, bitte versuchen Sie es später noch einmal.", e);
+            logger.error("Es ist ein Fehler bei der Kommunikation mit dem Authentifizierungs-Server aufgetreten, bitte versuchen Sie es spÃ¤ter noch einmal.", e);
 			throw new TcSecurityException(TcSecurityException.ERROR_SERVER_AUTH_ERROR);
 		}
 	}
@@ -192,7 +192,7 @@ public class TcSecurityLDAPManager
 		String gruppe)
 		throws TcSecurityException
 	{
-	    logger.debug("Füge User " + userid + " hinzu.");
+	    logger.debug("FÃ¼ge User " + userid + " hinzu.");
 		if(checkuid(userid)){modifyContactUser(userid, vorname, nachname, passwort, gruppe);}
 		else{
 			gruppe = sortGroup(gruppe);
@@ -681,7 +681,7 @@ public class TcSecurityLDAPManager
 	 * @return relative
 	 */
 	private String cleanup_relative(String relative) {
-		//testen, ob am Anfang kein Komma, sonst hinzufügen
+		//testen, ob am Anfang kein Komma, sonst hinzufÃ¼gen
 		if(relative.equals(" ")){relative = "";} //$NON-NLS-1$ //$NON-NLS-2$
 		
 		if(!relative.startsWith(",")){relative=","+relative;} //$NON-NLS-1$ //$NON-NLS-2$
@@ -708,10 +708,10 @@ public class TcSecurityLDAPManager
             SearchResult search = (SearchResult) ne.next();
             dn = search.getName();
             if(ne.hasMore()) {
-                throw new TcSecurityException(TcSecurityException.ERROR_SERVER_AUTH_ERROR, "Der User ist nicht eindeutig, bitte wählen sie einen anderen Usernamen");
+                throw new TcSecurityException(TcSecurityException.ERROR_SERVER_AUTH_ERROR, "Der User ist nicht eindeutig, bitte wÃ¤hlen sie einen anderen Usernamen");
             }
         } catch (NamingException e) {
-            	throw new TcSecurityException("Es ist ein Fehler beim Holen des Users aus dem LDAP aufgetreten. Bitte versuchen Sie es später noch einmal.");
+            	throw new TcSecurityException("Es ist ein Fehler beim Holen des Users aus dem LDAP aufgetreten. Bitte versuchen Sie es spÃ¤ter noch einmal.");
         }
 	    return dn;
 	}

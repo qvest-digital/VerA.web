@@ -34,7 +34,7 @@ import de.tarent.octopus.request.TcRequest;
 import de.tarent.octopus.util.CVS;
 
 /**
- * Dieser Worker stellt einige Systemfunktionen zur Verfügung, etwa das Neuladen eines Moduls,
+ * Dieser Worker stellt einige Systemfunktionen zur VerfÃ¼gung, etwa das Neuladen eines Moduls,
  * was dem Neueinlesen der Konfiguration entspricht. 
  * 
  * @author mikel
@@ -56,12 +56,12 @@ public class SystemWorker implements TcContentWorker {
     /**
      * Abarbeiten einer Action mit diesem ContentWorker
      * Die Ergebnisse werden in dem tcContent-Kontainer abgelegt.
-     * Ein ContentWorker kann für mehrere Actions zuständig sein.
+     * Ein ContentWorker kann fÃ¼r mehrere Actions zustÃ¤ndig sein.
      *
      * @param tcConfig Konfiguration
-     * @param actionName Name der Aktion, die von diesem Worker ausgeführt werden soll.
+     * @param actionName Name der Aktion, die von diesem Worker ausgefÃ¼hrt werden soll.
      * @param tcRequest Die Anfragedaten
-     * @param tcContent Der Content-Kontainer, in dem die Daten abgelegt werden können.
+     * @param tcContent Der Content-Kontainer, in dem die Daten abgelegt werden kÃ¶nnen.
      * @return String mit einem Statuscode z.B. ok oder error
      * @see de.tarent.octopus.content.TcContentWorker#doAction(de.tarent.octopus.config.TcConfig, java.lang.String, de.tarent.octopus.request.TcRequest, de.tarent.octopus.content.TcContent)
      */
@@ -76,7 +76,7 @@ public class SystemWorker implements TcContentWorker {
             return moduleConfig != null ? RESULT_ok : RESULT_error;
         } else {
             throw new TcContentProzessException(
-                    "Nicht unterstützte Aktion im SystemWorker: " + actionName);
+                    "Nicht unterstÃ¼tzte Aktion im SystemWorker: " + actionName);
         }
     }
 
@@ -91,7 +91,7 @@ public class SystemWorker implements TcContentWorker {
         TcPortDefinition port =
             new TcPortDefinition(
                 SystemWorker.class.getName(),
-                "Worker für Systemfunktionen");
+                "Worker fÃ¼r Systemfunktionen");
 
         TcOperationDefinition operation = port.addOperation(ACTION_RELOAD_MODULE, "Neuladen des aufrufenden Moduls");
         operation.setInputMessage();

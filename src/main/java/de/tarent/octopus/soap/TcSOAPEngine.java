@@ -66,7 +66,7 @@ import de.tarent.octopus.resource.Resources;
 import org.apache.axis.ConfigurationException;
 
 /** 
- * Bereitstellung und Kapselung von SOAP Funktionalität
+ * Bereitstellung und Kapselung von SOAP FunktionalitÃ¤t
  * 
  * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
  */
@@ -174,10 +174,10 @@ public class TcSOAPEngine {
     /**
      * Interpretiert die Eingabe als SOAP Message im RPC Style
      * 
-     * Alle Bestandteile der Aufrufe werden in Maps zurückgegeben.
+     * Alle Bestandteile der Aufrufe werden in Maps zurÃ¼ckgegeben.
      * Dabei wird der Methodenname unter dem Key "task" abgelegt,
      * der Namespace der Methode unter "taskNamespaceURI" und
-     * die Übergabeparameter unter ihren Namen. Sie können auch Maps
+     * die Ãœbergabeparameter unter ihren Namen. Sie kÃ¶nnen auch Maps
      * und Vektoren sein.
      */
     public void analyseSoapRequest(InputStream message, List headers, List modules, List tasks, List params) throws TcSOAPException {
@@ -277,7 +277,7 @@ public class TcSOAPEngine {
      * Vorsicht: Es werden nur Maps, Listen und Arrays traversiert. 
      * Wenn ein Array in einem anderen Datencontainer enthalten ist, wird es nicht gefunden
      * <br>
-     * TODO: Besser wäre natürlich ein direktes Deserialisieren als List durch Axis (derzeit nicht unterstützt).
+     * TODO: Besser wÃ¤re natÃ¼rlich ein direktes Deserialisieren als List durch Axis (derzeit nicht unterstÃ¼tzt).
      */
     protected Object replaceArrayWithList(Object o) {
         Object out = o;
@@ -292,7 +292,7 @@ public class TcSOAPEngine {
                 Object replacement = replaceArrayWithList(element);
 
                 // Hier ist ein echtes == gemeint, kein equals, 
-                // da nur ausgetauscht werden muss, wenn sich die Objektinstanz wirklich geändert hat.
+                // da nur ausgetauscht werden muss, wenn sich die Objektinstanz wirklich geÃ¤ndert hat.
                 if (replacement != element)
                     list.set(i, replacement);
             }            
@@ -306,7 +306,7 @@ public class TcSOAPEngine {
                 Object replacement = replaceArrayWithList(element);
 
                 // Hier ist ein echtes == gemeint, kein equals, 
-                // da nur ausgetauscht werden muss, wenn sich die Objektinstanz wirklich geändert hat.
+                // da nur ausgetauscht werden muss, wenn sich die Objektinstanz wirklich geÃ¤ndert hat.
                 if (replacement != element)
                     map.put(entry.getKey(), replacement);
             }            
@@ -343,8 +343,8 @@ public class TcSOAPEngine {
     
     /**
      * Erstellt einen Context mit Parametern der Nachricht
-     * Da unser System die Informationen, für die der MessageContext
-     * ist anderweitig bereit stellt, müssen wir da nicht viel rein tun.
+     * Da unser System die Informationen, fÃ¼r die der MessageContext
+     * ist anderweitig bereit stellt, mÃ¼ssen wir da nicht viel rein tun.
      */
     private MessageContext createMessageContext(AxisEngine engine) {
         MessageContext msgContext = new MessageContext(engine);
@@ -362,14 +362,14 @@ public class TcSOAPEngine {
     }
 
     /**
-     * Hängt einen GZIP Filter über den übergebenen Stream
+     * HÃ¤ngt einen GZIP Filter Ã¼ber den Ã¼bergebenen Stream
      */
     public static InputStream addGZIPFilterToInputStream(InputStream inStream) throws java.io.IOException {
         return new GZIPInputStream(inStream);
     }
 
     /**
-     * Soll Später einen PGP Filter über den übergebenen Stream legen.
+     * Soll SpÃ¤ter einen PGP Filter Ã¼ber den Ã¼bergebenen Stream legen.
      * Ist aber nocht nicht implementiert
      */
     public static InputStream addPGPFilterToInputStream(InputStream inStream) {
@@ -380,7 +380,7 @@ public class TcSOAPEngine {
      * Liefert den Namespacebezeichner,
      * unter dem das Schema eines Modules festgelegt ist.
      *
-     * Im Moment wird einfach der Modulname an eine bestimmte URL angehängt
+     * Im Moment wird einfach der Modulname an eine bestimmte URL angehÃ¤ngt
      *
      * @param module Der Name eines Modules
      * @return Namespacebezeichner zu dem Modul
@@ -392,12 +392,12 @@ public class TcSOAPEngine {
     }
 
     /**
-     * Liefert den Modulnamen, des Modules, das für einen bestimmter Namespace zuständig ist.
+     * Liefert den Modulnamen, des Modules, das fÃ¼r einen bestimmter Namespace zustÃ¤ndig ist.
      *
      * Im Moment wird der Modulname einfach aus der URI extrahiert.
      *
      * @param namespaceUri Namespacebezeichner zu dem Modul
-     * @return Zugehöriger Modulname
+     * @return ZugehÃ¶riger Modulname
      */
     public String getModuleNameFromNamespace(String namespaceUri) {
         logger.debug("namespace: " + namespaceUri + "\n TcPrefix: " + NAMESPACE_URI_TC);
@@ -410,7 +410,7 @@ public class TcSOAPEngine {
             else if (namespaceUri.startsWith(NAMESPACE_URI))
                 out = namespaceUri.substring(NAMESPACE_URI.length());
             else
-                logger.debug("Namespace startet nicht mit erlaubten Präfixen");
+                logger.debug("Namespace startet nicht mit erlaubten PrÃ¤fixen");
         } 
         
         if (out.startsWith("/"))

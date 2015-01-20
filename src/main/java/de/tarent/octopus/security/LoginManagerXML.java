@@ -46,7 +46,7 @@ import de.tarent.octopus.resource.Resources;
 import de.tarent.octopus.server.PersonalConfig;
 
 /** 
- * Implementierung eines LoginManagers, über eine XML Datei
+ * Implementierung eines LoginManagers, Ã¼ber eine XML Datei
  * <br><br>
  * 
  * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, <b>tarent GmbH</b>

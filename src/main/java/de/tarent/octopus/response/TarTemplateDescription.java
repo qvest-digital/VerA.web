@@ -42,7 +42,7 @@ import org.w3c.dom.NodeList;
  */
 public class TarTemplateDescription {
     /** 
-     * Feldbezeichner im übergeordneten Template,
+     * Feldbezeichner im Ã¼bergeordneten Template,
      * in das dieses Template eingesetzt werden will
      */
     private String position;
@@ -62,7 +62,7 @@ public class TarTemplateDescription {
     /**
      * Initialisiert diese Beschreibung mit einen Node Element.
      *
-     * @param templateElement Ein Dom Element, daß diesem Template entspricht.
+     * @param templateElement Ein Dom Element, daÃŸ diesem Template entspricht.
      */
     public TarTemplateDescription(Node templateElement) {
         NamedNodeMap attr = templateElement.getAttributes();
@@ -82,7 +82,7 @@ public class TarTemplateDescription {
     }
 
     /**
-     * Feldbezeichner im übergeordneten Template,
+     * Feldbezeichner im Ã¼bergeordneten Template,
      * in das dieses Template eingesetzt werden will
      */
     public String getPosition() {
@@ -109,7 +109,7 @@ public class TarTemplateDescription {
     }
 
     /**
-     * Gibt eine lesbare Darstellung des Inhaltes zurück, wobei alle Child-Templates auch rekursiv ausgegeben werden.
+     * Gibt eine lesbare Darstellung des Inhaltes zurÃ¼ck, wobei alle Child-Templates auch rekursiv ausgegeben werden.
      */
     public String toString() {
         return toString("");

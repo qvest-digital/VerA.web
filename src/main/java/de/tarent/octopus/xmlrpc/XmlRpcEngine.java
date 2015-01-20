@@ -49,7 +49,7 @@ import de.tarent.octopus.soap.TcSOAPException;
  */
 public class XmlRpcEngine {
 
-    /** Logger für diese Klasse */
+    /** Logger fÃ¼r diese Klasse */
     private static Log logger = LogFactory.getLog(XmlRpcEngine.class);
 
 

@@ -41,7 +41,7 @@ public class TcMessageDefinitionPart {
     /**
      * Erzeugt einen neuen Parameter
      * @param name Name des Parameters
-     * @param partDataType Datentyp des Parameters als XML-Schema-Type. Die Konstanten der Klassen können und sollen benutzt werden.
+     * @param partDataType Datentyp des Parameters als XML-Schema-Type. Die Konstanten der Klassen kÃ¶nnen und sollen benutzt werden.
      * @param description Beschreibung des Parameters
      * @param optional Flag, ob der Parameter optional sein soll
      */

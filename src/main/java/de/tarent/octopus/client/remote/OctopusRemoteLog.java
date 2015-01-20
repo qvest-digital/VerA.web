@@ -93,7 +93,7 @@ public class OctopusRemoteLog {
 				}
 			}
 		} catch (AxisFault e) {
-			//Ignorieren, wir möchten ja nur die Größe wissen
+			//Ignorieren, wir mÃ¶chten ja nur die GrÃ¶ÃŸe wissen
 		}
 		assert task != null;
 		startLogEntry(task.getTaskName(), size, task.params);
@@ -145,7 +145,7 @@ public class OctopusRemoteLog {
 				}
 			}
 		} catch (AxisFault e) {
-			//Ignorieren, wir möchten ja nur die Größe wissen
+			//Ignorieren, wir mÃ¶chten ja nur die GrÃ¶ÃŸe wissen
 		}
 		commitLogEntry(size);
 	}

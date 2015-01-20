@@ -57,7 +57,7 @@ import de.tarent.octopus.util.ParamReference;
 import de.tarent.octopus.util.Xml;
 
 /** 
- * Klasse zur Repräsentation eines Task
+ * Klasse zur ReprÃ¤sentation eines Task
  *
  * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
  */
@@ -108,11 +108,11 @@ public class TcTask {
     // Konstruktor
     //
     /**
-     * Der Konstruktor parst das übergebene task-DOM-Element und erzeugt daraus
+     * Der Konstruktor parst das Ã¼bergebene task-DOM-Element und erzeugt daraus
      * eine interne Darstellung des Tasks.
      * 
      * @param taskList TaskListe, in der der Task zu stehen kommt. Diese
-     *  wird bei doTask-Verzweigungen benötigt.
+     *  wird bei doTask-Verzweigungen benÃ¶tigt.
      * @param taskXmlTree DOM-Element des Tasks
      * @param moduleConfig Modulkonfiguration, zu der der Task geparst wird.
      */
@@ -149,7 +149,7 @@ public class TcTask {
 
 
     /**
-     * Liefert die Gruppen, die dieses Task ausführen dürfen.
+     * Liefert die Gruppen, die dieses Task ausfÃ¼hren dÃ¼rfen.
      */
     public String[] getGroups() {
         return rootNode.getGroups();
@@ -171,7 +171,7 @@ public class TcTask {
 
     /**
      * Liefert die kummulierte Ausgabe des Tasks. Falls der Task einen
-     * Kontrakt enthält, wird die darin vereinbarte Ausgabe geliefert,
+     * Kontrakt enthÃ¤lt, wird die darin vereinbarte Ausgabe geliefert,
      * sonst eine aus den Taskelementen extrapolierte. 
      */
     public TcMessageDefinition getOutputMessage() {
@@ -180,7 +180,7 @@ public class TcTask {
 
     /**
      * Liefert die kummulierte Eingabe des Tasks. Falls der Task einen
-     * Kontrakt enthält, wird die darin vereinbarte Eingabe geliefert,
+     * Kontrakt enthÃ¤lt, wird die darin vereinbarte Eingabe geliefert,
      * sonst eine aus den Taskelementen extrapolierte. 
      */
     public TcMessageDefinition getInputMessage() {
@@ -190,24 +190,24 @@ public class TcTask {
     // TODO: Ggfs aus Kontrakt Faults herausfischen
 
     /**
-     * Liefert eine äußere Beschreibung des Tasks als WSDL-ähnliche Operation.
-     * Falls der Task einen Kontrakt enthält, wird auch darauf zurückgegriffen,
+     * Liefert eine Ã¤uÃŸere Beschreibung des Tasks als WSDL-Ã¤hnliche Operation.
+     * Falls der Task einen Kontrakt enthÃ¤lt, wird auch darauf zurÃ¼ckgegriffen,
      * sonst wirdnur aus den Taskelementen extrapoliert. 
      */
     public TcOperationDefinition getOperationDefinition() {
         TcOperationDefinition od = new TcOperationDefinition(getName(), getDescription());
         od.setInputMessage(getInputMessage());
         od.setOutputMessage(getOutputMessage());
-        // TODO: Ggfs aus Kontrakt Faults herausfischen und hier einfügen
+        // TODO: Ggfs aus Kontrakt Faults herausfischen und hier einfÃ¼gen
         return od;
     }
 
     //
-    // Validierung: Fehlerüberprüfung
+    // Validierung: FehlerÃ¼berprÃ¼fung
     //
     /**
-     * Überprüft, ob das Task gültig ist.
-     * Wenn dies nicht der Fall ist, kann anschließend über
+     * ÃœberprÃ¼ft, ob das Task gÃ¼ltig ist.
+     * Wenn dies nicht der Fall ist, kann anschlieÃŸend Ã¼ber
      * getTaskErrors() eine Liste mit Fehlern abgefragt werden.
      */
     public boolean isValid() {
@@ -219,10 +219,10 @@ public class TcTask {
     }
 
     /**
-     * Diese Methode überprüft, falls es einen Kontrakt gibt, ob die
-     * tatsächlichen Ein- und Ausgaben des Tasks dem Kontrakt genügen.
+     * Diese Methode Ã¼berprÃ¼ft, falls es einen Kontrakt gibt, ob die
+     * tatsÃ¤chlichen Ein- und Ausgaben des Tasks dem Kontrakt genÃ¼gen.
      * 
-     * @return eine Liste mit Fehlermeldungen bezüglich der Kontrakterfüllung.
+     * @return eine Liste mit Fehlermeldungen bezÃ¼glich der KontrakterfÃ¼llung.
      */
     public List getContractErrors() {
         List errors = new ArrayList();
@@ -367,7 +367,7 @@ public class TcTask {
         }
         
         /**
-         * Selbstständiges Ausführen der Aktionen dieser TaskNode
+         * SelbststÃ¤ndiges AusfÃ¼hren der Aktionen dieser TaskNode
          */
         protected void perform(TcTaskManager manager, OctopusContext context) 
             throws TcTaskProzessingException, TcContentProzessException {
@@ -825,7 +825,7 @@ public class TcTask {
         public TcMessageDefinition out(TcMessageDefinition out) {            
             TcMessageDefinition returnDefinition;
             if (out != null && paramMap != null && 
-                // TODO: Generische lösung ...
+                // TODO: Generische lÃ¶sung ...
                 ("soap".equalsIgnoreCase(type)
                  ||"rpc".equalsIgnoreCase(type)
                  ||"xmlrpc".equalsIgnoreCase(type))
@@ -879,7 +879,7 @@ public class TcTask {
             throws TcTaskProzessingException, TcContentProzessException {
             logger.debug(Resources.getInstance().get("TASK_STRING_PERFORMING_NODE", context.getRequestObject().getRequestID(), "ParamNode", " name="+name+" value="+value));
             
-            // TODO: Die Params müssten eigentlich rekursiv durchlaufen werden um alle darinliegenden ParamReference auf auflösen zu können
+            // TODO: Die Params mÃ¼ssten eigentlich rekursiv durchlaufen werden um alle darinliegenden ParamReference auf auflÃ¶sen zu kÃ¶nnen
             Object resolvedValue = value;
             if (value instanceof ParamReference) {
                 resolvedValue = context.getContextField(((ParamReference)value).getRefvalue());
@@ -1002,7 +1002,7 @@ public class TcTask {
                 String description = child.getAttribute(CONTRACT_PART_DESCRIPTION_ATTRIBUTE_NAME);
                 String optionalString = child.getAttribute(CONTRACT_PART_OPTIONAL_ATTRIBUTE_NAME);
                 boolean optional = optionalString != null && optionalString.length() > 0 && "1jJyYtTwW".indexOf(optionalString.charAt(0)) >= 0;
-                // TODO: Test, ob wohlbeschrieben, ggfs übertragen in Fehlerbereich
+                // TODO: Test, ob wohlbeschrieben, ggfs Ã¼bertragen in Fehlerbereich
                 TcMessageDefinitionPart part = new TcMessageDefinitionPart(name, datatype, description, optional);
                 if (CONTRACT_INPUT_ELEMENT_NAME.equals(child.getNodeName())) {
                     input.addPart(part);
@@ -1046,7 +1046,7 @@ public class TcTask {
 
     /**
      * Diese Klasse beschreibt onError-Knoten in der Task-Beschreibung, die
-     * für die folgenden Knoten die Fehlerbehandlung bei
+     * fÃ¼r die folgenden Knoten die Fehlerbehandlung bei
      * {@link de.tarent.octopus.content.TcContentProzessException}s festlegen.
      */
     protected class OnErrorNode extends TNode {

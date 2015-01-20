@@ -49,7 +49,7 @@ public class ReflectedWorkerFactory implements SpecialWorkerFactory {
     private static Object[] emptyObjectArray = new Object[]{};
 
     /**
-     * Läd die als ImplementationSource angegebene Klasse und Kapselt sie mit einem ReflectedWorkerWrapper.
+     * LÃ¤d die als ImplementationSource angegebene Klasse und Kapselt sie mit einem ReflectedWorkerWrapper.
      * 
      * @param workerDeclaration Beschreibung zur Instanziierung des Workers.
      */

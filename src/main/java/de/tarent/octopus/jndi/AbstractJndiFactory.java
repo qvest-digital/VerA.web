@@ -15,12 +15,12 @@ import de.tarent.octopus.logging.LogFactory;
 /**
  * Diese Klasse stellt eine JNDI-{@link ObjectFactory} zum Zugriff auf den aktuellen
  * Octopus-Kontext dar.<br>
- * Sie ist angelehnt an das Beispiel für das erzeugen spezialisierter Resource Factories
+ * Sie ist angelehnt an das Beispiel fÃ¼r das erzeugen spezialisierter Resource Factories
  * <a href="http://jakarta.apache.org/tomcat/tomcat-5.0-doc/jndi-resources-howto.html#Adding Custom Resource Factories">hier</a>
  * in der Tomcat-Dokumentation.<br>
  * Zur Nutzung muss diese Factory der JNDI-Machinerie bekannt gemacht werden. Analog
  * obigem Beispiel ist dies im Projekt octopus/webapp getan worden, entsprechende
- * Einträge stehen dort in den Dateien <code>octopus.xml</code> und <code>web.xml</code>
+ * EintrÃ¤ge stehen dort in den Dateien <code>octopus.xml</code> und <code>web.xml</code>
  * im Verzeichnis <code>webapp/WEB-INF</code>.
  */
 public abstract class AbstractJndiFactory implements ObjectFactory {
