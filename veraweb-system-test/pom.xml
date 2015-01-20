@@ -2,7 +2,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.evolvis.veraweb</groupId>
     <artifactId>veraweb-system-test</artifactId>
-    <version>1.4.3.1</version>
+    <version>1.4.3.2-SNAPSHOT</version>
 
     <name>VerA.web System Test</name>
     <url>http://veraweb.evolvis.org/</url>
