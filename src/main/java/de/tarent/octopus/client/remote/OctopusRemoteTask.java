@@ -41,7 +41,7 @@ import java.io.InputStream;
 import org.apache.axis.configuration.FileProvider;
 import org.apache.axis.encoding.TypeMappingRegistry;
 
-/** 
+/**
  * Aufruf eines Task des Octopus als Client-Server variante.
  *
  * @author <a href="mailto:sebastian@tarent.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
@@ -51,7 +51,7 @@ public class OctopusRemoteTask implements OctopusTask {
  	private static final String AXIS_CONFIG = "/axis-config.wsdd";
 
     Log logger = LogFactory.getLog(OctopusRemoteTask.class);
-    
+
     static Service axisSoapService;
 
     Call axisSoapCall;
@@ -63,8 +63,8 @@ public class OctopusRemoteTask implements OctopusTask {
     boolean connectionTracking = false;
     private static OctopusRemoteLog log = null;
 
-    
-    public OctopusRemoteTask() 
+
+    public OctopusRemoteTask()
         throws javax.xml.rpc.ServiceException {
         initAxisSOAPService();
 
@@ -74,7 +74,7 @@ public class OctopusRemoteTask implements OctopusTask {
         if(log==null&&isConnectionTracking())log = new OctopusRemoteLog(this);
     }
 
-    public OctopusRemoteTask(String moduleName, String taskName, OctopusRemoteConnection connection) 
+    public OctopusRemoteTask(String moduleName, String taskName, OctopusRemoteConnection connection)
         throws javax.xml.rpc.ServiceException {
         this();
         setConnection(connection);
@@ -86,7 +86,7 @@ public class OctopusRemoteTask implements OctopusTask {
         //         axisSoapCall.setMaintainSession(OctopusRemoteConnection.AUTH_TYPE_SESSION
         //                                         .equals(connection.getAuthType()));
     }
-    
+
     protected synchronized void initAxisSOAPService() {
         if (axisSoapService == null) {
             InputStream is = OctopusRemoteTask.class.getResourceAsStream(AXIS_CONFIG);
@@ -102,7 +102,7 @@ public class OctopusRemoteTask implements OctopusTask {
                             }
                         }
                     };
-                axisSoapService = new Service(engineConfiguration);                
+                axisSoapService = new Service(engineConfiguration);
                 axisSoapService.getEngine().setOption(AxisEngine.PROP_DOMULTIREFS, Boolean.FALSE);
             } else {
                 logger.info("No axis soap configuration available in ressources ('"+AXIS_CONFIG+"').");
@@ -110,15 +110,15 @@ public class OctopusRemoteTask implements OctopusTask {
             }
         }
     }
-    
+
     public void add(String paramName, Object value, QName type) {
         params.add(value);
         axisSoapCall.addParameter(paramName, type, ParameterMode.IN);
     }
 
     /**
-     * @return Gibt eine Refferenz auf sich selbst zurï¿½ck. 
-     *         Damit sind z.B. folgende Aufrufe mï¿½glich: add().add().add ...
+     * @return Gibt eine Referenz auf sich selbst zurück.
+     *         Damit sind z.B. folgende Aufrufe möglich: add().add().add ...
      */
     public OctopusTask add(String paramName, Object paramValue) {
         if (paramName == null)
@@ -133,23 +133,23 @@ public class OctopusRemoteTask implements OctopusTask {
             xmlType = Constants.XSD_BOOLEAN;
         else if (paramValue instanceof Long)
             xmlType = Constants.XSD_LONG;
-        
+
         add(paramName, paramValue, xmlType);
         return this;
     }
 
-    
-    public OctopusResult invoke() 
+
+    public OctopusResult invoke()
         throws OctopusCallException {
 
         axisSoapCall.setTargetEndpointAddress(connection.getServiceURL());
 //         System.out.println("axis: "+axisSoapCall.getTargetEndpointAddress());
-        
+
         axisSoapCall.setOperationName(new QName("http://schemas.tarent.de/"
                                                 + getModuleName(), getTaskName()));
         axisSoapCall.setReturnType(XMLType.AXIS_VOID);
         //axisSoapCall.setReturnQName(Constants.XSD_ANYTYPE);
-        
+
         if(isConnectionTracking())
         	log.startLogEntry(this);
         try {
@@ -163,7 +163,7 @@ public class OctopusRemoteTask implements OctopusTask {
 
                 if(isConnectionTracking())
                     log.commitLogEntry();
-                                   
+
                 if (connection.isAutoLogin()
                     && ! connection.isIsDoingLogin()
                     && (OctopusConstants.SOAPF_AUTHENTICATION_UNKNOWN_ERROR.equals(faultCode)
@@ -177,12 +177,12 @@ public class OctopusRemoteTask implements OctopusTask {
                     try {
                         if(isConnectionTracking())
                             log.startLogEntry(this);
-                        axisSoapCall.setTargetEndpointAddress(connection.getServiceURL());                         
+                        axisSoapCall.setTargetEndpointAddress(connection.getServiceURL());
                         axisSoapCall.invoke(params.toArray());
                     } finally {
                         if(isConnectionTracking())
-                            log.commitLogEntry();                        
-                    }                    
+                            log.commitLogEntry();
+                    }
 
                 } else
                     throw e;
@@ -193,8 +193,8 @@ public class OctopusRemoteTask implements OctopusTask {
         } catch (RemoteException e) {
             //            e.printStackTrace();
             throw new OctopusCallException("Error while calling <"+getModuleName()+"#"+getTaskName()+"> with soap.", e);
-        } 
-        
+        }
+
         Map returnParams = axisSoapCall.getOutputParams();
         //System.out.println("returnParams: "+returnParams);
         OctopusRemoteResult oResult = new OctopusRemoteResult();
@@ -202,7 +202,7 @@ public class OctopusRemoteTask implements OctopusTask {
         for (Iterator iter = returnParams.keySet().iterator(); iter.hasNext();) {
             QName name = (QName)iter.next();
             oResult.addData(name.toString(), replaceArrayWithList(returnParams.get(name)));
-        }        
+        }
         return oResult;
     }
 
@@ -210,10 +210,10 @@ public class OctopusRemoteTask implements OctopusTask {
     /**
      * Traversiert die den Map-List-Baum und ersetzt alle Vorkommen von Array durch Listen.
      * <br>
-     * Vorsicht: Es werden nur Maps, Listen und Arrays traversiert. 
+     * Vorsicht: Es werden nur Maps, Listen und Arrays traversiert.
      * Wenn ein Array in einem anderen Datencontainer enthalten ist, wird es nicht gefunden
      * <br>
-     * TODO: Besser wï¿½re natï¿½rlich ein direktes Deserialisieren als List durch Axis (derzeit nicht unterstï¿½tzt).
+     * TODO: Besser wäre natürlich ein direktes Deserialisieren als List durch Axis (derzeit nicht unterstützt).
      */
     protected Object replaceArrayWithList(Object o) {
         Object out = o;
@@ -227,25 +227,25 @@ public class OctopusRemoteTask implements OctopusTask {
                 Object element = list.get(i);
                 Object replacement = replaceArrayWithList(element);
 
-                // Hier ist ein echtes == gemeint, kein equals, 
-                // da nur ausgetauscht werden muss, wenn sich die Objektinstanz wirklich geï¿½ndert hat.
+                // Hier ist ein echtes == gemeint, kein equals,
+                // da nur ausgetauscht werden muss, wenn sich die Objektinstanz wirklich geändert hat.
                 if (replacement != element)
                     list.set(i, replacement);
-            }            
-        } 
+            }
+        }
         else if (out instanceof Map) {
             Map map = (Map)out;
             for (Iterator iter = map.entrySet().iterator(); iter.hasNext();) {
                 Map.Entry entry = (Map.Entry)iter.next();
-                
+
                 Object element = entry.getValue();
                 Object replacement = replaceArrayWithList(element);
 
-                // Hier ist ein echtes == gemeint, kein equals, 
-                // da nur ausgetauscht werden muss, wenn sich die Objektinstanz wirklich geï¿½ndert hat.
+                // Hier ist ein echtes == gemeint, kein equals,
+                // da nur ausgetauscht werden muss, wenn sich die Objektinstanz wirklich geändert hat.
                 if (replacement != element)
                     map.put(entry.getKey(), replacement);
-            }            
+            }
         }
         return out;
     }

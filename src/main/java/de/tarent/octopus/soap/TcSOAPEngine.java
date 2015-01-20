@@ -61,28 +61,28 @@ import de.tarent.octopus.request.TcRequest;
 import de.tarent.octopus.resource.Resources;
 import org.apache.axis.ConfigurationException;
 
-/** 
- * Bereitstellung und Kapselung von SOAP FunktionalitÃ¤t
- * 
+/**
+ * Bereitstellung und Kapselung von SOAP Funktionalität
+ *
  * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
  */
 public class TcSOAPEngine {
     private static Log logger = LogFactory.getLog(TcSOAPEngine.class);
     public static final String NAMESPACE_URI = "http://schemas.tarent.de/";
     public static final String NAMESPACE_URI_TC = NAMESPACE_URI + "tccontact";
-    
+
     boolean useSOAPNSAsModule = true;
-    
+
     public static AxisEngine engine;
 
     TcEnv env;
 
     public TcSOAPEngine(TcEnv env) {
         this.env = env;
-        
+
         if (null != env.getValue(TcEnv.KEY_USE_SOAP_NS_AS_MODULE))
             useSOAPNSAsModule = env.getValueAsBoolean(TcEnv.KEY_USE_SOAP_NS_AS_MODULE);
-        
+
         // TODO: It would be better to bind the SOAP-Engine to a specific module
         //       and configure the type mapping for the modules of the octopus.
         final String axisConfigFile = env.getValueAsString(TcEnv.KEY_PATHS_ROOT) + "axis-config.wsdd";
@@ -112,13 +112,13 @@ public class TcSOAPEngine {
 	 * @deprecated not used since engine configuration is read from an engine configuration file
      */
     protected void registerTypes(TypeMappingRegistry reg, TcEnv env) {
-        
-        TypeMapping mapping = DefaultSOAPEncodingTypeMappingImpl.createWithDelegate(); 
-        mapping.register(StringBuffer.class, 
+
+        TypeMapping mapping = DefaultSOAPEncodingTypeMappingImpl.createWithDelegate();
+        mapping.register(StringBuffer.class,
                          Constants.XSD_STRING,
                          new SimpleSerializerFactory(StringBuffer.class, Constants.XSD_STRING),
                          new SimpleDeserializerFactory(String.class, Constants.XSD_STRING));
-        
+
         //mapping.setSupportedEncodings(Constants.URIS_SOAP_ENC);
         for (int i=0; i<Constants.URIS_SOAP_ENC.length; i++) {
             reg.register(Constants.URIS_SOAP_ENC[i], mapping);
@@ -130,7 +130,7 @@ public class TcSOAPEngine {
 
     /**
      * Diese Methode analysiert eine SOAP-Anfrage.
-     * 
+     *
      * @param inStream Die Anfrage
      * @param requestType der Anfragetyp
      * @param requestID die Anfrage-ID
@@ -139,7 +139,7 @@ public class TcSOAPEngine {
      */
     public TcRequest[] readSoapRequests(InputStream inStream, int requestType, String requestID) throws TcSOAPException {
         logger.trace(TcSOAPEngine.class.getName() + " readSoapRequests " + new Object[] {inStream, new Integer(requestType), requestID});
-        
+
         if (inStream != null) {
             List moduleList = new ArrayList();
             List taskList = new ArrayList();
@@ -169,11 +169,11 @@ public class TcSOAPEngine {
 
     /**
      * Interpretiert die Eingabe als SOAP Message im RPC Style
-     * 
-     * Alle Bestandteile der Aufrufe werden in Maps zurÃ¼ckgegeben.
+     *
+     * Alle Bestandteile der Aufrufe werden in Maps zurückgegeben.
      * Dabei wird der Methodenname unter dem Key "task" abgelegt,
      * der Namespace der Methode unter "taskNamespaceURI" und
-     * die Ãœbergabeparameter unter ihren Namen. Sie kÃ¶nnen auch Maps
+     * die Übergabeparameter unter ihren Namen. Sie können auch Maps
      * und Vektoren sein.
      */
     public void analyseSoapRequest(InputStream message, List headers, List modules, List tasks, List params) throws TcSOAPException {
@@ -194,7 +194,7 @@ public class TcSOAPEngine {
         //             logger.warn(Resources.getInstance().get("SOAPENGINE_LOG_INPUT_LOG_ERROR"), e1);
         //             throw new TcSOAPException(e1);
         // 		}
-        
+
         Message requestMsg = new Message(message, false);
         MessageContext msgContext = createMessageContext(engine);
         requestMsg.setMessageContext(msgContext);
@@ -251,7 +251,7 @@ public class TcSOAPEngine {
     /**
      * Diese Methode macht aus einem RPC-Element eine Map mit Parametern
      * eines Octopus-Requests.
-     * 
+     *
      * @param bodyPart Body-RPC-Element
      * @return Map der Parameter, des Moduls und des Tasks im RPC-Element
      * @throws SAXException
@@ -266,14 +266,14 @@ public class TcSOAPEngine {
         }
         return request;
     }
-    
+
     /**
      * Traversiert die den Map-List-Baum und ersetzt alle Vorkommen von Array durch Listen.
      * <br>
-     * Vorsicht: Es werden nur Maps, Listen und Arrays traversiert. 
+     * Vorsicht: Es werden nur Maps, Listen und Arrays traversiert.
      * Wenn ein Array in einem anderen Datencontainer enthalten ist, wird es nicht gefunden
      * <br>
-     * TODO: Besser wÃ¤re natÃ¼rlich ein direktes Deserialisieren als List durch Axis (derzeit nicht unterstÃ¼tzt).
+     * TODO: Besser wäre natürlich ein direktes Deserialisieren als List durch Axis (derzeit nicht unterstützt).
      */
     protected Object replaceArrayWithList(Object o) {
         Object out = o;
@@ -287,25 +287,25 @@ public class TcSOAPEngine {
                 Object element = list.get(i);
                 Object replacement = replaceArrayWithList(element);
 
-                // Hier ist ein echtes == gemeint, kein equals, 
-                // da nur ausgetauscht werden muss, wenn sich die Objektinstanz wirklich geÃ¤ndert hat.
+                // Hier ist ein echtes == gemeint, kein equals,
+                // da nur ausgetauscht werden muss, wenn sich die Objektinstanz wirklich geändert hat.
                 if (replacement != element)
                     list.set(i, replacement);
-            }            
-        } 
+            }
+        }
         else if (out instanceof Map) {
             Map map = (Map)out;
             for (Iterator iter = map.entrySet().iterator(); iter.hasNext();) {
                 Map.Entry entry = (Map.Entry)iter.next();
-                
+
                 Object element = entry.getValue();
                 Object replacement = replaceArrayWithList(element);
 
-                // Hier ist ein echtes == gemeint, kein equals, 
-                // da nur ausgetauscht werden muss, wenn sich die Objektinstanz wirklich geÃ¤ndert hat.
+                // Hier ist ein echtes == gemeint, kein equals,
+                // da nur ausgetauscht werden muss, wenn sich die Objektinstanz wirklich geändert hat.
                 if (replacement != element)
                     map.put(entry.getKey(), replacement);
-            }            
+            }
         }
         return out;
     }
@@ -317,13 +317,13 @@ public class TcSOAPEngine {
      * normaly headers should only be delivered if needed.
      * If the header has DOM-Elements as children the will be recursively processed by this
      * method and provided in a <code>List</code> of Singleton-Maps as well.
-     * 
+     *
      * @param headerPart header to process
      * @return a singleton map with the header's name as key and a <code>MessageElement</code> or a <code>List</code> of subheaders as value
      * @throws SAXException
      */
     private Map headerPartToMap(MessageElement headerPart) throws SAXException {
-    	// test if child elements are present, pretending no elements follow if the first child is a text node 
+    	// test if child elements are present, pretending no elements follow if the first child is a text node
     	if (headerPart.getFirstChild().getNodeType() != Node.TEXT_NODE) {
     		List subheaderNodes = headerPart.getChildren();
     		List subheaderList= new ArrayList(subheaderNodes.size());
@@ -336,11 +336,11 @@ public class TcSOAPEngine {
     	}
         return Collections.singletonMap(headerPart.getName(), headerPart.getRealElement());
     }
-    
+
     /**
      * Erstellt einen Context mit Parametern der Nachricht
-     * Da unser System die Informationen, fÃ¼r die der MessageContext
-     * ist anderweitig bereit stellt, mÃ¼ssen wir da nicht viel rein tun.
+     * Da unser System die Informationen, für die der MessageContext
+     * ist anderweitig bereit stellt, müssen wir da nicht viel rein tun.
      */
     private MessageContext createMessageContext(AxisEngine engine) {
         MessageContext msgContext = new MessageContext(engine);
@@ -358,14 +358,14 @@ public class TcSOAPEngine {
     }
 
     /**
-     * HÃ¤ngt einen GZIP Filter Ã¼ber den Ã¼bergebenen Stream
+     * Hängt einen GZIP Filter über den übergebenen Stream
      */
     public static InputStream addGZIPFilterToInputStream(InputStream inStream) throws java.io.IOException {
         return new GZIPInputStream(inStream);
     }
 
     /**
-     * Soll SpÃ¤ter einen PGP Filter Ã¼ber den Ã¼bergebenen Stream legen.
+     * Soll später einen PGP-Filter über den übergebenen Stream legen.
      * Ist aber nocht nicht implementiert
      */
     public static InputStream addPGPFilterToInputStream(InputStream inStream) {
@@ -376,7 +376,7 @@ public class TcSOAPEngine {
      * Liefert den Namespacebezeichner,
      * unter dem das Schema eines Modules festgelegt ist.
      *
-     * Im Moment wird einfach der Modulname an eine bestimmte URL angehÃ¤ngt
+     * Im Moment wird einfach der Modulname an eine bestimmte URL angehängt
      *
      * @param module Der Name eines Modules
      * @return Namespacebezeichner zu dem Modul
@@ -388,36 +388,36 @@ public class TcSOAPEngine {
     }
 
     /**
-     * Liefert den Modulnamen, des Modules, das fÃ¼r einen bestimmter Namespace zustÃ¤ndig ist.
+     * Liefert den Modulnamen, des Modules, das für einen bestimmter Namespace zuständig ist.
      *
      * Im Moment wird der Modulname einfach aus der URI extrahiert.
      *
      * @param namespaceUri Namespacebezeichner zu dem Modul
-     * @return ZugehÃ¶riger Modulname
+     * @return Zugehöriger Modulname
      */
     public String getModuleNameFromNamespace(String namespaceUri) {
         logger.debug("namespace: " + namespaceUri + "\n TcPrefix: " + NAMESPACE_URI_TC);
 
         String out = ""; // default module
-        
+
         if (useSOAPNSAsModule) {
             if (namespaceUri.startsWith(NAMESPACE_URI_TC))
                 out = namespaceUri.substring(NAMESPACE_URI_TC.length());
             else if (namespaceUri.startsWith(NAMESPACE_URI))
                 out = namespaceUri.substring(NAMESPACE_URI.length());
             else
-                logger.debug("Namespace startet nicht mit erlaubten PrÃ¤fixen");
-        } 
-        
+                logger.debug("Namespace startet nicht mit erlaubten Präfixen");
+        }
+
         if (out.startsWith("/"))
             out = out.substring(1);
-        
+
         logger.debug("Modulname: " + out);
         return out;
     }
 
 
-//     protected class SingletonSerializerFactory 
+//     protected class SingletonSerializerFactory
 //         implements SerializerFactory {
 
 //         Serializer serializer;
@@ -438,5 +438,5 @@ public class TcSOAPEngine {
 
 //     }
 
-    
+
 }

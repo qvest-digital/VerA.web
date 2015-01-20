@@ -44,34 +44,34 @@ import de.tarent.octopus.server.InOutParam;
 import de.tarent.octopus.server.OctopusContext;
 
 /**
- * Basisklasse fï¿½r Worker-Wrapper nach dem Template-Method Pattern.
- * 
+ * Basisklasse für Worker-Wrapper nach dem Template-Method Pattern.
+ *
  * @author Sebastian Mancke
  */
-public abstract class AbstractWorkerWrapper 
+public abstract class AbstractWorkerWrapper
     implements TcContentWorker, DelegatingWorker {
 
     private static Log logger = LogFactory.getLog(AbstractWorkerWrapper.class);
 
 
     /**
-     * Worker, an den Aufrufe delegiert werden sollen. 
+     * Worker, an den Aufrufe delegiert werden sollen.
      */
     Object workerDelegate;
 
 
     /**
-     * Klasse des Workers, an den Aufrufe delegiert werden sollen. 
+     * Klasse des Workers, an den Aufrufe delegiert werden sollen.
      */
     Class workerClass;
 
 
     /**
-     * Cache fï¿½r die Metainformationen zu den Actions
+     * Cache für die Metainformationen zu den Actions
      */
     HashMap actionDataLookup = new HashMap();
-        
-        
+
+
     private static Class[] emptyClassArray = new Class[]{};
     private static Object[] emptyObjectArray = new Object[]{};
 
@@ -82,7 +82,7 @@ public abstract class AbstractWorkerWrapper
 
 
     /**
-     * 
+     *
      * @see de.tarent.octopus.content.DelegatingWorker
      */
 	public Object getWorkerDelegate() {
@@ -105,7 +105,7 @@ public abstract class AbstractWorkerWrapper
 
 
     /**
-     * Liefert die Namen aller von dem Worker bereit gestellten Actions zurï¿½ck
+     * Liefert die Namen aller von dem Worker bereit gestellten Actions zurück
      */
     public abstract String[] getActionNames() throws TcActionDeclarationException;
 
@@ -126,7 +126,7 @@ public abstract class AbstractWorkerWrapper
      * Initialisierung des Workers
      */
     public void init(TcModuleConfig config) {
-        try {                    
+        try {
             Method m = workerClass.getMethod("init", new Class[]{TcModuleConfig.class});
             m.invoke(workerDelegate, new Object[]{config} );
 		} catch (SecurityException e) {
@@ -135,7 +135,7 @@ public abstract class AbstractWorkerWrapper
             //DO NOTHING
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
-            throw new RuntimeException("Fehler bei Ausfï¿½hrung der init() Methode von "+workerClass.getName(), e);
+            throw new RuntimeException("Fehler bei Ausführung der init() Methode von "+workerClass.getName(), e);
         }
     }
 
@@ -144,19 +144,19 @@ public abstract class AbstractWorkerWrapper
      */
     public String doAction(TcConfig tcConfig, String actionName, TcRequest tcRequest, TcContent tcContent)
         throws TcContentProzessException {
-        
+
         try {
 
             ActionData actionData = getActionDataCached(actionName);
-            
+
             Object[] args = new Object[actionData.args.length];
             int argsPos = 0;
             List inOutParams = new LinkedList();
             OctopusContext octopusContext = new TcAll(tcRequest, tcContent, tcConfig);
-            
+
             if (actionData.passOctopusContext)
                 args[argsPos++] = octopusContext;
-            
+
             for (int i = 0; i < actionData.genericArgsCount; i++) {
 
                 // If there is no name for the parameter,
@@ -165,18 +165,18 @@ public abstract class AbstractWorkerWrapper
                     args[argsPos++] = null;
                     if (logger.isTraceEnabled())
                         logger.trace(i+". generic param is not declared as WebParam, applying null");
-                } else {                                    
+                } else {
                     Object paramValue = octopusContext.getContextField(actionData.inputParams[i]);
                     if (logger.isTraceEnabled())
                         logger.trace("Filling "+i+". generic param with context-field: "+actionData.inputParams[i]+" paramValue="+paramValue);
 
                     if (paramValue == null && actionData.mandatoryFlags[i])
                         throw new TcActionInvocationException(Resources.getInstance()
-                                                              .get("WORKER_WRAPPER_EXC_MISSING_PARAM", 
+                                                              .get("WORKER_WRAPPER_EXC_MISSING_PARAM",
                                                                    new Object[]{tcRequest.getRequestID(),
-                                                                                actionData.inputParams[i], 
-                                                                                actionData.getArgTargetType(argsPos).getName(), 
-                                                                                workerClass.getName(), 
+                                                                                actionData.inputParams[i],
+                                                                                actionData.getArgTargetType(argsPos).getName(),
+                                                                                workerClass.getName(),
                                                                                 actionName}));
                     // type conversion
                     if (! actionData.getArgTargetType(argsPos).isInstance(paramValue)) {
@@ -186,7 +186,7 @@ public abstract class AbstractWorkerWrapper
                             logger.trace("New value: "+paramValue);
                         }
                     }
-                    
+
                     if (actionData.isInOutParam(argsPos)) {
                         if (logger.isTraceEnabled())
                             logger.trace("Wrapping param "+actionData.inputParams[i]+" as InOutParam.");
@@ -197,27 +197,27 @@ public abstract class AbstractWorkerWrapper
                     }
                     args[argsPos++] = paramValue;
                 }
-            }   
+            }
             Object result;
-            
+
             result = actionData.method.invoke(workerDelegate, args);
             if (actionData.outputParam != null) {
                 octopusContext.setContextField(actionData.outputParam, result);
                 if (logger.isTraceEnabled())
                     logger.trace("Action result ["+actionData.outputParam+"]:"+result);
             }
-            
+
             for (Iterator iter = inOutParams.iterator(); iter.hasNext();) {
                 EnrichedInOutParam ioParam = (EnrichedInOutParam)iter.next();
                 octopusContext.setContextField(ioParam.getContextFieldName(), ioParam.get());
                 if (logger.isTraceEnabled())
                     logger.trace("Action result from InOutParam ["+ioParam.getContextFieldName()+"]:"+ioParam.get());
             }
-            
-            return (octopusContext.getStatus() != null) 
+
+            return (octopusContext.getStatus() != null)
                 ? octopusContext.getStatus()
                 : TcContentWorker.RESULT_ok;
-            
+
         } catch (TcContentProzessException e) {
             throw e;
         } catch (IllegalArgumentException e) {
@@ -234,13 +234,13 @@ public abstract class AbstractWorkerWrapper
     }
 
 
-    
+
     /** Convertiert ein Object.
-     *  Falls dies fehl schlï¿½gt oder der Parameter==null ist wird <code>null</code> zurï¿½ck gegeben.
+     *  Falls dies fehl schlägt oder der Parameter==null ist wird <code>null</code> zurückgegeben.
      *
-     * TODO: Unterstï¿½tzung fï¿½r long => Date
+     * TODO: Unterstützung für long => Date
      */
-    protected Object tryToConvert(Object param, Class targetType) 
+    protected Object tryToConvert(Object param, Class targetType)
         throws TcContentProzessException {
 
         try {
@@ -269,15 +269,15 @@ public abstract class AbstractWorkerWrapper
             else if (targetType.equals(Double.class) || targetType.equals(Double.TYPE)) {
                 if (param == null || param.toString().length() == 0)
                     return new Double(0);
-                return Double.valueOf(param.toString());                
+                return Double.valueOf(param.toString());
             }
-                
+
             else if (targetType.equals(Float.class) || targetType.equals(Float.TYPE)) {
                 if (param == null || param.toString().length() == 0)
                     return new Float(0);
-                return Float.valueOf(param.toString());                
+                return Float.valueOf(param.toString());
             }
-                
+
             else if (Collection.class.isAssignableFrom(targetType) && param instanceof Object[]) {
                 return Arrays.asList((Object[])param);
             }
@@ -287,13 +287,13 @@ public abstract class AbstractWorkerWrapper
                     return null;
                 return Collections.singletonList(param);
             }
-            
+
             else if (targetType.equals(String.class)){
                 if (param == null)
                     return null;
             	return param.toString();
             }
-            
+
             // The Method param is an special Implementation of Map e.g. MapBean
             // and the Param is a Map. Then we create a BeanMap with the key=>values from the Map
             else if (param instanceof Map && Map.class.isAssignableFrom(targetType)) {
@@ -302,60 +302,60 @@ public abstract class AbstractWorkerWrapper
                     newSpectialMap.putAll((Map)param);
                     return newSpectialMap;
                 } catch (Exception e) {
-                    logger.warn("Fehler beim Konvertieren eines ï¿½bergabeparamters (Map nach "+targetType.getName()+")", e);
-                    throw new TcContentProzessException("Fehler beim Konvertieren eines ï¿½bergabeparamters (Map nach "+targetType.getName()+")", e);
+                    logger.warn("Fehler beim Konvertieren eines Übergabeparamters (Map nach "+targetType.getName()+")", e);
+                    throw new TcContentProzessException("Fehler beim Konvertieren eines Übergabeparamters (Map nach "+targetType.getName()+")", e);
                 }
-             }           
+             }
         } catch (NumberFormatException e) {
-            logger.warn("Formatfehler beim Konvertieren eines ï¿½bergabeparamters (von "+( (param != null) ? param.getClass().toString() : "null") +" nach "+ ( (targetType != null) ? targetType.getName() : "null")+")", e);
+            logger.warn("Formatfehler beim Konvertieren eines Übergabeparamters (von "+( (param != null) ? param.getClass().toString() : "null") +" nach "+ ( (targetType != null) ? targetType.getName() : "null")+")", e);
             //Altes Verhalten wird wiederhergestellt, die TcContentProcessException
             //Macht z.b. im Broker(evtl. alle anderen SBK-Projekte) Probleme
-            //throw new TcContentProzessException("Formatfehler Fehler beim Konvertieren eines ï¿½bergabeparamters (von "+param.getClass()+" nach "+targetType.getName()+")", e);
+            //throw new TcContentProzessException("Formatfehler Fehler beim Konvertieren eines Übergabeparamters (von "+param.getClass()+" nach "+targetType.getName()+")", e);
             return null;
         }
-        throw new TcContentProzessException("Keine Konvertierungsregel fï¿½r die Umwandlung von " +
-        		(param != null ? param.getClass() : null) + 
+        throw new TcContentProzessException("Keine Konvertierungsregel für die Umwandlung von " +
+        		(param != null ? param.getClass() : null) +
         		" nach "+targetType.getName()+" vorhanden.");
     }
 
 
     /**
-     * Holt die Metadaten zu der Action aus dem Cache, 
-     * oder stellt sie ï¿½ber getActionData neu zusammen.
+     * Holt die Metadaten zu der Action aus dem Cache,
+     * oder stellt sie über getActionData neu zusammen.
      *
      * @param actionName Name der Action
      * @return Metadaten die beschreiben, wie die Action-Methode aufgerufen werden soll.
      */
     protected ActionData getActionDataCached(String actionName)
         throws TcActionDeclarationException {
-        
+
         ActionData action = (ActionData)actionDataLookup.get(actionName);
         if (null == action) {
             action = getActionData(actionName);
             actionDataLookup.put(actionName, action);
         }
-        return action;            
+        return action;
     }
 
-       
-    
+
+
    /**
-     * TODO: Berï¿½cksichtigen von:
+     * TODO: Berücksichtigen von:
      *         - Datentypen der Signatur
      *         - InOutParams
      *         - Descriptions
-     *         - Mï¿½gliche Exceptions
+     *         - Mögliche Exceptions
      */
     public TcPortDefinition getWorkerDefinition() {
-        try { 
+        try {
             TcPortDefinition port = new TcPortDefinition(workerClass.getName(), "n/a");
-            
+
             String[] actionNames = getActionNames();
             for (int i = 0; i < actionNames.length; i++) {
 
                 String operationName = actionNames[i];
-                   
-                Method[] methods = workerClass.getMethods();            
+
+                Method[] methods = workerClass.getMethods();
                 for (int k = 0; k < methods.length; k++)
                     if (operationName.equalsIgnoreCase(methods[k].getName())) {
                         operationName = methods[k].getName();
@@ -386,16 +386,16 @@ public abstract class AbstractWorkerWrapper
                 port.addOperation(operation);
             }
 
-            return port;                    
+            return port;
         } catch (Exception e) {
 			logger.error(e.getMessage(), e);
             throw new RuntimeException("Fehler beim Ermitteln der Selbstbeschreibung von "+workerClass.getName(), e);
         }
 	}
 
-    public interface EnrichedInOutParam 
+    public interface EnrichedInOutParam
         extends InOutParam {
-        
+
         public String getContextFieldName();
         public void setContextFieldName(String newContextFieldName);
     }
@@ -414,11 +414,11 @@ public abstract class AbstractWorkerWrapper
         /** Types of all the method parameters */
         public Class[] args;
 
-        /** 
+        /**
          * Returns the type for the parameter to use.
-         * Normaly, this ist the paramtype. In the case of InOutParams 
+         * Normaly, this ist the paramtype. In the case of InOutParams
          * this is the Type ob the InOutParam Value.
-         * 
+         *
          * @throws TcActionDeclarationException
          */
         public Class getArgTargetType(int pos) {

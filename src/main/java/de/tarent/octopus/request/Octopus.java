@@ -51,14 +51,14 @@ import de.tarent.octopus.server.Context;
 import de.tarent.octopus.server.OctopusContext;
 
 /**
- * Diese Klasse dient als Wrapper fï¿½r Octopus-Funktionalitï¿½ten,
- * der auch auï¿½erhalb von Web-Applikationskontexten benutzt werden kann.
- * 
+ * Diese Klasse dient als Wrapper für Octopus-Funktionalitäten,
+ * der auch außerhalb von Web-Applikationskontexten benutzt werden kann.
+ *
  * @author mikel
  */
 public class Octopus {
-	/*
-     * geschï¿½tzte Member-Variablen
+    /*
+     * geschützte Member-Variablen
      */
     private TcRequestDispatcher dispatcher;
     private TcModuleLookup moduleLookup;
@@ -68,7 +68,7 @@ public class Octopus {
 
     public static final String TASKNAME_CLEANUP = "cleanup";
     public static final String TASKNAME_AUTOSTART = "autostart";
-    
+
     // optional JMX extension
     private OctopusExtension jmxManagementServer = null;
 
@@ -79,20 +79,20 @@ public class Octopus {
     }
 
     /*
-     * ï¿½ffentliche Methoden
+     * öffentliche Methoden
      */
 
     /**
      * Diese Methode initialisiert den Octopus. Dieser Schritt ist notwendig,
      * damit der Octopus Anfragen bearbeiten kann und damit Autostart-Tasks
      * abgearbeitet werden..
-     * 
+     *
      * @param env Eine Sammlung diverser Parameter.
      */
     public void init(TcEnv env) throws TcConfigException, ClassCastException {
     	commonConfig = new TcCommonConfig(env, this);
         dispatcher = new TcRequestDispatcher(commonConfig);
-        
+
         new OctopusInstanceJndiFactory().bind();
         new OctopusContextJndiFactory().bind();
     }
@@ -101,15 +101,15 @@ public class Octopus {
      * Diese Methode initialisiert den Octopus. Dieser Schritt ist notwendig,
      * damit der Octopus Anfragen bearbeiten kann und damit Autostart-Tasks
      * abgearbeitet werden..
-     * 
+     *
      * @param moduleLookup Lookup context for modules.
      */
     public void init(TcModuleLookup moduleLookup) throws ClassCastException {
     	this.moduleLookup = moduleLookup;
     	commonConfig.setModuleLookup(moduleLookup);
-    	
-        preloadModules(commonConfig); 
-        
+
+        preloadModules(commonConfig);
+
         // Initalizing the optional JMX subsystem
         String jmxEnabledString = commonConfig.getConfigData(TcEnv.KEY_JMX_ENABLED);
         if (Boolean.valueOf(jmxEnabledString).booleanValue())
@@ -126,13 +126,13 @@ public class Octopus {
         {
         	logger.info("Optional JMX subsystem is disabled.");
         }
-        
+
         // Initalizing the optional rpc tunnel subsystem
         String rpcTunnelEnabledString = commonConfig.getConfigData(TcEnv.KEY_RPCTUNNEL_ENABLED);
         if (Boolean.valueOf(rpcTunnelEnabledString).booleanValue())
         {
             logger.info("Enabling optional RPC-tunnel.");
-            
+
             OctopusRPCTunnel.createInstance(this, commonConfig);
         }
         else
@@ -144,7 +144,7 @@ public class Octopus {
     /**
      * Diese Methode deinitialisert den Octopus. Dieser Schritt ist notwendig,
      * damit Cleanup-Tasks abgearbeitet werden.
-     * 
+     *
      * @throws ClassCastException
      * @throws TcTaskProzessingException
      * @throws ClassNotFoundException
@@ -159,7 +159,7 @@ public class Octopus {
             TcTaskProzessingException,
             TcContentProzessException,
             TcConfigException {
-        
+
             // shutting down the JMX subsystem
             if (jmxManagementServer!=null)
                 jmxManagementServer.stop();
@@ -168,8 +168,8 @@ public class Octopus {
     }
 
     /**
-     * Diese Methode fï¿½hrt einen Request aus.
-     * 
+     * Diese Methode führt einen Request aus.
+     *
      * @param tcRequest
      * @param tcResponse
      * @param theSession
@@ -190,25 +190,25 @@ public class Octopus {
         while (moduleName.endsWith("/")) moduleName = moduleName.substring(0, moduleName.length()-1);
         return modulePreferences.node(moduleName);
     }
-    
-    /*
-	 * geschï¿½tzte Methoden
+
+	/*
+	 * geschützte Methoden
 	 */
 	private void preloadModules(TcCommonConfig commonConfig) {
 		String preloadString = commonConfig.getConfigData(TcEnv.KEY_PRELOAD_MODULES);
 		if (preloadString == null || preloadString.length() == 0)
 			return;
-		
+
 		List preloads = Arrays.asList(preloadString.split("[\\ ,\\,,\\;]"));
-		
+
 		for (Iterator it = preloads.iterator(); it.hasNext();) {
 			String module = it.next().toString().trim();
 			if (module.length() == 0)
 				continue;
-			
+
 			logger.debug(Resources.getInstance().get("OCTOPUS_LOG_PRELOAD_MODULE", module));
 			TcModuleConfig moduleConfig = commonConfig.getModuleConfig(module);
-			
+
 			if (moduleConfig == null)
 				logger.warn(Resources.getInstance().get("OCTOPUS_LOG_PRELOAD_MODULE_ERROR", module));
 		}
@@ -219,20 +219,20 @@ public class Octopus {
         tcRequest.setRequestParameters(new HashMap());
         tcRequest.setModule(modulename);
         tcRequest.setTask(taskname);
-        
+
         OctopusContext context = new TcAll(
         		tcRequest,
                 new TcContent(),
                 new TcConfig(config, config.createNewPersonalConfig(modulename), modulename));
-        
+
         try {
             Context.addActive(context);
-        	
+
             TcTaskManager taskmanager = new TcTaskManager(context);
             taskmanager.start(modulename, taskname, false);
-            
+
             while (taskmanager.doNextStep()) { /* Do nothing here */ }
-            
+
         } finally {
             TcRequestDispatcher.processCleanupCode(tcRequest.getRequestID(), context.getContentObject());
         	Context.clear();
@@ -240,7 +240,7 @@ public class Octopus {
     }
 
     /**
-     * @param modulename Name des Moduls, in dem der Autostart durchgefï¿½hrt werden soll
+     * @param modulename Name des Moduls, in dem der Autostart durchgeführt werden soll
      * @param commonConfig die Config
      */
     public void doAutostart(String modulename, TcCommonConfig commonConfig)
@@ -251,7 +251,7 @@ public class Octopus {
         TcModuleConfig moduleconfig = commonConfig.getModuleConfig(modulename);
         TcTaskList tasklist = moduleconfig.getTaskList();
         TcTask task = tasklist.getTask(TASKNAME_AUTOSTART);
-        if (task != null) {           
+        if (task != null) {
             logger.debug(Resources.getInstance().get("OCTOPUS_LOG_AUTOSTART_MODULE", modulename));
             callTask(modulename, commonConfig, TASKNAME_AUTOSTART);
         }
