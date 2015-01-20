@@ -19,5 +19,9 @@
         <mapping class="org.evolvis.veraweb.onlinereg.entities.Location"/>
         <mapping class="org.evolvis.veraweb.onlinereg.entities.Person"/>
         <mapping class="org.evolvis.veraweb.onlinereg.entities.Config"/>
+        <mapping class="org.evolvis.veraweb.onlinereg.entities.OptionalField"/>
+        <mapping class="org.evolvis.veraweb.onlinereg.entities.OptionalFieldValue"/>
+        <mapping class="org.evolvis.veraweb.onlinereg.entities.Delegation"/>
+
     </session-factory>
 </hibernate-configuration>
