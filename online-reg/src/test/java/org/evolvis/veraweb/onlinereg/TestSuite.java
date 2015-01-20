@@ -2,7 +2,6 @@ package org.evolvis.veraweb.onlinereg;
 
 import io.dropwizard.testing.junit.DropwizardAppRule;
 
-import org.evolvis.veraweb.onlinereg.auth.AuthTest;
 import org.evolvis.veraweb.onlinereg.event.DelegationResourceTest;
 import org.evolvis.veraweb.onlinereg.event.EventResourceTest;
 import org.evolvis.veraweb.onlinereg.event.UserResourceTest;
