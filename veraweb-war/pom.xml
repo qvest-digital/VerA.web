@@ -196,7 +196,7 @@
 		<dependency>
 			<groupId>de.tarent.octopus</groupId>
 			<artifactId>octopus-core</artifactId>
-			<version>1.6.2</version>
+			<version>1.6.2verawebpl3</version>
 		</dependency>
 
 		<dependency>

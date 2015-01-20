@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
-<!DOCTYPE web-app 
-    PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN" 
+<!DOCTYPE web-app
+    PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
     "http://java.sun.com/dtd/web-app_2_3.dtd">
 
 <web-app>
@@ -40,9 +40,15 @@
 			<param-value>octopus-server.xml</param-value>
 		</init-param>
 
+		<!-- ignoriere Logins via HTTP Auth, mach eigene -->
+		<init-param>
+			<param-name>omitHttpAuth</param-name>
+			<param-value>true</param-value>
+		</init-param>
+
 		<!--
 			Logging parameter for octopus.
-			
+
 			Allowed parameters are logging.level (see java.util.logging.Level),
 			logging.pattern, logging.limit and logging.count (see
 			java.util.logging.FileHandler). logging.count additional support
@@ -52,28 +58,28 @@
 			<param-name>logging.level</param-name>
 			<param-value>INFO</param-value>
 		</init-param>
-		
+
 		<init-param>
 			<param-name>logging.pattern</param-name>
 			<param-value>octopus-%g_%u.log</param-value>
 		</init-param>
-		
+
 		<init-param>
 			<param-name>logging.limit</param-name>
 			<param-value>default</param-value>
 		</init-param>
-		
+
 		<init-param>
 			<param-name>logging.count</param-name>
 			<param-value>default</param-value>
 		</init-param>
-		
+
 		<!-- Pfad is relativ to '/WEB-INF/' directory and must terminte with an '/'. -->
 		<init-param>
 			<param-name>paths.logPath</param-name>
 			<param-value>log</param-value>
 		</init-param>
-		
+
 		<!-- Response error level "development" or "release" -->
 		<init-param>
 			<param-name>response.errorLevel</param-name>
@@ -99,7 +105,7 @@
 		<!--
 			Parameter zum Weiterleiten an eine Octopus Instanz:
 			Wenn der Octopus in der gleichen Webanwendung liegt,
-			am Besten auskommeniert lassen, 
+			am Besten auskommeniert lassen,
 			damit die Defaults (/<aktuellesModul>/octopus) verwendet werden.
 			<init-param>
 			<param-name>targetContext</param-name>
