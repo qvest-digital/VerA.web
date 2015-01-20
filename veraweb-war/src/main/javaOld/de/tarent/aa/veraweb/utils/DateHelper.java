@@ -154,7 +154,7 @@ public class DateHelper {
 		{
 			errors.remove( err );
 			errors.add(StringEscapeUtils.escapeHtml(
-					err.substring( 0, err.indexOf( ' ' ) ).concat( " ist kein gültiges Datum. Bitte verwenden Sie das Eingabeformat TT-MM-JJJJ.")));
+					err.substring( 0, err.indexOf( ' ' ) ).concat( " ist kein gültiges Datum. Bitte verwenden Sie das Eingabeformat TT.MM.JJJJ!")));
 		}
 	}
 	
