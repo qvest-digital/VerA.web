@@ -199,8 +199,7 @@
 			<url>scpexe://maven@svn.evolvis.org/site/octopus/htdocs/${project.artifactId}</url>
 		</site>
 	</distributionManagement>
-        <scm>
-                <connection>scm:cvs:local:/cvs/newcvsroot:octopus/core</connection>
-  </scm>
-
+	<scm>
+		<developerConnection>scm:git:ssh://maven@evolvis.org/scmrepos/git/veraweb/octopus-veraweb.git</developerConnection>
+	</scm>
 </project>
