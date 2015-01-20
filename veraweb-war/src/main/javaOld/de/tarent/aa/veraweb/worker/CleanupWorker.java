@@ -1,8 +1,8 @@
 /**
  * veraweb, platform independent webservice-based event management
  * (Veranstaltungsmanagment VerA.web), is
- * Copyright © 2004-2008 tarent GmbH
- * Copyright © 2013 tarent solutions GmbH
+ * Copyright © 2004–2008 tarent GmbH
+ * Copyright © 2013–2015 tarent solutions GmbH
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -42,7 +42,7 @@ import de.tarent.octopus.server.OctopusContext;
 
 /**
  * Diese Klasse �bernimmt einige Aufr�umarbeiten in der Datenbank.
- * 
+ *
  * @author Christoph Jerolimov
  */
 public class CleanupWorker {
@@ -55,7 +55,7 @@ public class CleanupWorker {
 	 * Diese Methode fasst mehrere Kategorien als eine Zusammen.
 	 * Alle Kategorien des Schemas <code>catname n</code> werden
 	 * in die Kategorie <code>catname</code> �bernommen.
-	 * 
+	 *
 	 * @param cntx Octopus context
 	 */
 	public void summarizeCategories(OctopusContext cntx) throws BeanException, IOException {
@@ -69,19 +69,19 @@ public class CleanupWorker {
 	protected void summarizeCategoriesA(OctopusContext cntx, Database database) throws BeanException {
 		if (logger.isInfoEnabled())
 			logger.info("Fasse automatisch mehrere Kategorien / Ereignisse zusammen. (summarizeCategoriesA)");
-		
+
 		Select orgunitsSelect = SQL.SelectDistinct( database ).
 				selectAs("fk_orgunit", "fk_orgunit").
 				from("veraweb.tcategorie");
-		
+
 		List orgunits = database.getList(orgunitsSelect, database);
 		for (Iterator orgunitIt = orgunits.iterator(); orgunitIt.hasNext(); ) {
 			Integer orgunit = (Integer)((Map)orgunitIt.next()).get("fk_orgunit");
-			
+
 			if (logger.isInfoEnabled())
 				logger.info("Fasse automatisch mehrere Kategorien / Ereignisse f�r " +
 						"den Mandanten #" + orgunit + " zusammen.");
-			
+
 			Select subcategoriesSelect = SQL.Select( database ).
 			selectAs("c1.pk", "subcategorypk").
 			selectAs("c1.catname", "subcategoryname").
@@ -104,7 +104,7 @@ public class CleanupWorker {
 				subcategoriesSelect.where(Where.and(
 						Expr.equal("c1.fk_orgunit", orgunit),
 						Expr.equal("c2.fk_orgunit", orgunit)));
-			
+
 			List subcategories = database.getList(subcategoriesSelect, database);
 			for (Iterator it = subcategories.iterator(); it.hasNext(); ) {
 				Map entry = (Map)it.next();
@@ -112,13 +112,13 @@ public class CleanupWorker {
 				String subcategoryname = (String)entry.get("subcategoryname");
 				Integer topcategorypk = (Integer)entry.get("topcategorypk");
 				String topcategoryname = (String)entry.get("topcategoryname");
-				
+
 				assert subcategorypk != null && topcategorypk != null;
-				
+
 				addMessage(cntx, "Überführe Daten " +
 						"aus Kategorie \"" + subcategoryname + "\" (" + subcategorypk + ")" +
 						" in Kategorie \"" + topcategoryname + "\" (" + topcategorypk + ").");
-				
+
 				if (isActivated(cntx)) {
 					conferCategorie(cntx, database, subcategorypk, topcategorypk);
 					cntx.setContent("cleanupdone", Boolean.TRUE);
@@ -133,9 +133,9 @@ public class CleanupWorker {
 	protected void summarizeCategoriesB(OctopusContext cntx, Database database) throws BeanException, IOException {
 		if (logger.isInfoEnabled())
 			logger.info("Fasse automatisch mehrere Kategorien / Ereignisse zusammen. (summarizeCategoriesB)");
-		
+
 		WhereList whereList = new WhereList();
-		
+
 //		whereList.addOr(Expr.like("catname", "% 0"));
 //		whereList.addOr(Expr.like("catname", "% 1"));
 //		whereList.addOr(Expr.like("catname", "% 2"));
@@ -146,12 +146,12 @@ public class CleanupWorker {
 //		whereList.addOr(Expr.like("catname", "% 7"));
 //		whereList.addOr(Expr.like("catname", "% 8"));
 //		whereList.addOr(Expr.like("catname", "% 9"));
-		
+
 		whereList.addAnd(Expr.greater("length(catname)", new Integer(2)));
 		whereList.addAnd(Expr.equal("substr(catname, length(catname) - 1, 1)", " "));
 		whereList.addAnd(Expr.greaterOrEqual("substr(catname, length(catname), 1)", "0"));
 		whereList.addAnd(Expr.lessOrEqual("substr(catname, length(catname), 1)", "9"));
-		
+
 		List cleanupOrgunits = (List)cntx.contentAsObject("cleanupOrgunits");
 		if (cleanupOrgunits != null) {
 			WhereList wl = whereList;
@@ -174,23 +174,23 @@ public class CleanupWorker {
 				whereList.addAnd(wl);
 			}
 		}
-		
+
 		List illegalCategories =
 				database.getList(
 				database.getSelect("Categorie").where(
 						whereList), database);
-		
+
 		for (Iterator it = illegalCategories.iterator(); it.hasNext(); ) {
 			Map illegalCategory = (Map)it.next();
 			Integer catpk = (Integer)illegalCategory.get("id");
 			String catname = (String)illegalCategory.get("name");
 			Integer orgunit = (Integer)illegalCategory.get("orgunit");
-			
+
 			if (catpk == null || catname == null || catname.length() <= 2)
 				continue;
-			
+
 			String plainname = catname.substring(0, catname.length() - 2);
-			
+
 			Categorie topcategorie;
 			if (orgunit == null)
 				topcategorie = (Categorie)
@@ -204,12 +204,12 @@ public class CleanupWorker {
 						database.getSelect("Categorie").where(Where.and(
 								Expr.equal("catname", plainname),
 								Expr.equal("fk_orgunit", orgunit))));
-			
+
 			if (topcategorie != null) {
 				addMessage(cntx, "Überführe Daten " +
 						"aus Kategorie \"" + catname + "\" (" + catpk + ")" +
 						" in Kategorie \"" + topcategorie.name + "\" (" + topcategorie.id + ").");
-				
+
 				if (isActivated(cntx)) {
 					conferCategorie(cntx, database, catpk, topcategorie.id);
 					cntx.setContent("cleanupdone", Boolean.TRUE);
@@ -219,7 +219,7 @@ public class CleanupWorker {
 				addMessage(cntx, "Korrigiere Kategorienamen von " +
 						" \"" + catname + "\" (" + catpk + ")" +
 						" nach \"" + plainname + "\".");
-				
+
 				if (isActivated(cntx)) {
 					renameCategorie(cntx, database, catpk, plainname);
 					cntx.setContent("cleanupdone", Boolean.TRUE);
@@ -231,7 +231,7 @@ public class CleanupWorker {
 	protected void conferCategorie(OctopusContext cntx, Database database,
 			Integer subcategorypk, Integer topcategorypk)
 			throws BeanException {
-		
+
 		database.execute(SQL.Update( database ).
 				table("veraweb.tguest").
 				update("fk_category", topcategorypk).
@@ -255,7 +255,7 @@ public class CleanupWorker {
 	protected void renameCategorie(OctopusContext cntx, Database database,
 			Integer categorypk, String newname)
 			throws BeanException {
-		
+
 		database.execute(SQL.Update( database ).
 				table("veraweb.tcategorie").
 				update("catname", newname).
@@ -264,7 +264,7 @@ public class CleanupWorker {
 
 	protected void addMessage(OctopusContext cntx, String message) {
 		logger.info(message);
-		
+
 		List list = (List)cntx.contentAsObject("cleanup");
 		if (list == null) {
 			list = new ArrayList();

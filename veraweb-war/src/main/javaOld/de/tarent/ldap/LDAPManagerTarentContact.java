@@ -1,8 +1,8 @@
 /**
  * veraweb, platform independent webservice-based event management
  * (Veranstaltungsmanagment VerA.web), is
- * Copyright © 2004-2008 tarent GmbH
- * Copyright © 2013 tarent solutions GmbH
+ * Copyright © 2004–2008 tarent GmbH
+ * Copyright © 2013–2015 tarent solutions GmbH
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -52,22 +52,22 @@ import de.tarent.octopus.security.TcSecurityException;
 import de.tarent.octopus.server.UserManager;
 
 /**
- * Diese Klasse enth�lt die Erg�nzungen zum LDAPManager zum Zugriff auf
- * Spezialit�ten von tarent-contact.
- * 
+ * Diese Klasse enthält die Ergänzungen zum LDAPManager zum Zugriff auf
+ * Spezialitäten von tarent-contact.
+ *
  * @author mikel
  */
 public class LDAPManagerTarentContact extends LDAPManager implements UserManager {
     //
     // Konstanten
     //
-    /** LDAP-Objektklasse f�r tarent-contact-Kontakte */
+    /** LDAP-Objektklasse für tarent-contact-Kontakte */
     public final static String OBJECT_CLASS_TARENT_CONTACT = "TarentContact";
-    /** Schl�ssel f�r die Nichtverwendung der {@link #OBJECT_CLASS_TARENT_CONTACT} */
+    /** Schlüssel für die Nichtverwendung der {@link #OBJECT_CLASS_TARENT_CONTACT} */
     public final static String KEY_OBJECTCLASS = "disableForceTarentObjectClass";
     public final static String KEY_REALLYDELETE = "deleteOnNoObjectClass";
     public final static String KEY_GOSASUPPORT = "enableGoSASupport";
-    
+
     //
     //private Variablen
     //
@@ -80,7 +80,7 @@ public class LDAPManagerTarentContact extends LDAPManager implements UserManager
     /**
      * Dieser Konstruktor reicht die Daten durch oder legt sie ab. Nebenbei werden
      * die Default-Objektklassen gesetzt.
-     * 
+     *
      * @param lctx initialer LDAP-Kontext, auf dem dieser LDAP-Manager arbeitet
      * @param params LDAP-Manager-Parameter, vergleiche
      *  {@link LDAPManager#LDAPManager(InitialLdapContext, Map)}
@@ -107,12 +107,12 @@ public class LDAPManagerTarentContact extends LDAPManager implements UserManager
 	}
 
     /**
-     * F�gt einen Contact zum LDAP hinzu
-     * 
+     * Fügt einen Contact zum LDAP hinzu
+     *
      * @param ldc
-     *            der Kontakt, der hinzu gef�gt werden soll
+     *            der Kontakt, der hinzugefügt werden soll
      * @throws LDAPException
-     *             wenn etwas schief l�uft
+     *             wenn etwas schief läuft
      */
     public void addContact(LDAPContact ldc) throws LDAPException {
         //Object anlegen
@@ -135,16 +135,16 @@ public class LDAPManagerTarentContact extends LDAPManager implements UserManager
     }
 
     /**
-     * F�gt einen einzelnen Kontakt zum LDAP hinzu
-     * 
+     * Fügt einen einzelnen Kontakt zum LDAP hinzu
+     *
      * @param ldc
      *            der LDAPContact
      * @param gruppe
-     *            Kategorie, zu der der Kontakt hinzugef�gt werden soll
+     *            Kategorie, zu der der Kontakt hinzugefügt werden soll
      * @throws LDAPException
-     *             wenn etwas schiefl�uft
+     *             wenn etwas schiefläuft
      * @throws NamingException
-     *             wenn etwas schiefl�uft
+     *             wenn etwas schiefläuft
      * @see de.tarent.octopus.sync.ldap.LDAPContact
      */
     public void addContact_restricted(LDAPContact ldc, String gruppe) throws LDAPException, NamingException {
@@ -158,15 +158,15 @@ public class LDAPManagerTarentContact extends LDAPManager implements UserManager
             logger.warning("Konnte Adresse " + ldc.getUserid() + " nicht exportieren, da kein User hierauf Berechtigungen hat.");
         }
     }
-    
+
     /**
-     * L�scht einen User aus dem LDAP
+     * Löscht einen User aus dem LDAP
      * @param uid
      * @throws LDAPException
      */
     public void deleteContactUser(String uid) throws LDAPException{
         if(!checkuid(uid)){
-            throw new LDAPException("Der User ist bereits gel�scht worden.");
+            throw new LDAPException("Der User ist bereits gelöscht worden.");
         }
         try {
         	//FIXME: ueberarbeiten!!!
@@ -192,32 +192,32 @@ public class LDAPManagerTarentContact extends LDAPManager implements UserManager
         		}
         	}
         } catch (NamingException e) {
-            throw new LDAPException("Fehler beim L�schen des Users!", e);
+            throw new LDAPException("Fehler beim Löschen des Users!", e);
         }
     }
 
 
     /**
-     * Methode, die einen Kontakt l�scht
-     * 
+     * Methode, die einen Kontakt löscht
+     *
      * @param uid
      *            UserID des Kontakts, relative und baseDN werden automatisch
-     *            angeh�ngt
+     *            angehängt
      * @throws LDAPException
-     *             wenn etwas schief l�uft
+     *             wenn etwas schief läuft
      */
     public void delContact(String uid) throws LDAPException {
-        //Object l�schen
+        //Object löschen
         try {
             lctx.destroySubcontext(uid + relative + baseDN);
         } catch (NamingException e) {
-            new LDAPException(Messages.getString("LDAPManager.fehler_l�schen_01"), e); //$NON-NLS-1$
+            new LDAPException(Messages.getString("LDAPManager.fehler_löschen_01"), e); //$NON-NLS-1$
         }
     }
 
     /**
      * Testet, ob Kontakt im LDAP vorhanden
-     * 
+     *
      * @param ldc
      *            Kontakt, die getestet werden soll
      * @param gruppe
@@ -243,7 +243,7 @@ public class LDAPManagerTarentContact extends LDAPManager implements UserManager
 
     /**
      * Modifiziert gegebenen Kontakt
-     * 
+     *
      * @param ldc
      *            der Kontakt
      * @param allvert
@@ -271,7 +271,7 @@ public class LDAPManagerTarentContact extends LDAPManager implements UserManager
             }
         }
         //Checken, ob Kontakt in Verteilergruppen ist, in die er nicht
-        // reingeh�rt...
+        // reingehört...
         it = verteiler.keySet().iterator();
         while (it.hasNext()) {
             allvert.remove(it.next());
@@ -288,13 +288,13 @@ public class LDAPManagerTarentContact extends LDAPManager implements UserManager
 
     /**
      * Methode, die einen gegebenen Kontakt im LDAP modifiziert
-     * 
+     *
      * @param ldc
      *            der zu modifizierende Kontakt
      * @param vertgrp
      *            Verteilergruppe, in der der Kontakt sich befindet
      * @throws LDAPException
-     *             wenn etwas schief l�uft
+     *             wenn etwas schief läuft
      * @see de.tarent.octopus.sync.ldap.LDAPContact
      */
     public void modifyContact_restricted(LDAPContact ldc, String vertgrp) throws LDAPException {
@@ -316,7 +316,7 @@ public class LDAPManagerTarentContact extends LDAPManager implements UserManager
             contact = lctx.getAttributes("uid=" + ldc.getUserid() + ",ou=" + vertgrp + relative + baseDN); //$NON-NLS-1$ //$NON-NLS-2$
         } catch (NamingException e1) {
             throw new LDAPException(Messages.getString("LDAPManager.Contact_01") + ldc.getUserid()
-                    + Messages.getString("LDAPManager._existiert_gar_nicht_01") + e1.getMessage(), e1); //$NON-NLS-1$ 
+                    + Messages.getString("LDAPManager._existiert_gar_nicht_01") + e1.getMessage(), e1); //$NON-NLS-1$
         }
         //hole ObjectClass
         Attribute objectClass = contact.get("objectClass"); //$NON-NLS-1$
@@ -327,9 +327,9 @@ public class LDAPManagerTarentContact extends LDAPManager implements UserManager
             if (!checkAttribute(contact, "objectClass", value)) {
                 objectClass.add(value);
                 modified = true;
-            } 
+            }
         }
-        //Wenn ge�ndert, dann modifizieren
+        //Wenn geändert, dann modifizieren
         if (modified) {
             modifications.add(new ModificationItem(DirContext.REPLACE_ATTRIBUTE, objectClass));
         }
@@ -339,17 +339,17 @@ public class LDAPManagerTarentContact extends LDAPManager implements UserManager
         modified = false;
         for (int i = 0; i < ldc.getUsers().size(); i++) {
             try {
-                String value = getUserDN(ldc.getUsers().get(i).toString()) + relativeUser + baseDN; 
+                String value = getUserDN(ldc.getUsers().get(i).toString()) + relativeUser + baseDN;
                 if (!checkAttribute(contact, "member", value)) {
                     member.add(value);
                     modified = true;
-                } 
+                }
             } catch (LDAPException le) {
                 logger.log(Level.WARNING, Messages.getString("LDAPManager.84") + ldc.getUsers().get(i).toString()
-                        + Messages.getString("LDAPManager.85"), le); //$NON-NLS-1$ 
+                        + Messages.getString("LDAPManager.85"), le); //$NON-NLS-1$
             }
         }
-        //Wenn ge�ndert, dann modifizieren
+        //Wenn geändert, dann modifizieren
         if (modified) {
             modifications.add(new ModificationItem(DirContext.REPLACE_ATTRIBUTE, member));
         }
@@ -360,24 +360,24 @@ public class LDAPManagerTarentContact extends LDAPManager implements UserManager
                     .getNodeValue(), ldc.getValue(kinder.item(i).getAttributes()));
         }
         logger.log(Level.FINE, Messages.getString("LDAPManager.86") + modifications); //$NON-NLS-1$
-        //F�hre �nderungen durch
+        //Führe Änderungen durch
         if (!modifications.isEmpty()) {
             try {
                 lctx.modifyAttributes("uid=" + ldc.getUserid() + ",ou=" + vertgrp + relative + baseDN,
-                        (ModificationItem[]) modifications.toArray(new ModificationItem[1])); 
+                        (ModificationItem[]) modifications.toArray(new ModificationItem[1]));
             } catch (NamingException e2) {
                 throw new LDAPException(Messages.getString("LDAPManager.User_konnte_nicht_modifiziert_werden_01")
-                        + e2.toString(), e2); 
+                        + e2.toString(), e2);
             }
         }
     }
 
 
     /**
-     * L�scht eine OU im LDAP
-     * 
+     * Löscht eine OU im LDAP
+     *
      * @param testou
-     *            OU, die gel�scht werden sollen
+     *            OU, die gelöscht werden sollen
      */
     public void delOU(String testou) throws LDAPException {
         //checke, ob Objekt kinder hat
@@ -387,13 +387,13 @@ public class LDAPManagerTarentContact extends LDAPManager implements UserManager
                 delContact("uid=" + uids.get(i) + ",ou=" + testou); //$NON-NLS-1$ //$NON-NLS-2$
             }
         } catch (LDAPException e) {
-            new LDAPException(Messages.getString("LDAPManager.fehler_l�schen_01"), e); //$NON-NLS-1$
+            new LDAPException(Messages.getString("LDAPManager.fehler_löschen_01"), e); //$NON-NLS-1$
         }
-        //Object l�schen
+        //Object löschen
         try {
             lctx.destroySubcontext("ou=" + testou + relative + baseDN); //$NON-NLS-1$
         } catch (NamingException e) {
-            new LDAPException(Messages.getString("LDAPManager.fehler_l�schen_01"), e); //$NON-NLS-1$
+            new LDAPException(Messages.getString("LDAPManager.fehler_löschen_01"), e); //$NON-NLS-1$
         }
     }
 
@@ -401,7 +401,7 @@ public class LDAPManagerTarentContact extends LDAPManager implements UserManager
         return new ContactUser(getEntry(getUserDN(uid) + relativeUser + baseDN));
     }
 
-    
+
     /**
      * @param userName
      * @throws LDAPException
@@ -421,7 +421,7 @@ public class LDAPManagerTarentContact extends LDAPManager implements UserManager
             if(attr.get("cn")!=null) {name = attr.get("cn");}
             if(attr.get("mail")!=null) {mail = attr.get("mail");}
             if(attr.get("adminflag")!=null){adminflag = attr.get("adminflag");}
-            
+
             if(vorname!=null)userdata.put("vorname", vorname.get());
             if(nachname!=null)userdata.put("nachname", nachname.get());
             if(name!=null)userdata.put("name", name.get());
@@ -436,7 +436,7 @@ public class LDAPManagerTarentContact extends LDAPManager implements UserManager
 
     /**
      * Methode, um einen User im LDAP anzulegen
-     * 
+     *
      * @param userid    BenutzerID
      * @param vorname   Vorname
      * @param nachname  Nachname
@@ -465,13 +465,13 @@ public class LDAPManagerTarentContact extends LDAPManager implements UserManager
         	addContactUserRawPassword(userid, vorname, nachname, passwort);
         }
     }
-    
+
     public void addContactUserRawPassword(        String userid,
             String vorname,
             String nachname,
             String passwort) throws LDAPException
         {
-        logger.log(Level.FINE, "F�ge User " + userid + " hinzu.");
+        logger.log(Level.FINE, "Füge User " + userid + " hinzu.");
         if(checkuid(userid)){modifyContactUserRawPassword(userid, vorname, nachname, passwort);}
         else{
             BasicAttributes attr = new BasicAttributes();
@@ -501,7 +501,7 @@ public class LDAPManagerTarentContact extends LDAPManager implements UserManager
                 }
             }
     }
-    
+
     /**
      * Modifiziere User so, dass er angegebenen Daten entspricht
      * @param userid User, der modifiziert werden soll
@@ -523,10 +523,10 @@ public class LDAPManagerTarentContact extends LDAPManager implements UserManager
         } catch (NamingException e1) {
             throw new LDAPException(e1);
         }
-        
+
         //Checke Objectclass
         boolean modified = false;
-        if(!this.checkAttribute(userid, "objectClass", "top")){objectClass.add("top");modified=true;} 
+        if(!this.checkAttribute(userid, "objectClass", "top")){objectClass.add("top");modified=true;}
         if(!this.checkAttribute(userid, "objectClass", "simpleSecurityObject")){objectClass.add("simpleSecurityObject");modified=true;}
         if(!this.checkAttribute(userid, "objectClass", "person")){objectClass.add("person");modified=true;}
         if(use_tarent_objectclass&&!this.checkAttribute(userid, "objectClass", "TarentContact")){objectClass.add("TarentContact");modified=true;}
@@ -558,7 +558,7 @@ public class LDAPManagerTarentContact extends LDAPManager implements UserManager
             throw new LDAPException(e2);
         }
     }
-    
+
     /**
      * Modifiziere User so, dass er angegebenen Daten entspricht
      * @param userid User, der modifiziert werden soll
@@ -595,12 +595,12 @@ public class LDAPManagerTarentContact extends LDAPManager implements UserManager
      */
     public void modifyContactUserAttribute(String userid, String attribute, String value) throws LDAPException{
         logger.log(Level.FINE, "Modifiziere Attribut " + attribute + " von: " + userid + " nach " + value);
-        
+
         //Checke Attribute
         Vector mods = new Vector();
         if(!this.checkAttribute(userid, attribute)){mods.add(new ModificationItem(DirContext.ADD_ATTRIBUTE, new BasicAttribute(attribute, value)));     }
         else if(!this.checkAttribute(userid, attribute, value)){mods.add(new ModificationItem(DirContext.REPLACE_ATTRIBUTE, new BasicAttribute(attribute, value)));}
-        
+
         //try to modify user...
         if(!mods.isEmpty()){
             try {
@@ -655,8 +655,8 @@ public class LDAPManagerTarentContact extends LDAPManager implements UserManager
         } catch (LDAPException e) {
             throw new TcSecurityException(TcSecurityException.ERROR_SERVER_USERMANAGEMENT_ERROR, e);
         }
-        
+
     }
-    
+
     private static Logger logger = Logger.getLogger(LDAPManagerTarentContact.class.getName());
 }

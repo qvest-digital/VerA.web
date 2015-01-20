@@ -61,7 +61,7 @@ function returnCity() {
 				}
 			}
 			if (exists) {
-/*				alert('Der Ort existiert bereits in der Liste und wird nun ausgew�hlt.'); */
+/*				alert('Der Ort existiert bereits in der Liste und wird nun ausgewählt.'); */
 			}
 			window.opener.document.getElementById('addcity').value = city;
 			window.opener.addCity();

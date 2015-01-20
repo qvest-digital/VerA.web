@@ -1,8 +1,8 @@
 /**
  * veraweb, platform independent webservice-based event management
  * (Veranstaltungsmanagment VerA.web), is
- * Copyright © 2004-2008 tarent GmbH
- * Copyright © 2013 tarent solutions GmbH
+ * Copyright © 2004–2008 tarent GmbH
+ * Copyright © 2013–2015 tarent solutions GmbH
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -29,7 +29,7 @@ package de.tarent.aa.veraweb.utils;
 public class ExportHelper {
 	/**
 	 * Erweitert die Standard-Dateiendung um den Zusatz <code>.export</code>.
-	 * 
+	 *
 	 * @param extension Original Dateiendung
 	 * @return angepasste Dateiendung
 	 */
@@ -40,7 +40,7 @@ public class ExportHelper {
 
 	/**
 	 * Erweitert den Standard-Dateinamen um den Zusatz <code>.export</code>.
-	 * 
+	 *
 	 * @param filename Original Dateiname
 	 * @return angepassten Dateinamen
 	 */
@@ -52,7 +52,7 @@ public class ExportHelper {
 	/**
 	 * Ersetzt den Standard-Content-Type durch den allgemeinen Standard
 	 * f�r beliebige Datenstr�me: <code>application/octet-stream</code>
-	 * 
+	 *
 	 * @param contentType Original Content-Type
 	 * @return angepassten Content-Type
 	 */
