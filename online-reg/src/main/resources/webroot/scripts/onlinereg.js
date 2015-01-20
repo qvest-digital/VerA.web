@@ -46,6 +46,30 @@ onlineRegApp.config(function ($routeProvider) {
     })
 });
 
+onlineRegApp.directive('equals', function() {
+    return {
+        restrict: 'A',
+        require: '?ngModel',
+        link: function(scope, elem, attrs, ngModel) {
+            if (!ngModel) return;
+
+            scope.$watch(attrs.ngModel, function() {
+                validate();
+            });
+            attrs.$observe('equals', function(val) {
+                validate();
+            });
+
+            var validate = function() {
+                var val1 = ngModel.$viewValue;
+                var val2 = attrs.equals;
+
+                ngModel.$setValidity('equals', !val1 || !val2 || val1 === val2);
+            }
+        }
+    }
+});
+
 onlineRegApp.controller('MediaController', function ($scope, $http, $rootScope, $location, $routeParams) {
     $scope.genderOptions = [
         {id: 0, label: "Bitte wählen"},
@@ -434,51 +458,45 @@ onlineRegApp.controller('RegisterController', function ($scope, $rootScope, $loc
 	}
 });
 
-onlineRegApp.controller('RegisterUserController', function ($scope, $location, $http) {
-    $scope.button = true;
-
-    $scope.changed = function () {
-        $scope.button = false;
-    }
-
-    var ERROR_TEXT = "Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.";
-
-    $scope.register_user = function () {
-        $scope.button = true;
-        console.log("registering user.");
-        $http({
-            method: 'POST',
-            url: 'api/user/register/' + $scope.osiam_username,
-            params: {
-                osiam_firstname: $scope.osiam_firstname,
-                osiam_secondname: $scope.osiam_secondname,
-                osiam_password1: $scope.osiam_password1
-            }
-        }).success(function (result) {
-            $scope.success = null;
-            $scope.error = null;
-
-            if (result === 'USER_EXISTS') {
-                $scope.error = "Ein Benutzer mit diesem Benutzernamen existiert bereits.";
-
-            } else if (result === 'INVALID_USERNAME') {
-                $scope.error = "Der Benutzername darf nur Buchstaben und Zahlen enthalten.";
-
-            } else if (result === 'OK') {
-                $scope.success = "Benutzerdaten wurden gespeichert.";
-
-            } else {
-                $scope.error = ERROR_TEXT;
-            }
-            $scope.button = false;
-
-        }).error(function (data, status, headers, config) {
-            $scope.error = ERROR_TEXT;
-            $scope.button = false;
-        });
-    }
-
+onlineRegApp.controller('RegisterUserController',  function($scope, $http) {
+	$scope.status = 0;
+	
+    $scope.register = function(isValid) {
+    	if(!isValid) { return; }
+		
+		$http({
+			method: 'POST',
+		    url: 'api/user/register/' + $scope.osiam.userName,
+		    params: {
+		        osiam_firstname: $scope.osiam.firstName,
+		        osiam_secondname: $scope.osiam.lastName,
+		        osiam_password1: $scope.osiam.password
+		    }
+		}).success(function (response) {
+		    switch(response) {
+		    case 'OK':
+		    	$scope.status = 1;
+		    	break;
+		    case 'USER_EXISTS':
+		    	$scope.status = 'e1';
+		    	break;
+		    case 'INVALID_USERNAME':
+		    	$scope.status = 'e2';
+		    	break;
+		    default:
+		    	$scope.status = 'e';
+		    }
+		    
+		    window.console.log("User registered with response: '" + response + "'.");
+		}).error(function () {
+			$scope.status = 'e';
+			
+			window.console.log("ERROR while userregistration.");
+		});
+    };
 });
+
+
 
 onlineRegApp.controller('VeranstaltungsController', function ($scope, $http, $rootScope, $location) {
     if ($rootScope.user_logged_in == null) {
