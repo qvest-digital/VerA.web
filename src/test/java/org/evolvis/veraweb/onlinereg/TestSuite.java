@@ -20,8 +20,7 @@ import org.junit.runners.Suite;
         UserResourceTest.class,
         LoginResourceTest.class,
         HealthTest.class,
-        DelegationResourceTest.class,
-        AuthTest.class
+        DelegationResourceTest.class
 })
 public class TestSuite{
 
