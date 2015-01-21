@@ -46,7 +46,7 @@ public class DelegationResource extends AbstractResource {
             query.setInteger("eventId", eventId);
             final List<OptionalField> fields = (List<OptionalField>) query.list();
 
-            return convertOptionalFieldsResultSetToList(guestId, fields);
+            return convertOptionalFieldsResultSetToList(guestId, fields, session);
         } finally {
             session.close();
         }
@@ -106,21 +106,22 @@ public class DelegationResource extends AbstractResource {
         }
     }
 
-    private List<OptionalFieldValue> convertOptionalFieldsResultSetToList(int guestId, List<OptionalField> fields) {
+    private List<OptionalFieldValue> convertOptionalFieldsResultSetToList(
+            int guestId,
+            List<OptionalField> fields,
+            Session session) {
         final List<OptionalFieldValue> fieldsList = new ArrayList<OptionalFieldValue>(fields.size());
-        final Session session = openSession();
-        for(OptionalField field : fields){
+        for (OptionalField field : fields) {
             final Query query = session.getNamedQuery(Delegation.QUERY_FIND_BY_GUEST);
             query.setInteger(Delegation.PARAM_GUEST_ID, guestId);
             query.setInteger(Delegation.PARAM_FIELD_ID, field.getPk());
 
-            final Delegation delegation = (Delegation)query.uniqueResult();
+            final Delegation delegation = (Delegation) query.uniqueResult();
             final OptionalFieldValue newValue = new OptionalFieldValue(field,
                     delegation == null ? null : delegation.getValue());
 
             fieldsList.add(newValue);
         }
-
         return fieldsList;
     }
 }

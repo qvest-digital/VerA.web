@@ -34,23 +34,22 @@ public class DelegationResourceTest extends AbstractResourceTest<DelegationResou
         OptionalField optionalField = new OptionalField();
         optionalField.setFk_event(1);
         optionalField.setLabel("Label 1");
-        session.saveOrUpdate(optionalField);
+        session.persist(optionalField);
 
         OptionalField optionalField1 = new OptionalField();
         optionalField1.setFk_event(1);
         optionalField1.setLabel("Label 2");
-        session.saveOrUpdate(optionalField1);
+        session.persist(optionalField1);
 
         OptionalField optionalField3 = new OptionalField();
         optionalField3.setFk_event(1);
         optionalField3.setLabel("Label 3");
-        session.saveOrUpdate(optionalField3);
+        session.persist(optionalField3);
 
         session.flush();
         session.close();
     }
 
-    @Ignore
     @Test
     public void testGetFields() {
         List<OptionalFieldValue> fields = resource.getFieldsFromEvent(1, 1);
