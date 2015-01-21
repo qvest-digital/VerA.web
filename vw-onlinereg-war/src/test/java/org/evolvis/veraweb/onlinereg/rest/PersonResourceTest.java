@@ -1,7 +1,6 @@
 package org.evolvis.veraweb.onlinereg.rest;
 
 import org.evolvis.veraweb.onlinereg.AbstractResourceTest;
-import org.evolvis.veraweb.onlinereg.entities.Event;
 import org.evolvis.veraweb.onlinereg.entities.Person;
 import org.hibernate.Session;
 import org.junit.BeforeClass;
@@ -31,12 +30,8 @@ public class PersonResourceTest extends AbstractResourceTest<PersonResource>{
         p.setFirstName("Hans");
         p.setLastName("Wurst");
         p.setNote_a_e1("username:" + username);
+
         s.save(p);
-
-        Event event = new Event();
-        event.setPk(1);
-        s.persist(event);
-
         s.flush();
         s.close();
     }
@@ -57,15 +52,5 @@ public class PersonResourceTest extends AbstractResourceTest<PersonResource>{
         Person p = resource.createPerson("exists", "Darth", "Vader");
 
         assertNull(p);
-    }
-
-    @Test
-    public void testCreateDelegate() {
-        String company = "company GmbH";
-        Person delegate = resource.createDelegate(1, "username", "Max", "Mustermann", "m", company);
-        assertEquals(company, delegate.getCompany_a_e1());
-        assertEquals(1, delegate.getFk_orgunit());
-        assertEquals("Max", delegate.getFirstname_a_e1());
-        assertEquals("username:username", delegate.getNote_a_e1());
     }
 }
