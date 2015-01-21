@@ -47,7 +47,7 @@
 </table>
 
 <!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div  class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
 
@@ -61,6 +61,8 @@
 
     <div class="form-group container">
         <div class="row">
+        		
+		    <div ng-if="error_dialog" class="alert alert-danger" role="alert">{{error_dialog}}</div>
 				<div ng-repeat="field in fields">
 					<label for="{{field.label}}">{{field.label}}</label>
 					<input type="text" class="form-control" id="{{field.label}}" placeholder="{{field.label}}" ng-model="labellist[field.pk]" style="margin-bottom: 10px;" />
@@ -70,7 +72,8 @@
 
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-custom" data-dismiss="modal" ng-click="saveOptionalFields()">Speichern</button>
+        <button type="button" ng-show="{{hideDialog!=null && hideDialog}}" class="btn btn-custom" data-dismiss="modal" ng-click="saveOptionalFields()">Speichern</button>
+        <button type="button" ng-show="{{hideDialog==null || !hideDialog}}" class="btn btn-custom" data-dismiss="modal" >Zurück</button>
       </div>
 </form>
     </div>
