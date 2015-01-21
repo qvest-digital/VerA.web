@@ -380,7 +380,7 @@ onlineRegApp.controller('LoginController', function ($scope, $location, $http, $
         }).success(function (result) {
             $scope.button = false;
 
-            if (result === "true") {
+            if (result) {
 				$rootScope.user_logged_in = $scope.username;
                 $rootScope.status = null;
                 $rootScope.messageContent = null;
