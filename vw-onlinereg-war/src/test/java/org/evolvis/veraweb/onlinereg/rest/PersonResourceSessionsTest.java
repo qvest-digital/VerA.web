@@ -11,6 +11,11 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
+
+import javax.servlet.ServletContext;
 
 import static org.junit.Assert.assertFalse;
 import static org.mockito.Mockito.mock;
@@ -21,19 +26,19 @@ import static org.mockito.Mockito.when;
 /**
  * Created by aalexa on 22.01.15.
  */
-public class PersonResourceSessionsTest extends AbstractResourceTest<PersonResource> {
+@RunWith(MockitoJUnitRunner.class)
+public class PersonResourceSessionsTest {
 
+    @Mock
     private static SessionFactory mockitoSessionFactory;
+    @Mock
     private static Session mockitoSession;
 
-    public PersonResourceSessionsTest() {
-        super(PersonResource.class);
-    }
+    PersonResource personResource;
 
-    @BeforeClass
-    public static void setUp() {
-        mockitoSessionFactory = mock(SessionFactory.class);
-        mockitoSession = mock(Session.class);
+    public PersonResourceSessionsTest() {
+        personResource = new PersonResource();
+        personResource.context = mock(ServletContext.class);
     }
 
     @AfterClass
@@ -44,32 +49,30 @@ public class PersonResourceSessionsTest extends AbstractResourceTest<PersonResou
         mockitoSession.close();
     }
 
-    @Test@Ignore
     public void testCreatePersonSessionClosed() {
         // GIVEN
         Query query = mock(Query.class);
-        when(contextMock.getAttribute("SessionFactory")).thenReturn(mockitoSessionFactory);
+        when(personResource.context.getAttribute("SessionFactory")).thenReturn(mockitoSessionFactory);
         when(mockitoSessionFactory.openSession()).thenReturn(mockitoSession);
         when(mockitoSession.getNamedQuery("Person.findByUsername")).thenReturn(query);
 
         // WHEN
-        resource.createPerson("maxmustermann", "Max", "Mustermann");
+        personResource.createPerson("maxmustermann", "Max", "Mustermann");
 
         // THEN
         verify(mockitoSessionFactory, times(1)).openSession();
         verify(mockitoSession, times(1)).close();
     }
 
-    @Test@Ignore
     public void testCreateDelegateSessionClosed() {
         // GIVEN
         when(mockitoSessionFactory.openSession()).thenReturn(mockitoSession);
-        when(contextMock.getAttribute("SessionFactory")).thenReturn(mockitoSessionFactory);
+        when(personResource.context.getAttribute("SessionFactory")).thenReturn(mockitoSessionFactory);
         mockEvent(mockitoSession);
         mockPerson(mockitoSession);
 
         // WHEN
-        resource.createDelegate(1, "maxmustermann", "Max", "Mustermann", "m", "company");
+        personResource.createDelegate(1, "maxmustermann", "Max", "Mustermann", "m", "company");
 
         // THEN
         verify(mockitoSessionFactory, times(1)).openSession();
