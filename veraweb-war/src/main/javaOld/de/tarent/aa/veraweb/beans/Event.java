@@ -51,6 +51,7 @@ public class Event extends AbstractHistoryBean implements OrgUnitDependent {
 	public Timestamp created;
 	public Timestamp changed;
 	public String mediarepresentatives;
+	public String hash;
 
 	@Override
     public void verify() throws BeanException {
