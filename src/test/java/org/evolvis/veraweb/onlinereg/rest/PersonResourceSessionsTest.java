@@ -17,6 +17,10 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import javax.servlet.ServletContext;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
@@ -79,6 +83,69 @@ public class PersonResourceSessionsTest {
         // THEN
         verify(mockitoSessionFactory, times(1)).openSession();
         verify(mockitoSession, times(1)).close();
+    }
+
+    @Test
+    public void testCreateMediaRepresentatives() {
+        // GIVEN
+        when(mockitoSessionFactory.openSession()).thenReturn(mockitoSession);
+        when(personResource.context.getAttribute("SessionFactory")).thenReturn(mockitoSessionFactory);
+        mockEvent(mockitoSession);
+        mockPerson(mockitoSession);
+
+        // WHEN
+        personResource.createPersonPress(1, "maxmustermann", "Max", "Mustermann", "m", "maxmustermann@maxmustermann.de", "address", "63123", "city", "country");
+
+        // THEN
+        verify(mockitoSessionFactory, times(1)).openSession();
+        verify(mockitoSession, times(1)).close();
+    }
+
+    @Test
+    public void testGetDelegateByUUID() {
+        // GIVEN
+        List<Person> results = getDummyDelegates();
+        Query query = mock(Query.class);
+        String uuid = "5195a511-84f4-4981-8959-29248f4e49c1";
+        when(personResource.context.getAttribute("SessionFactory")).thenReturn(mockitoSessionFactory);
+        when(mockitoSessionFactory.openSession()).thenReturn(mockitoSession);
+        when(mockitoSession.getNamedQuery("Person.getDelegatesByUUID")).thenReturn(query);
+        when(query.list()).thenReturn(results);
+
+        // WHEN
+        personResource.getDelegatesByUUID(uuid);
+
+        // THEN
+        assertEquals(4, results.size());
+        verify(mockitoSessionFactory, times(1)).openSession();
+        verify(mockitoSession, times(1)).close();
+    }
+
+
+    @Test
+    public void testGetCompanyByUUID() {
+        // GIVEN
+        Query query = mock(Query.class);
+        String uuid = "5195a511-84f4-4981-8959-29248f4e49c1";
+        when(personResource.context.getAttribute("SessionFactory")).thenReturn(mockitoSessionFactory);
+        when(mockitoSessionFactory.openSession()).thenReturn(mockitoSession);
+        when(mockitoSession.getNamedQuery("Person.getCompanyByUUID")).thenReturn(query);
+
+        // WHEN
+        personResource.getCompanyByUUID(uuid);
+
+        // THEN
+        verify(mockitoSessionFactory, times(1)).openSession();
+        verify(mockitoSession, times(1)).close();
+    }
+
+    private List<Person> getDummyDelegates() {
+        List<Person> results = new ArrayList<Person>();
+        results.add(mock(Person.class));
+        results.add(mock(Person.class));
+        results.add(mock(Person.class));
+        results.add(mock(Person.class));
+        return results;
     }
 
     private void mockEvent(Session mockitoSession) {
