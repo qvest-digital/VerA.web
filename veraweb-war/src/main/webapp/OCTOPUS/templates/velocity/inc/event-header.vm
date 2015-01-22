@@ -27,6 +27,12 @@
 			<div class="tableCell width30">
 				<strong>Ende:</strong> $!message.date("DATE", $event.end) #if($event-endhastime)um $!message.date("TIME", $event.end) Uhr#end									
 			</div>
+		</div>		
+		<div class="tableRow">
+			
+			<div class="tableCell width30">
+				<strong style="vertical-align: inherit;">Veranstaltungs-URL:</strong> <pre>$!message.textarea($eventUrl)</pre>
+			</div>
 			#if($completeEventHeader)
 			<div class="tableCell width30">
 				<strong>Max. Anzahl G&auml;ste:</strong> $!message.text($event.maxguest)									
