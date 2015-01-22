@@ -49,6 +49,7 @@ public class PersonResourceSessionsTest {
         mockitoSession.close();
     }
 
+    @Test
     public void testCreatePersonSessionClosed() {
         // GIVEN
         Query query = mock(Query.class);
@@ -64,6 +65,7 @@ public class PersonResourceSessionsTest {
         verify(mockitoSession, times(1)).close();
     }
 
+    @Test
     public void testCreateDelegateSessionClosed() {
         // GIVEN
         when(mockitoSessionFactory.openSession()).thenReturn(mockitoSession);
