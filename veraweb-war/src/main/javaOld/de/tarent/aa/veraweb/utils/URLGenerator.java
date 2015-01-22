@@ -30,7 +30,7 @@ public class URLGenerator {
         return urlPrefix + "/#/delegation/";
     }
 
-    private String getURLForFreeVisitors(){
+    public String getURLForFreeVisitors(){
         return urlPrefix + "/#/freevisitors/";
     }
 }

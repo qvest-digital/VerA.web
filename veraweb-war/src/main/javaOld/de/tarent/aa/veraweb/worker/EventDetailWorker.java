@@ -103,6 +103,25 @@ public class EventDetailWorker {
         }
     }
 
+    /**
+     * URL Associated directly to the event
+     * 
+     * @param cntx
+     * @param event
+     * @throws IOException
+     */
+    private void setEventUrl(OctopusContext cntx, Event event) throws IOException {
+        PropertiesReader propertiesReader = new PropertiesReader();
+        
+        if(propertiesReader.propertiesAreAvailable()) {
+	        Properties properties = propertiesReader.getProperties();
+	        URLGenerator url = new URLGenerator(properties);
+	        cntx.setContent("eventUrl", url.getURLForFreeVisitors() + event.hash);
+        } else {
+	        cntx.setContent("eventUrl", "Nicht verf&uuml;gbar");
+        }
+    }
+
     /** Eingabe-Parameter der Octopus-Aktion {@link #saveDetail(OctopusContext, Boolean)} */
 	public static final String INPUT_saveDetail[] = { "saveevent" };
     /** Eingabe-Parameterzwang der Octopus-Aktion {@link #saveDetail(OctopusContext, Boolean)} */
@@ -181,6 +200,7 @@ public class EventDetailWorker {
 				removeHost = false;
 				updateHost = false;
 				createHost = event.host != null;
+				
 			} else {
                 if (event.host == null) {
                     // Alte Veranstaltung -> Gastgeber entfernen
@@ -215,8 +235,11 @@ public class EventDetailWorker {
                 // Allowing Press in the Event or not
                 setMediaRepresentatives(event);
                 
+            	setEventHash(event,oldEvent);
+                
                 BeanChangeLogger clogger = new BeanChangeLogger( database, context );
                 if (event.id == null) {
+                	
                     cntx.setContent("countInsert", new Integer(1));
                     database.getNextPk(event, context);
                     Insert insert = database.getInsert(event);
@@ -253,6 +276,7 @@ public class EventDetailWorker {
                             database.saveBean(eventDoctype, context, false);
                         }
                     }
+                    
                 }
 
                 Integer invitationtype;
@@ -304,7 +328,8 @@ public class EventDetailWorker {
             } else {
                 cntx.setStatus("notsaved");
             }
-
+            
+            setEventUrl(cntx, event);
             setUrlForMediaRepresentatives(cntx, event);
             cntx.setContent("event", event);
 			cntx.setContent("event-beginhastime", Boolean.valueOf(DateHelper.isTimeInDate(event.begin)));
@@ -346,6 +371,15 @@ public class EventDetailWorker {
     	}
     }
 
+    private void setEventHash(Event event, Event oldEvent) {
+    	if (oldEvent == null || oldEvent.hash == null) {
+    		UUID uuid = UUID.randomUUID();
+    		event.hash = uuid.toString();
+    	} else {
+    		event.hash = oldEvent.hash;
+    	}
+    }
+    
     private void getHostPersonDetails(Database database, TransactionContext context, Event event) throws BeanException, IOException {
         Person person = (Person) database.getBean("Person", database.getSelect("Person").where(Expr.equal("pk", event.host)), context);
         if (person != null) {
