@@ -94,7 +94,7 @@ public class PersonResourceSessionsTest {
         mockPerson(mockitoSession);
 
         // WHEN
-        personResource.createPersonPress(1, "maxmustermann", "Max", "Mustermann", "m", "maxmustermann@maxmustermann.de", "address", "63123", "city", "country");
+        personResource.createPersonPress(1, "maxmustermann", "Antje", "Weber", "w", "maxmustermann@maxmustermann.de", "address", "63123", "city", "country");
 
         // THEN
         verify(mockitoSessionFactory, times(1)).openSession();
