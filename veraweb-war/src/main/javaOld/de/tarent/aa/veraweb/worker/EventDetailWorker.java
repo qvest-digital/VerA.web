@@ -87,6 +87,8 @@ public class EventDetailWorker {
 		if (event != null) {
 			cntx.setContent("event", event);
             setUrlForMediaRepresentatives(cntx, event);
+            setOldEventFirstHash(event);
+            setEventUrl(cntx, event);
 		}
 	}
 
@@ -371,12 +373,29 @@ public class EventDetailWorker {
     	}
     }
 
+    /**
+     * New hash for new and edited events
+     * 
+     * @param event
+     * @param oldEvent
+     */
     private void setEventHash(Event event, Event oldEvent) {
     	if (oldEvent == null || oldEvent.hash == null) {
     		UUID uuid = UUID.randomUUID();
     		event.hash = uuid.toString();
     	} else {
     		event.hash = oldEvent.hash;
+    	}
+    }
+    
+    /**
+     * Controlling that old events have no previous hash und generating it
+     * @param event
+     */
+    private void setOldEventFirstHash(Event event) {
+    	if (event == null || event.hash == null) {
+    		UUID uuid = UUID.randomUUID();
+    		event.hash = uuid.toString();
     	}
     }
     
