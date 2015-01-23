@@ -87,7 +87,7 @@ public class EventDetailWorker {
 		if (event != null) {
 			cntx.setContent("event", event);
             setUrlForMediaRepresentatives(cntx, event);
-            setOldEventFirstHash(event);
+
             setEventUrl(cntx, event);
 		}
 	}
@@ -115,7 +115,7 @@ public class EventDetailWorker {
     private void setEventUrl(OctopusContext cntx, Event event) throws IOException {
         PropertiesReader propertiesReader = new PropertiesReader();
         
-        if(propertiesReader.propertiesAreAvailable()) {
+        if(propertiesReader.propertiesAreAvailable() && event.hash != null) {
 	        Properties properties = propertiesReader.getProperties();
 	        URLGenerator url = new URLGenerator(properties);
 	        cntx.setContent("eventUrl", url.getURLForFreeVisitors() + event.hash);
@@ -226,6 +226,7 @@ public class EventDetailWorker {
                 cntx.setContent("listquestions", questions);
             }
 
+            setEventHash(event,oldEvent);
             /** Veranstaltung speichern */
             if (event.isModified() && event.isCorrect() && questions.isEmpty()) {
             /*
@@ -235,9 +236,7 @@ public class EventDetailWorker {
             	// Opened Event or not
                 setEventType(event);
                 // Allowing Press in the Event or not
-                setMediaRepresentatives(event);
-                
-            	setEventHash(event,oldEvent);
+                setMediaRepresentatives(event, oldEvent);
                 
                 BeanChangeLogger clogger = new BeanChangeLogger( database, context );
                 if (event.id == null) {
@@ -363,8 +362,8 @@ public class EventDetailWorker {
      * Set/Unset the event flag for Press. Currently (03.12.2014) we store the uuid into that new column
      * @param event The event
      */
-    private void setMediaRepresentatives(Event event) {
-    	if (event.mediarepresentatives != null && event.mediarepresentatives.equals("on")) {
+    private void setMediaRepresentatives(Event event, Event oldEvent) {
+    	if ((oldEvent == null || oldEvent.mediarepresentatives == null) && event.mediarepresentatives != null && event.mediarepresentatives.equals("on")) {
     		// We generate an UUID and we store it into tevent - column "mediarepresentatives"
     		UUID uuid = UUID.randomUUID();
     		event.mediarepresentatives = uuid.toString();
@@ -380,22 +379,11 @@ public class EventDetailWorker {
      * @param oldEvent
      */
     private void setEventHash(Event event, Event oldEvent) {
-    	if (oldEvent == null || oldEvent.hash == null) {
+    	if ((oldEvent == null || oldEvent.hash == null) && event.isModified()) {
     		UUID uuid = UUID.randomUUID();
     		event.hash = uuid.toString();
     	} else {
     		event.hash = oldEvent.hash;
-    	}
-    }
-    
-    /**
-     * Controlling that old events have no previous hash und generating it
-     * @param event
-     */
-    private void setOldEventFirstHash(Event event) {
-    	if (event == null || event.hash == null) {
-    		UUID uuid = UUID.randomUUID();
-    		event.hash = uuid.toString();
     	}
     }
     
