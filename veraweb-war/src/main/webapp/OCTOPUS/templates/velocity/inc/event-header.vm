@@ -33,6 +33,14 @@
 			<div class="tableCell width30">
 				<strong style="vertical-align: inherit;">Veranstaltungs-URL:</strong> <pre>$!message.textarea($eventUrl)</pre>
 			</div>
+			
+		</div>
+		<div class="tableCell width50">
+            <strong>URL für Pressevertreter:</strong><br/>
+            #if($pressevertreterUrl && $pressevertreterUrl != "" && $event.mediarepresentatives && $event.mediarepresentatives != "f")
+                $pressevertreterUrl
+            #end
+                                
 			#if($completeEventHeader)
 			<div class="tableCell width30">
 				<strong>Max. Anzahl G&auml;ste:</strong> $!message.text($event.maxguest)									
