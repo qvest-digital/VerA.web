@@ -156,10 +156,12 @@ public class HttpHelper {
     
     /**
      * Diese Methode fügt den schon aus dem Inhalt des HTTP-Requests erstellten Octopus-Requests
-     * Metadaten aus Header, Protokoll und URL hinzu 
+     * Metadaten aus Header, Protokoll und URL hinzu, unter Berücksichtigung globaler Konfiguration.
      * 
      * @param requests zu erweiternde Octopus-Requests
      * @param request HttpServletRequest, dessen Metadaten benutzt werden sollen.
+     * @param requestID die Anfrage-ID
+     * @param env OctopusServlet-Umgebung (zwecks Auswertung der Konfiguration)
      */
     public static void addHttpMetaDataEx(TcRequest[] requests, HttpServletRequest request, String requestID, TcEnv env) {
         // Headerfeld 'Accept-Language' als Locale eintragen
@@ -221,6 +223,15 @@ public class HttpHelper {
         }
     }
 
+    /**
+     * @deprecated Use addHttpMetaDataEx instead
+     * Diese Methode fügt den schon aus dem Inhalt des HTTP-Requests erstellten Octopus-Requests
+     * Metadaten aus Header, Protokoll und URL hinzu, ohne Berücksichtigung globaler Konfiguration.
+     * 
+     * @param requests zu erweiternde Octopus-Requests
+     * @param request HttpServletRequest, dessen Metadaten benutzt werden sollen.
+     * @param requestID die Anfrage-ID
+     */
     public static void addHttpMetaData(TcRequest[] requests, HttpServletRequest request, String requestID) {
         addHttpMetaDataEx(requests, request, requestID, null);
     }
