@@ -105,6 +105,7 @@ public class HttpHelper {
      * @param requestType ein Anfragetyp-Wert.
      * @return eine sprechende Bezeichnung für den Anfragetyp.
      */
+    @Deprecated
     public static String getRequestTypeName(int requestType) {
         return TcRequest.getRequestTypeName(requestType);
     }
