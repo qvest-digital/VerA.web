@@ -4,7 +4,6 @@
 
 alter table veraweb.tevent add eventtype varchar(100);
 alter table veraweb.tevent add column mediarepresentatives varchar(100);
-alter table veraweb.tevent add column hash varchar(100);
 
 /* ---------------------------------------------------------------------- */
 /* Alter table "tguest"                                                   */
