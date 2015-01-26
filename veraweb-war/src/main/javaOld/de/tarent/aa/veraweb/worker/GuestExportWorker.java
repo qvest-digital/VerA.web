@@ -46,6 +46,7 @@ import de.tarent.aa.veraweb.utils.PropertiesReader;
 import de.tarent.aa.veraweb.utils.URLGenerator;
 import de.tarent.commons.spreadsheet.export.SpreadSheet;
 import de.tarent.commons.spreadsheet.export.SpreadSheetFactory;
+import de.tarent.dblayer.sql.Escaper;
 import de.tarent.dblayer.sql.Join;
 import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.clause.RawClause;
@@ -284,7 +285,7 @@ public class GuestExportWorker {
 		}
 
 		// Export-Select ausf�hren
-		exportSelect(spreadSheet, database, event, location, doctype, search, select, data);
+		exportSelect(spreadSheet, database, event, location, doctype, search, select, data, cntx);
 
 		// Tabelle schlie�en
 		spreadSheet.closeTable();
@@ -349,10 +350,12 @@ public class GuestExportWorker {
      *  "absagen", "offenen", "platz" und "reserve".
      * @throws IOException 
      */
-	protected void exportSelect(SpreadSheet spreadSheet, Database database, Event event, Location location, Doctype doctype, GuestSearch search, Select select, Map data) throws BeanException, IOException {
+	protected void exportSelect(SpreadSheet spreadSheet, Database database, Event event, Location location, Doctype doctype, GuestSearch search, Select select, Map data, OctopusContext cntx) throws BeanException, IOException {
 		for (final Iterator it = database.getList(select, database).iterator(); it.hasNext(); ) {
             final Map guest = (Map)it.next();
-
+            
+            Boolean isPressStaff = isPressGuest(cntx, event.mediarepresentatives, (Integer)guest.get("id"));
+            
 			Integer invitationtype = (Integer)guest.get("invitationtype");
 			if (invitationtype == null || invitationtype.intValue() == 0)
 				invitationtype = event.invitationtype;
@@ -391,7 +394,7 @@ public class GuestExportWorker {
 					// Mit Partner
 					if (showA) {
 						spreadSheet.openRow();
-						exportOnlyPerson(spreadSheet, event, location, guest, data);
+						exportOnlyPerson(spreadSheet, event, location, guest, data, isPressStaff);
 						spreadSheet.closeRow();
 					}
 					if (showB) {
@@ -404,7 +407,7 @@ public class GuestExportWorker {
 					// Ohne Partner
 					if (showA) {
 						spreadSheet.openRow();
-						exportOnlyPerson(spreadSheet, event, location, guest, data);
+						exportOnlyPerson(spreadSheet, event, location, guest, data, isPressStaff);
 						spreadSheet.closeRow();
 					}
 				} else if (invitationtype.intValue() == EventConstants.TYPE_NURPARTNER) {
@@ -431,7 +434,7 @@ public class GuestExportWorker {
 					// Ohne Partner
 					if (showA) {
 						spreadSheet.openRow();
-						exportOnlyPerson(spreadSheet, event, location,  guest, data);
+						exportOnlyPerson(spreadSheet, event, location,  guest, data, isPressStaff);
 						spreadSheet.closeRow();
 					}
 				} else if (invitationtype.intValue() == EventConstants.TYPE_NURPARTNER) {
@@ -561,6 +564,7 @@ public class GuestExportWorker {
 		spreadSheet.addCell("Veranstaltungsname");
 		spreadSheet.addCell("Veranstaltung_Beginn");
 		spreadSheet.addCell("Veranstaltung_Ende");
+		spreadSheet.addCell("Veranstaltung URL");
 
 		spreadSheet.addCell("Veranstaltungsort_Beschreibung");
 		spreadSheet.addCell("Veranstaltungsort_Ansprechpartner");
@@ -829,6 +833,25 @@ public class GuestExportWorker {
         return url.getURLForDelegation() + guest.get("delegation");
 	}
 	
+	/**
+     * URL Associated directly to the event
+     * 
+     * @param cntx
+     * @param event
+     * @throws IOException
+     */
+    private String generateEventUrl(Event event) throws IOException {
+        PropertiesReader propertiesReader = new PropertiesReader();
+        
+        if(propertiesReader.propertiesAreAvailable() && event.hash != null) {
+	        Properties properties = propertiesReader.getProperties();
+	        URLGenerator url = new URLGenerator(properties);
+	        return url.getURLForFreeVisitors() + event.hash;
+        } else {
+	        return "";
+        }
+    }
+	
 	private String extractFirstXChars(String value, int x) {
 		return value.substring(0, Math.min(value.length(), x));
 	}
@@ -842,7 +865,7 @@ public class GuestExportWorker {
 	 * @param data Zusatzinformationen.
 	 * @throws IOException Wenn die Generierung von URL fur Delegation fehlschlug.
 	 */
-	protected void exportOnlyPerson(SpreadSheet spreadSheet, Event event, Location location, Map guest, Map data) throws IOException {
+	protected void exportOnlyPerson(SpreadSheet spreadSheet, Event event, Location location, Map guest, Map data, Boolean isPressStaff) throws IOException {
 		checkIfOsiamIsAvailable();
 		//
 		// Gast spezifische Daten
@@ -951,6 +974,11 @@ public class GuestExportWorker {
 		spreadSheet.addCell(event.shortname);
 		spreadSheet.addCell(event.begin);
 		spreadSheet.addCell(event.end);
+		if ((guest.get("delegation")==null || guest.get("delegation").equals("")) && (guest.get("company_a_e1")==null || guest.get("company_a_e1").equals("")) && !isPressStaff) {
+			spreadSheet.addCell(generateEventUrl(event));
+		} else {
+			spreadSheet.addCell("");
+		}
 
 		addLocationCells(spreadSheet, location);
 		if(isOsiamActive) addDelegationLoginCells(spreadSheet, guest, event);
@@ -1175,4 +1203,30 @@ public class GuestExportWorker {
 			return "Teilnahme";
 		}
 	}
+	
+	/**
+	 * Checking if one guest is from the press staff
+	 * 
+	 * @return Boolean
+	 * @throws IOException 
+	 * @throws BeanException 
+	 */
+	private Boolean isPressGuest(OctopusContext cntx, String pressUuid, Integer guestId) throws BeanException, IOException {
+		if (pressUuid != null) {
+	        final Database database = new DatabaseVeraWeb(cntx);
+	        Select select = database.getCount("Guest");
+	        select.join("veraweb.tcategorie", "tcategorie.pk","tguest.fk_category");
+	        select.join("veraweb.tevent", "tevent.fk_orgunit","tcategorie.fk_orgunit");
+	        select.where(Expr.equal("tcategorie.catname", "Pressevertreter"));
+	        select.whereAnd(Expr.equal("tguest.pk", guestId));
+	        select.whereAnd(Expr.equal("tevent.mediarepresentatives", pressUuid));
+	        
+	        Integer i = database.getCount(select);
+	        if (i.equals(1)) {
+	        	return true;
+	        }
+		}
+		return false;
+	}
+	
 }

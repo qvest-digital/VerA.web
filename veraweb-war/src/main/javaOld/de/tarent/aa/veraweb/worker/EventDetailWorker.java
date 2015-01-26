@@ -87,6 +87,8 @@ public class EventDetailWorker {
 		if (event != null) {
 			cntx.setContent("event", event);
             setUrlForMediaRepresentatives(cntx, event);
+
+            setEventUrl(cntx, event);
 		}
 	}
 
@@ -100,6 +102,25 @@ public class EventDetailWorker {
 	        cntx.setContent("pressevertreterUrl", url.getURLForMediaRepresentatives() + event.mediarepresentatives);
         } else {
 	        cntx.setContent("pressevertreterUrl", "Nicht verf&uuml;gbar");
+        }
+    }
+
+    /**
+     * URL Associated directly to the event
+     * 
+     * @param cntx
+     * @param event
+     * @throws IOException
+     */
+    private void setEventUrl(OctopusContext cntx, Event event) throws IOException {
+        PropertiesReader propertiesReader = new PropertiesReader();
+        
+        if(propertiesReader.propertiesAreAvailable() && event.hash != null) {
+	        Properties properties = propertiesReader.getProperties();
+	        URLGenerator url = new URLGenerator(properties);
+	        cntx.setContent("eventUrl", url.getURLForFreeVisitors() + event.hash);
+        } else {
+	        cntx.setContent("eventUrl", "Nicht verf&uuml;gbar");
         }
     }
 
@@ -181,6 +202,7 @@ public class EventDetailWorker {
 				removeHost = false;
 				updateHost = false;
 				createHost = event.host != null;
+				
 			} else {
                 if (event.host == null) {
                     // Alte Veranstaltung -> Gastgeber entfernen
@@ -204,6 +226,7 @@ public class EventDetailWorker {
                 cntx.setContent("listquestions", questions);
             }
 
+            setEventHash(event,oldEvent);
             /** Veranstaltung speichern */
             if (event.isModified() && event.isCorrect() && questions.isEmpty()) {
             /*
@@ -213,10 +236,11 @@ public class EventDetailWorker {
             	// Opened Event or not
                 setEventType(event);
                 // Allowing Press in the Event or not
-                setMediaRepresentatives(event);
+                setMediaRepresentatives(event, oldEvent);
                 
                 BeanChangeLogger clogger = new BeanChangeLogger( database, context );
                 if (event.id == null) {
+                	
                     cntx.setContent("countInsert", new Integer(1));
                     database.getNextPk(event, context);
                     Insert insert = database.getInsert(event);
@@ -253,6 +277,7 @@ public class EventDetailWorker {
                             database.saveBean(eventDoctype, context, false);
                         }
                     }
+                    
                 }
 
                 Integer invitationtype;
@@ -304,7 +329,8 @@ public class EventDetailWorker {
             } else {
                 cntx.setStatus("notsaved");
             }
-
+            
+            setEventUrl(cntx, event);
             setUrlForMediaRepresentatives(cntx, event);
             cntx.setContent("event", event);
 			cntx.setContent("event-beginhastime", Boolean.valueOf(DateHelper.isTimeInDate(event.begin)));
@@ -336,8 +362,8 @@ public class EventDetailWorker {
      * Set/Unset the event flag for Press. Currently (03.12.2014) we store the uuid into that new column
      * @param event The event
      */
-    private void setMediaRepresentatives(Event event) {
-    	if (event.mediarepresentatives != null && event.mediarepresentatives.equals("on")) {
+    private void setMediaRepresentatives(Event event, Event oldEvent) {
+    	if ((oldEvent == null || oldEvent.mediarepresentatives == null) && event.mediarepresentatives != null && event.mediarepresentatives.equals("on")) {
     		// We generate an UUID and we store it into tevent - column "mediarepresentatives"
     		UUID uuid = UUID.randomUUID();
     		event.mediarepresentatives = uuid.toString();
@@ -346,6 +372,21 @@ public class EventDetailWorker {
     	}
     }
 
+    /**
+     * New hash for new and edited events
+     * 
+     * @param event
+     * @param oldEvent
+     */
+    private void setEventHash(Event event, Event oldEvent) {
+    	if ((oldEvent == null || oldEvent.hash == null) && event.isModified()) {
+    		UUID uuid = UUID.randomUUID();
+    		event.hash = uuid.toString();
+    	} else {
+    		event.hash = oldEvent.hash;
+    	}
+    }
+    
     private void getHostPersonDetails(Database database, TransactionContext context, Event event) throws BeanException, IOException {
         Person person = (Person) database.getBean("Person", database.getSelect("Person").where(Expr.equal("pk", event.host)), context);
         if (person != null) {

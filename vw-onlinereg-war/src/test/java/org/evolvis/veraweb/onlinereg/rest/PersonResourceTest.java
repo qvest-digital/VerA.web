@@ -25,11 +25,9 @@ public class PersonResourceTest extends AbstractResourceTest<PersonResource>{
 
         Person p = new Person();
         p.setPk(1);
-        String username = "exists";
-        p.setUsername(username);
+        p.setUsername("exists");
         p.setFirstName("Hans");
         p.setLastName("Wurst");
-        p.setNote_a_e1("username:" + username);
 
         s.save(p);
         s.flush();
@@ -44,7 +42,6 @@ public class PersonResourceTest extends AbstractResourceTest<PersonResource>{
         assertEquals("Luke", p.getFirstname_a_e1());
         assertEquals("Skywalker", p.getLastname_a_e1());
         assertEquals("username:luke", p.getNote_a_e1());
-        assertEquals(0, p.getFk_orgunit());
     }
 
     @Test

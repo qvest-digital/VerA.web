@@ -269,13 +269,6 @@
     						</div>
 
     						<div class="tableRow">
-                                <div class="tableCell width50">
-                                    <strong>URL für Pressevertreter:</strong><br/>
-                                    #if($pressevertreterUrl && $pressevertreterUrl != "" && $event.mediarepresentatives && $event.mediarepresentatives != "f")
-                                        $pressevertreterUrl
-                                    #end
-                                </div>
-
                                 <div class="tableCell width50 inlineLabel">
                                     <label for="event-mediarepresentatives">Anmeldung von Pressevertretern möglich</label>
                                 	<!-- DEBUG $event.mediarepresentatives -->
