@@ -70,6 +70,35 @@ public class DelegationResourceSessionsTest {
         assertEquals(3, query1.list().size());
     }
 
+    @Test
+    public void testGetLabelIdfromEventAndLabel() {
+        // GIVEN
+        prepareSession();
+        Query query = mock(Query.class);
+        when(mockitoSession.getNamedQuery("OptionalField.findByEventIdAndLabel")).thenReturn(query);
+        when(query.uniqueResult()).thenReturn(1);
+
+        // WHEN
+        delegationResource.getLabelIdfromEventAndLabel(1, "test");
+
+        // THEN
+        verify(mockitoSessionFactory, times(1)).openSession();
+        verify(mockitoSession, times(1)).close();
+    }
+
+    @Test
+    public void testSaveOptionalField() {
+        // GIVEN
+        prepareSession();
+
+        // WHEN
+        delegationResource.saveOptionalField(1,1,"fieldContent");
+
+        // THEN
+        verify(mockitoSessionFactory, times(1)).openSession();
+        verify(mockitoSession, times(1)).close();
+    }
+
     private List<OptionalFieldValue> getDummyOptionalFieldValues() {
         OptionalFieldValue ofv1 = new OptionalFieldValue();
         OptionalFieldValue ofv2 = new OptionalFieldValue();
