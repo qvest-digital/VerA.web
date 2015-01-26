@@ -974,7 +974,7 @@ public class GuestExportWorker {
 		spreadSheet.addCell(event.shortname);
 		spreadSheet.addCell(event.begin);
 		spreadSheet.addCell(event.end);
-		if ((guest.get("company_a_e1")==null || guest.get("company_a_e1").equals("")) && !isPressStaff) {
+		if ((guest.get("delegation")==null || guest.get("delegation").equals("")) && !isPressStaff) {
 			spreadSheet.addCell(generateEventUrl(event));
 		} else {
 			spreadSheet.addCell("");
