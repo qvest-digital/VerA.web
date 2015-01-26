@@ -324,14 +324,16 @@ onlineRegApp.controller('DirectLoginController', function ($scope, $location, $h
 
         $http({
             method: 'POST',
-            url: 'api/idm/login/' + $scope.directusername,
+            url: 'api/idm/login/' + encodeURIComponent($scope.directusername),
             params: {
                 password: $scope.directpassword
             }
         }).success(function (result) {
             $scope.button = false;
             $rootScope.error = null;
-            if (result === "true") {
+            alert(result);
+            alert(result == "true");
+            if (result == "true") {
                 console.log("Login erfolgreich");
 		    	$rootScope.user_logged_in = $scope.directusername;
                 $rootScope.status = null;
@@ -372,7 +374,7 @@ onlineRegApp.controller('LoginController', function ($scope, $location, $http, $
 
         $http({
             method: 'POST',
-            url: 'api/idm/login/' + $scope.username,
+            url: 'api/idm/login/' + encodeURIComponent($scope.username),
             params: {
                 password: $scope.password
             }
@@ -380,11 +382,11 @@ onlineRegApp.controller('LoginController', function ($scope, $location, $http, $
         }).success(function (result) {
             $scope.button = false;
 
-            if (result === "true") {
+            if (result == true) {
 				$rootScope.user_logged_in = $scope.username;
                 $rootScope.status = null;
                 $rootScope.messageContent = null;
-                $location.path($scope.nextPage);
+                $location.path($scope.nextPage); 
 
             } else {
                 $rootScope.status = "danger";
@@ -466,7 +468,7 @@ onlineRegApp.controller('RegisterUserController',  function($scope, $http) {
 		
 		$http({
 			method: 'POST',
-		    url: 'api/user/register/' + $scope.osiam.userName,
+		    url: 'api/user/register/' + encodeURIComponent($scope.osiam.userName),
 		    params: {
 		        osiam_firstname: $scope.osiam.firstName,
 		        osiam_secondname: $scope.osiam.lastName,
