@@ -191,9 +191,10 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 		        $http({
 		            method: 'POST',
 		            url: 'api/delegation/' + $routeParams.uuid + '/register',
+		            dataType: 'text',
 		            params: {
-		            	firstname: $scope.nachname,
-		                lastname: $scope.vorname,
+		            	lastname: $scope.nachname,
+		            	firstname: $scope.vorname,
 		                gender: $scope.gender.label
 		            }
 		        }).success(function (result) {
@@ -241,6 +242,7 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 		 $scope.showOptionalFields = function (personId) {
 
 			 $scope.targetPersonId=personId;
+			 var ERROR_TEXT = "Zu diesem Event existieren keine weiteren Felder.";
 
 			 $scope.success = null;
 			 $scope.error = null;
@@ -248,17 +250,25 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 
 			 $http.get('api/delegation/' + $routeParams.uuid + '/' + personId + '/data/').then(function(fields) {
                  $scope.fields = fields.data;
-                 console.log(JSON.stringify($scope.fields));
+                 console.log("number of fields: "+$scope.fields.length)
+                 if ($scope.fields.length == 0) {
+                   $scope.error_dialog = ERROR_TEXT;
+ 		           $scope.success = null;
+ 		           $scope.hideDialog = "hidding";
+                 }
+                 else {
+                	console.log(JSON.stringify($scope.fields));
 
-                 for(var prop in $scope.fields){
-    				 var curField = $scope.fields[prop];
-
-                	 if(curField.value != null){
-
-    					 $scope.labellist[curField.pk] = curField.value;
-    					 console.log(curField.value + "|" + $scope.labellist[curField.pk]);
-    				 }
-    			 }
+                 	for(var prop in $scope.fields){
+	    				 var curField = $scope.fields[prop];
+	
+	                	 if(curField.value != null){
+	
+	    					 $scope.labellist[curField.pk] = curField.value;
+	    					 console.log(curField.value + "|" + $scope.labellist[curField.pk]);
+	    				 }
+	    			 }
+                 }
               });
 		 }
 
@@ -382,7 +392,7 @@ onlineRegApp.controller('LoginController', function ($scope, $location, $http, $
         }).success(function (result) {
             $scope.button = false;
 
-            if (result == true) {
+            if (result) {
 				$rootScope.user_logged_in = $scope.username;
                 $rootScope.status = null;
                 $rootScope.messageContent = null;
