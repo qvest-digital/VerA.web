@@ -36,7 +36,7 @@
         <th>Nachname</th>
     </tr>
     <tr id="delegation" ng-click="showOptionalFields(person.pk)" data-toggle="modal" data-target="#myModal" ng-repeat="person in presentPersons">
-        <td>
+        <td ng-bind-html="{{person.firstname_a_e1}}">
              {{person.firstname_a_e1}}
         </td>
         <td>
@@ -72,8 +72,7 @@
 
       </div>
       <div class="modal-footer">
-        <button type="button" ng-show="{{hideDialog!=null && hideDialog}}" class="btn btn-custom" data-dismiss="modal" ng-click="saveOptionalFields()">Speichern</button>
-        <button type="button" ng-show="{{hideDialog==null || !hideDialog}}" class="btn btn-custom" data-dismiss="modal" >Zurück</button>
+        <button type="button" ng-show="!hideDialog" class="btn btn-custom" data-dismiss="modal" ng-click="saveOptionalFields()">Speichern</button>
       </div>
 </form>
     </div>
