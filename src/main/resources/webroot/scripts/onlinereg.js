@@ -73,15 +73,15 @@ onlineRegApp.directive('equals', function() {
     }
 });
 
-onlineRegApp.controller('FreeVisitorController', function($http, $location, $routeParams) {
+onlineRegApp.controller('FreeVisitorController', function($http, $scope, $location, $routeParams) {
 	$http({
-        method: function() {alert('a'); return 'GET'},
-        url: 'api/freevisitors/'+ $routeParams.uuid + '/'
+        method: 'GET',
+        url: 'api/freevisitors/'+ $routeParams.uuid
     }).success(function (result) {
     	$location.path('/register/' + result);
     }).error(function (data, status, headers, config) {
-    	alert('e');
-    });
+    	$scope.error = "Bitte geben sie ihr Geschlecht an.";
+   });
 });
 
 onlineRegApp.controller('MediaController', function ($scope, $http, $rootScope, $location, $routeParams) {
@@ -355,8 +355,6 @@ onlineRegApp.controller('DirectLoginController', function ($scope, $location, $h
         }).success(function (result) {
             $scope.button = false;
             $rootScope.error = null;
-            alert(result);
-            alert(result == "true");
             if (result == "true") {
                 console.log("Login erfolgreich");
 		    	$rootScope.user_logged_in = $scope.directusername;
