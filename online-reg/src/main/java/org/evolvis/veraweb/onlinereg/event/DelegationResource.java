@@ -9,6 +9,7 @@ import com.sun.jersey.api.client.WebResource;
 
 import lombok.extern.java.Log;
 
+import org.apache.commons.lang.StringEscapeUtils;
 import org.evolvis.veraweb.onlinereg.Config;
 import org.evolvis.veraweb.onlinereg.entities.Delegation;
 import org.evolvis.veraweb.onlinereg.entities.Guest;
@@ -138,10 +139,14 @@ public class DelegationResource {
     		@QueryParam("firstname") String firstname,
             @QueryParam("gender") String gender) throws IOException {
 
+    	
+    	
         final Boolean delegationIsFound = checkForExistingDelegation(uuid);
 
+        
         if(delegationIsFound) {
-            return handleDelegationFound(uuid, lastname, firstname, gender);
+        	String returnedValue = handleDelegationFound(uuid, lastname, firstname, gender);
+            return returnedValue;
         } else {
             return "WRONG_DELEGATION";
         }
@@ -214,7 +219,7 @@ public class DelegationResource {
 
     private String handleDelegationFound(String uuid, String nachname, String vorname, String gender)
             throws IOException {
-
+    	
         final Integer eventId = getEventId(uuid);
         final Person company = getCompanyFromUuid(uuid);
 
@@ -251,9 +256,9 @@ public class DelegationResource {
      * @param firstname First name
      * @param gender Gender of the person
      */
-    private Integer createPerson(String companyName, Integer eventId, String lastname, String firstname, String gender) {
+    private Integer createPerson(String companyName, Integer eventId, String firstname, String lastname, String gender) {
         WebResource personResource = client.resource(config.getVerawebEndpoint() + "/rest/person/delegate");
-        
+
         personResource = personResource
         		.queryParam("company", companyName)
         		.queryParam("eventId", String.valueOf(eventId))
@@ -320,6 +325,9 @@ public class DelegationResource {
     private void saveOptionalField(Integer guestId, Integer fieldId, String fieldContent) {
     	WebResource resource = client.resource(path("delegation","field", "save"));
 
+
+    	fieldContent = StringEscapeUtils.escapeHtml(fieldContent);
+    	
         resource = resource.queryParam("guestId", guestId.toString())
         	 .queryParam("fieldId", fieldId.toString())
         	 .queryParam("fieldContent", fieldContent);

@@ -207,8 +207,8 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 		            url: 'api/delegation/' + $routeParams.uuid + '/register',
 		            dataType: 'text',
 		            params: {
-		            	lastname: $scope.nachname,
-		            	firstname: $scope.vorname,
+		            	firstname: $scope.nachname,
+		            	lastname: $scope.vorname,
 		                gender: $scope.gender.label
 		            }
 		        }).success(function (result) {
@@ -268,9 +268,11 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
                  if ($scope.fields.length == 0) {
                    $scope.error_dialog = ERROR_TEXT;
  		           $scope.success = null;
- 		           $scope.hideDialog = "hidding";
+ 		           $scope.hideDialog = true;
                  }
                  else {
+                    $scope.error_dialog = null;
+   		            $scope.hideDialog = false;
                 	console.log(JSON.stringify($scope.fields));
 
                  	for(var prop in $scope.fields){
@@ -487,17 +489,17 @@ onlineRegApp.controller('RegisterUserController',  function($scope, $http) {
 	
     $scope.register = function(isValid) {
     	if(!isValid) { return; }
-		
+    	
 		$http({
 			method: 'POST',
-		    url: 'api/user/register/' + encodeURIComponent($scope.osiam.userName),
+		    url: 'api/user/register/' + encodeURIComponent($scope.osiam.userName) + '',
 		    params: {
 		        osiam_firstname: $scope.osiam.firstName,
 		        osiam_secondname: $scope.osiam.lastName,
 		        osiam_password1: $scope.osiam.password
 		    }
-		}).success(function (response) {
-		    switch(response) {
+		}).success(function (result) {
+		    switch(result) {
 		    case 'OK':
 		    	$scope.status = 1;
 		    	break;
@@ -511,8 +513,8 @@ onlineRegApp.controller('RegisterUserController',  function($scope, $http) {
 		    	$scope.status = 'e';
 		    }
 		    
-		    window.console.log("User registered with response: '" + response + "'.");
-		}).error(function () {
+		    window.console.log("User registered with response:  '" + result + "'.");
+		}).error(function (data, status, headers, config) {
 			$scope.status = 'e';
 			
 			window.console.log("ERROR while userregistration.");
