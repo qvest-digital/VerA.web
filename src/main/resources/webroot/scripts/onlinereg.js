@@ -41,6 +41,9 @@ onlineRegApp.config(function ($routeProvider) {
     }).when('/media/:uuid', {
       templateUrl: 'partials/media.html',
       controller: 'MediaController'
+    }).when('/freevisitors/:uuid', {
+      template: "",
+      controller: 'FreeVisitorController'
     }).otherwise({
       redirectTo: '/event'
     })
@@ -68,6 +71,17 @@ onlineRegApp.directive('equals', function() {
             }
         }
     }
+});
+
+onlineRegApp.controller('FreeVisitorController', function($http, $location, $routeParams) {
+	$http({
+        method: function() {alert('a'); return 'GET'},
+        url: 'api/freevisitors/'+ $routeParams.uuid + '/'
+    }).success(function (result) {
+    	$location.path('/register/' + result);
+    }).error(function (data, status, headers, config) {
+    	alert('e');
+    });
 });
 
 onlineRegApp.controller('MediaController', function ($scope, $http, $rootScope, $location, $routeParams) {
