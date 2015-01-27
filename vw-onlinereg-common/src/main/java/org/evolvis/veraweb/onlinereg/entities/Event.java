@@ -62,4 +62,8 @@ public class Event {
     public String getHash() {
 		return hash;
     }
+    
+    public String getShortname() {
+		return shortname;
+	}
 }
