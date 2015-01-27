@@ -27,11 +27,12 @@ import java.util.Date;
                 "where (CURRENT_TIMESTAMP < e.datebegin OR CURRENT_TIMESTAMP < e.dateend) " +
                 "AND e.eventtype LIKE 'Offene Veranstaltung'"),
         @NamedQuery(name = "AllEvents.list", query = "SELECT e FROM Event e"),
-        @NamedQuery(name = "Event.getEvent", query = "SELECT e FROM Event e where e.pk = :pk")
+        @NamedQuery(name = "Event.getEvent", query = "SELECT e FROM Event e where e.pk = :pk"),
+        @NamedQuery(name = "Event.getEventByHash", query = "SELECT e FROM Event e where e.hash = :hash")
 })
 @NamedNativeQueries({
 	@NamedNativeQuery(name="Event.guestByUUID",query="SELECT count(e.*) FROM tevent e WHERE mediarepresentatives=:uuid "),
-    @NamedNativeQuery(name = "Event.getEventByUUID", query = "SELECT e.pk FROM tevent e where e.mediarepresentatives=:uuid ")
+    @NamedNativeQuery(name="Event.getEventByUUID", query="SELECT e.pk FROM tevent e where e.mediarepresentatives=:uuid ")
 })
 
 public class Event {
@@ -44,6 +45,7 @@ public class Event {
     private String eventtype;
     private String mediarepresentatives;
     private int fk_orgunit = 1;
+    private String hash;
 
     @ManyToOne
     @JoinColumn(name="fk_location")
@@ -52,4 +54,12 @@ public class Event {
     public int getFk_orgunit() {
 		return fk_orgunit;
 	}
+    
+    public int getPk() {
+		return pk;
+	}
+    
+    public String getHash() {
+		return hash;
+    }
 }
