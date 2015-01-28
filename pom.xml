@@ -4,7 +4,7 @@
 
     <groupId>org.evolvis.veraweb.onlinereg</groupId>
     <artifactId>vw-onlinereg-common</artifactId>
-    <version>1.5.0.2-SNAPSHOT</version>
+    <version>1.5.0.2</version>
 
     <packaging>jar</packaging>
 
