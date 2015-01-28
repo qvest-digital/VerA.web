@@ -139,16 +139,13 @@ public class DelegationResource {
     		@QueryParam("firstname") String firstname,
             @QueryParam("gender") String gender) throws IOException {
 
-    	
-    	
         final Boolean delegationIsFound = checkForExistingDelegation(uuid);
 
-        
         if(delegationIsFound) {
         	String returnedValue = handleDelegationFound(uuid, lastname, firstname, gender);
-            return returnedValue;
+            return StatusConverter.convertStatus(returnedValue);
         } else {
-            return "WRONG_DELEGATION";
+            return StatusConverter.convertStatus("WRONG_DELEGATION");
         }
     }
 
