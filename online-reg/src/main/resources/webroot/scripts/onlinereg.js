@@ -124,24 +124,15 @@ onlineRegApp.controller('MediaController', function ($scope, $http, $rootScope, 
 	                $scope.success = null;
 	                $scope.error = null;
 
-
-	                if (result === 'USER_EXISTS') {
-	                    $scope.error = "Ein Benutzer mit diesem Benutzernamen existiert bereits.";
-	                    $scope.success = null;
-
-	                } else if (result === 'INVALID_USERNAME') {
-	                    $scope.error = "Der Benutzername darf nur Buchstaben und Zahlen enthalten.";
-	                    $scope.success = null;
-
-	                } else if (result === 'NO_EVENT_DATA') {
+	                if (result.status === 'NO_EVENT_DATA') {
 	                    $scope.error = "Der Veranstaltung existiert nicht";
 	                    $scope.success = null;
 
-	                }  else if (result === 'WRONG_EVENT') {
+	                }  else if (result.status === 'WRONG_EVENT') {
 	                    $scope.error = "Der Veranstaltung existiert nicht";
 	                    $scope.success = null;
 
-	                } else if (result === 'OK') {
+	                } else if (result.status === 'OK') {
 	                    $scope.error= null;
 	                    $scope.success = "Ihre Daten werden nun überprüft, eine Zusage erfolgt nach positiver Überprüfung.";
 	                    $http.get('api/delegation/' + $routeParams.uuid).then(function(presentPersons) {
