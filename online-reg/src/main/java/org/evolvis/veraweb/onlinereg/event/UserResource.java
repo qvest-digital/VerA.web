@@ -61,7 +61,7 @@ public class UserResource {
                                @QueryParam("osiam_password1") String osiam_password1) throws IOException {
 
         if (!osiam_username.matches("\\w+")) {
-            return "INVALID_USERNAME";
+            return StatusConverter.convertStatus("INVALID_USERNAME");
         }
 
         OsiamClient osiamClient = config.getOsiam().getClient(client);
@@ -69,7 +69,7 @@ public class UserResource {
 
         User user = osiamClient.getUser(accessToken, osiam_username);
         if (user != null) {
-            return "USER_EXISTS";
+            return StatusConverter.convertStatus("USER_EXISTS");
         }
         
         WebResource r = client.resource(config.getVerawebEndpoint() + "/rest/person/");
@@ -87,6 +87,6 @@ public class UserResource {
         osiamClient.createUser(accessToken, user);      
        
 
-        return "OK";
+        return StatusConverter.convertStatus("OK");
     }
 }

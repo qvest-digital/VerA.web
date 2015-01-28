@@ -481,7 +481,7 @@ onlineRegApp.controller('RegisterUserController',  function($scope, $http) {
 		        osiam_password1: $scope.osiam.password
 		    }
 		}).success(function (result) {
-		    switch(result) {
+		    switch(result.status) {
 		    case 'OK':
 		    	$scope.status = 1;
 		    	break;
