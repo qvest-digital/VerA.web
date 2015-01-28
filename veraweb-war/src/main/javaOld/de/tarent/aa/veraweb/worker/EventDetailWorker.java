@@ -95,7 +95,7 @@ public class EventDetailWorker {
     private void setUrlForMediaRepresentatives(OctopusContext cntx, Event event) throws IOException {
         PropertiesReader propertiesReader = new PropertiesReader();
         
-        if(propertiesReader.propertiesAreAvailable()) {
+        if(propertiesReader.propertiesAreAvailable() && event.mediarepresentatives != null) {
 	        Properties properties = propertiesReader.getProperties();
 	        URLGenerator url = new URLGenerator(properties);
 	        url.getURLForMediaRepresentatives();
@@ -328,6 +328,9 @@ public class EventDetailWorker {
                 }
             } else {
                 cntx.setStatus("notsaved");
+                if (oldEvent != null && oldEvent.mediarepresentatives != null && event.mediarepresentatives != null) {
+                	event.mediarepresentatives = oldEvent.mediarepresentatives;
+                }
             }
             
             setEventUrl(cntx, event);
@@ -363,10 +366,18 @@ public class EventDetailWorker {
      * @param event The event
      */
     private void setMediaRepresentatives(Event event, Event oldEvent) {
-    	if ((oldEvent == null || oldEvent.mediarepresentatives == null) && event.mediarepresentatives != null && event.mediarepresentatives.equals("on")) {
+    	if ((oldEvent == null || oldEvent.mediarepresentatives == null) && event.mediarepresentatives != null) {
     		// We generate an UUID and we store it into tevent - column "mediarepresentatives"
-    		UUID uuid = UUID.randomUUID();
-    		event.mediarepresentatives = uuid.toString();
+    		if (event.mediarepresentatives.equals("on")) {
+	    		UUID uuid = UUID.randomUUID();
+	    		event.mediarepresentatives = uuid.toString();
+    		}
+    		else event.mediarepresentatives = null;
+    	} else if (oldEvent != null && event!=null) {
+    		if (event.mediarepresentatives!=null && event.mediarepresentatives.equals("on")) {
+    		 event.mediarepresentatives = oldEvent.mediarepresentatives;
+    		}
+    		else event.mediarepresentatives = null;
     	} else {
     		event.mediarepresentatives = null;
     	}
