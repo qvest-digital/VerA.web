@@ -87,20 +87,12 @@ public class MediaResource {
 
         if(delegationIsFound) {
         	PressTransporter transporter = new PressTransporter(uuid, nachname, vorname, gender, email, address, plz, city, country);
-            return handlePressEvent(transporter);
-        } else {
-            return "WRONG_EVENT";
+        	
+            return StatusConverter.convertStatus(handlePressEvent(transporter));
         }
-
-
+        
+        return StatusConverter.convertStatus("WRONG_EVENT");
     }
-
-    @POST
-    @Path("/{uuid}/remove/{userid}")
-    public List<Guest> removeDelegateFromEvent(@PathParam("uuid") String uuid, @PathParam("userid") Long userid) throws IOException {
-        return null;
-    }
-
 
     private String handlePressEvent(PressTransporter transporter) throws IOException {
     	// Assing person to event as guest
@@ -207,7 +199,7 @@ public class MediaResource {
         } catch (ClientHandlerException che) {
             if (che.getCause() instanceof SocketTimeoutException) {
                 //FIXME some times open, pooled connections time out and generate errors
-                log.warning("Retrying request to " + path + " once because of SocketTimeoutException");
+//                log.warning("Retrying request to " + path + " once because of SocketTimeoutException");
                 resource = client.resource(path);
                 String json = resource.get(String.class);
                 return mapper.readValue(json, type);
@@ -216,7 +208,7 @@ public class MediaResource {
             }
 
         } catch (UniformInterfaceException uie) {
-            log.warning(uie.getResponse().getEntity(String.class));
+//            log.warning(uie.getResponse().getEntity(String.class));
             throw uie;
         }
     }
