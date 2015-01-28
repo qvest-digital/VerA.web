@@ -215,24 +215,15 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 		            $scope.success = null;
 		            $scope.error = null;
 
-
-		            if (result === 'USER_EXISTS') {
-		                $scope.error = "Ein Benutzer mit diesem Benutzernamen existiert bereits.";
-		                $scope.success = null;
-
-		            } else if (result === 'INVALID_USERNAME') {
-		                $scope.error = "Der Benutzername darf nur Buchstaben und Zahlen enthalten.";
-		                $scope.success = null;
-
-		            } else if (result === 'NO_EVENT_DATA') {
+		            if (result.status === 'NO_EVENT_DATA') {
 		                $scope.error = "Der Veranstaltung existiert nicht";
 		                $scope.success = null;
 
-		            }  else if (result === 'WRONG_DELEGATION') {
+		            }  else if (result.status === 'WRONG_DELEGATION') {
 		                $scope.error = "Die Delegation existiert nicht";
 		                $scope.success = null;
 
-		            } else if (result === 'OK') {
+		            } else if (result.status === 'OK') {
 		            	$scope.error= null;
 		                $scope.success = "Delegiertdaten wurden gespeichert.";
 		                $http.get('api/delegation/' + $routeParams.uuid).then(function(presentPersons) {
