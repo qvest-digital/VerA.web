@@ -36,7 +36,7 @@ public class UserResourceTest {
     @Test
     public void testRegisterUser() throws IOException {
         String result = ur.registerUser("newuser", "firstname", "secondname", "password");
-        assertEquals("OK", result);		         
+        assertEquals(StatusConverter.convertStatus("OK"), result);
     }
     
     //testet, ob post() nach Veraweb eine Person-Instanz zurückliefert
@@ -63,13 +63,13 @@ public class UserResourceTest {
     @Test
     public void testRegisterUserInvaldUsername() throws IOException {
         String result = ur.registerUser("invalid_username%&/", "firstname", "secondname", "password");
-        assertEquals("INVALID_USERNAME", result);
+        assertEquals(StatusConverter.convertStatus("INVALID_USERNAME"), result);
     }
 
     @Test
     public void testRegisterExistingUser() throws IOException {
         String result = ur.registerUser("existing", "firstname", "secondname", "password");
-        assertEquals("USER_EXISTS", result);
+        assertEquals(StatusConverter.convertStatus("USER_EXISTS"), result);
     }
 
 }
