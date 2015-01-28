@@ -172,7 +172,7 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 		$location.path('/login');
 	} else {
 		$scope.genderOptions = [
-	        {id: 0, label: "Bitte wählen"},
+		 	{id: 0, label: "Bitte wählen"},
 	        {id: 1, label: "Herr"},
 	        {id: 2, label: "Frau"}
 	    ];
@@ -187,9 +187,9 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 
 		 $scope.register_user = function () {
 			 if ($scope.gender.id == 0) {
-				 $scope.error = "Bitte wählen Sie Ihr Geschlecht aus";
+				 $scope.error = "Bitte wählen Sie Ihr Geschlecht aus.";
 				 $scope.success = null;
-			 } else if ($scope.gender.id == 1 || $scope.gender.id == 2) {
+             } else if ($scope.gender.id == 1 || $scope.gender.id == 2) {
 			    var ERROR_TEXT = "Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.";
 		        $scope.button = true;
 		        console.log("registering delegierten in the event.");
@@ -213,14 +213,15 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 		            }  else if (result.status === 'WRONG_DELEGATION') {
 		                $scope.error = "Die Delegation existiert nicht";
 		                $scope.success = null;
-
 		            } else if (result.status === 'OK') {
 		            	$scope.error= null;
 		                $scope.success = "Delegiertdaten wurden gespeichert.";
+						$scope.gender = $scope.genderOptions[0];
+						$scope.nachname = null;
+						$scope.vorname = null;
 		                $http.get('api/delegation/' + $routeParams.uuid).then(function(presentPersons) {
 		                    $scope.presentPersons = presentPersons.data;
 		                 });
-
 		            } else {
 		                $scope.error = ERROR_TEXT;
 		                $scope.success = null;
@@ -228,9 +229,7 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 		            $scope.button = false;
 
 		        }).error(function (data, status, headers, config) {
-		            $scope.error = ERROR_TEXT;
-		            $scope.success = null;
-		            $scope.button = false;
+
 		        });
 			 }
 		 }

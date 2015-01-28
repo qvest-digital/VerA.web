@@ -6,18 +6,24 @@
 			<div ng-if="success" class="alert alert-success" role="alert">{{success}}</div>
 		    <div ng-if="error" class="alert alert-danger" role="alert">{{error}}</div>
 
-            <div class="col-xs-2">
-                   <select class="form-control" id="gender" ng-model="gender"
-                           ng-options="a.label for a in genderOptions">
-                   </select>
+            <div class="col-xs-2" ng-class="delegation-form.gender.$valid ? 'has-success' : 'has-error'">
+                <select class="form-control" id="gender" name="gender" ng-model="gender" ng-options="a.label for a in genderOptions" required=""/>
             </div>
 
-            <div class="col-xs-4">
-                <input type="text" class="form-control" id="vorname" placeholder="Vorname" ng-model="vorname">
+            <div class="col-xs-4" ng-class="delegation-form.vorname.$valid ? 'has-success' : 'has-error'">
+                <input type="text" class="form-control" id="vorname" placeholder="Vorname" ng-model="vorname" required/>
+
+                <div ng-show="delegation-form.$submitted || delegation-form.vorname.$touched">
+                    <div class="help-block" ng-show="vorname.$error.required">Bitte füllen Sie dieses Feld aus.</div>
+                </div>
             </div>
 
-            <div class="col-xs-4">
-                <input type="text" class="form-control" id="nachname" placeholder="Nachname" ng-model="nachname">
+            <div class="col-xs-4" ng-class="delegation-form.nachname.$valid ? 'has-success' : 'has-error'">
+                <input type="text" class="form-control" id="nachname" placeholder="Nachname" ng-model="nachname" required/>
+
+                <div ng-show="delegation-form.$submitted || delegation-form.nachname.$touched">
+                    <div class="help-block" ng-show="nachname.$error.required">Bitte füllen Sie dieses Feld aus.</div>
+                </div>
             </div>
 
             <div class="col-xs-2">
