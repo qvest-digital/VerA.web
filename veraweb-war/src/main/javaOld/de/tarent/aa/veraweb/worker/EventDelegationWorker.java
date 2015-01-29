@@ -173,7 +173,7 @@ public class EventDelegationWorker {
     }
     
     /**
-     * Duplicate optional fields in the database exam
+     * Duplicate optional fields in the database exam (database)
      */
     public Boolean checkExistingOptionalField(OctopusContext oc, String of, Integer eventId) throws BeanException, IOException {
     	final Database database = new DatabaseVeraWeb(oc);
