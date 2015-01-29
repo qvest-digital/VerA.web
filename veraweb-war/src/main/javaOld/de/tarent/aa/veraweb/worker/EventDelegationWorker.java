@@ -2,6 +2,7 @@ package de.tarent.aa.veraweb.worker;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,6 +11,9 @@ import de.tarent.aa.veraweb.beans.Event;
 import de.tarent.aa.veraweb.beans.OptionalDelegationField;
 import de.tarent.aa.veraweb.beans.OptionalField;
 import de.tarent.aa.veraweb.utils.DateHelper;
+import de.tarent.dblayer.sql.SQL;
+import de.tarent.dblayer.sql.clause.Expr;
+import de.tarent.dblayer.sql.statement.Select;
 import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.beans.Database;
 import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
@@ -126,9 +130,10 @@ public class EventDelegationWorker {
         return delegationFieldsLabelds;
     }
 
-    public void saveDelegationFieldLabels(OctopusContext oc, Integer eventId) throws BeanException, SQLException {
+    public void saveDelegationFieldLabels(OctopusContext oc, Integer eventId) throws BeanException, SQLException, IOException {
     	OptionalFieldsWorker optionalFieldsWorker = new OptionalFieldsWorker(oc);
     	Map<String, String> allRequestParams = oc.getRequestObject().getRequestParameters();
+    	Boolean doubleLabelexists = false;
     	
     	for (String key : allRequestParams.keySet()) {
     		
@@ -147,14 +152,42 @@ public class EventDelegationWorker {
     				String[] tempParamA = (String[]) tempParam;
     				
     				for (String string : tempParamA) {
-        				createOptionalField(optionalFieldsWorker, eventId, string);
+    					if (!checkExistingOptionalField(oc, string, eventId)) {
+    						createOptionalField(optionalFieldsWorker, eventId, string);
+    					} else {
+    						doubleLabelexists = true;
+    					}
 					}
-    				
     			} else {
-    				createOptionalField(optionalFieldsWorker, eventId, allRequestParams.get(key));
+    				if (!checkExistingOptionalField(oc, allRequestParams.get(key).toString(), eventId)) {
+    					createOptionalField(optionalFieldsWorker, eventId, allRequestParams.get(key));
+    				} else {
+    					doubleLabelexists = true;
+    				}
     			}
     		}
     	}
+    	if (doubleLabelexists) {
+    		// TODO show a message in the layout
+    	}
+    }
+    
+    /**
+     * Duplicate optional fields in the database exam
+     */
+    public Boolean checkExistingOptionalField(OctopusContext oc, String of, Integer eventId) throws BeanException, IOException {
+    	final Database database = new DatabaseVeraWeb(oc);
+        Select select = SQL.Select(database);
+        select.select("count(pk)");
+        select.from("veraweb.toptional_fields");
+        select.where(Expr.equal("veraweb.toptional_fields.label", of.trim()));
+        select.whereAnd(Expr.equal("veraweb.toptional_fields.fk_event", eventId));
+        
+        Integer i = database.getCount(select);
+        if (i != null && i > 0) {
+        	return true;
+        }
+    	return false;
     }
     
     private void createOptionalField(OptionalFieldsWorker optionalFieldsWorker, int eventId, String label) throws SQLException, BeanException {
