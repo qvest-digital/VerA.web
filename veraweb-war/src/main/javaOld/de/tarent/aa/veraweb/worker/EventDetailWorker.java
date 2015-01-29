@@ -393,7 +393,7 @@ public class EventDetailWorker {
     	if ((oldEvent == null || oldEvent.hash == null) && event.isModified()) {
     		UUID uuid = UUID.randomUUID();
     		event.hash = uuid.toString();
-    	} else {
+    	} else if (oldEvent != null){
     		event.hash = oldEvent.hash;
     	}
     }
