@@ -17,6 +17,7 @@
 			<div class="msg errormsg">
             	<h1>$formatMessage</h1>
            	</div>
+           	<input name="button" class="mainButton" type="button" onclick="window.close();" value="Zurück" />
 		#else
 			<h1>$title</h1>
 			#if($begin.class.name == "java.util.Date" && $end.class.name == "java.util.Date")

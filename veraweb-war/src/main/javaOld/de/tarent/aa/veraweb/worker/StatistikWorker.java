@@ -74,7 +74,7 @@ public class StatistikWorker {
 	/** Octopus-Ausgabeparameter f�r die Aktion {@link #getFirstDayInMonth()} */
 	public static final String OUTPUT_getFirstDayInMonth = "firstDayInMonth";
 	
-	private static final String ERROR_DATE_FORMAT = "Die Eingangsdaten sind falsch. Benutzen Sie das Datum Format TT.MM.JJJJ";
+	private static final String ERROR_DATE_FORMAT = "Sie müssen den Datum des Zeitrahmens im Format TT.MM.JJJJ angeben";
 	/**
 	 * @return Gibt den ersten Tag des aktuellen Monats zur�ck.
 	 */
