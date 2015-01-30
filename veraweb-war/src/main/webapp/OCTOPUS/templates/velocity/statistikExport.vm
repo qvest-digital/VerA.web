@@ -13,26 +13,32 @@
 	</head>
 	<body>
 		
-		<h1>$title</h1>
-		#if($begin.class.name == "java.util.Date" && $end.class.name == "java.util.Date")
-			<h2>Im Zeitraum vom $!message.date("DATE", $begin) bis zum $!message.date("DATE", $end)</h2>
-		#elseif($begin.class.name == "java.util.Date")
-			<h2>Ab $!message.date("DATE", $begin)</h2>
-		#elseif($end.class.name == "java.util.Date")
-			<h2>Bis $!message.date("DATE", $end)</h2>
-		#end
-		
-		#if($statistik == "EventsGroupByHost" && $person)
-			<h2>Statistik f&uuml;r Gastgeber: $person.MainLatin.SaveAs</h2>
-		#elseif($statistik == "EventsGroupByGuest" && $person)
-			<h2>Statistik f&uuml;r Gast: $person.MainLatin.SaveAs</h2>
-		#end
-		
-		<!-- $result -->
-		
-		<hr class="kategorie" />
-		<br>
-		#parse("inc/statistik${statistik}.vm")
+		#if($formatMessage != "no")
+			<div class="msg errormsg">
+            	<h1>$formatMessage</h1>
+           	</div>
+		#else
+			<h1>$title</h1>
+			#if($begin.class.name == "java.util.Date" && $end.class.name == "java.util.Date")
+				<h2>Im Zeitraum vom $!message.date("DATE", $begin) bis zum $!message.date("DATE", $end)</h2>
+			#elseif($begin.class.name == "java.util.Date")
+				<h2>Ab $!message.date("DATE", $begin)</h2>
+			#elseif($end.class.name == "java.util.Date")
+				<h2>Bis $!message.date("DATE", $end)</h2>
+			#end
+			
+			#if($statistik == "EventsGroupByHost" && $person)
+				<h2>Statistik f&uuml;r Gastgeber: $person.MainLatin.SaveAs</h2>
+			#elseif($statistik == "EventsGroupByGuest" && $person)
+				<h2>Statistik f&uuml;r Gast: $person.MainLatin.SaveAs</h2>
+			#end
+			
+			<!-- $result -->
+			
+			<hr class="kategorie" />
+			<br>
+			#parse("inc/statistik${statistik}.vm")
+        #end
 		
 	</body>
 </html>

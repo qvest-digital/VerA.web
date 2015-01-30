@@ -24,6 +24,8 @@ import java.io.PipedInputStream;
 import java.io.PipedOutputStream;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -71,6 +73,8 @@ public class StatistikWorker {
 	public static final String INPUT_getFirstDayInMonth[] = {};
 	/** Octopus-Ausgabeparameter f�r die Aktion {@link #getFirstDayInMonth()} */
 	public static final String OUTPUT_getFirstDayInMonth = "firstDayInMonth";
+	
+	private static final String ERROR_DATE_FORMAT = "Die Eingangsdaten sind falsch. Benutzen Sie das Datum Format TT.MM.JJJJ";
 	/**
 	 * @return Gibt den ersten Tag des aktuellen Monats zur�ck.
 	 */
@@ -147,48 +151,60 @@ public class StatistikWorker {
 	public void getStatistik(OctopusContext cntx, String statistik, String begin, String end, Integer id) throws BeanException, IOException {
 		Database database = new DatabaseVeraWeb(cntx);
 		
-		Date filterBegin = (Date)BeanFactory.transform(begin, Date.class);
-		Date filterEnd = (Date)BeanFactory.transform(end, Date.class);
+		try {
+			// Controlling dates format
+			SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+			if (!begin.equals("") && !end.equals("")) {
+				sdf.parse(begin);
+				sdf.parse(end);
+			}
+			Date filterBegin = (Date)BeanFactory.transform(begin, Date.class);
+			Date filterEnd = (Date)BeanFactory.transform(end, Date.class);
+			
+			Select select;
+			Clause clause = getEventFilter(cntx, filterBegin, filterEnd);
+			if (statistik.equals("EventsPerYear")) {
+				select = getEventsPerYear( database );
+				select.where(clause);
+			} else if (statistik.equals("EventsPerMonth")) {
+				select = getEventsPerMonth( database );
+				select.where(clause);
+			} else if (statistik.equals("EventsGroupByHost")) {
+				select = getEventsGroupByHost( database );
+				if (id != null) {
+					clause = Where.and(Expr.equal("tguest.fk_person", id), clause);
+					cntx.setContent("person", database.getBean("Person", id));
+				}
+				select.where(clause);
+			} else if (statistik.equals("EventsGroupByGuest")) {
+				select = getEventsGroupByGuest( database );
+				if (id != null) {
+					clause = Where.and(Expr.equal("tguest.fk_person", id), clause);
+					cntx.setContent("person", database.getBean("Person", id));
+				}
+				select.where(clause);
+			} else if (statistik.equals("EventsGroupByLocation")) {
+				select = getEventsGroupByLocation( database );
+				select.where(clause);
+			} else {
+				throw new BeanException("Es wurde versucht eine unbekannte Statistik zu exportieren: " + statistik);
+			}
+			
+			
+			// EXPORT IN EINE ODS-DATEI
+			//ResultList resultList = (ResultList)database.getList(select);
+			//cntx.setContent("stream", getExport(cntx, resultList.getResultSet()));
+			
+			// EXPORT �BER EIN VELOCITY SCRIPT
+			cntx.setContent("begin", filterBegin);
+			cntx.setContent("end", filterEnd);
+			ResultList resultList = (ResultList)database.getList(select, database);
+			cntx.setContent("result", resultList);
+			cntx.setContent("formatMessage", "no");
 		
-		Select select;
-		Clause clause = getEventFilter(cntx, filterBegin, filterEnd);
-		if (statistik.equals("EventsPerYear")) {
-			select = getEventsPerYear( database );
-			select.where(clause);
-		} else if (statistik.equals("EventsPerMonth")) {
-			select = getEventsPerMonth( database );
-			select.where(clause);
-		} else if (statistik.equals("EventsGroupByHost")) {
-			select = getEventsGroupByHost( database );
-			if (id != null) {
-				clause = Where.and(Expr.equal("tguest.fk_person", id), clause);
-				cntx.setContent("person", database.getBean("Person", id));
-			}
-			select.where(clause);
-		} else if (statistik.equals("EventsGroupByGuest")) {
-			select = getEventsGroupByGuest( database );
-			if (id != null) {
-				clause = Where.and(Expr.equal("tguest.fk_person", id), clause);
-				cntx.setContent("person", database.getBean("Person", id));
-			}
-			select.where(clause);
-		} else if (statistik.equals("EventsGroupByLocation")) {
-			select = getEventsGroupByLocation( database );
-			select.where(clause);
-		} else {
-			throw new BeanException("Es wurde versucht eine unbekannte Statistik zu exportieren: " + statistik);
+		} catch (ParseException e) {
+			cntx.setContent("formatMessage", ERROR_DATE_FORMAT);
 		}
-		
-		
-		// EXPORT IN EINE ODS-DATEI
-		//ResultList resultList = (ResultList)database.getList(select);
-		//cntx.setContent("stream", getExport(cntx, resultList.getResultSet()));
-		
-		// EXPORT �BER EIN VELOCITY SCRIPT
-		cntx.setContent("begin", filterBegin);
-		cntx.setContent("end", filterEnd);
-		ResultList resultList = (ResultList)database.getList(select, database);
-		cntx.setContent("result", resultList);
 	}
 
 	/**
@@ -256,7 +272,7 @@ public class StatistikWorker {
 				selectAs("tperson.firstname_a_e1", "firstname").
 				selectAs("tperson.function_a_e1", "function").
 				selectAs("tevent.shortname", "shortname").
-				selectAs("tevent.location", "location").
+				selectAs("tevent.fk_location", "location").
 				selectAs("tevent.datebegin", "datebegin").
 				selectAs(zusagen, "zusagen").
 				orderBy(Order.asc("tperson.lastname_a_e1").andAsc("tperson.firstname_a_e1").andAsc("tevent.datebegin"));
@@ -312,7 +328,7 @@ public class StatistikWorker {
 				from("veraweb.tevent").
 				joinLeftOuter("veraweb.tguest", "tevent.pk", "tguest.fk_event AND tguest.ishost = 1").
 				joinLeftOuter("veraweb.tperson", "tguest.fk_person", "tperson.pk").
-				selectAs("tevent.location", "location").
+				selectAs("tevent.fk_location", "location").
 				selectAs("tevent.shortname", "shortname").
 				selectAs("tperson.lastname_a_e1", "lastname").
 				selectAs("tperson.firstname_a_e1", "firstname").
