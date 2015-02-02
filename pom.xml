@@ -30,8 +30,8 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.evolvis.veraweb.onlinereg</groupId>
-            <artifactId>vw-onlinereg-common</artifactId>
+            <groupId>org.evolvis.veraweb.common</groupId>
+            <artifactId>rest-api-common</artifactId>
             <version>${project.version}</version>
         </dependency>
 
