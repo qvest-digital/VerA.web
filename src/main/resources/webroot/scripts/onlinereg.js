@@ -338,7 +338,7 @@ onlineRegApp.controller('DirectLoginController', function ($scope, $location, $h
         }).success(function (result) {
             $scope.button = false;
             $rootScope.error = null;
-            if (result == "true") {
+            if (result) {
                 console.log("Login erfolgreich");
 		    	$rootScope.user_logged_in = $scope.directusername;
                 $rootScope.status = null;
