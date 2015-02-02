@@ -20,11 +20,13 @@
 package org.evolvis.veraweb.onlinereg.event;
 
 import com.sun.jersey.api.client.Client;
+import com.sun.jersey.api.client.UniformInterfaceException;
 import com.sun.jersey.api.client.WebResource;
 
 import org.evolvis.veraweb.onlinereg.Config;
 import org.evolvis.veraweb.onlinereg.entities.Person;
 import org.evolvis.veraweb.onlinereg.osiam.OsiamClient;
+import org.evolvis.veraweb.onlinereg.utils.StatusConverter;
 import org.osiam.resources.scim.Extension;
 import org.osiam.resources.scim.Name;
 import org.osiam.resources.scim.User;
@@ -35,6 +37,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
+
 import java.io.IOException;
 import java.math.BigInteger;
 
@@ -93,7 +96,18 @@ public class UserResource {
         
         WebResource r = client.resource(config.getVerawebEndpoint() + "/rest/person/");
         r = r.queryParam("username", osiam_username).queryParam("firstname", osiam_firstname).queryParam("lastname", osiam_secondname);
-        Person person = r.post(Person.class);
+        
+        Person person = new Person();
+        try {
+             person = r.post(Person.class);
+        } catch (UniformInterfaceException e) {
+            int statusCode = e.getResponse().getStatus();
+            if(statusCode == 204) {
+            	return StatusConverter.convertStatus("USER_EXISTS");
+            }
+
+            return StatusConverter.convertStatus("USER_NOT_CREATED");
+        }
 
 		user = new User.Builder(osiam_username)
                 .setName(new Name.Builder().setGivenName(osiam_firstname).setFamilyName(osiam_secondname).build())
