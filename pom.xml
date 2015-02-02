@@ -1,20 +1,18 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>org.evolvis.veraweb.onlinereg</groupId>
-    <artifactId>vw-onlinereg-war</artifactId>
+    <groupId>org.evolvis.veraweb</groupId>
+    <artifactId>rest-api</artifactId>
     <version>1.5.0.3-SNAPSHOT</version>
-
 
     <packaging>war</packaging>
 
     <name>vera.web Online-Registration REST API</name>
 
-
     <dependencies>
         <dependency>
-            <groupId>org.evolvis.veraweb.onlinereg</groupId>
-            <artifactId>vw-onlinereg-common</artifactId>
+            <groupId>org.evolvis.veraweb.common</groupId>
+            <artifactId>rest-api-common</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
