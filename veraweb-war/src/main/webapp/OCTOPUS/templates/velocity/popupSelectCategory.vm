@@ -20,6 +20,8 @@
     				var msg ='<span>Wählen Sie bitte zunächst eine Kategorie aus.</span>';
 					showWarning(msg);
     			}else {
+					$(".errormsg").remove();
+					$(".successmsg").remove();
     				#if( $count == 1 )
 						showAllocateAssign('Wollen Sie diese Person bzw. diesen Gast der ausgewählten Kategorie zuordnen?',
 						function () { // Ja
