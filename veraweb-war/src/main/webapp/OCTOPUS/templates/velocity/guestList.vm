@@ -224,6 +224,7 @@
                                 	$(".successmsg").remove();
                                     showSuccess('Es wurden keine G&auml;ste gel&ouml;scht.');
                                     $('input:checkbox').prop('disabled', false);
+                                    
                                 });
 						}
 				}
