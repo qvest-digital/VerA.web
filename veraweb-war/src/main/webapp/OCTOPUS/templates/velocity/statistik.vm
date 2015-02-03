@@ -48,30 +48,69 @@
     				<div class="tableCell width50 inlineLabel statisticsType">
     					<script type="text/javascript">
     						function exportStatistik() {
+    						
+    							re = /^\d{1,2}\.\d{1,2}\.\d{4}$/;
+    							var correct = true;
+    							if((document.getElementById('begin').value != '' &&
+    							 !document.getElementById('begin').value.match(re)) || (document.getElementById('end').value != '' &&
+    							 !document.getElementById('end').value.match(re))) { 
+    							 	$(".errormsg").remove();
+    							 	showWarning('Sie müssen das Datum des Zeitrahmens im Format TT.MM.JJJJ angeben');
+    							 	correct = false;
+    							 }
+    						
     							if (document.getElementById('formlist').statistik[0].checked) {
-    								document.getElementById('formlist').action = 'StatistikExport';
-    								document.getElementById('formlist').target = '_blank';
-    								document.getElementById('a').value = 'statistik';
+    								if (correct) {
+										$(".errormsg").remove();
+    									document.getElementById('formlist').action = 'StatistikExport';
+    									document.getElementById('formlist').target = '_blank';
+	    								document.getElementById('a').value = 'statistik';
+    								} else {
+    									return false;
+    								}
     							} else if (document.getElementById('formlist').statistik[1].checked) {
-    								document.getElementById('formlist').action = 'StatistikExport';
-    								document.getElementById('formlist').target = '_blank';
-    								document.getElementById('a').value = 'statistik';
+    								if (correct) {
+    									$(".errormsg").remove();
+	    								document.getElementById('formlist').action = 'StatistikExport';
+    									document.getElementById('formlist').target = '_blank';
+	    								document.getElementById('a').value = 'statistik';
+    								} else {
+    									return false;
+    								}
     							} else if (document.getElementById('formlist').statistik[2].checked) {
-    								document.getElementById('formlist').action = 'StatistikExport';
-    								document.getElementById('formlist').target = '_blank';
-    								document.getElementById('a').value = 'statistik';
+    								if (correct) {
+    									$(".errormsg").remove();
+	    								document.getElementById('formlist').action = 'StatistikExport';
+    									document.getElementById('formlist').target = '_blank';
+	    								document.getElementById('a').value = 'statistik';
+    								} else {
+    									return false;
+    								}
     							} else if (document.getElementById('formlist').statistik[3].checked) {
-    								document.getElementById('formlist').action = 'StatistikPersonSearch';
-    								document.getElementById('formlist').target = '';
-    								document.getElementById('a').value = 'statistikHost';
+	    							if (correct) {
+	    								document.getElementById('formlist').action = 'StatistikPersonSearch';
+	    								document.getElementById('formlist').target = '';
+	    								document.getElementById('a').value = 'statistikHost';
+    								} else {
+    									return false;
+    								}
     							} else if (document.getElementById('formlist').statistik[4].checked) {
-    								document.getElementById('formlist').action = 'StatistikPersonSearch';
-    								document.getElementById('formlist').target = '';
-    								document.getElementById('a').value = 'statistikGuest';
+    								if (correct) {
+	    								document.getElementById('formlist').action = 'StatistikPersonSearch';
+	    								document.getElementById('formlist').target = '';
+	    								document.getElementById('a').value = 'statistikGuest';
+	    							} else {
+    									return false;
+    								}
     							} else if (document.getElementById('formlist').statistik[5].checked) {
-    								document.getElementById('formlist').action = 'StatistikExport';
-    								document.getElementById('formlist').target = '_blank';
-    								document.getElementById('a').value = 'statistik';
+    								if (correct) {
+    									$(".errormsg").remove();
+	    								document.getElementById('formlist').action = 'StatistikExport';
+    									document.getElementById('formlist').target = '_blank';
+	    								document.getElementById('a').value = 'statistik';
+    								}else {
+    									return false;
+    								}
     							} else {
     								showWarning('UNKNOWN');
     								return false;
