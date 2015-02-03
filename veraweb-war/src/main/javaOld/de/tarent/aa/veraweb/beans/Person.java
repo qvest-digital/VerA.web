@@ -21,6 +21,8 @@ package de.tarent.aa.veraweb.beans;
 
 import java.sql.Timestamp;
 
+import org.apache.commons.lang.StringEscapeUtils;
+
 import de.tarent.aa.veraweb.beans.facade.AbstractMember;
 import de.tarent.aa.veraweb.beans.facade.PersonAddressFacade;
 import de.tarent.aa.veraweb.beans.facade.PersonConstants;
@@ -295,7 +297,18 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 	@Override
     public void verify() throws BeanException {
 		AddressHelper.checkPerson(this);
+
+		solveXSS();
 		
+		if (company_a_e1.length()>100) {
+	        addError("Sie müssen einen Namen für die Firma/Institution mit dem richtigen Länge angeben.");
+		}
+		if (firstname_a_e1.length()>100) {
+	        addError("Sie müssen einen Vornamen für das Hauptperson mit dem richtigen Länge angeben.");
+		}
+		if (lastname_a_e1.length()>100) {
+	        addError("Sie müssen einen Nachnamen für das Hauptperson mit dem richtigen Länge angeben.");
+		}
 		if (iscompany != null && iscompany.equals(PersonConstants.ISCOMPANY_TRUE)) {
 		    if (company_a_e1 == null || company_a_e1.trim().equals("")) {
 		        addError("Sie müssen einen Namen für die Firma/Institution angeben.");
@@ -312,6 +325,16 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 		 * temporarily fixes issue #1529 until i gain access to the old octopus repository
 		 */
 		DateHelper.temporary_fix_translateErrormessageEN2DE( this.getErrors() );
+	}
+
+	/**
+	 * Method which skips the XSS code injection
+	 * MUST: if you need to check the script-value of a field JUST ADD IT HERE
+	 */
+	private void solveXSS() {
+		company_a_e1 = StringEscapeUtils.escapeHtml(company_a_e1);
+		firstname_a_e1 = StringEscapeUtils.escapeHtml(firstname_a_e1);
+		lastname_a_e1 = StringEscapeUtils.escapeHtml(lastname_a_e1);
 	}
 
 	/**
