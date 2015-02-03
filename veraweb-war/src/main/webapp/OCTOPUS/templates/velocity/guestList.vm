@@ -205,6 +205,8 @@
                         if (checkBoxes.length === 0) {
                             showWarning('W&auml;hlen Sie bitte zun&auml;chst eine oder mehrere G&auml;ste aus.');
                         } else {
+                        	$(".errormsg").remove();
+                        	$(".successmsg").remove();
 							var msg = '';
                             msg += '<br><span class="notBold">Wenn Sie Ihre Auswahl anpassen wollen, brechen Sie bitte das L&ouml;schen ab.</span><br>'+ 'Sollen alle markierten Personen gel&ouml;scht werden? ' +
                             'Diese Aktion kann nicht r&uuml;ckg&auml;ngig gemacht werden.<br>';
@@ -218,6 +220,8 @@
 									document.formlist.submit();
 									
                                 }, function () { // Nein
+                                	$(".errormsg").remove();
+                                	$(".successmsg").remove();
                                     showSuccess('Es wurden keine G&auml;ste gel&ouml;scht.');
                                     $('input:checkbox').prop('disabled', false);
                                 });
