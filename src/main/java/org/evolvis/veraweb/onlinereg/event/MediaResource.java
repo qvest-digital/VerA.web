@@ -25,6 +25,7 @@ import java.net.SocketTimeoutException;
 import java.util.Date;
 import java.util.List;
 
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -94,14 +95,14 @@ public class MediaResource {
     @Path("/{uuid}/register")
     public String registerDelegateForEvent(
             @PathParam("uuid") String uuid,
-            @QueryParam("nachname") String nachname,
-    		@QueryParam("vorname") String vorname,
-            @QueryParam("gender") String gender,
-            @QueryParam("email") String email,
-    		@QueryParam("address") String address,
-    		@QueryParam("plz") String plz,
-    		@QueryParam("city") String city,
-            @QueryParam("country") String country) throws IOException {
+            @FormParam("nachname") String nachname,
+            @FormParam("vorname") String vorname,
+            @FormParam("gender") String gender,
+            @FormParam("email") String email,
+            @FormParam("address") String address,
+            @FormParam("plz") String plz,
+            @FormParam("city") String city,
+            @FormParam("country") String country) throws IOException {
 
         Boolean delegationIsFound = checkForExistingPressEvent(uuid);
 

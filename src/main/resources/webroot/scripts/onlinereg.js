@@ -110,7 +110,7 @@ onlineRegApp.controller('MediaController', function ($scope, $http, $rootScope, 
 	            $http({
 	                method: 'POST',
 	                url: 'api/media/' + $routeParams.uuid + '/register',
-	                params: {
+	                data: {
 	                    nachname: $scope.lastname,
 	                    vorname: $scope.firstname,
 	                    gender: $scope.gender.label,
@@ -197,7 +197,7 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 		            method: 'POST',
 		            url: 'api/delegation/' + $routeParams.uuid + '/register',
 		            dataType: 'text',
-		            params: {
+		            data: {
 		            	firstname: $scope.nachname,
 		            	lastname: $scope.vorname,
 		                gender: $scope.gender.label
@@ -279,7 +279,7 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 			 	$http({
 		            method: 'POST',
 		            url: 'api/delegation/'+ $routeParams.uuid + '/fields/save',
-		            params: {
+		            data: {
 		            	fields: $scope.labellist,
 		            	personId: $scope.targetPersonId
 		            }
@@ -332,7 +332,7 @@ onlineRegApp.controller('DirectLoginController', function ($scope, $location, $h
         $http({
             method: 'POST',
             url: 'api/idm/login/' + encodeURIComponent($scope.directusername),
-            params: {
+            data: {
                 password: $scope.directpassword
             }
         }).success(function (result) {
@@ -380,7 +380,7 @@ onlineRegApp.controller('LoginController', function ($scope, $location, $http, $
         $http({
             method: 'POST',
             url: 'api/idm/login/' + encodeURIComponent($scope.username),
-            params: {
+            data: {
                 password: $scope.password
             }
 
@@ -454,7 +454,7 @@ onlineRegApp.controller('RegisterController', function ($scope, $rootScope, $loc
 	        $http({
 	            method: 'POST',
 	            url: 'api/event/' + $routeParams.eventId + '/register/' + $scope.userId,
-	            params: {
+	            data: {
 	                invitationstatus: $scope.acceptance.id,
 	                notehost: $scope.noteToHost
 	            }
@@ -474,7 +474,7 @@ onlineRegApp.controller('RegisterUserController',  function($scope, $http) {
 		$http({
 			method: 'POST',
 		    url: 'api/user/register/' + encodeURIComponent($scope.osiam.userName) + '',
-		    params: {
+		    data: {
 		        osiam_firstname: $scope.osiam.firstName,
 		        osiam_secondname: $scope.osiam.lastName,
 		        osiam_password1: $scope.osiam.password

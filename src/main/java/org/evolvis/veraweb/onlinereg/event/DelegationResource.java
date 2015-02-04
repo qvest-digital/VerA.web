@@ -36,6 +36,7 @@ import org.evolvis.veraweb.onlinereg.entities.OptionalFieldValue;
 import org.evolvis.veraweb.onlinereg.entities.Person;
 import org.evolvis.veraweb.onlinereg.utils.StatusConverter;
 
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -155,9 +156,9 @@ public class DelegationResource {
     @Path("/{uuid}/register")
     public String registerDelegateForEvent(
             @PathParam("uuid") String uuid,
-            @QueryParam("lastname") String lastname,
-    		@QueryParam("firstname") String firstname,
-            @QueryParam("gender") String gender) throws IOException {
+            @FormParam("lastname") String lastname,
+            @FormParam("firstname") String firstname,
+            @FormParam("gender") String gender) throws IOException {
 
         final Boolean delegationIsFound = checkForExistingDelegation(uuid);
 
@@ -181,8 +182,10 @@ public class DelegationResource {
      */
     @POST
     @Path("/{uuid}/fields/save")
-    public void saveOptionalFields(@PathParam("uuid") String uuid,
-            @QueryParam("fields") String fields, @QueryParam("personId") Integer personId) throws IOException {
+    public void saveOptionalFields(
+    		@PathParam("uuid") String uuid,
+            @FormParam("fields") String fields, 
+            @FormParam("personId") Integer personId) throws IOException {
 		if (fields != null || !"".equals(fields)) {
             handleSaveOptionalFields(uuid, fields, personId);
 		}

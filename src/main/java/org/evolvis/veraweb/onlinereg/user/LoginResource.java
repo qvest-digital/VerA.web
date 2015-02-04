@@ -22,11 +22,14 @@ package org.evolvis.veraweb.onlinereg.user;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.UniformInterfaceException;
+
 import lombok.Getter;
+
 import org.evolvis.veraweb.onlinereg.Config;
 import org.osiam.resources.scim.User;
 
 import javax.servlet.ServletContext;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -34,6 +37,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
+
 import java.io.IOException;
 
 /**
@@ -82,7 +86,9 @@ public class LoginResource {
      */
     @POST
     @Path("/login/{username}")
-    public boolean login(@PathParam("username") String userName, @QueryParam("password") String password) throws IOException {
+    public boolean login(
+    		@PathParam("username") String userName,
+    		@FormParam("password") String password) throws IOException {
 
         try {
             if (userName == null || password == null) {
