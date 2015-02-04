@@ -31,6 +31,7 @@ import org.osiam.resources.scim.Extension;
 import org.osiam.resources.scim.Name;
 import org.osiam.resources.scim.User;
 
+import javax.ws.rs.FormParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -78,9 +79,9 @@ public class UserResource {
     @POST
     @Path("/register/{osiam_username}")
     public String registerUser(@PathParam("osiam_username") String osiam_username,
-                               @QueryParam("osiam_firstname") String osiam_firstname,
-                               @QueryParam("osiam_secondname") String osiam_secondname,
-                               @QueryParam("osiam_password1") String osiam_password1) throws IOException {
+                               @FormParam("osiam_firstname") String osiam_firstname,
+                               @FormParam("osiam_secondname") String osiam_secondname,
+                               @FormParam("osiam_password1") String osiam_password1) throws IOException {
 
         if (!osiam_username.matches("\\w+")) {
             return StatusConverter.convertStatus("INVALID_USERNAME");

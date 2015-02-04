@@ -110,7 +110,8 @@ onlineRegApp.controller('MediaController', function ($scope, $http, $rootScope, 
 	            $http({
 	                method: 'POST',
 	                url: 'api/media/' + $routeParams.uuid + '/register',
-	                params: {
+	                headers: {"Content-Type" : undefined},
+	                data: $.param({
 	                    nachname: $scope.lastname,
 	                    vorname: $scope.firstname,
 	                    gender: $scope.gender.label,
@@ -119,7 +120,7 @@ onlineRegApp.controller('MediaController', function ($scope, $http, $rootScope, 
 	                    plz: $scope.plz,
 	                    city: $scope.city,
 	                    country: $scope.country
-	                }
+	                })
 	            }).success(function (result) {
 	                $scope.success = null;
 	                $scope.error = null;
@@ -197,11 +198,12 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 		            method: 'POST',
 		            url: 'api/delegation/' + $routeParams.uuid + '/register',
 		            dataType: 'text',
-		            params: {
+		            headers: {"Content-Type" : undefined},
+		            data: $.param({
 		            	firstname: $scope.nachname,
 		            	lastname: $scope.vorname,
 		                gender: $scope.gender.label
-		            }
+		            })
 		        }).success(function (result) {
 		            $scope.success = null;
 		            $scope.error = null;
@@ -279,10 +281,11 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 			 	$http({
 		            method: 'POST',
 		            url: 'api/delegation/'+ $routeParams.uuid + '/fields/save',
-		            params: {
+		            headers: {"Content-Type" : undefined},
+		            data: $.param({
 		            	fields: $scope.labellist,
 		            	personId: $scope.targetPersonId
-		            }
+		            })
 		        }).success(function (result) {
 		            console.log('Optional Felder speichern...');
 
@@ -332,9 +335,10 @@ onlineRegApp.controller('DirectLoginController', function ($scope, $location, $h
         $http({
             method: 'POST',
             url: 'api/idm/login/' + encodeURIComponent($scope.directusername),
-            params: {
+            headers: {"Content-Type" : undefined},
+            data: $.param({
                 password: $scope.directpassword
-            }
+            })
         }).success(function (result) {
             $scope.button = false;
             $rootScope.error = null;
@@ -380,10 +384,10 @@ onlineRegApp.controller('LoginController', function ($scope, $location, $http, $
         $http({
             method: 'POST',
             url: 'api/idm/login/' + encodeURIComponent($scope.username),
-            params: {
-                password: $scope.password
-            }
-
+            headers: {"Content-Type" : undefined},
+            data: $.param({
+            	password: $scope.password
+            })
         }).success(function (result) {
             $scope.button = false;
 
@@ -454,10 +458,11 @@ onlineRegApp.controller('RegisterController', function ($scope, $rootScope, $loc
 	        $http({
 	            method: 'POST',
 	            url: 'api/event/' + $routeParams.eventId + '/register/' + $scope.userId,
-	            params: {
+	            headers: {"Content-Type" : undefined},
+	            data: $.param({
 	                invitationstatus: $scope.acceptance.id,
 	                notehost: $scope.noteToHost
-	            }
+	            })
 	        }).success(function (result) {
 	            console.log("Teilnahme gespeichert: " + result);
 	        });
@@ -474,11 +479,12 @@ onlineRegApp.controller('RegisterUserController',  function($scope, $http) {
 		$http({
 			method: 'POST',
 		    url: 'api/user/register/' + encodeURIComponent($scope.osiam.userName) + '',
-		    params: {
+            headers: {"Content-Type" : undefined},
+            data: $.param({
 		        osiam_firstname: $scope.osiam.firstName,
 		        osiam_secondname: $scope.osiam.lastName,
 		        osiam_password1: $scope.osiam.password
-		    }
+		    })
 		}).success(function (result) {
 		    switch(result.status) {
 		    case 'OK':

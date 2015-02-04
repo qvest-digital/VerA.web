@@ -22,22 +22,26 @@ package org.evolvis.veraweb.onlinereg.user;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.UniformInterfaceException;
+
 import lombok.Getter;
+
 import org.evolvis.veraweb.onlinereg.Config;
+import org.osiam.client.exception.ConnectionInitializationException;
 import org.osiam.resources.scim.User;
 
 import javax.servlet.ServletContext;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
-import java.io.IOException;
 
+import java.io.IOException;
 /**
  * Created by mley on 26.08.14.
+ * Edited by Max Marche <m.marche@tarent.de>
  */
 @Path("/idm")
 @Produces(MediaType.APPLICATION_JSON)
@@ -72,6 +76,8 @@ public class LoginResource {
         this.config = config;
         this.client = client;
     }
+    
+
 
     /**
      * Logs a user in.
@@ -80,29 +86,25 @@ public class LoginResource {
      * @param password password
      * @return true if login was successful, fals if username or password are not vaild
      */
-    @POST
-    @Path("/login/{username}")
-    public boolean login(@PathParam("username") String userName, @QueryParam("password") String password) throws IOException {
-
-        try {
-            if (userName == null || password == null) {
-                return false;
-            }
-            String accessToken = config.getOsiam().getClient(client).getAccessToken(userName, password, "POST");
-            context.setAttribute(USERNAME, userName);
-            context.setAttribute(ACCESS_TOKEN, accessToken);
-            return true;
-        } catch (UniformInterfaceException uie) {
-            ClientResponse response = uie.getResponse();
-            if (response.getStatus() == 400) {
-                // status 400 indicates user error: user does not exist, password wrong, user deactivated, etc...
-                return false;
-            } else {
-                throw uie;
-            }
-        }
-
-    }
+	@POST
+	@Path("/login/{username}")
+	public boolean login(@PathParam("username") String userName,
+			@FormParam("password") String password) throws IOException {
+		if (userName == null || password == null) {
+			return false;
+		}
+		
+		try {
+			String accessToken = config.getOsiam().getClient(client)
+					.getAccessToken(userName, password, "POST");
+			
+			context.setAttribute(USERNAME, userName);
+			context.setAttribute(ACCESS_TOKEN, accessToken);
+			return true;
+		} catch (ConnectionInitializationException cie) {
+			return false;
+		}
+	}
 
     /**
      * Test if user is logged in.
