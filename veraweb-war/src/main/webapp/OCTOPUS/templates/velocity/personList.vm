@@ -75,10 +75,10 @@
 	
 	#if($deleted)
 		<script>
-			  #if($deleted == 1)
+			#if($deleted == 1)
 				showSuccess('Es wurde eine Person gel&ouml;scht.');
-		   #elseif($deleted > 1)
-			 	showSuccess('Es wurden $deleted Personen gel&ouml;scht.');
+			#elseif($deleted > 1)
+				showSuccess('Es wurden $deleted Personen gel&ouml;scht.');
 			#end
 	   </script>
 	#end
@@ -87,8 +87,12 @@
 	#if($workareaAssigned )
 		<script>
 		   #if($workareaAssigned == "assign")
+            	$(".errormsg").remove();
+            	$(".successmsg").remove();
 				showSuccess('Der Arbeitsbereich wurde erfolgreich hinzugefügt.');
 		   #elseif($workareaAssigned == "unassign")
+            	$(".errormsg").remove();
+            	$(".successmsg").remove();
 			 	showSuccess('Die Arbeitsbereiche wurden erfolgreich entfernt.');
 			#end
 	   </script>
@@ -97,8 +101,12 @@
 	#if($categoryAssigned )
 		<script>
 		   #if($categoryAssigned == "assign")
+            	$(".errormsg").remove();
+            	$(".successmsg").remove();
 				showSuccess('Die Kategorie wurde erfolgreich hinzugefügt.');
 		   #elseif($categoryAssigned == "unassign")
+            	$(".errormsg").remove();
+            	$(".successmsg").remove();
 			 	showSuccess('Die Kategorien wurden erfolgreich entfernt.');
 			#end
 	   </script>
@@ -181,11 +189,15 @@
 var showDeleteMessages = function () {
 		
             #if(!$grants.mayWrite())
+            	$(".errormsg").remove();
+            	$(".successmsg").remove();
                 showWarning('Sie haben keine ausreichende Berechtigung um Personen zu entfernen.');
                 return;
             #end
             var checkBoxes = $('input:checkbox[name$="-select"]:checked');
             if (checkBoxes.length === 0) {
+            	$(".errormsg").remove();
+            	$(".successmsg").remove();
                 showWarning('W&auml;hlen Sie bitte zun&auml;chst eine oder mehrere Personen aus.');
             } else {
 
@@ -251,6 +263,8 @@ var showDeleteMessages = function () {
                         'Diese Aktion kann nicht r&uuml;ckg&auml;ngig gemacht werden.<br>';
                 // disable all checkboxes while confirmation is visible
                 $('input:checkbox').prop('disabled', true);
+                $(".errormsg").remove();
+        		$(".successmsg").remove();
                 showConfirmYesNo('Bitte best&auml;tigen Sie das L&ouml;schen der markierten Personen!',
                     msg,
                     function () { // Ja
@@ -263,6 +277,8 @@ var showDeleteMessages = function () {
                         $('input:checkbox').prop('disabled', false);
                         $('form').append('<input type="hidden" name="remove" value="Ja" >').submit();
                     }, function () { // Nein
+		            	$(".errormsg").remove();
+		            	$(".successmsg").remove();
                         showSuccess('Es wurde keine Person gel&ouml;scht.');
                         $('input:checkbox').prop('disabled', false);
                     });
@@ -273,6 +289,8 @@ $(function () {
    // var showSuccessForWorkarea = function () {
     //	$(document).ready(function(){
         	document.getElementsByName("workareaAssignmentAction").value = "${assignmentActionForWorkarea}";
+        	$(".errormsg").remove();
+        	$(".successmsg").remove();
         	
         	#if($assignmentActionForWorkarea == "assign")
         		showSuccess('Der Arbeitsbereich wurde erfolgreich hinzugefügt.');
@@ -372,6 +390,8 @@ function submitFormWithGivenAction(action) {
                 <script language="JavaScript">
                 	function hasNoMain(box) {
                 		if (document.getElementById(box).checked) {
+			            	$(".errormsg").remove();
+			            	$(".successmsg").remove();
                 			showWarning('Zu dieser Person ist keine Hauptperson eingetragen.');
                 			document.getElementById(box).checked = false;
                 		}
@@ -419,6 +439,8 @@ function submitFormWithGivenAction(action) {
                 			checked = document.getElementById(box1).checked || document.getElementById(box2).checked;
                 			if ( ! checked )
                 			{
+				            	$(".errormsg").remove();
+				            	$(".successmsg").remove();
                 				showWarning( "Diese Person kann nicht auf Reserve gesetzt werden, da die notwendigen Daten " + errmsg + " nicht vollständig erfasst wurden." );
                 				document.getElementById(box3).checked = false;
                 			}
@@ -471,6 +493,8 @@ function submitFormWithGivenAction(action) {
                 		if ( hasSelection() ) {
                 			selectPersonCategory( "${paths.staticWeb}do/popupUnassignPersonCategory?count=" + selectedCount );
                 		} else {
+			            	$(".errormsg").remove();
+			            	$(".successmsg").remove();
                 			showWarning( "Wählen Sie bitte zunächst eine oder mehrere Personen aus." );
                 		}
                 	}
@@ -480,6 +504,8 @@ function submitFormWithGivenAction(action) {
                 			selectPersonCategory( "${paths.staticWeb}do/popupAssignPersonCategory?count=" + selectedCount );
 							
                 		} else {
+			            	$(".errormsg").remove();
+			            	$(".successmsg").remove();
                 			showWarning( "Wählen Sie bitte zunächst eine oder mehrere Personen aus." );
                 		}
                 	}
@@ -488,6 +514,8 @@ function submitFormWithGivenAction(action) {
                 		if ( hasSelection() ) {
                 			selectPersonWorkarea( "${paths.staticWeb}do/popupUnassignPersonWorkarea?count=" + selectedCount );
                 		} else {
+			            	$(".errormsg").remove();
+			            	$(".successmsg").remove();
                 			showWarning( "Wählen Sie bitte zunächst eine oder mehrere Personen aus." );
                 		}
                 	}
@@ -496,6 +524,8 @@ function submitFormWithGivenAction(action) {
                 		if ( hasSelection() ) {
                 			selectPersonWorkarea( "${paths.staticWeb}do/popupAssignPersonWorkarea?count=" + selectedCount );
                 		} else {
+			            	$(".errormsg").remove();
+			            	$(".successmsg").remove();
                 			showWarning( "Wählen Sie bitte zunächst eine oder mehrere Personen aus." );
                 		}
                 	}
