@@ -130,7 +130,6 @@ public class LoginResource {
 			context.setAttribute(USERNAME, userName);
 			context.setAttribute(ACCESS_TOKEN, accessToken);
 			
-//			String returnedValue = readResource(path("person", "userinfo", userName), String.class);
 			WebResource resource;
 
             resource = client.resource(path("person", "userinfo", userName));
@@ -230,7 +229,7 @@ public class LoginResource {
         } catch (ClientHandlerException che) {
             if (che.getCause() instanceof SocketTimeoutException) {
                 //FIXME some times open, pooled connections time out and generate errors
-//                log.warning("Retrying request to " + path + " once because of SocketTimeoutException");
+                log.warning("Retrying request to " + path + " once because of SocketTimeoutException");
                 resource = client.resource(path);
                 String json = resource.get(String.class);
                 return mapper.readValue(json, type);
@@ -239,7 +238,7 @@ public class LoginResource {
             }
 
         } catch (UniformInterfaceException uie) {
-//            log.warning(uie.getResponse().getEntity(String.class));
+            log.warning(uie.getResponse().getEntity(String.class));
             throw uie;
         }
     }
