@@ -19,13 +19,22 @@
  */
 package org.evolvis.veraweb.onlinereg.user;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.jersey.api.client.Client;
+import com.sun.jersey.api.client.ClientHandlerException;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.UniformInterfaceException;
+import com.sun.jersey.api.client.WebResource;
 
 import lombok.Getter;
 
 import org.evolvis.veraweb.onlinereg.Config;
+import org.evolvis.veraweb.onlinereg.entities.Guest;
+import org.evolvis.veraweb.onlinereg.entities.Person;
+import org.evolvis.veraweb.onlinereg.utils.StatusConverter;
+import org.hibernate.Query;
+import org.hibernate.Session;
 import org.osiam.client.exception.ConnectionInitializationException;
 import org.osiam.resources.scim.User;
 
@@ -36,9 +45,11 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import java.io.IOException;
+import java.net.SocketTimeoutException;
 
 /**
  * Created by mley on 26.08.14.
@@ -49,12 +60,30 @@ import java.io.IOException;
 public class LoginResource {
 
     public static final String USERNAME = "USERNAME";
+    
+    /**
+     * base path of all resource
+     */
+    public static final String BASE_RESOURCE = "/rest";
 
+    
+    /**
+     * String
+     */
+    private static final TypeReference<String> STRING = new TypeReference<String>() {
+    };
+    
     /**
      * key name for access tokens
      */
     public static final String ACCESS_TOKEN = "ACCESS_TOKEN";
 
+
+    /**
+     * Jackson Object Mapper
+     */
+    private ObjectMapper mapper = new ObjectMapper();
+    
     /**
      * configuration
      */
@@ -89,21 +118,38 @@ public class LoginResource {
      */
 	@POST
 	@Path("/login/{username}")
-	public boolean login(@PathParam("username") String userName,
+	public String login(@PathParam("username") String userName,
 			@FormParam("password") String password) throws IOException {
 		if (userName == null || password == null) {
-			return false;
+			return null;
 		}
 		
 		try {
 			String accessToken = config.getOsiam().getClient(client)
 					.getAccessToken(userName, password, "POST");
-			
 			context.setAttribute(USERNAME, userName);
 			context.setAttribute(ACCESS_TOKEN, accessToken);
-			return true;
+			
+//			String returnedValue = readResource(path("person", "userinfo", userName), String.class);
+			WebResource resource;
+
+            resource = client.resource(path("person", "userinfo", userName));
+            String returnedValue;
+            
+            try {
+            	returnedValue = resource.get(String.class);
+            } catch (UniformInterfaceException e) {
+               int statusCode = e.getResponse().getStatus();
+               if(statusCode == 204) {
+               		return StatusConverter.convertStatus(userName);
+               }
+
+               return null;
+            }
+
+			return StatusConverter.convertStatus(returnedValue);
 		} catch (ConnectionInitializationException cie) {
-			return false;
+			return null;
 		}
 	}
 
@@ -149,4 +195,54 @@ public class LoginResource {
         context.removeAttribute(USERNAME);
         context.removeAttribute(ACCESS_TOKEN);
     }
+    
+
+    /**
+     * Constructs a path from vera.web endpint, BASE_RESOURCE and given path fragmensts.
+     *
+     * @param path path fragments
+     * @return complete path as string
+     */
+    private String path(Object... path) {
+        String r = config.getVerawebEndpoint() + BASE_RESOURCE;
+        for (Object p : path) {
+            r += "/" + p;
+        }
+        return r;
+    }
+    
+
+    /**
+     * Reads the resource at given path and returns the entity.
+     *
+     * @param path path
+     * @param type TypeReference of requested entity
+     * @param <T>  Type of requested entity
+     * @return requested resource
+     * @throws IOException
+     */
+    private <T> T readResource(String path, TypeReference<T> type) throws IOException {
+        WebResource resource;
+        try {
+            resource = client.resource(path);
+            String json = resource.get(String.class);
+            return mapper.readValue(json, type);
+        } catch (ClientHandlerException che) {
+            if (che.getCause() instanceof SocketTimeoutException) {
+                //FIXME some times open, pooled connections time out and generate errors
+//                log.warning("Retrying request to " + path + " once because of SocketTimeoutException");
+                resource = client.resource(path);
+                String json = resource.get(String.class);
+                return mapper.readValue(json, type);
+            } else {
+                throw che;
+            }
+
+        } catch (UniformInterfaceException uie) {
+//            log.warning(uie.getResponse().getEntity(String.class));
+            throw uie;
+        }
+    }
+    
+    
 }
