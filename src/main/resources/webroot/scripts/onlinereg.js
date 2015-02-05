@@ -322,6 +322,7 @@ onlineRegApp.controller('DirectLoginController', function ($scope, $location, $h
             $rootScope.messageContent = "Erfolgreich abgemeldet!";
             $rootScope.status = "success";
             $rootScope.user_logged_in = null;
+            $rootScope.userinfo = null;
             $location.path('/');
         }).error(function (data, status, headers, config) {
             console.log('ERROR! Logout failed!”')
@@ -342,12 +343,14 @@ onlineRegApp.controller('DirectLoginController', function ($scope, $location, $h
         }).success(function (result) {
             $scope.button = false;
             $rootScope.error = null;
-            if (result) {
+            if (result != "") {
+				$rootScope.userinfo = result.status;
                 console.log("Login erfolgreich");
 		    	$rootScope.user_logged_in = $scope.directusername;
                 $rootScope.status = null;
                 $rootScope.messageContent = null;
             } else {
+            	$rootScope.userinfo = null;
                 $rootScope.messageContent = "Der Benutzername oder das Passwort ist falsch.";
                 $rootScope.status = "danger";
             }
@@ -391,8 +394,9 @@ onlineRegApp.controller('LoginController', function ($scope, $location, $http, $
         }).success(function (result) {
             $scope.button = false;
 
-            if (result) {
+            if (result != "") {
 				$rootScope.user_logged_in = $scope.username;
+				$rootScope.userinfo = result.status;
                 $rootScope.status = null;
                 $rootScope.messageContent = null;
                 $location.path($scope.nextPage); 
