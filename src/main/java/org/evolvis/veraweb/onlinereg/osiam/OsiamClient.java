@@ -95,6 +95,9 @@ public class OsiamClient {
     	AccessToken accessToken = new AccessToken.Builder(accessTokenAsString).build();
     	SCIMSearchResult<User> users = this.connector.searchUsers(query, accessToken);
     	
+    	if(users.getResources().size() == 0) {
+    		return null;
+    	}
     	return users.getResources().get(0);
     }
 
