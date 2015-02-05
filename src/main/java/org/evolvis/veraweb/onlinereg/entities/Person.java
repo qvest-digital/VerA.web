@@ -41,19 +41,15 @@ import java.util.Date;
 @Entity
 @Table(name = "tperson")
 @NamedQueries(value = {
-        @NamedQuery(name = "Person.findByUsername", query = "SELECT p FROM Person p where note_a_e1 like :username"),
-        @NamedQuery(name = "Person.findPersonIdByUsername", query = "SELECT p.pk FROM Person p where note_a_e1 like :username")
+        @NamedQuery(name = "Person.findByUsername", query = "SELECT p FROM Person p where username like :username"),
+        @NamedQuery(name = "Person.findPersonIdByUsername", query = "SELECT p.pk FROM Person p where username like :username")
 })
 @NamedNativeQueries(value={
 		 @NamedNativeQuery(name="Person.getDelegatesByUUID", query = "SELECT tperson.* FROM tperson LEFT JOIN tguest g on tperson.pk=g.fk_person WHERE g.delegation=:uuid AND tperson.iscompany='f'", resultClass=Person.class),
-		 @NamedNativeQuery(name="Person.getCompanyByUUID", query = "SELECT tperson.* FROM tperson LEFT JOIN tguest g on tperson.pk=g.fk_person WHERE g.delegation=:uuid AND tperson.iscompany='t'", resultClass=Person.class)
+		 @NamedNativeQuery(name="Person.getCompanyByUUID", query = "SELECT tperson.* FROM tperson LEFT JOIN tguest g on tperson.pk=g.fk_person WHERE g.delegation=:uuid AND tperson.iscompany='t'", resultClass=Person.class),
+		 @NamedNativeQuery(name = "Person.getPersonNamesByUsername", query = "SELECT firstname_a_e1 || ' ' || lastname_a_e1 from tperson where username like :username")
 })
 public class Person {
-
-
-    private static final String USERNAME_TEMPLATE = "username:";
-    private static final String DELEGIERT_NAME = "delegiert";
-    private static final String USERNAME_REGEX = USERNAME_TEMPLATE+"(\\w+)";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -85,6 +81,9 @@ public class Person {
     private String sex_a_e1;
     
     private String company_a_e1;
+    
+    /* Username for the Onlinereg service */
+    private String username;
 
     public void setFirstName(String firstName) {
         firstname_a_e1 = firstname_a_e2 = firstname_a_e3 = firstName;
@@ -94,15 +93,6 @@ public class Person {
         lastname_a_e1 = lastname_a_e2 = lastname_a_e3 = lastName;
     }
 
-    public void setUsername(String username) {
-        if(note_a_e1 != null && note_a_e1.contains(USERNAME_REGEX)) {
-            note_a_e1.replaceFirst(USERNAME_REGEX, USERNAME_TEMPLATE+username);
-        }
-        else {
-            note_a_e1 = USERNAME_TEMPLATE+username;
-        }
-    }
-    
     public String getCompany_a_e1() {
 		return company_a_e1;
 	}
@@ -261,6 +251,22 @@ public class Person {
 
 	public void setPk(int pk) {
 		this.pk = pk;
+	}
+	
+	public Date getChanged() {
+		return changed;
+	}
+	
+	public void setChanged(Date changed) {
+		this.changed = changed;
+	}
+	
+	public String getUsername() {
+		return username;
+	}
+	
+	public void setUsername(String username) {
+		this.username = username;
 	}
     
 }
