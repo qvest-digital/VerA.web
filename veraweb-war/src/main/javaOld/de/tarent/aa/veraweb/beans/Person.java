@@ -298,16 +298,18 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
     public void verify() throws BeanException {
 		AddressHelper.checkPerson(this);
 
-		solveXSS();
-		
-		if (company_a_e1.length()>100) {
-	        addError("Sie müssen einen Namen für die Firma/Institution mit dem richtigen Länge angeben.");
-		}
-		if (firstname_a_e1.length()>100) {
-	        addError("Sie müssen einen Vornamen für das Hauptperson mit dem richtigen Länge angeben.");
-		}
-		if (lastname_a_e1.length()>100) {
-	        addError("Sie müssen einen Nachnamen für das Hauptperson mit dem richtigen Länge angeben.");
+		if (company_a_e1 != null && firstname_a_e1 != null && lastname_a_e1 != null) {
+			solveXSS();
+			
+			if (company_a_e1.length()>100) {
+		        addError("Sie müssen einen Namen für die Firma/Institution mit dem richtigen Länge angeben.");
+			}
+			if (firstname_a_e1.length()>100) {
+		        addError("Sie müssen einen Vornamen für das Hauptperson mit dem richtigen Länge angeben.");
+			}
+			if (lastname_a_e1.length()>100) {
+		        addError("Sie müssen einen Nachnamen für das Hauptperson mit dem richtigen Länge angeben.");
+			}
 		}
 		if (iscompany != null && iscompany.equals(PersonConstants.ISCOMPANY_TRUE)) {
 		    if (company_a_e1 == null || company_a_e1.trim().equals("")) {
