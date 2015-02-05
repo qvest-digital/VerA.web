@@ -69,7 +69,7 @@ public class EventResource extends AbstractResource {
         final Session session = openSession();
         try {
             final Query query = session.getNamedQuery("Person.findPersonIdByUsername");
-            query.setString("username", "username:" + username);
+            query.setString("username", username);
             if (query.list().isEmpty()) {
                 // user does not exists
                 return null;
