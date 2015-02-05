@@ -138,6 +138,21 @@ public class PersonResource extends AbstractResource {
             session.close();
         }
     }
+	
+	@GET
+	@Path("/userinfo/{username}")
+	public String getFirstAndLastName(@PathParam("username") String username) {
+		final Session session = openSession();
+		try {
+			final Query query = session.getNamedQuery("Person.getPersonNamesByUsername");
+	        query.setString("username", username);
+	        
+	        return (String) query.uniqueResult();
+		} finally {
+            session.close();
+        }
+		
+	}
 
     /**
      * Get delegates for specific event by delegation uuid.
@@ -226,7 +241,7 @@ public class PersonResource extends AbstractResource {
 
     private Query getSelectPersonByUsernameQuery(String username, Session session) {
         final Query query = session.getNamedQuery("Person.findByUsername");
-        query.setString("username", "username:" + username);
+        query.setString("username", username);
         return query;
     }
 
