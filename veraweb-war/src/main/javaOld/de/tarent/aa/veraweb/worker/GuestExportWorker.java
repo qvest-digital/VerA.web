@@ -46,13 +46,17 @@ import de.tarent.aa.veraweb.utils.PropertiesReader;
 import de.tarent.aa.veraweb.utils.URLGenerator;
 import de.tarent.commons.spreadsheet.export.SpreadSheet;
 import de.tarent.commons.spreadsheet.export.SpreadSheetFactory;
+import de.tarent.dblayer.engine.DB;
+import de.tarent.dblayer.engine.DBContext;
 import de.tarent.dblayer.sql.Escaper;
 import de.tarent.dblayer.sql.Join;
+import de.tarent.dblayer.sql.SQL;
 import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.clause.RawClause;
 import de.tarent.dblayer.sql.clause.Where;
 import de.tarent.dblayer.sql.clause.WhereList;
 import de.tarent.dblayer.sql.statement.Select;
+import de.tarent.dblayer.sql.statement.Update;
 import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.beans.Database;
 import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
@@ -394,7 +398,7 @@ public class GuestExportWorker {
 					// Mit Partner
 					if (showA) {
 						spreadSheet.openRow();
-						exportOnlyPerson(spreadSheet, event, location, guest, data, isPressStaff);
+						exportOnlyPerson(spreadSheet, event, location, guest, data, isPressStaff, cntx);
 						spreadSheet.closeRow();
 					}
 					if (showB) {
@@ -407,7 +411,7 @@ public class GuestExportWorker {
 					// Ohne Partner
 					if (showA) {
 						spreadSheet.openRow();
-						exportOnlyPerson(spreadSheet, event, location, guest, data, isPressStaff);
+						exportOnlyPerson(spreadSheet, event, location, guest, data, isPressStaff, cntx);
 						spreadSheet.closeRow();
 					}
 				} else if (invitationtype.intValue() == EventConstants.TYPE_NURPARTNER) {
@@ -434,7 +438,7 @@ public class GuestExportWorker {
 					// Ohne Partner
 					if (showA) {
 						spreadSheet.openRow();
-						exportOnlyPerson(spreadSheet, event, location,  guest, data, isPressStaff);
+						exportOnlyPerson(spreadSheet, event, location,  guest, data, isPressStaff, cntx);
 						spreadSheet.closeRow();
 					}
 				} else if (invitationtype.intValue() == EventConstants.TYPE_NURPARTNER) {
@@ -864,8 +868,9 @@ public class GuestExportWorker {
 	 * @param guest Map mit den Gastdaten.
 	 * @param data Zusatzinformationen.
 	 * @throws IOException Wenn die Generierung von URL fur Delegation fehlschlug.
+	 * @throws BeanException 
 	 */
-	protected void exportOnlyPerson(SpreadSheet spreadSheet, Event event, Location location, Map guest, Map data, Boolean isPressStaff) throws IOException {
+	protected void exportOnlyPerson(SpreadSheet spreadSheet, Event event, Location location, Map guest, Map data, Boolean isPressStaff, OctopusContext cntx) throws IOException, BeanException {
 		checkIfOsiamIsAvailable();
 		//
 		// Gast spezifische Daten
@@ -981,10 +986,36 @@ public class GuestExportWorker {
 		}
 
 		addLocationCells(spreadSheet, location);
-		if(isOsiamActive) addDelegationLoginCells(spreadSheet, guest, event);
+		if(isOsiamActive) {
+			addDelegationLoginCells(spreadSheet, guest, event);
+			// Updating username in tperson
+			updateDelegationUsername(cntx, guest.get("osiam_login").toString(), (Integer)guest.get("fk_person"));
+		}
 
 		spreadSheet.addCell(event.note);
 	}
+	
+
+	/**
+	 * Checking if one guest is from the press staff
+	 * 
+	 * @return Boolean
+	 * @throws IOException 
+	 * @throws BeanException 
+	 */
+	private void updateDelegationUsername(OctopusContext cntx, String username, Integer personId) throws BeanException, IOException {
+		final Database database = new DatabaseVeraWeb(cntx);
+		database.execute(SQL.Update( database ).
+				table("veraweb.tperson").
+				update("username", username).
+				where(Expr.equal("pk", personId)));
+	}
+	
+	
+	
+	
+	
+	
 
 	/**
 	 * Export ausschlie�lich die Partner-Daten in eine Zeile.
