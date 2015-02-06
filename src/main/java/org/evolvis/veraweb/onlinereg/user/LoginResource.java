@@ -48,6 +48,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
+import lombok.extern.java.Log;
+
 import java.io.IOException;
 import java.net.SocketTimeoutException;
 
@@ -57,6 +59,7 @@ import java.net.SocketTimeoutException;
  */
 @Path("/idm")
 @Produces(MediaType.APPLICATION_JSON)
+@Log
 public class LoginResource {
 
     public static final String USERNAME = "USERNAME";
