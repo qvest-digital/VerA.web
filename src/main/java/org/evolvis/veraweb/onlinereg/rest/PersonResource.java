@@ -26,6 +26,7 @@ import org.evolvis.veraweb.onlinereg.entities.Person;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
+import javax.persistence.NamedQuery;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -189,6 +190,20 @@ public class PersonResource extends AbstractResource {
         try {
             final Query query = session.getNamedQuery("Person.getCompanyByUUID");
             query.setString("uuid", uuid);
+
+            return (Person)query.uniqueResult();
+        } finally {
+            session.close();
+        }
+    }
+    
+    @GET
+    @Path("/userdata/{username}")
+    public Person getPersonByUsername(@PathParam("username") String username) {
+    	final Session session = openSession();
+        try {
+            final Query query = session.getNamedQuery("Person.findByUsername");
+            query.setString("username", username);
 
             return (Person)query.uniqueResult();
         } finally {

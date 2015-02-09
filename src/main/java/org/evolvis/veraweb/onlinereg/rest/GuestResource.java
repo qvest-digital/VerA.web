@@ -211,7 +211,7 @@ public class GuestResource extends AbstractResource{
                                 @QueryParam("category") Integer category) {
         final Session session = openSession();
 		try {
-            final Guest guest = initGuest(uuid,eventId, userId, invitationstatus, invitationtype, gender, category);
+            final Guest guest = initGuest(uuid,eventId, userId, invitationstatus, invitationtype, gender, category, null);
 
             session.save(guest);
 			session.flush();
@@ -222,12 +222,47 @@ public class GuestResource extends AbstractResource{
 		}
     }
 
+    /**
+     * Add guest to event.
+     *
+     * @param uuid Uuid
+     * @param eventId Event id
+     * @param userId User id
+     * @param invitationstatus Invitation status
+     * @param invitationtype Invitationtype
+     * @param gender Gender
+     * @param category Category
+     *
+     * @return Guest
+     */
+    @POST
+    @Path("/register")
+    public Guest addGuestToEvent(
+                                @QueryParam("eventId") Integer eventId,
+                                @QueryParam("userId") Integer userId,
+                                @QueryParam("invitationstatus") Integer invitationstatus,
+                                @QueryParam("invitationtype") Integer invitationtype,
+                                @QueryParam("gender") String gender,
+                                @QueryParam("category") Integer category,
+                                @QueryParam("username") String username) {
+        final Session session = openSession();
+		try {
+            final Guest guest = initGuest(null,eventId, userId, invitationstatus, invitationtype, gender, category, username);
+
+            session.save(guest);
+			session.flush();
+
+			return guest;
+		} finally {
+			session.close();
+		}
+    }
 
     /**
      * Initialize guest with event information
      */
     private Guest initGuest(String uuid, Integer eventId, Integer userId, Integer invitationstatus,
-                            Integer invitationtype, String gender, Integer category) {
+                            Integer invitationtype, String gender, Integer category, String username) {
         final Guest guest = new Guest();
         guest.setDelegation(uuid);
         guest.setFk_person(userId);
@@ -235,6 +270,7 @@ public class GuestResource extends AbstractResource{
         guest.setInvitationstatus(invitationstatus);
         guest.setNotehost("");
         guest.setInvitationtype(invitationtype);
+        guest.setOsiam_login(username);
         setGender(gender, guest);
         guest.setFk_category(category);
 
