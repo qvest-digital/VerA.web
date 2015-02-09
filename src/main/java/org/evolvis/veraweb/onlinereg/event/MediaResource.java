@@ -93,6 +93,21 @@ public class MediaResource {
 		return null;
     }
 
+    /**
+     * Adds delegate to event
+     *
+     * @param uuid     user name
+     * @param nachname family name
+     * @param vorname  first name
+     * @param gender   gender
+     * @param email    E-Mail Address
+     * @param address  address
+     * @param plz      zip code
+     * @param city     city
+     * @param country  country
+     *
+     * @return result of delegation. Values can be "WRONG_EVENT"
+     */
     @POST
     @Path("/{uuid}/register")
     public String registerDelegateForEvent(
@@ -110,10 +125,10 @@ public class MediaResource {
 
         if(delegationIsFound) {
         	PressTransporter transporter = new PressTransporter(uuid, nachname, vorname, gender, email, address, plz, city, country);
-        	
+
             return StatusConverter.convertStatus(handlePressEvent(transporter));
         }
-        
+
         return StatusConverter.convertStatus("WRONG_EVENT");
     }
 
@@ -139,6 +154,10 @@ public class MediaResource {
      *
      * @param eventId Event id
      * @param userId User id
+     * @param invitationstatus invitationstatus
+     * @param invitationtype invitation type
+     * @param gender gender
+     * @param category category
      * @throws IOException
      */
     private void addGuestToEvent(String uuid, String eventId, String userId, String gender) throws IOException {
@@ -172,8 +191,18 @@ public class MediaResource {
     /**
      * Includes a new person in the database - Table "tperson"
      *
-     * @param nachname Last name
-     * @param vorname First name
+     * @param eventId   event ID
+     * @param username  username
+     * @param firstname first name
+     * @param lastname  last name
+     * @param gender    gender
+     * @param email     E-Mail
+     * @param address   address
+     * @param plz       zip code
+     * @param city      city
+     * @param country   country
+     *
+     * return primary key for a person
      */
     private Integer createPerson(Integer eventId, PressTransporter transporter) {
         WebResource resource = client.resource(config.getVerawebEndpoint() + "/rest/person/press/");
