@@ -72,6 +72,7 @@ public class Guest {
     private String notehost;
     private String delegation;
     private Integer fk_category;
+    private String osiam_login;
 
 	public int getPk() {
 		return pk;
@@ -148,7 +149,13 @@ public class Guest {
 	public void setFk_category(Integer fk_category) {
 		this.fk_category = fk_category;
 	}
-
+	public String getOsiam_login() {
+		return osiam_login;
+	}
+	
+	public void setOsiam_login(String osiam_login) {
+		this.osiam_login = osiam_login;
+	}
 
 }
 
