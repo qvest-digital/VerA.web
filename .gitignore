@@ -3,3 +3,6 @@ mem.h2.db
 mem.trace.db
 **/*.iml
 target/
+.classpath
+.project
+.settings/org.eclipse.jdt.core.prefs

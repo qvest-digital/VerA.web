@@ -83,6 +83,28 @@ public class EventResource extends AbstractResource {
         }
 
     }
+    
+    @Path("/userid/{username}")
+    @GET
+    public Integer getPersonIdByUsername(@PathParam("username") String username) {
+    	final Session session = openSession();
+    	
+    	try {
+            final Query query = session.getNamedQuery("Person.findPersonIdByUsername");
+            query.setString("username", username);
+            if (query.list().isEmpty()) {
+                // user does not exists
+            	// MUST NOT HAPPEN, BUT IT IS A PREVENTION
+                return null;
+            } else {
+                final Integer personId = (Integer) query.uniqueResult();
+                return personId;
+            }
+    	} finally {
+    		session.close();
+    	}
+    	
+    }
 
     /**
      * Get event using the event id
