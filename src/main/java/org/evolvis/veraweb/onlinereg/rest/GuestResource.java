@@ -186,6 +186,31 @@ public class GuestResource extends AbstractResource{
             session.close();
         }
     }
+    /**
+     * Check for existing delegation by delegation uuid.
+     *
+     * @param uuid Delegation UUID
+     *
+     * @return True if exists only one delegation, otherwise false
+     */
+    @GET
+    @Path("/registered/{username}/{eventId}")
+    public Boolean isUserRegisteredintoEvent(@PathParam("username") String username, @PathParam("eventId") Integer eventId) {
+        final Session session = openSession();
+        try {
+            final Query query = session.getNamedQuery("Guest.checkUserRegistration");
+            query.setString("username", username);
+            query.setInteger("eventId", eventId);
+
+            final BigInteger numberOfGuestsFound = (BigInteger) query.uniqueResult();
+            if(numberOfGuestsFound.intValue() > 0) {
+            	return true;
+            }
+            return false;
+        } finally {
+            session.close();
+        }
+    }
 
     /**
      * Add guest to event.
