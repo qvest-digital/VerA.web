@@ -461,10 +461,9 @@ onlineRegApp.controller('RegisterController', function ($scope, $rootScope, $loc
 	    $scope.save = function () {
 	        $http({
 	            method: 'POST',
-	            url: 'api/event/' + $routeParams.eventId + '/register/' + $scope.userId,
+	            url: 'api/event/' + $routeParams.eventId + '/register/' + $rootScope.user_logged_in,
 	            headers: {"Content-Type" : undefined},
 	            data: $.param({
-	                invitationstatus: $scope.acceptance.id,
 	                notehost: $scope.noteToHost
 	            })
 	        }).success(function (result) {

@@ -70,6 +70,6 @@ public class EventResourceTest {
 
     @Test
     public void testSaveRegistration() throws IOException {
-        Guest g = er.register(1, 2, "2", "note");
+        Guest g = er.register("1", "2", "note");
     }
 }
