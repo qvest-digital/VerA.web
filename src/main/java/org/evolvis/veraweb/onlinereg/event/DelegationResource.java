@@ -34,7 +34,9 @@ import org.evolvis.veraweb.onlinereg.entities.Delegation;
 import org.evolvis.veraweb.onlinereg.entities.Guest;
 import org.evolvis.veraweb.onlinereg.entities.OptionalFieldValue;
 import org.evolvis.veraweb.onlinereg.entities.Person;
+import org.evolvis.veraweb.onlinereg.entities.PersonDoctype;
 import org.evolvis.veraweb.onlinereg.utils.StatusConverter;
+import org.osiam.bundled.javax.ws.rs.core.MultivaluedMap;
 
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
@@ -278,16 +280,15 @@ public class DelegationResource {
      */
     private Integer createPerson(String companyName, Integer eventId, String firstname, String lastname, String gender) {
         WebResource personResource = client.resource(config.getVerawebEndpoint() + "/rest/person/delegate");
-
-        personResource = personResource
-        		.queryParam("company", companyName)
-        		.queryParam("eventId", String.valueOf(eventId))
-                .queryParam("username", usernameGenerator())
-                .queryParam("firstname", firstname)
-                .queryParam("lastname", lastname)
-                .queryParam("gender", gender);
+        Map<String, String> postBody = new HashMap<String, String>();
         
-        final Person person = personResource.post(Person.class);
+        postBody.put("company", companyName);
+        postBody.put("eventId", String.valueOf(eventId));
+        postBody.put("username", usernameGenerator());
+        postBody.put("lastname", lastname);
+        postBody.put("gender", gender);
+        
+        final Person person = personResource.post(Person.class, postBody);
         createPersonDoctype(person);
         
     	return person.getPk();
@@ -295,13 +296,13 @@ public class DelegationResource {
     
     private void createPersonDoctype(Person person) {
         WebResource personDoctypeRsource = client.resource(config.getVerawebEndpoint() + "/rest/personDoctype");
-        
-        personDoctypeRsource = personDoctypeRsource
-			.queryParam("personId", Integer.toString(person.getPk()))
-			.queryParam("firstName", person.getFirstname_a_e1())
-	        .queryParam("lastName", person.getLastname_a_e1());
+        Map<String, String> postBody = new HashMap<String, String>();
 
-        personDoctypeRsource.post();
+		postBody.put("personId", Integer.toString(person.getPk()));
+		postBody.put("firstName", person.getFirstname_a_e1());
+        postBody.put("lastName", person.getLastname_a_e1());
+
+        personDoctypeRsource.post(PersonDoctype.class, postBody);
     }
 
     /**
@@ -313,27 +314,28 @@ public class DelegationResource {
      */
     private void addGuestToEvent(String uuid, String eventId, String userId, String gender, String lastName, String firstName) {
 		WebResource resource = client.resource(path("guest", uuid, "register"));
+		Map<String, String> postBody = new HashMap<String, String>();
 
-        resource = resource.queryParam("eventId", eventId)
-        	 .queryParam("userId", userId)
-        	 .queryParam("invitationstatus", "0")
-             .queryParam("invitationtype", INVITATION_TYPE)
-        	 .queryParam("gender", gender)
-        	 .queryParam("category", "0");
+		postBody.put("userId", userId);
+		postBody.put("invitationstatus", "0");
+		postBody.put("invitationtype", INVITATION_TYPE);
+		postBody.put("gender", gender);
+		postBody.put("category", "0");
 
-        final Guest guest = resource.post(Guest.class);
+        final Guest guest = resource.post(Guest.class, postBody);
         
         createGuestDoctype(guest.getPk(), firstName, lastName);
 	}
 	
 	private void createGuestDoctype(int guestId, String firstName, String lastName) {
-		WebResource resource = client.resource(config.getVerawebEndpoint() + "/rest/guestDoctype");
+		WebResource resource = client.resource(config.getVerawebEndpoint() + "/rest/guestDoctype"); 
+		Map<String, String> postBody = new HashMap<String, String>();
 
-        resource = resource.queryParam("guestId", Integer.toString(guestId))
-        	 .queryParam("firstName", firstName)
-        	 .queryParam("lastName", lastName);
+		postBody.put("guestId", Integer.toString(guestId));
+		postBody.put("firstName", firstName);
+		postBody.put("lastName", lastName);
 
-        resource.post();
+        resource.post(postBody);
 	}
 
     /**
@@ -344,15 +346,13 @@ public class DelegationResource {
      */
     private void saveOptionalField(Integer guestId, Integer fieldId, String fieldContent) {
     	WebResource resource = client.resource(path("delegation","field", "save"));
-
+		Map<String, String> postBody = new HashMap<String, String>();
 
     	fieldContent = StringEscapeUtils.escapeHtml(fieldContent);
-    	
-        resource = resource.queryParam("guestId", guestId.toString())
-        	 .queryParam("fieldId", fieldId.toString())
-        	 .queryParam("fieldContent", fieldContent);
+    	postBody.put("fieldId", fieldId.toString());
+    	postBody.put("fieldContent", fieldContent);
 
-        resource.post(Delegation.class);
+        resource.post(Delegation.class, postBody);
     }
 
     /**

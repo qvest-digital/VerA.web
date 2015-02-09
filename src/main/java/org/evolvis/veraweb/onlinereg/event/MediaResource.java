@@ -23,7 +23,9 @@ import java.io.IOException;
 import java.math.BigInteger;
 import java.net.SocketTimeoutException;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
@@ -140,19 +142,18 @@ public class MediaResource {
      * @throws IOException
      */
     private void addGuestToEvent(String uuid, String eventId, String userId, String gender) throws IOException {
-
     	Integer categoryID = getCategoryIdFromCatname("Pressevertreter", uuid);
-
     	WebResource resource = client.resource(path("guest", uuid, "register"));
+    	Map<String, String> postBody = new HashMap<String, String>();
 
-        resource = resource.queryParam("eventId", eventId)
-        	 .queryParam("userId", userId)
-        	 .queryParam("invitationstatus", "0")
-             .queryParam("invitationtype", INVITATION_TYPE)
-        	 .queryParam("gender", gender)
-        	 .queryParam("category", String.valueOf(categoryID));
+        postBody.put("eventId", eventId);
+        postBody.put("userId", userId);
+        postBody.put("invitationstatus", "0");
+        postBody.put("invitationtype", INVITATION_TYPE);
+        postBody.put("gender", gender);
+        postBody.put("category", String.valueOf(categoryID));
 
-        resource.post(Guest.class);
+        resource.post(Guest.class, postBody);
     }
 
     /**
@@ -176,20 +177,20 @@ public class MediaResource {
      */
     private Integer createPerson(Integer eventId, PressTransporter transporter) {
         WebResource resource = client.resource(config.getVerawebEndpoint() + "/rest/person/press/");
+        Map<String, String> postBody = new HashMap<String, String>();
 
-        resource = resource
-        	.queryParam("eventId", String.valueOf(eventId))
-            .queryParam("username", usernameGenerator())
-            .queryParam("firstname", transporter.getVorname())
-            .queryParam("lastname", transporter.getNachname())
-	        .queryParam("gender", correctGender(transporter.getGender()))
-	        .queryParam("email", transporter.getEmail())
-	        .queryParam("address", transporter.getAddress())
-	        .queryParam("plz", transporter.getPlz())
-	        .queryParam("city", transporter.getCity())
-	        .queryParam("country", transporter.getCountry());
+        postBody.put("eventId", String.valueOf(eventId));
+        postBody.put("username", usernameGenerator());
+        postBody.put("firstname", transporter.getVorname());
+        postBody.put("lastname", transporter.getNachname());
+	    postBody.put("gender", correctGender(transporter.getGender()));
+	    postBody.put("email", transporter.getEmail());
+	    postBody.put("address", transporter.getAddress());
+	    postBody.put("plz", transporter.getPlz());
+	    postBody.put("city", transporter.getCity());
+	    postBody.put("country", transporter.getCountry());
 
-        final Person person = resource.post(Person.class);
+        final Person person = resource.post(Person.class, postBody);
 
     	return person.getPk();
     }
