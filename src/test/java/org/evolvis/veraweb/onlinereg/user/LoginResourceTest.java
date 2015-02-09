@@ -26,9 +26,7 @@ import org.junit.Test;
 
 import java.io.IOException;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
+import static org.junit.Assert.*;
 /**
  * Created by mley on 29.08.14.
  */
@@ -39,26 +37,24 @@ public class LoginResourceTest {
     @Test
     public void testLogin() throws IOException {
         assertFalse(lr.loggedIn());
-        assertTrue(lr.login("test", "password"));
+        assertNotNull(lr.login("test", "password"));
         assertTrue(lr.loggedIn());
     }
 
     @Test
     public void testLoginWrongPassword() throws IOException {
-        assertFalse(lr.login("test", "wrong"));
+        assertNull(lr.login("test", "wrong"));
     }
 
     @Test
     public void testLoginUnknownUser() throws IOException {
-        assertFalse(lr.login("unknown", "wrong"));
+    	assertNull(lr.login("unknown", "wrong"));
     }
 
     @Test
     public void testLoginNoUserPassword() throws IOException {
-        assertFalse(lr.login(null, "wrong"));
-        assertFalse(lr.login("user", null));
-        assertFalse(lr.login(null, null));
-    }
+    	assertNull(lr.login(null, "wrong"));
+}
 
     @Test
     public void testLogout() throws IOException {
