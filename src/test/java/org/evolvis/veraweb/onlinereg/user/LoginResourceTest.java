@@ -53,8 +53,10 @@ public class LoginResourceTest {
 
     @Test
     public void testLoginNoUserPassword() throws IOException {
-    	assertNull(lr.login(null, "wrong"));
-}
+		assertNull(lr.login(null, "wrong"));
+        assertNull(lr.login("user", null));
+        assertNull(lr.login(null, null));
+	}
 
     @Test
     public void testLogout() throws IOException {
