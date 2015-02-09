@@ -32,6 +32,7 @@ import org.evolvis.veraweb.onlinereg.Config;
 import org.evolvis.veraweb.onlinereg.entities.Event;
 import org.evolvis.veraweb.onlinereg.entities.Guest;
 import org.evolvis.veraweb.onlinereg.entities.Person;
+import org.evolvis.veraweb.onlinereg.utils.StatusConverter;
 
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
@@ -82,6 +83,11 @@ public class EventResource {
      * Guest type
      */
     private static final TypeReference<Integer> INTEGER = new TypeReference<Integer>() {
+    };
+    /**
+     * Guest type
+     */
+    private static final TypeReference<Boolean> BOOLEAN = new TypeReference<Boolean>() {
     };
 
     private static final Integer INVITATIONSTATUS_ZUSAGE = 1;
@@ -210,24 +216,27 @@ public class EventResource {
      */
     @POST
     @Path("/{eventId}/register/{username}")
-    public Guest register(
+    public String register(
     		@PathParam("eventId") String eventId, 
     		@PathParam("username") String username, 
     		@FormParam("notehost") String notehost) throws IOException {
     	
-    	Person person = getUserData(username);
-    	
-    	Guest guest = null;
-    	Integer userId = person.getPk();
-    	
-    	if (person != null && userId != null) {
-    		guest = addGuestToEvent(eventId, userId.toString(), 
-    				person.getSex_a_e1(), person.getFirstname_a_e1(), 
-    				person.getLastname_a_e1(), username);
+    	// checking if the user is registered on the event
+    	if (!isUserRegistered(username, eventId)) {
+    		
+    		Person person = getUserData(username);
+    		Integer userId = person.getPk();
+    		
+    		if (person != null && userId != null) {
+    			addGuestToEvent(eventId, userId.toString(), 
+    					person.getSex_a_e1(), person.getFirstname_a_e1(), 
+    					person.getLastname_a_e1(), username);
+    		}
+    		
+    		return StatusConverter.convertStatus("OK");
     	}
     	
-    	
-    	return guest;
+    	return StatusConverter.convertStatus("REGISTERED");
     }
 
     /**
@@ -243,6 +252,9 @@ public class EventResource {
         return readResource(path("event", "userevents", username), EVENT_LIST);
     }
     
+    private Boolean isUserRegistered(String username, String eventId) throws IOException {
+    	return readResource(path("guest", "registered", username, eventId), BOOLEAN);
+    }
     /**
      * Get Person instance from one username
      * @param username
