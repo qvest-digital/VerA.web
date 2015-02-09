@@ -1010,12 +1010,6 @@ public class GuestExportWorker {
 				update("username", username).
 				where(Expr.equal("pk", personId)));
 	}
-	
-	
-	
-	
-	
-	
 
 	/**
 	 * Export ausschlie�lich die Partner-Daten in eine Zeile.
