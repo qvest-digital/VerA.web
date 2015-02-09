@@ -23,6 +23,7 @@ import org.evolvis.veraweb.onlinereg.entities.GuestDoctype;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
+import javax.ws.rs.FormParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -47,9 +48,9 @@ public class GuestDoctypeResource extends AbstractResource {
 	@POST
 	@Path("/")
 	public GuestDoctype createGuestDoctype(
-			@QueryParam("guestId") int guestId,
-			@QueryParam("firstName") String firstName,
-			@QueryParam("lastName") String lastName) {
+			@FormParam("guestId") int guestId,
+			@FormParam("firstName") String firstName,
+			@FormParam("lastName") String lastName) {
 		final int fkDoctype = 1;
 		final int addresstype = 1;
 		final int locale = 1;

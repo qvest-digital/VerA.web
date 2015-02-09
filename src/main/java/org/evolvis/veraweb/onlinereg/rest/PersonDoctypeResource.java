@@ -23,6 +23,7 @@ import org.evolvis.veraweb.onlinereg.entities.PersonDoctype;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
+import javax.ws.rs.FormParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -39,9 +40,9 @@ public class PersonDoctypeResource extends AbstractResource {
 	@POST
 	@Path("/")
 	public PersonDoctype createPersonDoctype(
-			@QueryParam("personId") int personId,
-			@QueryParam("firstName") String firstName,
-			@QueryParam("lastName") String lastName) {
+			@FormParam("personId") int personId,
+			@FormParam("firstName") String firstName,
+			@FormParam("lastName") String lastName) {
 		int fk_doctype = 1;
 		int addresstype = 1;
 		int locale = 1;
