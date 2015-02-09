@@ -31,6 +31,7 @@ import lombok.extern.java.Log;
 import org.evolvis.veraweb.onlinereg.Config;
 import org.evolvis.veraweb.onlinereg.entities.Event;
 import org.evolvis.veraweb.onlinereg.entities.Guest;
+import org.evolvis.veraweb.onlinereg.entities.Person;
 
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
@@ -38,7 +39,6 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import java.io.IOException;
@@ -69,11 +69,22 @@ public class EventResource {
     private static final TypeReference<List<Event>> EVENT_LIST = new TypeReference<List<Event>>() {
     };
     /**
+     * Person type
+     */
+    private static final TypeReference<Person> PERSON = new TypeReference<Person>() {
+    };
+    /**
      * Guest type
      */
     private static final TypeReference<Guest> GUEST = new TypeReference<Guest>() {
     };
+    /**
+     * Guest type
+     */
+    private static final TypeReference<Integer> INTEGER = new TypeReference<Integer>() {
+    };
 
+    private static final Integer INVITATIONSTATUS_ZUSAGE = 1;
     /**
      * Jersey client
      */
@@ -132,7 +143,7 @@ public class EventResource {
         } catch (ClientHandlerException che) {
             if (che.getCause() instanceof SocketTimeoutException) {
                 //FIXME some times open, pooled connections time out and generate errors
-                log.warning("Retrying request to " + path + " once because of SocketTimeoutException");
+//                log.warning("Retrying request to " + path + " once because of SocketTimeoutException");
                 resource = client.resource(path);
                 String json = resource.get(String.class);
                 return mapper.readValue(json, type);
@@ -141,7 +152,7 @@ public class EventResource {
             }
 
         } catch (UniformInterfaceException uie) {
-            log.warning(uie.getResponse().getEntity(String.class));
+//            log.warning(uie.getResponse().getEntity(String.class));
             throw uie;
         }
     }
@@ -198,15 +209,25 @@ public class EventResource {
      * @throws IOException
      */
     @POST
-    @Path("/{eventId}/register/{userId}")
+    @Path("/{eventId}/register/{username}")
     public Guest register(
-    		@PathParam("eventId") int eventId, 
-    		@PathParam("userId") int userId, 
-    		@FormParam("invitationstatus") String invitationstatus, 
+    		@PathParam("eventId") String eventId, 
+    		@PathParam("username") String username, 
     		@FormParam("notehost") String notehost) throws IOException {
-        WebResource r = client.resource(path("guest", eventId, userId));
-        String result = r.queryParam("invitationstatus", invitationstatus).queryParam("notehost", notehost).post(String.class);
-        return mapper.readValue(result, GUEST);
+    	
+    	Person person = getUserData(username);
+    	
+    	Guest guest = null;
+    	Integer userId = person.getPk();
+    	
+    	if (person != null && userId != null) {
+    		guest = addGuestToEvent(eventId, userId.toString(), 
+    				person.getSex_a_e1(), person.getFirstname_a_e1(), 
+    				person.getLastname_a_e1(), username);
+    	}
+    	
+    	
+    	return guest;
     }
 
     /**
@@ -221,4 +242,50 @@ public class EventResource {
     public List<Event> getUsersEvents(@PathParam("username") String username) throws IOException {
         return readResource(path("event", "userevents", username), EVENT_LIST);
     }
+    
+    /**
+     * Get Person instance from one username
+     * @param username
+     * @return
+     * @throws IOException
+     */
+    private Person getUserData(String username) throws IOException {
+    	return readResource(path("person", "userdata", username), PERSON);
+    }
+    
+    /**
+     * Includes a new guest in the database - Table "tguest".
+     *
+     * @param eventId Event id
+     * @param userId User id
+     * @param gender Gender of the person
+     */
+    private Guest addGuestToEvent(String eventId, String userId, String gender, String lastName, String firstName, String username) {
+		WebResource resource = client.resource(path("guest", "register"));
+
+        resource = resource.queryParam("eventId", eventId)
+        	 .queryParam("userId", userId)
+        	 .queryParam("invitationstatus", INVITATIONSTATUS_ZUSAGE.toString())
+             .queryParam("invitationtype", "2")
+        	 .queryParam("gender", gender)
+        	 .queryParam("category", "0")
+        	 .queryParam("username", username);
+
+        final Guest guest = resource.post(Guest.class);
+        
+        createGuestDoctype(guest.getPk(), firstName, lastName);
+        
+        return guest;
+	}
+	
+	private void createGuestDoctype(int guestId, String firstName, String lastName) {
+		WebResource resource = client.resource(config.getVerawebEndpoint() + "/rest/guestDoctype");
+
+        resource = resource.queryParam("guestId", Integer.toString(guestId))
+        	 .queryParam("firstName", firstName)
+        	 .queryParam("lastName", lastName);
+
+        resource.post();
+	}
+	
 }
