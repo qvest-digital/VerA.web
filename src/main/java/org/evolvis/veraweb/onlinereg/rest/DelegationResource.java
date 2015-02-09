@@ -26,6 +26,7 @@ import org.evolvis.veraweb.onlinereg.entities.pk.DelegationPK;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -33,6 +34,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -106,9 +108,9 @@ public class DelegationResource extends AbstractResource {
     @POST
     @Path("/field/save")
     public Delegation saveOptionalField(
-            @QueryParam("guestId") Integer guestId,
-            @QueryParam("fieldId") Integer fieldId,
-            @QueryParam("fieldContent") String fieldContent) {
+            @FormParam("guestId") Integer guestId,
+            @FormParam("fieldId") Integer fieldId,
+            @FormParam("fieldContent") String fieldContent) {
         final Session session = openSession();
         try {
             final Delegation delegation = new Delegation();

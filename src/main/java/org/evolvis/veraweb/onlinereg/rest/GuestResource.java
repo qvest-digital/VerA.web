@@ -23,6 +23,7 @@ import org.evolvis.veraweb.onlinereg.entities.Guest;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -30,6 +31,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
+
 import java.math.BigInteger;
 
 /**
@@ -203,12 +205,12 @@ public class GuestResource extends AbstractResource{
     @POST
     @Path("/{uuid}/register")
     public Guest addGuestToEvent(@PathParam("uuid") String uuid,
-                                @QueryParam("eventId") Integer eventId,
-                                @QueryParam("userId") Integer userId,
-                                @QueryParam("invitationstatus") Integer invitationstatus,
-                                @QueryParam("invitationtype") Integer invitationtype,
-                                @QueryParam("gender") String gender,
-                                @QueryParam("category") Integer category) {
+                                @FormParam("eventId") Integer eventId,
+                                @FormParam("userId") Integer userId,
+                                @FormParam("invitationstatus") Integer invitationstatus,
+                                @FormParam("invitationtype") Integer invitationtype,
+                                @FormParam("gender") String gender,
+                                @FormParam("category") Integer category) {
         final Session session = openSession();
 		try {
             final Guest guest = initGuest(uuid,eventId, userId, invitationstatus, invitationtype, gender, category);

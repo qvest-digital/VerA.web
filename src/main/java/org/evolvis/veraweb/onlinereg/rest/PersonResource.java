@@ -80,12 +80,12 @@ public class PersonResource extends AbstractResource {
      */
     @POST
     @Path("/delegate")
-    public Person createDelegate(@QueryParam("eventId") Integer eventId,
-                                 @QueryParam("username") String username,
-                                 @QueryParam("firstname") String firstName,
-                                 @QueryParam("lastname") String lastname,
-                                 @QueryParam("gender") String gender,
-                                 @QueryParam("company") String company) {
+    public Person createDelegate(@FormParam("eventId") Integer eventId,
+						    		@FormParam("username") String username,
+						    		@FormParam("firstname") String firstName,
+						    		@FormParam("lastname") String lastname,
+						    		@FormParam("gender") String gender,
+					    			@FormParam("company") String company) {
         final Session session = openSession();
         try {
             final Integer mandantId = getOrgUnitId(session, eventId);
@@ -116,16 +116,16 @@ public class PersonResource extends AbstractResource {
 	@POST
     @Path("/press")
     public Person createPersonPress(
-    						   @QueryParam("eventId") Integer eventId,
-    						   @QueryParam("username") String username,
-                               @QueryParam("firstname") String firstName,
-                               @QueryParam("lastname") String lastname,
-                               @QueryParam("gender") String gender,
-                               @QueryParam("email") String email,
-                       		   @QueryParam("address") String address,
-                       		   @QueryParam("plz") String zipCode,
-                       		   @QueryParam("city") String city,
-                               @QueryParam("country") String country) {
+    						   @FormParam("eventId") Integer eventId,
+    						   @FormParam("username") String username,
+                               @FormParam("firstname") String firstName,
+                               @FormParam("lastname") String lastname,
+                               @FormParam("gender") String gender,
+                               @FormParam("email") String email,
+                       		   @FormParam("address") String address,
+                       		   @FormParam("plz") String zipCode,
+                       		   @FormParam("city") String city,
+                               @FormParam("country") String country) {
 
 
         final Session session = openSession();
