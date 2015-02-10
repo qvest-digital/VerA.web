@@ -54,9 +54,9 @@ public class PersonResource extends AbstractResource {
      */
     @POST
     @Path("/")
-    public Person createPerson(@QueryParam("username") String username,
-                               @QueryParam("firstname") String firstName,
-                               @QueryParam("lastname") String lastname) {
+    public Person createPerson(@FormParam("username") String username,
+    						   @FormParam("firstname") String firstName,
+                               @FormParam("lastname") String lastname) {
         final Session session = openSession();
         try {
             final Person person = handleCreatePerson(username, firstName, lastname, session);
