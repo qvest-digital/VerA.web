@@ -235,10 +235,11 @@ public class GuestResource extends AbstractResource{
                                 @FormParam("invitationstatus") Integer invitationstatus,
                                 @FormParam("invitationtype") Integer invitationtype,
                                 @FormParam("gender") String gender,
-                                @FormParam("category") Integer category) {
+                                @FormParam("category") Integer category,
+                                @FormParam("hostNode") String hostNode) {
         final Session session = openSession();
 		try {
-            final Guest guest = initGuest(uuid,eventId, userId, invitationstatus, invitationtype, gender, category, null);
+            final Guest guest = initGuest(uuid,eventId, userId, invitationstatus, invitationtype, gender, category, null, hostNode);
 
             session.save(guest);
 			session.flush();
@@ -274,7 +275,7 @@ public class GuestResource extends AbstractResource{
                                 @QueryParam("username") String username) {
         final Session session = openSession();
 		try {
-            final Guest guest = initGuest(null,eventId, userId, invitationstatus, invitationtype, gender, category, username);
+            final Guest guest = initGuest(null,eventId, userId, invitationstatus, invitationtype, gender, category, username, null);
 
             session.save(guest);
 			session.flush();
@@ -289,7 +290,7 @@ public class GuestResource extends AbstractResource{
      * Initialize guest with event information
      */
     private Guest initGuest(String uuid, Integer eventId, Integer userId, Integer invitationstatus,
-                            Integer invitationtype, String gender, Integer category, String username) {
+                            Integer invitationtype, String gender, Integer category, String username, String hostNode) {
         final Guest guest = new Guest();
         guest.setDelegation(uuid);
         guest.setFk_person(userId);
@@ -300,6 +301,7 @@ public class GuestResource extends AbstractResource{
         guest.setOsiam_login(username);
         setGender(gender, guest);
         guest.setFk_category(category);
+        guest.setNotehost(hostNode);
 
         return guest;
     }
