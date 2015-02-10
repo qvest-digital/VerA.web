@@ -25,6 +25,7 @@ import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientHandlerException;
 import com.sun.jersey.api.client.UniformInterfaceException;
 import com.sun.jersey.api.client.WebResource;
+import com.sun.jersey.api.representation.Form;
 
 import lombok.extern.java.Log;
 
@@ -44,7 +45,9 @@ import javax.ws.rs.core.MediaType;
 
 import java.io.IOException;
 import java.net.SocketTimeoutException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by mley on 29.07.14.
@@ -90,6 +93,7 @@ public class EventResource {
     private static final TypeReference<Boolean> BOOLEAN = new TypeReference<Boolean>() {
     };
 
+    private static final Integer INVITATIONSTATUS_OPEN = 0;
     private static final Integer INVITATIONSTATUS_ZUSAGE = 1;
     /**
      * Jersey client
@@ -271,13 +275,14 @@ public class EventResource {
      * @param eventId Event id
      * @param userId User id
      * @param gender Gender of the person
+     * @throws IOException 
      */
-    private Guest addGuestToEvent(String eventId, String userId, String gender, String lastName, String firstName, String username) {
+    private Guest addGuestToEvent(String eventId, String userId, String gender, String lastName, String firstName, String username) throws IOException {
 		WebResource resource = client.resource(path("guest", "register"));
 
         resource = resource.queryParam("eventId", eventId)
         	 .queryParam("userId", userId)
-        	 .queryParam("invitationstatus", INVITATIONSTATUS_ZUSAGE.toString())
+        	 .queryParam("invitationstatus", generateInvitationStatus(eventId))
              .queryParam("invitationtype", "2")
         	 .queryParam("gender", gender)
         	 .queryParam("category", "0")
@@ -290,14 +295,27 @@ public class EventResource {
         return guest;
 	}
 	
+    private String generateInvitationStatus(String eventId) throws IOException {
+    	Boolean isOpen = readResource(path("event", "isopen", eventId), BOOLEAN);
+    	
+    	if (isOpen) {
+    		return INVITATIONSTATUS_ZUSAGE.toString();
+    	}
+    	
+    	return INVITATIONSTATUS_OPEN.toString();
+    }
+    
+    
 	private void createGuestDoctype(int guestId, String firstName, String lastName) {
-		WebResource resource = client.resource(config.getVerawebEndpoint() + "/rest/guestDoctype");
+        
+        WebResource resource = client.resource(config.getVerawebEndpoint() + "/rest/guestDoctype"); 
+		
+		Form postBody = new Form();
 
-        resource = resource.queryParam("guestId", Integer.toString(guestId))
-        	 .queryParam("firstName", firstName)
-        	 .queryParam("lastName", lastName);
-
-        resource.post();
+		postBody.add("guestId", Integer.toString(guestId));
+		postBody.add("firstName", firstName);
+		postBody.add("lastName", lastName);
+		resource.type(MediaType.APPLICATION_FORM_URLENCODED).post(postBody);
 	}
 	
 }
