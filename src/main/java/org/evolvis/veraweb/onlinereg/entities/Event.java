@@ -51,7 +51,10 @@ import java.util.Date;
 })
 @NamedNativeQueries({
 	@NamedNativeQuery(name="Event.guestByUUID",query="SELECT count(e.*) FROM tevent e WHERE mediarepresentatives=:uuid "),
-    @NamedNativeQuery(name="Event.getEventByUUID", query="SELECT e.pk FROM tevent e where e.mediarepresentatives=:uuid ")
+    @NamedNativeQuery(name="Event.getEventByUUID", query="SELECT e.pk FROM tevent e where e.mediarepresentatives=:uuid "),
+    @NamedNativeQuery(name="Event.isOpen", query="SELECT count(e.*) FROM tevent e " +
+											     "WHERE (CURRENT_TIMESTAMP < e.datebegin OR CURRENT_TIMESTAMP < e.dateend) " +
+											     "AND e.eventtype LIKE 'Offene Veranstaltung' AND pk=:eventId")
 })
 
 public class Event {
