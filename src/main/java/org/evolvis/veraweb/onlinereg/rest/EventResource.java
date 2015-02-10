@@ -170,6 +170,32 @@ public class EventResource extends AbstractResource {
             session.close();
         }
     }
+    
+    /**
+     * Checking if one event (eventId) is open or not
+     * 
+     * @param eventId Integer pk
+     * @return Boolean check
+     */
+    @GET
+    @Path("/isopen/{eventId}")
+    public Boolean isOpenEvent(@PathParam("eventId") Integer eventId) {
+    	final Session session = openSession();
+        try {
+            final Query query = session.getNamedQuery("Event.isOpen");
+            query.setInteger("eventId", eventId);
+
+            final BigInteger counter = (BigInteger) query.uniqueResult();
+            
+            if (counter.longValue() > 0) {
+            	return true;
+            }
+            return false;
+            
+        } finally {
+            session.close();
+        }
+    }
 
     /**
      * Get the events associated to a person
