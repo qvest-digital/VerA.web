@@ -245,6 +245,8 @@ public class LoginResource {
             throw uie;
         }
     }
-    
+    public ServletContext getContext() {
+		return context;
+	}
     
 }
