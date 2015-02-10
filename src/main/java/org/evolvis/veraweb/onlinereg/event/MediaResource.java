@@ -48,6 +48,7 @@ import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientHandlerException;
 import com.sun.jersey.api.client.UniformInterfaceException;
 import com.sun.jersey.api.client.WebResource;
+import com.sun.jersey.api.representation.Form;
 
 import lombok.extern.java.Log;
 
@@ -163,14 +164,14 @@ public class MediaResource {
     private void addGuestToEvent(String uuid, String eventId, String userId, String gender) throws IOException {
     	Integer categoryID = getCategoryIdFromCatname("Pressevertreter", uuid);
     	WebResource resource = client.resource(path("guest", uuid, "register"));
-    	Map<String, String> postBody = new HashMap<String, String>();
+    	Form postBody = new Form();
 
-        postBody.put("eventId", eventId);
-        postBody.put("userId", userId);
-        postBody.put("invitationstatus", "0");
-        postBody.put("invitationtype", INVITATION_TYPE);
-        postBody.put("gender", gender);
-        postBody.put("category", String.valueOf(categoryID));
+        postBody.add("eventId", eventId);
+        postBody.add("userId", userId);
+        postBody.add("invitationstatus", "0");
+        postBody.add("invitationtype", INVITATION_TYPE);
+        postBody.add("gender", gender);
+        postBody.add("category", String.valueOf(categoryID));
 
         resource.post(Guest.class, postBody);
     }
@@ -206,18 +207,18 @@ public class MediaResource {
      */
     private Integer createPerson(Integer eventId, PressTransporter transporter) {
         WebResource resource = client.resource(config.getVerawebEndpoint() + "/rest/person/press/");
-        Map<String, String> postBody = new HashMap<String, String>();
+        Form postBody = new Form();
 
-        postBody.put("eventId", String.valueOf(eventId));
-        postBody.put("username", usernameGenerator());
-        postBody.put("firstname", transporter.getVorname());
-        postBody.put("lastname", transporter.getNachname());
-	    postBody.put("gender", correctGender(transporter.getGender()));
-	    postBody.put("email", transporter.getEmail());
-	    postBody.put("address", transporter.getAddress());
-	    postBody.put("plz", transporter.getPlz());
-	    postBody.put("city", transporter.getCity());
-	    postBody.put("country", transporter.getCountry());
+        postBody.add("eventId", String.valueOf(eventId));
+        postBody.add("username", usernameGenerator());
+        postBody.add("firstname", transporter.getVorname());
+        postBody.add("lastname", transporter.getNachname());
+	    postBody.add("gender", correctGender(transporter.getGender()));
+	    postBody.add("email", transporter.getEmail());
+	    postBody.add("address", transporter.getAddress());
+	    postBody.add("plz", transporter.getPlz());
+	    postBody.add("city", transporter.getCity());
+	    postBody.add("country", transporter.getCountry());
 
         final Person person = resource.post(Person.class, postBody);
 
