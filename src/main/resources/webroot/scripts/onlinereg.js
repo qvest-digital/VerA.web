@@ -453,8 +453,7 @@ onlineRegApp.controller('RegisterController', function ($scope, $rootScope, $loc
 	    	if (!isUserLoged()) {
 
 	    		$location.path('/login');
-	    	}
-	    	else {
+	    	} else {
 		        if (result.invitationstatus) {
 		            $scope.acceptance = $scope.acceptanceOptions[result.invitationstatus];
 		        }

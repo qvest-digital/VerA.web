@@ -231,7 +231,7 @@ public class EventResource {
     		if (person != null && userId != null) {
     			addGuestToEvent(eventId, userId.toString(), 
     					person.getSex_a_e1(), person.getFirstname_a_e1(), 
-    					person.getLastname_a_e1(), username);
+    					person.getLastname_a_e1(), username, notehost);
     		}
     		
     		return StatusConverter.convertStatus("OK");
@@ -240,7 +240,8 @@ public class EventResource {
     	return StatusConverter.convertStatus("REGISTERED");
     }
 
-    /**
+    
+	/**
      * Get user's subscribed events.
      *
      * @param username  username
@@ -266,6 +267,7 @@ public class EventResource {
     	return readResource(path("person", "userdata", username), PERSON);
     }
     
+    
     /**
      * Includes a new guest in the database - Table "tguest".
      *
@@ -273,7 +275,7 @@ public class EventResource {
      * @param userId User id
      * @param gender Gender of the person
      */
-    private Guest addGuestToEvent(String eventId, String userId, String gender, String lastName, String firstName, String username) {
+    private Guest addGuestToEvent(String eventId, String userId, String gender, String lastName, String firstName, String username, String nodeHost) {
 		WebResource resource = client.resource(path("guest", "register"));
 		Form postBody = new Form();
 
@@ -284,6 +286,7 @@ public class EventResource {
         postBody.add("gender", gender);
         postBody.add("category", "0");
         postBody.add("username", username);
+        postBody.add("hostNode", nodeHost);
 
         final Guest guest = resource.post(Guest.class, postBody);
         
@@ -291,7 +294,7 @@ public class EventResource {
         
         return guest;
 	}
-	
+    
 	private void createGuestDoctype(int guestId, String firstName, String lastName) {
 		WebResource resource = client.resource(config.getVerawebEndpoint() + "/rest/guestDoctype");
 		Form postBody = new Form();
