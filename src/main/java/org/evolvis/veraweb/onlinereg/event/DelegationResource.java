@@ -25,6 +25,7 @@ import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientHandlerException;
 import com.sun.jersey.api.client.UniformInterfaceException;
 import com.sun.jersey.api.client.WebResource;
+import com.sun.jersey.api.representation.Form;
 
 import lombok.extern.java.Log;
 
@@ -280,13 +281,13 @@ public class DelegationResource {
      */
     private Integer createPerson(String companyName, Integer eventId, String firstname, String lastname, String gender) {
         WebResource personResource = client.resource(config.getVerawebEndpoint() + "/rest/person/delegate");
-        Map<String, String> postBody = new HashMap<String, String>();
+        Form postBody = new Form();
         
-        postBody.put("company", companyName);
-        postBody.put("eventId", String.valueOf(eventId));
-        postBody.put("username", usernameGenerator());
-        postBody.put("lastname", lastname);
-        postBody.put("gender", gender);
+        postBody.add("company", companyName);
+        postBody.add("eventId", String.valueOf(eventId));
+        postBody.add("username", usernameGenerator());
+        postBody.add("lastname", lastname);
+        postBody.add("gender", gender);
         
         final Person person = personResource.post(Person.class, postBody);
         createPersonDoctype(person);
@@ -296,11 +297,11 @@ public class DelegationResource {
     
     private void createPersonDoctype(Person person) {
         WebResource personDoctypeRsource = client.resource(config.getVerawebEndpoint() + "/rest/personDoctype");
-        Map<String, String> postBody = new HashMap<String, String>();
+        Form postBody = new Form();
 
-		postBody.put("personId", Integer.toString(person.getPk()));
-		postBody.put("firstName", person.getFirstname_a_e1());
-        postBody.put("lastName", person.getLastname_a_e1());
+		postBody.add("personId", Integer.toString(person.getPk()));
+		postBody.add("firstName", person.getFirstname_a_e1());
+        postBody.add("lastName", person.getLastname_a_e1());
 
         personDoctypeRsource.post(PersonDoctype.class, postBody);
     }
@@ -314,13 +315,14 @@ public class DelegationResource {
      */
     private void addGuestToEvent(String uuid, String eventId, String userId, String gender, String lastName, String firstName) {
 		WebResource resource = client.resource(path("guest", uuid, "register"));
-		Map<String, String> postBody = new HashMap<String, String>();
+        Form postBody = new Form();
 
-		postBody.put("userId", userId);
-		postBody.put("invitationstatus", "0");
-		postBody.put("invitationtype", INVITATION_TYPE);
-		postBody.put("gender", gender);
-		postBody.put("category", "0");
+        postBody.add("userId", userId);
+        postBody.add("eventId", eventId);
+		postBody.add("invitationstatus", "0");
+		postBody.add("invitationtype", INVITATION_TYPE);
+		postBody.add("gender", gender);
+		postBody.add("category", "0");
 
         final Guest guest = resource.post(Guest.class, postBody);
         
@@ -329,11 +331,11 @@ public class DelegationResource {
 	
 	private void createGuestDoctype(int guestId, String firstName, String lastName) {
 		WebResource resource = client.resource(config.getVerawebEndpoint() + "/rest/guestDoctype"); 
-		Map<String, String> postBody = new HashMap<String, String>();
+		Form postBody = new Form();
 
-		postBody.put("guestId", Integer.toString(guestId));
-		postBody.put("firstName", firstName);
-		postBody.put("lastName", lastName);
+		postBody.add("guestId", Integer.toString(guestId));
+		postBody.add("firstName", firstName);
+		postBody.add("lastName", lastName);
 
         resource.post(postBody);
 	}
@@ -346,11 +348,11 @@ public class DelegationResource {
      */
     private void saveOptionalField(Integer guestId, Integer fieldId, String fieldContent) {
     	WebResource resource = client.resource(path("delegation","field", "save"));
-		Map<String, String> postBody = new HashMap<String, String>();
+    	Form postBody = new Form();
 
     	fieldContent = StringEscapeUtils.escapeHtml(fieldContent);
-    	postBody.put("fieldId", fieldId.toString());
-    	postBody.put("fieldContent", fieldContent);
+    	postBody.add("fieldId", fieldId.toString());
+    	postBody.add("fieldContent", fieldContent);
 
         resource.post(Delegation.class, postBody);
     }

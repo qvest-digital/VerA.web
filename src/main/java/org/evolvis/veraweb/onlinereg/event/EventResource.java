@@ -25,6 +25,7 @@ import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientHandlerException;
 import com.sun.jersey.api.client.UniformInterfaceException;
 import com.sun.jersey.api.client.WebResource;
+import com.sun.jersey.api.representation.Form;
 
 import lombok.extern.java.Log;
 
@@ -274,16 +275,17 @@ public class EventResource {
      */
     private Guest addGuestToEvent(String eventId, String userId, String gender, String lastName, String firstName, String username) {
 		WebResource resource = client.resource(path("guest", "register"));
+		Form postBody = new Form();
 
-        resource = resource.queryParam("eventId", eventId)
-        	 .queryParam("userId", userId)
-        	 .queryParam("invitationstatus", INVITATIONSTATUS_ZUSAGE.toString())
-             .queryParam("invitationtype", "2")
-        	 .queryParam("gender", gender)
-        	 .queryParam("category", "0")
-        	 .queryParam("username", username);
+		postBody.add("eventId", eventId);
+        postBody.add("userId", userId);
+        postBody.add("invitationstatus", INVITATIONSTATUS_ZUSAGE.toString());
+        postBody.add("invitationtype", "2");
+        postBody.add("gender", gender);
+        postBody.add("category", "0");
+        postBody.add("username", username);
 
-        final Guest guest = resource.post(Guest.class);
+        final Guest guest = resource.post(Guest.class, postBody);
         
         createGuestDoctype(guest.getPk(), firstName, lastName);
         
@@ -292,12 +294,13 @@ public class EventResource {
 	
 	private void createGuestDoctype(int guestId, String firstName, String lastName) {
 		WebResource resource = client.resource(config.getVerawebEndpoint() + "/rest/guestDoctype");
+		Form postBody = new Form();
 
-        resource = resource.queryParam("guestId", Integer.toString(guestId))
-        	 .queryParam("firstName", firstName)
-        	 .queryParam("lastName", lastName);
+		postBody.add("guestId", Integer.toString(guestId));
+        postBody.add("firstName", firstName);
+        postBody.add("lastName", lastName);
 
-        resource.post();
+        resource.post(postBody);
 	}
 	
 }
