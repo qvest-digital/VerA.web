@@ -476,7 +476,7 @@ onlineRegApp.controller('RegisterController', function ($scope, $rootScope, $loc
 	        }).success(function (result) {
 	        	
 	        	if (result.status === 'OK') {
-	        		$rootScope.previousMessage="Der Benutzer erfolgreich registriert wird.";
+	        		$rootScope.previousMessage="Erfolgreich zur Veranstaltung " + $scope.event.shortname + " angemeldet";
 	        		console.log("Teilnahme gespeichert: " + result);
 	        		$scope.setNextPage('veranstaltungen');
 	        		$location.path($scope.nextPage); 
@@ -531,7 +531,7 @@ onlineRegApp.controller('RegisterUserController',  function($scope, $http) {
 
 
 onlineRegApp.controller('VeranstaltungsController', function ($scope, $http, $rootScope, $location) {
-	$rootScope.cleanMessages();
+	
     if ($rootScope.user_logged_in == null) {
         $location.path('/login');
     } else {
