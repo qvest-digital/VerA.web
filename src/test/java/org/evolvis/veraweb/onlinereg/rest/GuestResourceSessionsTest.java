@@ -191,7 +191,7 @@ public class GuestResourceSessionsTest {
         prepareSession();
 
         // WHEN
-        guestResource.addGuestToEvent(uuid,1,1,1,1,"m",1);
+        guestResource.addGuestToEvent(uuid,1,1,1,1,"m",1,"");
 
         // THEN
         verify(mockitoSessionFactory, times(1)).openSession();
