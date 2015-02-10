@@ -20,13 +20,17 @@
 package org.evolvis.veraweb.onlinereg.user;
 
 import com.sun.jersey.api.client.UniformInterfaceException;
+
 import org.evolvis.veraweb.onlinereg.Main;
 import org.evolvis.veraweb.onlinereg.TestSuite;
 import org.junit.Test;
 
 import java.io.IOException;
 
+import javax.servlet.ServletContext;
+
 import static org.junit.Assert.*;
+
 /**
  * Created by mley on 29.08.14.
  */
@@ -105,6 +109,4 @@ public class LoginResourceTest {
 
         assertFalse(lr.loggedIn());
     }
-
-
 }
