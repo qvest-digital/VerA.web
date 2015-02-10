@@ -45,7 +45,9 @@ import javax.ws.rs.core.MediaType;
 
 import java.io.IOException;
 import java.net.SocketTimeoutException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by mley on 29.07.14.
@@ -91,6 +93,7 @@ public class EventResource {
     private static final TypeReference<Boolean> BOOLEAN = new TypeReference<Boolean>() {
     };
 
+    private static final Integer INVITATIONSTATUS_OPEN = 0;
     private static final Integer INVITATIONSTATUS_ZUSAGE = 1;
     /**
      * Jersey client
@@ -274,36 +277,49 @@ public class EventResource {
      * @param eventId Event id
      * @param userId User id
      * @param gender Gender of the person
+     * @throws IOException 
      */
-    private Guest addGuestToEvent(String eventId, String userId, String gender, String lastName, String firstName, String username, String nodeHost) {
+    private Guest addGuestToEvent(String eventId, String userId, String gender, String lastName, String firstName, String username, String nodeHost) throws IOException {
 		WebResource resource = client.resource(path("guest", "register"));
 		Form postBody = new Form();
 
 		postBody.add("eventId", eventId);
         postBody.add("userId", userId);
-        postBody.add("invitationstatus", INVITATIONSTATUS_ZUSAGE.toString());
+        postBody.add("invitationstatus", generateInvitationStatus(eventId));
         postBody.add("invitationtype", "2");
         postBody.add("gender", gender);
         postBody.add("category", "0");
         postBody.add("username", username);
         postBody.add("hostNode", nodeHost);
 
-        final Guest guest = resource.post(Guest.class, postBody);
+        final Guest guest = resource.type(MediaType.APPLICATION_FORM_URLENCODED_TYPE).post(Guest.class, postBody);
         
         createGuestDoctype(guest.getPk(), firstName, lastName);
         
         return guest;
 	}
+	
+    private String generateInvitationStatus(String eventId) throws IOException {
+    	Boolean isOpen = readResource(path("event", "isopen", eventId), BOOLEAN);
+    	
+    	if (isOpen) {
+    		return INVITATIONSTATUS_ZUSAGE.toString();
+    	}
+    	
+    	return INVITATIONSTATUS_OPEN.toString();
+    }
+    
     
 	private void createGuestDoctype(int guestId, String firstName, String lastName) {
-		WebResource resource = client.resource(config.getVerawebEndpoint() + "/rest/guestDoctype");
+        
+        WebResource resource = client.resource(config.getVerawebEndpoint() + "/rest/guestDoctype"); 
+		
 		Form postBody = new Form();
 
 		postBody.add("guestId", Integer.toString(guestId));
-        postBody.add("firstName", firstName);
-        postBody.add("lastName", lastName);
-
-        resource.post(postBody);
+		postBody.add("firstName", firstName);
+		postBody.add("lastName", lastName);
+		resource.post(postBody);
 	}
 	
 }
