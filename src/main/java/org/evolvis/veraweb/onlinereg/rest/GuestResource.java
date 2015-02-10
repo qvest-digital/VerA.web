@@ -265,13 +265,13 @@ public class GuestResource extends AbstractResource{
     @POST
     @Path("/register")
     public Guest addGuestToEvent(
-                                @QueryParam("eventId") Integer eventId,
-                                @QueryParam("userId") Integer userId,
-                                @QueryParam("invitationstatus") Integer invitationstatus,
-                                @QueryParam("invitationtype") Integer invitationtype,
-                                @QueryParam("gender") String gender,
-                                @QueryParam("category") Integer category,
-                                @QueryParam("username") String username) {
+                                @FormParam("eventId") Integer eventId,
+                                @FormParam("userId") Integer userId,
+                                @FormParam("invitationstatus") Integer invitationstatus,
+                                @FormParam("invitationtype") Integer invitationtype,
+                                @FormParam("gender") String gender,
+                                @FormParam("category") Integer category,
+                                @FormParam("username") String username) {
         final Session session = openSession();
 		try {
             final Guest guest = initGuest(null,eventId, userId, invitationstatus, invitationtype, gender, category, username);
