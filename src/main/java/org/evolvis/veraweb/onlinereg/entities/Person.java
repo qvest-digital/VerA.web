@@ -42,7 +42,8 @@ import java.util.Date;
 @Table(name = "tperson")
 @NamedQueries(value = {
         @NamedQuery(name = "Person.findByUsername", query = "SELECT p FROM Person p where username like :username"),
-        @NamedQuery(name = "Person.findPersonIdByUsername", query = "SELECT p.pk FROM Person p where username like :username")
+        @NamedQuery(name = "Person.findPersonIdByUsername", query = "SELECT p.pk FROM Person p where username like :username"),
+        @NamedQuery(name = "Person.findByPersonId", query = "SELECT p FROM Person p where p.pk=:personId")
 })
 @NamedNativeQueries(value={
 		 @NamedNativeQuery(name="Person.getDelegatesByUUID", query = "SELECT tperson.* FROM tperson LEFT JOIN tguest g on tperson.pk=g.fk_person WHERE g.delegation=:uuid AND tperson.iscompany='f'", resultClass=Person.class),
@@ -68,6 +69,7 @@ public class Person {
     private int fk_workarea = 0;
 
     private String note_a_e1;
+    private String notehost_a_e1;
     private String firstname_a_e1;
     private String firstname_a_e2;
     private String firstname_a_e3;
@@ -270,5 +272,12 @@ public class Person {
 	public void setUsername(String username) {
 		this.username = username;
 	}
+	
+    public String getNotehost_a_e1() {
+		return notehost_a_e1;
+	}
     
+    public void setNotehost_a_e1(String notehost_a_e1) {
+		this.notehost_a_e1 = notehost_a_e1;
+	}
 }
