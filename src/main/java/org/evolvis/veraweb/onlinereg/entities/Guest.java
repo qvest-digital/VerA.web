@@ -54,8 +54,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     		"LEFT JOIN tperson on tperson.pk=g.fk_person " +
     		"WHERE delegation=:uuid AND tperson.iscompany='t'"),
 	@NamedNativeQuery(name = "Guest.findEventIdByDelegationUUID", query ="SELECT g.* FROM tguest g  " +
-    		"LEFT JOIN tperson on tperson.pk=g.fk_person " +
-    		"WHERE delegation=:uuid AND tperson.iscompany='t'", resultClass=Guest.class)
+			"LEFT JOIN tperson on tperson.pk=g.fk_person " +
+			"WHERE delegation=:uuid AND tperson.iscompany='t'", resultClass=Guest.class),
+	@NamedNativeQuery(name = "Guest.checkUserRegistration", query ="select count(g.*) from tguest g where g.fk_event=:eventId and g.osiam_login like :username")
 
 })
 public class Guest {
@@ -72,6 +73,7 @@ public class Guest {
     private String notehost;
     private String delegation;
     private Integer fk_category;
+    private String osiam_login;
 
 	public int getPk() {
 		return pk;
@@ -148,7 +150,13 @@ public class Guest {
 	public void setFk_category(Integer fk_category) {
 		this.fk_category = fk_category;
 	}
-
+	public String getOsiam_login() {
+		return osiam_login;
+	}
+	
+	public void setOsiam_login(String osiam_login) {
+		this.osiam_login = osiam_login;
+	}
 
 }
 
