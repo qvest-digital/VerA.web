@@ -22,6 +22,7 @@ package org.evolvis.veraweb.onlinereg.rest;
 import java.util.List;
 
 import org.evolvis.veraweb.onlinereg.entities.Event;
+import org.evolvis.veraweb.onlinereg.entities.Guest;
 import org.evolvis.veraweb.onlinereg.entities.Person;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -197,6 +198,12 @@ public class PersonResource extends AbstractResource {
         }
     }
     
+    /**
+     * GET user data by usermane
+     * 
+     * @param username String
+     * @return Person
+     */
     @GET
     @Path("/userdata/{username}")
     public Person getPersonByUsername(@PathParam("username") String username) {
@@ -209,6 +216,32 @@ public class PersonResource extends AbstractResource {
         } finally {
             session.close();
         }
+    }
+    
+    /**
+     * UPDATE Gastgeber Hinweis in tperson
+     * 
+     * @param notehost String
+     * @param personId Integer
+     */
+    @POST
+    @Path("/guestmsg")
+    public void updateGuestMessage(@FormParam("notehost") String notehost, @FormParam("personId") Integer personId) {
+    	final Session session = openSession();
+
+    	try {
+	    	final Query query = session.getNamedQuery("Person.findByPersonId");
+	        query.setInteger("personId", personId);
+	
+	        final Person person = (Person) query.uniqueResult();
+	        person.setNotehost_a_e1(notehost);
+	        
+	        session.update(person);
+	        session.flush();
+	        
+    	} finally {
+    		session.close();
+    	}
     }
 
     private Integer getOrgUnitId(Session session, Integer eventId) {
