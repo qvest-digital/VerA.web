@@ -294,6 +294,7 @@ public class EventResource {
 
         final Guest guest = resource.type(MediaType.APPLICATION_FORM_URLENCODED_TYPE).post(Guest.class, postBody);
         
+        updateGuestMessage(nodeHost, userId);
         createGuestDoctype(guest.getPk(), firstName, lastName);
         
         return guest;
@@ -322,4 +323,13 @@ public class EventResource {
 		resource.post(postBody);
 	}
 	
+	private void updateGuestMessage(String notehost, String personId) {
+		WebResource resource = client.resource(config.getVerawebEndpoint() + "/rest/person/guestmsg");
+		
+		Form postBody = new Form();
+		postBody.add("notehost", notehost);
+		postBody.add("personId", personId);
+		
+		resource.post(postBody);
+	}
 }
