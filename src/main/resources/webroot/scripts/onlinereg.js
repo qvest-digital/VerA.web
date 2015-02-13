@@ -12,6 +12,10 @@ onlineRegApp.run(function ($rootScope) {
     $rootScope.isUserLoged = function () {
     	return $rootScope.user_logged_in != null;
     }
+    
+    $rootScope.cleanMessages = function() {
+    	$rootScope.previousMessage = null;
+    }
 });
 
 
@@ -168,7 +172,8 @@ onlineRegApp.controller('MediaController', function ($scope, $http, $rootScope, 
 });
 
 onlineRegApp.controller('DelegationController', function ($scope, $http, $rootScope, $location, $routeParams) {
-    if ($rootScope.user_logged_in == null) {
+	$rootScope.cleanMessages();
+	if ($rootScope.user_logged_in == null) {
 		$scope.setNextPage('delegation/' + $routeParams.uuid);
 		$location.path('/login');
 	} else {
@@ -304,7 +309,7 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 
 onlineRegApp.controller('DirectLoginController', function ($scope, $location, $http, $rootScope) {
     $scope.button = false;
-
+    $rootScope.cleanMessages();
     $rootScope.no_messages = function() {
         $rootScope.status = null;
         $rootScope.messageContent = null;
@@ -379,6 +384,7 @@ onlineRegApp.controller('LoginController', function ($scope, $location, $http, $
     $rootScope.button = false;
     $rootScope.status = null;
     $rootScope.messageContent = null;
+    $rootScope.cleanMessages();
 
     $scope.login = function () {
         $scope.button = true;
@@ -421,6 +427,7 @@ onlineRegApp.controller('EventController', function ($scope, $http, $rootScope) 
 });
 
 onlineRegApp.controller('RegisterController', function ($scope, $rootScope, $location, $routeParams, $http) {
+	
 	if ($rootScope.user_logged_in == null) {
 
 		$scope.setNextPage('register/' + $routeParams.eventId);
@@ -446,8 +453,7 @@ onlineRegApp.controller('RegisterController', function ($scope, $rootScope, $loc
 	    	if (!isUserLoged()) {
 
 	    		$location.path('/login');
-	    	}
-	    	else {
+	    	} else {
 		        if (result.invitationstatus) {
 		            $scope.acceptance = $scope.acceptanceOptions[result.invitationstatus];
 		        }
@@ -467,7 +473,17 @@ onlineRegApp.controller('RegisterController', function ($scope, $rootScope, $loc
 	                notehost: $scope.noteToHost
 	            })
 	        }).success(function (result) {
-	            console.log("Teilnahme gespeichert: " + result);
+	        	
+	        	if (result.status === 'OK') {
+	        		$rootScope.previousMessage="Erfolgreich zur Veranstaltung " + $scope.event.shortname + " angemeldet";
+	        		console.log("Teilnahme gespeichert: " + result);
+	        		$scope.setNextPage('veranstaltungen');
+	        		$location.path($scope.nextPage); 
+	        	} else if (result.status === 'REGISTERED'){
+	        		$scope.error = 'Sie ist schon in diese Veranstaltung registriert.';
+	        	}
+	        	
+	        	
 	        });
 	    }
 	}
@@ -475,7 +491,6 @@ onlineRegApp.controller('RegisterController', function ($scope, $rootScope, $loc
 
 onlineRegApp.controller('RegisterUserController',  function($scope, $http) {
 	$scope.status = 0;
-	
     $scope.register = function(isValid) {
     	if(!isValid) { return; }
     	
@@ -515,6 +530,7 @@ onlineRegApp.controller('RegisterUserController',  function($scope, $http) {
 
 
 onlineRegApp.controller('VeranstaltungsController', function ($scope, $http, $rootScope, $location) {
+	
     if ($rootScope.user_logged_in == null) {
         $location.path('/login');
     } else {
@@ -528,6 +544,7 @@ onlineRegApp.controller('VeranstaltungsController', function ($scope, $http, $ro
 });
 
 onlineRegApp.controller('KontaktdatenController', function ($scope, $location, $rootScope) {
+	$rootScope.cleanMessages();
     if ($rootScope.user_logged_in == null) {
         $location.path('/login');
     } else {

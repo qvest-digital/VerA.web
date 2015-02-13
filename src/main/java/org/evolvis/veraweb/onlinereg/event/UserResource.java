@@ -22,6 +22,7 @@ package org.evolvis.veraweb.onlinereg.event;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.UniformInterfaceException;
 import com.sun.jersey.api.client.WebResource;
+import com.sun.jersey.api.representation.Form;
 
 import org.evolvis.veraweb.onlinereg.Config;
 import org.evolvis.veraweb.onlinereg.entities.Person;
@@ -36,7 +37,6 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import java.io.IOException;
@@ -96,11 +96,15 @@ public class UserResource {
         }
         
         WebResource r = client.resource(config.getVerawebEndpoint() + "/rest/person/");
-        r = r.queryParam("username", osiam_username).queryParam("firstname", osiam_firstname).queryParam("lastname", osiam_secondname);
+        Form postBody = new Form();
+        
+        postBody.add("username", osiam_username);
+        postBody.add("firstname", osiam_firstname);
+        postBody.add("lastname", osiam_secondname);
         
         Person person = new Person();
         try {
-             person = r.post(Person.class);
+             person = r.post(Person.class, postBody);
         } catch (UniformInterfaceException e) {
             int statusCode = e.getResponse().getStatus();
             if(statusCode == 204) {

@@ -1,4 +1,7 @@
 <div>
+	<div ng-show="previousMessage != null" class="alert alert-success" role="alert">{{previousMessage}}</div>
+    <div ng-if="error" class="alert alert-danger" role="alert">{{error}}</div>
+
 	<h2 class="form-signin-heading">Meine Veranstaltungen</h2>
 
     <table class="table" >

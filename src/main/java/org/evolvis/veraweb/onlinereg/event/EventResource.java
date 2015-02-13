@@ -25,6 +25,7 @@ import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientHandlerException;
 import com.sun.jersey.api.client.UniformInterfaceException;
 import com.sun.jersey.api.client.WebResource;
+import com.sun.jersey.api.representation.Form;
 
 import lombok.extern.java.Log;
 
@@ -32,6 +33,7 @@ import org.evolvis.veraweb.onlinereg.Config;
 import org.evolvis.veraweb.onlinereg.entities.Event;
 import org.evolvis.veraweb.onlinereg.entities.Guest;
 import org.evolvis.veraweb.onlinereg.entities.Person;
+import org.evolvis.veraweb.onlinereg.utils.StatusConverter;
 
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
@@ -43,7 +45,9 @@ import javax.ws.rs.core.MediaType;
 
 import java.io.IOException;
 import java.net.SocketTimeoutException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by mley on 29.07.14.
@@ -83,7 +87,13 @@ public class EventResource {
      */
     private static final TypeReference<Integer> INTEGER = new TypeReference<Integer>() {
     };
+    /**
+     * Guest type
+     */
+    private static final TypeReference<Boolean> BOOLEAN = new TypeReference<Boolean>() {
+    };
 
+    private static final Integer INVITATIONSTATUS_OPEN = 0;
     private static final Integer INVITATIONSTATUS_ZUSAGE = 1;
     /**
      * Jersey client
@@ -210,27 +220,31 @@ public class EventResource {
      */
     @POST
     @Path("/{eventId}/register/{username}")
-    public Guest register(
+    public String register(
     		@PathParam("eventId") String eventId, 
     		@PathParam("username") String username, 
     		@FormParam("notehost") String notehost) throws IOException {
     	
-    	Person person = getUserData(username);
-    	
-    	Guest guest = null;
-    	Integer userId = person.getPk();
-    	
-    	if (person != null && userId != null) {
-    		guest = addGuestToEvent(eventId, userId.toString(), 
-    				person.getSex_a_e1(), person.getFirstname_a_e1(), 
-    				person.getLastname_a_e1(), username);
+    	// checking if the user is registered on the event
+    	if (!isUserRegistered(username, eventId)) {
+    		
+    		Person person = getUserData(username);
+    		Integer userId = person.getPk();
+    		
+    		if (person != null && userId != null) {
+    			addGuestToEvent(eventId, userId.toString(), 
+    					person.getSex_a_e1(), person.getFirstname_a_e1(), 
+    					person.getLastname_a_e1(), username, notehost);
+    		}
+    		
+    		return StatusConverter.convertStatus("OK");
     	}
     	
-    	
-    	return guest;
+    	return StatusConverter.convertStatus("REGISTERED");
     }
 
-    /**
+    
+	/**
      * Get user's subscribed events.
      *
      * @param username  username
@@ -243,6 +257,9 @@ public class EventResource {
         return readResource(path("event", "userevents", username), EVENT_LIST);
     }
     
+    private Boolean isUserRegistered(String username, String eventId) throws IOException {
+    	return readResource(path("guest", "registered", username, eventId), BOOLEAN);
+    }
     /**
      * Get Person instance from one username
      * @param username
@@ -253,39 +270,66 @@ public class EventResource {
     	return readResource(path("person", "userdata", username), PERSON);
     }
     
+    
     /**
      * Includes a new guest in the database - Table "tguest".
      *
      * @param eventId Event id
      * @param userId User id
      * @param gender Gender of the person
+     * @throws IOException 
      */
-    private Guest addGuestToEvent(String eventId, String userId, String gender, String lastName, String firstName, String username) {
+    private Guest addGuestToEvent(String eventId, String userId, String gender, String lastName, String firstName, String username, String nodeHost) throws IOException {
 		WebResource resource = client.resource(path("guest", "register"));
+		Form postBody = new Form();
 
-        resource = resource.queryParam("eventId", eventId)
-        	 .queryParam("userId", userId)
-        	 .queryParam("invitationstatus", INVITATIONSTATUS_ZUSAGE.toString())
-             .queryParam("invitationtype", "2")
-        	 .queryParam("gender", gender)
-        	 .queryParam("category", "0")
-        	 .queryParam("username", username);
+		postBody.add("eventId", eventId);
+        postBody.add("userId", userId);
+        postBody.add("invitationstatus", generateInvitationStatus(eventId));
+        postBody.add("invitationtype", "2");
+        postBody.add("gender", gender);
+        postBody.add("category", "0");
+        postBody.add("username", username);
+        postBody.add("hostNode", nodeHost);
 
-        final Guest guest = resource.post(Guest.class);
+        final Guest guest = resource.type(MediaType.APPLICATION_FORM_URLENCODED_TYPE).post(Guest.class, postBody);
         
+        updateGuestMessage(nodeHost, userId);
         createGuestDoctype(guest.getPk(), firstName, lastName);
         
         return guest;
 	}
 	
+    private String generateInvitationStatus(String eventId) throws IOException {
+    	Boolean isOpen = readResource(path("event", "isopen", eventId), BOOLEAN);
+    	
+    	if (isOpen) {
+    		return INVITATIONSTATUS_ZUSAGE.toString();
+    	}
+    	
+    	return INVITATIONSTATUS_OPEN.toString();
+    }
+    
+    
 	private void createGuestDoctype(int guestId, String firstName, String lastName) {
-		WebResource resource = client.resource(config.getVerawebEndpoint() + "/rest/guestDoctype");
+        
+        WebResource resource = client.resource(config.getVerawebEndpoint() + "/rest/guestDoctype"); 
+		
+		Form postBody = new Form();
 
-        resource = resource.queryParam("guestId", Integer.toString(guestId))
-        	 .queryParam("firstName", firstName)
-        	 .queryParam("lastName", lastName);
-
-        resource.post();
+		postBody.add("guestId", Integer.toString(guestId));
+		postBody.add("firstName", firstName);
+		postBody.add("lastName", lastName);
+		resource.post(postBody);
 	}
 	
+	private void updateGuestMessage(String notehost, String personId) {
+		WebResource resource = client.resource(config.getVerawebEndpoint() + "/rest/person/guestmsg");
+		
+		Form postBody = new Form();
+		postBody.add("notehost", notehost);
+		postBody.add("personId", personId);
+		
+		resource.post(postBody);
+	}
 }

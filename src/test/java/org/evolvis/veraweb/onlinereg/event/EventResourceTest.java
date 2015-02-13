@@ -77,6 +77,7 @@ public class EventResourceTest {
 
     @Test
     public void testSaveRegistration() throws IOException {
-        Guest g = er.register("1", "2", "note");
+        String returnedValue = er.register("1", "2", "note");
+        assertEquals("OK", returnedValue);
     }
 }
