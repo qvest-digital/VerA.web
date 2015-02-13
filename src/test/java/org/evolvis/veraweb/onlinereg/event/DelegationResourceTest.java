@@ -36,7 +36,7 @@ public class DelegationResourceTest {
 
     private DelegationResource delegationResource;
 
-    private final String uuid = "242eb535-ef8d-40a1-b27b-086f7eb58bd5";
+    private final String uuid = "d2d29cb5-c8b7-45dd-9411-6799a6e9f240";
 
     public DelegationResourceTest() {
         Main main = TestSuite.DROPWIZARD.getApplication();
@@ -53,8 +53,8 @@ public class DelegationResourceTest {
 
     @Test
     public void testGetExtraFields() throws IOException {
-        Integer personId = 42;
+        Integer personId = 90;
         List<OptionalFieldValue> extraDataFields = delegationResource.getExtraDataFields(uuid, personId);
-        assertEquals(15, extraDataFields.size());
+        assertEquals(9, extraDataFields.size());
     }
 }

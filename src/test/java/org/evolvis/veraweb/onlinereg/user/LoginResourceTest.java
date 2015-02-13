@@ -41,7 +41,7 @@ public class LoginResourceTest {
     @Test
     public void testLogin() throws IOException {
         assertFalse(lr.loggedIn());
-        assertNotNull(lr.login("test", "password"));
+        assertNotNull(lr.login("testtesttest", "testtesttest"));
         assertTrue(lr.loggedIn());
     }
 
@@ -77,12 +77,12 @@ public class LoginResourceTest {
     @Test
     public void testNotLoggedIn() throws IOException {
         lr.getContext().setAttribute(LoginResource.USERNAME, "notloggedin");
-        lr.getContext().setAttribute(LoginResource.ACCESS_TOKEN, "notloggedin");
+        lr.getContext().setAttribute(LoginResource.ACCESS_TOKEN, "7eeb6816-ae5a-4b97-91c8-ea2cf9661925");
 
         lr.loggedIn();
 
         lr.getContext().setAttribute(LoginResource.USERNAME, null);
-        lr.getContext().setAttribute(LoginResource.ACCESS_TOKEN, "accestoken");
+        lr.getContext().setAttribute(LoginResource.ACCESS_TOKEN, "7eeb6816-ae5a-4b97-91c8-ea2cf9661925");
 
         assertFalse(lr.loggedIn());
 
@@ -104,8 +104,8 @@ public class LoginResourceTest {
 
     @Test
     public void testLoggedInDeletedUser() throws IOException {
-        lr.getContext().setAttribute(LoginResource.USERNAME, "newuser");
-        lr.getContext().setAttribute(LoginResource.ACCESS_TOKEN, "ddf31856-ebbc-4087-8d85-093fa36044a7");
+        lr.getContext().setAttribute(LoginResource.USERNAME, "DeletedUser");
+        lr.getContext().setAttribute(LoginResource.ACCESS_TOKEN, "7eeb6816-ae5a-4b97-91c8-ea2cf9661925");
 
         assertFalse(lr.loggedIn());
     }
