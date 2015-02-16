@@ -286,6 +286,7 @@ public class DelegationResource {
         postBody.add("company", companyName);
         postBody.add("eventId", String.valueOf(eventId));
         postBody.add("username", usernameGenerator());
+        postBody.add("firstname", firstname);
         postBody.add("lastname", lastname);
         postBody.add("gender", gender);
         
