@@ -45,6 +45,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class PersonDoctype {
 
 	/**
+	 * Empty constructor MUST
+	 */
+	public PersonDoctype() {
+	}
+
+	/**
 	 * Constructor with all required fields
 	 * 
 	 * @param fk_person
