@@ -33,6 +33,7 @@ import org.evolvis.veraweb.onlinereg.Config;
 import org.evolvis.veraweb.onlinereg.entities.Event;
 import org.evolvis.veraweb.onlinereg.entities.Guest;
 import org.evolvis.veraweb.onlinereg.entities.Person;
+import org.evolvis.veraweb.onlinereg.utils.EventTransporter;
 import org.evolvis.veraweb.onlinereg.utils.StatusConverter;
 
 import javax.ws.rs.FormParam;
@@ -45,7 +46,9 @@ import javax.ws.rs.core.MediaType;
 
 import java.io.IOException;
 import java.net.SocketTimeoutException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -174,9 +177,22 @@ public class EventResource {
      * @throws IOException
      */
     @GET
-    @Path("/list")
-    public List<Event> getEvents() throws IOException {
-        return readResource(path("event"), EVENT_LIST);
+    @Path("/list/{username}")
+    public List<EventTransporter> getEvents(@PathParam("username") String username) throws IOException {
+    	List<Event> listEvents = readResource(path("event"), EVENT_LIST);
+    	
+    	List<EventTransporter> listTransporters = new ArrayList<EventTransporter>();
+    	
+    	for (Iterator<Event> iterator = listEvents.iterator(); iterator
+				.hasNext();) {
+			Event event = (Event) iterator
+					.next();
+			EventTransporter trp = new EventTransporter(event.getPk(),event.getShortname(),event.getDatebegin(), isUserRegistered(username,String.valueOf(event.getPk())));
+			
+			listTransporters.add(trp);
+		}
+    	
+        return listTransporters;
     }
 
     /**

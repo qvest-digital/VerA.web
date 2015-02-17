@@ -23,6 +23,7 @@ import org.evolvis.veraweb.onlinereg.TestSuite;
 import org.evolvis.veraweb.onlinereg.Main;
 import org.evolvis.veraweb.onlinereg.entities.Event;
 import org.evolvis.veraweb.onlinereg.entities.Guest;
+import org.evolvis.veraweb.onlinereg.utils.EventTransporter;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -47,10 +48,9 @@ public class EventResourceTest {
     @Test
     public void testListEvents() throws IOException {
 
-        List<Event> events = er.getEvents();
+        List<EventTransporter> events = er.getEvents(null);
         assertEquals(3, events.size());
         assertEquals("Woche der Brüderlichkeit", events.get(1).getShortname());
-        assertEquals("Kamin", events.get(2).getLocation().getLocationname());
 
     }
 

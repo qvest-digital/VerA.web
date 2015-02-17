@@ -420,7 +420,7 @@ onlineRegApp.controller('LoginController', function ($scope, $location, $http, $
 });
 
 onlineRegApp.controller('EventController', function ($scope, $http, $rootScope) {
-    $http.get('api/event/list').success(function (result) {
+    $http.get('api/event/list/' + $rootScope.user_logged_in).success(function (result) {
         console.log("loaded data");
         $scope.events = result;
     });
