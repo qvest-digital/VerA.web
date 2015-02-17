@@ -88,4 +88,8 @@ public class Event {
     public String getShortname() {
 		return shortname;
 	}
+    
+    public Date getDatebegin() {
+		return datebegin;
+	}
 }
