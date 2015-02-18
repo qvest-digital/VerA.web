@@ -65,7 +65,7 @@ public class Main extends Application<Config> {
     private MediaResource mediaResource;
     private Health health;
     private FreeVisitorsResource freeVisitorsResource;
-    
+
 
     @Override
     public void initialize(final Bootstrap<Config> bootstrap) {
@@ -86,25 +86,31 @@ public class Main extends Application<Config> {
         final Client client = new JerseyClientBuilder(environment)
                 .using(jcc)
                 .build("jerseyClient");
-        
+
         client.addFilter(
         		new HTTPBasicAuthFilter(configuration.getRestauth().getUsername(),configuration.getRestauth().getPassword()));
-        
+
         environment.jersey().setUrlPattern("/api/*");
 
         environment.healthChecks().register("veraweb availability", health = new Health(client, configuration.getVerawebEndpoint()));
 
 //        environment.jersey().register(new OsiamAuthProvider("OSIAM protected"));
 
-        environment.jersey().register(eventResource = new EventResource(configuration, client));
+        environment.jersey().register(setEventResource(new EventResource(configuration, client)));
         environment.jersey().register(userResource = new UserResource(configuration, client));
-        environment.jersey().register(loginResource = new LoginResource(configuration, client)); 
-        environment.jersey().register(delegationResource = new DelegationResource(configuration, client)); 
-        environment.jersey().register(mediaResource = new MediaResource(configuration, client)); 
-        environment.jersey().register(freeVisitorsResource = new FreeVisitorsResource(configuration, client)); 
+        environment.jersey().register(loginResource = new LoginResource(configuration, client));
+        environment.jersey().register(delegationResource = new DelegationResource(configuration, client));
+        environment.jersey().register(mediaResource = new MediaResource(configuration, client));
+        environment.jersey().register(freeVisitorsResource = new FreeVisitorsResource(configuration, client));
 
     }
 
+	public EventResource getEventResource() {
+		return eventResource;
+	}
 
-
+	public EventResource setEventResource(EventResource eventResource) {
+		this.eventResource = eventResource;
+		return eventResource;
+	}
 }
