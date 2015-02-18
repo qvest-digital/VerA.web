@@ -1,11 +1,11 @@
 
-verawebEndpoint: https://veraweb.lan.tarent.de/vwor
+verawebEndpoint: https://172.26.12.56/vwor
 
 osiam:
-  endpoint: https://veraweb.lan.tarent.de
+  endpoint: https://172.26.12.40
   clientId: online-reg
-  clientSecret: secret
-  
+  clientSecret: geheim
+
 restauth:
   username: hallo
   password: hallo

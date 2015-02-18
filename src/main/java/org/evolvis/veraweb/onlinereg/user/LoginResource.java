@@ -63,19 +63,19 @@ import java.net.SocketTimeoutException;
 public class LoginResource {
 
     public static final String USERNAME = "USERNAME";
-    
+
     /**
      * base path of all resource
      */
     public static final String BASE_RESOURCE = "/rest";
 
-    
+
     /**
      * String
      */
     private static final TypeReference<String> STRING = new TypeReference<String>() {
     };
-    
+
     /**
      * key name for access tokens
      */
@@ -86,7 +86,7 @@ public class LoginResource {
      * Jackson Object Mapper
      */
     private ObjectMapper mapper = new ObjectMapper();
-    
+
     /**
      * configuration
      */
@@ -109,7 +109,7 @@ public class LoginResource {
         this.config = config;
         this.client = client;
     }
-    
+
 
 
     /**
@@ -126,18 +126,18 @@ public class LoginResource {
 		if (userName == null || password == null) {
 			return null;
 		}
-		
+
 		try {
 			String accessToken = config.getOsiam().getClient(client)
 					.getAccessToken(userName, password, "POST");
 			context.setAttribute(USERNAME, userName);
 			context.setAttribute(ACCESS_TOKEN, accessToken);
-			
+
 			WebResource resource;
 
             resource = client.resource(path("person", "userinfo", userName));
             String returnedValue;
-            
+
             try {
             	returnedValue = resource.get(String.class);
             } catch (UniformInterfaceException e) {
@@ -197,7 +197,7 @@ public class LoginResource {
         context.removeAttribute(USERNAME);
         context.removeAttribute(ACCESS_TOKEN);
     }
-    
+
 
     /**
      * Constructs a path from vera.web endpint, BASE_RESOURCE and given path fragmensts.
@@ -212,7 +212,7 @@ public class LoginResource {
         }
         return r;
     }
-    
+
 
     /**
      * Reads the resource at given path and returns the entity.
@@ -245,8 +245,12 @@ public class LoginResource {
             throw uie;
         }
     }
+
+    /**
+     * TODO add javadoc
+     * @return
+     */
     public ServletContext getContext() {
 		return context;
 	}
-    
 }

@@ -1,10 +1,10 @@
 
-verawebEndpoint: http://localhost:8091/vwor
+verawebEndpoint: http://172.26.12.56/vwor/
 
 osiam:
-  endpoint: http://localhost:8091
-  clientId: online-reg
-  clientSecret: secret
+  endpoint: http://172.26.12.40/
+  clientId: online-registration
+  clientSecret: geheim
 
 restauth:
   username: veraweb
