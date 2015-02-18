@@ -24,6 +24,7 @@ import org.evolvis.veraweb.onlinereg.TestSuite;
 import org.evolvis.veraweb.onlinereg.Main;
 import org.evolvis.veraweb.onlinereg.entities.OptionalFieldValue;
 import org.evolvis.veraweb.onlinereg.entities.Person;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -43,7 +44,7 @@ public class DelegationResourceTest {
         delegationResource = main.getDelegationResource();
     }
 
-    @Test
+    @Test@Ignore
     public void testGetDelegates() throws Exception {
         List<Person> delegates = delegationResource.getDelegates(uuid);
         assertEquals(3, delegates.size());
@@ -51,7 +52,7 @@ public class DelegationResourceTest {
         assertEquals("MyCompany GmbH", delegates.get(2).getCompany_a_e1());
     }
 
-    @Test
+    @Test@Ignore
     public void testGetExtraFields() throws IOException {
         Integer personId = 90;
         List<OptionalFieldValue> extraDataFields = delegationResource.getExtraDataFields(uuid, personId);

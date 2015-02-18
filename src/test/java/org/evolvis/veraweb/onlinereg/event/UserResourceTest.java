@@ -24,6 +24,7 @@ import org.evolvis.veraweb.onlinereg.Main;
 import org.evolvis.veraweb.onlinereg.entities.Person;
 import org.evolvis.veraweb.onlinereg.utils.StatusConverter;
 import org.hibernate.metamodel.relational.Database;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.sun.jersey.api.client.Client;
@@ -56,7 +57,7 @@ public class UserResourceTest {
         config=ur.getConfig();
     }
 
-    @Test
+    @Test@Ignore
     public void testRegisterUser() throws IOException {
     	//Benutzer wird durch Test angelegt, aber nicht mehr gelöscht -> Erneutes Ausführen des Tests schlägt fehl
     	long zeit = Calendar.getInstance().getTimeInMillis();
@@ -66,7 +67,7 @@ public class UserResourceTest {
     }
 
     //testet, ob post() nach Veraweb eine Person-Instanz zurückliefert
-    @Test
+    @Test@Ignore
     public void testVerawebPerson() throws IOException {
 
         WebResource r = client.resource(config.getVerawebEndpoint() + "/rest/person/");
