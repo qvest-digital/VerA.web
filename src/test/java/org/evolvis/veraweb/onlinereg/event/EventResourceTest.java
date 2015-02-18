@@ -24,11 +24,8 @@ import org.evolvis.veraweb.onlinereg.TestSuite;
 import org.evolvis.veraweb.onlinereg.Main;
 import org.evolvis.veraweb.onlinereg.entities.Event;
 import org.evolvis.veraweb.onlinereg.entities.Guest;
-<<<<<<< HEAD
 import org.evolvis.veraweb.onlinereg.utils.EventTransporter;
-=======
 import org.junit.Ignore;
->>>>>>> sweiz_testfix_not_functional
 import org.junit.Test;
 
 import com.sun.jersey.api.client.UniformInterfaceException;
