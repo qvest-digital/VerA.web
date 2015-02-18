@@ -27,6 +27,7 @@ import com.sun.jersey.api.client.UniformInterfaceException;
 import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.representation.Form;
 
+import lombok.Getter;
 import lombok.extern.java.Log;
 
 import org.evolvis.veraweb.onlinereg.Config;
@@ -36,6 +37,7 @@ import org.evolvis.veraweb.onlinereg.entities.Person;
 import org.evolvis.veraweb.onlinereg.utils.EventTransporter;
 import org.evolvis.veraweb.onlinereg.utils.StatusConverter;
 
+import javax.servlet.ServletContext;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -64,6 +66,8 @@ public class EventResource {
      * base path of all resource
      */
     public static final String BASE_RESOURCE = "/rest";
+
+    public static final String USERNAME = "USERNAME";
 
     /**
      * Event type
@@ -113,6 +117,13 @@ public class EventResource {
      */
     private ObjectMapper mapper = new ObjectMapper();
 
+    /**
+     * Servlet context
+     */
+    @javax.ws.rs.core.Context
+    @Getter
+    private ServletContext context;
+    
     /**
      * Creates a new EventResource
      *
@@ -223,6 +234,8 @@ public class EventResource {
     		@PathParam("userId") int userId) throws IOException {
         return readResource(path("guest", eventId, userId), GUEST);
     }
+    
+    
 
     /**
      * Save the registration to an event
@@ -235,11 +248,11 @@ public class EventResource {
      * @throws IOException
      */
     @POST
-    @Path("/{eventId}/register/{username}")
+    @Path("/{eventId}/register")
     public String register(
-    		@PathParam("eventId") String eventId, 
-    		@PathParam("username") String username, 
+    		@PathParam("eventId") String eventId,
     		@FormParam("notehost") String notehost) throws IOException {
+        String username = (String) context.getAttribute(USERNAME);
     	
     	// checking if the user is registered on the event
     	if (!isUserRegistered(username, eventId)) {

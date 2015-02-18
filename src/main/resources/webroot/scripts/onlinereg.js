@@ -467,7 +467,7 @@ onlineRegApp.controller('RegisterController', function ($scope, $rootScope, $loc
 	    $scope.save = function () {
 	        $http({
 	            method: 'POST',
-	            url: 'api/event/' + $routeParams.eventId + '/register/' + $rootScope.user_logged_in,
+	            url: 'api/event/' + $routeParams.eventId + '/register',
 	            headers: {"Content-Type" : undefined},
 	            data: $.param({
 	                notehost: $scope.noteToHost
