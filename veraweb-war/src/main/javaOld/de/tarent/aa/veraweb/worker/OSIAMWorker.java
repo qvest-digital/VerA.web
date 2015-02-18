@@ -38,6 +38,7 @@ import org.osiam.client.oauth.Scope;
 import org.osiam.resources.scim.User;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.security.SecureRandom;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -96,19 +97,25 @@ public class OSIAMWorker {
 	public void createDelegationUsers(OctopusContext ctx) throws BeanException, SQLException{
 		if(this.osiamIsAvailable()) {
 			Database database = new DatabaseVeraWeb(ctx);
-			AccessToken accessToken = connector.retrieveAccessToken(Scope.ALL);
-			List selectdelegation = (List) ctx.sessionAsObject("addguest-selectdelegation");
-			Map event = (Map)ctx.getContextField("event");
-	
-			for (Object id : selectdelegation) {
-	            ResultSet result = getPersons(database, id);
-	            String companyName = getCompanyName(result);
-	            String login = this.generateUsername();
-	            String password = generatePassword(event, companyName);
-	
-	            createOsiamUser(accessToken, login, password);
-	
-				saveOsiamLogin(database, login, Integer.parseInt(event.get("id").toString()), Integer.parseInt(id.toString()));
+			AccessToken accessToken = null;
+			Boolean correctOSIAMProperties = true;
+			try {
+				accessToken = connector.retrieveAccessToken(Scope.ALL);
+			} catch (Exception e) {
+				correctOSIAMProperties = false;
+			}
+			if (correctOSIAMProperties) {
+				List selectdelegation = (List) ctx.sessionAsObject("addguest-selectdelegation");
+				Map event = (Map)ctx.getContextField("event");
+		
+				for (Object id : selectdelegation) {
+		            ResultSet result = getPersons(database, id);
+		            String companyName = getCompanyName(result);
+		            String login = this.generateUsername();
+		            String password = generatePassword(event, companyName);
+			            createOsiamUser(accessToken, login, password);
+						saveOsiamLogin(database, login, Integer.parseInt(event.get("id").toString()), Integer.parseInt(id.toString()));
+				}
 			}
 		}
 	}
