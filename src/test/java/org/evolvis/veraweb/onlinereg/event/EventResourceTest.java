@@ -19,18 +19,15 @@
  */
 package org.evolvis.veraweb.onlinereg.event;
 
-import org.classpath.icedtea.Config;
+import org.evolvis.veraweb.onlinereg.Config;
 import org.evolvis.veraweb.onlinereg.TestSuite;
 import org.evolvis.veraweb.onlinereg.Main;
 import org.evolvis.veraweb.onlinereg.entities.Event;
 import org.evolvis.veraweb.onlinereg.entities.Guest;
-import org.evolvis.veraweb.onlinereg.utils.EventTransporter;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import com.sun.jersey.api.client.UniformInterfaceException;
 
-import sun.security.action.GetLongAction;
 
 import java.io.IOException;
 import java.util.ArrayList;
