@@ -15,6 +15,7 @@ onlineRegApp.run(function ($rootScope) {
     
     $rootScope.cleanMessages = function() {
     	$rootScope.previousMessage = null;
+    	$rootScope.messageContent = null;
     }
 });
 
@@ -427,7 +428,7 @@ onlineRegApp.controller('EventController', function ($scope, $http, $rootScope) 
 });
 
 onlineRegApp.controller('RegisterController', function ($scope, $rootScope, $location, $routeParams, $http) {
-	
+
 	if ($rootScope.user_logged_in == null) {
 
 		$scope.setNextPage('register/' + $routeParams.eventId);
@@ -493,7 +494,6 @@ onlineRegApp.controller('RegisterUserController',  function($scope, $http) {
 	$scope.status = 0;
     $scope.register = function(isValid) {
     	if(!isValid) { return; }
-    	
 		$http({
 			method: 'POST',
 		    url: 'api/user/register/' + encodeURIComponent($scope.osiam.userName) + '',
