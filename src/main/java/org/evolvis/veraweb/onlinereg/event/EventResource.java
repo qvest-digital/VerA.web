@@ -49,10 +49,8 @@ import javax.ws.rs.core.MediaType;
 import java.io.IOException;
 import java.net.SocketTimeoutException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by mley on 29.07.14.
@@ -74,26 +72,31 @@ public class EventResource {
      */
     private static final TypeReference<Event> EVENT = new TypeReference<Event>() {
     };
+
     /**
      * List of Events type
      */
     private static final TypeReference<List<Event>> EVENT_LIST = new TypeReference<List<Event>>() {
     };
+
     /**
      * Person type
      */
     private static final TypeReference<Person> PERSON = new TypeReference<Person>() {
     };
+
     /**
      * Guest type
      */
     private static final TypeReference<Guest> GUEST = new TypeReference<Guest>() {
     };
+
     /**
      * Guest type
      */
     private static final TypeReference<Integer> INTEGER = new TypeReference<Integer>() {
     };
+
     /**
      * Guest type
      */
@@ -101,7 +104,8 @@ public class EventResource {
     };
 
     private static final Integer INVITATIONSTATUS_OPEN = 0;
-    private static final Integer INVITATIONSTATUS_ZUSAGE = 1;
+    private static final Integer INVITATIONSTATUS_COMMITMENT = 1;
+
     /**
      * Jersey client
      */
@@ -194,13 +198,9 @@ public class EventResource {
     	
     	List<EventTransporter> listTransporters = new ArrayList<EventTransporter>();
     	
-    	for (Iterator<Event> iterator = listEvents.iterator(); iterator
-				.hasNext();) {
-			Event event = (Event) iterator
-					.next();
-			EventTransporter trp = new EventTransporter(event.getPk(),event.getShortname(),event.getDatebegin(), isUserRegistered(username,String.valueOf(event.getPk())));
-			
-			listTransporters.add(trp);
+    	for (Iterator<Event> iterator = listEvents.iterator(); iterator.hasNext();) {
+            EventTransporter eventTransporter = createEventTransporter(username, iterator);
+			listTransporters.add(eventTransporter);
 		}
     	
         return listTransporters;
@@ -241,8 +241,6 @@ public class EventResource {
      * Save the registration to an event
      *
      * @param eventId          event id
-     * @param userId           user id
-     * @param invitationstatus invitation status
      * @param notehost         note to host
      * @return updated Guest object
      * @throws IOException
@@ -285,10 +283,21 @@ public class EventResource {
     public List<Event> getUsersEvents(@PathParam("username") String username) throws IOException {
         return readResource(path("event", "userevents", username), EVENT_LIST);
     }
-    
+
+    private EventTransporter createEventTransporter(String username, Iterator<Event> iterator) throws IOException {
+        Event event = (Event) iterator.next();
+        String eventId = String.valueOf(event.getPk());
+        return new EventTransporter(
+                event.getPk(),
+                event.getShortname(),
+                event.getDatebegin(),
+                isUserRegistered(username, eventId));
+    }
+
     private Boolean isUserRegistered(String username, String eventId) throws IOException {
     	return readResource(path("guest", "registered", username, eventId), BOOLEAN);
     }
+
     /**
      * Get Person instance from one username
      * @param username
@@ -333,7 +342,7 @@ public class EventResource {
     	Boolean isOpen = readResource(path("event", "isopen", eventId), BOOLEAN);
     	
     	if (isOpen) {
-    		return INVITATIONSTATUS_ZUSAGE.toString();
+    		return INVITATIONSTATUS_COMMITMENT.toString();
     	}
     	
     	return INVITATIONSTATUS_OPEN.toString();
