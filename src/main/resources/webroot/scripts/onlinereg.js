@@ -289,7 +289,7 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 		            url: 'api/delegation/'+ $routeParams.uuid + '/fields/save',
 		            headers: {"Content-Type" : undefined},
 		            data: $.param({
-		            	fields: $scope.labellist,
+		            	fields: JSON.stringify($scope.labellist),
 		            	personId: $scope.targetPersonId
 		            })
 		        }).success(function (result) {

@@ -189,7 +189,7 @@ public class DelegationResource {
     		@PathParam("uuid") String uuid,
             @FormParam("fields") String fields, 
             @FormParam("personId") Integer personId) throws IOException {
-		if (fields != null || !"".equals(fields)) {
+		if (fields != null && !"".equals(fields)) {
             handleSaveOptionalFields(uuid, fields, personId);
 		}
     }
@@ -352,6 +352,7 @@ public class DelegationResource {
     	Form postBody = new Form();
 
     	fieldContent = StringEscapeUtils.escapeHtml(fieldContent);
+    	postBody.add("guestId", guestId.toString());
     	postBody.add("fieldId", fieldId.toString());
     	postBody.add("fieldContent", fieldContent);
 
