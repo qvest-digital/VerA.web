@@ -260,8 +260,8 @@ public class EventResource {
     		
     		if (person != null && userId != null) {
     			addGuestToEvent(eventId, userId.toString(), 
-    					person.getSex_a_e1(), person.getFirstname_a_e1(), 
-    					person.getLastname_a_e1(), username, notehost);
+                person.getSex_a_e1(), person.getFirstname_a_e1(),
+                person.getLastname_a_e1(), username, notehost);
     		}
     		
     		return StatusConverter.convertStatus("OK");

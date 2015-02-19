@@ -19,29 +19,6 @@
  */
 package org.evolvis.veraweb.onlinereg.event;
 
-import java.io.IOException;
-import java.math.BigInteger;
-import java.net.SocketTimeoutException;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.ws.rs.FormParam;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
-import javax.ws.rs.core.MediaType;
-
-import org.evolvis.veraweb.onlinereg.Config;
-import org.evolvis.veraweb.onlinereg.entities.Guest;
-import org.evolvis.veraweb.onlinereg.entities.Person;
-import org.evolvis.veraweb.onlinereg.utils.PressTransporter;
-import org.evolvis.veraweb.onlinereg.utils.StatusConverter;
-
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.jersey.api.client.Client;
@@ -49,8 +26,24 @@ import com.sun.jersey.api.client.ClientHandlerException;
 import com.sun.jersey.api.client.UniformInterfaceException;
 import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.representation.Form;
-
 import lombok.extern.java.Log;
+import org.evolvis.veraweb.onlinereg.Config;
+import org.evolvis.veraweb.onlinereg.entities.Guest;
+import org.evolvis.veraweb.onlinereg.entities.Person;
+import org.evolvis.veraweb.onlinereg.utils.PressTransporter;
+import org.evolvis.veraweb.onlinereg.utils.StatusConverter;
+
+import javax.ws.rs.FormParam;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+import java.io.IOException;
+import java.net.SocketTimeoutException;
+import java.util.Date;
+import java.util.List;
 
 /**
  * @author jnunez
@@ -59,7 +52,10 @@ import lombok.extern.java.Log;
 @Produces(MediaType.APPLICATION_JSON)
 @Log
 public class MediaResource {
-
+    /**
+     * Base path of all resources.
+     */
+    private static final String BASE_RESOURCE = "/rest";
 
     private static final TypeReference<Boolean> BOOLEAN = new TypeReference<Boolean>() {};
     private static final TypeReference<Integer> INTEGER = new TypeReference<Integer>() {};
@@ -74,14 +70,17 @@ public class MediaResource {
     private Client client;
 
     /**
-     * Base path of all resources.
+     * Default constructor.
      */
-    private static final String BASE_RESOURCE = "/rest";
-
-
     public MediaResource() {
     }
 
+    /**
+     * Alternative constructor.
+     *
+     * @param config The configuration
+     * @param client Client
+     */
 	public MediaResource(Config config, Client client) {
 		super();
 		this.config = config;
@@ -97,7 +96,7 @@ public class MediaResource {
     /**
      * Adds delegate to event
      *
-     * @param uuid     user name
+     * @param uuid     Event uuid
      * @param nachname family name
      * @param vorname  first name
      * @param gender   gender
@@ -106,6 +105,8 @@ public class MediaResource {
      * @param plz      zip code
      * @param city     city
      * @param country  country
+     *
+     * @throws java.io.IOException If creating person and saving it as guest fails.
      *
      * @return result of delegation. Values can be "WRONG_EVENT"
      */
@@ -122,23 +123,22 @@ public class MediaResource {
             @FormParam("city") String city,
             @FormParam("country") String country) throws IOException {
 
-        Boolean delegationIsFound = checkForExistingPressEvent(uuid);
+        final Boolean delegationIsFound = checkForExistingPressEvent(uuid);
 
         if(delegationIsFound) {
-        	PressTransporter transporter = new PressTransporter(uuid, nachname, vorname, gender, email, address, plz, city, country);
-
-            return StatusConverter.convertStatus(handlePressEvent(transporter));
+        	final PressTransporter transporter = new PressTransporter(uuid, nachname, vorname, gender, email, address, plz, city, country);
+            return StatusConverter.convertStatus(createAndAssignMediaRepresentativeGuest(transporter));
         }
 
         return StatusConverter.convertStatus("WRONG_EVENT");
     }
 
-    private String handlePressEvent(PressTransporter transporter) throws IOException {
+    private String createAndAssignMediaRepresentativeGuest(PressTransporter transporter) throws IOException {
     	// Assing person to event as guest
-        Integer eventId = getEventIdFromUuid(transporter.getUuid());
+        final Integer eventId = getEventIdFromUuid(transporter.getUuid());
 
     	// Store in tperson
-        Integer personId = createPerson(eventId, transporter);
+        final Integer personId = createPerson(eventId, transporter);
 
         if (eventId==null) {
             return "NO_EVENT_DATA";
@@ -153,18 +153,16 @@ public class MediaResource {
     /**
      * Includes a new guest in the database - Table "tguest"
      *
+     * @param uuid
      * @param eventId Event id
      * @param userId User id
-     * @param invitationstatus invitationstatus
-     * @param invitationtype invitation type
      * @param gender gender
-     * @param category category
      * @throws IOException
      */
     private void addGuestToEvent(String uuid, String eventId, String userId, String gender) throws IOException {
-    	Integer categoryID = getCategoryIdFromCatname("Pressevertreter", uuid);
-    	WebResource resource = client.resource(path("guest", uuid, "register"));
-    	Form postBody = new Form();
+        final Integer categoryID = getCategoryIdFromCatname("Pressevertreter", uuid);
+        final WebResource resource = client.resource(path("guest", uuid, "register"));
+        final Form postBody = new Form();
 
         postBody.add("eventId", eventId);
         postBody.add("userId", userId);
@@ -193,21 +191,13 @@ public class MediaResource {
      * Includes a new person in the database - Table "tperson"
      *
      * @param eventId   event ID
-     * @param username  username
-     * @param firstname first name
-     * @param lastname  last name
-     * @param gender    gender
-     * @param email     E-Mail
-     * @param address   address
-     * @param plz       zip code
-     * @param city      city
-     * @param country   country
+     * @param transporter transporter
      *
      * return primary key for a person
      */
     private Integer createPerson(Integer eventId, PressTransporter transporter) {
-        WebResource resource = client.resource(config.getVerawebEndpoint() + "/rest/person/press/");
-        Form postBody = new Form();
+        final WebResource resource = client.resource(config.getVerawebEndpoint() + "/rest/person/press/");
+        final Form postBody = new Form();
 
         postBody.add("eventId", String.valueOf(eventId));
         postBody.add("username", usernameGenerator());
@@ -246,14 +236,14 @@ public class MediaResource {
         WebResource resource;
         try {
             resource = client.resource(path);
-            String json = resource.get(String.class);
+            final String json = resource.get(String.class);
             return mapper.readValue(json, type);
         } catch (ClientHandlerException che) {
             if (che.getCause() instanceof SocketTimeoutException) {
                 //FIXME some times open, pooled connections time out and generate errors
 //                log.warning("Retrying request to " + path + " once because of SocketTimeoutException");
                 resource = client.resource(path);
-                String json = resource.get(String.class);
+                final String json = resource.get(String.class);
                 return mapper.readValue(json, type);
             } else {
                 throw che;
@@ -280,7 +270,7 @@ public class MediaResource {
     }
 
     private String usernameGenerator() {
-        Date current = new Date();
+        final Date current = new Date();
 
     	return "press" + current.getTime();
     }
