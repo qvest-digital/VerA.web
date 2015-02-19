@@ -474,17 +474,14 @@ onlineRegApp.controller('RegisterController', function ($scope, $rootScope, $loc
 	                notehost: $scope.noteToHost
 	            })
 	        }).success(function (result) {
-	        	
 	        	if (result.status === 'OK') {
-	        		$rootScope.previousMessage="Erfolgreich zur Veranstaltung " + $scope.event.shortname + " angemeldet";
+	        		$rootScope.previousMessage="Sie haben sich erfolgreich für die Veranstaltung \"" + $scope.event.shortname + "\" angemeldet.";
 	        		console.log("Teilnahme gespeichert: " + result);
 	        		$scope.setNextPage('veranstaltungen');
 	        		$location.path($scope.nextPage); 
 	        	} else if (result.status === 'REGISTERED'){
-	        		$scope.error = 'Sie ist schon in diese Veranstaltung registriert.';
+	        		$scope.error = 'Sie sind bereits für diese Veranstaltung angemeldet.';
 	        	}
-	        	
-	        	
 	        });
 	    }
 	}
