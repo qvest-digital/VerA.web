@@ -31,6 +31,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
+
 import java.util.Date;
 
 /**
@@ -76,20 +77,24 @@ public class Event {
     public int getFk_orgunit() {
 		return fk_orgunit;
 	}
-    
+
     public int getPk() {
 		return pk;
 	}
-    
+
     public String getHash() {
 		return hash;
     }
-    
+
     public String getShortname() {
 		return shortname;
 	}
-    
-    public Date getDatebegin() {
+
+	public Date getDatebegin() {
 		return datebegin;
+	}
+
+	public void setDatebegin(Date datebegin) {
+		this.datebegin = datebegin;
 	}
 }
