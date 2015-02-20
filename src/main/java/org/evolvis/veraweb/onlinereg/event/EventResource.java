@@ -139,51 +139,6 @@ public class EventResource {
         this.config = config;
     }
 
-    /**
-     * Constructs a path from vera.web endpint, BASE_RESOURCE and given path fragmensts.
-     *
-     * @param path path fragments
-     * @return complete path as string
-     */
-    private String path(Object... path) {
-        String r = config.getVerawebEndpoint() + BASE_RESOURCE;
-        for (Object p : path) {
-            r += "/" + p;
-        }
-        return r;
-    }
-
-    /**
-     * Reads the resource at given path and returns the entity.
-     *
-     * @param path path
-     * @param type TypeReference of requested entity
-     * @param <T>  Type of requested entity
-     * @return requested resource
-     * @throws IOException
-     */
-    private <T> T readResource(String path, TypeReference<T> type) throws IOException {
-        WebResource resource;
-        try {
-            resource = client.resource(path);
-            String json = resource.get(String.class);
-            return mapper.readValue(json, type);
-        } catch (ClientHandlerException che) {
-            if (che.getCause() instanceof SocketTimeoutException) {
-                //FIXME some times open, pooled connections time out and generate errors
-//                log.warning("Retrying request to " + path + " once because of SocketTimeoutException");
-                resource = client.resource(path);
-                String json = resource.get(String.class);
-                return mapper.readValue(json, type);
-            } else {
-                throw che;
-            }
-
-        } catch (UniformInterfaceException uie) {
-//            log.warning(uie.getResponse().getEntity(String.class));
-            throw uie;
-        }
-    }
 
     /**
      * Returns a list of events
@@ -282,6 +237,54 @@ public class EventResource {
     @Path("/userevents/{username}")
     public List<Event> getUsersEvents(@PathParam("username") String username) throws IOException {
         return readResource(path("event", "userevents", username), EVENT_LIST);
+    }
+    
+    
+    
+    /**
+     * Constructs a path from vera.web endpint, BASE_RESOURCE and given path fragmensts.
+     *
+     * @param path path fragments
+     * @return complete path as string
+     */
+    private String path(Object... path) {
+        String r = config.getVerawebEndpoint() + BASE_RESOURCE;
+        for (Object p : path) {
+            r += "/" + p;
+        }
+        return r;
+    }
+
+    /**
+     * Reads the resource at given path and returns the entity.
+     *
+     * @param path path
+     * @param type TypeReference of requested entity
+     * @param <T>  Type of requested entity
+     * @return requested resource
+     * @throws IOException
+     */
+    private <T> T readResource(String path, TypeReference<T> type) throws IOException {
+        WebResource resource;
+        try {
+            resource = client.resource(path);
+            String json = resource.get(String.class);
+            return mapper.readValue(json, type);
+        } catch (ClientHandlerException che) {
+            if (che.getCause() instanceof SocketTimeoutException) {
+                //FIXME some times open, pooled connections time out and generate errors
+//                log.warning("Retrying request to " + path + " once because of SocketTimeoutException");
+                resource = client.resource(path);
+                String json = resource.get(String.class);
+                return mapper.readValue(json, type);
+            } else {
+                throw che;
+            }
+
+        } catch (UniformInterfaceException uie) {
+//            log.warning(uie.getResponse().getEntity(String.class));
+            throw uie;
+        }
     }
 
     private EventTransporter createEventTransporter(String username, Iterator<Event> iterator) throws IOException {
