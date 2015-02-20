@@ -109,15 +109,17 @@ onlineRegApp.controller('UpdateController', function($scope, $rootScope, $locati
 
 	    $scope.acceptance = $scope.acceptanceOptions[0];
 
-	    $http.get('api/event/' + $routeParams.eventId).success(function (result) {
+	    $http.get('api/update/' + $routeParams.eventId).success(function (result) {
 	        $scope.event = result;
+	        $scope.acceptance = $scope.acceptanceOptions[$scope.event.status];
+	        $scope.noteToHost = $scope.event.message;
 	        console.log("Auswahl: " + $scope.event.shortname);
 	    });
 
 	    $scope.update = function () {
 	        $http({
 	            method: 'POST',
-	            url: 'api/event/' + $routeParams.eventId + '/register',
+	            url: 'api/event/' + $routeParams.eventId + '/update',
 	            headers: {"Content-Type" : undefined},
 	            data: $.param({
 	                notehost: $scope.noteToHost
@@ -128,7 +130,7 @@ onlineRegApp.controller('UpdateController', function($scope, $rootScope, $locati
 	        		console.log("Teilnahme gespeichert: " + result);
 	        		$scope.setNextPage('veranstaltungen');
 	        		$location.path($scope.nextPage); 
-	        	} else if (result.status === 'REGISTERED'){
+	        	} else if (result.status === 'REGISTERED') {
 	        		$scope.error = 'Sie sind bereits für diese Veranstaltung angemeldet.';
 	        	}
 	        });

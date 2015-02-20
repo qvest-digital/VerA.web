@@ -14,6 +14,8 @@ public class EventTransporter {
     private String shortname;
     private Date datebegin;
     private Boolean isRegistered;
+    private Integer status;
+    private String message;
 
     /** Empty constructor */
 	public EventTransporter() {}
@@ -65,6 +67,22 @@ public class EventTransporter {
 	
 	public void setIsRegistered(Boolean isRegistered) {
 		this.isRegistered = isRegistered;
+	}
+	
+	public String getMessage() {
+		return message;
+	}
+	
+	public void setMessage(String message) {
+		this.message = message;
+	}
+	
+	public Integer getStatus() {
+		return status;
+	}
+	
+	public void setStatus(Integer status) {
+		this.status = status;
 	}
 
 }
