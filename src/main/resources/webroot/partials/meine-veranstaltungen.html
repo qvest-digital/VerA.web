@@ -15,6 +15,11 @@
         <tr ng-repeat="event in events">
             <td>{{parseDate(event.datebegin) | date:'dd.MM.yyyy HH:mm'}}</td>
             <td>{{event.shortname}}</td>
+            <td>
+            	<a href="#/update/{{event.pk}}">
+            		<input type="button" class="btn-custom" value="zur Veranstaltung auswählen"/>
+            	</a>
+            </td>
         </tr>
     </table>
 </div>
