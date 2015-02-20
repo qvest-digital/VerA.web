@@ -118,6 +118,38 @@ public class GuestResource extends AbstractResource{
             session.close();
         }
     }
+    /**
+     * Save guest.
+     *
+     * @param eventId Event id
+     * @param userId User id
+     * @param invitationstatus invitation status
+     * @param notehost TODO
+     *
+     * @return The guest
+     */
+    @POST
+    @Path("/update/{eventId}/{userId}")
+    public void updateGuest(@PathParam("eventId") int eventId,
+                           @PathParam("userId") int userId,
+                           @FormParam("invitationstatus") int invitationstatus,
+                           @FormParam("notehost") String notehost) {
+        final Session session = openSession();
+        try {
+            final Query query = session.getNamedQuery("Guest.findByEventAndUser");
+            query.setInteger("eventId", eventId);
+            query.setInteger("userId", userId);
+
+            final Guest guest = (Guest) query.uniqueResult();
+            guest.setInvitationstatus(invitationstatus);
+            guest.setNotehost(notehost);
+
+            session.update(guest);
+            session.flush();
+        } finally {
+            session.close();
+        }
+    }
 
     /**
      * Get guest using the UUID of a delegation
