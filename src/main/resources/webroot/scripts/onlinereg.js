@@ -47,8 +47,11 @@ onlineRegApp.config(function ($routeProvider) {
       templateUrl: 'partials/media.html',
       controller: 'MediaController'
     }).when('/freevisitors/:uuid', {
-      template: "",
-      controller: 'FreeVisitorController'
+        template: "",
+        controller: 'FreeVisitorController'
+    }).when('/update/:eventId', {
+		templateUrl: 'partials/update.html',
+		controller: 'UpdateController'
     }).otherwise({
       redirectTo: '/event'
     })
@@ -87,6 +90,51 @@ onlineRegApp.controller('FreeVisitorController', function($http, $scope, $locati
     }).error(function (data, status, headers, config) {
     	$scope.error = "Bitte geben sie ihr Geschlecht an.";
    });
+});
+
+onlineRegApp.controller('UpdateController', function($scope, $rootScope, $location, $routeParams, $http) {
+
+
+	if ($rootScope.user_logged_in == null) {
+
+		$scope.setNextPage('register/' + $routeParams.eventId);
+		$location.path('/login');
+	} else {
+
+	    $scope.acceptanceOptions = [
+	        {id: 0, label: "Offen"},
+	        {id: 1, label: "Zusage"},
+	        {id: 2, label: "Absage"}
+	    ];
+
+	    $scope.acceptance = $scope.acceptanceOptions[0];
+
+	    $http.get('api/event/' + $routeParams.eventId).success(function (result) {
+	        $scope.event = result;
+	        console.log("Auswahl: " + $scope.event.shortname);
+	    });
+
+	    $scope.update = function () {
+	        $http({
+	            method: 'POST',
+	            url: 'api/event/' + $routeParams.eventId + '/register',
+	            headers: {"Content-Type" : undefined},
+	            data: $.param({
+	                notehost: $scope.noteToHost
+	            })
+	        }).success(function (result) {
+	        	if (result.status === 'OK') {
+	        		$rootScope.previousMessage="Sie haben sich erfolgreich für die Veranstaltung \"" + $scope.event.shortname + "\" angemeldet.";
+	        		console.log("Teilnahme gespeichert: " + result);
+	        		$scope.setNextPage('veranstaltungen');
+	        		$location.path($scope.nextPage); 
+	        	} else if (result.status === 'REGISTERED'){
+	        		$scope.error = 'Sie sind bereits für diese Veranstaltung angemeldet.';
+	        	}
+	        });
+	    }
+	}
+
 });
 
 onlineRegApp.controller('MediaController', function ($scope, $http, $rootScope, $location, $routeParams) {
