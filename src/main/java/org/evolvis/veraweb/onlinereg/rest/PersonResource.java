@@ -218,6 +218,34 @@ public class PersonResource extends AbstractResource {
         }
     }
     
+
+
+    /**
+     * Getting Person pk from the username
+     * 
+     * @param username String
+     * @return Integer Person pk
+     */
+    @Path("/userdata/lite/{username}")
+    @GET
+    public Integer getUserIdFromUsername(@PathParam("username") String username) {
+        final Session session = openSession();
+        try {
+            final Query query = session.getNamedQuery("Person.findPersonIdByUsername");
+            query.setString("username", username);
+            if (query.list().isEmpty()) {
+                // user does not exists
+                return null;
+            } else {
+                return (Integer) query.uniqueResult();
+            }
+
+        } finally {
+            session.close();
+        }
+
+    }
+    
     /**
      * UPDATE Gastgeber Hinweis in tperson
      * 
