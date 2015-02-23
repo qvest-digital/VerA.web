@@ -76,22 +76,30 @@ public class DelegationResource {
      *  3 - only partner is invited
      */
     private static final String INVITATION_TYPE = "2";
-    private static final TypeReference<Guest> GUEST = new TypeReference<Guest>() {};
-    private static final TypeReference<Person> PERSON = new TypeReference<Person>() {};
-    private static final TypeReference<Boolean> BOOLEAN = new TypeReference<Boolean>() {};
-    private static final TypeReference<Integer> INTEGER = new TypeReference<Integer>() {};
-    private static final TypeReference<List<Person>> GUEST_LIST = new TypeReference<List<Person>>() {};
-    private static final TypeReference<List<OptionalFieldValue>> FIELDS_LIST =
-            new TypeReference<List<OptionalFieldValue>>() {};
+    
+    /* RETURN TYPES */
+	    private static final TypeReference<Guest> GUEST = new TypeReference<Guest>() {};
+	    private static final TypeReference<Person> PERSON = new TypeReference<Person>() {};
+	    private static final TypeReference<Boolean> BOOLEAN = new TypeReference<Boolean>() {};
+	    private static final TypeReference<List<Person>> GUEST_LIST = new TypeReference<List<Person>>() {};
+	    private static final TypeReference<List<OptionalFieldValue>> FIELDS_LIST =
+	            										new TypeReference<List<OptionalFieldValue>>() {};
+    /* ************ */
 
     /**
      * Jackson Object Mapper
      */
     private final ObjectMapper mapper = new ObjectMapper();
 
+    /**
+     * Configuration
+     */
     private Config config;
+    
+    /**
+     * Jersey client
+     */
     private Client client;
-
 
 	/**
 	 * Default constructor
@@ -194,7 +202,6 @@ public class DelegationResource {
 		}
     }
 
-
     /**
      * Remove delegate from guest list for event.
      *
@@ -269,7 +276,6 @@ public class DelegationResource {
     private Person getCompanyFromUuid(String uuid) throws IOException {
 		return readResource(path("person", "company", uuid), PERSON);
 	}
-
 
     /**
      * Includes a new person in the database - Table "tperson"
@@ -384,7 +390,6 @@ public class DelegationResource {
             } else {
                 throw che;
             }
-
         } catch (UniformInterfaceException uie) {
 //            log.warning(uie.getResponse().getEntity(String.class));
             throw uie;
