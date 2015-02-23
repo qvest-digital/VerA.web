@@ -38,6 +38,7 @@ import org.evolvis.veraweb.onlinereg.event.DelegationResource;
 import org.evolvis.veraweb.onlinereg.event.EventResource;
 import org.evolvis.veraweb.onlinereg.event.FreeVisitorsResource;
 import org.evolvis.veraweb.onlinereg.event.MediaResource;
+import org.evolvis.veraweb.onlinereg.event.UpdateResource;
 import org.evolvis.veraweb.onlinereg.event.UserResource;
 import org.evolvis.veraweb.onlinereg.user.LoginResource;
 
@@ -65,6 +66,7 @@ public class Main extends Application<Config> {
     private MediaResource mediaResource;
     private Health health;
     private FreeVisitorsResource freeVisitorsResource;
+    private UpdateResource updateResource;
 
 
     @Override
@@ -102,6 +104,7 @@ public class Main extends Application<Config> {
         environment.jersey().register(delegationResource = new DelegationResource(configuration, client));
         environment.jersey().register(mediaResource = new MediaResource(configuration, client));
         environment.jersey().register(freeVisitorsResource = new FreeVisitorsResource(configuration, client));
+        environment.jersey().register(updateResource = new UpdateResource(configuration, client));
 
     }
 
