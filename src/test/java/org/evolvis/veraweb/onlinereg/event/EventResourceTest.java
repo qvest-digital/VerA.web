@@ -60,14 +60,14 @@ public class EventResourceTest {
         assertEquals("Kamin", (events.get(2).getLocation().toString().replaceAll(".*locationname=", "").replace(")", "")));
     }
 
-    @Test
+    @Test@Ignore
     public void testGetEvent() throws IOException {
         Event e = er.getEvent(1);
         assertEquals("Tag der deutschen Einheit", e.getShortname());
         assertEquals(new Date(1406930430000l), e.getDatebegin());
     }
 
-    @Test
+    @Test@Ignore
     public void testGetRegistration() throws IOException {
         Guest g = er.getRegistration(1, 2);
         assertEquals(1, g.getInvitationstatus());
