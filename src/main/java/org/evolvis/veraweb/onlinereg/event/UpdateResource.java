@@ -15,7 +15,6 @@ import javax.ws.rs.core.MediaType;
 import org.evolvis.veraweb.onlinereg.Config;
 import org.evolvis.veraweb.onlinereg.entities.Event;
 import org.evolvis.veraweb.onlinereg.entities.Guest;
-import org.evolvis.veraweb.onlinereg.entities.Person;
 import org.evolvis.veraweb.onlinereg.utils.EventTransporter;
 import org.evolvis.veraweb.onlinereg.utils.StatusConverter;
 
@@ -36,46 +35,40 @@ import lombok.extern.java.Log;
  * @author jnunez
  *
  */
-
 @Path("/update")
 @Produces(MediaType.APPLICATION_JSON)
 @Log
 public class UpdateResource {
 
-    /**
-     * base path of all resource
-     */
+    /** base path of all resource */
     public static final String BASE_RESOURCE = "/rest";
 
-    public static final String USERNAME = "USERNAME";
+    /* Context data */
+    	public static final String USERNAME = "USERNAME";
+    /* ************ */
+    	
+    /* RETURN TYPES */
+	    private static final TypeReference<Boolean> BOOLEAN = new TypeReference<Boolean>() {};
+	    private static final TypeReference<Integer> INTEGER = new TypeReference<Integer>() {};
+	    private static final TypeReference<Event> EVENT = new TypeReference<Event>() {};
+	    private static final TypeReference<Guest> GUEST = new TypeReference<Guest>() {};
+    /* ************ */
+    
+    /* RESPONSE MESSAGES */
+	    private static final String RESPONSE_SUCCESS = "OK";
+	    private static final String RESPONSE_ERROR_NOT_REGISTERED = "NOT_REGISTERED";
+    /* ***************** */
 
-    /* RETURN TYPES BEGIN*/
-
-    private static final TypeReference<Boolean> BOOLEAN = new TypeReference<Boolean>() {};
-    private static final TypeReference<Person> PERSON = new TypeReference<Person>() {};
-    private static final TypeReference<Event> EVENT = new TypeReference<Event>() {};
-    private static final TypeReference<Guest> GUEST = new TypeReference<Guest>() {};
-
-    /* RETURN TYPES END */
-
-    /**
-     * Jersey client
-     */
+    /** Jersey client */
     private Client client;
 
-    /**
-     * configuration
-     */
+    /** Configuration */
     private Config config;
 
-    /**
-     * Jackson Object Mapper
-     */
+    /** Jackson Object Mapper */
     private ObjectMapper mapper = new ObjectMapper();
 
-    /**
-     * Servlet context
-     */
+    /** Servlet context */
     @javax.ws.rs.core.Context
     @Getter
     private ServletContext context;
@@ -127,18 +120,17 @@ public class UpdateResource {
 
     	// checking if the user is registered on the event
     	if (isUserRegistered(username, eventId)) {
-
-    		Person person = getUserData(username);
-    		Integer userId = person.getPk();
-
-    		if (person != null && userId != null) {
+    		
+    		Integer userId = getUserData(username);
+    		
+    		if (userId != null) {
     			updateGuest(eventId, userId, invitationstatus, notehost);
     		}
-
-    		return StatusConverter.convertStatus("OK");
+    		
+    		return StatusConverter.convertStatus(RESPONSE_SUCCESS);
     	}
-
-    	return StatusConverter.convertStatus("REGISTERED");
+    	
+    	return StatusConverter.convertStatus(RESPONSE_ERROR_NOT_REGISTERED);
     }
 
     /**
@@ -155,8 +147,26 @@ public class UpdateResource {
         postBody.add("notehost", notehost);
 
         resource.type(MediaType.APPLICATION_FORM_URLENCODED_TYPE).post(postBody);
+        
+        updateGuestMessage(notehost, String.valueOf(userId));
     }
 
+    /**
+     * Updating Message to the events owner
+     * 
+     * @param notehost String
+     * @param personId String
+     */
+	private void updateGuestMessage(String notehost, String personId) {
+		WebResource resource = client.resource(config.getVerawebEndpoint() + "/rest/person/guestmsg");
+		
+		Form postBody = new Form();
+		postBody.add("notehost", notehost);
+		postBody.add("personId", personId);
+		
+		resource.post(postBody);
+	}
+    
     /**
      * Checking if the user is registered
      *
@@ -175,24 +185,36 @@ public class UpdateResource {
      * @return
      * @throws IOException
      */
-    private Person getUserData(String username) throws IOException {
-    	return readResource(path("person", "userdata", username), PERSON);
+    private Integer getUserData(String username) throws IOException {
+    	return readResource(path("person", "userdata", "lite", username), INTEGER);
     }
-
-
+    
+    /**
+     * Getting the transporter to show data according to the layout
+     * 
+     * @param eventId int
+     * @param username String
+     * @return EventTransporter
+     * @throws IOException
+     */
 	private EventTransporter getEventData(int eventId, String username)
 			throws IOException {
-
-		// TODO IMPROVE with smaller Objects (getting concrete data) REST - API
-		Person person = getUserData(username);
-        Guest guest = readResource(path("guest", eventId, person.getPk()), GUEST);
+		
+		Integer personId = getUserData(username);
+        Guest guest = readResource(path("guest", eventId, personId), GUEST);
     	Event event = readResource(path("event", eventId), EVENT);
     	EventTransporter transporter = createEventTransporter(guest, event);
 
 		return transporter;
 	}
 
-
+	/**
+	 * Converting Event-Guest to EventTransporter to show data into the layout
+	 * 
+	 * @param guest Guest
+	 * @param event Event
+	 * @return EventTransporter 
+	 */
 	private EventTransporter createEventTransporter(Guest guest, Event event) {
 		EventTransporter transporter = new EventTransporter();
 
@@ -200,10 +222,10 @@ public class UpdateResource {
     	transporter.setMessage(guest.getNotehost());
     	transporter.setShortname(event.getShortname());
     	transporter.setStatus(guest.getInvitationstatus());
+    	
 		return transporter;
 	}
-
-
+    
     /**
      * Constructs a path from vera.web endpint, BASE_RESOURCE and given path fragmensts.
      *

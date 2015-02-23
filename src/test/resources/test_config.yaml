@@ -1,5 +1,5 @@
 
-verawebEndpoint: http://172.26.12.56/vwor/
+verawebEndpoint: http://localhost:8091/vwor/
 
 osiam:
   endpoint: http://172.26.12.40/

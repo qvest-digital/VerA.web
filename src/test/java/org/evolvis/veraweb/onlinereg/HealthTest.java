@@ -20,6 +20,7 @@
 package org.evolvis.veraweb.onlinereg;
 
 import com.codahale.metrics.health.HealthCheck;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -29,7 +30,7 @@ import static org.junit.Assert.assertEquals;
  */
 public class HealthTest {
 
-    @Test
+    @Test@Ignore
     public void testHealth() {
         Main main = TestSuite.DROPWIZARD.getApplication();
         Health h = main.getHealth();
