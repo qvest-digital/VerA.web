@@ -46,14 +46,14 @@ public class UpdateResource {
     /* Context data */
     	public static final String USERNAME = "USERNAME";
     /* ************ */
-    	
+
     /* RETURN TYPES */
 	    private static final TypeReference<Boolean> BOOLEAN = new TypeReference<Boolean>() {};
 	    private static final TypeReference<Integer> INTEGER = new TypeReference<Integer>() {};
 	    private static final TypeReference<Event> EVENT = new TypeReference<Event>() {};
 	    private static final TypeReference<Guest> GUEST = new TypeReference<Guest>() {};
     /* ************ */
-    
+
     /* RESPONSE MESSAGES */
 	    private static final String RESPONSE_SUCCESS = "OK";
 	    private static final String RESPONSE_ERROR_NOT_REGISTERED = "NOT_REGISTERED";
@@ -107,6 +107,7 @@ public class UpdateResource {
      *
      * @param eventId          event id
      * @param notehost         note to host
+     * @param invitationstatus status of user
      * @return updated Guest object
      * @throws IOException
      */
@@ -120,16 +121,16 @@ public class UpdateResource {
 
     	// checking if the user is registered on the event
     	if (isUserRegistered(username, eventId)) {
-    		
+
     		Integer userId = getUserData(username);
-    		
+
     		if (userId != null) {
     			updateGuest(eventId, userId, invitationstatus, notehost);
     		}
-    		
+
     		return StatusConverter.convertStatus(RESPONSE_SUCCESS);
     	}
-    	
+
     	return StatusConverter.convertStatus(RESPONSE_ERROR_NOT_REGISTERED);
     }
 
@@ -138,6 +139,8 @@ public class UpdateResource {
      *
      * @param eventId int
      * @param userId int
+     * @param invitationstatus String
+     * @param notehost String
      */
     private void updateGuest(String eventId, int userId, String invitationstatus, String notehost) {
     	WebResource resource = client.resource(path("guest", "update", eventId, userId));
@@ -147,26 +150,26 @@ public class UpdateResource {
         postBody.add("notehost", notehost);
 
         resource.type(MediaType.APPLICATION_FORM_URLENCODED_TYPE).post(postBody);
-        
+
         updateGuestMessage(notehost, String.valueOf(userId));
     }
 
     /**
      * Updating Message to the events owner
-     * 
+     *
      * @param notehost String
      * @param personId String
      */
 	private void updateGuestMessage(String notehost, String personId) {
 		WebResource resource = client.resource(config.getVerawebEndpoint() + "/rest/person/guestmsg");
-		
+
 		Form postBody = new Form();
 		postBody.add("notehost", notehost);
 		postBody.add("personId", personId);
-		
+
 		resource.post(postBody);
 	}
-    
+
     /**
      * Checking if the user is registered
      *
@@ -181,17 +184,17 @@ public class UpdateResource {
 
     /**
      * Get Person instance from one username
-     * @param username
+     * @param username String
      * @return
      * @throws IOException
      */
     private Integer getUserData(String username) throws IOException {
     	return readResource(path("person", "userdata", "lite", username), INTEGER);
     }
-    
+
     /**
      * Getting the transporter to show data according to the layout
-     * 
+     *
      * @param eventId int
      * @param username String
      * @return EventTransporter
@@ -199,7 +202,7 @@ public class UpdateResource {
      */
 	private EventTransporter getEventData(int eventId, String username)
 			throws IOException {
-		
+
 		Integer personId = getUserData(username);
         Guest guest = readResource(path("guest", eventId, personId), GUEST);
     	Event event = readResource(path("event", eventId), EVENT);
@@ -210,10 +213,10 @@ public class UpdateResource {
 
 	/**
 	 * Converting Event-Guest to EventTransporter to show data into the layout
-	 * 
+	 *
 	 * @param guest Guest
 	 * @param event Event
-	 * @return EventTransporter 
+	 * @return EventTransporter
 	 */
 	private EventTransporter createEventTransporter(Guest guest, Event event) {
 		EventTransporter transporter = new EventTransporter();
@@ -222,10 +225,10 @@ public class UpdateResource {
     	transporter.setMessage(guest.getNotehost());
     	transporter.setShortname(event.getShortname());
     	transporter.setStatus(guest.getInvitationstatus());
-    	
+
 		return transporter;
 	}
-    
+
     /**
      * Constructs a path from vera.web endpint, BASE_RESOURCE and given path fragmensts.
      *
