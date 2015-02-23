@@ -45,6 +45,18 @@ import org.evolvis.veraweb.onlinereg.user.LoginResource;
 @Getter
 public class Main extends Application<Config> {
 
+	
+	/* RESOURCES */
+		private EventResource eventResource;
+		private UserResource userResource;
+		private LoginResource loginResource;
+		private DelegationResource delegationResource;
+		private MediaResource mediaResource;
+		private Health health;
+		private FreeVisitorsResource freeVisitorsResource;
+		private UpdateResource updateResource;
+	/* ********* */
+		
     /**
      * startup with the parameter java DropwizardDemo server config.yaml.
      *
@@ -59,25 +71,13 @@ public class Main extends Application<Config> {
         }
     }
 
-    private EventResource eventResource;
-    private UserResource userResource;
-    private LoginResource loginResource;
-    private DelegationResource delegationResource;
-    private MediaResource mediaResource;
-    private Health health;
-    private FreeVisitorsResource freeVisitorsResource;
-    private UpdateResource updateResource;
-
-
     @Override
     public void initialize(final Bootstrap<Config> bootstrap) {
         bootstrap.addBundle(new AssetsBundle("/webroot/", "/", "index.html", "static"));
-
     }
 
     @Override
     public void run(final Config configuration, final Environment environment) {
-
 
         JerseyClientConfiguration jcc = configuration.getJerseyClientConfiguration();
         // timeouts must be increased, because OSIAM is kind of slow.
