@@ -124,9 +124,9 @@ public class MediaResource {
             @FormParam("country") String country) throws IOException {
 
         final Boolean delegationIsFound = checkForExistingPressEvent(uuid);
-
+        
         if(delegationIsFound) {
-        	final PressTransporter transporter = new PressTransporter(uuid, nachname, vorname, gender, email, address, plz, city, country);
+        	final PressTransporter transporter = new PressTransporter(uuid, nachname, vorname, gender, email, address, plz, city, country, usernameGenerator());
             return StatusConverter.convertStatus(createAndAssignMediaRepresentativeGuest(transporter));
         }
 
@@ -136,14 +136,13 @@ public class MediaResource {
     private String createAndAssignMediaRepresentativeGuest(PressTransporter transporter) throws IOException {
     	// Assing person to event as guest
         final Integer eventId = getEventIdFromUuid(transporter.getUuid());
-
     	// Store in tperson
         final Integer personId = createPerson(eventId, transporter);
 
         if (eventId==null) {
             return "NO_EVENT_DATA";
         }
-        addGuestToEvent(transporter.getUuid(), String.valueOf(eventId), String.valueOf(personId), transporter.getGender());
+        addGuestToEvent(transporter.getUuid(), String.valueOf(eventId), String.valueOf(personId), transporter.getGender(), transporter.getUsername());
 
         return "OK";
     }
@@ -159,7 +158,7 @@ public class MediaResource {
      * @param gender gender
      * @throws IOException
      */
-    private void addGuestToEvent(String uuid, String eventId, String userId, String gender) throws IOException {
+    private void addGuestToEvent(String uuid, String eventId, String userId, String gender, String username) throws IOException {
         final Integer categoryID = getCategoryIdFromCatname("Pressevertreter", uuid);
         final WebResource resource = client.resource(path("guest", uuid, "register"));
         final Form postBody = new Form();
@@ -170,6 +169,7 @@ public class MediaResource {
         postBody.add("invitationtype", INVITATION_TYPE);
         postBody.add("gender", gender);
         postBody.add("category", String.valueOf(categoryID));
+        postBody.add("username", username);
 
         resource.post(Guest.class, postBody);
     }
@@ -200,7 +200,7 @@ public class MediaResource {
         final Form postBody = new Form();
 
         postBody.add("eventId", String.valueOf(eventId));
-        postBody.add("username", usernameGenerator());
+        postBody.add("username", transporter.getUsername());
         postBody.add("firstname", transporter.getVorname());
         postBody.add("lastname", transporter.getNachname());
 	    postBody.add("gender", correctGender(transporter.getGender()));

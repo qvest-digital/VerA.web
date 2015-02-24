@@ -30,6 +30,7 @@ public class PressTransporter {
 	private String plz;
 	private String city;
 	private String country;
+	private String username;
 	
 	/**
 	 * Empty constructor
@@ -42,7 +43,7 @@ public class PressTransporter {
 	 */
 	public PressTransporter(String uuid, String nachname, String vorname,
 			String gender, String email, String address, String plz,
-			String city, String country) {
+			String city, String country, String username) {
 		super();
 		this.uuid = uuid;
 		this.nachname = nachname;
@@ -53,6 +54,7 @@ public class PressTransporter {
 		this.plz = plz;
 		this.city = city;
 		this.country = country;
+		this.username = username;
 	}
 
 	public String getUuid() {
@@ -125,6 +127,14 @@ public class PressTransporter {
 
 	public void setCountry(String country) {
 		this.country = country;
+	}
+	
+	public String getUsername() {
+		return username;
+	}
+	
+	public void setUsername(String username) {
+		this.username = username;
 	}
 	
 }

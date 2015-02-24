@@ -252,14 +252,15 @@ public class DelegationResource {
     	
         final Integer eventId = getEventId(uuid);
         final Person company = getCompanyFromUuid(uuid);
-
+        
+        String username = usernameGenerator();
         // Store in tperson
-        final Integer personId = createPerson(company.getCompany_a_e1(), eventId, nachname, vorname, gender);
+        final Integer personId = createPerson(company.getCompany_a_e1(), eventId, nachname, vorname, gender,username);
 
         if (eventId == null) {
             return "NO_EVENT_DATA";
         }
-        addGuestToEvent(uuid, String.valueOf(eventId), String.valueOf(personId), gender, nachname, vorname);
+        addGuestToEvent(uuid, String.valueOf(eventId), String.valueOf(personId), gender, nachname, vorname, username);
 
         return "OK";
     }
@@ -285,13 +286,13 @@ public class DelegationResource {
      * @param firstname First name
      * @param gender Gender of the person
      */
-    private Integer createPerson(String companyName, Integer eventId, String firstname, String lastname, String gender) {
+    private Integer createPerson(String companyName, Integer eventId, String firstname, String lastname, String gender, String username) {
         WebResource personResource = client.resource(config.getVerawebEndpoint() + "/rest/person/delegate");
         Form postBody = new Form();
         
         postBody.add("company", companyName);
         postBody.add("eventId", String.valueOf(eventId));
-        postBody.add("username", usernameGenerator());
+        postBody.add("username", username);
         postBody.add("firstname", firstname);
         postBody.add("lastname", lastname);
         postBody.add("gender", gender);
@@ -320,7 +321,7 @@ public class DelegationResource {
      * @param userId User id
      * @param gender Gender of the person
      */
-    private void addGuestToEvent(String uuid, String eventId, String userId, String gender, String lastName, String firstName) {
+    private void addGuestToEvent(String uuid, String eventId, String userId, String gender, String lastName, String firstName, String username) {
 		WebResource resource = client.resource(path("guest", uuid, "register"));
         Form postBody = new Form();
 
@@ -330,6 +331,7 @@ public class DelegationResource {
 		postBody.add("invitationtype", INVITATION_TYPE);
 		postBody.add("gender", gender);
 		postBody.add("category", "0");
+		postBody.add("username", username);
 
         final Guest guest = resource.post(Guest.class, postBody);
         
