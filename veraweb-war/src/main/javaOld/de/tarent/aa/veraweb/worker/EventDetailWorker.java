@@ -281,9 +281,9 @@ public class EventDetailWorker {
                         }
                     }
                     
+                    initOptionalFields(database, context, event);
                 }
 
-                initOptionalFields(database, context, event);
 
                 Integer invitationtype = getInvitationType(event);
 
@@ -325,6 +325,7 @@ public class EventDetailWorker {
             cntx.setContent("event", event);
 			cntx.setContent("event-beginhastime", Boolean.valueOf(DateHelper.isTimeInDate(event.begin)));
 			cntx.setContent("event-endhastime", Boolean.valueOf(DateHelper.isTimeInDate(event.end)));
+
 
 			context.commit();
         } catch (BeanException e) {

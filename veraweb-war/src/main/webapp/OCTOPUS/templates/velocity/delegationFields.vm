@@ -15,7 +15,7 @@
     <h1>Veranstaltung bearbeiten: $!message.plain($event.shortname)</h1>
 
 
-    <form id="formlist" name="formlist" action="$formurl?eventId=$!event.id" method="POST">
+    <form id="formlist1" name="formlist1" action="$formurl?eventId=$!event.id" method="POST">
 
         #set($completeEventHeader = false)
         #parse("inc/event-header.vm")
@@ -64,8 +64,7 @@
 
         <span id="buttonPanel-bottom" class="floatRight">
             #if($grants.mayWrite())
-                <input type="button" name="save" value="Veranstaltung speichern" class="mainButton"
-                       onclick="submitForm();">
+                <input type="submit" name="save" value="Veranstaltung speichern" class="mainButton" title="Veranstaltung speichern" onclick="document.getElementById('formlist1').action='$formurl?eventId=$!event.id';">
             #end
             <input type="reset" name="cancel" value="Zur Veranstaltungsübersicht" class="mainButton"
                    onclick="window.location.href='SearchEvent?action=event&search=reset&selectNone=true';">
@@ -78,10 +77,11 @@
 
 <script type="text/javascript">
 
-function submitForm() {
-
-	$('#formlist').submit();
-}
+$(document).ready(function() {
+	if ($showSuccessMessage == true) {
+		showSuccess('Erfolgreich gespeichert!');
+	}
+});
 
 </script>
 

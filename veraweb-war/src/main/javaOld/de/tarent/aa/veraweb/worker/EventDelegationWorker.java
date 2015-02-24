@@ -25,6 +25,7 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 import de.tarent.aa.veraweb.beans.Event;
 import de.tarent.aa.veraweb.beans.OptionalDelegationField;
@@ -50,45 +51,43 @@ public class EventDelegationWorker {
     public static final String INPUT_getDelegationFieldsLabels[] = {"eventId"};
 
     public static final String OUTPUT_getDelegationFieldsLabels = "delegationFieldsLabels";
-    
+
     public static final String INPUT_saveDelegationFieldLabels[] = {"eventId"};
 
     /**
      * Show the optional delegation fields in the guest detail view.
      *
-     * @param oc The {@link OctopusContext}
+     * @param oc      The {@link OctopusContext}
      * @param eventId The event id
-     *
      * @return Map with field label as key and field content as value
-     *
-     * @throws IOException If fetching event failed
+     * @throws IOException   If fetching event failed
      * @throws BeanException If fetching event failed
      */
     public Map<String, String> showDelegationFields(OctopusContext oc)
             throws IOException, BeanException, SQLException {
         Integer guestId = getIntegerFromRequestParameter(oc, "id");
         Integer eventId = getIntegerFromRequestParameter(oc, "eventId");
-        if(guestId == null && eventId == null) {
+        if (guestId == null && eventId == null) {
             return null;
         }
         setEventInContext(oc, eventId);
         Map<String, String> delegationFields = new LinkedHashMap<String, String>();
         OptionalFieldsDelegationWorker optionalFieldsDelegationWorker = new OptionalFieldsDelegationWorker(oc);
-        OptionalFieldsWorker optionalFieldsWorker = new  OptionalFieldsWorker(oc);
+        OptionalFieldsWorker optionalFieldsWorker = new OptionalFieldsWorker(oc);
 
         List<OptionalField> optionalFields = optionalFieldsWorker.getOptionalFieldsByEvent(eventId);
         List<OptionalDelegationField> optionalDelegationFields = optionalFieldsDelegationWorker.getOptionalDelegationFieldsByGuestId(guestId);
 
-        for(OptionalDelegationField field : optionalDelegationFields) {
-        	OptionalField optionalField = findFieldById(optionalFields, field.getFkDelegationnField());
+        for (OptionalDelegationField field : optionalDelegationFields) {
+            OptionalField optionalField = findFieldById(optionalFields, field.getFkDelegationnField());
 
-        	delegationFields.put(optionalField.getLabel(), field.getValue());
+            delegationFields.put(optionalField.getLabel(), field.getValue());
 
-        	optionalFields.remove(optionalField);
+            optionalFields.remove(optionalField);
         }
 
-        for(OptionalField optionalField : optionalFields) {
-        	delegationFields.put(optionalField.getLabel(), "");
+        for (OptionalField optionalField : optionalFields) {
+            delegationFields.put(optionalField.getLabel(), "");
         }
 
         return delegationFields;
@@ -107,15 +106,15 @@ public class EventDelegationWorker {
         setEventInContext(oc, eventId);
         return null;
     }
-    
+
     private OptionalField findFieldById(List<OptionalField> fields, int id) {
-    	for(OptionalField field : fields) {
-    		if(field.getPk() == id) {
-    			return field;
-    		}
-    	}
-    	
-    	return null;
+        for (OptionalField field : fields) {
+            if (field.getPk() == id) {
+                return field;
+            }
+        }
+
+        return null;
     }
 
     private void setEventInContext(OctopusContext oc, Integer eventId) throws BeanException, IOException {
@@ -130,34 +129,36 @@ public class EventDelegationWorker {
      * Get the labels for the delegation fields.
      *
      * @return Labels for the fields
-     * @throws SQLException 
+     * @throws SQLException
      */
     public Map<String, String> getDelegationFieldsLabels(OctopusContext oc, Integer eventId)
             throws IOException, BeanException, SQLException {
 
         setEventInContext(oc, eventId);
 
-        final Map<String, String> delegationFieldsLabelds = new LinkedHashMap<String, String>();
+        final Map<String, String> delegationFieldsLabelds = new TreeMap<String, String>();
         final OptionalFieldsWorker optionalFieldsWorker = new OptionalFieldsWorker(oc);
-        
+
         List<OptionalField> optionalFieldsByEvent = optionalFieldsWorker.getOptionalFieldsByEvent(eventId);
-        
+
         for (OptionalField optionalField : optionalFieldsByEvent) {
-        	delegationFieldsLabelds.put(String.valueOf(optionalField.getPk()), optionalField.getLabel());
-		}
+            delegationFieldsLabelds.put(String.valueOf(optionalField.getPk()), optionalField.getLabel());
+        }
 
         return delegationFieldsLabelds;
     }
 
     public void saveDelegationFieldLabels(OctopusContext oc, Integer eventId) throws BeanException, SQLException, IOException {
-    	OptionalFieldsWorker optionalFieldsWorker = new OptionalFieldsWorker(oc);
-    	Map<String, String> allRequestParams = oc.getRequestObject().getRequestParameters();
+        OptionalFieldsWorker optionalFieldsWorker = new OptionalFieldsWorker(oc);
+        Map<String, String> allRequestParams = oc.getRequestObject().getRequestParameters();
 
-    	for (String key : allRequestParams.keySet()) {
-            if(key.startsWith("optionalField-")) {
+        for (String key : allRequestParams.keySet()) {
+            if (key.startsWith("optionalField-")) {
                 saveField(eventId, optionalFieldsWorker, allRequestParams, key);
             }
-    	}
+        }
+
+        oc.setContent("showSuccessMessage", true);
     }
 
     private void saveField(Integer eventId, OptionalFieldsWorker optionalFieldsWorker, Map<String, String> allRequestParams, String key) throws SQLException, BeanException {
@@ -173,40 +174,40 @@ public class EventDelegationWorker {
      * Duplicate optional fields in the database exam (database)
      */
     public Boolean checkExistingOptionalField(OctopusContext oc, String of, Integer eventId) throws BeanException, IOException {
-    	final Database database = new DatabaseVeraWeb(oc);
+        final Database database = new DatabaseVeraWeb(oc);
         Select select = SQL.Select(database);
         select.select("count(pk)");
         select.from("veraweb.toptional_fields");
         select.where(Expr.equal("veraweb.toptional_fields.label", of.trim()));
         select.whereAnd(Expr.equal("veraweb.toptional_fields.fk_event", eventId));
-        
+
         Integer i = database.getCount(select);
         if (i != null && i > 0) {
-        	return true;
+            return true;
         }
-    	return false;
+        return false;
     }
-    
+
     private void createOptionalField(OptionalFieldsWorker optionalFieldsWorker, int eventId, String label) throws SQLException, BeanException {
-    	if(label.trim().isEmpty()) {
-    		return;
-    	}
-    	
-    	OptionalField optionalField = new OptionalField();
-		optionalField.setFkEvent(eventId);
-		optionalField.setLabel(label);
-		optionalFieldsWorker.createOptionalField(optionalField);
+        if (label.trim().isEmpty()) {
+            return;
+        }
+
+        OptionalField optionalField = new OptionalField();
+        optionalField.setFkEvent(eventId);
+        optionalField.setLabel(label);
+        optionalFieldsWorker.createOptionalField(optionalField);
     }
-    
+
     private void updateOrDeleteOptionalField(OptionalFieldsWorker optionalFieldsWorker, OptionalField optionalField) throws SQLException, BeanException {
         optionalFieldsWorker.updateOptionalField(optionalField);
     }
-    
+
     private static Event getEvent(OctopusContext cntx, Integer id) throws BeanException, IOException {
         if (id == null) return null;
 
         final Database database = new DatabaseVeraWeb(cntx);
-        final Event event = (Event)database.getBean("Event", id);
+        final Event event = (Event) database.getBean("Event", id);
 
         if (event != null) {
             cntx.setContent("event-beginhastime", Boolean.valueOf(DateHelper.isTimeInDate(event.begin)));
