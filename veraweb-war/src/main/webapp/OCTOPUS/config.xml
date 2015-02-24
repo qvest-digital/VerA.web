@@ -30,6 +30,8 @@
 		<param name="defaultEncoding" value="UTF-8"/>
 		<!-- der Name des Skripts für die Darstellung von Fehlerseiten; "error" referenziert bei obigen Einstellungen "templates/velocity/error.vm". -->
 		<param name="defaultErrorDescriptionName" value="error"/>
+		<!-- wird die Online-Anmeldung auch ausgeführt -->
+		<param name="vwor.activated" value="yes"/>
 
 		<!-- ************************************************ -->
 		<!-- *** Automatisches Kopieren von Personendaten *** -->
