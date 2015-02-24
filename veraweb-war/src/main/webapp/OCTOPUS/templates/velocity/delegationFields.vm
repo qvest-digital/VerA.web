@@ -55,11 +55,9 @@
 	                #foreach( $field in $delegationFieldsLabels.entrySet() )
 			            <li>
 			                <input type="text" name="optionalField-$field.key" value="$field.value">
-							<input type="button" class="remove_field" value="-">
 			            </li>
 	                #end
 				</ol>
-				<input type="button" id="addDelegation" class="mainButton" value="Feld hinzuf&uuml;gen"><br>
             </div>
         </div>
 
@@ -79,72 +77,19 @@
 
 
 <script type="text/javascript">
-	var wrapper = $(".delegationFields"); //Fields wrapper
-	
-	function initXOptionalFields(X) {
-		var anzElements = $( wrapper ).children().length;
-	
-		for(var i = anzElements; i != X; i++) {
-			addOptionalField();
-		}
-	}
-	
-	function addOptionalField() {
-		$(wrapper).append('' +
-	            '<li>' +
-	            '   <input type="text" name="optionalField"/>' +
-	            '   <input type="button" class="remove_field" value="-">' +
-	            '</li>');
-	}
-	
-	function handelOpionalFields() {
-	    var max_fields      = 10; //maximum input boxes allowed
-	    var wrapper         = $(".delegationFields"); //Fields wrapper
-	    var add_button      = $("#addDelegation"); //Add button ID
-	    var remove_button   = ".remove_field";
-	
-	    var x = 1; //initlal text box count
-	    $(add_button).click(function(e){ //on add input button click
-	        e.preventDefault();
-	        if(x < max_fields){ //max input box allowed
-	            x++; //text box increment
-	           	addOptionalField();
-	        } else {
-	            alert("maximum an feldern erreicht");
-	        }
-	    });
-	
-	    $(wrapper).on("click", remove_button, function(e){ //user click on remove text
-	        e.preventDefault();
-	        $(this).parent('li').remove();
-	        x--;
-	    });
-	}
-
-	$(document).ready(function() {
-		//initXOptionalFields(15);
-		handelOpionalFields();
-	});
 
 function submitForm() {
-	var msg = '<br><span class="notBold">Wenn Sie Ihre Auswahl anpassen wollen, brechen Sie bitte das L&ouml;schen ab.</span><br>';
-		msg += 'Sollen alle leeren Felder gel&ouml;scht werden? ';
-        msg += 'Diese Aktion kann nicht r&uuml;ckg&auml;ngig gemacht werden.<br>';
 
-	showConfirmYesNo('Bitte best&auml;tigen Sie das L&ouml;schen, leerer Felder!',
-	    msg,
-	    function () { // Ja                                                                 
-	    	$('#formlist').submit();
-	
-	    },
-	    function () { // Nein
-	      showSuccess('Es wurden kein Feld gel&ouml;scht.');
-	    });
+	$('#formlist').submit();
 }
 
 </script>
 
 <style>
+	.delegationFields {
+		margin-left: 10px;
+	}
+
 	.delegationFields>li {
 		margin:10px;
 	}

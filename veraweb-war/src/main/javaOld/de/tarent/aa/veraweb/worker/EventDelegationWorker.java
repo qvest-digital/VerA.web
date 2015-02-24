@@ -152,45 +152,23 @@ public class EventDelegationWorker {
     public void saveDelegationFieldLabels(OctopusContext oc, Integer eventId) throws BeanException, SQLException, IOException {
     	OptionalFieldsWorker optionalFieldsWorker = new OptionalFieldsWorker(oc);
     	Map<String, String> allRequestParams = oc.getRequestObject().getRequestParameters();
-    	Boolean doubleLabelexists = false;
-    	
+
     	for (String key : allRequestParams.keySet()) {
-    		
-    		if(key.startsWith("optionalField-")) {
-        		OptionalField optionalField = new OptionalField();
-        		optionalField.setFkEvent(eventId);
-    			String[] splitted = key.split("-");
-    			optionalField.setLabel(allRequestParams.get(key).toString());
-    			optionalField.setPk(Integer.parseInt(splitted[1]));
-    			
-    			updateOrDeleteOptionalField(optionalFieldsWorker, optionalField);
-    		}else if(key.startsWith("optionalField")) {
-    			Object tempParam = allRequestParams.get(key);
-    			
-    			if(tempParam instanceof String[]) {
-    				String[] tempParamA = (String[]) tempParam;
-    				
-    				for (String string : tempParamA) {
-    					if (!checkExistingOptionalField(oc, string, eventId)) {
-    						createOptionalField(optionalFieldsWorker, eventId, string);
-    					} else {
-    						doubleLabelexists = true;
-    					}
-					}
-    			} else {
-    				if (!checkExistingOptionalField(oc, allRequestParams.get(key).toString(), eventId)) {
-    					createOptionalField(optionalFieldsWorker, eventId, allRequestParams.get(key));
-    				} else {
-    					doubleLabelexists = true;
-    				}
-    			}
-    		}
-    	}
-    	if (doubleLabelexists) {
-    		// TODO show a message in the layout
+            if(key.startsWith("optionalField-")) {
+                saveField(eventId, optionalFieldsWorker, allRequestParams, key);
+            }
     	}
     }
-    
+
+    private void saveField(Integer eventId, OptionalFieldsWorker optionalFieldsWorker, Map<String, String> allRequestParams, String key) throws SQLException, BeanException {
+        OptionalField optionalField = new OptionalField();
+        optionalField.setFkEvent(eventId);
+        String[] splitted = key.split("-");
+        optionalField.setLabel(allRequestParams.get(key).toString());
+        optionalField.setPk(Integer.parseInt(splitted[1]));
+        optionalFieldsWorker.updateOptionalField(optionalField);
+    }
+
     /**
      * Duplicate optional fields in the database exam (database)
      */
@@ -221,11 +199,7 @@ public class EventDelegationWorker {
     }
     
     private void updateOrDeleteOptionalField(OptionalFieldsWorker optionalFieldsWorker, OptionalField optionalField) throws SQLException, BeanException {
-    	if(optionalField.getLabel().trim().isEmpty()) {
-    		optionalFieldsWorker.removeOptionalField(optionalField);
-    	} else {
-    		optionalFieldsWorker.updateOptionalField(optionalField);
-    	}
+        optionalFieldsWorker.updateOptionalField(optionalField);
     }
     
     private static Event getEvent(OctopusContext cntx, Integer id) throws BeanException, IOException {

@@ -60,6 +60,9 @@ import de.tarent.octopus.server.OctopusContext;
  * Veranstaltungen.
  */
 public class EventDetailWorker {
+
+    private static final Integer NUMBER_OPTIONAL_FIELDS = 15;
+
     //
     // Octopus-Aktionen
     //
@@ -280,33 +283,17 @@ public class EventDetailWorker {
                     
                 }
 
-                Integer invitationtype;
-                if (event.invitepartner.booleanValue() || event.invitationtype == null) {
-                    invitationtype = new Integer(EventConstants.TYPE_MITPARTNER);
-                } else if (event.invitationtype.intValue() == EventConstants.TYPE_NURPARTNER) {
-                    invitationtype = new Integer(EventConstants.TYPE_NURPARTNER);
-                } else {
-                    invitationtype = new Integer(EventConstants.TYPE_OHNEPARTNER);
-                }
+                initOptionalFields(database, context, event);
+
+                Integer invitationtype = getInvitationType(event);
 
                 // Bug 1601
                 // Alt: Veraltete Gastgeber zu G�sten machen
                 // Neu: gel�schten Gastgeber aus Veranstaltung entfernen.
                 if (removeHost) {
-                    Select sel = database.getSelect("Guest").where(Where.and(Expr.equal("fk_event", event.id), Expr.equal("ishost", new Integer(1))));
-                    Guest hostToRemove = (Guest) database.getBean("Guest", sel);
-                    if (hostToRemove != null && hostToRemove.id != null)
-                    {
-                        WorkerFactory.getGuestListWorker(cntx).removeBean(cntx, hostToRemove, context);
-                    }
-
-                    // context.execute(SQL.Update(database).
-                    // table("veraweb.tguest").
-                    // update("ishost", Boolean.FALSE).
-                    // where(Where.and(
-                    // Expr.equal("fk_event", event.id),
-                    // Expr.equal("ishost", new Integer(1)))));
+                    handleRemoveHost(cntx, database, context, event);
                 }
+
                 if (createHost) {
                     Boolean reserve = Boolean.FALSE;
                     WorkerFactory.getGuestWorker(cntx).addGuest(cntx, database, context, event, event.host, null, reserve, invitationtype,
@@ -344,6 +331,35 @@ public class EventDetailWorker {
             context.rollBack();
             // must report error to user
             throw new BeanException("Die Eventdetails konnten nicht gespeichert werden.", e);
+        }
+    }
+
+    private Integer getInvitationType(Event event) {
+        Integer invitationtype;
+        if (event.invitepartner.booleanValue() || event.invitationtype == null) {
+            invitationtype = new Integer(EventConstants.TYPE_MITPARTNER);
+        } else if (event.invitationtype.intValue() == EventConstants.TYPE_NURPARTNER) {
+            invitationtype = new Integer(EventConstants.TYPE_NURPARTNER);
+        } else {
+            invitationtype = new Integer(EventConstants.TYPE_OHNEPARTNER);
+        }
+        return invitationtype;
+    }
+
+    private void handleRemoveHost(OctopusContext cntx, Database database, TransactionContext context, Event event)
+            throws BeanException, IOException {
+        Select select = database.getSelect("Guest").where(
+                Where.and(Expr.equal("fk_event", event.id), Expr.equal("ishost", new Integer(1)))
+        );
+        Guest hostToRemove = (Guest) database.getBean("Guest", select);
+        if (hostToRemove != null && hostToRemove.id != null) {
+            WorkerFactory.getGuestListWorker(cntx).removeBean(cntx, hostToRemove, context);
+        }
+    }
+
+    private void initOptionalFields(Database database, TransactionContext context, Event event) throws BeanException {
+        for(int i = 0; i < NUMBER_OPTIONAL_FIELDS; i++) {
+            context.execute(SQL.Insert(database).table("veraweb.toptional_fields").insert("fk_event", event.id).insert("label", ""));
         }
     }
 
