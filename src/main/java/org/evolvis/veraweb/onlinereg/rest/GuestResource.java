@@ -268,10 +268,11 @@ public class GuestResource extends AbstractResource{
                                 @FormParam("invitationtype") Integer invitationtype,
                                 @FormParam("gender") String gender,
                                 @FormParam("category") Integer category,
-                                @FormParam("hostNode") String hostNode) {
+                                @FormParam("hostNode") String hostNode,
+                                @FormParam("username") String username) {
         final Session session = openSession();
 		try {
-            final Guest guest = initGuest(uuid,eventId, userId, invitationstatus, invitationtype, gender, category, null, hostNode);
+            final Guest guest = initGuest(uuid,eventId, userId, invitationstatus, invitationtype, gender, category, username, hostNode);
 
             session.save(guest);
 			session.flush();
