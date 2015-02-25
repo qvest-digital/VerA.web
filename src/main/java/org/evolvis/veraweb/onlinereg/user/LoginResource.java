@@ -26,15 +26,10 @@ import com.sun.jersey.api.client.ClientHandlerException;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.UniformInterfaceException;
 import com.sun.jersey.api.client.WebResource;
-
 import lombok.Getter;
-
+import lombok.extern.java.Log;
 import org.evolvis.veraweb.onlinereg.Config;
-import org.evolvis.veraweb.onlinereg.entities.Guest;
-import org.evolvis.veraweb.onlinereg.entities.Person;
 import org.evolvis.veraweb.onlinereg.utils.StatusConverter;
-import org.hibernate.Query;
-import org.hibernate.Session;
 import org.osiam.client.exception.ConnectionInitializationException;
 import org.osiam.resources.scim.User;
 
@@ -45,11 +40,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
-
-import lombok.extern.java.Log;
-
 import java.io.IOException;
 import java.net.SocketTimeoutException;
 
