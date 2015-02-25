@@ -50,6 +50,7 @@ import javax.ws.rs.core.MediaType;
 
 import java.io.IOException;
 import java.net.SocketTimeoutException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -236,7 +237,14 @@ public class DelegationResource {
 			final Guest guest = getEventIdFromUuid(uuid, personId);
 			final List<OptionalFieldValue> fields =
                     readResource(path("delegation", "fields", "list", guest.getFk_event(), guest.getPk()), FIELDS_LIST);
-			return fields;
+
+            final List<OptionalFieldValue> filteredList = new ArrayList<OptionalFieldValue>();
+            for (OptionalFieldValue field : fields) {
+                if (field.getLabel() != null && !field.getLabel().equals("")) {
+                    filteredList.add(field);
+                }
+            }
+            return filteredList;
 		}
 		catch (UniformInterfaceException uie) {
 			return null;
