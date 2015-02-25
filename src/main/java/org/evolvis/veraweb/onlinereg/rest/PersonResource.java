@@ -272,6 +272,32 @@ public class PersonResource extends AbstractResource {
     	}
     }
 
+    /**
+     * Update the orgunit for a person after registration for event.
+     *
+     * @param orgunit Integer
+     * @param personId Integer
+     */
+    @POST
+    @Path("/update/orgunit")
+    public void updatePersonOrgunit(@FormParam("orgunit") Integer orgunit, @FormParam("personId") Integer personId) {
+        final Session session = openSession();
+
+        try {
+            final Query query = session.getNamedQuery("Person.findByPersonId");
+            query.setInteger("personId", personId);
+
+            final Person person = (Person) query.uniqueResult();
+            person.setFk_orgunit(orgunit);
+
+            session.update(person);
+            session.flush();
+
+        } finally {
+            session.close();
+        }
+    }
+
     private Integer getOrgUnitId(Session session, Integer eventId) {
         final Query query = session.getNamedQuery("Event.getEvent");
         query.setInteger("pk", eventId);

@@ -158,6 +158,99 @@ public class PersonResourceSessionsTest {
         verify(mockitoSession, times(1)).close();
     }
 
+    @Test
+    public void testUpdateOrgunit() {
+        // GIVEN
+        Query query = mock(Query.class);
+        Person person = mock(Person.class);
+        when(personResource.context.getAttribute("SessionFactory")).thenReturn(mockitoSessionFactory);
+        when(mockitoSessionFactory.openSession()).thenReturn(mockitoSession);
+        when(mockitoSession.getNamedQuery("Person.findByPersonId")).thenReturn(query);
+        when(query.uniqueResult()).thenReturn(person);
+
+        // WHEN
+        personResource.updatePersonOrgunit(1,1);
+
+        // THEN
+        verify(mockitoSessionFactory, times(1)).openSession();
+        verify(mockitoSession, times(1)).close();
+    }
+
+    @Test
+    public void testUpdateGuestMessage() {
+        // GIVEN
+        Query query = mock(Query.class);
+        when(personResource.context.getAttribute("SessionFactory")).thenReturn(mockitoSessionFactory);
+        when(mockitoSessionFactory.openSession()).thenReturn(mockitoSession);
+        Person person = mock(Person.class);
+        when(mockitoSession.getNamedQuery("Person.findByPersonId")).thenReturn(query);
+        when(query.uniqueResult()).thenReturn(person);
+
+        // WHEN
+        personResource.updateGuestMessage("ja", 1);
+
+        // THEN
+        verify(mockitoSessionFactory, times(1)).openSession();
+        verify(mockitoSession, times(1)).close();
+    }
+
+    @Test
+    public void testGetUserIdFromUsername() {
+        // GIVEN
+        Query query = mock(Query.class);
+        when(personResource.context.getAttribute("SessionFactory")).thenReturn(mockitoSessionFactory);
+        when(mockitoSessionFactory.openSession()).thenReturn(mockitoSession);
+        when(mockitoSession.getNamedQuery("Person.findPersonIdByUsername")).thenReturn(query);
+        List resultList = mock(List.class);
+        when(query.list()).thenReturn(resultList);
+        when(resultList.isEmpty()).thenReturn(false);
+        when(query.uniqueResult()).thenReturn(1);
+
+        // WHEN
+        personResource.getUserIdFromUsername("username");
+
+        // THEN
+        verify(mockitoSessionFactory, times(1)).openSession();
+        verify(mockitoSession, times(1)).close();
+    }
+
+    @Test
+    public void testGetPersonByUsername() {
+        // GIVEN
+        Person person = mock(Person.class);
+        Query query = mock(Query.class);
+        when(personResource.context.getAttribute("SessionFactory")).thenReturn(mockitoSessionFactory);
+        when(mockitoSessionFactory.openSession()).thenReturn(mockitoSession);
+        when(mockitoSession.getNamedQuery("Person.findByUsername")).thenReturn(query);
+        when(query.uniqueResult()).thenReturn(person);
+
+        // WHEN
+        personResource.getPersonByUsername("username");
+
+        // THEN
+        verify(mockitoSessionFactory, times(1)).openSession();
+        verify(mockitoSession, times(1)).close();
+    }
+
+    @Test
+    public void testGetFirstAndLastName() {
+        // GIVEN
+        Query query = mock(Query.class);
+        when(personResource.context.getAttribute("SessionFactory")).thenReturn(mockitoSessionFactory);
+        when(mockitoSessionFactory.openSession()).thenReturn(mockitoSession);
+        when(mockitoSession.getNamedQuery("Person.getPersonNamesByUsername")).thenReturn(query);
+        when(query.uniqueResult()).thenReturn("Firstname Lastname");
+
+        // WHEN
+        personResource.getFirstAndLastName("username");
+
+        // THEN
+        verify(mockitoSessionFactory, times(1)).openSession();
+        verify(mockitoSession, times(1)).close();
+    }
+
+
+
     private List<Person> getDummyDelegates() {
         List<Person> results = new ArrayList<Person>();
         results.add(mock(Person.class));
