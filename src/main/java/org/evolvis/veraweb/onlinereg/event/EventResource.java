@@ -143,18 +143,19 @@ public class EventResource {
     /**
      * Returns a list of events
      *
+     * @param username Username
+     *
      * @return List of Event objects
-     * @throws IOException
+     * @throws IOException TODO
      */
     @GET
     @Path("/list/{username}")
     public List<EventTransporter> getEvents(@PathParam("username") String username) throws IOException {
-    	List<Event> listEvents = readResource(path("event"), EVENT_LIST);
+    	final List<Event> listEvents = readResource(path("event"), EVENT_LIST);
+    	final List<EventTransporter> listTransporters = new ArrayList<EventTransporter>();
     	
-    	List<EventTransporter> listTransporters = new ArrayList<EventTransporter>();
-    	
-    	for (Iterator<Event> iterator = listEvents.iterator(); iterator.hasNext();) {
-            EventTransporter eventTransporter = createEventTransporter(username, iterator);
+    	for (final Iterator<Event> iterator = listEvents.iterator(); iterator.hasNext();) {
+            final EventTransporter eventTransporter = createEventTransporter(username, iterator);
 			listTransporters.add(eventTransporter);
 		}
     	
@@ -166,7 +167,7 @@ public class EventResource {
      *
      * @param eventId event id
      * @return Event object
-     * @throws IOException
+     * @throws IOException TODO
      */
     @GET
     @Path("/{eventId}")
@@ -180,7 +181,8 @@ public class EventResource {
      * @param eventId event id
      * @param userId  user id
      * @return Guest object
-     * @throws IOException
+     *
+     * @throws IOException TODO
      */
     @GET
     @Path("/{eventId}/register/{userId}")
@@ -195,48 +197,92 @@ public class EventResource {
     /**
      * Save the registration to an event
      *
-     * @param eventId          event id
-     * @param notehost         note to host
+     * @param eventId event id
+     * @param notehost note to host
+     *
      * @return updated Guest object
-     * @throws IOException
+     *
+     * @throws IOException TODO
      */
     @POST
     @Path("/{eventId}/register")
     public String register(
     		@PathParam("eventId") String eventId,
     		@FormParam("notehost") String notehost) throws IOException {
-        String username = (String) context.getAttribute(USERNAME);
+        final String username = (String) context.getAttribute(USERNAME);
     	
     	// checking if the user is registered on the event
     	if (!isUserRegistered(username, eventId)) {
-    		
-    		Person person = getUserData(username);
-    		Integer userId = person.getPk();
-    		
-    		if (person != null && userId != null) {
-    			addGuestToEvent(eventId, userId.toString(), 
-                person.getSex_a_e1(), person.getFirstname_a_e1(),
-                person.getLastname_a_e1(), username, notehost);
-    		}
-    		
+            registerUserAsGuestForEvent(eventId, notehost, username);
     		return StatusConverter.convertStatus("OK");
     	}
     	
     	return StatusConverter.convertStatus("REGISTERED");
     }
 
-    
-	/**
+    /**
      * Get user's subscribed events.
      *
      * @param username  username
+     *
      * @return Users' events list
-     * @throws IOException
+     *
+     * @throws IOException TODO
      */
     @GET
     @Path("/userevents/{username}")
     public List<Event> getUsersEvents(@PathParam("username") String username) throws IOException {
         return readResource(path("event", "userevents", username), EVENT_LIST);
+    }
+
+
+    /**
+     * Get Person instance from one username
+     *
+     * @param username Username
+     *
+     * @return Person
+     *
+     * @throws IOException TODO
+     */
+    private Person getUserData(String username) throws IOException {
+        return readResource(path("person", "userdata", username), PERSON);
+    }
+
+
+    /**
+     * Includes a new guest in the database - Table "tguest".
+     *
+     * @param eventId Event id
+     * @param userId User id
+     * @param gender Gender of the person
+     * @throws IOException
+     */
+    private Guest addGuestToEvent(String eventId,
+                                  String userId,
+                                  String gender,
+                                  String lastName,
+                                  String firstName,
+                                  String username,
+                                  String nodeHost) throws IOException {
+        final WebResource resource = client.resource(path("guest", "register"));
+        final Form postBody = new Form();
+
+        postBody.add("eventId", eventId);
+        postBody.add("userId", userId);
+        postBody.add("invitationstatus", generateInvitationStatus(eventId));
+        postBody.add("invitationtype", "2");
+        postBody.add("gender", gender);
+        postBody.add("category", "0");
+        postBody.add("username", username);
+        postBody.add("hostNode", nodeHost);
+
+        final Guest guest = resource.type(MediaType.APPLICATION_FORM_URLENCODED_TYPE).post(Guest.class, postBody);
+
+        updateGuestMessage(nodeHost, userId);
+        createGuestDoctype(guest.getPk(), firstName, lastName);
+
+        return guest;
     }
     
     
@@ -268,14 +314,14 @@ public class EventResource {
         WebResource resource;
         try {
             resource = client.resource(path);
-            String json = resource.get(String.class);
+            final String json = resource.get(String.class);
             return mapper.readValue(json, type);
         } catch (ClientHandlerException che) {
             if (che.getCause() instanceof SocketTimeoutException) {
                 //FIXME some times open, pooled connections time out and generate errors
 //                log.warning("Retrying request to " + path + " once because of SocketTimeoutException");
                 resource = client.resource(path);
-                String json = resource.get(String.class);
+                final String json = resource.get(String.class);
                 return mapper.readValue(json, type);
             } else {
                 throw che;
@@ -288,61 +334,22 @@ public class EventResource {
     }
 
     private EventTransporter createEventTransporter(String username, Iterator<Event> iterator) throws IOException {
-        Event event = (Event) iterator.next();
-        String eventId = String.valueOf(event.getPk());
+        final Event event = (Event) iterator.next();
+        final String eventId = String.valueOf(event.getPk());
         return new EventTransporter(
                 event.getPk(),
                 event.getShortname(),
                 event.getDatebegin(),
-                isUserRegistered(username, eventId));
+                isUserRegistered(username, eventId)
+        );
     }
 
     private Boolean isUserRegistered(String username, String eventId) throws IOException {
     	return readResource(path("guest", "registered", username, eventId), BOOLEAN);
     }
 
-    /**
-     * Get Person instance from one username
-     * @param username
-     * @return
-     * @throws IOException
-     */
-    private Person getUserData(String username) throws IOException {
-    	return readResource(path("person", "userdata", username), PERSON);
-    }
-    
-    
-    /**
-     * Includes a new guest in the database - Table "tguest".
-     *
-     * @param eventId Event id
-     * @param userId User id
-     * @param gender Gender of the person
-     * @throws IOException 
-     */
-    private Guest addGuestToEvent(String eventId, String userId, String gender, String lastName, String firstName, String username, String nodeHost) throws IOException {
-		WebResource resource = client.resource(path("guest", "register"));
-		Form postBody = new Form();
-
-		postBody.add("eventId", eventId);
-        postBody.add("userId", userId);
-        postBody.add("invitationstatus", generateInvitationStatus(eventId));
-        postBody.add("invitationtype", "2");
-        postBody.add("gender", gender);
-        postBody.add("category", "0");
-        postBody.add("username", username);
-        postBody.add("hostNode", nodeHost);
-
-        final Guest guest = resource.type(MediaType.APPLICATION_FORM_URLENCODED_TYPE).post(Guest.class, postBody);
-        
-        updateGuestMessage(nodeHost, userId);
-        createGuestDoctype(guest.getPk(), firstName, lastName);
-        
-        return guest;
-	}
-	
     private String generateInvitationStatus(String eventId) throws IOException {
-    	Boolean isOpen = readResource(path("event", "isopen", eventId), BOOLEAN);
+    	final Boolean isOpen = readResource(path("event", "isopen", eventId), BOOLEAN);
     	
     	if (isOpen) {
     		return INVITATIONSTATUS_COMMITMENT.toString();
@@ -353,24 +360,63 @@ public class EventResource {
     
     
 	private void createGuestDoctype(int guestId, String firstName, String lastName) {
-        
-        WebResource resource = client.resource(config.getVerawebEndpoint() + "/rest/guestDoctype"); 
+        final WebResource resource = client.resource(config.getVerawebEndpoint() + "/rest/guestDoctype");
 		
-		Form postBody = new Form();
-
+		final Form postBody = new Form();
 		postBody.add("guestId", Integer.toString(guestId));
 		postBody.add("firstName", firstName);
 		postBody.add("lastName", lastName);
+
 		resource.post(postBody);
 	}
 	
 	private void updateGuestMessage(String notehost, String personId) {
-		WebResource resource = client.resource(config.getVerawebEndpoint() + "/rest/person/guestmsg");
-		
-		Form postBody = new Form();
+		final WebResource resource = client.resource(config.getVerawebEndpoint() + "/rest/person/guestmsg");
+
+        final Form postBody = new Form();
 		postBody.add("notehost", notehost);
 		postBody.add("personId", personId);
 		
 		resource.post(postBody);
 	}
+
+    private void updatePersonOrgunit(String eventId, Integer personId) throws IOException {
+        final Integer orgunit = getOrgunitForEvent(eventId);
+
+        final Form postBody = createPostFormToChangeOrgunit(personId, orgunit);
+
+        final WebResource resource = client.resource(config.getVerawebEndpoint() + "/rest/person/update/orgunit");
+        resource.post(postBody);
+    }
+
+    private Form createPostFormToChangeOrgunit(Integer personId, Integer orgunit) {
+        final Form postBody = new Form();
+        postBody.add("orgunit", orgunit);
+        postBody.add("personId", personId);
+
+        return postBody;
+    }
+
+    private Integer getOrgunitForEvent(String eventId) throws IOException {
+        final Event event = readResource(path("event", eventId), EVENT);
+        return event.getFk_orgunit();
+    }
+
+    private void registerUserAsGuestForEvent(String eventId, String notehost, String username) throws IOException {
+        final Person person = getUserData(username);
+        final Integer userId = person.getPk();
+
+        if (person != null && userId != null) {
+            addGuestToEvent(eventId,
+                    userId.toString(),
+                    person.getSex_a_e1(),
+                    person.getFirstname_a_e1(),
+                    person.getLastname_a_e1(),
+                    username,
+                    notehost
+            );
+
+            updatePersonOrgunit(eventId, userId);
+        }
+    }
 }
