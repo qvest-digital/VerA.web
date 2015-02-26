@@ -42,6 +42,7 @@ import de.tarent.aa.veraweb.beans.facade.EventConstants;
 import de.tarent.aa.veraweb.utils.DatabaseHelper;
 import de.tarent.aa.veraweb.utils.ExportHelper;
 import de.tarent.aa.veraweb.utils.OctopusHelper;
+import de.tarent.aa.veraweb.utils.OnlineRegistrationHelper;
 import de.tarent.aa.veraweb.utils.PropertiesReader;
 import de.tarent.aa.veraweb.utils.URLGenerator;
 import de.tarent.commons.spreadsheet.export.SpreadSheet;
@@ -189,7 +190,7 @@ public class GuestExportWorker {
         final GuestSearch search = (GuestSearch)cntx.contentAsObject("search");
         final List selection = (List)cntx.sessionAsObject("selectionGuest");
         final Doctype doctype = (Doctype)database.getBean("Doctype", doctypeid);
-
+        
 		// Spreadsheet �ffnen
 		final SpreadSheet spreadSheet = SpreadSheetFactory.getSpreadSheet(doctype.format);
 		spreadSheet.init();
@@ -989,7 +990,7 @@ public class GuestExportWorker {
 		if(isOsiamActive) {
 			addDelegationLoginCells(spreadSheet, guest, event);
 			// Updating username in tperson
-			updateDelegationUsername(cntx, guest.get("osiam_login").toString(), (Integer)guest.get("fk_person"));
+			updateDelegationUsername(cntx, guest.get("osiam_login"), (Integer)guest.get("fk_person"));
 		}
 
 		spreadSheet.addCell(event.note);
@@ -1003,8 +1004,16 @@ public class GuestExportWorker {
 	 * @throws IOException 
 	 * @throws BeanException 
 	 */
-	private void updateDelegationUsername(OctopusContext cntx, String username, Integer personId) throws BeanException, IOException {
+	private void updateDelegationUsername(OctopusContext cntx, Object username, Integer personId) throws BeanException {
 		final Database database = new DatabaseVeraWeb(cntx);
+		if (username != null) {
+			updatePerson(database, username, personId);
+		} else {
+			updatePerson(database, null, personId);
+		}
+	}
+	
+	private void updatePerson(final Database database, final Object username, final Integer personId) throws BeanException {
 		database.execute(SQL.Update( database ).
 				table("veraweb.tperson").
 				update("username", username).
