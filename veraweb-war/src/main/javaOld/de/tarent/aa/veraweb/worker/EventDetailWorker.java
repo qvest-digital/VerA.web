@@ -36,6 +36,7 @@ import de.tarent.aa.veraweb.beans.Person;
 import de.tarent.aa.veraweb.beans.Task;
 import de.tarent.aa.veraweb.beans.facade.EventConstants;
 import de.tarent.aa.veraweb.utils.DateHelper;
+import de.tarent.aa.veraweb.utils.OnlineRegistrationHelper;
 import de.tarent.aa.veraweb.utils.PropertiesReader;
 import de.tarent.aa.veraweb.utils.URLGenerator;
 import de.tarent.dblayer.sql.SQL;
@@ -89,8 +90,12 @@ public class EventDetailWorker {
 		Event event = getEvent(cntx, id);
 		if (event != null) {
 			cntx.setContent("event", event);
-            setUrlForMediaRepresentatives(cntx, event);
-
+			// OR Control
+			Boolean isOnlineregActive = OnlineRegistrationHelper.isOnlineregActive(cntx);
+			if (isOnlineregActive) {
+				setUrlForMediaRepresentatives(cntx, event);
+			}
+			//
             setEventUrl(cntx, event);
 		}
 	}
@@ -157,6 +162,8 @@ public class EventDetailWorker {
 	 */
 	public void saveDetail(OctopusContext cntx, Boolean saveevent) throws BeanException, IOException
 	{
+		Boolean isOnlineAppActive = OnlineRegistrationHelper.isOnlineregActive(cntx);
+		
 		if (saveevent == null || !saveevent.booleanValue()) {
             return;
         }
@@ -321,11 +328,13 @@ public class EventDetailWorker {
             }
             
             setEventUrl(cntx, event);
-            setUrlForMediaRepresentatives(cntx, event);
+            // OR Control
+            if (isOnlineAppActive) {
+            	setUrlForMediaRepresentatives(cntx, event);
+            }
             cntx.setContent("event", event);
 			cntx.setContent("event-beginhastime", Boolean.valueOf(DateHelper.isTimeInDate(event.begin)));
 			cntx.setContent("event-endhastime", Boolean.valueOf(DateHelper.isTimeInDate(event.end)));
-
 
 			context.commit();
         } catch (BeanException e) {

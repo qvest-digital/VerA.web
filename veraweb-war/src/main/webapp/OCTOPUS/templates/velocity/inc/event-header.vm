@@ -36,11 +36,12 @@
 			
 		</div>
 		<div class="tableCell width50">
-            <strong>URL für Pressevertreter:</strong><br/>
-            #if($pressevertreterUrl && $pressevertreterUrl != "" && $event.mediarepresentatives && $event.mediarepresentatives != "f")
-                $pressevertreterUrl
-            #end
-                                
+			#if($onlinereg-active)
+	            <strong>URL für Pressevertreter:</strong><br/>
+	            #if($pressevertreterUrl && $pressevertreterUrl != "" && $event.mediarepresentatives && $event.mediarepresentatives != "f")
+	                $pressevertreterUrl
+	            #end
+            #end            
 			#if($completeEventHeader)
 			<div class="tableCell width30">
 				<strong>Max. Anzahl G&auml;ste:</strong> $!message.text($event.maxguest)									
