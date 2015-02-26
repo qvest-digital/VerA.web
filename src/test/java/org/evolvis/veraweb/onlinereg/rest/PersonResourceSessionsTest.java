@@ -41,6 +41,8 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -76,8 +78,7 @@ public class PersonResourceSessionsTest {
     public void testCreatePersonSessionClosed() {
         // GIVEN
         Query query = mock(Query.class);
-        when(personResource.context.getAttribute("SessionFactory")).thenReturn(mockitoSessionFactory);
-        when(mockitoSessionFactory.openSession()).thenReturn(mockitoSession);
+        prepareSession();
         when(mockitoSession.getNamedQuery("Person.findByUsername")).thenReturn(query);
 
         // WHEN
@@ -121,13 +122,54 @@ public class PersonResourceSessionsTest {
     }
 
     @Test
+    public void testCreateMediaRepresentativesTheSecond() {
+        // GIVEN
+        Query query = mock(Query.class);
+        List resultList = mock(List.class);
+        when(mockitoSessionFactory.openSession()).thenReturn(mockitoSession);
+        when(personResource.context.getAttribute("SessionFactory")).thenReturn(mockitoSessionFactory);
+        when(mockitoSession.getNamedQuery("Person.findByUsername")).thenReturn(query);
+        when(query.list()).thenReturn(resultList);
+        when(resultList.isEmpty()).thenReturn(false);
+        mockEvent(mockitoSession);
+
+        // WHEN
+        Person result = personResource.createPersonPress(1, "maxmustermann", "Antje", "Weber", "w", "maxmustermann@maxmustermann.de", "address", "63123", "city", "country");
+
+        // THEN
+        assertNull(result);
+        verify(mockitoSessionFactory, times(1)).openSession();
+        verify(mockitoSession, times(1)).close();
+    }
+
+    @Test
+    public void testCreateMediaRepresentativesTheThird() {
+        // GIVEN
+        Query query = mock(Query.class);
+        List resultList = mock(List.class);
+        when(mockitoSessionFactory.openSession()).thenReturn(mockitoSession);
+        when(personResource.context.getAttribute("SessionFactory")).thenReturn(mockitoSessionFactory);
+        when(mockitoSession.getNamedQuery("Person.findByUsername")).thenReturn(query);
+        when(query.list()).thenReturn(resultList);
+        when(resultList.isEmpty()).thenReturn(true);
+        mockEvent(mockitoSession);
+
+        // WHEN
+        Person result = personResource.createPersonPress(1, "maxmustermann", "Antje", "Weber", "w", "maxmustermann@maxmustermann.de", "address", "63123", "city", "country");
+
+        // THEN
+        assertNull(result);
+        verify(mockitoSessionFactory, times(1)).openSession();
+        verify(mockitoSession, times(1)).close();
+    }
+
+    @Test
     public void testGetDelegateByUUID() {
         // GIVEN
         List<Person> results = getDummyDelegates();
         Query query = mock(Query.class);
         String uuid = "5195a511-84f4-4981-8959-29248f4e49c1";
-        when(personResource.context.getAttribute("SessionFactory")).thenReturn(mockitoSessionFactory);
-        when(mockitoSessionFactory.openSession()).thenReturn(mockitoSession);
+        prepareSession();
         when(mockitoSession.getNamedQuery("Person.getDelegatesByUUID")).thenReturn(query);
         when(query.list()).thenReturn(results);
 
@@ -146,8 +188,7 @@ public class PersonResourceSessionsTest {
         // GIVEN
         Query query = mock(Query.class);
         String uuid = "5195a511-84f4-4981-8959-29248f4e49c1";
-        when(personResource.context.getAttribute("SessionFactory")).thenReturn(mockitoSessionFactory);
-        when(mockitoSessionFactory.openSession()).thenReturn(mockitoSession);
+        prepareSession();
         when(mockitoSession.getNamedQuery("Person.getCompanyByUUID")).thenReturn(query);
 
         // WHEN
@@ -163,8 +204,7 @@ public class PersonResourceSessionsTest {
         // GIVEN
         Query query = mock(Query.class);
         Person person = mock(Person.class);
-        when(personResource.context.getAttribute("SessionFactory")).thenReturn(mockitoSessionFactory);
-        when(mockitoSessionFactory.openSession()).thenReturn(mockitoSession);
+        prepareSession();
         when(mockitoSession.getNamedQuery("Person.findByPersonId")).thenReturn(query);
         when(query.uniqueResult()).thenReturn(person);
 
@@ -180,8 +220,7 @@ public class PersonResourceSessionsTest {
     public void testUpdateGuestMessage() {
         // GIVEN
         Query query = mock(Query.class);
-        when(personResource.context.getAttribute("SessionFactory")).thenReturn(mockitoSessionFactory);
-        when(mockitoSessionFactory.openSession()).thenReturn(mockitoSession);
+        prepareSession();
         Person person = mock(Person.class);
         when(mockitoSession.getNamedQuery("Person.findByPersonId")).thenReturn(query);
         when(query.uniqueResult()).thenReturn(person);
@@ -198,8 +237,7 @@ public class PersonResourceSessionsTest {
     public void testGetUserIdFromUsername() {
         // GIVEN
         Query query = mock(Query.class);
-        when(personResource.context.getAttribute("SessionFactory")).thenReturn(mockitoSessionFactory);
-        when(mockitoSessionFactory.openSession()).thenReturn(mockitoSession);
+        prepareSession();
         when(mockitoSession.getNamedQuery("Person.findPersonIdByUsername")).thenReturn(query);
         List resultList = mock(List.class);
         when(query.list()).thenReturn(resultList);
@@ -215,12 +253,35 @@ public class PersonResourceSessionsTest {
     }
 
     @Test
+    public void testGetUserIdFromUsernameSecond() {
+        // GIVEN
+        Query query = mock(Query.class);
+        prepareSession();
+        when(mockitoSession.getNamedQuery("Person.findPersonIdByUsername")).thenReturn(query);
+        List resultList = mock(List.class);
+        when(query.list()).thenReturn(resultList);
+        when(resultList.isEmpty()).thenReturn(true);
+
+        // WHEN
+        Integer result = personResource.getUserIdFromUsername("username");
+
+        // THEN
+        assertNull(result);
+        verify(mockitoSessionFactory, times(1)).openSession();
+        verify(mockitoSession, times(1)).close();
+    }
+
+    private void prepareSession() {
+        when(personResource.context.getAttribute("SessionFactory")).thenReturn(mockitoSessionFactory);
+        when(mockitoSessionFactory.openSession()).thenReturn(mockitoSession);
+    }
+
+    @Test
     public void testGetPersonByUsername() {
         // GIVEN
         Person person = mock(Person.class);
         Query query = mock(Query.class);
-        when(personResource.context.getAttribute("SessionFactory")).thenReturn(mockitoSessionFactory);
-        when(mockitoSessionFactory.openSession()).thenReturn(mockitoSession);
+        prepareSession();
         when(mockitoSession.getNamedQuery("Person.findByUsername")).thenReturn(query);
         when(query.uniqueResult()).thenReturn(person);
 
@@ -236,8 +297,7 @@ public class PersonResourceSessionsTest {
     public void testGetFirstAndLastName() {
         // GIVEN
         Query query = mock(Query.class);
-        when(personResource.context.getAttribute("SessionFactory")).thenReturn(mockitoSessionFactory);
-        when(mockitoSessionFactory.openSession()).thenReturn(mockitoSession);
+        prepareSession();
         when(mockitoSession.getNamedQuery("Person.getPersonNamesByUsername")).thenReturn(query);
         when(query.uniqueResult()).thenReturn("Firstname Lastname");
 
@@ -248,8 +308,6 @@ public class PersonResourceSessionsTest {
         verify(mockitoSessionFactory, times(1)).openSession();
         verify(mockitoSession, times(1)).close();
     }
-
-
 
     private List<Person> getDummyDelegates() {
         List<Person> results = new ArrayList<Person>();

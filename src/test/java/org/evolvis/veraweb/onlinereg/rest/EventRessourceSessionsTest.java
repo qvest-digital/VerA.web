@@ -36,6 +36,7 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.Assert.assertNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -151,6 +152,95 @@ public class EventRessourceSessionsTest {
 
         // WHEN
         eventResource.getEventIdByUUID(uuid);
+
+        // THEN
+        verify(mockitoSessionFactory, times(1)).openSession();
+        verify(mockitoSession, times(1)).close();
+    }
+
+    @Test
+    public void testIsOpenEvent() {
+        // GIVEN
+        prepareSession();
+        Query query = mock(Query.class);
+        when(mockitoSession.getNamedQuery("Event.isOpen")).thenReturn(query);
+        when(query.uniqueResult()).thenReturn(new BigInteger(String.valueOf(1)));
+
+        // WHEN
+        eventResource.isOpenEvent(1);
+
+        // THEN
+        verify(mockitoSessionFactory, times(1)).openSession();
+        verify(mockitoSession, times(1)).close();
+    }
+
+    @Test
+    public void testIsOpenEventTheSecond() {
+        // GIVEN
+        prepareSession();
+        Query query = mock(Query.class);
+        when(mockitoSession.getNamedQuery("Event.isOpen")).thenReturn(query);
+        when(query.uniqueResult()).thenReturn(new BigInteger(String.valueOf(0)));
+
+        // WHEN
+        eventResource.isOpenEvent(1);
+
+        // THEN
+        verify(mockitoSessionFactory, times(1)).openSession();
+        verify(mockitoSession, times(1)).close();
+    }
+
+    @Test
+    public void testGetPersonIdByUsername() {
+        // GIVEN
+        prepareSession();
+        Query query = mock(Query.class);
+        List resultList = mock(List.class);
+        when(mockitoSession.getNamedQuery("Person.findPersonIdByUsername")).thenReturn(query);
+        when(query.list()).thenReturn(resultList);
+        when(resultList.isEmpty()).thenReturn(false);
+        when(query.uniqueResult()).thenReturn(0);
+
+        // WHEN
+        eventResource.getPersonIdByUsername("username");
+
+        // THEN
+        verify(mockitoSessionFactory, times(1)).openSession();
+        verify(mockitoSession, times(1)).close();
+    }
+
+    @Test
+    public void testGetPersonIdByUsernameTheSecond() {
+        // GIVEN
+        prepareSession();
+        Query query = mock(Query.class);
+        List resultList = mock(List.class);
+        when(mockitoSession.getNamedQuery("Person.findPersonIdByUsername")).thenReturn(query);
+        when(query.list()).thenReturn(resultList);
+        when(resultList.isEmpty()).thenReturn(true);
+
+        // WHEN
+        Integer result = eventResource.getPersonIdByUsername("username");
+
+        // THEN
+        assertNull(result);
+        verify(mockitoSessionFactory, times(1)).openSession();
+        verify(mockitoSession, times(1)).close();
+    }
+
+    @Test
+    public void testGetPersonIdByUsernameTheThird() {
+        // GIVEN
+        prepareSession();
+        Query query = mock(Query.class);
+        List resultList = mock(List.class);
+        when(mockitoSession.getNamedQuery("Person.findPersonIdByUsername")).thenReturn(query);
+        when(query.list()).thenReturn(resultList);
+        when(resultList.isEmpty()).thenReturn(false);
+        when(query.uniqueResult()).thenReturn(1);
+
+        // WHEN
+        eventResource.getPersonIdByUsername("username");
 
         // THEN
         verify(mockitoSessionFactory, times(1)).openSession();

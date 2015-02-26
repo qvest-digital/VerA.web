@@ -81,6 +81,54 @@ public class GuestResourceSessionsTest {
     }
 
     @Test
+    public void testUpdateGuest() {
+        // GIVEN
+        prepareSession();
+        Query query = mock(Query.class);
+        when(mockitoSession.getNamedQuery("Guest.findByEventAndUser")).thenReturn(query);
+        when(query.uniqueResult()).thenReturn(mock(Guest.class));
+
+        // WHEN
+        guestResource.updateGuest(1, 1, 1, "notehost");
+
+        // THEN
+        verify(mockitoSessionFactory, times(1)).openSession();
+        verify(mockitoSession, times(1)).close();
+    }
+
+    @Test
+    public void testUserIsRegisteredForEvent() {
+        // GIVEN
+        prepareSession();
+        Query query = mock(Query.class);
+        when(mockitoSession.getNamedQuery("Guest.checkUserRegistration")).thenReturn(query);
+        when(query.uniqueResult()).thenReturn(BigInteger.valueOf(1));
+
+        // WHEN
+        guestResource.isUserRegisteredintoEvent("username", 1);
+
+        // THEN
+        verify(mockitoSessionFactory, times(1)).openSession();
+        verify(mockitoSession, times(1)).close();
+    }
+
+    @Test
+    public void testUserIsNotRegisteredForEvent() {
+        // GIVEN
+        prepareSession();
+        Query query = mock(Query.class);
+        when(mockitoSession.getNamedQuery("Guest.checkUserRegistration")).thenReturn(query);
+        when(query.uniqueResult()).thenReturn(BigInteger.valueOf(0));
+
+        // WHEN
+        guestResource.isUserRegisteredintoEvent("username", 1);
+
+        // THEN
+        verify(mockitoSessionFactory, times(1)).openSession();
+        verify(mockitoSession, times(1)).close();
+    }
+
+    @Test
     public void testGetGuestId() {
         // GIVEN
         prepareSession();
@@ -192,6 +240,19 @@ public class GuestResourceSessionsTest {
 
         // WHEN
         guestResource.addGuestToEvent(uuid,1,1,1,1,"m",1,"","testusername");
+
+        // THEN
+        verify(mockitoSessionFactory, times(1)).openSession();
+        verify(mockitoSession, times(1)).close();
+    }
+
+    @Test
+    public void testAddGuestToEventTheSecond() {
+        // GIVEN
+        prepareSession();
+
+        // WHEN
+        guestResource.addGuestToEvent(1, 1, 1, 1, "Herr", 1, "username", "nodehost");
 
         // THEN
         verify(mockitoSessionFactory, times(1)).openSession();
