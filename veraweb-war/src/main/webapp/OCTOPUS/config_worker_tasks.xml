@@ -480,7 +480,7 @@
 			</response>
 
 		</task>
-		
+
 		<task name="ShowPersonSearchSimple" access="public" groups="StandardFieldsReader">
 			<description>
 				Dieser Task zeigt einen einfachen Suchdialog für Personen.
@@ -542,9 +542,9 @@
 			</response>
 		</task>
 
-	
-		
-		
+
+
+
 		<task name="CreatePerson" access="public" groups="Writer">
 			<description>
 				Dieser Task erzeugt eine neue, initial leere, Person.
