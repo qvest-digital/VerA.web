@@ -19,6 +19,19 @@
  */
 package de.tarent.aa.veraweb.worker;
 
+import java.security.SecureRandom;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
+import java.util.Random;
+
+import org.osiam.client.OsiamConnector;
+import org.osiam.client.oauth.AccessToken;
+import org.osiam.client.oauth.Scope;
+import org.osiam.resources.scim.User;
+
 import de.tarent.aa.veraweb.utils.PropertiesReader;
 import de.tarent.dblayer.engine.DB;
 import de.tarent.dblayer.sql.SQL;
@@ -32,20 +45,6 @@ import de.tarent.octopus.beans.Database;
 import de.tarent.octopus.beans.TransactionContext;
 import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
-import org.osiam.client.OsiamConnector;
-import org.osiam.client.oauth.AccessToken;
-import org.osiam.client.oauth.Scope;
-import org.osiam.resources.scim.User;
-
-import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
-import java.security.SecureRandom;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-import java.util.Random;
 
 /**
  * @author Max Marche <m.marche@tarent.de>, tarent solutions GmbH
@@ -95,7 +94,6 @@ public class OSIAMWorker {
 	 * @throws SQLException 
 	 */
 	public void createDelegationUsers(OctopusContext ctx) throws BeanException, SQLException{
-		if(this.osiamIsAvailable()) {
 			Database database = new DatabaseVeraWeb(ctx);
 			AccessToken accessToken = null;
 			Boolean correctOSIAMProperties = true;
@@ -117,13 +115,8 @@ public class OSIAMWorker {
 						saveOsiamLogin(database, login, Integer.parseInt(event.get("id").toString()), Integer.parseInt(id.toString()));
 				}
 			}
-		}
 	}
 	
-	public boolean osiamIsAvailable() {
-		return (this.properties == null) ? false : true;
-	}
-
     private void createOsiamUser(AccessToken accessToken, String login, String password) {
         User delegationUser = new User.Builder(login)
                 .setActive(true)

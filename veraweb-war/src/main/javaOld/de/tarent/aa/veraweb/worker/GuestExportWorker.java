@@ -87,8 +87,6 @@ public class GuestExportWorker {
 
     /** Logger dieser Klasse */
 	private final Logger logger = Logger.getLogger(getClass());
-	
-	private boolean isOsiamActive = false;
 
 	/**
 	 * <p>
@@ -460,7 +458,6 @@ public class GuestExportWorker {
 	 * @param spreadSheet In das geschrieben werden soll.
 	 */
 	protected void exportHeader(SpreadSheet spreadSheet) {
-		checkIfOsiamIsAvailable();
 		//
 		// Gast spezifische Daten
 		//
@@ -583,12 +580,11 @@ public class GuestExportWorker {
 		spreadSheet.addCell("Veranstaltungsort_GPS-Daten");
 		spreadSheet.addCell("Veranstaltungsort_Raumnummer");
 
-		if(isOsiamActive) {
-			//OSIAM Login
-			spreadSheet.addCell("Anmeldename");
-			spreadSheet.addCell("Passwort");
-			spreadSheet.addCell("Delegations URL");
-		}
+		//OSIAM Login
+		spreadSheet.addCell("Anmeldename");
+		spreadSheet.addCell("Passwort");
+		spreadSheet.addCell("Delegations URL");
+
 		spreadSheet.addCell("Bemerkung");
 	}
 
@@ -602,7 +598,6 @@ public class GuestExportWorker {
 	 * @throws IOException Wenn die Generierung von URL fur Delegation fehlschlug.
 	 */
 	protected void exportBothInOneLine(SpreadSheet spreadSheet, Event event, Location location, boolean showA, boolean showB, Map guest, Map data) throws IOException {
-		checkIfOsiamIsAvailable();
 		//
 		// Gast spezifische Daten
 		//
@@ -770,7 +765,7 @@ public class GuestExportWorker {
 		spreadSheet.addCell(event.end);
 
 		addLocationCells(spreadSheet, location);
-		if(isOsiamActive) addDelegationLoginCells(spreadSheet, guest, event);
+		addDelegationLoginCells(spreadSheet, guest, event);
 		spreadSheet.addCell(event.note);
 	}
 
@@ -793,11 +788,6 @@ public class GuestExportWorker {
 		}
 	}
 
-	private void checkIfOsiamIsAvailable() {
-		OSIAMWorker osiamWorker = new OSIAMWorker();
-		this.isOsiamActive = osiamWorker.osiamIsAvailable();
-	}
-	
 	private void addDelegationLoginCells(SpreadSheet spreadSheet, Map guest, Event event) throws IOException {
 		String password = "-";
 		Object username = "-";
@@ -871,7 +861,6 @@ public class GuestExportWorker {
 	 * @throws BeanException 
 	 */
 	protected void exportOnlyPerson(SpreadSheet spreadSheet, Event event, Location location, Map guest, Map data, Boolean isPressStaff, OctopusContext cntx) throws IOException, BeanException {
-		checkIfOsiamIsAvailable();
 		//
 		// Gast spezifische Daten
 		//
@@ -986,11 +975,10 @@ public class GuestExportWorker {
 		}
 
 		addLocationCells(spreadSheet, location);
-		if(isOsiamActive) {
-			addDelegationLoginCells(spreadSheet, guest, event);
-			// Updating username in tperson
-			updateDelegationUsername(cntx, guest.get("osiam_login").toString(), (Integer)guest.get("fk_person"));
-		}
+
+		addDelegationLoginCells(spreadSheet, guest, event);
+		// Updating username in tperson
+		updateDelegationUsername(cntx, guest.get("osiam_login").toString(), (Integer)guest.get("fk_person"));
 
 		spreadSheet.addCell(event.note);
 	}
@@ -1021,7 +1009,6 @@ public class GuestExportWorker {
 	 * @throws IOException 
 	 */
 	protected void exportOnlyPartner(SpreadSheet spreadSheet, Event event, Location location, boolean showA, boolean showB, Map guest, Map data) throws IOException {
-		checkIfOsiamIsAvailable();
 		//
 		// Gast spezifische Daten
 		//
@@ -1131,7 +1118,7 @@ public class GuestExportWorker {
 		spreadSheet.addCell(event.end);
 
 		addLocationCells(spreadSheet, location);
-		if(isOsiamActive) addDelegationLoginCells(spreadSheet, guest, event);
+		addDelegationLoginCells(spreadSheet, guest, event);
 
 		spreadSheet.addCell(event.note);
 	}
