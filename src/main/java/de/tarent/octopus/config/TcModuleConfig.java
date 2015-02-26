@@ -192,26 +192,37 @@ public class TcModuleConfig {
                 Document includeDocument = null;
                 
                 NamedNodeMap attributes = currNode.getAttributes();
-                
-                if (attributes.getNamedItem("file") != null){
+
+                if (attributes.getNamedItem("file") != null) {
                     String path = attributes.getNamedItem("file").getNodeValue();
-                    
+                    String cfgPath = null;
                     File configFile = new File(realPath, path);
-                    logger.info("Loading file '" + configFile.getAbsolutePath() + "'.");
-                    
-                    if ( configFile.exists() ){
+
+                    if (attributes.getNamedItem("systempath") != null) {
+                        File configFileSystem = new File(attributes.getNamedItem("systempath").getNodeValue(), path);
+                        if (configFileSystem.exists()) {
+                            cfgPath = configFileSystem.getAbsolutePath();
+                            logger.info("Loading file '" + cfgPath + "'.");
+                        } else if (configFile.exists()) {
+                            cfgPath = configFile.getAbsolutePath();
+                            logger.warn("Loading file '" + cfgPath + "', no system override exists in '" + attributes.getNamedItem("systempath").getNodeValue() + "'.");
+                        }
+                    } else if (configFile.exists()) {
+                        cfgPath = configFile.getAbsolutePath();
+                        logger.info("Loading file '" + cfgPath + "'.");
+                    }
+
+                    if (cfgPath != null) {
                         try {
-                            includeDocument = Xml.getParsedDocument(Resources.getInstance().get("REQUESTPROXY_URL_MODULE_CONFIG", configFile.getAbsolutePath()));
+                            includeDocument = Xml.getParsedDocument(Resources.getInstance().get("REQUESTPROXY_URL_MODULE_CONFIG", cfgPath));
                         } catch (Exception e) {
-                            logger.error("Error while loading config file '" + configFile + "'. Parsing aborted.", e );
+                            logger.error("Error while loading config file '" + cfgPath + "'. Parsing aborted.", e);
                         }
                     } else {
-                    	logger.warn("Config file '" + configFile + "' not found. Will be ignored." );
+                        logger.warn("Config file '" + configFile + "' not found. Will be ignored.");
                     }
-                }
-                
-                // classpath
-                else if (attributes.getNamedItem("packagename") != null || attributes.getNamedItem("classpath") != null) {
+                } else if (attributes.getNamedItem("packagename") != null || attributes.getNamedItem("classpath") != null) {
+                    // classpath
                 	String resource;
                 	if (attributes.getNamedItem("packagename") != null) {
                 		resource = attributes.getNamedItem("packagename").getNodeValue().replace('.', '/');
