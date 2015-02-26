@@ -5,6 +5,9 @@
         Octopus config.xml
 
         LDAP-Access - Authentifizierung für dieses Modul.
+
+	Copy to /etc/veraweb/config_ldap_access.xml and change there.
+	Never commit or ship a changed file, as it contains secrets!
 -->
 <tcModuleConfig>
         <loginManager>
