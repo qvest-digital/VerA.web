@@ -228,7 +228,7 @@ public class HttpHelper {
      * @deprecated Use addHttpMetaDataEx instead
      * Diese Methode fügt den schon aus dem Inhalt des HTTP-Requests erstellten Octopus-Requests
      * Metadaten aus Header, Protokoll und URL hinzu, ohne Berücksichtigung globaler Konfiguration.
-     * 
+     *
      * @param requests zu erweiternde Octopus-Requests
      * @param request HttpServletRequest, dessen Metadaten benutzt werden sollen.
      * @param requestID die Anfrage-ID
