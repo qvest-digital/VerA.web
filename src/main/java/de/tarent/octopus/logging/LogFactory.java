@@ -27,8 +27,10 @@ import de.tarent.octopus.resource.Resources;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.Charset;
 import java.util.Properties;
 import java.util.logging.FileHandler;
+import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
@@ -229,7 +231,42 @@ public class LogFactory {
 				log("Konnte SocketHandler nicht initialisieren", e);
 			}
 		}
-		
+
+		Logger xlogger = baseLogger;
+		int xlogger_parent = 0;
+		while (xlogger != null) {
+			final Handler[] loggerHandlers = xlogger.getHandlers();
+			int xlogger_element = 0;
+			for (Handler handler : loggerHandlers) {
+				if (handler != fileLogHandler && (portLogHandler == null || handler != portLogHandler)) {
+					String enc = handler.getEncoding();
+					if (enc == null) {
+						enc = Charset.defaultCharset().name();
+						if (enc == null) {
+							baseLogger.severe("Logger parent(" + xlogger_parent + ") element(" + xlogger_element + ") name(" + handler + ") encoding is NULL");
+						} else if (enc.equals("US-ASCII")) {
+							baseLogger.warning("Logger parent(" + xlogger_parent + ") element(" + xlogger_element + ") name(" + handler + ") encoding is 7-bit ASCII (platform encoding, LC_CTYPE=C; consider export LC_CTYPE=C.UTF-8 or starting the JVM with -Dfile.encoding=UTF-8 to fix this; umlauts *will* be broken)");
+						} else if (!enc.equals("UTF-8")) {
+							baseLogger.info("Logger parent(" + xlogger_parent + ") element(" + xlogger_element + ") name(" + handler + ") encoding is '" + enc + "' (platform encoding; consider export LC_CTYPE=C.UTF-8 or starting the JVM with -Dfile.encoding=UTF-8 to fix this)");
+						}
+					} else if (enc.equals("US-ASCII")) {
+						baseLogger.warning("Logger parent(" + xlogger_parent + ") element(" + xlogger_element + ") name(" + handler + ") encoding is '" + enc + "' (manually configured)");
+					} else if (!enc.equals("UTF-8")) {
+						baseLogger.info("Logger parent(" + xlogger_parent + ") element(" + xlogger_element + ") name(" + handler + ") encoding is '" + enc + "' (manually configured)");
+					}
+				}
+				xlogger_element++;
+			}
+
+			final boolean useParentHdls = xlogger.getUseParentHandlers();
+			if (!useParentHdls) {
+				break;
+			}
+
+			xlogger = xlogger.getParent();
+			xlogger_parent++;
+		}
+
 		baseLogger.info(Resources.getInstance().get("REQUESTPROXY_LOG_START_LOGGING"));
 		
 		// Set logging.level
