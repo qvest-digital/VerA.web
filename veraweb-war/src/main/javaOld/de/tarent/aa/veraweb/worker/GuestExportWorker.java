@@ -42,14 +42,10 @@ import de.tarent.aa.veraweb.beans.facade.EventConstants;
 import de.tarent.aa.veraweb.utils.DatabaseHelper;
 import de.tarent.aa.veraweb.utils.ExportHelper;
 import de.tarent.aa.veraweb.utils.OctopusHelper;
-import de.tarent.aa.veraweb.utils.OnlineRegistrationHelper;
 import de.tarent.aa.veraweb.utils.PropertiesReader;
 import de.tarent.aa.veraweb.utils.URLGenerator;
 import de.tarent.commons.spreadsheet.export.SpreadSheet;
 import de.tarent.commons.spreadsheet.export.SpreadSheetFactory;
-import de.tarent.dblayer.engine.DB;
-import de.tarent.dblayer.engine.DBContext;
-import de.tarent.dblayer.sql.Escaper;
 import de.tarent.dblayer.sql.Join;
 import de.tarent.dblayer.sql.SQL;
 import de.tarent.dblayer.sql.clause.Expr;
@@ -57,7 +53,6 @@ import de.tarent.dblayer.sql.clause.RawClause;
 import de.tarent.dblayer.sql.clause.Where;
 import de.tarent.dblayer.sql.clause.WhereList;
 import de.tarent.dblayer.sql.statement.Select;
-import de.tarent.dblayer.sql.statement.Update;
 import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.beans.Database;
 import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
@@ -90,6 +85,7 @@ public class GuestExportWorker {
 	private final Logger logger = Logger.getLogger(getClass());
 	
 	private boolean isOsiamActive = false;
+	private boolean isOnlineRegistrationActive = false;
 
 	/**
 	 * <p>
@@ -584,7 +580,7 @@ public class GuestExportWorker {
 		spreadSheet.addCell("Veranstaltungsort_GPS-Daten");
 		spreadSheet.addCell("Veranstaltungsort_Raumnummer");
 
-		if(isOsiamActive) {
+		if(isOsiamActive && isOnlineRegistrationActive) {
 			//OSIAM Login
 			spreadSheet.addCell("Anmeldename");
 			spreadSheet.addCell("Passwort");
@@ -771,7 +767,7 @@ public class GuestExportWorker {
 		spreadSheet.addCell(event.end);
 
 		addLocationCells(spreadSheet, location);
-		if(isOsiamActive) addDelegationLoginCells(spreadSheet, guest, event);
+		if(isOsiamActive && isOnlineRegistrationActive) addDelegationLoginCells(spreadSheet, guest, event);
 		spreadSheet.addCell(event.note);
 	}
 
@@ -797,6 +793,10 @@ public class GuestExportWorker {
 	private void checkIfOsiamIsAvailable() {
 		OSIAMWorker osiamWorker = new OSIAMWorker();
 		this.isOsiamActive = osiamWorker.osiamIsAvailable();
+	}
+	
+	private void checkIfOnlineRegistrationIsAvailable(OctopusContext cntx) {
+		this.isOnlineRegistrationActive = Boolean.valueOf(cntx.getContextField("onlinereg-active").toString());
 	}
 	
 	private void addDelegationLoginCells(SpreadSheet spreadSheet, Map guest, Event event) throws IOException {
@@ -873,6 +873,7 @@ public class GuestExportWorker {
 	 */
 	protected void exportOnlyPerson(SpreadSheet spreadSheet, Event event, Location location, Map guest, Map data, Boolean isPressStaff, OctopusContext cntx) throws IOException, BeanException {
 		checkIfOsiamIsAvailable();
+		checkIfOnlineRegistrationIsAvailable(cntx);
 		//
 		// Gast spezifische Daten
 		//
@@ -987,7 +988,7 @@ public class GuestExportWorker {
 		}
 
 		addLocationCells(spreadSheet, location);
-		if(isOsiamActive) {
+		if(isOsiamActive && isOnlineRegistrationActive) {
 			addDelegationLoginCells(spreadSheet, guest, event);
 			// Updating username in tperson
 			updateDelegationUsername(cntx, guest.get("osiam_login"), (Integer)guest.get("fk_person"));
@@ -1140,7 +1141,7 @@ public class GuestExportWorker {
 		spreadSheet.addCell(event.end);
 
 		addLocationCells(spreadSheet, location);
-		if(isOsiamActive) addDelegationLoginCells(spreadSheet, guest, event);
+		if(isOsiamActive && isOnlineRegistrationActive) addDelegationLoginCells(spreadSheet, guest, event);
 
 		spreadSheet.addCell(event.note);
 	}
