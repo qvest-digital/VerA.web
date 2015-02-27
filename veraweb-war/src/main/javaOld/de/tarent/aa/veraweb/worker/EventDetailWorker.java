@@ -36,6 +36,7 @@ import de.tarent.aa.veraweb.beans.Person;
 import de.tarent.aa.veraweb.beans.Task;
 import de.tarent.aa.veraweb.beans.facade.EventConstants;
 import de.tarent.aa.veraweb.utils.DateHelper;
+import de.tarent.aa.veraweb.utils.OnlineRegistrationHelper;
 import de.tarent.aa.veraweb.utils.PropertiesReader;
 import de.tarent.aa.veraweb.utils.URLGenerator;
 import de.tarent.dblayer.sql.SQL;
@@ -60,8 +61,6 @@ import de.tarent.octopus.server.OctopusContext;
  * Veranstaltungen.
  */
 public class EventDetailWorker {
-
-    private static final String ONLINEREG_ACTIVE_PARAM = "onlinereg-active";
 
 	private static final Integer NUMBER_OPTIONAL_FIELDS = 15;
 
@@ -92,8 +91,7 @@ public class EventDetailWorker {
 		if (event != null) {
 			cntx.setContent("event", event);
 			// OR Control
-			Boolean isOnlineregActive = Boolean.valueOf(cntx.getContextField(ONLINEREG_ACTIVE_PARAM).toString());
-			if (isOnlineregActive) {
+			if (OnlineRegistrationHelper.isOnlineregActive(cntx)) {
 				setUrlForMediaRepresentatives(cntx, event);
 			}
 			//
@@ -163,8 +161,6 @@ public class EventDetailWorker {
 	 */
 	public void saveDetail(OctopusContext cntx, Boolean saveevent) throws BeanException, IOException
 	{
-		Boolean isOnlineAppActive = Boolean.valueOf(cntx.getContextField(ONLINEREG_ACTIVE_PARAM).toString());
-		
 		if (saveevent == null || !saveevent.booleanValue()) {
             return;
         }
@@ -288,7 +284,7 @@ public class EventDetailWorker {
                             database.saveBean(eventDoctype, context, false);
                         }
                     }
-                    if (Boolean.valueOf(cntx.getContextField(ONLINEREG_ACTIVE_PARAM).toString())){
+                    if (OnlineRegistrationHelper.isOnlineregActive(cntx)){
                     	initOptionalFields(database, context, event);
                     }
                 }
@@ -331,7 +327,7 @@ public class EventDetailWorker {
 
             setEventUrl(cntx, event);
             // OR Control
-            if (isOnlineAppActive) {
+            if (OnlineRegistrationHelper.isOnlineregActive(cntx)) {
             	setUrlForMediaRepresentatives(cntx, event);
             }
             cntx.setContent("event", event);
@@ -382,7 +378,7 @@ public class EventDetailWorker {
      * @param event The event
      */
     private void setEventType(Event event, OctopusContext cntx) {
-        if(event.eventtype != null && event.eventtype.equals("on") && cntx.contentAsString("vwor.activated").equals("yes")) {
+        if(event.eventtype != null && event.eventtype.equals("on") && OnlineRegistrationHelper.isOnlineregActive(cntx)) {
             event.eventtype = "Offene Veranstaltung";
         } else {
             event.eventtype = "";

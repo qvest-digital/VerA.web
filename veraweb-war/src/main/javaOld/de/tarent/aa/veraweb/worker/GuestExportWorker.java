@@ -83,7 +83,7 @@ public class GuestExportWorker {
 
     /** Logger dieser Klasse */
 	private final Logger logger = Logger.getLogger(getClass());
-	
+
 	private boolean isOsiamActive = false;
 	private boolean isOnlineRegistrationActive = false;
 
@@ -186,7 +186,7 @@ public class GuestExportWorker {
         final GuestSearch search = (GuestSearch)cntx.contentAsObject("search");
         final List selection = (List)cntx.sessionAsObject("selectionGuest");
         final Doctype doctype = (Doctype)database.getBean("Doctype", doctypeid);
-        
+
 		// Spreadsheet �ffnen
 		final SpreadSheet spreadSheet = SpreadSheetFactory.getSpreadSheet(doctype.format);
 		spreadSheet.init();
@@ -349,14 +349,14 @@ public class GuestExportWorker {
      *  die zu exportierenden Datens�tze zu liefern.
      * @param data Map mit Zusatzinformationen unter den Schl�sseln "doctype", "zusagen",
      *  "absagen", "offenen", "platz" und "reserve".
-     * @throws IOException 
+     * @throws IOException
      */
 	protected void exportSelect(SpreadSheet spreadSheet, Database database, Event event, Location location, Doctype doctype, GuestSearch search, Select select, Map data, OctopusContext cntx) throws BeanException, IOException {
 		for (final Iterator it = database.getList(select, database).iterator(); it.hasNext(); ) {
             final Map guest = (Map)it.next();
-            
+
             Boolean isPressStaff = isPressGuest(cntx, event.mediarepresentatives, (Integer)guest.get("id"));
-            
+
 			Integer invitationtype = (Integer)guest.get("invitationtype");
 			if (invitationtype == null || invitationtype.intValue() == 0)
 				invitationtype = event.invitationtype;
@@ -794,23 +794,23 @@ public class GuestExportWorker {
 		OSIAMWorker osiamWorker = new OSIAMWorker();
 		this.isOsiamActive = osiamWorker.osiamIsAvailable();
 	}
-	
+
 	private void checkIfOnlineRegistrationIsAvailable(OctopusContext cntx) {
-		this.isOnlineRegistrationActive = Boolean.valueOf(cntx.getContextField("onlinereg-active").toString());
+		this.isOnlineRegistrationActive = Boolean.valueOf(cntx.getContextField("vwor.activated").toString());
 	}
-	
+
 	private void addDelegationLoginCells(SpreadSheet spreadSheet, Map guest, Event event) throws IOException {
 		String password = "-";
 		Object username = "-";
 		String delegationRegistrerURL = "-";
-	
-		if(guest.containsKey("delegation") && 
-				guest.get("delegation") != null && 
+
+		if(guest.containsKey("delegation") &&
+				guest.get("delegation") != null &&
 				guest.get("delegation").toString().length() > 0 &&
-				guest.containsKey("osiam_login") && 
-				guest.get("osiam_login") != null && 
+				guest.containsKey("osiam_login") &&
+				guest.get("osiam_login") != null &&
 				guest.get("osiam_login").toString().length() > 0) {
-			
+
 			delegationRegistrerURL = generateLoginUrl(guest);
 			password = generatePassword(event, guest);
 			username = guest.get("osiam_login"); ;
@@ -830,24 +830,24 @@ public class GuestExportWorker {
 		passwordBuilder.append(extractFirstXChars(event.begin.toString(), 10));
 		return passwordBuilder.toString();
 	}
-	
+
 	private String generateLoginUrl(Map guest) throws IOException {
         final PropertiesReader propertiesReader = new PropertiesReader();
         final Properties properties = propertiesReader.getProperties();
         final URLGenerator url = new URLGenerator(properties);
         return url.getURLForDelegation() + guest.get("delegation");
 	}
-	
+
 	/**
      * URL Associated directly to the event
-     * 
+     *
      * @param cntx
      * @param event
      * @throws IOException
      */
     private String generateEventUrl(Event event) throws IOException {
         PropertiesReader propertiesReader = new PropertiesReader();
-        
+
         if(propertiesReader.propertiesAreAvailable() && event.hash != null) {
 	        Properties properties = propertiesReader.getProperties();
 	        URLGenerator url = new URLGenerator(properties);
@@ -856,7 +856,7 @@ public class GuestExportWorker {
 	        return "";
         }
     }
-	
+
 	private String extractFirstXChars(String value, int x) {
 		return value.substring(0, Math.min(value.length(), x));
 	}
@@ -869,7 +869,7 @@ public class GuestExportWorker {
 	 * @param guest Map mit den Gastdaten.
 	 * @param data Zusatzinformationen.
 	 * @throws IOException Wenn die Generierung von URL fur Delegation fehlschlug.
-	 * @throws BeanException 
+	 * @throws BeanException
 	 */
 	protected void exportOnlyPerson(SpreadSheet spreadSheet, Event event, Location location, Map guest, Map data, Boolean isPressStaff, OctopusContext cntx) throws IOException, BeanException {
 		checkIfOsiamIsAvailable();
@@ -996,14 +996,14 @@ public class GuestExportWorker {
 
 		spreadSheet.addCell(event.note);
 	}
-	
+
 
 	/**
 	 * Checking if one guest is from the press staff
-	 * 
+	 *
 	 * @return Boolean
-	 * @throws IOException 
-	 * @throws BeanException 
+	 * @throws IOException
+	 * @throws BeanException
 	 */
 	private void updateDelegationUsername(OctopusContext cntx, Object username, Integer personId) throws BeanException {
 		final Database database = new DatabaseVeraWeb(cntx);
@@ -1013,7 +1013,7 @@ public class GuestExportWorker {
 			updatePerson(database, null, personId);
 		}
 	}
-	
+
 	private void updatePerson(final Database database, final Object username, final Integer personId) throws BeanException {
 		database.execute(SQL.Update( database ).
 				table("veraweb.tperson").
@@ -1028,7 +1028,7 @@ public class GuestExportWorker {
 	 * @param event Event das exportiert wird.
 	 * @param guest Map mit den Gastdaten.
 	 * @param data Zusatzinformationen.
-	 * @throws IOException 
+	 * @throws IOException
 	 */
 	protected void exportOnlyPartner(SpreadSheet spreadSheet, Event event, Location location, boolean showA, boolean showB, Map guest, Map data) throws IOException {
 		checkIfOsiamIsAvailable();
@@ -1238,13 +1238,13 @@ public class GuestExportWorker {
 			return "Teilnahme";
 		}
 	}
-	
+
 	/**
 	 * Checking if one guest is from the press staff
-	 * 
+	 *
 	 * @return Boolean
-	 * @throws IOException 
-	 * @throws BeanException 
+	 * @throws IOException
+	 * @throws BeanException
 	 */
 	private Boolean isPressGuest(OctopusContext cntx, String pressUuid, Integer guestId) throws BeanException, IOException {
 		if (pressUuid != null) {
@@ -1255,7 +1255,7 @@ public class GuestExportWorker {
 	        select.where(Expr.equal("tcategorie.catname", "Pressevertreter"));
 	        select.whereAnd(Expr.equal("tguest.pk", guestId));
 	        select.whereAnd(Expr.equal("tevent.mediarepresentatives", pressUuid));
-	        
+
 	        Integer i = database.getCount(select);
 	        if (i.equals(1)) {
 	        	return true;
@@ -1263,5 +1263,5 @@ public class GuestExportWorker {
 		}
 		return false;
 	}
-	
+
 }
