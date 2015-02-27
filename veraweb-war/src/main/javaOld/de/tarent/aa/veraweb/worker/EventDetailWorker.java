@@ -232,7 +232,7 @@ public class EventDetailWorker {
             if (!questions.isEmpty()) {
                 cntx.setContent("listquestions", questions);
             }
-            if (isOnlineAppActive) {
+            if (OnlineRegistrationHelper.isOnlineregActive(cntx)) {
             	setEventHash(event,oldEvent);
             }
             /** Veranstaltung speichern */
@@ -242,7 +242,7 @@ public class EventDetailWorker {
              * cklein 2008-02-12
              */
             	// Opened Event or not
-                setEventType(event);
+                setEventType(event, cntx);
                 // Allowing Press in the Event or not
                 setMediaRepresentatives(event, oldEvent);
 
@@ -325,7 +325,7 @@ public class EventDetailWorker {
                 	event.mediarepresentatives = oldEvent.mediarepresentatives;
                 }
             }
-            
+
             // OR Control
             if (OnlineRegistrationHelper.isOnlineregActive(cntx)) {
 				setEventUrl(cntx, event);
