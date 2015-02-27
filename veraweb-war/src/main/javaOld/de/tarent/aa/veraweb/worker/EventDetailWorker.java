@@ -71,6 +71,8 @@ public class EventDetailWorker {
 	public static final String INPUT_showDetail[] = { "id", "task", "eventId" };
     /** Eingabe-Parameterzwang der Octopus-Aktion {@link #showDetail(OctopusContext, Integer)} */
 	public static final boolean MANDATORY_showDetail[] = { false, false, false };
+	
+	public static final String VWOR_ACTIVE = "vwor.activated";
 	/**
 	 * Diese Octopus-Aktion l�dt eine Veranstaltung und legt sie unter dem Schl�ssel "event"
      * in den Octopus-Content. Begleitend werden dort zwei Flags unter den Schl�sseln
@@ -327,7 +329,7 @@ public class EventDetailWorker {
             }
 
             // OR Control
-            if (OnlineRegistrationHelper.isOnlineregActive(cntx)) {
+            if (Boolean.valueOf(cntx.getContextField(VWOR_ACTIVE).toString())) {
 				setEventUrl(cntx, event);
             	setUrlForMediaRepresentatives(cntx, event);
             }
