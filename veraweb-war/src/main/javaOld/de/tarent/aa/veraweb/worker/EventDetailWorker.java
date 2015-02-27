@@ -61,7 +61,9 @@ import de.tarent.octopus.server.OctopusContext;
  */
 public class EventDetailWorker {
 
-    private static final Integer NUMBER_OPTIONAL_FIELDS = 15;
+    private static final String ONLINEREG_ACTIVE_PARAM = "onlinereg-active";
+
+	private static final Integer NUMBER_OPTIONAL_FIELDS = 15;
 
     //
     // Octopus-Aktionen
@@ -89,8 +91,12 @@ public class EventDetailWorker {
 		Event event = getEvent(cntx, id);
 		if (event != null) {
 			cntx.setContent("event", event);
-            setUrlForMediaRepresentatives(cntx, event);
-
+			// OR Control
+			Boolean isOnlineregActive = Boolean.valueOf(cntx.getContextField(ONLINEREG_ACTIVE_PARAM).toString());
+			if (isOnlineregActive) {
+				setUrlForMediaRepresentatives(cntx, event);
+			}
+			//
             setEventUrl(cntx, event);
 		}
 	}
@@ -157,6 +163,8 @@ public class EventDetailWorker {
 	 */
 	public void saveDetail(OctopusContext cntx, Boolean saveevent) throws BeanException, IOException
 	{
+		Boolean isOnlineAppActive = Boolean.valueOf(cntx.getContextField(ONLINEREG_ACTIVE_PARAM).toString());
+		
 		if (saveevent == null || !saveevent.booleanValue()) {
             return;
         }
@@ -280,8 +288,9 @@ public class EventDetailWorker {
                             database.saveBean(eventDoctype, context, false);
                         }
                     }
-                    
-                    initOptionalFields(database, context, event);
+                    if (Boolean.valueOf(cntx.getContextField(ONLINEREG_ACTIVE_PARAM).toString())){
+                    	initOptionalFields(database, context, event);
+                    }
                 }
 
 
@@ -321,11 +330,13 @@ public class EventDetailWorker {
             }
             
             setEventUrl(cntx, event);
-            setUrlForMediaRepresentatives(cntx, event);
+            // OR Control
+            if (isOnlineAppActive) {
+            	setUrlForMediaRepresentatives(cntx, event);
+            }
             cntx.setContent("event", event);
 			cntx.setContent("event-beginhastime", Boolean.valueOf(DateHelper.isTimeInDate(event.begin)));
 			cntx.setContent("event-endhastime", Boolean.valueOf(DateHelper.isTimeInDate(event.end)));
-
 
 			context.commit();
         } catch (BeanException e) {

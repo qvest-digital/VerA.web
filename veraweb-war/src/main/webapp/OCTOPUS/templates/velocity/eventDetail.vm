@@ -89,7 +89,9 @@
                 		<li vera-tab="allgemein" vera-tab-default><div>Allgemein</div>
                 		</li><li onclick="showDoctypes();" class="inactive"><div>Dokumenttypen</div>
         				</li><li class="inactive" #if ($event.id) onclick="if (checkModified()) { window.location.href='ShowEventTasks?id=$!event.id&selectNone=true';}" #end><div>Aufgaben</div>
-                        </li><li class="inactive" onclick="window.location.href='${paths.staticWeb}do/ShowDelegationFields?eventId=$!event.id'"><div>Zusätzliche Personendaten</div>
+                        #if ($onlinereg-active)
+                        	</li><li class="inactive" onclick="window.location.href='${paths.staticWeb}do/ShowDelegationFields?eventId=$!event.id'"><div>Zusätzliche Personendaten</div>
+        				#end
         				</li>
                 	</ul>
         		</div>
@@ -267,18 +269,19 @@
     								<textarea onchange="setModified();" id="event-note" name="event-note" rows="4" #if($grants.mayReadRemarkFields()) >$!message.textarea($event.note)#else class="textdisabled" vera-disabled>#end</textarea>						
     							</div>
     						</div>
-
-    						<div class="tableRow">
-                                <div class="tableCell width50 inlineLabel">
-                                    <label for="event-mediarepresentatives">Anmeldung von Pressevertretern möglich</label>
-                                	<!-- DEBUG $event.mediarepresentatives -->
-                                    <input type="checkbox"  onchange="setModified();" class="noFloat" id="event-mediarepresentatives" name="event-mediarepresentatives"
-                                        #if($event && $event.mediarepresentatives)
-                                            checked
-                                        #end
-                                    >
-                                </div>
-                            </div>
+							#if($onlinereg-active)
+	    						<div class="tableRow">
+	                                <div class="tableCell width50 inlineLabel">
+	                                    <label for="event-mediarepresentatives">Anmeldung von Pressevertretern möglich</label>
+	                                	<!-- DEBUG $event.mediarepresentatives -->
+	                                    <input type="checkbox"  onchange="setModified();" class="noFloat" id="event-mediarepresentatives" name="event-mediarepresentatives"
+	                                        #if($event && $event.mediarepresentatives)
+	                                            checked
+	                                        #end
+	                                    >
+	                                </div>
+	                            </div>
+                            #end
     				</div>
     		</div>
 		</div>

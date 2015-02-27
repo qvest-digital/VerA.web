@@ -6,7 +6,7 @@
     <groupId>org.evolvis.veraweb</groupId>
     <artifactId>veraweb</artifactId>
     <packaging>pom</packaging>
-    <version>1.5.1.1-SNAPSHOT</version>
+    <version>1.5.1.2-SNAPSHOT</version>
 
     <name>veraweb-evolvis-parent</name>
     <description>Veranstaltungsmanagment VerA.web</description>

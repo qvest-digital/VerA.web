@@ -19,6 +19,7 @@
  */
 package de.tarent.aa.veraweb.worker;
 
+import de.tarent.aa.veraweb.utils.OnlineRegistrationHelper;
 import de.tarent.octopus.server.OctopusContext;
 
 /**
@@ -54,6 +55,8 @@ public class ActionWorker {
 		if (action == null)
 			action = "";
 		cntx.setSession("action", action);
+		loadOnlineRegistrationConfig(cntx);
+		
 		return action;
 	}
 
@@ -63,6 +66,8 @@ public class ActionWorker {
 	public static final boolean[] MANDATORY_remove = { false };
     /** Octopus-Ausgabe-Parameter f�r {@link #remove(OctopusContext, String)} */
 	public static final String OUTPUT_remove = "action";
+	/** Octopus-Config for Online Registration plattform activation */
+	public static final String ONLINEREG_ACTIVATION = "onlinereg-active";
     /**
      * Diese Methode l�scht die aktuelle Aktion und ersetzt sie gegebenenfalls
      * durch die �bergebene. 
@@ -74,5 +79,13 @@ public class ActionWorker {
 	public String remove(OctopusContext cntx, String action) {
 		cntx.setSession("action", action);
 		return action;
+	}
+	/**
+	 * Setting Online Registration Config
+	 * 
+	 * @param cntx OctopusContext
+	 */
+	private void loadOnlineRegistrationConfig(OctopusContext cntx) {
+		cntx.setContent(ONLINEREG_ACTIVATION, OnlineRegistrationHelper.isOnlineregActive(cntx));
 	}
 }

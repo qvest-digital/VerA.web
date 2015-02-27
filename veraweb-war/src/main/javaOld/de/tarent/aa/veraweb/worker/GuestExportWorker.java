@@ -46,9 +46,6 @@ import de.tarent.aa.veraweb.utils.PropertiesReader;
 import de.tarent.aa.veraweb.utils.URLGenerator;
 import de.tarent.commons.spreadsheet.export.SpreadSheet;
 import de.tarent.commons.spreadsheet.export.SpreadSheetFactory;
-import de.tarent.dblayer.engine.DB;
-import de.tarent.dblayer.engine.DBContext;
-import de.tarent.dblayer.sql.Escaper;
 import de.tarent.dblayer.sql.Join;
 import de.tarent.dblayer.sql.SQL;
 import de.tarent.dblayer.sql.clause.Expr;
@@ -56,7 +53,6 @@ import de.tarent.dblayer.sql.clause.RawClause;
 import de.tarent.dblayer.sql.clause.Where;
 import de.tarent.dblayer.sql.clause.WhereList;
 import de.tarent.dblayer.sql.statement.Select;
-import de.tarent.dblayer.sql.statement.Update;
 import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.beans.Database;
 import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
@@ -87,6 +83,8 @@ public class GuestExportWorker {
 
     /** Logger dieser Klasse */
 	private final Logger logger = Logger.getLogger(getClass());
+
+	private boolean isOnlineRegistrationActive = false;
 
 	/**
 	 * <p>
@@ -187,7 +185,7 @@ public class GuestExportWorker {
         final GuestSearch search = (GuestSearch)cntx.contentAsObject("search");
         final List selection = (List)cntx.sessionAsObject("selectionGuest");
         final Doctype doctype = (Doctype)database.getBean("Doctype", doctypeid);
-
+        
 		// Spreadsheet �ffnen
 		final SpreadSheet spreadSheet = SpreadSheetFactory.getSpreadSheet(doctype.format);
 		spreadSheet.init();
@@ -580,11 +578,12 @@ public class GuestExportWorker {
 		spreadSheet.addCell("Veranstaltungsort_GPS-Daten");
 		spreadSheet.addCell("Veranstaltungsort_Raumnummer");
 
-		//OSIAM Login
-		spreadSheet.addCell("Anmeldename");
-		spreadSheet.addCell("Passwort");
-		spreadSheet.addCell("Delegations URL");
-
+		if(isOnlineRegistrationActive) {
+			//OSIAM Login
+			spreadSheet.addCell("Anmeldename");
+			spreadSheet.addCell("Passwort");
+			spreadSheet.addCell("Delegations URL");
+		}
 		spreadSheet.addCell("Bemerkung");
 	}
 
@@ -765,7 +764,7 @@ public class GuestExportWorker {
 		spreadSheet.addCell(event.end);
 
 		addLocationCells(spreadSheet, location);
-		addDelegationLoginCells(spreadSheet, guest, event);
+		if(isOnlineRegistrationActive) addDelegationLoginCells(spreadSheet, guest, event);
 		spreadSheet.addCell(event.note);
 	}
 
@@ -788,6 +787,10 @@ public class GuestExportWorker {
 		}
 	}
 
+	private void checkIfOnlineRegistrationIsAvailable(OctopusContext cntx) {
+		this.isOnlineRegistrationActive = Boolean.valueOf(cntx.getContextField("onlinereg-active").toString());
+	}
+	
 	private void addDelegationLoginCells(SpreadSheet spreadSheet, Map guest, Event event) throws IOException {
 		String password = "-";
 		Object username = "-";
@@ -861,6 +864,7 @@ public class GuestExportWorker {
 	 * @throws BeanException 
 	 */
 	protected void exportOnlyPerson(SpreadSheet spreadSheet, Event event, Location location, Map guest, Map data, Boolean isPressStaff, OctopusContext cntx) throws IOException, BeanException {
+		checkIfOnlineRegistrationIsAvailable(cntx);
 		//
 		// Gast spezifische Daten
 		//
@@ -976,9 +980,11 @@ public class GuestExportWorker {
 
 		addLocationCells(spreadSheet, location);
 
-		addDelegationLoginCells(spreadSheet, guest, event);
-		// Updating username in tperson
-		updateDelegationUsername(cntx, guest.get("osiam_login").toString(), (Integer)guest.get("fk_person"));
+		if(isOnlineRegistrationActive) {
+			addDelegationLoginCells(spreadSheet, guest, event);
+			// Updating username in tperson
+			updateDelegationUsername(cntx, guest.get("osiam_login"), (Integer)guest.get("fk_person"));
+		}
 
 		spreadSheet.addCell(event.note);
 	}
@@ -991,8 +997,16 @@ public class GuestExportWorker {
 	 * @throws IOException 
 	 * @throws BeanException 
 	 */
-	private void updateDelegationUsername(OctopusContext cntx, String username, Integer personId) throws BeanException, IOException {
+	private void updateDelegationUsername(OctopusContext cntx, Object username, Integer personId) throws BeanException {
 		final Database database = new DatabaseVeraWeb(cntx);
+		if (username != null) {
+			updatePerson(database, username, personId);
+		} else {
+			updatePerson(database, null, personId);
+		}
+	}
+	
+	private void updatePerson(final Database database, final Object username, final Integer personId) throws BeanException {
 		database.execute(SQL.Update( database ).
 				table("veraweb.tperson").
 				update("username", username).
@@ -1118,7 +1132,7 @@ public class GuestExportWorker {
 		spreadSheet.addCell(event.end);
 
 		addLocationCells(spreadSheet, location);
-		addDelegationLoginCells(spreadSheet, guest, event);
+		if(isOnlineRegistrationActive) addDelegationLoginCells(spreadSheet, guest, event);
 
 		spreadSheet.addCell(event.note);
 	}
