@@ -95,9 +95,9 @@ public class EventDetailWorker {
 			Boolean isOnlineregActive = Boolean.valueOf(cntx.getContextField(ONLINEREG_ACTIVE_PARAM).toString());
 			if (isOnlineregActive) {
 				setUrlForMediaRepresentatives(cntx, event);
+				setEventUrl(cntx, event);
 			}
 			//
-            setEventUrl(cntx, event);
 		}
 	}
 
@@ -236,8 +236,9 @@ public class EventDetailWorker {
             if (!questions.isEmpty()) {
                 cntx.setContent("listquestions", questions);
             }
-
-            setEventHash(event,oldEvent);
+            if (isOnlineAppActive) {
+            	setEventHash(event,oldEvent);
+            }
             /** Veranstaltung speichern */
             if (event.isModified() && event.isCorrect() && questions.isEmpty()) {
             /*
@@ -329,9 +330,9 @@ public class EventDetailWorker {
                 }
             }
             
-            setEventUrl(cntx, event);
             // OR Control
             if (isOnlineAppActive) {
+            	setEventUrl(cntx, event);
             	setUrlForMediaRepresentatives(cntx, event);
             }
             cntx.setContent("event", event);
