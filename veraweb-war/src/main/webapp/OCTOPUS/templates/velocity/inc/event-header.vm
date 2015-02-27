@@ -29,10 +29,11 @@
 			</div>
 		</div>		
 		<div class="tableRow">
-			
-			<div class="tableCell width30">
-				<strong style="vertical-align: inherit;">Veranstaltungs-URL:</strong> <pre>$!message.textarea($eventUrl)</pre>
-			</div>
+			#if($onlinereg-active)
+				<div class="tableCell width30">
+					<strong style="vertical-align: inherit;">Veranstaltungs-URL:</strong> <pre>$!message.textarea($eventUrl)</pre>
+				</div>
+			#end
 			
 		</div>
 		<div class="tableCell width50">
