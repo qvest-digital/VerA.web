@@ -84,7 +84,6 @@ public class GuestExportWorker {
     /** Logger dieser Klasse */
 	private final Logger logger = Logger.getLogger(getClass());
 
-	private boolean isOsiamActive = false;
 	private boolean isOnlineRegistrationActive = false;
 
 	/**
@@ -457,7 +456,6 @@ public class GuestExportWorker {
 	 * @param spreadSheet In das geschrieben werden soll.
 	 */
 	protected void exportHeader(SpreadSheet spreadSheet) {
-		checkIfOsiamIsAvailable();
 		//
 		// Gast spezifische Daten
 		//
@@ -581,7 +579,7 @@ public class GuestExportWorker {
 		spreadSheet.addCell("Veranstaltungsort_GPS-Daten");
 		spreadSheet.addCell("Veranstaltungsort_Raumnummer");
 
-		if(isOsiamActive && isOnlineRegistrationActive) {
+		if(isOnlineRegistrationActive) {
 			//OSIAM Login
 			spreadSheet.addCell("Anmeldename");
 			spreadSheet.addCell("Passwort");
@@ -600,7 +598,6 @@ public class GuestExportWorker {
 	 * @throws IOException Wenn die Generierung von URL fur Delegation fehlschlug.
 	 */
 	protected void exportBothInOneLine(SpreadSheet spreadSheet, Event event, Location location, boolean showA, boolean showB, Map guest, Map data) throws IOException {
-		checkIfOsiamIsAvailable();
 		//
 		// Gast spezifische Daten
 		//
@@ -768,7 +765,7 @@ public class GuestExportWorker {
 		spreadSheet.addCell(event.end);
 
 		addLocationCells(spreadSheet, location);
-		if(isOsiamActive && isOnlineRegistrationActive) addDelegationLoginCells(spreadSheet, guest, event);
+		if(isOnlineRegistrationActive) addDelegationLoginCells(spreadSheet, guest, event);
 		spreadSheet.addCell(event.note);
 	}
 
@@ -791,11 +788,6 @@ public class GuestExportWorker {
 		}
 	}
 
-	private void checkIfOsiamIsAvailable() {
-		OSIAMWorker osiamWorker = new OSIAMWorker();
-		this.isOsiamActive = osiamWorker.osiamIsAvailable();
-	}
-
 	private void checkIfOnlineRegistrationIsAvailable(OctopusContext cntx) {
 		this.isOnlineRegistrationActive = Boolean.valueOf(cntx.getContextField("vwor.activated").toString());
 	}
@@ -804,17 +796,17 @@ public class GuestExportWorker {
 		String password = "-";
 		Object username = "-";
 		String delegationRegistrerURL = "-";
-		
+
 		String category = (String) guest.get("catname");
 		if (category == null) { category = ""; }
-		
-		if(guest.containsKey("delegation") && 
-				guest.get("delegation") != null && 
+
+		if(guest.containsKey("delegation") &&
+				guest.get("delegation") != null &&
 				guest.get("delegation").toString().length() > 0 &&
-				guest.containsKey("osiam_login") && 
-				guest.get("osiam_login") != null && 
+				guest.containsKey("osiam_login") &&
+				guest.get("osiam_login") != null &&
 				guest.get("osiam_login").toString().length() > 0 && !category.equals("Pressevertreter")) {
-			
+
 			delegationRegistrerURL = generateLoginUrl(guest);
 			password = generatePassword(event, guest);
 			username = guest.get("osiam_login"); ;
@@ -879,7 +871,6 @@ public class GuestExportWorker {
 	 * @throws BeanException
 	 */
 	protected void exportOnlyPerson(SpreadSheet spreadSheet, Event event, Location location, Map guest, Map data, Boolean isPressStaff, OctopusContext cntx) throws IOException, BeanException {
-		checkIfOsiamIsAvailable();
 		checkIfOnlineRegistrationIsAvailable(cntx);
 		//
 		// Gast spezifische Daten
@@ -997,7 +988,7 @@ public class GuestExportWorker {
 		}
 
 		addLocationCells(spreadSheet, location);
-		if(isOsiamActive && isOnlineRegistrationActive) {
+		if(isOnlineRegistrationActive) {
 			addDelegationLoginCells(spreadSheet, guest, event);
 			// Updating username in tperson
 			updateDelegationUsername(cntx, guest.get("osiam_login"), (Integer)guest.get("fk_person"));
@@ -1040,7 +1031,6 @@ public class GuestExportWorker {
 	 * @throws IOException
 	 */
 	protected void exportOnlyPartner(SpreadSheet spreadSheet, Event event, Location location, boolean showA, boolean showB, Map guest, Map data) throws IOException {
-		checkIfOsiamIsAvailable();
 		//
 		// Gast spezifische Daten
 		//
@@ -1150,7 +1140,7 @@ public class GuestExportWorker {
 		spreadSheet.addCell(event.end);
 
 		addLocationCells(spreadSheet, location);
-		if(isOsiamActive && isOnlineRegistrationActive) addDelegationLoginCells(spreadSheet, guest, event);
+		if(isOnlineRegistrationActive) addDelegationLoginCells(spreadSheet, guest, event);
 
 		spreadSheet.addCell(event.note);
 	}
