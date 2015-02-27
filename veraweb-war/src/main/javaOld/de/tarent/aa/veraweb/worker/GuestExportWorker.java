@@ -565,8 +565,9 @@ public class GuestExportWorker {
 		spreadSheet.addCell("Veranstaltungsname");
 		spreadSheet.addCell("Veranstaltung_Beginn");
 		spreadSheet.addCell("Veranstaltung_Ende");
-		spreadSheet.addCell("Veranstaltung URL");
-
+		if (isOnlineRegistrationActive) {
+			spreadSheet.addCell("Veranstaltung URL");
+		}
 		spreadSheet.addCell("Veranstaltungsort_Beschreibung");
 		spreadSheet.addCell("Veranstaltungsort_Ansprechpartner");
 		spreadSheet.addCell("Veranstaltungsort_Straße");
@@ -803,14 +804,17 @@ public class GuestExportWorker {
 		String password = "-";
 		Object username = "-";
 		String delegationRegistrerURL = "-";
-
-		if(guest.containsKey("delegation") &&
-				guest.get("delegation") != null &&
+		
+		String category = (String) guest.get("catname");
+		if (category == null) { category = ""; }
+		
+		if(guest.containsKey("delegation") && 
+				guest.get("delegation") != null && 
 				guest.get("delegation").toString().length() > 0 &&
-				guest.containsKey("osiam_login") &&
-				guest.get("osiam_login") != null &&
-				guest.get("osiam_login").toString().length() > 0) {
-
+				guest.containsKey("osiam_login") && 
+				guest.get("osiam_login") != null && 
+				guest.get("osiam_login").toString().length() > 0 && !category.equals("Pressevertreter")) {
+			
 			delegationRegistrerURL = generateLoginUrl(guest);
 			password = generatePassword(event, guest);
 			username = guest.get("osiam_login"); ;
@@ -823,7 +827,10 @@ public class GuestExportWorker {
 
 	private String generatePassword(Event event, Map guest) {
         final String shortName = event.get("shortname").toString();
-        final String companyName = guest.get("company_a_e1").toString();
+        String companyName = "";
+        if (guest.get("company_a_e1") != null) {
+        	companyName = guest.get("company_a_e1").toString();
+        }
         final StringBuilder passwordBuilder = new StringBuilder();
 		passwordBuilder.append(extractFirstXChars(shortName, 3));
 		passwordBuilder.append(extractFirstXChars(companyName, 3));
@@ -981,10 +988,12 @@ public class GuestExportWorker {
 		spreadSheet.addCell(event.shortname);
 		spreadSheet.addCell(event.begin);
 		spreadSheet.addCell(event.end);
-		if ((guest.get("delegation")==null || guest.get("delegation").equals("")) && !isPressStaff) {
-			spreadSheet.addCell(generateEventUrl(event));
-		} else {
-			spreadSheet.addCell("");
+		if (isOnlineRegistrationActive) {
+			if ((guest.get("delegation")==null || guest.get("delegation").equals("")) && !isPressStaff) {
+				spreadSheet.addCell(generateEventUrl(event));
+			} else {
+				spreadSheet.addCell("");
+			}
 		}
 
 		addLocationCells(spreadSheet, location);

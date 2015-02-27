@@ -29,11 +29,9 @@
 			</div>
 		</div>
 		<div class="tableRow">
-
 			<div class="tableCell width30">
 				<strong style="vertical-align: inherit;">Veranstaltungs-URL:</strong> <pre>$!message.textarea($eventUrl)</pre>
 			</div>
-
 		</div>
 		<div class="tableCell width50">
 			#if($vwor.activated)

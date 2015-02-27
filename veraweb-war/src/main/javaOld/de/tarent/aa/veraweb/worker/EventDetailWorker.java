@@ -93,9 +93,9 @@ public class EventDetailWorker {
 			// OR Control
 			if (OnlineRegistrationHelper.isOnlineregActive(cntx)) {
 				setUrlForMediaRepresentatives(cntx, event);
+				setEventUrl(cntx, event);
 			}
 			//
-            setEventUrl(cntx, event);
 		}
 	}
 
@@ -232,8 +232,9 @@ public class EventDetailWorker {
             if (!questions.isEmpty()) {
                 cntx.setContent("listquestions", questions);
             }
-
-            setEventHash(event,oldEvent);
+            if (isOnlineAppActive) {
+            	setEventHash(event,oldEvent);
+            }
             /** Veranstaltung speichern */
             if (event.isModified() && event.isCorrect() && questions.isEmpty()) {
             /*
@@ -241,7 +242,7 @@ public class EventDetailWorker {
              * cklein 2008-02-12
              */
             	// Opened Event or not
-                setEventType(event, cntx);
+                setEventType(event);
                 // Allowing Press in the Event or not
                 setMediaRepresentatives(event, oldEvent);
 
@@ -324,10 +325,10 @@ public class EventDetailWorker {
                 	event.mediarepresentatives = oldEvent.mediarepresentatives;
                 }
             }
-
-            setEventUrl(cntx, event);
+            
             // OR Control
             if (OnlineRegistrationHelper.isOnlineregActive(cntx)) {
+				setEventUrl(cntx, event);
             	setUrlForMediaRepresentatives(cntx, event);
             }
             cntx.setContent("event", event);

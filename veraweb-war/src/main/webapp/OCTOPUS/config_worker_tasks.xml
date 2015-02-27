@@ -1457,6 +1457,7 @@
 				Fügt die markierten Personen aus einer Gästeliste zu einer
 				Veranstaltung hinzu und zeigt die Personenliste wieder an.
 			</description>
+			<doTask name="Load"/>
 			<action name="getSearch" worker="GuestListWorker"/>
 			<action name="getEvent" worker="GuestListWorker" />
 			<status equals="noevent"><doTask name="CreateEvent"/></status>
