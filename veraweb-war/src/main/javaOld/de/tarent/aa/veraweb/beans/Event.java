@@ -60,7 +60,7 @@ public class Event extends AbstractHistoryBean implements OrgUnitDependent {
 			begin = end;
 			end = timestamp;
 		}
-		
+
 		if (shortname == null || shortname.trim().length() == 0)
 			addError("Die Veranstaltung kann nicht gespeichert werden. Vergeben Sie bitte eine Kurzbezeichnung.");
 		if (begin == null)
@@ -77,7 +77,7 @@ public class Event extends AbstractHistoryBean implements OrgUnitDependent {
      * Diese Methode testet, ob im aktuellen Kontext diese Bohne gelesen werden
      * darf.<br>
      * Test ist, ob der Benutzer Standard-Reader ist.
-     * 
+     *
      * @param cntx Octopus-Kontext
      * @throws BeanException Wenn im angegebenen Kontext diese Bohne nicht gelesen werden darf.
      * @see de.tarent.aa.veraweb.beans.AbstractBean#checkRead(de.tarent.octopus.server.OctopusContext)
@@ -91,7 +91,7 @@ public class Event extends AbstractHistoryBean implements OrgUnitDependent {
      * Diese Methode testet, ob im aktuellen Kontext diese Bohne geschrieben
      * werden darf.<br>
      * Test ist, ob der Benutzer Writer ist.
-     * 
+     *
      * @param cntx Octopus-Kontext
      * @throws BeanException Wenn im angegebenen Kontext diese Bohne nicht geschrieben werden darf.
      * @see de.tarent.aa.veraweb.beans.AbstractBean#checkWrite(de.tarent.octopus.server.OctopusContext)
@@ -105,7 +105,7 @@ public class Event extends AbstractHistoryBean implements OrgUnitDependent {
      * Diese Methode leert beschr�nkte Felder.<br>
      * Hier sind es die Bemerkungsfelder, wenn der Benutzer nicht in der Gruppe
      * {@link PersonalConfigAA#GROUP_READ_REMARKS} der hierzu freigeschalteten ist.
-     * 
+     *
      * @param cntx Octopus-Kontext
      * @throws BeanException bei Problemen mit der Bean
      * @see de.tarent.aa.veraweb.beans.AbstractBean#clearRestrictedFields(de.tarent.octopus.server.OctopusContext)

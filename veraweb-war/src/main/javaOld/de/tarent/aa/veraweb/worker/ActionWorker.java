@@ -26,7 +26,7 @@ import de.tarent.octopus.server.OctopusContext;
  * Einfacher Worker, der User-Aktionen verwaltet und dazu den
  * Parameter 'action' aus dem Request in der Session verwaltet
  * und in den Content stellt.
- * 
+ *
  * @author christoph
  */
 public class ActionWorker {
@@ -36,12 +36,13 @@ public class ActionWorker {
 	public static final boolean[] MANDATORY_load = { false };
     /** Octopus-Ausgabe-Parameter f�r {@link #load(OctopusContext, String)} */
 	public static final String OUTPUT_load = "action";
+
     /**
      * Diese Worker-Aktion ermittelt aus Request und Session die aktuelle
      * Aktion, legt sie in der Session ab und gibt sie zur�ck.<br>
      * TODO: action Parameter Hack entfernen, siehe eventDetail.vm,
      *       dort kann man sonst die form-action nicht setzten!!
-     * 
+     *
      * @param cntx Octopus-Kontext
      * @param action optionaler Parameter "action"
      * @return aktuelle Aktion
@@ -70,8 +71,8 @@ public class ActionWorker {
 	public static final String ONLINEREG_ACTIVATION = "onlinereg-active";
     /**
      * Diese Methode l�scht die aktuelle Aktion und ersetzt sie gegebenenfalls
-     * durch die �bergebene. 
-     * 
+     * durch die �bergebene.
+     *
      * @param cntx Octopus-Kontext
      * @param action optionaler Parameter "action"
      * @return aktuelle Aktion

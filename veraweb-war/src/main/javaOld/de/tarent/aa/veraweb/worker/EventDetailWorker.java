@@ -76,8 +76,8 @@ public class EventDetailWorker {
 	 * Diese Octopus-Aktion l�dt eine Veranstaltung und legt sie unter dem Schl�ssel "event"
      * in den Octopus-Content. Begleitend werden dort zwei Flags unter den Schl�sseln
      * "event-beginhastime" und "event-endhastime" abgelegt, die kennzeichnen, ob
-     * Anfang bzw. Ende neben dem eigentlichen Datum einen Zeitanteil haben. 
-	 * 
+     * Anfang bzw. Ende neben dem eigentlichen Datum einen Zeitanteil haben.
+	 *
 	 * @param cntx Octopus-Kontext
 	 * @param id ID der zu ladenden Veranstaltung; falls <code>null</code> oder ung�ltig,
      *  so wird nichts geliefert
@@ -103,7 +103,7 @@ public class EventDetailWorker {
 
     private void setUrlForMediaRepresentatives(OctopusContext cntx, Event event) throws IOException {
         PropertiesReader propertiesReader = new PropertiesReader();
-        
+
         if(propertiesReader.propertiesAreAvailable() && event.mediarepresentatives != null) {
 	        Properties properties = propertiesReader.getProperties();
 	        URLGenerator url = new URLGenerator(properties);
@@ -116,14 +116,14 @@ public class EventDetailWorker {
 
     /**
      * URL Associated directly to the event
-     * 
+     *
      * @param cntx
      * @param event
      * @throws IOException
      */
     private void setEventUrl(OctopusContext cntx, Event event) throws IOException {
         PropertiesReader propertiesReader = new PropertiesReader();
-        
+
         if(propertiesReader.propertiesAreAvailable() && event.hash != null) {
 	        Properties properties = propertiesReader.getProperties();
 	        URLGenerator url = new URLGenerator(properties);
@@ -155,7 +155,7 @@ public class EventDetailWorker {
 	 * G�steliste passend zu eventuellen Gastgeber- und Einladungs�nderungen angepasst wird.<br>
 	 * Abschlie�end werden passend Octopus-Content-Eintr�ge unter "event", "event-beginhastime" und "event-endhastime"
 	 * erzeugt.
-	 * 
+	 *
 	 * @param cntx
 	 *          Octopus-Kontext
 	 * @param saveevent
@@ -213,7 +213,7 @@ public class EventDetailWorker {
 				removeHost = false;
 				updateHost = false;
 				createHost = event.host != null;
-				
+
 			} else {
                 if (event.host == null) {
                     // Alte Veranstaltung -> Gastgeber entfernen
@@ -245,13 +245,13 @@ public class EventDetailWorker {
              * cklein 2008-02-12
              */
             	// Opened Event or not
-                setEventType(event);
+                setEventType(event, cntx);
                 // Allowing Press in the Event or not
                 setMediaRepresentatives(event, oldEvent);
-                
+
                 BeanChangeLogger clogger = new BeanChangeLogger( database, context );
                 if (event.id == null) {
-                	
+
                     cntx.setContent("countInsert", new Integer(1));
                     database.getNextPk(event, context);
                     Insert insert = database.getInsert(event);
@@ -328,7 +328,7 @@ public class EventDetailWorker {
                 	event.mediarepresentatives = oldEvent.mediarepresentatives;
                 }
             }
-            
+
             setEventUrl(cntx, event);
             // OR Control
             if (isOnlineAppActive) {
@@ -381,14 +381,14 @@ public class EventDetailWorker {
      *
      * @param event The event
      */
-    private void setEventType(Event event) {
-        if(event.eventtype != null && event.eventtype.equals("on")) {
+    private void setEventType(Event event, OctopusContext cntx) {
+        if(event.eventtype != null && event.eventtype.equals("on") && cntx.contentAsString("vwor.activated").equals("yes")) {
             event.eventtype = "Offene Veranstaltung";
         } else {
             event.eventtype = "";
         }
     }
-    
+
     /**
      * Set/Unset the event flag for Press. Currently (03.12.2014) we store the uuid into that new column
      * @param event The event
@@ -413,7 +413,7 @@ public class EventDetailWorker {
 
     /**
      * New hash for new and edited events
-     * 
+     *
      * @param event
      * @param oldEvent
      */
@@ -425,7 +425,7 @@ public class EventDetailWorker {
     		event.hash = oldEvent.hash;
     	}
     }
-    
+
     private void getHostPersonDetails(Database database, TransactionContext context, Event event) throws BeanException, IOException {
         Person person = (Person) database.getBean("Person", database.getSelect("Person").where(Expr.equal("pk", event.host)), context);
         if (person != null) {
@@ -464,7 +464,7 @@ public class EventDetailWorker {
 	/**
 	 * Diese Octopus-Aktion holt eine Veranstaltung unter "event" aus dem Octopus-Request und legt sie unter "event" in
 	 * den Octopus-Content und unter "eventtemp" in die Session.
-	 * 
+	 *
 	 * @param cntx
 	 *          Octopus-Kontext
 	 */
@@ -484,7 +484,7 @@ public class EventDetailWorker {
      * Diese Octopus-Aktion holt eine Veranstaltung unter "eventtemp" aus der Session und
      * legt sie unter "event" und Hilfsflags unter "event-beginhastime" und "event-endhastime"
      * im Octopus-Content ab.
-     * 
+     *
      * @param cntx Octopus-Kontext
      */
 	public void loadTemp(OctopusContext cntx) {
@@ -502,7 +502,7 @@ public class EventDetailWorker {
      * ID nicht <code>null</code> ist, wird die zugeh�rige Person der Veranstaltung
      * (im Speicher, nicht in der DB) als Gastgeber zugeordnet und ein Flag unter
      * "saveevent" im Octopus-Content gesetzt.
-     * 
+     *
      * @param cntx Octopus-Kontext
      */
 	public void setHost(OctopusContext cntx) throws BeanException, IOException {
@@ -533,14 +533,14 @@ public class EventDetailWorker {
      * Octopus-Kontexts unter den Schl�sseln "event-beginhastime" und "event-endhastime"
      * Flags, die anzeigen, ob Start- und Ende-Eintrag jeweils einen g�ltigen Zeitanteil
      * besitzen.
-     * 
+     *
      * @param cntx Octopus-Kontext, in dem Flags gesetzt werden.
      * @param id Veranstaltungs-ID
      * @return eingelesene Veranstaltung
      */
 	static public Event getEvent(OctopusContext cntx, Integer id) throws BeanException, IOException {
 		if (id == null) return null;
-		
+
 		Database database = new DatabaseVeraWeb(cntx);
 		Event event = (Event)database.getBean("Event", id);
 
