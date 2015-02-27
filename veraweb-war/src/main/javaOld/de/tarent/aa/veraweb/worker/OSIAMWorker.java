@@ -51,13 +51,13 @@ import de.tarent.octopus.server.OctopusContext;
  */
 public class OSIAMWorker {
 	/**
-	 * Example Property file:
-	client.id=example-client
-	client.secret=secret
-	client.redirect_uri=http://osiam-test.lan.tarent.de:8080/addon-administration/
-	
-	osiam.server.resource=http://osiam-test.lan.tarent.de:8080/osiam-resource-server/
-	osiam.server.auth=http://osiam-test.lan.tarent.de:8080/osiam-auth-server/
+	 * Example Property file: client.id=example-client client.secret=secret
+	 * client
+	 * .redirect_uri=http://osiam-test.lan.tarent.de:8080/addon-administration/
+	 * 
+	 * osiam.server.resource=http://osiam-test.lan.tarent.de:8080/osiam-resource
+	 * -server/
+	 * osiam.server.auth=http://osiam-test.lan.tarent.de:8080/osiam-auth-server/
 	 */
 	private static final String OSIAM_RESOURCE_SERVER_ENDPOINT = "osiam.server.resource";
 	private static final String OSIAM_AUTH_SERVER_ENDPOINT = "osiam.server.auth";
@@ -65,124 +65,149 @@ public class OSIAMWorker {
 	private static final String OSIAM_CLIENT_SECRET = "osiam.client.secret";
 	private static final String OSIAM_CLIENT_ID = "osiam.client.id";
 
-    public static final String INPUT_createDelegationUsers[] = {};
+	public static final String INPUT_createDelegationUsers[] = {};
 
-    private static final int OSIAM_USERNAME_LENGTH = 6;
+	private static final int OSIAM_USERNAME_LENGTH = 6;
 
 	private OsiamConnector connector;
 	private Properties properties;
-	
-	public OSIAMWorker() {
-        final PropertiesReader propertiesReader = new PropertiesReader();
 
-        if(propertiesReader.propertiesAreAvailable()) {
-            this.properties = propertiesReader.getProperties();
-        	this.connector = new OsiamConnector.Builder()
-				.setClientRedirectUri(properties.getProperty(OSIAM_CLIENT_REDIRECT_URI))
-				.setClientSecret(properties.getProperty(OSIAM_CLIENT_SECRET))
-				.setClientId(properties.getProperty(OSIAM_CLIENT_ID))
-				.setAuthServerEndpoint(properties.getProperty(OSIAM_AUTH_SERVER_ENDPOINT))
-				.setResourceServerEndpoint(properties.getProperty(OSIAM_RESOURCE_SERVER_ENDPOINT))
-				.build();
-        }
+	public OSIAMWorker() {
+		final PropertiesReader propertiesReader = new PropertiesReader();
+		if (propertiesReader.propertiesAreAvailable()) {
+			this.properties = propertiesReader.getProperties();
+			this.connector = new OsiamConnector.Builder()
+					.setClientRedirectUri(
+							properties.getProperty(OSIAM_CLIENT_REDIRECT_URI))
+					.setClientSecret(
+							properties.getProperty(OSIAM_CLIENT_SECRET))
+					.setClientId(properties.getProperty(OSIAM_CLIENT_ID))
+					.setAuthServerEndpoint(
+							properties.getProperty(OSIAM_AUTH_SERVER_ENDPOINT))
+					.setResourceServerEndpoint(
+							properties
+									.getProperty(OSIAM_RESOURCE_SERVER_ENDPOINT))
+					.build();
+		}
 	}
 
+	private boolean checkIfOnlineRegistrationIsAvailable(OctopusContext ctx) {
+		return Boolean.valueOf(ctx.getContextField("onlinereg-active").toString());
+	}
+	
 	/**
 	 * Creates an new user in OSIAM via connector4java and the configured client
+	 * 
 	 * @param ctx
-	 * @throws BeanException 
-	 * @throws SQLException 
+	 * @throws BeanException
+	 * @throws SQLException
 	 */
-	public void createDelegationUsers(OctopusContext ctx) throws BeanException, SQLException{
-			Database database = new DatabaseVeraWeb(ctx);
-			AccessToken accessToken = null;
-			Boolean correctOSIAMProperties = true;
-			try {
-				accessToken = connector.retrieveAccessToken(Scope.ALL);
-			} catch (Exception e) {
-				correctOSIAMProperties = false;
-			}
-			if (correctOSIAMProperties) {
-				List selectdelegation = (List) ctx.sessionAsObject("addguest-selectdelegation");
-				Map event = (Map)ctx.getContextField("event");
+	public void createDelegationUsers(OctopusContext ctx) throws BeanException,
+			SQLException {
+		if(!checkIfOnlineRegistrationIsAvailable(ctx)) {
+			return;
+		}
 		
-				for (Object id : selectdelegation) {
-		            ResultSet result = getPersons(database, id);
-		            String companyName = getCompanyName(result);
-		            String login = this.generateUsername();
-		            String password = generatePassword(event, companyName);
-			            createOsiamUser(accessToken, login, password);
-						saveOsiamLogin(database, login, Integer.parseInt(event.get("id").toString()), Integer.parseInt(id.toString()));
-				}
+		Database database = new DatabaseVeraWeb(ctx);
+		AccessToken accessToken = null;
+		Boolean correctOSIAMProperties = true;
+		try {
+			accessToken = connector.retrieveAccessToken(Scope.ALL);
+		} catch (Exception e) {
+			correctOSIAMProperties = false;
+		}
+		if (correctOSIAMProperties) {
+			List selectdelegation = (List) ctx
+					.sessionAsObject("addguest-selectdelegation");
+			Map event = (Map) ctx.getContextField("event");
+
+			for (Object id : selectdelegation) {
+				ResultSet result = getPersons(database, id);
+				String companyName = getCompanyName(result);
+				String login = this.generateUsername();
+				String password = generatePassword(event, companyName);
+				createOsiamUser(accessToken, login, password);
+				saveOsiamLogin(database, login,
+						Integer.parseInt(event.get("id").toString()),
+						Integer.parseInt(id.toString()));
 			}
+		}
 	}
-	
-    private void createOsiamUser(AccessToken accessToken, String login, String password) {
-        User delegationUser = new User.Builder(login)
-                .setActive(true)
-                .setPassword(password)
-                .build();
 
-        //create User in osiam
-        this.connector.createUser(delegationUser, accessToken);
-    }
+	private void createOsiamUser(AccessToken accessToken, String login,
+			String password) {
+		User delegationUser = new User.Builder(login).setActive(true)
+				.setPassword(password).build();
 
-    private String generatePassword(Map event, String companyName) {
-        StringBuilder passwordBuilder = new StringBuilder();
-        String shortName = event.get("shortname").toString();
+		// create User in osiam
+		this.connector.createUser(delegationUser, accessToken);
+	}
 
-        passwordBuilder.append(extractFirstXChars(shortName, 3));
-        passwordBuilder.append(extractFirstXChars(companyName, 3));
-        passwordBuilder.append(extractFirstXChars(event.get("begin").toString(), 10));
+	private String generatePassword(Map event, String companyName) {
+		StringBuilder passwordBuilder = new StringBuilder();
+		String shortName = event.get("shortname").toString();
 
-        return passwordBuilder.toString();
-    }
+		passwordBuilder.append(extractFirstXChars(shortName, 3));
+		passwordBuilder.append(extractFirstXChars(companyName, 3));
+		passwordBuilder.append(extractFirstXChars(
+				event.get("begin").toString(), 10));
 
-    private String getCompanyName(ResultSet result) throws SQLException {
-        String companyName = "";
-        while(result.next()) {
-             companyName = result.getString("company_a_e1");
-        }
-        return companyName;
-    }
+		return passwordBuilder.toString();
+	}
 
-    private ResultSet getPersons(Database database, Object id) throws BeanException {
-        WhereList filter = new WhereList();
-        filter.add(new Where("pk", Integer.parseInt(id.toString()), "="));
+	private String getCompanyName(ResultSet result) throws SQLException {
+		String companyName = "";
+		while (result.next()) {
+			companyName = result.getString("company_a_e1");
+		}
+		return companyName;
+	}
 
-        Select selectPerson = SQL.Select(database).from("veraweb.tperson").where(filter);
-        selectPerson.select("*");
-        return database.result(selectPerson);
-    }
+	private ResultSet getPersons(Database database, Object id)
+			throws BeanException {
+		WhereList filter = new WhereList();
+		filter.add(new Where("pk", Integer.parseInt(id.toString()), "="));
 
-    private void saveOsiamLogin(Database db, String login, int eventId, int personId) throws BeanException, SyntaxErrorException, SQLException{
+		Select selectPerson = SQL.Select(database).from("veraweb.tperson")
+				.where(filter);
+		selectPerson.select("*");
+		return database.result(selectPerson);
+	}
+
+	private void saveOsiamLogin(Database db, String login, int eventId,
+			int personId) throws BeanException, SyntaxErrorException,
+			SQLException {
 		final TransactionContext context = db.getTransactionContext();
 		final WhereList whereCriterias = new WhereList();
 		whereCriterias.addAnd(new Where("fk_person", personId, "="));
 		whereCriterias.addAnd(new Where("fk_event", eventId, "="));
-		//Example Query:
-		//	UPDATE veraweb.tguest SET osiam_login='aaa'  WHERE (fk_person=2 AND fk_event=1)
+		// Example Query:
+		// UPDATE veraweb.tguest SET osiam_login='aaa' WHERE (fk_person=2 AND
+		// fk_event=1)
 		final Update update = SQL.Update(db).where(whereCriterias);
 		update.table("veraweb.tguest");
 		update.update("osiam_login", login);
 
 		DB.insert(context, update.statementToString());
-        context.commit();
+		context.commit();
 	}
-	
+
 	private String extractFirstXChars(String value, int x) {
 		return value.substring(0, Math.min(value.length(), x));
 	}
 
 	private String generateUsername() {
-		char[] symbols = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();
+		char[] symbols = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+				.toCharArray();
 		int length = OSIAM_USERNAME_LENGTH;
-		Random random = new SecureRandom(); 
+		Random random = new SecureRandom();
 		StringBuilder sb = new StringBuilder(length);
 		for (int i = 0; i < length; i++) {
-		    int indexRandom = random.nextInt( symbols.length );
-		    sb.append( symbols[indexRandom] );
+			int indexRandom = random.nextInt(symbols.length);
+			sb.append(symbols[indexRandom]);
 		}
 		return sb.toString();
 	}
+	
+	
 }
