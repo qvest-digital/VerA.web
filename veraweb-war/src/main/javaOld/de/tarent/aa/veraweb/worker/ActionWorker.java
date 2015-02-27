@@ -57,7 +57,7 @@ public class ActionWorker {
 			action = "";
 		cntx.setSession("action", action);
 		loadOnlineRegistrationConfig(cntx);
-		
+
 		return action;
 	}
 
@@ -68,7 +68,7 @@ public class ActionWorker {
     /** Octopus-Ausgabe-Parameter f�r {@link #remove(OctopusContext, String)} */
 	public static final String OUTPUT_remove = "action";
 	/** Octopus-Config for Online Registration plattform activation */
-	public static final String ONLINEREG_ACTIVATION = "onlinereg-active";
+	public static final String ONLINEREG_ACTIVATION = "vwor.activated";
     /**
      * Diese Methode l�scht die aktuelle Aktion und ersetzt sie gegebenenfalls
      * durch die �bergebene.
@@ -83,7 +83,7 @@ public class ActionWorker {
 	}
 	/**
 	 * Setting Online Registration Config
-	 * 
+	 *
 	 * @param cntx OctopusContext
 	 */
 	private void loadOnlineRegistrationConfig(OctopusContext cntx) {
