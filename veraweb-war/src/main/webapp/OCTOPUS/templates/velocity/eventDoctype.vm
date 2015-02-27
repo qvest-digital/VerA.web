@@ -10,13 +10,13 @@
 	<div id="breadcrumb" class="textRight marginBottom10">
 		<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Veranstaltungen > Veranstaltung bearbeiten</span>
 	</div>
-	
+
 	<h1>Veranstaltung bearbeiten: $!message.plain($event.shortname)</h1>
-	
-	
+
+
 	#set($completeEventHeader = false)
 	#parse("inc/event-header.vm")
-	
+
 	<form id="formlist" name="formlist" action="ShowEventDoctype" method="POST" onsubmit="htmlWait();">
 		<input type="hidden" name="id" value="$!event.id"/>
         <input type="hidden" name="start" value=""/>
@@ -29,35 +29,37 @@
 	<div class="textRight marginBottom10 marginTop20" id="buttonPanel-top">
 		<input type="button" class="mainButton" value="Zur G&auml;steverwaltung" name="guestlist" onclick="window.location.href='ShowGuestList?search-event=$!event.id&start=0&selectNone=true';"/>
 	</div>
-		
+
     	<div id="main_content" class="tabs contentBox grayBorder marginBottom10">
-    
+
     		<div id="tabsMain" class="event">
             	<ul class="gray-gradient" vera-tab-group> <!-- Bitte das End-tag der <li>s immer mit in die nächste Zeile nehmen (verhindert Mozilla styling bug) -->
             		<li class="inactive" onclick="window.location.href='ShowEvent?id=$!event.id';"><div>Allgemein</div>
             		</li><li class="active"><div>Dokumenttypen</div>
     				</li><li class="inactive" onclick="window.location.href='ShowEventTasks?id=$!event.id&selectNone=true';"><div>Aufgaben</div>
-                    </li><li class="inactive" onclick="window.location.href='${paths.staticWeb}do/ShowDelegationFields?eventId=$!event.id'"><div>Zusätzliche Personendaten</div>
+    				#if($vwor.activated)
+                    	</li><li class="inactive" onclick="window.location.href='${paths.staticWeb}do/ShowDelegationFields?eventId=$!event.id'"><div>Zusätzliche Personendaten</div>
+                    #end
     				</li>
             	</ul>
     		</div>
-				
-			
+
+
 			<div class="contentBoxColored tabsContent">
-				
+
 				<span id="actionPanel">
 					#if($grants.mayWrite() && $list && $list.size() > 0)
                 		<strong>Markierte(n) Dokumenttyp(en)</strong>
                 		<input type="button" name="remove" value="Entfernen" title="Markierte(n) Dokumenttyp(en) entfernen" onclick="deleteEventDoctype();"/>
 					#else &nbsp;#end
             	</span>
-				
+
 				#if($grants.mayWrite())
 					<div class="buttonPanel-top floatRight">
-						<input type="submit" name="save" title="Neuen Dokumenttyp hinzufügen" value="Neuen Dokumenttyp hinzufügen" class="mainButton" onclick="saveEventDoctype();"/> 
+						<input type="submit" name="save" title="Neuen Dokumenttyp hinzufügen" value="Neuen Dokumenttyp hinzufügen" class="mainButton" onclick="saveEventDoctype();"/>
 					</div>
 				#end
-		
+
     			#foreach($bean in $list)
     				<input type="hidden" name="list" value="$bean.id"/>
 				#end
@@ -98,33 +100,33 @@
                     		<td>$!message.plain($bean.name)</td>
                     	</tr>
 					#end
-					
+
 					#if ($listparam.count == 0)
                     	<tr>
                     		<td colspan="2">Es wurden keine Dokumenttypen gefunden.</td>
                     	</tr>
                     #end
-					
+
 					#set($itemName = "Dokumenttypen")
 					#parse("inc/list-navi-new.vm")
-					
+
                 </table>
                 #end
 
 			</div>
-			
+
 		</div>
-		
+
 		<span id="buttonPanel-bottom" class="floatRight">
 			#if($grants.mayWrite())
 				<input type="submit" name="save" value="Veranstaltung speichern" class="mainButton"/>
 			#end
 			<input type="button" name="cancel" value="Zur Veranstaltungs&uuml;bersicht" class="mainButton" onclick="window.location.href='SearchEvent?action=event&search=reset&selectNone=true';" />
 		</span>
-			
+
 	</form>
 	<div class="clear"></div>
-    
+
 </div>
 
 <script type="text/javascript">
@@ -132,7 +134,7 @@
 		$('<input>').attr({ type: 'hidden', id: 'remove', name: 'remove' }).appendTo($('#formlist'));
 		document.formlist.submit();
 	}
-	
+
 	function saveEventDoctype() {
 		$('<input>').attr({ type: 'hidden', id: 'save', name: 'save' }).appendTo($('#formlist'));
 		document.formlist.submit();
