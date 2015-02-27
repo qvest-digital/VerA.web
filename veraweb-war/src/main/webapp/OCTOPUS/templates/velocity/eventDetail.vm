@@ -30,16 +30,16 @@
         <input type="hidden" id="modified" name="event-modified" value="false">
         <input type="hidden" name="saveevent" value="true">
         <input type="hidden" name="search" value="clear">
-        
+
         #if($status && $status.code && $status.code == "noevent")
             <vera-warn>
             	Die Veranstaltung, an der Sie gerade gearbeitet haben, wurde von einem anderen Anwender gel&ouml;scht.
             	Sie k&ouml;nnen nun eine neue Veranstaltung anlegen oder anderweitig mit VerA.web arbeiten.
             </vera-warn>
         #end
-        
+
         #if($event.errors.size() > 0)
-    
+
             <div style="width: 99%; background-color: #ffffff;">
                 <vera-warn>
                     $!message.plain($event.errors.get(0))<br>
@@ -47,10 +47,10 @@
                     ##		$error<br>
                     ##	#end
                 </vera-warn>
-            </div>	
-    		
+            </div>
+
         #elseif($listquestions && $listquestions.size() > 0)
-    		
+
             <vera-confirm>
             	<strong>Bitte best&auml;tigen Sie das Speichern dieser Veranstaltung</strong><br>
             	<table class="form" style="margin: 5px 0px 0px 0px;">
@@ -61,26 +61,26 @@
             		#set($save = true)
             	#end
             	</table><br>
-            
+
             	#if($save)
 					<input type="submit" class="button" name="remove" value="Ja" title="Speichern">
             	#end
             	<input type="button" class="cancel" name="cancel" value="Nein" onclick="window.location.href='ShowEvent?id=$!event.id';">
             </div>
-    		
+
 		#end
-		
+
 		#if(!$isNewEvent)
 			#set($completeEventHeader = false)
         	#parse("inc/event-header.vm")
 		#end
-		
+
 		#if($event && $event.id)
 		<div class="textRight marginBottom10 marginTop20" id="buttonPanel-top">
 			<input type="button" class="mainButton" value="Zur G&auml;steverwaltung" title="Zur G&auml;steverwaltung" name="guestlist" onclick="window.location.href='ShowGuestList?search-event=$!event.id&start=0&selectNone=true';">
 		</div>
 		#end
-		
+
 		<div id="main_content" class="tabs contentBox grayBorder marginBottom10">
 
 			#if(!$isNewEvent)
@@ -89,35 +89,37 @@
                 		<li vera-tab="allgemein" vera-tab-default><div>Allgemein</div>
                 		</li><li onclick="showDoctypes();" class="inactive"><div>Dokumenttypen</div>
         				</li><li class="inactive" #if ($event.id) onclick="if (checkModified()) { window.location.href='ShowEventTasks?id=$!event.id&selectNone=true';}" #end><div>Aufgaben</div>
-                        #if ($onlinereg-active)
+                        #if ($vwor.activated)
                         	</li><li class="inactive" onclick="window.location.href='${paths.staticWeb}do/ShowDelegationFields?eventId=$!event.id'"><div>Zusätzliche Personendaten</div>
         				#end
         				</li>
                 	</ul>
         		</div>
 			#end
-    		
+
     		<input type="hidden" name="event-id" value="$!event.id">
             <input type="hidden" name="event-orgunit" value="$!event.orgunit">
-		
+
     		<div #if(!$isNewEvent)vera-content="allgemein"#end class="contentBoxColored tabsContent">
 				<div class="textRight mandatoryText">* = Pflichtfelder</div>
-    					<div class="table width100">							
+    					<div class="table width100">
 							<div class="tableRow">
                                 <div class="tableCell width50">
                                     <label for="event-shortname">Kurzbezeichnung*</label>
                                     <input type="text" onchange="setModified();" maxlength="50"  id="event-shortname" value="$!message.text($event.shortname)" name="event-shortname"/>
                                 </div>
 
-                                <div class="tableCell width50 inlineLabel">
-                                    <label for="event-eventtype">Offene Veranstaltung</label>
-                                    <!-- DEBUG $event.eventtype -->
-                                    <input type="checkbox"  onchange="setModified();" class="noFloat" id="event-eventtype" name="event-eventtype"
-                                        #if($event && $event.eventtype != "")
-                                            checked
-                                        #end
-                                    >
-                                </div>
+								#if ($vwor.activated)
+	                                <div class="tableCell width50 inlineLabel">
+	                                    <label for="event-eventtype">Offene Veranstaltung</label>
+	                                    <!-- DEBUG $event.eventtype -->
+	                                    <input type="checkbox"  onchange="setModified();" class="noFloat" id="event-eventtype" name="event-eventtype"
+	                                        #if($event && $event.eventtype != "")
+	                                            checked
+	                                        #end
+	                                    >
+	                                </div>
+                                #end
                             </div>
 
 							<div class="tableRow">
@@ -125,9 +127,9 @@
         							<label for="event-eventname">Name</label>
 									<textarea onchange="setModified();"  id="event-eventname" name="event-eventname" cols="20" rows="4">$!message.textarea($event.eventname)</textarea>
 								</div>
-								
-								<div class="tableCell width50">                       							
-                 
+
+								<div class="tableCell width50">
+
 									<label for="event-begin">Beginn*</label>
 	                				<div class="calenderContainer">
 	                						<input type="text" class="datepicker" id="event-begin" value="$!message.date("DATE", $event.begin)" name="event-begin" onchange="setModified();">
@@ -144,9 +146,9 @@
 	                								});
 	                							</script>
 	                						#end
-	                					 um <input type="text" name="event-begintime" id="event-begintime" #if($event-beginhastime) value="$!message.date("TIME", $event.begin)" #else value="" #end class="width15" onchange="setModified();"> <label class="inline" for="event-begintime">Uhr</label> 								
-									</div>		
-									
+	                					 um <input type="text" name="event-begintime" id="event-begintime" #if($event-beginhastime) value="$!message.date("TIME", $event.begin)" #else value="" #end class="width15" onchange="setModified();"> <label class="inline" for="event-begintime">Uhr</label>
+									</div>
+
 									<label for="event-end">Ende</label>
                     				<div class="calenderContainer">
                     						<input type="text" class="datepicker" id="event-end" value="$!message.date("DATE", $event.end)" name="event-end" onchange="setModified();">
@@ -163,8 +165,8 @@
                     								});
                     							</script>
                     						#end
-                    					 um <input type="text" name="event-endtime" id="event-endtime" #if($event-endhastime) value="$!message.date("TIME", $event.end)" #else value="" #end class="width15" onchange="setModified();"> <label class="inline" for="event-endtime">Uhr</label>  
-                    				</div>							
+                    					 um <input type="text" name="event-endtime" id="event-endtime" #if($event-endhastime) value="$!message.date("TIME", $event.end)" #else value="" #end class="width15" onchange="setModified();"> <label class="inline" for="event-endtime">Uhr</label>
+                    				</div>
 								</div>
 							</div>
 
@@ -175,7 +177,7 @@
                     					<option #if($event.invitationtype && $event.invitationtype == 1) selected #end value="1">Mit Partner</option>
                     					<option #if($event.invitationtype && $event.invitationtype == 2) selected #end value="2">Ohne Partner</option>
                     					<option #if($event.invitationtype && $event.invitationtype == 3) selected #end value="3">Nur Partner</option>
-    								</select>						
+    								</select>
     							</div>
     							<div class="tableCell width50 ">
     								<label for="gastgeber">Gastgeber</label>
@@ -187,24 +189,24 @@
     								<div class="addButton">
     									<input type="button" value="Gastgeber suchen" title="Gastgeber suchen" onclick="document.getElementById('formlist').action='SetHostToEventSearch'; document.getElementById('a').value='host'; document.getElementById('formlist').submit();">
     									<input type="button" value="Gastgeber entfernen" title="Gastgeber entfernen" onclick="removeHost(); setModified(); document.getElementById('formlist').action='SaveEvent'; document.getElementById('formlist').submit();">
-                                    </div>	
+                                    </div>
     								#end
     							</div>
     						</div>
-									
+
     						<div class="tableRow">
     							<div class="tableCell width50">
     								<label for="event-maxguest">Maximal Anzahl G&auml;ste</label>
-    								<input type="text" onchange="setModified();" class="int" id="event-maxguest" value="$!message.plain($event.maxguest)" name="event-maxguest">														
+    								<input type="text" onchange="setModified();" class="int" id="event-maxguest" value="$!message.plain($event.maxguest)" name="event-maxguest">
     							</div>
     							<div class="tableCell width50 inlineLabel">
     								<label for="event-invitepartner">Gastgeber-Partner</label>
-    								<input type="checkbox" class="noFloat"  id="event-invitepartner" name="event-invitepartner" value="true" #if(!$event || $event.invitepartner) checked #end id="event-invitepartner">						
+    								<input type="checkbox" class="noFloat"  id="event-invitepartner" name="event-invitepartner" value="true" #if(!$event || $event.invitepartner) checked #end id="event-invitepartner">
     							</div>
     						</div>
     						<div class="tableRow">
     							<div class="tableCell width50">
-    								<label for="event-location">Veranstaltungsort</label>	
+    								<label for="event-location">Veranstaltungsort</label>
     								<script type="text/javascript">
                             			function addCity() {
                     						var city = document.getElementById('addcity').value;
@@ -229,13 +231,13 @@
                     						}
                     						setModified();
                             			}
-                            			
+
                             			function addCityYes() {
                     	        			document.getElementById('addcity-masterdata').value = 'true';
                     	        			hideDialogs();
                     						showComboboxes();
                             			}
-                            			
+
                             			function addCityNo() {
                     						document.getElementById('addcity-masterdata').value = 'false';
                     	        			hideDialogs();
@@ -250,9 +252,9 @@
                     					#else
                 							#set ($exists = 0)
                 						#end
-                						
+
                     					<option value=""></option>
-                    					
+
                     					#foreach($location in $allLocation)
                         					#if($event.location && $event.location == $location.id)
                             					#set ($exists = 1)
@@ -266,10 +268,10 @@
     							</div>
     							<div class="tableCell width50">
     								<label for="event-note">Bemerkung</label>
-    								<textarea onchange="setModified();" id="event-note" name="event-note" rows="4" #if($grants.mayReadRemarkFields()) >$!message.textarea($event.note)#else class="textdisabled" vera-disabled>#end</textarea>						
+    								<textarea onchange="setModified();" id="event-note" name="event-note" rows="4" #if($grants.mayReadRemarkFields()) >$!message.textarea($event.note)#else class="textdisabled" vera-disabled>#end</textarea>
     							</div>
     						</div>
-							#if($onlinereg-active)
+							#if($vwor.activated)
 	    						<div class="tableRow">
 	                                <div class="tableCell width50 inlineLabel">
 	                                    <label for="event-mediarepresentatives">Anmeldung von Pressevertretern möglich</label>
@@ -285,20 +287,20 @@
     				</div>
     		</div>
 		</div>
-		
+
 		<span class="floatRight" id="buttonPanel-bottom">
 			<!-- Show the save button -->
 			#if($grants.mayWrite())
 				<input type="submit" class="mainButton" value="Veranstaltung speichern" title="Veranstaltung speichern" name="save" onclick="document.getElementById('formlist').action='SaveEvent';">
 			#end
-			
+
 			#if($event && $event.id)
-				<input type="reset" class="mainButton" value="Zur Veranstaltungsübersicht" title="Zur Veranstaltungsübersicht" name="cancel" onclick="window.location.href='SearchEvent?action=event&selectNone=true';">			
+				<input type="reset" class="mainButton" value="Zur Veranstaltungsübersicht" title="Zur Veranstaltungsübersicht" name="cancel" onclick="window.location.href='SearchEvent?action=event&selectNone=true';">
 			#else
-				<input type="reset" class="mainButton" value="Zur Veranstaltungsübersicht" title="Zur Veranstaltungsübersicht" name="cancel" onclick="if (checkModified()) { window.location.href='ShowEventSearch?action=event'; }">	
+				<input type="reset" class="mainButton" value="Zur Veranstaltungsübersicht" title="Zur Veranstaltungsübersicht" name="cancel" onclick="if (checkModified()) { window.location.href='ShowEventSearch?action=event'; }">
 			#end
 		</span>
-        
+
         <script type="text/javascript">
         	function showDoctypes() {
                 #if($event && $event.id)
@@ -313,14 +315,14 @@
                     		document.getElementById('formlist').submit();
                 #end
         	};
-        	
+
         	function removeHost() {
         		##showSuccess('Bitte beachten Sie das der Gastgeber dieser Veranstaltung weiterhin als normaler Gast zugeordenet ist.');
         		document.getElementById('event-host').value='';
         		document.getElementById('event-hostname').value='';
         		document.getElementById('showevent-hostname').value=document.getElementById('showevent-hostnametext').value;
         	};
-        	
+
         	function resetHost() {
                 #if(!$event.hostname || $event.hostname.length() == 0)
                 	document.getElementById('event-host').value='';
@@ -328,15 +330,15 @@
                 	document.getElementById('showevent-hostname').value=document.getElementById('showevent-hostnametext').value;
                 #end
         	};
-    		
+
         	resetHost();
-        
+
             #if(!$grants.mayWrite())
             	disableForm(document.getElementById('formlist'));
             #end
         </script>
-    
+
     </form>
-	<div class="clear"></div> 
+	<div class="clear"></div>
 </div>
 #parse("inc/footer.vm")
