@@ -327,9 +327,9 @@ public class EventDetailWorker {
                 	event.mediarepresentatives = oldEvent.mediarepresentatives;
                 }
             }
-
+            Boolean isOnlineregActive = Boolean.valueOf(cntx.getContextField(VWOR_ACTIVE).toString());
             // OR Control
-            if (Boolean.valueOf(cntx.getContextField(VWOR_ACTIVE).toString())) {
+            if (isOnlineregActive) {
 				setEventUrl(cntx, event);
             	setUrlForMediaRepresentatives(cntx, event);
             }
