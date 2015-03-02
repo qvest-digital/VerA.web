@@ -152,9 +152,9 @@ public class PersonDupcheckWorker extends ListWorkerVeraWeb {
 		String fn = person == null || person.firstname_a_e1 == null ? "" : person.firstname_a_e1;
 		
 		// Checking changes between first and lastname
-		Clause clauseNames1 = Where.and(Expr.equal("lastname_a_e1", fn), Expr.equal("firstname_a_e1", ln));
-		Clause clauseNames2 = Where.and(Expr.equal("lastname_a_e1", ln), Expr.equal("firstname_a_e1", fn));
-		Clause checkMixChanges = Where.or(clauseNames1,clauseNames2);
+		Clause normalNamesClause = Where.and(Expr.equal("lastname_a_e1", fn), Expr.equal("firstname_a_e1", ln));
+		Clause revertedNamesClause = Where.and(Expr.equal("lastname_a_e1", ln), Expr.equal("firstname_a_e1", fn));
+		Clause checkMixChanges = Where.or(normalNamesClause,revertedNamesClause);
 		return Where.and(clause, checkMixChanges);
 	}
 	
