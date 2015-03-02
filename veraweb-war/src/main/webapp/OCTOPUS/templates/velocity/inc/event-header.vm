@@ -28,11 +28,13 @@
 				<strong>Ende:</strong> $!message.date("DATE", $event.end) #if($event-endhastime)um $!message.date("TIME", $event.end) Uhr#end
 			</div>
 		</div>
-		<div class="tableRow">
-			<div class="tableCell width30">
-				<strong style="vertical-align: inherit;">Veranstaltungs-URL:</strong> <pre>$!message.textarea($eventUrl)</pre>
+		#if($onlinereg-active)
+			<div class="tableRow">
+				<div class="tableCell width30">
+					<strong style="vertical-align: inherit;">Veranstaltungs-URL:</strong> <pre>$!message.textarea($eventUrl)</pre>
+				</div>
 			</div>
-		</div>
+		#end
 		<div class="tableCell width50">
 			#if($vwor.activated)
 	            <strong>URL für Pressevertreter:</strong><br/>
