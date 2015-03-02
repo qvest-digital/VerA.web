@@ -69,6 +69,8 @@ public class OSIAMWorker {
 
 	private static final int OSIAM_USERNAME_LENGTH = 6;
 
+	private static final String VWOR_ACTIVE_PARAM = "vwor.activated";
+	
 	private OsiamConnector connector;
 	private Properties properties;
 
@@ -92,7 +94,7 @@ public class OSIAMWorker {
 	}
 
 	private boolean checkIfOnlineRegistrationIsAvailable(OctopusContext ctx) {
-		return Boolean.valueOf(ctx.getContextField("onlinereg-active").toString());
+		return Boolean.valueOf(ctx.getContextField(VWOR_ACTIVE_PARAM).toString());
 	}
 	
 	/**
