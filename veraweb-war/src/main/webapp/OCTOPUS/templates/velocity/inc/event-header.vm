@@ -28,7 +28,7 @@
 				<strong>Ende:</strong> $!message.date("DATE", $event.end) #if($event-endhastime)um $!message.date("TIME", $event.end) Uhr#end
 			</div>
 		</div>
-		#if($onlinereg-active)
+		#if($vwor.activated)
 			<div class="tableRow">
 				<div class="tableCell width30">
 					<strong style="vertical-align: inherit;">Veranstaltungs-URL:</strong> <pre>$!message.textarea($eventUrl)</pre>
