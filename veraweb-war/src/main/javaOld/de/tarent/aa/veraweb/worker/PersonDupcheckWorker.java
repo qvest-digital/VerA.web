@@ -150,7 +150,12 @@ public class PersonDupcheckWorker extends ListWorkerVeraWeb {
 				Expr.equal("deleted", PersonConstants.DELETED_FALSE));
 		String ln = person == null || person.lastname_a_e1 == null ? "" : person.lastname_a_e1;
 		String fn = person == null || person.firstname_a_e1 == null ? "" : person.firstname_a_e1;
-		return Where.and(clause, Where.and(Expr.equal("lastname_a_e1", ln), Expr.equal("firstname_a_e1", fn)));
+		
+		// Checking changes between first and lastname
+		Clause clauseNames1 = Where.and(Expr.equal("lastname_a_e1", fn), Expr.equal("firstname_a_e1", ln));
+		Clause clauseNames2 = Where.and(Expr.equal("lastname_a_e1", ln), Expr.equal("firstname_a_e1", fn));
+		Clause checkMixChanges = Where.or(clauseNames1,clauseNames2);
+		return Where.and(clause, checkMixChanges);
 	}
 	
 	protected Clause getDuplicateExprCompany(OctopusContext cntx, Person person) {
