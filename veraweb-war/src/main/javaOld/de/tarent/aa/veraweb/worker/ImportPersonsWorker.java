@@ -36,11 +36,15 @@ import de.tarent.aa.veraweb.beans.ImportPersonDoctype;
 import de.tarent.aa.veraweb.beans.Person;
 import de.tarent.aa.veraweb.beans.PersonCategorie;
 import de.tarent.aa.veraweb.beans.PersonDoctype;
+import de.tarent.aa.veraweb.beans.facade.PersonConstants;
 import de.tarent.aa.veraweb.utils.AddressHelper;
+import de.tarent.aa.veraweb.utils.CharacterPropertiesReader;
+import de.tarent.dblayer.sql.clause.Clause;
 import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.clause.Where;
 import de.tarent.dblayer.sql.clause.WhereList;
 import de.tarent.dblayer.sql.statement.Select;
+import de.tarent.octopus.PersonalConfigAA;
 import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.beans.Database;
 import de.tarent.octopus.beans.ExecutionContext;
@@ -50,8 +54,8 @@ import de.tarent.octopus.server.OctopusContext;
 
 /**
  * Diese Octopus-Worker-Klasse stellt Operationen zum Import von Personendaten zur
- * Verf�gung. 
- * 
+ * Verf�gung.
+ *
  * @author hendrik
  * @author mikel
  */
@@ -72,15 +76,15 @@ public class ImportPersonsWorker {
     public static final String OUTPUT_importStoredRecord = "importStatus";
     /**
      * Diese Octopus-Aktion liefert zum Import mit der �bergebenen ID die
-     * Import-Statistik-Daten 
-     * 
+     * Import-Statistik-Daten
+     *
      * @param cntx Octopus-Kontext
      * @param importId Import-ID
      * @return Map mit Informationen zum Import, insbesondere der Anzahl gefundener
      *  Datens�tze unter "dsCount", der Anzahl Duplikate unter "dupCount", der Anzahl
      *  importierter Datens�tze unter "saveCount" und der Import-ID unter "id".
-     * @throws BeanException 
-     * @throws IOException 
+     * @throws BeanException
+     * @throws IOException
      */
 	public Map importStoredRecord(OctopusContext cntx, Integer importId) throws BeanException, IOException {
 		//Initialisiere Datenbank
@@ -90,16 +94,58 @@ public class ImportPersonsWorker {
 		Select select = database.getCount(sample);
 		WhereList where = new WhereList();
 			//Bed: Datensatz wurde noch nicht festgeschrieben
+		////////
+
+		Clause clause = Where.and(
+				Expr.equal("fk_orgunit", ((PersonalConfigAA)cntx.personalConfig()).getOrgUnitId()),
+				Expr.equal("deleted", PersonConstants.DELETED_FALSE));
+
+		String fn = sample.firstname_a_e1;
+		String ln = sample.lastname_a_e1;
+
+		Clause normalNamesClause = Where.and(Expr.equal("lastname_a_e1", fn), Expr.equal("firstname_a_e1", ln));
+		Clause revertedNamesClause = Where.and(Expr.equal("lastname_a_e1", ln), Expr.equal("firstname_a_e1", fn));
+		Clause checkMixChanges = Where.or(normalNamesClause,revertedNamesClause);
+
+		Clause dupNormalCheck = Where.and(clause, checkMixChanges);
+
+		CharacterPropertiesReader cpr = new CharacterPropertiesReader();
+
+		for (final String key: cpr.properties.stringPropertyNames()) {
+			String value = cpr.properties.getProperty(key);
+
+
+			if (ln.contains(value)) {
+				ln = ln.replaceAll(value, key);
+			}
+			else if (ln.contains(key)) {
+				ln = ln.replaceAll(key, value);
+			}
+
+			if (fn.contains(value)) {
+				fn = fn.replaceAll(value, key);
+			}
+			else if (fn.contains(key)) {
+				fn = fn.replaceAll(key, value);
+			}
+		}
+		Clause normalNamesEncoding = Where.and(Expr.equal("lastname_a_e1", fn), Expr.equal("firstname_a_e1", ln));
+		Clause revertedNamesEncoding = Where.and(Expr.equal("lastname_a_e1", ln), Expr.equal("firstname_a_e1", fn));
+		Clause checkMixChangesEncoding = Where.or(normalNamesEncoding,revertedNamesEncoding);
+		// With encoding changes
+		Where.or(dupNormalCheck, checkMixChangesEncoding);
+
+		////////
 		where.addAnd(Expr.equal(database.getProperty(sample, "dupcheckaction"), ImportPerson.FALSE));
 			//Bed: Nur Datens�tze von dem aktuellen Importvorgang
 		where.addAnd(Expr.equal(database.getProperty(sample, "fk_import"), importId));
 		select.where(where);
 		Integer dsCount = database.getCount(select);
-		
+
 		//Erstelle SELECT-Anfrage, die die Anzahl der Datens�tze mit Duplikaten liest.
 		select = database.getCount(sample);
 		where = new WhereList();
-			//Bed: Es existieren Duplikate zu dem Datensatz 
+			//Bed: Es existieren Duplikate zu dem Datensatz
 		where.addAnd(Expr.isNotNull(database.getProperty(sample, "duplicates")));
 			//Bed: Datensatz wurde noch nicht festgeschrieben
 		where.addAnd(Expr.equal(database.getProperty(sample, "dupcheckaction"), ImportPerson.FALSE));
@@ -107,13 +153,13 @@ public class ImportPersonsWorker {
 		where.addAnd(Expr.equal(database.getProperty(sample, "fk_import"), importId));
 		select.where(where);
 		Integer dupCount = database.getCount(select);
-		
+
 		//Erstelle SELECT-Anfrage, die die Anzahl der zum Speichern freigegebenen Datens�tze liest.
 		select = database.getCount(sample);
 		where = new WhereList();
 		where.addAnd(
 				Where.or(
-						//Bed: Es existieren keine Duplikate zu dem Datensatz 
+						//Bed: Es existieren keine Duplikate zu dem Datensatz
 						Expr.isNull(database.getProperty(sample, "duplicates")),
 						//Bed: Datensatz explizit zum speichern gekennzeichnet
 						Expr.equal(database.getProperty(sample, "dupcheckstatus"), ImportPerson.TRUE)
@@ -124,12 +170,12 @@ public class ImportPersonsWorker {
 		where.addAnd(Expr.equal(database.getProperty(sample, "fk_import"), importId));
 		select.where(where);
 		Integer saveCount = database.getCount(select);
-		
+
 		cntx.setContent("selectNone", cntx.getRequestObject().getParam("selectNone"));
-		
+
         return DataExchangeWorker.createImportStats(dsCount.intValue(), dupCount.intValue(), saveCount.intValue(), importId);
 	}
-	
+
     /** Octopus-Eingabe-Parameter f�r {@link #finalise(OctopusContext, Integer, List, Map)} */
     public static final String[] INPUT_finalise = { "REQUEST:importId", "CONFIG:ignorePersonFields", "CONFIG:importTextfieldMapping" };
     /** Octopus-Eingabe-Parameter-Pflicht f�r {@link #finalise(OctopusContext, Integer, List, Map)} */
@@ -140,27 +186,27 @@ public class ImportPersonsWorker {
      * Diese Octopus-Aktion finalisiert einen Import. Hierbei wird als Nebeneffekt in
      * den Content unter dem Schl�ssel {@link #FIELD_IMPORTED_COUNT "imported"} die Anzahl
      * der tats�chlich importierten Datens�tze eingetragen.
-     * 
+     *
      * @param cntx Octopus-Kontext
      * @param importId ID eines fr�heren Imports
      * @param ignorePersonFields
-     * @param importTextfieldMapping Map f�r das Mapping der Adressfreitextfelder 
+     * @param importTextfieldMapping Map f�r das Mapping der Adressfreitextfelder
      * @return Map mit Informationen zum Import, insbesondere der Anzahl gefundener
      *  Datens�tze unter "dsCount", der Anzahl Duplikate unter "dupCount", der Anzahl
      *  importierter Datens�tze unter "saveCount" und der Import-ID unter "id".
      * @throws BeanException
-     * @throws IOException 
+     * @throws IOException
      */
 	public Map finalise(OctopusContext cntx, Integer importId, List ignorePersonFields, Map importTextfieldMapping) throws BeanException, IOException {
 		//Initialisiere Datenbank und lese die ID f�r den Importvorgang
 		Database database = new DatabaseVeraWeb(cntx);
 		TransactionContext context = database.getTransactionContext();
-		
+
 		List cleanupOrgunits = new ArrayList();
-		
+
 		try {
 	    	int dsCount=0;
-	    	
+
             ImportPerson sampleImportPerson = new ImportPerson();
             // importTextfieldMapping analysieren, Doctypes holen...
             List personDoctypeCreators = parseTextfieldMapping(database, context, importTextfieldMapping);
@@ -179,13 +225,13 @@ public class ImportPersonsWorker {
 			//Bed: Datensatz wurde noch nicht festgeschrieben
 			where.addAnd(Expr.equal(database.getProperty(sampleImportPerson, "dupcheckaction"), ImportPerson.FALSE));
 			select.where(where);
-			
+
 			//Hole die festzuschreibenden Datens�tze und schreiben diese iterativ in die Personen-Tabellen
 			List result = database.getList(select, database);
 			for (Iterator it=result.iterator(); it.hasNext(); ) {
 				Map importPerson = (Map) it.next();
 				Integer ipID = (Integer)importPerson.get("id");
-				
+
 				// Import-Bean auf Personen-Bean mappen
 				Person person = new Person();
 				for (Iterator fieldIt = person.getFields().iterator(); fieldIt.hasNext(); ) {
@@ -194,9 +240,9 @@ public class ImportPersonsWorker {
 						person.setField(key, importPerson.get(key));
 				}
 				AddressHelper.copyAddressData(cntx, person, null);
-				
+
 				/* assign default workarea = 0 in case that person.workarea is null
-				 * 
+				 *
 				 * modified as per change request for version 1.2.0
 				 * cklein 2008-03-27
 				 */
@@ -209,51 +255,51 @@ public class ImportPersonsWorker {
 				person.verify();
 				if (person.isCorrect()) {
 					database.saveBean(person, context, true);
-					
+
 					if (!cleanupOrgunits.contains(person.orgunit))
 						cleanupOrgunits.add(person.orgunit);
-					
+
 	                // Importierte Kategorien zu Personen erzeugen
 	                createPersonCategories(database, context, (Integer)importPerson.get("id"), person);
 	                // TODO: auslagern in MAdLANImporter
 	                if (importPerson.get("category") != null && ((String)importPerson.get("category")).length() != 0)
 	                    createPersonCategories(database, context, ((String)importPerson.get("category")).split("\n"), person, new Integer(Categorie.FLAG_DEFAULT));
-	               
+
 	                if (importPerson.get("occasion") != null && ((String)importPerson.get("occasion")).length() != 0)
 	                    createPersonCategories(database, context, ((String)importPerson.get("occasion")).split("\n"), person, new Integer(Categorie.FLAG_EVENT));
-	                
+
 	                // Importierte Dokumenttypen zu Personen erzeugen
 	                createPersonDoctypes(database, context, ipID, person.id);
 	                // TODO: auslagern in MAdLANImporter
 	                Iterator itPersonDoctypeCreators = personDoctypeCreators.iterator();
 	                while (itPersonDoctypeCreators.hasNext())
                         ((PersonDoctypeImporter) itPersonDoctypeCreators.next()).createFor(importPerson, person.id);
-	                
+
 	                // Restlichen Personen Dokumenttypen erzeugen
 	                PersonDoctypeWorker.createPersonDoctype(cntx, database, context, person);
-	                
+
 					// Datensatz als festgeschrieben markieren
 					context.execute(database.getUpdate("ImportPerson").update("dupcheckaction", ImportPerson.TRUE).
                             where(Expr.equal(database.getProperty(sampleImportPerson, "id"), ipID)));
-					
+
 					// Datensatz erfolgreich bearbeitet
 					dsCount++;
 				}
 			}
             context.commit();
-            
+
             cntx.setContent(FIELD_IMPORTED_COUNT, new Integer(dsCount));
             cntx.setContent("cleanupOrgunits", cleanupOrgunits);
-            
+
     		return importStoredRecord(cntx, importId);
-		} 
+		}
 		catch ( BeanException e )
 		{
 			context.rollBack();
 			throw new BeanException( "Die Personendaten konnten nicht importiert werden.", e );
 		}
 	}
-	
+
     //
     // Hilfsmethoden
     //
@@ -261,7 +307,7 @@ public class ImportPersonsWorker {
      * Diese Methode erzeugt zu einer Person und einer Menge Kategoriennamen
      * passende {@link PersonCategorie}-Instanzen. Gegebenenfalls werden hierbei
      * die Kategorien erst noch erzeugt.
-     * 
+     *
      * @param database die Datenbank, in der agiert werden soll
      * @param categoryNames ein Array aus Kategoriennamen
      * @param person Person
@@ -295,7 +341,7 @@ public class ImportPersonsWorker {
      * Diese Methode erzeugt zu einer Person und einer ImportPerson
      * passende {@link PersonCategorie}-Instanzen. Gegebenenfalls werden hierbei
      * die Kategorien erst noch erzeugt.
-     * 
+     *
      * @param database die Datenbank, in der agiert werden soll
      * @param importPersonId ID einer ImportPerson
      * @param person Person, als die die ImportPerson importiert wird
@@ -304,7 +350,7 @@ public class ImportPersonsWorker {
         ImportPersonCategorie sample = new ImportPersonCategorie();
         Select select = database.getSelect(sample);
         select.where(Expr.equal(database.getProperty(sample, "importperson"), importPersonId));
-        
+
         List importPersonCategories = database.getBeanList("ImportPersonCategorie", select, context);
         for (Iterator itImportPersonCategories = importPersonCategories.iterator(); itImportPersonCategories.hasNext(); ) {
             ImportPersonCategorie importPersonCategorie = (ImportPersonCategorie) itImportPersonCategories.next();
@@ -334,7 +380,7 @@ public class ImportPersonsWorker {
      * Diese Methode erzeugt zu einer Person und einer ImportPerson
      * passende {@link PersonDoctype}-Instanzen. Gegebenenfalls werden hierbei
      * die Dokumenttypen erst noch erzeugt.
-     * 
+     *
      * @param database die Datenbank, in der agiert werden soll
      * @param importPersonId ID einer ImportPerson
      * @param personId ID der Person, als die die ImportPerson importiert wird
@@ -343,7 +389,7 @@ public class ImportPersonsWorker {
         ImportPersonDoctype sample = (ImportPersonDoctype) database.createBean("ImportPersonDoctype");
         Select select = database.getSelect(sample);
         select.where(Expr.equal(database.getProperty(sample, "importperson"), importPersonId));
-        
+
         List importPersonDoctypes = database.getList(select, context);
         for (Iterator itImportPersonDoctypes = importPersonDoctypes.iterator(); itImportPersonDoctypes.hasNext(); ) {
             Map importPersonDoctype = (Map) itImportPersonDoctypes.next();
@@ -370,19 +416,19 @@ public class ImportPersonsWorker {
     /**
      * Diese Methode parst das importTextfieldMapping und liefert eine Liste von
      * {@link ImportPersonsWorker.PersonDoctypeImporter}-Instanzen.
-     * 
+     *
      * @param database Datenbank
      * @param importTextfieldMapping konfiguriertes importTextfieldMapping
-     * @return Liste erkannter PersonDoctype-Erstellungsvorschriften aus den 
+     * @return Liste erkannter PersonDoctype-Erstellungsvorschriften aus den
      *  Adressfreitextfeldern
-     * @throws IOException 
-     * @throws BeanException 
+     * @throws IOException
+     * @throws BeanException
      */
     private static List parseTextfieldMapping(Database database, ExecutionContext context, Map importTextfieldMapping) throws BeanException, IOException {
         assert database != null;
         if (importTextfieldMapping == null)
             return Collections.EMPTY_LIST;
-        
+
         List result = new ArrayList();
         for (int i = 0; i < importTextfieldMapping.size(); i++) {
             String indexString = String.valueOf(i);
@@ -400,12 +446,12 @@ public class ImportPersonsWorker {
         }
         return result;
     }
-    
+
 	//
     // innere Klassen
     //
     /**
-     * Diese Klasse dient dem Erzeugen von {@link PersonDoctype}-Instanzen zu 
+     * Diese Klasse dient dem Erzeugen von {@link PersonDoctype}-Instanzen zu
      * {@link ImportPerson}s.
      */
     private static class PersonDoctypeImporter {
@@ -443,7 +489,7 @@ public class ImportPersonsWorker {
                 database.saveBean(personDoctype, context, false);
             }
         }
-        
+
         //
         // Member
         //
@@ -454,7 +500,7 @@ public class ImportPersonsWorker {
         final String join;
         final Doctype doctype;
     }
-    
+
     //
     // interne Member
     //
