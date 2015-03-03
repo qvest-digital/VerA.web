@@ -20,11 +20,18 @@
 package de.tarent.aa.veraweb.worker;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Properties;
+
+import com.google.common.base.Objects;
 
 import de.tarent.aa.veraweb.beans.Person;
 import de.tarent.aa.veraweb.beans.facade.PersonConstants;
 import de.tarent.aa.veraweb.utils.AddressHelper;
+import de.tarent.aa.veraweb.utils.CharacterPropertiesReader;
 import de.tarent.aa.veraweb.utils.DateHelper;
 import de.tarent.dblayer.sql.clause.Clause;
 import de.tarent.dblayer.sql.clause.Expr;
@@ -60,11 +67,11 @@ public class PersonDupcheckWorker extends ListWorkerVeraWeb {
 	@Override
     protected void extendWhere(OctopusContext cntx, Select select) throws BeanException, IOException {
 		Person person = (Person)cntx.contentAsObject("person");
-		
+
 		//Specific handling to differ between company and person dupcheck.
         String isCompany = cntx.requestAsString("person-iscompany");
-        
-        if (isCompany != null && isCompany.equals("t")) {   
+
+        if (isCompany != null && isCompany.equals("t")) {
             select.where(getDuplicateExprCompany(cntx, person));
         } else {
             select.where(getDuplicateExprPerson(cntx, person));
@@ -86,15 +93,15 @@ public class PersonDupcheckWorker extends ListWorkerVeraWeb {
      * <code>true</code>, so wird der Eintrag in der Octopus-Session unter
      * "dupcheck-person" geloescht. Ansonsten wird dieser auf die eingelesene
      * Person gesetzt und ein Duplikats-Check durchgefuehrt; falls dieser Duplikate
-     * zur Person findet, wird der Status "dupcheck" gesetzt. 
-     * 
+     * zur Person findet, wird der Status "dupcheck" gesetzt.
+     *
      * @param cntx Octopus-Kontext
      * @param nodupcheck Flag zum �bergehen des Duplikat-Checks
 	 */
 	public void check(OctopusContext cntx, Boolean nodupcheck) throws BeanException, IOException {
 		Request request = new RequestVeraWeb(cntx);
 		Database database = new DatabaseVeraWeb(cntx);
-		
+
 		// Person Daten laden und in den Content stellen!
 		Person person = (Person)cntx.sessionAsObject("dupcheck-person");
 		if (cntx.requestContains("id")) {
@@ -108,30 +115,30 @@ public class PersonDupcheckWorker extends ListWorkerVeraWeb {
 		AddressHelper.checkPersonSalutation(person, database, database.getTransactionContext());
 		cntx.setContent("person", person);
 		cntx.setContent("person-diplodatetime", Boolean.valueOf(DateHelper.isTimeInDate(person.diplodate_a_e1)));
-		
+
 		if (nodupcheck != null && nodupcheck.booleanValue()) {
 			cntx.setSession("dupcheck-person", null);
 			return;
 		}
-		cntx.setSession("dupcheck-person", person);		
-		
+		cntx.setSession("dupcheck-person", person);
+
 		String isCompany = cntx.requestAsString("person-iscompany");
-		
+
 		Select select = database.getCount("Person");
-		
+
 		if(isCompany != null && isCompany.equals("t")){
-			select.where(getDuplicateExprCompany(cntx, person));			
+			select.where(getDuplicateExprCompany(cntx, person));
 		} else {
 			select.where(getDuplicateExprPerson(cntx, person));
 		}
-		
+
 		if (database.getCount(select).intValue() != 0) {
 			cntx.setStatus("dupcheck");
 		}
 	}
 
-	
-	
+
+
     /* (non-Javadoc)
      * @see de.tarent.octopus.custom.beans.BeanListWorker#showList(de.tarent.octopus.server.OctopusContext)
      */
@@ -151,8 +158,34 @@ public class PersonDupcheckWorker extends ListWorkerVeraWeb {
 		String ln = person == null || person.lastname_a_e1 == null ? "" : person.lastname_a_e1;
 		String fn = person == null || person.firstname_a_e1 == null ? "" : person.firstname_a_e1;
 		return Where.and(clause, Where.and(Expr.equal("lastname_a_e1", ln), Expr.equal("firstname_a_e1", fn)));
+
+
+
+		CharacterPropertiesReader cpr = new CharacterPropertiesReader();
+
+		Iterator<CharacterPropertiesReader> it = cpr.iterator();
+
+		for (Map.Entry<CharacterPropertiesReader, CharacterPropertiesReader> entry : it.entrySet()) {
+			if(isCompany) {
+				entry.getKey().equals(person.company_a_e1);
+				entry.getKey().equals(person.company_a_e2);
+				entry.getKey().equals(person.company_a_e3);
+				entry.getKey().equals(person.company_b_e1);
+				entry.getKey().equals(person.company_b_e2);
+				entry.getKey().equals(person.company_b_e3);
+				entry.getKey().equals(person.company_c_e1);
+				entry.getKey().equals(person.company_c_e2);
+				entry.getKey().equals(person.company_c_e3);
+			}
+			entry.getKey().equals(person.firstname_a_e1);
+			entry.getKey().equals(person.firstname_a_e2);
+			entry.getKey().equals(person.firstname_a_e3);
+			entry.getKey().equals(person.lastname_a_e1);
+			entry.getKey().equals(person.lastname_a_e2);
+			entry.getKey().equals(person.lastname_a_e3);
+		}
 	}
-	
+
 	protected Clause getDuplicateExprCompany(OctopusContext cntx, Person person) {
 		Clause clause = Where.and(
 				Expr.equal("fk_orgunit", ((PersonalConfigAA)cntx.personalConfig()).getOrgUnitId()),
