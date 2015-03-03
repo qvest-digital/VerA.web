@@ -299,7 +299,7 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 		AddressHelper.checkPerson(this);
 
 		if (company_a_e1 != null && firstname_a_e1 != null && lastname_a_e1 != null) {
-			solveXSS();
+//			solveXSS(); TODO Get a better solution
 			
 			if (company_a_e1.length()>100) {
 		        addError("Sie müssen einen Namen für die Firma/Institution mit dem richtigen Länge angeben.");
@@ -334,9 +334,9 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 	 * MUST: if you need to check the script-value of a field JUST ADD IT HERE
 	 */
 	private void solveXSS() {
-		company_a_e1 = StringEscapeUtils.escapeHtml(company_a_e1);
-		firstname_a_e1 = StringEscapeUtils.escapeHtml(firstname_a_e1);
-		lastname_a_e1 = StringEscapeUtils.escapeHtml(lastname_a_e1);
+		company_a_e1 = StringEscapeUtils.escapeJavaScript(company_a_e1);
+		firstname_a_e1 = StringEscapeUtils.escapeJavaScript(firstname_a_e1);
+		lastname_a_e1 = StringEscapeUtils.escapeJavaScript(lastname_a_e1);
 	}
 
 	/**
