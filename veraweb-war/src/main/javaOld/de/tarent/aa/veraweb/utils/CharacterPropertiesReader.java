@@ -35,7 +35,7 @@ import org.osiam.bundled.org.jvnet.hk2.internal.IterableProviderImpl;
  */
 
 public class CharacterPropertiesReader {
-	    private static final String PROPERTY_FILE = "character_comparison.properties";
+	    private static final String PROPERTY_FILE = "/etc/veraweb/character_comparison.properties";
 
 	    public Properties properties;
 
