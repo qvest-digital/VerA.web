@@ -20,13 +20,10 @@
 package de.tarent.aa.veraweb.worker;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
-
-import com.google.common.base.Objects;
 
 import de.tarent.aa.veraweb.beans.Person;
 import de.tarent.aa.veraweb.beans.facade.PersonConstants;
@@ -157,8 +154,6 @@ public class PersonDupcheckWorker extends ListWorkerVeraWeb {
 				Expr.equal("deleted", PersonConstants.DELETED_FALSE));
 		String ln = person == null || person.lastname_a_e1 == null ? "" : person.lastname_a_e1;
 		String fn = person == null || person.firstname_a_e1 == null ? "" : person.firstname_a_e1;
-		return Where.and(clause, Where.and(Expr.equal("lastname_a_e1", ln), Expr.equal("firstname_a_e1", fn)));
-
 
 
 		CharacterPropertiesReader cpr = new CharacterPropertiesReader();
@@ -184,6 +179,12 @@ public class PersonDupcheckWorker extends ListWorkerVeraWeb {
 			entry.getKey().equals(person.lastname_a_e2);
 			entry.getKey().equals(person.lastname_a_e3);
 		}
+		
+		// Checking changes between first and lastname
+		Clause normalNamesClause = Where.and(Expr.equal("lastname_a_e1", fn), Expr.equal("firstname_a_e1", ln));
+		Clause revertedNamesClause = Where.and(Expr.equal("lastname_a_e1", ln), Expr.equal("firstname_a_e1", fn));
+		Clause checkMixChanges = Where.or(normalNamesClause,revertedNamesClause);
+		return Where.and(clause, checkMixChanges);
 	}
 
 	protected Clause getDuplicateExprCompany(OctopusContext cntx, Person person) {
