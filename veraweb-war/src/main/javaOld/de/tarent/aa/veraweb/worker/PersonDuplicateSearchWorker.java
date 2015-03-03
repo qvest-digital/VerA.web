@@ -32,6 +32,7 @@ import de.tarent.aa.veraweb.beans.facade.PersonConstants;
 import de.tarent.dblayer.helper.ResultMap;
 import de.tarent.dblayer.sql.Escaper;
 import de.tarent.dblayer.sql.SyntaxErrorException;
+import de.tarent.dblayer.sql.clause.Clause;
 import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.clause.Limit;
 import de.tarent.dblayer.sql.clause.Order;
@@ -154,6 +155,7 @@ public class PersonDuplicateSearchWorker extends PersonListWorker
 
 	protected void extendSubselect( OctopusContext cntx, Database database, Select subselect )
 	{
+		
 		subselect.from( "veraweb.tperson person2" );
 		subselect.whereAnd(
 			Where.and(
@@ -167,11 +169,15 @@ public class PersonDuplicateSearchWorker extends PersonListWorker
 					new RawClause( "tperson.pk!=person2.pk" ),
 					new RawClause( "tperson.fk_orgunit=person2.fk_orgunit" )
 			)
-		).whereAnd(
+		).whereAnd( Where.or(
 				Where.and(
 						new RawClause( "tperson.firstname_a_e1=person2.firstname_a_e1" ),
 						new RawClause( "tperson.lastname_a_e1=person2.lastname_a_e1" )
-				)
+				),
+				Where.and( // Reverted names
+						new RawClause( "tperson.firstname_a_e1=person2.lastname_a_e1" ),
+						new RawClause( "tperson.lastname_a_e1=person2.firstname_a_e1" )
+				))
 		).whereAnd(
 				Where.and(
 						new RawClause( "tperson.lastname_a_e1<>''" ),
