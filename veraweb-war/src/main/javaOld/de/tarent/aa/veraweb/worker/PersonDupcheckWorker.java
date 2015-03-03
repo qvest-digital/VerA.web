@@ -155,36 +155,39 @@ public class PersonDupcheckWorker extends ListWorkerVeraWeb {
 		String ln = person == null || person.lastname_a_e1 == null ? "" : person.lastname_a_e1;
 		String fn = person == null || person.firstname_a_e1 == null ? "" : person.firstname_a_e1;
 
-
-		CharacterPropertiesReader cpr = new CharacterPropertiesReader();
-
-		Iterator<CharacterPropertiesReader> it = cpr.iterator();
-
-		for (Map.Entry<CharacterPropertiesReader, CharacterPropertiesReader> entry : it.entrySet()) {
-			if(isCompany) {
-				entry.getKey().equals(person.company_a_e1);
-				entry.getKey().equals(person.company_a_e2);
-				entry.getKey().equals(person.company_a_e3);
-				entry.getKey().equals(person.company_b_e1);
-				entry.getKey().equals(person.company_b_e2);
-				entry.getKey().equals(person.company_b_e3);
-				entry.getKey().equals(person.company_c_e1);
-				entry.getKey().equals(person.company_c_e2);
-				entry.getKey().equals(person.company_c_e3);
-			}
-			entry.getKey().equals(person.firstname_a_e1);
-			entry.getKey().equals(person.firstname_a_e2);
-			entry.getKey().equals(person.firstname_a_e3);
-			entry.getKey().equals(person.lastname_a_e1);
-			entry.getKey().equals(person.lastname_a_e2);
-			entry.getKey().equals(person.lastname_a_e3);
-		}
-		
-		// Checking changes between first and lastname
 		Clause normalNamesClause = Where.and(Expr.equal("lastname_a_e1", fn), Expr.equal("firstname_a_e1", ln));
 		Clause revertedNamesClause = Where.and(Expr.equal("lastname_a_e1", ln), Expr.equal("firstname_a_e1", fn));
 		Clause checkMixChanges = Where.or(normalNamesClause,revertedNamesClause);
-		return Where.and(clause, checkMixChanges);
+		
+		// Checking changes between first and lastname
+		Clause dupNormalCheck = Where.and(clause, checkMixChanges);
+		
+		CharacterPropertiesReader cpr = new CharacterPropertiesReader();
+		
+		for (final String key: cpr.properties.stringPropertyNames()) {
+			String value = cpr.properties.getProperty(key);
+
+			if (ln.contains(value)) {
+				ln = ln.replaceAll(value, key);
+			}
+			else if (ln.contains(key)) {
+				ln = ln.replaceAll(key, value);
+			}
+			
+			if (fn.contains(value)) {
+				fn = fn.replaceAll(value, key);
+			}
+			else if (fn.contains(key)) {
+				fn = fn.replaceAll(key, value);
+			}
+			
+		}
+		
+		Clause normalNamesEncoding = Where.and(Expr.equal("lastname_a_e1", fn), Expr.equal("firstname_a_e1", ln));
+		Clause revertedNamesEncoding = Where.and(Expr.equal("lastname_a_e1", ln), Expr.equal("firstname_a_e1", fn));
+		Clause checkMixChangesEncoding = Where.or(normalNamesEncoding,revertedNamesEncoding);
+		// With encoding changes
+		return Where.or(dupNormalCheck, checkMixChangesEncoding);
 	}
 
 	protected Clause getDuplicateExprCompany(OctopusContext cntx, Person person) {
