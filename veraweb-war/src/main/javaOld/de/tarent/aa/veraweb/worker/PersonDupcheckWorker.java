@@ -164,6 +164,10 @@ public class PersonDupcheckWorker extends ListWorkerVeraWeb {
 		
 		CharacterPropertiesReader cpr = new CharacterPropertiesReader();
 		
+		// Temporarily storage of the old values
+		String helpFirstName = fn;
+		String helpLastName = ln;
+		
 		for (final String key: cpr.properties.stringPropertyNames()) {
 			String value = cpr.properties.getProperty(key);
 
@@ -180,14 +184,46 @@ public class PersonDupcheckWorker extends ListWorkerVeraWeb {
 			else if (fn.contains(key)) {
 				fn = fn.replaceAll(key, value);
 			}
-			
 		}
 		
+		Clause finalCaseQuery = getQueryOfAllDuplicatesCases(ln, fn, helpFirstName, helpLastName);
+		
+		// Merging with the easiest check
+		return Where.or(dupNormalCheck, finalCaseQuery);
+	}
+
+	/**
+	 * All posible cases for duplicates
+	 * TODO Write explanation
+	 * 
+	 * @param ln converted lastname
+	 * @param fn converted firstname
+	 * @param helpFirstName old firstname
+	 * @param helpLastName old lastname
+	 * @return Clause finalCaseQuery
+	 */
+	private Clause getQueryOfAllDuplicatesCases(final String ln, final String fn,
+			final String helpFirstName, final String helpLastName) {
 		Clause normalNamesEncoding = Where.and(Expr.equal("lastname_a_e1", fn), Expr.equal("firstname_a_e1", ln));
 		Clause revertedNamesEncoding = Where.and(Expr.equal("lastname_a_e1", ln), Expr.equal("firstname_a_e1", fn));
-		Clause checkMixChangesEncoding = Where.or(normalNamesEncoding,revertedNamesEncoding);
-		// With encoding changes
-		return Where.or(dupNormalCheck, checkMixChangesEncoding);
+		Clause checkMixPairChangesEncoding = Where.or(normalNamesEncoding,revertedNamesEncoding);
+		
+		Clause revertedOldFNnewLN = Where.and(Expr.equal("lastname_a_e1", helpFirstName), Expr.equal("firstname_a_e1", ln));
+		Clause revertedNewFNoldLN = Where.and(Expr.equal("lastname_a_e1", fn), Expr.equal("firstname_a_e1", helpLastName));
+		Clause revertedMixChangesEncoding = Where.or(revertedOldFNnewLN, revertedNewFNoldLN);
+
+		Clause oldLNnewFN = Where.and(Expr.equal("lastname_a_e1", helpLastName), Expr.equal("firstname_a_e1", fn));
+		Clause newLNoldFN = Where.and(Expr.equal("lastname_a_e1", ln), Expr.equal("firstname_a_e1", helpFirstName));
+		Clause checkMixChangesEncoding= Where.or(oldLNnewFN,newLNoldFN);
+		
+		Clause oldFNoldLN = Where.and(Expr.equal("lastname_a_e1", helpFirstName), Expr.equal("firstname_a_e1", helpLastName));
+
+		Clause normalQueryWithReverseChecks = Where.or(checkMixPairChangesEncoding, revertedMixChangesEncoding);
+		Clause mergedValuesQuery = Where.or(checkMixChangesEncoding, oldFNoldLN);
+		
+		Clause finalCaseQuery = Where.or(normalQueryWithReverseChecks, mergedValuesQuery);
+		
+		return finalCaseQuery;
 	}
 
 	protected Clause getDuplicateExprCompany(OctopusContext cntx, Person person) {
