@@ -204,24 +204,42 @@ public class PersonDupcheckWorker extends ListWorkerVeraWeb {
 	 */
 	private Clause getQueryOfAllDuplicatesCases(final String ln, final String fn,
 			final String helpFirstName, final String helpLastName) {
-		Clause normalNamesEncoding = Where.and(Expr.equal("lastname_a_e1", fn), Expr.equal("firstname_a_e1", ln));
-		Clause revertedNamesEncoding = Where.and(Expr.equal("lastname_a_e1", ln), Expr.equal("firstname_a_e1", fn));
-		Clause checkMixPairChangesEncoding = Where.or(normalNamesEncoding,revertedNamesEncoding);
 		
-		Clause revertedOldFNnewLN = Where.and(Expr.equal("lastname_a_e1", helpFirstName), Expr.equal("firstname_a_e1", ln));
-		Clause revertedNewFNoldLN = Where.and(Expr.equal("lastname_a_e1", fn), Expr.equal("firstname_a_e1", helpLastName));
-		Clause revertedMixChangesEncoding = Where.or(revertedOldFNnewLN, revertedNewFNoldLN);
+		/* 
+		 * Clauses to allow having duplicates with the first- and lastname with umlauts 
+		 * */
+		/* With reverted values firstname to lastname, lastname to firstname */
+		Clause revertedNamesEncoding= Where.and(Expr.equal("lastname_a_e1", fn), Expr.equal("firstname_a_e1", ln));
+		/* Without reverted values firstname to lastname, lastname to firstname */
+		Clause normalNamesEncoding = Where.and(Expr.equal("lastname_a_e1", ln), Expr.equal("firstname_a_e1", fn));
+		/* Merged clause */
+		Clause checkMixPairChangesEncoding = Where.or(revertedNamesEncoding, normalNamesEncoding);
+		
+		/* 
+		 * Clauses asuming that there are changes only in one of the names (first- or lastname)
+		 * 'helpFirstName' and 'helpLastName' store only old values
+		 * */
+		/* With reverted values firstname to lastname, lastname to firstname. Old value: firstname */
+			Clause revertedOldFNnewLN = Where.and(Expr.equal("lastname_a_e1", helpFirstName), Expr.equal("firstname_a_e1", ln));
+		/* With reverted values firstname to lastname, lastname to firstname. Old value: lastname */
+			Clause revertedNewFNoldLN = Where.and(Expr.equal("lastname_a_e1", fn), Expr.equal("firstname_a_e1", helpLastName));
+		/* Merged clause */
+			Clause revertedMixChangesEncoding = Where.or(revertedOldFNnewLN, revertedNewFNoldLN);
+		/* Without reverted values firstname to lastname, lastname to firstname. Old value: lastname */
+			Clause oldLNnewFN = Where.and(Expr.equal("lastname_a_e1", helpLastName), Expr.equal("firstname_a_e1", fn));
+		/* Without reverted values firstname to lastname, lastname to firstname. Old value: firstname */
+			Clause newLNoldFN = Where.and(Expr.equal("lastname_a_e1", ln), Expr.equal("firstname_a_e1", helpFirstName));
+		/* Merged clause */
+			Clause checkMixChangesEncoding= Where.or(oldLNnewFN,newLNoldFN);
+		/* Clause to check reverted values of the old values (first and lastname) at the same time */
+			Clause oldFNoldLN = Where.and(Expr.equal("lastname_a_e1", helpFirstName), Expr.equal("firstname_a_e1", helpLastName));
 
-		Clause oldLNnewFN = Where.and(Expr.equal("lastname_a_e1", helpLastName), Expr.equal("firstname_a_e1", fn));
-		Clause newLNoldFN = Where.and(Expr.equal("lastname_a_e1", ln), Expr.equal("firstname_a_e1", helpFirstName));
-		Clause checkMixChangesEncoding= Where.or(oldLNnewFN,newLNoldFN);
-		
-		Clause oldFNoldLN = Where.and(Expr.equal("lastname_a_e1", helpFirstName), Expr.equal("firstname_a_e1", helpLastName));
-
-		Clause normalQueryWithReverseChecks = Where.or(checkMixPairChangesEncoding, revertedMixChangesEncoding);
-		Clause mergedValuesQuery = Where.or(checkMixChangesEncoding, oldFNoldLN);
-		
-		Clause finalCaseQuery = Where.or(normalQueryWithReverseChecks, mergedValuesQuery);
+		/* Merged clauses */
+			Clause normalQueryWithReverseChecks = Where.or(checkMixPairChangesEncoding, revertedMixChangesEncoding);
+			Clause mergedValuesQuery = Where.or(checkMixChangesEncoding, oldFNoldLN);
+		/* FINAL CLAUSE */
+			Clause finalCaseQuery = Where.or(normalQueryWithReverseChecks, mergedValuesQuery);
+		/* ************** */
 		
 		return finalCaseQuery;
 	}
