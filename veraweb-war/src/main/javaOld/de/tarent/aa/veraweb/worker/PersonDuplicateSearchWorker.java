@@ -171,15 +171,14 @@ public class PersonDuplicateSearchWorker extends PersonListWorker
 			)
 		).whereAnd( Where.or(
 				Where.and(
-						new RawClause( "tperson.firstname_a_e1=person2.firstname_a_e1" ),
-						new RawClause( "tperson.lastname_a_e1=person2.lastname_a_e1" )
+						new RawClause( "veraweb.umlaut_fix(tperson.firstname_a_e1)=veraweb.umlaut_fix(person2.firstname_a_e1)" ),
+						new RawClause( "veraweb.umlaut_fix(tperson.lastname_a_e1)=veraweb.umlaut_fix(person2.lastname_a_e1)" )
 				),
 				Where.and( // Reverted names
-						new RawClause( "tperson.firstname_a_e1=person2.lastname_a_e1" ),
-						new RawClause( "tperson.lastname_a_e1=person2.firstname_a_e1" )
+						new RawClause( "veraweb.umlaut_fix(tperson.firstname_a_e1)=veraweb.umlaut_fix(person2.lastname_a_e1)" ),
+						new RawClause( "veraweb.umlaut_fix(tperson.lastname_a_e1)=veraweb.umlaut_fix(person2.firstname_a_e1)" )
 				))
-		).whereAnd(
-				Where.and(
+		).whereAnd(	Where.and(
 						new RawClause( "tperson.lastname_a_e1<>''" ),
 						new RawClause( "tperson.firstname_a_e1<>''" )
 					)
