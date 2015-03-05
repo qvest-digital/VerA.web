@@ -168,21 +168,23 @@ public class PersonDupcheckWorker extends ListWorkerVeraWeb {
 		String helpFirstName = fn;
 		String helpLastName = ln;
 		
-		for (final String key: cpr.properties.stringPropertyNames()) {
-			String value = cpr.properties.getProperty(key);
-
-			if (ln.contains(value)) {
-				ln = ln.replaceAll(value, key);
-			}
-			else if (ln.contains(key)) {
-				ln = ln.replaceAll(key, value);
-			}
-			
-			if (fn.contains(value)) {
-				fn = fn.replaceAll(value, key);
-			}
-			else if (fn.contains(key)) {
-				fn = fn.replaceAll(key, value);
+		if (cpr.propertiesAreAvailable()) {
+			for (final String key: cpr.properties.stringPropertyNames()) {
+				String value = cpr.properties.getProperty(key);
+	
+				if (ln.contains(value)) {
+					ln = ln.replaceAll(value, key);
+				}
+				else if (ln.contains(key)) {
+					ln = ln.replaceAll(key, value);
+				}
+				
+				if (fn.contains(value)) {
+					fn = fn.replaceAll(value, key);
+				}
+				else if (fn.contains(key)) {
+					fn = fn.replaceAll(key, value);
+				}
 			}
 		}
 		
