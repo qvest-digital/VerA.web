@@ -51,9 +51,27 @@ import de.tarent.octopus.server.OctopusContext;
  * {@link DataExchangeWorker#importToTransit(OctopusContext, Map, String, String, Integer, Map)}.
  */
 public class VerawebDigester implements ImportDigester {
-    //
-    // Konstruktoren
-    //
+    
+	final static Logger LOGGER = Logger.getLogger(VerawebDigester.class);
+	
+    int personCount = 0;
+    int importableCount = 0;
+    int incorrectCount = 0;
+    int duplicateCount = 0;
+    
+    final OctopusContext cntx;
+    final Database db;
+    final ExecutionContext context;
+    final Import importInstance;
+    final Integer orgUnit;
+    final String importSource;
+    final String importPersonCompareField1;
+    final String stockBeanCompareField1;
+    final String importPersonCompareField2;
+    final String stockBeanCompareField2;
+    
+    final PersonDuplicateCheckHelper duplicateCheckHelper;
+    
     /**
      * Dieser Konstruktor initialisiert die finalen Member.
      */
@@ -69,6 +87,8 @@ public class VerawebDigester implements ImportDigester {
         importPersonCompareField1 = (String) importProperties.get("fieldEqual1");
         stockBeanCompareField2 = (String) importProperties.get("beanFieldEqual2");
         importPersonCompareField2 = (String) importProperties.get("fieldEqual2");
+        
+        duplicateCheckHelper = new PersonDuplicateCheckHelper(context, importInstance);
     }
     
     //
@@ -96,7 +116,7 @@ public class VerawebDigester implements ImportDigester {
     /** Diese Methode wird zum Ende eines Imports aufgerufen. */
     public void endImport() throws BeanException {
         try {
-            duplicateCount = markDuplicates();
+            duplicateCount = duplicateCheckHelper.getDuplicatesCount(cntx);
             importableCount = personCount - duplicateCount;
         } catch (IOException e) {
             throw new BeanException("Fehler beim Zugriff auf Bean-Properties", e);
@@ -175,115 +195,4 @@ public class VerawebDigester implements ImportDigester {
             incorrectCount++;
         }
     }
-
-    /**
-     * Diese Methode findet zu allen {@link ImportPerson}s dieses Imports Duplikate
-     * in der Tabelle <code>veraweb.tperson</code> zu den {@link Person}s und tr�gt
-     * diese jeweils in das Attribut {@link ImportPerson#duplicates} ein.
-     */
-    int markDuplicates() throws IOException, BeanException {
-        Person samplePerson = new Person();
-        int duplicateCount = 0;
-        ImportPerson sampleImportPerson = new ImportPerson();
-        Select select = SQL.Select( db );
-        select.from(" veraweb.tperson JOIN veraweb.timportperson ON (" +
-        		"(tperson.firstname_a_e1 = timportperson.firstname_a_e1 OR " +
-        		"(timportperson.firstname_a_e1 IS NULL AND tperson.firstname_a_e1 IS NULL)) AND " +
-        		"(tperson.lastname_a_e1 = timportperson.lastname_a_e1 OR " +
-        		"(timportperson.lastname_a_e1 IS NULL AND tperson.lastname_a_e1 IS NULL)) AND " +
-        		"tperson.deleted = timportperson.deleted) ");
-        select.selectAs(db.getProperty(sampleImportPerson, "id"), "importperson");
-        select.selectAs(db.getProperty(samplePerson, "id"), "person");
-        select.where(Where.and(
-                Expr.equal(db.getProperty(sampleImportPerson, "fk_import"), importInstance.id),
-                Expr.equal(db.getProperty(samplePerson, "orgunit"), orgUnit)
-                ));
-        select.orderBy(Order.asc("importperson").andAsc("person"));
-        
-        List duplicates = db.getList(select, context);
-        List localDuplicates = new ArrayList();
-        ImportPerson importPerson = new ImportPerson();
-        importPerson.id = null;
-        for(Iterator itDuplicates = duplicates.iterator(); itDuplicates.hasNext(); ) {
-            Map duplicate = (Map) itDuplicates.next();
-            Integer importPersonId = (Integer) duplicate.get("importperson"); // NOT NULL
-            Integer personId = (Integer) duplicate.get("person"); // NOT NULL
-            if (!importPersonId.equals(importPerson.id)) {
-                if (importPerson.id != null)
-                    setDuplicates(importPerson, localDuplicates);
-                localDuplicates.clear();
-                importPerson.id = importPersonId;
-                duplicateCount++;
-            }
-            localDuplicates.add(personId);
-        }
-        if (importPerson.id != null)
-            setDuplicates(importPerson, localDuplicates);
-        return duplicateCount;
-    }
-    
-    /**
-     * Diese Methode tr�gt in die �bergebene {@link ImportPerson} die �bergebenen
-     * IDs von Duplikaten in der Tabelle <code>veraweb.tperson</code> ein. 
-     * 
-     * @param importPerson in dieser {@link ImportPerson} wird nur das Feld
-     *  {@link ImportPerson#id} als stimmig angenommen und nur das Feld
-     *  {@link ImportPerson#duplicates} ver�ndert.
-     * @param duplicates diese IDs werden als Duplikate in die �bergebene
-     *  {@link ImportPerson} eingetragen und abgespeichert.
-     */
-    void setDuplicates(ImportPerson importPerson, List duplicates) throws BeanException, IOException {
-        importPerson.duplicates = serializeDuplicates(duplicates);
-        if (updateDuplicatesStatement == null)
-            updateDuplicatesStatement = db.prepareUpdate(importPerson, Collections.singleton("id"), Collections.singleton("duplicates"), context);
-        updateDuplicatesStatement.execute(importPerson);
-    }
-    
-    //
-    // statische Hilfsmethoden
-    //
-    
-    /**
-     * Diese Methode erzeugt aus einer {@link List Liste} einen String, in dem die
-     * Listenelemente durch {@link ImportPerson#PK_SEPERATOR_CHAR} getrennt aufgef�hrt
-     * werden.  
-     * 
-     * @param duplicates Liste von Duplikat-IDs
-     * @return {@link ImportPerson#PK_SEPERATOR_CHAR}-getrennte Stringdarstellung der
-     *  Liste; <code>null</code> genau dann, wenn die eingehende Liste <code>null</code>
-     *  war.
-     */
-    final static String serializeDuplicates(List duplicates) {
-        if (duplicates == null)
-            return null;
-        StringBuffer buffer = new StringBuffer();
-        for (Iterator itDuplicates = duplicates.iterator(); itDuplicates.hasNext(); ) {
-            if (buffer.length() > 0)
-                buffer.append(ImportPerson.PK_SEPERATOR_CHAR);
-            buffer.append(itDuplicates.next());
-        }
-        return buffer.toString();
-    }
-    
-    //
-    // gesch�tzte Member
-    //
-    int personCount = 0;
-    int importableCount = 0;
-    int duplicateCount = 0;
-    int incorrectCount = 0;
-    BeanStatement updateDuplicatesStatement = null;
-    
-    final OctopusContext cntx;
-    final Database db;
-    final ExecutionContext context;
-    final Import importInstance;
-    final Integer orgUnit;
-    final String importSource;
-    final String importPersonCompareField1;
-    final String stockBeanCompareField1;
-    final String importPersonCompareField2;
-    final String stockBeanCompareField2;
-    
-    final static Logger logger = Logger.getLogger(VerawebDigester.class);
 }
