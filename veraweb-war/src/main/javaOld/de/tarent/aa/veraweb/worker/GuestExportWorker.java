@@ -84,7 +84,7 @@ public class GuestExportWorker {
     /** Logger dieser Klasse */
 	private final Logger logger = Logger.getLogger(getClass());
 
-	private boolean isOnlineRegistrationActive = false;
+	private boolean isOnlineRegistrationActive = true;
 
 	/**
 	 * <p>
@@ -200,7 +200,7 @@ public class GuestExportWorker {
 		// Tabelle �ffnen und erste Zeile schreiben
 		spreadSheet.openTable("Gäste", 65);
 		spreadSheet.openRow();
-		exportHeader(spreadSheet);
+		exportHeader(spreadSheet, cntx);
 		spreadSheet.closeRow();
 
 		// Zusatzinformationen
@@ -455,7 +455,9 @@ public class GuestExportWorker {
 	 *
 	 * @param spreadSheet In das geschrieben werden soll.
 	 */
-	protected void exportHeader(SpreadSheet spreadSheet) {
+	protected void exportHeader(SpreadSheet spreadSheet, OctopusContext cntx) {
+		
+		checkIfOnlineRegistrationIsAvailable(cntx);
 		//
 		// Gast spezifische Daten
 		//
