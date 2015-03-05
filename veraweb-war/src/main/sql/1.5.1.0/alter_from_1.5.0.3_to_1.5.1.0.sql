@@ -4,30 +4,25 @@
 
 ALTER TABLE veraweb.tdoctype ADD CONSTRAINT docname_unique UNIQUE(docname);
 
-CREATE OR REPLACE FUNCTION umlaut_fix(character varying)
-  RETURNS character varying AS
-$BODY$
-		DECLARE
-		BEGIN
+CREATE OR REPLACE FUNCTION veraweb.umlaut_fix(character varying) RETURNS character varying AS $BODY$
+    BEGIN
+        IF
+        ($1 LIKE '%ä%') THEN RETURN replace($1,'ä','ae');
+        END IF;
+        IF
+        ($1 LIKE '%ö%') THEN RETURN replace($1,'ö','oe');
+        END IF;
+        IF
+        ($1 LIKE '%ü%') THEN RETURN replace($1,'ü','ue');
+        END IF;
+        IF
+        ($1 LIKE '%ß%') THEN RETURN replace($1,'ß','ss');
+        END IF;
+        RETURN $1;
+    END;
+$BODY$ LANGUAGE plpgsql;
 
-			IF ($1 LIKE '%ä%') THEN RETURN replace($1,'ä','ae');
-			END IF;
-	
-			IF ($1 LIKE '%ö%') THEN RETURN replace($1,'ö','oe');
-			END IF;
-			
-			IF ($1 LIKE '%ü%') THEN RETURN replace($1,'ü','ue');
-			END IF;
-			
-			IF ($1 LIKE '%ß%') THEN RETURN replace($1,'ß','ss');	
-			END IF;
-			RETURN $1;
-		END;
-	$BODY$
-  LANGUAGE plpgsql IMMUTABLE
-  COST 100;
-ALTER FUNCTION umlaut_fix(character varying)
-  OWNER TO veraweb;
+ALTER FUNCTION veraweb.umlaut_fix(character varying) OWNER TO veraweb;
 
 
 /* ---------------------------------------------------------------------- */
