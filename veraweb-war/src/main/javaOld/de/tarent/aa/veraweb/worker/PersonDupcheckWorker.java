@@ -20,10 +20,7 @@
 package de.tarent.aa.veraweb.worker;
 
 import java.io.IOException;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
-import java.util.Properties;
 
 import de.tarent.aa.veraweb.beans.Person;
 import de.tarent.aa.veraweb.beans.facade.PersonConstants;
@@ -145,10 +142,7 @@ public class PersonDupcheckWorker extends ListWorkerVeraWeb {
 		return super.showList(cntx);
 	}
 
-	//
-    // geschuetzte Hilfsmethoden
-    //
-	protected Clause getDuplicateExprPerson(OctopusContext cntx, Person person) {
+    protected Clause getDuplicateExprPerson(OctopusContext cntx, Person person) {
 		Clause clause = Where.and(
 				Expr.equal("fk_orgunit", ((PersonalConfigAA)cntx.personalConfig()).getOrgUnitId()),
 				Expr.equal("deleted", PersonConstants.DELETED_FALSE));
@@ -189,7 +183,7 @@ public class PersonDupcheckWorker extends ListWorkerVeraWeb {
 		// With encoding changes
 		return Where.or(dupNormalCheck, checkMixChangesEncoding);
 	}
-
+    
 	protected Clause getDuplicateExprCompany(OctopusContext cntx, Person person) {
 		Clause clause = Where.and(
 				Expr.equal("fk_orgunit", ((PersonalConfigAA)cntx.personalConfig()).getOrgUnitId()),
