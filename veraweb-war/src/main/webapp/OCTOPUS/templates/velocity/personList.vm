@@ -40,7 +40,7 @@
 		<div id="breadcrumb" class="textRight marginBottom10">
     		<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Veranstaltungen > $title</span>
     	</div>
-    	<h1>$title</h1>    
+    	<h1>$title</h1>
 	#elseif($searchTask && $searchTask == "personSearchTask")
     	<div id="breadcrumb" class="textRight marginBottom10">
     		<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Veranstaltungen > $title</span>
@@ -59,12 +59,17 @@
         </div>
         <h1>$title</h1>
 
- 
+
 	#else
 		<div id="breadcrumb" class="textRight marginBottom10">
     		<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Personen > $title</span>
     	</div>
     	<h1>$title</h1>
+    	#if($title == "Dublettensuche")
+    		<vera-info>
+				Beachten Sie, dass &auml; mit ae, &ouml; mit oe und &uuml mit ue verglichen wird.<br />
+			</vera-info>
+    	#end
 	#end
 
 	#if($action == "taskReferencePerson")
@@ -72,7 +77,7 @@
 			klicken Sie eine der aufgelisteten Personen an, um sie der Aufgabe hinzuzufügen!
 		</vera-info>
 	#end
-	
+
 	#if($deleted)
 		<script>
 			#if($deleted == 1)
@@ -83,7 +88,7 @@
 	   </script>
 	#end
 
-	
+
 	#if($workareaAssigned )
 		<script>
 		   #if($workareaAssigned == "assign")
@@ -97,7 +102,7 @@
 			#end
 	   </script>
 	#end
-	
+
 	#if($categoryAssigned )
 		<script>
 		   #if($categoryAssigned == "assign")
@@ -111,7 +116,7 @@
 			#end
 	   </script>
 	#end
-	
+
 
 	<form id="personListFilter" name="personListFilter" action="${paths.staticWeb}do/$octopusRequest.task" method="POST" class="marginTop25">
 		<!--<input type="hidden" name="start" value="0" />
@@ -120,19 +125,19 @@
 		<input type="hidden" name="selectNone" value="true" /> -->
 		<input type="hidden" name="sortList" value="true" />
 		<input type="hidden" id="search-listorder" name="search-listorder" value="$!search.listorder">
-    
+
 	#if ($octopusRequest.getParam("searchField"))
             <input type="hidden" name="searchField" value="$octopusRequest.getParam("searchField")" />
 	#end
-	
+
 	#if ($octopusRequest.getParam("searchTask"))
         <input type="hidden" name="searchTask" value="$octopusRequest.getParam("searchTask")" />
     #end
-               		
+
 	</form>
 
 	#if($list && $list.size() > 0 )
-		
+
     	<form id="formlist" name="formlist" action="${paths.staticWeb}do/$octopusRequest.task" method="POST">
             <input type="hidden" name="start" value="" />
     		<input type="hidden" name="limit" value="" />
@@ -143,16 +148,16 @@
             <input type="hidden" name="workareaAssignmentAction" value="" />
             <input type="hidden" name="workareaAssignmentId" value="" />
 			<input type="hidden" name="searchTask" value="$!searchTask" />
-    
+
 	#if ($octopusRequest.getParam("searchField"))
         <input type="hidden" name="searchField" value="$octopusRequest.getParam("searchField")" />
 	#end
-	
-	
-	
-               		
-			
-    		## Handler für selektierte Aktion 
+
+
+
+
+
+    		## Handler für selektierte Aktion
 <script>
 
     var personModel = (function () {
@@ -187,7 +192,7 @@
 
 
 var showDeleteMessages = function () {
-		
+
             #if(!$grants.mayWrite())
             	$(".errormsg").remove();
             	$(".successmsg").remove();
@@ -234,7 +239,7 @@ var showDeleteMessages = function () {
                         msg += '<li>' + person.firstName + ' ' + person.lastName + ' (ID: ' + id + ')</li>';
                     });
                     msg += '</ul>';
-                    
+
                 }
                 if (ongoingEventPersonIds.length > 0) {
                     msg += '<br><span class="notBold">Folgende Personen sind mindestens einer laufenden oder zuk&uuml;nftigen Veranstaltung ' +
@@ -246,7 +251,7 @@ var showDeleteMessages = function () {
                         msg += '<li>' + person.firstName + ' ' + person.lastName + ' (ID: ' + id + ')</li>';
                     });
                     msg += '</ul>';
-                    
+
                 }
                 if (ongoingTaskEventPersonIds.length > 0) {
                     msg += '<br><span class="notBold">Folgende Personen sind mindestens einer Aufgabe in mindestens einer laufenden oder ' +
@@ -272,7 +277,7 @@ var showDeleteMessages = function () {
                             $('form').append('<input type="hidden" name="remove-expire-' + id  + '" value="true" >');
 							$('form').append('<input type="hidden" name="deleted" value="'+notExpiredPersonIds.length+'" >');
                         });
-                       
+
                         $('input[name=remove-person]').val('true');
                         $('input:checkbox').prop('disabled', false);
                         $('form').append('<input type="hidden" name="remove" value="Ja" >').submit();
@@ -291,13 +296,13 @@ $(function () {
         	document.getElementsByName("workareaAssignmentAction").value = "${assignmentActionForWorkarea}";
         	$(".errormsg").remove();
         	$(".successmsg").remove();
-        	
+
         	#if($assignmentActionForWorkarea == "assign")
         		showSuccess('Der Arbeitsbereich wurde erfolgreich hinzugefügt.');
-    			
-        	#elseif($assignmentActionForWorkarea == "unassign") 
+
+        	#elseif($assignmentActionForWorkarea == "unassign")
         		showSuccess('Der Arbeitsbereich wurde erfolgreich entfernt.');
-        	#end	
+        	#end
     //	});
    // };
 });
@@ -338,10 +343,10 @@ function submitFormWithGivenAction(action) {
     document.formlist.submit();
 }
 </script>
-			
+
 			#if(($listerrors && $listerrors.size() > 0) || ($listquestions && $listquestions.size() > 0))
                 #set($save = false)
-                
+
                 #if($listerrors && $listerrors.size() > 0)
                 <vera-warn>
                 	<strong>L&ouml;schen von Personen ist nicht m&ouml;glich</strong><br>
@@ -369,24 +374,24 @@ function submitFormWithGivenAction(action) {
 							showDeleteMessages();
 						});
 					</script>
-					       
+
 				#end
 
 			#end
-					
+
     		#if($action == "host" || $action == "statistikGuest" || $action == "statistikHost")
             	#set($disableListSelect = true)
         	#end
-    
-    
+
+
             #if($action == "guest")
-				
+
 				<span id="actionPanel" class="inlineLabel">
 					<label>Markierte Person(en)
 						<input type="button" value="Hinzuf&uuml;gen" title="Markierte Person(en) zur Veranstaltung hinzuf&uuml;gen" onclick="$('#selectNone').val('false'); submitFormWithGivenAction('AddPersonToEventGuestList');" />
                     </label>
             	</span>
-        
+
                 <script language="JavaScript">
                 	function hasNoMain(box) {
                 		if (document.getElementById(box).checked) {
@@ -396,13 +401,13 @@ function submitFormWithGivenAction(action) {
                 			document.getElementById(box).checked = false;
                 		}
                 	}
-                	
+
                 	function onClickSetState(box1, box2) {
                 		if (document.getElementById(box1).checked) {
                 			document.getElementById(box2).checked = true;
                 		}
                 	}
-                
+
                 ## Fix for Bug 987
                 ## cklein
                 ## 2008-02-22
@@ -413,7 +418,7 @@ function submitFormWithGivenAction(action) {
                 			document.getElementById(box3).checked = false;
                 		}
                 	}
-                
+
                 	function onClickEnsureSelection(box1, box2, box3, invitationType, hasMain, hasPartner) {
                 		if ( document.getElementById(box3).checked )
                 		{
@@ -446,26 +451,26 @@ function submitFormWithGivenAction(action) {
                 			}
                 		}
                 	}
-                	
+
                 </script>
-    
+
     		#elseif($action == "host")
-				
+
 				<vera-info>
 					Bitte klicken Sie eine der aufgelisteten Personen an, um diese als Gastgeber zu &uuml;bernehmen.
-				</vera-info>  			
+				</vera-info>
 			#elseif($action == "statistikGuest" || $action == "statistikHost" || $action == "taskReferencePerson")
-    			## empty	
+    			## empty
     		#elseif($action == "replace")
-				
+
 				<span id="actionPanel" class="inlineLabel">
 					<label>Markierte Person(en)
 						<input type="button" value="Ersetzen" title="Ersetzen" onclick="submitFormWithGivenAction('SaveReplacePersonList');" />
                     </label>
             	</span>
-    
+
     		#else
-    
+
                 #set($isUser = false)
                 #set($isAdmin = false)
                 #foreach($group in $octopusConfig.personalConfig.UserGroups)
@@ -484,11 +489,11 @@ function submitFormWithGivenAction(action) {
                 	function hasSelection() {
                 		return ( selectedCount > 0 );
                 	}
-                
+
                 	function selectionChange( elt ) {
                 		selectedCount += ( elt.checked ? 1 : -1 );
                 	}
-                
+
                 	function unassignCategories() {
                 		if ( hasSelection() ) {
                 			selectPersonCategory( "${paths.staticWeb}do/popupUnassignPersonCategory?count=" + selectedCount );
@@ -498,18 +503,18 @@ function submitFormWithGivenAction(action) {
                 			showWarning( "Wählen Sie bitte zunächst eine oder mehrere Personen aus." );
                 		}
                 	}
-                
+
                 	function assignCategories() {
                 		if ( hasSelection() ) {
                 			selectPersonCategory( "${paths.staticWeb}do/popupAssignPersonCategory?count=" + selectedCount );
-							
+
                 		} else {
 			            	$(".errormsg").remove();
 			            	$(".successmsg").remove();
                 			showWarning( "Wählen Sie bitte zunächst eine oder mehrere Personen aus." );
                 		}
                 	}
-                	
+
                 	function unassignWorkarea() {
                 		if ( hasSelection() ) {
                 			selectPersonWorkarea( "${paths.staticWeb}do/popupUnassignPersonWorkarea?count=" + selectedCount );
@@ -519,7 +524,7 @@ function submitFormWithGivenAction(action) {
                 			showWarning( "Wählen Sie bitte zunächst eine oder mehrere Personen aus." );
                 		}
                 	}
-                
+
                 	function assignWorkarea() {
                 		if ( hasSelection() ) {
                 			selectPersonWorkarea( "${paths.staticWeb}do/popupAssignPersonWorkarea?count=" + selectedCount );
@@ -531,7 +536,7 @@ function submitFormWithGivenAction(action) {
                 	}
                 -->
                 </script>
-				
+
 				<span id="actionPanel" class="inlineLabel">
 					<label>
                         #if($grants.mayWrite())
@@ -553,9 +558,9 @@ function submitFormWithGivenAction(action) {
     					#else &nbsp; #end
 					</label>
             	</span>
-    
+
     		#end
-  
+
 			#if($action!="replace" && $action!="duplicateSearch" && $action !="taskReferencePerson")
         		#if($action != "guest")
 			<span id="buttonPanel-top" class="textRight floatRight">
@@ -566,8 +571,8 @@ function submitFormWithGivenAction(action) {
         		</span>
 			#end
 			#end
-    		
-			
+
+
     		#if ($action == "guest")
 			<div id="key" class="table hinweis contentBoxColored grayBorder floatRight" style="margin-top: -14px;">
 				<div class="tableRow">
@@ -580,12 +585,12 @@ function submitFormWithGivenAction(action) {
 				</div>
 			</div>
     		#end
-    			
-    		
+
+
             #foreach($bean in $list)
     			<input type="hidden" name="list" value="$bean.id">
             #end
-    
+
     		<div id="main_content">
 
                 <table class="sortable">
@@ -603,46 +608,46 @@ function submitFormWithGivenAction(action) {
                     		<th title="Hauptperson, Zeichensatz 1"><a href="javascript:orderPersonList('lastname_a_e1');">Nach&shy;name
 								#if($personSearchField == 'lastname_a_e1')
 									#if ($personSearchOrder == 'ASC')
-										<span class="floatRight"><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span> 
+										<span class="floatRight"><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span>
 									#else
 										<span class="floatRight"><img border="0" alt="DESC" src="${paths.staticWeb}images/sort_down.gif"></img></span>
 									#end
 								#else
 										<span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
-								#end 
+								#end
 							</a></th>
                     		<th title="Hauptperson, Zeichensatz 1"><a href="javascript:orderPersonList('firstname_a_e1');">Vor&shy;name
 								#if($personSearchField == 'firstname_a_e1')
 									#if ($personSearchOrder == 'ASC')
-										<span class="floatRight"><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span> 
+										<span class="floatRight"><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span>
 									#else
 										<span class="floatRight"><img border="0" alt="DESC" src="${paths.staticWeb}images/sort_down.gif"></img></span>
 									#end
 								#else
 										<span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
-								#end 
+								#end
 							</a></th>
                     		<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('function_a_e1');">Amtsbezeichnung
 								#if($personSearchField == 'function_a_e1')
 									#if ($personSearchOrder == 'ASC')
-										<span class="floatRight"><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span> 
+										<span class="floatRight"><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span>
 									#else
 										<span class="floatRight"><img border="0" alt="DESC" src="${paths.staticWeb}images/sort_down.gif"></img></span>
 									#end
 								#else
 										<span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
-								#end 
+								#end
 							</a></th>
                     		<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('company_a_e1');">Firma / Institution (G)
 								#if($personSearchField == 'company_a_e1')
 									#if ($personSearchOrder == 'ASC')
-										<span class="floatRight"><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span> 
+										<span class="floatRight"><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span>
 									#else
 										<span class="floatRight"><img border="0" alt="DESC" src="${paths.staticWeb}images/sort_down.gif"></img></span>
 									#end
 								#else
 										<span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
-								#end 
+								#end
 							</a></th>
                     		<th style="color:#1B1B1B; padding:10px;">Kategorie</th>
                     	</tr>
@@ -688,62 +693,62 @@ function submitFormWithGivenAction(action) {
                     		<th title="Hauptperson, Zeichensatz 1"><a href="javascript:orderPersonList('lastname_a_e1');">Nach&shy;name
 								#if($personSearchField == 'lastname_a_e1')
 									#if ($personSearchOrder == 'ASC')
-										<span class="floatRight"><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span> 
+										<span class="floatRight"><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span>
 									#else
 										<span class="floatRight"><img border="0" alt="DESC" src="${paths.staticWeb}images/sort_down.gif"></img></span>
 									#end
 								#else
 										<span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
-								#end 
+								#end
 							</a></th>
                     		<th title="Hauptperson, Zeichensatz 1"><a href="javascript:orderPersonList('firstname_a_e1');">Vor&shy;name
 								#if($personSearchField == 'firstname_a_e1')
 									#if ($personSearchOrder == 'ASC')
-										<span class="floatRight"><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span> 
+										<span class="floatRight"><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span>
 									#else
 										<span class="floatRight"><img border="0" alt="DESC" src="${paths.staticWeb}images/sort_down.gif"></img></span>
 									#end
 								#else
 										<span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
-								#end 
+								#end
 							</a></th>
                     		<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('function_a_e1');">Amtsbezeichnung
 								#if($personSearchField == 'function_a_e1')
 									#if ($personSearchOrder == 'ASC')
-										<span class="floatRight"><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span> 
+										<span class="floatRight"><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span>
 									#else
 										<span class="floatRight"><img border="0" alt="DESC" src="${paths.staticWeb}images/sort_down.gif"></img></span>
 									#end
 								#else
 										<span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
-								#end 
+								#end
 							</a></th>
                     		<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('company_a_e1');">Firma / Institution (G)
 								#if($personSearchField == 'company_a_e1')
 									#if ($personSearchOrder == 'ASC')
-										<span class="floatRight"><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span> 
+										<span class="floatRight"><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span>
 									#else
 										<span class="floatRight"><img border="0" alt="DESC" src="${paths.staticWeb}images/sort_down.gif"></img></span>
 									#end
 								#else
 										<span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
-								#end 
+								#end
 							</a></th>
                     		<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('street_a_e1');">Stra&szlig;e (G)
 								#if($personSearchField == 'street_a_e1')
 									#if ($personSearchOrder == 'ASC')
-										<span class="floatRight"><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span> 
+										<span class="floatRight"><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span>
 									#else
 										<span class="floatRight"><img border="0" alt="DESC" src="${paths.staticWeb}images/sort_down.gif"></img></span>
 									#end
 								#else
 										<span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
-								#end 
+								#end
 							</a></th>
                     		<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('zipcode_a_e1');">PLZ (G)
 								#if($personSearchField == 'zipcode_a_e1')
 									#if ($personSearchOrder == 'ASC')
-										<span class="floatRight"><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span> 
+										<span class="floatRight"><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span>
 									#else
 										<span class="floatRight"><img border="0" alt="DESC" src="${paths.staticWeb}images/sort_down.gif"></img></span>
 									#end
@@ -754,7 +759,7 @@ function submitFormWithGivenAction(action) {
                     		<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('city_a_e1');">Ort (G)
 								#if($personSearchField == 'city_a_e1')
 									#if ($personSearchOrder == 'ASC')
-										<span class="floatRight"><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span> 
+										<span class="floatRight"><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span>
 									#else
 										<span class="floatRight"><img border="0" alt="DESC" src="${paths.staticWeb}images/sort_down.gif"></img></span>
 									#end
@@ -765,7 +770,7 @@ function submitFormWithGivenAction(action) {
                     		#if($userConfig.personListState)<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('state_a_e1');">Bundesland (G)
 								#if($personSearchField == 'state_a_e1')
 									#if ($personSearchOrder == 'ASC')
-										<span class="floatRight"><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span> 
+										<span class="floatRight"><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span>
 									#else
 										<span class="floatRight"><img border="0" alt="DESC" src="${paths.staticWeb}images/sort_down.gif"></img></span>
 									#end
@@ -775,7 +780,7 @@ function submitFormWithGivenAction(action) {
 							</a></th>
 							#end
                     	</tr>
-                	#elseif($action == "duplicateSearch")      
+                	#elseif($action == "duplicateSearch")
                     	## modified for duplicate search as per change request for version 1.2.0
                     	## cklein
                     	## 2008-02-27
@@ -795,71 +800,71 @@ function submitFormWithGivenAction(action) {
                     		<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('city_a_e1');">Ort (G)</a></th>
                     		#if($userConfig.personListState)<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('state_a_e1');">Bundesland (G)</a></th>#end
                     	</tr>
-                	#else 
+                	#else
                     	<tr>
                             #if($grants.mayWrite() || ($exportFormat && $grants.mayExport()) || $action == "replace")
 								<th class="textCenter smallCell"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="Alle (de)markieren" #if($listselection.size() == $list.size()) checked#end/></th>
                     		#end
 							<th class="textCenter smallCell"><a href="javascript:orderPersonList('id');">ID</a></th>
-                    		<th title="Arbeitsbereich"><a href="javascript:orderPersonList('workarea_name');">Arbeits&shy;bereich 
+                    		<th title="Arbeitsbereich"><a href="javascript:orderPersonList('workarea_name');">Arbeits&shy;bereich
 									#if($personSearchField == 'workarea_name')
 										#if ($personSearchOrder == 'ASC')
-											<span class="floatRight"><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span> 
+											<span class="floatRight"><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span>
 										#else
 										<span class="floatRight"><img border="0" alt="DESC" src="${paths.staticWeb}images/sort_down.gif"></img></span>
 										#end
 									#else
 										<span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
-									#end 
+									#end
 							</a></th>
-                    		<th title="Hauptperson, Zeichensatz 1"><a href="javascript:orderPersonList('lastname_a_e1');">Nach&shy;name 
+                    		<th title="Hauptperson, Zeichensatz 1"><a href="javascript:orderPersonList('lastname_a_e1');">Nach&shy;name
 									#if($personSearchField == 'lastname_a_e1')
 										#if ($personSearchOrder == 'ASC')
-											<span class="floatRight"><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span> 
+											<span class="floatRight"><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span>
 										#else
 										<span class="floatRight"><img border="0" alt="DESC" src="${paths.staticWeb}images/sort_down.gif"></img></span>
 										#end
 									#else
 										<span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
-									#end 
+									#end
 							</a></th>
                     		<th title="Hauptperson, Zeichensatz 1"><a href="javascript:orderPersonList('firstname_a_e1');">Vor&shy;name
     							#if($personSearchField == 'firstname_a_e1')
 										#if ($personSearchOrder == 'ASC')
-											<span class="floatRight"><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span> 
+											<span class="floatRight"><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span>
 										#else
 										<span class="floatRight"><img border="0" alt="DESC" src="${paths.staticWeb}images/sort_down.gif"></img></span>
 										#end
 									#else
 										<span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
-									#end 
+									#end
 							</a></th>
-                    		<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('function_a_e1');">Amtsbe&shy;zeichnung	
+                    		<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('function_a_e1');">Amtsbe&shy;zeichnung
 								#if($personSearchField == 'function_a_e1')
 										#if ($personSearchOrder == 'ASC')
-											<span class="floatRight"><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span> 
+											<span class="floatRight"><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span>
 										#else
 										<span class="floatRight"><img border="0" alt="DESC" src="${paths.staticWeb}images/sort_down.gif"></img></span>
 										#end
 									#else
 										<span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
-									#end 
+									#end
 							</a></th>
                     		<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('company_a_e1');">Firma / Institution (G)
 								#if($personSearchField == 'company_a_e1')
 										#if ($personSearchOrder == 'ASC')
-											<span class="floatRight"><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span> 
+											<span class="floatRight"><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span>
 										#else
 										<span class="floatRight"><img border="0" alt="DESC" src="${paths.staticWeb}images/sort_down.gif"></img></span>
 										#end
 									#else
 										<span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
-									#end 
+									#end
 							</a></th>
                     		<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('street_a_e1');">Stra&szlig;e (G)
 								#if($personSearchField == 'street_a_e1')
 										#if ($personSearchOrder == 'ASC')
-											<span class="floatRight"><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span> 
+											<span class="floatRight"><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span>
 										#else
 										<span class="floatRight"><img border="0" alt="DESC" src="${paths.staticWeb}images/sort_down.gif"></img></span>
 										#end
@@ -870,7 +875,7 @@ function submitFormWithGivenAction(action) {
                     		<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('zipcode_a_e1');">PLZ (G)
 								#if($personSearchField == 'zipcode_a_e1')
 										#if ($personSearchOrder == 'ASC')
-											<span class="floatRight"><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span> 
+											<span class="floatRight"><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span>
 										#else
 										<span class="floatRight"><img border="0" alt="DESC" src="${paths.staticWeb}images/sort_down.gif"></img></span>
 										#end
@@ -881,7 +886,7 @@ function submitFormWithGivenAction(action) {
                     		<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('city_a_e1');">Ort (G)
 								#if($personSearchField == 'city_a_e1')
 										#if ($personSearchOrder == 'ASC')
-											<span class="floatRight"><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span> 
+											<span class="floatRight"><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span>
 										#else
 										<span class="floatRight"><img border="0" alt="DESC" src="${paths.staticWeb}images/sort_down.gif"></img></span>
 										#end
@@ -892,7 +897,7 @@ function submitFormWithGivenAction(action) {
                     		#if($userConfig.personListState)<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('state_a_e1');">Bundesland (G)
 								#if($personSearchField == 'state_a_e1')
 										#if ($personSearchOrder == 'ASC')
-											<span class="floatRight"><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span> 
+											<span class="floatRight"><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span>
 										#else
 										<span class="floatRight"><img border="0" alt="DESC" src="${paths.staticWeb}images/sort_down.gif"></img></span>
 										#end
@@ -903,13 +908,13 @@ function submitFormWithGivenAction(action) {
 							#end
                     	</tr>
                 	#end
-                
+
                 	#foreach($bean in $list)
                     	#if($action == "guest")
                         	<tr>
                         		#set($hasA = $bean.lastname_a_e1.length() > 0 || $bean.firstname_a_e1.length() > 0)
                         		#set($hasB = $bean.lastname_b_e1.length() > 0 || $bean.firstname_b_e1.length() > 0)
-                        		
+
                                 ## Fix for Bug 987
                                 ## cklein
                                 ## 2008-02-22
@@ -940,7 +945,7 @@ function submitFormWithGivenAction(action) {
                             			</td>
                             		#end
                             		<td title="Auf Reserve"><input type="checkbox" name="${bean.id}-reserve" id="${bean.id}-reserve" #if($selectreserve.indexOf($bean.id) != -1) checked#end value="true" onClick="onClickEnsureSelection( '${bean.id}-select', '${bean.id}-partner', '${bean.id}-reserve', $event.invitationtype, ${hasA}, ${hasB} );"></td>
-                            		
+
 									#if ($delegationCanBeUsed)
                             			<td title="Delegation anmelden">#if($bean.iscompany == "t") <input type="checkbox" name="${bean.id}-delegation" id="${bean.id}-delegation" value="true">#end</td>
                         			#end
@@ -961,7 +966,7 @@ function submitFormWithGivenAction(action) {
                         					#if( $search.categoriesSelection.get( 0 ) == $cat.categorie )
                         						#set( $found=$cat.categorie )
                         					#end
-                        				#end			
+                        				#end
                         			#end
                         			<select name="$!{bean.id}-category" id="$!{bean.id}-category">
                             			#if( $size == 0 || ( $size > 1 && $search.categoriesSelection.size() > 1 ) || ( $search.categoriesSelection.size() == 1 && $found == 0 ) )
@@ -1020,7 +1025,7 @@ function submitFormWithGivenAction(action) {
                     		#else
                     			#set($clickUrl = "CreateEventTask?refPersId=$!{bean.id}&eventId=$!eventId")
                     		#end
-                    			
+
                     		<tr>
                     			<td onclick="window.location.href='$clickUrl';"><input type="hidden" name="${bean.id}-id" value="$bean.id">$!{bean.id}</td>
                     			<td onclick="window.location.href='$clickUrl';">$!message.plain($bean.lastname_a_e1)</td>
@@ -1032,14 +1037,14 @@ function submitFormWithGivenAction(action) {
                     			<td onclick="window.location.href='$clickUrl';">$!message.plain($bean.city_a_e1)</td>
                     			#if($userConfig.personListState)<td onclick="window.location.href='$clickUrl';">$!message.plain($bean.state_a_e1)</td>#end
                     		</tr>
-                    		
+
                     	#elseif($action == "duplicateSearch" )
-                    
+
                         	## modified for duplicate search as per change request for version 1.2.0
                         	## cklein
                         	## 2008-02-27
                         	<tr>
-                        	
+
                         	## fixing bug 1037
                         	## 2008-03-25 cklein
 
@@ -1057,7 +1062,7 @@ function submitFormWithGivenAction(action) {
                         		<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!{action}&searchTask=$!searchTask';">$!message.plain($bean.zipcode_a_e1)</td>
                         		<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!{action}&searchTask=$!searchTask';">$!message.plain($bean.city_a_e1)</td>
                         		#if($userConfig.personListState)<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!{action}&searchTask=$!searchTask';">$!message.plain($bean.state_a_e1)</td>#end
-                        	</tr>	
+                        	</tr>
                     	#else
                         	<tr>
                                 #if($grants.mayWrite() || ($exportFormat && $grants.mayExport()) || $action == "replace")
@@ -1076,30 +1081,30 @@ function submitFormWithGivenAction(action) {
                         	</tr>
                     	#end
     				#end
-    				
+
     				#set($itemName = "Personen")
     				#parse("inc/list-navi-new.vm")
     				#parse("inc/list-direct-new.vm")
                 </table>
     		</div>
-    		
-    		
-    
+
+
+
     	</form>
-		
-	#else 
+
+	#else
 		#if($grants.mayWrite() && !$searchTask)
 			<div id="" class="buttonPanel-top textRight marginBottom10">
 				<input type="button" id="button.newPerson" name="button.newPerson" value="Neue Person anlegen" title="Neue Person anlegen" class="mainButton" onclick="window.location.href='CreatePerson';" />
         	</div>
 		#end
-		
-		<div class="contentBoxColored grayBorder marginBottom20">  		
+
+		<div class="contentBoxColored grayBorder marginBottom20">
 			Es wurden keine Einträge gefunden.
 		</div>
-		
+
 	#end
-	
+
 	## Zurück-Button
 	<span id="buttonPanel-top" class="textRight floatRight">
     	#if($action == "guest")
@@ -1120,7 +1125,7 @@ function submitFormWithGivenAction(action) {
 			<input type="button" id="button.cancel" name="button.cancel" value="Zur&uuml;ck zur Personensuche" class="mainButton" onclick="javascript:history.back();" />
 		#end
 	</span>
-	
+
     <div class="clear"></div>
 </div>
 

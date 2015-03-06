@@ -12,11 +12,11 @@
 		<input type="hidden" name="limit" value=""/>
 		<input type="hidden" name="selectAll" value="false"/>
 		<input type="hidden" name="selectNone" value="false"/>
-	
+
 		##new cf. issue #2091
 		<input type="hidden" name="action" value="$!action"/>
 		<input type="hidden" name="id" value="$!id"/>
-		
+
 		<input type="hidden" name="originalPersonId" value="$!octopusRequest.originalPersonId"/>
 		<input type="hidden" name="save" value="$!octopusRequest.save"/>
 		<input type="hidden" name="person-deleted" value="$!octopusRequest.person-deleted"/>
@@ -44,14 +44,18 @@
 		<input type="hidden" name="person-domestic_b_e1" value="$!octopusRequest.person-domestic_b_e1"/>
 		<input type="hidden" name="person-sex_a_e1" value="$!octopusRequest.person-sex_a_e1"/>
 		<input type="hidden" name="person-sex_b_e1" value="$!octopusRequest.person-sex_b_e1"/>
-			
-	
+
+
 		<div id="breadcrumb" class="textRight marginBottom10">
     		<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Personen > Dublettensuche</span>
     	</div>
-			
+
+   		<vera-info>
+			Beachten Sie, dass &auml; mit ae, &ouml; mit oe und &uuml mit ue verglichen wird.<br />
+		</vera-info>
+
 		<h1 class="paddingTop20">Vorhandene Dubletten</h1>
-	
+
 		#foreach($bean in $list)
 		<input type="hidden" name="list" value="$bean.id">
 		#end
@@ -93,29 +97,29 @@
 				<td class="textCenter"><a href="ShowPerson?id=$!{bean.id}&action=$!action" class="noBorder"><img src="${paths.staticWeb}images/edit.png" alt="Existierenden Eintrag bearbeiten" title="Existierenden Eintrag bearbeiten"></a></td>
 			</tr>
 			#end
-			
+
 			#set($itemName = "Personen")
     		#parse("inc/list-navi-new.vm")
 		</table>
-	
+
 		#set($disableListSelect = true)
 		#if ($listparam.count == 0)
 			<br>Es wurden keine Dubletten gefunden.
 		#end
-	
+
 	<div class="textRight">
-	
+
 		#if($action == "guest")
-			<input type="submit" class="submit" name="add" value="Hinzuf&uuml;gen" title="Ausgew&auml;hlte Personen zur Veranstaltung hinzuf&uuml;gen."> 
+			<input type="submit" class="submit" name="add" value="Hinzuf&uuml;gen" title="Ausgew&auml;hlte Personen zur Veranstaltung hinzuf&uuml;gen.">
 			<input type="button" class="button" name="newperson" value="Person erfassen" title="Person erfassen" onclick="window.location.href='ShowPerson';">
 			<input type="button" class="cancel" name="cancel" value="Zur&uuml;ck" title="Zur&uuml;ck" onclick="window.location.href='ShowGuestList?selectNone=true';">
 		#else
 			<!-- <input type="button" class="button" name="newperson" value="Dubletten anlegen" onclick="window.location.href='SavePerson?saveperson=true&person-nodupcheck=true&originalPersonId=$!originalPersonId';"> -->
 			<input type="button" name="cancel" value="Abbrechen &amp; zur&uuml;ck"  title="Abbrechen &amp; zur&uuml;ck" onclick="window.location.href='PersonDupcheckCancel';" class="mainButton">
 		#end
-	
+
 	</div>
-			
+
 	</form><div class="clear"></div>
 </div>
 

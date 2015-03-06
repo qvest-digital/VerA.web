@@ -10,13 +10,14 @@
     	<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Personen > <a href="${paths.staticWeb}do/ImportPersons" title="Zum Personen-Import">Personenimport</a> > Importstatus</span>
     </div>
     <h1>Importstatus</h1>
-	
+
 	<vera-info>
 		Um Dubletten speicherbar zu machen, m&uuml;ssen sie zun&auml;chst im Bereich &bdquo;vorhandene Dubletten&rdquo; &uuml;bernommen werden.<br />
+		Beachten Sie, dass &auml; mit ae, &ouml; mit oe und &uuml mit ue verglichen wird.<br />
 		Der Import ist erst beendet, wenn der Button &bdquo;Import abschließen&rdquo; geklickt wurde.  <br />
 		Der Import kann erst abgeschlossen werden, wenn speicherbare Datens&auml;tze vorhanden sind.
 	</vera-info>
-	
+
 	#if($importStatus.dupCount && $importStatus.dupCount != 0)
 		<div id="buttonPanel-top" class="textRight marginBottom10">
             <form action="ImportPersonsEditDuplicates" method="post">
@@ -29,9 +30,9 @@
             </form>
 		</div>
 	#end
-	
+
 	<div id="main_content" class="contentBoxColored grayBorder marginBottom10">
-		
+
 		<div class="table width100">
 			<div class="tableRow">
 				<div class="tableCell width30">
@@ -44,14 +45,14 @@
         			#if($importStatus.igCount  && $importStatus.igCount != 0)
 						<strong class="inlineBlock width35">&nbsp;&nbsp; Ignorierte Fehlerdatens&auml;tze:</strong> $!importStatus.igCount
         			#end
-					
-				</div>				
+
+				</div>
 			</div>
 
 		</div>
-		
+
 	</div>
-	
+
 	<form action="ImportPersonsFinalise" method="post">
 		<span class="textRight floatRight">
 			#if($importStatus.saveCount  && $importStatus.saveCount != 0)
