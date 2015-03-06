@@ -95,7 +95,7 @@ public class GuestWorker {
 		"insert into tguest ( fk_person, fk_event, fk_category, fk_color, invitationtype, invitationstatus, "
 		+ "ishost, diplodate, rank, reserve, delegation, notehost, noteorga, \"language\", "
 		+ "gender, nationality, domestic_a, invitationstatus_p, notehost_p, "
-		+ "noteorga_p, language_p, gender_p, nationality_p, domestic_b, fk_color_p, createdby, created ) "
+		+ "noteorga_p, language_p, gender_p, nationality_p, domestic_b, fk_color_p, createdby, created, osiam_login ) "
 		+ "select p.pk as fk_person, {0} as fk_event, 0 as fk_category, "
 		+ "(CASE WHEN p.domestic_a_e1 = ''f'' THEN CASE WHEN p.sex_a_e1 = ''f'' THEN 3 ELSE 4 END ELSE CASE WHEN p.sex_a_e1 =''f'' THEN 1 ELSE 2 END END) as fk_color, "
 		+ "0 as invitationtype, 0 as invitationstatus, 0 as ishost, p.diplodate_a_e1 as diplodate, 0 as rank, 0 as reserve, 0 as delegation, "
@@ -104,7 +104,7 @@ public class GuestWorker {
 		+ "invitationstatus_p, p.notehost_b_e1 as notehost_p, p.noteorga_b_e1 as noteorga_p, p.languages_b_e1 as language_p, "
 		+ "p.sex_b_e1 as gender_p, p.nationality_b_e1 as nationality_p, p.domestic_b_e1 as domestic_b, "
 		+ "(CASE WHEN p.domestic_b_e1 = ''f'' THEN CASE WHEN p.sex_b_e1 = ''f'' THEN 3 ELSE 4 END ELSE CASE WHEN p.sex_b_e1 =''f'' THEN 1 ELSE 2 END END) as fk_color_p, "
-		+ "''{1}'' as createdby, current_timestamp as created from tperson p "
+		+ "''{1}'' as createdby, current_timestamp as created, p.username as osiam_login from tperson p "
 		+ "where p.pk in ({2}) and p.deleted=''f'' and p.pk not in (select g.fk_person from tguest g "
 		+ "where g.fk_event = {0});";
 	protected static final MessageFormat ADD_PERSONS_TO_GUESTLIST_FORMAT = new MessageFormat(ADD_PERSONS_TO_GUESTLIST_PATTERN);

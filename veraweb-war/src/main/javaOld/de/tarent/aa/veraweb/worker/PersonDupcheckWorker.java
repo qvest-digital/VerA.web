@@ -48,14 +48,18 @@ import de.tarent.octopus.server.OctopusContext;
  * ein Duplikat zu einem bestimmten Datensatz vorliegt.
  */
 public class PersonDupcheckWorker extends ListWorkerVeraWeb {
-    //
-    // Konstruktoren
-    //
-    /**
+
+	/**
+	 * Helper class to find duplicates.
+	 */
+	private PersonDuplicateCheckHelper dupCheckHelper;
+	
+	/**
      * Der Konstruktor legt den Bean-Namen fest.
      */
 	public PersonDupcheckWorker() {
 		super("Person");
+		dupCheckHelper = new PersonDuplicateCheckHelper();
 	}
 
     //
@@ -69,9 +73,9 @@ public class PersonDupcheckWorker extends ListWorkerVeraWeb {
         String isCompany = cntx.requestAsString("person-iscompany");
 
         if (isCompany != null && isCompany.equals("t")) {
-            select.where(getDuplicateExprCompany(cntx, person));
+            select.where(dupCheckHelper.getDuplicateExprCompany(cntx, person));
         } else {
-            select.where(getDuplicateExprPerson(cntx, person));
+            select.where(dupCheckHelper.getDuplicateExprPerson(cntx, person));
         }
 	}
 
@@ -124,17 +128,15 @@ public class PersonDupcheckWorker extends ListWorkerVeraWeb {
 		Select select = database.getCount("Person");
 
 		if(isCompany != null && isCompany.equals("t")){
-			select.where(getDuplicateExprCompany(cntx, person));
+			select.where(dupCheckHelper.getDuplicateExprCompany(cntx, person));
 		} else {
-			select.where(getDuplicateExprPerson(cntx, person));
+			select.where(dupCheckHelper.getDuplicateExprPerson(cntx, person));
 		}
 
 		if (database.getCount(select).intValue() != 0) {
 			cntx.setStatus("dupcheck");
 		}
 	}
-
-
 
     /* (non-Javadoc)
      * @see de.tarent.octopus.custom.beans.BeanListWorker#showList(de.tarent.octopus.server.OctopusContext)

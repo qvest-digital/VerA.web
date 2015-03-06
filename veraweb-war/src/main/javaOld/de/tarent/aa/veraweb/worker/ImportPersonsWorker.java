@@ -60,7 +60,11 @@ import de.tarent.octopus.server.OctopusContext;
  * @author mikel
  */
 public class ImportPersonsWorker {
-    //
+    
+    /** Logger dieser Klasse */
+    public static final Logger LOGGER = Logger.getLogger(ImportPersonsWorker.class.getName());
+	
+	//
     // �ffentliche Konstanten
     //
     /***/
@@ -398,7 +402,7 @@ public class ImportPersonsWorker {
                 Doctype doctype = (Doctype) database.getBean("Doctype",
                         database.getSelect("Doctype").where(Expr.equal("docname", name)), context);
                 if (doctype == null) {
-                	logger.warn( "Der Dokumenttyp '" + name + "' existiert nicht mehr und wird nicht importiert." );
+                	LOGGER.warn( "Der Dokumenttyp '" + name + "' existiert nicht mehr und wird nicht importiert." );
                     continue;
                 }
                 PersonDoctype personDoctype = (PersonDoctype) database.createBean("PersonDoctype");
@@ -466,7 +470,7 @@ public class ImportPersonsWorker {
             this.join = join;
             doctype = (Doctype) database.getBean("Doctype", database.getSelect("Doctype").where(Expr.equal("docname", doctypeName)), context);
             if (doctype == null)
-                logger.warn("Für den Import konfigurierten Dokumenttyp '" + doctypeName + "' nicht gefunden.");
+                LOGGER.warn("Für den Import konfigurierten Dokumenttyp '" + doctypeName + "' nicht gefunden.");
         }
         //
         // Methoden
