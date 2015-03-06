@@ -30,6 +30,7 @@ import de.tarent.aa.veraweb.beans.facade.PersonConstants;
 import de.tarent.aa.veraweb.utils.AddressHelper;
 import de.tarent.aa.veraweb.utils.CharacterPropertiesReader;
 import de.tarent.aa.veraweb.utils.DateHelper;
+import de.tarent.aa.veraweb.utils.PersonDuplicateCheckHelper;
 import de.tarent.dblayer.sql.clause.Clause;
 import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.clause.Where;
@@ -53,7 +54,7 @@ public class PersonDupcheckWorker extends ListWorkerVeraWeb {
 	 * Helper class to find duplicates.
 	 */
 	private PersonDuplicateCheckHelper dupCheckHelper;
-	
+
 	/**
      * Der Konstruktor legt den Bean-Namen fest.
      */
