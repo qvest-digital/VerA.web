@@ -96,19 +96,16 @@ public class PersonDuplicateSearchWorker extends PersonListWorker
 		 */
 		final ArrayList< Map > result = new ArrayList< Map >();
 		final List resultList = getResultList(database, select);
-//		for (int i = 0; i < resultList.size(); i++) {
-//			final HashMap<String, Object> tmp = new HashMap<String, Object>();
-//			final Set<String> keys = ((ResultMap) resultList.get(i)).keySet();
-//			for (String key : keys) {
-//				tmp.put(key, ((ResultMap) resultList.get(i)).get(key));
-//			}
-//			result.add((Map) tmp);
-//		}
-//		return result;
 		
 		return getListWithOrdering(convertFromResultListToArrayList(resultList));
 	}
 	
+	/**
+	 * Conversion to manipulate dinamic lists
+	 * 
+	 * @param resultList List result list
+	 * @return ArrayList<Map>
+	 */
 	public ArrayList<Map> convertFromResultListToArrayList(List resultList) {
 		final ArrayList< Map > result = new ArrayList< Map >();
 		
@@ -124,6 +121,11 @@ public class PersonDuplicateSearchWorker extends PersonListWorker
 		return result;
 	}
 	
+	/**
+	 * Giving correct order to the duplicates list - THE DUPLICATES MUST GO TOGETHER
+	 * @param initList ArrayList<Map>
+	 * @return ArrayList<Map>
+	 */
 	public ArrayList<Map> getListWithOrdering(ArrayList<Map> initList) {
 
 		final ArrayList< Map > result = new ArrayList< Map >();
@@ -146,30 +148,6 @@ public class PersonDuplicateSearchWorker extends PersonListWorker
 				i--;
 			}
 		}
-//		
-//		for (int i = 0; i < resultList.size(); i++) {
-//			final HashMap<String, Object> tmp = new HashMap<String, Object>();
-//			final Set<String> keys = ((ResultMap) resultList.get(i)).keySet();
-//			for (String key : keys) {
-//				tmp.put(key, ((ResultMap) resultList.get(i)).get(key));
-//			}
-//			
-//			for (int j = i; j < resultList.size(); j++) {
-//				final HashMap<String, Object> tmp2 = new HashMap<String, Object>();
-//				final Set<String> keys2 = ((ResultMap) resultList.get(j)).keySet();
-//				for (String key : keys2) {
-//					tmp2.put(key, ((ResultMap) resultList.get(j)).get(key));
-//				}
-//				if (checkDuplicateNames(tmp, tmp2)) {
-//					result.add((Map) tmp);
-//					result.add((Map) tmp2);
-//					resultList.set(j, null);
-////					resultList.remove(j);
-//				}
-//			}
-//			
-////			resultList.remove(i);
-//		}
 		
 		return result;
 	}
