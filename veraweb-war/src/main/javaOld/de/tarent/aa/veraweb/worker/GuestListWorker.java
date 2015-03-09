@@ -25,6 +25,7 @@ import de.tarent.aa.veraweb.beans.GuestSearch;
 import de.tarent.aa.veraweb.beans.Person;
 import de.tarent.aa.veraweb.beans.facade.EventConstants;
 import de.tarent.aa.veraweb.utils.DatabaseHelper;
+import de.tarent.aa.veraweb.utils.EventHelper;
 import de.tarent.aa.veraweb.utils.PropertiesReader;
 import de.tarent.dblayer.engine.DB;
 import de.tarent.dblayer.helper.ResultList;
@@ -110,6 +111,8 @@ public class GuestListWorker extends ListWorkerVeraWeb {
 
     @Override
     public void saveList(OctopusContext cntx) throws BeanException, IOException {
+    	
+    	EventHelper.setEventUrl(cntx, (String) cntx.getContextField("event.hash"));
         final String categoryAssignmentAction = cntx.requestAsString("categoryAssignmentAction");
         final String workareaAssignmentAction = cntx.requestAsString("workareaAssignmentAction");
 
