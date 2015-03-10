@@ -28,7 +28,7 @@ import de.tarent.octopus.server.OctopusContext;
 /**
  * Dieses Bean repr�sentiert eine ausgehende eMail und wird als Tupel
  * in der Tabelle <code>veraweb.tmailoutbox</code> gespeichert.
- * 
+ *
  * @author Christoph Jerolimov
  * @version $Revision: 1.1 $
  */
@@ -66,7 +66,7 @@ public class MailOutbox extends AbstractBean {
 		if (from == null || from.trim().length() == 0)
 			addError("Die E-Mail kann nicht ohne Absender versendet werden.");
 		if (to == null || to.trim().length() == 0)
-			addError("Die E-Mail kann nicht ohne Empfänger versendet werden.");
+			addError("Die E-Mail kann nicht ohne Empf\u00e4nger versendet werden.");
 		if (subject == null || subject.trim().length() == 0)
 			addError("Die E-Mail kann nicht ohne Betreff versendet werden.");
 	}
@@ -75,7 +75,7 @@ public class MailOutbox extends AbstractBean {
 	 * Diese Methode testet, ob im aktuellen Kontext diese Bohne gelesen werden
 	 * darf.<br>
 	 * Test ist, ob der Benutzer Standard-Reader ist.
-	 * 
+	 *
 	 * @param cntx Octopus-Kontext
 	 * @throws BeanException Wenn im angegebenen Kontext diese Bohne nicht gelesen werden darf.
 	 * @see AbstractBean#checkRead(OctopusContext)
@@ -89,7 +89,7 @@ public class MailOutbox extends AbstractBean {
 	 * Diese Methode testet, ob im aktuellen Kontext diese Bohne geschrieben
 	 * werden darf.<br>
 	 * Test ist, ob der Benutzer Writer ist.
-	 * 
+	 *
 	 * @param cntx Octopus-Kontext
 	 * @throws BeanException Wenn im angegebenen Kontext diese Bohne nicht geschrieben werden darf.
 	 * @see AbstractBean#checkWrite(OctopusContext)

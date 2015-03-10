@@ -29,7 +29,7 @@ import de.tarent.octopus.server.OctopusContext;
 
 /**
  * Bean 'Task'.
- * 
+ *
  * @author Valentin But (v.but@tarent.de), tarent solutions GmbH
  */
 public class Task extends AbstractHistoryBean {
@@ -103,12 +103,12 @@ public class Task extends AbstractHistoryBean {
      * Changed date.
      */
     public Timestamp changed;
-    
+
     /**
      *  Begin time. This bean properties is not mapped to database field.
      */
     public String starttime;
-    
+
     /**
      *  End time. This bean properties is not mapped to database field.
      */
@@ -116,7 +116,7 @@ public class Task extends AbstractHistoryBean {
 
     /**
      * Get id.
-     * 
+     *
      * @return the id
      */
     public Integer getId() {
@@ -125,7 +125,7 @@ public class Task extends AbstractHistoryBean {
 
     /**
      * Set id.
-     * 
+     *
      * @param id
      *            the id to set
      */
@@ -135,9 +135,9 @@ public class Task extends AbstractHistoryBean {
 
     /**
      * Get fk_event
-     * 
+     *
      * @param eventId
-     * 
+     *
      */
     public Integer getEventId() {
         return this.eventId;
@@ -145,9 +145,9 @@ public class Task extends AbstractHistoryBean {
 
     /**
      * Set fk_event
-     * 
+     *
      * @param fk_event
-     * 
+     *
      */
     public void setEventId(final Integer eventId) {
         this.eventId = eventId;
@@ -155,7 +155,7 @@ public class Task extends AbstractHistoryBean {
 
     /**
      * Get title.
-     * 
+     *
      * @return the title
      */
     public String getTitle() {
@@ -164,7 +164,7 @@ public class Task extends AbstractHistoryBean {
 
     /**
      * Set title.
-     * 
+     *
      * @param title
      *            the title to set
      */
@@ -174,7 +174,7 @@ public class Task extends AbstractHistoryBean {
 
     /**
      * Get description.
-     * 
+     *
      * @return the description
      */
     public String getDescription() {
@@ -183,7 +183,7 @@ public class Task extends AbstractHistoryBean {
 
     /**
      * Set description.
-     * 
+     *
      * @param description
      *            the description to set
      */
@@ -193,7 +193,7 @@ public class Task extends AbstractHistoryBean {
 
     /**
      * Get start date.
-     * 
+     *
      * @return the startdate
      */
     public Timestamp getStartdate() {
@@ -202,7 +202,7 @@ public class Task extends AbstractHistoryBean {
 
     /**
      * Set start date.
-     * 
+     *
      * @param startdate
      *            the startdate to set
      */
@@ -212,7 +212,7 @@ public class Task extends AbstractHistoryBean {
 
     /**
      * Get end date.
-     * 
+     *
      * @return the enddate
      */
     public Timestamp getEnddate() {
@@ -221,7 +221,7 @@ public class Task extends AbstractHistoryBean {
 
     /**
      * Set end date.
-     * 
+     *
      * @param enddate
      *            the enddate to set
      */
@@ -231,7 +231,7 @@ public class Task extends AbstractHistoryBean {
 
     /**
      * Get degree if completion.
-     * 
+     *
      * @return the degreeofcompletion
      */
     public Integer getDegreeofcompletion() {
@@ -240,7 +240,7 @@ public class Task extends AbstractHistoryBean {
 
     /**
      * Set degree of completion.
-     * 
+     *
      * @param degreeofcompletion
      *            the degreeofcompletion to set
      */
@@ -250,7 +250,7 @@ public class Task extends AbstractHistoryBean {
 
     /**
      * Get person responsible.
-     * 
+     *
      * @return
      */
     public Integer getPersonId() {
@@ -259,7 +259,7 @@ public class Task extends AbstractHistoryBean {
 
     /**
      * Set person id
-     * 
+     *
      * @param personId
      */
     public void setPersonId(final Integer personId) {
@@ -268,7 +268,7 @@ public class Task extends AbstractHistoryBean {
 
     /**
      * Get person name
-     * 
+     *
      * @return personName
      */
     public String getPersonName() {
@@ -277,7 +277,7 @@ public class Task extends AbstractHistoryBean {
 
     /**
      * Set person name
-     * 
+     *
      * @param personName
      */
     public void setPersonName(String personName) {
@@ -286,7 +286,7 @@ public class Task extends AbstractHistoryBean {
 
     /**
      * Get priority.
-     * 
+     *
      * @return the priority
      */
     public Integer getPriority() {
@@ -295,7 +295,7 @@ public class Task extends AbstractHistoryBean {
 
     /**
      * Set priority.
-     * 
+     *
      * @param priority
      *            the priority to set
      */
@@ -305,7 +305,7 @@ public class Task extends AbstractHistoryBean {
 
     /**
      * Set created by.
-     * 
+     *
      * @return the createdby
      */
     public String getCreatedby() {
@@ -314,7 +314,7 @@ public class Task extends AbstractHistoryBean {
 
     /**
      * Set created by.
-     * 
+     *
      * @param createdby
      *            the createdby to set
      */
@@ -324,7 +324,7 @@ public class Task extends AbstractHistoryBean {
 
     /**
      * Get changed by.
-     * 
+     *
      * @return the changedby
      */
     public String getChangedby() {
@@ -333,7 +333,7 @@ public class Task extends AbstractHistoryBean {
 
     /**
      * Set changed by.
-     * 
+     *
      * @param changedby
      *            the changedby to set
      */
@@ -343,7 +343,7 @@ public class Task extends AbstractHistoryBean {
 
     /**
      * Get created.
-     * 
+     *
      * @return the created
      */
     public Timestamp getCreated() {
@@ -352,7 +352,7 @@ public class Task extends AbstractHistoryBean {
 
     /**
      * Set created.
-     * 
+     *
      * @param created
      *            the created to set
      */
@@ -362,7 +362,7 @@ public class Task extends AbstractHistoryBean {
 
     /**
      * Get changed.
-     * 
+     *
      * @return the changed
      */
     public Timestamp getChanged() {
@@ -371,17 +371,17 @@ public class Task extends AbstractHistoryBean {
 
     /**
      * Set changed.
-     * 
+     *
      * @param changed
      *            the changed to set
      */
     public void setChanged(final Timestamp changed) {
         this.changed = changed;
     }
-    
+
     /**
      * Get start time.
-     * 
+     *
      * @return the starttime
      */
     public String getStarttime() {
@@ -390,17 +390,17 @@ public class Task extends AbstractHistoryBean {
 
     /**
      * Set start time.
-     * 
+     *
      * @param starttime
      *            the start time to set
      */
     public void setStarttime(final String starttime) {
         this.starttime = starttime;
     }
-    
+
     /**
      * Get end time.
-     * 
+     *
      * @return the endtime
      */
     public String getEndtime() {
@@ -409,7 +409,7 @@ public class Task extends AbstractHistoryBean {
 
     /**
      * Set end time.
-     * 
+     *
      * @param endtime
      *            the end time to set
      */
@@ -419,11 +419,11 @@ public class Task extends AbstractHistoryBean {
 
     @Override
     public void verify() throws BeanException {
-        if ((starttime != null && starttime.length() > 0 && startdate == null) 
+        if ((starttime != null && starttime.length() > 0 && startdate == null)
                 || (endtime != null && endtime.length() > 0 && enddate == null)) {
-            addError("Die Eingabe einer Uhrzeit ohne ein zugehöriges Datum ist nicht zulässig.");
+            addError("Die Eingabe einer Uhrzeit ohne ein zugeh\u00f6riges Datum ist nicht zul\u00e4ssig.");
         }
-        
+
         if (enddate != null) {
             if (enddate.before(new Date())) {
                 addError("Die Aufgabe kann nicht gespeichert werden. Das Enddatum muss in der Zukunft liegen.");
@@ -446,7 +446,7 @@ public class Task extends AbstractHistoryBean {
     /**
      * Checks whether logged in user in current context is allowed to read this bean.<br>
      * Group {@link PersonalConfigAA#GROUP_READ_STANDARD} is required.
-     * 
+     *
      * @param cntx
      *            Octopus context
      * @throws BeanException
@@ -461,7 +461,7 @@ public class Task extends AbstractHistoryBean {
     /**
      * Checks whether logged in user in current context is allowed to read this bean.<br>
      * Group {@link PersonalConfigAA#GROUP_WRITE} is required.
-     * 
+     *
      * @param cntx
      *            Octopus context
      * @throws BeanException

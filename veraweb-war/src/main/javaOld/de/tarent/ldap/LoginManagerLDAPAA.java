@@ -54,7 +54,7 @@ import de.tarent.octopus.server.PersonalConfig;
  * Diese Klasse dient als LoginManager �ber LDAP im Kontext des Ausw�rtigen Amts.
  * Insbesondere beachtet wird hier das Anmelden wahlweise als Benutzer oder als
  * Rolle. Ebenfalls beachtet wird das Anmelden mit noch zu erweiternden Namen.
- * 
+ *
  * @author mikel
  */
 public class LoginManagerLDAPAA extends LoginManagerLDAPGeneric implements LoginManagerAA {
@@ -63,7 +63,7 @@ public class LoginManagerLDAPAA extends LoginManagerLDAPGeneric implements Login
     //
     /** Schl�ssel des Konfigurationseintrags f�r den Rollenfilter */
     public final static String KEY_ROLE_FILTER = "aarolefilter";
-    
+
     /** Schl�ssel des Konfigurationseintrags f�r den Superadmin-Login */
     public final static String KEY_SYSTEM_ADMIN_LOGIN = "systemlogin";
 
@@ -78,7 +78,7 @@ public class LoginManagerLDAPAA extends LoginManagerLDAPGeneric implements Login
      * Diese Methode �ndert die pers�nliche Konfiguration so ab, dass sie
      * in Vertretung der angegebenen Rolle handelt.<br>
      * TODO: Ablauf der G�ltigkeit mitaufnehmen und bei Ablauf ung�ltig werden.
-     * 
+     *
      * @param octx anzupassender Octopus-Kontext der Sitzung des Vertreters
      * @param proxyDescription Beschreibungs-Bean der Vertretung
      * @throws TcSecurityException Wenn keine authentisierte pers�nliche Konfiguration
@@ -99,10 +99,10 @@ public class LoginManagerLDAPAA extends LoginManagerLDAPGeneric implements Login
 
     /**
      * Diese Methode liefert eine Auflistung verf�gbarer AA-Rollen, aus denen
-     * VerA.web-Benutzer ausgew�hlt werden k�nnen. 
-     * 
+     * VerA.web-Benutzer ausgew�hlt werden k�nnen.
+     *
      * @return Liste verf�gbarer AA-Rollen.
-     * @throws TcSecurityException 
+     * @throws TcSecurityException
      * @see LoginManagerAA#getAARoles()
      */
     public Set getAARoles() throws TcSecurityException {
@@ -115,14 +115,14 @@ public class LoginManagerLDAPAA extends LoginManagerLDAPGeneric implements Login
         else
             return null;
     }
-    
+
     //
     // LoginManagerLDAPGeneric �berschreibungen
     //
     /**
      * Diese Methode setzt nach einem erfolgreichen Login in der PersonalConfig in
      * eigener Weise Attribute.
-     * 
+     *
      * @param pConfig PersonalConfig des neu eingelogten Benutzers
      * @param userName Benutzer-ID des neu eingeloggten Benutzers
      * @throws LDAPException
@@ -148,8 +148,8 @@ public class LoginManagerLDAPAA extends LoginManagerLDAPGeneric implements Login
 
     /**
      * Diese Methode erzeugt den zu verwendenden LDAPManager.
-     * 
-     * @throws LDAPException 
+     *
+     * @throws LDAPException
      * @see #doLogin(TcCommonConfig, PersonalConfig, TcRequest)
      * @see LoginManagerLDAPGeneric#initLDAPManager()
      */
@@ -177,7 +177,7 @@ public class LoginManagerLDAPAA extends LoginManagerLDAPGeneric implements Login
      * �ber den Inhalt des person-Attributs den Login zu schaffen.<br>
      * Zus�tzlich gibt es die M�glichkeit, sich als ein vorgegebener System-Admin ohne
      * LDAP-Authentisierung anzumelden
-     * 
+     *
      * @param commonConfig Konfigurationsdaten des Octopus
      * @param pConfig pers�nliche Konfiguration des einzuloggenden Benutzers
      * @param tcRequest Benutzeranfrage mit Authentisierungsdaten
@@ -190,22 +190,22 @@ public class LoginManagerLDAPAA extends LoginManagerLDAPGeneric implements Login
         // http://www.ietf.org/internet-drafts/draft-ietf-ldapbis-authmeth-18.txt
         // Clients SHOULD disallow an empty password input to a Name/Password Authentication user interface.
         if (origAuth != null && (origAuth.getPassword() == null || origAuth.getPassword().length == 0))
-            throw new TcSecurityException("Leere Passwörter sind nicht zulässig.");
+            throw new TcSecurityException("Leere Passw\u00f6rter sind nicht zul\u00e4ssig.");
         try {
         	/* the password authentication returned by TcRequest contains the fully
         	 * qualified username. This will break with the current implementation
         	 * of the LoginManagerLDAPGeneric.
         	 * Therefore we will simply rewrite the username request paramter in
         	 * tcRequest.
-        	 * 
+        	 *
         	 * Change Request 2.11 for the next release version 1.2.0
 		     * requires that users may now use qualified names when logging in
 		     * (i.e. users may specify their at-domain, e.g. username@domain.tld)
 		     * instead of just their ldap name.
-		     * 
+		     *
 		     * cklein
         	 * 2008-02-14
-        	 * 
+        	 *
         	 * we will try the login twice, if the first try fails, then we
         	 * will retry using the username without the appended at domain
         	 */
@@ -306,12 +306,12 @@ public class LoginManagerLDAPAA extends LoginManagerLDAPGeneric implements Login
             throw se;
         }
     }
-    
+
     /**
      * Diese Methode f�hrt ein Ausloggen des Benutzers durch. Insbesondere werden
      * entsprechende Markierungen in seiner pers�nlichen Konfiguration gesetzt.<br>
      * Hier werden die speziellen Rollen- und Stellvertreterfelder geleert.
-     * 
+     *
      * @param commonConfig Konfigurationsdaten des Octopus
      * @param pConfig pers�nliche Konfiguration des auszuloggenden Benutzers
      * @param tcRequest Benutzeranfrage
@@ -333,7 +333,7 @@ public class LoginManagerLDAPAA extends LoginManagerLDAPGeneric implements Login
     //
     // Hilfsmethoden
     //
-    
+
     boolean isSystemUser(PasswordAuthentication pwdAuth) {
         String systemLogin = getConfigurationString(KEY_SYSTEM_ADMIN_LOGIN);
         String systemPassword = getConfigurationString(KEY_SYSTEM_ADMIN_PASSWORD);
@@ -341,11 +341,11 @@ public class LoginManagerLDAPAA extends LoginManagerLDAPGeneric implements Login
             systemLogin != null && systemLogin.equals(pwdAuth.getUserName()) &&
             pwdAuth.getPassword() != null && new String(pwdAuth.getPassword()).equals(systemPassword);
     }
-    
+
     /**
      * Diese Methode filtert aus einer Liste von AA-Rollen diejenigen heraus,
      * die im VerA.web-Kontext autorisiert sind.
-     * 
+     *
      * @param commonConfig aktuelle allgemeine Konfiguration
      * @param pConfig aktuelle pers�nliche Konfiguration
      * @param tcRequest aktueller Request
@@ -374,12 +374,12 @@ public class LoginManagerLDAPAA extends LoginManagerLDAPGeneric implements Login
         logger.fine("Autorisierte Rollen: " + result);
         return result;
     }
-    
+
     /**
      * Diese Methode liest zu der AA-Rolle der Anmeldung eines Benutzers die
      * zugeh�rigen Octopus-Benutzergruppen aus und setzt diese in der pers�nlichen
      * Konfiguration.
-     * 
+     *
      * @param commonConfig aktuelle allgemeine Konfiguration
      * @param pConfig aktuelle pers�nliche Konfiguration, der Octopus-Benutzergruppen
      *  zugeordnet werden.
@@ -458,12 +458,12 @@ public class LoginManagerLDAPAA extends LoginManagerLDAPGeneric implements Login
             logger.fine("Ermittelte Benutzergruppen: " + groups);
         }
     }
-    
+
     /**
      * Diese Methode f�hrt ein toString aus, sichert dies aber durch einen <code>null</code>-Test
      * vorher ab. Sollte das Objekt eine Liste sein, so wird toString des ersten enthaltenen Objekts
      * ausgef�hrt.
-     * 
+     *
      * @param o Objekt
      * @return {@link String}-Darstellung des Objekts, gegebenenfalls des ersten enthaltenen Objekts
      */
@@ -474,12 +474,12 @@ public class LoginManagerLDAPAA extends LoginManagerLDAPGeneric implements Login
         }
         return o == null ? null : o.toString();
     }
-    
+
     /**
      * Diese Methode versucht, das �bergebene Objekt als Integer zu interpretieren, wobei
      * dezimale, oktale und hexadezimale Darstellungen akzeptiert werden. Sollte das Objekt
      * eine Liste sein, so wird versucht, das erste enthaltene Objekt als Integer zu interpretieren.
-     * 
+     *
      * @param o Objekt
      * @return {@link Integer}-Darstellung des Objekts, gegebenenfalls des ersten enthaltenen Objekts
      */
@@ -498,7 +498,7 @@ public class LoginManagerLDAPAA extends LoginManagerLDAPGeneric implements Login
             return null;
         }
     }
-    
+
     //
     // gesch�tzte Member
     //

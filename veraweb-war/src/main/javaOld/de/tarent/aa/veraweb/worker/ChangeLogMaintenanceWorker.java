@@ -39,9 +39,9 @@ import de.tarent.octopus.server.OctopusContext;
 
 /**
  * Worker that runs constantly purges old entries from the changelog.
- * 
+ *
  * @see ChangeLogMaintenanceWorker
- * 
+ *
  * @author cklein
  * @version $Revision: 1.1 $
  */
@@ -78,10 +78,10 @@ public class ChangeLogMaintenanceWorker implements Runnable {
 
 		return result;
 	}
-	
+
 	/**
 	 * Starts the background maintenance service.
-	 * 
+	 *
 	 * @param cntx Octopus-Context
 	 */
 	public void load( OctopusContext cntx )
@@ -118,7 +118,7 @@ public class ChangeLogMaintenanceWorker implements Runnable {
 	public static final String INPUT_unload[] = {};
 	/**
 	 * Stops the background service.
-	 * 
+	 *
 	 * @param cntx Octopus-Context
 	 */
 	public void unload(OctopusContext cntx)
@@ -141,7 +141,7 @@ public class ChangeLogMaintenanceWorker implements Runnable {
 				}
 				catch ( Exception e )
 				{
-					this.logger.error( "ChangeLogMaintenanceWorker: allgemeiner Fehler während der Wartungsarbeit.", e );
+					this.logger.error( "ChangeLogMaintenanceWorker: allgemeiner Fehler w\u00e4hrend der Wartungsarbeit.", e );
 				}
 				try
 				{
@@ -162,8 +162,8 @@ public class ChangeLogMaintenanceWorker implements Runnable {
 
 	/**
 	 * Purges the change log from old information.
-	 * @throws IOException 
-	 * @throws BeanException 
+	 * @throws IOException
+	 * @throws BeanException
 	 */
 	public void purgeChangeLog() throws SQLException, BeanException, IOException
 	{

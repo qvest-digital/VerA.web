@@ -37,14 +37,14 @@ public class Salutation extends AbstractBean {
 	@Override
     public void verify() throws BeanException {
 		if (name == null || name.trim().length() == 0)
-			addError("Sie müssen einen Namen eingeben.");
+			addError("Sie m\u00fcssen einen Namen eingeben.");
 	}
 
     /**
      * Diese Methode testet, ob im aktuellen Kontext diese Bohne gelesen werden
      * darf.<br>
      * Test ist, ob der Benutzer Standard-Reader ist.
-     * 
+     *
      * @param cntx Octopus-Kontext
      * @throws BeanException Wenn im angegebenen Kontext diese Bohne nicht gelesen werden darf.
      * @see de.tarent.aa.veraweb.beans.AbstractBean#checkRead(de.tarent.octopus.server.OctopusContext)
@@ -58,7 +58,7 @@ public class Salutation extends AbstractBean {
      * Diese Methode testet, ob im aktuellen Kontext diese Bohne geschrieben
      * werden darf.<br>
      * Test ist, ob der Benutzer Teil-Admin ist.
-     * 
+     *
      * @param cntx Octopus-Kontext
      * @throws BeanException Wenn im angegebenen Kontext diese Bohne nicht geschrieben werden darf.
      * @see de.tarent.aa.veraweb.beans.AbstractBean#checkWrite(de.tarent.octopus.server.OctopusContext)

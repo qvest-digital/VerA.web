@@ -26,7 +26,7 @@ import de.tarent.octopus.server.OctopusContext;
 /**
  * Diese Bean stellt einen Eintrag der Tabelle veraweb.tcolor, eine
  * Farbe, dar.
- * 
+ *
  * @author christoph
  * @author mikel
  */
@@ -45,8 +45,8 @@ public class Color extends AbstractBean {
     /**
      * Diese Methode setzt das {@link #rgb}-Attribut aus einer String-Darstellung
      * einer oder dreier Zahlen, was als kombinierter oder getrennter RGB-Wert
-     * interpretiert wird. 
-     * 
+     * interpretiert wird.
+     *
      * @param s String-Darstellung des RGB-Werts
      */
 	public void setRgb(String s) {
@@ -79,20 +79,20 @@ public class Color extends AbstractBean {
     /**
      * �berpr�ft das Bean auf innere Vollst�ndigkeit.
      * Hier wird getestet, ob die Kategorie einen nicht-leeren Namen hat.
-     * 
+     *
      * @throws BeanException bei Unvollst�ndigkeit
      */
 	@Override
     public void verify() throws BeanException {
 		if (name == null || name.trim().length() == 0)
-			addError("Sie müssen einen Namen eingeben.");
+			addError("Sie m\u00fcssen einen Namen eingeben.");
 	}
 
     /**
      * Diese Methode testet, ob im aktuellen Kontext diese Bohne gelesen werden
      * darf.<br>
      * Test ist, ob der Benutzer Standard-Reader ist.
-     * 
+     *
      * @param cntx Octopus-Kontext
      * @throws BeanException Wenn im angegebenen Kontext diese Bohne nicht gelesen werden darf.
      * @see de.tarent.aa.veraweb.beans.AbstractBean#checkRead(de.tarent.octopus.server.OctopusContext)

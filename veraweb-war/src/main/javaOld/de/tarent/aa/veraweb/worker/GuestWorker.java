@@ -63,8 +63,8 @@ import java.util.UUID;
 
 /**
  * Diese Octopus-Worker-Klasse stellt Operationen f�r G�ste von
- * Veranstaltungen zur Verf�gung. 
- * 
+ * Veranstaltungen zur Verf�gung.
+ *
  * @author christoph
  * @author mikel
  * @author Max Marche <m.marche@tarent.de>, tarent solutions GmbH
@@ -78,12 +78,12 @@ public class GuestWorker {
 	/**
 	 * Diese Octopus-Aktion f�gt eine Reihe von G�sten einer
 	 * Veranstaltung hinzu.<br>
-	 * 
+	 *
 	 * @param cntx OctopusContext
 	 * @throws BeanException
 	 * @throws IOException
 	 */
-	protected static final String COUNT_INVITED_NOT_INVITED_2_PATTERN = 
+	protected static final String COUNT_INVITED_NOT_INVITED_2_PATTERN =
 		"select (select count(*) from tperson p where p.pk not in (select fk_person from tguest "
 		+ "where fk_event = {0}) and p.deleted = ''f'' and p.pk in ({1})) as invited, "
 		+ "(select count(*) from tguest g left join tperson p on g.fk_person = p.pk "
@@ -248,7 +248,7 @@ public class GuestWorker {
 	public static final String INPUT_addEvent[] = { "id" };
 	/**
 	 * F�gt die G�ste einer Veranstaltung einer anderen Veranstaltung hinzu.
-	 * 
+	 *
 	 * @param cntx
 	 * @throws BeanException
 	 * @throws IOException
@@ -263,7 +263,7 @@ public class GuestWorker {
 		+ "where fk_event = {0} and p.deleted=''f'')))) as notinvited;";
 	protected static final MessageFormat COUNT_INVITED_NOT_INVITED_FORMAT = new MessageFormat(COUNT_INVITED_NOT_INVITED_PATTERN);
 
-	protected static final String ADD_FROM_EVENT_PATTERN = 
+	protected static final String ADD_FROM_EVENT_PATTERN =
 		"insert into tguest ( fk_person, fk_event, fk_category, fk_color, invitationtype, invitationstatus, "
 		+ "ishost, diplodate, rank, reserve, tableno, seatno, orderno, notehost, noteorga, \"language\", "
 		+ "gender, nationality, domestic_a, invitationstatus_p, tableno_p, seatno_p, orderno_p, notehost_p, "
@@ -284,7 +284,7 @@ public class GuestWorker {
 		+ "where g.fk_event = {0});";
 	protected static final MessageFormat ADD_FROM_EVENT_FORMAT = new MessageFormat(ADD_FROM_EVENT_PATTERN);
 
-	protected static final String UPDATE_GUEST_DOCUMENT_TYPES_PATTERN = 
+	protected static final String UPDATE_GUEST_DOCUMENT_TYPES_PATTERN =
 		"delete from tguest_doctype where fk_guest in ( select g.pk from tguest g "
 		+ "where g.fk_event = {0} ); "
 		+ "insert into tguest_doctype ( fk_guest, fk_doctype, addresstype, locale, "
@@ -380,7 +380,7 @@ public class GuestWorker {
 						+ " and tguest.fk_person not in (select fk_person from tguest where fk_event = " + event.id
 						+ ") and tperson.deleted = 'f'"
 				)));
-	
+
 				for ( Person person : persons )
 				{
 					PersonDoctypeWorker.createPersonDoctype(cntx, database, context, person );
@@ -427,7 +427,7 @@ public class GuestWorker {
 	public static final String INPUT_addPerson[] = { "event-id" };
 	/**
 	 * F�gt eine Person aus dem Content zu einer Veranstaltung hinzu.
-	 * 
+	 *
 	 * Wird offenbar nur verwendet wenn aus der Detail-Sicht einer Person diese Person einer Veranstaltung zugewiesen
 	 * wird. Falls der Person nur eine einzige Kategorie zugeordnet ist, wird diese mit in die Veranstaltung uebernommen
 	 * (Bug 1593)
@@ -497,10 +497,10 @@ public class GuestWorker {
 		Database database = new DatabaseVeraWeb(cntx);
 		TransactionContext context = database.getTransactionContext();
 		Event event = (Event)cntx.contentAsObject("event");
-		
+
 		try {
 			updateGuest(cntx, database, context, event, guestId);
-			
+
 			String show = cntx.requestAsString("show");
 			if (show != null && show.equals("doctype")) {
 				cntx.setStatus("showDoctype");
@@ -526,7 +526,7 @@ public class GuestWorker {
         Database database = new DatabaseVeraWeb(cntx);
         TransactionContext context = database.getTransactionContext();
 		Event event = (Event)cntx.contentAsObject("event");
-		
+
 		try {
 			List selection = (List)cntx.contentAsObject("listselection");
 			if (selection != null && selection.size() != 0) {
@@ -557,20 +557,20 @@ public class GuestWorker {
     public static final String INPUT_calcSerialNumber[] = {};
     /**
      * Diese Octopus-Aktion berechnet f�r eine Veranstaltung die 'Laufende Nummer'.
-     * 
+     *
      * @param cntx
      * @throws BeanException
      * @throws IOException
      */
     public void calcSerialNumber(OctopusContext cntx) throws BeanException, IOException {
 		Database database = new DatabaseVeraWeb(cntx);
-		
+
 		Event event = (Event)cntx.contentAsObject("event");
 		logger.debug("calc order number for event #" + event.id);
-		
+
 		Map questions = new HashMap();
 		if (event.begin.before(new Date()) && !cntx.requestAsBoolean("calc-serialno").booleanValue()) {
-			questions.put("calc-serialno", "Diese Veranstaltung liegt bereits in der Vergangenheit, möchten Sie trotzdem die Laufende-Nummer neu berechnen?");
+			questions.put("calc-serialno", "Diese Veranstaltung liegt bereits in der Vergangenheit, m\u00f6chten Sie trotzdem die Laufende-Nummer neu berechnen?");
 		} else {
 			TransactionContext context = database.getTransactionContext();
 			try
@@ -594,7 +594,7 @@ public class GuestWorker {
     //
 	/**
 	 * Neuen Gast hinzuf�gen.
-	 * 
+	 *
 	 * @see #saveGuest(OctopusContext, Database, ExecutionContext, Event, Integer, Integer, Integer, Boolean, Integer, Boolean)
 	 */
 	boolean addGuest(OctopusContext cntx, Database database, ExecutionContext context, Event event, Integer personId, Integer categoryId, Boolean reserve, Integer invitationtype, Boolean ishost) throws BeanException, IOException {
@@ -603,7 +603,7 @@ public class GuestWorker {
 
 	/**
 	 * Bestehnden Gast aus Stammdaten neuladen.
-	 * 
+	 *
 	 * @see #saveGuest(OctopusContext, Database, ExecutionContext, Event, Integer, Integer, Integer, Boolean, Integer, Boolean)
 	 */
 	boolean updateGuest(OctopusContext cntx, Database database, ExecutionContext context, Event event, Integer guestId) throws BeanException, IOException {
@@ -625,11 +625,11 @@ public class GuestWorker {
 
     /**
      * Diese Methode f�gt eine Person einer Veranstaltung hinzu.<br><br>
-     * 
+     *
      * <strong>Achtung</strong> Wenn die Gast-ID null ist wird ein neuer
      * Gast angelegt wenn dieser noch nicht dieser Veranstaltung zugeordnet
      * war. Wenn die Gast-ID �bergeben wird, wird dieser Gast aktuallisiert!
-     * 
+     *
      * @param cntx Octopus-Context
      * @param database Datenbank
      * @param event Veranstaltung
@@ -642,7 +642,7 @@ public class GuestWorker {
      */
 	/*
 	 * 2009-05-12 cklein
-	 * 
+	 *
 	 * fixed as part of issue #1531 - personCategorie was always null due to malformed query
 	 */
 	protected boolean saveGuest(OctopusContext cntx, Database database, ExecutionContext context, Event event,
@@ -651,18 +651,18 @@ public class GuestWorker {
 		if (event == null) {
             return false;
         }
-		
+
 		if (guestId == null) {
 			logger.debug("Füge Person #" + personId + " der Veranstaltung #" + event.id + " hinzu.");
 		}
-		
+
 		// Keinen neuen Gast hinzuf�gen wenn diese Person bereits zugeordnet war.
 		if (guestId == null) {
 			if (getNumberOfGuests(database, context, event, personId) > 0) {
                 return false;
             }
 		}
-		
+
 		Guest guest = null;
 		// Gast laden
 		if (guestId != null) {
@@ -680,7 +680,7 @@ public class GuestWorker {
 			logger.warn("Person #" + personId + " konnte nicht gefunden und daher der Veranstaltung #" + event.id + " nicht hinzugef�gt werden.");
 			return false;
 		}
-		
+
 		// Neuen Gast anlegen.
 		if (guest == null) {
 			guest = new Guest();
@@ -689,7 +689,7 @@ public class GuestWorker {
 			guest.ishost = new Integer(ishost.booleanValue() ? 1 : 0);
 			guest.reserve = reserve;
 			guest.invitationtype = invitationtype;
-			
+
 			if (personId != null && categoryId != null) {
 				PersonCategorie personCategorie = new PersonCategorie();
 				personCategorie.person = personId;
@@ -702,7 +702,7 @@ public class GuestWorker {
 						select("tcategorie.catname").
 						joinLeftOuter("veraweb.tcategorie",
 								"tperson_categorie.fk_categorie", "tcategorie.pk"), context );
-				
+
 				if (personCategorie != null) {
 					guest.category = personCategorie.categorie;
 					guest.rank = personCategorie.rank;
@@ -727,7 +727,7 @@ public class GuestWorker {
 		guest.notehost_b = person.notehost_b_e1;
 		guest.noteorga_a = person.noteorga_a_e1;
 		guest.noteorga_b = person.noteorga_b_e1;
-		
+
 		guest.verify();
 		if (guest.isCorrect()) {
 
@@ -748,7 +748,7 @@ public class GuestWorker {
 					insert.remove("noteorga_b");
 				}
 				context.execute(insert);
-				
+
 				clogger.logInsert( cntx.personalConfig().getLoginname(), guest );
 			} else {
 				Update update = database.getUpdate(guest);
@@ -808,27 +808,27 @@ public class GuestWorker {
 
     /**
      * Diese Methode aktualisiert die Dokumenttypen eines �bergebenen Gasts.
-     * 
+     *
      * @param cntx OctopusContext
      * @param database Datenbank
      * @param guest Veranstaltungsgast
      * @param person Person-Eintrag
-     * @throws IOException 
-     * @throws BeanException 
+     * @throws IOException
+     * @throws BeanException
      */
     protected void refreshDoctypes(OctopusContext cntx, Database database, ExecutionContext context, Guest guest, Person person) throws BeanException, IOException {
         if (guest == null || person == null) {
 			logger.warn("Aktualisieren der Dokumenttypen von Gast #" +
 					(guest == null || guest.id == null ? "null" : guest.id.toString()) +
-					" nicht möglich. (Person #" +
+					" nicht m\u00f6glich. (Person #" +
 					(person == null || person.id == null ? "null" : person.id.toString()) + ")");
 			return;
         }
 		logger.debug("Aktualisiere Dokumenttypen der Person #" + person.id + ".");
 		PersonDoctypeWorker.createPersonDoctype(cntx, database, context, person);
-		
+
 		logger.debug("Aktualisiere Dokumenttypen des Gast #" + guest.id + ".");
-		
+
         Select select = database.getSelect("PersonDoctype").where(Expr.equal("fk_person", guest.person));
 		select.selectAs("tperson_doctype.fk_doctype", "doctype");
 		select.selectAs("tdoctype.docname", "name");
@@ -844,7 +844,7 @@ public class GuestWorker {
 		select.selectAs("tdoctype.docname", "name");
 		select.selectAs("tdoctype.sortorder", "sortorder");
         List eventDocTypes = database.getBeanList("EventDoctype", select, context);
-		
+
         for (Iterator itDocTypes = eventDocTypes.iterator(); itDocTypes.hasNext(); ) {
             EventDoctype eventDt = (EventDoctype) itDocTypes.next();
             if (eventDt == null || eventDt.doctype == null)
@@ -853,11 +853,11 @@ public class GuestWorker {
             if (personDt == null)
                 continue;
             GuestDoctype guestDt = (GuestDoctype) guestDocTypes.get(eventDt.doctype);
-			
+
             // vom Doctype nehmen
 			Integer addresstype = personDt.doctypeAddresstype;
 			Integer locale = personDt.doctypeLocale;
-			
+
 			// vom Person-Doctype nehmen
 			if (personDt.addresstype != null && personDt.addresstype.intValue() != 0)
 				addresstype = personDt.addresstype;
@@ -868,7 +868,7 @@ public class GuestWorker {
 				addresstype = guestDt.addresstype;
 			if (guestDt != null && guestDt.locale != null && guestDt.locale.intValue() != 0)
 				locale = guestDt.locale;
-			
+
             if (guestDt == null) {
                 guestDt = new GuestDoctype();
                 guestDt.doctype = eventDt.doctype;
@@ -886,9 +886,9 @@ public class GuestWorker {
         			guestDt.setModified(true);
         		}
             }
-            
+
             fillDoctype(guestDt, person, personDt);
-            
+
             if (guestDt.isModified()) {
             	database.saveBean(guestDt, context, false);
             }
@@ -899,7 +899,7 @@ public class GuestWorker {
 		String newValue;
 		PersonMemberFacade memberFacade;
 		PersonAddressFacade addressFacade;
-		
+
 		// Freitextfelder
 		if (!equals(guestDt.textfield, personDt.textfield)) {
 			guestDt.textfield = personDt.textfield;
@@ -913,7 +913,7 @@ public class GuestWorker {
 			guestDt.textjoin = personDt.textfieldJoin;
 			guestDt.setModified(true);
 		}
-		
+
 		// Hauptperson
 		memberFacade = person.getMemberFacade(true, guestDt.locale);
 		newValue = memberFacade.getSalutation();
@@ -936,7 +936,7 @@ public class GuestWorker {
 			guestDt.lastname = newValue;
 			guestDt.setModified(true);
 		}
-		
+
 		// Partner
 		memberFacade = person.getMemberFacade(false, guestDt.locale);
 		newValue = memberFacade.getSalutation();
@@ -959,7 +959,7 @@ public class GuestWorker {
 			guestDt.lastname_p = newValue;
 			guestDt.setModified(true);
 		}
-		
+
 		// Adressdaten
 		addressFacade = person.getAddressFacade(guestDt.addresstype, guestDt.locale);
 		newValue = addressFacade.getFunction();

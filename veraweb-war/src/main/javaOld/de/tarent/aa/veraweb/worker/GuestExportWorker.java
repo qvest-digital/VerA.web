@@ -456,7 +456,7 @@ public class GuestExportWorker {
 	 * @param spreadSheet In das geschrieben werden soll.
 	 */
 	protected void exportHeader(SpreadSheet spreadSheet, OctopusContext cntx) {
-		
+
 		checkIfOnlineRegistrationIsAvailable(cntx);
 		//
 		// Gast spezifische Daten

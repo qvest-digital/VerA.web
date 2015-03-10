@@ -59,7 +59,7 @@ import java.util.Map;
 
 /**
  * Verwaltet eine G�steliste.
- * 
+ *
  * @author Mikel, Christoph
  * @version $Revision: 1.1 $
  */
@@ -137,16 +137,16 @@ public class GuestListWorker extends ListWorkerVeraWeb {
             super.saveList(cntx);
         }
     }
-    
+
     /**
 	 * Entfernt die Zuordnungen von Arbeitsbereichen der übergebenen Liste von Gästen (IDs).
-	 * 
+	 *
 	 * @param cntx Octopus-Context
 	 * @param guestIds Liste von Gast IDs für die das entfernen der Zuordnung gilt
 	 * @param workAreaId ID des Arbeitsbereiches deren Zuordnung entfernt werden soll
 	 * @throws BeanException
 	 * @throws IOException
-	 * 
+	 *
 	 */
     /*
      * currently made private (disabled) as part of fix to issue #1530
@@ -170,10 +170,10 @@ public class GuestListWorker extends ListWorkerVeraWeb {
             context.rollBack();
         }
     }
-	
+
 	/**
 	 * Ordnet den übergebenen Arbeitsbereich der Liste von Gästen hinzu.
-	 * 
+	 *
 	 * @param cntx OctopusContext
 	 * @param guestIds Liste von Guest IDs für die die neue Zuordnung gilt
 	 * @param workAreaId ID des Arbeitsbereiches der zugeordnet werden soll
@@ -245,7 +245,7 @@ public class GuestListWorker extends ListWorkerVeraWeb {
 		select.select("fon_a_e1");
 		select.select("mail_a_e1");
         select.select("delegation");
-		
+
 		if (freitextfeld != null) {
 			select.joinLeftOuter("veraweb.tguest_doctype", "tguest.pk", "tguest_doctype.fk_guest AND fk_doctype = " + freitextfeld);
 			select.selectAs("tguest_doctype.pk IS NOT NULL", "showdoctype");
@@ -409,10 +409,10 @@ public class GuestListWorker extends ListWorkerVeraWeb {
             context.commit();
         } catch (BeanException e) {
             context.rollBack();
-            throw new BeanException("Das Löschen aller zum löschen markierten Gäste ist fehlgeschlagen.", e);
+            throw new BeanException("Das L\u00f6schen aller zum l\u00f6schen markierten Gäste ist fehlgeschlagen.", e);
         } catch (SQLException e) {
             context.rollBack();
-            throw new BeanException("Das Löschen aller zum löschen markierten Personen ist fehlgeschlagen.", e);
+            throw new BeanException("Das L\u00f6schen aller zum l\u00f6schen markierten Personen ist fehlgeschlagen.", e);
         }
 
 		return selection.size();
@@ -458,9 +458,9 @@ public class GuestListWorker extends ListWorkerVeraWeb {
                 update.update("orderno_p", null);
             }
 		}
-		
+
 		context.execute(update);
-		
+
 		/*
 		 * modified to support change logging
 		 * cklein 2008-02-12
@@ -494,7 +494,7 @@ public class GuestListWorker extends ListWorkerVeraWeb {
 
     /**
      * Diese Octopus-Aktion liefert die Gesamtzahlen der aktuellen G�steliste.
-     * 
+     *
      * @param cntx Octopus-Kontext
      * @return {@link Map} mit Gesamtzahlen unter den Schl�sseln "platz", "reserve",
      *  "all", "offen", "zusagen" und "absagen".
@@ -513,18 +513,18 @@ public class GuestListWorker extends ListWorkerVeraWeb {
      * "search"), aus dem Octopus-Request oder aus der Octopus-Session (unter "searchGuest").
      * Vor der R�ckgabe wird die Instanz unter "searchGuest" in die Octopus-Session
      * gestellt.
-     * 
+     *
      * @param cntx Octopus-Kontext
      * @return {@link GuestSearch}-Instanz zur aktuellen G�stesuche
      * @throws BeanException
      */
     public GuestSearch getSearch(OctopusContext cntx) throws BeanException {
     	PropertiesReader propertiesReader = new PropertiesReader();
-        
+
         if(propertiesReader.propertiesAreAvailable()) {
 	        cntx.setContent("delegationCanBeUsed", true);
         }
-        
+
         if (cntx.contentContains("search") && cntx.contentAsObject("search") instanceof GuestSearch) {
             return (GuestSearch) cntx.contentAsObject("search");
         }
@@ -534,11 +534,11 @@ public class GuestListWorker extends ListWorkerVeraWeb {
         if (search == null || search.event == null) {
             search = (GuestSearch) cntx.sessionAsObject("search" + BEANNAME);
         }
-        
+
         if (search != null && !("lastname_a_e1".equals(search.listorder) || "firstname_a_e1".equals(search.listorder) || "mail_a_e1".equals(search.listorder))) {
             search.listorder = null;
         }
-        
+
         /*
          * fix for the case that the user requests guest with no search object being available
          * in that case an NPE was thrown
@@ -547,7 +547,7 @@ public class GuestListWorker extends ListWorkerVeraWeb {
         if (search == null) {
             search = new GuestSearch();
         }
-        
+
         cntx.setSession("search" + BEANNAME, search);
         return search;
     }
@@ -556,7 +556,7 @@ public class GuestListWorker extends ListWorkerVeraWeb {
     /**
      * Diese Octopus-Aktion liefert das Ereignis aus der aktuellen G�stesuche,
      * siehe Aktion {@link #getSearch(OctopusContext)}.
-     * 
+     *
      * @param cntx Octopus-Kontext
      * @return eine {@link Event}-Instanz oder <code>null</code>.
      * @throws BeanException
@@ -574,13 +574,13 @@ public class GuestListWorker extends ListWorkerVeraWeb {
         }
         return event;
     }
-    
+
     /**
-     * 
+     *
      * @param cntx
-     * @throws IOException 
-     * @throws BeanException 
-     * @throws SQLException 
+     * @throws IOException
+     * @throws BeanException
+     * @throws SQLException
      */
     public void getAllCategories(OctopusContext ctx) throws BeanException, IOException, SQLException {
         final Database database = new DatabaseVeraWeb(ctx);
@@ -591,12 +591,12 @@ public class GuestListWorker extends ListWorkerVeraWeb {
 
         final ResultList result = database.getList(select, database);
         final List<String> catnames = new ArrayList<String>();
-		
+
 		for (final Iterator<ResultMap> iterator = result.iterator(); iterator.hasNext();) {
             final ResultMap object = iterator.next();
 			catnames.add((String)object.get("catname"));
 		}
-		
+
 		ctx.setContent("categories", catnames);
 	}
 
@@ -606,12 +606,12 @@ public class GuestListWorker extends ListWorkerVeraWeb {
      */
     public static void addGuestListFilter(GuestSearch search, WhereList where) {
         where.addAnd(Expr.equal("tguest.fk_event", search.event));
-        
-        
+
+
         if(search.category != null && !search.category.trim().equals("")) {
-        	where.addAnd(new RawClause("fk_category IN (SELECT pk FROM veraweb.tcategorie WHERE catname = '" + Escaper.escape(search.category) + "')"));	
+        	where.addAnd(new RawClause("fk_category IN (SELECT pk FROM veraweb.tcategorie WHERE catname = '" + Escaper.escape(search.category) + "')"));
         }
-        
+
         if (search.reserve != null) {
             switch (search.reserve.intValue()) {
             case 1:
@@ -622,7 +622,7 @@ public class GuestListWorker extends ListWorkerVeraWeb {
                 break;
             }
         }
-        
+
         if (search.invitationstatus != null) {
             switch (search.invitationstatus.intValue()) {
             case 1:
@@ -675,11 +675,11 @@ public class GuestListWorker extends ListWorkerVeraWeb {
 
 	/**
 	 * Berechnet die Gesamtzahlen der aktuellen G�steliste.
-	 * 
+	 *
 	 * Vor Version 1.50 wurden "Auf Platz" und "Auf Reserve"
 	 * pro Datensatz berechnet, die aktuelle Umsetzung z�hlt
 	 * diese pro eingeladenen Member. (Vgl. Bug 1480)
-	 * 
+	 *
 	 * @param database
 	 * @param data
 	 * @param search
@@ -689,7 +689,7 @@ public class GuestListWorker extends ListWorkerVeraWeb {
 	protected void getSums(Database database, Map data, GuestSearch search, List selection) throws BeanException {
         final WhereList where = new WhereList();
 		GuestListWorker.addGuestListFilter(search, where);
-		
+
 		if (selection != null && selection.size() != 0) {
 			where.addAnd(Expr.in("tguest.pk", selection));
 		}
@@ -697,7 +697,7 @@ public class GuestListWorker extends ListWorkerVeraWeb {
         final Select select = SQL.Select( database ).
 				from("veraweb.tguest").
 				where(where);
-		
+
 		select.selectAs(
 				"SUM(CASE WHEN reserve =  1 THEN 0 ELSE CASE WHEN invitationtype = 1 THEN 2 ELSE 1 END END)", "platz");
 		select.selectAs(
@@ -714,7 +714,7 @@ public class GuestListWorker extends ListWorkerVeraWeb {
 
 		select.selectAs(
 				"SUM(CASE WHEN tperson.iscompany = 't' THEN 1 ELSE 0 END)", "delegationen");
-		
+
 		select.joinLeftOuter("veraweb.tperson", "fk_person", "tperson.pk");
 
         final Map result = (Map)database.getList(select, database).iterator().next();

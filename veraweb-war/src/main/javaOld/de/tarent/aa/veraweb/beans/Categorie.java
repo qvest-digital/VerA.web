@@ -26,7 +26,7 @@ import de.tarent.octopus.server.OctopusContext;
 /**
  * Diese Bean stellt einen Eintrag der Tabelle veraweb.tcategorie, eine
  * Kategorie, dar.
- * 
+ *
  * @author christoph
  * @author mikel
  */
@@ -54,20 +54,20 @@ public class Categorie extends AbstractBean implements OrgUnitDependent {
     /**
      * �berpr�ft das Bean auf innere Vollst�ndigkeit.
      * Hier wird getestet, ob die Kategorie einen nicht-leeren Namen hat.
-     * 
+     *
      * @throws BeanException bei Unvollst�ndigkeit
      */
 	@Override
     public void verify() throws BeanException {
 		if (name == null || name.trim().length() == 0)
-			addError("Sie müssen eine Bezeichnung eingeben.");
+			addError("Sie m\u00fcssen eine Bezeichnung eingeben.");
 	}
 
     /**
      * Diese Methode testet, ob im aktuellen Kontext diese Bohne gelesen werden
      * darf.<br>
      * Test ist, ob der Benutzer Standard-Reader ist.
-     * 
+     *
      * @param cntx Octopus-Kontext
      * @throws BeanException Wenn im angegebenen Kontext diese Bohne nicht gelesen werden darf.
      * @see de.tarent.aa.veraweb.beans.AbstractBean#checkRead(de.tarent.octopus.server.OctopusContext)
@@ -82,7 +82,7 @@ public class Categorie extends AbstractBean implements OrgUnitDependent {
      * werden darf.<br>
      * Test ist, ob der Benutzer Writer ist. F�r das automatische Generieren von
      * Kategorien beim Import ist dies notwendig.
-     * 
+     *
      * @param cntx Octopus-Kontext
      * @throws BeanException Wenn im angegebenen Kontext diese Bohne nicht geschrieben werden darf.
      * @see de.tarent.aa.veraweb.beans.AbstractBean#checkWrite(de.tarent.octopus.server.OctopusContext)

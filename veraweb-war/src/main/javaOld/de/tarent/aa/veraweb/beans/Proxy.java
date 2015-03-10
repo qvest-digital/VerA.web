@@ -27,7 +27,7 @@ import de.tarent.octopus.server.PersonalConfig;
 
 /**
  * Diese Bohne stellt Stellvertretungen dar.
- * 
+ *
  * @author mikel
  */
 public class Proxy extends AbstractHistoryBean {
@@ -48,7 +48,7 @@ public class Proxy extends AbstractHistoryBean {
 
     /** tproxy.validtill timestamptz */
     public Timestamp validTill;
-    
+
     //
     // tuser
     //
@@ -67,10 +67,10 @@ public class Proxy extends AbstractHistoryBean {
     @Override
     public void verify() {
         if (proxy == null || proxy.trim().length() == 0) {
-            addError("Sie müssen eine Vertreter eingeben.");
+            addError("Sie m\u00fcssen eine Vertreter eingeben.");
         }
         if (user == null || user.intValue() == 0) {
-            addError("Sie müssen einen Rolle eingeben.");
+            addError("Sie m\u00fcssen einen Rolle eingeben.");
         }
         if (validFrom != null && validTill != null && validFrom.after(validTill)) {
         	addError("Der Beginn der Vertretung muss vor dem Ende liegen.");
@@ -81,7 +81,7 @@ public class Proxy extends AbstractHistoryBean {
      * Diese Methode testet, ob im aktuellen Kontext diese Bohne gelesen werden
      * darf.<br>
      * Test ist leer.
-     * 
+     *
      * @param cntx
      *            Octopus-Kontext
      * @throws BeanException
@@ -97,7 +97,7 @@ public class Proxy extends AbstractHistoryBean {
      * Diese Methode testet, ob im aktuellen Kontext diese Bohne geschrieben
      * werden darf.<br>
      * Test ist, ob der Benutzer User ist.
-     * 
+     *
      * @param cntx Octopus-Kontext
      * @throws BeanException Wenn im angegebenen Kontext diese Bohne nicht geschrieben werden darf.
      * @see de.tarent.aa.veraweb.beans.AbstractBean#checkWrite(de.tarent.octopus.server.OctopusContext)

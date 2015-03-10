@@ -28,7 +28,7 @@ import de.tarent.octopus.server.OctopusContext;
 /**
  * Dieses Bean repr�sentiert eine eMail-Vorlage und wird als Tupel
  * in der Tabelle <code>veraweb.tmaildraft</code> gespeichert.
- * 
+ *
  * @author Christoph Jerolimov
  * @version $Revision: 1.1 $
  */
@@ -53,7 +53,7 @@ public class MailDraft extends AbstractHistoryBean {
 	@Override
     public void verify() throws BeanException {
 		if (name == null || name.trim().length() == 0)
-			addError("Sie müssen der E-Mail-Vorlage einen Namen geben.");
+			addError("Sie m\u00fcssen der E-Mail-Vorlage einen Namen geben.");
 		if (subject == null || subject.trim().length() == 0)
 			addError("Sie haben der E-Mail-Vorlage keinen Betreff gegeben.");
 		if (text == null || text.trim().length() == 0)
@@ -64,7 +64,7 @@ public class MailDraft extends AbstractHistoryBean {
 	 * Diese Methode testet, ob im aktuellen Kontext diese Bohne gelesen werden
 	 * darf.<br>
 	 * Test ist, ob der Benutzer Standard-Reader ist.
-	 * 
+	 *
 	 * @param cntx Octopus-Kontext
 	 * @throws BeanException Wenn im angegebenen Kontext diese Bohne nicht gelesen werden darf.
 	 * @see AbstractBean#checkRead(OctopusContext)
@@ -78,7 +78,7 @@ public class MailDraft extends AbstractHistoryBean {
 	 * Diese Methode testet, ob im aktuellen Kontext diese Bohne geschrieben
 	 * werden darf.<br>
 	 * Test ist, ob der Benutzer Writer ist.
-	 * 
+	 *
 	 * @param cntx Octopus-Kontext
 	 * @throws BeanException Wenn im angegebenen Kontext diese Bohne nicht geschrieben werden darf.
 	 * @see AbstractBean#checkWrite(OctopusContext)

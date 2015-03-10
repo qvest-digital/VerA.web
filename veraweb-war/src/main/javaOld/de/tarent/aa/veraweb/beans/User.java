@@ -24,8 +24,8 @@ import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.server.OctopusContext;
 
 /**
- * Diese Bohne stellt Benutzer mit ihren Berechtigungen dar. 
- * 
+ * Diese Bohne stellt Benutzer mit ihren Berechtigungen dar.
+ *
  * @author mikel
  */
 public class User extends AbstractBean implements OrgUnitDependent {
@@ -44,14 +44,14 @@ public class User extends AbstractBean implements OrgUnitDependent {
     @Override
     public void verify() {
         if (name == null || name.trim().length() == 0)
-            addError("Sie müssen eine Benutzerrollenbezeichnung eingeben.");
+            addError("Sie m\u00fcssen eine Benutzerrollenbezeichnung eingeben.");
     }
-    
+
     /**
      * Diese Methode testet, ob im aktuellen Kontext diese Bohne gelesen werden
      * darf.<br>
      * Test ist leer.
-     * 
+     *
      * @param cntx Octopus-Kontext
      * @throws BeanException Wenn im angegebenen Kontext diese Bohne nicht gelesen werden darf.
      * @see de.tarent.aa.veraweb.beans.AbstractBean#checkRead(de.tarent.octopus.server.OctopusContext)
@@ -64,7 +64,7 @@ public class User extends AbstractBean implements OrgUnitDependent {
      * Diese Methode testet, ob im aktuellen Kontext diese Bohne geschrieben
      * werden darf.<br>
      * Test ist, ob der Benutzer Mandanten-Administrator oder der SystemUser ist.
-     * 
+     *
      * @param cntx Octopus-Kontext
      * @throws BeanException Wenn im angegebenen Kontext diese Bohne nicht geschrieben werden darf.
      */

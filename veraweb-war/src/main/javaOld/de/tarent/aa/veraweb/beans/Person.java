@@ -36,7 +36,7 @@ import de.tarent.octopus.server.PersonalConfig;
 
 /**
  * Dieses Bean stellt einen Eintrag der Tabelle <code>veraweb.tperson</code> da.
- * 
+ *
  * @author Christoph
  * @author Mikel
  */
@@ -300,26 +300,26 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 
 		if (company_a_e1 != null && firstname_a_e1 != null && lastname_a_e1 != null) {
 //			solveXSS(); TODO Get a better solution
-			
+
 			if (company_a_e1.length()>100) {
-		        addError("Sie müssen einen Namen für die Firma/Institution mit dem richtigen Länge angeben.");
+		        addError("Sie d\u00fcrfen maximal 100 Zeichen f\u00fcr die Firma/Institution angeben.");
 			}
 			if (firstname_a_e1.length()>100) {
-		        addError("Sie müssen einen Vornamen für das Hauptperson mit dem richtigen Länge angeben.");
+		        addError("Sie d\u00fcrfen maximal 100 Zeichen f\u00fcr den Vornamen der Hauptperson angeben.");
 			}
 			if (lastname_a_e1.length()>100) {
-		        addError("Sie müssen einen Nachnamen für das Hauptperson mit dem richtigen Länge angeben.");
+		        addError("Sie d\u00fcrfen maximal 100 Zeichen f\u00fcr den Nachnamen der Hauptperson angeben.");
 			}
 		}
 		if (iscompany != null && iscompany.equals(PersonConstants.ISCOMPANY_TRUE)) {
 		    if (company_a_e1 == null || company_a_e1.trim().equals("")) {
-		        addError("Sie müssen einen Namen für die Firma/Institution angeben.");
+		        addError("Sie m\u00fcssen einen Namen f\u00fcr die Firma/Institution angeben.");
 		    }
 		} else if (!(
 				(firstname_a_e1 != null && firstname_a_e1.trim().length() != 0) ||
 				(lastname_a_e1 != null && lastname_a_e1.trim().length() != 0) ||
 				(company_a_e1 != null && company_a_e1.trim().length() != 0))) {
-			addError("Sie müssen einen Vornamen, einen Nachnamen oder eine Firma angeben.");
+			addError("Sie m\u00fcssen einen Vornamen, einen Nachnamen oder eine Firma angeben.");
 		}
 
 		/*
@@ -343,7 +343,7 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 	 * Diese Methode testet, ob im aktuellen Kontext diese Bohne gelesen werden
 	 * darf.<br>
 	 * Test ist, ob der Benutzer Standard-Reader ist.
-	 * 
+	 *
 	 * @param cntx Octopus-Kontext
 	 * @throws BeanException Wenn im angegebenen Kontext diese Bohne nicht gelesen werden darf.
 	 * @see de.tarent.aa.veraweb.beans.AbstractBean#checkRead(de.tarent.octopus.server.OctopusContext)
@@ -357,7 +357,7 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 	 * Diese Methode testet, ob im aktuellen Kontext diese Bohne geschrieben
 	 * werden darf.<br>
 	 * Test ist, ob der Benutzer Writer ist.
-	 * 
+	 *
 	 * @param cntx Octopus-Kontext
 	 * @throws BeanException Wenn im angegebenen Kontext diese Bohne nicht geschrieben werden darf.
 	 * @see de.tarent.aa.veraweb.beans.AbstractBean#checkWrite(de.tarent.octopus.server.OctopusContext)
@@ -371,7 +371,7 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
      * Diese Methode leert beschr�nkte Felder.<br>
      * Hier sind es die Bemerkungsfelder, wenn der Benutzer nicht in der Gruppe
      * {@link PersonalConfigAA#GROUP_READ_REMARKS} der hierzu freigeschalteten ist.
-     * 
+     *
      * @param cntx Octopus-Kontext
      * @throws BeanException bei Problemen mit der Bean
      * @see de.tarent.aa.veraweb.beans.AbstractBean#clearRestrictedFields(de.tarent.octopus.server.OctopusContext)
@@ -389,7 +389,7 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
         }
         super.clearRestrictedFields(cntx);
     }
-    
+
     /**
      * Diese Methode gibt an, ob ein Partner für diesen Gast mit auf der Gästeliste steht.
      *
@@ -404,7 +404,7 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
     	PartnerExtra2 p2 = ( PartnerExtra2 ) this.getMemberFacade( new Integer( MEMBER_PARTNER ), new Integer( LOCALE_EXTRA2 ) );
     	// partner is always expected to have a lastname or a firstname
     	return
-    	( 
+    	(
     		( ( p.getLastname() != null ) && ( p.getLastname().length() > 0 ) )
     		|| ( ( p.getFirstname() != null ) && ( p.getFirstname().length() > 0 ) )
     		|| ( ( p1.getLastname() != null ) && ( p1.getLastname().length() > 0 ) )
@@ -420,7 +420,7 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 
 	public PersonMemberFacade getMemberFacade(boolean hauptperson, Integer locale) {
 		int l = locale != null ? locale.intValue() : LOCALE_LATIN;
-		
+
 		if (hauptperson) {
 			if (l == LOCALE_EXTRA1) {
 				return getMainExtra1();
@@ -443,7 +443,7 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 	public PersonAddressFacade getAddressFacade(Integer addresstype, Integer locale) {
 		int a = addresstype != null ? addresstype.intValue() : ADDRESSTYPE_BUSINESS;
 		int l = locale != null ? locale.intValue() : LOCALE_LATIN;
-		
+
 		switch (a * 3 + l) {
 			case 4:
 				return getBusinessLatin();
@@ -579,7 +579,7 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 		public String getSalutation() {
 			return salutation_a_e1;
 		}
-		
+
 		public Integer getSalutationFK() {
 			return fk_salutation_a_e1;
 		}
@@ -1138,7 +1138,7 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 		public String getZipCode() {
 			return zipcode_a_e1;
 		}
-		
+
 		public String getState() {
 			return state_a_e1;
 		}
@@ -1202,7 +1202,7 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 		public void setZipCode(String value) {
 			zipcode_a_e1 = value;
 		}
-		
+
 		public void setState(String state) {
 			state_a_e1 = state;
 		}
@@ -1271,7 +1271,7 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 		public String getZipCode() {
 			return zipcode_a_e2;
 		}
-		
+
 		public String getState() {
 			return state_a_e2;
 		}
@@ -1335,7 +1335,7 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 		public void setZipCode(String value) {
 			zipcode_a_e2 = value;
 		}
-		
+
 		public void setState(String state) {
 			state_a_e2 = state;
 		}
@@ -1404,7 +1404,7 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 		public String getZipCode() {
 			return zipcode_a_e3;
 		}
-		
+
 		public String getState() {
 			return state_a_e3;
 		}
@@ -1468,7 +1468,7 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 		public void setZipCode(String value) {
 			zipcode_a_e3 = value;
 		}
-		
+
 		public void setState(String state) {
 			state_a_e3 = state;
 		}
@@ -1537,7 +1537,7 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 		public String getZipCode() {
 			return zipcode_b_e1;
 		}
-		
+
 		public String getState() {
 			return state_b_e1;
 		}
@@ -1601,7 +1601,7 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 		public void setZipCode(String value) {
 			zipcode_b_e1 = value;
 		}
-		
+
 		public void setState(String state) {
 			state_b_e1 = state;
 		}
@@ -1670,7 +1670,7 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 		public String getZipCode() {
 			return zipcode_b_e2;
 		}
-		
+
 		public String getState() {
 			return state_b_e2;
 		}
@@ -1734,7 +1734,7 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 		public void setZipCode(String value) {
 			zipcode_b_e2 = value;
 		}
-		
+
 		public void setState(String state) {
 			state_b_e2 = state;
 		}
@@ -1803,7 +1803,7 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 		public String getZipCode() {
 			return zipcode_b_e3;
 		}
-		
+
 		public String getState() {
 			return state_b_e3;
 		}
@@ -1867,7 +1867,7 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 		public void setZipCode(String value) {
 			zipcode_b_e3 = value;
 		}
-		
+
 		public void setState(String state) {
 			state_b_e3 = state;
 		}
@@ -1936,7 +1936,7 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 		public String getZipCode() {
 			return zipcode_c_e1;
 		}
-		
+
 		public String getState() {
 			return state_c_e1;
 		}
@@ -2000,7 +2000,7 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 		public void setZipCode(String value) {
 			zipcode_c_e1 = value;
 		}
-		
+
 		public void setState(String state) {
 			state_c_e1 = state;
 		}
@@ -2069,7 +2069,7 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 		public String getZipCode() {
 			return zipcode_c_e2;
 		}
-		
+
 		public String getState() {
 			return state_c_e2;
 		}
@@ -2133,7 +2133,7 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 		public void setZipCode(String value) {
 			zipcode_c_e2 = value;
 		}
-		
+
 		public void setState(String state) {
 			state_c_e2 = state;
 		}
@@ -2202,7 +2202,7 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 		public String getZipCode() {
 			return zipcode_c_e3;
 		}
-		
+
 		public String getState() {
 			return state_c_e3;
 		}
@@ -2266,7 +2266,7 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 		public void setZipCode(String value) {
 			zipcode_c_e3 = value;
 		}
-		
+
 		public void setState(String state) {
 			state_c_e3 = state;
 		}

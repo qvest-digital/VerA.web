@@ -54,13 +54,13 @@ import de.tarent.octopus.server.OctopusContext;
  * Diese Octopus-Worker-Klasse stellt Operationen zur Anzeige von
  * Veranstaltungslisten zur Verf�gung. Details zur Verwendung
  * bitte dem {@link BeanListWorker} entnehmen.<br><br>
- * 
+ *
  * Verwendet als Filter der Veranstaltungen ein Event-Object
  * das in der Session gehalten wird, siehe getSearch.
- * 
+ *
  * @see #extendWhere(OctopusContext, Select)
  * @see #getSearch(OctopusContext)
- * 
+ *
  * @author Christoph Jerolimov
  */
 public class EventListWorker extends ListWorkerVeraWeb {
@@ -69,7 +69,7 @@ public class EventListWorker extends ListWorkerVeraWeb {
     //
     /** Parameter: Wessen Ereignisse? */
     public final static String PARAM_DOMAIN = "domain";
-    
+
     /** Parameterwert: beliebige Ereignisse */
     public final static String PARAM_DOMAIN_VALUE_ALL = "all";
     /** Parameterwert: Ereignisse des gleichen Mandanten */
@@ -89,7 +89,7 @@ public class EventListWorker extends ListWorkerVeraWeb {
     /**
      * Diese Methode f�gt eine Bedingung zum Filtern nach dem Mandanten hinzu, wenn der
      * aktuelle Benutzer nicht Superadmin ist.
-     * 
+     *
      * @param cntx Octopus-Kontext
      * @param select Event-Select
      * @throws BeanException wenn keine testbaren Benutzerinformationen vorliegen.
@@ -107,7 +107,7 @@ public class EventListWorker extends ListWorkerVeraWeb {
                 select.where(Expr.equal("fk_orgunit", aaConfig.getOrgUnitId()));
         } else
             throw new BeanException("Missing user information");
-        
+
         // Dreht die Sortierung beim Export von Personen-Daten
         // um, um erst die "�ltesten" Veranstaltungen zu sehen,
         // da diese am wahrscheinlichsten f�r einen Export
@@ -130,23 +130,23 @@ public class EventListWorker extends ListWorkerVeraWeb {
 	 * Wenn das Event <code>search</code> einen Start-Termin hat,
 	 * werden nur Veranstaltungen angezeigt die <strong>genau</strong>
 	 * diesem Termin <strong>beginnen</strong>.<br><br>
-	 * 
+	 *
 	 * Wenn das Event <code>search<code> einen Ende-Termin hat,
 	 * werden nur Veranstaltungen angezeigt die <strong>nach</strong>
 	 * diesem Termin <strong>beginnen oder enden</strong>.<br><br>
-	 * 
+	 *
 	 * Siehe hierzu im 'Veranstaltung suchen'-Dialog das Eingabe Feld
 	 * 'Datum-Beginn', sowie die Funktion 'Aktuelle Veranstaltung anzeigen'.
-	 * 
+	 *
 	 * @see #getSearch(OctopusContext)
 	 */
 	@Override
     protected void extendWhere(OctopusContext cntx, Select select) throws BeanException {
 		Event search = getSearch(cntx);
-		
+
 		// WHERE - Filtert das Datenbank Ergebnis anhand der Benutzereingaben.
 		WhereList where = new WhereList();
-        
+
         TcPersonalConfig pConfig = cntx.personalConfig();
         if (pConfig instanceof PersonalConfigAA) {
             PersonalConfigAA aaConfig = (PersonalConfigAA) pConfig;
@@ -155,7 +155,7 @@ public class EventListWorker extends ListWorkerVeraWeb {
                 where.addAnd(Expr.equal("fk_orgunit", aaConfig.getOrgUnitId()));
         } else
             throw new BeanException("Missing user information");
-        
+
 		if (search.shortname != null && search.shortname.length() != 0) {
 			where.addAnd(DatabaseHelper.getWhere(search.shortname, new String[] {
 					"shortname" }));
@@ -185,7 +185,7 @@ public class EventListWorker extends ListWorkerVeraWeb {
 //					Expr.greaterOrEqual("datebegin", search.end),
 //					Expr.greaterOrEqual("dateend", search.end)));
 		}
-		
+
         if (where.size() > 0)
             select.where(where);
 	}
@@ -200,16 +200,16 @@ public class EventListWorker extends ListWorkerVeraWeb {
 		Database database = context.getDatabase();
 		Map questions = new HashMap();
 		Map questions2 = new HashMap();
-		
-		
+
+
 		if (!cntx.getRequestObject().getParameterAsBoolean("force-remove-events")) {
-    		/* 
+    		/*
              * determine events which are not expired and add question
              */
     		Calendar today = Calendar.getInstance();
     		today.set(Calendar.HOUR_OF_DAY, 23);
     		today.set(Calendar.MINUTE, 59);
-    		
+
     		Integer countOfNotExpiredEvents =
                     database.getCount(database.getCount("Event").
                     where(Where.and(
@@ -225,23 +225,23 @@ public class EventListWorker extends ListWorkerVeraWeb {
                                     )
                                 ))),
                     context);
-    
+
     		if (countOfNotExpiredEvents != null && countOfNotExpiredEvents.intValue() > 0) {
-    			questions.put("force-remove-events", "Mindestens eine markierte Veranstaltung läuft aktuell oder liegt in der Zukunft.");
-    			questions2.put("force-remove-events", "Wenn Sie Ihre Auswahl anpassen wollen, brechen Sie bitte das Löschen ab.");
+    			questions.put("force-remove-events", "Mindestens eine markierte Veranstaltung l\u00e4uft aktuell oder liegt in der Zukunft.");
+    			questions2.put("force-remove-events", "Wenn Sie Ihre Auswahl anpassen wollen, brechen Sie bitte das L\u00f6schen ab.");
     		} else {
-    		    questions.put("force-remove-events", "Sollen alle markierten Veranstaltungen gelöscht werden? Diese Aktion kann nicht rückgängig gemacht werden.");
+    		    questions.put("force-remove-events", "Sollen alle markierten Veranstaltungen gel\u00f6scht werden? Diese Aktion kann nicht rückg\u00e4ngig gemacht werden.");
     		}
     		cntx.setContent("listquestions", questions);
     		cntx.setContent("listquestions2", questions2);
             return -1;
 		}
-		
-		/* 
+
+		/*
 		 * remove events
 		 */
 		Event event = (Event)database.createBean("Event");
-		
+
 		for (Iterator iter = selection.iterator(); iter.hasNext();) {
 			event.id = (Integer) iter.next();
 			if (removeBean(cntx, event, context)) {
@@ -251,13 +251,13 @@ public class EventListWorker extends ListWorkerVeraWeb {
 		selection.clear();
 
 		try {
-			// will commit here so that the following call to 
+			// will commit here so that the following call to
 			// PersonDetailWorker.removeAllDeletedPersonsHavingNoEvent()
 			// succeeds
 			context.commit();
 		} catch ( BeanException e ) {
 			context.rollBack();
-			throw new BeanException( "Die Veranstaltungen konnten nicht gelöscht werden.", e );
+			throw new BeanException( "Die Veranstaltungen konnten nicht gel\u00f6scht werden.", e );
 		}
 
 		return count;
@@ -270,7 +270,7 @@ public class EventListWorker extends ListWorkerVeraWeb {
     protected boolean removeBean(OctopusContext cntx, Bean bean, TransactionContext context) throws BeanException, IOException {
 		Database database = context.getDatabase();
 		OptionalFieldsWorker optionalFieldsWorker = new OptionalFieldsWorker(cntx);
-		
+
 		Event event = (Event)bean;
 
 		List<OptionalField> optionalFields;
@@ -282,23 +282,23 @@ public class EventListWorker extends ListWorkerVeraWeb {
 					.from("veraweb.toptional_fields_delegation_content")
 					.where(new Where("fk_delegation_field", optionalField.getPk(), "="))
 				);
-				
+
 				context.execute(
 						SQL.Delete(database)
 						.from("veraweb.toptional_fields")
 						.where(new Where("pk", optionalField.getPk(), "="))
 					);
 			}
-			
-			
+
+
 		} catch (SQLException e) {
 			throw new BeanException("SQL Exception while deleting OptionalFields from Event", e);
 		}
-		
-	
-		
 
-		
+
+
+
+
 		context.execute(
 		        SQL.Delete(database)
 		        .from("veraweb.ttask")
@@ -316,7 +316,7 @@ public class EventListWorker extends ListWorkerVeraWeb {
 				SQL.Delete( database ).
 				from("veraweb.tguest").
 				where(Expr.equal("fk_event", event.id)));
-		
+
 		context.execute(
 				SQL.Delete( database ).
 				from("veraweb.tevent_doctype").
@@ -325,7 +325,7 @@ public class EventListWorker extends ListWorkerVeraWeb {
 		if ( result )
 		{
 			BeanChangeLogger clogger = new BeanChangeLogger( database );
-			clogger.logDelete( cntx.personalConfig().getLoginname(), event );	
+			clogger.logDelete( cntx.personalConfig().getLoginname(), event );
 		}
 
 		return result;
@@ -339,7 +339,7 @@ public class EventListWorker extends ListWorkerVeraWeb {
 	/**
 	 * Spiegelt die vom Benutzer eingebene Suche nach Veranstaltungen wieder.
 	 * Entsprechende Eingaben werden in der Session gespeichert.
-	 * 
+	 *
 	 * @param cntx Octopus-Context
 	 * @return Event-Instanz die die aktuelle Suche repr�sentiert.
 	 * @throws BeanException

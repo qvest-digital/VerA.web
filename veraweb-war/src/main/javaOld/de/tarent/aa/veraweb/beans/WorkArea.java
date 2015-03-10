@@ -27,10 +27,10 @@ import de.tarent.octopus.server.OctopusContext;
  * The bean class WorkArea represents an entity that
  * stores so-called standing data for association with
  * {@link Person}s.
- * 
+ *
  * @author cklein
  * @since 1.2.0
- * 
+ *
  * @see de.tarent.aa.veraweb.worker.WorkAreaWorker
  */
 public class WorkArea extends AbstractBean {
@@ -40,20 +40,20 @@ public class WorkArea extends AbstractBean {
 
 	/**
 	 * Verifies that the name was correctly set.
-	 * 
+	 *
 	 * @throws BeanException
 	 */
 	@Override
     public void verify() throws BeanException {
 		if ( name == null || name.trim().length() == 0 ) {
-			addError( "Der Arbeitsbereich benötigt einen eindeutigen Namen." );	
+			addError( "Der Arbeitsbereich ben\u00f6tigt einen eindeutigen Namen." );
 		}
 	}
 
     /**
      * Tests whether the user may read the bean
      * from the database.
-     * 
+     *
      * @param cntx the current octopus context
      * @throws BeanException
      * @see de.tarent.aa.veraweb.beans.AbstractBean#checkRead(de.tarent.octopus.server.OctopusContext)
@@ -66,7 +66,7 @@ public class WorkArea extends AbstractBean {
    /**
     * Tests whether the user may write the bean
     * to the database.
-    * 
+    *
     * @param cntx the current octopus context
     * @throws BeanException
     * @see de.tarent.aa.veraweb.beans.AbstractBean#checkWrite(de.tarent.octopus.server.OctopusContext)

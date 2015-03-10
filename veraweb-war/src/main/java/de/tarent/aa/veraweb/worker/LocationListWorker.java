@@ -41,9 +41,9 @@ import de.tarent.octopus.server.OctopusContext;
 
 /**
  * List worker for handling {@link Location}s.
- * 
+ *
  * @author Valentin But (v.but@tarent.de), tarent solutions GmbH
- * 
+ *
  */
 public class LocationListWorker extends ListWorkerVeraWeb {
 
@@ -63,7 +63,7 @@ public class LocationListWorker extends ListWorkerVeraWeb {
     protected void extendAll(final OctopusContext cntx, final Select select) throws BeanException, IOException {
         select.where(Expr.equal("tlocation.fk_orgunit", ((PersonalConfigAA) (cntx.personalConfig())).getOrgUnitId()));
     }
-    
+
     protected Integer getAlphaStart(OctopusContext cntx, String start) throws BeanException, IOException {
         Database database = getDatabase(cntx);
         Select select = database.getCount(BEANNAME);
@@ -75,13 +75,13 @@ public class LocationListWorker extends ListWorkerVeraWeb {
         Integer i = database.getCount(select);
         return new Integer(i.intValue() - (i.intValue() % getLimit(cntx).intValue()));
     }
-    
+
     /**
      * Bestimmt ob ein Veranstaltungsort aufgrund bestimmter Kriterien gelöscht wird oder nicht
      */
     @Override
     protected int removeSelection(OctopusContext cntx, List errors, List selection, TransactionContext context) throws BeanException, IOException {
-       
+
         int count = 0;
         if (selection == null || selection.size() == 0) {
             return count;
@@ -92,33 +92,33 @@ public class LocationListWorker extends ListWorkerVeraWeb {
         Location location = (Location)database.createBean("Location");
         Clause clause = Expr.in("pk", selection);
         Select select = database.getSelect("Location").where(clause);
-        
+
         List removeLocations = new ArrayList();
-        
+
         List locationList = database.getBeanList("Location", select);
-        
+
         for (Iterator it = locationList.iterator(); it.hasNext(); ) {
             location = (Location)it.next();
-            
+
             Integer countReferences = database.getCount(database.getCount("Event").where(Expr.equal("fk_location", location.id)));
-        
+
             if (countReferences != null && countReferences > 0) {
-                errors.add("Der Ort '" + location.name + "' kannt nicht gelöscht werden, da er von mindestenes einer Veranstaltung verwendet wird.");
+                errors.add("Der Ort '" + location.name + "' kannt nicht gel\u00f6scht werden, da er von mindestenes einer Veranstaltung verwendet wird.");
             } else if (cntx.requestAsBoolean("remove-location" + location.id).booleanValue()) {
                 removeLocations.add(location.id);
             } else {
-                questions.put("remove-location" + location.id, "Soll der Veranstaltungsort '" + location.name + "' wirklich gelöscht werden?");
+                questions.put("remove-location" + location.id, "Soll der Veranstaltungsort '" + location.name + "' wirklich gel\u00f6scht werden?");
             }
         }
 
         if (errors.isEmpty() && !questions.isEmpty()) {
             cntx.setContent("listquestions", questions);
         }
-        
+
         if (removeLocations.size() > 0) {
             clause = Where.or(clause, Expr.in("pk", removeLocations));
         }
-        
+
         select = database.getSelectIds(location).where(clause);
 
         if (!removeLocations.isEmpty()) {
@@ -127,7 +127,7 @@ public class LocationListWorker extends ListWorkerVeraWeb {
                 for (Iterator it = database.getList(select, context).iterator(); it.hasNext(); ) {
                     data = (Map)it.next();
                     location.id = (Integer)data.get("id");
-                    
+
                     if (removeBean(cntx, location, context)) {
                         selection.remove(location.id);
                         count++;
@@ -136,16 +136,16 @@ public class LocationListWorker extends ListWorkerVeraWeb {
                 context.commit();
             } catch ( BeanException e ) {
                 context.rollBack();
-                throw new BeanException( "Der Veranstaltungsort konnten nicht gelöscht werden.", e );
+                throw new BeanException( "Der Veranstaltungsort konnten nicht gel\u00f6scht werden.", e );
             }
         }
-        return count; 
+        return count;
     }
 
     /**
      * Temporarily method for inserting a {@link Location}. <br/>
      * TODO: move this method to LocationDetailWorker!
-     * 
+     *
      * @param cntx
      *            Octopus context
      * @param errors

@@ -71,7 +71,7 @@ public class EventDetailWorker {
 	public static final String INPUT_showDetail[] = { "id", "task", "eventId" };
     /** Eingabe-Parameterzwang der Octopus-Aktion {@link #showDetail(OctopusContext, Integer)} */
 	public static final boolean MANDATORY_showDetail[] = { false, false, false };
-	
+
 	public static final String VWOR_ACTIVE = "vwor.activated";
 	/**
 	 * Diese Octopus-Aktion l�dt eine Veranstaltung und legt sie unter dem Schl�ssel "event"
@@ -446,7 +446,7 @@ public class EventDetailWorker {
             if (database.getCount(database.getCount("Event").where(where)).intValue() != 0) {
                 if (!cntx.requestAsBoolean("event-samename").booleanValue()) {
                     questions.put("event-samename", "Eine Verstaltung mit dem Namen '" + event.shortname
-                        + "' existiert bereits. Möchten Sie die neue Veranstaltung dennoch speichern?");
+                        + "' existiert bereits. M\u00f6chten Sie die neue Veranstaltung dennoch speichern?");
                 } else {
                     //QUICKFIX wenn die Frage samename schon gestellt wurde und user trotzdem speichern will, ist der
                     //event zwar neu, aber nicht mehr modified. Dann wird weiter unten nicht gespeichert.

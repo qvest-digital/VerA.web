@@ -85,7 +85,7 @@ public class GuestDetailWorker extends GuestListWorker {
 	 * <li> "partner" mit der Facade zur Partnerperson
 	 * <li> "address" mit der Facade zur Adresse zum Standard-Freitextfeld
 	 * </ul>
-	 * 
+	 *
 	 * @param cntx
 	 *          Octopus-Kontext
 	 * @param guestid
@@ -158,9 +158,9 @@ public class GuestDetailWorker extends GuestListWorker {
 		 * Der Gast wird aus dem Octopus-Request gelesen. Je nach Einladungsart und -status werden dann Korrekturen an den
 		 * laufenden Nummern ausgef�hrt und die Bean wird gepr�ft ({@link BeanException} falls sie unvollst�ndig ist oder
 		 * ung�ltige Eintr�ge enth�lt). Schlie�lich wird sie gespeichert und passend wird im Octopus-Content unter
-		 * "countInsert" oder "countUpdate" 1 eingetragen. 
+		 * "countInsert" oder "countUpdate" 1 eingetragen.
 		 * Wenn der Nutzer dies im GUI bestaetigt hat, wird der Rang der Kategorie aus den Stammdaten der Person uebernommen.
-		 * 
+		 *
 		 * @param cntx
 		 *          Octopus-Content
 		 * @throws BeanException
@@ -175,16 +175,16 @@ public class GuestDetailWorker extends GuestListWorker {
 		try
 		{
 			Guest guest = (Guest) request.getBean("Guest", "guest");
-			
-			//Check for duplicate reservation (guest and partner). 
+
+			//Check for duplicate reservation (guest and partner).
 			List<String> duplicateErrorList = reservationDupCheck(database, guest);
-			
-			//In case duplications were found show the errors and do not proceed with saving 
+
+			//In case duplications were found show the errors and do not proceed with saving
 			if(duplicateErrorList != null && !duplicateErrorList.isEmpty()){
 				cntx.setContent("duplicateErrorList", duplicateErrorList);
-				return;				
+				return;
 			}
-			
+
 			if (guest.reserve != null && guest.reserve.booleanValue())
 			{
 				guest.orderno_a = null;
@@ -290,24 +290,24 @@ public class GuestDetailWorker extends GuestListWorker {
 			context.rollBack();
 		}
 	}
-	
+
 	public static final String INPUT_reservationDupCheck[] = {};
-	
+
 	/**
-	 * This method returns list of error messages in the case where duplicate reservation for the guest ("Hauptperson") or its partner 
+	 * This method returns list of error messages in the case where duplicate reservation for the guest ("Hauptperson") or its partner
 	 * (or both) were found in the database table tguest. Duplicate reservation applies if an seat (with empty or 0 table) or table and seat is already
 	 * reserved by another guest or its partner.
-	 * @param database 
-	 * @param guest 
+	 * @param database
+	 * @param guest
 	 * @return Returns list of error messages in case duplicate reservation were found
 	 * @throws BeanException
 	 * @throws IOException
 	 */
 	public List<String> reservationDupCheck(Database database, Guest guest) throws BeanException, IOException{
-		
-		List<String> duplicateErrorList = new ArrayList<String>();	
-		
-		//SCENARIO 1 - The seat (or table and seat) of the guest ("Hauptperson") is already reserved by another guest 
+
+		List<String> duplicateErrorList = new ArrayList<String>();
+
+		//SCENARIO 1 - The seat (or table and seat) of the guest ("Hauptperson") is already reserved by another guest
 		if (guest.seatno_a != null && guest.seatno_a > 0) {
 			if (guest.tableno_a == null || guest.tableno_a.intValue() == 0) {
 
@@ -319,7 +319,7 @@ public class GuestDetailWorker extends GuestListWorker {
 						.whereAnd(Expr.notEqual("fk_person", guest.person));
 
 				Person duplicatePerson = checkForDuplicateSeatPerson(database, select);
-				
+
 				if(duplicatePerson != null){
 					duplicateErrorList.add(getDuplicateSeatErrorMessage(duplicatePerson, "der Hauptperson", "der Hauptperson"));
 				}
@@ -329,16 +329,16 @@ public class GuestDetailWorker extends GuestListWorker {
 						.whereAnd(Expr.equal("seatno", guest.seatno_a))
 						.whereAnd(Expr.equal("fk_event", guest.event))
 						.whereAnd(Expr.notEqual("fk_person", guest.person));
-				
-				
+
+
 				Person duplicatePerson = checkForDuplicateSeatPerson(database, select);
-				
+
 				if(duplicatePerson != null){
 					duplicateErrorList.add(getDuplicateSeatErrorMessage(duplicatePerson, "der Hauptperson", "der Hauptperson"));
 				}
 			}
 		}
-		
+
 		//SCENARIO 2 - The seat (or table and seat) of the guest is already reserved by another partner
 		if (guest.seatno_a != null && guest.seatno_a > 0) {
 			if (guest.tableno_a == null || guest.tableno_a.intValue() == 0) {
@@ -349,33 +349,33 @@ public class GuestDetailWorker extends GuestListWorker {
 						.whereAnd(Expr.equal("seatno_p", guest.seatno_a))
 						.whereAnd(Expr.equal("fk_event", guest.event))
 						.whereAnd(Expr.notEqual("fk_person", guest.person));
-				
-				
+
+
 				Person duplicatePerson = checkForDuplicateSeatPerson(database, select);
-				
+
 				if(duplicatePerson != null){
 					duplicateErrorList.add(getDuplicateSeatErrorMessage(duplicatePerson, "dem Partner", "der Hauptperson"));
 				}
-				
+
 			} else {
 				Select select = database.getSelect("Guest")
 						.whereAnd(Expr.equal("tableno_p", guest.tableno_a))
 						.whereAnd(Expr.equal("seatno_p", guest.seatno_a))
 						.whereAnd(Expr.equal("fk_event", guest.event))
-						.whereAnd(Expr.notEqual("fk_person", guest.person));				
-				
+						.whereAnd(Expr.notEqual("fk_person", guest.person));
+
 				Person duplicatePerson = checkForDuplicateSeatPerson(database, select);
-				
+
 				if(duplicatePerson != null){
 					duplicateErrorList.add(getDuplicateSeatErrorMessage(duplicatePerson, "dem Partner", "der Hauptperson"));
 				}
 			}
 
 		}
-		
-		
+
+
 		if(guest.getIsPartnerInvited()){
-			
+
 			//SCENARIO 3 - The seat (or table and seat) of the partner is already reserved by another guest
 			if (guest.seatno_b != null && guest.seatno_b > 0) {
 				if (guest.tableno_b == null || guest.tableno_b.intValue() == 0) {
@@ -386,9 +386,9 @@ public class GuestDetailWorker extends GuestListWorker {
 							.whereAnd(Expr.equal("seatno", guest.seatno_b))
 							.whereAnd(Expr.equal("fk_event", guest.event))
 							.whereAnd(Expr.notEqual("fk_person", guest.person));
-					
+
 					Person duplicatePerson = checkForDuplicateSeatPerson(database, select);
-					
+
 					if(duplicatePerson != null){
 						duplicateErrorList.add(getDuplicateSeatErrorMessage(duplicatePerson, "der Hauptperson", "des Partners"));
 					}
@@ -398,15 +398,15 @@ public class GuestDetailWorker extends GuestListWorker {
 							.whereAnd(Expr.equal("seatno", guest.seatno_b))
 							.whereAnd(Expr.equal("fk_event", guest.event))
 							.whereAnd(Expr.notEqual("fk_person", guest.person));
-					
+
 					Person duplicatePerson = checkForDuplicateSeatPerson(database, select);
-					
+
 					if(duplicatePerson != null){
 						duplicateErrorList.add(getDuplicateSeatErrorMessage(duplicatePerson, "der Hauptperson", "des Partners"));
 					}
 				}
 			}
-			
+
 			//SCENARIO 4 - The seat (or table and seat) of the partner is already reserved by another partner
 			if (guest.seatno_b != null && guest.seatno_b > 0) {
 				if (guest.tableno_b == null || guest.tableno_b.intValue() == 0) {
@@ -417,9 +417,9 @@ public class GuestDetailWorker extends GuestListWorker {
 							.whereAnd(Expr.equal("seatno_p", guest.seatno_b))
 							.whereAnd(Expr.equal("fk_event", guest.event))
 							.whereAnd(Expr.notEqual("fk_person", guest.person));
-					
+
 					Person duplicatePerson = checkForDuplicateSeatPerson(database, select);
-					
+
 					if(duplicatePerson != null){
 						duplicateErrorList.add(getDuplicateSeatErrorMessage(duplicatePerson, "dem Partner", "des Partners"));
 					}
@@ -429,21 +429,21 @@ public class GuestDetailWorker extends GuestListWorker {
 							.whereAnd(Expr.equal("seatno_p", guest.seatno_b))
 							.whereAnd(Expr.equal("fk_event", guest.event))
 							.whereAnd(Expr.notEqual("fk_person", guest.person));
-					
+
 					Person duplicatePerson = checkForDuplicateSeatPerson(database, select);
-					
+
 					if(duplicatePerson != null){
 						duplicateErrorList.add(getDuplicateSeatErrorMessage(duplicatePerson, "dem Partner", "des Partners"));
 					}
 				}
-			}			
+			}
 		}
-		
+
 		return duplicateErrorList;
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @param database
 	 * @param select
 	 * @return
@@ -452,7 +452,7 @@ public class GuestDetailWorker extends GuestListWorker {
 	 */
 	private Person checkForDuplicateSeatPerson(Database database, Select select) throws BeanException, IOException{
 		Person duplicatePersonResult = null;
-		
+
 		List resultList = database.getBeanList("Guest", select);
 
 		if (resultList != null && !resultList.isEmpty()) {
@@ -465,15 +465,15 @@ public class GuestDetailWorker extends GuestListWorker {
 				}
 			}
 		}
-		
+
 		return duplicatePersonResult;
 	}
 
 	private String getDuplicateSeatErrorMessage(Person duplicatePerson, String changeSeatFor, String collidesWithSeatOf){
-		return "Bitte ändern Sie erst den Sitzplatz bei " + changeSeatFor + " von "
+		return "Bitte \u00e4ndern Sie erst den Sitzplatz bei " + changeSeatFor + " von "
 				+ duplicatePerson.firstname_a_e1 + " " + duplicatePerson.lastname_a_e1
-				+ " (" + duplicatePerson.id	+ ") über die Gästeliste. Diese Person sitzt aktuell auf "
-				+ "dem eingegebenen Sitzplatz " + collidesWithSeatOf + ". Die Änderung wurde nicht gespeichert.";
+				+ " (" + duplicatePerson.id	+ ") über die G\u00e4steliste. Diese Person sitzt aktuell auf "
+				+ "dem eingegebenen Sitzplatz " + collidesWithSeatOf + ". Die \u00c4nderung wurde nicht gespeichert.";
 	}
 
 	/** Eingabe-Parameter der Octopus-Aktion {@link #showTestGuest(OctopusContext)} */
@@ -481,7 +481,7 @@ public class GuestDetailWorker extends GuestListWorker {
 	/**
 	 * Diese Octopus-Aktion liefert Details zu einem Test-Gast. Dieser wird unter
      * "guest" im Octopus-Content eingetragen.
-	 * 
+	 *
 	 * @param cntx Octopus-Kontext
 	 */
 	public void showTestGuest(OctopusContext cntx) throws BeanException {
@@ -499,7 +499,7 @@ public class GuestDetailWorker extends GuestListWorker {
     //
     /**
      * Diese Methode erzeugt Test-Gast-Daten in einer Gast-Member-Facade.
-     * 
+     *
      * @param facade zu f�llende Gast-Member-Facade
      * @param suffix Feldinhaltanhang f�r Textfelder
      * @param random Wert f�r laufende Nummer, Sitznummer und Tischnummer
@@ -523,7 +523,7 @@ public class GuestDetailWorker extends GuestListWorker {
      * Kriterien. Falls eine Gast- und Veranstaltungs-ID vorliegt, wird der Gast
      * anhand dieser selektiert, sonst wird er �ber den �bergebenen Offset in der
      * Ergebnisliste zur aktuellen Gastsuche ausgew�hlt.<br>
-     * 
+     *
      * @param cntx Octopus-Kontext
      * @param eventid Veranstaltungs-ID f�r Selektion �ber ID
      * @param guestid Gast-ID f�r Selektion �ber ID
@@ -532,15 +532,15 @@ public class GuestDetailWorker extends GuestListWorker {
      */
 	protected Guest getGuest(OctopusContext cntx, Integer eventid, Integer guestid, Integer offset) throws BeanException, IOException {
 		Database database = getDatabase(cntx);
-		
+
 		// Offset aus der GuestListSearch lesen
 		GuestSearch search = (GuestSearch)cntx.contentAsObject("search");
-		
+
 		// Offset in den aktuellen Suchfilter-Bereich legen.
 		if (offset == null || offset.intValue() < 1) {
 			offset = search.offset;
 		}
-		
+
 		Select select = database.getCount(BEANNAME);
 		extendWhere(cntx, select);
 		Integer count = database.getCount(select);
@@ -548,11 +548,11 @@ public class GuestDetailWorker extends GuestListWorker {
 			offset = new Integer(1);
 		else if (offset.intValue() > count.intValue())
 			offset = count;
-		
+
 		// Offset und Count in die GuestListSearch schreiben
 		search.offset = offset;
 		search.count = count;
-		
+
 		// Select bauen das entweder ID oder das Offset verwenden um einen Gast zu laden
 		select = database.getSelect(BEANNAME);
 		select.joinLeftOuter("veraweb.tcolor c1", "tguest.fk_color", "c1.pk");
@@ -566,7 +566,7 @@ public class GuestDetailWorker extends GuestListWorker {
 			select.where(Where.and(
 					Expr.equal("tguest.pk", guestid),
 					Expr.equal("tguest.fk_event", eventid)));
-			
+
 			Guest guest = (Guest)database.getBean(BEANNAME, select);
 			if (guest != null) {
 				// Gast wurde gefunden. Durch diese Suche (per ID) konnte sich aber ggf. die
@@ -575,7 +575,7 @@ public class GuestDetailWorker extends GuestListWorker {
 				Select selectForPosition = database.getSelect("Guest");
 				extendColumns(cntx, selectForPosition);
 				extendWhere(cntx, selectForPosition);
-				
+
 				int newOffset = 1;
 				for (Iterator it = database.getList(selectForPosition, database).iterator(); it.hasNext(); ) {
 					Integer id = (Integer)((Map)it.next()).get("id");
@@ -585,11 +585,11 @@ public class GuestDetailWorker extends GuestListWorker {
 					}
 					newOffset++;
 				}
-				
+
 				return guest;
 			}
 		}
-		
+
 		if (logger.isEnabledFor(Priority.DEBUG))
 			logger.log(Priority.DEBUG, "GuestDetail show for offset " + offset);
 		WhereList list = new WhereList();

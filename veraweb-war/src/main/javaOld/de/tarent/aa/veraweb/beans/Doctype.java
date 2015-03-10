@@ -26,7 +26,7 @@ import de.tarent.octopus.server.OctopusContext;
 /**
  * Repr�sentiert ein Datenbank-Tupel aus der Tabelle <code>tdoctype</code>,
  * ein Dokumenttyp.
- * 
+ *
  * @author Christoph, Mikel
  */
 public class Doctype extends AbstractBean {
@@ -63,20 +63,20 @@ public class Doctype extends AbstractBean {
     /**
      * �berpr�ft das Bean auf innere Vollst�ndigkeit.
      * Hier wird getestet, ob die Kategorie einen nicht-leeren Namen hat.
-     * 
+     *
      * @throws BeanException bei Unvollst�ndigkeit
      */
 	@Override
     public void verify() throws BeanException {
 		if (name == null || name.trim().length() == 0)
-			addError("Sie müssen eine Bezeichung eingeben.");
+			addError("Sie m\u00fcssen eine Bezeichung eingeben.");
 	}
 
     /**
      * Diese Methode testet, ob im aktuellen Kontext diese Bohne gelesen werden
      * darf.<br>
      * Test ist, ob der Benutzer Standard-Reader ist.
-     * 
+     *
      * @param cntx Octopus-Kontext
      * @throws BeanException Wenn im angegebenen Kontext diese Bohne nicht gelesen werden darf.
      * @see de.tarent.aa.veraweb.beans.AbstractBean#checkRead(de.tarent.octopus.server.OctopusContext)
@@ -90,7 +90,7 @@ public class Doctype extends AbstractBean {
      * Diese Methode testet, ob im aktuellen Kontext diese Bohne geschrieben
      * werden darf.<br>
      * Test ist, ob der Benutzer Teil-Admin ist.
-     * 
+     *
      * @param cntx Octopus-Kontext
      * @throws BeanException Wenn im angegebenen Kontext diese Bohne nicht geschrieben werden darf.
      * @see de.tarent.aa.veraweb.beans.AbstractBean#checkWrite(de.tarent.octopus.server.OctopusContext)

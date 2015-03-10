@@ -64,7 +64,7 @@ import de.tarent.octopus.server.OctopusContext;
  * Diese Octopus-Worker-Klasse stellt Operationen zur Anzeige
  * von Personenlisten zur Verf�gung.
  * Details bitte dem BeanListWorker entnehmen.
- * 
+ *
  * @author Christoph
  * @author mikel
  */
@@ -88,18 +88,18 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 	 * Should be after vera lifetime: 9999-12-01 GMT
 	 */
 	private static final Timestamp INFINITY_TIMESTAMP = new Timestamp(253399622400000L);
-	
+
 	/**
 	 * Octopus-Aktion die eine <strong>bl�tterbare</strong> Liste
 	 * mit Beans aus der Datenbank in den Content stellt. Kann durch
 	 * {@link #extendColumns(OctopusContext, Select)} erweitert bzw.
 	 * {@link #extendWhere(OctopusContext, Select)} eingeschr�nkt werden.
-	 * 
+	 *
 	 * Lenkt hier die entsprechende getSelect - Anfrage an eine
 	 * spezialisierte Form.
-	 * 
+	 *
 	 * @see #getSelection(OctopusContext, Integer)
-	 * 
+	 *
 	 * @param cntx Octopus-Context
 	 * @return Liste mit Beans, nie null.
 	 * @throws BeanException
@@ -108,8 +108,8 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 	public List showList(OctopusContext cntx) throws BeanException, IOException {
 		Database database = getDatabase(cntx);
 		cntx.setContent("searchTask", cntx.requestAsObject("searchTask"));
-		
-		/* modified (refactored part of behaviour to prepareShowList for additional reuse) as per change request for version 1.2.0 
+
+		/* modified (refactored part of behaviour to prepareShowList for additional reuse) as per change request for version 1.2.0
 		 * cklein
 		 * 2008-02-21
 		 */
@@ -117,7 +117,7 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 		Select personSelect = this.prepareShowList( cntx, database );
 		Map param = ( Map )cntx.contentAsObject( OUTPUT_showListParams );
 		personSelect.Limit(new Limit((Integer)param.get("limit"), (Integer)param.get("start")));
-		
+
 		/* FIXME remove this temporary fix ASAP
 		 * cklein 2009-09-16
 		 * Temporary workaround for NPE Exception in Conjunction with temporary Connection Pooling Fix in tarent-database
@@ -127,11 +127,11 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 		 */
 		Map<Integer, Map> result = new LinkedHashMap<Integer, Map>();
 		List personList = getResultList( database, personSelect );
-		
+
 		for ( int i = 0; i < personList.size(); i++ ) {
 			HashMap< String, Object > tmp = new HashMap< String, Object >();
 			Set< String > keys = ((ResultMap) personList.get(i)).keySet();
-			
+
 			Integer id = null;
 			for ( String key : keys ) {
 				Object val = ((ResultMap) personList.get(i)).get(key) ;
@@ -142,7 +142,7 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 					tmp.put(key, val);
 				}
 			}
-			
+
 			/* select all relevant event/task information for each person */
 			Integer personId = (Integer) tmp.get("id");
 			Select eventSelect = SQL.SelectDistinct(database).from("veraweb.tperson")
@@ -156,13 +156,13 @@ public class PersonListWorker extends ListWorkerVeraWeb {
                         .joinOuter("veraweb.ttask", "ttask.fk_person", "tperson.pk")
                         .joinOuter("veraweb.tevent event2", "event2.pk", "ttask.fk_event")
                         .where(Expr.equal("tperson.pk", personId));
-			
-			
+
+
 			Timestamp eventBeginDate = null;
             Timestamp eventEndDate = null;
             Timestamp taskEventBeginDate = null;
             Timestamp taskEventEndDate = null;
-			
+
 			List eventList = getResultList(database, eventSelect);
 			for ( int j = 0; j < eventList.size(); j++ ) {
     			keys = ((ResultMap) eventList.get(j)).keySet();
@@ -182,8 +182,8 @@ public class PersonListWorker extends ListWorkerVeraWeb {
                     }
                 }
 			}
-			
-			
+
+
 			if (eventBeginDate != null && eventEndDate == null) { // end = infinity
 				eventEndDate = INFINITY_TIMESTAMP;
 			}
@@ -210,15 +210,15 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 				}
 			}
 		}
-		
+
 		cntx.setContent(OUTPUT_getSelection, getSelection(cntx, getCount(cntx, database)));
-		
+
 		cntx.setContent("deleted", cntx.getRequestObject().getParamAsInt("deleted"));
-		
+
 		cntx.setContent("workareaAssigned",  cntx.requestAsObject("workareaAssigned"));
-		
+
 		cntx.setContent("categoryAssigned",  cntx.requestAsObject("categoryAssigned"));
-		
+
 		return new ArrayList(result.values());
 	}
 
@@ -227,7 +227,7 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 	{
 		String categoryAssignmentAction = cntx.requestAsString( "categoryAssignmentAction" );
 		String workareaAssignmentAction = cntx.requestAsString( "workareaAssignmentAction" );
-		
+
 		// does the user request categories to be assigned or unassigned?
 		if ( categoryAssignmentAction != null && categoryAssignmentAction.length() > 0 )
 		{
@@ -272,7 +272,7 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 				throw e;
 			}
 		}
-		
+
 		// does the user request workareas to be assigned or unassigned?
 		else if(workareaAssignmentAction != null && workareaAssignmentAction.length() > 0)
 		{
@@ -297,10 +297,10 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 			super.saveList(cntx);
 		}
 	}
-	
+
 	/**
 	 * Entfernt die Zuordnungen von Arbeitsbereichen der übergebenen Personen (IDs).
-	 * 
+	 *
 	 * @param cntx Octopus-Context
 	 * @param personIds Liste von Personen IDs für die das entfernen der Zuordnung gilt
 	 * @param workAreaId ID des Arbeitsbereiches deren Zuordnung entfernt werden soll
@@ -321,10 +321,10 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 			context.rollBack();
 		}
 	}
-	
+
 	/**
 	 * Ordnet den übergebenen Arbeitsbereich der Liste von Personen hinzu.
-	 * 
+	 *
 	 * @param cntx OctopusContext
 	 * @param personIds Liste von Personen IDs für die die neue Zuordnung gilt
 	 * @param workAreaId ID des Arbeitsbereiches der zugeordnet werden soll
@@ -349,7 +349,7 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 	/*
 	 * 2009-05-12 cklein
 	 * introduced as part of fix for issue #1530 - removal of orgunits, and subsequently also individual workareas
-	 * 
+	 *
 	 * unassigns from all persons the given workArea. Will not commit the query as this is left to the caller.
 	 */
 	public static void unassignWorkArea( TransactionContext context, Integer workAreaId, List<Integer> personIds ) throws BeanException, IOException
@@ -387,7 +387,7 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 		cntx.setContent(OUTPUT_showListParams, param);
 		return select;
 	}
-	
+
 	protected void extendColumns(OctopusContext cntx, Select select) throws BeanException, IOException {
 	    PersonSearch search = getSearch(cntx);
 		select.selectAs( "tworkarea.name", "workarea_name" );
@@ -401,11 +401,11 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 		if (searchFiled == null) {
 			select.join( "veraweb.tworkarea", "tworkarea.pk", "tperson.fk_workarea" );
 		}
-		
-		List<String> order = new ArrayList<String>();		
+
+		List<String> order = new ArrayList<String>();
 
 		/*
-		 * TODO: Needed to optimise that snippet and move it to a 
+		 * TODO: Needed to optimise that snippet and move it to a
 		 * location where all List can use it for sortation
 		 */
 		if(search.sortList) {
@@ -418,7 +418,7 @@ public class PersonListWorker extends ListWorkerVeraWeb {
             }
         }
         cntx.getContentObject().setField("personSearchOrder", search.sort);
-        
+
         if (search != null && search.listorder != null && search.listorder != "") {
             order.add(search.listorder);
             order.add(search.sort);
@@ -431,27 +431,27 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 	{
 		PersonSearch search = getSearch( cntx );
 		select.whereAnd( getPersonListFilter( cntx , true) );
-		
+
 		select.setDistinct(true);
 		String searchFiled = cntx.getRequestObject().getParamAsString("searchField");
-		
-		
+
+
 		/*
 		 * extension to support for multiple categories at once
-		 * 
+		 *
 		 * cklein
 		 * 2008-02-20/26
 		 */
-		this.extendSelectByMultipleCategorySearch( cntx, search, select );
+ 		this.extendSelectByMultipleCategorySearch( cntx, search, select );
 		if ( search.categorie2 != null )
 		{
 			select.join( "veraweb.tperson_categorie cat2", "cat2.fk_person", "tperson.pk" );
 		} else if (searchFiled != null) {
 			select.joinOuter( "veraweb.tperson_categorie cat2", "cat2.fk_person", "tperson.pk" );
-			
+
 		}
 		if (searchFiled != null) {
-			
+
 			select.joinOuter("veraweb.tworkarea", "tworkarea.pk", "tperson.fk_workarea");
 //			select.joinOuter("veraweb.torgunit", "torgunit.pk", "tperson.fk_orgunit");
 			select.joinOuter("veraweb.tcategorie", "tcategorie.pk", "cat2.fk_categorie");
@@ -461,7 +461,7 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 	/**
 	 * Extends the select statement in order to allow search for multiple
 	 * categories at once using either AND or OR.
-	 *  
+	 *
 	 * @param cntx
 	 * @param search
 	 * @param select
@@ -575,42 +575,42 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 	/**
 	 * �berpr�ft ob eine Person die n�tigen Berechtigungen hat um Personen
 	 * zu l�schen und ob diese ggf. noch Veranstaltungen zugeordent sind.
-	 * 
+	 *
 	 * Bei Ver�nderungen an dieser Methode m�ssen diese ggf. auch in der
 	 * personList.vm �bernommen werden, dort werden entsprechende JavaScript
 	 * Meldungen ausgegeben.
-	 * 
+	 *
 	 * siehe Anwendungsfall: UC.PERSON.LOESCH
 	 */
 	protected int removeSelection(OctopusContext cntx, List errors, List selection, TransactionContext context) throws BeanException, IOException {
 		int count = 0;
 		if (selection == null || selection.size() == 0) return count;
 		List selectionRemove = new ArrayList(selection);
-		
+
 		Database database = context.getDatabase();
 		Map questions = new HashMap();
-		
+
 		List groups = Arrays.asList(cntx.personalConfig().getUserGroups());
 		boolean user = groups.contains(PersonalConfigAA.GROUP_WRITE);
 		boolean admin = groups.contains(PersonalConfigAA.GROUP_ADMIN) ||
 				groups.contains(PersonalConfigAA.GROUP_PARTIAL_ADMIN);
 		if (admin) user = false;
-		
+
 		if (!(user || admin)) {
-			errors.add("Sie haben keine Berechtigung Personen zu löschen.");
+			errors.add("Sie haben keine Berechtigung Personen zu l\u00f6schen.");
 			return count;
 		}
 		/** User d�rfen immer nur eine Person gleichzeitig l�schen. */
 		if (user && selectionRemove.size() > 1) {
-			errors.add("Sie dürfen immer nur eine Person löschen.\n" +
+			errors.add("Sie dürfen immer nur eine Person l\u00f6schen.\n" +
 					"Bitte markieren Sie nur einen Eintrag, oder wenden Sie sich an Ihren Administrator.");
 			return count;
 		}
-		
-		
+
+
 		int maxquestions = 0;
 		int subselectsize = 1000;
-		
+
 		/** Test ob Personen noch g�ltig sind und nicht gel�scht werden d�rfen. */
 		if ((user || admin) && !selectionRemove.isEmpty()) {
 			for (int i = 0; i < selectionRemove.size(); i += subselectsize) {
@@ -636,16 +636,16 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 				}
 			}
 		}
-		
+
 		/** Fragen ob alle Personen wirklich gel�scht werden sollen. */
 		if (!getContextAsBoolean(cntx, "remove-person")) {
-			questions.put("remove-person", "Sollen alle markierten Personen gelöscht werden?");
+			questions.put("remove-person", "Sollen alle markierten Personen gel\u00f6scht werden?");
 		}
-		
+
 		if (!questions.isEmpty()) {
 			cntx.setContent("listquestions", questions);
 		}
-		
+
 		/** L�scht Personen aus VerA.Web */
 		if ((user || admin) && !selectionRemove.isEmpty() && getContextAsBoolean(cntx, "remove-person")) {
 			try
@@ -668,7 +668,7 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 			catch( BeanException e )
 			{
 				context.rollBack();
-				throw new BeanException( "Die ausgewählten Personen konnten nicht gelöscht werden.", e );
+				throw new BeanException( "Die ausgewählten Personen konnten nicht gel\u00f6scht werden.", e );
 			}
 		}
 
@@ -704,20 +704,20 @@ public class PersonListWorker extends ListWorkerVeraWeb {
      * Dies wird aus dem Request geholt geholt, falls ein Requestparameter
      * "search" den Wert "reset" hat. Beim Wert "clear" wird ein leeres
      * Objekt zur�ck gegeben. Ausgewichen wird dann auf ein entsprechendes
-     * Session-Objekt. Das Ergebnis wird in der Session gesetzt. 
-     * 
+     * Session-Objekt. Das Ergebnis wird in der Session gesetzt.
+     *
      * @param cntx Octopus-Kontext
      * @throws BeanException
      */
     public PersonSearch getSearch(OctopusContext cntx) throws BeanException {
-        
+
         if (cntx.contentContains("search") && cntx.contentAsObject("search") instanceof PersonSearch)
             return (PersonSearch)cntx.contentAsObject("search");
-        
+
         String param = cntx.requestAsString("search");
         Boolean sortList = cntx.requestAsBoolean("sortList");
         PersonSearch search = null;
-        
+
         if ("clear".equals(param))
             search = new PersonSearch();
         else if ("reset".equals(param))
@@ -749,8 +749,8 @@ public class PersonListWorker extends ListWorkerVeraWeb {
         }
         if (search == null) {
             search = new PersonSearch();
-        }        
-        
+        }
+
         PersonSearch sessionSearchPerson = (PersonSearch)cntx.sessionAsObject("search" + BEANNAME);
 
         if(sessionSearchPerson != null) {
@@ -776,21 +776,21 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 
 	/**
 	 * Gibt eine Person-List-Filter Bedinung inkl. Mandanten Einschr�nkung zur�ck.
-	 * 
+	 *
 	 * @param cntx
 	 * @throws BeanException
 	 */
 	protected Clause getPersonListFilter(OctopusContext cntx, boolean status) throws BeanException {
 		WhereList list = new WhereList();
-		
+
 		String searchFiled = cntx.getRequestObject().getParamAsString("searchField");
 		if (searchFiled == null) {
-		
+
 			addPersonListFilter(cntx, list);
 		} else {
 			addPersonListFilterSimple(cntx, searchFiled, list, status);
 		}
-		
+
 		Where orgunitFilter = Expr.equal("tperson.fk_orgunit", ((PersonalConfigAA)cntx.personalConfig()).getOrgUnitId());
 		if (list.size() == 0) {
 		    return orgunitFilter;
@@ -802,18 +802,18 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 	/**
 	 * Erweitert die �bergebene WhereList um Bedingungen der Suche.
 	 * Die WhereList ist danach <strong>niemals</strong> leer.
-	 * 
+	 *
 	 * @param cntx
 	 * @param list
 	 * @throws BeanException
 	 */
 	private void addPersonListFilter(OctopusContext cntx, WhereList list) throws BeanException {
 		PersonSearch search = getSearch(cntx);
-		
+
 //		if (search.findAll != null && search.findAll.booleanValue()) {
 //		    return;
 //		}
-		
+
 		list.addAnd(Expr.equal("tperson.deleted", PersonConstants.DELETED_FALSE));
 
 		/*
@@ -959,35 +959,35 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 					"(SELECT fk_host FROM veraweb.tevent)")));
 		}
 	}
-	
+
 
 	/**
 	 * Erweitert die �bergebene WhereList um Bedingungen der Suche.
 	 * Die WhereList ist danach <strong>niemals</strong> leer.
-	 * 
+	 *
 	 * @param cntx
-	 * @param searchField 
+	 * @param searchField
 	 * @param list
 	 * @throws BeanException
 	 */
 	private void addPersonListFilterSimple(OctopusContext cntx, String searchField, WhereList list2, boolean status) throws BeanException {
 		PersonSearch search = getSearch(cntx);
-		
+
 //		if (search.findAll != null && search.findAll.booleanValue()) {
 //		    return;
 //		}
-		
+
 
 		/*
 		 * modified to support search for individual workareas as per change request for version 1.2.0
 		 * cklein
 		 * 2008-02-21
 		 */
-		
+
 		WhereList list = new WhereList();
-		
-		
-		
+
+
+
 		list.addOr(DatabaseHelper.getWhere(searchField, new String[] {
 					"firstname_a_e1",
 					"firstname_a_e2",
@@ -995,9 +995,9 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 					"firstname_b_e1",
 					"firstname_b_e2",
 					"firstname_b_e3" }));
-		
 
-		
+
+
 		list.addOr(DatabaseHelper.getWhere(searchField, new String[] {
 					"lastname_a_e1",
 					"lastname_a_e2",
@@ -1005,7 +1005,7 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 					"lastname_b_e1",
 					"lastname_b_e2",
 					"lastname_b_e3" }));
-		
+
 		list.addOr(DatabaseHelper.getWhere(searchField, new String[] {
 					"company_a_e1",
 					"company_a_e2",
@@ -1016,7 +1016,7 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 					"company_c_e1",
 					"company_c_e2",
 					"company_c_e3" }));
-		
+
 		list.addOr(DatabaseHelper.getWhere(searchField, new String[] {
 					"fon_a_e1",
 					"fon_a_e2",
@@ -1063,13 +1063,13 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 
 		list.addOr(DatabaseHelper.getWhere(searchField, new String[] {
 		"tcategorie.catname" }));
-		
-		if (status) { 
+
+		if (status) {
 			list.addOr(DatabaseHelper.getWhere(searchField, new String[] {
 						"tworkarea.name" }));
 		}
-		
-		
+
+
 		list.addOr(DatabaseHelper.getWhere(searchField, new String[] {
 				"function_a_e1",
 				"function_a_e2",
@@ -1080,11 +1080,11 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 				"function_c_e1",
 				"function_c_e2",
 				"function_c_e3" }));
-		
+
 		list.addOr(DatabaseHelper.getWhere(searchField, new String[] {
 					"note_a_e1",
 					"note_b_e1" }));
-		
+
 		list.addOr(DatabaseHelper.getWhere(searchField, new String[] {
 				"city_a_e1",
 				"city_a_e2",
@@ -1095,7 +1095,7 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 				"city_c_e1",
 				"city_c_e2",
 				"city_c_e3" }));
-		
+
 		list.addOr(DatabaseHelper.getWhere(searchField, new String[] {
 				"street_a_e1",
 				"street_a_e2",
@@ -1106,7 +1106,7 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 				"street_c_e1",
 				"street_c_e2",
 				"street_c_e3" }));
-		
+
 		list.addOr(DatabaseHelper.getWhere(searchField, new String[] {
 				"zipcode_a_e1",
 				"zipcode_a_e2",
@@ -1117,20 +1117,20 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 				"zipcode_c_e1",
 				"zipcode_c_e2",
 				"zipcode_c_e3" }));
-		
-		
+
+
 
 		list2.addAnd(Where.and(Expr.equal("tperson.deleted", PersonConstants.DELETED_FALSE), list));
-			
+
 //		list.addAnd(Expr.in("tperson.fk_workarea", new RawClause(
 //				"(SELECT name FROM veraweb.tworkarea)")));
-		
+
 //		list.addOr( Expr.equal( "tperson.fk_workarea", searchField ) );
-		
-		
+
+
 		return;
 	}
-	
-	
-	
+
+
+
 }
