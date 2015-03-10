@@ -36,6 +36,7 @@ import de.tarent.aa.veraweb.beans.Person;
 import de.tarent.aa.veraweb.beans.Task;
 import de.tarent.aa.veraweb.beans.facade.EventConstants;
 import de.tarent.aa.veraweb.utils.DateHelper;
+import de.tarent.aa.veraweb.utils.EventHelper;
 import de.tarent.aa.veraweb.utils.OnlineRegistrationHelper;
 import de.tarent.aa.veraweb.utils.PropertiesReader;
 import de.tarent.aa.veraweb.utils.URLGenerator;
@@ -95,7 +96,7 @@ public class EventDetailWorker {
 			// OR Control
 			if (OnlineRegistrationHelper.isOnlineregActive(cntx)) {
 				setUrlForMediaRepresentatives(cntx, event);
-				setEventUrl(cntx, event);
+				EventHelper.setEventUrl(cntx, event.hash);
 			}
 			//
 		}
@@ -111,25 +112,6 @@ public class EventDetailWorker {
 	        cntx.setContent("pressevertreterUrl", url.getURLForMediaRepresentatives() + event.mediarepresentatives);
         } else {
 	        cntx.setContent("pressevertreterUrl", "Nicht verf&uuml;gbar");
-        }
-    }
-
-    /**
-     * URL Associated directly to the event
-     *
-     * @param cntx
-     * @param event
-     * @throws IOException
-     */
-    private void setEventUrl(OctopusContext cntx, Event event) throws IOException {
-        PropertiesReader propertiesReader = new PropertiesReader();
-
-        if(propertiesReader.propertiesAreAvailable() && event.hash != null) {
-	        Properties properties = propertiesReader.getProperties();
-	        URLGenerator url = new URLGenerator(properties);
-	        cntx.setContent("eventUrl", url.getURLForFreeVisitors() + event.hash);
-        } else {
-	        cntx.setContent("eventUrl", "Nicht verf&uuml;gbar");
         }
     }
 
@@ -330,7 +312,7 @@ public class EventDetailWorker {
             Boolean isOnlineregActive = Boolean.valueOf(cntx.getContextField(VWOR_ACTIVE).toString());
             // OR Control
             if (isOnlineregActive) {
-				setEventUrl(cntx, event);
+				EventHelper.setEventUrl(cntx, event.hash);
             	setUrlForMediaRepresentatives(cntx, event);
             }
             cntx.setContent("event", event);

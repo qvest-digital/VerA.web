@@ -22,13 +22,17 @@ package de.tarent.aa.veraweb.worker;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.commons.collections.list.FixedSizeList;
+
 import de.tarent.aa.veraweb.beans.Person;
 import de.tarent.aa.veraweb.beans.PersonSearch;
 import de.tarent.aa.veraweb.beans.facade.PersonConstants;
+import de.tarent.aa.veraweb.utils.CharacterPropertiesReader;
 import de.tarent.dblayer.helper.ResultMap;
 import de.tarent.dblayer.sql.Escaper;
 import de.tarent.dblayer.sql.SyntaxErrorException;
@@ -91,7 +95,20 @@ public class PersonDuplicateSearchWorker extends PersonListWorker
 		 * 10 entries in the underlying resultset as is defined by the query.
 		 */
 		final ArrayList< Map > result = new ArrayList< Map >();
-		final List resultList = getResultList( database, select );
+		final List resultList = getResultList(database, select);
+		
+		return getListWithOrdering(convertFromResultListToArrayList(resultList));
+	}
+	
+	/**
+	 * Conversion to manipulate dinamic lists
+	 * 
+	 * @param resultList List result list
+	 * @return ArrayList<Map>
+	 */
+	public ArrayList<Map> convertFromResultListToArrayList(List resultList) {
+		final ArrayList< Map > result = new ArrayList< Map >();
+		
 		for (int i = 0; i < resultList.size(); i++) {
 			final HashMap<String, Object> tmp = new HashMap<String, Object>();
 			final Set<String> keys = ((ResultMap) resultList.get(i)).keySet();
@@ -100,7 +117,61 @@ public class PersonDuplicateSearchWorker extends PersonListWorker
 			}
 			result.add((Map) tmp);
 		}
+			
 		return result;
+	}
+	
+	/**
+	 * Giving correct order to the duplicates list - THE DUPLICATES MUST GO TOGETHER
+	 * @param initList ArrayList<Map>
+	 * @return ArrayList<Map>
+	 */
+	public ArrayList<Map> getListWithOrdering(ArrayList<Map> initList) {
+
+		final ArrayList< Map > result = new ArrayList< Map >();
+		
+		for (int i = 0; i < initList.size(); i++) {
+			Map tmp = initList.get(i);
+			
+			for (int j = 0; j < initList.size(); j++) {
+				Map tmp2 = initList.get(j);
+				
+				if (checkDuplicateNames(tmp,tmp2) && i != j) {
+					result.add((Map) tmp2);
+					initList.remove(j);
+					j--;
+				}
+			}
+			result.add((Map) tmp);
+			if (!initList.isEmpty()) {
+				initList.remove(i);
+				i--;
+			}
+		}
+		
+		return result;
+	}
+	
+	/**
+	 * Checking duplicates result between duplicates
+	 * @param tmp Map
+	 * @param tmp2 Map
+	 * @return Boolean
+	 */
+	public Boolean checkDuplicateNames(Map tmp, Map tmp2) {
+		CharacterPropertiesReader cpr = new CharacterPropertiesReader();
+		
+		String firstname1 = cpr.convertUmlauts((String) tmp.get("firstname_a_e1"));
+		String lastname1 = cpr.convertUmlauts((String) tmp.get("lastname_a_e1"));
+		String firstname2 = cpr.convertUmlauts((String) tmp2.get("firstname_a_e1"));
+		String lastname2 = cpr.convertUmlauts((String) tmp2.get("lastname_a_e1"));
+		
+		if ((firstname1.equalsIgnoreCase(firstname2) && lastname1.equals(lastname2))
+				|| (firstname1.equalsIgnoreCase(lastname2) && lastname1.equals(firstname2))) {
+			return true;
+		}
+		
+		return false;
 	}
 
 	@Override
