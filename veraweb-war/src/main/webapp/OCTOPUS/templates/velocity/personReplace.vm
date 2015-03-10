@@ -23,37 +23,37 @@
 						<label for="snr-search">Suchen*</label>
 						<input type="text" name="snr-search" id="snr-search" value="$!message.text($replace-request.search)">
 					</div>
-				</div>		
+				</div>
 				<div class="tableRow">
 					<div class="tableCell">
 						<label for="snr-replace">Ersetzen</label>
 						<input type="text" name="snr-replace" id="snr-replace" value="$!message.text($replace-request.replace)">
 					</div>
-				</div>		
+				</div>
 			</div>
-			
+
 			<p><strong>In folgenden Feldern*</strong></p>
-			
+
 			<div class="table inlineLabel marginBottom20">
 				<div class="tableRow">
 					<div class="tableCell"><input type="checkbox" id="snr-group01" name="snr-group01" value="true" #if($replace-request.snr-group01) checked#end> <label for="snr-group01" title="Vorname der Hauptperson und des Partners">Vorname</label></div>
 					<div class="tableCell"><input type="checkbox" id="snr-group02" name="snr-group02" value="true" #if($replace-request.snr-group02) checked#end> <label for="snr-group02" title="Nachname der Hauptperson und des Partners">Nachname</label></div>
-					<div class="tableCell"><input type="checkbox" id="snr-group04" name="snr-group04" value="true" #if($replace-request.snr-group04) checked#end> <label for="snr-group04" title="Anrede und Titel">Anrede / Titel</label></div>					
+					<div class="tableCell"><input type="checkbox" id="snr-group04" name="snr-group04" value="true" #if($replace-request.snr-group04) checked#end> <label for="snr-group04" title="Anrede und Titel">Anrede / Titel</label></div>
 					<div class="tableCell"><input type="checkbox" id="snr-group20" name="snr-group20" value="true" #if($replace-request.snr-group20) checked#end> <label for="snr-group20" title="Freitextfelder">Freitextfelder</label></div>
 				</div>
 				<div class="tableRow">
 					<div class="tableCell"><input type="checkbox" id="snr-group03" name="snr-group03" value="true" #if($replace-request.snr-group03) checked#end> <label for="snr-group03" title="Amtsbezeichnung / Funktion">Amtsbezeichn.</label></div>
 					<div class="tableCell"><input type="checkbox" id="snr-group05" name="snr-group05" value="true" #if($replace-request.snr-group05) checked#end> <label for="snr-group05" title="Firma / Institution">Institution</label></div>
 					<div class="tableCell"><input type="checkbox" id="snr-group06" name="snr-group06" value="true" #if($replace-request.snr-group06) checked#end> <label for="snr-group06" title="Stra&szlig;e, Adresszusatz und Land">Adresse</label></div>
-					<div class="tableCell"><input type="checkbox" id="snr-group07" name="snr-group07" value="true" #if($replace-request.snr-group07) checked#end> <label for="snr-group07" title="PLZ / Ort und PLZ / Postfach">PLZ / Ort</label></div>										
+					<div class="tableCell"><input type="checkbox" id="snr-group07" name="snr-group07" value="true" #if($replace-request.snr-group07) checked#end> <label for="snr-group07" title="PLZ / Ort und PLZ / Postfach">PLZ / Ort</label></div>
 				</div>
 				<div class="tableRow">
 					<div class="tableCell"><input type="checkbox" id="snr-group08" name="snr-group08" value="true" #if($replace-request.snr-group08) checked#end> <label for="snr-group08" title="Telefon, Telefax und Mobiltelefon">Telefon / Fax</label></div>
 					<div class="tableCell"><input type="checkbox" id="snr-group09" name="snr-group09" value="true" #if($replace-request.snr-group09) checked#end> <label for="snr-group09" title="E-Mail-Adresse">E-Mail</label></div>
 					<div class="tableCell"><input type="checkbox" id="snr-group10" name="snr-group10" value="true" #if($replace-request.snr-group10) checked#end> <label for="snr-group10" title="Internet-Adresse">www</label></div>
-					<div class="tableCell"></div>										
+					<div class="tableCell"></div>
 				</div>
-			</div>					
+			</div>
 
 			#if($snr-action == "replace" || $snr-action == "replaceAll")
 				#if(!$snr-count)
@@ -93,7 +93,7 @@
 				<input type="submit" class="mainButton" title="Suchen" name="count" value="Suchen"/>
 				<input type="button" class="mainButton" title="Einzelne Einzräge zum Ersetzen selektieren" name="replace" value="Einzeln ersetzen" onclick="document.getElementById('formlist').action='ShowReplacePersonList'; document.getElementById('formlist').submit();"/>
 				<input type="button" class="mainButton" title="Alle sofort ersetzen" name="replaceall" value="Alle ersetzen" onclick="document.getElementById('formlist').action='SaveReplaceAllPerson';  document.getElementById('formlist').submit();"/>
-				<input type="button" class="mainButton" title="Felder leeren" name="cancel" value="Felder leeren" onclick="clearFields();">		
+				<input type="button" class="mainButton" title="Felder leeren" name="cancel" value="Felder leeren" onclick="clearFields();">
 			</div>
 		</div>
 		<vera-info>
@@ -117,7 +117,6 @@
 		document.getElementById('snr-group09').checked = false;
 		document.getElementById('snr-group10').checked = false;
 		document.getElementById('snr-group20').checked = false;
-		document.getElementById('formlist').submit();
 	}
 </script>
 
