@@ -31,7 +31,7 @@ import org.apache.commons.lang.StringEscapeUtils;
 
 /**
  * Diese Klasse enth�lt statische Hilfsmethoden f�r die Behandlung
- * von Datums- und Zeitwerten. 
+ * von Datums- und Zeitwerten.
  */
 public class DateHelper {
     /**
@@ -40,8 +40,8 @@ public class DateHelper {
      * werden darin Zeitangaben im Format 'STUNDE.MINUTE', 'STUNDE:MINUTE',
      * 'STUNDE' oder ''. Im Fall einer ung�ltigen oder leeren Angabe wird die
      * Zeit auf 00:00:30 gesetzt (eine "Nicht-Zeit", {@link #isTimeInDate(Date)})
-     * und gegebenenfalls eine Fehlermeldung eingetragen. 
-     * 
+     * und gegebenenfalls eine Fehlermeldung eingetragen.
+     *
      * @param date {@link Date}-Objekt, dessen Zeit gesetzt werden soll.
      * @param input Zeitangabe als 'STUNDE.MINUTE', 'STUNDE:MINUTE',
      *  'STUNDE' oder ''.
@@ -51,7 +51,7 @@ public class DateHelper {
 	static public void addTimeToDate(Timestamp date, String input, List errors) {
 		if (date == null)
 			return;
-		
+
 		Calendar time = Calendar.getInstance();
 		try {
 			if (input == null) {
@@ -96,13 +96,13 @@ public class DateHelper {
 		} catch (Exception e) {
 			if (errors != null) {
 				input = StringEscapeUtils.escapeHtml(input);
-				errors.add("'" + input + "' ist keine gültige Uhrzeit, bitte verwenden Sie das Format SS.MM.");
+				errors.add("'" + input + "' ist keine g\u00fcltige Uhrzeit. Bitte verwenden Sie das Format SS.MM.");
 			}
 			time.set(Calendar.HOUR_OF_DAY, 0);
 			time.set(Calendar.MINUTE, 0);
 			time.set(Calendar.SECOND, 30);
 		}
-		
+
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(date);
 		if ( input != null )
@@ -122,7 +122,7 @@ public class DateHelper {
      * dass <e>keine</e> Zeitangabe im Datum vorliegt, w�hrend im Falle
      * vorhandener Zeitangaben nur Stunden- und Minutenangaben eingetragen
      * werden, vergleiche {@link #addTimeToDate(Date, String, List)}.
-     * 
+     *
      * @param date zu testendes {@link Date}-Objekts
      * @return <code>true</code> genau dann, wenn das Datum den
      *  Sekundenanteil 0 hat, also im VerA.web-Kontext einen g�ltigen
@@ -152,12 +152,13 @@ public class DateHelper {
 
 		for ( String err : found )
 		{
+			String input = StringEscapeUtils.escapeHtml(err.substring( 0, err.indexOf( ' ' )));
+
 			errors.remove( err );
-			errors.add(StringEscapeUtils.escapeHtml(
-					err.substring( 0, err.indexOf( ' ' ) ).concat( " ist kein gültiges Datum. Bitte verwenden Sie das Eingabeformat TT.MM.JJJJ!")));
+			errors.add("" + input + " ist kein g\u00fcltiges Datum. Bitte verwenden Sie das Eingabeformat TT.MM.JJJJ!");
 		}
 	}
-	
+
 	/** Deutsches Datumsformat */
     private static final DateFormat TIME_FORMAT_DE = new SimpleDateFormat("H:m");
 

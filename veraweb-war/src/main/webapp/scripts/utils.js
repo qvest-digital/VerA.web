@@ -80,7 +80,7 @@ function navigateLimit(limit) {
 	}
 }
 
-//Handler for SelectAll Toggling 
+//Handler for SelectAll Toggling
 $(function(){
     $('#toggleAllSelect').change(function(){
         if ($(this).is(':checked')) {
@@ -236,8 +236,8 @@ var showInfo, showWarning, showSuccess, showConfirm, showConfirmYesNo;
      * @returns {*|jQuery|HTMLElement}
      */
     var createWarnHtml = function (htmlStr) {
-        return $('<div class="msg errormsg">'
-            + htmlStr + '</div>');
+        return $('<div class="msg errormsg"><span>'
+            + htmlStr + '</span></div>');
     };
 
     /**
@@ -247,8 +247,8 @@ var showInfo, showWarning, showSuccess, showConfirm, showConfirmYesNo;
      * @returns {*|jQuery|HTMLElement}
      */
     var createSuccessHtml = function (htmlStr) {
-        return $('<div class="msg successmsg">'
-            + htmlStr + '</div>');
+        return $('<div class="msg successmsg"><span>'
+            + htmlStr + '</span></div>');
     };
 
     /**
@@ -258,8 +258,8 @@ var showInfo, showWarning, showSuccess, showConfirm, showConfirmYesNo;
      * @returns {*|jQuery|HTMLElement}
      */
     var createConfirmHtml = function (htmlStr) {
-        return $('<div class="msg errormsg errormsgButton">'
-            + htmlStr + '</div>');
+        return $('<div class="msg errormsg errormsgButton"><span>'
+            + htmlStr + '</span></div>');
     };
 
     /**
@@ -364,7 +364,7 @@ var showInfo, showWarning, showSuccess, showConfirm, showConfirmYesNo;
             });
         };
     }());
-    
+
     showAllocateAssign = (function () {
     	 var activeConfirmDialogs = {};
          return function (title, yesAction, nayAction) {
@@ -375,7 +375,7 @@ var showInfo, showWarning, showSuccess, showConfirm, showConfirmYesNo;
              var btnNo = $('<input type="button" class="button" value="Abbrechen">');
              var msg = createConfirmHtml('<strong>' + title + '</strong><br>' + '<br>');
              btnYes.click(function () {
-            	 yesAction();            	 
+            	 yesAction();
             	 msg.remove();
             	 delete activeConfirmDialogs[title];
             	closePopup();
@@ -396,7 +396,7 @@ var showInfo, showWarning, showSuccess, showConfirm, showConfirmYesNo;
              });
         };
     }());
-    
+
     showAllocateRemove = (function () {
    	 var activeConfirmDialogs = {};
         return function (title, yesAction, nayAction) {
@@ -407,7 +407,7 @@ var showInfo, showWarning, showSuccess, showConfirm, showConfirmYesNo;
             var btnNo = $('<input type="button" class="button" value="Abbrechen">');
             var msg = createConfirmHtml('<strong>' + title + '</strong><br>' + '<br>');
             btnYes.click(function () {
-           	  yesAction();            	 
+           	  yesAction();
            	 msg.remove();
            	 delete activeConfirmDialogs[title];
            	 closePopup();
