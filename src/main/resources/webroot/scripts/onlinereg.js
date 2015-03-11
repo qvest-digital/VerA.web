@@ -242,58 +242,6 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
             $scope.presentPersons = presentPersons.data;
          });
 
-//		 $scope.register_user = function () {
-//			 if ($scope.gender.id == 0) {
-//				 $scope.error = "Bitte wählen Sie Ihr Geschlecht aus.";
-//				 $scope.success = null;
-//             } else if ($scope.gender.id == 1 || $scope.gender.id == 2) {
-//			    var ERROR_TEXT = "Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.";
-//		        $scope.button = true;
-//		        console.log("registering delegierten in the event.");
-//		        $scope.error = null;
-//		        if (($scope.nachname != null && $scope.nachname != '') && ($scope.vorname != null && $scope.vorname != '')) {
-//			        $http({
-//			            method: 'POST',
-//			            url: 'api/delegation/' + $routeParams.uuid + '/register',
-//			            dataType: 'text',
-//			            headers: {"Content-Type" : undefined},
-//			            data: $.param({
-//			            	firstname: $scope.nachname,
-//			            	lastname: $scope.vorname,
-//			                gender: $scope.gender.label
-//			            })
-//			        }).success(function (result) {
-//			            $scope.success = null;
-//			            $scope.error = null;
-//	
-//			            if (result.status === 'NO_EVENT_DATA') {
-//			                $scope.error = "Der Veranstaltung existiert nicht";
-//			                $scope.success = null;
-//	
-//			            }  else if (result.status === 'WRONG_DELEGATION') {
-//			                $scope.error = "Die Delegation existiert nicht";
-//			                $scope.success = null;
-//			            } else if (result.status === 'OK') {
-//			            	$scope.error= null;
-//			                $scope.success = "Delegiertdaten wurden gespeichert.";
-//							$scope.gender = $scope.genderOptions[0];
-//							$scope.nachname = null;
-//							$scope.vorname = null;
-//			                $http.get('api/delegation/' + $routeParams.uuid).then(function(presentPersons) {
-//			                    $scope.presentPersons = presentPersons.data;
-//			                 });
-//			            } else {
-//			                $scope.error = ERROR_TEXT;
-//			                $scope.success = null;
-//			            }
-//			            $scope.button = false;
-//	
-//			        }).error(function (data, status, headers, config) {
-//	
-//			        });
-//		        } 
-//			 }
-
 		 $scope.register_user = function() {
 		     if ($scope.gender.id == 0) {
 		         $scope.error = "Bitte wählen Sie Ihr Geschlecht aus.";
