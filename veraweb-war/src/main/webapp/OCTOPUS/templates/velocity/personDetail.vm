@@ -453,7 +453,6 @@
 	}
 	
 	function showCategories() {
-
 		if (document.getElementById('modified').value == 'true') {
     		document.getElementById('PersonForm').action = '${paths.staticWeb}do/ShowPersonCategorieList'+getGuestTabId();
     		document.getElementById('PersonForm').submit();
