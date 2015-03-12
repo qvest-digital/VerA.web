@@ -96,7 +96,7 @@ public class DateHelper {
 		} catch (Exception e) {
 			if (errors != null) {
 				input = StringEscapeUtils.escapeHtml(input);
-				errors.add("'" + input + "' ist keine g\u00fcltige Uhrzeit. Bitte verwenden Sie das Format SS.MM.");
+				errors.add("'" + input + "' ist keine g\u00fcltige Uhrzeit. Bitte verwenden Sie das Format SS:MM.");
 			}
 			time.set(Calendar.HOUR_OF_DAY, 0);
 			time.set(Calendar.MINUTE, 0);
