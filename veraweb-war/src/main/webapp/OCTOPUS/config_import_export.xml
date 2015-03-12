@@ -593,7 +593,7 @@
 					<value>
 						Die Exportdatei wird sowohl im ZKM-Ausgangsordner abgelegt
 						als auch Ihnen zur Kontrolle zum Herunterladen angeboten.
-						Das Herunterladens können Sie bedenkenlos abbrechen.
+						Das Herunterladen können Sie bedenkenlos abbrechen.
 					</value>
 				</param>
 				<param name="encoding" value="UTF-8"/>
