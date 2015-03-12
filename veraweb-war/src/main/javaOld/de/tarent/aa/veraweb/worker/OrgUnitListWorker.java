@@ -25,16 +25,23 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import de.tarent.aa.veraweb.beans.Categorie;
 import de.tarent.aa.veraweb.beans.OrgUnit;
+import de.tarent.aa.veraweb.beans.Person;
 import de.tarent.dblayer.sql.clause.Clause;
 import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.clause.RawClause;
 import de.tarent.dblayer.sql.clause.Where;
 import de.tarent.dblayer.sql.statement.Delete;
+import de.tarent.dblayer.sql.statement.Insert;
+import de.tarent.dblayer.sql.statement.Update;
+import de.tarent.octopus.PersonalConfigAA;
 import de.tarent.octopus.beans.Bean;
 import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.beans.Database;
 import de.tarent.octopus.beans.TransactionContext;
+import de.tarent.octopus.beans.veraweb.BeanChangeLogger;
+import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
 import de.tarent.octopus.beans.veraweb.ListWorkerVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
 
@@ -93,6 +100,8 @@ public class OrgUnitListWorker extends ListWorkerVeraWeb {
                     }
                 }
                 saveBean(cntx, bean, context);
+                // Insert new Category Pressevertreter associated to every new Mandants
+                initPressCategory(cntx,Integer.valueOf(bean.getField("id").toString()),context);
                 count++;
             } else {
                 errors.addAll(bean.getErrors());
@@ -233,6 +242,78 @@ public class OrgUnitListWorker extends ListWorkerVeraWeb {
 		Delete stmt = database.getDelete( "OrgUnit" );
 		stmt.byId( "pk",  ( ( OrgUnit ) bean ).id  );
 		context.execute( stmt );
+		
+		// Remove category pressevertreter of the current mandant
+		deletePressCategoryByOrgUnit(cntx,context,((OrgUnit)bean).id);
+		
 		return true;
 	}
+	
+	/**
+	 * Delete press category linked to the deleted mandant
+	 * 
+	 * @param cntx OctopusContext
+	 * @param context TransactionContext
+	 * @param orgUnitId Integer
+	 * @throws BeanException
+	 * @throws IOException
+	 */
+	private void deletePressCategoryByOrgUnit(OctopusContext cntx, TransactionContext context, Integer orgUnitId) throws BeanException, IOException {
+		
+		Database database = context.getDatabase();
+		
+		Delete delete = database.getDelete("Categorie");
+		delete.where(Where.and(Expr.equal("fk_orgunit", orgUnitId),Expr.equal("catname", "Pressevertreter")));
+		
+		context.execute(delete);
+	}
+	/**
+	 * Creating presse category to every new Mandants
+	 * @param cntx OctopusContext
+	 * @param orgUnitId Integer
+	 * @param context TransactionContext
+	 * @throws BeanException
+	 * @throws IOException 
+	 */
+	private void initPressCategory(OctopusContext cntx, Integer orgUnitId, TransactionContext context) throws BeanException, IOException {
+		// Implementieren
+		Database database = new DatabaseVeraWeb(cntx);
+		Categorie category = new Categorie();
+		category.name = "Pressevertreter";
+		category.flags = 0;
+		category.orgunit = orgUnitId;
+		
+		Insert insert = database.getInsert(category);
+		
+		context.execute(insert);
+	}
+
+	public void updatePerson(OctopusContext cntx, Person person, Integer personId) throws BeanException, IOException {
+		Database database = new DatabaseVeraWeb(cntx);
+
+		if (person == null) {
+			person = (Person)cntx.contentAsObject("person"); // ???
+		}
+		if (person == null || !person.id.equals(personId)) {
+			person = (Person)database.getBean("Person", personId);
+		}
+		if (person != null && person.id != null) {
+			person.updateHistoryFields(null, ((PersonalConfigAA)cntx.personalConfig()).getRoleWithProxy());
+			Update update = database.getUpdate("Person");
+			update.update(database.getProperty(person, "created"), person.created);
+			update.update(database.getProperty(person, "createdby"), person.createdby);
+			update.update(database.getProperty(person, "changed"), person.changed);
+			update.update(database.getProperty(person, "changedby"), person.changedby);
+			update.where(Expr.equal(database.getProperty(person, "id"), person.id));
+			database.execute(update);
+
+			// get the original version of the object for logging purposes
+			Person personOld = ( Person ) database.getBean( "Person", personId );
+			BeanChangeLogger clogger = new BeanChangeLogger( database );
+			clogger.logUpdate( cntx.personalConfig().getLoginname(), personOld, person );
+		}
+	}
+
+	
+	
 }
