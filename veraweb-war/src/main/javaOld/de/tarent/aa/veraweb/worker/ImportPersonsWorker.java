@@ -60,10 +60,10 @@ import de.tarent.octopus.server.OctopusContext;
  * @author mikel
  */
 public class ImportPersonsWorker {
-    
+
     /** Logger dieser Klasse */
     public static final Logger LOGGER = Logger.getLogger(ImportPersonsWorker.class.getName());
-	
+
 	//
     // �ffentliche Konstanten
     //
@@ -470,7 +470,7 @@ public class ImportPersonsWorker {
             this.join = join;
             doctype = (Doctype) database.getBean("Doctype", database.getSelect("Doctype").where(Expr.equal("docname", doctypeName)), context);
             if (doctype == null)
-                LOGGER.warn("Für den Import konfigurierten Dokumenttyp '" + doctypeName + "' nicht gefunden.");
+                LOGGER.warn("F\u00fcr den Import konfigurierten Dokumenttyp '" + doctypeName + "' nicht gefunden.");
         }
         //
         // Methoden

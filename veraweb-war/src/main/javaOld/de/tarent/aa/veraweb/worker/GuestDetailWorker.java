@@ -472,7 +472,7 @@ public class GuestDetailWorker extends GuestListWorker {
 	private String getDuplicateSeatErrorMessage(Person duplicatePerson, String changeSeatFor, String collidesWithSeatOf){
 		return "Bitte \u00e4ndern Sie erst den Sitzplatz bei " + changeSeatFor + " von "
 				+ duplicatePerson.firstname_a_e1 + " " + duplicatePerson.lastname_a_e1
-				+ " (" + duplicatePerson.id	+ ") über die G\u00e4steliste. Diese Person sitzt aktuell auf "
+				+ " (" + duplicatePerson.id	+ ") \u00fcber die G\u00e4steliste. Diese Person sitzt aktuell auf "
 				+ "dem eingegebenen Sitzplatz " + collidesWithSeatOf + ". Die \u00c4nderung wurde nicht gespeichert.";
 	}
 

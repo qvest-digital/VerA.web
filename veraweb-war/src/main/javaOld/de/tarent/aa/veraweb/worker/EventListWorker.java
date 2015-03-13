@@ -230,7 +230,7 @@ public class EventListWorker extends ListWorkerVeraWeb {
     			questions.put("force-remove-events", "Mindestens eine markierte Veranstaltung l\u00e4uft aktuell oder liegt in der Zukunft.");
     			questions2.put("force-remove-events", "Wenn Sie Ihre Auswahl anpassen wollen, brechen Sie bitte das L\u00f6schen ab.");
     		} else {
-    		    questions.put("force-remove-events", "Sollen alle markierten Veranstaltungen gel\u00f6scht werden? Diese Aktion kann nicht rückg\u00e4ngig gemacht werden.");
+    		    questions.put("force-remove-events", "Sollen alle markierten Veranstaltungen gel\u00f6scht werden? Diese Aktion kann nicht r\u00fcckg\u00e4ngig gemacht werden.");
     		}
     		cntx.setContent("listquestions", questions);
     		cntx.setContent("listquestions2", questions2);

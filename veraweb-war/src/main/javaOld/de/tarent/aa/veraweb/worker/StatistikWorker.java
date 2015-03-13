@@ -62,7 +62,7 @@ import de.tarent.octopus.server.OctopusContext;
 /**
  * Dieser Octopus-Worker stellt Aktionen zur Erstellung
  * von Statistiken zur Verf�gung.
- *  
+ *
  * @author Christoph
  */
 public class StatistikWorker {
@@ -73,8 +73,8 @@ public class StatistikWorker {
 	public static final String INPUT_getFirstDayInMonth[] = {};
 	/** Octopus-Ausgabeparameter f�r die Aktion {@link #getFirstDayInMonth()} */
 	public static final String OUTPUT_getFirstDayInMonth = "firstDayInMonth";
-	
-	private static final String ERROR_DATE_FORMAT = "Sie müssen den Datum des Zeitrahmens im Format TT.MM.JJJJ angeben";
+
+	private static final String ERROR_DATE_FORMAT = "Sie m\u00fcssen den Datum des Zeitrahmens im Format TT.MM.JJJJ angeben";
 	/**
 	 * @return Gibt den ersten Tag des aktuellen Monats zur�ck.
 	 */
@@ -105,7 +105,7 @@ public class StatistikWorker {
 	public static final boolean MANDATORY_loadStatistik[] = { false, false, false };
 	/**
 	 * Speichert die Einstellungen f�r die n�chste Statistik in der Session.
-	 * 
+	 *
 	 * @param cntx Octopus-Context
 	 * @param statistik Statistikname
 	 * @param begin Zeitrahmen-Beginn
@@ -117,7 +117,7 @@ public class StatistikWorker {
 			map = new HashMap();
 			cntx.setSession("statistikSettings", map);
 		}
-		
+
 		if (statistik != null && statistik.length() != 0) {
 			map.put("statistik", statistik);
 			map.put("begin", begin);
@@ -134,14 +134,14 @@ public class StatistikWorker {
 	public static final boolean MANDATORY_getStatistik[] = { true, false, false, false };
 	/**
 	 * Exportiert Statistiken f�r folgende F�lle:<br>
-	 * 
+	 *
 	 * <ul>
 	 * <li><em>EventsPerYear</em> - �bersicht �ber die Anzahl der Veranstaltungen pro Jahr.</li>
 	 * <li><em>EventsPerMonth</em> - �bersicht �ber die Anzahl der Veranstaltungen pro Monat.</li>
 	 * <li><em>EventsGroupByHost</em> - �bersicht �ber die Verstanstaltungen eines Gastgebers.</li>
 	 * <li><em>EventsGroupByGuest</em> - �bersicht �ber die Veranstaltungen eines Gastes.</li>
 	 * </ul>
-	 * 
+	 *
 	 * @param cntx Octopus-Context
 	 * @param statistik Statistikname
 	 * @param begin Zeitrahmen-Beginn
@@ -150,7 +150,7 @@ public class StatistikWorker {
 	 */
 	public void getStatistik(OctopusContext cntx, String statistik, String begin, String end, Integer id) throws BeanException, IOException {
 		Database database = new DatabaseVeraWeb(cntx);
-		
+
 		try {
 			// Controlling dates format
 			SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
@@ -160,7 +160,7 @@ public class StatistikWorker {
 			}
 			Date filterBegin = (Date)BeanFactory.transform(begin, Date.class);
 			Date filterEnd = (Date)BeanFactory.transform(end, Date.class);
-			
+
 			Select select;
 			Clause clause = getEventFilter(cntx, filterBegin, filterEnd);
 			if (statistik.equals("EventsPerYear")) {
@@ -189,19 +189,19 @@ public class StatistikWorker {
 			} else {
 				throw new BeanException("Es wurde versucht eine unbekannte Statistik zu exportieren: " + statistik);
 			}
-			
-			
+
+
 			// EXPORT IN EINE ODS-DATEI
 			//ResultList resultList = (ResultList)database.getList(select);
 			//cntx.setContent("stream", getExport(cntx, resultList.getResultSet()));
-			
+
 			// EXPORT �BER EIN VELOCITY SCRIPT
 			cntx.setContent("begin", filterBegin);
 			cntx.setContent("end", filterEnd);
 			ResultList resultList = (ResultList)database.getList(select, database);
 			cntx.setContent("result", resultList);
 			cntx.setContent("formatMessage", "no");
-		
+
 		} catch (ParseException e) {
 			cntx.setContent("formatMessage", ERROR_DATE_FORMAT);
 		}
@@ -212,7 +212,7 @@ public class StatistikWorker {
 	 * <ul>
 	 * <li><em>"Gesamt�bersicht �ber die Anzahl der Veranstaltungen pro Jahr."</em></li>
 	 * </ul>
-	 * 
+	 *
 	 * @return SQL-Statement, nie null.
 	 */
 	protected Select getEventsPerYear( Database db ) {
@@ -229,7 +229,7 @@ public class StatistikWorker {
 	 * <ul>
 	 * <li><em>"Gesamt�bersicht �ber die Anzahl der Veranstaltungen pro Monat."</em></li>
 	 * </ul>
-	 * 
+	 *
 	 * @return SQL-Statement, nie null.
 	 */
 	protected Select getEventsPerMonth( Database db ) {
@@ -252,7 +252,7 @@ public class StatistikWorker {
 	 * h�her liegenden Ebene geschehen. Theoretisch lie�e sich mit dieser
 	 * Abfrage auch eine (gruppierte) Liste aller G�stgeber realisieren.
 	 * </p>
-	 * 
+	 *
 	 * @return SQL-Statement, nie null.
 	 */
 	protected Select getEventsGroupByHost( Database db ) {
@@ -261,7 +261,7 @@ public class StatistikWorker {
 				"(CASE WHEN (invitationtype != 2 AND invitationstatus_p = 1) THEN 1 ELSE 0 END))" +
 				" FROM veraweb.tguest g WHERE" +
 				" g.fk_event = tevent.pk)";
-		
+
 		return SQL.Select( db ).
 				from("veraweb.tevent").
 				joinLeftOuter("veraweb.tguest", "tevent.pk", "tguest.fk_event AND tguest.ishost = 1").
@@ -288,7 +288,7 @@ public class StatistikWorker {
 	 * h�her liegenden Ebene geschehen. Theoretisch lie�e sich mit dieser
 	 * Abfrage auch eine (gruppierte) Liste alles G�sten realisieren.
 	 * </p>
-	 * 
+	 *
 	 * @return SQL-Statement, nie null.
 	 */
 	protected Select getEventsGroupByGuest( Database db ) {
@@ -320,7 +320,7 @@ public class StatistikWorker {
 	 * h�her liegenden Ebene geschehen. Theoretisch lie�e sich mit dieser
 	 * Abfrage auch eine (gruppierte) Liste aller Veranstaltungsorte realisieren.
 	 * </p>
-	 * 
+	 *
 	 * @return SQL-Statement, nie null.
 	 */
 	protected Select getEventsGroupByLocation( Database db ) {
@@ -339,7 +339,7 @@ public class StatistikWorker {
 	/**
 	 * Gibt einen SQL-Filter zur�ck der eine Einschr�nkung auf den
 	 * Starttermin einer Veranstaltung legt.
-	 * 
+	 *
 	 * @param cntx
 	 * @param filterBegin
 	 * @param filterEnd
@@ -347,7 +347,7 @@ public class StatistikWorker {
 	 */
 	protected Clause getEventFilter(OctopusContext cntx, Date filterBegin, Date filterEnd) {
 		Clause clause = Expr.equal("tevent.fk_orgunit", ((PersonalConfigAA)cntx.personalConfig()).getOrgUnitId());
-		
+
 		if (filterBegin != null && filterEnd != null) {
 			clause = Where.and(clause, Where.and(
 					Expr.greaterOrEqual("datebegin", filterBegin),
@@ -366,10 +366,10 @@ public class StatistikWorker {
 	 * Exportiert eine Veranstaltung und gibt das Spreadsheet Ergebnis
 	 * in einer Ocotpus-ResultMap zur�ck, die von der Binary-Response
 	 * ausgegeben werden kann.
-	 * 
+	 *
 	 * @see #getColumnName(String)
 	 * @see #getColumnValue(String, ResultSet, Object)
-	 * 
+	 *
 	 * @param cntx
 	 * @param resultSet
 	 * @return Map mit Stream Informationen
@@ -385,7 +385,7 @@ public class StatistikWorker {
 		String filename = OctopusHelper.getFilename(cntx, "ods", "export.ods");
 		final SpreadSheet spreadSheet = SpreadSheetFactory.getSpreadSheet(SpreadSheetFactory.TYPE_ODS_DOCUMENT);
 		spreadSheet.init();
-		
+
 		// TABLE START
 		int size = resultSet.getMetaData().getColumnCount();
 		String column[] = new String[size + 1];
@@ -393,14 +393,14 @@ public class StatistikWorker {
 			column[i] = resultSet.getMetaData().getColumnName(i);
 		}
 		spreadSheet.openTable("Statistik", size);
-		
+
 		// header
 		spreadSheet.openRow();
 		for (int i = 1; i <= size; i++) {
 			spreadSheet.addCell(getColumnName(column[i]));
 		}
 		spreadSheet.closeRow();
-		
+
 		// data
 		while (resultSet.next()) {
 			spreadSheet.openRow();
@@ -409,10 +409,10 @@ public class StatistikWorker {
 			}
 			spreadSheet.closeRow();
 		}
-		
+
 		spreadSheet.closeTable();
 		// TABLE END
-		
+
 		// SpreadSheet speichern
         final PipedInputStream pis = new PipedInputStream();
         final PipedOutputStream pos = new PipedOutputStream(pis);
@@ -433,7 +433,7 @@ public class StatistikWorker {
 				}
         	}
         }).start();
-		
+
 		Map stream = new HashMap();
 		stream.put(TcBinaryResponseEngine.PARAM_TYPE, TcBinaryResponseEngine.BINARY_RESPONSE_TYPE_STREAM);
 		stream.put(TcBinaryResponseEngine.PARAM_FILENAME, ExportHelper.getFilename(filename));
@@ -461,7 +461,7 @@ public class StatistikWorker {
 		} else if (name.equals("events")) {
 			return "Veranstaltungen";
 		}
-		
+
 		return "##" + name + "##";
 	}
 
@@ -483,7 +483,7 @@ public class StatistikWorker {
 				return "nicht eingeladen";
 			}
 		}
-		
+
 		return content;
 	}
 }

@@ -76,7 +76,7 @@ import de.tarent.octopus.server.OctopusContext;
 /**
  * Diese Klasse stellt einen Octopus-Worker f�r den Im- und Export von
  * Personendaten im VerA.web-eigenen Format dar.
- * 
+ *
  * @author mikel
  */
 public class DataExchangeWorker {
@@ -85,19 +85,19 @@ public class DataExchangeWorker {
     //
     /** Vorgabewert f�r den Parameter <code>formatEnumKey</code> von {@link #getFormats(OctopusContext, String)} */
     public final static String KEY_FORMAT_NAMES = "exchangeFormats";
-    
+
     /** Exportfilterwert: Filtrierung nach Kategorie */
-    public final static String EXPORT_FILTER_CATEGORY = "category"; 
-    
+    public final static String EXPORT_FILTER_CATEGORY = "category";
+
     /** Exportfilterwert: Filtrierung nach Veranstaltung */
-    public final static String EXPORT_FILTER_EVENT = "event"; 
-    
+    public final static String EXPORT_FILTER_EVENT = "event";
+
     /** Parameterwert: beliebige Personen */
     public final static String PARAM_DOMAIN_VALUE_ALL = "all";
     /** Parameterwert: Personen des gleichen Mandanten */
     public final static String PARAM_DOMAIN_VALUE_OU = "ou";
 
-    
+
     //
     // Octopus-Aktionen
     //
@@ -109,12 +109,12 @@ public class DataExchangeWorker {
     public static final String OUTPUT_getFormats = "formats";
     /**
      * Diese Octopus-Aktion liefert eine {@link Map} mit verf�gbaren Austauschformaten.
-     * 
+     *
      *  f�hrt einen Export von Personendaten durch. Dies geschieht
      * je nach Parameter <code>fieldMapping</code> in eine XML-Darstellung von VerA.web
      * oder eine CSV-Datei. Der Exportdatenstrom wird in den Content geschrieben.
-     * Zus�tzlich kann er an eine Stelle im Dateisystem kopiert werden. 
-     * 
+     * Zus�tzlich kann er an eine Stelle im Dateisystem kopiert werden.
+     *
      * @param cntx Octopus-Kontext
      * @param formatEnumKey optionaler Schl�ssel der verf�gbaren Schl�ssel, Default ist
      *  {@link #KEY_FORMAT_NAMES}.
@@ -152,7 +152,7 @@ public class DataExchangeWorker {
      * Diese Octopus-Aktion f�hrt einen Export von Personendaten durch. Dies geschieht
      * in einem konfigurierten Format. Der Exportdatenstrom wird in den Content geschrieben.
      * Zus�tzlich kann er an eine Stelle im Dateisystem kopiert werden.
-     * 
+     *
      * @param cntx Octopus-Kontext
      * @param formatKey Schl�ssel der Datenformatbeschreibung in der Modulkonfiguration
      * @param filter {@link #EXPORT_FILTER_CATEGORY} oder {@link #EXPORT_FILTER_EVENT},
@@ -162,7 +162,7 @@ public class DataExchangeWorker {
      * @param domain Dom�ne, aus der die Personen stammen ("all" oder "ou")
      * @return exportierter Datenstrom
      * @throws TcContentProzessException bei ung�ltigen Parameterwerten.
-     * @throws BeanException 
+     * @throws BeanException
      */
     public Map export(final OctopusContext cntx, final String formatKey, final String filter, final Integer event, final Integer category, final String domain) throws TcContentProzessException, IOException {
         TcModuleConfig moduleConfig = cntx.moduleConfig();
@@ -177,11 +177,11 @@ public class DataExchangeWorker {
         final PipedInputStream pis = new PipedInputStream();
         final PipedOutputStream pos = new PipedOutputStream(pis);
         mos.add(pos);
-		
+
         new Thread(new Runnable() {
         	public void run() {
         		Context.addActive(cntx);
-        		
+
         		Exporter exporter = null;
         		try {
 	                exporter = createExporter(format, database, mos);
@@ -189,7 +189,7 @@ public class DataExchangeWorker {
 	                    AlternativeDestination altdest = (AlternativeDestination) exporter;
 	                    mos.add(altdest.getAlternativeOutputStream());
 	                }
-	                
+
 	                // Mandantenbeschr�nkung
 	                TcPersonalConfig pConfig = cntx.personalConfig();
 	                Integer orgUnit = null;
@@ -199,16 +199,16 @@ public class DataExchangeWorker {
 	                        orgUnit = aaConfig.getOrgUnitId();
 	                } else
 	                    throw new BeanException("Missing user information");
-	
+
 	                // Beschr�nkung auf Kategorie, wenn Benutzer eine ausgew�hlt hat
 	                Integer categoryId = null;
 	                if (EXPORT_FILTER_CATEGORY.equals(filter)) // category == null bedeutet: in irgendeiner Kategorie, = 0 bedeutet: in keiner Kategorie
 	                	categoryId = category;
-	                
+
 	                //Den Exporter auf Mandant und Kategorie einschr�nken. Ist f�r den CSV-Exporter notwendig, damit keine �berfl�ssigen �berschriften erzeugt werden.
 	                exporter.setOrgUnitId(orgUnit);
 	                exporter.setCategoryId(categoryId);
-	                
+
 	                // Dann exportieren
 	                exporter.startExport();
 	                if (EXPORT_FILTER_EVENT.equals(filter)) // event == null bedeutet: in irgendeiner Veranstaltung, = 0 bedeutet: in keiner Veranstaltung
@@ -232,7 +232,7 @@ public class DataExchangeWorker {
         		}
         	}
         }).start();
-        
+
         return createBinaryResponse(getFilename(cntx, format), format.getMimeType(), pis);
     }
 
@@ -245,7 +245,7 @@ public class DataExchangeWorker {
     /**
      * Diese Octopus-Aktion importiert die Personen einer Datei in den Transit-Bereich,
      * also die Tabelle <code>timportperson</code>.
-     * 
+     *
      * @param cntx Octopus-Kontext
      * @param stream Datei-Upload-Map (enth�lt unter "ContentStream" einen <code>InputStream</code>)
      * @param formatKey Schl�ssel der Datenformatbeschreibung in der Modulkonfiguration
@@ -255,8 +255,8 @@ public class DataExchangeWorker {
      * @return Map mit Informationen zum Import, insbesondere der Anzahl gefundener
      *  Datens�tze unter "dsCount", der Anzahl Duplikate unter "dupCount", der Anzahl
      *  importierter Datens�tze unter "saveCount" und der Import-ID unter "id".
-     * @throws IOException 
-     * @throws TcContentProzessException 
+     * @throws IOException
+     * @throws TcContentProzessException
      */
     public Map importToTransit(OctopusContext cntx, Map stream, String formatKey, String importSource, Integer orgUnit, Map importProperties) throws BeanException, IOException, TcContentProzessException {
         TcModuleConfig moduleConfig = cntx.moduleConfig();
@@ -264,20 +264,20 @@ public class DataExchangeWorker {
         // Zun�chst mal die ben�tigten Objekte erstellen
         ExchangeFormat format = getExchangeFormat(moduleConfig.getParams(), formatKey, cntx.getRequestObject().getRequestParameters());
         if (format == null)
-            throw new TcContentProzessException("Unbekannter Importformatschlüssel '" +  formatKey + "'.");
+            throw new TcContentProzessException("Unbekannter Importformatschl\u00fcssel '" +  formatKey + "'.");
         if (importSource == null || importSource.length() == 0) {
         	Map status = new HashMap();
         	status.put("invalidData", "importSource");
         	cntx.setStatus("invalidData");
         	return status;
         }
-        
+
         String filename = (String)stream.get("ContentName");
         if (filename != null && filename.length() != 0) {
         	String suffix = filename.lastIndexOf(".") == -1 ? null :
         		filename.substring(filename.lastIndexOf(".") + 1);
         	if (suffix != null) suffix.toLowerCase();
-        	
+
             if (suffix == null || suffix.length() == 0) {
         		if (logger.isEnabledFor(Level.DEBUG))
         			logger.log(Level.DEBUG, "Endung der Import-Datei '" + filename + "' konnte nicht festgestellt werden.");
@@ -295,7 +295,7 @@ public class DataExchangeWorker {
             	return status;
         	}
         }
-        
+
         InputStream istream = (InputStream) stream.get("ContentStream");
         if (istream == null || istream.available() <= 0) {
         	Map status = new HashMap();
@@ -303,7 +303,7 @@ public class DataExchangeWorker {
         	cntx.setStatus("invalidData");
         	return status;
         }
-        
+
         Database database = new DatabaseVeraWeb(cntx);
         TransactionContext context = database.getTransactionContext();
         try {
@@ -313,13 +313,13 @@ public class DataExchangeWorker {
 	                orgUnit = aaConfig.getOrgUnitId();
 	        } else
 	            throw new TcContentProzessException("Fehlende Benutzerinformation.");
-	        
+
 	        Importer importer = createImporter(format, context, istream);
 	        Import importInstance = createImport(context, formatKey, importSource, orgUnit);
 	        VerawebDigester digester = new VerawebDigester(cntx, context, importProperties, importSource, importInstance);
-	        
+
 	        importer.importAll(digester);
-	        
+
         	context.commit();
 
         	// force gc after import
@@ -331,18 +331,18 @@ public class DataExchangeWorker {
         	PrintWriter pw = new PrintWriter(caw);
         	e.printStackTrace(pw);
         	pw.close();
-        	
+
         	Map status = new HashMap();
         	status.put("invalidData", "errorOnImport");
         	status.put("exception", caw.toString());
         	status.put("message", e.getLocalizedMessage());
         	cntx.setStatus("invalidData");
-        	return status; 
+        	return status;
         } finally {
         	context.rollBack();
         }
     }
-    
+
     //
     // gesch�tzte Hilfsmethoden
     //
@@ -350,7 +350,7 @@ public class DataExchangeWorker {
      * Diese Methode erstellt eine {@link Map}, aus der die
      * {@link TcBinaryResponseEngine} die Daten f�r ihre
      * Octopus-Response-Erstellung entnimmt.
-     * 
+     *
      * @param filename Dateiname, den die Response tragen soll
      * @param mimetype MIME-Typ, den die Response haben soll
      * @param inputstream Datenstrom, der die Response bilden soll
@@ -365,10 +365,10 @@ public class DataExchangeWorker {
         binaryResponse.put(TcBinaryResponseEngine.PARAM_IS_ATTACHMENT, Boolean.TRUE);
         return binaryResponse;
     }
-    
+
     /**
-     * Diese Methode liest aus einer Konfigurations-{@link Map} ein {@link ExchangeFormat}. 
-     * 
+     * Diese Methode liest aus einer Konfigurations-{@link Map} ein {@link ExchangeFormat}.
+     *
      * @param config Konfiguration
      * @param formatKey Schl�ssel zum Format
      * @param params {@link Map} mit Parametern, aus denen diejenigen ermittelt werden,
@@ -401,11 +401,11 @@ public class DataExchangeWorker {
         }
         return format;
     }
-    
+
     /**
      * Diese Methode liefert zu einem Octopus-Kontext den zu einem bestimmten
      * Format passenden Dateinamen f�r Dateir�ckgaben.
-     * 
+     *
      * @param octx Octopus-Kontext
      * @param format {@link ExchangeFormat}-Instanz
      * @return Dateiname mit Endung
@@ -421,10 +421,10 @@ public class DataExchangeWorker {
         String def = "veraweb." + ext;
         return OctopusHelper.getFilename(octx, ext, def);
     }
-    
+
     /**
-     * Diese Methode erstellt und Initialisiert einen {@link Exporter}. 
-     * 
+     * Diese Methode erstellt und Initialisiert einen {@link Exporter}.
+     *
      * @param format basierendes {@link ExchangeFormat}
      * @param database zu benutzende {@link Database}
      * @return ein passender {@link Exporter}
@@ -449,11 +449,11 @@ public class DataExchangeWorker {
             throw new TcContentProzessException("Fehler beim Instanziieren des Exporters", e);
         }
     }
-    
+
     /**
      * Diese Methode exportiert alle Personen, die Gast bei einer bestimmten /
      * irgendeiner / keiner Veranstaltung sind.
-     * 
+     *
      * @param database zu benutzende Datenverbindung
      * @param event Veranstaltung, deren G�ste exportiert werden sollen; <code>null</code>
      *  wird interpretiert als "Personen, die bei irgendeiner Veranstaltung Gast sind",
@@ -466,18 +466,18 @@ public class DataExchangeWorker {
         assert exporter != null;
         Bean samplePerson = database.createBean("Person");
         Bean sampleGuest = database.createBean("Guest");
-        
+
         Select outer = database.getSelect( "Person" );
         Select inner = new Select(false).
         		from(database.getProperty(sampleGuest, "table")).
         		selectAs(database.getProperty(sampleGuest, "person"), "person");
-        
+
         WhereList outerWhere = new WhereList();
         outerWhere.addAnd(Expr.equal("deleted", PersonConstants.DELETED_FALSE));
         if (orgUnit != null) {
         	outerWhere.addAnd(Expr.equal("tperson.fk_orgunit", orgUnit));
         }
-       	
+
 		/*
 		 * cklein 2009-07-16: fixes issue 1815 - although option "Alle" yielded no return value
 		 * jetty used for testing made it a valid integer object of value 0, which broke
@@ -500,16 +500,16 @@ public class DataExchangeWorker {
             		database.getProperty(samplePerson, "id"),
             		new RawClause('(' + inner.toString() + ')')));
         }
-        
+
         exportSelect(database, outer.where(outerWhere), exporter);
     }
-    
+
     /**
      * Diese Methode exportiert alle Personen, die in einer bestimmten /
      * irgendeiner / keiner Kategorie sind.<br>
      * Achtung: hier wird davon ausgegangen, dass Personen des eigenen Mandanten nicht
      * in Veranstaltungen anderer Mandanten auftauchen.
-     * 
+     *
      * @param database zu benutzende Datenverbindung
      * @param category Kategorie, deren Personen exportiert werden sollen; <code>null</code>
      *  wird interpretiert als "Personen, die in irgendeiner Kategorie sind",
@@ -522,18 +522,18 @@ public class DataExchangeWorker {
         assert exporter != null;
         Bean samplePerson = database.createBean("Person");
         Bean samplePersonCategory = database.createBean("PersonCategorie");
-        
+
         Select outer = database.getSelect( samplePerson );
         Select inner = new Select(false).
         		from(database.getProperty(samplePersonCategory, "table")).
         		selectAs(database.getProperty(samplePersonCategory, "person"), "person");
-        
+
         WhereList outerWhere = new WhereList();
         outerWhere.addAnd(Expr.equal("deleted", PersonConstants.DELETED_FALSE));
         if (orgUnit != null) {
         	outerWhere.addAnd(Expr.equal("tperson.fk_orgunit", orgUnit));
         }
-       	
+
 		/*
 		 * cklein 2009-07-16: fixes issue 1815 - although option "Alle" yielded no return value
 		 * the jetty used for testing made it a valid integer object of value 0, which broke
@@ -556,13 +556,13 @@ public class DataExchangeWorker {
             		database.getProperty(samplePerson, "id"),
             		new RawClause('(' + inner.toString() + ')')));
         }
-        
+
         exportSelect(database, outer.where(outerWhere).orderBy( Order.asc( "tperson.pk" ) ), exporter);
     }
-    
+
     /**
      * Diese Methode exportiert alle Personen.
-     * 
+     *
      * @param database zu benutzende Datenverbindung
      * @param exporter zu benutzender {@link Exporter}
      * @param orgUnit Mandanten-ID, wenn danach gefiltert werden soll
@@ -571,20 +571,20 @@ public class DataExchangeWorker {
         assert database != null;
         assert exporter != null;
         Bean samplePerson = database.createBean("Person");
-        
+
         Select outer = database.getSelect( "Person" );
         WhereList outerWhere = new WhereList();
         outerWhere.addAnd(Expr.equal("deleted", PersonConstants.DELETED_FALSE));
         if (orgUnit != null) {
         	outerWhere.addAnd(Expr.equal("tperson.fk_orgunit", orgUnit));
         }
-       	
+
         exportSelect(database, outer.where(outerWhere), exporter);
     }
-    
+
     /**
      * Diese Methode exportiert alle Personen, die ein bestimmtes {@link Select} liefert.
-     * 
+     *
      * @param database zu benutzende Datenverbindung
      * @param select DB-Select; dieses muss auf <code>database.getSelect("Person")</code>
      *  beruhen, insbesondere zumindest mindestens die darin vorgegebenen Spalten haben.
@@ -594,7 +594,7 @@ public class DataExchangeWorker {
         assert database != null;
         assert select != null;
         assert exporter != null;
-        
+
         try
         {
         	ResultSet rs =  ( ResultSet ) ( ( Result ) select.execute() ).resultSet();
@@ -619,10 +619,10 @@ public class DataExchangeWorker {
         	throw new BeanException( e.getMessage(), e );
         }
     }
-    
+
     /**
-     * Diese Methode erstellt einen Importvorgangeintrag. 
-     * 
+     * Diese Methode erstellt einen Importvorgangeintrag.
+     *
      * @param formatKey Schl�ssel des Formats des Importvorgangs
      * @param importSource Bezeichner der Importquelle
      * @param orgunit Mandanten-ID, in der der Import erfolgt
@@ -642,12 +642,12 @@ public class DataExchangeWorker {
             throw new TcContentProzessException("Fehler beim Erstellen eines Importvorgangs", e);
         } catch (IOException e) {
             throw new TcContentProzessException("Fehler beim Speichern eines Importvorgangs", e);
-        } 
+        }
     }
 
     /**
-     * Diese Methode erstellt und Initialisiert einen {@link Importer}. 
-     * 
+     * Diese Methode erstellt und Initialisiert einen {@link Importer}.
+     *
      * @param format basierendes {@link ExchangeFormat}
      * @return ein passender {@link Importer}
      * @throws TcContentProzessException bei Fehlern beim Instanziieren des Exporters.
@@ -674,8 +674,8 @@ public class DataExchangeWorker {
 
     /**
      * Diese Methode erzeugt eine <code>Map</code>, in der Statistiken zu einem Import
-     * kodiert sind. 
-     * 
+     * kodiert sind.
+     *
      * @param dsCount Anzahl Datens�tze insgesamt
      * @param dupCount Anzahl Duplikate
      * @param id Import-ID
@@ -696,7 +696,7 @@ public class DataExchangeWorker {
      * Diese Methode erzeugt eine <code>Map</code>, in der Statistiken zu einem Import
      * kodiert sind. In dieser Variante werden auch die Datens�tze gez�hlt, die wegen
      * Unkorrektheit ignoriert wurden.
-     * 
+     *
      * @param igCount Anzahl ignorierter (unkorrekter) Datens�tze
      * @param dsCount Anzahl nicht ignorierter Datens�tze insgesamt
      * @param dupCount Anzahl Duplikate

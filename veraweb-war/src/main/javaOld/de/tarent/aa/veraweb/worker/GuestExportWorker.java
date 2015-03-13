@@ -193,7 +193,7 @@ public class GuestExportWorker {
         final String filename = OctopusHelper.getFilename(cntx, fileExtension, "export." + fileExtension);
 
 		if (logger.isInfoEnabled()) {
-            logger.info("Exportiere Gästeliste. (Dateiname: '" + filename + "'; Dokumenttyp: #" + doctype.id
+            logger.info("Exportiere G\u00e4steliste. (Dateiname: '" + filename + "'; Dokumenttyp: #" + doctype.id
                     + "; Format: '" + spreadSheet.getClass().getName() + "')");
         }
 
@@ -218,7 +218,7 @@ public class GuestExportWorker {
 			// Joint tguest und schr�nkt das Ergebnis auf den entsprechenden
 			// Dokumenten-Typ und bestimmte G�ste ein.
 			if (logger.isInfoEnabled())
-				logger.info("Exportiere Gästeliste anhand der Sleektion.");
+				logger.info("Exportiere G\u00e4steliste anhand der Sleektion.");
 
 			select.join(new Join(Join.INNER, "veraweb.tguest", new RawClause(withHost +
 					"tguest_doctype.fk_guest = tguest.pk AND tguest_doctype.fk_doctype = " + doctype.id)));
@@ -228,7 +228,7 @@ public class GuestExportWorker {
 			// Joint tguest und schr�nkt das Ergebnis auf den entsprechenden
 			// Dokumenten-Typ und eine Veranstaltung ein.
 			if (logger.isInfoEnabled())
-				logger.info("Exportiere Gästeliste der Veranstaltung " + event.id + ".");
+				logger.info("Exportiere G\u00e4steliste der Veranstaltung " + event.id + ".");
 
 			select.join(new Join(Join.INNER, "veraweb.tguest", new RawClause(withHost +
 					"tguest_doctype.fk_guest = tguest.pk AND tguest_doctype.fk_doctype = " + doctype.id)));
@@ -237,8 +237,8 @@ public class GuestExportWorker {
 			GuestListWorker.addGuestListFilter(search, list);
 			select.where(list);
 		} else {
-			logger.error("Konnte Gästeliste nicht exportieren.");
-			throw new BeanException("Konnte Gästeliste nicht exportieren.");
+			logger.error("Konnte G\u00e4steliste nicht exportieren.");
+			throw new BeanException("Konnte G\u00e4steliste nicht exportieren.");
 		}
 
 		WorkerFactory.getGuestListWorker(cntx).getSums(database, data, search, selection);
@@ -292,13 +292,13 @@ public class GuestExportWorker {
 
 		// SpreadSheet speichern
 		if (logger.isInfoEnabled())
-			logger.info("Gebe Gästeliste als Download zurück.");
+			logger.info("Gebe G\u00e4steliste als Download zur\u00fcck.");
         final PipedInputStream pis = new PipedInputStream();
         final PipedOutputStream pos = new PipedOutputStream(pis);
         new Thread(new Runnable() {
         	public void run() {
         		if (logger.isDebugEnabled())
-        			logger.debug("Gästelisten-Export: Starte das Speichern eines Spreadsheets.");
+        			logger.debug("G\u00e4stelisten-Export: Starte das Speichern eines Spreadsheets.");
         		try {
 					spreadSheet.save(pos);
 				} catch (Throwable t) {
@@ -314,7 +314,7 @@ public class GuestExportWorker {
 					}
 				}
         		if (logger.isDebugEnabled())
-        			logger.debug("Gästelisten-Export: Beende das Speichern eines Spreadsheets.");
+        			logger.debug("G\u00e4stelisten-Export: Beende das Speichern eines Spreadsheets.");
         	}
         }).start();
 

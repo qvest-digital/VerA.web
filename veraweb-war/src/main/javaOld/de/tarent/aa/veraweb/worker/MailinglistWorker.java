@@ -45,7 +45,7 @@ import de.tarent.octopus.server.OctopusContext;
 /**
  * Dieser Octopus-Worker stellt Aktionen zur Verwaltung (erstellen
  * und l�schen) von Verteilern in VerA.Web bereit.
- * 
+ *
  * @author Hendrik, Christoph Jerolimov
  * @version $Revision: 1.1 $
  */
@@ -59,7 +59,7 @@ public class MailinglistWorker {
 	 * Sch�tzt wie gro� der neue Verteiler werden wird und
 	 * erweitert die Map <code>mailinglistParam</code> im Content
 	 * um den Key <code>count</code>.
-	 * 
+	 *
 	 * @param cntx Octopus-Context
 	 * @return Map mit dem Key <code>count</code>
 	 * @throws BeanException
@@ -70,14 +70,14 @@ public class MailinglistWorker {
 		if (result == null) result = new HashMap();
 		Database database = new DatabaseVeraWeb(cntx);
 		GuestSearch search = (GuestSearch)cntx.contentAsObject("search");
-		
+
 		List selection = (List)cntx.contentAsObject("listselection");
 		if (selection != null && selection.size() != 0) {
 			result.put("count", new Integer(selection.size()));
 		} else {
 			WhereList list = new WhereList();
 			GuestListWorker.addGuestListFilter(search, list);
-			
+
 			result.put("count",
 					database.getCount(
 					database.getCount("Guest").
@@ -96,7 +96,7 @@ public class MailinglistWorker {
 	 * Erstellt einen neuen Verteiler und speichert die Anzahl der
 	 * hinzugef�gten Adressen in der Map <code>mailinglistParam</code>
 	 * im Content im Key <code>count</code>.
-	 * 
+	 *
 	 * @param cntx
 	 * @param mailinglist
 	 * @return Map mit dem Key <code>count</code>
@@ -106,7 +106,7 @@ public class MailinglistWorker {
 	public Map createMailinglist(OctopusContext cntx, Mailinglist mailinglist) throws BeanException, IOException {
 		Database database = new DatabaseVeraWeb(cntx);
 		GuestSearch search = (GuestSearch)cntx.contentAsObject("search");
-		
+
 		// Adresstype und Locale laden
 		Integer addresstype = new Integer(PersonConstants.ADDRESSTYPE_BUSINESS);
 		Integer locale = new Integer(PersonConstants.LOCALE_LATIN);
@@ -115,14 +115,14 @@ public class MailinglistWorker {
 				database.getBean("Doctype",
 				database.getSelect("Doctype").
 				where(Expr.equal("pk", freitextfeld)));
-		
+
 		if (doctype != null && doctype.locale != null) {
 			locale = doctype.locale;
 		}
 		if (doctype != null && doctype.addresstype != null) {
 			addresstype = doctype.addresstype;
 		}
-		
+
 		// Bedingung des Verteilers definieren
 		Clause clause;
 		List selection = (List)cntx.contentAsObject("listselection");
@@ -134,18 +134,18 @@ public class MailinglistWorker {
 			clause = new WhereList();
 			GuestListWorker.addGuestListFilter(search, (WhereList)clause);
 		}
-		
+
 		// Personen hinzuf�gen
 		int savedAddresses = addMailinglist(cntx, mailinglist, freitextfeld, addresstype, locale, clause);
-		
+
 		if (savedAddresses == 0) {
             cntx.setStatus("error");
-            mailinglist.addError("Das Anlegen eines neuen Verteilers ist fehlgeschlagen, da zu den ausgewählten Personen keine Adressdaten vorliegen.");
+            mailinglist.addError("Das Anlegen eines neuen Verteilers ist fehlgeschlagen, da zu den ausgew\u00e4hlten Personen keine Adressdaten vorliegen.");
     		if (mailinglist.id != null) {
                 database.execute(database.getDelete(mailinglist));
     		}
 		}
-		
+
 		// Ergebnis ist Params eintragen
 		Map result = (Map)cntx.contentAsObject("mailinglistParams");
 		if (result == null) result = new HashMap();
@@ -163,7 +163,7 @@ public class MailinglistWorker {
 	 * Sollte dieser nicht existieren wird entsprechend des �bergebenen
 	 * Adresstyps und Zeichensatzes in den normalen Personen Datengesucht. (Im
 	 * Zweifel wird auf die gesch�ftlichen lateinischen Daten zur�ckgegriffen.)
-	 * 
+	 *
 	 * @param cntx Octopus-Context
 	 * @param mailinglist Verteiler dem G�ste hinzugef�gt werden sollen.
 	 * @param doctype ID des Dokumenttypes der verwendet werden soll.
@@ -171,16 +171,16 @@ public class MailinglistWorker {
 	 * @param locale Zeichensatz
 	 * @param clause Bedingung
 	 * @return Anzahl der hinzugef�gten Adressen.
-	 * @throws BeanException 
-	 * @throws IOException 
+	 * @throws BeanException
+	 * @throws IOException
 	 */
 	protected int addMailinglist(OctopusContext cntx, Mailinglist mailinglist, Integer doctype, Integer addresstype, Integer locale, Clause clause) throws BeanException, IOException {
 		Database database = new DatabaseVeraWeb(cntx);
 		int savedAddresses = 0;
-		
+
 		String personMail = getMailColumn(addresstype, locale);
 		String personFax = getFaxColumn(addresstype, locale);
-		
+
 		Select select = SQL.Select(database).setDistinct(true).
 				from("veraweb.tguest").
 				selectAs("tguest.pk", "guest").
@@ -201,7 +201,7 @@ public class MailinglistWorker {
 			select.selectAs("NULL", "mail1");
 			select.selectAs("NULL", "fax1");
 		}
-		
+
 		select.where(new RawClause("(" + clause.clauseToString(database) + ") AND (" +
 						"length(tguest_doctype.mail) != 0 OR " +
 						"length(tguest_doctype.fax) != 0 OR " +
@@ -209,14 +209,14 @@ public class MailinglistWorker {
 						"length(" + personFax + ") != 0 OR " +
 						"length(tperson.mail_a_e1) != 0 OR " +
 						"length(tperson.fax_a_e1) != 0)"));
-		
+
 		for (Iterator it = database.getList(select, database).iterator(); it.hasNext(); ) {
 			Map data = (Map)it.next();
 			Integer person = (Integer)data.get("person");
 			if (((Boolean)data.get("hasguestdoctype")).booleanValue()) {
 				String mail1 = (String)data.get("mail1");
 				String fax1 = (String)data.get("fax1");
-				
+
 				if (mail1 != null && mail1.length() != 0) {
 					if (savePerson(database, mailinglist.id, person, getClearMailAddress(cntx, mail1)))
 						savedAddresses++;
@@ -229,7 +229,7 @@ public class MailinglistWorker {
 				String fax2 = (String)data.get("fax2");
 				String mail3 = (String)data.get("mail3");
 				String fax3 = (String)data.get("fax3");
-				
+
 				if (mail2 != null && mail2.length() != 0) {
 					if (savePerson(database, mailinglist.id, person, getClearMailAddress(cntx, mail2)))
 						savedAddresses++;
@@ -245,7 +245,7 @@ public class MailinglistWorker {
 				}
 			}
 		}
-		
+
 		return savedAddresses;
 	}
 
@@ -257,7 +257,7 @@ public class MailinglistWorker {
 	private String getMailColumn(Integer addresstype, Integer locale) {
 		int a = addresstype != null ? addresstype.intValue() : PersonConstants.ADDRESSTYPE_BUSINESS;
 		int l = locale != null ? locale.intValue() : PersonConstants.LOCALE_LATIN;
-		
+
 		switch (a * 3 + l) {
 			case 4:
 				return "tperson.mail_a_e1";
@@ -289,7 +289,7 @@ public class MailinglistWorker {
 	private String getFaxColumn(Integer addresstype, Integer locale) {
 		int a = addresstype != null ? addresstype.intValue() : PersonConstants.ADDRESSTYPE_BUSINESS;
 		int l = locale != null ? locale.intValue() : PersonConstants.LOCALE_LATIN;
-		
+
 		switch (a * 3 + l) {
 			case 4:
 				return "tperson.fax_a_e1";
@@ -315,13 +315,13 @@ public class MailinglistWorker {
 
 	/**
 	 * Speichert eine Person zu einer Mailingliste, geht dabei wie folgt vor:<br><br>
-	 * 
+	 *
 	 * 1. Schaut ob ein entsprechender GuestDoctype existiert und kopiert
 	 *    ggf. aus diesem eMail-Adresse oder Fax-Nimmer.<br>
 	 * 2. Falls kein entsprechender Eintrag gefunden wurde wird die allgemeine
 	 *    Person zu dem �bergebenem Gast gesucht und die eMail-Adresse
 	 *    oder Fax-Nummer entsprechend des Dokumenttypens "Etikett" �bernommen.
-	 * 
+	 *
 	 * @param database
 	 * @param mailinglist
 	 * @param person
@@ -343,7 +343,7 @@ public class MailinglistWorker {
 
 	/**
 	 * Gibt eine 'gesauberte' Faxnummer mit dem Zusatz '@fax' zur�ck.
-	 * 
+	 *
 	 * @param cntx Octopus-Context
 	 * @param number Faxnummer
 	 * @return Faxnummer
@@ -351,13 +351,13 @@ public class MailinglistWorker {
 	public static String getClearFaxNumber(OctopusContext cntx, String number) {
 		String faxdomain = ConfigWorker.getString(cntx, "faxdomain");
 		if (faxdomain == null || "".equals(faxdomain)) faxdomain = "@fax.aa";
-		
+
 		return getOnlyNumbers(cntx, number) + faxdomain;
 	}
 
 	/**
 	 * Gibt eine 'gesauberte' eMail-Adresse zur�ck.
-	 * 
+	 *
 	 * @param cntx Octopus-Context
 	 * @param mail eMail-Adresse
 	 * @return eMail-Adresse
@@ -372,12 +372,12 @@ public class MailinglistWorker {
 	 */
 	public static String getOnlyNumbers(OctopusContext cntx, String number) {
 		if (number == null) return "";
-		
+
 		if (!areacodeLoaded) {
 			areacodeString = cntx.moduleConfig().getParam("phoneAreacode");
 			areacodeLoaded = true;
 		}
-		
+
 		StringBuffer buffer = new StringBuffer(number.length());
 		for (int i = 0; i < number.length(); i++) {
 			char c = number.charAt(i);

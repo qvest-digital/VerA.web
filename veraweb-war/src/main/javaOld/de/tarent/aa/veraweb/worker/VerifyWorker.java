@@ -40,7 +40,7 @@ import de.tarent.octopus.server.OctopusContext;
 /**
  * Dieser Worker schreibt Fehlerberichte oder Warnungen
  * als Liste in den Content.
- * 
+ *
  * @author Christoph
  */
 public class VerifyWorker {
@@ -48,7 +48,7 @@ public class VerifyWorker {
 	public static final String INPUT_addError[] = { "message" };
 	/**
 	 * Octopus-Aktion die einen Error in den Content stellt.
-	 * 
+	 *
 	 * @param cntx Octopus-Context
 	 * @param message Fehlermeldung
 	 */
@@ -68,7 +68,7 @@ public class VerifyWorker {
 	public static final String INPUT_addWarning[] = { "message" };
 	/**
 	 * Octopus-Aktion die eine Warnung in den Content stellt.
-	 * 
+	 *
 	 * @param cntx Octopus-Context
 	 * @param message Warnmeldung
 	 */
@@ -89,7 +89,7 @@ public class VerifyWorker {
 
 	/**
 	 * Testet ob der Connection-Pool korrekt ge�ffnet wurde.
-	 * 
+	 *
 	 * @param cntx Octopus-Context
 	 */
 	public void verifyDatabase(OctopusContext cntx) {
@@ -118,7 +118,7 @@ public class VerifyWorker {
 	 * Testet ob die Version des Datenbank-Schemas mit der Version in der
 	 * veraweb.properties �bereinstimmt und erweitert ggf. die Liste mit
 	 * Fehlern und stellt diese in den Content.
-	 * 
+	 *
 	 * @param cntx OctopusContext
 	 * @throws BeanException
 	 * @throws IOException
@@ -131,11 +131,11 @@ public class VerifyWorker {
 				database.getSelect("Config").
 				where(Expr.equal("cname", "SCHEMA_VERSION")));
 		ResourceBundle properties = (ResourceBundle)cntx.contentAsObject("properties");
-		
+
 		if (config == null || config.value == null) {
 			addError(cntx, "Die Version des Datenbank-Schemas konnte nicht ermittelt werden.");
 		} else if (!config.value.equals(properties.getString("schema-version"))) {
-			addError(cntx, "Die Version des Datenbank-Schemas (" + config.value + ") stimmt nicht mit der von VerA.web erwarteten (" + properties.getString("schema-version") + ") überein.");
+			addError(cntx, "Die Version des Datenbank-Schemas (" + config.value + ") stimmt nicht mit der von VerA.web erwarteten (" + properties.getString("schema-version") + ") \u00fcberein.");
 		}
 	}
 
@@ -143,12 +143,12 @@ public class VerifyWorker {
 	public final static String INPUT_getDatabaseCharset[] = {};
 	/**
 	 * Testet ob der Zeichensatz der Datenbank richtig konfiguriert ist.
-	 * 
+	 *
 	 * @param cntx OctopusContext
 	 */
 	public void getDatabaseCharset(OctopusContext cntx) {
 		DatabaseVeraWeb database = new DatabaseVeraWeb(cntx);
-		
+
 		String LC_CTYPE = getResult(database, "SHOW LC_CTYPE");
 		String LC_COLLATE = getResult(database, "SHOW LC_COLLATE");
 		cntx.setContent("LC_CTYPE", LC_CTYPE);
@@ -160,7 +160,7 @@ public class VerifyWorker {
 	public final static String INPUT_verifyDatabaseCharset[] = {};// "LC_CTYPE", "LC_COLLATE" };
 	/**
 	 * Testet ob der Zeichensatz der Datenbank richtig konfiguriert ist.
-	 * 
+	 *
 	 * @param cntx OctopusContext
 	 */
 	public void verifyDatabaseCharset(OctopusContext cntx) {
@@ -169,12 +169,12 @@ public class VerifyWorker {
 		String LC_COLLATE = cntx.contentAsString("LC_COLLATE");
 		cntx.setContent("LC_CTYPE", LC_CTYPE);
 		cntx.setContent("LC_COLLATE", LC_COLLATE);
-		
+
 		if (LC_CTYPE == null || LC_CTYPE.toUpperCase().indexOf("UTF-8") == -1) {
-			addError(cntx, "Ihre Datenbankkonfiguration unterstützt nicht den erwarteten Zeichensatz (LC_CTYPE=" + LC_CTYPE + ").");
+			addError(cntx, "Ihre Datenbankkonfiguration unterst\u00fctzt nicht den erwarteten Zeichensatz (LC_CTYPE=" + LC_CTYPE + ").");
 		}
 		if (LC_COLLATE == null || LC_COLLATE.toUpperCase().indexOf("UTF-8") == -1) {
-			addError(cntx, "Ihre Datenbankkonfiguration unterstützt nicht die erwarteten Textvergleichsregeln (LC_COLLATE=" + LC_COLLATE + ").");
+			addError(cntx, "Ihre Datenbankkonfiguration unterst\u00fctzt nicht die erwarteten Textvergleichsregeln (LC_COLLATE=" + LC_COLLATE + ").");
 		}
 	}
 
@@ -201,7 +201,7 @@ public class VerifyWorker {
 	public final static String INPUT_verifyXMLTransformer[] = {};
 	/**
 	 * Testet ob der XML Transformer (f�r OpenOffice) korrektes XML erzeugt.
-	 * 
+	 *
 	 * @param cntx OctopusContext
 	 */
 	public void verifyXMLTransformer(OctopusContext cntx) {
@@ -216,7 +216,7 @@ public class VerifyWorker {
 	public final static String INPUT_verifyJavaVersion[] = {};
 	/**
 	 * Testet ob die verwendete Java-Version der spezifizierten entspricht.
-	 * 
+	 *
 	 * @param cntx OctopusContext
 	 */
 	public void verifyJavaVersion(OctopusContext cntx) {

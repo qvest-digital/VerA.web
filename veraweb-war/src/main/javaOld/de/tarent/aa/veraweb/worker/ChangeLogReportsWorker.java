@@ -47,7 +47,7 @@ import de.tarent.octopus.server.OctopusContext;
  * worker for operations on the {@link ChangeLogReport}
  * bean in collaboration with the {@link ChangeLogEntry}
  * entity bean.
- * 
+ *
  * @author cklein
  * @since 1.2.0
  * @see de.tarent.aa.veraweb.beans.ChangeLogReport
@@ -74,12 +74,12 @@ public class ChangeLogReportsWorker extends ListWorkerVeraWeb
 
 	/**
 	 * Stores and loads the report configuration in / from the session.
-	 * 
+	 *
 	 * @param cntx
 	 * @param begin
 	 * @param end
-	 * @throws BeanException 
-	 * @throws IOException 
+	 * @throws BeanException
+	 * @throws IOException
 	 */
 	@SuppressWarnings( "unchecked" )
 	public void loadConfig( OctopusContext cntx, String begin, String end ) throws BeanException, IOException
@@ -132,7 +132,7 @@ public class ChangeLogReportsWorker extends ListWorkerVeraWeb
 		Integer count = getCount( cntx, database );
 		if ( count.intValue() == 0 )
 		{
-			cntx.setContent( "noLogDataAvailableMessage", "Es stehen keine Protokolldaten zur Verfügung." );
+			cntx.setContent( "noLogDataAvailableMessage", "Es stehen keine Protokolldaten zur Verf\u00fcgung." );
 		}
 	}
 

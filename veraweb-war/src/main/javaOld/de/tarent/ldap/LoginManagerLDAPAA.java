@@ -262,7 +262,7 @@ public class LoginManagerLDAPAA extends LoginManagerLDAPGeneric implements Login
                             // bereits korrekt auf die erste vom LDAP gelieferte uid gesetzt sein, also
                             // auf die uid, die auch von getAARoles zur Bearbeitung geliefert wird.
                             if (aaConfig.getRole() == null) {
-                                logger.warning("Rolle nicht aus uid gesetzt, Prüfrolle wird genutzt.");
+                                logger.warning("Rolle nicht aus uid gesetzt, Pr\u00fcfrolle wird genutzt.");
                                 aaConfig.setRole(newAuth.getUserName());
                             }
                             aaConfig.setRoles(null);

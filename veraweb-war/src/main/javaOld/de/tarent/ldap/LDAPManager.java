@@ -50,7 +50,7 @@ import de.tarent.octopus.security.TcSecurityException;
 
 /**
  * f�r Zugriff auf ein LDAP-Verzeichnis
- * 
+ *
  * @author philipp
  */
 public class LDAPManager {
@@ -93,7 +93,7 @@ public class LDAPManager {
     //
     /**
      * Anonymer Login
-     * 
+     *
      * @throws LDAPException
      *             wenn etwas schiefl�uft
      */
@@ -105,7 +105,7 @@ public class LDAPManager {
 
     /**
      * Methode, die einen gegebenen Benutzer einloggt.
-     * 
+     *
      * @param username
      *            Benutzername als komplette DN des Users
      * @param passwort
@@ -126,7 +126,7 @@ public class LDAPManager {
 
     /**
      * Diese statische Methode erzeugt eine neue LDAP-Manager-Instanz.
-     * 
+     *
      * @param managerClass Klasse des zu erzeugenden LDAPManagers.
      * @param env Umgebungsparameter f�r den zu erzeugenden LdapContext.
      * @param params Parameter f�r den neu zu instantiierenden LDAPManager, zumindest
@@ -160,7 +160,7 @@ public class LDAPManager {
         }
     	catch ( Exception e )
     	{
-            throw new LDAPException( "Kann LDAPManager nicht instantiieren, der spezifizierte Konstruktor ist nicht verfügbar." );
+            throw new LDAPException( "Kann LDAPManager nicht instantiieren, der spezifizierte Konstruktor ist nicht verf\u00fcgbar." );
     	}
     	return result;
     }
@@ -181,7 +181,7 @@ public class LDAPManager {
             throw new LDAPException( Messages.getString( "LDAPManager.commication_error_01" ), e ); //$NON-NLS-1$
         }
     }
-    
+
     //
     // Konstruktoren
     //
@@ -189,7 +189,7 @@ public class LDAPManager {
 	 * Dieser Konstruktor fischt die Werte f�r {@link #KEY_BASE_DN}, {@link #KEY_RELATIVE}
      * und {@link #KEY_RELATIVE_USER} heraus und legt sie neben den �bergebenen Parametern
      * explizit ab.
-	 * 
+	 *
      * @param lctx initialer LDAP-Kontext, auf dem dieser LDAP-Manager arbeitet
      * @param params Map, die zumindest f�r {@link #KEY_BASE_DN}, {@link #KEY_RELATIVE}
      *  und {@link #KEY_RELATIVE_USER} Werte enth�lt.
@@ -209,30 +209,30 @@ public class LDAPManager {
     //
     /**
      * Diese Methode liefert die aktuellen Vorgabe-Objektklassen f�r Benutzer.
-     * 
+     *
      * @return Vorgabe-Objektklassen f�r Benutzer
      * @see #getUserDN(String)
      */
     protected String[] getDefaultObjectClasses() {
         return defaultObjectClasses;
     }
-    
+
     /**
-     * Diese Methode setzt die aktuellen Vorgabe-Objektklassen f�r Benutzer. 
-     * 
+     * Diese Methode setzt die aktuellen Vorgabe-Objektklassen f�r Benutzer.
+     *
      * @param newDefault neue Vorgabe-Objektklassen f�r Benutzer
      * @see #getUserDN(String)
      */
     protected void setDefaultObjectClasses(String[] newDefault) {
         defaultObjectClasses = newDefault;
     }
-    
+
     //
     // �ffentliche Methoden
     //
     /**
      * Methode, die einen gegebenen Benutzer unter der aktuellen BaseDN einloggt.
-     * 
+     *
      * @param username
      *            Benutzername nur als Benutzername
      * @param passwort
@@ -275,7 +275,7 @@ public class LDAPManager {
 
 	/**
 	 * Legt eine OU an
-	 * 
+	 *
 	 * @param ou
 	 *            ou, die angelegt werden soll
 	 * @param user
@@ -298,11 +298,11 @@ public class LDAPManager {
 			while (it.hasNext()) {
 				String adduser = (String) it.next();
 				try {
-					String adduser2 = getUserDN(adduser) + relativeUser + baseDN; 
+					String adduser2 = getUserDN(adduser) + relativeUser + baseDN;
 					users.add(adduser2);
 				} catch (LDAPException le) {
 					logger.log(Level.WARNING, Messages.getString("LDAPManager.76") + adduser
-							+ Messages.getString("LDAPManager.77")); //$NON-NLS-1$ 
+							+ Messages.getString("LDAPManager.77")); //$NON-NLS-1$
 				}
 			}
 			attr.put(users);
@@ -310,13 +310,13 @@ public class LDAPManager {
 		} catch (NamingException e) {
 			throw new LDAPException(Messages.getString("LDAPManager.Konnte_OU_nicht_anlegen_01")
 					+ Messages.getString("LDAPManager.78") + ou + relative + baseDN
-					+ Messages.getString("LDAPManager.79") + e.getMessage(), e); //$NON-NLS-1$ 
+					+ Messages.getString("LDAPManager.79") + e.getMessage(), e); //$NON-NLS-1$
 		}
 	}
 
 	/**
 	 * Methode die testet, ob User name bestimmtes Attribut hat
-	 * 
+	 *
 	 * @param name
 	 *            UserID, des zu testenden User
 	 * @param attribut
@@ -349,7 +349,7 @@ public class LDAPManager {
 	/**
 	 * Methode, die testet, ob User name im LDAP das bestimmte Attribut mit dem
 	 * bestimmten Wert hat.
-	 * 
+	 *
 	 * @param name
 	 *            uid des Objekts
 	 * @param attribute
@@ -362,7 +362,7 @@ public class LDAPManager {
 		boolean vorhanden = false;
 		try {
 			//Zu suchende Attribute zusammenbauen
-			Attributes attributes = lctx.getAttributes(getUserDN(name) + relative + baseDN); 
+			Attributes attributes = lctx.getAttributes(getUserDN(name) + relative + baseDN);
 			//hole Attrbute
 			Attribute tester = attributes.get(attribute);
 			NamingEnumeration liste = null;
@@ -390,7 +390,7 @@ public class LDAPManager {
 	/**
 	 * Methode, die testet, ob OU name im LDAP das bestimmte Attribut mit dem
 	 * bestimmten Wert hat.
-	 * 
+	 *
 	 * @param name
 	 *            ou des Objekts
 	 * @param attribute
@@ -427,7 +427,7 @@ public class LDAPManager {
 
 	/**
 	 * Testet, ob userid im LDAP vorhanden
-	 * 
+	 *
 	 * @param userid
 	 *            UserID, die getestet werden soll
 	 * @return true, wenn vorhanden, false sonst
@@ -451,7 +451,7 @@ public class LDAPManager {
 
 	/**
 	 * Testet, ob userid im LDAP vorhanden
-	 * 
+	 *
 	 * @param userid
 	 *            UserID, die getestet werden soll
 	 * @param kategorie
@@ -477,7 +477,7 @@ public class LDAPManager {
 
 	/**
 	 * Testet, ob ou im LDAP vorhanden
-	 * 
+	 *
 	 * @param ou
 	 *            ou, die getestet werden soll
 	 * @return true, wenn vorhanden, false sonst
@@ -502,7 +502,7 @@ public class LDAPManager {
 		//System.out.println();
 		return vorhanden;
 	}
-	
+
 	/**
 	 * Stellt fest, ob gegebener DN vorhanden ist
 	 * @param dn
@@ -589,7 +589,7 @@ public class LDAPManager {
 	/**
 	 * Kleiner Helper, der aufpasst, das bei relative am Anfang und am Ende ein
 	 * Komma ist.
-	 * 
+	 *
 	 * @param string
 	 * @return Argument getrimt und ggf vorne und/oder hinten um Kommas erg�nzt
 	 */
@@ -610,7 +610,7 @@ public class LDAPManager {
 
 	/**
 	 * getter f�r Relative
-	 * 
+	 *
 	 * @return relativen DN
 	 */
 	public String getRelative() {
@@ -619,7 +619,7 @@ public class LDAPManager {
 
 	/**
 	 * Setze Relative
-	 * 
+	 *
 	 * @param string
 	 *            neuer relativer DN
 	 */
@@ -629,7 +629,7 @@ public class LDAPManager {
 
 	/**
 	 * Modifiert eine OU
-	 * 
+	 *
 	 * @param value
 	 *            Name der OU
 	 * @param user
@@ -645,7 +645,7 @@ public class LDAPManager {
 			objectclass = lctx.getAttributes("ou=" + value + relative + baseDN, objectClassA).get("objectClass"); //$NON-NLS-1$ //$NON-NLS-2$
 		} catch (NamingException e) {
 			throw new LDAPException(Messages.getString("LDAPManager.Konnte_objectClass_nicht_sichern_01")
-					+ e.getMessage(), e); 
+					+ e.getMessage(), e);
 		}
 		boolean modified = false;
 		//Checke objectclass
@@ -663,7 +663,7 @@ public class LDAPManager {
 		//member neu bauen
 		for (int i = 0; i < user.size(); i++) {
 			try {
-				member.add(getUserDN(user.get(i).toString()) + relativeUser + baseDN); 
+				member.add(getUserDN(user.get(i).toString()) + relativeUser + baseDN);
 			} catch (LDAPException le) {
 				logger.log(Level.WARNING, Messages.getString("LDAPManager.87")); //$NON-NLS-1$
 			}
@@ -673,16 +673,16 @@ public class LDAPManager {
 		//F�hre �nderungen durch
 		try {
 			lctx.modifyAttributes("ou=" + value + relative + baseDN, (ModificationItem[]) modifications
-					.toArray(new ModificationItem[1])); 
+					.toArray(new ModificationItem[1]));
 		} catch (NamingException e2) {
 			throw new LDAPException(Messages.getString("LDAPManager.OU_konnte_nicht_modifiziert_werden_01")
-					+ e2.toString(), e2); 
+					+ e2.toString(), e2);
 		}
 	}
 
 	/**
 	 * Getter f�r alle OU's
-	 * 
+	 *
 	 * @param base
 	 *            Basis unter der gesucht werden soll
 	 * @return Liste mit allen OU's
@@ -713,7 +713,7 @@ public class LDAPManager {
 
 	/**
 	 * Holt alle Kontakte unterhalb einer Basis aus dem LDAP
-	 * 
+	 *
 	 * @param base
 	 *            Basis, unterhalb der gesucht werden sollen
 	 * @return Liste mit uid's der Kontakte
@@ -735,7 +735,7 @@ public class LDAPManager {
 
 	/**
 	 * liest den BaseDN aus
-	 * 
+	 *
 	 * @return BaseDN
 	 */
 	public String getBaseDN() {
@@ -750,11 +750,11 @@ public class LDAPManager {
 		}
 		return attrs;
 	}
-	
+
     public String getUserDN(String uid) throws LDAPException {
         return getUserDN(uid, defaultObjectClasses);
     }
-    
+
 	public String getUserDN(String uid, String[] objectClasses) throws LDAPException {
 		String dn = null;
 		Attributes attr = new BasicAttributes();
@@ -963,7 +963,7 @@ public class LDAPManager {
 	}
 
 	/**
-	 *  
+	 *
 	 */
 	public void deleteSystemPreferenceNode() throws LDAPException {
 		try {
@@ -1011,7 +1011,7 @@ public class LDAPManager {
 		}
 		return vorhanden;
 	}
-	
+
 	public boolean checkcn(String vorname, String nachname){
 		boolean vorhanden = false;
 		try
@@ -1028,9 +1028,9 @@ public class LDAPManager {
 			vorhanden = false;
 		}
 		return vorhanden;
-		
+
 	}
-	
+
 	protected String byteArrayToBase64(byte[] a, boolean alternate)
 	{
 		int aLen = a.length;
@@ -1077,7 +1077,7 @@ public class LDAPManager {
 	}
 	/**
 	 * This array is a lookup table that translates 6-bit positive integer
-	 * index values into their "Base64 Alphabet" equivalents as specified 
+	 * index values into their "Base64 Alphabet" equivalents as specified
 	 * in Table 1 of RFC 2045.
 	 */
 	private final char intToBase64[] =
@@ -1220,7 +1220,7 @@ public class LDAPManager {
 			'9',
 			'+',
 			'?' };
-	
+
 
 	/* (non-Javadoc)
 	 * @see de.tarent.octopus.server.UserManager#getUserParam(java.lang.String, java.lang.String)

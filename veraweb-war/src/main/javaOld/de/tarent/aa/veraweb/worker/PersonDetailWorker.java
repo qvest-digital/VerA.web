@@ -971,7 +971,7 @@ public class PersonDetailWorker implements PersonConstants {
 		Person oldPerson = ( Person ) database.getBean( "Person", personid, context );
 		// Datenbank-Eintr�ge inkl. Abh�nigkeiten l�schen.
 		if (logger.isEnabledFor(Priority.DEBUG)) {
-			logger.log(Priority.DEBUG, "Person l\u00f6schen: Person #" + personid + " wird vollständig gel\u00f6scht.");
+			logger.log(Priority.DEBUG, "Person l\u00f6schen: Person #" + personid + " wird vollst\u00e4ndig gel\u00f6scht.");
 		}
 
 		context.execute(SQL.Delete( database ).

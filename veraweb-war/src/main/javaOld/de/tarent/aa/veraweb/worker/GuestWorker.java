@@ -178,7 +178,7 @@ public class GuestWorker {
 
                 // enforce garbage collection so that the following code
                 // may continue
-                logger.fatal("Nicht genügend Speicher. Forciere Garbage-Collection.", e);
+                logger.fatal("Nicht gen\u00fcgend Speicher. Forciere Garbage-Collection.", e);
                 System.gc();
             }
 
@@ -197,10 +197,10 @@ public class GuestWorker {
 			cntx.setContent("doNotAlert", true);
         } catch (BeanException e) {
             context.rollBack();
-            throw new BeanException("Die Gäste konnten nicht auf die Gästeliste gesetzt werden.", e);
+            throw new BeanException("Die G\u00e4ste konnten nicht auf die G\u00e4steliste gesetzt werden.", e);
         } catch (SQLException e) {
             context.rollBack();
-            throw new BeanException("Die Gäste konnten nicht auf die Gästeliste gesetzt werden.", e);
+            throw new BeanException("Die G\u00e4ste konnten nicht auf die G\u00e4steliste gesetzt werden.", e);
         } catch (OutOfMemoryError e) {
             context.rollBack();
             // just rethrow
@@ -359,7 +359,7 @@ public class GuestWorker {
 		try
 		{
 			Event event = ( Event ) cntx.contentAsObject( "event" );
-			logger.debug( "Füge Gäste der Veranstaltung #" + eventId + " der Verstanstaltung #" + event.id + " hinzu." );
+			logger.debug( "F\u00fcge G\u00e4ste der Veranstaltung #" + eventId + " der Verstanstaltung #" + event.id + " hinzu." );
 			String sql = COUNT_INVITED_NOT_INVITED_FORMAT.format( new Object[] { event.id.toString(), eventId.toString() } );
 			Result res = DB.result( context, sql );
 
@@ -402,7 +402,7 @@ public class GuestWorker {
 
 				// enforce garbage collection so that the following code
 				// may continue
-				logger.fatal( "Nicht genügend Speicher. Forciere Garbage-Collection.", e );
+				logger.fatal( "Nicht gen\u00fcgend Speicher. Forciere Garbage-Collection.", e );
 				System.gc();
 			}
 
@@ -419,7 +419,7 @@ public class GuestWorker {
 		catch ( SQLException e )
 		{
 			context.rollBack();
-			throw new BeanException( "Die Gäste aus der Gästeliste konnten nicht übernommen werden.", e );
+			throw new BeanException( "Die G\u00e4ste aus der G\u00e4steliste konnten nicht \u00fcbernommen werden.", e );
 		}
 	}
 
@@ -483,7 +483,7 @@ public class GuestWorker {
 		catch ( BeanException e )
 		{
 			context.rollBack();
-			throw new BeanException( "Die Person konnte nicht auf die Gästeliste gesetzt werden.", e );
+			throw new BeanException( "Die Person konnte nicht auf die G\u00e4steliste gesetzt werden.", e );
 		}
 	}
 
@@ -653,7 +653,7 @@ public class GuestWorker {
         }
 
 		if (guestId == null) {
-			logger.debug("Füge Person #" + personId + " der Veranstaltung #" + event.id + " hinzu.");
+			logger.debug("F\u00fcge Person #" + personId + " der Veranstaltung #" + event.id + " hinzu.");
 		}
 
 		// Keinen neuen Gast hinzuf�gen wenn diese Person bereits zugeordnet war.

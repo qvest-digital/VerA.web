@@ -33,7 +33,7 @@ import de.tarent.octopus.server.OctopusContext;
  * Dieser Octopus-Worker repr�sentiert eine �bersichtsseite
  * sowie die Detailseiten zu eMail-Vorlagen.
  * Siehe Task MailDraftList und MailDraftDetail.<br><br>
- * 
+ *
  * @author Christoph Jerolimov
  * @version $Revision: 1.1 $
  */
@@ -61,13 +61,13 @@ public class MailOutboxWorker extends ListWorkerVeraWeb {
 	 * L�dt eine eMail aus dem Postausgang und stellt
 	 * diesen in den Content, wenn eine ID �bergeben wurde
 	 * und sich noch keine eMail im Content befindet.
-	 * 
+	 *
 	 * @param cntx Octopus-Context
 	 * @param id Datenbank ID
 	 * @param mailOutbox eMail-Entwurf aus dem Content.
 	 * @return eMail-Entwurf oder null
-	 * @throws BeanException 
-	 * @throws IOException 
+	 * @throws BeanException
+	 * @throws IOException
 	 */
 	public MailOutbox showDetail(OctopusContext cntx, Integer id, MailOutbox mailOutbox) throws BeanException, IOException {
 		if (mailOutbox == null && id != null) {
@@ -85,17 +85,17 @@ public class MailOutboxWorker extends ListWorkerVeraWeb {
 	/**
 	 * Speichert die �bergebenen eMail im Postausgang und setzt
 	 * den Status auf 'zu versenden' zur�ck.
-	 * 
+	 *
 	 * @param cntx Octopus-Context
 	 * @param save Gibt an ob eMail-Entwurf gespeichert werden soll.
 	 * @return eMail
-	 * @throws BeanException 
-	 * @throws IOException 
+	 * @throws BeanException
+	 * @throws IOException
 	 */
 	public MailOutbox saveDetail(OctopusContext cntx, Boolean save) throws BeanException, IOException {
 		if (save != null && save.booleanValue()) {
 			MailOutbox mailOutbox = (MailOutbox)getRequest(cntx).getBean("MailOutbox", "mailoutbox");
-			
+
 			if (mailOutbox.lastupdate == null) {
 				mailOutbox.lastupdate = new Timestamp(System.currentTimeMillis());
 			}
@@ -105,7 +105,7 @@ public class MailOutboxWorker extends ListWorkerVeraWeb {
 			if (mailOutbox.status.intValue() != MailOutbox.STATUS_ERROR) {
 				mailOutbox.errortext = null;
 			}
-			
+
 			if (mailOutbox.isCorrect()) {
 				TransactionContext context = ( new DatabaseVeraWeb(cntx) ).getTransactionContext();
 				try {
@@ -118,7 +118,7 @@ public class MailOutboxWorker extends ListWorkerVeraWeb {
 					context.commit();
 				} catch ( BeanException e ) {
 					context.rollBack();
-					throw new BeanException( "Die E-Mail konnte nicht für den Versand vorbereitet werden.", e );
+					throw new BeanException( "Die E-Mail konnte nicht f\u00fcr den Versand vorbereitet werden.", e );
 				}
 			}
 			return mailOutbox;

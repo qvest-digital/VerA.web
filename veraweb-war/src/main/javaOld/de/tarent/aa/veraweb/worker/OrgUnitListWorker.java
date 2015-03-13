@@ -43,7 +43,7 @@ import de.tarent.octopus.server.OctopusContext;
  * von Mandantenlisten zur Verf�gung. Details bitte dem
  * {@link de.tarent.octopus.beans.veraweb.ListWorkerVeraWeb}
  * entnehmen.
- * 
+ *
  * @author mikel
  */
 public class OrgUnitListWorker extends ListWorkerVeraWeb {
@@ -56,16 +56,16 @@ public class OrgUnitListWorker extends ListWorkerVeraWeb {
     public OrgUnitListWorker() {
         super("OrgUnit");
     }
-    
+
     //
     // BeanListWorker
     //
     /**
      * Wird von {@link de.tarent.octopus.beans.BeanListWorker#saveList(OctopusContext)}
      * aufgerufen und soll das �bergebene Bean als neuen Eintrag speichern.
-     * 
+     *
      * @see #saveBean(OctopusContext, Bean)
-     * 
+     *
      * @param cntx Octopus-Kontext
      * @param errors kummulierte Fehlerliste
      * @param bean einzuf�gendes Bean
@@ -80,7 +80,7 @@ public class OrgUnitListWorker extends ListWorkerVeraWeb {
                 if (bean instanceof OrgUnit) {
                     OrgUnit orgunitBean = (OrgUnit) bean;
                     if (orgunitBean.id != null) {
-                        errors.add("Einzufügender Mandant darf keine ID haben");
+                        errors.add("Einzuf\u00fcgender Mandant darf keine ID haben");
                         return count;
                     }
                     Database database = context.getDatabase();
@@ -88,7 +88,7 @@ public class OrgUnitListWorker extends ListWorkerVeraWeb {
                             database.getSelect("OrgUnit").
                             where(Expr.equal("unitname", orgunitBean.name)), context);
                     if (dupBean != null) {
-                        errors.add("Einzufügender Mandant '" + orgunitBean.name + "' existiert bereits.");
+                        errors.add("Einzuf\u00fcgender Mandant '" + orgunitBean.name + "' existiert bereits.");
                         return count;
                     }
                 }
@@ -100,13 +100,13 @@ public class OrgUnitListWorker extends ListWorkerVeraWeb {
         }
         return count;
     }
-    
+
     /**
      * Wird von {@link de.tarent.octopus.beans.BeanListWorker#saveList(OctopusContext)}
      * aufgerufen und soll die �bergebene Liste von Beans aktualisieren.
-     * 
+     *
      * @see #saveBean(OctopusContext, Bean)
-     * 
+     *
      * @param cntx Octopus-Kontext
      * @param errors kummulierte Fehlerliste
      * @param beanlist Liste von zu aktualisierenden Beans
@@ -142,7 +142,7 @@ public class OrgUnitListWorker extends ListWorkerVeraWeb {
                 } else {
                     errors.addAll(bean.getErrors());
                 }
-            } 
+            }
         }
         return count;
     }
@@ -162,7 +162,7 @@ public class OrgUnitListWorker extends ListWorkerVeraWeb {
 	 * Zeigt eine Statistik �ber 'verloren' gegangene Datens�tze an.
 	 * Wenn der Parameter <code>orgunit</code> �bergeben wird werden
 	 * alle Datens�tze ohne g�ltigen Mandanten diesem zugeordnet.
-	 * 
+	 *
 	 * @param cntx Octopus-Context-Instanz
 	 * @param orgunit Neue Orgunit-ID
 	 * @throws BeanException
@@ -172,9 +172,9 @@ public class OrgUnitListWorker extends ListWorkerVeraWeb {
 		Database database = getDatabase(cntx);
 		Clause where = new RawClause("fk_orgunit IS NULL OR " +
 				"fk_orgunit NOT IN (SELECT pk FROM veraweb.torgunit)");
-		
+
 		Map missingorgunit = new HashMap();
-		
+
 		if (orgunit != null) {
 			database.execute(database.getUpdate("Person").
 					update("fk_orgunit", orgunit).where(where));
@@ -192,10 +192,10 @@ public class OrgUnitListWorker extends ListWorkerVeraWeb {
 					update("fk_orgunit", orgunit).where(where));
 			database.execute(database.getUpdate("User").
 					update("fk_orgunit", orgunit).where(where));
-			
+
 			missingorgunit.put("result", "done");
 		}
-		
+
 		missingorgunit.put("person", database.getCount(
 				database.getCount("Person").where(where)));
 		missingorgunit.put("event", database.getCount(
@@ -212,13 +212,13 @@ public class OrgUnitListWorker extends ListWorkerVeraWeb {
 				database.getCount("Categorie").where(where)));
 		missingorgunit.put("user", database.getCount(
 				database.getCount("User").where(where)));
-		
+
 		return missingorgunit;
 	}
-	
+
 	/*
 	 * 2009-05-12 cklein
-	 * 
+	 *
 	 * fixed as part of issue #1530 - deletion of orgunits and cascaded deletion of both workareas and person to workarea assignments
 	 * 									note that in expectance of a major overhaul of the way that workareas are handled, the sql datamodel
 	 * 									will not be changed now.

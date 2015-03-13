@@ -69,7 +69,7 @@ public class PersonCategorieWorker extends ListWorkerVeraWeb {
 	@Override
     public void saveList(OctopusContext cntx) throws BeanException, IOException {
 		super.saveList(cntx);
-		
+
 		String addRank = cntx.requestAsString("add-rank");
 		String addCategorie = cntx.requestAsString("add-categorie");
 		if (addRank != null && addRank.length() != 0 && (addCategorie == null || addCategorie.length() == 0)) {
@@ -78,7 +78,7 @@ public class PersonCategorieWorker extends ListWorkerVeraWeb {
 				errors = new ArrayList();
 				cntx.setContent(OUTPUT_saveListErrors, errors);
 			}
-			errors.add("Um eine neue Kategorie hinzuzufügen wählen" +
+			errors.add("Um eine neue Kategorie hinzuzuf\u00fcgen w\u00e4hlen" +
 					" Sie bitte eine Kategorie aus. " +
 					"(Sie haben nur einen Rang eingegeben.)");
 		}
@@ -94,7 +94,7 @@ public class PersonCategorieWorker extends ListWorkerVeraWeb {
 	{
 		addCategoryAssignment(cntx, categoryId, personId, database, context, true);
 	}
-	
+
 	public PersonCategorie addCategoryAssignment( OctopusContext cntx, Integer categoryId, Integer personId, Database database, TransactionContext context, boolean save ) throws BeanException, IOException
 	{
 		Categorie category = ( Categorie ) database.getBean( "Categorie", categoryId, context == null ? database : context);
@@ -122,7 +122,7 @@ public class PersonCategorieWorker extends ListWorkerVeraWeb {
 	{
 		try
 		{
-			context.execute( 
+			context.execute(
 				SQL.Delete( database ).from( "veraweb.tperson_categorie" ).where( Expr.equal( "fk_person", personId ) )
 			);
 		}

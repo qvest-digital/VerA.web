@@ -111,7 +111,7 @@ public class GuestListWorker extends ListWorkerVeraWeb {
 
     @Override
     public void saveList(OctopusContext cntx) throws BeanException, IOException {
-    	
+
     	EventHelper.setEventUrl(cntx, (String) cntx.getContextField("event.hash"));
         final String categoryAssignmentAction = cntx.requestAsString("categoryAssignmentAction");
         final String workareaAssignmentAction = cntx.requestAsString("workareaAssignmentAction");
@@ -412,7 +412,7 @@ public class GuestListWorker extends ListWorkerVeraWeb {
             context.commit();
         } catch (BeanException e) {
             context.rollBack();
-            throw new BeanException("Das L\u00f6schen aller zum l\u00f6schen markierten Gäste ist fehlgeschlagen.", e);
+            throw new BeanException("Das L\u00f6schen aller zum l\u00f6schen markierten G\u00e4ste ist fehlgeschlagen.", e);
         } catch (SQLException e) {
             context.rollBack();
             throw new BeanException("Das L\u00f6schen aller zum l\u00f6schen markierten Personen ist fehlgeschlagen.", e);

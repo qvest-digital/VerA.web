@@ -602,7 +602,7 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 		}
 		/** User d�rfen immer nur eine Person gleichzeitig l�schen. */
 		if (user && selectionRemove.size() > 1) {
-			errors.add("Sie dürfen immer nur eine Person l\u00f6schen.\n" +
+			errors.add("Sie d\u00fcrfen immer nur eine Person l\u00f6schen.\n" +
 					"Bitte markieren Sie nur einen Eintrag, oder wenden Sie sich an Ihren Administrator.");
 			return count;
 		}
@@ -668,7 +668,7 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 			catch( BeanException e )
 			{
 				context.rollBack();
-				throw new BeanException( "Die ausgewählten Personen konnten nicht gel\u00f6scht werden.", e );
+				throw new BeanException( "Die ausgew\u00e4hlten Personen konnten nicht gel\u00f6scht werden.", e );
 			}
 		}
 

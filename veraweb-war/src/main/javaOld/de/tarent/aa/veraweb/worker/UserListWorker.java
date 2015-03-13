@@ -44,7 +44,7 @@ import de.tarent.octopus.server.OctopusContext;
  * von Benutzerlisten zur Verf�gung. Details bitte dem
  * {@link de.tarent.octopus.beans.veraweb.ListWorkerVeraWeb}
  * entnehmen.
- * 
+ *
  * @author mikel
  */
 public class UserListWorker extends ListWorkerVeraWeb {
@@ -55,14 +55,14 @@ public class UserListWorker extends ListWorkerVeraWeb {
     public final static String PARAM_DOMAIN = "domain";
     /** Parameter: Sortierreihenfolge */
     public final static String PARAM_ORDER = "order";
-    
+
     /** Parameterwert: beliebige Benutzer */
     public final static String PARAM_DOMAIN_VALUE_ALL = "all";
     /** Parameterwert: Benutzer des gleichen Mandanten */
     public final static String PARAM_DOMAIN_VALUE_OU = "ou";
     /** Parameterwert: angemeldeter Benutzer */
     public final static String PARAM_DOMAIN_VALUE_SELF = "self";
-    
+
     //
     // Konstruktoren
     //
@@ -79,7 +79,7 @@ public class UserListWorker extends ListWorkerVeraWeb {
 	/**
 	 * Methode f�r das Erweitern des ListWorkerVeraWeb-Select-Statements um Spalten.<br>
 	 * Hier wird eine Sortierung eingef�gt.
-	 * 
+	 *
 	 * @param cntx
 	 *          Octopus-Context
 	 * @param select
@@ -100,7 +100,7 @@ public class UserListWorker extends ListWorkerVeraWeb {
 				select.select("torgunit.unitname");
 				select.joinLeftOuter("torgunit", "torgunit.pk", "tuser.fk_orgunit");
 				select.orderBy(Order.asc("torgunit.unitname").andAsc("tuser.username"));
-			} 
+			}
 			else
 			{
 				order = database.getProperty(new User(), order);
@@ -117,7 +117,7 @@ public class UserListWorker extends ListWorkerVeraWeb {
 		 * Hier wird der Parameter {@link #PARAM_DOMAIN "domain"} ausgewertet.<br>
 		 * {@link #PARAM_DOMAIN "domain"} kann neben einer Rollenbezeichnung die Werte {@link #PARAM_DOMAIN_VALUE_ALL "all"},
 		 * {@link #PARAM_DOMAIN_VALUE_OU "ou"} und {@link #PARAM_DOMAIN_VALUE_SELF "self"} haben.
-		 * 
+		 *
 		 * @param cntx
 		 *          Octopus-Context
 		 * @param select
@@ -155,13 +155,13 @@ public class UserListWorker extends ListWorkerVeraWeb {
 
         select.where(list);
     }
-    
+
     /**
      * Wird von {@link de.tarent.octopus.beans.BeanListWorker#saveList(OctopusContext)}
      * aufgerufen und soll das �bergebene Bean als neuen Eintrag speichern.
-     * 
+     *
      * @see #saveBean(OctopusContext, Bean)
-     * 
+     *
      * @param cntx Octopus-Kontext
      * @param errors kummulierte Fehlerliste
      * @param bean einzuf�gendes Bean
@@ -176,7 +176,7 @@ public class UserListWorker extends ListWorkerVeraWeb {
                 if (bean instanceof User) {
                     User userBean = (User) bean;
                     if (userBean.id != null) {
-                        errors.add("Einzufügender Benutzer darf keine ID haben");
+                        errors.add("Einzuf\u00fcgender Benutzer darf keine ID haben");
                         return count;
                     }
                     Database database = new DatabaseVeraWeb(cntx);
@@ -186,38 +186,38 @@ public class UserListWorker extends ListWorkerVeraWeb {
                     if (dupBean != null) {
                         OrgUnit ou = (OrgUnit) database.getBean("OrgUnit", dupBean.orgunit, context);
                         if (ou != null) {
-                            errors.add("Einzufügender Benutzer ist bereits dem Mandanten " + ((ou.name != null && ou.name.length() > 0) ? ou.name : ou.id.toString()) + " zugeordnet.");
+                            errors.add("Einzuf\u00fcgender Benutzer ist bereits dem Mandanten " + ((ou.name != null && ou.name.length() > 0) ? ou.name : ou.id.toString()) + " zugeordnet.");
                         } else {
-                            errors.add("Einzufügender Benutzer ist bereits VerA.web zugeordnet.");
+                            errors.add("Einzuf\u00fcgender Benutzer ist bereits VerA.web zugeordnet.");
                         }
                         return count;
                     }
                 }
                 saveBean(cntx, bean, context);
                 count++;
-                
+
                 /* set default user tab configuration for new user */
                 for (String configParamString : UserConfigWorker.PARAMS_STRING) {
                     UserConfig userConfig = new UserConfig();
                     userConfig.user = ((User) bean).id;
                     userConfig.key = configParamString;
                     userConfig.value = "1";
-                    context.getDatabase().saveBean(userConfig);              
+                    context.getDatabase().saveBean(userConfig);
                 }
             } else {
                 errors.addAll(bean.getErrors());
             }
         }
-        
+
         return count;
     }
-    
+
     /**
      * Wird von {@link de.tarent.octopus.beans.BeanListWorker#removeSelection(OctopusContext)}
      * aufgerufen und soll das übergebene Bean löschen.
-     * 
+     *
      * @see #removeBean(OctopusContext, Bean)
-     * 
+     *
      * @param cntx Octopus-Kontext
      * @param errors kummulierte Fehlerliste
      * @param bean zu löschende Bean
@@ -228,13 +228,13 @@ public class UserListWorker extends ListWorkerVeraWeb {
    protected boolean removeBean(OctopusContext cntx, Bean bean, TransactionContext context) throws BeanException, IOException {
 	    if (bean != null && ((User)bean).id != null) {
 	        Integer userId = ((User)bean).id;
-	        
+
 	        /* delete related proxy configurations */
 		    Proxy proxy = new Proxy();
 		    proxy.user = userId;
 		    Database database = context.getDatabase();
 	    	context.execute(database.getDelete("Proxy").where(database.getWhere(proxy)));
-	    	
+
 	    	/* delete related user configurations */
 	    	context.execute(database.getDelete("UserConfig").where(Expr.equal("fk_user", userId)));
 	    }

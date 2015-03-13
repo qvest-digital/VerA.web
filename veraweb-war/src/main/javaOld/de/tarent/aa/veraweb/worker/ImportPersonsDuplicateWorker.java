@@ -45,7 +45,7 @@ import de.tarent.octopus.server.OctopusContext;
 
 /**
  * Dieser Octopus-Worker bearbeitet Import-Personen-Duplikatslisten.
- * 
+ *
  * @author hendrik
  */
 public class ImportPersonsDuplicateWorker extends ListWorkerVeraWeb {
@@ -72,26 +72,26 @@ public class ImportPersonsDuplicateWorker extends ListWorkerVeraWeb {
 			ImportPersonsWorker.LOGGER.warn("Konfiguration f�r die Duplikatbearbeitung beim Personen-Import wurde nicht gefunden.");
 		if (cntx.sessionAsObject("limit" + BEANNAME) == null)
 			cntx.setSession("limit" + BEANNAME, new Integer(Integer.parseInt((String) importDuplicatesProperties.get("dsCount"))));
-		
+
 		List beans = super.showList(cntx);
-		
+
 		// Zu den Duplikatdatens�tzen noch einige Beispiel-Duplikate hinzuf�gen.
 		int dsCount = -1;
 		if (importDuplicatesProperties != null)
 			dsCount = Integer.parseInt((String) importDuplicatesProperties.get("dupCount"));
-		
+
 		Database database = getDatabase(cntx);
 		if (beans != null) {
 			for(Iterator it = beans.iterator(); it.hasNext(); ) {
 				ImportPerson importPerson = (ImportPerson) it.next();
 				importPerson.setMoreDuplicates(false);
-				
+
 				if (importPerson.getDuplicateList() == null) {
 					List dups = null;
 					StringTokenizer tokenizer = new StringTokenizer(
 							importPerson.duplicates,
 							Character.toString(ImportPerson.PK_SEPERATOR_CHAR));
-					
+
 					int count = 0;
 					while (tokenizer.hasMoreTokens()) {
 						if (dsCount != -1 && count >= dsCount) {
@@ -99,7 +99,7 @@ public class ImportPersonsDuplicateWorker extends ListWorkerVeraWeb {
 							break;
 						}
 						Integer pk = new Integer(tokenizer.nextToken());
-						
+
 						Person person = new Person();
 						person.setField("id", pk);
 						Select select = database.getSelect(person);
@@ -140,7 +140,7 @@ public class ImportPersonsDuplicateWorker extends ListWorkerVeraWeb {
 						Expr.equal("deleted", PersonConstants.DELETED_FALSE),
 						Expr.equal("fk_import", importId)));
 				context.execute(update);
-				
+
 				// Markierungen wieder setzten.
 				List selection = getSelection(cntx, null);
 				if (selection != null && selection.size() > 0) {
@@ -165,7 +165,7 @@ public class ImportPersonsDuplicateWorker extends ListWorkerVeraWeb {
 			{
 				// failed to commit
 				context.rollBack();
-				throw new BeanException("Die Änderungen an der Duplikatliste konnten nicht übernommen werden.", e);
+				throw new BeanException("Die \u00c4nderungen an der Duplikatliste konnten nicht \u00fcbernommen werden.", e);
 			}
 		}
 	}
@@ -181,7 +181,7 @@ public class ImportPersonsDuplicateWorker extends ListWorkerVeraWeb {
 		Database database = getDatabase(cntx);
 		ImportPerson sample = new ImportPerson();
 		Long importId = new Long(cntx.requestAsString("importId"));
-		
+
 		try {
 			WhereList list = new WhereList();
 			list.addAnd(Expr.isNotNull(database.getProperty(sample, "duplicates")));
@@ -191,7 +191,7 @@ public class ImportPersonsDuplicateWorker extends ListWorkerVeraWeb {
 		} catch (IOException e) {
 			throw new BeanException("Fehler beim Lesen von Bean-Parametern", e);
 		}
-		
+
 		cntx.setContent("importId", importId);
 	}
 
