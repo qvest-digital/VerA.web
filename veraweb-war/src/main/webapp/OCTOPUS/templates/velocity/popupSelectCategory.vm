@@ -68,7 +68,7 @@
                 	       	 form.appendChild(input);
                 	       	 form.submit();
 						}, function () { //nein
-							showSuccess('Es wurde kein Kategorie entfernt');
+							showSuccess('Es wurde keine Kategorie entfernt');
 						});
         			#else
 						showAllocateRemove('Wollen Sie ${count} Personen bzw. Gäste aus der ausgewählten Kategorie entfernen?',
