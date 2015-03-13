@@ -66,7 +66,7 @@
     	<h1>$title</h1>
     	#if($title == "Dublettensuche")
     		<vera-info>
-				Beachten Sie, dass &auml; mit ae, &ouml; mit oe und &uuml mit ue verglichen wird.<br />
+				Beachten Sie, dass &auml; mit ae, &ouml; mit oe, &uuml; mit ue und &szlig; mit ss verglichen wird.<br />
 			</vera-info>
     	#end
 	#end

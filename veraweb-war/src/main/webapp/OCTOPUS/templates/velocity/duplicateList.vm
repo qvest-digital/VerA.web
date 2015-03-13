@@ -15,7 +15,7 @@
 	<vera-info>
 		Dubletten die durch den <strong>Import hinzugefügt werden würden</strong>, sind mit einer Checkbox gekennzeichnet.
 		Darunter befinden sich die bereits im System vorhandenen, entsprechenden Datens&auml;tze.<br />
-		Beachten Sie, dass &auml; mit ae, &ouml; mit oe und &uuml mit ue verglichen wird.<br />
+		Beachten Sie, dass &auml; mit ae, &ouml; mit oe, &uuml; mit ue und &szlig; mit ss verglichen wird.<br />
 		Um eine Dublette in den Import zu integrieren, m&uuml;ssen Sie sie &uuml;bernehmen.
 	</vera-info>
 
