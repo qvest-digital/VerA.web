@@ -252,8 +252,7 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 		     } else if (typeof $scope.nachname == "undefined" && $scope.nachname == null) {
 		    	 $scope.error = "Bitte geben Sie einen Nachnamen ein.";
 		         $scope.success = null;
-		     }
-		     else if ($scope.gender.id == 1 || $scope.gender.id == 2 && typeof $scope.vorname != "undefined" &&
+		     } else if ($scope.gender.id == 1 || $scope.gender.id == 2 && typeof $scope.vorname != "undefined" &&
 		    		 $scope.vorname != null && typeof $scope.nachname != "undefined" && $scope.nachname != null) {
 		         var ERROR_TEXT = "Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.";
 
