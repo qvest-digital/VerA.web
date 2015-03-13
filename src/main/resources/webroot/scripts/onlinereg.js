@@ -258,49 +258,51 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 
 	             $scope.button = true;
 	             console.log("registering delegation in the event.");
-
-	             $http({
-	             	method: 'POST',
-	             	url: 'api/delegation/' + $routeParams.uuid + '/register',
-	             	dataType: 'text',
-	             	headers: {
-	             			"Content-Type": undefined
-	             	},
-	             	data: $.param({
-	             		firstname: $scope.nachname,
-	             		lastname: $scope.vorname,
-	                  	gender: $scope.gender.label
-	             	})
-	             }).success(function(result) {
-	             	 $scope.success = null;
-	             	 $scope.error = null;
-
-	             	 if (result.status === 'NO_EVENT_DATA') {
-	             		 $scope.error = "Die Veranstaltung existiert nicht";
-	             		 $scope.success = null;
-	             	 } else if (result.status === 'WRONG_DELEGATION') {
-	             		 $scope.error = "Die Delegation existiert nicht";
-	             		 $scope.success = null;
-	             	 } else if (result.status === 'OK') {
-	             		 $scope.error = null;
-	             		 $scope.success = "Delegierten Daten wurden gespeichert.";
-	             		 $scope.gender = $scope.genderOptions[0];
-	             		 $scope.nachname = null;
-	             		 $scope.vorname = null;
-
-	             		 $http.get('api/delegation/' + $routeParams.uuid).then(function(presentPersons) {
-	             			 $scope.presentPersons = presentPersons.data;
-	             		 });
-	                  } else {
-	                      $scope.error = ERROR_TEXT;
-	                      $scope.success = null;
-	                  }
-
-	             	 $scope.button = false;
-
-	             }).error(function(data, status, headers, config) {
-
-	             });
+	             
+	             if (($scope.nachname != null && $scope.nachname != '') && ($scope.vorname != null && $scope.vorname != '')) {
+		             $http({
+		             	method: 'POST',
+		             	url: 'api/delegation/' + $routeParams.uuid + '/register',
+		             	dataType: 'text',
+		             	headers: {
+		             			"Content-Type": undefined
+		             	},
+		             	data: $.param({
+		             		firstname: $scope.nachname,
+		             		lastname: $scope.vorname,
+		                  	gender: $scope.gender.label
+		             	})
+		             }).success(function(result) {
+		             	 $scope.success = null;
+		             	 $scope.error = null;
+	
+		             	 if (result.status === 'NO_EVENT_DATA') {
+		             		 $scope.error = "Die Veranstaltung existiert nicht";
+		             		 $scope.success = null;
+		             	 } else if (result.status === 'WRONG_DELEGATION') {
+		             		 $scope.error = "Die Delegation existiert nicht";
+		             		 $scope.success = null;
+		             	 } else if (result.status === 'OK') {
+		             		 $scope.error = null;
+		             		 $scope.success = "Delegierten Daten wurden gespeichert.";
+		             		 $scope.gender = $scope.genderOptions[0];
+		             		 $scope.nachname = null;
+		             		 $scope.vorname = null;
+	
+		             		 $http.get('api/delegation/' + $routeParams.uuid).then(function(presentPersons) {
+		             			 $scope.presentPersons = presentPersons.data;
+		             		 });
+		                  } else {
+		                      $scope.error = ERROR_TEXT;
+		                      $scope.success = null;
+		                  }
+	
+		             	 $scope.button = false;
+	
+		             }).error(function(data, status, headers, config) {
+	
+		             });
+	             }
 		     }
 		     else {
 	            $scope.error = "Bitte füllen Sie alle Felder aus.";
