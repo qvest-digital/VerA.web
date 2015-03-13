@@ -71,6 +71,8 @@ public class OrgUnitListWorker extends ListWorkerVeraWeb {
      * Wird von {@link de.tarent.octopus.beans.BeanListWorker#saveList(OctopusContext)}
      * aufgerufen und soll das �bergebene Bean als neuen Eintrag speichern.
      * 
+     * 2015-03-13 - We have one Press category for every Mandant.
+     * 
      * @see #saveBean(OctopusContext, Bean)
      * 
      * @param cntx Octopus-Kontext
@@ -231,6 +233,7 @@ public class OrgUnitListWorker extends ListWorkerVeraWeb {
 	 * fixed as part of issue #1530 - deletion of orgunits and cascaded deletion of both workareas and person to workarea assignments
 	 * 									note that in expectance of a major overhaul of the way that workareas are handled, the sql datamodel
 	 * 									will not be changed now.
+	 * 2015-03-13 - We have one Press category for every Mandant. That will be deleted when we want to delete one of these mandants 
 	 */
 	@Override
     protected boolean removeBean(OctopusContext cntx, Bean bean, TransactionContext context) throws BeanException, IOException
