@@ -268,8 +268,7 @@ var showDeleteMessages = function () {
                 // disable all checkboxes while confirmation is visible
                 $('input:checkbox').prop('disabled', true);
                 $(".errormsg").remove();
-            	$(".successmsg").remove();
-            	
+        		$(".successmsg").remove();
                 showConfirmYesNo('Bitte best&auml;tigen Sie das L&ouml;schen der markierten Personen!',
                     msg,
                     function () { // Ja
@@ -294,7 +293,7 @@ $(function () {
    // var showSuccessForWorkarea = function () {
     //	$(document).ready(function(){
         	document.getElementsByName("workareaAssignmentAction").value = "${assignmentActionForWorkarea}";
-        	// $(".errormsg").remove();
+        	$(".errormsg").remove();
         	$(".successmsg").remove();
 
         	#if($assignmentActionForWorkarea == "assign")
@@ -349,7 +348,8 @@ function submitFormWithGivenAction(action) {
 
                 #if($listerrors && $listerrors.size() > 0)
                 <vera-warn>
-                	
+                	<strong>L&ouml;schen von Personen ist nicht m&ouml;glich</strong><br>
+                	<ul style="margin: 0px 0px 0px -10px;">
                     	#if($listerrors.size() > 5)
             				#set($show = 5)
                     	#else
@@ -357,13 +357,14 @@ function submitFormWithGivenAction(action) {
                     	#end
                     	#foreach($error in $listerrors)
                         	#if($velocityCount <= $show)
-                        		$!message.plain($error)
+                        		<li style="margin: 5px 0px 0px 0px;">$!message.plain($error)</li>
                         	#end
                     	#end
                     	#if($listerrors.size() > $show)
             				#set($drop = $listerrors.size() - $show)
                     		<li style="margin: 5px 0px 0px 0px;"><em>...  $drop weitere Meldungen.</em></li>
                     	#end
+                	</ul>
                 </vera-warn>
                 #end
                 #if($listquestions && $listquestions.size() > 0)
@@ -558,15 +559,16 @@ function submitFormWithGivenAction(action) {
             	</span>
 
     		#end
+
 			#if($action!="replace" && $action!="duplicateSearch" && $action !="taskReferencePerson")
         		#if($action != "guest")
-			<span id="buttonPanel-top" class="textRight floatRight">
+					<span id="buttonPanel-top" class="textRight floatRight">
         			<input type="button" id="button.searchPerson" name="button.searchPerson" value="Personen suchen" title="Personen suchen" class="mainButton" onclick="window.location.href='ShowPersonSearch?search=clear';" />
         			#if($grants.mayWrite())
 						<input type="button" id="button.newPerson" name="button.newPerson" value="Neue Person anlegen" title="Neue Person anlegen" class="mainButton" onclick="window.location.href='CreatePerson';" />
 					#end
-    		</span>
-			#end
+        			</span>
+				#end
 			#end
 
     		#if ($action == "guest")
