@@ -35,16 +35,18 @@
 			<label for="begin">Datum Beginn:</label>
 		</div>
     	<div class="tableCell ">
-			<input type="text" name="begin" value="${begin}" id="begin" class="datepicker width80">
-    		<span id="show-begin" class="datepickerContainer"><img src="${paths.staticWeb}images/calendar.png" alt="Datum ausw&auml;hlen" title="Datum ausw&auml;hlen"></span>
-    		<script type="text/javascript">
-    		    Calendar.setup({
-    				inputField     :    "begin",
-    				button         :    "show-begin",
-    				ifFormat       :    "%d.%m.%Y",
-    				showsTime      :    false
-    			});
-    		</script>   		
+			<span id="show-begin" class="datepickerContainer">
+				<input type="text" name="begin" value="${begin}" id="begin" class="datepicker width80">
+	    		<img src="${paths.staticWeb}images/calendar.png" alt="Datum ausw&auml;hlen" title="Datum ausw&auml;hlen">
+	    		<script type="text/javascript">
+	    		    Calendar.setup({
+	    				inputField     :    "begin",
+	    				button         :    "show-begin",
+	    				ifFormat       :    "%d.%m.%Y",
+	    				showsTime      :    false
+	    			});
+	    		</script>   		
+    		</span>
 		</div>
 	</div>
 	<div class="tableRow">
@@ -52,16 +54,18 @@
 			<label for="end">Datum Ende:</label>
 		</div>
 	<div class="tableCell ">
-		<input type="text" name="end" value="${end}" id="end" class="datepicker width80">
-		<span id="show-end" class="datepickerContainer"><img src="${paths.staticWeb}images/calendar.png" alt="Datum ausw&auml;hlen" title="Datum ausw&auml;hlen"></span>
-		<script type="text/javascript">
-		    Calendar.setup({
-				inputField     :    "end",
-				button         :    "show-end",
-				ifFormat       :    "%d.%m.%Y",
-				showsTime      :    false
-			});
-		</script>		
+		<span id="show-end" class="datepickerContainer">
+			<input type="text" name="end" value="${end}" id="end" class="datepicker width80">
+			<img src="${paths.staticWeb}images/calendar.png" alt="Datum ausw&auml;hlen" title="Datum ausw&auml;hlen">
+			<script type="text/javascript">
+			    Calendar.setup({
+					inputField     :    "end",
+					button         :    "show-end",
+					ifFormat       :    "%d.%m.%Y",
+					showsTime      :    false
+				});
+			</script>		
+		</span>
 	</div>	
 </div>
 </div>

@@ -115,22 +115,23 @@ public class ImportPersonsWorker {
 
 		CharacterPropertiesReader cpr = new CharacterPropertiesReader();
 
-		for (final String key: cpr.properties.stringPropertyNames()) {
-			String value = cpr.properties.getProperty(key);
-
-
-			if (ln.contains(value)) {
-				ln = ln.replaceAll(value, key);
-			}
-			else if (ln.contains(key)) {
-				ln = ln.replaceAll(key, value);
-			}
-
-			if (fn.contains(value)) {
-				fn = fn.replaceAll(value, key);
-			}
-			else if (fn.contains(key)) {
-				fn = fn.replaceAll(key, value);
+		if (cpr.propertiesAreAvailable() && (ln != null || fn != null)) {
+			for (final String key: cpr.properties.stringPropertyNames()) {
+				String value = cpr.properties.getProperty(key);
+	
+				if (ln.contains(value)) {
+					ln = ln.replaceAll(value, key);
+				}
+				else if (ln.contains(key)) {
+					ln = ln.replaceAll(key, value);
+				}
+	
+				if (fn.contains(value)) {
+					fn = fn.replaceAll(value, key);
+				}
+				else if (fn.contains(key)) {
+					fn = fn.replaceAll(key, value);
+				}
 			}
 		}
 		Clause normalNamesEncoding = Where.and(Expr.equal("lastname_a_e1", fn), Expr.equal("firstname_a_e1", ln));

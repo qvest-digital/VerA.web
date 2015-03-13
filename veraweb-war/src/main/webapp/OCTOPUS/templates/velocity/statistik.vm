@@ -20,8 +20,9 @@
     					<h2>Statistik auf folgenden Zeitrahmen einschr&auml;nken:</h2>
     					
     					<label for="begin">Zeitrahmen-Beginn</label>
+    					<span id="showBegin" class="datepickerContainer">
     					<input type="text" name="begin" placeholder="TT.MM.JJJJ" id="begin" class="datepicker">
-    					<span id="showBegin" class="datepickerContainer"><img src="${paths.staticWeb}images/calendar.png" alt="Datum ausw&auml;hlen" title="Datum ausw&auml;hlen"></span>
+    					<img src="${paths.staticWeb}images/calendar.png" alt="Datum ausw&auml;hlen" title="Datum ausw&auml;hlen">
     					<script type="text/javascript">
     					    Calendar.setup({
     							inputField     :    "begin",
@@ -29,12 +30,13 @@
     							ifFormat       :    "%d.%m.%Y",
     							showsTime      :    false
     						});
-    					</script>
+    					</script></span>
     			##		&nbsp; &nbsp;
     			##		(<a href="javascript:document.getElementById('begin').value='$!message.date("DATE", $firstDayInMonth)'; document.getElementById('end').value='$!message.date("DATE", $lastDayInMonth)';">aktuellen Monat einf&uuml;gen</a>)
     					<label for="end">Zeitrahmen-Ende</label>
+    					<span id="showEnd" class="datepickerContainer">
     					<input type="text" name="end" placeholder="TT.MM.JJJJ" id="end" class="datepicker">
-    					<span id="showEnd" class="datepickerContainer"><img src="${paths.staticWeb}images/calendar.png" alt="Datum ausw&auml;hlen" title="Datum ausw&auml;hlen"></span>
+    					<img src="${paths.staticWeb}images/calendar.png" alt="Datum ausw&auml;hlen" title="Datum ausw&auml;hlen">
     					<script type="text/javascript">
     					    Calendar.setup({
     							inputField     :    "end",
@@ -42,7 +44,7 @@
     							ifFormat       :    "%d.%m.%Y",
     							showsTime      :    false
     						});
-    					</script>
+    					</script></span>
     				</div>
     				
     				<div class="tableCell width50 inlineLabel statisticsType">

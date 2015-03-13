@@ -13,7 +13,7 @@
 
 	<vera-info>
 		Um Dubletten speicherbar zu machen, m&uuml;ssen sie zun&auml;chst im Bereich &bdquo;vorhandene Dubletten&rdquo; &uuml;bernommen werden.<br />
-		Beachten Sie, dass &auml; mit ae, &ouml; mit oe und &uuml mit ue verglichen wird.<br />
+		Beachten Sie, dass &auml; mit ae, &ouml; mit oe, &uuml; mit ue und &szlig; mit ss verglichen wird.<br />
 		Der Import ist erst beendet, wenn der Button &bdquo;Import abschließen&rdquo; geklickt wurde.  <br />
 		Der Import kann erst abgeschlossen werden, wenn speicherbare Datens&auml;tze vorhanden sind.
 	</vera-info>

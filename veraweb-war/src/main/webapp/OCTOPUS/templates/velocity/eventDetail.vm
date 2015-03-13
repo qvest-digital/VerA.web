@@ -132,38 +132,39 @@
 
 									<label for="event-begin">Beginn*</label>
 	                				<div class="calenderContainer">
-	                						<input type="text" class="datepicker" id="event-begin" value="$!message.date("DATE", $event.begin)" name="event-begin" onchange="setModified();">
 	                						#if($grants.mayWrite())
 	                							<span class="datepickerContainer" id="show-begin">
+		                							<input type="text" class="datepicker" id="event-begin" value="$!message.date("DATE", $event.begin)" name="event-begin" onchange="setModified();">
 	                								<img title="Datum ausw&auml;hlen" alt="Datum ausw&auml;hlen" src="${paths.staticWeb}images/calendar.png">
+		                							<script type="text/javascript">
+		                							    Calendar.setup({
+		                									inputField     :    "event-begin",
+		                									button         :    "show-begin",
+		                									ifFormat       :    "%d.%m.%Y",
+		                									showsTime      :    false
+		                								});
+		                							</script>
 	                							</span>
-	                							<script type="text/javascript">
-	                							    Calendar.setup({
-	                									inputField     :    "event-begin",
-	                									button         :    "show-begin",
-	                									ifFormat       :    "%d.%m.%Y",
-	                									showsTime      :    false
-	                								});
-	                							</script>
 	                						#end
 	                					 um <input type="text" name="event-begintime" id="event-begintime" #if($event-beginhastime) value="$!message.date("TIME", $event.begin)" #else value="" #end class="width15" onchange="setModified();"> <label class="inline" for="event-begintime">Uhr</label>
 									</div>
 
 									<label for="event-end">Ende</label>
                     				<div class="calenderContainer">
-                    						<input type="text" class="datepicker" id="event-end" value="$!message.date("DATE", $event.end)" name="event-end" onchange="setModified();">
-                    						<span class="datepickerContainer" id="show-end">
-                    							<img title="Datum auswählen" alt="Datum auswählen" src="${paths.staticWeb}images/calendar.png">
-                    						</span>
-                    						#if($grants.mayWrite())
-                    							<script type="text/javascript">
-                    							    Calendar.setup({
-                    									inputField     :    "event-end",
-                    									button         :    "show-end",
-                    									ifFormat       :    "%d.%m.%Y",
-                    									showsTime      :    false
-                    								});
-                    							</script>
+											#if($grants.mayWrite())
+	                    						<span class="datepickerContainer" id="show-end">
+	                    						<input type="text" class="datepicker" id="event-end" value="$!message.date("DATE", $event.end)" name="event-end" onchange="setModified();">
+	                    							<img title="Datum auswählen" alt="Datum auswählen" src="${paths.staticWeb}images/calendar.png">
+	                    						
+	                    							<script type="text/javascript">
+	                    							    Calendar.setup({
+	                    									inputField     :    "event-end",
+	                    									button         :    "show-end",
+	                    									ifFormat       :    "%d.%m.%Y",
+	                    									showsTime      :    false
+	                    								});
+	                    							</script>
+	                    						</span>
                     						#end
                     					 um <input type="text" name="event-endtime" id="event-endtime" #if($event-endhastime) value="$!message.date("TIME", $event.end)" #else value="" #end class="width15" onchange="setModified();"> <label class="inline" for="event-endtime">Uhr</label>
                     				</div>
@@ -192,6 +193,7 @@
                                     </div>
     								#end
     							</div>
+
     						</div>
 
     						<div class="tableRow">

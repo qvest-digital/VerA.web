@@ -206,8 +206,9 @@
                             </select>
 
 							<div class="calendarContainer">
+							<span id="showGueltigDate" class="datepickerContainer">
 								<input type="date" name="validdate" value="$!message.date("DATE", $search.validdate)" id="validdate" class="datepicker">
-								<span id="showGueltigDate" class="datepickerContainer"><img src="${paths.staticWeb}images/calendar.png" alt="Datum ausw&auml;hlen" title="Datum ausw&auml;hlen"></span>
+								<img src="${paths.staticWeb}images/calendar.png" alt="Datum ausw&auml;hlen" title="Datum ausw&auml;hlen">
 								<script type="text/javascript">
 								    Calendar.setup({
 										inputField     :    "validdate",
@@ -215,7 +216,7 @@
 										ifFormat       :    "%d.%m.%Y",
 										showsTime      :    false
 									});
-								</script>
+								</script></span>
 							</div>
                         </div>
                         <div class="tableCell width30"></div>

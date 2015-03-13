@@ -604,6 +604,7 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 		if (user && selectionRemove.size() > 1) {
 			errors.add("Sie d\u00fcrfen immer nur eine Person l\u00f6schen.\n" +
 					"Bitte markieren Sie nur einen Eintrag, oder wenden Sie sich an Ihren Administrator.");
+			cntx.setContent("listerrors", errors);
 			return count;
 		}
 
