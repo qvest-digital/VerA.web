@@ -24,4 +24,26 @@ public class OnlineRegistrationHelper {
 		}
 		return false;
 	}
+	
+	/**
+	 * Username generator
+	 * 
+	 * @return String username
+	 */
+	public static String generateOnlinerUsername(final String firstname, final String lastname) {
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append(firstname).append(lastname);
+		
+		
+		
+		return sb.toString();
+	}
+	
+	public static String generateOnlinePassword() {
+		// TODO To code
+		StringBuilder sb = new StringBuilder();
+		
+		return sb.toString();
+	}
 }
