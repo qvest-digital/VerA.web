@@ -47,6 +47,9 @@
 	
 	<div id="buttonPanel-top" class="textRight marginBottom10">
 		#if($person && $person.id)
+			##TODO Deaktivierungsmechanismus mit/ohne Online Anmeldung
+			<input type="button" name="copy" class="mainButton" value="Anmeldedaten erzeugen" title="Anmeldedaten für die Online-Anmeldung erzeugen " onclick="if (checkModified()) { createOsiamUser(); }" />
+
 			#if($grants.mayWrite())
 				<input type="button" name="copy" class="mainButton" value="Person kopieren" title="Aktuelle Person kopieren" onclick="if (checkModified()) { copyPerson(); }" />
 			#end
@@ -88,7 +91,10 @@
                         <div class="tableCell width50" id="showid">
                             <strong>Personen-ID</strong><br />#if($person.id)$!message.text($person.id)#end
                         </div>
-                        <div class="tableCell width50"></div>
+                        <div class="tableCell width50">
+                        	 <strong>Benutzername</strong><br />
+                        </div>
+
                     </div>
                 </div>
             </div>
