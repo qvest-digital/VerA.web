@@ -291,30 +291,4 @@ public class OrgUnitListWorker extends ListWorkerVeraWeb {
 		context.execute(insertStatement);
 	}
 
-	public void updatePerson(OctopusContext cntx, Person person, Integer personId) throws BeanException, IOException {
-		Database database = new DatabaseVeraWeb(cntx);
-
-		if (person == null) {
-			person = (Person)cntx.contentAsObject("person"); // ???
-		}
-		if (person == null || !person.id.equals(personId)) {
-			person = (Person)database.getBean("Person", personId);
-		}
-		if (person != null && person.id != null) {
-			person.updateHistoryFields(null, ((PersonalConfigAA)cntx.personalConfig()).getRoleWithProxy());
-			Update update = database.getUpdate("Person");
-			update.update(database.getProperty(person, "created"), person.created);
-			update.update(database.getProperty(person, "createdby"), person.createdby);
-			update.update(database.getProperty(person, "changed"), person.changed);
-			update.update(database.getProperty(person, "changedby"), person.changedby);
-			update.where(Expr.equal(database.getProperty(person, "id"), person.id));
-			database.execute(update);
-
-			// get the original version of the object for logging purposes
-			Person personOld = ( Person ) database.getBean( "Person", personId );
-			BeanChangeLogger clogger = new BeanChangeLogger( database );
-			clogger.logUpdate( cntx.personalConfig().getLoginname(), personOld, person );
-		}
-	}
-
 }
