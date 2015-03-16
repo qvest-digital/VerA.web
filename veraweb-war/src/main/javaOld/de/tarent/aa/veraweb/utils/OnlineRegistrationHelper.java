@@ -1,10 +1,10 @@
 package de.tarent.aa.veraweb.utils;
 
 import java.io.IOException;
+import java.util.Properties;
 
 import de.tarent.aa.veraweb.beans.Person;
 import de.tarent.dblayer.helper.ResultList;
-import de.tarent.dblayer.sql.SQL;
 import de.tarent.dblayer.sql.clause.Clause;
 import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.clause.Limit;
@@ -15,6 +15,9 @@ import de.tarent.octopus.beans.Database;
 import de.tarent.octopus.beans.ExecutionContext;
 import de.tarent.octopus.server.OctopusContext;
 import org.apache.commons.lang.RandomStringUtils;
+import org.osiam.client.OsiamConnector;
+import org.osiam.client.oauth.AccessToken;
+import org.osiam.resources.scim.User;
 
 
 /**
@@ -26,7 +29,7 @@ import org.apache.commons.lang.RandomStringUtils;
  * @author jnunez
  */
 public class OnlineRegistrationHelper {
-
+	
 	private static final String VWOR_PARAM = "vwor.activated";
 	private static final String VWOR_VALUE_TRUE = "true";
 	private static final String PASSWORD_GENERATOR_AUSWAHLMOEGLICHKEITEN =
@@ -109,6 +112,17 @@ public class OnlineRegistrationHelper {
 
 		return random;
 	}
+	
+	public static void createOsiamUser(AccessToken accessToken, String login,
+			String password, OsiamConnector connector) {
+		User delegationUser = new User.Builder(login).setActive(true)
+				.setPassword(password).build();
+
+		// create User in osiam
+		connector.createUser(delegationUser, accessToken);
+	}
+	
+	
 	
 	/**
 	 * TODO move to another class
