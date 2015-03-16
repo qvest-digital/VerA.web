@@ -562,7 +562,7 @@ function submitFormWithGivenAction(action) {
 
 			#if($action!="replace" && $action!="duplicateSearch" && $action !="taskReferencePerson")
         		#if($action != "guest")
-					<span id="buttonPanel-top" class="textRight floatRight">
+					<span id="buttonPanel-top" class="textRight" style="margin-left:886px">
         			<input type="button" id="button.searchPerson" name="button.searchPerson" value="Personen suchen" title="Personen suchen" class="mainButton" onclick="window.location.href='ShowPersonSearch?search=clear';" />
         			#if($grants.mayWrite())
 						<input type="button" id="button.newPerson" name="button.newPerson" value="Neue Person anlegen" title="Neue Person anlegen" class="mainButton" onclick="window.location.href='CreatePerson';" />
