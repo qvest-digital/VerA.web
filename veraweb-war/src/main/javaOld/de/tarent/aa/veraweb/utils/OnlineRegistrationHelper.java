@@ -16,7 +16,6 @@ import de.tarent.octopus.beans.ExecutionContext;
 import de.tarent.octopus.server.OctopusContext;
 import org.apache.commons.lang.RandomStringUtils;
 
-import java.util.Random;
 
 /**
  * Helper to play with the Online-Application Configuration
@@ -53,41 +52,47 @@ public class OnlineRegistrationHelper {
 	public static String generateUsername(final String firstname, 
 										  final String lastname,
 										  final ExecutionContext context) throws BeanException, IOException {
-		StringBuilder sb = new StringBuilder();
 		
-		String convertedLastname = lastname;
-		if (lastname.length() >= 5) {
-			convertedLastname = lastname.substring(0, 4);
-		}
-		
-		sb.append(firstname.substring(0, 1)).append(convertedLastname);
-		
-		String username = sb.toString();
-
-		// check if a duplicate entry was found
-		Database database = context.getDatabase();
-		
-		Clause whereClause = Expr.like("username", username + "%");
-		
-		Select selectStatement = database.getSelect("Person").where(whereClause);
-		selectStatement.orderBy(Order.desc("pk"));
-		selectStatement.Limit(new Limit(new Integer(1), new Integer(0)));
-		
-		ResultList list = database.getList(selectStatement, context);
-		
-		if (!list.isEmpty()) {
-			Person person = (Person) list.get(0);
-			String auxUsername= person.username;
+		if (firstname != null && lastname != null) {
 			
-			String[] res = auxUsername.split(username);
+			StringBuilder sb = new StringBuilder();
 			
-			if (res.length > 1 && isNumeric(res[1])) {
-				Integer usernameNumber = Integer.valueOf(res[1]);
-				sb.append(usernameNumber++);
+			String convertedLastname = lastname;
+			if (lastname.length() >= 5) {
+				convertedLastname = lastname.substring(0, 5);
 			}
+			
+			sb.append(firstname.substring(0, 1).toLowerCase()).append(convertedLastname.toLowerCase());
+			
+			String username = sb.toString();
+	
+			// check if a duplicate entry was found
+			if (context != null) {
+				Database database = context.getDatabase();
+				
+				Clause whereClause = Expr.like("username", username + "%");
+				
+				Select selectStatement = database.getSelect("Person").where(whereClause);
+				selectStatement.orderBy(Order.desc("pk"));
+				selectStatement.Limit(new Limit(new Integer(1), new Integer(0)));
+				
+				ResultList list = database.getList(selectStatement, context);
+				
+				if (!list.isEmpty()) {
+					Person person = (Person) list.get(0);
+					String auxUsername= person.username;
+					
+					String[] res = auxUsername.split(username);
+					
+					if (res.length > 1 && isNumeric(res[1])) {
+						Integer usernameNumber = Integer.valueOf(res[1]);
+						sb.append(usernameNumber++);
+					}
+				}
+			}
+			return sb.toString();
 		}
-		
-		return sb.toString();
+		return null;
 	}
 
 	/**
@@ -95,7 +100,7 @@ public class OnlineRegistrationHelper {
 	 *
 	 * @return The password
 	 */
-	public String generatePassword() {
+	public static String generatePassword() {
 
 		String random = null;
 		do {
