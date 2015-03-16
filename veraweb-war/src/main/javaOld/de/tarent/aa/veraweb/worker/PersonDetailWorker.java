@@ -45,6 +45,7 @@ import de.tarent.aa.veraweb.beans.facade.PersonDoctypeFacade;
 import de.tarent.aa.veraweb.beans.facade.PersonMemberFacade;
 import de.tarent.aa.veraweb.utils.AddressHelper;
 import de.tarent.aa.veraweb.utils.DateHelper;
+import de.tarent.aa.veraweb.utils.OnlineRegistrationHelper;
 import de.tarent.dblayer.engine.DB;
 import de.tarent.dblayer.helper.ResultList;
 import de.tarent.dblayer.sql.SQL;
@@ -57,6 +58,7 @@ import de.tarent.dblayer.sql.statement.Update;
 import de.tarent.octopus.PersonalConfigAA;
 import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.beans.Database;
+import de.tarent.octopus.beans.ExecutionContext;
 import de.tarent.octopus.beans.Request;
 import de.tarent.octopus.beans.TransactionContext;
 import de.tarent.octopus.beans.veraweb.BeanChangeLogger;
@@ -1005,5 +1007,27 @@ public class PersonDetailWorker implements PersonConstants {
 		 */
 		BeanChangeLogger clogger = new BeanChangeLogger( database, context );
 		clogger.logDelete( cntx.personalConfig().getLoginname(), oldPerson );
+	}
+	
+
+    /** Eingabe-Parameter der Octopus-Aktion {@link #saveDetail(OctopusContext, Person)} */
+	public static final String INPUT_createOsiamUser[] = { "person" };
+	public static final String OUTPUT_createOsiamUser = "person";
+    /** Eingabe-Parameterzwang der Octopus-Aktion {@link #saveDetail(OctopusContext, Person)} */
+	public static final boolean MANDATORY_createOsiamUser[] = { false };
+	
+	
+	/**
+	 * TODO regenerate message
+	 * @param cntx
+	 * @throws IOException 
+	 * @throws BeanException 
+	 */
+	public Person createOsiamUser(OctopusContext cntx, ExecutionContext context, Person person) throws BeanException, IOException {
+		
+		String username = OnlineRegistrationHelper.generateUsername(person.firstname_a_e1, person.lastname_a_e1, context);
+		
+		return person;
+		
 	}
 }
