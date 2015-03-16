@@ -29,10 +29,15 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 import java.util.Random;
 
 import org.apache.log4j.Logger;
 import org.apache.log4j.Priority;
+import org.osiam.client.OsiamConnector;
+import org.osiam.client.oauth.AccessToken;
+import org.osiam.client.oauth.Scope;
+import org.osiam.resources.scim.User;
 
 import de.tarent.aa.veraweb.beans.Doctype;
 import de.tarent.aa.veraweb.beans.Person;
@@ -46,6 +51,7 @@ import de.tarent.aa.veraweb.beans.facade.PersonMemberFacade;
 import de.tarent.aa.veraweb.utils.AddressHelper;
 import de.tarent.aa.veraweb.utils.DateHelper;
 import de.tarent.aa.veraweb.utils.OnlineRegistrationHelper;
+import de.tarent.aa.veraweb.utils.PropertiesReader;
 import de.tarent.dblayer.engine.DB;
 import de.tarent.dblayer.helper.ResultList;
 import de.tarent.dblayer.sql.SQL;
@@ -77,6 +83,22 @@ public class PersonDetailWorker implements PersonConstants {
     /** Logger dieser Klasse */
 	private final static Logger logger = Logger.getLogger(PersonDetailWorker.class);
 
+	/**
+	 * Example Property file: client.id=example-client client.secret=secret
+	 * client
+	 * .redirect_uri=http://osiam-test.lan.tarent.de:8080/addon-administration/
+	 * 
+	 * osiam.server.resource=http://osiam-test.lan.tarent.de:8080/osiam-resource
+	 * -server/
+	 * osiam.server.auth=http://osiam-test.lan.tarent.de:8080/osiam-auth-server/
+	 */
+	private static final String OSIAM_RESOURCE_SERVER_ENDPOINT = "osiam.server.resource";
+	private static final String OSIAM_AUTH_SERVER_ENDPOINT = "osiam.server.auth";
+	private static final String OSIAM_CLIENT_REDIRECT_URI = "osiam.client.redirect_uri";
+	private static final String OSIAM_CLIENT_SECRET = "osiam.client.secret";
+	private static final String OSIAM_CLIENT_ID = "osiam.client.id";
+	
+	
     //
     // Octopus-Aktionen
     //
@@ -1010,24 +1032,50 @@ public class PersonDetailWorker implements PersonConstants {
 	}
 	
 
-    /** Eingabe-Parameter der Octopus-Aktion {@link #saveDetail(OctopusContext, Person)} */
+    /** Eingabe-Parameter der Octopus-Aktion {@link #createOsiamUser(OctopusContext, ExecutionContext, Person)} */
 	public static final String INPUT_createOsiamUser[] = { "person" };
+    /** Ausgabe-Parameter der Octopus-Aktion {@link #createOsiamUser(OctopusContext, ExecutionContext, Person)} */
 	public static final String OUTPUT_createOsiamUser = "person";
-    /** Eingabe-Parameterzwang der Octopus-Aktion {@link #saveDetail(OctopusContext, Person)} */
+    /** Eingabe-Parameterzwang der Octopus-Aktion {@link #createOsiamUser(OctopusContext, ExecutionContext, Person)} */
 	public static final boolean MANDATORY_createOsiamUser[] = { false };
 	
-	
 	/**
-	 * TODO regenerate message
+	 * TODO regenerate javadoc - WORK IN PROGRESS
 	 * @param cntx
 	 * @throws IOException 
 	 * @throws BeanException 
 	 */
 	public Person createOsiamUser(OctopusContext cntx, ExecutionContext context, Person person) throws BeanException, IOException {
+		// TODO WORK IN PROGRESS
+		
+		final PropertiesReader propertiesReader = new PropertiesReader();
 		
 		String username = OnlineRegistrationHelper.generateUsername(person.firstname_a_e1, person.lastname_a_e1, context);
+		String password = OnlineRegistrationHelper.generatePassword();
+		
+		Properties properties = propertiesReader.getProperties();
+		
+		OsiamConnector connector = new OsiamConnector.Builder()
+			.setClientRedirectUri(
+					properties.getProperty(OSIAM_CLIENT_REDIRECT_URI))
+			.setClientSecret(
+					properties.getProperty(OSIAM_CLIENT_SECRET))
+			.setClientId(properties.getProperty(OSIAM_CLIENT_ID))
+			.setAuthServerEndpoint(
+					properties.getProperty(OSIAM_AUTH_SERVER_ENDPOINT))
+			.setResourceServerEndpoint(
+					properties
+							.getProperty(OSIAM_RESOURCE_SERVER_ENDPOINT))
+			.build();
+		
+		AccessToken accessToken = connector.retrieveAccessToken(Scope.ALL);
+		
+		OnlineRegistrationHelper.createOsiamUser(accessToken, username, password, connector);
+		
 		
 		return person;
 		
 	}
+	
+	
 }
