@@ -50,11 +50,19 @@ public class OnlineRegistrationHelperTest extends TestCase {
     
     @Test
     public void testGenerateUsernameWithoutNumberAndOneLastname() throws Exception {
+    	// Without umlauts
     	String firstname = "Karin";
     	String lastname = "Schneider";
     	String username = OnlineRegistrationHelper.generateUsername(firstname, lastname, null);
     	
     	assertEquals("kschne", username);
+    	
+    	// With umlauts
+    	String firstname2 = "Hörst";
+    	String lastname2 = "Müller";
+    	String username2 = OnlineRegistrationHelper.generateUsername(firstname2, lastname2, null);
+    	
+    	assertEquals("hmülle", username2);
     }
     
     @Test
