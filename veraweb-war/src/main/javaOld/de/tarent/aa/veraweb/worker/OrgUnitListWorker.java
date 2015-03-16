@@ -242,9 +242,9 @@ public class OrgUnitListWorker extends ListWorkerVeraWeb {
 
 		// first remove all workArea assignments from all persons
 		WorkAreaWorker.removeAllWorkAreasFromOrgUnit( cntx, context, ( ( OrgUnit ) bean ).id );
-		Delete stmt = database.getDelete( "OrgUnit" );
-		stmt.byId( "pk",  ( ( OrgUnit ) bean ).id  );
-		context.execute( stmt );
+		final Delete deleteStatement = database.getDelete( "OrgUnit" );
+		deleteStatement.byId("pk", ((OrgUnit) bean).id);
+		context.execute( deleteStatement );
 		
 		// Remove category pressevertreter of the current mandant
 		deletePressCategoryByOrgUnit(cntx,context,((OrgUnit)bean).id);
@@ -262,13 +262,13 @@ public class OrgUnitListWorker extends ListWorkerVeraWeb {
 	 * @throws IOException
 	 */
 	private void deletePressCategoryByOrgUnit(OctopusContext cntx, TransactionContext context, Integer orgUnitId) throws BeanException, IOException {
+
+		final Database database = context.getDatabase();
+
+		final Delete deleteStatement = database.getDelete("Categorie");
+		deleteStatement.where(Where.and(Expr.equal("fk_orgunit", orgUnitId), Expr.equal("catname", "Pressevertreter")));
 		
-		Database database = context.getDatabase();
-		
-		Delete delete = database.getDelete("Categorie");
-		delete.where(Where.and(Expr.equal("fk_orgunit", orgUnitId),Expr.equal("catname", "Pressevertreter")));
-		
-		context.execute(delete);
+		context.execute(deleteStatement);
 	}
 	/**
 	 * Creating presse category to every new Mandants
@@ -280,15 +280,15 @@ public class OrgUnitListWorker extends ListWorkerVeraWeb {
 	 */
 	private void initPressCategory(OctopusContext cntx, Integer orgUnitId, TransactionContext context) throws BeanException, IOException {
 		// Implementieren
-		Database database = new DatabaseVeraWeb(cntx);
-		Categorie category = new Categorie();
+		final Database database = new DatabaseVeraWeb(cntx);
+		final Categorie category = new Categorie();
 		category.name = "Pressevertreter";
 		category.flags = 0;
 		category.orgunit = orgUnitId;
 		
-		Insert insert = database.getInsert(category);
+		final Insert insertStatement = database.getInsert(category);
 		
-		context.execute(insert);
+		context.execute(insertStatement);
 	}
 
 	public void updatePerson(OctopusContext cntx, Person person, Integer personId) throws BeanException, IOException {
@@ -317,6 +317,4 @@ public class OrgUnitListWorker extends ListWorkerVeraWeb {
 		}
 	}
 
-	
-	
 }
