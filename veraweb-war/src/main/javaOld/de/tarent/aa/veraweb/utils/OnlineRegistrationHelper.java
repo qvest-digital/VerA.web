@@ -29,8 +29,8 @@ import org.osiam.resources.scim.User;
  * @author jnunez
  */
 public class OnlineRegistrationHelper {
-	
-	private static final String VWOR_PARAM = "vwor.activated";
+
+	private static final String VWOR_PARAM = "online-registration.activated";
 	private static final String VWOR_VALUE_TRUE = "true";
 	private static final String PASSWORD_GENERATOR_AUSWAHLMOEGLICHKEITEN =
 			"abzdefghijklmnopqrstuvwxyzABZDEFGHIJKLMNOPQRSTUVWXYZ1234567890!$-_#<>@&()+=}|";
@@ -44,49 +44,49 @@ public class OnlineRegistrationHelper {
 		}
 		return false;
 	}
-	
+
 	/**
 	 * Username generator
-	 * 
+	 *
 	 * @return String username
-	 * @throws BeanException 
-	 * @throws IOException 
+	 * @throws BeanException
+	 * @throws IOException
 	 */
-	public static String generateUsername(final String firstname, 
+	public static String generateUsername(final String firstname,
 										  final String lastname,
 										  final ExecutionContext context) throws BeanException, IOException {
-		
+
 		if (firstname != null && lastname != null) {
-			
+
 			StringBuilder sb = new StringBuilder();
-			
+
 			String convertedLastname = lastname;
 			if (lastname.length() >= 5) {
 				convertedLastname = lastname.substring(0, 5);
 			}
-			
+
 			sb.append(firstname.substring(0, 1).toLowerCase()).append(convertedLastname.toLowerCase());
-			
+
 			String username = sb.toString();
-	
+
 			// check if a duplicate entry was found
 			if (context != null) {
 				Database database = context.getDatabase();
-				
+
 				Clause whereClause = Expr.like("username", username + "%");
-				
+
 				Select selectStatement = database.getSelect("Person").where(whereClause);
 				selectStatement.orderBy(Order.desc("pk"));
 				selectStatement.Limit(new Limit(new Integer(1), new Integer(0)));
-				
+
 				ResultList list = database.getList(selectStatement, context);
-				
+
 				if (!list.isEmpty()) {
 					Person person = (Person) list.get(0);
 					String auxUsername= person.username;
-					
+
 					String[] res = auxUsername.split(username);
-					
+
 					if (res.length > 1 && isNumeric(res[1])) {
 						Integer usernameNumber = Integer.valueOf(res[1]);
 						sb.append(usernameNumber++);
@@ -112,7 +112,7 @@ public class OnlineRegistrationHelper {
 
 		return random;
 	}
-	
+
 	public static void createOsiamUser(AccessToken accessToken, String login,
 			String password, OsiamConnector connector) {
 		User delegationUser = new User.Builder(login).setActive(true)
@@ -121,26 +121,26 @@ public class OnlineRegistrationHelper {
 		// create User in osiam
 		connector.createUser(delegationUser, accessToken);
 	}
-	
-	
-	
+
+
+
 	/**
 	 * TODO move to another class
 	 * Checking if an String is numeric
-	 * 
+	 *
 	 * @param str String
 	 * @return boolean
 	 */
-	public static boolean isNumeric(String str)  
-	{  
-	  try  
-	  {  
-	    double d = Double.parseDouble(str);  
-	  }  
-	  catch(NumberFormatException nfe)  
-	  {  
-	    return false;  
-	  }  
-	  return true;  
+	public static boolean isNumeric(String str)
+	{
+	  try
+	  {
+	    double d = Double.parseDouble(str);
+	  }
+	  catch(NumberFormatException nfe)
+	  {
+	    return false;
+	  }
+	  return true;
 	}
 }
