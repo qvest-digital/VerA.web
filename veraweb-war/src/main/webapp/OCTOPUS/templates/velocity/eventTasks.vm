@@ -41,7 +41,7 @@
                     <li class="inactive" onclick="window.location.href='ShowEvent?id=$!id';" class="noBorder"><div>Allgemein</div></a>
                     </li><li class="inactive" onclick="window.location.href='${paths.staticWeb}do/ShowEventDoctype?id=$id&selectNone=true';" class="noBorder"><div>Dokumenttypen</div>
                     </li><li class="active"><div>Aufgaben</div>
-                    #if($vwor.activated)
+                    #if($online-registration.activated)
                     	</li><li class="inactive" onclick="window.location.href='${paths.staticWeb}do/ShowDelegationFields?eventId=$!event.id'"><div>Zusätzliche Personendaten</div>
                     #end
 					</li>
@@ -135,12 +135,17 @@
                         <th class="smallCell textCenter">Priorität</th>
                     </tr>
                     #foreach($bean in $list)
+
+                    ##Add whitespace to values to cut them
+					#set($tasktitle = $!bean.title.eventname.replaceAll("(.{64})", "$1 "))
+					#set($personnamecut = $!bean.personName.replaceAll("(.{13})", "$1 "))
+
                     <tr>
                         <td class="textCenter">
                             <input type="checkbox" id="add-select" name="${bean.id}-select" value="true" #if($listselection.indexOf($bean.id) != -1) checked#end/>
                         </td>
                         <td class="textCenter" onclick="window.location.href='ShowEventTask?id=$!{bean.id}&eventId=$!{bean.eventId}'">$!bean.id</td>
-                        <td onclick="window.location.href='ShowEventTask?id=$!{bean.id}&eventId=$!{bean.eventId}'">$!message.plain($!bean.title)</td>
+                        <td onclick="window.location.href='ShowEventTask?id=$!{bean.id}&eventId=$!{bean.eventId}'">$!message.plain($tasktitle)</td>
                         #if ($bean.startdate.Seconds == 30)
                         <td class="textCenter" onclick="window.location.href='ShowEventTask?id=$!{bean.id}&eventId=$!{bean.eventId}'">$!message.date("DATE",$bean.startdate)</td>
                         #else
@@ -154,7 +159,7 @@
                         #end
 
                         <td class="textCenter" onclick="window.location.href='ShowEventTask?id=$!{bean.id}&eventId=$!{bean.eventId}'">$!bean.degreeofcompletion%</td>
-                        <td onclick="window.location.href='ShowEventTask?id=$!{bean.id}&eventId=$!{bean.eventId}'">$!message.text($!bean.personName)</td>
+                        <td onclick="window.location.href='ShowEventTask?id=$!{bean.id}&eventId=$!{bean.eventId}'">$!message.text($personnamecut)</td>
                         <td class="textCenter" onclick="window.location.href='ShowEventTask?id=$!{bean.id}&eventId=$!{bean.eventId}'">$!message.text($!bean.priority)</td>
                     </tr>
                     #end

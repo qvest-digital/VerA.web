@@ -1,3 +1,6 @@
+##Add whitespace to values to cut them
+#set($eventnamecut = $event.eventname.replaceAll("(.{40})", "$1 "))
+
 <div class="contentBoxColored grayBorder" id="eventTop">
 	<div class="table width100">
 		<div class="tableRow">
@@ -22,13 +25,13 @@
 		</div>
 		<div class="tableRow">
 			<div class="tableCell width30">
-				<strong style="vertical-align: inherit;">Veranstaltungsname:</strong> <pre>$!message.textarea($event.eventname)</pre>
+				<strong style="vertical-align: inherit;">Veranstaltungsname:</strong> <pre>$!message.textarea($eventnamecut)</pre>
 			</div>
 			<div class="tableCell width30">
 				<strong>Ende:</strong> $!message.date("DATE", $event.end) #if($event-endhastime)um $!message.date("TIME", $event.end) Uhr#end
 			</div>
 		</div>
-		#if($vwor.activated)
+		#if($online-registration.activated)
 			<div class="tableRow">
 				<div class="tableCell width30">
 					<strong style="vertical-align: inherit;">Veranstaltungs-URL:</strong> <pre>$!message.textarea($eventUrl)</pre>
@@ -36,7 +39,7 @@
 			</div>
 		#end
 		<div class="tableCell width50">
-			#if($vwor.activated)
+			#if($online-registration.activated)
 	            <strong>URL für Pressevertreter:</strong><br/>
 	            #if($pressevertreterUrl && $pressevertreterUrl != "" && $event.mediarepresentatives && $event.mediarepresentatives != "f")
 	                $pressevertreterUrl

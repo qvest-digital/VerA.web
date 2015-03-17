@@ -791,7 +791,7 @@ public class GuestExportWorker {
 	}
 
 	private void checkIfOnlineRegistrationIsAvailable(OctopusContext cntx) {
-		this.isOnlineRegistrationActive = Boolean.valueOf(cntx.getContextField("vwor.activated").toString());
+		this.isOnlineRegistrationActive = Boolean.valueOf(cntx.getContextField("online-registration.activated").toString());
 	}
 
 	private void addDelegationLoginCells(SpreadSheet spreadSheet, Map guest, Event event) throws IOException {

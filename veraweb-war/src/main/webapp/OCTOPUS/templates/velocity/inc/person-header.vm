@@ -47,7 +47,7 @@
 
 	<div id="buttonPanel-top" class="textRight marginBottom10">
 		#if($person && $person.id)
-			#if($vwor.activated)
+			#if($online-registration.activated)
 				<input type="button" name="copy" class="mainButton" value="Anmeldedaten erzeugen" title="Anmeldedaten für die Online-Anmeldung erzeugen " onclick="if (checkModified()) { createOsiamUser(); }" />
 			#end
 			#if($grants.mayWrite())
@@ -92,7 +92,7 @@
                             <strong>Personen-ID</strong><br />#if($person.id)$!message.text($person.id)#end
                         </div>
                         <div class="tableCell width50">
-                        	#if($vwor.activated)
+                        	#if($online-registration.activated)
                         		<strong>Benutzername</strong><br />
                         	#end
                         </div>
