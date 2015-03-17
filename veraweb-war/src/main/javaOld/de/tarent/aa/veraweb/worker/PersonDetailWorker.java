@@ -1071,7 +1071,7 @@ public class PersonDetailWorker implements PersonConstants {
 		
 		AccessToken accessToken = connector.retrieveAccessToken(Scope.ALL);
 		
-		OnlineRegistrationHelper.createOsiamUser(accessToken, username, password, connector);
+		onlineRegistrationHelper.createOsiamUser(accessToken, username, password, connector);
 		
 		
 		return person;

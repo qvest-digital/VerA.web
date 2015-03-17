@@ -1,7 +1,5 @@
 package de.tarent.aa.veraweb.utils;
 
-import java.io.IOException;
-
 import de.tarent.aa.veraweb.beans.Person;
 import de.tarent.dblayer.helper.ResultList;
 import de.tarent.dblayer.sql.clause.Clause;
@@ -14,27 +12,30 @@ import de.tarent.octopus.beans.Database;
 import de.tarent.octopus.beans.ExecutionContext;
 import de.tarent.octopus.server.OctopusContext;
 import org.apache.commons.lang.RandomStringUtils;
+import org.apache.log4j.Logger;
 import org.osiam.client.OsiamConnector;
 import org.osiam.client.oauth.AccessToken;
 import org.osiam.resources.scim.User;
 
+import java.io.IOException;
 
 /**
- * Helper to play with the Online-Application Configuration
+ * Helper to play with the Online-Application Configuration.
  *
- * @Return true = activated
- * @Return false = deactivated
+ * @return true if activated, otherwise false
  *
  * @author jnunez
+ * @author Atanas Alexandrov, tarent solutions GmbH
  */
 public class OnlineRegistrationHelper {
 
-	/**
+	/*
 	 * At least one digit
 	 * At leas one upper case letter
 	 * At least one special character
 	 */
 	public static final String CONDITIONS = ".*(?=.*\\d)(?=.*[A-Z])(?=.*[-_$!#<>@&()+=}]).*";
+	private static final Logger LOGGER = Logger.getLogger(OnlineRegistrationHelper.class.getCanonicalName());
 
 	private static final String VWOR_PARAM = "vwor.activated";
 	private static final String VWOR_VALUE_TRUE = "true";
@@ -42,9 +43,15 @@ public class OnlineRegistrationHelper {
 			"abzdefghijklmnopqrstuvwxyzABZDEFGHIJKLMNOPQRSTUVWXYZ1234567890!$-_#<>@&()+=}|";
 
 
+	/**
+	 * Check for enabled online registration module.
+	 *
+	 * @param cntx The context
+	 * @return true if online registration is enabled, otherwise false
+	 */
 	public static Boolean isOnlineregActive(OctopusContext cntx) {
 
-		String active = cntx.moduleConfig().getParam(VWOR_PARAM);
+		final String active = cntx.moduleConfig().getParam(VWOR_PARAM);
 
 		if (active != null && VWOR_VALUE_TRUE.equals(active)) {
 			return true;
@@ -53,87 +60,24 @@ public class OnlineRegistrationHelper {
 	}
 
 	/**
-	 * Username generator
-	 * 
+	 * Generate username by given first and lastname.
+	 *
+	 * @param firstname The firstname of the person
+	 * @param lastname The lastname of the person
+	 * @param context The {@link ExecutionContext}
+	 *
 	 * @return String username
-	 * @throws BeanException 
-	 * @throws IOException 
 	 */
-	public String generateUsername(final String firstname, 
-										  final String lastname,
-										  final ExecutionContext context) throws BeanException, IOException {
-		
-			StringBuilder sb = new StringBuilder();
-			
-			String username = generateShortUsername(firstname, lastname, sb);
-	
-			this.checkUsernameDuplicates(context, sb, username);
-			return sb.toString();
-	}
+	public String generateUsername(final String firstname, final String lastname, final ExecutionContext context) {
+			final StringBuilder stringBuilder = new StringBuilder();
+			final String username = generateShortUsername(firstname, lastname);
 
-	/**
-	 * Generates the shorttext of the username
-	 * Example: Karin Schneider -> kschne
-	 * 
-	 * @param firstname String
-	 * @param lastname String
-	 * @param sb StringBuilder buffer
-	 * @return String
-	 */
-	private String generateShortUsername(String firstname,
-			String lastname, StringBuilder sb) {
-		CharacterPropertiesReader cpr = new CharacterPropertiesReader();
-		
-		firstname = cpr.convertUmlauts(firstname);
-		lastname = cpr.convertUmlauts(lastname);
-		
-		String convertedLastname = lastname;
-		
-		if (lastname.length() >= 5) {
-			convertedLastname = lastname.substring(0, 5);
-		}
-		
-		sb.append(firstname.substring(0, 1).toLowerCase()).append(convertedLastname.toLowerCase());
-		
-		return sb.toString();
-	}
+			final Integer number = getSuffixIfUsernameAlreadyExists(context, username);
 
-	/**
-	 * Checking if the username's shorttext has duplicates
-	 * 
-	 * @param context ExecutionContext
-	 * @param sb StringBuilder buffer
-	 * @param username String username
-	 * @throws BeanException
-	 * @throws IOException
-	 */
-	private void checkUsernameDuplicates(final ExecutionContext context,
-			StringBuilder sb, String username) throws BeanException,
-			IOException {
-		// check if a duplicate entry was found
-		if (context != null) {
-			Database database = context.getDatabase();
-			
-			Clause whereClause = Expr.like("username", username + "%");
-			
-			Select selectStatement = database.getSelect("Person").where(whereClause);
-			selectStatement.orderBy(Order.desc("pk"));
-			selectStatement.Limit(new Limit(new Integer(1), new Integer(0)));
-			
-			ResultList list = database.getList(selectStatement, context);
-			
-			if (!list.isEmpty()) {
-				Person person = (Person) list.get(0);
-				String auxUsername= person.username;
-				
-				String[] res = auxUsername.split(username);
-				
-				if (res.length > 1 && isNumeric(res[1])) {
-					Integer usernameNumber = Integer.valueOf(res[1]);
-					sb.append(usernameNumber++);
-				}
+			if (number != null) {
+				return stringBuilder.append(number).toString();
 			}
-		}
+			return stringBuilder.toString();
 	}
 
 	/**
@@ -151,19 +95,116 @@ public class OnlineRegistrationHelper {
 
 		return random;
 	}
-	
-	public static void createOsiamUser(AccessToken accessToken,
-									   String login,
-									   String password,
-									   OsiamConnector connector) {
-		User delegationUser = new User.Builder(login).setActive(true).setPassword(password).build();
+
+	/**
+	 * Create osiam user.
+	 *
+	 * @param accessToken The {@link AccessToken}
+	 * @param username The username
+	 * @param password The password
+	 * @param connector The {@link OsiamConnector} client
+	 */
+	public void createOsiamUser(AccessToken accessToken, String username, String password, OsiamConnector connector) {
+		final User delegationUser = new User.Builder(username).setActive(true).setPassword(password).build();
 
 		// create User in osiam
 		connector.createUser(delegationUser, accessToken);
 	}
-	
-	
-	
+
+	/**
+	 * Generates the shorttext of the username
+	 * Example: Karin Schneider -> kschne
+	 * 
+	 * @param firstname String
+	 * @param lastname String
+	 *
+	 * @return String
+	 */
+	private String generateShortUsername(final String firstname, final String lastname) {
+		final CharacterPropertiesReader characterPropertiesReader = new CharacterPropertiesReader();
+
+		final String convertedFirstname = characterPropertiesReader.convertUmlauts(firstname);
+		final String convertedLastname = characterPropertiesReader.convertUmlauts(lastname);
+
+		String username = null;
+		if (convertedLastname.length() >= 5) {
+			username = handleLasnameLongerThenFiveCharacters(convertedFirstname, convertedLastname);
+		} else {
+			username = handleLastnameNotLongerThanFiveCharacters(convertedFirstname, convertedLastname);
+		}
+
+		return username;
+	}
+
+	private String handleLastnameNotLongerThanFiveCharacters(String convertedFirstname, String convertedLastname) {
+		return convertedFirstname.substring(0, 1).toLowerCase() + convertedLastname.toLowerCase();
+	}
+
+	private String handleLasnameLongerThenFiveCharacters(String convertedFirstname, String convertedLastname) {
+		return handleLastnameNotLongerThanFiveCharacters(convertedFirstname, convertedLastname.substring(0, 5));
+	}
+
+	/**
+	 * Checking if the username's shorttext has duplicates
+	 * 
+	 * @param context ExecutionContext
+	 * @param username String username
+	 */
+	private Integer getSuffixIfUsernameAlreadyExists(final ExecutionContext context, String username) {
+		// check if a duplicate entry was found
+		if (context != null) {
+			final ResultList list = getResultList(context, username);
+
+			if (!list.isEmpty()) {
+				final Person person = (Person) list.get(0);
+				final String auxUsername= person.username;
+				
+				final String[] res = auxUsername.split(username);
+				
+				if (res.length > 1 && isNumeric(res[1])) {
+					Integer usernameNumber = Integer.valueOf(res[1]);
+					return usernameNumber++;
+				}
+			}
+		}
+		return null;
+	}
+
+	private ResultList getResultList(ExecutionContext context, String username) {
+		final Database database = context.getDatabase();
+
+		final Select selectStatement = getSelectStatement(database, username);
+
+		return getResults(context, database, selectStatement);
+	}
+
+	private ResultList getResults(ExecutionContext context, Database database, Select selectStatement) {
+		ResultList list = null;
+		try {
+            list = database.getList(selectStatement, context);
+        } catch (BeanException e) {
+			LOGGER.error("Fehler bei der Abfrage", e);
+        }
+		return list;
+	}
+
+	private Select getSelectStatement(Database database, String username) {
+		final Clause whereClause = Expr.like("username", username + "%");
+
+		Select selectStatement = null;
+		try {
+            selectStatement = database.getSelect("Person").where(whereClause);
+        } catch (BeanException beanException) {
+			LOGGER.error("Fehler bei der Abfrage", beanException);
+        } catch (IOException ioException) {
+			LOGGER.error("IOFehler", ioException);
+        }
+		selectStatement.orderBy(Order.desc("pk"));
+		selectStatement.Limit(new Limit(new Integer(1), new Integer(0)));
+		return selectStatement;
+	}
+
+
 	/**
 	 * TODO move to another class
 	 * Checking if an String is numeric
@@ -171,16 +212,12 @@ public class OnlineRegistrationHelper {
 	 * @param str String
 	 * @return boolean
 	 */
-	public static boolean isNumeric(String str)  
-	{  
-	  try  
-	  {  
-	    double d = Double.parseDouble(str);  
-	  }  
-	  catch(NumberFormatException nfe)  
-	  {  
-	    return false;  
-	  }  
-	  return true;  
+	public static boolean isNumeric(String str) {
+		try {
+			final double d = Double.parseDouble(str);
+		} catch (NumberFormatException nfe) {
+			return false;
+		}
+		return true;
 	}
 }
