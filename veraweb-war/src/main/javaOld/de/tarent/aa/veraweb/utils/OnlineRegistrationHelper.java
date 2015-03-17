@@ -37,7 +37,7 @@ public class OnlineRegistrationHelper {
 	public static final String CONDITIONS = ".*(?=.*\\d)(?=.*[A-Z])(?=.*[-_$!#<>@&()+=}]).*";
 	private static final Logger LOGGER = Logger.getLogger(OnlineRegistrationHelper.class.getCanonicalName());
 
-	private static final String VWOR_PARAM = "vwor.activated";
+	private static final String VWOR_PARAM = "online-registration.activated";
 	private static final String VWOR_VALUE_TRUE = "true";
 	private static final String CHARS_FOR_PASSWORD_GENERATION =
 			"abzdefghijklmnopqrstuvwxyzABZDEFGHIJKLMNOPQRSTUVWXYZ1234567890!$-_#<>@&()+=}|";
@@ -204,11 +204,10 @@ public class OnlineRegistrationHelper {
 		return selectStatement;
 	}
 
-
 	/**
 	 * TODO move to another class
 	 * Checking if an String is numeric
-	 * 
+	 *
 	 * @param str String
 	 * @return boolean
 	 */

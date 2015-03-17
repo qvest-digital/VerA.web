@@ -54,7 +54,7 @@ public class OSIAMWorker {
 	 * Example Property file: client.id=example-client client.secret=secret
 	 * client
 	 * .redirect_uri=http://osiam-test.lan.tarent.de:8080/addon-administration/
-	 * 
+	 *
 	 * osiam.server.resource=http://osiam-test.lan.tarent.de:8080/osiam-resource
 	 * -server/
 	 * osiam.server.auth=http://osiam-test.lan.tarent.de:8080/osiam-auth-server/
@@ -69,8 +69,8 @@ public class OSIAMWorker {
 
 	private static final int OSIAM_USERNAME_LENGTH = 6;
 
-	private static final String VWOR_ACTIVE_PARAM = "vwor.activated";
-	
+	private static final String VWOR_ACTIVE_PARAM = "online-registration.activated";
+
 	private OsiamConnector connector;
 	private Properties properties;
 
@@ -96,10 +96,10 @@ public class OSIAMWorker {
 	private boolean checkIfOnlineRegistrationIsAvailable(OctopusContext ctx) {
 		return Boolean.valueOf(ctx.getContextField(VWOR_ACTIVE_PARAM).toString());
 	}
-	
+
 	/**
 	 * Creates an new user in OSIAM via connector4java and the configured client
-	 * 
+	 *
 	 * @param ctx
 	 * @throws BeanException
 	 * @throws SQLException
@@ -109,7 +109,7 @@ public class OSIAMWorker {
 		if(!checkIfOnlineRegistrationIsAvailable(ctx)) {
 			return;
 		}
-		
+
 		Database database = new DatabaseVeraWeb(ctx);
 		AccessToken accessToken = null;
 		Boolean correctOSIAMProperties = true;
@@ -210,6 +210,6 @@ public class OSIAMWorker {
 		}
 		return sb.toString();
 	}
-	
-	
+
+
 }

@@ -73,7 +73,7 @@ public class EventDetailWorker {
     /** Eingabe-Parameterzwang der Octopus-Aktion {@link #showDetail(OctopusContext, Integer)} */
 	public static final boolean MANDATORY_showDetail[] = { false, false, false };
 
-	public static final String VWOR_ACTIVE = "vwor.activated";
+	public static final String VWOR_ACTIVE = "online-registration.activated";
 	/**
 	 * Diese Octopus-Aktion l�dt eine Veranstaltung und legt sie unter dem Schl�ssel "event"
      * in den Octopus-Content. Begleitend werden dort zwei Flags unter den Schl�sseln
