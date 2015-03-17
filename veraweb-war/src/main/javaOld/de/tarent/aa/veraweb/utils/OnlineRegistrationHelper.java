@@ -1,7 +1,6 @@
 package de.tarent.aa.veraweb.utils;
 
 import java.io.IOException;
-import java.util.Properties;
 
 import de.tarent.aa.veraweb.beans.Person;
 import de.tarent.dblayer.helper.ResultList;
@@ -29,11 +28,19 @@ import org.osiam.resources.scim.User;
  * @author jnunez
  */
 public class OnlineRegistrationHelper {
-	
+
+	/**
+	 * At least one digit
+	 * At leas one upper case letter
+	 * At least one special character
+	 */
+	public static final String CONDITIONS = ".*(?=.*\\d)(?=.*[A-Z])(?=.*[-_$!#<>@&()+=}]).*";
+
 	private static final String VWOR_PARAM = "vwor.activated";
 	private static final String VWOR_VALUE_TRUE = "true";
-	private static final String PASSWORD_GENERATOR_AUSWAHLMOEGLICHKEITEN =
+	private static final String CHARS_FOR_PASSWORD_GENERATION =
 			"abzdefghijklmnopqrstuvwxyzABZDEFGHIJKLMNOPQRSTUVWXYZ1234567890!$-_#<>@&()+=}|";
+
 
 	public static Boolean isOnlineregActive(OctopusContext cntx) {
 
@@ -44,7 +51,7 @@ public class OnlineRegistrationHelper {
 		}
 		return false;
 	}
-	
+
 	/**
 	 * Username generator
 	 * 
@@ -106,17 +113,19 @@ public class OnlineRegistrationHelper {
 	public static String generatePassword() {
 
 		String random = null;
+
 		do {
-			random = RandomStringUtils.random(8, PASSWORD_GENERATOR_AUSWAHLMOEGLICHKEITEN.toCharArray());
-		} while (!random.matches((".*(?=.*\\d)(?=.*[A-Z])(?=.*[-_$!#<>@&()+=}]).*")));
+			random = RandomStringUtils.random(8, CHARS_FOR_PASSWORD_GENERATION.toCharArray());
+		} while (!random.matches(CONDITIONS));
 
 		return random;
 	}
 	
-	public static void createOsiamUser(AccessToken accessToken, String login,
-			String password, OsiamConnector connector) {
-		User delegationUser = new User.Builder(login).setActive(true)
-				.setPassword(password).build();
+	public static void createOsiamUser(AccessToken accessToken,
+									   String login,
+									   String password,
+									   OsiamConnector connector) {
+		User delegationUser = new User.Builder(login).setActive(true).setPassword(password).build();
 
 		// create User in osiam
 		connector.createUser(delegationUser, accessToken);

@@ -7,12 +7,6 @@ import org.junit.Test;
 
 public class OnlineRegistrationHelperTest extends TestCase {
 
-    /**
-     * At least one digit
-     * At leas one upper case letter
-     * At least one special character
-     */
-    private static final String CONDITIONS = ".*(?=.*\\d)(?=.*[A-Z])(?=.*[-_$!#<>@&()+=}]).*";
 
     @Before
     public void setUp() {
@@ -24,7 +18,7 @@ public class OnlineRegistrationHelperTest extends TestCase {
             String password = OnlineRegistrationHelper.generatePassword();
             assertEquals(8, password.length());
 
-            assertTrue(password.matches(CONDITIONS));
+            assertTrue(password.matches(OnlineRegistrationHelper.CONDITIONS));
         }
     }
     
