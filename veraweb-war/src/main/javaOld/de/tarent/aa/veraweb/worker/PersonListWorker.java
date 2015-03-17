@@ -44,7 +44,6 @@ import de.tarent.dblayer.sql.SyntaxErrorException;
 import de.tarent.dblayer.sql.clause.Clause;
 import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.clause.Limit;
-import de.tarent.dblayer.sql.clause.Order;
 import de.tarent.dblayer.sql.clause.RawClause;
 import de.tarent.dblayer.sql.clause.StatementList;
 import de.tarent.dblayer.sql.clause.Where;
@@ -659,7 +658,8 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 					 * updated to reflect interface changes on removePerson
 					 * cklein 2008-02-12
 					 */
-					personDetailWorker.removePerson( cntx, context, id );
+					//TODO: get osiam username as last parameter
+					personDetailWorker.removePerson( cntx, context, id, new Person().username);
 					it.remove();
 					selection.remove( id );
 					count++;
@@ -1127,7 +1127,6 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 //				"(SELECT name FROM veraweb.tworkarea)")));
 
 //		list.addOr( Expr.equal( "tperson.fk_workarea", searchField ) );
-
 
 		return;
 	}

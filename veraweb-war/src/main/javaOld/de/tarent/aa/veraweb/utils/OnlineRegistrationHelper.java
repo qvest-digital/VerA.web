@@ -56,17 +56,17 @@ public class OnlineRegistrationHelper {
 	 * Username generator
 	 *
 	 * @return String username
-	 * @throws BeanException 
-	 * @throws IOException 
+	 * @throws BeanException
+	 * @throws IOException
 	 */
-	public String generateUsername(final String firstname, 
+	public String generateUsername(final String firstname,
 										  final String lastname,
 										  final ExecutionContext context) throws BeanException, IOException {
-		
+
 			StringBuilder sb = new StringBuilder();
-			
+
 			String username = generateShortUsername(firstname, lastname, sb);
-	
+
 			this.checkUsernameDuplicates(context, sb, username);
 			return sb.toString();
 	}
@@ -74,33 +74,34 @@ public class OnlineRegistrationHelper {
 	/**
 	 * Generates the shorttext of the username
 	 * Example: Karin Schneider -> kschne
-	 * 
+	 *
 	 * @param firstname String
 	 * @param lastname String
 	 * @param sb StringBuilder buffer
 	 * @return String
 	 */
 	private String generateShortUsername(String firstname,
-			String lastname, StringBuilder sb) {
+		String lastname, StringBuilder sb) {
+
 		CharacterPropertiesReader cpr = new CharacterPropertiesReader();
-		
+
 		firstname = cpr.convertUmlauts(firstname);
 		lastname = cpr.convertUmlauts(lastname);
-		
+
 		String convertedLastname = lastname;
-		
+
 		if (lastname.length() >= 5) {
 			convertedLastname = lastname.substring(0, 5);
 		}
-		
+
 		sb.append(firstname.substring(0, 1).toLowerCase()).append(convertedLastname.toLowerCase());
-		
+
 		return sb.toString();
 	}
 
 	/**
 	 * Checking if the username's shorttext has duplicates
-	 * 
+	 *
 	 * @param context ExecutionContext
 	 * @param sb StringBuilder buffer
 	 * @param username String username
@@ -110,24 +111,25 @@ public class OnlineRegistrationHelper {
 	private void checkUsernameDuplicates(final ExecutionContext context,
 			StringBuilder sb, String username) throws BeanException,
 			IOException {
+
 		// check if a duplicate entry was found
 		if (context != null) {
 			Database database = context.getDatabase();
-			
+
 			Clause whereClause = Expr.like("username", username + "%");
-			
+
 			Select selectStatement = database.getSelect("Person").where(whereClause);
 			selectStatement.orderBy(Order.desc("pk"));
 			selectStatement.Limit(new Limit(new Integer(1), new Integer(0)));
-			
+
 			ResultList list = database.getList(selectStatement, context);
-			
+
 			if (!list.isEmpty()) {
 				Person person = (Person) list.get(0);
 				String auxUsername= person.username;
-				
+
 				String[] res = auxUsername.split(username);
-				
+
 				if (res.length > 1 && isNumeric(res[1])) {
 					Integer usernameNumber = Integer.valueOf(res[1]);
 					sb.append(usernameNumber++);
@@ -151,7 +153,15 @@ public class OnlineRegistrationHelper {
 
 		return random;
 	}
-	
+
+	/**
+	 * Create new user in OSIAM
+	 *
+	 * @param accessToken
+	 * @param login
+	 * @param password
+	 * @param connector
+	 */
 	public static void createOsiamUser(AccessToken accessToken,
 									   String login,
 									   String password,
@@ -162,6 +172,20 @@ public class OnlineRegistrationHelper {
 		connector.createUser(delegationUser, accessToken);
 	}
 
+	/**
+	 * Delete given user in OSIAM
+	 *
+	 * @param accessToken
+	 * @param id
+	 * @param connector
+	 */
+	public static void deleteOsiamUser(AccessToken accessToken,
+			   String id,
+			   OsiamConnector connector) {
+
+		// delete User in osiam
+		connector.deleteUser(id, accessToken);
+	}
 
 
 	/**
