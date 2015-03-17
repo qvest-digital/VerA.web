@@ -65,6 +65,8 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 	public Integer workarea;
 	/** Workarea Name for display purposes only */
 	public String workarea_name;
+	/** Username */
+	public String username;
 
 	// Hauptperson, Latein
 	public String salutation_a_e1;
@@ -293,7 +295,6 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 	public String mobil_c_e3;
 	public String mail_c_e3;
 	public String url_c_e3;
-	public String username;
 
 	@Override
     public void verify() throws BeanException {
