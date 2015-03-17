@@ -1,7 +1,6 @@
 package de.tarent.aa.veraweb.utils;
 
 import java.io.IOException;
-import java.util.Properties;
 
 import de.tarent.aa.veraweb.beans.Person;
 import de.tarent.dblayer.helper.ResultList;
@@ -30,10 +29,18 @@ import org.osiam.resources.scim.User;
  */
 public class OnlineRegistrationHelper {
 
+	/**
+	 * At least one digit
+	 * At leas one upper case letter
+	 * At least one special character
+	 */
+	public static final String CONDITIONS = ".*(?=.*\\d)(?=.*[A-Z])(?=.*[-_$!#<>@&()+=}]).*";
+
 	private static final String VWOR_PARAM = "online-registration.activated";
 	private static final String VWOR_VALUE_TRUE = "true";
-	private static final String PASSWORD_GENERATOR_AUSWAHLMOEGLICHKEITEN =
+	private static final String CHARS_FOR_PASSWORD_GENERATION =
 			"abzdefghijklmnopqrstuvwxyzABZDEFGHIJKLMNOPQRSTUVWXYZ1234567890!$-_#<>@&()+=}|";
+
 
 	public static Boolean isOnlineregActive(OctopusContext cntx) {
 
@@ -49,53 +56,84 @@ public class OnlineRegistrationHelper {
 	 * Username generator
 	 *
 	 * @return String username
+	 * @throws BeanException 
+	 * @throws IOException 
+	 */
+	public String generateUsername(final String firstname, 
+										  final String lastname,
+										  final ExecutionContext context) throws BeanException, IOException {
+		
+			StringBuilder sb = new StringBuilder();
+			
+			String username = generateShortUsername(firstname, lastname, sb);
+	
+			this.checkUsernameDuplicates(context, sb, username);
+			return sb.toString();
+	}
+
+	/**
+	 * Generates the shorttext of the username
+	 * Example: Karin Schneider -> kschne
+	 * 
+	 * @param firstname String
+	 * @param lastname String
+	 * @param sb StringBuilder buffer
+	 * @return String
+	 */
+	private String generateShortUsername(String firstname,
+			String lastname, StringBuilder sb) {
+		CharacterPropertiesReader cpr = new CharacterPropertiesReader();
+		
+		firstname = cpr.convertUmlauts(firstname);
+		lastname = cpr.convertUmlauts(lastname);
+		
+		String convertedLastname = lastname;
+		
+		if (lastname.length() >= 5) {
+			convertedLastname = lastname.substring(0, 5);
+		}
+		
+		sb.append(firstname.substring(0, 1).toLowerCase()).append(convertedLastname.toLowerCase());
+		
+		return sb.toString();
+	}
+
+	/**
+	 * Checking if the username's shorttext has duplicates
+	 * 
+	 * @param context ExecutionContext
+	 * @param sb StringBuilder buffer
+	 * @param username String username
 	 * @throws BeanException
 	 * @throws IOException
 	 */
-	public static String generateUsername(final String firstname,
-										  final String lastname,
-										  final ExecutionContext context) throws BeanException, IOException {
-
-		if (firstname != null && lastname != null) {
-
-			StringBuilder sb = new StringBuilder();
-
-			String convertedLastname = lastname;
-			if (lastname.length() >= 5) {
-				convertedLastname = lastname.substring(0, 5);
-			}
-
-			sb.append(firstname.substring(0, 1).toLowerCase()).append(convertedLastname.toLowerCase());
-
-			String username = sb.toString();
-
-			// check if a duplicate entry was found
-			if (context != null) {
-				Database database = context.getDatabase();
-
-				Clause whereClause = Expr.like("username", username + "%");
-
-				Select selectStatement = database.getSelect("Person").where(whereClause);
-				selectStatement.orderBy(Order.desc("pk"));
-				selectStatement.Limit(new Limit(new Integer(1), new Integer(0)));
-
-				ResultList list = database.getList(selectStatement, context);
-
-				if (!list.isEmpty()) {
-					Person person = (Person) list.get(0);
-					String auxUsername= person.username;
-
-					String[] res = auxUsername.split(username);
-
-					if (res.length > 1 && isNumeric(res[1])) {
-						Integer usernameNumber = Integer.valueOf(res[1]);
-						sb.append(usernameNumber++);
-					}
+	private void checkUsernameDuplicates(final ExecutionContext context,
+			StringBuilder sb, String username) throws BeanException,
+			IOException {
+		// check if a duplicate entry was found
+		if (context != null) {
+			Database database = context.getDatabase();
+			
+			Clause whereClause = Expr.like("username", username + "%");
+			
+			Select selectStatement = database.getSelect("Person").where(whereClause);
+			selectStatement.orderBy(Order.desc("pk"));
+			selectStatement.Limit(new Limit(new Integer(1), new Integer(0)));
+			
+			ResultList list = database.getList(selectStatement, context);
+			
+			if (!list.isEmpty()) {
+				Person person = (Person) list.get(0);
+				String auxUsername= person.username;
+				
+				String[] res = auxUsername.split(username);
+				
+				if (res.length > 1 && isNumeric(res[1])) {
+					Integer usernameNumber = Integer.valueOf(res[1]);
+					sb.append(usernameNumber++);
 				}
 			}
-			return sb.toString();
 		}
-		return null;
 	}
 
 	/**
@@ -103,20 +141,22 @@ public class OnlineRegistrationHelper {
 	 *
 	 * @return The password
 	 */
-	public static String generatePassword() {
+	public String generatePassword() {
 
 		String random = null;
+
 		do {
-			random = RandomStringUtils.random(8, PASSWORD_GENERATOR_AUSWAHLMOEGLICHKEITEN.toCharArray());
-		} while (!random.matches((".*(?=.*\\d)(?=.*[A-Z])(?=.*[-_$!#<>@&()+=}]).*")));
+			random = RandomStringUtils.random(8, CHARS_FOR_PASSWORD_GENERATION.toCharArray());
+		} while (!random.matches(CONDITIONS));
 
 		return random;
 	}
-
-	public static void createOsiamUser(AccessToken accessToken, String login,
-			String password, OsiamConnector connector) {
-		User delegationUser = new User.Builder(login).setActive(true)
-				.setPassword(password).build();
+	
+	public static void createOsiamUser(AccessToken accessToken,
+									   String login,
+									   String password,
+									   OsiamConnector connector) {
+		User delegationUser = new User.Builder(login).setActive(true).setPassword(password).build();
 
 		// create User in osiam
 		connector.createUser(delegationUser, accessToken);

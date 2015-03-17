@@ -1049,9 +1049,10 @@ public class PersonDetailWorker implements PersonConstants {
 		// TODO WORK IN PROGRESS
 		
 		final PropertiesReader propertiesReader = new PropertiesReader();
+		OnlineRegistrationHelper onlineRegistrationHelper = new OnlineRegistrationHelper();
 		
-		String username = OnlineRegistrationHelper.generateUsername(person.firstname_a_e1, person.lastname_a_e1, context);
-		String password = OnlineRegistrationHelper.generatePassword();
+		String username = onlineRegistrationHelper.generateUsername(person.firstname_a_e1, person.lastname_a_e1, context);
+		String password = onlineRegistrationHelper.generatePassword();
 		
 		Properties properties = propertiesReader.getProperties();
 		

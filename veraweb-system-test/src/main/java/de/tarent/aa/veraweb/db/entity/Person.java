@@ -19,6 +19,7 @@
  */
 package de.tarent.aa.veraweb.db.entity;
 
+import java.lang.String;
 import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Set;
@@ -118,6 +119,12 @@ public class Person extends AbstractEntity {
      */
     @OneToMany(mappedBy = "responsiblePerson", fetch = FetchType.LAZY)
     private Set<Task> tasks;
+
+    /**
+     * Username.
+     */
+    @Column(name = "username")
+    private String username;
 
     /*
      * TODO: add complete property list
@@ -310,6 +317,15 @@ public class Person extends AbstractEntity {
      */
     public void setTasks(Set<Task> tasks) {
         this.tasks = tasks;
+    }
+
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
 }

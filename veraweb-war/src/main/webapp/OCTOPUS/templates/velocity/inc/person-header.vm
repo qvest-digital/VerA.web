@@ -94,6 +94,8 @@
                         <div class="tableCell width50">
                         	#if($online-registration.activated)
                         		<strong>Benutzername</strong><br />
+                        		<!-- $person -->
+                        		$person.username
                         	#end
                         </div>
 
