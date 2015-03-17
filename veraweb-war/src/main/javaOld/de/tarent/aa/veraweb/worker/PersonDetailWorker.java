@@ -1009,11 +1009,12 @@ public class PersonDetailWorker implements PersonConstants {
 				where(Expr.equal("fk_person", personid)));
 
 		//delete OSIAM user, if online-reg is active
-		if(OnlineRegistrationHelper.isOnlineregActive(cntx)) {
-			if(username != null){
-				deleteOsiamUser(cntx, context, username);
-			}
-		}
+		//TODO Remove OSIAM user W.I.P.
+//		if(OnlineRegistrationHelper.isOnlineregActive(cntx)) {
+//			if(username != null){
+//				deleteOsiamUser(cntx, context, username);
+//			}
+//		}
 
 		context.execute(SQL.Delete( database ).
 				from("veraweb.tguest").
@@ -1077,7 +1078,7 @@ public class PersonDetailWorker implements PersonConstants {
 
 			AccessToken accessToken = connector.retrieveAccessToken(Scope.ALL);
 
-			OnlineRegistrationHelper.createOsiamUser(accessToken, username, password, connector);
+			onlineRegistrationHelper.createOsiamUser(accessToken, username, password, connector);
 
 			return person;
 		}

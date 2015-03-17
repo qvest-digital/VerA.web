@@ -658,8 +658,8 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 					 * updated to reflect interface changes on removePerson
 					 * cklein 2008-02-12
 					 */
-					//TODO: get osiam username as last parameter
-					personDetailWorker.removePerson( cntx, context, id, new Person().username);
+					Person person = (Person) database.getBean("Person", id);
+					personDetailWorker.removePerson( cntx, context, id, person.username);
 					it.remove();
 					selection.remove( id );
 					count++;
