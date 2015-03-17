@@ -78,6 +78,7 @@ import de.tarent.octopus.server.OctopusContext;
  * {@link #saveDetail(OctopusContext, Person) Speichern} von Daten.
  *
  * @author Christoph
+ * @author Stefan Weiz, tarent solutions GmbH
  */
 public class PersonDetailWorker implements PersonConstants {
     /** Logger dieser Klasse */
@@ -1051,6 +1052,7 @@ public class PersonDetailWorker implements PersonConstants {
 	 */
 	public Person createOsiamUser(OctopusContext cntx, ExecutionContext context, Person person) throws BeanException, IOException {
 		// TODO WORK IN PROGRESS
+
 		if(OnlineRegistrationHelper.isOnlineregActive(cntx)) {
 			final PropertiesReader propertiesReader = new PropertiesReader();
 			OnlineRegistrationHelper onlineRegistrationHelper = new OnlineRegistrationHelper();
