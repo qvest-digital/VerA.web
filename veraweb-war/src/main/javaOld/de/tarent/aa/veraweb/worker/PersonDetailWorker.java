@@ -32,6 +32,8 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.Random;
 
+import de.tarent.aa.veraweb.utils.OsiamLoginCreator;
+import de.tarent.aa.veraweb.utils.OsiamLoginRemover;
 import org.apache.log4j.Logger;
 import org.apache.log4j.Priority;
 import org.osiam.client.OsiamConnector;
@@ -1046,44 +1048,38 @@ public class PersonDetailWorker implements PersonConstants {
 	public static final boolean MANDATORY_createOsiamUser[] = { false };
 
 	/**
-	 * Creates an OSIAM user with random username and password
-	 * @param cntx
-	 * @throws IOException
-	 * @throws BeanException
+	 * Creates an OSIAM user with random username and password.
+	 *
+	 * @param cntx The {@link de.tarent.octopus.server.OctopusContext}
 	 */
-	public Person createOsiamUser(OctopusContext cntx, ExecutionContext context, Person person) throws BeanException, IOException {
+	public Person createOsiamUser(OctopusContext cntx, ExecutionContext context, Person person) {
 		// TODO WORK IN PROGRESS
-
 		if(OnlineRegistrationHelper.isOnlineregActive(cntx)) {
-			final PropertiesReader propertiesReader = new PropertiesReader();
-			OnlineRegistrationHelper onlineRegistrationHelper = new OnlineRegistrationHelper();
+			final OsiamLoginCreator osiamLoginCreator = new OsiamLoginCreator();
+			final String firstname = person.firstname_a_e1;
+			final String lastname = person.lastname_a_e1;
+			final String username = osiamLoginCreator.generateUsername(firstname, lastname, context);
+			final String password = osiamLoginCreator.generatePassword();
+			final OsiamConnector connector = getConnector();
 
-			String username = onlineRegistrationHelper.generateUsername(person.firstname_a_e1, person.lastname_a_e1, context);
-			String password = onlineRegistrationHelper.generatePassword();
-
-			Properties properties = propertiesReader.getProperties();
-
-			OsiamConnector connector = new OsiamConnector.Builder()
-				.setClientRedirectUri(
-						properties.getProperty(OSIAM_CLIENT_REDIRECT_URI))
-				.setClientSecret(
-						properties.getProperty(OSIAM_CLIENT_SECRET))
-				.setClientId(properties.getProperty(OSIAM_CLIENT_ID))
-				.setAuthServerEndpoint(
-						properties.getProperty(OSIAM_AUTH_SERVER_ENDPOINT))
-				.setResourceServerEndpoint(
-						properties
-								.getProperty(OSIAM_RESOURCE_SERVER_ENDPOINT))
-				.build();
-
-			AccessToken accessToken = connector.retrieveAccessToken(Scope.ALL);
-
-			onlineRegistrationHelper.createOsiamUser(accessToken, username, password, connector);
+			createUser(username, password, connector);
 
 			return person;
 		}
 		return null;
 	}
+
+	private Properties getProperties() {
+		final PropertiesReader propertiesReader = new PropertiesReader();
+		return propertiesReader.getProperties();
+	}
+
+	private void createUser(String username, String password, OsiamConnector connector) {
+		final AccessToken accessToken = connector.retrieveAccessToken(Scope.ALL);
+		final OsiamLoginCreator osiamLoginCreator = new OsiamLoginCreator();
+		osiamLoginCreator.createOsiamUser(accessToken, username, password, connector);
+	}
+
 	/**
 	 * Deletes an OSIAM user with the given "id"
 	 * @param cntx
@@ -1093,10 +1089,15 @@ public class PersonDetailWorker implements PersonConstants {
 	public void deleteOsiamUser(OctopusContext cntx, ExecutionContext context, String username) throws BeanException, IOException {
 		// TODO WORK IN PROGRESS
 		if(OnlineRegistrationHelper.isOnlineregActive(cntx)) {
-			final PropertiesReader propertiesReader = new PropertiesReader();
-			Properties properties = propertiesReader.getProperties();
+			OsiamConnector connector = getConnector();
+			removeUser(username, connector);
+		}
+	}
 
-			OsiamConnector connector = new OsiamConnector.Builder()
+	private OsiamConnector getConnector() {
+		final Properties properties = getProperties();
+
+		final OsiamConnector connector = new OsiamConnector.Builder()
 				.setClientRedirectUri(
 						properties.getProperty(OSIAM_CLIENT_REDIRECT_URI))
 				.setClientSecret(
@@ -1109,10 +1110,12 @@ public class PersonDetailWorker implements PersonConstants {
 								.getProperty(OSIAM_RESOURCE_SERVER_ENDPOINT))
 				.build();
 
-			AccessToken accessToken = connector.retrieveAccessToken(Scope.ALL);
+		return connector;
+	}
 
-			OnlineRegistrationHelper.deleteOsiamUser(accessToken, username, connector);
-
-		}
+	private void removeUser(String username, OsiamConnector connector) {
+		final AccessToken accessToken = connector.retrieveAccessToken(Scope.ALL);
+		final OsiamLoginRemover osiamLoginRemover = new OsiamLoginRemover();
+		osiamLoginRemover.deleteOsiamUser(accessToken, username, connector);
 	}
 }
