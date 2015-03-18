@@ -8,8 +8,12 @@ import de.tarent.octopus.server.OctopusContext;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Matchers;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+import org.osiam.client.OsiamConnector;
+import org.osiam.client.oauth.AccessToken;
+import org.osiam.resources.scim.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +22,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -79,7 +85,10 @@ public class OsiamLoginCreatorTest {
 
     @Test
     public void testCreateOsiamUser() throws Exception {
+        OsiamConnector osiamConnector = mock(OsiamConnector.class);
+        osiamLoginCreator.createOsiamUser(mock(AccessToken.class), "Max", "Mustermann", osiamConnector);
 
+        verify(osiamConnector, times(1)).createUser(any(User.class), any(AccessToken.class));
     }
 
     private List getDummyResultList() {
