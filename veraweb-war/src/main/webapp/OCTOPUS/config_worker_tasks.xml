@@ -1943,7 +1943,20 @@
 				<param name="ContentType" value="text/html;charset=UTF-8"/>
 			</response>
 		</task>
-
+		
+		<!-- Creation of OSIAM Credentials -->
+		<task name="CreateOsiamUser" access="public" groups="Writer">
+			<description>
+				This task is able to create OSIAM credential data to
+				the verawebs persons
+			</description>
+			<doTask name="Load"/>
+			<action name="createOsiamUser" worker="PersonDetailWorker" />
+			<response type="velocity" name="personDetail">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+		
 		<!-- Cleanup-Task -->
 		<task name="Cleanup" access="public" groups="Administrator">
 			<description>

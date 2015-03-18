@@ -1,6 +1,7 @@
 package de.tarent.aa.veraweb.utils;
 
 import java.io.IOException;
+import java.util.List;
 
 import de.tarent.aa.veraweb.beans.Person;
 import de.tarent.dblayer.helper.ResultList;
@@ -12,6 +13,7 @@ import de.tarent.dblayer.sql.statement.Select;
 import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.beans.Database;
 import de.tarent.octopus.beans.ExecutionContext;
+import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
 import org.apache.commons.lang.RandomStringUtils;
 import org.osiam.client.OsiamConnector;
@@ -61,7 +63,7 @@ public class OnlineRegistrationHelper {
 	 */
 	public String generateUsername(final String firstname, 
 										  final String lastname,
-										  final ExecutionContext context) throws BeanException, IOException {
+										  final OctopusContext context) throws BeanException, IOException {
 		
 			StringBuilder sb = new StringBuilder();
 			
@@ -107,12 +109,12 @@ public class OnlineRegistrationHelper {
 	 * @throws BeanException
 	 * @throws IOException
 	 */
-	private void checkUsernameDuplicates(final ExecutionContext context,
+	private void checkUsernameDuplicates(final OctopusContext cntx,
 			StringBuilder sb, String username) throws BeanException,
 			IOException {
 		// check if a duplicate entry was found
-		if (context != null) {
-			Database database = context.getDatabase();
+		if (cntx != null) {
+			Database database = new DatabaseVeraWeb(cntx);
 			
 			Clause whereClause = Expr.like("username", username + "%");
 			
@@ -120,7 +122,8 @@ public class OnlineRegistrationHelper {
 			selectStatement.orderBy(Order.desc("pk"));
 			selectStatement.Limit(new Limit(new Integer(1), new Integer(0)));
 			
-			ResultList list = database.getList(selectStatement, context);
+			
+			List list = database.getBeanList("Person", selectStatement);
 			
 			if (!list.isEmpty()) {
 				Person person = (Person) list.get(0);
@@ -130,8 +133,9 @@ public class OnlineRegistrationHelper {
 				
 				if (res.length > 1 && isNumeric(res[1])) {
 					Integer usernameNumber = Integer.valueOf(res[1]);
-					sb.append(usernameNumber++);
+					sb.append(usernameNumber+1);
 				}
+				else sb.append("1");
 			}
 		}
 	}
@@ -152,7 +156,7 @@ public class OnlineRegistrationHelper {
 		return random;
 	}
 	
-	public static void createOsiamUser(AccessToken accessToken,
+	public void createOsiamUser(AccessToken accessToken,
 									   String login,
 									   String password,
 									   OsiamConnector connector) {

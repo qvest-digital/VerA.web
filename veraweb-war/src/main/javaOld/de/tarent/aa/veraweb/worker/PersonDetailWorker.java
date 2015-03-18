@@ -55,6 +55,7 @@ import de.tarent.aa.veraweb.utils.PropertiesReader;
 import de.tarent.dblayer.engine.DB;
 import de.tarent.dblayer.helper.ResultList;
 import de.tarent.dblayer.sql.SQL;
+import de.tarent.dblayer.sql.clause.Clause;
 import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.clause.Order;
 import de.tarent.dblayer.sql.clause.Where;
@@ -1033,7 +1034,7 @@ public class PersonDetailWorker implements PersonConstants {
 	
 
     /** Eingabe-Parameter der Octopus-Aktion {@link #createOsiamUser(OctopusContext, ExecutionContext, Person)} */
-	public static final String INPUT_createOsiamUser[] = { "person" };
+	public static final String INPUT_createOsiamUser[] = { "personId" };
     /** Ausgabe-Parameter der Octopus-Aktion {@link #createOsiamUser(OctopusContext, ExecutionContext, Person)} */
 	public static final String OUTPUT_createOsiamUser = "person";
     /** Eingabe-Parameterzwang der Octopus-Aktion {@link #createOsiamUser(OctopusContext, ExecutionContext, Person)} */
@@ -1045,15 +1046,64 @@ public class PersonDetailWorker implements PersonConstants {
 	 * @throws IOException 
 	 * @throws BeanException 
 	 */
-	public Person createOsiamUser(OctopusContext cntx, ExecutionContext context, Person person) throws BeanException, IOException {
+	public Person createOsiamUser(OctopusContext cntx, Integer personId) throws BeanException, IOException {
 		// TODO WORK IN PROGRESS
 		
-		final PropertiesReader propertiesReader = new PropertiesReader();
-		OnlineRegistrationHelper onlineRegistrationHelper = new OnlineRegistrationHelper();
+		Person person = getPersonById(cntx, personId);
+		if (!hasUsername(cntx, personId)) {
 		
-		String username = onlineRegistrationHelper.generateUsername(person.firstname_a_e1, person.lastname_a_e1, context);
-		String password = onlineRegistrationHelper.generatePassword();
+			
+			final PropertiesReader propertiesReader = new PropertiesReader();
+			OnlineRegistrationHelper onlineRegistrationHelper = new OnlineRegistrationHelper();
+			
+			
+			
+			String username = onlineRegistrationHelper.generateUsername(person.firstname_a_e1, person.lastname_a_e1, cntx);
+			String password = onlineRegistrationHelper.generatePassword();
+			
+			person.username = username;
+			
+			this.updateUsernameInVeraweb(cntx, person);
+			
+			
+			this.insertOSIAMdata(propertiesReader, onlineRegistrationHelper, username,
+					password);
 		
+			cntx.setContent("osiam-user-created", true);
+		} else {
+			cntx.setContent("osiam-user-exists", true);
+		}
+		
+		
+		return person;
+		
+	}
+
+	private void updateUsernameInVeraweb(OctopusContext cntx, Person person)
+			throws BeanException, IOException {
+		Database database = new DatabaseVeraWeb(cntx);
+		
+		database.execute(SQL.Update( database ).
+				table("veraweb.tperson").
+				update("username", person.username).
+				where(Expr.equal("pk", person.id)));
+	}
+
+	private Boolean hasUsername(OctopusContext cntx, Integer personId) throws BeanException, IOException {
+
+		Database database = new DatabaseVeraWeb(cntx);
+
+		Select select = database.getSelect("Person").where(Expr.equal("pk", personId));
+		
+		Integer counter = database.getCount(database.getCount("Person").where(Where.and(Expr.equal("pk", personId),Expr.isNotNull("username"))));
+		
+		
+		return (counter == 1);
+	}
+	
+	private void insertOSIAMdata(final PropertiesReader propertiesReader,
+			OnlineRegistrationHelper onlineRegistrationHelper, String username,
+			String password) {
 		Properties properties = propertiesReader.getProperties();
 		
 		OsiamConnector connector = new OsiamConnector.Builder()
@@ -1070,12 +1120,15 @@ public class PersonDetailWorker implements PersonConstants {
 			.build();
 		
 		AccessToken accessToken = connector.retrieveAccessToken(Scope.ALL);
-		
-		OnlineRegistrationHelper.createOsiamUser(accessToken, username, password, connector);
-		
-		
+
+		onlineRegistrationHelper.createOsiamUser(accessToken, username, password, connector);
+	}
+
+	private Person getPersonById(OctopusContext cntx, Integer personId)
+			throws BeanException, IOException {
+		Database database = new DatabaseVeraWeb(cntx);
+		Person person = (Person)database.getBean("Person", personId);
 		return person;
-		
 	}
 	
 	
