@@ -15,7 +15,7 @@ public class OsiamLoginRemover {
      * @param id
      * @param connector
      */
-    public static void deleteOsiamUser(AccessToken accessToken,
+    public void deleteOsiamUser(AccessToken accessToken,
                                        String id,
                                        OsiamConnector connector) {
         // delete User in osiam
