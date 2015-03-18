@@ -68,7 +68,7 @@ public class ActionWorker {
     /** Octopus-Ausgabe-Parameter f�r {@link #remove(OctopusContext, String)} */
 	public static final String OUTPUT_remove = "action";
 	/** Octopus-Config for Online Registration plattform activation */
-	public static final String ONLINEREG_ACTIVATION = "vwor.activated";
+	public static final String ONLINEREG_ACTIVATION = "online-registration.activated";
     /**
      * Diese Methode l�scht die aktuelle Aktion und ersetzt sie gegebenenfalls
      * durch die �bergebene.

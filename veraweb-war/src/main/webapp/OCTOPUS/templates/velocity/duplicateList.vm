@@ -54,6 +54,15 @@
                 	#foreach($bean in $list)
                 		#set($person = $bean.mainLatin)
                 		#set($address = $bean.businessLatin)
+
+						##Add whitespace to values to cut them
+                		#set($lastnamecut = $bean.lastname_a_e1.replaceAll("(.{8})", "$1 "))
+						#set($firstnamecut = $bean.firstname_a_e1.replaceAll("(.{8})", "$1 "))
+						#set($functioncut = $bean.function_a_e1.replaceAll("(.{12})", "$1 "))
+						#set($companycut = $bean.company_a_e1.replaceAll("(.{20})", "$1 "))
+						#set($streetcut = $bean.street_a_e1.replaceAll("(.{10})", "$1 "))
+						#set($zipcodecut = $bean.zipcode_a_e1.replaceAll("(.{5})", "$1 "))
+						#set($citycut = $bean.city_a_e1.replaceAll("(.{10})", "$1 "))
                 	<tr>
                 		<td>
                 ##			<input type="hidden" name="${bean.id}-checked" #if($bean.dupcheckstatus == 1) value="true" #else value="false" #end>
@@ -61,13 +70,13 @@
                 			<input type="checkbox" name="${bean.id}-select" value="true" #if($listselection.indexOf($bean.id) != -1) checked #end onChange="selectionChange(this);"/>
                 		</td>
                 		<td><input type="hidden" name="${bean.id}-id" value="$bean.id"/>$!bean.id</td>
-                		<td>$!message.text($!person.lastname)</td>
-                		<td>$!message.text($!person.firstname)</td>
-                		<td>$!message.text($!address.function)</td>
-                		<td>$!message.text($!address.company)</td>
-                		<td>$!message.text($!address.street)</td>
-                		<td>$!message.text($!address.zipcode)</td>
-                		<td>$!message.text($!address.city)</td>
+                		<td width="170px">$!message.text($!lastnamecut)</td>
+                		<td width="170px">$!message.text($!firstnamecut)</td>
+                		<td width="150px">$!message.text($!functioncut)</td>
+                		<td width="130px">$!message.text($!companycut)</td>
+                		<td width="200px">$!message.text($!streetcut)</td>
+                		<td width="130px">$!message.text($!zipcodecut)</td>
+                		<td width="250px">$!message.text($!citycut)</td>
                 	</tr>
                 		#foreach($duplicate in $bean.getDuplicateList())
                 		#set($person = $duplicate.mainLatin)
@@ -75,13 +84,13 @@
                 	<tr>
                 		<td>&nbsp;</td>
                 		<td>$!duplicate.id</td>
-                		<td>$!message.text($!person.lastname)</td>
-                		<td>$!message.text($!person.firstname)</td>
-                		<td>$!message.text($!address.function)</td>
-                		<td>$!message.text($!address.company)</td>
-                		<td>$!message.text($!address.street)</td>
-                		<td>$!message.text($!address.zipcode)</td>
-                		<td>$!message.text($!address.city)</td>
+                		<td width="170px">$!message.text($!lastnamecut)</td>
+                		<td width="170px">$!message.text($!firstnamecut)</td>
+                		<td width="150px">$!message.text($!functioncut)</td>
+                		<td width="130px">$!message.text($!companycut)</td>
+                		<td width="200px">$!message.text($!streetcut)</td>
+                		<td width="130px">$!message.text($!zipcodecut)</td>
+                		<td width="250px">$!message.text($!citycut)</td>
                 	</tr>
                 		#end
                 		#if($bean.hasMoreDuplicates())

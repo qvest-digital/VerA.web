@@ -89,7 +89,7 @@
                 		<li vera-tab="allgemein" vera-tab-default><div>Allgemein</div>
                 		</li><li onclick="showDoctypes();" class="inactive"><div>Dokumenttypen</div>
         				</li><li class="inactive" #if ($event.id) onclick="if (checkModified()) { window.location.href='ShowEventTasks?id=$!event.id&selectNone=true';}" #end><div>Aufgaben</div>
-                        #if ($vwor.activated)
+                        #if ($online-registration.activated)
                         	</li><li class="inactive" onclick="window.location.href='${paths.staticWeb}do/ShowDelegationFields?eventId=$!event.id'"><div>Zusätzliche Personendaten</div>
         				#end
         				</li>
@@ -109,7 +109,7 @@
                                     <input type="text" onchange="setModified();" maxlength="50"  id="event-shortname" value="$!message.text($event.shortname)" name="event-shortname"/>
                                 </div>
 
-								#if ($vwor.activated)
+								#if ($online-registration.activated)
 	                                <div class="tableCell width50 inlineLabel">
 	                                    <label for="event-eventtype">Offene Veranstaltung</label>
 	                                    <!-- DEBUG $event.eventtype -->
@@ -155,7 +155,7 @@
 	                    						<span class="datepickerContainer" id="show-end">
 	                    						<input type="text" class="datepicker" id="event-end" value="$!message.date("DATE", $event.end)" name="event-end" onchange="setModified();">
 	                    							<img title="Datum auswählen" alt="Datum auswählen" src="${paths.staticWeb}images/calendar.png">
-	                    						
+
 	                    							<script type="text/javascript">
 	                    							    Calendar.setup({
 	                    									inputField     :    "event-end",
@@ -273,7 +273,7 @@
     								<textarea onchange="setModified();" id="event-note" name="event-note" rows="4" #if($grants.mayReadRemarkFields()) >$!message.textarea($event.note)#else class="textdisabled" vera-disabled>#end</textarea>
     							</div>
     						</div>
-							#if($vwor.activated)
+							#if($online-registration.activated)
 	    						<div class="tableRow">
 	                                <div class="tableCell width50 inlineLabel">
 	                                    <label for="event-mediarepresentatives">Anmeldung von Pressevertretern möglich</label>

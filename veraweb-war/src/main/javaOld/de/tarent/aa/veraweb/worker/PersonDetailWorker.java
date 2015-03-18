@@ -32,6 +32,8 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.Random;
 
+import de.tarent.aa.veraweb.utils.OsiamLoginCreator;
+import de.tarent.aa.veraweb.utils.OsiamLoginRemover;
 import org.apache.log4j.Logger;
 import org.apache.log4j.Priority;
 import org.osiam.client.OsiamConnector;
@@ -79,6 +81,7 @@ import de.tarent.octopus.server.OctopusContext;
  * {@link #saveDetail(OctopusContext, Person) Speichern} von Daten.
  *
  * @author Christoph
+ * @author Stefan Weiz, tarent solutions GmbH
  */
 public class PersonDetailWorker implements PersonConstants {
     /** Logger dieser Klasse */
@@ -88,7 +91,7 @@ public class PersonDetailWorker implements PersonConstants {
 	 * Example Property file: client.id=example-client client.secret=secret
 	 * client
 	 * .redirect_uri=http://osiam-test.lan.tarent.de:8080/addon-administration/
-	 * 
+	 *
 	 * osiam.server.resource=http://osiam-test.lan.tarent.de:8080/osiam-resource
 	 * -server/
 	 * osiam.server.auth=http://osiam-test.lan.tarent.de:8080/osiam-auth-server/
@@ -98,8 +101,7 @@ public class PersonDetailWorker implements PersonConstants {
 	private static final String OSIAM_CLIENT_REDIRECT_URI = "osiam.client.redirect_uri";
 	private static final String OSIAM_CLIENT_SECRET = "osiam.client.secret";
 	private static final String OSIAM_CLIENT_ID = "osiam.client.id";
-	
-	
+
     //
     // Octopus-Aktionen
     //
@@ -987,11 +989,8 @@ public class PersonDetailWorker implements PersonConstants {
 	 * @throws BeanException inkl. Datenbank-Fehler
 	 * @throws IOException
 	 */
-	void removePerson(OctopusContext cntx, TransactionContext context, Integer personid) throws BeanException, IOException {
+	void removePerson(OctopusContext cntx, TransactionContext context, Integer personid, String username) throws BeanException, IOException {
 		Database database = context.getDatabase();
-
-
-
 
 		Person oldPerson = ( Person ) database.getBean( "Person", personid, context );
 		// Datenbank-Eintr�ge inkl. Abh�nigkeiten l�schen.
@@ -1011,6 +1010,15 @@ public class PersonDetailWorker implements PersonConstants {
 		context.execute(SQL.Delete( database ).
 				from("veraweb.ttask").
 				where(Expr.equal("fk_person", personid)));
+
+		//delete OSIAM user, if online-reg is active
+		//TODO Remove OSIAM user W.I.P.
+//		if(OnlineRegistrationHelper.isOnlineregActive(cntx)) {
+//			if(username != null){
+//				deleteOsiamUser(cntx, context, username);
+//			}
+//		}
+
 		context.execute(SQL.Delete( database ).
 				from("veraweb.tguest").
 				where(Expr.equal("fk_person", personid)));
@@ -1031,7 +1039,7 @@ public class PersonDetailWorker implements PersonConstants {
 		BeanChangeLogger clogger = new BeanChangeLogger( database, context );
 		clogger.logDelete( cntx.personalConfig().getLoginname(), oldPerson );
 	}
-	
+
 
     /** Eingabe-Parameter der Octopus-Aktion {@link #createOsiamUser(OctopusContext, ExecutionContext, Person)} */
 	public static final String INPUT_createOsiamUser[] = { "personId" };
@@ -1039,45 +1047,62 @@ public class PersonDetailWorker implements PersonConstants {
 	public static final String OUTPUT_createOsiamUser = "person";
     /** Eingabe-Parameterzwang der Octopus-Aktion {@link #createOsiamUser(OctopusContext, ExecutionContext, Person)} */
 	public static final boolean MANDATORY_createOsiamUser[] = { false };
-	
-	/**
-	 * TODO regenerate javadoc - WORK IN PROGRESS
-	 * @param cntx
-	 * @throws IOException 
-	 * @throws BeanException 
-	 */
-	public Person createOsiamUser(OctopusContext cntx, Integer personId) throws BeanException, IOException {
-		// TODO WORK IN PROGRESS
-		
-		Person person = getPersonById(cntx, personId);
-		if (!hasUsername(cntx, personId)) {
-		
-			
-			final PropertiesReader propertiesReader = new PropertiesReader();
-			OnlineRegistrationHelper onlineRegistrationHelper = new OnlineRegistrationHelper();
-			
-			
-			
-			String username = onlineRegistrationHelper.generateUsername(person.firstname_a_e1, person.lastname_a_e1, cntx);
-			String password = onlineRegistrationHelper.generatePassword();
-			
-			person.username = username;
-			
-			this.updateUsernameInVeraweb(cntx, person);
-			
-			
-			this.insertOSIAMdata(propertiesReader, onlineRegistrationHelper, username,
-					password);
-		
-			cntx.setContent("osiam-user-created", true);
-		} else {
-			cntx.setContent("osiam-user-exists", true);
-		}
-		
-		
+
+//	/**
+//	 * Creates an OSIAM user with random username and password.
+//	 *
+//	 * @param cntx The {@link de.tarent.octopus.server.OctopusContext}
+//	 */
+//	public Person createOsiamUser(OctopusContext cntx, Integer personId) throws BeanException, IOException {
+//		// TODO WORK IN PROGRESS
+//		
+//		Person person = getPersonById(cntx, personId);
+//		if (!hasUsername(cntx, personId)) {
+//		
+//			
+//			final PropertiesReader propertiesReader = new PropertiesReader();
+//			OnlineRegistrationHelper onlineRegistrationHelper = new OnlineRegistrationHelper();
+//			
+//			
+//			
+//			String username = onlineRegistrationHelper.generateUsername(person.firstname_a_e1, person.lastname_a_e1, cntx);
+//			String password = onlineRegistrationHelper.generatePassword();
+//			
+//			person.username = username;
+//			
+//			this.updateUsernameInVeraweb(cntx, person);
+//			
+//			
+//			this.insertOSIAMdata(propertiesReader, onlineRegistrationHelper, username,
+//					password);
+//		
+//			cntx.setContent("osiam-user-created", true);
+//		} else {
+//			cntx.setContent("osiam-user-exists", true);
+//		}
+//		
+//		
+//		return person;
+//		
+//	}
+
+public Person createOsiamUser(OctopusContext cntx, ExecutionContext context, Person person) {
+	// TODO WORK IN PROGRESS
+	if(OnlineRegistrationHelper.isOnlineregActive(cntx)) {
+		final OsiamLoginCreator osiamLoginCreator = new OsiamLoginCreator();
+		final String firstname = person.firstname_a_e1;
+		final String lastname = person.lastname_a_e1;
+		final String username = osiamLoginCreator.generateUsername(firstname, lastname, context);
+		final String password = osiamLoginCreator.generatePassword();
+		final OsiamConnector connector = getConnector();
+
+		createUser(username, password, connector);
+
 		return person;
-		
 	}
+	return null;
+}
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	private void updateUsernameInVeraweb(OctopusContext cntx, Person person)
 			throws BeanException, IOException {
@@ -1100,29 +1125,29 @@ public class PersonDetailWorker implements PersonConstants {
 		
 		return (counter == 1);
 	}
-	
-	private void insertOSIAMdata(final PropertiesReader propertiesReader,
-			OnlineRegistrationHelper onlineRegistrationHelper, String username,
-			String password) {
-		Properties properties = propertiesReader.getProperties();
-		
-		OsiamConnector connector = new OsiamConnector.Builder()
-			.setClientRedirectUri(
-					properties.getProperty(OSIAM_CLIENT_REDIRECT_URI))
-			.setClientSecret(
-					properties.getProperty(OSIAM_CLIENT_SECRET))
-			.setClientId(properties.getProperty(OSIAM_CLIENT_ID))
-			.setAuthServerEndpoint(
-					properties.getProperty(OSIAM_AUTH_SERVER_ENDPOINT))
-			.setResourceServerEndpoint(
-					properties
-							.getProperty(OSIAM_RESOURCE_SERVER_ENDPOINT))
-			.build();
-		
-		AccessToken accessToken = connector.retrieveAccessToken(Scope.ALL);
-
-		onlineRegistrationHelper.createOsiamUser(accessToken, username, password, connector);
-	}
+//	
+//	private void insertOSIAMdata(final PropertiesReader propertiesReader,
+//			OnlineRegistrationHelper onlineRegistrationHelper, String username,
+//			String password) {
+//		Properties properties = propertiesReader.getProperties();
+//		
+//		OsiamConnector connector = new OsiamConnector.Builder()
+//			.setClientRedirectUri(
+//					properties.getProperty(OSIAM_CLIENT_REDIRECT_URI))
+//			.setClientSecret(
+//					properties.getProperty(OSIAM_CLIENT_SECRET))
+//			.setClientId(properties.getProperty(OSIAM_CLIENT_ID))
+//			.setAuthServerEndpoint(
+//					properties.getProperty(OSIAM_AUTH_SERVER_ENDPOINT))
+//			.setResourceServerEndpoint(
+//					properties
+//							.getProperty(OSIAM_RESOURCE_SERVER_ENDPOINT))
+//			.build();
+//		
+//		AccessToken accessToken = connector.retrieveAccessToken(Scope.ALL);
+//
+//		onlineRegistrationHelper.createOsiamUser(accessToken, username, password, connector);
+//	}
 
 	private Person getPersonById(OctopusContext cntx, Integer personId)
 			throws BeanException, IOException {
@@ -1130,6 +1155,54 @@ public class PersonDetailWorker implements PersonConstants {
 		Person person = (Person)database.getBean("Person", personId);
 		return person;
 	}
-	
-	
+
+	private Properties getProperties() {
+		final PropertiesReader propertiesReader = new PropertiesReader();
+		return propertiesReader.getProperties();
+	}
+
+	private void createUser(String username, String password, OsiamConnector connector) {
+		final AccessToken accessToken = connector.retrieveAccessToken(Scope.ALL);
+		final OsiamLoginCreator osiamLoginCreator = new OsiamLoginCreator();
+		osiamLoginCreator.createOsiamUser(accessToken, username, password, connector);
+	}
+
+	/**
+	 * Deletes an OSIAM user with the given "id"
+	 * @param cntx
+	 * @throws IOException
+	 * @throws BeanException
+	 */
+	public void deleteOsiamUser(OctopusContext cntx, ExecutionContext context, String username) throws BeanException, IOException {
+		// TODO WORK IN PROGRESS
+		if(OnlineRegistrationHelper.isOnlineregActive(cntx)) {
+			OsiamConnector connector = getConnector();
+			removeUser(username, connector);
+		}
+	}
+
+	private OsiamConnector getConnector() {
+		final Properties properties = getProperties();
+
+		final OsiamConnector connector = new OsiamConnector.Builder()
+				.setClientRedirectUri(
+						properties.getProperty(OSIAM_CLIENT_REDIRECT_URI))
+				.setClientSecret(
+						properties.getProperty(OSIAM_CLIENT_SECRET))
+				.setClientId(properties.getProperty(OSIAM_CLIENT_ID))
+				.setAuthServerEndpoint(
+						properties.getProperty(OSIAM_AUTH_SERVER_ENDPOINT))
+				.setResourceServerEndpoint(
+						properties
+								.getProperty(OSIAM_RESOURCE_SERVER_ENDPOINT))
+				.build();
+
+		return connector;
+	}
+
+	private void removeUser(String username, OsiamConnector connector) {
+		final AccessToken accessToken = connector.retrieveAccessToken(Scope.ALL);
+		final OsiamLoginRemover osiamLoginRemover = new OsiamLoginRemover();
+		osiamLoginRemover.deleteOsiamUser(accessToken, username, connector);
+	}
 }
