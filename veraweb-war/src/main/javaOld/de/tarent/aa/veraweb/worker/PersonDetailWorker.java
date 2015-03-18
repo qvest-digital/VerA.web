@@ -22,7 +22,6 @@ package de.tarent.aa.veraweb.worker;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.text.MessageFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -39,7 +38,6 @@ import org.apache.log4j.Priority;
 import org.osiam.client.OsiamConnector;
 import org.osiam.client.oauth.AccessToken;
 import org.osiam.client.oauth.Scope;
-import org.osiam.resources.scim.User;
 
 import de.tarent.aa.veraweb.beans.Doctype;
 import de.tarent.aa.veraweb.beans.Person;
@@ -54,7 +52,6 @@ import de.tarent.aa.veraweb.utils.AddressHelper;
 import de.tarent.aa.veraweb.utils.DateHelper;
 import de.tarent.aa.veraweb.utils.OnlineRegistrationHelper;
 import de.tarent.aa.veraweb.utils.PropertiesReader;
-import de.tarent.dblayer.engine.DB;
 import de.tarent.dblayer.helper.ResultList;
 import de.tarent.dblayer.sql.SQL;
 import de.tarent.dblayer.sql.clause.Expr;
@@ -1041,7 +1038,7 @@ public class PersonDetailWorker implements PersonConstants {
 
 
     /** Eingabe-Parameter der Octopus-Aktion {@link #createOsiamUser(OctopusContext, ExecutionContext, Person)} */
-	public static final String INPUT_createOsiamUser[] = { "person" };
+	public static final String INPUT_createOsiamUser[] = { "personId" };
     /** Ausgabe-Parameter der Octopus-Aktion {@link #createOsiamUser(OctopusContext, ExecutionContext, Person)} */
 	public static final String OUTPUT_createOsiamUser = "person";
     /** Eingabe-Parameterzwang der Octopus-Aktion {@link #createOsiamUser(OctopusContext, ExecutionContext, Person)} */
@@ -1052,21 +1049,57 @@ public class PersonDetailWorker implements PersonConstants {
 	 *
 	 * @param cntx The {@link de.tarent.octopus.server.OctopusContext}
 	 */
-	public Person createOsiamUser(OctopusContext cntx, ExecutionContext context, Person person) {
-		// TODO WORK IN PROGRESS
-		if(OnlineRegistrationHelper.isOnlineregActive(cntx)) {
+	public Person createOsiamUser(OctopusContext cntx, Integer personId) throws BeanException, IOException {
+		
+		Person person = getPersonById(cntx, personId);
+		if (!hasUsername(cntx, personId)) {
+
 			final OsiamLoginCreator osiamLoginCreator = new OsiamLoginCreator();
+
 			final String firstname = person.firstname_a_e1;
 			final String lastname = person.lastname_a_e1;
-			final String username = osiamLoginCreator.generateUsername(firstname, lastname, context);
+			final String username = osiamLoginCreator.generateUsername(firstname, lastname, cntx);
 			final String password = osiamLoginCreator.generatePassword();
+			
+			person.username = username;
+			
+			// Update in tperson
+			this.updateUsernameInVeraweb(cntx, person);
+			// Create in OSIAM
 			final OsiamConnector connector = getConnector();
-
 			createUser(username, password, connector);
-
-			return person;
+		
+			cntx.setContent("osiam-user-created", true);
+		} else {
+			cntx.setContent("osiam-user-exists", true);
 		}
-		return null;
+		
+		return person;
+	}
+
+	private void updateUsernameInVeraweb(OctopusContext cntx, Person person)
+			throws BeanException, IOException {
+		Database database = new DatabaseVeraWeb(cntx);
+		
+		database.execute(SQL.Update( database ).
+				table("veraweb.tperson").
+				update("username", person.username).
+				where(Expr.equal("pk", person.id)));
+	}
+
+	private Boolean hasUsername(OctopusContext cntx, Integer personId) throws BeanException, IOException {
+
+		Database database = new DatabaseVeraWeb(cntx);
+		Integer counter = database.getCount(database.getCount("Person").where(Where.and(Expr.equal("pk", personId),Expr.isNotNull("username"))));
+		
+		return (counter == 1);
+	}
+	
+	private Person getPersonById(OctopusContext cntx, Integer personId)
+			throws BeanException, IOException {
+		Database database = new DatabaseVeraWeb(cntx);
+		Person person = (Person)database.getBean("Person", personId);
+		return person;
 	}
 
 	private Properties getProperties() {

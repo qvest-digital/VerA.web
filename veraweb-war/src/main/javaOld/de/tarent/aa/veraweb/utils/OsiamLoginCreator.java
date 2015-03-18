@@ -9,7 +9,9 @@ import de.tarent.dblayer.sql.clause.Order;
 import de.tarent.dblayer.sql.statement.Select;
 import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.beans.Database;
-import de.tarent.octopus.beans.ExecutionContext;
+import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
+import de.tarent.octopus.server.OctopusContext;
+
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.log4j.Logger;
 import org.osiam.client.OsiamConnector;
@@ -17,6 +19,7 @@ import org.osiam.client.oauth.AccessToken;
 import org.osiam.resources.scim.User;
 
 import java.io.IOException;
+import java.util.List;
 
 /**
  * @author Atanas Alexandrov, tarent solutions GmbH
@@ -42,10 +45,11 @@ public class OsiamLoginCreator {
      *
      * @return String username
      */
-    public String generateUsername(final String firstname, final String lastname, final ExecutionContext context) {
+    public String generateUsername(final String firstname, final String lastname, final OctopusContext context) {
         final StringBuilder stringBuilder = new StringBuilder();
         final String username = generateShortUsername(firstname, lastname);
-
+        stringBuilder.append(username);
+        
         final Integer number = getSuffixIfUsernameAlreadyExists(context, username);
 
         if (number != null) {
@@ -124,10 +128,10 @@ public class OsiamLoginCreator {
      * @param context ExecutionContext
      * @param username String username
      */
-    private Integer getSuffixIfUsernameAlreadyExists(final ExecutionContext context, String username) {
+    private Integer getSuffixIfUsernameAlreadyExists(final OctopusContext context, String username) {
         // check if a duplicate entry was found
         if (context != null) {
-            final ResultList list = getResultList(context, username);
+            final List list = getResultList(context, username);
 
             if (!list.isEmpty()) {
                 final Person person = (Person) list.get(0);
@@ -137,26 +141,26 @@ public class OsiamLoginCreator {
 
                 if (res.length > 1 && isNumeric(res[1])) {
                     Integer usernameNumber = Integer.valueOf(res[1]);
-                    return usernameNumber++;
-                }
+                    return usernameNumber + 1;
+                } else return 1;
             }
         }
         return null;
     }
 
-    private ResultList getResultList(ExecutionContext context, String username) {
-        final Database database = context.getDatabase();
+    private List getResultList(final OctopusContext context, String username) {
+        final Database database = new DatabaseVeraWeb(context);
 
         final Select selectStatement = getSelectStatement(database, username);
 
-        return getResults(context, database, selectStatement);
+        return getResults(database, selectStatement);
     }
 
 
-    private ResultList getResults(ExecutionContext context, Database database, Select selectStatement) {
-        ResultList list = null;
+    private List getResults(Database database, Select selectStatement) {
+        List list = null;
         try {
-            list = database.getList(selectStatement, context);
+            list = database.getBeanList("Person", selectStatement);
         } catch (BeanException e) {
             LOGGER.error("Fehler bei der Abfrage", e);
         }
