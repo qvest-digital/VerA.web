@@ -222,77 +222,57 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 	}
 
 	@Override
-	public void saveList(OctopusContext cntx) throws BeanException, IOException
-	{
-		String categoryAssignmentAction = cntx.requestAsString( "categoryAssignmentAction" );
-		String workareaAssignmentAction = cntx.requestAsString( "workareaAssignmentAction" );
+	public void saveList(OctopusContext cntx) throws BeanException, IOException {
+		String categoryAssignmentAction = cntx.requestAsString("categoryAssignmentAction");
+		String workareaAssignmentAction = cntx.requestAsString("workareaAssignmentAction");
 
 		// does the user request categories to be assigned or unassigned?
-		if ( categoryAssignmentAction != null && categoryAssignmentAction.length() > 0 )
-		{
+		if (categoryAssignmentAction != null && categoryAssignmentAction.length() > 0) {
 			Database database = getDatabase(cntx);
 			TransactionContext context = database.getTransactionContext();
-			PersonCategorieWorker personCategoryWorker = WorkerFactory.getPersonCategorieWorker( cntx );
-			Integer categoryId = cntx.requestAsInteger( "categoryAssignmentId" );
-			List selection = this.getSelection( cntx, this.getCount( cntx, database ) );
+			PersonCategorieWorker personCategoryWorker = WorkerFactory.getPersonCategorieWorker(cntx);
+			Integer categoryId = cntx.requestAsInteger("categoryAssignmentId");
+			List selection = this.getSelection(cntx, this.getCount(cntx, database));
 			Iterator iter = selection.iterator();
 			PersonCategorie category = null;
-			while( iter.hasNext() )
-			{
-				Integer personId = ( Integer ) iter.next();
-				if ( "assign".compareTo( categoryAssignmentAction ) == 0 && categoryId.intValue() > 0 )
-				{
-					category = personCategoryWorker.addCategoryAssignment( cntx, categoryId, personId, database, context, false );
-					if(category != null)
-					{
+			while (iter.hasNext()) {
+				Integer personId = (Integer) iter.next();
+				if ("assign".compareTo(categoryAssignmentAction) == 0 && categoryId.intValue() > 0) {
+					category = personCategoryWorker.addCategoryAssignment(cntx, categoryId, personId, database, context, false);
+					if (category != null) {
 						database.saveBean(category, context, false);
 					}
-				}
-				else
-				{
-					if ( categoryId.intValue() == 0 )
-					{
-						personCategoryWorker.removeAllCategoryAssignments( cntx, personId, database, context );
-					}
-					else
-					{
-						personCategoryWorker.removeCategoryAssignment( cntx, categoryId, personId, database, context );
+				} else {
+					if (categoryId.intValue() == 0) {
+						personCategoryWorker.removeAllCategoryAssignments(cntx, personId, database, context);
+					} else {
+						personCategoryWorker.removeCategoryAssignment(cntx, categoryId, personId, database, context);
 					}
 				}
 				iter.remove();
 			}
-			try
-			{
+			try {
 				context.commit();
-			}
-			catch ( BeanException e )
-			{
+			} catch (BeanException e) {
 				context.rollBack();
 				throw e;
 			}
 		}
 
 		// does the user request workareas to be assigned or unassigned?
-		else if(workareaAssignmentAction != null && workareaAssignmentAction.length() > 0)
-		{
+		else if (workareaAssignmentAction != null && workareaAssignmentAction.length() > 0) {
 			Database database = getDatabase(cntx);
 			List<Integer> selection = getSelection(cntx, getCount(cntx, database));
-			if(!selection.isEmpty())
-			{
-				Integer workareaId = cntx.requestAsInteger( "workareaAssignmentId" );
-				if("assign".compareTo(workareaAssignmentAction) == 0)
-				{
+			if (!selection.isEmpty()) {
+				Integer workareaId = cntx.requestAsInteger("workareaAssignmentId");
+				if ("assign".compareTo(workareaAssignmentAction) == 0) {
 					assignWorkArea(cntx, selection, workareaId);
-				}
-				else if ("unassign".compareTo(workareaAssignmentAction) == 0)
-				{
+				} else if ("unassign".compareTo(workareaAssignmentAction) == 0) {
 					unassignWorkArea(cntx, selection, workareaId);
 				}
 				selection.clear();
 			}
-		}
-		else
-		{
+		} else {
 			super.saveList(cntx);
 		}
 	}
@@ -306,17 +286,13 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 	 * @throws BeanException
 	 * @throws IOException
 	 */
-	public void unassignWorkArea(OctopusContext cntx, List<Integer> personIds, Integer workAreaId) throws BeanException, IOException
-	{
+	public void unassignWorkArea(OctopusContext cntx, List<Integer> personIds, Integer workAreaId) throws BeanException, IOException {
 		Database database = getDatabase(cntx);
 		TransactionContext context = database.getTransactionContext();
-		PersonListWorker.unassignWorkArea( context, workAreaId, personIds );
-		try
-		{
+		PersonListWorker.unassignWorkArea(context, workAreaId, personIds);
+		try {
 			context.commit();
-		}
-		catch ( Exception e )
-		{
+		} catch (Exception e) {
 			context.rollBack();
 		}
 	}
@@ -330,17 +306,13 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 	 * @throws BeanException
 	 * @throws IOException
 	 */
-	public void assignWorkArea(OctopusContext cntx, List<Integer> personIds, Integer workAreaId) throws BeanException, IOException
-	{
+	public void assignWorkArea(OctopusContext cntx, List<Integer> personIds, Integer workAreaId) throws BeanException, IOException {
 		Database database = getDatabase(cntx);
 		TransactionContext context = database.getTransactionContext();
-		PersonListWorker.assignWorkArea( context, workAreaId, personIds );
-		try
-		{
+		PersonListWorker.assignWorkArea(context, workAreaId, personIds);
+		try {
 			context.commit();
-		}
-		catch ( Exception e )
-		{
+		} catch (Exception e) {
 			context.rollBack();
 		}
 	}
@@ -351,27 +323,23 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 	 *
 	 * unassigns from all persons the given workArea. Will not commit the query as this is left to the caller.
 	 */
-	public static void unassignWorkArea( TransactionContext context, Integer workAreaId, List<Integer> personIds ) throws BeanException, IOException
-	{
-		Update stmt = context.getDatabase().getUpdate( "Person" );
-		stmt.update( "tperson.fk_workarea", 0 );
-		stmt.where( Expr.equal( "tperson.fk_workarea", workAreaId ) );
-		if ( personIds != null && personIds.size() > 0 )
-		{
-			stmt.whereAnd( Expr.in( "tperson.pk", personIds ) );
+	public static void unassignWorkArea(TransactionContext context, Integer workAreaId, List<Integer> personIds) throws BeanException, IOException {
+		Update stmt = context.getDatabase().getUpdate("Person");
+		stmt.update("tperson.fk_workarea", 0);
+		stmt.where(Expr.equal("tperson.fk_workarea", workAreaId));
+		if (personIds != null && personIds.size() > 0) {
+			stmt.whereAnd(Expr.in("tperson.pk", personIds));
 		}
-		context.execute( stmt );
+		context.execute(stmt);
 	}
 
-	public static void assignWorkArea( TransactionContext context, Integer workAreaId, List<Integer> personIds ) throws BeanException, IOException
-	{
-		Update stmt = context.getDatabase().getUpdate( "Person" );
-		stmt.update( "tperson.fk_workarea", workAreaId );
-		if ( personIds != null && personIds.size() > 0 )
-		{
-			stmt.whereAnd( Expr.in( "tperson.pk", personIds ) );
+	public static void assignWorkArea(TransactionContext context, Integer workAreaId, List<Integer> personIds) throws BeanException, IOException {
+		Update stmt = context.getDatabase().getUpdate("Person");
+		stmt.update("tperson.fk_workarea", workAreaId);
+		if (personIds != null && personIds.size() > 0) {
+			stmt.whereAnd(Expr.in("tperson.pk", personIds));
 		}
-		context.execute( stmt );
+		context.execute(stmt);
 	}
 
 	public Select prepareShowList( OctopusContext cntx, Database database ) throws BeanException, IOException
