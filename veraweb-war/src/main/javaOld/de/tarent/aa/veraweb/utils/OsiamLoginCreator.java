@@ -35,6 +35,22 @@ public class OsiamLoginCreator {
     private static final String CHARS_FOR_PASSWORD_GENERATION =
             "abzdefghijklmnopqrstuvwxyzABZDEFGHIJKLMNOPQRSTUVWXYZ1234567890!$-_#<>@&()+=}|";
 
+    private Database database;
+
+    /**
+     * Default constructor
+     */
+    public OsiamLoginCreator() {
+    }
+
+    /**
+     * Custom constructor.
+     *
+     * @param database The {@link de.tarent.octopus.beans.Database}
+     */
+    public OsiamLoginCreator(Database database) {
+        this.database = database;
+    }
 
     /**
      * Generate username by given first and lastname.
@@ -149,7 +165,9 @@ public class OsiamLoginCreator {
     }
 
     private List getResultList(final OctopusContext context, String username) {
-        final Database database = new DatabaseVeraWeb(context);
+        if (database == null) {
+            database = new DatabaseVeraWeb(context);
+        }
 
         final Select selectStatement = getSelectStatement(database, username);
 
@@ -198,5 +216,13 @@ public class OsiamLoginCreator {
             return false;
         }
         return true;
+    }
+
+    public Database getDatabase() {
+        return database;
+    }
+
+    public void setDatabase(Database database) {
+        this.database = database;
     }
 }
