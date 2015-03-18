@@ -1119,7 +1119,7 @@ public class PersonDetailWorker implements PersonConstants {
 	 * @throws IOException
 	 * @throws BeanException
 	 */
-	public void deleteOsiamUser(OctopusContext cntx, ExecutionContext context, String username) throws BeanException, IOException {
+	public void deleteOsiamUser(OctopusContext cntx, String username) throws BeanException, IOException {
 		// TODO WORK IN PROGRESS
 		if(OnlineRegistrationHelper.isOnlineregActive(cntx)) {
 			OsiamConnector connector = getConnector();
