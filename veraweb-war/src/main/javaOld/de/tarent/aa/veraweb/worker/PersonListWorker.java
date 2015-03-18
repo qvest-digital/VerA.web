@@ -433,74 +433,59 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 	 * @param search
 	 * @param select
 	 */
-	protected void extendSelectByMultipleCategorySearch( OctopusContext cntx, PersonSearch search, Select select )
-	{
+	protected void extendSelectByMultipleCategorySearch(OctopusContext cntx, PersonSearch search, Select select) {
 		if
-		(
-			( search.categoriesSelection != null ) &&
-			( search.categoriesSelection.size() >= 1 ) &&
-			( search.categoriesSelection.get( 0 ).toString().length() > 0 ) // workaround for octopus behaviour
-		)
-		{
-			if ( ( ( Integer ) search.categoriesSelection.get( 0 ) ).intValue() != 0 )
-			{
+				(
+				(search.categoriesSelection != null) &&
+						(search.categoriesSelection.size() >= 1) &&
+						(search.categoriesSelection.get(0).toString().length() > 0) // workaround for octopus behaviour
+				) {
+			if (((Integer) search.categoriesSelection.get(0)).intValue() != 0) {
 				// FUTURE extension for supporting OR a/o AND
 				boolean isOr = false;
-				if ( cntx.contentContains( "disjunctCategorySearch" ) )
-				{
-					isOr = cntx.requestAsBoolean( "disjunctCategorySearch" ).booleanValue();
+				if (cntx.contentContains("disjunctCategorySearch")) {
+					isOr = cntx.requestAsBoolean("disjunctCategorySearch").booleanValue();
 				}
-				if ( isOr )
-				{
+				if (isOr) {
 					// FIXME does not work, misses join on tperson_categorie
 					// any of the selected categories (OR clause)
-					select.whereAnd( new RawClause( "tperson.pk=cat1.fk_person" ) );
-					select.whereAnd( Expr.in( "cat1.fk_categorie", search.categoriesSelection) );
-				}
-				else
-				{
+					select.whereAnd(new RawClause("tperson.pk=cat1.fk_person"));
+					select.whereAnd(Expr.in("cat1.fk_categorie", search.categoriesSelection));
+				} else {
 					// all of the selected categories (AND clause)
 					Iterator iter = search.categoriesSelection.iterator();
 					int count = 0;
-					while( iter.hasNext() )
-					{
+					while (iter.hasNext()) {
 						String alias = "cat" + count;
-						select.joinLeftOuter( "veraweb.tperson_categorie " + alias, "tperson.pk", alias + ".fk_person" );
-						select.whereAnd( new RawClause( alias + ".fk_categorie=" + iter.next() ) );
+						select.joinLeftOuter("veraweb.tperson_categorie " + alias, "tperson.pk", alias + ".fk_person");
+						select.whereAnd(new RawClause(alias + ".fk_categorie=" + iter.next()));
 						count++;
 					}
 				}
-			}
-			else
-			{
+			} else {
 				// no categories assigned
-				Select subSelect = new Select( true );
-				subSelect.from( "veraweb.tperson_categorie" );
-				subSelect.selectAs( "tperson_categorie.fk_person" );
-				try
-				{
-					select.whereAnd( Expr.notIn( "tperson.pk", new RawClause( "(" + subSelect.statementToString() + ")" ) ) );
-				}
-				catch( SyntaxErrorException e )
-				{
-					;; // just catch, will never happen
+				Select subSelect = new Select(true);
+				subSelect.from("veraweb.tperson_categorie");
+				subSelect.selectAs("tperson_categorie.fk_person");
+				try {
+					select.whereAnd(Expr.notIn("tperson.pk", new RawClause("(" + subSelect.statementToString() + ")")));
+				} catch (SyntaxErrorException e) {
+					;
+					; // just catch, will never happen
 				}
 			}
-		}
-		else
-		{
-			;; // search in all categories
+		} else {
+			;
+			; // search in all categories
 		}
 	}
 
-	protected Integer getAlphaStart(OctopusContext cntx, String start) throws BeanException, IOException
-	{
+	protected Integer getAlphaStart(OctopusContext cntx, String start) throws BeanException, IOException {
 		Database database = getDatabase(cntx);
 		Select select = database.getCount(BEANNAME);
-		this.extendWhere( cntx, select );
-		if ( start != null && start.length() > 0 )
-		{
-			select.whereAnd( Expr.less( "tperson.lastname_a_e1", Escaper.escape( start ) ) );
+		this.extendWhere(cntx, select);
+		if (start != null && start.length() > 0) {
+			select.whereAnd(Expr.less("tperson.lastname_a_e1", Escaper.escape(start)));
 		}
 
 		Integer i = database.getCount(select);
@@ -680,8 +665,9 @@ public class PersonListWorker extends ListWorkerVeraWeb {
      */
     public PersonSearch getSearch(OctopusContext cntx) throws BeanException {
 
-        if (cntx.contentContains("search") && cntx.contentAsObject("search") instanceof PersonSearch)
-            return (PersonSearch)cntx.contentAsObject("search");
+        if (cntx.contentContains("search") && cntx.contentAsObject("search") instanceof PersonSearch) {
+			return (PersonSearch) cntx.contentAsObject("search");
+		}
 
         String param = cntx.requestAsString("search");
         Boolean sortList = cntx.requestAsBoolean("sortList");
@@ -754,7 +740,6 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 
 		String searchFiled = cntx.getRequestObject().getParamAsString("searchField");
 		if (searchFiled == null) {
-
 			addPersonListFilter(cntx, list);
 		} else {
 			addPersonListFilterSimple(cntx, searchFiled, list, status);
@@ -778,10 +763,6 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 	 */
 	private void addPersonListFilter(OctopusContext cntx, WhereList list) throws BeanException {
 		PersonSearch search = getSearch(cntx);
-
-//		if (search.findAll != null && search.findAll.booleanValue()) {
-//		    return;
-//		}
 
 		list.addAnd(Expr.equal("tperson.deleted", PersonConstants.DELETED_FALSE));
 
@@ -941,11 +922,6 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 	 */
 	private void addPersonListFilterSimple(OctopusContext cntx, String searchField, WhereList list2, boolean status) throws BeanException {
 		PersonSearch search = getSearch(cntx);
-
-//		if (search.findAll != null && search.findAll.booleanValue()) {
-//		    return;
-//		}
-
 
 		/*
 		 * modified to support search for individual workareas as per change request for version 1.2.0
