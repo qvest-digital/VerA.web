@@ -104,7 +104,9 @@
                         <div class="tableCell width50">
                         	#if($online-registration.activated)
                         		<strong>Online-Anmeldung Benutzername</strong><br />
-                        		$person.username
+                        		#if($person.username)
+                        			$person.username
+                        		#end
                         	#end
                         </div>
 
