@@ -211,7 +211,7 @@ public class LDAPManagerTarentContact extends LDAPManager implements UserManager
         try {
             lctx.destroySubcontext(uid + relative + baseDN);
         } catch (NamingException e) {
-            new LDAPException(Messages.getString("LDAPManager.fehler_löschen_01"), e); //$NON-NLS-1$
+            new LDAPException(Messages.getString("LDAPManager.fehler_loeschen_01"), e); //$NON-NLS-1$
         }
     }
 
@@ -387,13 +387,13 @@ public class LDAPManagerTarentContact extends LDAPManager implements UserManager
                 delContact("uid=" + uids.get(i) + ",ou=" + testou); //$NON-NLS-1$ //$NON-NLS-2$
             }
         } catch (LDAPException e) {
-            new LDAPException(Messages.getString("LDAPManager.fehler_löschen_01"), e); //$NON-NLS-1$
+            new LDAPException(Messages.getString("LDAPManager.fehler_loeschen_01"), e); //$NON-NLS-1$
         }
         //Object löschen
         try {
             lctx.destroySubcontext("ou=" + testou + relative + baseDN); //$NON-NLS-1$
         } catch (NamingException e) {
-            new LDAPException(Messages.getString("LDAPManager.fehler_löschen_01"), e); //$NON-NLS-1$
+            new LDAPException(Messages.getString("LDAPManager.fehler_loeschen_01"), e); //$NON-NLS-1$
         }
     }
 
