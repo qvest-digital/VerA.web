@@ -1070,6 +1070,21 @@ public class PersonDetailWorker implements PersonConstants {
 		return person;
 	}
 
+	 /**
+	 * Deletes an OSIAM user with the given username.
+	 *
+	 * @param cntx The {@link de.tarent.octopus.server.OctopusContext}
+	 * @param username The username
+	 */
+	public void deleteOsiamUser(OctopusContext cntx, String username) {
+		if(OnlineRegistrationHelper.isOnlineregActive(cntx)) {
+			final OsiamConnector connector = getConnector();
+			final AccessToken accessToken = connector.retrieveAccessToken(Scope.ALL);
+			final OsiamLoginRemover osiamLoginRemover = new OsiamLoginRemover(connector);
+			osiamLoginRemover.deleteOsiamUser(accessToken, username);
+		}
+	}
+	
 	private void updateUsernameInVeraweb(OctopusContext cntx, Person person)
 			throws BeanException, IOException {
 		Database database = new DatabaseVeraWeb(cntx);
@@ -1106,21 +1121,11 @@ public class PersonDetailWorker implements PersonConstants {
 		osiamLoginCreator.createOsiamUser(accessToken, username, password, connector);
 	}
 
-	 /**
-	 * Deletes an OSIAM user with the given username.
-	 *
-	 * @param cntx The {@link de.tarent.octopus.server.OctopusContext}
-	 * @param username The username
+	/**
+	 * Getting OSIAM Connector to execute updates over OSIAM's Database
+	 * 
+	 * @return OsiamConnector the connector
 	 */
-	public void deleteOsiamUser(OctopusContext cntx, String username) {
-		if(OnlineRegistrationHelper.isOnlineregActive(cntx)) {
-			final OsiamConnector connector = getConnector();
-			final AccessToken accessToken = connector.retrieveAccessToken(Scope.ALL);
-			final OsiamLoginRemover osiamLoginRemover = new OsiamLoginRemover(connector);
-			osiamLoginRemover.deleteOsiamUser(accessToken, username);
-		}
-	}
-
 	private OsiamConnector getConnector() {
 		final Properties properties = getProperties();
 
