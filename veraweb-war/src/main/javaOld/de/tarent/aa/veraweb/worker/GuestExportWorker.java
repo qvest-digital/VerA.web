@@ -767,7 +767,9 @@ public class GuestExportWorker {
 		spreadSheet.addCell(event.end);
 
 		addLocationCells(spreadSheet, location);
-		if(isOnlineRegistrationActive) addCredentialsDataColumns(spreadSheet, guest, event);
+		if (isOnlineRegistrationActive) {
+			addCredentialsDataColumns(spreadSheet, guest, event);
+		}
 		spreadSheet.addCell(event.note);
 	}
 
@@ -1150,7 +1152,9 @@ public class GuestExportWorker {
 		spreadSheet.addCell(event.end);
 
 		addLocationCells(spreadSheet, location);
-		if(isOnlineRegistrationActive) addCredentialsDataColumns(spreadSheet, guest, event);
+		if (isOnlineRegistrationActive) {
+			addCredentialsDataColumns(spreadSheet, guest, event);
+		}
 
 		spreadSheet.addCell(event.note);
 	}
