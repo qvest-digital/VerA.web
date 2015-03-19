@@ -29,7 +29,7 @@ public class OsiamLoginRemover {
      * Delete osiam user by username.
      *
      * @param accessToken The {@link org.osiam.client.oauth.AccessToken}
-     * @param username String the username
+     * @param username The username
      */
     public void deleteOsiamUser(AccessToken accessToken, String username) {
         final String id = getUserId(accessToken, username);
@@ -39,11 +39,12 @@ public class OsiamLoginRemover {
     }
 
     /**
-     * Get OSIAM-ID by Username
+     * Get id for osiam user by Username.
      * 
-     * @param accessToken token
-     * @param username String the username
-     * @return String user id
+     * @param accessToken The {@link org.osiam.client.oauth.AccessToken}
+     * @param username The username
+     *
+     * @return User id
      */
     private String getUserId(AccessToken accessToken, String username) {
         final Query query = buildQuery(username.toLowerCase());
@@ -57,9 +58,11 @@ public class OsiamLoginRemover {
     }
 
     /**
-     * OSIAM GetId query builder
-     * @param username String the username
-     * @return Query the query
+     * Build query which returns the user id by given username.
+     *
+     * @param username The username
+     *
+     * @return The {@link org.osiam.client.query.Query}
      */
     private Query buildQuery(String username) {
         return new QueryBuilder().filter("userName eq \"" + username + "\"").attributes("id").build();
