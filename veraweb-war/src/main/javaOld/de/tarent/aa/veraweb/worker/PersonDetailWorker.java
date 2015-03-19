@@ -980,7 +980,6 @@ public class PersonDetailWorker implements PersonConstants {
 	 * </p>
 	 *
 	 * @param cntx Aktueller Octopus Kontext
-	 * @param database Datenbank-Referenz in der gel�scht werden soll.
 	 * @param personid PK aus tperson, dessen Eintrag gel�scht werden soll.
 	 * @throws BeanException inkl. Datenbank-Fehler
 	 * @throws IOException
@@ -1007,13 +1006,7 @@ public class PersonDetailWorker implements PersonConstants {
 				from("veraweb.ttask").
 				where(Expr.equal("fk_person", personid)));
 
-		//delete OSIAM user, if online-reg is active
-		//TODO Remove OSIAM user W.I.P.
-//		if(OnlineRegistrationHelper.isOnlineregActive(cntx)) {
-//			if(username != null){
-//				deleteOsiamUser(cntx, context, username);
-//			}
-//		}
+		deleteOsiamUser(cntx, username);
 
 		context.execute(SQL.Delete( database ).
 				from("veraweb.tguest").
@@ -1089,7 +1082,7 @@ public class PersonDetailWorker implements PersonConstants {
 
 	private Boolean hasUsername(OctopusContext cntx, Integer personId) throws BeanException, IOException {
 
-		Database database = new DatabaseVeraWeb(cntx);
+		final Database database = new DatabaseVeraWeb(cntx);
 		Integer counter = database.getCount(database.getCount("Person").where(Where.and(Expr.equal("pk", personId),Expr.isNotNull("username"))));
 		
 		return (counter == 1);
@@ -1113,17 +1106,18 @@ public class PersonDetailWorker implements PersonConstants {
 		osiamLoginCreator.createOsiamUser(accessToken, username, password, connector);
 	}
 
-	/**
-	 * Deletes an OSIAM user with the given "id"
-	 * @param cntx
-	 * @throws IOException
-	 * @throws BeanException
+	 /**
+	 * Deletes an OSIAM user with the given username.
+	 *
+	 * @param cntx The {@link de.tarent.octopus.server.OctopusContext}
+	 * @param username The username
 	 */
-	public void deleteOsiamUser(OctopusContext cntx, String username) throws BeanException, IOException {
-		// TODO WORK IN PROGRESS
+	public void deleteOsiamUser(OctopusContext cntx, String username) {
 		if(OnlineRegistrationHelper.isOnlineregActive(cntx)) {
-			OsiamConnector connector = getConnector();
-			removeUser(username, connector);
+			final OsiamConnector connector = getConnector();
+			final AccessToken accessToken = connector.retrieveAccessToken(Scope.ALL);
+			final OsiamLoginRemover osiamLoginRemover = new OsiamLoginRemover(connector);
+			osiamLoginRemover.deleteOsiamUser(accessToken, username);
 		}
 	}
 
@@ -1144,11 +1138,5 @@ public class PersonDetailWorker implements PersonConstants {
 				.build();
 
 		return connector;
-	}
-
-	private void removeUser(String username, OsiamConnector connector) {
-		final AccessToken accessToken = connector.retrieveAccessToken(Scope.ALL);
-		final OsiamLoginRemover osiamLoginRemover = new OsiamLoginRemover();
-		osiamLoginRemover.deleteOsiamUser(accessToken, username, connector);
 	}
 }
