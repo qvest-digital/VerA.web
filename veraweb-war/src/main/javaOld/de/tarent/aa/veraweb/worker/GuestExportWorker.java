@@ -767,7 +767,7 @@ public class GuestExportWorker {
 		spreadSheet.addCell(event.end);
 
 		addLocationCells(spreadSheet, location);
-		if(isOnlineRegistrationActive) addDelegationLoginCells(spreadSheet, guest, event);
+		if(isOnlineRegistrationActive) addCredentialsDataColumns(spreadSheet, guest, event);
 		spreadSheet.addCell(event.note);
 	}
 
@@ -794,7 +794,15 @@ public class GuestExportWorker {
 		this.isOnlineRegistrationActive = Boolean.valueOf(cntx.getContextField("online-registration.activated").toString());
 	}
 
-	private void addDelegationLoginCells(SpreadSheet spreadSheet, Map guest, Event event) throws IOException {
+	/**
+	 * Columns username, password, url for delegations and persons.
+	 * 
+	 * @param spreadSheet SpreadSheet
+	 * @param guest Map with guests
+	 * @param event Event
+	 * @throws IOException
+	 */
+	private void addCredentialsDataColumns(SpreadSheet spreadSheet, Map guest, Event event) throws IOException {
 		String password = "-";
 		Object username = "-";
 		String delegationRegistrerURL = "-";
@@ -991,7 +999,7 @@ public class GuestExportWorker {
 
 		addLocationCells(spreadSheet, location);
 		if(isOnlineRegistrationActive) {
-			addDelegationLoginCells(spreadSheet, guest, event);
+			addCredentialsDataColumns(spreadSheet, guest, event);
 			// Updating username in tperson
 			updateDelegationUsername(cntx, guest.get("osiam_login"), (Integer)guest.get("fk_person"));
 		}
@@ -1142,7 +1150,7 @@ public class GuestExportWorker {
 		spreadSheet.addCell(event.end);
 
 		addLocationCells(spreadSheet, location);
-		if(isOnlineRegistrationActive) addDelegationLoginCells(spreadSheet, guest, event);
+		if(isOnlineRegistrationActive) addCredentialsDataColumns(spreadSheet, guest, event);
 
 		spreadSheet.addCell(event.note);
 	}
