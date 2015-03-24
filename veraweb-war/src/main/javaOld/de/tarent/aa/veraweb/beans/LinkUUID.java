@@ -31,6 +31,33 @@ public class LinkUUID  extends AbstractHistoryBean {
 	/** Erstellt von */
 	private Integer fk_person;
 	
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public String getUuid() {
+		return uuid;
+	}
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
+	}
+	public LinkType getLink_type() {
+		return link_type;
+	}
+	public void setLink_type(LinkType link_type) {
+		this.link_type = link_type;
+	}
+	public Integer getFk_person() {
+		return fk_person;
+	}
+	public void setFk_person(Integer fk_person) {
+		this.fk_person = fk_person;
+	}
+	
+	
+	
 	
 	
 }
