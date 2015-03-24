@@ -39,11 +39,19 @@ public class EventURLHandlerTest {
 
     @Test
     public void testSetEventUrl() {
+        // GIVEN
+        Properties properties = mock(Properties.class);
+        when(propertiesReader.propertiesAreAvailable()).thenReturn(true);
+        when(propertiesReader.getProperties()).thenReturn(properties);
+        when(properties.getProperty(URLGenerator.VERAWEB_ONLINEREG_PROTOCOL)).thenReturn("https");
+        when(properties.getProperty(URLGenerator.VERAWEB_ONLINEREG_PORT)).thenReturn("8443");
+        when(properties.getProperty(URLGenerator.VERAWEB_ONLINEREG_HOST)).thenReturn("localhost");
+
         // WHEN
         eventURLHandler.setEventUrl(octopusContext, "44cf712d-90f5-4958-ae49-a2155b63e1c1");
 
         // THEN
-        verify(octopusContext, times(1)).setContent(any(String.class), any(String.class));
+        verify(octopusContext, times(1)).setContent("eventUrl", "https://localhost:8443/#/freevisitors/44cf712d-90f5-4958-ae49-a2155b63e1c1");
     }
 
     @Test
