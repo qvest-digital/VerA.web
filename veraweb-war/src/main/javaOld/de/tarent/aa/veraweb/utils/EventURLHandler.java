@@ -51,10 +51,6 @@ public class EventURLHandler {
         return new URLGenerator(properties);
     }
 
-    public PropertiesReader getPropertiesReader() {
-        return propertiesReader;
-    }
-
     public void setPropertiesReader(PropertiesReader propertiesReader) {
         this.propertiesReader = propertiesReader;
     }

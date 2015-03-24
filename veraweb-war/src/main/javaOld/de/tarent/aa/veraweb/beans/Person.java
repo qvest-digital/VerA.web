@@ -2317,4 +2317,12 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 			url_c_e3 = value;
 		}
 	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
 }
