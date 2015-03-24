@@ -15,7 +15,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Data
 @XmlRootElement
 @Entity
-@Table(name = "tguest")
+@Table(name = "link_uuid")
 @NamedQueries({
         @NamedQuery(name = "LinkUUID.getUserIdByUUID", query = "SELECT l FROM LinkUUID l where uuid = :uuid"),
 })
