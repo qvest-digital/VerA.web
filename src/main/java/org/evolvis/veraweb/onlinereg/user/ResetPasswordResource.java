@@ -25,11 +25,11 @@ public class ResetPasswordResource {
     /**
      * Show view for password reset.
      *
-     * @param personId The ID of the person which will set his/her own password.
+     * @param uuid The UUID of the person for which the password will be reset.
      */
     @POST
-    @Path("/{personId}")
-    public void getEvenByUUId(@PathParam("personId") Integer personId) {
+    @Path("/{uuid}")
+    public void getEvenByUUId(@PathParam("uuid") Integer uuid) {
         // TODO
     }
 }
