@@ -19,10 +19,8 @@ public class EventURLGenerator {
      *
      * @param cntx The {@link de.tarent.octopus.server.OctopusContext}
      * @param uuid The uuid to build URL for the free visitors.
-     *
-     * @throws IOException
      */
-    public static void setEventUrl(OctopusContext cntx, String uuid) throws IOException {
+    public static void setEventUrl(OctopusContext cntx, String uuid) {
         final PropertiesReader propertiesReader = new PropertiesReader();
 
         if(propertiesReader.propertiesAreAvailable() && uuid != null) {
