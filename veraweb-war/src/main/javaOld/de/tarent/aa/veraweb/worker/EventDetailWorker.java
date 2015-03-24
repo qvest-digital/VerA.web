@@ -36,7 +36,7 @@ import de.tarent.aa.veraweb.beans.Person;
 import de.tarent.aa.veraweb.beans.Task;
 import de.tarent.aa.veraweb.beans.facade.EventConstants;
 import de.tarent.aa.veraweb.utils.DateHelper;
-import de.tarent.aa.veraweb.utils.EventHelper;
+import de.tarent.aa.veraweb.utils.EventURLHandler;
 import de.tarent.aa.veraweb.utils.OnlineRegistrationHelper;
 import de.tarent.aa.veraweb.utils.PropertiesReader;
 import de.tarent.aa.veraweb.utils.URLGenerator;
@@ -96,7 +96,8 @@ public class EventDetailWorker {
 			// OR Control
 			if (OnlineRegistrationHelper.isOnlineregActive(cntx)) {
 				setUrlForMediaRepresentatives(cntx, event);
-				EventHelper.setEventUrl(cntx, event.hash);
+				final EventURLHandler eventURLHandler = new EventURLHandler();
+                eventURLHandler.setEventUrl(cntx, event.hash);
 			}
 			//
 		}
@@ -312,7 +313,8 @@ public class EventDetailWorker {
             Boolean isOnlineregActive = Boolean.valueOf(cntx.getContextField(VWOR_ACTIVE).toString());
             // OR Control
             if (isOnlineregActive) {
-				EventHelper.setEventUrl(cntx, event.hash);
+                final EventURLHandler eventURLHandler = new EventURLHandler();
+                eventURLHandler.setEventUrl(cntx, event.hash);
             	setUrlForMediaRepresentatives(cntx, event);
             }
             cntx.setContent("event", event);

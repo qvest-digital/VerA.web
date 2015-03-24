@@ -32,6 +32,7 @@ import java.util.Properties;
 import javax.xml.parsers.FactoryConfigurationError;
 import javax.xml.transform.TransformerFactoryConfigurationError;
 
+import de.tarent.aa.veraweb.utils.EventURLHandler;
 import org.apache.log4j.Logger;
 
 import de.tarent.aa.veraweb.beans.Doctype;
@@ -843,30 +844,11 @@ public class GuestExportWorker {
 	}
 
 	private String generateLoginUrl(Map guest) throws IOException {
-        final PropertiesReader propertiesReader = new PropertiesReader();
-        final Properties properties = propertiesReader.getProperties();
-        final URLGenerator url = new URLGenerator(properties);
-        return url.getURLForDelegation() + guest.get("delegation");
+		final PropertiesReader propertiesReader = new PropertiesReader();
+		final Properties properties = propertiesReader.getProperties();
+		final URLGenerator url = new URLGenerator(properties);
+		return url.getURLForDelegation() + guest.get("delegation");
 	}
-
-	/**
-     * URL Associated directly to the event
-     *
-     * @param cntx
-     * @param event
-     * @throws IOException
-     */
-    private String generateEventUrl(Event event) throws IOException {
-        PropertiesReader propertiesReader = new PropertiesReader();
-
-        if(propertiesReader.propertiesAreAvailable() && event.hash != null) {
-	        Properties properties = propertiesReader.getProperties();
-	        URLGenerator url = new URLGenerator(properties);
-	        return url.getURLForFreeVisitors() + event.hash;
-        } else {
-	        return "";
-        }
-    }
 
 	private String extractFirstXChars(String value, int x) {
 		return value.substring(0, Math.min(value.length(), x));
@@ -993,7 +975,8 @@ public class GuestExportWorker {
 		spreadSheet.addCell(event.end);
 		if (isOnlineRegistrationActive) {
 			if ((guest.get("delegation")==null || guest.get("delegation").equals("")) && !isPressStaff) {
-				spreadSheet.addCell(generateEventUrl(event));
+				final EventURLHandler eventURLHandler = new EventURLHandler();
+				spreadSheet.addCell(eventURLHandler.generateEventUrl(event));
 			} else {
 				spreadSheet.addCell("");
 			}

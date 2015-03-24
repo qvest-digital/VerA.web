@@ -28,9 +28,9 @@ import java.util.Properties;
  */
 public class URLGenerator {
 
-    private static final String VERAWEB_ONLINEREG_PROTOCOL = "veraweb.onlinereg.protocol";
-    private static final String VERAWEB_ONLINEREG_HOST = "veraweb.onlinereg.host";
-    private static final String VERAWEB_ONLINEREG_PORT = "veraweb.onlinereg.port";
+    public static final String VERAWEB_ONLINEREG_PROTOCOL = "veraweb.onlinereg.protocol";
+    public static final String VERAWEB_ONLINEREG_HOST = "veraweb.onlinereg.host";
+    public static final String VERAWEB_ONLINEREG_PORT = "veraweb.onlinereg.port";
 
     private final String urlPrefix;
 
@@ -51,5 +51,9 @@ public class URLGenerator {
 
     public String getURLForFreeVisitors(){
         return urlPrefix + "/#/freevisitors/";
+    }
+
+    public String getURLForPasswordReset(){
+        return urlPrefix + "/#/reset/password/";
     }
 }

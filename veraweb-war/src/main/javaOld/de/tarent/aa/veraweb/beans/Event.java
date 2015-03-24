@@ -118,4 +118,12 @@ public class Event extends AbstractHistoryBean implements OrgUnitDependent {
         }
         super.clearRestrictedFields(cntx);
     }
+
+	public String getHash() {
+		return hash;
+	}
+
+	public void setHash(String hash) {
+		this.hash = hash;
+	}
 }
