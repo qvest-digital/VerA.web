@@ -5,7 +5,7 @@ package de.tarent.aa.veraweb.beans;
  */
 public enum LinkType {
 
-    FREEVISITORS("freevisitors"), DELEGATION("delegation"), MEDIA("media"), PERSON("person");
+    FREEVISITORS("freevisitors"), DELEGATION("delegation"), MEDIA("media"), PASSWORDRESET("passwordreset");
 
     private String text;
 
