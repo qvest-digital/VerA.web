@@ -30,6 +30,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Random;
+import java.util.UUID;
 
 import de.tarent.aa.veraweb.utils.OsiamLoginCreator;
 import de.tarent.aa.veraweb.utils.OsiamLoginRemover;
@@ -40,6 +41,8 @@ import org.osiam.client.oauth.AccessToken;
 import org.osiam.client.oauth.Scope;
 
 import de.tarent.aa.veraweb.beans.Doctype;
+import de.tarent.aa.veraweb.beans.LinkType;
+import de.tarent.aa.veraweb.beans.LinkUUID;
 import de.tarent.aa.veraweb.beans.Person;
 import de.tarent.aa.veraweb.beans.PersonCategorie;
 import de.tarent.aa.veraweb.beans.PersonDoctype;
@@ -1058,16 +1061,38 @@ public class PersonDetailWorker implements PersonConstants {
 			
 			// Update in tperson
 			this.updateUsernameInVeraweb(cntx, person);
+			
 			// Create in OSIAM
 			final OsiamConnector connector = getConnector();
 			createUser(username, password, connector);
-		
+			
+			// Saving uuid to generate the reset-password url
+			saveLinkUUID(cntx, personId);
 			cntx.setContent("osiam-user-created", true);
 		} else {
 			cntx.setContent("osiam-user-exists", true);
 		}
 		
 		return person;
+	}
+
+	/**
+	 * Save new instance LinkUUID to allow having a reset password url
+	 * 
+	 * @param cntx OctopusContext
+	 * @param personId
+	 * @throws BeanException
+	 * @throws IOException
+	 */
+	private void saveLinkUUID(OctopusContext cntx, Integer personId)
+			throws BeanException, IOException {
+		
+		Database database = new DatabaseVeraWeb(cntx);
+		database.execute(SQL.Insert(database).
+				table("veraweb.link_uuid").
+				insert("uuid", getPersonUUID()).
+				insert("linktype", LinkType.PASSWORDRESET.getText()).
+				insert("personid", personId));
 	}
 
 	 /**
@@ -1144,4 +1169,17 @@ public class PersonDetailWorker implements PersonConstants {
 
 		return connector;
 	}
+	
+
+    /**
+     * New hash for persons
+     *
+     * @param event
+     * @param oldEvent
+     */
+    private String getPersonUUID() {
+		UUID uuid = UUID.randomUUID();
+		
+		return uuid.toString();
+    }
 }
