@@ -40,13 +40,12 @@ public class PersonURLHandlerTest {
         when(properties.getProperty(URLGenerator.VERAWEB_ONLINEREG_PROTOCOL)).thenReturn("https");
         when(properties.getProperty(URLGenerator.VERAWEB_ONLINEREG_PORT)).thenReturn("8443");
         when(properties.getProperty(URLGenerator.VERAWEB_ONLINEREG_HOST)).thenReturn("localhost");
-        when(person.getId()).thenReturn(1);
 
         // WHEN
-        String url = personUrlHandler.generateResetPasswordUrl(person);
+        String url = personUrlHandler.generateResetPasswordUrl("3f03f6fb-5d22-44dd-b0a4-f63715db95ba");
 
         // THEN
-        assertEquals("https://localhost:8443/#/reset/password/1", url);
+        assertEquals("https://localhost:8443/#/reset/password/3f03f6fb-5d22-44dd-b0a4-f63715db95ba", url);
     }
 
     @Test

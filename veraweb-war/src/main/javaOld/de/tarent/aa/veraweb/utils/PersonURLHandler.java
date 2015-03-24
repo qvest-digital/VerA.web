@@ -18,14 +18,14 @@ public class PersonURLHandler {
     /**
      * URL Associated directly to the event
      *
-     * @param person The {@link de.tarent.aa.veraweb.beans.Person}
+     * @param uuid The uuid of the person who will reset own password.
      *
      * @return URL to reset password
      */
-    public String generateResetPasswordUrl(Person person) {
-        if(propertiesReader.propertiesAreAvailable() && person.getId() != null) {
+    public String generateResetPasswordUrl(String uuid) {
+        if(propertiesReader.propertiesAreAvailable() && uuid != null) {
             final URLGenerator urlGenerator = getUrlGenerator();
-            return urlGenerator.getURLForPasswordReset() + person.getId();
+            return urlGenerator.getURLForPasswordReset() + uuid;
         } else {
             return "";
         }
