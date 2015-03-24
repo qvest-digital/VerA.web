@@ -1,7 +1,6 @@
 package de.tarent.aa.veraweb.utils;
 
 import de.tarent.aa.veraweb.beans.Person;
-import de.tarent.dblayer.helper.ResultList;
 import de.tarent.dblayer.sql.clause.Clause;
 import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.clause.Limit;
