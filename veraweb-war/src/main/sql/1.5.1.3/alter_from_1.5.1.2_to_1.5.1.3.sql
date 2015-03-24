@@ -9,8 +9,8 @@ CREATE SEQUENCE veraweb.link_uuid_pk_seq INCREMENT 1 MINVALUE 1 MAXVALUE 9223372
 
 CREATE TABLE veraweb.link_uuid (
     pk INTEGER DEFAULT nextval('link_uuid_pk_seq') NOT NULL,
-    uuid INTEGER DEFAULT 0,
-    type INTEGER DEFAULT 0,
+    uuid character varying(100),
+    link_type character varying(100),
     fk_person INTEGER DEFAULT 0,
     CONSTRAINT link_uuid_pkey PRIMARY KEY (pk)
 ) WITH OIDS;
