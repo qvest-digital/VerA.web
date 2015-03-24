@@ -163,3 +163,9 @@ body {
 .table tr#delegation:hover {
     cursor:pointer;
 }
+
+.form-rest-password-heading {
+    text-align: left;
+    padding: 3px;
+    border-bottom: 1px solid gray;
+}

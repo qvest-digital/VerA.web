@@ -52,6 +52,9 @@ onlineRegApp.config(function ($routeProvider) {
     }).when('/update/:eventId', {
 		templateUrl: 'partials/update.html',
 		controller: 'UpdateController'
+    }).when('/reset/password/:personId', {
+		templateUrl: 'partials/reset_password.html',
+		controller: 'ResetPasswordController'
     }).otherwise({
       redirectTo: '/event'
     })
@@ -79,6 +82,17 @@ onlineRegApp.directive('equals', function() {
             }
         }
     }
+});
+
+onlineRegApp.controller('ResetPasswordController', function($http, $scope, $location, $routeParams) {
+	$http({
+        method: 'GET',
+        url: 'api/reset/password/'+ $routeParams.uuid
+    }).success(function (result) {
+    	$location.path('/register/' + result);
+    }).error(function (data, status, headers, config) {
+    	$scope.error = "Bitte geben sie ihr Geschlecht an.";
+   });
 });
 
 onlineRegApp.controller('FreeVisitorController', function($http, $scope, $location, $routeParams) {
