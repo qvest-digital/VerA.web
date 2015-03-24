@@ -3,6 +3,9 @@ package org.evolvis.veraweb.onlinereg.entities;
 import lombok.Data;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -17,20 +20,23 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @Table(name = "link_uuid")
 @NamedQueries({
-        @NamedQuery(name = "LinkUUID.getUserIdByUUID", query = "SELECT l FROM LinkUUID l where uuid = :uuid"),
+    @NamedQuery(name = "LinkUUID.getUserIdByUUID", query = "SELECT l.pk FROM LinkUUID l where l.uuid = :uuid")
 })
 public class LinkUUID {
-    private Long id;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer pk;
     private String uuid;
     private String linktype;
     private Integer personid;
 
-    public Long getId() {
-        return id;
+    public Integer getId() {
+        return pk;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setId(Integer id) {
+        this.pk = id;
     }
 
     public String getUuid() {
