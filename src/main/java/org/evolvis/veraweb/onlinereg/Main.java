@@ -41,6 +41,7 @@ import org.evolvis.veraweb.onlinereg.event.MediaResource;
 import org.evolvis.veraweb.onlinereg.event.UpdateResource;
 import org.evolvis.veraweb.onlinereg.event.UserResource;
 import org.evolvis.veraweb.onlinereg.user.LoginResource;
+import org.evolvis.veraweb.onlinereg.user.ResetPasswordResource;
 
 @Getter
 public class Main extends Application<Config> {
@@ -55,6 +56,7 @@ public class Main extends Application<Config> {
 		private Health health;
 		private FreeVisitorsResource freeVisitorsResource;
 		private UpdateResource updateResource;
+        private ResetPasswordResource resetPasswordResource;
 	/* ********* */
 		
     /**
@@ -105,6 +107,8 @@ public class Main extends Application<Config> {
         environment.jersey().register(mediaResource = new MediaResource(configuration, client));
         environment.jersey().register(freeVisitorsResource = new FreeVisitorsResource(configuration, client));
         environment.jersey().register(updateResource = new UpdateResource(configuration, client));
+        environment.jersey().register(resetPasswordResource = new ResetPasswordResource(configuration, client));
+
 
     }
 
