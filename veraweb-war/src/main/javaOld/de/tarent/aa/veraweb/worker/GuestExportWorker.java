@@ -858,9 +858,6 @@ public class GuestExportWorker {
 	private String getURLLinkUUIDDataFromGuest(Integer personId, OctopusContext cntx) throws BeanException, IOException {
 		Database database = new DatabaseVeraWeb(cntx);
 
-//		Select select = database.getSelect("LinkUUID").whereAndEq("personid", personId).whereAndEq("linktype", "passwordreset");
-
-
 		String url = null;
 		WhereList whereCriterias = new WhereList();
 
@@ -871,17 +868,10 @@ public class GuestExportWorker {
 	      select2.from("link_uuid");
 	      select2.select("uuid");
 	      select2.where(whereCriterias);
-
 		List list = database.getBeanList("LinkUUID", select2);
 
-//		Select select = database.getSelect("LinkUUID")
-//				.whereAnd(Expr.equal("personid", personId))
-//				.whereAnd(Expr.equal("linktype", "passwordreset"));
 		if (!list.isEmpty() && database.getField("uuid") != null) {
-
-	      String uuid = database.getField("uuid").toString();
-
-
+			String uuid = database.getField("uuid").toString();
 			PersonURLHandler pHandler = new PersonURLHandler();
 			url = pHandler.generateResetPasswordUrl(uuid);
 		}
