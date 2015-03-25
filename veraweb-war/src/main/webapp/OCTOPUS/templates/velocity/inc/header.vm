@@ -43,9 +43,9 @@
 						<div id="topNav">
 							<ul>
 								#if($config.helplink)
-									<li><a href="${paths.staticWeb}$config.helplink" #if($config.helptarget) target="$config.helptarget" #end>Hilfe</a></li>
+								<li><a href="${paths.staticWeb}$config.helplink" #if($config.helptarget) target="$config.helptarget" #end>Hilfe</a></li>
 								#else
-								<li><a href="${paths.staticWeb}/doc/Benutzerhandbuch.pdf" #if($config.helptarget) target="$config.helptarget" #end>Hilfe</a></li>
+								<li><a href="${paths.staticWeb}/doc/Benutzerhandbuch.pdf" target="_blank">Hilfe</a></li>
 								#end
 								<li><a id="menu.logout" href="${paths.staticWeb}do/logout" class="noBorder"> <span class="borderBottom">Abmelden</span> <img src="${paths.staticWeb}images/logout.png" alt="Logout icon" title="Logout" style="vertical-align:middle;" /></a></li>
 							</ul>
