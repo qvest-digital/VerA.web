@@ -46,6 +46,12 @@
 			<param-value>true</param-value>
 		</init-param>
 
+		<!-- systemweites Logging -->
+		<init-param>
+			<param-name>paths.logfile</param-name>
+			<param-value>/var/log/tomcat7/veraweb.%u.log</param-value>
+		</init-param>
+
 		<!--
 			Logging parameter for octopus.
 
@@ -59,10 +65,13 @@
 			<param-value>INFO</param-value>
 		</init-param>
 
+		<!--
+			Disabled, as we use system-wide logging
 		<init-param>
 			<param-name>logging.pattern</param-name>
 			<param-value>octopus-%g_%u.log</param-value>
 		</init-param>
+		-->
 
 		<init-param>
 			<param-name>logging.limit</param-name>
