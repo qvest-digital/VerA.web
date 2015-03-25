@@ -38,11 +38,13 @@ import org.apache.log4j.Logger;
 import de.tarent.aa.veraweb.beans.Doctype;
 import de.tarent.aa.veraweb.beans.Event;
 import de.tarent.aa.veraweb.beans.GuestSearch;
+import de.tarent.aa.veraweb.beans.LinkUUID;
 import de.tarent.aa.veraweb.beans.Location;
 import de.tarent.aa.veraweb.beans.facade.EventConstants;
 import de.tarent.aa.veraweb.utils.DatabaseHelper;
 import de.tarent.aa.veraweb.utils.ExportHelper;
 import de.tarent.aa.veraweb.utils.OctopusHelper;
+import de.tarent.aa.veraweb.utils.PersonURLHandler;
 import de.tarent.aa.veraweb.utils.PropertiesReader;
 import de.tarent.aa.veraweb.utils.URLGenerator;
 import de.tarent.commons.spreadsheet.export.SpreadSheet;
@@ -401,7 +403,7 @@ public class GuestExportWorker {
 					if (showB) {
 						spreadSheet.openRow();
 						exportOnlyPartner(spreadSheet, event, location, showA,
-								showB, guest, data);
+								showB, guest, data, cntx);
 						spreadSheet.closeRow();
 					}
 				} else if (invitationtype.intValue() == EventConstants.TYPE_OHNEPARTNER) {
@@ -416,7 +418,7 @@ public class GuestExportWorker {
 					if (showB) {
 						spreadSheet.openRow();
 						exportOnlyPartner(spreadSheet, event, location, showA,
-								showB, guest, data);
+								showB, guest, data, cntx);
 						spreadSheet.closeRow();
 					}
 				}
@@ -428,7 +430,7 @@ public class GuestExportWorker {
 					if (showA || showB) {
 						spreadSheet.openRow();
 						exportBothInOneLine(spreadSheet, event, location,
-								showA, showB, guest, data);
+								showA, showB, guest, data, cntx);
 						spreadSheet.closeRow();
 					}
 				} else if (invitationtype.intValue() == EventConstants.TYPE_OHNEPARTNER) {
@@ -443,7 +445,7 @@ public class GuestExportWorker {
 					if (showB) {
 						spreadSheet.openRow();
 						exportOnlyPartner(spreadSheet, event, location, showA,
-								showB, guest, data);
+								showB, guest, data, cntx);
 						spreadSheet.closeRow();
 					}
 				}
@@ -586,7 +588,7 @@ public class GuestExportWorker {
 			//OSIAM Login
 			spreadSheet.addCell("Anmeldename");
 			spreadSheet.addCell("Passwort");
-			spreadSheet.addCell("Delegations URL");
+			spreadSheet.addCell("URL");
 		}
 		spreadSheet.addCell("Bemerkung");
 	}
@@ -599,8 +601,9 @@ public class GuestExportWorker {
 	 * @param guest Map mit den Gastdaten.
 	 * @param data Zusatzinformationen.
 	 * @throws IOException Wenn die Generierung von URL fur Delegation fehlschlug.
+	 * @throws BeanException 
 	 */
-	protected void exportBothInOneLine(SpreadSheet spreadSheet, Event event, Location location, boolean showA, boolean showB, Map guest, Map data) throws IOException {
+	protected void exportBothInOneLine(SpreadSheet spreadSheet, Event event, Location location, boolean showA, boolean showB, Map guest, Map data, OctopusContext cntx) throws IOException, BeanException {
 		//
 		// Gast spezifische Daten
 		//
@@ -769,7 +772,7 @@ public class GuestExportWorker {
 
 		addLocationCells(spreadSheet, location);
 		if (isOnlineRegistrationActive) {
-			addCredentialsDataColumns(spreadSheet, guest, event);
+			addCredentialsDataColumns(spreadSheet, guest, event, cntx);
 		}
 		spreadSheet.addCell(event.note);
 	}
@@ -804,11 +807,12 @@ public class GuestExportWorker {
 	 * @param guest Map with guests
 	 * @param event Event
 	 * @throws IOException
+	 * @throws BeanException 
 	 */
-	private void addCredentialsDataColumns(SpreadSheet spreadSheet, Map guest, Event event) throws IOException {
+	private void addCredentialsDataColumns(SpreadSheet spreadSheet, Map guest, Event event, OctopusContext cntx) throws IOException, BeanException {
 		String password = "-";
 		Object username = "-";
-		String delegationRegistrerURL = "-";
+		String url = "-";
 
 		String category = (String) guest.get("catname");
 		if (category == null) { category = ""; }
@@ -820,14 +824,68 @@ public class GuestExportWorker {
 				guest.get("osiam_login") != null &&
 				guest.get("osiam_login").toString().length() > 0 && !category.equals("Pressevertreter")) {
 
-			delegationRegistrerURL = generateLoginUrl(guest);
+			url = generateLoginUrl(guest);
 			password = generatePassword(event, guest);
-			username = guest.get("osiam_login"); ;
+			username = guest.get("osiam_login");
+		}
+		else {
+			username = guest.get("osiam_login");
+			password = null;
+			try {
+				url = getURLLinkUUIDDataFromGuest(Integer.valueOf(guest.get("fk_person").toString()), cntx);
+			} catch (NumberFormatException e) {
+				logger.error("NumberFormatException - getting URL/LinkUUID of the person:" + guest.get("fk_person").toString(), e);
+				throw e;
+			} catch (BeanException e) {
+				logger.error("BeanException - getting URL/LinkUUID of the person:" + guest.get("fk_person").toString(), e);
+				throw e;
+			}
 		}
 
 		spreadSheet.addCell(username);
 		spreadSheet.addCell(password);
-		spreadSheet.addCell(delegationRegistrerURL);
+		spreadSheet.addCell(url);
+	}
+
+	/**
+	 * Getting URL to reseting password
+	 * 
+	 * @param personId
+	 * @return String the url
+	 * @throws IOException 
+	 * @throws BeanException 
+	 */
+	private String getURLLinkUUIDDataFromGuest(Integer personId, OctopusContext cntx) throws BeanException, IOException {
+		Database database = new DatabaseVeraWeb(cntx);
+		
+//		Select select = database.getSelect("LinkUUID").whereAndEq("personid", personId).whereAndEq("linktype", "passwordreset");
+		
+		
+		String url = null;
+		WhereList whereCriterias = new WhereList();
+
+        whereCriterias.addAnd(new Where("personid", personId, "="));
+        whereCriterias.addAnd(new Where("linktype", "passwordreset", "="));
+		
+		final Select select2 = SQL.Select(database);
+	      select2.from("link_uuid");
+	      select2.select("uuid");
+	      select2.where(whereCriterias);
+		
+		List list = database.getBeanList("LinkUUID", select2);
+
+//		Select select = database.getSelect("LinkUUID")
+//				.whereAnd(Expr.equal("personid", personId))
+//				.whereAnd(Expr.equal("linktype", "passwordreset"));
+		if (!list.isEmpty() && database.getField("uuid") != null) {
+	    	  
+	      String uuid = database.getField("uuid").toString();
+		
+			
+			PersonURLHandler pHandler = new PersonURLHandler();
+			url = pHandler.generateResetPasswordUrl(uuid);
+		}
+		return url;
 	}
 
 	private String generatePassword(Event event, Map guest) {
@@ -984,7 +1042,7 @@ public class GuestExportWorker {
 
 		addLocationCells(spreadSheet, location);
 		if(isOnlineRegistrationActive) {
-			addCredentialsDataColumns(spreadSheet, guest, event);
+			addCredentialsDataColumns(spreadSheet, guest, event, cntx);
 			// Updating username in tperson
 			updateDelegationUsername(cntx, guest.get("osiam_login"), (Integer)guest.get("fk_person"));
 		}
@@ -1024,8 +1082,9 @@ public class GuestExportWorker {
 	 * @param guest Map mit den Gastdaten.
 	 * @param data Zusatzinformationen.
 	 * @throws IOException
+	 * @throws BeanException 
 	 */
-	protected void exportOnlyPartner(SpreadSheet spreadSheet, Event event, Location location, boolean showA, boolean showB, Map guest, Map data) throws IOException {
+	protected void exportOnlyPartner(SpreadSheet spreadSheet, Event event, Location location, boolean showA, boolean showB, Map guest, Map data, OctopusContext cntx) throws IOException, BeanException {
 		//
 		// Gast spezifische Daten
 		//
@@ -1136,7 +1195,7 @@ public class GuestExportWorker {
 
 		addLocationCells(spreadSheet, location);
 		if (isOnlineRegistrationActive) {
-			addCredentialsDataColumns(spreadSheet, guest, event);
+			addCredentialsDataColumns(spreadSheet, guest, event, cntx);
 		}
 
 		spreadSheet.addCell(event.note);
