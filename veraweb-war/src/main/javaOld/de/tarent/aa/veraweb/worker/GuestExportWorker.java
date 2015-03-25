@@ -870,7 +870,7 @@ public class GuestExportWorker {
 	      select2.where(whereCriterias);
 		List list = database.getBeanList("LinkUUID", select2);
 
-		if (database.getField("uuid") != null) {
+		if (!list.isEmpty() && database.getField("uuid") != null) {
 	    	  
 			String uuid = database.getField("uuid").toString();
 			PersonURLHandler pHandler = new PersonURLHandler();
