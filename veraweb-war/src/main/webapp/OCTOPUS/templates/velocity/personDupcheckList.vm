@@ -59,16 +59,6 @@
 		#foreach($bean in $list)
 		<input type="hidden" name="list" value="$bean.id">
 		#end
-
-		##Add whitespace to values to cut them
-		#set($lastnamecut = $!bean.lastname_a_e1.replaceAll("(.{12})", "$1 "))
-		#set($firstnamecut = $!bean.firstname_a_e1.replaceAll("(.{12})", "$1 "))
-		#set($functioncut = $!bean.function_a_e1.replaceAll("(.{12})", "$1 "))
-		#set($companycut = $!bean.company_a_e1.replaceAll("(.{12})", "$1 "))
-		#set($streetcut = $!bean.street_a_e1.replaceAll("(.{12})", "$1 "))
-		#set($zipcodecut = $!bean.zipcode_a_e1.replaceAll("(.{5})", "$1 "))
-		#set($citycut = $!bean.city_a_e1.replaceAll("(.{12})", "$1 "))
-
 		<table class="sortable">
 			<tr>
 				<th class="smallCell textCenter">ID</th>
@@ -84,36 +74,26 @@
 			<tr>
 				<td class="textCenter"><em>neu</em></td>
 				##additional parameters action cf. issue #2091
-				<td onclick="window.location.href='SavePerson?saveperson=true&person-nodupcheck=true&originalPersonId=$!originalPersonId&action=$!action';">$!message.text($lastnamecut)</td>
-				<td onclick="window.location.href='SavePerson?saveperson=true&person-nodupcheck=true&originalPersonId=$!originalPersonId&action=$!action';">$!message.text($firstnamecut)</td>
-				<td onclick="window.location.href='SavePerson?saveperson=true&person-nodupcheck=true&originalPersonId=$!originalPersonId&action=$!action';">$!message.text($functioncut)</td>
-				<td onclick="window.location.href='SavePerson?saveperson=true&person-nodupcheck=true&originalPersonId=$!originalPersonId&action=$!action';">$!message.text($companycut)</td>
-				<td onclick="window.location.href='SavePerson?saveperson=true&person-nodupcheck=true&originalPersonId=$!originalPersonId&action=$!action';">$!message.text($streetcut)</td>
-				<td onclick="window.location.href='SavePerson?saveperson=true&person-nodupcheck=true&originalPersonId=$!originalPersonId&action=$!action';">$!message.text($zipcodecut)</td>
-				<td onclick="window.location.href='SavePerson?saveperson=true&person-nodupcheck=true&originalPersonId=$!originalPersonId&action=$!action';">$!message.text($citycut)</td>
+				<td onclick="window.location.href='SavePerson?saveperson=true&person-nodupcheck=true&originalPersonId=$!originalPersonId&action=$!action';">$!message.text($!person.lastname_a_e1)</td>
+				<td onclick="window.location.href='SavePerson?saveperson=true&person-nodupcheck=true&originalPersonId=$!originalPersonId&action=$!action';">$!message.text($!person.firstname_a_e1)</td>
+				<td onclick="window.location.href='SavePerson?saveperson=true&person-nodupcheck=true&originalPersonId=$!originalPersonId&action=$!action';">$!message.text($!person.function_a_e1)</td>
+				<td onclick="window.location.href='SavePerson?saveperson=true&person-nodupcheck=true&originalPersonId=$!originalPersonId&action=$!action';">$!message.text($!person.company_a_e1)</td>
+				<td onclick="window.location.href='SavePerson?saveperson=true&person-nodupcheck=true&originalPersonId=$!originalPersonId&action=$!action';">$!message.text($!person.street_a_e1)</td>
+				<td onclick="window.location.href='SavePerson?saveperson=true&person-nodupcheck=true&originalPersonId=$!originalPersonId&action=$!action';">$!message.text($!person.zipcode_a_e1)</td>
+				<td onclick="window.location.href='SavePerson?saveperson=true&person-nodupcheck=true&originalPersonId=$!originalPersonId&action=$!action';">$!message.text($!person.city_a_e1)</td>
 				<td class="textCenter"><a href="SavePerson?saveperson=true&person-nodupcheck=true&originalPersonId=$!originalPersonId&action=$!action" class="noBorder"><img src="${paths.staticWeb}images/add.png" alt="Neuen Eintrag anlegen" title="Neuen Eintrag anlegen"></a></td>
 			</tr>
 			#foreach($bean in $list)
-
-			##Add whitespace to values to cut them
-			#set($lastnamecut = $!bean.lastname_a_e1.replaceAll("(.{12})", "$1 "))
-			#set($firstnamecut = $!bean.firstname_a_e1.replaceAll("(.{12})", "$1 "))
-			#set($functioncut = $!bean.function_a_e1.replaceAll("(.{12})", "$1 "))
-			#set($companycut = $!bean.company_a_e1.replaceAll("(.{12})", "$1 "))
-			#set($streetcut = $!bean.street_a_e1.replaceAll("(.{12})", "$1 "))
-			#set($zipcodecut = $!bean.zipcode_a_e1.replaceAll("(.{5})", "$1 "))
-			#set($citycut = $!bean.city_a_e1.replaceAll("(.{12})", "$1 "))
-
 			<tr>
 				##additional parameters action cf. issue #2091
 				<td class="textCenter" onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!action';"><input type="hidden" name="${bean.id}-id" value="$bean.id">$!{bean.id}</td>
-				<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!action';">$!message.text($lastnamecut)</td>
-				<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!action';">$!message.text($firstnamecut)</td>
-				<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!action';">$!message.text($functioncut)</td>
-				<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!action';">$!message.text($companycut)</td>
-				<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!action';">$!message.text($streetcut)</td>
-				<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!action';">$!message.text($zipcodecut)</td>
-				<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!action';">$!message.text($citycut)</td>
+				<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!action';">$!message.text($!bean.lastname_a_e1)</td>
+				<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!action';">$!message.text($!bean.firstname_a_e1)</td>
+				<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!action';">$!message.text($!bean.function_a_e1)</td>
+				<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!action';">$!message.text($!bean.company_a_e1)</td>
+				<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!action';">$!message.text($!bean.street_a_e1)</td>
+				<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!action';">$!message.text($!bean.zipcode_a_e1)</td>
+				<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!action';">$!message.text($!bean.city_a_e1)</td>
 				<td class="textCenter"><a href="ShowPerson?id=$!{bean.id}&action=$!action" class="noBorder"><img src="${paths.staticWeb}images/edit.png" alt="Existierenden Eintrag bearbeiten" title="Existierenden Eintrag bearbeiten"></a></td>
 			</tr>
 			#end
