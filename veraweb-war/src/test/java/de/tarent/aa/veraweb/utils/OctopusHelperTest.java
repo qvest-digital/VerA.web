@@ -37,7 +37,7 @@ public class OctopusHelperTest extends TestCase {
      * @throws UnsupportedEncodingException 
      */
     public void testEncodeString() throws UnsupportedEncodingException {
-        String origChars = "�������";
+        String origChars = "äöüÄÖÜß";
         byte[] isoBytes = origChars.getBytes("UTF-8");
         String mangledChars = new String(isoBytes, "ISO-8859-1");
         String encodedChars = OctopusHelper.encodeString(null, mangledChars, "ISO-8859-1", "UTF-8");
