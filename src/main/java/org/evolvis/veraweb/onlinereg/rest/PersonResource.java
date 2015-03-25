@@ -298,6 +298,26 @@ public class PersonResource extends AbstractResource {
         }
     }
 
+    /**
+     * TODO
+     */
+    @GET
+    @Path("/list/{personId}")
+    public Person getUsernameByUserId(@PathParam("personId") Integer personId) {
+        final Session session = openSession();
+
+        try {
+            final Query query = session.getNamedQuery("Person.findByPersonId");
+            query.setInteger("personId", personId);
+
+            final Person person = (Person) query.uniqueResult();
+            return person;
+
+        } finally {
+            session.close();
+        }
+    }
+
     private Integer getOrgUnitId(Session session, Integer eventId) {
         final Query query = session.getNamedQuery("Event.getEvent");
         query.setInteger("pk", eventId);
