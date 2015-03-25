@@ -1,8 +1,8 @@
 /**
  * veraweb, platform independent webservice-based event management
  * (Veranstaltungsmanagment VerA.web), is
- * Copyright © 2004-2008 tarent GmbH
- * Copyright © 2013 tarent solutions GmbH
+ * Copyright © 2004–2008 tarent GmbH
+ * Copyright © 2013–2015 tarent solutions GmbH
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -41,7 +41,7 @@ import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
 
 /**
- * Diese Klasse �bernimmt einige Aufr�umarbeiten in der Datenbank.
+ * Diese Klasse übernimmt einige Aufräumarbeiten in der Datenbank.
  *
  * @author Christoph Jerolimov
  */
@@ -49,12 +49,12 @@ public class CleanupWorker {
 	/** Log4j logger Instanz. */
 	private static final Logger logger = Logger.getLogger(CleanupWorker.class);
 
-	/** Octopus Input-Parameter f�r {@link #summarizeCategories(OctopusContext)}. */
+	/** Octopus Input-Parameter für {@link #summarizeCategories(OctopusContext)}. */
 	public static final String INPUT_summarizeCategories[] = {};
 	/**
 	 * Diese Methode fasst mehrere Kategorien als eine Zusammen.
 	 * Alle Kategorien des Schemas <code>catname n</code> werden
-	 * in die Kategorie <code>catname</code> �bernommen.
+	 * in die Kategorie <code>catname</code> übernommen.
 	 *
 	 * @param cntx Octopus context
 	 */
@@ -79,7 +79,7 @@ public class CleanupWorker {
 			Integer orgunit = (Integer)((Map)orgunitIt.next()).get("fk_orgunit");
 
 			if (logger.isInfoEnabled())
-				logger.info("Fasse automatisch mehrere Kategorien / Ereignisse f�r " +
+				logger.info("Fasse automatisch mehrere Kategorien / Ereignisse für " +
 						"den Mandanten #" + orgunit + " zusammen.");
 
 			Select subcategoriesSelect = SQL.Select( database ).
@@ -115,7 +115,7 @@ public class CleanupWorker {
 
 				assert subcategorypk != null && topcategorypk != null;
 
-				addMessage(cntx, "\u00dcberf\u00fchre Daten " +
+				addMessage(cntx, "\u00DCberf\u00FChre Daten " +
 						"aus Kategorie \"" + subcategoryname + "\" (" + subcategorypk + ")" +
 						" in Kategorie \"" + topcategoryname + "\" (" + topcategorypk + ").");
 
@@ -206,7 +206,7 @@ public class CleanupWorker {
 								Expr.equal("fk_orgunit", orgunit))));
 
 			if (topcategorie != null) {
-				addMessage(cntx, "\u00dcberf\u00fchre Daten " +
+				addMessage(cntx, "\u00DCberf\u00FChre Daten " +
 						"aus Kategorie \"" + catname + "\" (" + catpk + ")" +
 						" in Kategorie \"" + topcategorie.name + "\" (" + topcategorie.id + ").");
 

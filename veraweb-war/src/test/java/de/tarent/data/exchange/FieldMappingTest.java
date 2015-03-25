@@ -1,8 +1,8 @@
 /**
  * veraweb, platform independent webservice-based event management
  * (Veranstaltungsmanagment VerA.web), is
- * Copyright © 2004-2008 tarent GmbH
- * Copyright © 2013 tarent solutions GmbH
+ * Copyright © 2004–2008 tarent GmbH
+ * Copyright © 2013–2015 tarent solutions GmbH
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -54,7 +54,7 @@ public class FieldMappingTest extends TestCase {
 
     /**
      * (Erzeugung / Parsen der Parameter) Diese Testmethode testet, ob mehrfache
-     * Joker in einem FormatString zum Abbruch f�hren.
+     * Joker in einem FormatString zum Abbruch führen.
      */
     public void testCreateDoubleJokerFail() {
         Set sources = createSources();
@@ -62,7 +62,7 @@ public class FieldMappingTest extends TestCase {
         description.put("*", "{:*} in {:*}");
         try {
             FieldMapping mapping = new FieldMapping(sources, description);
-            Assert.fail("FieldMapping " + mapping + " d�rfte keine mehrfachen Joker akzeptieren");
+            Assert.fail("FieldMapping " + mapping + " dürfte keine mehrfachen Joker akzeptieren");
         } catch (MappingException e) {
             // Geklappt
         }

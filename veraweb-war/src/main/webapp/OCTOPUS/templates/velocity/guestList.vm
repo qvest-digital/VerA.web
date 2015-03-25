@@ -10,19 +10,19 @@
     	<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Veranstaltungen > Veranstaltung bearbeiten</span>
     </div>
     <h1>G&auml;steverwaltung der Veranstaltung: $!message.plain($event.shortname)</h1>
-	
+
 	#if(!$isNewEvent)
 		#set($completeEventHeader = true)
       	#parse("inc/event-header.vm")
 	#end
-	
+
     #set($isUser = false)
     #set($isAdmin = false)
     #foreach($group in $octopusConfig.personalConfig.UserGroups)
     	#if($group == "Writer")
     		#set($isUser = true)
     	#elseif($group == "PartialAdmin")
-    		#set($isAdmin = true)	
+    		#set($isAdmin = true)
     	#elseif($group == "Administrator")
     		#set($isAdmin = true)
     	#end
@@ -50,7 +50,7 @@
     		#end
     	</vera-success>
 	#end
-	
+
     #if($octopusRequest.task == "CalcSerialNumber" && (!$listquestions || $listquestions.size() == 0))
 		<vera-success>
     		Die &quot;Laufende Nummer&quot; wurde f&uuml;r alle G&auml;ste neu berechnet und gespeichert.
@@ -61,16 +61,16 @@
 		<div id="tabsMain">
 			<ul vera-tab-group="" class="gray-gradient"> <!-- Bitte das End-tag der <li>s immer mit in die nächste Zeile nehmen (verhindert Mozilla styling bug) -->
     			<li id="gaesteliste" vera-tab class="active posRel" style="z-index:2"><div>G&auml;steliste</div>
-				#if($list.size() > 0) 
+				#if($list.size() > 0)
 				</li><li id="gastdetails" class="inactive"><div>Gastdetails</div>
 				</li><li id="dokumenttypen" class="inactive"><div>Dokumenttypen</div>
 				#end
 				</li>
 			</ul>
 		</div>
-		
+
 		<div style="border-bottom:1px solid #BDBDBD;" class="contentBoxColored  tabsContent notBold posRel marginBottom40" vera-content="">
-			
+
 			<div id="guestSummary" class="table posAb hinweis grayBorder" style="padding-bottom: 5px;">
 				<div class="tableRow">
 					<div class="tableCell"><strong>Offen:</strong> $!guestlist-sums.offen</div>
@@ -81,7 +81,7 @@
 					<div class="tableCell"><strong>Auf&nbsp;Reserve:</strong> $!guestlist-sums.reserve</div>
 				</div>
 			</div>
-            
+
             <form id="guestListFilter" name="guestListFilter" action="ShowGuestList" method="POST" class="marginTop25">
                 <input type="hidden" name="start" value="0">
 				<input type="hidden" name="limit" value="" />
@@ -89,9 +89,9 @@
                 <input type="hidden" name="selectNone" value="true">
                 <input type="hidden" name="search-event" value="$search.event">
                 <input type="hidden" id="search-listorder" name="search-listorder" value="$!search.listorder">
-        			
+
                 <h3 class="marginBottom0">Filter</h3>
-        		
+
         		<div class="table width75">
         			<div class="tableRow">
         				<div class="tableCell width25">
@@ -110,7 +110,7 @@
 	                			<option #if($search.invitationstatus && $search.invitationstatus == 2) selected#end value="2">nur Zusagen</option>
 	                			<option #if($search.invitationstatus && $search.invitationstatus == 3) selected#end value="3">nur Absagen</option>
 	                			<option #if($search.invitationstatus && $search.invitationstatus == 4) selected#end value="4">nur Teilnahmen</option>
-                            </select>				
+                            </select>
         				</div>
 						<div class="tableCell width50">
                     		<label for="search-category">Kategorie</label>
@@ -119,13 +119,13 @@
 			                	#foreach($category in $categories)
 									<option #if($search.category && $search.category == $category) selected#end value="$category">$category</option>
                 				#end
-                            </select>				
+                            </select>
         				</div>
         			</div>
         		</div>
-        
+
             </form>
-            
+
             #if($listerrors.size() > 0)
                 <vera-warn>
                 	#foreach($error in $listerrors)
@@ -144,16 +144,16 @@
                 		#set($save = true)
                 	#end
                 	</table><br>
-                
+
                 	#if($save)
 						<input type="submit" name="remove" value="Ja" title="Speichern" />
 					#end
-					
+
                 	<input type="button" name="cancel" value="Nein" title="Abbrechen" onclick="window.location.href='ShowGuestList?selectNone=true';"> &nbsp;
                 </div>
                 </form>
             #end
-            
+
             <form id="formlist" name="formlist" action="ShowGuestList" method="POST">
             <input type="hidden" name="start" value="">
 			<input type="hidden" name="limit" value="" />
@@ -165,7 +165,7 @@
             <input type="hidden" name="categoryAssignmentId" value="">
             <input type="hidden" name="workareaAssignmentAction" value="">
             <input type="hidden" name="workareaAssignmentId" value="">
-            
+
             #foreach($bean in $list)
 				<input type="hidden" name="list" value="$bean.id">
         	#end
@@ -184,7 +184,7 @@
                             	<input type="button" name="button.execute" id="button.execute" value="Durchführen" class="autoWidth">
             			</div>
             			<div class="tableCell textRight" style="vertical-align:bottom; padding-bottom:0">
-            				#if($grants.mayWrite()) 
+            				#if($grants.mayWrite())
 								<input type="button" class="mainButton inlineInput autoWidth" name="createGuestList" value="G&auml;steliste erstellen" title="G&auml;steliste erstellen" onclick="submitFormWithGivenAction('ShowReportGuestList', $grants.mayWrite());" />
 								<input type="button" class="mainButton inlineInput autoWidth" name="addGuestsFromEvent" value="G&auml;ste aus Veranstaltung &uuml;bernehmen" title="G&auml;ste aus Veranstaltung &uuml;bernehmen" onclick="window.location.href='AddEventToEventSearch?action=guest';" />
 								<input type="button" class="mainButton inlineInput autoWidth" name="add" value="Gast hinzuf&uuml;gen" title="Personen suchen und zu der G&auml;steliste hinzuf&uuml;gen" onclick="window.location.href='AddPersonToEventSearch?action=guest&search=clear';" />
@@ -192,10 +192,10 @@
 						</div>
                	</div>
             </div><!--neu -->
-			
-			## Handler für selektierte Aktion 
+
+			## Handler für selektierte Aktion
     		<script>
-			
+
 				var removeGuestabfrage = function () {
 						#if(!$grants.mayWrite())
                             showWarning('Sie haben keine ausreichende Berechtigung um G&auml;ste zu entfernen.');
@@ -216,27 +216,27 @@
                             $('input:checkbox').prop('disabled', true);
                             showConfirmYesNo('Bitte best&auml;tigen Sie das L&ouml;schen der markierten G&auml;ste!',
                                 msg,
-                                function () { // Ja                                                                 
+                                function () { // Ja
                                     $('<input>').attr({ type: 'hidden', id: 'remove', name: 'remove' }).appendTo($('#formlist'));
 									$('input:checkbox').prop('disabled', false);
 									document.formlist.submit();
-									
+
                                 }, function () { // Nein
                                 	$(".errormsg").remove();
                                 	$(".successmsg").remove();
                                     showSuccess('Es wurden keine G&auml;ste gel&ouml;scht.');
                                     $('input:checkbox').prop('disabled', false);
-                                    
+
                                 });
 						}
 				}
-			
-			
+
+
     			$(function () {
-				
-    				$('#button\\.execute').click(function (e) {					
+
+    				$('#button\\.execute').click(function (e) {
     					var selectText = $('#actionSelection option:selected').text();
-    					
+
 						if(hasSelection()){
         					if (selectText == "Löschen") {
     							removeGuestabfrage();
@@ -249,7 +249,7 @@
         						submitFormWithGivenAction('CreateMailinglist', $grants.mayWrite());
         					} else if (selectText == "Steuerdatei exportieren") {
 								$('#selectNone').val('false');
-        						submitFormWithGivenAction('ShowExportGuestDoctype', $grants.mayExport()); 
+        						submitFormWithGivenAction('ShowExportGuestDoctype', $grants.mayExport());
         					}
 						} else {
                         	$(".errormsg").remove();
@@ -257,40 +257,40 @@
             				showWarning( "Wählen Sie bitte zunächst einen oder mehrere G&auml;ste aus." );
             			}
     				});
-     			});	
-				
-				
-				
+     			});
+
+
+
 				var selectedCount = ${listselection.size()};
-        	
+
             	function hasSelection() {
                     return $('input:checked[name$="-select"]').length > 0;
             	}
-            
+
             	function selectionChange( elt ) {
             		selectedCount += ( elt.checked ? 1 : -1 );
             	}
-				
+
 				function selectedActionRemoveGuest() {
 					$('<input>').attr({ type: 'hidden', id: 'remove', name: 'remove' }).appendTo($('#formlist'));
-					document.formlist.submit();					
+					document.formlist.submit();
 				}
-				
+
             	function unassignCategories() {
             		selectPersonCategory( "${paths.staticWeb}do/popupUnassignGuestCategory?count=" + selectedCount + "&eventId=" + ${event.id} );
             	}
-            	
+
             	function assignCategories() {
             		selectPersonCategory( "${paths.staticWeb}do/popupAssignGuestCategory?count=" + selectedCount + "&eventId=" + ${event.id} );
-            	}  
-				
+            	}
+
 				function submitFormWithGivenAction(action, permission) {
     					htmlWait();
     					document.getElementById('formlist').action = action;
         				document.formlist.submit();
 				}
     		</script>
-        	
+
             <table class="sortable">
             	<tr>
 					<th class="textCenter smallCell"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="Alle (de)markieren" #if($listselection.size() == $list.size()) checked#end/></th>
@@ -330,32 +330,32 @@
             		<th><a href="javascript:orderGuestList('firstname_a_e1');">Vorname</a></th>
             		<th class="textCenter smallCell"><a href="javascript:orderGuestList('mail_a_e1');">E-Mail</a></th>
 			#end
-			
+
             #if($userConfig.guestListFunction)
             		<th>Funktion</th>
 			#end
-			
+
             #if($userConfig.guestListCity)
             		<th>PLZ / Ort</th>
 			#end
-			
+
             #if($userConfig.guestListPhone)
             		<th>Telefon</th>
             #end
             		<th style="width: 100px; text-align: center;"><span style="display: inline-block; padding: 10px;color: #1B1B1B;">$!message.text($!config.main)</span></th>
             		<th style="width: 100px; text-align: center;"><span style="display: inline-block; padding: 10px;color: #1B1B1B;">$!message.text($!config.partner)</span></th>
             	</tr>
-				
+
             	#set($deletedperson = false)
-            	
+
 				#foreach($bean in $list)
                 	#if ($bean.deleted == "t")
                     	#set($deletedperson = true)
                 	#end
-            	
-            	
+
+
 				#set($offset = $listparam.start + $velocityCount)
-            	
+
             	<tr>
             		<td><input type="hidden" id="${bean.id}-modified" name="${bean.id}-modified" value="false"><input type="hidden" id="${bean.id}-invitationtype" name="${bean.id}-invitationtype" value="${bean.invitationtype}"><input type="checkbox" name="${bean.id}-select" onChange="selectionChange( this );" value="true" #if($listselection.indexOf($bean.id) != -1) checked#end/></td>
             		<td style="cursor: pointer;" onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';"><input type="hidden" name="${bean.id}-id" value="$bean.id">
@@ -367,7 +367,7 @@
             				<em>keine</em>
             			#end
             		</td>
-					
+
             		#if($bean.reserve == 1)
 						<td class="textCenter" onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';" title="Auf Reserve"><strong>R</strong></td>
             		#else
@@ -486,14 +486,14 @@
                     #end
             	</tr>
 				#end
-				
+
 				#if ($listparam.count == 0)
                    	<tr class="colspan"><td colspan="99">Es wurden noch keine Gäste eingeladen</td></tr>
                 #end
-				
+
 				#set($itemName = "Gästen")
             	#parse("inc/list-navi-new.vm")
-				
+
             	#if($search.listorder)
 					#parse("inc/list-direct-new.vm")
             	#else
@@ -503,19 +503,19 @@
 						</td>
 					</tr>
             	#end
-				
+
             </table>
-        	
+
         	<div class="textRight marginTop10 marginBottom20">
 				<input type="button" name="calcSerialNumber" value="Laufende Nummer berechnen" title="Laufende Nummer berechnen" onclick="htmlWait(); window.location.href='CalcSerialNumber';" #if(!$grants.mayWrite()) class="buttondisabled" vera-disabled #end>
 				<input type="button" name="reloadAllGuestData" value="Alle Stammdaten neu laden" title="Alle Stammdaten neu laden" onclick="submitFormWithGivenAction('ReloadAllGuestData', $grants.mayWrite());" #if(!$grants.mayWrite()) class="buttondisabled" vera-disabled #end>
         	</div>
-            
+
 			<vera-info vera-stay>
 				Beim Erstellen von Steuerdateien oder G&auml;stelisten wird Ihr oben ausgew&auml;hlter Filter ber&uuml;cksichtigt.<br>
 				Wenn Sie einzelne G&auml;ste markieren, werden nur diese exportiert, ansonsten die vollst&auml;ndige Liste.
 			</vera-info>
-            
+
             #if($deletedperson)
                 <table>
                 	<tr style="height: 20px;">
@@ -526,15 +526,15 @@
                 	</tr>
                 </table>
                 <br>
-            #end			
-            
+            #end
+
             <div>
-        
-				
-            
+
+
+
             #set($isUser = false)
             #set($isAdmin = false)
-            
+
 			#foreach($group in $octopusConfig.personalConfig.UserGroups)
             	#if($group == "Writer")
             		#set($isUser = true)
@@ -544,16 +544,16 @@
             		#set($isAdmin = true)
             	#end
             #end
-            			
+
             </div>
-			
+
         	<div style="bottom: -40px; right: -1px;" class="textRight posAb" id="buttonPanel-bottom">
 				#if($grants.mayWrite())
 					<input type="submit" name="save" value="Speichern" title="Speichern" class="mainButton" />
 				#end
                 <input type="button" name="cancel" value="Zur&uuml;ck zu den Veranstaltungsdetails" title="Zur&uuml;ck zu den Veranstaltungsdetails" class="mainButton" onclick="window.location.href='ShowEvent?id=$!event.id&action=event';" />
-        	</div>			
-            
+        	</div>
+
             </form>
 		</div>
 	</div>
@@ -566,7 +566,7 @@
 		document.getElementById('search-listorder').value = column;
 		document.getElementById('guestListFilter').submit();
 	}
-	
+
     #if($invited && $invited == 0 && $notInvited && $notInvited == 0 && ! $doNotAlert)
     	showWarning('Sie haben keine Person ausgewählt.');
     #elseif($notInvited)
