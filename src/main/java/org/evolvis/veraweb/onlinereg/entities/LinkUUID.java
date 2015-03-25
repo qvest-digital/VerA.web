@@ -20,7 +20,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @Table(name = "link_uuid")
 @NamedQueries({
-    @NamedQuery(name = "LinkUUID.getUserIdByUUID", query = "SELECT l.pk FROM LinkUUID l where l.uuid = :uuid")
+    @NamedQuery(name = "LinkUUID.getUserIdByUUID", query = "SELECT l.personid FROM LinkUUID l where l.uuid = :uuid")
 })
 public class LinkUUID {
 
