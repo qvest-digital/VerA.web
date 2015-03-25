@@ -75,7 +75,7 @@ public class ResetPasswordResource {
      */
     @POST
     @Path("/{uuid}")
-    public String getEvenByUUId(@PathParam("uuid") Integer uuid, @FormParam("password") String password) throws IOException {
+    public String getEvenByUUId(@PathParam("uuid") String uuid, @FormParam("password") String password) throws IOException {
         final Integer userId = readResource(path("links", uuid), INTEGER);
         final Person person = readResource(path("person", "list", userId), PERSON);
         final String username = person.getUsername();
