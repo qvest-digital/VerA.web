@@ -33,26 +33,26 @@ import de.tarent.octopus.client.OctopusResult;
 
 /**
  * Diese Testklasse dient dem Profilen des Zeitverhaltens beim Erstellen
- * von Insert-Statements, das deutlich l�nger braucht als das Erstellen von
+ * von Insert-Statements, das deutlich länger braucht als das Erstellen von
  * analogen Where-Klauseln.
- * 
+ *
  * @author mikel
  */
 public class ProfileInsert extends TestCase {
     private OctopusConnection con;
     private static Logger baseLogger = null;
     private FileHandler fileLogHandler = null;
-    
+
     public void testProfile() {
     	if (con == null)
     		return;
-    	
+
     	Map taskParamsTestProfile = new TreeMap();
     	taskParamsTestProfile.put("module", "veraweb");
         taskParamsTestProfile.put("username", "pol-2");
         taskParamsTestProfile.put("password", "Benutzer99");
         taskParamsTestProfile.put("count", "10");
-        
+
         ProfileLogger pLog = new ProfileLogger();
         OctopusResult res = con.callTask("testProfile", taskParamsTestProfile);
         pLog.log("testProfile");
@@ -74,7 +74,7 @@ public class ProfileInsert extends TestCase {
         super.tearDown();
     }
 
-    
+
 
     static void printResult(OctopusResult res, String title) {
         if (res == null)
@@ -84,6 +84,6 @@ public class ProfileInsert extends TestCase {
             String key = (String)iter.next();
             System.out.println("  "+key+ "="+res.getData(key));
         }
-        System.out.println();        
+        System.out.println();
     }
 }

@@ -40,9 +40,9 @@ import javax.persistence.Transient;
 import org.hibernate.LazyInitializationException;
 
 /**
- * 
+ *
  * @author Valentin But (v.but@tarent.de), tarent solutions GmbH
- * 
+ *
  */
 @MappedSuperclass
 public abstract class AbstractEntity implements Serializable {
@@ -110,10 +110,10 @@ public abstract class AbstractEntity implements Serializable {
     /**
      * Returns the current value of the given field of this object by calling a getter. This is needed to get values of
      * private fields.
-     * 
+     *
      * @param field
      * @return
-     * 
+     *
      * @throws SecurityException
      * @throws NoSuchMethodException
      * @throws InvocationTargetException
@@ -174,7 +174,7 @@ public abstract class AbstractEntity implements Serializable {
     /**
      * Format objects in {@link #toString()} if the objects {@link Object#toString()} method does not return the
      * expected value.
-     * 
+     *
      * @param obj
      * @return
      */
@@ -187,7 +187,7 @@ public abstract class AbstractEntity implements Serializable {
 
     /**
      * Convert the given {@link PersistenceObject} to String and append to the given {@link StringBuilder}.
-     * 
+     *
      * @param builder
      *            Add content to this builder
      * @param indent

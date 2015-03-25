@@ -40,8 +40,8 @@ import de.tarent.octopus.beans.Database;
 import de.tarent.octopus.beans.ExecutionContext;
 
 /**
- * Diese Klasse sammelt Hilfsklassen zum Ermitteln laufender Nummern für Gäste. 
- * 
+ * Diese Klasse sammelt Hilfsklassen zum Ermitteln laufender Nummern für Gäste.
+ *
  * @author christoph
  */
 public class GuestSerialNumber {
@@ -53,10 +53,10 @@ public class GuestSerialNumber {
 		protected int orderNo = 0;
 		protected ExecutionContext context;
 		protected Event event;
-		
+
         /**
-         * Dieser Konstruktor �bernimmt Datenbank und Veranstaltung zur
-         * Benutzung bei der sp�teren Berechnung laufender Gästenummern. 
+         * Dieser Konstruktor übernimmt Datenbank und Veranstaltung zur
+         * Benutzung bei der späteren Berechnung laufender Gästenummern.
          */
 		public CalcSerialNumber(ExecutionContext context, Event event) {
 			this.context = context;
@@ -64,12 +64,12 @@ public class GuestSerialNumber {
 		}
 
         /**
-         * Diese abstrakte Methode berechnet die tats�chlichen laufenden
+         * Diese abstrakte Methode berechnet die tatsächlichen laufenden
          * Nummern der Gäste der im Konstruktor übergebenen Veranstaltung
-         * in der ebenda übergebenen Datenbank.  
+         * in der ebenda übergebenen Datenbank.
          */
 		public abstract void calcSerialNumber() throws BeanException, IOException;
-		
+
 		protected void clearSerialNumber() throws BeanException {
 			Update update = SQL.Update( context ).
 					table("veraweb.tguest").
@@ -78,14 +78,14 @@ public class GuestSerialNumber {
 					where(Expr.equal("fk_event", event.id));
 			context.execute(update);
 		}
-		
+
 		protected void setSerialNumber(Map guest) throws BeanException, IOException {
 			Integer invitationtype = (Integer)guest.get("invitationtype");
 			Integer invitationstatus_a = (Integer)guest.get("invitationstatus_a");
 			Integer invitationstatus_b = (Integer)guest.get("invitationstatus_b");
 			Integer orderno_a;
 			Integer orderno_b;
-			
+
 			if (invitationtype == null || invitationtype.intValue() == EventConstants.TYPE_MITPARTNER) {
 				if (invitationstatus_a != null && invitationstatus_a.intValue() == 2)
 					orderno_a = null;
@@ -110,20 +110,20 @@ public class GuestSerialNumber {
 			} else {
 				throw new IOException("wrong invitationtype");
 			}
-			
+
 			context.execute(SQL.Update( context ).
 					table("veraweb.tguest").
 					update("tguest.orderno", orderno_a).
 					update("tguest.orderno_p", orderno_b).
 					where(Expr.equal("pk", guest.get("id"))));
 		}
-		
+
 		protected void setSerialNumber(Select select) throws BeanException, IOException {
 			for (Iterator it = context.getDatabase().getList(select, context).iterator(); it.hasNext(); ) {
 				setSerialNumber((Map)it.next());
 			}
 		}
-		
+
 		protected Select getSelect() {
 			return SQL.Select( context ).
 					from("veraweb.tguest").
@@ -147,15 +147,15 @@ public class GuestSerialNumber {
      */
 	static public class CalcSerialNumberImpl2 extends CalcSerialNumber {
         /**
-         * Dieser Konstruktor �bernimmt Datenbank und Veranstaltung zur
-         * Benutzung bei der sp�teren Berechnung laufender Gästenummern. 
+         * Dieser Konstruktor übernimmt Datenbank und Veranstaltung zur
+         * Benutzung bei der späteren Berechnung laufender Gästenummern.
          */
 		public CalcSerialNumberImpl2(ExecutionContext context, Event event) {
 			super(context, event);
 		}
-		
+
         /**
-         * Diese Methode berechnet die tats�chlichen laufenden Nummern der
+         * Diese Methode berechnet die tatsächlichen laufenden Nummern der
          * Gäste der im Konstruktor übergebenen Veranstaltung in der ebenda
          * übergebenen Datenbank nach folgendem Schema:
          * <ul>
@@ -168,7 +168,7 @@ public class GuestSerialNumber {
         public void calcSerialNumber() throws BeanException, IOException {
 			clearSerialNumber();
 			calcSerialNumberForGuestRank();
-			
+
 			Select select = SQL.Select( context ).
 					from("veraweb.tcategorie").
 					selectAs("pk", "id").
@@ -182,59 +182,59 @@ public class GuestSerialNumber {
 					calcSerialNumberForCategorie((Integer)map.get("id"));
 				}
 			}
-			
+
 			calcSerialNumberForGuestName();
 		}
-		
+
 		protected void calcSerialNumberForGuestRank() throws BeanException, IOException {
 			WhereList where = getGuestSerialNumberWhere(event);
 			where.addAnd(Expr.isNotNull("tguest.rank"));
-			
+
 			Select select = getSelect();
 			select.where(where);
 			select.orderBy(Order.asc("tguest.rank").andAsc("lastname_a_e1").andAsc("firstname_a_e1"));
-			
+
 			setSerialNumber(select);
 		}
-		
+
 		protected void calcSerialNumberForGuestName() throws BeanException, IOException {
 			WhereList where = getGuestSerialNumberWhere(event);
-			
+
 			Select select = getSelect();
 			select.where(where);
 			select.orderBy(Order.asc("lastname_a_e1").andAsc("firstname_a_e1"));
-			
+
 			setSerialNumber(select);
 		}
-		
+
 		protected void calcSerialNumberForCategorie(Integer categorieId) throws BeanException, IOException {
 			WhereList where = getGuestSerialNumberWhere(event);
 			where.addAnd(Expr.equal("tperson_categorie.fk_categorie", categorieId));
-			
+
 			Select select = getSelect();
 			select.join("veraweb.tperson_categorie", "tperson_categorie.fk_person", "tguest.fk_person");
 			select.where(where);
 			select.orderBy(Order.asc("tperson_categorie.rank").andAsc("lastname_a_e1").andAsc("firstname_a_e1"));
-			
+
 			setSerialNumber(select);
 		}
-		
+
 		protected void calcSerialNumberForDiploCorp(Integer categorieId) throws BeanException, IOException {
 			WhereList where = getGuestSerialNumberWhere(event);
 			where.addAnd(Expr.equal("tperson_categorie.fk_categorie", categorieId));
-			
+
 			Select select = getSelect();
 			select.join("veraweb.tperson_categorie", "tperson_categorie.fk_person", "tguest.fk_person");
 			select.where(where);
 			select.orderBy(Order.asc("tperson.diplodate").andAsc("lastname_a_e1").andAsc("firstname_a_e1"));
-			
+
 			setSerialNumber(select);
 		}
-		
+
 		/**
 		 * @param event Event
 		 * @return
-		 * 		Where-Liste mit Einschr�nkung auf die übergebene Veranstaltung
+		 * 		Where-Liste mit Einschränkung auf die übergebene Veranstaltung
 		 * 		und nur nocht nicht einsortierte Gäste.
 		 */
 		private WhereList getGuestSerialNumberWhere(Event event) {
@@ -258,15 +258,15 @@ public class GuestSerialNumber {
      */
 	static public class CalcSerialNumberImpl3 extends CalcSerialNumber {
         /**
-         * Dieser Konstruktor �bernimmt Datenbank und Veranstaltung zur
-         * Benutzung bei der sp�teren Berechnung laufender Gästenummern. 
+         * Dieser Konstruktor übernimmt Datenbank und Veranstaltung zur
+         * Benutzung bei der späteren Berechnung laufender Gästenummern.
          */
 		public CalcSerialNumberImpl3(ExecutionContext context, Event event) {
 			super(context, event);
 		}
-		
+
         /**
-         * Diese Methode berechnet die tats�chlichen laufenden Nummern der
+         * Diese Methode berechnet die tatsächlichen laufenden Nummern der
          * Gäste der im Konstruktor übergebenen Veranstaltung in der ebenda
          * übergebenen Datenbank nach folgendem Schema:
          * <ul>
@@ -279,7 +279,7 @@ public class GuestSerialNumber {
 		@Override
         public void calcSerialNumber() throws BeanException, IOException {
 			clearSerialNumber();
-			
+
 			WhereList where = new WhereList();
 			// Nur diese Veranstaltung
 			where.addAnd(Expr.equal("tguest.fk_event", event.id));
@@ -299,7 +299,7 @@ public class GuestSerialNumber {
 					"(invitationtype = 3" +
 					" AND invitationstatus_p IS NOT NULL" +
 					" AND invitationstatus_p = 2)))"));
-			
+
 			List order = new ArrayList();
 			order.add("tcategorie.rank");
 			order.add("tcategorie.catname");
@@ -308,11 +308,11 @@ public class GuestSerialNumber {
 			order.add("diplodate");
 			order.add("lastname_a_e1");
 			order.add("firstname_a_e1");
-			
+
 			Select select = getSelect();
 			select.where(where);
 			select.orderBy(DatabaseHelper.getOrder(order));
-			
+
 			setSerialNumber(select);
 		}
 	}

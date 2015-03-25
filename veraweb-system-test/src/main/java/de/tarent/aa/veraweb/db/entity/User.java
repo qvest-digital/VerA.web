@@ -31,9 +31,9 @@ import javax.persistence.Table;
 
 /**
  * Entity 'User'.
- * 
+ *
  * @author Valentin But (v.but@tarent.de), tarent solutions GmbH
- * 
+ *
  */
 @Entity
 @Table(name = "tuser")
@@ -82,7 +82,7 @@ public class User extends AbstractEntity {
 
     /**
      * Get id.
-     * 
+     *
      * @return the id
      */
     public Long getId() {
@@ -91,7 +91,7 @@ public class User extends AbstractEntity {
 
     /**
      * Set id.
-     * 
+     *
      * @param id
      *            the id to set
      */
@@ -101,7 +101,7 @@ public class User extends AbstractEntity {
 
     /**
      * Get username.
-     * 
+     *
      * @return the username
      */
     public String getUsername() {
@@ -110,7 +110,7 @@ public class User extends AbstractEntity {
 
     /**
      * Set username.
-     * 
+     *
      * @param username
      *            the username to set
      */
@@ -120,7 +120,7 @@ public class User extends AbstractEntity {
 
     /**
      * Get role.
-     * 
+     *
      * @return the role
      */
     public Integer getRole() {
@@ -129,7 +129,7 @@ public class User extends AbstractEntity {
 
     /**
      * Set role.
-     * 
+     *
      * @param role
      *            the role to set
      */
@@ -139,7 +139,7 @@ public class User extends AbstractEntity {
 
     /**
      * Get organization unit.
-     * 
+     *
      * @return the orgunit
      */
     public Orgunit getOrgunit() {
@@ -148,7 +148,7 @@ public class User extends AbstractEntity {
 
     /**
      * Set organization unit.
-     * 
+     *
      * @param orgunit
      *            the organization unit to set
      */

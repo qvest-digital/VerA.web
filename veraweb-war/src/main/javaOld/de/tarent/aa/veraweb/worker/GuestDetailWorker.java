@@ -74,13 +74,13 @@ public class GuestDetailWorker extends GuestListWorker {
     /** Eingabe-Parameterzwang der Octopus-Aktion {@link #showDetail(OctopusContext, Integer, Integer)} */
 	public static final boolean MANDATORY_showDetail[] = { false, false };
 	/**
-	 * Diese Octopus-Aktion l�dt Details zu einem Gast, der �ber ID oder �ber Position in der Ergebnisliste zu einer
+	 * Diese Octopus-Aktion lädt Details zu einem Gast, der über ID oder über Position in der Ergebnisliste zu einer
 	 * aktuellen Gästesuche identifiziert wird.<br>
-	 * Wird der Gast oder die dazugeh�rende Person nicht gefunden, so wird der Status "notfound" gesetzt. Ansonsten werden
+	 * Wird der Gast oder die dazugehörende Person nicht gefunden, so wird der Status "notfound" gesetzt. Ansonsten werden
 	 * folgende Einträge im Octopus-Content gesetzt:
 	 * <ul>
 	 * <li> "guest" mit den Gastdetails
-	 * <li> "person" mit den Details der zugeh�rigen Person
+	 * <li> "person" mit den Details der zugehörigen Person
 	 * <li> "main" mit der Facade zur Hauptperson
 	 * <li> "partner" mit der Facade zur Partnerperson
 	 * <li> "address" mit der Facade zur Adresse zum Standard-Freitextfeld
@@ -156,15 +156,15 @@ public class GuestDetailWorker extends GuestListWorker {
     /**
 		 * Diese Methode speichert Details zu einem Gast.<br>
 		 * Der Gast wird aus dem Octopus-Request gelesen. Je nach Einladungsart und -status werden dann Korrekturen an den
-		 * laufenden Nummern ausgeführt und die Bean wird gepr�ft ({@link BeanException} falls sie unvollst�ndig ist oder
-		 * ung�ltige Einträge enth�lt). Schließlich wird sie gespeichert und passend wird im Octopus-Content unter
+		 * laufenden Nummern ausgeführt und die Bean wird geprüft ({@link BeanException} falls sie unvollständig ist oder
+		 * ungültige Einträge enthält). Schließlich wird sie gespeichert und passend wird im Octopus-Content unter
 		 * "countInsert" oder "countUpdate" 1 eingetragen.
 		 * Wenn der Nutzer dies im GUI bestaetigt hat, wird der Rang der Kategorie aus den Stammdaten der Person uebernommen.
 		 *
 		 * @param cntx
 		 *          Octopus-Content
 		 * @throws BeanException
-		 *           bei ung�ltigen oder unvollst�ndigen Einträgen
+		 *           bei ungültigen oder unvollständigen Einträgen
 		 */
 	public void saveDetail(OctopusContext cntx) throws BeanException, IOException, Exception
 	{
@@ -500,7 +500,7 @@ public class GuestDetailWorker extends GuestListWorker {
     /**
      * Diese Methode erzeugt Test-Gast-Daten in einer Gast-Member-Facade.
      *
-     * @param facade zu f�llende Gast-Member-Facade
+     * @param facade zu füllende Gast-Member-Facade
      * @param suffix Feldinhaltanhang für Textfelder
      * @param random Wert für laufende Nummer, Sitznummer und Tischnummer
      */
@@ -521,13 +521,13 @@ public class GuestDetailWorker extends GuestListWorker {
     /**
      * Diese Methode liefert eine {@link Guest}-Instanz passend zu den übergebenen
      * Kriterien. Falls eine Gast- und Veranstaltungs-ID vorliegt, wird der Gast
-     * anhand dieser selektiert, sonst wird er �ber den übergebenen Offset in der
-     * Ergebnisliste zur aktuellen Gastsuche ausgew�hlt.<br>
+     * anhand dieser selektiert, sonst wird er über den übergebenen Offset in der
+     * Ergebnisliste zur aktuellen Gastsuche ausgewählt.<br>
      *
      * @param cntx Octopus-Kontext
-     * @param eventid Veranstaltungs-ID für Selektion �ber ID
-     * @param guestid Gast-ID für Selektion �ber ID
-     * @param offset Gast-Offset für Selektion �ber Offset in Suchergebnisliste
+     * @param eventid Veranstaltungs-ID für Selektion über ID
+     * @param guestid Gast-ID für Selektion über ID
+     * @param offset Gast-Offset für Selektion über Offset in Suchergebnisliste
      * @return der selektierte Gast oder <code>null</code>
      */
 	protected Guest getGuest(OctopusContext cntx, Integer eventid, Integer guestid, Integer offset) throws BeanException, IOException {
@@ -570,7 +570,7 @@ public class GuestDetailWorker extends GuestListWorker {
 			Guest guest = (Guest)database.getBean(BEANNAME, select);
 			if (guest != null) {
 				// Gast wurde gefunden. Durch diese Suche (per ID) konnte sich aber ggf. die
-				// Position innerhalb der Liste ver�ndert werden, daher wird diese nun neu
+				// Position innerhalb der Liste verändert werden, daher wird diese nun neu
 				// Kalkuliert.
 				Select selectForPosition = database.getSelect("Guest");
 				extendColumns(cntx, selectForPosition);

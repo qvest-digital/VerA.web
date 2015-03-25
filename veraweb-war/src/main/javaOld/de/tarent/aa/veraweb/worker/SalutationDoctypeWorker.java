@@ -62,11 +62,11 @@ public class SalutationDoctypeWorker extends ListWorkerVeraWeb {
     protected void extendWhere(OctopusContext cntx, Select select) throws BeanException, IOException {
 		Integer id = cntx.requestAsInteger("id");
 		select.where(Expr.equal("fk_salutation", id));
-		
+
 		Database database = getDatabase(cntx);
 		cntx.setContent("salutation", database.getBean("Salutation", id));
 	}
-	
+
 	@Override
 	protected int insertBean(OctopusContext cntx, List errors, Bean bean, TransactionContext context) throws BeanException, IOException {
         int count = 0;
@@ -80,7 +80,7 @@ public class SalutationDoctypeWorker extends ListWorkerVeraWeb {
         }
         return count;
     }
-	
+
 	@Override
 	protected int updateBeanList(OctopusContext cntx, List errors, List beanlist, TransactionContext context) throws BeanException, IOException {
         int count = 0;
@@ -91,7 +91,7 @@ public class SalutationDoctypeWorker extends ListWorkerVeraWeb {
                     saveBean(cntx, bean, context);
                     count++;
                 } else {
-                    errors.addAll(bean.getErrors()); 
+                    errors.addAll(bean.getErrors());
                 }
             }
         }

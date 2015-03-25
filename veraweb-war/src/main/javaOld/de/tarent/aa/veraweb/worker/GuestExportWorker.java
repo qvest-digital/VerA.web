@@ -92,7 +92,7 @@ public class GuestExportWorker {
 	/**
 	 * <p>
 	 * Berechnet wieviele Dokumenttypen einer Gästeliste exportiert
-	 * werden sollen und k�nnen.
+	 * werden sollen und können.
 	 * </p>
 	 *
 	 * @param cntx OctopusContext
@@ -189,7 +189,7 @@ public class GuestExportWorker {
         final List selection = (List)cntx.sessionAsObject("selectionGuest");
         final Doctype doctype = (Doctype)database.getBean("Doctype", doctypeid);
 
-		// Spreadsheet �ffnen
+		// Spreadsheet öffnen
 		final SpreadSheet spreadSheet = SpreadSheetFactory.getSpreadSheet(doctype.format);
 		spreadSheet.init();
         final String fileExtension = spreadSheet.getFileExtension();
@@ -200,7 +200,7 @@ public class GuestExportWorker {
                     + "; Format: '" + spreadSheet.getClass().getName() + "')");
         }
 
-		// Tabelle �ffnen und erste Zeile schreiben
+		// Tabelle öffnen und erste Zeile schreiben
 		spreadSheet.openTable("Gäste", 65);
 		spreadSheet.openRow();
 		exportHeader(spreadSheet, cntx);
@@ -218,7 +218,7 @@ public class GuestExportWorker {
 		select.selectAs("CASE WHEN orderno IS NOT NULL THEN orderno ELSE orderno_p END", "someorderno");
 
 		if (selection != null && selection.size() > 0) {
-			// Joint tguest und schr�nkt das Ergebnis auf den entsprechenden
+			// Joint tguest und schränkt das Ergebnis auf den entsprechenden
 			// Dokumenten-Typ und bestimmte Gäste ein.
 			if (logger.isInfoEnabled())
 				logger.info("Exportiere G\u00e4steliste anhand der Sleektion.");
@@ -228,7 +228,7 @@ public class GuestExportWorker {
 
 			select.where(Expr.in("tguest_doctype.fk_guest", selection));
 		} else if (event != null && event.id != null && event.id.intValue() != 0) {
-			// Joint tguest und schr�nkt das Ergebnis auf den entsprechenden
+			// Joint tguest und schränkt das Ergebnis auf den entsprechenden
 			// Dokumenten-Typ und eine Veranstaltung ein.
 			if (logger.isInfoEnabled())
 				logger.info("Exportiere G\u00e4steliste der Veranstaltung " + event.id + ".");
@@ -287,10 +287,10 @@ public class GuestExportWorker {
 			location = (Location)database.getBean("Location", event.location);
 		}
 
-		// Export-Select ausf�hren
+		// Export-Select ausführen
 		exportSelect(spreadSheet, database, event, location, doctype, search, select, data, cntx);
 
-		// Tabelle schlie�en
+		// Tabelle schließen
 		spreadSheet.closeTable();
 
 		// SpreadSheet speichern
@@ -336,19 +336,19 @@ public class GuestExportWorker {
     // Hilfsmethoden
     //
     /**
-     * Diese Methode exportiert alle Gäste, die �ber das übergebene Select-Statement
+     * Diese Methode exportiert alle Gäste, die über das übergebene Select-Statement
      * erfasst werden, in das übergebene Spreadsheet.<br>
      * TODO: Parameter, von denen nur eine oder zwei Eigenschaften benutzt werden, durch Parameter ersetzen, die direkt diese Eigenschaften darstellen
      *
      * @param spreadSheet Exportziel
      * @param database Exportquelle, auf die das Statement select angewendet werden soll
-     * @param event Veranstaltung, zu der die Gäste geh�ren
-     * @param doctype Dokumenttyp, der �ber sein partner-Flag bestimmt, ob Hauptperson
+     * @param event Veranstaltung, zu der die Gäste gehören
+     * @param doctype Dokumenttyp, der über sein partner-Flag bestimmt, ob Hauptperson
      *  und Partner in der gleichen oder in separaten Zeilen exportiert werden.
-     * @param search Gästesuche-Kriterien, die �ber ihre Eigenschaften invitationstatus
+     * @param search Gästesuche-Kriterien, die über ihre Eigenschaften invitationstatus
      *  und reserve bestimmen, ob Hauptperson, Partner oder beide exportiert werden sollen.
      * @param select Select-Statement, das auf der übergebenen database ausgeführt wird, um
-     *  die zu exportierenden Datens�tze zu liefern.
+     *  die zu exportierenden Datensätze zu liefern.
      * @param data Map mit Zusatzinformationen unter den Schlüsseln "doctype", "zusagen",
      *  "absagen", "offenen", "platz" und "reserve".
      * @throws IOException
@@ -454,7 +454,7 @@ public class GuestExportWorker {
 	}
 
 	/**
-	 * Schreibt die �berschriften des Export-Dokumentes.
+	 * Schreibt die überschriften des Export-Dokumentes.
 	 *
 	 * @param spreadSheet In das geschrieben werden soll.
 	 */
@@ -469,8 +469,8 @@ public class GuestExportWorker {
 		spreadSheet.addCell("Partner_Freitextfeld");
 		spreadSheet.addCell("Verbinder");
 
-		spreadSheet.addCell("Anschrift"); // P, G oder S - Vorgabe aus Person, �berschreibbar
-		spreadSheet.addCell("Zeichensatz"); // L, F1 oder F2 - Vorgabe aus Person, �berschreibbar
+		spreadSheet.addCell("Anschrift"); // P, G oder S - Vorgabe aus Person, überschreibbar
+		spreadSheet.addCell("Zeichensatz"); // L, F1 oder F2 - Vorgabe aus Person, überschreibbar
 
 		spreadSheet.addCell("Funktion");
 		spreadSheet.addCell("Anrede");
@@ -601,7 +601,7 @@ public class GuestExportWorker {
 	 * @param guest Map mit den Gastdaten.
 	 * @param data Zusatzinformationen.
 	 * @throws IOException Wenn die Generierung von URL fur Delegation fehlschlug.
-	 * @throws BeanException 
+	 * @throws BeanException
 	 */
 	protected void exportBothInOneLine(SpreadSheet spreadSheet, Event event, Location location, boolean showA, boolean showB, Map guest, Map data, OctopusContext cntx) throws IOException, BeanException {
 		//
@@ -802,12 +802,12 @@ public class GuestExportWorker {
 
 	/**
 	 * Columns username, password, url for delegations and persons.
-	 * 
+	 *
 	 * @param spreadSheet SpreadSheet
 	 * @param guest Map with guests
 	 * @param event Event
 	 * @throws IOException
-	 * @throws BeanException 
+	 * @throws BeanException
 	 */
 	private void addCredentialsDataColumns(SpreadSheet spreadSheet, Map guest, Event event, OctopusContext cntx) throws IOException, BeanException {
 		String password = "-";
@@ -849,39 +849,39 @@ public class GuestExportWorker {
 
 	/**
 	 * Getting URL to reseting password
-	 * 
+	 *
 	 * @param personId
 	 * @return String the url
-	 * @throws IOException 
-	 * @throws BeanException 
+	 * @throws IOException
+	 * @throws BeanException
 	 */
 	private String getURLLinkUUIDDataFromGuest(Integer personId, OctopusContext cntx) throws BeanException, IOException {
 		Database database = new DatabaseVeraWeb(cntx);
-		
+
 //		Select select = database.getSelect("LinkUUID").whereAndEq("personid", personId).whereAndEq("linktype", "passwordreset");
-		
-		
+
+
 		String url = null;
 		WhereList whereCriterias = new WhereList();
 
         whereCriterias.addAnd(new Where("personid", personId, "="));
         whereCriterias.addAnd(new Where("linktype", "passwordreset", "="));
-		
+
 		final Select select2 = SQL.Select(database);
 	      select2.from("link_uuid");
 	      select2.select("uuid");
 	      select2.where(whereCriterias);
-		
+
 		List list = database.getBeanList("LinkUUID", select2);
 
 //		Select select = database.getSelect("LinkUUID")
 //				.whereAnd(Expr.equal("personid", personId))
 //				.whereAnd(Expr.equal("linktype", "passwordreset"));
 		if (!list.isEmpty() && database.getField("uuid") != null) {
-	    	  
+
 	      String uuid = database.getField("uuid").toString();
-		
-			
+
+
 			PersonURLHandler pHandler = new PersonURLHandler();
 			url = pHandler.generateResetPasswordUrl(uuid);
 		}
@@ -1082,7 +1082,7 @@ public class GuestExportWorker {
 	 * @param guest Map mit den Gastdaten.
 	 * @param data Zusatzinformationen.
 	 * @throws IOException
-	 * @throws BeanException 
+	 * @throws BeanException
 	 */
 	protected void exportOnlyPartner(SpreadSheet spreadSheet, Event event, Location location, boolean showA, boolean showB, Map guest, Map data, OctopusContext cntx) throws IOException, BeanException {
 		//
@@ -1202,7 +1202,7 @@ public class GuestExportWorker {
 	}
 
     //
-    // �ffentliche Hilfsmethoden
+    // Öffentliche Hilfsmethoden
     //
     /** Diese Methode liefert eine String-Darstellung für einen Reserve-Wert */
 	public static String getReserve(Integer reserve) {
@@ -1220,7 +1220,7 @@ public class GuestExportWorker {
 	}
 
     /**
-     * Diese Methode liefert zu einem Integer den um 1 erh�hten Wert oder
+     * Diese Methode liefert zu einem Integer den um 1 erhöhten Wert oder
      * 0, falls <code>null</code> übergeben worden war.
      */
 	public static Integer getColor(Integer color) {
@@ -1230,7 +1230,7 @@ public class GuestExportWorker {
 	/**
 	 * Anschrifttyp als P,G,S zurückgeben.
 	 *
-	 * Vorgabe aus PersonDoctype, �berschreibbar in GuestDoctype
+	 * Vorgabe aus PersonDoctype, überschreibbar in GuestDoctype
 	 * Muss auch in anderen Bereichen umgesetzt werden.
 	 * Z.B. beim "Neu Laden" in Worker und Template.
 	 */
@@ -1249,7 +1249,7 @@ public class GuestExportWorker {
 	/**
 	 * Zeichensatz als L,F1,F2 zurückgeben.
 	 *
-	 * Vorgabe aus PersonDoctype, �berschreibbar in GuestDoctype
+	 * Vorgabe aus PersonDoctype, überschreibbar in GuestDoctype
 	 * Muss auch in anderen Bereichen umgesetzt werden.
 	 * Z.B. beim "Neu Laden" in Worker und Template.
 	 */

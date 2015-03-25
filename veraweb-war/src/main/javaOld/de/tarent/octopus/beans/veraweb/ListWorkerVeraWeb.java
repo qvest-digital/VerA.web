@@ -45,7 +45,7 @@ public class ListWorkerVeraWeb extends BeanListWorker {
     //
 	/**
      * Diese Methode liefert eine {@link DatabaseVeraWeb}-Instanz
-     * 
+     *
 	 * @see BeanListWorker#getDatabase(OctopusContext)
 	 */
 	@Override

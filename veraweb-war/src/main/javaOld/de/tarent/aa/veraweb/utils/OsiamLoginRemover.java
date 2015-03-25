@@ -59,7 +59,7 @@ public class OsiamLoginRemover {
 
     /**
      * Get id for osiam user by Username.
-     * 
+     *
      * @param accessToken The {@link org.osiam.client.oauth.AccessToken}
      * @param username The username
      *

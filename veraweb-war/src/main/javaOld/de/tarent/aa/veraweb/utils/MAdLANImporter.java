@@ -38,9 +38,9 @@ import de.tarent.data.exchange.Exchanger;
 import de.tarent.octopus.beans.BeanException;
 
 /**
- * Diese Klasse dient dem Import eines MAdLAN-CSV-Exports �ber den
+ * Diese Klasse dient dem Import eines MAdLAN-CSV-Exports über den
  * {@link ExchangeFormat}-Mechanismus.
- * 
+ *
  * @author mikel
  */
 public class MAdLANImporter implements Importer, Exchanger {
@@ -58,7 +58,7 @@ public class MAdLANImporter implements Importer, Exchanger {
     //
     /**
      * Das zu verwendende Austauschformat.
-     * 
+     *
      * @see de.tarent.data.exchange.Exchanger#getExchangeFormat()
      */
     public ExchangeFormat getExchangeFormat() {
@@ -66,7 +66,7 @@ public class MAdLANImporter implements Importer, Exchanger {
     }
     /**
      * Das zu verwendende Austauschformat.
-     * 
+     *
      * @see de.tarent.data.exchange.Exchanger#setExchangeFormat(de.tarent.data.exchange.ExchangeFormat)
      */
     public void setExchangeFormat(ExchangeFormat format) {
@@ -75,7 +75,7 @@ public class MAdLANImporter implements Importer, Exchanger {
 
     /**
      * Der zu verwendende Eingabedatenstrom
-     * 
+     *
      * @see de.tarent.data.exchange.Exchanger#getInputStream()
      */
     public InputStream getInputStream() {
@@ -83,7 +83,7 @@ public class MAdLANImporter implements Importer, Exchanger {
     }
     /**
      * Der zu verwendende Eingabedatenstrom
-     * 
+     *
      * @see de.tarent.data.exchange.Exchanger#setInputStream(java.io.InputStream)
      */
     public void setInputStream(InputStream stream) {
@@ -92,7 +92,7 @@ public class MAdLANImporter implements Importer, Exchanger {
 
     /**
      * Der zu verwendende Ausgabedatenstrom --- wird hier nicht genutzt.
-     * 
+     *
      * @see de.tarent.data.exchange.Exchanger#getOutputStream()
      */
     public OutputStream getOutputStream() {
@@ -100,7 +100,7 @@ public class MAdLANImporter implements Importer, Exchanger {
     }
     /**
      * Der zu verwendende Ausgabedatenstrom --- wird hier nicht genutzt.
-     * 
+     *
      * @see de.tarent.data.exchange.Exchanger#setOutputStream(java.io.OutputStream)
      */
     public void setOutputStream(OutputStream stream) {
@@ -112,69 +112,69 @@ public class MAdLANImporter implements Importer, Exchanger {
     //
     /**
      * Diese Methode führt einen Import aus. Hierbei werden alle erkannten zu
-     * importierenden Personendatens�tze und Zus�tze nacheinander dem übergebenen 
+     * importierenden Personendatensätze und Zusätze nacheinander dem übergebenen
      * {@link ImportDigester} übergeben.
-     * 
-     * @param digester der {@link ImportDigester}, der die Datens�tze weiter
+     *
+     * @param digester der {@link ImportDigester}, der die Datensätze weiter
      *  verarbeitet.
      * @see de.tarent.aa.veraweb.utils.Importer#importAll(de.tarent.aa.veraweb.utils.ImportDigester)
      */
     public void importAll(ImportDigester digester) throws IOException {
         if (format == null)
-            throw new IOException("F�r einen Import muss ein Format angegeben sein.");
+            throw new IOException("Für einen Import muß ein Format angegeben sein.");
         if (format.getProperties() == null)
-            throw new IOException("F�r einen Import m�ssen in der Formatspezifikation die MAdLAN-Parameter angegeben sein.");
+            throw new IOException("Für einen Import müssen in der Formatspezifikation die MAdLAN-Parameter angegeben sein.");
         if (inputStream == null)
-            throw new IOException("F�r einen Import muss ein Eingabedatenstrom angegeben sein.");
-        
+            throw new IOException("Für einen Import muß ein Eingabedatenstrom angegeben sein.");
+
         String madlanFileEncoding = (String) format.getProperties().get("madlanFileEncoding");
         if (madlanFileEncoding == null || madlanFileEncoding.length() == 0)
             madlanFileEncoding = "ISO-8859-1"; // Einbettung Latin-1 in Unicode
         Reader reader = new InputStreamReader(inputStream, madlanFileEncoding);
-        
-        //Teste die G�ltigkeit der Konfiguration
+
+        //Teste die Gültigkeit der Konfiguration
         List requiredFields = (List) format.getProperties().get("importRequiredFields");
         List fitDateFields = (List)format.getProperties().get("fitDateFields");
         List setNullFields = (List) format.getProperties().get("setNullFields");
         Map rawMadlanFieldMapping = (Map) format.getProperties().get("fieldMapping");
         if (rawMadlanFieldMapping == null)
-            throw new IOException("Es wurde keine g�ltige Feldzuordnung angegeben.");
+            throw new IOException("Es wurde keine gültige Feldzuordnung angegeben.");
         FieldMapping mapping = new FieldMapping(rawMadlanFieldMapping);
         Object test = isSubset(mapping.getTargetFields(), requiredFields);
         if (test != null)
-            throw new IOException("Datenbankfeld \""+test+"\" wird ben�tigt, fehlt aber in der konfigurierten Mapping-Definition.");
+            throw new IOException("Datenbankfeld \""+test+"\" wird benötigt, fehlt aber in der konfigurierten Mapping-Definition.");
         test = isSubset((new ImportPerson()).getFields(), mapping.getTargetFields());
         if (test != null)
             throw new IOException("Datenbankfeld \""+test+"\" wird in der Mapping-Definition beschrieben, fehlt aber in den "+ImportPerson.class.getName()+"-Bean-Parametern.");
-        
+
         //Beginne mit dem Parsen (Auswertung des Headers)
         MadlanReader mr = new MadlanReader(reader, format);
         List header = mr.getHeader();
         logger.info("Madlan-Header: " + header);
         mapping.setIncomingSourceFields(header);
-        
-        //Teste die G�ltigkeit der MAdLAN-Datei
+
+        //Teste die Gültigkeit der MAdLAN-Datei
         test = isSubset(header, mapping.getRequiredSources(requiredFields));
         if (test != null)
-            throw new IOException("Importfeld \"" + test + "\" wird ben�tigt, fehlt aber in der Madlan-Datei.");
-        
+            throw new IOException("Importfeld \"" + test + "\" wird benötigt, fehlt aber in der Madlan-Datei.");
+
         try {
             digester.startImport();
-            //Weiter mit dem Parsen (Iteration �ber die Datens�tze in der Matlan-Datei).
+            //Weiter mit dem Parsen (Iteration über die Datensätze in der Matlan-Datei).
             List row;
             while ((row = mr.readRow()) != null) {
                 //erzeuge neues Datensatz-Bean und setze Import-Identifikation
                 ImportPerson importPerson = new ImportPerson();
-                
-                //setze Feldwerte und f�hre Abbildung der Feldbezeichner durch
+
+                //setze Feldwerte und führe Abbildung der Feldbezeichner durch
                 mapping.setRow(row);
                 Iterator it = mapping.getTargetFields().iterator();
                 while (it.hasNext()) {
                     String key = (String)it.next();
                     importPerson.setField(key, mapping.getValue(key));
                 }
-                
-                //Struktur eines Datumfelds wenn gew�nscht anpassen
+
+                //Struktur eines Datumfelds wenn gewünscht anpassen
                 if (fitDateFields != null) {
                     it = fitDateFields.iterator();
                     while (it.hasNext()) {
@@ -183,8 +183,8 @@ public class MAdLANImporter implements Importer, Exchanger {
                         importPerson.setField(key, fitDateField(value));
                     }
                 }
-                
-                //leere Felder wenn gew�nscht auf NULL setzen
+
+                //leere Felder wenn gewünscht auf NULL setzen
                 if (setNullFields != null) {
                     it = setNullFields.iterator();
                     while (it.hasNext()) {
@@ -193,11 +193,11 @@ public class MAdLANImporter implements Importer, Exchanger {
                             importPerson.setField(key, null);
                     }
                 }
-                
+
                 // Die Geschaeftsanschrift/Latin beinhaltet evtl. mehrzeilige Daten.
                 // Hierbei handelt es sich um weitere Firmenanschriften, die hier
                 // in die Private bzw. Weitere Anschrift/Latin einsortiert werden.
-                
+
             	String company = importPerson.getBusinessLatin().getCompany();
                 if (company != null) {
                 	company = company.trim();
@@ -206,7 +206,7 @@ public class MAdLANImporter implements Importer, Exchanger {
                		for (int i = 0; i < ca.length; i++)
                			if (ca[i] != null && ca[i].trim().length() != 0)
                				cl.add(ca[i].trim());
-                	
+
                 	if (cl.size() == 0) {
                    		importPerson.company_a_e1 = "";
                    		importPerson.company_b_e1 = "";
@@ -231,7 +231,7 @@ public class MAdLANImporter implements Importer, Exchanger {
                    		importPerson.company_c_e1 = sb.toString();
                 	}
                 }
-                
+
                 digester.importPerson(importPerson, null);
             }
             digester.endImport();
@@ -241,11 +241,11 @@ public class MAdLANImporter implements Importer, Exchanger {
     }
 
     //
-    // gesch�tzte Hilfsmethoden
+    // geschützte Hilfsmethoden
     //
     /**
      * Diese Methode testet, ob eine Menge Teilmenge einer anderen Menge ist.
-     * 
+     *
      * @param mainSet Menge, in der gesucht wird.
      * @param searchSet Suchmenge.
      * @return Das als erstes gefundene Element von searchSet, welches in mainSet
@@ -260,10 +260,10 @@ public class MAdLANImporter implements Importer, Exchanger {
         }
         return null;
     }
-    
+
     /**
      * Datumsfelder mit zweistelliger Jahreszahl werden dem Jahrhundert 19 zugeordnet.
-     * 
+     *
      * @param value
      * @return Timestamp
      */
@@ -277,16 +277,16 @@ public class MAdLANImporter implements Importer, Exchanger {
         logger.finer("Timestamp: " + value);
         return value;
     }
-    
+
     //
-    // gesch�tzte Member
+    // geschützte Member
     //
     /** Das zu verwendende Austauschformat */
     ExchangeFormat format = null;
 
     /** Der zu verwendende Eingabedatenstrom */
     InputStream inputStream = null;
-    
+
     /** Der zu verwendende Ausgabedatenstrom */
     OutputStream outputStream = null;
 

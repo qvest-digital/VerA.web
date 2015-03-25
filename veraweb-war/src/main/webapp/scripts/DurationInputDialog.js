@@ -282,7 +282,7 @@ DurationInputDialog.showModalInputDialog = function( instance, windowSpec )
 	{
 		windowSpec.left -= dialog.offsetWidth;
 	}
-	
+
 	var offsetTop = DurationInputDialog.getOffsetTopRecursively( instance.button );
 	windowSpec.top = offsetTop;
 	if ( ( offsetTop + dialog.offsetHeight ) > ( document.body.scrollTop + document.body.clientHeight ) )

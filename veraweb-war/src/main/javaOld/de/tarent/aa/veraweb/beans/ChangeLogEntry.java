@@ -29,17 +29,17 @@ import de.tarent.octopus.server.PersonalConfig;
 /**
  * The bean class ChangeLogEntry represents a single entry
  * in the newly introduced change logging feature.
- * 
+ *
  * Each changelog entry stores information on the change
  * action, which is one of insert, delete or update and
  * the attributes of the object that were changed by the
  * user who committed the action.
- * 
+ *
  * For now, changelogging is enabled for the following
- * entities {see Person}, {see Guest}, and {see Event}.  
- * 
+ * entities {see Person}, {see Guest}, and {see Event}.
+ *
  * @see de.tarent.octopus.beans.veraweb.BeanChangeLogger
- * 
+ *
  * @author cklein
  * @since 1.2.0
  */

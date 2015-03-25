@@ -30,11 +30,11 @@ import de.tarent.octopus.server.Closeable;
 public class DBConnectionCloser implements Closeable {
 	private static final Logger logger = Logger.getLogger(DBConnectionCloser.class.getName());
 	private Connection con;
-	
+
 	protected DBConnectionCloser(Connection con){
 		this.con = con;
 	}
-	
+
 	public void close() {
 		try {
 			if(con!=null&&!con.isClosed()){

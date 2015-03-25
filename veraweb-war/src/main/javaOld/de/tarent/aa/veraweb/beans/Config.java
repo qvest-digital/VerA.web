@@ -25,7 +25,7 @@ import de.tarent.octopus.server.OctopusContext;
 /**
  * Diese Bean stellt einen Eintrag der Tabelle veraweb.tconfig, einen
  * Konfigurationseintrag, dar.
- * 
+ *
  * @author christoph
  * @author mikel
  */
@@ -41,7 +41,7 @@ public class Config extends AbstractBean {
      * Diese Methode testet, ob im aktuellen Kontext diese Bohne gelesen werden
      * darf.<br>
      * Der Test hier ist leer, jeder darf Konfigurationseinträge lesen.
-     * 
+     *
      * @param cntx Octopus-Kontext
      * @throws BeanException Wenn im angegebenen Kontext diese Bohne nicht gelesen werden darf.
      * @see de.tarent.aa.veraweb.beans.AbstractBean#checkRead(de.tarent.octopus.server.OctopusContext)

@@ -27,8 +27,8 @@ import de.tarent.octopus.server.OctopusContext;
 
 /**
  * Diese Klasse stellt statische Hilfsmethoden für Octopus-spezifische Aufgaben
- * zur Verf�gung. 
- * 
+ * zur Verfügung.
+ *
  * @author mikel
  */
 public class OctopusHelper {
@@ -37,10 +37,10 @@ public class OctopusHelper {
 
 	/**
 	 * Gibt einen angeforderten Dateinamen zurück.
-	 * 
+	 *
 	 * module/task/filename.txt?parameter
 	 * filename.txt
-	 * 
+	 *
 	 * @param cntx  OctopusContext
 	 * @param ex    Erweiterung des gesuchten Dateinamens.-
 	 * @param def   Default Wert.
@@ -63,9 +63,9 @@ public class OctopusHelper {
 	 * Transformiert einen String in einen anderen Zeichensatz,
 	 * beachtet dabei die beiden Parameter "encoding.input" und
 	 * "encoding.output" aus der Modulconfiguration.
-	 * 
+	 *
 	 * <code>encodeString(cntx, in, "default", "default");</code>
-	 * 
+	 *
 	 * @see #encodeString(OctopusContext, String, String, String)
 	 * @param cntx
 	 * @param in Original String.
@@ -80,9 +80,9 @@ public class OctopusHelper {
 	 * Wenn als Zeichensatz Parameter "default" übergeben wird, wird dieser
 	 * aus der Modul-Konfiguration geladen. Wenn stattdessen null übergeben
 	 * wird, wird der VM-Standard verwendet.
-	 * 
+	 *
 	 * <code>new String(in.getBytes(encin), encout);</code>
-	 * 
+	 *
 	 * @param cntx
 	 * @param in Original String.
 	 * @param encin

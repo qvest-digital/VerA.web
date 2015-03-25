@@ -63,7 +63,7 @@ import java.util.UUID;
 
 /**
  * Diese Octopus-Worker-Klasse stellt Operationen für Gäste von
- * Veranstaltungen zur Verf�gung.
+ * Veranstaltungen zur Verfügung.
  *
  * @author christoph
  * @author mikel
@@ -76,7 +76,7 @@ public class GuestWorker {
     /** Octopus-Eingabe-Parameter für {@link #addGuestList(OctopusContext)} */
 	public static final String INPUT_addGuestList[] = {};
 	/**
-	 * Diese Octopus-Aktion f�gt eine Reihe von Gästen einer
+	 * Diese Octopus-Aktion fügt eine Reihe von Gästen einer
 	 * Veranstaltung hinzu.<br>
 	 *
 	 * @param cntx OctopusContext
@@ -247,7 +247,7 @@ public class GuestWorker {
 	/** Octopus-Eingabe-Parameter für {@link #addEvent(OctopusContext, Integer)} */
 	public static final String INPUT_addEvent[] = { "id" };
 	/**
-	 * F�gt die Gäste einer Veranstaltung einer anderen Veranstaltung hinzu.
+	 * Fügt die Gäste einer Veranstaltung einer anderen Veranstaltung hinzu.
 	 *
 	 * @param cntx
 	 * @throws BeanException
@@ -426,7 +426,7 @@ public class GuestWorker {
 	/** Octopus-Eingabe-Parameter für {@link #addPerson(OctopusContext, Integer)} */
 	public static final String INPUT_addPerson[] = { "event-id" };
 	/**
-	 * F�gt eine Person aus dem Content zu einer Veranstaltung hinzu.
+	 * Fügt eine Person aus dem Content zu einer Veranstaltung hinzu.
 	 *
 	 * Wird offenbar nur verwendet wenn aus der Detail-Sicht einer Person diese Person einer Veranstaltung zugewiesen
 	 * wird. Falls der Person nur eine einzige Kategorie zugeordnet ist, wird diese mit in die Veranstaltung uebernommen
@@ -461,7 +461,7 @@ public class GuestWorker {
 					}
 				} catch (Exception e)
 				{
-					logger.warn("addPerson: Konnte fuer Person: " + person + " beim Hinzuf�gen zur Veranstaltung: " + event
+					logger.warn("addPerson: Konnte fuer Person: " + person + " beim Hinzufügen zur Veranstaltung: " + event
 						+ " keine PersonCategorie ermitteln", e);
 				}
 				invite = addGuest(cntx, database, context, event, person.id, catId, Boolean.FALSE, event.invitationtype, Boolean.FALSE);
@@ -471,7 +471,7 @@ public class GuestWorker {
 					notInvited++;
 			} else
 			{
-				logger.error("addPerson: Konnte Person: " + person + " der Veranstaltung: " + event + " nicht hinzuf�gen.");
+				logger.error("addPerson: Konnte Person: " + person + " der Veranstaltung: " + event + " nicht hinzufügen.");
 			}
 
 			cntx.setContent("event", event);
@@ -590,10 +590,10 @@ public class GuestWorker {
 	}
 
     //
-    // Gesch�tzte Methoden
+    // Geschützte Methoden
     //
 	/**
-	 * Neuen Gast hinzuf�gen.
+	 * Neuen Gast hinzufügen.
 	 *
 	 * @see #saveGuest(OctopusContext, Database, ExecutionContext, Event, Integer, Integer, Integer, Boolean, Integer, Boolean)
 	 */
@@ -624,7 +624,7 @@ public class GuestWorker {
 	}
 
     /**
-     * Diese Methode f�gt eine Person einer Veranstaltung hinzu.<br><br>
+     * Diese Methode fügt eine Person einer Veranstaltung hinzu.<br><br>
      *
      * <strong>Achtung</strong> Wenn die Gast-ID null ist wird ein neuer
      * Gast angelegt wenn dieser noch nicht dieser Veranstaltung zugeordnet
@@ -633,7 +633,7 @@ public class GuestWorker {
      * @param cntx Octopus-Context
      * @param database Datenbank
      * @param event Veranstaltung
-     * @param guestId Gast der bearbeitet werden soll, null zum hinzuf�gen.
+     * @param guestId Gast der bearbeitet werden soll, null zum hinzufügen.
      * @param personId Person mit dessen Daten der Gast gefüllt werden soll.
      * @param categoryId Kategorie nach der gefiltert wurde.
      * @param reserve Gibt an ob dieser Gast auf Reserve gesetzt werden soll.
@@ -656,7 +656,7 @@ public class GuestWorker {
 			logger.debug("F\u00fcge Person #" + personId + " der Veranstaltung #" + event.id + " hinzu.");
 		}
 
-		// Keinen neuen Gast hinzuf�gen wenn diese Person bereits zugeordnet war.
+		// Keinen neuen Gast hinzufügen wenn diese Person bereits zugeordnet war.
 		if (guestId == null) {
 			if (getNumberOfGuests(database, context, event, personId) > 0) {
                 return false;
@@ -677,7 +677,7 @@ public class GuestWorker {
         Person person = getPersonById(database, context, personId);
 
         if (person == null) {
-			logger.warn("Person #" + personId + " konnte nicht gefunden und daher der Veranstaltung #" + event.id + " nicht hinzugef�gt werden.");
+			logger.warn("Person #" + personId + " konnte nicht gefunden und daher der Veranstaltung #" + event.id + " nicht hinzugefügt werden.");
 			return false;
 		}
 
@@ -771,7 +771,7 @@ public class GuestWorker {
 	}
 
     private Person getPersonById(Database database, ExecutionContext context, Integer personId) throws BeanException, IOException {
-        // Vollst�ndige Personendaten laden.
+        // Vollständige Personendaten laden.
         return (Person)
                 database.getBean("Person",
                 database.getSelect("Person").

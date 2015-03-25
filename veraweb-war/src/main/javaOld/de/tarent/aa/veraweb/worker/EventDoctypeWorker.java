@@ -39,8 +39,8 @@ import de.tarent.octopus.server.OctopusContext;
 
 /**
  * Dieser Octopus-Worker dient der Bearbeitung und Anzeige von
- * Ereignis-Dokumenttypen-Listen. 
- * 
+ * Ereignis-Dokumenttypen-Listen.
+ *
  * @author mikel
  */
 public class EventDoctypeWorker extends ListWorkerVeraWeb {
@@ -78,7 +78,7 @@ public class EventDoctypeWorker extends ListWorkerVeraWeb {
 
 	@Override
     protected void saveBean(OctopusContext cntx, Bean bean, TransactionContext context) throws BeanException, IOException {
-		
+
 		Database database = context.getDatabase();
 		super.saveBean(cntx, bean, context);
 		List list =

@@ -75,13 +75,13 @@ public class EventDetailWorker {
 
 	public static final String VWOR_ACTIVE = "online-registration.activated";
 	/**
-	 * Diese Octopus-Aktion l�dt eine Veranstaltung und legt sie unter dem Schlüssel "event"
+	 * Diese Octopus-Aktion lädt eine Veranstaltung und legt sie unter dem Schlüssel "event"
      * in den Octopus-Content. Begleitend werden dort zwei Flags unter den Schlüsseln
      * "event-beginhastime" und "event-endhastime" abgelegt, die kennzeichnen, ob
      * Anfang bzw. Ende neben dem eigentlichen Datum einen Zeitanteil haben.
 	 *
 	 * @param cntx Octopus-Kontext
-	 * @param id ID der zu ladenden Veranstaltung; falls <code>null</code> oder ung�ltig,
+	 * @param id ID der zu ladenden Veranstaltung; falls <code>null</code> oder ungültig,
      *  so wird nichts geliefert
 	 */
 	public void showDetail(OctopusContext cntx, Integer id, Task task, Integer eventId) throws BeanException, IOException {
@@ -124,25 +124,25 @@ public class EventDetailWorker {
 	 * Diese Octopus-Aktion speichert eine Veranstaltung, sofern ein ebenfalls zu übergebenes Flag gesetzt ist.<br>
 	 * Die zu speichernde Veranstaltung wird dem Octopus-Content unter dem Schlüssel "event" entnommen oder dem
 	 * Octopus-Request aus den Parametern unterhalb des Schlüssels "event".<br>
-	 * Zun�chst wird Überprüft, ob es unter dem gleichen Kurznamen bereits eine andere Veranstaltung gibt; falls ja, wird
-	 * eine Nachfrage bez�glich dieses Problems erzeugt, sofern im Octopus-Request nicht ein Flag unter dem Schlüssel
+	 * Zunächst wird Überprüft, ob es unter dem gleichen Kurznamen bereits eine andere Veranstaltung gibt; falls ja, wird
+	 * eine Nachfrage bezüglich dieses Problems erzeugt, sofern im Octopus-Request nicht ein Flag unter dem Schlüssel
 	 * "event-samename" auf <code>true</code> gesetzt vorkommt.<br>
 	 * Dann wird ein Flag unter dem Schlüssel "addcity-masterdata" aus dem Octopus-Request gelesen und unter dem gleichen
 	 * Schlüssel in den Octopus-Content geschrieben. Dann werden zur Gastgeber-ID dessen Namensdaten in die Veranstaltung
 	 * eingetragen.<br>
 	 * Falls es Nachfragen gab, werden diese unter "listquestions" in den Octopus-Content eingetragen.<br>
-	 * Falls keine Ver�nderungen an der Veranstaltung vorgenommen worden waren, die Daten ung�ltig (etwa unvollst�ndig)
+	 * Falls keine Veränderungen an der Veranstaltung vorgenommen worden waren, die Daten ungültig (etwa unvollständig)
 	 * sind oder Nachfragen vorliegen, wird "notsaved" als Status gesetzt, ansonsten wird die Veranstaltung gespeichert,
 	 * wobei nebenbei im Octopus-Content unter "countInsert" oder "countUpdate" eine 1 gesetzt, gegebenenfalls der
-	 * Veranstaltungsort in die Stammdaten �bernommen wird, Veranstaltungs-Dokumenttyp-Einträge erzeugt werden und die
-	 * Gästeliste passend zu eventuellen Gastgeber- und Einladungs�nderungen angepasst wird.<br>
-	 * Abschlie�end werden passend Octopus-Content-Einträge unter "event", "event-beginhastime" und "event-endhastime"
+	 * Veranstaltungsort in die Stammdaten übernommen wird, Veranstaltungs-Dokumenttyp-Einträge erzeugt werden und die
+	 * Gästeliste passend zu eventuellen Gastgeber- und Einladungsänderungen angepasst wird.<br>
+	 * Abschließend werden passend Octopus-Content-Einträge unter "event", "event-beginhastime" und "event-endhastime"
 	 * erzeugt.
 	 *
 	 * @param cntx
 	 *          Octopus-Kontext
 	 * @param saveevent
-	 *          Flag; nur wenn dieses gesetzt ist, passiert tats�chlich etwas
+	 *          Flag; nur wenn dieses gesetzt ist, passiert tatsächlich etwas
 	 */
 	public void saveDetail(OctopusContext cntx, Boolean saveevent) throws BeanException, IOException
 	{
@@ -171,7 +171,7 @@ public class EventDetailWorker {
 			Map questions = new HashMap();
             checkForDuplicateEvents(cntx, database, event, questions);
 
-            /** Gibt an ob der übergebene Ort in die Stammdaten �bernommen werden soll. */
+            /** Gibt an ob der übergebene Ort in die Stammdaten übernommen werden soll. */
 			boolean saveLocation = cntx.requestAsBoolean("addcity-masterdata").booleanValue();
 			cntx.setContent("addcity-masterdata", Boolean.valueOf(saveLocation));
 
@@ -203,7 +203,7 @@ public class EventDetailWorker {
                     updateHost = false;
                     createHost = false;
                 } else {
-                    // Alte Veranstaltung -> Gastgeber hinzuf�gen
+                    // Alte Veranstaltung -> Gastgeber hinzufügen
                     removeHost = database.getCount(
                             database.getCount("Guest").where(
                                     Where.and(Where.and(Expr.equal("fk_event", event.id), Expr.notEqual("fk_person", event.host)), Expr.equal("ishost",
@@ -482,7 +482,7 @@ public class EventDetailWorker {
     /**
      * Diese Octopus-Aktion holt eine Veranstaltung unter "eventtemp" aus der Session
      * und die ID eines Gastgebers unter "hostid" aus dem Octopus-Request. Wenn diese
-     * ID nicht <code>null</code> ist, wird die zugeh�rige Person der Veranstaltung
+     * ID nicht <code>null</code> ist, wird die zugehörige Person der Veranstaltung
      * (im Speicher, nicht in der DB) als Gastgeber zugeordnet und ein Flag unter
      * "saveevent" im Octopus-Content gesetzt.
      *
@@ -514,7 +514,7 @@ public class EventDetailWorker {
      * Diese Methode holt eine Veranstaltung zu der übergebenen ID aus der Datenbank,
      * gibt diese zurück und setzt als Nebeneffekt im Octopus-Content des übergebenen
      * Octopus-Kontexts unter den Schlüsseln "event-beginhastime" und "event-endhastime"
-     * Flags, die anzeigen, ob Start- und Ende-Eintrag jeweils einen g�ltigen Zeitanteil
+     * Flags, die anzeigen, ob Start- und Ende-Eintrag jeweils einen gültigen Zeitanteil
      * besitzen.
      *
      * @param cntx Octopus-Kontext, in dem Flags gesetzt werden.

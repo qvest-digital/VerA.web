@@ -47,9 +47,9 @@ import de.tarent.octopus.server.OctopusContext;
 /**
  * This class contains methods to handle all needed duplication checks on a
  * {@link Person}.
- * 
+ *
  * @author Viktor Hamm, tarent Solution GmbH, v.hamm@tarent.de
- * 
+ *
  */
 public class PersonDuplicateCheckHelper {
 
@@ -78,7 +78,7 @@ public class PersonDuplicateCheckHelper {
 
 	/**
 	 * Constructor to use to check person imports.
-	 * 
+	 *
 	 * @param context
 	 *            - the execution context
 	 * @param importInstance
@@ -93,9 +93,9 @@ public class PersonDuplicateCheckHelper {
 
 	/**
 	 * Count the duplicates found from the database.
-	 * 
+	 *
 	 * @return duplicate count
-	 * 
+	 *
 	 * @throws IOException
 	 * @throws BeanException
 	 * @throws SQLException
@@ -152,7 +152,7 @@ public class PersonDuplicateCheckHelper {
 	/**
 	 * Retrieves all imported persons data by the currently used import.
 	 * Identified by fk_import from the importInstance.id
-	 * 
+	 *
 	 * @return a list of {@link ResultList}
 	 * @throws IOException
 	 * @throws BeanException
@@ -181,12 +181,12 @@ public class PersonDuplicateCheckHelper {
 
 	/***
 	 * Check if given {@link Person} has an duplicate into the database.
-	 * 
+	 *
 	 * @param cntx
 	 *            - {@link OctopusContext} the octopus context
 	 * @param person
 	 *            - {@link Person} the person to check agains the database
-	 * 
+	 *
 	 * @return {@link Clause} the sql statement for the check.
 	 */
 	public Clause getDuplicateExprPerson(OctopusContext cntx, Person person) {
@@ -217,13 +217,13 @@ public class PersonDuplicateCheckHelper {
 		if (cpr.propertiesAreAvailable()) {
 			for (final String key : cpr.properties.stringPropertyNames()) {
 				String value = cpr.properties.getProperty(key);
-	
+
 				if (ln.contains(value)) {
 					ln = ln.replaceAll(value, key);
 				} else if (ln.contains(key)) {
 					ln = ln.replaceAll(key, value);
 				}
-	
+
 				if (fn.contains(value)) {
 					fn = fn.replaceAll(value, key);
 				} else if (fn.contains(key)) {
@@ -241,7 +241,7 @@ public class PersonDuplicateCheckHelper {
 
 	/**
 	 * All posible cases for duplicates TODO Write explanation
-	 * 
+	 *
 	 * @param ln
 	 *            converted lastname
 	 * @param fn
@@ -339,7 +339,7 @@ public class PersonDuplicateCheckHelper {
 
 	/**
 	 * Updates the found duplicate ids.
-	 * 
+	 *
 	 * @param importPerson
 	 *            - the imported person to update
 	 * @param duplicates
@@ -361,7 +361,7 @@ public class PersonDuplicateCheckHelper {
 	/**
 	 * Creates a string from the given duplicate ids with the
 	 * {@link ImportPerson#PK_SEPERATOR_CHAR} character.
-	 * 
+	 *
 	 * @param duplicates
 	 *            - the duplicate list
 	 * @return the duplicates as string

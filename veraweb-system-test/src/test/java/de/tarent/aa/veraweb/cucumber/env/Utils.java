@@ -39,21 +39,21 @@ import com.thoughtworks.selenium.Selenium;
 
 /**
  * Utility class.
- * 
+ *
  * @author Valentin But (v.but@tarent.de), tarent solutions GmbH
  * @version 1.0
- * 
+ *
  */
 public class Utils {
-    
+
     public static DateTimeFormatter DEFAULT_DATETIME_FORMATTER = DateTimeFormat.forPattern("dd.MM.yyyy");
     public static SimpleDateFormat DEFAULT_DATE_FORMATTER = new SimpleDateFormat("dd.MM.yyyy");
     public static SimpleDateFormat DEFAULT_DATE_WITH_TIME_FORMATTER = new SimpleDateFormat("dd.MM.yyyy H:mm");
-    
+
 
     /**
      * Generate output path.
-     * 
+     *
      * @param rootDir
      *            path of root directory
      * @param curFeature
@@ -76,7 +76,7 @@ public class Utils {
 
     /**
      * Delete directory.
-     * 
+     *
      * @param path
      *            path
      */
@@ -97,7 +97,7 @@ public class Utils {
 
     /**
      * Create directory.
-     * 
+     *
      * @param path
      *            path
      */
@@ -111,7 +111,7 @@ public class Utils {
 
     /**
      * Zip directory.
-     * 
+     *
      * @param dirPath
      *            path of directory
      * @param filePath
@@ -127,7 +127,7 @@ public class Utils {
 
     /**
      * Zip directory.
-     * 
+     *
      * @param directory
      *            directory
      * @param zip
@@ -143,7 +143,7 @@ public class Utils {
 
     /**
      * Zip files.
-     * 
+     *
      * @param directory
      *            directory
      * @param base
@@ -174,7 +174,7 @@ public class Utils {
 
     /**
      * Write base64 encoded string to file.
-     * 
+     *
      * @param b64
      *            base64 encoded string
      * @param filePath
@@ -190,7 +190,7 @@ public class Utils {
 
     /**
      * Write byte array to file.
-     * 
+     *
      * @param content
      *            content as byte array
      * @param filePath
@@ -206,7 +206,7 @@ public class Utils {
 
     /**
      * Write HTML source to file.
-     * 
+     *
      * @param htmlSource
      *            HTML source
      * @param filePath
@@ -222,7 +222,7 @@ public class Utils {
 
     /**
      * Create tmp file.
-     * 
+     *
      * @param selenium
      *            {@link Selenium}
      * @param directory
@@ -259,7 +259,7 @@ public class Utils {
 
     /**
      * Format given milliseconds to readable time string.
-     * 
+     *
      * @param timeInMillis
      *            time in milliseconds
      * @return formatted time string
@@ -271,7 +271,7 @@ public class Utils {
 
         return (minutes < 10 ? "0" : "") + minutes + ":" + (seconds < 10 ? "0" : "") + seconds + "." + millis + "s";
     }
-    
+
     public static String formatVerawebDate(Timestamp timestamp) {
         if (isTimeInDate(timestamp)) {
             return DEFAULT_DATE_WITH_TIME_FORMATTER.format(timestamp);
@@ -279,7 +279,7 @@ public class Utils {
             return DEFAULT_DATE_FORMATTER.format(timestamp);
         }
     }
-    
+
     private static boolean isTimeInDate(Date date) {
         return date != null && ((date.getTime() / 1000) % 60) == 0;
     }

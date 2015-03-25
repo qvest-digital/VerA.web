@@ -25,7 +25,7 @@ import java.util.prefs.PreferencesFactory;
 
 /**
  * @author kirchner
- * 
+ *
  * Eine PreferencesFactory-Implementierung für LDAP.
  */
 public class LDAPPreferencesFactory implements PreferencesFactory {
@@ -34,7 +34,7 @@ public class LDAPPreferencesFactory implements PreferencesFactory {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see java.util.prefs.PreferencesFactory#systemRoot()
 	 */
 	public Preferences systemRoot() {
@@ -43,7 +43,7 @@ public class LDAPPreferencesFactory implements PreferencesFactory {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see java.util.prefs.PreferencesFactory#userRoot()
 	 */
 	public Preferences userRoot() {

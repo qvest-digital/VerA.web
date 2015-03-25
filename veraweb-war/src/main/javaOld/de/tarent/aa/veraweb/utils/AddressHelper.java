@@ -41,7 +41,7 @@ import de.tarent.octopus.server.OctopusContext;
  * Diese Klasse soll Adress-Spezifische entscheidungen, insbesondere
  * Default-Werte zentral halten und aus den unterschiedlichen Klassen
  * (import, dataaccess, ...) in einer sammeln.
- * 
+ *
  * @author Christoph
  */
 public class AddressHelper implements PersonConstants {
@@ -51,7 +51,7 @@ public class AddressHelper implements PersonConstants {
     /**
      * Diese Methode setzte die Gast-Farben basierend auf den Gast-Eigenschaften
      * Domestic und Sex.
-     * 
+     *
      * @param guest Gast, dessen Farben zu ermitteln sind.
      */
 	public static void setColor(Guest guest) {
@@ -63,8 +63,8 @@ public class AddressHelper implements PersonConstants {
      * Diese Methode Überprüft eine Reihe Felder einer {@link Person}-Instanz
      * und setzt gegebenenfalls sinnvolle Standardwerte ein.<br>
      * Es findet auch eine Sonderbehandlung spezieller {@link ImportPerson}-Felder
-     * statt. 
-     * 
+     * statt.
+     *
      * @param person {@link Person}-Instanz, deren Felder anzupassen sind.
      */
 	public static void checkPerson(Person person) {
@@ -83,7 +83,7 @@ public class AddressHelper implements PersonConstants {
 			calendar.add(Calendar.YEAR, 3);
 			person.expire = new Timestamp(calendar.getTimeInMillis());
 		}
-		
+
 		checkPersonFields(person.getMainLatin());
 		checkPersonFields(person.getMainExtra1());
 		checkPersonFields(person.getMainExtra2());
@@ -92,7 +92,7 @@ public class AddressHelper implements PersonConstants {
 		checkPersonFields(person.getPartnerExtra2());
 		checkPersonFieldsEx(person.getMainLatin());
 		checkPersonFieldsEx(person.getPartnerLatin());
-		
+
 		checkPersonFields(person.getBusinessLatin());
 		checkPersonFields(person.getBusinessExtra1());
 		checkPersonFields(person.getBusinessExtra2());
@@ -102,7 +102,7 @@ public class AddressHelper implements PersonConstants {
 		checkPersonFields(person.getOtherLatin());
 		checkPersonFields(person.getOtherExtra1());
 		checkPersonFields(person.getOtherExtra2());
-        
+
         if (person instanceof ImportPerson)
             checkImportPersonFields((ImportPerson)person);
 	}
@@ -136,7 +136,7 @@ public class AddressHelper implements PersonConstants {
 						database.getBean("Salutation",
 						database.getSelect("Salutation").where(
 						database.getWhere(salutation)), context);
-				
+
 				if (salutation != null) {
 					facade.setSalutationFK(salutation.id);
 					if (salutation.gender != null && "FfWw".indexOf(salutation.gender) != -1) {
@@ -152,7 +152,7 @@ public class AddressHelper implements PersonConstants {
 							database.getSelect("SalutationDoctype").
 							selectAs("NULL", "name").
 							where(database.getWhere(sd)), context);
-					
+
 					if (sd != null) {
 						salutation = (Salutation)database.getBean("Salutation", sd.salutation, context);
 						if (salutation != null) {
@@ -176,8 +176,8 @@ public class AddressHelper implements PersonConstants {
 	}
 
     /**
-     * Diese Methode pr�ft die speziellen ImportPerson-Felder und k�rzt sie ggf.
-     * 
+     * Diese Methode prüft die speziellen ImportPerson-Felder und kürzt sie ggf.
+     *
      * @param importPerson zu prüfende ImportPerson.
      */
     private static void checkImportPersonFields(ImportPerson importPerson) {
@@ -188,7 +188,7 @@ public class AddressHelper implements PersonConstants {
 //        if (importPerson.category != null && importPerson.category.length() > 200)
 //            importPerson.category = importPerson.category.substring(0,200);
     }
-    
+
 	private static void checkPersonFields(PersonMemberFacade facade) {
 		if (facade.getSalutation() != null && facade.getSalutation().length() > 50)
 			facade.setSalutation(facade.getSalutation().substring(0, 50));
@@ -205,12 +205,12 @@ public class AddressHelper implements PersonConstants {
 			facade.setLanguages(facade.getLanguages().substring(0, 250));
 		if (facade.getNationality() != null && facade.getNationality().length() > 100)
 			facade.setNationality(facade.getNationality().substring(0, 100));
-		
+
 		if (facade.getDomestic() == null)
 			facade.setDomestic(PersonConstants.DOMESTIC_INLAND);
 		if (facade.getSex() == null)
 			facade.setSex(PersonConstants.SEX_MALE);
-		
+
 		// 'note', 'noteorga' und 'notehost' sind 'text' Felder.
 	}
 
@@ -227,7 +227,7 @@ public class AddressHelper implements PersonConstants {
 			facade.setCity(facade.getCity().substring(0, 100));
 		if (facade.getState() != null && facade.getState().length() > 100)
 			facade.setState(facade.getState().substring(0, 100));
-		
+
 		if (facade.getCountry() != null && facade.getCountry().length() > 100)
 			facade.setCountry(facade.getCountry().substring(0, 100));
 		if (facade.getPOBox() != null && facade.getPOBox().length() > 50)
@@ -238,7 +238,7 @@ public class AddressHelper implements PersonConstants {
 			facade.setSuffix1(facade.getSuffix1().substring(0, 100));
 		if (facade.getSuffix2() != null && facade.getSuffix2().length() > 100)
 			facade.setSuffix2(facade.getSuffix2().substring(0, 100));
-		
+
 		if (facade.getPhone() != null && facade.getPhone().length() > 100)
 			facade.setPhone(facade.getPhone().substring(0, 100));
 		if (facade.getFax() != null && facade.getFax().length() > 100)
@@ -253,38 +253,38 @@ public class AddressHelper implements PersonConstants {
 
 	/**
 	 * Kopiert die Adressdaten einer Person je nach vorhanden sein in
-	 * andere Adresstypen und Zeichens�tze. Die aktuelle Implementierung
+	 * andere Adresstypen und Zeichensätze. Die aktuelle Implementierung
 	 * kopiert dabei die Daten nur in eine Richtung:
-	 * 
+	 *
 	 * <ul>
 	 * <li>Latein-Geschäftlich nach Latain-Privat und Latein-Weitere.</li>
 	 * <li>Latein-Geschäftlich nach Zeichensatz 1-Geschäftlich und Zeichensatz 2-Geschäftlich.</li>
 	 * <li>Latein-Privat nach Zeichensatz 1-Privat und Zeichensatz 2-Privat.</li>
 	 * <li>Latein-Weitere nach Zeichensatz 1-Weitere und Zeichensatz 2-Weitere.</li>
 	 * </ul>
-	 * 
+	 *
 	 * @param cntx Octopus-Context
 	 * @param person neuer Personen-Eintrag
 	 * @param personOld alter Personen Eintrag (oder null)
 	 */
 	public static void copyAddressData(OctopusContext cntx, Person person, Person personOld) {
 		final boolean forceCopy = false;
-		
+
 		String l2e = cntx.moduleConfig().getParam("copyPersonDataLatinToExtra");
 		boolean l2eName =    l2e != null && (l2e.equals("all") || l2e.indexOf("name") != -1);
 		boolean l2eAddress = l2e != null && (l2e.equals("all") || l2e.indexOf("address") != -1);
 		boolean l2eContact = l2e != null && (l2e.equals("all") || l2e.indexOf("contact") != -1);
-		
+
 		PersonAddressFacade businessLatin = person.getBusinessLatin();
 		PersonAddressFacade privateLatin = person.getPrivateLatin();
 		PersonAddressFacade otherLatin = person.getOtherLatin();
-		
+
 		if (personOld == null) {
 			copyAddressData(person.getMainLatin(), person.getMainExtra1(), forceCopy, l2eName);
 			copyAddressData(person.getMainLatin(), person.getMainExtra2(), forceCopy, l2eName);
 			copyAddressData(person.getPartnerLatin(), person.getPartnerExtra1(), forceCopy, l2eName);
 			copyAddressData(person.getPartnerLatin(), person.getPartnerExtra2(), forceCopy, l2eName);
-			
+
 			copyAddressData(businessLatin, person.getBusinessExtra1(), forceCopy, l2eAddress, l2eAddress, l2eContact);
 			copyAddressData(businessLatin, person.getBusinessExtra2(), forceCopy, l2eAddress, l2eAddress, l2eContact);
 			copyAddressData(privateLatin, person.getPrivateExtra1(), forceCopy, l2eAddress, l2eAddress, l2eContact);
@@ -296,7 +296,7 @@ public class AddressHelper implements PersonConstants {
 			copyAddressData(person.getMainLatin(), person.getMainExtra2(), personOld.getMainLatin(), personOld.getMainExtra2(), forceCopy, l2eName);
 			copyAddressData(person.getPartnerLatin(), person.getPartnerExtra1(), personOld.getPartnerLatin(), personOld.getPartnerExtra1(), forceCopy, l2eName);
 			copyAddressData(person.getPartnerLatin(), person.getPartnerExtra2(), personOld.getPartnerLatin(), personOld.getPartnerExtra2(), forceCopy, l2eName);
-			
+
 			copyAddressData(businessLatin, person.getBusinessExtra1(), personOld.getBusinessLatin(), personOld.getBusinessExtra1(), forceCopy, l2eAddress, l2eAddress, l2eContact);
 			copyAddressData(businessLatin, person.getBusinessExtra2(), personOld.getBusinessLatin(), personOld.getBusinessExtra2(), forceCopy, l2eAddress, l2eAddress, l2eContact);
 			copyAddressData(privateLatin, person.getPrivateExtra1(), personOld.getPrivateLatin(), personOld.getPrivateExtra1(), forceCopy, l2eAddress, l2eAddress, l2eContact);
@@ -310,7 +310,7 @@ public class AddressHelper implements PersonConstants {
 	 * Kopiert den Vornamen, den Nachnamen, den Akad. Titel und die Anrede
 	 * einer Facade in eine andere wenn das entsprechende Feld dort nicht
 	 * gefüllt ist.
-	 * 
+	 *
 	 * @param source
 	 * @param target
 	 * @param forceCopy Erzwingt das kopieren.
@@ -318,7 +318,7 @@ public class AddressHelper implements PersonConstants {
 	 */
 	public static void copyAddressData(PersonMemberFacade source, PersonMemberFacade target, boolean forceCopy, boolean copyName) {
 		assert source != null && target != null;
-		
+
 		if (copyName) {
 			if (forceCopy || (
 					empty(target.getFirstname()) &&
@@ -326,7 +326,7 @@ public class AddressHelper implements PersonConstants {
 					empty(target.getTitle()) &&
 					empty(target.getSalutation())
 					)) {
-				
+
 				target.setFirstname(source.getFirstname());
 				target.setLastname(source.getLastname());
 				target.setTitle(source.getTitle());
@@ -339,8 +339,8 @@ public class AddressHelper implements PersonConstants {
 	/**
 	 * Kopiert den Vornamen, den Nachnamen, den Akad. Titel und die Anrede
 	 * einer Facade in eine andere wenn die entsprechenden Felder vorher
-	 * identisch waren und das Zielfeld nicht ver�ndert wurde.
-	 * 
+	 * identisch waren und das Zielfeld nicht verändert wurde.
+	 *
 	 * @param source
 	 * @param target
 	 * @param sourceOld
@@ -350,7 +350,7 @@ public class AddressHelper implements PersonConstants {
 	 */
 	public static void copyAddressData(PersonMemberFacade source, PersonMemberFacade target, PersonMemberFacade sourceOld, PersonMemberFacade targetOld, boolean forceCopy, boolean copyName) {
 		assert source != null && target != null && sourceOld != null && targetOld != null;
-		
+
 		if (copyName) {
 			if (forceCopy || (equal(sourceOld.getFirstname(), targetOld.getFirstname()) && equal(target.getFirstname(), targetOld.getFirstname())))
 				target.setFirstname(source.getFirstname());
@@ -368,7 +368,7 @@ public class AddressHelper implements PersonConstants {
 	/**
 	 * Kopiert alle Adress- und Kommunikationsdaten einer AddressFacade
 	 * in eine andere, wenn das entsprechende Feld dort nicht gefüllt ist.
-	 * 
+	 *
 	 * @param source
 	 * @param target
 	 * @param forceCopy Kopiert auch wenn ihm Zielfeld bereits was steht.
@@ -378,7 +378,7 @@ public class AddressHelper implements PersonConstants {
 	 */
 	public static void copyAddressData(PersonAddressFacade source, PersonAddressFacade target, boolean forceCopy, boolean copyCompany, boolean copyAddress, boolean copyContact) {
 		assert source != null && target != null;
-		
+
 		if (copyCompany) {
 			if (forceCopy || empty(target.getCompany()))
 				target.setCompany(source.getCompany());
@@ -419,9 +419,9 @@ public class AddressHelper implements PersonConstants {
 
 	/**
 	 * Kopiert alle Adress- und Kommunikationsdaten einer AddressFacade
-	 * in eine andere, wenn das entsprechende Feld �bereinstimmte und
-	 * nun nur in der Quelle ver�ndert worden ist.
-	 * 
+	 * in eine andere, wenn das entsprechende Feld übereinstimmte und
+	 * nun nur in der Quelle verändert worden ist.
+	 *
 	 * @param source
 	 * @param target
 	 * @param sourceOld
@@ -433,7 +433,7 @@ public class AddressHelper implements PersonConstants {
 	 */
 	public static void copyAddressData(PersonAddressFacade source, PersonAddressFacade target, PersonAddressFacade sourceOld, PersonAddressFacade targetOld, boolean forceCopy, boolean copyCompany, boolean copyAddress, boolean copyContact) {
 		assert source != null && target != null && sourceOld != null && targetOld != null;
-		
+
 		if (copyCompany) {
 			if (forceCopy || (equal(sourceOld.getCompany(), targetOld.getCompany()) && equal(target.getCompany(), targetOld.getCompany())))
 				target.setCompany(source.getCompany());
@@ -474,14 +474,14 @@ public class AddressHelper implements PersonConstants {
 
     /**
      * Diese Methode setzt die Felder einer {@link PersonMemberFacade} zurück.
-     * 
+     *
      * @param facade zurückzusetzende {@link PersonMemberFacade}
      */
 	public static void clearAddressData(PersonMemberFacade facade) {
 		facade.setBirthday(null);
 		/*
 		 * issue 1865
-		 * will now be copied, too 
+		 * will now be copied, too
 		 */
 		//facade.setDiplodate(null);
 		facade.setDomestic(null);
@@ -500,7 +500,7 @@ public class AddressHelper implements PersonConstants {
 
     /**
      * Diese Methode setzt die Felder einer {@link PersonAddressFacade} zurück.
-     * 
+     *
      * @param facade zurückzusetzende {@link PersonAddressFacade}
      */
 	public static void clearAddressData(PersonAddressFacade facade) {

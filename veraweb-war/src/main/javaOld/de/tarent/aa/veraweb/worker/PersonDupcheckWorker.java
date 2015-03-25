@@ -98,7 +98,7 @@ public class PersonDupcheckWorker extends ListWorkerVeraWeb {
      * zur Person findet, wird der Status "dupcheck" gesetzt.
      *
      * @param cntx Octopus-Kontext
-     * @param nodupcheck Flag zum �bergehen des Duplikat-Checks
+     * @param nodupcheck Flag zum übergehen des Duplikat-Checks
 	 */
 	public void check(OctopusContext cntx, Boolean nodupcheck) throws BeanException, IOException {
 		Request request = new RequestVeraWeb(cntx);

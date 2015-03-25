@@ -23,7 +23,7 @@ import java.sql.Timestamp;
 
 /**
  * Definiert eine Member-Facade, inkl. Vorname, Nachname, etc.
- * 
+ *
  * @author Michael Klink, Christoph Jerolimov
  */
 public interface PersonMemberFacade {
@@ -32,7 +32,7 @@ public interface PersonMemberFacade {
 
 	/** @return Anrede-ID */
 	public Integer getSalutationFK();
-	
+
 	/** @return Akad. Titel */
 	public String getTitle();
 
@@ -41,10 +41,10 @@ public interface PersonMemberFacade {
 
 	/** @return Nachname */
 	public String getLastname();
-	
+
 	/** @return Firma */
 	public String getCompany();
-	
+
 	/** @return Flag für {@link PersonConstants#DOMESTIC_INLAND Inland} oder {@link PersonConstants#DOMESTIC_AUSLAND Ausland} */
 	public String getDomestic();
 
@@ -89,7 +89,7 @@ public interface PersonMemberFacade {
 
 	/** Ändert Nachname */
 	public void setLastname(String value);
-	
+
 
 	/** Ändert Flag für {@link PersonConstants#DOMESTIC_INLAND Inland} oder {@link PersonConstants#DOMESTIC_AUSLAND Ausland} */
 	public void setDomestic(String value);
@@ -124,5 +124,5 @@ public interface PersonMemberFacade {
 	/** Gibt einen zusammengesetzten Namen zurück. */
 	public String getSaveAs();
 
-	
+
 }

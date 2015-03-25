@@ -61,7 +61,7 @@ import de.tarent.octopus.server.OctopusContext;
 
 /**
  * Dieser Octopus-Worker stellt Aktionen zur Erstellung
- * von Statistiken zur Verf�gung.
+ * von Statistiken zur Verfügung.
  *
  * @author Christoph
  */
@@ -104,7 +104,7 @@ public class StatistikWorker {
 	/** Octopus-Eingabeparameter für die Aktion {@link #loadStatistik(OctopusContext, String, String, String)} */
 	public static final boolean MANDATORY_loadStatistik[] = { false, false, false };
 	/**
-	 * Speichert die Einstellungen für die n�chste Statistik in der Session.
+	 * Speichert die Einstellungen für die nächste Statistik in der Session.
 	 *
 	 * @param cntx Octopus-Context
 	 * @param statistik Statistikname
@@ -133,20 +133,20 @@ public class StatistikWorker {
 	/** Octopus-Eingabeparameter für die Aktion {@link #getStatistik(OctopusContext, String, String, String, Integer)} */
 	public static final boolean MANDATORY_getStatistik[] = { true, false, false, false };
 	/**
-	 * Exportiert Statistiken für folgende F�lle:<br>
+	 * Exportiert Statistiken für folgende Fälle:<br>
 	 *
 	 * <ul>
-	 * <li><em>EventsPerYear</em> - �bersicht �ber die Anzahl der Veranstaltungen pro Jahr.</li>
-	 * <li><em>EventsPerMonth</em> - �bersicht �ber die Anzahl der Veranstaltungen pro Monat.</li>
-	 * <li><em>EventsGroupByHost</em> - �bersicht �ber die Verstanstaltungen eines Gastgebers.</li>
-	 * <li><em>EventsGroupByGuest</em> - �bersicht �ber die Veranstaltungen eines Gastes.</li>
+	 * <li><em>EventsPerYear</em> - übersicht über die Anzahl der Veranstaltungen pro Jahr.</li>
+	 * <li><em>EventsPerMonth</em> - übersicht über die Anzahl der Veranstaltungen pro Monat.</li>
+	 * <li><em>EventsGroupByHost</em> - übersicht über die Verstanstaltungen eines Gastgebers.</li>
+	 * <li><em>EventsGroupByGuest</em> - übersicht über die Veranstaltungen eines Gastes.</li>
 	 * </ul>
 	 *
 	 * @param cntx Octopus-Context
 	 * @param statistik Statistikname
 	 * @param begin Zeitrahmen-Beginn
 	 * @param end Zeitrahmen-Ende
-	 * @param id Abh�ngig vom Statistiknamen
+	 * @param id Abhängig vom Statistiknamen
 	 */
 	public void getStatistik(OctopusContext cntx, String statistik, String begin, String end, Integer id) throws BeanException, IOException {
 		Database database = new DatabaseVeraWeb(cntx);
@@ -195,7 +195,7 @@ public class StatistikWorker {
 			//ResultList resultList = (ResultList)database.getList(select);
 			//cntx.setContent("stream", getExport(cntx, resultList.getResultSet()));
 
-			// EXPORT �BER EIN VELOCITY SCRIPT
+			// EXPORT ÜBER EIN VELOCITY SCRIPT
 			cntx.setContent("begin", filterBegin);
 			cntx.setContent("end", filterEnd);
 			ResultList resultList = (ResultList)database.getList(select, database);
@@ -210,7 +210,7 @@ public class StatistikWorker {
 	/**
 	 * Erstellt ein SQL-Statement das für folgende Statistik verwendet wird:
 	 * <ul>
-	 * <li><em>"Gesamt�bersicht �ber die Anzahl der Veranstaltungen pro Jahr."</em></li>
+	 * <li><em>"Gesamtübersicht über die Anzahl der Veranstaltungen pro Jahr."</em></li>
 	 * </ul>
 	 *
 	 * @return SQL-Statement, nie null.
@@ -227,7 +227,7 @@ public class StatistikWorker {
 	/**
 	 * Erstellt ein SQL-Statement das für folgende Statistik verwendet wird:
 	 * <ul>
-	 * <li><em>"Gesamt�bersicht �ber die Anzahl der Veranstaltungen pro Monat."</em></li>
+	 * <li><em>"Gesamtübersicht über die Anzahl der Veranstaltungen pro Monat."</em></li>
 	 * </ul>
 	 *
 	 * @return SQL-Statement, nie null.
@@ -244,12 +244,12 @@ public class StatistikWorker {
 	/**
 	 * Erstellt ein SQL-Statement das für folgende Statistik verwendet wird:
 	 * <ul>
-	 * <li><em>"Gesamt�bersicht �ber alle Veranstaltungen, gruppiert nach Gastgeber."</em></li>
-	 * <li><em>"�bersicht �ber alle Veranstaltungen eines Gastgebers (mit Suche)."</em></li>
+	 * <li><em>"Gesamtübersicht über alle Veranstaltungen, gruppiert nach Gastgeber."</em></li>
+	 * <li><em>"Übersicht über alle Veranstaltungen eines Gastgebers (mit Suche)."</em></li>
 	 * </ul>
 	 * <p>
-	 * Die Filterung auf einen bestimmten Gastgeber muss dabei auf einer
-	 * h�her liegenden Ebene geschehen. Theoretisch lie�e sich mit dieser
+	 * Die Filterung auf einen bestimmten Gastgeber muß dabei auf einer
+	 * höher liegenden Ebene geschehen. Theoretisch ließe sich mit dieser
 	 * Abfrage auch eine (gruppierte) Liste aller Gästgeber realisieren.
 	 * </p>
 	 *
@@ -281,11 +281,11 @@ public class StatistikWorker {
 	/**
 	 * Erstellt ein SQL-Statement das für folgende Statistik verwendet wird:
 	 * <ul>
-	 * <li><em>"�bersicht �ber alle Veranstaltungen eines Gastes (mit Suche)."</em></li>
+	 * <li><em>"Übersicht über alle Veranstaltungen eines Gastes (mit Suche)."</em></li>
 	 * </ul>
 	 * <p>
-	 * Die Filterung auf einen bestimmten Gast muss dabei auf einer
-	 * h�her liegenden Ebene geschehen. Theoretisch lie�e sich mit dieser
+	 * Die Filterung auf einen bestimmten Gast muß dabei auf einer
+	 * höher liegenden Ebene geschehen. Theoretisch ließe sich mit dieser
 	 * Abfrage auch eine (gruppierte) Liste alles Gästen realisieren.
 	 * </p>
 	 *
@@ -313,11 +313,11 @@ public class StatistikWorker {
 	/**
 	 * Erstellt ein SQL-Statement das für folgende Statistik verwendet wird:
 	 * <ul>
-	 * <li><em>"�bersicht �ber alle Veranstaltungen sortiert nach Veranstaltungsort."</em></li>
+	 * <li><em>"Übersicht über alle Veranstaltungen sortiert nach Veranstaltungsort."</em></li>
 	 * </ul>
 	 * <p>
-	 * Die Filterung auf einen bestimmten Veranstaltungsort muss dabei auf einer
-	 * h�her liegenden Ebene geschehen. Theoretisch lie�e sich mit dieser
+	 * Die Filterung auf einen bestimmten Veranstaltungsort muß dabei auf einer
+	 * höher liegenden Ebene geschehen. Theoretisch ließe sich mit dieser
 	 * Abfrage auch eine (gruppierte) Liste aller Veranstaltungsorte realisieren.
 	 * </p>
 	 *
@@ -337,7 +337,7 @@ public class StatistikWorker {
 	}
 
 	/**
-	 * Gibt einen SQL-Filter zurück der eine Einschr�nkung auf den
+	 * Gibt einen SQL-Filter zurück der eine Einschränkung auf den
 	 * Starttermin einer Veranstaltung legt.
 	 *
 	 * @param cntx

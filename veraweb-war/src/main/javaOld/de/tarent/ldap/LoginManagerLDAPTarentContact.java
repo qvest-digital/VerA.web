@@ -28,19 +28,19 @@ import de.tarent.octopus.request.TcRequest;
 import de.tarent.octopus.server.PersonalConfig;
 import de.tarent.octopus.server.UserManager;
 
-/** 
- * Implementierung eines LoginManagers im tarent-contact-Umfeld �ber LDAP.
- * 
+/**
+ * Implementierung eines LoginManagers im tarent-contact-Umfeld über LDAP.
+ *
  * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
  */
 public class LoginManagerLDAPTarentContact extends LoginManagerLDAPGeneric {
     //
-    // LoginManagerLDAPGeneric �berschreibungen
+    // LoginManagerLDAPGeneric überschreibungen
     //
     /**
      * Diese Methode setzt nach einem erfolgreichen Login in der PersonalConfig in
      * eigener Weise Attribute.
-     * 
+     *
      * @param pConfig PersonalConfig des neu eingelogten Benutzers
      * @param userName Benutzer-ID des neu eingeloggten Benutzers
      * @throws LDAPException
@@ -59,7 +59,7 @@ public class LoginManagerLDAPTarentContact extends LoginManagerLDAPGeneric {
 //            String adminflag = (String) userdata.get("adminflag");
 //            if("TRUE".equalsIgnoreCase(adminflag))
 //                pConfig.setUserGroups(new String[]{PersonalConfig.GROUP_USER, PersonalConfig.GROUP_ADMINISTRATOR});
-//            else 
+//            else
                 pConfig.setUserGroups(new String[]{PersonalConfig.GROUP_USER});
         } else
             super.initPersonalConfig(pConfig, userName);
@@ -67,8 +67,8 @@ public class LoginManagerLDAPTarentContact extends LoginManagerLDAPGeneric {
 
     /**
      * Diese Methode erzeugt den zu verwendenden LDAPManager.
-     * @throws LDAPException 
-     * 
+     * @throws LDAPException
+     *
      * @see #doLogin(TcCommonConfig, PersonalConfig, TcRequest)
      * @see LoginManagerLDAPGeneric#initLDAPManager()
      */
@@ -87,13 +87,13 @@ public class LoginManagerLDAPTarentContact extends LoginManagerLDAPGeneric {
                 params
                 );
     }
-    
+
     //
-    // LoginManager - AbstractLoginManager �berschreibungen
+    // LoginManager - AbstractLoginManager überschreibungen
     //
 	/**
-     * Liefert den zust�ndigen UserManager zurück.
-     * 
+     * Liefert den zuständigen UserManager zurück.
+     *
      * @return UserManager oder <code>null</code>, falls Konfigurationsprobleme bestehen.
 	 * @see de.tarent.octopus.server.LoginManager#getUserManager()
 	 */
@@ -117,11 +117,11 @@ public class LoginManagerLDAPTarentContact extends LoginManagerLDAPGeneric {
             return null;
         }
 	}
-	
+
 	/**
-     * Stellt fest, ob der LoginManager auch selber die Userverwaltung �bernehmen kann.
-     * 
-     * @return <code>true</code> falls Userverwaltung m�glich, <code>false</code> sonst.
+     * Stellt fest, ob der LoginManager auch selber die Userverwaltung übernehmen kann.
+     *
+     * @return <code>true</code> falls Userverwaltung möglich, <code>false</code> sonst.
 	 * @see de.tarent.octopus.server.LoginManager#isUserManagementSupported()
 	 */
 	@Override

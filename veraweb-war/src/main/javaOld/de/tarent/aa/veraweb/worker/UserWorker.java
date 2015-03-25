@@ -38,29 +38,29 @@ import de.tarent.octopus.security.TcSecurityException;
 import de.tarent.octopus.server.OctopusContext;
 
 /**
- * Dieser Octopus-Worker erledigt Aufgaben, die verwaltend die Benutzer betreffen.  
- * 
+ * Dieser Octopus-Worker erledigt Aufgaben, die verwaltend die Benutzer betreffen.
+ *
  * @author mikel
  */
 public class UserWorker {
     //
-    // �ffentliche Konstanten
+    // Öffentliche Konstanten
     //
     /** Parameter: Wer alles? */
     public final static String PARAM_DOMAIN = UserListWorker.PARAM_DOMAIN;
-    
+
     /** Parameterwert: beliebige Benutzer */
     public final static String PARAM_DOMAIN_VALUE_ALL = UserListWorker.PARAM_DOMAIN_VALUE_ALL;
-    
+
     /** Parameterwert: beliebige Benutzer */
     public final static String PARAM_DOMAIN_VALUE_UNASSIGNED = "unassigned";
 
     //
-    // �ffentliche statische Methoden
+    // Öffentliche statische Methoden
     //
     /**
-     * Diese statische Hilfsmethode l�dt einen VerA.web-Benutzer.
-     * 
+     * Diese statische Hilfsmethode lädt einen VerA.web-Benutzer.
+     *
      * @param cntx Octopus-Kontext
      * @param id Benutzer-ID; wenn <code>null</code>, so wird <code>null</code> zurückgeliefert.
      * @return das passende {@link User}-Objekt oder <code>null</code>
@@ -81,8 +81,8 @@ public class UserWorker {
     /** Octopus-Ausgabe-Parameter für {@link #showDetail(OctopusContext, Integer)} */
     public static final String OUTPUT_showDetail = "user";
     /**
-     * Diese Octopus-Aktion l�dt einen VerA.web-Benutzer.
-     * 
+     * Diese Octopus-Aktion lädt einen VerA.web-Benutzer.
+     *
      * @param cntx Octopus-Kontext
      * @param id Benutzer-ID; wenn <code>null</code>, so wird <code>null</code> zurückgeliefert.
      * @return das passende {@link User}-Objekt oder <code>null</code>
@@ -100,12 +100,12 @@ public class UserWorker {
     /** Octopus-Ausgabe-Parameter für {@link #showActiveUser(OctopusContext)} */
     public static final String OUTPUT_showActiveUser = "user";
     /**
-     * Diese Aktion l�dt den aktuell eingeloggten User.
-     * 
+     * Diese Aktion lädt den aktuell eingeloggten User.
+     *
      * @param octx Octopus-Kontext
      * @return {@link User}-Objekt zum aktuell eingelogten Benutzer oder <code>null</code>
-     * @throws IOException 
-     * @throws BeanException 
+     * @throws IOException
+     * @throws BeanException
      */
     public User showActiveUser(OctopusContext octx) throws BeanException, IOException {
         PersonalConfigAA aaConfig = (PersonalConfigAA) octx.personalConfig();
@@ -119,14 +119,14 @@ public class UserWorker {
     /** Octopus-Ausgabe-Parameter für {@link #showAARoleList(OctopusContext, String)} */
     public static final String OUTPUT_showAARoleList = "roleList";
     /**
-     * Diese Aktion l�dt eine Liste verf�gbarer AA-Rollen.
-     * 
+     * Diese Aktion lädt eine Liste verfügbarer AA-Rollen.
+     *
      * @param octx Octopus-Kontext
-     * @param domain Dom�ne der Rollen
-     * @return Liste verf�gbarer AA-Rollen
-     * @throws TcSecurityException 
-     * @throws IOException 
-     * @throws BeanException 
+     * @param domain Domäne der Rollen
+     * @return Liste verfügbarer AA-Rollen
+     * @throws TcSecurityException
+     * @throws IOException
+     * @throws BeanException
      */
     public List showAARoleList(OctopusContext octx, String domain) throws TcSecurityException, BeanException, IOException {
         LoginManagerAA loginManager = (LoginManagerAA) octx.moduleConfig().getLoginManager();
@@ -135,7 +135,7 @@ public class UserWorker {
             if (domain != null && domain.length() > 0) {
                 Collection exclusions = null;
                 if (PARAM_DOMAIN_VALUE_ALL.equals(domain)) {
-                    // nichts auszuschlie�en
+                    // nichts auszuschließen
                 } else if (PARAM_DOMAIN_VALUE_UNASSIGNED.equals(domain)) {
                     Database database = new DatabaseVeraWeb(octx);
                     List users = database.getList(database.getSelect("User"), database);

@@ -23,10 +23,10 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * Global configuration parameters needed for cucumber integration tests.
- * 
+ *
  * @author Valentin But (v.but@tarent.de), tarent solutions GmbH
  * @version 1.0
- * 
+ *
  */
 public class GlobalConfig {
 
@@ -106,7 +106,7 @@ public class GlobalConfig {
 
 	/**
 	 * Get singleton instance.
-	 * 
+	 *
 	 * @return singleton instance of {@link GlobalConfig}
 	 */
 	public static GlobalConfig getInstance() {
@@ -115,7 +115,7 @@ public class GlobalConfig {
 
 	/**
 	 * Checks whether if Internet Explorer is used as browser mode.
-	 * 
+	 *
 	 * @return <code>true</code> if Internet Explorer is used as browser mode, otherwise <code>false</code>
 	 */
 	public boolean isInternetExplorerInUse() {
@@ -124,7 +124,7 @@ public class GlobalConfig {
 
 	/**
 	 * Set the {@link #serverHost}.
-	 * 
+	 *
 	 * @return server host
 	 */
 	public String getServerHost() {
@@ -133,7 +133,7 @@ public class GlobalConfig {
 
 	/**
 	 * Set the {@link #serverHost}.
-	 * 
+	 *
 	 * @param serverHost
 	 *            server host
 	 */
@@ -143,7 +143,7 @@ public class GlobalConfig {
 
 	/**
 	 * Get the {@link #port}.
-	 * 
+	 *
 	 * @return port
 	 */
 	public int getPort() {
@@ -152,7 +152,7 @@ public class GlobalConfig {
 
 	/**
 	 * Set the {@link #port}.
-	 * 
+	 *
 	 * @param port
 	 *            port
 	 */
@@ -162,7 +162,7 @@ public class GlobalConfig {
 
 	/**
 	 * Get the {@link #browserMode}.
-	 * 
+	 *
 	 * @return browser mode
 	 */
 	public String getBrowserMode() {
@@ -171,7 +171,7 @@ public class GlobalConfig {
 
 	/**
 	 * Set the {@link #browserMode}.
-	 * 
+	 *
 	 * @param browserMode
 	 *            browser mode
 	 */
@@ -181,7 +181,7 @@ public class GlobalConfig {
 
 	/**
 	 * Get the {@link #resultContentPath}.
-	 * 
+	 *
 	 * @return path to contents of test results
 	 */
 	public String getResultContentPath() {
@@ -190,7 +190,7 @@ public class GlobalConfig {
 
 	/**
 	 * Set the {@link #resultContentPath}.
-	 * 
+	 *
 	 * @param resultContentPath
 	 *            path to contents of test results
 	 */
@@ -200,7 +200,7 @@ public class GlobalConfig {
 
 	/**
 	 * Get the {@link #resultContentZipPath}.
-	 * 
+	 *
 	 * @return path to packaged (ZIP) test results.
 	 */
 	public String getResultContentZipPath() {
@@ -209,7 +209,7 @@ public class GlobalConfig {
 
 	/**
 	 * Set the {@link #resultContentZipPath}.
-	 * 
+	 *
 	 * @param resultContentZipPath
 	 *            path to packaged (ZIP) test results
 	 */
@@ -219,7 +219,7 @@ public class GlobalConfig {
 
 	/**
 	 * Get the {@link #htmlPath}.
-	 * 
+	 *
 	 * @return path to HTML sources
 	 */
 	public String getHtmlPath() {
@@ -228,7 +228,7 @@ public class GlobalConfig {
 
 	/**
 	 * Set the {@link #htmlPath}.
-	 * 
+	 *
 	 * @param htmlPath
 	 *            path to HTML sources
 	 */
@@ -238,7 +238,7 @@ public class GlobalConfig {
 
 	/**
 	 * Get the {@link #screenshotPath}.
-	 * 
+	 *
 	 * @return path to screenshots
 	 */
 	public String getScreenshotPath() {
@@ -247,7 +247,7 @@ public class GlobalConfig {
 
 	/**
 	 * Set the {@link #screenshotPath}.
-	 * 
+	 *
 	 * @param screenshotPath
 	 *            path to screenshots
 	 */
@@ -257,7 +257,7 @@ public class GlobalConfig {
 
 	/**
 	 * Get the {@link #sleepTime}.
-	 * 
+	 *
 	 * @return sleep time
 	 */
 	public long getSleepTime() {
@@ -266,7 +266,7 @@ public class GlobalConfig {
 
 	/**
 	 * Set the {@link #sleepTime}.
-	 * 
+	 *
 	 * @param sleepTime
 	 *            sleep time
 	 */
@@ -276,7 +276,7 @@ public class GlobalConfig {
 
 	/**
 	 * Get the {@link #sleepUnit}.
-	 * 
+	 *
 	 * @return sleep unit
 	 */
 	public TimeUnit getSleepUnit() {
@@ -285,7 +285,7 @@ public class GlobalConfig {
 
 	/**
 	 * Set the {@link #sleepUnit}.
-	 * 
+	 *
 	 * @param sleepUnit
 	 *            sleep unit
 	 */
@@ -295,7 +295,7 @@ public class GlobalConfig {
 
 	/**
 	 * Checks whether screenshot should be embed.
-	 * 
+	 *
 	 * @return <code>true</code> if screenshot should be embed, otherwise <code>false</code>
 	 */
 	public boolean isScreenshotEmbedded() {
@@ -304,7 +304,7 @@ public class GlobalConfig {
 
 	/**
 	 * Set the {@link #screenshotEmbedded}.
-	 * 
+	 *
 	 * @param screenshotEmbedded
 	 *            flag whether screenshot should be embed
 	 */
@@ -314,7 +314,7 @@ public class GlobalConfig {
 
 	/**
 	 * Checks whether new session should be used for each feature.
-	 * 
+	 *
 	 * @return <code>true</code> if new session should be used for each feature, otherwise <code>false</code>
 	 */
 	public boolean isNewSessionPerFeature() {
@@ -323,7 +323,7 @@ public class GlobalConfig {
 
 	/**
 	 * Set the {@link #newSessionPerFeature}.
-	 * 
+	 *
 	 * @param newSessionPerFeature
 	 *            flag whether new session should be used for each feature
 	 */
@@ -333,7 +333,7 @@ public class GlobalConfig {
 
 	/**
 	 * Get the {@link #verawebBaseUrl}.
-	 * 
+	 *
 	 * @return base url of web application 'VerA.web'
 	 */
 	public String getVerawebBaseUrl() {
@@ -342,7 +342,7 @@ public class GlobalConfig {
 
 	/**
 	 * Set the {@link #verawebBaseUrl}.
-	 * 
+	 *
 	 * @param verawebBaseUrl
 	 *            base url of web application 'VerA.web'
 	 */

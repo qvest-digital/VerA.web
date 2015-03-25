@@ -38,7 +38,7 @@
 	 	<name>RollbackCount</name>
 	 	<type>long</type>
 	 </attribute>
-	 	
+
 	 <operation>
 		 <description>Register a XAException Formatter</description>
 		 <name>registerXAExceptionFormatter</name>
@@ -51,7 +51,7 @@
 			 <description>A XAExceptionFromatter value</description>
 			 <name>formatter</name>
 			 <type>org.jboss.tm.XAExceptionFormatter</type>
-		 </parameter>		 
+		 </parameter>
 		 <return-type>void</return-type>
 	 </operation>
 	 <operation>
@@ -65,5 +65,5 @@
 		 <return-type>void</return-type>
 	 </operation>
 
-	 &defaultOperations;   			
+	 &defaultOperations;
  </mbean>

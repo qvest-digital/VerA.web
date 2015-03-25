@@ -37,10 +37,10 @@ import de.tarent.cucumber.datamanager.entity.Field;
 
 /**
  * Modified web driver with functionality for fill/check HTML fields.
- * 
+ *
  * @author Valentin But (v.but@tarent.de), tarent solutions GmbH
  * @version 1.0
- * 
+ *
  */
 public class AdvancedWebDriver {
 
@@ -102,7 +102,7 @@ public class AdvancedWebDriver {
 
     /**
      * Constructor.
-     * 
+     *
      * @param driver
      *            web driver
      * @throws Exception
@@ -118,7 +118,7 @@ public class AdvancedWebDriver {
 
     /**
      * Check whether given data set exists.
-     * 
+     *
      * @param dataSetName
      *            name of data set
      * @param instanceClass
@@ -136,7 +136,7 @@ public class AdvancedWebDriver {
 
     /**
      * Check whether page fields are specified correctly.
-     * 
+     *
      * @param dataSetName
      *            name of data set
      * @return list of {@link Field}
@@ -193,7 +193,7 @@ public class AdvancedWebDriver {
 
     /**
      * Print skip message.
-     * 
+     *
      * @param field
      *            field
      */
@@ -204,7 +204,7 @@ public class AdvancedWebDriver {
 
     /**
      * Fill page fields.
-     * 
+     *
      * @param dataSetName
      *            name of data set
      */
@@ -215,7 +215,7 @@ public class AdvancedWebDriver {
 
     /**
      * Check required fields.
-     * 
+     *
      * @param dataSetName
      *            name of data set
      * @return list of fields not found
@@ -249,7 +249,7 @@ public class AdvancedWebDriver {
 
     /**
      * Fill page fields with given data.
-     * 
+     *
      * @param set
      *            data set
      */
@@ -281,7 +281,7 @@ public class AdvancedWebDriver {
 
     /**
      * Set value for checkbox element.
-     * 
+     *
      * @param field
      *            checkbox element
      */
@@ -311,7 +311,7 @@ public class AdvancedWebDriver {
 
     /**
      * Set value for input element.
-     * 
+     *
      * @param field
      *            input element
      */
@@ -333,7 +333,7 @@ public class AdvancedWebDriver {
 
     /**
      * Set value for text area element.
-     * 
+     *
      * @param field
      *            text area element
      */
@@ -355,7 +355,7 @@ public class AdvancedWebDriver {
 
     /**
      * Set value for select element.
-     * 
+     *
      * @param field
      *            select element
      */
@@ -389,7 +389,7 @@ public class AdvancedWebDriver {
 
     /**
      * Set value for radio button element.
-     * 
+     *
      * @param field
      *            radio button element
      */
@@ -418,7 +418,7 @@ public class AdvancedWebDriver {
 
     /**
      * Check value of span element.
-     * 
+     *
      * @param field
      *            span element
      * @return <code>true</code> if given value equals expected value from field, otherwise <code>false</code>
@@ -446,7 +446,7 @@ public class AdvancedWebDriver {
 
     /**
      * Check value of input element.
-     * 
+     *
      * @param field
      *            input element
      * @return <code>true</code> if given value equals expected value from field, otherwise <code>false</code>
@@ -475,7 +475,7 @@ public class AdvancedWebDriver {
 
     /**
      * Check value of text area element.
-     * 
+     *
      * @param field
      *            span element
      * @return <code>true</code> if given value equals expected value from field, otherwise <code>false</code>
@@ -502,7 +502,7 @@ public class AdvancedWebDriver {
 
     /**
      * Check value of select element.
-     * 
+     *
      * @param field
      *            span element
      * @return <code>true</code> if given value equals expected value from field, otherwise <code>false</code>

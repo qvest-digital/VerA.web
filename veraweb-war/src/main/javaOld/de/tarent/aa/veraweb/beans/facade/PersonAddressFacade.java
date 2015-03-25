@@ -21,7 +21,7 @@ package de.tarent.aa.veraweb.beans.facade;
 
 /**
  * Definiert eine Address-Facade, inkl. Strasse, PLZ, Ort, etc.
- * 
+ *
  * @author Michael Klink, Christoph Jerolimov
  */
 public interface PersonAddressFacade {
@@ -36,7 +36,7 @@ public interface PersonAddressFacade {
 
 	/** @return PLZ */
 	public String getZipCode();
-	
+
 	/** @return sBundesland **/
 	public String getState();
 
@@ -84,7 +84,7 @@ public interface PersonAddressFacade {
 
 	/** Setzt die PLZ */
 	public void setZipCode(String value);
-	
+
 	/** Setzt das Bundesland **/
 	public void setState(String value);
 

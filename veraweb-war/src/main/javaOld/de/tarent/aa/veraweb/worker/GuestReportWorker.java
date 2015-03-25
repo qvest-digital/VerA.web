@@ -41,7 +41,7 @@ import de.tarent.octopus.server.OctopusContext;
 /**
  * Dieser Worker stellt entsprechende Funktionen zur Erstellung von
  * Berichten zu Gästelisten bereit.
- * 
+ *
  * @author Christoph Jerolimov
  */
 public class GuestReportWorker {
@@ -56,16 +56,16 @@ public class GuestReportWorker {
      * "sort1", "sort2" und "sort3" (Sortierkriterien für den Bericht) aus
      * dem Octopus-Request, "event" (die Veranstaltung) und "search" (Kriterien
      * für die Gästesuche) aus dem Octopus-Content, "selectionGuest" (Liste
-     * ausgew�hlter Gäste-Einträge) aus der Session und "freitextfeld2" (ID des
+     * ausgewählter Gäste-Einträge) aus der Session und "freitextfeld2" (ID des
      * Dokumenttyps für das Bericht-Freitextfeld) zurückgegriffen.<br>
-     * F�r den Bericht stehen zur Kategorisierung folgende Werte zur Verf�gung:
+     * Für den Bericht stehen zur Kategorisierung folgende Werte zur Verfügung:
      * <ul>
      * <li>"Kat01": Kategorien mit Partner
      * <li>"Kat02": Kategorien mit Telefon und Mobiltelefon
      * <li>"Kat03": Kategorien mit Partner und Fax
      * <li>"Alpha01": Alphabetisch mit Partner, Telefon und Mobiltelefon
      * </ul>
-     * Weiterhin stehen folgende Sortierkriterien zur Verf�gung:
+     * Weiterhin stehen folgende Sortierkriterien zur Verfügung:
      * <ul>
      * <li>"category": Kategorie-Rang, Kategorie-Name
      * <li>"country": Land (der geschäftliche Adresse in Latin)
@@ -78,10 +78,10 @@ public class GuestReportWorker {
      * Im Octopus-Content werden unter den Schlüsseln "datum" (das zu verwendende
      * aktuelle Datum), "titel" (Titel mit lesbarem Berichtstyp), "type" (wie oben
      * Kategorisierung des Berichts), "data" (Map mit Gästesummen unter "platz",
-     * "reserve",  "all", "offen",  "zusagen" und "absagen"), "kategorie" (Flag f�r
+     * "reserve",  "all", "offen",  "zusagen" und "absagen"), "kategorie" (Flag für
      * "Kat*"-Typen), "alphabetisch" (Flag für "Alpha*"-Typen) und "guestlist"
      * (Liste der konkreten Gastdaten) Daten für den Bericht bereitgestellt.
-     * 
+     *
      * @param cntx
      * @throws BeanException
      * @throws IOException
@@ -92,10 +92,10 @@ public class GuestReportWorker {
 		GuestSearch search = (GuestSearch)cntx.contentAsObject("search");
 		List selection = (List)cntx.sessionAsObject("selectionGuest");
 		Integer freitextfeld = ConfigWorker.getInteger(cntx, "freitextfeld2");
-		
+
 		if (event == null)
 			return;
-		
+
 		// type:
 		//   kat01 = Kategorien mit Partner
 		//   kat02 = Kategorien mit Telefon und Mobiltelefon
@@ -104,10 +104,10 @@ public class GuestReportWorker {
 		String type = cntx.requestAsString("type");
 		if (!("Kat02".equals(type) || "Kat03".equals(type) || "Alpha01".equals(type)))
 			type = "Kat01";
-		
+
 		boolean kategorie = type.startsWith("Kat");
 		boolean alphabetisch = type.startsWith("Alpha");
-		
+
 		String titel;
 		if (search.invitationstatus != null && search.invitationstatus.intValue() == 1) {
 			titel = "Offenliste";
@@ -121,7 +121,7 @@ public class GuestReportWorker {
 		if (alphabetisch) {
 			titel += " (alphabetisch)";
 		}
-		
+
 		Select select = SQL.Select( database ).
 				from("veraweb.tguest").
 				selectAs("tguest.pk", "id").
@@ -158,7 +158,7 @@ public class GuestReportWorker {
 
 		/*
 		 * modified to support ordering by workarea as per change request for version 1.2.0
-		 * 
+		 *
 		 * cklein
 		 * 2008-02-20
 		 */
@@ -190,7 +190,7 @@ public class GuestReportWorker {
 		} else {
 			select.selectAs("FALSE", "showdoctype");
 		}
-		
+
 		/** Nur die aktuelle Auswahl zurückgeben. */
 		WhereList where = new WhereList();
 		GuestListWorker.addGuestListFilter(search, where);
@@ -198,7 +198,7 @@ public class GuestReportWorker {
 			where.addAnd(Expr.in("tguest.pk", selection));
 		}
 		select.where(where);
-		
+
 		// Sortierung erstellen
 		List order = new ArrayList();
 		order.add("tguest.ishost");
@@ -220,10 +220,10 @@ public class GuestReportWorker {
 		setSortOrder(order, cntx.requestAsString("sort2"));
 		setSortOrder(order, cntx.requestAsString("sort3"));
 		select.orderBy(DatabaseHelper.getOrder(order));
-		
+
 		Map data = new HashMap();
 		WorkerFactory.getGuestListWorker(cntx).getSums(database, data, search, selection);
-		
+
 		cntx.setContent("datum", new Date());
 		cntx.setContent("titel", titel);
 		cntx.setContent("type", type);
@@ -237,11 +237,11 @@ public class GuestReportWorker {
     // Hilfsmethoden
     //
     /**
-     * Diese Methode f�gt gemäß einem übergebenen Sortierkriterium ("orderno",
+     * Diese Methode fügt gemäß einem übergebenen Sortierkriterium ("orderno",
      * "name", "country", "zipcode", "category", "rank" oder "table") passende
      * ORDER-BY-Spaltennamen in die übergebene Liste ein.
-     * 
-     *  @param order Liste von ORDER-BY-Spaltennamen, die hier erg�nzt werden soll.
+     *
+     *  @param order Liste von ORDER-BY-Spaltennamen, die hier ergänzt werden soll.
      *  @param sort abstraktes Sortierkriterium
      */
 	static void setSortOrder(List order, String sort) {

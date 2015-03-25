@@ -37,7 +37,7 @@ import de.tarent.ldap.LDAPManager;
 
 /**
  * @author kirchner
- * 
+ *
  * Preferences im LDAP
  */
 public class LDAPUserPreferences extends AbstractPreferences {
@@ -53,7 +53,7 @@ public class LDAPUserPreferences extends AbstractPreferences {
 
 	/**
 	 * Konstruktor
-	 * 
+	 *
 	 * @param arg0
 	 *            ist dieses null, ist die Preference eine Root-Preference
 	 * @param arg1
@@ -61,7 +61,7 @@ public class LDAPUserPreferences extends AbstractPreferences {
 	protected LDAPUserPreferences(AbstractPreferences arg0, String arg1) {
 		super(arg0, arg1);
 		try {
-			// Daten in den Cache laden, wenn m�glich
+			// Daten in den Cache laden, wenn möglich
 			syncSpi();
 		} catch (BackingStoreException e) {}
 	}
@@ -70,7 +70,7 @@ public class LDAPUserPreferences extends AbstractPreferences {
 	 * Flush-Methode, die die cache-Map ins LDAP schreibt. Vorgehensweise: - Key
 	 * für Key wird als pref=key im LDAP gespeichert, value in das
 	 * Value-Attribut
-	 * 
+	 *
 	 * @see java.util.prefs.AbstractPreferences#flushSpi()
 	 */
 	@Override
@@ -111,7 +111,7 @@ public class LDAPUserPreferences extends AbstractPreferences {
 	}
 
 	/**
-	 *  
+	 *
 	 */
 	private String adjustRelative() throws BackingStoreException {
 		initLDM();
@@ -226,11 +226,11 @@ public class LDAPUserPreferences extends AbstractPreferences {
 	}
 
 	/**
-	 * L�scht diese Preference aus dem LDAP, löscht also alle gespeicherten
-	 * Preferences, die mit diesem Knoten verbunden sind, und anschlie�end sich
-	 * selbst. Alle Operationen l�ufen nur im Cache ab, geschrieben wird erst
-	 * beim n�chsten
-	 * 
+	 * Löscht diese Preference aus dem LDAP, löscht also alle gespeicherten
+	 * Preferences, die mit diesem Knoten verbunden sind, und anschließend sich
+	 * selbst. Alle Operationen laufen nur im Cache ab, geschrieben wird erst
+	 * beim nächsten
+	 *
 	 * @see flushSpi()
 	 * @see java.util.prefs.AbstractPreferences#removeNodeSpi()
 	 */
@@ -260,7 +260,7 @@ public class LDAPUserPreferences extends AbstractPreferences {
 	/**
 	 * Zuerst werden alle neueren Daten geschrieben, danach der Cache komplett
 	 * gefüllt
-	 * 
+	 *
 	 * @see java.util.prefs.AbstractPreferences#syncSpi()
 	 */
 	@Override
@@ -329,7 +329,7 @@ public class LDAPUserPreferences extends AbstractPreferences {
 
 	/**
 	 * Hold die Namen aller Kindknoten aus dem LDAP
-	 * 
+	 *
 	 * @see java.util.prefs.AbstractPreferences#childrenNamesSpi()
 	 */
 	@Override
@@ -349,7 +349,7 @@ public class LDAPUserPreferences extends AbstractPreferences {
 
 	/**
 	 * Holt eine Liste aller Keys aus dem LDAP
-	 * 
+	 *
 	 * @see java.util.prefs.AbstractPreferences#keysSpi()
 	 */
 	@Override
@@ -368,8 +368,8 @@ public class LDAPUserPreferences extends AbstractPreferences {
 	}
 
 	/**
-	 * L�scht eine Preference im LDAP, dazu wird ihr Cache-Wert auf null gesetzt
-	 * 
+	 * Löscht eine Preference im LDAP, dazu wird ihr Cache-Wert auf null gesetzt
+	 *
 	 * @see java.util.prefs.AbstractPreferences#removeSpi(java.lang.String)
 	 */
 	@Override
@@ -397,18 +397,18 @@ public class LDAPUserPreferences extends AbstractPreferences {
 				ldm.setRelative(relativeOld);
 			}
 		} catch (BackingStoreException e) {
-			// Nichts tun, Garantie f�rs schreiben gibts erst beim Sync oder
+			// Nichts tun, Garantie fürs schreiben gibts erst beim Sync oder
 			// Flush
 		}
 	}
 
 	/**
-	 * Liest Settings aus dem LDAP... Zun�chst wird geschaut, ob im Cache noch
+	 * Liest Settings aus dem LDAP... Zunächst wird geschaut, ob im Cache noch
 	 * etwas liegt, danach wird das LDAP befragt
-	 * 
+	 *
 	 * @param key -
 	 *            Der Key nach dem gesucht wird
-	 * 
+	 *
 	 * @see java.util.prefs.AbstractPreferences#getSpi(java.lang.String)
 	 */
 	@Override
@@ -439,8 +439,8 @@ public class LDAPUserPreferences extends AbstractPreferences {
 	/**
 	 * Schreibt Daten in die Preferences, werden erstmal nur in den Cache
 	 * geschrieben, erst beim
-	 * 
-	 * @see flushSpi() werden Sie ins LDAP �bertragen.
+	 *
+	 * @see flushSpi() werden Sie ins LDAP übertragen.
 	 * @param key -
 	 *            Der Key der Preference
 	 * @param value -
@@ -471,14 +471,14 @@ public class LDAPUserPreferences extends AbstractPreferences {
 				ldm.setRelative(relativeOld);
 			}
 		} catch (BackingStoreException e) {
-			//Nichts tun, Garantie f�rs schreiben gibts erst beim Sync oder
+			//Nichts tun, Garantie fürs schreiben gibts erst beim Sync oder
 			// Flush
 		}
 	}
 
 	/**
 	 * Liefert das Kind mit dem angegebenen Namen zurück
-	 * 
+	 *
 	 * @see java.util.prefs.AbstractPreferences#childSpi(java.lang.String)
 	 */
 	@Override

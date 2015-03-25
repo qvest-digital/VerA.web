@@ -30,15 +30,15 @@ import javax.naming.directory.Attributes;
 
 /**
  * Diese Klasse stellt statisch Utility-Funktionen für den LDAP-Kontext bereit.
- * 
+ *
  * @author mikel
  */
 public class LDAPUtil {
     /**
      * Diese Methode erzeugt aus einer {@link Attributes}-Sammlung eine {@link Map},
      * deren Schlüssel die jeweilige Attribut-ID und deren Werte der jeweilige
-     * Attribut-Einzelwert oder eine Liste der jeweiligen Attributwerte sind. 
-     * 
+     * Attribut-Einzelwert oder eine Liste der jeweiligen Attributwerte sind.
+     *
      * @param attribs LDAP-{@link Attributes}
      * @return eine {@link Map}, die die Attribute darstellt
      * @throws NamingException

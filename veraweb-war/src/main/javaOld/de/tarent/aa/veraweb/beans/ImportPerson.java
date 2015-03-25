@@ -25,7 +25,7 @@ import java.util.List;
 /**
  * Diese Bean stellt einen Eintrag der Tabelle veraweb.timportperson dar,
  * eine zu importierende Person im Transit-Bereich.
- * 
+ *
  * @author hendrik
  * @author mikel
  */
@@ -43,12 +43,12 @@ public class ImportPerson extends Person {
 	public Integer dupcheckaction;
 
     //  Kategorien & Freitexte
-    
+
     /** Kategorienliste, zeilenweise; für den MAdLAN-Import, ansonsten werden {@link ImportPersonCategorie}-Instanzen genutzt */
     public String category;
     /** Anlaßliste, zeilenweise; für den MAdLAN-Import, ansonsten werden {@link ImportPersonCategorie}-Instanzen genutzt */
     public String occasion;
-    
+
     /** Freitextfeld 1; für den MAdLAN-Import, ansonsten werden {@link ImportPersonDoctype}-Instanzen genutzt */
     public String textfield_1;
     /** Freitextfeld 2; für den MAdLAN-Import, ansonsten werden {@link ImportPersonDoctype}-Instanzen genutzt */
@@ -64,7 +64,7 @@ public class ImportPerson extends Person {
      * Datenfeld (namentlich {@link #duplicates}) zu speichern.
      */
     public final static char PK_SEPERATOR_CHAR = ';';
-    
+
     /** DB-Integerwert für <code>true</code> für {@link #dupcheckaction} und {@link #dupcheckstatus} */
     public final static Integer TRUE = new Integer(1);
 

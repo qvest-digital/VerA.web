@@ -30,7 +30,7 @@ public class LinkUUID  extends AbstractHistoryBean {
 	private String uuid;
 	private LinkType linkType;
 	private Integer personid;
-	
+
 	public Integer getId() {
 		return id;
 	}

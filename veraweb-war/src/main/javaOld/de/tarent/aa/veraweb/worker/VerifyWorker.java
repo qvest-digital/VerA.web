@@ -88,7 +88,7 @@ public class VerifyWorker {
 	public final static String INPUT_verifyDatabase[] = {};
 
 	/**
-	 * Testet ob der Connection-Pool korrekt ge�ffnet wurde.
+	 * Testet ob der Connection-Pool korrekt geöffnet wurde.
 	 *
 	 * @param cntx Octopus-Context
 	 */
@@ -116,7 +116,7 @@ public class VerifyWorker {
 	public final static String INPUT_verifySchemaVersion[] = {};
 	/**
 	 * Testet ob die Version des Datenbank-Schemas mit der Version in der
-	 * veraweb.properties �bereinstimmt und erweitert ggf. die Liste mit
+	 * veraweb.properties übereinstimmt und erweitert ggf. die Liste mit
 	 * Fehlern und stellt diese in den Content.
 	 *
 	 * @param cntx OctopusContext
@@ -200,7 +200,7 @@ public class VerifyWorker {
 	/** Octopus-Eingabeparameter für die Aktion {@link #verifyXMLTransformer(OctopusContext)} */
 	public final static String INPUT_verifyXMLTransformer[] = {};
 	/**
-	 * Testet ob der XML Transformer (f�r OpenOffice) korrektes XML erzeugt.
+	 * Testet ob der XML Transformer (für OpenOffice) korrektes XML erzeugt.
 	 *
 	 * @param cntx OctopusContext
 	 */

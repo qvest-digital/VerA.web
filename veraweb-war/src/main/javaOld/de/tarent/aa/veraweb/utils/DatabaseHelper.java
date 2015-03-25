@@ -33,7 +33,7 @@ import de.tarent.dblayer.sql.clause.WhereList;
 
 /**
  * Datenbank-Hilfsklasse, erstellt u.a. Where-Bedingungen.
- * 
+ *
  * @author Christoph Jerolimov
  */
 public class DatabaseHelper {
@@ -52,7 +52,7 @@ public class DatabaseHelper {
 	 * sucht. Wenn im übergebenem Suchbegriff ein * oder ? vorkommt wird
 	 * ein entsprechendes SQL LIKE mit % und _ verwendet, sofern die Zeichen nicht
 	 * mit einem \ escaped wurden. Mehere Spalten werden mit ORs verknüpft.
-	 * 
+	 *
 	 * @param search Suchbegriff
 	 * @param column Liste mit Spaltennamen
 	 * @return Where-Clause
@@ -78,7 +78,7 @@ public class DatabaseHelper {
 	/**
 	 * Gibt eine Order-Clause zurück, schaut jeweils nach der Spalte ob
 	 * der Wert ASC oder DESC ist und wendet dieses Attribut entsprechend an.
-	 * 
+	 *
 	 * @param list
 	 * @return Order-Clause
 	 */

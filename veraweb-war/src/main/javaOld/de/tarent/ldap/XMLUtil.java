@@ -34,12 +34,12 @@ import org.xml.sax.SAXException;
 
 /**
  * Kleine XML-Utilities für den LDAPManager
- * 
+ *
  * @author philipp
  */
 public class XMLUtil {
     private static DocumentBuilderFactory domFactory = DocumentBuilderFactory.newInstance();
-    
+
     public static DocumentBuilder getDocumentBuilder() throws ParserConfigurationException {
         return domFactory.newDocumentBuilder();
     }
@@ -47,11 +47,11 @@ public class XMLUtil {
     public static Document getParsedDocument(String filename) throws SAXException, IOException, ParserConfigurationException {
         return getDocumentBuilder().parse(filename);
     }
-    
+
     public static Document getParsedDocument(InputSource inputsource) throws SAXException, IOException, ParserConfigurationException {
         return getDocumentBuilder().parse(inputsource);
     }
-    
+
 	public static Node getObjectClass( Element mapping ){
 		Node objectclass = null;
 		if(mapping.hasChildNodes()){
@@ -66,7 +66,7 @@ public class XMLUtil {
 		}
 		return objectclass;
 	}
-	
+
 	public static Node getUserList( Element mapping ){
 		Node userlist = null;
 		if(mapping.hasChildNodes()){
@@ -81,13 +81,13 @@ public class XMLUtil {
 		}
 		return userlist;
 	}
-	
+
 	public static NodeList getRelevantChildren( Node parent ){
 		Node parent2 = parent.cloneNode(true);
 		Node objectclass = getObjectClass((Element) parent2);
 		parent2.removeChild(objectclass);
 		return parent2.getChildNodes();
 	}
-	
+
 }
 

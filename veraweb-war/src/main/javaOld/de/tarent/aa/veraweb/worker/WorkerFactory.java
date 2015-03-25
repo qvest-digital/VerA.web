@@ -29,16 +29,16 @@ import de.tarent.octopus.server.WorkerCreationException;
  * Diese Klasse gibt Instanzen anderer Worker und direktem Arbeiten mit
  * diesen zurück. Dadurch verlaggert sich die Verwendung von statischen
  * Methoden ausschließlich in diese Klasse.
- * 
+ *
  * @author Christoph
  */
 public class WorkerFactory {
 	private WorkerFactory() {
 	}
-	
+
     /**
      * Diese Methode liefert den Worker namens "PersonCategorieWorker".
-     * 
+     *
      * @param cntx Octopus-Kontext
      * @return {@link PersonCategorieWorker}-Instanz des Moduls
      */
@@ -48,7 +48,7 @@ public class WorkerFactory {
 
 	/**
      * Diese Methode liefert den Worker namens "PersonDetailWorker".
-     * 
+     *
      * @param cntx Octopus-Kontext
      * @return {@link PersonDetailWorker}-Instanz des Moduls
      */
@@ -58,7 +58,7 @@ public class WorkerFactory {
 
     /**
      * Diese Methode liefert den Worker namens "PersonDoctypeWorker".
-     * 
+     *
      * @param cntx Octopus-Kontext
      * @return {@link PersonDetailWorker}-Instanz des Moduls
      */
@@ -68,7 +68,7 @@ public class WorkerFactory {
 
 	/**
      * Diese Methode liefert den Worker namens "PersonDuplicateSearchWorker".
-     * 
+     *
      * @param cntx Octopus-Kontext
      * @return {@link PersonDuplicateSearchWorker}-Instanz des Moduls
      */
@@ -78,7 +78,7 @@ public class WorkerFactory {
 
 	/**
      * Diese Methode liefert den Worker namens "PersonListWorker".
-     * 
+     *
      * @param cntx Octopus-Kontext
      * @return {@link PersonListWorker}-Instanz des Moduls
      */
@@ -88,7 +88,7 @@ public class WorkerFactory {
 
     /**
      * Diese Methode liefert den Worker namens "PersonExportWorker".
-     * 
+     *
      * @param cntx Octopus-Kontext
      * @return {@link PersonExportWorker}-Instanz des Moduls
      */
@@ -98,7 +98,7 @@ public class WorkerFactory {
 
     /**
      * Diese Methode liefert den Worker namens "ImportPersonsWorker".
-     * 
+     *
      * @param cntx Octopus-Kontext
      * @return {@link ImportPersonsWorker}-Instanz des Moduls
      */
@@ -108,7 +108,7 @@ public class WorkerFactory {
 
     /**
      * Diese Methode liefert den Worker namens "DataExchangeWorker".
-     * 
+     *
      * @param cntx Octopus-Kontext
      * @return {@link DataExchangeWorker}-Instanz des Moduls
      */
@@ -118,7 +118,7 @@ public class WorkerFactory {
 
 	/**
 	 * Diese Methode liefert den Worker namens "ConfigWorker".
-	 * 
+	 *
 	 * @param cntx Octopus-Kontext
 	 * @return {@link ConfigWorker}-Instanz des Moduls
 	 */
@@ -128,7 +128,7 @@ public class WorkerFactory {
 
 	/**
 	 * Diese Methode liefert den Worker namens "VerifyWorker".
-	 * 
+	 *
 	 * @param cntx Octopus-Kontext
 	 * @return {@link VerifyWorker}-Instanz des Moduls
 	 */
@@ -139,7 +139,7 @@ public class WorkerFactory {
 
 	/**
 	 * Gets a new instance of the {@link GuestDetailWorker}.
-	 *  
+	 *
 	 * @param cntx the current octopus context
 	 * @return instance of {@link GuestDetailWorker}
 	 * @since 1.2.0
@@ -148,10 +148,10 @@ public class WorkerFactory {
 	{
 		return ( GuestDetailWorker ) getWorker( cntx, "GuestDetailWorker" );
 	}
-	
+
 	/**
 	 * Diese Methode liefert den Worker namens "GuestListWorker".
-	 * 
+	 *
 	 * @param cntx Octopus-Kontext
 	 * @return {@link GuestListWorker}-Instanz des Moduls
 	 */
@@ -161,7 +161,7 @@ public class WorkerFactory {
 
 	/**
 	 * Diese Methode liefert den Worker namens "GuestWorker".
-	 * 
+	 *
 	 * @param cntx Octopus-Kontext
 	 * @return {@link GuestWorker}-Instanz des Moduls
 	 */
@@ -171,7 +171,7 @@ public class WorkerFactory {
 
 	/**
 	 * Diese Methode liefert den Worker namens "LocationListWorker".
-	 * 
+	 *
 	 * @param cntx Octopus-Kontext
 	 * @return {@link LocationListWorker}-Instanz des Moduls
 	 */
@@ -181,7 +181,7 @@ public class WorkerFactory {
 
 	/**
 	 * Diese Methode liefert den Worker namens "LocationWorker".
-	 * 
+	 *
 	 * @param cntx Octopus-Kontext
 	 * @return {@link LocationWorker}-Instanz des Moduls
 	 */
@@ -191,8 +191,8 @@ public class WorkerFactory {
 	}
 
     /**
-     * Diese statische Methode holt mittels des Octopus-Kontexts einen Worker. 
-     * 
+     * Diese statische Methode holt mittels des Octopus-Kontexts einen Worker.
+     *
      * @param cntx Octopus-Kontext
      * @param name Worker-Name
      * @return Worker-Instanz

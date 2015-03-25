@@ -31,7 +31,7 @@ import de.tarent.octopus.server.PersonalConfig;
 
 /**
  * Dieses Bean stellt einen Eintrag der Tabelle <em>veraweb.tguest</em> dar.
- * 
+ *
  * @author Christoph
  * @author Mikel
  */
@@ -105,7 +105,7 @@ public class Guest extends AbstractHistoryBean implements EventConstants {
 	 * Diese Methode testet, ob im aktuellen Kontext diese Bohne gelesen werden
 	 * darf.<br>
 	 * Test ist, ob der Benutzer Standard-Reader ist.
-	 * 
+	 *
 	 * @param cntx Octopus-Kontext
 	 * @throws BeanException Wenn im angegebenen Kontext diese Bohne nicht gelesen werden darf.
 	 * @see de.tarent.aa.veraweb.beans.AbstractBean#checkRead(de.tarent.octopus.server.OctopusContext)
@@ -119,7 +119,7 @@ public class Guest extends AbstractHistoryBean implements EventConstants {
 	 * Diese Methode testet, ob im aktuellen Kontext diese Bohne geschrieben
 	 * werden darf.<br>
 	 * Test ist, ob der Benutzer Writer ist.
-	 * 
+	 *
 	 * @param cntx Octopus-Kontext
 	 * @throws BeanException Wenn im angegebenen Kontext diese Bohne nicht geschrieben werden darf.
 	 * @see de.tarent.aa.veraweb.beans.AbstractBean#checkWrite(de.tarent.octopus.server.OctopusContext)
@@ -128,12 +128,12 @@ public class Guest extends AbstractHistoryBean implements EventConstants {
     public void checkWrite(OctopusContext cntx) throws BeanException {
 		 checkGroup(cntx, PersonalConfigAA.GROUP_WRITE);
 	}
-    
+
     /**
      * Diese Methode leert beschränkte Felder.<br>
      * Hier sind es die Bemerkungsfelder, wenn der Benutzer nicht in der Gruppe
      * {@link PersonalConfigAA#GROUP_READ_REMARKS} der hierzu freigeschalteten ist.
-     * 
+     *
      * @param cntx Octopus-Kontext
      * @throws BeanException bei Problemen mit der Bean
      * @see de.tarent.aa.veraweb.beans.AbstractBean#clearRestrictedFields(de.tarent.octopus.server.OctopusContext)
@@ -149,7 +149,7 @@ public class Guest extends AbstractHistoryBean implements EventConstants {
         }
         super.clearRestrictedFields(cntx);
     }
-	
+
 	/**
 	 * Diese Methode gibt an, ob ein Partner für diesen Gast mit auf der Gästeliste steht.
 	 * @return boolean true falls ein existierender Partner mit eingeladen wurde
@@ -161,7 +161,7 @@ public class Guest extends AbstractHistoryBean implements EventConstants {
 		int invitationType = g.getInvitationType();
 		return ( ( invitationType == TYPE_MITPARTNER ) || ( invitationType == TYPE_NURPARTNER ) );
 	}
-   
+
 	/**
 	 * Diese Methode liefert eine Facade für die Hauptperson dieses Gastes zurück.
 	 */

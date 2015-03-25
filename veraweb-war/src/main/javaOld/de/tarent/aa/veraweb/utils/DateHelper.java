@@ -30,7 +30,7 @@ import java.util.List;
 import org.apache.commons.lang.StringEscapeUtils;
 
 /**
- * Diese Klasse enth�lt statische Hilfsmethoden für die Behandlung
+ * Diese Klasse enthält statische Hilfsmethoden für die Behandlung
  * von Datums- und Zeitwerten.
  */
 public class DateHelper {
@@ -38,7 +38,7 @@ public class DateHelper {
      * Diese Methode setzt die Zeit (Stunde, Minute, Sekunde) im übergebenen
      * {@link Date}-Objekt gemäß dem ebenfalls übergebenen String. Akzeptiert
      * werden darin Zeitangaben im Format 'STUNDE.MINUTE', 'STUNDE:MINUTE',
-     * 'STUNDE' oder ''. Im Fall einer ung�ltigen oder leeren Angabe wird die
+     * 'STUNDE' oder ''. Im Fall einer ungültigen oder leeren Angabe wird die
      * Zeit auf 00:00:30 gesetzt (eine "Nicht-Zeit", {@link #isTimeInDate(Date)})
      * und gegebenenfalls eine Fehlermeldung eingetragen.
      *
@@ -125,7 +125,7 @@ public class DateHelper {
      *
      * @param date zu testendes {@link Date}-Objekts
      * @return <code>true</code> genau dann, wenn das Datum den
-     *  Sekundenanteil 0 hat, also im VerA.web-Kontext einen g�ltigen
+     *  Sekundenanteil 0 hat, also im VerA.web-Kontext einen gültigen
      *  Zeiteintrag.
      */
 	static public boolean isTimeInDate(Date date) {

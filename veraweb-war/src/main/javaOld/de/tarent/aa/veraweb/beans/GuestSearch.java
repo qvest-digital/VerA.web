@@ -22,7 +22,7 @@ package de.tarent.aa.veraweb.beans;
 /**
  * Bean zum Filtern einer Gästeliste und navigieren
  * innerhalb der Detailansicht.
- * 
+ *
  * Entspricht keiner Datenbank-Tabelle und wird ausschließlich
  * in der Session gehalten oder aus dem Request geladen.
  */

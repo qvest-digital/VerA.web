@@ -32,10 +32,10 @@ import de.tarent.aa.veraweb.cucumber.env.event.HandlerStop;
 
 /**
  * This class represents a hook. They zip all test results to a separate zip-file.
- * 
+ *
  * @author Valentin But (v.but@tarent.de), tarent solutions GmbH
  * @version 1.0
- * 
+ *
  */
 public class ResultZipper implements HandlerStop {
 

@@ -20,7 +20,7 @@
 package de.tarent.aa.veraweb.utils;
 
 /**
- * Diese Klasse enth�lt statische Hilfsmethoden für die Behandlung von
+ * Diese Klasse enthält statische Hilfsmethoden für die Behandlung von
  * Export -Dateinamen und -Content-Typen. Diese werden hier zentral
  * "entstandardisiert" um sicherzustellen das diese vom Browser
  * als Download angeboten werden statt diese z.B. als Active-X-Controll
@@ -51,7 +51,7 @@ public class ExportHelper {
 
 	/**
 	 * Ersetzt den Standard-Content-Type durch den allgemeinen Standard
-	 * für beliebige Datenstr�me: <code>application/octet-stream</code>
+	 * für beliebige Datenströme: <code>application/octet-stream</code>
 	 *
 	 * @param contentType Original Content-Type
 	 * @return angepassten Content-Type

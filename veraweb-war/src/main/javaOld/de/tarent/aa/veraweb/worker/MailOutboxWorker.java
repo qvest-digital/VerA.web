@@ -30,7 +30,7 @@ import de.tarent.octopus.beans.veraweb.ListWorkerVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
 
 /**
- * Dieser Octopus-Worker repr�sentiert eine �bersichtsseite
+ * Dieser Octopus-Worker repräsentiert eine übersichtsseite
  * sowie die Detailseiten zu eMail-Vorlagen.
  * Siehe Task MailDraftList und MailDraftDetail.<br><br>
  *
@@ -58,7 +58,7 @@ public class MailOutboxWorker extends ListWorkerVeraWeb {
 	/** Octopus-Ausgabe-Parameter für {@link #showDetail(OctopusContext, Integer, MailOutbox)} */
 	public static final String OUTPUT_showDetail = "mailoutbox";
 	/**
-	 * L�dt eine eMail aus dem Postausgang und stellt
+	 * Lädt eine eMail aus dem Postausgang und stellt
 	 * diesen in den Content, wenn eine ID übergeben wurde
 	 * und sich noch keine eMail im Content befindet.
 	 *

@@ -41,7 +41,7 @@ public enum AufgabeData {
 	TITEL_MIT_SONDERZEICHEN("Dies ist ein Text mit 100 Zeichen und Sonderzeichen !“§$%&/()=?<*+->. Dies ist ein Text mit 100 Zei.","Text_Beschreibung", DateMidnight.now().minus(1), DateMidnight.now().plus(1), "Barny Geröllheimer", "10", "1"),
 	TITEL_MIT_JAVASCRIPT("<script type=\"text/javascript\">alert(\"huhu\")</script>","Text_Beschreibung", DateMidnight.now().minus(1), DateMidnight.now().plus(1),  "Barny Geröllheimer", "10", "1"),
 	BESCHREIBUNG_MIT_LEEREM_FELD("Aufgabe 1", "", DateMidnight.now().minus(1), DateMidnight.now().plus(1), "Barny Geröllheimer", "10", "1"),
-	BESCHREIBUNG_MIT_NEUNHUNDERTNEUNUNDNEUNZIG_ZEICHEN_TEXT("Aufgabe 1", 
+	BESCHREIBUNG_MIT_NEUNHUNDERTNEUNUNDNEUNZIG_ZEICHEN_TEXT("Aufgabe 1",
 			"Dies ist ein Text mit 999 Zeichen. Dies ist ein Text mit 999 Zeichen. " +
 			"Dies ist ein Text mit 999 Zeichen. Dies ist ein Text mit 999 Zeichen. " +
 			"Dies ist ein Text mit 999 Zeichen. Dies ist ein Text mit 999 Zeichen. " +
@@ -71,7 +71,7 @@ public enum AufgabeData {
 			"Dies ist ein Text mit 1000 Zeichen. Dies ist ein Text mit 1000 Zeichen. " +
 			"Dies ist ein Text mit 1000 Zeichen. Dies ist ein Text mit 1000 Zeichen. " +
 			"Dies ist ein Text mit 1000 Zeichen. Dies ist ein Text mit 1000Z.", DateMidnight.now().minus(1), DateMidnight.now().plus(1), "Barny Geröllheimer", "10", "1" ),
-	BESCHREIBUNG_MIT_EINTAUSENDUNDEINUNDZWANZIG_ZEICHEN_TEXT("Aufgabe 1", 
+	BESCHREIBUNG_MIT_EINTAUSENDUNDEINUNDZWANZIG_ZEICHEN_TEXT("Aufgabe 1",
 			"Dies ist ein Text mit 1021 Zeichen. Dies ist ein Text mit 1021 Zeichen. " +
 			"Dies ist ein Text mit 1021 Zeichen. Dies ist ein Text mit 1021 Zeichen. " +
 			"Dies ist ein Text mit 1021 Zeichen. Dies ist ein Text mit 1021 Zeichen. " +
@@ -106,7 +106,7 @@ public enum AufgabeData {
 	PRIORITAET_GEANDERT_2("Aufgabe 1", "Beschreibung 1", DateMidnight.now().minus(1), DateMidnight.now().plus(1), "10", "Barny Geröllheimer", "2"),
 	PRIORITAET_GEANDERT_4("Aufgabe 1", "Beschreibung 1", DateMidnight.now().minus(1), DateMidnight.now().plus(1), "10", "Barny Geröllheimer", "4"),
 	PRIORITAET_GEANDERT_6("Aufgabe 1", "Beschreibung 1", DateMidnight.now().minus(1), DateMidnight.now().plus(1), "10", "Barny Geröllheimer", "6");
-	
+
     public final String kurzbezeichnung;
 
     public final String beschreibung;
@@ -116,9 +116,9 @@ public enum AufgabeData {
     public final String beginnZeit;
 
     public final DateMidnight ende;
-    
+
     public final String endeZeit;
-    
+
     public final String verantwortlicher;
 
     public final String fertigstellung;
@@ -154,7 +154,7 @@ public enum AufgabeData {
         valuesForPageFields.put(fertigstellung, PageDefinition.AUFGABEDETAILSEITE.elementForName("Fortschrittsgrad-Feld"));
         valuesForPageFields.put(prioritaet, PageDefinition.AUFGABEDETAILSEITE.elementForName("Priorität-Feld"));
     }
-    
+
 
     private AufgabeData(String kurzbezeichnung, String beschreibung, DateMidnight beginn, DateMidnight ende,  String verantwortlicher,
             String fertigstellung, String prioritaet) {

@@ -172,7 +172,7 @@ public class PersonExportWorker extends PersonListWorker {
         			if (memberBEx == null) memberBEx = "_b_e1";
         			if (addressEx == null) addressEx= "_a_e1";
 
-        			// Tabelle �ffnen und erste Zeile schreiben
+        			// Tabelle öffnen und erste Zeile schreiben
         			spreadSheet.openTable("Gäste", 65);
         			spreadSheet.openRow();
         			exportHeader(spreadSheet);
@@ -199,7 +199,7 @@ public class PersonExportWorker extends PersonListWorker {
         			select.select("addresstype");
         			select.select("locale");
 
-        			// Export-Select ausf�hren
+        			// Export-Select ausführen
         			/*
         			 * fixing exportSelect tries to access the current octopus context which tries to get itself
         			 * from the thread local map of this thread which is not an octopus controlled thread
@@ -209,7 +209,7 @@ public class PersonExportWorker extends PersonListWorker {
         					spreadSheet, database, ((PersonalConfigAA)cntx.personalConfig()).getGrants(),
         					doctype, select, data, memberAEx, memberBEx, addressEx);
 
-        			// Tabelle schlie�en
+        			// Tabelle schließen
         			spreadSheet.closeTable();
 
         			// SpreadSheet speichern
@@ -241,7 +241,7 @@ public class PersonExportWorker extends PersonListWorker {
 	}
 
 	/**
-	 * Schreibt die �berschriften des Export-Dokumentes.
+	 * Schreibt die überschriften des Export-Dokumentes.
 	 *
 	 * @param spreadSheet {@link SpreadSheet}, in das geschrieben werden soll.
 	 */
@@ -254,8 +254,8 @@ public class PersonExportWorker extends PersonListWorker {
 		spreadSheet.addCell("Partner_Freitextfeld");
 		spreadSheet.addCell("Verbinder");
 
-		spreadSheet.addCell("Anschrift"); // P, G oder S - Vorgabe aus Person, �berschreibbar
-		spreadSheet.addCell("Zeichensatz"); // L, F1 oder F2 - Vorgabe aus Person, �berschreibbar
+		spreadSheet.addCell("Anschrift"); // P, G oder S - Vorgabe aus Person, überschreibbar
+		spreadSheet.addCell("Zeichensatz"); // L, F1 oder F2 - Vorgabe aus Person, überschreibbar
 
 		spreadSheet.addCell("Funktion");
 		spreadSheet.addCell("Anrede");
@@ -837,8 +837,8 @@ public class PersonExportWorker extends PersonListWorker {
 	}
 
 	/**
-	 * L�dt den Dokumenttypen der zum Personen-Export verwendet werden soll,
-	 * hierf�r wird der Standard-Dokumenttyp verwendet, ist dieser nicht
+	 * Lädt den Dokumenttypen der zum Personen-Export verwendet werden soll,
+	 * hierfür wird der Standard-Dokumenttyp verwendet, ist dieser nicht
 	 * gesetzt wird der Dokumenttyp des Freitextfeldes zurück gegeben.
 	 *
 	 * @param cntx

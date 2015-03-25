@@ -51,9 +51,9 @@ import de.tarent.octopus.beans.Database;
 import de.tarent.octopus.beans.DatabaseUtilizer;
 
 /**
- * Diese Klasse dient dem Erzeugen eines MAdLAN-CSV-Exports �ber den
+ * Diese Klasse dient dem Erzeugen eines MAdLAN-CSV-Exports über den
  * {@link ExchangeFormat}-Mechanismus.
- * 
+ *
  * @author mikel
  */
 public class MAdLANExporter implements Exporter, Exchanger, DatabaseUtilizer, MadlanConstants {
@@ -64,21 +64,21 @@ public class MAdLANExporter implements Exporter, Exchanger, DatabaseUtilizer, Ma
      * Dieser Konstruktor ist {@link ExchangeFormat}-kompatibel.
      */
     public MAdLANExporter() {
-        
+
     }
-    
+
     //
     // Konstanten
     //
     /** Dieses Zeichen stellt einen Zeilenumbruch in einem Feld dar. */
     public final static char CSV_LINE_BREAK_ESCAPE = 0xb;
-    
+
     //
     // Schnittstelle DatabaseUtilizer
     //
     /**
      * Die zu nutzende Datenbank.
-     * 
+     *
      * @see de.tarent.octopus.beans.DatabaseUtilizer#setDatabase(de.tarent.octopus.beans.Database)
      */
     public void setDatabase(Database database) {
@@ -86,7 +86,7 @@ public class MAdLANExporter implements Exporter, Exchanger, DatabaseUtilizer, Ma
     }
     /**
      * Die zu nutzende Datenbank.
-     * 
+     *
      * @see de.tarent.octopus.beans.DatabaseUtilizer#getDatabase()
      */
     public Database getDatabase() {
@@ -107,7 +107,7 @@ public class MAdLANExporter implements Exporter, Exchanger, DatabaseUtilizer, Ma
 
     /**
      * Der zu verwendende Eingabedatenstrom --- wird intern nicht genutzt.
-     * 
+     *
      * @see de.tarent.data.exchange.Exchanger#getInputStream()
      */
     public InputStream getInputStream() {
@@ -115,13 +115,13 @@ public class MAdLANExporter implements Exporter, Exchanger, DatabaseUtilizer, Ma
     }
     /**
      * Der zu verwendende Eingabedatenstrom --- wird intern nicht genutzt.
-     * 
+     *
      * @see de.tarent.data.exchange.Exchanger#setInputStream(java.io.InputStream)
      */
     public void setInputStream(InputStream stream) {
         this.inputStream = stream;
     }
-    
+
     /** Der zu verwendende Ausgabedatenstrom */
     public OutputStream getOutputStream() {
         return os;
@@ -130,7 +130,7 @@ public class MAdLANExporter implements Exporter, Exchanger, DatabaseUtilizer, Ma
     public void setOutputStream(OutputStream stream) {
         this.os = stream;
     }
-    
+
     //
     // Schnittstelle Exporter
     //
@@ -140,7 +140,7 @@ public class MAdLANExporter implements Exporter, Exchanger, DatabaseUtilizer, Ma
     public void startExport() throws IOException {
         assert format != null;
         assert os != null;
-        
+
         mapping = null;
         exportFields = null;
         encodingA = new char[0];
@@ -175,9 +175,9 @@ public class MAdLANExporter implements Exporter, Exchanger, DatabaseUtilizer, Ma
     }
 
     /**
-     * Diese Methode f�gt dem Export eine Beschreibung der übergebenen VerA.web-Person
+     * Diese Methode fügt dem Export eine Beschreibung der übergebenen VerA.web-Person
      * hinzu.
-     * 
+     *
      * @param person {@link Person}-Bean
      * @see Exporter#exportPerson(Person)
      */
@@ -188,8 +188,8 @@ public class MAdLANExporter implements Exporter, Exchanger, DatabaseUtilizer, Ma
     }
 
     /**
-     * Diese Methode schreibt das bisher gesammelte Dokument fest. 
-     * 
+     * Diese Methode schreibt das bisher gesammelte Dokument fest.
+     *
      * @throws IOException
      * @see de.tarent.aa.veraweb.utils.Exporter#endExport()
      */
@@ -198,7 +198,7 @@ public class MAdLANExporter implements Exporter, Exchanger, DatabaseUtilizer, Ma
     }
 
     //
-    // gesch�tzte Methoden
+    // geschützte Methoden
     //
     void writeHeader() {
         boolean first = true;
@@ -211,7 +211,7 @@ public class MAdLANExporter implements Exporter, Exchanger, DatabaseUtilizer, Ma
         }
         pw.println();
     }
-    
+
     void writePerson(Person person) throws BeanException, IOException {
         boolean first = true;
         for (Iterator itFields = exportFields.iterator(); itFields.hasNext(); ) {
@@ -223,28 +223,28 @@ public class MAdLANExporter implements Exporter, Exchanger, DatabaseUtilizer, Ma
         }
         pw.println();
     }
-    
+
     /**
-     * Diese Methode bereitet einen Wert oder einen Spaltennamen auf das Einf�gen in
+     * Diese Methode bereitet einen Wert oder einen Spaltennamen auf das Einfügen in
      * die CSV-Datei vor. Dies bedeutet:
      * <ul>
      * <li><code>null</code> wird zu einem Leerstring
      * <li>'\r' und '\n' werden zu {@link #CSV_LINE_BREAK_ESCAPE}
      * <li>';' wird zu ','
-     * </ul> 
-     * 
+     * </ul>
+     *
      * @param value umzuformender Wert
      * @return CSV-fester Wert
      */
     final static String escape(Object value) {
         return value != null ? value.toString().replaceAll("[\r\n]", String.valueOf(CSV_LINE_BREAK_ESCAPE)).replace(';', ',') : "";
     }
-    
+
     final Object get(Person person, String key) throws BeanException, IOException {
         assert person != null;
         boolean kyrillic = kyrillicFields.contains(key);
         key = mapping.getPrimeTarget(key);
-        
+
         Object result = null;
         if (person.containsKey(key))
             result = person.getField(key);
@@ -259,7 +259,7 @@ public class MAdLANExporter implements Exporter, Exchanger, DatabaseUtilizer, Ma
 
         return result != null ? remap(result.toString(), kyrillic ? encodingB : encodingA, '?') : null;
     }
-    
+
     final static String remap(String string, char[] mapping, char unmapped) {
         if (string == null)
             return null;
@@ -270,20 +270,20 @@ public class MAdLANExporter implements Exporter, Exchanger, DatabaseUtilizer, Ma
         }
         return new String(result);
     }
-    
+
     final String getTextfield(Person person, String key) throws BeanException {
         MessageFormat format = (MessageFormat) textfieldSelects.get(key);
         if (format != null)
         try {
             Iterator it = new ResultList(DB.result(db, format.format(new Object[] {person.id})).resultSet()).iterator();
             if (it.hasNext())
-                return String.valueOf(((Map)it.next()).get("field")); 
+                return String.valueOf(((Map)it.next()).get("field"));
         } catch (SQLException e) {
             throw new BeanException("Problem beim Ermitteln eines Freitextfeldes", e);
         }
         return null;
     }
-    
+
     final String getCategory(Person person, Integer flags) throws BeanException, IOException {
         Select personCategoriesSelect = new Select(false).from("veraweb.tperson_categorie")
             .select("fk_categorie").where(Expr.equal("fk_person", person.id));
@@ -305,7 +305,7 @@ public class MAdLANExporter implements Exporter, Exchanger, DatabaseUtilizer, Ma
         }
         return categoryBuffer.toString();
     }
-    
+
     void parseTextfieldMappings(Map rawTextfieldMappings) throws BeanException, IOException {
         assert db != null;
         if (rawTextfieldMappings == null) {
@@ -326,11 +326,11 @@ public class MAdLANExporter implements Exporter, Exchanger, DatabaseUtilizer, Ma
             textfieldSelects = result;
         }
     }
-    
+
     void addSelectFormat(Map selectFormats, String doctypeName, String textfield, boolean partner) throws BeanException, IOException {
         Doctype doctype = (Doctype) db.getBean("Doctype", db.getSelect("Doctype").where(Expr.equal("docname", doctypeName)));
         if (doctype == null)
-            logger.warning("F�r den Export konfigurierten Dokumenttyp '" + doctypeName + "' nicht gefunden.");
+            logger.warning("Für den Export konfigurierten Dokumenttyp '" + doctypeName + "' nicht gefunden.");
         else {
             Select select = new Select(true).from("veraweb.tperson_doctype")
                 .selectAs(partner ? "textfield_p" : "textfield", "field")
@@ -340,7 +340,7 @@ public class MAdLANExporter implements Exporter, Exchanger, DatabaseUtilizer, Ma
             selectFormats.put(textfield, new MessageFormat(select.toString()));
         }
     }
-    
+
     //
     // Encoding-Hilfsmethoden
     //
@@ -352,7 +352,7 @@ public class MAdLANExporter implements Exporter, Exchanger, DatabaseUtilizer, Ma
      * {@link #CHARS_TURKISH} und {@link #CHARS_WEST}. Als Default wird
      * {@link #CHARS_LATIN} genommen. Dieses Zeichenmapping ist invers zu dem,
      * das {@link MadlanReader#getChars(String)} liefert.
-     * 
+     *
      * @param key Zeichenmappingschlüssel
      * @param unmapped Wert für nicht zugeordnete Zeichen
      * @return ein <code>char[]</code>.
@@ -361,12 +361,12 @@ public class MAdLANExporter implements Exporter, Exchanger, DatabaseUtilizer, Ma
         char[] orig = MadlanReader.getChars(key);
         if (orig == null)
             return new char[0];
-        
+
         int max = -1;
         for (int i = 0; i < orig.length; i++)
             if (orig[i] > max) max = orig[i];
 
-        // zu gro�es max abfangen??
+        // zu großes max abfangen??
         char[] invers = new char[max + 1];
         Arrays.fill(invers, unmapped);
         for (int i = orig.length - 1; i >= 0; i--)
@@ -375,33 +375,33 @@ public class MAdLANExporter implements Exporter, Exchanger, DatabaseUtilizer, Ma
     }
 
     //
-    // gesch�tzte Member-Variablen
+    // geschützte Member-Variablen
     //
     OutputStream os = null;
 
     PrintWriter pw = null;
-    
+
     /** Die zu nutzende Datenbank */
     Database db = null;
-    
+
     FieldMapping mapping = null;
-    
+
     List exportFields = null;
-    
+
     List kyrillicFields = null;
-    
+
     Map textfieldSelects = null;
-    
+
     /** Der zu verwendende Eingabedatenstrom --- wird intern nicht genutzt */
     InputStream inputStream = null;
 
     /** Das zu verwendende Austauschformat */
     ExchangeFormat format = null;
-    
+
     char[] encodingA;
-    
+
     char[] encodingB;
-    
+
     /** Logger dieser Klasse */
     static Logger logger = Logger.getLogger(MAdLANExporter.class.getName());
 
@@ -411,7 +411,7 @@ public class MAdLANExporter implements Exporter, Exchanger, DatabaseUtilizer, Ma
 		public void setOrgUnitId(Integer orgUnitId)
 		{
 			// obsolete
-			
+
 		}
 		/* (non-Javadoc)
 		 * @see de.tarent.aa.veraweb.utils.Exporter#setCategoryId(java.lang.Integer)
@@ -419,6 +419,6 @@ public class MAdLANExporter implements Exporter, Exchanger, DatabaseUtilizer, Ma
 		public void setCategoryId(Integer categoryId)
 		{
 			// obsolete
-			
+
 		}
 }

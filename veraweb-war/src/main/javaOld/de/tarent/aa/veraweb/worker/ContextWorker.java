@@ -30,9 +30,9 @@ import de.tarent.octopus.server.OctopusContext;
 /**
  * Diese Klasse stellt einen Octopus-Worker dar, der Anwendungskontexte verwalten kann.
  * Anwendungskontexte bestehen aus einem Task und einer Menge Bezeichner mit zugeordneten
- * Objekten. Solche Kontexte k�nnen auf einen Stapel ge-PUSH-t und von ihm ge-POP-t werden.<br>
+ * Objekten. Solche Kontexte können auf einen Stapel ge-PUSH-t und von ihm ge-POP-t werden.<br>
  * TODO: Fertig umsetzen
- * 
+ *
  * @author mikel
  */
 public class ContextWorker {
@@ -53,7 +53,7 @@ public class ContextWorker {
      * "context" dort abgelegt wird, so dass ein im laufenden Task nachfolgender
      * Aufruf <code>&lt;doTask name="{context}"/&gt;</code> in den Kontext-Pfad
      * springt.
-     * 
+     *
      * @param oc aktueller Octopus-Kontext
      * @param contexts Serialisierung eines Kontext-Stacks
      * @return Serialisierung des Kontext-Stacks ohne den bisherig obersten Kontext
@@ -66,7 +66,7 @@ public class ContextWorker {
 	        context.set(oc);
 	    return contextsBuffer.toString();
 	}
-	
+
     /** Eingabe-Parameter für die Octopus-Aktion {@link #push(OctopusContext, String, List)} */
     public static final String[] INPUT_push = {"contexts", "push"};
     /** Eingabe-Parameterzwang für die Octopus-Aktion {@link #push(OctopusContext, String, List)} */
@@ -77,8 +77,8 @@ public class ContextWorker {
      * Diese Octopus-Aktion legt einen neuen Kontext-Eintrag auf den übergebenen
      * serialisierten Kontext-Stack. In diesem befinden sich der übergebene Taskname
      * und die aktuellen Werte der Octopus-Content-Variablen unter den übergebenen
-     * Bezeichnern. 
-     * 
+     * Bezeichnern.
+     *
      * @param oc Octopus-Kontext
      * @param contexts Serialisierung eines Kontext-Stacks
      * @param data Liste, deren erster Eintrag als Taskname und deren weitere Einträge
@@ -95,11 +95,11 @@ public class ContextWorker {
 	    context.push(contextsBuffer);
 	    return contextsBuffer.toString();
 	}
-	
+
 	//
 	// interne Methoden
 	//
-	
+
 	//
 	// interne Klassen
 	//
@@ -113,15 +113,15 @@ public class ContextWorker {
         //
         /**
          * Dieser Konstruktor führt keine weiteren Initialisierungen durch; ein hiermit
-         * erstellter {@link ContextWorker.Context Kontext} muss noch bef�llt werden,
+         * erstellter {@link ContextWorker.Context Kontext} muß noch befüllt werden,
          * zum Beispiel mittels eines {@link #pop(StringBuffer)}-Aufrufs.
          */
 	    public Context() {
 	    }
         /**
          * Dieser Konstruktor legt den Kontext-Task fest, speichert jedoch keine Werte
-         * aus dem Octopus-Content. 
-         * 
+         * aus dem Octopus-Content.
+         *
          * @param context Name des Kontext-Tasks
          */
         public Context(String context) {
@@ -129,12 +129,12 @@ public class ContextWorker {
             this.context = context;
         }
         /**
-         * Dieser Konstruktor legt Kontext-Task und -Werte fest. 
-         * 
+         * Dieser Konstruktor legt Kontext-Task und -Werte fest.
+         *
          * @param oc Octopus-Kontext, aus dem Octopus-Content-Werte gelesen werden sollen.
          * @param data Liste, deren erster Eintrag als Taskname und deren weitere Einträge
          *  als Bezeichner von Octopus-Content-Variablen interpretiert werden, deren Werte
-         *  in den Kontext �bernommen werden sollen.
+         *  in den Kontext übernommen werden sollen.
          */
 	    public Context(OctopusContext oc, List data) {
 	        this();
@@ -152,7 +152,7 @@ public class ContextWorker {
 	        }
 	    }
 	    //
-        // �ffentliche Methoden
+        // Öffentliche Methoden
         //
         /** Name des Kontext-Tasks  */
         public String getContextTask() {
@@ -165,8 +165,8 @@ public class ContextWorker {
          * der unter dem Bezeichner "context" dort abgelegt wird, so dass ein im
          * laufenden Task nachfolgender Aufruf <code>&lt;doTask name="{context}"/&gt;</code>
          * in den Kontext-Pfad springt.<br>
-         * TODO: Setzen der Variablen 
-         * 
+         * TODO: Setzen der Variablen
+         *
          * @param oc Octopus-Kontext, in dem dieser {@link ContextWorker.Context Kontext}
          *  gesetzt werden soll
          */
@@ -176,8 +176,8 @@ public class ContextWorker {
 	    /**
          * Diese Methode holt den obersten Kontext aus der Serialisierung eines
          * Kontext-Stacks und entfernt diesen aus der Serialisierung.<br>
-         * TODO: Werte �bernehmen
-         * 
+         * TODO: Werte übernehmen
+         *
          * @param contexts Serialisierung eines Kontext-Stacks, wird um den obersten
          *  Eintrag verringert
          * @return vom Stack geholter {@link ContextWorker.Context Kontext}.
@@ -197,10 +197,10 @@ public class ContextWorker {
 	        return new Context(context);
 	    }
         /**
-         * Diese Methode erg�nzt die übergebene Serialisierung eines Kontext-Stacks
+         * Diese Methode ergänzt die übergebene Serialisierung eines Kontext-Stacks
          * um diesen {@link ContextWorker.Context Kontext}.<br>
-         * TODO: Werte einf�gen
-         * 
+         * TODO: Werte einfügen
+         *
          * @param contexts Serialisierung eines Kontext-Stacks, wird um den diesen
          *  Eintrag erweitert
          */
@@ -214,7 +214,7 @@ public class ContextWorker {
 	    String context = null;
 	    Map values = null;
 	    final static String safeToString(Object orig) {
-	        return orig == null ? null : orig.toString(); 
+	        return orig == null ? null : orig.toString();
 	    }
 	}
 }

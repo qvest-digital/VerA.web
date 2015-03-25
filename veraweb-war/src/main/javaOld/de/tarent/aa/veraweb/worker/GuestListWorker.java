@@ -512,9 +512,9 @@ public class GuestListWorker extends ListWorkerVeraWeb {
 
     /**
      * Diese Octopus-Aktion liefert eine {@link GuestSearch}-Instanz, die die aktuellen
-     * Gästesuchkriterien enth�lt. Diese stammen entweder aus dem Octopus-Content (unter
+     * Gästesuchkriterien enthält. Diese stammen entweder aus dem Octopus-Content (unter
      * "search"), aus dem Octopus-Request oder aus der Octopus-Session (unter "searchGuest").
-     * Vor der R�ckgabe wird die Instanz unter "searchGuest" in die Octopus-Session
+     * Vor der Rückgabe wird die Instanz unter "searchGuest" in die Octopus-Session
      * gestellt.
      *
      * @param cntx Octopus-Kontext
@@ -604,7 +604,7 @@ public class GuestListWorker extends ListWorkerVeraWeb {
 	}
 
     /**
-     * Diese Methode �bertr�gt Gästesuchkriterien aus einer {@link GuestSearch}-Instanz
+     * Diese Methode überträgt Gästesuchkriterien aus einer {@link GuestSearch}-Instanz
      * in einer WHERE-Statement-Liste.
      */
     public static void addGuestListFilter(GuestSearch search, WhereList where) {
@@ -680,7 +680,7 @@ public class GuestListWorker extends ListWorkerVeraWeb {
 	 * Berechnet die Gesamtzahlen der aktuellen Gästeliste.
 	 *
 	 * Vor Version 1.50 wurden "Auf Platz" und "Auf Reserve"
-	 * pro Datensatz berechnet, die aktuelle Umsetzung z�hlt
+	 * pro Datensatz berechnet, die aktuelle Umsetzung zählt
 	 * diese pro eingeladenen Member. (Vgl. Bug 1480)
 	 *
 	 * @param database

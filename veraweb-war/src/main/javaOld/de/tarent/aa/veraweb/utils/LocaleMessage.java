@@ -29,9 +29,9 @@ import java.util.ResourceBundle;
 
 /**
  * Diese Klasse holt (potentiell lokalisiert) ausgelagerte Mitteilungen; diese
- * k�nnen so roh oder mittels {@link MessageFormat} mit Parametern gefüllt
- * abgefragt werden.  
- * 
+ * können so roh oder mittels {@link MessageFormat} mit Parametern gefüllt
+ * abgefragt werden.
+ *
  * @author christoph
  */
 public class LocaleMessage {
@@ -50,8 +50,8 @@ public class LocaleMessage {
 	}
 
     /**
-     * Diese Methode liefert eine Bundle-Mitteilung roh. 
-     * 
+     * Diese Methode liefert eine Bundle-Mitteilung roh.
+     *
      * @param key Schlüssel der Bundle-Mitteilung
      * @return passende Bundle-Mitteilung oder <code>null</code>.
      */
@@ -64,9 +64,9 @@ public class LocaleMessage {
 	}
 
     /**
-     * Diese Methode liefert eine Bundle-Mitteilung als ein Format f�r
+     * Diese Methode liefert eine Bundle-Mitteilung als ein Format für
      * {@link MessageFormat} interpretiert mit einem Parameter ausgewertet.
-     * 
+     *
      * @param key Schlüssel der Bundle-Mitteilung
      * @param arg0 {@link MessageFormat}-Parameter
      * @return passend interpretierte Bundle-Mitteilung oder <code>null</code>.
@@ -80,9 +80,9 @@ public class LocaleMessage {
 	}
 
     /**
-     * Diese Methode liefert eine Bundle-Mitteilung als ein Format f�r
+     * Diese Methode liefert eine Bundle-Mitteilung als ein Format für
      * {@link MessageFormat} interpretiert mit zwei Parametern ausgewertet.
-     * 
+     *
      * @param key Schlüssel der Bundle-Mitteilung
      * @param arg0 erster {@link MessageFormat}-Parameter
      * @param arg1 zweiter {@link MessageFormat}-Parameter
@@ -97,9 +97,9 @@ public class LocaleMessage {
 	}
 
     /**
-     * Diese Methode liefert eine Bundle-Mitteilung als ein Format f�r
+     * Diese Methode liefert eine Bundle-Mitteilung als ein Format für
      * {@link MessageFormat} interpretiert mit drei Parametern ausgewertet.
-     * 
+     *
      * @param key Schlüssel der Bundle-Mitteilung
      * @param arg0 erster {@link MessageFormat}-Parameter
      * @param arg1 zweiter {@link MessageFormat}-Parameter
@@ -115,9 +115,9 @@ public class LocaleMessage {
 	}
 
     /**
-     * Diese Methode liefert eine Bundle-Mitteilung als ein Format f�r
+     * Diese Methode liefert eine Bundle-Mitteilung als ein Format für
      * {@link MessageFormat} interpretiert mit vier Parametern ausgewertet.
-     * 
+     *
      * @param key Schlüssel der Bundle-Mitteilung
      * @param arg0 erster {@link MessageFormat}-Parameter
      * @param arg1 zweiter {@link MessageFormat}-Parameter
@@ -134,15 +134,15 @@ public class LocaleMessage {
 	}
 
     /**
-     * Diese Methode liefert eine Bundle-Mitteilung als ein Format f�r
-     * {@link MessageFormat} interpretiert mit f�nf Parametern ausgewertet.
-     * 
+     * Diese Methode liefert eine Bundle-Mitteilung als ein Format für
+     * {@link MessageFormat} interpretiert mit fünf Parametern ausgewertet.
+     *
      * @param key Schlüssel der Bundle-Mitteilung
      * @param arg0 erster {@link MessageFormat}-Parameter
      * @param arg1 zweiter {@link MessageFormat}-Parameter
      * @param arg2 dritter {@link MessageFormat}-Parameter
      * @param arg3 vierter {@link MessageFormat}-Parameter
-     * @param arg4 f�nfter {@link MessageFormat}-Parameter
+     * @param arg4 fünfter {@link MessageFormat}-Parameter
      * @return passend interpretierte Bundle-Mitteilung oder <code>null</code>.
      */
 	public Object get(String key, Object arg0, Object arg1, Object arg2, Object arg3, Object arg4) {
@@ -155,7 +155,7 @@ public class LocaleMessage {
 
 	/**
 	 * Encodet einen Text zur direkten Darstellung im HTML-Inhalt.
-	 * 
+	 *
 	 * @param input Original String
 	 * @return Encodeter String
 	 */
@@ -167,7 +167,7 @@ public class LocaleMessage {
 
 	/**
 	 * Encodet einen Text zur direkten Darstellung im HTML-Input-Feldern.
-	 * 
+	 *
 	 * @param input Original String
 	 * @return Encodeter String
 	 */
@@ -179,7 +179,7 @@ public class LocaleMessage {
 
 	/**
 	 * Encodet einen Text zur direkten Darstellung in HTML-Textarea-Feldern.
-	 * 
+	 *
 	 * @param input Original String
 	 * @return Encodeter String
 	 */
@@ -191,7 +191,7 @@ public class LocaleMessage {
 
     /**
      * Encodet ein Datum zur direkten Darstellung in HTML-Textarea-Feldern.
-     * 
+     *
      * @param key Bundle-Schlüssel des zu benutzenden {@link SimpleDateFormat}-Formats.
      * @param arg0 Darzustellendes Datum als {@link Date}- oder {@link Long}-Instanz.
      *  Bei anderen Klassen wird die Stringdarstellung genommen und als {@link Long}
@@ -235,7 +235,7 @@ public class LocaleMessage {
 
 	/**
 	 * Encodet einen String in einen HTML-String.
-	 * 
+	 *
 	 * @param string Original String
 	 * @return Encodeted HTML
 	 */
@@ -247,18 +247,11 @@ public class LocaleMessage {
 //			.replaceAll("'", "&apos;")
 			.replaceAll("<", "&lt;")
 			.replaceAll(">", "&gt;");
-//			.replaceAll("�", "&auml;")
-//			.replaceAll("�", "&Auml;")
-//			.replaceAll("�", "&uuml;")
-//			.replaceAll("�", "&Uuml;")
-//			.replaceAll("�", "&ouml;")
-//			.replaceAll("�", "&Ouml;")
-//			.replaceAll("�", "&szlig;");
 	}
 
 	/**
 	 * Decodet einen String in einen Plaintext-String.
-	 * 
+	 *
 	 * @param string HTML String
 	 * @return Plaintext
 	 */
@@ -269,13 +262,6 @@ public class LocaleMessage {
 //			.replaceAll("&apos;", "'")
 			.replaceAll("&lt;", "<")
 			.replaceAll("&gt;", ">")
-//			.replaceAll("&auml;", "�")
-//			.replaceAll("&Auml;", "�")
-//			.replaceAll("&uuml;", "�")
-//			.replaceAll("&Uuml;", "�")
-//			.replaceAll("&ouml;", "�")
-//			.replaceAll("&Ouml;", "�")
-//			.replaceAll("&szlig;", "�")
             .replaceAll("&amp;", "&")
 			.replaceAll("<br>", "\n");
 	}

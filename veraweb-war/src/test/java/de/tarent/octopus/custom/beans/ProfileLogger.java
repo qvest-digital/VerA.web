@@ -24,8 +24,8 @@ import org.apache.log4j.Logger;
 
 /**
  * Diese Klasse stellt Methoden zum Loggen von Profiling-Informationen
- * zur Verf�gung.
- * 
+ * zur Verfügung.
+ *
  * @author mikel
  */
 public final class ProfileLogger {
@@ -39,14 +39,14 @@ public final class ProfileLogger {
         super();
         last = System.currentTimeMillis();
     }
-    
+
     //
-    // �ffentliche Methoden
+    // Öffentliche Methoden
     //
     /**
      * Diese Methode loggt die Millisekunden seit dem letzten Aufruf
      * mit dem übergebenen String als Information.
-     * 
+     *
      * @param string Log-Eintrag-Info
      */
     public void log(final String string) {
@@ -56,14 +56,14 @@ public final class ProfileLogger {
     }
 
     //
-    // gesch�tzte Member
+    // geschützte Member
     //
     /** letzter Messpunkt */
     long last = 0;
-    
+
     /** Log-Level */
     Level level = Level.INFO;
-    
+
     /** Logger */
     Logger logger = Logger.getLogger(ProfileLogger.class.getName());
 }

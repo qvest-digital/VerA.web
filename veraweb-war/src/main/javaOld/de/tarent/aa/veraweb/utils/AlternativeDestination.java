@@ -25,13 +25,13 @@ import java.io.OutputStream;
 /**
  * Diese Schnittstelle erlaubt {@link de.tarent.aa.veraweb.utils.Exporter}-Instanzen,
  * alternative Exportziele anzugeben, zum Beispiel im lokalen Dateisystem des Servers.
- * 
+ *
  * @author mikel
  */
 public interface AlternativeDestination {
     /**
-     * Diese Methode liefert ein alternatives Ziel in Form eines {@link OutputStream}s. 
-     * 
+     * Diese Methode liefert ein alternatives Ziel in Form eines {@link OutputStream}s.
+     *
      * @return ein {@link OutputStream} oder <code>null</code>.
      * @throws IOException
      */

@@ -35,7 +35,7 @@ import de.tarent.cucumber.datamanager.DataManager;
 
 /**
  * This class contains all important (cucumber-)hooks.
- * 
+ *
  * @author Sven Schumann <s.schumann@tarent.de>
  * @version 1.0
  */
@@ -68,7 +68,7 @@ public class StartAndShutdownHook {
 
     /**
      * This hook will be called before cucumber starts to process features.
-     * 
+     *
      * @throws Exception
      *             exception
      */
@@ -110,7 +110,7 @@ public class StartAndShutdownHook {
 
     /**
      * This hook will be called after each step.
-     * 
+     *
      * @param result
      *            {@link ScenarioResult}
      */
@@ -135,7 +135,7 @@ public class StartAndShutdownHook {
 
     /**
      * Event start handler function.
-     * 
+     *
      * @param handler
      *            handler
      */
@@ -145,7 +145,7 @@ public class StartAndShutdownHook {
 
     /**
      * Event stop handler function.
-     * 
+     *
      * @param handler
      *            handler
      */
@@ -155,7 +155,7 @@ public class StartAndShutdownHook {
 
     /**
      * Event after handler function.
-     * 
+     *
      * @param handler
      *            handler
      */
@@ -165,7 +165,7 @@ public class StartAndShutdownHook {
 
     /**
      * Event before handler function.
-     * 
+     *
      * @param handler
      *            handler
      */

@@ -83,7 +83,7 @@ public class OsiamLoginCreator {
         final StringBuilder stringBuilder = new StringBuilder();
         final String username = generateShortUsername(firstname, lastname);
         stringBuilder.append(username);
-        
+
         final Integer number = getSuffixIfUsernameAlreadyExists(context, username);
 
         if (number != null) {

@@ -70,7 +70,7 @@ public class NavigationStepDefinitions extends AbstractStepDefinitions {
     public void whenNavigateToTab(String tabName) {
         whenClickElement(page.elementForName(tabName));
     }
-    
+
     @Wenn("^ich die Rückfrage mit \"([^\"]+)\" beantworte$")
     public void whenConfirmationDialog(String confirmation) throws Exception {
         Alert alert = driver.switchTo().alert();
@@ -83,7 +83,7 @@ public class NavigationStepDefinitions extends AbstractStepDefinitions {
         }
         Thread.sleep(1000L);
     }
-    
+
     @Und("^ich betrachte die \"([^\"]+)\" der (?:[^\"]+)liste$")
     public void whenNavigateToTablePage(String elementName) {
         whenClickElement(page.elementForName(elementName));

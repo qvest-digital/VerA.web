@@ -57,7 +57,7 @@ public class CharacterPropertiesReader {
 
 	    /**
 	     * Converting String to String without umlauts. Useful in comparisons
-	     * 
+	     *
 	     * @param in String with umlauts
 	     * @return out String without umlauts
 	     */
@@ -67,19 +67,19 @@ public class CharacterPropertiesReader {
 			if (this.propertiesAreAvailable()) {
 				for (final String key : this.properties.stringPropertyNames()) {
 					String value = this.properties.getProperty(key);
-					
+
 					if (in.contains(key)) {
 						out = in.replaceAll(key, value);
-					} 
+					}
 				}
 			}
-	    	
+
 	    	if (out != null) {
 	    		return out;
 	    	}
 	    	return in;
 	    }
-	    
+
 	    private Properties loadProperties() {
 	    	final Properties properties = new Properties();
 

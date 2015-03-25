@@ -57,7 +57,7 @@ function htmlDialog(styleName, text) {
 	window.scrollTo(0, 0);
 	hideComboboxes();
 	hideDialogs();
-	
+
 	var innerId = document.createAttribute('id');
 		innerId.nodeValue = 'dialogId' + dialogCount++;
 	var innerClass = document.createAttribute('class');
@@ -75,7 +75,7 @@ function htmlDialog(styleName, text) {
 		innerDiv.style.left = getDialogLeft(dw, dh);
 		innerDiv.style.width = getDialogWidth(dw, dh);
 	}
-	
+
 	var b = document.getElementsByTagName("body")[0];
 	b.appendChild(innerDiv);
 }
@@ -86,7 +86,7 @@ function htmlConfirm(question, answer, links) {
 	text += '<div style="height: 120px;">';
 	text += '<strong>' + question + '</strong>';
 	text += '</div>';
-	
+
 	text += '<div style="text-align: right;">';
 	for (var i = 0; i < answer.length; i++) {
 		var t = answer[i];
@@ -94,7 +94,7 @@ function htmlConfirm(question, answer, links) {
 		text += '<input type="button" value="' + t + '" class="button" onclick="' + c + '"> &nbsp;';
 	}
 	text += '</div>';
-	
+
 	htmlDialog('dialogInfo', text);
 }
 
@@ -105,7 +105,7 @@ function htmlWait() {
 	text += '<strong>Bitte warten...</strong><br><br>';
 	text += 'Dieser Vorgang kann einen Moment dauern.';
 	text += '</div>';
-	
+
 	htmlDialog('dialogInfo', text);
 }
 

@@ -231,12 +231,12 @@
          <insert-after-ejb-post-create>false</insert-after-ejb-post-create>
          <container-interceptors>
             <interceptor>org.jboss.ejb.plugins.ProxyFactoryFinderInterceptor</interceptor>
-<!--            
+<!--
             <interceptor>org.jboss.ejb.plugins.LogInterceptor</interceptor>
             <interceptor>org.jboss.ejb.plugins.SecurityInterceptor</interceptor>
 -->
             <interceptor>org.jboss.ejb.plugins.TxInterceptorCMT</interceptor>
-<!--            
+<!--
             <interceptor metricsEnabled="true">org.jboss.ejb.plugins.MetricsInterceptor</interceptor>
 -->
             <interceptor>org.jboss.ejb.plugins.EntityCreationInterceptor</interceptor>
@@ -252,7 +252,7 @@
          <instance-pool>org.jboss.ejb.plugins.EntityInstancePool</instance-pool>
          <instance-cache>org.jboss.ejb.plugins.InvalidableEntityInstanceCache</instance-cache>
          <persistence-manager>org.jboss.ejb.plugins.cmp.jdbc.JDBCStoreManager</persistence-manager>
-<!--         
+<!--
          <locking-policy>org.jboss.ejb.plugins.lock.QueuedPessimisticEJBLock</locking-policy>
 -->
          <locking-policy>org.jboss.ejb.plugins.lock.JDBCOptimisticLock</locking-policy>

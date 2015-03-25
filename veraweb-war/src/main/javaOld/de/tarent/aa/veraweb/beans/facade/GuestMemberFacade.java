@@ -21,7 +21,7 @@ package de.tarent.aa.veraweb.beans.facade;
 
 /**
  * Definiert eine Member-Facade für einen Gast
- * 
+ *
  * @author Michael Klink, Christoph Jerolimov
  */
 public interface GuestMemberFacade extends EventConstants {

@@ -38,11 +38,11 @@ import de.tarent.octopus.beans.TransactionContext;
 /**
  * The class BeanChangeLogger represents a facility
  * for logging changes to individual beans.
- * 
+ *
  * The changes logged will be written to the same
  * database. For this to work, the database schema
  * must include the following schema extensions:
- * 
+ *
  * CREATE TABLE tchangelog
  * (
  * 		pk serial NOT NULL,
@@ -54,11 +54,11 @@ import de.tarent.octopus.beans.TransactionContext;
  * 		date timestamptz,
  * 		CONSTRAINT tchangelog_pkey PRIMARY KEY (pk)
  * );
- * 
+ *
  * In order to create an actual entry in the log, the ChangeLogEntry bean will
  * be used for storing the information to and for retrieving the informatiom
  * from the database.
- * 
+ *
  * @author cklein
  * @since 1.2
  */
@@ -69,7 +69,7 @@ public class BeanChangeLogger {
 
 	/**
 	 * Creates a new instance of the logger.
-	 * 
+	 *
 	 * @param database	the database to which we will be logging changes to
 	 * @param context the current transaction context
 	 */
@@ -88,7 +88,7 @@ public class BeanChangeLogger {
 	 * Logs the update change to the database. if any.
 	 * For this, the method will compare the old version o and the new
 	 * version n of a bean of the same class.
-	 * 
+	 *
 	 * @param username	the username who is committing the change
 	 * @param o			the bean's old state from the database
 	 * @param n			the bean's new state from the request
@@ -120,14 +120,14 @@ public class BeanChangeLogger {
 				// we skip the primary key a/o id field
 				continue;
 			}
-			
+
 			Comparable nv = ( Comparable ) n.getField( k );
 			Comparable ov = ( Comparable ) o.getField( k );
 			try
 			{
-				if 
-				( 
-					( ( ov != null ) && ( ov.compareTo( nv ) != 0 ) ) 
+				if
+				(
+					( ( ov != null ) && ( ov.compareTo( nv ) != 0 ) )
 					|| ( ( ov == null ) && ( nv != null ) )
 				)
 				{
@@ -154,7 +154,7 @@ public class BeanChangeLogger {
 
 	/**
 	 * Logs the insert change to the database. if any.
-	 * 
+	 *
 	 * @param username	the username who is committing the change
 	 * @param o			the bean's old state from the database
 	 */
@@ -172,7 +172,7 @@ public class BeanChangeLogger {
 
 	/**
 	 * Logs the delete change to the database.
-	 * 
+	 *
 	 * @param username	the username who is committing the change
 	 * @param o			the bean's old state from the database
 	 */
@@ -201,7 +201,7 @@ public class BeanChangeLogger {
 			if ( o instanceof Guest )
 			{
 				o = this.database.getBean( "Person", ( ( Guest ) o ).person );
-			} 
+			}
 			if ( o instanceof Person ) {
 				Person p = ( Person ) o;
 				if ( p != null )
@@ -209,7 +209,7 @@ public class BeanChangeLogger {
 					result = p.lastname_a_e1; // lastname is mandatory, even for companies
 					if ( p.firstname_a_e1 != null )
 					{
-						result += ", " + p.firstname_a_e1; 
+						result += ", " + p.firstname_a_e1;
 					}
 				}
 			} else if (o instanceof Task) {
@@ -226,7 +226,7 @@ public class BeanChangeLogger {
 
 		return result;
 	}
-	
+
 	private void insertLogEntry( ChangeLogEntry entry )
 		throws BeanException, IOException
 	{

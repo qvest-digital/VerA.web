@@ -36,29 +36,29 @@ package de.tarent.utils;
  * qualifier.<br>
  * The example just comprises the following lines:
  * <p>
- * 
+ *
  * <pre>
  * import java.util.*;
  * import java.io.*;
- * 
+ *
  * public class CSVFileExample {
- * 
+ *
  * public static void main(String[] args) throws FileNotFoundException,IOException {
- * 
+ *
  *     CSVFileReader in = new CSVFileReader(&quot;csv_in.txt&quot;, ';', '&quot;');
  *     CSVFileWriter out = new CSVFileWriter(&quot;csv_out.txt&quot;, ',', '\'');
- * 
+ *
  *     Vector&lt;String&gt; fields = in.readFields();
  *     while(fields!=null) {
  *         out.writeFields(fields);
  *         fields = in.readFields();
  *     }
- * 
+ *
  *     in.close();
  *     out.close();
  * }}
  * </pre>
- * 
+ *
  * @author Fabrizio Fazzino
  * @version %I%, %G%
  */
@@ -91,7 +91,7 @@ public abstract class CSVFile {
     /**
      * CSVFile constructor with a given field separator and the default text
      * qualifier.
-     * 
+     *
      * @param sep
      *            The field separator to be used; overwrites the default one
      */
@@ -101,7 +101,7 @@ public abstract class CSVFile {
 
     /**
      * CSVFile constructor with given field separator and text qualifier.
-     * 
+     *
      * @param sep
      *            The field separator to be used; overwrites the default one
      * @param qual
@@ -117,7 +117,7 @@ public abstract class CSVFile {
     //
     /**
      * Set the current field separator.
-     * 
+     *
      * @param sep
      *            The new field separator to be used; overwrites the old one
      */
@@ -127,7 +127,7 @@ public abstract class CSVFile {
 
     /**
      * Set the current text qualifier.
-     * 
+     *
      * @param qual
      *            The new text qualifier to be used; overwrites the old one
      */
@@ -137,7 +137,7 @@ public abstract class CSVFile {
 
     /**
      * Get the current field separator.
-     * 
+     *
      * @return The char containing the current field separator
      */
     public char getFieldSeparator() {
@@ -146,7 +146,7 @@ public abstract class CSVFile {
 
     /**
      * Get the current text qualifier.
-     * 
+     *
      * @return The char containing the current text qualifier
      */
     public char getTextQualifier() {

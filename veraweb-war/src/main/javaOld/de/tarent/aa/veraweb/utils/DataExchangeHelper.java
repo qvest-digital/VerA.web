@@ -26,15 +26,15 @@ import de.tarent.octopus.exchange.ConfiguredExchangeFormat;
 import de.tarent.octopus.server.OctopusContext;
 
 /**
- * Diese Klasse enth�lt Hilfsmethoden für den Datenim- und -export.
- * 
+ * Diese Klasse enthält Hilfsmethoden für den Datenim- und -export.
+ *
  * @author mikel
  */
 public class DataExchangeHelper {
     /**
      * Diese Methode liefert zu einem Schlüssel ein {@link ExchangeFormat}
-     * gemäß den Daten der Konfiguration des aktiven Octopus-Moduls. 
-     * 
+     * gemäß den Daten der Konfiguration des aktiven Octopus-Moduls.
+     *
      * @param cntx Octopus-Kontext
      * @param key Schlüssel des Parameters der Modulkonfiguration, in dem
      *  das gesuchte Format definiert ist.
@@ -57,12 +57,12 @@ public class DataExchangeHelper {
      * Diese Methode liefert einen {@link Importer} für das Format zu dem
      * übergebenen Schlüssel gemäß den Daten der Konfiguration des aktiven
      * Octopus-Moduls.
-     * 
+     *
      * @param cntx Octopus-Kontext
      * @param key Schlüssel des Parameters der Modulkonfiguration, in dem
      *  das Format zum gesuchten Importer definiert ist.
      * @return ein {@link Importer} zum übergebenen Schlüssel oder <code>null</code>,
-     *  falls die Konfigurationsdaten unvollst�ndig sind
+     *  falls die Konfigurationsdaten unvollständig sind
      * @throws ClassNotFoundException wenn die konfigurierte {@link Importer}-Klasse
      *  nicht gefunden wird
      * @throws InstantiationException wenn es Probleme während des Erzeugens einer
@@ -80,17 +80,17 @@ public class DataExchangeHelper {
         }
         return null;
     }
-    
+
     /**
      * Diese Methode liefert einen {@link Exporter} für das Format zu dem
      * übergebenen Schlüssel gemäß den Daten der Konfiguration des aktiven
      * Octopus-Moduls.
-     * 
+     *
      * @param cntx Octopus-Kontext
      * @param key Schlüssel des Parameters der Modulkonfiguration, in dem
      *  das Format zum gesuchten Exporter definiert ist.
      * @return ein {@link Exporter} zum übergebenen Schlüssel oder <code>null</code>,
-     *  falls die Konfigurationsdaten unvollst�ndig sind
+     *  falls die Konfigurationsdaten unvollständig sind
      * @throws ClassNotFoundException wenn die konfigurierte {@link Exporter}-Klasse
      *  nicht gefunden wird
      * @throws InstantiationException wenn es Probleme während des Erzeugens einer

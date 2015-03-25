@@ -63,7 +63,7 @@ public class CheckStepDefinitions extends AbstractStepDefinitions {
     public void thenSpecifiedInformationTextEquals(String elementName, String expectedText) {
         thenElementTextEquals(page.elementForName(elementName), expectedText);
     }
-    
+
     @Angenommen("^ich sehe als \"([^\"]+)\" den Text \"([^\"]+)\"$")
     @Dann("^sehe ich als \"([^\"]+)\" den Text \"([^\"]+)\"$")
     public void thenSpecifiedNaviListTextEquals(String elementName, String expectedText) {

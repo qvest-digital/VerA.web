@@ -75,7 +75,7 @@ public class ImportPersonsDuplicateWorker extends ListWorkerVeraWeb {
 
 		List beans = super.showList(cntx);
 
-		// Zu den Duplikatdatens�tzen noch einige Beispiel-Duplikate hinzuf�gen.
+		// Zu den Duplikatdatensätzen noch einige Beispiel-Duplikate hinzufügen.
 		int dsCount = -1;
 		if (importDuplicatesProperties != null)
 			dsCount = Integer.parseInt((String) importDuplicatesProperties.get("dupCount"));
@@ -174,7 +174,7 @@ public class ImportPersonsDuplicateWorker extends ListWorkerVeraWeb {
 	 * Bedingung:
 	 * Es existieren Duplikate zu dem Datensatz.
 	 * Datensatz wurde noch nicht festgeschrieben.
-	 * Nur Datens�tze von dem aktuellen Importvorgang.
+	 * Nur Datensätze von dem aktuellen Importvorgang.
 	 */
 	@Override
     protected void extendWhere(OctopusContext cntx, Select select) throws BeanException {

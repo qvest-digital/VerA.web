@@ -22,8 +22,8 @@ package de.tarent.aa.veraweb.utils;
 /**
  * Diese Schnittstelle stellt Konstanten für die Kommunikation mittels des
  * zentralen Kommunikationsmoduls ZKM (aka central communication module CCM)
- * bereit. 
- * 
+ * bereit.
+ *
  * @author mikel
  */
 public interface CcmConstants {

@@ -44,7 +44,7 @@ public class UserConfig extends AbstractBean {
 	}
 
 	/**
-	 * Hebt den Schreibschutz für die User-Config auf. 
+	 * Hebt den Schreibschutz für die User-Config auf.
 	 */
 	@Override
     public void checkWrite(OctopusContext cntx) throws BeanException {

@@ -35,7 +35,7 @@ import de.tarent.aa.veraweb.selenium.RemoteWebDriverWithScreenshotFunctionality;
 
 /**
  * Factory for Selenium's {@link WebDriver} instances.
- * 
+ *
  * @author Valentin But (v.but@tarent.de), tarent solutions GmbH
  * @version 1.0
  */
@@ -108,7 +108,7 @@ public class SeleniumFactory {
 
     /**
      * Build local Firefox web driver.
-     * 
+     *
      * @param sleepTime
      *            sleep time
      * @param sleepUnit
@@ -124,7 +124,7 @@ public class SeleniumFactory {
 
     /**
      * Build remote Firefox web driver.
-     * 
+     *
      * @param host
      *            host of selenium server
      * @param port
@@ -139,7 +139,7 @@ public class SeleniumFactory {
 
     /**
      * Build remote web driver based on the given parameters.
-     * 
+     *
      * @param host
      *            host of selenium server
      * @param port
@@ -158,7 +158,7 @@ public class SeleniumFactory {
 
     /**
      * Build remote web driver based on the given parameters.
-     * 
+     *
      * @param host
      *            host of selenium server
      * @param port
@@ -239,7 +239,7 @@ public class SeleniumFactory {
 
     /**
      * Generates unique string based on given parameters.
-     * 
+     *
      * @param host
      *            host of selenium server
      * @param port
@@ -254,7 +254,7 @@ public class SeleniumFactory {
 
     /**
      * Closing all created Selenium web driver. This method will be called when are integration tests finished.
-     * 
+     *
      * @see SeleniumCloser
      */
     public static void closeAll() {

@@ -29,7 +29,7 @@ import junit.framework.TestCase;
 
 /**
  * Diese Testklasse testet {@link FieldMapping}.
- * 
+ *
  * @author mikel
  */
 public class FieldMappingTest extends TestCase {
@@ -39,7 +39,7 @@ public class FieldMappingTest extends TestCase {
     /**
      * (Erzeugung / Parsen der Parameter) Dieser Test erzeugt ein vermischtes
      * Mapping.
-     * 
+     *
      * @throws MappingException
      */
     public void testCreatePositive() throws MappingException {
@@ -70,7 +70,7 @@ public class FieldMappingTest extends TestCase {
 
     /**
      * (Erzeugung / Parsen der Parameter) Diese Testmethode testet, ob mehrfache
-     * Joker in einem FormatString zum Abbruch f�hren.
+     * Joker in einem FormatString zum Abbruch führen.
      */
     public void testCreateInnerJokerFail() {
         Set sources = createSources();
@@ -78,7 +78,7 @@ public class FieldMappingTest extends TestCase {
         description.put("Kategorie *", "{CAT:*essen}");
         try {
             FieldMapping mapping = new FieldMapping(sources, description);
-            Assert.fail("FieldMapping " + mapping + " d�rfte keine inneren Joker akzeptieren");
+            Assert.fail("FieldMapping " + mapping + " dürfte keine inneren Joker akzeptieren");
         } catch (MappingException e) {
             // Geklappt
         }
@@ -86,7 +86,7 @@ public class FieldMappingTest extends TestCase {
 
     /**
      * (Auswerten) Dieser Test testet ein vermischtes Auswerten.
-     * 
+     *
      * @throws MappingException
      */
     public void testEvaluatePositive() throws MappingException {
@@ -108,7 +108,7 @@ public class FieldMappingTest extends TestCase {
         Set sources = new HashSet();
         sources.add(":vorname");
         sources.add(":nachname");
-        sources.add(":stra�e");
+        sources.add(":straße");
         sources.add(":ort");
         sources.add("CAT:Weihnachtsessen");
         sources.add("CAT:Mafia");
@@ -116,31 +116,31 @@ public class FieldMappingTest extends TestCase {
         sources.add("DTP:Etikett");
         return sources;
     }
-    
+
     /** erzeugt eine gemischte Auswahl Mapping-Beschreibungen */
     Map createDescriptions() {
         Map descriptions = new HashMap();
         descriptions.put("*", "{:*} in {:ort}");
-        descriptions.put("Straße", "{:stra�e}");
+        descriptions.put("Straße", "{:straße}");
         descriptions.put("Kategorie *", "{CAT:*}");
         descriptions.put("Dokumenttyp * (Hauptperson)", "{DTM:*}");
         descriptions.put("Dokumenttyp * (Partner)", "{DTP:*}");
         return descriptions;
     }
-    
-    /** erzeugt Aufl�sung von {@link #createDescriptions()} für {@link #createSources()} */
+
+    /** erzeugt Auflösung von {@link #createDescriptions()} für {@link #createSources()} */
     Map createResolves() {
         Map expectedResolves = new HashMap();
         expectedResolves.put("vorname", "{:vorname} in {:ort}");
         expectedResolves.put("nachname", "{:nachname} in {:ort}");
-        expectedResolves.put("Straße", "{:stra�e}");
+        expectedResolves.put("Straße", "{:straße}");
         expectedResolves.put("Kategorie Weihnachtsessen", "{CAT:Weihnachtsessen}");
         expectedResolves.put("Kategorie Mafia", "{CAT:Mafia}");
         expectedResolves.put("Dokumenttyp Etikett (Hauptperson)", "{DTM:Etikett}");
         expectedResolves.put("Dokumenttyp Etikett (Partner)", "{DTP:Etikett}");
         return expectedResolves;
     }
-    
+
     FieldMapping.Entity createEntity() {
         return new FieldMapping.Entity() {
             public String get(String sourceKey) {
@@ -148,7 +148,7 @@ public class FieldMappingTest extends TestCase {
                     return "Hans";
                 if (":nachname".equals(sourceKey))
                     return "Meier";
-                if (":stra�e".equals(sourceKey))
+                if (":straße".equals(sourceKey))
                     return "Optionsweg";
                 if (":ort".equals(sourceKey))
                     return "Backhausen";

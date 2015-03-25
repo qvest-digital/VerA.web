@@ -44,7 +44,7 @@ import de.tarent.octopus.server.OctopusContext;
 
 /**
  * Dieser Octopus-Worker stellt Aktionen zur Verwaltung (erstellen
- * und l�schen) von Verteilern in VerA.Web bereit.
+ * und löschen) von Verteilern in VerA.Web bereit.
  *
  * @author Hendrik, Christoph Jerolimov
  * @version $Revision: 1.1 $
@@ -56,7 +56,7 @@ public class MailinglistWorker {
 	public static final String OUTPUT_guessMaillinglist = "mailinglistParams";
 
 	/**
-	 * Sch�tzt wie gro� der neue Verteiler werden wird und
+	 * Schätzt, wie groß der neue Verteiler werden wird, und
 	 * erweitert die Map <code>mailinglistParam</code> im Content
 	 * um den Key <code>count</code>.
 	 *
@@ -94,7 +94,7 @@ public class MailinglistWorker {
 
 	/**
 	 * Erstellt einen neuen Verteiler und speichert die Anzahl der
-	 * hinzugef�gten Adressen in der Map <code>mailinglistParam</code>
+	 * hinzugefügten Adressen in der Map <code>mailinglistParam</code>
 	 * im Content im Key <code>count</code>.
 	 *
 	 * @param cntx
@@ -135,7 +135,7 @@ public class MailinglistWorker {
 			GuestListWorker.addGuestListFilter(search, (WhereList)clause);
 		}
 
-		// Personen hinzuf�gen
+		// Personen hinzufügen
 		int savedAddresses = addMailinglist(cntx, mailinglist, freitextfeld, addresstype, locale, clause);
 
 		if (savedAddresses == 0) {
@@ -154,23 +154,23 @@ public class MailinglistWorker {
 	}
 
 	/**
-	 * F�gt Gäste einem bestehendem Verteiler anhand der übergebenen Bedingung
-	 * <code>clause</code> hinzu. Die Bedingung darf dabei Einschr�nkungen auf
+	 * Fügt Gäste einem bestehendem Verteiler anhand der übergebenen Bedingung
+	 * <code>clause</code> hinzu. Die Bedingung darf dabei Einschränkungen auf
 	 * die Tabellen <code>tguest</code> und <code>tperson</code> vornehmen.
 	 * <br><br>
 	 * Die Adresse die in den entsprechenden Verteiler eingetragen wird, wird
-	 * aus dem entsprechenden Personen-Dokumenttyp 'Freitextfeld' gew�hlt.
+	 * aus dem entsprechenden Personen-Dokumenttyp 'Freitextfeld' gewählt.
 	 * Sollte dieser nicht existieren wird entsprechend des übergebenen
 	 * Adresstyps und Zeichensatzes in den normalen Personen Datengesucht. (Im
 	 * Zweifel wird auf die geschäftlichen lateinischen Daten zurückgegriffen.)
 	 *
 	 * @param cntx Octopus-Context
-	 * @param mailinglist Verteiler dem Gäste hinzugef�gt werden sollen.
+	 * @param mailinglist Verteiler dem Gäste hinzugefügt werden sollen.
 	 * @param doctype ID des Dokumenttypes der verwendet werden soll.
 	 * @param addresstype Adresstyp
 	 * @param locale Zeichensatz
 	 * @param clause Bedingung
-	 * @return Anzahl der hinzugef�gten Adressen.
+	 * @return Anzahl der hinzugefügten Adressen.
 	 * @throws BeanException
 	 * @throws IOException
 	 */
@@ -320,7 +320,7 @@ public class MailinglistWorker {
 	 *    ggf. aus diesem eMail-Adresse oder Fax-Nimmer.<br>
 	 * 2. Falls kein entsprechender Eintrag gefunden wurde wird die allgemeine
 	 *    Person zu dem übergebenem Gast gesucht und die eMail-Adresse
-	 *    oder Fax-Nummer entsprechend des Dokumenttypens "Etikett" �bernommen.
+	 *    oder Fax-Nummer entsprechend des Dokumenttypens "Etikett" übernommen.
 	 *
 	 * @param database
 	 * @param mailinglist

@@ -28,7 +28,7 @@ import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.beans.BeanFactory;
 
 /**
- * Diese Klasse testet die Funktionalit�t der {@link BeanFactory}.
+ * Diese Klasse testet die Funktionalität der {@link BeanFactory}.
  *
  * @author Christoph Jerolimov
  */

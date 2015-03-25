@@ -47,20 +47,20 @@ public class EventTaskDetailWorker {
 	public EventTaskDetailWorker(DatabaseVeraWebFactory databaseVeraWebFactory) {
 		this.databaseVeraWebFactory = databaseVeraWebFactory;
 	}
-	
+
 	public EventTaskDetailWorker() {
 		this(new DatabaseVeraWebFactory());
 	}
-	
+
 	private static final String PARAM_TASK = "task";
 	private static final String PARAM_EVENT_ID = "eventId";
 
 	public static final String[] INPUT_setEventTaskId = {PARAM_EVENT_ID};
 	public static final String OUTPUT_setEventTaskId = PARAM_EVENT_ID;
-	
+
 	/**
 	 * Load and return task with the given id.
-	 * 
+	 *
 	 * @param oc
 	 * @param eventId
 	 * @param id
@@ -75,17 +75,17 @@ public class EventTaskDetailWorker {
             return new Task();
         }
     }
-	
-    
+
+
 
 	public static final String[] INPUT_loadReferencePerson = { "refPersId" };
 	public static final boolean[] MANDATORY_loadReferencePerson = { false };
-	
-    public void loadReferencePerson(OctopusContext cntx, String refPersId) throws BeanException, IOException {		
+
+    public void loadReferencePerson(OctopusContext cntx, String refPersId) throws BeanException, IOException {
 		if (refPersId == null || refPersId.trim().length() == 0) {
 			return;
 		};
-		
+
 		Integer pk = Integer.parseInt(refPersId);
 
 		cntx.getContentObject().setField("refPerson", getPersonFromDB(cntx, pk));
@@ -93,16 +93,16 @@ public class EventTaskDetailWorker {
 
 	public static final String[] INPUT_copyTaskAndEventId = { PARAM_EVENT_ID, "taskId" };
 	public static final boolean[] MANDATORY_copyTaskAndEventId = { false, false };
-	
+
     public void copyTaskAndEventId(OctopusContext oc, String eventId, String taskId) {
         oc.setContent(PARAM_EVENT_ID, eventId);
         oc.setContent("taskId", taskId);
     }
-    
+
 	/**
 	 * Assigns the eventId from the task list to a new created task to link
 	 * the task to the event
-	 * 
+	 *
 	 * @param cntx
 	 * @param eventId
 	 * @return eventId
@@ -111,22 +111,22 @@ public class EventTaskDetailWorker {
 	    cntx.setContent(PARAM_EVENT_ID, eventId);
 	    return eventId;
 	}
-	
+
 	public static final String[] INPUT_showDetail = { PARAM_EVENT_ID, "id" };
 	public static final boolean[] MANDATORY_showDetail = { false, false };
 	public static final String OUTPUT_showDetail = PARAM_TASK;
-	
+
 	public Task showDetail(OctopusContext context, Integer eventId, Integer id) throws BeanException, IOException{
 		if(eventId != null){
 			setEventTaskId(context, String.valueOf(eventId));
 		}
 		Task task = getTaskFromDB(context, id);
-		
+
 		if (task != null && task.personId != null) {
 			Person person = getPersonFromDB(context, task.personId);
 			context.getContentObject().setField("refPerson", person);
 		};
-		
+
 		return task;
 	}
 
@@ -135,7 +135,7 @@ public class EventTaskDetailWorker {
     /**
      * Diese Octopus-Aktion holt eine Aufgabe unter "task" aus dem Octopus-Request und legt sie unter "task" in
      * den Octopus-Content und unter "tasktemp" in die Session.
-     * 
+     *
      * @param cntx
      *          Octopus-Kontext
      */
@@ -145,23 +145,23 @@ public class EventTaskDetailWorker {
         cntx.setSession("tasktemp", task);
         cntx.setContent("task", task);
     }
-    
-    
+
+
     /** Eingabe-Parameter der Octopus-Aktion {@link #loadTemp(OctopusContext)} */
     public static final String INPUT_loadTemp[] = {};
     /**
      * Diese Octopus-Aktion holt eine Aufgabe unter "tasktemp" aus der Session und
      * legt sie unter "task" und Hilfsflags unter "task-beginhastime" und "task-endhastime"
      * im Octopus-Content ab.
-     * 
+     *
      * @param cntx Octopus-Kontext
      */
     public void loadTemp(OctopusContext cntx) {
         Task task = (Task)cntx.sessionAsObject("tasktemp");
         cntx.setContent("task", task);
     }
-	
-	
+
+
 	public static final String INPUT_saveDetail[] = { "savetask" };
 
 	public static final boolean MANDATORY_saveDetail[] = { false };
@@ -172,10 +172,10 @@ public class EventTaskDetailWorker {
 		if (savetask == null || !savetask.booleanValue()) {
 			return;
 		}
-		   
+
 		Request request = new RequestVeraWeb(cntx);
 		Database database = databaseVeraWebFactory.createDatabaseVeraWeb(cntx);
-		TransactionContext context = database.getTransactionContext();	  		
+		TransactionContext context = database.getTransactionContext();
 
 		try {
 			Task task = (Task) cntx.contentAsObject(PARAM_TASK);
@@ -197,10 +197,10 @@ public class EventTaskDetailWorker {
 					database.getNextPk(task, context);
 
 					task.updateHistoryFields(null, ((PersonalConfigAA)cntx.personalConfig()).getRoleWithProxy());
-					
+
 					Insert insert = database.getInsert(task);
 					insert.insert("pk", task.getId());
-					
+
 					if (!((PersonalConfigAA) cntx.personalConfig()).getGrants()
 							.mayReadRemarkFields()) {
 						insert.remove("note");
@@ -228,7 +228,7 @@ public class EventTaskDetailWorker {
 					Boolean.valueOf(DateHelper.isTimeInDate(task.getStartdate())));
 			cntx.setContent("task-endhastime",
 					Boolean.valueOf(DateHelper.isTimeInDate(task.getEnddate())));
-			
+
 			if (task != null && task.personId != null) {
 				Person person = getPersonFromDB(cntx, task.personId);
 				cntx.getContentObject().setField("refPerson", person);
@@ -247,16 +247,16 @@ public class EventTaskDetailWorker {
 		if(id == null){
 			return null;
 		}
-		
+
 		Database database = new DatabaseVeraWeb(context);
 		Task task = (Task) database.getBean("Task", id);
-		
+
 		if(task != null){
 			context.setContent("task-starthastime", Boolean.valueOf(DateHelper.isTimeInDate(task.startdate)));
 			context.setContent("task-endhastime", Boolean.valueOf(DateHelper.isTimeInDate(task.enddate)));
 			task.getErrors().clear();
 		}
-		
+
 		return task;
 	}
 
@@ -264,10 +264,10 @@ public class EventTaskDetailWorker {
 		if(id == null){
 			return null;
 		}
-		
+
 		Database database = new DatabaseVeraWeb(context);
 		Person person = (Person) database.getBean("Person", id);
-		
+
 		return person;
 	}
 

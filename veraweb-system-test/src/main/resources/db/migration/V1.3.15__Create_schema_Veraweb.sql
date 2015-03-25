@@ -971,13 +971,13 @@ CREATE TABLE veraweb.tproxy (
 /* Foreign key constraints                                                */
 /* ---------------------------------------------------------------------- */
 
-ALTER TABLE veraweb.tperson ADD CONSTRAINT tperson_fkey_workarea 
+ALTER TABLE veraweb.tperson ADD CONSTRAINT tperson_fkey_workarea
     FOREIGN KEY (fk_workarea) REFERENCES veraweb.tworkarea (pk) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
-ALTER TABLE veraweb.tproxy ADD CONSTRAINT tproxy_fkey_user 
+ALTER TABLE veraweb.tproxy ADD CONSTRAINT tproxy_fkey_user
     FOREIGN KEY (fk_user) REFERENCES veraweb.tuser (pk) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
-ALTER TABLE veraweb.tworkarea ADD CONSTRAINT tworkarea_fkey_orgunit 
+ALTER TABLE veraweb.tworkarea ADD CONSTRAINT tworkarea_fkey_orgunit
     FOREIGN KEY (fk_orgunit) REFERENCES veraweb.torgunit (pk) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 /* ---------------------------------------------------------------------- */

@@ -25,9 +25,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Diese Klasse stellt die Eigenschaften eines Datenaustauschformats f�r
- * Export- und Importimplementierungen zur Verf�gung.
- * 
+ * Diese Klasse stellt die Eigenschaften eines Datenaustauschformats für
+ * Export- und Importimplementierungen zur Verfügung.
+ *
  * @author mikel
  */
 public class ExchangeFormat {
@@ -42,7 +42,7 @@ public class ExchangeFormat {
     protected void setDefaultExtension(String defaultExtension) {
         this.defaultExtension = defaultExtension;
     }
-    
+
     /** Die Beschreibung dieses Formats */
     public String getDescription() {
         return description;
@@ -51,18 +51,18 @@ public class ExchangeFormat {
     protected void setDescription(String description) {
         this.description = description;
     }
-    
+
     /**
      * Die {@link de.tarent.aa.veraweb.utils.Exporter}-Klasse zu diesem Format.
-     * Sie wird gegebenenfalls aus {@link #exporterClassName} erzeugt. 
-     * @throws ClassNotFoundException 
+     * Sie wird gegebenenfalls aus {@link #exporterClassName} erzeugt.
+     * @throws ClassNotFoundException
      */
     public Class getExporterClass() throws ClassNotFoundException {
         if (exporterClass == null && exporterClassName != null)
             exporterClass = Thread.currentThread().getContextClassLoader().loadClass(exporterClassName);
         return exporterClass;
     }
-    
+
     /** Der Name der {@link de.tarent.aa.veraweb.utils.Exporter}-Klasse zu diesem Format */
     public String getExporterClassName() {
         return exporterClassName;
@@ -72,7 +72,7 @@ public class ExchangeFormat {
         this.exporterClassName = exporterClassName;
         this.exporterClass = null;
     }
-    
+
     /** Die URL zu einem Icon zu diesem Format */
     public URL getIconUrl() {
         return iconUrl;
@@ -81,11 +81,11 @@ public class ExchangeFormat {
     protected void setIconUrl(URL iconUrl) {
         this.iconUrl = iconUrl;
     }
-    
+
     /**
      * Die {@link de.tarent.aa.veraweb.utils.Importer}-Klasse zu diesem Format.
-     * Sie wird gegebenenfalls aus {@link #importerClassName} erzeugt. 
-     *  
+     * Sie wird gegebenenfalls aus {@link #importerClassName} erzeugt.
+     *
      * @throws ClassNotFoundException
      */
     public Class getImporterClass() throws ClassNotFoundException {
@@ -93,7 +93,7 @@ public class ExchangeFormat {
             importerClass = Thread.currentThread().getContextClassLoader().loadClass(importerClassName);
         return importerClass;
     }
-    
+
     /** Der Name der {@link de.tarent.aa.veraweb.utils.Importer}-Klasse zu diesem Format */
     public String getImporterClassName() {
         return importerClassName;
@@ -103,7 +103,7 @@ public class ExchangeFormat {
         this.importerClassName = importerClassName;
         this.importerClass = null;
     }
-    
+
     /** Der MIME-Typ zu diesem Format */
     public String getMimeType() {
         return mimeType;
@@ -112,7 +112,7 @@ public class ExchangeFormat {
     protected void setMimeType(String mimeType) {
         this.mimeType = mimeType;
     }
-    
+
     /** Der Name dieses Formats */
     public String getName() {
         return name;
@@ -121,7 +121,7 @@ public class ExchangeFormat {
     protected void setName(String name) {
         this.name = name;
     }
-    
+
     /** Die speziellen Attribute dieses Formats */
     public Map getProperties() {
         return Collections.unmodifiableMap(properties);
@@ -142,7 +142,7 @@ public class ExchangeFormat {
     /**
      * Returns a string representation of the object.<br>
      * Diese Darstellung dient Debug-Zwecken.
-     * 
+     *
      * @see java.lang.Object#toString()
      */
     @Override
@@ -158,9 +158,9 @@ public class ExchangeFormat {
               .append("; Properties: ").append(properties);
         return buffer.toString();
     }
-    
+
     //
-    // gesch�tzte Member
+    // geschützte Member
     //
     /** Der Name dieses Formats */
     String name = null;

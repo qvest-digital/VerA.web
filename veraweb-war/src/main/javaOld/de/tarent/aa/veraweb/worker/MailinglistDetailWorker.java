@@ -39,8 +39,8 @@ import de.tarent.octopus.beans.veraweb.ListWorkerVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
 
 /**
- * Dieser Octopus-Worker stellt die �bersichtliste eines Verteilers bereit.
- * 
+ * Dieser Octopus-Worker stellt die übersichtliste eines Verteilers bereit.
+ *
  * @author Hendrik, Christoph Jerolimov
  * @version $Revision: 1.1 $
  */
@@ -89,12 +89,12 @@ public class MailinglistDetailWorker extends ListWorkerVeraWeb {
      * Diese Octopus-Aktion schreibt die Details zur Mailinglist mit dem im
      * Octopus-Request unter dem Schlüssel "id" angegebenen Primärschlüssel
      * unter "mailinglist" in Octopus-Content und -Session.
-     * 
+     *
      * @param cntx Octopus-Kontext
 	 */
 	public void showDetail(OctopusContext cntx) throws BeanException, IOException {
 		Database database = getDatabase(cntx);
-		
+
 		Integer id = cntx.requestAsInteger("id");
 		Mailinglist mailinglist = (Mailinglist)
 				database.getBean("Mailinglist",
@@ -119,21 +119,21 @@ public class MailinglistDetailWorker extends ListWorkerVeraWeb {
      * -Session ab und testet sie auf Korrektheit. Falls sie korrekt ist,
      * wird sie in der Datenbank gespeichert, ansonsten wird der Status
      * "error" gesetzt.
-     * 
+     *
      * @param cntx Octopus-Kontext
 	 */
 	public void saveDetail(OctopusContext cntx) throws BeanException, IOException {
 		Database database = getDatabase(cntx);
 		Request request = getRequest(cntx);
-		
+
 		Mailinglist mailinglist = (Mailinglist)request.getBean("Mailinglist", "mailinglist");
 		mailinglist.updateHistoryFields(null, ((PersonalConfigAA)cntx.personalConfig()).getRoleWithProxy());
 		mailinglist.user = ((PersonalConfigAA)cntx.personalConfig()).getVerawebId();
 		mailinglist.orgunit = ((PersonalConfigAA)cntx.personalConfig()).getOrgUnitId();
-		
+
 		cntx.setContent("mailinglist", mailinglist);
 		cntx.setSession("mailinglist", mailinglist);
-		
+
 		if (mailinglist.isCorrect()) {
 			database.saveBean(mailinglist);
 		} else {
@@ -147,43 +147,43 @@ public class MailinglistDetailWorker extends ListWorkerVeraWeb {
     /** Ausgabe-Parameter der Octopus-Aktion {@link #getAddressList(OctopusContext, Mailinglist, Integer)} */
 	public static final String OUTPUT_getAddressList = "mailAddresses";
 	/**
-     * Diese Octopus-Aktion liefert eine Liste mit mailto-URLs, die jeweils nicht l�nger als
-     * die übergebene Vorgabel�nge sind, und die zusammengenommen alle Einträge der Mailinglist
+     * Diese Octopus-Aktion liefert eine Liste mit mailto-URLs, die jeweils nicht länger als
+     * die übergebene Vorgabelänge sind, und die zusammengenommen alle Einträge der Mailinglist
      * mit E-Mail-Adresse adressiert.
-     * 
+     *
      * @param cntx Octopus-Kontext
      * @param mailinglist Mailingliste
-     * @param mailToUrlMaxSize Maximall�nge einer mailto-URL
+     * @param mailToUrlMaxSize Maximallänge einer mailto-URL
      * @return Liste mit mailto-URLs zu der Mailingliste
      * @throws BeanException
      * @throws IOException
 	 */
 	public List getAddressList(OctopusContext cntx, Mailinglist mailinglist, Integer mailToUrlMaxSize) throws BeanException, IOException {
 		Database database = getDatabase(cntx);
-		
+
 		Select select = database.getSelect(BEANNAME);
 		select.where(Expr.equal("fk_mailinglist", mailinglist.id));
 		select.join("veraweb.tperson", "fk_person", "tperson.pk");
-		
+
 		// Adressen holen
 		logger.info("Hole Adressen");
 		List addressList = new ArrayList();
 		StringBuffer addresses = new StringBuffer();
 		boolean first = true;
-		
+
 		for (Iterator it = database.getList(select, database).iterator(); it.hasNext(); ) {
 			Map data = (Map)it.next();
 			String str = (String)(data).get("address");
-			
+
 			if (str != null && str.length() != 0) {
-				// L�nge der URL darf nicht zu gro� werden 
+				// Länge der URL darf nicht zu groß werden
 				if (mailToUrlMaxSize.intValue() != -1 && !first &&
 						addresses.length() + str.length() + 5 > mailToUrlMaxSize.intValue()) {
 					addressList.add(addresses.toString());
 					addresses = new StringBuffer();
 					first = true;
 				}
-				// eMail einf�gen
+				// eMail einfügen
 				if (first) {
 					first = false;
 					addresses.append("mailto:?bcc=");

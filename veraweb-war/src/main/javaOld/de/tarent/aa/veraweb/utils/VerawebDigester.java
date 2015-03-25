@@ -51,14 +51,14 @@ import de.tarent.octopus.server.OctopusContext;
  * {@link DataExchangeWorker#importToTransit(OctopusContext, Map, String, String, Integer, Map)}.
  */
 public class VerawebDigester implements ImportDigester {
-    
+
 	final static Logger LOGGER = Logger.getLogger(VerawebDigester.class);
-	
+
     int personCount = 0;
     int importableCount = 0;
     int incorrectCount = 0;
     int duplicateCount = 0;
-    
+
     final OctopusContext cntx;
     final Database db;
     final ExecutionContext context;
@@ -69,9 +69,9 @@ public class VerawebDigester implements ImportDigester {
     final String stockBeanCompareField1;
     final String importPersonCompareField2;
     final String stockBeanCompareField2;
-    
+
     final PersonDuplicateCheckHelper duplicateCheckHelper;
-    
+
     /**
      * Dieser Konstruktor initialisiert die finalen Member.
      */
@@ -87,25 +87,25 @@ public class VerawebDigester implements ImportDigester {
         importPersonCompareField1 = (String) importProperties.get("fieldEqual1");
         stockBeanCompareField2 = (String) importProperties.get("beanFieldEqual2");
         importPersonCompareField2 = (String) importProperties.get("fieldEqual2");
-        
+
         duplicateCheckHelper = new PersonDuplicateCheckHelper(context, importInstance);
     }
-    
+
     //
-    // �ffentliche Methoden
+    // Öffentliche Methoden
     //
     /**
      * Diese Methode liefert den aktuellen Stand dieses Imports in Form einer
      * {@link Map} mit speziellen Inhalten.
-     * 
+     *
      * @return Map mit Informationen zum Import, insbesondere der Anzahl gefundener
-     *  Datens�tze unter "dsCount", der Anzahl Duplikate unter "dupCount", der Anzahl
-     *  importierter Datens�tze unter "saveCount" und der Import-ID unter "id".
+     *  Datensätze unter "dsCount", der Anzahl Duplikate unter "dupCount", der Anzahl
+     *  importierter Datensätze unter "saveCount" und der Import-ID unter "id".
      */
     public Map getImportStats() {
         return DataExchangeWorker.createImportStats(incorrectCount, personCount, duplicateCount, importableCount, importInstance.id);
     }
-    
+
     //
     // Schnittstelle ImportDigester
     //
@@ -126,21 +126,21 @@ public class VerawebDigester implements ImportDigester {
     /**
      * Diese Methode wird von einem {@link Importer} zu jeder zu importierenden
      * Person aufgerufen, übergeben wird die Person und eine Liste mit Beans,
-     * die Zus�tze zur Person darstellen.<br>
-     * Falls Abh�ngigkeiten unter diesen Beans bestehen, stehen in der
-     * Liste die Beans, von der eine bestimmte Bean abh�ngt, vor dieser. 
-     * 
+     * die Zusätze zur Person darstellen.<br>
+     * Falls Abhängigkeiten unter diesen Beans bestehen, stehen in der
+     * Liste die Beans, von der eine bestimmte Bean abhängt, vor dieser.
+     *
      * @param person eine {@link ImportPerson}-Instanz
-     * @param extras eine Liste mit Beans, die Zus�tze zur Person darstellen; es
+     * @param extras eine Liste mit Beans, die Zusätze zur Person darstellen; es
      *  werden nur solche akzeptiert, die {@link ImportPersonExtra} implementieren.
-     * @throws BeanException 
-     * @throws IOException 
+     * @throws BeanException
+     * @throws IOException
      * @see ImportDigester#importPerson(ImportPerson, List)
      */
     public void importPerson(ImportPerson person, List extras) throws BeanException, IOException {
         assert person != null;
-        
-        // Verwaltungsdaten: ID; muss null sein
+
+        // Verwaltungsdaten: ID; muß null sein
         person.id = null;
         // Verwaltungsdaten: Mandanten ID
         person.orgunit = orgUnit;
@@ -160,28 +160,28 @@ public class VerawebDigester implements ImportDigester {
         if (!PersonConstants.ISCOMPANY_TRUE.equals(person.iscompany))
             person.iscompany = PersonConstants.ISCOMPANY_FALSE;
         AddressHelper.checkPersonSalutation(person, db, context);
-        
+
         /*
          * fk_workarea must not be null, setting default workarea "Keine" with pk == 0
          * cklein 2008-03-27
          */
         person.workarea = new Integer( 0 );
-        
+
         // Datensatz nicht berechtigte Felder entziehen.
         person.clearRestrictedFields(cntx);
-        
+
         // Datensatz auf vollständigkeit testen.
         person.verify();
         if (person.isCorrect()) {
-            // Z�hler aktualisieren
+            // Zähler aktualisieren
             personCount++;
-            
+
         	// Datensatz speichern.
 	        if (extras == null) {
-                db.saveBean(person, context, false); // neue ID wird nicht ben�tigt
+                db.saveBean(person, context, false); // neue ID wird nicht benötigt
 	        } else {
 	        	db.saveBean(person, context, true);
-	            // Extras �bernehmen
+	            // Extras übernehmen
 	            for(Iterator itExtras = extras.iterator(); itExtras.hasNext(); ) {
 	                Object extraObject = itExtras.next();
 	                if (extraObject instanceof ImportPersonExtra) {

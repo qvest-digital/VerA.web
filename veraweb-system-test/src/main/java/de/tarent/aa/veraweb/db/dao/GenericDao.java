@@ -24,9 +24,9 @@ import java.util.List;
 
 /**
  * Generic interface for accessing Entities.
- * 
+ *
  * @author Valentin But (v.but@tarent.de), tarent solutions GmbH
- * 
+ *
  * @param <T>
  *            Type of the entity
  * @param <PK>
@@ -36,7 +36,7 @@ public interface GenericDao<T extends Serializable, PK extends Serializable> {
 
     /**
      * Persists the newInstance object into database.
-     * 
+     *
      * @param newInstance
      *            the new instance to persists
      * @throws Exception
@@ -46,7 +46,7 @@ public interface GenericDao<T extends Serializable, PK extends Serializable> {
 
     /**
      * Retrieves an object that was previously persisted to the database using the given pk.
-     * 
+     *
      * @param pk
      *            the primary key
      * @return the retrieved object or null
@@ -57,7 +57,7 @@ public interface GenericDao<T extends Serializable, PK extends Serializable> {
 
     /**
      * Updates the state of an object already persisted.
-     * 
+     *
      * @param changedInstance
      *            the object instance to update in database
      * @return the updated entity
@@ -68,7 +68,7 @@ public interface GenericDao<T extends Serializable, PK extends Serializable> {
 
     /**
      * Deletes an entity from database.
-     * 
+     *
      * @param entityToDelte
      *            the entity to delete
      * @throws Exception
@@ -78,21 +78,21 @@ public interface GenericDao<T extends Serializable, PK extends Serializable> {
 
     /**
      * Retrieves all entities from database.
-     * 
+     *
      * @return List of entities
      */
     List<T> findAll();
 
     /**
      * Count the number of entities in database.
-     * 
+     *
      * @return number of entities in database
      */
     long count();
 
     /**
      * Delete all entities in database.
-     * 
+     *
      * @return number of deleted entities in database
      */
     int deleteAll();

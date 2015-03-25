@@ -21,8 +21,8 @@ package de.tarent.aa.veraweb.beans.facade;
 
 /**
  * Diese Schnittstelle stellt Konstanten für {@link de.tarent.aa.veraweb.beans.Person}-
- * und {@link de.tarent.aa.veraweb.beans.Person}-Instanzen zur Verf�gung.
- * 
+ * und {@link de.tarent.aa.veraweb.beans.Person}-Instanzen zur Verfügung.
+ *
  * @author christoph
  */
 public interface PersonConstants {

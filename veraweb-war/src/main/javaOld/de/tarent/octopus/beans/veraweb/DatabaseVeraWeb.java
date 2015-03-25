@@ -46,20 +46,20 @@ import de.tarent.octopus.server.OctopusContext;
 
 /**
  * Konkrete {@link BeanFactory}, die Beans aus einer Datenbank im Kontext des
- * Octopus-Modul veraweb ausliest. 
- * 
+ * Octopus-Modul veraweb ausliest.
+ *
  * @author Michael Klink, Alex Steeg, Christoph Jerolimov
  * @version 1.3
  */
 public class DatabaseVeraWeb extends Database {
 	private static final Logger logger = Logger.getLogger(DatabaseVeraWeb.class.getName());
-	
+
     /** VerA.web-Bean-Package */
     public static final String BEANPACKAGE = "de.tarent.aa.veraweb.beans";
 
     private final OctopusContext cntx;
     private Connection defaultcon = null;
-    
+
     //
     // Konstruktor
     //
@@ -68,7 +68,7 @@ public class DatabaseVeraWeb extends Database {
      * mit dem übergebenen {@link OctopusContext} und dem VerA.web-Bean-Package
      * {@link #BEANPACKAGE "de.tarent.aa.veraweb.beans"}. Als Modulnamen für den
      * DB-Zugriff wird das Modul des übergebenen Octopus-Kontexts genommen.
-     * 
+     *
      * @param cntx Octopus-Kontext, der DB-Modulnamen und
      *  Bean-Property-Dateipfade bestimmt.
      */
@@ -76,21 +76,21 @@ public class DatabaseVeraWeb extends Database {
 		super(cntx, BEANPACKAGE);
 		this.cntx = cntx;
 	}
-    
+
 	/**
      * Creates a new Database object refering the same datasource
      */
     public DatabaseVeraWeb createCopy() {
         return new DatabaseVeraWeb(cntx);
     }
-    
+
     //
     // Oberklasse Database
     //
     /**
      * History-Felder-Aktualisierung für {@link Database#saveBean(Bean, ExecutionContext, boolean)}
      * und implizit {@link Database#saveBean(Bean)}.<br>
-     * Berechtigungs-�berpr�fung geschieht durch die �berschreibungen {@link #getInsert(Bean)}
+     * Berechtigungsüberprüfung geschieht durch die überschreibungen {@link #getInsert(Bean)}
      * und {@link #getUpdate(Bean)}.
      */
     @Override
@@ -104,7 +104,7 @@ public class DatabaseVeraWeb extends Database {
     }
 
     /**
-     * Berechtigungs�berpr�fung für {@link Database#getBean(String, Select, ExecutionContext)}
+     * Berechtigungsüberprüfung für {@link Database#getBean(String, Select, ExecutionContext)}
      * und implizit {@link Database#getBean(String, Integer)}, {@link Database#getBean(String, Select)}
      * und {@link Database#getBean(String, Integer, ExecutionContext)}.
      */
@@ -117,7 +117,7 @@ public class DatabaseVeraWeb extends Database {
     }
 
     /**
-     * Berechtigungs�berpr�fung für {@link Database#getBeanList(String, Select, ExecutionContext)}
+     * Berechtigungsüberprüfung für {@link Database#getBeanList(String, Select, ExecutionContext)}
      * und implizit {@link Database#getBeanList(String, Select)}.
      */
     @Override
@@ -132,7 +132,7 @@ public class DatabaseVeraWeb extends Database {
     }
 
     /**
-     * Berechtigungs�berpr�fung für {@link Database#getDelete(Bean)} und implizit
+     * Berechtigungsüberprüfung für {@link Database#getDelete(Bean)} und implizit
      * {@link Database#getDelete(String)}.
      */
     @Override
@@ -143,7 +143,7 @@ public class DatabaseVeraWeb extends Database {
     }
 
     /**
-     * Berechtigungs�berpr�fung für {@link Database#getInsert(Bean)} und implizit
+     * Berechtigungsüberprüfung für {@link Database#getInsert(Bean)} und implizit
      * {@link Database#saveBean(Bean)} und
      * {@link Database#saveBean(Bean, ExecutionContext, boolean)}.
      */
@@ -155,7 +155,7 @@ public class DatabaseVeraWeb extends Database {
     }
 
     /**
-     * Berechtigungs�berpr�fung für {@link Database#getSelect(Bean)} und implizit
+     * Berechtigungsüberprüfung für {@link Database#getSelect(Bean)} und implizit
      * {@link Database#getSelect(String)}.
      */
     @Override
@@ -166,7 +166,7 @@ public class DatabaseVeraWeb extends Database {
     }
 
     /**
-     * Berechtigungs�berpr�fung für {@link Database#getUpdate(Bean)} und implizit
+     * Berechtigungsüberprüfung für {@link Database#getUpdate(Bean)} und implizit
      * {@link Database#saveBean(Bean)} und
      * {@link Database#saveBean(Bean, ExecutionContext, boolean)}.
      */
@@ -178,7 +178,7 @@ public class DatabaseVeraWeb extends Database {
     }
 
     /**
-     * Berechtigungs�berpr�fung für {@link Database#getDelete(Bean)} und implizit
+     * Berechtigungsüberprüfung für {@link Database#getDelete(Bean)} und implizit
      * {@link Database#getDelete(String)}.
      */
     @Override
@@ -189,7 +189,7 @@ public class DatabaseVeraWeb extends Database {
     }
 
     /**
-     * Berechtigungs�berpr�fung für {@link Database#prepareUpdate(Bean, Collection, Collection, ExecutionContext)}.
+     * Berechtigungsüberprüfung für {@link Database#prepareUpdate(Bean, Collection, Collection, ExecutionContext)}.
      */
     @Override
     public BeanStatement prepareUpdate(Bean sample, Collection keyFields, Collection updateFields, ExecutionContext context) throws BeanException, IOException {
@@ -199,13 +199,13 @@ public class DatabaseVeraWeb extends Database {
     }
 
     /**
-     * Gibt ein verifiziertes Bean zurück. Nach dem eigentlichen F�llen der Bean (vergleiche
+     * Gibt ein verifiziertes Bean zurück. Nach dem eigentlichen Fällen der Bean (vergleiche
      * {@link de.tarent.octopus.beans.BeanFactory#fillBean(de.tarent.octopus.beans.Bean)})
      * werden hier die Felder wieder geleert, auf die der Nutzer keinen Zugriff hat.
-     * 
+     *
      * @param bean Bean-Instanz
      * @return Bean, nie null.
-     * @throws BeanException 
+     * @throws BeanException
      * @see AbstractBean#clearRestrictedFields(OctopusContext)
      * @see de.tarent.octopus.beans.BeanFactory#fillBean(de.tarent.octopus.beans.Bean)
      */
@@ -220,7 +220,7 @@ public class DatabaseVeraWeb extends Database {
     @Override
     public ResultList getList(Select statement, ExecutionContext context) throws BeanException {
         ResultList list = super.getList(statement, context);
-        if (Context.getActive() != null)  
+        if (Context.getActive() != null)
         	Context.getActive().addCleanupCode(list);
         else
         	logger.log(Level.WARNING, getClass().getName() + " - getList(): No active context set.");
@@ -237,10 +237,10 @@ public class DatabaseVeraWeb extends Database {
 		}
 		return defaultcon;
 	}
-	
+
 	public void close() {
         try {
-            if(defaultcon != null && ! defaultcon.isClosed()) {               
+            if(defaultcon != null && ! defaultcon.isClosed()) {
                 defaultcon.close();
                 defaultcon = null;
             }

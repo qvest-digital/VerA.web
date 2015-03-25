@@ -34,14 +34,14 @@ import javax.mail.internet.MailDateFormat;
 import com.sun.mail.smtp.SMTPMessage;
 
 /**
- * Klasse zum versenden von eMails �ber einen SMTP-Server.
- * 
+ * Klasse zum versenden von eMails über einen SMTP-Server.
+ *
  * @author Christoph Jerolimov
  */
 public class MailDispatcher {
 	/**
 	 * Test-Main-Funktion.
-	 * 
+	 *
 	 * @param args
 	 */
 	public static void main(String[] args) {
@@ -62,9 +62,9 @@ public class MailDispatcher {
 
     /**
      * Diese Methode liefert eine Mail-Adresse zum Benutzer, in dessen Kontext
-     * dieses Programm l�uft. Hierzu wird der Benutzername als Mailadresse in
-     * der Dom�ne tarent.de interpretiert.
-     * 
+     * dieses Programm läuft. Hierzu wird der Benutzername als Mailadresse in
+     * der Domäne tarent.de interpretiert.
+     *
      * @return Mailadresse zum Benutzer in tarent.de
      */
 	private static final String getUserMail() {
@@ -77,9 +77,9 @@ public class MailDispatcher {
 
 	/** SMTP-Servername */
 	protected String host;
-	/** Benutzername zum versenden �ber SSMTP */
+	/** Benutzername zum versenden über SSMTP */
 	protected String username;
-	/** Passwort zum versenden �ber SSMTP */
+	/** Passwort zum versenden über SSMTP */
 	protected String password;
 
 	/**
@@ -92,12 +92,12 @@ public class MailDispatcher {
 	/**
 	 * Sendet eine eMail an die übergebene eMail-Adresse und dem übergebenem
 	 * Betreff und Text.
-	 * 
+	 *
 	 * @param from Absender eMail-Adresse
 	 * @param to Empfänger eMail-Adresse
 	 * @param subject Betreff
 	 * @param text Text
-	 * @throws AddressException Wenn Adresse ung�ltig ist
+	 * @throws AddressException Wenn Adresse ungültig ist
 	 * @throws MessagingException Wenn beim Versenden ein Fehler aufgetreten ist.
 	 */
 	public void send(String from, String to, String subject, String text) throws AddressException, MessagingException {

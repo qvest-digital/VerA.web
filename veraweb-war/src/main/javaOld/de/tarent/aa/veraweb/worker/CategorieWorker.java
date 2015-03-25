@@ -44,30 +44,30 @@ import de.tarent.octopus.server.OctopusContext;
 /**
  * <p>
  * Diese Octopus-Worker-Klasse stellt Operationen für Dokumenttypen
- * zur Verf�gung. Details bitte dem BeanListWorker entnehmen.
+ * zur Verfügung. Details bitte dem BeanListWorker entnehmen.
  * </p>
  * <p>
  * Wenn eine <em>person</em> im Octopus-Content steht, wird bei der
  * <em>getAll</em>-Aktion die Ergebnis-Liste auf die Kategorien
- * eingeschr�nkt die NICHT dieser Person zugeordnet sind.
+ * eingeschränkt die NICHT dieser Person zugeordnet sind.
  * </p>
  * <p>
  * Wenn ein <em>event</em> im Octopus-Content steht, wird bei der
  * <em>getAll</em>-Aktion die Ergebnis-Liste auf die Kategorien
- * eingeschr�nkt die entweder ALLEN oder DIESEM Event zugeordnet sind.
+ * eingeschränkt die entweder ALLEN oder DIESEM Event zugeordnet sind.
  * </p>
- * 
+ *
  * @see de.tarent.octopus.beans.BeanListWorker
- * 
+ *
  * @author Christoph
  */
 public class CategorieWorker extends StammdatenWorker {
     //
-    // �ffentliche Konstanten
+    // Öffentliche Konstanten
     //
     /** Parameter: Wessen Kategorien? */
     public final static String PARAM_DOMAIN = "domain";
-    
+
     /** Parameterwert: beliebige Kategorien */
     public final static String PARAM_DOMAIN_VALUE_ALL = "all";
     /** Parameterwert: Kategorien des gleichen Mandanten */
@@ -114,14 +114,14 @@ public class CategorieWorker extends StammdatenWorker {
 		if ( count != null ) {
 			cntx.setContent( "count", count );
 		}
-		
+
 		super.getAll(cntx);
 	}
 
 	/**
-	 * Returns all available person categories that have not been 
+	 * Returns all available person categories that have not been
 	 * assigned to a specific event.
-	 * 
+	 *
 	 * @param cntx
 	 * @throws BeanException
 	 * @throws IOException
@@ -196,7 +196,7 @@ public class CategorieWorker extends StammdatenWorker {
             throw new BeanException("Missing user information");
         }
 	}
-	
+
 	/**
 	 * Overrides parent class' behaviour in order to safely implement
 	 * change request 2.8 for version 1.2.0 which states that all authenticated
@@ -221,15 +221,15 @@ public class CategorieWorker extends StammdatenWorker {
 		if (bean.isModified()) {
 		    if (bean.isCorrect()) {
     			Database database = context.getDatabase();
-    
+
     			Clause sameOrgunit = getWhere(cntx);
     			Clause sameName = Expr.equal(database.getProperty(bean, "name"), bean.getField("name"));
     			Clause sameCategorie = sameOrgunit == null ? sameName : Where.and(sameOrgunit, sameName);
     			Integer exist = database.getCount(database.getCount(bean).where(sameCategorie),context);
-    			
+
     			List groups = Arrays.asList(cntx.personalConfig().getUserGroups());
     	        boolean admin = groups.contains(PersonalConfigAA.GROUP_ADMIN) || groups.contains(PersonalConfigAA.GROUP_PARTIAL_ADMIN);
-    
+
     			if (exist.intValue() != 0) {
     			    cntx.getContentObject().setField("beanToAdd", bean);
     				errors.add("Es existiert bereits ein Stammdaten-Eintrag unter dem Namen '" + bean.getField("name") + "'.");
@@ -251,15 +251,15 @@ public class CategorieWorker extends StammdatenWorker {
 	/**
 	 * Die Kategorie bean innerhalb der bestehenden Kategorieen einsortieren. Dazu werden alle bestehenden Kategorien mit
 	 * Rang >= bean.rank in ihrem Rang um eins erhoeht.
-	 * 
+	 *
 	 * @param cntx
 	 * @param bean
 	 * @throws BeanException
 	 */
 	protected void incorporateBean(OctopusContext cntx, Categorie bean, TransactionContext context) throws BeanException {
-		assert bean != null; 
+		assert bean != null;
 		assert cntx != null;
-		
+
 		if (bean.rank != null) {
 			context.execute(SQL.Update( context.getDatabase() ).
 				table("veraweb.tcategorie").
@@ -267,8 +267,8 @@ public class CategorieWorker extends StammdatenWorker {
 				where(Expr.greaterOrEqual("rank", bean.rank)));
 		}
 	}
-	
-	
+
+
 	@Override
     protected void saveBean(OctopusContext cntx, Bean bean, TransactionContext context) throws BeanException, IOException {
 		((Categorie) bean).orgunit = ((PersonalConfigAA) (cntx.personalConfig())).getOrgUnitId();

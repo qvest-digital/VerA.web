@@ -40,8 +40,8 @@ import de.tarent.octopus.server.OctopusContext;
 
 /**
  * Diese Octopus-Worker-Klasse stellt Aktionen zum Bearbeiten von {@link GuestDoctype}-Beans
- * bereit. 
- * 
+ * bereit.
+ *
  * @author mikel
  */
 public class GuestDoctypeWorker {
@@ -56,18 +56,18 @@ public class GuestDoctypeWorker {
      * "doctype-id" in Request oder Session angegeben denjenigen, sonst den ersten
      * aus der Liste aller --- in "guestdoctype" den entsprechenden
      * Gast-Dokumenttyp-Detaileintrag.<br>
-     * 
+     *
      * @param cntx
      * @throws BeanException
      * @throws IOException
      */
 	public void showDetail(OctopusContext cntx) throws BeanException, IOException {
 		Database database = new DatabaseVeraWeb(cntx);
-		
+
 		Guest guest = (Guest)cntx.contentAsObject("guest");
 		List eventDoctype = getEventDoctypeList(database, guest.event);
 		cntx.setContent("allDoctype", eventDoctype);
-		
+
 		Integer doctype = getDoctype(cntx, eventDoctype);
 		if (doctype != null) {
 			GuestDoctype guestDoctype = getGuestDoctype(database, guest, doctype);
@@ -80,7 +80,7 @@ public class GuestDoctypeWorker {
     /**
      * Diese Octopus-Aktion liest aus dem Request eine Gästedokumenttyp-Bean mit
      * Præfix "guestdoctype" und speichert sie in der Datenbank.
-     * 
+     *
      * @param cntx
      * @throws BeanException
      * @throws IOException
@@ -88,7 +88,7 @@ public class GuestDoctypeWorker {
 	public void saveDetail(OctopusContext cntx) throws BeanException, IOException {
 		Request request = new RequestVeraWeb(cntx);
 		Database database = new DatabaseVeraWeb(cntx);
-		
+
 		GuestDoctype guestDt = (GuestDoctype)request.getBean("GuestDoctype", "guestdoctype");
 		// Dokumenttyp mit speziellen Adresstype und Zeichensatz erzeugen.
 		if (cntx.requestContains("create")) {
@@ -98,30 +98,30 @@ public class GuestDoctypeWorker {
 					database.getSelect("Person").
 					join("veraweb.tguest", "tperson.pk = tguest.fk_person AND tguest.pk", guestDt.guest.toString()));
 			assert person != null;
-			
+
 			PersonDoctype personDt = (PersonDoctype)
 					database.getBean("PersonDoctype",
 					database.getSelect("PersonDoctype").where(Where.and(
 							Expr.equal("fk_person", person.id),
 							Expr.equal("fk_doctype", guestDt.doctype))));
 			assert personDt != null;
-			
+
 			GuestWorker.fillDoctype(guestDt, person, personDt);
 		}
-		
+
 		database.saveBean(guestDt);
 	}
 
     //
-    // gesch�tzte Hilfsmethoden
+    // geschützte Hilfsmethoden
     //
     /**
      * Diese Methode ermittelt die Veranstaltungsdokumenttypen zu der angegebenen
      * Veranstaltung.
-     * 
+     *
      * @param database Datenbank
      * @param event Veranstaltung
-     * @return Liste zugeh�riger {@link EventDoctype}-Beans 
+     * @return Liste zugehöriger {@link EventDoctype}-Beans
      */
 	protected static List getEventDoctypeList(Database database, Integer event) throws BeanException, IOException {
 		Select select = database.getSelect("EventDoctype");
@@ -133,13 +133,13 @@ public class GuestDoctypeWorker {
 	}
 
     /**
-     * Diese Methode holt zu einem Gast und einem Dokumenttyp den zugeh�rigen
+     * Diese Methode holt zu einem Gast und einem Dokumenttyp den zugehörigen
      * Gastdokumenttyp.
-     * 
+     *
      * @param database Datenbank
      * @param guest Gast
      * @param doctype Dokumenttyp-ID
-     * @return zugeh�rige {@link GuestDoctype}-Bohne.
+     * @return zugehörige {@link GuestDoctype}-Bohne.
      */
 	protected static GuestDoctype getGuestDoctype(Database database, Guest guest, Integer doctype) throws BeanException, IOException {
 		Select select = database.getSelect("GuestDoctype");
@@ -147,7 +147,7 @@ public class GuestDoctypeWorker {
 				Expr.equal("fk_guest", guest.id),
 				Expr.equal("fk_doctype", doctype)));
 		GuestDoctype guestDoctype = (GuestDoctype)database.getBean("GuestDoctype", select);
-		
+
 		if (guestDoctype == null) {
 			guestDoctype = new GuestDoctype();
 			guestDoctype.guest = guest.id;
@@ -158,16 +158,16 @@ public class GuestDoctypeWorker {
 
     /**
      * Diese Methode ermittelt aus Request oder alternativ Session den aktuellen
-     * Dokumenttyp "doctype-id", pr�ft anhand der übergebenen Liste der IDs der
-     * verf�gbaren Dokumenttypen, ob er im aktuellen Kontext erlaubt ist; falls
+     * Dokumenttyp "doctype-id", prüft anhand der übergebenen Liste der IDs der
+     * verfügbaren Dokumenttypen, ob er im aktuellen Kontext erlaubt ist; falls
      * keiner angegeben war, wird der erste der Liste genommen.<br>
      * Der ermittelte Dokumenttyp wird in die Session eingetragen.<br>
      * TODO: ggfs auch im Content nachschauen<br>
      * TODO: wenn "doctype-id" nicht in der Liste, soll dann wirklich <code>null</code> oder besser der erste der Liste geliefert werden?
-     * 
+     *
      * @param cntx
-     * @param availableDoctypes Liste von Integern, IDs verf�gbarer Dokumenttypen
-     * @return ID des ausgew�hlten "aktuellen" Dokumenttyps
+     * @param availableDoctypes Liste von Integern, IDs verfügbarer Dokumenttypen
+     * @return ID des ausgewählten "aktuellen" Dokumenttyps
      */
 	protected static Integer getDoctype(OctopusContext cntx, List availableDoctypes) {
 		// doctype aus request bzw. session laden.
@@ -175,8 +175,8 @@ public class GuestDoctypeWorker {
 		if (doctype == null || doctype.intValue() == 0) {
 			doctype = (Integer)cntx.sessionAsObject("doctype-id");
 		}
-		
-		// prüfen ob doctype verf�gbar ist.
+
+		// prüfen ob doctype verfügbar ist.
 		if (doctype != null) {
 			boolean available = false;
 			for (Iterator it = availableDoctypes.iterator(); it.hasNext(); ) {
@@ -190,7 +190,7 @@ public class GuestDoctypeWorker {
 			if (it.hasNext())
 				doctype = ((EventDoctype)it.next()).doctype;
 		}
-		
+
 		cntx.setSession("doctype-id", doctype);
 		return doctype;
 	}

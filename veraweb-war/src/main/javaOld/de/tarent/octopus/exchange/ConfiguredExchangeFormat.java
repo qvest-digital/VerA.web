@@ -29,10 +29,10 @@ import de.tarent.data.exchange.ExchangeFormat;
 
 /**
  * Diese Klasse stellt die Eigenschaften eines Datenaustauschformats
- * für Export- und Importimplementierungen zur Verf�gung, die aus einer
+ * für Export- und Importimplementierungen zur Verfügung, die aus einer
  * {@link Map}, wie sie aus Octopus-Konfigurationen gelesen werden,
  * initialisiert werden.
- * 
+ *
  * @author mikel
  */
 public class ConfiguredExchangeFormat extends ExchangeFormat {
@@ -44,7 +44,7 @@ public class ConfiguredExchangeFormat extends ExchangeFormat {
      * einer Octopus-Konfiguration eingelesen wird, und initialisiert daraus
      * die {@link ExchangeFormat}-Attribute. Hierzu werden als Schlüssel die
      * Konstanten <code>PARAM_*</code> dieser Klasse benutzt.
-     * 
+     *
      * @param configuration {@link Map}, aus der die Attribute dieses Formats gelesen werden.
      */
     public ConfiguredExchangeFormat(Map configuration) {
@@ -52,21 +52,21 @@ public class ConfiguredExchangeFormat extends ExchangeFormat {
         if (configuration != null)
             readConfiguration(configuration);
     }
-    
+
     //
-    // �ffentliche Hilfsmethoden
+    // Öffentliche Hilfsmethoden
     //
     /**
-     * Diese Methode f�gt den �ber die �rspr�ngliche Konfiguration vorgegebenen Parametern
-     * weitere hinzu, die etwa �ber Benutzereingabe oder sonstige Umst�nde bestimmt werden.
-     * 
+     * Diese Methode fügt den über die ursprüngliche Konfiguration vorgegebenen Parametern
+     * weitere hinzu, die etwa über Benutzereingabe oder sonstige Umstände bestimmt werden.
+     *
      * @param data {@link Map} mit weiteren Format-Properties
      */
     @Override
     public void addProperties(Map data) {
         super.addProperties(data);
     }
-    
+
     //
     // Konstanten
     //
@@ -88,12 +88,12 @@ public class ConfiguredExchangeFormat extends ExchangeFormat {
     public final static String PARAM_PROPERTIES = "properties";
 
     //
-    // gesch�tzte Hilfsmethoden
+    // geschützte Hilfsmethoden
     //
     /**
      * Diese Methode liest aus der übergebenen {@link Map} die Daten des Formats.
      * Als Schlüssel werden die Konstanten <code>PARAM_*</code> benutzt.
-     * 
+     *
      * @param configuration {@link Map} mit Konfigurationseinträgen nach Octopus-Art
      */
     void readConfiguration(Map configuration) {
@@ -115,20 +115,20 @@ public class ConfiguredExchangeFormat extends ExchangeFormat {
         if (propertiesMap instanceof Map)
             setProperties((Map)propertiesMap);
     }
-    
+
     /**
      * Diese Methode dient der sicheren Umsetzung {@link Object} nach {@link String},
      * bei der <code>null</code> erhalten bleibt.
-     * 
-     * @param o in einen {@link String} zu �berf�hrendes Objekt.
+     *
+     * @param o in einen {@link String} zu überführendes Objekt.
      * @return Stringdarstellung des Parameters
      */
     final static String toString(Object o) {
         return o != null ? o.toString() : null;
     }
-    
+
     //
-    // gesch�tzte Member
+    // geschützte Member
     //
     /** Logger der Klasse */
     static Logger logger = Logger.getLogger(ConfiguredExchangeFormat.class.getName());

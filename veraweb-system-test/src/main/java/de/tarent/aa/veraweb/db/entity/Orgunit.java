@@ -33,14 +33,14 @@ import javax.persistence.Table;
 
 /**
  * Entiy 'Orgunit'.
- * 
+ *
  * @author Valentin But (v.but@tarent.de), tarent solutions GmbH
- * 
+ *
  */
 @Entity
 @Table(name = "torgunit")
 public class Orgunit extends AbstractEntity {
-    
+
     public static Long DEFAULT_ORGUNIT_ID = 1L;
 
     /**
@@ -74,7 +74,7 @@ public class Orgunit extends AbstractEntity {
      */
     @OneToMany(mappedBy = "orgunit", fetch = FetchType.LAZY)
     private Set<Event> events;
-    
+
     /**
      * Set of events in this organization unit.
      */
@@ -92,7 +92,7 @@ public class Orgunit extends AbstractEntity {
 
     /**
      * Get id.
-     * 
+     *
      * @return the id
      */
     public Long getId() {
@@ -101,7 +101,7 @@ public class Orgunit extends AbstractEntity {
 
     /**
      * Set id.
-     * 
+     *
      * @param id
      *            the id to set
      */
@@ -111,7 +111,7 @@ public class Orgunit extends AbstractEntity {
 
     /**
      * Get unit name.
-     * 
+     *
      * @return the unitname
      */
     public String getUnitname() {
@@ -120,7 +120,7 @@ public class Orgunit extends AbstractEntity {
 
     /**
      * Set unit name.
-     * 
+     *
      * @param unitname
      *            the unitname to set
      */
@@ -130,7 +130,7 @@ public class Orgunit extends AbstractEntity {
 
     /**
      * Get users.
-     * 
+     *
      * @return the users
      */
     public Set<User> getUsers() {
@@ -139,7 +139,7 @@ public class Orgunit extends AbstractEntity {
 
     /**
      * Set users.
-     * 
+     *
      * @param users
      *            the users to set
      */
@@ -149,7 +149,7 @@ public class Orgunit extends AbstractEntity {
 
     /**
      * Get events.
-     * 
+     *
      * @return the events
      */
     public Set<Event> getEvents() {
@@ -157,9 +157,9 @@ public class Orgunit extends AbstractEntity {
     }
 
     /**
-     * 
+     *
      * Set events.
-     * 
+     *
      * @param events
      *            the events to set
      */
@@ -169,7 +169,7 @@ public class Orgunit extends AbstractEntity {
 
     /**
      * Get persons.
-     * 
+     *
      * @return the persons
      */
     public Set<Person> getPersons() {
@@ -178,7 +178,7 @@ public class Orgunit extends AbstractEntity {
 
     /**
      * Set persons.
-     * 
+     *
      * @param persons the persons to set
      */
     public void setPersons(Set<Person> persons) {

@@ -23,7 +23,7 @@ import java.sql.Timestamp;
 
 /**
  * Implementiert die Basis der Grundfunktionalität einer MemberFacade.
- * 
+ *
  * @author Michael Klink, Christoph Jerolimov
  */
 public abstract class AbstractMember implements PersonMemberFacade {
@@ -47,7 +47,7 @@ public abstract class AbstractMember implements PersonMemberFacade {
 	{
 		return null;
 	}
-	
+
     /** @return Akkretierungsdatum */
 	public Timestamp getDiplodate() {
 		return null;

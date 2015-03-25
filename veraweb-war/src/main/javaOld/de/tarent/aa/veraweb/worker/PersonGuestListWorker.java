@@ -43,7 +43,7 @@ import de.tarent.octopus.server.OctopusContext;
  * Dieser Octopus-Worker erweitert die Personen-Liste (vergleiche Worker
  * {@link PersonListWorker}) um Auswahllisten für den Partner und das
  * Reserve-Flag.
- * 
+ *
  * @author Christoph Jerolimov
  * @version $Revision: 1.1 $
  */
@@ -65,7 +65,7 @@ public class PersonGuestListWorker extends PersonListWorker {
      * "personCategorie" und "search" und in der Session unter "selectionPErson",
      * "addguest-invitepartner", "addguest-selectreserve" und "addguest-invitecategory"
      * abgelegt.
-     * 
+     *
      * @param cntx Octopus-Kontext
 	 */
 	public void extendGuestSelection(OctopusContext cntx) throws BeanException, IOException {
@@ -82,16 +82,16 @@ public class PersonGuestListWorker extends PersonListWorker {
 		List selectreserve = (List)cntx.sessionAsObject("addguest-selectreserve");
 		// IDs der Personen, welche als delegation selektiert sind
 		List selectdelegation = (List)cntx.sessionAsObject("addguest-selectdelegation");
-		
+
 		Map invitecategory = (Map)cntx.sessionAsObject("addguest-invitecategory");
-		
+
 		cntx.getContentObject().setField("action", "guest");
-		
+
 		if ("reset".equals(cntx.requestAsString("search"))) {
 			if (invitemain.size() == 1) {
 				cntx.getRequestObject().setParam(INPUT_SELECTALL, Boolean.TRUE);
 			}
-			
+
 			Select select = database.getSelectIds(database.createBean(BEANNAME));
 			Clause clause = getPersonListFilter(cntx, false);
 			if (search.categoriesSelection != null && search.categorie2 != null) {
@@ -108,7 +108,7 @@ public class PersonGuestListWorker extends PersonListWorker {
 				select.selectAs("NULL", "category");
 			}
 			select.where(clause);
-			
+
 			/*
 			 * modified to support searching for persons that have no categories assigned as per change request for version 1.2.0
 			 * cklein
@@ -118,7 +118,7 @@ public class PersonGuestListWorker extends PersonListWorker {
 			{
 				select.whereAnd( Expr.isNull( "cat1.fk_person" ) );
 			}
-			
+
 			// Kategorien berechnen
 			invitecategory = new HashMap();
 			if (search.categoriesSelection!= null) {
@@ -153,7 +153,7 @@ public class PersonGuestListWorker extends PersonListWorker {
 		} else {
 			if (invitecategory == null) invitecategory = new HashMap();
 		}
-		
+
 		if (cntx.requestAsBoolean(INPUT_SELECTNONE).booleanValue()) {
 			// Leere Liste anlegen.
 			invitemain = new ArrayList();
@@ -165,8 +165,8 @@ public class PersonGuestListWorker extends PersonListWorker {
 			invitepartner = new ArrayList();
 			selectreserve = new ArrayList();
 			selectdelegation = new ArrayList();
-			
-			
+
+
 			Select select = database.getSelectIds(database.createBean(BEANNAME));
 			if (search.categoriesSelection != null && search.categorie2 != null) {
 				select.joinLeftOuter("veraweb.tperson_categorie AS cat1", "tperson.pk", "cat1.fk_person");
@@ -210,8 +210,8 @@ public class PersonGuestListWorker extends PersonListWorker {
 			if (invitepartner == null) invitepartner = new ArrayList();
 			if (selectreserve == null) selectreserve = new ArrayList();
 			if (selectdelegation == null) selectdelegation = new ArrayList();
-			
-			
+
+
 			for (Iterator it = ids.iterator(); it.hasNext(); ) {
 				Integer id = new Integer((String)it.next());
 				if (cntx.requestAsBoolean(id + "-partner").booleanValue()) {
@@ -232,15 +232,15 @@ public class PersonGuestListWorker extends PersonListWorker {
 				} else {
 					selectdelegation.remove(id);
 				}
-				
+
 			}
 		}
-		
+
 		for (Iterator it = ids.iterator(); it.hasNext(); ) {
 			Integer id = new Integer((String)it.next());
 			invitecategory.put(id, cntx.requestAsInteger(id + "-category"));
 		}
-		
+
 		cntx.setSession("selection" + BEANNAME, invitemain);
 		cntx.setSession("addguest-invitepartner", invitepartner);
 		cntx.setSession("addguest-selectreserve", selectreserve);
@@ -250,7 +250,7 @@ public class PersonGuestListWorker extends PersonListWorker {
 		cntx.setContent("selectreserve", selectreserve);
 		cntx.setContent("selectdelegation", selectdelegation);
 		cntx.setContent("invitecategory", invitecategory);
-		
+
 		cntx.setContent("personCategorie", new PersonCategorie(database));
 		cntx.setContent("search", search);
 	}
@@ -261,7 +261,7 @@ public class PersonGuestListWorker extends PersonListWorker {
      * Diese Octopus-Aktion setzt die zusätzlichen Personen-Selektionen in der
      * Session unter "addguest-selectreserve", "addguest-invitepartner" und
      * "addguest-invitecategory" zurück.
-     * 
+     *
      * @param cntx Octopus-Kontext.
 	 */
 	public void clearGuestSelection(OctopusContext cntx) {
@@ -278,14 +278,14 @@ public class PersonGuestListWorker extends PersonListWorker {
      * Diese Hilfsklasse wird in der obigen Octopus-Aktion
      * {@link CopyOfPersonGuestListWorker#extendGuestSelection(OctopusContext)}
      * benutzt, um ein Objekt zur Verfügung zu stellen, das zu Personen
-     * die zugehörigen personalisierten Kategorien liefert. 
+     * die zugehörigen personalisierten Kategorien liefert.
      */
 	static public class PersonCategorie {
         /** Aus dieser DB sollen die personalisierten Kategorien gelesen werden. */
 		private final Database database;
 		/**
          * Dieser Konstruktor legt die übergeben DB lokal ab.
-         * 
+         *
          * @param database Aus dieser DB sollen die personalisierten Kategorien gelesen werden.
 		 */
 		private PersonCategorie(Database database) {
@@ -293,15 +293,15 @@ public class PersonGuestListWorker extends PersonListWorker {
 			this.database = database;
 		}
 		/**
-         * Diese Methode liefert die personalisierten Kategorien zu einer Personen-ID. 
-         * 
+         * Diese Methode liefert die personalisierten Kategorien zu einer Personen-ID.
+         *
          * @param personId ID der Person, deren personalisierte Kategorien gesucht sind.
          * @return Liste der personalisierten Kategorien der Person zu der übergebenen ID.
 		 */
 		public List getList(Integer personId) {
 			if (personId == null)
 				return Collections.EMPTY_LIST;
-			
+
 			try {
 				return
 						database.getList(

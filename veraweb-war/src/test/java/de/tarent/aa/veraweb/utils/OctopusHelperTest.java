@@ -24,8 +24,8 @@ import java.io.UnsupportedEncodingException;
 import junit.framework.TestCase;
 
 /**
- * Diese Testklasse testet {@link OctopusHelper}. 
- * 
+ * Diese Testklasse testet {@link OctopusHelper}.
+ *
  * @author mikel
  */
 public class OctopusHelperTest extends TestCase {
@@ -34,7 +34,7 @@ public class OctopusHelperTest extends TestCase {
     //
     /**
      * Diese Testmethode testet das Re-Encoding des OctopusHelpers.
-     * @throws UnsupportedEncodingException 
+     * @throws UnsupportedEncodingException
      */
     public void testEncodeString() throws UnsupportedEncodingException {
         String origChars = "äöüÄÖÜß";

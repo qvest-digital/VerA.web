@@ -20,9 +20,9 @@
 package de.tarent.aa.veraweb.utils;
 
 /**
- * Diese Schnittstelle enth�lt Konstanten, die für das Erstellen und Parsen von
- * VerA.web-XML-Dokumenten n�tig sind. 
- * 
+ * Diese Schnittstelle enthält Konstanten, die für das Erstellen und Parsen von
+ * VerA.web-XML-Dokumenten nötig sind.
+ *
  * @author mikel
  */
 public interface VerawebNamespaceConstants {
@@ -56,9 +56,9 @@ public interface VerawebNamespaceConstants {
     public final static String PERSON_IS_COMPANY_ATTRIBUTE_VW = "vw:is-company";
     /** lokaler Personenelement-IsCompany-Attribut-Name */
     public final static String PERSON_IS_COMPANY_ATTRIBUTE = PERSON_IS_COMPANY_ATTRIBUTE_VW.substring(3);
-    /** Personenelement-G�ltigkeit-Attribut-Name mit Namensraumm-Præfix */
+    /** Personenelement-Gültigkeit-Attribut-Name mit Namensraumm-Præfix */
     public final static String PERSON_EXPIRATION_ATTRIBUTE_VW = "vw:expiration";
-    /** lokaler Personenelement-G�ltigkeit-Attribut-Name */
+    /** lokaler Personenelement-Gültigkeit-Attribut-Name */
     public final static String PERSON_EXPIRATION_ATTRIBUTE = PERSON_EXPIRATION_ATTRIBUTE_VW.substring(3);
     /** Historyelement-Name mit Namensraumm-Præfix */
     public final static String HISTORY_ELEMENT_VW = "vw:history";

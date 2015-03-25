@@ -35,7 +35,7 @@ public class MultiOutputStream extends OutputStream {
 	private List streams = new ArrayList();
 
 	/**
-	 * F�gt einen neuen Stream hinzu.
+	 * Fügt einen neuen Stream hinzu.
 	 *
 	 * @param os
 	 */
@@ -47,7 +47,7 @@ public class MultiOutputStream extends OutputStream {
 	}
 
 	/**
-	 * �bergibt die zu schreibende Information an mehrere OutputStreams.
+	 * übergibt die zu schreibende Information an mehrere OutputStreams.
 	 */
 	@Override
     public void write(int b) throws IOException {
@@ -60,7 +60,7 @@ public class MultiOutputStream extends OutputStream {
 	}
 
 	/**
-	 * �bergibt die zu schreibende Information an mehrere OutputStreams.
+	 * übergibt die zu schreibende Information an mehrere OutputStreams.
 	 */
 	@Override
     public void write(byte[] b) throws IOException {
@@ -73,7 +73,7 @@ public class MultiOutputStream extends OutputStream {
 	}
 
 	/**
-	 * �bergibt die zu schreibende Information an mehrere OutputStreams.
+	 * übergibt die zu schreibende Information an mehrere OutputStreams.
 	 */
 	@Override
     public void write(byte[] b, int off, int len) throws IOException {
@@ -86,7 +86,7 @@ public class MultiOutputStream extends OutputStream {
 	}
 
 	/**
-	 * Schlie�t alle Kind-OutputStreams.
+	 * Schließt alle Kind-OutputStreams.
 	 */
 	@Override
     public void close() {
