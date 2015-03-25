@@ -35,10 +35,10 @@ import de.tarent.aa.veraweb.db.entity.Task;
 
 /**
  * Helper class for finding Objects in tables in the webinterface
- * 
+ *
  * @author Dino Omanovic (d.omanovic@tarent.de), tarent solutions GmbH
  * @author Valentin But (v.but@tarent.de), tarent solutions GmbH
- * 
+ *
  */
 
 @Component(value = "ObjectFinder")

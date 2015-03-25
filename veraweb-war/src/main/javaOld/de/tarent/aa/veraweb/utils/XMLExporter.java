@@ -64,7 +64,7 @@ import de.tarent.octopus.beans.DatabaseUtilizer;
 /**
  * Diese Klasse dient dem Erzeugen eines VerA.web-XML-Exports.<br>
  * TODO: Umstellung von DOM auf SAX
- * 
+ *
  * @author mikel
  */
 public class XMLExporter implements Exporter, Exchanger, DatabaseUtilizer,
@@ -74,7 +74,7 @@ public class XMLExporter implements Exporter, Exchanger, DatabaseUtilizer,
     //
     /**
      * Dieser Konstruktor legt die Parameter lokal ab und initialisiert ein DOM-Dokument.
-     * 
+     *
      * @throws UnsupportedEncodingException
      * @throws ParserConfigurationException
      */
@@ -83,11 +83,11 @@ public class XMLExporter implements Exporter, Exchanger, DatabaseUtilizer,
         this.os = os;
         this.db = db;
     }
-    
+
     /**
      * Dieser Konstruktor ist {@link de.tarent.data.exchange.ExchangeFormat}-kompatibel
-     * und initialisiert ledeiglich das interne DOM-Dokument. 
-     * 
+     * und initialisiert ledeiglich das interne DOM-Dokument.
+     *
      * @throws ParserConfigurationException
      */
     public XMLExporter() throws ParserConfigurationException {
@@ -117,27 +117,27 @@ public class XMLExporter implements Exporter, Exchanger, DatabaseUtilizer,
     public final static int NOTE_TYPE_ORGANIZATION = 1;
     /** intern: Bermkungstyp Gastgeber */
     public final static int NOTE_TYPE_HOST = 2;
-    /** Property-Schl�ssel f�r das Encoding der Ausgabedatei */
+    /** Property-Schlüssel für das Encoding der Ausgabedatei */
     public final static String PROPERTY_ENCODING = "encoding";
     /** Vorgabewert: Character-Encoding */
     public final static String DEFAULT_ENCODING = "UTF-8";
-    /** Property-Schl�ssel f�r das Verwenden eines CCM-Envelopes */
+    /** Property-Schlüssel für das Verwenden eines CCM-Envelopes */
     public final static String PROPERTY_CCM_ENVELOPE = "ccm-envelope";
     /** Vorgabewert: CCM-Envelope */
     public final static boolean DEFAULT_CCM_ENVELOPE = false;
-    /** Property-Schl�ssel f�r den CCM-Bezeichner f�r die Applikation VerA.web */
+    /** Property-Schlüssel für den CCM-Bezeichner für die Applikation VerA.web */
     public final static String PROPERTY_CCM_APPLICATION = "ccm-application";
     /** Vorgabewert: CCM-Applikationsbezeichner */
     public final static String DEFAULT_CCM_APPLICATION = "veraweb";
-    /** Property-Schl�ssel f�r das CCM-K�rzel der lokalen Installation */
+    /** Property-Schlüssel für das CCM-Kürzel der lokalen Installation */
     public final static String PROPERTY_CCM_ENDPOINT = "ccm-endpoint";
-    /** Property-Schl�ssel f�r das CCM-K�rzel der entfernten Installation */
+    /** Property-Schlüssel für das CCM-Kürzel der entfernten Installation */
     public final static String PROPERTY_CCM_RECEIVER = "ccm-receiver";
-    /** Property-Schl�ssel f�r das Verzeichnis f�r CCM-Exporte */
+    /** Property-Schlüssel für das Verzeichnis für CCM-Exporte */
     public final static String PROPERTY_CCM_OUTGOING_FOLDER = "ccm-outgoing-folder";
-    /** Vorgabewert: Verzeichnis f�r CCM-Exporte */
+    /** Vorgabewert: Verzeichnis für CCM-Exporte */
     public final static String DEFAULT_CCM_OUTGOING_FOLDER = "/var/spool/ccm/in/";
-    
+
     //
     // Schnittstelle DatabaseUtilizer
     //
@@ -150,7 +150,7 @@ public class XMLExporter implements Exporter, Exchanger, DatabaseUtilizer,
     public Database getDatabase() {
         return db;
     }
-    
+
     //
     // Schnittstelle Exchanger
     //
@@ -162,7 +162,7 @@ public class XMLExporter implements Exporter, Exchanger, DatabaseUtilizer,
     /** Das zu verwendende Austauschformat */
     public void setExchangeFormat(ExchangeFormat format) {
         this.format = format;
-        
+
         useCcmEnvelope = DEFAULT_CCM_ENVELOPE;
         ccmApplication = DEFAULT_CCM_APPLICATION;
         ccmOutgoingFolder = DEFAULT_CCM_OUTGOING_FOLDER;
@@ -187,10 +187,10 @@ public class XMLExporter implements Exporter, Exchanger, DatabaseUtilizer,
                 ccmReceiverEndpoint = property.toString();
         }
     }
-    
+
     /**
      * Der zu verwendende Eingabedatenstrom --- wird intern nicht genutzt.
-     * 
+     *
      * @see de.tarent.data.exchange.Exchanger#getInputStream()
      */
     public InputStream getInputStream() {
@@ -199,7 +199,7 @@ public class XMLExporter implements Exporter, Exchanger, DatabaseUtilizer,
 
     /**
      * Der zu verwendende Eingabedatenstrom --- wird intern nicht genutzt.
-     * 
+     *
      * @see de.tarent.data.exchange.Exchanger#setInputStream(java.io.InputStream)
      */
     public void setInputStream(InputStream stream) {
@@ -215,14 +215,14 @@ public class XMLExporter implements Exporter, Exchanger, DatabaseUtilizer,
     public void setOutputStream(OutputStream stream) {
         this.os = stream;
     }
-    
+
     //
     // Schnittstelle Exporter
     //
     /**
-     * Diese Methode f�gt dem XML-Dokument eine Beschreibung der �bergebenen VerA.web-Person
+     * Diese Methode fügt dem XML-Dokument eine Beschreibung der übergebenen VerA.web-Person
      * hinzu.
-     * 
+     *
      * @param person {@link Person}-Bean
      */
     public void exportPerson(Person person) throws BeanException, IOException {
@@ -237,7 +237,7 @@ public class XMLExporter implements Exporter, Exchanger, DatabaseUtilizer,
         insertAddresses(personElement, person);
         insertCategories(personElement, person);
         insertDocTypes(personElement, person);
-        // Personenelement in das Dokument einf�gen
+        // Personenelement in das Dokument einfügen
         baseElement.appendChild(personElement);
     }
 
@@ -315,8 +315,8 @@ public class XMLExporter implements Exporter, Exchanger, DatabaseUtilizer,
     }
 
     /**
-     * Diese Methode schreibt das bisher gesammelte Dokument fest. 
-     * 
+     * Diese Methode schreibt das bisher gesammelte Dokument fest.
+     *
      * @throws IOException
      * @throws UnsupportedEncodingException
      */
@@ -328,13 +328,13 @@ public class XMLExporter implements Exporter, Exchanger, DatabaseUtilizer,
                 if (property instanceof String)
                     encoding = property.toString();
             }
-            
+
             Transformer transformer = TransformerFactory.newInstance().newTransformer();
             transformer.setOutputProperty(OutputKeys.METHOD, "xml");
             transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "no");
             transformer.setOutputProperty(OutputKeys.STANDALONE, "yes");
             transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-            
+
             Source source = new DOMSource(document);
             Result result = new StreamResult(new OutputStreamWriter(os, encoding));
             transformer.transform(source, result);
@@ -344,13 +344,13 @@ public class XMLExporter implements Exporter, Exchanger, DatabaseUtilizer,
             throw ioe;
         }
     }
-    
+
     //
     // Schnittstelle AlternativeDestination
     //
     /**
-     * Diese Methode liefert ein alternatives Ziel in Form eines {@link OutputStream}s. 
-     * 
+     * Diese Methode liefert ein alternatives Ziel in Form eines {@link OutputStream}s.
+     *
      * @return ein {@link OutputStream} oder <code>null</code>.
      * @throws IOException
      * @see de.tarent.aa.veraweb.utils.AlternativeDestination#getAlternativeOutputStream()
@@ -361,7 +361,7 @@ public class XMLExporter implements Exporter, Exchanger, DatabaseUtilizer,
             String millis = String.valueOf(now.getTime());
             millis = millis.substring(millis.length() - 3);
             StringBuffer buffer = new StringBuffer();
-            buffer.append("rte") // Pr�fix --- "ctn" bei hoher und "rte" bei normaler Priorit�t, "sys" bei Fehlerdateien
+            buffer.append("rte") // Præfix --- "ctn" bei hoher und "rte" bei normaler Priorität, "sys" bei Fehlerdateien
                 .append('_')
                 .append(ccmApplication) // Applikation
                 .append('_')
@@ -377,8 +377,8 @@ public class XMLExporter implements Exporter, Exchanger, DatabaseUtilizer,
     }
 
     /**
-     * Diese Methode f�hrt einen Rollback auf das alternative Ziel durch,
-     * l�scht dabei z.B. neu erstellte Dateien wieder.
+     * Diese Methode führt einen Rollback auf das alternative Ziel durch,
+     * löscht dabei z.B. neu erstellte Dateien wieder.
      */
     public void rollback() {
     	if (ccmOutgoingFile != null && ccmOutgoingFile.exists()) {
@@ -387,12 +387,12 @@ public class XMLExporter implements Exporter, Exchanger, DatabaseUtilizer,
     }
 
     //
-    // gesch�tzte Methoden
+    // geschützte Methoden
     //
     /**
-     * Diese Methode f�gt dem VerA.web-Personen-Element Verwaltungsinformationen
+     * Diese Methode fügt dem VerA.web-Personen-Element Verwaltungsinformationen
      * hinzu.
-     * 
+     *
      * @param personElement VerA.web-Personen-Element
      * @param person {@link Person}-Bean
      */
@@ -407,9 +407,9 @@ public class XMLExporter implements Exporter, Exchanger, DatabaseUtilizer,
     }
 
     /**
-     * Diese Methode f�gt dem VerA.web-Personen-Element Unterelemente f�r
-     * Hauptperson und Pertner hinzu. 
-     * 
+     * Diese Methode fügt dem VerA.web-Personen-Element Unterelemente für
+     * Hauptperson und Pertner hinzu.
+     *
      * @param personElement VerA.web-Personen-Element
      * @param person {@link Person}-Bean
      */
@@ -422,9 +422,9 @@ public class XMLExporter implements Exporter, Exchanger, DatabaseUtilizer,
     }
 
     /**
-     * Diese Methode f�gt dem VerA.web-Personen-Element Unterelemente f�r
+     * Diese Methode fügt dem VerA.web-Personen-Element Unterelemente für
      * die verschiedenen Adressen hinzu.
-     * 
+     *
      * @param personElement VerA.web-Personen-Element
      * @param person {@link Person}-Bean
      */
@@ -435,13 +435,13 @@ public class XMLExporter implements Exporter, Exchanger, DatabaseUtilizer,
     }
 
     /**
-     * Diese Methode f�gt dem VerA.web-Personen-Element Unterelemente f�r
+     * Diese Methode fügt dem VerA.web-Personen-Element Unterelemente für
      * die verschiedenen Kategorien (echte Kategorien und Ereignisse) hinzu.
-     * 
+     *
      * @param personElement VerA.web-Personen-Element
      * @param person {@link Person}-Bean
-     * @throws IOException 
-     * @throws BeanException 
+     * @throws IOException
+     * @throws BeanException
      */
     void insertCategories(Element personElement, Person person) throws BeanException, IOException {
         Categorie sampleCategory = (Categorie) db.createBean("Categorie");
@@ -455,9 +455,9 @@ public class XMLExporter implements Exporter, Exchanger, DatabaseUtilizer,
         List list = db.getList(select, db);
         for (Iterator itList = list.iterator(); itList.hasNext(); ) {
             Map data = (Map) itList.next();
-            // sampleCategory.putAll(data) w�rde versuchen, auch den Wert von individualRank
-            // zu setzen (-> Fehler); au�erdem wird hier ein EntrySet.iterator() benutzt, den
-            // ResultMap nicht unterst�tzt.
+            // sampleCategory.putAll(data) würde versuchen, auch den Wert von individualRank
+            // zu setzen (-> Fehler); außerdem wird hier ein EntrySet.iterator() benutzt, den
+            // ResultMap nicht unterstützt.
             for (Iterator itFields = sampleCategory.getFields().iterator(); itFields.hasNext(); ) {
                 Object field = itFields.next();
                 sampleCategory.put(field, data.get(field));
@@ -465,15 +465,15 @@ public class XMLExporter implements Exporter, Exchanger, DatabaseUtilizer,
             appendChild(personElement, createCategoryElement(sampleCategory, (Integer) data.get("individualRank")));
         }
     }
-    
+
     /**
-     * Diese Methode f�gt dem VerA.web-Personen-Element Unterelemente f�r
+     * Diese Methode fügt dem VerA.web-Personen-Element Unterelemente für
      * die verschiedenen Dokumenttyp-Freitexte hinzu.
-     * 
+     *
      * @param personElement VerA.web-Personen-Element
      * @param person {@link Person}-Bean
-     * @throws BeanException 
-     * @throws IOException 
+     * @throws BeanException
+     * @throws IOException
      */
     void insertDocTypes(Element personElement, Person person) throws BeanException, IOException {
         logger.entering(getClass().getName(), "insertDocTypes", new Object[] {personElement, person});
@@ -493,10 +493,10 @@ public class XMLExporter implements Exporter, Exchanger, DatabaseUtilizer,
             appendChild(personElement, createDocTypeElement(data));
         }
     }
-    
+
     /**
-     * Diese Methode erzeugt ein <code>vw:history</code>-Element. 
-     * 
+     * Diese Methode erzeugt ein <code>vw:history</code>-Element.
+     *
      * @param person {@link Person}-Bean
      * @return ein <code>vw:history</code>-{@link Element} oder <code>null</code>
      */
@@ -511,12 +511,12 @@ public class XMLExporter implements Exporter, Exchanger, DatabaseUtilizer,
         notEmpty |= setAttribute(member, HISTORY_SOURCE_ATTRIBUTE_VW, person.importsource);
         return notEmpty ? member : null;
     }
-    
+
     /**
      * Diese Methode erzeugt ein <code>vw:category</code>-Element.
-     * 
+     *
      * @param category {@link Categorie}-Bean
-     * @param individualRank individueller Rang bez�glich der Kategorie
+     * @param individualRank individueller Rang bezüglich der Kategorie
      * @return ein <code>vw:category</code>-{@link Element} oder <code>null</code>
      */
     Element createCategoryElement(Categorie category, Integer individualRank) {
@@ -529,10 +529,10 @@ public class XMLExporter implements Exporter, Exchanger, DatabaseUtilizer,
         notEmpty |= setAttribute(categoryElement, CATEGORY_RANK_ATTRIBUTE_VW, individualRank == null ? category.rank : individualRank);
         return notEmpty ? categoryElement : null;
     }
-    
+
     /**
      * Diese Methode erzeugt ein <code>vw:doctype</code>-Element.
-     * 
+     *
      * @param doctypeData Dokumenttypdaten
      * @return ein <code>vw:category</code>-{@link Element} oder <code>null</code>
      */
@@ -546,10 +546,10 @@ public class XMLExporter implements Exporter, Exchanger, DatabaseUtilizer,
         notEmpty |= setAttribute(doctypeElement, DOCTYPE_TEXT_JOIN_ATTRIBUTE_VW, doctypeData.get("textfieldJoin"));
         return notEmpty ? doctypeElement : null;
     }
-    
+
     /**
-     * Diese Methode erzeugt ein <code>vw:member</code>-Element. 
-     * 
+     * Diese Methode erzeugt ein <code>vw:member</code>-Element.
+     *
      * @param person {@link Person}-Bean
      * @param partner Flag: Partner (true) oder Hauptperson (false)
      * @return ein <code>vw:member</code>-{@link Element} oder <code>null</code>
@@ -570,10 +570,10 @@ public class XMLExporter implements Exporter, Exchanger, DatabaseUtilizer,
             notEmpty |= appendChild(member, createNameElement(person, partner, lang));
         return notEmpty ? member : null;
     }
-    
+
     /**
-     * Diese Methode erzeugt ein <code>vw:note</code>-Element. 
-     * 
+     * Diese Methode erzeugt ein <code>vw:note</code>-Element.
+     *
      * @param person {@link Person}-Bean
      * @param partner Flag: Partner (true) oder Hauptperson (false)
      * @param type Notiztyp, {@link #NOTE_TYPE_GENERAL}, {@link #NOTE_TYPE_ORGANIZATION}
@@ -599,10 +599,10 @@ public class XMLExporter implements Exporter, Exchanger, DatabaseUtilizer,
         }
         return createTextElement(NOTE_ELEMENT_VW, noteText, NOTE_TYPE_ATTRIBUTE_VW, typeValue, false);
     }
-    
+
     /**
-     * Diese Methode erzeugt ein <code>vw:name</code>-Element. 
-     * 
+     * Diese Methode erzeugt ein <code>vw:name</code>-Element.
+     *
      * @param person {@link Person}-Bean
      * @param partner Flag: Partner (true) oder Hauptperson (false)
      * @param lang Sprache, {@link #LANGUAGE_LATIN}, {@link #LANGUAGE_EXTRA_1}
@@ -627,7 +627,7 @@ public class XMLExporter implements Exporter, Exchanger, DatabaseUtilizer,
             break;
         }
         assert facade != null;
-        
+
         boolean notEmpty = false;
         Element name = document.createElementNS(VW_NAMESPACE_URI, NAME_ELEMENT_VW);
         setAttribute(name, NAME_LANGUAGE_ATTRIBUTE_VW, language);
@@ -637,10 +637,10 @@ public class XMLExporter implements Exporter, Exchanger, DatabaseUtilizer,
         notEmpty |= setAttribute(name, NAME_SALUTATION_ATTRIBUTE_VW, facade.getSalutation());
         return notEmpty ? name : null;
     }
-    
+
     /**
-     * Diese Methode erzeugt ein <code>vw:address</code>-Element. 
-     * 
+     * Diese Methode erzeugt ein <code>vw:address</code>-Element.
+     *
      * @param person {@link Person}-Bean
      * @param type Adresstyp, {@link #ADDRESS_TYPE_PRIVATE}, {@link #ADDRESS_TYPE_BUSINESS}
      *  oder {@link #ADDRESS_TYPE_OTHER}
@@ -731,11 +731,11 @@ public class XMLExporter implements Exporter, Exchanger, DatabaseUtilizer,
         }
         return null;
     }
-    
+
     /**
-     * Diese Methode erzeugt ein Element mit Textinhalt, falls der �bergebene
-     * Text nicht leer ist. 
-     * 
+     * Diese Methode erzeugt ein Element mit Textinhalt, falls der übergebene
+     * Text nicht leer ist.
+     *
      * @param name Name des zu erzeugenden Elements
      * @param text Text des zu erzeugenden Elements
      * @return ein {@link Element} oder <code>null</code>
@@ -749,11 +749,11 @@ public class XMLExporter implements Exporter, Exchanger, DatabaseUtilizer,
         }
         return null;
     }
-    
+
     /**
      * Diese Methode erzeugt ein Element mit Textinhalt und einem Attribut,
-     * falls die �bergebenen Texte nicht leer sind. 
-     * 
+     * falls die übergebenen Texte nicht leer sind.
+     *
      * @param name Name des zu erzeugenden Elements
      * @param text Text des zu erzeugenden Elements
      * @param attributeName Name des zu erzeugenden Attributs
@@ -774,11 +774,11 @@ public class XMLExporter implements Exporter, Exchanger, DatabaseUtilizer,
         }
         return null;
     }
-    
+
     /**
-     * Diese statische Methode setzt ein Attribut, falls der �bergebene Wert weder
-     * <code>null</code> noch <code>""</code> ist. 
-     * 
+     * Diese statische Methode setzt ein Attribut, falls der übergebene Wert weder
+     * <code>null</code> noch <code>""</code> ist.
+     *
      * @param element {@link Element}, bei dem das Attribut gesetzt werden soll
      * @param name Name des zu setzenden Attributs
      * @param value neuer Wert des zu setzenden Attributs.
@@ -787,7 +787,7 @@ public class XMLExporter implements Exporter, Exchanger, DatabaseUtilizer,
     static boolean setAttribute(Element element, String name, Object value) {
         assert element != null;
         assert name != null;
-        
+
         if (value != null) {
             String valueString = value.toString();
             if (valueString.length() > 0) {
@@ -797,28 +797,28 @@ public class XMLExporter implements Exporter, Exchanger, DatabaseUtilizer,
         }
         return false;
     }
-    
+
     /**
-     * Diese statische Methode f�gt ein Kindelement hinzu, falls jenes nicht
-     * <code>null</code> ist. 
-     * 
+     * Diese statische Methode fügt ein Kindelement hinzu, falls jenes nicht
+     * <code>null</code> ist.
+     *
      * @param element {@link Element}, das ein neues Kind-{@link Element}
      *  erhalten soll
      * @param child das neue Kind-{@link Element}
-     * @return <code>true</code> falls das Kind-Element angef�gt wurde
+     * @return <code>true</code> falls das Kind-Element angefügt wurde
      */
     static boolean appendChild(Element element, Element child) {
         assert element != null;
-        
+
         if (child != null) {
             element.appendChild(child);
             return true;
         }
         return false;
     }
-    
+
     //
-    // gesch�tzte Member-Variablen
+    // geschützte Member-Variablen
     //
     /** Der zu verwendende Eingabedatenstrom --- wird intern nicht genutzt */
     InputStream inputStream = null;
@@ -826,37 +826,37 @@ public class XMLExporter implements Exporter, Exchanger, DatabaseUtilizer,
     OutputStream os = null;
 
     Database db = null;
-    
+
     ExchangeFormat format = null;
 
     final Document document;
-    
+
     Element baseElement = null;
-    
+
     boolean useCcmEnvelope = DEFAULT_CCM_ENVELOPE;
-    
+
     String ccmApplication = DEFAULT_CCM_APPLICATION;
-    
+
     String ccmSenderEndpoint = null;
-    
+
     String ccmReceiverEndpoint = null;
-    
+
     String ccmOutgoingFolder = DEFAULT_CCM_OUTGOING_FOLDER;
-    
+
     File ccmOutgoingFile = null;
-    
-    final SimpleDateFormat ccmDateFormat = new SimpleDateFormat("ddMMyyyy-HHmmss"); 
-    
+
+    final SimpleDateFormat ccmDateFormat = new SimpleDateFormat("ddMMyyyy-HHmmss");
+
     /** Logger dieser Klasse */
     static Logger logger = Logger.getLogger(XMLExporter.class.getName());
-    
+
     /* (non-Javadoc)
 		 * @see de.tarent.aa.veraweb.utils.Exporter#setOrgUnitId(java.lang.Integer)
 		 */
 		public void setOrgUnitId(Integer orgUnitId)
 		{
 			// obsolete
-			
+
 		}
 		/* (non-Javadoc)
 		 * @see de.tarent.aa.veraweb.utils.Exporter#setCategoryId(java.lang.Integer)
@@ -864,6 +864,6 @@ public class XMLExporter implements Exporter, Exchanger, DatabaseUtilizer,
 		public void setCategoryId(Integer categoryId)
 		{
 			// obsolete
-			
+
 		}
 }

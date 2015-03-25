@@ -28,10 +28,10 @@ import gherkin.formatter.model.Step;
  * This class is a workaround for a missing hook! Because the hook which is called after each step doesn't provide
  * information about the current feature or current scenario and so on. This class represents a formatter that we refer
  * to the cucumber-cli.
- * 
+ *
  * @author Sven Schumann <s.schumann@tarent.de>
  * @version 1.0
- * 
+ *
  */
 public class RuntimeInfoCatcher extends PrettyFormatter {
 
@@ -72,7 +72,7 @@ public class RuntimeInfoCatcher extends PrettyFormatter {
 
     /**
      * Constructor.
-     * 
+     *
      * @param appendable
      *            appendable
      * @param monochrome
@@ -89,7 +89,7 @@ public class RuntimeInfoCatcher extends PrettyFormatter {
 
     /**
      * Constructor.
-     * 
+     *
      * @param appendable
      *            appendable
      */

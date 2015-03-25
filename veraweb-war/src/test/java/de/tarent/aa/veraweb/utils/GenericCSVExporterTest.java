@@ -43,8 +43,8 @@ import de.tarent.octopus.request.TcRequest;
 import de.tarent.octopus.server.OctopusContext;
 
 /**
- * Diese Testklasse testet {@link GenericCSVExporter}. 
- * 
+ * Diese Testklasse testet {@link GenericCSVExporter}.
+ *
  * @author mikel
  */
 public class GenericCSVExporterTest extends TestCase {
@@ -53,7 +53,7 @@ public class GenericCSVExporterTest extends TestCase {
     //
     /**
      * Diese Testmethode testet einen gemischten Export.
-     * @throws TcConfigException 
+     * @throws TcConfigException
      */
     public void testMixedExportPositive() throws IOException, TcConfigException {
     	// disabled currently
@@ -64,18 +64,18 @@ public class GenericCSVExporterTest extends TestCase {
         exporter.setDatabase(createDatabase());
         exporter.setExchangeFormat(createExchangeFormat());
         exporter.setOutputStream(baOutputStream);
-        
+
         exporter.startExport();
         exporter.endExport();
     }
-    
+
     //
     // Hilfsmethoden
     //
     Database createDatabase() throws TcConfigException {
         return new DatabaseVeraWeb(createOctopusContext());
     }
-    
+
     ExchangeFormat createExchangeFormat() {
         Map exportMapping = new HashMap();
         exportMapping.put("*", "{:*}");
@@ -97,43 +97,43 @@ public class GenericCSVExporterTest extends TestCase {
         configuration.put("properties", Collections.unmodifiableMap(properties));
         return new ConfiguredExchangeFormat(Collections.unmodifiableMap(configuration));
     }
-    
+
     //
     // Octopus-Mockups
     //
     Octopus createOctopus() {
         return new Octopus();
     }
-    
+
     TcCommonConfig createOctopusCommonConfig() throws TcConfigException {
         return new TcCommonConfig(createOctopusEnvironment(), createOctopus());
     }
-    
+
     TcConfig createOctopusConfig(TcRequest request) throws TcConfigException {
         return new TcConfig(createOctopusCommonConfig(), createOctopusPersonalConfig(), "Test");
     }
-    
+
     TcContent createOctopusContent() {
         return new TcContent();
     }
-    
+
     OctopusContext createOctopusContext() throws TcConfigException {
         TcRequest request = createOctopusRequest();
         return new TcAll(request, createOctopusContent(), createOctopusConfig(request));
     }
-    
+
     TcEnv createOctopusEnvironment() {
         return new TcEnv();
     }
-    
+
     TcModuleConfig createModuleConfig() {
         return null; // Mhmpf!
     }
-    
+
     PersonalConfigAA createOctopusPersonalConfig() {
         return new PersonalConfigAA();
     }
-    
+
     TcRequest createOctopusRequest() {
         return new TcRequest("--Test--");
     }

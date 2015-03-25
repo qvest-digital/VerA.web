@@ -22,16 +22,16 @@
 	</head>
 	<body onload="document.getElementById('city').focus();" id="popUp">
 		<form action="" method="post" onsubmit="if (returnCity()) closePopup();">
-		
-			
+
+
 			<div class="contentBoxColored grayBorder">
-			
+
 				<h2>Neuer Veranstaltungsort</h2>
-			
+
 				<label for="city">Bitte geben Sie einen neuen Ort ein und klicken Sie auf "Hinzuf&uuml;gen"</label>
 				<input type="text" id="city" name="city" value="">
-		
-			
+
+
 				<div class="textRight marginTop5" id="buttonPanel-bottom">
 					<input type="submit" value="Hinzuf&uuml;gen" class="mainButton" ssonclick="if (returnCity()) closePopup();">
 					<input type="button" value="Schlie&szlig;en"  class="mainButton" onclick="closePopup();">

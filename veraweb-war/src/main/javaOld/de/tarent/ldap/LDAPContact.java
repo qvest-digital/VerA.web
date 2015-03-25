@@ -40,8 +40,8 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
 /**
- * Objekt, welches ungef�hr das repr�sentiert, was inetOrgPerson im LDAP ist...
- * 
+ * Objekt, welches ungefähr das repräsentiert, was inetOrgPerson im LDAP ist...
+ *
  * @author philipp
  */
 public class LDAPContact {
@@ -66,7 +66,7 @@ public class LDAPContact {
 	private String privatStrasse = new String("");
 	private String arbeitEmail = new String("");
 	private String beschreibung = new String("");
-	
+
 	private Map verteilergruppe = new HashMap();
 	private Map allUsers;
 	private List Users;
@@ -77,12 +77,10 @@ public class LDAPContact {
 	private String privatFax = new String("");
 	private String privatHandy = new String("");
 	private String privatEmail = new String("");
-	
-	private static final String[] INVALID_CHARS = {"�", "�", "�", "�", "�", "�", "�"};
-	
+
 	public LDAPContact(){
 	}
-	
+
 	/**
 	 * Erzeugt einen neuen LDAPContact mit gegebener Address-Map
 	 * @param address
@@ -91,7 +89,7 @@ public class LDAPContact {
 		setContact(address);
 		this.userid = userID;
 	}
-	
+
 	private String get(Map address, String key){
 		String wert = new String();
 		if(address.get(key)!=null){wert = address.get(key).toString();}
@@ -100,7 +98,7 @@ public class LDAPContact {
 
 	/**
 	 * Setzt Kontakt auf gegebene Map mit Addressdaten
-	 * @param address die AddressMap 
+	 * @param address die AddressMap
 	 */
 	public void setContact(Map address){
 		setVorname(get(address, "a4"));
@@ -132,13 +130,13 @@ public class LDAPContact {
 		setArbeitHandy(get(tkomm, "106"));
 		setPrivatEmail(get(tkomm, "107"));
 		setArbeitEmail(get(tkomm, "108"));
-		
+
 		checkNachName();
 	}
-	
+
 
 	/**
-	 * 
+	 *
 	 */
 	private void checkNachName() {
 		if(NullOrEmpty(nachname)){
@@ -155,7 +153,7 @@ public class LDAPContact {
 			}
 		}
 	}
-	
+
 	private boolean NullOrEmpty(String string){
 		if(string==null){
 			return true;
@@ -167,17 +165,6 @@ public class LDAPContact {
 			}
 		}
 	}
-	
-	
-	private boolean contains_invalid_chars(String string){
-		for(int i=0; i< INVALID_CHARS.length; i++){
-			String character = INVALID_CHARS[i];
-			if(string.indexOf(character)!=-1){
-				return true;
-			}
-		}
-		return false;
-	}
 
 	public String toString(){
 	String ruckgabe = new String();
@@ -185,8 +172,8 @@ public class LDAPContact {
 		ruckgabe +="Mittlerer Name: " + mittelname + "\n";
 		ruckgabe +="Nachname:" + nachname + "\n";
 		ruckgabe +="Spitzname:" + spitzname + "\n";
-		ruckgabe +="UserID:" + userid + "\n"; 
-		ruckgabe +="Gesch�ftlich:\n";
+		ruckgabe +="UserID:" + userid + "\n";
+		ruckgabe +="Geschäftlich:\n";
 		ruckgabe +="Firma: "+ arbeitFirma + "\n";
 		ruckgabe +="Abteilung: " + arbeitAbteilung + "\n";
 		ruckgabe +="Strasse: " + arbeitStrasse +"\n";
@@ -204,12 +191,12 @@ public class LDAPContact {
 		ruckgabe +="Telefon: " + privatTelefon + "\n";
 		ruckgabe +="\n";
 		ruckgabe +="Beschreibung: " + beschreibung +"\n";
-		
+
 		return ruckgabe;
 	}
-	
+
 	/**
-	 * Getter f�r Nachname
+	 * Getter für Nachname
 	 * @return Nachname
 	 */
 	public String getNachname() {
@@ -218,7 +205,7 @@ public class LDAPContact {
 	}
 
 	/**
-	 * Getter f�r Spitzname
+	 * Getter für Spitzname
 	 * @return Spitzname
 	 */
 	public String getSpitzname() {
@@ -226,7 +213,7 @@ public class LDAPContact {
 	}
 
 	/**
-	 * Getter f�r Vorname
+	 * Getter für Vorname
 	 * @return Vorname
 	 */
 	public String getVorname() {
@@ -234,7 +221,7 @@ public class LDAPContact {
 	}
 
 	/**
-	 * Setter f�r Nachname
+	 * Setter für Nachname
 	 * @param string Nachname
 	 */
 	public void setNachname(String string) {
@@ -243,7 +230,7 @@ public class LDAPContact {
 	}
 
 	/**
-	 * Setter f�r Spitzname
+	 * Setter für Spitzname
 	 * @param string Spitzname
 	 */
 	public void setSpitzname(String string) {
@@ -251,7 +238,7 @@ public class LDAPContact {
 	}
 
 	/**
-	 * Setter f�r Vorname
+	 * Setter für Vorname
 	 * @param string Vorname
 	 */
 	public void setVorname(String string) {
@@ -259,7 +246,7 @@ public class LDAPContact {
 	}
 
 	/**
-	 * Getter f�r UserID
+	 * Getter für UserID
 	 * @return UserID
 	 */
 	public String getUserid() {
@@ -267,7 +254,7 @@ public class LDAPContact {
 	}
 
 	/**
-	 * Setter f�r UserID
+	 * Setter für UserID
 	 * @param string UserID
 	 */
 	public void setUserid(String string) {
@@ -275,7 +262,7 @@ public class LDAPContact {
 	}
 
 	/**
-	 * Getter f�r ArbeitFirma
+	 * Getter für ArbeitFirma
 	 * @return ArbeitFirma
 	 */
 	public String getArbeitFirma() {
@@ -283,7 +270,7 @@ public class LDAPContact {
 	}
 
 	/**
-	 * Getter f�r ArbeitOrt
+	 * Getter für ArbeitOrt
 	 * @return ArbeitOrt
 	 */
 	public String getArbeitOrt() {
@@ -291,7 +278,7 @@ public class LDAPContact {
 	}
 
 	/**
-	 * Getter f�r ArbeitPLZ
+	 * Getter für ArbeitPLZ
 	 * @return ArbeitPLZ
 	 */
 	public String getArbeitPLZ() {
@@ -299,7 +286,7 @@ public class LDAPContact {
 	}
 
 	/**
-	 * Getter f�r ArbeitStrasse
+	 * Getter für ArbeitStrasse
 	 * @return ArbeitStrasse
 	 */
 	public String getArbeitStrasse() {
@@ -307,7 +294,7 @@ public class LDAPContact {
 	}
 
 	/**
-	 * Setter f�r ArbeitFirma
+	 * Setter für ArbeitFirma
 	 * @param string ArbeitFirma
 	 */
 	public void setArbeitFirma(String string) {
@@ -316,7 +303,7 @@ public class LDAPContact {
 	}
 
 	/**
-	 * Setter f�r ArbeitOrt
+	 * Setter für ArbeitOrt
 	 * @param string ArbeitOrt
 	 */
 	public void setArbeitOrt(String string) {
@@ -324,7 +311,7 @@ public class LDAPContact {
 	}
 
 	/**
-	 * Setter f�r ArbeitPLZ
+	 * Setter für ArbeitPLZ
 	 * @param string ArbeitPLZ
 	 */
 	public void setArbeitPLZ(String string) {
@@ -332,7 +319,7 @@ public class LDAPContact {
 	}
 
 	/**
-	 * Setter f�r ArbeitStrasse
+	 * Setter für ArbeitStrasse
 	 * @param string ArbeitStrasse
 	 */
 	public void setArbeitStrasse(String string) {
@@ -340,7 +327,7 @@ public class LDAPContact {
 	}
 
 	/**
-	 * Getter f�r ArbeitJob
+	 * Getter für ArbeitJob
 	 * @return ArbeitJob
 	 */
 	public String getArbeitJob() {
@@ -348,7 +335,7 @@ public class LDAPContact {
 	}
 
 	/**
-	 * Getter f�r Email
+	 * Getter für Email
 	 * @return Email
 	 */
 	public String getArbeitEmail() {
@@ -356,7 +343,7 @@ public class LDAPContact {
 	}
 
 	/**
-	 * Setter f�r ArbeitJob
+	 * Setter für ArbeitJob
 	 * @param string ArbeitJob
 	 */
 	public void setArbeitJob(String string) {
@@ -364,7 +351,7 @@ public class LDAPContact {
 	}
 
 	/**
-	 * Setter f�r Email
+	 * Setter für Email
 	 * @param string Email
 	 */
 	public void setArbeitEmail(String string) {
@@ -373,19 +360,16 @@ public class LDAPContact {
 				InternetAddress address = new InternetAddress(string, true);
 				address.validate();
 				arbeitEmail = address.toString();
-				if(contains_invalid_chars(arbeitEmail)){
-					arbeitEmail="";;
-				}
 			}
 		} catch (AddressException e) {
 			//Wenn Fehler, setze Mail auf null
 			arbeitEmail = "";;
 		}
-		
+
 	}
 
 	/**
-	 * Getter f�r ArbeitFax
+	 * Getter für ArbeitFax
 	 * @return ArbeitFax
 	 */
 	public String getArbeitFax() {
@@ -393,19 +377,15 @@ public class LDAPContact {
 	}
 
 	/**
-	 * Setter f�r ArbeitFax
+	 * Setter für ArbeitFax
 	 * @param string ArbeitFax
 	 */
 	public void setArbeitFax(String string) {
-		if(contains_invalid_chars(string)){
-			arbeitFax = "";;
-		}else{
-			arbeitFax = string;
-		}
+		arbeitFax = string;
 	}
 
 	/**
-	 * Getter f�r ArbeitTelefon
+	 * Getter für ArbeitTelefon
 	 * @return ArbeitTelefon
 	 */
 	public String getArbeitTelefon() {
@@ -413,19 +393,15 @@ public class LDAPContact {
 	}
 
 	/**
-	 * Setter f�r ArbeitTelefon
+	 * Setter für ArbeitTelefon
 	 * @param string ArbeitTelefon
 	 */
 	public void setArbeitTelefon(String string) {
-		if(contains_invalid_chars(string)){
-			arbeitTelefon = "";;
-		}else{
-			arbeitTelefon = string;
-		}
+		arbeitTelefon = string;
 	}
 
 	/**
-	 * Getter f�r Handy
+	 * Getter für Handy
 	 * @return Handy
 	 */
 	public String getArbeitHandy() {
@@ -433,19 +409,15 @@ public class LDAPContact {
 	}
 
 	/**
-	 * Setter f�r Handy
+	 * Setter für Handy
 	 * @param string Handy
 	 */
 	public void setArbeitHandy(String string) {
-		if(contains_invalid_chars(string)){
-			arbeitHandy = "";;
-		}else{
-			arbeitHandy = string;
-		}
+		arbeitHandy = string;
 	}
 
 	/**
-	 * Getter f�r HomeTelefon
+	 * Getter für HomeTelefon
 	 * @return HomeTelefon
 	 */
 	public String getPrivatTelefon() {
@@ -453,7 +425,7 @@ public class LDAPContact {
 	}
 
 	/**
-	 * Getter f�r Pager
+	 * Getter für Pager
 	 * @return Pager
 	 */
 	public String getPager() {
@@ -461,19 +433,15 @@ public class LDAPContact {
 	}
 
 	/**
-	 * Setter f�r HomeTelefon
+	 * Setter für HomeTelefon
 	 * @param string HomeTelefon
 	 */
 	public void setPrivatTelefon(String string) {
-		if(contains_invalid_chars(string)){
-			privatTelefon = "";;
-		}else{
-			privatTelefon = string;
-		}
+		privatTelefon = string;
 	}
 
 	/**
-	 * Setter f�r Pager
+	 * Setter für Pager
 	 * @param string Pager
 	 */
 	public void setPager(String string) {
@@ -481,7 +449,7 @@ public class LDAPContact {
 	}
 
 	/**
-	 * Getter f�r ArbeitAbteilung
+	 * Getter für ArbeitAbteilung
 	 * @return ArbeitAbteilung
 	 */
 	public String getArbeitAbteilung() {
@@ -489,7 +457,7 @@ public class LDAPContact {
 	}
 
 	/**
-	 * Setter f�r ArbeitAbteilung
+	 * Setter für ArbeitAbteilung
 	 * @param string
 	 */
 	public void setArbeitAbteilung(String string) {
@@ -497,7 +465,7 @@ public class LDAPContact {
 	}
 
 	/**
-	 * Getter f�r Beschreibung
+	 * Getter für Beschreibung
 	 * @return Beschreibung
 	 */
 	public String getBeschreibung() {
@@ -505,7 +473,7 @@ public class LDAPContact {
 	}
 
 	/**
-	 * Setter f�r Beschreibung
+	 * Setter für Beschreibung
 	 * @param string Beschreibung
 	 */
 	public void setBeschreibung(String string) {
@@ -513,7 +481,7 @@ public class LDAPContact {
 	}
 
 	/**
-	 * Getter f�r HomeStrasse
+	 * Getter für HomeStrasse
 	 * @return HomeStrasse
 	 */
 	public String getPrivatStrasse() {
@@ -521,7 +489,7 @@ public class LDAPContact {
 	}
 
 	/**
-	 * Setter f�r HomeStrase
+	 * Setter für HomeStrase
 	 * @param string HomeStrasse
 	 */
 	public void setPrivatStrasse(String string) {
@@ -529,7 +497,7 @@ public class LDAPContact {
 	}
 
 	/**
-	 * Getter f�r ArbeitLand
+	 * Getter für ArbeitLand
 	 * @return ArbeitLand
 	 */
 	public String getArbeitLand() {
@@ -537,7 +505,7 @@ public class LDAPContact {
 	}
 
 	/**
-	 * Setter f�r ArbeitLand
+	 * Setter für ArbeitLand
 	 * @param string ArbeitLand
 	 */
 	public void setArbeitLand(String string) {
@@ -545,7 +513,7 @@ public class LDAPContact {
 	}
 
 	/**
-	 * Getter f�r Mittelname
+	 * Getter für Mittelname
 	 * @return Mittelname
 	 */
 	public String getMittelname() {
@@ -553,7 +521,7 @@ public class LDAPContact {
 	}
 
 	/**
-	 * Setter f�r Mittelname
+	 * Setter für Mittelname
 	 * @param string Mittelname
 	 */
 	public void setMittelname(String string) {
@@ -561,7 +529,7 @@ public class LDAPContact {
 	}
 
 	/**
-	 * Getter f�r ArbeitBundesstaat
+	 * Getter für ArbeitBundesstaat
 	 * @return ArbeitBundesstaat
 	 */
 	public String getArbeitBundesstaat() {
@@ -569,13 +537,13 @@ public class LDAPContact {
 	}
 
 	/**
-	 * Setter f�r ArbeitBundesstart
+	 * Setter für ArbeitBundesstart
 	 * @param string ArbeitBundesstaat
 	 */
 	public void setArbeitBundesstaat(String string) {
 		arbeitBundesstaat = string;
 	}
-  
+
   /**
    * @return Verteilergruppe
    */
@@ -666,7 +634,7 @@ public void setAllUsers(Map map) {
 			}
 		}
 		if(users.size()==0){
-			throw new NoMemberException("Es muss mindestens ein User Rechte auf diese Adresse haben, damit Sie exportiert werden kann.");
+			throw new NoMemberException("Es muß mindestens ein User Rechte auf diese Adresse haben, damit Sie exportiert werden kann.");
 		}
 		attr.put(users);
 		return attr;
@@ -674,12 +642,12 @@ public void setAllUsers(Map map) {
 
 	/**
 	 * Methode, die zu einem gegebenen Attribut die passende Variable aus einem @see LDAPContact ausliest..
-	 * 
+	 *
 	 * @param this - LDAPContact , aus dem gelesen werden soll
 	 * 					@see de.tarent.octopus.sync.ldap.LDAPContact
 	 * @param attribute - Attribut, welches den Wert beschreibt
-	 * @return String mit dem gew�nschen Wert
-	 * @throws LDAPException - wenn etwas schief l�uft
+	 * @return String mit dem gewünschen Wert
+	 * @throws LDAPException - wenn etwas schief läuft
 	 */
 	protected String getValue(NamedNodeMap attribute) throws LDAPException{
 		Method getter;
@@ -695,7 +663,7 @@ public void setAllUsers(Map map) {
 		} catch (Exception e) {
 			throw new LDAPException(Messages.getString("LDAPManager.getter_not_found_01")+ attribut +Messages.getString("LDAPManager.getter_not_found_02") + e.getMessage()); //$NON-NLS-1$ //$NON-NLS-2$
 		} //$NON-NLS-1$
-	
+
 		return value;
 	}
 
@@ -750,9 +718,6 @@ public void setAllUsers(Map map) {
 				InternetAddress address = new InternetAddress(privatEmail);
 				address.validate();
 				this.privatEmail = privatEmail;
-				if(contains_invalid_chars(this.privatEmail)){
-					this.privatEmail="";;
-				}
 
 			}
 		} catch (AddressException e) {
@@ -771,11 +736,7 @@ public void setAllUsers(Map map) {
 	 * @param privatFax The privatFax to set.
 	 */
 	public void setPrivatFax(String privatFax) {
-		if(contains_invalid_chars(privatFax)){
-			this.privatFax = "";;
-		}else{
-			this.privatFax = privatFax;
-		}
+		this.privatFax = privatFax;
 	}
 	/**
 	 * @return Returns the privatHandy.
@@ -787,10 +748,6 @@ public void setAllUsers(Map map) {
 	 * @param privatHandy The privatHandy to set.
 	 */
 	public void setPrivatHandy(String privatHandy) {
-		if(contains_invalid_chars(privatHandy)){
-			this.privatHandy = "";;
-		}else{
-			this.privatHandy = privatHandy;
-		}
+		this.privatHandy = privatHandy;
 	}
 }

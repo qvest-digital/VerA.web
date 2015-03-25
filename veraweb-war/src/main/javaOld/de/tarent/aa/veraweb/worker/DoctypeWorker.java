@@ -35,19 +35,19 @@ import de.tarent.octopus.beans.TransactionContext;
 import de.tarent.octopus.server.OctopusContext;
 
 /**
- * Diese Octopus-Worker-Klasse stellt Operationen f�r Dokumenttypen
- * zur Verf�gung. Details bitte dem BeanListWorker entnehmen.
- * 
+ * Diese Octopus-Worker-Klasse stellt Operationen für Dokumenttypen
+ * zur Verfügung. Details bitte dem BeanListWorker entnehmen.
+ *
  * Wenn eine Veranstaltung als 'event' im Octopus-Content
  * steht, wird das Ergebnis der <code>getAll</code>-Aktion auf die
- * Dokumenttypen eingeschr�nkt die NICHT diesem Event zugeordnet sind.
- * 
+ * Dokumenttypen eingeschränkt die NICHT diesem Event zugeordnet sind.
+ *
  * Wenn eine Anrede als 'salutation' im Octopus-Content
  * steht, wird das Ergebnis der <code>getAll</code>-Aktion auf die
- * Dokumenttypen eingeschr�nkt die NICHT dieser Anrede zugeordnet sind.
- * 
+ * Dokumenttypen eingeschränkt die NICHT dieser Anrede zugeordnet sind.
+ *
  * @see de.tarent.octopus.beans.BeanListWorker
- * 
+ *
  * @author Christoph
  */
 public class DoctypeWorker extends StammdatenWorker {

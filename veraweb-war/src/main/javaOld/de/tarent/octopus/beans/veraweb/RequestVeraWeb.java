@@ -25,8 +25,8 @@ import de.tarent.octopus.server.OctopusContext;
 
 /**
  * Konkrete {@link BeanFactory}, die Beans aus den Request-Parametern
- * im Kontext des Octopus-Moduls veraweb ausliest. 
- * 
+ * im Kontext des Octopus-Moduls veraweb ausliest.
+ *
  * @author Michael Klink, Alex Steeg, Christoph Jerolimov
  * @version 1.3
  */
@@ -36,7 +36,7 @@ public class RequestVeraWeb extends Request {
     //
     /**
      * Dieser Konstruktor initialisiert die {@link Request}-{@link BeanFactory}
-     * mit dem �bergebenen {@link OctopusContext} und dem VerA.web-Bean-Package
+     * mit dem übergebenen {@link OctopusContext} und dem VerA.web-Bean-Package
      * {@link #BEANPACKAGE "de.tarent.aa.veraweb.beans"}.
      */
 	public RequestVeraWeb(OctopusContext cntx) {

@@ -24,10 +24,10 @@ import org.openqa.selenium.support.ByIdOrName;
 
 /**
  * Class to define a page element.
- * 
+ *
  * @author Michael Kutz, tarent Solutions GmbH
  * @author Valentin But (v.but@tarent.de), tarent solutions GmbH
- * 
+ *
  */
 public class ElementDefinition {
 
@@ -59,7 +59,7 @@ public class ElementDefinition {
 
     /**
      * Standard constructor.
-     * 
+     *
      * @param name
      *            the {@link #name} {@link String}.
      * @param idOrName
@@ -81,7 +81,7 @@ public class ElementDefinition {
 
     /**
      * Convenience constructor (sets {@link #required} to {@code true} and {@link #type} to {@code null}).
-     * 
+     *
      * @param name
      *            the {@link #name} {@link String}.
      * @param idOrName
@@ -96,7 +96,7 @@ public class ElementDefinition {
 
     /**
      * Convenience constructor (sets {@link #type} to {@code null}).
-     * 
+     *
      * @param name
      *            the {@link #name} {@link String}.
      * @param idOrName
@@ -111,7 +111,7 @@ public class ElementDefinition {
 
     /**
      * Convenience constructor (sets {@link #required} to {@code true}).
-     * 
+     *
      * @param name
      *            the {@link #name} {@link String}.
      * @param idOrName
@@ -127,7 +127,7 @@ public class ElementDefinition {
     /**
      * Convenience constructor (sets {@link #required} to {@code true} and {@link #type} to {@code null} and
      * {@link #nextPageDefinition} to {@code null}).
-     * 
+     *
      * @param name
      *            the {@link #name} {@link String}.
      * @param idOrName

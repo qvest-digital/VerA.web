@@ -19,7 +19,7 @@ CREATE TABLE veraweb.link_uuid (
 /* Foreign key constraints                                                */
 /* ---------------------------------------------------------------------- */
 
-ALTER TABLE veraweb.link_uuid ADD CONSTRAINT link_uuid_fkey_person 
+ALTER TABLE veraweb.link_uuid ADD CONSTRAINT link_uuid_fkey_person
     FOREIGN KEY (personid) REFERENCES veraweb.tperson (pk) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 /* ---------------------------------------------------------------------- */

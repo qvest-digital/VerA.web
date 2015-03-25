@@ -26,7 +26,7 @@ import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.server.OctopusContext;
 
 /**
- * Dieses Bean repr�sentiert eine eMail-Vorlage und wird als Tupel
+ * Dieses Bean repräsentiert eine eMail-Vorlage und wird als Tupel
  * in der Tabelle <code>veraweb.tmaildraft</code> gespeichert.
  *
  * @author Christoph Jerolimov
@@ -45,9 +45,9 @@ public class MailDraft extends AbstractHistoryBean {
 	public String createdby;
 	/** Erstellt am */
 	public Timestamp created;
-	/** Ge�nder von */
+	/** Geändert von */
 	public String changedby;
-	/** Ge�ndert am */
+	/** Geändert am */
 	public Timestamp changed;
 
 	@Override

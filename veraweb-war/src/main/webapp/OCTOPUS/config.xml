@@ -180,9 +180,10 @@
 		</root>
 	</log4j:configuration>
 
-	<include file="config_import_export.xml" />
-	<include file="config_database_pools.xml" />
-	<include file="config_ldap_access.xml" />
-	<include file="config_mail_server.xml" />
-	<include file="config_worker_tasks.xml" />
+	<include systempath="/etc/veraweb" file="config_import_export.xml" />
+	<include systempath="/etc/veraweb" file="config_database_pools.xml" />
+	<include systempath="/etc/veraweb" file="config_ldap_access.xml" />
+	<include systempath="/etc/veraweb" file="config_mail_server.xml" />
+	<include systempath="/etc/veraweb" file="config_worker_tasks.xml" />
+	<include systempath="/etc/veraweb" file="config_override.xml" />
 </tcModuleConfig>

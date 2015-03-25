@@ -1,5 +1,5 @@
 #set($title = "Ein Fehler ist aufgetreten.")
-#parse("inc/header.vm")	
+#parse("inc/header.vm")
 
 <h1>Fehlermeldung</h1>
 
@@ -84,4 +84,4 @@ Bitte melden Sie dies Ihrem Administrator.</p>
 <!--
 $responseParams
 -->
-#parse("inc/footer.vm")	
+#parse("inc/footer.vm")

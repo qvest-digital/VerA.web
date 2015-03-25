@@ -32,7 +32,7 @@ public class Duration extends AbstractBean
 	public Integer days;
 
 	/**
-	 * 
+	 *
 	 */
 	public Duration()
 	{
@@ -43,7 +43,7 @@ public class Duration extends AbstractBean
 	}
 
 	/**
-	 * 
+	 *
 	 * @param value a string value representing a serialized period in the form P[y]Y[m]M[d]D, e.g. P5Y2M1D or P2M3D
 	 * @return
 	 */
@@ -93,10 +93,10 @@ public class Duration extends AbstractBean
 		}
 		return result;
 	}
-	
+
 	/**
 	 * The format string fmt is defined as follows (all output strings are in german, no localization is supported!):
-	 * 
+	 *
 	 *  %d - the number of days plus the word Tag(e) in its either singular or plural form
 	 *  %m - the number of months plus the word Monat(e) in its either singular or plural form
 	 *  %y - the number of years plus the word Jahr(e) in its either singular or plural form
@@ -104,7 +104,7 @@ public class Duration extends AbstractBean
 	 *  %M - same as %m but the resulting string will not contain the number of months if these are equal to 0
 	 *  %Y - same as %y but the resulting string will not contain the number of years if these are equal to 0
 	 *  %% - the percentage character
-	 * 
+	 *
 	 * @param fmt
 	 * @return String
 	 */
@@ -191,7 +191,7 @@ public class Duration extends AbstractBean
 	{
 		return this.toFormattedString( Duration.DEFAULT_FORMAT );
 	}
-	
+
 	@Override
     public String toString()
 	{

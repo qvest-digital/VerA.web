@@ -27,14 +27,14 @@ import de.tarent.aa.veraweb.cucumber.utils.NameUtil;
 
 /**
  * {@link Enum} for all pages.
- * 
+ *
  * @author Michael Kutz, tarent Solutions GmbH
  * @author Valentin But (v.but@tarent.de), tarent solutions GmbH
  */
 public enum PageDefinition {
 
-	/** 
-	 * Anmeldungsseite 
+	/**
+	 * Anmeldungsseite
 	 */
 	ANMELDUNGSSEITE("ShowLogin",
 	        new ElementDefinition("Header-Titel", "header.title"),
@@ -46,9 +46,9 @@ public enum PageDefinition {
 			new ElementDefinition("Infobox-Titel", "text.infoTitle"),
 			new ElementDefinition("Infobox-Text", "text.infoText"),
 	        new ElementDefinition("Fehler-Text", "text.error", false)),
-			
-	/** 
-     * Anmeldungsseite 
+
+	/**
+     * Anmeldungsseite
      */
     ABMELDUNGSSEITE("logout",
             new ElementDefinition("Header-Titel", "header.title"),
@@ -60,9 +60,9 @@ public enum PageDefinition {
             new ElementDefinition("Infobox-Titel", "text.infoTitle"),
             new ElementDefinition("Infobox-Text", "text.infoText"),
             new ElementDefinition("Fehler-Text", "text.error", false)),
-            
-    /** 
-     * Anmeldungsseite 
+
+    /**
+     * Anmeldungsseite
      */
     STARTSEITE_ANGEMELDET("default",
             new ElementDefinition("Abmelden", "menu.logout"),
@@ -70,22 +70,22 @@ public enum PageDefinition {
             new ElementDefinition("Person Neu", "menu.newPerson"),
             new ElementDefinition("Veranstaltung bearbeiten", "menu.searchEvent"),
 	        new ElementDefinition("Veranstaltung Neu", "menu.newEvent")),
-            
-    /** 
+
+    /**
      * Veranstaltung suchen
      */
     VERANSTALTUNG_SUCHEN(
             new ElementDefinition("Kurzbeschreibung-Feld", "input.shortname", HtmlType.INPUT),
             new ElementDefinition("Suche starten", "button.startSearch")),
-            
-    /** 
+
+    /**
      * Veranstaltung suchen
      */
     VERANSTALTUNG_AUSWAEHLEN(
             new ElementDefinition("Header-Titel", "header.title")),
 
-	/** 
-	 * Aufgabenübersichtsseite 
+	/**
+	 * Aufgabenübersichtsseite
 	 */
 	AUFGABENUEBERSICHTSEITE(
 	        new ElementDefinition("Infobox", "text.info"),
@@ -101,14 +101,14 @@ public enum PageDefinition {
 	        new ElementDefinition("Alle demarkieren", "uncheckAll"),
 	        new ElementDefinition("Löschen", "remove"),
             new ElementDefinition("Zurück", "cancel", VERANSTALTUNG_AUSWAEHLEN)),
-            
-    /** 
+
+    /**
      * Veranstaltung Detailansicht
      */
     VERANSTALTUNG_DETAILANSICHT(
             new ElementDefinition("Aufgaben", "tab.tasks", AUFGABENUEBERSICHTSEITE)),
-	        
-    /** 
+
+    /**
      * Aufgabendetailseite
      */
     AUFGABEDETAILSEITE(
@@ -124,20 +124,20 @@ public enum PageDefinition {
             new ElementDefinition("Speichern-Button", "button.save"),
             new ElementDefinition("Zurück-Button", "button.back"),
 	        new ElementDefinition("Header-Titel", "header.title"));
-	
 
-	/** 
-	 * URL of the page relative to the {@link GlobalConfig#getDnsaBaseUrl()}. 
+
+	/**
+	 * URL of the page relative to the {@link GlobalConfig#getDnsaBaseUrl()}.
 	 */
 	public final String url;
 
-	/** 
-	 * All {@link PageElementDefinition}s mapped to their name. 
+	/**
+	 * All {@link PageElementDefinition}s mapped to their name.
 	 */
 	private final Map<String, ElementDefinition> elementMap = new HashMap<String, ElementDefinition>();
 
-	/** 
-	 * All {@link PageElementDefinition}s. 
+	/**
+	 * All {@link PageElementDefinition}s.
 	 */
 	public final ElementDefinition[] elements;
 

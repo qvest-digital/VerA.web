@@ -41,24 +41,24 @@ import de.tarent.octopus.security.TcSecurityException;
 import de.tarent.octopus.server.OctopusContext;
 
 /**
- * Dieser Octopus-Worker erledigt Aufgaben, die Stellvertretungen betreffen.  
- * 
+ * Dieser Octopus-Worker erledigt Aufgaben, die Stellvertretungen betreffen.
+ *
  * @author mikel
  */
 public class ProxyWorker {
     //
     // Octopus-Aktionen
     //
-    /** Eingabeparameter f�r Aktion {@link #select(OctopusContext, String)} */
+    /** Eingabeparameter für Aktion {@link #select(OctopusContext, String)} */
     public static final String[] INPUT_select = {"proxyFor"};
-    /** Eingabeparameterzwang f�r Aktion {@link #select(OctopusContext, String)} */
+    /** Eingabeparameterzwang für Aktion {@link #select(OctopusContext, String)} */
     public static final boolean[] MANDATORY_select = {false};
     /**
      * Diese Aktion setzt den aktuellen Benutzer als Stellvertreter der aktuellen
      * Rolle ein.<br>
      * Je nach Ablauf wird als Status "noRole", "noProxy", "noGrant", "noGrantNow"
      * oder RESULT_OK gesetzt.
-     * 
+     *
      * @param octx Octopus-Kontext
      * @param proxyFor (optional) Rolle, die vertreten werden soll
      */
@@ -89,9 +89,9 @@ public class ProxyWorker {
             }
         }
     }
-    
+
     //
-    // gesch�tzte Hilfsmethoden
+    // geschützte Hilfsmethoden
     //
     Proxy getApplicableProxyEntry(OctopusContext octx, String proxyFor) throws BeanException, IOException {
         Database database = new DatabaseVeraWeb(octx);
@@ -99,7 +99,7 @@ public class ProxyWorker {
         // Vertretungen einsammeln
         WhereList whereClause = new WhereList();
         if (pConfig == null)
-            return null; // keine pers�nliche Konfiguration -> keine Stellvertretung
+            return null; // keine persönliche Konfiguration -> keine Stellvertretung
         else if (pConfig.getRole() != null)
             whereClause.addAnd(Expr.equal("proxy", pConfig.getRole()));
         else if (pConfig.getRoles() != null)
@@ -122,9 +122,9 @@ public class ProxyWorker {
         }
         return resultProxy;
     }
-    
+
     //
-    // gesch�tzte Member
+    // geschützte Member
     //
     private final static Logger logger = Logger.getLogger(ProxyWorker.class);
 }

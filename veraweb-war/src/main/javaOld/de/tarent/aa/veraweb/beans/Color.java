@@ -31,15 +31,15 @@ import de.tarent.octopus.server.OctopusContext;
  * @author mikel
  */
 public class Color extends AbstractBean {
-    /** pk serial NOT NULL: Prim�rschl�ssel */
+    /** pk serial NOT NULL: Primärschlüssel */
 	public Integer id;
     /** color varchar(100) NOT NULL: Name der Farbe */
 	public String name;
     /** rgb int4 NOT NULL: RGB-Wert der Farbe */
 	public Integer rgb;
-    /** addresstype int4 NOT NULL DEFAULT 0: Adresstyp, f�r den die Farbe genutzt werden soll */
+    /** addresstype int4 NOT NULL DEFAULT 0: Adresstyp, für den die Farbe genutzt werden soll */
 	public Integer addresstype;
-    /** locale int4 NOT NULL DEFAULT 0: Locale, f�r die die Farbe genutzt werden soll */
+    /** locale int4 NOT NULL DEFAULT 0: Locale, für die die Farbe genutzt werden soll */
 	public Integer locale;
 
     /**
@@ -77,10 +77,10 @@ public class Color extends AbstractBean {
 	}
 
     /**
-     * �berpr�ft das Bean auf innere Vollst�ndigkeit.
+     * Überprüft das Bean auf innere Vollständigkeit.
      * Hier wird getestet, ob die Kategorie einen nicht-leeren Namen hat.
      *
-     * @throws BeanException bei Unvollst�ndigkeit
+     * @throws BeanException bei Unvollständigkeit
      */
 	@Override
     public void verify() throws BeanException {

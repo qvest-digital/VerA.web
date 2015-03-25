@@ -28,7 +28,7 @@ import de.tarent.octopus.server.OctopusContext;
 /**
  * Diese Bean stellt einen Eintrag der Tabelle veraweb.timport dar,
  * einen Importvorgang.
- * 
+ *
  * @author mikel
  */
 public class Import extends AbstractHistoryBean {
@@ -40,9 +40,9 @@ public class Import extends AbstractHistoryBean {
     public Timestamp created;
     /** Erstellt von: createdby varchar(100) */
     public String createdby;
-    /** Ge�ndert am: changed timestamptz */
+    /** Geändert am: changed timestamptz */
     public Timestamp changed;
-    /** Ge�ndert von: changedby varchar(100) */
+    /** Geändert von: changedby varchar(100) */
     public String changedby;
     /** Datenherkunft: importsource varchar(250) */
     public String importsource;
@@ -56,7 +56,7 @@ public class Import extends AbstractHistoryBean {
      * Diese Methode testet, ob im aktuellen Kontext diese Bohne gelesen werden
      * darf.<br>
      * Test ist, ob der Benutzer allgemeine Schreibrechte hat.
-     * 
+     *
      * @param cntx Octopus-Kontext
      * @throws BeanException Wenn im angegebenen Kontext diese Bohne nicht gelesen werden darf.
      * @see de.tarent.aa.veraweb.beans.AbstractBean#checkRead(de.tarent.octopus.server.OctopusContext)
@@ -70,7 +70,7 @@ public class Import extends AbstractHistoryBean {
      * Diese Methode testet, ob im aktuellen Kontext diese Bohne geschrieben
      * werden darf.<br>
      * Test ist, ob der Benutzer allgemeine Schreibrechte hat.
-     * 
+     *
      * @param cntx Octopus-Kontext
      * @throws BeanException Wenn im angegebenen Kontext diese Bohne nicht geschrieben werden darf.
      * @see de.tarent.aa.veraweb.beans.AbstractBean#checkWrite(de.tarent.octopus.server.OctopusContext)

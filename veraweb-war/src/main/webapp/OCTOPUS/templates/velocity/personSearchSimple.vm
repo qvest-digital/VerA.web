@@ -34,10 +34,10 @@
 
 
             <div id="buttonPanel-bottom" class="textRight">
-                    <input type="submit" class="mainButton submit" name="search" value="Suchen" title="Suchen" /> 
-                    <input type="button" class="mainButton submit" name="cancel" value="Erweiterte Suche" title="Erweiterte Suche" onclick="window.location.href='${paths.staticWeb}do/ShowPersonSearch?action=person&search=clear'" /> 
+                    <input type="submit" class="mainButton submit" name="search" value="Suchen" title="Suchen" />
+                    <input type="button" class="mainButton submit" name="cancel" value="Erweiterte Suche" title="Erweiterte Suche" onclick="window.location.href='${paths.staticWeb}do/ShowPersonSearch?action=person&search=clear'" />
             </div>
-			
+
         </form>
     </div>
     <vera-info vera-stay>

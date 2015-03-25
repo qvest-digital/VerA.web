@@ -40,9 +40,9 @@ import javax.persistence.Table;
 
 /**
  * Entity 'Person'.
- * 
+ *
  * @author Valentin But (v.but@tarent.de), tarent solutions GmbH
- * 
+ *
  */
 @Entity
 @Table(name = "tperson")
@@ -154,7 +154,7 @@ public class Person extends AbstractEntity {
 
     /**
      * Get created by.
-     * 
+     *
      * @return the createdBy
      */
     public String getCreatedBy() {
@@ -163,7 +163,7 @@ public class Person extends AbstractEntity {
 
     /**
      * Set created by.
-     * 
+     *
      * @param createdBy
      *            the createdBy to set
      */
@@ -173,7 +173,7 @@ public class Person extends AbstractEntity {
 
     /**
      * Get changed by.
-     * 
+     *
      * @return the changedBy
      */
     public String getChangedBy() {
@@ -182,7 +182,7 @@ public class Person extends AbstractEntity {
 
     /**
      * Set changed by.
-     * 
+     *
      * @param changedBy
      *            the changedBy to set
      */
@@ -192,7 +192,7 @@ public class Person extends AbstractEntity {
 
     /**
      * Get creation date.
-     * 
+     *
      * @return the created
      */
     public Timestamp getCreated() {
@@ -201,7 +201,7 @@ public class Person extends AbstractEntity {
 
     /**
      * Set creation date.
-     * 
+     *
      * @param created
      *            the created to set
      */
@@ -211,7 +211,7 @@ public class Person extends AbstractEntity {
 
     /**
      * Get update date.
-     * 
+     *
      * @return the changed
      */
     public Timestamp getChanged() {
@@ -220,7 +220,7 @@ public class Person extends AbstractEntity {
 
     /**
      * Set update date.
-     * 
+     *
      * @param changed
      *            the changed to set
      */
@@ -230,7 +230,7 @@ public class Person extends AbstractEntity {
 
     /**
      * Get first name.
-     * 
+     *
      * @return the firstName
      */
     public String getFirstName() {
@@ -239,7 +239,7 @@ public class Person extends AbstractEntity {
 
     /**
      * Set first name.
-     * 
+     *
      * @param firstName
      *            the firstName to set
      */
@@ -249,7 +249,7 @@ public class Person extends AbstractEntity {
 
     /**
      * Get last name.
-     * 
+     *
      * @return the lastName
      */
     public String getLastName() {
@@ -258,7 +258,7 @@ public class Person extends AbstractEntity {
 
     /**
      * Set last name.
-     * 
+     *
      * @param lastName
      *            the lastName to set
      */
@@ -268,7 +268,7 @@ public class Person extends AbstractEntity {
 
     /**
      * Get assigned organization unit.
-     * 
+     *
      * @return the orgunit
      */
     public Orgunit getOrgunit() {
@@ -277,7 +277,7 @@ public class Person extends AbstractEntity {
 
     /**
      * Set assigned organization unit.
-     * 
+     *
      * @param orgunit
      *            the orgunit to set
      */
@@ -287,7 +287,7 @@ public class Person extends AbstractEntity {
 
     /**
      * Get assigned hosting events.
-     * 
+     *
      * @return the hostingEvents
      */
     public Set<Event> getHostingEvents() {
@@ -296,7 +296,7 @@ public class Person extends AbstractEntity {
 
     /**
      * Set assigned hosting events.
-     * 
+     *
      * @param hostingEvents
      *            the hostingEvents to set
      */

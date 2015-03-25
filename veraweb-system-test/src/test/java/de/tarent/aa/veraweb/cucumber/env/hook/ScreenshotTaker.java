@@ -46,10 +46,10 @@ import de.tarent.aa.veraweb.cucumber.formatter.RuntimeInfoCatcher;
 
 /**
  * This class represents a hook. They take a screenshot after a step failed.
- * 
+ *
  * @author Valentin But (v.but@tarent.de), tarent solutions GmbH
  * @version 1.0
- * 
+ *
  */
 public class ScreenshotTaker implements HandlerAfter, HandlerStop {
 
@@ -159,7 +159,7 @@ public class ScreenshotTaker implements HandlerAfter, HandlerStop {
      * is, that we can't hook at the mechanism which declare where the screenshots are stored. A solution is, that we
      * edit the output report.js file. We search for 'embedded.png' pattern and replace it with the path of the separate
      * directory. At the least we remove all embedded-files and replace the edited report.js with the original.
-     * 
+     *
      * To realize this feature we need a mapping between embedded- and separate path. The HTML-Formatter store the
      * embedded files simple: start with "embedded" followed by a number (which starts at 0 and increased by one for
      * each embedded file) followed by the file prefix such like ".png".

@@ -3,18 +3,18 @@
 #set($elementNameSex = "female")
 #set($elementNameSingular = "Farbe")
 #set($elementNamePlural = "Farben")
-#parse("inc/header.vm")	
+#parse("inc/header.vm")
 
 <div id="content_container">
 
 	<div id="breadcrumb" class="textRight marginBottom10">
 	    	<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Administration > Farben</span>
 	</div>
-		
+
 	<h1>Farben</h1>
-	
+
 	<form id="formlist" name="formlist" action="Color" method="POST">
-	
+
 		#if($errors.size() > 0)
 		<vera-warn>
 			#foreach($error in $errors)
@@ -22,7 +22,7 @@
 			#end
 		</vera-warn>
 		#end
-		
+
 		<input type="hidden" name="color1-id" value="$!color1.id">
 		<input type="hidden" name="color2-id" value="$!color2.id">
 		<input type="hidden" name="color3-id" value="$!color3.id">
@@ -40,17 +40,17 @@
 		<input type="hidden" id="color3-modified" name="color3-modified" value="false">
 		<input type="hidden" id="color4-modified" name="color4-modified" value="false">
 		<input type="hidden" name="limit" value="" />
-		
-				
+
+
 		<div id="main_content">
-			<div class="textRight mandatoryText tabs">* = Pflichtfelder</div>		
-			
+			<div class="textRight mandatoryText tabs">* = Pflichtfelder</div>
+
 			<table>
 				<tr>
 					<th>Bezeichnung*</th>
 					<th class="width15 textCenter">Farbwert (R G B)</th>
 				</tr>
-			
+
 				<tr>
                     <td colspan="2" class="bold">Inland: Ja - Geschlecht: Weiblich</td>
 				</tr>
@@ -72,7 +72,7 @@
 					<td><input type="text" name="color1-rgb" value="" onchange="setModified('color1')"></td>
 				</tr>
 				#end
-			
+
 				<tr>
                     <td colspan="2" class="bold">Inland: Ja - Geschlecht: M&auml;nnlich</td>
 				</tr>
@@ -94,7 +94,7 @@
 					<td><input type="text" name="color2-rgb" value="" onchange="setModified('color2')"></td>
 				</tr>
 				#end
-			
+
 				<tr>
                     <td colspan="2" class="bold">Inland: Nein - Geschlecht: Weiblich</td>
 				</tr>
@@ -116,7 +116,7 @@
 					<td><input type="text" name="color3-rgb" value="" onchange="setModified('color3')"></td>
 				</tr>
 				#end
-			
+
 				<tr>
                     <td colspan="2" class="bold">Inland: Nein - Geschlecht: M&auml;nnlich</td>
 				</tr>
@@ -138,16 +138,16 @@
 					<td><input type="text" name="color4-rgb" value="" onchange="setModified('color4')"></td>
 				</tr>
 				#end
-				
+
 				#parse("inc/list-direct-new.vm")
 			</table>
-			
+
 			#if($grants.isAdmin())
 				<div id="buttonPanel-bottom" class="textRight marginTop10">
 					<input type="submit" name="save" value="Speichern" title="Speichern" class="mainButton" />
 				</div>
-			#end	
-				
+			#end
+
 				<script type="text/javascript">
 				#if(!$grants.isAdmin())
 					disableForm(document.getElementById('formlist'));

@@ -37,14 +37,14 @@ public class UserConfig extends AbstractBean {
 	public String value;
 
 	/**
-	 * Hebt den Leseschutz f�r die User-Config auf.
+	 * Hebt den Leseschutz für die User-Config auf.
 	 */
 	@Override
     public void checkRead(OctopusContext cntx) throws BeanException {
 	}
 
 	/**
-	 * Hebt den Schreibschutz f�r die User-Config auf. 
+	 * Hebt den Schreibschutz für die User-Config auf.
 	 */
 	@Override
     public void checkWrite(OctopusContext cntx) throws BeanException {

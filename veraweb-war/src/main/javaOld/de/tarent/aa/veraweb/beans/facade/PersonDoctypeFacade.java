@@ -37,24 +37,24 @@ import de.tarent.octopus.server.OctopusContext;
 /**
  * Hilft beim Erstellen von Dokumenttypen und insbesondere beim
  * Erstellen der Freitextfelder und des Freitextfeld-Verbinders.
- * 
+ *
  * @author Christoph Jerolimov
  */
 public class PersonDoctypeFacade {
-	/** Alle Dokumenttypen werden neu erzeugt, ggf. alte �berschrieben! */
+	/** Alle Dokumenttypen werden neu erzeugt, ggf. alte überschrieben! */
 	public static final String CREATEDOCTYPE_ALL = "all";
 	/** Alle nicht existierenden Dokumenttypen werden erzeugt. */
 	public static final String CREATEDOCTYPE_NEW = "new";
-	/** Wie 'new', jedoch nur f�r Dokumenttypen mit dem Flag 99. */
+	/** Wie 'new', jedoch nur für Dokumenttypen mit dem Flag 99. */
 	public static final String CREATEDOCTYPE_FLAG = "flag:";
 	/** Die Dokumenttypen werden nicht automatisch erzeugt. */
 	public static final String CREATEDOCTYPE_NONE = "none";
 
-	/** Wird eingef�gt wenn sowohl das Feld davor als auch danach NICHT leer sind. */
+	/** Wird eingefügt wenn sowohl das Feld davor als auch danach NICHT leer sind. */
 	public static final String CREATEDOCTYPE_BOTH = "BOTH:";
-	/** Wird eingef�gt wenn das Feld davor NICHT leer ist. */
+	/** Wird eingefügt wenn das Feld davor NICHT leer ist. */
 	public static final String CREATEDOCTYPE_PREV = "PREV:";
-	/** Wird eingef�gt wenn das Feld danach NICHT leer ist. */
+	/** Wird eingefügt wenn das Feld danach NICHT leer ist. */
 	public static final String CREATEDOCTYPE_NEXT = "NEXT:";
 
 	protected final OctopusContext cntx;
@@ -70,7 +70,7 @@ public class PersonDoctypeFacade {
 
 	/**
 	 * Konstruktor zur verwenden aus einem Octopus-Worker herraus.
-	 * 
+	 *
 	 * @param cntx Octopus-Context
 	 * @param person Person-Eintrag, darf null sein.
 	 */
@@ -85,7 +85,7 @@ public class PersonDoctypeFacade {
 
 	/**
 	 * Konstruktor zum verwenden aus einer Testklasse herraus.
-	 * 
+	 *
 	 * @param person Person-Eintrag, darf null sein.
 	 * @param doctypeFormatA
 	 * @param doctypeFormatB
@@ -100,7 +100,7 @@ public class PersonDoctypeFacade {
 
 	/**
 	 * Setzt die Member und AddressFacade.
-	 * 
+	 *
 	 * @param addresstype
 	 * @param locale
 	 * @param hauptperson
@@ -111,8 +111,8 @@ public class PersonDoctypeFacade {
 	}
 
 	/**
-	 * Gibt einen Freitext zur�ck.
-	 * 
+	 * Gibt einen Freitext zurück.
+	 *
 	 * @param doctype PK eines Dokumenttypens
 	 * @param addresstype Addresstype (1 = Privat, ...) - default 2
 	 * @param locale Locale (1 = Latein, ...) - default 1
@@ -135,8 +135,8 @@ public class PersonDoctypeFacade {
 	}
 
 	/**
-	 * Gibt einen Freitext-Verbinder zur�ck.
-	 * 
+	 * Gibt einen Freitext-Verbinder zurück.
+	 *
 	 * @return Freitextfeld-Verbinder
 	 */
 	public String getFreitextVerbinder(Integer doctype, Integer addresstype, Integer locale) {
@@ -144,7 +144,7 @@ public class PersonDoctypeFacade {
 		PersonMemberFacade partner = person.getMemberFacade(false, locale);
 		if (isEmpty(main) || isEmpty(partner))
 			return "";
-		
+
 		String verbinder = ConfigWorker.getString(cntx, "freitextfeldverbinder");
 		if (verbinder != null && verbinder.length() != 0)
 			return verbinder;
@@ -153,7 +153,7 @@ public class PersonDoctypeFacade {
 
 	/**
 	 * Erstellt ein Freitextfeld eines Dokumenttypens.
-	 * 
+	 *
 	 * @return Liste mit 'richtigen' Inhalten.
 	 */
 	protected String getFreitext(List params) throws BeanException, IOException {
@@ -163,7 +163,7 @@ public class PersonDoctypeFacade {
 			String field = getField(key);
 			output.add(field);
 		}
-		
+
 		StringBuffer buffer = new StringBuffer();
 		for (int i = 0; i < output.size(); i++) {
 			String key = (String)output.get(i);
@@ -202,13 +202,13 @@ public class PersonDoctypeFacade {
 	}
 
 	/**
-	 * Gibt zu einem �bergebenen Key einen entsprechenden Eintrag
-	 * aus der �bergebenen Person oder der Facade zur�ck.
-	 * Wenn die �bergebene PersonMemberFacade null ist,
+	 * Gibt zu einem übergebenen Key einen entsprechenden Eintrag
+	 * aus der übergebenen Person oder der Facade zurück.
+	 * Wenn die übergebene PersonMemberFacade null ist,
 	 * werden die Daten der lateinischen Hauptperson verwendet.
-	 * Wenn die �bergebene PersonAddressFacade null ist,
-	 * werden die lateinischen Gesch�ftsdaten verwendet.
-	 * 
+	 * Wenn die übergebene PersonAddressFacade null ist,
+	 * werden die lateinischen Geschäftsdaten verwendet.
+	 *
 	 * @param key Bean-Key
 	 * @return Feldinhalt
 	 * @throws BeanException
@@ -269,7 +269,7 @@ public class PersonDoctypeFacade {
 	 */
 	public String getSalutation() throws BeanException, IOException {
 		Integer salutationId = memberFacade.getSalutationFK();
-		
+
 		if (salutationId != null && salutationId.intValue() != 0) {
 			SalutationDoctype sd = doctypeId == null ? null : (SalutationDoctype)
 					database.getBean("SalutationDoctype",

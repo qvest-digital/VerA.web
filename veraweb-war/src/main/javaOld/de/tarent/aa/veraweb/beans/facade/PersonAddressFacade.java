@@ -21,7 +21,7 @@ package de.tarent.aa.veraweb.beans.facade;
 
 /**
  * Definiert eine Address-Facade, inkl. Strasse, PLZ, Ort, etc.
- * 
+ *
  * @author Michael Klink, Christoph Jerolimov
  */
 public interface PersonAddressFacade {
@@ -31,12 +31,12 @@ public interface PersonAddressFacade {
 	/** @return Firma / Institution */
 	public String getCompany();
 
-	/** @return Stra�e und Hausnummer */
+	/** @return Straße und Hausnummer */
 	public String getStreet();
 
 	/** @return PLZ */
 	public String getZipCode();
-	
+
 	/** @return sBundesland **/
 	public String getState();
 
@@ -61,7 +61,7 @@ public interface PersonAddressFacade {
 	/** @return Telefonnummer */
 	public String getPhone();
 
-	/** @return Faxger�tnummer */
+	/** @return Faxgerätnummer */
 	public String getFax();
 
 	/** @return Mobiltelefonnummer */
@@ -79,12 +79,12 @@ public interface PersonAddressFacade {
 	/** Setzt die Firma / Institutition */
 	public void setCompany(String value);
 
-	/** Setzt die Stra�e und Hausnummer */
+	/** Setzt die Straße und Hausnummer */
 	public void setStreet(String value);
 
 	/** Setzt die PLZ */
 	public void setZipCode(String value);
-	
+
 	/** Setzt das Bundesland **/
 	public void setState(String value);
 
@@ -109,7 +109,7 @@ public interface PersonAddressFacade {
 	/** Setzt die Telefonummer */
 	public void setPhone(String value);
 
-	/** Setzt die Faxger�tnummer */
+	/** Setzt die Faxgerätnummer */
 	public void setFax(String value);
 
 	/** Setzt die Mobiltelefonnummer */

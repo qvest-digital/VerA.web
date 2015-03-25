@@ -30,7 +30,7 @@ import de.tarent.octopus.beans.veraweb.ListWorkerVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
 
 /**
- * Dieser Octopus-Worker repr�sentiert eine �bersichtsseite
+ * Dieser Octopus-Worker repräsentiert eine übersichtsseite
  * sowie die Detailseiten zu eMail-Vorlagen.
  * Siehe Task MailDraftList und MailDraftDetail.<br><br>
  *
@@ -51,15 +51,15 @@ public class MailOutboxWorker extends ListWorkerVeraWeb {
     //
     // Octopus-Aktionen
     //
-	/** Octopus-Eingabe-Parameter f�r {@link #showDetail(OctopusContext, Integer, MailOutbox)} */
+	/** Octopus-Eingabe-Parameter für {@link #showDetail(OctopusContext, Integer, MailOutbox)} */
 	public static final String INPUT_showDetail[] = { "id", "mailoutbox" };
-	/** Octopus-Eingabe-Parameterzwang f�r {@link #showDetail(OctopusContext, Integer, MailOutbox)} */
+	/** Octopus-Eingabe-Parameterzwang für {@link #showDetail(OctopusContext, Integer, MailOutbox)} */
 	public static final boolean MANDATORY_showDetail[] = { false, false };
-	/** Octopus-Ausgabe-Parameter f�r {@link #showDetail(OctopusContext, Integer, MailOutbox)} */
+	/** Octopus-Ausgabe-Parameter für {@link #showDetail(OctopusContext, Integer, MailOutbox)} */
 	public static final String OUTPUT_showDetail = "mailoutbox";
 	/**
-	 * L�dt eine eMail aus dem Postausgang und stellt
-	 * diesen in den Content, wenn eine ID �bergeben wurde
+	 * Lädt eine eMail aus dem Postausgang und stellt
+	 * diesen in den Content, wenn eine ID übergeben wurde
 	 * und sich noch keine eMail im Content befindet.
 	 *
 	 * @param cntx Octopus-Context
@@ -76,15 +76,15 @@ public class MailOutboxWorker extends ListWorkerVeraWeb {
 		return mailOutbox;
 	}
 
-	/** Octopus-Eingabe-Parameter f�r {@link #saveDetail(OctopusContext, Boolean)} */
+	/** Octopus-Eingabe-Parameter für {@link #saveDetail(OctopusContext, Boolean)} */
 	public static final String INPUT_saveDetail[] = { "save" };
-	/** Octopus-Eingabe-Parameterzwang f�r {@link #saveDetail(OctopusContext, Boolean)} */
+	/** Octopus-Eingabe-Parameterzwang für {@link #saveDetail(OctopusContext, Boolean)} */
 	public static final boolean MANDATORY_saveDetail[] = { false };
-	/** Octopus-Ausgabe-Parameter f�r {@link #saveDetail(OctopusContext, Boolean)} */
+	/** Octopus-Ausgabe-Parameter für {@link #saveDetail(OctopusContext, Boolean)} */
 	public static final String OUTPUT_saveDetail = "mailoutbox";
 	/**
-	 * Speichert die �bergebenen eMail im Postausgang und setzt
-	 * den Status auf 'zu versenden' zur�ck.
+	 * Speichert die übergebenen eMail im Postausgang und setzt
+	 * den Status auf 'zu versenden' zurück.
 	 *
 	 * @param cntx Octopus-Context
 	 * @param save Gibt an ob eMail-Entwurf gespeichert werden soll.

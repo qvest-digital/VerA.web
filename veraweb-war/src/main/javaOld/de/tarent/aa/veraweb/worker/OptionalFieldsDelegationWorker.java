@@ -58,7 +58,7 @@ public class OptionalFieldsDelegationWorker {
 	public OptionalFieldsDelegationWorker(OctopusContext ctx) {
 		this.database = new DatabaseVeraWeb(ctx);
 	}
-	
+
 	/**
 	 * Persist or update the given {@link OptionalDelegationField}.
      *
@@ -75,7 +75,7 @@ public class OptionalFieldsDelegationWorker {
 			this.createOptionalDelegationField(optionalDelegationField);
 		}
 	}
-	
+
 	/**
 	 * Persists the given "OptionalDelegationField"-object.
      *
@@ -129,7 +129,7 @@ public class OptionalFieldsDelegationWorker {
         final ResultSet resultSet = database.result(select);
         return getOptionalFieldsAsList(resultSet);
 	}
-	
+
     /**
 	 * Get the optional delegation fields by guest id.
      *
@@ -164,7 +164,7 @@ public class OptionalFieldsDelegationWorker {
         select.select("fk_delegation_field");
         select.select("value");
         select.select(OPTIONAL_FIELDS_TABLE + ".label as label");
-    	
+
 		return null;
 	}
 
@@ -197,7 +197,7 @@ public class OptionalFieldsDelegationWorker {
 		if(resultSet.next()) {
         	return true;
 		}
-		
+
 		return false;
 	}
 

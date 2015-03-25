@@ -32,8 +32,8 @@ import de.tarent.octopus.beans.veraweb.ListWorkerVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
 
 /**
- * Dieser Octopus-Worker stellt eine �bersichtsliste aller Verteiler bereit.
- * 
+ * Dieser Octopus-Worker stellt eine übersichtsliste aller Verteiler bereit.
+ *
  * @author Hendrik, Christoph Jerolimov
  * @version $Revision: 1.1 $
  */

@@ -48,7 +48,7 @@ import de.tarent.aa.veraweb.db.entity.Person;
 /**
  * Class for mapping between {@link DataTable} columns used in cucumber scenarios and real properties of corresponding
  * Entity.
- * 
+ *
  * @author Valentin But (v.but@tarent.de), tarent solutions GmbH
  */
 public class EntityMapping {
@@ -84,7 +84,7 @@ public class EntityMapping {
 
     /**
      * Create entities based on given <code>dataTable</code> and entity mapping information.
-     * 
+     *
      * @param dataTable
      *            {@link DataTable}
      * @param clazz
@@ -102,7 +102,7 @@ public class EntityMapping {
 
     /**
      * Get entities based on given <code>dataTable</code> and entity mapping information.
-     * 
+     *
      * @param dataTable
      *            {@link DataTable}
      * @param entityName
@@ -148,7 +148,7 @@ public class EntityMapping {
 
     /**
      * Helper method to fill entity with given property value.
-     * 
+     *
      * @param entityObject
      *            entity to be filled with new property
      * @param propertyChain
@@ -233,7 +233,7 @@ public class EntityMapping {
     /**
      * Utility method for accessing any field within an instance of an object and updating field value, ignoring access
      * modifieres.
-     * 
+     *
      * @param o
      *            Object containing request field
      * @param fieldName
@@ -282,7 +282,7 @@ public class EntityMapping {
 
     /**
      * Helper method to parse a date string of format 'dd.MM.yyyy'.
-     * 
+     *
      * @param dateString
      *            date string
      * @return {@link Date}
@@ -293,10 +293,10 @@ public class EntityMapping {
         SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
         return sdf.parse(dateString);
     }
-    
+
     /**
      * Helper method to parse a timestamp string of format 'dd.MM.yyyy'.
-     * 
+     *
      * @param dateString
      *            date string
      * @return {@link Date}
@@ -306,7 +306,7 @@ public class EntityMapping {
     public static Timestamp parseTimestamp(String dateString) throws ParseException {
         Pattern regex = Pattern.compile("^heute\\(([-+]{0,1})(\\d)\\)(\\s\\d{1,2}(?::\\d\\d)?){0,1}(?:\\sUhr)?$");
         Matcher matcher = regex.matcher(dateString);
-        
+
         String prefix = null;
         String days = null;
         String hours = null;
@@ -322,11 +322,11 @@ public class EntityMapping {
                 minutes = matcher.group(4);
             }
         }
-        
+
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.DAY_OF_MONTH, Integer.parseInt(days));
         cal.set(Calendar.MILLISECOND, 0);
-        
+
         if (hours == null || minutes == null) {
             cal.set(Calendar.HOUR_OF_DAY, 0);
             cal.set(Calendar.MINUTE, 0);
@@ -336,13 +336,13 @@ public class EntityMapping {
             cal.set(Calendar.MINUTE, Integer.valueOf(minutes).intValue());
             cal.set(Calendar.SECOND, 0);
         }
-        
+
         return new Timestamp(cal.getTimeInMillis());
     }
 
     /**
      * Helper method to convert boolean string.
-     * 
+     *
      * @param booleanString
      *            boolean string
      * @return boolean value

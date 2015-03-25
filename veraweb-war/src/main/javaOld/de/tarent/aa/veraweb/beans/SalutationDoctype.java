@@ -31,7 +31,7 @@ public class SalutationDoctype extends AbstractBean {
 	public Integer doctype;
 	/** Die Grundform der Anrede. */
 	public String name;
-	/** Die f�r diesen Dokumenttyp spezialisierte Form der Anrede. */
+	/** Die für diesen Dokumenttyp spezialisierte Form der Anrede. */
 	public String text;
 
 	@Override

@@ -58,7 +58,7 @@ InstallAC = function(frm,fld,sb,pn,rl,hd,sm,ufn) {
 	la=yb(rl);
 	if(Sb.indexOf(la+"|")==-1) {
 		W=true;aa=false;va=false;ka=false
-	} else { 
+	} else {
 		W=false;aa=true;
 		if(la.indexOf("zh")==0)va=false;ka=true}if(!hd)hd=false;Ha=hd;if(!sm)sm="query";y=sm;xb=ufn;kc()}
 ;function ub(){za=true;a.blur();setTimeout("sfi();",10);return}

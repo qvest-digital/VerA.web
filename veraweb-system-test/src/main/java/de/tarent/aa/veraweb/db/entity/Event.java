@@ -38,9 +38,9 @@ import org.joda.time.DateMidnight;
 
 /**
  * Entity 'Event'.
- * 
+ *
  * @author Valentin But (v.but@tarent.de), tarent solutions GmbH
- * 
+ *
  */
 @Entity
 @Table(name = "tevent")
@@ -157,7 +157,7 @@ public class Event extends AbstractEntity {
     @ManyToOne()
     @JoinColumn(name = "fk_host", referencedColumnName = "pk")
     private Person host;
-    
+
     /**
      * Event's assigned tasks.
      */
@@ -172,7 +172,7 @@ public class Event extends AbstractEntity {
 
     /**
      * Get id.
-     * 
+     *
      * @return the id
      */
     public Long getId() {
@@ -181,7 +181,7 @@ public class Event extends AbstractEntity {
 
     /**
      * Set id.
-     * 
+     *
      * @param id
      *            the id to set
      */
@@ -191,7 +191,7 @@ public class Event extends AbstractEntity {
 
     /**
      * Get invitation type.
-     * 
+     *
      * @return the invitationType
      */
     public Integer getInvitationType() {
@@ -200,7 +200,7 @@ public class Event extends AbstractEntity {
 
     /**
      * Set invitation type.
-     * 
+     *
      * @param invitationType
      *            the invitationType to set
      */
@@ -210,7 +210,7 @@ public class Event extends AbstractEntity {
 
     /**
      * Get short name.
-     * 
+     *
      * @return the shortName
      */
     public String getShortName() {
@@ -219,7 +219,7 @@ public class Event extends AbstractEntity {
 
     /**
      * Set short name.
-     * 
+     *
      * @param shortName
      *            the shortName to set
      */
@@ -229,7 +229,7 @@ public class Event extends AbstractEntity {
 
     /**
      * Get event name.
-     * 
+     *
      * @return the eventName
      */
     public String getEventName() {
@@ -238,7 +238,7 @@ public class Event extends AbstractEntity {
 
     /**
      * Set event name.
-     * 
+     *
      * @param eventName
      *            the eventName to set
      */
@@ -248,7 +248,7 @@ public class Event extends AbstractEntity {
 
     /**
      * Get start date.
-     * 
+     *
      * @return the startDate
      */
     public Timestamp getStartDate() {
@@ -257,7 +257,7 @@ public class Event extends AbstractEntity {
 
     /**
      * Set start date.
-     * 
+     *
      * @param startDate
      *            the startDate to set
      */
@@ -267,7 +267,7 @@ public class Event extends AbstractEntity {
 
     /**
      * Get end date.
-     * 
+     *
      * @return the endDate
      */
     public Timestamp getEndDate() {
@@ -276,7 +276,7 @@ public class Event extends AbstractEntity {
 
     /**
      * Set end date.
-     * 
+     *
      * @param endDate
      *            the endDate to set
      */
@@ -286,7 +286,7 @@ public class Event extends AbstractEntity {
 
     /**
      * Set flagging for inviting host partner.
-     * 
+     *
      * @return the inviteHostPartner
      */
     public Integer getInviteHostPartner() {
@@ -295,7 +295,7 @@ public class Event extends AbstractEntity {
 
     /**
      * Get flagging for inviting host partner.
-     * 
+     *
      * @param inviteHostPartner
      *            the inviteHostPartner to set
      */
@@ -305,7 +305,7 @@ public class Event extends AbstractEntity {
 
     /**
      * Get host name.
-     * 
+     *
      * @return the hostname
      */
     public String getHostname() {
@@ -314,7 +314,7 @@ public class Event extends AbstractEntity {
 
     /**
      * Set host name.
-     * 
+     *
      * @param hostname
      *            the hostname to set
      */
@@ -324,7 +324,7 @@ public class Event extends AbstractEntity {
 
     /**
      * Get maximum count of guests.
-     * 
+     *
      * @return the maxGuest
      */
     public Integer getMaxGuest() {
@@ -333,7 +333,7 @@ public class Event extends AbstractEntity {
 
     /**
      * Set maximum count of guests.
-     * 
+     *
      * @param maxGuest
      *            the maxGuest to set
      */
@@ -343,7 +343,7 @@ public class Event extends AbstractEntity {
 
     /**
      * Get location.
-     * 
+     *
      * @return the location
      */
     public String getLocation() {
@@ -352,7 +352,7 @@ public class Event extends AbstractEntity {
 
     /**
      * Set location.
-     * 
+     *
      * @param location
      *            the location to set
      */
@@ -362,7 +362,7 @@ public class Event extends AbstractEntity {
 
     /**
      * Get note.
-     * 
+     *
      * @return the note
      */
     public String getNote() {
@@ -371,7 +371,7 @@ public class Event extends AbstractEntity {
 
     /**
      * Set note.
-     * 
+     *
      * @param note
      *            the note to set
      */
@@ -381,7 +381,7 @@ public class Event extends AbstractEntity {
 
     /**
      * Get created by name.
-     * 
+     *
      * @return the createdBy
      */
     public String getCreatedBy() {
@@ -390,7 +390,7 @@ public class Event extends AbstractEntity {
 
     /**
      * Set created by name.
-     * 
+     *
      * @param createdBy
      *            the createdBy to set
      */
@@ -400,7 +400,7 @@ public class Event extends AbstractEntity {
 
     /**
      * Get changed by name.
-     * 
+     *
      * @return the changedBy
      */
     public String getChangedBy() {
@@ -409,7 +409,7 @@ public class Event extends AbstractEntity {
 
     /**
      * Set changed by name.
-     * 
+     *
      * @param changedBy
      *            the changedBy to set
      */
@@ -419,7 +419,7 @@ public class Event extends AbstractEntity {
 
     /**
      * Get creation date.
-     * 
+     *
      * @return the created
      */
     public Timestamp getCreated() {
@@ -428,7 +428,7 @@ public class Event extends AbstractEntity {
 
     /**
      * Set creation date.
-     * 
+     *
      * @param created
      *            the created to set
      */
@@ -438,7 +438,7 @@ public class Event extends AbstractEntity {
 
     /**
      * Get update date.
-     * 
+     *
      * @return the changed
      */
     public Timestamp getChanged() {
@@ -447,7 +447,7 @@ public class Event extends AbstractEntity {
 
     /**
      * Set update date
-     * 
+     *
      * @param changed
      *            the changed to set
      */
@@ -457,7 +457,7 @@ public class Event extends AbstractEntity {
 
     /**
      * Get assigned organization unit.
-     * 
+     *
      * @return the orgunit
      */
     public Orgunit getOrgunit() {
@@ -466,7 +466,7 @@ public class Event extends AbstractEntity {
 
     /**
      * Set assigned organization unit.
-     * 
+     *
      * @param orgunit
      *            the orgunit to set
      */
@@ -475,9 +475,9 @@ public class Event extends AbstractEntity {
     }
 
     /**
-     * 
+     *
      * Get assigned host.
-     * 
+     *
      * @return the host
      */
     public Person getHost() {
@@ -486,7 +486,7 @@ public class Event extends AbstractEntity {
 
     /**
      * Set assigned host.
-     * 
+     *
      * @param host
      *            the host to set
      */
@@ -507,7 +507,7 @@ public class Event extends AbstractEntity {
     public void setTasks(Set<Task> tasks) {
         this.tasks = tasks;
     }
-    
+
     public static Event fillEmptyMandatoryFields(final Event event) {
         if (event.getStartDate() == null) {
             event.setStartDate(new Timestamp(DateMidnight.now().minus(1).getMillis()));

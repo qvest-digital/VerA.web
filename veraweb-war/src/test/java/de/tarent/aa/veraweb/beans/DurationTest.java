@@ -48,7 +48,7 @@ public class DurationTest extends TestCase {
 
 	public void testToFormattedString() {
 		Duration d = Duration.fromString( "P1023Y4D" );
-		
+
 		String t = d.toFormattedString( "%y%m%d" );
 		System.out.println( t );
 		Assert.assertEquals( "1023 Jahre 0 Monate 4 Tage", t );

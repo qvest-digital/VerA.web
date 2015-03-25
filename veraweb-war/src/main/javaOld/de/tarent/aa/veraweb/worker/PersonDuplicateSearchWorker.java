@@ -50,11 +50,11 @@ import de.tarent.octopus.server.OctopusContext;
 
 /**
  * This worker implements change request 2.3 for version 1.2.0.
- * 
+ *
  * It enables the user to run a duplicate search over all persons
  * in the database. Duplicates are found by searching for equal
  * firstname and lastname names.
- * 
+ *
  * @author cklein
  */
 public class PersonDuplicateSearchWorker extends PersonListWorker
@@ -86,7 +86,7 @@ public class PersonDuplicateSearchWorker extends PersonListWorker
 		this.extendWhere(cntx, select);
 		this.extendLimit( cntx, select );
 		select.orderBy( Order.asc( "lastname_a_e1" ).andAsc( "firstname_a_e1" ) );
-		
+
 		/* FIXME remove this temporary fix ASAP
 		 * cklein 2009-09-17
 		 * Temporary workaround for NPE Exception in Conjunction with temporary Connection Pooling Fix in tarent-database
@@ -96,19 +96,19 @@ public class PersonDuplicateSearchWorker extends PersonListWorker
 		 */
 		final ArrayList< Map > result = new ArrayList< Map >();
 		final List resultList = getResultList(database, select);
-		
+
 		return getListWithOrdering(convertFromResultListToArrayList(resultList));
 	}
-	
+
 	/**
 	 * Conversion to manipulate dinamic lists
-	 * 
+	 *
 	 * @param resultList List result list
 	 * @return ArrayList<Map>
 	 */
 	public ArrayList<Map> convertFromResultListToArrayList(List resultList) {
 		final ArrayList< Map > result = new ArrayList< Map >();
-		
+
 		for (int i = 0; i < resultList.size(); i++) {
 			final HashMap<String, Object> tmp = new HashMap<String, Object>();
 			final Set<String> keys = ((ResultMap) resultList.get(i)).keySet();
@@ -117,10 +117,10 @@ public class PersonDuplicateSearchWorker extends PersonListWorker
 			}
 			result.add((Map) tmp);
 		}
-			
+
 		return result;
 	}
-	
+
 	/**
 	 * Giving correct order to the duplicates list - THE DUPLICATES MUST GO TOGETHER
 	 * @param initList ArrayList<Map>
@@ -129,13 +129,13 @@ public class PersonDuplicateSearchWorker extends PersonListWorker
 	public ArrayList<Map> getListWithOrdering(ArrayList<Map> initList) {
 
 		final ArrayList< Map > result = new ArrayList< Map >();
-		
+
 		for (int i = 0; i < initList.size(); i++) {
 			Map tmp = initList.get(i);
-			
+
 			for (int j = 0; j < initList.size(); j++) {
 				Map tmp2 = initList.get(j);
-				
+
 				if (checkDuplicateNames(tmp,tmp2) && i != j) {
 					result.add((Map) tmp2);
 					initList.remove(j);
@@ -148,10 +148,10 @@ public class PersonDuplicateSearchWorker extends PersonListWorker
 				i--;
 			}
 		}
-		
+
 		return result;
 	}
-	
+
 	/**
 	 * Checking duplicates result between duplicates
 	 * @param tmp Map
@@ -160,17 +160,17 @@ public class PersonDuplicateSearchWorker extends PersonListWorker
 	 */
 	public Boolean checkDuplicateNames(Map tmp, Map tmp2) {
 		CharacterPropertiesReader cpr = new CharacterPropertiesReader();
-		
+
 		String firstname1 = cpr.convertUmlauts((String) tmp.get("firstname_a_e1"));
 		String lastname1 = cpr.convertUmlauts((String) tmp.get("lastname_a_e1"));
 		String firstname2 = cpr.convertUmlauts((String) tmp2.get("firstname_a_e1"));
 		String lastname2 = cpr.convertUmlauts((String) tmp2.get("lastname_a_e1"));
-		
+
 		if ((firstname1.equalsIgnoreCase(firstname2) && lastname1.equals(lastname2))
 				|| (firstname1.equalsIgnoreCase(lastname2) && lastname1.equals(firstname2))) {
 			return true;
 		}
-		
+
 		return false;
 	}
 

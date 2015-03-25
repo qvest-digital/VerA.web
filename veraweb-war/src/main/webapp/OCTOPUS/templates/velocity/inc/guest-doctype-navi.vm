@@ -8,9 +8,9 @@
 			<li class="img"><a href="ShowGuestDoctype?offset=1"><img src="${paths.staticWeb}images/paging_arrow_left_last_active.png" title="Erster Gast" style="cursor: pointer;"/></a></li>
 			<li class="img"><a href="ShowGuestDoctype?offset=$offset"><img src="${paths.staticWeb}images/paging_arrow_left_active.png" title="Erster Gast" style="cursor: pointer;"/></a></li>
 		#end
-		
+
 		Gast $search.offset von $search.count
-		
+
 		#set($offset = $search.offset + 1)
 		#if ($offset > $search.count)
 			<li class="img inactive"><a><img src="${paths.staticWeb}images/paging_arrow_right.png" title="N&auml;chster Gast" style="cursor: pointer;"/></a></li>

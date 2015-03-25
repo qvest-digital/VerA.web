@@ -11,16 +11,16 @@
 #set($elementNameSex = "male")
 #set($elementNameSingular = "Benutzer")
 #set($elementNamePlural = "Benutzer")
-#parse("inc/header.vm")	
+#parse("inc/header.vm")
 
 <div id="content_container">
 
 	<div id="breadcrumb" class="textRight marginBottom10">
 	    	<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Administration > Benutzer</span>
 	</div>
-	
+
 	<h1>Benutzer</h1>
-	
+
 	<form id="formlist" name="formlist" action="$octopusRequest.task" method="POST">
 		#if($listerrors && $listerrors.size() > 0)
 		<vera-warn>
@@ -29,7 +29,7 @@
 			#end
 		</vera-warn>
 		#end
-		
+
 		<input type="hidden" name="start" value="">
 		<input type="hidden" name="selectNone" value="true">
 		<input type="hidden" name="doInsert" value="true">
@@ -39,18 +39,18 @@
 		#if($order)
 			<input type="hidden" name="order" value="$order">
 		#end
-		
+
 		<span class="inlineLabel" id="actionPanel">
 			<strong>Markierte(n) Benutzer</strong>
 			<input type="submit" name="remove" value="L&ouml;schen" class="button" title="Markierte(n) Benutzer l&ouml;schen" />
 		</span>
-		
+
 		<div id="main_content">
-					
+
 			#foreach($bean in $list)
 			<input type="hidden" name="list" value="$bean.id">
 			#end
-			
+
 			<div class="textRight mandatoryText">* = Pflichtfelder</div>
 			<table>
 				<tr style="height: 20px;">
@@ -151,20 +151,20 @@
 			 #end
 				</tr>
 			#end
-			
+
     			#if ($listparam.count == 0)
                     <tr>
 						<td colspan="99">Es wurden keine Daten gefunden</td>
 					</tr>
     			#end
-    			
+
 			#set($itemName = "Benutzer")
 			#parse("inc/list-navi-new.vm")
 			#parse("inc/list-direct-new.vm")
-			
+
 			</table>
 
-			
+
 			<div class="textRight marginTop10" id="buttonPanel-bottom">
 				<input type="submit" name="save" value="Speichern" title="Speichern" class="mainButton" />
 			</div>

@@ -31,9 +31,9 @@ import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
 
 /**
- * Worker der eine Autovervollst�ndigung verschiedener Stammdaten zur
- * Verf�gung stellt.
- *  
+ * Worker der eine Autovervollständigung verschiedener Stammdaten zur
+ * Verfügung stellt.
+ *
  * @author Christoph
  */
 public class CompleteWorker {
@@ -47,7 +47,7 @@ public class CompleteWorker {
 	 * @param table
 	 * @param column
 	 * @param query
-	 * @return Liste mit den 10 ersten Eintr�gen.
+	 * @return Liste mit den 10 ersten Einträgen.
 	 * @throws BeanException
 	 */
 	private List getList(OctopusContext cntx, String table, String column, String query) throws BeanException {
@@ -68,8 +68,8 @@ public class CompleteWorker {
 	/**
 	 * @param cntx Octopus-Context
 	 * @param query Aktuelle Benutzereingabe
-	 * @return Liste mit �hnlichen Locations.
-	 * @throws BeanException 
+	 * @return Liste mit ähnlichen Locations.
+	 * @throws BeanException
 	 */
 	public List completeLocation(OctopusContext cntx, String query) throws BeanException {
 		return getList(cntx, "veraweb.tlocation", "locationname", query);

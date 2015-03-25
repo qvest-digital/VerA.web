@@ -23,7 +23,7 @@ import java.sql.Timestamp;
 
 /**
  * Definiert eine Member-Facade, inkl. Vorname, Nachname, etc.
- * 
+ *
  * @author Michael Klink, Christoph Jerolimov
  */
 public interface PersonMemberFacade {
@@ -32,7 +32,7 @@ public interface PersonMemberFacade {
 
 	/** @return Anrede-ID */
 	public Integer getSalutationFK();
-	
+
 	/** @return Akad. Titel */
 	public String getTitle();
 
@@ -41,14 +41,14 @@ public interface PersonMemberFacade {
 
 	/** @return Nachname */
 	public String getLastname();
-	
+
 	/** @return Firma */
 	public String getCompany();
-	
-	/** @return Flag f�r {@link PersonConstants#DOMESTIC_INLAND Inland} oder {@link PersonConstants#DOMESTIC_AUSLAND Ausland} */
+
+	/** @return Flag für {@link PersonConstants#DOMESTIC_INLAND Inland} oder {@link PersonConstants#DOMESTIC_AUSLAND Ausland} */
 	public String getDomestic();
 
-	/** @return Flag f�r {@link PersonConstants#SEX_MALE m�nnlich} oder {@link PersonConstants#SEX_FEMALE weiblich} */
+	/** @return Flag für {@link PersonConstants#SEX_MALE männlich} oder {@link PersonConstants#SEX_FEMALE weiblich} */
 	public String getSex();
 
 	/** @return Geburtsdatum */
@@ -63,66 +63,66 @@ public interface PersonMemberFacade {
 	/** @return Sprachen */
 	public String getLanguages();
 
-	/** @return Nationalit�t */
+	/** @return Nationalität */
 	public String getNationality();
 
 	/** @return Bemerkung */
 	public String getNote();
 
-	/** @return Bemerkung f�r die Orga */
+	/** @return Bemerkung für die Orga */
 	public String getNoteOrga();
 
-	/** @return Bemerkung f�r den Gastgeber */
+	/** @return Bemerkung für den Gastgeber */
 	public String getNoteHost();
 
-	/** �ndert Anrede */
+	/** Ändert Anrede */
 	public void setSalutation(String value);
 
-	/** �ndert Anrede-ID */
+	/** Ändert Anrede-ID */
 	public void setSalutationFK(Integer value);
 
-	/** �ndert Akad. Titel */
+	/** Ändert Akad. Titel */
 	public void setTitle(String value);
 
-	/** �ndert Vorname */
+	/** Ändert Vorname */
 	public void setFirstname(String value);
 
-	/** �ndert Nachname */
+	/** Ändert Nachname */
 	public void setLastname(String value);
-	
 
-	/** �ndert Flag f�r {@link PersonConstants#DOMESTIC_INLAND Inland} oder {@link PersonConstants#DOMESTIC_AUSLAND Ausland} */
+
+	/** Ändert Flag für {@link PersonConstants#DOMESTIC_INLAND Inland} oder {@link PersonConstants#DOMESTIC_AUSLAND Ausland} */
 	public void setDomestic(String value);
 
-	/** �ndert Flag f�r {@link PersonConstants#SEX_MALE m�nnlich} oder {@link PersonConstants#SEX_FEMALE weiblich} */
+	/** Ändert Flag für {@link PersonConstants#SEX_MALE männlich} oder {@link PersonConstants#SEX_FEMALE weiblich} */
 	public void setSex(String value);
 
-	/** �ndert Geburtsdatum */
+	/** Ändert Geburtsdatum */
 	public void setBirthday(Timestamp value);
 
 	/** aendert Geburtsort */
 	public void setBirthplace(String birthplace);
 
-	/** �ndert Akkretierungsdatum */
+	/** Ändert Akkretierungsdatum */
 	public void setDiplodate(Timestamp value);
 
-	/** �ndert Sprachen */
+	/** Ändert Sprachen */
 	public void setLanguages(String value);
 
-	/** �ndert Nationalit�t */
+	/** Ändert Nationalität */
 	public void setNationality(String value);
 
-	/** �ndert Bemerkung */
+	/** Ändert Bemerkung */
 	public void setNote(String value);
 
-	/** �ndert Bemerkung f�r die Orga */
+	/** Ändert Bemerkung für die Orga */
 	public void setNoteOrga(String value);
 
-	/** �ndert Bemerkung f�r den Gastgeber */
+	/** Ändert Bemerkung für den Gastgeber */
 	public void setNoteHost(String value);
 
-	/** Gibt einen zusammengesetzten Namen zur�ck. */
+	/** Gibt einen zusammengesetzten Namen zurück. */
 	public String getSaveAs();
 
-	
+
 }

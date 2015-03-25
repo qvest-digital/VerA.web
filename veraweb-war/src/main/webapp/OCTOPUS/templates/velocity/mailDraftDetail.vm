@@ -17,9 +17,9 @@
         <div id="breadcrumb" class="textRight marginBottom10">
             <strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Administration > E-Mail-Vorlage</span>
         </div>
-    
+
         <h1>E-Mail-Vorlage</h1>
-    
+
         #if($maildraft.errors.size() > 0)
             <vera-warn>
             	#foreach($error in $maildraft.errors)
@@ -27,11 +27,11 @@
             	#end
             </vera-warn>
         #end
-    
+
     	<input type="hidden" name="maildraft-id" value="$!maildraft.id"/>
-    	
+
     	<div class="textRight bold">* = Pflichtfelder</div>
-    
+
         <table class="form">
 			<tr>
             	<td class="bold width15"><label for="show-id">ID</label></td>
@@ -75,10 +75,10 @@
             				<option value="url">www</option>
             			</select>
             				<input type="button" name="add" value="Hinzuf&uuml;gen" onclick="addPlatzhalter(this);"/>
-            		</div>	
+            		</div>
             	</td>
         	</tr>
-        
+
             #if ($listparam.count == 0)
             	<tr><td colspan="2">Keine Daten gefunden.</td></tr>
             #end
@@ -86,7 +86,7 @@
 
 
         <div id="buttonPanel-bottom" class="textRight marginTop10">
-        	<input type="submit" name="submit" value="Speichern" title="Speichern" class="mainButton" /> 
+        	<input type="submit" name="submit" value="Speichern" title="Speichern" class="mainButton" />
         	<input type="button" name="cancel" value="Zur&uuml;ck zur Vorlagenliste" title="Zur&uuml;ck zur Vorlagenliste" class="mainButton" onclick="window.location.href='MailDraftList?selectNone=true';" />
         </div>
 	</div>

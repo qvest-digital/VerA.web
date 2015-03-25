@@ -23,7 +23,7 @@ import de.tarent.octopus.server.OctopusContext;
 
 /**
  * Diese Liste zeigt eine Liste von Funktionen an.
- * 
+ *
  * @author Christoph
  * @version $Revision: 1.1 $
  */
@@ -37,5 +37,5 @@ public class FunctionWorker extends StammdatenWorker {
 	public FunctionWorker() {
 		super("Function");
 	}
-	
+
 }

@@ -37,12 +37,12 @@
 /************* =1. reset *************/
 
 * {
-	padding:0; 
+	padding:0;
 	margin:0;
 }
 
-header, footer, nav {  
-	display: block;  
+header, footer, nav {
+	display: block;
 }
 
 /************* End reset *************/
@@ -89,11 +89,11 @@ a, .borderBottom {
     text-decoration: none;
 }
 
-a:visited { font-weight:bold; }  
+a:visited { font-weight:bold; }
 
 a:hover,
 a:active,
-a:focus { color: #8B0F0F }  
+a:focus { color: #8B0F0F }
 
 a.noBorder {
 	border: none;
@@ -374,7 +374,7 @@ pre {
 
 /************* =3. header *************/
 
-header, 
+header,
 #header  /* for IE8 */ {
     height: 88px;
     position: relative;
@@ -543,8 +543,8 @@ nav a, #nav a {
     overflow: auto;
 }
 
-.contentBox, 
-.contentBoxColored, 
+.contentBox,
+.contentBoxColored,
 .hinweis {
 	padding: 20px;
 }
@@ -555,7 +555,7 @@ nav a, #nav a {
 }
 
 .contentBoxColored .hinweis {
-	background-color: white !important;	
+	background-color: white !important;
 }
 
 .hinweis {
@@ -575,27 +575,27 @@ hr {border-top:1px solid #8b0f0f; }
 
 #peopleTop > .table > .tableRow > .tableCell {
 	background-color: #f9f9f9;
-    border: 1px solid #bdbdbd;	
+    border: 1px solid #bdbdbd;
 }
 
 #peopleTop > .table > .tableRow > .tableCell:nth-child(2) {
 	background-color: #fff;
     border: none;
-    width:20px;	
+    width:20px;
 }
 
 #peopleTop > .table > .tableRow > .tableCell .tableCell {
 	padding: 20px;
 	}
-	
+
 #peopleTop > .table > .tableRow > .tableCell {
 	padding-bottom: 0;
 }
 
 #peopleTop > .table > .tableRow > .tableCell .tableCell:last-child {
-}	
+}
 
-#eventTop strong, 
+#eventTop strong,
 #guestTop strong {
     display: inline-block;
     margin-right: 5px;
@@ -675,7 +675,7 @@ color:#7D7D7D
 }
 
 
-.tabsSub li div, 
+.tabsSub li div,
 #tabsMain li div,
 #tabsMain2 li div  {
     padding: 0 15px;
@@ -758,7 +758,7 @@ tr.repeat {
 
 .errormsgButton {
 	margin: 2 auto 30px;
-    padding: 6px 6px 26px 30px;	
+    padding: 6px 6px 26px 30px;
 }
 
 
@@ -810,7 +810,7 @@ input.small50px {
 	width: 50px;
 }
 
-td input[type="text"], 
+td input[type="text"],
 td select,
 td textarea {
 	-webkit-box-sizing: border-box;
@@ -841,14 +841,14 @@ button {
 	background-image: -webkit-gradient(linear, 0 100%, 0 0, from(#afafaf), to(white));
 	background-image: linear-gradient(bottom, #afafaf, white);
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#afafaf',GradientType=0 ); /* IE6-9 */
-	padding: 1px 5px;	
-    cursor: pointer;	
+	padding: 1px 5px;
+    cursor: pointer;
 }
 
 textarea {
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
-	box-sizing: border-box;	
+	box-sizing: border-box;
     min-height: 50px;
     resize: vertical;
 }
@@ -860,7 +860,7 @@ textarea {
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
-    margin-bottom: 5px;	
+    margin-bottom: 5px;
 	width:100%;
 }
 
@@ -883,7 +883,7 @@ textarea {
 }
 
 input[type=radio],
-input[type=checkbox] {   
+input[type=checkbox] {
 	margin-bottom: 0;
     vertical-align: sub;
     width:auto;
@@ -942,12 +942,12 @@ input.active {
 }
 
 .mainButton {
-	height:29px;	
+	height:29px;
 }
 
 input.active {
 	background:#d2d2d2;
-	font-weight: bold;	
+	font-weight: bold;
 	filter:none;
 }
 
@@ -1001,8 +1001,8 @@ tr.colspan {
 
 th {
 	color: #8b0f0f;
-/* gradient causes problems with borders in IE9  
-	
+/* gradient causes problems with borders in IE9
+
 	background-color: #fff;
 	background-image: -webkit-linear-gradient(bottom, #e5e5e5 50%, white); Chrome10+, Safari5.1+
 	background-image: -moz-linear-gradient(bottom, #e5e5e5 50%, white); Mozilla/Gecko (Firefox etc)
@@ -1013,8 +1013,8 @@ th {
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e5e5e5',GradientType=0 ); IE6-9
 	 */
 	background-image: url(../images/th_bg.png);
-	background-repeat:repeat-x;	 
-    background-size: 1px 100%;	
+	background-repeat:repeat-x;
+    background-size: 1px 100%;
 }
 
 td, th {
@@ -1049,7 +1049,7 @@ td[onclick]
     display: table-cell;
     padding-bottom: 5px;
     padding-right: 20px;
-    vertical-align: top;    
+    vertical-align: top;
 }
 
 #peopleAdd_form .tableCell {

@@ -11,12 +11,15 @@
     <name>veraweb-evolvis-parent</name>
     <description>Veranstaltungsmanagment VerA.web</description>
 
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
     <inceptionYear>2005</inceptionYear>
 
     <modules>
         <module>veraweb-war</module>
     </modules>
-
 
     <licenses>
         <license>
@@ -42,15 +45,8 @@
     </organization>
 
     <scm>
-        <connection>
-            scm:svn:svn://maven@evolvis.org/svnroot/veraweb/trunk
-        </connection>
-        <developerConnection>
-            scm:svn:svn+ssh://maven@evolvis.org/svnroot/veraweb/trunk
-        </developerConnection>
-        <url>
-            https://evolvis.org/scm/viewvc.php/trunk?root=veraweb
-        </url>
+        <developerConnection>scm:git:ssh://maven@evolvis.org/scmrepos/git/veraweb/veraweb.git</developerConnection>
+        <url>https://evolvis.org/plugins/scmgit/cgi-bin/gitweb.cgi?p=veraweb/veraweb.git</url>
     </scm>
 
     <repositories>
@@ -131,6 +127,11 @@
                 </executions>
             </plugin>
 
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>2.2.1</version>
+            </plugin>
 
         </plugins>
     </build>

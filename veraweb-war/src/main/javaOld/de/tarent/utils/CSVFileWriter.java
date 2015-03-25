@@ -29,7 +29,7 @@ import java.util.List;
 /**
  * CSVFileWriter is a class derived from CSVFile used to format some fields into
  * a new CSV file.
- * 
+ *
  * @author Fabrizio Fazzino
  */
 public class CSVFileWriter extends CSVFile {
@@ -39,7 +39,7 @@ public class CSVFileWriter extends CSVFile {
     /**
      * CSVFileWriter constructor just need the name of the CSV file that will be
      * written.
-     * 
+     *
      * @param outputFileName
      *            The name of the CSV file to be opened for writing
      * @throws IOException
@@ -51,7 +51,7 @@ public class CSVFileWriter extends CSVFile {
 
     /**
      * CSVFileWriter constructor with a given field separator.
-     * 
+     *
      * @param outputFileName
      *            The name of the CSV file to be opened for writing
      * @param sep
@@ -65,7 +65,7 @@ public class CSVFileWriter extends CSVFile {
 
     /**
      * CSVFileWriter constructor with given field separator and text qualifier.
-     * 
+     *
      * @param outputFileName
      *            The name of the CSV file to be opened for writing
      * @param sep
@@ -81,7 +81,7 @@ public class CSVFileWriter extends CSVFile {
 
     /**
      * CSVFileWriter constructor with given field separator and text qualifier.
-     * 
+     *
      * @param writer
      *            The Writer to be opened for writing
      * @param sep
@@ -97,11 +97,11 @@ public class CSVFileWriter extends CSVFile {
     }
 
     //
-    // �ffentliche Methoden
+    // Öffentliche Methoden
     //
     /**
      * Close the output CSV file.
-     * 
+     *
      * @throws IOException
      *             If an error occurs while closing the file
      */
@@ -112,7 +112,7 @@ public class CSVFileWriter extends CSVFile {
 
     /**
      * Join the fields and write them as a new line to the CSV file.
-     * 
+     *
      * @param fields
      *            The list of strings containing the fields
      */
@@ -125,9 +125,9 @@ public class CSVFileWriter extends CSVFile {
         }
         out.println();
     }
-    
+
     //
-    // gesch�tzte Hilfsmethoden
+    // geschützte Hilfsmethoden
     //
     String prepareField(Object field) {
         String fieldString = (field != null) ? field.toString() : "";
@@ -139,9 +139,9 @@ public class CSVFileWriter extends CSVFile {
         }
         return fieldString;
     }
-    
+
     //
-    // gesch�tzte Membervariablen
+    // geschützte Membervariablen
     //
     /** The print writer linked to the CSV file to be written. */
     protected final PrintWriter out;

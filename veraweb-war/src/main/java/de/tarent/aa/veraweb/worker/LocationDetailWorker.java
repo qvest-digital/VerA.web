@@ -44,16 +44,16 @@ import de.tarent.octopus.server.OctopusContext;
  * Dieser Octopus-Worker liefert eine Detailansicht für Veranstaltungsorte
  */
 public class LocationDetailWorker {
-    
+
     private static final String PARAM_LOCATION = "location";
     private static final String PARAM_LOCATION_ID = "id";
-    
+
     public static final String[] INPUT_showDetail = {PARAM_LOCATION_ID};
     public static final boolean[] MANDATORY_showDetail = {false};
     public static final String OUTPUT_showDetail = PARAM_LOCATION;
-    
+
     private final DatabaseVeraWebFactory databaseVeraWebFactory;
-    
+
     //
     // Konstruktoren
     //
@@ -64,7 +64,7 @@ public class LocationDetailWorker {
     public LocationDetailWorker() {
         this(new DatabaseVeraWebFactory());
     }
-	
+
 	public LocationDetailWorker(DatabaseVeraWebFactory databaseVeraWebFactory) {
 	    this.databaseVeraWebFactory = databaseVeraWebFactory;
 	}
@@ -78,35 +78,35 @@ public class LocationDetailWorker {
 
 	    return location;
 	}
-	
-   
-	static public Location getLocation(OctopusContext context, Integer id) throws BeanException, IOException { 
-	 
+
+
+	static public Location getLocation(OctopusContext context, Integer id) throws BeanException, IOException {
+
 	    if(id == null) {
 	        return null;
 	    }
-	    
+
 	    Database database = new DatabaseVeraWeb(context);
 	    Location location = (Location) database.getBean("Location", id);
-	    
+
 	    return location;
 	}
-	
+
 	public static final String INPUT_saveDetail[] = { "savelocation" };
 	public static final boolean MANDATORY_saveDetail[] = { false };
-	    
-	
+
+
 	public void saveDetail(OctopusContext cntx, Boolean savelocation)
             throws BeanException, IOException {
         if (savelocation == null || !savelocation.booleanValue()) {
             return;
         }
-           
-        
+
+
         Request request = new RequestVeraWeb(cntx);
 
         Database database = databaseVeraWebFactory.createDatabaseVeraWeb(cntx);
-        TransactionContext context = database.getTransactionContext();          
+        TransactionContext context = database.getTransactionContext();
 
         try {
             Location location = (Location) cntx.contentAsObject(PARAM_LOCATION);
@@ -117,7 +117,7 @@ public class LocationDetailWorker {
             List errors = location.getErrors();
             Location oldlocation = (Location) database.getBean("Location", location.getId(),
                     context);
-            
+
             if(location.id == null || location.compareTo(oldlocation)!=0) {
                 location.setModified(true);
             }
@@ -130,10 +130,10 @@ public class LocationDetailWorker {
                     database.getNextPk(location, context);
 
                     location.setOrgunit(((PersonalConfigAA) cntx.personalConfig()).getOrgUnitId());
-                    
+
                     Insert insert = database.getInsert(location);
                     insert.insert("pk", location.getId());
-                    
+
                     context.execute(insert);
 
                     clogger.logInsert(cntx.personalConfig().getLoginname(),
@@ -148,7 +148,7 @@ public class LocationDetailWorker {
                 cntx.setStatus("notsaved");
             }
             cntx.setContent(PARAM_LOCATION, location);
-            
+
 
             context.commit();
         } catch (BeanException e) {

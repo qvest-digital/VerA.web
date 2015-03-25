@@ -35,7 +35,7 @@ import org.apache.log4j.Logger;
 
 /**
  * Diese Klasse liefert ein Feld-Mapping, das allgemeiner ist als 1:1.
- * 
+ *
  * @author mikel
  */
 public class FieldMapping {
@@ -43,12 +43,12 @@ public class FieldMapping {
     // Konstruktoren
     //
     /**
-     * Dieser Konstruktor bekommt ein simples Mapping �bergeben. Hierbei wird
-     * ein Quellfeld auf ein Zielfeld erweitert um Reihenfolgen- und Optionsangaben  
+     * Dieser Konstruktor bekommt ein simples Mapping übergeben. Hierbei wird
+     * ein Quellfeld auf ein Zielfeld erweitert um Reihenfolgen- und Optionsangaben
      * angebildet: <code>Zielfeldname[:0-basierter Index[:Optionen]]</code><br>
-     * Als Schl�ssel kann statt eines Quellfelds auch ein Ausdruck <code>:Wert</code>
+     * Als Schlüssel kann statt eines Quellfelds auch ein Ausdruck <code>:Wert</code>
      * benutzt werden. Hierbei darf allerdings in Wert kein Ausdruck vorkommen, der
-     * in einer {@link MessageFormat}-Instanz Probleme bereiten k�nnte. 
+     * in einer {@link MessageFormat}-Instanz Probleme bereiten könnte.
      */
     public FieldMapping(Map mappingDescription) {
         assert mappingDescription != null;
@@ -70,7 +70,7 @@ public class FieldMapping {
                 targets.put(targetField, target = new ArrayList());
             target.add(info);
         }
-        // Quellfeldliste und Formate f�r Zielfelder erstellen
+        // Quellfeldliste und Formate für Zielfelder erstellen
         Iterator itTargets = targets.entrySet().iterator();
         List orderedSources = new ArrayList();
         Set unorderedSources = new HashSet();
@@ -96,7 +96,7 @@ public class FieldMapping {
                         }
                     } catch(NumberFormatException nfe) {
                     }
-                    logger.warn("Ung�ltiger Index " + info[1] + " im Mapping von " + sourceField + "; Indexangabe wird ignoriert");
+                    logger.warn("Ungültiger Index " + info[1] + " im Mapping von " + sourceField + "; Indexangabe wird ignoriert");
                 }
                 unorderedSources.add(sourceField);
             }
@@ -134,13 +134,13 @@ public class FieldMapping {
         // Zielfeldliste erzeugen
         targetFields.addAll(targetFormats.keySet());
     }
-    
+
     //
-    // �ffentliche Methoden
+    // Öffentliche Methoden
     //
     /**
      * Diese Methode setzt die Namen der Spalten der einkommenden Zeilen.
-     * 
+     *
      * @param incomingSourceFields Spaltennamen der einkommenden Zeilen in
      *  der einkommenden Reihenfolge.
      */
@@ -152,10 +152,10 @@ public class FieldMapping {
             formatToIncomingIndex[i] = incomingSourceFields.indexOf(sourceFields.get(i));
         }
     }
-    
+
     /**
      * Diese Methode setzt die aktuelle Zeile.
-     * 
+     *
      * @param rowFields Felder der aktuellen Zeile in der mit {@link #setIncomingSourceFields(List)}
      *  festgelegten Reihenfolge.
      */
@@ -175,10 +175,10 @@ public class FieldMapping {
             	row[i] = "";
         }
     }
-    
+
     /**
-     * Diese Methode liefert den Wert zu einem Zielfeld aus der aktuellen Zeile. 
-     * 
+     * Diese Methode liefert den Wert zu einem Zielfeld aus der aktuellen Zeile.
+     *
      * @param targetField Spaltenname des Zielfelds, das aus der aktuellen
      *  Zeile ausgelesen werden soll
      * @return Wert des Zielfelds aus der aktuellen Zeile berechnet
@@ -191,30 +191,30 @@ public class FieldMapping {
     }
 
     /**
-     * Diese Methode liefert eine Liste der Quellfeldnamen. 
-     * 
+     * Diese Methode liefert eine Liste der Quellfeldnamen.
+     *
      * @return Liste der Spaltennamen der Quellfelder.
      */
     public List getSourceFields() {
         return Collections.unmodifiableList(sourceFields);
     }
-    
+
     /**
-     * Diese Methode liefert eine Liste der Zielfeldnamen. 
-     * 
+     * Diese Methode liefert eine Liste der Zielfeldnamen.
+     *
      * @return Liste der Spaltennamen der Zielfelder.
      */
     public List getTargetFields() {
         return Collections.unmodifiableList(targetFields);
     }
-    
+
     /**
      * Diese Methode liefert zu einer Sammlung von Zielfeldern die Menge
-     * der f�r sie ben�tigten Quellfelder. 
-     * 
+     * der für sie benötigten Quellfelder.
+     *
      * @param targets Sammlung von Spaltennamen der betrachteten Zielfelder
-     * @return Menge der Spaltennamen der f�r die betrachteten Zielfelder
-     *  ben�tigten Quellfelder
+     * @return Menge der Spaltennamen der für die betrachteten Zielfelder
+     *  benötigten Quellfelder
      */
     public Set getRequiredSources(Collection targets) {
         if (targets == null || targets.isEmpty())
@@ -228,32 +228,32 @@ public class FieldMapping {
         }
         return result;
     }
-    
+
     /**
      * Diese Methode liefert zu einem Quellfeld das Zielfeld, in dem es die
      * Hauptquelle ist, d.h. das erste Feld im Format.
-     * 
-     * @param sourceField Spaltenname des Quellfelds, zu dem das Prim�rzielfeld
+     *
+     * @param sourceField Spaltenname des Quellfelds, zu dem das Primärzielfeld
      *  gesucht wird
-     * @return Spaltenname des Zielfelds, in dem das angegebene Quellfeld prim�r
+     * @return Spaltenname des Zielfelds, in dem das angegebene Quellfeld primär
      *  ist, oder <code>null</code>.
      */
     public String getPrimeTarget(String sourceField) {
         return (String) sourcePrimeTargets.get(sourceField);
     }
-    
+
     /**
      * Diese Methode liefert die Menge der Quellfelder, die in einem Zielfeld
-     * prim�r sind. 
-     * 
+     * primär sind.
+     *
      * @return Menge der Namen Hauptquellfelder
      */
     public Set getPrimeTargetSources() {
         return sourcePrimeTargets.keySet();
     }
-    
+
     //
-    // gesch�tzte Member
+    // geschützte Member
     //
     /** aktuelle Zeile in der Sortierung von {@link #sourceFields} */
     private Object[] row = null;
@@ -261,14 +261,14 @@ public class FieldMapping {
     private int[] formatToIncomingIndex = null;
     /** Liste der verwendeten Quellfelder in der Reihenfolge, die in den Formaten gefordert ist */
     private List sourceFields = new ArrayList();
-    /** Liste der verf�gbaren Zielfelder */
+    /** Liste der verfügbaren Zielfelder */
     private List targetFields = new ArrayList();
-    /** Sets ben�tigter Quellfelder zu den verf�gbaren Zielfeldern */
+    /** Sets benötigter Quellfelder zu den verfügbaren Zielfeldern */
     private Map targetRequiredFields = new HashMap();
-    /** MessageFormat-Instanzen zu den verf�gbaren Zielfeldern */
+    /** MessageFormat-Instanzen zu den verfügbaren Zielfeldern */
     private Map targetFormats = new HashMap();
-    /** Zielfeld zu den verf�gbaren Quellfeldern, in dem diese f�hrend sind */
+    /** Zielfeld zu den verfügbaren Quellfeldern, in dem diese führend sind */
     private Map sourcePrimeTargets = new HashMap();
-    /** Logger f�r diese Klasse */
+    /** Logger für diese Klasse */
     private final static Logger logger = Logger.getLogger(FieldMapping.class);
 }

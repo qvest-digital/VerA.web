@@ -45,72 +45,72 @@ import de.tarent.octopus.beans.Database;
 import de.tarent.octopus.beans.DatabaseUtilizer;
 
 /**
- * Diese Klasse stellt Basisfunktionalit�ten f�r den generischen CSV-Im- und -Export
- * zur Verf�gung.
- * 
+ * Diese Klasse stellt Basisfunktionalitäten für den generischen CSV-Im- und -Export
+ * zur Verfügung.
+ *
  * @author mikel
  */
 public class GenericCSVBase implements Exchanger, DatabaseUtilizer {
     //
     // Konstanten
     //
-    /** Property-Schl�ssel f�r das Export-Mapping der Felder */
+    /** Property-Schlüssel für das Export-Mapping der Felder */
     public static final String PROPERTY_EXPORT_MAPPING = "exportMapping";
 
-    /** Property-Schl�ssel f�r das Encoding der Ausgabedatei */
+    /** Property-Schlüssel für das Encoding der Ausgabedatei */
     public final static String PROPERTY_ENCODING = "encoding";
-    
-    /** Property-Schl�ssel f�r das Feldtrennzeichen */
+
+    /** Property-Schlüssel für das Feldtrennzeichen */
     public final static String PROPERTY_FIELD_SEPARATOR = "fieldSeparator";
-    
-    /** Property-Schl�ssel f�r das Quote-Zeichen */
+
+    /** Property-Schlüssel für das Quote-Zeichen */
     public final static String PROPERTY_TEXT_QUALIFIER = "textQualifier";
-    
-    /** Property-Schl�ssel f�r das Datumsformatmuster */
+
+    /** Property-Schlüssel für das Datumsformatmuster */
     public final static String PROPERTY_DATE_FORMAT = "dateFormat";
-    
+
     /** Encoding: UTF-8 */
     public final static String ENCODING_UTF_8 = "UTF-8";
-    
+
     /** Vorgabewert: Character-Encoding */
     public final static String DEFAULT_ENCODING = ENCODING_UTF_8;
-    
+
     /** Vorgabewert: Feldtrennzeichen */
     public final static char DEFAULT_FIELD_SEPARATOR = ';';
 
     /** Vorgabewert: Quote-Zeichen */
     public final static char DEFAULT_TEXT_QUALIFIER = '"';
 
-    /** Default-Kategorie-Rang, wenn alle Rang-Eintr�ge <code>null</code> sind. */
+    /** Default-Kategorie-Rang, wenn alle Rang-Einträge <code>null</code> sind. */
 		protected static final String	DEFAULT_RANK	= "X";
-		
+
     //
     // Schnittstelle DatabaseUtilizer
     //
     /**
      * Die zu nutzende Datenbank
-     * 
+     *
      * @see DatabaseUtilizer#setDatabase(Database)
      */
     public void setDatabase(Database database) {
         this.database = database;
     }
-    
+
     /**
      * Die zu nutzende Datenbank
-     * 
+     *
      * @see DatabaseUtilizer#getDatabase()
      */
     public Database getDatabase() {
         return database;
     }
-    
+
     //
     // Schnittstelle Exchanger
     //
     /**
      * Das zu verwendende Austauschformat.
-     * 
+     *
      * @see de.tarent.data.exchange.Exchanger#getExchangeFormat()
      */
     public ExchangeFormat getExchangeFormat() {
@@ -118,7 +118,7 @@ public class GenericCSVBase implements Exchanger, DatabaseUtilizer {
     }
     /**
      * Das zu verwendende Austauschformat.
-     * 
+     *
      * @see de.tarent.data.exchange.Exchanger#setExchangeFormat(de.tarent.data.exchange.ExchangeFormat)
      */
     public void setExchangeFormat(ExchangeFormat format) {
@@ -127,7 +127,7 @@ public class GenericCSVBase implements Exchanger, DatabaseUtilizer {
 
     /**
      * Der zu verwendende Eingabedatenstrom.
-     * 
+     *
      * @see de.tarent.data.exchange.Exchanger#getInputStream()
      */
     public InputStream getInputStream() {
@@ -135,7 +135,7 @@ public class GenericCSVBase implements Exchanger, DatabaseUtilizer {
     }
     /**
      * Der zu verwendende Eingabedatenstrom.
-     * 
+     *
      * @see de.tarent.data.exchange.Exchanger#setInputStream(java.io.InputStream)
      */
     public void setInputStream(InputStream stream) {
@@ -144,7 +144,7 @@ public class GenericCSVBase implements Exchanger, DatabaseUtilizer {
 
     /**
      * Der zu verwendende Ausgabedatenstrom.
-     * 
+     *
      * @see de.tarent.data.exchange.Exchanger#getOutputStream()
      */
     public OutputStream getOutputStream() {
@@ -152,7 +152,7 @@ public class GenericCSVBase implements Exchanger, DatabaseUtilizer {
     }
     /**
      * Der zu verwendende Ausgabedatenstrom.
-     * 
+     *
      * @see de.tarent.data.exchange.Exchanger#setOutputStream(java.io.OutputStream)
      */
     public void setOutputStream(OutputStream stream) {
@@ -160,7 +160,7 @@ public class GenericCSVBase implements Exchanger, DatabaseUtilizer {
     }
 
     //
-    // gesch�tzte Hilfsmethoden
+    // geschützte Hilfsmethoden
     //
     /**
      * Diese Methode ermittelt Exportparameter aus dem
@@ -177,17 +177,17 @@ public class GenericCSVBase implements Exchanger, DatabaseUtilizer {
         fieldMapping = new FieldMapping(getAvailableFields(), mappingDescription);
         csvFieldNames = new ArrayList(fieldMapping.getTargets());
         Collections.sort(csvFieldNames);
-        
+
         if (!export)
             fieldMapping = fieldMapping.invert();
     }
 
     /**
-     * Diese Methode liefert die Menge der verf�gbaren Felder.
-     * 
+     * Diese Methode liefert die Menge der verfügbaren Felder.
+     *
      * @see #getPersonDataFields()
      * @see #getCategoryFields()
-     * @see #getDocumentTypeFields() 
+     * @see #getDocumentTypeFields()
      */
     protected Set getAvailableFields() throws BeanException, IOException {
         Set result = getPersonDataFields();
@@ -197,7 +197,7 @@ public class GenericCSVBase implements Exchanger, DatabaseUtilizer {
     }
 
     /**
-     * Diese Methode liefert die Menge der verf�gbaren Personenstammdatenfelder.
+     * Diese Methode liefert die Menge der verfügbaren Personenstammdatenfelder.
      */
     Set getPersonDataFields() throws BeanException {
         Set result = new HashSet();
@@ -208,23 +208,23 @@ public class GenericCSVBase implements Exchanger, DatabaseUtilizer {
     }
 
     /**
-     * Diese Methode liefert die Menge der verf�gbaren Kategorienfelder. 
-     * @throws IOException 
-     * @throws BeanException 
+     * Diese Methode liefert die Menge der verfügbaren Kategorienfelder.
+     * @throws IOException
+     * @throws BeanException
      */
     Set getCategoryFields() throws BeanException, IOException  {
         Set result = new HashSet();
         List categories = getCategoriesFromDB();
         if (categories == null) return result; //keine Kategorien
-        
+
         for (Iterator itCategories = categories.iterator(); itCategories.hasNext(); ) {
             Map categoryData = (Map) itCategories.next();
             Object nameObject = categoryData.get("name");
             Integer flags = (Integer)categoryData.get("flags");
-            
+
             if (nameObject == null)
             	continue;
-            
+
             if (flags == null || flags.intValue() == Categorie.FLAG_DEFAULT)
                 result.add(categoryFieldFormat.format(new Object[]{ nameObject }));
             else if (flags.intValue() == Categorie.FLAG_DIPLO_CORPS)
@@ -238,10 +238,10 @@ public class GenericCSVBase implements Exchanger, DatabaseUtilizer {
     }
     /**
      * Diese Methode holt alle notwendigen Kategorien aus der Datenbank.
-     * Kann zur Einschr�nkung �berschrieben werden. 
+     * Kann zur Einschränkung überschrieben werden.
      * Null = keine Kategorien
-     * @throws IOException 
-     * @throws BeanException 
+     * @throws IOException
+     * @throws BeanException
      */
     protected List getCategoriesFromDB() throws BeanException, IOException
     {
@@ -249,17 +249,17 @@ public class GenericCSVBase implements Exchanger, DatabaseUtilizer {
     }
     /**
      * Diese Methode holt alle notwendigen Dokumenttypen aus der Datenbank.
-     * Kann zur Einschr�nkung �berschrieben werden. 
-     * @throws IOException 
-     * @throws BeanException 
+     * Kann zur Einschränkung überschrieben werden.
+     * @throws IOException
+     * @throws BeanException
      */
     protected List getDocumentTypesFromDB() throws BeanException, IOException
     {
     	return database.getBeanList( "Doctype", database.getSelect("Doctype") );
     }
-    
+
     /**
-     * Diese Methode liefert die Menge der verf�gbaren Dokumenttypfreitextfelder. 
+     * Diese Methode liefert die Menge der verfügbaren Dokumenttypfreitextfelder.
      */
     Set getDocumentTypeFields() throws BeanException, IOException {
         Set result = new HashSet();
@@ -276,8 +276,8 @@ public class GenericCSVBase implements Exchanger, DatabaseUtilizer {
     }
 
     /**
-     * Diese Methode liest aus den Properties des Austauschformats Informationen 
-     * �ber das zu verwendende Encoding und die zu verwendenden Feldtrenner und
+     * Diese Methode liest aus den Properties des Austauschformats Informationen
+     * über das zu verwendende Encoding und die zu verwendenden Feldtrenner und
      * Quote-Zeichen.
      * @see #encoding
      * @see #fieldSeparator
@@ -303,9 +303,9 @@ public class GenericCSVBase implements Exchanger, DatabaseUtilizer {
                 }
         }
     }
-    
+
     //
-    // gesch�tzte Membervariablen
+    // geschützte Membervariablen
     //
     /** Die zu nutzende Datenbank */
     Database database = null;
@@ -344,5 +344,5 @@ public class GenericCSVBase implements Exchanger, DatabaseUtilizer {
     /** Logger dieser Klasse */
     final static Logger logger = Logger.getLogger(GenericCSVBase.class.getName());
 
-		
+
 }

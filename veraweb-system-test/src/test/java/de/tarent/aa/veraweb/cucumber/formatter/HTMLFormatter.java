@@ -45,12 +45,12 @@ import cucumber.runtime.CucumberException;
  * This formatter extends the cucumber HTMFormatter (Version 1.0.2). The cucumber-formatter doesn't support the nice
  * features such like &gt;summary of the results&lt; or &gt;collapse/expand one or all scenarios&lt; but this features
  * be sorely missed!
- * 
+ *
  * This formatter delegates all to the cucumber-formatter. At the least the output HTML-File is edited.
- * 
+ *
  * @author Sven Schumann <s.schumann@tarent.de>
  * @version 1.0
- * 
+ *
  */
 public class HTMLFormatter implements Reporter, Formatter {
 
@@ -71,7 +71,7 @@ public class HTMLFormatter implements Reporter, Formatter {
 
     /**
      * Constructor.
-     * 
+     *
      * @param htmlReportDir
      *            directory of html report
      */
@@ -237,7 +237,7 @@ public class HTMLFormatter implements Reporter, Formatter {
 
     /**
      * Merge HTML report.
-     * 
+     *
      * @param oldHTML
      *            old HTML file
      * @return merged HTML file

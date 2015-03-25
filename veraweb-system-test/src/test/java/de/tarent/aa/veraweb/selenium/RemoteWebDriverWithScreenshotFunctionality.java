@@ -33,10 +33,10 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 /**
  * The standart RemoteWebDriver doesn't support taking screenshots. (because they is not an instance of
  * {@link TakesScreenshot})
- * 
+ *
  * @author Sven Schumann <s.schumann@tarent.de>
  * @version 1.0
- * 
+ *
  */
 public class RemoteWebDriverWithScreenshotFunctionality extends RemoteWebDriver implements TakesScreenshot {
 
@@ -49,7 +49,7 @@ public class RemoteWebDriverWithScreenshotFunctionality extends RemoteWebDriver 
 
     /**
      * Constructor.
-     * 
+     *
      * @param desiredCapabilities
      *            desired capabilities
      */
@@ -59,7 +59,7 @@ public class RemoteWebDriverWithScreenshotFunctionality extends RemoteWebDriver 
 
     /**
      * Constructor.
-     * 
+     *
      * @param executor
      *            executor
      * @param desiredCapabilities
@@ -71,7 +71,7 @@ public class RemoteWebDriverWithScreenshotFunctionality extends RemoteWebDriver 
 
     /**
      * Constructor.
-     * 
+     *
      * @param remoteAddress
      *            remote address
      * @param desiredCapabilities

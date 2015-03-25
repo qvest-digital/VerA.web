@@ -42,7 +42,7 @@ import de.tarent.aa.veraweb.selenium.AdvancedWebDriver;
 
 /**
  * Super class for all {@link AbstractStepDefinitions}.
- * 
+ *
  * @author Michael Kutz, tarent Solutions GmbH
  * @author Valentin But (v.but@tarent.de), tarent solutions GmbH
  */
@@ -70,24 +70,24 @@ public abstract class AbstractStepDefinitions {
 
     /**
      * Enters the data set with given {@code name} into correspponding fields.
-     * 
+     *
      * @param name
      *            name of the data set
      */
     protected void whenFillFields(String name) {
         advancedDriver.fillPageFields(NameUtil.nameToEnumName(name));
     }
-    
+
     protected void whenFillFields(Map<String, ElementDefinition> data) {
         for (Entry<String, ElementDefinition> entry : data.entrySet()) {
             whenFillField(entry.getKey(), entry.getValue());
         }
-        
+
     }
 
     /**
      * Enters the given {@code value} into the given {@code elementDefinition}.
-     * 
+     *
      * @param elementDefinition
      *            the {@link ElementDefinition} of the field that should be filled.
      * @param value
@@ -100,12 +100,12 @@ public abstract class AbstractStepDefinitions {
         } else {
         	element.clear();
             element.sendKeys(value);
-        }        
+        }
     }
 
     /**
      * Clears the given {@code elementDefinition}.
-     * 
+     *
      * @param elementDefinition
      *            the {@link ElementDefinition} of the field that should be cleared.
      */
@@ -115,7 +115,7 @@ public abstract class AbstractStepDefinitions {
 
     /**
      * Enters the given {@code date} into the given {@code elementDefinition}.
-     * 
+     *
      * @param elementDefinition
      *            the {@link ElementDefinition} of the field that should be filled.
      * @param date
@@ -127,7 +127,7 @@ public abstract class AbstractStepDefinitions {
 
     /**
      * Fails if the current page does not match the given {@code pageDefinition}, sets the {@link #page} otherwise.
-     * 
+     *
      * @param pageDefinition
      *            the {@link PageDefinition} that should match the current page.
      */
@@ -139,7 +139,7 @@ public abstract class AbstractStepDefinitions {
 
     /**
      * Will {@link #fail()} if the given {@code elementDefinition} can not be found on the current page.
-     * 
+     *
      * @param elementDefinition
      *            the {@link ElementDefinition} of the required element.
      */
@@ -155,7 +155,7 @@ public abstract class AbstractStepDefinitions {
 
     /**
      * Will {@link #fail()} if the given {@code elementDefinition} can be found on the current page.
-     * 
+     *
      * @param elementDefinition
      *            the {@link ElementDefinition} of the element that should not be present.
      */
@@ -165,7 +165,7 @@ public abstract class AbstractStepDefinitions {
 
     /**
      * Will {@link #fail()} if not all given {@code elementDefinitions} can be found on the current page.
-     * 
+     *
      * @param elementDefinitions
      *            {@link ElementDefinition}s of all required elements.
      */
@@ -191,7 +191,7 @@ public abstract class AbstractStepDefinitions {
 
     /**
      * Navigates the {@link #driver} to the given {@link PageDefinition#url} and sets {@link #page}.
-     * 
+     *
      * @param pageDefinition
      *            the {@link PageDefinition} of the page to navigate to.
      */
@@ -207,7 +207,7 @@ public abstract class AbstractStepDefinitions {
 
     /**
      * Clicks the given {@code elementDefinition}.
-     * 
+     *
      * @param elementDefinition
      *            the {@link ElementDefinition} that should be clicked.
      */
@@ -220,7 +220,7 @@ public abstract class AbstractStepDefinitions {
 
     /**
      * Fails unless the given {@code elementDefinition}'s text equals the given {@code expectedText}.
-     * 
+     *
      * @param elementDefinition
      *            the {@link ElementDefinition} whose text should be equal to the given {@code expectedText}.
      * @param expectedText
@@ -233,7 +233,7 @@ public abstract class AbstractStepDefinitions {
 
     /**
      * Fails unless the given {@code elementDefinition}'s text matches the given {@code expression}.
-     * 
+     *
      * @param elementDefinition
      *            the {@link ElementDefinition} whose text should match the given {@code expression}.
      * @param expression
@@ -246,7 +246,7 @@ public abstract class AbstractStepDefinitions {
 
     /**
      * Returns the {@link WebElement} defined by the given {@link ElementDefinition}.
-     * 
+     *
      * @param elementDefinition
      *            the {@link ElementDefinition} to look for.
      * @return the {@link WebElement} for the given {@link ElementDefinition}.

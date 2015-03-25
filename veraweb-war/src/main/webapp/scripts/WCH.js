@@ -55,7 +55,7 @@ var WCH_Constructor = function() {
 		/*if (!oLayer || !oContainer) return; */
 		//	is it there already?
 		var oIframe = document.getElementById("WCHhider" + oLayer.id);
-		
+
 		//	if not, create it
 		if ( !oIframe ) {
 			//	IE 6 has this property, IE 5 not. IE 5.5(even SP2) crashes when filter is applied, hence the check
@@ -127,4 +127,3 @@ var WCH_Constructor = function() {
 	};
 };
 var WCH = new WCH_Constructor();
-

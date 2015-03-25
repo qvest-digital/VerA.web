@@ -36,7 +36,7 @@ import de.tarent.data.exchange.ExchangeFormat;
 
 /**
  * Klasse zum {@link java.io.Reader}-basierten Lesen einer Madlan-Datei (spezielle Csv-Datei).
- * 
+ *
  * @author hendrik
  */
 public class MadlanReader implements MadlanConstants {
@@ -55,11 +55,11 @@ public class MadlanReader implements MadlanConstants {
 	private char lineBreakChar = 0xb;
     private final char[] mappingA;
     private final char[] mappingB;
-    
+
     /**
-     * Dieser Konstruktor merkt sich die �bergebenen kyrillisch zu interpretierenden Felder
-     * und initialisiert einen {@link StreamTokenizer} 
-     * 
+     * Dieser Konstruktor merkt sich die übergebenen kyrillisch zu interpretierenden Felder
+     * und initialisiert einen {@link StreamTokenizer}
+     *
      * @param reader Eingangsdaten
      * @param format das zugrunde liegende Austauschformat
      */
@@ -82,10 +82,10 @@ public class MadlanReader implements MadlanConstants {
 		tokenizer.wordChars(' ',':');
 		tokenizer.wordChars('<','~');
 	}
-	
+
 	/**
 	 * @return Die Feldnamen der Tabelle als {@link List}e von {@link String}s.
-	 *         Anzahl der Felder entspricht der R�ckgabe von {@link #getReadRowsCount()}.
+	 *         Anzahl der Felder entspricht der Rückgabe von {@link #getReadRowsCount()}.
 	 * @throws IOException
 	 */
 	public List getHeader() throws IOException {
@@ -96,7 +96,7 @@ public class MadlanReader implements MadlanConstants {
         	if (logger.isEnabledFor(Level.DEBUG))
             	logger.log(Level.DEBUG, "Anzahl bekannter kyrillischer Felder: " + kyrillicFields.size());
             Iterator itHeaders = header.iterator();
-            int fieldsFound = 0; 
+            int fieldsFound = 0;
             for(int i = 0; i < isKyrillic.length; i++) {
                 isKyrillic[i] = (kyrillicFields.contains(itHeaders.next()));
                 if (isKyrillic[i])
@@ -104,30 +104,30 @@ public class MadlanReader implements MadlanConstants {
             }
             if (logger.isEnabledFor(Level.DEBUG))
             	logger.log(Level.DEBUG, "Anzahl gefundener kyrillischer Felder: " + fieldsFound);
-        }   
-        
-		return header; 
+        }
+
+		return header;
 	}
-	
+
 	/**
-	 * Liest eine Zeile der Tabelle ein. 
-	 * 
+	 * Liest eine Zeile der Tabelle ein.
+	 *
 	 * @return Die Feldwerte einer Zeile der Tabelle als {@link List}e von {@link String}s.
-	 *         Anzahl der Felder entspricht der R�ckgabe von {@link #getReadRowsCount()}.
-	 *         Kann keine Zeile mehr gelesen werden, wird null zur�ckgegeben.
+	 *         Anzahl der Felder entspricht der Rückgabe von {@link #getReadRowsCount()}.
+	 *         Kann keine Zeile mehr gelesen werden, wird null zurückgegeben.
 	 * @throws IOException
 	 */
 	public List readRow() throws IOException {
 		if (header == null)
-			throw new RuntimeException("Bevor eine Zeile gelesen werden kann, muss der Header gelesen werden.");
+			throw new RuntimeException("Bevor eine Zeile gelesen werden kann, muß der Header gelesen werden.");
 		return readRow(false);
 	}
-	
-	
+
+
 	/**
 	 * Liest den Header oder eine Zeile der Tabelle ein.
 	 * Es wird nach dem letzten Feld der Zeile kein Feldtrennzeichen mehr erwartet.
-	 * 
+	 *
 	 * @param isHeader Wird der Header oder eine normale Zeile gelesen?
 	 * @return List
 	 * @throws IOException
@@ -135,19 +135,19 @@ public class MadlanReader implements MadlanConstants {
 	private List readRow(boolean isHeader) throws IOException {
 		if (closed)
 			return null;
-		
+
 		List row;
 		if (isHeader)
 			row = new LinkedList();
 		else
 			row = new ArrayList(getColumnCount());
-		
+
 		int type;               //Typ des erkannten Tokens
-		int i = 0;              //Zeiger auf das aktuell betrachtete Feld 
-		boolean filled = false; //wurde in das aktuelle Feld schon ein Wert eingef�gt ?
-		while ((type = tokenizer.nextToken()) != StreamTokenizer.TT_EOL && 
+		int i = 0;              //Zeiger auf das aktuell betrachtete Feld
+		boolean filled = false; //wurde in das aktuelle Feld schon ein Wert eingefügt ?
+		while ((type = tokenizer.nextToken()) != StreamTokenizer.TT_EOL &&
 				type != StreamTokenizer.TT_EOF) { //Token lesen bis Zeile oder Datei endet
-			
+
 			// Behandlung von zu langen Zeilen.
 			if (!isHeader && i >= getColumnCount()) {
 				StringBuffer buffer = new StringBuffer();
@@ -169,7 +169,7 @@ public class MadlanReader implements MadlanConstants {
 					throw new RuntimeException(buffer.toString());
 				}
 			} else {
-				//Zeile noch nicht vollst�ndig
+				//Zeile noch nicht vollständig
 				switch (type) {
 					case StreamTokenizer.TT_WORD:
 						if (filled)
@@ -181,7 +181,7 @@ public class MadlanReader implements MadlanConstants {
 						break;
 					case StreamTokenizer.TT_NUMBER:
 						assert false; //durch die Wahl der Wortzeichen (s.o.)
-									  // eigentlich nicht m�glich
+									  // eigentlich nicht möglich
 					default:
 						char c = (char) tokenizer.ttype;
 						if (c == separatorChar) { //Feld fertig gelesen
@@ -209,7 +209,7 @@ public class MadlanReader implements MadlanConstants {
 			readRows++;
 		if (!filled) //Feld fertig gelesen
 			row.add(emptyField);
-		
+
 		// Behandlung von zu kurzen Zeilen
 		if (!isHeader && ++i < getColumnCount()) {
 			if (i > 1) {
@@ -251,7 +251,7 @@ public class MadlanReader implements MadlanConstants {
             }
 		return row;
 	}
-    
+
 	private void prepareForLog(StringBuffer buffer) {
 		int pos;
 		while ((pos = buffer.indexOf("\r")) != -1) {
@@ -271,7 +271,7 @@ public class MadlanReader implements MadlanConstants {
 	public int getReadRowsCount() {
 		return readRows;
 	}
-	
+
 	/**
 	 * @return die Breite der Tabelle.
 	 * @throws IOException
@@ -280,24 +280,24 @@ public class MadlanReader implements MadlanConstants {
 		return getHeader().size();
 	}
 
-	
+
     /**
      * Hier wird festgelegt wie zu kurze Zeilen behandelt werden sollen.
      * Wird der Parameter auf true gesetzt, dann werden Zeilen mit weniger Feldern als im Header
-     * mit dem Wert {@link #emptyField} aufgef�llt. Ist der Wert false, wird ein Fehler erzeugt.
-     * Standardwert ist true. 
+     * mit dem Wert {@link #emptyField} aufgefüllt. Ist der Wert false, wird ein Fehler erzeugt.
+     * Standardwert ist true.
      */
 	public boolean getFillShortenedRows() {
 		return fillShortenedRows;
 	}
-	
+
 	/**
 	 * Hier wird festgelegt wie zu kurze Zeilen behandelt werden sollen.
 	 * Wird der Parameter auf true gesetzt, dann werden Zeilen mit weniger Feldern als im Header
-	 * mit dem Wert {@link #emptyField} aufgef�llt. Ist der Wert false, wird ein Fehler erzeugt.
-	 * Standardwert ist true. 
-	 * 
-	 * @param fillShortenedRows Flag: Sollen zu kurze Zeilen aufgef�llt akzeptiert werden.
+	 * mit dem Wert {@link #emptyField} aufgefüllt. Ist der Wert false, wird ein Fehler erzeugt.
+	 * Standardwert ist true.
+	 *
+	 * @param fillShortenedRows Flag: Sollen zu kurze Zeilen aufgefüllt akzeptiert werden.
 	 */
 	public void setFillShortenedRows(boolean fillShortenedRows) {
 		this.fillShortenedRows = fillShortenedRows;
@@ -306,37 +306,37 @@ public class MadlanReader implements MadlanConstants {
     /**
      * Hier wird festgelegt wie zu lange Zeilen behandelt werden sollen.
      * Wird der Parameter auf true gesetzt, dann werden bei Zeilen mit mehr Feldern als im Header
-     * nur die zuerst stehenden Felder �bernommen. Ist der Wert false, wird ein Fehler erzeugt.
+     * nur die zuerst stehenden Felder übernommen. Ist der Wert false, wird ein Fehler erzeugt.
      * Standardwert ist true.
      */
 	public boolean getTrimExtendedRows() {
 		return fillShortenedRows;
 	}
-	
+
 	/**
 	 * Hier wird festgelegt wie zu lange Zeilen behandelt werden sollen.
 	 * Wird der Parameter auf true gesetzt, dann werden bei Zeilen mit mehr Feldern als im Header
-	 * nur die zuerst stehenden Felder �bernommen. Ist der Wert false, wird ein Fehler erzeugt.
+	 * nur die zuerst stehenden Felder übernommen. Ist der Wert false, wird ein Fehler erzeugt.
 	 * Standardwert ist true.
-	 * 
-	 * @param trimExtendedRows Flag: sollen �berlange Zeilen gek�rzt akzeptiert werden.
+	 *
+	 * @param trimExtendedRows Flag: sollen überlange Zeilen gekürzt akzeptiert werden.
 	 */
 	public void setTrimExtendedRows(boolean trimExtendedRows) {
 		this.trimExtendedRows = trimExtendedRows;
 	}
 
     /**
-     * Liefert den {@link String} zum Auff�llen der Felder von zu kurzen Zeilen.
+     * Liefert den {@link String} zum Auffüllen der Felder von zu kurzen Zeilen.
      * @see #fillShortenedRows
      */
 	public String getEmptyField() {
 		return emptyField;
 	}
-    
+
 	/**
-	 * Legt den {@link String} zum Auff�llen der Felder von zu kurzen Zeilen fest.
+	 * Legt den {@link String} zum Auffüllen der Felder von zu kurzen Zeilen fest.
 	 * @see #fillShortenedRows
-	 * @param emptyField {@link String} zum Auff�llen der Felder von zu kurzen Zeilen
+	 * @param emptyField {@link String} zum Auffüllen der Felder von zu kurzen Zeilen
 	 */
 	public void setEmptyField(String emptyField) {
 		this.emptyField = emptyField;
@@ -349,7 +349,7 @@ public class MadlanReader implements MadlanConstants {
 	public char getSeparatorChar() {
 		return separatorChar;
 	}
-	
+
 	/**
 	 * Legt das Trennzeichen zwischen den Feldern der Tabelle fest.
 	 * @see #fillShortenedRows
@@ -358,17 +358,17 @@ public class MadlanReader implements MadlanConstants {
 	public void setSeparatorChar(char separatorChar) {
 		this.separatorChar = separatorChar;
 	}
-	
+
     /**
      * Liefert das Zeichen, das als Umbruch innerhalb von Feldern interpretiert werden soll.
      */
 	public char getLineBreakChar() {
 		return lineBreakChar;
 	}
-	
+
 	/**
 	 * Legt das Zeichen fest, das als Umbruch innerhalb von Feldern interpretiert werden soll.
-     * 
+     *
 	 * @param lineBreakChar Zeichen, das als Umbruch innerhalb von Feldern interpretiert werden soll
 	 */
 	public void setLineBreakChar(char lineBreakChar) {
@@ -376,14 +376,14 @@ public class MadlanReader implements MadlanConstants {
 	}
 
     /**
-     * Diese Methode liefert zu einem Schl�ssel ein Zeichenmapping.
-     * Die erlaubten Schl�ssel sind {@link #CHARS_BALT}, {@link #CHARS_BALTIC},
+     * Diese Methode liefert zu einem Schlüssel ein Zeichenmapping.
+     * Die erlaubten Schlüssel sind {@link #CHARS_BALT}, {@link #CHARS_BALTIC},
      * {@link #CHARS_CYR_EXT}, {@link #CHARS_CYRILLIC}, {@link #CHARS_EAST},
      * {@link #CHARS_GREEK}, {@link #CHARS_LATIN}, {@link #CHARS_TUR_ASB},
      * {@link #CHARS_TURKISH} und {@link #CHARS_WEST}. Als Default wird
-     * {@link #CHARS_LATIN} genommen.  
-     * 
-     * @param key Zeichenmappingschl�ssel
+     * {@link #CHARS_LATIN} genommen.
+     *
+     * @param key Zeichenmappingschlüssel
      * @return ein <code>char[256]</code>.
      */
     public final static char[] getChars(String key) {
@@ -399,7 +399,7 @@ public class MadlanReader implements MadlanConstants {
             	logger.log(Level.DEBUG, "Mapping '" + key + "' wird benutzt.");
         return result;
     }
-    
+
     final static Map charsets = new TreeMap();
     static {
         charsets.put(CHARS_BALT, charsBalt);

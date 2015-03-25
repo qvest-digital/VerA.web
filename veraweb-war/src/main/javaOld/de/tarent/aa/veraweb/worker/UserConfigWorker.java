@@ -38,8 +38,8 @@ import de.tarent.octopus.server.OctopusContext;
 
 /**
  * Dieser Octopus-Worker stellt Aktionen zum laden und speichern
- * von Benutzereinstellungen zur Verf�gung.
- * 
+ * von Benutzereinstellungen zur Verfügung.
+ *
  * @author Christoph Jerolimov
  * @version $Revision: 1.1 $
  */
@@ -50,13 +50,13 @@ public class UserConfigWorker {
 	private static final String PARAMS_BOOLEAN[] = {
 		"guestListFunction", "guestListCity", "guestListPhone", "personListState" };
 
-	/** Octopus-Eingabe-Parameter f�r {@link #init(OctopusContext)} */
+	/** Octopus-Eingabe-Parameter für {@link #init(OctopusContext)} */
 	public static final String INPUT_init[] = {};
-	/** Octopus-Ausgabe-Parameter f�r {@link #init(OctopusContext)} */
+	/** Octopus-Ausgabe-Parameter für {@link #init(OctopusContext)} */
 	public static final String OUTPUT_init = "userConfig";
 	/**
-	 * L�dt die Konfiguration aus der Datenbank in die Session.
-	 * 
+	 * Lädt die Konfiguration aus der Datenbank in die Session.
+	 *
 	 * @param cntx
 	 * @throws BeanException
 	 * @throws IOException
@@ -65,42 +65,42 @@ public class UserConfigWorker {
 		Database database = new DatabaseVeraWeb(cntx);
 		Integer userId = ((PersonalConfigAA)cntx.personalConfig()).getVerawebId();
 		if (userId == null) return null;
-		
+
 		Select select = database.getSelect("UserConfig");
 		select.where(Expr.equal("fk_user", userId));
-		
+
 		Map result = new HashMap();
 		for (Iterator it = database.getList(select, database).iterator(); it.hasNext(); ) {
 			Map data = (Map)it.next();
 			result.put(data.get("key"), data.get("value"));
 		}
-		
+
 		/*
 		 * modified to support display of orgunit as per change request for version 1.2.0
-		 * 
+		 *
 		 * cklein
-		 * 2008-02-15 
+		 * 2008-02-15
 		 */
 		User user = ( User ) database.getBean( "User", userId );
 		OrgUnit orgUnit = new OrgUnit();
-		
+
 		if ( user != null && user.orgunit != null && user.orgunit.intValue() != 0 )
 		{
 			orgUnit = ( OrgUnit ) database.getBean( "OrgUnit", user.orgunit );
 		}
-		
+
 		cntx.setContent( "orgUnit", orgUnit );
 		cntx.setSession("userConfig", result);
 		return result;
 	}
 
-	/** Octopus-Eingabe-Parameter f�r {@link #load(OctopusContext)} */
+	/** Octopus-Eingabe-Parameter für {@link #load(OctopusContext)} */
 	public static final String INPUT_load[] = {};
-	/** Octopus-Ausgabe-Parameter f�r {@link #load(OctopusContext)} */
+	/** Octopus-Ausgabe-Parameter für {@link #load(OctopusContext)} */
 	public static final String OUTPUT_load = "userConfig";
 	/**
-	 * L�dt die Konfiguration aus der Session in den Content.
-	 * 
+	 * Lädt die Konfiguration aus der Session in den Content.
+	 *
 	 * @param cntx
 	 * @throws BeanException
 	 * @throws IOException
@@ -113,11 +113,11 @@ public class UserConfigWorker {
 		return result;
 	}
 
-	/** Octopus-Eingabe-Parameter f�r {@link #save(OctopusContext)} */
+	/** Octopus-Eingabe-Parameter für {@link #save(OctopusContext)} */
 	public static final String INPUT_save[] = {};
 	/**
 	 * Speichert die Benutzer Einstellungen in der Datenbank.
-	 * 
+	 *
 	 * @param cntx
 	 * @throws BeanException
 	 * @throws IOException
@@ -126,21 +126,21 @@ public class UserConfigWorker {
 		if (!cntx.requestContains("save")) {
 			return;
 		}
-		
+
 		Database database = new DatabaseVeraWeb(cntx);
 		Integer userId = ((PersonalConfigAA)cntx.personalConfig()).getVerawebId();
 		Map userConfig = (Map)cntx.contentAsObject("userConfig");
-		
+
 		for (int i = 0; i < PARAMS_STRING.length; i++) {
 			String key = PARAMS_STRING[i];
 			String value = cntx.requestAsString(key);
-			
+
 			if (value == null) {
 			    continue;
 			}
 			setUserSetting(database, userId, userConfig, key, value);
 		}
-		
+
 		for (int i = 0; i < PARAMS_BOOLEAN.length; i++) {
 			String key = PARAMS_BOOLEAN[i];
 			boolean value = cntx.requestAsBoolean(key).booleanValue();
@@ -150,7 +150,7 @@ public class UserConfigWorker {
 				removeUserSetting(database, userId, userConfig, key);
 			}
 		}
-		
+
 		cntx.setContent("saveSuccess", true);
 	}
 

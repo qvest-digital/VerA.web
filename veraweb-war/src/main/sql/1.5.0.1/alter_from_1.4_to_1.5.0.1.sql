@@ -26,17 +26,17 @@ CREATE FUNCTION linkOrgUnitWithCategorie()
 CREATE TRIGGER createCategorieOnUnitInsert
         AFTER INSERT ON veraweb.torgunit
         FOR EACH ROW EXECUTE PROCEDURE linkOrgUnitWithCategorie();
-        
+
 /* ---------------------------------------------------------------------- */
 /* Mirgate old OrgUnits                                                   */
-/* ---------------------------------------------------------------------- */        
+/* ---------------------------------------------------------------------- */
 CREATE FUNCTION migrateOrgUnits() RETURNS integer AS $BODY$
 	DECLARE
 	    unLinked RECORD;
 	BEGIN
 
 	FOR unLinked IN SELECT pk FROM veraweb.torgunit WHERE pk NOT IN( SELECT fk_orgunit FROM veraweb.tcategorie ) LOOP
-        
+
         execute format('INSERT INTO veraweb.tcategorie (fk_event, fk_orgunit, catname, flags, rank) VALUES (NULL, %s, %s, NULL, NULL);', unlinked, quote_literal(E'Pressevertreter'));
 
     END LOOP;
@@ -56,7 +56,7 @@ drop table veraweb.tdelegation_fields;
 
 /* ---------------------------------------------------------------------- */
 /* Create new tables for the optional delegation fields                   */
-/* ---------------------------------------------------------------------- */     
+/* ---------------------------------------------------------------------- */
 CREATE TABLE veraweb.toptional_fields (
 	pk serial NOT NULL,
 	fk_event serial NOT NULL,

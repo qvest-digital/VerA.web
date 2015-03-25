@@ -50,22 +50,22 @@ import de.tarent.octopus.server.OctopusContext;
  * </p>
  * <ul>
  * <li>ID 1 = Inland: Ja - Geschlecht: Weiblich</li>
- * <li>ID 2 = Inland: Ja - Geschlecht: M�nnlich</li>
+ * <li>ID 2 = Inland: Ja - Geschlecht: Männlich</li>
  * <li>ID 3 = Inland: Nein - Geschlecht: Weiblich</li>
- * <li>ID 4 = Inland: Nein - Geschlecht: M�nnlich</li>
+ * <li>ID 4 = Inland: Nein - Geschlecht: Männlich</li>
  * </ul>
- * 
+ *
  * @author Christoph
  */
 public class ColorWorker {
-	/** Octopus-Eingabeparameter f�r die Aktion {@link #showList(OctopusContext)} */
+	/** Octopus-Eingabeparameter für die Aktion {@link #showList(OctopusContext)} */
 	public static final String INPUT_showList[] = {};
 	/**
 	 * Holt eine Liste von Farben und stellt diese in den Content.
-	 * 
+	 *
 	 * @param cntx Octopus-Context
-	 * @throws IOException 
-	 * @throws BeanException 
+	 * @throws IOException
+	 * @throws BeanException
 	 */
 	public void showList(OctopusContext cntx) throws BeanException, IOException {
 		Database database = new DatabaseVeraWeb(cntx);
@@ -87,33 +87,33 @@ public class ColorWorker {
 				where(Expr.equal("pk", new Integer(4)))));
 	}
 
-	/** Octopus-Eingabeparameter f�r die Aktion {@link #saveList(OctopusContext)} */
+	/** Octopus-Eingabeparameter für die Aktion {@link #saveList(OctopusContext)} */
 	public static final String INPUT_saveList[] = {};
 	/**
 	 * Speichert eine Liste von Farben.
-	 * 
+	 *
 	 * @param cntx Octopus-Context
-	 * @throws IOException 
-	 * @throws BeanException 
+	 * @throws IOException
+	 * @throws BeanException
 	 */
 	public void saveList(OctopusContext cntx) throws BeanException, IOException {
 		if (!cntx.personalConfig().isUserInGroup(PersonalConfigAA.GROUP_ADMIN))
 			return;
-		
+
 		Request request = new RequestVeraWeb(cntx);
 		Database database = new DatabaseVeraWeb(cntx);
 		List errors = new ArrayList();
-		
+
 		Color color1 = (Color)request.getBean("Color", "color1");
 		Color color2 = (Color)request.getBean("Color", "color2");
 		Color color3 = (Color)request.getBean("Color", "color3");
 		Color color4 = (Color)request.getBean("Color", "color4");
-		
+
 		saveColor(database, new Integer(1), color1, errors);
 		saveColor(database, new Integer(2), color2, errors);
 		saveColor(database, new Integer(3), color3, errors);
 		saveColor(database, new Integer(4), color4, errors);
-		
+
 		if (!errors.isEmpty()) {
 			cntx.setContent("errors", errors);
 		}
@@ -140,10 +140,10 @@ public class ColorWorker {
 	}
 
 	/**
-	 * Gibt die ID des entsprechenden Farbwertes zur�ck.
-	 * 
+	 * Gibt die ID des entsprechenden Farbwertes zurück.
+	 *
 	 * @param domestic (default ja)
-	 * @param sex (default m�nnlich)
+	 * @param sex (default männlich)
 	 * @return 1 - 4
 	 */
 	public static Integer getColor(String domestic, String sex) {

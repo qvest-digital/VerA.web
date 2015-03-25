@@ -174,7 +174,7 @@
 
       <type-mapping>
          <name>Ingres</name>
-         <row-locking-template>SELECT ?1 FROM ?2 WHERE ?3 ORDER BY ?4 FOR UPDATE</row-locking-template>    
+         <row-locking-template>SELECT ?1 FROM ?2 WHERE ?3 ORDER BY ?4 FOR UPDATE</row-locking-template>
          <pk-constraint-template>ALTER TABLE ?1 ADD CONSTRAINT ?2 PRIMARY KEY (?3)</pk-constraint-template>
          <fk-constraint-template>ALTER TABLE ?1 ADD CONSTRAINT ?2 FOREIGN KEY (?3) REFERENCES ?4 (?5)</fk-constraint-template>
          <alias-header-prefix>t</alias-header-prefix>
@@ -187,35 +187,35 @@
          <function-mapping>
             <function-name>concat</function-name>
             <function-sql>concat(?1,?2)</function-sql>
-         </function-mapping>    
+         </function-mapping>
          <function-mapping>
             <function-name>substring</function-name>
             <function-sql>left(?1,?2)</function-sql>
-         </function-mapping>    
+         </function-mapping>
          <function-mapping>
             <function-name>lcase</function-name>
             <function-sql>lower(?1)</function-sql>
-         </function-mapping>    
+         </function-mapping>
          <function-mapping>
             <function-name>length</function-name>
             <function-sql>length(?1)</function-sql>
-         </function-mapping>    
+         </function-mapping>
          <function-mapping>
             <function-name>locate</function-name>
             <function-sql>locate(?1,?2)</function-sql>
-         </function-mapping>    
+         </function-mapping>
          <function-mapping>
             <function-name>abs</function-name>
             <function-sql>abs(?1)</function-sql>
-         </function-mapping>    
+         </function-mapping>
          <function-mapping>
             <function-name>sqrt</function-name>
             <function-sql>sqrt(?1)</function-sql>
-         </function-mapping>    
+         </function-mapping>
          <function-mapping>
             <function-name>ucase</function-name>
             <function-sql>upper(?1)</function-sql>
-         </function-mapping>    
+         </function-mapping>
          <function-mapping>
             <function-name>count</function-name>
             <function-sql>count(?1)</function-sql>
@@ -659,7 +659,7 @@ Mapping proposed by Computer Associates, but does not work with JBoss properly
             <sql-type>BLOB(2000)</sql-type>
          </mapping>
       </type-mapping>
-      
+
       <type-mapping>
          <name>Oracle9i</name>
          <!--
@@ -1082,7 +1082,7 @@ Mapping proposed by Computer Associates, but does not work with JBoss properly
          <function-mapping>
             <function-name>count</function-name>
             <function-sql>count(?1)</function-sql>
-         </function-mapping>         
+         </function-mapping>
          <function-mapping>
          	<function-name>length</function-name>
          	<function-sql>char_length(?1)</function-sql>
@@ -2694,7 +2694,7 @@ Mapping proposed by Computer Associates, but does not work with JBoss properly
       	<word>number</word>
       	<word>integer</word>
       	<word>varchar</word>
-      	<word>char</word>      	
+      	<word>char</word>
       	<word>user</word>
     </reserved-words>
 </jbosscmp-jdbc>

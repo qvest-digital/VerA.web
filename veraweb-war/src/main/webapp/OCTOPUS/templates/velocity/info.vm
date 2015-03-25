@@ -1,17 +1,17 @@
 #set($activeMenu = "Verwaltung")
 #set($title = "Hilfe - Info &uuml;ber VerA.web")
-#parse("inc/header.vm")	
+#parse("inc/header.vm")
 
 <div id="content_container">
     <form action="Main" method="POST">
-    
+
     <div id="breadcrumb" class="textRight marginBottom10">
         <strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Verwaltung > Info</span>
     </div>
-    
+
     <h1>Informationen zu VerA.Web</h1>
-    
-    
+
+
     #if($errors && $errors.size() > 0)
     <vera-warn>
     	#foreach($error in $errors)
@@ -21,8 +21,8 @@
     	Es kann zu unerwarteten Fehlern kommen. Bitte wenden Sie sich an Ihren Administrator.
     </vera-warn>
     #end
-    
-    
+
+
     <h3>VerA.Web</h3>
     #if($properties)
     <table class="form">
@@ -38,7 +38,7 @@
     #else
     <p><i>Informationen nicht verf&uuml;gbar</i></p>
     #end
-    
+
     <h3>Datenbank</h3>
     <table class="form">
     	<tr>
@@ -71,10 +71,10 @@
     	</tr>
     </table>
     <br>
-    
-    
+
+
     <h3>Benutzer</h3>
-    
+
     <table class="form">
     	<tr>
     		<td class="width10 bold"">Login:</td>
@@ -134,10 +134,10 @@
     		</td>
     	</tr>
     </table>
-    
-    
-    
-    
+
+
+
+
     </form>
 </div>
 <!--

@@ -28,7 +28,7 @@ import de.tarent.octopus.server.OctopusContext;
 /**
  * Diese Octopus-Worker-Klasse stellt Helferobjekte in den Kontext, die Mitteilungstexte
  * und Build-Informationen liefern.
- * 
+ *
  * @author Christoph
  * @author mikel
  */
@@ -36,7 +36,7 @@ public class MessageWorker {
     //
     // Octopus-Aktionen
     //
-    /** Octopus-Eingabeparameter f�r die Aktion {@link #init()} */
+    /** Octopus-Eingabeparameter für die Aktion {@link #init()} */
 	public final static String INPUT_init[] = {};
     /**
      * Diese Octopus-Aktion initialisiert die Member dieses Workers.
@@ -46,13 +46,13 @@ public class MessageWorker {
         properties = ResourceBundle.getBundle("de.tarent.aa.veraweb.veraweb", Locale.getDefault());
 	}
 
-    /** Octopus-Eingabeparameter f�r die Aktion {@link #load(OctopusContext)} */
+    /** Octopus-Eingabeparameter für die Aktion {@link #load(OctopusContext)} */
 	public final static String INPUT_load[] = {};
     /**
-     * Diese Octopus-Aktion legt geb�ndelte lokalisierte Mitteilungen als "message"
-     * und geb�ndelte Versions- und Buildinformationen als "properties" in den
+     * Diese Octopus-Aktion legt gebündelte lokalisierte Mitteilungen als "message"
+     * und gebündelte Versions- und Buildinformationen als "properties" in den
      * Octopus-Content.
-     * 
+     *
      * @param cntx Octopus-Kontext
      */
 	public void load(OctopusContext cntx) {

@@ -111,11 +111,11 @@ public class PersonDetailWorker implements PersonConstants {
     /** Eingabe-Parameterzwang der Octopus-Aktion {@link #showDetail(OctopusContext, Integer, Person)} */
 	public static final boolean MANDATORY_showDetail[] = { false, false };
 	/**
-	 * Diese Octopus Aktion nimmt die �bergebene Person oder die Person zu der
-     * �bergebenen ID oder die Person zu der ID unter "person-id" in der Session
-     * und gibt sie zur�ck. Als Seiteneffekt wird (wenn die Person nicht null ist)
+	 * Diese Octopus Aktion nimmt die übergebene Person oder die Person zu der
+     * übergebenen ID oder die Person zu der ID unter "person-id" in der Session
+     * und gibt sie zurück. Als Seiteneffekt wird (wenn die Person nicht null ist)
      * im Octopus-Content unter "person-diplodatetime" ein Flag, ob das
-     * Akkreditierungsdatum einen Zeitanteil enth�lt, und die �bergebene ID (falls
+     * Akkreditierungsdatum einen Zeitanteil enthält, und die übergebene ID (falls
      * die Person durch sie identifiziert wurde) in der Session unter "person-id"
      * abgelegt.
 	 *
@@ -315,13 +315,13 @@ public class PersonDetailWorker implements PersonConstants {
     /** Eingabe-Parameterzwang der Octopus-Aktion {@link #copyPerson(OctopusContext, Integer)} */
 	public static final boolean MANDATORY_copyPerson[] = { false };
 	/**
-	 * Kopiert die Personendaten, die der �bergebenen ID zugeordnet sind oder
-     * sich im Octopus-Request unterhalb des Schl�ssels "person" befinden,
-	 * und stellt diese unter dem Schl�ssel "person" und ein Flag, ob das
-     * Akkreditierungsdatum einen Zeitanteil enth�lt, unter "person-diplodatetime"
+	 * Kopiert die Personendaten, die der übergebenen ID zugeordnet sind oder
+     * sich im Octopus-Request unterhalb des Schlüssels "person" befinden,
+	 * und stellt diese unter dem Schlüssel "person" und ein Flag, ob das
+     * Akkreditierungsdatum einen Zeitanteil enthält, unter "person-diplodatetime"
      * in den Octopus-Content.<br>
      * In der aktuellen Implementierung werden dabei neben den Teilpersonen- und
-     * Adressangaben in den Zusatzzeichens�tzen lediglich folgende Felder
+     * Adressangaben in den Zusatzzeichensätzen lediglich folgende Felder
      * auf <code>null</code> gesetzt:
 	 * {@link Person#id},
 	 * {@link Person#expire},
@@ -384,10 +384,10 @@ public class PersonDetailWorker implements PersonConstants {
     /** Eingabe-Parameter der Octopus-Aktion {@link #showTestPerson(OctopusContext)} */
 	public static final String INPUT_showTestPerson[] = {};
 	/**
-	 * Erstellt eine Test-Person und stellt diese unter dem Schl�ssel "person"
-     * und ein Flag, ob das Akkreditierungsdatum einen Zeitanteil enth�lt, unter
+	 * Erstellt eine Test-Person und stellt diese unter dem Schlüssel "person"
+     * und ein Flag, ob das Akkreditierungsdatum einen Zeitanteil enthält, unter
      * "person-diplodatetime" in den Octopus-Content.<br>
-     * Anhand des Werts des Octopus-Request-Parameters zum Schl�ssel "partner"
+     * Anhand des Werts des Octopus-Request-Parameters zum Schlüssel "partner"
      * werden nur Daten zur Partnerperson ("only"), nur Daten zur Hauptperson
      * ("without") oder zu beiden (sonst) erzeugt.
 	 *
@@ -408,7 +408,7 @@ public class PersonDetailWorker implements PersonConstants {
      * Label-Dokumenttyps in der Konfiguration unter "freitextfeld" erwartet,
      * und der Dokumenttyp wird im Octopus-Content unter "doctype" abgelegt.<br>
 	 * Wenn zu dieser Person noch kein entsprechender Eintrag existiert
-	 * wird die einfache Form eines Dokumenttypens zur�ckgegeben.
+	 * wird die einfache Form eines Dokumenttypens zurückgegeben.
 	 *
 	 * @param cntx Octopus-Kontext
 	 */
@@ -450,7 +450,7 @@ public class PersonDetailWorker implements PersonConstants {
 	 * Erstellt ein Personen-Etikett-Label, um damit in einer Textverarbeitung
 	 * leicht einen Brief zu erstellen. Die Person wird hierzu im Octopus-Content
      * unter "person", ein ({@link PersonDoctype Personen-}){@link Doctype Dokumenttyp}
-     * unter "doctype" und die ID des Label-Dokumenttyps (f�r den Fall, dass der
+     * unter "doctype" und die ID des Label-Dokumenttyps (für den Fall, dass der
      * Dokumenttyp nicht personalisiert wurde) in der Konfiguration unter "freitextfeld"
      * erwartet, und das Erzeugnis wird im Octopus-Content unter "personExport" abgelegt.
 	 *
@@ -492,7 +492,7 @@ public class PersonDetailWorker implements PersonConstants {
 				buffer.append(helper.getFreitext(freitextfeld, addresstype, locale, false)).append(nl).append(nl);
 			}
 
-			// funktion, firma und stra�e
+			// funktion, firma und straße
 			if (facade.getFunction() != null && facade.getFunction().length() != 0)
 				buffer.append(facade.getFunction()).append(nl);
 			if (facade.getCompany() != null && facade.getCompany().length() != 0)
@@ -545,7 +545,7 @@ public class PersonDetailWorker implements PersonConstants {
     /** Eingabe-Parameterzwang der Octopus-Aktion {@link #prepareSaveDetail(OctopusContext, Boolean)} */
 	public static final boolean MANDATORY_prepareSaveDetail[] = { false };
 	/**
-     * Diese Octopus-Aktion testet das �bergebene Flag; falls es gesetzt
+     * Diese Octopus-Aktion testet das übergebene Flag; falls es gesetzt
      * ist, wird der Status "saveperson" gesetzt.
 	 *
 	 * @param cntx Octopus-Kontext
@@ -586,15 +586,15 @@ public class PersonDetailWorker implements PersonConstants {
     /** Eingabe-Parameterzwang der Octopus-Aktion {@link #saveDetail(OctopusContext, Person)} */
 	public static final boolean MANDATORY_saveDetail[] = { false };
 	/**
-     * Diese Octopus-Aktions speichert die �bergebenen Person oder die Person
-     * aus dem Octopus-Request unterhalb des Schl�ssels "person" in der Datenbank.
-     * Hierbei werden gegebenenfalls �nderungen im Latin-Zeichensatz in die anderen
-     * Zeichens�tze �bertragen.<br>
-     * Die gespeicherte Person wird zur�ckgegeben, "countInsert" oder "countUpdate"
+     * Diese Octopus-Aktions speichert die übergebenen Person oder die Person
+     * aus dem Octopus-Request unterhalb des Schlüssels "person" in der Datenbank.
+     * Hierbei werden gegebenenfalls änderungen im Latin-Zeichensatz in die anderen
+     * Zeichensätze übertragen.<br>
+     * Die gespeicherte Person wird zurückgegeben, "countInsert" oder "countUpdate"
      * im Octopus-Content wird mit 1 und "person-diplodatetime" mit einem Flag, ob
      * das Akkreditierungsdatum einen Zeitanteil hat, belegt, und die Werte unter
      * "personTab", "personMemberTab", "personAddresstypeTab" und "personLocaleTab"
-     * im Octopus-Request werden unter den gleichen Schl�sseln in den -Content
+     * im Octopus-Request werden unter den gleichen Schlüsseln in den -Content
      * kopiert.
 	 *
 	 * @param cntx Octopus-Kontext
@@ -679,7 +679,7 @@ public class PersonDetailWorker implements PersonConstants {
 			AddressHelper.checkPersonSalutation(person, database, context);
 
 			// Updatet das Gueltigkeitsdatum automatisch auf "in 3 Jahre"
-			// wenn dieses nicht ver�ndert wurde.
+			// wenn dieses nicht verändert wurde.
 			if (person.expire != null && personOld != null && personOld.expire != null) {
 				Calendar e1 = Calendar.getInstance();
 				Calendar e2 = Calendar.getInstance();
@@ -831,7 +831,7 @@ public class PersonDetailWorker implements PersonConstants {
 	public static final boolean MANDATORY_updatePerson[] = { false, false };
 	/**
      * Diese Octopus-Aktion aktualisiert die Historisierungsdaten der Person mit der
-     * �bergebenen ID (es wird die �bergebene genommen oder eine Instanz aus der DB
+     * übergebenen ID (es wird die übergebene genommen oder eine Instanz aus der DB
      * geladen).
 	 *
 	 * @param cntx Octopus-Kontext
@@ -865,10 +865,10 @@ public class PersonDetailWorker implements PersonConstants {
 	}
 
     //
-    // �ffentliche Hilfsmethoden
+    // Öffentliche Hilfsmethoden
     //
     /**
-     * Diese Methode erzeugt eine Test-Person und liefert diese zur�ck.
+     * Diese Methode erzeugt eine Test-Person und liefert diese zurück.
      *
      * @param partner bei "only" werden nur Daten zur Partnerperson, bei "without"
      *  nur Daten zur Hauptperson und sonst Daten zu beiden erzeugt.
@@ -902,12 +902,12 @@ public class PersonDetailWorker implements PersonConstants {
     }
 
     //
-    // gesch�tzte Hilfsmethoden
+    // geschützte Hilfsmethoden
     //
     /**
-     * Diese Methode f�llt die Personen-Member-Facade mit Testwerten.
+     * Diese Methode füllt die Personen-Member-Facade mit Testwerten.
      *
-     * @param suffix Suffix f�r Text-wertige Attribute
+     * @param suffix Suffix für Text-wertige Attribute
      */
     protected static void showTestPerson(PersonMemberFacade facade, String suffix) {
         facade.setBirthday(new Timestamp(System.currentTimeMillis()));
@@ -924,9 +924,9 @@ public class PersonDetailWorker implements PersonConstants {
     }
 
     /**
-     * Diese Methode f�llt die Personen-Adress-Facade mit Testwerten.
+     * Diese Methode füllt die Personen-Adress-Facade mit Testwerten.
      *
-     * @param suffix Suffix f�r Text-wertige Attribute
+     * @param suffix Suffix für Text-wertige Attribute
      */
     protected static void showTestPerson(PersonAddressFacade facade, String suffix) {
         facade.setCity("Ort" + suffix);
@@ -949,15 +949,15 @@ public class PersonDetailWorker implements PersonConstants {
 
 
     /**
-     * Diese Methode liefert eine aktuelle Personen-ID, wahlweise die �bergebene
-     * oder die unter dem Schl�ssel "person-id" in der Session. Falls die �bergebene
+     * Diese Methode liefert eine aktuelle Personen-ID, wahlweise die übergebene
+     * oder die unter dem Schlüssel "person-id" in der Session. Falls die übergebene
      * genommen wird, wird sie unter "person-id" in die Session geschrieben.<br>
-     * Die �bergebene ID wird genutzt, wenn sie nicht <code>null</code> ist oder
+     * Die übergebene ID wird genutzt, wenn sie nicht <code>null</code> ist oder
      * der Parameter <code>forceset</code> <code>true</code> ist.
      *
      * @param cntx Octopus-Kontext
      * @param id neue aktuelle ID
-     * @param forceSet erzwingt das Nutzen der �bergebenen ID, selbst wenn sie
+     * @param forceSet erzwingt das Nutzen der übergebenen ID, selbst wenn sie
      *  <code>null</code> ist.
      * @return die aktuelle Personen-ID
      */
@@ -971,19 +971,19 @@ public class PersonDetailWorker implements PersonConstants {
 
 	/**
 	 * <p>
-	 * L�scht eine Person aus der Tabelle <code>tperson</code>, wenn
+	 * Löscht eine Person aus der Tabelle <code>tperson</code>, wenn
 	 * auf diese keine Referenzen mehr in <code>tguest</code> existieren.
-	 * Dabei werden auch alle abh�ngigen Tabelleneintr�ge gel�scht.
+	 * Dabei werden auch alle abhängigen Tabelleneinträge gelöscht.
 	 * </p>
 	 * <p>
-	 * Wenn entsprechende Eintr�ge noch existieren, wird lediglich
+	 * Wenn entsprechende Einträge noch existieren, wird lediglich
 	 * die Spalte <code>deleted</code> auf @link PersonConstants#DELETED_TRUE
-	 * gesetzt, entsprechende Eintr�ge werden bei der Suche, etc. nicht
-	 * mehr ber�cksichtigt.
+	 * gesetzt, entsprechende Einträge werden bei der Suche, etc. nicht
+	 * mehr berücksichtigt.
 	 * </p>
 	 *
 	 * @param cntx Aktueller Octopus Kontext
-	 * @param personid PK aus tperson, dessen Eintrag gel�scht werden soll.
+	 * @param personid PK aus tperson, dessen Eintrag gelöscht werden soll.
 	 * @throws BeanException inkl. Datenbank-Fehler
 	 * @throws IOException
 	 */
@@ -991,7 +991,7 @@ public class PersonDetailWorker implements PersonConstants {
 		Database database = context.getDatabase();
 
 		Person oldPerson = ( Person ) database.getBean( "Person", personid, context );
-		// Datenbank-Eintr�ge inkl. Abh�nigkeiten l�schen.
+		// Datenbank-Einträge inkl. Abhängigkeiten löschen.
 		if (logger.isEnabledFor(Priority.DEBUG)) {
 			logger.log(Priority.DEBUG, "Person l\u00f6schen: Person #" + personid + " wird vollst\u00e4ndig gel\u00f6scht.");
 		}
@@ -1046,7 +1046,7 @@ public class PersonDetailWorker implements PersonConstants {
 	 * @param cntx The {@link de.tarent.octopus.server.OctopusContext}
 	 */
 	public Person createOsiamUser(OctopusContext cntx, Integer personId) throws BeanException, IOException {
-		
+
 		Person person = getPersonById(cntx, personId);
 		if (!hasUsername(cntx, personId)) {
 
@@ -1056,29 +1056,29 @@ public class PersonDetailWorker implements PersonConstants {
 			final String lastname = person.lastname_a_e1;
 			final String username = osiamLoginCreator.generateUsername(firstname, lastname, cntx);
 			final String password = osiamLoginCreator.generatePassword();
-			
+
 			person.username = username;
-			
+
 			// Update in tperson
 			this.updateUsernameInVeraweb(cntx, person);
-			
+
 			// Create in OSIAM
 			final OsiamConnector connector = getConnector();
 			createUser(username, password, connector);
-			
+
 			// Saving uuid to generate the reset-password url
 			saveLinkUUID(cntx, personId);
 			cntx.setContent("osiam-user-created", true);
 		} else {
 			cntx.setContent("osiam-user-exists", true);
 		}
-		
+
 		return person;
 	}
 
 	/**
 	 * Save new instance LinkUUID to allow having a reset password url
-	 * 
+	 *
 	 * @param cntx OctopusContext
 	 * @param personId
 	 * @throws BeanException
@@ -1086,7 +1086,7 @@ public class PersonDetailWorker implements PersonConstants {
 	 */
 	private void saveLinkUUID(OctopusContext cntx, Integer personId)
 			throws BeanException, IOException {
-		
+
 		Database database = new DatabaseVeraWeb(cntx);
 		database.execute(SQL.Insert(database).
 				table("veraweb.link_uuid").
@@ -1109,11 +1109,11 @@ public class PersonDetailWorker implements PersonConstants {
 			osiamLoginRemover.deleteOsiamUser(accessToken, username);
 		}
 	}
-	
+
 	private void updateUsernameInVeraweb(OctopusContext cntx, Person person)
 			throws BeanException, IOException {
 		Database database = new DatabaseVeraWeb(cntx);
-		
+
 		database.execute(SQL.Update( database ).
 				table("veraweb.tperson").
 				update("username", person.username).
@@ -1124,10 +1124,10 @@ public class PersonDetailWorker implements PersonConstants {
 
 		final Database database = new DatabaseVeraWeb(cntx);
 		Integer counter = database.getCount(database.getCount("Person").where(Where.and(Expr.equal("pk", personId),Expr.isNotNull("username"))));
-		
+
 		return (counter == 1);
 	}
-	
+
 	private Person getPersonById(OctopusContext cntx, Integer personId)
 			throws BeanException, IOException {
 		Database database = new DatabaseVeraWeb(cntx);
@@ -1148,7 +1148,7 @@ public class PersonDetailWorker implements PersonConstants {
 
 	/**
 	 * Getting OSIAM Connector to execute updates over OSIAM's Database
-	 * 
+	 *
 	 * @return OsiamConnector the connector
 	 */
 	private OsiamConnector getConnector() {
@@ -1169,7 +1169,7 @@ public class PersonDetailWorker implements PersonConstants {
 
 		return connector;
 	}
-	
+
 
     /**
      * New hash for persons
@@ -1179,7 +1179,7 @@ public class PersonDetailWorker implements PersonConstants {
      */
     private String getPersonUUID() {
 		UUID uuid = UUID.randomUUID();
-		
+
 		return uuid.toString();
     }
 }

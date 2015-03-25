@@ -12,12 +12,12 @@
 		<meta http-equiv="pragma" content="no-cache">
 	</head>
 	<body>
-		
+
 		#if($formatMessage != "no")
 			<div class="msg errormsg">
-            	<h1>$formatMessage</h1>
-           	</div>
-           	<input name="button" class="mainButton" type="button" onclick="window.close();" value="Zurück" />
+				<h1>$formatMessage</h1>
+			</div>
+			<input name="button" class="mainButton" type="button" onclick="window.close();" value="Zurück" />
 		#else
 			<h1>$title</h1>
 			#if($begin.class.name == "java.util.Date" && $end.class.name == "java.util.Date")
@@ -27,19 +27,19 @@
 			#elseif($end.class.name == "java.util.Date")
 				<h2>Bis $!message.date("DATE", $end)</h2>
 			#end
-			
+
 			#if($statistik == "EventsGroupByHost" && $person)
 				<h2>Statistik f&uuml;r Gastgeber: $person.MainLatin.SaveAs</h2>
 			#elseif($statistik == "EventsGroupByGuest" && $person)
 				<h2>Statistik f&uuml;r Gast: $person.MainLatin.SaveAs</h2>
 			#end
-			
+
 			<!-- $result -->
-			
+
 			<hr class="kategorie" />
 			<br>
 			#parse("inc/statistik${statistik}.vm")
-        #end
-		
+		#end
+
 	</body>
 </html>

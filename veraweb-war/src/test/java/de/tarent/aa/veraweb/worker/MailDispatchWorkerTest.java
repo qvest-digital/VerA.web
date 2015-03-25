@@ -38,7 +38,7 @@ public class MailDispatchWorkerTest extends TestCase {
     protected void setUp() throws Exception {
 		super.setUp();
 		worker = new MailDispatchWorker();
-		
+
 		Logger.getLogger("de.tarent").addAppender(new NullAppender());
 	}
 
@@ -85,7 +85,7 @@ public class MailDispatchWorkerTest extends TestCase {
 		assertMailText("<firstname>", "firstname_a_e1");
 		assertMailText("ABC <firstname>", "ABC firstname_a_e1");
 		assertMailText("<firstname> XYZ", "firstname_a_e1 XYZ");
-		
+
 		assertMailText("<firstname> <lastname>", "firstname_a_e1 lastname_a_e1");
 		assertMailText("A<firstname> <lastname>Z", "Afirstname_a_e1 lastname_a_e1Z");
 		assertMailText("A<firstname> <lastname>", "Afirstname_a_e1 lastname_a_e1");

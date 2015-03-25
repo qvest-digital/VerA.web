@@ -42,7 +42,7 @@ import de.tarent.octopus.server.OctopusContext;
  * The class WorkAreaWorker is a concrete worker
  * for operations on the {@link WorkArea} entity
  * bean.
- * 
+ *
  * @author cklein
  * @since 1.2.0
  * @see de.tarent.aa.veraweb.beans.WorkArea
@@ -113,7 +113,7 @@ public class WorkAreaWorker extends StammdatenWorker
 	@Override
 	/*
 	 * 2009-05-12 cklein
-	 * 
+	 *
 	 * fixed as part of issue #1530 - deletion of workareas and automatic unassignment from existing persons
 	 */
     protected boolean removeBean( OctopusContext cntx, Bean bean, TransactionContext context ) throws BeanException, IOException
@@ -129,7 +129,7 @@ public class WorkAreaWorker extends StammdatenWorker
 
 	/*
 	 * 2009-05-12 cklein
-	 * 
+	 *
 	 * introduced as part of fix for issue #1530 - deletion of orgunits and automatic deletion of associated work areas. will not commit itself.
 	 */
 	@SuppressWarnings("unchecked")
@@ -167,12 +167,12 @@ public class WorkAreaWorker extends StammdatenWorker
 		select.where( Expr.greater( "pk", 0 ) );
 		select.where( Expr.equal( "fk_orgunit", ( ( PersonalConfigAA ) cntx.personalConfig() ).getOrgUnitId() ) );
 	}
-	
+
 	@Override
-	public void getAll(OctopusContext cntx) throws BeanException, IOException 
+	public void getAll(OctopusContext cntx) throws BeanException, IOException
 	{
 		super.getAll(cntx);
-		
+
 		Integer count = cntx.requestAsInteger( "count" );
 		if ( count != null )
 		{
