@@ -80,10 +80,10 @@ public class ConfigWorker extends ListWorkerVeraWeb {
     /** Input-Parameter der Octopus-Aktion {@link #init(OctopusContext)} */
 	static public final String INPUT_init[] = {};
     /**
-     * Diese Octopus-Aktion initialisiert die Map der Konfig-Eintr�ge dieses
+     * Diese Octopus-Aktion initialisiert die Map der Konfig-Einträge dieses
      * Workers aus der Datenbank (mittels der ererbten Aktion
      * {@link de.tarent.octopus.beans.BeanListWorker#getAll(OctopusContext)})
-     * gegebenenfalls erg�nzt um einige Muss-Eintr�ge.  
+     * gegebenenfalls erg�nzt um einige Muss-Einträge.  
      * 
      * @param cntx Octopus-Kontext
      */
@@ -119,7 +119,7 @@ public class ConfigWorker extends ListWorkerVeraWeb {
     /** Input-Parameter der Octopus-Aktion {@link #load(OctopusContext)} */
     static public final String INPUT_load[] = {};
     /**
-     * Diese Octopus-Aktion initialisiert die Map der Konfig-Eintr�ge dieses
+     * Diese Octopus-Aktion initialisiert die Map der Konfig-Einträge dieses
      * Workers mittels der Aktion {@link #init(OctopusContext)}, sofern dies
      * nicht schon zuvor geschehen ist, und setzt einen entsprechenden Eintrag
      * im Octopus-Content.
@@ -138,7 +138,7 @@ public class ConfigWorker extends ListWorkerVeraWeb {
     /** Input-Parameter der Octopus-Aktion {@link #clean(OctopusContext)} */
     static public final String INPUT_clean[] = {};
     /**
-     * Diese Octopus-Aktion deinitialisiert die Map der Konfig-Eintr�ge dieses
+     * Diese Octopus-Aktion deinitialisiert die Map der Konfig-Einträge dieses
      * Workers.
      * 
      * @param cntx Octopus-Kontext
@@ -151,7 +151,7 @@ public class ConfigWorker extends ListWorkerVeraWeb {
     /** Input-Parameter der Octopus-Aktion {@link #save(OctopusContext)} */
     static public final String INPUT_save[] = {};
     /**
-     * Diese Octopus-Aktion speichert eine Liste von Konfigurationseintr�gen aus dem
+     * Diese Octopus-Aktion speichert eine Liste von Konfigurationseinträgen aus dem
      * Octopus-Request (unter "saveconfig-*") in der Datenbank.
      * 
      * @param cntx Octopus-Kontext
@@ -276,7 +276,7 @@ public class ConfigWorker extends ListWorkerVeraWeb {
 	}
 
 	/**
-	 * Gibt eine Config-Einstellung zur�ck.
+	 * Gibt eine Config-Einstellung zurück.
 	 * 
 	 * @param cntx Octopus-Kontext
 	 * @param key Name hinter dem die Einstellung hinterlegt sein soll.
@@ -287,8 +287,8 @@ public class ConfigWorker extends ListWorkerVeraWeb {
 	}
 
 	/**
-	 * Gibt eine Config-Einstellung zur�ck, falls dieser nicht zu einer
-	 * Zahl transformiert werden kann wird null zur�ckgegeben.
+	 * Gibt eine Config-Einstellung zurück, falls dieser nicht zu einer
+	 * Zahl transformiert werden kann wird null zurückgegeben.
 	 * 
 	 * @param cntx Octopus-Kontext
 	 * @param key Name hinter dem die Einstellung hinterlegt sein soll.

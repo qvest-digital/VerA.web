@@ -62,7 +62,7 @@ import java.util.Map;
 import java.util.UUID;
 
 /**
- * Diese Octopus-Worker-Klasse stellt Operationen f�r G�ste von
+ * Diese Octopus-Worker-Klasse stellt Operationen für Gäste von
  * Veranstaltungen zur Verf�gung.
  *
  * @author christoph
@@ -73,10 +73,10 @@ public class GuestWorker {
     //
     // Octopus-Aktionen
     //
-    /** Octopus-Eingabe-Parameter f�r {@link #addGuestList(OctopusContext)} */
+    /** Octopus-Eingabe-Parameter für {@link #addGuestList(OctopusContext)} */
 	public static final String INPUT_addGuestList[] = {};
 	/**
-	 * Diese Octopus-Aktion f�gt eine Reihe von G�sten einer
+	 * Diese Octopus-Aktion f�gt eine Reihe von Gästen einer
 	 * Veranstaltung hinzu.<br>
 	 *
 	 * @param cntx OctopusContext
@@ -244,10 +244,10 @@ public class GuestWorker {
 		rs.close();
 	}
 
-	/** Octopus-Eingabe-Parameter f�r {@link #addEvent(OctopusContext, Integer)} */
+	/** Octopus-Eingabe-Parameter für {@link #addEvent(OctopusContext, Integer)} */
 	public static final String INPUT_addEvent[] = { "id" };
 	/**
-	 * F�gt die G�ste einer Veranstaltung einer anderen Veranstaltung hinzu.
+	 * F�gt die Gäste einer Veranstaltung einer anderen Veranstaltung hinzu.
 	 *
 	 * @param cntx
 	 * @throws BeanException
@@ -423,7 +423,7 @@ public class GuestWorker {
 		}
 	}
 
-	/** Octopus-Eingabe-Parameter f�r {@link #addPerson(OctopusContext, Integer)} */
+	/** Octopus-Eingabe-Parameter für {@link #addPerson(OctopusContext, Integer)} */
 	public static final String INPUT_addPerson[] = { "event-id" };
 	/**
 	 * F�gt eine Person aus dem Content zu einer Veranstaltung hinzu.
@@ -487,7 +487,7 @@ public class GuestWorker {
 		}
 	}
 
-	/** Octopus-Eingabe-Parameter f�r {@link #reloadData(OctopusContext, Integer)} */
+	/** Octopus-Eingabe-Parameter für {@link #reloadData(OctopusContext, Integer)} */
 	public static final String INPUT_reloadData[] = { "guest-id" };
 	/**
 	 * Diese Octopus-Aktion aktualisiert die Daten eines Gastes
@@ -515,7 +515,7 @@ public class GuestWorker {
 	}
 
 	/**
-	 * Octopus-Eingabe-Parameter f�r {@link #reloadAllData(OctopusContext)}
+	 * Octopus-Eingabe-Parameter für {@link #reloadAllData(OctopusContext)}
 	 */
 	public static final String INPUT_reloadAllData[] = {};
 	/**
@@ -553,10 +553,10 @@ public class GuestWorker {
 		}
 	}
 
-    /** Octopus-Eingabe-Parameter f�r {@link #calcSerialNumber(OctopusContext)} */
+    /** Octopus-Eingabe-Parameter für {@link #calcSerialNumber(OctopusContext)} */
     public static final String INPUT_calcSerialNumber[] = {};
     /**
-     * Diese Octopus-Aktion berechnet f�r eine Veranstaltung die 'Laufende Nummer'.
+     * Diese Octopus-Aktion berechnet für eine Veranstaltung die 'Laufende Nummer'.
      *
      * @param cntx
      * @throws BeanException
@@ -628,13 +628,13 @@ public class GuestWorker {
      *
      * <strong>Achtung</strong> Wenn die Gast-ID null ist wird ein neuer
      * Gast angelegt wenn dieser noch nicht dieser Veranstaltung zugeordnet
-     * war. Wenn die Gast-ID �bergeben wird, wird dieser Gast aktuallisiert!
+     * war. Wenn die Gast-ID übergeben wird, wird dieser Gast aktuallisiert!
      *
      * @param cntx Octopus-Context
      * @param database Datenbank
      * @param event Veranstaltung
      * @param guestId Gast der bearbeitet werden soll, null zum hinzuf�gen.
-     * @param personId Person mit dessen Daten der Gast gef�llt werden soll.
+     * @param personId Person mit dessen Daten der Gast gefüllt werden soll.
      * @param categoryId Kategorie nach der gefiltert wurde.
      * @param reserve Gibt an ob dieser Gast auf Reserve gesetzt werden soll.
      * @param invitationtype Gibt an ob dieser Gast mit/ohne Partner eingeladen werden soll.
@@ -807,7 +807,7 @@ public class GuestWorker {
     }
 
     /**
-     * Diese Methode aktualisiert die Dokumenttypen eines �bergebenen Gasts.
+     * Diese Methode aktualisiert die Dokumenttypen eines übergebenen Gasts.
      *
      * @param cntx OctopusContext
      * @param database Datenbank
@@ -1064,6 +1064,6 @@ public class GuestWorker {
     //
     // Variablen
     //
-    /** Logger f�r diese Klasse */
+    /** Logger für diese Klasse */
     private final static Logger logger = Logger.getLogger(GuestWorker.class);
 }

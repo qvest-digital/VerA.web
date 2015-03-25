@@ -69,7 +69,7 @@ public class ImportPersonsDuplicateWorker extends ListWorkerVeraWeb {
     public List showList(OctopusContext cntx) throws BeanException, IOException {
 		Map importDuplicatesProperties = (Map) cntx.moduleConfig().getParams().get("importDuplicatesProperties");
 		if (importDuplicatesProperties == null)
-			ImportPersonsWorker.LOGGER.warn("Konfiguration f�r die Duplikatbearbeitung beim Personen-Import wurde nicht gefunden.");
+			ImportPersonsWorker.LOGGER.warn("Konfiguration für die Duplikatbearbeitung beim Personen-Import wurde nicht gefunden.");
 		if (cntx.sessionAsObject("limit" + BEANNAME) == null)
 			cntx.setSession("limit" + BEANNAME, new Integer(Integer.parseInt((String) importDuplicatesProperties.get("dsCount"))));
 

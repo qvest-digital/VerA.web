@@ -39,11 +39,11 @@ public class ContextWorker {
     //
     // Octopus-Aktionen
     //
-    /** Eingabe-Parameter f�r die Octopus-Aktion {@link #pop(OctopusContext, String)} */
+    /** Eingabe-Parameter für die Octopus-Aktion {@link #pop(OctopusContext, String)} */
     public static final String[] INPUT_pop = {"contexts"};
-    /** Eingabe-Parameterzwang f�r die Octopus-Aktion {@link #pop(OctopusContext, String)} */
+    /** Eingabe-Parameterzwang für die Octopus-Aktion {@link #pop(OctopusContext, String)} */
 	public static final boolean[] MANDATORY_pop = {false};
-    /** Ausgabe-Parameter f�r die Octopus-Aktion {@link #pop(OctopusContext, String)} */
+    /** Ausgabe-Parameter für die Octopus-Aktion {@link #pop(OctopusContext, String)} */
 	public static final String OUTPUT_pop = "contexts";
     /**
      * Diese Octopus-Action holt den obersten Kontext aus der Serialisierung eines
@@ -67,24 +67,24 @@ public class ContextWorker {
 	    return contextsBuffer.toString();
 	}
 	
-    /** Eingabe-Parameter f�r die Octopus-Aktion {@link #push(OctopusContext, String, List)} */
+    /** Eingabe-Parameter für die Octopus-Aktion {@link #push(OctopusContext, String, List)} */
     public static final String[] INPUT_push = {"contexts", "push"};
-    /** Eingabe-Parameterzwang f�r die Octopus-Aktion {@link #push(OctopusContext, String, List)} */
+    /** Eingabe-Parameterzwang für die Octopus-Aktion {@link #push(OctopusContext, String, List)} */
 	public static final boolean[] MANDATORY_push = {false, false};
-    /** Ausgabe-Parameter f�r die Octopus-Aktion {@link #push(OctopusContext, String, List)} */
+    /** Ausgabe-Parameter für die Octopus-Aktion {@link #push(OctopusContext, String, List)} */
 	public static final String OUTPUT_push = "contexts";
     /**
-     * Diese Octopus-Aktion legt einen neuen Kontext-Eintrag auf den �bergebenen
-     * serialisierten Kontext-Stack. In diesem befinden sich der �bergebene Taskname
-     * und die aktuellen Werte der Octopus-Content-Variablen unter den �bergebenen
+     * Diese Octopus-Aktion legt einen neuen Kontext-Eintrag auf den übergebenen
+     * serialisierten Kontext-Stack. In diesem befinden sich der übergebene Taskname
+     * und die aktuellen Werte der Octopus-Content-Variablen unter den übergebenen
      * Bezeichnern. 
      * 
      * @param oc Octopus-Kontext
      * @param contexts Serialisierung eines Kontext-Stacks
-     * @param data Liste, deren erster Eintrag als Taskname und deren weitere Eintr�ge
+     * @param data Liste, deren erster Eintrag als Taskname und deren weitere Einträge
      *  als Bezeichner von Octopus-Content-Variablen interpretiert werden, deren Werte
      *  als Teil des Kontexts gesichert werden sollen.
-     * @return Serialisierung des Kontext-Stacks erweitert um den �bergebenen Kontext.
+     * @return Serialisierung des Kontext-Stacks erweitert um den übergebenen Kontext.
      * @throws TcContentProzessException
      */
 	public String push(OctopusContext oc, String contexts, List data) {
@@ -112,7 +112,7 @@ public class ContextWorker {
         // Konstruktoren
         //
         /**
-         * Dieser Konstruktor f�hrt keine weiteren Initialisierungen durch; ein hiermit
+         * Dieser Konstruktor führt keine weiteren Initialisierungen durch; ein hiermit
          * erstellter {@link ContextWorker.Context Kontext} muss noch bef�llt werden,
          * zum Beispiel mittels eines {@link #pop(StringBuffer)}-Aufrufs.
          */
@@ -132,7 +132,7 @@ public class ContextWorker {
          * Dieser Konstruktor legt Kontext-Task und -Werte fest. 
          * 
          * @param oc Octopus-Kontext, aus dem Octopus-Content-Werte gelesen werden sollen.
-         * @param data Liste, deren erster Eintrag als Taskname und deren weitere Eintr�ge
+         * @param data Liste, deren erster Eintrag als Taskname und deren weitere Einträge
          *  als Bezeichner von Octopus-Content-Variablen interpretiert werden, deren Werte
          *  in den Kontext �bernommen werden sollen.
          */
@@ -159,7 +159,7 @@ public class ContextWorker {
             return context;
         }
         /**
-         * Diese Methode setzt im Content des �bergebenen Octopus-Kontexts diesen
+         * Diese Methode setzt im Content des übergebenen Octopus-Kontexts diesen
          * Kontext ein; dies betrifft einerseits die enthaltenen Werte, die unter
          * dem assoziierten Bezeichner gesetzt werden, und andererseits den Tasknamen,
          * der unter dem Bezeichner "context" dort abgelegt wird, so dass ein im
@@ -197,7 +197,7 @@ public class ContextWorker {
 	        return new Context(context);
 	    }
         /**
-         * Diese Methode erg�nzt die �bergebene Serialisierung eines Kontext-Stacks
+         * Diese Methode erg�nzt die übergebene Serialisierung eines Kontext-Stacks
          * um diesen {@link ContextWorker.Context Kontext}.<br>
          * TODO: Werte einf�gen
          * 

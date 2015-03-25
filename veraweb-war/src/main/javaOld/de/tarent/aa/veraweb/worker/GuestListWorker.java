@@ -59,7 +59,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Verwaltet eine G�steliste.
+ * Verwaltet eine Gästeliste.
  *
  * @author Mikel, Christoph
  * @version $Revision: 1.1 $
@@ -496,10 +496,10 @@ public class GuestListWorker extends ListWorkerVeraWeb {
 	}
 
     /**
-     * Diese Octopus-Aktion liefert die Gesamtzahlen der aktuellen G�steliste.
+     * Diese Octopus-Aktion liefert die Gesamtzahlen der aktuellen Gästeliste.
      *
      * @param cntx Octopus-Kontext
-     * @return {@link Map} mit Gesamtzahlen unter den Schl�sseln "platz", "reserve",
+     * @return {@link Map} mit Gesamtzahlen unter den Schlüsseln "platz", "reserve",
      *  "all", "offen", "zusagen" und "absagen".
      */
     public Map getSums(OctopusContext cntx) throws BeanException {
@@ -512,13 +512,13 @@ public class GuestListWorker extends ListWorkerVeraWeb {
 
     /**
      * Diese Octopus-Aktion liefert eine {@link GuestSearch}-Instanz, die die aktuellen
-     * G�stesuchkriterien enth�lt. Diese stammen entweder aus dem Octopus-Content (unter
+     * Gästesuchkriterien enth�lt. Diese stammen entweder aus dem Octopus-Content (unter
      * "search"), aus dem Octopus-Request oder aus der Octopus-Session (unter "searchGuest").
      * Vor der R�ckgabe wird die Instanz unter "searchGuest" in die Octopus-Session
      * gestellt.
      *
      * @param cntx Octopus-Kontext
-     * @return {@link GuestSearch}-Instanz zur aktuellen G�stesuche
+     * @return {@link GuestSearch}-Instanz zur aktuellen Gästesuche
      * @throws BeanException
      */
     public GuestSearch getSearch(OctopusContext cntx) throws BeanException {
@@ -557,7 +557,7 @@ public class GuestListWorker extends ListWorkerVeraWeb {
 
 
     /**
-     * Diese Octopus-Aktion liefert das Ereignis aus der aktuellen G�stesuche,
+     * Diese Octopus-Aktion liefert das Ereignis aus der aktuellen Gästesuche,
      * siehe Aktion {@link #getSearch(OctopusContext)}.
      *
      * @param cntx Octopus-Kontext
@@ -604,7 +604,7 @@ public class GuestListWorker extends ListWorkerVeraWeb {
 	}
 
     /**
-     * Diese Methode �bertr�gt G�stesuchkriterien aus einer {@link GuestSearch}-Instanz
+     * Diese Methode �bertr�gt Gästesuchkriterien aus einer {@link GuestSearch}-Instanz
      * in einer WHERE-Statement-Liste.
      */
     public static void addGuestListFilter(GuestSearch search, WhereList where) {
@@ -677,7 +677,7 @@ public class GuestListWorker extends ListWorkerVeraWeb {
     }
 
 	/**
-	 * Berechnet die Gesamtzahlen der aktuellen G�steliste.
+	 * Berechnet die Gesamtzahlen der aktuellen Gästeliste.
 	 *
 	 * Vor Version 1.50 wurden "Auf Platz" und "Auf Reserve"
 	 * pro Datensatz berechnet, die aktuelle Umsetzung z�hlt

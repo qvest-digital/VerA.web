@@ -52,21 +52,21 @@
 		#set($mainShown=true)
 	<tr>
 		<td class="kategorieNo">
-    		#if($bean.ishost && $bean.ishost == 1)
-    			<em>G</em>
+			#if($bean.ishost && $bean.ishost == 1)
+				<em>G</em>
 			#elseif($bean.reserve == 1)
 				<em>Reserve<em>
-    		#else
-    			$!bean.orderno
-    		#end
+			#else
+				$!bean.orderno
+			#end
 		</td>
 		<td class="kategorieSpace">&nbsp;</td>
 		<td class="kategorieName">
 			#if($bean.showdoctype)
 				<strong>
-    				$!message.plain($bean.lastname_a_gd)#if($bean.lastname_a_gd.length() > 0 && ($bean.title_a_gd.length() > 0 || $bean.firstname_a_gd.length() > 0)), #end
-    				$!message.plain($bean.title_a_gd)
-    				$!message.plain($bean.firstname_a_gd)
+					$!message.plain($bean.lastname_a_gd)#if($bean.lastname_a_gd.length() > 0 && ($bean.title_a_gd.length() > 0 || $bean.firstname_a_gd.length() > 0)), #end
+					$!message.plain($bean.title_a_gd)
+					$!message.plain($bean.firstname_a_gd)
 				</strong>
 				#if($bean.function_a_gd.length() > 0 || $bean.company_a_gd.length() > 0)
 					<br>$!message.plain($bean.function_a_gd)
@@ -75,9 +75,9 @@
 				#end
 			#else
 				<strong>
-    				$!message.plain($bean.lastname_a_e1)#if($bean.lastname_a_e1.length() > 0 && ($bean.title_a_e1.length() > 0 || $bean.firstname_a_e1.length() > 0)), #end
-    				$!message.plain($bean.title_a_e1)
-    				$!message.plain($bean.firstname_a_e1)
+					$!message.plain($bean.lastname_a_e1)#if($bean.lastname_a_e1.length() > 0 && ($bean.title_a_e1.length() > 0 || $bean.firstname_a_e1.length() > 0)), #end
+					$!message.plain($bean.title_a_e1)
+					$!message.plain($bean.firstname_a_e1)
 				</strong>
 				#if($bean.function_a_e1.length() > 0 || $bean.company_a_e1.length() > 0)
 					<br>$!message.plain($bean.function_a_e1)
@@ -91,8 +91,8 @@
 			#if($bean.notehost && $bean.notehost.length() > 0)
 				<br>$!message.plain($bean.notehost)
 			#end
-			
-			
+
+
 			#if($bean.showdoctype && ($bean.fon_a_gd.length() > 0 || $bean.fon_b_e1.length() > 0 || $bean.mobil_a_gd.length() > 0))
 			<table cellspacing="0" cellpadding="0" border="0" class="kategorie">
 				<tr>
@@ -110,8 +110,8 @@
 				</tr>
 			</table>
 			#end
-			
-			
+
+
 		</td>
 		#if($bean.invitationstatus == 1)
 		<td class="kategorieZusage"><img src="${paths.staticWeb}images/checkbox_on.gif" alt="An"></td>
@@ -187,29 +187,29 @@
 #end
 
 <table style="width: 100%;">
-    <tr>
-        <td style="text-align: right;"><h2 style="text-align: right;">G&auml;steanzahl (Offen):</h2></td>
-        <td style="width: 15px;">&nbsp;</td>
-        <td style="width: 100px"><h3 style="text-align: left;">$o</h3></td>
-    </tr>
-    <tr>
-        <td style="text-align: right;"><h2 style="text-align: right;">G&auml;steanzahl (Zusagen):</h2></td>
-        <td style="width: 15px;">&nbsp;</td>
-        <td style="width: 100px"><h3 style="text-align: left;">$z</h3></td>
-    </tr>
-    <tr>
-        <td style="text-align: right;"><h2 style="text-align: right;">G&auml;steanzahl (Absagen):</h2></td>
-        <td style="width: 15px;">&nbsp;</td>
-        <td style="width: 100px"><h3 style="text-align: left;">$a</h3></td>
-    </tr>
-    <tr>
-        <td style="text-align: right;"><h2 style="text-align: right;">G&auml;steanzahl (Teilnahmen):</h2></td>
-        <td style="width: 15px;">&nbsp;</td>
-        <td style="width: 100px"><h3 style="text-align: left;">$t</h3></td>
-    </tr>
-   	<tr>
-  		<td style="text-align: right;"><h2 style="text-align: right;">G&auml;steanzahl (Gesamt):</h2></td>
-   		<td style="width: 15px;">&nbsp;</td>
-  		<td style="width: 100px"><h3 style="text-align: left;">#set($g = $o + $z + $a + $t)$g</h3></td>
-  	</tr>
+	<tr>
+		<td style="text-align: right;"><h2 style="text-align: right;">G&auml;steanzahl (Offen):</h2></td>
+		<td style="width: 15px;">&nbsp;</td>
+		<td style="width: 100px"><h3 style="text-align: left;">$o</h3></td>
+	</tr>
+	<tr>
+		<td style="text-align: right;"><h2 style="text-align: right;">G&auml;steanzahl (Zusagen):</h2></td>
+		<td style="width: 15px;">&nbsp;</td>
+		<td style="width: 100px"><h3 style="text-align: left;">$z</h3></td>
+	</tr>
+	<tr>
+		<td style="text-align: right;"><h2 style="text-align: right;">G&auml;steanzahl (Absagen):</h2></td>
+		<td style="width: 15px;">&nbsp;</td>
+		<td style="width: 100px"><h3 style="text-align: left;">$a</h3></td>
+	</tr>
+	<tr>
+		<td style="text-align: right;"><h2 style="text-align: right;">G&auml;steanzahl (Teilnahmen):</h2></td>
+		<td style="width: 15px;">&nbsp;</td>
+		<td style="width: 100px"><h3 style="text-align: left;">$t</h3></td>
+	</tr>
+	<tr>
+		<td style="text-align: right;"><h2 style="text-align: right;">G&auml;steanzahl (Gesamt):</h2></td>
+		<td style="width: 15px;">&nbsp;</td>
+		<td style="width: 100px"><h3 style="text-align: left;">#set($g = $o + $z + $a + $t)$g</h3></td>
+	</tr>
 </table>

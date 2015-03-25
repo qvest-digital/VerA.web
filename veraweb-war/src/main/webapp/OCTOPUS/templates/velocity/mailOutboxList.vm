@@ -15,19 +15,19 @@
 		<div class="textRight marginBottom10" id="breadcrumb">
 			<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Administration > E-Mail-Postausgang</span>
 		</div>
-				
+
 		<div id="main_content">
     		<h1>E-Mail-Postausgang</h1>
-        
+
     		#foreach($bean in $list)
     			<input type="hidden" name="list" value="$bean.id"/>
             #end
-        
+
     		<span id="actionPanel" class="inlineLabel">
     			<strong>Markierte E-Mail(s)</strong>
     	       	<input type="submit" name="remove" value="Löschen" title="Markierte E-Mail(s) löschen"/>
     	    </span>
-    		
+
     		<table>
         		<tr>
         			<th class="smallCell textCenter"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="Alle (de)markieren"/></th>
@@ -47,19 +47,19 @@
     					      #elseif($bean.status > 10)<span style="font-weight: bold; color: #ff0000;">Fehler</span>
     					      #else<em>unbekannt</em>
     					      #end
-    						</td>	
+    						</td>
     					<td onclick="window.location.href='MailOutboxDetail?id=$!{bean.id}';">$!message.text($bean.from)</td>
     					<td onclick="window.location.href='MailOutboxDetail?id=$!{bean.id}';">$!message.text($bean.to)</td>
     					<td onclick="window.location.href='MailOutboxDetail?id=$!{bean.id}';">$!message.text($bean.subject)</td>
     				</tr>
     			#end
-        		
+
     			#if ($listparam.count == 0)
         			<tr>
     					<td colspan="5">Keine Daten gefunden</td>
-        			</tr>           	
+        			</tr>
         		#end
-        				
+
     			#set($itemName = "E-Mails")
     			#parse("inc/list-navi-new.vm")
     			#parse("inc/list-direct-new.vm")
@@ -67,7 +67,7 @@
 
     	</div>
     </div>
-	
+
 </form>
 
 #parse("inc/footer.vm")

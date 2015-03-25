@@ -76,8 +76,8 @@ public class ImportPersonCategorie extends AbstractBean implements ImportPersonE
     // Schnittstelle ImportPersonExtra
     //
     /**
-     * Diese Methode assoziiert diese Importpersonenerg�nzung mit ihrer Importperson;
-     * dies bedeutet insbesondere die �bernahme deren ID als Fremdschl�ssel auf sie. 
+     * Diese Methode assoziiert diese Importpersonenergänzung mit ihrer Importperson;
+     * dies bedeutet insbesondere die Übernahme deren ID als Fremdschlüssel auf sie. 
      * 
      * @param person Importperson, mit der dieses Extra assoziiert werden soll.
      * @see de.tarent.aa.veraweb.beans.ImportPersonExtra#associateWith(de.tarent.aa.veraweb.beans.ImportPerson)

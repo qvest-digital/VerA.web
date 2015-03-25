@@ -45,20 +45,20 @@ public class FieldMapping {
     /**
      * Dieser Konstruktor bekommt die Menge der verf�gbaren Quellfelder und
      * eine Abbildung Zielfeldname -> Formatstring mit Quellfeldreferenzen
-     * �bergeben. Quellfeldreferenzen haben allgemein die Form <b>{</b>BEREICH<b>:</b>FELD<b>}</b>,
+     * übergeben. Quellfeldreferenzen haben allgemein die Form <b>{</b>BEREICH<b>:</b>FELD<b>}</b>,
      * im VerA.web-Fall insbesondere:<br>
      * <ul>
-     * <li><b>{:</b>FELD<b>}</b> f�r Stammdaten von Personen
-     * <li><b>{CAT:</b>KATEGORIE<b>}</b> f�r Kategoriezugeh�rigkeiten von Personen
-     * <li><b>{EVE:</b>EREIGNIS<b>}</b> f�r Ereigniszugeh�rigkeiten von Personen
-     * <li><b>{COR:</b>DIPL. CORPS<b>}</b> f�r Dipl.Corps-Zugeh�rigkeiten von Personen
-     * <li><b>{DTM:</b>DOKUMENTTYP<b>}</b> f�r Dokumenttypfreitexte von Hauptpersonen
-     * <li><b>{DTP:</b>DOKUMENTTYP<b>}</b> f�r Dokumenttypfreitexte von Partnerpersonen
+     * <li><b>{:</b>FELD<b>}</b> für Stammdaten von Personen
+     * <li><b>{CAT:</b>KATEGORIE<b>}</b> für Kategoriezugeh�rigkeiten von Personen
+     * <li><b>{EVE:</b>EREIGNIS<b>}</b> für Ereigniszugeh�rigkeiten von Personen
+     * <li><b>{COR:</b>DIPL. CORPS<b>}</b> für Dipl.Corps-Zugeh�rigkeiten von Personen
+     * <li><b>{DTM:</b>DOKUMENTTYP<b>}</b> für Dokumenttypfreitexte von Hauptpersonen
+     * <li><b>{DTP:</b>DOKUMENTTYP<b>}</b> für Dokumenttypfreitexte von Partnerpersonen
      * </ul>
      * Sonderf�lle sind Benutzung von Jokern '*' im Bezeichner; hier ist nur eine
      * Quellfeldreferenz im Formatstring erlaubt, weiterhin muss im Zielfeld
      * ebenfalls ein Joker vorkommen. Solche Mappings werden interpretiert als
-     * eine Zuordnung f�r alle passenden bisher nicht zugeordneten Bezeichner
+     * eine Zuordnung für alle passenden bisher nicht zugeordneten Bezeichner
      * zu einem Zielfald, in dem der Joker durch den Bezeichnernamen ersetzt
      * wird.<br>
      * Im Falle konkurrierender Zuordnungen erh�lt die speziellere den Vorrang.
@@ -116,9 +116,9 @@ public class FieldMapping {
     public interface Entity {
         /**
          * Diese Methode holt den Wert eines Quellfeldes bez�glich eines
-         * Quellfeldschl�ssels BEREICH<b>:</b>FELD.
+         * Quellfeldschlüssels BEREICH<b>:</b>FELD.
          * 
-         * @param sourceKey Quellfeldschl�ssel BEREICH<b>:</b>FELD 
+         * @param sourceKey Quellfeldschlüssel BEREICH<b>:</b>FELD 
          * @return Wert des beschriebenen Quellfelds
          * @see FieldMapping#FieldMapping(Set, Map)
          */
@@ -154,11 +154,11 @@ public class FieldMapping {
     }
     
     /**
-     * Gibt ein entpackten Wert entsprechend des �bergeben Mappings an,
+     * Gibt ein entpackten Wert entsprechend des übergeben Mappings an,
      * z.B. wird aus <code>Kat *</code> und <code>Kat Sample</code>
      * nur noch <code>Sample</code>. Beide Werte d�rfen nicht null sein.
      * 
-     * Gibt null zur�ck wenn der String <code>value</code> nicht auf
+     * Gibt null zurück wenn der String <code>value</code> nicht auf
      * <code>mapping</code matchet.
      * 
      * @param mapping
@@ -182,7 +182,7 @@ public class FieldMapping {
     /**
      * Diese Methode liefert ein Fieldmapping, das zu diesem invers ist.<br>
      * Hierbei sind gewisse Einschr�nkungen zu beachten, deren Verletzung zu
-     * ungeeigneten Mappings f�hrt. Einerseits wird nur das erste Quellfeld
+     * ungeeigneten Mappings führt. Einerseits wird nur das erste Quellfeld
      * eines Mappings beachtet; weitere sollten also in einem weiteren Mapping
      * f�hrend vorkommen. Andererseits sollte jedes Quellfeld nur einmal f�hrend
      * vorkommen, um eine Eindeutigkeit zu gew�hrleisten. 
@@ -203,7 +203,7 @@ public class FieldMapping {
 
     /**
      * Diese Methode erweitert das FieldMapping um Kategorien-Felder die im
-     * Header �bergeben wurde, aber noch nicht in der Datenbank vorhanden sind
+     * Header übergeben wurde, aber noch nicht in der Datenbank vorhanden sind
      * und deswegen nicht in den {@link #availableSources} verf�gbar waren.
      * 
      * @param headers
@@ -251,7 +251,7 @@ public class FieldMapping {
     /**
 	 * Diese Methode ermittelt mittels der verf�gbaren Quellfelder und der
 	 * allgemeinen Abbildungsbeschreibung (die im Konstruktor
-	 * {@link #FieldMapping(Set, Map)} �bergeben wurden) die aufgel�sten simplen
+	 * {@link #FieldMapping(Set, Map)} übergeben wurden) die aufgel�sten simplen
 	 * Abbildungen und die verf�gbaren Zielfelder.
 	 * 
 	 * @param mappingDescription
@@ -262,9 +262,9 @@ public class FieldMapping {
     void parseDescription(Map mappingDescription) throws MappingException {
         assert availableSources != null;
         assert mappingDescription != null;
-        // Menge der (bisher) unbenutzten Quellen --- wird f�r Joker-Aufl�sung genutzt
+        // Menge der (bisher) unbenutzten Quellen --- wird für Joker-Aufl�sung genutzt
         Set unusedSources = new HashSet(availableSources);
-        // Map Pr�fixl�nge vor Joker in Quellbezeichnern (Integer) -> Jokerzielfeldbezeichner --- wird f�r Joker-Aufl�sung genutzt
+        // Map Præfixl�nge vor Joker in Quellbezeichnern (Integer) -> Jokerzielfeldbezeichner --- wird für Joker-Aufl�sung genutzt
         Map targetsByPrefixLength = new HashMap();
         // Zielfeldbezeichner in targetsByPrefixLength einsortieren
         for (Iterator itMappingEntries = mappingDescription.entrySet().iterator(); itMappingEntries.hasNext(); ) {
@@ -316,7 +316,7 @@ public class FieldMapping {
     
     /**
      * Diese Methode sucht zu einem Formatstring eine Referenz mit Joker
-     * und liefert hierzu das Anfangsst�ck zur�ck.
+     * und liefert hierzu das Anfangsst�ck zurück.
      * 
      * @param format dieser Formatstring wird auf Referenzen mit Joker durchsucht.
      * @return Anfangsst�ck der Referenz bis exklusive dem Joker, sonst <code>null</code>.
@@ -337,7 +337,7 @@ public class FieldMapping {
      * Diese Methode hat eine doppelte Funktion; einerseits entfernt sie alle einfachen
      * (also nicht Joker-behafteten) Referenzen im Formatstring aus der Sammlung nicht
      * benutzter Referenzen, und andererseits liefert sie die Joker-Position in einer
-     * gegebenenfalls vorhandenen Joker-behafteten Referenz zur�ck.
+     * gegebenenfalls vorhandenen Joker-behafteten Referenz zurück.
      * 
      * @param unusedReferences Sammlung bisher nicht benutzter verf�gbarere Referenzen
      * @param format zu behandelnder Formatstring
@@ -363,8 +363,8 @@ public class FieldMapping {
     }
     
     /**
-     * Diese Methode f�gt den einfachen Mappings eines hinzu, das dem �bergebenen mit
-     * Joker behafteten nach Ersetzung mittels der �bergebenen Quelle entspricht. 
+     * Diese Methode f�gt den einfachen Mappings eines hinzu, das dem übergebenen mit
+     * Joker behafteten nach Ersetzung mittels der übergebenen Quelle entspricht. 
      * 
      * @param resolvedMappings {@link Map} der aufgel�sten einfachen Mappings
      * @param targetPattern Zielreferenz mit Joker
@@ -388,7 +388,7 @@ public class FieldMapping {
                 targetPattern = targetPattern.replaceAll("\\*", source);
                 Object former = resolvedMappings.put(targetPattern, buffer.toString());
                 if (former != null)
-                    logger.warning("Ersetze altes Format '" + former + "' f�r '" + targetPattern + "' durch '" + buffer.toString() + "'.");
+                    logger.warning("Ersetze altes Format '" + former + "' für '" + targetPattern + "' durch '" + buffer.toString() + "'.");
                 return;
             }
         }

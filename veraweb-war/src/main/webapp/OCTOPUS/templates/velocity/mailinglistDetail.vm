@@ -28,28 +28,28 @@
 		<input type="hidden" name="limit" value="">
 		<input type="hidden" name="selectNone" value="true">
 		<input type="hidden" name="doRemove" value="true">
-		
+
 		<input type="hidden" name="id" value="$!id">
-		
+
 		#foreach($bean in $list)
 		<input type="hidden" name="list" value="$bean.id">
 		#end
-		
+
 		#if($list && $list.size() > 0)
-			
+
     		<span class="inlineLabel" id="actionPanel">
 				#if($grants.mayWrite())
 					<strong>Markierte Adresse(n)</strong> <input type="submit" name="remove" value="L&ouml;schen" onclick="submit();" title="Markierte Adressen aus dem Verteiler l&ouml;schen"/>
 				#else &nbsp;#end
             </span>
-    		
+
 			#if($grants.mayReadStandardFields())
         		<span id="buttonPanel_top" class="textRight floatRight">
         			<input type="button" name="send" value="Verteiler versenden" onclick="window.location.href='MailinglistWrite';" title="an alle Adressen versenden" class="mainButton"/>
 					<input type="button" name="openMailClient" value="E-Mail-Client aufrufen" onclick="javascript:openNewEmail();" title="E-Mail-Client aufrufen" class="mainButton"/>
         		</span>
 			#end
-    		
+
     		<table class="marginBottom10">
     			<tr>
     				<th class="smallCell textCenter"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="Alle (de)markieren"/></th>
@@ -65,24 +65,24 @@
     				<td><a href="mailto:?bcc=$!bean.address">$!message.text($!bean.address)</a></td>
     			</tr>
 				#end
-				
+
 				#set($itemName = "Adressdaten")
 				#parse("inc/list-navi-new.vm")
 				#parse("inc/list-direct-new.vm")
     		</table>
-			
+
 		#else
-			
-			<div class="contentBoxColored grayBorder marginBottom5"> 
+
+			<div class="contentBoxColored grayBorder marginBottom5">
 				Es liegen keine Adressdaten für diesen Verteiler vor.
             </div>
-			
+
 		#end
 
 		<span class="floatRight" id="buttonPanel-bottom">
 			<input type="button" name="cancel" value="Zur&uuml;ck zur Verteiler&uuml;bersicht"  onclick="window.location.href='ShowMailinglistList?selectNone=true';" title="Zur&uuml;ck zur Verteiler&uuml;bersicht" class="mainButton">
 		</span>
-		
+
 	</form>
     <div class="clear"></div>
 </div>

@@ -61,13 +61,13 @@ public class LoginManagerLDAPAA extends LoginManagerLDAPGeneric implements Login
     //
     // Konstanten
     //
-    /** Schl�ssel des Konfigurationseintrags f�r den Rollenfilter */
+    /** Schlüssel des Konfigurationseintrags für den Rollenfilter */
     public final static String KEY_ROLE_FILTER = "aarolefilter";
 
-    /** Schl�ssel des Konfigurationseintrags f�r den Superadmin-Login */
+    /** Schlüssel des Konfigurationseintrags für den Superadmin-Login */
     public final static String KEY_SYSTEM_ADMIN_LOGIN = "systemlogin";
 
-    /** Schl�ssel des Konfigurationseintrags f�r das Superadmin-Passwort */
+    /** Schlüssel des Konfigurationseintrags für das Superadmin-Passwort */
     public final static String KEY_SYSTEM_ADMIN_PASSWORD = "systempassword";
 
 
@@ -170,10 +170,10 @@ public class LoginManagerLDAPAA extends LoginManagerLDAPGeneric implements Login
     }
 
     /**
-     * Diese Methode �berpr�ft die Credentials im Request und setzt im Erfolgsfall die
-     * entsprechenden Daten in der �bergebenen PersonalConfig.<br>
+     * Diese Methode Überprüft die Credentials im Request und setzt im Erfolgsfall die
+     * entsprechenden Daten in der übergebenen PersonalConfig.<br>
      * Hier wird auf die Funktionalit�t, die schon in {@link LoginManagerLDAPGeneric}
-     * vorliegt, zur�ckgegriffen, wenn diese nicht zum Erfolg f�hrt, wird aber versucht,
+     * vorliegt, zurückgegriffen, wenn diese nicht zum Erfolg führt, wird aber versucht,
      * �ber den Inhalt des person-Attributs den Login zu schaffen.<br>
      * Zus�tzlich gibt es die M�glichkeit, sich als ein vorgegebener System-Admin ohne
      * LDAP-Authentisierung anzumelden
@@ -308,7 +308,7 @@ public class LoginManagerLDAPAA extends LoginManagerLDAPGeneric implements Login
     }
 
     /**
-     * Diese Methode f�hrt ein Ausloggen des Benutzers durch. Insbesondere werden
+     * Diese Methode führt ein Ausloggen des Benutzers durch. Insbesondere werden
      * entsprechende Markierungen in seiner pers�nlichen Konfiguration gesetzt.<br>
      * Hier werden die speziellen Rollen- und Stellvertreterfelder geleert.
      *
@@ -460,9 +460,9 @@ public class LoginManagerLDAPAA extends LoginManagerLDAPGeneric implements Login
     }
 
     /**
-     * Diese Methode f�hrt ein toString aus, sichert dies aber durch einen <code>null</code>-Test
+     * Diese Methode führt ein toString aus, sichert dies aber durch einen <code>null</code>-Test
      * vorher ab. Sollte das Objekt eine Liste sein, so wird toString des ersten enthaltenen Objekts
-     * ausgef�hrt.
+     * ausgeführt.
      *
      * @param o Objekt
      * @return {@link String}-Darstellung des Objekts, gegebenenfalls des ersten enthaltenen Objekts
@@ -476,7 +476,7 @@ public class LoginManagerLDAPAA extends LoginManagerLDAPGeneric implements Login
     }
 
     /**
-     * Diese Methode versucht, das �bergebene Objekt als Integer zu interpretieren, wobei
+     * Diese Methode versucht, das übergebene Objekt als Integer zu interpretieren, wobei
      * dezimale, oktale und hexadezimale Darstellungen akzeptiert werden. Sollte das Objekt
      * eine Liste sein, so wird versucht, das erste enthaltene Objekt als Integer zu interpretieren.
      *

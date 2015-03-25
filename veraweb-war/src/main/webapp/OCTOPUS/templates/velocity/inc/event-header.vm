@@ -15,11 +15,11 @@
 				<strong>Einladungsart:</strong>
 				#if ($event.invitationtype == 2)
 					Ohne Partner
-            	#elseif ($event.invitationtype == 3)
+				#elseif ($event.invitationtype == 3)
 					Nur Partner
-            	#else
+				#else
 					Mit Partner
-            	#end
+				#end
 			</div>
 			#end
 		</div>
@@ -40,11 +40,11 @@
 		#end
 		<div class="tableCell width50">
 			#if($online-registration.activated)
-	            <strong>URL für Pressevertreter:</strong><br/>
-	            #if($pressevertreterUrl && $pressevertreterUrl != "" && $event.mediarepresentatives && $event.mediarepresentatives != "f")
-	                $pressevertreterUrl
-	            #end
-            #end
+				<strong>URL für Pressevertreter:</strong><br/>
+				#if($pressevertreterUrl && $pressevertreterUrl != "" && $event.mediarepresentatives && $event.mediarepresentatives != "f")
+					$pressevertreterUrl
+				#end
+			#end
 			#if($completeEventHeader)
 			<div class="tableCell width30">
 				<strong>Max. Anzahl G&auml;ste:</strong> $!message.text($event.maxguest)

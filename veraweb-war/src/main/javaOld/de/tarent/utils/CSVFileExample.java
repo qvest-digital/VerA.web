@@ -24,7 +24,7 @@ import java.io.IOException;
 import java.util.List;
 
 /**
- * Diese Klasse dient als Beispiel f�r die Klassen {@link CSVFile},
+ * Diese Klasse dient als Beispiel für die Klassen {@link CSVFile},
  * {@link CSVFileReader} und {@link CSVFileWriter}.
  */
 public class CSVFileExample {

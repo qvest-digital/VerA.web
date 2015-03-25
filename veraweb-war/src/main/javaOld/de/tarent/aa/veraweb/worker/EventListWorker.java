@@ -110,7 +110,7 @@ public class EventListWorker extends ListWorkerVeraWeb {
 
         // Dreht die Sortierung beim Export von Personen-Daten
         // um, um erst die "�ltesten" Veranstaltungen zu sehen,
-        // da diese am wahrscheinlichsten f�r einen Export
+        // da diese am wahrscheinlichsten für einen Export
         // in Frage kommen.
         String invertOrder = cntx.contentAsString("invertOrder");
         if ("true".equals(invertOrder)) {

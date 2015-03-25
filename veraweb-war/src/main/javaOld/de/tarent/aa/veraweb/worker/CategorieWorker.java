@@ -43,7 +43,7 @@ import de.tarent.octopus.server.OctopusContext;
 
 /**
  * <p>
- * Diese Octopus-Worker-Klasse stellt Operationen f�r Dokumenttypen
+ * Diese Octopus-Worker-Klasse stellt Operationen für Dokumenttypen
  * zur Verf�gung. Details bitte dem BeanListWorker entnehmen.
  * </p>
  * <p>

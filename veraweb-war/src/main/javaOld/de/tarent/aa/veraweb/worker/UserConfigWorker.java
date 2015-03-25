@@ -50,9 +50,9 @@ public class UserConfigWorker {
 	private static final String PARAMS_BOOLEAN[] = {
 		"guestListFunction", "guestListCity", "guestListPhone", "personListState" };
 
-	/** Octopus-Eingabe-Parameter f�r {@link #init(OctopusContext)} */
+	/** Octopus-Eingabe-Parameter für {@link #init(OctopusContext)} */
 	public static final String INPUT_init[] = {};
-	/** Octopus-Ausgabe-Parameter f�r {@link #init(OctopusContext)} */
+	/** Octopus-Ausgabe-Parameter für {@link #init(OctopusContext)} */
 	public static final String OUTPUT_init = "userConfig";
 	/**
 	 * L�dt die Konfiguration aus der Datenbank in die Session.
@@ -94,9 +94,9 @@ public class UserConfigWorker {
 		return result;
 	}
 
-	/** Octopus-Eingabe-Parameter f�r {@link #load(OctopusContext)} */
+	/** Octopus-Eingabe-Parameter für {@link #load(OctopusContext)} */
 	public static final String INPUT_load[] = {};
-	/** Octopus-Ausgabe-Parameter f�r {@link #load(OctopusContext)} */
+	/** Octopus-Ausgabe-Parameter für {@link #load(OctopusContext)} */
 	public static final String OUTPUT_load = "userConfig";
 	/**
 	 * L�dt die Konfiguration aus der Session in den Content.
@@ -113,7 +113,7 @@ public class UserConfigWorker {
 		return result;
 	}
 
-	/** Octopus-Eingabe-Parameter f�r {@link #save(OctopusContext)} */
+	/** Octopus-Eingabe-Parameter für {@link #save(OctopusContext)} */
 	public static final String INPUT_save[] = {};
 	/**
 	 * Speichert die Benutzer Einstellungen in der Datenbank.

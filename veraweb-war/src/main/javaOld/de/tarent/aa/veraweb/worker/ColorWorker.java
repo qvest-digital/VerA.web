@@ -58,7 +58,7 @@ import de.tarent.octopus.server.OctopusContext;
  * @author Christoph
  */
 public class ColorWorker {
-	/** Octopus-Eingabeparameter f�r die Aktion {@link #showList(OctopusContext)} */
+	/** Octopus-Eingabeparameter für die Aktion {@link #showList(OctopusContext)} */
 	public static final String INPUT_showList[] = {};
 	/**
 	 * Holt eine Liste von Farben und stellt diese in den Content.
@@ -87,7 +87,7 @@ public class ColorWorker {
 				where(Expr.equal("pk", new Integer(4)))));
 	}
 
-	/** Octopus-Eingabeparameter f�r die Aktion {@link #saveList(OctopusContext)} */
+	/** Octopus-Eingabeparameter für die Aktion {@link #saveList(OctopusContext)} */
 	public static final String INPUT_saveList[] = {};
 	/**
 	 * Speichert eine Liste von Farben.
@@ -140,10 +140,10 @@ public class ColorWorker {
 	}
 
 	/**
-	 * Gibt die ID des entsprechenden Farbwertes zur�ck.
+	 * Gibt die ID des entsprechenden Farbwertes zurück.
 	 * 
 	 * @param domestic (default ja)
-	 * @param sex (default m�nnlich)
+	 * @param sex (default männlich)
 	 * @return 1 - 4
 	 */
 	public static Integer getColor(String domestic, String sex) {

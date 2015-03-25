@@ -20,14 +20,14 @@
 package de.tarent.aa.veraweb.beans;
 
 /**
- * Diese Schnittstelle markiert Beans, die Erg�nzungen zu ImportPersons darstellen. 
+ * Diese Schnittstelle markiert Beans, die Ergänzungen zu ImportPersons darstellen. 
  * 
  * @author mikel
  */
 public interface ImportPersonExtra {
     /**
-     * Diese Methode assoziiert diese Importpersonenerg�nzung mit ihrer Importperson;
-     * dies bedeutet insbesondere die �bernahme deren ID als Fremdschl�ssel auf sie. 
+     * Diese Methode assoziiert diese Importpersonenergänzung mit ihrer Importperson;
+     * dies bedeutet insbesondere die Übernahme deren ID als Fremdschlüssel auf sie. 
      * 
      * @param person Importperson, mit der dieses Extra assoziiert werden soll.
      */

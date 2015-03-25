@@ -92,7 +92,7 @@ public class LoginManagerLDAPTarentContact extends LoginManagerLDAPGeneric {
     // LoginManager - AbstractLoginManager �berschreibungen
     //
 	/**
-     * Liefert den zust�ndigen UserManager zur�ck.
+     * Liefert den zust�ndigen UserManager zurück.
      * 
      * @return UserManager oder <code>null</code>, falls Konfigurationsprobleme bestehen.
 	 * @see de.tarent.octopus.server.LoginManager#getUserManager()

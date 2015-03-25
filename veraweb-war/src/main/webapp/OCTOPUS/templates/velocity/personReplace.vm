@@ -92,7 +92,7 @@
 			<div id="buttonPanel-bottom">
 				<input type="submit" class="mainButton" title="Suchen" name="count" value="Suchen"/>
 				<input type="button" class="mainButton" title="Einzelne Einzräge zum Ersetzen selektieren" name="replace" value="Einzeln ersetzen" onclick="document.getElementById('formlist').action='ShowReplacePersonList'; document.getElementById('formlist').submit();"/>
-				<input type="button" class="mainButton" title="Alle sofort ersetzen" name="replaceall" value="Alle ersetzen" onclick="document.getElementById('formlist').action='SaveReplaceAllPerson';  document.getElementById('formlist').submit();"/>
+				<input type="button" class="mainButton" title="Alle sofort ersetzen" name="replaceall" value="Alle ersetzen" onclick="document.getElementById('formlist').action='SaveReplaceAllPerson'; document.getElementById('formlist').submit();"/>
 				<input type="button" class="mainButton" title="Felder leeren" name="cancel" value="Felder leeren" onclick="clearFields();">
 			</div>
 		</div>

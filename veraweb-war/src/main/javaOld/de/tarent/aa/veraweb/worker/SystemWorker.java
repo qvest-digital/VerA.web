@@ -96,8 +96,8 @@ public class SystemWorker {
     // Hilfsmethoden
     //
     /**
-     * Diese Methode �ndert den Pfad der Datei der �bergebenen Log4J-Kategorie
-     * ab, indem der �bergebene Pfad vorangestellt wird, wenn der bisherige Pfad
+     * Diese Methode �ndert den Pfad der Datei der übergebenen Log4J-Kategorie
+     * ab, indem der übergebene Pfad vorangestellt wird, wenn der bisherige Pfad
      * keinen Verzeichnisanteil hat.
      * 
      * @param category abzu�ndernde Log4J-Kategorie

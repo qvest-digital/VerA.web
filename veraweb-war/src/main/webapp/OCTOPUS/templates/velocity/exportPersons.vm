@@ -6,7 +6,7 @@
 		<div id="breadcrumb" class="textRight marginBottom10">
 			<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Personen > Personenexport</span>
 		</div>
-		
+
 		<h1>$title</h1>
 
 		<vera-info>
@@ -15,12 +15,12 @@
             #else
             Sie exportieren mit dieser Funktion ausschlie&szlig;lich Personen aus Ihrem aktuellen Mandanten.
             #end
-		</vera-info>	
-		
+		</vera-info>
+
 
         <form action="ExportPersonsHandler/veraweb.export" name="formExport" method="post">
 			<div id="main_content" class="contentBoxColored grayBorder">
-            
+
     			<div class="table width70">
     				<div class="tableRow">
     					<div class="tableCell inlineLabel width30">
@@ -31,7 +31,7 @@
         					<select id="exportEvent" name="exportEvent">
                                    		# cklein 2009-07-16: fixes issue 1815 - although option "Alle" yielded no return value
                                    		# the octopus version in use made it a valid integer object of value 0, which broke
-                                   		# existing code relying on the fact that the request parameter would be null. 
+                                   		# existing code relying on the fact that the request parameter would be null.
                                    		#
                                    			<option value="0">Alle</option>
                                    			<option value="-1">Keine</option>
@@ -50,7 +50,7 @@
     						<select name="exportCategory" id="exportCategory">
                     		# cklein 2009-07-16: fixes issue 1815 - although option "Alle" yielded no return value
                     		# the octopus version in use made it a valid integer object of value 0, which broke
-                    		# existing code relying on the fact that the request parameter would be null. 
+                    		# existing code relying on the fact that the request parameter would be null.
                     		#
                     			<option value="0">Alle</option>
                     			<option value="-1">ohne</option>
@@ -75,7 +75,7 @@
     				</div>
     			</div>
 
-			
+
 
                 #set($style = '')
                 #foreach($formatKey in $formats.keySet())
@@ -123,8 +123,8 @@
                 		</div>
                  #set($style = 'style="display:none;"')
     			#end
-    			
-    			
+
+
                 <script type="text/javascript">
                 	function formatChanged() {
                 #foreach($formatKey in $formats.keySet())
@@ -134,18 +134,18 @@
                 		return true;
                 	}
                 </script>
-                
+
                 ## see DataExchangeWorker#export
-			
+
         	</div>
-			
+
 			<div id="buttonPanel-bottom" class="textRight marginTop10">
 				<input type="submit" name="submit" value="Export starten" class="mainButton" />
  			</div>
 
         </form>
-	
-</div>	
+
+</div>
 <script type="text/javascript">
 	document.formExport.exportFilter[0].click();
 	function filterChanged() {

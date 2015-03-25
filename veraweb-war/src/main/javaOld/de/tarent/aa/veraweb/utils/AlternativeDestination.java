@@ -38,8 +38,8 @@ public interface AlternativeDestination {
     public OutputStream getAlternativeOutputStream() throws IOException;
 
     /**
-     * Diese Methode f�hrt einen Rollback auf das alternative Ziel durch,
-     * l�scht dabei z.B. neu erstellte Dateien wieder.
+     * Diese Methode führt einen Rollback auf das alternative Ziel durch,
+     * löscht dabei z.B. neu erstellte Dateien wieder.
      */
     public void rollback();
 }

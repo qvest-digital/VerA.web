@@ -45,7 +45,7 @@ import de.tarent.octopus.beans.Database;
 import de.tarent.octopus.beans.DatabaseUtilizer;
 
 /**
- * Diese Klasse stellt Basisfunktionalit�ten f�r den generischen CSV-Im- und -Export
+ * Diese Klasse stellt Basisfunktionalit�ten für den generischen CSV-Im- und -Export
  * zur Verf�gung.
  * 
  * @author mikel
@@ -54,19 +54,19 @@ public class GenericCSVBase implements Exchanger, DatabaseUtilizer {
     //
     // Konstanten
     //
-    /** Property-Schl�ssel f�r das Export-Mapping der Felder */
+    /** Property-Schlüssel für das Export-Mapping der Felder */
     public static final String PROPERTY_EXPORT_MAPPING = "exportMapping";
 
-    /** Property-Schl�ssel f�r das Encoding der Ausgabedatei */
+    /** Property-Schlüssel für das Encoding der Ausgabedatei */
     public final static String PROPERTY_ENCODING = "encoding";
     
-    /** Property-Schl�ssel f�r das Feldtrennzeichen */
+    /** Property-Schlüssel für das Feldtrennzeichen */
     public final static String PROPERTY_FIELD_SEPARATOR = "fieldSeparator";
     
-    /** Property-Schl�ssel f�r das Quote-Zeichen */
+    /** Property-Schlüssel für das Quote-Zeichen */
     public final static String PROPERTY_TEXT_QUALIFIER = "textQualifier";
     
-    /** Property-Schl�ssel f�r das Datumsformatmuster */
+    /** Property-Schlüssel für das Datumsformatmuster */
     public final static String PROPERTY_DATE_FORMAT = "dateFormat";
     
     /** Encoding: UTF-8 */
@@ -81,7 +81,7 @@ public class GenericCSVBase implements Exchanger, DatabaseUtilizer {
     /** Vorgabewert: Quote-Zeichen */
     public final static char DEFAULT_TEXT_QUALIFIER = '"';
 
-    /** Default-Kategorie-Rang, wenn alle Rang-Eintr�ge <code>null</code> sind. */
+    /** Default-Kategorie-Rang, wenn alle Rang-Einträge <code>null</code> sind. */
 		protected static final String	DEFAULT_RANK	= "X";
 		
     //

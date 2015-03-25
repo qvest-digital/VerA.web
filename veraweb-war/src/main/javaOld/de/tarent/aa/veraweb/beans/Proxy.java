@@ -62,7 +62,7 @@ public class Proxy extends AbstractHistoryBean {
     // Klasse AbstractBean
     //
     /**
-     * Der Benutzer und Stellvertreterrolle m�ssen angegeben sein.
+     * Der Benutzer und Stellvertreterrolle müssen angegeben sein.
      */
     @Override
     public void verify() {

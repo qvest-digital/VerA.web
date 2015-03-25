@@ -65,7 +65,7 @@ public class OrgUnitListWorker extends ListWorkerVeraWeb {
     //
     /**
      * Wird von {@link de.tarent.octopus.beans.BeanListWorker#saveList(OctopusContext)}
-     * aufgerufen und soll das �bergebene Bean als neuen Eintrag speichern.
+     * aufgerufen und soll das übergebene Bean als neuen Eintrag speichern.
      * 
      * 2015-03-13 - We have one Press category for every Mandant.
      * 
@@ -110,7 +110,7 @@ public class OrgUnitListWorker extends ListWorkerVeraWeb {
 
     /**
      * Wird von {@link de.tarent.octopus.beans.BeanListWorker#saveList(OctopusContext)}
-     * aufgerufen und soll die �bergebene Liste von Beans aktualisieren.
+     * aufgerufen und soll die übergebene Liste von Beans aktualisieren.
      *
      * @see #saveBean(OctopusContext, Bean)
      *
@@ -159,15 +159,15 @@ public class OrgUnitListWorker extends ListWorkerVeraWeb {
 	// weitere Octopus-Aktionen
 	//
 
-	/** Octopus-Eingabe-Parameter f�r {@link #cleanupDatabase(OctopusContext, Integer)} */
+	/** Octopus-Eingabe-Parameter für {@link #cleanupDatabase(OctopusContext, Integer)} */
 	public static final String INPUT_cleanupDatabase[] = { "orgunit" };
-	/** Octopus-Eingabe-Parameter f�r {@link #cleanupDatabase(OctopusContext, Integer)} */
+	/** Octopus-Eingabe-Parameter für {@link #cleanupDatabase(OctopusContext, Integer)} */
 	public static final boolean MANDATORY_cleanupDatabase[] = { false };
-	/** Octopus-Ausgabe-Parameter f�r {@link #cleanupDatabase(OctopusContext, Integer)} */
+	/** Octopus-Ausgabe-Parameter für {@link #cleanupDatabase(OctopusContext, Integer)} */
 	public static final String OUTPUT_cleanupDatabase = "missingorgunit";
 	/**
 	 * Zeigt eine Statistik �ber 'verloren' gegangene Datens�tze an.
-	 * Wenn der Parameter <code>orgunit</code> �bergeben wird werden
+	 * Wenn der Parameter <code>orgunit</code> übergeben wird werden
 	 * alle Datens�tze ohne g�ltigen Mandanten diesem zugeordnet.
 	 *
 	 * @param cntx Octopus-Context-Instanz

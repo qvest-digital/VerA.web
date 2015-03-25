@@ -39,19 +39,19 @@ public class AbstractHistoryBean extends AbstractBean {
 	public final static String HISTORY_FIELD_CREATED = "created";
 	/** Erzeuger-Feldname bei {@link #updateHistoryFields(Date, String)} */
 	public final static String HISTORY_FIELD_CREATED_BY = "createdby";
-	/** �nderungsdatum-Feldname bei {@link #updateHistoryFields(Date, String)} */
+	/** Änderungsdatum-Feldname bei {@link #updateHistoryFields(Date, String)} */
 	public final static String HISTORY_FIELD_CHANGED = "changed";
-	/** �nderer-Feldname bei {@link #updateHistoryFields(Date, String)} */
+	/** Änderer-Feldname bei {@link #updateHistoryFields(Date, String)} */
 	public final static String HISTORY_FIELD_CHANGED_BY = "changedby";
 
 	/**
 	 * Diese Methode aktualisiert Historienfelder der Bohne. Dies bedeutet, dass
 	 * --- falls vorhanden aber noch nicht gesetzt --- Erzeuger und Erzeugungsdatum
-	 * eingetragen und --- falls vorhanden --- �nderer und �nderungsdatum aktualisiert
+	 * eingetragen und --- falls vorhanden --- Änderer und Änderungsdatum aktualisiert
 	 * werden 
 	 * 
-	 * @param date Datum der �nderung --- Default ist <i>jetzt</i>
-	 * @param actor Namen des �ndernden --- Default ist nicht vorgegeben
+	 * @param date Datum der Änderung --- Default ist <i>jetzt</i>
+	 * @param actor Namen des Ändernden --- Default ist nicht vorgegeben
 	 * @throws BeanException 
 	 */
 	public void updateHistoryFields(Date date, String actor) throws BeanException {

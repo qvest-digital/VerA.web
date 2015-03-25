@@ -8,18 +8,18 @@
 <form id="formlist" name="formlist" action="SalutationDoctype" method="POST">
 
     <div id="content_container">
-    
+
     	<div id="breadcrumb marginBottom10" class="textRight">
     		<strong>Sie sind hier:</strong> <span><a href="index.html">Home</a> > Administration > Anreden</span>
     	</div>
-    
+
     	<h1>Anreden</h1>
-    
+
     	<span id="actionPanel" class="inlineLabel">
     		<strong>Markierte Anrede(n)</strong>
     		<input type="submit" name="remove" value="Löschen" title="Markierte Anreden löschen" />
     	</span>
-		
+
 		#if($listerrors.size() > 0)
         <vera-warn>
         	#foreach($error in $listerrors)
@@ -27,8 +27,8 @@
         	#end
         </vera-warn>
         #end
-    
-    
+
+
         <input type="hidden" name="id" value="$!salutation.id">
         <input type="hidden" name="start" value="">
         <input type="hidden" name="selectNone" value="true">
@@ -36,7 +36,7 @@
         <input type="hidden" name="doUpdate" value="true">
         <input type="hidden" name="doRemove" value="true">
         <input type="hidden" name="limit" value="" />
-    
+
         #foreach($bean in $list)
 			<input type="hidden" name="list" value="$bean.id">
         #end
@@ -76,22 +76,22 @@
 		#if ($listparam.count == 0)
             	<tr>
         			<td colspan="5">Keine Daten gefunden</td>
-        		</tr>           	
+        		</tr>
         #end
-        
+
         #set($itemName = "Anreden")
     				#parse("inc/list-navi-new.vm")
     				#parse("inc/list-direct-new.vm")
         </table>
-    
+
     	<div class="textRight" id="buttonPanel-bottom">
     		<input type="submit" name="save" value="Speichern" title="Speichern" class="mainButton" />
     		<input type="button" name="save" value="Zurück" onclick="window.location.href='Salutation';" title="Zurück" class="mainButton" />
     	</div>
-    
-    
 
-   
+
+
+
     </div>
 
 

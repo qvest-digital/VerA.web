@@ -76,7 +76,7 @@ public class MailDraftWorker extends ListWorkerVeraWeb {
 
 
 	/**
-	 * Updatet ausschlie�lich den Namen der in der Liste angezeigt wird.
+	 * Updatet ausschließlich den Namen der in der Liste angezeigt wird.
 	 */
 	@Override
     protected int updateBeanList(OctopusContext cntx, List errors, List beanlist, TransactionContext context) throws BeanException, IOException {
@@ -99,15 +99,15 @@ public class MailDraftWorker extends ListWorkerVeraWeb {
     //
     // Octopus-Aktionen
     //
-	/** Octopus-Eingabe-Parameter f�r {@link #showDetail(OctopusContext, Integer, MailDraft)} */
+	/** Octopus-Eingabe-Parameter für {@link #showDetail(OctopusContext, Integer, MailDraft)} */
 	public static final String INPUT_showDetail[] = { "id", "maildraft" };
-	/** Octopus-Eingabe-Parameter f�r {@link #showDetail(OctopusContext, Integer, MailDraft)} */
+	/** Octopus-Eingabe-Parameter für {@link #showDetail(OctopusContext, Integer, MailDraft)} */
 	public static final boolean MANDATORY_showDetail[] = { false, false };
-	/** Octopus-Ausgabe-Parameter f�r {@link #showDetail(OctopusContext, Integer, MailDraft)} */
+	/** Octopus-Ausgabe-Parameter für {@link #showDetail(OctopusContext, Integer, MailDraft)} */
 	public static final String OUTPUT_showDetail = "maildraft";
 	/**
 	 * L�dt einen eMail-Entwurf aus der Datenbank und stellt
-	 * diesen in den Content, wenn eine ID �bergeben wurde
+	 * diesen in den Content, wenn eine ID übergeben wurde
 	 * und sich noch kein Entwurf im Content befindet.
 	 * 
 	 * @param cntx Octopus-Context
@@ -124,14 +124,14 @@ public class MailDraftWorker extends ListWorkerVeraWeb {
 		return mailDraft;
 	}
 
-	/** Octopus-Eingabe-Parameter f�r {@link #saveDetail(OctopusContext, Boolean)} */
+	/** Octopus-Eingabe-Parameter für {@link #saveDetail(OctopusContext, Boolean)} */
 	public static final String INPUT_saveDetail[] = { "save" };
-	/** Octopus-Eingabe-Parameter f�r {@link #saveDetail(OctopusContext, Boolean)} */
+	/** Octopus-Eingabe-Parameter für {@link #saveDetail(OctopusContext, Boolean)} */
 	public static final boolean MANDATORY_saveDetail[] = { false };
-	/** Octopus-Ausgabe-Parameter f�r {@link #saveDetail(OctopusContext, Boolean)} */
+	/** Octopus-Ausgabe-Parameter für {@link #saveDetail(OctopusContext, Boolean)} */
 	public static final String OUTPUT_saveDetail = "maildraft";
 	/**
-	 * Speichert den �bergebenen eMail-Entwurf bzw. l�dt diesen aus dem
+	 * Speichert den übergebenen eMail-Entwurf bzw. l�dt diesen aus dem
 	 * Request und speichert diesen im Content und in der Datenbank,
 	 * wenn im Request der Parameter save auf true gesetzt ist.
 	 * 

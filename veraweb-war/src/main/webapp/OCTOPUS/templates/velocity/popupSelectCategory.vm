@@ -11,11 +11,11 @@
 	<script type="text/javascript" src="${paths.staticWeb}scripts/jquery.min.js"></script>
 	<script type="text/javascript" src="${paths.staticWeb}scripts/utils.js"></script>
 	<script type="text/javascript" src="${paths.staticWeb}scripts/dhtml-popup.js"></script>
-	
+
 
 	<script type="text/javascript">
 		var showCategory = function () {
-    		var selectionOfOption = $('option[name$="nix"]:selected');	
+    		var selectionOfOption = $('option[name$="nix"]:selected');
     			if(selectionOfOption.length === 1) {
     				var msg ='<span>Wählen Sie bitte zunächst eine Kategorie aus.</span>';
 					showWarning(msg);
@@ -52,7 +52,7 @@
     			};
 		};
 		var showRemoveCategory = function() {
-			var selectionOfOption = $('option[name$="nix"]:selected');	
+			var selectionOfOption = $('option[name$="nix"]:selected');
     			if(selectionOfOption.length === 1) {
     				var msg ='<span>Wählen Sie bitte zunächst eine Kategorie aus.</span>';
 					showWarning(msg);
@@ -86,12 +86,12 @@
         			#end
     			};
 		};
-		
+
 		// Funktion um ausgewählte Option : Zuweisen / Entfernen und Abbrechen zu überprüfen und dementspreche abfragen zu implementieren
 		$(function () {
             $('#button\\.execute').click(function (e) {
                 var selectText = $("input:button[name$='checkboxForSelection'] ").text();
-				
+
 				if (selectText == "Zuweisen") {
 					showDeleteAllocate();
 				}else if (selectText == "Entfernen") {
@@ -101,7 +101,7 @@
 				}
 			});
 		});
-	
+
 		var oldState = { categoryId : null, actionName : null };
 
 		function selected( elt )
@@ -142,7 +142,7 @@
 				window.opener.document.forms[ "formlist" ].submit();
 			}
 		}
-		
+
 		function adjustSize()
 		{
 			var elt = document.getElementById( "category" );

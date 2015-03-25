@@ -40,7 +40,7 @@ import de.tarent.octopus.server.OctopusContext;
 
 /**
  * Dieser Worker stellt entsprechende Funktionen zur Erstellung von
- * Berichten zu G�stelisten bereit.
+ * Berichten zu Gästelisten bereit.
  * 
  * @author Christoph Jerolimov
  */
@@ -48,16 +48,16 @@ public class GuestReportWorker {
     //
     // Octopus-Aktionen
     //
-    /** Octopus-Eingabeparameter f�r {@link #createReport(OctopusContext)} */
+    /** Octopus-Eingabeparameter für {@link #createReport(OctopusContext)} */
 	public static final String INPUT_createReport[] = {};
 	/**
-     * Diese Octopus-Aktion erzeugt Daten f�r einen Bericht. Hierbei wird auf
-     * die Werte unter den Schl�sseln "type" (Kategorisierung des Berichts) und
-     * "sort1", "sort2" und "sort3" (Sortierkriterien f�r den Bericht) aus
+     * Diese Octopus-Aktion erzeugt Daten für einen Bericht. Hierbei wird auf
+     * die Werte unter den Schlüsseln "type" (Kategorisierung des Berichts) und
+     * "sort1", "sort2" und "sort3" (Sortierkriterien für den Bericht) aus
      * dem Octopus-Request, "event" (die Veranstaltung) und "search" (Kriterien
-     * f�r die G�stesuche) aus dem Octopus-Content, "selectionGuest" (Liste
-     * ausgew�hlter G�ste-Eintr�ge) aus der Session und "freitextfeld2" (ID des
-     * Dokumenttyps f�r das Bericht-Freitextfeld) zur�ckgegriffen.<br>
+     * für die Gästesuche) aus dem Octopus-Content, "selectionGuest" (Liste
+     * ausgew�hlter Gäste-Einträge) aus der Session und "freitextfeld2" (ID des
+     * Dokumenttyps für das Bericht-Freitextfeld) zurückgegriffen.<br>
      * F�r den Bericht stehen zur Kategorisierung folgende Werte zur Verf�gung:
      * <ul>
      * <li>"Kat01": Kategorien mit Partner
@@ -68,19 +68,19 @@ public class GuestReportWorker {
      * Weiterhin stehen folgende Sortierkriterien zur Verf�gung:
      * <ul>
      * <li>"category": Kategorie-Rang, Kategorie-Name
-     * <li>"country": Land (der gesch�ftliche Adresse in Latin)
+     * <li>"country": Land (der geschäftliche Adresse in Latin)
      * <li>"name": Nachname, Vorname (der Hauptperson in Latin)
      * <li>"orderno": laufende Nummer
      * <li>"rank": Gast-Rang
      * <li>"table": Tischnummer
-     * <li>"zipcode": Postleitzahl (der gesch�ftliche Adresse in Latin)
+     * <li>"zipcode": Postleitzahl (der geschäftliche Adresse in Latin)
      * </ul>
-     * Im Octopus-Content werden unter den Schl�sseln "datum" (das zu verwendende
+     * Im Octopus-Content werden unter den Schlüsseln "datum" (das zu verwendende
      * aktuelle Datum), "titel" (Titel mit lesbarem Berichtstyp), "type" (wie oben
-     * Kategorisierung des Berichts), "data" (Map mit G�stesummen unter "platz",
+     * Kategorisierung des Berichts), "data" (Map mit Gästesummen unter "platz",
      * "reserve",  "all", "offen",  "zusagen" und "absagen"), "kategorie" (Flag f�r
-     * "Kat*"-Typen), "alphabetisch" (Flag f�r "Alpha*"-Typen) und "guestlist"
-     * (Liste der konkreten Gastdaten) Daten f�r den Bericht bereitgestellt.
+     * "Kat*"-Typen), "alphabetisch" (Flag für "Alpha*"-Typen) und "guestlist"
+     * (Liste der konkreten Gastdaten) Daten für den Bericht bereitgestellt.
      * 
      * @param cntx
      * @throws BeanException
@@ -191,7 +191,7 @@ public class GuestReportWorker {
 			select.selectAs("FALSE", "showdoctype");
 		}
 		
-		/** Nur die aktuelle Auswahl zur�ckgeben. */
+		/** Nur die aktuelle Auswahl zurückgeben. */
 		WhereList where = new WhereList();
 		GuestListWorker.addGuestListFilter(search, where);
 		if (selection != null && selection.size() > 0) {
@@ -237,9 +237,9 @@ public class GuestReportWorker {
     // Hilfsmethoden
     //
     /**
-     * Diese Methode f�gt gem�� einem �bergebenen Sortierkriterium ("orderno",
+     * Diese Methode f�gt gemäß einem übergebenen Sortierkriterium ("orderno",
      * "name", "country", "zipcode", "category", "rank" oder "table") passende
-     * ORDER-BY-Spaltennamen in die �bergebene Liste ein.
+     * ORDER-BY-Spaltennamen in die übergebene Liste ein.
      * 
      *  @param order Liste von ORDER-BY-Spaltennamen, die hier erg�nzt werden soll.
      *  @param sort abstraktes Sortierkriterium

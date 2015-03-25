@@ -23,7 +23,7 @@ import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
 /**
- * Resource f�r die Strings....
+ * Resource für die Strings....
  * 
  * @author philipp
  */

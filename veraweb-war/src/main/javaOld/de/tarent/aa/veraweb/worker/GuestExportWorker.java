@@ -64,7 +64,7 @@ import de.tarent.octopus.response.TcBinaryResponseEngine;
 import de.tarent.octopus.server.OctopusContext;
 
 /**
- * Diese Octopus-Worker-Klasse exportiert Dokumenttypen einer G�steliste
+ * Diese Octopus-Worker-Klasse exportiert Dokumenttypen einer Gästeliste
  * in ein OpenDocument-SpreadSheet.
  *
  * @author Christoph
@@ -73,15 +73,15 @@ public class GuestExportWorker {
     //
     // Octopus-Aktionen
     //
-    /** Octopus-Eingabeparameter f�r {@link #calc(OctopusContext, Integer)} */
+    /** Octopus-Eingabeparameter für {@link #calc(OctopusContext, Integer)} */
     public static final String INPUT_calc[] = { "doctype" };
-    /** Octopus-Eingabeparameter f�r {@link #calc(OctopusContext, Integer)} */
+    /** Octopus-Eingabeparameter für {@link #calc(OctopusContext, Integer)} */
     public static final boolean MANDATORY_calc[] = { false };
-    /** Octopus-Ausgabeparameter f�r {@link #calc(OctopusContext, Integer)} */
+    /** Octopus-Ausgabeparameter für {@link #calc(OctopusContext, Integer)} */
     public static final String OUTPUT_calc = "exportCalc";
-    /** Octopus-Eingabeparameter f�r {@link #export(OctopusContext, Integer)} */
+    /** Octopus-Eingabeparameter für {@link #export(OctopusContext, Integer)} */
     public static final String INPUT_export[] = { "doctype" };
-    /** Octopus-Ausgabeparameter f�r {@link #export(OctopusContext, Integer)} */
+    /** Octopus-Ausgabeparameter für {@link #export(OctopusContext, Integer)} */
     public static final String OUTPUT_export = "stream";
 
     /** Logger dieser Klasse */
@@ -91,7 +91,7 @@ public class GuestExportWorker {
 
 	/**
 	 * <p>
-	 * Berechnet wieviele Dokumenttypen einer G�steliste exportiert
+	 * Berechnet wieviele Dokumenttypen einer Gästeliste exportiert
 	 * werden sollen und k�nnen.
 	 * </p>
 	 *
@@ -165,11 +165,11 @@ public class GuestExportWorker {
 
 	/**
 	 * <p>
-	 * Exportiert die Dokumenttypen einer G�steliste.
+	 * Exportiert die Dokumenttypen einer Gästeliste.
 	 * </p>
 	 * <p>
-	 * Wenn Daten G�ste selektiert wurden werden diese exportiert,
-	 * falls dies nicht der Fall ist alle G�ste der �bergebenen Veranstaltung.
+	 * Wenn Daten Gäste selektiert wurden werden diese exportiert,
+	 * falls dies nicht der Fall ist alle Gäste der übergebenen Veranstaltung.
 	 * </p>
 	 *
 	 * @param cntx OctopusContext
@@ -219,7 +219,7 @@ public class GuestExportWorker {
 
 		if (selection != null && selection.size() > 0) {
 			// Joint tguest und schr�nkt das Ergebnis auf den entsprechenden
-			// Dokumenten-Typ und bestimmte G�ste ein.
+			// Dokumenten-Typ und bestimmte Gäste ein.
 			if (logger.isInfoEnabled())
 				logger.info("Exportiere G\u00e4steliste anhand der Sleektion.");
 
@@ -321,7 +321,7 @@ public class GuestExportWorker {
         	}
         }).start();
 
-		// Stream-Informationen zur�ck geben
+		// Stream-Informationen zurück geben
         final Map stream = new HashMap();
 		stream.put(TcBinaryResponseEngine.PARAM_TYPE, TcBinaryResponseEngine.BINARY_RESPONSE_TYPE_STREAM);
 		stream.put(TcBinaryResponseEngine.PARAM_FILENAME, ExportHelper.getFilename(filename));
@@ -336,20 +336,20 @@ public class GuestExportWorker {
     // Hilfsmethoden
     //
     /**
-     * Diese Methode exportiert alle G�ste, die �ber das �bergebene Select-Statement
-     * erfasst werden, in das �bergebene Spreadsheet.<br>
+     * Diese Methode exportiert alle Gäste, die �ber das übergebene Select-Statement
+     * erfasst werden, in das übergebene Spreadsheet.<br>
      * TODO: Parameter, von denen nur eine oder zwei Eigenschaften benutzt werden, durch Parameter ersetzen, die direkt diese Eigenschaften darstellen
      *
      * @param spreadSheet Exportziel
      * @param database Exportquelle, auf die das Statement select angewendet werden soll
-     * @param event Veranstaltung, zu der die G�ste geh�ren
+     * @param event Veranstaltung, zu der die Gäste geh�ren
      * @param doctype Dokumenttyp, der �ber sein partner-Flag bestimmt, ob Hauptperson
      *  und Partner in der gleichen oder in separaten Zeilen exportiert werden.
-     * @param search G�stesuche-Kriterien, die �ber ihre Eigenschaften invitationstatus
+     * @param search Gästesuche-Kriterien, die �ber ihre Eigenschaften invitationstatus
      *  und reserve bestimmen, ob Hauptperson, Partner oder beide exportiert werden sollen.
-     * @param select Select-Statement, das auf der �bergebenen database ausgef�hrt wird, um
+     * @param select Select-Statement, das auf der übergebenen database ausgeführt wird, um
      *  die zu exportierenden Datens�tze zu liefern.
-     * @param data Map mit Zusatzinformationen unter den Schl�sseln "doctype", "zusagen",
+     * @param data Map mit Zusatzinformationen unter den Schlüsseln "doctype", "zusagen",
      *  "absagen", "offenen", "platz" und "reserve".
      * @throws IOException
      */
@@ -508,7 +508,7 @@ public class GuestExportWorker {
 		//
 		// Kategorie spezifische Daten, wenn nach Kategorie gefilter wurde.
 		//
-		spreadSheet.addCell("Kategorie"); // Verweis auf Kategorie, die zur Auswahl f�hrte
+		spreadSheet.addCell("Kategorie"); // Verweis auf Kategorie, die zur Auswahl führte
 		spreadSheet.addCell("Kategorie_Rang"); // Der Rang der Kategorie innerhalb der Kategorien
 		spreadSheet.addCell("Rang"); // Der Rang der Person innerhalb der Kategorie
 
@@ -521,7 +521,7 @@ public class GuestExportWorker {
 		spreadSheet.addCell("Reserve"); // 0 = Tisch, 1 = Reservce
 
 		//
-		// Veranstaltungsspezifische Attribute f�r Person
+		// Veranstaltungsspezifische Attribute für Person
 		//
 		spreadSheet.addCell("Status"); // 0 = Offen, 1 = Zusage, 2 = Absage
 		spreadSheet.addCell("Tisch");
@@ -536,7 +536,7 @@ public class GuestExportWorker {
 		spreadSheet.addCell("Hinweis_Orgateam");
 
 		//
-		// Veranstaltungsspezifische Attribute f�r Partner der Person
+		// Veranstaltungsspezifische Attribute für Partner der Person
 		//
 		spreadSheet.addCell("Partner_Status"); // 0 = Offen, 1 = Zusage, 2 = Absage
 		spreadSheet.addCell("Partner_Tisch");
@@ -681,7 +681,7 @@ public class GuestExportWorker {
 		//
 		// Kategorie spezifische Daten, wenn nach Kategorie gefilter wurde.
 		//
-		spreadSheet.addCell(guest.get("catname")); // Verweis auf Kategorie, die zur Auswahl f�hrte
+		spreadSheet.addCell(guest.get("catname")); // Verweis auf Kategorie, die zur Auswahl führte
 		spreadSheet.addCell(guest.get("catrang")); // Der Rang der Kategorie innerhalb der Kategorien
 		spreadSheet.addCell(guest.get("guestrang")); // Der Rang der Person innerhalb der Kategorie
 
@@ -694,7 +694,7 @@ public class GuestExportWorker {
 		spreadSheet.addCell(getReserve((Integer)guest.get("reserve"))); // 0 = Tisch, 1 = Reservce
 
 		//
-		// Veranstaltungsspezifische Attribute f�r Person
+		// Veranstaltungsspezifische Attribute für Person
 		//
 		if (showA) {
 			spreadSheet.addCell(getStatus((Integer)guest.get("invitationstatus"))); // 0 = Offen, 1 = Zusage, 2 = Absage
@@ -723,7 +723,7 @@ public class GuestExportWorker {
 		}
 
 		//
-		// Veranstaltungsspezifische Attribute f�r Partner der Person
+		// Veranstaltungsspezifische Attribute für Partner der Person
 		//
 		if (showB) {
 			spreadSheet.addCell(getStatus((Integer)guest.get("invitationstatus_p"))); // 0 = Offen, 1 = Zusage, 2 = Absage
@@ -913,7 +913,7 @@ public class GuestExportWorker {
 	}
 
 	/**
-	 * Export ausschlie�lich die Gast-Daten in eine Zeile.
+	 * Export ausschließlich die Gast-Daten in eine Zeile.
 	 *
 	 * @param spreadSheet In das geschrieben werden soll.
 	 * @param event Event das exportiert wird.
@@ -971,7 +971,7 @@ public class GuestExportWorker {
 		//
 		// Kategorie spezifische Daten, wenn nach Kategorie gefilter wurde.
 		//
-		spreadSheet.addCell(guest.get("catname")); // Verweis auf Kategorie, die zur Auswahl f�hrte
+		spreadSheet.addCell(guest.get("catname")); // Verweis auf Kategorie, die zur Auswahl führte
 		spreadSheet.addCell(guest.get("catrang")); // Der Rang der Kategorie innerhalb der Kategorien
 		spreadSheet.addCell(guest.get("guestrang")); // Der Rang der Person innerhalb der Kategorie
 
@@ -984,7 +984,7 @@ public class GuestExportWorker {
 		spreadSheet.addCell(getReserve((Integer)guest.get("reserve"))); // 0 = Tisch, 1 = Reservce
 
 		//
-		// Veranstaltungsspezifische Attribute f�r Person
+		// Veranstaltungsspezifische Attribute für Person
 		//
 		spreadSheet.addCell(getStatus((Integer)guest.get("invitationstatus"))); // 0 = Offen, 1 = Zusage, 2 = Absage
 		spreadSheet.addCell(guest.get("tableno"));
@@ -999,7 +999,7 @@ public class GuestExportWorker {
 		spreadSheet.addCell(guest.get("noteorga"));
 
 		//
-		// Veranstaltungsspezifische Attribute f�r Partner der Person
+		// Veranstaltungsspezifische Attribute für Partner der Person
 		//
 		spreadSheet.addCell(null); // 0 = Offen, 1 = Zusage, 2 = Absage
 		spreadSheet.addCell(null);
@@ -1075,7 +1075,7 @@ public class GuestExportWorker {
 	}
 
 	/**
-	 * Export ausschlie�lich die Partner-Daten in eine Zeile.
+	 * Export ausschließlich die Partner-Daten in eine Zeile.
 	 *
 	 * @param spreadSheet In das geschrieben werden soll.
 	 * @param event Event das exportiert wird.
@@ -1132,7 +1132,7 @@ public class GuestExportWorker {
 		//
 		// Kategorie spezifische Daten, wenn nach Kategorie gefilter wurde.
 		//
-		spreadSheet.addCell(guest.get("catname")); // Verweis auf Kategorie, die zur Auswahl f�hrte
+		spreadSheet.addCell(guest.get("catname")); // Verweis auf Kategorie, die zur Auswahl führte
 		spreadSheet.addCell(guest.get("catrang")); // Der Rang der Kategorie innerhalb der Kategorien
 		spreadSheet.addCell(guest.get("guestrang")); // Der Rang der Person innerhalb der Kategorie
 
@@ -1145,7 +1145,7 @@ public class GuestExportWorker {
 		spreadSheet.addCell(getReserve((Integer)guest.get("reserve"))); // 0 = Tisch, 1 = Reservce
 
 		//
-		// Veranstaltungsspezifische Attribute f�r Person
+		// Veranstaltungsspezifische Attribute für Person
 		//
 		spreadSheet.addCell(getStatus((Integer)guest.get("invitationstatus_p"))); // 0 = Offen, 1 = Zusage, 2 = Absage
 		spreadSheet.addCell(guest.get("tableno_p"));
@@ -1160,7 +1160,7 @@ public class GuestExportWorker {
 		spreadSheet.addCell(guest.get("noteorga_p"));
 
 		//
-		// Veranstaltungsspezifische Attribute f�r Partner der Person
+		// Veranstaltungsspezifische Attribute für Partner der Person
 		//
 		spreadSheet.addCell(null); // 0 = Offen, 1 = Zusage, 2 = Absage
 		spreadSheet.addCell(null);
@@ -1204,7 +1204,7 @@ public class GuestExportWorker {
     //
     // �ffentliche Hilfsmethoden
     //
-    /** Diese Methode liefert eine String-Darstellung f�r einen Reserve-Wert */
+    /** Diese Methode liefert eine String-Darstellung für einen Reserve-Wert */
 	public static String getReserve(Integer reserve) {
 		return reserve == null ? null : (reserve.intValue() == 1 ? "Reserve" : "Tisch");
 	}
@@ -1221,14 +1221,14 @@ public class GuestExportWorker {
 
     /**
      * Diese Methode liefert zu einem Integer den um 1 erh�hten Wert oder
-     * 0, falls <code>null</code> �bergeben worden war.
+     * 0, falls <code>null</code> übergeben worden war.
      */
 	public static Integer getColor(Integer color) {
 		return new Integer(color == null ? 0 : color.intValue() + 1);
 	}
 
 	/**
-	 * Anschrifttyp als P,G,S zur�ckgeben.
+	 * Anschrifttyp als P,G,S zurückgeben.
 	 *
 	 * Vorgabe aus PersonDoctype, �berschreibbar in GuestDoctype
 	 * Muss auch in anderen Bereichen umgesetzt werden.
@@ -1247,7 +1247,7 @@ public class GuestExportWorker {
 	}
 
 	/**
-	 * Zeichensatz als L,F1,F2 zur�ckgeben.
+	 * Zeichensatz als L,F1,F2 zurückgeben.
 	 *
 	 * Vorgabe aus PersonDoctype, �berschreibbar in GuestDoctype
 	 * Muss auch in anderen Bereichen umgesetzt werden.

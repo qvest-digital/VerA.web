@@ -25,7 +25,7 @@ ID: <input type="text" name="id" value="$!message.text($addr1.id)"><br>
 			Block 5: <input type="text" name="addressblock5" value="$!message.text($addr1.addressblock5)"><br>
 			Block 6: <input type="text" name="addressblock6" value="$!message.text($addr1.addressblock6)"><br>
 <br><br>
-		
+
 	<strong>Adress-Liste</strong><br><br>
 <input type="hidden" name="list" value="1-">
 	<input type="hidden" name="list" value="2-">
@@ -35,7 +35,7 @@ ID: <input type="text" name="id" value="$!message.text($addr1.id)"><br>
 	<input type="text" name="2-addressblock1" value=""><br>
 	<input type="text" name="3-addressblock1" value=""><br>
 	<br>
-	
+
 	<input type="submit" value="Abschicken">
 </form>
 

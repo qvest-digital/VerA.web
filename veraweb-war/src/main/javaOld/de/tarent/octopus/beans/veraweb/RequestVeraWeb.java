@@ -36,7 +36,7 @@ public class RequestVeraWeb extends Request {
     //
     /**
      * Dieser Konstruktor initialisiert die {@link Request}-{@link BeanFactory}
-     * mit dem �bergebenen {@link OctopusContext} und dem VerA.web-Bean-Package
+     * mit dem übergebenen {@link OctopusContext} und dem VerA.web-Bean-Package
      * {@link #BEANPACKAGE "de.tarent.aa.veraweb.beans"}.
      */
 	public RequestVeraWeb(OctopusContext cntx) {

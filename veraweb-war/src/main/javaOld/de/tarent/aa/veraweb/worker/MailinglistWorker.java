@@ -50,9 +50,9 @@ import de.tarent.octopus.server.OctopusContext;
  * @version $Revision: 1.1 $
  */
 public class MailinglistWorker {
-	/** Octopus-Eingabe-Parameter f�r {@link #guessMaillinglist(OctopusContext)} */
+	/** Octopus-Eingabe-Parameter für {@link #guessMaillinglist(OctopusContext)} */
 	public static final String INPUT_guessMaillinglist[] = {};
-	/** Octopus-Ausgabe-Parameter f�r {@link #guessMaillinglist(OctopusContext)} */
+	/** Octopus-Ausgabe-Parameter für {@link #guessMaillinglist(OctopusContext)} */
 	public static final String OUTPUT_guessMaillinglist = "mailinglistParams";
 
 	/**
@@ -87,9 +87,9 @@ public class MailinglistWorker {
 	}
 
 
-	/** Octopus-Eingabe-Parameter f�r {@link #createMailinglist(OctopusContext, Mailinglist)} */
+	/** Octopus-Eingabe-Parameter für {@link #createMailinglist(OctopusContext, Mailinglist)} */
 	public static final String INPUT_createMailinglist[] = { "CONTENT:mailinglist" };
-	/** Octopus-Ausgabe-Parameter f�r {@link #createMailinglist(OctopusContext, Mailinglist)} */
+	/** Octopus-Ausgabe-Parameter für {@link #createMailinglist(OctopusContext, Mailinglist)} */
 	public static final String OUTPUT_createMailinglist = "mailinglistParams";
 
 	/**
@@ -154,18 +154,18 @@ public class MailinglistWorker {
 	}
 
 	/**
-	 * F�gt G�ste einem bestehendem Verteiler anhand der �bergebenen Bedingung
+	 * F�gt Gäste einem bestehendem Verteiler anhand der übergebenen Bedingung
 	 * <code>clause</code> hinzu. Die Bedingung darf dabei Einschr�nkungen auf
 	 * die Tabellen <code>tguest</code> und <code>tperson</code> vornehmen.
 	 * <br><br>
 	 * Die Adresse die in den entsprechenden Verteiler eingetragen wird, wird
 	 * aus dem entsprechenden Personen-Dokumenttyp 'Freitextfeld' gew�hlt.
-	 * Sollte dieser nicht existieren wird entsprechend des �bergebenen
+	 * Sollte dieser nicht existieren wird entsprechend des übergebenen
 	 * Adresstyps und Zeichensatzes in den normalen Personen Datengesucht. (Im
-	 * Zweifel wird auf die gesch�ftlichen lateinischen Daten zur�ckgegriffen.)
+	 * Zweifel wird auf die geschäftlichen lateinischen Daten zurückgegriffen.)
 	 *
 	 * @param cntx Octopus-Context
-	 * @param mailinglist Verteiler dem G�ste hinzugef�gt werden sollen.
+	 * @param mailinglist Verteiler dem Gäste hinzugef�gt werden sollen.
 	 * @param doctype ID des Dokumenttypes der verwendet werden soll.
 	 * @param addresstype Adresstyp
 	 * @param locale Zeichensatz
@@ -319,7 +319,7 @@ public class MailinglistWorker {
 	 * 1. Schaut ob ein entsprechender GuestDoctype existiert und kopiert
 	 *    ggf. aus diesem eMail-Adresse oder Fax-Nimmer.<br>
 	 * 2. Falls kein entsprechender Eintrag gefunden wurde wird die allgemeine
-	 *    Person zu dem �bergebenem Gast gesucht und die eMail-Adresse
+	 *    Person zu dem übergebenem Gast gesucht und die eMail-Adresse
 	 *    oder Fax-Nummer entsprechend des Dokumenttypens "Etikett" �bernommen.
 	 *
 	 * @param database
@@ -342,7 +342,7 @@ public class MailinglistWorker {
 	}
 
 	/**
-	 * Gibt eine 'gesauberte' Faxnummer mit dem Zusatz '@fax' zur�ck.
+	 * Gibt eine 'gesauberte' Faxnummer mit dem Zusatz '@fax' zurück.
 	 *
 	 * @param cntx Octopus-Context
 	 * @param number Faxnummer
@@ -356,7 +356,7 @@ public class MailinglistWorker {
 	}
 
 	/**
-	 * Gibt eine 'gesauberte' eMail-Adresse zur�ck.
+	 * Gibt eine 'gesauberte' eMail-Adresse zurück.
 	 *
 	 * @param cntx Octopus-Context
 	 * @param mail eMail-Adresse

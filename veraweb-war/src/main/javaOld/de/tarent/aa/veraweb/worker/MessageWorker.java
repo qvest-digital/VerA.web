@@ -36,7 +36,7 @@ public class MessageWorker {
     //
     // Octopus-Aktionen
     //
-    /** Octopus-Eingabeparameter f�r die Aktion {@link #init()} */
+    /** Octopus-Eingabeparameter für die Aktion {@link #init()} */
 	public final static String INPUT_init[] = {};
     /**
      * Diese Octopus-Aktion initialisiert die Member dieses Workers.
@@ -46,7 +46,7 @@ public class MessageWorker {
         properties = ResourceBundle.getBundle("de.tarent.aa.veraweb.veraweb", Locale.getDefault());
 	}
 
-    /** Octopus-Eingabeparameter f�r die Aktion {@link #load(OctopusContext)} */
+    /** Octopus-Eingabeparameter für die Aktion {@link #load(OctopusContext)} */
 	public final static String INPUT_load[] = {};
     /**
      * Diese Octopus-Aktion legt geb�ndelte lokalisierte Mitteilungen als "message"

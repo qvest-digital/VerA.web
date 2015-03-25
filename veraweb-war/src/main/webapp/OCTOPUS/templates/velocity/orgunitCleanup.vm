@@ -5,7 +5,7 @@
 #set($elementNameSex = "male")
 #set($elementNameSingular = "Mandant")
 #set($elementNamePlural = "Mandanten")
-#parse("inc/header.vm")	
+#parse("inc/header.vm")
 
 #if($missingorgunit.result == "done")
 <vera-success>
@@ -13,12 +13,12 @@
 </vera-success>
 #end
 
-<div id="content_container"> 
-	
+<div id="content_container">
+
     <div id="breadcrumb" class="textRight marginBottom10">
     	<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Administration > Mandanten</span>
-    </div>	
-	
+    </div>
+
 	<h1>Mandanten</h1>
 
     <div class="tabs contentBox grayBorder marginBottom10 marginTop20" id="main_content">
@@ -33,9 +33,9 @@
 
 		<form action="$octopusRequest.task" method="POST">
 			<div class="contentBoxColored tabsContent" vera-content="database">
-            
+
                 <h2 class="marginBottom10">Nicht Mandanten zugeordnete Daten</h2>
-                
+
                 <table><tr>
                 	<td class="width15 bold"><label for="person">Personen:</label></td>
                 	<td><input type="text" value="$!message.text($missingorgunit.person)" id="person" vera-disabled></td>
@@ -61,7 +61,7 @@
                 	<td><input type="text" value="$!message.text($missingorgunit.user)" id="users" vera-disabled></td>
                 </tr><tr>
                 </tr></table>
-                
+
                 <h2 class="marginBottom10 marginTop30">Mandanten zuordnen</h2>
                 #if(!$allOrgUnit || $allOrgUnit.size() == 0)
                 	<vera-warn>
@@ -79,14 +79,14 @@
                 	</td>
                 </tr></table>
                 #end
-                
+
                 </div>
-					
+
   			<span id="buttonPanel-bottom" class="floatRight marginTop10">
 				<input type="submit" name="submit" value="Zuordnen" title="Zuordnen" class="mainButton">
-  			</span>						
-                
-            
+  			</span>
+
+
        </form>
 	</div>
 </div>

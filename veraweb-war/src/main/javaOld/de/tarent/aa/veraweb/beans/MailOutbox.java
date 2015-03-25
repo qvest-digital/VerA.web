@@ -26,7 +26,7 @@ import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.server.OctopusContext;
 
 /**
- * Dieses Bean repr�sentiert eine ausgehende eMail und wird als Tupel
+ * Dieses Bean repräsentiert eine ausgehende eMail und wird als Tupel
  * in der Tabelle <code>veraweb.tmailoutbox</code> gespeichert.
  *
  * @author Christoph Jerolimov
@@ -50,13 +50,13 @@ public class MailOutbox extends AbstractBean {
 	public Integer status;
 	/** Absender der eMail */
 	public String from;
-	/** Empf�nger der eMail */
+	/** Empfänger der eMail */
 	public String to;
 	/** Betreff der eMail */
 	public String subject;
 	/** Text der eMail */
 	public String text;
-	/** Daten der letzten Ver�nderung */
+	/** Daten der letzten Veränderung */
 	public Timestamp lastupdate;
 	/** Error Text */
 	public String errortext;

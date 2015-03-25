@@ -40,9 +40,9 @@ public class Import extends AbstractHistoryBean {
     public Timestamp created;
     /** Erstellt von: createdby varchar(100) */
     public String createdby;
-    /** Ge�ndert am: changed timestamptz */
+    /** Geändert am: changed timestamptz */
     public Timestamp changed;
-    /** Ge�ndert von: changedby varchar(100) */
+    /** Geändert von: changedby varchar(100) */
     public String changedby;
     /** Datenherkunft: importsource varchar(250) */
     public String importsource;

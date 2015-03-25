@@ -49,7 +49,7 @@ public class LDAPManagerAA extends LDAPManager {
     // Konstruktor
     //
     /**
-     * Dieser Konstruktor reicht die �bergebenen Parameter durch und setzt die
+     * Dieser Konstruktor reicht die übergebenen Parameter durch und setzt die
      * Vorgabe-Objektklassen.
      * 
      * @param lctx initialer LDAP-Kontext, auf dem dieser LDAP-Manager arbeitet
@@ -108,7 +108,7 @@ public class LDAPManagerAA extends LDAPManager {
     /**
      * Diese Methode ermittelt die verf�gbaren Rollen zu einem Vorname.Nachname-Login.
      * Dies geschieht �ber eine Suche in den Rollen, die �ber den Rollenfilter (Parameter
-     * mit Schl�ssel {@link #KEY_ROLE_FILTER}) gefiltert wird. Dieser Rollenfilter ist
+     * mit Schlüssel {@link #KEY_ROLE_FILTER}) gefiltert wird. Dieser Rollenfilter ist
      * ein LDAP-Suchfilter, in dem aber {0} als Variable erlaubt ist, in die der Login
      * eingetragen wird.<br>
      * Zum Beispiel sucht folgender Filter die AARole-Knoten, in denen das login in
@@ -124,7 +124,7 @@ public class LDAPManagerAA extends LDAPManager {
     	SearchControls cons = new SearchControls();
     	this.initializeSearchControls( cons );
         Set roleUids = getPossibleRoles(filterTemplate.format(new Object[]{login}), cons);
-        logger.fine("Rollen f�r " + login + ": " + roleUids);
+        logger.fine("Rollen für " + login + ": " + roleUids);
         return roleUids;
     }
     
@@ -145,7 +145,7 @@ public class LDAPManagerAA extends LDAPManager {
 	        NamingEnumeration ergebnis = lctx.search(relativeUser.substring(1) + baseDN, filter, cons);
 	        while (ergebnis.hasMore()) {
 	            Attributes result = ((SearchResult) ergebnis.nextElement()).getAttributes();
-	            // TODO: hier wird einer der uid-Eintr�ge genommen, nicht alle. Nach Anpassung andere getPossibleRoles entsprechend anpassen
+	            // TODO: hier wird einer der uid-Einträge genommen, nicht alle. Nach Anpassung andere getPossibleRoles entsprechend anpassen
 	            roleUids.add(result.get("uid").get());
 	        }
 	        return roleUids;

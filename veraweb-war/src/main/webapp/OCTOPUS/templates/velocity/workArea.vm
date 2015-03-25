@@ -3,14 +3,14 @@
 #set($elementNameSex = "male")
 #set($elementNameSingular = "Arbeitsbereich")
 #set($elementNamePlural = "Arbeitsbereiche")
-#parse("inc/header.vm")	
+#parse("inc/header.vm")
 
 <div id="content_container">
 
 	<div id="breadcrumb" class="textRight marginBottom10">
 	    	<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Administration > Arbeitsbereiche</span>
 	</div>
-		
+
 	<h1>Arbeitsbereiche</h1>
 
 	<form id="formlist" name="formlist" action="WorkArea" method="POST">
@@ -20,7 +20,7 @@
 		<input type="hidden" name="start" value="">
 		<input type="hidden" name="selectNone" value="true">
 		<input type="hidden" name="limit" value="" />
-		
+
 
 		<span class="inlineLabel" id="actionPanel">
 			<strong>Markierte(n) Arbeitsbereich(e)</strong>
@@ -28,7 +28,7 @@
 		</span>
 
 		<div id="main_content">
-		
+
 			#if($listerrors.size() > 0)
 			<vera-warn>
 				#foreach($error in $listerrors)
@@ -36,7 +36,7 @@
 				#end
 			</vera-warn>
 			#end
-			
+
 			#foreach($bean in $list)
 			<input type="hidden" name="list" value="$bean.id">
 			#end
@@ -63,17 +63,17 @@
 						<td colspan="99">Es wurden keine Daten gefunden</td>
 					</tr>
     			#end
-				
+
 				#set($itemName = "Arbeitsbereiche")
 				#parse("inc/list-navi-new.vm")
 				#parse("inc/list-direct-new.vm")
-				
+
 			</table>
-			
+
 			<div class="textRight marginTop10" id="buttonPanel-bottom">
-				<input type="submit" name="save" value="Speichern" title="Speichern" class="mainButton" />			
+				<input type="submit" name="save" value="Speichern" title="Speichern" class="mainButton" />
 			</div>
-		
+
 		</div>
 </form>
 </div>

@@ -121,19 +121,19 @@ public class FieldMappingTest extends TestCase {
     Map createDescriptions() {
         Map descriptions = new HashMap();
         descriptions.put("*", "{:*} in {:ort}");
-        descriptions.put("Stra�e", "{:stra�e}");
+        descriptions.put("Straße", "{:stra�e}");
         descriptions.put("Kategorie *", "{CAT:*}");
         descriptions.put("Dokumenttyp * (Hauptperson)", "{DTM:*}");
         descriptions.put("Dokumenttyp * (Partner)", "{DTP:*}");
         return descriptions;
     }
     
-    /** erzeugt Aufl�sung von {@link #createDescriptions()} f�r {@link #createSources()} */
+    /** erzeugt Aufl�sung von {@link #createDescriptions()} für {@link #createSources()} */
     Map createResolves() {
         Map expectedResolves = new HashMap();
         expectedResolves.put("vorname", "{:vorname} in {:ort}");
         expectedResolves.put("nachname", "{:nachname} in {:ort}");
-        expectedResolves.put("Stra�e", "{:stra�e}");
+        expectedResolves.put("Straße", "{:stra�e}");
         expectedResolves.put("Kategorie Weihnachtsessen", "{CAT:Weihnachtsessen}");
         expectedResolves.put("Kategorie Mafia", "{CAT:Mafia}");
         expectedResolves.put("Dokumenttyp Etikett (Hauptperson)", "{DTM:Etikett}");

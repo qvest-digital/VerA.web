@@ -31,7 +31,7 @@ import java.util.List;
  */
 public class ImportPerson extends Person {
     //
-    // �ffentliche Membervariablen: Tabellenfelder �ber die von Person hinaus
+    // Öffentliche Membervariablen: Tabellenfelder über die von Person hinaus
     //
     /** Import, bei dem diese Personendaten von extern importiert wurden */
 	public Long fk_import;
@@ -44,31 +44,31 @@ public class ImportPerson extends Person {
 
     //  Kategorien & Freitexte
     
-    /** Kategorienliste, zeilenweise; f�r den MAdLAN-Import, ansonsten werden {@link ImportPersonCategorie}-Instanzen genutzt */
+    /** Kategorienliste, zeilenweise; für den MAdLAN-Import, ansonsten werden {@link ImportPersonCategorie}-Instanzen genutzt */
     public String category;
-    /** Anl�sssliste, zeilenweise; f�r den MAdLAN-Import, ansonsten werden {@link ImportPersonCategorie}-Instanzen genutzt */
+    /** Anlaßliste, zeilenweise; für den MAdLAN-Import, ansonsten werden {@link ImportPersonCategorie}-Instanzen genutzt */
     public String occasion;
     
-    /** Freitextfeld 1; f�r den MAdLAN-Import, ansonsten werden {@link ImportPersonDoctype}-Instanzen genutzt */
+    /** Freitextfeld 1; für den MAdLAN-Import, ansonsten werden {@link ImportPersonDoctype}-Instanzen genutzt */
     public String textfield_1;
-    /** Freitextfeld 2; f�r den MAdLAN-Import, ansonsten werden {@link ImportPersonDoctype}-Instanzen genutzt */
+    /** Freitextfeld 2; für den MAdLAN-Import, ansonsten werden {@link ImportPersonDoctype}-Instanzen genutzt */
     public String textfield_2;
-    /** Freitextfeld 3; f�r den MAdLAN-Import, ansonsten werden {@link ImportPersonDoctype}-Instanzen genutzt */
+    /** Freitextfeld 3; für den MAdLAN-Import, ansonsten werden {@link ImportPersonDoctype}-Instanzen genutzt */
     public String textfield_3;
 
     //
-    // �ffentliche Konstanten
+    // Öffentliche Konstanten
     //
     /**
-     * Element-Trennzeichen, um eine Menge von Prim�rschl�sseln in einem
+     * Element-Trennzeichen, um eine Menge von Primärschlüsseln in einem
      * Datenfeld (namentlich {@link #duplicates}) zu speichern.
      */
     public final static char PK_SEPERATOR_CHAR = ';';
     
-    /** DB-Integerwert f�r <code>true</code> f�r {@link #dupcheckaction} und {@link #dupcheckstatus} */
+    /** DB-Integerwert für <code>true</code> für {@link #dupcheckaction} und {@link #dupcheckstatus} */
     public final static Integer TRUE = new Integer(1);
 
-    /** DB-Integerwert f�r <code>false</code> f�r {@link #dupcheckaction} und {@link #dupcheckstatus} */
+    /** DB-Integerwert für <code>false</code> für {@link #dupcheckaction} und {@link #dupcheckstatus} */
     public final static Integer FALSE = new Integer(0);
 
     //
@@ -93,7 +93,7 @@ public class ImportPerson extends Person {
 	}
 
     //
-    // gesch�tzte Member
+    // geschützte Member
     //
     /** Duplikatliste; wird in {@link de.tarent.aa.veraweb.worker.ImportPersonsDuplicateWorker#showList(de.tarent.octopus.server.OctopusContext)} aus {@link #duplicates} zusammengestellt */
     private List dups;

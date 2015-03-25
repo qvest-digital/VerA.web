@@ -60,7 +60,7 @@ public class AddressHelper implements PersonConstants {
 	}
 
     /**
-     * Diese Methode �berpr�ft eine Reihe Felder einer {@link Person}-Instanz
+     * Diese Methode Überprüft eine Reihe Felder einer {@link Person}-Instanz
      * und setzt gegebenenfalls sinnvolle Standardwerte ein.<br>
      * Es findet auch eine Sonderbehandlung spezieller {@link ImportPerson}-Felder
      * statt. 
@@ -178,7 +178,7 @@ public class AddressHelper implements PersonConstants {
     /**
      * Diese Methode pr�ft die speziellen ImportPerson-Felder und k�rzt sie ggf.
      * 
-     * @param importPerson zu pr�fende ImportPerson.
+     * @param importPerson zu prüfende ImportPerson.
      */
     private static void checkImportPersonFields(ImportPerson importPerson) {
         assert importPerson != null;
@@ -257,8 +257,8 @@ public class AddressHelper implements PersonConstants {
 	 * kopiert dabei die Daten nur in eine Richtung:
 	 * 
 	 * <ul>
-	 * <li>Latein-Gesch�ftlich nach Latain-Privat und Latein-Weitere.</li>
-	 * <li>Latein-Gesch�ftlich nach Zeichensatz 1-Gesch�ftlich und Zeichensatz 2-Gesch�ftlich.</li>
+	 * <li>Latein-Geschäftlich nach Latain-Privat und Latein-Weitere.</li>
+	 * <li>Latein-Geschäftlich nach Zeichensatz 1-Geschäftlich und Zeichensatz 2-Geschäftlich.</li>
 	 * <li>Latein-Privat nach Zeichensatz 1-Privat und Zeichensatz 2-Privat.</li>
 	 * <li>Latein-Weitere nach Zeichensatz 1-Weitere und Zeichensatz 2-Weitere.</li>
 	 * </ul>
@@ -309,7 +309,7 @@ public class AddressHelper implements PersonConstants {
 	/**
 	 * Kopiert den Vornamen, den Nachnamen, den Akad. Titel und die Anrede
 	 * einer Facade in eine andere wenn das entsprechende Feld dort nicht
-	 * gef�llt ist.
+	 * gefüllt ist.
 	 * 
 	 * @param source
 	 * @param target
@@ -367,7 +367,7 @@ public class AddressHelper implements PersonConstants {
 
 	/**
 	 * Kopiert alle Adress- und Kommunikationsdaten einer AddressFacade
-	 * in eine andere, wenn das entsprechende Feld dort nicht gef�llt ist.
+	 * in eine andere, wenn das entsprechende Feld dort nicht gefüllt ist.
 	 * 
 	 * @param source
 	 * @param target
@@ -473,9 +473,9 @@ public class AddressHelper implements PersonConstants {
 	}
 
     /**
-     * Diese Methode setzt die Felder einer {@link PersonMemberFacade} zur�ck.
+     * Diese Methode setzt die Felder einer {@link PersonMemberFacade} zurück.
      * 
-     * @param facade zur�ckzusetzende {@link PersonMemberFacade}
+     * @param facade zurückzusetzende {@link PersonMemberFacade}
      */
 	public static void clearAddressData(PersonMemberFacade facade) {
 		facade.setBirthday(null);
@@ -499,9 +499,9 @@ public class AddressHelper implements PersonConstants {
 	}
 
     /**
-     * Diese Methode setzt die Felder einer {@link PersonAddressFacade} zur�ck.
+     * Diese Methode setzt die Felder einer {@link PersonAddressFacade} zurück.
      * 
-     * @param facade zur�ckzusetzende {@link PersonAddressFacade}
+     * @param facade zurückzusetzende {@link PersonAddressFacade}
      */
 	public static void clearAddressData(PersonAddressFacade facade) {
 		facade.setCity(null);

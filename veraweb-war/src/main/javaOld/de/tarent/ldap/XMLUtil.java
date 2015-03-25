@@ -33,7 +33,7 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 /**
- * Kleine XML-Utilities f�r den LDAPManager
+ * Kleine XML-Utilities für den LDAPManager
  * 
  * @author philipp
  */

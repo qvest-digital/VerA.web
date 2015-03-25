@@ -175,7 +175,7 @@ public class MAdLANExporter implements Exporter, Exchanger, DatabaseUtilizer, Ma
     }
 
     /**
-     * Diese Methode f�gt dem Export eine Beschreibung der �bergebenen VerA.web-Person
+     * Diese Methode f�gt dem Export eine Beschreibung der übergebenen VerA.web-Person
      * hinzu.
      * 
      * @param person {@link Person}-Bean
@@ -345,16 +345,16 @@ public class MAdLANExporter implements Exporter, Exchanger, DatabaseUtilizer, Ma
     // Encoding-Hilfsmethoden
     //
     /**
-     * Diese Methode liefert zu einem Schl�ssel ein Zeichenmapping.
-     * Die erlaubten Schl�ssel sind {@link #CHARS_BALT}, {@link #CHARS_BALTIC},
+     * Diese Methode liefert zu einem Schlüssel ein Zeichenmapping.
+     * Die erlaubten Schlüssel sind {@link #CHARS_BALT}, {@link #CHARS_BALTIC},
      * {@link #CHARS_CYR_EXT}, {@link #CHARS_CYRILLIC}, {@link #CHARS_EAST},
      * {@link #CHARS_GREEK}, {@link #CHARS_LATIN}, {@link #CHARS_TUR_ASB},
      * {@link #CHARS_TURKISH} und {@link #CHARS_WEST}. Als Default wird
      * {@link #CHARS_LATIN} genommen. Dieses Zeichenmapping ist invers zu dem,
      * das {@link MadlanReader#getChars(String)} liefert.
      * 
-     * @param key Zeichenmappingschl�ssel
-     * @param unmapped Wert f�r nicht zugeordnete Zeichen
+     * @param key Zeichenmappingschlüssel
+     * @param unmapped Wert für nicht zugeordnete Zeichen
      * @return ein <code>char[]</code>.
      */
     public final static char[] getCharsInverted(String key, char unmapped) {

@@ -73,7 +73,7 @@ public class PersonReplaceWorker extends PersonListWorker {
 	static private final List GROUP_04 = new ArrayList();
 	/** Firma / Institution */
 	static private final List GROUP_05 = new ArrayList();
-	/** Stra�e, Adresszusatz und Land */
+	/** Straße, Adresszusatz und Land */
 	static private final List GROUP_06 = new ArrayList();
 	/** PLZ / Ort und PLZ / Postfach */
 	static private final List GROUP_07 = new ArrayList();
@@ -235,9 +235,9 @@ public class PersonReplaceWorker extends PersonListWorker {
 	// NEUE OCTOPUS AKTIONEN
 	//
 
-	/** Octopus-Eingabe-Parameter f�r {@link #getReplaceRequest(OctopusContext)} */
+	/** Octopus-Eingabe-Parameter für {@link #getReplaceRequest(OctopusContext)} */
 	public static final String INPUT_getReplaceRequest[] = {};
-	/** Octopus-Eingabe-Parameter f�r {@link #getReplaceRequest(OctopusContext)} */
+	/** Octopus-Eingabe-Parameter für {@link #getReplaceRequest(OctopusContext)} */
 	public static final String OUTPUT_getReplaceRequest = "replace-request";
 	/**
 	 * Kopiert die Such & Ersetz anfragen in den Content und merkt
@@ -288,7 +288,7 @@ public class PersonReplaceWorker extends PersonListWorker {
 
 	/**
 	 * Gibt eine Liste entsprechend der aktuellen Anfrage
-	 * zum Suchen/Ersetzen zur�ck.
+	 * zum Suchen/Ersetzen zurück.
 	 * 
 	 * @param replaceRequest Map, siehe {@link #getReplaceRequest(OctopusContext)}
 	 * @return Liste mit Feldern
@@ -319,14 +319,14 @@ public class PersonReplaceWorker extends PersonListWorker {
 	}
 
 
-	/** Octopus-Eingabe-Parameter f�r {@link #countData(OctopusContext)} */
+	/** Octopus-Eingabe-Parameter für {@link #countData(OctopusContext)} */
 	public static final String INPUT_countData[] = {};
-	/** Octopus-Eingabe-Parameter f�r {@link #countData(OctopusContext)} */
+	/** Octopus-Eingabe-Parameter für {@link #countData(OctopusContext)} */
 	public static final String OUTPUT_countData = "snr-count";
 	/**
 	 * Berechnet wieviele Datens�tze bei einem {@link #replaceAllData(OctopusContext)}
 	 * oder einem {@link #replaceSelectedData(OctopusContext)} ersetzt werden w�rden
-	 * und gibt diese Zahl zur Benutzerinformation zur�ck.
+	 * und gibt diese Zahl zur Benutzerinformation zurück.
 	 * 
 	 * @param cntx
 	 * @throws BeanException
@@ -356,7 +356,7 @@ public class PersonReplaceWorker extends PersonListWorker {
 	}
 
 
-	/** Octopus-Eingabe-Parameter f�r {@link #replaceAllData(OctopusContext)} */
+	/** Octopus-Eingabe-Parameter für {@link #replaceAllData(OctopusContext)} */
 	public static final String INPUT_replaceAllData[] = {};
 	/**
 	 * Octopus-Aktion die alle Daten sucht und ersetzt.
@@ -405,10 +405,10 @@ public class PersonReplaceWorker extends PersonListWorker {
 	}
 
 
-	/** Octopus-Eingabe-Parameter f�r {@link #replaceSelectedData(OctopusContext)} */
+	/** Octopus-Eingabe-Parameter für {@link #replaceSelectedData(OctopusContext)} */
 	public static final String INPUT_replaceSelectedData[] = {};
 	/**
-	 * Ersetzt in der G�steliste ausgew�hlte G�ste.
+	 * Ersetzt in der Gästeliste ausgew�hlte Gäste.
 	 * 
 	 * @param cntx
 	 * @throws BeanException
@@ -460,7 +460,7 @@ public class PersonReplaceWorker extends PersonListWorker {
 
 
 	/**
-	 * Gibt eine Where-Bedingung f�r die �bergebenen Spalten zur�ck.
+	 * Gibt eine Where-Bedingung für die übergebenen Spalten zurück.
 	 * 
 	 * @param fields
 	 * @param search
@@ -519,7 +519,7 @@ public class PersonReplaceWorker extends PersonListWorker {
 	}
 
 	/**
-	 * Gibt ein Update mit den entsprechenden Spalten zur�ck.
+	 * Gibt ein Update mit den entsprechenden Spalten zurück.
 	 * 
 	 * @param fields
 	 * @param search

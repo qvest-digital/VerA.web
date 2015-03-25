@@ -57,7 +57,7 @@ public class MadlanReader implements MadlanConstants {
     private final char[] mappingB;
     
     /**
-     * Dieser Konstruktor merkt sich die �bergebenen kyrillisch zu interpretierenden Felder
+     * Dieser Konstruktor merkt sich die übergebenen kyrillisch zu interpretierenden Felder
      * und initialisiert einen {@link StreamTokenizer} 
      * 
      * @param reader Eingangsdaten
@@ -114,7 +114,7 @@ public class MadlanReader implements MadlanConstants {
 	 * 
 	 * @return Die Feldwerte einer Zeile der Tabelle als {@link List}e von {@link String}s.
 	 *         Anzahl der Felder entspricht der R�ckgabe von {@link #getReadRowsCount()}.
-	 *         Kann keine Zeile mehr gelesen werden, wird null zur�ckgegeben.
+	 *         Kann keine Zeile mehr gelesen werden, wird null zurückgegeben.
 	 * @throws IOException
 	 */
 	public List readRow() throws IOException {
@@ -144,7 +144,7 @@ public class MadlanReader implements MadlanConstants {
 		
 		int type;               //Typ des erkannten Tokens
 		int i = 0;              //Zeiger auf das aktuell betrachtete Feld 
-		boolean filled = false; //wurde in das aktuelle Feld schon ein Wert eingef�gt ?
+		boolean filled = false; //wurde in das aktuelle Feld schon ein Wert eingefügt ?
 		while ((type = tokenizer.nextToken()) != StreamTokenizer.TT_EOL && 
 				type != StreamTokenizer.TT_EOF) { //Token lesen bis Zeile oder Datei endet
 			
@@ -284,7 +284,7 @@ public class MadlanReader implements MadlanConstants {
     /**
      * Hier wird festgelegt wie zu kurze Zeilen behandelt werden sollen.
      * Wird der Parameter auf true gesetzt, dann werden Zeilen mit weniger Feldern als im Header
-     * mit dem Wert {@link #emptyField} aufgef�llt. Ist der Wert false, wird ein Fehler erzeugt.
+     * mit dem Wert {@link #emptyField} aufgefüllt. Ist der Wert false, wird ein Fehler erzeugt.
      * Standardwert ist true. 
      */
 	public boolean getFillShortenedRows() {
@@ -294,10 +294,10 @@ public class MadlanReader implements MadlanConstants {
 	/**
 	 * Hier wird festgelegt wie zu kurze Zeilen behandelt werden sollen.
 	 * Wird der Parameter auf true gesetzt, dann werden Zeilen mit weniger Feldern als im Header
-	 * mit dem Wert {@link #emptyField} aufgef�llt. Ist der Wert false, wird ein Fehler erzeugt.
+	 * mit dem Wert {@link #emptyField} aufgefüllt. Ist der Wert false, wird ein Fehler erzeugt.
 	 * Standardwert ist true. 
 	 * 
-	 * @param fillShortenedRows Flag: Sollen zu kurze Zeilen aufgef�llt akzeptiert werden.
+	 * @param fillShortenedRows Flag: Sollen zu kurze Zeilen aufgefüllt akzeptiert werden.
 	 */
 	public void setFillShortenedRows(boolean fillShortenedRows) {
 		this.fillShortenedRows = fillShortenedRows;
@@ -376,14 +376,14 @@ public class MadlanReader implements MadlanConstants {
 	}
 
     /**
-     * Diese Methode liefert zu einem Schl�ssel ein Zeichenmapping.
-     * Die erlaubten Schl�ssel sind {@link #CHARS_BALT}, {@link #CHARS_BALTIC},
+     * Diese Methode liefert zu einem Schlüssel ein Zeichenmapping.
+     * Die erlaubten Schlüssel sind {@link #CHARS_BALT}, {@link #CHARS_BALTIC},
      * {@link #CHARS_CYR_EXT}, {@link #CHARS_CYRILLIC}, {@link #CHARS_EAST},
      * {@link #CHARS_GREEK}, {@link #CHARS_LATIN}, {@link #CHARS_TUR_ASB},
      * {@link #CHARS_TURKISH} und {@link #CHARS_WEST}. Als Default wird
      * {@link #CHARS_LATIN} genommen.  
      * 
-     * @param key Zeichenmappingschl�ssel
+     * @param key Zeichenmappingschlüssel
      * @return ein <code>char[256]</code>.
      */
     public final static char[] getChars(String key) {

@@ -44,9 +44,9 @@ public class LDAPUserPreferences extends AbstractPreferences {
 
 	LDAPManager		ldm			= null;
 	Properties		properties	= new Properties();
-	//Map f�r key/value der Preferences
+	//Map für key/value der Preferences
 	Map				cache		= new HashMap();
-	//Map f�r timestamp der Preferences
+	//Map für timestamp der Preferences
 	Map				timestamp	= new HashMap();
 	private Boolean	deleted		= Boolean.FALSE;
 	private String	user;
@@ -68,7 +68,7 @@ public class LDAPUserPreferences extends AbstractPreferences {
 
 	/**
 	 * Flush-Methode, die die cache-Map ins LDAP schreibt. Vorgehensweise: - Key
-	 * f�r Key wird als pref=key im LDAP gespeichert, value in das
+	 * für Key wird als pref=key im LDAP gespeichert, value in das
 	 * Value-Attribut
 	 * 
 	 * @see java.util.prefs.AbstractPreferences#flushSpi()
@@ -78,7 +78,7 @@ public class LDAPUserPreferences extends AbstractPreferences {
 		initLDM();
 		createPath();
 		String relativeold = adjustRelative();
-		//Alle Cache-Eintr�ge schreiben
+		//Alle Cache-Einträge schreiben
 		Iterator it = cache.keySet().iterator();
 		try {
 			while (it.hasNext()) {
@@ -226,7 +226,7 @@ public class LDAPUserPreferences extends AbstractPreferences {
 	}
 
 	/**
-	 * L�scht diese Preference aus dem LDAP, l�scht also alle gespeicherten
+	 * L�scht diese Preference aus dem LDAP, löscht also alle gespeicherten
 	 * Preferences, die mit diesem Knoten verbunden sind, und anschlie�end sich
 	 * selbst. Alle Operationen l�ufen nur im Cache ab, geschrieben wird erst
 	 * beim n�chsten
@@ -259,7 +259,7 @@ public class LDAPUserPreferences extends AbstractPreferences {
 
 	/**
 	 * Zuerst werden alle neueren Daten geschrieben, danach der Cache komplett
-	 * gef�llt
+	 * gefüllt
 	 * 
 	 * @see java.util.prefs.AbstractPreferences#syncSpi()
 	 */
@@ -477,7 +477,7 @@ public class LDAPUserPreferences extends AbstractPreferences {
 	}
 
 	/**
-	 * Liefert das Kind mit dem angegebenen Namen zur�ck
+	 * Liefert das Kind mit dem angegebenen Namen zurück
 	 * 
 	 * @see java.util.prefs.AbstractPreferences#childSpi(java.lang.String)
 	 */

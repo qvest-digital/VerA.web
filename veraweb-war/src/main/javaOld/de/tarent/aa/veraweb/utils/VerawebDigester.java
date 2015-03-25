@@ -47,7 +47,7 @@ import de.tarent.octopus.beans.ExecutionContext;
 import de.tarent.octopus.server.OctopusContext;
 
 /**
- * Diese Klasse dient als Importziel f�r die Methode
+ * Diese Klasse dient als Importziel für die Methode
  * {@link DataExchangeWorker#importToTransit(OctopusContext, Map, String, String, Integer, Map)}.
  */
 public class VerawebDigester implements ImportDigester {
@@ -125,7 +125,7 @@ public class VerawebDigester implements ImportDigester {
 
     /**
      * Diese Methode wird von einem {@link Importer} zu jeder zu importierenden
-     * Person aufgerufen, �bergeben wird die Person und eine Liste mit Beans,
+     * Person aufgerufen, übergeben wird die Person und eine Liste mit Beans,
      * die Zus�tze zur Person darstellen.<br>
      * Falls Abh�ngigkeiten unter diesen Beans bestehen, stehen in der
      * Liste die Beans, von der eine bestimmte Bean abh�ngt, vor dieser. 
@@ -154,7 +154,7 @@ public class VerawebDigester implements ImportDigester {
         person.dupcheckstatus = ImportPerson.FALSE;
         // Verwaltungsdaten: keine Duplikate
         person.duplicates = null;
-        // Verwaltungsdaten: nicht gel�scht
+        // Verwaltungsdaten: nicht gelöscht
         person.deleted = PersonConstants.DELETED_FALSE;
         // Verwaltungsdaten: istFirma-Flag
         if (!PersonConstants.ISCOMPANY_TRUE.equals(person.iscompany))
@@ -170,7 +170,7 @@ public class VerawebDigester implements ImportDigester {
         // Datensatz nicht berechtigte Felder entziehen.
         person.clearRestrictedFields(cntx);
         
-        // Datensatz auf vollst�ndigkeit testen.
+        // Datensatz auf vollständigkeit testen.
         person.verify();
         if (person.isCorrect()) {
             // Z�hler aktualisieren

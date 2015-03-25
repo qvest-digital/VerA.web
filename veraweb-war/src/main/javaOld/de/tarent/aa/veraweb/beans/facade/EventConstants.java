@@ -20,8 +20,8 @@
 package de.tarent.aa.veraweb.beans.facade;
 
 /**
- * Diese Schnittstelle stellt Konstanten f�r {@link de.tarent.aa.veraweb.beans.Event}-Instanzen 
- * zur Verf�gung.
+ * Diese Schnittstelle stellt Konstanten für {@link de.tarent.aa.veraweb.beans.Event}-Instanzen 
+ * zur Verfügung.
  * 
  * @author christoph
  */

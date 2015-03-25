@@ -34,11 +34,11 @@ public class ExchangeFormat {
     //
     // Getter und Setter
     //
-    /** Das Standard-Suffix f�r Dateien dieses Formats. */
+    /** Das Standard-Suffix für Dateien dieses Formats. */
     public String getDefaultExtension() {
         return defaultExtension;
     }
-    /** Das Standard-Suffix f�r Dateien dieses Formats. */
+    /** Das Standard-Suffix für Dateien dieses Formats. */
     protected void setDefaultExtension(String defaultExtension) {
         this.defaultExtension = defaultExtension;
     }
@@ -178,7 +178,7 @@ public class ExchangeFormat {
     Class importerClass = null;
     /** Der MIME-Typ zu diesem Format */
     String mimeType = null;
-    /** Das Standard-Suffix f�r Dateien dieses Formats. */
+    /** Das Standard-Suffix für Dateien dieses Formats. */
     String defaultExtension = null;
     /** Die speziellen Attribute dieses Formats */
     final Map properties = new HashMap();

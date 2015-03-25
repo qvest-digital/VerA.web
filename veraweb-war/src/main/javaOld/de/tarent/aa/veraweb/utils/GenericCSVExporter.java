@@ -65,8 +65,8 @@ public class GenericCSVExporter extends GenericCSVBase implements Exporter
 	// Schnittstelle Exporter
 	//
 	/**
-	 * Diese Methode wird zu jeder zu exportierenden Person aufgerufen, �bergeben wird die Person als Zusammenstellung von
-	 * {@link Person}. Sie f�gt dem Export eine Beschreibung der �bergebenen VerA.web-Person hinzu.
+	 * Diese Methode wird zu jeder zu exportierenden Person aufgerufen, übergeben wird die Person als Zusammenstellung von
+	 * {@link Person}. Sie f�gt dem Export eine Beschreibung der übergebenen VerA.web-Person hinzu.
 	 * 
 	 * @param person
 	 *          {@link Person}-Bean
@@ -163,7 +163,7 @@ public class GenericCSVExporter extends GenericCSVBase implements Exporter
 	// gesch�tzte innere Klassen
 	//
 	/**
-	 * Diese Klasse setzt die {@link Entity}-Facade f�r {@link Person}-Instanzen um.
+	 * Diese Klasse setzt die {@link Entity}-Facade für {@link Person}-Instanzen um.
 	 */
 	class PersonEntity implements Entity
 	{
@@ -171,11 +171,11 @@ public class GenericCSVExporter extends GenericCSVBase implements Exporter
 		// Schnittstelle Entity
 		//
 		/**
-		 * Diese Methode erlaubt das Abfragen von Daten zu einem bestimmten Schl�ssel. Die Schl�ssel werden in
+		 * Diese Methode erlaubt das Abfragen von Daten zu einem bestimmten Schlüssel. Die Schlüssel werden in
 		 * {@link GenericCSVExporter#getAvailableFields()} erstellt.
 		 * 
 		 * @param sourceKey
-		 *          Quellfeldschl�ssel
+		 *          Quellfeldschlüssel
 		 * @return Quellfeldwert als {@link String}; <code>null</code>-Felder werden als Leerstring <code>""</code>
 		 *         geliefert; <code>Date</code>-Felder werden mit {@link GenericCSVBase#dateFormat} formatiert.
 		 */
@@ -305,7 +305,7 @@ public class GenericCSVExporter extends GenericCSVBase implements Exporter
 		//
 		// Membervariablen
 		//
-		/** Die {@link Person}, f�r die dies eine Facade ist. */
+		/** Die {@link Person}, für die dies eine Facade ist. */
 		final Person	person;
 
 		/** Die R�nge der Person in den Kategorien */

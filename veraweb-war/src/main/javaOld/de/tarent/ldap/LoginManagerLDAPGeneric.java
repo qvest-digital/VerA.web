@@ -97,8 +97,8 @@ public class LoginManagerLDAPGeneric extends AbstractLoginManager
 	// �berschreibungen von AbstractLoginManager
 	//
 	/**
-	 * Diese Methode �berpr�ft die Credentials im Request und setzt im Erfolgsfall die
-	 * entsprechenden Daten in der �bergebenen PersonalConfig.
+	 * Diese Methode Überprüft die Credentials im Request und setzt im Erfolgsfall die
+	 * entsprechenden Daten in der übergebenen PersonalConfig.
 	 * 
 	 * @param commonConfig Konfigurationsdaten des Octopus
 	 * @param pConfig pers�nliche Konfiguration des einzuloggenden Benutzers
@@ -115,7 +115,7 @@ public class LoginManagerLDAPGeneric extends AbstractLoginManager
     }
     
     /**
-     * Diese Methode f�hrt die eigentliche �berpr�fung der �bergebenen Credentials
+     * Diese Methode führt die eigentliche �berpr�fung der übergebenen Credentials
      * aus, bei Serverproblemen ggf. nach LDAP-Verbindung-Neuaufsetzen sogar ein zweites
      * Mal. 
      * 
@@ -150,7 +150,7 @@ public class LoginManagerLDAPGeneric extends AbstractLoginManager
     }
     
     /**
-     * Diese Methode f�hrt ein Ausloggen des Benutzers durch. Insbesondere werden
+     * Diese Methode führt ein Ausloggen des Benutzers durch. Insbesondere werden
      * entsprechende Markierungen in seiner pers�nlichen Konfiguration gesetzt. 
 	 * 
 	 * @param commonConfig Konfigurationsdaten des Octopus
@@ -169,6 +169,6 @@ public class LoginManagerLDAPGeneric extends AbstractLoginManager
     /** LDAP-Konnektor */
 	protected LDAPManager ldapManager = null;
 	
-    /** Logger f�r diese Klasse */
+    /** Logger für diese Klasse */
 	static Logger logger = Logger.getLogger(LoginManagerLDAPGeneric.class.getName());
 }

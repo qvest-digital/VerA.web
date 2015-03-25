@@ -525,7 +525,7 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 	}
 
 	/**
-	 * �berpr�ft ob eine Person die n�tigen Berechtigungen hat um Personen
+	 * Überprüft ob eine Person die n�tigen Berechtigungen hat um Personen
 	 * zu l�schen und ob diese ggf. noch Veranstaltungen zugeordent sind.
 	 *
 	 * Bei Ver�nderungen an dieser Methode m�ssen diese ggf. auch in der
@@ -564,7 +564,7 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 		int maxquestions = 0;
 		int subselectsize = 1000;
 
-		/** Test ob Personen noch g�ltig sind und nicht gel�scht werden d�rfen. */
+		/** Test ob Personen noch g�ltig sind und nicht gelöscht werden d�rfen. */
 		if ((user || admin) && !selectionRemove.isEmpty()) {
 			for (int i = 0; i < selectionRemove.size(); i += subselectsize) {
 				List subList = selectionRemove.subList(i, i + subselectsize < selectionRemove.size() ? i + subselectsize : selectionRemove.size());
@@ -590,7 +590,7 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 			}
 		}
 
-		/** Fragen ob alle Personen wirklich gel�scht werden sollen. */
+		/** Fragen ob alle Personen wirklich gelöscht werden sollen. */
 		if (!getContextAsBoolean(cntx, "remove-person")) {
 			questions.put("remove-person", "Sollen alle markierten Personen gel\u00f6scht werden?");
 		}
@@ -642,7 +642,7 @@ public class PersonListWorker extends ListWorkerVeraWeb {
     /**
      * Wirft eine BeanException, die Personen werden mit ihren Abh�ngigkeiten
      * direkt in der Methode @link #removeSelection(OctopusContext, List, List)
-     * gel�scht.
+     * gelöscht.
      */
     protected boolean removeBean(OctopusContext cntx, Bean bean) throws BeanException, IOException {
         throw new BeanException("PersonListWorker#removeBean is deprecated");
@@ -651,15 +651,15 @@ public class PersonListWorker extends ListWorkerVeraWeb {
     //
     // Octopus-Aktionen
     //
-    /** Octopus-Eingabeparameter f�r {@link #getSearch(OctopusContext)} */
+    /** Octopus-Eingabeparameter für {@link #getSearch(OctopusContext)} */
     public static final String INPUT_getSearch[] = {};
-    /** Octopus-Ausgabeparameter f�r {@link #getSearch(OctopusContext)} */
+    /** Octopus-Ausgabeparameter für {@link #getSearch(OctopusContext)} */
     public static final String OUTPUT_getSearch = "search";
     /**
      * Diese Octopus-Aktion liefert ein aktuelles {@link PersonSearch}-Objekt.
      * Dies wird aus dem Request geholt geholt, falls ein Requestparameter
      * "search" den Wert "reset" hat. Beim Wert "clear" wird ein leeres
-     * Objekt zur�ck gegeben. Ausgewichen wird dann auf ein entsprechendes
+     * Objekt zurück gegeben. Ausgewichen wird dann auf ein entsprechendes
      * Session-Objekt. Das Ergebnis wird in der Session gesetzt.
      *
      * @param cntx Octopus-Kontext
@@ -732,7 +732,7 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 	}
 
 	/**
-	 * Gibt eine Person-List-Filter Bedinung inkl. Mandanten Einschr�nkung zur�ck.
+	 * Gibt eine Person-List-Filter Bedinung inkl. Mandanten Einschr�nkung zurück.
 	 *
 	 * @param cntx
 	 * @throws BeanException
@@ -756,7 +756,7 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 	}
 
 	/**
-	 * Erweitert die �bergebene WhereList um Bedingungen der Suche.
+	 * Erweitert die übergebene WhereList um Bedingungen der Suche.
 	 * Die WhereList ist danach <strong>niemals</strong> leer.
 	 *
 	 * @param cntx
@@ -914,7 +914,7 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 
 
 	/**
-	 * Erweitert die �bergebene WhereList um Bedingungen der Suche.
+	 * Erweitert die übergebene WhereList um Bedingungen der Suche.
 	 * Die WhereList ist danach <strong>niemals</strong> leer.
 	 *
 	 * @param cntx

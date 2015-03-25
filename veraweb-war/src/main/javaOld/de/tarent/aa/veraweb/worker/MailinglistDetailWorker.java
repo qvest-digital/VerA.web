@@ -87,7 +87,7 @@ public class MailinglistDetailWorker extends ListWorkerVeraWeb {
 	public static final String INPUT_showDetail[] = {};
 	/**
      * Diese Octopus-Aktion schreibt die Details zur Mailinglist mit dem im
-     * Octopus-Request unter dem Schl�ssel "id" angegebenen Prim�rschl�ssel
+     * Octopus-Request unter dem Schlüssel "id" angegebenen Primärschlüssel
      * unter "mailinglist" in Octopus-Content und -Session.
      * 
      * @param cntx Octopus-Kontext
@@ -115,7 +115,7 @@ public class MailinglistDetailWorker extends ListWorkerVeraWeb {
 	public static final String INPUT_saveDetail[] = {};
 	/**
      * Diese Octopus-Aktion liest eine Mailinglist aus dem Octopus-Request,
-     * legt diese unter dem Schl�ssel "mailinglist" in Octopus-Content und
+     * legt diese unter dem Schlüssel "mailinglist" in Octopus-Content und
      * -Session ab und testet sie auf Korrektheit. Falls sie korrekt ist,
      * wird sie in der Datenbank gespeichert, ansonsten wird der Status
      * "error" gesetzt.
@@ -148,7 +148,7 @@ public class MailinglistDetailWorker extends ListWorkerVeraWeb {
 	public static final String OUTPUT_getAddressList = "mailAddresses";
 	/**
      * Diese Octopus-Aktion liefert eine Liste mit mailto-URLs, die jeweils nicht l�nger als
-     * die �bergebene Vorgabel�nge sind, und die zusammengenommen alle Eintr�ge der Mailinglist
+     * die übergebene Vorgabel�nge sind, und die zusammengenommen alle Einträge der Mailinglist
      * mit E-Mail-Adresse adressiert.
      * 
      * @param cntx Octopus-Kontext

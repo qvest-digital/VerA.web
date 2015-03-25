@@ -39,7 +39,7 @@ import de.tarent.octopus.server.OctopusContext;
 
 /**
  * Testet ob bereits ein Stammdaten-Eintrag mit dem selben Namen existiert.
- * Bietet zus�tzlich einen Task f�r Direkteinsprungsmarken an.
+ * Bietet zus�tzlich einen Task für Direkteinsprungsmarken an.
  */
 public class StammdatenWorker extends ListWorkerVeraWeb {
     //

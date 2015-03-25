@@ -68,11 +68,11 @@ public class ProxyListWorker extends ListWorkerVeraWeb {
     /** Parameter: List von Proxy-Beans */
     public final static String PARAM_LIST = "list";
     
-    /** Parameterwert: Vertreter f�r beliebige Benutzer */
+    /** Parameterwert: Vertreter für beliebige Benutzer */
     public final static String PARAM_PROXIES_FOR_VALUE_ALL = "all";
-    /** Parameterwert: Vertreter f�r Benutzer des gleichen Mandanten */
+    /** Parameterwert: Vertreter für Benutzer des gleichen Mandanten */
     public final static String PARAM_PROXIES_FOR_VALUE_OU = "ou";
-    /** Parameterwert: Vertreter f�r die angemeldete Rolle */
+    /** Parameterwert: Vertreter für die angemeldete Rolle */
     public final static String PARAM_PROXIES_FOR_VALUE_SELF = "self";
     /** Parameterwert: Vertretungsg�ltigkeit ignorieren */
     public final static String PARAM_PROXIES_VALID_VALUE_IGNORE = "ignore";
@@ -101,9 +101,9 @@ public class ProxyListWorker extends ListWorkerVeraWeb {
     // statische �ffentliche Methoden
     //
     /**
-     * Methode f�r das Erweitern des Select-Statements um Spalten.<br>
+     * Methode für das Erweitern des Select-Statements um Spalten.<br>
      * Hier wird <code>veraweb.tuser.username</code> als <code>userRole</code>
-     * eingef�gt. 
+     * eingefügt. 
      * 
      * @param select zu erweiterndes Select-Statement
      */
@@ -117,11 +117,11 @@ public class ProxyListWorker extends ListWorkerVeraWeb {
     //
     // Broker-Aktionen
     //
-    /** Eingabeparameter f�r Aktion {@link #uniqueProxiedFilter(List, String)} */
+    /** Eingabeparameter für Aktion {@link #uniqueProxiedFilter(List, String)} */
     public static final String[] INPUT_uniqueProxiedFilter = {PARAM_LIST, PARAM_PROXIES_VALID};
-    /** Eingabeparameterzwang f�r Aktion {@link #uniqueProxiedFilter(List, String)} */
+    /** Eingabeparameterzwang für Aktion {@link #uniqueProxiedFilter(List, String)} */
     public static final boolean[] MANDATORY_uniqueProxiedFilter = {true, false};
-    /** Ausgabeparameter f�r Aktion {@link #uniqueProxiedFilter(List, String)} */
+    /** Ausgabeparameter für Aktion {@link #uniqueProxiedFilter(List, String)} */
     public static final String OUTPUT_uniqueProxiedFilter = PARAM_LIST;
     /**
      * Diese Aktion filtert aus der in {@link #PARAM_LIST "list"} enthaltenen
@@ -171,9 +171,9 @@ public class ProxyListWorker extends ListWorkerVeraWeb {
     // Klasse ListWorkerVeraWeb
     //
     /**
-     * Methode f�r das Erweitern des ListWorkerVeraWeb-Select-Statements um Spalten.<br>
+     * Methode für das Erweitern des ListWorkerVeraWeb-Select-Statements um Spalten.<br>
      * Hier wird <code>veraweb.tuser.username</code> als <code>userRole</code>
-     * eingef�gt. 
+     * eingefügt. 
      * 
      * @param cntx Octopus-Context
      * @param select Select-Statement
@@ -194,7 +194,7 @@ public class ProxyListWorker extends ListWorkerVeraWeb {
     }
 
     /**
-     * Methode f�r das Erweitern des Select-Statements um Bedingungen.<br>
+     * Methode für das Erweitern des Select-Statements um Bedingungen.<br>
      * Hier werden die Parameter {@link #PARAM_PROXIES_FOR "proxiesFor"},
      * {@link #PARAM_PROXIES_VALID "proxiesValid"} und {@link #PARAM_PROXY "proxy"}
      * ausgewertet.<br>

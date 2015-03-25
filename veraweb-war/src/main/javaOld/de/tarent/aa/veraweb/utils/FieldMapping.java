@@ -43,10 +43,10 @@ public class FieldMapping {
     // Konstruktoren
     //
     /**
-     * Dieser Konstruktor bekommt ein simples Mapping �bergeben. Hierbei wird
+     * Dieser Konstruktor bekommt ein simples Mapping übergeben. Hierbei wird
      * ein Quellfeld auf ein Zielfeld erweitert um Reihenfolgen- und Optionsangaben  
      * angebildet: <code>Zielfeldname[:0-basierter Index[:Optionen]]</code><br>
-     * Als Schl�ssel kann statt eines Quellfelds auch ein Ausdruck <code>:Wert</code>
+     * Als Schlüssel kann statt eines Quellfelds auch ein Ausdruck <code>:Wert</code>
      * benutzt werden. Hierbei darf allerdings in Wert kein Ausdruck vorkommen, der
      * in einer {@link MessageFormat}-Instanz Probleme bereiten k�nnte. 
      */
@@ -70,7 +70,7 @@ public class FieldMapping {
                 targets.put(targetField, target = new ArrayList());
             target.add(info);
         }
-        // Quellfeldliste und Formate f�r Zielfelder erstellen
+        // Quellfeldliste und Formate für Zielfelder erstellen
         Iterator itTargets = targets.entrySet().iterator();
         List orderedSources = new ArrayList();
         Set unorderedSources = new HashSet();
@@ -210,10 +210,10 @@ public class FieldMapping {
     
     /**
      * Diese Methode liefert zu einer Sammlung von Zielfeldern die Menge
-     * der f�r sie ben�tigten Quellfelder. 
+     * der für sie ben�tigten Quellfelder. 
      * 
      * @param targets Sammlung von Spaltennamen der betrachteten Zielfelder
-     * @return Menge der Spaltennamen der f�r die betrachteten Zielfelder
+     * @return Menge der Spaltennamen der für die betrachteten Zielfelder
      *  ben�tigten Quellfelder
      */
     public Set getRequiredSources(Collection targets) {
@@ -269,6 +269,6 @@ public class FieldMapping {
     private Map targetFormats = new HashMap();
     /** Zielfeld zu den verf�gbaren Quellfeldern, in dem diese f�hrend sind */
     private Map sourcePrimeTargets = new HashMap();
-    /** Logger f�r diese Klasse */
+    /** Logger für diese Klasse */
     private final static Logger logger = Logger.getLogger(FieldMapping.class);
 }

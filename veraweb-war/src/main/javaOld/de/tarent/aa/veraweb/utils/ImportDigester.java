@@ -47,7 +47,7 @@ public interface ImportDigester {
     
     /**
      * Diese Methode wird von einem {@link Importer} zu jeder zu importierenden
-     * Person aufgerufen, �bergeben wird die Person und eine Liste mit Beans,
+     * Person aufgerufen, übergeben wird die Person und eine Liste mit Beans,
      * die Zus�tze zur Person darstellen.<br>
      * Falls Abh�ngigkeiten unter diesen Beans bestehen, stehen in der
      * Liste die Beans, von der eine bestimmte Bean abh�ngt, vor dieser. 

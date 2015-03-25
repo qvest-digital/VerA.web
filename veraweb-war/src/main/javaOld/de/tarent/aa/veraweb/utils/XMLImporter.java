@@ -51,7 +51,7 @@ import de.tarent.data.exchange.Exchanger;
 import de.tarent.octopus.beans.BeanException;
 
 /**
- * Diese Klasse stellt einen Import f�r XML-Daten im VerA.web-Schema dar.
+ * Diese Klasse stellt einen Import für XML-Daten im VerA.web-Schema dar.
  * 
  * @author mikel
  */
@@ -60,9 +60,9 @@ public class XMLImporter implements Importer, Exchanger, VerawebNamespaceConstan
     // Konstruktoren
     //
     /**
-     * Dieser Konstruktor merkt sich nach <code>null</code>-Test die �bergebene Quelle.
+     * Dieser Konstruktor merkt sich nach <code>null</code>-Test die übergebene Quelle.
      * 
-     * @param source Datenquelle f�r den Import
+     * @param source Datenquelle für den Import
      */
     public XMLImporter(InputSource source) {
         if (source == null)
@@ -156,9 +156,9 @@ public class XMLImporter implements Importer, Exchanger, VerawebNamespaceConstan
     // Schnittstelle Importer
     //
     /**
-     * Diese Methode f�hrt einen Import aus. Hierbei werden alle erkannten zu
-     * importierenden Personendatens�tze und Zus�tze nacheinander dem �bergebenen 
-     * {@link ImportDigester} �bergeben.
+     * Diese Methode führt einen Import aus. Hierbei werden alle erkannten zu
+     * importierenden Personendatens�tze und Zus�tze nacheinander dem übergebenen 
+     * {@link ImportDigester} übergeben.
      * 
      * @param digester der {@link ImportDigester}, der die Datens�tze weiter
      *  verarbeitet.
@@ -181,7 +181,7 @@ public class XMLImporter implements Importer, Exchanger, VerawebNamespaceConstan
     // innere Klassen
     //
     /**
-     * Diese Klasse dient dem Import als SAX-{@link ContentHandler} f�r die 
+     * Diese Klasse dient dem Import als SAX-{@link ContentHandler} für die 
      * Interpretation des VerA.web-Schemas.
      */
     static class VerawebContentHandler implements ContentHandler {
@@ -189,7 +189,7 @@ public class XMLImporter implements Importer, Exchanger, VerawebNamespaceConstan
         // Konstruktoren
         //
         /**
-         * Dieser Konstruktor merkt sich lediglich den �bergebenen {@link ImportDigester}.
+         * Dieser Konstruktor merkt sich lediglich den übergebenen {@link ImportDigester}.
          * 
          * @param digester der {@link ImportDigester}, in den importiert werden soll.
          */
@@ -351,7 +351,7 @@ public class XMLImporter implements Importer, Exchanger, VerawebNamespaceConstan
         
         /**
          * Receive notification of the end of an element.<br>
-         * Hier wird nach Test des Namensraums in einen alten Modus zur�ck
+         * Hier wird nach Test des Namensraums in einen alten Modus zurück
          * gesprungen und der Textinhalt des Elements passend verarbeitet.
          * 
          * @see ContentHandler#endElement(java.lang.String, java.lang.String, java.lang.String)
@@ -432,7 +432,7 @@ public class XMLImporter implements Importer, Exchanger, VerawebNamespaceConstan
 
         /**
          * Begin the scope of a prefix-URI Namespace mapping.<br>
-         * Die Namensr�ume und ihre Pr�fixe werden in {@link #nameSpaces} gehalten.
+         * Die Namensr�ume und ihre Præfixe werden in {@link #nameSpaces} gehalten.
          * 
          * @see ContentHandler#startPrefixMapping(java.lang.String, java.lang.String)
          */
@@ -443,7 +443,7 @@ public class XMLImporter implements Importer, Exchanger, VerawebNamespaceConstan
 
         /**
          * End the scope of a prefix-URI mapping.<br>
-         * Die Namensr�ume und ihre Pr�fixe werden in {@link #nameSpaces} gehalten.
+         * Die Namensr�ume und ihre Præfixe werden in {@link #nameSpaces} gehalten.
          * 
          * @see ContentHandler#endPrefixMapping(java.lang.String)
          */
@@ -591,7 +591,7 @@ public class XMLImporter implements Importer, Exchanger, VerawebNamespaceConstan
         }
         
         /**
-         * Diese Methode setzt den Stra�entext der aktuellen Adresse, passend
+         * Diese Methode setzt den Straßentext der aktuellen Adresse, passend
          * zu Sprache und Typ.
          */
         void setStreet() {
@@ -779,7 +779,7 @@ public class XMLImporter implements Importer, Exchanger, VerawebNamespaceConstan
         /**
          * Diese Methode betrachtet einen String als einen QName, ermittelt,
          * ob dieser QName im Veraweb-Namensraum liegt und gibt in diesem
-         * Fall den lokalen Anteil zur�ck, sonst <code>null</code>.
+         * Fall den lokalen Anteil zurück, sonst <code>null</code>.
          * 
          * @param value als QName betrachteter Wert
          * @return lokaler Part im Veraweb-Namensraum, sonst <code>null</code>.
@@ -955,7 +955,7 @@ public class XMLImporter implements Importer, Exchanger, VerawebNamespaceConstan
         final StringBuffer categoryBuffer = new StringBuffer();
         /** Hier werden Ereignisse gesammelt. */
         final StringBuffer occasionBuffer = new StringBuffer();
-        /** Hier werden aktuell g�ltige Pr�fixe auf Namensraum-URIs gemapt. */
+        /** Hier werden aktuell g�ltige Præfixe auf Namensraum-URIs gemapt. */
         final Map nameSpaces = new HashMap();
     }
     
@@ -971,7 +971,7 @@ public class XMLImporter implements Importer, Exchanger, VerawebNamespaceConstan
     /** Der zu verwendende Ausgabedatenstrom */
     OutputStream outputStream = null;
     
-    /** Datenquelle f�r die XML-Transformation */
+    /** Datenquelle für die XML-Transformation */
     InputSource source = null;
     
     /** Locale-Konstante {@link PersonConstants#ADDRESSTYPE_BUSINESS} als Objekt */

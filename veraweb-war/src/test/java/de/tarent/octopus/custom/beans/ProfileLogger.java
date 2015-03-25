@@ -45,7 +45,7 @@ public final class ProfileLogger {
     //
     /**
      * Diese Methode loggt die Millisekunden seit dem letzten Aufruf
-     * mit dem �bergebenen String als Information.
+     * mit dem übergebenen String als Information.
      * 
      * @param string Log-Eintrag-Info
      */

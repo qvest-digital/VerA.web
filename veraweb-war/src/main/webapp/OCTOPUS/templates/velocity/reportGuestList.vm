@@ -14,12 +14,12 @@
 		<meta http-equiv="pragma" content="no-cache">
 	</head>
 	<body>
-		
+
 		#parse("inc/reportTitle.vm")
 		<br>
 		#if($type)
 			#parse("inc/report${type}.vm")
 		#end
-		
+
 	</body>
 </html>

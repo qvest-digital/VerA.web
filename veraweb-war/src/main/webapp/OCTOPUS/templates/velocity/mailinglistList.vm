@@ -33,26 +33,26 @@
 	<h1>Verteiler</h1>
 
 	<form id="formlist" name="formlist" action="ShowMailinglistList" method="POST">
-	
+
     	<input type="hidden" name="start" value="">
 		<input type="hidden" name="limit" value="">
     	<input type="hidden" name="selectNone" value="true">
     	<input type="hidden" name="doRemove" value="true">
     	<input type="hidden" id="remove" name="removeDisabled" value="true">
-    	
+
     	#foreach($bean in $list)
     	<input type="hidden" name="list" value="$bean.id">
     	#end
-    	
+
     	#if($list && $list.size() > 0)
-    	
+
         	#if($grants.mayWrite())
         	<span id="actionPanel">
                 <strong>Markierte(n) Verteiler</strong>
         		<input type="button" name="remove" value="L&ouml;schen" onclick="deleteMailinglist();" title="Markierte Verteiler l&ouml;schen">
-        	</span>	
+        	</span>
         	#end
-        	
+
         	<table class="marginTop10">
         		<tr>
         			<th class="smallCell textCenter"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="Alle (de)markieren"/></th>
@@ -72,20 +72,20 @@
         			<td onclick="window.location.href='ShowMailinglistDetail?id=$!{bean.id}';">$!message.text($!bean.eventname)</td>
         		</tr>
         		#end
-        		
+
         		#set($itemName = "Verteiler")
         		#parse("inc/list-navi-new.vm")
         		#parse("inc/list-direct-new.vm")
         	</table>
-    		
+
     	#else
-    		
-    		<div class="contentBoxColored grayBorder marginBottom20">  		
+
+    		<div class="contentBoxColored grayBorder marginBottom20">
     			Es wurden keine Einträge gefunden.
     		</div>
-    		
+
     	#end
-	
+
 	</form>
 
 </div>

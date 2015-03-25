@@ -90,11 +90,11 @@ public class MailDispatcher {
 	}
 
 	/**
-	 * Sendet eine eMail an die �bergebene eMail-Adresse und dem �bergebenem
+	 * Sendet eine eMail an die übergebene eMail-Adresse und dem übergebenem
 	 * Betreff und Text.
 	 * 
 	 * @param from Absender eMail-Adresse
-	 * @param to Empf�nger eMail-Adresse
+	 * @param to Empfänger eMail-Adresse
 	 * @param subject Betreff
 	 * @param text Text
 	 * @throws AddressException Wenn Adresse ung�ltig ist

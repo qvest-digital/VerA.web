@@ -78,8 +78,8 @@ public class GuestDoctypeWorker {
     /** Octopus-Eingabeparameter der Aktion {@link #saveDetail(OctopusContext)} */
     public static final String INPUT_saveDetail[] = {};
     /**
-     * Diese Octopus-Aktion liest aus dem Request eine G�stedokumenttyp-Bean mit
-     * Pr�fix "guestdoctype" und speichert sie in der Datenbank.
+     * Diese Octopus-Aktion liest aus dem Request eine Gästedokumenttyp-Bean mit
+     * Præfix "guestdoctype" und speichert sie in der Datenbank.
      * 
      * @param cntx
      * @throws BeanException
@@ -158,7 +158,7 @@ public class GuestDoctypeWorker {
 
     /**
      * Diese Methode ermittelt aus Request oder alternativ Session den aktuellen
-     * Dokumenttyp "doctype-id", pr�ft anhand der �bergebenen Liste der IDs der
+     * Dokumenttyp "doctype-id", pr�ft anhand der übergebenen Liste der IDs der
      * verf�gbaren Dokumenttypen, ob er im aktuellen Kontext erlaubt ist; falls
      * keiner angegeben war, wird der erste der Liste genommen.<br>
      * Der ermittelte Dokumenttyp wird in die Session eingetragen.<br>
@@ -176,7 +176,7 @@ public class GuestDoctypeWorker {
 			doctype = (Integer)cntx.sessionAsObject("doctype-id");
 		}
 		
-		// pr�fen ob doctype verf�gbar ist.
+		// prüfen ob doctype verf�gbar ist.
 		if (doctype != null) {
 			boolean available = false;
 			for (Iterator it = availableDoctypes.iterator(); it.hasNext(); ) {

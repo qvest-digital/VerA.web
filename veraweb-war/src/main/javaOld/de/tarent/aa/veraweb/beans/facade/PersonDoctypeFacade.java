@@ -45,16 +45,16 @@ public class PersonDoctypeFacade {
 	public static final String CREATEDOCTYPE_ALL = "all";
 	/** Alle nicht existierenden Dokumenttypen werden erzeugt. */
 	public static final String CREATEDOCTYPE_NEW = "new";
-	/** Wie 'new', jedoch nur f�r Dokumenttypen mit dem Flag 99. */
+	/** Wie 'new', jedoch nur für Dokumenttypen mit dem Flag 99. */
 	public static final String CREATEDOCTYPE_FLAG = "flag:";
 	/** Die Dokumenttypen werden nicht automatisch erzeugt. */
 	public static final String CREATEDOCTYPE_NONE = "none";
 
-	/** Wird eingef�gt wenn sowohl das Feld davor als auch danach NICHT leer sind. */
+	/** Wird eingefügt wenn sowohl das Feld davor als auch danach NICHT leer sind. */
 	public static final String CREATEDOCTYPE_BOTH = "BOTH:";
-	/** Wird eingef�gt wenn das Feld davor NICHT leer ist. */
+	/** Wird eingefügt wenn das Feld davor NICHT leer ist. */
 	public static final String CREATEDOCTYPE_PREV = "PREV:";
-	/** Wird eingef�gt wenn das Feld danach NICHT leer ist. */
+	/** Wird eingefügt wenn das Feld danach NICHT leer ist. */
 	public static final String CREATEDOCTYPE_NEXT = "NEXT:";
 
 	protected final OctopusContext cntx;
@@ -111,7 +111,7 @@ public class PersonDoctypeFacade {
 	}
 
 	/**
-	 * Gibt einen Freitext zur�ck.
+	 * Gibt einen Freitext zurück.
 	 * 
 	 * @param doctype PK eines Dokumenttypens
 	 * @param addresstype Addresstype (1 = Privat, ...) - default 2
@@ -135,7 +135,7 @@ public class PersonDoctypeFacade {
 	}
 
 	/**
-	 * Gibt einen Freitext-Verbinder zur�ck.
+	 * Gibt einen Freitext-Verbinder zurück.
 	 * 
 	 * @return Freitextfeld-Verbinder
 	 */
@@ -202,12 +202,12 @@ public class PersonDoctypeFacade {
 	}
 
 	/**
-	 * Gibt zu einem �bergebenen Key einen entsprechenden Eintrag
-	 * aus der �bergebenen Person oder der Facade zur�ck.
-	 * Wenn die �bergebene PersonMemberFacade null ist,
+	 * Gibt zu einem übergebenen Key einen entsprechenden Eintrag
+	 * aus der übergebenen Person oder der Facade zurück.
+	 * Wenn die übergebene PersonMemberFacade null ist,
 	 * werden die Daten der lateinischen Hauptperson verwendet.
-	 * Wenn die �bergebene PersonAddressFacade null ist,
-	 * werden die lateinischen Gesch�ftsdaten verwendet.
+	 * Wenn die übergebene PersonAddressFacade null ist,
+	 * werden die lateinischen Geschäftsdaten verwendet.
 	 * 
 	 * @param key Bean-Key
 	 * @return Feldinhalt

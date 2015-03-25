@@ -91,7 +91,7 @@ public class PersonDupcheckWorker extends ListWorkerVeraWeb {
      * Diese Octopus-Aktion holt eine Person aus dem Octopus-Request
      * (unter "person-*") oder der Octopus-Session (unter "dupcheck-person"),
      * legt sie und ihr Akkreditierungsdatum unter "person" bzw. "person-diplodatetime"
-     * in den Octopus-Content und testet das �bergebene Flag. Ist es
+     * in den Octopus-Content und testet das übergebene Flag. Ist es
      * <code>true</code>, so wird der Eintrag in der Octopus-Session unter
      * "dupcheck-person" geloescht. Ansonsten wird dieser auf die eingelesene
      * Person gesetzt und ein Duplikats-Check durchgefuehrt; falls dieser Duplikate

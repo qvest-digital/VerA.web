@@ -28,7 +28,7 @@ package de.tarent.aa.veraweb.beans;
 public interface Grants {
 	/**
      * Dieses Attribut gibt an, ob der Benutzer authentisiert ist, wenn
-     * er sich also gegen�ber dem LDAP-Server anmelden konnte. Dies impliziert
+     * er sich also gegenüber dem LDAP-Server anmelden konnte. Dies impliziert
      * noch keine Rechte im VerA.web-Kontext.
      *   
 	 * @return <code>true</code> wenn der Benutzer angemeldet ist.
@@ -46,32 +46,32 @@ public interface Grants {
 	boolean isUser();
 
     /**
-     * Dieses Attribut gibt an, ob der Benutzer die nicht beschr�nkten
-     * Felder lesen darf, also alles au�er Bemerkungen.
+     * Dieses Attribut gibt an, ob der Benutzer die nicht beschränkten
+     * Felder lesen darf, also alles außer Bemerkungen.
      * 
-     * @return <code>true</code> wenn der Benutzer nicht beschr�nkte Felder lesen darf.
+     * @return <code>true</code> wenn der Benutzer nicht beschränkte Felder lesen darf.
      */
     boolean mayReadStandardFields();
     
     /**
-     * Dieses Attribut gibt an, ob der Benutzer die beschr�nkten Felder lesen
+     * Dieses Attribut gibt an, ob der Benutzer die beschränkten Felder lesen
      * darf, also die Bemerkungen.
      * 
-     * @return <code>true</code> wenn der Benutzer beschr�nkte Felder lesen darf.
+     * @return <code>true</code> wenn der Benutzer beschränkte Felder lesen darf.
      */
     boolean mayReadRemarkFields();
     
     /**
      * Dieses Attribut gibt an, ob der Benutzer exportieren darf. Hierbei ist
-     * zus�tzlich mit {@link #mayReadStandardFields()} und {@link #mayReadRemarkFields()}
-     * zu ermitteln, welche Feldinhalte exportiert werden d�rfen.
+     * zusätzlich mit {@link #mayReadStandardFields()} und {@link #mayReadRemarkFields()}
+     * zu ermitteln, welche Feldinhalte exportiert werden dürfen.
      * 
      * @return <code>true</code> wenn der Benutzer exportieren darf.
      */
     boolean mayExport();
     
     /**
-     * Dieses Attribut gibt an, ob der Benutzer Daten �ndern darf. Hierbei ist mit
+     * Dieses Attribut gibt an, ob der Benutzer Daten ändern darf. Hierbei ist mit
      * {@link #mayReadStandardFields()} und {@link #mayReadRemarkFields()} zu ermitteln,
      * auf welche Felder der Benutzer Zugriff hat.
      * 

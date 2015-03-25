@@ -29,7 +29,7 @@ import java.util.ResourceBundle;
 
 /**
  * Diese Klasse holt (potentiell lokalisiert) ausgelagerte Mitteilungen; diese
- * k�nnen so roh oder mittels {@link MessageFormat} mit Parametern gef�llt
+ * k�nnen so roh oder mittels {@link MessageFormat} mit Parametern gefüllt
  * abgefragt werden.  
  * 
  * @author christoph
@@ -42,7 +42,7 @@ public class LocaleMessage {
 	protected ResourceBundle bundle;
 
     /**
-     * Dieser Konstruktor bekommt die zu benutzende {@link Locale} �bergeben.
+     * Dieser Konstruktor bekommt die zu benutzende {@link Locale} übergeben.
      */
 	public LocaleMessage(Locale locale) {
 		this.locale = locale;
@@ -52,7 +52,7 @@ public class LocaleMessage {
     /**
      * Diese Methode liefert eine Bundle-Mitteilung roh. 
      * 
-     * @param key Schl�ssel der Bundle-Mitteilung
+     * @param key Schlüssel der Bundle-Mitteilung
      * @return passende Bundle-Mitteilung oder <code>null</code>.
      */
 	public Object get(String key) {
@@ -67,7 +67,7 @@ public class LocaleMessage {
      * Diese Methode liefert eine Bundle-Mitteilung als ein Format f�r
      * {@link MessageFormat} interpretiert mit einem Parameter ausgewertet.
      * 
-     * @param key Schl�ssel der Bundle-Mitteilung
+     * @param key Schlüssel der Bundle-Mitteilung
      * @param arg0 {@link MessageFormat}-Parameter
      * @return passend interpretierte Bundle-Mitteilung oder <code>null</code>.
      */
@@ -83,7 +83,7 @@ public class LocaleMessage {
      * Diese Methode liefert eine Bundle-Mitteilung als ein Format f�r
      * {@link MessageFormat} interpretiert mit zwei Parametern ausgewertet.
      * 
-     * @param key Schl�ssel der Bundle-Mitteilung
+     * @param key Schlüssel der Bundle-Mitteilung
      * @param arg0 erster {@link MessageFormat}-Parameter
      * @param arg1 zweiter {@link MessageFormat}-Parameter
      * @return passend interpretierte Bundle-Mitteilung oder <code>null</code>.
@@ -100,7 +100,7 @@ public class LocaleMessage {
      * Diese Methode liefert eine Bundle-Mitteilung als ein Format f�r
      * {@link MessageFormat} interpretiert mit drei Parametern ausgewertet.
      * 
-     * @param key Schl�ssel der Bundle-Mitteilung
+     * @param key Schlüssel der Bundle-Mitteilung
      * @param arg0 erster {@link MessageFormat}-Parameter
      * @param arg1 zweiter {@link MessageFormat}-Parameter
      * @param arg2 dritter {@link MessageFormat}-Parameter
@@ -118,7 +118,7 @@ public class LocaleMessage {
      * Diese Methode liefert eine Bundle-Mitteilung als ein Format f�r
      * {@link MessageFormat} interpretiert mit vier Parametern ausgewertet.
      * 
-     * @param key Schl�ssel der Bundle-Mitteilung
+     * @param key Schlüssel der Bundle-Mitteilung
      * @param arg0 erster {@link MessageFormat}-Parameter
      * @param arg1 zweiter {@link MessageFormat}-Parameter
      * @param arg2 dritter {@link MessageFormat}-Parameter
@@ -137,7 +137,7 @@ public class LocaleMessage {
      * Diese Methode liefert eine Bundle-Mitteilung als ein Format f�r
      * {@link MessageFormat} interpretiert mit f�nf Parametern ausgewertet.
      * 
-     * @param key Schl�ssel der Bundle-Mitteilung
+     * @param key Schlüssel der Bundle-Mitteilung
      * @param arg0 erster {@link MessageFormat}-Parameter
      * @param arg1 zweiter {@link MessageFormat}-Parameter
      * @param arg2 dritter {@link MessageFormat}-Parameter
@@ -192,7 +192,7 @@ public class LocaleMessage {
     /**
      * Encodet ein Datum zur direkten Darstellung in HTML-Textarea-Feldern.
      * 
-     * @param key Bundle-Schl�ssel des zu benutzenden {@link SimpleDateFormat}-Formats.
+     * @param key Bundle-Schlüssel des zu benutzenden {@link SimpleDateFormat}-Formats.
      * @param arg0 Darzustellendes Datum als {@link Date}- oder {@link Long}-Instanz.
      *  Bei anderen Klassen wird die Stringdarstellung genommen und als {@link Long}
      *  interpretiert.

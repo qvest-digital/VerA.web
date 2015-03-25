@@ -9,11 +9,11 @@
 ##foreach($gg in $octopusConfig.personalConfig.userGroups)
 ##set($title = "$title $gg")
 ##end
-#parse("inc/header.vm")	
+#parse("inc/header.vm")
 
 
 <div id="content_container">
-    
+
     #if($errors && $errors.size() > 0)
     <vera-warn>
     	#foreach($error in $errors)
@@ -23,18 +23,18 @@
     	Es kann zu unerwarteten Fehlern kommen. Bitte wenden Sie sich an Ihren Administrator.
     </vera-warn>
     #end
-    
+
     	<div id="breadcrumb" class="textRight marginBottom10">
     		<strong>Sie sind hier:</strong> <span>Home</span>
     	</div>
-    
+
     <h1 class="marginTop25">Willkommen bei VerA.Web</h1>
-    
+
     #if($grants.isUser())
     ##<P>
     ##	Hallo $!{octopusConfig.personalConfig.userGivenName} $!{octopusConfig.personalConfig.userLastName}.
     ##</P>
-    
+
     #if($grants.mayReadStandardFields() || $grants.mayReadRemarkFields())
     <P>
     	Sie haben hier die M&ouml;glichkeit,

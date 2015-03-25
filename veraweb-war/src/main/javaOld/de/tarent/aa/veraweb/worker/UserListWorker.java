@@ -77,8 +77,8 @@ public class UserListWorker extends ListWorkerVeraWeb {
 	// BeanListWorker
 	//
 	/**
-	 * Methode f�r das Erweitern des ListWorkerVeraWeb-Select-Statements um Spalten.<br>
-	 * Hier wird eine Sortierung eingef�gt.
+	 * Methode für das Erweitern des ListWorkerVeraWeb-Select-Statements um Spalten.<br>
+	 * Hier wird eine Sortierung eingefügt.
 	 *
 	 * @param cntx
 	 *          Octopus-Context
@@ -113,7 +113,7 @@ public class UserListWorker extends ListWorkerVeraWeb {
 	}
 
     /**
-		 * Methode f�r das Erweitern des Select-Statements um Bedingungen.<br>
+		 * Methode für das Erweitern des Select-Statements um Bedingungen.<br>
 		 * Hier wird der Parameter {@link #PARAM_DOMAIN "domain"} ausgewertet.<br>
 		 * {@link #PARAM_DOMAIN "domain"} kann neben einer Rollenbezeichnung die Werte {@link #PARAM_DOMAIN_VALUE_ALL "all"},
 		 * {@link #PARAM_DOMAIN_VALUE_OU "ou"} und {@link #PARAM_DOMAIN_VALUE_SELF "self"} haben.
@@ -158,7 +158,7 @@ public class UserListWorker extends ListWorkerVeraWeb {
 
     /**
      * Wird von {@link de.tarent.octopus.beans.BeanListWorker#saveList(OctopusContext)}
-     * aufgerufen und soll das �bergebene Bean als neuen Eintrag speichern.
+     * aufgerufen und soll das übergebene Bean als neuen Eintrag speichern.
      *
      * @see #saveBean(OctopusContext, Bean)
      *

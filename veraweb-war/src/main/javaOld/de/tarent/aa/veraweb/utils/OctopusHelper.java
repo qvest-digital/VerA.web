@@ -26,7 +26,7 @@ import org.apache.log4j.Logger;
 import de.tarent.octopus.server.OctopusContext;
 
 /**
- * Diese Klasse stellt statische Hilfsmethoden f�r Octopus-spezifische Aufgaben
+ * Diese Klasse stellt statische Hilfsmethoden für Octopus-spezifische Aufgaben
  * zur Verf�gung. 
  * 
  * @author mikel
@@ -36,7 +36,7 @@ public class OctopusHelper {
 	private static final Logger logger = Logger.getLogger(OctopusHelper.class);
 
 	/**
-	 * Gibt einen angeforderten Dateinamen zur�ck.
+	 * Gibt einen angeforderten Dateinamen zurück.
 	 * 
 	 * module/task/filename.txt?parameter
 	 * filename.txt
@@ -77,8 +77,8 @@ public class OctopusHelper {
 
 	/**
 	 * Transformiert einen String in einen anderen Zeichensatz.
-	 * Wenn als Zeichensatz Parameter "default" �bergeben wird, wird dieser
-	 * aus der Modul-Konfiguration geladen. Wenn stattdessen null �bergeben
+	 * Wenn als Zeichensatz Parameter "default" übergeben wird, wird dieser
+	 * aus der Modul-Konfiguration geladen. Wenn stattdessen null übergeben
 	 * wird, wird der VM-Standard verwendet.
 	 * 
 	 * <code>new String(in.getBytes(encin), encout);</code>

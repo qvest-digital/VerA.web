@@ -35,7 +35,7 @@ import de.tarent.octopus.beans.TransactionContext;
 import de.tarent.octopus.server.OctopusContext;
 
 /**
- * Diese Octopus-Worker-Klasse stellt Operationen f�r Dokumenttypen
+ * Diese Octopus-Worker-Klasse stellt Operationen für Dokumenttypen
  * zur Verf�gung. Details bitte dem BeanListWorker entnehmen.
  * 
  * Wenn eine Veranstaltung als 'event' im Octopus-Content

@@ -117,25 +117,25 @@ public class XMLExporter implements Exporter, Exchanger, DatabaseUtilizer,
     public final static int NOTE_TYPE_ORGANIZATION = 1;
     /** intern: Bermkungstyp Gastgeber */
     public final static int NOTE_TYPE_HOST = 2;
-    /** Property-Schl�ssel f�r das Encoding der Ausgabedatei */
+    /** Property-Schlüssel für das Encoding der Ausgabedatei */
     public final static String PROPERTY_ENCODING = "encoding";
     /** Vorgabewert: Character-Encoding */
     public final static String DEFAULT_ENCODING = "UTF-8";
-    /** Property-Schl�ssel f�r das Verwenden eines CCM-Envelopes */
+    /** Property-Schlüssel für das Verwenden eines CCM-Envelopes */
     public final static String PROPERTY_CCM_ENVELOPE = "ccm-envelope";
     /** Vorgabewert: CCM-Envelope */
     public final static boolean DEFAULT_CCM_ENVELOPE = false;
-    /** Property-Schl�ssel f�r den CCM-Bezeichner f�r die Applikation VerA.web */
+    /** Property-Schlüssel für den CCM-Bezeichner für die Applikation VerA.web */
     public final static String PROPERTY_CCM_APPLICATION = "ccm-application";
     /** Vorgabewert: CCM-Applikationsbezeichner */
     public final static String DEFAULT_CCM_APPLICATION = "veraweb";
-    /** Property-Schl�ssel f�r das CCM-K�rzel der lokalen Installation */
+    /** Property-Schlüssel für das CCM-Kürzel der lokalen Installation */
     public final static String PROPERTY_CCM_ENDPOINT = "ccm-endpoint";
-    /** Property-Schl�ssel f�r das CCM-K�rzel der entfernten Installation */
+    /** Property-Schlüssel für das CCM-Kürzel der entfernten Installation */
     public final static String PROPERTY_CCM_RECEIVER = "ccm-receiver";
-    /** Property-Schl�ssel f�r das Verzeichnis f�r CCM-Exporte */
+    /** Property-Schlüssel für das Verzeichnis für CCM-Exporte */
     public final static String PROPERTY_CCM_OUTGOING_FOLDER = "ccm-outgoing-folder";
-    /** Vorgabewert: Verzeichnis f�r CCM-Exporte */
+    /** Vorgabewert: Verzeichnis für CCM-Exporte */
     public final static String DEFAULT_CCM_OUTGOING_FOLDER = "/var/spool/ccm/in/";
     
     //
@@ -220,7 +220,7 @@ public class XMLExporter implements Exporter, Exchanger, DatabaseUtilizer,
     // Schnittstelle Exporter
     //
     /**
-     * Diese Methode f�gt dem XML-Dokument eine Beschreibung der �bergebenen VerA.web-Person
+     * Diese Methode f�gt dem XML-Dokument eine Beschreibung der übergebenen VerA.web-Person
      * hinzu.
      * 
      * @param person {@link Person}-Bean
@@ -361,7 +361,7 @@ public class XMLExporter implements Exporter, Exchanger, DatabaseUtilizer,
             String millis = String.valueOf(now.getTime());
             millis = millis.substring(millis.length() - 3);
             StringBuffer buffer = new StringBuffer();
-            buffer.append("rte") // Pr�fix --- "ctn" bei hoher und "rte" bei normaler Priorit�t, "sys" bei Fehlerdateien
+            buffer.append("rte") // Præfix --- "ctn" bei hoher und "rte" bei normaler Priorität, "sys" bei Fehlerdateien
                 .append('_')
                 .append(ccmApplication) // Applikation
                 .append('_')
@@ -377,8 +377,8 @@ public class XMLExporter implements Exporter, Exchanger, DatabaseUtilizer,
     }
 
     /**
-     * Diese Methode f�hrt einen Rollback auf das alternative Ziel durch,
-     * l�scht dabei z.B. neu erstellte Dateien wieder.
+     * Diese Methode führt einen Rollback auf das alternative Ziel durch,
+     * löscht dabei z.B. neu erstellte Dateien wieder.
      */
     public void rollback() {
     	if (ccmOutgoingFile != null && ccmOutgoingFile.exists()) {
@@ -456,7 +456,7 @@ public class XMLExporter implements Exporter, Exchanger, DatabaseUtilizer,
         for (Iterator itList = list.iterator(); itList.hasNext(); ) {
             Map data = (Map) itList.next();
             // sampleCategory.putAll(data) w�rde versuchen, auch den Wert von individualRank
-            // zu setzen (-> Fehler); au�erdem wird hier ein EntrySet.iterator() benutzt, den
+            // zu setzen (-> Fehler); außerdem wird hier ein EntrySet.iterator() benutzt, den
             // ResultMap nicht unterst�tzt.
             for (Iterator itFields = sampleCategory.getFields().iterator(); itFields.hasNext(); ) {
                 Object field = itFields.next();
@@ -733,7 +733,7 @@ public class XMLExporter implements Exporter, Exchanger, DatabaseUtilizer,
     }
     
     /**
-     * Diese Methode erzeugt ein Element mit Textinhalt, falls der �bergebene
+     * Diese Methode erzeugt ein Element mit Textinhalt, falls der übergebene
      * Text nicht leer ist. 
      * 
      * @param name Name des zu erzeugenden Elements
@@ -752,7 +752,7 @@ public class XMLExporter implements Exporter, Exchanger, DatabaseUtilizer,
     
     /**
      * Diese Methode erzeugt ein Element mit Textinhalt und einem Attribut,
-     * falls die �bergebenen Texte nicht leer sind. 
+     * falls die übergebenen Texte nicht leer sind. 
      * 
      * @param name Name des zu erzeugenden Elements
      * @param text Text des zu erzeugenden Elements
@@ -776,7 +776,7 @@ public class XMLExporter implements Exporter, Exchanger, DatabaseUtilizer,
     }
     
     /**
-     * Diese statische Methode setzt ein Attribut, falls der �bergebene Wert weder
+     * Diese statische Methode setzt ein Attribut, falls der übergebene Wert weder
      * <code>null</code> noch <code>""</code> ist. 
      * 
      * @param element {@link Element}, bei dem das Attribut gesetzt werden soll

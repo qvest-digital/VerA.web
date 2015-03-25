@@ -40,14 +40,14 @@ import de.tarent.octopus.beans.Database;
 import de.tarent.octopus.beans.ExecutionContext;
 
 /**
- * Diese Klasse sammelt Hilfsklassen zum Ermitteln laufender Nummern f�r G�ste. 
+ * Diese Klasse sammelt Hilfsklassen zum Ermitteln laufender Nummern für Gäste. 
  * 
  * @author christoph
  */
 public class GuestSerialNumber {
     /**
-     * Diese Klasse ist Basisklasse f�r Hilfsklassen zum Ermitteln laufender
-     * Nummern f�r G�ste.
+     * Diese Klasse ist Basisklasse für Hilfsklassen zum Ermitteln laufender
+     * Nummern für Gäste.
      */
 	static public abstract class CalcSerialNumber {
 		protected int orderNo = 0;
@@ -56,7 +56,7 @@ public class GuestSerialNumber {
 		
         /**
          * Dieser Konstruktor �bernimmt Datenbank und Veranstaltung zur
-         * Benutzung bei der sp�teren Berechnung laufender G�stenummern. 
+         * Benutzung bei der sp�teren Berechnung laufender Gästenummern. 
          */
 		public CalcSerialNumber(ExecutionContext context, Event event) {
 			this.context = context;
@@ -65,8 +65,8 @@ public class GuestSerialNumber {
 
         /**
          * Diese abstrakte Methode berechnet die tats�chlichen laufenden
-         * Nummern der G�ste der im Konstruktor �bergebenen Veranstaltung
-         * in der ebenda �bergebenen Datenbank.  
+         * Nummern der Gäste der im Konstruktor übergebenen Veranstaltung
+         * in der ebenda übergebenen Datenbank.  
          */
 		public abstract void calcSerialNumber() throws BeanException, IOException;
 		
@@ -138,17 +138,17 @@ public class GuestSerialNumber {
 	}
 
     /**
-     * Berechnet die 'Laufende Nummer' einer G�steliste nach folgendem Schema:
+     * Berechnet die 'Laufende Nummer' einer Gästeliste nach folgendem Schema:
      * <ul>
-     * <li>Sortiert G�ste mit Rang ein.</li>
-     * <li>Sortiert G�ste anhand ihrer Kategorie ein.</li>
+     * <li>Sortiert Gäste mit Rang ein.</li>
+     * <li>Sortiert Gäste anhand ihrer Kategorie ein.</li>
      * <li>Sortiert alle anderen anhand ihres Namens ein.</li>
      * </ul>
      */
 	static public class CalcSerialNumberImpl2 extends CalcSerialNumber {
         /**
          * Dieser Konstruktor �bernimmt Datenbank und Veranstaltung zur
-         * Benutzung bei der sp�teren Berechnung laufender G�stenummern. 
+         * Benutzung bei der sp�teren Berechnung laufender Gästenummern. 
          */
 		public CalcSerialNumberImpl2(ExecutionContext context, Event event) {
 			super(context, event);
@@ -156,11 +156,11 @@ public class GuestSerialNumber {
 		
         /**
          * Diese Methode berechnet die tats�chlichen laufenden Nummern der
-         * G�ste der im Konstruktor �bergebenen Veranstaltung in der ebenda
-         * �bergebenen Datenbank nach folgendem Schema:
+         * Gäste der im Konstruktor übergebenen Veranstaltung in der ebenda
+         * übergebenen Datenbank nach folgendem Schema:
          * <ul>
-         * <li>Sortiert G�ste mit Rang ein.</li>
-         * <li>Sortiert G�ste anhand ihrer Kategorie ein.</li>
+         * <li>Sortiert Gäste mit Rang ein.</li>
+         * <li>Sortiert Gäste anhand ihrer Kategorie ein.</li>
          * <li>Sortiert alle anderen anhand ihres Namens ein.</li>
          * </ul>
          */
@@ -234,8 +234,8 @@ public class GuestSerialNumber {
 		/**
 		 * @param event Event
 		 * @return
-		 * 		Where-Liste mit Einschr�nkung auf die �bergebene Veranstaltung
-		 * 		und nur nocht nicht einsortierte G�ste.
+		 * 		Where-Liste mit Einschr�nkung auf die übergebene Veranstaltung
+		 * 		und nur nocht nicht einsortierte Gäste.
 		 */
 		private WhereList getGuestSerialNumberWhere(Event event) {
 			WhereList where = new WhereList();
@@ -248,18 +248,18 @@ public class GuestSerialNumber {
 	}
 
     /**
-     * Berechnet die 'Laufende Nummer' einer G�steliste nach folgendem Schema:
+     * Berechnet die 'Laufende Nummer' einer Gästeliste nach folgendem Schema:
      * <ul>
-     * <li>Sortiert G�ste anhand ihrer Kategorie ein.</li>
-     * <li>Sortiert G�ste mit Rang ein.</li>
-     * <li>Sortiert G�ste nach Akkreditierungsdatum ein.</li>
+     * <li>Sortiert Gäste anhand ihrer Kategorie ein.</li>
+     * <li>Sortiert Gäste mit Rang ein.</li>
+     * <li>Sortiert Gäste nach Akkreditierungsdatum ein.</li>
      * <li>Sortiert alle anderen anhand ihres Namens ein.</li>
      * </ul>
      */
 	static public class CalcSerialNumberImpl3 extends CalcSerialNumber {
         /**
          * Dieser Konstruktor �bernimmt Datenbank und Veranstaltung zur
-         * Benutzung bei der sp�teren Berechnung laufender G�stenummern. 
+         * Benutzung bei der sp�teren Berechnung laufender Gästenummern. 
          */
 		public CalcSerialNumberImpl3(ExecutionContext context, Event event) {
 			super(context, event);
@@ -267,12 +267,12 @@ public class GuestSerialNumber {
 		
         /**
          * Diese Methode berechnet die tats�chlichen laufenden Nummern der
-         * G�ste der im Konstruktor �bergebenen Veranstaltung in der ebenda
-         * �bergebenen Datenbank nach folgendem Schema:
+         * Gäste der im Konstruktor übergebenen Veranstaltung in der ebenda
+         * übergebenen Datenbank nach folgendem Schema:
          * <ul>
-         * <li>Sortiert G�ste anhand ihrer Kategorie ein.</li>
-         * <li>Sortiert G�ste mit Rang ein.</li>
-         * <li>Sortiert G�ste nach Akkreditierungsdatum ein.</li>
+         * <li>Sortiert Gäste anhand ihrer Kategorie ein.</li>
+         * <li>Sortiert Gäste mit Rang ein.</li>
+         * <li>Sortiert Gäste nach Akkreditierungsdatum ein.</li>
          * <li>Sortiert alle anderen anhand ihres Namens ein.</li>
          * </ul>
          */

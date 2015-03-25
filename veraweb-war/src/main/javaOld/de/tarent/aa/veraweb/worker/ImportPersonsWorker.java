@@ -72,14 +72,14 @@ public class ImportPersonsWorker {
     //
     // Octopus-Aktionen
     //
-    /** Octopus-Eingabe-Parameter f�r {@link #importStoredRecord(OctopusContext, Integer)} */
+    /** Octopus-Eingabe-Parameter für {@link #importStoredRecord(OctopusContext, Integer)} */
     public static final String[] INPUT_importStoredRecord = { "REQUEST:importId" };
-    /** Octopus-Eingabe-Parameter-Pflicht f�r {@link #importStoredRecord(OctopusContext, Integer)} */
+    /** Octopus-Eingabe-Parameter-Pflicht für {@link #importStoredRecord(OctopusContext, Integer)} */
     public static final boolean[] MANDATORY_importStoredRecord = { true };
-    /** Octopus-Ausgabe-Parameter f�r {@link #importStoredRecord(OctopusContext, Integer)} */
+    /** Octopus-Ausgabe-Parameter für {@link #importStoredRecord(OctopusContext, Integer)} */
     public static final String OUTPUT_importStoredRecord = "importStatus";
     /**
-     * Diese Octopus-Aktion liefert zum Import mit der �bergebenen ID die
+     * Diese Octopus-Aktion liefert zum Import mit der übergebenen ID die
      * Import-Statistik-Daten
      *
      * @param cntx Octopus-Kontext
@@ -181,21 +181,21 @@ public class ImportPersonsWorker {
         return DataExchangeWorker.createImportStats(dsCount.intValue(), dupCount.intValue(), saveCount.intValue(), importId);
 	}
 
-    /** Octopus-Eingabe-Parameter f�r {@link #finalise(OctopusContext, Integer, List, Map)} */
+    /** Octopus-Eingabe-Parameter für {@link #finalise(OctopusContext, Integer, List, Map)} */
     public static final String[] INPUT_finalise = { "REQUEST:importId", "CONFIG:ignorePersonFields", "CONFIG:importTextfieldMapping" };
-    /** Octopus-Eingabe-Parameter-Pflicht f�r {@link #finalise(OctopusContext, Integer, List, Map)} */
+    /** Octopus-Eingabe-Parameter-Pflicht für {@link #finalise(OctopusContext, Integer, List, Map)} */
     public static final boolean[] MANDATORY_finalise = { true, true, true };
-    /** Octopus-Ausgabe-Parameter f�r {@link #finalise(OctopusContext, Integer, List, Map)} */
+    /** Octopus-Ausgabe-Parameter für {@link #finalise(OctopusContext, Integer, List, Map)} */
     public static final String OUTPUT_finalise = "importStatus";
     /**
      * Diese Octopus-Aktion finalisiert einen Import. Hierbei wird als Nebeneffekt in
-     * den Content unter dem Schl�ssel {@link #FIELD_IMPORTED_COUNT "imported"} die Anzahl
+     * den Content unter dem Schlüssel {@link #FIELD_IMPORTED_COUNT "imported"} die Anzahl
      * der tats�chlich importierten Datens�tze eingetragen.
      *
      * @param cntx Octopus-Kontext
      * @param importId ID eines fr�heren Imports
      * @param ignorePersonFields
-     * @param importTextfieldMapping Map f�r das Mapping der Adressfreitextfelder
+     * @param importTextfieldMapping Map für das Mapping der Adressfreitextfelder
      * @return Map mit Informationen zum Import, insbesondere der Anzahl gefundener
      *  Datens�tze unter "dsCount", der Anzahl Duplikate unter "dupCount", der Anzahl
      *  importierter Datens�tze unter "saveCount" und der Import-ID unter "id".
@@ -203,7 +203,7 @@ public class ImportPersonsWorker {
      * @throws IOException
      */
 	public Map finalise(OctopusContext cntx, Integer importId, List ignorePersonFields, Map importTextfieldMapping) throws BeanException, IOException {
-		//Initialisiere Datenbank und lese die ID f�r den Importvorgang
+		//Initialisiere Datenbank und lese die ID für den Importvorgang
 		Database database = new DatabaseVeraWeb(cntx);
 		TransactionContext context = database.getTransactionContext();
 

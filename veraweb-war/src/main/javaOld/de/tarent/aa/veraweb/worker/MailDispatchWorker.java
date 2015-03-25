@@ -73,9 +73,9 @@ public class MailDispatchWorker implements Runnable {
 	/** Regex Pattern zur erkennung von eMail Tags. */
 	private final Pattern mailtags = Pattern.compile("<[A-Za-z]+>");
 
-	/** Modulnamen f�r den Datenbank-Pool */
+	/** Modulnamen für den Datenbank-Pool */
 	protected String moduleName;
-	/** Thread in dem das eigentliche versenden ausgef�hrt wird. */
+	/** Thread in dem das eigentliche versenden ausgeführt wird. */
 	protected Thread thread;
 	/** MailDispatcher der den Versand an den SMTP-Server vornimmt. */
 	protected MailDispatcher dispatcher = new MailDispatcher();
@@ -92,7 +92,7 @@ public class MailDispatchWorker implements Runnable {
 	// OCTOPUS-AKTIONEN ZUM STARTEN UND STOPPEN DES VERSENDE THREADS.
 	//
 
-	/** Octopus-Eingabe-Parameter f�r {@link #load(OctopusContext)} */
+	/** Octopus-Eingabe-Parameter für {@link #load(OctopusContext)} */
 	public static final String INPUT_load[] = {};
 	/**
 	 * Startet das automatische versenden von eMails im Hintergrund.
@@ -132,7 +132,7 @@ public class MailDispatchWorker implements Runnable {
 		}
 	}
 
-	/** Octopus-Eingabe-Parameter f�r {@link #unload(OctopusContext)} */
+	/** Octopus-Eingabe-Parameter für {@link #unload(OctopusContext)} */
 	public static final String INPUT_unload[] = {};
 	/**
 	 * Stopppt das automatische versenden von eMails im Hintergrund.
@@ -267,7 +267,7 @@ public class MailDispatchWorker implements Runnable {
 	// OCTOPUS-AKTIONEN ZUM ERSTELLEN UND SPEICHERN VON EMAILS
 	//
 
-	/** Octopus-Eingabe-Parameter f�r die Aktion {@link #writeMail(OctopusContext)} */
+	/** Octopus-Eingabe-Parameter für die Aktion {@link #writeMail(OctopusContext)} */
 	public static final String INPUT_writeMail[] = {};
 	/**
 	 * Octopus-Aktion zur Verwaltung einer 'in process' eMail.
@@ -296,7 +296,7 @@ public class MailDispatchWorker implements Runnable {
 		cntx.setContent("errors", errors);
 	}
 
-	/** Octopus-Eingabe-Parameter f�r die Aktion {@link #sendMail(OctopusContext)} */
+	/** Octopus-Eingabe-Parameter für die Aktion {@link #sendMail(OctopusContext)} */
 	public static final String INPUT_sendMail[] = {};
 	/**
 	 * Octopus-Aktion zum versenden einer eMail an einen Verteiler.
@@ -431,7 +431,7 @@ public class MailDispatchWorker implements Runnable {
 	}
 
 	/**
-	 * Gibt einen eMail-Text zur�ck bei dem die Platzhalter
+	 * Gibt einen eMail-Text zurück bei dem die Platzhalter
 	 * durch Personen-Daten ersetzt sind.
 	 * 
 	 * @param text Text mit Platzhaltern

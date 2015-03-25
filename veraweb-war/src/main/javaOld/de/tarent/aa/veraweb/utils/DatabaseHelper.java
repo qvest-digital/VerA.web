@@ -76,7 +76,7 @@ public class DatabaseHelper {
 	}
 
 	/**
-	 * Gibt eine Order-Clause zur�ck, schaut jeweils nach der Spalte ob
+	 * Gibt eine Order-Clause zurück, schaut jeweils nach der Spalte ob
 	 * der Wert ASC oder DESC ist und wendet dieses Attribut entsprechend an.
 	 * 
 	 * @param list

@@ -64,9 +64,9 @@ public class GenericCSVImporter extends GenericCSVBase implements Importer {
     // Schnittstelle Importer
     //
     /**
-     * Diese Methode f�hrt einen Import aus. Hierbei werden alle erkannten zu
-     * importierenden Personendatens�tze und Zus�tze nacheinander dem �bergebenen 
-     * {@link ImportDigester} �bergeben.
+     * Diese Methode führt einen Import aus. Hierbei werden alle erkannten zu
+     * importierenden Personendatens�tze und Zus�tze nacheinander dem übergebenen 
+     * {@link ImportDigester} übergeben.
      * 
      * @param digester der {@link ImportDigester}, der die Datens�tze weiter
      *  verarbeitet.
@@ -125,7 +125,7 @@ public class GenericCSVImporter extends GenericCSVBase implements Importer {
     }
     
     /**
-     * Diese Methode importiert alle Datenzeilen der CSV-Datei in den �bergebenen
+     * Diese Methode importiert alle Datenzeilen der CSV-Datei in den übergebenen
      * {@link ImportDigester}. Hierbei wird vorausgesetzt, dass die f�hrende Zeile
      * mit den Spaltennamen schon mit {@link #readHeader()} eingelesen wurde.  
      * 
@@ -150,7 +150,7 @@ public class GenericCSVImporter extends GenericCSVBase implements Importer {
     /**
      * Diese Methode verarbeitet eine einzelne aufbereitete Zeile; das bedeutet, dass eine
      * entsprechende {@link ImportPerson} und gegebenenfalls {@link ImportPersonCategorie}-
-     * und {@link ImportPersonDoctype}-Instanzen erstellt werden und dem �bergebenen
+     * und {@link ImportPersonDoctype}-Instanzen erstellt werden und dem übergebenen
      * {@link ImportDigester} als neue Person weitergereicht werden.<br>
      * TODO: Timestamp-Format konfigurierbar machen
      * 
@@ -214,7 +214,7 @@ public class GenericCSVImporter extends GenericCSVBase implements Importer {
     }
     
     /**
-     * Diese Methode f�gt der �bergebenen Sammlung von Import-Extras eine neue
+     * Diese Methode f�gt der übergebenen Sammlung von Import-Extras eine neue
      * {@link ImportPersonCategorie} hinzu oder --- falls es schon eine unter
      * dem Namen gibt --- aktualisiert diese. 
      * 
@@ -265,7 +265,7 @@ public class GenericCSVImporter extends GenericCSVBase implements Importer {
     }
     
     /**
-     * Diese Methode f�gt der �bergebenen Sammlung von Import-Extras einen neuen
+     * Diese Methode f�gt der übergebenen Sammlung von Import-Extras einen neuen
      * {@link ImportPersonDoctype} hinzu oder --- falls es schon einen unter
      * dem Namen gibt --- aktualisiert diesen. 
      * 
@@ -294,7 +294,7 @@ public class GenericCSVImporter extends GenericCSVBase implements Importer {
     }
     
     /**
-     * Diese Methode f�gt der �bergebenen Sammlung von Import-Extras einen neuen
+     * Diese Methode f�gt der übergebenen Sammlung von Import-Extras einen neuen
      * {@link ImportPersonDoctype} hinzu oder --- falls es schon einen unter
      * dem Namen gibt --- aktualisiert diesen. 
      * 
@@ -334,10 +334,10 @@ public class GenericCSVImporter extends GenericCSVBase implements Importer {
         // Schnittstelle Entity
         //
         /**
-         * Diese Methode erlaubt das Abfragen von Daten zu einem bestimmten Schl�ssel.
-         * Die Schl�ssel sind die CSV-Spaltennamen.
+         * Diese Methode erlaubt das Abfragen von Daten zu einem bestimmten Schlüssel.
+         * Die Schlüssel sind die CSV-Spaltennamen.
          * 
-         * @param sourceKey Quellfeldschl�ssel
+         * @param sourceKey Quellfeldschlüssel
          * @return Quellfeldwert als {@link String}; Werte unbekannter Felder werden
          *  als Leerstring <code>""</code> geliefert.
          */
@@ -350,7 +350,7 @@ public class GenericCSVImporter extends GenericCSVBase implements Importer {
         // �ffentliche Methoden
         //
         /**
-         * Diese Methode parse-t die �bergebene Liste --- die aktuelle Zeile ---
+         * Diese Methode parse-t die übergebene Liste --- die aktuelle Zeile ---
          * und legt die Werte unter dem zugeh�rigen Spaltennamen lokal ab.<br>
          * TODO: Warnung bei zu langen oder zu kurzen Zeilen
          * 

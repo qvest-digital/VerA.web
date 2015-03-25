@@ -48,16 +48,16 @@ import de.tarent.octopus.server.OctopusContext;
 
 /**
  * <p>
- * Diese Octopus-Worker-Klasse stellt Operationen f�r die Verbindung
+ * Diese Octopus-Worker-Klasse stellt Operationen für die Verbindung
  * von Personen zu Dokumenttypen zur Verf�gung.
  * Details bitte dem BeanListWorker entnehmen.
  * </p>
  * 
  * <p>
  * Die Aktion {@link #showList(OctopusContext) showList} gibt eine
- * Liste zur�ck die zwigend alle Dokumenttypen enth�lt.
+ * Liste zurück die zwigend alle Dokumenttypen enth�lt.
  * Sollte zu der entsprechenden Person noch kein Dokumenttyp vorhanden
- * sein wird ein unvollst�ndiges Bean zur�ckgegeben.
+ * sein wird ein unvollst�ndiges Bean zurückgegeben.
  * </p>
  * 
  * <p>
@@ -134,9 +134,9 @@ public class PersonDoctypeWorker extends ListWorkerVeraWeb {
     // Octopus-Aktionen
     //
 	// 2009-05-07 removed second parameter as it was redundant as part of fixing issue #1528, made parameter mandatory
-    /** Octopus-Eingabeparameter f�r die Aktion {@link #showDetail(OctopusContext, Integer)} */
+    /** Octopus-Eingabeparameter für die Aktion {@link #showDetail(OctopusContext, Integer)} */
 	public static final String INPUT_showDetail[] = { "persondoctype-id" };
-    /** Octopus-Eingabeparameterzwang f�r die Aktion {@link #showDetail(OctopusContext, Integer)} */
+    /** Octopus-Eingabeparameterzwang für die Aktion {@link #showDetail(OctopusContext, Integer)} */
 	public static final boolean MANDATORY_showDetail[] = { true };
 	/**
 	 * <p>
@@ -145,10 +145,10 @@ public class PersonDoctypeWorker extends ListWorkerVeraWeb {
 	 * </p>
 	 * 
 	 * <p>
-	 * Wenn eine Person-Doctype-ID �bergeben wird, wird ein entsprechender
+	 * Wenn eine Person-Doctype-ID übergeben wird, wird ein entsprechender
 	 * Eintrag aus der Datenbank geladen, falls dies nicht der Fall ist,
 	 * wird anhand der Doctype-ID dann ein neuer Person-Doctype-Eingtrag
-	 * erzeugt (nicht in der Datenbank) und zur�ckgegeben.
+	 * erzeugt (nicht in der Datenbank) und zurückgegeben.
 	 * </p>
 	 * 
 	 * @param cntx OctopusContext
@@ -223,7 +223,7 @@ public class PersonDoctypeWorker extends ListWorkerVeraWeb {
     public static final String INPUT_createAll[] = {};
     /**
      * Diese Octopus-Aktion erzeugt alle fehlenden Personen-Dokumenttypen
-     * zu der Person unter dem Schl�ssel "person" im Octopus-Content.
+     * zu der Person unter dem Schlüssel "person" im Octopus-Content.
      * 
      * @param cntx Octopus-Kontext
      */
@@ -312,7 +312,7 @@ public class PersonDoctypeWorker extends ListWorkerVeraWeb {
     //
     /**
      * Diese Methode erzeugt alle fehlenden Personen-Dokumenttypen
-     * zu der �bergebenen Person.
+     * zu der übergebenen Person.
      */
 	public static void createPersonDoctype(OctopusContext cntx, Database database, ExecutionContext context, Person person) throws BeanException, IOException {
 		if (person == null || person.id == null) return;

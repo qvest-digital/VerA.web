@@ -42,9 +42,9 @@ public class Guest extends AbstractHistoryBean implements EventConstants {
 	public Timestamp created;
 	/** Erstellt von */
 	public String createdby;
-	/** Ge�ndert am */
+	/** Geändert am */
 	public Timestamp changed;
-	/** Ge�nder von */
+	/** Geändert von */
 	public String changedby;
 	/** ID der Person */
 	public Integer person;
@@ -130,7 +130,7 @@ public class Guest extends AbstractHistoryBean implements EventConstants {
 	}
     
     /**
-     * Diese Methode leert beschr�nkte Felder.<br>
+     * Diese Methode leert beschränkte Felder.<br>
      * Hier sind es die Bemerkungsfelder, wenn der Benutzer nicht in der Gruppe
      * {@link PersonalConfigAA#GROUP_READ_REMARKS} der hierzu freigeschalteten ist.
      * 
@@ -163,21 +163,21 @@ public class Guest extends AbstractHistoryBean implements EventConstants {
 	}
    
 	/**
-	 * Diese Methode liefert eine Facade f�r die Hauptperson dieses Gastes zur�ck.
+	 * Diese Methode liefert eine Facade für die Hauptperson dieses Gastes zurück.
 	 */
 	public GuestMemberFacade getMain() {
 		return new Main();
 	}
 
 	/**
-	 * Diese Methode liefert eine Facade f�r den Partner dieses Gastes zur�ck.
+	 * Diese Methode liefert eine Facade für den Partner dieses Gastes zurück.
 	 */
 	public GuestMemberFacade getPartner() {
 		return new Partner();
 	}
 
 	/**
-	 * Diese Klasse stellt eine Facade f�r die Hauptperson dieses Gastes dar.
+	 * Diese Klasse stellt eine Facade für die Hauptperson dieses Gastes dar.
 	 */
 	private class Main implements GuestMemberFacade {
 		public Integer getInvitationType() {
@@ -286,7 +286,7 @@ public class Guest extends AbstractHistoryBean implements EventConstants {
 	}
 
 	/**
-	 * Diese Klasse stellt eine Facade f�r den Partner dieses Gastes dar.
+	 * Diese Klasse stellt eine Facade für den Partner dieses Gastes dar.
 	 */
 	private class Partner implements GuestMemberFacade {
 		public Integer getInvitationType() {

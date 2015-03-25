@@ -76,7 +76,7 @@
 
 		#set($completeEventHeader = false)
         #parse("inc/event-header.vm")
-		
+
 		<div class="textRight marginBottom10 marginTop20" id="buttonPanel-top">
             <input type="button" class="mainButton" value="Zur G&auml;steverwaltung" title="Zur G&auml;steverwaltung" name="guestlist" goto="ShowGuestList?search-event=$!event.id&start=0&selectNone=true">
         </div>
@@ -95,7 +95,7 @@
             </div>
 
             <div class="contentBoxColored tabsContent">
-				
+
 				<div class="textRight mandatoryText">* = Pflichtfelder</div>
 
                 <div class="table width100">
@@ -186,8 +186,8 @@
                             <div id="task-reference-person-text" class="marginBottom5">$!message.text($refPerson.firstname_a_e1) $!message.text($refPerson.lastname_a_e1)</div>
     				        #if($grants.mayWrite())
                                 <div>
-                                   <input type="button" id="addRemoveRefPerson" tabindex="9" class="autoWidth" value="Verantworlichen hinzufügen" title="Verantworlichen hinzufügen" 
-                                    onclick="document.getElementById('formlist').action='SetReferencePersonToEventTask'; 
+                                   <input type="button" id="addRemoveRefPerson" tabindex="9" class="autoWidth" value="Verantworlichen hinzufügen" title="Verantworlichen hinzufügen"
+                                    onclick="document.getElementById('formlist').action='SetReferencePersonToEventTask';
                                     document.getElementById('a').value='taskReferencePerson';  document.getElementById('formlist').submit();" />
                                     <input type="button" tabindex="10" class="autoWidth" value="Verantworlichen entfernen" title="Verantworlichen entfernen" id="linkRemoveRefPerson">
                              </div>
@@ -212,7 +212,7 @@
 			</div>
 
         </div>
-		
+
 		<span id="buttonPanel-bottom" class="floatRight">
             #if($grants.mayWrite())
 			    <input type="submit" name="save" value="Veranstaltung speichern" class="mainButton" onclick="document.getElementById('formlist').action='SaveEventTask';">
@@ -230,7 +230,7 @@
                 e.preventDefault(); // do not follow link
             }
         });
-        $("#showEvent, #showEventDoctype, #showEventTasks, input[type=button]").not("#addRemoveRefPerson, #linkRemoveRefPerson").click(function (e) {    
+        $("#showEvent, #showEventDoctype, #showEventTasks, input[type=button]").not("#addRemoveRefPerson, #linkRemoveRefPerson").click(function (e) {
            if (checkModified()) {
                 window.location.href = $(this).attr('goto');
            }
@@ -241,7 +241,7 @@
             $("input[name='task-personId']").val("");
             $("input[name='task-modified']").val("true");
         });
-		
+
         #if(!$grants.mayWrite())
         disableForm($('#formlist')[0]);
         #end

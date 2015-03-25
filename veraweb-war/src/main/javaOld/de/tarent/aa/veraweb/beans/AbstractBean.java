@@ -26,7 +26,7 @@ import de.tarent.octopus.server.OctopusContext;
 import de.tarent.octopus.server.PersonalConfig;
 
 /**
- * Diese Klasse stellt eine abstrakte Basis f�r Beans auf Basis der
+ * Diese Klasse stellt eine abstrakte Basis für Beans auf Basis der
  * {@link de.tarent.octopus.beans.MapBean} dar.
  * 
  * @author christoph
@@ -57,10 +57,10 @@ public abstract class AbstractBean extends MapBean {
 	}
 
     /**
-     * Diese Methode leert beschr�nkte Felder.<br>
-     * Achtung: Bei Benutzern, die diese Bean auch schreiben d�rfen
+     * Diese Methode leert beschränkte Felder.<br>
+     * Achtung: Bei Benutzern, die diese Bean auch schreiben dürfen
      * (siehe {@link #checkWrite(OctopusContext)}), sollte die Bean hier nicht
-     * ver�ndert werden. 
+     * verändert werden. 
      * 
      * @param cntx Octopus-Kontext
      * @throws BeanException bei Problemen mit der Bean
@@ -69,7 +69,7 @@ public abstract class AbstractBean extends MapBean {
     }
     
 	/**
-	 * Diese Methode testet, ob im aktuellen Kontext der User der �bergebenen
+	 * Diese Methode testet, ob im aktuellen Kontext der User der übergebenen
 	 * Gruppe zugeordenet ist.
 	 * 
 	 * @param cntx

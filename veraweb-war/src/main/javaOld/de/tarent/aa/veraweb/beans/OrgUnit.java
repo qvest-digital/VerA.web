@@ -33,7 +33,7 @@ import de.tarent.octopus.server.OctopusContext;
  * @author mikel
  */
 public class OrgUnit extends AbstractBean {
-    /** Prim�rschl�ssel */
+    /** Primärschlüssel */
     public Integer id;
     /** Mandantenname */
     public String name;

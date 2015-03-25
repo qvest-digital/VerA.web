@@ -25,15 +25,15 @@ import de.tarent.aa.veraweb.beans.Person;
 import de.tarent.octopus.beans.BeanException;
 
 /**
- * Diese Schnittstelle ist f�r jede grunds�tzliche Exportvariante umzusetzen.
+ * Diese Schnittstelle ist für jede grunds�tzliche Exportvariante umzusetzen.
  * 
  * @author mikel
  */
 public interface Exporter
 {
 	/**
-	 * Diese Methode wird zu jeder zu exportierenden Person aufgerufen, �bergeben wird die Person als Zusammenstellung von
-	 * {@link Person}. Sie f�gt dem Export eine Beschreibung der �bergebenen VerA.web-Person hinzu.
+	 * Diese Methode wird zu jeder zu exportierenden Person aufgerufen, übergeben wird die Person als Zusammenstellung von
+	 * {@link Person}. Sie f�gt dem Export eine Beschreibung der übergebenen VerA.web-Person hinzu.
 	 * 
 	 * @param person
 	 *          {@link Person}-Bean
@@ -58,24 +58,24 @@ public interface Exporter
 
 	/**
 	 * Obwohl ein Exporter die zu exportierenden Personen nicht selbst bestimmt (diese werden ihm durch
-	 * <code>exportPerson(Person)</code> �bergeben), ben�tigt er evtl. schon Informationen zur Einschr�nkung auf einen
+	 * <code>exportPerson(Person)</code> übergeben), ben�tigt er evtl. schon Informationen zur Einschr�nkung auf einen
 	 * Mandanten. Z.B. muss beim CSV-Exporter schon vor <code>startExport()</code> auf einen Mandanten eingeschr�nkt
 	 * werden k�nnen, damit keine mandantenfremden Spalten�berschriften erzeugt werden (Kategorien, die nicht zum
 	 * Mandanten geh�ren)
 	 * 
 	 * @param orgUnitId
-	 *          die MandantenID, auf die der Exporter beschr�nkt wird
+	 *          die MandantenID, auf die der Exporter beschränkt wird
 	 */
 	public void setOrgUnitId(Integer orgUnitId);
 
 	/**
 	 * Obwohl ein Exporter die zu exportierenden Personen nicht selbst bestimmt (diese werden ihm durch
-	 * <code>exportPerson(Person)</code>) �bergeben), ben�tigt er evtl. Informationen zur Einschr�nkung auf bestimmte
+	 * <code>exportPerson(Person)</code>) übergeben), ben�tigt er evtl. Informationen zur Einschr�nkung auf bestimmte
 	 * Kategorien. Z.B. muss beim CSV-Exporter schon vor <code>startExport()</code> auf die vom Benutzer im GUI gew�hlte
 	 * Kategorie eingeschr�nkt werden k�nnen, damit andere Kategorien nicht als Spalten�berschriften erzeugt werden.
 	 * 
 	 * @param categoryId
-	 *          KategorieId, auf die der Exporter beschr�nkt wird. <code>Null</code> = alle Kategorien, 0 = keine
+	 *          KategorieId, auf die der Exporter beschränkt wird. <code>Null</code> = alle Kategorien, 0 = keine
 	 *          Kategorie
 	 */
 	public void setCategoryId(Integer categoryId);

@@ -65,7 +65,7 @@
 					#if ( ! $octopusConfig.personalConfig.getUserName().equals( "System User" ) && $octopusConfig.personalConfig.getVerawebId() != -1 )
 						</a>
 					#end
-				#end				
+				#end
 				</td>
 				<td>$!message.plain( $entry.op )</td>
 				#if( $entry.attributes == "*" )
@@ -76,6 +76,6 @@
 				<td>$!message.plain( $attrs )</td>
 			</tr>
 			#end
-		</table>		
+		</table>
 	</body>
 </html>

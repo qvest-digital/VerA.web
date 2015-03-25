@@ -22,15 +22,15 @@ package de.tarent.aa.veraweb.utils;
 import java.io.IOException;
 
 /**
- * Diese Schnittstelle ist f�r jede grunds�tzliche Importvariante umzusetzen. 
+ * Diese Schnittstelle ist für jede grunds�tzliche Importvariante umzusetzen. 
  * 
  * @author mikel
  */
 public interface Importer {
     /**
-     * Diese Methode f�hrt einen Import aus. Hierbei werden alle erkannten zu
-     * importierenden Personendatens�tze und Zus�tze nacheinander dem �bergebenen 
-     * {@link ImportDigester} �bergeben.
+     * Diese Methode führt einen Import aus. Hierbei werden alle erkannten zu
+     * importierenden Personendatens�tze und Zus�tze nacheinander dem übergebenen 
+     * {@link ImportDigester} übergeben.
      * 
      * @param digester der {@link ImportDigester}, der die Datens�tze weiter
      *  verarbeitet.

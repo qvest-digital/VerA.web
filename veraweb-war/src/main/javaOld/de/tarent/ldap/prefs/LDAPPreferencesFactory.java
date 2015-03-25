@@ -26,7 +26,7 @@ import java.util.prefs.PreferencesFactory;
 /**
  * @author kirchner
  * 
- * Eine PreferencesFactory-Implementierung f�r LDAP.
+ * Eine PreferencesFactory-Implementierung für LDAP.
  */
 public class LDAPPreferencesFactory implements PreferencesFactory {
 

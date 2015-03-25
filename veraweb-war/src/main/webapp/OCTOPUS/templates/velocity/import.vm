@@ -9,7 +9,7 @@
 		<div id="breadcrumb" class="textRight marginBottom10">
 			<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Personen > Personenimport</span>
 		</div>
-		
+
 		<h1>Import von Personendaten</h1>
 
         #if($errors.size() > 0 || $importStatus.invalidData)
@@ -48,33 +48,33 @@
             	#elseif($importStatus.invalidData == "errorOnImport")
             		Es ist ein unerwarteter Fehler beim importieren einer Datei aufgetreten.<br>
             		Vermutlich befindet sich die Import-Datei nicht im vom System erwartem Format.<br><br>
-            		
+
             		Fehlermeldung: <em>&quot;$message.plain($importStatus.message)&quot;</em> &nbsp;&nbsp;&nbsp;
             		(<a href="javascript:showBlock(document.getElementById('javastacktrace'));">Details anzeigen</a>)
-            
+
             <pre id="javastacktrace" style="display: none;">
-            
+
             $importStatus.exception
             </pre>
-            	
+
             	#end
-            	
+
             	#foreach($error in $errors)
             		$error
             	#end
             </vera-warn>
-		#end		
+		#end
 
 		<vera-info>
 			Beim Import k&ouml;nnen Feldinhalte, die l&auml;nger als bei VerA.web vorgesehen sind, gek&uuml;rzt &uuml;bernommen werden.
 		</vera-info>
-			
-		
+
+
 		<div id="main_content" class="contentBoxColored grayBorder">
 			<div class="textRight mandatoryText">* = Pflichtfelder</div>
-			
+
             <form action="ImportPersonsFile" method="post" enctype="multipart/form-data" name="formImport" id="formImport" >
-            
+
     			<div class="table width100">
     				<div class="tableRow">
     					<div class="tableCell width50">
@@ -92,7 +92,7 @@
 							#end
     					</div>
     				</div>
-    				
+
     				<div class="tableRow">
     					<div class="tableCell">
     						<label for="importfile">Import-Datei*</label>
@@ -106,7 +106,7 @@
                             	<option value="$formatKey">$format.name ($format.description)</option>
                             #end
                             </select>
-							
+
                             #set($style = '')
                             #foreach($formatKey in $formats.keySet())
                              #set($format = $formats.get($formatKey))
@@ -152,22 +152,22 @@
     					</div>
     				</div>
     			</div>
-    	
-            
+
+
             </form>
-		
+
 		</div><!-- End #main_content-->
 
 		<div id="buttonPanel-bottom" class="textRight marginTop10">
 			<input name="start" type="button" value="Import starten" title="Import starten" class="mainButton" onclick="askStart()">
-		</div>			
-</div>	
+		</div>
+</div>
 <script type="text/javascript">
 ##Hinweis und Rueckfrage vor dem Import
 
 	function askStart() {
 		htmlConfirm('Alle Dokumenttypen der zu importierenden Personen m&uuml;ssen im System vorhanden sein. Soll der Import jetzt gestartet werden?', new Array('Ja', 'Nein'), new Array("askStartYes();", "askStartNo();"));
-	} 
+	}
 	function askStartYes() {
 		hideDialogs();
 		showComboboxes();

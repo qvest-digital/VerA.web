@@ -27,7 +27,7 @@ import de.tarent.octopus.config.TcPersonalConfig;
 
 /**
  * Diese Klasse stellt die Implementierung von {@link de.tarent.octopus.server.PersonalConfig}
- * f�r das Ausw�rtige Amt dar.
+ * für das Ausw�rtige Amt dar.
  * 
  * @author mikel
  */

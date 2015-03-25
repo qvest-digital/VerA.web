@@ -20,26 +20,26 @@
 package de.tarent.aa.veraweb.utils;
 
 /**
- * Diese Schnittstelle enth�lt Konstanten f�r das Behandeln von
+ * Diese Schnittstelle enth�lt Konstanten für das Behandeln von
  * MAdLAN-Office-Steuerdateien. 
  * 
  * @author mikel
  */
 public interface MadlanConstants {
     //
-    // Property-Bezeichner und -Defaults f�r die MAdLAN-Formate
+    // Property-Bezeichner und -Defaults für die MAdLAN-Formate
     //
-    /** Property-Schl�ssel f�r die Liste der kyrillischen Felder */
+    /** Property-Schlüssel für die Liste der kyrillischen Felder */
     public final static String KEY_KYRILLIC_FIELDS = "kyrillicFields";
     
-    /** Property-Schl�ssel f�r das Zeichen-Mapping A (normale Felder) */
+    /** Property-Schlüssel für das Zeichen-Mapping A (normale Felder) */
     public final static String KEY_MAPPING_A = "encodingA";
     
-    /** Property-Schl�ssel f�r das Zeichen-Mapping B (kyrillische Felder) */
+    /** Property-Schlüssel für das Zeichen-Mapping B (kyrillische Felder) */
     public final static String KEY_MAPPING_B = "encodingB";
     
     //
-    // Schl�ssel f�r die verschiedenen m�glichen Zeichenencodings
+    // Schlüssel für die verschiedenen m�glichen Zeichenencodings
     // (Diese wurden an AAKonv.INI des Textkonverters des AA orientiert.)
     //
     /** Zeichensatz: Baltisch (BaltRoman, BaltHelv) */
@@ -77,7 +77,7 @@ public interface MadlanConstants {
     // (Diese wurden an AAKonv.INI des Textkonverters des AA orientiert.)
     //
     /**
-     * Baltische Zeichentabelle aus AAConv.ini: [Balt] f�r BaltRoman, BaltHelv
+     * Baltische Zeichentabelle aus AAConv.ini: [Balt] für BaltRoman, BaltHelv
      */
     final static char[] charsBalt = {
           0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14, 15,
@@ -108,7 +108,7 @@ public interface MadlanConstants {
     };
     
     /**
-     * Baltische Zeichentabelle aus AAConv.ini: [Baltic] f�r BalticRoman, BalticHlv
+     * Baltische Zeichentabelle aus AAConv.ini: [Baltic] für BalticRoman, BalticHlv
      */
     final static char[] charsBaltic = {
          0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14, 15,
@@ -139,7 +139,7 @@ public interface MadlanConstants {
     };
     
     /**
-     * Kyrillische Zeichentabelle aus AAConv.ini: [CyrExt] f�r CyrExtRoman, CyrExtHlv
+     * Kyrillische Zeichentabelle aus AAConv.ini: [CyrExt] für CyrExtRoman, CyrExtHlv
      */
     final static char[] charsCyrExt = {
          0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14, 15,
@@ -183,7 +183,7 @@ public interface MadlanConstants {
     };
     
     /**
-     * Kyrillische Zeichentabelle aus AAConv.ini: [Cyrillic] f�r CyrillicRoman, CyrillicHlv
+     * Kyrillische Zeichentabelle aus AAConv.ini: [Cyrillic] für CyrillicRoman, CyrillicHlv
      */
     final static char[] charsCyrillic = {
          0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14, 15,
@@ -223,7 +223,7 @@ public interface MadlanConstants {
     };
     
     /**
-     * Osteurop�ische Zeichentabelle aus AAConv.ini: [East] f�r EastRoman, EastHlv
+     * Osteurop�ische Zeichentabelle aus AAConv.ini: [East] für EastRoman, EastHlv
      */
     final static char[] charsEast = {
          0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14, 15,
@@ -257,7 +257,7 @@ public interface MadlanConstants {
     };
     
     /**
-     * Grieschiche Zeichentabelle aus AAConv.ini: [Greek] f�r GreekRoman, GreekHlv
+     * Grieschiche Zeichentabelle aus AAConv.ini: [Greek] für GreekRoman, GreekHlv
      */
     final static char[] charsGreek = {
          0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14, 15,
@@ -288,7 +288,7 @@ public interface MadlanConstants {
     };
     
     /**
-     * Turkmenische (?) Zeichentabelle aus AAConv.ini: [TurAsb] f�r TurAsbRoman, TurAsbHlv
+     * Turkmenische (?) Zeichentabelle aus AAConv.ini: [TurAsb] für TurAsbRoman, TurAsbHlv
      */
     final static char[] charsTurAsb = {
          0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14, 15,
@@ -319,7 +319,7 @@ public interface MadlanConstants {
     };
     
     /**
-     * T�rkische Zeichentabelle aus AAConv.ini: [Turkish] f�r TurkishRoman, TurkishHlv
+     * T�rkische Zeichentabelle aus AAConv.ini: [Turkish] für TurkishRoman, TurkishHlv
      */
     final static char[] charsTurkish = {
          0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14, 15,
@@ -350,7 +350,7 @@ public interface MadlanConstants {
     };
     
     /**
-     * Westeurop�ische Zeichentabelle aus AAConv.ini: [West] f�r WestRoman, WestHlv
+     * Westeurop�ische Zeichentabelle aus AAConv.ini: [West] für WestRoman, WestHlv
      */
     final static char[] charsWest = {
         0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14, 15,

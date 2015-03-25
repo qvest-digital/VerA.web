@@ -65,7 +65,7 @@ public class CompanyListWorker extends ListWorkerVeraWeb {
     // Oberklasse BeanListWorker
     //
 	/**
-	 * Schr�nkt das Suchergebnis auf nicht gel�schte Firmen ein.
+	 * Schr�nkt das Suchergebnis auf nicht gelöschte Firmen ein.
 	 */
 	@Override
     protected void extendWhere(OctopusContext cntx, Select select) throws BeanException, IOException {
@@ -106,7 +106,7 @@ public class CompanyListWorker extends ListWorkerVeraWeb {
 	//
     // Octopus-Aktionen
     //
-	/** Octopus-Parameter f�r die Aktion {@link #copyCompanyData(OctopusContext, Integer, String)} */
+	/** Octopus-Parameter für die Aktion {@link #copyCompanyData(OctopusContext, Integer, String)} */
 	public static final String INPUT_copyCompanyData[] = { "company", "companyfield" };
 	/**
 	 * Diese Worker-Aktion l�dt einen Person Eintrag und kopiert

@@ -1,6 +1,6 @@
 #set($activeMenu = "Administration")
 #set($title = "Cleanup")
-#parse("inc/header.vm")	
+#parse("inc/header.vm")
 
 <table class="tab" border="0" cellspacing="0" cellpadding="0"><tr>
 	<td class="tableft">&nbsp;</td>
@@ -26,7 +26,7 @@
 		<li>$!message.text($c)</li>
 	#end
 	</ul>
-	
+
 	#if($cleanupdone)
 		<br>
 		<a href="${paths.staticWeb}do/Cleanup">Aktuallisieren</a>

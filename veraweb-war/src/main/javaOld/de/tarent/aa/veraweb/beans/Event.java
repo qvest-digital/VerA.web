@@ -102,7 +102,7 @@ public class Event extends AbstractHistoryBean implements OrgUnitDependent {
     }
 
     /**
-     * Diese Methode leert beschr�nkte Felder.<br>
+     * Diese Methode leert beschränkte Felder.<br>
      * Hier sind es die Bemerkungsfelder, wenn der Benutzer nicht in der Gruppe
      * {@link PersonalConfigAA#GROUP_READ_REMARKS} der hierzu freigeschalteten ist.
      *

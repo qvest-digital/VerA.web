@@ -29,7 +29,7 @@ import de.tarent.data.exchange.ExchangeFormat;
 
 /**
  * Diese Klasse stellt die Eigenschaften eines Datenaustauschformats
- * f�r Export- und Importimplementierungen zur Verf�gung, die aus einer
+ * für Export- und Importimplementierungen zur Verf�gung, die aus einer
  * {@link Map}, wie sie aus Octopus-Konfigurationen gelesen werden,
  * initialisiert werden.
  * 
@@ -40,9 +40,9 @@ public class ConfiguredExchangeFormat extends ExchangeFormat {
     // Konstruktor
     //
     /**
-     * Dieser Konstruktor bekommt eine {@link Map} �bergeben, wie sie aus
+     * Dieser Konstruktor bekommt eine {@link Map} übergeben, wie sie aus
      * einer Octopus-Konfiguration eingelesen wird, und initialisiert daraus
-     * die {@link ExchangeFormat}-Attribute. Hierzu werden als Schl�ssel die
+     * die {@link ExchangeFormat}-Attribute. Hierzu werden als Schlüssel die
      * Konstanten <code>PARAM_*</code> dieser Klasse benutzt.
      * 
      * @param configuration {@link Map}, aus der die Attribute dieses Formats gelesen werden.
@@ -70,31 +70,31 @@ public class ConfiguredExchangeFormat extends ExchangeFormat {
     //
     // Konstanten
     //
-    /** Parameterschl�ssel f�r den Name dieses Formats */
+    /** Parameterschlüssel für den Name dieses Formats */
     public final static String PARAM_NAME = "name";
-    /** Parameterschl�ssel f�r die Beschreibung dieses Formats */
+    /** Parameterschlüssel für die Beschreibung dieses Formats */
     public final static String PARAM_DESCRIPTION = "description";
-    /** Parameterschl�ssel f�r die URL zu einem Icon zu diesem Format */
+    /** Parameterschlüssel für die URL zu einem Icon zu diesem Format */
     public final static String PARAM_ICON = "icon";
-    /** Parameterschl�ssel f�r den Namen der {@link de.tarent.aa.veraweb.utils.Exporter}-Klasse zu diesem Format */
+    /** Parameterschlüssel für den Namen der {@link de.tarent.aa.veraweb.utils.Exporter}-Klasse zu diesem Format */
     public final static String PARAM_EXPORTER_CLASS = "exporterClass";
-    /** Parameterschl�ssel f�r den Namen der {@link de.tarent.aa.veraweb.utils.Importer}-Klasse zu diesem Format */
+    /** Parameterschlüssel für den Namen der {@link de.tarent.aa.veraweb.utils.Importer}-Klasse zu diesem Format */
     public final static String PARAM_IMPORTER_CLASS = "importerClass";
-    /** Parameterschl�ssel f�r den MIME-Typ zu diesem Format */
+    /** Parameterschlüssel für den MIME-Typ zu diesem Format */
     public final static String PARAM_MIME_TYPE = "mimeType";
-    /** Parameterschl�ssel f�r das Standard-Suffix f�r Dateien dieses Formats */
+    /** Parameterschlüssel für das Standard-Suffix für Dateien dieses Formats */
     public final static String PARAM_DEFAULT_EXTENSION = "defaultExtension";
-    /** Parameterschl�ssel f�r die speziellen Attribute dieses Formats */
+    /** Parameterschlüssel für die speziellen Attribute dieses Formats */
     public final static String PARAM_PROPERTIES = "properties";
 
     //
     // gesch�tzte Hilfsmethoden
     //
     /**
-     * Diese Methode liest aus der �bergebenen {@link Map} die Daten des Formats.
-     * Als Schl�ssel werden die Konstanten <code>PARAM_*</code> benutzt.
+     * Diese Methode liest aus der übergebenen {@link Map} die Daten des Formats.
+     * Als Schlüssel werden die Konstanten <code>PARAM_*</code> benutzt.
      * 
-     * @param configuration {@link Map} mit Konfigurationseintr�gen nach Octopus-Art
+     * @param configuration {@link Map} mit Konfigurationseinträgen nach Octopus-Art
      */
     void readConfiguration(Map configuration) {
         assert configuration != null;

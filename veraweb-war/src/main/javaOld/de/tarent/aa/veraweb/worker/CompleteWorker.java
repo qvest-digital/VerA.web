@@ -47,7 +47,7 @@ public class CompleteWorker {
 	 * @param table
 	 * @param column
 	 * @param query
-	 * @return Liste mit den 10 ersten Eintr�gen.
+	 * @return Liste mit den 10 ersten Einträgen.
 	 * @throws BeanException
 	 */
 	private List getList(OctopusContext cntx, String table, String column, String query) throws BeanException {

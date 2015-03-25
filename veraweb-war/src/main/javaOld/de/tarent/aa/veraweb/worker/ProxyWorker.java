@@ -49,9 +49,9 @@ public class ProxyWorker {
     //
     // Octopus-Aktionen
     //
-    /** Eingabeparameter f�r Aktion {@link #select(OctopusContext, String)} */
+    /** Eingabeparameter für Aktion {@link #select(OctopusContext, String)} */
     public static final String[] INPUT_select = {"proxyFor"};
-    /** Eingabeparameterzwang f�r Aktion {@link #select(OctopusContext, String)} */
+    /** Eingabeparameterzwang für Aktion {@link #select(OctopusContext, String)} */
     public static final boolean[] MANDATORY_select = {false};
     /**
      * Diese Aktion setzt den aktuellen Benutzer als Stellvertreter der aktuellen

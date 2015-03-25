@@ -49,7 +49,7 @@ import javax.naming.ldap.InitialLdapContext;
 import de.tarent.octopus.security.TcSecurityException;
 
 /**
- * f�r Zugriff auf ein LDAP-Verzeichnis
+ * für Zugriff auf ein LDAP-Verzeichnis
  *
  * @author philipp
  */
@@ -111,7 +111,7 @@ public class LDAPManager {
      * @param passwort
      *            Passwort
      * @param authType
-     *            Authentifizierungstyp gegen�ber dem LDAP (im Moment nur
+     *            Authentifizierungstyp gegenüber dem LDAP (im Moment nur
      *            "simple" ausprobiert & supported)
      * @throws LDAPException
      *             wenn etwas schiefl�uft
@@ -128,9 +128,9 @@ public class LDAPManager {
      * Diese statische Methode erzeugt eine neue LDAP-Manager-Instanz.
      *
      * @param managerClass Klasse des zu erzeugenden LDAPManagers.
-     * @param env Umgebungsparameter f�r den zu erzeugenden LdapContext.
-     * @param params Parameter f�r den neu zu instantiierenden LDAPManager, zumindest
-     *  f�r {@link #KEY_BASE_DN}, {@link #KEY_RELATIVE} und {@link #KEY_RELATIVE_USER}
+     * @param env Umgebungsparameter für den zu erzeugenden LdapContext.
+     * @param params Parameter für den neu zu instantiierenden LDAPManager, zumindest
+     *  für {@link #KEY_BASE_DN}, {@link #KEY_RELATIVE} und {@link #KEY_RELATIVE_USER}
      *  m�ssen Werte vorliegen.
      * @return LDAPManager
      */
@@ -186,12 +186,12 @@ public class LDAPManager {
     // Konstruktoren
     //
 	/**
-	 * Dieser Konstruktor fischt die Werte f�r {@link #KEY_BASE_DN}, {@link #KEY_RELATIVE}
-     * und {@link #KEY_RELATIVE_USER} heraus und legt sie neben den �bergebenen Parametern
+	 * Dieser Konstruktor fischt die Werte für {@link #KEY_BASE_DN}, {@link #KEY_RELATIVE}
+     * und {@link #KEY_RELATIVE_USER} heraus und legt sie neben den übergebenen Parametern
      * explizit ab.
 	 *
      * @param lctx initialer LDAP-Kontext, auf dem dieser LDAP-Manager arbeitet
-     * @param params Map, die zumindest f�r {@link #KEY_BASE_DN}, {@link #KEY_RELATIVE}
+     * @param params Map, die zumindest für {@link #KEY_BASE_DN}, {@link #KEY_RELATIVE}
      *  und {@link #KEY_RELATIVE_USER} Werte enth�lt.
 	 */
 	public LDAPManager(InitialLdapContext lctx, Map params) {
@@ -208,9 +208,9 @@ public class LDAPManager {
     // Getter und Setter
     //
     /**
-     * Diese Methode liefert die aktuellen Vorgabe-Objektklassen f�r Benutzer.
+     * Diese Methode liefert die aktuellen Vorgabe-Objektklassen für Benutzer.
      *
-     * @return Vorgabe-Objektklassen f�r Benutzer
+     * @return Vorgabe-Objektklassen für Benutzer
      * @see #getUserDN(String)
      */
     protected String[] getDefaultObjectClasses() {
@@ -218,9 +218,9 @@ public class LDAPManager {
     }
 
     /**
-     * Diese Methode setzt die aktuellen Vorgabe-Objektklassen f�r Benutzer.
+     * Diese Methode setzt die aktuellen Vorgabe-Objektklassen für Benutzer.
      *
-     * @param newDefault neue Vorgabe-Objektklassen f�r Benutzer
+     * @param newDefault neue Vorgabe-Objektklassen für Benutzer
      * @see #getUserDN(String)
      */
     protected void setDefaultObjectClasses(String[] newDefault) {
@@ -238,7 +238,7 @@ public class LDAPManager {
      * @param passwort
      *            Passwort
      * @param authType
-     *            Authentifizierungstyp gegen�ber dem LDAP (im Moment nur
+     *            Authentifizierungstyp gegenüber dem LDAP (im Moment nur
      *            "simple" ausprobiert & supported)
      * @throws LDAPException
      *             wenn etwas schiefl�uft
@@ -609,7 +609,7 @@ public class LDAPManager {
 	}
 
 	/**
-	 * getter f�r Relative
+	 * getter für Relative
 	 *
 	 * @return relativen DN
 	 */
@@ -681,7 +681,7 @@ public class LDAPManager {
 	}
 
 	/**
-	 * Getter f�r alle OU's
+	 * Getter für alle OU's
 	 *
 	 * @param base
 	 *            Basis unter der gesucht werden soll

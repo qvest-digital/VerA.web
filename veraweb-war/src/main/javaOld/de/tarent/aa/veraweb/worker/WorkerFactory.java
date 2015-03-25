@@ -27,8 +27,8 @@ import de.tarent.octopus.server.WorkerCreationException;
 
 /**
  * Diese Klasse gibt Instanzen anderer Worker und direktem Arbeiten mit
- * diesen zur�ck. Dadurch verlaggert sich die Verwendung von statischen
- * Methoden ausschlie�lich in diese Klasse.
+ * diesen zurück. Dadurch verlaggert sich die Verwendung von statischen
+ * Methoden ausschließlich in diese Klasse.
  * 
  * @author Christoph
  */
