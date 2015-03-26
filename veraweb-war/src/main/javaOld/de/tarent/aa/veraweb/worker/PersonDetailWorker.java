@@ -73,6 +73,7 @@ import de.tarent.octopus.beans.veraweb.BeanChangeLogger;
 import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
 import de.tarent.octopus.beans.veraweb.RequestVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
+import org.osiam.resources.scim.User;
 
 /**
  * Octopus-Worker der Aktionen zur Detailansicht von Personen bereitstellt,
@@ -1051,10 +1052,11 @@ public class PersonDetailWorker implements PersonConstants {
 		if (!hasUsername(cntx, personId)) {
 
 			final OsiamLoginCreator osiamLoginCreator = new OsiamLoginCreator();
+			final OsiamConnector connector = getConnector();
 
 			final String firstname = person.firstname_a_e1;
 			final String lastname = person.lastname_a_e1;
-			final String username = osiamLoginCreator.generateUsername(firstname, lastname, cntx);
+			final String username = osiamLoginCreator.generateUsername(firstname, lastname, cntx, connector);
 			final String password = osiamLoginCreator.generatePassword();
 
 			person.username = username;
@@ -1063,7 +1065,6 @@ public class PersonDetailWorker implements PersonConstants {
 			this.updateUsernameInVeraweb(cntx, person);
 
 			// Create in OSIAM
-			final OsiamConnector connector = getConnector();
 			createUser(username, password, connector);
 
 			// Saving uuid to generate the reset-password url
@@ -1143,6 +1144,7 @@ public class PersonDetailWorker implements PersonConstants {
 	private void createUser(String username, String password, OsiamConnector connector) {
 		final AccessToken accessToken = connector.retrieveAccessToken(Scope.ALL);
 		final OsiamLoginCreator osiamLoginCreator = new OsiamLoginCreator();
+
 		osiamLoginCreator.createOsiamUser(accessToken, username, password, connector);
 	}
 

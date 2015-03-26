@@ -34,6 +34,10 @@ import org.apache.commons.lang.RandomStringUtils;
 import org.apache.log4j.Logger;
 import org.osiam.client.OsiamConnector;
 import org.osiam.client.oauth.AccessToken;
+import org.osiam.client.oauth.Scope;
+import org.osiam.client.query.Query;
+import org.osiam.client.query.QueryBuilder;
+import org.osiam.resources.scim.SCIMSearchResult;
 import org.osiam.resources.scim.User;
 
 import java.io.IOException;
@@ -55,6 +59,8 @@ public class OsiamLoginCreator {
 
     private Database database;
 
+    private QueryBuilder queryBuilder;
+
     /**
      * Default constructor
      */
@@ -68,6 +74,7 @@ public class OsiamLoginCreator {
      */
     public OsiamLoginCreator(Database database) {
         this.database = database;
+        this.queryBuilder = new QueryBuilder();
     }
 
     /**
@@ -79,17 +86,13 @@ public class OsiamLoginCreator {
      *
      * @return String username
      */
-    public String generateUsername(final String firstname, final String lastname, final OctopusContext context) {
-        final StringBuilder stringBuilder = new StringBuilder();
+    public String generateUsername(final String firstname,
+                                   final String lastname,
+                                   final OctopusContext context,
+                                   final OsiamConnector connector) {
+
         final String username = generateShortUsername(firstname, lastname);
-        stringBuilder.append(username);
-
-        final Integer number = getSuffixIfUsernameAlreadyExists(context, username);
-
-        if (number != null) {
-            return stringBuilder.append(number).toString();
-        }
-        return stringBuilder.toString();
+        return getResultList(context, username, connector);
     }
 
     /**
@@ -156,84 +159,25 @@ public class OsiamLoginCreator {
         return handleLastnameNotLongerThanFiveCharacters(convertedFirstname, convertedLastname.substring(0, 5));
     }
 
-    /**
-     * Checking if the username's shorttext has duplicates
-     *
-     * @param context ExecutionContext
-     * @param username String username
-     */
-    private Integer getSuffixIfUsernameAlreadyExists(final OctopusContext context, String username) {
-        // check if a duplicate entry was found
-        if (context != null) {
-            final List list = getResultList(context, username);
+    private String getResultList(final OctopusContext context, String username, final OsiamConnector connector) {
+        final AccessToken accessToken = connector.retrieveAccessToken(Scope.ALL);
+        Query query = buildQuery(username.toLowerCase());
+        SCIMSearchResult<User> result = connector.searchUsers(query, accessToken);
+        Integer usernameSuffix = 1;
+        String finalUsername = "";
 
-            if (!list.isEmpty()) {
-                final Person person = (Person) list.get(0);
-                final String auxUsername= person.username;
-
-                final String[] res = auxUsername.split(username);
-
-                if (res.length > 1 && isNumeric(res[1])) {
-                    Integer usernameNumber = Integer.valueOf(res[1]);
-                    return usernameNumber + 1;
-                } else return 1;
-            }
+        while (result.getTotalResults() > 0) {
+            finalUsername = username.toLowerCase() + usernameSuffix;
+            Query query1 = buildQuery(finalUsername);
+            result = connector.searchUsers(query1, accessToken);
+            usernameSuffix++;
         }
-        return null;
+
+        return finalUsername;
     }
 
-    private List getResultList(final OctopusContext context, String username) {
-        if (database == null) {
-            database = new DatabaseVeraWeb(context);
-        }
-
-        final Select selectStatement = getSelectStatement(database, username);
-
-        return getResults(database, selectStatement);
-    }
-
-
-    private List getResults(Database database, Select selectStatement) {
-        List list = null;
-        try {
-            list = database.getBeanList("Person", selectStatement);
-        } catch (BeanException e) {
-            LOGGER.error("Fehler bei der Abfrage", e);
-        }
-        return list;
-    }
-
-
-    private Select getSelectStatement(Database database, String username) {
-        final Clause whereClause = Expr.like("username", username + "%");
-
-        Select selectStatement = null;
-        try {
-            selectStatement = database.getSelect("Person").where(whereClause);
-        } catch (BeanException beanException) {
-            LOGGER.error("Fehler bei der Abfrage", beanException);
-        } catch (IOException ioException) {
-            LOGGER.error("IOFehler", ioException);
-        }
-        selectStatement.orderBy(Order.desc("pk"));
-        selectStatement.Limit(new Limit(new Integer(1), new Integer(0)));
-        return selectStatement;
-    }
-
-    /**
-     * TODO move to another class
-     * Checking if an String is numeric
-     *
-     * @param str String
-     * @return boolean
-     */
-    public static boolean isNumeric(String str) {
-        try {
-            final double d = Double.parseDouble(str);
-        } catch (NumberFormatException nfe) {
-            return false;
-        }
-        return true;
+    private Query buildQuery(String username) {
+        return queryBuilder.filter("userName eq \"" + username + "\"").attributes("id").build();
     }
 
     public Database getDatabase() {
@@ -242,5 +186,9 @@ public class OsiamLoginCreator {
 
     public void setDatabase(Database database) {
         this.database = database;
+    }
+
+    public void setQueryBuilder(QueryBuilder queryBuilder) {
+        this.queryBuilder = queryBuilder;
     }
 }
