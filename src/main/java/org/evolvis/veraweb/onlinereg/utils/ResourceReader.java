@@ -62,7 +62,7 @@ public class ResourceReader {
      * @return requested resource
      * @throws java.io.IOException TODO
      */
-    public <T> T readResource(String path, TypeReference<T> type) throws IOException {
+    public <T> T readStringResource(String path, TypeReference<T> type) throws IOException {
         WebResource resource;
         try {
             resource = client.resource(path);

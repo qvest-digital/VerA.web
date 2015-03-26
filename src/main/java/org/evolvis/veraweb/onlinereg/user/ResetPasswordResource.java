@@ -92,12 +92,12 @@ public class ResetPasswordResource {
 
     private Person getPerson(ResourceReader resourceReader, Integer userId) throws IOException {
         final String pathForPerson = resourceReader.constructPath(BASE_RESOURCE, "person", "list", userId);
-        return resourceReader.readResource(pathForPerson, PERSON);
+        return resourceReader.readStringResource(pathForPerson, PERSON);
     }
 
     private Integer getUserId(String uuid, ResourceReader resourceReader) throws IOException {
         final String pathForUserId = resourceReader.constructPath(BASE_RESOURCE, "links", uuid);
-        return resourceReader.readResource(pathForUserId, INTEGER);
+        return resourceReader.readStringResource(pathForUserId, INTEGER);
     }
 
     private void createOsiamUser(String username, String password) throws IOException {
