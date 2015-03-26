@@ -3,14 +3,12 @@ package org.evolvis.veraweb.onlinereg.user;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.jersey.api.client.Client;
-import com.sun.jersey.api.client.ClientHandlerException;
-import com.sun.jersey.api.client.UniformInterfaceException;
-import com.sun.jersey.api.client.WebResource;
 import lombok.Getter;
 import lombok.extern.java.Log;
 import org.evolvis.veraweb.onlinereg.Config;
 import org.evolvis.veraweb.onlinereg.entities.Person;
 import org.evolvis.veraweb.onlinereg.osiam.OsiamClient;
+import org.evolvis.veraweb.onlinereg.utils.ResourceReader;
 import org.evolvis.veraweb.onlinereg.utils.StatusConverter;
 import org.osiam.client.OsiamConnector;
 import org.osiam.client.oauth.AccessToken;
@@ -26,7 +24,6 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import java.io.IOException;
-import java.net.SocketTimeoutException;
 
 /**
  * This class is used for password reset actions (for example: reset password).
@@ -72,18 +69,35 @@ public class ResetPasswordResource {
      * Show view for password reset.
      *
      * @param uuid The UUID of the person for which the password will be reset.
+     * @param password The password
+     *
+     * @throws IOException If one of the database actions fails
+     *
+     * @return OK if successfull.
      */
     @POST
     @Path("/{uuid}")
-    public String getEvenByUUId(@PathParam("uuid") String uuid, @FormParam("password") String password) throws IOException {
-        final Integer userId = readResource(path("links", uuid), INTEGER);
-        final Person person = readResource(path("person", "list", userId), PERSON);
+    public String getEvenByUUId(@PathParam("uuid") String uuid, @FormParam("password") String password)
+            throws IOException {
+        final ResourceReader resourceReader = new ResourceReader(client, mapper, config);
+        final Integer userId = getUserId(uuid, resourceReader);
+        final Person person = getPerson(resourceReader, userId);
         final String username = person.getUsername();
 
         deleteOsiamUser(username);
         createOsiamUser(username, password);
 
         return StatusConverter.convertStatus("OK");
+    }
+
+    private Person getPerson(ResourceReader resourceReader, Integer userId) throws IOException {
+        final String pathForPerson = resourceReader.constructPath(BASE_RESOURCE, "person", "list", userId);
+        return resourceReader.readResource(pathForPerson, PERSON);
+    }
+
+    private Integer getUserId(String uuid, ResourceReader resourceReader) throws IOException {
+        final String pathForUserId = resourceReader.constructPath(BASE_RESOURCE, "links", uuid);
+        return resourceReader.readResource(pathForUserId, INTEGER);
     }
 
     private void createOsiamUser(String username, String password) throws IOException {
@@ -106,51 +120,5 @@ public class ResetPasswordResource {
         final String accessTokenAsString = accessToken.getToken();
         final User user = osiamClient.getUser(accessTokenAsString, username);
         osiamConnector.deleteUser(user.getId(), accessToken);
-    }
-
-    /**
-     * Constructs a path from vera.web endpint, BASE_RESOURCE and given path fragmensts.
-     *
-     * @param path path fragments
-     * @return complete path as string
-     */
-    private String path(Object... path) {
-        String r = config.getVerawebEndpoint() + BASE_RESOURCE;
-        for (Object p : path) {
-            r += "/" + p;
-        }
-        return r;
-    }
-
-    /**
-     * Reads the resource at given path and returns the entity.
-     *
-     * @param path path
-     * @param type TypeReference of requested entity
-     * @param <T>  Type of requested entity
-     * @return requested resource
-     * @throws IOException
-     */
-    private <T> T readResource(String path, TypeReference<T> type) throws IOException {
-        WebResource resource;
-        try {
-            resource = client.resource(path);
-            String json = resource.get(String.class);
-            return mapper.readValue(json, type);
-        } catch (ClientHandlerException che) {
-            if (che.getCause() instanceof SocketTimeoutException) {
-                //FIXME some times open, pooled connections time out and generate errors
-//                log.warning("Retrying request to " + path + " once because of SocketTimeoutException");
-                resource = client.resource(path);
-                String json = resource.get(String.class);
-                return mapper.readValue(json, type);
-            } else {
-                throw che;
-            }
-
-        } catch (UniformInterfaceException uie) {
-//            log.warning(uie.getResponse().getEntity(String.class));
-            throw uie;
-        }
     }
 }
