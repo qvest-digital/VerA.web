@@ -14,6 +14,25 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
+    <scm>
+        <developerConnection>scm:git:ssh://maven@evolvis.org/scmrepos/git/veraweb/common.git</developerConnection>
+        <url>https://evolvis.org/plugins/scmgit/cgi-bin/gitweb.cgi?p=veraweb/common.git</url>
+    </scm>
+
+    <distributionManagement>
+        <repository>
+            <id>evolvis-release-repository</id>
+            <name>evolvis.org release repository</name>
+            <url>sftp://maven-repo.evolvis.org/var/www/maven_repo/releases</url>
+        </repository>
+
+        <snapshotRepository>
+            <id>evolvis-snapshot-repository</id>
+            <name>evolvis.org snapshot repository</name>
+            <url>sftp://maven-repo.evolvis.org/var/www/maven_repo/snapshots</url>
+        </snapshotRepository>
+    </distributionManagement>
+
     <dependencies>
 
         <dependency>
