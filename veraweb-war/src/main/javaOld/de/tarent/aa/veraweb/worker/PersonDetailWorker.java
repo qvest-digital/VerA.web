@@ -1056,7 +1056,7 @@ public class PersonDetailWorker implements PersonConstants {
 
 			final String firstname = person.firstname_a_e1;
 			final String lastname = person.lastname_a_e1;
-			final String username = osiamLoginCreator.generateUsername(firstname, lastname, cntx, connector);
+			final String username = osiamLoginCreator.generateUsername(firstname, lastname, connector);
 			final String password = osiamLoginCreator.generatePassword();
 
 			person.username = username;

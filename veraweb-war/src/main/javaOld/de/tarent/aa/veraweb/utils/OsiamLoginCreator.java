@@ -82,17 +82,16 @@ public class OsiamLoginCreator {
      *
      * @param firstname The firstname of the person
      * @param lastname The lastname of the person
-     * @param context The {@link de.tarent.octopus.beans.ExecutionContext}
+     * @param connector The {@link org.osiam.client.OsiamConnector}
      *
      * @return String username
      */
     public String generateUsername(final String firstname,
                                    final String lastname,
-                                   final OctopusContext context,
                                    final OsiamConnector connector) {
 
         final String username = generateShortUsername(firstname, lastname);
-        return getResultList(context, username, connector);
+        return getResultList(username, connector);
     }
 
     /**
@@ -159,21 +158,24 @@ public class OsiamLoginCreator {
         return handleLastnameNotLongerThanFiveCharacters(convertedFirstname, convertedLastname.substring(0, 5));
     }
 
-    private String getResultList(final OctopusContext context, String username, final OsiamConnector connector) {
+    private String getResultList(final String username, final OsiamConnector connector) {
         final AccessToken accessToken = connector.retrieveAccessToken(Scope.ALL);
-        Query query = buildQuery(username.toLowerCase());
-        SCIMSearchResult<User> result = connector.searchUsers(query, accessToken);
+        SCIMSearchResult<User> result = searchOsiamUser(connector, accessToken, username);
         Integer usernameSuffix = 1;
         String finalUsername = "";
 
         while (result.getTotalResults() > 0) {
             finalUsername = username.toLowerCase() + usernameSuffix;
-            Query query1 = buildQuery(finalUsername);
-            result = connector.searchUsers(query1, accessToken);
+            result = searchOsiamUser(connector, accessToken, finalUsername);
             usernameSuffix++;
         }
 
         return finalUsername;
+    }
+
+    private SCIMSearchResult<User> searchOsiamUser(OsiamConnector connector, AccessToken accessToken, String finalUsername) {
+        final Query query = buildQuery(finalUsername);
+        return connector.searchUsers(query, accessToken);
     }
 
     private Query buildQuery(String username) {

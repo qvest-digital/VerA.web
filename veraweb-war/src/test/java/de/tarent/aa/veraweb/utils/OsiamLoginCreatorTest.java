@@ -99,7 +99,7 @@ public class OsiamLoginCreatorTest {
         when(connector.retrieveAccessToken(Scope.ALL)).thenReturn(accessToken);
 
         // WHEN
-        String username = osiamLoginCreator.generateUsername("Max", "Mustermann", oc, connector);
+        String username = osiamLoginCreator.generateUsername("Max", "Mustermann", connector);
 
         // THEN
         assertEquals("mmuste1", username);
