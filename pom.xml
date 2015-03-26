@@ -10,6 +10,10 @@
 
     <name>vera.web Online-Registration REST API common files</name>
 
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
     <dependencies>
 
         <dependency>
@@ -41,6 +45,7 @@
                 <configuration>
                     <source>1.7</source>
                     <target>1.7</target>
+                    <encoding>UTF-8</encoding>
                     <debug>true</debug>
                     <compilerArgument></compilerArgument>
                 </configuration>
