@@ -59,7 +59,7 @@ public class OsiamLoginCreator {
 
     private Database database;
 
-    private QueryBuilder queryBuilder;
+    private QueryBuilder queryBuilder = new QueryBuilder();
 
     /**
      * Default constructor
@@ -74,7 +74,6 @@ public class OsiamLoginCreator {
      */
     public OsiamLoginCreator(Database database) {
         this.database = database;
-        this.queryBuilder = new QueryBuilder();
     }
 
     /**
