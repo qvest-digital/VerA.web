@@ -51,9 +51,11 @@ public class OsiamLoginRemover {
      * @param username The username
      */
     public void deleteOsiamUser(AccessToken accessToken, String username) {
-        final String id = getUserId(accessToken, username);
-        if (id != null) {
-            connector.deleteUser(id, accessToken);
+        if (username != null) {
+            final String id = getUserId(accessToken, username);
+            if (id != null) {
+                connector.deleteUser(id, accessToken);
+            }
         }
     }
 
