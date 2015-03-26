@@ -142,6 +142,23 @@ public class EventRessourceSessionsTest {
     }
 
     @Test
+    public void testExistEventIdByDelegation2() {
+        // GIVEN
+        prepareSession();
+        String uuid = "534707a6-f432-4f6b-9e6a-c1032f221a50";
+        Query query = mock(Query.class);
+        when(mockitoSession.getNamedQuery("Event.guestByUUID")).thenReturn(query);
+        when(query.uniqueResult()).thenReturn(new BigInteger(String.valueOf(0)));
+
+        // WHEN
+        eventResource.existEventIdByDelegation(uuid);
+
+        // THEN
+        verify(mockitoSessionFactory, times(1)).openSession();
+        verify(mockitoSession, times(1)).close();
+    }
+
+    @Test
     public void testGetEventIdByUUID() {
         // GIVEN
         prepareSession();
