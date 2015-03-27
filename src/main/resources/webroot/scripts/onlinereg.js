@@ -52,6 +52,9 @@ onlineRegApp.config(function ($routeProvider) {
     }).when('/update/:eventId', {
 		templateUrl: 'partials/update.html',
 		controller: 'UpdateController'
+    }).when('/reset/password/:uuid', {
+		templateUrl: 'partials/reset_password.html',
+		controller: 'ResetPasswordController'
     }).otherwise({
       redirectTo: '/event'
     })
@@ -79,6 +82,29 @@ onlineRegApp.directive('equals', function() {
             }
         }
     }
+});
+
+onlineRegApp.controller('ResetPasswordController', function($http, $scope, $routeParams, $location,$rootScope) {
+	$scope.resetPassword = function() {
+		if ($scope.resetPasswordForm.password.$viewValue != $scope.resetPasswordForm.passwordRepeat.$viewValue) {
+			$scope.error = "Die Wiederholung stimmt nicht mit dem Passwort überein!"
+		} else {
+			$scope.error = null;
+
+			$http({
+				method: 'POST',
+				url: 'api/reset/password/' + $routeParams.uuid,
+				headers: {"Content-Type" : undefined},
+				data: $.param({
+					password: $scope.resetPasswordForm.password.$viewValue
+				})
+			}).success(function () {
+				$rootScope.success = "Ihr Passwort wurde erfolgreich geändert!"
+				$location.path('/event');
+			});
+		}
+
+	}
 });
 
 onlineRegApp.controller('FreeVisitorController', function($http, $scope, $location, $routeParams) {
@@ -595,9 +621,9 @@ onlineRegApp.controller('RegisterUserController',  function($scope, $http) {
 
 
 onlineRegApp.controller('VeranstaltungsController', function ($scope, $http, $rootScope, $location) {
-
     if ($rootScope.user_logged_in == null) {
         $location.path('/login');
+        $rootScope.success = null;
     } else {
         console.log("DEBUG: " + $rootScope.user_logged_in);
         var userEventsURL = 'api/event/userevents/' + $rootScope.user_logged_in;
