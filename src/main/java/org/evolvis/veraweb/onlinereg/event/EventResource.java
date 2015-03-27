@@ -279,7 +279,7 @@ public class EventResource {
 
         final Guest guest = resource.type(MediaType.APPLICATION_FORM_URLENCODED_TYPE).post(Guest.class, postBody);
 
-        updateGuestMessage(nodeHost, userId);
+//        updateGuestMessage(nodeHost, userId);
         createGuestDoctype(guest.getPk(), firstName, lastName);
 
         return guest;

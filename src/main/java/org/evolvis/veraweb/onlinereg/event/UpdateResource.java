@@ -150,25 +150,7 @@ public class UpdateResource {
         postBody.add("notehost", notehost);
 
         resource.type(MediaType.APPLICATION_FORM_URLENCODED_TYPE).post(postBody);
-
-        updateGuestMessage(notehost, String.valueOf(userId));
     }
-
-    /**
-     * Updating Message to the events owner
-     *
-     * @param notehost String
-     * @param personId String
-     */
-	private void updateGuestMessage(String notehost, String personId) {
-		WebResource resource = client.resource(config.getVerawebEndpoint() + "/rest/person/guestmsg");
-
-		Form postBody = new Form();
-		postBody.add("notehost", notehost);
-		postBody.add("personId", personId);
-
-		resource.post(postBody);
-	}
 
     /**
      * Checking if the user is registered
