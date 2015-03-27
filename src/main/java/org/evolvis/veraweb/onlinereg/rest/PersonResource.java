@@ -22,19 +22,16 @@ package org.evolvis.veraweb.onlinereg.rest;
 import java.util.List;
 
 import org.evolvis.veraweb.onlinereg.entities.Event;
-import org.evolvis.veraweb.onlinereg.entities.Guest;
 import org.evolvis.veraweb.onlinereg.entities.Person;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
-import javax.persistence.NamedQuery;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 /**
@@ -244,32 +241,6 @@ public class PersonResource extends AbstractResource {
             session.close();
         }
 
-    }
-    
-    /**
-     * UPDATE Gastgeber Hinweis in tperson
-     * 
-     * @param notehost String
-     * @param personId Integer
-     */
-    @POST
-    @Path("/guestmsg")
-    public void updateGuestMessage(@FormParam("notehost") String notehost, @FormParam("personId") Integer personId) {
-    	final Session session = openSession();
-
-    	try {
-	    	final Query query = session.getNamedQuery("Person.findByPersonId");
-	        query.setInteger("personId", personId);
-	
-	        final Person person = (Person) query.uniqueResult();
-	        person.setNotehost_a_e1(notehost);
-	        
-	        session.update(person);
-	        session.flush();
-	        
-    	} finally {
-    		session.close();
-    	}
     }
 
     /**
