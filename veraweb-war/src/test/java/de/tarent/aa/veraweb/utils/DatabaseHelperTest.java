@@ -34,13 +34,13 @@ public class DatabaseHelperTest extends TestCase {
 		List order = new ArrayList();
 		order.add("column1");
 		assertEquals(" ORDER BY column1 ASC", DatabaseHelper.getOrder(order).clauseToString());
-		
+
 		order.add("DESC");
 		assertEquals(" ORDER BY column1 DESC", DatabaseHelper.getOrder(order).clauseToString());
-		
+
 		order.set(1, "ASC");
 		assertEquals(" ORDER BY column1 ASC", DatabaseHelper.getOrder(order).clauseToString());
-		
+
 		order.remove(1);
 		assertEquals(" ORDER BY column1 ASC", DatabaseHelper.getOrder(order).clauseToString());
 	}
@@ -50,7 +50,7 @@ public class DatabaseHelperTest extends TestCase {
 		order.add("column1");
 		order.add("column2");
 		order.add("DESC");
-		
+
 		assertEquals(" ORDER BY column1 ASC, column2 DESC", DatabaseHelper.getOrder(order).clauseToString());
 	}
 }

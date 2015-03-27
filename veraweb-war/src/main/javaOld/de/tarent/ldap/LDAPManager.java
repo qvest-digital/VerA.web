@@ -49,7 +49,7 @@ import javax.naming.ldap.InitialLdapContext;
 import de.tarent.octopus.security.TcSecurityException;
 
 /**
- * f�r Zugriff auf ein LDAP-Verzeichnis
+ * für Zugriff auf ein LDAP-Verzeichnis
  *
  * @author philipp
  */
@@ -76,9 +76,9 @@ public class LDAPManager {
     //
     // Variablen
     //
-	// Der n�tige LDAPContext
+	// Der nötige LDAPContext
 	protected InitialLdapContext	lctx;
-	// Base DN f�r's LDAP
+	// Base DN für's LDAP
 	protected String			baseDN;
 	// ein relativer DN, falls alles, was behandelt wird relativ zum Base DN
 	// gesehen werden soll
@@ -95,7 +95,7 @@ public class LDAPManager {
      * Anonymer Login
      *
      * @throws LDAPException
-     *             wenn etwas schiefl�uft
+     *             wenn etwas schiefläuft
      */
     public static LDAPManager login(Class managerClass, String ldapurl, Map params) throws LDAPException {
         Hashtable env = createEnvironment(ldapurl); //Hashtable mit Zugriffsdaten
@@ -111,10 +111,10 @@ public class LDAPManager {
      * @param passwort
      *            Passwort
      * @param authType
-     *            Authentifizierungstyp gegen�ber dem LDAP (im Moment nur
+     *            Authentifizierungstyp gegenüber dem LDAP (im Moment nur
      *            "simple" ausprobiert & supported)
      * @throws LDAPException
-     *             wenn etwas schiefl�uft
+     *             wenn etwas schiefläuft
      */
     public static LDAPManager login(Class managerClass, String ldapurl, Map params, String username, String passwort, String authType) throws LDAPException {
         Hashtable env = createEnvironment(ldapurl); //Hashtable mit Zugriffsdaten
@@ -128,10 +128,10 @@ public class LDAPManager {
      * Diese statische Methode erzeugt eine neue LDAP-Manager-Instanz.
      *
      * @param managerClass Klasse des zu erzeugenden LDAPManagers.
-     * @param env Umgebungsparameter f�r den zu erzeugenden LdapContext.
-     * @param params Parameter f�r den neu zu instantiierenden LDAPManager, zumindest
-     *  f�r {@link #KEY_BASE_DN}, {@link #KEY_RELATIVE} und {@link #KEY_RELATIVE_USER}
-     *  m�ssen Werte vorliegen.
+     * @param env Umgebungsparameter für den zu erzeugenden LdapContext.
+     * @param params Parameter für den neu zu instantiierenden LDAPManager, zumindest
+     *  für {@link #KEY_BASE_DN}, {@link #KEY_RELATIVE} und {@link #KEY_RELATIVE_USER}
+     *  müssen Werte vorliegen.
      * @return LDAPManager
      */
     public static LDAPManager instantiate(Class managerClass, Hashtable env, Map params) throws LDAPException
@@ -186,13 +186,13 @@ public class LDAPManager {
     // Konstruktoren
     //
 	/**
-	 * Dieser Konstruktor fischt die Werte f�r {@link #KEY_BASE_DN}, {@link #KEY_RELATIVE}
-     * und {@link #KEY_RELATIVE_USER} heraus und legt sie neben den �bergebenen Parametern
+	 * Dieser Konstruktor fischt die Werte für {@link #KEY_BASE_DN}, {@link #KEY_RELATIVE}
+     * und {@link #KEY_RELATIVE_USER} heraus und legt sie neben den übergebenen Parametern
      * explizit ab.
 	 *
      * @param lctx initialer LDAP-Kontext, auf dem dieser LDAP-Manager arbeitet
-     * @param params Map, die zumindest f�r {@link #KEY_BASE_DN}, {@link #KEY_RELATIVE}
-     *  und {@link #KEY_RELATIVE_USER} Werte enth�lt.
+     * @param params Map, die zumindest für {@link #KEY_BASE_DN}, {@link #KEY_RELATIVE}
+     *  und {@link #KEY_RELATIVE_USER} Werte enthält.
 	 */
 	public LDAPManager(InitialLdapContext lctx, Map params) {
         this.lctx = lctx;
@@ -208,9 +208,9 @@ public class LDAPManager {
     // Getter und Setter
     //
     /**
-     * Diese Methode liefert die aktuellen Vorgabe-Objektklassen f�r Benutzer.
+     * Diese Methode liefert die aktuellen Vorgabe-Objektklassen für Benutzer.
      *
-     * @return Vorgabe-Objektklassen f�r Benutzer
+     * @return Vorgabe-Objektklassen für Benutzer
      * @see #getUserDN(String)
      */
     protected String[] getDefaultObjectClasses() {
@@ -218,9 +218,9 @@ public class LDAPManager {
     }
 
     /**
-     * Diese Methode setzt die aktuellen Vorgabe-Objektklassen f�r Benutzer.
+     * Diese Methode setzt die aktuellen Vorgabe-Objektklassen für Benutzer.
      *
-     * @param newDefault neue Vorgabe-Objektklassen f�r Benutzer
+     * @param newDefault neue Vorgabe-Objektklassen für Benutzer
      * @see #getUserDN(String)
      */
     protected void setDefaultObjectClasses(String[] newDefault) {
@@ -228,7 +228,7 @@ public class LDAPManager {
     }
 
     //
-    // �ffentliche Methoden
+    // Öffentliche Methoden
     //
     /**
      * Methode, die einen gegebenen Benutzer unter der aktuellen BaseDN einloggt.
@@ -238,10 +238,10 @@ public class LDAPManager {
      * @param passwort
      *            Passwort
      * @param authType
-     *            Authentifizierungstyp gegen�ber dem LDAP (im Moment nur
+     *            Authentifizierungstyp gegenüber dem LDAP (im Moment nur
      *            "simple" ausprobiert & supported)
      * @throws LDAPException
-     *             wenn etwas schiefl�uft
+     *             wenn etwas schiefläuft
      */
     public LDAPManager login(String username, String passwort, String authType) throws LDAPException {
         try {
@@ -281,7 +281,7 @@ public class LDAPManager {
 	 * @param user
 	 *            uid's der User die Zugriff auf die OU erhalten sollen
 	 * @throws LDAPException
-	 *             wenn etwas schiefl�uft
+	 *             wenn etwas schiefläuft
 	 */
 	public void createOU(String ou, List user) throws LDAPException {
 		//angegebene ou anlegen
@@ -333,14 +333,14 @@ public class LDAPManager {
 			zusuchendeAttribute.put(new BasicAttribute("uid", name)); //$NON-NLS-1$
 			//nach folgendem Attribut
 			zusuchendeAttribute.put(new BasicAttribute(attribut));
-			//ausf�hren!
+			//ausführen!
 			NamingEnumeration ergebnis = lctx.search(relative + baseDN, zusuchendeAttribute);
 			//Wenn was kommt, gibt es das Attribut
 			if (ergebnis.hasMore()) {
 				vorhanden = true;
 			}
 		} catch (NamingException e) {
-			//Wenn was schief l�uft, ist Attribut nicht vorhanden
+			//Wenn was schief läuft, ist Attribut nicht vorhanden
 			vorhanden = false;
 		}
 		return vorhanden;
@@ -378,10 +378,10 @@ public class LDAPManager {
 				}
 			}
 		} catch (NamingException e) {
-			//Im Fehlerfall ist der Wert nat�rlich nicht vorhanden
+			// Im Fehlerfall ist der Wert natürlich nicht vorhanden
 			vorhanden = false;
 		} catch (LDAPException e) {
-//			Im Fehlerfall ist der Wert nat�rlich nicht vorhanden
+			// Im Fehlerfall ist der Wert natürlich nicht vorhanden
 			vorhanden = false;
 		}
 		return vorhanden;
@@ -419,7 +419,7 @@ public class LDAPManager {
 				}
 			}
 		} catch (NamingException e) {
-			//Im Fehlerfall ist der Wert nat�rlich nicht vorhanden
+			// Im Fehlerfall ist der Wert natürlich nicht vorhanden
 			vorhanden = false;
 		}
 		return vorhanden;
@@ -591,13 +591,13 @@ public class LDAPManager {
 	 * Komma ist.
 	 *
 	 * @param string
-	 * @return Argument getrimt und ggf vorne und/oder hinten um Kommas erg�nzt
+	 * @return Argument getrimt und ggf vorne und/oder hinten um Kommas ergänzt
 	 */
 	public static String surroundWithCommas(String string) {
 		if (string == null)
             return ",";
         string = string.trim();
-        //testen, ob am Anfang kein Komma, sonst hinzuf�gen
+        //testen, ob am Anfang kein Komma, sonst hinzufügen
 		if (!string.startsWith(",")) {
 			string = "," + string;
 		}
@@ -609,7 +609,7 @@ public class LDAPManager {
 	}
 
 	/**
-	 * getter f�r Relative
+	 * getter für Relative
 	 *
 	 * @return relativen DN
 	 */
@@ -670,7 +670,7 @@ public class LDAPManager {
 		}
 		modifications.add(new ModificationItem(DirContext.REPLACE_ATTRIBUTE, member));
 		//System.out.println(modifications);
-		//F�hre �nderungen durch
+		//Führe Änderungen durch
 		try {
 			lctx.modifyAttributes("ou=" + value + relative + baseDN, (ModificationItem[]) modifications
 					.toArray(new ModificationItem[1]));
@@ -681,13 +681,13 @@ public class LDAPManager {
 	}
 
 	/**
-	 * Getter f�r alle OU's
+	 * Getter für alle OU's
 	 *
 	 * @param base
 	 *            Basis unter der gesucht werden soll
 	 * @return Liste mit allen OU's
 	 * @throws LDAPException
-	 *             wenn etwas schief l�uft
+	 *             wenn etwas schief läuft
 	 */
 	public List getOUs(String base) throws LDAPException {
 		List ou = new ArrayList();
@@ -835,7 +835,7 @@ public class LDAPManager {
 		if (attr == null) {
 			createSystemPreferenceKey(key, value, modified);
 		} else {
-			//Stelle letzte �nderung fest
+			//Stelle letzte änderung fest
 			BigInteger lastmodified = null;
 			try {
 				String modifieds = (String) attr.get("PreferenceLastModified").get(0);
@@ -958,7 +958,7 @@ public class LDAPManager {
 		try {
 			lctx.destroySubcontext("PreferenceKey=" + key + relative + baseDN);
 		} catch (NamingException e) {
-			throw new LDAPException("Es ist ein Fehler beim L�schen der Preference aufgetreten", e);
+			throw new LDAPException("Es ist ein Fehler beim Löschen der Preference aufgetreten", e);
 		}
 	}
 
@@ -969,7 +969,7 @@ public class LDAPManager {
 		try {
 			lctx.destroySubcontext(relative.substring(1) + baseDN);
 		} catch (NamingException e) {
-			throw new LDAPException("Fehler beim L�schen des PreferenceNode!", e);
+			throw new LDAPException("Fehler beim Löschen des PreferenceNode!", e);
 		}
 	}
 

@@ -27,8 +27,8 @@ import java.io.OutputStream;
  * also eines {@link de.tarent.aa.veraweb.utils.Exporter Exporters} oder
  * {@link de.tarent.aa.veraweb.utils.Importer Importers}. Diese dienen im
  * Wesentlichen dazu, diesem Informationen zum Datenaustauschformat und zu
- * den beteiligten Datenstr�men zu geben. 
- * 
+ * den beteiligten Datenströmen zu geben.
+ *
  * @author mikel
  */
 public interface Exchanger {
@@ -39,12 +39,12 @@ public interface Exchanger {
     ExchangeFormat getExchangeFormat();
     /** Das zu verwendende Austauschformat */
     void setExchangeFormat(ExchangeFormat format);
-    
+
     /** Der zu verwendende Eingabedatenstrom */
     InputStream getInputStream();
     /** Der zu verwendende Eingabedatenstrom */
     void setInputStream(InputStream stream);
-    
+
     /** Der zu verwendende Ausgabedatenstrom */
     OutputStream getOutputStream();
     /** Der zu verwendende Ausgabedatenstrom */

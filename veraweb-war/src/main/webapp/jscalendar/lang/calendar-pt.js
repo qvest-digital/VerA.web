@@ -2,7 +2,6 @@
 
 // Calendar pt_BR language
 // Author: Adalberto Machado, <betosm@terra.com.br>
-// Encoding: any
 // Distributed under the same terms as the calendar itself.
 
 // For translators: please use UTF-8 if possible.  We strongly believe that

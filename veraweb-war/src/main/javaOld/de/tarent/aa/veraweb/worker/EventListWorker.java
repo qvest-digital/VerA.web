@@ -52,7 +52,7 @@ import de.tarent.octopus.server.OctopusContext;
 
 /**
  * Diese Octopus-Worker-Klasse stellt Operationen zur Anzeige von
- * Veranstaltungslisten zur Verf�gung. Details zur Verwendung
+ * Veranstaltungslisten zur Verfügung. Details zur Verwendung
  * bitte dem {@link BeanListWorker} entnehmen.<br><br>
  *
  * Verwendet als Filter der Veranstaltungen ein Event-Object
@@ -65,7 +65,7 @@ import de.tarent.octopus.server.OctopusContext;
  */
 public class EventListWorker extends ListWorkerVeraWeb {
     //
-    // �ffentliche Konstanten
+    // Öffentliche Konstanten
     //
     /** Parameter: Wessen Ereignisse? */
     public final static String PARAM_DOMAIN = "domain";
@@ -87,7 +87,7 @@ public class EventListWorker extends ListWorkerVeraWeb {
     // Basisklasse BeanListWorker
     //
     /**
-     * Diese Methode f�gt eine Bedingung zum Filtern nach dem Mandanten hinzu, wenn der
+     * Diese Methode fügt eine Bedingung zum Filtern nach dem Mandanten hinzu, wenn der
      * aktuelle Benutzer nicht Superadmin ist.
      *
      * @param cntx Octopus-Kontext
@@ -109,8 +109,8 @@ public class EventListWorker extends ListWorkerVeraWeb {
             throw new BeanException("Missing user information");
 
         // Dreht die Sortierung beim Export von Personen-Daten
-        // um, um erst die "�ltesten" Veranstaltungen zu sehen,
-        // da diese am wahrscheinlichsten f�r einen Export
+        // um, um erst die "ältesten" Veranstaltungen zu sehen,
+        // da diese am wahrscheinlichsten für einen Export
         // in Frage kommen.
         String invertOrder = cntx.contentAsString("invertOrder");
         if ("true".equals(invertOrder)) {
@@ -172,7 +172,7 @@ public class EventListWorker extends ListWorkerVeraWeb {
 			where.addAnd(Expr.equal("fk_location", search.location));
 		}
 		if (search.begin != null) {
-			Timestamp nextDay = new Timestamp(search.begin.getTime() + 86400000); // n�chster tag
+			Timestamp nextDay = new Timestamp(search.begin.getTime() + 86400000); // nächster tag
 			where.addAnd(Where.and(
 					Expr.greaterOrEqual("datebegin", search.begin),
 					Expr.less("datebegin", nextDay)));
@@ -341,7 +341,7 @@ public class EventListWorker extends ListWorkerVeraWeb {
 	 * Entsprechende Eingaben werden in der Session gespeichert.
 	 *
 	 * @param cntx Octopus-Context
-	 * @return Event-Instanz die die aktuelle Suche repr�sentiert.
+	 * @return Event-Instanz die die aktuelle Suche repräsentiert.
 	 * @throws BeanException
 	 */
 	public Event getSearch(OctopusContext cntx) throws BeanException {

@@ -25,9 +25,9 @@ import cucumber.junit.Cucumber;
 
 /**
  * JUnit starter for running cucumber tests.
- * 
+ *
  * @author Valentin But (v.but@tarent.de), tarent solutions GmbH
- * 
+ *
  */
 @RunWith(Cucumber.class)
 @Cucumber.Options(

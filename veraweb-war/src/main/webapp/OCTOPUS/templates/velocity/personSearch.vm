@@ -37,30 +37,30 @@
 
 
 <div id="content_container">
-	
+
 	#if($action == "host")
     	<div id="breadcrumb" class="textRight marginBottom10">
     		<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Veranstaltungen > Gastgeber hinzuf&uuml;gen</span>
     	</div>
-    	
-    	<h1>Personensuche: Gastgeber hinzuf&uuml;gen</h1>   
+
+    	<h1>Personensuche: Gastgeber hinzuf&uuml;gen</h1>
 	#elseif($action == "guest")
     	<div id="breadcrumb" class="textRight marginBottom10">
     		<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Veranstaltungen > Gast hinzuf&uuml;gen</span>
     	</div>
-    	
-    	<h1>Personensuche: Gast hinzufügen</h1> 
+
+    	<h1>Personensuche: Gast hinzufügen</h1>
 	#elseif($action == "taskReferencePerson")
     	<div id="breadcrumb" class="textRight marginBottom10">
     		<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Veranstaltungen > Verantwortlichen hinzufügen</span>
     	</div>
-    	
-    	<h1>Personensuche: Verantwortlichen für Aufgabe hinzufügen</h1> 		
-	#else	
+
+    	<h1>Personensuche: Verantwortlichen für Aufgabe hinzufügen</h1>
+	#else
         <div id="breadcrumb" class="textRight marginBottom10">
             <strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Personen > Personensuche</span>
         </div>
-    
+
         <h1>Personensuche</h1>
 	#end
     <div id="main_content" class="contentBoxColored grayBorder marginBottom20">
@@ -232,24 +232,24 @@
 
             <div id="buttonPanel-bottom" class="textRight">
                 #if($action == "guest")
-                    <input type="submit" class="mainButton submit" name="search" value="Suchen" title="Suchen" /> 
-                    <input type="button" class="mainButton reset"  name="reset" value="Felder leeren" title="Felder leeren" onclick="clearForm();" /> 
-                    <input type="button" class="mainButton cancel" name="cancel" value="Zur&uuml;ck" title="Zur&uuml;ck" onclick="window.location.href='ShowGuestList?selectNone=true';" /> 
+                    <input type="submit" class="mainButton submit" name="search" value="Suchen" title="Suchen" />
+                    <input type="button" class="mainButton reset"  name="reset" value="Felder leeren" title="Felder leeren" onclick="clearForm();" />
+                    <input type="button" class="mainButton cancel" name="cancel" value="Zur&uuml;ck" title="Zur&uuml;ck" onclick="window.location.href='ShowGuestList?selectNone=true';" />
                 #elseif($action == "host")
-                    <input type="submit" class="mainButton submit" name="search" value="Suchen" title="Suchen" /> 
-                    <input type="button" class="mainButton reset"  name="reset" value="Felder leeren" title="Felder leeren" onclick="clearForm();" /> 
-                    <input type="button" class="mainButton cancel" name="cancel" value="Zur&uuml;ck" title="Zur&uuml;ck" onclick="window.location.href='SetHostToEventDetail';" /> 
+                    <input type="submit" class="mainButton submit" name="search" value="Suchen" title="Suchen" />
+                    <input type="button" class="mainButton reset"  name="reset" value="Felder leeren" title="Felder leeren" onclick="clearForm();" />
+                    <input type="button" class="mainButton cancel" name="cancel" value="Zur&uuml;ck" title="Zur&uuml;ck" onclick="window.location.href='SetHostToEventDetail';" />
                 #elseif($action == "statistikGuest")
-                    <input type="submit" class="mainButton submit" name="search" value="Suchen" title="Suchen" /> 
-                    <input type="button" class="mainButton reset"  name="reset" value="Felder leeren" title="Felder leeren" onclick="clearForm();" /> 
-                    <input type="button" class="mainButton cancel" name="cancel" value="Zur&uuml;ck" title="Zur&uuml;ck" onclick="window.location.href='Statistik';" /> 
+                    <input type="submit" class="mainButton submit" name="search" value="Suchen" title="Suchen" />
+                    <input type="button" class="mainButton reset"  name="reset" value="Felder leeren" title="Felder leeren" onclick="clearForm();" />
+                    <input type="button" class="mainButton cancel" name="cancel" value="Zur&uuml;ck" title="Zur&uuml;ck" onclick="window.location.href='Statistik';" />
                 #elseif($action == "statistikHost")
-                    <input type="submit" class="mainButton submit" name="search" value="Suchen" title="Suchen" /> 
-                    <input type="button" class="mainButton reset"  name="reset" value="Felder leeren" title="Felder leeren" onclick="clearForm();" /> 
-                    <input type="button" class="mainButton cancel" name="cancel" value="Zur&uuml;ck" title="Zur&uuml;ck" onclick="window.location.href='Statistik';" /> 
+                    <input type="submit" class="mainButton submit" name="search" value="Suchen" title="Suchen" />
+                    <input type="button" class="mainButton reset"  name="reset" value="Felder leeren" title="Felder leeren" onclick="clearForm();" />
+                    <input type="button" class="mainButton cancel" name="cancel" value="Zur&uuml;ck" title="Zur&uuml;ck" onclick="window.location.href='Statistik';" />
                 #else
-                    <input type="submit" class="mainButton submit" name="search" value="Suchen" title="Suchen" /> 
-                    <input type="button"  class="mainButton reset" name="cancel" value="Felder leeren" title="Felder leeren" onclick="clearForm();" /> 
+                    <input type="submit" class="mainButton submit" name="search" value="Suchen" title="Suchen" />
+                    <input type="button"  class="mainButton reset" name="cancel" value="Felder leeren" title="Felder leeren" onclick="clearForm();" />
                 #end
             </div>
         </form>

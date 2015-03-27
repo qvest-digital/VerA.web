@@ -24,7 +24,7 @@ import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.server.OctopusContext;
 
 /**
- * Repr�sentiert ein Datenbank-Tupel aus der Tabelle <code>tdoctype</code>,
+ * Repräsentiert ein Datenbank-Tupel aus der Tabelle <code>tdoctype</code>,
  * ein Dokumenttyp.
  *
  * @author Christoph, Mikel
@@ -35,7 +35,7 @@ public class Doctype extends AbstractBean {
     /** {@link #flags}-Attributwert: Standardtyp */
 	public static final int FLAG_IS_STANDARD = 99;
 
-    /** pk serial NOT NULL: Prim�rschl�ssel */
+    /** pk serial NOT NULL: Primärschlüssel */
 	public Integer id;
     /** docname varchar(200) NOT NULL: Name des Dokumenttyps */
 	public String name;
@@ -49,7 +49,7 @@ public class Doctype extends AbstractBean {
 	public Integer sortorder;
     /** flags int4: Flags, vergleiche <code>FLAG_*</code> */
 	public Integer flags;
-    /** host int4 NOT NULL DEFAULT 1: Dokument auch f�r Gastgeber erzeugen */
+    /** host int4 NOT NULL DEFAULT 1: Dokument auch für Gastgeber erzeugen */
 	public Boolean host;
     /** isdefault int4 NOT NULL DEFAULT 0: Standard-Dokumenttyp */
 	public Boolean isdefault;
@@ -61,10 +61,10 @@ public class Doctype extends AbstractBean {
 	public String format;
 
     /**
-     * �berpr�ft das Bean auf innere Vollst�ndigkeit.
+     * Überprüft das Bean auf innere Vollständigkeit.
      * Hier wird getestet, ob die Kategorie einen nicht-leeren Namen hat.
      *
-     * @throws BeanException bei Unvollst�ndigkeit
+     * @throws BeanException bei Unvollständigkeit
      */
 	@Override
     public void verify() throws BeanException {

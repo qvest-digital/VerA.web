@@ -71,7 +71,7 @@ var showTab = function (name) {
 	} else if (name === 'anschrift-zs3') {
 		zeichensatz = 3;
 	}
-	
+
 	if (person < 1 || person > 2) {
 		person = 1;
     }
@@ -86,7 +86,7 @@ var showTab = function (name) {
     $('#personMemberTab').val(person);
     $('#personAddresstypeTab').val(anschrift);
     $('#personLocaleTab').val(zeichensatz);
-	
+
 	if (tab === 1) {
 		changeTab('default', ['person', 'anschrift']);
 		changeBlock(null, ['subtab-person', 'subtab-anschrift']);

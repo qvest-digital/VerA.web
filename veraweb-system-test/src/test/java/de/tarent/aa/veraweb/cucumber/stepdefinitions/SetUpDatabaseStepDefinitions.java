@@ -37,7 +37,7 @@ import de.tarent.aa.veraweb.db.entity.Task;
 
 /**
  * Step Definitions for presetting database with proper test data.
- * 
+ *
  * @author Valentin But (v.but@tarent.de), tarent solutions GmbH
  */
 public class SetUpDatabaseStepDefinitions {
@@ -56,7 +56,7 @@ public class SetUpDatabaseStepDefinitions {
 
     /**
      * Set up database with expected {@link Person}s.
-     * 
+     *
      * @param dt
      *            data table containing model's properties
      * @throws Exception
@@ -76,7 +76,7 @@ public class SetUpDatabaseStepDefinitions {
 
     /**
      * Set up database with expected {@link Person}s.
-     * 
+     *
      * @param dt
      *            data table containing model's properties
      * @throws Exception

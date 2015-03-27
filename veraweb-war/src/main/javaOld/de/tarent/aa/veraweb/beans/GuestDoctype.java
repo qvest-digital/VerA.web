@@ -26,19 +26,19 @@ import de.tarent.octopus.server.OctopusContext;
 
 /**
  * Diese Bean stellt einen Eintrag der Tabelle veraweb.tguest_doctype dar,
- * eine Auflistung von G�sten und Dokumenttypen mit Daten f�r die Dokumente.
- * 
+ * eine Auflistung von Gästen und Dokumenttypen mit Daten für die Dokumente.
+ *
  * @author christoph
  * @author mikel
  */
 public class GuestDoctype extends AbstractBean {
-    /** Prim�rschl�ssel */
+    /** Primärschlüssel */
 	public Integer id;
-    /** Fremdschl�ssel {@link Guest Gast} */
+    /** Fremdschlüssel {@link Guest Gast} */
 	public Integer guest;
-    /** Fremdschl�ssel {@link Doctype Dokumenttyp} */
+    /** Fremdschlüssel {@link Doctype Dokumenttyp} */
 	public Integer doctype;
-    /** 1=Privat 2=Gesch�ftlich 3=Weitere */
+    /** 1=Privat 2=Geschäftlich 3=Weitere */
 	public Integer addresstype;
     /** 1=Latein 2=Z1 3=Z2 */
 	public Integer locale;
@@ -62,7 +62,7 @@ public class GuestDoctype extends AbstractBean {
 	public String zipcode;
     /** Adressfeld Stadt */
 	public String city;
-    /** Adressfeld Stra�e */
+    /** Adressfeld Straße */
 	public String street;
     /** Adressfeld Land */
 	public String country;
@@ -99,7 +99,7 @@ public class GuestDoctype extends AbstractBean {
      * Diese Methode testet, ob im aktuellen Kontext diese Bohne gelesen werden
      * darf.<br>
      * Test ist, ob der Benutzer Standard-Reader ist.
-     * 
+     *
      * @param cntx Octopus-Kontext
      * @throws BeanException Wenn im angegebenen Kontext diese Bohne nicht gelesen werden darf.
      * @see de.tarent.aa.veraweb.beans.AbstractBean#checkRead(de.tarent.octopus.server.OctopusContext)
@@ -113,7 +113,7 @@ public class GuestDoctype extends AbstractBean {
      * Diese Methode testet, ob im aktuellen Kontext diese Bohne geschrieben
      * werden darf.<br>
      * Test ist, ob der Benutzer Writer ist.
-     * 
+     *
      * @param cntx Octopus-Kontext
      * @throws BeanException Wenn im angegebenen Kontext diese Bohne nicht geschrieben werden darf.
      * @see de.tarent.aa.veraweb.beans.AbstractBean#checkWrite(de.tarent.octopus.server.OctopusContext)

@@ -50,7 +50,7 @@ import java.util.List;
 public class OptionalFieldsWorker {
 	private static final String DELEGATON_FIELD_TABLE_NAME = "veraweb.toptional_fields";
 	private static final String DELEGATON_FIELD_VALUE_TABLE_NAME = "veraweb.toptional_fields_delegation_content";
-	
+
 
 	private Database database;
 
@@ -62,7 +62,7 @@ public class OptionalFieldsWorker {
 	public OptionalFieldsWorker(OctopusContext ctx) {
 		this.database = new DatabaseVeraWeb(ctx);
 	}
-	
+
 	/**
 	 * Create ot update optional field.
      *
@@ -78,7 +78,7 @@ public class OptionalFieldsWorker {
 			this.createOptionalField(optionalField);
 		}
 	}
-	
+
 	/**
 	 * Create optional field.
      *
@@ -140,7 +140,7 @@ public class OptionalFieldsWorker {
 	public boolean checkOptionFieldExists(OptionalField optionalField) throws BeanException, SQLException {
         final Select select = getStatementCheckOptionalFieldExists(optionalField);
         final ResultSet resultSet = database.result(select);
-	
+
 		return resultSet.next();
 	}
 
@@ -168,9 +168,9 @@ public class OptionalFieldsWorker {
 	private Delete getDeleteDependenciesStatement(OptionalField optionalField) {
         final Delete deleteStatement = SQL.Delete(this.database);
         final WhereList whereCriterias = new WhereList();
-        
+
         whereCriterias.add(new Where("fk_delegation_field", optionalField.getPk(), "="));
-        
+
         deleteStatement.from(DELEGATON_FIELD_VALUE_TABLE_NAME);
         deleteStatement.where(whereCriterias);
         return deleteStatement;

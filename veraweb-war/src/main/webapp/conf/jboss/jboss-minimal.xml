@@ -35,7 +35,7 @@
     -->
     <attribute name="Port">1099</attribute>
   </mbean>
-  <mbean code="org.jboss.naming.JNDIView" 
+  <mbean code="org.jboss.naming.JNDIView"
 	 name="jboss:service=JNDIView"/>
 
   <!-- ==================================================================== -->
@@ -54,25 +54,25 @@
          must be an implementation of java.util.Comparator, it must be able
          to compare two URL objects, and it must have a no-arg constructor.
          Two deployment comparators are shipped with JBoss:
-           - org.jboss.deployment.DeploymentSorter 
+           - org.jboss.deployment.DeploymentSorter
              Sorts by file extension, as follows:
-               "sar", "service.xml", "rar", "jar", "war", "wsr", "ear", "zip", 
+               "sar", "service.xml", "rar", "jar", "war", "wsr", "ear", "zip",
                "*"
            - org.jboss.deployment.scanner.PrefixDeploymentSorter
-             If the name portion of the url begins with 1 or more digits, those 
-             digits are converted to an int (ignoring leading zeroes), and 
-             files are deployed in that order.  Files that do not start with 
+             If the name portion of the url begins with 1 or more digits, those
+             digits are converted to an int (ignoring leading zeroes), and
+             files are deployed in that order.  Files that do not start with
              any digits will be deployed last, and they will be sorted by
              extension as above with DeploymentSorter.
     -->
     <attribute name="URLComparator">org.jboss.deployment.DeploymentSorter</attribute>
     <!-- The Filter specifies a java.io.FileFilter for scanned
          directories.  Any file not accepted by this filter will not be
-         deployed.  The org.jboss.deployment.scanner.DeploymentFilter 
+         deployed.  The org.jboss.deployment.scanner.DeploymentFilter
          rejects the following patterns:
-             "#*", "%*", ",*", ".*", "_$*", "*#", "*$", "*%", "*.BAK", 
-             "*.old", "*.orig", "*.rej", "*.bak", "*,v", "*~", ".make.state", 
-             ".nse_depinfo", "CVS", "CVS.admin", "RCS", "RCSLOG", "SCCS", 
+             "#*", "%*", ",*", ".*", "_$*", "*#", "*$", "*%", "*.BAK",
+             "*.old", "*.orig", "*.rej", "*.bak", "*,v", "*~", ".make.state",
+             ".nse_depinfo", "CVS", "CVS.admin", "RCS", "RCSLOG", "SCCS",
              "TAGS", "core", "tags"
     -->
     <attribute name="Filter">org.jboss.deployment.scanner.DeploymentFilter</attribute>

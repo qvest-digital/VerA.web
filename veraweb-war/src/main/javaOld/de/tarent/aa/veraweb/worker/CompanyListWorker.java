@@ -41,13 +41,13 @@ import de.tarent.octopus.server.OctopusContext;
 
 /**
  * <p>
- * Diese Octopus-Worker-Klasse l�dt eine Liste von Firmen,
+ * Diese Octopus-Worker-Klasse lädt eine Liste von Firmen,
  * diese werden in dem Popup zur Firmen-Auswahl angezeigt.
  * </p>
  * <p>
  * Details bitte dem {@link de.tarent.octopus.beans.BeanListWorker BeanListWorker} entnehmen.
  * </p>
- * 
+ *
  * @author Christoph Jerolimov
  */
 public class CompanyListWorker extends ListWorkerVeraWeb {
@@ -65,7 +65,7 @@ public class CompanyListWorker extends ListWorkerVeraWeb {
     // Oberklasse BeanListWorker
     //
 	/**
-	 * Schr�nkt das Suchergebnis auf nicht gel�schte Firmen ein.
+	 * Schränkt das Suchergebnis auf nicht gelöschte Firmen ein.
 	 */
 	@Override
     protected void extendWhere(OctopusContext cntx, Select select) throws BeanException, IOException {
@@ -83,22 +83,22 @@ public class CompanyListWorker extends ListWorkerVeraWeb {
 	@Override
     protected Integer getAlphaStart(OctopusContext cntx, String start) throws BeanException, IOException {
 		Database database = getDatabase(cntx);
-		
+
 		Where where = Where.and(
 				Expr.equal("fk_orgunit", ((PersonalConfigAA)cntx.personalConfig()).getOrgUnitId()), Where.and(
 				Expr.equal("deleted", PersonConstants.DELETED_FALSE),
 				Expr.equal("iscompany", PersonConstants.ISCOMPANY_TRUE)));
-		
+
 		StringBuffer buffer = new StringBuffer();
 		buffer.append("(");
 		buffer.append(where.clauseToString());
 		buffer.append(") AND lastname_a_e1 < '");
 		Escaper.escape(buffer, start);
 		buffer.append("'");
-		
+
 		Select select = database.getCount(BEANNAME);
 		select.where(new RawClause(buffer));
-		
+
 		Integer i = database.getCount(select);
 		return new Integer(i.intValue() - (i.intValue() % getLimit(cntx).intValue()));
 	}
@@ -106,14 +106,14 @@ public class CompanyListWorker extends ListWorkerVeraWeb {
 	//
     // Octopus-Aktionen
     //
-	/** Octopus-Parameter f�r die Aktion {@link #copyCompanyData(OctopusContext, Integer, String)} */
+	/** Octopus-Parameter für die Aktion {@link #copyCompanyData(OctopusContext, Integer, String)} */
 	public static final String INPUT_copyCompanyData[] = { "company", "companyfield" };
 	/**
-	 * Diese Worker-Aktion l�dt einen Person Eintrag und kopiert
-	 * entsprechende Firmen-Daten in die aktuell ge�ffnete Person.
-	 * 
+	 * Diese Worker-Aktion lädt einen Person Eintrag und kopiert
+	 * entsprechende Firmen-Daten in die aktuell geöffnete Person.
+	 *
 	 * @param cntx Octopus-Context
-	 * @param company Person-PK der Firma dessen Daten �bernommen werden sollen.
+	 * @param company Person-PK der Firma dessen Daten übernommen werden sollen.
 	 * @param companyfield Name des HTML-Firmenfeldes zu dem Firmendaten geladen werden sollen.
 	 * @throws BeanException
 	 * @throws IOException
@@ -122,19 +122,19 @@ public class CompanyListWorker extends ListWorkerVeraWeb {
 	    cntx.setContent("tab", cntx.requestAsObject("tab"));
 	    Database database2 = new DatabaseVeraWeb(cntx);
 	    TransactionContext context = database2.getTransactionContext();
-		
+
 		final boolean copyAll = false;
-		
+
 		Request request = getRequest(cntx);
 		Database database = getDatabase(cntx);
-		
+
 		Person person = (Person)request.getBean("Person", "person");
 		Person personcompany = (Person)
 				database.getBean("Person",
 				database.getSelect(person).
 				where(Expr.equal("pk", company)));
 		if (personcompany == null) personcompany = new Person();
-		
+
 		boolean copyBusinessLatin = copyAll || "person-company_a_e1".equals(companyfield);
 		boolean copyBusinessExtra1 = copyAll || "person-company_a_e2".equals(companyfield);
 		boolean copyBusinessExtra2 = copyAll || "person-company_a_e3".equals(companyfield);
@@ -144,7 +144,7 @@ public class CompanyListWorker extends ListWorkerVeraWeb {
 		boolean copyOtherLatin = copyAll || "person-company_c_e1".equals(companyfield);
 		boolean copyOtherExtra1 = copyAll || "person-company_c_e2".equals(companyfield);
 		boolean copyOtherExtra2 = copyAll || "person-company_c_e3".equals(companyfield);
-		
+
 		//Name der Firma steht in Lastname. Der wird bei der Person nach Company kopiert
 		String companyNameLatin, companyNameExtra1, companyNameExtra2;
 		companyNameLatin = personcompany.getMainLatin().getCompany();
@@ -152,7 +152,7 @@ public class CompanyListWorker extends ListWorkerVeraWeb {
 		if (AddressHelper.empty(companyNameExtra1)) companyNameExtra1 = companyNameLatin;
 		companyNameExtra2 = personcompany.getMainExtra2().getCompany();
 		if (AddressHelper.empty(companyNameExtra2)) companyNameExtra2 = companyNameLatin;
-		
+
 		if (copyBusinessLatin) {
 			AddressHelper.copyAddressData(personcompany.getBusinessLatin(), person.getBusinessLatin(), true, true, true, true);
 			person.getBusinessLatin().setCompany(companyNameLatin);

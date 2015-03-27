@@ -43,7 +43,7 @@ import de.tarent.octopus.server.OctopusContext;
 
 /**
  * Diese Octopus-Worker-Klasse stellt Operationen zur Anzeige
- * von Mandantenlisten zur Verf�gung. Details bitte dem
+ * von Mandantenlisten zur Verfügung. Details bitte dem
  * {@link de.tarent.octopus.beans.veraweb.ListWorkerVeraWeb}
  * entnehmen.
  *
@@ -65,15 +65,15 @@ public class OrgUnitListWorker extends ListWorkerVeraWeb {
     //
     /**
      * Wird von {@link de.tarent.octopus.beans.BeanListWorker#saveList(OctopusContext)}
-     * aufgerufen und soll das �bergebene Bean als neuen Eintrag speichern.
-     * 
+     * aufgerufen und soll das übergebene Bean als neuen Eintrag speichern.
+     *
      * 2015-03-13 - We have one Press category for every Mandant.
-     * 
+     *
      * @see #saveBean(OctopusContext, Bean)
      *
      * @param cntx Octopus-Kontext
      * @param errors kummulierte Fehlerliste
-     * @param bean einzuf�gendes Bean
+     * @param bean einzufügendes Bean
      * @throws BeanException
      * @throws IOException
      */
@@ -110,7 +110,7 @@ public class OrgUnitListWorker extends ListWorkerVeraWeb {
 
     /**
      * Wird von {@link de.tarent.octopus.beans.BeanListWorker#saveList(OctopusContext)}
-     * aufgerufen und soll die �bergebene Liste von Beans aktualisieren.
+     * aufgerufen und soll die übergebene Liste von Beans aktualisieren.
      *
      * @see #saveBean(OctopusContext, Bean)
      *
@@ -130,7 +130,7 @@ public class OrgUnitListWorker extends ListWorkerVeraWeb {
                     if (bean instanceof OrgUnit) {
                         OrgUnit orgunitBean = (OrgUnit) bean;
                         if (orgunitBean.id == null) {
-                            errors.add("Zu aktualisierender Mandant " + orgunitBean.name + " muss eine ID haben");
+                            errors.add("Zu aktualisierender Mandant " + orgunitBean.name + " muß eine ID haben");
                             continue;
                         }
                         Database database = context.getDatabase();
@@ -159,16 +159,16 @@ public class OrgUnitListWorker extends ListWorkerVeraWeb {
 	// weitere Octopus-Aktionen
 	//
 
-	/** Octopus-Eingabe-Parameter f�r {@link #cleanupDatabase(OctopusContext, Integer)} */
+	/** Octopus-Eingabe-Parameter für {@link #cleanupDatabase(OctopusContext, Integer)} */
 	public static final String INPUT_cleanupDatabase[] = { "orgunit" };
-	/** Octopus-Eingabe-Parameter f�r {@link #cleanupDatabase(OctopusContext, Integer)} */
+	/** Octopus-Eingabe-Parameter für {@link #cleanupDatabase(OctopusContext, Integer)} */
 	public static final boolean MANDATORY_cleanupDatabase[] = { false };
-	/** Octopus-Ausgabe-Parameter f�r {@link #cleanupDatabase(OctopusContext, Integer)} */
+	/** Octopus-Ausgabe-Parameter für {@link #cleanupDatabase(OctopusContext, Integer)} */
 	public static final String OUTPUT_cleanupDatabase = "missingorgunit";
 	/**
-	 * Zeigt eine Statistik �ber 'verloren' gegangene Datens�tze an.
-	 * Wenn der Parameter <code>orgunit</code> �bergeben wird werden
-	 * alle Datens�tze ohne g�ltigen Mandanten diesem zugeordnet.
+	 * Zeigt eine Statistik über 'verloren' gegangene Datensätze an.
+	 * Wenn der Parameter <code>orgunit</code> übergeben wird werden
+	 * alle Datensätze ohne gültigen Mandanten diesem zugeordnet.
 	 *
 	 * @param cntx Octopus-Context-Instanz
 	 * @param orgunit Neue Orgunit-ID
@@ -229,7 +229,7 @@ public class OrgUnitListWorker extends ListWorkerVeraWeb {
 	 * fixed as part of issue #1530 - deletion of orgunits and cascaded deletion of both workareas and person to workarea assignments
 	 * 									note that in expectance of a major overhaul of the way that workareas are handled, the sql datamodel
 	 * 									will not be changed now.
-	 * 2015-03-13 - We have one Press category for every Mandant. That will be deleted when we want to delete one of these mandants 
+	 * 2015-03-13 - We have one Press category for every Mandant. That will be deleted when we want to delete one of these mandants
 	 */
 	@Override
     protected boolean removeBean(OctopusContext cntx, Bean bean, TransactionContext context) throws BeanException, IOException
@@ -241,16 +241,16 @@ public class OrgUnitListWorker extends ListWorkerVeraWeb {
 		final Delete deleteStatement = database.getDelete( "OrgUnit" );
 		deleteStatement.byId("pk", ((OrgUnit) bean).id);
 		context.execute( deleteStatement );
-		
+
 		// Remove category pressevertreter of the current mandant
 		deletePressCategoryByOrgUnit(cntx,context,((OrgUnit)bean).id);
-		
+
 		return true;
 	}
-	
+
 	/**
 	 * Delete press category linked to the deleted mandant
-	 * 
+	 *
 	 * @param cntx OctopusContext
 	 * @param context TransactionContext
 	 * @param orgUnitId Integer
@@ -263,7 +263,7 @@ public class OrgUnitListWorker extends ListWorkerVeraWeb {
 
 		final Delete deleteStatement = database.getDelete("Categorie");
 		deleteStatement.where(Where.and(Expr.equal("fk_orgunit", orgUnitId), Expr.equal("catname", "Pressevertreter")));
-		
+
 		context.execute(deleteStatement);
 	}
 	/**
@@ -272,7 +272,7 @@ public class OrgUnitListWorker extends ListWorkerVeraWeb {
 	 * @param orgUnitId Integer
 	 * @param context TransactionContext
 	 * @throws BeanException
-	 * @throws IOException 
+	 * @throws IOException
 	 */
 	private void initPressCategory(OctopusContext cntx, Integer orgUnitId, TransactionContext context) throws BeanException, IOException {
 		// Implementieren
@@ -281,9 +281,9 @@ public class OrgUnitListWorker extends ListWorkerVeraWeb {
 		category.name = "Pressevertreter";
 		category.flags = 0;
 		category.orgunit = orgUnitId;
-		
+
 		final Insert insertStatement = database.getInsert(category);
-		
+
 		context.execute(insertStatement);
 	}
 

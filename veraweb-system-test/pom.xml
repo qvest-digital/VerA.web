@@ -3,12 +3,12 @@
     <groupId>org.evolvis.veraweb</groupId>
     <artifactId>veraweb-system-test</artifactId>
     <version>1.5.0.3-SNAPSHOT</version>
-    
+
     <name>VerA.web System Test</name>
     <url>http://veraweb.evolvis.org/</url>
 
     <description>Systemtest für die VerA.web Web Applikation zur Registrierung eines digitalen Nachsendeauftrags.</description>
-    
+
     <licenses>
 		<license>
 			<name>GNU General Public License</name>
@@ -26,11 +26,12 @@
 	</mailingLists>
 
     <properties>
+	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     	<spring.version>3.2.0.RELEASE</spring.version>
 		<cucumber.version>1.0.14</cucumber.version>
 		<gherkin.version>2.11.5</gherkin.version>
 		<selenium.version>2.28.0</selenium.version>
-    
+
         <result.content.path>${project.build.directory}/test-results/${profile}</result.content.path>
         <cucumber.out.colored>true</cucumber.out.colored>
         <selenium.server.host>selenium-test.lan.tarent.de</selenium.server.host>
@@ -42,7 +43,7 @@
         <result.content.zip.path>resultContent.zip</result.content.zip.path>
         <new.session.per.feature>false</new.session.per.feature>
         <cucumber.tags>~@wip</cucumber.tags>
-        
+
         <veraweb.baseUrl>https://veraweb.lan.tarent.de/veraweb/do/</veraweb.baseUrl>
         <veraweb.db.driver>org.postgresql.Driver</veraweb.db.driver>
         <veraweb.db.url>jdbc:postgresql://veraweb.lan.tarent.de:5432/veraweb</veraweb.db.url>
@@ -306,7 +307,7 @@
 					<useProjectReferences>false</useProjectReferences>
 				</configuration>
 			</plugin>
-           
+
               <plugin>
                   <groupId>org.apache.maven.plugins</groupId>
                   <artifactId>maven-antrun-plugin</artifactId>
@@ -352,10 +353,10 @@
     </build>
 
     <profiles>
-        <!-- Each profile is for a variant of the application for a specific target. The profile id denotes the name to use 
-            on the command-line (-P <profilename>). The value of the variable 'profile' denotes the name of the directory containing 
-            further configuration files. Both names should be equal. To introduce a new profile copy an existing stanza from below, invent 
-            a new name and make a copy of an existing configuration directory. Finally adjust all the configuration files in the newly 
+        <!-- Each profile is for a variant of the application for a specific target. The profile id denotes the name to use
+            on the command-line (-P <profilename>). The value of the variable 'profile' denotes the name of the directory containing
+            further configuration files. Both names should be equal. To introduce a new profile copy an existing stanza from below, invent
+            a new name and make a copy of an existing configuration directory. Finally adjust all the configuration files in the newly
             created directory. -->
         <profile>
             <id>developer</id>
@@ -387,7 +388,7 @@
             </build>
         </profile>
 
-        
+
 
         <profile>
             <id>cucumberIE</id>
@@ -404,7 +405,7 @@
                 </plugins>
             </build>
         </profile>
-        
+
         <profile>
             <id>cucumberChrome</id>
             <properties>
@@ -420,7 +421,7 @@
                 </plugins>
             </build>
         </profile>
-        
+
         <profile>
             <id>cucumberOpera</id>
             <properties>

@@ -41,9 +41,9 @@ import de.tarent.octopus.beans.veraweb.ListWorkerVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
 
 /**
- * Dieser Worker stellt Hilfsfunktionen zur Verf�gung um Einstellungen
+ * Dieser Worker stellt Hilfsfunktionen zur Verfügung um Einstellungen
  * aus der Datenbank auszulesen.
- * 
+ *
  * @author Christoph Jerolimov
  * @version $Revision: 1.1 $
  */
@@ -80,11 +80,11 @@ public class ConfigWorker extends ListWorkerVeraWeb {
     /** Input-Parameter der Octopus-Aktion {@link #init(OctopusContext)} */
 	static public final String INPUT_init[] = {};
     /**
-     * Diese Octopus-Aktion initialisiert die Map der Konfig-Eintr�ge dieses
+     * Diese Octopus-Aktion initialisiert die Map der Konfig-Einträge dieses
      * Workers aus der Datenbank (mittels der ererbten Aktion
      * {@link de.tarent.octopus.beans.BeanListWorker#getAll(OctopusContext)})
-     * gegebenenfalls erg�nzt um einige Muss-Eintr�ge.  
-     * 
+     * gegebenenfalls ergänzt um einige Muss-Einträge.
+     *
      * @param cntx Octopus-Kontext
      */
 	public void init(OctopusContext cntx) throws BeanException, IOException {
@@ -96,7 +96,7 @@ public class ConfigWorker extends ListWorkerVeraWeb {
 			Map entry = (Map)it.next();
 			result.put(entry.get("key"), entry.get("value"));
 		}
-		
+
 		// default config aus properties laden
 		for (int i = 0; i < defaultTarget.length; i++) {
 			String value = (String)result.get(defaultTarget[i]);
@@ -111,7 +111,7 @@ public class ConfigWorker extends ListWorkerVeraWeb {
 				}
 			}
 		}
-		
+
 		config = result;
 		loaded = true;
 	}
@@ -119,11 +119,11 @@ public class ConfigWorker extends ListWorkerVeraWeb {
     /** Input-Parameter der Octopus-Aktion {@link #load(OctopusContext)} */
     static public final String INPUT_load[] = {};
     /**
-     * Diese Octopus-Aktion initialisiert die Map der Konfig-Eintr�ge dieses
+     * Diese Octopus-Aktion initialisiert die Map der Konfig-Einträge dieses
      * Workers mittels der Aktion {@link #init(OctopusContext)}, sofern dies
      * nicht schon zuvor geschehen ist, und setzt einen entsprechenden Eintrag
      * im Octopus-Content.
-     * 
+     *
      * @param cntx Octopus-Kontext
      * @throws BeanException
      * @throws IOException
@@ -138,9 +138,9 @@ public class ConfigWorker extends ListWorkerVeraWeb {
     /** Input-Parameter der Octopus-Aktion {@link #clean(OctopusContext)} */
     static public final String INPUT_clean[] = {};
     /**
-     * Diese Octopus-Aktion deinitialisiert die Map der Konfig-Eintr�ge dieses
+     * Diese Octopus-Aktion deinitialisiert die Map der Konfig-Einträge dieses
      * Workers.
-     * 
+     *
      * @param cntx Octopus-Kontext
      */
 	public void clean(OctopusContext cntx) {
@@ -151,19 +151,19 @@ public class ConfigWorker extends ListWorkerVeraWeb {
     /** Input-Parameter der Octopus-Aktion {@link #save(OctopusContext)} */
     static public final String INPUT_save[] = {};
     /**
-     * Diese Octopus-Aktion speichert eine Liste von Konfigurationseintr�gen aus dem
+     * Diese Octopus-Aktion speichert eine Liste von Konfigurationseinträgen aus dem
      * Octopus-Request (unter "saveconfig-*") in der Datenbank.
-     * 
+     *
      * @param cntx Octopus-Kontext
      * @throws BeanException
      * @throws IOException
-     * @throws SQLException 
+     * @throws SQLException
      */
 	public void save(OctopusContext cntx) throws BeanException, IOException, SQLException {
 		if (!cntx.personalConfig().isUserInGroup(PersonalConfigAA.GROUP_ADMIN) || !cntx.requestContains("save")) {
 			return;
 		}
-		
+
 		List list = (List)BeanFactory.transform(cntx.requestAsObject("saveconfig"), List.class);
 		for (Iterator it = list.iterator(); it.hasNext(); ) {
 			String key = (String)it.next();
@@ -182,19 +182,19 @@ public class ConfigWorker extends ListWorkerVeraWeb {
 
 	/*
 	 * modified to support duration handling for the new setting change log retention policy
-	 * 
+	 *
 	 * refactored a bit to minimize processing overhead, namely removed redundant second loop and
 	 * moved default/new/null value handling to the first loop
-	 * 
+	 *
 	 * database query getCount() will now be executed only if there is a value to be stored
-	 * 
+	 *
 	 * cklein
 	 * 2008-02-27
 	 */
 	private void saveValue(OctopusContext cntx, String key, String value) throws BeanException, IOException, SQLException {
 		// wenn standard, dann null und default aus properties laden, sonst neuen wert in config hinterlegen
 		boolean found = false;
-		for (int i = 0; i < defaultTarget.length; i++) 
+		for (int i = 0; i < defaultTarget.length; i++)
 		{
 			if (defaultTarget[i].equals(key)) {
 				found = true;
@@ -244,7 +244,7 @@ public class ConfigWorker extends ListWorkerVeraWeb {
 				config.put( key, value );
 			}
 		}
-		
+
 		// einstellung in datenbank speichern
 		Database database = getDatabase(cntx);
 		if ( value != null && value.length() != 0 )
@@ -253,7 +253,7 @@ public class ConfigWorker extends ListWorkerVeraWeb {
 				database.getCount(
 				database.getCount("Config").
 				where(Expr.equal("cname", key)));
-		
+
 			if (count.intValue() == 0) {
 				Insert insert = SQL.Insert( database );
 				insert.table( "veraweb.tconfig" );
@@ -276,8 +276,8 @@ public class ConfigWorker extends ListWorkerVeraWeb {
 	}
 
 	/**
-	 * Gibt eine Config-Einstellung zur�ck.
-	 * 
+	 * Gibt eine Config-Einstellung zurück.
+	 *
 	 * @param cntx Octopus-Kontext
 	 * @param key Name hinter dem die Einstellung hinterlegt sein soll.
 	 * @return Der Wert der Einstellung oder null.
@@ -287,9 +287,9 @@ public class ConfigWorker extends ListWorkerVeraWeb {
 	}
 
 	/**
-	 * Gibt eine Config-Einstellung zur�ck, falls dieser nicht zu einer
-	 * Zahl transformiert werden kann wird null zur�ckgegeben.
-	 * 
+	 * Gibt eine Config-Einstellung zurück, falls dieser nicht zu einer
+	 * Zahl transformiert werden kann wird null zurückgegeben.
+	 *
 	 * @param cntx Octopus-Kontext
 	 * @param key Name hinter dem die Einstellung hinterlegt sein soll.
 	 * @return Der Wert der Einstellung oder null.

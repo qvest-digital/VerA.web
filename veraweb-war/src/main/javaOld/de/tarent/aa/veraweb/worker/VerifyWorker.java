@@ -44,7 +44,7 @@ import de.tarent.octopus.server.OctopusContext;
  * @author Christoph
  */
 public class VerifyWorker {
-	/** Octopus-Eingabeparameter f�r die Aktion {@link #addError(OctopusContext, String)} */
+	/** Octopus-Eingabeparameter für die Aktion {@link #addError(OctopusContext, String)} */
 	public static final String INPUT_addError[] = { "message" };
 	/**
 	 * Octopus-Aktion die einen Error in den Content stellt.
@@ -64,7 +64,7 @@ public class VerifyWorker {
 		}
 	}
 
-	/** Octopus-Eingabeparameter f�r die Aktion {@link #addWarning(OctopusContext, String)} */
+	/** Octopus-Eingabeparameter für die Aktion {@link #addWarning(OctopusContext, String)} */
 	public static final String INPUT_addWarning[] = { "message" };
 	/**
 	 * Octopus-Aktion die eine Warnung in den Content stellt.
@@ -84,11 +84,11 @@ public class VerifyWorker {
 		}
 	}
 
-	/** Octopus-Eingabeparameter f�r die Action {@link #verifyDatabase(OctopusContext)} */
+	/** Octopus-Eingabeparameter für die Action {@link #verifyDatabase(OctopusContext)} */
 	public final static String INPUT_verifyDatabase[] = {};
 
 	/**
-	 * Testet ob der Connection-Pool korrekt ge�ffnet wurde.
+	 * Testet ob der Connection-Pool korrekt geöffnet wurde.
 	 *
 	 * @param cntx Octopus-Context
 	 */
@@ -112,11 +112,11 @@ public class VerifyWorker {
 		}
 	}
 
-	/** Octopus-Eingabeparameter f�r die Action {@link #verifySchemaVersion(OctopusContext)} */
+	/** Octopus-Eingabeparameter für die Action {@link #verifySchemaVersion(OctopusContext)} */
 	public final static String INPUT_verifySchemaVersion[] = {};
 	/**
 	 * Testet ob die Version des Datenbank-Schemas mit der Version in der
-	 * veraweb.properties �bereinstimmt und erweitert ggf. die Liste mit
+	 * veraweb.properties übereinstimmt und erweitert ggf. die Liste mit
 	 * Fehlern und stellt diese in den Content.
 	 *
 	 * @param cntx OctopusContext
@@ -139,7 +139,7 @@ public class VerifyWorker {
 		}
 	}
 
-	/** Octopus-Eingabeparameter f�r die Action {@link #getDatabaseCharset(OctopusContext)} */
+	/** Octopus-Eingabeparameter für die Action {@link #getDatabaseCharset(OctopusContext)} */
 	public final static String INPUT_getDatabaseCharset[] = {};
 	/**
 	 * Testet ob der Zeichensatz der Datenbank richtig konfiguriert ist.
@@ -156,7 +156,7 @@ public class VerifyWorker {
 		database.close();
 	}
 
-	/** Octopus-Eingabeparameter f�r die Action {@link #verifyDatabaseCharset(OctopusContext)} */
+	/** Octopus-Eingabeparameter für die Action {@link #verifyDatabaseCharset(OctopusContext)} */
 	public final static String INPUT_verifyDatabaseCharset[] = {};// "LC_CTYPE", "LC_COLLATE" };
 	/**
 	 * Testet ob der Zeichensatz der Datenbank richtig konfiguriert ist.
@@ -197,10 +197,10 @@ public class VerifyWorker {
 		}
 	}
 
-	/** Octopus-Eingabeparameter f�r die Aktion {@link #verifyXMLTransformer(OctopusContext)} */
+	/** Octopus-Eingabeparameter für die Aktion {@link #verifyXMLTransformer(OctopusContext)} */
 	public final static String INPUT_verifyXMLTransformer[] = {};
 	/**
-	 * Testet ob der XML Transformer (f�r OpenOffice) korrektes XML erzeugt.
+	 * Testet ob der XML Transformer (für OpenOffice) korrektes XML erzeugt.
 	 *
 	 * @param cntx OctopusContext
 	 */
@@ -212,7 +212,7 @@ public class VerifyWorker {
 		}
 	}
 
-	/** Octopus-Eingabeparameter f�r die Aktion {@link #verifyJavaVersion(OctopusContext)} */
+	/** Octopus-Eingabeparameter für die Aktion {@link #verifyJavaVersion(OctopusContext)} */
 	public final static String INPUT_verifyJavaVersion[] = {};
 	/**
 	 * Testet ob die verwendete Java-Version der spezifizierten entspricht.

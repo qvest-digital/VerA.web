@@ -30,16 +30,16 @@ import de.tarent.octopus.server.OctopusContext;
  * @author christoph
  */
 public class ActionWorker {
-    /** Octopus-Eingabe-Parameter f�r {@link #load(OctopusContext, String)} */
+    /** Octopus-Eingabe-Parameter für {@link #load(OctopusContext, String)} */
 	public static final String[] INPUT_load = { "action" };
-    /** Octopus-Eingabepflicht-Parameter f�r {@link #load(OctopusContext, String)} */
+    /** Octopus-Eingabepflicht-Parameter für {@link #load(OctopusContext, String)} */
 	public static final boolean[] MANDATORY_load = { false };
-    /** Octopus-Ausgabe-Parameter f�r {@link #load(OctopusContext, String)} */
+    /** Octopus-Ausgabe-Parameter für {@link #load(OctopusContext, String)} */
 	public static final String OUTPUT_load = "action";
 
     /**
      * Diese Worker-Aktion ermittelt aus Request und Session die aktuelle
-     * Aktion, legt sie in der Session ab und gibt sie zur�ck.<br>
+     * Aktion, legt sie in der Session ab und gibt sie zurück.<br>
      * TODO: action Parameter Hack entfernen, siehe eventDetail.vm,
      *       dort kann man sonst die form-action nicht setzten!!
      *
@@ -61,17 +61,17 @@ public class ActionWorker {
 		return action;
 	}
 
-    /** Octopus-Eingabe-Parameter f�r {@link #remove(OctopusContext, String)} */
+    /** Octopus-Eingabe-Parameter für {@link #remove(OctopusContext, String)} */
 	public static final String[] INPUT_remove = { "action" };
-    /** Octopus-Eingabepflicht-Parameter f�r {@link #remove(OctopusContext, String)} */
+    /** Octopus-Eingabepflicht-Parameter für {@link #remove(OctopusContext, String)} */
 	public static final boolean[] MANDATORY_remove = { false };
-    /** Octopus-Ausgabe-Parameter f�r {@link #remove(OctopusContext, String)} */
+    /** Octopus-Ausgabe-Parameter für {@link #remove(OctopusContext, String)} */
 	public static final String OUTPUT_remove = "action";
 	/** Octopus-Config for Online Registration plattform activation */
 	public static final String ONLINEREG_ACTIVATION = "online-registration.activated";
     /**
-     * Diese Methode l�scht die aktuelle Aktion und ersetzt sie gegebenenfalls
-     * durch die �bergebene.
+     * Diese Methode löscht die aktuelle Aktion und ersetzt sie gegebenenfalls
+     * durch die übergebene.
      *
      * @param cntx Octopus-Kontext
      * @param action optionaler Parameter "action"

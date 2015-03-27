@@ -30,7 +30,7 @@ public class Salutation extends AbstractBean {
 	public String name;
 	/**
 	 * Automatisch mit dieser Anrede verbundenes Geschlecht.<br>
-	 * NULL = Keins, 'M' = M�nnlich, 'F' = Weiblich
+	 * NULL = Keins, 'M' = Männlich, 'F' = Weiblich
 	 */
 	public String gender;
 

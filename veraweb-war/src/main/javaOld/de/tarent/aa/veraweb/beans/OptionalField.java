@@ -25,26 +25,26 @@ import java.sql.SQLException;
 
 /**
  * Dieses Bean bildet einen Eintrag der Tabelle <em>veraweb.toptional_fields</em> ab.
- * 
+ *
  * @author Max Marche <m.marche@tarent.de
  */
 public class OptionalField {
 	private int pk;
 	private String label;
 	private int fkEvent;
-	
+
 	public OptionalField() {
 		this.label = "";
 		this.fkEvent = -1;
 	}
-	
+
 	public OptionalField(ResultSet resultSet) throws SQLException {
 		this.pk = resultSet.getInt("pk");
 		this.label = resultSet.getString("label");
 		this.fkEvent = resultSet.getInt("fk_event");
 	}
 
-	
+
 	public int getPk() {
 		return pk;
 	}

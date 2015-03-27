@@ -1,3 +1,22 @@
+/**
+ * veraweb, platform independent webservice-based event management
+ * (Veranstaltungsmanagment VerA.web), is
+ * Copyright © 2004–2008 tarent GmbH
+ * Copyright © 2013–2015 tarent solutions GmbH
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along
+ * with this program; if not, see: http://www.gnu.org/licenses/
+ */
 package de.tarent.aa.veraweb.utils;
 
 import java.io.IOException;
@@ -28,9 +47,9 @@ import de.tarent.octopus.server.OctopusContext;
 /**
  * This class contains methods to handle all needed duplication checks on a
  * {@link Person}.
- * 
+ *
  * @author Viktor Hamm, tarent Solution GmbH, v.hamm@tarent.de
- * 
+ *
  */
 public class PersonDuplicateCheckHelper {
 
@@ -59,7 +78,7 @@ public class PersonDuplicateCheckHelper {
 
 	/**
 	 * Constructor to use to check person imports.
-	 * 
+	 *
 	 * @param context
 	 *            - the execution context
 	 * @param importInstance
@@ -74,9 +93,9 @@ public class PersonDuplicateCheckHelper {
 
 	/**
 	 * Count the duplicates found from the database.
-	 * 
+	 *
 	 * @return duplicate count
-	 * 
+	 *
 	 * @throws IOException
 	 * @throws BeanException
 	 * @throws SQLException
@@ -133,7 +152,7 @@ public class PersonDuplicateCheckHelper {
 	/**
 	 * Retrieves all imported persons data by the currently used import.
 	 * Identified by fk_import from the importInstance.id
-	 * 
+	 *
 	 * @return a list of {@link ResultList}
 	 * @throws IOException
 	 * @throws BeanException
@@ -162,12 +181,12 @@ public class PersonDuplicateCheckHelper {
 
 	/***
 	 * Check if given {@link Person} has an duplicate into the database.
-	 * 
+	 *
 	 * @param cntx
 	 *            - {@link OctopusContext} the octopus context
 	 * @param person
 	 *            - {@link Person} the person to check agains the database
-	 * 
+	 *
 	 * @return {@link Clause} the sql statement for the check.
 	 */
 	public Clause getDuplicateExprPerson(OctopusContext cntx, Person person) {
@@ -198,13 +217,13 @@ public class PersonDuplicateCheckHelper {
 		if (cpr.propertiesAreAvailable()) {
 			for (final String key : cpr.properties.stringPropertyNames()) {
 				String value = cpr.properties.getProperty(key);
-	
+
 				if (ln.contains(value)) {
 					ln = ln.replaceAll(value, key);
 				} else if (ln.contains(key)) {
 					ln = ln.replaceAll(key, value);
 				}
-	
+
 				if (fn.contains(value)) {
 					fn = fn.replaceAll(value, key);
 				} else if (fn.contains(key)) {
@@ -222,7 +241,7 @@ public class PersonDuplicateCheckHelper {
 
 	/**
 	 * All posible cases for duplicates TODO Write explanation
-	 * 
+	 *
 	 * @param ln
 	 *            converted lastname
 	 * @param fn
@@ -320,7 +339,7 @@ public class PersonDuplicateCheckHelper {
 
 	/**
 	 * Updates the found duplicate ids.
-	 * 
+	 *
 	 * @param importPerson
 	 *            - the imported person to update
 	 * @param duplicates
@@ -342,7 +361,7 @@ public class PersonDuplicateCheckHelper {
 	/**
 	 * Creates a string from the given duplicate ids with the
 	 * {@link ImportPerson#PK_SEPERATOR_CHAR} character.
-	 * 
+	 *
 	 * @param duplicates
 	 *            - the duplicate list
 	 * @return the duplicates as string

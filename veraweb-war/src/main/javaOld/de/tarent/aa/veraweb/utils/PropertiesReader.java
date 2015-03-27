@@ -48,12 +48,12 @@ public class PropertiesReader {
     public String getProperty(String key) {
         return this.properties.getProperty(key);
     }
-    
+
     public boolean propertiesAreAvailable() {
     	return (this.properties == null) ? false : true;
     }
-    
-    
+
+
     private Properties loadProperties() {
     	final Properties properties = new Properties();
 
@@ -66,7 +66,7 @@ public class PropertiesReader {
         } finally {
             try { inputStream.close(); } catch (Exception e) { }
         }
-        
-		return properties; 
+
+		return properties;
     }
 }

@@ -13,11 +13,11 @@
 	<h1>Verteiler anlegen</h1>
 
 	<div id="main_content" class="contentBoxColored grayBorder marginBottom10">
-		
+
 		<div class="textRight mandatoryText">* = Pflichtfelder</div>
 
     		<form action="SaveMailinglist" name="mailinglists" method="POST" onsubmit="htmlWait();">
-    		
+
         		#if($mailinglist.errors.size() > 0)
             		<vera-warn>
             			$!message.plain($mailinglist.errors.get(0))<br>
@@ -26,23 +26,23 @@
                 		##	#end
             		</vera-warn>
         		#end
-        		
+
         		<p>Sie legen einen neuen Verteiler aus der Veranstaltung <strong>&quot;$!message.plain($event.shortname)&quot;</strong> mit
-        		
+
     			#if($mailinglistParams.count == 1)
-        			einer Person 
+        			einer Person
         		#else
-        			$!mailinglistParams.count Personen 
+        			$!mailinglistParams.count Personen
         		#end
         		an
         		</p>
-        		
+
         		<input type="hidden" name="mailinglist-event" value="$!event.id">
-        
+
         		<label for="mailinglist-name">Verteilername*</label>
-        		<input type="text" name="mailinglist-name" value="$!message.text($mailinglist.name)" id="mailinglist-name">   
+        		<input type="text" name="mailinglist-name" value="$!message.text($mailinglist.name)" id="mailinglist-name">
         	</div>
-			
+
         	<div class="textRight">
         		<input type="submit" name="save" class="mainButton" value="Verteiler speichern" title="Verteiler speichern">
         		<input type="button" name="cancel" class="mainButton" value="Zur&uuml;ck zur G&auml;steverwaltung" title="Zur&uuml;ck zur G&auml;steverwaltung" onclick="window.location.href='ShowGuestList?selectNone=true';">

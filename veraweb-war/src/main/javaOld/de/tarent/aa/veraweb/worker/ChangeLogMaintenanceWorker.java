@@ -114,7 +114,7 @@ public class ChangeLogMaintenanceWorker implements Runnable {
 		}
 	}
 
-	/** Octopus-Eingabe-Parameter f�r {@link #unload(OctopusContext)} */
+	/** Octopus-Eingabe-Parameter für {@link #unload(OctopusContext)} */
 	public static final String INPUT_unload[] = {};
 	/**
 	 * Stops the background service.

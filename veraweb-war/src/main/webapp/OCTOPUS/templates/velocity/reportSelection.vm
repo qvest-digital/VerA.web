@@ -7,7 +7,7 @@
     	<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Veranstaltungen > Veranstaltung bearbeiten</span>
     </div>
     <h1>G&auml;steverwaltung der Veranstaltung: $!message.plain($event.shortname)</h1>
-	
+
 	#if(!$isNewEvent)
 		#set($completeEventHeader = true)
       	#parse("inc/event-header.vm")
@@ -15,7 +15,7 @@
 
 	<div class="contentBoxColored grayBorder marginTop20 marginBottom10">
         <form action="ReportGuestList" target="_blank" method="get">
-        	
+
         	<h2>G&auml;steliste erstellen</h2>
 
         	<div class="table">
@@ -42,13 +42,13 @@
 							$('#sortHeadline').css('display','none');
 							$('#sort').css('display','none');
 						}
-					});					
+					});
 				});
             </script>
-			
+
         	<!-- Der folgende Bereich soll bitte nur erscheinen, wenn "Liste nach Sortierung ausgewählt ist -->
         	<h3 class="marginBottom10 marginTop30" id="sortHeadline" style="display:none">Sortierkriterien</h3>
-        
+
         	<div class="table" id="sort" style="display:none">
         		<div class="tableRow">
         			<div class="tableCell">
@@ -137,14 +137,14 @@
         		</div>
         	</div>
         	<!-- Bereich Ende -->
-        	
+
         	<div id="buttonPanel-bottom" class="textRight">
         		<input type="submit" name="report" value="G&auml;steliste erstellen" title="G&auml;steliste erstellen" class="mainButton" />
             </div>
-        
+
         </form>
 	</div>
-	
+
 	<div id="buttonPanel-bottom" class="textRight">
 		<input type="button" name="cancel" value="Zur&uuml;ck zur G&auml;steverwaltung" title="Zur&uuml;ck zur G&auml;steverwaltung" class="mainButton" onclick="window.location.href='ShowGuestList?selectNone=true';" />
 	</div>

@@ -35,16 +35,16 @@ import junit.framework.TestCase;
 
 public class AALoginTest extends TestCase {
 	private boolean TEST_ENABLED = false;
-	
+
     private LDAPManagerAA manager = null;
-    
+
     @Override
     protected void setUp() throws Exception {
     	super.setUp();
-    	
+
     	if (!TEST_ENABLED)
     		return;
-    	
+
         Map params = new HashMap();
         params.put(LDAPManager.KEY_BASE_DN, "ou=testav01,dc=aa");
         params.put(LDAPManager.KEY_RELATIVE, "ou=Users");
@@ -67,7 +67,7 @@ public class AALoginTest extends TestCase {
     public void testFindRolesForAddress() throws NamingException {
     	if (!TEST_ENABLED || manager == null)
     		return;
-    	
+
         SearchControls cons = new SearchControls();
         cons.setSearchScope(SearchControls.ONELEVEL_SCOPE);
         String filterTemplate = "(&(|(person=uid={0}@auswaertiges-amt.de,ou=Personen,dc=aa)(person=uid={0}.auswaertiges-amt.de,ou=Personen,dc=aa)(person=uid={0},ou=Personen,dc=aa))(objectclass=AARole))";
@@ -82,11 +82,11 @@ public class AALoginTest extends TestCase {
             System.out.println(uidAttribute + " (" + result + ")");
         }
     }
-    
+
     public void testGetUserData() throws LDAPException {
     	if (!TEST_ENABLED || manager == null)
     		return;
-    	
+
         System.out.println(manager.getUserData("pol-2"));
     }
 }

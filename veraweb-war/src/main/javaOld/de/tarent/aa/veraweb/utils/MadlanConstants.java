@@ -20,26 +20,26 @@
 package de.tarent.aa.veraweb.utils;
 
 /**
- * Diese Schnittstelle enth�lt Konstanten f�r das Behandeln von
- * MAdLAN-Office-Steuerdateien. 
- * 
+ * Diese Schnittstelle enthält Konstanten für das Behandeln von
+ * MAdLAN-Office-Steuerdateien.
+ *
  * @author mikel
  */
 public interface MadlanConstants {
     //
-    // Property-Bezeichner und -Defaults f�r die MAdLAN-Formate
+    // Property-Bezeichner und -Defaults für die MAdLAN-Formate
     //
-    /** Property-Schl�ssel f�r die Liste der kyrillischen Felder */
+    /** Property-Schlüssel für die Liste der kyrillischen Felder */
     public final static String KEY_KYRILLIC_FIELDS = "kyrillicFields";
-    
-    /** Property-Schl�ssel f�r das Zeichen-Mapping A (normale Felder) */
+
+    /** Property-Schlüssel für das Zeichen-Mapping A (normale Felder) */
     public final static String KEY_MAPPING_A = "encodingA";
-    
-    /** Property-Schl�ssel f�r das Zeichen-Mapping B (kyrillische Felder) */
+
+    /** Property-Schlüssel für das Zeichen-Mapping B (kyrillische Felder) */
     public final static String KEY_MAPPING_B = "encodingB";
-    
+
     //
-    // Schl�ssel f�r die verschiedenen m�glichen Zeichenencodings
+    // Schlüssel für die verschiedenen möglichen Zeichenencodings
     // (Diese wurden an AAKonv.INI des Textkonverters des AA orientiert.)
     //
     /** Zeichensatz: Baltisch (BaltRoman, BaltHelv) */
@@ -54,7 +54,7 @@ public interface MadlanConstants {
     /** Zeichensatz: Kyrillisch (CyrillicRoman, CyrillicHlv) */
     public final static String CHARS_CYRILLIC = "cyrillic";
 
-    /** Zeichensatz: �stlich (EastRoman, EastHlv) */
+    /** Zeichensatz: Östlich (EastRoman, EastHlv) */
     public final static String CHARS_EAST = "east";
 
     /** Zeichensatz: Griechisch (GreekRoman, GreekHlv) */
@@ -63,21 +63,21 @@ public interface MadlanConstants {
     /** Zeichensatz: Turkmenistan? (TurAsbRoman, TurAsbHlv) */
     public final static String CHARS_TUR_ASB = "turasb";
 
-    /** Zeichensatz: T�rkisch (TurkishRoman, TurkishHlv) */
+    /** Zeichensatz: Türkisch (TurkishRoman, TurkishHlv) */
     public final static String CHARS_TURKISH = "turkish";
 
     /** Zeichensatz: Westlich (WestRoman, WestHlv) */
     public final static String CHARS_WEST = "west";
-    
+
     /** Zeichensatz: Latin-1 */
     public final static String CHARS_LATIN = "latin";
-    
+
     //
     // Tabellen byte -> char (MAdLAN-Zeichen -> Unicode)
     // (Diese wurden an AAKonv.INI des Textkonverters des AA orientiert.)
     //
     /**
-     * Baltische Zeichentabelle aus AAConv.ini: [Balt] f�r BaltRoman, BaltHelv
+     * Baltische Zeichentabelle aus AAConv.ini: [Balt] für BaltRoman, BaltHelv
      */
     final static char[] charsBalt = {
           0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14, 15,
@@ -88,7 +88,7 @@ public interface MadlanConstants {
          80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95,
          96, 97, 98, 99,100,101,102,103,104,105,106,107,108,109,110,111,
         112,113,114,115,116,117,118,119,120,121,122,123,124,125,126,127,
-        
+
           32,  32,8218,  32,8222,8230,8224,8225,
           32,8240, 352,8249,  32,  32,  32,  32,
           32,8216,8217,8220,8221,8226,8211,8212,
@@ -106,9 +106,9 @@ public interface MadlanConstants {
          353, 324, 326, 243, 333, 245, 246, 247,
          371, 322, 347, 363, 252, 380, 382,  32
     };
-    
+
     /**
-     * Baltische Zeichentabelle aus AAConv.ini: [Baltic] f�r BalticRoman, BalticHlv
+     * Baltische Zeichentabelle aus AAConv.ini: [Baltic] für BalticRoman, BalticHlv
      */
     final static char[] charsBaltic = {
          0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14, 15,
@@ -119,7 +119,7 @@ public interface MadlanConstants {
         80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95,
         96, 97, 98, 99,100,101,102,103,104,105,106,107,108,109,110,111,
        112,113,114,115,116,117,118,119,120,121,122,123,124,125,126,356,
-        
+
         310,  32,8218,  32,8222,8230,8224,8225,
          32,8240, 352,8249, 346, 356, 381, 377,
         311,8216,8217,8220,8221,8226,8211,8212,
@@ -137,16 +137,16 @@ public interface MadlanConstants {
         273, 324, 328, 243, 291, 245, 246, 247,
         345, 367, 250, 363, 252, 253, 371, 729
     };
-    
+
     /**
-     * Kyrillische Zeichentabelle aus AAConv.ini: [CyrExt] f�r CyrExtRoman, CyrExtHlv
+     * Kyrillische Zeichentabelle aus AAConv.ini: [CyrExt] für CyrExtRoman, CyrExtHlv
      */
     final static char[] charsCyrExt = {
          0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14, 15,
         16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31,
         32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47,
         48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63,
-        
+
          64,1126,1174,1217, 199,1208,1180,1170,
        1206,1037,1250,1178,1198,1240, 196, 214,
        1186,1256,1200, 163,1210,1138, 209, 923,
@@ -181,9 +181,9 @@ public interface MadlanConstants {
 //         338=1034
 //         381=1035
     };
-    
+
     /**
-     * Kyrillische Zeichentabelle aus AAConv.ini: [Cyrillic] f�r CyrillicRoman, CyrillicHlv
+     * Kyrillische Zeichentabelle aus AAConv.ini: [Cyrillic] für CyrillicRoman, CyrillicHlv
      */
     final static char[] charsCyrillic = {
          0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14, 15,
@@ -194,7 +194,7 @@ public interface MadlanConstants {
         80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95,
         96, 97, 98, 99,100,101,102,103,104,105,106,107,108,109,110,111,
        112,113,114,115,116,117,118,119,120,121,122,123,124,125,126,1036,
-       
+
        1026,1027,8218,1107,8222,8230,8224,8225,
          32,8240,1033,8249,1034,1036,1035,1039,
        1106,8216,8217,8220,8221,8226,8211,8212,
@@ -221,9 +221,9 @@ public interface MadlanConstants {
 //        338=1034
 //        381=1035
     };
-    
+
     /**
-     * Osteurop�ische Zeichentabelle aus AAConv.ini: [East] f�r EastRoman, EastHlv
+     * Osteuropäische Zeichentabelle aus AAConv.ini: [East] für EastRoman, EastHlv
      */
     final static char[] charsEast = {
          0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14, 15,
@@ -234,7 +234,7 @@ public interface MadlanConstants {
         80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95,
         96, 97, 98, 99,100,101,102,103,104,105,106,107,108,109,110,111,
        112,113,114,115,116,117,118,119,120,121,122,123,124,125,126,286,
-       
+
          32,  32,8218,  32,8222,8230,8224,8225,
         710,8240, 352,8249, 346, 356, 381, 377,
          32,8216,8217,8220,8221,8226,8211,8212,
@@ -255,9 +255,9 @@ public interface MadlanConstants {
 //        339=347
 //        376=378
     };
-    
+
     /**
-     * Grieschiche Zeichentabelle aus AAConv.ini: [Greek] f�r GreekRoman, GreekHlv
+     * Grieschiche Zeichentabelle aus AAConv.ini: [Greek] für GreekRoman, GreekHlv
      */
     final static char[] charsGreek = {
          0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14, 15,
@@ -268,7 +268,7 @@ public interface MadlanConstants {
         80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95,
         96, 97, 98, 99,100,101,102,103,104,105,106,107,108,109,110,111,
        112,113,114,115,116,117,118,119,120,121,122,123,124,125,126, 32,
-        
+
          32,  32,8218, 402,8222,8230,8224,8225,
         710,8240, 352,8249, 338,  32,  32,  32,
          32,8216,8217,8220,8208,8226,8211,8212,
@@ -286,9 +286,9 @@ public interface MadlanConstants {
         960, 961, 962, 963, 964, 965, 966, 967,
         968, 969, 970, 971, 972, 974, 974,  32
     };
-    
+
     /**
-     * Turkmenische (?) Zeichentabelle aus AAConv.ini: [TurAsb] f�r TurAsbRoman, TurAsbHlv
+     * Turkmenische (?) Zeichentabelle aus AAConv.ini: [TurAsb] für TurAsbRoman, TurAsbHlv
      */
     final static char[] charsTurAsb = {
          0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14, 15,
@@ -299,7 +299,7 @@ public interface MadlanConstants {
         80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95,
         96, 97, 98, 99,100,101,102,103,104,105,106,107,108,109,110,111,
        112,113,114,115,116,117,118,119,120,121,122,123,124,125,126, 32,
-        
+
          32,  32,8218,  32,8222,8230,8224,8225,
          32,8240,  32,8249,  32,  32,  32,  32,
          32,8216,8217,8220,8221,8226,8211,8212,
@@ -317,9 +317,9 @@ public interface MadlanConstants {
         287, 241, 242, 243, 244, 245, 246, 247,
         248, 249, 250, 251, 252, 305, 351, 255
     };
-    
+
     /**
-     * T�rkische Zeichentabelle aus AAConv.ini: [Turkish] f�r TurkishRoman, TurkishHlv
+     * Türkische Zeichentabelle aus AAConv.ini: [Turkish] für TurkishRoman, TurkishHlv
      */
     final static char[] charsTurkish = {
          0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14, 15,
@@ -330,7 +330,7 @@ public interface MadlanConstants {
         80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95,
         96, 97, 98, 99,100,101,102,103,104,105,106,107,108,109,110,111,
        112,113,114,115,116,117,118,119,120,121,122,123,124,125,126,127,
-       
+
          32,  32,8218, 402,8222,8230,8224,8225,
         710,8240, 352,8249, 338,  32,  32,  32,
          32,8216,8217,8220,8221,8226,8211,8212,
@@ -348,9 +348,9 @@ public interface MadlanConstants {
         287, 241, 242, 243, 244, 245, 246, 247,
         248, 249, 250, 251, 252, 305, 351, 255
     };
-    
+
     /**
-     * Westeurop�ische Zeichentabelle aus AAConv.ini: [West] f�r WestRoman, WestHlv
+     * Westeuropäische Zeichentabelle aus AAConv.ini: [West] für WestRoman, WestHlv
      */
     final static char[] charsWest = {
         0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14, 15,
@@ -361,7 +361,7 @@ public interface MadlanConstants {
         80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95,
         96, 97, 98, 99,100,101,102,103,104,105,106,107,108,109,110,111,
        112,113,114,115,116,117,118,119,120,121,122,123,124,125,126,127,
-       
+
          32,  32,8218, 402,8222,8230,8224,8225,
         710,8240, 352,8249, 338,  32,  32,  32,
          32,8216,8217,8220,8221,8226,8211,8212,

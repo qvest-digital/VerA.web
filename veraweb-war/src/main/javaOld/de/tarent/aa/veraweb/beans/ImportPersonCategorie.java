@@ -26,7 +26,7 @@ import de.tarent.octopus.server.OctopusContext;
 /**
  * Diese Bean stellt einen Eintrag der Tabelle veraweb.timportperson_categorie dar,
  * eine Kategoriezuordnung zu einer importierten Person.
- * 
+ *
  * @author mikel
  */
 public class ImportPersonCategorie extends AbstractBean implements ImportPersonExtra {
@@ -48,7 +48,7 @@ public class ImportPersonCategorie extends AbstractBean implements ImportPersonE
      * Diese Methode testet, ob im aktuellen Kontext diese Bohne gelesen werden
      * darf.<br>
      * Test ist, ob der Benutzer allgemeine Schreibrechte hat.
-     * 
+     *
      * @param cntx Octopus-Kontext
      * @throws BeanException Wenn im angegebenen Kontext diese Bohne nicht gelesen werden darf.
      * @see de.tarent.aa.veraweb.beans.AbstractBean#checkRead(de.tarent.octopus.server.OctopusContext)
@@ -62,7 +62,7 @@ public class ImportPersonCategorie extends AbstractBean implements ImportPersonE
      * Diese Methode testet, ob im aktuellen Kontext diese Bohne geschrieben
      * werden darf.<br>
      * Test ist, ob der Benutzer allgemeine Schreibrechte hat.
-     * 
+     *
      * @param cntx Octopus-Kontext
      * @throws BeanException Wenn im angegebenen Kontext diese Bohne nicht geschrieben werden darf.
      * @see de.tarent.aa.veraweb.beans.AbstractBean#checkWrite(de.tarent.octopus.server.OctopusContext)
@@ -76,9 +76,9 @@ public class ImportPersonCategorie extends AbstractBean implements ImportPersonE
     // Schnittstelle ImportPersonExtra
     //
     /**
-     * Diese Methode assoziiert diese Importpersonenerg�nzung mit ihrer Importperson;
-     * dies bedeutet insbesondere die �bernahme deren ID als Fremdschl�ssel auf sie. 
-     * 
+     * Diese Methode assoziiert diese Importpersonenergänzung mit ihrer Importperson;
+     * dies bedeutet insbesondere die Übernahme deren ID als Fremdschlüssel auf sie.
+     *
      * @param person Importperson, mit der dieses Extra assoziiert werden soll.
      * @see de.tarent.aa.veraweb.beans.ImportPersonExtra#associateWith(de.tarent.aa.veraweb.beans.ImportPerson)
      */

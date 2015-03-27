@@ -48,25 +48,25 @@ import de.tarent.octopus.server.OctopusContext;
 
 /**
  * <p>
- * Diese Octopus-Worker-Klasse stellt Operationen f�r die Verbindung
- * von Personen zu Dokumenttypen zur Verf�gung.
+ * Diese Octopus-Worker-Klasse stellt Operationen für die Verbindung
+ * von Personen zu Dokumenttypen zur Verfügung.
  * Details bitte dem BeanListWorker entnehmen.
  * </p>
- * 
+ *
  * <p>
  * Die Aktion {@link #showList(OctopusContext) showList} gibt eine
- * Liste zur�ck die zwigend alle Dokumenttypen enth�lt.
+ * Liste zurück die zwigend alle Dokumenttypen enthält.
  * Sollte zu der entsprechenden Person noch kein Dokumenttyp vorhanden
- * sein wird ein unvollst�ndiges Bean zur�ckgegeben.
+ * sein wird ein unvollständiges Bean zurückgegeben.
  * </p>
- * 
+ *
  * <p>
- * Der Worker stellt zus�tzlich zur anzeige der Liste Aktionen
+ * Der Worker stellt zusätzlich zur anzeige der Liste Aktionen
  * zum direkten Anzeigen ({@link #showDetail(OctopusContext, Integer, Integer) showDetail})
  * und Speichern ({@link #saveDetail(OctopusContext) saveDetail}) von
- * {@link de.tarent.aa.veraweb.beans.PersonDoctype}-Beans zur Verf�gung.
+ * {@link de.tarent.aa.veraweb.beans.PersonDoctype}-Beans zur Verfügung.
  * </p>
- * 
+ *
  * @author Christoph Jerolimov
  */
 public class PersonDoctypeWorker extends ListWorkerVeraWeb {
@@ -84,7 +84,7 @@ public class PersonDoctypeWorker extends ListWorkerVeraWeb {
     // Oberklasse BeanListWorker
     //
 	/**
-	 * �berladen weil die standard Erstellung nicht richtig z�hlt.
+	 * überladen weil die standard Erstellung nicht richtig zählt.
 	 */
 	@Override
     protected Integer getCount(OctopusContext cntx, Database database) throws BeanException, IOException {
@@ -134,23 +134,23 @@ public class PersonDoctypeWorker extends ListWorkerVeraWeb {
     // Octopus-Aktionen
     //
 	// 2009-05-07 removed second parameter as it was redundant as part of fixing issue #1528, made parameter mandatory
-    /** Octopus-Eingabeparameter f�r die Aktion {@link #showDetail(OctopusContext, Integer)} */
+    /** Octopus-Eingabeparameter für die Aktion {@link #showDetail(OctopusContext, Integer)} */
 	public static final String INPUT_showDetail[] = { "persondoctype-id" };
-    /** Octopus-Eingabeparameterzwang f�r die Aktion {@link #showDetail(OctopusContext, Integer)} */
+    /** Octopus-Eingabeparameterzwang für die Aktion {@link #showDetail(OctopusContext, Integer)} */
 	public static final boolean MANDATORY_showDetail[] = { true };
 	/**
 	 * <p>
-	 * L�dt eine Person-Dokumenttyp-Verkn�pfung und stellt diese
+	 * Lädt eine Person-Dokumenttyp-Verknüpfung und stellt diese
 	 * als <code>persondoctype</code> in den Content.
 	 * </p>
-	 * 
+	 *
 	 * <p>
-	 * Wenn eine Person-Doctype-ID �bergeben wird, wird ein entsprechender
+	 * Wenn eine Person-Doctype-ID übergeben wird, wird ein entsprechender
 	 * Eintrag aus der Datenbank geladen, falls dies nicht der Fall ist,
 	 * wird anhand der Doctype-ID dann ein neuer Person-Doctype-Eingtrag
-	 * erzeugt (nicht in der Datenbank) und zur�ckgegeben.
+	 * erzeugt (nicht in der Datenbank) und zurückgegeben.
 	 * </p>
-	 * 
+	 *
 	 * @param cntx OctopusContext
 	 * @param id Person-Doctype-ID
 	 * @param doctype Doctype-ID
@@ -161,17 +161,17 @@ public class PersonDoctypeWorker extends ListWorkerVeraWeb {
 	public void showDetail(OctopusContext cntx, Integer id) throws BeanException, IOException {
 		Database database = new DatabaseVeraWeb(cntx);
 		Person person = (Person)cntx.contentAsObject("person");
-		
+
 		Select select = database.getSelect("PersonDoctype");
 		select.selectAs("tdoctype.pk", "doctype");
 		select.selectAs("tdoctype.pk", "doctypeId");
 		select.selectAs("tdoctype.docname", "name");
 		select.selectAs("tdoctype.addresstype", "doctypeAddresstype");
 		select.selectAs("tdoctype.locale", "doctypeLocale");
-	
+
 		select.join("veraweb.tdoctype", "fk_doctype", "tdoctype.pk");
 		select.where(Expr.equal("tperson_doctype.pk", id));
-		
+
 		PersonDoctype personDoctype = (PersonDoctype)database.getBean("PersonDoctype", select);
 		if (personDoctype == null) {
 			personDoctype = new PersonDoctype();
@@ -180,7 +180,7 @@ public class PersonDoctypeWorker extends ListWorkerVeraWeb {
 			personDoctype.addresstype = personDoctype.doctypeAddresstype;
 		if (personDoctype.locale == null)
 			personDoctype.locale = personDoctype.doctypeLocale;
-		
+
 		if (personDoctype.id == null) {
 			PersonDoctypeFacade helper = new PersonDoctypeFacade(cntx, person);
 			personDoctype.person = person.id;
@@ -191,16 +191,16 @@ public class PersonDoctypeWorker extends ListWorkerVeraWeb {
 			personDoctype.textfieldJoin = helper.getFreitextVerbinder(
 					personDoctype.doctype, personDoctype.addresstype, personDoctype.locale);
 		}
-		
+
 		cntx.setContent("persondoctype", personDoctype);
 	}
 
     /** Eingabe-Parameter der Octopus-Aktion {@link #saveDetail(OctopusContext)} */
 	public static final String INPUT_saveDetail[] = {};
 	/**
-	 * Speichert eine Person-Doctype-Verkn�pfung, die als <code>persondoctype</code>
-	 * Bean im Request vorhanden und g�ltig sein muss.
-	 * 
+	 * Speichert eine Person-Doctype-Verknüpfung, die als <code>persondoctype</code>
+	 * Bean im Request vorhanden und gültig sein muss.
+	 *
 	 * @param cntx OctopusContext
 	 * @throws BeanException
 	 * @throws IOException
@@ -209,9 +209,9 @@ public class PersonDoctypeWorker extends ListWorkerVeraWeb {
 	public void saveDetail(OctopusContext cntx) throws BeanException, IOException {
 		Request request = new RequestVeraWeb(cntx);
 		Database database = new DatabaseVeraWeb(cntx);
-		
+
 		PersonDoctype personDoctype = (PersonDoctype)request.getBean("PersonDoctype", "persondoctype");
-		
+
 		if(personDoctype.isCorrect()) {
 		    database.saveBean(personDoctype);
 		    cntx.setContent("persondoctype-id", personDoctype.id);
@@ -223,19 +223,19 @@ public class PersonDoctypeWorker extends ListWorkerVeraWeb {
     public static final String INPUT_createAll[] = {};
     /**
      * Diese Octopus-Aktion erzeugt alle fehlenden Personen-Dokumenttypen
-     * zu der Person unter dem Schl�ssel "person" im Octopus-Content.
-     * 
+     * zu der Person unter dem Schlüssel "person" im Octopus-Content.
+     *
      * @param cntx Octopus-Kontext
      */
     public void createAll(OctopusContext cntx) throws BeanException, IOException {
         Database database = new DatabaseVeraWeb(cntx);
         TransactionContext context = database.getTransactionContext();
-        
+
         Person person = (Person)cntx.contentAsObject("person");
         try {
             createPersonDoctype(cntx, database, context, person);
             context.commit();
-        } 
+        }
         catch ( BeanException e )
         {
             context.rollBack();
@@ -283,7 +283,7 @@ public class PersonDoctypeWorker extends ListWorkerVeraWeb {
 				personDoctype.doctypeAddresstype = doctype.addresstype;
 				personDoctype.doctypeLocale = doctype.locale;
 				personDoctype.name = doctype.name;
-	
+
 				PersonDoctypeFacade helper = new PersonDoctypeFacade(cntx, person);
 				Integer flags = doctype.flags;
 				if (flags == null || flags.intValue() != Doctype.FLAG_NO_FREITEXT) {
@@ -299,7 +299,7 @@ public class PersonDoctypeWorker extends ListWorkerVeraWeb {
 					personDoctype.textfieldJoin = "";
 				}
 				personDoctype.person = person.id;
-	
+
 				database.saveBean( personDoctype );
 
 				cntx.setContent( "persondoctype-id", personDoctype.id );
@@ -308,18 +308,18 @@ public class PersonDoctypeWorker extends ListWorkerVeraWeb {
     }
 
 	//
-    // �ffentliche Hilfsmethoden
+    // Öffentliche Hilfsmethoden
     //
     /**
      * Diese Methode erzeugt alle fehlenden Personen-Dokumenttypen
-     * zu der �bergebenen Person.
+     * zu der übergebenen Person.
      */
 	public static void createPersonDoctype(OctopusContext cntx, Database database, ExecutionContext context, Person person) throws BeanException, IOException {
 		if (person == null || person.id == null) return;
-		
+
 		PersonDoctypeFacade helper = new PersonDoctypeFacade(cntx, person);
 		PersonDoctype personDoctype = new PersonDoctype();
-		
+
 		Select select = database.getSelect("PersonDoctype").
 				selectAs("tdoctype.pk", "doctypePk").
 				selectAs("tdoctype.addresstype", "doctypeAddresstype").
@@ -328,7 +328,7 @@ public class PersonDoctypeWorker extends ListWorkerVeraWeb {
 				join(new Join(Join.RIGHT_OUTER, "veraweb.tdoctype", new RawClause(
 						"tperson_doctype.fk_doctype = tdoctype.pk AND tperson_doctype.fk_person = " + person.id))).
 				where(Expr.isNull("tperson_doctype.pk"));
-		
+
 		for (Iterator it = database.getList(select, context).iterator(); it.hasNext(); ) {
 			Map data = (Map)it.next();
 			personDoctype.id = (Integer)data.get("id");
@@ -341,7 +341,7 @@ public class PersonDoctypeWorker extends ListWorkerVeraWeb {
 				personDoctype.locale = (Integer)data.get("doctypeLocale");
 			if (personDoctype.addresstype == null)
 				personDoctype.addresstype = (Integer)data.get("doctypeAddresstype");
-			
+
 			Integer flags = (Integer)data.get("doctypeFlags");
 			if (flags == null || flags.intValue() != Doctype.FLAG_NO_FREITEXT) {
 				personDoctype.textfield = helper.getFreitext(
@@ -355,7 +355,7 @@ public class PersonDoctypeWorker extends ListWorkerVeraWeb {
 				personDoctype.textfieldPartner = "";
 				personDoctype.textfieldJoin = "";
 			}
-			
+
 			database.saveBean(personDoctype, context, false);
 		}
 	}

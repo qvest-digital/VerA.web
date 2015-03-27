@@ -1,8 +1,8 @@
 /**
  * veraweb, platform independent webservice-based event management
  * (Veranstaltungsmanagment VerA.web), is
- * Copyright © 2004-2008 tarent GmbH
- * Copyright © 2013 tarent solutions GmbH
+ * Copyright © 2004–2008 tarent GmbH
+ * Copyright © 2013–2015 tarent solutions GmbH
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -282,7 +282,7 @@ DurationInputDialog.showModalInputDialog = function( instance, windowSpec )
 	{
 		windowSpec.left -= dialog.offsetWidth;
 	}
-	
+
 	var offsetTop = DurationInputDialog.getOffsetTopRecursively( instance.button );
 	windowSpec.top = offsetTop;
 	if ( ( offsetTop + dialog.offsetHeight ) > ( document.body.scrollTop + document.body.clientHeight ) )

@@ -41,7 +41,7 @@ import java.util.List;
  * Included by permission of the <a href="http://tpop.awl.com/">Addison-Wesley</a>
  * web site, which says: <cite>"You may use this code for any purpose, as long
  * as you leave the copyright notice and book citation attached"</cite>.
- * 
+ *
  * @author Brian Kernighan and Rob Pike (C++ original)
  * @author Ian F. Darwin (translation into Java and removal of I/O)
  * @author Ben Ballard (rewrote handleQuotedField to handle double quotes and
@@ -57,7 +57,7 @@ public class CSVFileReader extends CSVFile {
     /**
      * CSVFileReader constructor just need the name of the existing CSV file
      * that will be read.
-     * 
+     *
      * @param inputFileName
      *            The name of the CSV file to be opened for reading
      * @throws FileNotFoundException
@@ -70,7 +70,7 @@ public class CSVFileReader extends CSVFile {
     /**
      * CSVFileReader constructor just need a reader for CSV data that will be
      * read.
-     * 
+     *
      * @param reader
      *            The Reader for reading CSV data
      * @throws FileNotFoundException
@@ -83,7 +83,7 @@ public class CSVFileReader extends CSVFile {
     /**
      * CSVFileReader constructor just need the name and encoding of the existing
      * CSV file that will be read.
-     * 
+     *
      * @param inputFileName
      *            The name of the CSV file to be opened for reading
      * @param charsetName
@@ -101,7 +101,7 @@ public class CSVFileReader extends CSVFile {
     /**
      * CSVFileReader constructor just need an InputStream and encoding for the
      * CSV data that will be read.
-     * 
+     *
      * @param stream
      *            The InputStream for reading CSV data
      * @param charsetName
@@ -117,7 +117,7 @@ public class CSVFileReader extends CSVFile {
 
     /**
      * CSVFileReader constructor with a given field separator.
-     * 
+     *
      * @param inputFileName
      *            The name of the CSV file to be opened for reading
      * @param sep
@@ -131,7 +131,7 @@ public class CSVFileReader extends CSVFile {
 
     /**
      * CSVFileReader constructor with a given field separator.
-     * 
+     *
      * @param reader
      *            The Reader for reading CSV data
      * @param sep
@@ -145,7 +145,7 @@ public class CSVFileReader extends CSVFile {
 
     /**
      * CSVFileReader constructor with a given field separator.
-     * 
+     *
      * @param inputFileName
      *            The name of the CSV file to be opened for reading
      * @param charsetName
@@ -164,7 +164,7 @@ public class CSVFileReader extends CSVFile {
 
     /**
      * CSVFileReader constructor with a given field separator.
-     * 
+     *
      * @param stream
      *            The stream for reading CSV data
      * @param charsetName
@@ -182,7 +182,7 @@ public class CSVFileReader extends CSVFile {
 
     /**
      * CSVFileReader constructor with given field separator and text qualifier.
-     * 
+     *
      * @param inputFileName
      *            The name of the CSV file to be opened for reading
      * @param sep
@@ -198,7 +198,7 @@ public class CSVFileReader extends CSVFile {
 
     /**
      * CSVFileReader constructor with given field separator and text qualifier.
-     * 
+     *
      * @param reader
      *            The Reader for reading CSV data
      * @param sep
@@ -215,7 +215,7 @@ public class CSVFileReader extends CSVFile {
 
     /**
      * CSVFileReader constructor with given field separator and text qualifier.
-     * 
+     *
      * @param inputFileName
      *            The name of the CSV file to be opened for reading
      * @param charsetName
@@ -236,7 +236,7 @@ public class CSVFileReader extends CSVFile {
 
     /**
      * CSVFileReader constructor with given field separator and text qualifier.
-     * 
+     *
      * @param stream
      *            The InputStream for reading CSV data
      * @param charsetName
@@ -256,13 +256,13 @@ public class CSVFileReader extends CSVFile {
     }
 
     //
-    // �ffentliche Methoden
+    // Öffentliche Methoden
     //
     /**
      * Split the next line of the input CSV file into fields.
      * <p>
      * This is currently the most important function of the package.
-     * 
+     *
      * @return List of strings containing each field from the next line of the
      *         file
      * @throws IOException
@@ -297,7 +297,7 @@ public class CSVFileReader extends CSVFile {
 
     /**
      * Close the input CSV file.
-     * 
+     *
      * @throws IOException
      *             If an error occurs while closing the file
      */
@@ -307,10 +307,10 @@ public class CSVFileReader extends CSVFile {
 
     /**
      * Handles a quoted field.<br>
-     * TODO: Sehr empfindlich gegen F�llzeichen zwischen schlie�endem Quote und Feld- oder Zeilenende 
-     * 
+     * TODO: Sehr empfindlich gegen Füllzeichen zwischen schließendem Quote und Feld- oder Zeilenende
+     *
      * @return index of next separator
-     * @throws IOException 
+     * @throws IOException
      */
     protected int handleQuotedField(StringBuffer sb, int i) throws IOException {
         int j;
@@ -342,7 +342,7 @@ public class CSVFileReader extends CSVFile {
 
     /**
      * Handles an unquoted field.
-     * 
+     *
      * @return index of next separator
      */
     protected int handlePlainField(StringBuffer sb, int i) {
@@ -357,13 +357,13 @@ public class CSVFileReader extends CSVFile {
     }
 
     //
-    // gesch�tzte Member
+    // geschützte Member
     //
     /**
      * The buffered reader linked to the CSV file to be read.
      */
     protected final BufferedReader in;
-    
+
     /**
      * Die aktuell gelesene Zeile.
      */

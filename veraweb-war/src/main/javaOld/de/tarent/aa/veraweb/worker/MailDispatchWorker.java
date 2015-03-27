@@ -61,9 +61,9 @@ import de.tarent.octopus.server.OctopusContext;
 /**
  * Octopus-Worker der das versenden von eMails verwaltet.
  * Diese werden im Hintergrund an einen SMTP-Server versendet.
- * 
+ *
  * @see MailDispatcher
- * 
+ *
  * @author Christoph Jerolimov
  * @version $Revision: 1.1 $
  */
@@ -73,9 +73,9 @@ public class MailDispatchWorker implements Runnable {
 	/** Regex Pattern zur erkennung von eMail Tags. */
 	private final Pattern mailtags = Pattern.compile("<[A-Za-z]+>");
 
-	/** Modulnamen f�r den Datenbank-Pool */
+	/** Modulnamen für den Datenbank-Pool */
 	protected String moduleName;
-	/** Thread in dem das eigentliche versenden ausgef�hrt wird. */
+	/** Thread in dem das eigentliche versenden ausgeführt wird. */
 	protected Thread thread;
 	/** MailDispatcher der den Versand an den SMTP-Server vornimmt. */
 	protected MailDispatcher dispatcher = new MailDispatcher();
@@ -92,21 +92,21 @@ public class MailDispatchWorker implements Runnable {
 	// OCTOPUS-AKTIONEN ZUM STARTEN UND STOPPEN DES VERSENDE THREADS.
 	//
 
-	/** Octopus-Eingabe-Parameter f�r {@link #load(OctopusContext)} */
+	/** Octopus-Eingabe-Parameter für {@link #load(OctopusContext)} */
 	public static final String INPUT_load[] = {};
 	/**
 	 * Startet das automatische versenden von eMails im Hintergrund.
-	 * 
+	 *
 	 * @param cntx Octopus-Context
 	 */
 	public void load(OctopusContext cntx) {
-		
+
 		this.cntx = cntx;
-		
+
 		logger.info("MailDispatcher wird im Hintergrund gestartet.");
-		
+
 		moduleName = cntx.getModuleName();
-		
+
 		Map settings = (Map)cntx.moduleConfig().getParamAsObject("mailServer");
 		if (settings != null) {
 			// Settingsladen
@@ -120,7 +120,7 @@ public class MailDispatchWorker implements Runnable {
 				logger.warn("MailDispatcher konnte Parameter 'waitBetweenJobs' nicht finden. Es wird der Default Wert (60 Sekunden) verwendet.");
 				waitMillis = 60000; // default: 1 Minute
 			}
-			
+
 			// Server status
 			if (!keeprunning) {
 				keeprunning = true;
@@ -132,11 +132,11 @@ public class MailDispatchWorker implements Runnable {
 		}
 	}
 
-	/** Octopus-Eingabe-Parameter f�r {@link #unload(OctopusContext)} */
+	/** Octopus-Eingabe-Parameter für {@link #unload(OctopusContext)} */
 	public static final String INPUT_unload[] = {};
 	/**
 	 * Stopppt das automatische versenden von eMails im Hintergrund.
-	 * 
+	 *
 	 * @param cntx Octopus-Context
 	 */
 	public void unload(OctopusContext cntx) {
@@ -178,11 +178,11 @@ public class MailDispatchWorker implements Runnable {
 				selectAs("addrto", "to").
 				selectAs("subject", "subject").
 				selectAs("content", "text");
-		
+
 		select.where(Expr.equal("status", new Integer(MailOutbox.STATUS_WAIT)));
 		select.orderBy(Order.asc("lastupdate"));
 		select.Limit(new Limit(new Integer(1), new Integer(0)));
-		
+
 		Result r = null;
 		ResultSet rs = null;
 		for (boolean found = true; found; ) {
@@ -190,7 +190,7 @@ public class MailDispatchWorker implements Runnable {
 				found = false;
 				r = ( Result ) select.execute();
 				rs = r.resultSet();
-				
+
 				for (Iterator it = new ResultList(rs).iterator(); it.hasNext(); ) {
 					Map data = (Map)it.next();
 					found = true;
@@ -219,7 +219,7 @@ public class MailDispatchWorker implements Runnable {
 
 	/**
 	 * Versendet eine einzelne eMail.
-	 * 
+	 *
 	 * @param id
 	 * @param status
 	 * @param from
@@ -267,7 +267,7 @@ public class MailDispatchWorker implements Runnable {
 	// OCTOPUS-AKTIONEN ZUM ERSTELLEN UND SPEICHERN VON EMAILS
 	//
 
-	/** Octopus-Eingabe-Parameter f�r die Aktion {@link #writeMail(OctopusContext)} */
+	/** Octopus-Eingabe-Parameter für die Aktion {@link #writeMail(OctopusContext)} */
 	public static final String INPUT_writeMail[] = {};
 	/**
 	 * Octopus-Aktion zur Verwaltung einer 'in process' eMail.
@@ -276,9 +276,9 @@ public class MailDispatchWorker implements Runnable {
 		Request request = new RequestVeraWeb(cntx);
 		Database database = new DatabaseVeraWeb(cntx);
 		List errors = new ArrayList();
-		
+
 		MailDraft mail = (MailDraft)request.getBean("MailDraft", "mail");
-		
+
 		if (cntx.requestAsBoolean("loaddraft").booleanValue()) {
 			Integer draftId = cntx.requestAsInteger("mail-draft");
 			if (draftId != null) {
@@ -291,12 +291,12 @@ public class MailDispatchWorker implements Runnable {
 				errors.addAll(mail.getErrors());
 			}
 		}
-		
+
 		cntx.setContent("mail", mail);
 		cntx.setContent("errors", errors);
 	}
 
-	/** Octopus-Eingabe-Parameter f�r die Aktion {@link #sendMail(OctopusContext)} */
+	/** Octopus-Eingabe-Parameter für die Aktion {@link #sendMail(OctopusContext)} */
 	public static final String INPUT_sendMail[] = {};
 	/**
 	 * Octopus-Aktion zum versenden einer eMail an einen Verteiler.
@@ -309,7 +309,7 @@ public class MailDispatchWorker implements Runnable {
 		MailDraft mail = (MailDraft)request.getBean("MailDraft", "mail");
 		List selection = (List)cntx.contentAsObject("listselection");
 		Integer freitextfeld = ConfigWorker.getInteger(cntx, "freitextfeld");
-		
+
 		Select select = database.getSelect("MailinglistAddress");
 		if (selection == null || selection.size() == 0) {
 			select.where(Expr.equal("fk_mailinglist", mailinglist.id));
@@ -318,22 +318,22 @@ public class MailDispatchWorker implements Runnable {
 					Expr.equal("fk_mailinglist", mailinglist.id),
 					Expr.in("pk", selection)));
 		}
-		
+
 		MailOutbox outbox = new MailOutbox();
 		outbox.status = new Integer(MailOutbox.STATUS_WAIT);
 		outbox.from = getMailAddress(cntx);
 		outbox.subject = mail.subject;
 		outbox.lastupdate = new Timestamp(System.currentTimeMillis());
-		
+
 		try {
 			int savedMails = 0;
 			for (Iterator it = database.getList(select, context).iterator(); it.hasNext(); ) {
 				Map data = (Map)it.next();
 				Person person = (Person)database.getBean("Person", (Integer)data.get("person"), context);
-				
+
 				outbox.text = getMailText(mail.text, getPersonFacade(cntx, database, context, freitextfeld, person));
 				outbox.to = (String)data.get("address");
-				
+
 				try {
 					context.execute(database.getInsert(outbox));
 	//				database.execute(database.getInsert(outbox));
@@ -348,12 +348,12 @@ public class MailDispatchWorker implements Runnable {
 			Map result = new HashMap();
 			result.put("count", new Integer(savedMails));
 			cntx.setContent("maildispatchParams", result);
-		} 
+		}
 		catch ( BeanException e )
 		{
 			context.rollBack();
 		}
-		
+
 	}
 
 	protected PersonDoctypeFacade getPersonFacade(OctopusContext cntx, Database database, Integer doctypeId, Person person) throws BeanException {
@@ -362,7 +362,7 @@ public class MailDispatchWorker implements Runnable {
 			facade.setFacade(null, null, true);
 			return facade;
 		}
-		
+
 		Integer addresstype, locale;
 		Select select = SQL.Select( database ).
 				from("veraweb.tdoctype").
@@ -373,7 +373,7 @@ public class MailDispatchWorker implements Runnable {
 				joinLeftOuter("veraweb.tperson_doctype", "fk_doctype = tdoctype.pk AND " +
 						"fk_person", person.id.toString()).
 				where(Expr.equal("tdoctype.pk", doctypeId));
-		
+
 		for (Iterator it = database.getList(select, database).iterator(); it.hasNext(); ) {
 			Map data = (Map)it.next();
 			addresstype = (Integer)data.get("at2");
@@ -392,14 +392,14 @@ public class MailDispatchWorker implements Runnable {
 		facade.setFacade(null, null, true);
 		return facade;
 	}
-	
+
 	protected PersonDoctypeFacade getPersonFacade(OctopusContext cntx, Database database, ExecutionContext context, Integer doctypeId, Person person) throws BeanException {
 		PersonDoctypeFacade facade = new PersonDoctypeFacade(cntx, person);
 		if (doctypeId == null) {
 			facade.setFacade(null, null, true);
 			return facade;
 		}
-		
+
 		Integer addresstype, locale;
 		Select select = SQL.Select( context ).
 				from("veraweb.tdoctype").
@@ -410,7 +410,7 @@ public class MailDispatchWorker implements Runnable {
 				joinLeftOuter("veraweb.tperson_doctype", "fk_doctype = tdoctype.pk AND " +
 						"fk_person", person.id.toString()).
 				where(Expr.equal("tdoctype.pk", doctypeId));
-		
+
 		for (Iterator it = database.getList(select, context).iterator(); it.hasNext(); ) {
 			Map data = (Map)it.next();
 			addresstype = (Integer)data.get("at2");
@@ -431,9 +431,9 @@ public class MailDispatchWorker implements Runnable {
 	}
 
 	/**
-	 * Gibt einen eMail-Text zur�ck bei dem die Platzhalter
+	 * Gibt einen eMail-Text zurück bei dem die Platzhalter
 	 * durch Personen-Daten ersetzt sind.
-	 * 
+	 *
 	 * @param text Text mit Platzhaltern
 	 * @param facade PersonDoctypeFacade
 	 * @return eMail-Text
@@ -470,7 +470,7 @@ public class MailDispatchWorker implements Runnable {
 	/**
 	 * Holt die eMail-Adresse aus der Personal-Config (LDAP) und wenn
 	 * dort keine hinterlegt ist aus der Konfiguration (config.xml).
-	 * 
+	 *
 	 * @param cntx Octopus-Context
 	 * @return eMail-Adresse
 	 */
@@ -480,7 +480,7 @@ public class MailDispatchWorker implements Runnable {
 			logger.info("Verwende E-Mail-Adresse aus dem LDAP: " + from);
 			return from;
 		}
-		
+
 		Map settings = (Map)cntx.moduleConfig().getParamAsObject("mailServer");
 		from = (String)settings.get("from");
 		if (from.indexOf("$role") != -1) {

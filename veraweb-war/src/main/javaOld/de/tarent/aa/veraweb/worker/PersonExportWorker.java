@@ -82,7 +82,7 @@ public class PersonExportWorker extends PersonListWorker {
 	public static final String OUTPUT_exportFormat = "exportFormat";
 	/**
      * Diese Octopus-Aktion liefert die Standard-Dateinamenerweiterung zu dem Format,
-     * das beim Standard-Label-Dokumenttyp f�r einen Spreadsheet-Export eingestellt ist.
+     * das beim Standard-Label-Dokumenttyp für einen Spreadsheet-Export eingestellt ist.
      *
      * @param cntx Octopus-Kontext
      * @return Standard-Dateinamenerweiterung
@@ -105,15 +105,15 @@ public class PersonExportWorker extends PersonListWorker {
      * mit den aktuellen Personen.
      *
      * @param cntx Octopus-Kontext
-     * @return eine Map mit Eintr�gen "type", "filename", "mimetype" und "stream" f�r die
+     * @return eine Map mit Einträgen "type", "filename", "mimetype" und "stream" für die
      *  {@link TcBinaryResponseEngine}
 	 */
 	public Map export(final OctopusContext cntx) throws BeanException, IOException, FactoryConfigurationError, TransformerFactoryConfigurationError {
 		final Database database = getDatabase(cntx);
 		final Doctype doctype = getExportDoctype(cntx);
 		if (doctype == null) {
-			logger.error("Konnte G�steliste nicht exportieren, es wurde kein Dokumenttyp konfiguriert.");
-			throw new BeanException("Konnte G�steliste nicht exportieren, es wurde kein Dokumenttyp konfiguriert.");
+			logger.error("Konnte Gästeliste nicht exportieren, es wurde kein Dokumenttyp konfiguriert.");
+			throw new BeanException("Konnte Gästeliste nicht exportieren, es wurde kein Dokumenttyp konfiguriert.");
 		}
 
 		final SpreadSheet spreadSheet = SpreadSheetFactory.getSpreadSheet(doctype.format);
@@ -172,7 +172,7 @@ public class PersonExportWorker extends PersonListWorker {
         			if (memberBEx == null) memberBEx = "_b_e1";
         			if (addressEx == null) addressEx= "_a_e1";
 
-        			// Tabelle �ffnen und erste Zeile schreiben
+        			// Tabelle öffnen und erste Zeile schreiben
         			spreadSheet.openTable("Gäste", 65);
         			spreadSheet.openRow();
         			exportHeader(spreadSheet);
@@ -199,7 +199,7 @@ public class PersonExportWorker extends PersonListWorker {
         			select.select("addresstype");
         			select.select("locale");
 
-        			// Export-Select ausf�hren
+        			// Export-Select ausführen
         			/*
         			 * fixing exportSelect tries to access the current octopus context which tries to get itself
         			 * from the thread local map of this thread which is not an octopus controlled thread
@@ -209,7 +209,7 @@ public class PersonExportWorker extends PersonListWorker {
         					spreadSheet, database, ((PersonalConfigAA)cntx.personalConfig()).getGrants(),
         					doctype, select, data, memberAEx, memberBEx, addressEx);
 
-        			// Tabelle schlie�en
+        			// Tabelle schließen
         			spreadSheet.closeTable();
 
         			// SpreadSheet speichern
@@ -230,7 +230,7 @@ public class PersonExportWorker extends PersonListWorker {
         	}
         }).start();
 
-		// Stream-Informationen zur�ck geben
+		// Stream-Informationen zurück geben
 		Map stream = new HashMap();
 		stream.put(TcBinaryResponseEngine.PARAM_TYPE, TcBinaryResponseEngine.BINARY_RESPONSE_TYPE_STREAM);
 		stream.put(TcBinaryResponseEngine.PARAM_FILENAME, ExportHelper.getFilename(filename));
@@ -241,7 +241,7 @@ public class PersonExportWorker extends PersonListWorker {
 	}
 
 	/**
-	 * Schreibt die �berschriften des Export-Dokumentes.
+	 * Schreibt die überschriften des Export-Dokumentes.
 	 *
 	 * @param spreadSheet {@link SpreadSheet}, in das geschrieben werden soll.
 	 */
@@ -254,8 +254,8 @@ public class PersonExportWorker extends PersonListWorker {
 		spreadSheet.addCell("Partner_Freitextfeld");
 		spreadSheet.addCell("Verbinder");
 
-		spreadSheet.addCell("Anschrift"); // P, G oder S - Vorgabe aus Person, �berschreibbar
-		spreadSheet.addCell("Zeichensatz"); // L, F1 oder F2 - Vorgabe aus Person, �berschreibbar
+		spreadSheet.addCell("Anschrift"); // P, G oder S - Vorgabe aus Person, überschreibbar
+		spreadSheet.addCell("Zeichensatz"); // L, F1 oder F2 - Vorgabe aus Person, überschreibbar
 
 		spreadSheet.addCell("Funktion");
 		spreadSheet.addCell("Anrede");
@@ -299,13 +299,13 @@ public class PersonExportWorker extends PersonListWorker {
 		//
 		// Kategorie spezifische Daten, wenn nach Kategorie gefilter wurde.
 		//
-		spreadSheet.addCell("Kategorie"); // Verweis auf Kategorie, die zur Auswahl f�hrte
+		spreadSheet.addCell("Kategorie"); // Verweis auf Kategorie, die zur Auswahl führte
 		spreadSheet.addCell("Kategorie_Rang"); // Der Rang der Kategorie innerhalb der Kategorien
 		spreadSheet.addCell("Rang"); // Der Rang der Person innerhalb der Kategorie
 		spreadSheet.addCell("Reserve"); // 0 = Tisch, 1 = Reservce
 
 		//
-		// Veranstaltungsspezifische Attribute f�r Person
+		// Veranstaltungsspezifische Attribute für Person
 		//
 		spreadSheet.addCell("Status"); // 0 = Offen, 1 = Zusage, 2 = Absage
 		spreadSheet.addCell("Tisch");
@@ -320,7 +320,7 @@ public class PersonExportWorker extends PersonListWorker {
 		spreadSheet.addCell("Hinweis_Orgateam");
 
 		//
-		// Veranstaltungsspezifische Attribute f�r Partner der Person
+		// Veranstaltungsspezifische Attribute für Partner der Person
 		//
 		spreadSheet.addCell("Partner_Status"); // 0 = Offen, 1 = Zusage, 2 = Absage
 		spreadSheet.addCell("Partner_Tisch");
@@ -350,19 +350,19 @@ public class PersonExportWorker extends PersonListWorker {
 	}
 
     /**
-     * Diese Methode exportiert die Personen aus dem �bergebenen Select in das
-     * �bergebene Spreadsheet
+     * Diese Methode exportiert die Personen aus dem übergebenen Select in das
+     * übergebene Spreadsheet
      *
      * @param spreadSheet {@link SpreadSheet}, in das exportiert werden soll.
-     * @param database Datenbank, in der das Select ausgef�hrt werden soll.
+     * @param database Datenbank, in der das Select ausgeführt werden soll.
      * @param doctype Dokumenttyp, der vorgibt, ob Hauptperson und Partner in einem
      *  gemeinsamen oder in zwei getrennten Zeilen exportiert werden sollen.
      * @param select Select-Statement, das die zu exportierenden Personen selektiert.
-     * @param data Zusatzdaten unter den Schl�sseln "doctype", "color1", "color2",
+     * @param data Zusatzdaten unter den Schlüsseln "doctype", "color1", "color2",
      *  "color3" und "color4".
-     * @param memberAEx Attributschl�sselsuffix der Hauptperson
-     * @param memberBEx Attributschl�sselsuffix der Partnerperson
-     * @param addressEx Attributschl�sselsuffix der Adressdaten
+     * @param memberAEx Attributschlüsselsuffix der Hauptperson
+     * @param memberBEx Attributschlüsselsuffix der Partnerperson
+     * @param addressEx Attributschlüsselsuffix der Adressdaten
      */
 	protected void exportSelect(SpreadSheet spreadSheet, Database database, Grants grants, Doctype doctype, Select select, Map data, String memberAEx, String memberBEx, String addressEx) throws BeanException {
 		try
@@ -514,13 +514,13 @@ public class PersonExportWorker extends PersonListWorker {
 		//
 		// Kategorie spezifische Daten, wenn nach Kategorie gefilter wurde.
 		//
-		spreadSheet.addCell(null); // Verweis auf Kategorie, die zur Auswahl f�hrte
+		spreadSheet.addCell(null); // Verweis auf Kategorie, die zur Auswahl führte
 		spreadSheet.addCell(null); // Der Rang der Kategorie innerhalb der Kategorien
 		spreadSheet.addCell(null); // Der Rang der Person innerhalb der Kategorie
 		spreadSheet.addCell(null); // 0 = Tisch, 1 = Reservce
 
 		//
-		// Veranstaltungsspezifische Attribute f�r Person
+		// Veranstaltungsspezifische Attribute für Person
 		//
 		if (showA) {
 			spreadSheet.addCell(null); // 0 = Offen, 1 = Zusage, 2 = Absage
@@ -549,7 +549,7 @@ public class PersonExportWorker extends PersonListWorker {
 		}
 
 		//
-		// Veranstaltungsspezifische Attribute f�r Partner der Person
+		// Veranstaltungsspezifische Attribute für Partner der Person
 		//
 		if (showB) {
 			spreadSheet.addCell(null); // 0 = Offen, 1 = Zusage, 2 = Absage
@@ -593,7 +593,7 @@ public class PersonExportWorker extends PersonListWorker {
 	}
 
 	/**
-	 * Export ausschlie�lich die Gast-Daten in eine Zeile.
+	 * Export ausschließlich die Gast-Daten in eine Zeile.
 	 *
 	 * @param spreadSheet In das geschrieben werden soll.
 	 * @param person Map mit den Gastdaten.
@@ -653,13 +653,13 @@ public class PersonExportWorker extends PersonListWorker {
 		//
 		// Kategorie spezifische Daten, wenn nach Kategorie gefilter wurde.
 		//
-		spreadSheet.addCell(null); // Verweis auf Kategorie, die zur Auswahl f�hrte
+		spreadSheet.addCell(null); // Verweis auf Kategorie, die zur Auswahl führte
 		spreadSheet.addCell(null); // Der Rang der Kategorie innerhalb der Kategorien
 		spreadSheet.addCell(null); // Der Rang der Person innerhalb der Kategorie
 		spreadSheet.addCell(null); // 0 = Tisch, 1 = Reservce
 
 		//
-		// Veranstaltungsspezifische Attribute f�r Person
+		// Veranstaltungsspezifische Attribute für Person
 		//
 		spreadSheet.addCell(null); // 0 = Offen, 1 = Zusage, 2 = Absage
 		spreadSheet.addCell(null);
@@ -674,7 +674,7 @@ public class PersonExportWorker extends PersonListWorker {
 		spreadSheet.addCell(showRemarks ? person.get("noteorga_a_e1") : null);
 
 		//
-		// Veranstaltungsspezifische Attribute f�r Partner der Person
+		// Veranstaltungsspezifische Attribute für Partner der Person
 		//
 		spreadSheet.addCell(null); // 0 = Offen, 1 = Zusage, 2 = Absage
 		spreadSheet.addCell(null);
@@ -704,7 +704,7 @@ public class PersonExportWorker extends PersonListWorker {
 	}
 
 	/**
-	 * Export ausschlie�lich die Partner-Daten in eine Zeile.
+	 * Export ausschließlich die Partner-Daten in eine Zeile.
 	 *
 	 * @param spreadSheet In das geschrieben werden soll.
 	 * @param person Map mit den Personendaten.
@@ -761,13 +761,13 @@ public class PersonExportWorker extends PersonListWorker {
 		//
 		// Kategorie spezifische Daten, wenn nach Kategorie gefilter wurde.
 		//
-		spreadSheet.addCell(null); // Verweis auf Kategorie, die zur Auswahl f�hrte
+		spreadSheet.addCell(null); // Verweis auf Kategorie, die zur Auswahl führte
 		spreadSheet.addCell(null); // Der Rang der Kategorie innerhalb der Kategorien
 		spreadSheet.addCell(null); // Der Rang der Person innerhalb der Kategorie
 		spreadSheet.addCell(null); // 0 = Tisch, 1 = Reservce
 
 		//
-		// Veranstaltungsspezifische Attribute f�r Person
+		// Veranstaltungsspezifische Attribute für Person
 		//
 		spreadSheet.addCell(null); // 0 = Offen, 1 = Zusage, 2 = Absage
 		spreadSheet.addCell(null);
@@ -782,7 +782,7 @@ public class PersonExportWorker extends PersonListWorker {
 		spreadSheet.addCell(showRemarks ? person.get("noteorga_b_e1") : null);
 
 		//
-		// Veranstaltungsspezifische Attribute f�r Partner der Person
+		// Veranstaltungsspezifische Attribute für Partner der Person
 		//
 		spreadSheet.addCell(null); // 0 = Offen, 1 = Zusage, 2 = Absage
 		spreadSheet.addCell(null);
@@ -815,7 +815,7 @@ public class PersonExportWorker extends PersonListWorker {
      * Diese Methode liefert eine RGB-Farbe zu einer Person.
      *
      * @param person Person, zu der die Farbe gesucht wird.
-     * @param data Zusatzdaten unter den Schl�sseln "color1", "color2",
+     * @param data Zusatzdaten unter den Schlüsseln "color1", "color2",
      *  "color3" und "color4".
      * @param main Flag, ob es um die Hauptperson (<code>true</code>) oder
      *  den Partner (<code>false</code>) geht
@@ -837,9 +837,9 @@ public class PersonExportWorker extends PersonListWorker {
 	}
 
 	/**
-	 * L�dt den Dokumenttypen der zum Personen-Export verwendet werden soll,
-	 * hierf�r wird der Standard-Dokumenttyp verwendet, ist dieser nicht
-	 * gesetzt wird der Dokumenttyp des Freitextfeldes zur�ck gegeben.
+	 * Lädt den Dokumenttypen der zum Personen-Export verwendet werden soll,
+	 * hierfür wird der Standard-Dokumenttyp verwendet, ist dieser nicht
+	 * gesetzt wird der Dokumenttyp des Freitextfeldes zurück gegeben.
 	 *
 	 * @param cntx
 	 * @return

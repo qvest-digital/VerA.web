@@ -24,9 +24,9 @@
 		<input type="hidden" name="saveperson" value="$!octopusRequest.saveperson"/>
 		<input type="hidden" name="person-modified" value="$!octopusRequest.person-modified"/>
 		<input type="hidden" name="personTab" value="$!octopusRequest.personTab"/>
-        <input type="hidden" name="personMemberTab" value="$!octopusRequest.personTab"/>
-        <input type="hidden" name="personAddresstypeTab" value="$!octopusRequest.personTab"/>
-        <input type="hidden" name="personLocaleTab" value="$!octopusRequest.personTab"/>
+		<input type="hidden" name="personMemberTab" value="$!octopusRequest.personTab"/>
+		<input type="hidden" name="personAddresstypeTab" value="$!octopusRequest.personTab"/>
+		<input type="hidden" name="personLocaleTab" value="$!octopusRequest.personTab"/>
 		<input type="hidden" name="person-expire" value="$!octopusRequest.person-expire"/>
 		<input type="hidden" name="person-firstname_a_e1" value="$!octopusRequest.person-firstname_a_e1"/>
 		<input type="hidden" name="person-lastname_a_e1" value="$!octopusRequest.person-lastname_a_e1"/>
@@ -47,10 +47,10 @@
 
 
 		<div id="breadcrumb" class="textRight marginBottom10">
-    		<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Personen > Dublettensuche</span>
-    	</div>
+			<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Personen > Dublettensuche</span>
+		</div>
 
-   		<vera-info>
+		<vera-info>
 			Beachten Sie, dass &auml; mit ae, &ouml; mit oe, &uuml; mit ue und &szlig; mit ss verglichen wird.<br />
 		</vera-info>
 
@@ -59,16 +59,6 @@
 		#foreach($bean in $list)
 		<input type="hidden" name="list" value="$bean.id">
 		#end
-
-		##Add whitespace to values to cut them
-		#set($lastnamecut = $!bean.lastname_a_e1.replaceAll("(.{12})", "$1 "))
-		#set($firstnamecut = $!bean.firstname_a_e1.replaceAll("(.{12})", "$1 "))
-		#set($functioncut = $!bean.function_a_e1.replaceAll("(.{12})", "$1 "))
-		#set($companycut = $!bean.company_a_e1.replaceAll("(.{12})", "$1 "))
-		#set($streetcut = $!bean.street_a_e1.replaceAll("(.{12})", "$1 "))
-		#set($zipcodecut = $!bean.zipcode_a_e1.replaceAll("(.{5})", "$1 "))
-		#set($citycut = $!bean.city_a_e1.replaceAll("(.{12})", "$1 "))
-
 		<table class="sortable">
 			<tr>
 				<th class="smallCell textCenter">ID</th>
@@ -84,42 +74,32 @@
 			<tr>
 				<td class="textCenter"><em>neu</em></td>
 				##additional parameters action cf. issue #2091
-				<td onclick="window.location.href='SavePerson?saveperson=true&person-nodupcheck=true&originalPersonId=$!originalPersonId&action=$!action';">$!message.text($lastnamecut)</td>
-				<td onclick="window.location.href='SavePerson?saveperson=true&person-nodupcheck=true&originalPersonId=$!originalPersonId&action=$!action';">$!message.text($firstnamecut)</td>
-				<td onclick="window.location.href='SavePerson?saveperson=true&person-nodupcheck=true&originalPersonId=$!originalPersonId&action=$!action';">$!message.text($functioncut)</td>
-				<td onclick="window.location.href='SavePerson?saveperson=true&person-nodupcheck=true&originalPersonId=$!originalPersonId&action=$!action';">$!message.text($companycut)</td>
-				<td onclick="window.location.href='SavePerson?saveperson=true&person-nodupcheck=true&originalPersonId=$!originalPersonId&action=$!action';">$!message.text($streetcut)</td>
-				<td onclick="window.location.href='SavePerson?saveperson=true&person-nodupcheck=true&originalPersonId=$!originalPersonId&action=$!action';">$!message.text($zipcodecut)</td>
-				<td onclick="window.location.href='SavePerson?saveperson=true&person-nodupcheck=true&originalPersonId=$!originalPersonId&action=$!action';">$!message.text($citycut)</td>
+				<td onclick="window.location.href='SavePerson?saveperson=true&person-nodupcheck=true&originalPersonId=$!originalPersonId&action=$!action';">$!message.text($!person.lastname_a_e1)</td>
+				<td onclick="window.location.href='SavePerson?saveperson=true&person-nodupcheck=true&originalPersonId=$!originalPersonId&action=$!action';">$!message.text($!person.firstname_a_e1)</td>
+				<td onclick="window.location.href='SavePerson?saveperson=true&person-nodupcheck=true&originalPersonId=$!originalPersonId&action=$!action';">$!message.text($!person.function_a_e1)</td>
+				<td onclick="window.location.href='SavePerson?saveperson=true&person-nodupcheck=true&originalPersonId=$!originalPersonId&action=$!action';">$!message.text($!person.company_a_e1)</td>
+				<td onclick="window.location.href='SavePerson?saveperson=true&person-nodupcheck=true&originalPersonId=$!originalPersonId&action=$!action';">$!message.text($!person.street_a_e1)</td>
+				<td onclick="window.location.href='SavePerson?saveperson=true&person-nodupcheck=true&originalPersonId=$!originalPersonId&action=$!action';">$!message.text($!person.zipcode_a_e1)</td>
+				<td onclick="window.location.href='SavePerson?saveperson=true&person-nodupcheck=true&originalPersonId=$!originalPersonId&action=$!action';">$!message.text($!person.city_a_e1)</td>
 				<td class="textCenter"><a href="SavePerson?saveperson=true&person-nodupcheck=true&originalPersonId=$!originalPersonId&action=$!action" class="noBorder"><img src="${paths.staticWeb}images/add.png" alt="Neuen Eintrag anlegen" title="Neuen Eintrag anlegen"></a></td>
 			</tr>
 			#foreach($bean in $list)
-
-			##Add whitespace to values to cut them
-			#set($lastnamecut = $!bean.lastname_a_e1.replaceAll("(.{12})", "$1 "))
-			#set($firstnamecut = $!bean.firstname_a_e1.replaceAll("(.{12})", "$1 "))
-			#set($functioncut = $!bean.function_a_e1.replaceAll("(.{12})", "$1 "))
-			#set($companycut = $!bean.company_a_e1.replaceAll("(.{12})", "$1 "))
-			#set($streetcut = $!bean.street_a_e1.replaceAll("(.{12})", "$1 "))
-			#set($zipcodecut = $!bean.zipcode_a_e1.replaceAll("(.{5})", "$1 "))
-			#set($citycut = $!bean.city_a_e1.replaceAll("(.{12})", "$1 "))
-
 			<tr>
 				##additional parameters action cf. issue #2091
 				<td class="textCenter" onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!action';"><input type="hidden" name="${bean.id}-id" value="$bean.id">$!{bean.id}</td>
-				<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!action';">$!message.text($lastnamecut)</td>
-				<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!action';">$!message.text($firstnamecut)</td>
-				<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!action';">$!message.text($functioncut)</td>
-				<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!action';">$!message.text($companycut)</td>
-				<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!action';">$!message.text($streetcut)</td>
-				<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!action';">$!message.text($zipcodecut)</td>
-				<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!action';">$!message.text($citycut)</td>
+				<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!action';">$!message.text($!bean.lastname_a_e1)</td>
+				<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!action';">$!message.text($!bean.firstname_a_e1)</td>
+				<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!action';">$!message.text($!bean.function_a_e1)</td>
+				<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!action';">$!message.text($!bean.company_a_e1)</td>
+				<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!action';">$!message.text($!bean.street_a_e1)</td>
+				<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!action';">$!message.text($!bean.zipcode_a_e1)</td>
+				<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!action';">$!message.text($!bean.city_a_e1)</td>
 				<td class="textCenter"><a href="ShowPerson?id=$!{bean.id}&action=$!action" class="noBorder"><img src="${paths.staticWeb}images/edit.png" alt="Existierenden Eintrag bearbeiten" title="Existierenden Eintrag bearbeiten"></a></td>
 			</tr>
 			#end
 
 			#set($itemName = "Personen")
-    		#parse("inc/list-navi-new.vm")
+			#parse("inc/list-navi-new.vm")
 		</table>
 
 		#set($disableListSelect = true)
@@ -135,7 +115,7 @@
 			<input type="button" class="cancel" name="cancel" value="Zur&uuml;ck" title="Zur&uuml;ck" onclick="window.location.href='ShowGuestList?selectNone=true';">
 		#else
 			<!-- <input type="button" class="button" name="newperson" value="Dubletten anlegen" onclick="window.location.href='SavePerson?saveperson=true&person-nodupcheck=true&originalPersonId=$!originalPersonId';"> -->
-			<input type="button" name="cancel" value="Abbrechen &amp; zur&uuml;ck"  title="Abbrechen &amp; zur&uuml;ck" onclick="window.location.href='PersonDupcheckCancel';" class="mainButton">
+			<input type="button" name="cancel" value="Abbrechen &amp; zur&uuml;ck" title="Abbrechen &amp; zur&uuml;ck" onclick="window.location.href='PersonDupcheckCancel';" class="mainButton">
 		#end
 
 	</div>

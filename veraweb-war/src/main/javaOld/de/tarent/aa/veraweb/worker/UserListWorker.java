@@ -41,7 +41,7 @@ import de.tarent.octopus.server.OctopusContext;
 
 /**
  * Diese Octopus-Worker-Klasse stellt Operationen zur Anzeige
- * von Benutzerlisten zur Verf�gung. Details bitte dem
+ * von Benutzerlisten zur Verfügung. Details bitte dem
  * {@link de.tarent.octopus.beans.veraweb.ListWorkerVeraWeb}
  * entnehmen.
  *
@@ -49,7 +49,7 @@ import de.tarent.octopus.server.OctopusContext;
  */
 public class UserListWorker extends ListWorkerVeraWeb {
     //
-    // �ffentliche Konstanten
+    // Öffentliche Konstanten
     //
     /** Parameter: Wer alles? */
     public final static String PARAM_DOMAIN = "domain";
@@ -77,8 +77,8 @@ public class UserListWorker extends ListWorkerVeraWeb {
 	// BeanListWorker
 	//
 	/**
-	 * Methode f�r das Erweitern des ListWorkerVeraWeb-Select-Statements um Spalten.<br>
-	 * Hier wird eine Sortierung eingef�gt.
+	 * Methode für das Erweitern des ListWorkerVeraWeb-Select-Statements um Spalten.<br>
+	 * Hier wird eine Sortierung eingefügt.
 	 *
 	 * @param cntx
 	 *          Octopus-Context
@@ -113,7 +113,7 @@ public class UserListWorker extends ListWorkerVeraWeb {
 	}
 
     /**
-		 * Methode f�r das Erweitern des Select-Statements um Bedingungen.<br>
+		 * Methode für das Erweitern des Select-Statements um Bedingungen.<br>
 		 * Hier wird der Parameter {@link #PARAM_DOMAIN "domain"} ausgewertet.<br>
 		 * {@link #PARAM_DOMAIN "domain"} kann neben einer Rollenbezeichnung die Werte {@link #PARAM_DOMAIN_VALUE_ALL "all"},
 		 * {@link #PARAM_DOMAIN_VALUE_OU "ou"} und {@link #PARAM_DOMAIN_VALUE_SELF "self"} haben.
@@ -130,12 +130,12 @@ public class UserListWorker extends ListWorkerVeraWeb {
         PersonalConfigAA pCfg = (PersonalConfigAA) cntx.personalConfig();
         String domain = cntx.contentAsString(PARAM_DOMAIN);
         WhereList list = new WhereList();
-        // TODO: Je nach Benutzergruppe passende Einschr�nkung machen
+        // TODO: Je nach Benutzergruppe passende Einschränkung machen
         //
         // domain: Wer alles?
         //
         if (PARAM_DOMAIN_VALUE_ALL.equals(domain)) {
-            // alle Benutzer, keine Einschr�nkung
+            // alle Benutzer, keine Einschränkung
         } else if (PARAM_DOMAIN_VALUE_OU.equals(domain)) {
             if (pCfg == null || pCfg.getOrgUnitId() == null)
                 list.addAnd(Expr.isNull("fk_orgunit"));
@@ -158,13 +158,13 @@ public class UserListWorker extends ListWorkerVeraWeb {
 
     /**
      * Wird von {@link de.tarent.octopus.beans.BeanListWorker#saveList(OctopusContext)}
-     * aufgerufen und soll das �bergebene Bean als neuen Eintrag speichern.
+     * aufgerufen und soll das übergebene Bean als neuen Eintrag speichern.
      *
      * @see #saveBean(OctopusContext, Bean)
      *
      * @param cntx Octopus-Kontext
      * @param errors kummulierte Fehlerliste
-     * @param bean einzuf�gendes Bean
+     * @param bean einzufügendes Bean
      * @throws BeanException
      * @throws IOException
      */

@@ -21,14 +21,14 @@ package de.tarent.ldap;
 
 /**
  * Kapselt Exceptions aus dem LDAP
- * 
+ *
  * @author philipp
  */
 public class LDAPException extends Exception {
 	private static final long serialVersionUID = -13354750513745321L;
 
 	/**
-	 * 
+	 *
 	 */
 	public LDAPException() {
 		super();

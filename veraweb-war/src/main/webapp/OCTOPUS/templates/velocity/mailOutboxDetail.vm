@@ -13,13 +13,13 @@
 <div id="content_container">
     <form id="formlist" name="formlist" action="" method="POST">
         <input type="hidden" name="save" value="true"/>
-        
+
         <div id="breadcrumb marginBottom10" class="textRight">
     		<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Administration > Postausgang</span>
     	</div>
-    
+
 		<h1>Postausgang</h1>
-    
+
         #if($mailoutbox.errors.size() > 0 || $mailoutbox.status == $mailoutbox.STATUS_ERROR || ($mailoutbox.errortext && $mailoutbox.errortext.length() > 0))
             <vera-warn>
 				#foreach($error in $mailoutbox.errors)
@@ -47,11 +47,11 @@
             	Diese E-Mail wurde bereits versendet und sollte <strong>nicht mehr bearbeitet</strong> werden.
             </vera-warn>
         #end
-    
+
         <input type="hidden" name="mailoutbox-id" value="$!mailoutbox.id"/>
-		
+
 		<div class="textRight bold">* = Pflichtfelder</div>
-        
+
         <table class="form">
 			<tr>
             	<td class="width5"><label for="show-id">ID</label></td>
@@ -85,17 +85,17 @@
                 	</td>
         		</tr>
             #end
-        
+
             #if ($listparam.count == 0)
             	<tr><td colspan="2">Keine Daten gefunden.</td></tr>
             #end
         </table>
-    
+
     	<div class="textRight marginTop10" id="buttonPanel-bottom">
 			<input type="submit" name="submit" value="Speichern" title="Speichern" class="mainButton" />
 			<input type="button" name="save" value="Zurück" title="Zurück" class="mainButton" onclick="window.location.href='MailOutboxList';" />
 		</div>
-    
+
     </form>
 </div>
 #parse("inc/footer.vm")

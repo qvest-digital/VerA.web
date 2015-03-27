@@ -35,9 +35,9 @@ import javax.persistence.Table;
 
 /**
  * Entity 'Task'.
- * 
+ *
  * @author Valentin But (v.but@tarent.de), tarent solutions GmbH
- * 
+ *
  */
 @Entity
 @Table(name = "ttask")
@@ -45,12 +45,12 @@ import javax.persistence.Table;
 public class Task extends AbstractEntity {
 
     public static final String GET_TASK_BY_TITLE = "getTaskByTitle";
-    
+
     /**
      * Generated Serial id.
      */
     private static final long serialVersionUID = -1100908087057080727L;
-    
+
     /**
      * Primary key (sequential number).
      */
@@ -59,43 +59,43 @@ public class Task extends AbstractEntity {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "taskSeqGen")
     @Column(name = "pk")
     private Long id;
-    
+
     /**
      * Title.
      */
     @Column(name = "title")
     private String title;
-    
+
     /**
      * Description.
      */
     @Column(name = "description")
     private String description;
-    
+
     /**
      * Description.
      */
     @Column(name = "startdate")
     private Timestamp startDate;
-    
+
     /**
      * Description.
      */
     @Column(name = "enddate")
     private Timestamp endDate;
-    
+
     /**
      * Degree of completion.
      */
     @Column(name = "degree_of_completion")
     private Integer degreeOfCompletion;
-    
+
     /**
      * Priority.
      */
     @Column(name = "priority")
     private Integer priority;
-    
+
     /**
      * Created by.
      */
@@ -119,27 +119,27 @@ public class Task extends AbstractEntity {
      */
     @Column(name = "changed")
     private Timestamp changed;
-    
+
     /**
      * Task's assigned event.
      */
     @ManyToOne()
     @JoinColumn(name = "fk_event", referencedColumnName = "pk")
     private Event event;
-    
+
     /**
      * Responsible person for the task.
      */
     @ManyToOne()
     @JoinColumn(name = "fk_person", referencedColumnName = "pk")
     private Person responsiblePerson;
-    
+
 
     @Override
     public Long getId() {
         return id;
     }
-    
+
     public void setId(Long id) {
         this.id = id;
     }

@@ -74,7 +74,7 @@ import de.tarent.octopus.server.Context;
 import de.tarent.octopus.server.OctopusContext;
 
 /**
- * Diese Klasse stellt einen Octopus-Worker f�r den Im- und Export von
+ * Diese Klasse stellt einen Octopus-Worker für den Im- und Export von
  * Personendaten im VerA.web-eigenen Format dar.
  *
  * @author mikel
@@ -83,7 +83,7 @@ public class DataExchangeWorker {
     //
     // Konstanten
     //
-    /** Vorgabewert f�r den Parameter <code>formatEnumKey</code> von {@link #getFormats(OctopusContext, String)} */
+    /** Vorgabewert für den Parameter <code>formatEnumKey</code> von {@link #getFormats(OctopusContext, String)} */
     public final static String KEY_FORMAT_NAMES = "exchangeFormats";
 
     /** Exportfilterwert: Filtrierung nach Kategorie */
@@ -101,24 +101,24 @@ public class DataExchangeWorker {
     //
     // Octopus-Aktionen
     //
-    /** Octopus-Eingabe-Parameter f�r {@link #getFormats(OctopusContext, String)} */
+    /** Octopus-Eingabe-Parameter für {@link #getFormats(OctopusContext, String)} */
     public static final String[] INPUT_getFormats = { "formatEnumKey" };
-    /** Octopus-Eingabepflicht-Parameter f�r {@link #getFormats(OctopusContext, String)} */
+    /** Octopus-Eingabepflicht-Parameter für {@link #getFormats(OctopusContext, String)} */
     public static final boolean[] MANDATORY_getFormats = { false };
-    /** Octopus-Ausgabe-Parameter f�r {@link #getFormats(OctopusContext, String)} */
+    /** Octopus-Ausgabe-Parameter für {@link #getFormats(OctopusContext, String)} */
     public static final String OUTPUT_getFormats = "formats";
     /**
-     * Diese Octopus-Aktion liefert eine {@link Map} mit verf�gbaren Austauschformaten.
+     * Diese Octopus-Aktion liefert eine {@link Map} mit verfügbaren Austauschformaten.
      *
-     *  f�hrt einen Export von Personendaten durch. Dies geschieht
+     *  führt einen Export von Personendaten durch. Dies geschieht
      * je nach Parameter <code>fieldMapping</code> in eine XML-Darstellung von VerA.web
      * oder eine CSV-Datei. Der Exportdatenstrom wird in den Content geschrieben.
-     * Zus�tzlich kann er an eine Stelle im Dateisystem kopiert werden.
+     * Zusätzlich kann er an eine Stelle im Dateisystem kopiert werden.
      *
      * @param cntx Octopus-Kontext
-     * @param formatEnumKey optionaler Schl�ssel der verf�gbaren Schl�ssel, Default ist
+     * @param formatEnumKey optionaler Schlüssel der verfügbaren Schlüssel, Default ist
      *  {@link #KEY_FORMAT_NAMES}.
-     * @return Abbildung von Schl�sselbezeichnern auf {@link ExchangeFormat}-Instanzen.
+     * @return Abbildung von Schlüsselbezeichnern auf {@link ExchangeFormat}-Instanzen.
      */
     public Map getFormats(OctopusContext cntx, String formatEnumKey) {
         Map result = Collections.EMPTY_MAP;
@@ -142,35 +142,35 @@ public class DataExchangeWorker {
         return result;
     }
 
-    /** Octopus-Eingabe-Parameter f�r {@link #export(OctopusContext, String, String, Integer, Integer, String)} */
+    /** Octopus-Eingabe-Parameter für {@link #export(OctopusContext, String, String, Integer, Integer, String)} */
     public static final String[] INPUT_export = { "format", "exportFilter", "exportEvent", "exportCategory", "domain" };
-    /** Octopus-Eingabepflicht-Parameter f�r {@link #export(OctopusContext, String, String, Integer, Integer, String)} */
+    /** Octopus-Eingabepflicht-Parameter für {@link #export(OctopusContext, String, String, Integer, Integer, String)} */
     public static final boolean[] MANDATORY_export = { true, false, false, false, false };
-    /** Octopus-Ausgabe-Parameter f�r {@link #export(OctopusContext, String, String, Integer, Integer, String)} */
+    /** Octopus-Ausgabe-Parameter für {@link #export(OctopusContext, String, String, Integer, Integer, String)} */
     public static final String OUTPUT_export = "stream";
     /**
-     * Diese Octopus-Aktion f�hrt einen Export von Personendaten durch. Dies geschieht
+     * Diese Octopus-Aktion führt einen Export von Personendaten durch. Dies geschieht
      * in einem konfigurierten Format. Der Exportdatenstrom wird in den Content geschrieben.
-     * Zus�tzlich kann er an eine Stelle im Dateisystem kopiert werden.
+     * Zusätzlich kann er an eine Stelle im Dateisystem kopiert werden.
      *
      * @param cntx Octopus-Kontext
-     * @param formatKey Schl�ssel der Datenformatbeschreibung in der Modulkonfiguration
+     * @param formatKey Schlüssel der Datenformatbeschreibung in der Modulkonfiguration
      * @param filter {@link #EXPORT_FILTER_CATEGORY} oder {@link #EXPORT_FILTER_EVENT},
      *  je nach anzuwendenen Filter
      * @param event Veranstaltungsfilter
      * @param category Kategorienfilter
-     * @param domain Dom�ne, aus der die Personen stammen ("all" oder "ou")
+     * @param domain Domäne, aus der die Personen stammen ("all" oder "ou")
      * @return exportierter Datenstrom
-     * @throws TcContentProzessException bei ung�ltigen Parameterwerten.
+     * @throws TcContentProzessException bei ungültigen Parameterwerten.
      * @throws BeanException
      */
     public Map export(final OctopusContext cntx, final String formatKey, final String filter, final Integer event, final Integer category, final String domain) throws TcContentProzessException, IOException {
         TcModuleConfig moduleConfig = cntx.moduleConfig();
         assert moduleConfig != null;
-        // Zun�chst mal die ben�tigten Objekte erstellen
+        // Zunächst mal die benötigten Objekte erstellen
         final ExchangeFormat format = getExchangeFormat(moduleConfig.getParams(), formatKey, cntx.getRequestObject().getRequestParameters());
         if (format == null)
-            throw new TcContentProzessException("Unbekannter Exportformatschl�ssel '" +  formatKey + "'.");
+            throw new TcContentProzessException("Unbekannter Exportformatschlüssel '" +  formatKey + "'.");
         final Database database = new DatabaseVeraWeb(cntx);
 
         final MultiOutputStream mos = new MultiOutputStream();
@@ -190,7 +190,7 @@ public class DataExchangeWorker {
 	                    mos.add(altdest.getAlternativeOutputStream());
 	                }
 
-	                // Mandantenbeschr�nkung
+	                // Mandantenbeschränkung
 	                TcPersonalConfig pConfig = cntx.personalConfig();
 	                Integer orgUnit = null;
 	                if (pConfig instanceof PersonalConfigAA) {
@@ -200,12 +200,12 @@ public class DataExchangeWorker {
 	                } else
 	                    throw new BeanException("Missing user information");
 
-	                // Beschr�nkung auf Kategorie, wenn Benutzer eine ausgew�hlt hat
+	                // Beschränkung auf Kategorie, wenn Benutzer eine ausgewählt hat
 	                Integer categoryId = null;
 	                if (EXPORT_FILTER_CATEGORY.equals(filter)) // category == null bedeutet: in irgendeiner Kategorie, = 0 bedeutet: in keiner Kategorie
 	                	categoryId = category;
 
-	                //Den Exporter auf Mandant und Kategorie einschr�nken. Ist f�r den CSV-Exporter notwendig, damit keine �berfl�ssigen �berschriften erzeugt werden.
+	                //Den Exporter auf Mandant und Kategorie einschränken. Ist für den CSV-Exporter notwendig, damit keine überflüssigen überschriften erzeugt werden.
 	                exporter.setOrgUnitId(orgUnit);
 	                exporter.setCategoryId(categoryId);
 
@@ -236,32 +236,32 @@ public class DataExchangeWorker {
         return createBinaryResponse(getFilename(cntx, format), format.getMimeType(), pis);
     }
 
-    /** Octopus-Eingabe-Parameter f�r {@link #importToTransit(OctopusContext, Map, String, String, Integer, Map)} */
+    /** Octopus-Eingabe-Parameter für {@link #importToTransit(OctopusContext, Map, String, String, Integer, Map)} */
     public static final String[] INPUT_importToTransit = { "importfile", "format", "importSource", "orgUnit", "CONFIG:importProperties" };
-    /** Octopus-Eingabe-Parameter-Pflicht f�r {@link #importToTransit(OctopusContext, Map, String, String, Integer, Map)} */
+    /** Octopus-Eingabe-Parameter-Pflicht für {@link #importToTransit(OctopusContext, Map, String, String, Integer, Map)} */
     public static final boolean[] MANDATORY_importToTransit = { false, true, true, false, true };
-    /** Octopus-Ausgabe-Parameter f�r {@link #importToTransit(OctopusContext, Map, String, String, Integer, Map)} */
+    /** Octopus-Ausgabe-Parameter für {@link #importToTransit(OctopusContext, Map, String, String, Integer, Map)} */
     public static final String OUTPUT_importToTransit = "importStatus";
     /**
      * Diese Octopus-Aktion importiert die Personen einer Datei in den Transit-Bereich,
      * also die Tabelle <code>timportperson</code>.
      *
      * @param cntx Octopus-Kontext
-     * @param stream Datei-Upload-Map (enth�lt unter "ContentStream" einen <code>InputStream</code>)
-     * @param formatKey Schl�ssel der Datenformatbeschreibung in der Modulkonfiguration
+     * @param stream Datei-Upload-Map (enthält unter "ContentStream" einen <code>InputStream</code>)
+     * @param formatKey Schlüssel der Datenformatbeschreibung in der Modulkonfiguration
      * @param importSource Importquellenbeschreibung
      * @param orgUnit Ziel-Mandant; nur bei Super-Admins beachtetg
      * @param importProperties Einstellungen zum Import
      * @return Map mit Informationen zum Import, insbesondere der Anzahl gefundener
-     *  Datens�tze unter "dsCount", der Anzahl Duplikate unter "dupCount", der Anzahl
-     *  importierter Datens�tze unter "saveCount" und der Import-ID unter "id".
+     *  Datensätze unter "dsCount", der Anzahl Duplikate unter "dupCount", der Anzahl
+     *  importierter Datensätze unter "saveCount" und der Import-ID unter "id".
      * @throws IOException
      * @throws TcContentProzessException
      */
     public Map importToTransit(OctopusContext cntx, Map stream, String formatKey, String importSource, Integer orgUnit, Map importProperties) throws BeanException, IOException, TcContentProzessException {
         TcModuleConfig moduleConfig = cntx.moduleConfig();
         assert moduleConfig != null;
-        // Zun�chst mal die ben�tigten Objekte erstellen
+        // Zunächst mal die benötigten Objekte erstellen
         ExchangeFormat format = getExchangeFormat(moduleConfig.getParams(), formatKey, cntx.getRequestObject().getRequestParameters());
         if (format == null)
             throw new TcContentProzessException("Unbekannter Importformatschl\u00fcssel '" +  formatKey + "'.");
@@ -344,11 +344,11 @@ public class DataExchangeWorker {
     }
 
     //
-    // gesch�tzte Hilfsmethoden
+    // geschützte Hilfsmethoden
     //
     /**
      * Diese Methode erstellt eine {@link Map}, aus der die
-     * {@link TcBinaryResponseEngine} die Daten f�r ihre
+     * {@link TcBinaryResponseEngine} die Daten für ihre
      * Octopus-Response-Erstellung entnimmt.
      *
      * @param filename Dateiname, den die Response tragen soll
@@ -370,15 +370,15 @@ public class DataExchangeWorker {
      * Diese Methode liest aus einer Konfigurations-{@link Map} ein {@link ExchangeFormat}.
      *
      * @param config Konfiguration
-     * @param formatKey Schl�ssel zum Format
+     * @param formatKey Schlüssel zum Format
      * @param params {@link Map} mit Parametern, aus denen diejenigen ermittelt werden,
      *  die dem {@link ExchangeFormat} zuzuordnen sind; dies sind genau die, die einen
-     *  Schl�ssel der Form <code>"format-" + formatKey + '-' + choiceKey</code> haben,
-     *  wobei <code>choiceKey</code> �ber die Schl�ssel der {@link Map} iteriert, die
-     *  in den {@link ExchangeFormat#getProperties() Properties} unter dem Schl�ssel
+     *  Schlüssel der Form <code>"format-" + formatKey + '-' + choiceKey</code> haben,
+     *  wobei <code>choiceKey</code> über die Schlüssel der {@link Map} iteriert, die
+     *  in den {@link ExchangeFormat#getProperties() Properties} unter dem Schlüssel
      *  <code>"choices"</code> liegt. Sie werden diesen Properties unter dem jeweiligen
-     *  Schl�ssel <code>choiceKey</code> hinzugef�gt.
-     * @return zugeh�riges {@link ExchangeFormat} oder <code>null</code>
+     *  Schlüssel <code>choiceKey</code> hinzugefügt.
+     * @return zugehöriges {@link ExchangeFormat} oder <code>null</code>
      */
     static ExchangeFormat getExchangeFormat(Map config, String formatKey, Map params) {
         if (formatKey == null)
@@ -404,7 +404,7 @@ public class DataExchangeWorker {
 
     /**
      * Diese Methode liefert zu einem Octopus-Kontext den zu einem bestimmten
-     * Format passenden Dateinamen f�r Dateir�ckgaben.
+     * Format passenden Dateinamen für Dateirückgaben.
      *
      * @param octx Octopus-Kontext
      * @param format {@link ExchangeFormat}-Instanz
@@ -455,7 +455,7 @@ public class DataExchangeWorker {
      * irgendeiner / keiner Veranstaltung sind.
      *
      * @param database zu benutzende Datenverbindung
-     * @param event Veranstaltung, deren G�ste exportiert werden sollen; <code>null</code>
+     * @param event Veranstaltung, deren Gäste exportiert werden sollen; <code>null</code>
      *  wird interpretiert als "Personen, die bei irgendeiner Veranstaltung Gast sind",
      *  <code>0</code> als "Personen, die bei keiner Veranstaltung Gast sind".
      * @param exporter zu benutzender {@link Exporter}
@@ -586,7 +586,7 @@ public class DataExchangeWorker {
      * Diese Methode exportiert alle Personen, die ein bestimmtes {@link Select} liefert.
      *
      * @param database zu benutzende Datenverbindung
-     * @param select DB-Select; dieses muss auf <code>database.getSelect("Person")</code>
+     * @param select DB-Select; dieses muß auf <code>database.getSelect("Person")</code>
      *  beruhen, insbesondere zumindest mindestens die darin vorgegebenen Spalten haben.
      * @param exporter zu benutzender {@link Exporter}
      */
@@ -623,7 +623,7 @@ public class DataExchangeWorker {
     /**
      * Diese Methode erstellt einen Importvorgangeintrag.
      *
-     * @param formatKey Schl�ssel des Formats des Importvorgangs
+     * @param formatKey Schlüssel des Formats des Importvorgangs
      * @param importSource Bezeichner der Importquelle
      * @param orgunit Mandanten-ID, in der der Import erfolgt
      * @return neue {@link Import}-Instanz zu den angegebenen Daten
@@ -676,12 +676,12 @@ public class DataExchangeWorker {
      * Diese Methode erzeugt eine <code>Map</code>, in der Statistiken zu einem Import
      * kodiert sind.
      *
-     * @param dsCount Anzahl Datens�tze insgesamt
+     * @param dsCount Anzahl Datensätze insgesamt
      * @param dupCount Anzahl Duplikate
      * @param id Import-ID
      * @return Map mit Informationen zum Import, insbesondere der Anzahl gefundener
-     *  Datens�tze unter "dsCount", der Anzahl Duplikate unter "dupCount", der Anzahl
-     *  importierter Datens�tze unter "saveCount" und der Import-ID unter "id".
+     *  Datensätze unter "dsCount", der Anzahl Duplikate unter "dupCount", der Anzahl
+     *  importierter Datensätze unter "saveCount" und der Import-ID unter "id".
      */
     public static Map createImportStats(int dsCount, int dupCount, int saveCount, Number id) {
         Map rMap = new HashMap();
@@ -694,16 +694,16 @@ public class DataExchangeWorker {
 
     /**
      * Diese Methode erzeugt eine <code>Map</code>, in der Statistiken zu einem Import
-     * kodiert sind. In dieser Variante werden auch die Datens�tze gez�hlt, die wegen
+     * kodiert sind. In dieser Variante werden auch die Datensätze gezählt, die wegen
      * Unkorrektheit ignoriert wurden.
      *
-     * @param igCount Anzahl ignorierter (unkorrekter) Datens�tze
-     * @param dsCount Anzahl nicht ignorierter Datens�tze insgesamt
+     * @param igCount Anzahl ignorierter (unkorrekter) Datensätze
+     * @param dsCount Anzahl nicht ignorierter Datensätze insgesamt
      * @param dupCount Anzahl Duplikate
      * @param id Import-ID
      * @return Map mit Informationen zum Import, insbesondere der Anzahl gefundener
-     *  Datens�tze unter "dsCount", der Anzahl Duplikate unter "dupCount", der Anzahl
-     *  importierter Datens�tze unter "saveCount" und der Import-ID unter "id".
+     *  Datensätze unter "dsCount", der Anzahl Duplikate unter "dupCount", der Anzahl
+     *  importierter Datensätze unter "saveCount" und der Import-ID unter "id".
      */
     public static Map createImportStats(int igCount, int dsCount, int dupCount, int saveCount, Number id) {
         Map rMap = createImportStats(dsCount, dupCount, saveCount, id);
@@ -712,7 +712,7 @@ public class DataExchangeWorker {
     }
 
     //
-    // gesch�tzte Member
+    // geschützte Member
     //
     private final static Logger logger = Logger.getLogger(DataExchangeWorker.class);
 }

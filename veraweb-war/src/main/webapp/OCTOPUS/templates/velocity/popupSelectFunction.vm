@@ -27,7 +27,7 @@
 		<input type="hidden" name="limit" value=""/>
         <input type="hidden" name="selectAll" value="false"/>
         <input type="hidden" name="selectNone" value="false"/>
-		
+
 				<div class="contentBoxColored grayBorder">
 					<h2>Bitte w&auml;hlen Sie eine Amtsbezeichnung / Funktion aus:</h2>
 					<table>
@@ -55,11 +55,11 @@
 							Keine Daten gefunden.<br/><br/>
 						#end
 					</table>
-				
+
 						<div class="textRight">
 							<input type="button" value="Schlie&szlig;en" onclick="closePopup();"/>
 						</div>
-		
+
 			</div>
 		</form>
 	</body>

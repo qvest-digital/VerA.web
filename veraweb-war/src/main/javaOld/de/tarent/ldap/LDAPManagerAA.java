@@ -33,8 +33,8 @@ import javax.naming.directory.SearchResult;
 import javax.naming.ldap.InitialLdapContext;
 
 /**
- * Diese Klasse 
- * 
+ * Diese Klasse
+ *
  * @author mikel
  */
 public class LDAPManagerAA extends LDAPManager {
@@ -44,14 +44,14 @@ public class LDAPManagerAA extends LDAPManager {
     /** LDAP-Objektklasse fuer AA-Rollen */
     /** Parameter-Schluessel fuer den AA-Rollen-Filter */
     public final static String KEY_ROLE_FILTER = "role-filter";
-    
+
     //
     // Konstruktor
     //
     /**
-     * Dieser Konstruktor reicht die �bergebenen Parameter durch und setzt die
+     * Dieser Konstruktor reicht die übergebenen Parameter durch und setzt die
      * Vorgabe-Objektklassen.
-     * 
+     *
      * @param lctx initialer LDAP-Kontext, auf dem dieser LDAP-Manager arbeitet
      * @param params LDAP-Manager-Parameter, vergleiche
      *  {@link LDAPManager#LDAPManager(InitialLdapContext, Map)}
@@ -70,13 +70,13 @@ public class LDAPManagerAA extends LDAPManager {
     }
 
     //
-    // �ffentliche AA-spezifische Methoden
+    // Öffentliche AA-spezifische Methoden
     //
     /**
      * Diese Methode erzeugt zu einem Benutzer eine {@link Map} seiner Attribute und
      * Attributswerte. Wenn ein Attribut mehrere Werte hat, so wird in der {@link Map}
-     * der Attributname auf eine {@link java.util.List} der Werte abgebildet. 
-     * 
+     * der Attributname auf eine {@link java.util.List} der Werte abgebildet.
+     *
      * @param userName Name des Benutzers
      * @return {@link Map} der Attribute des Benutzers
      * @throws LDAPException
@@ -91,51 +91,51 @@ public class LDAPManagerAA extends LDAPManager {
     }
 
     /**
-     * Diese Methode ermittelt alle verf�gbaren Rollen.
-     * 
-     * @return Sammlung verf�gbarer Rollen
+     * Diese Methode ermittelt alle verfügbaren Rollen.
+     *
+     * @return Sammlung verfügbarer Rollen
      * @throws NamingException
-     * @throws LDAPException 
+     * @throws LDAPException
      */
     public Set getPossibleRoles() throws NamingException {
 		SearchControls cons = new SearchControls();
 		this.initializeSearchControls( cons );
 		Set roleUids = getPossibleRoles("(objectclass=" + this.defaultUserObjectClass + ")", cons);
-        logger.fine("Alle verf�gbaren Rollen: " + roleUids);
+        logger.fine("Alle verfügbaren Rollen: " + roleUids);
         return roleUids;
     }
-    
+
     /**
-     * Diese Methode ermittelt die verf�gbaren Rollen zu einem Vorname.Nachname-Login.
-     * Dies geschieht �ber eine Suche in den Rollen, die �ber den Rollenfilter (Parameter
-     * mit Schl�ssel {@link #KEY_ROLE_FILTER}) gefiltert wird. Dieser Rollenfilter ist
+     * Diese Methode ermittelt die verfügbaren Rollen zu einem Vorname.Nachname-Login.
+     * Dies geschieht über eine Suche in den Rollen, die über den Rollenfilter (Parameter
+     * mit Schlüssel {@link #KEY_ROLE_FILTER}) gefiltert wird. Dieser Rollenfilter ist
      * ein LDAP-Suchfilter, in dem aber {0} als Variable erlaubt ist, in die der Login
      * eingetragen wird.<br>
      * Zum Beispiel sucht folgender Filter die AARole-Knoten, in denen das login in
      * sinnvoller Weise im person-Attribut steht:<br>
      * (&amp;(|(person=uid={0}&#64;auswaertiges-amt.de,ou=Personen,dc=aa)(person=uid={0}.auswaertiges-amt.de,ou=Personen,dc=aa)(person=uid={0},ou=Personen,dc=aa))(objectclass=AARole))
-     * 
-     * @param login Login, zu dem m�gliche Rollen gesucht werden sollen
-     * @return Sammlung m�glicher Rollen zu dem Login
+     *
+     * @param login Login, zu dem mögliche Rollen gesucht werden sollen
+     * @return Sammlung möglicher Rollen zu dem Login
      * @throws NamingException
-     * @throws LDAPException 
+     * @throws LDAPException
      */
     public Set getPossibleRoles(String login) throws NamingException {
     	SearchControls cons = new SearchControls();
     	this.initializeSearchControls( cons );
         Set roleUids = getPossibleRoles(filterTemplate.format(new Object[]{login}), cons);
-        logger.fine("Rollen f�r " + login + ": " + roleUids);
+        logger.fine("Rollen für " + login + ": " + roleUids);
         return roleUids;
     }
-    
+
     /**
-     * Diese Methode ermittelt die verf�gbaren Rollen zu einem Filter.
-     * 
+     * Diese Methode ermittelt die verfügbaren Rollen zu einem Filter.
+     *
      * @param searchScope Suchtiefe, siehe {@link SearchControls#setSearchScope(int)}
      * @param filter JNDI-Suchfilter
-     * @return Sammlung m�glicher Rollen zu dem Filter
+     * @return Sammlung möglicher Rollen zu dem Filter
      * @throws NamingException
-     * @throws LDAPException 
+     * @throws LDAPException
      */
     public Set getPossibleRoles(String filter, SearchControls cons) throws NamingException {
         Set roleUids = new HashSet();
@@ -145,7 +145,7 @@ public class LDAPManagerAA extends LDAPManager {
 	        NamingEnumeration ergebnis = lctx.search(relativeUser.substring(1) + baseDN, filter, cons);
 	        while (ergebnis.hasMore()) {
 	            Attributes result = ((SearchResult) ergebnis.nextElement()).getAttributes();
-	            // TODO: hier wird einer der uid-Eintr�ge genommen, nicht alle. Nach Anpassung andere getPossibleRoles entsprechend anpassen
+	            // TODO: hier wird einer der uid-Einträge genommen, nicht alle. Nach Anpassung andere getPossibleRoles entsprechend anpassen
 	            roleUids.add(result.get("uid").get());
 	        }
 	        return roleUids;
@@ -159,7 +159,7 @@ public class LDAPManagerAA extends LDAPManager {
     //
     // Members
     //
-    
+
     /** eigener statischer Logger */
     private static Logger logger = Logger.getLogger(LDAPManagerAA.class.getName());
 }

@@ -22,7 +22,7 @@
 		<worker name="MessageWorker" implementation="de.tarent.aa.veraweb.worker.MessageWorker" singleton="true" factory="reflected" />
 		<worker name="ActionWorker" implementation="de.tarent.aa.veraweb.worker.ActionWorker" singleton="true" factory="reflected" />
 		<worker name="ContextWorker" implementation="de.tarent.aa.veraweb.worker.ContextWorker" singleton="true" factory="reflected" />
-		<worker name="VerifyWorker"  implementation="de.tarent.aa.veraweb.worker.VerifyWorker" singleton="true" factory="reflected" />
+		<worker name="VerifyWorker" implementation="de.tarent.aa.veraweb.worker.VerifyWorker" singleton="true" factory="reflected" />
 		<worker name="ConfigWorker" implementation="de.tarent.aa.veraweb.worker.ConfigWorker" singleton="true" factory="reflected" />
 		<worker name="CleanupWorker" implementation="de.tarent.aa.veraweb.worker.CleanupWorker" singleton="true" factory="reflected" />
 		<worker name="UserConfigWorker" implementation="de.tarent.aa.veraweb.worker.UserConfigWorker" singleton="true" factory="reflected" />
@@ -64,7 +64,7 @@
 		<worker name="EventListWorker" implementation="de.tarent.aa.veraweb.worker.EventListWorker" singleton="true" factory="reflected" />
 		<worker name="EventDetailWorker" implementation="de.tarent.aa.veraweb.worker.EventDetailWorker" singleton="true" factory="reflected" />
 		<worker name="EventDoctypeWorker" implementation="de.tarent.aa.veraweb.worker.EventDoctypeWorker" singleton="true" factory="reflected" />
-        <worker name="EventDelegationWorker" implementation="de.tarent.aa.veraweb.worker.EventDelegationWorker" singleton="true" factory="reflected" />
+		<worker name="EventDelegationWorker" implementation="de.tarent.aa.veraweb.worker.EventDelegationWorker" singleton="true" factory="reflected" />
 		<worker name="EventTaskListWorker" implementation="de.tarent.aa.veraweb.worker.EventTaskListWorker" singleton="true" factory="reflected" />
 		<worker name="EventTaskDetailWorker" implementation="de.tarent.aa.veraweb.worker.EventTaskDetailWorker" singleton="true" factory="reflected" />
 		<worker name="GuestWorker" implementation="de.tarent.aa.veraweb.worker.GuestWorker" singleton="true" factory="reflected" />
@@ -73,7 +73,6 @@
 		<worker name="GuestDoctypeWorker" implementation="de.tarent.aa.veraweb.worker.GuestDoctypeWorker" singleton="true" factory="reflected" />
 		<worker name="GuestExportWorker" implementation="de.tarent.aa.veraweb.worker.GuestExportWorker" singleton="true" factory="reflected" />
 		<worker name="GuestReportWorker" implementation="de.tarent.aa.veraweb.worker.GuestReportWorker" singleton="true" factory="reflected" />
-
 
 		<!-- Stammdaten-Worker -->
 		<worker name="ColorWorker" implementation="de.tarent.aa.veraweb.worker.ColorWorker" singleton="true" factory="reflected" />
@@ -85,7 +84,7 @@
 		<worker name="SalutationWorker" implementation="de.tarent.aa.veraweb.worker.SalutationWorker" singleton="true" factory="reflected" />
 		<worker name="SalutationDoctypeWorker" implementation="de.tarent.aa.veraweb.worker.SalutationDoctypeWorker" singleton="true" factory="reflected" />
 		<worker name="StatistikWorker" implementation="de.tarent.aa.veraweb.worker.StatistikWorker" singleton="true" factory="reflected" />
-		<worker name="CompleteWorker"  implementation="de.tarent.aa.veraweb.worker.CompleteWorker" singleton="true" factory="reflected" />
+		<worker name="CompleteWorker" implementation="de.tarent.aa.veraweb.worker.CompleteWorker" singleton="true" factory="reflected" />
 		<worker name="WorkAreaWorker" implementation="de.tarent.aa.veraweb.worker.WorkAreaWorker" singleton="true" factory="reflected" />
 	</contentWorkerDeklaration>
 
@@ -483,7 +482,7 @@
 			</response>
 
 		</task>
-		
+
 		<task name="ShowPersonSearchSimple" access="public" groups="StandardFieldsReader">
 			<description>
 				Dieser Task zeigt einen einfachen Suchdialog für Personen.
@@ -545,9 +544,9 @@
 			</response>
 		</task>
 
-	
-		
-		
+
+
+
 		<task name="CreatePerson" access="public" groups="Writer">
 			<description>
 				Dieser Task erzeugt eine neue, initial leere, Person.
@@ -1179,25 +1178,25 @@
 			</response>
 		</task>
 
-        <task name="ShowDelegationFields" access="public" groups="StandardFieldsReader">
-            <description>
-                Dieser Task zeigt eine Veranstaltung an.
-            </description>
-            <doTask name="Load"/>
-            <action name="getDelegationFieldsLabels" worker="EventDelegationWorker" />
-            <response type="velocity" name="delegationFields">
-                <param name="ContentType" value="text/html;charset=UTF-8"/>
-            </response>
-        </task>
-        
-        <task name="SaveDelegationFields" access="public" groups="StandardFieldsReader">
-            <description>
-                Dieser Task speicher die bearbeitetten Tasks.
-            </description>
-            <doTask name="Load"/>
-            <action name="saveDelegationFieldLabels" worker="EventDelegationWorker" />
-            <doTask name="ShowDelegationFields"/>
-        </task>
+		<task name="ShowDelegationFields" access="public" groups="StandardFieldsReader">
+			<description>
+				Dieser Task zeigt eine Veranstaltung an.
+			</description>
+			<doTask name="Load"/>
+			<action name="getDelegationFieldsLabels" worker="EventDelegationWorker" />
+			<response type="velocity" name="delegationFields">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+
+		<task name="SaveDelegationFields" access="public" groups="StandardFieldsReader">
+			<description>
+				Dieser Task speicher die bearbeitetten Tasks.
+			</description>
+			<doTask name="Load"/>
+			<action name="saveDelegationFieldLabels" worker="EventDelegationWorker" />
+			<doTask name="ShowDelegationFields"/>
+		</task>
 
 		<task name="SaveEvent" access="public" groups="Writer">
 			<description>
@@ -1331,7 +1330,7 @@
 			<action name="getEvent" worker="GuestListWorker" />
 			<status equals="noevent"><doTask name="CreateEvent"/></status>
 			<action name="getAll" worker="CategorieWorker"/>
-            <action name="showDelegationFields" worker="EventDelegationWorker" />
+			<action name="showDelegationFields" worker="EventDelegationWorker" />
 			<action name="showDetail" worker="GuestDetailWorker"/>
 			<status equals="notfound">
 				<doTask name="ShowGuestList"/>
@@ -1943,7 +1942,7 @@
 				<param name="ContentType" value="text/html;charset=UTF-8"/>
 			</response>
 		</task>
-		
+
 		<!-- Creation of OSIAM Credentials -->
 		<task name="CreateOsiamUser" access="public" groups="Writer">
 			<description>
@@ -1956,7 +1955,7 @@
 				<param name="ContentType" value="text/html;charset=UTF-8"/>
 			</response>
 		</task>
-		
+
 		<!-- Cleanup-Task -->
 		<task name="Cleanup" access="public" groups="Administrator">
 			<description>

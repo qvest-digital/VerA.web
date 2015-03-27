@@ -479,7 +479,7 @@ Calendar.calDragIt = function (ev) {
 		posY = ev.pageY;
 	}
 	cal.hideShowCovered();
-	
+
 	/**
 	 * This is a tarent modification for Vera.Web.
 	 * It fix some layer problems in the msie.
@@ -490,7 +490,7 @@ Calendar.calDragIt = function (ev) {
 		cal.element.style.border = "none";
 		WCH.Apply(cal.element);
 	}
-	
+
 	var st = cal.element.style;
 	st.left = (posX - cal.xOffs) + "px";
 	st.top = (posY - cal.yOffs) + "px";
@@ -521,7 +521,7 @@ Calendar.calDragEnd = function (ev) {
 		WCH.Apply(cal.element);
 	}
 };
- 
+
 Calendar.dayMouseDown = function(ev) {
 	var el = Calendar.getElement(ev);
 	if (el.disabled) {
@@ -1374,7 +1374,7 @@ Calendar.prototype.show = function () {
 		Calendar.addEvent(document, "mousedown", Calendar._checkCalendar);
 	}
 	this.hideShowCovered();
-	
+
 	/**
 	 * This is a tarent modification for Vera.Web.
 	 * It fix some layer problems in the msie.
@@ -1400,7 +1400,7 @@ Calendar.prototype.hide = function () {
 	this.element.style.display = "none";
 	this.hidden = true;
 	this.hideShowCovered();
-	
+
 	if (WCH) {
 		WCH.Discard(this.element);
 	}

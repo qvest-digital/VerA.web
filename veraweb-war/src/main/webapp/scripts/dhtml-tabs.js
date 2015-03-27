@@ -84,7 +84,7 @@
 		if (activate)
 			showBlock(document.getElementById(activate + '-block'));
 	}
-	
+
 	function getParameter(name) {
 		var url = window.location.href;
 		var i = url.indexOf(name + '=');

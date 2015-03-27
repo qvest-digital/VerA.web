@@ -95,4 +95,3 @@ $(document).ready(function() {
 	}
 </style>
 #parse("inc/footer.vm")
-

@@ -24,8 +24,8 @@ import java.util.Calendar;
 
 /**
  * TODO refactor existing change log bean management to this class
- * 
- * The bean class ChangeLogReport represents a 
+ *
+ * The bean class ChangeLogReport represents a
  * session bean that models the configuration
  * for a change log report.
  *
@@ -34,7 +34,7 @@ import java.util.Calendar;
  * their respective defaults being set to
  * begin ::= 1st January of the current year
  * and end ::= NOW, respectively.
- * 
+ *
  * @author cklein
  * @since 1.2.0
  * @see de.tarent.aa.veraweb.worker.ChangeLogReportsWorker

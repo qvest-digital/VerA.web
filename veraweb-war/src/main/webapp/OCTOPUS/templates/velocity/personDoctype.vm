@@ -63,10 +63,10 @@
         	<input type="button" name="cancel" value="Zur Personen&uuml;bersicht" title="Zur Personen&uuml;bersicht" class="mainButton" onclick="window.location.href='${paths.staticWeb}do/SetHostToEventList';"/>
         #elseif($action == "event")
         	<input type="button" name="cancel" value="Zur Personen&uuml;bersicht" title="Zur Personen&uuml;bersicht" class="mainButton" onclick="window.location.href='${paths.staticWeb}do/ShowGuestDetail';"/>
-			#if($octopusRequest.show && $octopusRequest.show == 'doctype') 
+			#if($octopusRequest.show && $octopusRequest.show == 'doctype')
 				<input type="button" name="cancel" class="mainButton" value="Zur&uuml;ck zur Veranstaltung" title="Zur&uuml;ck zur Veranstaltung" onclick="if (checkModified()) { window.location.href='${paths.staticWeb}do/ShowGuestDoctype'; }">
 			#else
-				<input type="button" name="cancel" class="mainButton" value="Zur&uuml;ck zur Veranstaltung" title="Zur&uuml;ck zur Veranstaltung" onclick="if (checkModified()) { window.location.href='${paths.staticWeb}do/ShowGuestDetail?tab=$!octopusRequest.tab'; }">	
+				<input type="button" name="cancel" class="mainButton" value="Zur&uuml;ck zur Veranstaltung" title="Zur&uuml;ck zur Veranstaltung" onclick="if (checkModified()) { window.location.href='${paths.staticWeb}do/ShowGuestDetail?tab=$!octopusRequest.tab'; }">
 			#end
 		#elseif($action == "duplicateSearch")
             <input type="button" name="cancel" value="Zur Dublettensuche" title="Zur Dublettensuche" class="mainButton" onclick="window.location.href='${paths.staticWeb}do/PersonDuplicateSearch?selectNone=true';">
@@ -95,16 +95,16 @@
 	function addToGuestList() {
 		htmlConfirm('Soll dieser Gast auf Platz gesetzt werden?', new Array('Ja', 'Nein'), new Array("addToGuestQuestX1('false');", "addToGuestQuestX1('true');"));
 	}
-	
+
 	function addToGuestQuestX1(answer) {
 		document.getElementById('inviteGuestReserve').value = answer;
 		htmlConfirm('Soll die Partnerin / der Partner mit eingeladen werden?', new Array('Ja', 'Nein'), new Array("addToGuestQuestX2('true');", "addToGuestQuestX2('false');"));
 	}
-	
+
 	function addToGuestQuestX2(answer) {
 		document.getElementById('inviteGuestPartner').value = answer;
 		htmlWait();
-		
+
 		var url = '${paths.staticWeb}do/AddPersonToEventGuestList';
 		url += '?list=$!{person.id}';
 		url += '&$!{person.id}-id=${person.id}';
@@ -113,17 +113,17 @@
 		url += '&$!{person.id}-partner=' + document.getElementById('inviteGuestPartner').value;
 		window.location.href = url;
 	}
-	
+
 	function copyPerson() {
 		window.location.href = '${paths.staticWeb}do/CopyPerson?id=$!person.id';
 	}
-	
+
 	function removePerson() {
 		if (confirm('Aktuelle Person wirklich entfernen?')) {
 			window.location.href = '${paths.staticWeb}do/SearchPerson?doRemove=true&remove&remove-person=true&selectNone=true&list=$!{person.id}&$!{person.id}-select=true';
 		}
 	}
-	
+
 	#if(!$grants.mayWrite())
 	disableForm(document.getElementById('formlist'));
 	#end

@@ -1,4 +1,3 @@
-
 # /
 /target
 /.classpath
@@ -58,4 +57,5 @@
 /vw-onlinereg-war/mem.trace.db
 /vw-onlinereg-war/mem.h2.db
 
+# Rest
 mem.*.db

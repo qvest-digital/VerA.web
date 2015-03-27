@@ -35,9 +35,9 @@ import de.tarent.aa.veraweb.db.dao.GenericDao;
 
 /**
  * Abstract implementation of the {@link GenericDao} interface.
- * 
+ *
  * @author Valentin But (v.but@tarent.de), tarent solutions GmbH
- * 
+ *
  * @param <T>
  *            type of the entity
  * @param <PK>
@@ -169,7 +169,7 @@ public abstract class GenericDaoImpl<T extends Serializable, PK extends Serializ
 
     /**
      * Getter for table name, which the given entity represents.
-     * 
+     *
      * @return either the simpleName of the class this entity represents, or, tablename, if it was set.
      */
     private String getTableName() {

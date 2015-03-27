@@ -23,8 +23,8 @@ import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
 /**
- * Resource f�r die Strings....
- * 
+ * Resource für die Strings....
+ *
  * @author philipp
  */
 public class Messages {
@@ -35,7 +35,7 @@ public class Messages {
 		ResourceBundle.getBundle(BUNDLE_NAME);
 
 	/**
-	 *	Konstuktor 
+	 *	Konstuktor
 	 */
 	private Messages() {
 

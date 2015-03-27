@@ -23,7 +23,7 @@
 	<div id="breadcrumb" class="textRight marginBottom10">
 		<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Veranstaltungen > Veranstaltungssuche</span>
 	</div>
-		
+
 	<h1>Veranstaltungssuche</h1>
 
 	<form action="$formurl" method="post" id="eventSearch_form">
@@ -33,19 +33,19 @@
 
 	<input type="hidden" name="search" value="reset">
 	<input type="hidden" name="searchTask" value="eventSearchTask">
-	
+
 	<div id="main_content" class="contentBoxColored grayBorder marginBottom20">
 
 			<h2>Suche</h2>
-			
+
 				<fieldset style="border: none; padding-top: 0;">
 					<legend class="noDisplay">Veranstaltung</legend>
-					
+
 					<div class="table width100">
 						<div class="tableRow">
 							<div class="tableCell width30">
 								<label for="input.shortname">Kurzbezeichnung</label>
-								<input type="text" name="shortname" id="input.shortname" value="">					
+								<input type="text" name="shortname" id="input.shortname" value="">
 							</div>
 							<div class="tableCell width30">
 								<label for="begin">Datum (Beginn)</label>
@@ -65,7 +65,7 @@
 											span.trigger('click');
 										});
 									</script>
-								</div>					
+								</div>
 							</div>
 							<div class="tableCell width30">
 								<label for="eventname">Name</label>
@@ -75,7 +75,7 @@
 						<div class="tableRow">
 							<div class="tableCell width30">
 								<label for="hostname">Gastgeber</label>
-								<input type="text" name="hostname" id="hostname" value="">					
+								<input type="text" name="hostname" id="hostname" value="">
 							</div>
 							<div class="tableCell width30">
 								<label for="location">Veranstaltungsort</label>
@@ -92,29 +92,29 @@
 							</div>
 						</div>
 					</div>
-				</fieldset>		
-				
-				<div id="buttonPanel-bottom" class="textRight">			
+				</fieldset>
+
+				<div id="buttonPanel-bottom" class="textRight">
 					#if($action == "guest")
-						<input id="button.startSearch" type="submit" class="mainButton" value="Suchen" title="Suchen" /> 
-						<input type="reset"  class="mainButton" value="Felder leeren" title="Felder leeren" /> 
+						<input id="button.startSearch" type="submit" class="mainButton" value="Suchen" title="Suchen" />
+						<input type="reset"  class="mainButton" value="Felder leeren" title="Felder leeren" />
 						<input type="button" class="mainButton"  name="cancel" value="Zur&uuml;ck" title="Zur&uuml;ck" onclick="window.location.href='ShowGuestList?selectNone=true';" />
 					#elseif($action == "addperson")
-						<input id="button.startSearch" type="submit" class="mainButton" value="Suchen" title="Suchen" /> 
+						<input id="button.startSearch" type="submit" class="mainButton" value="Suchen" title="Suchen" />
 						<input type="reset"  class="mainButton" value="Felder leeren" title="Felder leeren" />
-						<input type="button" class="mainButton"  name="cancel" value="Zur&uuml;ck" title="Zur&uuml;ck" onclick="window.location.href='ShowPerson';" /> 
+						<input type="button" class="mainButton"  name="cancel" value="Zur&uuml;ck" title="Zur&uuml;ck" onclick="window.location.href='ShowPerson';" />
 					#else
 						<input id="button.startSearch" type="submit" class="mainButton" value="Suchen" title="Suchen" />
 						<input type="reset"  class="mainButton" value="Felder leeren" title="Felder leeren" />
-					#end			
-				</div>				
+					#end
+				</div>
 
-		</div>	
-	
+		</div>
+
 		<vera-info vera-stay>
 			Sie können bei der Suche sogenannte Platzhalter verwenden, der * steht für mehrere und das ? für einzelne Zeichen.
-		</vera-info>		
-	
+		</vera-info>
+
 		##<br><a href="SearchEvent?search=current">Aktuelle Veranstaltungen anzeigen</a><br><br>
 
 </form>

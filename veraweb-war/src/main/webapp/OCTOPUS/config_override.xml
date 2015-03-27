@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--!DOCTYPE tcModuleConfig SYSTEM "../tcModuleConfig.dtd"-->
+
+<!--
+	OCTOPUS config_override.xml
+
+	copy this file to /etc/veraweb/ and change things there,
+	as config.xml itself cannot be moved
+-->
+<tcModuleConfig>
+
+	<!-- e.g. you can change this -->
+	<params>
+		<!-- der relative Pfad der Antwort-Templates; "templates/". -->
+		<param name="paths.templateRoot" value="templates/"/>
+	</params>
+</tcModuleConfig>

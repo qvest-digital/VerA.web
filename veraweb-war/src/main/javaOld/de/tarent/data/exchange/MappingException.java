@@ -21,7 +21,7 @@ package de.tarent.data.exchange;
 
 /**
  * Diese Klasse stellt Ausnahmen beim Mapping von Feldern dar.
- * 
+ *
  * @author mikel
  */
 public class MappingException extends Exception {
@@ -36,8 +36,8 @@ public class MappingException extends Exception {
     }
 
     /**
-     * Dieser Konstruktor erh�lt einen Fehlertext.
-     * 
+     * Dieser Konstruktor erhält einen Fehlertext.
+     *
      * @param message Fehlertext
      */
     public MappingException(String message) {
@@ -45,8 +45,8 @@ public class MappingException extends Exception {
     }
 
     /**
-     * Dieser Konstruktor erh�lt einen geschachtelten {@link Throwable}. 
-     * 
+     * Dieser Konstruktor erhält einen geschachtelten {@link Throwable}.
+     *
      * @param cause geschachtelter {@link Throwable}
      */
     public MappingException(Throwable cause) {
@@ -54,18 +54,18 @@ public class MappingException extends Exception {
     }
 
     /**
-     * Dieser Konstruktor erh�lt einen Fehlertext und einen geschachtelten {@link Throwable}.
-     * 
+     * Dieser Konstruktor erhält einen Fehlertext und einen geschachtelten {@link Throwable}.
+     *
      * @param message Fehlertext
      * @param cause geschachtelter {@link Throwable}
      */
     public MappingException(String message, Throwable cause) {
         super(message, cause);
     }
-    
+
     //
-    // gesch�tzt Member
+    // geschützt Member
     //
-    /** Serialisierungs-ID (um Eclipse gl�cklich zu machen) */
+    /** Serialisierungs-ID (um Eclipse glücklich zu machen) */
     private static final long serialVersionUID = 974345013719043419L;
 }

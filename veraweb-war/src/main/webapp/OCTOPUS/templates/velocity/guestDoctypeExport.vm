@@ -6,17 +6,17 @@
 	<div id="breadcrumb" class="textRight marginBottom10">
 		<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Personen > <a href="${paths.staticWeb}do/ShowPersonSearch?action=person" title="Zur Personensuche">Personensuche</a> > Suchergebnis</span>
     </div>
-    
+
 	<h1>Steuerdatei</h1>
-    
+
     #parse("inc/event-header.vm")
-    
+
     #if($exportCalc)
-    
+
     <form id="ExportForm" action="ShowExportGuestDoctype" method="post">
-		
+
 		<h2 class="marginTop20 marginBottom10">Dokumenttyp auswählen</h2>
-		
+
 		<p class="inlineLabel">
 			<label for="doctype">Dokumenttyp</label>
 			<select name="doctype"  onChange="document.getElementById('ExportForm').action='ShowExportGuestDoctype'; submit();" id="doctype">
@@ -25,9 +25,9 @@
     			#end
     		</select>
 		</p>
-    
+
 		<h3 class="marginTop30 marginBottom10">Daten bearbeiten</h3>
-		
+
 		<div class="table">
 			<div class="tableRow">
 				<div class="tableCell">
@@ -37,16 +37,16 @@
 					<input type="text" id="total" name="total" value="$!exportCalc.total" class="width15" vera-disabled />
 				</div>
 			</div>
-			
+
 			<div class="tableRow">
 				<div class="tableCell">
 					<label for="available">Exportierf&auml;hige G&auml;ste</label>
 				</div>
 				<div class="tableCell">
-					<input type="text" name="available" id="available" value="$!exportCalc.available" class="width15" vera-disabled />					
+					<input type="text" name="available" id="available" value="$!exportCalc.available" class="width15" vera-disabled />
 				</div>
 			</div>
-    
+
         	#if($exportCalc.total > $exportCalc.available)
             #set($diff = $exportCalc.total - $exportCalc.available)
         			<div class="tableRow">
@@ -61,7 +61,7 @@
 		</div>
 
        	<h3 class="marginBottom10 marginTop25" id="sortHeadline">Sortierkriterien</h3>
-				
+
 		<div class="table" id="sort">
         		<div class="tableRow">
         			<div class="tableCell">
@@ -165,13 +165,13 @@
         		</div>
         	</div>
         </div>
-			
-    
+
+
     <vera-info>
 		Sollten Sie in der G&auml;steliste eine Filterung getroffen haben, werden nur die
 		ausgew&auml;hlten G&auml;ste exportiert.
     </vera-info>
-    
+
     #if($exportCalc.total > $exportCalc.available)
     <vera-info>
         #if ($diff == 1)
@@ -183,29 +183,29 @@
         #end
     </vera-info>
     #end
-    
+
 	<div class="textRight marginTop10" id="buttonPanel-bottom">
-    
+
 		<input type="button" name="export" value="Exportieren" title="Exportieren" class="mainButton" onclick="document.getElementById('ExportForm').action='ExportGuestDoctype/export.${extension}'; submit();">
 		<input type="button" name="cancel" value="Zur&uuml;ck zur G&auml;steliste" title="Zur&uuml;ck zur G&auml;steliste" class="mainButton" onclick="window.location.href='ShowGuestList?selectNone=true';">
-    
+
     </div>
-    
+
     </form>
-    
+
     #else
-    
+
     <vera-info>
 		Der Veranstaltung wurden noch keine Dokumenttypen zugeordnet.
     </vera-info>
-    
+
     <div class="textRight marginTop10" id="buttonPanel-bottom">
-    
+
 		<input type="button" name="cancel" value="Zur&uuml;ck zur G&auml;steliste" title="Zur&uuml;ck zur G&auml;steliste" class="mainButton" onclick="window.location.href='ShowGuestList?selectNone=true';" class="mainButton" />
 		<input type="button" name="cancel" value="Zu den Veranstaltungsdetails" title="Zu den Veranstaltungsdetails" class="mainButton" onclick="window.location.href='ShowEventDoctype?id=$!event.id';" class="mainButton" />
-    
+
     </div>
-    
+
     #end
 </div>
 

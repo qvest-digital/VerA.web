@@ -15,7 +15,7 @@
 <!-- jettylibs: alles fuer jetty -->
 <!-- classpath codebase="jettylibs" archives="*"/ -->
 <!-- fitzlibs: alles fuer fitz (aus Fitz/libs) -->
-<classpath codebase="fitzlibs" archives="*"/> 
+<classpath codebase="fitzlibs" archives="*"/>
 
 
    <!-- ==================================================================== -->

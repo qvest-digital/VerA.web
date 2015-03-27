@@ -35,10 +35,10 @@ import de.tarent.aa.veraweb.cucumber.formatter.RuntimeInfoCatcher;
 
 /**
  * This class represents a hook. They take the html-source after a step failed.
- * 
+ *
  * @author Valentin But (v.but@tarent.de), tarent solutions GmbH
  * @version 1.0
- * 
+ *
  */
 public class HTMLSaver implements HandlerAfter {
 

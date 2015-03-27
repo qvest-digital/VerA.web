@@ -39,7 +39,7 @@ import de.tarent.octopus.server.OctopusContext;
 
 /**
  * Testet ob bereits ein Stammdaten-Eintrag mit dem selben Namen existiert.
- * Bietet zus�tzlich einen Task f�r Direkteinsprungsmarken an.
+ * Bietet zusätzlich einen Task für Direkteinsprungsmarken an.
  */
 public class StammdatenWorker extends ListWorkerVeraWeb {
     //
@@ -58,9 +58,9 @@ public class StammdatenWorker extends ListWorkerVeraWeb {
 	@Override
     protected Integer getAlphaStart(OctopusContext cntx, String start) throws BeanException, IOException {
 		Database database = getDatabase(cntx);
-		
+
 		Clause clause = getWhere(cntx);
-		
+
 		StringBuffer buffer = new StringBuffer();
 		if (clause != null && clause.clauseToString().length() != 0) {
 			buffer.append("(");
@@ -69,13 +69,13 @@ public class StammdatenWorker extends ListWorkerVeraWeb {
 		}
 		buffer.append(getAlphaStartColumn(database));
 		buffer.append(" < '");
-		
+
 		Escaper.escape(buffer, start);
 		buffer.append("'");
-		
+
 		Select select = database.getCount(BEANNAME);
 		select.where(new RawClause(buffer));
-		
+
 		Integer i = database.getCount(select);
 		return new Integer(i.intValue() - (i.intValue() % getLimit(cntx).intValue()));
 	}
@@ -94,7 +94,7 @@ public class StammdatenWorker extends ListWorkerVeraWeb {
 		if (bean.isModified()) {
 		    if (bean.isCorrect()) {
 		        Database database = context.getDatabase();
-	            
+
 	            String orgunit = database.getProperty(bean, "orgunit");
 	            Clause clause = Expr.equal(
 	                    database.getProperty(bean, "name"),
@@ -102,7 +102,7 @@ public class StammdatenWorker extends ListWorkerVeraWeb {
 	            if (orgunit != null) {
 	                clause = Where.and(Expr.equal(orgunit, ((PersonalConfigAA)(cntx.personalConfig())).getOrgUnitId()), clause);
 	            }
-	            
+
 	            Integer exist =
 	                    database.getCount(
 	                    database.getCount(bean).
@@ -116,10 +116,10 @@ public class StammdatenWorker extends ListWorkerVeraWeb {
 		        errors.addAll(bean.getErrors());
 		    }
 		}
-		
+
 		return count;
 	}
-	
+
 	protected int updateBeanList(OctopusContext cntx, List errors, List beanlist, TransactionContext context) throws BeanException, IOException {
         int count = 0;
         for (Iterator it = beanlist.iterator(); it.hasNext(); ) {
@@ -129,7 +129,7 @@ public class StammdatenWorker extends ListWorkerVeraWeb {
                     saveBean(cntx, bean, context);
                     count++;
                 } else {
-                    errors.addAll(bean.getErrors()); 
+                    errors.addAll(bean.getErrors());
                 }
             }
         }

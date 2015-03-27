@@ -11,13 +11,13 @@
         <input type="hidden" name="start" value=""/>
         <input type="hidden" name="selectNone" value="true"/>
         <input type="hidden" name="doRemove" value="true"/>
-        
+
         <div class="textRight marginBottom10" id="breadcrumb">
         	<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Administration > E-Mail-Vorlagen</span>
-        </div>	
-        	
+        </div>
+
         <h1>E-Mail-Vorlagen</h1>
-        
+
         <span id="actionPanel" class="inlineLabel">
 	       	<strong>Markierte Vorlage(n)</strong>
 	       	<input type="submit" name="remove" value="Löschen" title="Markierte Vorlage(n) löschen" onclick="" />
@@ -28,7 +28,7 @@
         #foreach($bean in $list)
         <input type="hidden" name="list" value="$bean.id"/>
         #end
-        
+
     	<table>
         	<tr>
         		<th class="smallCell textCenter">
@@ -44,7 +44,7 @@
         		<td onclick="window.location.href='MailDraftDetail?id=$!{bean.id}';"/>$!message.text($bean.name)</td>
         	</tr>
         	#end
-        	
+
         	#set($itemName = "Vorlagen")
         	#parse("inc/list-navi-new.vm")
         	#parse("inc/list-direct-new.vm")
@@ -52,7 +52,7 @@
             	<tr><td colspan="3">Keine Daten gefunden.</td></tr>
             #end
         </table>
-        
+
     </form>
 </div>
 

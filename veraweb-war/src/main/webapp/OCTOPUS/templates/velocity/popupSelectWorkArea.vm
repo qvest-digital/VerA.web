@@ -1,4 +1,4 @@
-## Popup zur Auswahl eines oder keines Arbeitsbereiches 
+## Popup zur Auswahl eines oder keines Arbeitsbereiches
 ## cklein
 ## 2008-02-28
 
@@ -14,7 +14,7 @@
 
 	<script type="text/javascript">
 		var showDeleteAllocate = function () {
-    		var selectionOfOption = $('option[name$="nix"]:selected');	
+    		var selectionOfOption = $('option[name$="nix"]:selected');
     			if(selectionOfOption.length === 1) {
     				var msg ='<span>Wählen Sie bitte zunächst einen Arbeitsbereich aus.</span>';
 					showWarning(msg);
@@ -49,7 +49,7 @@
     			};
 		};
 		var showDeleteAllocateRemove = function() {
-			var selectionOfOption = $('option[name$="nix"]:selected');	
+			var selectionOfOption = $('option[name$="nix"]:selected');
     			if(selectionOfOption.length === 1) {
     				var msg ='<span>Wählen Sie bitte zunächst einen Arbeitsbereich aus.</span>';
 					showWarning(msg);
@@ -83,12 +83,12 @@
         			#end
     			};
 		};
-		
+
 		// Funktion um ausgewählte Option : Zuweisen / Entfernen und Abbrechen zu überprüfen und dementspreche abfragen zu implementieren
 		$(function () {
             $('#button\\.execute').click(function (e) {
                 var selectText = $("input:button[name$='checkboxForSelection'] ").text();
-				
+
 				if (selectText == "Zuweisen") {
 					showDeleteAllocate();
 				}else if (selectText == "Entfernen") {
@@ -125,7 +125,7 @@
 #if( $count == 1 )
 			##doit = confirm( "Wollen Sie diese Person bzw. diesen Gast dem ausgewählten Arbeitsbereich zuordnen?" );
 			doit = true;
-			
+
 #else
 			##doit = confirm( "Wollen Sie ${count} Personen bzw. Gäste dem ausgewählten Arbeitsbereich zuordnen?" );
 			doit = true;
@@ -144,7 +144,7 @@
 				window.opener.document.forms[ "formlist" ].submit();
 			}
 		}
-		
+
 		function adjustSize()
 		{
 			var elt = document.getElementById( "workarea" );
@@ -169,7 +169,7 @@
 <form>
 
 <div class="contentBoxColored grayBorder">
-		<h1>Wählen Sie einen Arbeitsbereich aus, welchen Sie 
+		<h1>Wählen Sie einen Arbeitsbereich aus, welchen Sie
 	#if( $assignmentAction == "assign" )
 		zuweisen
 	#else

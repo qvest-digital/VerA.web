@@ -3,7 +3,7 @@ function openPopup(field, url, w, h, p) {
 	var l = (screen.availWidth - w - 200);
 	var params = "width=" + w + ",height=" + h + ",top=" + t + ",left=" + l;
 	params += "," + p;
-	
+
 	var newwindow = window.open(url, field + 'window', params);
 	newwindow.opener = window;
 	newwindow.focus();
@@ -48,7 +48,7 @@ function returnCity() {
 	if (window.opener) {
 		var city = document.getElementById('city').value;
 		var select = window.opener.document.getElementById('event-location');
-		
+
 		if (city.length == 0) {
 			alert('Bitte geben Sie einen Ort ein.');
 			return false;
@@ -61,7 +61,7 @@ function returnCity() {
 				}
 			}
 			if (exists) {
-/*				alert('Der Ort existiert bereits in der Liste und wird nun ausgew�hlt.'); */
+/*				alert('Der Ort existiert bereits in der Liste und wird nun ausgewählt.'); */
 			}
 			window.opener.document.getElementById('addcity').value = city;
 			window.opener.addCity();

@@ -4,10 +4,10 @@
 #set($elementNameSex = "male")
 #set($elementNameSingular = "Mandant")
 #set($elementNamePlural = "Mandanten")
-#parse("inc/header.vm")	
+#parse("inc/header.vm")
 
 <form id="formlist" name="formlist" action="$octopusRequest.task" method="POST">
-    
+
 	#if($listerrors && $listerrors.size() > 0)
     <vera-warn>
     	#foreach($error in $listerrors)
@@ -16,14 +16,14 @@
     </vera-warn>
     #end
 
-<div id="content_container"> 
-	
+<div id="content_container">
+
     <div id="breadcrumb" class="textRight marginBottom10">
     	<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Administration > Mandanten</span>
-    </div>		
-	
+    </div>
+
 	<h1>Mandanten</h1>
-	
+
     <div class="tabs contentBox grayBorder marginBottom10 marginTop20" id="main_content">
 		<div class="event" id="tabsMain">
 			<ul vera-tab-group="" class="gray-gradient"> <!-- Bitte das End-tag der <li>s immer mit in die nächste Zeile nehmen (verhindert Mozilla styling bug) -->
@@ -32,7 +32,7 @@
 				</li>
 			</ul>
 		</div>
-		
+
         <input type="hidden" name="start" value="">
 		<input type="hidden" name="limit" value="">
         <input type="hidden" name="selectNone" value="true">
@@ -42,13 +42,13 @@
         #if($order)
         <input type="hidden" name="order" value="$order">
         #end
-        
+
         #foreach($bean in $list)
         <input type="hidden" name="list" value="$bean.id">
 		#end
-		
+
 		<div class="contentBoxColored tabsContent" vera-content="mandanten">
-		
+
     		<span class="inlineLabel" id="actionPanel">
             	<strong>Markierte(n) Mandanten</strong>
             	<input type="submit" onclick="return confirm('Markierte(n) Mandanten wirklich löschen?');" title="Markierte(n) Mandanten löschen" name="remove" value="L&ouml;schen" >
@@ -76,18 +76,18 @@
 							<td colspan="3">Es wurden keine Daten gefunden</td>
 						</tr>
 					#end
-					
+
 				#set($itemName = "Mandanten")
 				#parse("inc/list-navi-new.vm")
 				#parse("inc/list-direct-new.vm")
             </table>
-    			        
+
         </div>
     			<span id="buttonPanel-bottom" class="floatRight marginTop10">
     			<!-- Show the save button -->
     				<input type="submit" name="save" value="Speichern" title="Speichern" class="mainButton">
-    			</span>			
-        
+    			</span>
+
     </div><!-- End ID=main_content-->
 
 

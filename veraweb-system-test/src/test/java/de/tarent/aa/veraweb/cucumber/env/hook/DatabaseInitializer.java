@@ -36,19 +36,19 @@ import de.tarent.aa.veraweb.db.dao.PersonDao;
 import de.tarent.aa.veraweb.db.dao.TaskDao;
 
 public class DatabaseInitializer implements HandlerStart, HandlerAfter {
-    
+
     public static String SQL_MIGRATION_PREFIX__SCHEMA = "V";
     public static String SQL_MIGRATION_PREFIX__TESTDATA = "T";
 
     @Autowired
     private Flyway flyway;
-    
+
     @Autowired
     private TaskDao taskDao;
-    
+
     @Autowired
     private EventDao eventDao;
-    
+
     @Autowired
     private PersonDao personDao;
 
@@ -72,14 +72,14 @@ public class DatabaseInitializer implements HandlerStart, HandlerAfter {
         long timeEnd = System.currentTimeMillis();
         System.out.println("Cleaned database schema '" + flyway.getSchemas()[0] + "' (execution time "
                 + Utils.formatTime(timeEnd - timeStart) + ")");
-        
+
         // migrate database
         flyway.setSqlMigrationPrefix(SQL_MIGRATION_PREFIX__SCHEMA);
         flyway.init();
         flyway.migrate();
         flyway.setSqlMigrationPrefix(SQL_MIGRATION_PREFIX__TESTDATA);
         int countMigrations = flyway.migrate();
-        
+
         // output
         MigrationInfoService infos = flyway.info();
         for (MigrationInfo info : infos.applied()) {
@@ -109,7 +109,7 @@ public class DatabaseInitializer implements HandlerStart, HandlerAfter {
 
     /**
      * Helper method to clean up database by removing all test data.
-     * 
+     *
      * @throws Exception
      *             exception
      */

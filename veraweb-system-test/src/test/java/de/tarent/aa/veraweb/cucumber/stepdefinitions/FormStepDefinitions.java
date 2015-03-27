@@ -40,7 +40,7 @@ public class FormStepDefinitions extends AbstractStepDefinitions {
         LoginData loginData = LoginData.forName(NameUtil.nameToEnumName(name));
         whenFillFields(loginData.valuesForPageFields);
     }
-    
+
     @Angenommen("^ich fülle die Maske mit \"([^\"]*)\" aus$")
     public void whenFillMask(String name) throws Throwable {
         AufgabeData data = AufgabeData.forName(NameUtil.nameToEnumName(name));
@@ -79,5 +79,5 @@ public class FormStepDefinitions extends AbstractStepDefinitions {
             }
         }
     }
-    
+
 }

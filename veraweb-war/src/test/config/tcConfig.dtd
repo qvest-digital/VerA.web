@@ -3,8 +3,8 @@
 
 <!-- Allgemeine Elemente -->
 
-<!-- 
-  Beschreibung der Param Elemente siehe: tc/src/modules/tcModuleConfig.dtd 
+<!--
+  Beschreibung der Param Elemente siehe: tc/src/modules/tcModuleConfig.dtd
 -->
 <!ELEMENT param (value)*>
 		<!ATTLIST param
@@ -21,8 +21,8 @@
 <!ELEMENT tcConfig ( application, modules ) >
 
 
-<!-- Section: application 
-  Für allgemeine Parameter
+<!-- Section: application
+  FÃ¼r allgemeine Parameter
 -->
 <!ELEMENT application ( param )+ >
 

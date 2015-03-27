@@ -1,17 +1,17 @@
 ## $Id$
 #set($title = "Anmelden als Stellvertreter.")
-#parse("inc/header.vm")	
+#parse("inc/header.vm")
 
 <div id="content_container">
 
     <form action="" method="post" target="_top">
-	
+
 	<div id="breadcrumb" class="textRight marginBottom10">
 		<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Login (Stellvertretung)</span>
-	</div>		
-    
+	</div>
+
     <h1>Stellvertretung</h1>
-    
+
     #if($errors && $errors.size() > 0)
     <vera-warn>
     	#foreach($error in $errors)
@@ -24,7 +24,7 @@
 
 	<div id="main_content" class="contentBoxColored grayBorder">
 		<p>Bitte w&auml;hlen Sie die Rolle aus, die Sie vertreten möchten.</p>
-		
+
 		<div class="table width30">
 			<div class="tableRow">
 				<div class="tableCell"><label for="proxyFor">Benutzerrolle</label></div>
@@ -37,15 +37,15 @@
 				</div>
 			</div>
 		</div>
-		
+
 		<div>
 			<input name="submit" type="submit" value="Vertreten" title="Vertreten" class="mainButton" />
 		</div>
-		
+
 	</div>
-    
+
     <input name="task" type="hidden" value="LoginAsProxy">
- 
+
     </form>
 </div>
 <!--

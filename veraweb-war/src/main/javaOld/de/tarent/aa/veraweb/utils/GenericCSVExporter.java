@@ -46,7 +46,7 @@ import de.tarent.utils.CSVFileWriter;
 
 /**
  * Diese Klasse implementiert einen generischen CSV-Export von VerA.web-Personen.
- * 
+ *
  * @author mikel
  */
 public class GenericCSVExporter extends GenericCSVBase implements Exporter
@@ -65,9 +65,9 @@ public class GenericCSVExporter extends GenericCSVBase implements Exporter
 	// Schnittstelle Exporter
 	//
 	/**
-	 * Diese Methode wird zu jeder zu exportierenden Person aufgerufen, �bergeben wird die Person als Zusammenstellung von
-	 * {@link Person}. Sie f�gt dem Export eine Beschreibung der �bergebenen VerA.web-Person hinzu.
-	 * 
+	 * Diese Methode wird zu jeder zu exportierenden Person aufgerufen, übergeben wird die Person als Zusammenstellung von
+	 * {@link Person}. Sie fügt dem Export eine Beschreibung der übergebenen VerA.web-Person hinzu.
+	 *
 	 * @param person
 	 *          {@link Person}-Bean
 	 * @see de.tarent.aa.veraweb.utils.Exporter#exportPerson(de.tarent.aa.veraweb.beans.Person)
@@ -89,18 +89,18 @@ public class GenericCSVExporter extends GenericCSVBase implements Exporter
 	/**
 	 * Diese Methode wird zu Beginn eines Exports aufgerufen. In ihr kann etwa das Dokument mit einem Kopf zu schreiben
 	 * begonnen werden.
-	 * 
+	 *
 	 * @throws IOException
 	 * @see de.tarent.aa.veraweb.utils.Exporter#startExport()
 	 */
 	public void startExport() throws IOException
 	{
 		if (exchangeFormat == null)
-			throw new IOException("Der Export ben�tigt ein ExchangeFormat.");
+			throw new IOException("Der Export benötigt ein ExchangeFormat.");
 		if (database == null)
-			throw new IOException("Der Export ben�tigt eine Database.");
+			throw new IOException("Der Export benötigt eine Database.");
 		if (outputStream == null)
-			throw new IOException("Der Export ben�tigt einen OutputStream.");
+			throw new IOException("Der Export benötigt einen OutputStream.");
 		try
 		{
 			readProperties();
@@ -123,7 +123,7 @@ public class GenericCSVExporter extends GenericCSVBase implements Exporter
 	/**
 	 * Diese Methode wird zum Ende eines Exports aufgerufen. In ihr kann etwa das bisher gesammelte Dokument
 	 * festgeschrieben werden.
-	 * 
+	 *
 	 * @throws IOException
 	 * @see de.tarent.aa.veraweb.utils.Exporter#endExport()
 	 */
@@ -134,7 +134,7 @@ public class GenericCSVExporter extends GenericCSVBase implements Exporter
 	}
 
 	//
-	// gesch�tzte Hilfsmethoden
+	// geschützte Hilfsmethoden
 	//
 	/**
 	 * Diese Methode initialisiert den internen {@link CSVFileWriter}.
@@ -160,10 +160,10 @@ public class GenericCSVExporter extends GenericCSVBase implements Exporter
 	}
 
 	//
-	// gesch�tzte innere Klassen
+	// geschützte innere Klassen
 	//
 	/**
-	 * Diese Klasse setzt die {@link Entity}-Facade f�r {@link Person}-Instanzen um.
+	 * Diese Klasse setzt die {@link Entity}-Facade für {@link Person}-Instanzen um.
 	 */
 	class PersonEntity implements Entity
 	{
@@ -171,11 +171,11 @@ public class GenericCSVExporter extends GenericCSVBase implements Exporter
 		// Schnittstelle Entity
 		//
 		/**
-		 * Diese Methode erlaubt das Abfragen von Daten zu einem bestimmten Schl�ssel. Die Schl�ssel werden in
+		 * Diese Methode erlaubt das Abfragen von Daten zu einem bestimmten Schlüssel. Die Schlüssel werden in
 		 * {@link GenericCSVExporter#getAvailableFields()} erstellt.
-		 * 
+		 *
 		 * @param sourceKey
-		 *          Quellfeldschl�ssel
+		 *          Quellfeldschlüssel
 		 * @return Quellfeldwert als {@link String}; <code>null</code>-Felder werden als Leerstring <code>""</code>
 		 *         geliefert; <code>Date</code>-Felder werden mit {@link GenericCSVBase#dateFormat} formatiert.
 		 */
@@ -222,12 +222,12 @@ public class GenericCSVExporter extends GenericCSVBase implements Exporter
 		//
 		/**
 		 * Diese Methode liefert den Rang einer Person in einer Kategorie.
-		 * 
+		 *
 		 * @param categoryName
 		 *          Name der Kategorie
 		 * @return Rang der Person in der Kategorie; <code>null</code>, wenn nicht in der Kategorie,
 		 *         {@link GenericCSVExporter#DEFAULT_RANK}, wenn weder ein individueller noch ein allgemeiner Rang zu der
-		 *         Kategorie vorliegt, jedoch sehr wohl Kategorienzugeh�rigkeit besteht.
+		 *         Kategorie vorliegt, jedoch sehr wohl Kategorienzugehörigkeit besteht.
 		 */
 		Object getRank(String categoryName) throws BeanException, IOException
 		{
@@ -263,7 +263,7 @@ public class GenericCSVExporter extends GenericCSVBase implements Exporter
 
 		/**
 		 * Diese Methode liefert den Freitext einer Person oder ihres Partners zu einem Dokumenttyp.
-		 * 
+		 *
 		 * @param docTypeName
 		 *          Name des Dokumenttyps
 		 * @param partner
@@ -305,10 +305,10 @@ public class GenericCSVExporter extends GenericCSVBase implements Exporter
 		//
 		// Membervariablen
 		//
-		/** Die {@link Person}, f�r die dies eine Facade ist. */
+		/** Die {@link Person}, für die dies eine Facade ist. */
 		final Person	person;
 
-		/** Die R�nge der Person in den Kategorien */
+		/** Die Ränge der Person in den Kategorien */
 		Map						ranks							= null;
 
 		/** Die Dokumenttypfreitexte der Hauptperson */
@@ -318,14 +318,14 @@ public class GenericCSVExporter extends GenericCSVBase implements Exporter
 		Map						textFieldsPartner	= null;
 	}
 
-	/** Einschr�nkung auf Mandant */
+	/** Einschränkung auf Mandant */
 	protected Integer			orgUnitId			= null;
 
-	/** Einschr�nkung auf Kategorie <code>Null</code> = alle Kategorien, 0 = keine Kategorie */
+	/** Einschränkung auf Kategorie <code>Null</code> = alle Kategorien, 0 = keine Kategorie */
 	protected Integer			categoryId		= null;
 
 	//
-	// gesch�tzte Membervariablen
+	// geschützte Membervariablen
 	//
 	/** CSV-Ausgabe-Objekt */
 	CSVFileWriter					csvWriter			= null;
@@ -335,7 +335,7 @@ public class GenericCSVExporter extends GenericCSVBase implements Exporter
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see de.tarent.aa.veraweb.utils.Exporter#setOrgUnitId(java.lang.Integer)
 	 */
 	public void setOrgUnitId(Integer orgUnitId)
@@ -345,7 +345,7 @@ public class GenericCSVExporter extends GenericCSVBase implements Exporter
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see de.tarent.aa.veraweb.utils.Exporter#setCategoryId(java.lang.Integer)
 	 */
 	public void setCategoryId(Integer categoryId)
@@ -355,8 +355,8 @@ public class GenericCSVExporter extends GenericCSVBase implements Exporter
 
 	/**
 	 * Diese Methode holt alle notwendigen Kategorien aus der Datenbank.<br>
-	 * Nur die vom Nutzer ausgew�hlte Kategorien. Nur die Kategorien des Mandanten
-	 * 
+	 * Nur die vom Nutzer ausgewählte Kategorien. Nur die Kategorien des Mandanten
+	 *
 	 * @throws IOException
 	 * @throws BeanException
 	 */
@@ -404,13 +404,13 @@ public class GenericCSVExporter extends GenericCSVBase implements Exporter
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see de.tarent.aa.veraweb.utils.GenericCSVBase#getDocumentTypesFromDB()
 	 */
 	@Override
     protected List getDocumentTypesFromDB() throws BeanException, IOException
 	{
-		// TODO nur die Dokumenttypen des Mandanten, falls Doktypen auf Mandanten eingeschr�nkt werden.
+		// TODO nur die Dokumenttypen des Mandanten, falls Doktypen auf Mandanten eingeschränkt werden.
 		return super.getDocumentTypesFromDB();
 	}
 

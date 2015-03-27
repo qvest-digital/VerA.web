@@ -19,10 +19,10 @@ function showTab(name) {
 	} else if (name == 'detail-3') {
 		detail = 3;
 	}
-	
+
 	changeTab(null, new Array('detail-1', 'detail-2', 'detail-3'));
 	changeBlock(null, new Array('detail-1', 'detail-2', 'detail-3'));
-	
+
 	window.setTimeout("changeTab('detail-' + detail);", 50);
 	window.setTimeout("changeBlock('detail-' + detail);", 50);
 }

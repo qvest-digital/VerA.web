@@ -26,8 +26,8 @@ import de.tarent.octopus.server.PersonalConfig;
 
 /**
  * Setzt Grant Bohne in den Content.
- * Wodr�ber dann in Velocity entschieden wird
- * welche Men�punkte ein/ausgeblendet werden sollen.
+ * Wodrüber dann in Velocity entschieden wird
+ * welche Menüpunkte ein/ausgeblendet werden sollen.
  */
 public class SecurityWorker {
     //
@@ -39,22 +39,22 @@ public class SecurityWorker {
 	public static final String OUTPUT_load = "grants";
     /**
      * Diese Octopus-Aktion liefert ein {@link Grants}-Objekt, das die globale
-     * Benutzerrolle darstellt 
-     * 
+     * Benutzerrolle darstellt
+     *
      * @param cntx der aktuelle {@link OctopusContext}.
      * @return {@link Grants} des eingeloggten Benutzers
      */
 	public Grants load(OctopusContext cntx) {
 		return getGrants(cntx);
 	}
-    
+
     //
-    // gesch�tzte Hilfsmethoden
+    // geschützte Hilfsmethoden
     //
     /**
-     * Diese Methode holt die Grants aus der Session oder der pers�nlichen
+     * Diese Methode holt die Grants aus der Session oder der persönlichen
      * Konfiguration.
-     * 
+     *
      * @param cntx Octopus-Kontext
      * @return {@link Grants}-Instanz zum angemeldeten Benutzer
      */
