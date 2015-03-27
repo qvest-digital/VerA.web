@@ -60,7 +60,7 @@ public class Main extends Application<Config> {
 	/* ********* */
 		
     /**
-     * startup with the parameter java DropwizardDemo server config.yaml.
+     * Startup with the parameter java DropwizardDemo server config.yaml.
      *
      * @param args the commandline args
      */
@@ -100,7 +100,21 @@ public class Main extends Application<Config> {
 
 //        environment.jersey().register(new OsiamAuthProvider("OSIAM protected"));
 
-        environment.jersey().register(setEventResource(new EventResource(configuration, client)));
+        initAPIResources(configuration, environment, client);
+
+    }
+
+    /**
+     * Initializing every resources needed from Online-Anmeldung
+     * MUST: When a new Resource is created, it is need to be initialized here
+     * 
+     * @param configuration
+     * @param environment
+     * @param client
+     */
+	private void initAPIResources(final Config configuration,
+			final Environment environment, final Client client) {
+		environment.jersey().register(setEventResource(new EventResource(configuration, client)));
         environment.jersey().register(userResource = new UserResource(configuration, client));
         environment.jersey().register(loginResource = new LoginResource(configuration, client));
         environment.jersey().register(delegationResource = new DelegationResource(configuration, client));
@@ -108,9 +122,7 @@ public class Main extends Application<Config> {
         environment.jersey().register(freeVisitorsResource = new FreeVisitorsResource(configuration, client));
         environment.jersey().register(updateResource = new UpdateResource(configuration, client));
         environment.jersey().register(resetPasswordResource = new ResetPasswordResource(configuration, client));
-
-
-    }
+	}
 
 	public EventResource getEventResource() {
 		return eventResource;
