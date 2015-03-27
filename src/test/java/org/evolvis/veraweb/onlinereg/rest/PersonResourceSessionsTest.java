@@ -238,23 +238,6 @@ public class PersonResourceSessionsTest {
     }
 
     @Test
-    public void testUpdateGuestMessage() {
-        // GIVEN
-        Query query = mock(Query.class);
-        prepareSession();
-        Person person = mock(Person.class);
-        when(mockitoSession.getNamedQuery("Person.findByPersonId")).thenReturn(query);
-        when(query.uniqueResult()).thenReturn(person);
-
-        // WHEN
-        personResource.updateGuestMessage("ja", 1);
-
-        // THEN
-        verify(mockitoSessionFactory, times(1)).openSession();
-        verify(mockitoSession, times(1)).close();
-    }
-
-    @Test
     public void testGetUserIdFromUsername() {
         // GIVEN
         Query query = mock(Query.class);
