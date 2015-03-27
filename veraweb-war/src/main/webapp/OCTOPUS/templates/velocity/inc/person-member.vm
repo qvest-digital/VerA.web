@@ -19,7 +19,7 @@
 
 			<div class="tableCell width50 #if(!$grants.mayWrite() || $!message.plain($ext) != "_a_e1") vera-disabled #end" id="company-row" style="display:none">
 				 <label for="person-company-ignore$!message.plain($ext)">Firma/Institution*</label>
-				<input #if ($ext =='_a_e1') tabindex="130" #end type="text" id="person-company-ignore$!message.plain($ext)" name="person-company-ignore$!message.plain($ext)" maxlength="250" value="$!message.text($facade.Company)" onchange="setModified();"/>
+				<input #if ($ext =='_a_e1') tabindex="130" #end type="text" id="person-company-ignore$!message.plain($ext)" name="person-company-ignore$!message.plain($ext)" maxlength="100" value="$!message.text($facade.Company)" onchange="setModified();"/>
 			</div>
 			<div class="tableCell width50"></div>
 
@@ -110,7 +110,7 @@
 
 			<div class="tableCell width50 ">
 				<label for="person-firstname$!message.plain($ext)">Vorname#if($ext == "_a_e1")*#end</label>
-				<input #if ($ext =='_a_e1') tabindex="100" #end type="text" id="person-firstname$!message.plain($ext)" name="person-firstname$!message.plain($ext)" value="$!message.text($facade.Firstname)" onchange="setModified();" #if(!$grants.mayWrite() || ($createNewPerson && $ext != "_a_e1")) vera-disabled#end/>
+				<input #if ($ext =='_a_e1') tabindex="100" #end type="text" id="person-firstname$!message.plain($ext)" name="person-firstname$!message.plain($ext)" value="$!message.text($facade.Firstname)" maxlength="100" onchange="setModified();" #if(!$grants.mayWrite() || ($createNewPerson && $ext != "_a_e1")) vera-disabled#end/>
 			</div>
 
 			<div class="tableCell width50 ">
@@ -126,7 +126,7 @@
 
 			<div class="tableCell width50 ">
 				<label for="person-lastname$!message.plain($ext)">Nachname#if($ext == "_a_e1")*#end</label>
-				<input #if ($ext =='_a_e1') tabindex="110" #end type="text" id="person-lastname$!message.plain($ext)" name="person-lastname$!message.plain($ext)" value="$!message.text($facade.Lastname)" onchange="setModified();" #if(!$grants.mayWrite() || ($createNewPerson && $ext != "_a_e1")) vera-disabled#end/>
+				<input #if ($ext =='_a_e1') tabindex="110" #end type="text" id="person-lastname$!message.plain($ext)" name="person-lastname$!message.plain($ext)" value="$!message.text($facade.Lastname)" maxlength="100" onchange="setModified();" #if(!$grants.mayWrite() || ($createNewPerson && $ext != "_a_e1")) vera-disabled#end/>
 			</div>
 
 			<div class="tableCell width50 ">

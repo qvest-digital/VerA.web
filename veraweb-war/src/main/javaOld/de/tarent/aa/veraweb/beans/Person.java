@@ -300,8 +300,7 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
     public void verify() throws BeanException {
 		AddressHelper.checkPerson(this);
 
-		if (company_a_e1 != null && !company_a_e1.equals("") ^ firstname_a_e1 != null && !firstname_a_e1.equals("") &&
-				lastname_a_e1 != null && !lastname_a_e1.equals("")) {
+		if (!company_a_e1.equals("") ^ ((!firstname_a_e1.equals("")) && !lastname_a_e1.equals(""))) {
 //			solveXSS(); TODO Get a better solution
 
 			if (company_a_e1.length()>100) {
@@ -315,14 +314,16 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 			}
 		}
 		if (iscompany != null && iscompany.equals(PersonConstants.ISCOMPANY_TRUE)) {
-		    if (company_a_e1 == null && !company_a_e1.equals("") || company_a_e1.trim().equals("")) {
+		    if (company_a_e1 == null || company_a_e1.equals("") || company_a_e1.trim().equals("")) {
 		        addError("Sie m\u00fcssen einen Namen f\u00fcr die Firma/Institution angeben.");
 		    }
-		} else if (!(
-				(firstname_a_e1 != null && !firstname_a_e1.equals("") && firstname_a_e1.trim().length() != 0) ||
-				(lastname_a_e1 != null && !lastname_a_e1.equals("") && lastname_a_e1.trim().length() != 0) ||
-				(company_a_e1 != null && !company_a_e1.equals("") && company_a_e1.trim().length() != 0))) {
-			addError("Sie m\u00fcssen einen Vornamen, einen Nachnamen oder eine Firma angeben.");
+		} else if ((firstname_a_e1 == null || firstname_a_e1.equals("") && firstname_a_e1.trim().length() == 0) &&
+				(lastname_a_e1 == null || lastname_a_e1.equals("") && lastname_a_e1.trim().length() == 0)) {
+			addError("Sie m\u00fcssen einen Vornamen und einen Nachnamen angeben.");
+		} else if (	firstname_a_e1 == null || firstname_a_e1.equals("") && firstname_a_e1.trim().length() == 0) {
+			addError("Sie m\u00fcssen einen Vornamen angeben.");
+		} else if (lastname_a_e1 == null || lastname_a_e1.equals("") && lastname_a_e1.trim().length() == 0) {
+			addError("Sie m\u00fcssen einen Nachnamen angeben.");
 		}
 
 		/*
@@ -408,12 +409,12 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
     	// partner is always expected to have a lastname or a firstname
     	return
     	(
-    		( ( p.getLastname() != null && !p.getLastname().equals("") ) && ( p.getLastname().length() > 0 ) )
-    		|| ( ( p.getFirstname() != null && !p.getFirstname().equals("") ) && ( p.getFirstname().length() > 0 ) )
-    		|| ( ( p1.getLastname() != null && !p1.getLastname().equals("") ) && ( p1.getLastname().length() > 0 ) )
-    		|| ( ( p1.getFirstname() != null && !p1.getFirstname().equals("") ) && ( p1.getFirstname().length() > 0 ) )
-    		|| ( ( p2.getLastname() != null && !p2.getLastname().equals("") ) && ( p2.getLastname().length() > 0 ) )
-    		|| ( ( p2.getFirstname() != null && !p2.getFirstname().equals("") ) && ( p2.getFirstname().length() > 0 ) )
+    		( ( p.getLastname() != null || !p.getLastname().equals("") ) && ( p.getLastname().length() > 0 ) )
+    		|| ( ( p.getFirstname() != null || !p.getFirstname().equals("") ) && ( p.getFirstname().length() > 0 ) )
+    		|| ( ( p1.getLastname() != null || !p1.getLastname().equals("") ) && ( p1.getLastname().length() > 0 ) )
+    		|| ( ( p1.getFirstname() != null || !p1.getFirstname().equals("") ) && ( p1.getFirstname().length() > 0 ) )
+    		|| ( ( p2.getLastname() != null || !p2.getLastname().equals("") ) && ( p2.getLastname().length() > 0 ) )
+    		|| ( ( p2.getFirstname() != null || !p2.getFirstname().equals("") ) && ( p2.getFirstname().length() > 0 ) )
     	);
     }
 
