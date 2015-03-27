@@ -12,6 +12,12 @@
 	</div>
 	<h1>Importstatus: vorhandene Dubletten bearbeiten</h1>
 
+	#if($noDupsSelected)
+		<vera-warn>
+			Bitte markieren Sie die zu importierenden Personen.
+		</vera-warn>
+	#end
+	
 	<vera-info>
 		Dubletten, die durch den <strong>Import hinzugefügt werden würden</strong>, sind mit einer Checkbox gekennzeichnet.
 		Darunter befinden sich die bereits im System vorhandenen, entsprechenden Datens&auml;tze.<br />

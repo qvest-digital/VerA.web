@@ -123,6 +123,10 @@ public class ImportPersonsDuplicateWorker extends ListWorkerVeraWeb {
 
 	@Override
     public void saveList(OctopusContext cntx) throws BeanException, IOException {
+		
+
+		
+		
 		if (cntx.requestContains(INPUT_BUTTON_SAVE)) {
 			Database database = getDatabase(cntx);
 			TransactionContext context = database.getTransactionContext();
@@ -140,9 +144,9 @@ public class ImportPersonsDuplicateWorker extends ListWorkerVeraWeb {
 						Expr.equal("deleted", PersonConstants.DELETED_FALSE),
 						Expr.equal("fk_import", importId)));
 				context.execute(update);
+				List selection = getSelection(cntx, null);
 
 				// Markierungen wieder setzten.
-				List selection = getSelection(cntx, null);
 				if (selection != null && selection.size() > 0) {
 					update = SQL.Update( context );
 					update.table(database.getProperty(sample, "table"));
@@ -153,13 +157,16 @@ public class ImportPersonsDuplicateWorker extends ListWorkerVeraWeb {
 							Expr.in("pk", selection)));
 					context.execute(update);
 				}
+				else {
+					cntx.setContent("noDupsSelected", true);
+				}
 				context.commit();
 
-				cntx.setContent("countUpdate",
-						database.getCount(
-						database.getCount(sample).where(Where.and(
-								Expr.equal("deleted", PersonConstants.DELETED_FALSE),
-								Expr.equal("fk_import", importId)))));
+				cntx.setContent("countUpdate", selection.size());
+//						database.getCount(
+//						database.getCount(sample).where(Where.and(
+//								Expr.equal("deleted", PersonConstants.DELETED_FALSE),
+//								Expr.equal("fk_import", importId)))));
 			}
 			catch(BeanException e)
 			{
