@@ -299,8 +299,9 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 	@Override
     public void verify() throws BeanException {
 		AddressHelper.checkPerson(this);
-
-		if (!company_a_e1.equals("") ^ ((!firstname_a_e1.equals("")) && !lastname_a_e1.equals(""))) {
+		
+		if (company_a_e1 != null && !company_a_e1.equals("") ^ firstname_a_e1 != null && !firstname_a_e1.equals("") &&
+								lastname_a_e1 != null && !lastname_a_e1.equals("")) {
 //			solveXSS(); TODO Get a better solution
 
 			if (company_a_e1.length()>100) {
