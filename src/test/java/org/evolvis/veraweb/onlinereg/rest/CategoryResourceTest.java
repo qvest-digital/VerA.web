@@ -29,6 +29,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import javax.servlet.ServletContext;
 
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -39,6 +40,7 @@ import static org.mockito.Mockito.when;
  */
 @RunWith(MockitoJUnitRunner.class)
 public class CategoryResourceTest {
+	
     @Mock
     private static SessionFactory mockitoSessionFactory;
     @Mock
@@ -64,6 +66,24 @@ public class CategoryResourceTest {
         categoryResource.getCategoryId("category-name", uuid);
 
         // THEN
+        verify(mockitoSessionFactory, times(1)).openSession();
+        verify(mockitoSession, times(1)).close();
+    }
+
+    @Test
+    public void testGetCategoryIdNotExists() {
+        // GIVEN
+        String uuid = "534707a6-f432-4f6b-9e6a-c1032f221a50";
+        prepareSession();
+        Query query = mock(Query.class);
+        when(mockitoSession.getNamedQuery("Category.findIdByCatname")).thenReturn(query);
+        when(query.uniqueResult()).thenReturn(null);
+
+        // WHEN
+        Integer categoryId = categoryResource.getCategoryId("category-name", uuid);
+
+        // THEN
+        assertEquals(new Long(categoryId),new Long(0));
         verify(mockitoSessionFactory, times(1)).openSession();
         verify(mockitoSession, times(1)).close();
     }

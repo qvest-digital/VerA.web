@@ -19,6 +19,9 @@
  */
 package org.evolvis.veraweb.onlinereg.rest;
 
+import java.util.List;
+
+import org.evolvis.veraweb.onlinereg.entities.GuestDoctype;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -30,6 +33,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import javax.servlet.ServletContext;
 
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -72,6 +76,26 @@ public class GuestDoctypeSessionsTest {
         guestDoctypeResource.createGuestDoctype(1, "Max", "Mustermann");
 
         // THEN
+        verify(mockitoSessionFactory, times(1)).openSession();
+        verify(mockitoSession, times(1)).close();
+    }
+    
+    @Test
+    public void testCreateGuestDoctypeWithoutResults() {
+        // GIVEN
+        prepareSession();
+        List resultList = mock(List.class);
+        
+        Query query = mock(Query.class);
+        when(mockitoSession.getNamedQuery("GuestDoctype.findByDoctypeIdAndGuestId")).thenReturn(query);
+        when(query.list()).thenReturn(resultList);
+        when(resultList.isEmpty()).thenReturn(false);
+
+        // WHEN
+        List<GuestDoctype> listResults = (List<GuestDoctype>) guestDoctypeResource.createGuestDoctype(1, "Max", "Mustermann");
+        
+        // THEN
+        assertTrue(listResults == null);
         verify(mockitoSessionFactory, times(1)).openSession();
         verify(mockitoSession, times(1)).close();
     }

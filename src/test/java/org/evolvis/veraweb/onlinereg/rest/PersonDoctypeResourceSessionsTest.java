@@ -19,6 +19,7 @@
  */
 package org.evolvis.veraweb.onlinereg.rest;
 
+import org.evolvis.veraweb.onlinereg.entities.PersonDoctype;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -28,8 +29,11 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import antlr.collections.List;
+
 import javax.servlet.ServletContext;
 
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -61,7 +65,6 @@ public class PersonDoctypeResourceSessionsTest {
         mockitoSession.close();
     }
 
-
     @Test
     public void testCreatePersonDoctype() {
         // GIVEN
@@ -73,6 +76,26 @@ public class PersonDoctypeResourceSessionsTest {
         personDoctypeResource.createPersonDoctype(1, "Max", "Mustermann");
 
         // THEN
+        verify(mockitoSessionFactory, times(1)).openSession();
+        verify(mockitoSession, times(1)).close();
+    }
+
+    @Test
+    public void testCreatePersonDoctypeWithoutResults() {
+        // GIVEN
+        prepareSession();
+        
+        Query query = mock(Query.class);
+        java.util.List resultList = mock(java.util.List.class);
+        
+        when(mockitoSession.getNamedQuery("PersonDoctype.findByDoctypeIdAndPersonId")).thenReturn(query);
+        when(query.list()).thenReturn(resultList);
+        
+        // WHEN
+        PersonDoctype personDoctype = personDoctypeResource.createPersonDoctype(1, "Max", "Mustermann");
+
+        // THEN
+        assertTrue(personDoctype == null);
         verify(mockitoSessionFactory, times(1)).openSession();
         verify(mockitoSession, times(1)).close();
     }

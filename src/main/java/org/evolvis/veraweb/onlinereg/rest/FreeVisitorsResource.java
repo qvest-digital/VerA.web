@@ -27,11 +27,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
-
-import java.math.BigInteger;
-import java.util.List;
 
 /**
  * Created by Max Marche, <m.marche@tarent.de> on 26.01.2015
@@ -39,9 +35,6 @@ import java.util.List;
 @Path("/freevisitors")
 @Produces(MediaType.APPLICATION_JSON)
 public class FreeVisitorsResource extends AbstractResource {
-
-
-
 
     /**
      * Get event using the uuid

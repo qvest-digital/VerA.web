@@ -19,16 +19,12 @@
  */
 package org.evolvis.veraweb.onlinereg.rest;
 
-import org.evolvis.veraweb.onlinereg.AbstractResourceTest;
 import org.evolvis.veraweb.onlinereg.entities.Event;
 import org.evolvis.veraweb.onlinereg.entities.Person;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.junit.After;
 import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -40,9 +36,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -88,9 +83,28 @@ public class PersonResourceSessionsTest {
         verify(mockitoSessionFactory, times(1)).openSession();
         verify(mockitoSession, times(1)).close();
     }
+    
+    @Test
+    public void testCreatePersonSessionClosedWithoutResults() {
+        // GIVEN
+        Query query = mock(Query.class);
+        List resultList = mock(List.class);
+        prepareSession();
+        when(mockitoSession.getNamedQuery("Person.findByUsername")).thenReturn(query);
+        when(query.list()).thenReturn(resultList);
+        when(resultList.isEmpty()).thenReturn(false);
+
+        // WHEN
+        Person person = personResource.createPerson("maxmustermann", "Max", "Mustermann");
+
+        // THEN
+        assertTrue(person == null);
+        verify(mockitoSessionFactory, times(1)).openSession();
+        verify(mockitoSession, times(1)).close();
+    }
 
     @Test
-    public void testCreateDelegateSessionClosed() {
+    public void testCreateDelegateSessionClosedMale() {
         // GIVEN
         when(mockitoSessionFactory.openSession()).thenReturn(mockitoSession);
         when(personResource.context.getAttribute("SessionFactory")).thenReturn(mockitoSessionFactory);
@@ -98,9 +112,48 @@ public class PersonResourceSessionsTest {
         mockPerson(mockitoSession);
 
         // WHEN
-        personResource.createDelegate(1, "maxmustermann", "Max", "Mustermann", "m", "company");
+        personResource.createDelegate(1, "maxmustermann", "Max", "Mustermann", "Herr", "company");
 
         // THEN
+        verify(mockitoSessionFactory, times(1)).openSession();
+        verify(mockitoSession, times(1)).close();
+    }
+    
+    @Test
+    public void testCreateDelegateSessionClosedFemale() {
+        // GIVEN
+        when(mockitoSessionFactory.openSession()).thenReturn(mockitoSession);
+        when(personResource.context.getAttribute("SessionFactory")).thenReturn(mockitoSessionFactory);
+        mockEvent(mockitoSession);
+        mockPerson(mockitoSession);
+
+        // WHEN
+        personResource.createDelegate(1, "lisarosler", "Lisa", "Rosler", "Frau", "company");
+
+        // THEN
+        verify(mockitoSessionFactory, times(1)).openSession();
+        verify(mockitoSession, times(1)).close();
+    }
+
+    @Test
+    public void testCreateDelegateSessionClosedWithoutResults() {
+        // GIVEN
+    	List resultList = mock(List.class);
+        Query query = mock(Query.class);
+        mockEvent(mockitoSession);
+        mockPerson(mockitoSession);
+    	
+    	when(mockitoSessionFactory.openSession()).thenReturn(mockitoSession);
+        when(personResource.context.getAttribute("SessionFactory")).thenReturn(mockitoSessionFactory);
+        when(mockitoSession.getNamedQuery("Person.findByUsername")).thenReturn(query);
+        when(query.list()).thenReturn(resultList);
+        when(resultList.isEmpty()).thenReturn(false);
+
+        // WHEN
+        Person person = personResource.createDelegate(1, "lisarosler", "Lisa", "Rosler", "Frau", "company");
+
+        // THEN
+        assertTrue(person == null);
         verify(mockitoSessionFactory, times(1)).openSession();
         verify(mockitoSession, times(1)).close();
     }
@@ -122,12 +175,13 @@ public class PersonResourceSessionsTest {
     }
 
     @Test
-    public void testCreateMediaRepresentatives2() {
+    public void testCreateMediaRepresentativesWithoutResults() {
         // GIVEN
         List resultList = mock(List.class);
         Query query = mock(Query.class);
         mockEvent(mockitoSession);
         mockPerson(mockitoSession);
+        
         when(mockitoSessionFactory.openSession()).thenReturn(mockitoSession);
         when(personResource.context.getAttribute("SessionFactory")).thenReturn(mockitoSessionFactory);
         when(mockitoSession.getNamedQuery("Person.findByUsername")).thenReturn(query);
@@ -135,9 +189,10 @@ public class PersonResourceSessionsTest {
         when(resultList.isEmpty()).thenReturn(false);
 
         // WHEN
-        personResource.createPersonPress(1, "maxmustermann", "Antje", "Weber", "w", "maxmustermann@maxmustermann.de", "address", "63123", "city", "country");
+        Person personPress = personResource.createPersonPress(1, "maxmustermann", "Antje", "Weber", "w", "maxmustermann@maxmustermann.de", "address", "63123", "city", "country");
 
         // THEN
+        assertTrue(personPress == null);
         verify(mockitoSessionFactory, times(1)).openSession();
         verify(mockitoSession, times(1)).close();
     }

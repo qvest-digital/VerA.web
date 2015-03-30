@@ -24,7 +24,6 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.junit.AfterClass;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -36,6 +35,7 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.Assert.*;
 import static org.junit.Assert.assertNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
@@ -58,7 +58,6 @@ public class EventRessourceSessionsTest {
     public EventRessourceSessionsTest() {
         eventResource = new EventResource();
         eventResource.context = mock(ServletContext.class);
-
     }
 
     @AfterClass
@@ -103,6 +102,26 @@ public class EventRessourceSessionsTest {
         eventResource.listUsersEvents("username");
 
         // THEN
+        verify(mockitoSessionFactory, times(1)).openSession();
+        verify(mockitoSession, times(1)).close();
+    }
+    
+    @Test
+    public void testListUserEventsWithoutResults() {
+        // GIVEN
+        prepareSession();
+        List resultList = mock(List.class);
+        Query query = mock(Query.class);
+        
+        when(mockitoSession.getNamedQuery("Person.findPersonIdByUsername")).thenReturn(query);
+        when(query.list()).thenReturn(resultList);
+        when(resultList.isEmpty()).thenReturn(true);
+
+        // WHEN
+        List<Event> listEvents = eventResource.listUsersEvents("username");
+
+        // THEN
+        assertTrue(listEvents == null);
         verify(mockitoSessionFactory, times(1)).openSession();
         verify(mockitoSession, times(1)).close();
     }
