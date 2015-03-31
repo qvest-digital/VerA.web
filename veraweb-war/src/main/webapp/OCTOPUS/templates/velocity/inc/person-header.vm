@@ -3,6 +3,9 @@
 #if($action == "guest")
 
 	<div id="buttonPanel-top" class="textRight marginBottom10">
+		#if($online-registration.activated && !$person.username)
+			<input type="button" name="copy" class="mainButton" value="Anmeldedaten erzeugen" title="Anmeldedaten für die Online-Anmeldung erzeugen " onclick="if (checkModified()) { createOsiamUser(); }" />
+		#end
 		#if($person && $person.id)
 			<input type="button" name="add" value="In G&auml;steliste &uuml;bernehmen" title="Gast direkt in G&auml;steliste &uuml;bernehmen" class="mainButton" onclick="addToGuestList();">
 		#end
@@ -15,6 +18,9 @@
 #elseif($action == "host")
 
 	<div id="buttonPanel-top" class="textRight marginBottom10">
+		#if($online-registration.activated && !$person.username)
+			<input type="button" name="copy" class="mainButton" value="Anmeldedaten erzeugen" title="Anmeldedaten für die Online-Anmeldung erzeugen " onclick="if (checkModified()) { createOsiamUser(); }" />
+		#end
 		#if($person && $person.id)
 			<input type="button" name="set" class="mainButton" value="&Uuml;bernehmen" title="Person direkt als Gastgeber &uuml;bernehmen" onclick="window.location.href='${paths.staticWeb}do/SetHostToEventDetail?hostid=$!person.id';">
 		#end
@@ -32,6 +38,9 @@
 #elseif($action == "event")
 
 	<div id="buttonPanel-top" class="textRight marginBottom10">
+		#if($online-registration.activated && !$person.username)
+			<input type="button" name="copy" class="mainButton" value="Anmeldedaten erzeugen" title="Anmeldedaten für die Online-Anmeldung erzeugen " onclick="if (checkModified()) { createOsiamUser(); }" />
+		#end
 		#if($grants.mayWrite())
 			<input type="button" name="copy" class="mainButton" value="Person kopieren" onclick="if (checkModified()) { copyPerson(); }" />
 		#end

@@ -168,7 +168,9 @@ public class OsiamLoginCreator {
             result = searchOsiamUser(connector, accessToken, finalUsername);
             usernameSuffix++;
         }
-
+        if (finalUsername.equals("")) {
+        	return username;
+        }
         return finalUsername;
     }
 
