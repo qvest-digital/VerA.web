@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.evolvis.veraweb</groupId>
     <artifactId>rest-api</artifactId>
-    <version>1.5.1.2-SNAPSHOT</version>
+    <version>1.5.1.2</version>
     <properties>
         <jacoco.version>0.7.1.201405082137</jacoco.version>
     </properties>
