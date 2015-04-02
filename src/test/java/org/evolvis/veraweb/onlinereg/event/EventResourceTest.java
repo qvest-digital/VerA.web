@@ -63,14 +63,14 @@ public class EventResourceTest {
     @Test@Ignore
     public void testGetEvent() throws IOException {
         Event e = er.getEvent(1);
-        assertEquals("Tag der deutschen Einheit", e.getShortname());
-        assertEquals(new Date(1406930430000l), e.getDatebegin());
+        assertEquals("My first event", e.getShortname());
+        assertEquals("242eb535-ef8d-40a1-b27b-086f7eb58bd5", e.getHash());
     }
 
     @Test@Ignore
     public void testGetRegistration() throws IOException {
         Guest g = er.getRegistration(1, 2);
-        assertEquals(1, g.getInvitationstatus());
+        assertEquals(1, g.getInvitationstatus().intValue());
         assertEquals("Notiz", g.getNotehost());
     }
 
