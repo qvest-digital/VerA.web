@@ -92,4 +92,20 @@ public class Event {
     public Date getDatebegin() {
 		return datebegin;
 	}
+    
+    public Date getDateend() {
+		return dateend;
+	}
+    
+    public String getEventtype() {
+		return eventtype;
+	}
+    
+    public Location getLocation() {
+		return location;
+	}
+    
+    public String getMediarepresentatives() {
+		return mediarepresentatives;
+	}
 }
