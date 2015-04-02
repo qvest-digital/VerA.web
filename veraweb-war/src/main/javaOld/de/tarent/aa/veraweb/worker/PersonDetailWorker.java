@@ -727,8 +727,7 @@ public class PersonDetailWorker implements PersonConstants {
 
 					//Bug 1592 Wenn die person kopiert wurde, dann die Kategorien der
 					//original Person an neue Person kopieren
-					if (originalPersonId != null && originalPersonId.intValue() != 0)
-					{
+					if (originalPersonId != null && originalPersonId.intValue() != 0) {
 						copyCategories(originalPersonId, person.id,  database,  context);
 					}
 
