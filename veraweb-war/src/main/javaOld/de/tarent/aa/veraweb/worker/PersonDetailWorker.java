@@ -42,7 +42,6 @@ import org.osiam.client.oauth.Scope;
 
 import de.tarent.aa.veraweb.beans.Doctype;
 import de.tarent.aa.veraweb.beans.LinkType;
-import de.tarent.aa.veraweb.beans.LinkUUID;
 import de.tarent.aa.veraweb.beans.Person;
 import de.tarent.aa.veraweb.beans.PersonCategorie;
 import de.tarent.aa.veraweb.beans.PersonDoctype;
@@ -73,7 +72,6 @@ import de.tarent.octopus.beans.veraweb.BeanChangeLogger;
 import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
 import de.tarent.octopus.beans.veraweb.RequestVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
-import org.osiam.resources.scim.User;
 
 /**
  * Octopus-Worker der Aktionen zur Detailansicht von Personen bereitstellt,
@@ -704,6 +702,7 @@ public class PersonDetailWorker implements PersonConstants {
 			// must reverify due to above changes
 	        person.verify();
 			if (person.isModified() && person.isCorrect()) {
+				checkConversionFromFirmaToPerson(person);
 		        AddressHelper.copyAddressData(cntx, person, personOld);
 
 				/*
@@ -776,6 +775,13 @@ public class PersonDetailWorker implements PersonConstants {
 		}
 
 		return person;
+	}
+
+	private void checkConversionFromFirmaToPerson(Person person) {
+		if ((!person.company_a_e1.equals(null) || person.company_a_e1.equals(""))
+				&& person.iscompany.equals("f")) {
+			person.company_a_e1 = null;
+		}
 	}
 
 
