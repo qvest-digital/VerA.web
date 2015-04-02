@@ -6,7 +6,7 @@
 
     <groupId>org.evolvis.veraweb</groupId>
     <artifactId>online-anmeldung</artifactId>
-    <version>1.5.1.3</version>
+    <version>1.5.1.4-SNAPSHOT</version>
 
     <!-- Dropwizard Demo Project
     Launch from IDE:
