@@ -94,6 +94,7 @@ public class Guest extends AbstractHistoryBean implements EventConstants {
 	public String domestic_b;
 	public String color_b;
 	public Integer fk_color_b;
+	public String osiam_login;
 
 	@Override
     public void verify() throws BeanException {
