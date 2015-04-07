@@ -300,7 +300,7 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
     public void verify() throws BeanException {
 		AddressHelper.checkPerson(this);
 
-		if (!company_a_e1.equals("") ^ ((!firstname_a_e1.equals("")) && !lastname_a_e1.equals(""))) {
+		if (!company_a_e1.equals("") || (!firstname_a_e1.equals("") && !lastname_a_e1.equals(""))) {
 //			solveXSS(); TODO Get a better solution
 
 			if (company_a_e1.length()>100) {
@@ -313,6 +313,7 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 		        addError("Sie d\u00fcrfen maximal 100 Zeichen f\u00fcr den Nachnamen der Hauptperson angeben.");
 			}
 		}
+
 		if (iscompany != null && iscompany.equals(PersonConstants.ISCOMPANY_TRUE)) {
 		    if (company_a_e1 == null || company_a_e1.equals("") || company_a_e1.trim().equals("")) {
 		        addError("Sie m\u00fcssen einen Namen f\u00fcr die Firma/Institution angeben.");
