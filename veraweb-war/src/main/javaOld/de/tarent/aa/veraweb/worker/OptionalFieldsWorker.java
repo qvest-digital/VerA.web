@@ -21,9 +21,7 @@ package de.tarent.aa.veraweb.worker;
 
 import de.tarent.aa.veraweb.beans.OptionalField;
 import de.tarent.dblayer.engine.DB;
-import de.tarent.dblayer.engine.DBContext;
 import de.tarent.dblayer.sql.SQL;
-import de.tarent.dblayer.sql.clause.Clause;
 import de.tarent.dblayer.sql.clause.Where;
 import de.tarent.dblayer.sql.clause.WhereList;
 import de.tarent.dblayer.sql.statement.Delete;

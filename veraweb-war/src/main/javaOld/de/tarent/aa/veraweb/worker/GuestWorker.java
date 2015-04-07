@@ -689,6 +689,11 @@ public class GuestWorker {
 			guest.ishost = new Integer(ishost.booleanValue() ? 1 : 0);
 			guest.reserve = reserve;
 			guest.invitationtype = invitationtype;
+			
+			if (person.username != null) {
+				guest.osiam_login = person.username;
+			}
+			setGuestInvitationStatus(event, guest);
 
 			if (personId != null && categoryId != null) {
 				PersonCategorie personCategorie = new PersonCategorie();
@@ -768,6 +773,15 @@ public class GuestWorker {
 			return true;
 		}
 		return false;
+	}
+
+	private void setGuestInvitationStatus(Event event, Guest guest) {
+		if (event.eventtype != null && event.eventtype.equals(EventConstants.EVENT_TYPE_OPEN_EVENT)) {
+			guest.invitationstatus_a = EventConstants.STATUS_ACCEPT;
+		}
+		else {
+			guest.invitationstatus_a = EventConstants.STATUS_OPEN;
+		}
 	}
 
     private Person getPersonById(Database database, ExecutionContext context, Integer personId) throws BeanException, IOException {

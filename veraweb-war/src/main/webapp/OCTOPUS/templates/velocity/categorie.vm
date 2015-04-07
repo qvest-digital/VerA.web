@@ -100,19 +100,43 @@
 		#foreach($bean in $list)
 			<tr>
 			#if($grants.isAdmin() || $grants.isPartialAdmin())
-				<td class="textCenter"><input type="hidden" id="${bean.id}-modified" name="${bean.id}-modified" value="false"><input type="checkbox" name="${bean.id}-select" id="${bean.id}-select" value="true"></td>
+				<td class="textCenter">
+					<input type="hidden" id="${bean.id}-modified" name="${bean.id}-modified" value="false">
+					#if(${bean.name}!='Pressevertreter')
+						<input type="checkbox" name="${bean.id}-select" id="${bean.id}-select" value="true">
+					#end
+				</td>
 				<td class="textCenter"><input type="hidden" name="${bean.id}-id" value="$!bean.id">$!{bean.id}</td>
-				<td><input type="text" name="${bean.id}-name" id="${bean.id}-name" value="$!message.plain($bean.name)" onchange="setModified('$!bean.id')" #if(!($grants.isAdmin() || $grants.isPartialAdmin()))vera-disabled#end></td>
 				<td>
-					<select id="${bean.id}-flags" name="${bean.id}-flags" onchange="setModified('$!bean.id')">
+					#if(${bean.name}=='Pressevertreter')
+						<input type="text" name="${bean.id}-name" id="${bean.id}-name" disabled="true" value="$!message.plain($bean.name)" onchange="setModified('$!bean.id')" #if(!($grants.isAdmin() || $grants.isPartialAdmin()))vera-disabled#end></td>
+					#else
+						<input type="text" name="${bean.id}-name" id="${bean.id}-name" value="$!message.plain($bean.name)" onchange="setModified('$!bean.id')" #if(!($grants.isAdmin() || $grants.isPartialAdmin()))vera-disabled#end></td>
+					#end
+				<td>
+					#if(${bean.name}=='Pressevertreter')
+						<select id="${bean.id}-flags" disabled="true" name="${bean.id}-flags" onchange="setModified('$!bean.id')">
+					#else
+						<select id="${bean.id}-flags" name="${bean.id}-flags" onchange="setModified('$!bean.id')">
+					#end
 						<option #if($bean.flags && $bean.flags == 0) selected#end value="0">Kategorie</option>
 						<option #if($bean.flags && $bean.flags == 1) selected#end value="1">Ereignis</option>
 						<option #if($bean.flags && $bean.flags == 99) selected#end value="99">Diplo. Corps</option>
 					</select>
 				</td>
-				<td class="textCenter"><input type="text" name="${bean.id}-rank" id="${bean.id}-rank" value="$!message.text($bean.rank)" onchange="setModified('$!bean.id')" #if(! ($grants.isAdmin() || $grants.isPartialAdmin()))vera-disabled#end></td>
+				<td class="textCenter">
+				#if(${bean.name}=='Pressevertreter')
+					<input type="text" name="${bean.id}-rank" disabled="true" id="${bean.id}-rank" value="$!message.text($bean.rank)" onchange="setModified('$!bean.id')" #if(! ($grants.isAdmin() || $grants.isPartialAdmin()))vera-disabled#end>
+				#else
+					<input type="text" name="${bean.id}-rank" id="${bean.id}-rank" value="$!message.text($bean.rank)" onchange="setModified('$!bean.id')" #if(! ($grants.isAdmin() || $grants.isPartialAdmin()))vera-disabled#end>
+				#end
+				</td>
 				<td>
-					<select id="${bean.id}-event" name="${bean.id}-event" onchange="setModified('$!bean.id')" #if(! ( $grants.isAdmin() || $grants.isPartialAdmin() ))vera-disabled#end>
+					#if(${bean.name}=='Pressevertreter')
+						<select id="${bean.id}-event" disabled="true" name="${bean.id}-event" onchange="setModified('$!bean.id')" #if(! ( $grants.isAdmin() || $grants.isPartialAdmin() ))vera-disabled#end>
+					#else
+						<select id="${bean.id}-event" name="${bean.id}-event" onchange="setModified('$!bean.id')" #if(! ( $grants.isAdmin() || $grants.isPartialAdmin() ))vera-disabled#end>
+					#end
 					<option value="">F&uuml;r alle Veranstaltungen</option>
 					#foreach($event in $allEvent)
 						<option #if($bean.event && $bean.event == $event.id) selected#end value="$!event.id">$!message.plain($event.shortname)</option>

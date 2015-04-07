@@ -264,6 +264,7 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 			Database database = getDatabase(cntx);
 			List<Integer> selection = getSelection(cntx, getCount(cntx, database));
 			if (!selection.isEmpty()) {
+				cntx.setContent("deleted", selection.size());
 				Integer workareaId = cntx.requestAsInteger("workareaAssignmentId");
 				if ("assign".compareTo(workareaAssignmentAction) == 0) {
 					assignWorkArea(cntx, selection, workareaId);

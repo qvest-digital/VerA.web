@@ -294,7 +294,6 @@ $(function () {
 	//	$(document).ready(function(){
 			document.getElementsByName("workareaAssignmentAction").value = "${assignmentActionForWorkarea}";
 			$(".errormsg").remove();
-			$(".successmsg").remove();
 
 			#if($assignmentActionForWorkarea == "assign")
 				showSuccess('Der Arbeitsbereich wurde erfolgreich hinzugefügt.');

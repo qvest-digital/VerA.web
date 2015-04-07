@@ -38,7 +38,6 @@ import org.apache.log4j.Logger;
 import de.tarent.aa.veraweb.beans.Doctype;
 import de.tarent.aa.veraweb.beans.Event;
 import de.tarent.aa.veraweb.beans.GuestSearch;
-import de.tarent.aa.veraweb.beans.LinkUUID;
 import de.tarent.aa.veraweb.beans.Location;
 import de.tarent.aa.veraweb.beans.facade.EventConstants;
 import de.tarent.aa.veraweb.utils.DatabaseHelper;
