@@ -349,6 +349,17 @@
 				#set($deletedperson = false)
 
 				#foreach($bean in $list)
+					#set($someordernocut = $bean.someorderno.replaceAll("(.{6})", "$1 "))
+					#set($companycut = $bean.company_a_e1.replaceAll("(.{16})", "$1 "))
+					#set($blastnamecut = $bean.lastname_b_e1.replaceAll("(.{16})", "$1 "))
+					#set($bgdlastnamecut = $bean.lastname_b_gd.replaceAll("(.{16})", "$1 "))
+					#set($afirstnamecut = $bean.firstname_a_e1.replaceAll("(.{16})", "$1 "))
+					#set($bfirstnamecut = $bean.firstname_b_e1.replaceAll("(.{16})", "$1 "))
+					#set($agdfirstnamecut = $bean.firstname_a_gd.replaceAll("(.{16})", "$1 "))
+					#set($bgdfirstnamecut = $bean.firstname_b_gd.replaceAll("(.{16})", "$1 "))
+					#set($aemailcut = $bean.mail_a_e1.replaceAll("(.{24})", "$1 "))
+					#set($agdemailcut = $bean.mail_a_gd.replaceAll("(.{24})", "$1 "))
+
 					#if ($bean.deleted == "t")
 						#set($deletedperson = true)
 					#end
@@ -362,7 +373,7 @@
 						#if($bean.ishost && $bean.ishost == 1)
 							<em>Gastgeber</em>
 						#elseif($bean.someorderno)
-							$bean.someorderno
+							$someordernocut
 						#else
 							<em>keine</em>
 						#end
@@ -375,7 +386,7 @@
 					#end
 
 					#if($bean.company_a_e1 != "")
-						<td onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';" title="Firma/Institution">$bean.company_a_e1</td>
+						<td onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';" title="Firma/Institution">$companycut</td>
 					#else
 						<td onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';" title="Firma/Institution">&nbsp;</td>
 					#end
@@ -391,35 +402,35 @@
 
 							#if($bean.invitationtype != 3)
 								#if($bean.showdoctype)
-									$!message.plain($bean.lastname_a_gd)
+									$!message.plain($agdlastnamecut)
 								#else
-									$!message.plain($bean.lastname_a_e1)
+									$!message.plain($alastnamecut)
 								#end
 							#else
 								#if($bean.showdoctype)
-									$!message.plain($bean.lastname_b_gd)
+									$!message.plain($bgdlastnamecut)
 								#else
-									$!message.plain($bean.lastname_b_e1)
+									$!message.plain($blastnamecut)
 								#end
 							#end
 						</td>
 						<td onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';">
 							#if($bean.invitationtype != 3)
-								#if($bean.showdoctype)$!message.plain($bean.firstname_a_gd)#else$!message.plain($bean.firstname_a_e1)#end
+								#if($bean.showdoctype)$!message.plain($agdfirstnamecut)#else$!message.plain($afirstnamecut)#end
 							#else
-								#if($bean.showdoctype)$!message.plain($bean.firstname_b_gd)#else$!message.plain($bean.firstname_b_e1)#end
+								#if($bean.showdoctype)$!message.plain($bgdfirstnamecut)#else$!message.plain($bfirstnamecut)#end
 							#end
 						</td>
 						<td class="textCenter">
 							#if($bean.showdoctype)
 								#if($bean.mail_a_gd.length() > 0)
-									<a href="mailto:$!message.plain($bean.mail_a_gd)" title="$!message.plain($bean.mail_a_gd)">$!message.plain($bean.mail_a_gd)</a>
+									<a href="mailto:$!message.plain($bean.mail_a_gd)" title="$!message.plain($bean.mail_a_gd)">$!message.plain($agdemailcut)</a>
 								#else
 									&nbsp;
 								#end
 							#else
 								#if($bean.mail_a_e1.length() > 0)
-									<a href="mailto:$!message.plain($bean.mail_a_e1)" title="$!message.plain($bean.mail_a_e1)">$!message.plain($bean.mail_a_e1)</a>
+									<a href="mailto:$!message.plain($bean.mail_a_e1)" title="$!message.plain($bean.mail_a_e1)">$!message.plain($aemailcut)</a>
 								#else
 									&nbsp;
 								#end
