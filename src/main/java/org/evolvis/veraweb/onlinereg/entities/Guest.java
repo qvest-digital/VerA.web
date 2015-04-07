@@ -68,8 +68,8 @@ public class Guest {
     private int fk_person;
     private String gender;
     private String gender_p;
-    private int invitationstatus;
-    private int invitationtype;
+    private Integer invitationstatus;
+    private Integer invitationtype;
     private String notehost;
     private String delegation;
     private Integer fk_category;
@@ -111,11 +111,11 @@ public class Guest {
         this.gender_p = gender_p;
     }
 
-    public int getInvitationstatus() {
+    public Integer getInvitationstatus() {
         return invitationstatus;
     }
 
-    public void setInvitationstatus(int invitationstatus) {
+    public void setInvitationstatus(Integer invitationstatus) {
         this.invitationstatus = invitationstatus;
     }
 
@@ -139,7 +139,7 @@ public class Guest {
         return invitationtype;
     }
 
-    public void setInvitationtype(int invitationtype) {
+    public void setInvitationtype(Integer invitationtype) {
         this.invitationtype = invitationtype;
     }
 

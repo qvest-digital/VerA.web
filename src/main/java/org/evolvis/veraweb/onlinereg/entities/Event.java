@@ -31,7 +31,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
-
 import java.util.Date;
 
 /**
@@ -96,5 +95,21 @@ public class Event {
 
 	public void setDatebegin(Date datebegin) {
 		this.datebegin = datebegin;
+	}
+
+    public Date getDateend() {
+		return dateend;
+	}
+
+    public String getEventtype() {
+		return eventtype;
+	}
+
+    public Location getLocation() {
+		return location;
+	}
+
+    public String getMediarepresentatives() {
+		return mediarepresentatives;
 	}
 }
