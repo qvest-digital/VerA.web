@@ -1091,7 +1091,7 @@ public class PersonDetailWorker implements PersonConstants {
 		Database database = new DatabaseVeraWeb(cntx);
 		database.execute(SQL.Insert(database).
 				table("veraweb.link_uuid").
-				insert("uuid", getPersonUUID()).
+				insert("uuid", getNewPersonUUID()).
 				insert("linktype", LinkType.PASSWORDRESET.getText()).
 				insert("personid", personId));
 	}
@@ -1179,7 +1179,7 @@ public class PersonDetailWorker implements PersonConstants {
      * @param event
      * @param oldEvent
      */
-    private String getPersonUUID() {
+    private String getNewPersonUUID() {
 		UUID uuid = UUID.randomUUID();
 
 		return uuid.toString();
