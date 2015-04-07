@@ -19,8 +19,6 @@
  */
 package de.tarent.aa.veraweb.worker;
 
-import de.tarent.octopus.server.OctopusContext;
-
 /**
  * Diese Liste zeigt eine Liste von Funktionen an.
  *

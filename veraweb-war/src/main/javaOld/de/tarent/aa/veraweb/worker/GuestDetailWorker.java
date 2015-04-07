@@ -20,9 +20,7 @@
 package de.tarent.aa.veraweb.worker;
 
 import java.io.IOException;
-import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -32,7 +30,6 @@ import org.apache.log4j.Logger;
 import org.apache.log4j.Priority;
 
 import de.tarent.aa.veraweb.beans.Doctype;
-import de.tarent.aa.veraweb.beans.Event;
 import de.tarent.aa.veraweb.beans.Guest;
 import de.tarent.aa.veraweb.beans.GuestDoctype;
 import de.tarent.aa.veraweb.beans.GuestSearch;
@@ -40,11 +37,6 @@ import de.tarent.aa.veraweb.beans.Person;
 import de.tarent.aa.veraweb.beans.PersonCategorie;
 import de.tarent.aa.veraweb.beans.facade.EventConstants;
 import de.tarent.aa.veraweb.beans.facade.GuestMemberFacade;
-import de.tarent.aa.veraweb.beans.facade.PersonConstants;
-import de.tarent.aa.veraweb.utils.DateHelper;
-import de.tarent.dblayer.helper.ResultList;
-import de.tarent.dblayer.sql.SQL;
-import de.tarent.dblayer.sql.clause.Clause;
 import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.clause.Limit;
 import de.tarent.dblayer.sql.clause.Where;
@@ -58,8 +50,6 @@ import de.tarent.octopus.beans.Database;
 import de.tarent.octopus.beans.Request;
 import de.tarent.octopus.beans.TransactionContext;
 import de.tarent.octopus.beans.veraweb.BeanChangeLogger;
-import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
-import de.tarent.octopus.beans.veraweb.RequestVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
 
 /**

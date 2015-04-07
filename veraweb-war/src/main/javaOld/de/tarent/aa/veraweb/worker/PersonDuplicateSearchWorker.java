@@ -22,12 +22,9 @@ package de.tarent.aa.veraweb.worker;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-import org.apache.commons.collections.list.FixedSizeList;
 
 import de.tarent.aa.veraweb.beans.Person;
 import de.tarent.aa.veraweb.beans.PersonSearch;

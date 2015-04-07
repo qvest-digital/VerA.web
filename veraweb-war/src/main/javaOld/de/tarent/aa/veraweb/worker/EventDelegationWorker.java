@@ -21,7 +21,6 @@ package de.tarent.aa.veraweb.worker;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;

@@ -20,10 +20,7 @@
 package de.tarent.aa.veraweb.worker;
 
 import java.io.IOException;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
-import java.util.Properties;
 
 import de.tarent.aa.veraweb.beans.Person;
 import de.tarent.aa.veraweb.beans.facade.PersonConstants;
