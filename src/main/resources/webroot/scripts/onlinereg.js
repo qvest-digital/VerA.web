@@ -272,7 +272,16 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 		     if ($scope.gender.id == 0) {
 		         $scope.error = "Bitte wählen Sie Ihr Geschlecht aus.";
 		         $scope.success = null;
-		     } else if (typeof $scope.vorname == "undefined" && $scope.vorname == null) {
+		     } 
+		     else if($scope.vorname.length > 35) {
+		    	 $scope.error = "Bitte geben Sie einen Vornamen mit maximal 35 Buchstaben ein.";
+		         $scope.success = null;
+		     } 
+		     else if($scope.nachname.length > 35) {
+		    	 $scope.error = "Bitte geben Sie einen Nachnamen mit maximal 35 Buchstaben ein.";
+		         $scope.success = null;
+		     }
+		     else if (typeof $scope.vorname == "undefined" && $scope.vorname == null) {
 		    	 $scope.error = "Bitte geben Sie einen Vornamen ein.";
 		         $scope.success = null;
 		     } else if (typeof $scope.nachname == "undefined" && $scope.nachname == null) {

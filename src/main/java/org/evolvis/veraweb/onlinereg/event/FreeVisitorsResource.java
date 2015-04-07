@@ -20,8 +20,6 @@
 package org.evolvis.veraweb.onlinereg.event;
 
 import java.io.IOException;
-import java.net.SocketTimeoutException;
-import java.util.List;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -30,15 +28,10 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import org.evolvis.veraweb.onlinereg.Config;
-import org.evolvis.veraweb.onlinereg.entities.Delegation;
 import org.evolvis.veraweb.onlinereg.entities.Event;
-import org.evolvis.veraweb.onlinereg.entities.Person;
 
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.jersey.api.client.Client;
-import com.sun.jersey.api.client.ClientHandlerException;
-import com.sun.jersey.api.client.UniformInterfaceException;
 import com.sun.jersey.api.client.WebResource;
 
 import lombok.extern.java.Log;

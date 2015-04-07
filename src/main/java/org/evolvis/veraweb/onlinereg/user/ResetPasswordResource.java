@@ -35,6 +35,7 @@ import java.io.IOException;
 @Log
 public class ResetPasswordResource {
 
+	/** Returned types from REST */
     private static final TypeReference<Integer> INTEGER = new TypeReference<Integer>() {};
     private static final TypeReference<Person> PERSON = new TypeReference<Person>() {};
 
@@ -77,7 +78,7 @@ public class ResetPasswordResource {
      */
     @POST
     @Path("/{uuid}")
-    public String getEvenByUUId(@PathParam("uuid") String uuid, @FormParam("password") String password)
+    public String getEventByUUId(@PathParam("uuid") String uuid, @FormParam("password") String password)
             throws IOException {
         final ResourceReader resourceReader = new ResourceReader(client, mapper, config);
         final Integer userId = getUserId(uuid, resourceReader);
