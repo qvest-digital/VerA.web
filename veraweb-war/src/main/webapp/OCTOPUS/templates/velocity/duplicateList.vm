@@ -17,7 +17,7 @@
 			Bitte markieren Sie die zu importierenden Personen.
 		</vera-warn>
 	#end
-	
+
 	<vera-info>
 		Dubletten, die durch den <strong>Import hinzugefügt werden würden</strong>, sind mit einer Checkbox gekennzeichnet.
 		Darunter befinden sich die bereits im System vorhandenen, entsprechenden Datens&auml;tze.<br />
@@ -66,9 +66,9 @@
 						#set($firstnamecut = $bean.firstname_a_e1.replaceAll("(.{8})", "$1 "))
 						#set($functioncut = $bean.function_a_e1.replaceAll("(.{12})", "$1 "))
 						#set($companycut = $bean.company_a_e1.replaceAll("(.{20})", "$1 "))
-						#set($streetcut = $bean.street_a_e1.replaceAll("(.{10})", "$1 "))
-						#set($zipcodecut = $bean.zipcode_a_e1.replaceAll("(.{5})", "$1 "))
-						#set($citycut = $bean.city_a_e1.replaceAll("(.{10})", "$1 "))
+						#set($streetcut = $bean.street_b_e1.replaceAll("(.{10})", "$1 "))
+						#set($zipcodecut = $bean.zipcode_b_e1.replaceAll("(.{5})", "$1 "))
+						#set($citycut = $bean.city_b_e1.replaceAll("(.{10})", "$1 "))
 					<tr>
 						<td>
 				##			<input type="hidden" name="${bean.id}-checked" #if($bean.dupcheckstatus == 1) value="true" #else value="false" #end>
