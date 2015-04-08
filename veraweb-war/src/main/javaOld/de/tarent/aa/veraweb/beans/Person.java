@@ -300,18 +300,16 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
     public void verify() throws BeanException {
 		AddressHelper.checkPerson(this);
 
-		if (!company_a_e1.equals("") || (!firstname_a_e1.equals("") && !lastname_a_e1.equals(""))) {
-//			solveXSS(); TODO Get a better solution
+//		solveXSS(); TODO Get a better solution
 
-			if (company_a_e1.length()>100) {
-		        addError("Sie d\u00fcrfen maximal 100 Zeichen f\u00fcr die Firma/Institution angeben.");
-			}
-			if (firstname_a_e1.length()>100) {
-		        addError("Sie d\u00fcrfen maximal 100 Zeichen f\u00fcr den Vornamen der Hauptperson angeben.");
-			}
-			if (lastname_a_e1.length()>100) {
-		        addError("Sie d\u00fcrfen maximal 100 Zeichen f\u00fcr den Nachnamen der Hauptperson angeben.");
-			}
+		if ((company_a_e1 != null && !company_a_e1.equals("")) && company_a_e1.length()>100) {
+	        addError("Sie d\u00fcrfen maximal 100 Zeichen f\u00fcr die Firma/Institution angeben.");
+		}
+		if ((firstname_a_e1 != null && !firstname_a_e1.equals("")) && firstname_a_e1.length()>100) {
+	        addError("Sie d\u00fcrfen maximal 100 Zeichen f\u00fcr den Vornamen der Hauptperson angeben.");
+		}
+		if ((lastname_a_e1 != null && !lastname_a_e1.equals("")) && lastname_a_e1.length()>100) {
+	        addError("Sie d\u00fcrfen maximal 100 Zeichen f\u00fcr den Nachnamen der Hauptperson angeben.");
 		}
 
 		if (iscompany != null && iscompany.equals(PersonConstants.ISCOMPANY_TRUE)) {

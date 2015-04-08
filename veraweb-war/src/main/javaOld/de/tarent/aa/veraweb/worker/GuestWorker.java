@@ -689,7 +689,7 @@ public class GuestWorker {
 			guest.ishost = new Integer(ishost.booleanValue() ? 1 : 0);
 			guest.reserve = reserve;
 			guest.invitationtype = invitationtype;
-			
+
 			if (person.username != null) {
 				guest.osiam_login = person.username;
 			}

@@ -60,8 +60,10 @@ $(function () { // on DOM ready
                 activeTabContent = $(this).add(activeTabContent);
             }
         });
+
         // hide inactive content
         all.not(activeTabContent).hide();
+
         // show active content
         activeTabContent.show();
     };
