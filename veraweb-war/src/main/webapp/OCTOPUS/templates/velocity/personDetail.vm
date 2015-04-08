@@ -189,7 +189,7 @@
 		<ul class="gray-gradient" vera-tab-group> <!-- Bitte das End-tag der <li>s immer mit in die nächste Zeile nehmen (verhindert Mozilla styling bug) -->
 			<li vera-tab="personendaten" #if(!$thisPersonTab || $thisPersonTab == "1") vera-tab-default #end onclick="$('#personTab').attr('value', '1');"><div>Personendaten</div>
 			</li><li vera-tab="anschriften" #if($thisPersonTab && $thisPersonTab == "2") vera-tab-default #end onclick="$('#personTab').attr('value', '2');"><div>Anschriften</div>
-			</li>#if($personDB)<li class="inactive" id="dokumenttypen"><div>Dokumenttypen</div>
+			</li>#if($personDB)<li class="inactive" id="dokumenttypen" onclick="showDoctypes();"><div>Dokumenttypen</div>
 			</li><li class="inactive" id="kategorien" onclick="showCategories();"><div>Kategorien</div></li>#end
 		</ul>
 	</div>
@@ -464,8 +464,6 @@
 		}
 	}
 
-
-
 	function setSex(salutation, sex) {
 		var s = document.getElementById(salutation);
 		var id = s.options[s.selectedIndex].value;
@@ -541,21 +539,6 @@
 			inputs[i].value = newdate;
 		}
 	}
-
-	$(function () {
-		// register page reload on tab doctype
-		var tabDocType = $('li#dokumenttypen');
-		tabDocType.click(function () {
-			if ($('#modified').val() === 'true') {
-				var form = $('#PersonForm');
-				form.attr('action', '${paths.staticWeb}do/ShowPersonDoctypeList'+getGuestTabId());
-				form.submit();
-			} else {
-				window.location.href = '${paths.staticWeb}do/ShowPersonDoctypeList?id=$!person.id&selectNone=true&searchTask=$!searchTask'+getGuestTabId();
-			}
-		});
-	});
-
 </script>
 
 #parse("inc/footer.vm")

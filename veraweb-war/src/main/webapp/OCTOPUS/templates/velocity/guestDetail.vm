@@ -340,7 +340,6 @@
         $('li#dokumenttypen').click(function () {
             window.location.href = '${paths.staticWeb}do/ShowGuestDoctype';
         });
-
         $('li#allgemein').click(function () {
             showTab('detail-1');
             $('input#tab').val("detail-1");
