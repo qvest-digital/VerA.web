@@ -1,57 +1,23 @@
-# /
-/target
-/.classpath
-/.project
-/.idea
+**/*.iml
+.classpath
+.idea/
+.project
+.settings
 /*.log
-
-# IntelliJ
-*.iml
-
-# /online-reg/
-/online-reg/.classpath
-/online-reg/.project
-/online-reg/.settings
-/online-reg/target
-/online-reg/node_modules
-/online-reg-tests/target
-/online-reg/config.yaml
-
-# /veraweb-system-test/
+/veraweb-system-test/.classpath
 /veraweb-system-test/.project
 /veraweb-system-test/.settings
-/veraweb-system-test/target
-/veraweb-system-test/.classpath
 /veraweb-system-test/resultContent.zip
-
-# /veraweb-war/
-/veraweb-war/target
-/veraweb-war/.settings
+/veraweb-system-test/target
+/veraweb-war/.checkstyle
 /veraweb-war/.classpath
 /veraweb-war/.project
+/veraweb-war/.settings
 /veraweb-war/bin
-/veraweb-war/.checkstyle
-
-# /veraweb-war/src/main/webapp/OCTOPUS/
-/veraweb-war/src/main/webapp/OCTOPUS/module.wsdl
 /veraweb-war/src/main/webapp/OCTOPUS/config_ldap_access.xml
-
-# /veraweb-war/src/main/webapp/WEB-INF/
+/veraweb-war/src/main/webapp/OCTOPUS/module.wsdl
 /veraweb-war/src/main/webapp/WEB-INF/*.lck
-
-# /vw-onlinereg-common/
-/vw-onlinereg-common/target
-/vw-onlinereg-common/.settings
-/vw-onlinereg-common/.classpath
-/vw-onlinereg-common/.project
-
-# /vw-onlinereg-war/
-/vw-onlinereg-war/target
-/vw-onlinereg-war/.settings
-/vw-onlinereg-war/.project
-/vw-onlinereg-war/.classpath
-/vw-onlinereg-war/mem.trace.db
-/vw-onlinereg-war/mem.h2.db
-
-# Rest
-mem.*.db
+/veraweb-war/target
+mem.h2.db
+mem.trace.db
+target/
