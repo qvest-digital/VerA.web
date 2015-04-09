@@ -1,8 +1,8 @@
-.idea/
-mem.h2.db
-mem.trace.db
 **/*.iml
-target/
 .classpath
+.idea/
 .project
 .settings
+mem.h2.db
+mem.trace.db
+target/
