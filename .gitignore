@@ -17,10 +17,6 @@
 /online-reg-tests/target
 /online-reg/config.yaml
 
-# /veraweb-ear/
-/veraweb-ear/target
-/veraweb-ear/.project
-
 # /veraweb-system-test/
 /veraweb-system-test/.project
 /veraweb-system-test/.settings
