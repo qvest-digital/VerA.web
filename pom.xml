@@ -91,7 +91,7 @@
             <artifactId>json</artifactId>
             <version>${json.version}</version>
         </dependency>
-        
+
         <dependency>
             <groupId>org.osiam</groupId>
             <artifactId>connector4java</artifactId>

@@ -2,6 +2,6 @@
 .classpath
 .idea/
 .project
-.settings/org.eclipse.jdt.core.prefs
+.settings
 config.yaml
 target/
