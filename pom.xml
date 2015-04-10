@@ -59,7 +59,7 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.evolvis.veraweb.common</groupId>
+            <groupId>org.evolvis.veraweb</groupId>
             <artifactId>rest-api-common</artifactId>
             <version>${releaseVersion}</version>
         </dependency>
