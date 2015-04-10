@@ -55,7 +55,7 @@
 
     <packaging>war</packaging>
 
-    <name>vera.web Online-Registration REST API</name>
+    <name>VerA.web Online-Registration REST API</name>
 
     <dependencies>
         <dependency>
