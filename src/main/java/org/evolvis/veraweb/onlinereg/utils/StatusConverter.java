@@ -19,16 +19,23 @@
  */
 package org.evolvis.veraweb.onlinereg.utils;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
  * Created by aalexa on 28.01.15.
+ * Fixed by mirabilos.
  */
 public class StatusConverter {
 
     public static String convertStatus(String responseStatus) {
-        JSONObject jsonObject = new JSONObject();
-        JSONObject status = jsonObject.put("status", responseStatus);
-        return status.toString();
+        try {
+            JSONObject jsonObject = new JSONObject();
+            JSONObject status = jsonObject.put("status", responseStatus);
+            return status.toString();
+        } catch (JSONException e) {
+            /* cannot happen, as "status" is not null */
+            return null;
+        }
     }
 }
