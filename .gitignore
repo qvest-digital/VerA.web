@@ -4,11 +4,6 @@
 .project
 .settings
 /*.log
-/veraweb-system-test/.classpath
-/veraweb-system-test/.project
-/veraweb-system-test/.settings
-/veraweb-system-test/resultContent.zip
-/veraweb-system-test/target
 /veraweb-war/.checkstyle
 /veraweb-war/.classpath
 /veraweb-war/.project
