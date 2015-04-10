@@ -10,4 +10,15 @@
 			<outputDirectory></outputDirectory>
 		</fileSet>
 	</fileSets>
+	<files>
+		<file>
+			<source>LICENCE.hdr</source>
+			<outputDirectory></outputDirectory>
+		</file>
+		<file>
+			<source>LICENSE.txt</source>
+			<outputDirectory></outputDirectory>
+			<destName>COPYING</destName>
+		</file>
+	</files>
 </assembly>
