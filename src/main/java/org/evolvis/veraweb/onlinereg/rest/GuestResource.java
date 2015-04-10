@@ -125,8 +125,6 @@ public class GuestResource extends AbstractResource{
      * @param userId User id
      * @param invitationstatus invitation status
      * @param notehost TODO
-     *
-     * @return The guest
      */
     @POST
     @Path("/update/{eventId}/{userId}")
@@ -220,13 +218,7 @@ public class GuestResource extends AbstractResource{
             session.close();
         }
     }
-    /**
-     * Check for existing delegation by delegation uuid.
-     *
-     * @param uuid Delegation UUID
-     *
-     * @return True if exists only one delegation, otherwise false
-     */
+
     @GET
     @Path("/registered/{username}/{eventId}")
     public Boolean isUserRegisteredintoEvent(@PathParam("username") String username, @PathParam("eventId") Integer eventId) {
@@ -286,7 +278,6 @@ public class GuestResource extends AbstractResource{
     /**
      * Add guest to event.
      *
-     * @param uuid Uuid
      * @param eventId Event id
      * @param userId User id
      * @param invitationstatus Invitation status
