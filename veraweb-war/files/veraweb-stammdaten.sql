@@ -1,8 +1,4 @@
 --
--- $Id$
---
--- FORMAT: UTF-8
---
 -- Stammdaten-Script, das beispielhafte Farben, Dokumenttypen,
 -- Anreden und Veranstaltungsdaten in das VerA.Web - Schema einspielt.
 --

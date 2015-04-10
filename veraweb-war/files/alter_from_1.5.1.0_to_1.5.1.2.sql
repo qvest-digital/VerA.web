@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------------------- */
-/* Alter table "tcategorie"						  */
+/* Alter table "tcategorie"                                               */
 /* ---------------------------------------------------------------------- */
 
 ALTER TABLE veraweb.tcategorie ADD CONSTRAINT mandant_categ_unique UNIQUE(fk_orgunit,catname);

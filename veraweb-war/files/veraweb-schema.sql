@@ -1,6 +1,4 @@
 --
--- FORMAT: UTF-8
---
 -- Update Script fuer das VerA.Web - Schema.
 --
 -- Kann auf eine beliebige Version des Schemas

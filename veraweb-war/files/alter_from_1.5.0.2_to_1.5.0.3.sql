@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------------------- */
-/* Alter table "tperson"						                              */
+/* Alter table "tperson"                                                  */
 /* ---------------------------------------------------------------------- */
 
 alter table veraweb.tperson add column username varchar(100);

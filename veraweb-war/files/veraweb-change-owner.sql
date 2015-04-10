@@ -1,19 +1,15 @@
 --
--- $Id$
---
--- FORMAT: UTF-8
---
 -- Dieses Script ändert den Besitzer einer VerA.Web Datenbank auf "veraweb".
 -- Es wird erwartet das die Datenbank ebenfalls "veraweb" heißt,
 -- sollte dies nicht der Fall sein beachten Sie bitte folgenden Hinweis.
 --
 
 --
--- HINWEIS zum umbennen einer Datenbank:
+-- HINWEIS zum Umbenennen einer Datenbank:
 --
---   Um eine Datenbank vollständig umzubennen (dabei werden auch weitere
+--   Um eine Datenbank vollständig umzubenennen (dabei werden auch weitere
 --   Schemas übertragen) darf keine Verbindung zu dieser Datenbank bestehen.
---   VerA.Web sollte dafür herruntergefahren werden. Sollten Verbindungen
+--   VerA.Web sollte dafür heruntergefahren werden. Sollten Verbindungen
 --   anderer Anwendungen weiterhin zu dieser Datenbank bestehen empfielt es
 --   sich den Postgres Service neu zu starten (restart).
 --

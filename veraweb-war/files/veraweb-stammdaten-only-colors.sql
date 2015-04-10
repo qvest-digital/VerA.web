@@ -1,8 +1,4 @@
 --
--- $Id$
---
--- FORMAT: UTF-8
---
 -- Stammdaten-Script das Beispielhafte Farben in das
 -- VerA.Web - Schema einspielt und ggf. überschreibt.
 --

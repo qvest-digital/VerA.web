@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------------------- */
-/* Alter table "tdoctype"						  */
+/* Alter table "tdoctype"                                                 */
 /* ---------------------------------------------------------------------- */
 
 ALTER TABLE veraweb.tdoctype ADD CONSTRAINT docname_unique UNIQUE(docname);
