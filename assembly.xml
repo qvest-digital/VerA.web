@@ -20,5 +20,9 @@
 			<outputDirectory></outputDirectory>
 			<destName>COPYING</destName>
 		</file>
+		<file>
+			<source>src/main/webapp/doc/Benutzerhandbuch.pdf</source>
+			<outputDirectory></outputDirectory>
+		</file>
 	</files>
 </assembly>
