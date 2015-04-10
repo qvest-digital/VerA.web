@@ -25,8 +25,8 @@
 		<param name="ldapurl" value="ldap://ldap.example.com" />
 		<!-- der Benutzer bei LDAP-Zugriffen, die nicht ein einfaches Überprüfen eines Logins darstellen; zum Beispiel "cn=Manager,ou=testav01,dc=aa". -->
 		<param name="ldapuser" value="cn=admin,dc=lan,dc=tarent,dc=de" />
-		<!-- LDAP Passwort falls erforderlich -->
-		<param name="ldappwd" value="password" />
+		<!-- LDAP Passwort falls erforderlich; falls nicht, auskommentiert lassen -->
+		<!-- <param name="ldappwd" value="password" /> -->
 
 		<!-- der Basis-DN bei LDAP-Zugriffen; im Falle der Test-Auslandsvertretung 01 ist es "ou=testav01,dc=aa". -->
 		<param name="ldapbasedn" value="dc=lan,dc=tarent,dc=de" />
