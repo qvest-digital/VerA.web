@@ -21,8 +21,8 @@
     </properties>
 
     <scm>
-        <developerConnection>scm:git:ssh://maven@evolvis.org/scmrepos/git/veraweb/common.git</developerConnection>
-        <url>https://evolvis.org/plugins/scmgit/cgi-bin/gitweb.cgi?p=veraweb/common.git</url>
+        <developerConnection>scm:git:ssh://maven@evolvis.org/scmrepos/git/veraweb/online-anmeldung.git</developerConnection>
+        <url>https://evolvis.org/plugins/scmgit/cgi-bin/gitweb.cgi?p=veraweb/online-anmeldung.git</url>
     </scm>
 
     <repositories>
