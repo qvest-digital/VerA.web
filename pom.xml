@@ -4,11 +4,17 @@
     <groupId>org.evolvis.veraweb</groupId>
     <artifactId>rest-api</artifactId>
     <version>1.5.1.4-SNAPSHOT</version>
+    <description>REST-API VerA.web Serverseite</description>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <jacoco.version>0.7.1.201405082137</jacoco.version>
         <releaseVersion>${project.version}</releaseVersion>
     </properties>
+
+    <organization>
+        <name>tarent solutions GmbH, Germany</name>
+        <url>http://www.tarent.de/</url>
+    </organization>
 
     <scm>
         <developerConnection>scm:git:ssh://maven@evolvis.org/scmrepos/git/veraweb/rest-api.git</developerConnection>
@@ -209,9 +215,28 @@
             </plugin>
 
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
                 <version>2.1.1</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                            <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+                        </manifest>
+                        <manifestEntries>
+                            <Build-Job>${JOB_NAME}</Build-Job>
+                            <Build-Id>${BUILD_ID}</Build-Id>
+                            <Build-Number>${BUILD_NUMBER}</Build-Number>
+                            <Build-Repository-Rev>${GIT_COMMIT}</Build-Repository-Rev>
+                            <Build-Time>${maven.build.timestamp}</Build-Time>
+                            <version_name>${project.name}</version_name>
+                            <version_description>${project.description}</version_description>
+                            <version_copyright>Copyright © 2014–2015 tarent solutions GmbH</version_copyright>
+                            <version_vendor>${project.organization.name}</version_vendor>
+                            <version_version>${project.version}</version_version>
+                        </manifestEntries>
+                    </archive>
+                </configuration>
             </plugin>
 
             <plugin>
