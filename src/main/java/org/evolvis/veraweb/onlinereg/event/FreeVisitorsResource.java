@@ -76,7 +76,7 @@ public class FreeVisitorsResource {
 	
 
     /**
-     * Constructs a path from vera.web endpint, BASE_RESOURCE and given path fragmensts.
+     * Constructs a path from VerA.web endpint, BASE_RESOURCE and given path fragmensts.
      *
      * @param path path fragments
      * @return complete path as string

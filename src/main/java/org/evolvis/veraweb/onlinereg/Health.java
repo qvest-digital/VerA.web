@@ -39,10 +39,10 @@ public class Health extends HealthCheck {
         try {
             result = client.resource(resource).get(String.class);
         } catch(Exception e) {
-            return Result.unhealthy("Error checking vera.web availability: "+e.getMessage());
+            return Result.unhealthy("Error checking VerA.web availability: "+e.getMessage());
         }
 
-        return "OK".equals(result) ? Result.healthy() : Result.unhealthy("vera.web has problems: "+result);
+        return "OK".equals(result) ? Result.healthy() : Result.unhealthy("VerA.web has problems: "+result);
     }
 
 }

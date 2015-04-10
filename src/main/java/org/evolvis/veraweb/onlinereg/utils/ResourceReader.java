@@ -57,7 +57,7 @@ public class ResourceReader {
 
 
     /**
-     * Constructs a pathParts from vera.web endpint, BASE_RESOURCE and given pathParts fragmensts.
+     * Constructs a pathParts from VerA.web endpint, BASE_RESOURCE and given pathParts fragmensts.
      *
      * @param pathParts pathParts fragments
      * @param baseResource The base path to online registration app
