@@ -1,5 +1,5 @@
 --
--- Dieses Script ändert den Besitzer einer VerA.Web Datenbank auf "veraweb".
+-- Dieses Script ändert den Besitzer einer VerA.web Datenbank auf "veraweb".
 -- Es wird erwartet das die Datenbank ebenfalls "veraweb" heißt,
 -- sollte dies nicht der Fall sein beachten Sie bitte folgenden Hinweis.
 --
@@ -9,7 +9,7 @@
 --
 --   Um eine Datenbank vollständig umzubenennen (dabei werden auch weitere
 --   Schemas übertragen) darf keine Verbindung zu dieser Datenbank bestehen.
---   VerA.Web sollte dafür heruntergefahren werden. Sollten Verbindungen
+--   VerA.web sollte dafür heruntergefahren werden. Sollten Verbindungen
 --   anderer Anwendungen weiterhin zu dieser Datenbank bestehen empfielt es
 --   sich den Postgres Service neu zu starten (restart).
 --
@@ -58,7 +58,7 @@ UPDATE pg_proc SET proowner =
 
 
 
--- Dieser Abschnitt ändert den Besitzer alle VerA.Web - Tabellen der
+-- Dieser Abschnitt ändert den Besitzer alle VerA.web - Tabellen der
 -- aktuellen Datenbank. Bitte kontrollieren sie nach dem umbennen
 -- ob sie sich auf der richtigen (neuen) Datenbanken befinden.
 

@@ -9,7 +9,7 @@
         <strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Verwaltung > Info</span>
     </div>
 
-    <h1>Informationen zu VerA.Web</h1>
+    <h1>Informationen zu VerA.web</h1>
 
 
     #if($errors && $errors.size() > 0)
@@ -23,7 +23,7 @@
     #end
 
 
-    <h3>VerA.Web</h3>
+    <h3>VerA.web</h3>
     #if($properties)
     <table class="form">
     	<tr>

@@ -731,7 +731,7 @@
 					<param name="KAdr" value="textfield_3"/> <!-- Freitextfeld zum Dokumenttyp - Adresse kyrillisch -->
 
 					<!-- Madlan-Felder, die verworfen werden
-					<param name="Etikett" value=""/> - unnötig, denn in VerA.Web haben wir doch die Adresszuordnung für den entsprechenden Dokumenttypen festgelegt
+					<param name="Etikett" value=""/> - unnötig, denn in VerA.web haben wir doch die Adresszuordnung für den entsprechenden Dokumenttypen festgelegt
 					-->
 				</param>
 				<!-- Nutzung der Adressfreitextfelder -->

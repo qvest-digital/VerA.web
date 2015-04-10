@@ -600,7 +600,7 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 			cntx.setContent("listquestions", questions);
 		}
 
-		/** Löscht Personen aus VerA.Web */
+		/** Löscht Personen aus VerA.web */
 		if ((user || admin) && !selectionRemove.isEmpty() && getContextAsBoolean(cntx, "remove-person")) {
 			try
 			{

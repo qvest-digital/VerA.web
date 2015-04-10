@@ -1,5 +1,5 @@
 --
--- Update Script fuer das VerA.Web - Schema.
+-- Update Script fuer das VerA.web - Schema.
 --
 -- Kann auf eine beliebige Version des Schemas
 -- oder eine leere Datenbank angewendet werden.
@@ -64,7 +64,7 @@ BEGIN
 		  value varchar(1000),
 		  CONSTRAINT tupdate_pkey PRIMARY KEY (id)
 		) WITH OIDS;
-		COMMENT ON TABLE veraweb.tupdate IS 'VerA.Web: System-Tabelle';
+		COMMENT ON TABLE veraweb.tupdate IS 'VerA.web: System-Tabelle';
 	ELSE
 		-- TUPDATE LEEREN
 		DELETE FROM veraweb.tupdate;
@@ -80,7 +80,7 @@ BEGIN
 		  value varchar(1000),
 		  CONSTRAINT tresult_pkey PRIMARY KEY (id)
 		) WITH OIDS;
-		COMMENT ON TABLE veraweb.tresult IS 'VerA.Web: System-Tabelle';
+		COMMENT ON TABLE veraweb.tresult IS 'VerA.web: System-Tabelle';
 	ELSE
 		-- TRESULT LEEREN
 		DELETE FROM veraweb.tresult;

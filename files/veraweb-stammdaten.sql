@@ -1,6 +1,6 @@
 --
 -- Stammdaten-Script, das beispielhafte Farben, Dokumenttypen,
--- Anreden und Veranstaltungsdaten in das VerA.Web - Schema einspielt.
+-- Anreden und Veranstaltungsdaten in das VerA.web - Schema einspielt.
 --
 
 SET client_encoding = 'UNICODE';

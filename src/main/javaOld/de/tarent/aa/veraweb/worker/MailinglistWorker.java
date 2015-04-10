@@ -44,7 +44,7 @@ import de.tarent.octopus.server.OctopusContext;
 
 /**
  * Dieser Octopus-Worker stellt Aktionen zur Verwaltung (erstellen
- * und löschen) von Verteilern in VerA.Web bereit.
+ * und löschen) von Verteilern in VerA.web bereit.
  *
  * @author Hendrik, Christoph Jerolimov
  * @version $Revision: 1.1 $

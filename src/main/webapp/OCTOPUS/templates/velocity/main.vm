@@ -28,7 +28,7 @@
     		<strong>Sie sind hier:</strong> <span>Home</span>
     	</div>
 
-    <h1 class="marginTop25">Willkommen bei VerA.Web</h1>
+    <h1 class="marginTop25">Willkommen bei VerA.web</h1>
 
     #if($grants.isUser())
     ##<P>
@@ -85,7 +85,7 @@
     <P>
     	Zu Ihrer Anmeldung existieren keine Rollen, unter denen Sie in VerA.web
     	agieren k&ouml;nnen. Bitte melden Sie sich ab und mit einer
-    	Benutzer- oder Rollenkennung erneut an, die in VerA.Web nutzbar ist.
+    	Benutzer- oder Rollenkennung erneut an, die in VerA.web nutzbar ist.
     </P>
     #end
 

@@ -1,6 +1,6 @@
 --
 -- Stammdaten-Script das Beispielhafte Farben in das
--- VerA.Web - Schema einspielt und ggf. überschreibt.
+-- VerA.web - Schema einspielt und ggf. überschreibt.
 --
 
 SET client_encoding = 'UNICODE';

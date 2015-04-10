@@ -481,7 +481,7 @@ Calendar.calDragIt = function (ev) {
 	cal.hideShowCovered();
 
 	/**
-	 * This is a tarent modification for Vera.Web.
+	 * This is a tarent modification for VerA.web.
 	 * It fix some layer problems in the msie.
 	 */
 	if (WCH) {
@@ -511,7 +511,7 @@ Calendar.calDragEnd = function (ev) {
 	cal.hideShowCovered();
 
 	/**
-	 * This is a tarent modification for Vera.Web.
+	 * This is a tarent modification for VerA.web.
 	 * It fix some layer problems in the msie.
 	 */
 	if (WCH) {
@@ -982,7 +982,7 @@ Calendar.prototype.create = function (_par) {
 	parent.appendChild(this.element);
 
 	/**
-	 * This is a tarent modification for Vera.Web.
+	 * This is a tarent modification for VerA.web.
 	 * It fix some layer problems in the msie.
 	 */
 	if (WCH) {
@@ -1376,7 +1376,7 @@ Calendar.prototype.show = function () {
 	this.hideShowCovered();
 
 	/**
-	 * This is a tarent modification for Vera.Web.
+	 * This is a tarent modification for VerA.web.
 	 * It fix some layer problems in the msie.
 	 */
 	if (WCH) {

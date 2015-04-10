@@ -1,5 +1,5 @@
 --
--- Update Script fuer das VerA.Web - Schema.
+-- Update Script fuer das VerA.web - Schema.
 --
 -- Kann auf eine beliebige Version des Schemas
 -- oder eine leere Datenbank angewendet werden.

@@ -99,7 +99,7 @@ public interface Grants {
 	/**
      * Dieses Attribut gibt an, ob der Benutzer dem SystemUser entspricht.
      * Dieser Nutzer hat nur eingeschränkten Zugriff auf die Applikation und ist
-     * in erster Linie dafür verantwortlich, während einer VerA.Web Installation
+     * in erster Linie dafür verantwortlich, während einer VerA.web Installation
      * die Benutzer für die Applikation einzurichten.
      *
 	 * @return <code>true</code>, wenn der Benutzer der SystemUser ist.
