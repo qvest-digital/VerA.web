@@ -164,12 +164,6 @@ public class UpdateResource {
     	return readResource(path("guest", "registered", username, eventId), BOOLEAN);
     }
 
-    /**
-     * Get Person instance from one username
-     * @param username String
-     * @return
-     * @throws IOException
-     */
     private Integer getUserData(String username) throws IOException {
     	return readResource(path("person", "userdata", "lite", username), INTEGER);
     }

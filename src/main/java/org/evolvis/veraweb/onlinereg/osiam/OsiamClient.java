@@ -86,7 +86,7 @@ public class OsiamClient {
     /**
      * Gets the user with the specified username
      *
-     * @param accessToken access token
+     * @param accessTokenAsString access token
      * @param userName    username
      * @return User object of null, if user does not exist
      * @throws IOException
@@ -105,7 +105,7 @@ public class OsiamClient {
     /**
      * Creates a new user
      *
-     * @param accessToken access token
+     * @param accessTokenAsString access token
      * @param user        User object to create
      * @return newly created user with meta information
      * @throws IOException

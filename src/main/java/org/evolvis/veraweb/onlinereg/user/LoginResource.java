@@ -237,10 +237,6 @@ public class LoginResource {
         }
     }
 
-    /**
-     * TODO add javadoc
-     * @return
-     */
     public ServletContext getContext() {
 		return context;
 	}

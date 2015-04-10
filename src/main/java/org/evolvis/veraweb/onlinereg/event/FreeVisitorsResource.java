@@ -64,8 +64,6 @@ public class FreeVisitorsResource {
      * Get delegates of company/institution.
      *
      * @param uuid The delegation UUID
-     * @return 
-     *
      * @return List with delegates
      * @throws IOException TODO
      */
