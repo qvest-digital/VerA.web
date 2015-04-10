@@ -8,7 +8,7 @@
 
     <packaging>jar</packaging>
 
-    <name>vera.web Online-Registration REST API common files</name>
+    <name>VerA.web Online-Registration REST API common files</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
