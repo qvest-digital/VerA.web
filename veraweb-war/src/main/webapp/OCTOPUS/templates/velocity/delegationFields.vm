@@ -44,9 +44,11 @@
                     <li class="inactive" onclick="window.location.href='ShowEventTasks?id=$!event.id&selectNone=true';" class="noBorder">
                         <div>Aufgaben</div>
                     </li>
-                    <li class="active">
-                        <div>Zusätzliche Personendaten</div>
-                    </li>
+                    #if($online-registration.activated)
+	                    <li class="active">
+	                        <div>Zusätzliche Personendaten</div>
+	                    </li>
+	                #end
                 </ul>
             </div>
 
