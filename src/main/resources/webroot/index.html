@@ -6,7 +6,7 @@
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>VerA.web Online-Registrierung</title>
+        <title>{{ 'LANGUAGE' | translate }} VerA.web Online-Registrierung</title>
 
         <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
         <link rel="stylesheet" href="bootstrap/validator/css/bootstrapValidator.min.css"/>
@@ -14,6 +14,12 @@
     </head>
 
     <body>
+
+    <ul ng-controller="LangCtrl">
+        <li><a href="" ng-click="changeLang('en_EN')">Englisch</a></li>
+        <li><a href="" ng-click="changeLang('de_DE')">German</a></li>
+    </ul>
+
         <div class="maincontainer"  ng-controller="DirectLoginController">
 
             <div ng-include src="'partials/header.html'"></div>
@@ -36,6 +42,8 @@
 
         <script src="scripts/jquery-1.10.2.min.js"></script>
         <script src="scripts/angular.min.js"></script>
+        <script src="scripts/angular-translate.min.js"></script>
+        <script src="scripts/angular-translate-loader-static-files.min.js"></script>
         <script src="scripts/angular-route.min.js"></script>
         <script src="scripts/ui-bootstrap-tpls.min.js"></script>
         <script src="scripts/moment.min.js"></script>
