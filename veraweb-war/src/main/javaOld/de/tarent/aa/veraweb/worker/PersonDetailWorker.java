@@ -19,30 +19,8 @@
  */
 package de.tarent.aa.veraweb.worker;
 
-import java.io.IOException;
-import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-import java.util.Random;
-import java.util.UUID;
-
-import de.tarent.aa.veraweb.utils.OsiamLoginCreator;
-import de.tarent.aa.veraweb.utils.OsiamLoginRemover;
-import org.apache.log4j.Logger;
-import org.apache.log4j.Priority;
-import org.osiam.client.OsiamConnector;
-import org.osiam.client.oauth.AccessToken;
-import org.osiam.client.oauth.Scope;
-
 import de.tarent.aa.veraweb.beans.Doctype;
 import de.tarent.aa.veraweb.beans.LinkType;
-import de.tarent.aa.veraweb.beans.LinkUUID;
 import de.tarent.aa.veraweb.beans.Person;
 import de.tarent.aa.veraweb.beans.PersonCategorie;
 import de.tarent.aa.veraweb.beans.PersonDoctype;
@@ -54,6 +32,8 @@ import de.tarent.aa.veraweb.beans.facade.PersonMemberFacade;
 import de.tarent.aa.veraweb.utils.AddressHelper;
 import de.tarent.aa.veraweb.utils.DateHelper;
 import de.tarent.aa.veraweb.utils.OnlineRegistrationHelper;
+import de.tarent.aa.veraweb.utils.OsiamLoginCreator;
+import de.tarent.aa.veraweb.utils.OsiamLoginRemover;
 import de.tarent.aa.veraweb.utils.PropertiesReader;
 import de.tarent.dblayer.helper.ResultList;
 import de.tarent.dblayer.sql.SQL;
@@ -73,7 +53,24 @@ import de.tarent.octopus.beans.veraweb.BeanChangeLogger;
 import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
 import de.tarent.octopus.beans.veraweb.RequestVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
-import org.osiam.resources.scim.User;
+import org.apache.log4j.Logger;
+import org.apache.log4j.Priority;
+import org.osiam.client.OsiamConnector;
+import org.osiam.client.oauth.AccessToken;
+import org.osiam.client.oauth.Scope;
+
+import java.io.IOException;
+import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
+import java.util.Random;
+import java.util.UUID;
 
 /**
  * Octopus-Worker der Aktionen zur Detailansicht von Personen bereitstellt,
@@ -85,7 +82,7 @@ import org.osiam.resources.scim.User;
  */
 public class PersonDetailWorker implements PersonConstants {
     /** Logger dieser Klasse */
-	private final static Logger logger = Logger.getLogger(PersonDetailWorker.class);
+	private static final Logger LOGGER = Logger.getLogger(PersonDetailWorker.class);
 
 	/**
 	 * Example Property file: client.id=example-client client.secret=secret
@@ -176,8 +173,8 @@ public class PersonDetailWorker implements PersonConstants {
 
 	protected void restoreNavigation( OctopusContext cntx, Person person, Database database ) throws BeanException, IOException
 	{
-		String action = cntx.requestAsString( "action" );
-		Integer personId = cntx.requestAsInteger( "id" );
+		final String action = cntx.requestAsString( "action" );
+		final Integer personId = cntx.requestAsInteger( "id" );
 
 		// now get the proper select from the workers based on
 		// the optionally defined action parameter
@@ -822,7 +819,7 @@ public class PersonDetailWorker implements PersonConstants {
 			}
 		} catch (BeanException e)
 		{
-			logger.warn("Beim Kopieren einer Person konnten Kategorien nicht uebernommen werden", e);
+			LOGGER.warn("Beim Kopieren einer Person konnten Kategorien nicht uebernommen werden", e);
 		}
 	}
 
@@ -993,8 +990,8 @@ public class PersonDetailWorker implements PersonConstants {
 
 		Person oldPerson = ( Person ) database.getBean( "Person", personid, context );
 		// Datenbank-Einträge inkl. Abhängigkeiten löschen.
-		if (logger.isEnabledFor(Priority.DEBUG)) {
-			logger.log(Priority.DEBUG, "Person l\u00f6schen: Person #" + personid + " wird vollst\u00e4ndig gel\u00f6scht.");
+		if (LOGGER.isEnabledFor(Priority.DEBUG)) {
+			LOGGER.log(Priority.DEBUG, "Person l\u00f6schen: Person #" + personid + " wird vollst\u00e4ndig gel\u00f6scht.");
 		}
 
 		context.execute(SQL.Delete( database ).
@@ -1050,8 +1047,8 @@ public class PersonDetailWorker implements PersonConstants {
 
 		Person person = getPersonById(cntx, personId);
 		if (!hasUsername(cntx, personId)) {
-
-			final OsiamLoginCreator osiamLoginCreator = new OsiamLoginCreator();
+			Database database = new DatabaseVeraWeb(cntx);
+			final OsiamLoginCreator osiamLoginCreator = new OsiamLoginCreator(database);
 			final OsiamConnector connector = getConnector();
 
 			final String firstname = person.firstname_a_e1;
@@ -1065,10 +1062,10 @@ public class PersonDetailWorker implements PersonConstants {
 			this.updateUsernameInVeraweb(cntx, person);
 
 			// Create in OSIAM
-			createUser(username, password, connector);
+			createUser(username, password, connector, database);
 
 			// Saving uuid to generate the reset-password url
-			saveLinkUUID(cntx, personId);
+			saveLinkUUID(personId, database);
 			cntx.setContent("osiam-user-created", true);
 		} else {
 			cntx.setContent("osiam-user-exists", true);
@@ -1080,15 +1077,12 @@ public class PersonDetailWorker implements PersonConstants {
 	/**
 	 * Save new instance LinkUUID to allow having a reset password url
 	 *
-	 * @param cntx OctopusContext
 	 * @param personId
 	 * @throws BeanException
 	 * @throws IOException
 	 */
-	private void saveLinkUUID(OctopusContext cntx, Integer personId)
+	private void saveLinkUUID(Integer personId, Database database)
 			throws BeanException, IOException {
-
-		Database database = new DatabaseVeraWeb(cntx);
 		database.execute(SQL.Insert(database).
 				table("veraweb.link_uuid").
 				insert("uuid", getPersonUUID()).
@@ -1141,9 +1135,9 @@ public class PersonDetailWorker implements PersonConstants {
 		return propertiesReader.getProperties();
 	}
 
-	private void createUser(String username, String password, OsiamConnector connector) {
+	private void createUser(String username, String password, OsiamConnector connector, Database database) {
 		final AccessToken accessToken = connector.retrieveAccessToken(Scope.ALL);
-		final OsiamLoginCreator osiamLoginCreator = new OsiamLoginCreator();
+		final OsiamLoginCreator osiamLoginCreator = new OsiamLoginCreator(database);
 
 		osiamLoginCreator.createOsiamUser(accessToken, username, password, connector);
 	}
