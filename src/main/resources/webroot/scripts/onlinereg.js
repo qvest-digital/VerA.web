@@ -2,7 +2,7 @@
  * Created by mley on 21.07.14.
  */
 
-var onlineRegApp = angular.module('onlineRegApp', [ 'ngRoute', 'ui.bootstrap' ]);
+var onlineRegApp = angular.module('onlineRegApp', [ 'ngRoute', 'ui.bootstrap', 'pascalprecht.translate' ]);
 
 onlineRegApp.run(function ($rootScope) {
     $rootScope.parseDate = function (dt) {
@@ -20,7 +20,7 @@ onlineRegApp.run(function ($rootScope) {
 });
 
 
-onlineRegApp.config(function ($routeProvider) {
+onlineRegApp.config(function ($routeProvider, $translateProvider) {
 
     $routeProvider.when('/login', {
         templateUrl: 'partials/login.html',
@@ -58,6 +58,13 @@ onlineRegApp.config(function ($routeProvider) {
     }).otherwise({
       redirectTo: '/event'
     })
+
+	$translateProvider.useStaticFilesLoader({
+		prefix: '/languages/lang-',
+		suffix: '.json'
+	});
+
+    $translateProvider.preferredLanguage('de_DE');
 });
 
 onlineRegApp.directive('equals', function() {
@@ -82,6 +89,16 @@ onlineRegApp.directive('equals', function() {
             }
         }
     }
+});
+
+onlineRegApp.controller('LangCtrl', function ($scope, $translate) {
+  $scope.changeLang = function (key) {
+    $translate.use(key).then(function (key) {
+      console.log("Sprache zu " + key + " gewechselt.");
+    }, function (key) {
+      console.log("Irgendwas lief schief.");
+    });
+  };
 });
 
 onlineRegApp.controller('ResetPasswordController', function($http, $scope, $routeParams, $location,$rootScope) {
