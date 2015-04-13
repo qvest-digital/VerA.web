@@ -1,17 +1,23 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.evolvis.veraweb.common</groupId>
+    <groupId>org.evolvis.veraweb</groupId>
     <artifactId>rest-api-common</artifactId>
-    <version>1.5.1.4-SNAPSHOT</version>
+    <version>1.5.1.5-SNAPSHOT</version>
+    <description>REST-API VerA.web common files</description>
 
     <packaging>jar</packaging>
 
-    <name>vera.web Online-Registration REST API common files</name>
+    <name>VerA.web Online-Registration REST API common files</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+
+    <organization>
+        <name>tarent solutions GmbH, Germany</name>
+        <url>http://www.tarent.de/</url>
+    </organization>
 
     <scm>
         <developerConnection>scm:git:ssh://maven@evolvis.org/scmrepos/git/veraweb/common.git</developerConnection>
@@ -89,9 +95,83 @@
             </plugin>
 
             <plugin>
+                <inherited>false</inherited>
+                <groupId>com.mycila.maven-license-plugin</groupId>
+                <artifactId>maven-license-plugin</artifactId>
+                <version>1.9.0</version>
+                <configuration>
+                    <basedir>${basedir}</basedir>
+                    <header>${basedir}/LICENCE.hdr</header>
+                    <quiet>false</quiet>
+                    <failIfMissing>true</failIfMissing>
+                    <aggregate>true</aggregate>
+                    <includes>
+                        <include>**/*.java</include>
+                    </includes>
+                    <useDefaultExcludes>true</useDefaultExcludes>
+                    <useDefaultMapping>true</useDefaultMapping>
+                    <encoding>UTF-8</encoding>
+                    <strictCheck>true</strictCheck>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>2.0.4</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.6.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-release-plugin</artifactId>
                 <version>2.2.1</version>
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>2.4</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                            <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+                        </manifest>
+                        <manifestEntries>
+                            <Build-Job>${JOB_NAME}</Build-Job>
+                            <Build-Id>${BUILD_ID}</Build-Id>
+                            <Build-Number>${BUILD_NUMBER}</Build-Number>
+                            <Build-Repository-Rev>${GIT_COMMIT}</Build-Repository-Rev>
+                            <Build-Time>${maven.build.timestamp}</Build-Time>
+                            <version_name>${project.name}</version_name>
+                            <version_description>${project.description}</version_description>
+                            <version_copyright>Copyright © 2014–2015 tarent solutions GmbH</version_copyright>
+                            <version_vendor>${project.organization.name}</version_vendor>
+                            <version_version>${project.version}</version_version>
+                        </manifestEntries>
+                    </archive>
+                </configuration>
             </plugin>
 
             <!-- required for deployment to maven repo via ssh/sftp with maven 3 -->

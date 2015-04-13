@@ -1,8 +1,8 @@
-.idea/
-*.log
-config.yaml
 **/*.iml
-target/
+*.log
 .classpath
+.idea/
 .project
-.settings/org.eclipse.jdt.core.prefs
+.settings
+config.yaml
+target/
