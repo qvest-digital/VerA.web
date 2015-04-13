@@ -23,7 +23,6 @@ import org.evolvis.veraweb.onlinereg.TestSuite;
 import org.evolvis.veraweb.onlinereg.Main;
 import org.evolvis.veraweb.onlinereg.entities.Person;
 import org.evolvis.veraweb.onlinereg.utils.StatusConverter;
-import org.hibernate.metamodel.relational.Database;
 import org.junit.Ignore;
 import org.junit.Test;
 

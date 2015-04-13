@@ -32,7 +32,6 @@ import lombok.extern.java.Log;
 import org.osiam.resources.scim.SCIMSearchResult;
 import org.osiam.resources.scim.User;
 
-import javax.persistence.Access;
 import java.io.IOException;
 
 
