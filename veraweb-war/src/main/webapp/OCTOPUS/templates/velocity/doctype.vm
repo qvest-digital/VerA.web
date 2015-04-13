@@ -3,6 +3,20 @@
 #set($elementNameSex = "male")
 #set($elementNameSingular = "Dokumenttyp")
 #set($elementNamePlural = "Dokumenttypen")
+
+##Values in per cent for table columns width
+#set($column0 = 3)
+#set($column1 = 5)
+#set($column2 = 26)
+#set($column3 = 21)
+#set($column4 = 21)
+#set($column5 = 11)
+#set($column6 = 9)
+#set($column7 = 7)
+#set($column8 = 7)
+#set($column9 = 3)
+#set($column10 = 3)
+
 #parse("inc/header.vm")
 
 <div id="content_container">
@@ -43,7 +57,20 @@
     	       	<input type="button" name="remove" onclick="askDelete()"  value="L&ouml;schen" title="Markierte(n) Dokumenttyp(en) l&ouml;schen" #if($grants.isAdmin()) class="submit" #else class="buttondisabled" vera-disabled #end>
             </span>
 
-			<table>
+			<table class="fixed">
+				##Set column size
+				<col width="$column0%" />
+   				<col width="$column1%" />
+   				<col width="$column2%" />
+   				<col width="$column3%" />
+   				<col width="$column4%" />
+   				<col width="$column5%" />
+   				<col width="$column6%" />
+   				<col width="$column7%" />
+   				<col width="$column8%" />
+   				<col width="$column9%" />
+   				<col width="$column10%" />
+
 				<tr>
 					<th class="smallCell textCenter"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="Alle (de)markieren" #if($listselection.size() == $list.size()) checked#end/></th></th>
 					<th class="smallCell textCenter">ID</th>

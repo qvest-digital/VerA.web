@@ -3,6 +3,18 @@
 #set($elementNameSex = "female")
 #set($elementNameSingular = "Person")
 #set($elementNamePlural = "Personen")
+
+##Values in per cent for table columns width
+#set($column0 = 5)
+#set($column1 = 14)
+#set($column2 = 14)
+#set($column3 = 15)
+#set($column4 = 17)
+#set($column5 = 20)
+#set($column6 = 7)
+#set($column7 = 20)
+#set($column8 = 8)
+
 #parse("inc/header.vm")
 
 <div id="content_container">
@@ -59,7 +71,18 @@
 		#foreach($bean in $list)
 		<input type="hidden" name="list" value="$bean.id">
 		#end
-		<table class="sortable">
+		<table class="sortable fixed">
+			##Set column size
+			<col width="$column0%" />
+    		<col width="$column1%" />
+    		<col width="$column2%" />
+    		<col width="$column3%" />
+    		<col width="$column4%" />
+    		<col width="$column5%" />
+    		<col width="$column6%" />
+    		<col width="$column7%" />
+			<col width="$column8%" />
+
 			<tr>
 				<th class="smallCell textCenter">ID</th>
 				<th>Name</th>

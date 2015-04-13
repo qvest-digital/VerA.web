@@ -3,6 +3,17 @@
 #set($elementNameSex = "female")
 #set($elementNameSingular = "Aufgabe")
 #set($elementNamePlural = "Aufgaben")
+
+##Values in per cent for table columns width
+#set($column0 = 3)
+#set($column1 = 5)
+#set($column2 = 30)
+#set($column3 = 10)
+#set($column4 = 10)
+#set($column5 = 6)
+#set($column6 = 30)
+#set($column7 = 7)
+
 #parse("inc/header.vm")
 
 #set($formurl = "ShowEventTasks")
@@ -122,7 +133,17 @@
 
 				#if ($listparam.count != 0)
 
-				<table class="marginTop0 notBold">
+				<table class="marginTop0 notBold fixed">
+					##Set column size
+					<col width="$column0%" />
+    				<col width="$column1%" />
+    				<col width="$column2%" />
+    				<col width="$column3%" />
+    				<col width="$column4%" />
+    				<col width="$column5%" />
+    				<col width="$column6%" />
+    				<col width="$column7%" />
+
 					<tbody>
 					<tr>
 						<th class="textCenter smallCell"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="Alle (de)markieren" #if($listselection.size() == $list.size()) checked#end/></th>
@@ -135,33 +156,28 @@
 						<th class="smallCell textCenter">Priorität</th>
 					</tr>
 					#foreach($bean in $list)
+						<tr>
+							<td class="textCenter">
+								<input type="checkbox" id="add-select" name="${bean.id}-select" value="true" #if($listselection.indexOf($bean.id) != -1) checked#end/>
+							</td>
+							<td class="textCenter" onclick="window.location.href='ShowEventTask?id=$!{bean.id}&eventId=$!{bean.eventId}'">$!bean.id</td>
+							<td onclick="window.location.href='ShowEventTask?id=$!{bean.id}&eventId=$!{bean.eventId}'">$!message.plain($!bean.title)</td>
+							#if ($bean.startdate.Seconds == 30)
+							<td class="textCenter" onclick="window.location.href='ShowEventTask?id=$!{bean.id}&eventId=$!{bean.eventId}'">$!message.date("DATE",$bean.startdate)</td>
+							#else
+							<td class="textCenter" onclick="window.location.href='ShowEventTask?id=$!{bean.id}&eventId=$!{bean.eventId}'">$!message.date("DATE_TIME",$bean.startdate)</td>
+							#end
 
-					##Add whitespace to values to cut them
-					#set($tasktitle = $!bean.title.eventname.replaceAll("(.{64})", "$1 "))
-					#set($personnamecut = $!bean.personName.replaceAll("(.{13})", "$1 "))
+							#if ($bean.enddate.Seconds == 30)
+							<td class="textCenter" onclick="window.location.href='ShowEventTask?id=$!{bean.id}&eventId=$!{bean.eventId}'">$!message.date("DATE",$bean.enddate)</td>
+							#else
+							<td class="textCenter" onclick="window.location.href='ShowEventTask?id=$!{bean.id}&eventId=$!{bean.eventId}'">$!message.date("DATE_TIME",$bean.enddate)</td>
+							#end
 
-					<tr>
-						<td class="textCenter">
-							<input type="checkbox" id="add-select" name="${bean.id}-select" value="true" #if($listselection.indexOf($bean.id) != -1) checked#end/>
-						</td>
-						<td class="textCenter" onclick="window.location.href='ShowEventTask?id=$!{bean.id}&eventId=$!{bean.eventId}'">$!bean.id</td>
-						<td onclick="window.location.href='ShowEventTask?id=$!{bean.id}&eventId=$!{bean.eventId}'">$!message.plain($tasktitle)</td>
-						#if ($bean.startdate.Seconds == 30)
-						<td class="textCenter" onclick="window.location.href='ShowEventTask?id=$!{bean.id}&eventId=$!{bean.eventId}'">$!message.date("DATE",$bean.startdate)</td>
-						#else
-						<td class="textCenter" onclick="window.location.href='ShowEventTask?id=$!{bean.id}&eventId=$!{bean.eventId}'">$!message.date("DATE_TIME",$bean.startdate)</td>
-						#end
-
-						#if ($bean.enddate.Seconds == 30)
-						<td class="textCenter" onclick="window.location.href='ShowEventTask?id=$!{bean.id}&eventId=$!{bean.eventId}'">$!message.date("DATE",$bean.enddate)</td>
-						#else
-						<td class="textCenter" onclick="window.location.href='ShowEventTask?id=$!{bean.id}&eventId=$!{bean.eventId}'">$!message.date("DATE_TIME",$bean.enddate)</td>
-						#end
-
-						<td class="textCenter" onclick="window.location.href='ShowEventTask?id=$!{bean.id}&eventId=$!{bean.eventId}'">$!bean.degreeofcompletion%</td>
-						<td onclick="window.location.href='ShowEventTask?id=$!{bean.id}&eventId=$!{bean.eventId}'">$!message.text($personnamecut)</td>
-						<td class="textCenter" onclick="window.location.href='ShowEventTask?id=$!{bean.id}&eventId=$!{bean.eventId}'">$!message.text($!bean.priority)</td>
-					</tr>
+							<td class="textCenter" onclick="window.location.href='ShowEventTask?id=$!{bean.id}&eventId=$!{bean.eventId}'">$!bean.degreeofcompletion%</td>
+							<td onclick="window.location.href='ShowEventTask?id=$!{bean.id}&eventId=$!{bean.eventId}'">$!message.text($!bean.personName)</td>
+							<td class="textCenter" onclick="window.location.href='ShowEventTask?id=$!{bean.id}&eventId=$!{bean.eventId}'">$!message.text($!bean.priority)</td>
+						</tr>
 					#end
 
 					#set($itemName = "Aufgaben")

@@ -3,6 +3,23 @@
 #set($elementNameSex = "male")
 #set($elementNameSingular = "Veranstaltungsort")
 #set($elementNamePlural = "Veranstaltungsorte")
+
+##Values in per cent for table columns width
+#set($column0 = 3)
+#set($column1 = 4)
+#set($column2 = 10)
+#set($column3 = 13)
+#set($column4 = 6)
+#set($column5 = 6)
+#set($column6 = 6)
+#set($column7 = 6)
+#set($column8 = 6)
+#set($column9 = 7)
+#set($column10 = 9)
+#set($column11 = 7)
+#set($column12 = 9)
+#set($column13 = 11)
+
 #parse("inc/header.vm")
 
 <div id="content_container">
@@ -59,7 +76,24 @@
 		</span>
 		#end
 
-		<table>
+		<table class="fixed">
+
+			##Set column size
+			<col width="$column0%" />
+			<col width="$column1%" />
+			<col width="$column2%" />
+			<col width="$column3%" />
+			<col width="$column4%" />
+			<col width="$column5%" />
+			<col width="$column6%" />
+			<col width="$column7%" />
+			<col width="$column8%" />
+			<col width="$column9%" />
+			<col width="$column10%" />
+			<col width="$column11%" />
+			<col width="$column12%" />
+			<col width="$column13%" />
+
 			<tr>
 				<th class="smallCell textCenter"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="Alle (de)markieren" #if($listselection.size() == $list.size()) checked#end/></th>
 				<th class="smallCell textCenter">ID</th>
@@ -77,36 +111,21 @@
 				<th>Raumnummer</th>
 			</tr>
 			#foreach($bean in $list)
-
-			##Add whitespace to values to cut them
-			#set($namecut = $bean.name.replaceAll("(.{10})", "$1 "))
-			#set($contactcut = $bean.contactperson.replaceAll("(.{16})", "$1 "))
-			#set($addresscut = $bean.address.replaceAll("(.{8})", "$1 "))
-			#set($zipcut = $bean.zip.replaceAll("(.{5})", "$1 "))
-			#set($locationcut = $bean.location.replaceAll("(.{5})", "$1 "))
-			#set($callnumbercut = $bean.callnumber.replaceAll("(.{7})", "$1 "))
-			#set($faxcut = $bean.faxnumber.replaceAll("(.{6})", "$1 "))
-			#set($emailcut = $bean.email.replaceAll("(.{6})", "$1 "))
-			#set($commentcut = $bean.comment.replaceAll("(.{10})", "$1 "))
-			#set($urlcut = $bean.url.replaceAll("(.{6})", "$1 "))
-			#set($gpscut = $bean.gpsdata.replaceAll("(.{10})", "$1 "))
-			#set($roomcut = $bean.roomnumber.replaceAll("(.{14})", "$1 "))
-
 				<tr>
 					<td class="textCenter"><input type="checkbox" id="remove-select" name="${bean.id}-select" value="true" #if($listselection.indexOf($bean.id) != -1) checked#end></td>
 					<td class="textCenter" onclick="window.location.href='ShowLocation?id=$!{bean.id}'">$!message.plain($bean.id)</td>
-					<td onclick="window.location.href='ShowLocation?id=$!{bean.id}'">$!message.plain($namecut)</td>
-					<td onclick="window.location.href='ShowLocation?id=$!{bean.id}'">$!message.plain($contactcut)</td>
-					<td onclick="window.location.href='ShowLocation?id=$!{bean.id}'">$!message.plain($addresscut)</td>
-					<td onclick="window.location.href='ShowLocation?id=$!{bean.id}'">$!message.plain($zipcut)</td>
-					<td onclick="window.location.href='ShowLocation?id=$!{bean.id}'">$!message.plain($locationcut)</td>
-					<td onclick="window.location.href='ShowLocation?id=$!{bean.id}'">$!message.plain($callnumbercut)</td>
-					<td onclick="window.location.href='ShowLocation?id=$!{bean.id}'">$!message.plain($faxcut)</td>
-					<td onclick="window.location.href='ShowLocation?id=$!{bean.id}'">$!message.plain($emailcut)</td>
-					<td onclick="window.location.href='ShowLocation?id=$!{bean.id}'">$!message.plain($commentcut)</td>
-					<td onclick="window.location.href='ShowLocation?id=$!{bean.id}'">$!message.plain($urlcut)</td>
-					<td onclick="window.location.href='ShowLocation?id=$!{bean.id}'">$!message.plain($gpscut)</td>
-					<td onclick="window.location.href='ShowLocation?id=$!{bean.id}'">$!message.plain($roomcut)</td>
+					<td onclick="window.location.href='ShowLocation?id=$!{bean.id}'">$!message.plain($bean.name)</td>
+					<td onclick="window.location.href='ShowLocation?id=$!{bean.id}'">$!message.plain($bean.contactperson)</td>
+					<td onclick="window.location.href='ShowLocation?id=$!{bean.id}'">$!message.plain($bean.address)</td>
+					<td onclick="window.location.href='ShowLocation?id=$!{bean.id}'">$!message.plain($bean.zip)</td>
+					<td onclick="window.location.href='ShowLocation?id=$!{bean.id}'">$!message.plain($bean.location)</td>
+					<td onclick="window.location.href='ShowLocation?id=$!{bean.id}'">$!message.plain($bean.callnumber)</td>
+					<td onclick="window.location.href='ShowLocation?id=$!{bean.id}'">$!message.plain($bean.faxnumber)</td>
+					<td onclick="window.location.href='ShowLocation?id=$!{bean.id}'">$!message.plain($bean.email)</td>
+					<td onclick="window.location.href='ShowLocation?id=$!{bean.id}'">$!message.plain($bean.comment)</td>
+					<td onclick="window.location.href='ShowLocation?id=$!{bean.id}'">$!message.plain($bean.url)</td>
+					<td onclick="window.location.href='ShowLocation?id=$!{bean.id}'">$!message.plain($bean.gpsdata)</td>
+					<td onclick="window.location.href='ShowLocation?id=$!{bean.id}'">$!message.plain($bean.roomnumber)</td>
 				</tr>
 			#end
 			#if ($listparam.count == 0)

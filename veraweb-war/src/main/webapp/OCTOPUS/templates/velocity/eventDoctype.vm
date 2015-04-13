@@ -3,6 +3,12 @@
 #set($elementNameSex = "male")
 #set($elementNameSingular = "Dokumenttyp")
 #set($elementNamePlural = "Dokumenttypen")
+
+##Values in per cent for table columns width
+#set($column0 = 3)
+#set($column1 = 5)
+#set($column2 = 92)
+
 #parse("inc/header.vm")
 
 <div id="content_container">
@@ -66,7 +72,12 @@
 
 
 				#if(($list && $list.size() > 0) || $grants.mayWrite())
-					<table class="notBold">
+					<table class="notBold fixed">
+						##Set column size
+						<col width="$column0%" />
+						<col width="$column1%" />
+						<col width="$column2%" />
+
 						<tr >
 							#if($list && $list.size() > 0 && $grants.mayWrite())
 								<th class="smallCell textCenter"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="Alle (de)markieren" #if($listselection.size() == $list.size()) checked#end/></th>

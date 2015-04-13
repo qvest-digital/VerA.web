@@ -11,6 +11,14 @@
 #set($elementNameSex = "male")
 #set($elementNameSingular = "Benutzer")
 #set($elementNamePlural = "Benutzer")
+
+##Values in per cent for table columns width
+#set($column0 = 3)
+#set($column1 = 5)
+#set($column2 = 40)
+#set($column3 = 27)
+#set($column4 = 27)
+
 #parse("inc/header.vm")
 
 <div id="content_container">
@@ -52,7 +60,14 @@
 			#end
 
 			<div class="textRight mandatoryText">* = Pflichtfelder</div>
-			<table>
+			<table class="fixed">
+				##Set column size
+				<col width="$column0%" />
+    			<col width="$column1%" />
+    			<col width="$column2%" />
+    			<col width="$column3%" />
+    			<col width="$column4%" />
+
 				<tr style="height: 20px;">
 					<th class="smallCell textCenter"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="Alle (de)markieren" #if($listselection.size() == $list.size()) checked#end/></th>
 					<th class="smallCell textCenter">ID</th>

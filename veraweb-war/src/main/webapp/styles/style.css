@@ -968,11 +968,18 @@ input.active {
 
 
 /************* =9. tables *****************/
-
 table {
     border-collapse: collapse;
     margin: 5px 0;
     width: 100%;
+}
+
+table.fixed {
+	table-layout:fixed;
+}
+
+table.fixed td {
+	overflow: hidden;
 }
 
 tr, td, th {
@@ -984,11 +991,11 @@ tr {
 }
 
 tr:hover {
-	    background-color: #ffffc3 !important;
+	background-color: #ffffc3 !important;
 }
 
 tr:hover th {
-	    background-color: none !important;
+	background-color: none !important;
 }
 
 tr:nth-child(odd) {
@@ -1036,11 +1043,14 @@ td, th {
 	width:14px;
 }
 
+td {
+	word-wrap: break-word !important;
+}
+
 td[onclick]
  {cursor:pointer;}
 
 /************* =8.1 CSS tables *****************/
-
 .table {display:table;}
 
 .tableRow {display:table-row;}

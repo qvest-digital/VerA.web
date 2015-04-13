@@ -1,26 +1,118 @@
 #if($action == "guest")
 	#set($activeMenu = "Veranstaltungen")
 	#set($title = "Gast hinzuf&uuml;gen zu &bdquo;$!message.plain($event.shortname)&rdquo;")
+
+	##Values in per cent for table columns width
+	#set($column0 = 3)
+	#set($column1 = 3)
+	#set($column2 = 3)
+	#set($column3 = 3)
+	#set($column4 = 5)
+	#set($column5 = 17)
+	#set($column6 = 17)
+	#set($column7 = 15)
+	#set($column8 = 19)
+	#set($column9 = 15)
+	#set($column10 = 0)
+
 #elseif($action == "host")
 	#set($activeMenu = "Veranstaltungen")
 	#set($title = "Gastgeber ausw&auml;hlen f&uuml;r &bdquo;$!message.plain($event.shortname)&rdquo;")
+
+	##Values in per cent for table columns width
+	#set($column0 = 5)
+	#set($column1 = 13)
+	#set($column2 = 13)
+	#set($column3 = 13)
+	#set($column4 = 16)
+	#set($column5 = 18)
+	#set($column6 = 7)
+	#set($column7 = 15)
+	#set($column8 = 0)
+	#set($column9 = 0)
+	#set($column10 = 0)
+
+
 #elseif($action == "statistikGuest")
 	#set($activeMenu = "Veranstaltungen")
 	#set($title = "Gast ausw&auml;hlen")
+
+
 #elseif($action == "statistikHost")
 	#set($activeMenu = "Veranstaltungen")
 	#set($title = "Gastgeber ausw&auml;hlen")
+
+
 #elseif($action == "replace")
 	#set($activeMenu = "Personen")
 	#set($title = "Suchen &amp; Ersetzen in Personendaten")
+
+	##Values in per cent for table columns width
+	#set($column0 = 3)
+	#set($column1 = 5)
+	#set($column2 = 7)
+	#set($column3 = 13)
+	#set($column4 = 13)
+	#set($column5 = 9)
+	#set($column6 = 14)
+	#set($column7 = 18)
+	#set($column8 = 7)
+	#set($column9 = 13)
+	#set($column10 = 0)
+
+
 #elseif($action == "duplicateSearch")
 	#set($activeMenu = "Personen")
 	#set($title = "Dublettensuche")
+
+	##Values in per cent for table columns width
+	#set($column0 = 3)
+	#set($column1 = 5)
+	#set($column2 = 10)
+	#set($column3 = 7)
+	#set($column4 = 11)
+	#set($column5 = 11)
+	#set($column6 = 9)
+	#set($column7 = 14)
+	#set($column8 = 18)
+	#set($column9 = 7)
+	#set($column10 = 13)
+
+
 #elseif($action == "taskReferencePerson")
 	#set($activeMenu = "Veranstaltungen")
 	#set($title = "Verantwortlichen f&uuml;r Aufgabe ausw&auml;hlen")
+
+	##Values in per cent for table columns width
+	#set($column0 = 5)
+	#set($column1 = 13)
+	#set($column2 = 13)
+	#set($column3 = 14)
+	#set($column4 = 16)
+	#set($column5 = 23)
+	#set($column6 = 7)
+	#set($column7 = 14)
+	#set($column8 = 0)
+	#set($column9 = 0)
+	#set($column10 = 0)
+
+
 #else
 	#set($activeMenu = "Personen")
+
+	##Values in per cent for table columns width
+	#set($column0 = 3)
+	#set($column1 = 5)
+	#set($column2 = 7)
+	#set($column3 = 13)
+	#set($column4 = 13)
+	#set($column5 = 9)
+	#set($column6 = 14)
+	#set($column7 = 18)
+	#set($column8 = 7)
+	#set($column9 = 13)
+	#set($column10 = 0)
+
 	#if(($listerrors && $listerrors.size() > 0) || ($listquestions && $listquestions.size() > 0))
 		#set($title = "Person l&ouml;schen")
 	#else
@@ -595,7 +687,20 @@ function submitFormWithGivenAction(action) {
 
 			<div id="main_content">
 
-				<table class="sortable">
+				<table class="sortable fixed">
+					##Set column size
+					<col width="$column0%" />
+    				<col width="$column1%" />
+    				<col width="$column2%" />
+    				<col width="$column3%" />
+    				<col width="$column4%" />
+    				<col width="$column5%" />
+    				<col width="$column6%" />
+    				<col width="$column7%" />
+					<col width="$column8%" />
+					<col width="$column9%" />
+					<col width="$column10%" />
+
 					#if($action == "guest")
 						<tr>
 							#if($grants.mayWrite())
@@ -912,16 +1017,6 @@ function submitFormWithGivenAction(action) {
 					#end
 
 					#foreach($bean in $list)
-						##Add whitespace to values to cut them
-						#set($workareacut = $bean.workarea_name.replaceAll("(.{6})", "$1 "))
-						#set($lastnamecut = $bean.lastname_a_e1.replaceAll("(.{23})", "$1 "))
-						#set($firstnamecut = $bean.firstname_a_e1.replaceAll("(.{23})", "$1 "))
-						#set($functioncut = $bean.function_a_e1.replaceAll("(.{13})", "$1 "))
-						#set($companycut = $bean.company_a_e1.replaceAll("(.{13})", "$1 "))
-						#set($streetcut = $bean.street_a_e1.replaceAll("(.{13})", "$1 "))
-						#set($zipcodecut = $bean.zipcode_a_e1.replaceAll("(.{5})", "$1 "))
-						#set($citycut = $bean.city_a_e1.replaceAll("(.{9})", "$1 "))
-
 						#if($action == "guest")
 							<tr>
 								#set($hasA = $bean.lastname_a_e1.length() > 0 || $bean.firstname_a_e1.length() > 0)
@@ -964,10 +1059,10 @@ function submitFormWithGivenAction(action) {
 								#end
 
 								<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&searchTask=$!searchTask&person-category=' + document.getElementById('$!{bean.id}-category').value;"><input type="hidden" name="${bean.id}-id" value="$bean.id">$!{bean.id}</td>
-								<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&searchTask=$!searchTask&person-category=' + document.getElementById('$!{bean.id}-category').value;">$!message.plain($lastnamecut)</td>
-								<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&searchTask=$!searchTask&person-category=' + document.getElementById('$!{bean.id}-category').value;">$!message.plain($firstnamecut)</td>
-								<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&searchTask=$!searchTask&person-category=' + document.getElementById('$!{bean.id}-category').value;">$!message.plain($functioncut)</td>
-								<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&searchTask=$!searchTask&person-category=' + document.getElementById('$!{bean.id}-category').value;">$!message.plain($companycut)</td>
+								<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&searchTask=$!searchTask&person-category=' + document.getElementById('$!{bean.id}-category').value;">$!message.plain($bean.lastname_a_e1)</td>
+								<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&searchTask=$!searchTask&person-category=' + document.getElementById('$!{bean.id}-category').value;">$!message.plain($bean.firstname_a_e1)</td>
+								<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&searchTask=$!searchTask&person-category=' + document.getElementById('$!{bean.id}-category').value;">$!message.plain($bean.function_a_e1)</td>
+								<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&searchTask=$!searchTask&person-category=' + document.getElementById('$!{bean.id}-category').value;">$!message.plain($bean.company_a_e1)</td>
 								<td>
 									## 2009-05-13 cklein
 									## fixes issue #1531
@@ -999,37 +1094,37 @@ function submitFormWithGivenAction(action) {
 						#elseif($action == "host")
 							<tr>
 								<td onclick="window.location.href='SetHostToEventDetail?hostid=$!{bean.id}';"><input type="hidden" name="${bean.id}-id" value="$bean.id">$!{bean.id}</td>
-								<td onclick="window.location.href='SetHostToEventDetail?hostid=$!{bean.id}';">$!message.plain($lastnamecut)</td>
-								<td onclick="window.location.href='SetHostToEventDetail?hostid=$!{bean.id}';">$!message.plain($firstnamecut)</td>
-								<td onclick="window.location.href='SetHostToEventDetail?hostid=$!{bean.id}';">$!message.plain($functioncut)</td>
-								<td onclick="window.location.href='SetHostToEventDetail?hostid=$!{bean.id}';">$!message.plain($companycut)</td>
-								<td onclick="window.location.href='SetHostToEventDetail?hostid=$!{bean.id}';">$!message.plain($streetcut)</td>
-								<td onclick="window.location.href='SetHostToEventDetail?hostid=$!{bean.id}';">$!message.plain($zipcodecut)</td>
-								<td onclick="window.location.href='SetHostToEventDetail?hostid=$!{bean.id}';">$!message.plain($citycut)</td>
+								<td onclick="window.location.href='SetHostToEventDetail?hostid=$!{bean.id}';">$!message.plain($bean.lastname_a_e1)</td>
+								<td onclick="window.location.href='SetHostToEventDetail?hostid=$!{bean.id}';">$!message.plain($bean.firstname_a_e1)</td>
+								<td onclick="window.location.href='SetHostToEventDetail?hostid=$!{bean.id}';">$!message.plain($bean.function_a_e1)</td>
+								<td onclick="window.location.href='SetHostToEventDetail?hostid=$!{bean.id}';">$!message.plain($bean.company_a_e1)</td>
+								<td onclick="window.location.href='SetHostToEventDetail?hostid=$!{bean.id}';">$!message.plain($bean.street_a_e1)</td>
+								<td onclick="window.location.href='SetHostToEventDetail?hostid=$!{bean.id}';">$!message.plain($bean.zipcode_a_e1)</td>
+								<td onclick="window.location.href='SetHostToEventDetail?hostid=$!{bean.id}';">$!message.plain($bean.city_a_e1)</td>
 								#if($userConfig.personListState)<td onclick="window.location.href='SetHostToEventDetail?hostid=$!{bean.id}';">$!message.plain($bean.state_a_e1)</td>#end
 							</tr>
 						#elseif($action == "statistikHost")
 							<tr>
 								<td onclick="window.open('StatistikExport?id=$!{bean.id}');"><input type="hidden" name="${bean.id}-id" value="$bean.id">$!{bean.id}</td>
-								<td onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($lastnamecut)</td>
-								<td onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($firstnamecut)</td>
-								<td onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($functioncut)</td>
-								<td onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($companycut)</td>
-								<td onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($streetcut)</td>
-								<td onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($zipcodecut)</td>
-								<td onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($citycut)</td>
+								<td onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($bean.lastname_a_e1)</td>
+								<td onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($bean.firstname_a_e1)</td>
+								<td onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($bean.function_a_e1)</td>
+								<td onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($bean.company_a_e1)</td>
+								<td onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($bean.street_a_e1)</td>
+								<td onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($bean.zipcode_a_e1)</td>
+								<td onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($bean.city_a_e1)</td>
 								#if($userConfig.personListState)<td onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($bean.state_a_e1)</td>#end
 							</tr>
 						#elseif($action == "statistikGuest")
 							<tr>
 								<td onclick="window.open('StatistikExport?id=$!{bean.id}');"><input type="hidden" name="${bean.id}-id" value="$bean.id">$!{bean.id}</td>
-								<td onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($lastnamecut)</td>
-								<td onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($firstnamecut)</td>
-								<td onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($functioncut)</td>
-								<td onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($companycut)</td>
-								<td onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($streetcut)</td>
-								<td onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($zipcodecut)</td>
-								<td onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($citycut)</td>
+								<td onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($bean.lastname_a_e1)</td>
+								<td onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($bean.firstname_a_e1)</td>
+								<td onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($bean.function_a_e1)</td>
+								<td onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($bean.company_a_e1)</td>
+								<td onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($bean.street_a_e1)</td>
+								<td onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($bean.zipcode_a_e1)</td>
+								<td onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($bean.city_a_e1)</td>
 								#if($userConfig.personListState)<td onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($bean.state_a_e1)</td>#end
 							</tr>
 						#elseif($action == "taskReferencePerson")
@@ -1041,13 +1136,13 @@ function submitFormWithGivenAction(action) {
 
 							<tr>
 								<td onclick="window.location.href='$clickUrl';"><input type="hidden" name="${bean.id}-id" value="$bean.id">$!{bean.id}</td>
-								<td onclick="window.location.href='$clickUrl';">$!message.plain($lastnamecut)</td>
-								<td onclick="window.location.href='$clickUrl';">$!message.plain($firstnamecut)</td>
-								<td onclick="window.location.href='$clickUrl';">$!message.plain($functioncut)</td>
-								<td onclick="window.location.href='$clickUrl';">$!message.plain($companycut)</td>
-								<td onclick="window.location.href='$clickUrl';">$!message.plain($streetcut)</td>
-								<td onclick="window.location.href='$clickUrl';">$!message.plain($zipcodecut)</td>
-								<td onclick="window.location.href='$clickUrl';">$!message.plain($citycut)</td>
+								<td onclick="window.location.href='$clickUrl';">$!message.plain($bean.lastname_a_e1)</td>
+								<td onclick="window.location.href='$clickUrl';">$!message.plain($bean.firstname_a_e1)</td>
+								<td onclick="window.location.href='$clickUrl';">$!message.plain($bean.function_a_e1)</td>
+								<td onclick="window.location.href='$clickUrl';">$!message.plain($bean.company_a_e1)</td>
+								<td onclick="window.location.href='$clickUrl';">$!message.plain($bean.street_a_e1)</td>
+								<td onclick="window.location.href='$clickUrl';">$!message.plain($bean.zipcode_a_e1)</td>
+								<td onclick="window.location.href='$clickUrl';">$!message.plain($bean.city_a_e1)</td>
 								#if($userConfig.personListState)<td onclick="window.location.href='$clickUrl';">$!message.plain($bean.state_a_e1)</td>#end
 							</tr>
 
@@ -1066,14 +1161,14 @@ function submitFormWithGivenAction(action) {
 								#end
 								<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!{action}&searchTask=$!searchTask';"><input type="hidden" name="${bean.id}-id" value="$bean.id">$!{bean.id}</td>
 								<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!{action}&searchTask=$!searchTask';">$!message.date("DATE", $bean.created)</td>
-								<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!{action}&searchTask=$!searchTask';">$!message.plain($workareacut)</td>
-								<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!{action}&searchTask=$!searchTask';">$!message.plain($lastnamecut)</td>
-								<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!{action}&searchTask=$!searchTask';">$!message.plain($firstnamecut)</td>
-								<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!{action}&searchTask=$!searchTask';">$!message.plain($functioncut)</td>
-								<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!{action}&searchTask=$!searchTask';">$!message.plain($companycut)</td>
-								<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!{action}&searchTask=$!searchTask';">$!message.plain($streetcut)</td>
-								<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!{action}&searchTask=$!searchTask';">$!message.plain($zipcodecut)</td>
-								<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!{action}&searchTask=$!searchTask';">$!message.plain($citycut)</td>
+								<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!{action}&searchTask=$!searchTask';">$!message.plain($bean.workarea_name)</td>
+								<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!{action}&searchTask=$!searchTask';">$!message.plain($bean.lastname_a_e1)</td>
+								<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!{action}&searchTask=$!searchTask';">$!message.plain($bean.firstname_a_e1)</td>
+								<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!{action}&searchTask=$!searchTask';">$!message.plain($bean.function_a_e1)</td>
+								<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!{action}&searchTask=$!searchTask';">$!message.plain($bean.company_a_e1)</td>
+								<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!{action}&searchTask=$!searchTask';">$!message.plain($bean.street_a_e1)</td>
+								<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!{action}&searchTask=$!searchTask';">$!message.plain($bean.zipcode_a_e1)</td>
+								<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!{action}&searchTask=$!searchTask';">$!message.plain($bean.city_a_e1)</td>
 								#if($userConfig.personListState)<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!{action}&searchTask=$!searchTask';">$!message.plain($bean.state_a_e1)</td>#end
 							</tr>
 						#else
@@ -1082,14 +1177,14 @@ function submitFormWithGivenAction(action) {
 									<td><input type="checkbox" name="${bean.id}-select" value="true" onChange="selectionChange( this );" #if($listselection.indexOf($bean.id) != -1) checked#end></td>
 								#end
 								<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&searchTask=$!searchTask';"><input type="hidden" name="${bean.id}-id" value="$bean.id">$!{bean.id}</td>
-								<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&searchTask=$!searchTask';">$!message.plain($workareacut)</td>
-								<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&searchTask=$!searchTask';">$!message.plain($lastnamecut)</td>
-								<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&searchTask=$!searchTask';">$!message.plain($firstnamecut)</td>
-								<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&searchTask=$!searchTask';">$!message.plain($functioncut)</td>
-								<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&searchTask=$!searchTask';">$!message.plain($companycut)</td>
-								<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&searchTask=$!searchTask';">$!message.plain($streetcut)</td>
-								<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&searchTask=$!searchTask';">$!message.plain($zipcodecut)</td>
-								<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&searchTask=$!searchTask';">$!message.plain($citycut)</td>
+								<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&searchTask=$!searchTask';">$!message.plain($bean.workarea_name)</td>
+								<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&searchTask=$!searchTask';">$!message.plain($bean.lastname_a_e1)</td>
+								<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&searchTask=$!searchTask';">$!message.plain($bean.firstname_a_e1)</td>
+								<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&searchTask=$!searchTask';">$!message.plain($bean.function_a_e1)</td>
+								<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&searchTask=$!searchTask';">$!message.plain($bean.company_a_e1)</td>
+								<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&searchTask=$!searchTask';">$!message.plain($bean.street_a_e1)</td>
+								<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&searchTask=$!searchTask';">$!message.plain($bean.zipcode_a_e1)</td>
+								<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&searchTask=$!searchTask';">$!message.plain($bean.city_a_e1)</td>
 								#if($userConfig.personListState)<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&searchTask=$!searchTask';">$!message.plain($bean.state_a_e1)</td>#end
 							</tr>
 						#end

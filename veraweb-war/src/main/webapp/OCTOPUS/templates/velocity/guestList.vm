@@ -3,6 +3,18 @@
 #set($elementNameSex = "male")
 #set($elementNameSingular = "Gast")
 #set($elementNamePlural = "G&auml;ste")
+
+##Values in per cent for table columns width
+#set($column0 = 3)
+#set($column1 = 8)
+#set($column2 = 4)
+#set($column3 = 20)
+#set($column4 = 20)
+#set($column5 = 20)
+#set($column6 = 20)
+#set($column7 = 13)
+#set($column8 = 13)
+
 #parse("inc/header.vm")
 
 <div id="content_container">
@@ -291,7 +303,18 @@
 				}
 			</script>
 
-			<table class="sortable">
+			<table class="sortable fixed">
+				##Set column size
+				<col width="$column0%" />
+   				<col width="$column1%" />
+   				<col width="$column2%" />
+   				<col width="$column3%" />
+   				<col width="$column4%" />
+   				<col width="$column5%" />
+   				<col width="$column6%" />
+   				<col width="$column7%" />
+   				<col width="$column8%" />
+
 				<tr>
 					<th class="textCenter smallCell"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="Alle (de)markieren" #if($listselection.size() == $list.size()) checked#end/></th>
 			#if($search.listorder == "lastname_a_e1")
@@ -349,21 +372,9 @@
 				#set($deletedperson = false)
 
 				#foreach($bean in $list)
-					#set($someordernocut = $bean.someorderno.replaceAll("(.{6})", "$1 "))
-					#set($companycut = $bean.company_a_e1.replaceAll("(.{16})", "$1 "))
-					#set($blastnamecut = $bean.lastname_b_e1.replaceAll("(.{16})", "$1 "))
-					#set($bgdlastnamecut = $bean.lastname_b_gd.replaceAll("(.{16})", "$1 "))
-					#set($afirstnamecut = $bean.firstname_a_e1.replaceAll("(.{16})", "$1 "))
-					#set($bfirstnamecut = $bean.firstname_b_e1.replaceAll("(.{16})", "$1 "))
-					#set($agdfirstnamecut = $bean.firstname_a_gd.replaceAll("(.{16})", "$1 "))
-					#set($bgdfirstnamecut = $bean.firstname_b_gd.replaceAll("(.{16})", "$1 "))
-					#set($aemailcut = $bean.mail_a_e1.replaceAll("(.{24})", "$1 "))
-					#set($agdemailcut = $bean.mail_a_gd.replaceAll("(.{24})", "$1 "))
-
 					#if ($bean.deleted == "t")
 						#set($deletedperson = true)
 					#end
-
 
 				#set($offset = $listparam.start + $velocityCount)
 
@@ -373,7 +384,7 @@
 						#if($bean.ishost && $bean.ishost == 1)
 							<em>Gastgeber</em>
 						#elseif($bean.someorderno)
-							$someordernocut
+							$bean.someorderno
 						#else
 							<em>keine</em>
 						#end
@@ -386,7 +397,7 @@
 					#end
 
 					#if($bean.company_a_e1 != "")
-						<td onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';" title="Firma/Institution">$companycut</td>
+						<td onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';" title="Firma/Institution">$bean.company_a_e1</td>
 					#else
 						<td onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';" title="Firma/Institution">&nbsp;</td>
 					#end
@@ -399,38 +410,37 @@
 						<td></td>
 					#else
 						<td onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';">
-
 							#if($bean.invitationtype != 3)
 								#if($bean.showdoctype)
-									$!message.plain($agdlastnamecut)
+									$!message.plain($bean.lastname_a_gd)
 								#else
-									$!message.plain($alastnamecut)
+									$!message.plain($bean.lastname_a_e1)
 								#end
 							#else
 								#if($bean.showdoctype)
-									$!message.plain($bgdlastnamecut)
+									$!message.plain($bean.lastname_b_gd)
 								#else
-									$!message.plain($blastnamecut)
+									$!message.plain($bean.lastname_b_e1)
 								#end
 							#end
 						</td>
 						<td onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';">
 							#if($bean.invitationtype != 3)
-								#if($bean.showdoctype)$!message.plain($agdfirstnamecut)#else$!message.plain($afirstnamecut)#end
+								#if($bean.showdoctype)$!message.plain($bean.firstname_a_gd)#else$!message.plain($bean.firstname_a_e1)#end
 							#else
-								#if($bean.showdoctype)$!message.plain($bgdfirstnamecut)#else$!message.plain($bfirstnamecut)#end
+								#if($bean.showdoctype)$!message.plain($bean.firstname_b_gd)#else$!message.plain($bean.firstname_b_e1)#end
 							#end
 						</td>
 						<td class="textCenter">
 							#if($bean.showdoctype)
 								#if($bean.mail_a_gd.length() > 0)
-									<a href="mailto:$!message.plain($bean.mail_a_gd)" title="$!message.plain($bean.mail_a_gd)">$!message.plain($agdemailcut)</a>
+									<a href="mailto:$!message.plain($bean.mail_a_gd)" title="$!message.plain($bean.mail_a_gd)">$!message.plain($bean.mail_a_gd)</a>
 								#else
 									&nbsp;
 								#end
 							#else
 								#if($bean.mail_a_e1.length() > 0)
-									<a href="mailto:$!message.plain($bean.mail_a_e1)" title="$!message.plain($bean.mail_a_e1)">$!message.plain($aemailcut)</a>
+									<a href="mailto:$!message.plain($bean.mail_a_e1)" title="$!message.plain($bean.mail_a_e1)">$!message.plain($bean.mail_a_e1)</a>
 								#else
 									&nbsp;
 								#end

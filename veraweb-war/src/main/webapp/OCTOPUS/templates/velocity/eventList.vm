@@ -2,10 +2,36 @@
 
 #if($action == "guest")
 	#set($title = "Veranstaltung ausw&auml;hlen - Veranstaltung: $!message.plain($event.shortname)")
+
+	#set($column0 = 5)
+	#set($column1 = 25)
+	#set($column2 = 10)
+	#set($column3 = 10)
+	#set($column4 = 25)
+	#set($column5 = 25)
+	#set($column6 = 0)
+
 #elseif($action == "addperson")
 	#set($title = "Veranstaltung ausw&auml;hlen - Person zuordnen")
+
+	#set($column0 = 5)
+	#set($column1 = 25)
+	#set($column2 = 10)
+	#set($column3 = 10)
+	#set($column4 = 25)
+	#set($column5 = 25)
+	#set($column6 = 0)
+
 #else
 	#set($title = "Veranstaltung ausw&auml;hlen")
+
+	#set($column0 = 3)
+	#set($column1 = 5)
+	#set($column2 = 24)
+	#set($column3 = 10)
+	#set($column4 = 10)
+	#set($column5 = 24)
+	#set($column6 = 24)
 #end
 
 #set($elementNameSex = "female")
@@ -143,7 +169,16 @@
 					<input type="hidden" name="list" value="$bean.id">
 				#end
 
-				<table>
+				<table class="fixed">
+					##Set column size
+					<col width="$column0%" />
+    				<col width="$column1%" />
+    				<col width="$column2%" />
+    				<col width="$column3%" />
+    				<col width="$column4%" />
+    				<col width="$column5%" />
+    				<col width="$column6%" />
+
 					<tr>
 						#if($action != "guest" && $action != "addperson" && $grants.mayWrite())
 							<th class="textCenter smallCell"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="Alle (de)markieren" #if($listselection.size() == $list.size()) checked#end/></th>
@@ -249,10 +284,7 @@
 								<td width="200px" onclick="window.location.href='ShowEvent?id=$!{bean.id}';">
 									#foreach($location in $allLocation)
 										#if($location.get("id") == $bean.location)
-											##Add whitespace to values to cut them
-											#set($locationcut = $location.get("name").replaceAll("(.{25})", "$1 "))
-
-											$!message.plain($locationcut)
+											$!message.plain($location.get("name"))
 										#end
 									#end
 								</td>
