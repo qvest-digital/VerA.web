@@ -32,6 +32,7 @@ import de.tarent.aa.veraweb.beans.ImportPerson;
 import de.tarent.aa.veraweb.beans.Person;
 import de.tarent.aa.veraweb.beans.facade.PersonConstants;
 import de.tarent.dblayer.helper.ResultList;
+import de.tarent.dblayer.helper.ResultMap;
 import de.tarent.dblayer.sql.SQL;
 import de.tarent.dblayer.sql.clause.Clause;
 import de.tarent.dblayer.sql.clause.Expr;
@@ -98,55 +99,62 @@ public class PersonDuplicateCheckHelper {
 	 *
 	 * @throws IOException
 	 * @throws BeanException
-	 * @throws SQLException
 	 */
-	public int getDuplicatesCount(OctopusContext cntx) throws IOException,
-			BeanException {
+	public int getDuplicatesCount(OctopusContext cntx) throws IOException, BeanException {
 		int duplicateCount = 0;
 
 		// first get all imported persons data
-		List<ResultList> importedPersonsList = getImportPersonData();
+		final List<ResultMap> importedPersonsList = getImportPersonData();
 
 		// iteration over all imported persons data
-		for (Iterator<ResultList> itImportPersons = importedPersonsList
-				.iterator(); itImportPersons.hasNext();) {
-			Map importPersonMap = (Map) itImportPersons.next();
-
-			// create a person object to check if a duplicate entry is available
-			// into the tpersons table
-			Person person = new Person();
-			person.getMainLatin().setFirstname(
-					(String) importPersonMap.get("firstname"));
-			person.getMainLatin().setLastname(
-					(String) importPersonMap.get("lastname"));
-
-			// check if a duplicate entry was found
-			Select select = SQL.Select(database);
-			select.from(" veraweb.tperson");
-			select.selectAs(database.getProperty(person, "id"), "person_id");
-			select.where(getDuplicateExprPerson(cntx, person));
-			ResultList list = database.getList(select, context);
-
-			// array list to store duplicate person ids
-			List<Integer> duplicates = new ArrayList<Integer>();
-			ImportPerson duplicateImportedPerson = new ImportPerson();
-			duplicateImportedPerson.id = (Integer) importPersonMap
-					.get("import_id");
-
-			// duplicate entry was found. Handle it
-			for (Iterator<ResultList> itDuplicates = list.iterator(); itDuplicates
-					.hasNext();) {
-				Map next = (Map) itDuplicates.next();
-				Integer personId = (Integer) next.get("person_id");
-				if (personId != null) {
-					duplicates.add(personId);
-				}
+		for (ResultMap result: importedPersonsList) {
+			final ResultList list = searchForImportPersonInDB(cntx, result);
+			if (list.size() > 0) {
+				handleDuplicateEntry(result, list);
+				duplicateCount++;
 			}
-
-			duplicateCount++;
-			setDuplicates(duplicateImportedPerson, duplicates);
 		}
+
 		return duplicateCount;
+	}
+
+	private ResultList searchForImportPersonInDB(OctopusContext cntx, ResultMap result) throws IOException, BeanException {
+		final Person person = createPersonForCurrentImportEntry(result);
+
+		// check if a duplicate entry was found
+		final Select select = SQL.Select(database);
+		select.from(" veraweb.tperson");
+		select.selectAs(database.getProperty(person, "id"), "person_id");
+		select.where(getDuplicateExprPerson(cntx, person));
+
+		return database.getList(select, context);
+	}
+
+	private Person createPersonForCurrentImportEntry(ResultMap result) {
+		// create a person object to check if a duplicate entry is available
+		// into the tpersons table
+		final Person person = new Person();
+		person.getMainLatin().setFirstname((String) result.get("firstname"));
+		person.getMainLatin().setLastname((String) result.get("lastname"));
+
+		return person;
+	}
+
+	private void handleDuplicateEntry(ResultMap result, ResultList list) throws BeanException, IOException {
+		// array list to store duplicate person ids
+		final List<Integer> duplicates = new ArrayList<Integer>();
+		final ImportPerson duplicateImportedPerson = new ImportPerson();
+		duplicateImportedPerson.id = (Integer) result.get("import_id");
+
+		for (Iterator<ResultList> itDuplicates = list.iterator(); itDuplicates.hasNext();) {
+            final Map next = (Map) itDuplicates.next();
+            final Integer personId = (Integer) next.get("person_id");
+            if (personId != null) {
+                duplicates.add(personId);
+            }
+        }
+
+		setDuplicates(duplicateImportedPerson, duplicates);
 	}
 
 	/**
@@ -158,20 +166,14 @@ public class PersonDuplicateCheckHelper {
 	 * @throws BeanException
 	 */
 	@SuppressWarnings("unchecked")
-	private List<ResultList> getImportPersonData() throws IOException,
-			BeanException {
-		ImportPerson sampleImportPerson = new ImportPerson();
+	private List<ResultMap> getImportPersonData() throws IOException, BeanException {
+		final ImportPerson sampleImportPerson = new ImportPerson();
 
-		Select select = SQL.Select(database);
+		final Select select = SQL.Select(database);
 		select.from(" veraweb.timportperson");
-		select.selectAs(database.getProperty(sampleImportPerson, "id"),
-				"import_id");
-		select.selectAs(
-				database.getProperty(sampleImportPerson, "firstname_a_e1"),
-				"firstname");
-		select.selectAs(
-				database.getProperty(sampleImportPerson, "lastname_a_e1"),
-				"lastname");
+		select.selectAs(database.getProperty(sampleImportPerson, "id"),	"import_id");
+		select.selectAs(database.getProperty(sampleImportPerson, "firstname_a_e1"),	"firstname");
+		select.selectAs(database.getProperty(sampleImportPerson, "lastname_a_e1"),	"lastname");
 
 		select.where(Expr.equal(
 				database.getProperty(sampleImportPerson, "fk_import"),
@@ -367,13 +369,14 @@ public class PersonDuplicateCheckHelper {
 	 * @return the duplicates as string
 	 */
 	final static String serializeDuplicates(List<Integer> duplicates) {
-		if (duplicates == null)
+		if (duplicates == null) {
 			return null;
-		StringBuffer buffer = new StringBuffer();
-		for (Iterator<Integer> itDuplicates = duplicates.iterator(); itDuplicates
-				.hasNext();) {
-			if (buffer.length() > 0)
+		}
+		final StringBuffer buffer = new StringBuffer();
+		for (Iterator<Integer> itDuplicates = duplicates.iterator(); itDuplicates.hasNext();) {
+			if (buffer.length() > 0) {
 				buffer.append(ImportPerson.PK_SEPERATOR_CHAR);
+			}
 			buffer.append(itDuplicates.next());
 		}
 		return buffer.toString();
