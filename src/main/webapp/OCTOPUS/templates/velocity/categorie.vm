@@ -3,6 +3,15 @@
 #set($elementNameSex = "female")
 #set($elementNameSingular = "Kategorie")
 #set($elementNamePlural = "Kategorien")
+
+##Values in per cent for table columns width
+#set($column0 = 3)
+#set($column1 = 5)
+#set($column2 = 40)
+#set($column3 = 20)
+#set($column4 = 6)
+#set($column5 = 36)
+
 #parse("inc/header.vm")
 
 <div id="content_container">
@@ -61,12 +70,20 @@
 
 		</span>
 
-		<table>
+		<table class="fixed">
+			##Set column size
+			<col width="$column0%" />
+   			<col width="$column1%" />
+   			<col width="$column2%" />
+   			<col width="$column3%" />
+   			<col width="$column4%" />
+   			<col width="$column5%" />
+
 			<tr>
-		#if($grants.isAdmin() || $grants.isPartialAdmin())
-				<th class="smallCell textCenter"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="Alle (de)markieren" #if($listselection.size() == $list.size()) checked#end/></th>
-				<th class="smallCell textCenter">ID</th>
-		#end
+				#if($grants.isAdmin() || $grants.isPartialAdmin())
+					<th class="smallCell textCenter"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="Alle (de)markieren" #if($listselection.size() == $list.size()) checked#end/></th>
+					<th class="smallCell textCenter">ID</th>
+				#end
 				<th>Bezeichnung*</th>
 				<th>Kennzeichen</th>
 				<th>Rang</th>

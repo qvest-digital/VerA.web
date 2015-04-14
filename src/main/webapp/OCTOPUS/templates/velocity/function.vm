@@ -3,6 +3,12 @@
 #set($elementNameSex = "female")
 #set($elementNameSingular = "Funktion/Amtsbezeichnung")
 #set($elementNamePlural = "Funktionen/Amtsbezeichnungen")
+
+##Values in per cent for table columns width
+#set($column0 = 3)
+#set($column1 = 5)
+#set($column2 = 93)
+
 #parse("inc/header.vm")
 
 <div id="content_container">
@@ -39,7 +45,12 @@
 			#foreach($bean in $list)
 			<input type="hidden" name="list" value="$bean.id">
 			#end
-			<table>
+			<table class="fixed">
+				##Set column size
+				<col width="$column0%" />
+				<col width="$column1%" />
+				<col width="$column2%" />
+
 				<tr>
 					<th class="smallCell textCenter"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="Alle (de)markieren" #if($listselection.size() == $list.size()) checked#end/></th>
 					<th class="smallCell textCenter">ID</th>

@@ -3,6 +3,18 @@
 #set($elementNameSex = "female")
 #set($elementNameSingular = "Person")
 #set($elementNamePlural = "Personen")
+
+##Values in per cent for table columns width
+#set($column0 = 3)
+#set($column1 = 6)
+#set($column2 = 13)
+#set($column3 = 13)
+#set($column4 = 13)
+#set($column5 = 16)
+#set($column6 = 19)
+#set($column7 = 6)
+#set($column8 = 19)
+
 #parse("inc/header.vm")
 
 <div id="content_container">
@@ -45,7 +57,18 @@
 			#end
 
 			<div id="main_content">
-				<table class="sortable">
+				<table class="sortable fixed">
+					##Set column size
+					<col width="$column0%" />
+    				<col width="$column1%" />
+    				<col width="$column2%" />
+    				<col width="$column3%" />
+    				<col width="$column4%" />
+    				<col width="$column5%" />
+    				<col width="$column6%" />
+    				<col width="$column7%" />
+					<col width="$column8%" />
+
 					<tr>
 						<th class="textCenter smallCell"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" #if($listselection.size() == $list.size()) checked#end title="Alle (de)markieren"/></th>
 						<th>ID</th>
@@ -57,18 +80,11 @@
 						<th>PLZ</th>
 						<th>Ort</th>
 					</tr>
+
 					#foreach($bean in $list)
 						#set($person = $bean.mainLatin)
 						#set($address = $bean.businessLatin)
 
-						##Add whitespace to values to cut them
-						#set($lastnamecut = $bean.lastname_a_e1.replaceAll("(.{8})", "$1 "))
-						#set($firstnamecut = $bean.firstname_a_e1.replaceAll("(.{8})", "$1 "))
-						#set($functioncut = $bean.function_a_e1.replaceAll("(.{12})", "$1 "))
-						#set($companycut = $bean.company_a_e1.replaceAll("(.{20})", "$1 "))
-						#set($streetcut = $bean.street_b_e1.replaceAll("(.{10})", "$1 "))
-						#set($zipcodecut = $bean.zipcode_b_e1.replaceAll("(.{5})", "$1 "))
-						#set($citycut = $bean.city_b_e1.replaceAll("(.{10})", "$1 "))
 					<tr>
 						<td>
 				##			<input type="hidden" name="${bean.id}-checked" #if($bean.dupcheckstatus == 1) value="true" #else value="false" #end>
@@ -76,13 +92,13 @@
 							<input type="checkbox" name="${bean.id}-select" value="true" #if($listselection.indexOf($bean.id) != -1) checked #end onChange="selectionChange(this);"/>
 						</td>
 						<td><input type="hidden" name="${bean.id}-id" value="$bean.id"/>$!bean.id</td>
-						<td width="170px">$!message.text($!lastnamecut)</td>
-						<td width="170px">$!message.text($!firstnamecut)</td>
-						<td width="150px">$!message.text($!functioncut)</td>
-						<td width="130px">$!message.text($!companycut)</td>
-						<td width="200px">$!message.text($!streetcut)</td>
-						<td width="130px">$!message.text($!zipcodecut)</td>
-						<td width="250px">$!message.text($!citycut)</td>
+						<td width="170px">$!message.text($!bean.lastname_a_e1)</td>
+						<td width="170px">$!message.text($!bean.firstname_a_e1)</td>
+						<td width="150px">$!message.text($!bean.function_a_e1)</td>
+						<td width="130px">$!message.text($!bean.company_a_e1)</td>
+						<td width="200px">$!message.text($!bean.street_b_e1)</td>
+						<td width="130px">$!message.text($!bean.zipcode_b_e1)</td>
+						<td width="250px">$!message.text($!bean.city_b_e1)</td>
 					</tr>
 						#foreach($duplicate in $bean.getDuplicateList())
 						#set($person = $duplicate.mainLatin)
@@ -90,13 +106,13 @@
 					<tr>
 						<td>&nbsp;</td>
 						<td>$!duplicate.id</td>
-						<td width="170px">$!message.text($!lastnamecut)</td>
-						<td width="170px">$!message.text($!firstnamecut)</td>
-						<td width="150px">$!message.text($!functioncut)</td>
-						<td width="130px">$!message.text($!companycut)</td>
-						<td width="200px">$!message.text($!streetcut)</td>
-						<td width="130px">$!message.text($!zipcodecut)</td>
-						<td width="250px">$!message.text($!citycut)</td>
+						<td width="170px">$!message.text($!bean.lastname_a_e1)</td>
+						<td width="170px">$!message.text($!bean.firstname_a_e1)</td>
+						<td width="150px">$!message.text($!bean.function_a_e1)</td>
+						<td width="130px">$!message.text($!bean.company_a_e1)</td>
+						<td width="200px">$!message.text($!bean.street_b_e1)</td>
+						<td width="130px">$!message.text($!bean.zipcode_b_e1)</td>
+						<td width="250px">$!message.text($!bean.city_b_e1)</td>
 					</tr>
 						#end
 						#if($bean.hasMoreDuplicates())

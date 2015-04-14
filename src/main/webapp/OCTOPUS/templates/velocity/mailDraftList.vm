@@ -3,6 +3,12 @@
 #set($elementNameSex = "female")
 #set($elementNameSingular = "Vorlage")
 #set($elementNamePlural = "Vorlagen")
+
+##Values in per cent for table columns width
+#set($column0 = 3)
+#set($column1 = 5)
+#set($column2 = 92)
+
 #parse("inc/header.vm")
 
 <div id="content_container">
@@ -29,7 +35,12 @@
         <input type="hidden" name="list" value="$bean.id"/>
         #end
 
-    	<table>
+    	<table class="fixed">
+    		##Set column size
+			<col width="$column0%" />
+			<col width="$column1%" />
+			<col width="$column2%" />
+
         	<tr>
         		<th class="smallCell textCenter">
         			<input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="Alle (de)markieren" #if($listselection.size() == $list.size()) checked#end/>

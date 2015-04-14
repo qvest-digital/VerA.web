@@ -3,6 +3,15 @@
 #set($elementNameSex = "male")
 #set($elementNameSingular = "Verteiler")
 #set($elementNamePlural = "Verteiler")
+
+##Values in per cent for table columns width
+#set($column0 = 3)
+#set($column1 = 5)
+#set($column2 = 25)
+#set($column3 = 20)
+#set($column4 = 10)
+#set($column5 = 40)
+
 #parse("inc/header.vm")
 
 <script type="text/javascript">
@@ -53,7 +62,15 @@
         	</span>
         	#end
 
-        	<table class="marginTop10">
+        	<table class="marginTop10 fixed">
+        		##Set column size
+				<col width="$column0%" />
+    			<col width="$column1%" />
+    			<col width="$column2%" />
+    			<col width="$column3%" />
+    			<col width="$column4%" />
+    			<col width="$column5%" />
+
         		<tr>
         			<th class="smallCell textCenter"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="Alle (de)markieren"/></th>
         			<th class="smallCell textCenter">ID</th>

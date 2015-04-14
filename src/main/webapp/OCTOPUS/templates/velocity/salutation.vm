@@ -3,6 +3,14 @@
 #set($elementNameSex = "female")
 #set($elementNameSingular = "Anrede")
 #set($elementNamePlural = "Anreden")
+
+##Values in per cent for table columns width
+#set($column0 = 3)
+#set($column1 = 5)
+#set($column2 = 74)
+#set($column3 = 10)
+#set($column4 = 8)
+
 #parse("inc/header.vm")
 
 
@@ -40,7 +48,14 @@
             #end
             <div id="main_content">
 
-            				<table>
+            				<table class="fixed">
+            					##Set column size
+								<col width="$column0%" />
+			    				<col width="$column1%" />
+    							<col width="$column2%" />
+    							<col width="$column3%" />
+		    					<col width="$column4%" />
+
             					<tr>
             						<th class="smallCell textCenter"><input type="checkbox" title="Alle (de)markieren" id="toggleAllSelect" name="toggleAllSelect" #if($listselection.size() == $list.size()) checked#end></th>
             						<th class="smallCell textCenter">ID</th>

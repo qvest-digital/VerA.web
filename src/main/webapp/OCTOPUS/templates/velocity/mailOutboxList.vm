@@ -3,6 +3,14 @@
 #set($elementNameSex = "female")
 #set($elementNameSingular = "E-Mail")
 #set($elementNamePlural = "E-Mails")
+
+##Values in per cent for table columns width
+#set($column0 = 3)
+#set($column1 = 11)
+#set($column2 = 27)
+#set($column3 = 27)
+#set($column4 = 40)
+
 #parse("inc/header.vm")
 
 <form id="formlist" name="formlist" action="MailOutboxList" method="POST">
@@ -28,7 +36,14 @@
     	       	<input type="submit" name="remove" value="Löschen" title="Markierte E-Mail(s) löschen"/>
     	    </span>
 
-    		<table>
+    		<table class="fixed">
+    			##Set column size
+				<col width="$column0%" />
+   				<col width="$column1%" />
+   				<col width="$column2%" />
+   				<col width="$column3%" />
+   				<col width="$column4%" />
+
         		<tr>
         			<th class="smallCell textCenter"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="Alle (de)markieren"/></th>
         			<th class="smallCell textCenter">Status</th>

@@ -4,6 +4,12 @@
 #set($elementNameSex = "male")
 #set($elementNameSingular = "Mandant")
 #set($elementNamePlural = "Mandanten")
+
+##Values in per cent for table columns width
+#set($column0 = 3)
+#set($column1 = 5)
+#set($column2 = 92)
+
 #parse("inc/header.vm")
 
 <form id="formlist" name="formlist" action="$octopusRequest.task" method="POST">
@@ -53,7 +59,12 @@
             	<strong>Markierte(n) Mandanten</strong>
             	<input type="submit" onclick="return confirm('Markierte(n) Mandanten wirklich löschen?');" title="Markierte(n) Mandanten löschen" name="remove" value="L&ouml;schen" >
             </span>
-            <table>
+            <table class="fixed">
+            	##Set column size
+				<col width="$column0%" />
+    			<col width="$column1%" />
+    			<col width="$column2%" />
+
             	<tr>
             		<th class="smallCell textCenter"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="Alle (de)markieren" #if($listselection.size() == $list.size()) checked#end/></th>
             		<th class="smallCell textCenter">ID</th>

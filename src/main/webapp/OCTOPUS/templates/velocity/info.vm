@@ -1,5 +1,10 @@
 #set($activeMenu = "Verwaltung")
 #set($title = "Hilfe - Info &uuml;ber VerA.web")
+
+##Values in per cent for table columns width
+#set($column0 = 10)
+#set($column1 = 90)
+
 #parse("inc/header.vm")
 
 <div id="content_container">
@@ -25,7 +30,11 @@
 
     <h3>VerA.web</h3>
     #if($properties)
-    <table class="form">
+    <table class="form fixed">
+    	##Set column size
+		<col width="$column0%" />
+		<col width="$column1%" />
+
     	<tr>
     		<td class="width10 bold">Version:</td>
     		<td>$properties.getString("version")</td>
@@ -40,7 +49,11 @@
     #end
 
     <h3>Datenbank</h3>
-    <table class="form">
+    <table class="form fixed">
+    	##Set column size
+		<col width="$column0%" />
+		<col width="$column1%" />
+
     	<tr>
     		<td class="width10 bold">Version:</td>
     		<td>
@@ -75,7 +88,11 @@
 
     <h3>Benutzer</h3>
 
-    <table class="form">
+    <table class="form fixed">
+    	##Set column size
+		<col width="$column0%" />
+		<col width="$column1%" />
+
     	<tr>
     		<td class="width10 bold"">Login:</td>
     		<td>$!octopusConfig.personalConfig.userLogin</td>
