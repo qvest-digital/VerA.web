@@ -52,10 +52,11 @@
 
 % Name Version Fassung vom Jahr
 \newcommand{\tarentanleitung}[5]{
-\fancyhead[L]{#1}
-\fancyfoot[L]{\footnotesize\copyright #5 tarent}
-% Deckblatt mit #1, Version #2, Fassung #3 vom #4 #5
-%XXX different header/footer here
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+%XXX most definitely fix the page layout!
+\fancyfoot[C]{\tarentlogo[6cm]{}}
 
 \colorbox{tarentrot}{
  \parbox[b][3cm][c]{\textwidth}{
@@ -71,4 +72,12 @@
 \end{flushright}
 
 \newpage
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0.6pt}
+\fancyhead[L]{#1}
+\fancyhead[R]{\tarentlogo[6cm]{}}
+\fancyfoot[L]{\footnotesize\copyright #5 tarent}
+\fancyfoot[C]{{\scriptsize\thepage{}/\pageref*{LastPage}}}
+\fancyfoot[R]{\href{https://www.tarent.de/}{www.tarent.de}}
 }
