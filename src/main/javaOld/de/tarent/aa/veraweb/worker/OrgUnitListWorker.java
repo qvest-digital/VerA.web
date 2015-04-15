@@ -98,8 +98,6 @@ public class OrgUnitListWorker extends ListWorkerVeraWeb {
                     }
                 }
                 saveBean(cntx, bean, context);
-                // Insert new Category Pressevertreter associated to every new Mandants
-                initPressCategory(cntx,Integer.valueOf(bean.getField("id").toString()),context);
                 count++;
             } else {
                 errors.addAll(bean.getErrors());
