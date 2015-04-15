@@ -56,8 +56,19 @@
 \fancyfoot[L]{\footnotesize\copyright #5 tarent}
 % Deckblatt mit #1, Version #2, Fassung #3 vom #4 #5
 %XXX different header/footer here
-\colorbox{tarentrot}{\color{white}\textbf{\Huge #1}}
-\newline\Large Version #2
-\newline\Large Fassung #3 vom #4 #5
+
+\colorbox{tarentrot}{
+ \parbox[b][3cm][c]{\textwidth}{
+  \centering
+  \color{white}\textbf{\Huge #1}
+ }
+}
+
+%\colorbox{tarentrot}{\color{white}\textbf{\Huge #1}}
+\begin{flushright}
+ \textbf{\Large Version #2}\\\vspace{0.8em}
+ \textbf{\Large Fassung #3 vom #4 #5}
+\end{flushright}
+
 \newpage
 }
