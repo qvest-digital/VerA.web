@@ -101,10 +101,14 @@ onlineRegApp.controller('LangCtrl', function ($scope, $translate) {
   };
 });
 
-onlineRegApp.controller('ResetPasswordController', function($http, $scope, $routeParams, $location,$rootScope) {
+onlineRegApp.controller('ResetPasswordController', function($http, $scope, $routeParams, $location,$rootScope, $translate) {
 	$scope.resetPassword = function() {
 		if ($scope.resetPasswordForm.password.$viewValue != $scope.resetPasswordForm.passwordRepeat.$viewValue) {
-			$scope.error = "Die Wiederholung stimmt nicht mit dem Passwort überein!"
+
+		$translate('REGISTER_USER_MESSAGE_PASSWORD_REPEAT_ERROR').then(function (text) {
+		  $scope.error = text;
+		});
+
 		} else {
 			$scope.error = null;
 
@@ -116,7 +120,9 @@ onlineRegApp.controller('ResetPasswordController', function($http, $scope, $rout
 					password: $scope.resetPasswordForm.password.$viewValue
 				})
 			}).success(function () {
-				$rootScope.success = "Ihr Passwort wurde erfolgreich geändert!"
+				$translate('USER_PASSWORD_CHANGE_SUCCESS_MESSAGE').then(function (text) {
+					$rootScope.success = text;
+				});
 				$location.path('/event');
 			});
 		}

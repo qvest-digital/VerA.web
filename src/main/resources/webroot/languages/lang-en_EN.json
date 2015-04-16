@@ -36,6 +36,10 @@
   "USER_EVENTS_STATUS_TYPE_ACCEPTANCE": "Declined",
   "USER_EVENTS_STATUS_TYPE_REFUSE": "Refuse",
 
+  "USER_PASSWORD_CHANGE": "Change password",
+  "USER_PASSWORD_CHANGE_FAILED_MESSAGE": "Password does not match the confirm password.",
+  "USER_PASSWORD_CHANGE_SUCCESS_MESSAGE": "Your password was successfully changed!",
+
   "PUBLIC_EVENTS_REGISTER_BUTTON": "Register for the event",
 
   "REGISTER_USER_MESSAGE_SUCCESS": "User data successfully saved.",
