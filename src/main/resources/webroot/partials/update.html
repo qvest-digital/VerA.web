@@ -2,7 +2,7 @@
 
     <div class="panel panel-default">
         <div class="panel-heading">
-            <h3 class="panel-title"><h3>Veranstaltung: {{event.shortname}}</h3></h3>
+            <h3 class="panel-title"><h3>{{'GENERIC_EVENT' | translate}}: {{event.shortname}}</h3></h3>
         </div>
 
         <div class="panel-body">
@@ -22,7 +22,7 @@
                     <label for="acceptance" class="col-lg-4 control-label">Teilnahme</label>
                     <div class="col-lg-4">
                         <select class="form-control" id="acceptance" ng-model="acceptance"
-                                ng-options="a.label for a in acceptanceOptions">
+                                ng-options="option.name | translate for option in acceptanceOptions">
                         </select>
                     </div>
                 </div>

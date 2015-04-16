@@ -135,7 +135,7 @@ onlineRegApp.controller('FreeVisitorController', function($http, $scope, $locati
    });
 });
 
-onlineRegApp.controller('UpdateController', function($scope, $rootScope, $location, $routeParams, $http) {
+onlineRegApp.controller('UpdateController', function($scope, $rootScope, $location, $routeParams, $http, $translate) {
 
 	if ($rootScope.user_logged_in == null) {
 
@@ -144,11 +144,11 @@ onlineRegApp.controller('UpdateController', function($scope, $rootScope, $locati
 
 	} else {
 
-	    $scope.acceptanceOptions = [
-	        {id: 0, label: "Offen"},
-	        {id: 1, label: "Zusage"},
-	        {id: 2, label: "Absage"}
-	    ];
+		$scope.acceptanceOptions = [
+		  {id: 0, name:"USER_EVENTS_STATUS_TYPE_OPEN"},
+		  {id: 1, name:"USER_EVENTS_STATUS_TYPE_ACCEPTANCE"},
+		  {id: 2, name:"USER_EVENTS_STATUS_TYPE_REFUSE"}
+		];
 
 	    $http.get('api/update/' + $routeParams.eventId).success(function (result) {
 	        $scope.event = result;
@@ -156,7 +156,9 @@ onlineRegApp.controller('UpdateController', function($scope, $rootScope, $locati
 	        $scope.noteToHost = $scope.event.message;
 	        console.log("Auswahl: " + $scope.event.shortname);
 	    }).error(function (data, status, headers, config) {
-	    	$scope.error = 'Sie sind bereits für diese Veranstaltung nicht angemeldet.';
+			$translate('USER_EVENTS_STATUS_CHANGED_ERROR_MESSAGE').then(function (text) {
+			  $scope.error = text;
+			});
 	    });
 
 	    $scope.update = function () {
@@ -170,11 +172,17 @@ onlineRegApp.controller('UpdateController', function($scope, $rootScope, $locati
 	            })
 	        }).success(function (result) {
 	        	if (result.status === 'OK') {
-	        		$rootScope.previousMessage="Sie haben Ihre Daten für die Veranstaltung \"" + $scope.event.shortname + "\" erfolgreich geändert.";
+
+	        		$translate(['USER_EVENTS_STATUS_CHANGED_SUCCESSFULL_MESSAGE_PART_ONE','USER_EVENTS_STATUS_CHANGED_SUCCESSFULL_MESSAGE_PART_TWO']).then(function (translations) {
+                      $rootScope.previousMessage = translations['USER_EVENTS_STATUS_CHANGED_SUCCESSFULL_MESSAGE_PART_ONE'] + " \"" + $scope.event.shortname + "\" " + translations['USER_EVENTS_STATUS_CHANGED_SUCCESSFULL_MESSAGE_PART_TWO'];
+                    });
+
 	        		$scope.setNextPage('veranstaltungen');
 	        		$location.path($scope.nextPage);
 	        	} else if (result.status === 'NOT_REGISTERED') {
-	        		$scope.error = 'Sie sind bereits für diese Veranstaltung nicht angemeldet.';
+					$translate('USER_EVENTS_STATUS_CHANGED_ERROR_MESSAGE').then(function (text) {
+	        		  $scope.error = text;
+					});
 	        	}
 	        });
 	    }

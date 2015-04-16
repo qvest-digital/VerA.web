@@ -1,3 +1,14 @@
 {
-  "LANGUAGE": "DE"
+  "GENERIC_DATE": "Datum",
+  "GENERIC_EVENT": "Veranstaltung",
+  "LANGUAGE": "DE",
+
+  "USER_EVENTS_TITLE": "Meine Veranstaltungen",
+  "USER_EVENTS_EDID_STATUS_BUTTON": "Teilnahmestatus bearbeiten",
+  "USER_EVENTS_STATUS_CHANGED_SUCCESSFULL_MESSAGE_PART_ONE": "Sie haben Ihre Daten für die Veranstaltung",
+  "USER_EVENTS_STATUS_CHANGED_SUCCESSFULL_MESSAGE_PART_TWO": "erfolgreich geändert",
+  "USER_EVENTS_STATUS_CHANGED_ERROR_MESSAGE": "Sie sind bereits für diese Veranstaltung angemeldet_",
+  "USER_EVENTS_STATUS_TYPE_OPEN": "Offen",
+  "USER_EVENTS_STATUS_TYPE_ACCEPTANCE": "Zusage",
+  "USER_EVENTS_STATUS_TYPE_REFUSE": "Absage"
 }

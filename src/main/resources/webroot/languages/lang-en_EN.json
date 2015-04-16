@@ -1,3 +1,14 @@
 {
-  "LANGUAGE": "EN"
+  "GENERIC_DATE": "Date",
+  "GENERIC_EVENT": "Event",
+  "LANGUAGE": "EN",
+
+  "USER_EVENTS_TITLE": "My events",
+  "USER_EVENTS_EDID_STATUS_BUTTON": "Edit participation status",
+  "USER_EVENTS_STATUS_CHANGED_SUCCESSFULL_MESSAGE_PART_ONE": "Your data for the event",
+  "USER_EVENTS_STATUS_CHANGED_SUCCESSFULL_MESSAGE_PART_TWO": "has been successfully changed.",
+  "USER_EVENTS_STATUS_CHANGED_ERROR_MESSAGE": "You have already subscribed for this event.",
+  "USER_EVENTS_STATUS_TYPE_OPEN": "Open",
+  "USER_EVENTS_STATUS_TYPE_ACCEPTANCE": "Declined",
+  "USER_EVENTS_STATUS_TYPE_REFUSE": "Refuse"
 }
