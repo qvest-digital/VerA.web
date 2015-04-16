@@ -15,6 +15,12 @@
   "GENERIC_LOGIN": "Login",
   "GENERIC_LOGGED_AS": "Logged in as:",
   "GENERIC_LOGOUT": "Logout",
+  "GENERIC_CREATE_ACCOUNT": "Create account",
+
+  "LOGIN_TITLE": "Please log in",
+
+  "USER_REGISTER_EVENT": "",
+  
 
   "USER_EVENTS_TITLE": "My events",
   "USER_EVENTS_EDIT_STATUS_BUTTON": "Edit participation status",

@@ -15,6 +15,9 @@
   "GENERIC_LOGIN": "Anmelden",
   "GENERIC_LOGGED_AS": "Angemeldet als:",
   "GENERIC_LOGOUT": "Abmelden",
+  "GENERIC_CREATE_ACCOUNT": "Konto erstellen",
+
+  "LOGIN_TITLE": "Bitte anmelden",
 
   "USER_EVENTS_TITLE": "Meine Veranstaltungen",
   "USER_EVENTS_EDIT_STATUS_BUTTON": "Teilnahmestatus bearbeiten",
