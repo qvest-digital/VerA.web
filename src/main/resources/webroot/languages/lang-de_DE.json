@@ -5,6 +5,11 @@
   "GENERIC_SAVE": "Speichern",
   "GENERIC_FIRSTNAME": "Vorname",
   "GENERIC_LASTNAME": "Nachname",
+  "GENERIC_EMAIL": "E-Mail",
+  "GENERIC_ADDRESS": "Anschift",
+  "GENERIC_ZIP_CODE": "PLZ",
+  "GENERIC_CITY": "Stadt",
+  "GENERIC_COUNTRY": "Land",
   "GENERIC_USERNAME": "Benutzername",
   "GENERIC_PASSWORD": "Passwort",
   "GENERIC_PASSWORD_CONFIRM": "Passwort wiederholen",
@@ -16,6 +21,13 @@
   "GENERIC_LOGGED_AS": "Angemeldet als:",
   "GENERIC_LOGOUT": "Abmelden",
   "GENERIC_CREATE_ACCOUNT": "Konto erstellen",
+  "GENERIC_ERROR": "Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.",
+  "GENERIC_PLEASE_SELECT": "Bitte wählen",
+  "GENERIC_GENDER_MALE": "Herr",
+  "GENERIC_GENDER_FEMALE": "Frau",
+  "GENERIC_MISSING_GENDER_MESSAGE": "Bitte geben sie ihr Geschlecht an.",
+  "GENERIC_LOGOUT_SUCCESSFULL_MESSAGE": "Erfolgreich abgemeldet!",
+  "GENERIC_MESSAGE_USER_OR_PASSWORD_WRONG": "Der Benutzername oder das Passwort ist falsch!",
 
   "LOGIN_TITLE": "Bitte anmelden",
 
@@ -42,8 +54,12 @@
 
   "PUBLIC_EVENTS_REGISTER_BUTTON": "Zur Veranstaltung anmelden",
 
+  "MEDIA_REPRESENTATIVES_TITLE": "Als Pressevertreter anmelden:",
+  "MEDIA_REPRESEINTATIVES_EVENT_DOESNT_EXISTS_MESSAGE": "Der Veranstaltung existiert nicht.",
+  "MEDIA_REPRESEINTATIVES_REGISTER_SUCCESSFULL_MESSAGE": "Ihre Daten werden nun überprüft, eine Zusage erfolgt nach positiver Überprüfung.",
+  "MEDIA_REPRESEINTATIVES_THERE_IS_EMPTY_FIELD_MESSAGE": "Bitte füllen Sie alle Felder aus!",
+
   "REGISTER_USER_MESSAGE_SUCCESS": "Benutzerdaten wurden gespeichert.",
-  "REGISTER_USER_MESSAGE_GENERIC_ERROR": "Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.",
   "REGISTER_USER_MESSAGE_USER_EXISTS_ERROR": "Ein Benutzer mit diesem Anmeldename existiert bereits.",
   "REGISTER_USER_MESSAGE_VALIDATION_ERROR": "Der Anmeldename darf nur Buchstaben und Zahlen enthalten.",
   "REGISTER_USER_MESSAGE_PASSWORD_REPEAT_ERROR": "Die Passwörter stimmen nicht überein."

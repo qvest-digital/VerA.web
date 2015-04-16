@@ -5,6 +5,11 @@
   "GENERIC_SAVE": "Save",
   "GENERIC_FIRSTNAME": "First name",
   "GENERIC_LASTNAME": "Last name",
+  "GENERIC_EMAIL": "E-Mail",
+  "GENERIC_ADDRESS": "Street",
+  "GENERIC_ZIP_CODE": "ZIP",
+  "GENERIC_CITY": "City",
+  "GENERIC_COUNTRY": "Country",
   "GENERIC_USERNAME": "Username",
   "GENERIC_PASSWORD": "Password",
   "GENERIC_PASSWORD_CONFIRM": "Repeat password",
@@ -16,6 +21,13 @@
   "GENERIC_LOGGED_AS": "Logged in as:",
   "GENERIC_LOGOUT": "Logout",
   "GENERIC_CREATE_ACCOUNT": "Create account",
+  "GENERIC_ERROR": "Error occurs, please try again later.",
+  "GENERIC_PLEASE_SELECT": "Please select",
+  "GENERIC_GENDER_MALE": "Mr.",
+  "GENERIC_GENDER_FEMALE": "Mrs./Ms.",
+  "GENERIC_MISSING_GENDER_MESSAGE": "Please select your gender.",
+  "GENERIC_LOGOUT_SUCCESSFULL_MESSAGE": "You have successfully logged out!",
+  "GENERIC_MESSAGE_USER_OR_PASSWORD_WRONG": "Username or password is wrong!",
 
   "LOGIN_TITLE": "Please log in",
 
@@ -42,8 +54,12 @@
 
   "PUBLIC_EVENTS_REGISTER_BUTTON": "Register for the event",
 
+  "MEDIA_REPRESENTATIVES_TITLE": "Register as media representative:",
+  "MEDIA_REPRESEINTATIVES_EVENT_DOESNT_EXISTS_MESSAGE": "The event doesn't exists.",
+  "MEDIA_REPRESEINTATIVES_REGISTER_SUCCESSFULL_MESSAGE": "Your data is now being reviewed , a commitment is based after positive review.",
+  "MEDIA_REPRESEINTATIVES_THERE_IS_EMPTY_FIELD_MESSAGE": "Please fill in all fields!",
+
   "REGISTER_USER_MESSAGE_SUCCESS": "User data successfully saved.",
-  "REGISTER_USER_MESSAGE_GENERIC_ERROR": "Error occurs, please try again later.",
   "REGISTER_USER_MESSAGE_USER_EXISTS_ERROR": "A user with this username already exists.",
   "REGISTER_USER_MESSAGE_VALIDATION_ERROR": "The username should only contain letters and numbers.",
   "REGISTER_USER_MESSAGE_PASSWORD_REPEAT_ERROR": "Password does not match the confirm password."

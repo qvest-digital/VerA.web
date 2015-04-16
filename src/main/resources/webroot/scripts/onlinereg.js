@@ -130,14 +130,16 @@ onlineRegApp.controller('ResetPasswordController', function($http, $scope, $rout
 	}
 });
 
-onlineRegApp.controller('FreeVisitorController', function($http, $scope, $location, $routeParams) {
+onlineRegApp.controller('FreeVisitorController', function($http, $scope, $location, $routeParams, $translate) {
 	$http({
         method: 'GET',
         url: 'api/freevisitors/'+ $routeParams.uuid
     }).success(function (result) {
     	$location.path('/register/' + result);
     }).error(function (data, status, headers, config) {
-    	$scope.error = "Bitte geben sie ihr Geschlecht an.";
+		$translate('GENERIC_MISSING_GENDER_MESSAGE').then(function (text) {
+		  $scope.error = text;
+		});
    });
 });
 
@@ -195,11 +197,11 @@ onlineRegApp.controller('UpdateController', function($scope, $rootScope, $locati
 	}
 });
 
-onlineRegApp.controller('MediaController', function ($scope, $http, $rootScope, $location, $routeParams) {
+onlineRegApp.controller('MediaController', function ($scope, $http, $rootScope, $location, $routeParams, $translate) {
     $scope.genderOptions = [
-        {id: 0, label: "Bitte wählen"},
-        {id: 1, label: "Herr"},
-        {id: 2, label: "Frau"}
+        {id: 0, name:"GENERIC_PLEASE_SELECT"},
+	    {id: 1, name:"GENERIC_GENDER_MALE"},
+	    {id: 2, name:"GENERIC_GENDER_FEMALE"}
     ];
 
     $scope.gender = $scope.genderOptions[0];
@@ -210,13 +212,18 @@ onlineRegApp.controller('MediaController', function ($scope, $http, $rootScope, 
 
     $scope.register_pressevertreter = function () {
         if ($scope.gender.id == 0) {
-            $scope.error = "Bitte geben sie ihr Geschlecht an.";
+        	$translate('GENERIC_MISSING_GENDER_MESSAGE').then(function (text) {
+			  $scope.error = text;
+			});
             $scope.success = null;
         }
         else if ($scope.gender.id == 1 || $scope.gender.id == 2){
         	if ($scope.lastname != null && $scope.firstname != null && $scope.email != null && $scope.address != null &&
         			$scope.plz != null && $scope.city != null && $scope.country != null) {
-	            var ERROR_TEXT = "Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.";
+				$translate('GENERIC_ERROR').then(function (text) {
+				  var ERROR_TEXT = text;
+				});
+
 	            $scope.button = true;
 	            console.log("registering delegierten in the event.");
 	            $http({
@@ -238,16 +245,20 @@ onlineRegApp.controller('MediaController', function ($scope, $http, $rootScope, 
 	                $scope.error = null;
 
 	                if (result.status === 'NO_EVENT_DATA') {
-	                    $scope.error = "Der Veranstaltung existiert nicht";
+	                	$translate('MEDIA_REPRESEINTATIVES_EVENT_DOESNT_EXISTS_MESSAGE').then(function (text) {
+						  $scope.error = text;
+						});
 	                    $scope.success = null;
-
 	                }  else if (result.status === 'WRONG_EVENT') {
-	                    $scope.error = "Der Veranstaltung existiert nicht";
+	                    $translate('MEDIA_REPRESEINTATIVES_EVENT_DOESNT_EXISTS_MESSAGE').then(function (text) {
+						  $scope.error = text;
+						});
 	                    $scope.success = null;
-
 	                } else if (result.status === 'OK') {
 	                    $scope.error= null;
-	                    $scope.success = "Ihre Daten werden nun überprüft, eine Zusage erfolgt nach positiver Überprüfung.";
+	                    $translate('MEDIA_REPRESEINTATIVES_REGISTER_SUCCESSFULL_MESSAGE').then(function (text) {
+						  $scope.success = text;
+						});
 	                    $http.get('api/delegation/' + $routeParams.uuid).then(function(presentPersons) {
 	                        $scope.presentPersons = presentPersons.data;
 	                     });
@@ -272,7 +283,9 @@ onlineRegApp.controller('MediaController', function ($scope, $http, $rootScope, 
 	            });
         	}
         	else {
-        		$scope.error = "Bitte wählen sie alle Felder.";
+        		$translate('MEDIA_REPRESEINTATIVES_THERE_IS_EMPTY_FIELD_MESSAGE').then(function (text) {
+				  $scope.error = text;
+				});
                 $scope.success = null;
         	}
         }
@@ -286,10 +299,10 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 		$location.path('/login');
 	} else {
 		$scope.genderOptions = [
-		 	{id: 0, label: "Bitte wählen"},
-	        {id: 1, label: "Herr"},
-	        {id: 2, label: "Frau"}
-	    ];
+			{id: 0, name:"GENERIC_PLEASE_SELECT"},
+			{id: 1, name:"GENERIC_GENDER_MALE"},
+			{id: 2, name:"GENERIC_GENDER_FEMALE"}
+		];
 
 		$scope.gender = $scope.genderOptions[0];
 		$scope.success = null;
@@ -442,7 +455,7 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 	}
 });
 
-onlineRegApp.controller('DirectLoginController', function ($scope, $location, $http, $rootScope) {
+onlineRegApp.controller('DirectLoginController', function ($scope, $location, $http, $rootScope, $translate) {
     $scope.button = false;
     $rootScope.cleanMessages();
     $rootScope.no_messages = function() {
@@ -459,7 +472,11 @@ onlineRegApp.controller('DirectLoginController', function ($scope, $location, $h
             $rootScope.error = null;
             $scope.directusername = null;
             $scope.directpassword = null;
-            $rootScope.messageContent = "Erfolgreich abgemeldet!";
+
+            $translate('GENERIC_LOGOUT_SUCCESSFULL_MESSAGE').then(function (text) {
+			  $scope.messageContent = text;
+			});
+
             $rootScope.status = "success";
             $rootScope.user_logged_in = null;
             $rootScope.userinfo = null;
@@ -491,12 +508,17 @@ onlineRegApp.controller('DirectLoginController', function ($scope, $location, $h
                 $rootScope.messageContent = null;
             } else {
             	$rootScope.userinfo = null;
-                $rootScope.messageContent = "Der Benutzername oder das Passwort ist falsch.";
+
+            	$translate('GENERIC_MESSAGE_USER_OR_PASSWORD_WRONG').then(function (text) {
+				  $scope.messageContent = text;
+				});
                 $rootScope.status = "danger";
             }
         }).error(function (data, status, headers, config) {
             $scope.button = false;
-            $rootScope.messageContent = "Es ist ein Fehler aufgetreten. Bitte versuchen Sie es später erneut.";
+            $translate('GENERIC_ERROR').then(function (text) {
+			  $scope.messageContent = text;
+			});
             $rootScope.status = "danger";
         });
     }
@@ -544,12 +566,16 @@ onlineRegApp.controller('LoginController', function ($scope, $location, $http, $
 
             } else {
                 $rootScope.status = "danger";
-                $rootScope.messageContent = "Der Benutzername oder das Passwort ist falsch.";
+                $translate('GENERIC_MESSAGE_USER_OR_PASSWORD_WRONG').then(function (text) {
+				  $scope.messageContent = text;
+				});
             }
         }).error(function (data, status, headers, config) {
             $scope.button = false;
             $rootScope.status = "danger";
-            $rootScope.messageContent = "Es ist ein Fehler aufgetreten. Bitte versuchen Sie es später erneut.";
+            $translate('GENERIC_ERROR').then(function (text) {
+			  $scope.messageContent = text;
+			});
         });
     }
 });
