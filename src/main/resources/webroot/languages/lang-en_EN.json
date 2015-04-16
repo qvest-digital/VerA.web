@@ -1,17 +1,34 @@
 {
   "GENERIC_DATE": "Date",
   "GENERIC_EVENT": "Event",
+  "GENERIC_SAVE": "Save",
+  "GENERIC_FIRSTNAME": "First name",
+  "GENERIC_LASTNAME": "Last name",
+  "GENERIC_USERNAME": "Username",
+  "GENERIC_PASSWORD": "Password",
+  "GENERIC_PASSWORD_CONFIRM": "Repeat password",
+  "GENERIC_REGISTER": "Register",
+  "MESSAGE_EMPTY_FIELD": "Please fill in this field.",
   "LANGUAGE": "EN",
   "LOGIN": "Login",
   "USERINFONAME": "Logged in as:",
   "LOGOUT": "Logout",
 
   "USER_EVENTS_TITLE": "My events",
-  "USER_EVENTS_EDID_STATUS_BUTTON": "Edit participation status",
+  "USER_EVENTS_EDIT_STATUS_BUTTON": "Edit participation status",
+  "USER_EVENTS_EDIT_STATUS_LABEL": "Status",
+  "USER_EVENTS_EDIT_STATUS_ADDITIONAL_INFO": "Information for host",
+
   "USER_EVENTS_STATUS_CHANGED_SUCCESSFULL_MESSAGE_PART_ONE": "Your data for the event",
   "USER_EVENTS_STATUS_CHANGED_SUCCESSFULL_MESSAGE_PART_TWO": "has been successfully changed.",
   "USER_EVENTS_STATUS_CHANGED_ERROR_MESSAGE": "You have already subscribed for this event.",
   "USER_EVENTS_STATUS_TYPE_OPEN": "Open",
   "USER_EVENTS_STATUS_TYPE_ACCEPTANCE": "Declined",
-  "USER_EVENTS_STATUS_TYPE_REFUSE": "Refuse"
+  "USER_EVENTS_STATUS_TYPE_REFUSE": "Refuse",
+
+  "REGISTER_USER_MESSAGE_SUCCESS": "User data successfully saved.",
+  "REGISTER_USER_MESSAGE_GENERIC_ERROR": "Error occurs, please try again later.",
+  "REGISTER_USER_MESSAGE_USER_EXISTS_ERROR": "A user with this username already exists.",
+  "REGISTER_USER_MESSAGE_VALIDATION_ERROR": "The username should only contain letters and numbers.",
+  "REGISTER_USER_MESSAGE_PASSWORD_REPEAT_ERROR": "Password does not match the confirm password."
 }
