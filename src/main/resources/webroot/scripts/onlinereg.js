@@ -242,12 +242,12 @@ onlineRegApp.controller('MediaController', function ($scope, $http, $rootScope, 
 	                $scope.error = null;
 
 	                if (result.status === 'NO_EVENT_DATA') {
-	                	$translate('MEDIA_REPRESEINTATIVES_EVENT_DOESNT_EXISTS_MESSAGE').then(function (text) {
+	                	$translate('GENERIC_MESSAGE_EVENT_DOESNT_EXISTS').then(function (text) {
 						  $scope.error = text;
 						});
 	                    $scope.success = null;
 	                }  else if (result.status === 'WRONG_EVENT') {
-	                    $translate('MEDIA_REPRESEINTATIVES_EVENT_DOESNT_EXISTS_MESSAGE').then(function (text) {
+	                    $translate('GENERIC_MESSAGE_EVENT_DOESNT_EXISTS').then(function (text) {
 						  $scope.error = text;
 						});
 	                    $scope.success = null;
@@ -280,7 +280,7 @@ onlineRegApp.controller('MediaController', function ($scope, $http, $rootScope, 
 	            });
         	}
         	else {
-        		$translate('MEDIA_REPRESEINTATIVES_THERE_IS_EMPTY_FIELD_MESSAGE').then(function (text) {
+        		$translate('GENERIC_MESSAGE_FILL_IN_ALL_FIELDS').then(function (text) {
 				  $scope.error = text;
 				});
                 $scope.success = null;
@@ -289,7 +289,7 @@ onlineRegApp.controller('MediaController', function ($scope, $http, $rootScope, 
     }
 });
 
-onlineRegApp.controller('DelegationController', function ($scope, $http, $rootScope, $location, $routeParams) {
+onlineRegApp.controller('DelegationController', function ($scope, $http, $rootScope, $location, $routeParams, $translate) {
 	$rootScope.cleanMessages();
 	if ($rootScope.user_logged_in == null) {
 		$scope.setNextPage('delegation/' + $routeParams.uuid);
@@ -311,26 +311,38 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 
 		 $scope.register_user = function() {
 		     if ($scope.gender.id == 0) {
-		         $scope.error = "Bitte wählen Sie Ihr Geschlecht aus.";
+				 $translate('GENERIC_MISSING_GENDER_MESSAGE').then(function (text) {
+				  $scope.error = text;
+				 });
 		         $scope.success = null;
 		     } 
 		     else if($scope.vorname.length > 35) {
-		    	 $scope.error = "Bitte geben Sie einen Vornamen mit maximal 35 Buchstaben ein.";
-		         $scope.success = null;
+				$translate('DELEGATION_MESSAGE_FIRSTNAME_MAX').then(function (text) {
+					$scope.error = text;
+				});
+		        $scope.success = null;
 		     } 
 		     else if($scope.nachname.length > 35) {
-		    	 $scope.error = "Bitte geben Sie einen Nachnamen mit maximal 35 Buchstaben ein.";
-		         $scope.success = null;
+				$translate('DELEGATION_MESSAGE_LASTNAME_MAX').then(function (text) {
+					$scope.error = text;
+				});
+		        $scope.success = null;
 		     }
 		     else if (typeof $scope.vorname == "undefined" && $scope.vorname == null) {
-		    	 $scope.error = "Bitte geben Sie einen Vornamen ein.";
-		         $scope.success = null;
+		     	$translate('DELEGATION_MESSAGE_MISSING_FIRSTNAME').then(function (text) {
+					$scope.error = text;
+				});
+		        $scope.success = null;
 		     } else if (typeof $scope.nachname == "undefined" && $scope.nachname == null) {
-		    	 $scope.error = "Bitte geben Sie einen Nachnamen ein.";
-		         $scope.success = null;
+				$translate('DELEGATION_MESSAGE_MISSING_LASTNAME').then(function (text) {
+					$scope.error = text;
+				});
+		        $scope.success = null;
 		     } else if ($scope.gender.id == 1 || $scope.gender.id == 2 && typeof $scope.vorname != "undefined" &&
 		    		 $scope.vorname != null && typeof $scope.nachname != "undefined" && $scope.nachname != null) {
-		         var ERROR_TEXT = "Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.";
+				 $translate('GENERIC_ERROR').then(function (text) {
+				 	var ERROR_TEXT = text;
+				 });
 
 	             $scope.button = true;
 	             console.log("registering delegation in the event.");
@@ -349,28 +361,34 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 		                  	gender: $scope.gender.label
 		             	})
 		             }).success(function(result) {
-		             	 $scope.success = null;
-		             	 $scope.error = null;
+		             	$scope.success = null;
+		             	$scope.error = null;
 	
-		             	 if (result.status === 'NO_EVENT_DATA') {
-		             		 $scope.error = "Die Veranstaltung existiert nicht";
-		             		 $scope.success = null;
-		             	 } else if (result.status === 'WRONG_DELEGATION') {
-		             		 $scope.error = "Die Delegation existiert nicht";
-		             		 $scope.success = null;
-		             	 } else if (result.status === 'OK') {
-		             		 $scope.error = null;
-		             		 $scope.success = "Delegierten Daten wurden gespeichert.";
-		             		 $scope.gender = $scope.genderOptions[0];
-		             		 $scope.nachname = null;
-		             		 $scope.vorname = null;
+		             	if (result.status === 'NO_EVENT_DATA') {
+							$translate('GENERIC_MESSAGE_EVENT_DOESNT_EXISTS').then(function (text) {
+								$scope.error = text;
+							});
+		             		$scope.success = null;
+		             	} else if (result.status === 'WRONG_DELEGATION') {
+							$translate('DELEGATION_MESSAGE_DELEGATION_DOESNT_EXISTS').then(function (text) {
+								$scope.error = text;
+							});
+		             		$scope.success = null;
+		             	} else if (result.status === 'OK') {
+		             		$scope.error = null;
+		             		$translate('DELEGATION_MESSAGE_DELEGATION_DATA_SAVED_SUCCESSFULL').then(function (text) {
+								$scope.success = text;
+							});
+		             		$scope.gender = $scope.genderOptions[0];
+		             		$scope.nachname = null;
+		             		$scope.vorname = null;
 	
-		             		 $http.get('api/delegation/' + $routeParams.uuid).then(function(presentPersons) {
-		             			 $scope.presentPersons = presentPersons.data;
-		             		 });
-		                  } else {
-		                      $scope.error = ERROR_TEXT;
-		                      $scope.success = null;
+		             		$http.get('api/delegation/' + $routeParams.uuid).then(function(presentPersons) {
+		             			$scope.presentPersons = presentPersons.data;
+		             		});
+		                } else {
+		                    $scope.error = ERROR_TEXT;
+		                    $scope.success = null;
 		                  }
 	
 		             	 $scope.button = false;
@@ -381,29 +399,32 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 	             }
 		     }
 		     else {
-	            $scope.error = "Bitte füllen Sie alle Felder aus.";
+				$translate('GENERIC_MESSAGE_FILL_IN_ALL_FIELDS').then(function (text) {
+					$scope.error = text;
+				});
 	            $scope.success = null;
 		     }
 		 }
 
 		 $scope.showOptionalFields = function (personId) {
 
-			 $scope.targetPersonId=personId;
-			 var ERROR_TEXT = "Zu diesem Event existieren keine weiteren Felder.";
+			$scope.targetPersonId=personId;
+			$translate('DELEGATION_MESSAGE_NO_EXTRA_FIELDS').then(function (text) {
+				var ERROR_TEXT = text;
+			});
 
-			 $scope.success = null;
-			 $scope.error = null;
-			 $scope.labellist = {};
+			$scope.success = null;
+			$scope.error = null;
+			$scope.labellist = {};
 
-			 $http.get('api/delegation/' + $routeParams.uuid + '/' + personId + '/data/').then(function(fields) {
-                 $scope.fields = fields.data;
-                 console.log("number of fields: "+$scope.fields.length)
-                 if ($scope.fields.length == 0) {
-                   $scope.error_dialog = ERROR_TEXT;
- 		           $scope.success = null;
- 		           $scope.hideDialog = true;
-                 }
-                 else {
+			$http.get('api/delegation/' + $routeParams.uuid + '/' + personId + '/data/').then(function(fields) {
+            	$scope.fields = fields.data;
+                console.log("number of fields: "+$scope.fields.length)
+                if ($scope.fields.length == 0) {
+                	$scope.error_dialog = ERROR_TEXT;
+ 		        	$scope.success = null;
+ 		        	$scope.hideDialog = true;
+                } else {
                     $scope.error_dialog = null;
    		            $scope.hideDialog = false;
                 	console.log(JSON.stringify($scope.fields));
@@ -437,15 +458,16 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 		            	personId: $scope.targetPersonId
 		            })
 		        }).success(function (result) {
-		            console.log('Optional Felder speichern...');
-
 		            $scope.error= null;
-	                $scope.success = "Delegiertdaten wurden gespeichert.";
-
+		            $translate('DELEGATION_MESSAGE_DELEGATION_DATA_SAVED_SUCCESSFULL').then(function (text) {
+						$scope.success = text;
+					});
 
 		        }).error(function (data, status, headers, config) {
 		            console.log('ERROR! Optional fields not saved!”');
-		            $scope.error= "Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.";
+		            $translate('GENERIC_ERROR').then(function (text) {
+						$scope.error = text;
+					});
 	                $scope.success = null;
 		        });
 		 }
@@ -465,7 +487,6 @@ onlineRegApp.controller('DirectLoginController', function ($scope, $location, $h
             method: 'POST',
             url: 'api/idm/logout/'
         }).success(function (result) {
-            console.log('You have successfully logged out!')
             $rootScope.error = null;
             $scope.directusername = null;
             $scope.directpassword = null;

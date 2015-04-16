@@ -28,6 +28,8 @@
   "GENERIC_MISSING_GENDER_MESSAGE": "Bitte geben sie ihr Geschlecht an.",
   "GENERIC_LOGOUT_SUCCESSFULL_MESSAGE": "Erfolgreich abgemeldet!",
   "GENERIC_MESSAGE_USER_OR_PASSWORD_WRONG": "Der Benutzername oder das Passwort ist falsch!",
+  "GENERIC_MESSAGE_EVENT_DOESNT_EXISTS": "Die Veranstaltung existiert nicht.",
+  "GENERIC_MESSAGE_FILL_IN_ALL_FIELDS": "Bitte füllen Sie alle Felder aus!",
 
   "LOGIN_TITLE": "Bitte anmelden",
 
@@ -55,12 +57,22 @@
   "PUBLIC_EVENTS_REGISTER_BUTTON": "Zur Veranstaltung anmelden",
 
   "MEDIA_REPRESENTATIVES_TITLE": "Als Pressevertreter anmelden:",
-  "MEDIA_REPRESEINTATIVES_EVENT_DOESNT_EXISTS_MESSAGE": "Der Veranstaltung existiert nicht.",
   "MEDIA_REPRESEINTATIVES_REGISTER_SUCCESSFULL_MESSAGE": "Ihre Daten werden nun überprüft, eine Zusage erfolgt nach positiver Überprüfung.",
-  "MEDIA_REPRESEINTATIVES_THERE_IS_EMPTY_FIELD_MESSAGE": "Bitte füllen Sie alle Felder aus!",
+
 
   "REGISTER_USER_MESSAGE_SUCCESS": "Benutzerdaten wurden gespeichert.",
   "REGISTER_USER_MESSAGE_USER_EXISTS_ERROR": "Ein Benutzer mit diesem Anmeldename existiert bereits.",
   "REGISTER_USER_MESSAGE_VALIDATION_ERROR": "Der Anmeldename darf nur Buchstaben und Zahlen enthalten.",
-  "REGISTER_USER_MESSAGE_PASSWORD_REPEAT_ERROR": "Die Passwörter stimmen nicht überein."
+  "REGISTER_USER_MESSAGE_PASSWORD_REPEAT_ERROR": "Die Passwörter stimmen nicht überein.",
+
+  "DELEGATION_MESSAGE_FIRSTNAME_MAX": "Bitte geben Sie einen Vornamen mit maximal 35 Buchstaben ein.",
+  "DELEGATION_MESSAGE_LASTNAME_MAX": "Bitte geben Sie einen Vornamen mit maximal 35 Buchstaben ein.",
+  "DELEGATION_MESSAGE_MISSING_FIRSTNAME": "Bitte geben Sie einen Vornamen ein.",
+  "DELEGATION_MESSAGE_MISSING_LASTNAME": "Bitte geben Sie einen Nachnamen ein.",
+  "DELEGATION_MESSAGE_DELEGATION_DOESNT_EXISTS": "Die Delegation existiert nicht!",
+  "DELEGATION_MESSAGE_DELEGATION_DATA_SAVED_SUCCESSFULL": "Delegiertendaten wurden gespeichert.",
+  "DELEGATION_MESSAGE_NO_EXTRA_FIELDS": "Zu diesem Event existieren keine weiteren Felder.",
+  "DELEGATION_REGISTER_USER_TITLE": "Delegierten hinzufügen",
+  "DELEGATION_ALREADY_REGISTERED": "Bereits angemeldet",
+  "DELEGATION_EXTRA_FIELDS_TITLE": "Weitere Felder"
 }

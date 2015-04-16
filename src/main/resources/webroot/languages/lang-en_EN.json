@@ -28,6 +28,8 @@
   "GENERIC_MISSING_GENDER_MESSAGE": "Please select your gender.",
   "GENERIC_LOGOUT_SUCCESSFULL_MESSAGE": "You have successfully logged out!",
   "GENERIC_MESSAGE_USER_OR_PASSWORD_WRONG": "Username or password is wrong!",
+  "GENERIC_MESSAGE_EVENT_DOESNT_EXISTS": "The event doesn't exists.",
+  "GENERIC_MESSAGE_FILL_IN_ALL_FIELDS": "Please fill in all fields!",
 
   "LOGIN_TITLE": "Please log in",
 
@@ -55,12 +57,21 @@
   "PUBLIC_EVENTS_REGISTER_BUTTON": "Register for the event",
 
   "MEDIA_REPRESENTATIVES_TITLE": "Register as media representative:",
-  "MEDIA_REPRESEINTATIVES_EVENT_DOESNT_EXISTS_MESSAGE": "The event doesn't exists.",
   "MEDIA_REPRESEINTATIVES_REGISTER_SUCCESSFULL_MESSAGE": "Your data is now being reviewed , a commitment is based after positive review.",
-  "MEDIA_REPRESEINTATIVES_THERE_IS_EMPTY_FIELD_MESSAGE": "Please fill in all fields!",
 
   "REGISTER_USER_MESSAGE_SUCCESS": "User data successfully saved.",
   "REGISTER_USER_MESSAGE_USER_EXISTS_ERROR": "A user with this username already exists.",
   "REGISTER_USER_MESSAGE_VALIDATION_ERROR": "The username should only contain letters and numbers.",
-  "REGISTER_USER_MESSAGE_PASSWORD_REPEAT_ERROR": "Password does not match the confirm password."
+  "REGISTER_USER_MESSAGE_PASSWORD_REPEAT_ERROR": "Password does not match the confirm password.",
+
+  "DELEGATION_MESSAGE_FIRSTNAME_MAX": "Please enter firstname with max 35 characters",
+  "DELEGATION_MESSAGE_LASTNAME_MAX": "Please enter lastname with max 35 characters",
+  "DELEGATION_MESSAGE_MISSING_FIRSTNAME": "Please enter firstname.",
+  "DELEGATION_MESSAGE_MISSING_LASTNAME": "Please enter lastname.",
+  "DELEGATION_MESSAGE_DELEGATION_DOESNT_EXISTS": "Delegation doesn't exists!",
+  "DELEGATION_MESSAGE_DELEGATION_DATA_SAVED_SUCCESSFULL": "Delegation data was saved.",
+  "DELEGATION_MESSAGE_NO_EXTRA_FIELDS": "No extra fields for this event.",
+  "DELEGATION_REGISTER_USER_TITLE": "Register delegate",
+  "DELEGATION_ALREADY_REGISTERED": "Already registered",
+  "DELEGATION_EXTRA_FIELDS_TITLE": "Extra fields"
 }
