@@ -11,9 +11,9 @@
   "GENERIC_REGISTER": "Registrieren",
   "MESSAGE_EMPTY_FIELD": "Bitte füllen Sie dieses Feld aus.",
   "LANGUAGE": "DE",
-  "LOGIN": "Anmelden",
-  "USERINFONAME": "Angemeldet als:",
-  "LOGOUT": "Abmelden",
+  "GENERIC_LOGIN": "Anmelden",
+  "GENERIC_LOGGED_AS": "Angemeldet als:",
+  "GENERIC_LOGOUT": "Abmelden",
 
   "USER_EVENTS_TITLE": "Meine Veranstaltungen",
   "USER_EVENTS_EDIT_STATUS_BUTTON": "Teilnahmestatus bearbeiten",

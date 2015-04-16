@@ -11,9 +11,9 @@
   "GENERIC_REGISTER": "Register",
   "MESSAGE_EMPTY_FIELD": "Please fill in this field.",
   "LANGUAGE": "EN",
-  "LOGIN": "Login",
-  "USERINFONAME": "Logged in as:",
-  "LOGOUT": "Logout",
+  "GENERIC_LOGIN": "Login",
+  "GENERIC_LOGGED_AS": "Logged in as:",
+  "GENERIC_LOGOUT": "Logout",
 
   "USER_EVENTS_TITLE": "My events",
   "USER_EVENTS_EDIT_STATUS_BUTTON": "Edit participation status",
