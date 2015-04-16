@@ -2,6 +2,9 @@
   "GENERIC_DATE": "Datum",
   "GENERIC_EVENT": "Veranstaltung",
   "LANGUAGE": "DE",
+  "LOGIN": "Anmelden",
+  "USERINFONAME": "Angemeldet als:",
+  "LOGOUT": "Abmelden",
 
   "USER_EVENTS_TITLE": "Meine Veranstaltungen",
   "USER_EVENTS_EDID_STATUS_BUTTON": "Teilnahmestatus bearbeiten",

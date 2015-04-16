@@ -2,6 +2,9 @@
   "GENERIC_DATE": "Date",
   "GENERIC_EVENT": "Event",
   "LANGUAGE": "EN",
+  "LOGIN": "Login",
+  "USERINFONAME": "Logged in as:",
+  "LOGOUT": "Logout",
 
   "USER_EVENTS_TITLE": "My events",
   "USER_EVENTS_EDID_STATUS_BUTTON": "Edit participation status",
