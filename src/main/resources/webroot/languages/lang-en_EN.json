@@ -9,6 +9,7 @@
   "GENERIC_PASSWORD": "Password",
   "GENERIC_PASSWORD_CONFIRM": "Repeat password",
   "GENERIC_REGISTER": "Register",
+  "GENERIC_USER_ACCOUNT": "My contact data",
   "MESSAGE_EMPTY_FIELD": "Please fill in this field.",
   "LANGUAGE": "EN",
   "GENERIC_LOGIN": "Login",
