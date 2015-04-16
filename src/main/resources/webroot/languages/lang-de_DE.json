@@ -1,6 +1,7 @@
 {
   "GENERIC_DATE": "Datum",
   "GENERIC_EVENT": "Veranstaltung",
+  "GENERIC_EVENTS": "Veranstaltungen",
   "GENERIC_SAVE": "Speichern",
   "GENERIC_FIRSTNAME": "Vorname",
   "GENERIC_LASTNAME": "Nachname",
@@ -25,6 +26,8 @@
   "USER_EVENTS_STATUS_TYPE_OPEN": "Offen",
   "USER_EVENTS_STATUS_TYPE_ACCEPTANCE": "Zusage",
   "USER_EVENTS_STATUS_TYPE_REFUSE": "Absage",
+
+  "PUBLIC_EVENTS_REGISTER_BUTTON": "Zur Veranstaltung anmelden",
 
   "REGISTER_USER_MESSAGE_SUCCESS": "Benutzerdaten wurden gespeichert.",
   "REGISTER_USER_MESSAGE_GENERIC_ERROR": "Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.",

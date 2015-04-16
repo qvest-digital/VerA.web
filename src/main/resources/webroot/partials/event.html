@@ -1,12 +1,12 @@
 <div>
 	<div ng-if="success" class="alert alert-success" role="alert">{{success}}</div>
 
-	<h2 class="form-signin-heading">Veranstaltungen</h2>
+	<h2 class="form-signin-heading">{{'GENERIC_EVENTS'|translate}}</h2>
 	<table class="table" >
 
 		<tr class="active">
-				<th>Datum</th>
-				<th>Veranstaltung</th>
+				<th>{{'GENERIC_DATE'|translate}}</th>
+				<th>{{'GENERIC_EVENT'|translate}}</th>
 				<th></th>
 		</tr>
 
@@ -15,7 +15,7 @@
 			<td>{{event.shortname}}</td>
 			<td class="button_column">
 				<a href="#/register/{{event.pk}}">
-					<input type="button" ng-if="!event.isRegistered" class="btn-custom" value="Zur Veranstaltung anmelden"/>
+					<input type="button" ng-if="!event.isRegistered" class="btn-custom" value="{{'PUBLIC_EVENTS_REGISTER_BUTTON'|translate}}"/>
 				</a>
 			</td>
 		</tr>

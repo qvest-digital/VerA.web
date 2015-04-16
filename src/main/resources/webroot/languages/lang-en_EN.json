@@ -1,6 +1,7 @@
 {
   "GENERIC_DATE": "Date",
   "GENERIC_EVENT": "Event",
+  "GENERIC_EVENTS": "Events",
   "GENERIC_SAVE": "Save",
   "GENERIC_FIRSTNAME": "First name",
   "GENERIC_LASTNAME": "Last name",
@@ -25,6 +26,8 @@
   "USER_EVENTS_STATUS_TYPE_OPEN": "Open",
   "USER_EVENTS_STATUS_TYPE_ACCEPTANCE": "Declined",
   "USER_EVENTS_STATUS_TYPE_REFUSE": "Refuse",
+
+  "PUBLIC_EVENTS_REGISTER_BUTTON": "Register for the event",
 
   "REGISTER_USER_MESSAGE_SUCCESS": "User data successfully saved.",
   "REGISTER_USER_MESSAGE_GENERIC_ERROR": "Error occurs, please try again later.",
