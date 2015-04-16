@@ -1,5 +1,5 @@
 <div>
-	<div ng-show="previousMessage != null" class="alert alert-success glyphicon glyphicon-ok-sign" role="alert">{{previousMessage}}</div>
+	<div ng-show="previousMessage != null" class="alert alert-success" role="alert">{{previousMessage}}</div>
     <div ng-if="error" class="alert alert-danger" role="alert">{{error}}</div>
 
 	<h2 class="form-signin-heading">{{ 'USER_EVENTS_TITLE' | translate}}</h2>
@@ -17,7 +17,7 @@
             <td>{{event.shortname}}</td>
             <td class="button_column">
             	<a href="#/update/{{event.pk}}">
-            		<input type="button" class="btn-custom" value="{{ 'USER_EVENTS_EDID_STATUS_BUTTON' | translate}}"/>
+            		<input type="button" class="btn-custom" value="{{ 'USER_EVENTS_EDIT_STATUS_BUTTON' | translate}}"/>
             	</a>
             </td>
         </tr>
