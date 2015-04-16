@@ -88,7 +88,7 @@ onlineRegApp.directive('equals', function() {
     }
 });
 
-onlineRegApp.controller('LangCtrl', function ($scope, $translate) {
+onlineRegApp.controller('LanguageSelectController', function ($scope, $translate) {
   $scope.changeLang = function (key) {
     $translate.use(key).then(function (key) {
       console.log("Sprache zu " + key + " gewechselt.");
