@@ -19,12 +19,10 @@
 
   "LOGIN_TITLE": "Please log in",
 
-  "USER_REGISTER_EVENT": "",
-  
-
   "USER_EVENTS_TITLE": "My events",
   "USER_EVENTS_EDIT_STATUS_BUTTON": "Edit participation status",
   "USER_EVENTS_EDIT_STATUS_LABEL": "Status",
+  "USER_EVENTS_EDIT_STATUS_BEGIN_LABEL": "Begin",
   "USER_EVENTS_EDIT_STATUS_ADDITIONAL_INFO": "Information for host",
 
   "USER_EVENTS_STATUS_CHANGED_SUCCESSFULL_MESSAGE_PART_ONE": "Your data for the event",

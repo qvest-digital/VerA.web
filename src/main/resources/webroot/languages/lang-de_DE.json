@@ -22,6 +22,7 @@
   "USER_EVENTS_TITLE": "Meine Veranstaltungen",
   "USER_EVENTS_EDIT_STATUS_BUTTON": "Teilnahmestatus bearbeiten",
   "USER_EVENTS_EDIT_STATUS_LABEL": "Teilnahme",
+  "USER_EVENTS_EDIT_STATUS_BEGIN_LABEL": "Start",
   "USER_EVENTS_EDIT_STATUS_ADDITIONAL_INFO": "Hinweis Gastgeber",
 
   "USER_EVENTS_STATUS_CHANGED_SUCCESSFULL_MESSAGE_PART_ONE": "Sie haben Ihre Daten für die Veranstaltung",
