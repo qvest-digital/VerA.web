@@ -19,6 +19,11 @@
 
   "LOGIN_TITLE": "Bitte anmelden",
 
+  "USER_EVENT_REGISTER_TITLE": "Anmeldung",
+  "USER_EVENT_REGISTER_START_LABEL": "Start",
+  "USER_EVENT_REGISTER_BUTTON": "Verbindlich zusagen",
+
+
   "USER_EVENTS_TITLE": "Meine Veranstaltungen",
   "USER_EVENTS_EDIT_STATUS_BUTTON": "Teilnahmestatus bearbeiten",
   "USER_EVENTS_EDIT_STATUS_LABEL": "Teilnahme",
