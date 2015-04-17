@@ -36,7 +36,7 @@
 \RequirePackage{textcomp}
 \RequirePackage{graphicx}
 \RequirePackage{ifpdf}
-%\RequirePackage{pdf14} % not in lenny
+\IfFileExists{pdf14.sty}{\RequirePackage{pdf14}}{}
 \RequirePackage{aeguill}
 \RequirePackage[shortcuts]{extdash}
 \RequirePackage[margin=2cm,bottom=2cm,footskip=8mm]{geometry}
