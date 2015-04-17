@@ -88,15 +88,43 @@ onlineRegApp.directive('equals', function() {
     }
 });
 
-onlineRegApp.controller('LanguageSelectController', function ($scope, $translate) {
-  $scope.changeLang = function (key) {
-    $translate.use(key).then(function (key) {
+
+$scope.languageOptions('LangCtrl', function( {
+ 	$translate.use(key).then(function (key) {
       console.log("Sprache zu " + key + " gewechselt.");
     }, function (key) {
       console.log("Irgendwas lief schief.");
     });
-  };
+}) = [
+     for (var i = 0; i < getLangFiles.length(); i++) {
+		{id: i, label: {{ 'LOGIN' | translate }}, key: getlangFiles[i];
+	}
+];
 });
+
+var getLangFiles = function() {
+	return $translateProvider.getRegisteredParts();
+}
+
+
+onlineRegApp.controller('createDropdownLanguageController', function($scope, )) {
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 onlineRegApp.controller('ResetPasswordController', function($http, $scope, $routeParams, $location,$rootScope, $translate) {
 	$scope.resetPassword = function() {
@@ -315,7 +343,7 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 				  $scope.error = text;
 				 });
 		         $scope.success = null;
-		     } 
+		     }
 		     else if($scope.vorname.length > 35) {
 				$translate('DELEGATION_MESSAGE_FIRSTNAME_MAX').then(function (text) {
 					$scope.error = text;
@@ -346,7 +374,7 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 
 	             $scope.button = true;
 	             console.log("registering delegation in the event.");
-	             
+
 	             if (($scope.nachname != null && $scope.nachname != '') && ($scope.vorname != null && $scope.vorname != '')) {
 		             $http({
 		             	method: 'POST',
@@ -390,11 +418,11 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 		                    $scope.error = ERROR_TEXT;
 		                    $scope.success = null;
 		                  }
-	
+
 		             	 $scope.button = false;
-	
+
 		             }).error(function(data, status, headers, config) {
-	
+
 		             });
 	             }
 		     }

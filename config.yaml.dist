@@ -12,13 +12,13 @@
     }
   },
   "osiam": {
-    "clientId": "online-reg",
+    "clientId": "online-registration",
     "clientSecret": "geheim",
-    "endpoint": "https://172.26.12.40"
+    "endpoint": "http://localhost:8080"
   },
   "restauth": {
-    "password": "hallo",
-    "username": "hallo"
+    "password": "veraweb",
+    "username": "veraweb"
   },
   "server": {
     "adminContextPath": "/admin",
@@ -29,5 +29,5 @@
     },
     "type": "simple"
   },
-  "verawebEndpoint": "https://172.26.12.56/vwor"
+  "verawebEndpoint": "http://localhost:8181/vwor"
 }
