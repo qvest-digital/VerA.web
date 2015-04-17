@@ -36,6 +36,7 @@
 \RequirePackage{textcomp}
 \RequirePackage{graphicx}
 \RequirePackage{ifpdf}
+\RequirePackage{pdf14}
 \RequirePackage{aeguill}
 \RequirePackage[shortcuts]{extdash}
 \RequirePackage[margin=2cm,bottom=2cm,footskip=8mm]{geometry}
@@ -119,3 +120,11 @@
 	commentstyle=\color[rgb]{0.133,0.545,0.133},
 	stringstyle=\color[rgb]{0.627,0.126,0.941},
 }
+
+% Use Museo Sans by default
+\renewcommand{\sfdefault}{museo}
+% Use Comic Sans MS as “roman” font, because we have to use the
+% sans-serif font always, and like this, we spot errors easily
+\renewcommand{\rmdefault}{comic}
+% default font is sans-serif, i.e. Museo Sans
+\renewcommand*{\familydefault}{\sfdefault}
