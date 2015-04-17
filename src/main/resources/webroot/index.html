@@ -1,58 +1,63 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="onlineRegApp">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="">
-        <meta name="author" content="">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="">
+		<meta name="author" content="">
 
-        <title>VerA.web Online-Registrierung</title>
+		<title>{{'BROWSER_TITLE'|translate}}</title>
 
-        <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
-        <link rel="stylesheet" href="bootstrap/validator/css/bootstrapValidator.min.css"/>
-        <link href="styles/style.css" rel="stylesheet">
-    </head>
+		<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+		<link rel="stylesheet" href="bootstrap/validator/css/bootstrapValidator.min.css"/>
+		<link href="styles/style.css" rel="stylesheet">
+	</head>
 
-    <body>
-        <div class="maincontainer"  ng-controller="DirectLoginController">
+	<body>
+	 	<div class="maincontainer"  ng-controller="DirectLoginController">
+			<div ng-include src="'partials/header.html'"></div>
+			<div ng-include src="'partials/navigation.html'"></div>
 
-            <div ng-include src="'partials/header.html'"></div>
+			<div class="container">
+				<div ng-if="$parent.status != null">
+					<div class="alert alert-{{$parent.status}}" role="alert">
 
-            <div ng-include src="'partials/navigation.html'"></div>
+						<span ng-if="$parent.status == 'danger'" class="glyphicon glyphicon-remove-sign">&nbsp;</span>
+						<span ng-if="$parent.status == 'info'" class="glyphicon glyphicon-info-sign">&nbsp;</span>
+						<span ng-if="$parent.status == 'success'" class="glyphicon glyphicon-ok-sign">&nbsp;</span>
+						<span ng-if="$parent.status == 'warning'" class="glyphicon glyphicon-warning-sign">&nbsp;</span>
+						{{$parent.messageContent}}
+					</div>
+				</div>
 
-            <div class="container">
-                <div ng-if="$parent.status != null">
-                    <div class="alert alert-{{$parent.status}}" role="alert">
-                        <span ng-if="$parent.status == 'danger'" class="glyphicon glyphicon-remove-sign">&nbsp;</span>
-                        <span ng-if="$parent.status == 'info'" class="glyphicon glyphicon-info-sign">&nbsp;</span>
-                        <span ng-if="$parent.status == 'success'" class="glyphicon glyphicon-ok-sign">&nbsp;</span>
-                        <span ng-if="$parent.status == 'warning'" class="glyphicon glyphicon-warning-sign">&nbsp;</span>
-                        {{$parent.messageContent}}
-                    </div>
-                </div>
-                <div ng-view></div>
-            </div>
-        </div>
+				<label class="floatRight fontWeight0" for="SelectLang">{{'LANGUAGE_FIELD_SELECT'|translate}}
+				<select id="SelectLang" ng-controller="LanguageSelectController">
+					<option ng-click="changeLang('de_DE')">{{'LANGUAGE_FIELD_GERMAN'|translate}}</option>
+        			<option ng-click="changeLang('en_EN')">{{'LANGUAGE_FIELD_ENGLISH'|translate}}</option>
+    			</select>
+    		</label>
+			<div ng-view></div>
+			</div>
+		</div>
 
-        <script src="scripts/jquery-1.10.2.min.js"></script>
-        <script src="scripts/angular.min.js"></script>
-        <script src="scripts/angular-translate.min.js"></script>
-        <script src="scripts/angular-translate-loader-static-files.min.js"></script>
-        <script src="scripts/angular-route.min.js"></script>
-        <script src="scripts/ui-bootstrap-tpls.min.js"></script>
-        <script src="scripts/moment.min.js"></script>
-        <script src="scripts/onlinereg.js"></script>
-        <script src="bootstrap/js/bootstrap.min.js"></script>
-        <script src="bootstrap/validator/js/bootstrapValidator.min.js"></script>
+		<script src="scripts/jquery-1.10.2.min.js"></script>
+		<script src="scripts/angular.min.js"></script>
+		<script src="scripts/angular-translate.min.js"></script>
+		<script src="scripts/angular-translate-loader-static-files.min.js"></script>
+		<script src="scripts/angular-route.min.js"></script>
+		<script src="scripts/ui-bootstrap-tpls.min.js"></script>
+		<script src="scripts/moment.min.js"></script>
+		<script src="scripts/onlinereg.js"></script>
+		<script src="bootstrap/js/bootstrap.min.js"></script>
+		<script src="bootstrap/validator/js/bootstrapValidator.min.js"></script>
 
-        <script>
-            $(document).ready(function () {
-                // VerA.web brand logo bar
-                $('.navbar-lower').affix({
-                    offset: {top: 100}
-                });
-
-            });
-        </script>
-    </body>
+		<script>
+			$(document).ready(function () {
+				// VerA.web brand logo bar
+				$('.navbar-lower').affix({
+					offset: {top: 100}
+				});
+			});
+		</script>
+	</body>
 </html>
