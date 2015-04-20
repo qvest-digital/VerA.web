@@ -42,6 +42,8 @@
   "USER_EVENT_REGISTER_TITLE": "Anmeldung",
   "USER_EVENT_REGISTER_START_LABEL": "Start",
   "USER_EVENT_REGISTER_BUTTON": "Verbindlich zusagen",
+  "USER_EVENT_REGISTER_MESSAGE_SUCCESSFUL_PART_ONE": "Sie haben sich erfolgreich für die Veranstaltung",
+  "USER_EVENT_REGISTER_MESSAGE_SUCCESSFUL_PART_TWO": "angemeldet.",
 
   "USER_EVENTS_TITLE": "Meine Veranstaltungen",
   "USER_EVENTS_EDIT_STATUS_BUTTON": "Teilnahmestatus bearbeiten",
@@ -51,7 +53,7 @@
 
   "USER_EVENTS_STATUS_CHANGED_SUCCESSFULL_MESSAGE_PART_ONE": "Sie haben Ihre Daten für die Veranstaltung",
   "USER_EVENTS_STATUS_CHANGED_SUCCESSFULL_MESSAGE_PART_TWO": "erfolgreich geändert",
-  "USER_EVENTS_STATUS_CHANGED_ERROR_MESSAGE": "Sie sind bereits für diese Veranstaltung angemeldet_",
+  "USER_EVENTS_STATUS_CHANGED_ERROR_MESSAGE": "Sie sind bereits für diese Veranstaltung angemeldet.",
   "USER_EVENTS_STATUS_TYPE_OPEN": "Offen",
   "USER_EVENTS_STATUS_TYPE_ACCEPTANCE": "Zusage",
   "USER_EVENTS_STATUS_TYPE_REFUSE": "Absage",
