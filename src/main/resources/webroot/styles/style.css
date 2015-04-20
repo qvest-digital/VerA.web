@@ -36,6 +36,14 @@ body {
     padding-top: 0px;
 }
 
+.marginT10 {
+    margin-top: 10px;
+}
+
+.marginB10 {
+    margin-bottom: 10px;
+}
+
 /************* 3. CSS-Statements in Classes *************/
 .floatRight {
 	float: right;
