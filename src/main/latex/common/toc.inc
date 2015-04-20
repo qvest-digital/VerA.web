@@ -22,7 +22,9 @@
 
 \addtocontents{toc}{\protect\thispagestyle{fancy}}
 \renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
+\hypersetup{linkcolor = black}
 \tableofcontents
+\hypersetup{linkcolor = blue}
 
 Test \nameref{sec:intro} und \nameref{subsec:req-core} Links.
 
