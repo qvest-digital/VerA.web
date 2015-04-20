@@ -172,11 +172,9 @@ onlineRegApp.controller('LanguageSelectController', function ($scope, $translate
 onlineRegApp.controller('ResetPasswordController', function($http, $scope, $routeParams, $location, $rootScope, $translate) {
 	$scope.resetPassword = function() {
 		if ($scope.resetPasswordForm.password.$viewValue != $scope.resetPasswordForm.passwordRepeat.$viewValue) {
-
-		$translate('REGISTER_USER_MESSAGE_PASSWORD_REPEAT_ERROR').then(function (text) {
-			$scope.error = text;
-		});
-
+			$translate('REGISTER_USER_MESSAGE_PASSWORD_REPEAT_ERROR').then(function (text) {
+				$scope.error = text;
+			});
 		} else {
 			$scope.error = null;
 
@@ -194,7 +192,6 @@ onlineRegApp.controller('ResetPasswordController', function($http, $scope, $rout
 				$location.path('/event');
 			});
 		}
-
 	}
 });
 
