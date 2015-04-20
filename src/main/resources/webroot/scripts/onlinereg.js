@@ -226,42 +226,41 @@ onlineRegApp.controller('UpdateController', function($scope, $rootScope, $locati
 			{id: 2, name:"USER_EVENTS_STATUS_TYPE_REFUSE"}
 		];
 
-			$http.get('api/update/' + $routeParams.eventId).success(function (result) {
-					$scope.event = result;
-					$scope.acceptance = $scope.acceptanceOptions[$scope.event.status];
-					$scope.noteToHost = $scope.event.message;
-					console.log("Auswahl: " + $scope.event.shortname);
-			}).error(function (data, status, headers, config) {
+		$http.get('api/update/' + $routeParams.eventId).success(function (result) {
+			$scope.event = result;
+			$scope.acceptance = $scope.acceptanceOptions[$scope.event.status];
+			$scope.noteToHost = $scope.event.message;
+			console.log("Auswahl: " + $scope.event.shortname);
+		}).error(function (data, status, headers, config) {
 			$translate('USER_EVENTS_STATUS_CHANGED_ERROR_MESSAGE').then(function (text) {
 				$scope.error = text;
 			});
-			});
+		});
 
-			$scope.update = function () {
-					$http({
-							method: 'POST',
-							url: 'api/update/' + $routeParams.eventId + '/update',
-							headers: {"Content-Type" : undefined},
-							data: $.param({
-									notehost: $scope.noteToHost,
-									invitationstatus: $scope.acceptance.id
-							})
-					}).success(function (result) {
-						if (result.status === 'OK') {
+		$scope.update = function () {
+			$http({
+				method: 'POST',
+				url: 'api/update/' + $routeParams.eventId + '/update',
+				headers: {"Content-Type" : undefined},
+				data: $.param({
+						notehost: $scope.noteToHost,
+						invitationstatus: $scope.acceptance.id
+				})
+			}).success(function (result) {
+				if (result.status === 'OK') {
+					$translate(['USER_EVENTS_STATUS_CHANGED_SUCCESSFULL_MESSAGE_PART_ONE','USER_EVENTS_STATUS_CHANGED_SUCCESSFULL_MESSAGE_PART_TWO']).then(function (translations) {
+						$rootScope.previousMessage = translations['USER_EVENTS_STATUS_CHANGED_SUCCESSFULL_MESSAGE_PART_ONE'] + " \"" + $scope.event.shortname + "\" " + translations['USER_EVENTS_STATUS_CHANGED_SUCCESSFULL_MESSAGE_PART_TWO'];
+					});
 
-							$translate(['USER_EVENTS_STATUS_CHANGED_SUCCESSFULL_MESSAGE_PART_ONE','USER_EVENTS_STATUS_CHANGED_SUCCESSFULL_MESSAGE_PART_TWO']).then(function (translations) {
-											$rootScope.previousMessage = translations['USER_EVENTS_STATUS_CHANGED_SUCCESSFULL_MESSAGE_PART_ONE'] + " \"" + $scope.event.shortname + "\" " + translations['USER_EVENTS_STATUS_CHANGED_SUCCESSFULL_MESSAGE_PART_TWO'];
-										});
-
-							$scope.setNextPage('veranstaltungen');
-							$location.path($scope.nextPage);
-						} else if (result.status === 'NOT_REGISTERED') {
+					$scope.setNextPage('veranstaltungen');
+					$location.path($scope.nextPage);
+				} else if (result.status === 'NOT_REGISTERED') {
 					$translate('USER_EVENTS_STATUS_CHANGED_ERROR_MESSAGE').then(function (text) {
-								$scope.error = text;
+						$scope.error = text;
 					});
-						}
-					});
-			}
+				}
+			});
+		}
 	}
 });
 
