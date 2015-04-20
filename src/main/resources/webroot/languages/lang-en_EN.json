@@ -42,6 +42,8 @@
   "USER_EVENT_REGISTER_TITLE": "Register",
   "USER_EVENT_REGISTER_START_LABEL": "Begin",
   "USER_EVENT_REGISTER_BUTTON": "Binding registration",
+  "USER_EVENT_REGISTER_MESSAGE_SUCCESSFUL_PART_ONE": "You have succesfully subscribed for the event",
+  "USER_EVENT_REGISTER_MESSAGE_SUCCESSFUL_PART_TWO": ".",
 
   "USER_EVENTS_TITLE": "My events",
   "USER_EVENTS_EDIT_STATUS_BUTTON": "Edit participation status",

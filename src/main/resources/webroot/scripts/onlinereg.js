@@ -657,7 +657,7 @@ onlineRegApp.controller('EventController', function ($scope, $http, $rootScope) 
 	});
 });
 
-onlineRegApp.controller('RegisterController', function ($scope, $rootScope, $location, $routeParams, $http) {
+onlineRegApp.controller('RegisterController', function ($scope, $rootScope, $location, $routeParams, $http, $translate) {
 
 	if ($rootScope.user_logged_in == null) {
 		$scope.setNextPage('register/' + $routeParams.eventId);
@@ -693,12 +693,16 @@ onlineRegApp.controller('RegisterController', function ($scope, $rootScope, $loc
 	            })
 	        }).success(function (result) {
 	        	if (result.status === 'OK') {
-	        		$rootScope.previousMessage="Sie haben sich erfolgreich für die Veranstaltung \"" + $scope.event.shortname + "\" angemeldet.";
+	        		$translate(['USER_EVENT_REGISTER_MESSAGE_SUCCESSFUL_PART_ONE','USER_EVENT_REGISTER_MESSAGE_SUCCESSFUL_PART_TWO']).then(function (translations) {
+						$rootScope.previousMessage = translations['USER_EVENT_REGISTER_MESSAGE_SUCCESSFUL_PART_ONE'] + " \"" + $scope.event.shortname + "\" " + translations['USER_EVENT_REGISTER_MESSAGE_SUCCESSFUL_PART_TWO'];
+					});
 	        		console.log("Teilnahme gespeichert: " + result);
 	        		$scope.setNextPage('veranstaltungen');
 	        		$location.path($scope.nextPage);
-	        	} else if (result.status === 'REGISTERED'){
-	        		$scope.error = 'Sie sind bereits für diese Veranstaltung angemeldet.';
+	        	} else if (result.status === 'REGISTERED') {
+	        		$translate('USER_EVENTS_STATUS_CHANGED_ERROR_MESSAGE').then(function (text) {
+						$scope.error = text;
+					});
 	        	}
 	        });
 	    }

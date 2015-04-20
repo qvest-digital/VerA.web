@@ -8,7 +8,10 @@
         <div class="panel-body">
 
         	<form class="form-horizontal" role="form">
-		    	<div ng-if="error" class="alert alert-danger" role="alert">{{error}}</div>
+		    	<div ng-if="error" class="alert alert-danger" role="alert">
+                    <span class="glyphicon glyphicon-remove-sign">&nbsp;</span>
+                    {{error}}
+                </div>
 		    	
                 <div class="form-group">
                     <label for="start" class="col-lg-4 control-label">{{'USER_EVENT_REGISTER_START_LABEL'|translate}}</label>
