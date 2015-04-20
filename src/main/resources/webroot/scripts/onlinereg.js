@@ -563,8 +563,8 @@ onlineRegApp.controller('DirectLoginController', function ($scope, $location, $h
 						$scope.directpassword = null;
 
 						$translate('GENERIC_LOGOUT_SUCCESSFULL_MESSAGE').then(function (text) {
-				$scope.messageContent = text;
-			});
+							$scope.messageContent = text;
+						});
 
 						$rootScope.status = "success";
 						$rootScope.user_logged_in = null;
@@ -590,18 +590,17 @@ onlineRegApp.controller('DirectLoginController', function ($scope, $location, $h
 						$scope.button = false;
 						$rootScope.error = null;
 						if (result != "") {
-				$rootScope.userinfo = result.status;
-								console.log("Login erfolgreich");
-					$rootScope.user_logged_in = $scope.directusername;
-								$rootScope.status = null;
-								$rootScope.messageContent = null;
+							$rootScope.userinfo = result.status;
+							console.log("Login erfolgreich");
+							$rootScope.user_logged_in = $scope.directusername;
+							$rootScope.status = null;
+							$rootScope.messageContent = null;
 						} else {
 							$rootScope.userinfo = null;
-
 							$translate('GENERIC_MESSAGE_USER_OR_PASSWORD_WRONG').then(function (text) {
-					$scope.messageContent = text;
-				});
-								$rootScope.status = "danger";
+								$scope.messageContent = text;
+							});
+							$rootScope.status = "danger";
 						}
 				}).error(function (data, status, headers, config) {
 						$scope.button = false;
@@ -627,46 +626,44 @@ onlineRegApp.controller('DirectLoginController', function ($scope, $location, $h
 
 
 onlineRegApp.controller('LoginController', function ($scope, $location, $http, $rootScope) {
-		$rootScope.button = false;
-		$rootScope.status = null;
-		$rootScope.messageContent = null;
-		$rootScope.cleanMessages();
+	$rootScope.button = false;
+	$rootScope.status = null;
+	$rootScope.messageContent = null;
+	$rootScope.cleanMessages();
 
-		$scope.login = function () {
-				$scope.button = true;
-				console.log("logging in.");
+	$scope.login = function () {
+		$scope.button = true;
+		console.log("logging in.");
 
-				$http({
-						method: 'POST',
-						url: 'api/idm/login/' + encodeURIComponent($scope.username),
-						headers: {"Content-Type" : undefined},
-						data: $.param({
-							password: $scope.password
-						})
-				}).success(function (result) {
-						$scope.button = false;
-
-						if (result != "") {
+		$http({
+				method: 'POST',
+				url: 'api/idm/login/' + encodeURIComponent($scope.username),
+				headers: {"Content-Type" : undefined},
+				data: $.param({
+					password: $scope.password
+				})
+		}).success(function (result) {
+			$scope.button = false;
+			if (result != "") {
 				$rootScope.user_logged_in = $scope.username;
 				$rootScope.userinfo = result.status;
-								$rootScope.status = null;
-								$rootScope.messageContent = null;
-								$location.path($scope.nextPage);
-
-						} else {
-								$rootScope.status = "danger";
-								$translate('GENERIC_MESSAGE_USER_OR_PASSWORD_WRONG').then(function (text) {
+				$rootScope.status = null;
+				$rootScope.messageContent = null;
+				$location.path($scope.nextPage);
+			} else {
+				$rootScope.status = "danger";
+				$translate('GENERIC_MESSAGE_USER_OR_PASSWORD_WRONG').then(function (text) {
 					$scope.messageContent = text;
 				});
-						}
-				}).error(function (data, status, headers, config) {
-						$scope.button = false;
-						$rootScope.status = "danger";
-						$translate('GENERIC_ERROR').then(function (text) {
+			}
+		}).error(function (data, status, headers, config) {
+			$scope.button = false;
+			$rootScope.status = "danger";
+			$translate('GENERIC_ERROR').then(function (text) {
 				$scope.messageContent = text;
 			});
-				});
-		}
+		});
+	}
 });
 
 onlineRegApp.controller('EventController', function ($scope, $http, $rootScope) {
