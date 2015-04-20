@@ -34,7 +34,6 @@
 
 \usepackage{fancyhdr}
 \usepackage{lastpage}
-\geometry{footskip=0.6cm}
 \usepackage{calc}
 \newlength{\myheight}
 \pagestyle{fancy}
@@ -46,16 +45,14 @@
 \fancyfoot[L]{\footnotesize\copyright tarent}
 \fancyfoot[C]{{\scriptsize\thepage{}/\pageref*{LastPage}}}
 \fancyfoot[R]{\href{https://www.tarent.de/}{www.tarent.de}}
-%XXX fix page layout, cf. http://tex.stackexchange.com/a/37899/43807
-\setlength{\headheight}{30pt}
-\setlength{\headsep}{30pt}
 
 % Name Version Fassung vom Jahr
 \newcommand{\tarentanleitung}[5]{
+% 1. Seite: keine Kopfzeile; Fußzeile 1.1 cm (Abstand 0.6 cm); mehr Rand
+\newgeometry{includeheadfoot,inner=2cm,outer=1cm,top=2cm,bottom=4cm,twoside,headheight=0cm,headsep=0cm,foot=1.7cm}
 \fancyhf{}
 \renewcommand{\headrulewidth}{0pt}
 \renewcommand{\footrulewidth}{0pt}
-%XXX most definitely fix the page layout!
 \fancyfoot[C]{\tarentlogo[6cm]{}}
 
 \colorbox{tarentrot}{
@@ -65,13 +62,14 @@
  }
 }
 
-%\colorbox{tarentrot}{\color{white}\textbf{\Huge #1}}
 \begin{flushright}
  \textbf{\Large Version #2}\\\vspace{0.8em}
  \textbf{\Large Fassung #3 vom #4 #5}
 \end{flushright}
 
 \newpage
+% Folgeseiten
+\restoregeometry
 \fancyhf{}
 \renewcommand{\headrulewidth}{0pt}
 \renewcommand{\footrulewidth}{0.6pt}
