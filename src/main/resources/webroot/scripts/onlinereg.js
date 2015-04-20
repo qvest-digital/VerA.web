@@ -609,7 +609,7 @@ onlineRegApp.controller('DirectLoginController', function ($scope, $location, $h
 });
 
 
-onlineRegApp.controller('LoginController', function ($scope, $location, $http, $rootScope) {
+onlineRegApp.controller('LoginController', function ($scope, $location, $http, $rootScope, $translate) {
 	$rootScope.button = false;
 	$rootScope.status = null;
 	$rootScope.messageContent = null;
