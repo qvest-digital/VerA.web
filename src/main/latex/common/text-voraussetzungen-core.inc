@@ -18,7 +18,7 @@
 % damage or existence of a defect, except proven that it results out
 % of said person’s immediate fault when using the work as intended.
 %-
-% Textabschnitt 2.1: Systemvoraussetzungen VerA.web-core
+% Textabschnitt 2.2: Systemvoraussetzungen VerA.web-core
 
 \subsection{Interne Veranstaltungs- und Adreßverwaltung}\label{subsec:req-core}
 
@@ -27,3 +27,28 @@ Als Betriebssystem legen wir Debian 7 „wheezy“ nahe; die Software
 \emph{kann} jedoch auch mit einer anderen Debian-basierten Distribution
 (z.B. Ubuntu 14.04 „trusty“) oder einer anderen Java/Tomcat-Umgebung
 betrieben werden.
+
+An weiterer Software werden Apache 2 mit \texttt{mod\_jk}, Tomcat 7
+mit Java™ 7, sowie eine PostgreSQL-Datenbank benötigt. Auf einem
+Debian 7 „wheezy“-System können Sie diese wie folgt lokal installieren:
+
+\begin{lstlisting}[language=sh]
+sudo apt-get install postgresql openjdk-7-jre-headless tomcat7 apache2 libapache2-mod-jk
+\end{lstlisting}
+
+Bitte achten Sie darauf, daß keine ältere Version des JDK verwendet wird:
+
+\begin{lstlisting}[language=sh]
+sudo apt-get purge openjdk-6-jre-headless gcj-4.6-jdk gcj-4.7-jdk
+\end{lstlisting}
+
+Zur Installation müssen Sie folgende Dateien („die VerA.web-core
+Distribution“) von tarent beziehen:
+
+\begin{itemize}
+ \item{\texttt{veraweb-core-\produktversion{}-files.tgz}
+  \emph{oder} \texttt{veraweb-core-\produktversion{}-files.zip}}
+ \item{\texttt{veraweb-core-\produktversion{}.war}}
+\end{itemize}
+
+Bitte wenden Sie sich hierzu an unseren Produktvertrieb.

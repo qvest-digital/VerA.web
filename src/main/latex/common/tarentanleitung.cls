@@ -49,6 +49,7 @@
 
 % Name Version Fassung vom Jahr Bild
 \newcommand{\tarentanleitung}[6]{
+ \newcommand{\produktversion}{#2}
 % 1. Seite: keine Kopfzeile; Fußzeile 1.1 cm (Abstand 0.6 cm); mehr Rand
 \newgeometry{includeheadfoot,inner=2cm,outer=1cm,top=2cm,bottom=4cm,twoside,headheight=0cm,headsep=0cm,foot=1.7cm}
 \fancyhf{}
