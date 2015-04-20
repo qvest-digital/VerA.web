@@ -20,6 +20,44 @@
 %-
 % Textabschnitt 3.1: Setup VerA.web-core
 
+\section{Installation internes VerA.web-System}\label{sec:setup-int}
+
+Nach dem erfolgten Aufsetzen des Systems mit den Basispaketen
+und dem Download der Installationspakete wird im folgenden die
+Installation der einzelnen Komponenten beschrieben.
+
+\subsection{Dateien VerA.web-core}\label{subsec:setup-core-files}
+
+Entpacken Sie die Datei \texttt{veraweb-core-\produktversion{}-files.tgz}
+(oder \texttt{.zip}) und wechseln Sie in das angelegte neue Verzeichnis
+(im Beispiel wird die Unix-Variante mit \texttt{.tgz} verwendet):
+
+\begin{lstlisting}[language=sh]
+tar -xzf veraweb-core-\produktversion{}-files.tgz
+cd veraweb-core-\produktversion{}
+\end{lstlisting}
+
+Benennen Sie die Datei \texttt{veraweb-core-\produktversion{}.war}
+in \texttt{veraweb.war} um.
+
+\subsection{Datenbank VerA.web-core}\label{subsec:setup-core-db}
+
+Im folgenden Abschnitt wird die Datenbank für VerA.web mit dem
+Datenbankschema sowie den Stammdaten und Fachadministratorenzugängen
+eingerichtet. Hierbei wird von einer auf der lokalen Maschine im
+Debian-Stil installierten und betriebsbereiten PostgreSQL-Datenbank
+ausgegangen.
+
+Legen Sie zunächst, als normaler Benutzer mit \texttt{sudo}-Rechten
+den Datenbankbenutzer und die Datenbank an:
+
+\begin{lstlisting}[language=sh]
+sudo -u postgres createuser --no-superuser --no-createdb --no-createrole --pwprompt veraweb
+sudo -u postgres createdb --encoding=UTF-8 --owner=veraweb veraweb
+\end{lstlisting}
+
+
+
 \section{blah}\label{sec:blah}\label{subsec:blah}
 
 First page. normal \textbf{bold \textit{bolditalic}} \textit{italic} normal
