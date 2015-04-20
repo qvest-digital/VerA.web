@@ -547,7 +547,7 @@ onlineRegApp.controller('DirectLoginController', function ($scope, $location, $h
 			$scope.directpassword = null;
 
 			$translate('GENERIC_LOGOUT_SUCCESSFULL_MESSAGE').then(function (text) {
-				$scope.messageContent = text;
+				$rootScope.messageContent = text;
 			});
 
 			$rootScope.status = "success";
@@ -582,14 +582,14 @@ onlineRegApp.controller('DirectLoginController', function ($scope, $location, $h
 			} else {
 				$rootScope.userinfo = null;
 				$translate('GENERIC_MESSAGE_USER_OR_PASSWORD_WRONG').then(function (text) {
-					$scope.messageContent = text;
+					$rootScope.messageContent = text;
 				});
 				$rootScope.status = "danger";
 			}
 		}).error(function (data, status, headers, config) {
 			$scope.button = false;
 			$translate('GENERIC_ERROR').then(function (text) {
-				$scope.messageContent = text;
+				$rootScope.messageContent = text;
 			});
 			$rootScope.status = "danger";
 		});
@@ -637,14 +637,14 @@ onlineRegApp.controller('LoginController', function ($scope, $location, $http, $
 			} else {
 				$rootScope.status = "danger";
 				$translate('GENERIC_MESSAGE_USER_OR_PASSWORD_WRONG').then(function (text) {
-					$scope.messageContent = text;
+					$rootScope.messageContent = text;
 				});
 			}
 		}).error(function (data, status, headers, config) {
 			$scope.button = false;
 			$rootScope.status = "danger";
 			$translate('GENERIC_ERROR').then(function (text) {
-				$scope.messageContent = text;
+				$rootScope.messageContent = text;
 			});
 		});
 	}
