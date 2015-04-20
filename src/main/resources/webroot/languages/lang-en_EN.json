@@ -1,4 +1,9 @@
 {
+  "LANGUAGE": "EN",
+  "LANGUAGE_FIELD_ENGLISH": "English",
+  "LANGUAGE_FIELD_GERMAN": "German",
+  "LANGUAGE_FIELD_SELECT": "Select language:",
+
   "GENERIC_DATE": "Date",
   "GENERIC_EVENT": "Event",
   "GENERIC_EVENTS": "Events",
@@ -15,8 +20,7 @@
   "GENERIC_PASSWORD_CONFIRM": "Repeat password",
   "GENERIC_REGISTER": "Register",
   "GENERIC_USER_ACCOUNT": "My contact data",
-  "MESSAGE_EMPTY_FIELD": "Please fill in this field.",
-  "LANGUAGE": "EN",
+  "GENERIC_MESSAGE_EMPTY_FIELD": "Please fill in this field.",
   "GENERIC_LOGIN": "Login",
   "GENERIC_LOGGED_AS": "Logged in as:",
   "GENERIC_LOGOUT": "Logout",
@@ -30,6 +34,8 @@
   "GENERIC_MESSAGE_USER_OR_PASSWORD_WRONG": "Username or password is wrong!",
   "GENERIC_MESSAGE_EVENT_DOESNT_EXISTS": "The event doesn't exists.",
   "GENERIC_MESSAGE_FILL_IN_ALL_FIELDS": "Please fill in all fields!",
+
+  "BROWSER_TITLE": "VerA.web Online-Registration",
 
   "LOGIN_TITLE": "Please log in",
 

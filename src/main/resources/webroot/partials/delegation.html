@@ -14,7 +14,7 @@
                 <input type="text" class="form-control" id="vorname" placeholder="{{'GENERIC_FIRSTNAME'|translate}}" ng-model="vorname" required/>
 
                 <div ng-show="delegation-form.$submitted || delegation-form.vorname.$touched">
-                    <div class="help-block" ng-show="vorname.$error.required">{{'MESSAGE_EMPTY_FIELD'|translate}}</div>
+                    <div class="help-block" ng-show="vorname.$error.required">{{'GENERIC_MESSAGE_EMPTY_FIELD'|translate}}</div>
                 </div>
             </div>
 
@@ -22,7 +22,7 @@
                 <input type="text" class="form-control" id="nachname" placeholder="{{'GENERIC_LASTNAME'|translate}}" ng-model="nachname" required/>
 
                 <div ng-show="delegation-form.$submitted || delegation-form.nachname.$touched">
-                    <div class="help-block" ng-show="nachname.$error.required">{{'MESSAGE_EMPTY_FIELD'|translate}}</div>
+                    <div class="help-block" ng-show="nachname.$error.required">{{'GENERIC_MESSAGE_EMPTY_FIELD'|translate}}</div>
                 </div>
             </div>
 

@@ -13,7 +13,7 @@
 				<input class="form-control" type="text" ng-model="osiam.firstName" name="firstName" required=""/>
 
 				<div ng-show="registerForm.$submitted || registerForm.firstName.$touched">
-					<div class="help-block" ng-show="registerForm.firstName.$error.required">{{'MESSAGE_EMPTY_FIELD'|translate}}</div>
+					<div class="help-block" ng-show="registerForm.firstName.$error.required">{{'GENERIC_MESSAGE_EMPTY_FIELD'|translate}}</div>
 				</div>
 			</div>
 		</div>
@@ -25,7 +25,7 @@
 				<input class="form-control" type="text" ng-model="osiam.lastName" name="lastName" required=""/>
 
 				<div ng-show="registerForm.$submitted || registerForm.lastName.$touched">
-					<div class="help-block" ng-show="registerForm.lastName.$error.required">{{'MESSAGE_EMPTY_FIELD'|translate}}</div>
+					<div class="help-block" ng-show="registerForm.lastName.$error.required">{{'GENERIC_MESSAGE_EMPTY_FIELD'|translate}}</div>
 				</div>
 			</div>
 		</div>
@@ -37,7 +37,7 @@
 				<input class="form-control" type="text" ng-model="osiam.userName" name="userName" required=""/>
 
 				<div ng-show="registerForm.$submitted || registerForm.userName.$touched">
-					<div class="help-block" ng-show="registerForm.userName.$error.required">{{'MESSAGE_EMPTY_FIELD'|translate}}</div>
+					<div class="help-block" ng-show="registerForm.userName.$error.required">{{'GENERIC_MESSAGE_EMPTY_FIELD'|translate}}</div>
 				</div>
 			</div>
 		</div>
@@ -51,7 +51,7 @@
 				<input class="form-control" type="password" ng-model="osiam.password" name="password" required=""/>
 
 				<div ng-show="registerForm.$submitted || registerForm.password.$touched">
-					<div class="help-block" ng-show="registerForm.password.$error.required">{{'MESSAGE_EMPTY_FIELD'|translate}}</div>
+					<div class="help-block" ng-show="registerForm.password.$error.required">{{'GENERIC_MESSAGE_EMPTY_FIELD'|translate}}</div>
 				</div>
 			</div>
 		</div>
@@ -63,7 +63,7 @@
 				<input class="form-control" type="password" ng-model="osiam.passwordRep" name="passwordRep" equals="{{osiam.password}}" required=""/>
 
 				<div ng-show="registerForm.$submitted || registerForm.passwordRep.$touched">
-					<div class="help-block" ng-show="registerForm.passwordRep.$error.required">{{'MESSAGE_EMPTY_FIELD'|translate}}</div>
+					<div class="help-block" ng-show="registerForm.passwordRep.$error.required">{{'GENERIC_MESSAGE_EMPTY_FIELD'|translate}}</div>
 					<div class="help-block" ng-show="registerForm.passwordRep.$error.equals">{{'REGISTER_USER_MESSAGE_PASSWORD_REPEAT_ERROR'|translate}}</div>
 				</div>
 			</div>
