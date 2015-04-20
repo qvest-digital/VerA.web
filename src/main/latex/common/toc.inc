@@ -1,4 +1,4 @@
-% VerA.web (public) Installationsanleitung
+% LaTeX Table of Contents for tarent
 %
 % Copyright © 2015
 %	Thorsten „mirabilos“ Glaser <t.glaser@tarent.de>
@@ -17,17 +17,10 @@
 % of dealing in the work, even if advised of the possibility of such
 % damage or existence of a defect, except proven that it results out
 % of said person’s immediate fault when using the work as intended.
+%-
+% include with 「\input{toc.inc}」 after \tarentanleitung{…}…
 
-\documentclass{tarentanleitung}
-\begin{document}
-
-\tarentanleitung
- {Installationsanleitung VerA.web-core}
- {1.5.1.4}{1.6}{April}{2015}
-
-\input{toc.inc}
-\input{text-intro.inc}
-\input{text-voraussetzungen-core.inc}
-\input{text-setup-core.inc}
-
-\end{document}
+\addtocontents{toc}{\protect\thispagestyle{fancy}}
+\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
+\tableofcontents
+\newpage
