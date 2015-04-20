@@ -695,7 +695,7 @@ onlineRegApp.controller('VeranstaltungsController', function ($scope, $http, $ro
 	}
 });
 
-onlineRegApp.controller('KontaktdatenController', function ($scope, $location, $rootScope, $translate) {
+onlineRegApp.controller('KontaktdatenController', function ($scope, $location, $rootScope, $translate, $http) {
 	$rootScope.cleanMessages();
 	if ($rootScope.user_logged_in == null) {
 			$location.path('/login');
