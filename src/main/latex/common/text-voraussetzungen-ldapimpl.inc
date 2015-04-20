@@ -1,4 +1,4 @@
-% VerA.web (public) Installationsanleitung
+% VerA.web (public) Installationsanleitungstextteil
 %
 % Copyright © 2015
 %	Thorsten „mirabilos“ Glaser <t.glaser@tarent.de>
@@ -17,18 +17,14 @@
 % of dealing in the work, even if advised of the possibility of such
 % damage or existence of a defect, except proven that it results out
 % of said person’s immediate fault when using the work as intended.
+%-
+% Textabschnitt 2.1: LDAP wird vorausgesetzt
 
-\documentclass{tarentanleitung}
-\begin{document}
+\subsection{LDAP-Verzeichnisdienst}\label{subsec:req-ldap}
 
-\tarentanleitung
- {Installationsanleitung VerA.web-core}
- {1.5.1.4}{1.6}{April}{2015}{veraweblogo}
+Sie benötigen ein LDAP-Verzeichnis, in dem Sie die Zugänge (user
+accounts) für die Sachbearbeiter, die VerA.web benutzen sollen,
+pflegen. Hierfür wird OpenLDAP empfohlen.
 
-\input{toc.inc}
-\input{text-intro.inc}
-\input{text-voraussetzungen-ldapimpl.inc}
-\input{text-voraussetzungen-core.inc}
-\input{text-setup-core.inc}
-
-\end{document}
+Die Einrichtung eines solchen LDAP-Verzeichnisses ist außerhalb
+des Rahmens dieser Installationsanleitung.
