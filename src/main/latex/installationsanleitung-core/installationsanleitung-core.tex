@@ -19,6 +19,7 @@
 % of said person’s immediate fault when using the work as intended.
 
 \documentclass{tarentanleitung}
+\usepackage{layout}
 \begin{document}
 
 \tarentanleitung
@@ -26,5 +27,17 @@
  {1.5.1.4}{1.6}{April}{2015}
 
 First page. normal \textbf{bold \textit{bolditalic}} \textit{italic} normal
+
+\begin{lstlisting}[language=c]
+task main() {
+ SetSensorTouch(IN_1);
+ OnFwd(OUT_AB, 75);
+ while (Sensor(IN_1) == 0) {}
+ Off(OUT_AB);
+}
+\end{lstlisting}
+
+\newpage
+\layout{}
 
 \end{document}
