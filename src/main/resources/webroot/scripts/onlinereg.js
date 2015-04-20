@@ -5,18 +5,18 @@
 var onlineRegApp = angular.module('onlineRegApp', [ 'ngRoute', 'ui.bootstrap', 'pascalprecht.translate' ]);
 
 onlineRegApp.run(function ($rootScope) {
-		$rootScope.parseDate = function (dt) {
-				return moment(dt).toDate();
-		};
+	$rootScope.parseDate = function (dt) {
+			return moment(dt).toDate();
+	};
 
-		$rootScope.isUserLoged = function () {
-			return $rootScope.user_logged_in != null;
-		}
+	$rootScope.isUserLoged = function () {
+		return $rootScope.user_logged_in != null;
+	}
 
-		$rootScope.cleanMessages = function() {
-			$rootScope.previousMessage = null;
-			$rootScope.messageContent = null;
-		}
+	$rootScope.cleanMessages = function() {
+		$rootScope.previousMessage = null;
+		$rootScope.messageContent = null;
+	}
 });
 
 
