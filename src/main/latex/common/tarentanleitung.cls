@@ -35,6 +35,7 @@
 \usepackage{fancyhdr}
 \usepackage{lastpage}
 \usepackage{calc}
+\usepackage{ifthen}
 \newlength{\myheight}
 \pagestyle{fancy}
 \fancyhf{}
@@ -46,8 +47,8 @@
 \fancyfoot[C]{{\scriptsize\thepage{}/\pageref*{LastPage}}}
 \fancyfoot[R]{\href{https://www.tarent.de/}{www.tarent.de}}
 
-% Name Version Fassung vom Jahr
-\newcommand{\tarentanleitung}[5]{
+% Name Version Fassung vom Jahr Bild
+\newcommand{\tarentanleitung}[6]{
 % 1. Seite: keine Kopfzeile; Fußzeile 1.1 cm (Abstand 0.6 cm); mehr Rand
 \newgeometry{includeheadfoot,inner=2cm,outer=1cm,top=2cm,bottom=4cm,twoside,headheight=0cm,headsep=0cm,foot=1.7cm}
 \fancyhf{}
@@ -66,6 +67,13 @@
  \textbf{\Large Version #2}\\\vspace{0.8em}
  \textbf{\Large Fassung #3 vom #4 #5}
 \end{flushright}
+
+\ifthenelse{\equal{x#6}{x}}{}{
+ \vspace{4cm}
+ \begin{center}
+  \includegraphics[width=.8\textwidth]{#6}
+ \end{center}
+}
 
 \newpage
 % Folgeseiten
