@@ -29,13 +29,6 @@
 						{{$parent.messageContent}}
 					</div>
 				</div>
-
-				<label class="floatRight fontWeight0" for="SelectLang">{{'LANGUAGE_FIELD_SELECT'|translate}}
- <select id="SelectLang" ng-controller="LanguageSelectController">
-					<option ng-click="changeLang('de_DE')">{{'LANGUAGE_FIELD_GERMAN'|translate}}</option>
-        			<option ng-click="changeLang('en_EN')">{{'LANGUAGE_FIELD_ENGLISH'|translate}}</option>
-    			</select>
-    		</label>
 			<div ng-view></div>
 			</div>
 		</div>
