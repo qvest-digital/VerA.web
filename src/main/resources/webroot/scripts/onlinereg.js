@@ -92,82 +92,15 @@ onlineRegApp.directive('equals', function() {
 	}
 });
 
-//TODO: Delete me, if dynamic combobox works
 onlineRegApp.controller('LanguageSelectController', function ($scope, $translate) {
-	  $scope.changeLang = function (key) {
-	    $translate.use(key).then(function (key) {
-	      console.log("Sprache zu " + key + " gewechselt.");
-	    }, function (key) {
-	      console.log("Irgendwas lief schief.");
-	    });
-	  };
+  $scope.changeLang = function (key) {
+	$translate.use(key).then(function (key) {
+	  console.log("Sprache zu " + key + " gewechselt.");
+	}, function (key) {
+	  console.log("Irgendwas lief schief.");
 	});
-
-//TODO: Dynamic combobox. Get line 121 and 125 to work.
-//onlineRegApp.controller(['$translateProvider', function($scope, $rootScope, $location, $routeParams,
-//		$routeProvider, $http, $translate, $translateProvider) {
-//	$translateProvider.useStaticFilesLoader({
-//		prefix: '/languages/lang-',
-//		suffix: '.json'
-//	});
-//
-//	$translateProvider.preferredLanguage('de_DE');
-//
-//	$scope.changeLanguage = function (langKey) {
-//		$translate.use(langKey);
-//	};
-//
-//	//set option-list with all language files
-//	$scope.languageOptions('LangCtrl', function() {
-//		for (langFileIndex in getLangFiles.length()) {
-//			$translateProvider.translations(getlangFiles[i].prefix.then(function() {
-//				if(langFileIndex != getLangFiles.length()) {
-//					$scope.acceptanceOptions = [
-//						"{id: i, name: {{ 'LANGUAGE' | translate }}},"
-//				]} else {
-//					$scope.acceptanceOptions = [
-//						"{id: i, name: {{ 'LANGUAGE' | translate }}}"
-//					]
-//				}
-//			}))
-//			i++;
-//		}
-//	});
-//
-////	var generateOptions = ('LangCtrl', function() {
-////		for (var langFileIndex in getLangFiles.length()) {
-////			if(langFileIndex != getLangFiles.length()) {
-////				var thisLine = "{id: langFileIndex, name: getlangFiles[langFileIndex].prefix},"
-////			} else {
-////				var thisLine = "{id: langFileIndex, name: getlangFiles[langFileIndex].prefix}"
-////			}
-////		}
-////	});
-//
-//	$translate(getlangFiles[langFileIndex].prefix).then(function (text) {
-//		$scope.error = text;
-//	});
-//
-//
-//	$scope.changeLang = function (key) {
-//		$translate.use(key).then(function (key) {
-//			console.log("Sprache zu " + key + " gewechselt.");
-//		}, function (key) {
-//	    	console.log("Irgendwas lief schief.");
-//		});
-//	};
-//
-//	var getLangFiles = function() {
-//		return $translateProvider.getRegisteredParts();
-//	}
-//
-//	var getSettedLangFile = function() {
-//		for (var i = 0; i < getLangFiles.length(); i++) {
-//
-//		}
-//	}
-//}]);
-
+  };
+});
 
 onlineRegApp.controller('ResetPasswordController', function($http, $scope, $routeParams, $location, $rootScope, $translate) {
 	$scope.resetPassword = function() {
@@ -762,7 +695,7 @@ onlineRegApp.controller('VeranstaltungsController', function ($scope, $http, $ro
 	}
 });
 
-onlineRegApp.controller('KontaktdatenController', function ($scope, $location, $rootScope) {
+onlineRegApp.controller('KontaktdatenController', function ($scope, $location, $rootScope, $translate) {
 	$rootScope.cleanMessages();
 	if ($rootScope.user_logged_in == null) {
 			$location.path('/login');
