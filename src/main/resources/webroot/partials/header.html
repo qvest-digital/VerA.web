@@ -5,6 +5,15 @@
            <a class="navbar-brand" href="#/event"> <img src="images/veraweb_logo.png"></a>
         </div>
         <div >
+        	<label for="acceptance" style="width: 200px;" class="col-lg-4 control-label">
+        		{{'LANGUAGE_FIELD_SELECT' | translate}}
+        	</label>
+            <div class="col-lg-4">
+                <select class="form-control" style="width: 300px;" id="acceptance" ng-click="LanguageSelectController().changeLang()" ng-model="acceptance"
+                    ng-options="option.name | translate for option in acceptanceOptions">
+                </select>
+            </div>
+
             <div ng-switch on="user_logged_in != null">
                 <div ng-switch-when="false">
                     <div ng-include src="'partials/header_login.html'"></div>
