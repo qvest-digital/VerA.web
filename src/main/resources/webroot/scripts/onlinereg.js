@@ -266,98 +266,93 @@ onlineRegApp.controller('UpdateController', function($scope, $rootScope, $locati
 });
 
 onlineRegApp.controller('MediaController', function ($scope, $http, $rootScope, $location, $routeParams, $translate) {
-		$scope.genderOptions = [
-				{id: 0, name:"GENERIC_PLEASE_SELECT"},
-			{id: 1, name:"GENERIC_GENDER_MALE"},
-			{id: 2, name:"GENERIC_GENDER_FEMALE"}
-		];
+	$scope.genderOptions = [
+		{id: 0, name:"GENERIC_PLEASE_SELECT"},
+		{id: 1, name:"GENERIC_GENDER_MALE"},
+		{id: 2, name:"GENERIC_GENDER_FEMALE"}
+	];
 
-		$scope.gender = $scope.genderOptions[0];
+	$scope.gender = $scope.genderOptions[0];
 
-		$http.get('api/media/' + $routeParams.uuid).then(function(presentPersons) {
-				$scope.presentPersons = presentPersons.data;
-		});
+	$http.get('api/media/' + $routeParams.uuid).then(function(presentPersons) {
+		$scope.presentPersons = presentPersons.data;
+	});
 
-		$scope.register_pressevertreter = function () {
-				if ($scope.gender.id == 0) {
-					$translate('GENERIC_MISSING_GENDER_MESSAGE').then(function (text) {
+	$scope.register_pressevertreter = function () {
+		if ($scope.gender.id == 0) {
+			$translate('GENERIC_MISSING_GENDER_MESSAGE').then(function (text) {
 				$scope.error = text;
 			});
-						$scope.success = null;
-				}
-				else if ($scope.gender.id == 1 || $scope.gender.id == 2){
-					if ($scope.lastname != null && $scope.firstname != null && $scope.email != null && $scope.address != null &&
-							$scope.plz != null && $scope.city != null && $scope.country != null) {
+			$scope.success = null;
+		} else if ($scope.gender.id == 1 || $scope.gender.id == 2){
+			if ($scope.lastname != null && $scope.firstname != null && $scope.email != null && $scope.address != null && $scope.plz != null && $scope.city != null && $scope.country != null) {
 				$translate('GENERIC_ERROR').then(function (text) {
 					var ERROR_TEXT = text;
 				});
+				$scope.button = true;
+				console.log("registering delegierten in the event.");
+				$http({
+					method: 'POST',
+					url: 'api/media/' + $routeParams.uuid + '/register',
+					headers: {"Content-Type" : undefined},
+					data: $.param({
+							nachname: $scope.lastname,
+							vorname: $scope.firstname,
+							gender: $scope.gender.label,
+							email: $scope.email,
+							address: $scope.address,
+							plz: $scope.plz,
+							city: $scope.city,
+							country: $scope.country
+					})
+				}).success(function (result) {
+					$scope.success = null;
+					$scope.error = null;
 
-							$scope.button = true;
-							console.log("registering delegierten in the event.");
-							$http({
-									method: 'POST',
-									url: 'api/media/' + $routeParams.uuid + '/register',
-									headers: {"Content-Type" : undefined},
-									data: $.param({
-											nachname: $scope.lastname,
-											vorname: $scope.firstname,
-											gender: $scope.gender.label,
-											email: $scope.email,
-											address: $scope.address,
-											plz: $scope.plz,
-											city: $scope.city,
-											country: $scope.country
-									})
-							}).success(function (result) {
-									$scope.success = null;
-									$scope.error = null;
-
-									if (result.status === 'NO_EVENT_DATA') {
-										$translate('GENERIC_MESSAGE_EVENT_DOESNT_EXISTS').then(function (text) {
+					if (result.status === 'NO_EVENT_DATA') {
+						$translate('GENERIC_MESSAGE_EVENT_DOESNT_EXISTS').then(function (text) {
 							$scope.error = text;
 						});
-											$scope.success = null;
-									}  else if (result.status === 'WRONG_EVENT') {
-											$translate('GENERIC_MESSAGE_EVENT_DOESNT_EXISTS').then(function (text) {
+						$scope.success = null;
+					}  else if (result.status === 'WRONG_EVENT') {
+						$translate('GENERIC_MESSAGE_EVENT_DOESNT_EXISTS').then(function (text) {
 							$scope.error = text;
 						});
-											$scope.success = null;
-									} else if (result.status === 'OK') {
-											$scope.error= null;
-											$translate('MEDIA_REPRESEINTATIVES_REGISTER_SUCCESSFULL_MESSAGE').then(function (text) {
+						$scope.success = null;
+					} else if (result.status === 'OK') {
+						$scope.error= null;
+						$translate('MEDIA_REPRESEINTATIVES_REGISTER_SUCCESSFULL_MESSAGE').then(function (text) {
 							$scope.success = text;
 						});
-											$http.get('api/delegation/' + $routeParams.uuid).then(function(presentPersons) {
-													$scope.presentPersons = presentPersons.data;
-											});
+						$http.get('api/delegation/' + $routeParams.uuid).then(function(presentPersons) {
+							$scope.presentPersons = presentPersons.data;
+						});
 
-												$scope.lastname = null;
-												$scope.firstname = null;
-												$scope.gender = $scope.genderOptions[0];
-												$scope.email = null;
-												$scope.address = null;
-												$scope.plz = null;
-												$scope.city = null;
-												$scope.country = null;
-									} else {
-											$scope.error = ERROR_TEXT;
-											$scope.success = null;
-									}
-									$scope.button = false;
-
-							}).error(function (data, status, headers, config) {
-									$scope.error = ERROR_TEXT;
-									$scope.button = false;
-							});
+						$scope.lastname = null;
+						$scope.firstname = null;
+						$scope.gender = $scope.genderOptions[0];
+						$scope.email = null;
+						$scope.address = null;
+						$scope.plz = null;
+						$scope.city = null;
+						$scope.country = null;
+					} else {
+						$scope.error = ERROR_TEXT;
+						$scope.success = null;
 					}
-					else {
-						$translate('GENERIC_MESSAGE_FILL_IN_ALL_FIELDS').then(function (text) {
+					$scope.button = false;
+				}).error(function (data, status, headers, config) {
+					$scope.error = ERROR_TEXT;
+					$scope.button = false;
+				});
+			} else {
+				$translate('GENERIC_MESSAGE_FILL_IN_ALL_FIELDS').then(function (text) {
 					$scope.error = text;
 				});
-								$scope.success = null;
-					}
-				}
+				$scope.success = null;
+			}
 		}
+	}
 });
 
 onlineRegApp.controller('DelegationController', function ($scope, $http, $rootScope, $location, $routeParams, $translate) {
