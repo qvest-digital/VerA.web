@@ -376,105 +376,101 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 		$scope.success = null;
 		$scope.error = null;
 
-				$http.get('api/delegation/' + $routeParams.uuid).then(function(presentPersons) {
-						$scope.presentPersons = presentPersons.data;
-				});
+		$http.get('api/delegation/' + $routeParams.uuid).then(function(presentPersons) {
+				$scope.presentPersons = presentPersons.data;
+		});
 
 		$scope.register_user = function() {
-				if ($scope.gender.id == 0) {
+			if ($scope.gender.id == 0) {
 				$translate('GENERIC_MISSING_GENDER_MESSAGE').then(function (text) {
 					$scope.error = text;
 				});
-						$scope.success = null;
-				}
-				else if($scope.vorname.length > 35) {
+				$scope.success = null;
+			} else if($scope.vorname.length > 35) {
 				$translate('DELEGATION_MESSAGE_FIRSTNAME_MAX').then(function (text) {
 					$scope.error = text;
 				});
-						$scope.success = null;
-				}
-				else if($scope.nachname.length > 35) {
+				$scope.success = null;
+			} else if($scope.nachname.length > 35) {
 				$translate('DELEGATION_MESSAGE_LASTNAME_MAX').then(function (text) {
 					$scope.error = text;
 				});
-						$scope.success = null;
-				}
-				else if (typeof $scope.vorname == "undefined" && $scope.vorname == null) {
-					$translate('DELEGATION_MESSAGE_MISSING_FIRSTNAME').then(function (text) {
+				$scope.success = null;
+			} else if (typeof $scope.vorname == "undefined" && $scope.vorname == null) {
+				$translate('DELEGATION_MESSAGE_MISSING_FIRSTNAME').then(function (text) {
 					$scope.error = text;
 				});
-						$scope.success = null;
-				} else if (typeof $scope.nachname == "undefined" && $scope.nachname == null) {
+				$scope.success = null;
+			} else if (typeof $scope.nachname == "undefined" && $scope.nachname == null) {
 				$translate('DELEGATION_MESSAGE_MISSING_LASTNAME').then(function (text) {
 					$scope.error = text;
 				});
-						$scope.success = null;
-				} else if ($scope.gender.id == 1 || $scope.gender.id == 2 && typeof $scope.vorname != "undefined" &&
+				$scope.success = null;
+			} else if ($scope.gender.id == 1 || $scope.gender.id == 2 && typeof $scope.vorname != "undefined" &&
 						$scope.vorname != null && typeof $scope.nachname != "undefined" && $scope.nachname != null) {
 				$translate('GENERIC_ERROR').then(function (text) {
 					var ERROR_TEXT = text;
 				});
 
-							$scope.button = true;
-							console.log("registering delegation in the event.");
+				$scope.button = true;
+				console.log("registering delegation in the event.");
 
-							if (($scope.nachname != null && $scope.nachname != '') && ($scope.vorname != null && $scope.vorname != '')) {
-								$http({
-									method: 'POST',
-									url: 'api/delegation/' + $routeParams.uuid + '/register',
-									dataType: 'text',
-									headers: {
-											"Content-Type": undefined
-									},
-									data: $.param({
-										firstname: $scope.nachname,
-										lastname: $scope.vorname,
-												gender: $scope.gender.label
-									})
-								}).success(function(result) {
-									$scope.success = null;
-									$scope.error = null;
+				if (($scope.nachname != null && $scope.nachname != '') && ($scope.vorname != null && $scope.vorname != '')) {
+					$http({
+						method: 'POST',
+						url: 'api/delegation/' + $routeParams.uuid + '/register',
+						dataType: 'text',
+						headers: {
+								"Content-Type": undefined
+						},
+						data: $.param({
+							firstname: $scope.nachname,
+							lastname: $scope.vorname,
+							gender: $scope.gender.label
+						})
+					}).success(function(result) {
+						$scope.success = null;
+						$scope.error = null;
 
-									if (result.status === 'NO_EVENT_DATA') {
+						if (result.status === 'NO_EVENT_DATA') {
 							$translate('GENERIC_MESSAGE_EVENT_DOESNT_EXISTS').then(function (text) {
 								$scope.error = text;
 							});
-										$scope.success = null;
-									} else if (result.status === 'WRONG_DELEGATION') {
+							$scope.success = null;
+						} else if (result.status === 'WRONG_DELEGATION') {
 							$translate('DELEGATION_MESSAGE_DELEGATION_DOESNT_EXISTS').then(function (text) {
 								$scope.error = text;
 							});
-										$scope.success = null;
-									} else if (result.status === 'OK') {
-										$scope.error = null;
-										$translate('DELEGATION_MESSAGE_DELEGATION_DATA_SAVED_SUCCESSFULL').then(function (text) {
+							$scope.success = null;
+						} else if (result.status === 'OK') {
+							$scope.error = null;
+							$translate('DELEGATION_MESSAGE_DELEGATION_DATA_SAVED_SUCCESSFULL').then(function (text) {
 								$scope.success = text;
 							});
-										$scope.gender = $scope.genderOptions[0];
-										$scope.nachname = null;
-										$scope.vorname = null;
+							$scope.gender = $scope.genderOptions[0];
+							$scope.nachname = null;
+							$scope.vorname = null;
 
-										$http.get('api/delegation/' + $routeParams.uuid).then(function(presentPersons) {
-											$scope.presentPersons = presentPersons.data;
-										});
-										} else {
-												$scope.error = ERROR_TEXT;
-												$scope.success = null;
-											}
+							$http.get('api/delegation/' + $routeParams.uuid).then(function(presentPersons) {
+								$scope.presentPersons = presentPersons.data;
+							});
+						} else {
+							$scope.error = ERROR_TEXT;
+							$scope.success = null;
+						}
 
-										$scope.button = false;
+						$scope.button = false;
 
-								}).error(function(data, status, headers, config) {
+					}).error(function(data, status, headers, config) {
 
-								});
-							}
+					});
 				}
-				else {
+			} else {
 				$translate('GENERIC_MESSAGE_FILL_IN_ALL_FIELDS').then(function (text) {
 					$scope.error = text;
 				});
-							$scope.success = null;
-				}
+				$scope.success = null;
+			}
 		}
 
 		$scope.showOptionalFields = function (personId) {
@@ -489,28 +485,26 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 			$scope.labellist = {};
 
 			$http.get('api/delegation/' + $routeParams.uuid + '/' + personId + '/data/').then(function(fields) {
-							$scope.fields = fields.data;
-								console.log("number of fields: "+$scope.fields.length)
-								if ($scope.fields.length == 0) {
-									$scope.error_dialog = ERROR_TEXT;
-							$scope.success = null;
-							$scope.hideDialog = true;
-								} else {
-										$scope.error_dialog = null;
-									$scope.hideDialog = false;
-									console.log(JSON.stringify($scope.fields));
+				$scope.fields = fields.data;
+				console.log("number of fields: "+$scope.fields.length)
+				if ($scope.fields.length == 0) {
+					$scope.error_dialog = ERROR_TEXT;
+					$scope.success = null;
+					$scope.hideDialog = true;
+				} else {
+					$scope.error_dialog = null;
+					$scope.hideDialog = false;
+					console.log(JSON.stringify($scope.fields));
 
-									for(var prop in $scope.fields){
-							var curField = $scope.fields[prop];
-
-										if(curField.value != null){
-
-								$scope.labellist[curField.pk] = curField.value;
-								console.log(curField.value + "|" + $scope.labellist[curField.pk]);
-							}
+					for(var prop in $scope.fields) {
+						var curField = $scope.fields[prop];
+						if(curField.value != null){
+							$scope.labellist[curField.pk] = curField.value;
+							console.log(curField.value + "|" + $scope.labellist[curField.pk]);
 						}
-								}
-							});
+					}
+				}
+			});
 		}
 
 		$scope.saveOptionalFields = function () {
@@ -520,27 +514,26 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 			var list = $scope.labellist;
 			console.log("labels " + list);
 
-				$http({
-								method: 'POST',
-								url: 'api/delegation/'+ $routeParams.uuid + '/fields/save',
-								headers: {"Content-Type" : undefined},
-								data: $.param({
-									fields: JSON.stringify($scope.labellist),
-									personId: $scope.targetPersonId
-								})
-						}).success(function (result) {
-								$scope.error= null;
-								$translate('DELEGATION_MESSAGE_DELEGATION_DATA_SAVED_SUCCESSFULL').then(function (text) {
-						$scope.success = text;
-					});
-
-						}).error(function (data, status, headers, config) {
-								console.log('ERROR! Optional fields not saved!”');
-								$translate('GENERIC_ERROR').then(function (text) {
-						$scope.error = text;
-					});
-									$scope.success = null;
-						});
+			$http({
+				method: 'POST',
+				url: 'api/delegation/'+ $routeParams.uuid + '/fields/save',
+				headers: {"Content-Type" : undefined},
+				data: $.param({
+					fields: JSON.stringify($scope.labellist),
+					personId: $scope.targetPersonId
+				})
+			}).success(function (result) {
+				$scope.error= null;
+				$translate('DELEGATION_MESSAGE_DELEGATION_DATA_SAVED_SUCCESSFULL').then(function (text) {
+					$scope.success = text;
+				});
+			}).error(function (data, status, headers, config) {
+				console.log('ERROR! Optional fields not saved!”');
+				$translate('GENERIC_ERROR').then(function (text) {
+					$scope.error = text;
+				});
+				$scope.success = null;
+			});
 		}
 	}
 });
