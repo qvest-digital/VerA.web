@@ -667,30 +667,18 @@ onlineRegApp.controller('LoginController', function ($scope, $location, $http, $
 });
 
 onlineRegApp.controller('EventController', function ($scope, $http, $rootScope) {
-		$http.get('api/event/list/' + $rootScope.user_logged_in).success(function (result) {
-				console.log("loaded data");
-				$scope.events = result;
-		});
+	$http.get('api/event/list/' + $rootScope.user_logged_in).success(function (result) {
+		console.log("loaded data");
+		$scope.events = result;
+	});
 });
 
 onlineRegApp.controller('RegisterController', function ($scope, $rootScope, $location, $routeParams, $http) {
 
 	if ($rootScope.user_logged_in == null) {
-
 		$scope.setNextPage('register/' + $routeParams.eventId);
 		$location.path('/login');
 	} else {
-	    // currently hardwired to 2
-	    $scope.userId = 2;
-
-	    $scope.acceptanceOptions = [
-	        {id: 0, label: "Offen"},
-	        {id: 1, label: "Zusage"},
-	        {id: 2, label: "Absage"}
-	    ];
-
-	    $scope.acceptance = $scope.acceptanceOptions[0];
-
 	    $http.get('api/event/' + $routeParams.eventId).success(function (result) {
 	        $scope.event = result;
 	        console.log("Auswahl: " + $scope.event.shortname);
