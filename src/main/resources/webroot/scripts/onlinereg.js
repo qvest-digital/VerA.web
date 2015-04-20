@@ -546,82 +546,82 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 });
 
 onlineRegApp.controller('DirectLoginController', function ($scope, $location, $http, $rootScope, $translate) {
-		$scope.button = false;
-		$rootScope.cleanMessages();
-		$rootScope.no_messages = function() {
-				$rootScope.status = null;
-				$rootScope.messageContent = null;
-		}
+	$scope.button = false;
+	$rootScope.cleanMessages();
+	$rootScope.no_messages = function() {
+		$rootScope.status = null;
+		$rootScope.messageContent = null;
+	}
 
-		$scope.logout = function () {
-				$http({
-						method: 'POST',
-						url: 'api/idm/logout/'
-				}).success(function (result) {
-						$rootScope.error = null;
-						$scope.directusername = null;
-						$scope.directpassword = null;
+	$scope.logout = function () {
+		$http({
+			method: 'POST',
+			url: 'api/idm/logout/'
+		}).success(function (result) {
+			$rootScope.error = null;
+			$scope.directusername = null;
+			$scope.directpassword = null;
 
-						$translate('GENERIC_LOGOUT_SUCCESSFULL_MESSAGE').then(function (text) {
-							$scope.messageContent = text;
-						});
-
-						$rootScope.status = "success";
-						$rootScope.user_logged_in = null;
-						$rootScope.userinfo = null;
-						$location.path('/');
-				}).error(function (data, status, headers, config) {
-						console.log('ERROR! Logout failed!”')
-				});
-		}
-
-		$scope.direct_login = function () {
-				$scope.button = true;
-				console.log("logging in.");
-
-				$http({
-						method: 'POST',
-						url: 'api/idm/login/' + encodeURIComponent($scope.directusername),
-						headers: {"Content-Type" : undefined},
-						data: $.param({
-								password: $scope.directpassword
-						})
-				}).success(function (result) {
-						$scope.button = false;
-						$rootScope.error = null;
-						if (result != "") {
-							$rootScope.userinfo = result.status;
-							console.log("Login erfolgreich");
-							$rootScope.user_logged_in = $scope.directusername;
-							$rootScope.status = null;
-							$rootScope.messageContent = null;
-						} else {
-							$rootScope.userinfo = null;
-							$translate('GENERIC_MESSAGE_USER_OR_PASSWORD_WRONG').then(function (text) {
-								$scope.messageContent = text;
-							});
-							$rootScope.status = "danger";
-						}
-				}).error(function (data, status, headers, config) {
-						$scope.button = false;
-						$translate('GENERIC_ERROR').then(function (text) {
+			$translate('GENERIC_LOGOUT_SUCCESSFULL_MESSAGE').then(function (text) {
 				$scope.messageContent = text;
 			});
-						$rootScope.status = "danger";
+
+			$rootScope.status = "success";
+			$rootScope.user_logged_in = null;
+			$rootScope.userinfo = null;
+			$location.path('/');
+		}).error(function (data, status, headers, config) {
+			console.log('ERROR! Logout failed!”')
+		});
+	}
+
+	$scope.direct_login = function () {
+		$scope.button = true;
+		console.log("logging in.");
+
+		$http({
+			method: 'POST',
+			url: 'api/idm/login/' + encodeURIComponent($scope.directusername),
+			headers: {"Content-Type" : undefined},
+			data: $.param({
+					password: $scope.directpassword
+			})
+		}).success(function (result) {
+			$scope.button = false;
+			$rootScope.error = null;
+			if (result != "") {
+				$rootScope.userinfo = result.status;
+				console.log("Login erfolgreich");
+				$rootScope.user_logged_in = $scope.directusername;
+				$rootScope.status = null;
+				$rootScope.messageContent = null;
+			} else {
+				$rootScope.userinfo = null;
+				$translate('GENERIC_MESSAGE_USER_OR_PASSWORD_WRONG').then(function (text) {
+					$scope.messageContent = text;
 				});
-		}
+				$rootScope.status = "danger";
+			}
+		}).error(function (data, status, headers, config) {
+			$scope.button = false;
+			$translate('GENERIC_ERROR').then(function (text) {
+				$scope.messageContent = text;
+			});
+			$rootScope.status = "danger";
+		});
+	}
 
-		$scope.setStatus = function(value) {
-				$scope.x = value;
-		}
+	$scope.setStatus = function(value) {
+			$scope.x = value;
+	}
 
-		$scope.setMessageContent = function(value) {
-				$scope.x = value;
-		}
+	$scope.setMessageContent = function(value) {
+			$scope.x = value;
+	}
 
-		$scope.setNextPage = function(value) {
-			$scope.nextPage = "/" + value;
-		}
+	$scope.setNextPage = function(value) {
+		$scope.nextPage = "/" + value;
+	}
 });
 
 
@@ -636,12 +636,12 @@ onlineRegApp.controller('LoginController', function ($scope, $location, $http, $
 		console.log("logging in.");
 
 		$http({
-				method: 'POST',
-				url: 'api/idm/login/' + encodeURIComponent($scope.username),
-				headers: {"Content-Type" : undefined},
-				data: $.param({
-					password: $scope.password
-				})
+			method: 'POST',
+			url: 'api/idm/login/' + encodeURIComponent($scope.username),
+			headers: {"Content-Type" : undefined},
+			data: $.param({
+				password: $scope.password
+			})
 		}).success(function (result) {
 			$scope.button = false;
 			if (result != "") {
@@ -723,65 +723,65 @@ onlineRegApp.controller('RegisterController', function ($scope, $rootScope, $loc
 
 onlineRegApp.controller('RegisterUserController',  function($scope, $http) {
 	$scope.status = 0;
-		$scope.register = function(isValid) {
-			if(!isValid) { return; }
+
+	$scope.register = function(isValid) {
+		if(!isValid) { return; }
 		$http({
 			method: 'POST',
-				url: 'api/user/register/' + encodeURIComponent($scope.osiam.userName) + '',
-						headers: {"Content-Type" : undefined},
-						data: $.param({
-						osiam_firstname: $scope.osiam.firstName,
-						osiam_secondname: $scope.osiam.lastName,
-						osiam_password1: $scope.osiam.password
-				})
+			url: 'api/user/register/' + encodeURIComponent($scope.osiam.userName) + '',
+				headers: {"Content-Type" : undefined},
+				data: $.param({
+				osiam_firstname: $scope.osiam.firstName,
+				osiam_secondname: $scope.osiam.lastName,
+				osiam_password1: $scope.osiam.password
+			})
 		}).success(function (result) {
-				switch(result.status) {
-				case 'OK':
-					$scope.status = 1;
-					break;
-				case 'USER_EXISTS':
-					$scope.status = 'e1';
-					break;
-				case 'INVALID_USERNAME':
-					$scope.status = 'e2';
-					break;
-				default:
-					$scope.status = 'e';
-				}
+			switch(result.status) {
+			case 'OK':
+				$scope.status = 1;
+				break;
+			case 'USER_EXISTS':
+				$scope.status = 'e1';
+				break;
+			case 'INVALID_USERNAME':
+				$scope.status = 'e2';
+				break;
+			default:
+				$scope.status = 'e';
+			}
 
-				window.console.log("User registered with response:  '" + result + "'.");
+			window.console.log("User registered with response:  '" + result + "'.");
 		}).error(function (data, status, headers, config) {
 			$scope.status = 'e';
-
 			window.console.log("ERROR while userregistration.");
 		});
-		};
+	};
 });
 
 
 
 onlineRegApp.controller('VeranstaltungsController', function ($scope, $http, $rootScope, $location) {
-		if ($rootScope.user_logged_in == null) {
-				$location.path('/login');
-				$rootScope.success = null;
-		} else {
-				console.log("DEBUG: " + $rootScope.user_logged_in);
-				var userEventsURL = 'api/event/userevents/' + $rootScope.user_logged_in;
-				$http.get(userEventsURL).success(function (result) {
-						console.log("Loading user's subscribed events...");
-						$scope.events = result;
-				});
-		}
+	if ($rootScope.user_logged_in == null) {
+		$location.path('/login');
+		$rootScope.success = null;
+	} else {
+		console.log("DEBUG: " + $rootScope.user_logged_in);
+		var userEventsURL = 'api/event/userevents/' + $rootScope.user_logged_in;
+		$http.get(userEventsURL).success(function (result) {
+				console.log("Loading user's subscribed events...");
+				$scope.events = result;
+		});
+	}
 });
 
 onlineRegApp.controller('KontaktdatenController', function ($scope, $location, $rootScope) {
 	$rootScope.cleanMessages();
-		if ($rootScope.user_logged_in == null) {
-				$location.path('/login');
-		} else {
-				$http.get('api/event/list/{userid}/').success(function (result) {
-								console.log("loaded data");
-								$scope.events = result;
-				});
-		}
+	if ($rootScope.user_logged_in == null) {
+			$location.path('/login');
+	} else {
+		$http.get('api/event/list/{userid}/').success(function (result) {
+						console.log("loaded data");
+						$scope.events = result;
+		});
+	}
 });
