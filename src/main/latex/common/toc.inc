@@ -23,4 +23,7 @@
 \addtocontents{toc}{\protect\thispagestyle{fancy}}
 \renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
 \tableofcontents
+
+Test \nameref{sec:intro} und \nameref{subsec:req-core} Links.
+
 \newpage

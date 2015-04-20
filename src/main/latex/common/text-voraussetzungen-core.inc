@@ -20,7 +20,7 @@
 %-
 % Textabschnitt 2.1: Systemvoraussetzungen VerA.web-core
 
-\subsection{Interne Veranstaltungs- und Adreßverwaltung}
+\subsection{Interne Veranstaltungs- und Adreßverwaltung}\label{subsec:req-core}
 
 Eine VM mit mindestens 512 MiB RAM und 512 MiB Swap wird empfohlen.
 Als Betriebssystem legen wir Debian 7 „wheezy“ nahe; die Software

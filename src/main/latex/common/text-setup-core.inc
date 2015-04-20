@@ -20,7 +20,7 @@
 %-
 % Textabschnitt 3.1: Setup VerA.web-core
 
-\section{blah}
+\section{blah}\label{sec:blah}\label{subsec:blah}
 
 First page. normal \textbf{bold \textit{bolditalic}} \textit{italic} normal
 

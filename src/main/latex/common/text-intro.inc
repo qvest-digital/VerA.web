@@ -20,7 +20,7 @@
 %-
 % Textabschnitt 1: Einleitung
 
-\section{Einleitung}
+\section{Einleitung}\label{sec:intro}
 
 „VerA.web“ steht für Veranstaltungs- und Adreßverwaltung im „web“ (Internet).
 VerA.web ist eine Open Source-Webanwendung, die die IT-gestützte Planung und
@@ -29,7 +29,7 @@ unterstützt. Dieses Dokument beschreibt, wie VerA.web-core (die eigentliche
 Veranstaltungsmanagementsoftware) durch einen Systemadministrator eigenständig
 installiert werden kann.
 
-\section{Systemvoraussetzungen}
+\section{Systemvoraussetzungen}\label{sec:requirements}
 
 Im folgenden werden die Systemvoraussetzungen und empfohlene Umgebung
 für VerA.web beschrieben.
