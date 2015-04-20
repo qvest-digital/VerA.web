@@ -88,7 +88,6 @@ onlineRegApp.directive('equals', function() {
     }
 });
 
-//TODO: Delete me, if dynamic combobox works
 onlineRegApp.controller('LanguageSelectController', function ($scope, $translate) {
     $scope.changeLang = function (key) {
         $translate.use(key).then(function (key) {
@@ -97,51 +96,6 @@ onlineRegApp.controller('LanguageSelectController', function ($scope, $translate
             console.log("Irgendwas lief schief.");
         });
     };
-});
-
-//TODO: Dynamic combobox. Get line 121 and 125 to work.
-onlineRegApp.controller('LanguageSelectController', function($scope, $rootScope, $location, $routeParams, $routeProvider, $http, $translate, $translateProvider) {
-    $scope.changeLang = function (key) {
-        $translate.use(key).then(function (key) {
-            console.log("Language changed to" + key + ".");
-        }, function (key) {
-            console.log("Something didn't work.");
-        });
-    };
-
-    //set option-list with all language files
-    languageOptions('LangCtrl', function() {
-    	console.log("1");
-        for (var langFileIndex in getLangFiles.length()) {
-        	console.log("2");
-            $translateProvider.translations(getlangFiles[i].prefix.then(function() {
-                if(langFileIndex != getLangFiles.length()) {
-                    $scope.acceptanceOptions = [
-                        "{id: langFileIndex, naame: getlangFiles[langFileIndex].prefix}," //{id: i, name: {{ 'LANGUAGE' | translate }}}
-                ]} else {
-                    $scope.acceptanceOptions = [
-                        "{id: langFileIndex, name: getlangFiles[langFileIndex].prefix}" //"{id: i, name: {{ 'LANGUAGE' | translate }}}"
-                    ]
-                }
-            }))
-            console.log("3");
-            langFileIndex++;
-        }
-    });
-
-    var getLangFiles = function() {
-        return $translateProvider.getRegisteredParts();
-    }
-
-    var getSettedLangFile = function() {
-        for (var i = 0; i < getLangFiles.length(); i++) {
-            console.log(getLangFiles().length());
-        }
-    }
-
-    console.log($translateProvider);
-    console.log(getLangFiles);
-    console.log(getSettedLangFile);
 });
 
 onlineRegApp.controller('ResetPasswordController', function($http, $scope, $routeParams, $location, $rootScope, $translate) {
