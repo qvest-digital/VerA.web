@@ -24,6 +24,8 @@
 
 First page. normal \textbf{bold \textit{bolditalic}} \textit{italic} normal
 
+Links: Test \nameref{sec:intro} und \nameref{subsec:req-core} Links.
+
 \begin{lstlisting}[language=c]
 task main() {
  SetSensorTouch(IN_1);

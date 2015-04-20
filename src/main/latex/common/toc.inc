@@ -25,7 +25,4 @@
 \hypersetup{linkcolor = black}
 \tableofcontents
 \hypersetup{linkcolor = blue}
-
-Test \nameref{sec:intro} und \nameref{subsec:req-core} Links.
-
 \newpage
