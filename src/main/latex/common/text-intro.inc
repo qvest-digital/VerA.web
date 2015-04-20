@@ -1,4 +1,4 @@
-% VerA.web (public) Installationsanleitung
+% VerA.web (public) Installationsanleitungstextteil
 %
 % Copyright © 2015
 %	Thorsten „mirabilos“ Glaser <t.glaser@tarent.de>
@@ -17,20 +17,19 @@
 % of dealing in the work, even if advised of the possibility of such
 % damage or existence of a defect, except proven that it results out
 % of said person’s immediate fault when using the work as intended.
+%-
+% Textabschnitt 1: Einleitung
 
-\documentclass{tarentanleitung}
-\begin{document}
+\section{Einleitung}
 
-\tarentanleitung
- {Installationsanleitung VerA.web-core}
- {1.5.1.4}{1.6}{April}{2015}
+„VerA.web“ steht für Veranstaltungs- und Adreßverwaltung im „web“ (Internet).
+VerA.web ist eine Open Source-Webanwendung, die die IT-gestützte Planung und
+Durchführung von Anlässen, Konferenzen und anderen Veranstaltungen maßgeblich
+unterstützt. Dieses Dokument beschreibt, wie VerA.web-core (die eigentliche
+Veranstaltungsmanagementsoftware) durch einen Systemadministrator eigenständig
+installiert werden kann.
 
-\section*{Inhaltsverzeichnis}
-\tableofcontents
-\newpage
+\section{Systemvoraussetzungen}
 
-\input{text-intro.inc}
-\input{text-voraussetzungen-core.inc}
-\input{text-setup-core.inc}
-
-\end{document}
+Im folgenden werden die Systemvoraussetzungen und empfohlene Umgebung
+für VerA.web beschrieben.

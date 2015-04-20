@@ -1,4 +1,4 @@
-% VerA.web (public) Installationsanleitung
+% VerA.web (public) Installationsanleitungstextteil
 %
 % Copyright © 2015
 %	Thorsten „mirabilos“ Glaser <t.glaser@tarent.de>
@@ -17,20 +17,13 @@
 % of dealing in the work, even if advised of the possibility of such
 % damage or existence of a defect, except proven that it results out
 % of said person’s immediate fault when using the work as intended.
+%-
+% Textabschnitt 2.1: Systemvoraussetzungen VerA.web-core
 
-\documentclass{tarentanleitung}
-\begin{document}
+\subsection{Interne Veranstaltungs- und Adreßverwaltung}
 
-\tarentanleitung
- {Installationsanleitung VerA.web-core}
- {1.5.1.4}{1.6}{April}{2015}
-
-\section*{Inhaltsverzeichnis}
-\tableofcontents
-\newpage
-
-\input{text-intro.inc}
-\input{text-voraussetzungen-core.inc}
-\input{text-setup-core.inc}
-
-\end{document}
+Eine VM mit mindestens 512 MiB RAM und 512 MiB Swap wird empfohlen.
+Als Betriebssystem legen wir Debian 7 „wheezy“ nahe; die Software
+\emph{kann} jedoch auch mit einer anderen Debian-basierten Distribution
+(z.B. Ubuntu 14.04 „trusty“) oder einer anderen Java/Tomcat-Umgebung
+betrieben werden.

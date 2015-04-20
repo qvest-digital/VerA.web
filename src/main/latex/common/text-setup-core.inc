@@ -1,4 +1,4 @@
-% VerA.web (public) Installationsanleitung
+% VerA.web (public) Installationsanleitungstextteil
 %
 % Copyright © 2015
 %	Thorsten „mirabilos“ Glaser <t.glaser@tarent.de>
@@ -17,20 +17,18 @@
 % of dealing in the work, even if advised of the possibility of such
 % damage or existence of a defect, except proven that it results out
 % of said person’s immediate fault when using the work as intended.
+%-
+% Textabschnitt 3.1: Setup VerA.web-core
 
-\documentclass{tarentanleitung}
-\begin{document}
+\section{blah}
 
-\tarentanleitung
- {Installationsanleitung VerA.web-core}
- {1.5.1.4}{1.6}{April}{2015}
+First page. normal \textbf{bold \textit{bolditalic}} \textit{italic} normal
 
-\section*{Inhaltsverzeichnis}
-\tableofcontents
-\newpage
-
-\input{text-intro.inc}
-\input{text-voraussetzungen-core.inc}
-\input{text-setup-core.inc}
-
-\end{document}
+\begin{lstlisting}[language=c]
+task main() {
+ SetSensorTouch(IN_1);
+ OnFwd(OUT_AB, 75);
+ while (Sensor(IN_1) == 0) {}
+ Off(OUT_AB);
+}
+\end{lstlisting}
