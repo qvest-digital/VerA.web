@@ -28,6 +28,9 @@ onlineRegApp.config(function ($routeProvider, $translateProvider) {
     }).when('/event', {
         templateUrl: 'partials/event.html',
         controller: 'EventController'
+    }).when('/register/:eventId', {
+        templateUrl: 'partials/register.html',
+        controller: 'RegisterController'
     }).when('/register/', {
         templateUrl: 'partials/register_user.html',
         controller: 'RegisterUserController'
@@ -603,6 +606,66 @@ onlineRegApp.controller('EventController', function ($scope, $http, $rootScope) 
         console.log("loaded data");
         $scope.events = result;
     });
+});
+
+onlineRegApp.controller('RegisterController', function ($scope, $rootScope, $location, $routeParams, $http) {
+
+	if ($rootScope.user_logged_in == null) {
+
+		$scope.setNextPage('register/' + $routeParams.eventId);
+		$location.path('/login');
+	} else {
+	    // currently hardwired to 2
+	    $scope.userId = 2;
+
+	    $scope.acceptanceOptions = [
+	        {id: 0, label: "Offen"},
+	        {id: 1, label: "Zusage"},
+	        {id: 2, label: "Absage"}
+	    ];
+
+	    $scope.acceptance = $scope.acceptanceOptions[0];
+
+	    $http.get('api/event/' + $routeParams.eventId).success(function (result) {
+	        $scope.event = result;
+	        console.log("Auswahl: " + $scope.event.shortname);
+	    });
+
+	    $http.get('api/event/' + $routeParams.eventId + '/register/' + $scope.userId).success(function (result) {
+	    	if (!isUserLoged()) {
+
+	    		$location.path('/login');
+	    	} else {
+		        if (result.invitationstatus) {
+		            $scope.acceptance = $scope.acceptanceOptions[result.invitationstatus];
+		        }
+		        if (result.notehost) {
+		            $scope.noteToHost = result.notehost;
+		        }
+		        console.log("Teilnahme: " + $scope.acceptance.label);
+	    	}
+	    });
+
+	    $scope.save = function () {
+	        $http({
+	            method: 'POST',
+	            url: 'api/event/' + $routeParams.eventId + '/register',
+	            headers: {"Content-Type" : undefined},
+	            data: $.param({
+	                notehost: $scope.noteToHost
+	            })
+	        }).success(function (result) {
+	        	if (result.status === 'OK') {
+	        		$rootScope.previousMessage="Sie haben sich erfolgreich für die Veranstaltung \"" + $scope.event.shortname + "\" angemeldet.";
+	        		console.log("Teilnahme gespeichert: " + result);
+	        		$scope.setNextPage('veranstaltungen');
+	        		$location.path($scope.nextPage);
+	        	} else if (result.status === 'REGISTERED'){
+	        		$scope.error = 'Sie sind bereits für diese Veranstaltung angemeldet.';
+	        	}
+	        });
+	    }
+	}
 });
 
 onlineRegApp.controller('RegisterUserController',  function($scope, $http) {
