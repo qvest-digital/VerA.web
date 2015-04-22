@@ -79,7 +79,7 @@ public class EventURLHandlerTest {
         eventURLHandler.setEventUrl(octopusContext, null);
 
         // THEN
-        verify(octopusContext, times(1)).setContent("eventUrl", "Nicht verf&uuml;gbar");
+        verify(octopusContext, times(1)).setContent("eventUrl", "Nicht verfügbar");
     }
 
     @Test
