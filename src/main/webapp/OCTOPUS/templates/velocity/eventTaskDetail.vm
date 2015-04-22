@@ -89,10 +89,13 @@
                     <li class="inactive" id="showEvent" goto="ShowEvent?id=$!eventId" class="noBorder"><div>Allgemein</div></a>
                     </li><li id="showEventDoctype" class="inactive" goto="${paths.staticWeb}do/ShowEventDoctype?id=$!eventId&selectNone=true" class="noBorder"><div>Dokumenttypen</div>
                     </li><li id="showEventTasks" class="active" goto="${paths.staticWeb}do/ShowEventTasks?id=$!eventId&selectNone=true"><div>Aufgaben</div>
-                    #if($online-registration.activated)
-                    	</li><li class="inactive" onclick="window.location.href='${paths.staticWeb}do/ShowDelegationFields?eventId=$!event.id'"><div>Zusätzliche Personendaten</div>
-                    #end
                     </li>
+                    #if($online-registration.activated)
+                    	<li class="inactive" onclick="window.location.href='${paths.staticWeb}do/ShowDelegationFields?eventId=$!event.id'"><div>Zusätzliche Personendaten</div>
+                        </li>
+                        <li class="inactive" onclick="window.location.href='ShowOnlineRegistration';"><div>Online-Anmeldung</div>
+                        </li>
+                    #end
                 </ul>
             </div>
 

@@ -73,6 +73,7 @@
 		<worker name="GuestDoctypeWorker" implementation="de.tarent.aa.veraweb.worker.GuestDoctypeWorker" singleton="true" factory="reflected" />
 		<worker name="GuestExportWorker" implementation="de.tarent.aa.veraweb.worker.GuestExportWorker" singleton="true" factory="reflected" />
 		<worker name="GuestReportWorker" implementation="de.tarent.aa.veraweb.worker.GuestReportWorker" singleton="true" factory="reflected" />
+		<worker name="OnlineRegistrationFunctionWorker" implementation="de.tarent.aa.veraweb.worker.OnlineRegistrationFunctionWorker" singleton="true" factory="reflected" />
 
 		<!-- Stammdaten-Worker -->
 		<worker name="ColorWorker" implementation="de.tarent.aa.veraweb.worker.ColorWorker" singleton="true" factory="reflected" />
@@ -1224,6 +1225,24 @@
 			<action name="showList" worker="EventDoctypeWorker" />
 			<action name="getAll" worker="DoctypeWorker" />
 			<response type="velocity" name="eventDoctype">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+
+		<task name="ShowOnlineRegistration" access="public" groups="StandardFieldsReader">
+			<description>
+				Dieser Task zeigt die Kategorien und die Amtsbezeichnungen, die für die Online-Anmeldung freigegeben sind.
+			</description>
+			<doTask name="Load"/>
+			<action name="saveDetail" worker="EventDetailWorker" />
+			<status equals="notsaved">
+				<doTask name="SaveEvent"/>
+			</status>
+			<action name="showDetail" worker="EventDetailWorker" />
+			<!--<action name="saveList" worker="EventDoctypeWorker" />-->
+			<action name="showAllFunctions" worker="OnlineRegistrationFunctionWorker" />
+			<action name="getAll" worker="FunctionWorker" />
+			<response type="velocity" name="onlineRegistration">
 				<param name="ContentType" value="text/html;charset=UTF-8"/>
 			</response>
 		</task>

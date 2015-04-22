@@ -40,14 +40,19 @@
 
 			<div id="tabsMain" class="event">
 				<ul class="gray-gradient" vera-tab-group> <!-- Bitte das End-tag der <li>s immer mit in die nächste Zeile nehmen (verhindert Mozilla styling bug) -->
-					<li class="inactive" onclick="window.location.href='ShowEvent?id=$!event.id';"><div>Allgemein</div>
-					</li><li class="active"><div>Dokumenttypen</div>
-					</li><li class="inactive" onclick="window.location.href='ShowEventTasks?id=$!event.id&selectNone=true';"><div>Aufgaben</div>
+					<li class="inactive"  onclick="window.location.href='ShowEvent?id=$!event.id';" class="noBorder">
+						<div>Allgemein</div>
+					</li>
+					<li class="inactive" onclick="window.location.href='${paths.staticWeb}do/ShowEventDoctype?id=$!event.id&selectNone=true';" class="noBorder">
+						<div>Dokumenttypen</div>
+					</li>
+					<li class="inactive" onclick="window.location.href='ShowEventTasks?id=$!event.id&selectNone=true';" class="noBorder">
+						<div>Aufgaben</div>
 					</li>
 					#if($online-registration.activated)
 						<li class="inactive" onclick="window.location.href='${paths.staticWeb}do/ShowDelegationFields?eventId=$!event.id'"><div>Zusätzliche Personendaten</div>
 						</li>
-						<li class="inactive" onclick="window.location.href='ShowOnlineRegistration';"><div>Online-Anmeldung</div>
+						<li class="active"><div>Online-Anmeldung</div>
 						</li>
 					#end
 				</ul>
@@ -58,8 +63,8 @@
 
 				<span id="actionPanel">
 					#if($grants.mayWrite() && $list && $list.size() > 0)
-						<strong>Markierte(n) Dokumenttyp(en)</strong>
-						<input type="button" name="remove" value="Entfernen" title="Markierte(n) Dokumenttyp(en) entfernen" onclick="deleteEventDoctype();"/>
+						<strong>Markierte(n) Amtsbezeichnung(en)</strong>
+						<input type="button" name="remove" value="Entfernen" title="Markierte(n) Amtsbezeichnung(en) entfernen" onclick="deleteFunction();"/>
 					#else &nbsp;#end
 				</span>
 
@@ -72,7 +77,6 @@
 				#foreach($bean in $list)
 					<input type="hidden" name="list" value="$bean.id"/>
 				#end
-
 
 				#if(($list && $list.size() > 0) || $grants.mayWrite())
 					<table class="notBold fixed">
@@ -96,10 +100,10 @@
 							<input type="hidden" id="add-modified" name="add-modified" value="false"/><input type="checkbox" name="add-select" value="true" style="display: none;"/>
 							<td class="textCenter"><input type="hidden" name="add-id" value=""/><input type="hidden" name="add-event" value="$!event.id"/><em>neu</em></td>
 							<td>
-								<select id="add-doctype" name="add-doctype" onchange="setModified('add')">
+								<select id="add-function" name="add-function" onchange="setModified('add')">
 									<option value="0">Bitte ausw&auml;hlen:</option>
-									#foreach($doctype in $allDoctype)
-										<option value="$doctype.id">$!message.plain($doctype.name)</option>
+									#foreach($function in $allFunctions)
+										<option value="$function.id">$!message.plain($function.name)</option>
 									#end
 								</select>
 							</td>
@@ -117,18 +121,17 @@
 
 					#if ($listparam.count == 0)
 						<tr>
-							<td colspan="2">Es wurden keine Dokumenttypen gefunden.</td>
+							<td colspan="2">Es wurden keine Amtsbezeichnungen gefunden.</td>
 						</tr>
 					#end
 
-					#set($itemName = "Dokumenttypen")
+					#set($itemName = "Amtsbezeichnungen")
 					#parse("inc/list-navi-new.vm")
 
 				</table>
 				#end
 
 			</div>
-
 		</div>
 
 		<span id="buttonPanel-bottom" class="floatRight">
@@ -144,12 +147,12 @@
 </div>
 
 <script type="text/javascript">
-	function deleteEventDoctype() {
+	function deleteFunction() {
 		$('<input>').attr({ type: 'hidden', id: 'remove', name: 'remove' }).appendTo($('#formlist'));
 		document.formlist.submit();
 	}
 
-	function saveEventDoctype() {
+	function saveFunction() {
 		$('<input>').attr({ type: 'hidden', id: 'save', name: 'save' }).appendTo($('#formlist'));
 		document.formlist.submit();
 	}
