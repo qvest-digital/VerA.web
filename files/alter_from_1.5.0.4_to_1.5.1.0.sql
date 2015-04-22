@@ -2,8 +2,6 @@
 /* Alter table "tdoctype"                                                 */
 /* ---------------------------------------------------------------------- */
 
-ALTER TABLE veraweb.tdoctype ADD CONSTRAINT docname_unique UNIQUE(docname);
-
 CREATE OR REPLACE FUNCTION veraweb.umlaut_fix(character varying) RETURNS character varying AS $BODY$
     BEGIN
         IF
