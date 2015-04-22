@@ -61,7 +61,7 @@ public class EventURLHandler {
             final URLGenerator urlGenerator = getUrlGenerator();
 	        cntx.setContent("eventUrl", urlGenerator.getURLForFreeVisitors() + uuid);
         } else {
-	        cntx.setContent("eventUrl", "Nicht verf&uuml;gbar");
+	        cntx.setContent("eventUrl", "Nicht verfügbar");
         }
     }
 
