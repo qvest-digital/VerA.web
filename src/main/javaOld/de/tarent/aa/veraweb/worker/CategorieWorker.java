@@ -149,37 +149,41 @@ public class CategorieWorker extends StammdatenWorker {
 		Person person = (Person)cntx.contentAsObject("person");
 		Event event = (Event) cntx.contentAsObject("event");
 		if (person != null && person.id != null) {
-			clause = Where.and(
-					Expr.isNull("fk_event"),
-					new RawClause("pk NOT IN (SELECT fk_categorie FROM veraweb.tperson_categorie WHERE fk_person = " + person.id + ")"));
-
-			Integer eventId = cntx.requestAsInteger("eventId");
-			if (eventId.intValue() == 0) {
-				if (event != null) {
-					eventId = event.id;
-				} else {
-					eventId = null;
-				}
-			}
-			if (eventId != null) {
-				clause = Where.or(
-						Expr.isNull("fk_event"),
-						Expr.equal("fk_event", eventId)
-				);
-			}
-
-			Clause orgUnitTest = getWhere(cntx);
-			if (orgUnitTest != null) {
-				clause = clause == null ? orgUnitTest : Where.and(orgUnitTest, clause);
-			}
-			if (clause != null) {
-				select.where(clause);
-			}
+			buildSelectForPerson(cntx, select, person, event);
 		} else if (event != null && event.id != null) {
 			select.where(new RawClause("pk NOT IN (SELECT fk_category FROM veraweb.tevent_category WHERE fk_event = " + event.id + ")"));
 		}
 
 
+	}
+
+	private void buildSelectForPerson(OctopusContext cntx, Select select, Person person, Event event) throws BeanException {
+		Clause clause = Where.and(
+				Expr.isNull("fk_event"),
+				new RawClause("pk NOT IN (SELECT fk_categorie FROM veraweb.tperson_categorie WHERE fk_person = " + person.id + ")"));
+
+		Integer eventId = cntx.requestAsInteger("eventId");
+		if (eventId.intValue() == 0) {
+            if (event != null) {
+                eventId = event.id;
+            } else {
+                eventId = null;
+            }
+        }
+		if (eventId != null) {
+            clause = Where.or(
+                    Expr.isNull("fk_event"),
+                    Expr.equal("fk_event", eventId)
+            );
+        }
+
+		Clause orgUnitTest = getWhere(cntx);
+		if (orgUnitTest != null) {
+            clause = clause == null ? orgUnitTest : Where.and(orgUnitTest, clause);
+        }
+		if (clause != null) {
+            select.where(clause);
+        }
 	}
 
 	@Override
