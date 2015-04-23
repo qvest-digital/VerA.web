@@ -19,11 +19,18 @@
  */
 package de.tarent.aa.veraweb.worker;
 
+import de.tarent.aa.veraweb.beans.Doctype;
 import de.tarent.aa.veraweb.beans.Event;
+import de.tarent.aa.veraweb.beans.Function;
 import de.tarent.aa.veraweb.beans.Salutation;
+import de.tarent.dblayer.sql.SQL;
+import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.clause.RawClause;
 import de.tarent.dblayer.sql.statement.Select;
+import de.tarent.octopus.beans.Bean;
 import de.tarent.octopus.beans.BeanException;
+import de.tarent.octopus.beans.Database;
+import de.tarent.octopus.beans.TransactionContext;
 import de.tarent.octopus.server.OctopusContext;
 
 import java.io.IOException;
@@ -54,6 +61,11 @@ public class FunctionWorker extends StammdatenWorker {
     private RawClause getClause(Event event) {
         String clause = "pk NOT IN (SELECT fk_function FROM veraweb.tevent_function WHERE fk_event = " + event.id + ")";
         return new RawClause(clause);
+    }
+
+    @Override
+    protected void saveBean(OctopusContext cntx, Bean bean, TransactionContext context) throws BeanException, IOException {
+        super.saveBean(cntx, bean, context);
     }
 
 }
