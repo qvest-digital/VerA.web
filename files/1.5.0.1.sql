@@ -1,20 +1,15 @@
-/* ---------------------------------------------------------------------- */
-/* Alter table "tevent"                                                   */
-/* ---------------------------------------------------------------------- */
+-- Alter table "tevent"
 
 alter table veraweb.tevent add eventtype varchar(100);
 alter table veraweb.tevent add column mediarepresentatives varchar(100);
 
-/* ---------------------------------------------------------------------- */
-/* Alter table "tguest"                                                   */
-/* ---------------------------------------------------------------------- */
+-- Alter table "tguest"
 
 alter table veraweb.tguest add column delegation varchar(255);
 alter table veraweb.tguest add column osiam_login varchar(255);
 
-/* ---------------------------------------------------------------------- */
-/* Trigger for link mandant with categories                               */
-/* ---------------------------------------------------------------------- */
+-- Trigger for link mandant with categories
+
 CREATE FUNCTION linkOrgUnitWithCategorie()
         RETURNS TRIGGER AS $BODY$
         BEGIN
@@ -27,9 +22,8 @@ CREATE TRIGGER createCategorieOnUnitInsert
         AFTER INSERT ON veraweb.torgunit
         FOR EACH ROW EXECUTE PROCEDURE linkOrgUnitWithCategorie();
 
-/* ---------------------------------------------------------------------- */
-/* Mirgate old OrgUnits                                                   */
-/* ---------------------------------------------------------------------- */
+-- Mirgate old OrgUnits
+
 CREATE FUNCTION migrateOrgUnits() RETURNS integer AS $BODY$
 	DECLARE
 	    unLinked RECORD;
@@ -48,15 +42,13 @@ $BODY$ LANGUAGE plpgsql;
 SELECT migrateOrgUnits();
 DROP FUNCTION migrateOrgUnits();
 
-/* ---------------------------------------------------------------------- */
-/* Drop tables                                                            */
-/* ---------------------------------------------------------------------- */
+-- Drop tables
+
 drop table veraweb.tdelegations;
 drop table veraweb.tdelegation_fields;
 
-/* ---------------------------------------------------------------------- */
-/* Create new tables for the optional delegation fields                   */
-/* ---------------------------------------------------------------------- */
+-- Create new tables for the optional delegation fields
+
 CREATE TABLE veraweb.toptional_fields (
 	pk serial NOT NULL,
 	fk_event serial NOT NULL,
@@ -76,8 +68,6 @@ CREATE TABLE veraweb.toptional_fields_delegation_content (
 	PRIMARY KEY (fk_guest, fk_delegation_field)
 );
 
-/* ---------------------------------------------------------------------- */
-/* Update schema version                                                  */
-/* ---------------------------------------------------------------------- */
+-- Update schema version
 
 UPDATE veraweb.tconfig SET cvalue = '2014-11-17' WHERE cname = 'SCHEMA_VERSION';
