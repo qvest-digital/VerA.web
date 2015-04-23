@@ -73,7 +73,7 @@
 		<worker name="GuestDoctypeWorker" implementation="de.tarent.aa.veraweb.worker.GuestDoctypeWorker" singleton="true" factory="reflected" />
 		<worker name="GuestExportWorker" implementation="de.tarent.aa.veraweb.worker.GuestExportWorker" singleton="true" factory="reflected" />
 		<worker name="GuestReportWorker" implementation="de.tarent.aa.veraweb.worker.GuestReportWorker" singleton="true" factory="reflected" />
-		<worker name="OnlineRegistrationFunctionWorker" implementation="de.tarent.aa.veraweb.worker.OnlineRegistrationFunctionWorker" singleton="true" factory="reflected" />
+		<worker name="EventFunctionWorker" implementation="de.tarent.aa.veraweb.worker.EventFunctionWorker" singleton="true" factory="reflected" />
 
 		<!-- Stammdaten-Worker -->
 		<worker name="ColorWorker" implementation="de.tarent.aa.veraweb.worker.ColorWorker" singleton="true" factory="reflected" />
@@ -1239,8 +1239,8 @@
 				<doTask name="SaveEvent"/>
 			</status>
 			<action name="showDetail" worker="EventDetailWorker" />
-			<!--<action name="saveList" worker="EventDoctypeWorker" />-->
-			<action name="showAllFunctions" worker="OnlineRegistrationFunctionWorker" />
+			<action name="saveList" worker="EventFunctionWorker" />
+			<action name="showList" worker="EventFunctionWorker" />
 			<action name="getAll" worker="FunctionWorker" />
 			<response type="velocity" name="onlineRegistration">
 				<param name="ContentType" value="text/html;charset=UTF-8"/>

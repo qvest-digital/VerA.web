@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------------------- */
-/* Create table "tevent_functions                                         */
+/* Create table "tevent_function                                          */
 /* ---------------------------------------------------------------------- */
 
 CREATE TABLE veraweb.tevent_function (

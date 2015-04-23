@@ -47,14 +47,12 @@ public class FunctionWorker extends StammdatenWorker {
     protected void extendAll(OctopusContext cntx, Select select) throws BeanException, IOException {
         Event event = (Event) cntx.contentAsObject("event");
         if (event != null) {
-            select.where(
-                getClause(event)
-            );
+            select.where(getClause(event));
         }
     }
 
     private RawClause getClause(Event event) {
-        String clause = "pk NOT IN (SELECT fk_function FROM veraweb.tevent_functions WHERE fk_event = " + event.id + ")";
+        String clause = "pk NOT IN (SELECT fk_function FROM veraweb.tevent_function WHERE fk_event = " + event.id + ")";
         return new RawClause(clause);
     }
 

@@ -48,7 +48,7 @@
 	                    <li class="active">
 	                        <div>Zusätzliche Personendaten</div>
 	                    </li>
-	                    <li class="inactive" onclick="window.location.href='ShowOnlineRegistration';"><div>Online-Anmeldung</div>
+	                    <li class="inactive" onclick="window.location.href='ShowOnlineRegistration?id=$!event.id';"><div>Online-Anmeldung</div>
                         </li>
 	                #end
                 </ul>
