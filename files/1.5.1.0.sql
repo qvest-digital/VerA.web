@@ -2,8 +2,6 @@
 /* Alter table "tdoctype"                                                 */
 /* ---------------------------------------------------------------------- */
 
-ALTER TABLE veraweb.tdoctype ADD CONSTRAINT docname_unique UNIQUE(docname);
-
 CREATE OR REPLACE FUNCTION veraweb.umlaut_fix(character varying) RETURNS character varying AS $BODY$
     BEGIN
         IF
@@ -29,4 +27,4 @@ ALTER FUNCTION veraweb.umlaut_fix(character varying) OWNER TO veraweb;
 /* Update schema version                                                  */
 /* ---------------------------------------------------------------------- */
 
-UPDATE veraweb.tconfig SET cvalue = '2015-02-24' WHERE cname = 'SCHEMA_VERSION';
+UPDATE veraweb.tconfig SET cvalue = '2015-02-25' WHERE cname = 'SCHEMA_VERSION';

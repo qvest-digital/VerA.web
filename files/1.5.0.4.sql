@@ -1,16 +1,11 @@
 /* ---------------------------------------------------------------------- */
-/* Create table "tevent_function                                          */
+/* Create table "tevent_function"                                         */
 /* ---------------------------------------------------------------------- */
 
-CREATE TABLE veraweb.tevent_function (
-  pk serial NOT NULL,
-  fk_event int4 NOT NULL DEFAULT 0,
-  fk_function int4 NOT NULL DEFAULT 0,
-  CONSTRAINT tevent_doctype_pkey PRIMARY KEY (pk)
-) WITH OIDS;
+ALTER TABLE veraweb.tdoctype ADD CONSTRAINT docname_unique UNIQUE(docname);
 
 /* ---------------------------------------------------------------------- */
 /* Update schema version                                                  */
 /* ---------------------------------------------------------------------- */
 
-UPDATE veraweb.tconfig SET cvalue = '2015-04-22' WHERE cname = 'SCHEMA_VERSION';
+UPDATE veraweb.tconfig SET cvalue = '2015-02-24' WHERE cname = 'SCHEMA_VERSION';
