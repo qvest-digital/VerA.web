@@ -56,7 +56,7 @@
 					#if($online-registration.activated)
 						<li class="inactive" onclick="window.location.href='${paths.staticWeb}do/ShowDelegationFields?eventId=$!event.id'"><div>Zusätzliche Personendaten</div>
 						</li>
-						<li class="inactive" onclick="window.location.href='ShowOnlineRegistration?id=$!event.id';"><div>Online-Anmeldung</div>
+						<li class="inactive" onclick="window.location.href='ShowEventFunction?id=$!event.id';"><div>Funktions- bzw. Amtsbezeichnung</div>
 						</li>
 					#end
 				</ul>

@@ -1229,7 +1229,7 @@
 			</response>
 		</task>
 
-		<task name="ShowOnlineRegistration" access="public" groups="StandardFieldsReader">
+		<task name="ShowEventFunction" access="public" groups="StandardFieldsReader">
 			<description>
 				Dieser Task zeigt die Kategorien und die Amtsbezeichnungen, die für die Online-Anmeldung freigegeben sind.
 			</description>
@@ -1242,7 +1242,7 @@
 			<action name="saveList" worker="EventFunctionWorker" />
 			<action name="showList" worker="EventFunctionWorker" />
 			<action name="getAll" worker="FunctionWorker" />
-			<response type="velocity" name="onlineRegistration">
+			<response type="velocity" name="eventFunction">
 				<param name="ContentType" value="text/html;charset=UTF-8"/>
 			</response>
 		</task>
