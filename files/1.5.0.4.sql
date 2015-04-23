@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------------------- */
-/* Create table "tevent_function"                                         */
+/* Alter table "tdoctype"						  */
 /* ---------------------------------------------------------------------- */
 
 ALTER TABLE veraweb.tdoctype ADD CONSTRAINT docname_unique UNIQUE(docname);
