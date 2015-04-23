@@ -134,10 +134,9 @@ public class PersonDetailWorker implements PersonConstants {
 		}
 
 		Map map = (Map)cntx.sessionAsObject( "statistikSettings" );
-		if ( map == null )
-		{
+		if (map == null) {
 			map = new HashMap();
-			cntx.setSession( "statistikSettings", map );
+			cntx.setSession("statistikSettings", map);
 		}
 
 		/*
@@ -153,16 +152,12 @@ public class PersonDetailWorker implements PersonConstants {
 		 */
 		map.put( "statistik", "EventsGroupByGuest" );
 		Date d = new Date( System.currentTimeMillis() );
-		if ( person != null && person.created != null )
-		{
-			d = new Date( person.created.getTime() );
+		if (person != null && person.created != null) {
+			d = new Date(person.created.getTime());
 		}
 		Calendar cal = Calendar.getInstance();
 		cal.setTime( d );
 		map.put( "begin", "01." + ( cal.get( Calendar.MONTH ) + 1 ) + "." + cal.get( Calendar.YEAR ) );
-// previously disabled due to the fact that the stats reach "out to near infinite time" in the future
-//		cal.setTime( new Date() );
-//		map.put( "end", cal.get( Calendar.DAY_OF_MONTH ) + "." + ( cal.get( Calendar.MONTH ) + 1 ) + "." + cal.get( Calendar.YEAR ) );
 
 		cntx.setContent("personTab", cntx.requestAsString("personTab"));
         cntx.setContent("personMemberTab", cntx.requestAsString("personMemberTab"));
