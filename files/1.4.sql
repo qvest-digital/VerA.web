@@ -1,6 +1,4 @@
-/* ---------------------------------------------------------------------- */
-/* Add table "ttask" with related sequence                                */
-/* ---------------------------------------------------------------------- */
+-- Add table "ttask" with related sequence
 
 CREATE SEQUENCE ttask_pk_seq INCREMENT 1 MINVALUE 1 MAXVALUE 9223372036854775807 START 1 CACHE 1;
 
@@ -24,9 +22,7 @@ CREATE TABLE veraweb.ttask (
 	CONSTRAINT ttask_pkey PRIMARY KEY (pk)
 ) WITH OIDS;
 
-/* ---------------------------------------------------------------------- */
-/* Alter table "tlocation"                                                */
-/* ---------------------------------------------------------------------- */
+-- Alter table "tlocation"
 
 ALTER TABLE veraweb.tlocation ADD COLUMN
 	contactperson VARCHAR(250),
@@ -41,16 +37,11 @@ ALTER TABLE veraweb.tlocation ADD COLUMN
 	ADD COLUMN gpsdata VARCHAR(1000),
 	ADD COLUMN roomnumber VARCHAR(250);
 
-
-/* ---------------------------------------------------------------------- */
-/* Alter table "tevent"                                                   */
-/* ---------------------------------------------------------------------- */
+-- Alter table "tevent"
 
 ALTER TABLE veraweb.tevent DROP COLUMN location;
 ALTER TABLE veraweb.tevent ADD COLUMN fk_location INTEGER REFERENCES veraweb.tlocation(pk);
 
-/* ---------------------------------------------------------------------- */
-/* Update schema version                                                  */
-/* ---------------------------------------------------------------------- */
+-- Update schema version
 
 UPDATE veraweb.tconfig SET cvalue = '2013-06-12' WHERE cname = 'SCHEMA_VERSION';
