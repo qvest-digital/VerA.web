@@ -1,8 +1,5 @@
 {
-  "LANGUAGE": "DE",
-  "LANGUAGE_FIELD_ENGLISH": "Englisch",
-  "LANGUAGE_FIELD_GERMAN": "Deutsch",
-  "LANGUAGE_FIELD_SELECT": "Sprache w\u00e4hlen:",
+  "LANGUAGE_FIELD_SELECT": "Sprache wählen:",
 
   "GENERIC_DATE": "Datum",
   "GENERIC_EVENT": "Veranstaltung",

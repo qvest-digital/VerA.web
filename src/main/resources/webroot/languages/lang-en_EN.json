@@ -1,7 +1,4 @@
 {
-  "LANGUAGE": "EN",
-  "LANGUAGE_FIELD_ENGLISH": "English",
-  "LANGUAGE_FIELD_GERMAN": "German",
   "LANGUAGE_FIELD_SELECT": "Select language:",
 
   "GENERIC_DATE": "Date",
@@ -30,9 +27,9 @@
   "GENERIC_GENDER_MALE": "Mr.",
   "GENERIC_GENDER_FEMALE": "Mrs./Ms.",
   "GENERIC_MISSING_GENDER_MESSAGE": "Please select your gender.",
-  "GENERIC_LOGOUT_SUCCESSFULL_MESSAGE": "You have successfully logged out!",
+  "GENERIC_LOGOUT_SUCCESSFULL_MESSAGE": "You have been logged out successfully!",
   "GENERIC_MESSAGE_USER_OR_PASSWORD_WRONG": "Username or password is wrong!",
-  "GENERIC_MESSAGE_EVENT_DOESNT_EXISTS": "The event doesn't exists.",
+  "GENERIC_MESSAGE_EVENT_DOESNT_EXISTS": "The event does not exists.",
   "GENERIC_MESSAGE_FILL_IN_ALL_FIELDS": "Please fill in all fields!",
 
   "BROWSER_TITLE": "VerA.web Online-Registration",
@@ -42,7 +39,7 @@
   "USER_EVENT_REGISTER_TITLE": "Register",
   "USER_EVENT_REGISTER_START_LABEL": "Begin",
   "USER_EVENT_REGISTER_BUTTON": "Binding registration",
-  "USER_EVENT_REGISTER_MESSAGE_SUCCESSFUL_PART_ONE": "You have succesfully subscribed for the event",
+  "USER_EVENT_REGISTER_MESSAGE_SUCCESSFUL_PART_ONE": "You have successfully signed up for the event.",
   "USER_EVENT_REGISTER_MESSAGE_SUCCESSFUL_PART_TWO": ".",
 
   "USER_EVENTS_TITLE": "My events",
@@ -52,34 +49,34 @@
   "USER_EVENTS_EDIT_STATUS_ADDITIONAL_INFO": "Information for host",
 
   "USER_EVENTS_STATUS_CHANGED_SUCCESSFULL_MESSAGE_PART_ONE": "Your data for the event",
-  "USER_EVENTS_STATUS_CHANGED_SUCCESSFULL_MESSAGE_PART_TWO": "has been successfully changed.",
-  "USER_EVENTS_STATUS_CHANGED_ERROR_MESSAGE": "You have already subscribed for this event.",
+  "USER_EVENTS_STATUS_CHANGED_SUCCESSFULL_MESSAGE_PART_TWO": "has been changed successfully.",
+  "USER_EVENTS_STATUS_CHANGED_ERROR_MESSAGE": "You have already signed up for this event.",
   "USER_EVENTS_STATUS_TYPE_OPEN": "Open",
-  "USER_EVENTS_STATUS_TYPE_ACCEPTANCE": "Declined",
+  "USER_EVENTS_STATUS_TYPE_ACCEPTANCE": "Accept",
   "USER_EVENTS_STATUS_TYPE_REFUSE": "Refuse",
 
   "USER_PASSWORD_CHANGE": "Change password",
-  "USER_PASSWORD_CHANGE_FAILED_MESSAGE": "Password does not match the confirm password.",
-  "USER_PASSWORD_CHANGE_SUCCESS_MESSAGE": "Your password was successfully changed!",
+  "USER_PASSWORD_CHANGE_FAILED_MESSAGE": "Passwords do not match!",
+  "USER_PASSWORD_CHANGE_SUCCESS_MESSAGE": "Your password has been changed successfully!",
 
-  "PUBLIC_EVENTS_REGISTER_BUTTON": "Register for the event",
+  "PUBLIC_EVENTS_REGISTER_BUTTON": "Sign up for the event",
 
   "MEDIA_REPRESENTATIVES_TITLE": "Register as media representative:",
-  "MEDIA_REPRESEINTATIVES_REGISTER_SUCCESSFULL_MESSAGE": "Your data is now being reviewed, a commitment is based on positive review.",
+  "MEDIA_REPRESEINTATIVES_REGISTER_SUCCESSFULL_MESSAGE": "Your data is being reviewed. Confirmation depends on a positive result.",
 
-  "REGISTER_USER_MESSAGE_SUCCESS": "User data successfully saved.",
+  "REGISTER_USER_MESSAGE_SUCCESS": "User data has been saved successfully.",
   "REGISTER_USER_MESSAGE_USER_EXISTS_ERROR": "A user with this username already exists.",
   "REGISTER_USER_MESSAGE_VALIDATION_ERROR": "The username should only contain letters and numbers.",
-  "REGISTER_USER_MESSAGE_PASSWORD_REPEAT_ERROR": "Password does not match the confirm password.",
+  "REGISTER_USER_MESSAGE_PASSWORD_REPEAT_ERROR": "Passwords do not match!",
 
-  "DELEGATION_MESSAGE_FIRSTNAME_MAX": "Please enter firstname with max 35 characters",
-  "DELEGATION_MESSAGE_LASTNAME_MAX": "Please enter lastname with max 35 characters",
-  "DELEGATION_MESSAGE_MISSING_FIRSTNAME": "Please enter firstname.",
-  "DELEGATION_MESSAGE_MISSING_LASTNAME": "Please enter lastname.",
-  "DELEGATION_MESSAGE_DELEGATION_DOESNT_EXISTS": "Delegation doesn't exists!",
-  "DELEGATION_MESSAGE_DELEGATION_DATA_SAVED_SUCCESSFULL": "Delegation data was saved.",
-  "DELEGATION_MESSAGE_NO_EXTRA_FIELDS": "No extra fields for this event.",
-  "DELEGATION_REGISTER_USER_TITLE": "Register delegate",
+  "DELEGATION_MESSAGE_FIRSTNAME_MAX": "Please enter a firstname (max 35 characters)",
+  "DELEGATION_MESSAGE_LASTNAME_MAX": "Please enter a lastname (max 35 characters)",
+  "DELEGATION_MESSAGE_MISSING_FIRSTNAME": "Please enter a firstname.",
+  "DELEGATION_MESSAGE_MISSING_LASTNAME": "Please enter a lastname.",
+  "DELEGATION_MESSAGE_DELEGATION_DOESNT_EXISTS": "Delegation does not exist!",
+  "DELEGATION_MESSAGE_DELEGATION_DATA_SAVED_SUCCESSFULL": "Delegation data has been saved.",
+  "DELEGATION_MESSAGE_NO_EXTRA_FIELDS": "No extra fields for this event available.",
+  "DELEGATION_REGISTER_USER_TITLE": "Add delegate",
   "DELEGATION_ALREADY_REGISTERED": "Already registered",
   "DELEGATION_EXTRA_FIELDS_TITLE": "Extra fields"
 }
