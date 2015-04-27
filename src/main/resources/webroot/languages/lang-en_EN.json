@@ -65,7 +65,7 @@
   "PUBLIC_EVENTS_REGISTER_BUTTON": "Register for the event",
 
   "MEDIA_REPRESENTATIVES_TITLE": "Register as media representative:",
-  "MEDIA_REPRESEINTATIVES_REGISTER_SUCCESSFULL_MESSAGE": "Your data is now being reviewed , a commitment is based after positive review.",
+  "MEDIA_REPRESEINTATIVES_REGISTER_SUCCESSFULL_MESSAGE": "Your data is now being reviewed, a commitment is based on positive review.",
 
   "REGISTER_USER_MESSAGE_SUCCESS": "User data successfully saved.",
   "REGISTER_USER_MESSAGE_USER_EXISTS_ERROR": "A user with this username already exists.",
