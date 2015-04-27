@@ -4,11 +4,6 @@
 #set($elementNameSingular = "Kategorie")
 #set($elementNamePlural = "Kategorien")
 
-##Values in per cent for table columns width
-#set($column0 = 3)
-#set($column1 = 5)
-#set($column2 = 92)
-
 #parse("inc/header.vm")
 
 <div id="content_container">
@@ -81,6 +76,21 @@
 				#end
 
 				#if(($list && $list.size() > 0) || $grants.mayWrite())
+
+					#if ($list && $list.size() > 0)
+						##Values in per cent for table columns width
+						##If category exists
+						#set($column0 = 3)
+						#set($column1 = 5)
+						#set($column2 = 92)
+					#else
+						##Values in per cent for table columns width
+						##If category doesn't exist
+						#set($column0 = 5)
+						#set($column1 = 95)
+						#set($column2 = 0)
+					#end
+
 					<table class="notBold fixed">
 						##Set column size
 						<col width="$column0%" />
@@ -114,7 +124,7 @@
 					#foreach($bean in $list)
 						<tr>
 							#if($grants.mayWrite())
-							<td class="textCenter"><input type="hidden" id="${bean.id}-modified" name="${bean.id}-modified" value="false"/><input type="checkbox" name="${bean.id}-select" value="true"/></td>
+								<td class="textCenter"><input type="hidden" id="${bean.id}-modified" name="${bean.id}-modified" value="false"/><input type="checkbox" name="${bean.id}-select" value="true"/></td>
 							#end
 							<td class="textCenter"><input type="hidden" name="${bean.id}-id" value="$!bean.id"/><input type="hidden" name="${bean.id}-event" value="$!event.id"/>$!bean.id</td>
 							<td>$!message.plain($bean.name)</td>
