@@ -34,6 +34,12 @@ public class EventCategory extends AbstractBean {
 	public String name;
 	public Integer sortorder;
 
+	/**
+     * Diese Methode überprüft die eingegangenen Werte von event und category
+     * auf null und 0.
+     *
+     * @throws de.tarent.octopus.beans.BeanException Wenn im angegebenen Kontext diese Bohne nicht gelesen werden darf.
+     */
 	@Override
     public void verify() throws BeanException {
 		if (event == null || event.intValue() == 0) {
