@@ -296,7 +296,18 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 			{id: 2, name:"GENERIC_GENDER_FEMALE"}
 		];
 
+		$scope.categoryOptions = [
+			{id: 0, name:"DELEGATION_OPTION_CATEGORY"}
+		];
+
+		$scope.functionSignOptions = [
+			{id: 0, name:"DELEGATION_OPTION_FUNCTION"}
+   		];
+
+
 		$scope.gender = $scope.genderOptions[0];
+		$scope.category = $scope.categoryOptions[0];
+		$scope.functionSign = $scope.functionSignOptions[0];
 		$scope.success = null;
 		$scope.error = null;
 
@@ -340,6 +351,15 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 				console.log("registering delegation in the event.");
 
 				if (($scope.nachname != null && $scope.nachname != '') && ($scope.vorname != null && $scope.vorname != '')) {
+					//Empty the standard label for saving
+					//No required fields
+					if ($scope.category.id == 0) {
+						$scope.category.label = '';
+					}
+					if ($scope.functionSign.id == 0) {
+						$scope.functionSign.label = '';
+					}
+
 					$http({
 						method: 'POST',
 						url: 'api/delegation/' + $routeParams.uuid + '/register',
@@ -350,7 +370,10 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 						data: $.param({
 							firstname: $scope.nachname,
 							lastname: $scope.vorname,
-							gender: $scope.gender.label
+							gender: $scope.gender.label,
+							category: $scope.category.label,
+							functionSign: $scope.functionSign.label
+
 						})
 					}).success(function(result) {
 						$scope.success = null;
@@ -372,6 +395,8 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 								$scope.success = text;
 							});
 							$scope.gender = $scope.genderOptions[0];
+							$scope.category = $scope.categoryOptions[0];
+							$scope.functionSign = $scope.functionSignOptions[0];
 							$scope.nachname = null;
 							$scope.vorname = null;
 
