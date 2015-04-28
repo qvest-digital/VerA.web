@@ -7,10 +7,18 @@
 		    <div ng-if="error" class="alert alert-danger" role="alert">{{error}}</div>
 
             <div class="col-xs-2" ng-class="delegation-form.gender.$valid ? 'has-success' : 'has-error'">
-                <select class="form-control" id="gender" name="gender" ng-model="gender" ng-options="option.name | translate for option in genderOptions" required=""/>
+                <select class="form-control" id="gender" name="gender" ng-model="gender" ng-options="option.name | translate for option in genderOptions" required=""/></select>
             </div>
 
-            <div class="col-xs-4" ng-class="delegation-form.vorname.$valid ? 'has-success' : 'has-error'">
+			<div class="col-xs-2" ng-class="delegation-form.function.$valid ? 'has-success' : 'has-error'">
+                <select class="form-control" id="functionSign" name="functionSign" ng-model="functionSign" ng-options="option.name | translate for option in functionSignOptions"/></select>
+            </div>
+
+            <div class="col-xs-2" ng-class="delegation-form.categorie.$valid ? 'has-success' : 'has-error'">
+                <select class="form-control" id="category" name="category" ng-model="category" ng-options="option.name | translate for option in categoryOptions"/></select>
+            </div>
+
+            <div class="col-xs-2" ng-class="delegation-form.vorname.$valid ? 'has-success' : 'has-error'">
                 <input type="text" class="form-control" id="vorname" placeholder="{{'GENERIC_FIRSTNAME'|translate}}" ng-model="vorname" required/>
 
                 <div ng-show="delegation-form.$submitted || delegation-form.vorname.$touched">
@@ -18,7 +26,7 @@
                 </div>
             </div>
 
-            <div class="col-xs-4" ng-class="delegation-form.nachname.$valid ? 'has-success' : 'has-error'">
+            <div class="col-xs-2" ng-class="delegation-form.nachname.$valid ? 'has-success' : 'has-error'">
                 <input type="text" class="form-control" id="nachname" placeholder="{{'GENERIC_LASTNAME'|translate}}" ng-model="nachname" required/>
 
                 <div ng-show="delegation-form.$submitted || delegation-form.nachname.$touched">
@@ -29,7 +37,7 @@
             <div class="col-xs-2">
                 <button type="submit" class="btn btn-custom" ng-click="register_user()">{{'DELEGATION_REGISTER_USER_TITLE'|translate}}</button>
             </div>
-        </div>
+		</div>
     </div>
 </form>
 

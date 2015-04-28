@@ -70,6 +70,8 @@
   "REGISTER_USER_MESSAGE_VALIDATION_ERROR": "Der Anmeldename darf nur Buchstaben und Zahlen enthalten.",
   "REGISTER_USER_MESSAGE_PASSWORD_REPEAT_ERROR": "Die Passwörter stimmen nicht überein.",
 
+  "DELEGATION_OPTION_CATEGORY": "Kategorie",
+  "DELEGATION_OPTION_FUNCTION": "Funktions-/Amtsbezeichnung",
   "DELEGATION_MESSAGE_FIRSTNAME_MAX": "Bitte geben Sie einen Vornamen mit maximal 35 Buchstaben ein.",
   "DELEGATION_MESSAGE_LASTNAME_MAX": "Bitte geben Sie einen Vornamen mit maximal 35 Buchstaben ein.",
   "DELEGATION_MESSAGE_MISSING_FIRSTNAME": "Bitte geben Sie einen Vornamen ein.",

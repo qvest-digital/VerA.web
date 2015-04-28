@@ -69,6 +69,8 @@
   "REGISTER_USER_MESSAGE_VALIDATION_ERROR": "The username should only contain letters and numbers.",
   "REGISTER_USER_MESSAGE_PASSWORD_REPEAT_ERROR": "Passwords do not match!",
 
+  "DELEGATION_OPTION_CATEGORY": "Category",
+  "DELEGATION_OPTION_FUNCTION": "Function",
   "DELEGATION_MESSAGE_FIRSTNAME_MAX": "Please enter a firstname (max 35 characters)",
   "DELEGATION_MESSAGE_LASTNAME_MAX": "Please enter a lastname (max 35 characters)",
   "DELEGATION_MESSAGE_MISSING_FIRSTNAME": "Please enter a firstname.",
