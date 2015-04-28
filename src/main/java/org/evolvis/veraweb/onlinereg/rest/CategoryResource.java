@@ -19,12 +19,16 @@
  */
 package org.evolvis.veraweb.onlinereg.rest;
 
+import java.util.List;
+
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import org.evolvis.veraweb.onlinereg.entities.OptionalField;
+import org.evolvis.veraweb.onlinereg.entities.OptionalFieldValue;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
@@ -56,6 +60,23 @@ public class CategoryResource extends AbstractResource {
             	return categoryId;
             }
             return 0;
+        } finally {
+            session.close();
+        }
+    }
+
+    @GET
+    @Path("/fields/list/{eventId}//")
+    public List<String> getCategoriesByEventId(@PathParam("eventId") int eventId) {
+    	final Session session = openSession();
+        try {
+            final Query query = session.getNamedQuery("Category.findCatnamesByEventId");
+            query.setInteger("eventId", eventId);
+            final List<String> fields = (List<String>) query.list();
+
+            final List<String> categoryName = (List<String>) query.uniqueResult();
+
+            return categoryName;
         } finally {
             session.close();
         }
