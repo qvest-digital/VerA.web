@@ -296,14 +296,35 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 			{id: 2, name:"GENERIC_GENDER_FEMALE"}
 		];
 
+		$http.get('api/categoryname/' + $routeParams.uuid).then(function(presentPersons) {
+			$scope.presentPersons = presentPersons.data;
+		});
+
+		alert($scope.presentPersons);
+
+		//first label
 		$scope.categoryOptions = [
-			{id: 0, name:"DELEGATION_OPTION_CATEGORY"}
+		    {id: 0, name:"DELEGATION_OPTION_CATEGORY"}
 		];
 
+		for (var i = 1; i < $scope.categoryname.length; i++) {
+			idNumber = i;
+			value = $scope.categoryname;
+
+			$scope.categoryOptions[i] = {id: idNumber, name: value};
+		}
+
+		//first label
 		$scope.functionSignOptions = [
 			{id: 0, name:"DELEGATION_OPTION_FUNCTION"}
    		];
 
+		for (var i = 1; i < $scope.functionname.length; i++) {
+			idNumber = i;
+			value = $scope.functionname;
+
+			$scope.functionSignOptions[i] = {id: idNumber, name: value};
+		}
 
 		$scope.gender = $scope.genderOptions[0];
 		$scope.category = $scope.categoryOptions[0];
@@ -354,10 +375,10 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 					//Empty the standard label for saving
 					//No required fields
 					if ($scope.category.id == 0) {
-						$scope.category.label = '';
+						$scope.category.label = null;
 					}
 					if ($scope.functionSign.id == 0) {
-						$scope.functionSign.label = '';
+						$scope.functionSign.label = null;
 					}
 
 					$http({
