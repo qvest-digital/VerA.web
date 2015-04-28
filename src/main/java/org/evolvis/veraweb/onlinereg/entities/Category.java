@@ -42,7 +42,11 @@ import lombok.Data;
 			query = "SELECT c.pk " +
 					"FROM tcategorie c " +
 						"where catname=:pcatname " +
-						"and fk_orgunit=(SELECT fk_orgunit from tevent where mediarepresentatives=:uuid)")
+						"and fk_orgunit=(SELECT fk_orgunit from tevent where mediarepresentatives=:uuid)"),
+	@NamedNativeQuery(name = "Category.findCatnamesByEventId",
+	query = "SELECT c.pk " +
+			"FROM tcategorie c " +
+				"where fk=:pid ")
 })
 public class Category {
 
@@ -50,7 +54,7 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int pk;
     private String catname;
-    
+
 	public int getPk() {
 		return pk;
 	}
@@ -63,5 +67,5 @@ public class Category {
 	public void setCatname(String catname) {
 		this.catname = catname;
 	}
-    
+
 }
