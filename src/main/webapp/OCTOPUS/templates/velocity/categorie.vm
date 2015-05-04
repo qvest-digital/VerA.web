@@ -126,13 +126,13 @@
 				<td class="textCenter"><input type="hidden" name="${bean.id}-id" value="$!bean.id">$!{bean.id}</td>
 				<td>
 					#if(${bean.name}=='Pressevertreter')
-						<input type="text" name="${bean.id}-name" id="${bean.id}-name" disabled="true" value="$!message.plain($bean.name)" onchange="setModified('$!bean.id')" #if(!($grants.isAdmin() || $grants.isPartialAdmin()))vera-disabled#end></td>
+						<input type="text" name="${bean.id}-name" id="${bean.id}-name" value="$!message.plain($bean.name)" readonly></td>
 					#else
 						<input type="text" name="${bean.id}-name" id="${bean.id}-name" value="$!message.plain($bean.name)" onchange="setModified('$!bean.id')" #if(!($grants.isAdmin() || $grants.isPartialAdmin()))vera-disabled#end></td>
 					#end
 				<td>
 					#if(${bean.name}=='Pressevertreter')
-						<select id="${bean.id}-flags" disabled="true" name="${bean.id}-flags" onchange="setModified('$!bean.id')">
+						<select id="${bean.id}-flags" name="${bean.id}-flags" readonly">
 					#else
 						<select id="${bean.id}-flags" name="${bean.id}-flags" onchange="setModified('$!bean.id')">
 					#end
@@ -143,14 +143,14 @@
 				</td>
 				<td class="textCenter">
 				#if(${bean.name}=='Pressevertreter')
-					<input type="text" name="${bean.id}-rank" disabled="true" id="${bean.id}-rank" value="$!message.text($bean.rank)" onchange="setModified('$!bean.id')" #if(! ($grants.isAdmin() || $grants.isPartialAdmin()))vera-disabled#end>
+					<input type="text" name="${bean.id}-rank" id="${bean.id}-rank" value="$!message.text($bean.rank)" readonly>
 				#else
 					<input type="text" name="${bean.id}-rank" id="${bean.id}-rank" value="$!message.text($bean.rank)" onchange="setModified('$!bean.id')" #if(! ($grants.isAdmin() || $grants.isPartialAdmin()))vera-disabled#end>
 				#end
 				</td>
 				<td>
 					#if(${bean.name}=='Pressevertreter')
-						<select id="${bean.id}-event" disabled="true" name="${bean.id}-event" onchange="setModified('$!bean.id')" #if(! ( $grants.isAdmin() || $grants.isPartialAdmin() ))vera-disabled#end>
+						<select id="${bean.id}-event" name="${bean.id}-event" readonly>
 					#else
 						<select id="${bean.id}-event" name="${bean.id}-event" onchange="setModified('$!bean.id')" #if(! ( $grants.isAdmin() || $grants.isPartialAdmin() ))vera-disabled#end>
 					#end
