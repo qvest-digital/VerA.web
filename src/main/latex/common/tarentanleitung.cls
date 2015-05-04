@@ -51,14 +51,14 @@
 \newcommand{\tarentanleitung}[6]{
  \newcommand{\produktversion}{#2}
 % 1. Seite: keine Kopfzeile; Fußzeile 1.1 cm (Abstand 0.6 cm); mehr Rand
-\newgeometry{includeheadfoot,inner=2cm,outer=1cm,top=2cm,bottom=4cm,twoside,headheight=0cm,headsep=0cm,foot=1.7cm}
+\newgeometry{includeheadfoot,inner=2.1cm,outer=1.4cm,top=2cm,bottom=4cm,twoside,headheight=0cm,headsep=0cm,foot=1.7cm}
 \fancyhf{}
 \renewcommand{\headrulewidth}{0pt}
 \renewcommand{\footrulewidth}{0pt}
-\fancyfoot[C]{\tarentlogo[6cm]{}}
+\fancyfoot[C]{\tarentlogo[8cm]{}}
 
 \colorbox{tarentrot}{
- \parbox[b][3cm][c]{\textwidth}{
+ \parbox[b][3cm][c]{0.975\textwidth}{
   \centering
   \color{white}\textbf{\Huge #1}
  }
