@@ -3,5 +3,6 @@
 .idea/
 .project
 .settings
+config.json
 config.yaml
 target/
