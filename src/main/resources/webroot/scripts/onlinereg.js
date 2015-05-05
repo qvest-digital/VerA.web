@@ -60,7 +60,7 @@ onlineRegApp.config(function ($routeProvider, $translateProvider) {
     })
 
 	$translateProvider.useStaticFilesLoader({
-		prefix: '/languages/lang-',
+		prefix: 'languages/lang-',
 		suffix: '.json'
 	});
 

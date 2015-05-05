@@ -60,7 +60,7 @@ public class Main extends Application<Config> {
 	/* ********* */
 		
     /**
-     * Startup with the parameter java DropwizardDemo server config.yaml.
+     * Startup with the parameter java DropwizardDemo server config.json
      *
      * @param args the commandline args
      */
