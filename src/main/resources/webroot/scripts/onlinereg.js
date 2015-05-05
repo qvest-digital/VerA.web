@@ -296,35 +296,37 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 			{id: 2, name:"GENERIC_GENDER_FEMALE"}
 		];
 
-		$http.get('api/categoryname/' + $routeParams.uuid).then(function(presentPersons) {
-			$scope.presentPersons = presentPersons.data;
-		});
-
-		alert($scope.presentPersons);
-
-		//first label
+		//first label of categories
 		$scope.categoryOptions = [
 		    {id: 0, name:"DELEGATION_OPTION_CATEGORY"}
 		];
 
-		for (var i = 1; i < $scope.categoryname.length; i++) {
-			idNumber = i;
-			value = $scope.categoryname;
-
-			$scope.categoryOptions[i] = {id: idNumber, name: value};
-		}
-
-		//first label
+		//first label of functions
 		$scope.functionSignOptions = [
 			{id: 0, name:"DELEGATION_OPTION_FUNCTION"}
    		];
 
-		for (var i = 1; i < $scope.functionname.length; i++) {
-			idNumber = i;
-			value = $scope.functionname;
+		$http.get('api/delegation/fields/list/category/' + $routeParams.uuid).then(function(categoryNames) {
+			$scope.categoryNames = categoryNames.data;
 
-			$scope.functionSignOptions[i] = {id: idNumber, name: value};
-		}
+			for (var i = 1; i < $scope.categoryNames.length; i++) {
+				idNumber = i;
+				value = $scope.categoryNames[i];
+
+				$scope.categoryOptions[i] = {id: idNumber, name: value};
+			}
+		});
+
+		$http.get('api/delegation/fields/list/function/' + $routeParams.uuid).then(function(functionNames) {
+			$scope.functionNames = functionNames.data;
+
+			for (var i = 1; i < $scope.functionNames.length; i++) {
+				idNumber = i;
+				value = $scope.functionNames[i];
+
+				$scope.functionOptions[i] = {id: idNumber, name: value};
+			}
+		});
 
 		$scope.gender = $scope.genderOptions[0];
 		$scope.category = $scope.categoryOptions[0];

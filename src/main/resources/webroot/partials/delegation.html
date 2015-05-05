@@ -11,11 +11,11 @@
             </div>
 
 			<div class="col-xs-2" ng-class="delegation-form.function.$valid ? 'has-success' : 'has-error'">
-                <select class="form-control" id="functionSign" name="functionSign" ng-model="functionSign" ng-options="option.name | translate for option in functionSignOptions"/></select>
+                <select class="form-control" id="functionSign" name="functionSign" ng-model="functionSign" ng-options="option | translate for option in functionSignNames"/></select>
             </div>
 
             <div class="col-xs-2" ng-class="delegation-form.categorie.$valid ? 'has-success' : 'has-error'">
-                <select class="form-control" id="category" name="category" ng-model="category" ng-options="option.name | translate for option in categoryOptions"/></select>
+                <select class="form-control" id="category" name="category" ng-model="category" ng-options="option | translate for option in categoryNames"/></select>
             </div>
 
             <div class="col-xs-2" ng-class="delegation-form.vorname.$valid ? 'has-success' : 'has-error'">

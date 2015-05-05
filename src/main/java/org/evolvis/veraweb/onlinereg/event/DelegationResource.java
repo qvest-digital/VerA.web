@@ -32,6 +32,7 @@ import lombok.extern.java.Log;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.evolvis.veraweb.onlinereg.Config;
 import org.evolvis.veraweb.onlinereg.entities.Delegation;
+import org.evolvis.veraweb.onlinereg.entities.Event;
 import org.evolvis.veraweb.onlinereg.entities.Guest;
 import org.evolvis.veraweb.onlinereg.entities.OptionalFieldValue;
 import org.evolvis.veraweb.onlinereg.entities.Person;
@@ -75,14 +76,18 @@ public class DelegationResource {
      *  3 - only partner is invited
      */
     private static final String INVITATION_TYPE = "2";
-    
+
     /* RETURN TYPES */
 	    private static final TypeReference<Guest> GUEST = new TypeReference<Guest>() {};
 	    private static final TypeReference<Person> PERSON = new TypeReference<Person>() {};
 	    private static final TypeReference<Boolean> BOOLEAN = new TypeReference<Boolean>() {};
 	    private static final TypeReference<List<Person>> GUEST_LIST = new TypeReference<List<Person>>() {};
 	    private static final TypeReference<List<OptionalFieldValue>> FIELDS_LIST =
-	            										new TypeReference<List<OptionalFieldValue>>() {};
+				new TypeReference<List<OptionalFieldValue>>() {};
+	    private static final TypeReference<List<String>> NAME_LIST =
+						new TypeReference<List<String>>() {};
+		private static final TypeReference<List<String>> FUNCTION_LIST =
+						new TypeReference<List<String>>() {};
     /* ************ */
 
     /**
@@ -94,7 +99,7 @@ public class DelegationResource {
      * Configuration
      */
     private Config config;
-    
+
     /**
      * Jersey client
      */
@@ -129,6 +134,36 @@ public class DelegationResource {
     @Path("/{uuid}")
     public List<Person> getDelegates(@PathParam("uuid") String uuid) throws IOException {
 		return readResource(path("person", uuid), GUEST_LIST);
+    }
+
+
+
+
+
+	@GET
+    @Path("/fields/list/category/{uuid}")
+    public List<String> getCategories(@PathParam("uuid") String uuid) throws IOException {
+
+
+    	WebResource resource = client.resource(path("freevisitors", uuid));
+    	Integer eventId = resource.get(Event.class).getPk();
+
+		return readResource(path("category","fields","list", eventId), NAME_LIST);
+    }
+
+
+
+
+
+	@GET
+    @Path("/fields/list/function/{uuid}")
+    public List<String> getFunctions(@PathParam("uuid") String uuid) throws IOException {
+
+
+    	WebResource resource = client.resource(path("freevisitors", uuid));
+    	Integer eventId = resource.get(Event.class).getPk();
+
+		return readResource(path("function","fields","list", eventId), FUNCTION_LIST);
     }
 
     /**
@@ -194,7 +229,7 @@ public class DelegationResource {
     @Path("/{uuid}/fields/save")
     public void saveOptionalFields(
     		@PathParam("uuid") String uuid,
-            @FormParam("fields") String fields, 
+            @FormParam("fields") String fields,
             @FormParam("personId") Integer personId) throws IOException {
 		if (fields != null && !"".equals(fields)) {
             handleSaveOptionalFields(uuid, fields, personId);
@@ -255,10 +290,10 @@ public class DelegationResource {
 
     private String handleDelegationFound(String uuid, String nachname, String vorname, String gender)
             throws IOException {
-    	
+
         final Integer eventId = getEventId(uuid);
         final Person company = getCompanyFromUuid(uuid);
-        
+
         String username = usernameGenerator();
         // Store in tperson
         final Integer personId = createPerson(company.getCompany_a_e1(), eventId, nachname, vorname, gender,username);
@@ -279,14 +314,14 @@ public class DelegationResource {
     private Guest getEventIdFromUuid(String uuid, Integer personId) throws IOException {
 		return readResource(path("guest", "delegation", uuid, personId), GUEST);
 	}
-    
+
     private Person getCompanyFromUuid(String uuid) throws IOException {
 		return readResource(path("person", "company", uuid), PERSON);
 	}
 
     /**
      * Includes a new person in the database - Table "tperson"
-     * @param companyName 
+     * @param companyName
      *
      * @param lastname Last name
      * @param firstname First name
@@ -295,20 +330,20 @@ public class DelegationResource {
     private Integer createPerson(String companyName, Integer eventId, String firstname, String lastname, String gender, String username) {
         WebResource personResource = client.resource(config.getVerawebEndpoint() + "/rest/person/delegate");
         Form postBody = new Form();
-        
+
         postBody.add("company", companyName);
         postBody.add("eventId", String.valueOf(eventId));
         postBody.add("username", username);
         postBody.add("firstname", firstname);
         postBody.add("lastname", lastname);
         postBody.add("gender", gender);
-        
+
         final Person person = personResource.post(Person.class, postBody);
         createPersonDoctype(person);
-        
+
     	return person.getPk();
     }
-    
+
     private void createPersonDoctype(Person person) {
         WebResource personDoctypeRsource = client.resource(config.getVerawebEndpoint() + "/rest/personDoctype");
         Form postBody = new Form();
@@ -340,12 +375,12 @@ public class DelegationResource {
 		postBody.add("username", username);
 
         final Guest guest = resource.post(Guest.class, postBody);
-        
+
         createGuestDoctype(guest.getPk(), firstName, lastName);
 	}
-	
+
 	private void createGuestDoctype(int guestId, String firstName, String lastName) {
-		WebResource resource = client.resource(config.getVerawebEndpoint() + "/rest/guestDoctype"); 
+		WebResource resource = client.resource(config.getVerawebEndpoint() + "/rest/guestDoctype");
 		Form postBody = new Form();
 
 		postBody.add("guestId", Integer.toString(guestId));
