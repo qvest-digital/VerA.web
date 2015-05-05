@@ -47,6 +47,19 @@
 \fancyfoot[C]{{\scriptsize\thepage{}/\pageref*{LastPage}}}
 \fancyfoot[R]{\href{https://www.tarent.de/}{www.tarent.de}}
 
+% Name Jahr
+\newcommand{\tarentohnedeckblatt}[2]{
+\loadgeometry{tarentstyle}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0.6pt}
+\fancyhead[L]{#1}
+\fancyhead[R]{\tarentlogo[6cm]{}}
+\fancyfoot[L]{\footnotesize\copyright #2 tarent}
+\fancyfoot[C]{{\scriptsize\thepage{}/\pageref*{LastPage}}}
+\fancyfoot[R]{\href{https://www.tarent.de/}{www.tarent.de}}
+}
+
 % Name Version Fassung vom Jahr Bild
 \newcommand{\tarentanleitung}[6]{
  \newcommand{\produktversion}{#2}
@@ -79,12 +92,5 @@
 \newpage
 % Folgeseiten
 \restoregeometry
-\fancyhf{}
-\renewcommand{\headrulewidth}{0pt}
-\renewcommand{\footrulewidth}{0.6pt}
-\fancyhead[L]{#1}
-\fancyhead[R]{\tarentlogo[6cm]{}}
-\fancyfoot[L]{\footnotesize\copyright #5 tarent}
-\fancyfoot[C]{{\scriptsize\thepage{}/\pageref*{LastPage}}}
-\fancyfoot[R]{\href{https://www.tarent.de/}{www.tarent.de}}
+\tarentohnedeckblatt{#1}{#5}
 }
