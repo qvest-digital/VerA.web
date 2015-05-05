@@ -66,17 +66,34 @@ public class CategoryResource extends AbstractResource {
     }
 
     @GET
-    @Path("/fields/list/{eventId}//")
+    @Path("/fields/list/category{eventId}/")
     public List<String> getCategoriesByEventId(@PathParam("eventId") int eventId) {
     	final Session session = openSession();
         try {
             final Query query = session.getNamedQuery("Category.findCatnamesByEventId");
             query.setInteger("eventId", eventId);
-            final List<String> fields = (List<String>) query.list();
 
-            final List<String> categoryName = (List<String>) query.uniqueResult();
+            final List<String> categoryName = (List<String>) query.list();
 
-            return categoryName;
+            //TODO NULL-Check?
+           	return categoryName;
+        } finally {
+            session.close();
+        }
+    }
+
+    @GET
+    @Path("/fields/list/function/{eventId}/")
+    public List<String> getFunctionsByEventId(@PathParam("eventId") int eventId) {
+    	final Session session = openSession();
+        try {
+            final Query query = session.getNamedQuery("Function.findFunctionNamesByEventId");
+            query.setInteger("eventId", eventId);
+
+            final List<String> functionName = (List<String>) query.list();
+
+            //TODO NULL-Check?
+           	return functionName ;
         } finally {
             session.close();
         }
