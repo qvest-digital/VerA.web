@@ -2,7 +2,7 @@
 % WARNING! The “Museo Sans” font is licenced to tarent.
 % It may not be used by anyone else, without specific licence.
 %
-\ProvidesFile{t1museo.fd}[Museo Sans font]
+\ProvidesFile{t1museo.fd}[Museo Sans font (text)]
 \DeclareFontFamily{T1}{museo}{}
 \DeclareFontShape{T1}{museo}{m}{n}{
   <->   MuseoSans_300T1
