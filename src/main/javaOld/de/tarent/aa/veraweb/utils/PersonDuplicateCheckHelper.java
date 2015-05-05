@@ -20,7 +20,6 @@
 package de.tarent.aa.veraweb.utils;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -69,13 +68,21 @@ public class PersonDuplicateCheckHelper {
 	 */
 	private Import importInstance;
 
-	int duplicateCount = 0;
-
 	/**
 	 * Default constructor
 	 */
 	public PersonDuplicateCheckHelper() {
 	}
+
+	/**
+	 * Content: IDs of all persons in table "tperson"
+	 */
+	private List<Integer> personIdArray = new ArrayList<Integer>();
+
+	/**
+	 * Content: Person object with personal data of "timportperson"
+	 */
+	private ImportPerson duplicateImportedPerson = new ImportPerson();
 
 	/**
 	 * Constructor to use to check person imports.
@@ -115,6 +122,8 @@ public class PersonDuplicateCheckHelper {
 			}
 		}
 
+		setDuplicates(duplicateImportedPerson, listUniquePersonIds(personIdArray));
+
 		return duplicateCount;
 	}
 
@@ -141,20 +150,34 @@ public class PersonDuplicateCheckHelper {
 	}
 
 	private void handleDuplicateEntry(ResultMap result, ResultList list) throws BeanException, IOException {
-		// array list to store duplicate person ids
-		final List<Integer> duplicates = new ArrayList<Integer>();
-		final ImportPerson duplicateImportedPerson = new ImportPerson();
+		duplicateImportedPerson = new ImportPerson();
 		duplicateImportedPerson.id = (Integer) result.get("import_id");
 
 		for (Iterator<ResultList> itDuplicates = list.iterator(); itDuplicates.hasNext();) {
             final Map next = (Map) itDuplicates.next();
             final Integer personId = (Integer) next.get("person_id");
+
             if (personId != null) {
-                duplicates.add(personId);
+            	personIdArray.add(personId);
             }
         }
+	}
 
-		setDuplicates(duplicateImportedPerson, duplicates);
+	/**
+	 * Returns an Array with unique IDs of duplicated persons
+	 * @param personIdArray
+	 * @return Person IDs
+	 */
+	private List<Integer> listUniquePersonIds(List<Integer> personIdArray) {
+		for(int i = 0; i < personIdArray.size(); i++) {
+			for(int j = 1; j < personIdArray.size(); j++) {
+				if(personIdArray.get(i) == personIdArray.get(j)) {
+					personIdArray.remove(i);
+				}
+			}
+		}
+
+		return personIdArray;
 	}
 
 	/**
@@ -181,7 +204,7 @@ public class PersonDuplicateCheckHelper {
 		return database.getList(select, context);
 	}
 
-	/***
+	/**
 	 * Check if given {@link Person} has an duplicate into the database.
 	 *
 	 * @param cntx
@@ -330,6 +353,13 @@ public class PersonDuplicateCheckHelper {
 		return finalCaseQuery;
 	}
 
+	/**
+	 * Gets all companies with duplicated names
+	 *
+	 * @param cntx
+	 * @param person
+	 * @return company name: company_a_e1
+	 */
 	public Clause getDuplicateExprCompany(OctopusContext cntx, Person person) {
 		Clause clause = Where.and(Expr.equal("fk_orgunit",
 				((PersonalConfigAA) cntx.personalConfig()).getOrgUnitId()),

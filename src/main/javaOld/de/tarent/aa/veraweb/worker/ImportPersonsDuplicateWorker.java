@@ -123,10 +123,6 @@ public class ImportPersonsDuplicateWorker extends ListWorkerVeraWeb {
 
 	@Override
     public void saveList(OctopusContext cntx) throws BeanException, IOException {
-		
-
-		
-		
 		if (cntx.requestContains(INPUT_BUTTON_SAVE)) {
 			Database database = getDatabase(cntx);
 			TransactionContext context = database.getTransactionContext();
@@ -134,8 +130,7 @@ public class ImportPersonsDuplicateWorker extends ListWorkerVeraWeb {
 			ImportPerson sample = new ImportPerson();
 			Long importId = new Long(cntx.requestAsString("importId"));
 
-			try
-			{
+			try {
 				// Entfernt alle markierungen in der Datenbank.
 				Update update = SQL.Update( context );
 				update.table(database.getProperty(sample, "table"));
