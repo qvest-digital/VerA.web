@@ -1,8 +1,8 @@
 #set($activeMenu = "Veranstaltungen")
 #set($title = "Veranstaltung bearbeiten: $!message.plain($event.shortname)")
 #set($elementNameSex = "female")
-#set($elementNameSingular = "Funktions- bzw. Amtsbezeichnung")
-#set($elementNamePlural = "Funktions- bzw. Amtsbezeichnungen")
+#set($elementNameSingular = "Funktion/Amtsbezeichnung")
+#set($elementNamePlural = "Funktionen/Amtsbezeichnungen")
 
 ##Values in per cent for table columns width
 #set($column0 = 5)
@@ -52,7 +52,7 @@
 					#if($online-registration.activated)
 						<li class="inactive" onclick="window.location.href='${paths.staticWeb}do/ShowDelegationFields?eventId=$!event.id'"><div>Zusätzliche Personendaten</div>
 						</li>
-						<li class="active"><div>Funktions- bzw. Amtsbezeichnung</div>
+						<li class="active"><div>Funktionen/Amtsbezeichnungen</div>
 						</li>
 						<li class="inactive" onclick="window.location.href='ShowEventCategory?id=$!event.id';"><div>Kategorien</div>
 						</li>
