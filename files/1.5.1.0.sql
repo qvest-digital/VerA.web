@@ -18,8 +18,6 @@ CREATE OR REPLACE FUNCTION veraweb.umlaut_fix(character varying) RETURNS charact
     END;
 $BODY$ LANGUAGE plpgsql;
 
-ALTER FUNCTION veraweb.umlaut_fix(character varying) OWNER TO veraweb;
-
 -- Update schema version
 
 UPDATE veraweb.tconfig SET cvalue = '2015-02-25' WHERE cname = 'SCHEMA_VERSION';

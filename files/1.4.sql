@@ -2,9 +2,6 @@
 
 CREATE SEQUENCE ttask_pk_seq INCREMENT 1 MINVALUE 1 MAXVALUE 9223372036854775807 START 1 CACHE 1;
 
-ALTER TABLE ttask_pk_seq
-  OWNER TO veraweb;
-
 CREATE TABLE veraweb.ttask (
 	pk INTEGER DEFAULT nextval('ttask_pk_seq') NOT NULL,
 	title VARCHAR(100) NOT NULL,
