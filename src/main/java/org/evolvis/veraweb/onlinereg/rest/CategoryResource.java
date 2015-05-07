@@ -66,7 +66,7 @@ public class CategoryResource extends AbstractResource {
     }
 
     @GET
-    @Path("/fields/list/category{eventId}/")
+    @Path("/fields/list/{eventId}")
     public List<String> getCategoriesByEventId(@PathParam("eventId") int eventId) {
     	final Session session = openSession();
         try {
@@ -83,7 +83,7 @@ public class CategoryResource extends AbstractResource {
     }
 
     @GET
-    @Path("/fields/list/function/{eventId}/")
+    @Path("/fields/list/function/{eventId}")
     public List<String> getFunctionsByEventId(@PathParam("eventId") int eventId) {
     	final Session session = openSession();
         try {

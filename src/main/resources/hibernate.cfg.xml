@@ -21,6 +21,7 @@
         <mapping class="org.evolvis.veraweb.onlinereg.entities.Location"/>
         <mapping class="org.evolvis.veraweb.onlinereg.entities.Config"/>
         <mapping class="org.evolvis.veraweb.onlinereg.entities.Category"/>
+        <mapping class="org.evolvis.veraweb.onlinereg.entities.Function"/>
         <mapping class="org.evolvis.veraweb.onlinereg.entities.Delegation"/>
         <mapping class="org.evolvis.veraweb.onlinereg.entities.pk.DelegationPK"/>
         <mapping class="org.evolvis.veraweb.onlinereg.entities.OptionalField"/>
