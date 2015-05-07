@@ -280,4 +280,12 @@ public class Person {
     public void setNotehost_a_e1(String notehost_a_e1) {
 		this.notehost_a_e1 = notehost_a_e1;
 	}
+    
+    public String getChangedby() {
+		return changedby;
+	}
+    
+    public void setChangedby(String changedby) {
+		this.changedby = changedby;
+	}
 }
