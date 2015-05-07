@@ -33,16 +33,18 @@ import lombok.Data;
 /**
  * @author jnunez
  * @author sweiz
+ * @author Atanas Alexandrov, tarent solutions GmbH
  */
 @Data
 @XmlRootElement
 @Entity
-@Table(name = "tcategorie")
+@Table(name = "tfunction")
 @NamedNativeQueries({
 	@NamedNativeQuery(name = "Function.findFunctionNamesByEventId",
-	query = "SELECT functionname " +
-			"FROM tfunction " +
-				"WHERE pk in (SELECT fk_function from tevent_function WHERE fk_event IN (SELECT pk FROM tevent WHERE pk=:eventId)) ")
+			query = "SELECT functionname " +
+					"FROM tfunction " +
+					"WHERE pk in (SELECT fk_function from tevent_function WHERE fk_event IN (SELECT pk FROM tevent WHERE pk=:eventId)) "
+	)
 })
 public class Function {
     @Id
