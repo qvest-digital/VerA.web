@@ -109,20 +109,22 @@ public class PersonDuplicateCheckHelper {
 	 */
 	public int getDuplicatesCount(OctopusContext cntx) throws IOException, BeanException {
 		int duplicateCount = 0;
-
 		// first get all imported persons data
 		final List<ResultMap> importedPersonsList = getImportPersonData();
 
 		// iteration over all imported persons data
 		for (ResultMap result: importedPersonsList) {
+			ImportPerson importPerson = new ImportPerson();
+			
+			personIdArray = new ArrayList<Integer>();
 			final ResultList list = searchForImportPersonInDB(cntx, result);
 			if (list.size() > 0) {
 				handleDuplicateEntry(result, list);
 				duplicateCount++;
 			}
+//			setDuplicates(importPerson, listUniquePersonIds(personIdArray));
+			setDuplicates(duplicateImportedPerson, listUniquePersonIds(personIdArray));
 		}
-
-		setDuplicates(duplicateImportedPerson, listUniquePersonIds(personIdArray));
 
 		return duplicateCount;
 	}
@@ -156,7 +158,6 @@ public class PersonDuplicateCheckHelper {
 		for (Iterator<ResultList> itDuplicates = list.iterator(); itDuplicates.hasNext();) {
             final Map next = (Map) itDuplicates.next();
             final Integer personId = (Integer) next.get("person_id");
-
             if (personId != null) {
             	personIdArray.add(personId);
             }
@@ -215,9 +216,13 @@ public class PersonDuplicateCheckHelper {
 	 * @return {@link Clause} the sql statement for the check.
 	 */
 	public Clause getDuplicateExprPerson(OctopusContext cntx, Person person) {
+		// Not deleted person
 		Clause clause = Where.and(Expr.equal("fk_orgunit",
 				((PersonalConfigAA) cntx.personalConfig()).getOrgUnitId()),
 				Expr.equal("deleted", PersonConstants.DELETED_FALSE));
+		
+		
+		
 		String ln = person == null || person.lastname_a_e1 == null || person.lastname_a_e1.equals("") ? ""
 				: person.lastname_a_e1;
 		String fn = person == null || person.firstname_a_e1 == null || person.firstname_a_e1.equals("") ? ""
@@ -229,6 +234,8 @@ public class PersonDuplicateCheckHelper {
 				Expr.equal("firstname_a_e1", fn));
 		Clause checkMixChanges = Where.or(normalNamesClause,
 				revertedNamesClause);
+		
+		
 
 		// Checking changes between first and lastname
 		Clause dupNormalCheck = Where.and(clause, checkMixChanges);
@@ -260,8 +267,12 @@ public class PersonDuplicateCheckHelper {
 		Clause finalCaseQuery = getQueryOfAllDuplicatesCases(ln, fn,
 				helpFirstName, helpLastName);
 
+		Clause dupCheckFinal = Where.or(checkMixChanges,finalCaseQuery);
+		
 		// Merging with the easiest check
-		return Where.or(dupNormalCheck, finalCaseQuery);
+//		return Where.or(dupNormalCheck, finalCaseQuery);
+		
+		return Where.and(clause, dupCheckFinal);
 	}
 
 	/**

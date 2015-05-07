@@ -107,10 +107,13 @@ public class ImportPersonsDuplicateWorker extends ListWorkerVeraWeb {
 								Expr.equal("deleted", PersonConstants.DELETED_FALSE),
 								database.getWhere(person)));
 						person = (Person) database.getBean("Person", select);
-						if (dups == null)
+						if (dups == null) {
 							dups = new LinkedList();
-						dups.add(person);
-						count++;
+						}
+						if (person.getId() != null) {
+							dups.add(person);
+							count++;
+						}
 					}
 					if (dups == null)
 						dups = Collections.EMPTY_LIST;
