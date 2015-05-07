@@ -78,17 +78,14 @@ public class DelegationResource {
     private static final String INVITATION_TYPE = "2";
 
     /* RETURN TYPES */
-	    private static final TypeReference<Guest> GUEST = new TypeReference<Guest>() {};
-	    private static final TypeReference<Person> PERSON = new TypeReference<Person>() {};
-	    private static final TypeReference<Boolean> BOOLEAN = new TypeReference<Boolean>() {};
-	    private static final TypeReference<List<Person>> GUEST_LIST = new TypeReference<List<Person>>() {};
-	    private static final TypeReference<List<OptionalFieldValue>> FIELDS_LIST =
-				new TypeReference<List<OptionalFieldValue>>() {};
-	    private static final TypeReference<List<String>> NAME_LIST =
-						new TypeReference<List<String>>() {};
-		private static final TypeReference<List<String>> FUNCTION_LIST =
-						new TypeReference<List<String>>() {};
-    /* ************ */
+    private static final TypeReference<Guest> GUEST = new TypeReference<Guest>() {};
+    private static final TypeReference<Person> PERSON = new TypeReference<Person>() {};
+    private static final TypeReference<Boolean> BOOLEAN = new TypeReference<Boolean>() {};
+    private static final TypeReference<List<Person>> GUEST_LIST = new TypeReference<List<Person>>() {};
+    private static final TypeReference<List<OptionalFieldValue>> FIELDS_LIST = new TypeReference<List<OptionalFieldValue>>() {};
+    private static final TypeReference<List<String>> NAME_LIST = new TypeReference<List<String>>() {};
+    private static final TypeReference<List<String>> FUNCTION_LIST = new TypeReference<List<String>>() {};
+
 
     /**
      * Jackson Object Mapper
@@ -136,34 +133,25 @@ public class DelegationResource {
 		return readResource(path("person", uuid), GUEST_LIST);
     }
 
-
-
-
-
 	@GET
     @Path("/fields/list/category/{uuid}")
     public List<String> getCategories(@PathParam("uuid") String uuid) throws IOException {
 
-
-    	WebResource resource = client.resource(path("freevisitors", uuid));
-    	Integer eventId = resource.get(Event.class).getPk();
+        WebResource resource = client.resource(path("guest", uuid));
+        Integer eventId = resource.get(Guest.class).getFk_event();
 
 		return readResource(path("category","fields","list", eventId), NAME_LIST);
     }
-
-
-
-
 
 	@GET
     @Path("/fields/list/function/{uuid}")
     public List<String> getFunctions(@PathParam("uuid") String uuid) throws IOException {
 
 
-    	WebResource resource = client.resource(path("freevisitors", uuid));
-    	Integer eventId = resource.get(Event.class).getPk();
+    	WebResource resource = client.resource(path("guest", uuid));
+    	Integer eventId = resource.get(Guest.class).getFk_event();
 
-		return readResource(path("function","fields","list", eventId), FUNCTION_LIST);
+		return readResource(path("category", "fields","list", "function", eventId), FUNCTION_LIST);
     }
 
     /**
