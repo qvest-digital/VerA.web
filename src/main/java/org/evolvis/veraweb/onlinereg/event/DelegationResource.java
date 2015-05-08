@@ -82,7 +82,7 @@ public class DelegationResource {
     private static final TypeReference<Boolean> BOOLEAN = new TypeReference<Boolean>() {};
     private static final TypeReference<List<Person>> GUEST_LIST = new TypeReference<List<Person>>() {};
     private static final TypeReference<List<OptionalFieldValue>> FIELDS_LIST = new TypeReference<List<OptionalFieldValue>>() {};
-    private static final TypeReference<List<String>> NAME_LIST = new TypeReference<List<String>>() {};
+    private static final TypeReference<List<String>> CATEGORY_LIST = new TypeReference<List<String>>() {};
     private static final TypeReference<List<String>> FUNCTION_LIST = new TypeReference<List<String>>() {};
 
 
@@ -132,6 +132,14 @@ public class DelegationResource {
 		return readResource(path("person", uuid), GUEST_LIST);
     }
 
+	/**
+	 * Get category names of event
+	 *
+	 * @param uuid
+	 *
+	 * @return List with categories
+	 * @throws IOException
+	 */
 	@GET
     @Path("/fields/list/category/{uuid}")
     public List<String> getCategories(@PathParam("uuid") String uuid) throws IOException {
@@ -139,9 +147,17 @@ public class DelegationResource {
         WebResource resource = client.resource(path("guest", uuid));
         Integer eventId = resource.get(Guest.class).getFk_event();
 
-		return readResource(path("category","fields","list", eventId), NAME_LIST);
+		return readResource(path("category", "fields", "list", eventId), CATEGORY_LIST);
     }
 
+	/**
+	 * Get function names of event
+	 *
+	 * @param uuid
+	 *
+	 * @return List with functions
+	 * @throws IOException
+	 */
 	@GET
     @Path("/fields/list/function/{uuid}")
     public List<String> getFunctions(@PathParam("uuid") String uuid) throws IOException {
@@ -150,7 +166,7 @@ public class DelegationResource {
     	WebResource resource = client.resource(path("guest", uuid));
     	Integer eventId = resource.get(Guest.class).getFk_event();
 
-		return readResource(path("category", "fields","list", "function", eventId), FUNCTION_LIST);
+		return readResource(path("function", "fields", "list", "function", eventId), FUNCTION_LIST);
     }
 
     /**
