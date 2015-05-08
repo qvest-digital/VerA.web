@@ -122,7 +122,6 @@ public class PersonDuplicateCheckHelper {
 				handleDuplicateEntry(result, list);
 				duplicateCount++;
 			}
-//			setDuplicates(importPerson, listUniquePersonIds(personIdArray));
 			setDuplicates(duplicateImportedPerson, listUniquePersonIds(personIdArray));
 		}
 
@@ -270,8 +269,6 @@ public class PersonDuplicateCheckHelper {
 		Clause dupCheckFinal = Where.or(checkMixChanges,finalCaseQuery);
 		
 		// Merging with the easiest check
-//		return Where.or(dupNormalCheck, finalCaseQuery);
-		
 		return Where.and(clause, dupCheckFinal);
 	}
 
