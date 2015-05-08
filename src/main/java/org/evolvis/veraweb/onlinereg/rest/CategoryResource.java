@@ -27,8 +27,6 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import org.evolvis.veraweb.onlinereg.entities.OptionalField;
-import org.evolvis.veraweb.onlinereg.entities.OptionalFieldValue;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
@@ -65,6 +63,12 @@ public class CategoryResource extends AbstractResource {
         }
     }
 
+    /**
+     * Get category name by event hash
+     *
+     * @param eventId
+     * @return all category names of this event
+     */
     @GET
     @Path("/fields/list/{eventId}")
     public List<String> getCategoriesByEventId(@PathParam("eventId") int eventId) {
@@ -77,23 +81,6 @@ public class CategoryResource extends AbstractResource {
 
             //TODO NULL-Check?
            	return categoryName;
-        } finally {
-            session.close();
-        }
-    }
-
-    @GET
-    @Path("/fields/list/function/{eventId}")
-    public List<String> getFunctionsByEventId(@PathParam("eventId") int eventId) {
-    	final Session session = openSession();
-        try {
-            final Query query = session.getNamedQuery("Function.findFunctionNamesByEventId");
-            query.setInteger("eventId", eventId);
-
-            final List<String> functionName = (List<String>) query.list();
-
-            //TODO NULL-Check?
-           	return functionName ;
         } finally {
             session.close();
         }
