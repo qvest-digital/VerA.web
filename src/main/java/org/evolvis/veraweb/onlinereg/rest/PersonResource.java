@@ -137,7 +137,7 @@ public class PersonResource extends AbstractResource {
             session.close();
         }
     }
-	
+
 	@GET
 	@Path("/userinfo/{username}")
 	public String getFirstAndLastName(@PathParam("username") String username) {
@@ -145,12 +145,12 @@ public class PersonResource extends AbstractResource {
 		try {
 			final Query query = session.getNamedQuery("Person.getPersonNamesByUsername");
 	        query.setString("username", username);
-	        
+
 	        return (String) query.uniqueResult();
 		} finally {
             session.close();
         }
-		
+
 	}
 
     /**
@@ -194,10 +194,10 @@ public class PersonResource extends AbstractResource {
             session.close();
         }
     }
-    
+
     /**
      * GET user data by usermane
-     * 
+     *
      * @param username String
      * @return Person
      */
@@ -214,12 +214,10 @@ public class PersonResource extends AbstractResource {
             session.close();
         }
     }
-    
-
 
     /**
      * Getting Person pk from the username
-     * 
+     *
      * @param username String
      * @return Integer Person pk
      */
@@ -260,6 +258,32 @@ public class PersonResource extends AbstractResource {
 
             final Person person = (Person) query.uniqueResult();
             person.setFk_orgunit(orgunit);
+
+            session.update(person);
+            session.flush();
+
+        } finally {
+            session.close();
+        }
+    }
+
+    /**
+     * Update the category for a person after registration for event.
+     *
+     * @param category Integer
+     * @param personId Integer
+     */
+    @POST
+    @Path("/update/category")
+    public void updatePersonCategory(@FormParam("category") Integer category, @FormParam("personId") Integer personId) {
+        final Session session = openSession();
+
+        try {
+            final Query query = session.getNamedQuery("Person.findByPersonId");
+            query.setInteger("personId", personId);
+
+            final Person person = (Person) query.uniqueResult();
+            person.setFk_category(category);
 
             session.update(person);
             session.flush();
