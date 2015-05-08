@@ -207,7 +207,10 @@ public class DelegationResource {
             @PathParam("uuid") String uuid,
             @FormParam("lastname") String lastname,
             @FormParam("firstname") String firstname,
-            @FormParam("gender") String gender) throws IOException {
+            @FormParam("gender") String gender,
+            @FormParam("category") String category,
+            @FormParam("functionSign") String functionSign
+        ) throws IOException {
 
         final Boolean delegationIsFound = checkForExistingDelegation(uuid);
 
@@ -376,6 +379,7 @@ public class DelegationResource {
 		postBody.add("invitationtype", INVITATION_TYPE);
 		postBody.add("gender", gender);
 		postBody.add("category", "0");
+		postBody.add("function", "0");
 		postBody.add("username", username);
 
         final Guest guest = resource.post(Guest.class, postBody);
