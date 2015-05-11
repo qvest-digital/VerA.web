@@ -19,7 +19,6 @@ onlineRegApp.run(function ($rootScope) {
 	}
 });
 
-
 onlineRegApp.config(function ($routeProvider, $translateProvider) {
 
     $routeProvider.when('/login', {
@@ -296,41 +295,31 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 			{id: 2, name:"GENERIC_GENDER_FEMALE"}
 		];
 
-		//first label of categories
-		$scope.categoryOptions = [
-		    {id: 0, name:"DELEGATION_OPTION_CATEGORY"}
-		];
+		$scope.categoryNames = [
+			{id: 0, name:"Test"},
+		]
 
-		//first label of functions
-		$scope.functionSignOptions = [
-			{id: 0, name:"DELEGATION_OPTION_FUNCTION"}
-   		];
+		$scope.functionSignNames = [
+			{id: 0, name:"Test2"}
+		]
 
 		$http.get('api/delegation/fields/list/category/' + $routeParams.uuid).then(function(categoryNames) {
+			//first label of categories
+			//{id: 0, name:"DELEGATION_OPTION_CATEGORY"}
+
 			$scope.categoryNames = categoryNames.data;
-
-			for (var i = 1; i < $scope.categoryNames.length; i++) {
-				idNumber = i;
-				value = $scope.categoryNames[i];
-
-				$scope.categoryOptions[i] = {id: idNumber, name: value};
-			}
 		});
 
 		$http.get('api/delegation/fields/list/function/' + $routeParams.uuid).then(function(functionNames) {
-			$scope.functionNames = functionNames.data;
+			//first label of functions
+			//{id: 0, name:"DELEGATION_OPTION_FUNCTION"}
 
-			for (var i = 1; i < $scope.functionNames.length; i++) {
-				idNumber = i;
-				value = $scope.functionNames[i];
-
-				$scope.functionOptions[i] = {id: idNumber, name: value};
-			}
+			$scope.functionSignNames = functionNames.data;
 		});
 
 		$scope.gender = $scope.genderOptions[0];
-		$scope.category = $scope.categoryOptions[0];
-		$scope.functionSign = $scope.functionSignOptions[0];
+		$scope.category = $scope.categoryNames[0];
+		$scope.functionSign = $scope.functionSignNames[0];
 		$scope.success = null;
 		$scope.error = null;
 
@@ -376,11 +365,11 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 				if (($scope.nachname != null && $scope.nachname != '') && ($scope.vorname != null && $scope.vorname != '')) {
 					//Empty the standard label for saving
 					//No required fields
-					if ($scope.category.id == 0) {
-						$scope.category.label = null;
+					if ($scope.category == null) {
+						$scope.category = "";
 					}
-					if ($scope.functionSign.id == 0) {
-						$scope.functionSign.label = null;
+					if ($scope.functionSign == null) {
+						$scope.functionSign = "";
 					}
 
 					$http({
@@ -390,14 +379,14 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 						headers: {
 								"Content-Type": undefined
 						},
+
 						data: $.param({
 							firstname: $scope.nachname,
 							lastname: $scope.vorname,
 							gender: $scope.gender.label,
-							category: $scope.category.label,
-							functionSign: $scope.functionSign.label,
-							fields: $scope.fields
-
+							category: $scope.category,
+							fields: $scope.fields,
+							functionDescription: $scope.functionDescription
 						})
 					}).success(function(result) {
 						$scope.success = null;
@@ -419,8 +408,8 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 								$scope.success = text;
 							});
 							$scope.gender = $scope.genderOptions[0];
-							$scope.category = $scope.categoryOptions[0];
-							$scope.functionSign = $scope.functionSignOptions[0];
+							$scope.category = $scope.categoryNames[0];
+							$scope.functionSign = $scope.functionSignNames[0];
 							$scope.nachname = null;
 							$scope.vorname = null;
 
@@ -590,7 +579,6 @@ onlineRegApp.controller('DirectLoginController', function ($scope, $location, $h
 	}
 });
 
-
 onlineRegApp.controller('LoginController', function ($scope, $location, $http, $rootScope, $translate) {
 	$rootScope.button = false;
 	$rootScope.status = null;
@@ -727,8 +715,6 @@ onlineRegApp.controller('RegisterUserController',  function($scope, $http) {
 		});
 	};
 });
-
-
 
 onlineRegApp.controller('VeranstaltungsController', function ($scope, $http, $rootScope, $location) {
 	if ($rootScope.user_logged_in == null) {
