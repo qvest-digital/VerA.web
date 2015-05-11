@@ -26,9 +26,7 @@ import com.sun.jersey.api.client.ClientHandlerException;
 import com.sun.jersey.api.client.UniformInterfaceException;
 import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.representation.Form;
-
 import lombok.extern.java.Log;
-
 import org.apache.commons.lang.StringEscapeUtils;
 import org.evolvis.veraweb.onlinereg.Config;
 import org.evolvis.veraweb.onlinereg.entities.Delegation;
@@ -45,7 +43,6 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-
 import java.io.IOException;
 import java.net.SocketTimeoutException;
 import java.util.ArrayList;
@@ -80,6 +77,7 @@ public class DelegationResource {
     private static final TypeReference<Guest> GUEST = new TypeReference<Guest>() {};
     private static final TypeReference<Person> PERSON = new TypeReference<Person>() {};
     private static final TypeReference<Boolean> BOOLEAN = new TypeReference<Boolean>() {};
+    private static final TypeReference<Integer> CATEGORY = new TypeReference<Integer>() {};
     private static final TypeReference<List<Person>> GUEST_LIST = new TypeReference<List<Person>>() {};
     private static final TypeReference<List<OptionalFieldValue>> FIELDS_LIST = new TypeReference<List<OptionalFieldValue>>() {};
     private static final TypeReference<List<String>> CATEGORY_LIST = new TypeReference<List<String>>() {};
@@ -216,7 +214,7 @@ public class DelegationResource {
         final Boolean delegationIsFound = checkForExistingDelegation(uuid);
 
         if(delegationIsFound) {
-        	final String returnedValue = handleDelegationFound(uuid, lastname, firstname, gender, function, fields);
+        	final String returnedValue = handleDelegationFound(uuid, lastname, firstname, gender, function, category, fields);
             return StatusConverter.convertStatus(returnedValue);
         } else {
             return StatusConverter.convertStatus("WRONG_DELEGATION");
@@ -334,7 +332,7 @@ public class DelegationResource {
     	return readResource(path("guest","exist", uuid), BOOLEAN);
     }
 
-    private String handleDelegationFound(String uuid, String nachname, String vorname, String gender, String function, String fields)
+    private String handleDelegationFound(String uuid, String nachname, String vorname, String gender, String function, String category, String fields)
             throws IOException {
 
         final Integer eventId = getEventId(uuid);
@@ -342,7 +340,7 @@ public class DelegationResource {
 
         String username = usernameGenerator();
         // Store in tperson
-        final Integer personId = createPerson(company.getCompany_a_e1(), eventId, nachname, vorname, gender,username, function);
+        final Integer personId = createPerson(company.getCompany_a_e1(), eventId, nachname, vorname, gender,username, function, category);
 
         if (eventId == null) {
             return "NO_EVENT_DATA";
@@ -384,7 +382,9 @@ public class DelegationResource {
      * @param firstname First name
      * @param gender Gender of the person
      */
-    private Integer createPerson(String companyName, Integer eventId, String firstname, String lastname, String gender, String username, String function) {
+    private Integer createPerson(String companyName, Integer eventId, String firstname, String lastname, String gender, String username, String function, String category) {
+        Integer categoryId = getCategoryIdByValue(category);
+
         WebResource personResource = client.resource(config.getVerawebEndpoint() + "/rest/person/delegate");
         Form postBody = new Form();
 
@@ -395,11 +395,22 @@ public class DelegationResource {
         postBody.add("lastname", lastname);
         postBody.add("gender", gender);
         postBody.add("function", function);
+        postBody.add("category", categoryId);
 
         final Person person = personResource.post(Person.class, postBody);
         createPersonDoctype(person);
 
     	return person.getPk();
+    }
+
+    private Integer getCategoryIdByValue(String categoryName) {
+        Integer categoryId = null;
+        try {
+            categoryId = readResource(path("category", categoryName), CATEGORY);
+        } catch (IOException e) {
+            log.warning("Fehler beim holen der Kategorie-ID");
+        }
+        return categoryId;
     }
 
     private void createPersonDoctype(Person person) {

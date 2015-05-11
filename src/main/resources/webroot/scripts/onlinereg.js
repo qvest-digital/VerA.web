@@ -296,16 +296,11 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 			{id: 2, name:"GENERIC_GENDER_FEMALE"}
 		];
 
-		$scope.categoryNames = [
-			{id: 0, name:"Test"},
-		]
+		$scope.categoryNames = [];
 
-		$scope.functionSignNames = []
+		$scope.functionSignNames = [];
 
 		$http.get('api/delegation/fields/list/category/' + $routeParams.uuid).then(function(categoryNames) {
-			//first label of categories
-			//{id: 0, name:"DELEGATION_OPTION_CATEGORY"}
-
 			$scope.categoryNames = categoryNames.data;
 		});
 
@@ -402,8 +397,8 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 								$scope.success = text;
 							});
 							$scope.gender = $scope.genderOptions[0];
-							$scope.category = $scope.categoryNames[0];
-							$scope.functionSign = $scope.functionSignNames[0];
+							$scope.category = null;
+							$scope.functionDescription = null;
 							$scope.nachname = null;
 							$scope.vorname = null;
 
