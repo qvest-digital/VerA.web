@@ -409,8 +409,10 @@ public class DelegationResource {
      * @param gender Gender of the person
      */
     private Integer createPerson(String companyName, Integer eventId, String firstname, String lastname, String gender, String username, String function, String category) {
-        Integer categoryId = getCategoryIdByValue(category);
-
+    	Integer categoryId = null;
+    	if (category!=null && !category.equals("")) {
+    		categoryId = getCategoryIdByValue(category);
+    	}
         WebResource personResource = client.resource(config.getVerawebEndpoint() + "/rest/person/delegate");
         Form postBody = new Form();
 
