@@ -99,6 +99,49 @@ public class PersonResource extends AbstractResource {
     }
 
     /**
+     * Updating one delegate
+     * 
+     * @param eventId Event ID
+     * @param username Username
+     * @param firstName First name
+     * @param lastname Last name
+     * @param gender Gender
+     * @param company Company
+     * @param category Category
+     * @param function Function
+     * @param personId Person ID
+     * @return Person updated person
+     */
+    @POST
+    @Path("/delegate/update")
+    public Person updateDelegate(   @FormParam("firstname") String firstName,
+						    		@FormParam("lastname") String lastname,
+						    		@FormParam("gender") String gender,
+                                    @FormParam("function") String function,
+                                    @FormParam("personId") Integer personId) {
+    	
+    	final Session session = openSession();
+        try {
+
+            final Query query = session.getNamedQuery("Person.findByPersonId");
+            query.setInteger("personId", personId);
+            
+            final Person person = (Person) query.uniqueResult();
+            
+            person.setFirstname_a_e1(firstName);
+            person.setLastname_a_e1(lastname);
+            person.setSex_a_e1(gender);
+            person.setFunction_a_e1(function);
+
+            updatePerson(person, session);
+            
+            return person;
+            
+        } finally {
+            session.close();
+        }
+    }
+    /**
      * Create new media representative.
      *
      * @param eventId Event id
@@ -351,6 +394,12 @@ public class PersonResource extends AbstractResource {
         session.persist(person);
         session.flush();
         return person;
+    }
+    
+    private Person updatePerson(Person person, Session session) {
+    	session.update(person);
+    	session.flush();
+    	return person;
     }
 
     private Person initPerson(String username, String firstName, String lastname) {
