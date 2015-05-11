@@ -41,8 +41,12 @@ import lombok.Data;
 	@NamedNativeQuery(name = "Category.findIdByCatname",
 	query = "SELECT c.pk " +
 			"FROM tcategorie c " +
-			"where catname=:pcatname " +
+			"where catname=:catname " +
 			"and fk_orgunit=(SELECT fk_orgunit from tevent where mediarepresentatives=:uuid)"),
+	@NamedNativeQuery(name = "Category.getCategoryIdByCategoryName",
+			query = "SELECT c.pk " +
+					"FROM tcategorie c " +
+					"where catname=:catname"),
 	@NamedNativeQuery(name = "Category.findCatnamesByEventId",
 	query = "SELECT catname " +
 			"FROM tcategorie " +
