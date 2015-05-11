@@ -76,16 +76,17 @@ public class Person {
     private String lastname_a_e1;
     private String lastname_a_e2;
     private String lastname_a_e3;
-    
+
     private String mail_a_e1;
+    private String function_a_e1;
     private String street_a_e1;
     private String zipcode_a_e1;
     private String city_a_e1;
     private String country_a_e1;
     private String sex_a_e1;
-    
+
     private String company_a_e1;
-    
+
     /* Username for the Onlinereg service */
     private String username;
 
@@ -100,7 +101,7 @@ public class Person {
     public String getCompany_a_e1() {
 		return company_a_e1;
 	}
-    
+
     public void setCompany_a_e1(String company_a_e1) {
 		this.company_a_e1 = company_a_e1;
 	}
@@ -201,6 +202,14 @@ public class Person {
 		this.lastname_a_e3 = lastname_a_e3;
 	}
 
+	public String getFunction_a_e1() {
+		return function_a_e1;
+	}
+
+	public void setFunction_a_e1(String function_a_e1) {
+		this.function_a_e1 = function_a_e1;
+	}
+
 	public String getMail_a_e1() {
 		return mail_a_e1;
 	}
@@ -256,36 +265,44 @@ public class Person {
 	public void setPk(int pk) {
 		this.pk = pk;
 	}
-	
+
 	public Date getChanged() {
 		return changed;
 	}
-	
+
 	public void setChanged(Date changed) {
 		this.changed = changed;
 	}
-	
+
 	public String getUsername() {
 		return username;
 	}
-	
+
 	public void setUsername(String username) {
 		this.username = username;
 	}
-	
+
     public String getNotehost_a_e1() {
 		return notehost_a_e1;
 	}
-    
+
     public void setNotehost_a_e1(String notehost_a_e1) {
 		this.notehost_a_e1 = notehost_a_e1;
 	}
-    
+
     public String getChangedby() {
 		return changedby;
 	}
-    
+
     public void setChangedby(String changedby) {
 		this.changedby = changedby;
 	}
+
+    public int getFk_workarea() {
+ 		return fk_workarea;
+ 	}
+
+ 	public void setFk_workarea(int fk_workarea) {
+ 		this.fk_workarea = fk_workarea;
+ 	}
 }

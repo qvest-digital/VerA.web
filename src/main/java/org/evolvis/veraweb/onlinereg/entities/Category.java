@@ -46,7 +46,7 @@ import lombok.Data;
 	@NamedNativeQuery(name = "Category.findCatnamesByEventId",
 	query = "SELECT catname " +
 			"FROM tcategorie " +
-			"WHERE pk in (SELECT fk_category from tevent_category WHERE fk_event IN (SELECT pk FROM tevent WHERE pk=:eventId)) ")
+			"WHERE pk IN (SELECT fk_category from tevent_category WHERE fk_event IN (SELECT pk FROM tevent WHERE pk=:eventId)) ")
 })
 public class Category {
 
