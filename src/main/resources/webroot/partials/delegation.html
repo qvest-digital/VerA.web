@@ -43,7 +43,7 @@
     <hr/>
     
     <div id="collapse-formular">
-	<a href="" class=""  ng-click="showOptionalFields(person.pk)" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+	<a href="" class=""  data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
 	  Zusätzliche Felder
 	</a>
 	<div class="collapse" id="collapseExample">
@@ -56,6 +56,10 @@
 					</div>
         
         		</div>
+       </div>
+       
+       <div class="col-xs-3">
+           <button type="submit" class="btn btn-custom floatRight" ng-click="register_user()">{{'DELEGATION_REGISTER_USER_TITLE'|translate}}</button>
        </div>
       </div>
      </div>

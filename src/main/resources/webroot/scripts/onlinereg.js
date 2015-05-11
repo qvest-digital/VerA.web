@@ -326,7 +326,38 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 		$http.get('api/delegation/' + $routeParams.uuid).then(function(presentPersons) {
 				$scope.presentPersons = presentPersons.data;
 		});
+		
+		$translate('DELEGATION_MESSAGE_NO_EXTRA_FIELDS').then(function (text) {
+			var ERROR_TEXT = text;
+		});
 
+		$scope.success = null;
+		$scope.error = null;
+		$scope.labellist = {};
+
+		$http.get('api/delegation/' + $routeParams.uuid + '/data/').then(function(fields) {
+			$scope.fields = fields.data;
+			console.log("number of fields: "+$scope.fields.length)
+			if ($scope.fields.length == 0) {
+				$scope.error_dialog = ERROR_TEXT;
+				$scope.success = null;
+				$scope.hideDialog = true;
+			} else {
+				$scope.error_dialog = null;
+				$scope.hideDialog = false;
+				console.log(JSON.stringify($scope.fields));
+
+				for(var prop in $scope.fields) {
+					var curField = $scope.fields[prop];
+					if(curField.value != null){
+						$scope.labellist[curField.pk] = curField.value;
+						console.log(curField.value + "|" + $scope.labellist[curField.pk]);
+					}
+				}
+			}
+		});
+		
+		
 		$scope.register_user = function() {
 			if ($scope.gender.id == 0) {
 				$translate('GENERIC_MISSING_GENDER_MESSAGE').then(function (text) {
@@ -385,7 +416,7 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 							lastname: $scope.vorname,
 							gender: $scope.gender.label,
 							category: $scope.category,
-							fields: $scope.fields,
+							fields: JSON.stringify($scope.labellist),
 							functionDescription: $scope.functionDescription
 						})
 					}).success(function(result) {
@@ -422,7 +453,6 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 						}
 
 						$scope.button = false;
-
 					}).error(function(data, status, headers, config) {
 
 					});
@@ -433,40 +463,6 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 				});
 				$scope.success = null;
 			}
-		}
-
-		$scope.showOptionalFields = function (personId) {
-
-			$scope.targetPersonId=personId;
-			$translate('DELEGATION_MESSAGE_NO_EXTRA_FIELDS').then(function (text) {
-				var ERROR_TEXT = text;
-			});
-
-			$scope.success = null;
-			$scope.error = null;
-			$scope.labellist = {};
-
-			$http.get('api/delegation/' + $routeParams.uuid + '/data/').then(function(fields) {
-				$scope.fields = fields.data;
-				console.log("number of fields: "+$scope.fields.length)
-				if ($scope.fields.length == 0) {
-					$scope.error_dialog = ERROR_TEXT;
-					$scope.success = null;
-					$scope.hideDialog = true;
-				} else {
-					$scope.error_dialog = null;
-					$scope.hideDialog = false;
-					console.log(JSON.stringify($scope.fields));
-
-					for(var prop in $scope.fields) {
-						var curField = $scope.fields[prop];
-						if(curField.value != null){
-							$scope.labellist[curField.pk] = curField.value;
-							console.log(curField.value + "|" + $scope.labellist[curField.pk]);
-						}
-					}
-				}
-			});
 		}
 
 		$scope.saveOptionalFields = function () {

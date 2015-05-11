@@ -259,8 +259,7 @@ public class DelegationResource {
     }
 
     private void handleSaveOptionalFields(String uuid, String fields, Integer personId) throws IOException {
-        final TypeReference<HashMap<String, String>> typeReference = new TypeReference<HashMap<String, String>>() {
-        };
+        final TypeReference<HashMap<String, String>> typeReference = new TypeReference<HashMap<String, String>>() {};
         final Map<String, String> fieldMap = mapper.readValue(fields, typeReference);
 
         final Guest guest = getEventIdFromUuid(uuid, personId);
@@ -350,7 +349,6 @@ public class DelegationResource {
         Guest guest = addGuestToEvent(uuid, String.valueOf(eventId), String.valueOf(personId), gender, nachname, vorname, username);
         
         // Store optional fields
-        
         if (fields != null && !"".equals(fields) && guest != null) {
             handleSaveOptionalFields(uuid, fields, guest.getFk_person());
     	}
