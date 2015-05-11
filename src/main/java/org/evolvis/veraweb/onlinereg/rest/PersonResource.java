@@ -268,32 +268,6 @@ public class PersonResource extends AbstractResource {
     }
 
     /**
-     * Update the category for a person after registration for event.
-     *
-     * @param category Integer
-     * @param personId Integer
-     */
-    @POST
-    @Path("/update/category")
-    public void updatePersonCategory(@FormParam("category") Integer category, @FormParam("personId") Integer personId) {
-        final Session session = openSession();
-
-        try {
-            final Query query = session.getNamedQuery("Person.findByPersonId");
-            query.setInteger("personId", personId);
-
-            final Person person = (Person) query.uniqueResult();
-            person.setFk_category(category);
-
-            session.update(person);
-            session.flush();
-
-        } finally {
-            session.close();
-        }
-    }
-
-    /**
      * TODO
      */
     @GET
