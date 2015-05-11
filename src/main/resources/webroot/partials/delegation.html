@@ -81,7 +81,7 @@
         <th>{{'GENERIC_FIRSTNAME'|translate}}</th>
         <th>{{'GENERIC_LASTNAME'|translate}}</th>
     </tr>
-    <tr id="delegation" ng-click="loadPersonData(person.pk)" ng-repeat="person in presentPersons">
+    <tr id="delegation" ng-click="loadPersonData(person.pk)" data-toggle="modal" data-target="#myModal" ng-repeat="person in presentPersons">
         <td>
             {{person.firstname_a_e1}}
         </td>
@@ -89,5 +89,6 @@
             {{person.lastname_a_e1}}
         </td>
     </tr>
+
 </table>
 
