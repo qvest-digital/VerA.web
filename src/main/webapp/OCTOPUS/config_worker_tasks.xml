@@ -1193,7 +1193,7 @@
 
 		<task name="SaveDelegationFields" access="public" groups="StandardFieldsReader">
 			<description>
-				Dieser Task speicher die bearbeitetten Tasks.
+				Dieser Task speicher die bearbeiteten Tasks.
 			</description>
 			<doTask name="Load"/>
 			<action name="saveDelegationFieldLabels" worker="EventDelegationWorker" />
