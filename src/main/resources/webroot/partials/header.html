@@ -9,9 +9,9 @@
                     <label class="fontWeight0" for="SelectLang">
                         {{'LANGUAGE_FIELD_SELECT'|translate}}
                     </label>
-                    <select id="SelectLang" ng-controller="LanguageSelectController">
-                        <option ng-click="changeLang('de_DE')">Deutsch</option>
-                        <option ng-click="changeLang('en_EN')">English</option>
+                    <select id="SelectLang" ng-controller="LanguageSelectController" ng-model="langKey" ng-change="changeLang(langKey)">
+                        <option value="de_DE">Deutsch</option>
+                        <option value="en_EN">English</option>
                     </select>
                 </div>
                 <div ng-switch on="user_logged_in != null" class="marginT10">
