@@ -31,11 +31,15 @@
             </div>
 		</div>
         <div class="row">
+
             <div class="col-xs-6" ng-class="delegation-form.function.$valid ? 'has-success' : 'has-error'">
-                <select class="form-control" id="functionDescription" name="functionDescription" ng-model="functionDescription" ng-options="function for function in functionSignNames"/></select>
+                <label>{{'GENERIC_FUNCTION'|translate}}</label>
+                <select class="form-control" id="functionDescription" name="functionDescription" ng-model="functionDescription" ng-options="function for function in functionSignNames"/>
+                </select>
             </div>
 
             <div class="col-xs-6" ng-class="delegation-form.categorie.$valid ? 'has-success' : 'has-error'">
+                <label>{{'GENERIC_CATEGORY'|translate}}</label>
                 <select class="form-control" id="category" name="category" ng-model="category" ng-options="category for category in categoryNames"/></select>
             </div>
         </div>
@@ -51,7 +55,7 @@
         <th>{{'GENERIC_LASTNAME'|translate}}</th>
     </tr>
     <tr id="delegation" ng-click="showOptionalFields(person.pk)" data-toggle="modal" data-target="#myModal" ng-repeat="person in presentPersons">
-        <td ng-bind-html="{{person.firstname_a_e1}}">
+        <td>
             {{person.firstname_a_e1}}
         </td>
         <td>
