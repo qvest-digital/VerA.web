@@ -385,7 +385,7 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 							lastname: $scope.vorname,
 							gender: $scope.gender.label,
 							category: $scope.category,
-							functionSign: $scope.functionSign
+							functionDescription: $scope.functionDescription
 
 						})
 					}).success(function(result) {

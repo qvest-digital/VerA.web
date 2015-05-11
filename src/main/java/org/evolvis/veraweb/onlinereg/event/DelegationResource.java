@@ -208,13 +208,13 @@ public class DelegationResource {
             @FormParam("firstname") String firstname,
             @FormParam("gender") String gender,
             @FormParam("category") String category,
-            @FormParam("functionSign") String functionSign
+            @FormParam("functionDescription") String function
         ) throws IOException {
 
         final Boolean delegationIsFound = checkForExistingDelegation(uuid);
 
         if(delegationIsFound) {
-        	String returnedValue = handleDelegationFound(uuid, lastname, firstname, gender);
+        	String returnedValue = handleDelegationFound(uuid, lastname, firstname, gender, function);
             return StatusConverter.convertStatus(returnedValue);
         } else {
             return StatusConverter.convertStatus("WRONG_DELEGATION");
@@ -294,7 +294,7 @@ public class DelegationResource {
     	return readResource(path("guest","exist", uuid), BOOLEAN);
     }
 
-    private String handleDelegationFound(String uuid, String nachname, String vorname, String gender)
+    private String handleDelegationFound(String uuid, String nachname, String vorname, String gender, String function)
             throws IOException {
 
         final Integer eventId = getEventId(uuid);
@@ -302,7 +302,7 @@ public class DelegationResource {
 
         String username = usernameGenerator();
         // Store in tperson
-        final Integer personId = createPerson(company.getCompany_a_e1(), eventId, nachname, vorname, gender,username);
+        final Integer personId = createPerson(company.getCompany_a_e1(), eventId, nachname, vorname, gender,username, function);
 
         if (eventId == null) {
             return "NO_EVENT_DATA";
@@ -333,7 +333,7 @@ public class DelegationResource {
      * @param firstname First name
      * @param gender Gender of the person
      */
-    private Integer createPerson(String companyName, Integer eventId, String firstname, String lastname, String gender, String username) {
+    private Integer createPerson(String companyName, Integer eventId, String firstname, String lastname, String gender, String username, String function) {
         WebResource personResource = client.resource(config.getVerawebEndpoint() + "/rest/person/delegate");
         Form postBody = new Form();
 
@@ -343,6 +343,7 @@ public class DelegationResource {
         postBody.add("firstname", firstname);
         postBody.add("lastname", lastname);
         postBody.add("gender", gender);
+        postBody.add("function", function);
 
         final Person person = personResource.post(Person.class, postBody);
         createPersonDoctype(person);
