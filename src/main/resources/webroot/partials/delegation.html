@@ -44,25 +44,28 @@
             </div>
         </div>
         
-    <hr/>
-    
-    <div id="collapse-formular">
-	<a href="" class=""  ng-click="showOptionalFields(person.pk)" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-	  Zusätzliche Felder
-	</a>
-	<div class="collapse" id="collapseExample">
-	  <div class="well">
-    
-    			<div class="form-group container">
-    	
-	        		<div class="col-xs-5" ng-repeat="field in fields">
-						<input type="text" class="form-control" id="{{field.label}}" placeholder="{{field.label}}" ng-model="labellist[field.pk]" style="margin-bottom: 10px;" />
-					</div>
-        
-        		</div>
-       </div>
-      </div>
-     </div>
+        <hr/>
+
+        <div id="collapse-formular">
+            <a href="" class="" ng-click="showOptionalFields(person.pk)" data-toggle="collapse"
+               data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                Zusätzliche Felder
+            </a>
+
+            <div class="collapse" id="collapseExample">
+                <div class="well">
+
+                    <div class="form-group container">
+
+                        <div class="col-xs-5" ng-repeat="field in fields">
+                            <input type="text" class="form-control" id="{{field.label}}" placeholder="{{field.label}}"
+                                   ng-model="labellist[field.pk]" style="margin-bottom: 10px;"/>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
    </div>
 </form>
 
