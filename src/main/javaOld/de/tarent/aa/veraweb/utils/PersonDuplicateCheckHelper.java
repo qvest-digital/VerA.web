@@ -122,7 +122,7 @@ public class PersonDuplicateCheckHelper {
 				handleDuplicateEntry(result, list);
 				duplicateCount++;
 			}
-			setDuplicates(duplicateImportedPerson, listUniquePersonIds(personIdArray));
+			setDuplicates(duplicateImportedPerson, personIdArray); //listUniquePersonIds(personIdArray));
 		}
 
 		return duplicateCount;
