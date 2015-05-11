@@ -27,6 +27,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import org.evolvis.veraweb.onlinereg.entities.Category;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
@@ -51,7 +52,7 @@ public class CategoryResource extends AbstractResource {
         final Session session = openSession();
         try {
             final Query query = session.getNamedQuery("Category.findIdByCatname");
-            query.setString("pcatname", catname);
+            query.setString("catname", catname);
             query.setString("uuid", uuid);
             final Integer categoryId = (Integer) query.uniqueResult();
             if (categoryId != null) {
@@ -64,10 +65,11 @@ public class CategoryResource extends AbstractResource {
     }
 
     /**
-     * Get category name by event hash
+     * Get category name by event hash.
      *
-     * @param eventId
-     * @return all category names of this event
+     * @param eventId The event id
+     *
+     * @return All category names for this event
      */
     @GET
     @Path("/fields/list/{eventId}")
@@ -81,6 +83,27 @@ public class CategoryResource extends AbstractResource {
 
             //TODO NULL-Check?
            	return categoryName;
+        } finally {
+            session.close();
+        }
+    }
+
+    /**
+     * Get category name by event hash.
+     *
+     * @param catname The name of the category
+     *
+     * @return Category ID
+     */
+    @GET
+    @Path("/{catname}")
+    public Integer getCategoryIdByCategoryName(@PathParam("catname") String catname) {
+        final Session session = openSession();
+        try {
+            final Query query = session.getNamedQuery("Category.getCategoryIdByCategoryName");
+            query.setString("catname", catname);
+
+            return (Integer) query.uniqueResult();
         } finally {
             session.close();
         }
