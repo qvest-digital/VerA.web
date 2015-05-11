@@ -6,3 +6,4 @@
 config.json
 config.yaml
 target/
+*.log
