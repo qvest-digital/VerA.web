@@ -31,6 +31,8 @@
   "GENERIC_MESSAGE_USER_OR_PASSWORD_WRONG": "Username or password is wrong!",
   "GENERIC_MESSAGE_EVENT_DOESNT_EXISTS": "The event does not exists.",
   "GENERIC_MESSAGE_FILL_IN_ALL_FIELDS": "Please fill in all fields!",
+  "GENERIC_CATEGORY": "Category",
+  "GENERIC_FUNCTION": "Function",
 
   "BROWSER_TITLE": "VerA.web Online-Registration",
 

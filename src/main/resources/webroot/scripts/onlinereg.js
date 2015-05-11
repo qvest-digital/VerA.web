@@ -92,6 +92,7 @@ onlineRegApp.directive('equals', function() {
 });
 
 onlineRegApp.controller('LanguageSelectController', function ($scope, $translate) {
+  $scope.langKey = 'de_DE';
   $scope.changeLang = function (key) {
 	$translate.use(key).then(function (key) {
 	  console.log("Sprache zu " + key + " gewechselt.");
@@ -299,9 +300,7 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 			{id: 0, name:"Test"},
 		]
 
-		$scope.functionSignNames = [
-			{id: 0, name:"Test2"}
-		]
+		$scope.functionSignNames = []
 
 		$http.get('api/delegation/fields/list/category/' + $routeParams.uuid).then(function(categoryNames) {
 			//first label of categories
@@ -311,15 +310,10 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 		});
 
 		$http.get('api/delegation/fields/list/function/' + $routeParams.uuid).then(function(functionNames) {
-			//first label of functions
-			//{id: 0, name:"DELEGATION_OPTION_FUNCTION"}
-
 			$scope.functionSignNames = functionNames.data;
 		});
 
 		$scope.gender = $scope.genderOptions[0];
-		$scope.category = $scope.categoryNames[0];
-		$scope.functionSign = $scope.functionSignNames[0];
 		$scope.success = null;
 		$scope.error = null;
 
