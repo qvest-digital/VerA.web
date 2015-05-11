@@ -411,7 +411,8 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 							gender: $scope.gender.label,
 							category: $scope.category,
 							fields: JSON.stringify($scope.labellist),
-							functionDescription: $scope.functionDescription
+							functionDescription: $scope.functionDescription,
+							personId: $scope.targetPersonId
 						})
 					}).success(function(result) {
 						$scope.success = null;
@@ -437,6 +438,7 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 							$scope.functionSign = $scope.functionSignNames[0];
 							$scope.nachname = null;
 							$scope.vorname = null;
+							$scope.targetPersonId = null;
 
 							$http.get('api/delegation/' + $routeParams.uuid).then(function(presentPersons) {
 								$scope.presentPersons = presentPersons.data;
@@ -459,6 +461,62 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 			}
 		}
 
+		$scope.loadPersonData = function(personId) {
+			$scope.targetPersonId=personId;
+			$scope.success = null;
+			$scope.error = null;
+			
+			$http.get('api/delegation/load/' + $routeParams.uuid + '/' + $scope.targetPersonId).then(function(person) {
+				// Setting current values
+				$scope.nachname = person.data.lastname_a_e1;
+				$scope.vorname = person.data.firstname_a_e1;
+				if (person.data.sex_a_e1 == 'w') {
+					$scope.gender = $scope.genderOptions[2];
+				} else {
+					$scope.gender = $scope.genderOptions[1];
+				}
+				// TODO load kategorie
+				// TODO load function
+				// Loading optional fields
+				$scope.showOptionalFields($scope.targetPersonId);
+			});
+			
+		}
+		
+		$scope.showOptionalFields = function (personId) {
+			
+			$scope.targetPersonId=personId;
+			$translate('DELEGATION_MESSAGE_NO_EXTRA_FIELDS').then(function (text) {
+				var ERROR_TEXT = text;
+			});
+	
+			$scope.success = null;
+			$scope.error = null;
+			$scope.labellist = {};
+	
+			$http.get('api/delegation/load/fields/' + $routeParams.uuid + '/' + $scope.targetPersonId).then(function(fields) {
+				$scope.fields = fields.data;
+				console.log("number of fields: "+$scope.fields.length)
+				if ($scope.fields.length == 0) {
+					$scope.error_dialog = ERROR_TEXT;
+					$scope.success = null;
+					$scope.hideDialog = true;
+				} else {
+					$scope.error_dialog = null;
+					$scope.hideDialog = false;
+					console.log(JSON.stringify($scope.fields));
+	
+					for(var prop in $scope.fields) {
+						var curField = $scope.fields[prop];
+						if(curField.value != null){
+							$scope.labellist[curField.pk] = curField.value;
+							console.log(curField.value + "|" + $scope.labellist[curField.pk]);
+						}
+					}
+				}
+			});
+		}
+		
 		$scope.saveOptionalFields = function () {
 			$scope.success = null;
 			$scope.error = null;

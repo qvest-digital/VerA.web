@@ -183,12 +183,18 @@ public class DelegationResource {
     public List<OptionalFieldValue> getExtraDataFields(
     		@PathParam("uuid") String uuid,
     		@PathParam("personId") Integer personId) throws IOException {
-
-//		return getLabels(uuid, personId);
 		
 		return getEventLabels(uuid);
     }
 
+	@GET
+	@Path("/load/{uuid}/{personId}")
+	public Person loadBasicData(@PathParam("uuid") String uuid, @PathParam("personId") String personId) throws IOException {
+		Person person = readResource(path("person", "list", personId), PERSON);
+		
+		return person;
+	}
+	
     /**
      * Register delegate for event.
      *
@@ -211,13 +217,22 @@ public class DelegationResource {
             @FormParam("gender") String gender,
             @FormParam("category") String category,
             @FormParam("functionDescription") String function,
-            @FormParam("fields") String fields) throws IOException {
+            @FormParam("fields") String fields,
+            @FormParam("personId") Integer personId) throws IOException {
 
         final Boolean delegationIsFound = checkForExistingDelegation(uuid);
 
         if(delegationIsFound) {
-        	final String returnedValue = handleDelegationFound(uuid, lastname, firstname, gender, function, fields);
-            return StatusConverter.convertStatus(returnedValue);
+        	if (personId == null) {
+        		// Save new delegate
+        		final String returnedValue = handleDelegationFound(uuid, lastname, firstname, gender, function, fields);
+        		return StatusConverter.convertStatus(returnedValue);
+        	}
+        	else {
+        		// Update delegate main data
+        		final String returnedValue = updateDelegateMainData(personId, lastname, firstname, gender, function, fields, uuid);
+        		return StatusConverter.convertStatus(returnedValue);
+        	}
         } else {
             return StatusConverter.convertStatus("WRONG_DELEGATION");
         }
@@ -348,12 +363,25 @@ public class DelegationResource {
         }
         Guest guest = addGuestToEvent(uuid, String.valueOf(eventId), String.valueOf(personId), gender, nachname, vorname, username);
         
-        // Store optional fields
-        if (fields != null && !"".equals(fields) && guest != null) {
-            handleSaveOptionalFields(uuid, fields, guest.getFk_person());
-    	}
-
+        if (guest!=null) {
+        	updateOptionalFields(uuid, fields, guest.getFk_person());
+        }
+        
         return "OK";
+    }
+
+	private void updateOptionalFields(String uuid, String fields, Integer personId)
+			throws IOException {
+		// Save optional fields
+        if (fields != null && !"".equals(fields)) {
+            handleSaveOptionalFields(uuid, fields, personId);
+    	}
+	}
+    
+    private String updateDelegateMainData(Integer personId, String lastname, String firstname, String gender, String function, String fields, String uuid) throws IOException {
+    	updatePerson(personId, firstname, lastname, gender, function);
+    	updateOptionalFields(uuid, fields, personId);
+    	return "OK";
     }
     
 
@@ -399,7 +427,25 @@ public class DelegationResource {
 
     	return person.getPk();
     }
+    
+    private Person updatePerson(Integer personId, String firstname, String lastname, String gender, String function) {
+    	WebResource personResource = client.resource(config.getVerawebEndpoint() + "/rest/person/delegate/update");
+        Form postBody = new Form();
 
+        postBody.add("firstname", firstname);
+        postBody.add("lastname", lastname);
+        postBody.add("gender", gender);
+        postBody.add("function", function);
+        postBody.add("personId", personId);
+
+        final Person person = personResource.post(Person.class, postBody);
+    	
+        return person;
+    }
+
+    
+    
+    
     private void createPersonDoctype(Person person) {
         WebResource personDoctypeRsource = client.resource(config.getVerawebEndpoint() + "/rest/personDoctype");
         Form postBody = new Form();
