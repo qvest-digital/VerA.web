@@ -214,5 +214,30 @@ public class EventDelegationWorker {
         }
         return event;
     }
+
+    private String getDelegationCategory(OctopusContext oc, Integer delegationId) throws SQLException {
+    	final Database database = new DatabaseVeraWeb(oc);
+
+        Select selectCatName = SQL.Select(database);
+
+        selectCatName.select("catname");
+        selectCatName.from("veraweb.tcategorie");
+        selectCatName.joinLeftOuter("veraweb.tperson_categorie", "veraweb.tperson_categorie.fk_categorie", "veraweb.tcategorie.pk");
+        selectCatName.whereAndEq("fk_person", delegationId);
+
+        return selectCatName.execute().toString();
+    }
+
+    private String getDelegationFunction(OctopusContext oc, Integer delegationId) throws SQLException {
+    	final Database database = new DatabaseVeraWeb(oc);
+
+        Select selectFuncName = SQL.Select(database);
+
+        selectFuncName.select("function_a_e1");
+        selectFuncName.from("tperson");
+        selectFuncName.whereAndEq("pk", delegationId);
+
+        return selectFuncName.execute().toString();
+    }
 }
 
