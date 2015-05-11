@@ -193,6 +193,27 @@ public class GuestResource extends AbstractResource{
             session.close();
         }
     }
+    /**
+     * Find guest by delegation and person id.
+     *
+     * @param uuid Delegation UUID
+     * @param userId Person id
+     *
+     * @return Guest
+     */
+    @GET
+    @Path("/delegation/{uuid}")
+    public Guest findGuestByDelegationUUID(@PathParam("uuid") String uuid) {
+        final Session session = openSession();
+        try {
+            final Query query = session.getNamedQuery("Guest.findByDelegationUUID");
+            query.setString("delegation", uuid);
+
+            return (Guest) query.uniqueResult();
+        } finally {
+            session.close();
+        }
+    }
 
     /**
      * Check for existing delegation by delegation uuid.
