@@ -84,12 +84,14 @@ public class PersonResource extends AbstractResource {
 						    		@FormParam("firstname") String firstName,
 						    		@FormParam("lastname") String lastname,
 						    		@FormParam("gender") String gender,
-					    			@FormParam("company") String company) {
+					    			@FormParam("company") String company,
+                                    @FormParam("category") String category,
+                                    @FormParam("function") String function) {
         final Session session = openSession();
         try {
             final Integer mandantId = getOrgUnitId(session, eventId);
             final Person person = handleCreatePersonDelegation(company, mandantId, username, firstName, lastname,
-                    gender, session);
+                    gender, session, function);
             return person;
         } finally {
             session.close();
@@ -306,13 +308,13 @@ public class PersonResource extends AbstractResource {
 
 
     private Person handleCreatePersonDelegation(String company, Integer orgUnitId, String username, String firstName,
-                                                String lastname, String gender,Session session) {
+                                                String lastname, String gender,Session session, String function) {
         final Query query = getSelectPersonByUsernameQuery(username, session);
         if (!query.list().isEmpty()) {
             // user already exists
             return null;
         }
-        persistPersonDelegation(company, orgUnitId, username, firstName, lastname, gender, session);
+        persistPersonDelegation(company, orgUnitId, username, firstName, lastname, gender, session, function);
         final Person person = (Person) query.uniqueResult();
         return person;
     }
@@ -344,8 +346,8 @@ public class PersonResource extends AbstractResource {
     }
 
     private Person persistPersonDelegation(String company, Integer orgUnitId, String username, String firstName,
-                                           String lastname, String gender, Session session) {
-        final Person person = initPersonDelegation(company, orgUnitId, username, firstName, lastname, gender);
+                                           String lastname, String gender, Session session, String function) {
+        final Person person = initPersonDelegation(company, orgUnitId, username, firstName, lastname, gender, function);
         session.persist(person);
         session.flush();
         return person;
@@ -363,7 +365,7 @@ public class PersonResource extends AbstractResource {
     }
 
     private Person initPersonDelegation(String company, Integer orgUnitId, String username, String firstName,
-                                        String lastname, String gender) {
+                                        String lastname, String gender, String function) {
         final Person person = new Person();
         person.setFirstName(firstName);
         person.setLastName(lastname);
@@ -371,6 +373,7 @@ public class PersonResource extends AbstractResource {
         person.setFk_orgunit(orgUnitId);
         person.setSex_a_e1(correctGender(gender));
         person.setCompany_a_e1(company);
+        person.setFunction_a_e1(function);
 
         return person;
     }
