@@ -395,7 +395,8 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 							lastname: $scope.vorname,
 							gender: $scope.gender.label,
 							category: $scope.category.label,
-							functionSign: $scope.functionSign.label
+							functionSign: $scope.functionSign.label,
+							fields: $scope.fields
 
 						})
 					}).success(function(result) {
@@ -456,7 +457,7 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 			$scope.error = null;
 			$scope.labellist = {};
 
-			$http.get('api/delegation/' + $routeParams.uuid + '/' + personId + '/data/').then(function(fields) {
+			$http.get('api/delegation/' + $routeParams.uuid + '/data/').then(function(fields) {
 				$scope.fields = fields.data;
 				console.log("number of fields: "+$scope.fields.length)
 				if ($scope.fields.length == 0) {

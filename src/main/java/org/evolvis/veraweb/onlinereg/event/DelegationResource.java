@@ -179,12 +179,14 @@ public class DelegationResource {
      * @throws IOException TODO
      */
 	@GET
-    @Path("/{uuid}/{personId}/data")
+    @Path("/{uuid}/data")
     public List<OptionalFieldValue> getExtraDataFields(
     		@PathParam("uuid") String uuid,
     		@PathParam("personId") Integer personId) throws IOException {
 
-		return getLabels(uuid, personId);
+//		return getLabels(uuid, personId);
+		
+		return getEventLabels(uuid);
     }
 
     /**
@@ -206,12 +208,13 @@ public class DelegationResource {
             @PathParam("uuid") String uuid,
             @FormParam("lastname") String lastname,
             @FormParam("firstname") String firstname,
-            @FormParam("gender") String gender) throws IOException {
+            @FormParam("gender") String gender,
+            @FormParam("fields") String fields) throws IOException {
 
         final Boolean delegationIsFound = checkForExistingDelegation(uuid);
 
         if(delegationIsFound) {
-        	String returnedValue = handleDelegationFound(uuid, lastname, firstname, gender);
+        	String returnedValue = handleDelegationFound(uuid, lastname, firstname, gender, fields);
             return StatusConverter.convertStatus(returnedValue);
         } else {
             return StatusConverter.convertStatus("WRONG_DELEGATION");
@@ -286,12 +289,50 @@ public class DelegationResource {
 			return null;
 		}
 	}
+	
+	private List<OptionalFieldValue> getEventLabels(String uuid) throws IOException {
+		try{
+			final Guest guest = getEventIdFromDelegationUuid(uuid);
+			final List<OptionalFieldValue> fields =
+                    readResource(path("delegation", "fields", "list", guest.getFk_event(), guest.getPk()), FIELDS_LIST);
+
+            final List<OptionalFieldValue> filteredList = new ArrayList<OptionalFieldValue>();
+            for (OptionalFieldValue field : fields) {
+                if (field.getLabel() != null && !field.getLabel().equals("")) {
+                    filteredList.add(field);
+                }
+            }
+            return filteredList;
+		}
+		catch (UniformInterfaceException uie) {
+			return null;
+		}
+	}
+
+	private List<OptionalFieldValue> getEventLabels(String uuid, Integer personId) throws IOException {
+		try{
+			final Guest guest = getEventIdFromUuid(uuid, personId);
+			final List<OptionalFieldValue> fields =
+                    readResource(path("delegation", "fields", "list", guest.getFk_event(), guest.getPk()), FIELDS_LIST);
+
+            final List<OptionalFieldValue> filteredList = new ArrayList<OptionalFieldValue>();
+            for (OptionalFieldValue field : fields) {
+                if (field.getLabel() != null && !field.getLabel().equals("")) {
+                    filteredList.add(field);
+                }
+            }
+            return filteredList;
+		}
+		catch (UniformInterfaceException uie) {
+			return null;
+		}
+	}
 
     private Boolean checkForExistingDelegation(String uuid) throws IOException {
     	return readResource(path("guest","exist", uuid), BOOLEAN);
     }
 
-    private String handleDelegationFound(String uuid, String nachname, String vorname, String gender)
+    private String handleDelegationFound(String uuid, String nachname, String vorname, String gender, String fields)
             throws IOException {
 
         final Integer eventId = getEventId(uuid);
@@ -304,10 +345,17 @@ public class DelegationResource {
         if (eventId == null) {
             return "NO_EVENT_DATA";
         }
-        addGuestToEvent(uuid, String.valueOf(eventId), String.valueOf(personId), gender, nachname, vorname, username);
+        Guest guest = addGuestToEvent(uuid, String.valueOf(eventId), String.valueOf(personId), gender, nachname, vorname, username);
+        
+        // Store optional fields
+        
+        if (fields != null && !"".equals(fields) && guest != null) {
+            handleSaveOptionalFields(uuid, fields, guest.getFk_person());
+    	}
 
         return "OK";
     }
+    
 
     private Integer getEventId(String uuid) throws IOException {
         final Guest guest = readResource(path("guest", uuid), GUEST);
@@ -316,6 +364,10 @@ public class DelegationResource {
 
     private Guest getEventIdFromUuid(String uuid, Integer personId) throws IOException {
 		return readResource(path("guest", "delegation", uuid, personId), GUEST);
+	}
+    
+    private Guest getEventIdFromDelegationUuid(String uuid) throws IOException {
+		return readResource(path("guest", "delegation", uuid), GUEST);
 	}
 
     private Person getCompanyFromUuid(String uuid) throws IOException {
@@ -365,7 +417,7 @@ public class DelegationResource {
      * @param userId User id
      * @param gender Gender of the person
      */
-    private void addGuestToEvent(String uuid, String eventId, String userId, String gender, String lastName, String firstName, String username) {
+    private Guest addGuestToEvent(String uuid, String eventId, String userId, String gender, String lastName, String firstName, String username) {
 		WebResource resource = client.resource(path("guest", uuid, "register"));
         Form postBody = new Form();
 
@@ -380,6 +432,8 @@ public class DelegationResource {
         final Guest guest = resource.post(Guest.class, postBody);
 
         createGuestDoctype(guest.getPk(), firstName, lastName);
+        
+        return guest;
 	}
 
 	private void createGuestDoctype(int guestId, String firstName, String lastName) {

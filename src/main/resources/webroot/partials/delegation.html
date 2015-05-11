@@ -32,16 +32,38 @@
 		</div>
         <div class="row">
             <div class="col-xs-6" ng-class="delegation-form.function.$valid ? 'has-success' : 'has-error'">
-                <select class="form-control" id="function" name="function" ng-model="function" ng-options="function for function in functionNames"/></select>
+                <select class="form-control" id="function" name="function" ng-model="function" placeholder="myplaceholder" ng-options="function for function in functionNames"/></select>
             </div>
 
             <div class="col-xs-6" ng-class="delegation-form.categorie.$valid ? 'has-success' : 'has-error'">
                 <select class="form-control" id="category" name="category" ng-model="category" ng-options="category for category in categoryNames"/></select>
             </div>
         </div>
-    </div>
+        
+    <hr/>
+    
+    <div id="collapse-formular">
+	<a href="" class=""  ng-click="showOptionalFields(person.pk)" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+	  Zusätzliche Felder
+	</a>
+	<div class="collapse" id="collapseExample">
+	  <div class="well">
+    
+    			<div class="form-group container">
+    	
+	        		<div class="col-xs-5" ng-repeat="field in fields">
+						<input type="text" class="form-control" id="{{field.label}}" placeholder="{{field.label}}" ng-model="labellist[field.pk]" style="margin-bottom: 10px;" />
+					</div>
+        
+        		</div>
+       </div>
+      </div>
+     </div>
+   </div>
 </form>
 
+
+	    
 <hr/>
 
 <h2>{{'DELEGATION_ALREADY_REGISTERED'|translate}}:</h2>
@@ -61,35 +83,3 @@
 
 </table>
 
-<!-- Modal -->
-<div  class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <h4 class="modal-title" id="myModalLabel">{{'DELEGATION_EXTRA_FIELDS_TITLE'|translate}}</h4>
-      </div>
-	<form role="form" id="delegation-form" class="form-signin">
-
-      <div class="modal-body">
-
-    <div class="form-group container">
-        <div class="row">
-
-		    <div ng-if="error_dialog" class="alert alert-danger" role="alert">{{error_dialog}}</div>
-				<div ng-repeat="field in fields">
-					<label for="{{field.label}}">{{field.label}}</label>
-					<input type="text" class="form-control" id="{{field.label}}" placeholder="{{field.label}}" ng-model="labellist[field.pk]" style="margin-bottom: 10px;" />
-				</div>
-        </div>
-    </div>
-
-      </div>
-      <div class="modal-footer">
-        <button type="button" ng-show="!hideDialog" class="btn btn-custom" data-dismiss="modal" ng-click="saveOptionalFields()">{{'GENERIC_SAVE'|translate}}</button>
-      </div>
-</form>
-    </div>
-  </div>
-</div>
