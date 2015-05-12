@@ -362,8 +362,8 @@ public class GuestResource extends AbstractResource{
         	guest.setGender_p("m");
         }
         else {
-        	guest.setGender("w");
-        	guest.setGender_p("w");
+        	guest.setGender("f");
+        	guest.setGender_p("f");
         }
     }
 }

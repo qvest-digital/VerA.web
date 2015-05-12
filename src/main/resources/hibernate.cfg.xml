@@ -28,5 +28,6 @@
         <mapping class="org.evolvis.veraweb.onlinereg.entities.LinkUUID"/>
         <mapping class="org.evolvis.veraweb.onlinereg.entities.PersonCategory"/>
 
+
     </session-factory>
 </hibernate-configuration>

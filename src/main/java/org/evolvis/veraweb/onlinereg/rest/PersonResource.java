@@ -416,18 +416,11 @@ public class PersonResource extends AbstractResource {
         person.setLastName(lastname);
         person.setUsername(username);
         person.setFk_orgunit(orgUnitId);
-        person.setSex_a_e1(correctGender(gender));
+        person.setSex_a_e1(gender);
         person.setCompany_a_e1(company);
         person.setFunction_a_e1(function);
 
         return person;
-    }
-
-    private String correctGender(String complete) {
-    	if (complete.equals("Herr")) {
-    		return "m";
-    	}
-    	return "w";
     }
 
     private Person persistPersonPress(Integer orgUnitId, String username, String firstName, String lastname,
