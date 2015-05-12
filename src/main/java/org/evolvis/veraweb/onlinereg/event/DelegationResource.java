@@ -185,6 +185,24 @@ public class DelegationResource {
 		
 		return getEventLabels(uuid);
     }
+	
+    /**
+     * Get optional fields.
+     *
+     * @param uuid The delegation UUID
+     * @param personId The person id
+     *
+     * @return List with optional fields for delegates
+     * @throws IOException TODO
+     */
+	@GET
+    @Path("/load/fields/{uuid}/{personId}")
+    public List<OptionalFieldValue> getExtraDataFieldsPerson(
+    		@PathParam("uuid") String uuid,
+    		@PathParam("personId") Integer personId) throws IOException {
+		
+		return getEventLabelsPerson(uuid, personId);
+    }
 
 	@GET
 	@Path("/load/{uuid}/{personId}")
@@ -324,7 +342,7 @@ public class DelegationResource {
 		}
 	}
 
-	private List<OptionalFieldValue> getEventLabels(String uuid, Integer personId) throws IOException {
+	private List<OptionalFieldValue> getEventLabelsPerson(String uuid, Integer personId) throws IOException {
 		try{
 			final Guest guest = getEventIdFromUuid(uuid, personId);
 			final List<OptionalFieldValue> fields =
@@ -463,8 +481,8 @@ public class DelegationResource {
         Integer categoryId = null;
         if (category != null && !category.equals("")) {
             categoryId = getCategoryIdByValue(category);
+            createPersonCategory(personId, categoryId);
         }
-        createPersonCategory(personId, categoryId);
         return categoryId;
     }
 
