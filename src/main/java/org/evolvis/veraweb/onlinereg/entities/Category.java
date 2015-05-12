@@ -31,6 +31,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 import lombok.Data;
 
 /**
+ * Class of table 'tcategorie'
+ * 
  * @author jnunez
  */
 @Data
@@ -39,18 +41,23 @@ import lombok.Data;
 @Table(name = "tcategorie")
 @NamedNativeQueries({
 	@NamedNativeQuery(name = "Category.findIdByCatname",
-	query = "SELECT c.pk " +
-			"FROM tcategorie c " +
-			"where catname=:catname " +
-			"and fk_orgunit=(SELECT fk_orgunit from tevent where mediarepresentatives=:uuid)"),
+			query = "SELECT c.pk " +
+					"FROM tcategorie c " +
+					"where catname=:catname " +
+					"and fk_orgunit=(SELECT fk_orgunit from tevent where mediarepresentatives=:uuid)"),
 	@NamedNativeQuery(name = "Category.getCategoryIdByCategoryName",
 			query = "SELECT c.pk " +
 					"FROM tcategorie c " +
 					"where catname=:catname"),
 	@NamedNativeQuery(name = "Category.findCatnamesByEventId",
-	query = "SELECT catname " +
-			"FROM tcategorie " +
-			"WHERE pk IN (SELECT fk_category from tevent_category WHERE fk_event IN (SELECT pk FROM tevent WHERE pk=:eventId)) ")
+			query = "SELECT catname " +
+					"FROM tcategorie " +
+					"WHERE pk IN (SELECT fk_category from tevent_category WHERE fk_event IN (SELECT pk FROM tevent WHERE pk=:eventId)) "),
+	@NamedNativeQuery(name = "Category.findCatnameByUserAndDelegation",
+			query = "SELECT c.catname " +
+					"FROM tcategorie c " +
+					"WHERE c.pk = (SELECT g.fk_category FROM tguest g WHERE g.fk_person=:personId AND g.delegation=:uuid)"
+					)
 })
 public class Category {
 
