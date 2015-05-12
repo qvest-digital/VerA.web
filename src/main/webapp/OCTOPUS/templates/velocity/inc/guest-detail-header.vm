@@ -40,7 +40,7 @@
 		<div class="tableRow">
 			<div class="tableCell"><strong>Funktion:</strong> $!message.text($funktion)</div>
 			<div class="tableCell"><strong>Partner:</strong> $!message.text($name_p)</div>
-			<div class="tableCell"><strong>Kategorie:</strong> $guestCategory</div>
+			<div class="tableCell"><strong>Kategorie:</strong> #if($guestCategory)$guestCategory#end</div>
 		</div>
 
 		<div class="tableRow">
