@@ -347,6 +347,7 @@ public class GuestResource extends AbstractResource{
         guest.setInvitationtype(invitationtype);
         guest.setOsiam_login(username);
         guest.setGender(gender);
+        guest.setGender_p(gender);
         guest.setFk_category(category);
         guest.setNotehost(hostNode);
 
