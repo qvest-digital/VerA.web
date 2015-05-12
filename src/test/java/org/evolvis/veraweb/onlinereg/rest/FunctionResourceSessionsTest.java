@@ -28,6 +28,7 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import javax.servlet.ServletContext;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
@@ -39,57 +40,39 @@ import static org.mockito.Mockito.when;
  * Created by aalexa on 22.01.15.
  */
 @RunWith(MockitoJUnitRunner.class)
-public class CategoryResourceTest {
-	
+public class FunctionResourceSessionsTest {
+
     @Mock
     private static SessionFactory mockitoSessionFactory;
     @Mock
     private static Session mockitoSession;
 
-    CategoryResource categoryResource;
+    FunctionResource functionResource;
 
-    public CategoryResourceTest() {
-        categoryResource = new CategoryResource();
-        categoryResource.context = mock(ServletContext.class);
+    public FunctionResourceSessionsTest() {
+        functionResource = new FunctionResource();
+        functionResource.context = mock(ServletContext.class);
     }
 
     @Test
-    public void testGetCategoryId() {
+    public void testGetFunctionsByEventIdd() {
         // GIVEN
-        String uuid = "534707a6-f432-4f6b-9e6a-c1032f221a50";
         prepareSession();
         Query query = mock(Query.class);
-        when(mockitoSession.getNamedQuery("Category.findIdByCatname")).thenReturn(query);
-        when(query.uniqueResult()).thenReturn(1);
+        List list = mock(List.class);
+        when(mockitoSession.getNamedQuery("Function.findFunctionNamesByEventId")).thenReturn(query);
+        when(query.list()).thenReturn(list);
 
         // WHEN
-        categoryResource.getCategoryId("category-name", uuid);
+        functionResource.getFunctionsByEventId(1);
 
         // THEN
-        verify(mockitoSessionFactory, times(1)).openSession();
-        verify(mockitoSession, times(1)).close();
-    }
-
-    @Test
-    public void testGetCategoryIdNotExists() {
-        // GIVEN
-        String uuid = "534707a6-f432-4f6b-9e6a-c1032f221a50";
-        prepareSession();
-        Query query = mock(Query.class);
-        when(mockitoSession.getNamedQuery("Category.findIdByCatname")).thenReturn(query);
-        when(query.uniqueResult()).thenReturn(null);
-
-        // WHEN
-        Integer categoryId = categoryResource.getCategoryId("category-name", uuid);
-
-        // THEN
-        assertEquals(new Long(categoryId),new Long(0));
         verify(mockitoSessionFactory, times(1)).openSession();
         verify(mockitoSession, times(1)).close();
     }
 
     private void prepareSession() {
-        when(categoryResource.context.getAttribute("SessionFactory")).thenReturn(mockitoSessionFactory);
+        when(functionResource.context.getAttribute("SessionFactory")).thenReturn(mockitoSessionFactory);
         when(mockitoSessionFactory.openSession()).thenReturn(mockitoSession);
     }
 
