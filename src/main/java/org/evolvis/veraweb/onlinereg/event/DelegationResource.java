@@ -33,6 +33,7 @@ import org.evolvis.veraweb.onlinereg.entities.Delegation;
 import org.evolvis.veraweb.onlinereg.entities.Guest;
 import org.evolvis.veraweb.onlinereg.entities.OptionalFieldValue;
 import org.evolvis.veraweb.onlinereg.entities.Person;
+import org.evolvis.veraweb.onlinereg.entities.PersonCategory;
 import org.evolvis.veraweb.onlinereg.entities.PersonDoctype;
 import org.evolvis.veraweb.onlinereg.utils.StatusConverter;
 
@@ -350,16 +351,18 @@ public class DelegationResource {
             throws IOException {
 
         final Integer eventId = getEventId(uuid);
-        final Person company = getCompanyFromUuid(uuid);
-
-        String username = usernameGenerator();
-        // Store in tperson
-        final Integer personId = createPerson(company.getCompany_a_e1(), eventId, nachname, vorname, gender,username, function);
-
         if (eventId == null) {
             return "NO_EVENT_DATA";
         }
-        Guest guest = addGuestToEvent(uuid, String.valueOf(eventId), String.valueOf(personId), gender, nachname, vorname, username, category);
+
+        final Person company = getCompanyFromUuid(uuid);
+
+        String username = usernameGenerator();
+
+        // Store in tperson
+        final Integer personId = createPerson(company.getCompany_a_e1(), eventId, nachname, vorname, gender,username, function);
+
+        Guest guest = addGuestToEvent(uuid, String.valueOf(eventId), personId, gender, nachname, vorname, username, category);
         
         if (guest!=null) {
         	updateOptionalFields(uuid, fields, guest.getFk_person());
@@ -368,7 +371,13 @@ public class DelegationResource {
         return "OK";
     }
 
-	private void updateOptionalFields(String uuid, String fields, Integer personId)
+    private void createPersonCategory(final Integer personId, final  Integer categoryId) {
+        final WebResource personCategoryResource = client.resource(config.getVerawebEndpoint() + "/rest/personcategory/add");
+        final Form postBody = createPersonCategoryPostBodyContent(personId, categoryId);
+        personCategoryResource.post(PersonCategory.class, postBody);
+    }
+
+    private void updateOptionalFields(String uuid, String fields, Integer personId)
 			throws IOException {
 		// Save optional fields
         if (fields != null && !"".equals(fields)) {
@@ -409,33 +418,17 @@ public class DelegationResource {
      * @param gender Gender of the person
      */
     private Integer createPerson(String companyName, Integer eventId, String firstname, String lastname, String gender, String username, String function) {
-        WebResource personResource = client.resource(config.getVerawebEndpoint() + "/rest/person/delegate");
-        Form postBody = new Form();
-
-        postBody.add("company", companyName);
-        postBody.add("eventId", String.valueOf(eventId));
-        postBody.add("username", username);
-        postBody.add("firstname", firstname);
-        postBody.add("lastname", lastname);
-        postBody.add("gender", gender);
-        postBody.add("function", function);
-
+        final WebResource personResource = client.resource(config.getVerawebEndpoint() + "/rest/person/delegate");
+        final Form postBody = createDelegatePostBodyContent(companyName, eventId, firstname, lastname, gender, username, function);
         final Person person = personResource.post(Person.class, postBody);
         createPersonDoctype(person);
 
     	return person.getPk();
     }
-    
+
     private Person updatePerson(Integer personId, String firstname, String lastname, String gender, String function) {
-    	WebResource personResource = client.resource(config.getVerawebEndpoint() + "/rest/person/delegate/update");
-        Form postBody = new Form();
-
-        postBody.add("firstname", firstname);
-        postBody.add("lastname", lastname);
-        postBody.add("gender", gender);
-        postBody.add("function", function);
-        postBody.add("personId", personId);
-
+    	final WebResource personResource = client.resource(config.getVerawebEndpoint() + "/rest/person/delegate/update");
+        final Form postBody = updatePersonPostBodyContent(personId, firstname, lastname, gender, function);
         final Person person = personResource.post(Person.class, postBody);
     	
         return person;
@@ -452,74 +445,119 @@ public class DelegationResource {
     }
 
     private void createPersonDoctype(Person person) {
-        WebResource personDoctypeRsource = client.resource(config.getVerawebEndpoint() + "/rest/personDoctype");
-        Form postBody = new Form();
-
-		postBody.add("personId", Integer.toString(person.getPk()));
-		postBody.add("firstName", person.getFirstname_a_e1());
-        postBody.add("lastName", person.getLastname_a_e1());
+        final WebResource personDoctypeRsource = client.resource(config.getVerawebEndpoint() + "/rest/personDoctype");
+        final Form postBody = createPersonDoctypePostBodyContent(person);
 
         personDoctypeRsource.post(PersonDoctype.class, postBody);
     }
 
-    /**
-     * Includes a new guest in the database - Table "tguest".
-     *
-     * @param eventId Event id
-     * @param userId User id
-     * @param gender Gender of the person
-     */
-    private Guest addGuestToEvent(String uuid, String eventId, String userId, String gender, String lastName, String firstName, String username, String category) {
-        Integer categoryId = null;
-        if (category != null && !category.equals("")) {
-            categoryId = getCategoryIdByValue(category);
-        }
-
-        WebResource resource = client.resource(path("guest", uuid, "register"));
-        Form postBody = new Form();
-
-        postBody.add("userId", userId);
-        postBody.add("eventId", eventId);
-		postBody.add("invitationstatus", "0");
-		postBody.add("invitationtype", INVITATION_TYPE);
-		postBody.add("gender", gender);
-		postBody.add("category", categoryId);
-		postBody.add("username", username);
-
-        final Guest guest = resource.post(Guest.class, postBody);
-
+    private Guest addGuestToEvent(String uuid, String eventId, Integer personId, String gender, String lastName, String firstName, String username, String category) {
+        final Integer categoryId = persistPersonCategory(personId, category);
+        final Guest guest = persistGuest(uuid, eventId, personId, gender, username, categoryId);
         createGuestDoctype(guest.getPk(), firstName, lastName);
         
         return guest;
 	}
 
-	private void createGuestDoctype(int guestId, String firstName, String lastName) {
-		WebResource resource = client.resource(config.getVerawebEndpoint() + "/rest/guestDoctype");
-		Form postBody = new Form();
+    private Integer persistPersonCategory(Integer personId, String category) {
+        Integer categoryId = null;
+        if (category != null && !category.equals("")) {
+            categoryId = getCategoryIdByValue(category);
+        }
+        createPersonCategory(personId, categoryId);
+        return categoryId;
+    }
 
-		postBody.add("guestId", Integer.toString(guestId));
-		postBody.add("firstName", firstName);
-		postBody.add("lastName", lastName);
+    private Guest persistGuest(String uuid, String eventId, Integer personId, String gender, String username, Integer categoryId) {
+        final WebResource resource = client.resource(path("guest", uuid, "register"));
+        final Form postBody = createGuestPostBodyContent(eventId, personId, gender, username, categoryId);
+        return resource.post(Guest.class, postBody);
+    }
+
+    private void createGuestDoctype(int guestId, String firstName, String lastName) {
+		final WebResource resource = client.resource(config.getVerawebEndpoint() + "/rest/guestDoctype");
+        final Form postBody = createGuestDoctypePostBodyContent(guestId, firstName, lastName);
 
         resource.post(postBody);
 	}
 
-    /**
-     * Persist a new optional fields value.
-     *
-     * @param guestId guest pk
-     * @param fieldId optional field pk
-     */
     private void saveOptionalField(Integer guestId, Integer fieldId, String fieldContent) {
-    	WebResource resource = client.resource(path("delegation","field", "save"));
-    	Form postBody = new Form();
-
-    	fieldContent = StringEscapeUtils.escapeHtml(fieldContent);
-    	postBody.add("guestId", guestId.toString());
-    	postBody.add("fieldId", fieldId.toString());
-    	postBody.add("fieldContent", fieldContent);
+        final WebResource resource = client.resource(path("delegation","field", "save"));
+        final Form postBody = updateOptionalFieldPostBodyContent(guestId, fieldId, fieldContent);
 
         resource.post(Delegation.class, postBody);
+    }
+
+    private Form createGuestDoctypePostBodyContent(int guestId, String firstName, String lastName) {
+        final Form postBody = new Form();
+        postBody.add("guestId", Integer.toString(guestId));
+        postBody.add("firstName", firstName);
+        postBody.add("lastName", lastName);
+        return postBody;
+    }
+
+    private Form createDelegatePostBodyContent(String companyName, Integer eventId, String firstname, String lastname, String gender, String username, String function) {
+        Form postBody = new Form();
+
+        postBody.add("company", companyName);
+        postBody.add("eventId", String.valueOf(eventId));
+        postBody.add("username", username);
+        postBody.add("firstname", firstname);
+        postBody.add("lastname", lastname);
+        postBody.add("gender", gender);
+        postBody.add("function", function);
+        return postBody;
+    }
+
+    private Form createGuestPostBodyContent(String eventId, Integer personId, String gender, String username, Integer categoryId) {
+        final Form postBody = new Form();
+
+        postBody.add("userId", personId);
+        postBody.add("eventId", eventId);
+        postBody.add("invitationstatus", "0");
+        postBody.add("invitationtype", INVITATION_TYPE);
+        postBody.add("gender", gender);
+        postBody.add("category", categoryId);
+        postBody.add("username", username);
+
+        return postBody;
+    }
+
+    private Form createPersonDoctypePostBodyContent(Person person) {
+        final Form postBody = new Form();
+
+        postBody.add("personId", Integer.toString(person.getPk()));
+        postBody.add("firstName", person.getFirstname_a_e1());
+        postBody.add("lastName", person.getLastname_a_e1());
+        return postBody;
+    }
+
+    private Form updateOptionalFieldPostBodyContent(Integer guestId, Integer fieldId, String fieldContent) {
+        final Form postBody = new Form();
+
+        fieldContent = StringEscapeUtils.escapeHtml(fieldContent);
+        postBody.add("guestId", guestId.toString());
+        postBody.add("fieldId", fieldId.toString());
+        postBody.add("fieldContent", fieldContent);
+        return postBody;
+    }
+
+    private Form updatePersonPostBodyContent(Integer personId, String firstname, String lastname, String gender, String function) {
+        final Form postBody = new Form();
+
+        postBody.add("firstname", firstname);
+        postBody.add("lastname", lastname);
+        postBody.add("gender", gender);
+        postBody.add("function", function);
+        postBody.add("personId", personId);
+        return postBody;
+    }
+
+    private Form createPersonCategoryPostBodyContent(Integer personId, Integer categoryId) {
+        final Form postBody = new Form();
+        postBody.add("personId", personId);
+        postBody.add("categoryId", categoryId);
+        return postBody;
     }
 
     /**
