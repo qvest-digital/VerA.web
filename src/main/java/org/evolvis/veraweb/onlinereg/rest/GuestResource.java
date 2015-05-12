@@ -346,24 +346,10 @@ public class GuestResource extends AbstractResource{
         guest.setNotehost("");
         guest.setInvitationtype(invitationtype);
         guest.setOsiam_login(username);
-        setGender(gender, guest);
+        guest.setGender(gender);
         guest.setFk_category(category);
         guest.setNotehost(hostNode);
 
         return guest;
-    }
-
-    /**
-     * Choosing the correct value for the gender
-     */
-    private void setGender(String gender, Guest guest) {
-        if (gender.equalsIgnoreCase("Herr")) {
-        	guest.setGender("m");
-        	guest.setGender_p("m");
-        }
-        else {
-        	guest.setGender("f");
-        	guest.setGender_p("f");
-        }
     }
 }
