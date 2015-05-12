@@ -220,21 +220,29 @@ public class DelegationResource {
             @FormParam("personId") Integer personId) throws IOException {
 
         final Boolean delegationIsFound = checkForExistingDelegation(uuid);
+        final String convertedGenderValue = getGenderByLabel(gender);
 
         if(delegationIsFound) {
         	if (personId == null) {
         		// Save new delegate
-        		final String returnedValue = handleDelegationFound(uuid, lastname, firstname, gender, function, category, fields);
+        		final String returnedValue = handleDelegationFound(uuid, lastname, firstname, convertedGenderValue, function, category, fields);
         		return StatusConverter.convertStatus(returnedValue);
         	}
         	else {
         		// Update delegate main data
-        		final String returnedValue = updateDelegateMainData(personId, lastname, firstname, gender, function, fields, uuid);
+        		final String returnedValue = updateDelegateMainData(personId, lastname, firstname, convertedGenderValue, function, fields, uuid);
         		return StatusConverter.convertStatus(returnedValue);
         	}
         } else {
             return StatusConverter.convertStatus("WRONG_DELEGATION");
         }
+    }
+
+    private String getGenderByLabel(String gender) {
+        if (gender.equals("GENERIC_GENDER_MALE")) {
+            return "m";
+        }
+        return "w";
     }
 
     /**
