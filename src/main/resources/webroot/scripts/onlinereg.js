@@ -428,13 +428,7 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 							$translate('DELEGATION_MESSAGE_DELEGATION_DATA_SAVED_SUCCESSFULL').then(function (text) {
 								$scope.success = text;
 							});
-							$scope.gender = $scope.genderOptions[0];
-							$scope.category = null;
-							$scope.functionDescription = null;
-							$scope.nachname = null;
-							$scope.vorname = null;
-							$scope.targetPersonId = null;
-							$scope.labellist = {};
+							$scope.refreshData();
 
 							$http.get('api/delegation/' + $routeParams.uuid).then(function(presentPersons) {
 								$scope.presentPersons = presentPersons.data;
@@ -456,7 +450,17 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 				$scope.success = null;
 			}
 		}
-
+		
+		$scope.refreshData = function() {
+			$scope.gender = $scope.genderOptions[0];
+			$scope.category = null;
+			$scope.functionDescription = null;
+			$scope.nachname = null;
+			$scope.vorname = null;
+			$scope.targetPersonId = null;
+			$scope.labellist = {};
+		}
+		
 		$scope.loadPersonData = function(personId) {
 			$scope.targetPersonId=personId;
 			$scope.success = null;
