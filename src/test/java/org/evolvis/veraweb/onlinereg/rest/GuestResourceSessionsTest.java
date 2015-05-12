@@ -32,6 +32,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 import javax.servlet.ServletContext;
 import java.math.BigInteger;
 
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
@@ -253,6 +254,24 @@ public class GuestResourceSessionsTest {
 
         // WHEN
         guestResource.addGuestToEvent(1, 1, 1, 1, "Herr", 1, "username", "nodehost");
+
+        // THEN
+        verify(mockitoSessionFactory, times(1)).openSession();
+        verify(mockitoSession, times(1)).close();
+    }
+
+    @Test
+    public void testFindGuestByDelegationUUID() {
+        // GIVEN
+        String uuid = "534707a6-f432-4f6b-9e6a-c1032f221a50";
+        prepareSession();
+        Query query = mock(Query.class);
+        Guest guest = mock(Guest.class);
+        when(mockitoSession.getNamedQuery("Guest.findByDelegationUUID")).thenReturn(query);
+        when(query.uniqueResult()).thenReturn(guest);
+
+        // WHEN
+        Guest guestResult = guestResource.findGuestByDelegationUUID(uuid);
 
         // THEN
         verify(mockitoSessionFactory, times(1)).openSession();

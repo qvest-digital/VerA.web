@@ -36,6 +36,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
@@ -386,7 +387,25 @@ public class PersonResourceSessionsTest {
 
     }
 
-    private List<Person> getDummyDelegates() {
+    @Test
+    public void testUpdateDelegate() {
+        // GIVEN
+        Person person = mock(Person.class);
+        Query query = mock(Query.class);
+        prepareSession();
+        when(mockitoSession.getNamedQuery("Person.findByPersonId")).thenReturn(query);
+        when(query.uniqueResult()).thenReturn(person);
+
+        // WHEN
+        Person personResult = personResource.updateDelegate("max", "mustermann", "m", null, 1);
+
+        // THEN
+        assertNotNull(personResult);
+        verify(mockitoSessionFactory, times(1)).openSession();
+        verify(mockitoSession, times(1)).close();
+    }
+
+       private List<Person> getDummyDelegates() {
         List<Person> results = new ArrayList<Person>();
         results.add(mock(Person.class));
         results.add(mock(Person.class));
