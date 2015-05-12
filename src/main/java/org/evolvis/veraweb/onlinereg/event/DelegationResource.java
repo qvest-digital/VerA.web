@@ -260,7 +260,7 @@ public class DelegationResource {
         if (gender.equals("GENERIC_GENDER_MALE")) {
             return "m";
         }
-        return "w";
+        return "f";
     }
 
     /**

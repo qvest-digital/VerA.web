@@ -281,7 +281,7 @@ public class MediaResource {
 			dbGender = "m";
 		}
 		else {
-			dbGender = "w";
+			dbGender = "f";
 		}
 
 		return dbGender;
