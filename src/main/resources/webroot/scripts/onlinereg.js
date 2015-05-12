@@ -434,6 +434,7 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 							$scope.nachname = null;
 							$scope.vorname = null;
 							$scope.targetPersonId = null;
+							$scope.labellist = {};
 
 							$http.get('api/delegation/' + $routeParams.uuid).then(function(presentPersons) {
 								$scope.presentPersons = presentPersons.data;
