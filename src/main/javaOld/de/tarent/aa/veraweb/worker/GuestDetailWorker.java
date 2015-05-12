@@ -26,6 +26,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import de.tarent.aa.veraweb.beans.Categorie;
 import org.apache.log4j.Logger;
 import org.apache.log4j.Priority;
 
@@ -108,12 +109,15 @@ public class GuestDetailWorker extends GuestListWorker {
 		Integer addresstype = doctype != null ? doctype.addresstype : null;
 		Integer locale = doctype != null ? doctype.locale : null;
 
+		Categorie category = (Categorie) database.getBean("Categorie", guest.category);
+
 		cntx.setContent("guest", guest);
 		cntx.setContent("person", person);
 		cntx.setContent("main", person.getMemberFacade(true, locale));
 		cntx.setContent("partner", person.getMemberFacade(false, locale));
 		cntx.setContent("address", person.getAddressFacade(addresstype, locale));
 		cntx.setContent("tab", cntx.requestAsString("tab"));
+		cntx.setContent("guestCategory", category.name);
 
 		// Bug 1591 Im Kopf der Gaesteliste sollen nicht die Stammdaten, sondern die
 		// Daten der Gaesteliste angezeigt werden
@@ -132,7 +136,6 @@ public class GuestDetailWorker extends GuestListWorker {
                 guestDoctype = (GuestDoctype) database.getBean("GuestDoctype", select);
 
                 cntx.setContent("showGuestListData", new Boolean(guestDoctype != null));
-
                 cntx.setContent("guestListData", guestDoctype);
             }
         } catch (Exception e) {
