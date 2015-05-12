@@ -29,6 +29,7 @@ import com.sun.jersey.api.representation.Form;
 import lombok.extern.java.Log;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.evolvis.veraweb.onlinereg.Config;
+import org.evolvis.veraweb.onlinereg.entities.Category;
 import org.evolvis.veraweb.onlinereg.entities.Delegation;
 import org.evolvis.veraweb.onlinereg.entities.Guest;
 import org.evolvis.veraweb.onlinereg.entities.OptionalFieldValue;
@@ -79,6 +80,7 @@ public class DelegationResource {
     private static final TypeReference<Person> PERSON = new TypeReference<Person>() {};
     private static final TypeReference<Boolean> BOOLEAN = new TypeReference<Boolean>() {};
     private static final TypeReference<Integer> CATEGORY = new TypeReference<Integer>() {};
+    private static final TypeReference<Category> CATEGORY_OBJECT = new TypeReference<Category>() {};
     private static final TypeReference<List<Person>> GUEST_LIST = new TypeReference<List<Person>>() {};
     private static final TypeReference<List<OptionalFieldValue>> FIELDS_LIST = new TypeReference<List<OptionalFieldValue>>() {};
     private static final TypeReference<List<String>> CATEGORY_LIST = new TypeReference<List<String>>() {};
@@ -204,12 +206,53 @@ public class DelegationResource {
 		return getEventLabelsPerson(uuid, personId);
     }
 
+	/**
+	 * Loading basic data of one delegate
+	 * 
+	 * @param uuid Delegation UUID
+	 * @param personId person ID
+	 * @return @Link{Person.class}
+	 * 
+	 * @throws IOException the exception
+	 */
 	@GET
 	@Path("/load/{uuid}/{personId}")
 	public Person loadBasicData(@PathParam("uuid") String uuid, @PathParam("personId") String personId) throws IOException {
 		Person person = readResource(path("person", "list", personId), PERSON);
 		
 		return person;
+	}
+
+	/**
+	 * 
+	 * @param uuid
+	 * @param personId
+	 * @return
+	 * @throws IOException
+	 */
+	@GET
+	@Path("/load/category/{uuid}/{personId}")
+	public String loadDelegateCategory(@PathParam("uuid") String uuid, @PathParam("personId") String personId) throws IOException {
+		// REST Method to get the category literal
+//		Category category = readResource(path("category","catname", uuid, personId), CATEGORY_OBJECT);
+		
+		WebResource resource;
+
+        resource = client.resource(path("category","catname", uuid, personId));
+        String catname = null;
+
+        try {
+        	catname = resource.get(String.class);
+        } catch (UniformInterfaceException e) {
+           int statusCode = e.getResponse().getStatus();
+           if(statusCode == 204) {
+           		return null;
+           }
+
+           return null;
+        }
+
+		return StatusConverter.convertStatus(catname);
 	}
 	
     /**

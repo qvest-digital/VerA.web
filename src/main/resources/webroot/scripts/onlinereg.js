@@ -338,7 +338,7 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 
 				for(var prop in $scope.fields) {
 					var curField = $scope.fields[prop];
-					if(curField.value != null){
+					if(curField.value != null) {
 						$scope.labellist[curField.pk] = curField.value;
 						console.log(curField.value + "|" + $scope.labellist[curField.pk]);
 					}
@@ -475,14 +475,21 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 				} else {
 					$scope.gender = $scope.genderOptions[1];
 				}
-				// TODO load kategorie
-				// TODO load function
+				
+				$scope.functionDescription = person.data.function_a_e1;
 				// Loading optional fields
 				$scope.showOptionalFields($scope.targetPersonId);
 			});
+			$scope.loadDelegateCategory();
 			
 		}
-		
+		$scope.loadDelegateCategory = function() {
+			$http.get('api/delegation/load/category/' + $routeParams.uuid + '/' + $scope.targetPersonId).then(function(catname) {
+				if (catname != null) {	
+					$scope.category = catname;
+				}
+			});
+		}
 		$scope.showOptionalFields = function (personId) {
 			
 			$scope.targetPersonId=personId;
