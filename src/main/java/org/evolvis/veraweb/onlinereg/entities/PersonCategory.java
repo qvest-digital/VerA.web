@@ -38,11 +38,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @Entity
 @Table(name = "tperson_categorie")
-@NamedQueries(value = {
-        @NamedQuery(
-        		name = "PersonCategorie.malGucken",
-        		query = "SELECT pd FROM PersonCategorie pd WHERE fk_person = :fk_person AND fk_doctype = :fk_doctype")
-})
 public class PersonCategory {
 
 	/**
@@ -52,13 +47,24 @@ public class PersonCategory {
 	}
 
 	/**
-	 * Constructor with all required fields
+	 * Constructor with custom set of fields.
+	 *
+	 * @param fk_person
+	 * @param fk_categorie
+	 */
+	public PersonCategory(Integer fk_person, Integer fk_categorie) {
+		this.fk_person = fk_person;
+		this.fk_categorie = fk_categorie;
+	}
+
+	/**
+	 * Constructor with all fields.
 	 *
 	 * @param fk_person
 	 * @param fk_categorie
 	 * @param rank
 	 */
-	public PersonCategory(int fk_person, int fk_categorie, int rank) {
+	public PersonCategory(Integer fk_person, Integer fk_categorie, Integer rank) {
 		this.fk_person = fk_person;
 		this.fk_categorie = fk_categorie;
 		this.rank = rank;
@@ -67,7 +73,39 @@ public class PersonCategory {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int pk;
-	private int fk_person;
-	private int fk_categorie;
-	private int rank;
+	private Integer fk_person;
+	private Integer fk_categorie;
+	private Integer rank;
+
+	public int getPk() {
+		return pk;
+	}
+
+	public void setPk(int pk) {
+		this.pk = pk;
+	}
+
+	public Integer getFk_person() {
+		return fk_person;
+	}
+
+	public void setFk_person(Integer fk_person) {
+		this.fk_person = fk_person;
+	}
+
+	public Integer getFk_categorie() {
+		return fk_categorie;
+	}
+
+	public void setFk_categorie(Integer fk_categorie) {
+		this.fk_categorie = fk_categorie;
+	}
+
+	public Integer getRank() {
+		return rank;
+	}
+
+	public void setRank(Integer rank) {
+		this.rank = rank;
+	}
 }
