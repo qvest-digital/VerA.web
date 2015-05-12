@@ -30,6 +30,7 @@ import javax.ws.rs.core.MediaType;
 import org.evolvis.veraweb.onlinereg.entities.Category;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.exception.SQLGrammarException;
 
 /**
  * This class handles requests about category.
@@ -89,7 +90,7 @@ public class CategoryResource extends AbstractResource {
     }
 
     /**
-     * Get category name by event hash.
+     * Get category ID by category name.
      *
      * @param catname The name of the category
      *
@@ -107,5 +108,32 @@ public class CategoryResource extends AbstractResource {
         } finally {
             session.close();
         }
+    }
+    
+    /**
+     * Get category name by person ID and Delegation UUID
+     * 
+     * @param uuid delegation UUID
+     * @param personId person ID
+     * @return String catname
+     */
+    @GET
+    @Path("/catname/{uuid}/{personId}")
+    public String getCatnameByPersonIdAndDelegationUUID(@PathParam("uuid") String uuid, @PathParam("personId") String personId) {
+    	final Session session = openSession();
+    	try {
+    		final Query query = session.getNamedQuery("Category.findCatnameByUserAndDelegation");
+    		query.setString("uuid", uuid);
+    		query.setInteger("personId", Integer.parseInt(personId));
+    		try {
+	    		String catname = (String) query.uniqueResult();
+	    		return catname;
+    		} catch (SQLGrammarException ger) {
+    			String jss= ger.getMessage();
+    		}
+    		return null;
+    	} finally {
+			session.close();
+		}
     }
 }
