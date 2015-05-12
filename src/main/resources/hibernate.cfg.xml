@@ -26,5 +26,7 @@
         <mapping class="org.evolvis.veraweb.onlinereg.entities.pk.DelegationPK"/>
         <mapping class="org.evolvis.veraweb.onlinereg.entities.OptionalField"/>
         <mapping class="org.evolvis.veraweb.onlinereg.entities.LinkUUID"/>
+        <mapping class="org.evolvis.veraweb.onlinereg.entities.PersonCategory"/>
+
     </session-factory>
 </hibernate-configuration>

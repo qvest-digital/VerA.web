@@ -99,15 +99,11 @@ public class PersonResource extends AbstractResource {
     }
 
     /**
-     * Updating one delegate
-     * 
-     * @param eventId Event ID
-     * @param username Username
+     * Updating one delegate.
+     *
      * @param firstName First name
      * @param lastname Last name
      * @param gender Gender
-     * @param company Company
-     * @param category Category
      * @param function Function
      * @param personId Person ID
      * @return Person updated person

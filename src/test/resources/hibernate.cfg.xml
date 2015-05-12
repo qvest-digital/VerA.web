@@ -23,5 +23,6 @@
         <mapping class="org.evolvis.veraweb.onlinereg.entities.OptionalFieldValue"/>
         <mapping class="org.evolvis.veraweb.onlinereg.entities.Delegation"/>
 
+
     </session-factory>
 </hibernate-configuration>
