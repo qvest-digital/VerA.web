@@ -292,6 +292,8 @@ public class DelegationResource {
         	else {
         		// Update delegate main data
         		final String returnedValue = updateDelegateMainData(personId, lastname, firstname, convertedGenderValue, function, fields, uuid);
+        		// Update delegate category
+        		updateDelegateCategory(personId, category, uuid);
         		return StatusConverter.convertStatus(returnedValue);
         	}
         } else {
@@ -299,6 +301,20 @@ public class DelegationResource {
         }
     }
 
+    private String updateDelegateCategory(Integer personId, String category, String uuid) {
+    	
+    	final WebResource resource = client.resource(path("category","update", "delegate", "category"));
+    	
+    	final Form postBody = new Form();
+    	postBody.add("personId", personId);
+    	postBody.add("category", category);
+    	postBody.add("uuid", uuid);
+    	
+    	resource.post(postBody);
+    	
+    	return "OK";
+    	
+    }
     private String getGenderByLabel(String gender) {
         if (gender.equals("GENERIC_GENDER_MALE")) {
             return "m";
