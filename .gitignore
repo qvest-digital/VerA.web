@@ -7,3 +7,4 @@ config.json
 config.yaml
 target/
 *.log
+pom.xml.versionsBackup
