@@ -317,7 +317,7 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 		});
 		
 		$translate('DELEGATION_MESSAGE_NO_EXTRA_FIELDS').then(function (text) {
-			var ERROR_TEXT = text;
+			$scope.error_dialog = text;
 		});
 
 		$scope.success = null;
@@ -328,7 +328,6 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 			$scope.fields = fields.data;
 			console.log("number of fields: "+$scope.fields.length)
 			if ($scope.fields.length == 0) {
-				$scope.error_dialog = ERROR_TEXT;
 				$scope.success = null;
 				$scope.hideDialog = true;
 			} else {
