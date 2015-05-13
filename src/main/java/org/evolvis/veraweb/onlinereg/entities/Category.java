@@ -57,7 +57,11 @@ import lombok.Data;
 			query = "SELECT c.catname " +
 					"FROM tcategorie c " +
 					"WHERE c.pk = (SELECT g.fk_category FROM tguest g WHERE g.fk_person=:personId AND g.delegation=:uuid)"
-					)
+					),
+	@NamedNativeQuery(name = "Category.findCategoryByPersonIdAndCatname",
+			query = "SELECT pk " +
+					"FROM tcategorie " +
+					"WHERE catname=:catname AND fk_orgunit=(SELECT fk_orgunit FROM tperson WHERE pk=:personId)")
 })
 public class Category {
 
