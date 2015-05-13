@@ -57,6 +57,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 	@NamedNativeQuery(name = "Guest.findEventIdByDelegationUUID", query ="SELECT g.* FROM tguest g  " +
 			"LEFT JOIN tperson on tperson.pk=g.fk_person " +
 			"WHERE delegation=:uuid AND tperson.iscompany='t'", resultClass=Guest.class),
+	@NamedNativeQuery(name = "Guest.findEventIdByDelegationUUIDandPersonId", query ="SELECT g.* FROM tguest g  " +
+			" WHERE delegation=:uuid and fk_person=:personId ", resultClass=Guest.class),
 	@NamedNativeQuery(name = "Guest.checkUserRegistration", query ="select count(g.*) from tguest g where g.fk_event=:eventId and g.osiam_login like :username")
 
 })
