@@ -486,7 +486,7 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 		$scope.loadDelegateCategory = function() {
 			$http.get('api/delegation/load/category/' + $routeParams.uuid + '/' + $scope.targetPersonId).then(function(catname) {
 				if (catname != null) {	
-					$scope.category = catname;
+					$scope.category = catname.data.status;
 				}
 			});
 		}
