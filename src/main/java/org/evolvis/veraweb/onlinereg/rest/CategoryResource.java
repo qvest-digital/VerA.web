@@ -21,16 +21,17 @@ package org.evolvis.veraweb.onlinereg.rest;
 
 import java.util.List;
 
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import org.evolvis.veraweb.onlinereg.entities.Category;
+import org.evolvis.veraweb.onlinereg.entities.Guest;
 import org.hibernate.Query;
 import org.hibernate.Session;
-import org.hibernate.exception.SQLGrammarException;
 
 /**
  * This class handles requests about category.
@@ -125,15 +126,53 @@ public class CategoryResource extends AbstractResource {
     		final Query query = session.getNamedQuery("Category.findCatnameByUserAndDelegation");
     		query.setString("uuid", uuid);
     		query.setInteger("personId", Integer.parseInt(personId));
-    		try {
-	    		String catname = (String) query.uniqueResult();
-	    		return catname;
-    		} catch (SQLGrammarException ger) {
-    			String jss= ger.getMessage();
-    		}
-    		return null;
+    		String catname = (String) query.uniqueResult();
+    		
+    		return catname;
     	} finally {
 			session.close();
 		}
     }
+    
+    /**
+     * Update delegate's category
+     * 
+     * @param uuid Delegation UUID
+     * @param personId Person ID
+     * @param category old Category ID
+     * @return new Category ID
+     */
+    @POST
+    @Path("update/delegate/category")
+    public void updateDelegateCategory(@FormParam("uuid") String uuid, @FormParam("personId") Integer personId, @FormParam("category") String categoryName) {
+    	final Session session = openSession();
+    	try {
+    		Integer category = getCategoryByPersonIdAndCatname(personId, categoryName, session);
+    		Guest guest = getCurrentGuest(uuid, personId, session);
+    		guest.setFk_category(category);
+    		
+    		session.saveOrUpdate(guest);
+    		session.flush();
+    	} finally {
+			session.close();
+		}
+    }
+
+	private Integer getCategoryByPersonIdAndCatname(final Integer personId, final String categoryName, final Session session) {
+		final Query queryCategory = session.getNamedQuery("Category.findCategoryByPersonIdAndCatname");
+		queryCategory.setString("catname", categoryName);
+		queryCategory.setInteger("personId", personId);
+		
+		final Integer category = (Integer) queryCategory.uniqueResult();
+		return category;
+	}
+
+	private Guest getCurrentGuest(final String uuid, final Integer personId, final Session session) {
+		final Query query = session.getNamedQuery("Guest.findEventIdByDelegationUUIDandPersonId");
+		query.setString("uuid", uuid);
+		query.setInteger("personId", personId);
+		
+		final Guest guest = (Guest) query.uniqueResult();
+		return guest;
+	}
 }
