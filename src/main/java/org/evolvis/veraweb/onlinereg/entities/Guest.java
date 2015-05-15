@@ -43,7 +43,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Guest.findByEventAndUser", query = "SELECT g FROM Guest g where fk_event = :eventId and fk_person = :userId"),
     @NamedQuery(name = "Guest.findByDelegationAndUser", query = "SELECT g FROM Guest g where delegation = :delegation and fk_person = :userId"),
     @NamedQuery(name = "Guest.findIdByEventAndUser", query = "SELECT g.pk FROM Guest g where fk_event = :eventId and fk_person = :userId"),
-    @NamedQuery(name = "Guest.findByDelegationUUID", query = "SELECT g FROM Guest g where delegation = :delegation and fk_person = (select pk from Person where isCompany='t')")
+//    @NamedQuery(name = "Guest.findByDelegationUUID", query = "SELECT g FROM Guest g JOIN Person p ON g.fk_person=p.pk WHERE g.delegation=:delegation AND p.isCompany='t'")
+//    @NamedQuery(name = "Guest.findByDelegationUUID", query = "SELECT g FROM Guest g where delegation = :delegation and fk_person = (select pk from Person where isCompany='t')")
 })
 @NamedNativeQueries({
     @NamedNativeQuery(name="Event.list.userevents", query = "SELECT e.* FROM tevent e " +
@@ -59,7 +60,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 			"WHERE delegation=:uuid AND tperson.iscompany='t'", resultClass=Guest.class),
 	@NamedNativeQuery(name = "Guest.findEventIdByDelegationUUIDandPersonId", query ="SELECT g.* FROM tguest g  " +
 			" WHERE delegation=:uuid and fk_person=:personId ", resultClass=Guest.class),
-	@NamedNativeQuery(name = "Guest.checkUserRegistration", query ="select count(g.*) from tguest g where g.fk_event=:eventId and g.osiam_login like :username")
+	@NamedNativeQuery(name = "Guest.checkUserRegistration", query = "SELECT COUNT(g.*) FROM tguest g WHERE g.fk_event=:eventId AND g.osiam_login LIKE :username"),
+	@NamedNativeQuery(name = "Guest.findByDelegationUUID", query = "SELECT g.* FROM tguest g LEFT JOIN tperson p ON g.fk_person=p.pk WHERE g.delegation=:delegation AND p.isCompany='t'", resultClass=Guest.class)
 
 })
 public class Guest {
