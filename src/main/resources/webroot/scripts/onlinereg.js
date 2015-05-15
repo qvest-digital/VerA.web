@@ -329,10 +329,10 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 			console.log("number of fields: "+$scope.fields.length)
 			if ($scope.fields.length == 0) {
 				$scope.success = null;
-				$scope.hideDialog = true;
+				$scope.showDialog = false;
 			} else {
 				$scope.error_dialog = null;
-				$scope.hideDialog = false;
+				$scope.showDialog = true;
 				console.log(JSON.stringify($scope.fields));
 
 				for(var prop in $scope.fields) {
@@ -506,10 +506,10 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 				if ($scope.fields.length == 0) {
 					$scope.error_dialog = ERROR_TEXT;
 					$scope.success = null;
-					$scope.hideDialog = true;
+					$scope.showDialog = false;
 				} else {
 					$scope.error_dialog = null;
-					$scope.hideDialog = false;
+					$scope.showDialog = true;
 					console.log(JSON.stringify($scope.fields));
 	
 					for(var prop in $scope.fields) {
