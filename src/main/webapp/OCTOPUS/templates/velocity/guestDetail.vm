@@ -138,7 +138,7 @@
 										<label for="guest-category">Kategorie:</label>
 										<select name="guest-category" id="guest-category" onchange="setModified('categorie')">
 											<option value="">Keine</option>
-											#foreach($category in $allCategorie)
+											#foreach($category in $personCategories)
 												<option value="$category.id" #if($guest.category == $category.id) selected#end>$!message.plain($category.name)</option>
 											#end
 										</select>
