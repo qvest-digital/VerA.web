@@ -38,8 +38,20 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @Entity
 @Table(name = "tperson_categorie")
+@NamedQueries(value = {
+        @NamedQuery(name = "PersonCategory.personCategoryExists", query = "SELECT pc FROM PersonCategory pc where fk_person=:personId and fk_categorie=:categoryId")
+})
 public class PersonCategory {
 
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int pk;
+	private Integer fk_person;
+	private Integer fk_categorie;
+	private Integer rank;
+	
+	
 	/**
 	 * Empty constructor MUST
 	 */
@@ -70,12 +82,7 @@ public class PersonCategory {
 		this.rank = rank;
 	}
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int pk;
-	private Integer fk_person;
-	private Integer fk_categorie;
-	private Integer rank;
+	
 
 	public int getPk() {
 		return pk;
