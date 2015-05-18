@@ -139,12 +139,14 @@ public class CategoryResource extends AbstractResource {
      * 
      * @param uuid Delegation UUID
      * @param personId Person ID
-     * @param category old Category ID
-     * @return new Category ID
+     * @param categoryName Category name
      */
     @POST
     @Path("update/delegate/category")
-    public void updateDelegateCategory(@FormParam("uuid") String uuid, @FormParam("personId") Integer personId, @FormParam("category") String categoryName) {
+    public void updateDelegateCategory(
+            @FormParam("uuid") String uuid,
+            @FormParam("personId") Integer personId,
+            @FormParam("category") String categoryName) {
     	final Session session = openSession();
     	try {
     		Integer category = getCategoryByPersonIdAndCatname(personId, categoryName, session);

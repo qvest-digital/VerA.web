@@ -197,7 +197,6 @@ public class GuestResource extends AbstractResource{
      * Find guest by delegation and person id.
      *
      * @param uuid Delegation UUID
-     * @param userId Person id
      *
      * @return Guest
      */
