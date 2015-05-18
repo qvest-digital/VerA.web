@@ -40,28 +40,31 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @Table(name = "tguest")
 @NamedQueries({
-    @NamedQuery(name = "Guest.findByEventAndUser", query = "SELECT g FROM Guest g where fk_event = :eventId and fk_person = :userId"),
-    @NamedQuery(name = "Guest.findByDelegationAndUser", query = "SELECT g FROM Guest g where delegation = :delegation and fk_person = :userId"),
-    @NamedQuery(name = "Guest.findIdByEventAndUser", query = "SELECT g.pk FROM Guest g where fk_event = :eventId and fk_person = :userId"),
-//    @NamedQuery(name = "Guest.findByDelegationUUID", query = "SELECT g FROM Guest g JOIN Person p ON g.fk_person=p.pk WHERE g.delegation=:delegation AND p.isCompany='t'")
-//    @NamedQuery(name = "Guest.findByDelegationUUID", query = "SELECT g FROM Guest g where delegation = :delegation and fk_person = (select pk from Person where isCompany='t')")
+    @NamedQuery(name = "Guest.findByEventAndUser",
+            query = "SELECT g FROM Guest g where fk_event = :eventId and fk_person = :userId"),
+    @NamedQuery(name = "Guest.findByDelegationAndUser",
+            query = "SELECT g FROM Guest g where delegation = :delegation and fk_person = :userId"),
+    @NamedQuery(name = "Guest.findIdByEventAndUser",
+            query = "SELECT g.pk FROM Guest g where fk_event = :eventId and fk_person = :userId"),
 })
 @NamedNativeQueries({
-    @NamedNativeQuery(name="Event.list.userevents", query = "SELECT e.* FROM tevent e " +
-            "JOIN tguest g on g.fk_event = e.pk " +
-            "JOIN tperson tp on g.fk_person = tp.pk " +
-            "WHERE (CURRENT_TIMESTAMP < e.datebegin OR CURRENT_TIMESTAMP < e.dateend) " +
-            "AND tp.pk = :fk_person ORDER BY e.datebegin ASC", resultClass=Event.class),
-    @NamedNativeQuery(name="Guest.guestByUUID", query = "SELECT count(g.*) FROM tguest g " +
-    		"LEFT JOIN tperson on tperson.pk=g.fk_person " +
-    		"WHERE delegation=:uuid AND tperson.iscompany='t'"),
-	@NamedNativeQuery(name = "Guest.findEventIdByDelegationUUID", query ="SELECT g.* FROM tguest g  " +
-			"LEFT JOIN tperson on tperson.pk=g.fk_person " +
-			"WHERE delegation=:uuid AND tperson.iscompany='t'", resultClass=Guest.class),
-	@NamedNativeQuery(name = "Guest.findEventIdByDelegationUUIDandPersonId", query ="SELECT g.* FROM tguest g  " +
-			" WHERE delegation=:uuid and fk_person=:personId ", resultClass=Guest.class),
-	@NamedNativeQuery(name = "Guest.checkUserRegistration", query = "SELECT COUNT(g.*) FROM tguest g WHERE g.fk_event=:eventId AND g.osiam_login LIKE :username"),
-	@NamedNativeQuery(name = "Guest.findByDelegationUUID", query = "SELECT g.* FROM tguest g LEFT JOIN tperson p ON g.fk_person=p.pk WHERE g.delegation=:delegation AND p.isCompany='t'", resultClass=Guest.class)
+    @NamedNativeQuery(name="Event.list.userevents",
+            query = "SELECT e.* FROM tevent e JOIN tguest g on g.fk_event = e.pk JOIN tperson tp on g.fk_person = tp.pk " +
+                    "WHERE (CURRENT_TIMESTAMP < e.datebegin OR CURRENT_TIMESTAMP < e.dateend) " +
+                    "AND tp.pk = :fk_person ORDER BY e.datebegin ASC", resultClass=Event.class),
+    @NamedNativeQuery(name="Guest.guestByUUID",
+            query = "SELECT count(g.*) FROM tguest g LEFT JOIN tperson on tperson.pk=g.fk_person " +
+                    "WHERE delegation=:uuid AND tperson.iscompany='t'"),
+	@NamedNativeQuery(name = "Guest.findEventIdByDelegationUUID",
+            query ="SELECT g.* FROM tguest g  LEFT JOIN tperson on tperson.pk=g.fk_person " +
+                    "WHERE delegation=:uuid AND tperson.iscompany='t'", resultClass=Guest.class),
+	@NamedNativeQuery(name = "Guest.findEventIdByDelegationUUIDandPersonId",
+            query ="SELECT g.* FROM tguest g WHERE delegation=:uuid and fk_person=:personId ", resultClass=Guest.class),
+	@NamedNativeQuery(name = "Guest.checkUserRegistration",
+            query = "SELECT COUNT(g.*) FROM tguest g WHERE g.fk_event=:eventId AND g.osiam_login LIKE :username"),
+	@NamedNativeQuery(name = "Guest.findByDelegationUUID",
+            query = "SELECT g.* FROM tguest g LEFT JOIN tperson p ON g.fk_person=p.pk WHERE g.delegation=:delegation " +
+                    "AND p.isCompany='t'", resultClass=Guest.class)
 
 })
 public class Guest {
