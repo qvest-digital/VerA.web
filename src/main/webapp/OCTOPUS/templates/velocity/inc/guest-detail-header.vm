@@ -32,6 +32,7 @@
 				#set($funktion = "$!address.Function")
 			#end
 
+
 		<div class="tableRow">
 			<div class="tableCell"><strong>Gast:</strong> $!message.text($name)</div>
 			<div class="tableCell"><strong>E-Mail-Adresse:</strong> $!message.text($email)</div>
