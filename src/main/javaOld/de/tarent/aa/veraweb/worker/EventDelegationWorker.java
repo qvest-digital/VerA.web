@@ -86,7 +86,9 @@ public class EventDelegationWorker {
         }
 
         for (OptionalField optionalField : optionalFields) {
+        	if(!optionalField.getLabel().equals("")){
             delegationFields.put(optionalField.getLabel(), "");
+        	}
         }
 
         return delegationFields;

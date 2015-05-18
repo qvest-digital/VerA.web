@@ -28,6 +28,7 @@ import java.util.Map;
 import java.util.Random;
 
 import de.tarent.aa.veraweb.beans.Categorie;
+
 import org.apache.log4j.Logger;
 import org.apache.log4j.Priority;
 
@@ -35,6 +36,7 @@ import de.tarent.aa.veraweb.beans.Doctype;
 import de.tarent.aa.veraweb.beans.Guest;
 import de.tarent.aa.veraweb.beans.GuestDoctype;
 import de.tarent.aa.veraweb.beans.GuestSearch;
+import de.tarent.aa.veraweb.beans.OptionalDelegationField;
 import de.tarent.aa.veraweb.beans.Person;
 import de.tarent.aa.veraweb.beans.PersonCategorie;
 import de.tarent.aa.veraweb.beans.facade.EventConstants;
@@ -204,6 +206,16 @@ public class GuestDetailWorker extends GuestListWorker {
 		Request request = getRequest(cntx);
 		Database database = getDatabase(cntx);
 		TransactionContext context = database.getTransactionContext();
+		@SuppressWarnings("unchecked")
+		List<OptionalDelegationField> delegationFields = (List) cntx.getContextField("delegationFields");
+
+        for (Iterator<OptionalDelegationField> iterator = delegationFields.iterator(); iterator.hasNext();) {
+                OptionalDelegationField object = (OptionalDelegationField) iterator.next();
+
+                object.getLabel();
+                object.getValue();
+
+        }
 
 		try
 		{

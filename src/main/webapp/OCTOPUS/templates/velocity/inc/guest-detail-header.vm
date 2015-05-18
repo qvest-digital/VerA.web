@@ -43,17 +43,31 @@
 			<div class="tableCell"><strong>Kategorie:</strong> #if($guestCategory)$guestCategory#end</div>
 		</div>
 
-		<div class="tableRow">
+		
 			#if ($guest.delegation)
-				#set( $counter = 1)
-			<div class="tableCell">
+				#set( $idcounter = 0)
+				#set( $temp = 0)
 				#foreach( $field in $delegationFields.entrySet() )
-						<label for="event-delegation-field-$counter" style="display:inline;">$field.key</label>: <span>$field.value</span>
-				#set( $counter = $counter + 1)
+					## A new row would begin after each third field
+					#if($idcounter%3 == 0)
+						<div class="tableRow">
+					#end
+						<div class="tableCell">
+						<label id="event-delegation-field-label-$idcounter" for="event-delegation-field-$counter">$field.key:</label>
+						<input id="event-delegation-field-input-$idcounter" value="$field.value"></input>
+						</div>
+					#set( $idcounter = $idcounter + 1)
+					## Ending the row after each third field
+					#if ($idcounter%3 == 0)
+						</div>
+					#end
 				#end
-			</div>
+				
+				## The div would not normally close in the upper code, therefore this part was added
+				#if($idcounter%3 != 0)
+					  </div>
+				#end
+			
 			#end
-		</div>
-
-	</div>
+	</div>	
 </div>
