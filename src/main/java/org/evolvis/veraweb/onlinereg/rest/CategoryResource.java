@@ -30,6 +30,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import org.evolvis.veraweb.onlinereg.entities.Guest;
+import org.evolvis.veraweb.onlinereg.entities.PersonCategory;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
@@ -149,17 +150,44 @@ public class CategoryResource extends AbstractResource {
             @FormParam("category") String categoryName) {
     	final Session session = openSession();
     	try {
-    		Integer category = getCategoryByPersonIdAndCatname(personId, categoryName, session);
-    		Guest guest = getCurrentGuest(uuid, personId, session);
-    		guest.setFk_category(category);
+    		final Guest guest = updateGuestCategory(uuid, personId, categoryName, session);
+    		final Integer categoryId = guest.getFk_category();
+    		updatePersonCategory(personId, session, categoryId);
     		
-    		session.saveOrUpdate(guest);
     		session.flush();
     	} finally {
 			session.close();
 		}
     }
 
+	private void updatePersonCategory(Integer personId,
+			final Session session, Integer categoryId) {
+		if (checkExistingPersonCategory(personId, categoryId, session)) {
+			PersonCategory personCategory = new PersonCategory();
+			personCategory.setFk_person(personId);
+			personCategory.setFk_categorie(categoryId);
+			session.saveOrUpdate(personCategory);
+		}
+	}
+    
+	private Guest updateGuestCategory(String uuid, Integer personId,
+			String categoryName, final Session session) {
+		Integer category = getCategoryByPersonIdAndCatname(personId, categoryName, session);
+		Guest guest = getCurrentGuest(uuid, personId, session);
+		guest.setFk_category(category);
+		session.saveOrUpdate(guest);
+
+		return guest;
+	}
+	
+	private Boolean checkExistingPersonCategory(final Integer personId, final Integer categoryId, final Session session) {
+		final Query queryCategory = session.getNamedQuery("PersonCategory.personCategoryExists");
+		queryCategory.setInteger("personId", personId);
+		queryCategory.setInteger("categoryId", categoryId);
+		
+		return queryCategory.list().isEmpty();
+	}
+	
 	private Integer getCategoryByPersonIdAndCatname(final Integer personId, final String categoryName, final Session session) {
 		final Query queryCategory = session.getNamedQuery("Category.findCategoryByPersonIdAndCatname");
 		queryCategory.setString("catname", categoryName);
