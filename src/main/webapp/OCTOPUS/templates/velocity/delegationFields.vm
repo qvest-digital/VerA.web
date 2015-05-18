@@ -60,13 +60,12 @@
 				<ol class="delegationFields">
 	                #foreach( $field in $delegationFieldsLabels.entrySet() )
 			            <li>
-			                <input type="text" name="optionalField-$field.key" value="$field.value">
+			                <input type="text" name="optionalField-$field.key" maxlength="25" value="$field.value">
 			            </li>
 	                #end
 				</ol>
             </div>
         </div>
-
 
         <span id="buttonPanel-bottom" class="floatRight">
             #if($grants.mayWrite())

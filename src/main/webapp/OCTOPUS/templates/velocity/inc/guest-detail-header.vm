@@ -58,14 +58,9 @@
 						</div>
 					#set( $idcounter = $idcounter + 1)
 					## Ending the row after each third field
-					#if ($idcounter%3 == 0)
+					#if ($idcounter%3 == 0 || ${delegationFields.size()} == $idcounter)
 						</div>
 					#end
-				#end
-				
-				## The div would not normally close in the upper code, therefore this part was added
-				#if($idcounter%3 != 0)
-					  </div>
 				#end
 			
 			#end
