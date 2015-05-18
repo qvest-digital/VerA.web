@@ -33,7 +33,7 @@
   "GENERIC_MESSAGE_FILL_IN_ALL_FIELDS": "Bitte füllen Sie alle Felder aus!",
   "GENERIC_CATEGORY": "Kategorie",
   "GENERIC_FUNCTION": "Funktion/Amtsbezeichnung",
-  "GENERIC_REFRESH": "Leeren",
+  "GENERIC_CLEAR_FIELDS": "Leeren",
 
   "BROWSER_TITLE": "VerA.web Online-Registrierung",
 
@@ -84,5 +84,6 @@
   "DELEGATION_MESSAGE_NO_EXTRA_FIELDS": "Zu diesem Event existieren keine weiteren Felder.",
   "DELEGATION_REGISTER_USER_TITLE": "Delegierten hinzufügen",
   "DELEGATION_ALREADY_REGISTERED": "Bereits angemeldet",
-  "DELEGATION_EXTRA_FIELDS_TITLE": "Weitere Felder"
+  "DELEGATION_EXTRA_FIELDS_TITLE": "Weitere Felder",
+  "DELEGATION_EMPTY_FIELDS": "Möchten Sie wirklich die Felder leeren?"
 }

@@ -33,7 +33,7 @@
   "GENERIC_MESSAGE_FILL_IN_ALL_FIELDS": "Please fill in all fields!",
   "GENERIC_CATEGORY": "Category",
   "GENERIC_FUNCTION": "Function",
-  "GENERIC_REFRESH": "Refresh",
+  "GENERIC_CLEAR_FIELDS": "Clear",
 
   "BROWSER_TITLE": "VerA.web Online-Registration",
 
@@ -83,5 +83,6 @@
   "DELEGATION_MESSAGE_NO_EXTRA_FIELDS": "No extra fields for this event available.",
   "DELEGATION_REGISTER_USER_TITLE": "Add delegate",
   "DELEGATION_ALREADY_REGISTERED": "Already registered",
-  "DELEGATION_EXTRA_FIELDS_TITLE": "Extra fields"
+  "DELEGATION_EXTRA_FIELDS_TITLE": "Extra fields",
+  "DELEGATION_EMPTY_FIELDS": "Do you really want to clear the fields?"
 }
