@@ -67,7 +67,6 @@
             </div>
         </div>
 
-
         <span id="buttonPanel-bottom" class="floatRight">
             #if($grants.mayWrite())
                 <input type="submit" name="save" value="Veranstaltung speichern" class="mainButton" title="Veranstaltung speichern" onclick="document.getElementById('formlist1').action='$formurl?eventId=$!event.id';">
