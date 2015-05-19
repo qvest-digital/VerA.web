@@ -400,8 +400,8 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 						},
 
 						data: $.param({
-							firstname: $scope.nachname,
-							lastname: $scope.vorname,
+							firstname: $scope.vorname,
+							lastname: $scope.nachname,
 							gender: $scope.gender.name,
 							category: $scope.category,
 							fields: JSON.stringify($scope.labellist),
