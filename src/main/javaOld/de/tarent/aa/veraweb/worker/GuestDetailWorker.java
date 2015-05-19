@@ -20,6 +20,7 @@
 package de.tarent.aa.veraweb.worker;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -27,6 +28,7 @@ import java.util.Map;
 import java.util.Random;
 
 import de.tarent.aa.veraweb.beans.Categorie;
+
 import org.apache.log4j.Logger;
 import org.apache.log4j.Priority;
 
@@ -34,12 +36,18 @@ import de.tarent.aa.veraweb.beans.Doctype;
 import de.tarent.aa.veraweb.beans.Guest;
 import de.tarent.aa.veraweb.beans.GuestDoctype;
 import de.tarent.aa.veraweb.beans.GuestSearch;
+import de.tarent.aa.veraweb.beans.OptionalDelegationField;
 import de.tarent.aa.veraweb.beans.Person;
 import de.tarent.aa.veraweb.beans.PersonCategorie;
 import de.tarent.aa.veraweb.beans.facade.EventConstants;
 import de.tarent.aa.veraweb.beans.facade.GuestMemberFacade;
+import de.tarent.dblayer.helper.ResultList;
+import de.tarent.dblayer.helper.ResultMap;
+import de.tarent.dblayer.sql.Join;
+import de.tarent.dblayer.sql.SQL;
 import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.clause.Limit;
+import de.tarent.dblayer.sql.clause.RawClause;
 import de.tarent.dblayer.sql.clause.Where;
 import de.tarent.dblayer.sql.clause.WhereList;
 import de.tarent.dblayer.sql.statement.Insert;
@@ -51,6 +59,7 @@ import de.tarent.octopus.beans.Database;
 import de.tarent.octopus.beans.Request;
 import de.tarent.octopus.beans.TransactionContext;
 import de.tarent.octopus.beans.veraweb.BeanChangeLogger;
+import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
 
 /**
@@ -96,6 +105,8 @@ public class GuestDetailWorker extends GuestListWorker {
             return;
         }
 
+        
+        
 		Person person = (Person) database.getBean("Person", guest.person);
         if (person == null) {
             logger.error("showDetail konnte Person #" + guest.person + " unerwartet nicht laden.");
@@ -120,7 +131,9 @@ public class GuestDetailWorker extends GuestListWorker {
 		if (category != null && category.name != null && !category.name.equals("")) {
 			cntx.setContent("guestCategory", category.name);
 		}
-
+        // Getting persons category
+        getPersonCategories(person.id, cntx);
+        
 		// Bug 1591 Im Kopf der Gaesteliste sollen nicht die Stammdaten, sondern die
 		// Daten der Gaesteliste angezeigt werden
         try {
@@ -139,6 +152,7 @@ public class GuestDetailWorker extends GuestListWorker {
 
                 cntx.setContent("showGuestListData", new Boolean(guestDoctype != null));
                 cntx.setContent("guestListData", guestDoctype);
+
             }
         } catch (Exception e) {
             logger.warn("zum Gast: " + guestid + " und Doctyp: " + freitextfeld + " kann Bean 'GuestDoctype' nicht geladen werden", e);
@@ -146,6 +160,32 @@ public class GuestDetailWorker extends GuestListWorker {
         }
     }
 
+	
+	
+	
+
+    /**
+     * Getting the categories for one person/guest
+     *
+     * @param cntx OctopusContext
+     * @throws BeanException
+     * @throws IOException 
+     */
+    private void getPersonCategories(Integer personId, OctopusContext ctx) throws BeanException, IOException {
+    	    	
+        final Database database = getDatabase(ctx);
+        List<Categorie> categories = database.getBeanList( "Categorie", 
+			database.getSelect( "Categorie" ).
+			joinLeftOuter("tperson_categorie","tcategorie.pk", "tperson_categorie.fk_categorie").
+			joinLeftOuter("tperson","tperson_categorie.fk_person", "tperson.pk").
+			whereAndEq("tperson.pk", personId).
+			orderBy(null));
+        
+		ctx.setContent("personCategories", categories);
+	}
+
+	
+	
     /** Eingabe-Parameter der Octopus-Aktion {@link #saveDetail(OctopusContext)} */
     public static final String INPUT_saveDetail[] = {};
     /**
@@ -166,6 +206,16 @@ public class GuestDetailWorker extends GuestListWorker {
 		Request request = getRequest(cntx);
 		Database database = getDatabase(cntx);
 		TransactionContext context = database.getTransactionContext();
+		@SuppressWarnings("unchecked")
+		List<OptionalDelegationField> delegationFields = (List) cntx.getContextField("delegationFields");
+
+        for (Iterator<OptionalDelegationField> iterator = delegationFields.iterator(); iterator.hasNext();) {
+                OptionalDelegationField object = (OptionalDelegationField) iterator.next();
+
+                object.getLabel();
+                object.getValue();
+
+        }
 
 		try
 		{
