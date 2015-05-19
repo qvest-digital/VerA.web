@@ -209,13 +209,14 @@ public class GuestDetailWorker extends GuestListWorker {
 		@SuppressWarnings("unchecked")
 		List<OptionalDelegationField> delegationFields = (List) cntx.getContextField("delegationFields");
 
-        for (Iterator<OptionalDelegationField> iterator = delegationFields.iterator(); iterator.hasNext();) {
-                OptionalDelegationField object = (OptionalDelegationField) iterator.next();
+		if (delegationFields != null) {
+			for (Iterator<OptionalDelegationField> iterator = delegationFields.iterator(); iterator.hasNext();) {
+				OptionalDelegationField object = (OptionalDelegationField) iterator.next();
 
-                object.getLabel();
-                object.getValue();
-
-        }
+				object.getLabel();
+				object.getValue();
+			}
+		}
 
 		try
 		{
