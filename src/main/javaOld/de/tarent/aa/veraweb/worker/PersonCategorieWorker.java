@@ -22,16 +22,19 @@ package de.tarent.aa.veraweb.worker;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import de.tarent.aa.veraweb.beans.Categorie;
 import de.tarent.aa.veraweb.beans.PersonCategorie;
 import de.tarent.dblayer.sql.SQL;
 import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.statement.Select;
+import de.tarent.dblayer.sql.statement.Update;
 import de.tarent.octopus.beans.Bean;
 import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.beans.Database;
 import de.tarent.octopus.beans.TransactionContext;
+import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
 import de.tarent.octopus.beans.veraweb.ListWorkerVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
 
@@ -39,10 +42,6 @@ import de.tarent.octopus.server.OctopusContext;
  * Dieser Octopus-Worker bearbeitet Personen-Kategorien-Listen.
  */
 public class PersonCategorieWorker extends ListWorkerVeraWeb {
-    //
-    // Konstruktoren
-    //
-
     /**
      * Der Konstruktor legt den Bean-Namen fest.
      */
@@ -68,21 +67,80 @@ public class PersonCategorieWorker extends ListWorkerVeraWeb {
     }
 
     @Override
-    public void saveList(OctopusContext cntx) throws BeanException, IOException {
-        super.saveList(cntx);
+    public void saveList(OctopusContext octopusContext) throws BeanException, IOException {
+        handleRemoveCategoriesFromGuest(octopusContext);
 
-        String addRank = cntx.requestAsString("add-rank");
-        String addCategorie = cntx.requestAsString("add-categorie");
+        super.saveList(octopusContext);
+
+        String addRank = octopusContext.requestAsString("add-rank");
+        String addCategorie = octopusContext.requestAsString("add-categorie");
         if (addRank != null && addRank.length() != 0 && (addCategorie == null || addCategorie.length() == 0)) {
-            List errors = (List) cntx.contentAsObject(OUTPUT_saveListErrors);
+            List errors = (List) octopusContext.contentAsObject(OUTPUT_saveListErrors);
             if (errors == null) {
                 errors = new ArrayList();
-                cntx.setContent(OUTPUT_saveListErrors, errors);
+                octopusContext.setContent(OUTPUT_saveListErrors, errors);
             }
             errors.add("Um eine neue Kategorie hinzuzuf\u00fcgen w\u00e4hlen" +
                     " Sie bitte eine Kategorie aus. " +
                     "(Sie haben nur einen Rang eingegeben.)");
         }
+    }
+
+    private void handleRemoveCategoriesFromGuest(OctopusContext octopusContext) throws BeanException {
+        Map requestParameters = octopusContext.getRequestObject().getRequestParameters();
+
+        // First we check, if we have an "delete" action
+        if (requestParameters.get("remove") != null && requestParameters.get("remove").toString().equals("Entfernen")) {
+            handleDeleteAction(octopusContext, requestParameters);
+        }
+    }
+
+    private void handleDeleteAction(OctopusContext octopusContext, Map requestParameters) throws BeanException {
+        for (Object requestParameter : requestParameters.entrySet()) {
+            // We need to filter the request parameter(s) by pattern "bean.id-select".
+            // The bean.id is the category id from the table tperson_category
+            if (requestParameter.toString().contains("-")) {
+                deleteCategoryFromGuest(octopusContext, requestParameters, requestParameter);
+            }
+        }
+    }
+
+    /**
+     * Handle request parameter conform with the pattern bean.id-select. The bean.id is the category id from the table
+     * tperson_category.
+     *
+     * @param octopusContext The {@link de.tarent.octopus.server.OctopusContext}
+     * @param requestParameters All request parameters
+     * @param requestParameter The current request parameter, which is inspected and potentially used for deletion
+     *
+     * @throws BeanException
+     */
+    private void deleteCategoryFromGuest(OctopusContext octopusContext, Map requestParameters, Object requestParameter)
+            throws BeanException {
+        final String[] requestParameterParts = requestParameter.toString().split("-");
+        final String[] selectParts = requestParameterParts[1].split("=");
+        if (selectParts[0].equals("select") && selectParts[1].equals("true")) {
+            final Integer categoryId = getCategoryId(requestParameters, requestParameterParts[0]);
+            final Integer personId = new Integer(requestParameters.get("add-person").toString());
+            updateGuestData(octopusContext, categoryId, personId);
+        }
+    }
+
+    private void updateGuestData(OctopusContext octopusContext, Integer categoryId, Integer personId) throws BeanException {
+        final DatabaseVeraWeb database = new DatabaseVeraWeb(octopusContext);
+        final Update update = SQL.Update(database).
+                table("veraweb.tguest").
+                update("fk_category", null).
+                where(Expr.equal("fk_category", categoryId)).
+                whereAnd(Expr.equal("fk_person", personId));
+
+        final TransactionContext transactionalContext = new DatabaseVeraWeb(octopusContext).getTransactionContext();
+        transactionalContext.execute(update);
+    }
+
+    private Integer getCategoryId(Map requestParameters, String requestParameterPart) {
+        final Integer personCategoryId = new Integer(requestParameterPart);
+        return new Integer(requestParameters.get(personCategoryId + "-categorie").toString());
     }
 
     @Override

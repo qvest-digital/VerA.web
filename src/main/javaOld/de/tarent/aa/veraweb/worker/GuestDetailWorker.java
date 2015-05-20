@@ -20,7 +20,6 @@
 package de.tarent.aa.veraweb.worker;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -41,13 +40,8 @@ import de.tarent.aa.veraweb.beans.Person;
 import de.tarent.aa.veraweb.beans.PersonCategorie;
 import de.tarent.aa.veraweb.beans.facade.EventConstants;
 import de.tarent.aa.veraweb.beans.facade.GuestMemberFacade;
-import de.tarent.dblayer.helper.ResultList;
-import de.tarent.dblayer.helper.ResultMap;
-import de.tarent.dblayer.sql.Join;
-import de.tarent.dblayer.sql.SQL;
 import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.clause.Limit;
-import de.tarent.dblayer.sql.clause.RawClause;
 import de.tarent.dblayer.sql.clause.Where;
 import de.tarent.dblayer.sql.clause.WhereList;
 import de.tarent.dblayer.sql.statement.Insert;
@@ -60,7 +54,6 @@ import de.tarent.octopus.beans.Database;
 import de.tarent.octopus.beans.Request;
 import de.tarent.octopus.beans.TransactionContext;
 import de.tarent.octopus.beans.veraweb.BeanChangeLogger;
-import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
 
 /**
@@ -207,7 +200,6 @@ public class GuestDetailWorker extends GuestListWorker {
 		Request request = getRequest(cntx);
 		Database database = getDatabase(cntx);
 		TransactionContext context = database.getTransactionContext();
-
 		List<OptionalDelegationField> delegationFields = (List) cntx.getContextField("delegationFields");
 		if (delegationFields != null) {
 			for (Iterator<OptionalDelegationField> iterator = delegationFields.iterator(); iterator.hasNext();) {
@@ -218,8 +210,8 @@ public class GuestDetailWorker extends GuestListWorker {
 //				object.setFkGuest();
 //				object.setFkDelegationnField();
 				
-				Insert insert = database.getInsert(object);
-				database.execute(insert);
+//				Insert insert = database.getInsert(object);
+//				database.execute(insert);
 			}
 		}
 
