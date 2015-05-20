@@ -10,24 +10,24 @@ public class OptionalFieldTypeContent extends AbstractHistoryBean {
 	/* pk */
 	private Integer id;
 	/* fk_optional_field */
-	private Integer fkOptionalField;
+	private Integer fk_optional_field;
 	/* content */
 	private String content;
 	
 	public OptionalFieldTypeContent() {
 	}
 	
-	public OptionalFieldTypeContent(Integer fkOptionalField, String content) {
+	public OptionalFieldTypeContent(Integer fk_optional_field, String content) {
 		super();
-		this.fkOptionalField = fkOptionalField;
+		this.fk_optional_field = fk_optional_field;
 		this.content = content;
 	}
 
-	public OptionalFieldTypeContent(Integer id, Integer fkOptionalField,
+	public OptionalFieldTypeContent(Integer id, Integer fk_optional_field,
 			String content) {
 		super();
 		this.id = id;
-		this.fkOptionalField = fkOptionalField;
+		this.fk_optional_field = fk_optional_field;
 		this.content = content;
 	}
 
@@ -36,11 +36,11 @@ public class OptionalFieldTypeContent extends AbstractHistoryBean {
 	}
 
 	public Integer getFk_optional_field() {
-		return fkOptionalField;
+		return fk_optional_field;
 	}
 	
-	public void setFk_optional_field(Integer fkOptionalField) {
-		this.fkOptionalField = fkOptionalField;
+	public void setFk_optional_field(Integer fk_optional_field) {
+		this.fk_optional_field = fk_optional_field;
 	}
 	
 	public String getContent() {
