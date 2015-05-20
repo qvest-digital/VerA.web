@@ -27,7 +27,8 @@
         <mapping class="org.evolvis.veraweb.onlinereg.entities.OptionalField"/>
         <mapping class="org.evolvis.veraweb.onlinereg.entities.LinkUUID"/>
         <mapping class="org.evolvis.veraweb.onlinereg.entities.PersonCategory"/>
-
+        <mapping class="org.evolvis.veraweb.onlinereg.entities.OptionalFieldType"/>
+        <mapping class="org.evolvis.veraweb.onlinereg.entities.OptionalFieldTypeContent"/>
 
     </session-factory>
 </hibernate-configuration>
