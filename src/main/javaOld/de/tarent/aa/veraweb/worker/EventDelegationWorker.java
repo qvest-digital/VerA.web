@@ -84,7 +84,8 @@ public class EventDelegationWorker {
 
             optionalFields.remove(optionalField);
         }
-
+        
+        // TODO Implement better: do not put an empty field
         for (OptionalField optionalField : optionalFields) {
         	if(!optionalField.getLabel().equals("")){
             delegationFields.put(optionalField.getLabel(), "");

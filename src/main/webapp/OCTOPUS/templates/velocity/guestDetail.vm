@@ -81,6 +81,7 @@
                         <input type="hidden" name="guest-orderno_b" value="$!guest.orderno_b">
                         <input type="hidden" name="categorie-modified" id="categorie-modified" value="false">
                         <input type="hidden" name="fetchRankFromMasterData" id="fetchRankFromMasterData" value="false">
+                        
 
 
 						#if($person.deleted == "t")
@@ -147,9 +148,34 @@
 										<label for="guest-rank">Rang:</label>
 										<input type="text" id="guest-rank" name="guest-rank" value="$!message.text($guest.rank)">
 									</div>
+
+									
+									
+									
+									
 									<div class="tableCell"></div>
 								</div>
-							</div>
+									#if ($guest.delegation)
+										#set( $idcounter = 0)
+										#set( $temp = 0)
+										#foreach( $field in $delegationFields.entrySet() )
+											## A new row would begin after each third field
+											#if($idcounter%3 == 0)
+												<div class="tableRow">
+											#end
+												<div class="tableCell">
+												<label id="event-delegation-field-label-$idcounter" for="event-delegation-field-$counter">$field.key:</label>
+												<input id="event-delegation-field-input-$idcounter" onchange="setModified('')" value="$field.value"></input>
+												</div>
+											#set( $idcounter = $idcounter + 1)
+											## Ending the row after each third field
+											#if ($idcounter%3 == 0 || ${delegationFields.size()} == $idcounter)
+												</div>
+											#end
+										#end
+									
+									#end
+								</div>
                         #closeContentBlock()
 
 
@@ -241,7 +267,7 @@
 
 <script type="text/javascript" src="${paths.staticWeb}scripts/guest-detail-tabs.js"></script>
 <script type="text/javascript">
-
+false
 	function setGuestInvitationtype(type) {
 		if (type == 1) {
 			changeBlock('detail-2-data', new Array('detail-2-reload'));
