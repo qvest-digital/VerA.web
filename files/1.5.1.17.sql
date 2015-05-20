@@ -33,22 +33,23 @@ ALTER TABLE veraweb.toptional_fields_delegation_content ADD COLUMN fk_type_conte
 -- Migration function to allow new DB model for Optional Fields Types
 CREATE OR REPLACE FUNCTION veraweb.migrate_optional_fields() RETURNS character varying AS $BODY$
     DECLARE 
-	    query varchar;
-	    pk_type_content varchar;
-	    delegation_content RECORD;
+        query varchar;
+        pk_type_content varchar;
+        delegation_content RECORD;
 
     BEGIN
-	    EXECUTE 'UPDATE veraweb.toptional_fields SET fk_type=1';
+        EXECUTE 'UPDATE veraweb.toptional_fields SET fk_type=1';
+
         FOR delegation_content IN SELECT * FROM veraweb.toptional_fields_delegation_content LOOP
-            EXECUTE 'INSERT INTO veraweb.toptional_field_type_content (content, fk_optional_field) 
+            EXECUTE 'INSERT INTO veraweb.toptional_field_type_content (content, fk_optional_field)
             values (''' || delegation_content.value || ''','|| delegation_content.fk_delegation_field||')';
-	    	
+
             SELECT pk INTO pk_type_content FROM veraweb.toptional_field_type_content ORDER BY pk DESC LIMIT 1;
-            
-            EXECUTE 'UPDATE veraweb.toptional_fields_delegation_content SET fk_type_content='''|| pk_type_content ||''' 
-			WHERE fk_guest='|| delegation_content.fk_guest ||' AND fk_delegation_field='|| delegation_content.fk_delegation_field ||'';
-	    END LOOP;
-	    
+
+            EXECUTE 'UPDATE veraweb.toptional_fields_delegation_content SET fk_type_content='''|| pk_type_content ||'''
+            WHERE fk_guest='|| delegation_content.fk_guest ||' AND fk_delegation_field='|| delegation_content.fk_delegation_field ||'';
+        END LOOP;
+
         RETURN 1;
     END;
 $BODY$ LANGUAGE plpgsql;
