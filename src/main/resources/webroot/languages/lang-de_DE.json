@@ -5,6 +5,8 @@
   "GENERIC_EVENT": "Veranstaltung",
   "GENERIC_EVENTS": "Veranstaltungen",
   "GENERIC_SAVE": "Speichern",
+  "GENERIC_CONFIRMATION": "Ja",
+  "GENERIC_NEGATION": "Nein",
   "GENERIC_FIRSTNAME": "Vorname",
   "GENERIC_LASTNAME": "Nachname",
   "GENERIC_EMAIL": "E-Mail",
