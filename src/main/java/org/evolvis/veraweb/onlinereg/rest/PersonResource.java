@@ -309,7 +309,7 @@ public class PersonResource extends AbstractResource {
     }
 
     /**
-     * TODO
+     * Getting the username from a person ID
      */
     @GET
     @Path("/list/{personId}")
