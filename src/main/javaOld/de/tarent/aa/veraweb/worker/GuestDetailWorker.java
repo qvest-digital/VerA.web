@@ -48,6 +48,7 @@ import de.tarent.dblayer.sql.statement.Insert;
 import de.tarent.dblayer.sql.statement.Select;
 import de.tarent.dblayer.sql.statement.Update;
 import de.tarent.octopus.PersonalConfigAA;
+import de.tarent.octopus.beans.Bean;
 import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.beans.Database;
 import de.tarent.octopus.beans.Request;
@@ -140,7 +141,7 @@ public class GuestDetailWorker extends GuestListWorker {
                 guestDoctype.doctype = freitextfeld;
                 guestDoctype.guest = guest.id;
                 select.where(database.getWhere(guestDoctype));
-
+                
                 guestDoctype = (GuestDoctype) database.getBean("GuestDoctype", select);
 
                 cntx.setContent("showGuestListData", new Boolean(guestDoctype != null));
@@ -199,15 +200,18 @@ public class GuestDetailWorker extends GuestListWorker {
 		Request request = getRequest(cntx);
 		Database database = getDatabase(cntx);
 		TransactionContext context = database.getTransactionContext();
-		@SuppressWarnings("unchecked")
 		List<OptionalDelegationField> delegationFields = (List) cntx.getContextField("delegationFields");
-
 		if (delegationFields != null) {
 			for (Iterator<OptionalDelegationField> iterator = delegationFields.iterator(); iterator.hasNext();) {
 				OptionalDelegationField object = (OptionalDelegationField) iterator.next();
-
 				object.getLabel();
 				object.getValue();
+				// TODO set fk guest and delegation field ID
+//				object.setFkGuest();
+//				object.setFkDelegationnField();
+				
+//				Insert insert = database.getInsert(object);
+//				database.execute(insert);
 			}
 		}
 

@@ -22,7 +22,7 @@ package de.tarent.aa.veraweb.beans;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class OptionalDelegationField {
+public class OptionalDelegationField extends AbstractHistoryBean {
 	private String value;
 	private int fkGuest;
 	private int fkDelegationField;
