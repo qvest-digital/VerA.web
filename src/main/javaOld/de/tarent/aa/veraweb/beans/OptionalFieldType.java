@@ -5,7 +5,7 @@ package de.tarent.aa.veraweb.beans;
  *
  * @author jnunez
  */
-public class OptionalFieldType {
+public class OptionalFieldType extends AbstractHistoryBean {
 
 	/* pk */
 	public Integer id;
@@ -27,10 +27,6 @@ public class OptionalFieldType {
 
 	public Integer getId() {
 		return id;
-	}
-	
-	public void setId(Integer id) {
-		this.id = id;
 	}
 	
 	public String getDescription() {
