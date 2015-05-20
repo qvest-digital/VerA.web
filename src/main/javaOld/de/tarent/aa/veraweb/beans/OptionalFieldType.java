@@ -8,9 +8,9 @@ package de.tarent.aa.veraweb.beans;
 public class OptionalFieldType extends AbstractHistoryBean {
 
 	/* pk */
-	public Integer id;
+	private Integer id;
 	/* description */
-	public String description;
+	private String description;
 	
 	public OptionalFieldType() {
 	}
