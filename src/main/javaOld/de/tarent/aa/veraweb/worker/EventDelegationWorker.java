@@ -78,7 +78,7 @@ public class EventDelegationWorker {
         List<OptionalDelegationField> optionalDelegationFields = optionalFieldsDelegationWorker.getOptionalDelegationFieldsByGuestId(guestId);
 
         for (OptionalDelegationField field : optionalDelegationFields) {
-            OptionalField optionalField = findFieldById(optionalFields, field.getFkDelegationnField());
+            OptionalField optionalField = findFieldById(optionalFields, field.getFkDelegationField());
 
             delegationFields.put(optionalField.getLabel(), field.getValue());
 

@@ -204,7 +204,7 @@ public class OptionalFieldsDelegationWorker {
     private Select getStatementOptionalFieldExists(OptionalDelegationField optionalDelegationField) {
         final WhereList whereCriterias = new WhereList();
         whereCriterias.addAnd(new Where("fk_guest", optionalDelegationField.getFkGuest(), "="));
-        whereCriterias.addAnd(new Where("fk_delegation_field", optionalDelegationField.getFkDelegationnField(), "="));
+        whereCriterias.addAnd(new Where("fk_delegation_field", optionalDelegationField.getFkDelegationField(), "="));
         final Select select = SQL.Select(this.database);
         select.from(OPTIONAL_FIELDS_DELEGATION_CONTENT_TABLE);
         select.select("fk_guest");
@@ -217,7 +217,7 @@ public class OptionalFieldsDelegationWorker {
 
         insert.table(OPTIONAL_FIELDS_DELEGATION_CONTENT_TABLE);
         insert.insert("fk_guest", optionalDelegationField.getFkGuest());
-        insert.insert("fk_delegation_field", optionalDelegationField.getFkDelegationnField());
+        insert.insert("fk_delegation_field", optionalDelegationField.getFkDelegationField());
         insert.insert("value", optionalDelegationField.getValue());
         return insert;
     }
@@ -241,7 +241,7 @@ public class OptionalFieldsDelegationWorker {
     private Update getStatementUpdateOptionalDelegationField(OptionalDelegationField optionalDelegationField) {
         final WhereList whereCriterias = new WhereList();
         whereCriterias.addAnd(new Where("fk_guest", optionalDelegationField.getFkGuest(), "="));
-        whereCriterias.addAnd(new Where("fk_delegation_field", optionalDelegationField.getFkDelegationnField(), "="));
+        whereCriterias.addAnd(new Where("fk_delegation_field", optionalDelegationField.getFkDelegationField(), "="));
         final Update update = SQL.Update(this.database);
         update.table(OPTIONAL_FIELDS_DELEGATION_CONTENT_TABLE);
         update.where(whereCriterias);

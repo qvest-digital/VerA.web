@@ -35,11 +35,6 @@ public class OptionalDelegationField extends AbstractHistoryBean {
         this.label = resultSet.getString("label");
 	}
 
-	public OptionalDelegationField() {
-		this.value = "";
-		this.label = "";
-	}
-
 	public String getValue() {
 		return value;
 	}
@@ -56,12 +51,8 @@ public class OptionalDelegationField extends AbstractHistoryBean {
 		this.fkGuest = fkGuest;
 	}
 
-	public int getFkDelegationnField() {
+	public int getFkDelegationField() {
 		return fkDelegationField;
-	}
-
-	public void setFkDelegationField(int fkDelegationField) {
-		this.fkDelegationField = fkDelegationField;
 	}
 
     public String getLabel() {
