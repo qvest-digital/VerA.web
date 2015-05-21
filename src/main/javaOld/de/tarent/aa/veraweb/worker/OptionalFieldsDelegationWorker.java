@@ -22,6 +22,7 @@ package de.tarent.aa.veraweb.worker;
 import de.tarent.aa.veraweb.beans.OptionalDelegationField;
 import de.tarent.dblayer.engine.DB;
 import de.tarent.dblayer.sql.SQL;
+import de.tarent.dblayer.sql.clause.Order;
 import de.tarent.dblayer.sql.clause.Where;
 import de.tarent.dblayer.sql.clause.WhereList;
 import de.tarent.dblayer.sql.statement.Insert;
@@ -204,6 +205,7 @@ public class OptionalFieldsDelegationWorker {
         select.select("fk_type");
         select.select("content");
         select.select(OPTIONAL_FIELDS_TABLE + ".label as label");
+        select.orderBy(Order.asc("fk_delegation_field"));
         return select;
     }
 
