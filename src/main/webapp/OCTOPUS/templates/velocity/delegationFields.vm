@@ -1,11 +1,26 @@
 #set($activeMenu = "Veranstaltungen")
-        #set($title = "Aufgaben")
-        #set($elementNameSex = "female")
-        #set($elementNameSingular = "Aufgabe")
-        #set($elementNamePlural = "Aufgaben")
-        #parse("inc/header.vm")
+#set($title = "Aufgaben")
+#set($elementNameSex = "female")
+#set($elementNameSingular = "Aufgabe")
+#set($elementNamePlural = "Aufgaben")
+#parse("inc/header.vm")
+#set($formurl = "SaveDelegationFields")
 
-        #set($formurl = "SaveDelegationFields")
+<script type="text/javascript">
+	function toogleOptionalFields() {
+		var types = document.getElementById('typeSelect');
+		var selectedValue = types.options[types.selectedIndex].value;
+		var optionsArea = document.getElementById('optionsArea');
+		// TODO Besser (with ID!)
+		if (selectedValue == 'Eingabefeld') {
+			optionsArea.style.display = 'none';
+		}
+		else {
+			
+			optionsArea.style.display = 'block';
+		}
+	}
+</script>
 
 <div id="content_container">
     <div id="breadcrumb" class="textRight marginBottom10">
@@ -65,15 +80,17 @@
 			                <input type="text" name="optionalField-$field.key" maxlength="25" value="$field.value">
 
 
-			                <select name="optionalFieldType-$field.key">
+			                <select id="typeSelect" name="optionalFieldType-$field.key" onchange="toogleOptionalFields();">
 							    #foreach( $type in $fieldTypes)
-							        <option name="optionalFieldtype-$type.id">$type.description</option>
+							        <option name="optionalFieldtype-$type.id" >$type.description</option>
 							    #end
 							</select>
-							<input type="text" maxlength="25" placeholder="value1">
-							<input type="text" maxlength="25" placeholder="value2">
-							<input type="text" maxlength="25" placeholder="value3">
-							<input type="text" maxlength="25" placeholder="value4">
+							<div id="optionsArea">
+								<input type="text" maxlength="25" placeholder="value1">
+								<input type="text" maxlength="25" placeholder="value2">
+								<input type="text" maxlength="25" placeholder="value3">
+								<input type="text" maxlength="25" placeholder="value4">
+							</div>
 			            </li>
 	                #end
 				</ol>
