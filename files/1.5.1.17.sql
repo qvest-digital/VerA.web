@@ -8,9 +8,9 @@ CREATE TABLE veraweb.toptional_field_type (
 
 -- Inserting data for types
 
-INSERT INTO veraweb.toptional_field_type values (1, 'INPUT_FIELD');
-INSERT INTO veraweb.toptional_field_type values (2, 'SIMPLE_DROPDOWN');
-INSERT INTO veraweb.toptional_field_type values (3, 'MULTIPLE_CHOICE_DROPDOWN');
+INSERT INTO veraweb.toptional_field_type values (1, 'Eingabefeld');
+INSERT INTO veraweb.toptional_field_type values (2, 'Einfaches Auswahfeld');
+INSERT INTO veraweb.toptional_field_type values (3, 'Mehrfaches Auswahlfeld');
 
 -- Modify toptional_fields to allow field types
 
@@ -64,7 +64,7 @@ alter table veraweb.toptional_fields_delegation_content DROP COLUMN value;
 alter table veraweb.toptional_fields_delegation_content drop constraint toptional_fields_delegation_content_fk_type_content_fkey,
  add constraint toptional_fields_delegation_content_fk_type_content_fkey 
  foreign key (fk_type_content) references toptional_field_type_content(pk) on delete cascade;
-
+ 
 -- Update schema version
 UPDATE veraweb.tconfig SET cvalue = '2015-05-20' WHERE cname = 'SCHEMA_VERSION';
 
