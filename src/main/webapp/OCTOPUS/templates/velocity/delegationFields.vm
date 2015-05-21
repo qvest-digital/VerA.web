@@ -7,6 +7,7 @@
 #set($formurl = "SaveDelegationFields")
 
 <script type="text/javascript">
+
 	function toogleOptionalFields() {
 		var types = document.getElementById('typeSelect');
 		var selectedValue = types.options[types.selectedIndex].value;
@@ -78,7 +79,6 @@
 	                #set($fieldcounter = $fieldcounter + 1)
 			            <li>
 			                <input type="text" name="optionalField-$field.key" maxlength="25" value="$field.value">
-
 
 			                <select id="typeSelect" name="optionalFieldType-$field.key" onchange="toogleOptionalFields();">
 							    #foreach( $type in $fieldTypes)
