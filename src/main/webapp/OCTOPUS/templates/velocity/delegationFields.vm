@@ -67,7 +67,7 @@
 
 			                <select name="optionalFieldType-$field.key">
 							    #foreach( $type in $fieldTypes)
-							        <option name="optionalFieldtype-$type.id">$type.description</option>
+							        <option name="optionalFieldtype-$type.id" id="$type.id">$type.description</option>
 							    #end
 							</select>
 							<input type="text" maxlength="25" placeholder="value1">

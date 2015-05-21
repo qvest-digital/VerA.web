@@ -196,13 +196,18 @@ public class EventDelegationWorker {
         Map<String, String> allRequestParams = oc.getRequestObject().getRequestParameters();
 
         for (String key : allRequestParams.keySet()) {
-            if (key.startsWith("optionalField-")) {
-                saveField(eventId, optionalFieldsWorker, allRequestParams, key);
-            }
+            saveFieldLabels(eventId, optionalFieldsWorker, allRequestParams, key);
         }
 
         oc.setContent("showSuccessMessage", true);
     }
+
+    private void saveFieldLabels(Integer eventId, OptionalFieldsWorker optionalFieldsWorker, Map<String, String> allRequestParams, String key) throws SQLException, BeanException {
+        if (key.startsWith("optionalField-")) {
+            saveField(eventId, optionalFieldsWorker, allRequestParams, key);
+        }
+    }
+
 
     private void saveField(Integer eventId, OptionalFieldsWorker optionalFieldsWorker, Map<String, String> allRequestParams, String key) throws SQLException, BeanException {
         OptionalField optionalField = new OptionalField();
@@ -210,6 +215,15 @@ public class EventDelegationWorker {
         String[] splitted = key.split("-");
         optionalField.setLabel(allRequestParams.get(key).toString());
         optionalField.setPk(Integer.parseInt(splitted[1]));
+        String typeValue = allRequestParams.get("optionalFieldType-" + splitted[1]);
+        if (typeValue.equals("Eingabefeld")) {
+            optionalField.setFk_type(1);
+        } else if (typeValue.equals("Einfaches Auswahlfeld")) {
+            optionalField.setFk_type(2);
+        } else if (typeValue.equals("Mehrfaches Auswahlfeld")) {
+            optionalField.setFk_type(3);
+        }
+
         optionalFieldsWorker.updateOptionalField(optionalField);
     }
 
@@ -231,21 +245,6 @@ public class EventDelegationWorker {
         return false;
     }
 
-    private void createOptionalField(OptionalFieldsWorker optionalFieldsWorker, int eventId, String label) throws SQLException, BeanException {
-        if (label.trim().isEmpty()) {
-            return;
-        }
-
-        OptionalField optionalField = new OptionalField();
-        optionalField.setFkEvent(eventId);
-        optionalField.setLabel(label);
-        optionalFieldsWorker.createOptionalField(optionalField);
-    }
-
-    private void updateOrDeleteOptionalField(OptionalFieldsWorker optionalFieldsWorker, OptionalField optionalField) throws SQLException, BeanException {
-        optionalFieldsWorker.updateOptionalField(optionalField);
-    }
-
     private static Event getEvent(OctopusContext cntx, Integer id) throws BeanException, IOException {
         if (id == null) return null;
 
@@ -257,31 +256,6 @@ public class EventDelegationWorker {
             cntx.setContent("event-endhastime", Boolean.valueOf(DateHelper.isTimeInDate(event.end)));
         }
         return event;
-    }
-
-    private String getDelegationCategory(OctopusContext oc, Integer delegationId) throws SQLException {
-    	final Database database = new DatabaseVeraWeb(oc);
-
-        Select selectCatName = SQL.Select(database);
-
-        selectCatName.select("catname");
-        selectCatName.from("veraweb.tcategorie");
-        selectCatName.joinLeftOuter("veraweb.tperson_categorie", "veraweb.tperson_categorie.fk_categorie", "veraweb.tcategorie.pk");
-        selectCatName.whereAndEq("fk_person", delegationId);
-
-        return selectCatName.execute().toString();
-    }
-
-    private String getDelegationFunction(OctopusContext oc, Integer delegationId) throws SQLException {
-    	final Database database = new DatabaseVeraWeb(oc);
-
-        Select selectFuncName = SQL.Select(database);
-
-        selectFuncName.select("function_a_e1");
-        selectFuncName.from("tperson");
-        selectFuncName.whereAndEq("pk", delegationId);
-
-        return selectFuncName.execute().toString();
     }
 }
 
