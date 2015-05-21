@@ -58,9 +58,20 @@
 
             <div class="contentBoxColored tabsContent">
 				<ol class="delegationFields">
+				#set( $fieldcounter = 0)
 	                #foreach( $field in $delegationFieldsLabels.entrySet() )
+	                #set($fieldcounter = $fieldcounter + 1)
 			            <li>
 			                <input type="text" name="optionalField-$field.key" maxlength="25" value="$field.value">
+			                <select>
+							  <option value="Input">Input</option>
+							  <option value="Einfach">Einfach</option>
+							  <option value="Mehrfach">Mehrfach</option>
+							</select>
+							<input type="text" maxlength="25" placeholder="value1">
+							<input type="text" maxlength="25" placeholder="value2">
+							<input type="text" maxlength="25" placeholder="value3">
+							<input type="text" maxlength="25" placeholder="value4">
 			            </li>
 	                #end
 				</ol>
