@@ -56,43 +56,49 @@ public class EventDelegationWorker {
     /**
      * Show the optional delegation fields in the guest detail view.
      *
-     * @param oc      The {@link OctopusContext}
-     * @param eventId The event id
+     * @param octopusContext The {@link OctopusContext}
+     *
      * @return Map with field label as key and field content as value
      * @throws IOException   If fetching event failed
      * @throws BeanException If fetching event failed
      */
-    public Map<String, String> showDelegationFields(OctopusContext oc)
+    public Map<String, String> showDelegationFields(OctopusContext octopusContext)
             throws IOException, BeanException, SQLException {
-        Integer guestId = getIntegerFromRequestParameter(oc, "id");
-        Integer eventId = getIntegerFromRequestParameter(oc, "eventId");
+        Integer guestId = getIntegerFromRequestParameter(octopusContext, "id");
+        Integer eventId = getIntegerFromRequestParameter(octopusContext, "eventId");
         if (guestId == null && eventId == null) {
             return null;
         }
-        setEventInContext(oc, eventId);
+        setEventInContext(octopusContext, eventId);
         Map<String, String> delegationFields = new LinkedHashMap<String, String>();
-        OptionalFieldsDelegationWorker optionalFieldsDelegationWorker = new OptionalFieldsDelegationWorker(oc);
-        OptionalFieldsWorker optionalFieldsWorker = new OptionalFieldsWorker(oc);
 
-        List<OptionalField> optionalFields = optionalFieldsWorker.getOptionalFieldsByEvent(eventId);
-        List<OptionalDelegationField> optionalDelegationFields = optionalFieldsDelegationWorker.getOptionalDelegationFieldsByGuestId(guestId);
+        final List<OptionalField> optionalFields = getOptionalFieldDeclaredInEvent(octopusContext, eventId);
+        final List<OptionalDelegationField> optionalDelegationFields = getOptionalFieldsForGuest(octopusContext, guestId);
 
         for (OptionalDelegationField field : optionalDelegationFields) {
             OptionalField optionalField = findFieldById(optionalFields, field.getFkDelegationField());
-
-            delegationFields.put(optionalField.getLabel(), field.getValue());
-
+            delegationFields.put(optionalField.getLabel(), field.getContent());
             optionalFields.remove(optionalField);
         }
         
         // TODO Implement better: do not put an empty field
         for (OptionalField optionalField : optionalFields) {
-        	if(!optionalField.getLabel().equals("")){
-            delegationFields.put(optionalField.getLabel(), "");
-        	}
+            if (!optionalField.getLabel().equals("")) {
+                delegationFields.put(optionalField.getLabel(), "");
+            }
         }
 
         return delegationFields;
+    }
+
+    private List<OptionalDelegationField> getOptionalFieldsForGuest(OctopusContext octopusContext, Integer guestId) throws BeanException, SQLException {
+        OptionalFieldsDelegationWorker optionalFieldsDelegationWorker = new OptionalFieldsDelegationWorker(octopusContext);
+        return optionalFieldsDelegationWorker.getOptionalDelegationFieldsByGuestId(guestId);
+    }
+
+    private List<OptionalField> getOptionalFieldDeclaredInEvent(OctopusContext octopusContext, Integer eventId) throws BeanException, SQLException {
+        OptionalFieldsWorker optionalFieldsWorker = new OptionalFieldsWorker(octopusContext);
+        return optionalFieldsWorker.getOptionalFieldsByEvent(eventId);
     }
 
     private Integer getIntegerFromRequestParameter(OctopusContext oc, String parameter) {
@@ -138,16 +144,16 @@ public class EventDelegationWorker {
 
         setEventInContext(oc, eventId);
 
-        final Map<String, String> delegationFieldsLabelds = new TreeMap<String, String>();
+        final Map<String, String> delegationFieldsLabels = new TreeMap<String, String>();
         final OptionalFieldsWorker optionalFieldsWorker = new OptionalFieldsWorker(oc);
 
         List<OptionalField> optionalFieldsByEvent = optionalFieldsWorker.getOptionalFieldsByEvent(eventId);
 
         for (OptionalField optionalField : optionalFieldsByEvent) {
-            delegationFieldsLabelds.put(String.valueOf(optionalField.getPk()), optionalField.getLabel());
+            delegationFieldsLabels.put(String.valueOf(optionalField.getPk()), optionalField.getLabel());
         }
 
-        return delegationFieldsLabelds;
+        return delegationFieldsLabels;
     }
 
     public void saveDelegationFieldLabels(OctopusContext oc, Integer eventId) throws BeanException, SQLException, IOException {

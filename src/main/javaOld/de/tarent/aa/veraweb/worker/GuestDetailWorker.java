@@ -205,7 +205,7 @@ public class GuestDetailWorker extends GuestListWorker {
 			for (Iterator<OptionalDelegationField> iterator = delegationFields.iterator(); iterator.hasNext();) {
 				OptionalDelegationField object = (OptionalDelegationField) iterator.next();
 				object.getLabel();
-				object.getValue();
+				object.getFkType();
 				// TODO set fk guest and delegation field ID
 //				object.setFkGuest();
 //				object.setFkDelegationnField();

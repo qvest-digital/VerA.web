@@ -34,6 +34,7 @@ public class OptionalField {
 	private int fkEvent;
 	/* references to OptionalFieldType */
 	private Integer fk_type;
+	private String content;
 
 	public OptionalField() {
 		this.label = "";
@@ -77,5 +78,13 @@ public class OptionalField {
 	
 	public void setFk_type(Integer fk_type) {
 		this.fk_type = fk_type;
+	}
+
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
 	}
 }

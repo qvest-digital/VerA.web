@@ -48,6 +48,8 @@ public class OptionalFieldsDelegationWorker {
 
     private static final String OPTIONAL_FIELDS_DELEGATION_CONTENT_TABLE = "veraweb.toptional_fields_delegation_content";
     private static final String OPTIONAL_FIELDS_TABLE = "veraweb.toptional_fields";
+    private static final String OPTIONAL_FIELD_TYPE_TABLE = "veraweb.toptional_field_type";
+    private static final String OPTIONAL_FIELD_TYPE_CONTENT_TABLE = "veraweb.toptional_field_type_content";
     private Database database;
 
     /**
@@ -130,44 +132,6 @@ public class OptionalFieldsDelegationWorker {
         return getOptionalFieldsAsList(resultSet);
 	}
 
-    /**
-	 * Get the optional delegation fields by guest id.
-     *
-	 * @param guestId Guest id
-     *
-	 * @return List with all optional delegation fields for the current guest
-     *
-     * @throws SQLException TODO
-     * @throws BeanException TODO
-	 */
-	public OptionalDelegationField getOptionalDelegationFieldByGuestIdAndOptionalField(int guestId, int optionalField)
-            throws BeanException, SQLException {
-
-        final Select select = getStatementSelectOptionalDelegationFieldByGuestAndOptionalField(guestId, optionalField);
-        final ResultSet resultSet = database.result(select);
-        return new OptionalDelegationField(resultSet);
-	}
-
-    private Select getStatementSelectOptionalDelegationFieldByGuestAndOptionalField(
-			int guestId, int optionalField) {
-        final WhereList whereCriterias = new WhereList();
-        final Select select = SQL.Select(this.database);
-
-        whereCriterias.addAnd(new Where("fk_guest", guestId, "="));
-        whereCriterias.addAnd(new Where("fk_delegation_field", optionalField, "="));
-
-        select.where(whereCriterias);
-        select.from(OPTIONAL_FIELDS_DELEGATION_CONTENT_TABLE);
-        select.joinLeftOuter(OPTIONAL_FIELDS_TABLE,
-                OPTIONAL_FIELDS_DELEGATION_CONTENT_TABLE + ".fk_delegation_field", OPTIONAL_FIELDS_TABLE + ".pk");
-        select.select("fk_guest");
-        select.select("fk_delegation_field");
-        select.select("value");
-        select.select(OPTIONAL_FIELDS_TABLE + ".label as label");
-
-		return null;
-	}
-
 	private List<OptionalDelegationField> getOptionalFieldsAsList(ResultSet resultSet) throws SQLException {
         final List<OptionalDelegationField> optionalDelegationFields = new ArrayList<OptionalDelegationField>();
         while(resultSet.next()) {
@@ -218,7 +182,7 @@ public class OptionalFieldsDelegationWorker {
         insert.table(OPTIONAL_FIELDS_DELEGATION_CONTENT_TABLE);
         insert.insert("fk_guest", optionalDelegationField.getFkGuest());
         insert.insert("fk_delegation_field", optionalDelegationField.getFkDelegationField());
-        insert.insert("value", optionalDelegationField.getValue());
+        insert.insert("fk_type", optionalDelegationField.getFkType());
         return insert;
     }
 
@@ -231,9 +195,14 @@ public class OptionalFieldsDelegationWorker {
         select.from(OPTIONAL_FIELDS_DELEGATION_CONTENT_TABLE);
         select.joinLeftOuter(OPTIONAL_FIELDS_TABLE,
                 OPTIONAL_FIELDS_DELEGATION_CONTENT_TABLE + ".fk_delegation_field", OPTIONAL_FIELDS_TABLE + ".pk");
+        select.joinLeftOuter(OPTIONAL_FIELD_TYPE_TABLE,
+                OPTIONAL_FIELD_TYPE_TABLE + ".pk", OPTIONAL_FIELDS_TABLE + ".fk_type");
+        select.joinLeftOuter(OPTIONAL_FIELD_TYPE_CONTENT_TABLE,
+                OPTIONAL_FIELD_TYPE_CONTENT_TABLE + ".fk_optional_field", OPTIONAL_FIELDS_TABLE + ".pk");
         select.select("fk_guest");
         select.select("fk_delegation_field");
-        select.select("value");
+        select.select("fk_type");
+        select.select("content");
         select.select(OPTIONAL_FIELDS_TABLE + ".label as label");
         return select;
     }
@@ -245,7 +214,7 @@ public class OptionalFieldsDelegationWorker {
         final Update update = SQL.Update(this.database);
         update.table(OPTIONAL_FIELDS_DELEGATION_CONTENT_TABLE);
         update.where(whereCriterias);
-        update.update("value", optionalDelegationField.getValue());
+        update.update("fk_type", optionalDelegationField.getFkType());
         return update;
     }
 }
