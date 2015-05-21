@@ -38,7 +38,7 @@ import lombok.Data;
 @Entity
 @Table(name = "toptional_fields")
 @NamedQueries({
-    @NamedQuery(name = "OptionalField.findByEventId", query = "select o from OptionalField o where fk_event=:eventId"),
+    @NamedQuery(name = "OptionalField.findByEventId", query = "select o from OptionalField o where fk_event=:eventId order by o.pk"),
     @NamedQuery(name = "OptionalField.findByEventIdAndLabel", query = "select f.pk From OptionalField f where f.fk_event=:eventId and f.label=:label ")
 })
 public class OptionalField {
