@@ -63,10 +63,12 @@
 	                #set($fieldcounter = $fieldcounter + 1)
 			            <li>
 			                <input type="text" name="optionalField-$field.key" maxlength="25" value="$field.value">
-			                <select>
-							  <option value="Input">Input</option>
-							  <option value="Einfach">Einfach</option>
-							  <option value="Mehrfach">Mehrfach</option>
+
+
+			                <select name="optionalFieldType-$field.key">
+							    #foreach( $type in $fieldTypes)
+							        <option name="optionalFieldtype-$type.id">$type.description</option>
+							    #end
 							</select>
 							<input type="text" maxlength="25" placeholder="value1">
 							<input type="text" maxlength="25" placeholder="value2">

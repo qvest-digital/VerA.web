@@ -8,9 +8,9 @@ CREATE TABLE veraweb.toptional_field_type (
 
 -- Inserting data for types
 
-INSERT INTO veraweb.toptional_field_type values (1, 'INPUT_FIELD');
-INSERT INTO veraweb.toptional_field_type values (2, 'SIMPLE_DROPDOWN');
-INSERT INTO veraweb.toptional_field_type values (3, 'MULTIPLE_CHOICE_DROPDOWN');
+INSERT INTO veraweb.toptional_field_type values (1, 'Eingabefeld');
+INSERT INTO veraweb.toptional_field_type values (2, 'Einfaches Auswahfeld');
+INSERT INTO veraweb.toptional_field_type values (3, 'Mehrfaches Auswahlfeld');
 
 -- Modify toptional_fields to allow field types
 
