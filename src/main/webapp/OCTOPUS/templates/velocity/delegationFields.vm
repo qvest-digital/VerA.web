@@ -7,17 +7,15 @@
 #set($formurl = "SaveDelegationFields")
 
 <script type="text/javascript">
-
 	function toogleOptionalFields() {
 		var types = document.getElementById('typeSelect');
-		var selectedValue = types.options[types.selectedIndex].value;
+		var selectedValue = types.options[types.selectedIndex].id;
 		var optionsArea = document.getElementById('optionsArea');
-		// TODO Besser (with ID!)
-		if (selectedValue == 'Eingabefeld') {
+
+		if (selectedValue == 1) {
 			optionsArea.style.display = 'none';
 		}
 		else {
-			
 			optionsArea.style.display = 'block';
 		}
 	}
@@ -42,8 +40,6 @@
         </div>
 
         <div id="main_content" class="tabs contentBox grayBorder marginBottom10">
-
-
             <input type="hidden" name="start" value="">
             <input type="hidden" name="limit" value="" />
             <input type="hidden" name="selectNone" value="true">
@@ -81,10 +77,11 @@
 			                <input type="text" name="optionalField-$field.key" maxlength="25" value="$field.value">
 
 			                <select id="typeSelect" name="optionalFieldType-$field.key" onchange="toogleOptionalFields();">
-							    #foreach( $type in $fieldTypes)
+							    #foreach($type in $fieldTypes)
 							        <option name="optionalFieldtype-$type.id" id="$type.id">$type.description</option>
 							    #end
 							</select>
+
 							<div id="optionsArea">
 								<input type="text" maxlength="25" placeholder="value1">
 								<input type="text" maxlength="25" placeholder="value2">
