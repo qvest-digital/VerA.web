@@ -32,6 +32,7 @@
 				#set($funktion = "$!address.Function")
 			#end
 
+
 		<div class="tableRow">
 			<div class="tableCell"><strong>Gast:</strong> $!message.text($name)</div>
 			<div class="tableCell"><strong>E-Mail-Adresse:</strong> $!message.text($email)</div>
@@ -42,27 +43,6 @@
 			<div class="tableCell"><strong>Partner:</strong> $!message.text($name_p)</div>
 			<div class="tableCell"><strong>Kategorie:</strong> #if($guestCategory)$guestCategory#end</div>
 		</div>
-
-		
-			#if ($guest.delegation)
-				#set( $idcounter = 0)
-				#set( $temp = 0)
-				#foreach( $field in $delegationFields.entrySet() )
-					## A new row would begin after each third field
-					#if($idcounter%3 == 0)
-						<div class="tableRow">
-					#end
-						<div class="tableCell">
-						<label id="event-delegation-field-label-$idcounter" for="event-delegation-field-$counter">$field.key:</label>
-						<input id="event-delegation-field-input-$idcounter" value="$field.value"></input>
-						</div>
-					#set( $idcounter = $idcounter + 1)
-					## Ending the row after each third field
-					#if ($idcounter%3 == 0 || ${delegationFields.size()} == $idcounter)
-						</div>
-					#end
-				#end
 			
-			#end
 	</div>	
 </div>

@@ -253,6 +253,7 @@ public class OptionalFieldsWorker {
             updateStatement.update("fk_event", optionalField.getFkEvent());
         }
         updateStatement.update("label", optionalField.getLabel());
+        updateStatement.update("fk_type", optionalField.getFk_type());
 
         return updateStatement;
     }

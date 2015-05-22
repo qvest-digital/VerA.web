@@ -284,7 +284,6 @@ public class CategorieWorker extends StammdatenWorker {
         }
     }
 
-
     @Override
     protected void saveBean(OctopusContext cntx, Bean bean, TransactionContext context) throws BeanException, IOException {
         ((Categorie) bean).orgunit = ((PersonalConfigAA) (cntx.personalConfig())).getOrgUnitId();

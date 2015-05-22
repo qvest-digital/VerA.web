@@ -579,14 +579,15 @@ public class GuestListWorker extends ListWorkerVeraWeb {
     }
 
     /**
+     * // TODO
+     * @param octopusContext The {@link de.tarent.octopus.server.OctopusContext}
      *
-     * @param cntx
      * @throws IOException
      * @throws BeanException
      * @throws SQLException
      */
-    public void getAllCategories(OctopusContext ctx) throws BeanException, IOException, SQLException {
-        final Database database = new DatabaseVeraWeb(ctx);
+    public void getAllCategories(OctopusContext octopusContext) throws BeanException, IOException, SQLException {
+        final Database database = new DatabaseVeraWeb(octopusContext);
 
         final Select select = SQL.Select( database ).from("veraweb.tcategorie");
 		select.select("catname");
@@ -600,7 +601,7 @@ public class GuestListWorker extends ListWorkerVeraWeb {
 			catnames.add((String)object.get("catname"));
 		}
 
-		ctx.setContent("categories", catnames);
+		octopusContext.setContent("categories", catnames);
 	}
 
     /**

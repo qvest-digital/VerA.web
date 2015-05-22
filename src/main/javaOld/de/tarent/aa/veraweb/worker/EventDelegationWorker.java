@@ -20,7 +20,9 @@
 package de.tarent.aa.veraweb.worker;
 
 import java.io.IOException;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,12 +31,17 @@ import java.util.TreeMap;
 import de.tarent.aa.veraweb.beans.Event;
 import de.tarent.aa.veraweb.beans.OptionalDelegationField;
 import de.tarent.aa.veraweb.beans.OptionalField;
+import de.tarent.aa.veraweb.beans.OptionalFieldType;
+import de.tarent.aa.veraweb.beans.Person;
 import de.tarent.aa.veraweb.utils.DateHelper;
+import de.tarent.dblayer.engine.Result;
+import de.tarent.dblayer.helper.ResultList;
 import de.tarent.dblayer.sql.SQL;
 import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.statement.Select;
 import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.beans.Database;
+import de.tarent.octopus.beans.ExecutionContext;
 import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
 
@@ -56,42 +63,71 @@ public class EventDelegationWorker {
     /**
      * Show the optional delegation fields in the guest detail view.
      *
-     * @param oc      The {@link OctopusContext}
-     * @param eventId The event id
+     * @param octopusContext The {@link OctopusContext}
+     *
      * @return Map with field label as key and field content as value
      * @throws IOException   If fetching event failed
      * @throws BeanException If fetching event failed
      */
-    public Map<String, String> showDelegationFields(OctopusContext oc)
+    public Map<String, String> showDelegationFields(OctopusContext octopusContext)
             throws IOException, BeanException, SQLException {
-        Integer guestId = getIntegerFromRequestParameter(oc, "id");
-        Integer eventId = getIntegerFromRequestParameter(oc, "eventId");
+        Integer guestId = getIntegerFromRequestParameter(octopusContext, "id");
+        Integer eventId = getIntegerFromRequestParameter(octopusContext, "eventId");
         if (guestId == null && eventId == null) {
             return null;
         }
-        setEventInContext(oc, eventId);
+        setEventInContext(octopusContext, eventId);
         Map<String, String> delegationFields = new LinkedHashMap<String, String>();
-        OptionalFieldsDelegationWorker optionalFieldsDelegationWorker = new OptionalFieldsDelegationWorker(oc);
-        OptionalFieldsWorker optionalFieldsWorker = new OptionalFieldsWorker(oc);
 
-        List<OptionalField> optionalFields = optionalFieldsWorker.getOptionalFieldsByEvent(eventId);
-        List<OptionalDelegationField> optionalDelegationFields = optionalFieldsDelegationWorker.getOptionalDelegationFieldsByGuestId(guestId);
+        final List<OptionalField> optionalFields = getOptionalFieldDeclaredInEvent(octopusContext, eventId);
+        final List<OptionalDelegationField> optionalDelegationFields = getOptionalFieldsForGuest(octopusContext, guestId);
+
 
         for (OptionalDelegationField field : optionalDelegationFields) {
-            OptionalField optionalField = findFieldById(optionalFields, field.getFkDelegationnField());
-
-            delegationFields.put(optionalField.getLabel(), field.getValue());
-
+            OptionalField optionalField = findFieldById(optionalFields, field.getFkDelegationField());
+            delegationFields.put(optionalField.getLabel(), field.getContent());
             optionalFields.remove(optionalField);
         }
-
+        
+        // TODO Implement better: do not put an empty field
         for (OptionalField optionalField : optionalFields) {
-        	if(!optionalField.getLabel().equals("")){
-            delegationFields.put(optionalField.getLabel(), "");
-        	}
+            if (!optionalField.getLabel().equals("")) {
+                delegationFields.put(optionalField.getLabel(), "");
+            }
         }
 
         return delegationFields;
+    }
+
+    private List<OptionalFieldType> getOptionalFieldTypes(final OctopusContext octopusContext) throws SQLException {
+        final DatabaseVeraWeb database = new DatabaseVeraWeb(octopusContext);
+        final Select selectTypesStatement = SQL.Select(database);
+        selectTypesStatement.select("*");
+        selectTypesStatement.from("toptional_field_type");
+
+        return getAllTypesAsList(selectTypesStatement);
+    }
+
+    private  List<OptionalFieldType> getAllTypesAsList(Select selectTypesStatement) throws SQLException {
+        final List<OptionalFieldType> allTypesAsList = new ArrayList<OptionalFieldType>();
+        final ResultSet types = (ResultSet) ((Result) selectTypesStatement.execute()).resultSet();
+        while (types.next()) {
+            final OptionalFieldType field = new OptionalFieldType();
+            field.setId(types.getInt("pk"));
+            field.setDescription(types.getString("description"));
+            allTypesAsList.add(field);
+        }
+        return allTypesAsList;
+    }
+
+    private List<OptionalDelegationField> getOptionalFieldsForGuest(OctopusContext octopusContext, Integer guestId) throws BeanException, SQLException {
+        OptionalFieldsDelegationWorker optionalFieldsDelegationWorker = new OptionalFieldsDelegationWorker(octopusContext);
+        return optionalFieldsDelegationWorker.getOptionalDelegationFieldsByGuestId(guestId);
+    }
+
+    private List<OptionalField> getOptionalFieldDeclaredInEvent(OctopusContext octopusContext, Integer eventId) throws BeanException, SQLException {
+        OptionalFieldsWorker optionalFieldsWorker = new OptionalFieldsWorker(octopusContext);
+        return optionalFieldsWorker.getOptionalFieldsByEvent(eventId);
     }
 
     private Integer getIntegerFromRequestParameter(OctopusContext oc, String parameter) {
@@ -132,21 +168,27 @@ public class EventDelegationWorker {
      * @return Labels for the fields
      * @throws SQLException
      */
-    public Map<String, String> getDelegationFieldsLabels(OctopusContext oc, Integer eventId)
+    public Map<String, String> getDelegationFieldsLabels(OctopusContext octopusContext, Integer eventId)
             throws IOException, BeanException, SQLException {
 
-        setEventInContext(oc, eventId);
+        setEventInContext(octopusContext, eventId);
 
-        final Map<String, String> delegationFieldsLabelds = new TreeMap<String, String>();
-        final OptionalFieldsWorker optionalFieldsWorker = new OptionalFieldsWorker(oc);
+        final List<OptionalFieldType> fieldTypes = getOptionalFieldTypes(octopusContext);
+        octopusContext.setContent("fieldTypes", fieldTypes);
 
-        List<OptionalField> optionalFieldsByEvent = optionalFieldsWorker.getOptionalFieldsByEvent(eventId);
+        final Map<String, String> delegationFieldsLabels = getLabelsFromDB(octopusContext, eventId);
 
+        return delegationFieldsLabels;
+    }
+
+    private Map<String, String> getLabelsFromDB(OctopusContext octopusContext, Integer eventId) throws BeanException, SQLException {
+        final Map<String, String> delegationFieldsLabels = new TreeMap<String, String>();
+        final OptionalFieldsWorker optionalFieldsWorker = new OptionalFieldsWorker(octopusContext);
+        final List<OptionalField> optionalFieldsByEvent = optionalFieldsWorker.getOptionalFieldsByEvent(eventId);
         for (OptionalField optionalField : optionalFieldsByEvent) {
-            delegationFieldsLabelds.put(String.valueOf(optionalField.getPk()), optionalField.getLabel());
+            delegationFieldsLabels.put(String.valueOf(optionalField.getPk()), optionalField.getLabel());
         }
-
-        return delegationFieldsLabelds;
+        return delegationFieldsLabels;
     }
 
     public void saveDelegationFieldLabels(OctopusContext oc, Integer eventId) throws BeanException, SQLException, IOException {
@@ -154,13 +196,18 @@ public class EventDelegationWorker {
         Map<String, String> allRequestParams = oc.getRequestObject().getRequestParameters();
 
         for (String key : allRequestParams.keySet()) {
-            if (key.startsWith("optionalField-")) {
-                saveField(eventId, optionalFieldsWorker, allRequestParams, key);
-            }
+            saveFieldLabels(eventId, optionalFieldsWorker, allRequestParams, key);
         }
 
         oc.setContent("showSuccessMessage", true);
     }
+
+    private void saveFieldLabels(Integer eventId, OptionalFieldsWorker optionalFieldsWorker, Map<String, String> allRequestParams, String key) throws SQLException, BeanException {
+        if (key.startsWith("optionalField-")) {
+            saveField(eventId, optionalFieldsWorker, allRequestParams, key);
+        }
+    }
+
 
     private void saveField(Integer eventId, OptionalFieldsWorker optionalFieldsWorker, Map<String, String> allRequestParams, String key) throws SQLException, BeanException {
         OptionalField optionalField = new OptionalField();
@@ -168,6 +215,15 @@ public class EventDelegationWorker {
         String[] splitted = key.split("-");
         optionalField.setLabel(allRequestParams.get(key).toString());
         optionalField.setPk(Integer.parseInt(splitted[1]));
+        String typeValue = allRequestParams.get("optionalFieldType-" + splitted[1]);
+        if (typeValue.equals("Eingabefeld")) {
+            optionalField.setFk_type(1);
+        } else if (typeValue.equals("Einfaches Auswahlfeld")) {
+            optionalField.setFk_type(2);
+        } else if (typeValue.equals("Mehrfaches Auswahlfeld")) {
+            optionalField.setFk_type(3);
+        }
+
         optionalFieldsWorker.updateOptionalField(optionalField);
     }
 
@@ -189,21 +245,6 @@ public class EventDelegationWorker {
         return false;
     }
 
-    private void createOptionalField(OptionalFieldsWorker optionalFieldsWorker, int eventId, String label) throws SQLException, BeanException {
-        if (label.trim().isEmpty()) {
-            return;
-        }
-
-        OptionalField optionalField = new OptionalField();
-        optionalField.setFkEvent(eventId);
-        optionalField.setLabel(label);
-        optionalFieldsWorker.createOptionalField(optionalField);
-    }
-
-    private void updateOrDeleteOptionalField(OptionalFieldsWorker optionalFieldsWorker, OptionalField optionalField) throws SQLException, BeanException {
-        optionalFieldsWorker.updateOptionalField(optionalField);
-    }
-
     private static Event getEvent(OctopusContext cntx, Integer id) throws BeanException, IOException {
         if (id == null) return null;
 
@@ -215,31 +256,6 @@ public class EventDelegationWorker {
             cntx.setContent("event-endhastime", Boolean.valueOf(DateHelper.isTimeInDate(event.end)));
         }
         return event;
-    }
-
-    private String getDelegationCategory(OctopusContext oc, Integer delegationId) throws SQLException {
-    	final Database database = new DatabaseVeraWeb(oc);
-
-        Select selectCatName = SQL.Select(database);
-
-        selectCatName.select("catname");
-        selectCatName.from("veraweb.tcategorie");
-        selectCatName.joinLeftOuter("veraweb.tperson_categorie", "veraweb.tperson_categorie.fk_categorie", "veraweb.tcategorie.pk");
-        selectCatName.whereAndEq("fk_person", delegationId);
-
-        return selectCatName.execute().toString();
-    }
-
-    private String getDelegationFunction(OctopusContext oc, Integer delegationId) throws SQLException {
-    	final Database database = new DatabaseVeraWeb(oc);
-
-        Select selectFuncName = SQL.Select(database);
-
-        selectFuncName.select("function_a_e1");
-        selectFuncName.from("tperson");
-        selectFuncName.whereAndEq("pk", delegationId);
-
-        return selectFuncName.execute().toString();
     }
 }
 

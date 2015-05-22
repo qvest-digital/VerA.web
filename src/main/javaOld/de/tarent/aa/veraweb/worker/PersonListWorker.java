@@ -1062,8 +1062,6 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 				"zipcode_c_e2",
 				"zipcode_c_e3" }));
 
-
-
 		list2.addAnd(Where.and(Expr.equal("tperson.deleted", PersonConstants.DELETED_FALSE), list));
 
 //		list.addAnd(Expr.in("tperson.fk_workarea", new RawClause(

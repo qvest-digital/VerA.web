@@ -22,30 +22,19 @@ package de.tarent.aa.veraweb.beans;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class OptionalDelegationField {
-	private String value;
-	private int fkGuest;
+public class OptionalDelegationField extends AbstractHistoryBean {
+	private int fkGuest; // TODO wieso brauchen wir das?
 	private int fkDelegationField;
     private String label;
+	private Integer fkType;
+	private String content;
 
 	public OptionalDelegationField(ResultSet resultSet) throws SQLException {
-		this.value = resultSet.getString("value");
 		this.fkGuest = resultSet.getInt("fk_guest");
 		this.fkDelegationField = resultSet.getInt("fk_delegation_field");
         this.label = resultSet.getString("label");
-	}
-
-	public OptionalDelegationField() {
-		this.value = "";
-		this.label = "";
-	}
-
-	public String getValue() {
-		return value;
-	}
-
-	public void setValue(String value) {
-		this.value = value;
+		this.fkType = resultSet.getInt("fk_type");
+		this.content = resultSet.getString("content");
 	}
 
 	public int getFkGuest() {
@@ -56,12 +45,8 @@ public class OptionalDelegationField {
 		this.fkGuest = fkGuest;
 	}
 
-	public int getFkDelegationnField() {
+	public int getFkDelegationField() {
 		return fkDelegationField;
-	}
-
-	public void setFkDelegationField(int fkDelegationField) {
-		this.fkDelegationField = fkDelegationField;
 	}
 
     public String getLabel() {
@@ -71,4 +56,16 @@ public class OptionalDelegationField {
     public void setLabel(String label) {
         this.label = label;
     }
+
+	public Integer getFkType() {
+		return fkType;
+	}
+
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
 }
