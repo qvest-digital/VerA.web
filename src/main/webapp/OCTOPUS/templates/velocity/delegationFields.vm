@@ -1,11 +1,25 @@
 #set($activeMenu = "Veranstaltungen")
-        #set($title = "Aufgaben")
-        #set($elementNameSex = "female")
-        #set($elementNameSingular = "Aufgabe")
-        #set($elementNamePlural = "Aufgaben")
-        #parse("inc/header.vm")
+#set($title = "Aufgaben")
+#set($elementNameSex = "female")
+#set($elementNameSingular = "Aufgabe")
+#set($elementNamePlural = "Aufgaben")
+#parse("inc/header.vm")
+#set($formurl = "SaveDelegationFields")
 
-        #set($formurl = "SaveDelegationFields")
+<script type="text/javascript">
+	function toogleOptionalFields() {
+		var types = document.getElementById('typeSelect');
+		var selectedValue = types.options[types.selectedIndex].id;
+		var optionsArea = document.getElementById('optionsArea');
+
+		if (selectedValue == 1) {
+			optionsArea.style.display = 'none';
+		}
+		else {
+			optionsArea.style.display = 'block';
+		}
+	}
+</script>
 
 <div id="content_container">
     <div id="breadcrumb" class="textRight marginBottom10">
@@ -26,8 +40,6 @@
         </div>
 
         <div id="main_content" class="tabs contentBox grayBorder marginBottom10">
-
-
             <input type="hidden" name="start" value="">
             <input type="hidden" name="limit" value="" />
             <input type="hidden" name="selectNone" value="true">
@@ -67,17 +79,18 @@
 
 
 			                <select name="optionalFieldType-$field.id">
-
-
 							    #foreach( $type in $fieldTypes)
 			                	    <!-- DEBUG: FIELD.FK_TYPE: $field.fkType  TYPE.PK: $type.id FIELD.PK $field.id -->
 							        <option name="optionalFieldtype-$type.id" id="$type.id" #if($field.fkType == $type.id)selected="true"#end>$type.description</option>
 							    #end
 							</select>
-							<input type="text" maxlength="25" placeholder="value1">
-							<input type="text" maxlength="25" placeholder="value2">
-							<input type="text" maxlength="25" placeholder="value3">
-							<input type="text" maxlength="25" placeholder="value4">
+
+							<div id="optionsArea">
+								<input type="text" maxlength="25" placeholder="value1">
+								<input type="text" maxlength="25" placeholder="value2">
+								<input type="text" maxlength="25" placeholder="value3">
+								<input type="text" maxlength="25" placeholder="value4">
+							</div>
 			            </li>
 	                #end
 				</ol>

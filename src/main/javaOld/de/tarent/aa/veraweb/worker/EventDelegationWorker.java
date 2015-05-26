@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,16 +33,15 @@ import de.tarent.aa.veraweb.beans.Event;
 import de.tarent.aa.veraweb.beans.OptionalDelegationField;
 import de.tarent.aa.veraweb.beans.OptionalField;
 import de.tarent.aa.veraweb.beans.OptionalFieldType;
-import de.tarent.aa.veraweb.beans.Person;
 import de.tarent.aa.veraweb.utils.DateHelper;
 import de.tarent.dblayer.engine.Result;
 import de.tarent.dblayer.helper.ResultList;
+import de.tarent.dblayer.helper.ResultMap;
 import de.tarent.dblayer.sql.SQL;
 import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.statement.Select;
 import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.beans.Database;
-import de.tarent.octopus.beans.ExecutionContext;
 import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
 
@@ -57,6 +57,8 @@ public class EventDelegationWorker {
     public static final String INPUT_getDelegationFieldsLabels[] = {"eventId"};
 
     public static final String OUTPUT_getDelegationFieldsLabels = "delegationFieldsLabels";
+
+    public static final String INPUT_getOptionalFieldTypesFromEvent[] = {"eventId"};
 
     public static final String INPUT_saveDelegationFieldLabels[] = {"eventId"};
 
@@ -88,7 +90,7 @@ public class EventDelegationWorker {
             delegationFields.put(optionalField.getLabel(), field.getContent());
             optionalFields.remove(optionalField);
         }
-        
+
         // TODO Implement better: do not put an empty field
         for (OptionalField optionalField : optionalFields) {
             if (!optionalField.getLabel().equals("")) {
@@ -106,6 +108,28 @@ public class EventDelegationWorker {
         selectTypesStatement.from("toptional_field_type");
 
         return getAllTypesAsList(selectTypesStatement);
+    }
+
+    //TODO set IDs as content for choosing saved field.type
+    public void getOptionalFieldTypesFromEvent(final OctopusContext octopusContext, Integer eventId) throws SQLException, BeanException, IOException {
+        setEventInContext(octopusContext, eventId);
+
+        final DatabaseVeraWeb database = new DatabaseVeraWeb(octopusContext);
+        Select selectTypesStatement = SQL.Select(database);
+
+        selectTypesStatement.select("fk_type");
+        selectTypesStatement.from("veraweb.toptional_fields");
+        selectTypesStatement.whereAndEq("veraweb.toptional_fields.fk_event", eventId);
+
+        final ResultList result = database.getList(selectTypesStatement, database);
+        final List<Integer> OptionalFieldTypesIds = new ArrayList<Integer>();
+
+        for (final Iterator<ResultMap> iterator = result.iterator(); iterator.hasNext();) {
+            final ResultMap object = iterator.next();
+            OptionalFieldTypesIds.add((Integer)object.get("fk_event"));
+        }
+
+        octopusContext.setContent("OptionalFieldTypesIds", OptionalFieldTypesIds);
     }
 
     private  List<OptionalFieldType> getAllTypesAsList(Select selectTypesStatement) throws SQLException {

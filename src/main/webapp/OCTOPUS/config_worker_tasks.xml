@@ -1186,6 +1186,7 @@
 			</description>
 			<doTask name="Load"/>
 			<action name="getDelegationFieldsLabels" worker="EventDelegationWorker" />
+			<action name="getOptionalFieldTypesFromEvent" worker="EventDelegationWorker" />
 			<response type="velocity" name="delegationFields">
 				<param name="ContentType" value="text/html;charset=UTF-8"/>
 			</response>

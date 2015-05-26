@@ -72,7 +72,7 @@
 
 				#if($grants.mayWrite())
 					<div class="buttonPanel-top floatRight">
-						<input type="submit" name="save" title="Neuen Amtsbezeichnung hinzufügen" value="Neuen Amtsbezeichnung hinzufügen" class="mainButton" onclick="saveEventFunction();"/>
+						<input type="submit" name="save" title="Neue Amtsbezeichnung hinzufügen" value="Neue Amtsbezeichnung hinzufügen" class="mainButton" onclick="saveEventFunction();"/>
 					</div>
 				#end
 
