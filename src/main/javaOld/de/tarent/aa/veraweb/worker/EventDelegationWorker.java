@@ -146,7 +146,7 @@ public class EventDelegationWorker {
 
     private OptionalField findFieldById(List<OptionalField> fields, int id) {
         for (OptionalField field : fields) {
-            if (field.getPk() == id) {
+            if (field.getId() == id) {
                 return field;
             }
         }
@@ -168,7 +168,7 @@ public class EventDelegationWorker {
      * @return Labels for the fields
      * @throws SQLException
      */
-    public Map<String, String> getDelegationFieldsLabels(OctopusContext octopusContext, Integer eventId)
+    public List<OptionalField> getDelegationFieldsLabels(OctopusContext octopusContext, Integer eventId)
             throws IOException, BeanException, SQLException {
 
         setEventInContext(octopusContext, eventId);
@@ -176,19 +176,16 @@ public class EventDelegationWorker {
         final List<OptionalFieldType> fieldTypes = getOptionalFieldTypes(octopusContext);
         octopusContext.setContent("fieldTypes", fieldTypes);
 
-        final Map<String, String> delegationFieldsLabels = getLabelsFromDB(octopusContext, eventId);
+        final List<OptionalField> delegationFieldsLabels = getLabelsFromDB(octopusContext, eventId);
 
         return delegationFieldsLabels;
     }
 
-    private Map<String, String> getLabelsFromDB(OctopusContext octopusContext, Integer eventId) throws BeanException, SQLException {
-        final Map<String, String> delegationFieldsLabels = new TreeMap<String, String>();
+    private List<OptionalField> getLabelsFromDB(OctopusContext octopusContext, Integer eventId) throws BeanException, SQLException {
         final OptionalFieldsWorker optionalFieldsWorker = new OptionalFieldsWorker(octopusContext);
         final List<OptionalField> optionalFieldsByEvent = optionalFieldsWorker.getOptionalFieldsByEvent(eventId);
-        for (OptionalField optionalField : optionalFieldsByEvent) {
-            delegationFieldsLabels.put(String.valueOf(optionalField.getPk()), optionalField.getLabel());
-        }
-        return delegationFieldsLabels;
+
+        return optionalFieldsByEvent;
     }
 
     public void saveDelegationFieldLabels(OctopusContext oc, Integer eventId) throws BeanException, SQLException, IOException {
@@ -214,14 +211,14 @@ public class EventDelegationWorker {
         optionalField.setFkEvent(eventId);
         String[] splitted = key.split("-");
         optionalField.setLabel(allRequestParams.get(key).toString());
-        optionalField.setPk(Integer.parseInt(splitted[1]));
+        optionalField.setId(Integer.parseInt(splitted[1]));
         String typeValue = allRequestParams.get("optionalFieldType-" + splitted[1]);
         if (typeValue.equals("Eingabefeld")) {
-            optionalField.setFk_type(1);
+            optionalField.setFkType(1);
         } else if (typeValue.equals("Einfaches Auswahlfeld")) {
-            optionalField.setFk_type(2);
+            optionalField.setFkType(2);
         } else if (typeValue.equals("Mehrfaches Auswahlfeld")) {
-            optionalField.setFk_type(3);
+            optionalField.setFkType(3);
         }
 
         optionalFieldsWorker.updateOptionalField(optionalField);

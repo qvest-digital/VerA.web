@@ -29,11 +29,11 @@ import java.sql.SQLException;
  * @author Max Marche <m.marche@tarent.de
  */
 public class OptionalField {
-	private int pk;
+	private int id;
 	private String label;
 	private int fkEvent;
 	/* references to OptionalFieldType */
-	private Integer fk_type;
+	private Integer fkType;
 	private String content;
 
 	public OptionalField() {
@@ -42,19 +42,12 @@ public class OptionalField {
 	}
 
 	public OptionalField(ResultSet resultSet) throws SQLException {
-		this.pk = resultSet.getInt("pk");
+		this.id = resultSet.getInt("pk");
 		this.label = resultSet.getString("label");
 		this.fkEvent = resultSet.getInt("fk_event");
+		this.fkType = resultSet.getInt("fk_type");
 	}
 
-
-	public int getPk() {
-		return pk;
-	}
-
-	public void setPk(int pk) {
-		this.pk = pk;
-	}
 
 	public String getLabel() {
 		return label;
@@ -72,12 +65,12 @@ public class OptionalField {
 		this.fkEvent = fkEvent;
 	}
 	
-	public Integer getFk_type() {
-		return fk_type;
+	public Integer getFkType() {
+		return fkType;
 	}
 	
-	public void setFk_type(Integer fk_type) {
-		this.fk_type = fk_type;
+	public void setFkType(Integer fkType) {
+		this.fkType = fkType;
 	}
 
 	public String getContent() {
@@ -86,5 +79,13 @@ public class OptionalField {
 
 	public void setContent(String content) {
 		this.content = content;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 }

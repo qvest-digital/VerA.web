@@ -167,7 +167,7 @@ public class OptionalFieldsWorker {
         final Delete deleteStatement = SQL.Delete(this.database);
         final WhereList whereCriterias = new WhereList();
 
-        whereCriterias.add(new Where("fk_delegation_field", optionalField.getPk(), "="));
+        whereCriterias.add(new Where("fk_delegation_field", optionalField.getId(), "="));
 
         deleteStatement.from(DELEGATON_FIELD_VALUE_TABLE_NAME);
         deleteStatement.where(whereCriterias);
@@ -192,11 +192,11 @@ public class OptionalFieldsWorker {
 
     private WhereList getWhereCriterialsForOptionalField(OptionalField optionalField) {
         final WhereList whereCriterias = new WhereList();
-        if(optionalField.getPk() == -1) {
+        if(optionalField.getId() == -1) {
             whereCriterias.addAnd(new Where("label", optionalField.getLabel(), "="));
             whereCriterias.addAnd(new Where("fk_event", optionalField.getLabel(), "="));
         } else {
-            whereCriterias.addAnd(new Where("pk", optionalField.getPk(), "="));
+            whereCriterias.addAnd(new Where("pk", optionalField.getId(), "="));
         }
         return whereCriterias;
     }
@@ -229,6 +229,7 @@ public class OptionalFieldsWorker {
         select.select("pk");
         select.select("label");
         select.select("fk_event");
+        select.select("fk_type");
         select.where(whereCriterias);
         return select;
     }
@@ -244,7 +245,7 @@ public class OptionalFieldsWorker {
 
     private Update getStatementUpdateOptionalField(OptionalField optionalField) {
         final WhereList whereCriterias = new WhereList();
-        whereCriterias.addAnd(new Where("pk", optionalField.getPk(), "="));
+        whereCriterias.addAnd(new Where("pk", optionalField.getId(), "="));
 
         final Update updateStatement = SQL.Update(this.database);
         updateStatement.table(DELEGATON_FIELD_TABLE_NAME);
@@ -253,7 +254,7 @@ public class OptionalFieldsWorker {
             updateStatement.update("fk_event", optionalField.getFkEvent());
         }
         updateStatement.update("label", optionalField.getLabel());
-        updateStatement.update("fk_type", optionalField.getFk_type());
+        updateStatement.update("fk_type", optionalField.getFkType());
 
         return updateStatement;
     }

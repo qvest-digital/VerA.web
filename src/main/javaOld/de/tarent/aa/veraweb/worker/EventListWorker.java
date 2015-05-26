@@ -280,13 +280,13 @@ public class EventListWorker extends ListWorkerVeraWeb {
 				context.execute(
 					SQL.Delete(database)
 					.from("veraweb.toptional_fields_delegation_content")
-					.where(new Where("fk_delegation_field", optionalField.getPk(), "="))
+					.where(new Where("fk_delegation_field", optionalField.getId(), "="))
 				);
 
 				context.execute(
 						SQL.Delete(database)
 						.from("veraweb.toptional_fields")
-						.where(new Where("pk", optionalField.getPk(), "="))
+						.where(new Where("pk", optionalField.getId(), "="))
 					);
 			}
 

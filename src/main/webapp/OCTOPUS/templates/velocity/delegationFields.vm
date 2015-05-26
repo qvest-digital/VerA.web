@@ -59,15 +59,19 @@
             <div class="contentBoxColored tabsContent">
 				<ol class="delegationFields">
 				#set( $fieldcounter = 0)
-	                #foreach( $field in $delegationFieldsLabels.entrySet() )
+	                #foreach($field in $delegationFieldsLabels )
+
 	                #set($fieldcounter = $fieldcounter + 1)
 			            <li>
-			                <input type="text" name="optionalField-$field.key" maxlength="25" value="$field.value">
+			                <input type="text" name="optionalField-$field.id" maxlength="25" value="$field.label">
 
 
-			                <select name="optionalFieldType-$field.key">
+			                <select name="optionalFieldType-$field.id">
+
+
 							    #foreach( $type in $fieldTypes)
-							        <option name="optionalFieldtype-$type.id" id="$type.id">$type.description</option>
+			                	    <!-- DEBUG: FIELD.FK_TYPE: $field.fkType  TYPE.PK: $type.id FIELD.PK $field.id -->
+							        <option name="optionalFieldtype-$type.id" id="$type.id" #if($field.fkType == $type.id)selected="true"#end>$type.description</option>
 							    #end
 							</select>
 							<input type="text" maxlength="25" placeholder="value1">
