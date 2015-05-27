@@ -27,13 +27,13 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
 
 import de.tarent.aa.veraweb.beans.Event;
 import de.tarent.aa.veraweb.beans.OptionalDelegationField;
 import de.tarent.aa.veraweb.beans.OptionalField;
 import de.tarent.aa.veraweb.beans.OptionalFieldType;
 import de.tarent.aa.veraweb.utils.DateHelper;
+import de.tarent.aa.veraweb.utils.OptionalFieldTypeFacade;
 import de.tarent.dblayer.engine.Result;
 import de.tarent.dblayer.helper.ResultList;
 import de.tarent.dblayer.helper.ResultMap;
@@ -237,12 +237,12 @@ public class EventDelegationWorker {
         optionalField.setLabel(allRequestParams.get(key).toString());
         optionalField.setId(Integer.parseInt(splitted[1]));
         String typeValue = allRequestParams.get("optionalFieldType-" + splitted[1]);
-        if (typeValue.equals("Eingabefeld")) {
-            optionalField.setFkType(1);
-        } else if (typeValue.equals("Einfaches Auswahlfeld")) {
-            optionalField.setFkType(2);
-        } else if (typeValue.equals("Mehrfaches Auswahlfeld")) {
-            optionalField.setFkType(3);
+        if (typeValue.equals(OptionalFieldTypeFacade.inputfield.getText())) {
+            optionalField.setFkType(OptionalFieldTypeFacade.inputfield.getValue());
+        } else if (typeValue.equals(OptionalFieldTypeFacade.simple_combobox.getText())) {
+            optionalField.setFkType(OptionalFieldTypeFacade.simple_combobox.getValue());
+        } else if (typeValue.equals(OptionalFieldTypeFacade.multiple_combobox.getText())) {
+            optionalField.setFkType(OptionalFieldTypeFacade.multiple_combobox.getValue());
         }
 
         optionalFieldsWorker.updateOptionalField(optionalField);

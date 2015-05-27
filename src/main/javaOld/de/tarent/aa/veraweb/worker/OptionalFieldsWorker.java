@@ -126,7 +126,7 @@ public class OptionalFieldsWorker {
 	}
 
     /**
-	 * Check if the given {@link }OptionalField} exist.
+	 * Check if the given {@link OptionalField} exist.
 	 *
      * @param optionalField The {@link OptionalField}
      *
