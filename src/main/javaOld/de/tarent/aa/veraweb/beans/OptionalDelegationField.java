@@ -27,14 +27,12 @@ public class OptionalDelegationField extends AbstractHistoryBean {
 	private int fkDelegationField;
     private String label;
 	private Integer fkType;
-	private String content;
 
 	public OptionalDelegationField(ResultSet resultSet) throws SQLException {
 		this.fkGuest = resultSet.getInt("fk_guest");
 		this.fkDelegationField = resultSet.getInt("fk_delegation_field");
         this.label = resultSet.getString("label");
 		this.fkType = resultSet.getInt("fk_type");
-		this.content = resultSet.getString("content");
 	}
 
 	public int getFkGuest() {
@@ -61,11 +59,4 @@ public class OptionalDelegationField extends AbstractHistoryBean {
 		return fkType;
 	}
 
-	public String getContent() {
-		return content;
-	}
-
-	public void setContent(String content) {
-		this.content = content;
-	}
 }
