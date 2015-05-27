@@ -36,21 +36,21 @@
         </div>
         <div class="row">
 
-            <div class="col-xs-6" ng-class="delegation-form.function.$valid ? 'has-success' : 'has-error'">
+            <div class="col-xs-6">
                 <label>{{'GENERIC_FUNCTION'|translate}}</label>
                 <select class="form-control" id="functionDescription" name="functionDescription"
                         ng-model="functionDescription" ng-options="function for function in functionSignNames"/>
                 </select>
             </div>
 
-            <div class="col-xs-6" ng-class="delegation-form.categorie.$valid ? 'has-success' : 'has-error'">
+            <div class="col-xs-6">
                 <label>{{'GENERIC_CATEGORY'|translate}}</label>
                 <select class="form-control" id="category" name="category" ng-model="category"
                         ng-options="category for category in categoryNames"/></select>
             </div>
         </div>
 
-        <hr/>
+        <!-- hr size="95%"/>  -->
 
         <div id="collapse-formular" ng-show="showDialog">
             <a href="" class="" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false"
@@ -68,12 +68,11 @@
                         </div>
                     </div>
                 </div>
+                <!-- <hr size="95%"/>  -->
             </div>
         </div>
     </div>
 </form>
-	    
-<hr/>
 
 <div class="col-xs-12 text-right">
     <button type="submit" class="btn btn-custom" ng-click="register_user()">{{'GENERIC_SAVE'|translate}}</button>
@@ -108,17 +107,17 @@
     
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <h4 class="modal-title" id="extraFieldsDialogLabel">Confirmation</h4>
+        <h4 class="modal-title" id="extraFieldsDialogLabel">{{'GENERIC_CONFIRMATION'|translate}}</h4>
       </div>
       
       <div class="form-group container">
 		<p>{{'DELEGATION_EMPTY_FIELDS'|translate}}</p>
 		<button type="button" class="btn btn-custom" data-dismiss="modal" ng-click="refreshData()">
-			{{'GENERIC_CONFIRMATION'|translate}}
+			{{'GENERIC_YES'|translate}}
 		</button>
 		
 		<button type="button" class="btn btn-custom" data-dismiss="modal" >
-			{{'GENERIC_NEGATION'|translate}}
+			{{'GENERIC_NO'|translate}}
 		</button>
 	  </div>
     </div>
