@@ -203,7 +203,7 @@ public class OptionalFieldsDelegationWorker {
         select.select("fk_guest");
         select.select("fk_delegation_field");
         select.select("fk_type");
-        select.select("content");
+        select.select("value");
         select.select(OPTIONAL_FIELDS_TABLE + ".label as label");
         select.orderBy(Order.asc("fk_delegation_field"));
         return select;

@@ -71,7 +71,7 @@ public class EventDelegationWorker {
      * @throws IOException   If fetching event failed
      * @throws BeanException If fetching event failed
      */
-    public Map<String, String> showDelegationFields(OctopusContext octopusContext)
+    public List<OptionalDelegationField> showDelegationFields(OctopusContext octopusContext)
             throws IOException, BeanException, SQLException {
         Integer guestId = getIntegerFromRequestParameter(octopusContext, "id");
         Integer eventId = getIntegerFromRequestParameter(octopusContext, "eventId");
@@ -85,20 +85,20 @@ public class EventDelegationWorker {
         final List<OptionalDelegationField> optionalDelegationFields = getOptionalFieldsForGuest(octopusContext, guestId);
 
 
-        for (OptionalDelegationField field : optionalDelegationFields) {
-            OptionalField optionalField = findFieldById(optionalFields, field.getFkDelegationField());
-            delegationFields.put(optionalField.getLabel(), field.getContent());
-            optionalFields.remove(optionalField);
-        }
+//        for (OptionalDelegationField field : optionalDelegationFields) {
+//            OptionalField optionalField = findFieldById(optionalFields, field.getFkDelegationField());
+//            delegationFields.put(optionalField.getLabel(), field.getContent());
+//            optionalFields.remove(optionalField);
+//        }
+//
+//        // TODO Implement better: do not put an empty field
+//        for (OptionalField optionalField : optionalFields) {
+//            if (!optionalField.getLabel().equals("")) {
+//                delegationFields.put(optionalField.getLabel(), "");
+//            }
+//        }
 
-        // TODO Implement better: do not put an empty field
-        for (OptionalField optionalField : optionalFields) {
-            if (!optionalField.getLabel().equals("")) {
-                delegationFields.put(optionalField.getLabel(), "");
-            }
-        }
-
-        return delegationFields;
+        return optionalDelegationFields;
     }
 
     private List<OptionalFieldType> getOptionalFieldTypes(final OctopusContext octopusContext) throws SQLException {

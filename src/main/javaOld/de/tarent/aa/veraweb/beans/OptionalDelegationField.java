@@ -23,18 +23,18 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class OptionalDelegationField extends AbstractHistoryBean {
-	private int fkGuest; // TODO wieso brauchen wir das?
+	private int fkGuest;
 	private int fkDelegationField;
     private String label;
 	private Integer fkType;
 	private String content;
-
+	
 	public OptionalDelegationField(ResultSet resultSet) throws SQLException {
 		this.fkGuest = resultSet.getInt("fk_guest");
 		this.fkDelegationField = resultSet.getInt("fk_delegation_field");
         this.label = resultSet.getString("label");
 		this.fkType = resultSet.getInt("fk_type");
-		this.content = resultSet.getString("content");
+		this.content = resultSet.getString("value");
 	}
 
 	public int getFkGuest() {

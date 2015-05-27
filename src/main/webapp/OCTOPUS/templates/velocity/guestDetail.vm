@@ -158,14 +158,25 @@
 									#if ($guest.delegation)
 										#set( $idcounter = 0)
 										#set( $temp = 0)
-										#foreach( $field in $delegationFields.entrySet() )
+										#foreach( $field in $delegationFields )
 											## A new row would begin after each third field
 											#if($idcounter%3 == 0)
 												<div class="tableRow">
 											#end
+											<!-- type id: $field.fkType.value -->
 												<div class="tableCell">
-												<label id="event-delegation-field-label-$idcounter" for="event-delegation-field-$counter">$field.key:</label>
-												<input id="event-delegation-field-input-$idcounter" onchange="setModified('')" value="$field.value"></input>
+												<label id="event-delegation-field-label-$idcounter" for="event-delegation-field-$counter">$field.label:</label>
+												#if($field.fkType == 1)
+													<input id="event-delegation-field-input-$idcounter" onchange="setModified('')" value="$field.content"></input>
+												#elseif($field.fkType == 2)
+													<select>
+														<option value="">Keine</option>
+													</select>
+												#else
+													<select>
+														<option value="">Keine</option>
+													</select>
+												#end
 												</div>
 											#set( $idcounter = $idcounter + 1)
 											## Ending the row after each third field
