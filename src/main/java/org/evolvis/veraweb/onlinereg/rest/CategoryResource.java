@@ -183,7 +183,12 @@ public class CategoryResource extends AbstractResource {
 	private Boolean checkExistingPersonCategory(final Integer personId, final Integer categoryId, final Session session) {
 		final Query queryCategory = session.getNamedQuery("PersonCategory.personCategoryExists");
 		queryCategory.setInteger("personId", personId);
-		queryCategory.setInteger("categoryId", categoryId);
+
+		if (categoryId != null) {
+			queryCategory.setInteger("categoryId", categoryId);
+		} else {
+			return false; // if categoryId is null, then the category can't be an existing for the user.
+		}
 		
 		return queryCategory.list().isEmpty();
 	}
