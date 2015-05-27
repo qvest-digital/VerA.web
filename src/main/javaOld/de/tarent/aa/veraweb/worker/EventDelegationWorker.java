@@ -79,26 +79,8 @@ public class EventDelegationWorker {
             return null;
         }
         setEventInContext(octopusContext, eventId);
-        Map<String, String> delegationFields = new LinkedHashMap<String, String>();
 
-        final List<OptionalField> optionalFields = getOptionalFieldDeclaredInEvent(octopusContext, eventId);
-        final List<OptionalDelegationField> optionalDelegationFields = getOptionalFieldsForGuest(octopusContext, guestId);
-
-
-//        for (OptionalDelegationField field : optionalDelegationFields) {
-//            OptionalField optionalField = findFieldById(optionalFields, field.getFkDelegationField());
-//            delegationFields.put(optionalField.getLabel(), field.getContent());
-//            optionalFields.remove(optionalField);
-//        }
-//
-//        // TODO Implement better: do not put an empty field
-//        for (OptionalField optionalField : optionalFields) {
-//            if (!optionalField.getLabel().equals("")) {
-//                delegationFields.put(optionalField.getLabel(), "");
-//            }
-//        }
-
-        return optionalDelegationFields;
+        return getOptionalFieldsForGuest(octopusContext, guestId);
     }
 
     private List<OptionalFieldType> getOptionalFieldTypes(final OctopusContext octopusContext) throws SQLException {
