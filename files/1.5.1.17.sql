@@ -27,6 +27,10 @@ CREATE TABLE veraweb.toptional_field_type_content (
   CONSTRAINT toptional_field_type_content_pkey PRIMARY KEY (pk)
 );
 
+-- Update the orgunit for default categories
+
+UPDATE tcategorie set fk_orgunit=-1 where fk_orgunit IS NULL;
+
 -- Update schema version
 UPDATE veraweb.tconfig SET cvalue = '2015-05-20' WHERE cname = 'SCHEMA_VERSION';
 
