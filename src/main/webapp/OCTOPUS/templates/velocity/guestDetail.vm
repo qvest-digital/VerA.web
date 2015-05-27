@@ -173,7 +173,7 @@
 														<option value="">Keine</option>
 													</select>
 												#else
-													<select>
+													<select multiple>
 														<option value="">Keine</option>
 													</select>
 												#end
