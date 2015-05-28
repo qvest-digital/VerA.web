@@ -95,9 +95,9 @@
 							</select>
 							#if($field.fkType == 2 || $field.fkType == 3)
 								<div>
-								<!-- BBB: $field.optionalFieldTypeContents.get(0) -->
+								<!-- BBB: -->
 									#foreach( $typeContent in $field.optionalFieldTypeContents )
-										<input value="" name="optionalFieldtype-${field.fkDelegationField}_value-${typeContent.id}" />
+										<input value="$typeContent.content" name="optionalFieldtype-${field.fkDelegationField}_value-${typeContent.id}" />
 									#end
 								</div>
 							#end

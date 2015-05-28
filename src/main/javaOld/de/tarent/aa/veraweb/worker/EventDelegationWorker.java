@@ -23,11 +23,13 @@ import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import de.tarent.aa.veraweb.beans.Categorie;
 import de.tarent.aa.veraweb.beans.Event;
 import de.tarent.aa.veraweb.beans.OptionalDelegationField;
 import de.tarent.aa.veraweb.beans.OptionalField;
@@ -43,9 +45,13 @@ import de.tarent.dblayer.sql.Join;
 import de.tarent.dblayer.sql.SQL;
 import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.clause.RawClause;
+import de.tarent.dblayer.sql.clause.Where;
 import de.tarent.dblayer.sql.statement.Select;
+import de.tarent.dblayer.sql.statement.Update;
 import de.tarent.octopus.beans.BeanException;
+import de.tarent.octopus.beans.BeanStatement;
 import de.tarent.octopus.beans.Database;
+import de.tarent.octopus.beans.TransactionContext;
 import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
 
@@ -249,15 +255,16 @@ public class EventDelegationWorker {
         return optionalFieldsByEvent;
     }
 
-    public void saveDelegationFieldLabels(OctopusContext oc, Integer eventId) throws BeanException, SQLException, IOException {
-        OptionalFieldsWorker optionalFieldsWorker = new OptionalFieldsWorker(oc);
-        Map<String, String> allRequestParams = oc.getRequestObject().getRequestParameters();
+    public void saveDelegationFieldLabels(OctopusContext octopusContext, Integer eventId) throws BeanException, SQLException, IOException {
+        OptionalFieldsWorker optionalFieldsWorker = new OptionalFieldsWorker(octopusContext);
+        Map<String, String> allRequestParams = octopusContext.getRequestObject().getRequestParameters();
 
         for (String key : allRequestParams.keySet()) {
             saveFieldLabels(eventId, optionalFieldsWorker, allRequestParams, key);
+            saveFieldTypeContent(octopusContext, allRequestParams, key);
         }
 
-        oc.setContent("showSuccessMessage", true);
+        octopusContext.setContent("showSuccessMessage", true);
     }
 
     private void saveFieldLabels(Integer eventId, OptionalFieldsWorker optionalFieldsWorker, Map<String, String> allRequestParams, String key) throws SQLException, BeanException {
@@ -266,6 +273,70 @@ public class EventDelegationWorker {
         }
     }
 
+    private void saveFieldTypeContent(OctopusContext octopusContext, Map<String, String> allRequestParams, String key) throws BeanException, IOException, SQLException {
+    	if (key.startsWith("optionalFieldtype-") && key.contains("_value")) {
+    		saveSingleFieldTypeContent(octopusContext, allRequestParams, key);    		
+        }
+    }
+
+    private void saveSingleFieldTypeContent(OctopusContext octopusContext, Map<String, String> allRequestParams, String key) throws BeanException, IOException, SQLException {
+   	 
+    	final Database database = new DatabaseVeraWeb(octopusContext);
+    	final TransactionContext transactionalContext = database.getTransactionContext();
+    	
+    	String[] keyParts = key.split("_");
+    	String[] labelParts = keyParts[0].split("-");
+    	String[] valueParts = keyParts[1].split("-");
+    	
+    	final OptionalFieldTypeContent optionalFieldTypeContent = handleUpdateOptionalFieldTypeContent(octopusContext, allRequestParams,
+				key, labelParts, new Integer(valueParts[1]));
+    	
+    	
+    	Update update = SQL.Update( database );
+		update.table( "veraweb.toptional_field_type_content" );
+		update.update( "content", optionalFieldTypeContent.getContent());
+		update.where( Expr.equal( "pk", new Integer(valueParts[1]) ) );
+		update.execute();
+    	
+    	
+    	
+    	
+//    	database.saveBean(optionalFieldTypeContent, transactionalContext, false);
+//    	transactionalContext.commit();
+    }
+
+	private OptionalFieldTypeContent handleUpdateOptionalFieldTypeContent(
+			OctopusContext octopusContext,
+			Map<String, String> allRequestParams, String key,
+			String[] labelParts, Integer typeContentId) throws BeanException, IOException {
+		final OptionalFieldTypeContent optionalFieldTypeContent;
+		optionalFieldTypeContent = getExistingTypeContent(octopusContext, typeContentId);
+		optionalFieldTypeContent.setFk_optional_field(new Integer(labelParts[1]));
+		optionalFieldTypeContent.setContent(allRequestParams.get(key).toString());
+		optionalFieldTypeContent.setId(typeContentId);
+		
+		return optionalFieldTypeContent;
+	}
+	
+	private OptionalFieldTypeContent getExistingTypeContent(OctopusContext octopusContext, Integer typeContentId) throws BeanException, IOException {
+	    	final Database database = new DatabaseVeraWeb(octopusContext);
+	    	Select select = SQL.Select(database);
+	        select.select("toptional_field_type_content.*");
+	        select.from("veraweb.toptional_field_type_content");
+	        select.where(Expr.equal("veraweb.toptional_field_type_content.pk", typeContentId));
+	        
+//	        Result result = (Result) database.getBean("OptionalFieldTypeContent", select);
+	        
+	    	
+	        
+//	        OptionalFieldTypeContent optionalFieldTypeContent = new OptionalFieldTypeContent();
+//	        optionalFieldTypeContent.setFk_optional_field(result.resultSet().);
+//	        optionalFieldTypeContent.setContent(null);
+//	        optionalFieldTypeContent.setId(null);
+	        
+
+	    	return (OptionalFieldTypeContent) database.getBean("OptionalFieldTypeContent", select);
+	}
 
     private void saveField(Integer eventId, OptionalFieldsWorker optionalFieldsWorker, Map<String, String> allRequestParams, String key) throws SQLException, BeanException {
         OptionalField optionalField = new OptionalField();
