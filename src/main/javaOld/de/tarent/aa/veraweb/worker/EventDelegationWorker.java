@@ -211,14 +211,35 @@ public class EventDelegationWorker {
     private List<OptionalFieldTypeContent> getOptionalFieldTypeContentsFromLabel(OctopusContext octopusContext, Integer optionalFieldId) throws BeanException, IOException {
 
         final Database database = new DatabaseVeraWeb(octopusContext);
+        final Select select = getSelectStatementForTypeContents(optionalFieldId, database);
+        final ResultList result = database.getList(select, database);
+        final List<OptionalFieldTypeContent> oftc = getOptionalFieldsTypeContentsAsList(result);
+
+        return oftc;
+    }
+
+    private Select getSelectStatementForTypeContents(Integer optionalFieldId, Database database) {
         Select select = SQL.Select(database);
-        select.selectAs("toptional_field_type_content.pk", "pk");
-        select.selectAs("toptional_field_type_content.fk_optional_field", "fk_optional_field");
-        select.selectAs("toptional_field_type_content.content", "content");
+        select.select("toptional_field_type_content.pk");
+        select.select("toptional_field_type_content.fk_optional_field");
+        select.select("toptional_field_type_content.content");
         select.from("veraweb.toptional_field_type_content");
         select.where(Expr.equal("veraweb.toptional_field_type_content.fk_optional_field", optionalFieldId));
+        return select;
+    }
 
-        return database.getBeanList("OptionalFieldTypeContent", select);
+    private List<OptionalFieldTypeContent> getOptionalFieldsTypeContentsAsList(ResultList result) {
+        final List<OptionalFieldTypeContent> oftc = new ArrayList<OptionalFieldTypeContent>();
+
+        for (final Iterator<ResultMap> iterator = result.iterator(); iterator.hasNext();) {
+            final ResultMap object = iterator.next();
+            OptionalFieldTypeContent optionalFieldTypeContent = new OptionalFieldTypeContent();
+            optionalFieldTypeContent.setContent((String) object.get("content"));
+            optionalFieldTypeContent.setId((Integer) object.get("pk"));
+            optionalFieldTypeContent.setFk_optional_field((Integer) object.get("fk_optional_field"));
+            oftc.add(optionalFieldTypeContent);
+        }
+        return oftc;
     }
 
     private List<OptionalField> getLabelsFromDB(OctopusContext octopusContext, Integer eventId) throws BeanException, SQLException {
