@@ -80,26 +80,28 @@
             <div class="contentBoxColored tabsContent">
 				<ol class="delegationFields">
 				#set( $fieldcounter = 0)
-	                #foreach($field in $delegationFieldsLabels )
+	                #foreach($field in $delegationFieldsWithTypeContents )
 
 	                #set($fieldcounter = $fieldcounter + 1)
 			            <li>
-			                <input type="text" name="optionalField-$field.id" maxlength="25" value="$field.label">
+			                <input type="text" name="optionalField-$field.fkDelegationField" maxlength="25" value="$field.label">
 
 
-			                <select name="optionalFieldType-$field.id">
+			                <select name="optionalFieldType-$field.fkDelegationField">
 							    #foreach( $type in $fieldTypes)
 			                	    <!-- DEBUG: FIELD.FK_TYPE: $field.fkType  TYPE.PK: $type.id FIELD.PK $field.id -->
 							        <option name="optionalFieldtype-$type.id" id="$type.id" #if($field.fkType == $type.id)selected="true"#end>$type.description</option>
 							    #end
 							</select>
+							#if($field.fkType == 2 || $field.fkType == 3)
+								<div>
+								<!-- BBB: $field.optionalFieldTypeContents.get(0) -->
+									#foreach( $typeContent in $field.optionalFieldTypeContents )
+										<input value="" name="optionalFieldtype-${field.fkDelegationField}_value-${typeContent.id}" />
+									#end
+								</div>
+							#end
 
-							<div id="optionsArea">
-								<input type="text" maxlength="25" placeholder="value1">
-								<input type="text" maxlength="25" placeholder="value2">
-								<input type="text" maxlength="25" placeholder="value3">
-								<input type="text" maxlength="25" placeholder="value4">
-							</div>
 			            </li>
 	                #end
 				</ol>

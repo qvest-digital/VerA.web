@@ -20,6 +20,7 @@
 package de.tarent.aa.veraweb.worker;
 
 import de.tarent.aa.veraweb.beans.OptionalField;
+import de.tarent.aa.veraweb.utils.OptionalFieldTypeFacade;
 import de.tarent.dblayer.engine.DB;
 import de.tarent.dblayer.sql.SQL;
 import de.tarent.dblayer.sql.clause.Where;
@@ -48,9 +49,10 @@ import java.util.List;
 public class OptionalFieldsWorker {
 	private static final String DELEGATON_FIELD_TABLE_NAME = "veraweb.toptional_fields";
 	private static final String DELEGATON_FIELD_VALUE_TABLE_NAME = "veraweb.toptional_fields_delegation_content";
+    private static final String OPTIONAL_FIELD_TYPE_CONTENT = "veraweb.toptional_field_type_content";
 
 
-	private Database database;
+    private Database database;
 
     /**
      * Constructor.
@@ -105,8 +107,35 @@ public class OptionalFieldsWorker {
         final TransactionContext context = this.database.getTransactionContext();
         final Update updateStatement = getStatementUpdateOptionalField(optionalField);
 		DB.update(context, updateStatement.statementToString());
+
+        // check if field already has type contents
+
+
+        createOptionalFieldTypeContents(optionalField, context);
+
         context.commit();
 	}
+
+    private void createOptionalFieldTypeContents(OptionalField optionalField, TransactionContext context) throws SQLException, BeanException {
+        final Boolean selectStatement = getStatementCheckOptionalFieldTypeContentExists(optionalField);
+
+        if ((optionalField.getFkType() == OptionalFieldTypeFacade.simple_combobox.getValue()
+                ||  optionalField.getFkType() == OptionalFieldTypeFacade.multiple_combobox.getValue())
+                && !selectStatement) {
+            initTypeContents(optionalField, context);
+        }
+    }
+
+    private void initTypeContents(OptionalField optionalField, TransactionContext context) throws SQLException {
+        final Insert insertStatement = getInsertStatementForTypeContents(optionalField.getId());
+        final Insert insertStatement1 = getInsertStatementForTypeContents(optionalField.getId());
+        final Insert insertStatement2 = getInsertStatementForTypeContents(optionalField.getId());
+        final Insert insertStatement3 = getInsertStatementForTypeContents(optionalField.getId());
+        DB.insert(context, insertStatement);
+        DB.insert(context, insertStatement1);
+        DB.insert(context, insertStatement2);
+        DB.insert(context, insertStatement3);
+    }
 
     /**
 	 * Get all optional fields by event id.
@@ -220,6 +249,18 @@ public class OptionalFieldsWorker {
         return select;
     }
 
+    private boolean getStatementCheckOptionalFieldTypeContentExists(OptionalField optionalField) throws BeanException {
+        final WhereList whereCriterias = new WhereList();
+        whereCriterias.addAnd(new Where("fk_optional_field", optionalField.getId(), "="));
+
+        final Select select = SQL.Select(this.database);
+        select.from(OPTIONAL_FIELD_TYPE_CONTENT);
+        select.where(whereCriterias);
+        select.select("count(*)");
+
+        return (database.getCount(select) > 0)? true : false;
+    }
+
     private Select getStatementSelectOptionalField(Integer eventId) {
         final WhereList whereCriterias = new WhereList();
         whereCriterias.addAnd(new Where("fk_event", eventId, "="));
@@ -258,4 +299,15 @@ public class OptionalFieldsWorker {
 
         return updateStatement;
     }
+
+    private Insert getInsertStatementForTypeContents(final Integer fieldId) {
+
+        final Insert insertStatement = SQL.Insert(this.database);
+        insertStatement.table(OPTIONAL_FIELD_TYPE_CONTENT);
+        insertStatement.insert("fk_optional_field", fieldId);
+        insertStatement.insert("content", "");
+
+        return insertStatement;
+    }
+
 }

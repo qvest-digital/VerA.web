@@ -32,13 +32,17 @@ import de.tarent.aa.veraweb.beans.Event;
 import de.tarent.aa.veraweb.beans.OptionalDelegationField;
 import de.tarent.aa.veraweb.beans.OptionalField;
 import de.tarent.aa.veraweb.beans.OptionalFieldType;
+import de.tarent.aa.veraweb.beans.OptionalFieldTypeContent;
+import de.tarent.aa.veraweb.beans.Person;
 import de.tarent.aa.veraweb.utils.DateHelper;
 import de.tarent.aa.veraweb.utils.OptionalFieldTypeFacade;
 import de.tarent.dblayer.engine.Result;
 import de.tarent.dblayer.helper.ResultList;
 import de.tarent.dblayer.helper.ResultMap;
+import de.tarent.dblayer.sql.Join;
 import de.tarent.dblayer.sql.SQL;
 import de.tarent.dblayer.sql.clause.Expr;
+import de.tarent.dblayer.sql.clause.RawClause;
 import de.tarent.dblayer.sql.statement.Select;
 import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.beans.Database;
@@ -184,7 +188,37 @@ public class EventDelegationWorker {
 
         final List<OptionalField> delegationFieldsLabels = getLabelsFromDB(octopusContext, eventId);
 
+        List<OptionalDelegationField> delegationFieldsWithTypeContents = new ArrayList<OptionalDelegationField>();
+        for (Iterator iterator = delegationFieldsLabels.iterator(); iterator
+                .hasNext();) {
+            OptionalField optionalField = (OptionalField) iterator.next();
+            List<OptionalFieldTypeContent> optionalFieldTypeContents = getOptionalFieldTypeContentsFromLabel(octopusContext, optionalField.getId());
+
+            OptionalDelegationField optionalDelegationField = new OptionalDelegationField();
+            optionalDelegationField.setOptionalFieldTypeContents(optionalFieldTypeContents);
+            optionalDelegationField.setLabel(optionalField.getLabel());
+            optionalDelegationField.setFkDelegationField(optionalField.getId());
+            optionalDelegationField.setFkType(optionalField.getFkType());
+
+            delegationFieldsWithTypeContents.add(optionalDelegationField);
+        }
+
+        octopusContext.setContent("delegationFieldsWithTypeContents", delegationFieldsWithTypeContents);
+
         return delegationFieldsLabels;
+    }
+
+    private List<OptionalFieldTypeContent> getOptionalFieldTypeContentsFromLabel(OctopusContext octopusContext, Integer optionalFieldId) throws BeanException, IOException {
+
+        final Database database = new DatabaseVeraWeb(octopusContext);
+        Select select = SQL.Select(database);
+        select.selectAs("toptional_field_type_content.pk", "pk");
+        select.selectAs("toptional_field_type_content.fk_optional_field", "fk_optional_field");
+        select.selectAs("toptional_field_type_content.content", "content");
+        select.from("veraweb.toptional_field_type_content");
+        select.where(Expr.equal("veraweb.toptional_field_type_content.fk_optional_field", optionalFieldId));
+
+        return database.getBeanList("OptionalFieldTypeContent", select);
     }
 
     private List<OptionalField> getLabelsFromDB(OctopusContext octopusContext, Integer eventId) throws BeanException, SQLException {
