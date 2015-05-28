@@ -9,7 +9,7 @@ CREATE TABLE veraweb.toptional_field_type (
 -- Inserting data for types
 
 INSERT INTO veraweb.toptional_field_type values (1, 'Eingabefeld');
-INSERT INTO veraweb.toptional_field_type values (2, 'Einfaches Auswahfeld');
+INSERT INTO veraweb.toptional_field_type values (2, 'Einfaches Auswahlfeld');
 INSERT INTO veraweb.toptional_field_type values (3, 'Mehrfaches Auswahlfeld');
 
 -- Modify toptional_fields to allow field types
