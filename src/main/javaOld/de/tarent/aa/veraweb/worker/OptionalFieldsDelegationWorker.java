@@ -126,8 +126,8 @@ public class OptionalFieldsDelegationWorker {
      *
 	 * @return List with all optional delegation fields for the current guest
      *
-     * @throws SQLException TODO
-     * @throws BeanException TODO
+     * @throws SQLException FIXME
+     * @throws BeanException FIXME
 	 */
 	public List<OptionalDelegationField> getOptionalDelegationFieldsByGuestId(int guestId)
             throws BeanException, SQLException {
@@ -138,34 +138,48 @@ public class OptionalFieldsDelegationWorker {
 	}
 
 	private List<OptionalDelegationField> getOptionalFieldsAsList(ResultSet resultSet) throws SQLException, BeanException {
-        final List<OptionalDelegationField> optionalDelegationFields = new ArrayList<OptionalDelegationField>();
-        while(resultSet.next()) {
-            final OptionalDelegationField optionalDelegationField = new OptionalDelegationField(resultSet);
-            Select select = SQL.Select(database).
-                    select("toptional_field_type_content.pk").
-                    select("toptional_field_type_content.fk_optional_field").
-                    select("toptional_field_type_content.content").
-                    from("veraweb.toptional_field_type_content").
-                    whereAndEq("toptional_field_type_content.fk_optional_field", optionalDelegationField.getFkDelegationField());
-            ResultList resultListWithTypeContents = database.getList(select, database);
-
-            final List<OptionalFieldTypeContent> typeContents = new ArrayList<OptionalFieldTypeContent>();
-            for (final Iterator<ResultMap> iterator = resultListWithTypeContents.iterator(); iterator.hasNext();) {
-                final ResultMap object = iterator.next();
-                OptionalFieldTypeContent optionalFieldTypeContent = new OptionalFieldTypeContent();
-                optionalFieldTypeContent.setContent((String) object.get("content"));
-                optionalFieldTypeContent.setId((Integer) object.get("pk"));
-                optionalFieldTypeContent.setFk_optional_field((Integer) object.get("fk_optional_field"));
-                typeContents.add(optionalFieldTypeContent);
-            }
-
-            optionalDelegationField.setOptionalFieldTypeContents(typeContents);
-            optionalDelegationFields.add(optionalDelegationField);
-
+        final List<OptionalDelegationField> optionalFieldsWithTypeContents = new ArrayList<OptionalDelegationField>();
+        while (resultSet.next()) {
+            getListWithTypeContents(resultSet, optionalFieldsWithTypeContents);
         }
 
-        return optionalDelegationFields;
+        return optionalFieldsWithTypeContents;
     }
+
+	private void getListWithTypeContents(ResultSet resultSet, final List<OptionalDelegationField> optionalDelegationFields)
+			throws SQLException, BeanException {
+		final OptionalDelegationField optionalDelegationField = new OptionalDelegationField(resultSet);
+		final ResultList resultListWithTypeContents = getFieldsAndTypeContentsFromDB(optionalDelegationField);
+
+		final List<OptionalFieldTypeContent> typeContents = getFieldsWithTypeContentsAsList(resultListWithTypeContents);
+
+		optionalDelegationField.setOptionalFieldTypeContents(typeContents);
+		optionalDelegationFields.add(optionalDelegationField);
+	}
+
+	private List<OptionalFieldTypeContent> getFieldsWithTypeContentsAsList(ResultList resultListWithTypeContents) {
+		final List<OptionalFieldTypeContent> typeContents = new ArrayList<OptionalFieldTypeContent>();
+		for (final Iterator<ResultMap> iterator = resultListWithTypeContents.iterator(); iterator.hasNext();) {
+		    final ResultMap object = iterator.next();
+		    final OptionalFieldTypeContent optionalFieldTypeContent = new OptionalFieldTypeContent();
+		    optionalFieldTypeContent.setContent((String) object.get("content"));
+		    optionalFieldTypeContent.setId((Integer) object.get("pk"));
+		    optionalFieldTypeContent.setFk_optional_field((Integer) object.get("fk_optional_field"));
+		    typeContents.add(optionalFieldTypeContent);
+		}
+		return typeContents;
+	}
+
+	private ResultList getFieldsAndTypeContentsFromDB(final OptionalDelegationField optionalDelegationField) throws BeanException {
+		final Select select = SQL.Select(database).
+		        select("toptional_field_type_content.pk").
+		        select("toptional_field_type_content.fk_optional_field").
+		        select("toptional_field_type_content.content").
+		        from("veraweb.toptional_field_type_content").
+		        whereAndEq("toptional_field_type_content.fk_optional_field", optionalDelegationField.getFkDelegationField());
+		final ResultList resultListWithTypeContents = database.getList(select, database);
+		return resultListWithTypeContents;
+	}
 
 
     /**
