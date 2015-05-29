@@ -32,6 +32,7 @@ import org.evolvis.veraweb.onlinereg.Config;
 import org.evolvis.veraweb.onlinereg.entities.Category;
 import org.evolvis.veraweb.onlinereg.entities.Delegation;
 import org.evolvis.veraweb.onlinereg.entities.Guest;
+import org.evolvis.veraweb.onlinereg.entities.OptionalFieldTypeContent;
 import org.evolvis.veraweb.onlinereg.entities.OptionalFieldValue;
 import org.evolvis.veraweb.onlinereg.entities.Person;
 import org.evolvis.veraweb.onlinereg.entities.PersonCategory;
@@ -85,7 +86,8 @@ public class DelegationResource {
     private static final TypeReference<List<OptionalFieldValue>> FIELDS_LIST = new TypeReference<List<OptionalFieldValue>>() {};
     private static final TypeReference<List<String>> CATEGORY_LIST = new TypeReference<List<String>>() {};
     private static final TypeReference<List<String>> FUNCTION_LIST = new TypeReference<List<String>>() {};
-
+    private static final TypeReference<List<OptionalFieldTypeContent>> TYPE_CONTENT_LIST= 
+    		new TypeReference<List<OptionalFieldTypeContent>>() {};
 
     /**
      * Jackson Object Mapper
@@ -399,7 +401,12 @@ public class DelegationResource {
             final List<OptionalFieldValue> filteredList = new ArrayList<OptionalFieldValue>();
             for (OptionalFieldValue field : fields) {
                 if (field.getLabel() != null && !field.getLabel().equals("")) {
-                    filteredList.add(field);
+                	
+                	// Bring the type Contents of the field
+                	List<OptionalFieldTypeContent> typeContents = readResource(path("typecontent", field.getPk()), TYPE_CONTENT_LIST);
+                	field.setOptionalFieldTypeContents(typeContents);
+
+                	filteredList.add(field);
                 }
             }
             return filteredList;

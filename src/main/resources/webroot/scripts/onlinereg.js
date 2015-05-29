@@ -323,28 +323,35 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 		$scope.success = null;
 		$scope.error = null;
 		$scope.labellist = {};
-
-		$http.get('api/delegation/' + $routeParams.uuid + '/data/').then(function(fields) {
-			$scope.fields = fields.data;
-			console.log("number of fields: "+$scope.fields.length)
-			if ($scope.fields.length == 0) {
-				$scope.success = null;
-				$scope.showDialog = false;
-			} else {
-				$scope.error_dialog = null;
-				$scope.showDialog = true;
-				console.log(JSON.stringify($scope.fields));
-
-				for(var prop in $scope.fields) {
-					var curField = $scope.fields[prop];
-					if(curField.value != null) {
-						$scope.labellist[curField.pk] = curField.value;
-						console.log(curField.value + "|" + $scope.labellist[curField.pk]);
+		
+		$scope.getOptionalFieldsWithTypeContent = function() {
+			$http.get('api/delegation/' + $routeParams.uuid + '/data/').then(function(fields) {
+				$scope.fields = fields.data;
+				console.log("number of fields: "+$scope.fields.length)
+				if ($scope.fields.length == 0) {
+					$scope.success = null;
+					$scope.showDialog = false;
+				} else {
+					$scope.error_dialog = null;
+					$scope.showDialog = true;
+					console.log(JSON.stringify($scope.fields));
+					
+					for(var prop in $scope.fields) {
+						var curField = $scope.fields[prop];
+						if(curField.value != null) {
+							$scope.labellist[curField.pk] = curField.value;
+							console.log(curField.value + "|" + $scope.labellist[curField.pk]);
+						}
 					}
 				}
-			}
-		});
+			});
+		}
 		
+		
+		$scope.getOptionalFieldsWithTypeContent();
+		
+		
+		 
 		
 		$scope.register_user = function() {
 			if ($scope.gender.id == 0) {
@@ -458,6 +465,7 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 			$scope.vorname = null;
 			$scope.targetPersonId = null;
 			$scope.labellist = {};
+			$scope.getOptionalFieldsWithTypeContent();
 		}
 		
 		$scope.loadPersonData = function(personId) {
