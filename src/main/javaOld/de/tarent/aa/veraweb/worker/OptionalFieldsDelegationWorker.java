@@ -20,7 +20,10 @@
 package de.tarent.aa.veraweb.worker;
 
 import de.tarent.aa.veraweb.beans.OptionalDelegationField;
+import de.tarent.aa.veraweb.beans.OptionalFieldTypeContent;
 import de.tarent.dblayer.engine.DB;
+import de.tarent.dblayer.helper.ResultList;
+import de.tarent.dblayer.helper.ResultMap;
 import de.tarent.dblayer.sql.SQL;
 import de.tarent.dblayer.sql.clause.Order;
 import de.tarent.dblayer.sql.clause.Where;
@@ -37,6 +40,7 @@ import de.tarent.octopus.server.OctopusContext;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -133,11 +137,31 @@ public class OptionalFieldsDelegationWorker {
         return getOptionalFieldsAsList(resultSet);
 	}
 
-	private List<OptionalDelegationField> getOptionalFieldsAsList(ResultSet resultSet) throws SQLException {
+	private List<OptionalDelegationField> getOptionalFieldsAsList(ResultSet resultSet) throws SQLException, BeanException {
         final List<OptionalDelegationField> optionalDelegationFields = new ArrayList<OptionalDelegationField>();
         while(resultSet.next()) {
             final OptionalDelegationField optionalDelegationField = new OptionalDelegationField(resultSet);
+            Select select = SQL.Select(database).
+                    select("toptional_field_type_content.pk").
+                    select("toptional_field_type_content.fk_optional_field").
+                    select("toptional_field_type_content.content").
+                    from("veraweb.toptional_field_type_content").
+                    whereAndEq("toptional_field_type_content.fk_optional_field", optionalDelegationField.getFkDelegationField());
+            ResultList resultListWithTypeContents = database.getList(select, database);
+
+            final List<OptionalFieldTypeContent> typeContents = new ArrayList<OptionalFieldTypeContent>();
+            for (final Iterator<ResultMap> iterator = resultListWithTypeContents.iterator(); iterator.hasNext();) {
+                final ResultMap object = iterator.next();
+                OptionalFieldTypeContent optionalFieldTypeContent = new OptionalFieldTypeContent();
+                optionalFieldTypeContent.setContent((String) object.get("content"));
+                optionalFieldTypeContent.setId((Integer) object.get("pk"));
+                optionalFieldTypeContent.setFk_optional_field((Integer) object.get("fk_optional_field"));
+                typeContents.add(optionalFieldTypeContent);
+            }
+
+            optionalDelegationField.setOptionalFieldTypeContents(typeContents);
             optionalDelegationFields.add(optionalDelegationField);
+
         }
 
         return optionalDelegationFields;
@@ -192,6 +216,7 @@ public class OptionalFieldsDelegationWorker {
         whereCriterias.addAnd(new Where("fk_guest", guestId, "="));
 
         final Select select = SQL.Select(this.database);
+        select.setDistinct(true);
         select.where(whereCriterias);
         select.from(OPTIONAL_FIELDS_DELEGATION_CONTENT_TABLE);
         select.joinLeftOuter(OPTIONAL_FIELDS_TABLE,

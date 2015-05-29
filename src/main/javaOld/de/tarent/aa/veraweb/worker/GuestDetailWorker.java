@@ -209,7 +209,7 @@ public class GuestDetailWorker extends GuestListWorker {
 				// TODO set fk guest and delegation field ID
 //				object.setFkGuest();
 //				object.setFkDelegationnField();
-				
+
 //				Insert insert = database.getInsert(object);
 //				database.execute(insert);
 			}

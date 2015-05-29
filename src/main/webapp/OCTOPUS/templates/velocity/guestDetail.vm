@@ -104,7 +104,7 @@
 							#parse("inc/guestMasterDataNote.vm")
 						#end
 
-							<div class="table width60">
+							<div class="table width100">
 								<div class="tableRow">
                                     <div class="tableCell width40">
     									<label for="guest-invitationtype">Einladungsart:</label>
@@ -158,26 +158,28 @@
 									#if ($guest.delegation)
 										#set( $idcounter = 0)
 										#set( $temp = 0)
-										#foreach( $field in $delegationFields )
+										#foreach( $field in $delegationFields)
+
+
 											## A new row would begin after each third field
 											#if($idcounter%3 == 0)
 												<div class="tableRow">
 											#end
 											<!-- type id: $field.fkType.value -->
+
 												<div class="tableCell">
 												<label id="event-delegation-field-label-$idcounter" for="event-delegation-field-$counter">$field.label:</label>
 												#if($field.fkType == 1)
 													<input id="event-delegation-field-input-$idcounter" onchange="setModified('')" value="$field.content"></input>
-												#elseif($field.fkType == 2)
-													<select>
-														<option value="">Keine</option>
-													</select>
 												#else
-													<select multiple>
-														<option value="">Keine</option>
+													<select>
+														 #foreach ($typeContentEntry in $field.optionalFieldTypeContents)
+															<option value="">$typeContentEntry.content</option>
+														 #end
 													</select>
 												#end
 												</div>
+
 											#set( $idcounter = $idcounter + 1)
 											## Ending the row after each third field
 											#if ($idcounter%3 == 0 || ${delegationFields.size()} == $idcounter)
