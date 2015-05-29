@@ -25,6 +25,8 @@ import de.tarent.dblayer.engine.DB;
 import de.tarent.dblayer.helper.ResultList;
 import de.tarent.dblayer.helper.ResultMap;
 import de.tarent.dblayer.sql.SQL;
+import de.tarent.dblayer.sql.clause.Clause;
+import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.clause.Order;
 import de.tarent.dblayer.sql.clause.Where;
 import de.tarent.dblayer.sql.clause.WhereList;
@@ -42,6 +44,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
 
 /**
  * This class handles the optional fields for the delegation guests.
@@ -171,12 +174,18 @@ public class OptionalFieldsDelegationWorker {
 	}
 
 	private ResultList getFieldsAndTypeContentsFromDB(final OptionalDelegationField optionalDelegationField) throws BeanException {
+		Clause clauseToEmptyContent = Expr.notLike("toptional_field_type_content.content","");
+		Clause clauseNotNullContent = Expr.isNotNull("toptional_field_type_content.content");
+
 		final Select select = SQL.Select(database).
 		        select("toptional_field_type_content.pk").
 		        select("toptional_field_type_content.fk_optional_field").
 		        select("toptional_field_type_content.content").
 		        from("veraweb.toptional_field_type_content").
-		        whereAndEq("toptional_field_type_content.fk_optional_field", optionalDelegationField.getFkDelegationField());
+		        whereAndEq("toptional_field_type_content.fk_optional_field", optionalDelegationField.getFkDelegationField()).
+		        whereAnd(clauseToEmptyContent).
+				whereAnd(clauseNotNullContent);
+		
 		final ResultList resultListWithTypeContents = database.getList(select, database);
 		return resultListWithTypeContents;
 	}
