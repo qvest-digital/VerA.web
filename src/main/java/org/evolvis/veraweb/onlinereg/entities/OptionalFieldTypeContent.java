@@ -4,6 +4,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -18,6 +20,10 @@ import lombok.Data;
 @XmlRootElement
 @Entity
 @Table(name = "toptional_field_type_content")
+@NamedQueries({
+    @NamedQuery(name = "OptionalFieldTypeContent.findTypeContentsByOptionalField", 
+    			query = "SELECT oftc from OptionalFieldTypeContent oftc WHERE oftc.fk_optional_field=:optionalFieldId AND ((oftc.content not like '') AND oftc.content is not null)")
+})
 public class OptionalFieldTypeContent {
 
 	@Id

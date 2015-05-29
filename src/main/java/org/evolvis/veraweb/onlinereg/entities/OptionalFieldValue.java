@@ -19,6 +19,8 @@
  */
 package org.evolvis.veraweb.onlinereg.entities;
 
+import java.util.List;
+
 import org.evolvis.veraweb.onlinereg.entities.OptionalField;
 
 /**
@@ -29,7 +31,6 @@ import org.evolvis.veraweb.onlinereg.entities.OptionalField;
 public class OptionalFieldValue extends OptionalField {
 
 	public OptionalFieldValue() {
-
 	}
 
 	public OptionalFieldValue(OptionalField field, String value) {
@@ -37,9 +38,12 @@ public class OptionalFieldValue extends OptionalField {
 		this.setFk_event(field.getFk_event());
 		this.setLabel(field.getLabel());
 		this.setValue(value);
+		this.setFk_type(field.getFk_type());
 	}
 
 	private String value;
+	
+	private List<OptionalFieldTypeContent> optionalFieldTypeContents;
 
 	public void setValue(String value) {
 		this.value = value;
@@ -47,5 +51,14 @@ public class OptionalFieldValue extends OptionalField {
 
 	public String getValue() {
 		return value;
+	}
+	
+	public List<OptionalFieldTypeContent> getOptionalFieldTypeContents() {
+		return optionalFieldTypeContents;
+	}
+	
+	public void setOptionalFieldTypeContents(
+			List<OptionalFieldTypeContent> optionalFieldTypeContents) {
+		this.optionalFieldTypeContents = optionalFieldTypeContents;
 	}
 }
