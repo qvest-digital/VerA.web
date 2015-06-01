@@ -315,7 +315,7 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 		$http.get('api/delegation/' + $routeParams.uuid).then(function(presentPersons) {
 				$scope.presentPersons = presentPersons.data;
 		});
-		
+
 		$translate('DELEGATION_MESSAGE_NO_EXTRA_FIELDS').then(function (text) {
 			$scope.error_dialog = text;
 		});
@@ -323,7 +323,7 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 		$scope.success = null;
 		$scope.error = null;
 		$scope.labellist = {};
-		
+
 		$scope.getOptionalFieldsWithTypeContent = function() {
 			$http.get('api/delegation/' + $routeParams.uuid + '/data/').then(function(fields) {
 				$scope.fields = fields.data;
@@ -335,7 +335,7 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 					$scope.error_dialog = null;
 					$scope.showDialog = true;
 					console.log(JSON.stringify($scope.fields));
-					
+
 					for(var prop in $scope.fields) {
 						var curField = $scope.fields[prop];
 						if(curField.value != null) {
@@ -346,13 +346,9 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 				}
 			});
 		}
-		
-		
+
 		$scope.getOptionalFieldsWithTypeContent();
-		
-		
-		 
-		
+
 		$scope.register_user = function() {
 			if ($scope.gender.id == 0) {
 				$translate('GENERIC_MISSING_GENDER_MESSAGE').then(function (text) {
@@ -456,7 +452,7 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 				$scope.success = null;
 			}
 		}
-		
+
 		$scope.refreshData = function() {
 			$scope.gender = $scope.genderOptions[0];
 			$scope.category = null;
@@ -467,12 +463,12 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 			$scope.labellist = {};
 			$scope.getOptionalFieldsWithTypeContent();
 		}
-		
+
 		$scope.loadPersonData = function(personId) {
 			$scope.targetPersonId=personId;
 			$scope.success = null;
 			$scope.error = null;
-			
+
 			$http.get('api/delegation/load/' + $routeParams.uuid + '/' + $scope.targetPersonId).then(function(person) {
 				// Setting current values
 				$scope.nachname = person.data.lastname_a_e1;
@@ -482,32 +478,32 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 				} else {
 					$scope.gender = $scope.genderOptions[1];
 				}
-				
+
 				$scope.functionDescription = person.data.function_a_e1;
 				// Loading optional fields
 				$scope.showOptionalFields($scope.targetPersonId);
 			});
 			$scope.loadDelegateCategory();
-			
+
 		}
 		$scope.loadDelegateCategory = function() {
 			$http.get('api/delegation/load/category/' + $routeParams.uuid + '/' + $scope.targetPersonId).then(function(catname) {
-				if (catname != null) {	
+				if (catname != null) {
 					$scope.category = catname.data.status;
 				}
 			});
 		}
 		$scope.showOptionalFields = function (personId) {
-			
+
 			$scope.targetPersonId=personId;
 			$translate('DELEGATION_MESSAGE_NO_EXTRA_FIELDS').then(function (text) {
 				var ERROR_TEXT = text;
 			});
-	
+
 			$scope.success = null;
 			$scope.error = null;
 			$scope.labellist = {};
-	
+
 			$http.get('api/delegation/load/fields/' + $routeParams.uuid + '/' + $scope.targetPersonId).then(function(fields) {
 				$scope.fields = fields.data;
 				console.log("number of fields: "+$scope.fields.length)
@@ -519,7 +515,7 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 					$scope.error_dialog = null;
 					$scope.showDialog = true;
 					console.log(JSON.stringify($scope.fields));
-	
+
 					for(var prop in $scope.fields) {
 						var curField = $scope.fields[prop];
 						if(curField.value != null){
@@ -530,7 +526,7 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 				}
 			});
 		}
-		
+
 		$scope.saveOptionalFields = function () {
 			$scope.success = null;
 			$scope.error = null;
@@ -612,6 +608,8 @@ onlineRegApp.controller('DirectLoginController', function ($scope, $location, $h
 				$rootScope.user_logged_in = $scope.directusername;
 				$rootScope.status = null;
 				$rootScope.messageContent = null;
+
+				$location.path($scope.nextPage);
 			} else {
 				$rootScope.userinfo = null;
 				$translate('GENERIC_MESSAGE_USER_OR_PASSWORD_WRONG').then(function (text) {
