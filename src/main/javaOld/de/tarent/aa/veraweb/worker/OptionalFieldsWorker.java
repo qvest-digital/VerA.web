@@ -23,6 +23,7 @@ import de.tarent.aa.veraweb.beans.OptionalField;
 import de.tarent.aa.veraweb.utils.OptionalFieldTypeFacade;
 import de.tarent.dblayer.engine.DB;
 import de.tarent.dblayer.sql.SQL;
+import de.tarent.dblayer.sql.clause.Order;
 import de.tarent.dblayer.sql.clause.Where;
 import de.tarent.dblayer.sql.clause.WhereList;
 import de.tarent.dblayer.sql.statement.Delete;
@@ -272,6 +273,7 @@ public class OptionalFieldsWorker {
         select.select("fk_event");
         select.select("fk_type");
         select.where(whereCriterias);
+        select.orderBy(Order.asc("pk"));
         return select;
     }
 

@@ -171,8 +171,14 @@
 												<label id="event-delegation-field-label-$idcounter" for="event-delegation-field-$counter">$field.label:</label>
 												#if($field.fkType == 1)
 													<input id="event-delegation-field-input-$idcounter" onchange="setModified('')" value="$field.content"></input>
-												#else
+												#elseif($field.fkType == 2)
 													<select>
+														 #foreach ($typeContentEntry in $field.optionalFieldTypeContents)
+															<option value="">$typeContentEntry.content</option>
+														 #end
+													</select>
+												#elseif($field.fkType == 3)
+													<select multiple>
 														 #foreach ($typeContentEntry in $field.optionalFieldTypeContents)
 															<option value="">$typeContentEntry.content</option>
 														 #end
