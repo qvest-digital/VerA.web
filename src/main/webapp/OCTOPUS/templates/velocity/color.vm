@@ -68,8 +68,8 @@
 				</tr>
 				#else
 				<tr>
-					<td><input type="text" name="color1-name" value="" onchange="setModified('color1')"></td>
-					<td><input type="text" name="color1-rgb" value="" onchange="setModified('color1')"></td>
+					<td><input type="text" name="color1-name" maxlength="100" value="" onchange="setModified('color1')"></td>
+					<td><input type="text" name="color1-rgb" maxlength="11" value="" onchange="setModified('color1')"></td>
 				</tr>
 				#end
 
@@ -85,13 +85,13 @@
 				#set($rgb = $rgb - ($g * 256))
 				#set($b = $rgb)
 				<tr>
-					<td><input type="text" name="color2-name" value="$!message.text($color2.name)" onchange="setModified('color2')"></td>
-					<td><input type="text" name="color2-rgb" value="$!r $!g $!b" onchange="setModified('color2')"></td>
+					<td><input type="text" name="color2-name" maxlength="100" value="$!message.text($color2.name)" onchange="setModified('color2')"></td>
+					<td><input type="text" name="color2-rgb" maxlength="11" value="$!r $!g $!b" onchange="setModified('color2')"></td>
 				</tr>
 				#else
 				<tr>
-					<td><input type="text" name="color2-name" value="" onchange="setModified('color2')"></td>
-					<td><input type="text" name="color2-rgb" value="" onchange="setModified('color2')"></td>
+					<td><input type="text" name="color2-name" maxlength="100" value="" onchange="setModified('color2')"></td>
+					<td><input type="text" name="color2-rgb" maxlength="11" value="" onchange="setModified('color2')"></td>
 				</tr>
 				#end
 
@@ -107,13 +107,13 @@
 				#set($rgb = $rgb - ($g * 256))
 				#set($b = $rgb)
 				<tr>
-					<td><input type="text" name="color3-name" value="$!message.text($color3.name)" onchange="setModified('color3')"></td>
-					<td><input type="text" name="color3-rgb" value="$!r $!g $!b" onchange="setModified('color3')"></td>
+					<td><input type="text" name="color3-name" maxlength="100" value="$!message.text($color3.name)" onchange="setModified('color3')"></td>
+					<td><input type="text" name="color3-rgb" maxlength="11" value="$!r $!g $!b" onchange="setModified('color3')"></td>
 				</tr>
 				#else
 				<tr>
-					<td><input type="text" name="color3-name" value="" onchange="setModified('color3')"></td>
-					<td><input type="text" name="color3-rgb" value="" onchange="setModified('color3')"></td>
+					<td><input type="text" name="color3-name" maxlength="100" value="" onchange="setModified('color3')"></td>
+					<td><input type="text" name="color3-rgb" maxlength="11" value="" onchange="setModified('color3')"></td>
 				</tr>
 				#end
 
@@ -129,13 +129,13 @@
 				#set($rgb = $rgb - ($g * 256))
 				#set($b = $rgb)
 				<tr>
-					<td><input type="text" name="color4-name" value="$!message.text($color4.name)" onchange="setModified('color4')"></td>
-					<td><input type="text" name="color4-rgb" value="$!r $!g $!b" onchange="setModified('color4')"></td>
+					<td><input type="text" name="color4-name" maxlength="100" value="$!message.text($color4.name)" onchange="setModified('color4')"></td>
+					<td><input type="text" name="color4-rgb" maxlength="11" value="$!r $!g $!b" onchange="setModified('color4')"></td>
 				</tr>
 				#else
 				<tr>
-					<td><input type="text" name="color4-name" value="" onchange="setModified('color4')"></td>
-					<td><input type="text" name="color4-rgb" value="" onchange="setModified('color4')"></td>
+					<td><input type="text" name="color4-name" maxlength="100" value="" onchange="setModified('color4')"></td>
+					<td><input type="text" name="color4-rgb" maxlength="11" value="" onchange="setModified('color4')"></td>
 				</tr>
 				#end
 
