@@ -178,8 +178,8 @@ onlineRegApp.controller('UpdateController', function($scope, $rootScope, $locati
 				})
 			}).success(function (result) {
 				if (result.status === 'OK') {
-					$translate(['USER_EVENTS_STATUS_CHANGED_SUCCESSFULL_MESSAGE_PART_ONE','USER_EVENTS_STATUS_CHANGED_SUCCESSFULL_MESSAGE_PART_TWO']).then(function (translations) {
-						$rootScope.previousMessage = translations['USER_EVENTS_STATUS_CHANGED_SUCCESSFULL_MESSAGE_PART_ONE'] + " \"" + $scope.event.shortname + "\" " + translations['USER_EVENTS_STATUS_CHANGED_SUCCESSFULL_MESSAGE_PART_TWO'];
+					$translate(['USER_EVENTS_STATUS_CHANGED_SUCCESSFUL_MESSAGE_PART_ONE','USER_EVENTS_STATUS_CHANGED_SUCCESSFUL_MESSAGE_PART_TWO']).then(function (translations) {
+						$rootScope.previousMessage = translations['USER_EVENTS_STATUS_CHANGED_SUCCESSFUL_MESSAGE_PART_ONE'] + " \"" + $scope.event.shortname + "\" " + translations['USER_EVENTS_STATUS_CHANGED_SUCCESSFUL_MESSAGE_PART_TWO'];
 					});
 
 					$scope.setNextPage('veranstaltungen');
@@ -250,7 +250,7 @@ onlineRegApp.controller('MediaController', function ($scope, $http, $rootScope, 
 						$scope.success = null;
 					} else if (result.status === 'OK') {
 						$scope.error= null;
-						$translate('MEDIA_REPRESEINTATIVES_REGISTER_SUCCESSFULL_MESSAGE').then(function (text) {
+						$translate('MEDIA_REPRESEINTATIVES_REGISTER_SUCCESSFUL_MESSAGE').then(function (text) {
 							$scope.success = text;
 						});
 						$http.get('api/delegation/' + $routeParams.uuid).then(function(presentPersons) {
@@ -350,13 +350,8 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 		$scope.getOptionalFieldsWithTypeContent();
 
 		$scope.register_user = function() {
-			if ($scope.gender.id == 0) {
-				$translate('GENERIC_MISSING_GENDER_MESSAGE').then(function (text) {
-					$scope.error = text;
-				});
-				$scope.success = null;
-			} else if($scope.vorname.length > 35) {
-				$translate('DELEGATION_MESSAGE_FIRSTNAME_MAX').then(function (text) {
+			if ($scope.gender.id == 0 || $scope.vorname == null || $scope.nachname == null) {
+				$translate('GENERIC_MESSAGE_FILL_IN_ALL_RED_FIELDS').then(function (text) {
 					$scope.error = text;
 				});
 				$scope.success = null;
@@ -427,7 +422,7 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 							$scope.success = null;
 						} else if (result.status === 'OK') {
 							$scope.error = null;
-							$translate('DELEGATION_MESSAGE_DELEGATION_DATA_SAVED_SUCCESSFULL').then(function (text) {
+							$translate('DELEGATION_MESSAGE_DELEGATION_DATA_SAVED_SUCCESSFUL').then(function (text) {
 								$scope.success = text;
 							});
 							$scope.refreshData();
@@ -544,7 +539,7 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 				})
 			}).success(function (result) {
 				$scope.error= null;
-				$translate('DELEGATION_MESSAGE_DELEGATION_DATA_SAVED_SUCCESSFULL').then(function (text) {
+				$translate('DELEGATION_MESSAGE_DELEGATION_DATA_SAVED_SUCCESSFUL').then(function (text) {
 					$scope.success = text;
 				});
 			}).error(function (data, status, headers, config) {
@@ -575,7 +570,7 @@ onlineRegApp.controller('DirectLoginController', function ($scope, $location, $h
 			$scope.directusername = null;
 			$scope.directpassword = null;
 
-			$translate('GENERIC_LOGOUT_SUCCESSFULL_MESSAGE').then(function (text) {
+			$translate('GENERIC_LOGOUT_SUCCESSFUL_MESSAGE').then(function (text) {
 				$rootScope.messageContent = text;
 			});
 
