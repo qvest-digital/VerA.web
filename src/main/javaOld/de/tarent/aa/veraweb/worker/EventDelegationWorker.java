@@ -282,19 +282,14 @@ public class EventDelegationWorker {
     	
     	final OptionalFieldTypeContent optionalFieldTypeContent = handleUpdateOptionalFieldTypeContent(octopusContext, allRequestParams,
 				key, labelParts, new Integer(valueParts[1]));
-    	
-    	
+
     	Update update = SQL.Update( database );
 		update.table( "veraweb.toptional_field_type_content" );
 		update.update( "content", optionalFieldTypeContent.getContent());
 		update.where( Expr.equal( "pk", new Integer(valueParts[1]) ) );
-		update.execute();
-    	
-    	
-    	
-    	
-//    	database.saveBean(optionalFieldTypeContent, transactionalContext, false);
-//    	transactionalContext.commit();
+
+        transactionalContext.execute(update);
+        transactionalContext.commit();
     }
 
 	private OptionalFieldTypeContent handleUpdateOptionalFieldTypeContent(
