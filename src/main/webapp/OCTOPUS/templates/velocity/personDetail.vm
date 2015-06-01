@@ -457,7 +457,7 @@
 
 	function showCategories() {
 		if (document.getElementById('modified').value == 'true') {
-			document.getElementById('PersonForm').action = '${paths.staticWeb}do/ShowPersonCategorieList'+getGuestTabId();
+			document.getElementById('PersonForm').action = '${paths.staticWeb}do/ShowPersonCategorieList?id=$!person.id&searchTask=$!searchTask&offset=${navigation.current.offset}'+getGuestTabId();
 			document.getElementById('PersonForm').submit();
 		} else {
 			window.location.href = '${paths.staticWeb}do/ShowPersonCategorieList?id=$!person.id&searchTask=$!searchTask&offset=${navigation.current.offset}'+getGuestTabId();

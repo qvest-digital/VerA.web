@@ -39,11 +39,11 @@
             </tr>
 			<tr>
             	<td class="bold"><label for="maildraft-name">Name der Vorlage*</label></td>
-            	<td><input type="text" id="maildraft-name" name="maildraft-name" value="$!message.text($maildraft.name)" /></td>
+            	<td><input type="text" id="maildraft-name" name="maildraft-name" maxlength="200" value="$!message.text($maildraft.name)" /></td>
             </tr>
 			<tr>
             	<td class="bold"><label for="maildraft-subject">Betreff*</label></td>
-            	<td><input type="text" id="maildraft-subject" name="maildraft-subject" value="$!message.text($maildraft.subject)" /></td>
+            	<td><input type="text" id="maildraft-subject" name="maildraft-subject" maxlength="200" value="$!message.text($maildraft.subject)" /></td>
             </tr>
 			<tr>
             	<td class="bold"><label for="maildraft-text">Text*</label></td>
