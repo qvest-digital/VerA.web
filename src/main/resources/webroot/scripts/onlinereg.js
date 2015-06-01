@@ -477,7 +477,7 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 				// Setting current values
 				$scope.nachname = person.data.lastname_a_e1;
 				$scope.vorname = person.data.firstname_a_e1;
-				if (person.data.sex_a_e1 == 'w') {
+				if (person.data.sex_a_e1 == 'f') {
 					$scope.gender = $scope.genderOptions[2];
 				} else {
 					$scope.gender = $scope.genderOptions[1];

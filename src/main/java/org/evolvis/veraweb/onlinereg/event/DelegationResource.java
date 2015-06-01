@@ -19,6 +19,7 @@
  */
 package org.evolvis.veraweb.onlinereg.event;
 
+import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.jersey.api.client.Client;
@@ -51,6 +52,7 @@ import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -361,17 +363,30 @@ public class DelegationResource {
 
     private void handleSaveOptionalFields(String uuid, String fields, Integer personId) throws IOException {
         final TypeReference<HashMap<String, String>> typeReference = new TypeReference<HashMap<String, String>>() {};
-        final Map<String, String> fieldMap = mapper.readValue(fields, typeReference);
-
+        final Map<String,Object> fieldMap = mapper.readValue(fields, new TypeReference<Map<String,Object>>(){});
         final Guest guest = getEventIdFromUuid(uuid, personId);
 
-        for(Entry<String, String> entry : fieldMap.entrySet()){
-            final int fieldId = Integer.parseInt(entry.getKey());
-            final String fieldValue = entry.getValue();
-
-            saveOptionalField(guest.getPk(), fieldId, fieldValue);
+        for(Entry<String, Object> entry : fieldMap.entrySet()){
+        	final int fieldId = Integer.parseInt(entry.getKey());
+        	try {
+        		saveMultipleChoiceEntry(guest, entry, fieldId);
+			} catch (ClassCastException e) {
+				// TODO Implement better (without Exceptions)
+				// Throwing ClassCastException means that we have a String value into the entry.
+				// Otherwise, we cast the value to a List<String>
+				final String fieldValue = (String) entry.getValue();
+				saveOptionalField(guest.getPk(), fieldId, fieldValue);
+			}
         }
     }
+
+	private void saveMultipleChoiceEntry(final Guest guest,	Entry<String, Object> entry, final int fieldId) {
+		final List<String> fieldContents = (List<String>) entry.getValue();
+		for (Iterator<String> iterator = fieldContents.iterator(); iterator.hasNext();) {
+			String value = (String) iterator.next();
+			saveOptionalField(guest.getPk(), fieldId, value);
+		}
+	}
 
 	private List<OptionalFieldValue> getLabels(String uuid, Integer personId) throws IOException {
 		try{
