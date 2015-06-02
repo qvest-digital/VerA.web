@@ -615,41 +615,36 @@ public class PersonDetailWorker implements PersonConstants {
 			 * cklein 2008-03-12
 			 */
 	        person.verify();
-			if ( ! person.isCorrect() )
-			{
-				cntx.setStatus("notcorrect");
+            if (!person.isCorrect()) {
+                cntx.setStatus("notcorrect");
 
-				// is this a new record?
-				if ( person.id == null )
-				{
-					/*
-					 * 2009-06-08 cklein
-					 * fixing issue with new persons losing all state and data
-					 * when entering an invalid date and trying to store the person
-					 * part of fix to issue #1529, as it first showed up when testing
-					 * the fixes to that issue
-					 */
-					// we transfer the errors from the
-					// person to the template parameter newPersonErrors
-					cntx.setContent( "newPersonErrors", person.getErrors() );
-				}
+                // is this a new record?
+                if (person.id == null) {
+                    /*
+                     * 2009-06-08 cklein fixing issue with new persons losing
+                     * all state and data when entering an invalid date and
+                     * trying to store the person part of fix to issue #1529, as
+                     * it first showed up when testing the fixes to that issue
+                     */
+                    // we transfer the errors from the
+                    // person to the template parameter newPersonErrors
+                    cntx.setContent("newPersonErrors", person.getErrors());
+                }
 
-				return person;
-			}
+                return person;
+            }
 
-			if (cntx.requestAsBoolean("forcedupcheck").booleanValue())
-			{
-				return person;
-			}
+            if (cntx.requestAsBoolean("forcedupcheck").booleanValue()) {
+                return person;
+            }
 
 			/* person was copied
 			 * fix for bug 1011
 			 * cklein 2008-03-12
 			 */
-			if ( originalPersonId != null && originalPersonId > 0 )
-			{
-				person.setModified( true );
-			}
+            if (originalPersonId != null && originalPersonId > 0) {
+                person.setModified(true);
+            }
 
 			/*
 			 * added support for workarea assignment
@@ -672,80 +667,12 @@ public class PersonDetailWorker implements PersonConstants {
 			person.updateHistoryFields(null, ((PersonalConfigAA)cntx.personalConfig()).getRoleWithProxy());
 			AddressHelper.checkPersonSalutation(person, database, context);
 
-			// Updatet das Gueltigkeitsdatum automatisch auf "in 3 Jahre"
-			// wenn dieses nicht verändert wurde.
-			if (person.expire != null && personOld != null && personOld.expire != null) {
-				Calendar e1 = Calendar.getInstance();
-				Calendar e2 = Calendar.getInstance();
-				Calendar ty = Calendar.getInstance();
-				ty.add(Calendar.YEAR, 3);
-
-				e1.setTimeInMillis(person.expire.getTime());
-				e2.setTimeInMillis(personOld.expire.getTime());
-
-				boolean notModified =
-					e1.get(Calendar.YEAR) == e2.get(Calendar.YEAR) &&
-					e1.get(Calendar.MONTH) == e2.get(Calendar.MONTH) &&
-					e1.get(Calendar.DAY_OF_MONTH) == e2.get(Calendar.DAY_OF_MONTH);
-
-				if (notModified && person.expire.getTime() < ty.getTimeInMillis()) {
-					person.expire = new Timestamp(ty.getTimeInMillis());
-					person.setModified(true);
-				}
-			}
+			updateExpireDate(person, personOld);
 
 			// must reverify due to above changes
 	        person.verify();
 			if (person.isModified() && person.isCorrect()) {
-				checkConversionFromFirmaToPerson(person);
-		        AddressHelper.copyAddressData(cntx, person, personOld);
-
-				/*
-				 * modified to support change logging
-				 * cklein 2008-02-12
-				 */
-		        BeanChangeLogger clogger = new BeanChangeLogger( database, context );
-				if (person.id == null) {
-					cntx.setContent("countInsert", new Integer(1));
-					database.getNextPk(person, context);
-					Insert insert = database.getInsert(person);
-					insert.insert("pk", person.id);
-					if (!((PersonalConfigAA)cntx.personalConfig()).getGrants().mayReadRemarkFields()) {
-						insert.remove("note_a_e1");
-						insert.remove("note_b_e1");
-						insert.remove("notehost_a_e1");
-						insert.remove("notehost_b_e1");
-						insert.remove("noteorga_a_e1");
-						insert.remove("noteorga_b_e1");
-					}
-					context.execute(insert);
-
-					//Bug 1592 Wenn die person kopiert wurde, dann die Kategorien der
-					//original Person an neue Person kopieren
-					if (originalPersonId != null && originalPersonId.intValue() != 0) {
-						copyCategories(originalPersonId, person.id,  database,  context);
-					}
-
-					clogger.logInsert( cntx.personalConfig().getLoginname(), person );
-				} else {
-					cntx.setContent("countUpdate", new Integer(1));
-					Update update = database.getUpdate(person);
-					if (!((PersonalConfigAA)cntx.personalConfig()).getGrants().mayReadRemarkFields()) {
-						update.remove("note_a_e1");
-						update.remove("note_b_e1");
-						update.remove("notehost_a_e1");
-						update.remove("notehost_b_e1");
-						update.remove("noteorga_a_e1");
-						update.remove("noteorga_b_e1");
-					}
-					context.execute(update);
-
-					clogger.logUpdate( cntx.personalConfig().getLoginname(), personOld, person );
-				}
-
-				getPersonId(cntx, person.id, true);
-
-				PersonDoctypeWorker.createPersonDoctype(cntx, database, context, person);
+			    createOrUpdatePerson(cntx, person, database, context, originalPersonId, personOld);
 			} else if (person.isModified()) {
 				cntx.setStatus("notcorrect");
 			}
@@ -770,6 +697,93 @@ public class PersonDetailWorker implements PersonConstants {
 
 		return person;
 	}
+
+    private void updateExpireDate(Person person, Person personOld) {
+        // Updatet das Gueltigkeitsdatum automatisch auf "in 3 Jahre"
+        // wenn dieses nicht verändert wurde.
+        if (person.expire != null && personOld != null && personOld.expire != null) {
+        	Calendar e1 = Calendar.getInstance();
+        	Calendar e2 = Calendar.getInstance();
+        	Calendar ty = Calendar.getInstance();
+        	ty.add(Calendar.YEAR, 3);
+
+        	e1.setTimeInMillis(person.expire.getTime());
+        	e2.setTimeInMillis(personOld.expire.getTime());
+
+        	boolean notModified =
+        		e1.get(Calendar.YEAR) == e2.get(Calendar.YEAR) &&
+        		e1.get(Calendar.MONTH) == e2.get(Calendar.MONTH) &&
+        		e1.get(Calendar.DAY_OF_MONTH) == e2.get(Calendar.DAY_OF_MONTH);
+
+        	if (notModified && person.expire.getTime() < ty.getTimeInMillis()) {
+        		person.expire = new Timestamp(ty.getTimeInMillis());
+        		person.setModified(true);
+        	}
+        }
+    }
+
+    private void createOrUpdatePerson(OctopusContext cntx, Person person, Database database,
+            TransactionContext context, Integer originalPersonId, Person personOld) throws BeanException, IOException {
+        checkConversionFromFirmaToPerson(person);
+        AddressHelper.copyAddressData(cntx, person, personOld);
+
+        /*
+         * modified to support change logging
+         * cklein 2008-02-12
+         */
+        BeanChangeLogger clogger = new BeanChangeLogger( database, context );
+        if (person.id == null) {
+        	createNewPerson(cntx, person, database, context, originalPersonId, clogger);
+        } else {
+        	updateExistingPerson(cntx, person, database, context, personOld, clogger);
+        }
+
+        getPersonId(cntx, person.id, true);
+
+        PersonDoctypeWorker.createPersonDoctype(cntx, database, context, person);
+    }
+
+    private void updateExistingPerson(OctopusContext cntx, Person person, Database database,
+            TransactionContext context, Person personOld, BeanChangeLogger clogger) throws BeanException, IOException {
+        cntx.setContent("countUpdate", new Integer(1));
+        Update update = database.getUpdate(person);
+        if (!((PersonalConfigAA)cntx.personalConfig()).getGrants().mayReadRemarkFields()) {
+        	update.remove("note_a_e1");
+        	update.remove("note_b_e1");
+        	update.remove("notehost_a_e1");
+        	update.remove("notehost_b_e1");
+        	update.remove("noteorga_a_e1");
+        	update.remove("noteorga_b_e1");
+        }
+        context.execute(update);
+
+        clogger.logUpdate( cntx.personalConfig().getLoginname(), personOld, person );
+    }
+
+    private void createNewPerson(OctopusContext cntx, Person person, Database database, TransactionContext context,
+            Integer originalPersonId, BeanChangeLogger clogger) throws BeanException, IOException {
+        cntx.setContent("countInsert", new Integer(1));
+        database.getNextPk(person, context);
+        Insert insert = database.getInsert(person);
+        insert.insert("pk", person.id);
+        if (!((PersonalConfigAA)cntx.personalConfig()).getGrants().mayReadRemarkFields()) {
+        	insert.remove("note_a_e1");
+        	insert.remove("note_b_e1");
+        	insert.remove("notehost_a_e1");
+        	insert.remove("notehost_b_e1");
+        	insert.remove("noteorga_a_e1");
+        	insert.remove("noteorga_b_e1");
+        }
+        context.execute(insert);
+
+        //Bug 1592 Wenn die person kopiert wurde, dann die Kategorien der
+        //original Person an neue Person kopieren
+        if (originalPersonId != null && originalPersonId.intValue() != 0) {
+        	copyCategories(originalPersonId, person.id,  database,  context);
+        }
+
+        clogger.logInsert( cntx.personalConfig().getLoginname(), person );
+    }
 
 	private void checkConversionFromFirmaToPerson(Person person) {
 		if ((!person.company_a_e1.equals(null) || person.company_a_e1.equals(""))
