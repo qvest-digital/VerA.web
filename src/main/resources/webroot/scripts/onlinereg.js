@@ -350,23 +350,28 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 		$scope.getOptionalFieldsWithTypeContent();
 
 		$scope.register_user = function() {
-			if ($scope.gender.id == 0 || $scope.vorname == null || $scope.nachname == null) {
-				$translate('GENERIC_MESSAGE_FILL_IN_ALL_RED_FIELDS').then(function (text) {
+			if ($scope.gender.id == 0 ) {
+				$translate('GENERIC_MISSING_GENDER_MESSAGE').then(function (text) {
+					$scope.error = text;
+				});
+				$scope.success = null;
+			} else if ($scope.vorname == null) {
+				$translate('DELEGATION_MESSAGE_MISSING_FIRSTNAME').then(function (text) {
+					$scope.error = text;
+				});
+				$scope.success = null;
+			} else if ($scope.nachname == null) {
+				$translate('DELEGATION_MESSAGE_MISSING_LASTNAME').then(function (text) {
+					$scope.error = text;
+				});
+				$scope.success = null;
+			} else if($scope.vorname.length > 35) {
+				$translate('DELEGATION_MESSAGE_FIRSTNAME_MAX').then(function (text) {
 					$scope.error = text;
 				});
 				$scope.success = null;
 			} else if($scope.nachname.length > 35) {
 				$translate('DELEGATION_MESSAGE_LASTNAME_MAX').then(function (text) {
-					$scope.error = text;
-				});
-				$scope.success = null;
-			} else if (typeof $scope.vorname == "undefined" && $scope.vorname == null) {
-				$translate('DELEGATION_MESSAGE_MISSING_FIRSTNAME').then(function (text) {
-					$scope.error = text;
-				});
-				$scope.success = null;
-			} else if (typeof $scope.nachname == "undefined" && $scope.nachname == null) {
-				$translate('DELEGATION_MESSAGE_MISSING_LASTNAME').then(function (text) {
 					$scope.error = text;
 				});
 				$scope.success = null;
@@ -443,7 +448,7 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 			} else {
 				$translate('GENERIC_MESSAGE_FILL_IN_ALL_FIELDS').then(function (text) {
 					$scope.error = text;
-				});
+				}); 
 				$scope.success = null;
 			}
 		}
@@ -457,6 +462,7 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 			$scope.targetPersonId = null;
 			$scope.labellist = {};
 			$scope.getOptionalFieldsWithTypeContent();
+			$scope.error = null;
 		}
 
 		$scope.loadPersonData = function(personId) {

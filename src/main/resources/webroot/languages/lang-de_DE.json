@@ -82,7 +82,7 @@
   "DELEGATION_OPTION_CATEGORY": "Kategorie",
   "DELEGATION_OPTION_FUNCTION": "Funktions-/Amtsbezeichnung",
   "DELEGATION_MESSAGE_FIRSTNAME_MAX": "Bitte geben Sie einen Vornamen mit maximal 35 Buchstaben ein.",
-  "DELEGATION_MESSAGE_LASTNAME_MAX": "Bitte geben Sie einen Vornamen mit maximal 35 Buchstaben ein.",
+  "DELEGATION_MESSAGE_LASTNAME_MAX": "Bitte geben Sie einen Nachnamen mit maximal 35 Buchstaben ein.",
   "DELEGATION_MESSAGE_MISSING_FIRSTNAME": "Bitte geben Sie einen Vornamen ein.",
   "DELEGATION_MESSAGE_MISSING_LASTNAME": "Bitte geben Sie einen Nachnamen ein.",
   "DELEGATION_MESSAGE_DELEGATION_DOESNT_EXISTS": "Die Delegation existiert nicht!",
