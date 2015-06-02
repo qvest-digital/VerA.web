@@ -724,7 +724,8 @@ public class PersonDetailWorker implements PersonConstants {
 
     private void createOrUpdatePerson(OctopusContext cntx, Person person, Database database,
             TransactionContext context, Integer originalPersonId, Person personOld) throws BeanException, IOException {
-        checkConversionFromFirmaToPerson(person);
+        //Commented for Bugfix #19336
+        //checkConversionFromFirmaToPerson(person);
         AddressHelper.copyAddressData(cntx, person, personOld);
 
         /*
@@ -785,12 +786,12 @@ public class PersonDetailWorker implements PersonConstants {
         clogger.logInsert( cntx.personalConfig().getLoginname(), person );
     }
 
-	private void checkConversionFromFirmaToPerson(Person person) {
-		if ((!person.company_a_e1.equals(null) || person.company_a_e1.equals(""))
-				&& person.iscompany.equals("f")) {
-			person.company_a_e1 = null;
-		}
-	}
+//	private void checkConversionFromFirmaToPerson(Person person) {
+//		if ((!person.company_a_e1.equals(null) || person.company_a_e1.equals(""))
+//				&& person.iscompany.equals("f")) {
+//			person.company_a_e1 = null;
+//		}
+//	}
 
 
 	/**
