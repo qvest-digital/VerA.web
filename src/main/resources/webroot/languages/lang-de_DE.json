@@ -36,7 +36,7 @@
   "GENERIC_MESSAGE_USER_OR_PASSWORD_WRONG": "Der Benutzername oder das Passwort ist falsch!",
   "GENERIC_MESSAGE_EVENT_DOESNT_EXISTS": "Die Veranstaltung existiert nicht.",
   "GENERIC_MESSAGE_FILL_IN_ALL_FIELDS": "Bitte füllen Sie alle Felder aus!",
-  "GENERIC_MESSAGE_FILL_IN_ALL_RED_FIELDS": "Bitte füllen Sie alle rote Felder aus!",
+  "GENERIC_MESSAGE_FILL_IN_ALL_RED_FIELDS": "Bitte füllen Sie alle erforderlichen Felder aus.",
   "GENERIC_CATEGORY": "Kategorie",
   "GENERIC_FUNCTION": "Funktion/Amtsbezeichnung",
   "GENERIC_CLEAR_FIELDS": "Leeren",
