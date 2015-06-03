@@ -40,7 +40,9 @@ public class OptionalFieldValue extends OptionalField {
 		this.setValue(value);
 		this.setFk_type(field.getFk_type());
 	}
-
+	
+	private Integer id;
+	
 	private String value;
 	
 	private List<OptionalFieldTypeContent> optionalFieldTypeContents;
@@ -61,4 +63,12 @@ public class OptionalFieldValue extends OptionalField {
 			List<OptionalFieldTypeContent> optionalFieldTypeContents) {
 		this.optionalFieldTypeContents = optionalFieldTypeContents;
 	}
+	
+	public Integer getId() {
+	    return id;
+    }
+	
+	public void setId(Integer id) {
+	    this.id = id;
+    }
 }
