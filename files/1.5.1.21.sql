@@ -1,3 +1,5 @@
+-- Dropping old Primary Key constraint
+ALTER TABLE veraweb.toptional_fields_delegation_content DROP CONSTRAINT toptional_fields_delegation_content_pkey;
 -- Create new sequence to allow unique PK in toptional_fields_delegation_content
 CREATE SEQUENCE veraweb.toptional_fields_delegation_content_seq INCREMENT 1 MINVALUE 1 MAXVALUE 9223372036854775807 START 1 CACHE 1;
 -- Including new PK column to work with unique values
