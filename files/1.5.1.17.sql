@@ -33,4 +33,3 @@ UPDATE tcategorie set fk_orgunit=-1 where fk_orgunit IS NULL;
 
 -- Update schema version
 UPDATE veraweb.tconfig SET cvalue = '2015-05-20' WHERE cname = 'SCHEMA_VERSION';
-
