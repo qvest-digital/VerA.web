@@ -507,7 +507,7 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 
 			$http.get('api/delegation/load/fields/' + $routeParams.uuid + '/' + $scope.targetPersonId).then(function(fields) {
 				$scope.fields = fields.data;
-				console.log("number of fields: "+$scope.fields.length)
+				console.log("number of fields: "+$scope.fields.length);
 				if ($scope.fields.length == 0) {
 					$scope.error_dialog = ERROR_TEXT;
 					$scope.success = null;
