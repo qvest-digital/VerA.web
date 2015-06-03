@@ -22,7 +22,6 @@ package org.evolvis.veraweb.onlinereg.rest;
 import org.evolvis.veraweb.onlinereg.entities.Delegation;
 import org.evolvis.veraweb.onlinereg.entities.OptionalField;
 import org.evolvis.veraweb.onlinereg.entities.OptionalFieldValue;
-import org.evolvis.veraweb.onlinereg.entities.pk.DelegationPK;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
@@ -114,7 +113,8 @@ public class DelegationResource extends AbstractResource {
         final Session session = openSession();
         try {
             final Delegation delegation = new Delegation();
-        	delegation.setPk(new DelegationPK(guestId,fieldId));
+        	delegation.setFk_guest(guestId);
+        	delegation.setFk_delegation_field(fieldId);
         	delegation.setValue(fieldContent);
 
         	session.saveOrUpdate(delegation);
