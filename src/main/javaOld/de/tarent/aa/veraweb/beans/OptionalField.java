@@ -28,7 +28,7 @@ import java.sql.SQLException;
  *
  * @author Max Marche <m.marche@tarent.de
  */
-public class OptionalField {
+public class OptionalField extends AbstractHistoryBean {
 	private int id;
 	private String label;
 	private int fkEvent;
