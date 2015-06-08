@@ -19,6 +19,8 @@
  */
 package org.evolvis.veraweb.onlinereg.rest;
 
+import org.evolvis.veraweb.onlinereg.entities.Guest;
+import org.evolvis.veraweb.onlinereg.entities.PersonCategory;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -119,6 +121,48 @@ public class CategoryResourceSessionsTest {
 
         // WHEN
         categoryResource.getCategoryIdByCategoryName("NeueKategorie");
+
+        // THEN
+        verify(mockitoSessionFactory, times(1)).openSession();
+        verify(mockitoSession, times(1)).close();
+    }
+
+    @Test
+    public void testGetCatnameByPersonIdAndDelegationUUID() {
+        // GIVEN
+        prepareSession();
+        Query query = mock(Query.class);
+        when(mockitoSession.getNamedQuery("Category.findCatnameByUserAndDelegation")).thenReturn(query);
+        when(query.uniqueResult()).thenReturn("my-test-catname");
+
+        // WHEN
+        categoryResource.getCatnameByPersonIdAndDelegationUUID("test-uuid", "1");
+
+        // THEN
+        verify(mockitoSessionFactory, times(1)).openSession();
+        verify(mockitoSession, times(1)).close();
+    }
+
+    @Test
+    public void testUpdateDelegateCategory() {
+        // GIVEN
+        prepareSession();
+        Query query = mock(Query.class);
+        when(mockitoSession.getNamedQuery("Category.findCategoryByPersonIdAndCatname")).thenReturn(query);
+        when(query.uniqueResult()).thenReturn(1);
+
+
+        Query query2 = mock(Query.class);
+        when(mockitoSession.getNamedQuery("Guest.findEventIdByDelegationUUIDandPersonId")).thenReturn(query2);
+        when(query2.uniqueResult()).thenReturn(mock(Guest.class));
+
+        Query query3 = mock(Query.class);
+        when(mockitoSession.getNamedQuery("PersonCategory.personCategoryExists")).thenReturn(query3);
+        List<PersonCategory> myListOfCategories = new ArrayList<PersonCategory>();
+        when(query3.list()).thenReturn(myListOfCategories);
+
+        // WHEN
+        categoryResource.updateDelegateCategory("my-test-uuid", 1, "my-test-category");
 
         // THEN
         verify(mockitoSessionFactory, times(1)).openSession();
