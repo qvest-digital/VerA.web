@@ -15,6 +15,8 @@ public class OptionalFieldTypeContent extends AbstractHistoryBean {
 	/* content */
 	private String content;
 	
+	private Boolean isSelected;
+	
 	public OptionalFieldTypeContent() {
 	}
 	
@@ -56,5 +58,12 @@ public class OptionalFieldTypeContent extends AbstractHistoryBean {
 		this.content = content;
 	}
 	
+	public Boolean getIsSelected() {
+	    return isSelected;
+    }
+	
+	public void setIsSelected(Boolean isSelected) {
+	    this.isSelected = isSelected;
+    }
 	
 }
