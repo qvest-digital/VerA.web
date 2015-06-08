@@ -318,8 +318,8 @@ public class EventDelegationWorker {
 
     private void saveFieldTypeContent(OctopusContext octopusContext, Map<String, String> allRequestParams, String key)
             throws BeanException, IOException, SQLException {
-    	if (key.startsWith("optionalFieldtype-") && key.contains("_value")) {
-    		saveSingleFieldTypeContent(octopusContext, allRequestParams, key);    		
+        if (key.startsWith("optionalFieldtype-") && key.contains("_value")) {
+            saveSingleFieldTypeContent(octopusContext, allRequestParams, key);            
         }
     }
 
@@ -327,55 +327,55 @@ public class EventDelegationWorker {
             OctopusContext octopusContext,
             Map<String, String> allRequestParams,
             String key) throws BeanException, IOException, SQLException {
-   	 
-    	final Database database = new DatabaseVeraWeb(octopusContext);
-    	final TransactionContext transactionalContext = database.getTransactionContext();
-    	
-    	final String[] keyParts = key.split("_");
+        
+        final Database database = new DatabaseVeraWeb(octopusContext);
+        final TransactionContext transactionalContext = database.getTransactionContext();
+        
+        final String[] keyParts = key.split("_");
         final String[] labelParts = keyParts[0].split("-");
         final String[] valueParts = keyParts[1].split("-");
-    	
-    	final OptionalFieldTypeContent optionalFieldTypeContent =
-                handleUpdateOptionalFieldTypeContent(
-                        octopusContext,
-                        allRequestParams,
-                        key,
-                        labelParts,
-                        new Integer(valueParts[1])
-                );
+        
+        final OptionalFieldTypeContent optionalFieldTypeContent =
+            handleUpdateOptionalFieldTypeContent(
+                    octopusContext,
+                    allRequestParams,
+                    key,
+                    labelParts,
+                    new Integer(valueParts[1])
+            );
 
         final Update update = SQL.Update( database );
-		update.table( "veraweb.toptional_field_type_content" );
-		update.update( "content", optionalFieldTypeContent.getContent());
-		update.where( Expr.equal( "pk", new Integer(valueParts[1]) ) );
+        update.table( "veraweb.toptional_field_type_content" );
+        update.update( "content", optionalFieldTypeContent.getContent());
+        update.where( Expr.equal( "pk", new Integer(valueParts[1]) ) );
 
         transactionalContext.execute(update);
         transactionalContext.commit();
     }
 
-	private OptionalFieldTypeContent handleUpdateOptionalFieldTypeContent(
-			OctopusContext octopusContext,
-			Map<String, String> allRequestParams, String key,
-			String[] labelParts, Integer typeContentId) throws BeanException, IOException {
-		final OptionalFieldTypeContent optionalFieldTypeContent;
-		optionalFieldTypeContent = getExistingTypeContent(octopusContext, typeContentId);
-		optionalFieldTypeContent.setFk_optional_field(new Integer(labelParts[1]));
-		optionalFieldTypeContent.setContent(allRequestParams.get(key).toString());
-		optionalFieldTypeContent.setId(typeContentId);
-		
-		return optionalFieldTypeContent;
-	}
-	
-	private OptionalFieldTypeContent getExistingTypeContent(OctopusContext octopusContext, Integer typeContentId)
+    private OptionalFieldTypeContent handleUpdateOptionalFieldTypeContent(
+            OctopusContext octopusContext,
+            Map<String, String> allRequestParams, String key,
+            String[] labelParts, Integer typeContentId) throws BeanException, IOException {
+        final OptionalFieldTypeContent optionalFieldTypeContent;
+        optionalFieldTypeContent = getExistingTypeContent(octopusContext, typeContentId);
+        optionalFieldTypeContent.setFk_optional_field(new Integer(labelParts[1]));
+        optionalFieldTypeContent.setContent(allRequestParams.get(key).toString());
+        optionalFieldTypeContent.setId(typeContentId);
+        
+        return optionalFieldTypeContent;
+    }
+    
+    private OptionalFieldTypeContent getExistingTypeContent(OctopusContext octopusContext, Integer typeContentId)
             throws BeanException, IOException {
-	    	final Database database = new DatabaseVeraWeb(octopusContext);
+            final Database database = new DatabaseVeraWeb(octopusContext);
             final Select select = SQL.Select(database);
-	        select.select("toptional_field_type_content.*");
-	        select.from("veraweb.toptional_field_type_content");
-	        select.where(Expr.equal("veraweb.toptional_field_type_content.pk", typeContentId));
+            select.select("toptional_field_type_content.*");
+            select.from("veraweb.toptional_field_type_content");
+            select.where(Expr.equal("veraweb.toptional_field_type_content.pk", typeContentId));
 
-	    	return (OptionalFieldTypeContent) database.getBean("OptionalFieldTypeContent", select);
-	}
+            return (OptionalFieldTypeContent) database.getBean("OptionalFieldTypeContent", select);
+    }
 
     private void saveField(
             Integer eventId,
