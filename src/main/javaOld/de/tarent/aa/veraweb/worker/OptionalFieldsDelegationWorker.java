@@ -156,10 +156,10 @@ public class OptionalFieldsDelegationWorker {
 
 	private void convertToSingleMultipleChoiceField(final List<OptionalDelegationField> optionalFieldsWithTypeContents)
             throws BeanException {
-	    List<OptionalDelegationField> optionalFieldsAltList = new ArrayList<OptionalDelegationField>(optionalFieldsWithTypeContents);
+	    final List<OptionalDelegationField> optionalFieldsAltList = new ArrayList<OptionalDelegationField>(optionalFieldsWithTypeContents);
 
-        for (Iterator<OptionalDelegationField> iterator = optionalFieldsWithTypeContents.iterator(); iterator.hasNext();) {
-	        OptionalDelegationField optionalDelegationField = (OptionalDelegationField) iterator.next();
+        for (final Iterator<OptionalDelegationField> iterator = optionalFieldsWithTypeContents.iterator(); iterator.hasNext();) {
+            final OptionalDelegationField optionalDelegationField = (OptionalDelegationField) iterator.next();
 	        
 	        if (isMultipleChoiceField(optionalDelegationField.getFkDelegationField())) {
 	        	// Unifying selected options in the same field
@@ -187,12 +187,16 @@ public class OptionalFieldsDelegationWorker {
 		boolean removed = false;
 		for (int i = 0; i < optionalFields.size(); i++) {
 	        for (int j = i + 1; j < optionalFields.size(); j++) {
-	        	if (optionalFields.get(i).equals(optionalFields.get(j))) {
-	        		optionalFields.remove(j);
-	        		removed = true;
-	        	}
-	        	else removed = false;
-	        	if (removed) j--; 
+                if (optionalFields.get(i).equals(optionalFields.get(j))) {
+                    optionalFields.remove(j);
+                    removed = true;
+                } else {
+                    removed = false;
+                }
+
+                if (removed) {
+                    j--;
+                }
             }
         }
 		
@@ -208,9 +212,9 @@ public class OptionalFieldsDelegationWorker {
 		
 		final ResultList resultList = database.getList(select, database);
 		
-		for (Iterator<ResultMap> iterator = resultList.iterator(); iterator.hasNext();) {
-			ResultMap object = (ResultMap) iterator.next();
-			Integer type = (Integer) object.get("fk_type");
+		for (final Iterator<ResultMap> iterator = resultList.iterator(); iterator.hasNext();) {
+			final ResultMap object = (ResultMap) iterator.next();
+			final Integer type = (Integer) object.get("fk_type");
 			if (type.intValue() == MULTIPLE_CHOICE_ID) {
 				return true;
 			}
@@ -257,8 +261,8 @@ public class OptionalFieldsDelegationWorker {
     }
 
 	private ResultList getFieldsAndTypeContentsFromDB(final OptionalDelegationField optionalDelegationField) throws BeanException {
-		Clause clauseToEmptyContent = Expr.notLike("toptional_field_type_content.content","");
-		Clause clauseNotNullContent = Expr.isNotNull("toptional_field_type_content.content");
+		final Clause clauseToEmptyContent = Expr.notLike("toptional_field_type_content.content","");
+        final Clause clauseNotNullContent = Expr.isNotNull("toptional_field_type_content.content");
 
         final Integer fkDelegationField = optionalDelegationField.getFkDelegationField();
         final Select select = SQL.Select(database).
