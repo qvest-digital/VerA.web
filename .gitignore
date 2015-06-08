@@ -8,3 +8,4 @@ config.yaml
 target/
 *.log
 pom.xml.versionsBackup
+*.iml
