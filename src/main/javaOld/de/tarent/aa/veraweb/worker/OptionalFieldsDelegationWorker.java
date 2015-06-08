@@ -54,10 +54,12 @@ import java.util.List;
  */
 public class OptionalFieldsDelegationWorker {
 
-    private static final String OPTIONAL_FIELDS_DELEGATION_CONTENT_TABLE = "veraweb.toptional_fields_delegation_content";
-    private static final String OPTIONAL_FIELDS_TABLE = "veraweb.toptional_fields";
-    private static final String OPTIONAL_FIELD_TYPE_TABLE = "veraweb.toptional_field_type";
-    private static final String OPTIONAL_FIELD_TYPE_CONTENT_TABLE = "veraweb.toptional_field_type_content";
+    private static final String DB_PREFIX = "veraweb.";
+    private static final String OPTIONAL_FIELDS_DELEGATION_CONTENT_TABLE = DB_PREFIX +
+            "toptional_fields_delegation_content";
+    private static final String OPTIONAL_FIELDS_TABLE = DB_PREFIX + "toptional_fields";
+    private static final String OPTIONAL_FIELD_TYPE_TABLE = DB_PREFIX + "toptional_field_type";
+    private static final String OPTIONAL_FIELD_TYPE_CONTENT_TABLE = DB_PREFIX + "toptional_field_type_content";
     private Database database;
 
     /**
@@ -140,7 +142,8 @@ public class OptionalFieldsDelegationWorker {
         return getOptionalFieldsAsList(resultSet);
 	}
 
-	private List<OptionalDelegationField> getOptionalFieldsAsList(ResultSet resultSet) throws SQLException, BeanException {
+	private List<OptionalDelegationField> getOptionalFieldsAsList(ResultSet resultSet)
+            throws SQLException, BeanException {
         final List<OptionalDelegationField> optionalFieldsWithTypeContents = new ArrayList<OptionalDelegationField>();
         while (resultSet.next()) {
             getListWithTypeContents(resultSet, optionalFieldsWithTypeContents);
@@ -149,7 +152,7 @@ public class OptionalFieldsDelegationWorker {
         return optionalFieldsWithTypeContents;
     }
 
-	private void getListWithTypeContents(ResultSet resultSet, final List<OptionalDelegationField> optionalDelegationFields)
+	private void getListWithTypeContents(ResultSet resultSet, final List<OptionalDelegationField> delegationFields)
 			throws SQLException, BeanException {
 		final OptionalDelegationField optionalDelegationField = new OptionalDelegationField(resultSet);
 		final ResultList resultListWithTypeContents = getFieldsAndTypeContentsFromDB(optionalDelegationField);
@@ -157,7 +160,7 @@ public class OptionalFieldsDelegationWorker {
 		final List<OptionalFieldTypeContent> typeContents = getFieldsWithTypeContentsAsList(resultListWithTypeContents);
 
 		optionalDelegationField.setOptionalFieldTypeContents(typeContents);
-		optionalDelegationFields.add(optionalDelegationField);
+		delegationFields.add(optionalDelegationField);
 	}
 
 	private List<OptionalFieldTypeContent> getFieldsWithTypeContentsAsList(ResultList resultListWithTypeContents) {
@@ -173,16 +176,18 @@ public class OptionalFieldsDelegationWorker {
 		return typeContents;
 	}
 
-	private ResultList getFieldsAndTypeContentsFromDB(final OptionalDelegationField optionalDelegationField) throws BeanException {
-		Clause clauseToEmptyContent = Expr.notLike("toptional_field_type_content.content","");
-		Clause clauseNotNullContent = Expr.isNotNull("toptional_field_type_content.content");
+	private ResultList getFieldsAndTypeContentsFromDB(final OptionalDelegationField optionalDelegationField)
+            throws BeanException {
+		final Clause clauseToEmptyContent = Expr.notLike("toptional_field_type_content.content","");
+        final Clause clauseNotNullContent = Expr.isNotNull("toptional_field_type_content.content");
 
-		final Select select = SQL.Select(database).
+        final Integer fkDelegationField = optionalDelegationField.getFkDelegationField();
+        final Select select = SQL.Select(database).
 		        select("toptional_field_type_content.pk").
 		        select("toptional_field_type_content.fk_optional_field").
 		        select("toptional_field_type_content.content").
 		        from("veraweb.toptional_field_type_content").
-		        whereAndEq("toptional_field_type_content.fk_optional_field", optionalDelegationField.getFkDelegationField()).
+		        whereAndEq("toptional_field_type_content.fk_optional_field", fkDelegationField).
 		        whereAnd(clauseToEmptyContent).
 				whereAnd(clauseNotNullContent);
 		
