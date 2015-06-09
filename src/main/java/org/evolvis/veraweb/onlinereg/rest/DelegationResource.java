@@ -182,10 +182,10 @@ public class DelegationResource extends AbstractResource {
 	            	}
 	            }
 	            newValue.setOptionalFieldTypeContentsFacade(typeContentsFacade);;
-	            fieldsList.add(newValue);
-	            
-	        	}
-            }        
+
+                }
+            }
+            fieldsList.add(newValue);
         }
         return fieldsList;
     }
